@@ -19,7 +19,7 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
-import os, cgi, base64
+import os, cgi, base64, shutil
 import cons, support
 
 
@@ -144,19 +144,24 @@ class Export2Html:
       while os.path.exists(os.path.join(dir_place, new_folder)):
          new_folder += "2"
       self.new_path = os.path.join(dir_place, new_folder)
+      self.images_dir = os.path.join(self.new_path, "images")
       os.mkdir(self.new_path)
-      os.mkdir(os.path.join(self.new_path, "images"))
+      os.mkdir(self.images_dir)
       return True
    
    def nodes_all_export_to_html(self):
       """Export All Nodes To HTML"""
       # create tree links text
       self.tree_links_nums = ["1"]
+      for image_stock_id in cons.NODES_STOCKS:
+         shutil.copy(cons.GLADE_PATH + cons.STOCKS_N_FILES[image_stock_id], self.images_dir)
+      self.tree_links_text = '<p>&nbsp;</p><table style="text-align:left">'
       tree_iter = self.dad.treestore.get_iter_first()
       while tree_iter:
          self.tree_links_text_iter(tree_iter)
          self.tree_links_nums[-1] = str( int(self.tree_links_nums[-1]) + 1 )
          tree_iter = self.dad.treestore.iter_next(tree_iter)
+      self.tree_links_text += '</table>'
       # create html pages
       tree_iter = self.dad.treestore.get_iter_first()
       while tree_iter:
@@ -175,7 +180,11 @@ class Export2Html:
    def tree_links_text_iter(self, tree_iter):
       """Creating the Tree Links Text - iter"""
       href = "%s-%s.html" % (self.dad.treestore[tree_iter][3], self.dad.treestore[tree_iter][1])
-      self.tree_links_text += '<br/><a href="' + href + '">' + ".".join(self.tree_links_nums) + " " + self.dad.treestore[tree_iter][1] + "</a>"
+      self.tree_links_text += "<tr><td>"
+      self.tree_links_text += "&nbsp;&nbsp;&nbsp;" * len(self.tree_links_nums)
+      icon_rel_path = os.path.join(self.images_dir, cons.STOCKS_N_FILES[self.dad.treestore[tree_iter][0]])
+      self.tree_links_text += '<img src="%s" alt="%s" height="22" width="22"/>' % (icon_rel_path, icon_rel_path)
+      self.tree_links_text += '<a href="' + href + '">' + ".".join(self.tree_links_nums) + " " + self.dad.treestore[tree_iter][1] + "</a></td></tr>"
       child_tree_iter = self.dad.treestore.iter_children(tree_iter)
       self.tree_links_nums.append("1")
       while child_tree_iter:
@@ -188,7 +197,10 @@ class Export2Html:
       """Export the Selected Node To HTML"""
       html_text = '<!doctype html><html><head><meta charset="utf-8"><title>%s</title></head><body>' % self.dad.treestore[tree_iter][1]
       if self.tree_links_text:
-         html_text += r'<table width="100%"><tr><td>'
+         html_text += r'<table width="100%"><tr>'
+         td_tree = r'<td valign="top" align="left" width=20%>'
+         td_page = r'<td valign="top" align="left" width=80%>'
+         html_text += td_tree + self.tree_links_text + td_page
       if self.dad.treestore[tree_iter][4] == cons.CUSTOM_COLORS_ID:
          text_n_objects = self.html_get_from_treestore_node(tree_iter)
          self.images_count = 0
@@ -196,28 +208,29 @@ class Export2Html:
             html_text += html_slot
             if i < len(text_n_objects[1]):
                curr_object = text_n_objects[1][i]
-               if curr_object[0] == "pixbuf": html_text += self.get_image_html(curr_object[1], self.new_path, tree_iter)
+               if curr_object[0] == "pixbuf": html_text += self.get_image_html(curr_object[1], tree_iter)
                elif curr_object[0] == "table": html_text += self.get_table_html(curr_object[1])
                elif curr_object[0] == "codebox": html_text += self.get_codebox_html(curr_object[1])
       else: html_text += self.html_get_from_code_buffer(self.dad.treestore[tree_iter][2])
       if self.tree_links_text:
-         html_text += '</td><td valign="top" align="center">%s</td></tr></table>' % self.tree_links_text
+         html_text += '</td></tr></table>'
       html_text += "</body></html>"
       filename = "%s-%s.html" % (self.dad.treestore[tree_iter][3], self.dad.treestore[tree_iter][1])
       file_descriptor = open(os.path.join(self.new_path, filename), 'w')
       file_descriptor.write(html_text)
       file_descriptor.close()
    
-   def get_image_html(self, image, site_root, tree_iter):
+   def get_image_html(self, image, tree_iter):
       """Returns the HTML Image"""
       # image is: [offset, pixbuf, justification]
       if "anchor" in dir(image[1]):
          return '<a name="%s"></a>' % image[1].anchor
       image_align_text = self.get_object_alignment_string(image[2])
       self.images_count += 1
-      image_path = "images/%s-%s.png" % (self.dad.treestore[tree_iter][3], self.images_count)
-      image_html = '<table style="%s"><tr><td><img src="%s" alt="%s" /></td></tr></table>' % (image_align_text, image_path, image_path)
-      image[1].save(os.path.join(site_root, image_path), "png")
+      image_name = "%s-%s.png" % (self.dad.treestore[tree_iter][3], self.images_count)
+      image_rel_path = os.path.join(self.images_dir, image_name)
+      image_html = '<table style="%s"><tr><td><img src="%s" alt="%s" /></td></tr></table>' % (image_align_text, image_rel_path, image_rel_path)
+      image[1].save(os.path.join(self.images_dir, image_name), "png")
       return image_html
    
    def get_codebox_html(self, codebox):

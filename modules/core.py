@@ -62,8 +62,8 @@ class CherryTree:
       self.print_handler = printing.PrintHandler()
       # icon factory
       factory = gtk.IconFactory()
-      for filename, stock_name in cons.ICONS_FILENAMES:
-         pixbuf = gtk.gdk.pixbuf_new_from_file(filename)
+      for stock_name in cons.STOCKS_N_FILES:
+         pixbuf = gtk.gdk.pixbuf_new_from_file(cons.GLADE_PATH + cons.STOCKS_N_FILES[stock_name])
          iconset = gtk.IconSet(pixbuf)
          factory.add(stock_name, iconset)
       factory.add_default()
@@ -166,7 +166,7 @@ class CherryTree:
             else: return cons.NODES_ICONS[6]
          else:
             if node_code in cons.CODE_ICONS: return cons.CODE_ICONS[node_code]
-            else: return "Grey Cherry"
+            else: return "Gray Cherry"
       elif self.nodes_icons == "b": return "Node Bullet"
       else: return "Node NoIcon"
       
