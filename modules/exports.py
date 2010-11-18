@@ -1,0 +1,406 @@
+# -*- coding: UTF-8 -*-
+#
+#       exports.py
+#       
+#       Copyright 2010 Giuseppe Penone <giuspen@gmail.com>
+#       
+#       This program is free software; you can redistribute it and/or modify
+#       it under the terms of the GNU General Public License as published by
+#       the Free Software Foundation; either version 2 of the License, or
+#       (at your option) any later version.
+#       
+#       This program is distributed in the hope that it will be useful,
+#       but WITHOUT ANY WARRANTY; without even the implied warranty of
+#       MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#       GNU General Public License for more details.
+#       
+#       You should have received a copy of the GNU General Public License
+#       along with this program; if not, write to the Free Software
+#       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+#       MA 02110-1301, USA.
+
+import os, cgi, base64
+import cons, support
+
+
+class Export2Pango:
+   """The Export to Pango Class"""
+   
+   def __init__(self, dad):
+      """Export to Pango boot"""
+      self.dad = dad
+      
+   def pango_get_from_code_buffer(self, code_buffer):
+      """Get rich text from syntax highlighted code node"""
+      curr_iter = code_buffer.get_start_iter()
+      code_buffer.ensure_highlight(curr_iter, code_buffer.get_end_iter())
+      pango_text = ""
+      former_tag_str = cons.COLOR_BLACK
+      span_opened = False
+      while 1:
+         curr_tags = curr_iter.get_tags()
+         if len(curr_tags) > 0:
+            curr_tag_str = curr_tags[0].get_property("foreground-gdk").to_string()
+            if curr_tag_str == cons.COLOR_BLACK:
+               if former_tag_str != curr_tag_str:
+                  former_tag_str = curr_tag_str
+                  # end of tag
+                  pango_text += "</span>"
+                  span_opened = False
+            else:
+               if former_tag_str != curr_tag_str:
+                  former_tag_str = curr_tag_str
+                  if span_opened: pango_text += "</span>"
+                  # start of tag
+                  if curr_tag_str == cons.COLOR_WHITE: curr_tag_str = cons.COLOR_BLACK
+                  pango_text += '<span foreground="%s">' % curr_tag_str
+                  span_opened = True
+         elif span_opened:
+            span_opened = False
+            former_tag_str = cons.COLOR_BLACK
+            pango_text += "</span>"
+         pango_text += cgi.escape(curr_iter.get_char())
+         if not curr_iter.forward_char():
+            if span_opened: pango_text += "</span>"
+            break
+      return pango_text
+   
+   def pango_get_from_treestore_node(self, node_iter):
+      """Given a treestore iter returns the Pango rich text"""
+      curr_buffer = self.dad.treestore[node_iter][2]
+      pixbuf_table_codebox_vector = self.dad.state_machine.get_embedded_pixbufs_tables_codeboxes(curr_buffer, for_print=1)
+      # pixbuf_table_codebox_vector is [ [ "pixbuf"/"table"/"codebox", [offset, pixbuf, alignment] ],... ]
+      self.curr_pango_slots = []
+      start_offset = 0
+      for end_offset_element in pixbuf_table_codebox_vector:
+         end_offset = end_offset_element[1][0]
+         self.pango_process_slot(start_offset, end_offset, curr_buffer)
+         start_offset = end_offset
+      self.pango_process_slot(start_offset, -1, curr_buffer)
+      #print "curr_pango_slots", self.curr_pango_slots
+      #print "pixbuf_table_codebox_vector", pixbuf_table_codebox_vector
+      # fix the problem of the latest char not being a new line char
+      if len(self.curr_pango_slots) > 0 and\
+       ( len(self.curr_pango_slots[-1]) == 0 or self.curr_pango_slots[-1][-1] != cons.CHAR_NEWLINE ):
+         self.curr_pango_slots[-1] += cons.CHAR_NEWLINE
+      return [self.curr_pango_slots, pixbuf_table_codebox_vector]
+      
+   def pango_process_slot(self, start_offset, end_offset, curr_buffer):
+      """Process a Single Pango Slot"""
+      self.curr_pango_text = ""
+      start_iter = curr_buffer.get_iter_at_offset(start_offset)
+      if end_offset == -1:
+         end_offset = curr_buffer.get_end_iter().get_offset()
+      #print "process slot (%s->%s)" % (start_offset, end_offset)
+      # begin operations
+      self.curr_attributes = {}
+      for tag_property in cons.TAG_PROPERTIES: self.curr_attributes[tag_property] = ""
+      curr_iter = start_iter.copy()
+      self.dad.xml_handler.rich_text_attributes_update(curr_iter, self.curr_attributes)
+      tag_found = curr_iter.forward_to_tag_toggle(None)
+      while tag_found:
+         if curr_iter.get_offset() > end_offset:
+            curr_iter = curr_buffer.get_iter_at_offset(end_offset)
+         self.pango_text_serialize(start_iter, curr_iter)
+         offset_old = curr_iter.get_offset()
+         if offset_old >= end_offset: break
+         else:
+            self.dad.xml_handler.rich_text_attributes_update(curr_iter, self.curr_attributes)
+            start_iter.set_offset(offset_old)
+            tag_found = curr_iter.forward_to_tag_toggle(None)
+            if curr_iter.get_offset() == offset_old: break
+      else: self.pango_text_serialize(start_iter, curr_iter)
+      self.curr_pango_slots.append(self.curr_pango_text)
+      
+   def pango_text_serialize(self, start_iter, end_iter):
+      """Adds a slice to the Pango Text"""
+      pango_attrs = ''
+      for tag_property in cons.TAG_PROPERTIES:
+         if tag_property not in ["justification", "link"] and self.curr_attributes[tag_property] != '':
+            property_value = self.curr_attributes[tag_property]
+            # tag names fix
+            if tag_property == "scale": tag_property = "size"
+            # tag properties fix
+            if property_value == "small": property_value = 'x-small'
+            elif property_value == "large": property_value = 'xx-large'
+            elif property_value == "largo": property_value = 'x-large'
+            pango_attrs += ' %s="%s"' % (tag_property, property_value)
+      if pango_attrs == '': self.curr_pango_text += cgi.escape(start_iter.get_text(end_iter))
+      else: self.curr_pango_text += '<span' + pango_attrs + '>' + cgi.escape(start_iter.get_text(end_iter)) + '</span>'
+
+
+class Export2Html:
+   """The Export to HTML Class"""
+   
+   def __init__(self, dad):
+      """Export to HTML boot"""
+      self.dad = dad
+      self.tree_links_text = ""
+   
+   def prepare_html_folder(self, new_folder):
+      """Prepare the website folder"""
+      dir_place = support.dialog_folder_select(curr_folder=self.dad.file_dir, parent=self.dad.window)
+      if dir_place == None: return False
+      while os.path.exists(os.path.join(dir_place, new_folder)):
+         new_folder += "2"
+      self.new_path = os.path.join(dir_place, new_folder)
+      os.mkdir(self.new_path)
+      os.mkdir(os.path.join(self.new_path, "images"))
+      return True
+   
+   def nodes_all_export_to_html(self):
+      """Export All Nodes To HTML"""
+      # create tree links text
+      self.tree_links_nums = ["1"]
+      tree_iter = self.dad.treestore.get_iter_first()
+      while tree_iter:
+         self.tree_links_text_iter(tree_iter)
+         self.tree_links_nums[-1] = str( int(self.tree_links_nums[-1]) + 1 )
+         tree_iter = self.dad.treestore.iter_next(tree_iter)
+      # create html pages
+      tree_iter = self.dad.treestore.get_iter_first()
+      while tree_iter:
+         self.nodes_all_export_to_html_iter(tree_iter)
+         tree_iter = self.dad.treestore.iter_next(tree_iter)
+      self.tree_links_text = ""
+   
+   def nodes_all_export_to_html_iter(self, tree_iter):
+      """Export All Nodes To HTML - iter"""
+      self.node_export_to_html(tree_iter)
+      child_tree_iter = self.dad.treestore.iter_children(tree_iter)
+      while child_tree_iter:
+         self.nodes_all_export_to_html_iter(child_tree_iter)
+         child_tree_iter = self.dad.treestore.iter_next(child_tree_iter)
+   
+   def tree_links_text_iter(self, tree_iter):
+      """Creating the Tree Links Text - iter"""
+      href = "%s-%s.html" % (self.dad.treestore[tree_iter][3], self.dad.treestore[tree_iter][1])
+      self.tree_links_text += '<br/><a href="' + href + '">' + ".".join(self.tree_links_nums) + " " + self.dad.treestore[tree_iter][1] + "</a>"
+      child_tree_iter = self.dad.treestore.iter_children(tree_iter)
+      self.tree_links_nums.append("1")
+      while child_tree_iter:
+         self.tree_links_text_iter(child_tree_iter)
+         self.tree_links_nums[-1] = str( int(self.tree_links_nums[-1]) + 1 )
+         child_tree_iter = self.dad.treestore.iter_next(child_tree_iter)
+      self.tree_links_nums.pop()
+   
+   def node_export_to_html(self, tree_iter):
+      """Export the Selected Node To HTML"""
+      html_text = '<!doctype html><html><head><meta charset="utf-8"><title>%s</title></head><body>' % self.dad.treestore[tree_iter][1]
+      if self.tree_links_text:
+         html_text += r'<table width="100%"><tr><td>'
+      if self.dad.treestore[tree_iter][4] == cons.CUSTOM_COLORS_ID:
+         text_n_objects = self.html_get_from_treestore_node(tree_iter)
+         self.images_count = 0
+         for i, html_slot in enumerate(text_n_objects[0]):
+            html_text += html_slot
+            if i < len(text_n_objects[1]):
+               curr_object = text_n_objects[1][i]
+               if curr_object[0] == "pixbuf": html_text += self.get_image_html(curr_object[1], self.new_path, tree_iter)
+               elif curr_object[0] == "table": html_text += self.get_table_html(curr_object[1])
+               elif curr_object[0] == "codebox": html_text += self.get_codebox_html(curr_object[1])
+      else: html_text += self.html_get_from_code_buffer(self.dad.treestore[tree_iter][2])
+      if self.tree_links_text:
+         html_text += '</td><td valign="top" align="center">%s</td></tr></table>' % self.tree_links_text
+      html_text += "</body></html>"
+      filename = "%s-%s.html" % (self.dad.treestore[tree_iter][3], self.dad.treestore[tree_iter][1])
+      file_descriptor = open(os.path.join(self.new_path, filename), 'w')
+      file_descriptor.write(html_text)
+      file_descriptor.close()
+   
+   def get_image_html(self, image, site_root, tree_iter):
+      """Returns the HTML Image"""
+      # image is: [offset, pixbuf, justification]
+      if "anchor" in dir(image[1]):
+         return '<a name="%s"></a>' % image[1].anchor
+      image_align_text = self.get_object_alignment_string(image[2])
+      self.images_count += 1
+      image_path = "images/%s-%s.png" % (self.dad.treestore[tree_iter][3], self.images_count)
+      image_html = '<table style="%s"><tr><td><img src="%s" alt="%s" /></td></tr></table>' % (image_align_text, image_path, image_path)
+      image[1].save(os.path.join(site_root, image_path), "png")
+      return image_html
+   
+   def get_codebox_html(self, codebox):
+      """Returns the HTML CodeBox"""
+      # codebox is: [offset, dict, justification]
+      codebox_align_text = self.get_object_alignment_string(codebox[2])
+      codebox_html = '<table border="1" style="%s"><tr><td>' % codebox_align_text
+      codebox_html += codebox[1]['fill_text']
+      codebox_html += "</td></tr></table>"
+      return codebox_html
+   
+   def get_table_html(self, table):
+      """Returns the HTML Table"""
+      # table is: [offset, dict, justification]
+      table_align_text = self.get_object_alignment_string(table[2])
+      table_html = '<table border="1" style="%s;text-align:center">' % table_align_text
+      table[1]['matrix'].insert(0, table[1]['matrix'].pop())
+      for col in table[1]['matrix'][0]:
+         table_html += '<col width="%s" />' % table[1]['col_max']
+      for j, row in enumerate(table[1]['matrix']):
+         table_html += "<tr>"
+         for cell in row:
+            if j == 0: table_html += "<th>" + cell + "</th>"
+            else: table_html += "<td>" + cell + "</td>"
+         table_html += "</tr>"
+      table_html += "</table>"
+      return table_html
+   
+   def get_object_alignment_string(self, alignment):
+      """Returns the style attribute(s) according to the alignment"""
+      if alignment == "center": return "margin-left:auto;margin-right:auto"
+      elif alignment == "right": return "margin-left:auto"
+      else: return "display:inline-table"
+   
+   def html_get_from_code_buffer(self, code_buffer):
+      """Get rich text from syntax highlighted code node"""
+      curr_iter = code_buffer.get_start_iter()
+      code_buffer.ensure_highlight(curr_iter, code_buffer.get_end_iter())
+      html_text = ""
+      former_tag_str = cons.COLOR_BLACK
+      span_opened = False
+      while 1:
+         curr_tags = curr_iter.get_tags()
+         if len(curr_tags) > 0:
+            curr_tag_str = curr_tags[0].get_property("foreground-gdk").to_string()
+            if curr_tag_str == cons.COLOR_BLACK:
+               if former_tag_str != curr_tag_str:
+                  former_tag_str = curr_tag_str
+                  # end of tag
+                  html_text += "</span>"
+                  span_opened = False
+            else:
+               if former_tag_str != curr_tag_str:
+                  former_tag_str = curr_tag_str
+                  if span_opened: html_text += "</span>"
+                  # start of tag
+                  if curr_tag_str == cons.COLOR_WHITE: curr_tag_str = cons.COLOR_BLACK
+                  html_text += '<span style="color:#%s">' % self.rgb_48_to_24(curr_tag_str[1:])
+                  span_opened = True
+         elif span_opened:
+            span_opened = False
+            former_tag_str = cons.COLOR_BLACK
+            html_text += "</span>"
+         html_text += cgi.escape(curr_iter.get_char()).replace(" ", "&nbsp;")
+         if not curr_iter.forward_char():
+            if span_opened: html_text += "</span>"
+            break
+      html_text = html_text.replace(cons.CHAR_NEWLINE, "<br/>")
+      return html_text
+   
+   def html_get_from_treestore_node(self, node_iter):
+      """Given a treestore iter returns the HTML rich text"""
+      curr_buffer = self.dad.treestore[node_iter][2]
+      pixbuf_table_codebox_vector = self.dad.state_machine.get_embedded_pixbufs_tables_codeboxes(curr_buffer, for_print=2)
+      # pixbuf_table_codebox_vector is [ [ "pixbuf"/"table"/"codebox", [offset, pixbuf, alignment] ],... ]
+      self.curr_html_slots = []
+      start_offset = 0
+      for end_offset_element in pixbuf_table_codebox_vector:
+         end_offset = end_offset_element[1][0]
+         self.html_process_slot(start_offset, end_offset, curr_buffer)
+         start_offset = end_offset
+      self.html_process_slot(start_offset, -1, curr_buffer)
+      #print "curr_html_slots", self.curr_html_slots
+      #print "pixbuf_table_codebox_vector", pixbuf_table_codebox_vector
+      return [self.curr_html_slots, pixbuf_table_codebox_vector]
+      
+   def html_process_slot(self, start_offset, end_offset, curr_buffer):
+      """Process a Single HTML Slot"""
+      self.curr_html_text = ""
+      start_iter = curr_buffer.get_iter_at_offset(start_offset)
+      if end_offset == -1:
+         end_offset = curr_buffer.get_end_iter().get_offset()
+      #print "process slot (%s->%s)" % (start_offset, end_offset)
+      # begin operations
+      self.curr_attributes = {}
+      for tag_property in cons.TAG_PROPERTIES: self.curr_attributes[tag_property] = ""
+      curr_iter = start_iter.copy()
+      self.dad.xml_handler.rich_text_attributes_update(curr_iter, self.curr_attributes)
+      tag_found = curr_iter.forward_to_tag_toggle(None)
+      while tag_found:
+         if curr_iter.get_offset() > end_offset:
+            curr_iter = curr_buffer.get_iter_at_offset(end_offset)
+         self.html_text_serialize(start_iter, curr_iter)
+         offset_old = curr_iter.get_offset()
+         if offset_old >= end_offset: break
+         else:
+            self.dad.xml_handler.rich_text_attributes_update(curr_iter, self.curr_attributes)
+            start_iter.set_offset(offset_old)
+            tag_found = curr_iter.forward_to_tag_toggle(None)
+            if curr_iter.get_offset() == offset_old: break
+      else: self.html_text_serialize(start_iter, curr_iter)
+      self.curr_html_text = self.curr_html_text.replace("<br/><p ", "<p ")
+      self.curr_html_text = self.curr_html_text.replace("</p><br/>", "</p>")
+      self.curr_html_slots.append(self.curr_html_text)
+      
+   def html_text_serialize(self, start_iter, end_iter):
+      """Adds a slice to the HTML Text"""
+      inner_text = cgi.escape(start_iter.get_text(end_iter))
+      if inner_text == "": return
+      inner_text = inner_text.replace(cons.CHAR_NEWLINE, "<br/>")
+      html_attrs = ""
+      for tag_property in cons.TAG_PROPERTIES:
+         if self.curr_attributes[tag_property] != '':
+            property_value = self.curr_attributes[tag_property]
+            if tag_property == "weight":
+               # font-weight:bolder
+               tag_property = "font-weight"
+               property_value = "bolder"
+            elif tag_property == "foreground":
+               # color:#FFFF00
+               tag_property = "color"
+               property_value = "#" + self.rgb_48_to_24(property_value[1:])
+            elif tag_property == "background":
+               # background-color:#FFFF00
+               tag_property = "background-color"
+               property_value = "#" + self.rgb_48_to_24(property_value[1:])
+            elif tag_property == "style":
+               # font-style:italic
+               tag_property = "font-style"
+               property_value = "italic"
+            elif tag_property == "underline":
+               # text-decoration:underline
+               tag_property = "text-decoration"
+               property_value = "underline"
+            elif tag_property == "strikethrough":
+               # text-decoration:line-through
+               tag_property = "text-decoration"
+               property_value = "line-through"
+            elif tag_property == "scale":
+               # font-size:xx-large/x-large/x-small
+               tag_property = "font-size"
+               if property_value == "small": property_value = "x-small"
+               elif property_value == "large": property_value = "xx-large"
+               elif property_value == "largo": property_value = "x-large"
+            elif tag_property == "justification":
+               # text-align:center/left/right
+               tag_property = "text-align"
+            elif tag_property == "link":
+               # <a href="http://www.example.com/">link-text goes here</a>
+               vector = property_value.split()
+               if vector[0] == "webs": href = vector[1]
+               elif vector[0] == "file": href = "file://" + base64.b64decode(vector[1])
+               elif vector[0] == "node":
+                  dest_tree_iter = self.dad.get_tree_iter_from_node_id(int(vector[1]))
+                  if not dest_tree_iter: continue
+                  href = "%s-%s.html" % (self.dad.treestore[dest_tree_iter][3],
+                                         self.dad.treestore[dest_tree_iter][1])
+                  if len(vector) == 3: href += "#" + vector[2]
+               else: continue
+               self.curr_html_text += '<a href="' + href + '">' + inner_text + "</a>"
+               return
+            html_attrs += "%s:%s;" % (tag_property, property_value)
+      if html_attrs == "" or inner_text == "<br/>": self.curr_html_text += inner_text
+      else:
+         if "text-align" in html_attrs: self.curr_html_text += '<p style="' + html_attrs + '">' + inner_text + "</p>"
+         else: self.curr_html_text += '<span style="' + html_attrs + '">' + inner_text + "</span>"
+   
+   def rgb_48_to_24(self, rgb_48):
+      """Convert RRRRGGGGBBBB to RRGGBB"""
+      r = int(rgb_48[:4], 16)
+      g = int(rgb_48[4:8], 16)
+      b = int(rgb_48[8:], 16)
+      r >>= 8
+      g >>= 8
+      b >>= 8
+      return "%.2x%.2x%.2x" % (r, g, b)

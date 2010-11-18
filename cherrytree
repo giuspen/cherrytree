@@ -1,0 +1,86 @@
+#!/usr/bin/env python
+# -*- coding: UTF-8 -*-
+#
+#       cherrytree
+#       
+#       Copyright 2009-2010 Giuseppe Penone <giuspen@gmail.com>
+#       
+#       This program is free software; you can redistribute it and/or modify
+#       it under the terms of the GNU General Public License as published by
+#       the Free Software Foundation; either version 2 of the License, or
+#       (at your option) any later version.
+#       
+#       This program is distributed in the hope that it will be useful,
+#       but WITHOUT ANY WARRANTY; without even the implied warranty of
+#       MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#       GNU General Public License for more details.
+#       
+#       You should have received a copy of the GNU General Public License
+#       along with this program; if not, write to the Free Software
+#       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+#       MA 02110-1301, USA.
+
+import sys, os, gtk, gettext
+
+if os.path.isdir('modules'): MODULES_PATH = os.path.join(os.curdir, 'modules')
+else: MODULES_PATH = '/usr/share/cherrytree/modules/'
+
+sys.path.append(MODULES_PATH)
+
+import cons, core
+
+if sys.platform[0:3] == "win":
+   LOCK_PATH = 'lock'
+   import warnings
+   warnings.filterwarnings("ignore")
+else:
+   LOCK_PATH = os.path.join(os.path.expanduser('~'), '.config/cherrytree/lock')
+   try:
+      # change process name
+      import ctypes, ctypes.util
+      libc = ctypes.cdll.LoadLibrary(ctypes.util.find_library("libc"))
+      libc.prctl(15, cons.APP_NAME, 0, 0, 0)
+   except: print "libc.prctl not available, the process name will be python and not cherrytree"
+
+if len(sys.argv) > 1: OPEN_WITH_FILE = sys.argv[1]
+else: OPEN_WITH_FILE = ""
+
+try:
+   # change locale text domain
+   import locale
+   locale.bindtextdomain(cons.APP_NAME, cons.LOCALE_PATH)
+except: print "locale.bindtextdomain not available, the glade i18n may not work properly"
+
+# language installation
+if os.path.isfile(cons.LANG_PATH):
+   lang_file_descriptor = file(cons.LANG_PATH, 'r')
+   lang_str = lang_file_descriptor.read()
+   lang_file_descriptor.close()
+   if lang_str != 'default': os.environ["LANGUAGE"] = lang_str
+else: lang_str = 'default'
+try: gettext.translation(cons.APP_NAME, cons.LOCALE_PATH).install()
+except:
+   import __builtin__
+   def _(transl_str):
+      return transl_str
+   __builtin__._ = _
+
+def cherrytree():
+   first_instance = True
+   if sys.platform[0:3] != "win":
+      import fcntl
+      # check if the config directory exists
+      if not os.path.isdir(os.path.join(os.path.expanduser('~'), '.config/cherrytree')):
+         if not os.path.isdir(os.path.join(os.path.expanduser('~'), '.config')):
+            os.mkdir(os.path.join(os.path.expanduser('~'), '.config'))
+         os.mkdir(os.path.join(os.path.expanduser('~'), '.config/cherrytree'))
+      # single instance check for non windows os
+      try:
+         fd = open(LOCK_PATH, 'w')
+         fcntl.lockf(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
+      except: first_instance = False
+   core.CherryTree(lang_str, first_instance, OPEN_WITH_FILE)
+   gtk.main() # start the gtk main loop
+   return 0
+
+if __name__ == '__main__': cherrytree()

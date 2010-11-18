@@ -1,0 +1,5 @@
+text/cherrytree-ctd:
+	description=CherryTree Document
+	default_action_type=application
+	short_list_application_ids_for_novice_user_level=cherrytree
+	category=Documents/Data
