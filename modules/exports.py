@@ -155,7 +155,7 @@ class Export2Html:
       self.tree_links_nums = ["1"]
       for image_stock_id in cons.NODES_STOCKS:
          shutil.copy(cons.GLADE_PATH + cons.STOCKS_N_FILES[image_stock_id], self.images_dir)
-      self.tree_links_text = '<p>&nbsp;</p><table style="text-align:left">'
+      self.tree_links_text = '<table style="text-align:left">'
       tree_iter = self.dad.treestore.get_iter_first()
       while tree_iter:
          self.tree_links_text_iter(tree_iter)
@@ -179,7 +179,7 @@ class Export2Html:
    
    def tree_links_text_iter(self, tree_iter):
       """Creating the Tree Links Text - iter"""
-      href = "%s-%s.html" % (self.dad.treestore[tree_iter][3], self.dad.treestore[tree_iter][1])
+      href = self.get_html_filename(tree_iter)
       self.tree_links_text += "<tr><td>"
       self.tree_links_text += "&nbsp;&nbsp;&nbsp;" * len(self.tree_links_nums)
       icon_rel_path = os.path.join(self.images_dir, cons.STOCKS_N_FILES[self.dad.treestore[tree_iter][0]])
@@ -198,8 +198,8 @@ class Export2Html:
       html_text = '<!doctype html><html><head><meta charset="utf-8"><title>%s</title></head><body>' % self.dad.treestore[tree_iter][1]
       if self.tree_links_text:
          html_text += r'<table width="100%"><tr>'
-         td_tree = r'<td valign="top" align="left" width=20%>'
-         td_page = r'<td valign="top" align="left" width=80%>'
+         td_tree = r'<td valign="top" align="left" width=30%>'
+         td_page = r'<td valign="top" align="left" width=70%>'
          html_text += td_tree + self.tree_links_text + td_page
       if self.dad.treestore[tree_iter][4] == cons.CUSTOM_COLORS_ID:
          text_n_objects = self.html_get_from_treestore_node(tree_iter)
@@ -215,8 +215,7 @@ class Export2Html:
       if self.tree_links_text:
          html_text += '</td></tr></table>'
       html_text += "</body></html>"
-      filename = "%s-%s.html" % (self.dad.treestore[tree_iter][3], self.dad.treestore[tree_iter][1])
-      file_descriptor = open(os.path.join(self.new_path, filename), 'w')
+      file_descriptor = open(os.path.join(self.new_path, self.get_html_filename(tree_iter)), 'w')
       file_descriptor.write(html_text)
       file_descriptor.close()
    
@@ -264,6 +263,11 @@ class Export2Html:
       if alignment == "center": return "margin-left:auto;margin-right:auto"
       elif alignment == "right": return "margin-left:auto"
       else: return "display:inline-table"
+   
+   def get_html_filename(self, tree_iter):
+      """Get the HTML page filename given the tree iter"""
+      filename = "%s-%s.html" % (self.dad.treestore[tree_iter][3], self.dad.treestore[tree_iter][1])
+      return filename.replace("/", "-")
    
    def html_get_from_code_buffer(self, code_buffer):
       """Get rich text from syntax highlighted code node"""
@@ -396,8 +400,7 @@ class Export2Html:
                elif vector[0] == "node":
                   dest_tree_iter = self.dad.get_tree_iter_from_node_id(int(vector[1]))
                   if not dest_tree_iter: continue
-                  href = "%s-%s.html" % (self.dad.treestore[dest_tree_iter][3],
-                                         self.dad.treestore[dest_tree_iter][1])
+                  href = self.get_html_filename(dest_tree_iter)
                   if len(vector) == 3: href += "#" + vector[2]
                else: continue
                self.curr_html_text += '<a href="' + href + '">' + inner_text + "</a>"

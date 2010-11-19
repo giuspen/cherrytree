@@ -1,0 +1,9 @@
+syntax: glob
+*.pyc
+de
+es
+fr
+it
+pl
+ru
+uk
