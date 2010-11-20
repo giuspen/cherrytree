@@ -357,6 +357,43 @@ class XMLHandler:
             elif tag_name[0:14] == "strikethrough_": curr_attributes["strikethrough"] = tag_name[14:]
             elif tag_name[0:5] == "link_": curr_attributes["link"] = tag_name[5:]
             else: support.dialog_error("Failure processing the toggling ON tag %s" % tag_name, self.dad.window)
+   
+   def toc_insert(self, text_buffer):
+      """Given the text_buffer, inserts the Table Of Contents"""
+      self.curr_attributes = {}
+      self.toc_counters = {"h1":0, "h2":0}
+      self.toc_list = []
+      for tag_property in cons.TAG_PROPERTIES: self.curr_attributes[tag_property] = ""
+      start_iter = text_buffer.get_start_iter()
+      end_iter = text_buffer.get_end_iter()
+      curr_iter = start_iter.copy()
+      self.rich_text_attributes_update(curr_iter, self.curr_attributes)
+      tag_found = curr_iter.forward_to_tag_toggle(None)
+      while tag_found:
+         self.toc_insert_parser(text_buffer, start_iter, curr_iter)
+         if curr_iter.compare(end_iter) == 0: break
+         else:
+            self.rich_text_attributes_update(curr_iter, self.curr_attributes)
+            offset_old = curr_iter.get_offset()
+            start_iter.set_offset(offset_old)
+            tag_found = curr_iter.forward_to_tag_toggle(None)
+            if curr_iter.get_offset() == offset_old: break
+      else: self.toc_insert_parser(text_buffer, start_iter, curr_iter)
+      print self.toc_list
+   
+   def toc_insert_parser(self, text_buffer, start_iter, end_iter):
+      """Parses a Tagged String for the TOC insert"""
+      if self.curr_attributes["scale"] == "": return
+      start_offset = start_iter.get_offset()
+      end_offset = end_iter.get_offset()
+      if self.curr_attributes["scale"] == "large":
+         # got H1
+         self.toc_counters["h1"] += 1
+         self.toc_list.append(["h1-%d" % self.toc_counters["h1"], text_buffer.get_text(start_iter, end_iter)])
+      elif self.curr_attributes["scale"] == "largo":
+         # got H2
+         self.toc_counters["h2"] += 1
+         self.toc_list.append(["h2-%d" % self.toc_counters["h2"], text_buffer.get_text(start_iter, end_iter)])
 
 
 class StateMachine:

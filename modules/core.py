@@ -1540,7 +1540,7 @@ class CherryTree:
    def toc_insert(self, *args):
       """Insert Table Of Contents"""
       if not self.node_sel_and_rich_text(): return
-      print "TODO"
+      self.xml_handler.toc_insert(self.curr_buffer)
    
    def table_handle(self, *args):
       """Insert Table"""
