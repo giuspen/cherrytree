@@ -370,7 +370,11 @@ class XMLHandler:
       self.rich_text_attributes_update(curr_iter, self.curr_attributes)
       tag_found = curr_iter.forward_to_tag_toggle(None)
       while tag_found:
-         self.toc_insert_parser(text_buffer, start_iter, curr_iter)
+         offsets = self.toc_insert_parser(text_buffer, start_iter, curr_iter)
+         if offsets:
+            start_iter = text_buffer.get_iter_at_offset(offsets[0])
+            curr_iter = text_buffer.get_iter_at_offset(offsets[1])
+            end_iter = text_buffer.get_end_iter()
          if curr_iter.compare(end_iter) == 0: break
          else:
             self.rich_text_attributes_update(curr_iter, self.curr_attributes)
@@ -383,17 +387,29 @@ class XMLHandler:
    
    def toc_insert_parser(self, text_buffer, start_iter, end_iter):
       """Parses a Tagged String for the TOC insert"""
-      if self.curr_attributes["scale"] == "": return
+      if self.curr_attributes["scale"] not in ["large", "largo"]: return None
       start_offset = start_iter.get_offset()
       end_offset = end_iter.get_offset()
       if self.curr_attributes["scale"] == "large":
          # got H1
          self.toc_counters["h1"] += 1
          self.toc_list.append(["h1-%d" % self.toc_counters["h1"], text_buffer.get_text(start_iter, end_iter)])
-      elif self.curr_attributes["scale"] == "largo":
+      else:
          # got H2
          self.toc_counters["h2"] += 1
          self.toc_list.append(["h2-%d" % self.toc_counters["h2"], text_buffer.get_text(start_iter, end_iter)])
+      anchor_start = start_iter.copy()
+      if anchor_start.backward_char():
+         anchor = anchor_start.get_child_anchor()
+         if anchor and "pixbuf" in dir(anchor) and "anchor" in dir(anchor.pixbuf):
+            text_buffer.delete(anchor_start, start_iter)
+            start_offset -= 1
+            end_offset -= 1
+            start_iter = text_buffer.get_iter_at_offset(start_offset)
+      pixbuf = gtk.gdk.pixbuf_new_from_file(cons.ANCHOR_CHAR)
+      pixbuf.anchor = self.toc_list[-1][0]
+      self.dad.image_insert(start_iter, pixbuf)
+      return (start_offset+1, end_offset+1)
 
 
 class StateMachine:
