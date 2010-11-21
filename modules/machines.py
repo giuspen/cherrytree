@@ -358,11 +358,11 @@ class XMLHandler:
             elif tag_name[0:5] == "link_": curr_attributes["link"] = tag_name[5:]
             else: support.dialog_error("Failure processing the toggling ON tag %s" % tag_name, self.dad.window)
    
-   def toc_insert(self, text_buffer):
+   def toc_insert(self, text_buffer, node_id):
       """Given the text_buffer, inserts the Table Of Contents"""
       self.curr_attributes = {}
       self.toc_counters = {"h1":0, "h2":0}
-      self.toc_list = []
+      self.toc_list = [] # 0: anchor name 1: text in h1 or h2
       for tag_property in cons.TAG_PROPERTIES: self.curr_attributes[tag_property] = ""
       start_iter = text_buffer.get_start_iter()
       end_iter = text_buffer.get_end_iter()
@@ -383,7 +383,19 @@ class XMLHandler:
             tag_found = curr_iter.forward_to_tag_toggle(None)
             if curr_iter.get_offset() == offset_old: break
       else: self.toc_insert_parser(text_buffer, start_iter, curr_iter)
-      print self.toc_list
+      tag_property == "link"
+      property_value = "node" + cons.CHAR_SPACE + str(node_id)
+      curr_offset = 0
+      text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), cons.CHAR_NEWLINE)
+      curr_offset += 1
+      for element in self.toc_list:
+         tag_names = []
+         tag_names.append(self.dad.apply_tag_exist_or_create(tag_property, property_value + cons.CHAR_SPACE + element[0]))
+         text_buffer.insert_with_tags_by_name(text_buffer.get_iter_at_offset(curr_offset), element[1], *tag_names)
+         curr_offset += len(element[1])
+         text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), cons.CHAR_NEWLINE)
+         curr_offset += 1
+      text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), cons.CHAR_NEWLINE)
    
    def toc_insert_parser(self, text_buffer, start_iter, end_iter):
       """Parses a Tagged String for the TOC insert"""
