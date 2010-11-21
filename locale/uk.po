@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CherryTree\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-21 19:01+0100\n"
+"POT-Creation-Date: 2010-11-21 22:03+0100\n"
 "PO-Revision-Date: 2010-10-12 09:14+0300\n"
 "Last-Translator: Andriy Kovtun <kovtunos@yandex.ru>\n"
 "Language-Team: Russian <kovtunos@yandex.ru>\n"
@@ -126,7 +126,7 @@ msgid "CherryTree Hierarchical Note Taking"
 msgstr "Записник CherryTree"
 
 #: modules/core.py:479 modules/core.py:499 modules/core.py:618
-#: modules/core.py:1295 modules/core.py:1306 modules/core.py:1582
+#: modules/core.py:1295 modules/core.py:1306 modules/core.py:1583
 msgid "The Tree is Empty!"
 msgstr "Дерево пусте!"
 
@@ -210,7 +210,7 @@ msgstr ""
 "При включенні автоматичного підсвічування, буде втрачено налаштування "
 "користувацьких кольорів для цієї гілки, продовжити?"
 
-#: modules/core.py:1411 modules/core.py:1565 modules/core.py:1871
+#: modules/core.py:1411 modules/core.py:1566 modules/core.py:1872
 msgid "No Node is Selected"
 msgstr "Гілку не виділено"
 
@@ -234,61 +234,65 @@ msgstr "Вставити якір"
 msgid "The Anchor Name is Mandatory!"
 msgstr "Назва якіра обов'язкова"
 
-#: modules/core.py:1568 modules/core.py:1847 modules/core.py:1854
-#: modules/core.py:1866
+#: modules/core.py:1544
+msgid "Not Any H1 or H2 Formatting Found"
+msgstr ""
+
+#: modules/core.py:1569 modules/core.py:1848 modules/core.py:1855
+#: modules/core.py:1867
 msgid ""
 "Automatic Syntax Highlighting Must be Disabled in order to Use This Feature"
 msgstr "Щоб використати цю функцію, відключить підсвічування синтаксису"
 
-#: modules/core.py:1686
+#: modules/core.py:1687
 msgid "PNG Image"
 msgstr "Зображення PNG"
 
-#: modules/core.py:1692
+#: modules/core.py:1693
 #, python-format
 msgid "Write to %s Failed"
 msgstr "Записати в %s не вдалося"
 
-#: modules/core.py:1860
+#: modules/core.py:1861
 msgid "No Previous Text Format Was Performed During This Session"
 msgstr "В цій сесії не було операцій форматування тексту"
 
-#: modules/core.py:1877 modules/core.py:1882 modules/core.py:2262
+#: modules/core.py:1878 modules/core.py:1883 modules/core.py:2263
 msgid "No Text is Selected"
 msgstr "Текст не виділено"
 
-#: modules/core.py:1900
+#: modules/core.py:1901
 msgid "The Cursor is Not into a Paragraph"
 msgstr "Курсор за межами абзацу"
 
-#: modules/core.py:1909
+#: modules/core.py:1910
 msgid "Insert/Edit a Link"
 msgstr "Вставити / редагувати гіперпосилання"
 
-#: modules/core.py:2030
+#: modules/core.py:2031
 #, python-format
 msgid "The File Link '%s' is Not Valid"
 msgstr "Посилання на файл '%s' некоректне"
 
-#: modules/core.py:2038
+#: modules/core.py:2039
 #, python-format
 msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
 msgstr "Посилання на неіснуючу гілку (Id = %s)"
 
-#: modules/core.py:2046
+#: modules/core.py:2047
 #, python-format
 msgid "No anchor named '%s' found"
 msgstr "Якір з назвою '%s' знайдено"
 
-#: modules/core.py:2084
+#: modules/core.py:2085
 msgid "There are No Anchors in the Selected Node"
 msgstr "В виділеній гілці немає якорів"
 
-#: modules/core.py:2089
+#: modules/core.py:2090
 msgid "Choose Existing Anchor"
 msgstr "Виберіть існуючий якір"
 
-#: modules/core.py:2102
+#: modules/core.py:2103
 msgid "Anchor Name"
 msgstr "Назва якора"
 

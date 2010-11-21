@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-21 19:01+0100\n"
+"POT-Creation-Date: 2010-11-21 22:03+0100\n"
 "PO-Revision-Date: 2010-02-20 22:22+0100\n"
 "Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
 "Language-Team: Italian\n"
@@ -122,7 +122,7 @@ msgid "CherryTree Hierarchical Note Taking"
 msgstr "CherryTree Gestore di Appunti Gerarchico"
 
 #: modules/core.py:479 modules/core.py:499 modules/core.py:618
-#: modules/core.py:1295 modules/core.py:1306 modules/core.py:1582
+#: modules/core.py:1295 modules/core.py:1306 modules/core.py:1583
 msgid "The Tree is Empty!"
 msgstr "L'Albero e' Vuoto!"
 
@@ -206,7 +206,7 @@ msgstr ""
 "Entrando nell'Evidenziazione Automatica della Sintassi, Perderai la "
 "Formattazione del Testo per Questo Nodo, Vuoi Continuare?"
 
-#: modules/core.py:1411 modules/core.py:1565 modules/core.py:1871
+#: modules/core.py:1411 modules/core.py:1566 modules/core.py:1872
 msgid "No Node is Selected"
 msgstr "Nessun Nodo e' Selezionato"
 
@@ -230,65 +230,69 @@ msgstr "Inserisci Ancora"
 msgid "The Anchor Name is Mandatory!"
 msgstr "Il Nome dell'Ancora e' Obbligatorio!"
 
-#: modules/core.py:1568 modules/core.py:1847 modules/core.py:1854
-#: modules/core.py:1866
+#: modules/core.py:1544
+msgid "Not Any H1 or H2 Formatting Found"
+msgstr "Nessuna Formattazione H1 o H2 Trovata"
+
+#: modules/core.py:1569 modules/core.py:1848 modules/core.py:1855
+#: modules/core.py:1867
 msgid ""
 "Automatic Syntax Highlighting Must be Disabled in order to Use This Feature"
 msgstr ""
 "L'Evidenziazione Automatica della Sintassi Deve Essere Disabilitata per "
 "Utilizzare questo Comando"
 
-#: modules/core.py:1686
+#: modules/core.py:1687
 msgid "PNG Image"
 msgstr "Immagine PNG"
 
-#: modules/core.py:1692
+#: modules/core.py:1693
 #, python-format
 msgid "Write to %s Failed"
 msgstr "Scrittura di %s Fallita"
 
-#: modules/core.py:1860
+#: modules/core.py:1861
 msgid "No Previous Text Format Was Performed During This Session"
 msgstr ""
 "Nessuna Formattazione del Testo e' stata Fatta Precedentemente Durante "
 "Questa Sessione"
 
-#: modules/core.py:1877 modules/core.py:1882 modules/core.py:2262
+#: modules/core.py:1878 modules/core.py:1883 modules/core.py:2263
 msgid "No Text is Selected"
 msgstr "Non vi e' alcuna Selezione di Testo"
 
-#: modules/core.py:1900
+#: modules/core.py:1901
 msgid "The Cursor is Not into a Paragraph"
 msgstr "Il Cursore Non e' in un Paragrafo"
 
-#: modules/core.py:1909
+#: modules/core.py:1910
 msgid "Insert/Edit a Link"
 msgstr "Inserisci/Modifica un Link"
 
-#: modules/core.py:2030
+#: modules/core.py:2031
 #, python-format
 msgid "The File Link '%s' is Not Valid"
 msgstr "Il Link a File '%s' Non e' Valido"
 
-#: modules/core.py:2038
+#: modules/core.py:2039
 #, python-format
 msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
 msgstr "Il Link si Riferisce ad un Nodo che Non Esiste Piu' (Id = %s)"
 
-#: modules/core.py:2046
+#: modules/core.py:2047
 #, python-format
 msgid "No anchor named '%s' found"
 msgstr "Nessun Ancora Chiamata '%s' Trovata"
 
-#: modules/core.py:2084
+#: modules/core.py:2085
 msgid "There are No Anchors in the Selected Node"
 msgstr "Non vi Sono Ancore Nel Nodo Selezionato"
 
-#: modules/core.py:2089
+#: modules/core.py:2090
 msgid "Choose Existing Anchor"
 msgstr "Scegli un'Ancora Esistente"
 
-#: modules/core.py:2102
+#: modules/core.py:2103
 msgid "Anchor Name"
 msgstr "Nome Ancora"
 
@@ -394,7 +398,7 @@ msgstr "Salva File Come"
 
 #: modules/cons.py:373
 msgid "Export _Tree To HTML"
-msgstr "Esporta _Albero in HTML"
+msgstr "Esporta A_lbero in HTML"
 
 #: modules/cons.py:373
 msgid "Export the Tree To HTML"
@@ -945,7 +949,7 @@ msgstr "Cambia il Padre del Nodo Selezionato"
 
 #: modules/cons.py:442
 msgid "E_xpand All Nodes"
-msgstr "Espandi Tutti i Nodi..."
+msgstr "Es_pandi Tutti i Nodi"
 
 #: modules/cons.py:442
 msgid "Expand All the Tree Nodes"
@@ -953,7 +957,7 @@ msgstr "Espandi Tutti i Nodi dell'albero"
 
 #: modules/cons.py:443
 msgid "_Collapse All Nodes"
-msgstr "Chiudi Tutti i Nodi..."
+msgstr "Ch_iudi Tutti i Nodi"
 
 #: modules/cons.py:443
 msgid "Collapse All the Tree Nodes"
@@ -1456,7 +1460,7 @@ msgstr "Usa Punti come Icone dei Nodi"
 
 #: glade/cherrytree.glade.h:106
 msgid "Use Cherries as Nodes Icons"
-msgstr "Usa Ciliege come Icone dei Nodi"
+msgstr "Usa Ciliegie come Icone dei Nodi"
 
 #: glade/cherrytree.glade.h:107
 msgid "Use Line Wrapping"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.9.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-21 19:01+0100\n"
+"POT-Creation-Date: 2010-11-21 22:03+0100\n"
 "PO-Revision-Date: 2010-10-13 21:02+0100\n"
 "Last-Translator: Daniel MC <i.e.betel@gmail.com>\n"
 "Language-Team: Spanish <>\n"
@@ -122,7 +122,7 @@ msgid "CherryTree Hierarchical Note Taking"
 msgstr "CherryTree - Gestor de notas jerárquico"
 
 #: modules/core.py:479 modules/core.py:499 modules/core.py:618
-#: modules/core.py:1295 modules/core.py:1306 modules/core.py:1582
+#: modules/core.py:1295 modules/core.py:1306 modules/core.py:1583
 msgid "The Tree is Empty!"
 msgstr "¡El árbol está vacío!"
 
@@ -206,7 +206,7 @@ msgstr ""
 "Entrando en el modo de Resaltado Automático de Sintaxis perderás todos los "
 "colores personalizados para este nodo ¿quieres continuar?"
 
-#: modules/core.py:1411 modules/core.py:1565 modules/core.py:1871
+#: modules/core.py:1411 modules/core.py:1566 modules/core.py:1872
 msgid "No Node is Selected"
 msgstr "No hay ningún nodo seleccionado"
 
@@ -230,63 +230,67 @@ msgstr "Insertar _ancla"
 msgid "The Anchor Name is Mandatory!"
 msgstr "¡El nombre para el ancla es obligatorio!"
 
-#: modules/core.py:1568 modules/core.py:1847 modules/core.py:1854
-#: modules/core.py:1866
+#: modules/core.py:1544
+msgid "Not Any H1 or H2 Formatting Found"
+msgstr ""
+
+#: modules/core.py:1569 modules/core.py:1848 modules/core.py:1855
+#: modules/core.py:1867
 msgid ""
 "Automatic Syntax Highlighting Must be Disabled in order to Use This Feature"
 msgstr ""
 "El resaltado automático de sintaxis debe estar desactivado para usar esta "
 "función"
 
-#: modules/core.py:1686
+#: modules/core.py:1687
 msgid "PNG Image"
 msgstr "Imagen PNG"
 
-#: modules/core.py:1692
+#: modules/core.py:1693
 #, python-format
 msgid "Write to %s Failed"
 msgstr "La escritura en %s ha fallado"
 
-#: modules/core.py:1860
+#: modules/core.py:1861
 msgid "No Previous Text Format Was Performed During This Session"
 msgstr "No se ha realizado ninguna acción de formato de texto en esta sesión"
 
-#: modules/core.py:1877 modules/core.py:1882 modules/core.py:2262
+#: modules/core.py:1878 modules/core.py:1883 modules/core.py:2263
 msgid "No Text is Selected"
 msgstr "No hay texto seleccionado"
 
-#: modules/core.py:1900
+#: modules/core.py:1901
 msgid "The Cursor is Not into a Paragraph"
 msgstr "El cursor del ratón no está en un párrafo"
 
-#: modules/core.py:1909
+#: modules/core.py:1910
 msgid "Insert/Edit a Link"
 msgstr "Insertar/Editar enlace"
 
-#: modules/core.py:2030
+#: modules/core.py:2031
 #, python-format
 msgid "The File Link '%s' is Not Valid"
 msgstr "El enlace al archivo '%s' no es válido"
 
-#: modules/core.py:2038
+#: modules/core.py:2039
 #, python-format
 msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
 msgstr "El enlace hace referencia a un nodo que ya no existe (Id = %s)"
 
-#: modules/core.py:2046
+#: modules/core.py:2047
 #, python-format
 msgid "No anchor named '%s' found"
 msgstr "No se ha encontrado un ancla llamada '%s'"
 
-#: modules/core.py:2084
+#: modules/core.py:2085
 msgid "There are No Anchors in the Selected Node"
 msgstr "No hay anclas en el nodo seleccionado"
 
-#: modules/core.py:2089
+#: modules/core.py:2090
 msgid "Choose Existing Anchor"
 msgstr "Escoge un ancla existente"
 
-#: modules/core.py:2102
+#: modules/core.py:2103
 msgid "Anchor Name"
 msgstr "Nombre de ancla"
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-21 19:01+0100\n"
+"POT-Creation-Date: 2010-11-21 22:03+0100\n"
 "PO-Revision-Date: 2010-02-20 22:22+0100\n"
 "Last-Translator: Marcin Swierczynski <orneo1212@gmail.com>\n"
 "Language-Team: Polish\n"
@@ -122,7 +122,7 @@ msgid "CherryTree Hierarchical Note Taking"
 msgstr "CherryTree Strukturalny Notes"
 
 #: modules/core.py:479 modules/core.py:499 modules/core.py:618
-#: modules/core.py:1295 modules/core.py:1306 modules/core.py:1582
+#: modules/core.py:1295 modules/core.py:1306 modules/core.py:1583
 msgid "The Tree is Empty!"
 msgstr "Drzewo jest puste!"
 
@@ -206,7 +206,7 @@ msgstr ""
 "Ustawienie automatycznego kolorowania składni, usunie własne formatowaniedla "
 "tej gałęzi, Czy chcesz kontynułować?"
 
-#: modules/core.py:1411 modules/core.py:1565 modules/core.py:1871
+#: modules/core.py:1411 modules/core.py:1566 modules/core.py:1872
 msgid "No Node is Selected"
 msgstr "Nie zaznaczono gałęzi"
 
@@ -230,62 +230,66 @@ msgstr "Dod_aj Kotwice"
 msgid "The Anchor Name is Mandatory!"
 msgstr "Nazwa kotwicy jest już zajęta!"
 
-#: modules/core.py:1568 modules/core.py:1847 modules/core.py:1854
-#: modules/core.py:1866
+#: modules/core.py:1544
+msgid "Not Any H1 or H2 Formatting Found"
+msgstr ""
+
+#: modules/core.py:1569 modules/core.py:1848 modules/core.py:1855
+#: modules/core.py:1867
 msgid ""
 "Automatic Syntax Highlighting Must be Disabled in order to Use This Feature"
 msgstr ""
 "Automatyczne kolorowanie składni musi być wyłączony, aby uzyć tej funkcji"
 
-#: modules/core.py:1686
+#: modules/core.py:1687
 msgid "PNG Image"
 msgstr "Obrazek PNG"
 
-#: modules/core.py:1692
+#: modules/core.py:1693
 #, python-format
 msgid "Write to %s Failed"
 msgstr "Zapis do %s Nie powiódł się"
 
-#: modules/core.py:1860
+#: modules/core.py:1861
 msgid "No Previous Text Format Was Performed During This Session"
 msgstr "Nie wykonano żadnego formatowania w tej sesji"
 
-#: modules/core.py:1877 modules/core.py:1882 modules/core.py:2262
+#: modules/core.py:1878 modules/core.py:1883 modules/core.py:2263
 msgid "No Text is Selected"
 msgstr "Żaden tekst nie jest zaznaczony"
 
-#: modules/core.py:1900
+#: modules/core.py:1901
 msgid "The Cursor is Not into a Paragraph"
 msgstr "Kursor nie jest w paragrafie"
 
-#: modules/core.py:1909
+#: modules/core.py:1910
 msgid "Insert/Edit a Link"
 msgstr "Dodaj/Zmień link"
 
-#: modules/core.py:2030
+#: modules/core.py:2031
 #, python-format
 msgid "The File Link '%s' is Not Valid"
 msgstr "Link do pliku '%s' nie jest prawidłowy"
 
-#: modules/core.py:2038
+#: modules/core.py:2039
 #, python-format
 msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
 msgstr "Link prowadzi do gałęzi która już nie istnieje (Id = %s)"
 
-#: modules/core.py:2046
+#: modules/core.py:2047
 #, python-format
 msgid "No anchor named '%s' found"
 msgstr "Brak kotwicy o nazwie '%s' "
 
-#: modules/core.py:2084
+#: modules/core.py:2085
 msgid "There are No Anchors in the Selected Node"
 msgstr "Brak kotwic w aktualnej gałęzi"
 
-#: modules/core.py:2089
+#: modules/core.py:2090
 msgid "Choose Existing Anchor"
 msgstr "Wybierz istniejącą kotwice"
 
-#: modules/core.py:2102
+#: modules/core.py:2103
 msgid "Anchor Name"
 msgstr "Nazwa kotwicy"
 

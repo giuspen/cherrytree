@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-21 19:01+0100\n"
+"POT-Creation-Date: 2010-11-21 22:03+0100\n"
 "PO-Revision-Date: 2010-10-14 11:32+0100\n"
 "Last-Translator: Sven Neubauer <me@dampfklon.de>\n"
 "Language-Team: German\n"
@@ -122,7 +122,7 @@ msgid "CherryTree Hierarchical Note Taking"
 msgstr "CherryTree Hierarchical Note Taking"
 
 #: modules/core.py:479 modules/core.py:499 modules/core.py:618
-#: modules/core.py:1295 modules/core.py:1306 modules/core.py:1582
+#: modules/core.py:1295 modules/core.py:1306 modules/core.py:1583
 msgid "The Tree is Empty!"
 msgstr "Die Baumstruktur ist leer!"
 
@@ -208,7 +208,7 @@ msgstr ""
 "Die automatische Syntaxhervorhebung verwirft alle manuell definierten Farben "
 "in diesem Knoten. Soll fortgefahren werden?"
 
-#: modules/core.py:1411 modules/core.py:1565 modules/core.py:1871
+#: modules/core.py:1411 modules/core.py:1566 modules/core.py:1872
 msgid "No Node is Selected"
 msgstr "Kein Knoten ausgewählt"
 
@@ -232,63 +232,67 @@ msgstr "Anker einfügen..."
 msgid "The Anchor Name is Mandatory!"
 msgstr "Der Ankername wird benötigt!"
 
-#: modules/core.py:1568 modules/core.py:1847 modules/core.py:1854
-#: modules/core.py:1866
+#: modules/core.py:1544
+msgid "Not Any H1 or H2 Formatting Found"
+msgstr ""
+
+#: modules/core.py:1569 modules/core.py:1848 modules/core.py:1855
+#: modules/core.py:1867
 msgid ""
 "Automatic Syntax Highlighting Must be Disabled in order to Use This Feature"
 msgstr ""
 "Die automatische Syntaxhervorhebung darf nicht aktiv sein um diese Funktion "
 "zu nutzen"
 
-#: modules/core.py:1686
+#: modules/core.py:1687
 msgid "PNG Image"
 msgstr "PNG Bild"
 
-#: modules/core.py:1692
+#: modules/core.py:1693
 #, python-format
 msgid "Write to %s Failed"
 msgstr "Konnte %s nicht schreiben"
 
-#: modules/core.py:1860
+#: modules/core.py:1861
 msgid "No Previous Text Format Was Performed During This Session"
 msgstr "Es wurde in dieser Sitzung noch keine Formatierung durchgeführt"
 
-#: modules/core.py:1877 modules/core.py:1882 modules/core.py:2262
+#: modules/core.py:1878 modules/core.py:1883 modules/core.py:2263
 msgid "No Text is Selected"
 msgstr "Kein Text ausgewählt"
 
-#: modules/core.py:1900
+#: modules/core.py:1901
 msgid "The Cursor is Not into a Paragraph"
 msgstr "Der Cursor befindet sich nicht in einem Absatz"
 
-#: modules/core.py:1909
+#: modules/core.py:1910
 msgid "Insert/Edit a Link"
 msgstr "Link einfügen/bearbeiten..."
 
-#: modules/core.py:2030
+#: modules/core.py:2031
 #, python-format
 msgid "The File Link '%s' is Not Valid"
 msgstr "Der Dateipfad '%s' ist nicht gültig"
 
-#: modules/core.py:2038
+#: modules/core.py:2039
 #, python-format
 msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
 msgstr "Der Link verweist auf einen Knoten der nicht mehr exsistiert (ID = %s)"
 
-#: modules/core.py:2046
+#: modules/core.py:2047
 #, python-format
 msgid "No anchor named '%s' found"
 msgstr "Kein Anker mit den Namen '%s' gefunden"
 
-#: modules/core.py:2084
+#: modules/core.py:2085
 msgid "There are No Anchors in the Selected Node"
 msgstr "Keine Anker im ausgewählten Knoten vorhanden"
 
-#: modules/core.py:2089
+#: modules/core.py:2090
 msgid "Choose Existing Anchor"
 msgstr "Bestehenden Anker wählen"
 
-#: modules/core.py:2102
+#: modules/core.py:2103
 msgid "Anchor Name"
 msgstr "Anker Name"
 

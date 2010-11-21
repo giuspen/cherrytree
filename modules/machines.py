@@ -383,6 +383,7 @@ class XMLHandler:
             tag_found = curr_iter.forward_to_tag_toggle(None)
             if curr_iter.get_offset() == offset_old: break
       else: self.toc_insert_parser(text_buffer, start_iter, curr_iter)
+      if len(self.toc_list) == 0: return False
       tag_property == "link"
       property_value = "node" + cons.CHAR_SPACE + str(node_id)
       curr_offset = 0
@@ -402,6 +403,7 @@ class XMLHandler:
          text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), cons.CHAR_NEWLINE)
          curr_offset += 1
       text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), cons.CHAR_NEWLINE)
+      return True
    
    def toc_insert_parser(self, text_buffer, start_iter, end_iter):
       """Parses a Tagged String for the TOC insert"""
