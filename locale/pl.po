@@ -232,7 +232,7 @@ msgstr "Nazwa kotwicy jest już zajęta!"
 
 #: modules/core.py:1544
 msgid "Not Any H1 or H2 Formatting Found"
-msgstr ""
+msgstr "Nie znaleziono H1 oraz H2"
 
 #: modules/core.py:1569 modules/core.py:1848 modules/core.py:1855
 #: modules/core.py:1867
@@ -395,20 +395,19 @@ msgstr "Zapisz plik jako"
 
 #: modules/cons.py:373
 msgid "Export _Tree To HTML"
-msgstr ""
+msgstr "Eksportuj drzewo do HTML"
 
 #: modules/cons.py:373
 msgid "Export the Tree To HTML"
-msgstr ""
+msgstr "Eksportuj drzewo do HTML"
 
 #: modules/cons.py:374
 msgid "Export Node To _HTML"
-msgstr ""
+msgstr "Eksportuj gałąź do HTML"
 
 #: modules/cons.py:374
-#, fuzzy
 msgid "Export the Selected Node To HTML"
-msgstr "Eksportuj gałąź oraz jej podgałęzie"
+msgstr "Eksportuj zaznaczoną gałąź do HTML"
 
 #: modules/cons.py:375
 msgid "_Export Node and Subnodes"
@@ -491,14 +490,12 @@ msgid "Insert a Link/Edit the Underlying Link"
 msgstr "Dodaj/Zmien Link "
 
 #: modules/cons.py:385 modules/cons.py:484
-#, fuzzy
 msgid "Insert T_OC"
-msgstr "Dodaj ta_bele"
+msgstr "Dodaj spis treści"
 
 #: modules/cons.py:385 modules/cons.py:484
-#, fuzzy
 msgid "Insert Table of Contents"
-msgstr "Dodaj ta_bele"
+msgstr "Dodaj spis treści"
 
 #: modules/cons.py:386 modules/cons.py:483
 msgid "Insert _Anchor"
@@ -1311,7 +1308,7 @@ msgstr "Usuń kolumne"
 
 #: glade/cherrytree.glade.h:65
 msgid "Do Not Display Nodes Icons"
-msgstr ""
+msgstr "Nie wyświetlaj ikon gałęźi"
 
 #: glade/cherrytree.glade.h:66
 msgid "Enable Automatic Indentation"
@@ -1451,11 +1448,11 @@ msgstr "Szerokość załamywania nazwy gałęzi"
 
 #: glade/cherrytree.glade.h:105
 msgid "Use Bullets as Nodes Icons"
-msgstr ""
+msgstr "Użyj kropek jako ikony gałęźi"
 
 #: glade/cherrytree.glade.h:106
 msgid "Use Cherries as Nodes Icons"
-msgstr ""
+msgstr "Użyj wisienek jako ikony gałęźi"
 
 #: glade/cherrytree.glade.h:107
 msgid "Use Line Wrapping"
