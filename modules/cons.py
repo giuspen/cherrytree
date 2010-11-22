@@ -200,6 +200,7 @@ UI_INFO = """
          <menuitem action='NodesExpandAll'/>
          <menuitem action='NodesCollapseAll'/>
          <separator/>
+         <menuitem action='NodePrint'/>
          <menuitem action='SelNode2HTML'/>
          <menuitem action='AllNodes2HTML'/>
          <menuitem action='SelNode2CTD'/>
@@ -311,6 +312,7 @@ UI_INFO = """
       <menuitem action='FindNode'/>
       <menuitem action='ReplaceInNodesNames'/>
       <separator/>
+      <menuitem action='NodePrint'/>
       <menuitem action='SelNode2HTML'/>
       <menuitem action='AllNodes2HTML'/>
       <menuitem action='SelNode2CTD'/>
