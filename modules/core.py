@@ -21,7 +21,7 @@
 
 import gtk, pango, gtksourceview2, gobject
 import sys, os, re, subprocess, webbrowser, base64, cgi, urllib2
-import cons, support, config, machines, imports, exports, printing, tablez, lists, findreplace, codeboxes
+import cons, support, config, machines, clipboard, imports, exports, printing, tablez, lists, findreplace, codeboxes
 
 
 class GladeWidgetsWrapper:
@@ -53,6 +53,7 @@ class CherryTree:
    def __init__(self, lang_str, first_instance, open_with_file):
       """GUI Startup"""
       # instantiate external handlers
+      self.clipboard_handler = clipboard.ClipboardHandler(self)
       self.lists_handler = lists.ListsHandler(self)
       self.tables_handler = tablez.TablesHandler(self)
       self.codeboxes_handler = codeboxes.CodeBoxesHandler(self)
@@ -120,6 +121,9 @@ class CherryTree:
       self.sourceview.connect("motion-notify-event", self.on_sourceview_motion_notify_event)
       self.sourceview.connect("event-after", self.on_sourceview_event_after)
       self.sourceview.connect("visibility-notify-event", self.on_sourceview_visibility_notify_event)
+      self.sourceview.connect("copy-clipboard", self.clipboard_handler.copy)
+      self.sourceview.connect("cut-clipboard", self.clipboard_handler.cut)
+      self.sourceview.connect("paste-clipboard", self.clipboard_handler.paste)
       self.sourceview.set_left_margin(7)
       self.sourceview.set_right_margin(7)
       self.hovering_over_link = False
