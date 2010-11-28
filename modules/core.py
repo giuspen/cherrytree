@@ -1695,6 +1695,10 @@ class CherryTree:
    def on_mouse_button_clicked_image(self, widget, event, anchor):
       """Catches mouse buttons clicks upon images"""
       self.curr_image_anchor = anchor
+      iter_image = self.curr_buffer.get_iter_at_child_anchor(self.curr_image_anchor)
+      iter_bound = iter_image.copy()
+      iter_bound.forward_char()
+      self.curr_buffer.select_range(iter_image, iter_bound)
       if event.button == 3:
          self.ui.get_widget("/ImageMenu").popup(None, None, None, event.button, event.time)
       elif event.type == gtk.gdk._2BUTTON_PRESS: self.image_edit()
@@ -1702,6 +1706,10 @@ class CherryTree:
    def on_mouse_button_clicked_anchor(self, widget, event, anchor):
       """Catches mouse buttons clicks upon images"""
       self.curr_anchor_anchor = anchor
+      iter_anchor = self.curr_buffer.get_iter_at_child_anchor(self.curr_anchor_anchor)
+      iter_bound = iter_anchor.copy()
+      iter_bound.forward_char()
+      self.curr_buffer.select_range(iter_anchor, iter_bound)
       if event.button == 3:
          self.ui.get_widget("/AnchorMenu").popup(None, None, None, event.button, event.time)
       elif event.type == gtk.gdk._2BUTTON_PRESS: self.anchor_edit()
