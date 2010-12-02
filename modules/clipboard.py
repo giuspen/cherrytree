@@ -22,6 +22,11 @@
 import gtk
 
 
+TARGET_CTD_PLAIN_TEXT = 'UTF8_STRING'
+TARGET_CTD_RICH_TEXT = 'CTD'
+TARGETS_PLAIN_TEXT = ("UTF8_STRING", "COMPOUND_TEXT", "STRING", "TEXT")
+
+
 class ClipboardHandler:
    """Handler of Clipboard"""
    
@@ -32,15 +37,43 @@ class ClipboardHandler:
       
    def copy(self, sourceview):
       """Copy to Clipboard"""
-      #self.dad.sourceview.stop_emission("copy-clipboard")
-      print "copy"
+      sourceview.stop_emission("copy-clipboard")
+      if not self.dad.curr_buffer.get_has_selection(): return
+      self.selection_to_clipboard(self.dad.curr_buffer, sourceview)
       
    def cut(self, sourceview):
       """Cut to Clipboard"""
-      #self.dad.sourceview.stop_emission("cut-clipboard")
-      print "cut"
+      sourceview.stop_emission("cut-clipboard")
+      if not self.dad.curr_buffer.get_has_selection(): return
+      self.selection_to_clipboard(self.dad.curr_buffer, sourceview)
+      self.dad.curr_buffer.delete_selection(True, sourceview.get_editable())
+      
+   def selection_to_clipboard(self, text_buffer, sourceview):
+      """Write the Selected Content to the Clipboard"""
+      targets = [(target, 0, 0) for target in (TARGET_CTD_PLAIN_TEXT,)]
+      iter_sel_start, iter_sel_end = self.dad.curr_buffer.get_selection_bounds()
+      data = self.dad.curr_buffer.get_text(iter_sel_start, iter_sel_end)
+      self.clipboard.set_with_data(targets, self.get_func, self.clear_func, data)
+      
+   def get_func(self, clipboard, selectiondata, info, data):
+      """Connected with clipboard.set_with_data"""
+      selectiondata.set(TARGET_CTD_PLAIN_TEXT, 8, data)
+      
+   def clear_func(self, clipboard, data):
+      """Connected with clipboard.set_with_data"""
+      # this is to eventually free memory allocated when filling the clipboard
+      pass
       
    def paste(self, sourceview):
       """Paste from Clipboard"""
-      #self.dad.sourceview.stop_emission("paste-clipboard")
-      print "paste"
+      sourceview.stop_emission("paste-clipboard")
+      targets = self.clipboard.wait_for_targets()
+      if not targets: return
+      for target in TARGETS_PLAIN_TEXT:
+         if target in targets:
+            self.clipboard.request_contents(target, self.to_plain_text)
+            break
+   
+   def to_plain_text(self, clipboard, selectiondata, data):
+      """From Clipboard to Plain Text"""
+      self.dad.curr_buffer.insert(self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert()), selectiondata.get_text())
