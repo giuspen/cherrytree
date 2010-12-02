@@ -651,16 +651,16 @@ class CherryTree:
          print_compositor = gtksourceview2.print_compositor_new_from_view(self.sourceview)
          self.print_handler.print_code(self.glade.window, print_compositor, self.code_font)
    
-   def node_siblings_sort_descending(self, *args):
-      """Sorts all the Siblings of the Selected Node Descending"""
+   def node_siblings_sort_ascending(self, *args):
+      """Sorts all the Siblings of the Selected Node Ascending"""
       father_iter = self.treestore.iter_parent(self.curr_tree_iter)
       movements = False
       while self.node_siblings_sort_iteration(self.treestore, father_iter, True, 1):
          movements = True
       if movements: self.update_window_save_needed()
       
-   def node_siblings_sort_ascending(self, *args):
-      """Sorts all the Siblings of the Selected Node Ascending"""
+   def node_siblings_sort_descending(self, *args):
+      """Sorts all the Siblings of the Selected Node Descending"""
       father_iter = self.treestore.iter_parent(self.curr_tree_iter)
       movements = False
       while self.node_siblings_sort_iteration(self.treestore, father_iter, False, 1):
