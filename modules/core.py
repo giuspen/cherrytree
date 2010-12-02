@@ -1696,13 +1696,32 @@ class CherryTree:
       try: self.curr_image_anchor.pixbuf.save(filename, "png")
       except: support.dialog_error(_("Write to %s Failed") % filename, self.window)
       
-   def on_mouse_button_clicked_image(self, widget, event, anchor):
-      """Catches mouse buttons clicks upon images"""
-      self.curr_image_anchor = anchor
+   def image_set_selection(self):
+      """Put Selection Upon the Image"""
       iter_image = self.curr_buffer.get_iter_at_child_anchor(self.curr_image_anchor)
       iter_bound = iter_image.copy()
       iter_bound.forward_char()
       self.curr_buffer.select_range(iter_image, iter_bound)
+      
+   def image_cut(self, *args):
+      """Cut Image"""
+      self.image_set_selection()
+      self.sourceview.emit("cut-clipboard")
+   
+   def image_copy(self, *args):
+      """Cut Image"""
+      self.image_set_selection()
+      self.sourceview.emit("copy-clipboard")
+   
+   def image_delete(self, *args):
+      """Cut Image"""
+      self.image_set_selection()
+      self.curr_buffer.delete_selection(True, self.sourceview.get_editable())
+      
+   def on_mouse_button_clicked_image(self, widget, event, anchor):
+      """Catches mouse buttons clicks upon images"""
+      self.curr_image_anchor = anchor
+      self.image_set_selection()
       if event.button == 3:
          self.ui.get_widget("/ImageMenu").popup(None, None, None, event.button, event.time)
       elif event.type == gtk.gdk._2BUTTON_PRESS: self.image_edit()

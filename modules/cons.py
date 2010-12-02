@@ -330,6 +330,10 @@ UI_INFO = """
    </popup>
    
    <popup name='ImageMenu'>
+      <menuitem action='CutImage'/>
+      <menuitem action='CopyImage'/>
+      <menuitem action='DeleteImage'/>
+      <separator/>
       <menuitem action='EditImage'/>
       <menuitem action='SaveImage'/>
    </popup>
@@ -391,6 +395,9 @@ def get_entries(inst):
    ( "HandleImage", "Insert Image", _("Insert I_mage"), None, _("Insert an Image"), inst.image_handle),
    ( "SaveImage", "Save Image", _("_Save Image as PNG"), None, _("Save the Selected Image as a PNG file"), inst.image_save),
    ( "EditImage", "Edit Image", _("_Edit Image"), None, _("Edit the Selected Image"), inst.image_edit),
+   ( "CutImage", "gtk-cut", _("C_ut Image"), None, _("Edit the Selected Image"), inst.image_cut),
+   ( "CopyImage", "gtk-copy", _("_Copy Image"), None, _("Copy the Selected Image"), inst.image_copy),
+   ( "DeleteImage", "gtk-delete", _("_Delete Image"), None, _("Delete the Selected Image"), inst.image_delete),
    ( "HandleTable", "Insert Table", _("Insert _Table"), None, _("Insert a Table"), inst.table_handle),
    ( "HandleCodeBox", "Insert CodeBox", _("Insert _CodeBox"), None, _("Insert a CodeBox"), inst.codebox_handle),
    ( "DuplicateRow", "gtk-add", _("_Duplicate Row/Selection"), "<control>D", _("Duplicate the Whole Row/a Selection"), inst.text_row_selection_duplicate),
