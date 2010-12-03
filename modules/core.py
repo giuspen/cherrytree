@@ -315,6 +315,11 @@ class CherryTree:
    def on_sourceview_populate_popup(self, textview, menu):
       """Extend the Default Right-Click Menu"""
       if self.syntax_highlighting == cons.CUSTOM_COLORS_ID:
+         for menuitem in menu.get_children():
+            try:
+               if menuitem.get_image().get_property("stock") == "gtk-paste":
+                  menuitem.set_sensitive(True)
+            except: pass
          self.menu_populate_popup(menu, cons.get_popup_menu_entries_text(self))
       else: self.menu_populate_popup(menu, cons.get_popup_menu_entries_code(self))
       

@@ -20,11 +20,13 @@
 #       MA 02110-1301, USA.
 
 import gtk
+import cons
 
 
 TARGET_CTD_PLAIN_TEXT = 'UTF8_STRING'
 TARGET_CTD_RICH_TEXT = 'CTD'
 TARGETS_PLAIN_TEXT = ("UTF8_STRING", "COMPOUND_TEXT", "STRING", "TEXT")
+TARGETS_IMAGES = ('image/png', 'image/jpeg', 'image/bmp', 'image/tiff', 'image/x-MS-bmp', 'image/x-bmp')
 
 
 class ClipboardHandler:
@@ -68,8 +70,11 @@ class ClipboardHandler:
       """Paste from Clipboard"""
       sourceview.stop_emission("paste-clipboard")
       targets = self.clipboard.wait_for_targets()
-      print targets
       if not targets: return
+      for target in TARGETS_IMAGES:
+         if target in targets:
+            self.clipboard.request_contents(target, self.to_image)
+            return
       for target in TARGETS_PLAIN_TEXT:
          if target in targets:
             self.clipboard.request_contents(target, self.to_plain_text)
@@ -78,3 +83,9 @@ class ClipboardHandler:
    def to_plain_text(self, clipboard, selectiondata, data):
       """From Clipboard to Plain Text"""
       self.dad.curr_buffer.insert(self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert()), selectiondata.get_text())
+   
+   def to_image(self, clipboard, selectiondata, data):
+      """From Clipboard to Image"""
+      if self.dad.syntax_highlighting != cons.CUSTOM_COLORS_ID: return
+      pixbuf = selectiondata.get_pixbuf()
+      self.dad.image_edit_dialog(pixbuf, self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert()))
