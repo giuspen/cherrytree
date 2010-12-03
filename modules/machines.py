@@ -134,12 +134,14 @@ class XMLHandler:
       if dom_node.hasAttribute("width_in_pixels") and dom_node.attributes['width_in_pixels'].value != "True":
          width_in_pixels = False
       else: width_in_pixels = True
+      if dom_node.firstChild: fill_text = dom_node.firstChild.data
+      else: fill_text = ""
       codebox_dict = {
       'frame_width': int(dom_node.attributes['frame_width'].value),
       'frame_height': int(dom_node.attributes['frame_height'].value),
       'width_in_pixels': width_in_pixels,
       'syntax_highlighting': dom_node.attributes['syntax_highlighting'].value,
-      'fill_text': dom_node.firstChild.data
+      'fill_text': fill_text
       }
       self.dad.codeboxes_handler.codebox_insert(curr_buffer.get_iter_at_offset(char_offset),
                                                 codebox_dict,
