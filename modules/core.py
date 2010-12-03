@@ -1726,7 +1726,6 @@ class CherryTree:
       
    def on_mouse_button_clicked_image(self, widget, event, anchor):
       """Catches mouse buttons clicks upon images"""
-      anchor.image.grab_focus()
       self.curr_image_anchor = anchor
       self.object_set_selection(self.curr_image_anchor)
       if event.button == 3:

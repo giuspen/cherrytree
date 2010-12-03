@@ -19,7 +19,7 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
-import gtk
+import gtk, xml.dom.minidom
 import cons
 
 
@@ -113,3 +113,61 @@ class ClipboardHandler:
       if self.dad.syntax_highlighting != cons.CUSTOM_COLORS_ID: return
       pixbuf = selectiondata.get_pixbuf()
       self.dad.image_edit_dialog(pixbuf, self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert()))
+   
+   def to_codebox(self, clipboard, selectiondata, data):
+      """From Clipboard to CodeBox"""
+      dom = xml.dom.minidom.parseString(selectiondata.get_text())
+      root = dom.firstChild
+      if root.nodeName != "root":
+         print "codebox from clipboard error (no root)"
+         return
+      dom_iter = root.firstChild
+      while dom_iter!= None:
+         if dom_iter.nodeName == "codebox": break
+         dom_iter = dom_iter.nextSibling
+      else:
+         print "codebox from clipboard error (no codebox)"
+         return
+      if dom_node.hasAttribute("width_in_pixels") and dom_node.attributes['width_in_pixels'].value != "True":
+         width_in_pixels = False
+      else: width_in_pixels = True
+      if dom_node.firstChild: fill_text = dom_node.firstChild.data
+      else: fill_text = ""
+      codebox_dict = {
+      'frame_width': int(dom_node.attributes['frame_width'].value),
+      'frame_height': int(dom_node.attributes['frame_height'].value),
+      'width_in_pixels': width_in_pixels,
+      'syntax_highlighting': dom_node.attributes['syntax_highlighting'].value,
+      'fill_text': fill_text
+      }
+      self.dad.codeboxes_handler.codebox_insert(self.dad.curr_buffer.get_insert(), codebox_dict)
+   
+   def to_table(self, clipboard, selectiondata, data):
+      """From Clipboard to Table"""
+      dom = xml.dom.minidom.parseString(selectiondata.get_text())
+      root = dom.firstChild
+      if root.nodeName != "root":
+         print "codebox from clipboard error (no root)"
+         return
+      dom_iter = root.firstChild
+      while dom_iter!= None:
+         if dom_iter.nodeName == "table": break
+         dom_iter = dom_iter.nextSibling
+      else:
+         print "codebox from clipboard error (no table)"
+         return
+      table = {'matrix': [], 
+               'col_min': int(dom_node.attributes['col_min'].value),
+               'col_max': int(dom_node.attributes["col_max"].value)}
+      child_dom_iter = dom_node.firstChild
+      while child_dom_iter != None:
+         if child_dom_iter.nodeName == "row":
+            table['matrix'].append([])
+            nephew_dom_iter = child_dom_iter.firstChild
+            while nephew_dom_iter != None:
+               if nephew_dom_iter.nodeName == "cell":
+                  if nephew_dom_iter.firstChild != None: table['matrix'][-1].append(nephew_dom_iter.firstChild.data)
+                  else: table['matrix'][-1].append("")
+               nephew_dom_iter = nephew_dom_iter.nextSibling
+         child_dom_iter = child_dom_iter.nextSibling
+      self.dad.tables_handler.table_insert(self.dad.curr_buffer.get_insert(), table)
