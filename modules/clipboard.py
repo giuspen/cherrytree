@@ -52,6 +52,7 @@ class ClipboardHandler:
       if not self.dad.curr_buffer.get_has_selection(): return
       self.selection_to_clipboard(self.dad.curr_buffer, sourceview)
       self.dad.curr_buffer.delete_selection(True, sourceview.get_editable())
+      self.dad.sourceview.grab_focus()
       
    def selection_to_clipboard(self, text_buffer, sourceview):
       """Write the Selected Content to the Clipboard"""
@@ -62,7 +63,10 @@ class ClipboardHandler:
          if anchor:
             anchor_dir = dir(anchor)
             if "pixbuf" in anchor_dir:
-               self.clipboard.set_with_data([(TARGET_CTD_IMAGE, 0, 0)], self.get_func, self.clear_func, ("p", anchor.pixbuf))
+               self.clipboard.set_with_data([(TARGET_CTD_IMAGE, 0, 0)],
+                                            self.get_func,
+                                            self.clear_func,
+                                            ("p", anchor.pixbuf))
                return
             elif "liststore" in anchor_dir:
                print "got table"
@@ -71,7 +75,10 @@ class ClipboardHandler:
                print "got codebox"
                return
       plain_text = text_buffer.get_text(iter_sel_start, iter_sel_end)
-      self.clipboard.set_with_data([(TARGET_CTD_PLAIN_TEXT, 0, 0)], self.get_func, self.clear_func, ("t", plain_text))
+      self.clipboard.set_with_data([(TARGET_CTD_PLAIN_TEXT, 0, 0)],
+                                    self.get_func,
+                                    self.clear_func,
+                                    ("t", plain_text))
       
    def get_func(self, clipboard, selectiondata, info, data):
       """Connected with clipboard.set_with_data"""

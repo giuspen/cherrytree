@@ -31,6 +31,22 @@ class CodeBoxesHandler:
       """Lists Handler boot"""
       self.dad = dad
    
+   def codebox_cut(self, *args):
+      """Cut CodeBox"""
+      self.dad.object_set_selection(self.curr_codebox_anchor)
+      self.dad.sourceview.emit("cut-clipboard")
+   
+   def codebox_copy(self, *args):
+      """Copy CodeBox"""
+      self.dad.object_set_selection(self.curr_codebox_anchor)
+      self.dad.sourceview.emit("copy-clipboard")
+   
+   def codebox_delete(self, *args):
+      """Delete CodeBox"""
+      self.dad.object_set_selection(self.curr_codebox_anchor)
+      self.dad.curr_buffer.delete_selection(True, self.dad.sourceview.get_editable())
+      self.dad.sourceview.grab_focus()
+   
    def on_key_press_codeboxhandledialog(self, widget, event):
       """Catches CodeBoxHandle Dialog key presses"""
       keyname = gtk.gdk.keyval_name(event.keyval)
@@ -174,4 +190,5 @@ class CodeBoxesHandler:
    def on_sourceview_populate_popup_codebox(self, textview, menu, anchor):
       """Extend the Default Right-Click Menu of the CodeBox"""
       self.curr_codebox_anchor = anchor
+      self.dad.object_set_selection(self.curr_codebox_anchor)
       self.dad.menu_populate_popup(menu, cons.get_popup_menu_entries_codebox(self))

@@ -1670,9 +1670,9 @@ class CherryTree:
          anchor.eventbox.set_tooltip_text(pixbuf.anchor)
       else:
          anchor.eventbox.connect("button-press-event", self.on_mouse_button_clicked_image, anchor)
-      image = gtk.Image()
-      anchor.eventbox.add(image)
-      image.set_from_pixbuf(anchor.pixbuf)
+      anchor.image = gtk.Image()
+      anchor.eventbox.add(anchor.image)
+      anchor.image.set_from_pixbuf(anchor.pixbuf)
       self.sourceview.add_child_at_anchor(anchor.eventbox, anchor)
       anchor.eventbox.show_all()
       if image_justification:
@@ -1701,32 +1701,34 @@ class CherryTree:
       try: self.curr_image_anchor.pixbuf.save(filename, "png")
       except: support.dialog_error(_("Write to %s Failed") % filename, self.window)
       
-   def image_set_selection(self):
+   def object_set_selection(self, anchor):
       """Put Selection Upon the Image"""
-      iter_image = self.curr_buffer.get_iter_at_child_anchor(self.curr_image_anchor)
+      iter_image = self.curr_buffer.get_iter_at_child_anchor(anchor)
       iter_bound = iter_image.copy()
       iter_bound.forward_char()
       self.curr_buffer.select_range(iter_image, iter_bound)
       
    def image_cut(self, *args):
       """Cut Image"""
-      self.image_set_selection()
+      self.object_set_selection(self.curr_image_anchor)
       self.sourceview.emit("cut-clipboard")
    
    def image_copy(self, *args):
-      """Cut Image"""
-      self.image_set_selection()
+      """Copy Image"""
+      self.object_set_selection(self.curr_image_anchor)
       self.sourceview.emit("copy-clipboard")
    
    def image_delete(self, *args):
-      """Cut Image"""
-      self.image_set_selection()
+      """Delete Image"""
+      self.object_set_selection(self.curr_image_anchor)
       self.curr_buffer.delete_selection(True, self.sourceview.get_editable())
+      self.sourceview.grab_focus()
       
    def on_mouse_button_clicked_image(self, widget, event, anchor):
       """Catches mouse buttons clicks upon images"""
+      anchor.image.grab_focus()
       self.curr_image_anchor = anchor
-      self.image_set_selection()
+      self.object_set_selection(self.curr_image_anchor)
       if event.button == 3:
          self.ui.get_widget("/ImageMenu").popup(None, None, None, event.button, event.time)
       elif event.type == gtk.gdk._2BUTTON_PRESS: self.image_edit()

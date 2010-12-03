@@ -31,6 +31,22 @@ class TablesHandler:
       """Lists Handler boot"""
       self.dad = dad
       
+   def table_cut(self, *args):
+      """Cut Table"""
+      self.dad.object_set_selection(self.curr_table_anchor)
+      self.dad.sourceview.emit("cut-clipboard")
+   
+   def table_copy(self, *args):
+      """Copy Table"""
+      self.dad.object_set_selection(self.curr_table_anchor)
+      self.dad.sourceview.emit("copy-clipboard")
+   
+   def table_delete(self, *args):
+      """Delete Table"""
+      self.dad.object_set_selection(self.curr_table_anchor)
+      self.dad.curr_buffer.delete_selection(True, self.dad.sourceview.get_editable())
+      self.dad.sourceview.grab_focus()
+      
    def on_key_press_tablehandledialog(self, widget, event):
       """Catches TableHandle Dialog key presses"""
       keyname = gtk.gdk.keyval_name(event.keyval)
@@ -279,8 +295,9 @@ class TablesHandler:
       
    def on_mouse_button_clicked_table(self, widget, event, anchor):
       """Catches mouse buttons clicks"""
+      self.curr_table_anchor = anchor
+      self.dad.object_set_selection(self.curr_table_anchor)
       if event.button == 3:
-         self.curr_table_anchor = anchor
          self.dad.ui.get_widget("/TableMenu").popup(None, None, None, event.button, event.time)
    
 

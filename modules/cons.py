@@ -346,6 +346,10 @@ UI_INFO = """
    </popup>
    
    <popup name='TableMenu'>
+      <menuitem action='CutTable'/>
+      <menuitem action='CopyTable'/>
+      <menuitem action='DeleteTable'/>
+      <separator/>
       <menuitem action='TableRowAdd'/>
       <separator/>
       <menuitem action='TableRowUp'/>
@@ -398,9 +402,12 @@ def get_entries(inst):
    ( "HandleImage", "Insert Image", _("Insert I_mage"), None, _("Insert an Image"), inst.image_handle),
    ( "SaveImage", "Save Image", _("_Save Image as PNG"), None, _("Save the Selected Image as a PNG file"), inst.image_save),
    ( "EditImage", "Edit Image", _("_Edit Image"), None, _("Edit the Selected Image"), inst.image_edit),
-   ( "CutImage", "Cut", _("C_ut Image"), None, _("Edit the Selected Image"), inst.image_cut),
+   ( "CutImage", "Cut", _("C_ut Image"), None, _("Cut the Selected Image"), inst.image_cut),
    ( "CopyImage", "Copy", _("_Copy Image"), None, _("Copy the Selected Image"), inst.image_copy),
    ( "DeleteImage", "Delete", _("_Delete Image"), None, _("Delete the Selected Image"), inst.image_delete),
+   ( "CutTable", "Cut", _("C_ut Table"), None, _("Cut the Selected Table"), inst.tables_handler.table_cut),
+   ( "CopyTable", "Copy", _("_Copy Table"), None, _("Copy the Selected Table"), inst.tables_handler.table_copy),
+   ( "DeleteTable", "Delete", _("_Delete Table"), None, _("Delete the Selected Table"), inst.tables_handler.table_delete),
    ( "HandleTable", "Insert Table", _("Insert _Table"), None, _("Insert a Table"), inst.table_handle),
    ( "HandleCodeBox", "Insert CodeBox", _("Insert _CodeBox"), None, _("Insert a CodeBox"), inst.codebox_handle),
    ( "DuplicateRow", "gtk-add", _("_Duplicate Row/Selection"), "<control>D", _("Duplicate the Whole Row/a Selection"), inst.text_row_selection_duplicate),
@@ -533,6 +540,10 @@ def get_popup_menu_entries_codebox(inst):
    # stock id, label, tooltip, callback | "separator", None, None, None |
    # "submenu-start", label, stock id, None | "submenu-end", None, None, None
    return [
+   ("separator",None,None,None),
+   ("Cut", _("C_ut CodeBox"), _("Cut the Selected CodeBox"), inst.codebox_cut),
+   ("Copy", _("_Copy CodeBox"), _("Copy the Selected CodeBox"), inst.codebox_copy),
+   ("Delete", _("_Delete CodeBox"), _("Delete the Selected CodeBox"), inst.codebox_delete),
    ("separator",None,None,None),
    ("Edit CodeBox", _("Change CodeBox _Properties"), _("Edit the Properties of the CodeBox"), inst.codebox_change_properties),
    ("separator",None,None,None),
