@@ -68,6 +68,7 @@ class ClipboardHandler:
       """Paste from Clipboard"""
       sourceview.stop_emission("paste-clipboard")
       targets = self.clipboard.wait_for_targets()
+      print targets
       if not targets: return
       for target in TARGETS_PLAIN_TEXT:
          if target in targets:
