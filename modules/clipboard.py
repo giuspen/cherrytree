@@ -24,7 +24,10 @@ import cons
 
 
 TARGET_CTD_PLAIN_TEXT = 'UTF8_STRING'
-TARGET_CTD_RICH_TEXT = 'CTD'
+TARGET_CTD_RICH_TEXT = 'CTD_RICH'
+TARGET_CTD_IMAGE = 'image/png'
+TARGET_CTD_TABLE = 'CTD_TABLE'
+TARGET_CTD_CODEBOX = 'CTD_CODEBOX'
 TARGETS_PLAIN_TEXT = ("UTF8_STRING", "COMPOUND_TEXT", "STRING", "TEXT")
 TARGETS_IMAGES = ('image/png', 'image/jpeg', 'image/bmp', 'image/tiff', 'image/x-MS-bmp', 'image/x-bmp')
 
@@ -52,14 +55,28 @@ class ClipboardHandler:
       
    def selection_to_clipboard(self, text_buffer, sourceview):
       """Write the Selected Content to the Clipboard"""
-      targets = [(target, 0, 0) for target in (TARGET_CTD_PLAIN_TEXT,)]
-      iter_sel_start, iter_sel_end = self.dad.curr_buffer.get_selection_bounds()
-      data = self.dad.curr_buffer.get_text(iter_sel_start, iter_sel_end)
-      self.clipboard.set_with_data(targets, self.get_func, self.clear_func, data)
+      iter_sel_start, iter_sel_end = text_buffer.get_selection_bounds()
+      num_chars = iter_sel_end.get_offset() - iter_sel_start.get_offset()
+      if num_chars == 1:
+         anchor = iter_sel_start.get_child_anchor()
+         if anchor:
+            anchor_dir = dir(anchor)
+            if "pixbuf" in anchor_dir:
+               self.clipboard.set_with_data([(TARGET_CTD_IMAGE, 0, 0)], self.get_func, self.clear_func, ("p", anchor.pixbuf))
+               return
+            elif "liststore" in anchor_dir:
+               print "got table"
+               return
+            elif "sourcebuffer" in anchor_dir:
+               print "got codebox"
+               return
+      plain_text = text_buffer.get_text(iter_sel_start, iter_sel_end)
+      self.clipboard.set_with_data([(TARGET_CTD_PLAIN_TEXT, 0, 0)], self.get_func, self.clear_func, ("t", plain_text))
       
    def get_func(self, clipboard, selectiondata, info, data):
       """Connected with clipboard.set_with_data"""
-      selectiondata.set(TARGET_CTD_PLAIN_TEXT, 8, data)
+      if data[0] == "t": selectiondata.set(TARGET_CTD_PLAIN_TEXT, 8, data[1])
+      elif data[0] == "p": selectiondata.set_pixbuf(data[1])
       
    def clear_func(self, clipboard, data):
       """Connected with clipboard.set_with_data"""
