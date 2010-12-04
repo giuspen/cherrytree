@@ -66,24 +66,38 @@ class ClipboardHandler:
                self.clipboard.set_with_data([(TARGET_CTD_IMAGE, 0, 0)],
                                             self.get_func,
                                             self.clear_func,
-                                            ("p", anchor.pixbuf))
+                                            ("i", anchor.pixbuf))
                return
             elif "liststore" in anchor_dir:
-               print "got table"
+               self.clipboard.set_with_data([(TARGET_CTD_TABLE, 0, 0)],
+                                            self.get_func,
+                                            self.clear_func,
+                                            ("t", self.dad.state_machine.table_to_dict(anchor)))
                return
             elif "sourcebuffer" in anchor_dir:
-               print "got codebox"
+               self.clipboard.set_with_data([(TARGET_CTD_CODEBOX, 0, 0)],
+                                            self.get_func,
+                                            self.clear_func,
+                                            ("c", self.dad.state_machine.codebox_to_dict(anchor, for_print=False)))
                return
       plain_text = text_buffer.get_text(iter_sel_start, iter_sel_end)
       self.clipboard.set_with_data([(TARGET_CTD_PLAIN_TEXT, 0, 0)],
                                     self.get_func,
                                     self.clear_func,
-                                    ("t", plain_text))
+                                    ("p", plain_text))
       
    def get_func(self, clipboard, selectiondata, info, data):
       """Connected with clipboard.set_with_data"""
-      if data[0] == "t": selectiondata.set(TARGET_CTD_PLAIN_TEXT, 8, data[1])
-      elif data[0] == "p": selectiondata.set_pixbuf(data[1])
+      if data[0] == "p": selectiondata.set(TARGET_CTD_PLAIN_TEXT, 8, data[1])
+      elif data[0] == "i": selectiondata.set_pixbuf(data[1])
+      elif data[0] == "c":
+         dom = xml.dom.minidom.Document()
+         self.dad.xml_handler.codebox_element_to_xml([0, data[1], ""], dom)
+         selectiondata.set(TARGET_CTD_CODEBOX, 8, dom.toxml())
+      elif data[0] == "t":
+         dom = xml.dom.minidom.Document()
+         self.dad.xml_handler.table_element_to_xml([0, data[1], ""], dom)
+         selectiondata.set(TARGET_CTD_TABLE, 8, dom.toxml())
       
    def clear_func(self, clipboard, data):
       """Connected with clipboard.set_with_data"""
