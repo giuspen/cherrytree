@@ -22,7 +22,7 @@
 import os, sys, gtk
 
 
-VERSION = "0.16"
+VERSION = "0.17"
 APP_NAME = "cherrytree"
 NEWER_VERSION_URL = "http://www.giuspen.com/software/version_cherrytree"
 if sys.platform[0:3] == "win":
@@ -41,7 +41,7 @@ else:
    else:
       GLADE_PATH = '/usr/share/cherrytree/glade/'
       LOCALE_PATH = '/usr/share/locale/'
-AVAILABLE_LANGS = ['default', 'de', 'en', 'es', 'fr', 'it', 'pl', 'ru', 'uk']
+AVAILABLE_LANGS = ['default', 'cs', 'de', 'en', 'es', 'fr', 'it', 'pl', 'ru', 'uk']
 SHOW_MENU_ICONS = "gconftool-2 --set /desktop/gnome/interface/menus_have_icons --type bool 1"
 COLOR_WHITE = "#ffffffffffff"
 COLOR_BLACK = "#000000000000"

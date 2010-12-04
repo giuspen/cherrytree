@@ -1,5 +1,11 @@
 
-0.15 (Oct 15 2010)
+0.16 (November 25th, 2010)
+• implemented the export to html of a single node / the whole tree
+• added in the preferences dialog the opportunity to use bullets as tree nodes icons or to do not use tree icons at all
+• implemented the automatic generation of a table of contents for a node based on h1 and h2
+• fixed bug in codeboxes print/save as pdf: the code that was not focused was printed without syntax highlighting
+
+0.15 (October 15th, 2010)
 • improved the find/replace utility adding the 'all matches' option which allows to find/replace all matches at once and list the results
 • fixed find/replace bugs
 • added the menu item (help--check newer version) and preferences dialog option to automatically check for newer version (thanks Andriy)

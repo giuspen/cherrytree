@@ -123,7 +123,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 MA 02110-1301, USA.
 </property>
     <property name="authors">Giuseppe Penone &lt;giuspen@gmail.com&gt;</property>
-    <property name="translator_credits" translatable="yes">French (fr) Ludovic Troisi &lt;axalis@cegetel.net&gt;
+    <property name="translator_credits" translatable="yes">Czech (cs) Pavel Fric &lt;fripohled@blogspot.com&gt;
+French (fr) Ludovic Troisi &lt;axalis@cegetel.net&gt;
 German (de) Sven Neubauer &lt;me@dampfklon.de&gt;
 Italian (it) Giuseppe Penone &lt;giuspen@gmail.com&gt;
 Polish (pl) Marcin Swierczynski &lt;orneo1212@gmail.com&gt;
