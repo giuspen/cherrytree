@@ -90,19 +90,14 @@ class ClipboardHandler:
       
    def get_func(self, clipboard, selectiondata, info, data):
       """Connected with clipboard.set_with_data"""
-      print "ok", data[0]
       if data[0] == "p": selectiondata.set('UTF8_STRING', 8, data[1])
       elif data[0] == "i": selectiondata.set_pixbuf(data[1])
       elif data[0] == "c":
          dom = xml.dom.minidom.Document()
-         dom_node = dom.createElement("codebox")
-         dom.appendChild(dom_node)
-         self.dad.xml_handler.codebox_element_to_xml([0, data[1], ""], dom_node)
+         self.dad.xml_handler.codebox_element_to_xml([0, data[1], ""], dom)
          selectiondata.set('UTF8_STRING', 8, dom.toxml())
       elif data[0] == "t":
          dom = xml.dom.minidom.Document()
-         dom_node = dom.createElement("table")
-         dom.appendChild(dom_node)
          self.dad.xml_handler.table_element_to_xml([0, data[1], ""], dom)
          selectiondata.set('UTF8_STRING', 8, dom.toxml())
       
@@ -163,7 +158,8 @@ class ClipboardHandler:
       'syntax_highlighting': dom_node.attributes['syntax_highlighting'].value,
       'fill_text': fill_text
       }
-      self.dad.codeboxes_handler.codebox_insert(self.dad.curr_buffer.get_insert(), codebox_dict)
+      self.dad.codeboxes_handler.codebox_insert(self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert()),
+                                                codebox_dict)
    
    def to_table(self, clipboard, selectiondata, data):
       """From Clipboard to Table"""
@@ -186,4 +182,5 @@ class ClipboardHandler:
                   else: table['matrix'][-1].append("")
                nephew_dom_iter = nephew_dom_iter.nextSibling
          child_dom_iter = child_dom_iter.nextSibling
-      self.dad.tables_handler.table_insert(self.dad.curr_buffer.get_insert(), table)
+      self.dad.tables_handler.table_insert(self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert()),
+                                           table)
