@@ -69,16 +69,18 @@ class ClipboardHandler:
                                             ("i", anchor.pixbuf))
                return
             elif "liststore" in anchor_dir:
+               table_dict = self.dad.state_machine.table_to_dict(anchor)
                self.clipboard.set_with_data([(TARGET_CTD_TABLE, 0, 0)],
                                             self.get_func,
                                             self.clear_func,
-                                            ("t", self.dad.state_machine.table_to_dict(anchor)))
+                                            ("t", table_dict))
                return
             elif "sourcebuffer" in anchor_dir:
+               codebox_dict = self.dad.state_machine.codebox_to_dict(anchor, for_print=False)
                self.clipboard.set_with_data([(TARGET_CTD_CODEBOX, 0, 0)],
                                             self.get_func,
                                             self.clear_func,
-                                            ("c", self.dad.state_machine.codebox_to_dict(anchor, for_print=False)))
+                                            ("c", codebox_dict))
                return
       plain_text = text_buffer.get_text(iter_sel_start, iter_sel_end)
       self.clipboard.set_with_data([(TARGET_CTD_PLAIN_TEXT, 0, 0)],
@@ -88,16 +90,21 @@ class ClipboardHandler:
       
    def get_func(self, clipboard, selectiondata, info, data):
       """Connected with clipboard.set_with_data"""
-      if data[0] == "p": selectiondata.set(TARGET_CTD_PLAIN_TEXT, 8, data[1])
+      print "ok", data[0]
+      if data[0] == "p": selectiondata.set('UTF8_STRING', 8, data[1])
       elif data[0] == "i": selectiondata.set_pixbuf(data[1])
       elif data[0] == "c":
          dom = xml.dom.minidom.Document()
-         self.dad.xml_handler.codebox_element_to_xml([0, data[1], ""], dom)
-         selectiondata.set(TARGET_CTD_CODEBOX, 8, dom.toxml())
+         dom_node = dom.createElement("codebox")
+         dom.appendChild(dom_node)
+         self.dad.xml_handler.codebox_element_to_xml([0, data[1], ""], dom_node)
+         selectiondata.set('UTF8_STRING', 8, dom.toxml())
       elif data[0] == "t":
          dom = xml.dom.minidom.Document()
+         dom_node = dom.createElement("table")
+         dom.appendChild(dom_node)
          self.dad.xml_handler.table_element_to_xml([0, data[1], ""], dom)
-         selectiondata.set(TARGET_CTD_TABLE, 8, dom.toxml())
+         selectiondata.set('UTF8_STRING', 8, dom.toxml())
       
    def clear_func(self, clipboard, data):
       """Connected with clipboard.set_with_data"""
@@ -109,6 +116,12 @@ class ClipboardHandler:
       sourceview.stop_emission("paste-clipboard")
       targets = self.clipboard.wait_for_targets()
       if not targets: return
+      if TARGET_CTD_CODEBOX in targets:
+         self.clipboard.request_contents(TARGET_CTD_CODEBOX, self.to_codebox)
+         return
+      if TARGET_CTD_TABLE in targets:
+         self.clipboard.request_contents(TARGET_CTD_TABLE, self.to_table)
+         return
       for target in TARGETS_IMAGES:
          if target in targets:
             self.clipboard.request_contents(target, self.to_image)
@@ -120,27 +133,23 @@ class ClipboardHandler:
    
    def to_plain_text(self, clipboard, selectiondata, data):
       """From Clipboard to Plain Text"""
-      self.dad.curr_buffer.insert(self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert()), selectiondata.get_text())
+      plain_text = selectiondata.get_text()
+      self.dad.curr_buffer.insert(self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert()),
+                                  plain_text)
    
    def to_image(self, clipboard, selectiondata, data):
       """From Clipboard to Image"""
       if self.dad.syntax_highlighting != cons.CUSTOM_COLORS_ID: return
       pixbuf = selectiondata.get_pixbuf()
-      self.dad.image_edit_dialog(pixbuf, self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert()))
+      self.dad.image_edit_dialog(pixbuf,
+                                 self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert()))
    
    def to_codebox(self, clipboard, selectiondata, data):
       """From Clipboard to CodeBox"""
       dom = xml.dom.minidom.parseString(selectiondata.get_text())
-      root = dom.firstChild
-      if root.nodeName != "root":
-         print "codebox from clipboard error (no root)"
-         return
-      dom_iter = root.firstChild
-      while dom_iter!= None:
-         if dom_iter.nodeName == "codebox": break
-         dom_iter = dom_iter.nextSibling
-      else:
-         print "codebox from clipboard error (no codebox)"
+      dom_node = dom.firstChild
+      if dom_node.nodeName != "codebox":
+         print "codebox from clipboard error"
          return
       if dom_node.hasAttribute("width_in_pixels") and dom_node.attributes['width_in_pixels'].value != "True":
          width_in_pixels = False
@@ -159,16 +168,9 @@ class ClipboardHandler:
    def to_table(self, clipboard, selectiondata, data):
       """From Clipboard to Table"""
       dom = xml.dom.minidom.parseString(selectiondata.get_text())
-      root = dom.firstChild
-      if root.nodeName != "root":
-         print "codebox from clipboard error (no root)"
-         return
-      dom_iter = root.firstChild
-      while dom_iter!= None:
-         if dom_iter.nodeName == "table": break
-         dom_iter = dom_iter.nextSibling
-      else:
-         print "codebox from clipboard error (no table)"
+      dom_node = dom.firstChild
+      if dom_node.nodeName != "table":
+         print "table from clipboard error"
          return
       table = {'matrix': [], 
                'col_min': int(dom_node.attributes['col_min'].value),
