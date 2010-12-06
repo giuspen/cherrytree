@@ -66,37 +66,50 @@ class ClipboardHandler:
                self.clipboard.set_with_data([(TARGET_CTD_IMAGE, 0, 0)],
                                             self.get_func,
                                             self.clear_func,
-                                            ("i", anchor.pixbuf))
+                                            anchor.pixbuf)
                return
             elif "liststore" in anchor_dir:
                table_dict = self.dad.state_machine.table_to_dict(anchor)
                self.clipboard.set_with_data([(TARGET_CTD_TABLE, 0, 0)],
                                             self.get_func,
                                             self.clear_func,
-                                            ("t", table_dict))
+                                            table_dict)
                return
             elif "sourcebuffer" in anchor_dir:
                codebox_dict = self.dad.state_machine.codebox_to_dict(anchor, for_print=False)
                self.clipboard.set_with_data([(TARGET_CTD_CODEBOX, 0, 0)],
                                             self.get_func,
                                             self.clear_func,
-                                            ("c", codebox_dict))
+                                            codebox_dict)
                return
-      plain_text = text_buffer.get_text(iter_sel_start, iter_sel_end)
-      self.clipboard.set_with_data([(TARGET_CTD_PLAIN_TEXT, 0, 0)],
-                                    self.get_func,
-                                    self.clear_func,
-                                    ("p", plain_text))
+      if self.dad.syntax_highlighting == cons.CUSTOM_COLORS_ID:
+         plain_text = text_buffer.get_text(iter_sel_start, iter_sel_end)
+         rich_text = self.rich_text_get_from_text_buffer_selection(text_buffer, iter_sel_start, iter_sel_end)
+         self.clipboard.set_with_data([(TARGET_CTD_PLAIN_TEXT, 0, 0), (TARGET_CTD_RICH_TEXT, 0, 0)],
+                                      self.get_func,
+                                      self.clear_func,
+                                      (plain_text, rich_text))
+      else:
+         plain_text = text_buffer.get_text(iter_sel_start, iter_sel_end)
+         self.clipboard.set_with_data([(TARGET_CTD_PLAIN_TEXT, 0, 0)],
+                                       self.get_func,
+                                       self.clear_func,
+                                       (plain_text, None))
       
    def get_func(self, clipboard, selectiondata, info, data):
       """Connected with clipboard.set_with_data"""
-      if data[0] == "p": selectiondata.set('UTF8_STRING', 8, data[1])
-      elif data[0] == "i": selectiondata.set_pixbuf(data[1])
-      elif data[0] == "c":
+      target = selectiondata.get_target()
+      print target
+      if target == TARGET_CTD_PLAIN_TEXT:
+         selectiondata.set('UTF8_STRING', 8, data[0])
+      elif target == TARGET_CTD_RICH_TEXT:
+         selectiondata.set('UTF8_STRING', 8, data[1])
+      elif target == TARGET_CTD_IMAGE: selectiondata.set_pixbuf(data)
+      elif target == TARGET_CTD_CODEBOX:
          dom = xml.dom.minidom.Document()
-         self.dad.xml_handler.codebox_element_to_xml([0, data[1], ""], dom)
+         self.dad.xml_handler.codebox_element_to_xml([0, data, ""], dom)
          selectiondata.set('UTF8_STRING', 8, dom.toxml())
-      elif data[0] == "t":
+      elif target == TARGET_CTD_TABLE:
          dom = xml.dom.minidom.Document()
          self.dad.xml_handler.table_element_to_xml([0, data[1], ""], dom)
          selectiondata.set('UTF8_STRING', 8, dom.toxml())
@@ -111,14 +124,18 @@ class ClipboardHandler:
       sourceview.stop_emission("paste-clipboard")
       targets = self.clipboard.wait_for_targets()
       if not targets: return
-      if TARGET_CTD_CODEBOX in targets:
+      print targets
+      if TARGET_CTD_RICH_TEXT in targets and self.dad.syntax_highlighting == cons.CUSTOM_COLORS_ID:
+         self.clipboard.request_contents(TARGET_CTD_RICH_TEXT, self.to_rich_text)
+         return
+      if TARGET_CTD_CODEBOX in targets and self.dad.syntax_highlighting == cons.CUSTOM_COLORS_ID:
          self.clipboard.request_contents(TARGET_CTD_CODEBOX, self.to_codebox)
          return
-      if TARGET_CTD_TABLE in targets:
+      if TARGET_CTD_TABLE in targets and self.dad.syntax_highlighting == cons.CUSTOM_COLORS_ID:
          self.clipboard.request_contents(TARGET_CTD_TABLE, self.to_table)
          return
       for target in TARGETS_IMAGES:
-         if target in targets:
+         if target in targets and self.dad.syntax_highlighting == cons.CUSTOM_COLORS_ID:
             self.clipboard.request_contents(target, self.to_image)
             return
       for target in TARGETS_PLAIN_TEXT:
@@ -132,9 +149,12 @@ class ClipboardHandler:
       self.dad.curr_buffer.insert(self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert()),
                                   plain_text)
    
+   def to_rich_text(self, clipboard, selectiondata, data):
+      """From Clipboard to Rich Text"""
+      print selectiondata.get_text()
+   
    def to_image(self, clipboard, selectiondata, data):
       """From Clipboard to Image"""
-      if self.dad.syntax_highlighting != cons.CUSTOM_COLORS_ID: return
       pixbuf = selectiondata.get_pixbuf()
       self.dad.image_edit_dialog(pixbuf,
                                  self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert()))
