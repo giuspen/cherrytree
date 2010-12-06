@@ -99,11 +99,8 @@ class ClipboardHandler:
    def get_func(self, clipboard, selectiondata, info, data):
       """Connected with clipboard.set_with_data"""
       target = selectiondata.get_target()
-      print target
-      if target == TARGET_CTD_PLAIN_TEXT:
-         selectiondata.set('UTF8_STRING', 8, data[0])
-      elif target == TARGET_CTD_RICH_TEXT:
-         selectiondata.set('UTF8_STRING', 8, data[1])
+      if target == TARGET_CTD_PLAIN_TEXT: selectiondata.set('UTF8_STRING', 8, data[0])
+      elif target == TARGET_CTD_RICH_TEXT: selectiondata.set('UTF8_STRING', 8, data[1])
       elif target == TARGET_CTD_IMAGE: selectiondata.set_pixbuf(data)
       elif target == TARGET_CTD_CODEBOX:
          dom = xml.dom.minidom.Document()
@@ -111,7 +108,7 @@ class ClipboardHandler:
          selectiondata.set('UTF8_STRING', 8, dom.toxml())
       elif target == TARGET_CTD_TABLE:
          dom = xml.dom.minidom.Document()
-         self.dad.xml_handler.table_element_to_xml([0, data[1], ""], dom)
+         self.dad.xml_handler.table_element_to_xml([0, data, ""], dom)
          selectiondata.set('UTF8_STRING', 8, dom.toxml())
       
    def clear_func(self, clipboard, data):
@@ -124,7 +121,6 @@ class ClipboardHandler:
       sourceview.stop_emission("paste-clipboard")
       targets = self.clipboard.wait_for_targets()
       if not targets: return
-      print targets
       if TARGET_CTD_RICH_TEXT in targets and self.dad.syntax_highlighting == cons.CUSTOM_COLORS_ID:
          self.clipboard.request_contents(TARGET_CTD_RICH_TEXT, self.to_rich_text)
          return
