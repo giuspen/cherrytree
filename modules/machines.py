@@ -447,10 +447,11 @@ class StateMachine:
       # indicator 2 -> textbuffer is ahead with alphanumeric chars
       self.dad = dad
       
-   def get_embedded_pixbufs_tables_codeboxes(self, text_buffer, for_print=0):
+   def get_embedded_pixbufs_tables_codeboxes(self, text_buffer, for_print=0, sel_range=None):
       """Retrieve the list of Images Embedded into the Buffer"""
       pixbuf_table_codebox_vector = []
-      curr_iter = text_buffer.get_start_iter()
+      if sel_range: curr_iter = text_buffer.get_iter_at_offset(sel_range[0])
+      else: curr_iter = text_buffer.get_start_iter()
       while 1:
          anchor = curr_iter.get_child_anchor()
          if anchor != None:
@@ -468,6 +469,7 @@ class StateMachine:
                                                    self.codebox_to_dict(anchor, for_print),
                                                    self.get_iter_alignment(curr_iter)] ])
          if not curr_iter.forward_char(): break
+         if sel_range and curr_iter.get_offset() > sel_range[1]: break
       return pixbuf_table_codebox_vector
       
    def table_to_dict(self, anchor):
