@@ -246,7 +246,7 @@ class XMLHandler:
          self.rich_text_attributes_update(curr_iter, self.curr_attributes)
          tag_found = curr_iter.forward_to_tag_toggle(None)
          while tag_found:
-            self.rich_text_serialize(dom_iter, start_iter, curr_iter)
+            self.rich_text_serialize(dom_iter, start_iter, curr_iter, self.curr_attributes)
             if curr_iter.compare(end_iter) == 0: break
             else:
                self.rich_text_attributes_update(curr_iter, self.curr_attributes)
@@ -254,7 +254,7 @@ class XMLHandler:
                start_iter.set_offset(offset_old)
                tag_found = curr_iter.forward_to_tag_toggle(None)
                if curr_iter.get_offset() == offset_old: break
-         else: self.rich_text_serialize(dom_iter, start_iter, curr_iter)
+         else: self.rich_text_serialize(dom_iter, start_iter, curr_iter, self.curr_attributes)
          # in case of writing to disk it's time to serialize the info about the images
          if to_disk == True:
             pixbuf_table_codebox_vector = self.dad.state_machine.get_embedded_pixbufs_tables_codeboxes(curr_buffer)
@@ -265,7 +265,7 @@ class XMLHandler:
                elif element[0] == "codebox": self.codebox_element_to_xml(element[1], dom_iter)
       else:
          # plain text insert
-         self.rich_text_serialize(dom_iter, start_iter, end_iter)
+         self.rich_text_serialize(dom_iter, start_iter, end_iter, self.curr_attributes)
       tree_iter = self.dad.treestore.iter_children(tree_iter) # check for childrens
       while tree_iter != None:
          self.append_dom_node(tree_iter, dom_iter, to_disk)
@@ -315,12 +315,12 @@ class XMLHandler:
       else: text_iter = dom.createTextNode("anchor")
       dom_iter.appendChild(text_iter)
    
-   def rich_text_serialize(self, dom_node, start_iter, end_iter):
+   def rich_text_serialize(self, dom_node, start_iter, end_iter, curr_attributes):
       """Appends a new SourceBuffer part to the XML rich text"""
       dom_iter = self.dom.createElement("rich_text")
       for tag_property in cons.TAG_PROPERTIES:
-         if self.curr_attributes[tag_property] != "":
-            dom_iter.setAttribute(tag_property, self.curr_attributes[tag_property])
+         if curr_attributes[tag_property] != "":
+            dom_iter.setAttribute(tag_property, curr_attributes[tag_property])
       dom_node.appendChild(dom_iter)
       text_iter = self.dom.createTextNode(start_iter.get_text(end_iter))
       dom_iter.appendChild(text_iter)
