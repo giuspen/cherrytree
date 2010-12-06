@@ -184,3 +184,53 @@ class ClipboardHandler:
          child_dom_iter = child_dom_iter.nextSibling
       self.dad.tables_handler.table_insert(self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert()),
                                            table)
+   
+   def rich_text_get_from_text_buffer_selection(self, text_buffer, iter_sel_start, iter_sel_end):
+      """Given text_buffer and selection, returns the rich text xml"""
+      pixbuf_table_codebox_vector = self.dad.state_machine.get_embedded_pixbufs_tables_codeboxes(text_buffer,
+                                                                                                 for_print=1,
+                                                                                                 sel_range=(iter_sel_start.get_offset(), iter_sel_end.get_offset()))
+      # pixbuf_table_codebox_vector is [ [ "pixbuf"/"table"/"codebox", [offset, pixbuf, alignment] ],... ]
+      dom = xml.dom.minidom.Document()
+      root = dom.createElement("root")
+      dom.appendChild(root)
+      obj_pos = 0
+      start_offset = iter_sel_start.get_offset()
+      for end_offset_element in pixbuf_table_codebox_vector:
+         end_offset = end_offset_element[1][0]
+         if obj_pos < len(pixbuf_table_codebox_vector): obj_element = pixbuf_table_codebox_vector[obj_pos]
+         else: obj_element = None
+         self.rich_text_process_slot(dom, root, start_offset, end_offset, text_buffer, obj_element)
+         obj_pos += 1
+         start_offset = end_offset
+      self.rich_text_process_slot(dom, root, start_offset, iter_sel_end.get_offset(), text_buffer, None)
+      return dom.toxml()
+      
+   def rich_text_process_slot(self, dom, root, start_offset, end_offset, text_buffer, obj_element):
+      """Process a Single Pango Slot"""
+      dom_iter = dom.createElement("slot")
+      root.appendChild(dom_iter)
+      start_iter = text_buffer.get_iter_at_offset(start_offset)
+      #print "process slot (%s->%s)" % (start_offset, end_offset)
+      # begin operations
+      self.curr_attributes = {}
+      for tag_property in cons.TAG_PROPERTIES: self.curr_attributes[tag_property] = ""
+      curr_iter = start_iter.copy()
+      self.dad.xml_handler.rich_text_attributes_update(curr_iter, self.curr_attributes)
+      tag_found = curr_iter.forward_to_tag_toggle(None)
+      while tag_found:
+         if curr_iter.get_offset() > end_offset:
+            curr_iter = text_buffer.get_iter_at_offset(end_offset)
+         self.dad.xml_handler.rich_text_serialize(dom_iter, start_iter, curr_iter)
+         offset_old = curr_iter.get_offset()
+         if offset_old >= end_offset: break
+         else:
+            self.dad.xml_handler.rich_text_attributes_update(curr_iter, self.curr_attributes)
+            start_iter.set_offset(offset_old)
+            tag_found = curr_iter.forward_to_tag_toggle(None)
+            if curr_iter.get_offset() == offset_old: break
+      else: self.dad.xml_handler.rich_text_serialize(dom_iter, start_iter, curr_iter)
+      if obj_element:
+         if obj_element[0] == "pixbuf": self.dad.xml_handler.pixbuf_element_to_xml(obj_element[1], dom_iter, dom)
+         elif obj_element[0] == "table": self.dad.xml_handler.table_element_to_xml(obj_element[1], dom_iter)
+         elif obj_element[0] == "codebox": self.dad.xml_handler.codebox_element_to_xml(obj_element[1], dom_iter)
