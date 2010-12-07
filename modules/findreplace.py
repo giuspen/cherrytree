@@ -220,15 +220,16 @@ class FindReplace:
          match = None
          for temp_match in pattern.finditer(text, 0, start_iter.get_offset()): match = temp_match
       if match:
-         target = self.dad.curr_buffer.get_iter_at_offset(match.start())
+         num_objs = self.get_num_objs_before_offset(match.start())
+         target = self.dad.curr_buffer.get_iter_at_offset(match.start() + num_objs)
          self.dad.curr_buffer.place_cursor(target)
          target.forward_chars(match.end() - match.start())
          self.dad.curr_buffer.move_mark(self.dad.curr_buffer.get_selection_bound(), target)
          self.dad.sourceview.scroll_to_mark(self.dad.curr_buffer.get_insert(), 0.25)
          if all_matches:
             self.liststore.append([self.dad.curr_tree_iter,
-                                   match.start(),
-                                   match.end(),
+                                   match.start() + num_objs,
+                                   match.end() + num_objs,
                                    self.dad.treestore[self.dad.curr_tree_iter][1],
                                    self.get_line_content(target)])
          if self.replace_active:
@@ -238,6 +239,19 @@ class FindReplace:
             self.dad.state_machine.update_state(self.dad.treestore[self.dad.curr_tree_iter][3])
          return True
       else: return False
+   
+   def get_num_objs_before_offset(self, max_offset):
+      """Returns the num of objects from buffer start to the given offset"""
+      num_objs = 0
+      local_limit_offset = max_offset
+      curr_iter = self.dad.curr_buffer.get_start_iter()
+      while curr_iter.get_offset() < local_limit_offset:
+         anchor = curr_iter.get_child_anchor()
+         if anchor:
+            num_objs += 1
+            local_limit_offset += 1
+         if not curr_iter.forward_char(): break
+      return num_objs
    
    def parse_current_node_content(self, pattern, forward, first_fromsel, all_matches, first_node):
       """Returns True if pattern was find, False otherwise"""
