@@ -194,7 +194,7 @@ class XMLHandler:
             if property_value: tag_names.append(self.dad.apply_tag_exist_or_create(tag_property, property_value))
       tags_num = len(tag_names)
       if tags_num == 0: curr_buffer.insert(curr_buffer.get_end_iter(), text)
-      else : curr_buffer.insert_with_tags_by_name(curr_buffer.get_end_iter(), text, *tag_names)
+      else: curr_buffer.insert_with_tags_by_name(curr_buffer.get_end_iter(), text, *tag_names)
       
    def treestore_node_to_dom(self, node_iter):
       """Given a treestore iter returns the CherryTree rich text"""

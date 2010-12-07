@@ -20,7 +20,7 @@
 #       MA 02110-1301, USA.
 
 import gtk, xml.dom.minidom
-import cons
+import cons, machines
 
 
 TARGET_CTD_PLAIN_TEXT = 'UTF8_STRING'
@@ -104,11 +104,11 @@ class ClipboardHandler:
       elif target == TARGET_CTD_IMAGE: selectiondata.set_pixbuf(data)
       elif target == TARGET_CTD_CODEBOX:
          dom = xml.dom.minidom.Document()
-         self.dad.xml_handler.codebox_element_to_xml([0, data, ""], dom)
+         self.dad.xml_handler.codebox_element_to_xml([0, data, "left"], dom)
          selectiondata.set('UTF8_STRING', 8, dom.toxml())
       elif target == TARGET_CTD_TABLE:
          dom = xml.dom.minidom.Document()
-         self.dad.xml_handler.table_element_to_xml([0, data, ""], dom)
+         self.dad.xml_handler.table_element_to_xml([0, data, "left"], dom)
          selectiondata.set('UTF8_STRING', 8, dom.toxml())
       
    def clear_func(self, clipboard, data):
@@ -158,22 +158,50 @@ class ClipboardHandler:
             nephew_dom_iter = child_dom_iter.firstChild
             while nephew_dom_iter != None:
                if nephew_dom_iter.nodeName == "rich_text":
-                  print "got rich text"
+                  self.dom_node_to_rich_text(nephew_dom_iter)
                elif nephew_dom_iter.nodeName == "encoded_png":
-                  print "got image"
+                  self.dom_node_to_image(nephew_dom_iter)
                elif nephew_dom_iter.nodeName == "table":
-                  print "got table"
+                  self.dom_node_to_table(nephew_dom_iter)
                elif nephew_dom_iter.nodeName == "codebox":
-                  print "got codebox"
+                  self.dom_node_to_codebox(nephew_dom_iter)
                nephew_dom_iter = nephew_dom_iter.nextSibling
          child_dom_iter = child_dom_iter.nextSibling
-      print selectiondata.get_text()
+   
+   def dom_node_to_rich_text(self, dom_node):
+      """From dom_node to Rich Text"""
+      if dom_node.firstChild: text = dom_node.firstChild.data
+      else: text = ""
+      tag_names = []
+      for tag_property in cons.TAG_PROPERTIES:
+         if dom_node.hasAttribute(tag_property):
+            property_value = dom_node.attributes[tag_property].value
+            if property_value: tag_names.append(self.dad.apply_tag_exist_or_create(tag_property, property_value))
+      tags_num = len(tag_names)
+      if tags_num == 0:
+         self.dad.curr_buffer.insert(self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert()),
+                                     text)
+      else:
+         self.dad.curr_buffer.insert_with_tags_by_name(self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert()),
+                                                       text,
+                                                       *tag_names)
    
    def to_image(self, clipboard, selectiondata, data):
       """From Clipboard to Image"""
       pixbuf = selectiondata.get_pixbuf()
-      self.dad.image_edit_dialog(pixbuf,
-                                 self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert()))
+      self.dad.image_insert(self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert()), pixbuf)
+   
+   def dom_node_to_image(self, dom_node):
+      """From dom_node to Image"""
+      if dom_node.hasAttribute("justification"): justification = dom_node.attributes["justification"].value
+      else: justification = "left"
+      if dom_node.hasAttribute("anchor"):
+         pixbuf = gtk.gdk.pixbuf_new_from_file(cons.ANCHOR_CHAR)
+         pixbuf.anchor = dom_node.attributes["anchor"].value
+      else: pixbuf = machines.get_pixbuf_from_encoded_buffer(dom_node.firstChild.data)
+      self.dad.image_insert(self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert()),
+                            pixbuf,
+                            justification)
    
    def to_codebox(self, clipboard, selectiondata, data):
       """From Clipboard to CodeBox"""
@@ -182,6 +210,12 @@ class ClipboardHandler:
       if dom_node.nodeName != "codebox":
          print "codebox from clipboard error"
          return
+      self.dom_node_to_codebox(dom_node)
+   
+   def dom_node_to_codebox(self, dom_node):
+      """From dom_node to CodeBox"""
+      if dom_node.hasAttribute("justification"): justification = dom_node.attributes["justification"].value
+      else: justification = "left"
       if dom_node.hasAttribute("width_in_pixels") and dom_node.attributes['width_in_pixels'].value != "True":
          width_in_pixels = False
       else: width_in_pixels = True
@@ -195,7 +229,8 @@ class ClipboardHandler:
       'fill_text': fill_text
       }
       self.dad.codeboxes_handler.codebox_insert(self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert()),
-                                                codebox_dict)
+                                                codebox_dict,
+                                                justification)
    
    def to_table(self, clipboard, selectiondata, data):
       """From Clipboard to Table"""
@@ -204,6 +239,12 @@ class ClipboardHandler:
       if dom_node.nodeName != "table":
          print "table from clipboard error"
          return
+      self.dom_node_to_table(dom_node)
+   
+   def dom_node_to_table(self, dom_node):
+      """From dom_node to Table"""
+      if dom_node.hasAttribute("justification"): justification = dom_node.attributes["justification"].value
+      else: justification = "left"
       table = {'matrix': [], 
                'col_min': int(dom_node.attributes['col_min'].value),
                'col_max': int(dom_node.attributes["col_max"].value)}
@@ -219,7 +260,8 @@ class ClipboardHandler:
                nephew_dom_iter = nephew_dom_iter.nextSibling
          child_dom_iter = child_dom_iter.nextSibling
       self.dad.tables_handler.table_insert(self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert()),
-                                           table)
+                                           table,
+                                           justification)
    
    def rich_text_get_from_text_buffer_selection(self, text_buffer, iter_sel_start, iter_sel_end):
       """Given text_buffer and selection, returns the rich text xml"""
