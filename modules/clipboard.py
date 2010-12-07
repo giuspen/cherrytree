@@ -147,6 +147,26 @@ class ClipboardHandler:
    
    def to_rich_text(self, clipboard, selectiondata, data):
       """From Clipboard to Rich Text"""
+      dom = xml.dom.minidom.parseString(selectiondata.get_text())
+      dom_node = dom.firstChild
+      if dom_node.nodeName != "root":
+         print "rich text from clipboard error"
+         return
+      child_dom_iter = dom_node.firstChild
+      while child_dom_iter != None:
+         if child_dom_iter.nodeName == "slot":
+            nephew_dom_iter = child_dom_iter.firstChild
+            while nephew_dom_iter != None:
+               if nephew_dom_iter.nodeName == "rich_text":
+                  print "got rich text"
+               elif nephew_dom_iter.nodeName == "encoded_png":
+                  print "got image"
+               elif nephew_dom_iter.nodeName == "table":
+                  print "got table"
+               elif nephew_dom_iter.nodeName == "codebox":
+                  print "got codebox"
+               nephew_dom_iter = nephew_dom_iter.nextSibling
+         child_dom_iter = child_dom_iter.nextSibling
       print selectiondata.get_text()
    
    def to_image(self, clipboard, selectiondata, data):
