@@ -68,7 +68,7 @@ class XMLHandler:
       textbuffer.set_modified(False)
       return True
    
-   def dom_to_treestore(self, ctd, discard_ids):
+   def dom_to_treestore(self, ctd, discard_ids, tree_father=None):
       """Parse an XML Cherry Tree Document file and build the Tree"""
       dom = xml.dom.minidom.parseString(ctd)
       cherrytree = dom.firstChild
@@ -76,7 +76,7 @@ class XMLHandler:
       else:
          dom_iter = cherrytree.firstChild
          while dom_iter!= None:
-            if dom_iter.nodeName == "node": self.append_tree_node(dom_iter, None, discard_ids)
+            if dom_iter.nodeName == "node": self.append_tree_node(dom_iter, tree_father, discard_ids)
             dom_iter = dom_iter.nextSibling
          return True
          

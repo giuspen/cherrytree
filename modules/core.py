@@ -289,9 +289,25 @@ class CherryTree:
       cherrytree_string = re.sub(cons.BAD_CHARS, "", cherrytree_string)
       self.user_active = False
       file_loaded = False
+      append_location_dialog = gtk.Dialog(title=_("Imported Nodes Location"),
+                                          parent=self.window,
+                                          flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
+                                          buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
+                                                   gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
+      content_area = append_location_dialog.get_content_area()
+      radiobutton_root = gtk.RadioButton(label=_("The Imported Nodes Father Will Be the Tree Root"))
+      radiobutton_curr_node = gtk.RadioButton(label=_("The Imported Nodes Father Will Be the Selected Node"))
+      radiobutton_curr_node.set_group(radiobutton_root)
+      content_area = append_location_dialog.get_content_area()
+      content_area.pack_start(radiobutton_root)
+      content_area.pack_start(radiobutton_curr_node)
+      content_area.show_all()
+      append_location_dialog.run()
+      tree_father = None
+      append_location_dialog.destroy()
       try:
          # the imported nodes unique_ids must be discarded!
-         if self.xml_handler.dom_to_treestore(cherrytree_string, discard_ids=True):
+         if self.xml_handler.dom_to_treestore(cherrytree_string, discard_ids=True, tree_father=tree_father):
             if self.expand_tree: self.treeview.expand_all()
             file_loaded = True
       except: pass
