@@ -292,6 +292,11 @@ class CherryTree:
       former_node = self.curr_tree_iter # we'll restore after the import
       tree_father = None # init the value of the imported nodes father
       if self.curr_tree_iter:
+         self.nodes_cursor_pos[self.treestore[self.curr_tree_iter][3]] = self.curr_buffer.get_property('cursor-position')
+         if self.curr_buffer.get_modified() == True:
+            self.file_update = True
+            self.curr_buffer.set_modified(False)
+            self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
          append_location_dialog = gtk.Dialog(title=_("Who is the Father?"),
                                              parent=self.window,
                                              flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
@@ -305,9 +310,12 @@ class CherryTree:
          content_area.pack_start(radiobutton_root)
          content_area.pack_start(radiobutton_curr_node)
          content_area.show_all()
-         append_location_dialog.run()
+         response = append_location_dialog.run()
          if radiobutton_curr_node.get_active(): tree_father = self.curr_tree_iter
          append_location_dialog.destroy()
+         if response != gtk.RESPONSE_ACCEPT:
+            self.user_active = True
+            return
       try:
          # the imported nodes unique_ids must be discarded!
          if self.xml_handler.dom_to_treestore(cherrytree_string, discard_ids=True, tree_father=tree_father):
@@ -315,11 +323,29 @@ class CherryTree:
             file_loaded = True
       except: pass
       if file_loaded:
+         self.update_window_save_needed()
          if not former_node: former_node = self.treestore.get_iter_first()
          if former_node:
-            self.treeview.set_cursor(self.treestore.get_path(former_node))
-            self.sourceview.grab_focus()
-            self.update_window_save_needed()
+            self.curr_tree_iter = former_node
+            self.curr_buffer = self.treestore[self.curr_tree_iter][2]
+            self.sourceview.set_buffer(None)
+            self.sourceview.set_buffer(self.curr_buffer)
+            self.syntax_highlighting = self.treestore[self.curr_tree_iter][4]
+            self.curr_buffer.connect('modified-changed', self.on_modified_changed)
+            if self.syntax_highlighting == cons.CUSTOM_COLORS_ID:
+               self.curr_buffer.connect('insert-text', self.on_text_insertion)
+               self.curr_buffer.connect('delete-range', self.on_text_removal)
+               self.sourceview.modify_font(pango.FontDescription(self.text_font))
+            else: self.sourceview.modify_font(pango.FontDescription(self.code_font))
+            self.sourceview.set_sensitive(True)
+            self.glade.header_node_name_label.set_text("<big><b><i>"+cgi.escape(self.treestore[self.curr_tree_iter][1])+"</i></b></big>")
+            self.glade.header_node_name_label.set_use_markup(True)
+            self.state_machine.node_selected_changed(self.treestore[self.curr_tree_iter][3])
+            self.objects_buffer_refresh()
+            # try to restore cursor position if in memory
+            if self.treestore[former_node][3] in self.nodes_cursor_pos:
+               self.curr_buffer.place_cursor(self.curr_buffer.get_iter_at_offset(self.nodes_cursor_pos[self.treestore[former_node][3]]))
+               self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), 0.3)
       else: support.dialog_error('Error Parsing the CherryTree XML String', self.window)
       self.user_active = True
       
