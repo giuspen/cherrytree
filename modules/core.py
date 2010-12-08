@@ -289,7 +289,8 @@ class CherryTree:
       cherrytree_string = re.sub(cons.BAD_CHARS, "", cherrytree_string)
       self.user_active = False
       file_loaded = False
-      tree_father = None
+      former_node = self.curr_tree_iter # we'll restore after the import
+      tree_father = None # init the value of the imported nodes father
       if self.curr_tree_iter:
          append_location_dialog = gtk.Dialog(title=_("Who is the Father?"),
                                              parent=self.window,
@@ -314,9 +315,9 @@ class CherryTree:
             file_loaded = True
       except: pass
       if file_loaded:
-         first_node_iter = self.treestore.get_iter_first()
-         if first_node_iter != None:
-            self.treeview.set_cursor(self.treestore.get_path(first_node_iter))
+         if not former_node: former_node = self.treestore.get_iter_first()
+         if former_node:
+            self.treeview.set_cursor(self.treestore.get_path(former_node))
             self.sourceview.grab_focus()
             self.update_window_save_needed()
       else: support.dialog_error('Error Parsing the CherryTree XML String', self.window)
@@ -1264,7 +1265,7 @@ class CherryTree:
       self.glade.header_node_name_label.set_text("<big><b><i>"+cgi.escape(self.treestore[self.curr_tree_iter][1])+"</i></b></big>")
       self.glade.header_node_name_label.set_use_markup(True)
       self.state_machine.node_selected_changed(self.treestore[self.curr_tree_iter][3])
-      self.table_buffer_refresh()
+      self.objects_buffer_refresh()
       # try to restore cursor position if in memory
       if model[new_iter][3] in self.nodes_cursor_pos:
          self.curr_buffer.place_cursor(self.curr_buffer.get_iter_at_offset(self.nodes_cursor_pos[model[new_iter][3]]))
@@ -1405,8 +1406,8 @@ class CherryTree:
          self.curr_buffer.redo()
          self.update_window_save_needed()
    
-   def table_buffer_refresh(self):
-      """Buffer Refresh (Needed for Tables)"""
+   def objects_buffer_refresh(self):
+      """Buffer Refresh (Needed for Objects)"""
       refresh = self.state_machine.requested_current_state(self.treestore[self.curr_tree_iter][3])
       # refresh is [ [rich_text, pixbuf_table_vector, cursor_position],... ]
       pixbuf_table_vector = refresh[1]
