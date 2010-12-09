@@ -119,17 +119,15 @@ msgstr "Dokument NoteCase"
 
 #: modules/core.py:300
 msgid "Who is the Father?"
-msgstr ""
+msgstr "Która gałąź ma być nadrzędną"
 
 #: modules/core.py:306
-#, fuzzy
 msgid "The Tree Root"
-msgstr "Drzewo jest puste!"
+msgstr "Główna gałąź drzewa"
 
 #: modules/core.py:307
-#, fuzzy
 msgid "The Selected Node"
-msgstr "Usuń zaznaczoną gałąź"
+msgstr "Zaznaczona gałąź"
 
 #: modules/core.py:438
 msgid "CherryTree Hierarchical Note Taking"
@@ -552,63 +550,52 @@ msgid "Edit the Selected Image"
 msgstr "Zmień zaznaczony obrazek"
 
 #: modules/cons.py:405
-#, fuzzy
 msgid "C_ut Image"
-msgstr "Zmień Obrazek"
+msgstr "Wytnij obrazek"
 
 #: modules/cons.py:405
-#, fuzzy
 msgid "Cut the Selected Image"
-msgstr "Zmień zaznaczony obrazek"
+msgstr "Wytnij zaznaczony obrazek"
 
 #: modules/cons.py:406
-#, fuzzy
 msgid "_Copy Image"
-msgstr "Zmień Obrazek"
+msgstr "_Kopiuj obrazek"
 
 #: modules/cons.py:406
-#, fuzzy
 msgid "Copy the Selected Image"
-msgstr "Zmień zaznaczony obrazek"
+msgstr "Kopiuj zaznaczony obrazek"
 
 #: modules/cons.py:407
-#, fuzzy
 msgid "_Delete Image"
-msgstr "Zmień Obrazek"
+msgstr "_Usuń obrazek"
 
 #: modules/cons.py:407
-#, fuzzy
 msgid "Delete the Selected Image"
-msgstr "Usuń zaznaczoną gałąź"
+msgstr "Usuń zaznaczony obrazek"
 
 #: modules/cons.py:408
-#, fuzzy
 msgid "C_ut Table"
 msgstr "Dodaj ta_bele"
 
 #: modules/cons.py:408
-#, fuzzy
 msgid "Cut the Selected Table"
 msgstr "Usuń zaznaczony wiersz w tabeli"
 
 #: modules/cons.py:409
 msgid "_Copy Table"
-msgstr ""
+msgstr "_Kopiuj tabele"
 
 #: modules/cons.py:409
-#, fuzzy
 msgid "Copy the Selected Table"
-msgstr "Usuń zaznaczony wiersz w tabeli"
+msgstr "Kopiuj zaznaczoną tabele"
 
 #: modules/cons.py:410
-#, fuzzy
 msgid "_Delete Table"
-msgstr "Dodaj ta_bele"
+msgstr "_Usuń tabele"
 
 #: modules/cons.py:410
-#, fuzzy
 msgid "Delete the Selected Table"
-msgstr "Usuń zaznaczony wiersz w tabeli"
+msgstr "Usuń zaznaczoną tabele"
 
 #: modules/cons.py:411 modules/cons.py:500
 msgid "Insert _Table"
@@ -1118,34 +1105,28 @@ msgid "_Insert"
 msgstr "Dodaj"
 
 #: modules/cons.py:544
-#, fuzzy
 msgid "C_ut CodeBox"
-msgstr "Zmień pole kodu"
+msgstr "_Wytnij pole kodu"
 
 #: modules/cons.py:544
-#, fuzzy
 msgid "Cut the Selected CodeBox"
-msgstr "Usuń zaznaczoną gałąź"
+msgstr "Wytnij zaznaczone pole kodu"
 
 #: modules/cons.py:545
-#, fuzzy
 msgid "_Copy CodeBox"
-msgstr "Zmień pole kodu"
+msgstr "Kopiuj pole kodu"
 
 #: modules/cons.py:545
-#, fuzzy
 msgid "Copy the Selected CodeBox"
-msgstr "Przenieś gałąź niżej"
+msgstr "Kopiuj zaznaczone pole kodu"
 
 #: modules/cons.py:546
-#, fuzzy
 msgid "_Delete CodeBox"
-msgstr "_Usuń Gałąź"
+msgstr "_Usuń pole kodu"
 
 #: modules/cons.py:546
-#, fuzzy
 msgid "Delete the Selected CodeBox"
-msgstr "Usuń zaznaczoną gałąź"
+msgstr "Usuń zaznaczone pole kodu"
 
 #: modules/cons.py:548
 msgid "Change CodeBox _Properties"
@@ -1406,7 +1387,6 @@ msgstr ""
 "Giuseppe Penone <giuspen@gmail.com>"
 
 #: glade/cherrytree.glade.h:64
-#, fuzzy
 msgid ""
 "Czech (cs) Pavel Fric <fripohled@blogspot.com>\n"
 "French (fr) Ludovic Troisi <axalis@cegetel.net>\n"
@@ -1417,6 +1397,7 @@ msgid ""
 "Spanish (es) Daniel MC <ixzus@archlinux.co.uk>\n"
 "Ukrainian (uk) Andriy Kovtun <kovtunos@yandex.ru>"
 msgstr ""
+"Czeski (cs) Pavel Fric <fripohled@blogspot.com>\n"
 "Francuski (fr) Ludovic Troisi <axalis@cegetel.net>\n"
 "Niemiecki (de) Sven Neubauer <me@dampfklon.de>\n"
 "Włoski (it) Giuseppe Penone <giuspen@gmail.com>\n"

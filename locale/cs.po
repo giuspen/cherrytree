@@ -4,13 +4,14 @@
 #
 # maul <giuspen@gmail.com>, 2010.
 # Pavel Fric <fripohled@blogspot.com>, 2010.
+# Pavel Fric <fripohled.blogspot.com>, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-12-08 23:34+0100\n"
-"PO-Revision-Date: 2010-12-04 17:39+0100\n"
-"Last-Translator: Pavel Fric <fripohled@blogspot.com>\n"
+"PO-Revision-Date: 2010-12-09 08:47+0100\n"
+"Last-Translator: Pavel Fric <fripohled.blogspot.com>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -121,17 +122,15 @@ msgstr "Dokument NoteCase"
 
 #: modules/core.py:300
 msgid "Who is the Father?"
-msgstr ""
+msgstr "Který je nadřízený uzel"
 
 #: modules/core.py:306
-#, fuzzy
 msgid "The Tree Root"
-msgstr "Strom je prázdný!"
+msgstr "Kořen stromu"
 
 #: modules/core.py:307
-#, fuzzy
 msgid "The Selected Node"
-msgstr "Smazat označený uzel"
+msgstr "Označený uzel"
 
 #: modules/core.py:438
 msgid "CherryTree Hierarchical Note Taking"
@@ -556,63 +555,52 @@ msgid "Edit the Selected Image"
 msgstr "Upravit vybraný obrázek"
 
 #: modules/cons.py:405
-#, fuzzy
 msgid "C_ut Image"
-msgstr "_Upravit obrázek"
+msgstr "Vy_jmout obrázek"
 
 #: modules/cons.py:405
-#, fuzzy
 msgid "Cut the Selected Image"
-msgstr "Upravit vybraný obrázek"
+msgstr "Vyjmout vybraný obrázek"
 
 #: modules/cons.py:406
-#, fuzzy
 msgid "_Copy Image"
-msgstr "_Upravit obrázek"
+msgstr "_Kopírovat obrázek"
 
 #: modules/cons.py:406
-#, fuzzy
 msgid "Copy the Selected Image"
-msgstr "Upravit vybraný obrázek"
+msgstr "Kopírovat vybraný obrázek"
 
 #: modules/cons.py:407
-#, fuzzy
 msgid "_Delete Image"
-msgstr "_Upravit obrázek"
+msgstr "_Smazat obrázek"
 
 #: modules/cons.py:407
-#, fuzzy
 msgid "Delete the Selected Image"
-msgstr "Smazat označený uzel"
+msgstr "Smazat vybraný obrázek"
 
 #: modules/cons.py:408
-#, fuzzy
 msgid "C_ut Table"
-msgstr "Vložit tabulku"
+msgstr "Vyj_mout tabulku"
 
 #: modules/cons.py:408
-#, fuzzy
 msgid "Cut the Selected Table"
-msgstr "Smazat označený řádek v tabulce"
+msgstr "Vyjmout vybranou tabulku"
 
 #: modules/cons.py:409
 msgid "_Copy Table"
-msgstr ""
+msgstr "_Kopírovat tabulku"
 
 #: modules/cons.py:409
-#, fuzzy
 msgid "Copy the Selected Table"
-msgstr "Smazat označený řádek v tabulce"
+msgstr "Kopírovat vybranou tabulku"
 
 #: modules/cons.py:410
-#, fuzzy
 msgid "_Delete Table"
-msgstr "Vložit tabulku"
+msgstr "_Smazat tabulku"
 
 #: modules/cons.py:410
-#, fuzzy
 msgid "Delete the Selected Table"
-msgstr "Smazat označený řádek v tabulce"
+msgstr "Smazat vybranou tabulku"
 
 #: modules/cons.py:411 modules/cons.py:500
 msgid "Insert _Table"
@@ -1122,34 +1110,28 @@ msgid "_Insert"
 msgstr "_Vložit"
 
 #: modules/cons.py:544
-#, fuzzy
 msgid "C_ut CodeBox"
-msgstr "Upravit CodeBox"
+msgstr "V_yjmout CodeBox"
 
 #: modules/cons.py:544
-#, fuzzy
 msgid "Cut the Selected CodeBox"
-msgstr "Smazat označený uzel"
+msgstr "Vyjmout vybraný CodeBox"
 
 #: modules/cons.py:545
-#, fuzzy
 msgid "_Copy CodeBox"
-msgstr "Upravit CodeBox"
+msgstr "_Kopírovat CodeBox"
 
 #: modules/cons.py:545
-#, fuzzy
 msgid "Copy the Selected CodeBox"
-msgstr "Posunout označený uzel dolů"
+msgstr "Kopírovat vybraný CodeBox"
 
 #: modules/cons.py:546
-#, fuzzy
 msgid "_Delete CodeBox"
-msgstr "Smazat u_zel"
+msgstr "S_mazat CodeBox"
 
 #: modules/cons.py:546
-#, fuzzy
 msgid "Delete the Selected CodeBox"
-msgstr "Smazat označený uzel"
+msgstr "Smazat vybraný CodeBox"
 
 #: modules/cons.py:548
 msgid "Change CodeBox _Properties"
@@ -1408,7 +1390,6 @@ msgstr ""
 "Giuseppe Penone <giuspen@gmail.com>"
 
 #: glade/cherrytree.glade.h:64
-#, fuzzy
 msgid ""
 "Czech (cs) Pavel Fric <fripohled@blogspot.com>\n"
 "French (fr) Ludovic Troisi <axalis@cegetel.net>\n"
@@ -1419,6 +1400,7 @@ msgid ""
 "Spanish (es) Daniel MC <ixzus@archlinux.co.uk>\n"
 "Ukrainian (uk) Andriy Kovtun <kovtunos@yandex.ru>"
 msgstr ""
+"Český (cs) Pavel Fric <fripohled@blogspot.com>\n"
 "Francouzský (fr) Ludovic Troisi <axalis@cegetel.net>\n"
 "Německý (de) Sven Neubauer <me@dampfklon.de>\n"
 "Italský (it) Giuseppe Penone <giuspen@gmail.com>\n"
@@ -1590,3 +1572,4 @@ msgstr "http://www.giuspen.com/cherrytree/"
 #: glade/cherrytree.glade.h:116
 msgid "pixels"
 msgstr "pixely"
+
