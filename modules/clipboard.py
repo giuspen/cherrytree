@@ -19,7 +19,7 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
-import gtk, xml.dom.minidom
+import gtk, xml.dom.minidom, re
 import cons, machines, exports, imports
 
 
@@ -152,7 +152,8 @@ class ClipboardHandler:
    def to_html(self, clipboard, selectiondata, data):
       """From Clipboard to HTML Text"""
       html_import = imports.HTMLFromClipboardHandler()
-      xml_string = html_import.get_clipboard_selection_xml(selectiondata.data)
+      selection_data = re.sub(cons.BAD_CHARS, "", selectiondata.data)
+      xml_string = html_import.get_clipboard_selection_xml(selection_data)
       self.from_xml_string_to_buffer(xml_string)
    
    def to_plain_text(self, clipboard, selectiondata, data):

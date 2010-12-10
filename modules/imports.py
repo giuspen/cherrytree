@@ -752,18 +752,15 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
             if len(link_url) > 7:
                if link_url[0:4] == "http": self.curr_attributes["link"] = "webs %s" % link_url
                elif link_url[0:7] == "file://": self.curr_attributes["link"] = "file %s" % base64.b64encode(link_url[7:])
-         elif tag == "br":
-            # this is a data block composed only by an endline
-            self.rich_text_serialize("\n")
-         elif tag == "li":
-            self.rich_text_serialize("\n• ")
+         elif tag == "br": self.rich_text_serialize(cons.CHAR_NEWLINE)
+         elif tag == "li": self.rich_text_serialize("\n• ")
          elif tag == "img" and len(attrs) > 0:
             pass # cross clipboard images not handled yet
    
    def handle_endtag(self, tag):
       """Encountered the end of a tag"""
       if self.curr_state != 2: return
-      if tag == "body": self.curr_state = 0
+      elif tag == "p": self.rich_text_serialize(cons.CHAR_NEWLINE)
       elif tag == "b": self.curr_attributes["weight"] = ""
       elif tag == "i": self.curr_attributes["style"] = ""
       elif tag == "u": self.curr_attributes["underline"] = ""
@@ -778,7 +775,7 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
       if self.curr_state == 0 or data in ['\n', '\n\n']: return
       elif self.curr_state == 2:
          # state 2 got data
-         clean_data = data.replace("\n", "")
+         clean_data = data.replace(cons.CHAR_NEWLINE, "")
          self.rich_text_serialize(clean_data)
       
    def handle_entityref(self, name):
@@ -803,5 +800,36 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
       self.latest_span = ""
       # curr_state 0: standby, taking no data
       # curr_state 2: waiting for node content, take many data
-      self.feed(input_string.decode("utf-8", "ignore"))
+      input_string = input_string.decode("utf-8", "ignore")
+      if not HTMLCheck().is_html_ok(input_string):
+         input_string = cons.HTML_HEADER % "" + input_string + cons.HTML_FOOTER
+      self.feed(input_string)
       return self.dom.toxml()
+
+
+class HTMLCheck(HTMLParser.HTMLParser):
+   """Check for Minimal Tags"""
+   
+   def __init__(self):
+      """Machine boot"""
+      HTMLParser.HTMLParser.__init__(self)
+      
+   def handle_starttag(self, tag, attrs):
+      """Encountered the beginning of a tag"""
+      if tag == "html" and self.steps == 0: self.steps = 1
+      elif tag == "head" and self.steps == 1: self.steps = 2
+      elif tag == "title" and self.steps == 2: self.steps = 3
+      elif tag == "body" and self.steps == 5: self.steps = 6
+      
+   def handle_endtag(self, tag):
+      """Encountered the end of a tag"""
+      if tag == "title" and self.steps == 3: self.steps = 4
+      elif tag == "head" and self.steps == 4: self.steps = 5
+      elif tag == "body" and self.steps == 6: self.steps = 7
+      if tag == "html" and self.steps == 7: self.steps = 8
+      
+   def is_html_ok(self, input_string):
+      """Checks for the minimal html tags"""
+      self.steps = 0
+      self.feed(input_string)
+      return self.steps == 8
