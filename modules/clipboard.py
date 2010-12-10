@@ -83,8 +83,7 @@ class ClipboardHandler:
                                             self.clear_func,
                                             codebox_dict)
                return
-      html_handler = exports.Export2Html(self.dad)
-      html_text = html_handler.selection_export_to_html(text_buffer, iter_sel_start, iter_sel_end, self.dad.syntax_highlighting)
+      html_text = self.dad.html_handler.selection_export_to_html(text_buffer, iter_sel_start, iter_sel_end, self.dad.syntax_highlighting)
       if self.dad.syntax_highlighting == cons.CUSTOM_COLORS_ID:
          plain_text = text_buffer.get_text(iter_sel_start, iter_sel_end)
          rich_text = self.rich_text_get_from_text_buffer_selection(text_buffer, iter_sel_start, iter_sel_end)

@@ -498,8 +498,7 @@ class StateMachine:
          pango_handler = exports.Export2Pango(self)
          codebox_dict['fill_text'] = pango_handler.pango_get_from_code_buffer(anchor.sourcebuffer)
       elif for_print == 2:
-         html_handler = exports.Export2Html(self)
-         codebox_dict['fill_text'] = html_handler.html_get_from_code_buffer(anchor.sourcebuffer)
+         codebox_dict['fill_text'] = self.dad.html_handler.html_get_from_code_buffer(anchor.sourcebuffer)
       else: codebox_dict['fill_text'] = anchor.sourcebuffer.get_text(*anchor.sourcebuffer.get_bounds())
       return codebox_dict
       

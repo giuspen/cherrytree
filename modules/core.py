@@ -59,6 +59,7 @@ class CherryTree:
       self.codeboxes_handler = codeboxes.CodeBoxesHandler(self)
       self.state_machine = machines.StateMachine(self)
       self.xml_handler = machines.XMLHandler(self)
+      self.html_handler = exports.Export2Html(self)
       self.find_handler = findreplace.FindReplace(self)
       self.print_handler = printing.PrintHandler()
       # icon factory
@@ -662,18 +663,16 @@ class CherryTree:
       if self.curr_tree_iter == None:
          support.dialog_warning(_("No Node is Selected!"), self.window)
          return
-      html_handler = exports.Export2Html(self)
-      if html_handler.prepare_html_folder(self.treestore[self.curr_tree_iter][1]):
-         html_handler.node_export_to_html(self.curr_tree_iter)
+      if self.html_handler.prepare_html_folder(self.treestore[self.curr_tree_iter][1]):
+         self.html_handler.node_export_to_html(self.curr_tree_iter)
    
    def nodes_all_export_to_html(self, *args):
       """Export All Nodes To HTML"""
       if self.tree_is_empty():
          support.dialog_warning(_("The Tree is Empty!"), self.window)
          return
-      html_handler = exports.Export2Html(self)
-      if html_handler.prepare_html_folder(self.file_name):
-         html_handler.nodes_all_export_to_html()
+      if self.html_handler.prepare_html_folder(self.file_name):
+         self.html_handler.nodes_all_export_to_html()
       
    def node_print_page_setup(self, action):
       """Print Page Setup Operations"""
