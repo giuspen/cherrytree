@@ -2,13 +2,13 @@
 # Copyright (C) 2010 THE svn_cherrytree'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the svn_cherrytree package.
 # maul <giuspen@gmail.com>, 2010.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-12-08 23:34+0100\n"
-"PO-Revision-Date: 2010-11-24 18:37+0100\n"
+"PO-Revision-Date: 2010-12-10 18:53+0100\n"
 "Last-Translator: Sven Neubauer <me@dampfklon.de>\n"
 "Language-Team: German\n"
 "MIME-Version: 1.0\n"
@@ -119,17 +119,15 @@ msgstr "NoteCase"
 
 #: modules/core.py:300
 msgid "Who is the Father?"
-msgstr ""
+msgstr "Welcher ist der übergeordnete Knoten?"
 
 #: modules/core.py:306
-#, fuzzy
 msgid "The Tree Root"
-msgstr "Die Baumstruktur ist leer!"
+msgstr "Die Baumstruktur"
 
 #: modules/core.py:307
-#, fuzzy
 msgid "The Selected Node"
-msgstr "Den Markierten Knoten löschen"
+msgstr "Der markierte Knoten"
 
 #: modules/core.py:438
 msgid "CherryTree Hierarchical Note Taking"
@@ -555,63 +553,52 @@ msgid "Edit the Selected Image"
 msgstr "Das markierte Bild bearbeiten"
 
 #: modules/cons.py:405
-#, fuzzy
 msgid "C_ut Image"
-msgstr "_Bild bearbeiten..."
+msgstr "Bild ausschneiden"
 
 #: modules/cons.py:405
-#, fuzzy
 msgid "Cut the Selected Image"
-msgstr "Das markierte Bild bearbeiten"
+msgstr "Das markierte Bild ausschneiden"
 
 #: modules/cons.py:406
-#, fuzzy
 msgid "_Copy Image"
-msgstr "_Bild bearbeiten..."
+msgstr "Bild kopieren"
 
 #: modules/cons.py:406
-#, fuzzy
 msgid "Copy the Selected Image"
-msgstr "Das markierte Bild bearbeiten"
+msgstr "Das markierte Bild kopieren"
 
 #: modules/cons.py:407
-#, fuzzy
 msgid "_Delete Image"
-msgstr "_Bild bearbeiten..."
+msgstr "Bild löschen"
 
 #: modules/cons.py:407
-#, fuzzy
 msgid "Delete the Selected Image"
-msgstr "Den Markierten Knoten löschen"
+msgstr "Das markierte Bild löschen"
 
 #: modules/cons.py:408
-#, fuzzy
 msgid "C_ut Table"
-msgstr "Tabelle einfügen/bearbeiten..."
+msgstr "Tabelle ausschneiden"
 
 #: modules/cons.py:408
-#, fuzzy
 msgid "Cut the Selected Table"
-msgstr "Markierte Tabellenzeile löschen"
+msgstr "Markierte Tabelle ausschneiden"
 
 #: modules/cons.py:409
 msgid "_Copy Table"
-msgstr ""
+msgstr "Tabelle kopieren"
 
 #: modules/cons.py:409
-#, fuzzy
 msgid "Copy the Selected Table"
-msgstr "Markierte Tabellenzeile löschen"
+msgstr "Markierte Tabelle kopieren"
 
 #: modules/cons.py:410
-#, fuzzy
 msgid "_Delete Table"
-msgstr "Tabelle einfügen/bearbeiten..."
+msgstr "Tabelle löschen"
 
 #: modules/cons.py:410
-#, fuzzy
 msgid "Delete the Selected Table"
-msgstr "Markierte Tabellenzeile löschen"
+msgstr "Markierte Tabelle löschen"
 
 #: modules/cons.py:411 modules/cons.py:500
 msgid "Insert _Table"
@@ -1124,34 +1111,28 @@ msgid "_Insert"
 msgstr "Einfügen..."
 
 #: modules/cons.py:544
-#, fuzzy
 msgid "C_ut CodeBox"
-msgstr "CodeBox bearbeiten"
+msgstr "CodeBox ausschneiden"
 
 #: modules/cons.py:544
-#, fuzzy
 msgid "Cut the Selected CodeBox"
-msgstr "Den Markierten Knoten löschen"
+msgstr "Die markierte CodeBox ausschneiden"
 
 #: modules/cons.py:545
-#, fuzzy
 msgid "_Copy CodeBox"
-msgstr "CodeBox bearbeiten"
+msgstr "CodeBox kopieren"
 
 #: modules/cons.py:545
-#, fuzzy
 msgid "Copy the Selected CodeBox"
-msgstr "Markierten Knoten nach unten verschieben"
+msgstr "Die markierten CodeBox kopieren"
 
 #: modules/cons.py:546
-#, fuzzy
 msgid "_Delete CodeBox"
-msgstr "Knoten _löschen"
+msgstr "CodeBox _löschen"
 
 #: modules/cons.py:546
-#, fuzzy
 msgid "Delete the Selected CodeBox"
-msgstr "Den Markierten Knoten löschen"
+msgstr "Die markierte CodeBox löschen"
 
 #: modules/cons.py:548
 msgid "Change CodeBox _Properties"
@@ -1430,7 +1411,6 @@ msgstr ""
 "Giuseppe Penone <giuspen@gmail.com>"
 
 #: glade/cherrytree.glade.h:64
-#, fuzzy
 msgid ""
 "Czech (cs) Pavel Fric <fripohled@blogspot.com>\n"
 "French (fr) Ludovic Troisi <axalis@cegetel.net>\n"
@@ -1441,6 +1421,7 @@ msgid ""
 "Spanish (es) Daniel MC <ixzus@archlinux.co.uk>\n"
 "Ukrainian (uk) Andriy Kovtun <kovtunos@yandex.ru>"
 msgstr ""
+"Czech (cs) Pavel Fric <fripohled@blogspot.com>\n"
 "French (fr) Ludovic Troisi <axalis@cegetel.net>\n"
 "German (de) Sven Neubauer <me@dampfklon.de>\n"
 "Italian (it) Giuseppe Penone <giuspen@gmail.com>\n"

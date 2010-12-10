@@ -71,17 +71,20 @@ class ClipboardHandler:
                return
             elif "liststore" in anchor_dir:
                table_dict = self.dad.state_machine.table_to_dict(anchor)
-               self.clipboard.set_with_data([(TARGET_CTD_TABLE, 0, 0)],
+               html_text = self.dad.html_handler.table_export_to_html(table_dict)
+               self.clipboard.set_with_data([(t, 0, 0) for t in (TARGET_CTD_TABLE, TARGET_HTML)],
                                             self.get_func,
                                             self.clear_func,
-                                            table_dict)
+                                            (table_dict, None, html_text))
                return
             elif "sourcebuffer" in anchor_dir:
-               codebox_dict = self.dad.state_machine.codebox_to_dict(anchor, for_print=False)
-               self.clipboard.set_with_data([(TARGET_CTD_CODEBOX, 0, 0)],
+               codebox_dict = self.dad.state_machine.codebox_to_dict(anchor, for_print=0)
+               codebox_dict_html = self.dad.state_machine.codebox_to_dict(anchor, for_print=2)
+               html_text = self.dad.html_handler.codebox_export_to_html(codebox_dict_html)
+               self.clipboard.set_with_data([(t, 0, 0) for t in (TARGET_CTD_CODEBOX, TARGET_HTML)],
                                             self.get_func,
                                             self.clear_func,
-                                            codebox_dict)
+                                            (codebox_dict, None, html_text))
                return
       html_text = self.dad.html_handler.selection_export_to_html(text_buffer, iter_sel_start, iter_sel_end, self.dad.syntax_highlighting)
       if self.dad.syntax_highlighting == cons.CUSTOM_COLORS_ID:
@@ -107,11 +110,11 @@ class ClipboardHandler:
       elif target == TARGET_CTD_IMAGE: selectiondata.set_pixbuf(data)
       elif target == TARGET_CTD_CODEBOX:
          dom = xml.dom.minidom.Document()
-         self.dad.xml_handler.codebox_element_to_xml([0, data, "left"], dom)
+         self.dad.xml_handler.codebox_element_to_xml([0, data[0], "left"], dom)
          selectiondata.set('UTF8_STRING', 8, dom.toxml())
       elif target == TARGET_CTD_TABLE:
          dom = xml.dom.minidom.Document()
-         self.dad.xml_handler.table_element_to_xml([0, data, "left"], dom)
+         self.dad.xml_handler.table_element_to_xml([0, data[0], "left"], dom)
          selectiondata.set('UTF8_STRING', 8, dom.toxml())
       
    def clear_func(self, clipboard, data):
