@@ -195,7 +195,7 @@ class Export2Html:
    
    def node_export_to_html(self, tree_iter):
       """Export the Selected Node To HTML"""
-      html_text = '<!doctype html><html><head><meta charset="utf-8"><title>%s</title></head><body>' % self.dad.treestore[tree_iter][1]
+      html_text = '<!doctype html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><title>%s</title></head><body>' % self.dad.treestore[tree_iter][1]
       if self.tree_links_text:
          html_text += r'<table width="100%"><tr>'
          td_tree = r'<td valign="top" align="left" width=30%>'
@@ -221,7 +221,7 @@ class Export2Html:
    
    def selection_export_to_html(self, text_buffer, start_iter, end_iter, syntax_highlighting):
       """Returns the HTML given buffer and iter bounds"""
-      html_text = ""
+      html_text = '<!doctype html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><title></title><meta name="generator" content="CherryTree"></head><body>'
       if syntax_highlighting == cons.CUSTOM_COLORS_ID:
          text_n_objects = self.html_get_from_rich_text_selection(text_buffer, start_iter, end_iter)
          self.images_count = 0
@@ -233,6 +233,7 @@ class Export2Html:
                elif curr_object[0] == "table": html_text += self.get_table_html(curr_object[1])
                elif curr_object[0] == "codebox": html_text += self.get_codebox_html(curr_object[1])
       else: html_text += self.html_get_from_code_buffer(text_buffer, sel_range=(start_iter.get_offset(), end_iter.get_offset()))
+      html_text += "</body></html>"
       return html_text
    
    def get_image_html(self, image, tree_iter):
