@@ -732,25 +732,9 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
    def handle_starttag(self, tag, attrs):
       """Encountered the beginning of a tag"""
       if self.curr_state == 0:
-         if tag == "dt":
-            # waiting for the title
-            # got dt, we go state 0->1
-            self.curr_state = 1
+         if tag == "body": self.curr_state = 2
       elif self.curr_state == 2:
-         if tag == "dl":
-            # the current node becomes father
-            for pixbuf_element in self.pixbuf_vector:
-               self.xml_handler.pixbuf_element_to_xml(pixbuf_element, self.curr_dom_slot, self.dom)
-            # got dl, we go state 2->0 and wait for the child
-            self.curr_state = 0
-         elif tag == "dt":
-            # the current node has no more job to do
-            for pixbuf_element in self.pixbuf_vector:
-               self.xml_handler.pixbuf_element_to_xml(pixbuf_element, self.curr_dom_slot, self.dom)
-            # waiting for the title
-            # got dt, we go state 2->1
-            self.curr_state = 1
-         elif tag == "b": self.curr_attributes["weight"] = "heavy"
+         if tag == "b": self.curr_attributes["weight"] = "heavy"
          elif tag == "i": self.curr_attributes["style"] = "italic"
          elif tag == "u": self.curr_attributes["underline"] = "single"
          elif tag == "s": self.curr_attributes["strikethrough"] = "true"
@@ -774,64 +758,20 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
          elif tag == "li":
             self.rich_text_serialize("\n• ")
          elif tag == "img" and len(attrs) > 0:
-            for attribute in attrs:
-               if attribute[0] == "src":
-                  if attribute[1][:23] == "data:image/jpeg;base64,":
-                     jpeg_data = attribute[1][23:]
-                     pixbuf_loader = gtk.gdk.pixbuf_loader_new_with_mime_type("image/jpeg")
-                     try: pixbuf_loader.write(base64.b64decode(jpeg_data))
-                     except:
-                        try: pixbuf_loader.write(base64.b64decode(jpeg_data + "="))
-                        except: pixbuf_loader.write(base64.b64decode(jpeg_data + "=="))
-                     pixbuf_loader.close()
-                     pixbuf = pixbuf_loader.get_pixbuf()
-                  elif attribute[1][:22] == "data:image/png;base64,":
-                     png_data = attribute[1][22:]
-                     pixbuf_loader = gtk.gdk.pixbuf_loader_new_with_mime_type("image/png")
-                     try: pixbuf_loader.write(base64.b64decode(png_data))
-                     except:
-                        try: pixbuf_loader.write(base64.b64decode(png_data + "="))
-                        except: pixbuf_loader.write(base64.b64decode(png_data + "=="))
-                     pixbuf_loader.close()
-                     pixbuf = pixbuf_loader.get_pixbuf()
+            pass # cross clipboard images not handled yet
    
    def handle_endtag(self, tag):
       """Encountered the end of a tag"""
-      if self.curr_state == 1:
-         if tag == "dt":
-            # title reception complete
-            self.nodes_list.append(self.dom.createElement("node"))
-            self.curr_dom_slot.setAttribute("name", self.curr_title)
-            self.curr_dom_slot.setAttribute("prog_lang", cons.CUSTOM_COLORS_ID)
-            self.curr_title = ""
-            # waiting for data
-            # got dd, we go state 1->2
-            self.curr_state = 2
-      elif self.curr_state == 2:
-         if tag == "dd":
-            # the current node has no more job to do
-            for pixbuf_element in self.pixbuf_vector:
-               self.xml_handler.pixbuf_element_to_xml(pixbuf_element, self.curr_dom_slot, self.dom)
-            # got /dd, we go state 2->0 and wait for a brother
-            self.curr_state = 0
-         elif tag == "dl":
-            # the current node has no more job to do
-            for pixbuf_element in self.pixbuf_vector:
-               self.xml_handler.pixbuf_element_to_xml(pixbuf_element, self.curr_dom_slot, self.dom)
-            # got /dl, we go state 2->0 and wait for a father's brother
-            self.curr_state = 0
-         elif tag == "b": self.curr_attributes["weight"] = ""
-         elif tag == "i": self.curr_attributes["style"] = ""
-         elif tag == "u": self.curr_attributes["underline"] = ""
-         elif tag == "s": self.curr_attributes["strikethrough"] = ""
-         elif tag == "span":
-            if self.latest_span == "foreground": self.curr_attributes["foreground"] = ""
-            elif self.latest_span == "background": self.curr_attributes["background"] = ""
-         elif tag == "a": self.curr_attributes["link"] = ""
-      elif tag == "dl":
-         # backward one level in nodes list
-         for pixbuf_element in self.pixbuf_vector:
-            self.xml_handler.pixbuf_element_to_xml(pixbuf_element, self.curr_dom_slot, self.dom)
+      if self.curr_state != 2: return
+      if tag == "body": self.curr_state = 0
+      elif tag == "b": self.curr_attributes["weight"] = ""
+      elif tag == "i": self.curr_attributes["style"] = ""
+      elif tag == "u": self.curr_attributes["underline"] = ""
+      elif tag == "s": self.curr_attributes["strikethrough"] = ""
+      elif tag == "span":
+         if self.latest_span == "foreground": self.curr_attributes["foreground"] = ""
+         elif self.latest_span == "background": self.curr_attributes["background"] = ""
+      elif tag == "a": self.curr_attributes["link"] = ""
       
    def handle_data(self, data):
       """Found Data"""
@@ -855,7 +795,7 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
       self.dom = xml.dom.minidom.Document()
       root = self.dom.createElement("root")
       self.dom.appendChild(root)
-      self.curr_dom_slot = dom.createElement("slot")
+      self.curr_dom_slot = self.dom.createElement("slot")
       root.appendChild(self.curr_dom_slot)
       self.curr_state = 0
       self.curr_attributes = {}

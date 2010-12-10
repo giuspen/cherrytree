@@ -20,7 +20,7 @@
 #       MA 02110-1301, USA.
 
 import gtk, xml.dom.minidom
-import cons, machines, exports
+import cons, machines, exports, imports
 
 
 TARGET_CTD_PLAIN_TEXT = 'UTF8_STRING'
@@ -128,7 +128,6 @@ class ClipboardHandler:
       targets = self.clipboard.wait_for_targets()
       if not targets: return
       self.dad.curr_buffer.delete_selection(True, sourceview.get_editable())
-      self.clipboard.request_contents(TARGET_HTML, self.to_html)
       if TARGET_CTD_RICH_TEXT in targets and self.dad.syntax_highlighting == cons.CUSTOM_COLORS_ID:
          self.clipboard.request_contents(TARGET_CTD_RICH_TEXT, self.to_rich_text)
          return
@@ -137,6 +136,9 @@ class ClipboardHandler:
          return
       if TARGET_CTD_TABLE in targets and self.dad.syntax_highlighting == cons.CUSTOM_COLORS_ID:
          self.clipboard.request_contents(TARGET_CTD_TABLE, self.to_table)
+         return
+      if TARGET_HTML in targets and self.dad.syntax_highlighting == cons.CUSTOM_COLORS_ID:
+         self.clipboard.request_contents(TARGET_HTML, self.to_html)
          return
       for target in TARGETS_IMAGES:
          if target in targets and self.dad.syntax_highlighting == cons.CUSTOM_COLORS_ID:
@@ -149,7 +151,9 @@ class ClipboardHandler:
    
    def to_html(self, clipboard, selectiondata, data):
       """From Clipboard to HTML Text"""
-      print selectiondata.data
+      html_import = imports.HTMLFromClipboardHandler()
+      xml_string = html_import.get_clipboard_selection_xml(selectiondata.data)
+      self.from_xml_string_to_buffer(xml_string)
    
    def to_plain_text(self, clipboard, selectiondata, data):
       """From Clipboard to Plain Text"""
@@ -159,7 +163,11 @@ class ClipboardHandler:
    
    def to_rich_text(self, clipboard, selectiondata, data):
       """From Clipboard to Rich Text"""
-      dom = xml.dom.minidom.parseString(selectiondata.get_text())
+      self.from_xml_string_to_buffer(selectiondata.get_text())
+   
+   def from_xml_string_to_buffer(self, xml_string):
+      """From XML String to Text Buffer"""
+      dom = xml.dom.minidom.parseString(xml_string)
       dom_node = dom.firstChild
       if dom_node.nodeName != "root":
          print "rich text from clipboard error"
