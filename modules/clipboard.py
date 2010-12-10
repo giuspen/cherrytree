@@ -147,7 +147,7 @@ class ClipboardHandler:
    
    def to_html(self, clipboard, selectiondata, data):
       """From Clipboard to HTML Text"""
-      print ord(selectiondata.data[0]), ord(selectiondata.data[1]), selectiondata.data[2:]
+      print selectiondata.data
    
    def to_plain_text(self, clipboard, selectiondata, data):
       """From Clipboard to Plain Text"""

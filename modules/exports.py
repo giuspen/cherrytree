@@ -229,7 +229,7 @@ class Export2Html:
             html_text += html_slot
             if i < len(text_n_objects[1]):
                curr_object = text_n_objects[1][i]
-               if curr_object[0] == "pixbuf": html_text += self.get_image_html(curr_object[1], tree_iter)
+               if curr_object[0] == "pixbuf": pass # cross clipboard images not handled yet
                elif curr_object[0] == "table": html_text += self.get_table_html(curr_object[1])
                elif curr_object[0] == "codebox": html_text += self.get_codebox_html(curr_object[1])
       else: html_text += self.html_get_from_code_buffer(text_buffer, sel_range=(start_iter.get_offset(), end_iter.get_offset()))
