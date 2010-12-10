@@ -219,6 +219,23 @@ class Export2Html:
       file_descriptor.write(html_text)
       file_descriptor.close()
    
+   def selection_export_to_html(self, text_buffer, start_iter, end_iter, syntax_highlighting):
+      """Returns the HTML given buffer and iter bounds"""
+      html_text = '<!doctype html><html><head><meta charset="utf-8"><title></title></head><body>'
+      if syntax_highlighting == cons.CUSTOM_COLORS_ID:
+         text_n_objects = self.html_get_from_rich_text_selection(text_buffer, start_iter, end_iter)
+         self.images_count = 0
+         for i, html_slot in enumerate(text_n_objects[0]):
+            html_text += html_slot
+            if i < len(text_n_objects[1]):
+               curr_object = text_n_objects[1][i]
+               if curr_object[0] == "pixbuf": html_text += self.get_image_html(curr_object[1], tree_iter)
+               elif curr_object[0] == "table": html_text += self.get_table_html(curr_object[1])
+               elif curr_object[0] == "codebox": html_text += self.get_codebox_html(curr_object[1])
+      else: html_text += self.html_get_from_code_buffer(text_buffer, sel_range=(start_iter.get_offset(), end_iter.get_offset()))
+      html_text += "</body></html>"
+      return html_text
+   
    def get_image_html(self, image, tree_iter):
       """Returns the HTML Image"""
       # image is: [offset, pixbuf, justification]
@@ -269,9 +286,10 @@ class Export2Html:
       filename = "%s-%s.html" % (self.dad.treestore[tree_iter][3], self.dad.treestore[tree_iter][1])
       return filename.replace("/", "-")
    
-   def html_get_from_code_buffer(self, code_buffer):
+   def html_get_from_code_buffer(self, code_buffer, sel_range=None):
       """Get rich text from syntax highlighted code node"""
-      curr_iter = code_buffer.get_start_iter()
+      if sel_range: curr_iter = code_buffer.get_iter_at_offset(sel_range[0])
+      else: curr_iter = code_buffer.get_start_iter()
       code_buffer.ensure_highlight(curr_iter, code_buffer.get_end_iter())
       html_text = ""
       former_tag_str = cons.COLOR_BLACK
@@ -299,7 +317,7 @@ class Export2Html:
             former_tag_str = cons.COLOR_BLACK
             html_text += "</span>"
          html_text += cgi.escape(curr_iter.get_char()).replace(" ", "&nbsp;")
-         if not curr_iter.forward_char():
+         if not curr_iter.forward_char() or (sel_range and curr_iter.get_offset() > sel_range[1]):
             if span_opened: html_text += "</span>"
             break
       html_text = html_text.replace(cons.CHAR_NEWLINE, "<br/>")
@@ -317,6 +335,23 @@ class Export2Html:
          self.html_process_slot(start_offset, end_offset, curr_buffer)
          start_offset = end_offset
       self.html_process_slot(start_offset, -1, curr_buffer)
+      #print "curr_html_slots", self.curr_html_slots
+      #print "pixbuf_table_codebox_vector", pixbuf_table_codebox_vector
+      return [self.curr_html_slots, pixbuf_table_codebox_vector]
+      
+   def html_get_from_rich_text_selection(self, text_buffer, start_iter, end_iter):
+      """Given a text buffer and iter bounds returns the HTML rich text"""
+      pixbuf_table_codebox_vector = self.dad.state_machine.get_embedded_pixbufs_tables_codeboxes(text_buffer,
+                                                                                                 for_print=2,
+                                                                                                 sel_range=(start_iter.get_offset(), end_iter.get_offset()))
+      # pixbuf_table_codebox_vector is [ [ "pixbuf"/"table"/"codebox", [offset, pixbuf, alignment] ],... ]
+      self.curr_html_slots = []
+      start_offset = start_iter.get_offset()
+      for end_offset_element in pixbuf_table_codebox_vector:
+         end_offset = end_offset_element[1][0]
+         self.html_process_slot(start_offset, end_offset, text_buffer)
+         start_offset = end_offset
+      self.html_process_slot(start_offset, end_iter.get_offset(), text_buffer)
       #print "curr_html_slots", self.curr_html_slots
       #print "pixbuf_table_codebox_vector", pixbuf_table_codebox_vector
       return [self.curr_html_slots, pixbuf_table_codebox_vector]

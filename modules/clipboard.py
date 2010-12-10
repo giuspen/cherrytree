@@ -20,7 +20,7 @@
 #       MA 02110-1301, USA.
 
 import gtk, xml.dom.minidom
-import cons, machines
+import cons, machines, exports
 
 
 TARGET_CTD_PLAIN_TEXT = 'UTF8_STRING'
@@ -28,6 +28,7 @@ TARGET_CTD_RICH_TEXT = 'CTD_RICH'
 TARGET_CTD_IMAGE = 'image/png'
 TARGET_CTD_TABLE = 'CTD_TABLE'
 TARGET_CTD_CODEBOX = 'CTD_CODEBOX'
+TARGET_HTML = 'text/html'
 TARGETS_PLAIN_TEXT = ("UTF8_STRING", "COMPOUND_TEXT", "STRING", "TEXT")
 TARGETS_IMAGES = ('image/png', 'image/jpeg', 'image/bmp', 'image/tiff', 'image/x-MS-bmp', 'image/x-bmp')
 
@@ -82,25 +83,28 @@ class ClipboardHandler:
                                             self.clear_func,
                                             codebox_dict)
                return
+      html_handler = exports.Export2Html(self.dad)
+      html_text = html_handler.selection_export_to_html(text_buffer, iter_sel_start, iter_sel_end, self.dad.syntax_highlighting)
       if self.dad.syntax_highlighting == cons.CUSTOM_COLORS_ID:
          plain_text = text_buffer.get_text(iter_sel_start, iter_sel_end)
          rich_text = self.rich_text_get_from_text_buffer_selection(text_buffer, iter_sel_start, iter_sel_end)
-         self.clipboard.set_with_data([(TARGET_CTD_PLAIN_TEXT, 0, 0), (TARGET_CTD_RICH_TEXT, 0, 0)],
+         self.clipboard.set_with_data([(t, 0, 0) for t in (TARGET_CTD_PLAIN_TEXT, TARGET_CTD_RICH_TEXT, TARGET_HTML)],
                                       self.get_func,
                                       self.clear_func,
-                                      (plain_text, rich_text))
+                                      (plain_text, rich_text, html_text))
       else:
          plain_text = text_buffer.get_text(iter_sel_start, iter_sel_end)
-         self.clipboard.set_with_data([(TARGET_CTD_PLAIN_TEXT, 0, 0)],
-                                       self.get_func,
-                                       self.clear_func,
-                                       (plain_text, None))
+         self.clipboard.set_with_data([(t, 0, 0) for t in (TARGET_CTD_PLAIN_TEXT, TARGET_HTML)],
+                                      self.get_func,
+                                      self.clear_func,
+                                      (plain_text, None, html_text))
       
    def get_func(self, clipboard, selectiondata, info, data):
       """Connected with clipboard.set_with_data"""
       target = selectiondata.get_target()
       if target == TARGET_CTD_PLAIN_TEXT: selectiondata.set('UTF8_STRING', 8, data[0])
       elif target == TARGET_CTD_RICH_TEXT: selectiondata.set('UTF8_STRING', 8, data[1])
+      elif target == TARGET_HTML: selectiondata.set('UTF8_STRING', 8, data[2])
       elif target == TARGET_CTD_IMAGE: selectiondata.set_pixbuf(data)
       elif target == TARGET_CTD_CODEBOX:
          dom = xml.dom.minidom.Document()
