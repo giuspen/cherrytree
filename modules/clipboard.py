@@ -126,6 +126,7 @@ class ClipboardHandler:
       targets = self.clipboard.wait_for_targets()
       if not targets: return
       self.dad.curr_buffer.delete_selection(True, sourceview.get_editable())
+      self.clipboard.request_contents(TARGET_HTML, self.to_html)
       if TARGET_CTD_RICH_TEXT in targets and self.dad.syntax_highlighting == cons.CUSTOM_COLORS_ID:
          self.clipboard.request_contents(TARGET_CTD_RICH_TEXT, self.to_rich_text)
          return
@@ -143,6 +144,10 @@ class ClipboardHandler:
          if target in targets:
             self.clipboard.request_contents(target, self.to_plain_text)
             break
+   
+   def to_html(self, clipboard, selectiondata, data):
+      """From Clipboard to HTML Text"""
+      print ord(selectiondata.data[0]), ord(selectiondata.data[1]), selectiondata.data[2:]
    
    def to_plain_text(self, clipboard, selectiondata, data):
       """From Clipboard to Plain Text"""

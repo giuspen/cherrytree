@@ -221,7 +221,7 @@ class Export2Html:
    
    def selection_export_to_html(self, text_buffer, start_iter, end_iter, syntax_highlighting):
       """Returns the HTML given buffer and iter bounds"""
-      html_text = '<!doctype html><html><head><meta charset="utf-8"><title></title></head><body>'
+      html_text = ""
       if syntax_highlighting == cons.CUSTOM_COLORS_ID:
          text_n_objects = self.html_get_from_rich_text_selection(text_buffer, start_iter, end_iter)
          self.images_count = 0
@@ -233,7 +233,6 @@ class Export2Html:
                elif curr_object[0] == "table": html_text += self.get_table_html(curr_object[1])
                elif curr_object[0] == "codebox": html_text += self.get_codebox_html(curr_object[1])
       else: html_text += self.html_get_from_code_buffer(text_buffer, sel_range=(start_iter.get_offset(), end_iter.get_offset()))
-      html_text += "</body></html>"
       return html_text
    
    def get_image_html(self, image, tree_iter):
@@ -320,7 +319,7 @@ class Export2Html:
          if not curr_iter.forward_char() or (sel_range and curr_iter.get_offset() > sel_range[1]):
             if span_opened: html_text += "</span>"
             break
-      html_text = html_text.replace(cons.CHAR_NEWLINE, "<br/>")
+      html_text = html_text.replace(cons.CHAR_NEWLINE, "<br>")
       return html_text
    
    def html_get_from_treestore_node(self, node_iter):
@@ -389,7 +388,7 @@ class Export2Html:
       """Adds a slice to the HTML Text"""
       inner_text = cgi.escape(start_iter.get_text(end_iter))
       if inner_text == "": return
-      inner_text = inner_text.replace(cons.CHAR_NEWLINE, "<br/>")
+      inner_text = inner_text.replace(cons.CHAR_NEWLINE, "<br>")
       html_attrs = ""
       for tag_property in cons.TAG_PROPERTIES:
          if self.curr_attributes[tag_property] != '':
