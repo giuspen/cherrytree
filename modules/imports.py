@@ -729,6 +729,17 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
       text_iter = self.dom.createTextNode(text_data)
       dom_iter.appendChild(text_iter)
    
+   def get_rgb_gtk_attribute(self, html_attribute):
+      """Get RGB GTK attribute from HTML attribute"""
+      if html_attribute[0] == "#":
+         return html_attribute
+      elif "rgb" in html_attribute:
+         match = re.match(".*rgb\((\d+), (\d+), (\d+)\).*", html_attribute)
+         if match:
+            html_attribute = "#%.2x%.2x%.2x" % (int(match.group(1)), int(match.group(2)), int(match.group(3)))
+            return html_attribute
+      return "#000000"
+   
    def handle_starttag(self, tag, attrs):
       """Encountered the beginning of a tag"""
       if self.curr_state == 0:
@@ -738,15 +749,22 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
          elif tag == "i": self.curr_attributes["style"] = "italic"
          elif tag == "u": self.curr_attributes["underline"] = "single"
          elif tag == "s": self.curr_attributes["strikethrough"] = "true"
-         elif tag == "span" and attrs[0][0] == "style":
-            match = re.match("(?<=^)(.+):(.+)(?=$)", attrs[0][1])
-            if match != None:
-               if match.group(1) == "color":
-                  self.curr_attributes["foreground"] = match.group(2).strip()
-                  self.latest_span = "foreground"
-               elif match.group(1) == "background-color":
-                  self.curr_attributes["background"] = match.group(2).strip()
-                  self.latest_span = "background"
+         elif tag == "span":
+            for attr in attrs:
+               if attr[0] == "style":
+                  match = re.match("(?<=^)(.+):(.+)(?=$)", attr[1])
+                  if match != None:
+                     if match.group(1) == "color":
+                        self.curr_attributes["foreground"] = self.get_rgb_gtk_attribute(match.group(2).strip())
+                        self.latest_span = "foreground"
+                     elif match.group(1) in ["background", "background-color"]:
+                        self.curr_attributes["background"] = self.get_rgb_gtk_attribute(match.group(2).strip())
+                        self.latest_span = "background"
+         elif tag == "font":
+            for attr in attrs:
+               if attr[0] == "color":
+                  self.curr_attributes["foreground"] = self.get_rgb_gtk_attribute(attr[1].strip())
+                  self.latest_font = "foreground"
          elif tag == "a" and len(attrs) > 0:
             link_url = attrs[0][1]
             if len(link_url) > 7:
@@ -768,6 +786,8 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
       elif tag == "span":
          if self.latest_span == "foreground": self.curr_attributes["foreground"] = ""
          elif self.latest_span == "background": self.curr_attributes["background"] = ""
+      elif tag == "font":
+         if self.latest_font == "foreground": self.curr_attributes["foreground"] = ""
       elif tag == "a": self.curr_attributes["link"] = ""
       
    def handle_data(self, data):
@@ -798,6 +818,7 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
       self.curr_attributes = {}
       for tag_property in cons.TAG_PROPERTIES: self.curr_attributes[tag_property] = ""
       self.latest_span = ""
+      self.latest_font = ""
       # curr_state 0: standby, taking no data
       # curr_state 2: waiting for node content, take many data
       input_string = input_string.decode("utf-8", "ignore")

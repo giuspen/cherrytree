@@ -151,8 +151,9 @@ class ClipboardHandler:
    
    def to_html(self, clipboard, selectiondata, data):
       """From Clipboard to HTML Text"""
-      html_import = imports.HTMLFromClipboardHandler()
       selection_data = re.sub(cons.BAD_CHARS, "", selectiondata.data)
+      print selection_data
+      html_import = imports.HTMLFromClipboardHandler()
       xml_string = html_import.get_clipboard_selection_xml(selection_data)
       self.from_xml_string_to_buffer(xml_string)
    
