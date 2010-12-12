@@ -765,6 +765,8 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
                if attr[0] == "color":
                   self.curr_attributes["foreground"] = self.get_rgb_gtk_attribute(attr[1].strip())
                   self.latest_font = "foreground"
+         elif tag == "h1": self.curr_attributes["scale"] = "large"
+         elif tag == "h2": self.curr_attributes["scale"] = "largo"
          elif tag == "a" and len(attrs) > 0:
             link_url = attrs[0][1]
             if len(link_url) > 7:
@@ -788,6 +790,7 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
          elif self.latest_span == "background": self.curr_attributes["background"] = ""
       elif tag == "font":
          if self.latest_font == "foreground": self.curr_attributes["foreground"] = ""
+      elif tag in ["h1", "h2"]: self.curr_attributes["scale"] = ""
       elif tag == "a": self.curr_attributes["link"] = ""
       
    def handle_data(self, data):
