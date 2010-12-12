@@ -743,9 +743,10 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
    def handle_starttag(self, tag, attrs):
       """Encountered the beginning of a tag"""
       if self.curr_state == 0:
-         if tag == "body": self.curr_state = 2
-      elif self.curr_state == 2:
-         if tag == "b": self.curr_attributes["weight"] = "heavy"
+         if tag == "body": self.curr_state = 1
+      elif self.curr_state == 1:
+         if tag == "table": self.curr_state = 2
+         elif tag == "b": self.curr_attributes["weight"] = "heavy"
          elif tag == "i": self.curr_attributes["style"] = "italic"
          elif tag == "u": self.curr_attributes["underline"] = "single"
          elif tag == "s": self.curr_attributes["strikethrough"] = "true"
@@ -779,35 +780,37 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
    
    def handle_endtag(self, tag):
       """Encountered the end of a tag"""
-      if self.curr_state != 2: return
-      elif tag == "p": self.rich_text_serialize(cons.CHAR_NEWLINE)
-      elif tag == "b": self.curr_attributes["weight"] = ""
-      elif tag == "i": self.curr_attributes["style"] = ""
-      elif tag == "u": self.curr_attributes["underline"] = ""
-      elif tag == "s": self.curr_attributes["strikethrough"] = ""
-      elif tag == "span":
-         if self.latest_span == "foreground": self.curr_attributes["foreground"] = ""
-         elif self.latest_span == "background": self.curr_attributes["background"] = ""
-      elif tag == "font":
-         if self.latest_font == "foreground": self.curr_attributes["foreground"] = ""
-      elif tag in ["h1", "h2"]: self.curr_attributes["scale"] = ""
-      elif tag == "a": self.curr_attributes["link"] = ""
+      if self.curr_state == 2:
+         if tag == "table": self.curr_state = 1
+      if self.curr_state == 1:
+         if tag == "p": self.rich_text_serialize(cons.CHAR_NEWLINE)
+         elif tag == "b": self.curr_attributes["weight"] = ""
+         elif tag == "i": self.curr_attributes["style"] = ""
+         elif tag == "u": self.curr_attributes["underline"] = ""
+         elif tag == "s": self.curr_attributes["strikethrough"] = ""
+         elif tag == "span":
+            if self.latest_span == "foreground": self.curr_attributes["foreground"] = ""
+            elif self.latest_span == "background": self.curr_attributes["background"] = ""
+         elif tag == "font":
+            if self.latest_font == "foreground": self.curr_attributes["foreground"] = ""
+         elif tag in ["h1", "h2"]: self.curr_attributes["scale"] = ""
+         elif tag == "a": self.curr_attributes["link"] = ""
       
    def handle_data(self, data):
       """Found Data"""
-      if self.curr_state == 0 or data in ['\n', '\n\n']: return
-      elif self.curr_state == 2:
-         # state 2 got data
-         clean_data = data.replace(cons.CHAR_NEWLINE, "")
+      if self.curr_state == 0: return
+      clean_data = data.replace(cons.CHAR_NEWLINE, "")
+      if not clean_data: return
+      if self.curr_state == 1:
          self.rich_text_serialize(clean_data)
       
    def handle_entityref(self, name):
       """Found Entity Reference like &name;"""
+      if self.curr_state == 0: return
       if name in htmlentitydefs.name2codepoint:
          unicode_char = unichr(htmlentitydefs.name2codepoint[name])
       else: return
-      if self.curr_state == 2:
-         # state 2 got data
+      if self.curr_state == 1:
          self.rich_text_serialize(unicode_char)
       
    def get_clipboard_selection_xml(self, input_string):
@@ -822,8 +825,9 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
       for tag_property in cons.TAG_PROPERTIES: self.curr_attributes[tag_property] = ""
       self.latest_span = ""
       self.latest_font = ""
+      self.start_newline = 1
       # curr_state 0: standby, taking no data
-      # curr_state 2: waiting for node content, take many data
+      # curr_state 1: receiving rich text
       input_string = input_string.decode("utf-8", "ignore")
       if not HTMLCheck().is_html_ok(input_string):
          input_string = cons.HTML_HEADER % "" + input_string + cons.HTML_FOOTER
