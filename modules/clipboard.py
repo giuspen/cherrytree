@@ -19,7 +19,7 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
-import gtk, xml.dom.minidom, re, base64
+import gtk, os, xml.dom.minidom, re, base64, mimetypes
 import cons, machines, exports, imports
 
 
@@ -160,10 +160,18 @@ class ClipboardHandler:
       uri_list = selection_data.split(cons.CHAR_NEWLINE)
       for element in uri_list:
          if len(element) > 7:
-            if element[0:4] == "http": property_value = "webs " + element
-            elif element[0:7] == "file://": property_value = "file %s" % base64.b64encode(element[7:])
-            else: property_value = None
             iter_insert = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
+            if element[0:4] == "http": property_value = "webs " + element
+            elif element[0:7] == "file://":
+               file_path = element[7:]
+               mimetype = mimetypes.guess_type(file_path)[0]
+               if "image" in mimetype and os.path.isfile(file_path):
+                  self.dad.image_insert(iter_insert, gtk.gdk.pixbuf_new_from_file(file_path))
+                  iter_insert = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
+                  self.dad.curr_buffer.insert(iter_insert, 3*cons.CHAR_SPACE)
+                  continue
+               else: property_value = "file %s" % base64.b64encode(file_path)
+            else: property_value = None
             start_offset = iter_insert.get_offset()
             self.dad.curr_buffer.insert(iter_insert, element + 3*cons.CHAR_SPACE)
             if property_value:
