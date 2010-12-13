@@ -769,8 +769,10 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
                if attr[0] == "color":
                   self.curr_attributes["foreground"] = self.get_rgb_gtk_attribute(attr[1].strip())
                   self.latest_font = "foreground"
-         elif tag == "h1": self.curr_attributes["scale"] = "large"
-         elif tag == "h2": self.curr_attributes["scale"] = "largo"
+         elif tag in ["h1", "h2"]:
+            self.rich_text_serialize(cons.CHAR_NEWLINE)
+            if tag == "h1": self.curr_attributes["scale"] = "large"
+            else: self.curr_attributes["scale"] = "largo"
          elif tag == "a" and len(attrs) > 0:
             link_url = attrs[0][1]
             if len(link_url) > 7:
@@ -803,7 +805,9 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
             elif self.latest_span == "background": self.curr_attributes["background"] = ""
          elif tag == "font":
             if self.latest_font == "foreground": self.curr_attributes["foreground"] = ""
-         elif tag in ["h1", "h2"]: self.curr_attributes["scale"] = ""
+         elif tag in ["h1", "h2"]:
+            self.curr_attributes["scale"] = ""
+            self.rich_text_serialize(cons.CHAR_NEWLINE)
          elif tag == "a": self.curr_attributes["link"] = ""
       elif self.curr_state == 2:
          if tag == "td": self.curr_table[-1].append(self.curr_cell)
