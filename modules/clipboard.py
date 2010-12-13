@@ -19,7 +19,7 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
-import gtk, xml.dom.minidom, re
+import gtk, xml.dom.minidom, re, base64
 import cons, machines, exports, imports
 
 
@@ -29,6 +29,7 @@ TARGET_CTD_IMAGE = 'image/png'
 TARGET_CTD_TABLE = 'CTD_TABLE'
 TARGET_CTD_CODEBOX = 'CTD_CODEBOX'
 TARGET_HTML = 'text/html'
+TARGET_URI_LIST = 'text/uri-list'
 TARGETS_PLAIN_TEXT = ("UTF8_STRING", "COMPOUND_TEXT", "STRING", "TEXT")
 TARGETS_IMAGES = ('image/png', 'image/jpeg', 'image/bmp', 'image/tiff', 'image/x-MS-bmp', 'image/x-bmp')
 
@@ -128,6 +129,7 @@ class ClipboardHandler:
       targets = self.clipboard.wait_for_targets()
       if not targets: return
       self.dad.curr_buffer.delete_selection(True, sourceview.get_editable())
+      #print targets
       if TARGET_CTD_RICH_TEXT in targets and self.dad.syntax_highlighting == cons.CUSTOM_COLORS_ID:
          self.clipboard.request_contents(TARGET_CTD_RICH_TEXT, self.to_rich_text)
          return
@@ -140,6 +142,9 @@ class ClipboardHandler:
       if TARGET_HTML in targets and self.dad.syntax_highlighting == cons.CUSTOM_COLORS_ID:
          self.clipboard.request_contents(TARGET_HTML, self.to_html)
          return
+      if TARGET_URI_LIST in targets and self.dad.syntax_highlighting == cons.CUSTOM_COLORS_ID:
+         self.clipboard.request_contents(TARGET_URI_LIST, self.to_uri_list)
+         return
       for target in TARGETS_IMAGES:
          if target in targets and self.dad.syntax_highlighting == cons.CUSTOM_COLORS_ID:
             self.clipboard.request_contents(target, self.to_image)
@@ -148,6 +153,24 @@ class ClipboardHandler:
          if target in targets:
             self.clipboard.request_contents(target, self.to_plain_text)
             break
+   
+   def to_uri_list(self, clipboard, selectiondata, data):
+      """From Clipboard to URI list"""
+      selection_data = re.sub(cons.BAD_CHARS, "", selectiondata.data)
+      uri_list = selection_data.split(cons.CHAR_NEWLINE)
+      for element in uri_list:
+         if len(element) > 7:
+            if element[0:4] == "http": property_value = "webs " + element
+            elif element[0:7] == "file://": property_value = "file %s" % base64.b64encode(element[7:])
+            else: property_value = None
+            iter_insert = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
+            start_offset = iter_insert.get_offset()
+            self.dad.curr_buffer.insert(iter_insert, element + 3*cons.CHAR_SPACE)
+            if property_value:
+               iter_sel_start = self.dad.curr_buffer.get_iter_at_offset(start_offset)
+               iter_sel_end = self.dad.curr_buffer.get_iter_at_offset(start_offset + len(element))
+               self.dad.curr_buffer.apply_tag_by_name(self.dad.apply_tag_exist_or_create("link", property_value),
+                                                      iter_sel_start, iter_sel_end)
    
    def to_html(self, clipboard, selectiondata, data):
       """From Clipboard to HTML Text"""
