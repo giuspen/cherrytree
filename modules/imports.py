@@ -777,7 +777,13 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
                if link_url[0:4] == "http": self.curr_attributes["link"] = "webs %s" % link_url
                elif link_url[0:7] == "file://": self.curr_attributes["link"] = "file %s" % base64.b64encode(link_url[7:])
          elif tag == "br": self.rich_text_serialize(cons.CHAR_NEWLINE)
-         elif tag == "li": self.rich_text_serialize("\n• ")
+         elif tag == "ol": self.curr_list_type = ["o", 1]
+         elif tag == "ul": self.curr_list_type = ["u", 0]
+         elif tag == "li":
+            if self.curr_list_type[0] == "u": self.rich_text_serialize("• ")
+            else:
+               self.rich_text_serialize("%s. " % self.curr_list_type[1])
+               self.curr_list_type[1] += 1
          elif tag == "img" and len(attrs) > 0:
             pass # cross clipboard images not handled yet
       elif self.curr_state == 2:
@@ -826,7 +832,7 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
       """Found Data"""
       if self.curr_state == 0: return
       clean_data = data.replace(cons.CHAR_NEWLINE, "")
-      if not clean_data: return
+      if not clean_data or clean_data == cons.CHAR_TAB: return
       if self.curr_state == 1: self.rich_text_serialize(clean_data)
       elif self.curr_state == 2: self.curr_cell += clean_data.replace(cons.CHAR_TAB, "")
       
