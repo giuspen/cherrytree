@@ -163,7 +163,7 @@ class ClipboardHandler:
             iter_insert = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
             if element[0:4] == "http": property_value = "webs " + element
             elif element[0:7] == "file://":
-               file_path = element[7:]
+               file_path = element[7:].replace("%20", cons.CHAR_SPACE)
                mimetype = mimetypes.guess_type(file_path)[0]
                if "image" in mimetype and os.path.isfile(file_path):
                   self.dad.image_insert(iter_insert, gtk.gdk.pixbuf_new_from_file(file_path))
