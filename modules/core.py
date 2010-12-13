@@ -723,8 +723,8 @@ class CherryTree:
       next_sibling = model.iter_next(curr_sibling)
       swap_executed = False
       while next_sibling != None:
-         if (descending and model[next_sibling][column] < model[curr_sibling][column])\
-         or (not descending and model[next_sibling][column] > model[curr_sibling][column]):
+         if (descending and model[next_sibling][column].lower() < model[curr_sibling][column].lower())\
+         or (not descending and model[next_sibling][column].lower() > model[curr_sibling][column].lower()):
             model.swap(next_sibling, curr_sibling)
             swap_executed = True
          else: curr_sibling = next_sibling
