@@ -714,8 +714,9 @@ class NotecaseHandler(HTMLParser.HTMLParser):
 class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
    """The Handler of the HTML received from clipboard"""
    
-   def __init__(self):
+   def __init__(self, dad):
       """Machine boot"""
+      self.dad = dad
       HTMLParser.HTMLParser.__init__(self)
       self.xml_handler = machines.XMLHandler(self)
    
@@ -745,7 +746,9 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
       if self.curr_state == 0:
          if tag == "body": self.curr_state = 1
       elif self.curr_state == 1:
-         if tag == "table": self.curr_state = 2
+         if tag == "table":
+            self.curr_state = 2
+            self.curr_table = []
          elif tag == "b": self.curr_attributes["weight"] = "heavy"
          elif tag == "i": self.curr_attributes["style"] = "italic"
          elif tag == "u": self.curr_attributes["underline"] = "single"
@@ -777,11 +780,12 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
          elif tag == "li": self.rich_text_serialize("\n• ")
          elif tag == "img" and len(attrs) > 0:
             pass # cross clipboard images not handled yet
+      elif self.curr_state == 2:
+         if tag == "tr": self.curr_table.append([])
+         elif tag == "td": self.curr_cell = ""
    
    def handle_endtag(self, tag):
       """Encountered the end of a tag"""
-      if self.curr_state == 2:
-         if tag == "table": self.curr_state = 1
       if self.curr_state == 1:
          if tag == "p": self.rich_text_serialize(cons.CHAR_NEWLINE)
          elif tag == "b": self.curr_attributes["weight"] = ""
@@ -795,14 +799,36 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
             if self.latest_font == "foreground": self.curr_attributes["foreground"] = ""
          elif tag in ["h1", "h2"]: self.curr_attributes["scale"] = ""
          elif tag == "a": self.curr_attributes["link"] = ""
+      elif self.curr_state == 2:
+         if tag == "td": self.curr_table[-1].append(self.curr_cell)
+         elif tag == "table":
+            self.curr_state = 1
+            if len(self.curr_table) == 1 and len(self.curr_table[0]) == 1:
+               # it's a codebox
+               codebox_dict = {
+               'frame_width': 300,
+               'frame_height': 150,
+               'width_in_pixels': True,
+               'syntax_highlighting': cons.CUSTOM_COLORS_ID,
+               'fill_text': self.curr_table[0][0]
+               }
+               self.dad.xml_handler.codebox_element_to_xml([0, codebox_dict, "left"], self.curr_dom_slot)
+            else:
+               # it's a table
+               self.curr_table.append([_("click me")]*len(self.curr_table[0]))
+               table_dict = {'col_min': 40,
+                             'col_max': 1000,
+                             'matrix': self.curr_table}
+               self.dad.xml_handler.table_element_to_xml([0, table_dict, "left"], self.curr_dom_slot)
+            self.rich_text_serialize(cons.CHAR_NEWLINE)
       
    def handle_data(self, data):
       """Found Data"""
       if self.curr_state == 0: return
       clean_data = data.replace(cons.CHAR_NEWLINE, "")
       if not clean_data: return
-      if self.curr_state == 1:
-         self.rich_text_serialize(clean_data)
+      if self.curr_state == 1: self.rich_text_serialize(clean_data)
+      elif self.curr_state == 2: self.curr_cell += clean_data.replace(cons.CHAR_TAB, "")
       
    def handle_entityref(self, name):
       """Found Entity Reference like &name;"""
@@ -810,8 +836,8 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
       if name in htmlentitydefs.name2codepoint:
          unicode_char = unichr(htmlentitydefs.name2codepoint[name])
       else: return
-      if self.curr_state == 1:
-         self.rich_text_serialize(unicode_char)
+      if self.curr_state == 1: self.rich_text_serialize(unicode_char)
+      elif self.curr_state == 2: self.curr_cell += unicode_char
       
    def get_clipboard_selection_xml(self, input_string):
       """Parses the Given HTML String feeding the XML dom"""
@@ -825,9 +851,10 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
       for tag_property in cons.TAG_PROPERTIES: self.curr_attributes[tag_property] = ""
       self.latest_span = ""
       self.latest_font = ""
-      self.start_newline = 1
+      self.curr_cell = ""
       # curr_state 0: standby, taking no data
       # curr_state 1: receiving rich text
+      # curr_state 2: receiving table or codebox data
       input_string = input_string.decode("utf-8", "ignore")
       if not HTMLCheck().is_html_ok(input_string):
          input_string = cons.HTML_HEADER % "" + input_string + cons.HTML_FOOTER
