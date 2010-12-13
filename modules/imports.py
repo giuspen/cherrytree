@@ -773,6 +773,8 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
             self.rich_text_serialize(cons.CHAR_NEWLINE)
             if tag == "h1": self.curr_attributes["scale"] = "large"
             else: self.curr_attributes["scale"] = "largo"
+            for attr in attrs:
+               if attr[0] == "align": self.curr_attributes["justification"] = attr[1].strip().lower()
          elif tag == "a" and len(attrs) > 0:
             link_url = attrs[0][1]
             if len(link_url) > 7:
@@ -807,6 +809,7 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
             if self.latest_font == "foreground": self.curr_attributes["foreground"] = ""
          elif tag in ["h1", "h2"]:
             self.curr_attributes["scale"] = ""
+            self.curr_attributes["justification"] = ""
             self.rich_text_serialize(cons.CHAR_NEWLINE)
          elif tag == "a": self.curr_attributes["link"] = ""
       elif self.curr_state == 2:
@@ -837,7 +840,7 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
       if self.curr_state == 0: return
       clean_data = data.replace(cons.CHAR_NEWLINE, "")
       if not clean_data or clean_data == cons.CHAR_TAB: return
-      if self.curr_state == 1: self.rich_text_serialize(clean_data)
+      if self.curr_state == 1: self.rich_text_serialize(clean_data.replace(cons.CHAR_TAB, cons.CHAR_SPACE))
       elif self.curr_state == 2: self.curr_cell += clean_data.replace(cons.CHAR_TAB, "")
       
    def handle_entityref(self, name):
