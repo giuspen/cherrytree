@@ -106,6 +106,7 @@ class CherryTree:
       self.treeviewselection = self.treeview.get_selection()
       self.treeview.connect('cursor-changed', self.on_node_changed)
       self.treeview.connect('button-press-event', self.on_mouse_button_clicked_tree)
+      self.treeview.connect('key_press_event', self.on_key_press_cherrytree)
       self.glade.scrolledwindow_tree.add(self.treeview)
       self.statusbar_context_id = self.glade.statusbar.get_context_id('')
       self.window.connect('window-state-event', self.on_window_state_event)
@@ -202,6 +203,11 @@ class CherryTree:
       self.curr_buffer.delete(iter_start, iter_end)
       self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
       
+   def on_key_press_cherrytree(self, widget, event):
+      """Catches ChooseNode Dialog key presses"""
+      keyname = gtk.gdk.keyval_name(event.keyval)
+      if keyname == "Return": self.node_modify()
+   
    def on_key_press_choosenodedialog(self, widget, event):
       """Catches ChooseNode Dialog key presses"""
       keyname = gtk.gdk.keyval_name(event.keyval)
