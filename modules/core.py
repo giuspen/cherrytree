@@ -207,7 +207,9 @@ class CherryTree:
       """Catches ChooseNode Dialog key presses"""
       keyname = gtk.gdk.keyval_name(event.keyval)
       if keyname == "Return": self.node_modify()
-      elif keyname == "Menu": self.ui.get_widget("/TreeMenu").popup(None, None, None, 0, event.time)
+      elif keyname == "Menu":
+         self.ui.get_widget("/TreeMenu").popup(None, None, None, 0, event.time)
+         widget.stop_emission("key_press_event")
    
    def on_key_press_choosenodedialog(self, widget, event):
       """Catches ChooseNode Dialog key presses"""
