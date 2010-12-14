@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-12-08 23:34+0100\n"
-"PO-Revision-Date: 2010-12-13 12:38+0100\n"
+"PO-Revision-Date: 2010-12-14 16:13+0100\n"
 "Last-Translator: \n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -1359,7 +1359,7 @@ msgstr "Automaticky uložit každých "
 
 #: glade/cherrytree.glade.h:56
 msgid "Backward"
-msgstr "Nach oben"
+msgstr "Zpět"
 
 #: glade/cherrytree.glade.h:57
 msgid "Browse for Existing Anchors on the Selected Node"
@@ -1443,7 +1443,7 @@ msgstr "První v celém dokumentu"
 
 #: glade/cherrytree.glade.h:80
 msgid "Forward"
-msgstr "Dopředu"
+msgstr "Vpřed"
 
 #: glade/cherrytree.glade.h:81
 msgid "Height"

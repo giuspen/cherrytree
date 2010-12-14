@@ -324,7 +324,7 @@ class Export2Html:
                   if span_opened: html_text += "</span>"
                   # start of tag
                   if curr_tag_str == cons.COLOR_WHITE: curr_tag_str = cons.COLOR_BLACK
-                  html_text += '<span style="color:#%s">' % self.rgb_48_to_24(curr_tag_str[1:])
+                  html_text += '<span style="color:#%s">' % self.rgb_to_24(curr_tag_str[1:])
                   span_opened = True
          elif span_opened:
             span_opened = False
@@ -415,11 +415,11 @@ class Export2Html:
             elif tag_property == "foreground":
                # color:#FFFF00
                tag_property = "color"
-               property_value = "#" + self.rgb_48_to_24(property_value[1:])
+               property_value = "#" + self.rgb_to_24(property_value[1:])
             elif tag_property == "background":
                # background-color:#FFFF00
                tag_property = "background-color"
-               property_value = "#" + self.rgb_48_to_24(property_value[1:])
+               property_value = "#" + self.rgb_to_24(property_value[1:])
             elif tag_property == "style":
                # font-style:italic
                tag_property = "font-style"
@@ -470,11 +470,13 @@ class Export2Html:
          elif "text-align" in html_attrs: self.curr_html_text += '<p style="' + html_attrs + '">' + inner_text + "</p>"
          else: self.curr_html_text += '<span style="' + html_attrs + '">' + inner_text + "</span>"
    
-   def rgb_48_to_24(self, rgb_48):
-      """Convert RRRRGGGGBBBB to RRGGBB"""
-      r = int(rgb_48[:4], 16)
-      g = int(rgb_48[4:8], 16)
-      b = int(rgb_48[8:], 16)
+   def rgb_to_24(self, rgb_in):
+      """Convert RRRRGGGGBBBB to RRGGBB if needed"""
+      if len(rgb_in) == 6: return rgb_in
+      # I expect len(rgb_in) == 12
+      r = int(rgb_in[:4], 16)
+      g = int(rgb_in[4:8], 16)
+      b = int(rgb_in[8:], 16)
       r >>= 8
       g >>= 8
       b >>= 8
