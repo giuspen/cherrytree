@@ -165,7 +165,7 @@ class ClipboardHandler:
             elif element[0:7] == "file://":
                file_path = element[7:].replace("%20", cons.CHAR_SPACE)
                mimetype = mimetypes.guess_type(file_path)[0]
-               if "image" in mimetype and os.path.isfile(file_path):
+               if len(mimetype) > 5 and mimetype[0:6] == "image/" and os.path.isfile(file_path):
                   self.dad.image_insert(iter_insert, gtk.gdk.pixbuf_new_from_file(file_path))
                   iter_insert = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
                   self.dad.curr_buffer.insert(iter_insert, 3*cons.CHAR_SPACE)
@@ -182,10 +182,10 @@ class ClipboardHandler:
    
    def to_html(self, clipboard, selectiondata, data):
       """From Clipboard to HTML Text"""
+      #print selectiondata.data
       selection_data = re.sub(cons.BAD_CHARS, "", selectiondata.data)
       #for char in selection_data: print ord(char)
       selection_data = selection_data.replace("\xa0", cons.CHAR_SPACE)
-      #print selection_data
       html_import = imports.HTMLFromClipboardHandler(self.dad)
       xml_string = html_import.get_clipboard_selection_xml(selection_data)
       self.from_xml_string_to_buffer(xml_string)

@@ -717,6 +717,7 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
    def __init__(self, dad):
       """Machine boot"""
       self.dad = dad
+      self.monitored_tags = ["p", "b", "i", "u", "s", "h1", "h2", "span", "font"]
       HTMLParser.HTMLParser.__init__(self)
       self.xml_handler = machines.XMLHandler(self)
    
@@ -743,6 +744,7 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
    
    def handle_starttag(self, tag, attrs):
       """Encountered the beginning of a tag"""
+      if tag in self.monitored_tags: self.in_a_tag += 1
       if self.curr_state == 0:
          if tag == "body": self.curr_state = 1
       elif self.curr_state == 1:
@@ -814,6 +816,7 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
    
    def handle_endtag(self, tag):
       """Encountered the end of a tag"""
+      if tag in self.monitored_tags: self.in_a_tag -= 1
       if self.curr_state == 0:
          if tag == "style": self.curr_state = 1
       if self.curr_state == 1:
@@ -861,7 +864,8 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
    def handle_data(self, data):
       """Found Data"""
       if self.curr_state == 0: return
-      clean_data = data.replace(cons.CHAR_NEWLINE, "")
+      if self.in_a_tag: clean_data = data.replace(cons.CHAR_NEWLINE, cons.CHAR_SPACE)
+      else: clean_data = data.replace(cons.CHAR_NEWLINE, "")
       if not clean_data or clean_data == cons.CHAR_TAB: return
       if self.curr_state == 1: self.rich_text_serialize(clean_data.replace(cons.CHAR_TAB, cons.CHAR_SPACE))
       elif self.curr_state == 2: self.curr_cell += clean_data.replace(cons.CHAR_TAB, "")
@@ -888,6 +892,7 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
       self.latest_span = ""
       self.latest_font = ""
       self.curr_cell = ""
+      self.in_a_tag = 0
       # curr_state 0: standby, taking no data
       # curr_state 1: receiving rich text
       # curr_state 2: receiving table or codebox data
