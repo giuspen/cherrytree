@@ -749,10 +749,12 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
          if tag == "table":
             self.curr_state = 2
             self.curr_table = []
+            self.curr_table_header = False
          elif tag == "b": self.curr_attributes["weight"] = "heavy"
          elif tag == "i": self.curr_attributes["style"] = "italic"
          elif tag == "u": self.curr_attributes["underline"] = "single"
          elif tag == "s": self.curr_attributes["strikethrough"] = "true"
+         elif tag == "style": self.curr_state = 0
          elif tag == "span":
             for attr in attrs:
                if attr[0] == "style":
@@ -764,6 +766,14 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
                      elif match.group(1) in ["background", "background-color"]:
                         self.curr_attributes["background"] = self.get_rgb_gtk_attribute(match.group(2).strip())
                         self.latest_span = "background"
+                     elif match.group(1) == "text-decoration":
+                        if match.group(2).strip() in ["underline", "underline;"]:
+                           self.curr_attributes["underline"] = "single"
+                           self.latest_span = "underline"
+                     elif match.group(1) == "font-weight":
+                        if match.group(2).strip() in ["bolder", "bolder;"]:
+                           self.curr_attributes["weight"] = "heavy"
+                           self.latest_span = "weight"
          elif tag == "font":
             for attr in attrs:
                if attr[0] == "color":
@@ -792,10 +802,14 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
             pass # cross clipboard images not handled yet
       elif self.curr_state == 2:
          if tag == "tr": self.curr_table.append([])
-         elif tag == "td": self.curr_cell = ""
+         elif tag in ["td", "th"]:
+            self.curr_cell = ""
+            if tag == "th": self.curr_table_header = True
    
    def handle_endtag(self, tag):
       """Encountered the end of a tag"""
+      if self.curr_state == 0:
+         if tag == "style": self.curr_state = 1
       if self.curr_state == 1:
          if tag == "p": self.rich_text_serialize(cons.CHAR_NEWLINE)
          elif tag == "b": self.curr_attributes["weight"] = ""
@@ -805,6 +819,8 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
          elif tag == "span":
             if self.latest_span == "foreground": self.curr_attributes["foreground"] = ""
             elif self.latest_span == "background": self.curr_attributes["background"] = ""
+            elif self.latest_span == "underline": self.curr_attributes["underline"] = ""
+            elif self.latest_span == "weight": self.curr_attributes["weight"] = ""
          elif tag == "font":
             if self.latest_font == "foreground": self.curr_attributes["foreground"] = ""
          elif tag in ["h1", "h2"]:
@@ -813,7 +829,7 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
             self.rich_text_serialize(cons.CHAR_NEWLINE)
          elif tag == "a": self.curr_attributes["link"] = ""
       elif self.curr_state == 2:
-         if tag == "td": self.curr_table[-1].append(self.curr_cell)
+         if tag in ["td", "th"]: self.curr_table[-1].append(self.curr_cell)
          elif tag == "table":
             self.curr_state = 1
             if len(self.curr_table) == 1 and len(self.curr_table[0]) == 1:
@@ -828,7 +844,8 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
                self.dad.xml_handler.codebox_element_to_xml([0, codebox_dict, "left"], self.curr_dom_slot)
             else:
                # it's a table
-               self.curr_table.append([_("click me")]*len(self.curr_table[0]))
+               if not self.curr_table_header: self.curr_table.append([_("click me")]*len(self.curr_table[0]))
+               else: self.curr_table.append(self.curr_table.pop(0))
                table_dict = {'col_min': 40,
                              'col_max': 1000,
                              'matrix': self.curr_table}
