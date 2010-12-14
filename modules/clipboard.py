@@ -183,6 +183,8 @@ class ClipboardHandler:
    def to_html(self, clipboard, selectiondata, data):
       """From Clipboard to HTML Text"""
       selection_data = re.sub(cons.BAD_CHARS, "", selectiondata.data)
+      #for char in selection_data: print ord(char)
+      selection_data = selection_data.replace("\xa0", cons.CHAR_SPACE)
       #print selection_data
       html_import = imports.HTMLFromClipboardHandler(self.dad)
       xml_string = html_import.get_clipboard_selection_xml(selection_data)
