@@ -739,7 +739,7 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
          if match:
             html_attribute = "#%.2x%.2x%.2x" % (int(match.group(1)), int(match.group(2)), int(match.group(3)))
             return html_attribute
-      return "#000000"
+      return None
    
    def handle_starttag(self, tag, attrs):
       """Encountered the beginning of a tag"""
@@ -761,11 +761,15 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
                   match = re.match("(?<=^)(.+):(.+)(?=$)", attr[1])
                   if match != None:
                      if match.group(1) == "color":
-                        self.curr_attributes["foreground"] = self.get_rgb_gtk_attribute(match.group(2).strip())
-                        self.latest_span = "foreground"
+                        attribute = self.get_rgb_gtk_attribute(match.group(2).strip())
+                        if attribute:
+                           self.curr_attributes["foreground"] = attribute
+                           self.latest_span = "foreground"
                      elif match.group(1) in ["background", "background-color"]:
-                        self.curr_attributes["background"] = self.get_rgb_gtk_attribute(match.group(2).strip())
-                        self.latest_span = "background"
+                        attribute = self.get_rgb_gtk_attribute(match.group(2).strip())
+                        if attribute:
+                           self.curr_attributes["background"] = attribute
+                           self.latest_span = "background"
                      elif match.group(1) == "text-decoration":
                         if match.group(2).strip() in ["underline", "underline;"]:
                            self.curr_attributes["underline"] = "single"
@@ -777,8 +781,10 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
          elif tag == "font":
             for attr in attrs:
                if attr[0] == "color":
-                  self.curr_attributes["foreground"] = self.get_rgb_gtk_attribute(attr[1].strip())
-                  self.latest_font = "foreground"
+                  attribute = self.get_rgb_gtk_attribute(attr[1].strip())
+                  if attribute:
+                     self.curr_attributes["foreground"] = attribute
+                     self.latest_font = "foreground"
          elif tag in ["h1", "h2"]:
             self.rich_text_serialize(cons.CHAR_NEWLINE)
             if tag == "h1": self.curr_attributes["scale"] = "large"
