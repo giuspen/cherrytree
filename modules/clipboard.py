@@ -25,7 +25,6 @@ import cons, machines, exports, imports
 
 TARGET_CTD_PLAIN_TEXT = 'UTF8_STRING'
 TARGET_CTD_RICH_TEXT = 'CTD_RICH'
-TARGET_CTD_IMAGE = 'image/png'
 TARGET_CTD_TABLE = 'CTD_TABLE'
 TARGET_CTD_CODEBOX = 'CTD_CODEBOX'
 TARGET_HTML = 'text/html'
@@ -65,7 +64,7 @@ class ClipboardHandler:
          if anchor:
             anchor_dir = dir(anchor)
             if "pixbuf" in anchor_dir:
-               self.clipboard.set_with_data([(TARGET_CTD_IMAGE, 0, 0)],
+               self.clipboard.set_with_data([(t, 0, 0) for t in TARGETS_IMAGES],
                                             self.get_func,
                                             self.clear_func,
                                             anchor.pixbuf)
@@ -108,7 +107,6 @@ class ClipboardHandler:
       if target == TARGET_CTD_PLAIN_TEXT: selectiondata.set('UTF8_STRING', 8, data[0])
       elif target == TARGET_CTD_RICH_TEXT: selectiondata.set('UTF8_STRING', 8, data[1])
       elif target == TARGET_HTML: selectiondata.set('UTF8_STRING', 8, data[2])
-      elif target == TARGET_CTD_IMAGE: selectiondata.set_pixbuf(data)
       elif target == TARGET_CTD_CODEBOX:
          dom = xml.dom.minidom.Document()
          self.dad.xml_handler.codebox_element_to_xml([0, data[0], "left"], dom)
@@ -117,6 +115,7 @@ class ClipboardHandler:
          dom = xml.dom.minidom.Document()
          self.dad.xml_handler.table_element_to_xml([0, data[0], "left"], dom)
          selectiondata.set('UTF8_STRING', 8, dom.toxml())
+      elif target in TARGETS_IMAGES: selectiondata.set_pixbuf(data)
       
    def clear_func(self, clipboard, data):
       """Connected with clipboard.set_with_data"""
