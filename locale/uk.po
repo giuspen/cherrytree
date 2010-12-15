@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: CherryTree\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-12-08 23:34+0100\n"
-"PO-Revision-Date: 2010-12-09 10:26+0300\n"
+"PO-Revision-Date: 2010-12-16 01:27+0300\n"
 "Last-Translator: Andriy Kovtun <kovtunos@yandex.ru>\n"
 "Language-Team: Russian <kovtunos@yandex.ru>\n"
 "MIME-Version: 1.0\n"
@@ -454,11 +454,11 @@ msgstr "Експорт виділеної гілки до HTML"
 
 #: modules/cons.py:389
 msgid "_Export Node and Subnodes"
-msgstr "Експорт гілок і підвіток"
+msgstr "Експорт гілки з дочірніми гілками"
 
 #: modules/cons.py:389
 msgid "Export the Selected Node and its Subnodes"
-msgstr "Експорт виділеної вітки та її підвіток"
+msgstr "Експорт виділеної  гілки разом з дочірніми гілками"
 
 #: modules/cons.py:390
 msgid "Pa_ge Setup"

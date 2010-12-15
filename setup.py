@@ -49,7 +49,7 @@ setup(
                "icon_resources": [(1, "glade/cherrytree.ico")]
                }],
    options={"py2exe": {
-               "includes": "pango,cairo,pangocairo,atk,gobject,gtk,gtksourceview2",
+               "includes": "pango,cairo,pangocairo,atk,gobject,gtk,gtksourceview2,gio",
                "dll_excludes": [
                              "iconv.dll","intl.dll","libatk-1.0-0.dll",
                              "libgdk_pixbuf-2.0-0.dll","libgdk-win32-2.0-0.dll",
@@ -62,5 +62,5 @@ setup(
    data_files = data_files
 )
 
-if not "py2exe" in sys.argv:
-   subprocess.call("update-desktop-database")
+if "py2exe" in sys.argv: print "remember to move dist/share/locale to dist/locale and copy C:\gtksourceview\share\gtksourceview-2.0 to dist/share/"
+else: subprocess.call("update-desktop-database")
