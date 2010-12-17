@@ -320,7 +320,7 @@ class ClipboardHandler:
    def rich_text_get_from_text_buffer_selection(self, text_buffer, iter_sel_start, iter_sel_end):
       """Given text_buffer and selection, returns the rich text xml"""
       pixbuf_table_codebox_vector = self.dad.state_machine.get_embedded_pixbufs_tables_codeboxes(text_buffer,
-                                                                                                 for_print=1,
+                                                                                                 for_print=0,
                                                                                                  sel_range=(iter_sel_start.get_offset(), iter_sel_end.get_offset()))
       # pixbuf_table_codebox_vector is [ [ "pixbuf"/"table"/"codebox", [offset, pixbuf, alignment] ],... ]
       dom = xml.dom.minidom.Document()
