@@ -19,7 +19,7 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
-import os, cgi, base64, shutil
+import os, cgi, base64, shutil, copy
 import cons, support
 
 
@@ -272,9 +272,10 @@ class Export2Html:
       codebox_html += "</td></tr></table>"
       return codebox_html
    
-   def get_table_html(self, table):
+   def get_table_html(self, table_orig):
       """Returns the HTML Table"""
       # table is: [offset, dict, justification]
+      table = copy.deepcopy(table_orig)
       table_align_text = self.get_object_alignment_string(table[2])
       table_html = '<table border="1" style="%s;text-align:center">' % table_align_text
       table[1]['matrix'].insert(0, table[1]['matrix'].pop())
