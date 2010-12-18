@@ -1,4 +1,14 @@
 
+0.17 (December 15th, 2010)
+• fixed bugs (thanks Bernard)
+• the copy/paste now works intra application with single images, single codeboxes, single tables (added right click menu items) and a selection of rich text, images, codeboxes and tables
+• the copy/paste functionality works also cross application (tested cherrytree exchange with openoffice and gmail) with single images, single codeboxes, single tables and a selection of rich text, codeboxes and tables (images not supported yet in a selection)
+• copying a list of files from the file manager and pasting in cherrytree will create a list of links, images are recognized and inserted in the text
+• copy/paste a single image from/to the clipboard works fine
+• added Czech language (thanks Pavel)
+• nodes import: it is now possible to specify where to attach them (thanks Bernard*2)
+• tree nodes sorting is now case insensitive (thanks Bernard*3)
+
 0.16 (November 25th, 2010)
 • implemented the export to html of a single node / the whole tree
 • added in the preferences dialog the opportunity to use bullets as tree nodes icons or to do not use tree icons at all
