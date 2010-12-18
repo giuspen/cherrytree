@@ -195,7 +195,7 @@ msgstr "Inserir o nome para o novo nodo fillo..."
 #: modules/core.py:1208
 #, python-format
 msgid "Are you sure to <b>Delete the node '%s'?</b>"
-msgstr "Ten a certeza de que desexa<b>Eliminar o nodo «%s» <b>"
+msgstr "Ten a certeza de que desexa <b>Eliminar o nodo «%s»</b>"
 
 #: modules/core.py:1210
 msgid ""
@@ -1283,7 +1283,7 @@ msgstr "<b>Nodo</b>"
 
 #: glade/cherrytree.glade.h:35
 msgid "<b>Number of Code Nodes</b>"
-msgstr "<b>Número de nodos de código<b>"
+msgstr "<b>Número de nodos de código</b>"
 
 #: glade/cherrytree.glade.h:36
 msgid "<b>Number of Images</b>"
@@ -1291,7 +1291,7 @@ msgstr "<b>Número de imaxes</b>"
 
 #: glade/cherrytree.glade.h:37
 msgid "<b>Number of Tables</b>"
-msgstr "<b>Número de táboas<b>"
+msgstr "<b>Número de táboas</b>"
 
 #: glade/cherrytree.glade.h:38
 msgid "<b>Number of Text Nodes</b>"
