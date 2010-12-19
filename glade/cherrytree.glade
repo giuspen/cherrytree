@@ -449,6 +449,36 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
                 <property name="position">3</property>
               </packing>
             </child>
+            <child>
+              <object class="GtkFrame" id="tags_searching_frame">
+                <property name="visible">True</property>
+                <property name="label_xalign">0</property>
+                <child>
+                  <object class="GtkAlignment" id="alignment15">
+                    <property name="visible">True</property>
+                    <property name="left_padding">5</property>
+                    <property name="right_padding">5</property>
+                    <child>
+                      <object class="GtkEntry" id="tags_searching_entry">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="invisible_char">&#x25CF;</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child type="label">
+                  <object class="GtkLabel" id="label61">
+                    <property name="visible">True</property>
+                    <property name="label" translatable="yes">&lt;b&gt;Tags for Searching&lt;/b&gt;</property>
+                    <property name="use_markup">True</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="position">4</property>
+              </packing>
+            </child>
           </object>
           <packing>
             <property name="position">1</property>

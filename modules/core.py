@@ -89,8 +89,8 @@ class CherryTree:
       # toolbar add
       self.glade.vbox_main.pack_start(self.ui.get_widget("/ToolBar"), False, False)
       self.glade.vbox_main.reorder_child(self.ui.get_widget("/ToolBar"), 1)
-      # ROW: 0-icon_stock_id, 1-name, 2-buffer, 3-unique_id, 4-syntax_highlighting, 5-level
-      self.treestore = gtk.TreeStore(str, str, gobject.TYPE_PYOBJECT, long, str, int)
+      # ROW: 0-icon_stock_id, 1-name, 2-buffer, 3-unique_id, 4-syntax_highlighting, 5-level, 6-tags
+      self.treestore = gtk.TreeStore(str, str, gobject.TYPE_PYOBJECT, long, str, int, str)
       self.treeview = gtk.TreeView(self.treestore)
       self.treeview.set_headers_visible(False)
       self.renderer_pixbuf = gtk.CellRendererPixbuf()
@@ -1164,14 +1164,16 @@ class CherryTree:
                                                                            self.buffer_create(self.syntax_highlighting),
                                                                            self.node_id_get(),
                                                                            self.syntax_highlighting,
-                                                                           node_level])
+                                                                           node_level,
+                                                                           ""]) #todo
       else:
          new_node_iter = self.treestore.append(None, [cherry,
                                                       node_name,
                                                       self.buffer_create(self.syntax_highlighting),
                                                       self.node_id_get(),
                                                       self.syntax_highlighting,
-                                                      node_level])
+                                                      node_level,
+                                                      ""]) #todo
       new_node_path = self.treestore.get_path(new_node_iter)
       self.treeview.set_cursor(new_node_path)
       self.sourceview.grab_focus()
@@ -1193,7 +1195,8 @@ class CherryTree:
                                                                      self.buffer_create(self.syntax_highlighting),
                                                                      self.node_id_get(),
                                                                      self.syntax_highlighting,
-                                                                     node_level])
+                                                                     node_level,
+                                                                     ""]) #todo
          new_node_path = self.treestore.get_path(new_node_iter)
          father_node_path = self.treestore.get_path(self.curr_tree_iter)
          self.treeview.expand_row(father_node_path, True) # second parameter tells whether to expand childrens too
@@ -1483,6 +1486,7 @@ class CherryTree:
       self.glade.search_options_frame.set_property("visible", search_opt)
       self.glade.replace_options_frame.set_property("visible", replace_opt)
       self.glade.syntax_highlighting_frame.set_property("visible", syntax_highlight)
+      self.glade.tags_searching_frame.set_property("visible", syntax_highlight)
       response = self.glade.inputdialog.run()
       self.glade.inputdialog.hide()
       if response == 1: return self.glade.input_entry.get_text().decode("utf-8")

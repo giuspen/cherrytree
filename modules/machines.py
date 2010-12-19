@@ -116,7 +116,8 @@ class XMLHandler:
                                                           curr_buffer,
                                                           unique_id,
                                                           syntax_highlighting,
-                                                          node_level])
+                                                          node_level,
+                                                          ""]) #todo
       # loop for child nodes
       while child_dom_iter!= None:
          if child_dom_iter.nodeName == 'rich_text':
