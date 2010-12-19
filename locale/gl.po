@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: 0.17.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-12-18 21:14+0100\n"
-"PO-Revision-Date: 2010-12-18 15:50+0100\n"
+"PO-Revision-Date: 2010-12-19 10:37+0100\n"
 "Last-Translator: Dario Villar Veres <dario.villar.v@gmail.com>\n"
 "Language-Team: Galician <>\n"
 "MIME-Version: 1.0\n"
@@ -348,7 +348,7 @@ msgstr "_Editar"
 
 #: modules/cons.py:379 modules/cons.py:487
 msgid "For_matting"
-msgstr "For_matado"
+msgstr "For_mato"
 
 #: modules/cons.py:380
 msgid "_Tree"
@@ -444,7 +444,7 @@ msgstr "Im_primir nodo / Gardar como PDF, PS, SVG"
 
 #: modules/cons.py:395
 msgid "Print the Current Node / Save the Current Node as PDF, PS, SVG"
-msgstr "Im_primir o nodo actual / Gardar o nodo actual como PDF, PS, SVG"
+msgstr "Imprimir o nodo actual / Gardar o nodo actual como PDF, PS, SVG"
 
 #: modules/cons.py:396
 msgid "_Quit"
@@ -677,11 +677,11 @@ msgstr "Eliminar o formato do texto escollido"
 
 #: modules/cons.py:424 modules/cons.py:491
 msgid "Text _Color Foreground"
-msgstr "_Cor de primeiro plano do texto"
+msgstr "_Cor do texto"
 
 #: modules/cons.py:424 modules/cons.py:491
 msgid "Change the Color of the Selected Text Foreground"
-msgstr "Cambiar a cor de fondo do texto escollido"
+msgstr "Cambiar a cor do texto escollido"
 
 #: modules/cons.py:425 modules/cons.py:492
 msgid "Text C_olor Background"
@@ -693,7 +693,7 @@ msgstr "Cambiar a cor de fondo do texto escollido"
 
 #: modules/cons.py:426 modules/cons.py:493
 msgid "Toggle _Bold Property"
-msgstr "Alternar a propiedade _Negra"
+msgstr "Alternar _Negra"
 
 #: modules/cons.py:426 modules/cons.py:493
 msgid "Toggle Bold Property of the Selected Text"
@@ -701,7 +701,7 @@ msgstr "Alterna a propiedade negra do texto escollido"
 
 #: modules/cons.py:427 modules/cons.py:494
 msgid "Toggle _Italic Property"
-msgstr "Alternar a propiedade _Cursiva"
+msgstr "Alternar  _Cursiva"
 
 #: modules/cons.py:427 modules/cons.py:494
 msgid "Toggle Italic Property of the Selected Text"
@@ -709,7 +709,7 @@ msgstr "Alterna a propiedade cursiva para o texto escollido"
 
 #: modules/cons.py:428 modules/cons.py:495
 msgid "Toggle _Underline Property"
-msgstr "Alterna a propiedade s_ubliñado"
+msgstr "Alternar s_ubliñado"
 
 #: modules/cons.py:428 modules/cons.py:495
 msgid "Toggle Underline Property of the Selected Text"
@@ -717,7 +717,7 @@ msgstr "Alterna a propiedade subliñado do texto escollido"
 
 #: modules/cons.py:429 modules/cons.py:496
 msgid "Toggle Stri_kethrough Property"
-msgstr "Alternar a propiedade tac_hado"
+msgstr "Alternar tac_hado"
 
 #: modules/cons.py:429 modules/cons.py:496
 msgid "Toggle Strikethrough Property of the Selected Text"
@@ -741,35 +741,35 @@ msgstr "Alterna a propiedade h2 do texto escollido"
 
 #: modules/cons.py:432 modules/cons.py:499
 msgid "Toggle _Small Property"
-msgstr "Alterna a propiedade _Small"
+msgstr "Alterna a propiedade _Pequena"
 
 #: modules/cons.py:432 modules/cons.py:499
 msgid "Toggle Small Property of the Selected Text"
-msgstr "Alterna a propiedade «Small» do texto escollido"
+msgstr "Alterna a propiedade «Pequena» do texto escollido"
 
 #: modules/cons.py:433
 msgid "Justify _Left"
-msgstr "Xustificado á _esquerda"
+msgstr "Aliñar á _esquerda"
 
 #: modules/cons.py:433
 msgid "Justify Left the Current Paragraph"
-msgstr "Xustifica o parágrafo á esquerda"
+msgstr "Aliña parágrafo á esquerda"
 
 #: modules/cons.py:434
 msgid "Justify _Center"
-msgstr "Xustificado _centrado"
+msgstr "_Centrar"
 
 #: modules/cons.py:434
 msgid "Justify Center the Current Paragraph"
-msgstr "Xustifica o parágrafo ao centro"
+msgstr "Centra o parágrafo"
 
 #: modules/cons.py:435
 msgid "Justify _Right"
-msgstr "Xustificado á _dereita"
+msgstr "Aliñar á _dereita"
 
 #: modules/cons.py:435
 msgid "Justify Right the Current Paragraph"
-msgstr "Xustifica o parágrafo á dereita"
+msgstr "Aliña o parágrafo á dereita"
 
 #: modules/cons.py:436 modules/cons.py:515
 msgid "_Find in Node"
@@ -1582,3 +1582,4 @@ msgstr "http://www.giuspen.com/cherrytree/"
 #: glade/cherrytree.glade.h:117
 msgid "pixels"
 msgstr "píxeles"
+
