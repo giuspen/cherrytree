@@ -1892,11 +1892,11 @@ class CherryTree:
    
    def apply_tag_large(self, *args):
       """The H1 Button was Pressed"""
-      self.apply_tag("scale", "large")
+      self.apply_tag("scale", "h1")
       
    def apply_tag_large2(self, *args):
       """The H2 Button was Pressed"""
-      self.apply_tag("scale", "largo")
+      self.apply_tag("scale", "h2")
       
    def apply_tag_justify_right(self, *args):
       """The Justify Right Button was Pressed"""
@@ -2070,14 +2070,16 @@ class CherryTree:
       
    def apply_tag_exist_or_create(self, tag_property, property_value):
       """Check into the Tags Table whether the Tag Exists, if Not Creates it"""
+      if property_value == "large": property_value = "h1"
+      elif property_value == "largo": property_value = "h2"
       tag_name = tag_property + "_" + property_value
       tag = self.tag_table.lookup(str(tag_name))
       if tag == None:
          tag = gtk.TextTag(str(tag_name))
          if property_value == "heavy": tag.set_property(tag_property, pango.WEIGHT_HEAVY)
          elif property_value == "small": tag.set_property(tag_property, pango.SCALE_X_SMALL)
-         elif property_value == "large": tag.set_property(tag_property, pango.SCALE_XX_LARGE)
-         elif property_value == "largo": tag.set_property(tag_property, pango.SCALE_X_LARGE)
+         elif property_value == "h1": tag.set_property(tag_property, pango.SCALE_XX_LARGE)
+         elif property_value == "h2": tag.set_property(tag_property, pango.SCALE_X_LARGE)
          elif property_value == "italic": tag.set_property(tag_property, pango.STYLE_ITALIC)
          elif property_value == "single": tag.set_property(tag_property, pango.UNDERLINE_SINGLE)
          elif property_value == "true": tag.set_property(tag_property, True)

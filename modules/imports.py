@@ -789,8 +789,8 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
                      self.latest_font = "foreground"
          elif tag in ["h1", "h2"]:
             self.rich_text_serialize(cons.CHAR_NEWLINE)
-            if tag == "h1": self.curr_attributes["scale"] = "large"
-            else: self.curr_attributes["scale"] = "largo"
+            if tag == "h1": self.curr_attributes["scale"] = "h1"
+            else: self.curr_attributes["scale"] = "h2"
             for attr in attrs:
                if attr[0] == "align": self.curr_attributes["justification"] = attr[1].strip().lower()
          elif tag == "a" and len(attrs) > 0:

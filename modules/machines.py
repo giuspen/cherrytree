@@ -413,15 +413,13 @@ class XMLHandler:
    
    def toc_insert_parser(self, text_buffer, start_iter, end_iter):
       """Parses a Tagged String for the TOC insert"""
-      if self.curr_attributes["scale"] not in ["large", "largo"]: return None
+      if self.curr_attributes["scale"] not in ["h1", "h2"]: return None
       start_offset = start_iter.get_offset()
       end_offset = end_iter.get_offset()
-      if self.curr_attributes["scale"] == "large":
-         # got H1
+      if self.curr_attributes["scale"] == "h1":
          self.toc_counters["h1"] += 1
          self.toc_list.append(["h1-%d" % self.toc_counters["h1"], text_buffer.get_text(start_iter, end_iter)])
       else:
-         # got H2
          self.toc_counters["h2"] += 1
          self.toc_list.append(["h2-%d" % self.toc_counters["h2"], text_buffer.get_text(start_iter, end_iter)])
       anchor_start = start_iter.copy()

@@ -122,8 +122,8 @@ class Export2Pango:
             if tag_property == "scale": tag_property = "size"
             # tag properties fix
             if property_value == "small": property_value = 'x-small'
-            elif property_value == "large": property_value = 'xx-large'
-            elif property_value == "largo": property_value = 'x-large'
+            elif property_value == "h1": property_value = 'xx-large'
+            elif property_value == "h2": property_value = 'x-large'
             pango_attrs += ' %s="%s"' % (tag_property, property_value)
       if pango_attrs == '': self.curr_pango_text += cgi.escape(start_iter.get_text(end_iter))
       else: self.curr_pango_text += '<span' + pango_attrs + '>' + cgi.escape(start_iter.get_text(end_iter)) + '</span>'
@@ -437,8 +437,8 @@ class Export2Html:
                # font-size:xx-large/x-large/x-small
                tag_property = "font-size"
                if property_value == "small": property_value = "x-small"
-               elif property_value == "large": property_value = "xx-large"
-               elif property_value == "largo": property_value = "x-large"
+               elif property_value == "h1": property_value = "xx-large"
+               elif property_value == "h2": property_value = "x-large"
             elif tag_property == "justification":
                # text-align:center/left/right
                tag_property = "text-align"
