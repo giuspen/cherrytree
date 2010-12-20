@@ -86,6 +86,8 @@ class XMLHandler:
          unique_id = long(dom_iter.attributes['unique_id'].value)
          self.dad.node_id_add(unique_id)
       else: unique_id = self.dad.node_id_get()
+      if dom_iter.hasAttribute('tags'): node_tags = dom_iter.attributes['tags'].value
+      else: node_tags = ""
       syntax_highlighting = dom_iter.attributes['prog_lang'].value
       if syntax_highlighting != cons.CUSTOM_COLORS_ID and syntax_highlighting not in self.dad.available_languages:
          syntax_highlighting = syntax_highlighting.lower().replace("C++", "cpp")
@@ -117,7 +119,7 @@ class XMLHandler:
                                                           unique_id,
                                                           syntax_highlighting,
                                                           node_level,
-                                                          ""]) #todo
+                                                          node_tags])
       # loop for child nodes
       while child_dom_iter!= None:
          if child_dom_iter.nodeName == 'rich_text':
@@ -234,6 +236,7 @@ class XMLHandler:
       dom_iter.setAttribute("unique_id", str(self.dad.treestore[tree_iter][3]))
       programming_language = self.dad.treestore[tree_iter][4]
       dom_iter.setAttribute("prog_lang", programming_language)
+      dom_iter.setAttribute("tags", self.dad.treestore[tree_iter][6])
       dom_father.appendChild(dom_iter)
       # allocate and init the rich text attributes
       self.curr_attributes = {}

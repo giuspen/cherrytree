@@ -308,9 +308,12 @@ class FindReplace:
    
    def parse_node_name(self, node_iter, pattern, forward, all_matches):
       """Recursive function that searchs for the given pattern"""
-      text = self.dad.treestore[node_iter][1].decode("utf-8")
-      match = pattern.search(text)
-      if match != None:
+      text_name = self.dad.treestore[node_iter][1].decode("utf-8")
+      match = pattern.search(text_name)
+      if not match:
+         text_tags = self.dad.treestore[node_iter][6].decode("utf-8")
+         match = pattern.search(text_tags)
+      if match:
          if all_matches:
             self.liststore.append([node_iter,
                                    0,
@@ -319,8 +322,8 @@ class FindReplace:
                                    self.get_first_line_content(self.dad.treestore[node_iter][2])])
          if self.replace_active:
             replacer_text = self.dad.glade.replace_entry.get_text().decode("utf-8")
-            text = text.replace(self.curr_find[1], replacer_text)
-            self.dad.treestore[node_iter][1] = text
+            text_name = text_name.replace(self.curr_find[1], replacer_text)
+            self.dad.treestore[node_iter][1] = text_name
          if not all_matches:
             self.dad.treeview_safe_set_cursor(node_iter)
             self.dad.sourceview.grab_focus()

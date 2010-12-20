@@ -206,7 +206,7 @@ class CherryTree:
    def on_key_press_cherrytree(self, widget, event):
       """Catches ChooseNode Dialog key presses"""
       keyname = gtk.gdk.keyval_name(event.keyval)
-      if keyname == "Return": self.node_modify()
+      if keyname == "Return": self.node_edit()
       elif keyname == "Menu":
          self.ui.get_widget("/TreeMenu").popup(None, None, None, 0, event.time)
          widget.stop_emission("key_press_event")
@@ -1073,7 +1073,7 @@ class CherryTree:
       if event.button == 3:
          self.ui.get_widget("/TreeMenu").popup(None, None, None, event.button, event.time)
       elif event.button == 1 and event.type == gtk.gdk._2BUTTON_PRESS:
-         self.node_modify()
+         self.node_edit()
       
    def buffer_create(self, syntax_highlighting):
       """Returns a New Instantiated SourceBuffer"""
@@ -1165,7 +1165,7 @@ class CherryTree:
                                                                            self.node_id_get(),
                                                                            self.syntax_highlighting,
                                                                            node_level,
-                                                                           ""]) #todo
+                                                                           self.glade.tags_searching_entry.get_text()])
       else:
          new_node_iter = self.treestore.append(None, [cherry,
                                                       node_name,
@@ -1173,7 +1173,7 @@ class CherryTree:
                                                       self.node_id_get(),
                                                       self.syntax_highlighting,
                                                       node_level,
-                                                      ""]) #todo
+                                                      self.glade.tags_searching_entry.get_text()])
       new_node_path = self.treestore.get_path(new_node_iter)
       self.treeview.set_cursor(new_node_path)
       self.sourceview.grab_focus()
@@ -1196,7 +1196,7 @@ class CherryTree:
                                                                      self.node_id_get(),
                                                                      self.syntax_highlighting,
                                                                      node_level,
-                                                                     ""]) #todo
+                                                                     self.glade.tags_searching_entry.get_text()])
          new_node_path = self.treestore.get_path(new_node_iter)
          father_node_path = self.treestore.get_path(self.curr_tree_iter)
          self.treeview.expand_row(father_node_path, True) # second parameter tells whether to expand childrens too
@@ -1228,12 +1228,13 @@ class CherryTree:
          self.sourceview.grab_focus()
       self.update_window_save_needed()
          
-   def node_modify(self, *args):
+   def node_edit(self, *args):
       """Edit the Properties of the Selected Node"""
       if self.curr_tree_iter == None:
          support.dialog_warning(_("No Node is Selected!"), self.window)
          return
       self.glade.combobox_prog_lang.set_active_iter(self.get_combobox_prog_lang_iter(self.treestore[self.curr_tree_iter][4]))
+      self.glade.tags_searching_entry.set_text(self.treestore[self.curr_tree_iter][6])
       node_name = self.dialog_input(entry_hint=self.treestore[self.curr_tree_iter][1],
                                     title=_("Insert the New Name for the Node..."),
                                     syntax_highlight=True)
@@ -1253,6 +1254,7 @@ class CherryTree:
          self.curr_buffer = self.treestore[self.curr_tree_iter][2]
       self.treestore[self.curr_tree_iter][1] = node_name
       self.treestore[self.curr_tree_iter][4] = self.syntax_highlighting
+      self.treestore[self.curr_tree_iter][6] = self.glade.tags_searching_entry.get_text()
       self.treestore[self.curr_tree_iter][0] = self.get_node_icon(self.treestore[self.curr_tree_iter][5],
                                                                   self.syntax_highlighting)
       if self.syntax_highlighting != cons.CUSTOM_COLORS_ID:
