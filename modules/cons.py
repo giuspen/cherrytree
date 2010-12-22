@@ -248,6 +248,7 @@ UI_INFO = """
          <menuitem action='FromCherryTree'/>
          <menuitem action='FromKeepNote'/>
          <menuitem action='FromNoteCase'/>
+         <menuitem action='FromTreepad'/>
          <menuitem action='FromTuxCards'/>
       </menu>
       
@@ -452,6 +453,7 @@ def get_entries(inst):
    ( "FromNoteCase", "Import in CherryTree", _("From _NoteCase File"), None, _("Add Nodes of a NoteCase File to the Current Tree"), inst.nodes_add_from_notecase_file),
    ( "FromKeepNote", "Import in CherryTree", _("From _KeepNote Folder"), None, _("Add Nodes of a KeepNote Folder to the Current Tree"), inst.nodes_add_from_keepnote_folder),
    ( "FromTuxCards", "Import in CherryTree", _("From _TuxCards File"), None, _("Add Nodes of a TuxCards File to the Current Tree"), inst.nodes_add_from_tuxcards_file),
+   ( "FromTreepad", "Import in CherryTree", _("From T_reepad Lite File"), None, _("Add Nodes of a Treepad Lite File to the Current Tree"), inst.nodes_add_from_treepad_file),
    ( "Help", "Help Contents", _("_Help"), None, _("Application's Home Page"), inst.on_help_menu_item_activated),
    ( "CheckNewer", "gtk-network", _("_Check Newer Version"), None, _("Check for a Newer Version"), inst.check_for_newer_version),
    ( "About", "gtk-about", _("_About"), None, _("About CherryTree"), inst.dialog_about),

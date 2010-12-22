@@ -294,6 +294,23 @@ class CherryTree:
          cherrytree_string = basket.get_cherrytree_xml()
          self.nodes_add_from_string(cherrytree_string)
       
+   def nodes_add_from_treepad_file(self, action):
+      """Add Nodes Parsing a Treepad File"""
+      filepath = support.dialog_file_select(filter_pattern="*.hjt",
+                                            filter_name=_("Treepad Document"),
+                                            curr_folder=self.file_dir,
+                                            parent=self.window)
+      if filepath == None: return
+      try:
+         file_descriptor = open(filepath, 'r')
+         treepad = imports.TreepadHandler()
+         cherrytree_string = treepad.get_cherrytree_xml(file_descriptor)
+         file_descriptor.close()
+      except:
+         support.dialog_error("Error opening the file %s" % filepath, self.window)
+         return
+      #self.nodes_add_from_string(cherrytree_string)
+      
    def nodes_add_from_string(self, cherrytree_string):
       """Adds Nodes to the Tree Parsing a CherryTree XML String"""
       cherrytree_string = re.sub(cons.BAD_CHARS, "", cherrytree_string)

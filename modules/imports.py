@@ -517,6 +517,28 @@ class BasketHandler(HTMLParser.HTMLParser):
       return self.dom.toxml()
 
 
+class TreepadHandler:
+   """The Handler of the Treepad File Parsing"""
+   
+   def __init__(self):
+      """Machine boot"""
+      self.xml_handler = machines.XMLHandler(self)
+      
+   def parse_string_lines(self, file_descriptor):
+      """Parse the string line by line"""
+      self.curr_title = ""
+      for text_line in file_descriptor:
+         if len(text_line) > 0 and text_line[0] == "<": print text_line
+      
+   def get_cherrytree_xml(self, file_descriptor):
+      """Parses the Given Notecase HTML String feeding the CherryTree XML dom"""
+      self.dom = xml.dom.minidom.Document()
+      self.nodes_list = [self.dom.createElement("cherrytree")]
+      self.dom.appendChild(self.nodes_list[0])
+      self.parse_string_lines(file_descriptor)
+      return self.dom.toxml()
+
+
 class NotecaseHandler(HTMLParser.HTMLParser):
    """The Handler of the Notecase Files Parsing"""
    
