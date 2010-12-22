@@ -1491,7 +1491,10 @@ class CherryTree:
       self.glade.tags_searching_frame.set_property("visible", syntax_highlight)
       response = self.glade.inputdialog.run()
       self.glade.inputdialog.hide()
-      if response == 1: return self.glade.input_entry.get_text().decode("utf-8")
+      if response == 1:
+         input_text = self.glade.input_entry.get_text().decode("utf-8")
+         if len(input_text) > 0: return input_text
+         else: return None
       else: return None
       
    def toolbar_icons_size_increase(self, *args):
