@@ -837,6 +837,7 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
             self.curr_attributes["justification"] = ""
             self.rich_text_serialize(cons.CHAR_NEWLINE)
          elif tag == "a": self.curr_attributes["link"] = ""
+         elif tag == "li": self.rich_text_serialize(cons.CHAR_NEWLINE)
       elif self.curr_state == 2:
          if tag in ["td", "th"]: self.curr_table[-1].append(self.curr_cell)
          elif tag == "table":
@@ -893,6 +894,7 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
       self.latest_font = ""
       self.curr_cell = ""
       self.in_a_tag = 0
+      self.curr_list_type = ["u", 0]
       # curr_state 0: standby, taking no data
       # curr_state 1: receiving rich text
       # curr_state 2: receiving table or codebox data
