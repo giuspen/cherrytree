@@ -208,11 +208,6 @@ UI_INFO = """
          <menuitem action='NodesExpandAll'/>
          <menuitem action='NodesCollapseAll'/>
          <separator/>
-         <menuitem action='NodePrint'/>
-         <menuitem action='SelNode2HTML'/>
-         <menuitem action='AllNodes2HTML'/>
-         <menuitem action='SelNode2CTD'/>
-         <separator/>
          <menuitem action='SortSiblingsDescending'/>
          <menuitem action='SortSiblingsAscending'/>
          <separator/>
@@ -251,6 +246,13 @@ UI_INFO = """
          <menuitem action='FromNoteCase'/>
          <menuitem action='FromTreepad'/>
          <menuitem action='FromTuxCards'/>
+      </menu>
+      
+      <menu action='ExportMenu'>
+         <menuitem action='NodePrint'/>
+         <menuitem action='SelNode2HTML'/>
+         <menuitem action='AllNodes2HTML'/>
+         <menuitem action='SelNode2CTD'/>
       </menu>
       
       <menu action='HelpMenu'>
@@ -321,10 +323,20 @@ UI_INFO = """
       <menuitem action='FindNode'/>
       <menuitem action='ReplaceInNodesNames'/>
       <separator/>
-      <menuitem action='NodePrint'/>
-      <menuitem action='SelNode2HTML'/>
-      <menuitem action='AllNodes2HTML'/>
-      <menuitem action='SelNode2CTD'/>
+      <menu action='TreeImportMenu'>
+         <menuitem action='FromBasket'/>
+         <menuitem action='FromCherryTree'/>
+         <menuitem action='FromKeepNote'/>
+         <menuitem action='FromNoteCase'/>
+         <menuitem action='FromTreepad'/>
+         <menuitem action='FromTuxCards'/>
+      </menu>
+      <menu action='TreeExportMenu'>
+         <menuitem action='NodePrint'/>
+         <menuitem action='SelNode2HTML'/>
+         <menuitem action='AllNodes2HTML'/>
+         <menuitem action='SelNode2CTD'/>
+      </menu>
       <separator/>
       <menuitem action='SortSiblingsDescending'/>
       <menuitem action='SortSiblingsAscending'/>
@@ -380,10 +392,13 @@ def get_entries(inst):
    ( "EditMenu", None, _("_Edit") ),
    ( "FormattingMenu", None, _("For_matting") ),
    ( "TreeMenu", None, _("_Tree") ),
+   ( "TreeImportMenu", None, _("_Import") ),
+   ( "TreeExportMenu", None, _("E_xport") ),
    ( "SearchMenu", None, _("_Search") ),
    ( "ReplaceMenu", None, _("_Replace") ),
    ( "ViewMenu", None, _("_View") ),
    ( "ImportMenu", None, _("_Import") ),
+   ( "ExportMenu", None, _("E_xport") ),
    ( "HelpMenu", None, _("_Help") ),
    # name, stock id, label, accelerator, tooltip, callback
    ( "NewInstance", "New Instance", _("New _Instance"), None, _("Start a New Instance of CherryTree"), inst.file_new),
