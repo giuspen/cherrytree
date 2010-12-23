@@ -437,7 +437,7 @@ def get_entries(inst):
    ( "JustifyRight", "gtk-justify-right", _("Justify _Right"), None, _("Justify Right the Current Paragraph"), inst.apply_tag_justify_right),
    ( "FindInNode", "Find", _("_Find in Node"), "<control>F", _("Find into the Selected Node"), inst.find_in_selected_node),
    ( "FindInNodes", "Find", _("Find in Node_s"), "<control><shift>F", _("Find into all the Tree Nodes"), inst.find_in_all_nodes),
-   ( "FindNode", "Find", _("Find a _Node"), "<control>C", _("Find a Node from its Name"), inst.find_a_node),
+   ( "FindNode", "Find", _("Find a _Node"), "<control>T", _("Find a Node from its Name"), inst.find_a_node),
    ( "FindAgain", "Find Again", _("Find _Again"), "F3", _("Iterate the Last Find Operation"), inst.find_again),
    ( "FindBack", "Find Back", _("Find _Back"), "F4", _("Iterate the Last Find Operation in Opposite Direction"), inst.find_back),
    ( "ReplaceInNode", "Find Replace", _("_Replace in Node"), "<control>H", _("Replace into the Selected Node"), inst.replace_in_selected_node),
