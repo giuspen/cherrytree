@@ -685,6 +685,25 @@ class CherryTree:
          if len(filepath) < 4 or filepath[-4:] != ".ctd": filepath += ".ctd"
          self.file_write_node_and_subnodes(filepath)
       
+   def node_export_to_plain_text(self, *args):
+      """Export the Selected Node To Plain Text"""
+      if self.curr_tree_iter == None:
+         support.dialog_warning(_("No Node is Selected!"), self.window)
+         return
+      filepath = support.dialog_file_save_as(self.treestore[self.curr_tree_iter][1] + ".txt",
+                                             filter_pattern="*.txt",
+                                             filter_name=_("Plain Text Document"),
+                                             curr_folder=self.file_dir,
+                                             parent=self.window)
+      if filepath == None: return
+      if not os.path.isfile(filepath)\
+      or support.dialog_question(_("The File %s\nAlready Exists, do you want to Overwrite?") % filepath, self.window):
+         if len(filepath) < 4 or filepath[-4:] != ".txt": filepath += ".txt"
+         plain_text = self.curr_buffer.get_text(*self.curr_buffer.get_bounds())
+         file_descriptor = open(filepath, 'w')
+         file_descriptor.write(plain_text)
+         file_descriptor.close()
+      
    def node_export_to_html(self, *args):
       """Export the Selected Node To HTML"""
       if self.curr_tree_iter == None:

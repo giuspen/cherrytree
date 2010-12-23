@@ -117,6 +117,7 @@ STOCKS_N_FILES = {'Node Bullet':'node_bullet.png',
                   'Format Text':'format_text.png',
                   'Rotate Left':'object-rotate-left.png',
                   'Rotate Right':'object-rotate-right.png',
+                  'To Txt':'to_txt.png',
                   'To HTML':'to_html.png',
                   'CherryTree Export':'export_from_cherrytree.png',
                   'CherryTree Import':'import_in_cherrytree.png',
@@ -251,6 +252,7 @@ UI_INFO = """
       
       <menu action='ExportMenu'>
          <menuitem action='NodePrint'/>
+         <menuitem action='SelNode2Txt'/>
          <menuitem action='SelNode2HTML'/>
          <menuitem action='AllNodes2HTML'/>
          <menuitem action='SelNode2CTD'/>
@@ -313,10 +315,12 @@ UI_INFO = """
       <menuitem action='ChangeNodeProp'/>
       <menuitem action='TreeInfo'/>
       <separator/>
-      <menuitem action='NodeUp'/>
-      <menuitem action='NodeDown'/>
-      <menuitem action='NodeLeft'/>
-      <menuitem action='NodeChangeFather'/>
+      <menu action='TreeMoveMenu'>
+         <menuitem action='NodeUp'/>
+         <menuitem action='NodeDown'/>
+         <menuitem action='NodeLeft'/>
+         <menuitem action='NodeChangeFather'/>
+      </menu>
       <separator/>
       <menuitem action='NodesExpandAll'/>
       <menuitem action='NodesCollapseAll'/>
@@ -334,6 +338,7 @@ UI_INFO = """
       </menu>
       <menu action='TreeExportMenu'>
          <menuitem action='NodePrint'/>
+         <menuitem action='SelNode2Txt'/>
          <menuitem action='SelNode2HTML'/>
          <menuitem action='AllNodes2HTML'/>
          <menuitem action='SelNode2CTD'/>
@@ -393,8 +398,9 @@ def get_entries(inst):
    ( "EditMenu", None, _("_Edit") ),
    ( "FormattingMenu", None, _("For_matting") ),
    ( "TreeMenu", None, _("_Tree") ),
-   ( "TreeImportMenu", "CherryTree Import", _("_Import") ),
-   ( "TreeExportMenu", "CherryTree Export", _("E_xport") ),
+   ( "TreeMoveMenu", "gtk-jump-to", _("Node _Move") ),
+   ( "TreeImportMenu", "CherryTree Import", _("Nodes _Import") ),
+   ( "TreeExportMenu", "CherryTree Export", _("Nodes E_xport") ),
    ( "SearchMenu", None, _("_Search") ),
    ( "ReplaceMenu", None, _("_Replace") ),
    ( "ViewMenu", None, _("_View") ),
@@ -408,6 +414,7 @@ def get_entries(inst):
    ( "SaveAs", "gtk-save-as", _("Save _As"), "<control><shift>S", _("Save File As"), inst.file_save_as),
    ( "AllNodes2HTML", "To HTML", _("Export _Tree To HTML"), None, _("Export the Tree To HTML"), inst.nodes_all_export_to_html),
    ( "SelNode2HTML", "To HTML", _("Export Node To _HTML"), None, _("Export the Selected Node To HTML"), inst.node_export_to_html),
+   ( "SelNode2Txt", "To Txt", _("Save Node as Plain _Text"), None, _("Save the Selected Node as Plain Text"), inst.node_export_to_plain_text),
    ( "SelNode2CTD", "CherryTree Export", _("_Export Node and Subnodes"), None, _("Export the Selected Node and its Subnodes"), inst.node_and_subnodes_export),
    ( "PageSetup", "gtk-print", _("Pa_ge Setup"), None, _("Set up the Page for Printing"), inst.node_print_page_setup),
    ( "NodePrint", "gtk-print", _("Node _Print / Save as PDF, PS, SVG"), None, _("Print the Current Node / Save the Current Node as PDF, PS, SVG"), inst.node_print),
