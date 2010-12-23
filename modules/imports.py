@@ -526,9 +526,31 @@ class TreepadHandler:
       
    def parse_string_lines(self, file_descriptor):
       """Parse the string line by line"""
-      self.curr_title = ""
+      self.curr_state = 0
+      self.curr_node_name = ""
+      self.curr_node_content = ""
+      self.curr_node_level = 0
+      # 0: waiting for <node>
+      # 1: waiting for node name
+      # 2: waiting for node level
+      # 3: gathering node content
       for text_line in file_descriptor:
-         if len(text_line) > 0 and text_line[0] == "<": print text_line
+         if self.curr_state == 0:
+            if len(text_line) > 5 and text_line[:6] == "<node>": self.curr_state = 1
+         elif self.curr_state == 1:
+            #print "node name", text_line
+            self.curr_node_name = text_line
+            self.curr_state = 2
+         elif self.curr_state == 2:
+            #print "node level", text_line
+            self.curr_node_level = int(text_line)
+            self.curr_node_content = ""
+            self.curr_state = 3
+         elif self.curr_state == 3:
+            if len(text_line) > 9 and text_line[:10] == "<end node>":
+               
+               self.curr_state = 0
+            else: self.curr_node_content += text_line + cons.CHAR_NEWLINE
       
    def get_cherrytree_xml(self, file_descriptor):
       """Parses the Given Notecase HTML String feeding the CherryTree XML dom"""

@@ -308,6 +308,7 @@ class CherryTree:
          file_descriptor.close()
       except:
          support.dialog_error("Error opening the file %s" % filepath, self.window)
+         raise
          return
       #self.nodes_add_from_string(cherrytree_string)
       
