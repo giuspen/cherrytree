@@ -524,12 +524,23 @@ class TreepadHandler:
       """Machine boot"""
       self.xml_handler = machines.XMLHandler(self)
       
+   def rich_text_serialize(self, text_data):
+      """Appends a new part to the XML rich text"""
+      dom_iter = self.dom.createElement("rich_text")
+      #for tag_property in cons.TAG_PROPERTIES:
+      #   if self.curr_attributes[tag_property] != "":
+      #      dom_iter.setAttribute(tag_property, self.curr_attributes[tag_property])
+      self.nodes_list[-1].appendChild(dom_iter)
+      text_iter = self.dom.createTextNode(text_data)
+      dom_iter.appendChild(text_iter)
+      
    def parse_string_lines(self, file_descriptor):
       """Parse the string line by line"""
       self.curr_state = 0
       self.curr_node_name = ""
       self.curr_node_content = ""
       self.curr_node_level = 0
+      self.former_node_level = 0
       # 0: waiting for <node>
       # 1: waiting for node name
       # 2: waiting for node level
@@ -539,18 +550,26 @@ class TreepadHandler:
             if len(text_line) > 5 and text_line[:6] == "<node>": self.curr_state = 1
          elif self.curr_state == 1:
             #print "node name", text_line
-            self.curr_node_name = text_line
+            self.curr_node_name = text_line.replace(cons.CHAR_CR, "").replace(cons.CHAR_NEWLINE, "")
             self.curr_state = 2
          elif self.curr_state == 2:
             #print "node level", text_line
-            self.curr_node_level = int(text_line)
-            self.curr_node_content = ""
-            self.curr_state = 3
+            if re.match("\d+", text_line):
+               self.curr_node_level = int(text_line)
+               #print self.curr_node_level
+               self.curr_node_content = ""
+               self.curr_state = 3
+               self.nodes_list.append(self.dom.createElement("node"))
+               self.nodes_list[-1].setAttribute("name", self.curr_node_name)
+               self.nodes_list[-1].setAttribute("prog_lang", cons.CUSTOM_COLORS_ID)
+               self.nodes_list[-2].appendChild(self.nodes_list[-1])
+            else: self.curr_node_name += text_line.replace(cons.CHAR_CR, "").replace(cons.CHAR_NEWLINE, "") + cons.CHAR_SPACE
          elif self.curr_state == 3:
             if len(text_line) > 9 and text_line[:10] == "<end node>":
-               
                self.curr_state = 0
-            else: self.curr_node_content += text_line + cons.CHAR_NEWLINE
+               self.rich_text_serialize(self.curr_node_content)
+               self.nodes_list.pop()
+            else: self.curr_node_content += text_line.replace(cons.CHAR_CR, "").replace(cons.CHAR_NEWLINE, "") + cons.CHAR_NEWLINE
       
    def get_cherrytree_xml(self, file_descriptor):
       """Parses the Given Notecase HTML String feeding the CherryTree XML dom"""
