@@ -546,6 +546,7 @@ class TreepadHandler:
       # 2: waiting for node level
       # 3: gathering node content
       for text_line in file_descriptor:
+         text_line = text_line.decode("utf-8", "ignore")
          if self.curr_state == 0:
             if len(text_line) > 5 and text_line[:6] == "<node>": self.curr_state = 1
          elif self.curr_state == 1:
