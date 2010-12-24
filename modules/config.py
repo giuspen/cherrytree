@@ -25,7 +25,6 @@ import cons
 
 def config_file_load(inst):
    """Load the Preferences from Config File"""
-   inst.user_active = False
    if os.path.isfile(cons.CONFIG_PATH):
       config_file_descriptor = file(cons.CONFIG_PATH, 'r')
       config_str = config_file_descriptor.read()
@@ -66,8 +65,8 @@ def config_file_load(inst):
             inst.cursor_position = int( dom_iter.attributes["cursor_position"].value )
       else: inst.node_path = None
       if dom_iter.hasAttribute("hpaned_pos"):
-         hpaned_pos = int( dom_iter.attributes["hpaned_pos"].value )
-         inst.hpaned.set_property('position', hpaned_pos)
+         inst.hpaned_pos = int( dom_iter.attributes["hpaned_pos"].value )
+      else: inst.hpaned_pos = 170
       if dom_iter.hasAttribute("text_font"): inst.text_font = dom_iter.attributes["text_font"].value
       else: inst.text_font = "Sans 9" # default text font
       if dom_iter.hasAttribute("tree_font"): inst.tree_font = dom_iter.attributes["tree_font"].value
@@ -106,9 +105,8 @@ def config_file_load(inst):
       if dom_iter.hasAttribute("link_type"): inst.link_type = dom_iter.attributes["link_type"].value
       else: inst.link_type = "webs"
       if dom_iter.hasAttribute("show_node_name_label"):
-         show_node_name_label = (dom_iter.attributes["show_node_name_label"].value == "True")
-         inst.header_node_name_label.set_property("visible", show_node_name_label)
-      else: inst.header_node_name_label.set_property("visible", True)
+         inst.show_node_name_label = (dom_iter.attributes["show_node_name_label"].value == "True")
+      else: inst.show_node_name_label = True
       if dom_iter.hasAttribute("table_rows"):
          inst.table_rows = int(dom_iter.attributes["table_rows"].value)
       else: inst.table_rows = 3
@@ -191,8 +189,16 @@ def config_file_load(inst):
       inst.glade.spinbutton_codebox_height.set_value(100)
       inst.check_version = False
       inst.tree_right_side = False
+      inst.hpaned_pos = 170
+      inst.show_node_name_label = True
       inst.nodes_icons = "c"
+   
+def config_file_apply(inst):
+   """Apply the Preferences from Config File"""
+   inst.user_active = False
    # treeview
+   inst.hpaned.set_property('position', inst.hpaned_pos)
+   inst.header_node_name_label.set_property("visible", inst.show_node_name_label)
    inst.set_treeview_font()
    inst.glade.fontbutton_tree.set_font_name(inst.tree_font)
    # sourceview

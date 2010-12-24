@@ -78,6 +78,7 @@ class CherryTree:
          support.dialog_error(_("Another Instance of CherryTree is Already Running"), self.window)
          sys.exit(1)
       self.country_lang = lang_str
+      config.config_file_load(self)
       # ui manager
       actions = gtk.ActionGroup("Actions")
       actions.add_actions(cons.get_entries(self))
@@ -99,8 +100,12 @@ class CherryTree:
       self.header_node_name_label = gtk.Label()
       self.vbox_text.pack_start(self.header_node_name_label, False, False)
       self.vbox_text.pack_start(self.scrolledwindow_text)
-      self.hpaned.add1(self.scrolledwindow_tree)
-      self.hpaned.add2(self.vbox_text)
+      if self.tree_right_side:
+         self.hpaned.add1(self.vbox_text)
+         self.hpaned.add2(self.scrolledwindow_tree)
+      else:
+         self.hpaned.add1(self.scrolledwindow_tree)
+         self.hpaned.add2(self.vbox_text)
       vbox_main.pack_start(self.hpaned)
       # statusbar add
       self.statusbar = gtk.Statusbar()
@@ -156,13 +161,8 @@ class CherryTree:
       self.autosave_timer_id = None
       self.node_id_counter = long(0)
       self.glade.aboutdialog.set_version(cons.VERSION)
-      self.window.show_all() # this before the config_file_load that could hide something
-      config.config_file_load(self)
-      if self.tree_right_side:
-         self.hpaned.remove(self.scrolledwindow_tree)
-         self.hpaned.remove(self.vbox_text)
-         self.hpaned.add1(self.vbox_text)
-         self.hpaned.add2(self.scrolledwindow_tree)
+      self.window.show_all() # this before the config_file_apply that could hide something
+      config.config_file_apply(self)
       self.combobox_country_lang_init()
       self.combobox_prog_lang_init()
       if self.systray:

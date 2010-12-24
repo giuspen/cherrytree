@@ -465,7 +465,7 @@ def get_entries(inst):
    ( "FindBack", "Find Back", _("Find _Back"), "F4", _("Iterate the Last Find Operation in Opposite Direction"), inst.find_back),
    ( "ReplaceInNode", "Find Replace", _("_Replace in Node"), "<control>H", _("Replace into the Selected Node"), inst.replace_in_selected_node),
    ( "ReplaceInNodes", "Find Replace", _("Replace in Node_s"), "<control><shift>H", _("Replace into all the Tree Nodes"), inst.replace_in_all_nodes),
-   ( "ReplaceInNodesNames", "Find Replace", _("Replace in Nodes _Names"), None, _("Replace in Nodes Names"), inst.replace_in_nodes_names),
+   ( "ReplaceInNodesNames", "Find Replace", _("Replace in Nodes _Names"), "<control><shift>T", _("Replace in Nodes Names"), inst.replace_in_nodes_names),
    ( "ReplaceAgain", "Find Replace", _("Replace _Again"), "F6", _("Iterate the Last Replace Operation"), inst.replace_again),
    ( "ShowHideNodeNameHeader", "Node Name Header", _("Show/Hide Node Name _Header"), None, _("Toggle Show/Hide Node Name Header"), inst.toggle_show_hide_node_name_header),
    ( "ShowHideTree", "Tree", _("Show/Hide _Tree"), "F9", _("Toggle Show/Hide Tree"), inst.toggle_show_hide_tree),
