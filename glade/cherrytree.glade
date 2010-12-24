@@ -2,6 +2,17 @@
 <interface>
   <requires lib="gtk+" version="2.16"/>
   <!-- interface-naming-policy project-wide -->
+  <object class="GtkWindow" id="window">
+    <property name="title" translatable="yes">CherryTree</property>
+    <property name="window_position">center</property>
+    <property name="default_width">1000</property>
+    <property name="default_height">600</property>
+    <property name="icon">cherrytree.png</property>
+    <signal name="delete_event" handler="on_window_delete_event"/>
+    <child>
+      <placeholder/>
+    </child>
+  </object>
   <object class="GtkAboutDialog" id="aboutdialog">
     <property name="border_width">5</property>
     <property name="title" translatable="yes">About CherryTree</property>
@@ -10,6 +21,7 @@
     <property name="window_position">center-on-parent</property>
     <property name="destroy_with_parent">True</property>
     <property name="type_hint">dialog</property>
+    <property name="transient_for">window</property>
     <property name="has_separator">False</property>
     <property name="program_name">CherryTree</property>
     <property name="copyright" translatable="yes">Copyright &#xA9; 2009-2010
@@ -75,6 +87,7 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
     <property name="default_width">300</property>
     <property name="destroy_with_parent">True</property>
     <property name="type_hint">dialog</property>
+    <property name="transient_for">window</property>
     <property name="has_separator">False</property>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog-vbox2">
@@ -490,6 +503,7 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
     <property name="modal">True</property>
     <property name="destroy_with_parent">True</property>
     <property name="type_hint">normal</property>
+    <property name="transient_for">window</property>
     <property name="has_separator">False</property>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog-vbox3">
@@ -1206,6 +1220,7 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
     <property name="modal">True</property>
     <property name="destroy_with_parent">True</property>
     <property name="type_hint">normal</property>
+    <property name="transient_for">window</property>
     <property name="has_separator">False</property>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog-vbox4">
@@ -1371,6 +1386,7 @@ do you want to save the changes?</property>
     <property name="modal">True</property>
     <property name="destroy_with_parent">True</property>
     <property name="type_hint">normal</property>
+    <property name="transient_for">window</property>
     <property name="has_separator">False</property>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog-vbox5">
@@ -1486,6 +1502,7 @@ do you want to save the changes?</property>
     <property name="modal">True</property>
     <property name="destroy_with_parent">True</property>
     <property name="type_hint">normal</property>
+    <property name="transient_for">window</property>
     <property name="has_separator">False</property>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog-vbox6">
@@ -1749,6 +1766,7 @@ do you want to save the changes?</property>
     <property name="title" translatable="yes">Warning</property>
     <property name="window_position">center-on-parent</property>
     <property name="type_hint">normal</property>
+    <property name="transient_for">window</property>
     <property name="has_separator">False</property>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog-vbox7">
@@ -1877,6 +1895,7 @@ do you want to save the changes?</property>
     <property name="default_width">400</property>
     <property name="default_height">400</property>
     <property name="type_hint">normal</property>
+    <property name="transient_for">window</property>
     <property name="has_separator">False</property>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog-vbox8">
@@ -2311,6 +2330,7 @@ do you want to save the changes?</property>
   <object class="GtkDialog" id="anchorhandledialog">
     <property name="border_width">5</property>
     <property name="type_hint">normal</property>
+    <property name="transient_for">window</property>
     <property name="has_separator">False</property>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog-vbox9">
@@ -2457,6 +2477,7 @@ do you want to save the changes?</property>
   <object class="GtkDialog" id="tablehandledialog">
     <property name="border_width">5</property>
     <property name="type_hint">normal</property>
+    <property name="transient_for">window</property>
     <property name="has_separator">False</property>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog-vbox10">
@@ -2967,6 +2988,7 @@ do you want to save the changes?</property>
     <property name="default_width">300</property>
     <property name="default_height">150</property>
     <property name="type_hint">normal</property>
+    <property name="transient_for">window</property>
     <property name="has_separator">False</property>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog-vbox11">
@@ -3119,6 +3141,7 @@ do you want to save the changes?</property>
   <object class="GtkDialog" id="codeboxhandledialog">
     <property name="border_width">5</property>
     <property name="type_hint">normal</property>
+    <property name="transient_for">window</property>
     <property name="has_separator">False</property>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog-vbox12">
@@ -3405,6 +3428,7 @@ do you want to save the changes?</property>
     <property name="default_width">700</property>
     <property name="default_height">350</property>
     <property name="type_hint">normal</property>
+    <property name="transient_for">window</property>
     <property name="has_separator">False</property>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog-vbox13">

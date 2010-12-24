@@ -71,11 +71,7 @@ class CherryTree:
       factory.add_default()
       # glade
       self.glade = GladeWidgetsWrapper(cons.GLADE_PATH + 'cherrytree.glade', self) # glade widgets access
-      self.window = gtk.Window()
-      self.window.set_title(_("CherryTree"))
-      self.window.set_icon(gtk.gdk.pixbuf_new_from_file(cons.GLADE_PATH + "cherrytree.png"))
-      self.window.set_default_size(1000, 600)
-      self.window.connect("delete-event", self.on_window_delete_event)
+      self.window = self.glade.window
       vbox_main = gtk.VBox()
       self.window.add(vbox_main)
       if not first_instance:
