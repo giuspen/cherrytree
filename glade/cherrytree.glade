@@ -998,12 +998,25 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
                               </packing>
                             </child>
                             <child>
+                              <object class="GtkCheckButton" id="checkbutton_tree_right_side">
+                                <property name="label" translatable="yes">Display on the Right Side</property>
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="receives_default">False</property>
+                                <property name="draw_indicator">True</property>
+                                <signal name="toggled" handler="on_checkbutton_tree_right_side_toggled"/>
+                              </object>
+                              <packing>
+                                <property name="position">2</property>
+                              </packing>
+                            </child>
+                            <child>
                               <object class="GtkHSeparator" id="hseparator1">
                                 <property name="visible">True</property>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
-                                <property name="position">2</property>
+                                <property name="position">3</property>
                               </packing>
                             </child>
                             <child>
@@ -1055,7 +1068,7 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
                                 </child>
                               </object>
                               <packing>
-                                <property name="position">3</property>
+                                <property name="position">4</property>
                               </packing>
                             </child>
                           </object>

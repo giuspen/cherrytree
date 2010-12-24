@@ -151,6 +151,9 @@ def config_file_load(inst):
       if dom_iter.hasAttribute("check_version"):
          inst.check_version = (dom_iter.attributes["check_version"].value == "True")
       else: inst.check_version = False
+      if dom_iter.hasAttribute("tree_right_side"):
+         inst.tree_right_side = (dom_iter.attributes["tree_right_side"].value == "True")
+      else: inst.tree_right_side = False
       if dom_iter.hasAttribute("nodes_icons"):
          inst.nodes_icons = dom_iter.attributes["nodes_icons"].value
       else: inst.nodes_icons = "c"
@@ -187,6 +190,7 @@ def config_file_load(inst):
       inst.glade.spinbutton_codebox_width.set_value(700)
       inst.glade.spinbutton_codebox_height.set_value(100)
       inst.check_version = False
+      inst.tree_right_side = False
       inst.nodes_icons = "c"
    # treeview
    inst.set_treeview_font()
@@ -211,6 +215,7 @@ def config_file_load(inst):
    inst.glade.checkbutton_autosave.set_active(inst.autosave[0])
    inst.glade.checkbutton_expand_tree.set_active(inst.expand_tree)
    inst.glade.checkbutton_newer_version.set_active(inst.check_version)
+   inst.glade.checkbutton_tree_right_side.set_active(inst.tree_right_side)
    inst.glade.checkbutton_start_on_systray.set_active(inst.start_on_systray)
    inst.glade.checkbutton_start_on_systray.set_sensitive(inst.systray)
    inst.glade.checkbutton_custom_weblink_cmd.set_active(inst.weblink_custom_action[0])
@@ -291,6 +296,7 @@ def config_file_save(inst):
    config.setAttribute("codebox_height", str(int(inst.glade.spinbutton_codebox_height.get_value())))
    config.setAttribute("codebox_width_pixels", str(inst.glade.radiobutton_codebox_pixels.get_active()))
    config.setAttribute("check_version", str(inst.check_version))
+   config.setAttribute("tree_right_side", str(inst.tree_right_side))
    config.setAttribute("nodes_icons", inst.nodes_icons)
    dom.appendChild(config)
    string_text = dom.toxml()

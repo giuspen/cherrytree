@@ -90,18 +90,18 @@ class CherryTree:
       # toolbar add
       vbox_main.pack_start(self.ui.get_widget("/ToolBar"), False, False)
       # hpaned add
-      hpaned = gtk.HPaned()
+      self.hpaned = gtk.HPaned()
       self.scrolledwindow_tree = gtk.ScrolledWindow()
       self.scrolledwindow_tree.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
       self.scrolledwindow_text = gtk.ScrolledWindow()
       self.scrolledwindow_text.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-      vbox_text = gtk.VBox()
+      self.vbox_text = gtk.VBox()
       self.header_node_name_label = gtk.Label()
-      vbox_text.pack_start(self.header_node_name_label, False, False)
-      vbox_text.pack_start(self.scrolledwindow_text)
-      hpaned.add1(self.scrolledwindow_tree)
-      hpaned.add2(vbox_text)
-      vbox_main.pack_start(hpaned)
+      self.vbox_text.pack_start(self.header_node_name_label, False, False)
+      self.vbox_text.pack_start(self.scrolledwindow_text)
+      self.hpaned.add1(self.scrolledwindow_tree)
+      self.hpaned.add2(self.vbox_text)
+      vbox_main.pack_start(self.hpaned)
       # statusbar add
       self.statusbar = gtk.Statusbar()
       self.statusbar_context_id = self.statusbar.get_context_id('')
@@ -1076,6 +1076,19 @@ class CherryTree:
    def on_checkbutton_newer_version_toggled(self, checkbutton):
       """Automatically Check for Newer Version Toggled"""
       self.check_version = checkbutton.get_active()
+   
+   def on_checkbutton_tree_right_side_toggled(self, checkbutton):
+      """Display Tree on the Right Side Toggled"""
+      if not self.user_active and not checkbutton.get_active(): return
+      self.tree_right_side = checkbutton.get_active()
+      self.hpaned.remove(self.scrolledwindow_tree)
+      self.hpaned.remove(self.vbox_text)
+      if self.tree_right_side:
+         self.hpaned.add1(self.vbox_text)
+         self.hpaned.add2(self.scrolledwindow_tree)
+      else:
+         self.hpaned.add1(self.scrolledwindow_tree)
+         self.hpaned.add2(self.vbox_text)
       
    def on_checkbutton_table_ins_from_file_toggled(self, checkbutton):
       """Import Table from CSV File Toggled"""
