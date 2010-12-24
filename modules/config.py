@@ -67,7 +67,7 @@ def config_file_load(inst):
       else: inst.node_path = None
       if dom_iter.hasAttribute("tree_width"):
          tree_width = int( dom_iter.attributes["tree_width"].value )
-         inst.glade.scrolledwindow_tree.set_property('width-request', tree_width)
+         inst.scrolledwindow_tree.set_property('width-request', tree_width)
       if dom_iter.hasAttribute("text_font"): inst.text_font = dom_iter.attributes["text_font"].value
       else: inst.text_font = "Sans 9" # default text font
       if dom_iter.hasAttribute("tree_font"): inst.tree_font = dom_iter.attributes["tree_font"].value
@@ -107,8 +107,8 @@ def config_file_load(inst):
       else: inst.link_type = "webs"
       if dom_iter.hasAttribute("show_node_name_label"):
          show_node_name_label = (dom_iter.attributes["show_node_name_label"].value == "True")
-         inst.glade.header_node_name_label.set_property("visible", show_node_name_label)
-      else: inst.glade.header_node_name_label.set_property("visible", True)
+         inst.header_node_name_label.set_property("visible", show_node_name_label)
+      else: inst.header_node_name_label.set_property("visible", True)
       if dom_iter.hasAttribute("table_rows"):
          inst.table_rows = int(dom_iter.attributes["table_rows"].value)
       else: inst.table_rows = 3
@@ -253,7 +253,7 @@ def config_file_save(inst):
       config.setAttribute("win_position_y", str(win_position[1]) )
       config.setAttribute("win_size_w", str(win_size[0]) )
       config.setAttribute("win_size_h", str(win_size[1]) )
-   config.setAttribute("tree_width", str(inst.glade.scrolledwindow_tree.get_allocation().width) )
+   config.setAttribute("tree_width", str(inst.scrolledwindow_tree.get_allocation().width) )
    if inst.curr_tree_iter != None:
       path_list_of_str = []
       for element in inst.treestore.get_path(inst.curr_tree_iter):
@@ -274,7 +274,7 @@ def config_file_save(inst):
    config.setAttribute("autosave_val", str(inst.autosave[1]) )
    config.setAttribute("pick_dir", inst.pick_dir)
    config.setAttribute("link_type", inst.link_type)
-   config.setAttribute("show_node_name_label", str(inst.glade.header_node_name_label.get_property("visible") ) )
+   config.setAttribute("show_node_name_label", str(inst.header_node_name_label.get_property("visible") ) )
    config.setAttribute("toolbar_icon_size", str(inst.toolbar_icon_size) )
    config.setAttribute("table_rows", str(inst.table_rows) )
    config.setAttribute("table_columns", str(inst.table_columns) )

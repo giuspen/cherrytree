@@ -71,7 +71,13 @@ class CherryTree:
       factory.add_default()
       # glade
       self.glade = GladeWidgetsWrapper(cons.GLADE_PATH + 'cherrytree.glade', self) # glade widgets access
-      self.window = self.glade.window
+      self.window = gtk.Window()
+      self.window.set_title(_("CherryTree"))
+      self.window.set_icon(gtk.gdk.pixbuf_new_from_file(cons.GLADE_PATH + "cherrytree.png"))
+      self.window.set_default_size(1000, 600)
+      self.window.connect("delete-event", self.on_window_delete_event)
+      vbox_main = gtk.VBox()
+      self.window.add(vbox_main)
       if not first_instance:
          support.dialog_error(_("Another Instance of CherryTree is Already Running"), self.window)
          sys.exit(1)
@@ -84,11 +90,26 @@ class CherryTree:
       self.window.add_accel_group(self.ui.get_accel_group())
       self.ui.add_ui_from_string(cons.UI_INFO)
       # menubar add
-      self.glade.vbox_main.pack_start(self.ui.get_widget("/MenuBar"), False, False)
-      self.glade.vbox_main.reorder_child(self.ui.get_widget("/MenuBar"), 0)
+      vbox_main.pack_start(self.ui.get_widget("/MenuBar"), False, False)
       # toolbar add
-      self.glade.vbox_main.pack_start(self.ui.get_widget("/ToolBar"), False, False)
-      self.glade.vbox_main.reorder_child(self.ui.get_widget("/ToolBar"), 1)
+      vbox_main.pack_start(self.ui.get_widget("/ToolBar"), False, False)
+      # hpaned add
+      hpaned = gtk.HPaned()
+      self.scrolledwindow_tree = gtk.ScrolledWindow()
+      self.scrolledwindow_tree.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+      self.scrolledwindow_text = gtk.ScrolledWindow()
+      self.scrolledwindow_text.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+      vbox_text = gtk.VBox()
+      self.header_node_name_label = gtk.Label()
+      vbox_text.pack_start(self.header_node_name_label, False, False)
+      vbox_text.pack_start(self.scrolledwindow_text)
+      hpaned.add1(self.scrolledwindow_tree)
+      hpaned.add2(vbox_text)
+      vbox_main.pack_start(hpaned)
+      # statusbar add
+      self.statusbar = gtk.Statusbar()
+      self.statusbar_context_id = self.statusbar.get_context_id('')
+      vbox_main.pack_start(self.statusbar, False, False)
       # ROW: 0-icon_stock_id, 1-name, 2-buffer, 3-unique_id, 4-syntax_highlighting, 5-level, 6-tags
       self.treestore = gtk.TreeStore(str, str, gobject.TYPE_PYOBJECT, long, str, int, str)
       self.treeview = gtk.TreeView(self.treestore)
@@ -107,11 +128,10 @@ class CherryTree:
       self.treeview.connect('cursor-changed', self.on_node_changed)
       self.treeview.connect('button-press-event', self.on_mouse_button_clicked_tree)
       self.treeview.connect('key_press_event', self.on_key_press_cherrytree)
-      self.glade.scrolledwindow_tree.add(self.treeview)
-      self.statusbar_context_id = self.glade.statusbar.get_context_id('')
+      self.scrolledwindow_tree.add(self.treeview)
       self.window.connect('window-state-event', self.on_window_state_event)
       self.window.connect("size-allocate", self.on_window_n_tree_size_allocate_event)
-      self.glade.scrolledwindow_tree.connect("size-allocate", self.on_window_n_tree_size_allocate_event)
+      self.scrolledwindow_tree.connect("size-allocate", self.on_window_n_tree_size_allocate_event)
       self.glade.inputdialog.connect('key_press_event', self.on_key_press_input_dialog)
       self.glade.anchorhandledialog.connect('key_press_event', self.on_key_press_anchorhandledialog)
       self.glade.choosenodedialog.connect('key_press_event', self.on_key_press_choosenodedialog)
@@ -130,7 +150,7 @@ class CherryTree:
       self.sourceview.set_right_margin(7)
       self.hovering_over_link = False
       self.tag_table = gtk.TextTagTable()
-      self.glade.scrolledwindow_text.add(self.sourceview)
+      self.scrolledwindow_text.add(self.sourceview)
       self.curr_tree_iter = None
       self.curr_window_n_tree_width = None
       self.curr_buffer = None
@@ -150,11 +170,11 @@ class CherryTree:
       else: self.ui.get_widget("/MenuBar/FileMenu/ExitApp").set_property('visible', False)
       self.file_startup_load(open_with_file)
       if self.check_version: self.check_for_newer_version()
-      else: self.glade.statusbar.push(self.statusbar_context_id, _("Version %s") % cons.VERSION)
+      else: self.statusbar.push(self.statusbar_context_id, _("Version %s") % cons.VERSION)
       
    def check_for_newer_version(self, *args):
       """Check for a Newer Version"""
-      self.glade.statusbar.push(self.statusbar_context_id, _("Checking for Newer Version..."))
+      self.statusbar.push(self.statusbar_context_id, _("Checking for Newer Version..."))
       while gtk.events_pending(): gtk.main_iteration()
       try:
          fd = urllib2.urlopen(cons.NEWER_VERSION_URL, timeout=3)
@@ -162,7 +182,7 @@ class CherryTree:
          if latest_version != cons.VERSION:
             support.dialog_info(_("A Newer Version Is Available!") + " (%s)" % latest_version, self.window)
       except: pass
-      self.glade.statusbar.push(self.statusbar_context_id, _("Version %s") % cons.VERSION)
+      self.statusbar.push(self.statusbar_context_id, _("Version %s") % cons.VERSION)
       
    def get_node_icon(self, node_level, node_code):
       """Returns the Stock Id given the Node Level"""
@@ -366,8 +386,8 @@ class CherryTree:
                self.sourceview.modify_font(pango.FontDescription(self.text_font))
             else: self.sourceview.modify_font(pango.FontDescription(self.code_font))
             self.sourceview.set_sensitive(True)
-            self.glade.header_node_name_label.set_text("<big><b><i>"+cgi.escape(self.treestore[self.curr_tree_iter][1])+"</i></b></big>")
-            self.glade.header_node_name_label.set_use_markup(True)
+            self.header_node_name_label.set_text("<big><b><i>"+cgi.escape(self.treestore[self.curr_tree_iter][1])+"</i></b></big>")
+            self.header_node_name_label.set_use_markup(True)
             self.state_machine.node_selected_changed(self.treestore[self.curr_tree_iter][3])
             self.objects_buffer_refresh()
             # try to restore cursor position if in memory
@@ -1338,8 +1358,8 @@ class CherryTree:
          self.sourceview.modify_font(pango.FontDescription(self.text_font))
       else: self.sourceview.modify_font(pango.FontDescription(self.code_font))
       self.sourceview.set_sensitive(True)
-      self.glade.header_node_name_label.set_text("<big><b><i>"+cgi.escape(self.treestore[self.curr_tree_iter][1])+"</i></b></big>")
-      self.glade.header_node_name_label.set_use_markup(True)
+      self.header_node_name_label.set_text("<big><b><i>"+cgi.escape(self.treestore[self.curr_tree_iter][1])+"</i></b></big>")
+      self.header_node_name_label.set_use_markup(True)
       self.state_machine.node_selected_changed(self.treestore[self.curr_tree_iter][3])
       self.objects_buffer_refresh()
       # try to restore cursor position if in memory
@@ -1557,15 +1577,15 @@ class CherryTree:
       
    def toggle_show_hide_tree(self, *args):
       """Toggle Show/Hide the Tree"""
-      if self.glade.scrolledwindow_tree.get_property("visible"):
-         self.glade.scrolledwindow_tree.hide()
-      else: self.glade.scrolledwindow_tree.show()
+      if self.scrolledwindow_tree.get_property("visible"):
+         self.scrolledwindow_tree.hide()
+      else: self.scrolledwindow_tree.show()
       
    def toggle_show_hide_node_name_header(self, *args):
       """Toggle Show/Hide the Node Title Header"""
-      if self.glade.header_node_name_label.get_property("visible"):
-         self.glade.header_node_name_label.hide()
-      else: self.glade.header_node_name_label.show()
+      if self.header_node_name_label.get_property("visible"):
+         self.header_node_name_label.hide()
+      else: self.header_node_name_label.show()
       
    def quit_application(self, *args):
       """Just Hide or Quit the gtk main loop"""
@@ -1682,8 +1702,8 @@ class CherryTree:
       """A Table Cell is going to be Edited"""
       if new_text != self.treestore[path][1]:
          self.treestore[path][1] = new_text
-         self.glade.header_node_name_label.set_text("<big><b><i>"+new_text+"</i></b></big>")
-         self.glade.header_node_name_label.set_use_markup(True)
+         self.header_node_name_label.set_text("<big><b><i>"+new_text+"</i></b></big>")
+         self.header_node_name_label.set_use_markup(True)
          self.update_window_save_needed()
       
    def tree_info(self, action):
@@ -2374,13 +2394,13 @@ class CherryTree:
       """New Size Allocated"""
       if not self.curr_window_n_tree_width:
          self.curr_window_n_tree_width = {'window_width': self.window.get_allocation().width,
-                                          'tree_width': self.glade.scrolledwindow_tree.get_allocation().width}
+                                          'tree_width': self.scrolledwindow_tree.get_allocation().width}
       else:
          if not self.curr_buffer: return
          if self.curr_window_n_tree_width['window_width'] != self.window.get_allocation().width\
-         or self.curr_window_n_tree_width['tree_width'] != self.glade.scrolledwindow_tree.get_allocation().width:
+         or self.curr_window_n_tree_width['tree_width'] != self.scrolledwindow_tree.get_allocation().width:
             self.curr_window_n_tree_width['window_width'] = self.window.get_allocation().width
-            self.curr_window_n_tree_width['tree_width'] = self.glade.scrolledwindow_tree.get_allocation().width
+            self.curr_window_n_tree_width['tree_width'] = self.scrolledwindow_tree.get_allocation().width
             curr_iter = self.curr_buffer.get_start_iter()
             while 1:
                anchor = curr_iter.get_child_anchor()
@@ -2391,7 +2411,7 @@ class CherryTree:
    def get_text_window_width(self):
       """Get the Text Window Width"""
       return (self.window.get_allocation().width -\
-              self.glade.scrolledwindow_tree.get_allocation().width-\
+              self.scrolledwindow_tree.get_allocation().width-\
               cons.MAIN_WIN_TO_TEXT_WIN_NORMALIZER)
    
    def remove_text_formatting(self, *args):
