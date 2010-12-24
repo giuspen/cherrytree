@@ -1081,14 +1081,18 @@ class CherryTree:
       """Display Tree on the Right Side Toggled"""
       if not self.user_active and not checkbutton.get_active(): return
       self.tree_right_side = checkbutton.get_active()
+      tree_width = self.scrolledwindow_tree.get_allocation().width
+      text_width = self.vbox_text.get_allocation().width
       self.hpaned.remove(self.scrolledwindow_tree)
       self.hpaned.remove(self.vbox_text)
       if self.tree_right_side:
          self.hpaned.add1(self.vbox_text)
          self.hpaned.add2(self.scrolledwindow_tree)
+         self.hpaned.set_property('position', text_width)
       else:
          self.hpaned.add1(self.scrolledwindow_tree)
          self.hpaned.add2(self.vbox_text)
+         self.hpaned.set_property('position', tree_width)
       
    def on_checkbutton_table_ins_from_file_toggled(self, checkbutton):
       """Import Table from CSV File Toggled"""
