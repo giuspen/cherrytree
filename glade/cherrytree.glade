@@ -999,7 +999,7 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
                             </child>
                             <child>
                               <object class="GtkCheckButton" id="checkbutton_tree_right_side">
-                                <property name="label" translatable="yes">Display on the Right Side</property>
+                                <property name="label" translatable="yes">Display Tree on the Right Side</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>

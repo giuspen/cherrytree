@@ -158,6 +158,11 @@ class CherryTree:
       self.glade.aboutdialog.set_version(cons.VERSION)
       self.window.show_all() # this before the config_file_load that could hide something
       config.config_file_load(self)
+      if self.tree_right_side:
+         self.hpaned.remove(self.scrolledwindow_tree)
+         self.hpaned.remove(self.vbox_text)
+         self.hpaned.add1(self.vbox_text)
+         self.hpaned.add2(self.scrolledwindow_tree)
       self.combobox_country_lang_init()
       self.combobox_prog_lang_init()
       if self.systray:
@@ -1079,7 +1084,7 @@ class CherryTree:
    
    def on_checkbutton_tree_right_side_toggled(self, checkbutton):
       """Display Tree on the Right Side Toggled"""
-      if not self.user_active and not checkbutton.get_active(): return
+      if not self.user_active: return
       self.tree_right_side = checkbutton.get_active()
       tree_width = self.scrolledwindow_tree.get_allocation().width
       text_width = self.vbox_text.get_allocation().width

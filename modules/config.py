@@ -65,9 +65,9 @@ def config_file_load(inst):
          if dom_iter.hasAttribute("cursor_position"):
             inst.cursor_position = int( dom_iter.attributes["cursor_position"].value )
       else: inst.node_path = None
-      if dom_iter.hasAttribute("tree_width"):
-         tree_width = int( dom_iter.attributes["tree_width"].value )
-         inst.scrolledwindow_tree.set_property('width-request', tree_width)
+      if dom_iter.hasAttribute("hpaned_pos"):
+         hpaned_pos = int( dom_iter.attributes["hpaned_pos"].value )
+         inst.hpaned.set_property('position', hpaned_pos)
       if dom_iter.hasAttribute("text_font"): inst.text_font = dom_iter.attributes["text_font"].value
       else: inst.text_font = "Sans 9" # default text font
       if dom_iter.hasAttribute("tree_font"): inst.tree_font = dom_iter.attributes["tree_font"].value
@@ -258,7 +258,7 @@ def config_file_save(inst):
       config.setAttribute("win_position_y", str(win_position[1]) )
       config.setAttribute("win_size_w", str(win_size[0]) )
       config.setAttribute("win_size_h", str(win_size[1]) )
-   config.setAttribute("tree_width", str(inst.scrolledwindow_tree.get_allocation().width) )
+   config.setAttribute("hpaned_pos", str(inst.hpaned.get_property('position')) )
    if inst.curr_tree_iter != None:
       path_list_of_str = []
       for element in inst.treestore.get_path(inst.curr_tree_iter):
