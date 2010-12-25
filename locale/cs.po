@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-12-25 00:05+0100\n"
-"PO-Revision-Date: 2010-12-14 16:13+0100\n"
+"PO-Revision-Date: 2010-12-25 10:39+0100\n"
 "Last-Translator: \n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -121,9 +121,8 @@ msgid "NoteCase Document"
 msgstr "Dokument NoteCase"
 
 #: modules/core.py:321
-#, fuzzy
 msgid "Treepad Document"
-msgstr "Dokument CherryTree"
+msgstr "Dokument Treepad"
 
 #: modules/core.py:349
 msgid "Who is the Father?"
@@ -170,9 +169,8 @@ msgid "No Node is Selected!"
 msgstr "Uzel je vybrán!"
 
 #: modules/core.py:716
-#, fuzzy
 msgid "Plain Text Document"
-msgstr "Dokument NoteCase"
+msgstr "Dokument v prostém textu"
 
 #: modules/core.py:898 glade/cherrytree.glade.h:100
 msgid "Select the New Father"
@@ -371,19 +369,16 @@ msgid "_Tree"
 msgstr "S_trom"
 
 #: modules/cons.py:401
-#, fuzzy
 msgid "Node _Move"
-msgstr "Posunout uzel _dolů"
+msgstr "_Posunutí uzlu"
 
 #: modules/cons.py:402
-#, fuzzy
 msgid "Nodes _Import"
-msgstr "_Zavedení"
+msgstr "_Zavedení uzlů"
 
 #: modules/cons.py:403
-#, fuzzy
 msgid "Nodes E_xport"
-msgstr "Posunout uzel nahor_u"
+msgstr "_Vyvedení uzlů"
 
 #: modules/cons.py:404 modules/cons.py:540
 msgid "_Search"
@@ -402,9 +397,8 @@ msgid "_Import"
 msgstr "_Zavedení"
 
 #: modules/cons.py:408
-#, fuzzy
 msgid "E_xport"
-msgstr "_Zavedení"
+msgstr "_Vyvést"
 
 #: modules/cons.py:409 modules/cons.py:481
 msgid "_Help"
@@ -460,12 +454,11 @@ msgstr "Vyvést označený uzel jako HTML"
 
 #: modules/cons.py:417
 msgid "Save Node as Plain _Text"
-msgstr ""
+msgstr "Uložit uzel jako prostý _text"
 
 #: modules/cons.py:417
-#, fuzzy
 msgid "Save the Selected Node as Plain Text"
-msgstr "Zmenšit odsazení uzlu"
+msgstr "Uložit vybraný uzel jako prostý text"
 
 #: modules/cons.py:418
 msgid "_Export Node and Subnodes"
@@ -963,14 +956,12 @@ msgid "Add Nodes of a TuxCards File to the Current Tree"
 msgstr "Přidat uzly ze souboru TuxCards do současné stromové stavby"
 
 #: modules/cons.py:480
-#, fuzzy
 msgid "From T_reepad Lite File"
-msgstr "Ze složky _KeepNote"
+msgstr "Soubor z T_reepad Lite"
 
 #: modules/cons.py:480
-#, fuzzy
 msgid "Add Nodes of a Treepad Lite File to the Current Tree"
-msgstr "Přidat uzly ze souboru CherryTree do současné stromové stavby"
+msgstr "Přidat uzly ze souboru Treepad Lite do současné stromové stavby"
 
 #: modules/cons.py:481
 msgid "Application's Home Page"
@@ -1357,9 +1348,8 @@ msgid "<b>Table size</b>"
 msgstr "<b>Velikost tabulky</b>"
 
 #: glade/cherrytree.glade.h:43
-#, fuzzy
 msgid "<b>Tags for Searching</b>"
-msgstr "<b>Volby pro hledání</b>"
+msgstr "<b>Značky pro hledání</b>"
 
 #: glade/cherrytree.glade.h:44
 msgid "<b>Text Editor</b>"
@@ -1446,7 +1436,6 @@ msgstr ""
 "Giuseppe Penone <giuspen@gmail.com>"
 
 #: glade/cherrytree.glade.h:65
-#, fuzzy
 msgid ""
 "Czech (cs) Pavel Fric <fripohled@blogspot.com>\n"
 "French (fr) Ludovic Troisi <axalis@cegetel.net>\n"
@@ -1460,6 +1449,7 @@ msgid ""
 msgstr ""
 "Český překlad (cs) Pavel Fric <fripohled@blogspot.com>\n"
 "Francouzský překlad (fr) Ludovic Troisi <axalis@cegetel.net>\n"
+"Galicijský překlad (gl) Dario Villar <dario.villar.v@gmail.com>\n"
 "Německý překlad (de) Sven Neubauer <me@dampfklon.de>\n"
 "Italský překlad (it) Giuseppe Penone <giuspen@gmail.com>\n"
 "Polský překlad (pl) Marcin Swierczynski <orneo1212@gmail.com>\n"
@@ -1473,7 +1463,7 @@ msgstr "Smazat sloupec"
 
 #: glade/cherrytree.glade.h:75
 msgid "Display Tree on the Right Side"
-msgstr ""
+msgstr "Zobrazit strom na pravé straně"
 
 #: glade/cherrytree.glade.h:76
 msgid "Do Not Display Nodes Icons"
@@ -1634,3 +1624,5 @@ msgstr "http://www.giuspen.com/cherrytree/"
 #: glade/cherrytree.glade.h:119
 msgid "pixels"
 msgstr "pixely"
+
+

@@ -1,4 +1,7 @@
 
+0.17.1 (December 18th, 2010)
+• fixed copy/paste bugs
+
 0.17 (December 15th, 2010)
 • fixed bugs (thanks Bernard)
 • the copy/paste now works intra application with single images, single codeboxes, single tables (added right click menu items) and a selection of rich text, images, codeboxes and tables

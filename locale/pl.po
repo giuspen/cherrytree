@@ -118,9 +118,8 @@ msgid "NoteCase Document"
 msgstr "Dokument NoteCase"
 
 #: modules/core.py:321
-#, fuzzy
 msgid "Treepad Document"
-msgstr "Dokument CherryTree"
+msgstr "Dokument Treepad"
 
 #: modules/core.py:349
 msgid "Who is the Father?"
@@ -167,9 +166,8 @@ msgid "No Node is Selected!"
 msgstr "Nie zaznaczono żadnej gałęzi"
 
 #: modules/core.py:716
-#, fuzzy
 msgid "Plain Text Document"
-msgstr "Dokument NoteCase"
+msgstr "Dokument tekstowy"
 
 #: modules/core.py:898 glade/cherrytree.glade.h:100
 msgid "Select the New Father"
@@ -366,19 +364,16 @@ msgid "_Tree"
 msgstr "_Drzewo"
 
 #: modules/cons.py:401
-#, fuzzy
 msgid "Node _Move"
-msgstr "gałąź w dół"
+msgstr "Przenieś gałąź"
 
 #: modules/cons.py:402
-#, fuzzy
 msgid "Nodes _Import"
-msgstr "_Import"
+msgstr "_Importuj gałęzię"
 
 #: modules/cons.py:403
-#, fuzzy
 msgid "Nodes E_xport"
-msgstr "gałąź do góry"
+msgstr "Eksportuj gałęzi"
 
 #: modules/cons.py:404 modules/cons.py:540
 msgid "_Search"
@@ -397,9 +392,8 @@ msgid "_Import"
 msgstr "_Import"
 
 #: modules/cons.py:408
-#, fuzzy
 msgid "E_xport"
-msgstr "_Import"
+msgstr "Eksport"
 
 #: modules/cons.py:409 modules/cons.py:481
 msgid "_Help"
@@ -455,16 +449,15 @@ msgstr "Eksportuj zaznaczoną gałąź do HTML"
 
 #: modules/cons.py:417
 msgid "Save Node as Plain _Text"
-msgstr ""
+msgstr "Zapisz gałąź jako plik tekstowy"
 
 #: modules/cons.py:417
-#, fuzzy
 msgid "Save the Selected Node as Plain Text"
-msgstr "Przenieś gałąź w lewo"
+msgstr "Zapisz zaznaczoną gałąź w pliku tekstowym"
 
 #: modules/cons.py:418
 msgid "_Export Node and Subnodes"
-msgstr "_Eksporuj gałąź wraz z podgałęziami"
+msgstr "_Eksportuj gałąź wraz z podgałęziami"
 
 #: modules/cons.py:418
 msgid "Export the Selected Node and its Subnodes"
@@ -958,14 +951,12 @@ msgid "Add Nodes of a TuxCards File to the Current Tree"
 msgstr "Dodaj gałąź z pliku TuxCards do aktualnego drzewa"
 
 #: modules/cons.py:480
-#, fuzzy
 msgid "From T_reepad Lite File"
-msgstr "Z folderu _KeepNote"
+msgstr "Z pliku T_reepad"
 
 #: modules/cons.py:480
-#, fuzzy
 msgid "Add Nodes of a Treepad Lite File to the Current Tree"
-msgstr "Dodaj gałąź z pliku CherryTree do aktualnego drzewa"
+msgstr "Dodaj gałązi z pliku Treepad Lite do aktualnego drzewa"
 
 #: modules/cons.py:481
 msgid "Application's Home Page"
@@ -1356,9 +1347,8 @@ msgid "<b>Table size</b>"
 msgstr "<b>Rozmiar tabeli</b>"
 
 #: glade/cherrytree.glade.h:43
-#, fuzzy
 msgid "<b>Tags for Searching</b>"
-msgstr "<b>Opcje szukania</b>"
+msgstr "<b>Tag do szukania</b>"
 
 #: glade/cherrytree.glade.h:44
 msgid "<b>Text Editor</b>"
@@ -1443,7 +1433,6 @@ msgstr ""
 "Giuseppe Penone <giuspen@gmail.com>"
 
 #: glade/cherrytree.glade.h:65
-#, fuzzy
 msgid ""
 "Czech (cs) Pavel Fric <fripohled@blogspot.com>\n"
 "French (fr) Ludovic Troisi <axalis@cegetel.net>\n"
@@ -1457,6 +1446,7 @@ msgid ""
 msgstr ""
 "Czeski (cs) Pavel Fric <fripohled@blogspot.com>\n"
 "Francuski (fr) Ludovic Troisi <axalis@cegetel.net>\n"
+"Galicyjski (gl) Dario Villar <dario.villar.v@gmail.com>\n"
 "Niemiecki (de) Sven Neubauer <me@dampfklon.de>\n"
 "Włoski (it) Giuseppe Penone <giuspen@gmail.com>\n"
 "Polski (pl) Marcin Świerczyński <orneo1212@gmail.com>\n"
@@ -1470,7 +1460,7 @@ msgstr "Usuń kolumne"
 
 #: glade/cherrytree.glade.h:75
 msgid "Display Tree on the Right Side"
-msgstr ""
+msgstr "Wyświetlaj drzewo po prawej stronie"
 
 #: glade/cherrytree.glade.h:76
 msgid "Do Not Display Nodes Icons"
