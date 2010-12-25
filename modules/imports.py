@@ -20,7 +20,7 @@
 #       MA 02110-1301, USA.
 
 import HTMLParser, htmlentitydefs
-import gtk, os, xml.dom.minidom, re, base64
+import gtk, os, xml.dom.minidom, re, base64, urllib2
 import cons, machines
 
 
@@ -875,7 +875,14 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
                self.rich_text_serialize("%s. " % self.curr_list_type[1])
                self.curr_list_type[1] += 1
          elif tag == "img" and len(attrs) > 0:
-            pass # cross clipboard images not handled yet
+            img_path = attrs[0][1]
+            try:
+               url_desc = urllib2.urlopen(img_path, timeout=3)
+               fd = open('/tmp/tmp_img', 'wb')
+               fd.write(url_desc.read())
+               fd.close()
+            except: print "failed download of", img_path
+            # cross clipboard images not handled yet
       elif self.curr_state == 2:
          if tag == "tr": self.curr_table.append([])
          elif tag in ["td", "th"]:
