@@ -876,13 +876,18 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
          elif tag == "img" and len(attrs) > 0:
             img_path = attrs[0][1]
             try:
+               self.dad.statusbar.push(self.dad.statusbar_context_id, _("Downloading") + " %s ..." % img_path)
+               while gtk.events_pending(): gtk.main_iteration()
                url_desc = urllib2.urlopen(img_path, timeout=3)
                pixbuf_loader = gtk.gdk.pixbuf_loader_new_with_mime_type("image/png")
                pixbuf_loader.write(url_desc.read())
                pixbuf_loader.close()
                pixbuf = pixbuf_loader.get_pixbuf()
                self.dad.xml_handler.pixbuf_element_to_xml([0, pixbuf, "left"], self.curr_dom_slot, self.dom)
-            except: print "failed download of", img_path
+               self.dad.statusbar.pop(self.dad.statusbar_context_id)
+            except:
+               print "failed download of", img_path
+               self.dad.statusbar.pop(self.dad.statusbar_context_id)
       elif self.curr_state == 2:
          if tag == "tr": self.curr_table.append([])
          elif tag in ["td", "th"]:
