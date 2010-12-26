@@ -229,7 +229,9 @@ class Export2Html:
             html_text += html_slot
             if i < len(text_n_objects[1]):
                curr_object = text_n_objects[1][i]
-               if curr_object[0] == "pixbuf": pass # cross clipboard images not handled yet
+               if curr_object[0] == "pixbuf":
+                  self.images_dir = cons.TMP_HTML_IMGS
+                  html_text += self.get_image_html(curr_object[1], None)
                elif curr_object[0] == "table": html_text += self.get_table_html(curr_object[1])
                elif curr_object[0] == "codebox": html_text += self.get_codebox_html(curr_object[1])
       else: html_text += self.html_get_from_code_buffer(text_buffer, sel_range=(start_iter.get_offset(), end_iter.get_offset()))
@@ -257,8 +259,12 @@ class Export2Html:
          return '<a name="%s"></a>' % image[1].anchor
       image_align_text = self.get_object_alignment_string(image[2])
       self.images_count += 1
-      image_name = "%s-%s.png" % (self.dad.treestore[tree_iter][3], self.images_count)
-      image_rel_path = os.path.join(self.images_dir, image_name)
+      if tree_iter:
+         image_name = "%s-%s.png" % (self.dad.treestore[tree_iter][3], self.images_count)
+         image_rel_path = os.path.join(self.images_dir, image_name)
+      else:
+         image_name = "%s.png" % self.images_count
+         image_rel_path = "file://" + os.path.join(self.images_dir, image_name)
       image_html = '<table style="%s"><tr><td><img src="%s" alt="%s" /></td></tr></table>' % (image_align_text, image_rel_path, image_rel_path)
       image[1].save(os.path.join(self.images_dir, image_name), "png")
       return image_html
