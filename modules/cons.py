@@ -29,7 +29,7 @@ if sys.platform[0:3] == "win":
    CONFIG_PATH = 'config.xml'
    LANG_PATH = 'lang'
    IMG_PATH = 'glade/img_tmp.png'
-   TMP_HTML_IMGS = 'glade/ct_tmp_html_imgs/'
+   TMP_HTML_IMGS = os.path.join(os.getcwd(), 'glade/ct_tmp_html_imgs/')
    GLADE_PATH = 'glade/'
    LOCALE_PATH = 'locale/'
 else:
