@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: svn_cherrytree 0.14\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-25 00:05+0100\n"
+"POT-Creation-Date: 2010-12-26 17:03+0100\n"
 "PO-Revision-Date: 2010-12-09 15:06+0100\n"
 "Last-Translator: Ludovic Troisi <axalis@cegetel.net>\n"
 "Language-Team: French\n"
@@ -330,7 +330,7 @@ msgstr "Fichier CSV"
 msgid "Insert Table"
 msgstr "Insérer un Tableau"
 
-#: modules/tablez.py:119
+#: modules/tablez.py:119 modules/imports.py:937
 msgid "click me"
 msgstr "Cliquez-moi"
 
@@ -1225,6 +1225,10 @@ msgstr "Diminuer la Hauteur de la CodeBox"
 #: modules/cons.py:583
 msgid "Decrease the Height of the CodeBox"
 msgstr "Diminuer la Hauteur de la CodeBox"
+
+#: modules/imports.py:879
+msgid "Downloading"
+msgstr ""
 
 #: glade/cherrytree.glade.h:1
 msgid ""

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-25 00:05+0100\n"
+"POT-Creation-Date: 2010-12-26 17:03+0100\n"
 "PO-Revision-Date: 2010-12-25 10:39+0100\n"
 "Last-Translator: \n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -328,7 +328,7 @@ msgstr "Soubor CSV"
 msgid "Insert Table"
 msgstr "Vložit tabulku"
 
-#: modules/tablez.py:119
+#: modules/tablez.py:119 modules/imports.py:937
 msgid "click me"
 msgstr "Klepni mě"
 
@@ -1215,6 +1215,10 @@ msgstr "Zkrátit CodeBox"
 msgid "Decrease the Height of the CodeBox"
 msgstr "Zmenšit výšku CodeBox"
 
+#: modules/imports.py:879
+msgid "Downloading"
+msgstr "Stažení"
+
 #: glade/cherrytree.glade.h:1
 msgid ""
 "\n"
@@ -1624,5 +1628,3 @@ msgstr "http://www.giuspen.com/cherrytree/"
 #: glade/cherrytree.glade.h:119
 msgid "pixels"
 msgstr "pixely"
-
-

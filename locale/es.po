@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.9.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-25 00:05+0100\n"
+"POT-Creation-Date: 2010-12-26 17:03+0100\n"
 "PO-Revision-Date: 2010-12-11 11:55+0100\n"
 "Last-Translator: Daniel MC <i.e.betel@gmail.com>\n"
 "Language-Team: Spanish <>\n"
@@ -326,7 +326,7 @@ msgstr "Archivo CSV"
 msgid "Insert Table"
 msgstr "Insertar tabla"
 
-#: modules/tablez.py:119
+#: modules/tablez.py:119 modules/imports.py:937
 msgid "click me"
 msgstr "haz click"
 
@@ -1226,6 +1226,10 @@ msgstr "Reducir alto de la Caja de Código"
 #: modules/cons.py:583
 msgid "Decrease the Height of the CodeBox"
 msgstr "Reducir la altura de la Caja de Código"
+
+#: modules/imports.py:879
+msgid "Downloading"
+msgstr ""
 
 #: glade/cherrytree.glade.h:1
 msgid ""

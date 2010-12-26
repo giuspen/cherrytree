@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-25 00:05+0100\n"
+"POT-Creation-Date: 2010-12-26 17:03+0100\n"
 "PO-Revision-Date: 2010-02-20 22:22+0100\n"
 "Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
 "Language-Team: Italian\n"
@@ -326,7 +326,7 @@ msgstr "CSV File"
 msgid "Insert Table"
 msgstr "Inserisci Ta_bella"
 
-#: modules/tablez.py:119
+#: modules/tablez.py:119 modules/imports.py:937
 msgid "click me"
 msgstr "cliccami"
 
@@ -1216,6 +1216,10 @@ msgstr "Diminuisci Altezza CodeBox"
 #: modules/cons.py:583
 msgid "Decrease the Height of the CodeBox"
 msgstr "Diminuisci l'Altezza della CodeBox"
+
+#: modules/imports.py:879
+msgid "Downloading"
+msgstr "Scaricamento"
 
 #: glade/cherrytree.glade.h:1
 msgid ""
