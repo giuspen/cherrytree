@@ -787,7 +787,6 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
       self.dad = dad
       self.monitored_tags = ["p", "b", "i", "u", "s", "h1", "h2", "span", "font"]
       HTMLParser.HTMLParser.__init__(self)
-      self.xml_handler = machines.XMLHandler(self)
    
    def rich_text_serialize(self, text_data):
       """Appends a new part to the XML rich text"""
@@ -878,11 +877,12 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
             img_path = attrs[0][1]
             try:
                url_desc = urllib2.urlopen(img_path, timeout=3)
-               fd = open('/tmp/tmp_img', 'wb')
-               fd.write(url_desc.read())
-               fd.close()
+               pixbuf_loader = gtk.gdk.pixbuf_loader_new_with_mime_type("image/png")
+               pixbuf_loader.write(url_desc.read())
+               pixbuf_loader.close()
+               pixbuf = pixbuf_loader.get_pixbuf()
+               self.dad.xml_handler.pixbuf_element_to_xml([0, pixbuf, "left"], self.curr_dom_slot, self.dom)
             except: print "failed download of", img_path
-            # cross clipboard images not handled yet
       elif self.curr_state == 2:
          if tag == "tr": self.curr_table.append([])
          elif tag in ["td", "th"]:
