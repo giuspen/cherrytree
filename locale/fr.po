@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: svn_cherrytree 0.14\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-12-26 17:03+0100\n"
-"PO-Revision-Date: 2010-12-09 15:06+0100\n"
+"PO-Revision-Date: 2010-12-27 22:29+0100\n"
 "Last-Translator: Ludovic Troisi <axalis@cegetel.net>\n"
 "Language-Team: French\n"
 "MIME-Version: 1.0\n"
@@ -119,9 +119,8 @@ msgid "NoteCase Document"
 msgstr "NoteCase Document"
 
 #: modules/core.py:321
-#, fuzzy
 msgid "Treepad Document"
-msgstr "Document CherryTree"
+msgstr "Document Treepad"
 
 #: modules/core.py:349
 msgid "Who is the Father?"
@@ -168,9 +167,8 @@ msgid "No Node is Selected!"
 msgstr "Aucun nœud n'est sélectionné"
 
 #: modules/core.py:716
-#, fuzzy
 msgid "Plain Text Document"
-msgstr "NoteCase Document"
+msgstr "Document Texte Brut"
 
 #: modules/core.py:898 glade/cherrytree.glade.h:100
 msgid "Select the New Father"
@@ -371,19 +369,16 @@ msgid "_Tree"
 msgstr "_Arborescence"
 
 #: modules/cons.py:401
-#, fuzzy
 msgid "Node _Move"
-msgstr "Nœud vers le Bas"
+msgstr "_Déplacer le Nœud"
 
 #: modules/cons.py:402
-#, fuzzy
 msgid "Nodes _Import"
-msgstr "_Importer"
+msgstr "_Importer les Nœuds"
 
 #: modules/cons.py:403
-#, fuzzy
 msgid "Nodes E_xport"
-msgstr "Nœud vers le Haut"
+msgstr "E_xporter les Nœuds"
 
 #: modules/cons.py:404 modules/cons.py:540
 msgid "_Search"
@@ -402,9 +397,8 @@ msgid "_Import"
 msgstr "_Importer"
 
 #: modules/cons.py:408
-#, fuzzy
 msgid "E_xport"
-msgstr "_Importer"
+msgstr "E_xporter"
 
 #: modules/cons.py:409 modules/cons.py:481
 msgid "_Help"
@@ -460,12 +454,11 @@ msgstr "Exporter le Nœud sélectionné en HTML"
 
 #: modules/cons.py:417
 msgid "Save Node as Plain _Text"
-msgstr ""
+msgstr "Enregistrer le Nœud en Texte _Brut"
 
 #: modules/cons.py:417
-#, fuzzy
 msgid "Save the Selected Node as Plain Text"
-msgstr "Déplacer le Nœud vers la Gauche"
+msgstr "Enregistrer le Nœud Sélectionné en Texte Brut"
 
 #: modules/cons.py:418
 msgid "_Export Node and Subnodes"
@@ -965,14 +958,12 @@ msgid "Add Nodes of a TuxCards File to the Current Tree"
 msgstr "Ajouter les Nœuds d'un Fichier Tuxcards à l'Arborescence actuelle"
 
 #: modules/cons.py:480
-#, fuzzy
 msgid "From T_reepad Lite File"
-msgstr "À partir d'un Répertoire _KeepNote"
+msgstr "À partir d'un fichier T_reepad Lite"
 
 #: modules/cons.py:480
-#, fuzzy
 msgid "Add Nodes of a Treepad Lite File to the Current Tree"
-msgstr "Ajouter les Nœuds d'un Fichier CherryTree à l'Arborescence actuelle"
+msgstr "Ajouter les Nœuds d'un Fichier Treepad Lite à l'Arborescence actuelle"
 
 #: modules/cons.py:481
 msgid "Application's Home Page"
@@ -1228,7 +1219,7 @@ msgstr "Diminuer la Hauteur de la CodeBox"
 
 #: modules/imports.py:879
 msgid "Downloading"
-msgstr ""
+msgstr "Téléchargement"
 
 #: glade/cherrytree.glade.h:1
 msgid ""
@@ -1366,9 +1357,8 @@ msgid "<b>Table size</b>"
 msgstr "<b>Taille du Tableau</b>"
 
 #: glade/cherrytree.glade.h:43
-#, fuzzy
 msgid "<b>Tags for Searching</b>"
-msgstr "<b>Options de Recherche</b>"
+msgstr "<b>Mots-Clés de Recherche</b>"
 
 #: glade/cherrytree.glade.h:44
 msgid "<b>Text Editor</b>"
@@ -1455,7 +1445,6 @@ msgstr ""
 "Giuseppe Penone <giuspen@gmail.com>"
 
 #: glade/cherrytree.glade.h:65
-#, fuzzy
 msgid ""
 "Czech (cs) Pavel Fric <fripohled@blogspot.com>\n"
 "French (fr) Ludovic Troisi <axalis@cegetel.net>\n"
@@ -1469,6 +1458,7 @@ msgid ""
 msgstr ""
 "Tchèque (cs) Pavel Fric <fripohled@blogspot.com>\n"
 "Français (fr) Ludovic Troisi <axalis@cegetel.net>\n"
+"Galicien (gl) Dario Villar <dario.villar.v@gmail.com>\n"
 "Allemand (de) Sven Neubauer <me@dampfklon.de>\n"
 "Italien (it) Giuseppe Penone <giuspen@gmail.com>\n"
 "Polonais (pl) Marcin Swierczynski <orneo1212@gmail.com>\n"
@@ -1482,7 +1472,7 @@ msgstr "Supprimer la Colonne"
 
 #: glade/cherrytree.glade.h:75
 msgid "Display Tree on the Right Side"
-msgstr ""
+msgstr "Afficher l'Arborescence à Droite"
 
 #: glade/cherrytree.glade.h:76
 msgid "Do Not Display Nodes Icons"
@@ -1610,7 +1600,7 @@ msgstr "Largeur de Retour à la Ligne des Nœuds"
 
 #: glade/cherrytree.glade.h:110
 msgid "Use Bullets as Nodes Icons"
-msgstr "utiliser des Puces comme icônes des Nœuds"
+msgstr "Utiliser des Puces comme icônes des Nœuds"
 
 #: glade/cherrytree.glade.h:111
 msgid "Use Cherries as Nodes Icons"
