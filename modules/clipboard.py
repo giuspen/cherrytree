@@ -120,8 +120,8 @@ class ClipboardHandler:
       
    def clear_func(self, clipboard, data):
       """Connected with clipboard.set_with_data"""
-      # this is to eventually free memory allocated when filling the clipboard
-      pass
+      # this is to free memory allocated when filling the clipboard
+      del data
       
    def paste(self, sourceview):
       """Paste from Clipboard"""
