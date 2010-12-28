@@ -1,4 +1,15 @@
 
+0.18 (December 27th, 2010)
+• fixed bugs
+• added Galician language
+• added the option to specify tags for a node to use when searching for a node; a keyboard shortcut was added to popup the node searching dialog (ctrl+T)
+• implemented the export to plain text document (menu export — save node as plain text)
+• implemented the import from treepad lite (menu import — from treepad lite file)
+• the tree menu functionality was improved introducing submenus
+• added the preferences dialog option to display the tree on the right side rather than on the left side (default)
+• the cross application copy/paste of a selection now works also for images: try selecting text and images together in your web browser, copy and paste in cherrytree or to select rich text plus images in cherrytree, copy and paste in openoffice
+• warning: documents edited with 0.18 cannot be opened anymore with former cherrytree versions
+
 0.17.1 (December 18th, 2010)
 • fixed copy/paste bugs
 
