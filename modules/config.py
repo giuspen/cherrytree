@@ -49,7 +49,8 @@ def config_file_load(inst):
                             int(dom_iter.attributes["win_position_y"].value)]
             inst.window.move(win_position[0], win_position[1])
       if dom_iter.hasAttribute("toolbar_visible") and dom_iter.attributes["toolbar_visible"].value == "False":
-         inst.ui.get_widget("/ToolBar").set_property("visible", False)
+         inst.toolbar_visible = False
+      else: inst.toolbar_visible = True
       if dom_iter.hasAttribute("file_dir"): inst.file_dir = dom_iter.attributes["file_dir"].value
       else: inst.file_dir = ""
       if dom_iter.hasAttribute("file_name"): inst.file_name = dom_iter.attributes["file_name"].value
@@ -192,6 +193,7 @@ def config_file_load(inst):
       inst.hpaned_pos = 170
       inst.show_node_name_label = True
       inst.nodes_icons = "c"
+      inst.toolbar_visible = True
    
 def config_file_apply(inst):
    """Apply the Preferences from Config File"""
@@ -244,6 +246,7 @@ def config_file_apply(inst):
    inst.glade.spinbutton_table_col_max.set_value(inst.table_col_max)
    inst.glade.spinbutton_tree_nodes_names_width.set_value(inst.cherry_wrap_width)
    inst.renderer_text.set_property('wrap-width', inst.cherry_wrap_width)
+   inst.ui.get_widget("/ToolBar").set_property("visible", inst.toolbar_visible)
    inst.ui.get_widget("/ToolBar").set_style(gtk.TOOLBAR_ICONS)
    inst.ui.get_widget("/ToolBar").set_property("icon-size", cons.ICONS_SIZE[inst.toolbar_icon_size])
    if inst.autosave[0]: inst.autosave_timer_start()
