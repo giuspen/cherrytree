@@ -605,6 +605,10 @@ class StateMachine:
       pixbuf_table_codebox_vector = self.get_embedded_pixbufs_tables_codeboxes(self.dad.curr_buffer)
       cursor_pos = self.dad.curr_buffer.get_property('cursor-position')
       self.nodes_vectors[node_id].append([xml_content, pixbuf_table_codebox_vector, cursor_pos])
-      if len(self.nodes_vectors[node_id]) == 2: self.nodes_vectors[node_id][0][2] = cursor_pos
-      self.nodes_indexes[node_id] += 1
+      num_saved_states = len(self.nodes_vectors[node_id])
+      if num_saved_states == 2: self.nodes_vectors[node_id][0][2] = cursor_pos
+      while num_saved_states > cons.MAX_NODES_STATES_NUM:
+         self.nodes_vectors[node_id].pop(0)
+         num_saved_states -= 1
+      self.nodes_indexes[node_id] = num_saved_states - 1
       self.nodes_indicators[node_id] = 0 # the current buffer state is saved
