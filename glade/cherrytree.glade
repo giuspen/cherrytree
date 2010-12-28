@@ -24,7 +24,7 @@
     <property name="transient_for">window</property>
     <property name="has_separator">False</property>
     <property name="program_name">CherryTree</property>
-    <property name="copyright" translatable="yes">Copyright &#xA9; 2009-2010
+    <property name="copyright" translatable="yes">Copyright &#xA9; 2009-2011
 Giuseppe Penone &lt;giuspen@gmail.com&gt;</property>
     <property name="comments" translatable="yes">A Hierarchical Note Taking Application, featuring Rich Text and Syntax Highlighting</property>
     <property name="website">http://www.giuspen.com/cherrytree/</property>
