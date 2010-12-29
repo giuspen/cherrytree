@@ -20,7 +20,7 @@
 #       MA 02110-1301, USA.
 
 import gtk, pango, gtksourceview2, gobject
-import sys, os, re, subprocess, webbrowser, base64, cgi, urllib2
+import sys, os, re, subprocess, webbrowser, base64, cgi, urllib2, shutil
 import cons, support, config, machines, clipboard, imports, exports, printing, tablez, lists, findreplace, codeboxes
 
 
@@ -609,9 +609,10 @@ class CherryTree:
       """File Write"""
       try: xml_string = self.xml_handler.treestore_to_dom()
       except:
-         raise
          support.dialog_error("%s write failed - tree to xml" % filepath, self.window)
          return False
+      # backup before save new version
+      if os.path.isfile(filepath): shutil.move(filepath, filepath + cons.CHAR_TILDE)
       try:
          file_descriptor = open(filepath, 'w')
          file_descriptor.write(xml_string)

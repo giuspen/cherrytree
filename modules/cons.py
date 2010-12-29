@@ -69,6 +69,7 @@ CHAR_NEWLINE = "\n"
 CHAR_CR = "\r"
 CHAR_TAB = "\t"
 CHAR_LISTBUL = "•"
+CHAR_TILDE = "~"
 
 HTML_HEADER = '<!doctype html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><title>%s</title><meta name="generator" content="CherryTree"></head><body>'
 HTML_FOOTER = '</body></html>'
