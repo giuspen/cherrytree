@@ -29,14 +29,14 @@ if sys.platform[0:3] == "win":
    CONFIG_PATH = 'config.xml'
    LANG_PATH = 'lang'
    IMG_PATH = 'glade/img_tmp.png'
-   TMP_HTML_IMGS = os.path.join(os.getcwd(), 'glade/ct_tmp_html_imgs/')
+   TMP_FOLDER = os.path.join(os.getcwd(), 'glade/ct_tmp/')
    GLADE_PATH = 'glade/'
    LOCALE_PATH = 'locale/'
 else:
    CONFIG_PATH = os.path.join(os.path.expanduser('~'), '.config/cherrytree/config.xml')
    LANG_PATH = os.path.join(os.path.expanduser('~'), '.config/cherrytree/lang')
    IMG_PATH = os.path.join(os.path.expanduser('~'), '.config/cherrytree/img_tmp.png')
-   TMP_HTML_IMGS = '/tmp/ct_tmp_html_imgs/'
+   TMP_FOLDER = '/tmp/ct_tmp/'
    if os.path.isdir('modules'):
       GLADE_PATH = 'glade/'
       LOCALE_PATH = 'locale/'

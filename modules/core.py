@@ -152,6 +152,7 @@ class CherryTree:
       self.hovering_over_link = False
       self.tag_table = gtk.TextTagTable()
       self.scrolledwindow_text.add(self.sourceview)
+      self.password = None
       self.curr_tree_iter = None
       self.curr_window_n_tree_width = None
       self.curr_buffer = None
@@ -613,10 +614,20 @@ class CherryTree:
          return False
       # backup before save new version
       if os.path.isfile(filepath): shutil.move(filepath, filepath + cons.CHAR_TILDE)
+      # if the filename is protected, we use unprotected type before compress and protect
       try:
-         file_descriptor = open(filepath, 'w')
+         if self.password:
+            if not os.path.isdir(cons.TMP_FOLDER): os.mkdir(cons.TMP_FOLDER)
+            filepath_tmp = os.path.join(cons.TMP_FOLDER, os.path.basename(filepath[:-1] + "d"))
+            file_descriptor = open(filepath_tmp, 'w')
+         else: file_descriptor = open(filepath, 'w')
          file_descriptor.write(xml_string)
          file_descriptor.close()
+         if self.password:
+            subprocess.call("7za a %s %s -p%s -bd" % (filepath,
+                                                      filepath_tmp,
+                                                      self.password), shell=True)
+            os.remove(filepath_tmp)
          return True
       except:
          support.dialog_error("%s write failed - writing to disk" % filepath, self.window)
@@ -636,7 +647,7 @@ class CherryTree:
       
    def file_open(self, *args):
       """Opens a .CTD File"""
-      filepath = support.dialog_file_select(filter_pattern="*.ctd",
+      filepath = support.dialog_file_select(filter_pattern="*.ct*",
                                             filter_name=_("CherryTree Document"),
                                             curr_folder=self.file_dir,
                                             parent=self.window)
@@ -651,10 +662,24 @@ class CherryTree:
       
    def file_load(self, filepath):
       """Loads a .CTD into a GTK TreeStore"""
+      if filepath[-1] == "z":
+         self.password = "pupu" #TODO
+         if not os.path.isdir(cons.TMP_FOLDER): os.mkdir(cons.TMP_FOLDER)
+         filepath_tmp = os.path.join(cons.TMP_FOLDER, os.path.basename(filepath[:-1] + "d"))
+         subprocess.call("7za e %s -o%s -p%s -bd" % (filepath,
+                                                     cons.TMP_FOLDER,
+                                                     self.password), shell=True)
+      elif filepath[-1] != "d":
+         print "bad filepath[-1]", filepath[-1]
+         support.dialog_error(_('"%s" is Not a CherryTree Document') % filepath, self.window)
+         return
+      else: self.password = None
       try:
-         file_descriptor = open(filepath, 'r')
+         if self.password: file_descriptor = open(filepath_tmp, 'r')
+         else: file_descriptor = open(filepath, 'r')
          cherrytree_string = file_descriptor.read()
          file_descriptor.close()
+         if self.password: os.remove(filepath_tmp)
       except:
          support.dialog_error("Error opening the file %s" % filepath, self.window)
          return
@@ -686,6 +711,7 @@ class CherryTree:
          self.curr_tree_iter = None
       self.treestore.clear()
       self.file_name = ""
+      self.password = None
       self.node_id_counter = long(0)
       self.update_window_save_not_needed()
       self.state_machine.reset()
