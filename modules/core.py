@@ -352,7 +352,6 @@ class CherryTree:
                                              flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
                                              buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
                                                       gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
-         content_area = append_location_dialog.get_content_area()
          radiobutton_root = gtk.RadioButton(label=_("The Tree Root"))
          radiobutton_curr_node = gtk.RadioButton(label=_("The Selected Node"))
          radiobutton_curr_node.set_group(radiobutton_root)
@@ -624,9 +623,11 @@ class CherryTree:
          file_descriptor.write(xml_string)
          file_descriptor.close()
          if self.password:
-            subprocess.call("7za a %s %s -p%s -bd" % (filepath,
-                                                      filepath_tmp,
-                                                      self.password), shell=True)
+            ret_code = subprocess.call("7za a %s %s -p%s -bd -y" % (filepath,
+                                                                    filepath_tmp,
+                                                                    self.password),
+                                                                    shell=True)
+            #print ret_code
             os.remove(filepath_tmp)
          return True
       except:
@@ -660,15 +661,45 @@ class CherryTree:
             self.treeview.set_cursor(self.treestore.get_path(first_node_iter))
             self.sourceview.grab_focus()
       
+   def dialog_insert_password(self):
+      """Prompts a Dialog Asking for the File Password"""
+      enter_password_dialog = gtk.Dialog(title=_("Enter Password"),
+                                         parent=self.window,
+                                         flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
+                                         buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
+                                         gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
+      entry = gtk.Entry()
+      entry.set_visibility(False)
+      content_area = enter_password_dialog.get_content_area()
+      content_area.pack_start(entry)
+      content_area.show_all()
+      def on_key_press_enter_password_dialog(widget, event):
+         if gtk.gdk.keyval_name(event.keyval) == "Return":
+            button_box = enter_password_dialog.get_action_area()
+            buttons = button_box.get_children()
+            buttons[0].clicked() # first is the ok button
+      enter_password_dialog.connect("key_press_event", on_key_press_enter_password_dialog)
+      response = enter_password_dialog.run()
+      passw = entry.get_text()
+      enter_password_dialog.destroy()
+      while gtk.events_pending(): gtk.main_iteration()
+      if response != gtk.RESPONSE_ACCEPT: return False
+      self.password = passw
+      return True
+      
    def file_load(self, filepath):
       """Loads a .CTD into a GTK TreeStore"""
       if filepath[-1] == "z":
-         self.password = "pupu" #TODO
+         if not self.dialog_insert_password(): return
          if not os.path.isdir(cons.TMP_FOLDER): os.mkdir(cons.TMP_FOLDER)
          filepath_tmp = os.path.join(cons.TMP_FOLDER, os.path.basename(filepath[:-1] + "d"))
-         subprocess.call("7za e %s -o%s -p%s -bd" % (filepath,
-                                                     cons.TMP_FOLDER,
-                                                     self.password), shell=True)
+         ret_code = subprocess.call("7za e %s -o%s -p%s -bd -y" % (filepath,
+                                                                   cons.TMP_FOLDER,
+                                                                   self.password),
+                                                                   shell=True)
+         if ret_code != 0:
+            support.dialog_error(_('Wrong Password'), self.window)
+            return
       elif filepath[-1] != "d":
          print "bad filepath[-1]", filepath[-1]
          support.dialog_error(_('"%s" is Not a CherryTree Document') % filepath, self.window)
