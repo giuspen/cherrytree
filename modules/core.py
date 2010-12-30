@@ -661,6 +661,33 @@ class CherryTree:
             self.treeview.set_cursor(self.treestore.get_path(first_node_iter))
             self.sourceview.grab_focus()
       
+   def dialog_edit_protection(self, *args):
+      """Edit the Password for the Current Document"""
+      if len(self.file_name) < 4:
+         support.dialog_warning(_("No Document is Opened"), self.window)
+         return
+      edit_protection_dialog = gtk.Dialog(title=_("Document Protection"),
+                                          parent=self.window,
+                                          flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
+                                          buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
+                                          gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
+      radiobutton_unprotected = gtk.RadioButton(label=_("Not Protected"))
+      radiobutton_protected = gtk.RadioButton(label=_("Password Protected"))
+      radiobutton_protected.set_group(radiobutton_unprotected)
+      content_area = edit_protection_dialog.get_content_area()
+      content_area.pack_start(radiobutton_unprotected)
+      content_area.pack_start(radiobutton_protected)
+      content_area.show_all()
+      def on_key_press_edit_protection_dialog(widget, event):
+         if gtk.gdk.keyval_name(event.keyval) == "Return":
+            button_box = edit_protection_dialog.get_action_area()
+            buttons = button_box.get_children()
+            buttons[0].clicked() # first is the ok button
+      edit_protection_dialog.connect("key_press_event", on_key_press_edit_protection_dialog)
+      response = edit_protection_dialog.run()
+      edit_protection_dialog.destroy()
+      if response != gtk.RESPONSE_ACCEPT: return
+      
    def dialog_insert_password(self):
       """Prompts a Dialog Asking for the File Password"""
       enter_password_dialog = gtk.Dialog(title=_("Enter Password"),
