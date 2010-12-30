@@ -674,19 +674,60 @@ class CherryTree:
       radiobutton_unprotected = gtk.RadioButton(label=_("Not Protected"))
       radiobutton_protected = gtk.RadioButton(label=_("Password Protected"))
       radiobutton_protected.set_group(radiobutton_unprotected)
+      entry_passw_1 = gtk.Entry()
+      entry_passw_1.set_visibility(False)
+      entry_passw_2 = gtk.Entry()
+      entry_passw_2.set_visibility(False)
+      vbox_passw = gtk.VBox()
+      vbox_passw.pack_start(entry_passw_1)
+      vbox_passw.pack_start(entry_passw_2)
+      passw_frame = gtk.Frame(label="<b>"+_("Enter the New Password Twice")+"</b>")
+      passw_frame.get_label_widget().set_use_markup(True)
+      passw_frame.add(vbox_passw)
+      if self.password:
+         radiobutton_unprotected.set_active(False)
+         radiobutton_protected.set_active(True)
+         passw_frame.set_sensitive(True)
+      else:
+         radiobutton_unprotected.set_active(True)
+         radiobutton_protected.set_active(False)
+         passw_frame.set_sensitive(False)
       content_area = edit_protection_dialog.get_content_area()
       content_area.pack_start(radiobutton_unprotected)
       content_area.pack_start(radiobutton_protected)
+      content_area.pack_start(passw_frame)
       content_area.show_all()
       def on_key_press_edit_protection_dialog(widget, event):
          if gtk.gdk.keyval_name(event.keyval) == "Return":
             button_box = edit_protection_dialog.get_action_area()
             buttons = button_box.get_children()
             buttons[0].clicked() # first is the ok button
+      def on_radiobutton_protected_toggled(widget):
+         passw_frame.set_sensitive(widget.get_active())
+      radiobutton_protected.connect("toggled", on_radiobutton_protected_toggled)
       edit_protection_dialog.connect("key_press_event", on_key_press_edit_protection_dialog)
       response = edit_protection_dialog.run()
+      new_protection = {'on':radiobutton_protected.get_active(),
+                        'p1':entry_passw_1.get_text(),
+                        'p2':entry_passw_2.get_text()}
       edit_protection_dialog.destroy()
       if response != gtk.RESPONSE_ACCEPT: return
+      former_filename = self.file_name
+      if new_protection['on']:
+         if new_protection['p1'] == "":
+            support.dialog_error(_("The Password Fields Must be Filled"), self.window)
+            return
+         if new_protection['p1'] != new_protection['p2']:
+            support.dialog_error(_("The Two Inserted Passwords Do Not Match"), self.window)
+            return
+         self.password = new_protection['p1']
+         self.file_name = self.file_name[:-1] + "z"
+      else:
+         self.password = None
+         self.file_name = self.file_name[:-1] + "d"
+      self.window.set_title(self.window.get_title().replace(former_filename, self.file_name))
+      while gtk.events_pending(): gtk.main_iteration()
+      self.file_save()
       
    def dialog_insert_password(self):
       """Prompts a Dialog Asking for the File Password"""
