@@ -4,4 +4,8 @@
       <comment>CherryTree Document</comment>
       <glob pattern="*.ctd"/>
    </mime-type>
+   <mime-type type="text/cherrytree-ctz">
+      <comment>CherryTree Zipped</comment>
+      <glob pattern="*.ctz"/>
+   </mime-type>
 </mime-info>
