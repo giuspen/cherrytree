@@ -20,6 +20,7 @@
 #       MA 02110-1301, USA.
 
 import gtk, os
+import cons
 
 
 def windows_cmd_prepare_path(filepath):

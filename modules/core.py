@@ -670,7 +670,7 @@ class CherryTree:
                filepath_tmp_4win = support.windows_cmd_prepare_path(filepath_tmp)
                if not filepath_4win or not filepath_tmp_4win:
                   support.dialog_error(_("The Contemporary Presence of Single and Double Quotes in the File Path Prevents 7za.exe to Work, Please Change the File Name"), self.window)
-                  return
+                  raise
                bash_str = '7za a -p%s -bd -y ' % self.password +\
                           filepath_4win + cons.CHAR_SPACE + filepath_tmp_4win
             else:
