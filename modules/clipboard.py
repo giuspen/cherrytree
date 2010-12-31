@@ -318,7 +318,7 @@ class ClipboardHandler:
                                            table,
                                            justification)
    
-   def rich_text_get_from_text_buffer_selection(self, text_buffer, iter_sel_start, iter_sel_end):
+   def rich_text_get_from_text_buffer_selection(self, text_buffer, iter_sel_start, iter_sel_end, change_case="n"):
       """Given text_buffer and selection, returns the rich text xml"""
       pixbuf_table_codebox_vector = self.dad.state_machine.get_embedded_pixbufs_tables_codeboxes(text_buffer,
                                                                                                  for_print=0,
@@ -333,13 +333,13 @@ class ClipboardHandler:
          end_offset = end_offset_element[1][0]
          if obj_pos < len(pixbuf_table_codebox_vector): obj_element = pixbuf_table_codebox_vector[obj_pos]
          else: obj_element = None
-         self.rich_text_process_slot(dom, root, start_offset, end_offset, text_buffer, obj_element)
+         self.rich_text_process_slot(dom, root, start_offset, end_offset, text_buffer, obj_element, change_case)
          obj_pos += 1
          start_offset = end_offset
-      self.rich_text_process_slot(dom, root, start_offset, iter_sel_end.get_offset(), text_buffer, None)
+      self.rich_text_process_slot(dom, root, start_offset, iter_sel_end.get_offset(), text_buffer, None, change_case)
       return dom.toxml()
       
-   def rich_text_process_slot(self, dom, root, start_offset, end_offset, text_buffer, obj_element):
+   def rich_text_process_slot(self, dom, root, start_offset, end_offset, text_buffer, obj_element, change_case="n"):
       """Process a Single Pango Slot"""
       dom_iter = dom.createElement("slot")
       root.appendChild(dom_iter)
@@ -353,7 +353,7 @@ class ClipboardHandler:
       tag_found = curr_iter.forward_to_tag_toggle(None)
       while tag_found:
          if curr_iter.get_offset() > end_offset: curr_iter = text_buffer.get_iter_at_offset(end_offset)
-         self.dad.xml_handler.rich_text_serialize(dom_iter, start_iter, curr_iter, self.curr_attributes)
+         self.dad.xml_handler.rich_text_serialize(dom_iter, start_iter, curr_iter, self.curr_attributes, change_case)
          offset_old = curr_iter.get_offset()
          if offset_old >= end_offset: break
          else:
@@ -363,7 +363,7 @@ class ClipboardHandler:
             if curr_iter.get_offset() == offset_old: break
       else:
          if curr_iter.get_offset() > end_offset: curr_iter = text_buffer.get_iter_at_offset(end_offset)
-         self.dad.xml_handler.rich_text_serialize(dom_iter, start_iter, curr_iter, self.curr_attributes)
+         self.dad.xml_handler.rich_text_serialize(dom_iter, start_iter, curr_iter, self.curr_attributes, change_case)
       if obj_element:
          if obj_element[0] == "pixbuf": self.dad.xml_handler.pixbuf_element_to_xml(obj_element[1], dom_iter, dom)
          elif obj_element[0] == "table": self.dad.xml_handler.table_element_to_xml(obj_element[1], dom_iter)

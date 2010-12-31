@@ -204,15 +204,25 @@ class CherryTree:
          support.dialog_warning(_("No Text is Selected"), self.window)
          return
       iter_start, iter_end = self.curr_buffer.get_selection_bounds()
-      text_to_change_case = self.curr_buffer.get_slice(iter_start, iter_end)
-      if change_type == "l": text_to_change_case = text_to_change_case.lower()
-      elif change_type == "u": text_to_change_case = text_to_change_case.upper()
-      elif change_type == "t": text_to_change_case = text_to_change_case.swapcase()
+      if self.syntax_highlighting != cons.CUSTOM_COLORS_ID:
+         text_to_change_case = self.curr_buffer.get_slice(iter_start, iter_end)
+         if change_type == "l": text_to_change_case = text_to_change_case.lower()
+         elif change_type == "u": text_to_change_case = text_to_change_case.upper()
+         elif change_type == "t": text_to_change_case = text_to_change_case.swapcase()
+      else:
+         rich_text = self.clipboard_handler.rich_text_get_from_text_buffer_selection(self.curr_buffer,
+                                                                                     iter_start,
+                                                                                     iter_end,
+                                                                                     change_case=change_type)
       start_offset = iter_start.get_offset()
       end_offset = iter_end.get_offset()
       self.curr_buffer.delete(iter_start, iter_end)
       iter_insert = self.curr_buffer.get_iter_at_offset(start_offset)
-      self.curr_buffer.insert(iter_insert, text_to_change_case)
+      if self.syntax_highlighting != cons.CUSTOM_COLORS_ID:
+         self.curr_buffer.insert(iter_insert, text_to_change_case)
+      else:
+         self.curr_buffer.move_mark(self.curr_buffer.get_insert(), iter_insert)
+         self.clipboard_handler.from_xml_string_to_buffer(rich_text)
       self.curr_buffer.select_range(self.curr_buffer.get_iter_at_offset(start_offset),
                                     self.curr_buffer.get_iter_at_offset(end_offset))
       

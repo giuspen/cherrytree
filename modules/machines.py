@@ -319,14 +319,19 @@ class XMLHandler:
       else: text_iter = dom.createTextNode("anchor")
       dom_iter.appendChild(text_iter)
    
-   def rich_text_serialize(self, dom_node, start_iter, end_iter, curr_attributes):
+   def rich_text_serialize(self, dom_node, start_iter, end_iter, curr_attributes, change_case="n"):
       """Appends a new SourceBuffer part to the XML rich text"""
       dom_iter = self.dom.createElement("rich_text")
       for tag_property in cons.TAG_PROPERTIES:
          if curr_attributes[tag_property] != "":
             dom_iter.setAttribute(tag_property, curr_attributes[tag_property])
       dom_node.appendChild(dom_iter)
-      text_iter = self.dom.createTextNode(start_iter.get_text(end_iter))
+      slot_text = start_iter.get_text(end_iter)
+      if change_case != "n":
+         if change_case == "l": slot_text = slot_text.lower()
+         elif change_case == "u": slot_text = slot_text.upper()
+         elif change_case == "t": slot_text = slot_text.swapcase()
+      text_iter = self.dom.createTextNode(slot_text)
       dom_iter.appendChild(text_iter)
       
    def rich_text_attributes_update(self, curr_iter, curr_attributes):
