@@ -623,9 +623,13 @@ class CherryTree:
          file_descriptor.write(xml_string)
          file_descriptor.close()
          if self.password:
-            bash_str = "7za a -p%s -bd -y %s %s" % (self.password,
-                                                    re.escape(filepath),
-                                                    re.escape(filepath_tmp))
+            if sys.platform[0:3] == "win":
+               bash_str = '7za a -p%s -bd -y' % self.password +\
+                          ' "' + filepath + '" "' + filepath_tmp + '"'
+            else:
+               bash_str = '7za a -p%s -bd -y %s %s' % (self.password,
+                                                       re.escape(filepath),
+                                                       re.escape(filepath_tmp))
             #print bash_str
             ret_code = subprocess.call(bash_str, shell=True)
             #print ret_code
@@ -739,9 +743,9 @@ class CherryTree:
          return False
       return True
       
-   def dialog_insert_password(self):
+   def dialog_insert_password(self, file_name):
       """Prompts a Dialog Asking for the File Password"""
-      enter_password_dialog = gtk.Dialog(title=_("Enter Password for %s") % self.file_name,
+      enter_password_dialog = gtk.Dialog(title=_("Enter Password for %s") % file_name,
                                          parent=self.window,
                                          flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
                                          buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
@@ -769,13 +773,17 @@ class CherryTree:
    def file_load(self, filepath):
       """Loads a .CTD into a GTK TreeStore"""
       if filepath[-1] == "z":
-         if not self.dialog_insert_password(): return
+         if not self.dialog_insert_password(os.path.basename(filepath)): return
          if not self.is_7za_available(): return
          if not os.path.isdir(cons.TMP_FOLDER): os.mkdir(cons.TMP_FOLDER)
          filepath_tmp = os.path.join(cons.TMP_FOLDER, os.path.basename(filepath[:-1] + "d"))
-         bash_str = "7za e -p%s -bd -y -o%s %s" % (self.password,
-                                                   re.escape(cons.TMP_FOLDER),
-                                                   re.escape(filepath))
+         if sys.platform[0:3] == "win":
+            bash_str = '7za e -p%s -bd -y' % self.password +\
+                       ' "-o' + cons.TMP_FOLDER + '" "' + filepath + '"'
+         else:
+            bash_str = '7za e -p%s -bd -y -o%s %s' % (self.password,
+                                                      re.escape(cons.TMP_FOLDER),
+                                                      re.escape(filepath))
          #print bash_str
          ret_code = subprocess.call(bash_str, shell=True)
          if ret_code != 0:
