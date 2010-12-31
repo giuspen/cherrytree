@@ -199,8 +199,25 @@ class CherryTree:
       else: return "Node NoIcon"
       
    def text_selection_toggle_case(self, *args):
-      """Toggles the Case of the Selected Text"""
-      print "TGGL"
+      """Toggles the Case of the Selected Text/the Underlying Word"""
+      if not self.curr_buffer.get_has_selection() and not self.apply_tag_try_automatic_bounds():
+         support.dialog_warning(_("No Text is Selected"), self.window)
+         return
+      iter_start, iter_end = self.curr_buffer.get_selection_bounds()
+      text_to_toggle_case = self.curr_buffer.get_slice(iter_start, iter_end)
+      text_to_toggle_case = text_to_toggle_case.swapcase()
+      start_offset = iter_start.get_offset()
+      self.curr_buffer.delete(iter_start, iter_end)
+      iter_insert = self.curr_buffer.get_iter_at_offset(start_offset)
+      self.curr_buffer.insert(iter_insert, text_to_toggle_case)
+      
+   def text_selection_upper_case(self, *args):
+      """Uppers the Case of the Selected Text/the Underlying Word"""
+      pass
+   
+   def text_selection_lower_case(self, *args):
+      """Lowers the Case of the Selected Text/the Underlying Word"""
+      pass
       
    def text_row_selection_duplicate(self, *args):
       """Duplicates the Whole Row or a Selection"""
