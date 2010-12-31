@@ -22,7 +22,7 @@
 import os, sys, gtk
 
 
-VERSION = "0.18.1"
+VERSION = "0.19"
 APP_NAME = "cherrytree"
 NEWER_VERSION_URL = "http://www.giuspen.com/software/version_cherrytree"
 if sys.platform[0:3] == "win":
@@ -105,6 +105,7 @@ STOCKS_N_FILES = {'Node Bullet':'node_bullet.png',
                   'Bulleted List':'list_bulleted.png',
                   'Numbered List':'list_numbered.png',
                   'Node Name Header':'node_name_header.png',
+                  'Toggle Case':'toggle_case.png',
                   'Delete':'edit-delete.png',
                   'Copy':'edit-copy.png',
                   'Cut':'edit-cut.png',
@@ -172,6 +173,7 @@ UI_INFO = """
          <menuitem action='InsertTOC'/>
          <menuitem action='HorizontalRule'/>
          <separator/>
+         <menuitem action='ToggleCase'/>
          <menuitem action='DuplicateRow'/>
          <menuitem action='DeleteRow'/>
          <separator/>
@@ -446,8 +448,9 @@ def get_entries(inst):
    ( "DeleteTable", "Delete", _("_Delete Table"), None, _("Delete the Selected Table"), inst.tables_handler.table_delete),
    ( "HandleTable", "Insert Table", _("Insert _Table"), None, _("Insert a Table"), inst.table_handle),
    ( "HandleCodeBox", "Insert CodeBox", _("Insert _CodeBox"), None, _("Insert a CodeBox"), inst.codebox_handle),
+   ( "ToggleCase", "Toggle Case", _("To_ggle Case of Selection/Word"), "<control>G", _("Toggle the Case of the Selection/the Underlying Word"), inst.text_selection_toggle_case),
    ( "DuplicateRow", "gtk-add", _("_Duplicate Row/Selection"), "<control>D", _("Duplicate the Whole Row/a Selection"), inst.text_row_selection_duplicate),
-   ( "DeleteRow", "gtk-clear", _("De_lete Row"), "<control><shift>D", _("Delete the Whole Row"), inst.text_row_delete),
+   ( "DeleteRow", "gtk-clear", _("De_lete Row"), "<control>E", _("Delete the Whole Row"), inst.text_row_delete),
    ( "Undo", "gtk-undo", _("_Undo"), "<control>Z", _("Undo Last Operation"), inst.requested_step_back),
    ( "Redo", "gtk-redo", _("_Redo"), "<control>Y", _("Redo Previously Discarded Operation"), inst.requested_step_ahead),
    ( "InheritSyntax", "gtk-execute", _("_Inherit Syntax"), None, _("Change the Selected Node's Children Syntax Highlighting to the Father's Syntax Highlighting"), inst.node_inherit_syntax),
@@ -461,7 +464,7 @@ def get_entries(inst):
    ( "Strikethrough", "gtk-strikethrough", _("Toggle Stri_kethrough Property"), "<control>K", _("Toggle Strikethrough Property of the Selected Text"), inst.apply_tag_strikethrough),
    ( "H1", "Format Text Large", _("Toggle h_1 Property"), "<control>1", _("Toggle h1 Property of the Selected Text"), inst.apply_tag_large),
    ( "H2", "Format Text Large2", _("Toggle h_2 Property"), "<control>2", _("Toggle h2 Property of the Selected Text"), inst.apply_tag_large2),
-   ( "Small", "Format Text Small", _("Toggle _Small Property"), "<control><shift>G", _("Toggle Small Property of the Selected Text"), inst.apply_tag_small),
+   ( "Small", "Format Text Small", _("Toggle _Small Property"), "<control>0", _("Toggle Small Property of the Selected Text"), inst.apply_tag_small),
    ( "JustifyLeft", "gtk-justify-left", _("Justify _Left"), None, _("Justify Left the Current Paragraph"), inst.apply_tag_justify_left),
    ( "JustifyCenter", "gtk-justify-center", _("Justify _Center"), None, _("Justify Center the Current Paragraph"), inst.apply_tag_justify_center),
    ( "JustifyRight", "gtk-justify-right", _("Justify _Right"), None, _("Justify Right the Current Paragraph"), inst.apply_tag_justify_right),
@@ -541,6 +544,7 @@ def get_popup_menu_entries_text(inst):
    ("Index", _("Insert T_OC"), _("Insert Table of Contents"), inst.toc_insert),
    ("Horizontal Rule", _("Insert _Horizontal Rule"), _("Insert Horizontal Rule"), inst.horizontal_rule_insert),
    ("submenu-end", None, None, None),
+   ("Toggle Case", _("To_ggle Case of Selection/Word"), _("Toggle the Case of the Selection/the Underlying Word"), inst.text_selection_toggle_case),
    ("gtk-add", _("_Duplicate Row/Selection"), _("Duplicate the Whole Row/a Selection"), inst.text_row_selection_duplicate),
    ("gtk-clear", _("De_lete Row"), _("Delete the Whole Row"), inst.text_row_delete),
    ("separator", None, None, None),
@@ -568,6 +572,7 @@ def get_popup_menu_entries_code(inst):
    # "submenu-start", label, stock id, None | "submenu-end", None, None, None
    return [
    ("separator",None,None,None),
+   ("Toggle Case", _("To_ggle Case of Selection/Word"), _("Toggle the Case of the Selection/the Underlying Word"), inst.text_selection_toggle_case),
    ("gtk-add", _("_Duplicate Row/Selection"), _("Duplicate the Whole Row/a Selection"), inst.text_row_selection_duplicate),
    ("gtk-clear", _("De_lete Row"), _("Delete the Whole Row"), inst.text_row_delete),
    ]

@@ -198,6 +198,10 @@ class CherryTree:
       elif self.nodes_icons == "b": return "Node Bullet"
       else: return "Node NoIcon"
       
+   def text_selection_toggle_case(self, *args):
+      """Toggles the Case of the Selected Text"""
+      print "TGGL"
+      
    def text_row_selection_duplicate(self, *args):
       """Duplicates the Whole Row or a Selection"""
       if self.curr_buffer.get_has_selection():
