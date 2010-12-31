@@ -720,6 +720,7 @@ class CherryTree:
          if new_protection['p1'] != new_protection['p2']:
             support.dialog_error(_("The Two Inserted Passwords Do Not Match"), self.window)
             return
+         if not self.password and not self.is_7za_available(): return
          self.password = new_protection['p1']
          self.file_name = self.file_name[:-1] + "z"
       else:
@@ -729,13 +730,22 @@ class CherryTree:
       while gtk.events_pending(): gtk.main_iteration()
       self.file_save()
       
+   def is_7za_available(self):
+      """Check 7za binary executable to be available"""
+      ret_code = subprocess.call("7za", shell=True)
+      if ret_code:
+         support.dialog_error(_("Binary Executable '7za' Not Found, Check The Package 'p7zip-full' to be Installed Properly"), self.window)
+         return False
+      return True
+      
    def dialog_insert_password(self):
       """Prompts a Dialog Asking for the File Password"""
-      enter_password_dialog = gtk.Dialog(title=_("Enter Password"),
+      enter_password_dialog = gtk.Dialog(title=_("Enter Password for %s") % self.file_name,
                                          parent=self.window,
                                          flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
                                          buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
                                          gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
+      enter_password_dialog.set_default_size(300, -1)
       entry = gtk.Entry()
       entry.set_visibility(False)
       content_area = enter_password_dialog.get_content_area()
@@ -759,6 +769,7 @@ class CherryTree:
       """Loads a .CTD into a GTK TreeStore"""
       if filepath[-1] == "z":
          if not self.dialog_insert_password(): return
+         if not self.is_7za_available(): return
          if not os.path.isdir(cons.TMP_FOLDER): os.mkdir(cons.TMP_FOLDER)
          filepath_tmp = os.path.join(cons.TMP_FOLDER, os.path.basename(filepath[:-1] + "d"))
          ret_code = subprocess.call("7za e %s -o%s -p%s -bd -y" % (filepath,
