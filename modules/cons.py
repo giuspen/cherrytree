@@ -175,7 +175,11 @@ UI_INFO = """
          <menuitem action='InsertTOC'/>
          <menuitem action='HorizontalRule'/>
          <separator/>
-         <menuitem action='ToggleCase'/>
+         <menu action='ChangeCaseMenu'>
+            <menuitem action='DownCase'/>
+            <menuitem action='UpCase'/>
+            <menuitem action='ToggleCase'/>
+         </menu>
          <menuitem action='DuplicateRow'/>
          <menuitem action='DeleteRow'/>
          <separator/>
@@ -411,6 +415,7 @@ def get_entries(inst):
    ( "TreeMoveMenu", "gtk-jump-to", _("Node _Move") ),
    ( "TreeImportMenu", "CherryTree Import", _("Nodes _Import") ),
    ( "TreeExportMenu", "CherryTree Export", _("Nodes E_xport") ),
+   ( "ChangeCaseMenu", "Case Toggle", _("C_hange Case") ),
    ( "SearchMenu", None, _("_Search") ),
    ( "ReplaceMenu", None, _("_Replace") ),
    ( "ViewMenu", None, _("_View") ),
@@ -450,7 +455,9 @@ def get_entries(inst):
    ( "DeleteTable", "Delete", _("_Delete Table"), None, _("Delete the Selected Table"), inst.tables_handler.table_delete),
    ( "HandleTable", "Insert Table", _("Insert _Table"), None, _("Insert a Table"), inst.table_handle),
    ( "HandleCodeBox", "Insert CodeBox", _("Insert _CodeBox"), None, _("Insert a CodeBox"), inst.codebox_handle),
-   ( "ToggleCase", "Case Toggle", _("To_ggle Case of Selection/Word"), "<control>G", _("Toggle the Case of the Selection/the Underlying Word"), inst.text_selection_toggle_case),
+   ( "DownCase", "Case Down", _("_Lower Case of Selection/Word"), "<control>W", _("Lower the Case of the Selection/the Underlying Word"), inst.text_selection_lower_case),
+   ( "UpCase", "Case Up", _("_Upper Case of Selection/Word"), "<control><shift>W", _("Upper the Case of the Selection/the Underlying Word"), inst.text_selection_upper_case),
+   ( "ToggleCase", "Case Toggle", _("_Toggle Case of Selection/Word"), "<control>G", _("Toggle the Case of the Selection/the Underlying Word"), inst.text_selection_toggle_case),
    ( "DuplicateRow", "gtk-add", _("_Duplicate Row/Selection"), "<control>D", _("Duplicate the Whole Row/a Selection"), inst.text_row_selection_duplicate),
    ( "DeleteRow", "gtk-clear", _("De_lete Row"), "<control>E", _("Delete the Whole Row"), inst.text_row_delete),
    ( "Undo", "gtk-undo", _("_Undo"), "<control>Z", _("Undo Last Operation"), inst.requested_step_back),
@@ -546,7 +553,11 @@ def get_popup_menu_entries_text(inst):
    ("Index", _("Insert T_OC"), _("Insert Table of Contents"), inst.toc_insert),
    ("Horizontal Rule", _("Insert _Horizontal Rule"), _("Insert Horizontal Rule"), inst.horizontal_rule_insert),
    ("submenu-end", None, None, None),
-   ("Case Toggle", _("To_ggle Case of Selection/Word"), _("Toggle the Case of the Selection/the Underlying Word"), inst.text_selection_toggle_case),
+   ("submenu-start", _("C_hange Case") , "Case Toggle", None),
+   ("Case Down", _("_Lower Case of Selection/Word"), _("Lower the Case of the Selection/the Underlying Word"), inst.text_selection_lower_case),
+   ("Case Up", _("_Upper Case of Selection/Word"), _("Upper the Case of the Selection/the Underlying Word"), inst.text_selection_upper_case),
+   ("Case Toggle", _("_Toggle Case of Selection/Word"), _("Toggle the Case of the Selection/the Underlying Word"), inst.text_selection_toggle_case),
+   ("submenu-end", None, None, None),
    ("gtk-add", _("_Duplicate Row/Selection"), _("Duplicate the Whole Row/a Selection"), inst.text_row_selection_duplicate),
    ("gtk-clear", _("De_lete Row"), _("Delete the Whole Row"), inst.text_row_delete),
    ("separator", None, None, None),
@@ -574,7 +585,11 @@ def get_popup_menu_entries_code(inst):
    # "submenu-start", label, stock id, None | "submenu-end", None, None, None
    return [
    ("separator",None,None,None),
-   ("Case Toggle", _("To_ggle Case of Selection/Word"), _("Toggle the Case of the Selection/the Underlying Word"), inst.text_selection_toggle_case),
+   ("submenu-start", _("C_hange Case") , "Case Toggle", None),
+   ("Case Down", _("_Lower Case of Selection/Word"), _("Lower the Case of the Selection/the Underlying Word"), inst.text_selection_lower_case),
+   ("Case Up", _("_Upper Case of Selection/Word"), _("Upper the Case of the Selection/the Underlying Word"), inst.text_selection_upper_case),
+   ("Case Toggle", _("_Toggle Case of Selection/Word"), _("Toggle the Case of the Selection/the Underlying Word"), inst.text_selection_toggle_case),
+   ("submenu-end", None, None, None),
    ("gtk-add", _("_Duplicate Row/Selection"), _("Duplicate the Whole Row/a Selection"), inst.text_row_selection_duplicate),
    ("gtk-clear", _("De_lete Row"), _("Delete the Whole Row"), inst.text_row_delete),
    ]

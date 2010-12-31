@@ -198,26 +198,35 @@ class CherryTree:
       elif self.nodes_icons == "b": return "Node Bullet"
       else: return "Node NoIcon"
       
-   def text_selection_toggle_case(self, *args):
-      """Toggles the Case of the Selected Text/the Underlying Word"""
+   def text_selection_change_case(self, change_type):
+      """Change the Case of the Selected Text/the Underlying Word"""
       if not self.curr_buffer.get_has_selection() and not self.apply_tag_try_automatic_bounds():
          support.dialog_warning(_("No Text is Selected"), self.window)
          return
       iter_start, iter_end = self.curr_buffer.get_selection_bounds()
-      text_to_toggle_case = self.curr_buffer.get_slice(iter_start, iter_end)
-      text_to_toggle_case = text_to_toggle_case.swapcase()
+      text_to_change_case = self.curr_buffer.get_slice(iter_start, iter_end)
+      if change_type == "l": text_to_change_case = text_to_change_case.lower()
+      elif change_type == "u": text_to_change_case = text_to_change_case.upper()
+      elif change_type == "t": text_to_change_case = text_to_change_case.swapcase()
       start_offset = iter_start.get_offset()
+      end_offset = iter_end.get_offset()
       self.curr_buffer.delete(iter_start, iter_end)
       iter_insert = self.curr_buffer.get_iter_at_offset(start_offset)
-      self.curr_buffer.insert(iter_insert, text_to_toggle_case)
+      self.curr_buffer.insert(iter_insert, text_to_change_case)
+      self.curr_buffer.select_range(self.curr_buffer.get_iter_at_offset(start_offset),
+                                    self.curr_buffer.get_iter_at_offset(end_offset))
+      
+   def text_selection_toggle_case(self, *args):
+      """Toggles the Case of the Selected Text/the Underlying Word"""
+      self.text_selection_change_case("t")
       
    def text_selection_upper_case(self, *args):
       """Uppers the Case of the Selected Text/the Underlying Word"""
-      pass
+      self.text_selection_change_case("u")
    
    def text_selection_lower_case(self, *args):
       """Lowers the Case of the Selected Text/the Underlying Word"""
-      pass
+      self.text_selection_change_case("l")
       
    def text_row_selection_duplicate(self, *args):
       """Duplicates the Whole Row or a Selection"""
