@@ -666,8 +666,13 @@ class CherryTree:
          file_descriptor.close()
          if self.password:
             if sys.platform[0:3] == "win":
-               bash_str = '7za a -p%s -bd -y' % self.password +\
-                          ' "' + filepath + '" "' + filepath_tmp + '"'
+               filepath_4win = support.windows_cmd_prepare_path(filepath)
+               filepath_tmp_4win = support.windows_cmd_prepare_path(filepath_tmp)
+               if not filepath_4win or not filepath_tmp_4win:
+                  support.dialog_error(_("The Contemporary Presence of Single and Double Quotes in the File Path Prevents 7za.exe to Work, Please Change the File Name"), self.window)
+                  return
+               bash_str = '7za a -p%s -bd -y ' % self.password +\
+                          filepath_4win + cons.CHAR_SPACE + filepath_tmp_4win
             else:
                bash_str = '7za a -p%s -bd -y %s %s' % (self.password,
                                                        re.escape(filepath),
@@ -820,8 +825,13 @@ class CherryTree:
          if not os.path.isdir(cons.TMP_FOLDER): os.mkdir(cons.TMP_FOLDER)
          filepath_tmp = os.path.join(cons.TMP_FOLDER, os.path.basename(filepath[:-1] + "d"))
          if sys.platform[0:3] == "win":
-            bash_str = '7za e -p%s -bd -y' % self.password +\
-                       ' "-o' + cons.TMP_FOLDER + '" "' + filepath + '"'
+            dest_dir_4win = support.windows_cmd_prepare_path("-o" + cons.TMP_FOLDER)
+            filepath_4win = support.windows_cmd_prepare_path(filepath)
+            if not dest_dir_4win or not filepath_4win:
+               support.dialog_error(_("The Contemporary Presence of Single and Double Quotes in the File Path Prevents 7za.exe to Work, Please Change the File Name"), self.window)
+               return
+            bash_str = '7za e -p%s -bd -y ' % self.password +\
+                       dest_dir_4win + cons.CHAR_SPACE + filepath_4win
          else:
             bash_str = '7za e -p%s -bd -y -o%s %s' % (self.password,
                                                       re.escape(cons.TMP_FOLDER),

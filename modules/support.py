@@ -22,6 +22,12 @@
 import gtk, os
 
 
+def windows_cmd_prepare_path(filepath):
+   """Prepares a Path to be digested by windows command line"""
+   if not cons.CHAR_DQUOTE in filepath: return cons.CHAR_DQUOTE + filepath + cons.CHAR_DQUOTE
+   elif not cons.CHAR_SQUOTE in filepath: return cons.CHAR_SQUOTE + filepath + cons.CHAR_SQUOTE
+   return None
+
 def dialog_file_save_as(filename=None, filter_pattern=None, filter_name=None, curr_folder=None, parent=None):
    """The Save file as dialog, Returns the retrieved filepath or None"""
    chooser = gtk.FileChooserDialog(title=_("Save File as"),
