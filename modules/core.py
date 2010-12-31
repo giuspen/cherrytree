@@ -623,10 +623,11 @@ class CherryTree:
          file_descriptor.write(xml_string)
          file_descriptor.close()
          if self.password:
-            ret_code = subprocess.call("7za a %s %s -p%s -bd -y" % (filepath,
-                                                                    filepath_tmp,
-                                                                    self.password),
-                                                                    shell=True)
+            bash_str = "7za a -p%s -bd -y %s %s" % (self.password,
+                                                    re.escape(filepath),
+                                                    re.escape(filepath_tmp))
+            #print bash_str
+            ret_code = subprocess.call(bash_str, shell=True)
             #print ret_code
             os.remove(filepath_tmp)
          return True
@@ -772,10 +773,11 @@ class CherryTree:
          if not self.is_7za_available(): return
          if not os.path.isdir(cons.TMP_FOLDER): os.mkdir(cons.TMP_FOLDER)
          filepath_tmp = os.path.join(cons.TMP_FOLDER, os.path.basename(filepath[:-1] + "d"))
-         ret_code = subprocess.call("7za e %s -o%s -p%s -bd -y" % (filepath,
-                                                                   cons.TMP_FOLDER,
-                                                                   self.password),
-                                                                   shell=True)
+         bash_str = "7za e -p%s -bd -y -o%s %s" % (self.password,
+                                                   re.escape(cons.TMP_FOLDER),
+                                                   re.escape(filepath))
+         #print bash_str
+         ret_code = subprocess.call(bash_str, shell=True)
          if ret_code != 0:
             support.dialog_error(_('Wrong Password'), self.window)
             return
