@@ -615,6 +615,8 @@ class CherryTree:
       if os.path.isfile(filepath): shutil.move(filepath, filepath + cons.CHAR_TILDE)
       # if the filename is protected, we use unprotected type before compress and protect
       try:
+         self.statusbar.push(self.statusbar_context_id, _("Writing to Disk..."))
+         while gtk.events_pending(): gtk.main_iteration()
          if self.password:
             if not os.path.isdir(cons.TMP_FOLDER): os.mkdir(cons.TMP_FOLDER)
             filepath_tmp = os.path.join(cons.TMP_FOLDER, os.path.basename(filepath[:-1] + "d"))
@@ -634,6 +636,7 @@ class CherryTree:
             ret_code = subprocess.call(bash_str, shell=True)
             #print ret_code
             os.remove(filepath_tmp)
+         self.statusbar.pop(self.statusbar_context_id)
          return True
       except:
          support.dialog_error("%s write failed - writing to disk" % filepath, self.window)
@@ -732,7 +735,6 @@ class CherryTree:
          self.password = None
          self.file_name = self.file_name[:-1] + "d"
       self.window.set_title(self.window.get_title().replace(former_filename, self.file_name))
-      while gtk.events_pending(): gtk.main_iteration()
       self.file_save()
       
    def is_7za_available(self):

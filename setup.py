@@ -62,5 +62,5 @@ setup(
    data_files = data_files
 )
 
-if "py2exe" in sys.argv: print "remember to move dist/share/locale to dist/locale and copy C:\gtksourceview\share\gtksourceview-2.0 to dist/share/"
+if "py2exe" in sys.argv: print "remember to move 'dist/share/locale' to 'dist/locale' and copy 'C:\gtksourceview\share\gtksourceview-2.0' to 'dist/share/', finally copy 7za.exe in the cherrytree folder"
 else: subprocess.call("update-desktop-database")
