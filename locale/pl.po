@@ -159,57 +159,59 @@ msgstr ""
 
 #: modules/core.py:658
 msgid "Writing to Disk..."
-msgstr ""
+msgstr "Zapisywanie na dysk..."
 
 #: modules/core.py:672 modules/core.py:831
 msgid ""
 "The Contemporary Presence of Single and Double Quotes in the File Path "
 "Prevents 7za.exe to Work, Please Change the File Name"
 msgstr ""
+"Nazwa pliku nie może zawierać cudzysłowów oraz apostrołów."
+"Proszę zmienić nazwe pliku."
 
 #: modules/core.py:720
-#, fuzzy
 msgid "No Document is Opened"
-msgstr "Nie zaznaczono gałęzi"
+msgstr "Żaden dokument nie jest otwarty"
 
 #: modules/core.py:722
 msgid "Document Protection"
-msgstr ""
+msgstr "Ochrona dokumentu"
 
 #: modules/core.py:727
 msgid "Not Protected"
-msgstr ""
+msgstr "Bez ochrony"
 
 #: modules/core.py:728
 msgid "Password Protected"
-msgstr ""
+msgstr "Chroniony hasłem"
 
 #: modules/core.py:737
 msgid "Enter the New Password Twice"
-msgstr ""
+msgstr "Wprowadź nowe hasło dwa razy"
 
 #: modules/core.py:771
 msgid "The Password Fields Must be Filled"
-msgstr ""
+msgstr "Pole haseł muszą być wypełnione"
 
 #: modules/core.py:774
 msgid "The Two Inserted Passwords Do Not Match"
-msgstr ""
+msgstr "Dwa wprowadzone hasła nie są jednakowe"
 
 #: modules/core.py:789
 msgid ""
 "Binary Executable '7za' Not Found, Check The Package 'p7zip-full' to be "
 "Installed Properly"
 msgstr ""
+"Program '7za' nie został znaleziony, Zainstaluj pakiet 'p7zip-full'"
 
 #: modules/core.py:795
 #, python-format
 msgid "Enter Password for %s"
-msgstr ""
+msgstr "Wprowadź hasło dla %s"
 
 #: modules/core.py:842
 msgid "Wrong Password"
-msgstr ""
+msgstr "Złe hasło"
 
 #: modules/core.py:846 modules/core.py:869
 #, python-format
@@ -432,7 +434,7 @@ msgstr "Eksportuj gałęzi"
 
 #: modules/cons.py:420 modules/cons.py:558 modules/cons.py:590
 msgid "C_hange Case"
-msgstr ""
+msgstr "_Zmień wielkość znaków"
 
 #: modules/cons.py:421 modules/cons.py:566
 msgid "_Search"
@@ -471,17 +473,16 @@ msgid "_Open File"
 msgstr "_Otwórz plik"
 
 #: modules/cons.py:429
-#, fuzzy
 msgid "Open a CherryTree Document"
-msgstr "Dokument CherryTree"
+msgstr "Otwórz Dokument CherryTree"
 
 #: modules/cons.py:430
 msgid "Set _Document Protection"
-msgstr ""
+msgstr "Ustaw ochrone dokumentu"
 
 #: modules/cons.py:430
 msgid "Set Protection of the Current Document"
-msgstr ""
+msgstr "Ustaw ochrone aktualnego dokumentu"
 
 #: modules/cons.py:431
 msgid "_Save"
@@ -713,27 +714,27 @@ msgstr "Dodaj pole kodu"
 
 #: modules/cons.py:460 modules/cons.py:559 modules/cons.py:591
 msgid "_Lower Case of Selection/Word"
-msgstr ""
+msgstr "Małe znaki zaznaczenia/słowa"
 
 #: modules/cons.py:460 modules/cons.py:559 modules/cons.py:591
 msgid "Lower the Case of the Selection/the Underlying Word"
-msgstr ""
+msgstr "Zmień zaznaczenie/słowo na małe znaki"
 
 #: modules/cons.py:461 modules/cons.py:560 modules/cons.py:592
 msgid "_Upper Case of Selection/Word"
-msgstr ""
+msgstr "Duże znaki zaznaczenia/słowa"
 
 #: modules/cons.py:461 modules/cons.py:560 modules/cons.py:592
 msgid "Upper the Case of the Selection/the Underlying Word"
-msgstr ""
+msgstr "Zmień zaznaczenie/słowo na duże znaki"
 
 #: modules/cons.py:462 modules/cons.py:561 modules/cons.py:593
 msgid "_Toggle Case of Selection/Word"
-msgstr ""
+msgstr "Przełącz wielkość zaznaczenia/słowa"
 
 #: modules/cons.py:462 modules/cons.py:561 modules/cons.py:593
 msgid "Toggle the Case of the Selection/the Underlying Word"
-msgstr ""
+msgstr "Przełącz wielkość zaznaczenia/słowa"
 
 #: modules/cons.py:463 modules/cons.py:563 modules/cons.py:595
 msgid "_Duplicate Row/Selection"
@@ -1521,12 +1522,11 @@ msgid "Close"
 msgstr "Zamknij"
 
 #: glade/cherrytree.glade.h:63
-#, fuzzy
 msgid ""
 "Copyright &#xA9; 2009-2011\n"
 "Giuseppe Penone <giuspen@gmail.com>"
 msgstr ""
-"Copyright &#xA9; 2009-2010\n"
+"Copyright &#xA9; 2009-2011\n"
 "Giuseppe Penone <giuspen@gmail.com>"
 
 #: glade/cherrytree.glade.h:65

@@ -2,13 +2,13 @@
 # Copyright (C) 2010 THE svn_cherrytree'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the svn_cherrytree package.
 # maul <giuspen@gmail.com>, 2010.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-01 01:05+0200\n"
-"PO-Revision-Date: 2010-12-10 18:53+0100\n"
+"POT-Creation-Date: 2011-01-01 01:07+0200\n"
+"PO-Revision-Date: 2011-01-01 00:55+0100\n"
 "Last-Translator: Sven Neubauer <me@dampfklon.de>\n"
 "Language-Team: German\n"
 "MIME-Version: 1.0\n"
@@ -123,9 +123,8 @@ msgid "NoteCase Document"
 msgstr "NoteCase"
 
 #: modules/core.py:362
-#, fuzzy
 msgid "Treepad Document"
-msgstr "CherryTree"
+msgstr "Treepad Dokument"
 
 #: modules/core.py:390
 msgid "Who is the Father?"
@@ -226,9 +225,8 @@ msgid "No Node is Selected!"
 msgstr "Kein Knoten ausgewählt!"
 
 #: modules/core.py:915
-#, fuzzy
 msgid "Plain Text Document"
-msgstr "NoteCase"
+msgstr "Klartext Dokument"
 
 #: modules/core.py:1097 glade/cherrytree.glade.h:100
 msgid "Select the New Father"
@@ -424,19 +422,16 @@ msgid "_Tree"
 msgstr "Ba_umstruktur"
 
 #: modules/cons.py:417
-#, fuzzy
 msgid "Node _Move"
-msgstr "Knoten nach _unten verschieben"
+msgstr "Knoten bewegen"
 
 #: modules/cons.py:418
-#, fuzzy
 msgid "Nodes _Import"
-msgstr "_Importieren"
+msgstr "Knoten _Importieren"
 
 #: modules/cons.py:419
-#, fuzzy
 msgid "Nodes E_xport"
-msgstr "Knoten nach _oben verschieben"
+msgstr "Knoten exportieren"
 
 #: modules/cons.py:420 modules/cons.py:558 modules/cons.py:590
 msgid "C_hange Case"
@@ -459,9 +454,8 @@ msgid "_Import"
 msgstr "_Importieren"
 
 #: modules/cons.py:425
-#, fuzzy
 msgid "E_xport"
-msgstr "_Importieren"
+msgstr "_Exportieren"
 
 #: modules/cons.py:426 modules/cons.py:502
 msgid "_Help"
@@ -526,12 +520,11 @@ msgstr "Markierten Knoten als HTML exportieren"
 
 #: modules/cons.py:435
 msgid "Save Node as Plain _Text"
-msgstr ""
+msgstr "Knoten als Klartext speichern"
 
 #: modules/cons.py:435
-#, fuzzy
 msgid "Save the Selected Node as Plain Text"
-msgstr "Einrückung des Knotens vermindern"
+msgstr "Markierten Knoten als Klartext speichern"
 
 #: modules/cons.py:436
 msgid "_Export Node and Subnodes"
@@ -1055,15 +1048,13 @@ msgid "Add Nodes of a TuxCards File to the Current Tree"
 msgstr "Knoten aus einer TuxCards Datei zur aktuellen Baumstruktur hinzufügen"
 
 #: modules/cons.py:501
-#, fuzzy
 msgid "From T_reepad Lite File"
-msgstr "aus _KeepNote Ordner..."
+msgstr "aus _Treepad Lite Datei..."
 
 #: modules/cons.py:501
-#, fuzzy
 msgid "Add Nodes of a Treepad Lite File to the Current Tree"
 msgstr ""
-"Knoten aus einer CherryTree Datei zur aktuellen Baumstruktur hinzufügen"
+"Knoten aus einer Treepad Lite Datei zur aktuellen Baumstruktur hinzufügen"
 
 #: modules/cons.py:502
 msgid "Application's Home Page"
@@ -1475,9 +1466,8 @@ msgid "<b>Table size</b>"
 msgstr "<b>Tabellen Größe</b>"
 
 #: glade/cherrytree.glade.h:43
-#, fuzzy
 msgid "<b>Tags for Searching</b>"
-msgstr "<b>Suchoptionen</b>"
+msgstr "<b>Suchtags</b>"
 
 #: glade/cherrytree.glade.h:44
 msgid "<b>Text Editor</b>"
@@ -1565,7 +1555,6 @@ msgstr ""
 "Giuseppe Penone <giuspen@gmail.com>"
 
 #: glade/cherrytree.glade.h:65
-#, fuzzy
 msgid ""
 "Czech (cs) Pavel Fric <fripohled@blogspot.com>\n"
 "French (fr) Ludovic Troisi <axalis@cegetel.net>\n"
@@ -1579,6 +1568,7 @@ msgid ""
 msgstr ""
 "Czech (cs) Pavel Fric <fripohled@blogspot.com>\n"
 "French (fr) Ludovic Troisi <axalis@cegetel.net>\n"
+"Galician (gl) Dario Villar <dario.villar.v@gmail.com>\n"
 "German (de) Sven Neubauer <me@dampfklon.de>\n"
 "Italian (it) Giuseppe Penone <giuspen@gmail.com>\n"
 "Polish (pl) Marcin Swierczynski <orneo1212@gmail.com>\n"
@@ -1592,7 +1582,7 @@ msgstr "Spalte löschen"
 
 #: glade/cherrytree.glade.h:75
 msgid "Display Tree on the Right Side"
-msgstr ""
+msgstr "Baumstruktur auf der recheten Seite"
 
 #: glade/cherrytree.glade.h:76
 msgid "Do Not Display Nodes Icons"
