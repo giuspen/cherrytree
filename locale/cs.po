@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the svn_cherrytree package.
 #
 # maul <giuspen@gmail.com>, 2010.
-# Pavel Fric <fripohled@blogspot.com>, 2010.
-# Pavel Fric <fripohled.blogspot.com>, 2010.
+# Pavel Fric <fripohled@blogspot.com>, 2010, 2011.
+# Pavel Fric <fripohled.blogspot.com>, 2010, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-01-01 01:05+0200\n"
-"PO-Revision-Date: 2010-12-25 10:39+0100\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2011-01-01 13:21+0100\n"
+"Last-Translator: Pavel Fric <fripohled@blogspot.com>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -162,57 +162,61 @@ msgstr ""
 
 #: modules/core.py:658
 msgid "Writing to Disk..."
-msgstr ""
+msgstr "Zapisuje se na disk..."
 
 #: modules/core.py:672 modules/core.py:831
 msgid ""
 "The Contemporary Presence of Single and Double Quotes in the File Path "
 "Prevents 7za.exe to Work, Please Change the File Name"
 msgstr ""
+"Současná přítomnost jednoduchých a dvojitých uvozovek v souborové cestě "
+"zabraňuje, aby 7za.exe pracoval. Změňte, prosím, název souboru"
 
 #: modules/core.py:720
-#, fuzzy
 msgid "No Document is Opened"
-msgstr "Není vybrán žádný uzel"
+msgstr "Není otevřen žádný dokument"
 
 #: modules/core.py:722
 msgid "Document Protection"
-msgstr ""
+msgstr "Ochrana dokumentu"
 
 #: modules/core.py:727
 msgid "Not Protected"
-msgstr ""
+msgstr "Nechráněn"
 
 #: modules/core.py:728
 msgid "Password Protected"
-msgstr ""
+msgstr "Heslo chráněno"
 
 #: modules/core.py:737
 msgid "Enter the New Password Twice"
-msgstr ""
+msgstr "Zadejte nové heslo dvakrát"
 
 #: modules/core.py:771
 msgid "The Password Fields Must be Filled"
-msgstr ""
+msgstr "Pole pro hesla musí být vyplněna"
 
 #: modules/core.py:774
 msgid "The Two Inserted Passwords Do Not Match"
-msgstr ""
+msgstr "Ta dvě vložená hesla se neshodují"
 
 #: modules/core.py:789
 msgid ""
 "Binary Executable '7za' Not Found, Check The Package 'p7zip-full' to be "
 "Installed Properly"
 msgstr ""
+"Binární spustitelný soubor '7za' nebyl nalezen. Prověřte, zda je balíček "
+"'7za' "
+"nainstalován správně"
 
 #: modules/core.py:795
 #, python-format
 msgid "Enter Password for %s"
-msgstr ""
+msgstr "Zadejte heslo pro %s"
 
 #: modules/core.py:842
 msgid "Wrong Password"
-msgstr ""
+msgstr "Chybné heslo"
 
 #: modules/core.py:846 modules/core.py:869
 #, python-format
@@ -437,7 +441,7 @@ msgstr "_Vyvedení uzlů"
 
 #: modules/cons.py:420 modules/cons.py:558 modules/cons.py:590
 msgid "C_hange Case"
-msgstr ""
+msgstr "Z_měnit velikost písmen"
 
 #: modules/cons.py:421 modules/cons.py:566
 msgid "_Search"
@@ -476,17 +480,16 @@ msgid "_Open File"
 msgstr "_Otevřít soubor"
 
 #: modules/cons.py:429
-#, fuzzy
 msgid "Open a CherryTree Document"
-msgstr "Dokument CherryTree"
+msgstr "Otevřít dokument CherryTree"
 
 #: modules/cons.py:430
 msgid "Set _Document Protection"
-msgstr ""
+msgstr "Nastavit ochranu _dokumentu"
 
 #: modules/cons.py:430
 msgid "Set Protection of the Current Document"
-msgstr ""
+msgstr "Nastavit ochranu nynějšího dokumentu"
 
 #: modules/cons.py:431
 msgid "_Save"
@@ -718,27 +721,27 @@ msgstr "Vložit _CodeBox"
 
 #: modules/cons.py:460 modules/cons.py:559 modules/cons.py:591
 msgid "_Lower Case of Selection/Word"
-msgstr ""
+msgstr "_Malá písmena výběru/slova"
 
 #: modules/cons.py:460 modules/cons.py:559 modules/cons.py:591
 msgid "Lower the Case of the Selection/the Underlying Word"
-msgstr ""
+msgstr "Zmenšit velikost písmen výběru/spodního slova"
 
 #: modules/cons.py:461 modules/cons.py:560 modules/cons.py:592
 msgid "_Upper Case of Selection/Word"
-msgstr ""
+msgstr "_Velká písmena výběru/slova"
 
 #: modules/cons.py:461 modules/cons.py:560 modules/cons.py:592
 msgid "Upper the Case of the Selection/the Underlying Word"
-msgstr ""
+msgstr "Zvětšit velikost písmen výběru/spodního slova"
 
 #: modules/cons.py:462 modules/cons.py:561 modules/cons.py:593
 msgid "_Toggle Case of Selection/Word"
-msgstr ""
+msgstr "_Přepnout velikost písmen výběru/slova"
 
 #: modules/cons.py:462 modules/cons.py:561 modules/cons.py:593
 msgid "Toggle the Case of the Selection/the Underlying Word"
-msgstr ""
+msgstr "Přepnout velikost písmen výběru/spodního slova"
 
 #: modules/cons.py:463 modules/cons.py:563 modules/cons.py:595
 msgid "_Duplicate Row/Selection"
@@ -1524,12 +1527,11 @@ msgid "Close"
 msgstr "Zavřít"
 
 #: glade/cherrytree.glade.h:63
-#, fuzzy
 msgid ""
 "Copyright &#xA9; 2009-2011\n"
 "Giuseppe Penone <giuspen@gmail.com>"
 msgstr ""
-"Autorské právo &#xA9; 2009-2010\n"
+"Autorské právo &#xA9; 2009-2011\n"
 "Giuseppe Penone <giuspen@gmail.com>"
 
 #: glade/cherrytree.glade.h:65
