@@ -1,13 +1,13 @@
 # Galician translation for CherryTree package
 # This file is distributed under the same license as the CherryTree package
 #
-# Dario Villar Veres <dario.villar.v@gmail.com>, 2010.
+# Dario Villar Veres <dario.villar.v@gmail.com>, 2010, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.17.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-01-01 01:05+0200\n"
-"PO-Revision-Date: 2010-12-19 10:37+0100\n"
+"PO-Revision-Date: 2011-01-01 15:32+0100\n"
 "Last-Translator: Dario Villar Veres <dario.villar.v@gmail.com>\n"
 "Language-Team: Galician <>\n"
 "MIME-Version: 1.0\n"
@@ -124,9 +124,8 @@ msgid "NoteCase Document"
 msgstr "Documento de Notecase"
 
 #: modules/core.py:362
-#, fuzzy
 msgid "Treepad Document"
-msgstr "Documento de CherryTree"
+msgstr "Documento de Treepad"
 
 #: modules/core.py:390
 msgid "Who is the Father?"
@@ -161,57 +160,60 @@ msgstr ""
 
 #: modules/core.py:658
 msgid "Writing to Disk..."
-msgstr ""
+msgstr "Escribindo no disco..."
 
 #: modules/core.py:672 modules/core.py:831
 msgid ""
 "The Contemporary Presence of Single and Double Quotes in the File Path "
 "Prevents 7za.exe to Work, Please Change the File Name"
 msgstr ""
+"A presencia de comiñas dobres ou sinxelas na ruta do ficheiro "
+"impidelle traballara 7za.exe, cambie o nome do ficheiro"
 
 #: modules/core.py:720
-#, fuzzy
 msgid "No Document is Opened"
-msgstr "Non se escolleu ningún nodo"
+msgstr "Non hai ningún documento aberto"
 
 #: modules/core.py:722
 msgid "Document Protection"
-msgstr ""
+msgstr "Protección do documento"
 
 #: modules/core.py:727
 msgid "Not Protected"
-msgstr ""
+msgstr "Non está protexido"
 
 #: modules/core.py:728
 msgid "Password Protected"
-msgstr ""
+msgstr "Protexido por contrasinal"
 
 #: modules/core.py:737
 msgid "Enter the New Password Twice"
-msgstr ""
+msgstr "Introducir o novo contrasinal dúas veces"
 
 #: modules/core.py:771
 msgid "The Password Fields Must be Filled"
-msgstr ""
+msgstr "Os campos de contrasinal deben ser enchidos"
 
 #: modules/core.py:774
 msgid "The Two Inserted Passwords Do Not Match"
-msgstr ""
+msgstr "Os dous contrasinales inseridos non coinciden"
 
 #: modules/core.py:789
 msgid ""
 "Binary Executable '7za' Not Found, Check The Package 'p7zip-full' to be "
 "Installed Properly"
 msgstr ""
+"Non se atopou o executable «7za», comprobe que o paquete «p7zip-full» esté "
+"instalado correctamente"
 
 #: modules/core.py:795
 #, python-format
 msgid "Enter Password for %s"
-msgstr ""
+msgstr "Introducir contrasinal para %s"
 
 #: modules/core.py:842
 msgid "Wrong Password"
-msgstr ""
+msgstr "Contrasinal incorrecto"
 
 #: modules/core.py:846 modules/core.py:869
 #, python-format
@@ -227,9 +229,8 @@ msgid "No Node is Selected!"
 msgstr "Non se escolleu ningún nodo!"
 
 #: modules/core.py:915
-#, fuzzy
 msgid "Plain Text Document"
-msgstr "Documento de Notecase"
+msgstr "Documento de texto plano"
 
 #: modules/core.py:1097 glade/cherrytree.glade.h:100
 msgid "Select the New Father"
@@ -383,11 +384,11 @@ msgstr "Inserir táboa"
 
 #: modules/tablez.py:119 modules/imports.py:937
 msgid "click me"
-msgstr "prememe"
+msgstr "premema"
 
 #: modules/tablez.py:129
 msgid "Click to Edit the Column Settings"
-msgstr "Premer para editar as configuracións da columna"
+msgstr "Prema para editar as configuracións da columna"
 
 #: modules/tablez.py:164
 msgid "Edit Table Properties"
@@ -422,23 +423,20 @@ msgid "_Tree"
 msgstr "Á_rbore"
 
 #: modules/cons.py:417
-#, fuzzy
 msgid "Node _Move"
-msgstr "_Baixar nodo"
+msgstr "_Mover nodos"
 
 #: modules/cons.py:418
-#, fuzzy
 msgid "Nodes _Import"
-msgstr "_Importar"
+msgstr "_Importar nodos"
 
 #: modules/cons.py:419
-#, fuzzy
 msgid "Nodes E_xport"
-msgstr "_Subir nodo"
+msgstr "E_xportar nodos"
 
 #: modules/cons.py:420 modules/cons.py:558 modules/cons.py:590
 msgid "C_hange Case"
-msgstr ""
+msgstr "Cambiar a capitali_zación"
 
 #: modules/cons.py:421 modules/cons.py:566
 msgid "_Search"
@@ -457,9 +455,8 @@ msgid "_Import"
 msgstr "_Importar"
 
 #: modules/cons.py:425
-#, fuzzy
 msgid "E_xport"
-msgstr "_Importar"
+msgstr "E_xportar"
 
 #: modules/cons.py:426 modules/cons.py:502
 msgid "_Help"
@@ -478,17 +475,16 @@ msgid "_Open File"
 msgstr "Abrir ficheir_o"
 
 #: modules/cons.py:429
-#, fuzzy
 msgid "Open a CherryTree Document"
-msgstr "Documento de CherryTree"
+msgstr "Abrir un documento de CherryTree"
 
 #: modules/cons.py:430
 msgid "Set _Document Protection"
-msgstr ""
+msgstr "Estabelecer a protección do _documento"
 
 #: modules/cons.py:430
 msgid "Set Protection of the Current Document"
-msgstr ""
+msgstr "Estabelece a protección do documento actual"
 
 #: modules/cons.py:431
 msgid "_Save"
@@ -524,12 +520,11 @@ msgstr "Exporta o nodo escollido a HTML"
 
 #: modules/cons.py:435
 msgid "Save Node as Plain _Text"
-msgstr ""
+msgstr "Gardar o nodo como _texto plano"
 
 #: modules/cons.py:435
-#, fuzzy
 msgid "Save the Selected Node as Plain Text"
-msgstr "Move o nodo esquerdo seleccionado"
+msgstr "Gardar o nodo seleccionado como texto plano"
 
 #: modules/cons.py:436
 msgid "_Export Node and Subnodes"
@@ -725,27 +720,27 @@ msgstr "Inserir _caixa de código"
 
 #: modules/cons.py:460 modules/cons.py:559 modules/cons.py:591
 msgid "_Lower Case of Selection/Word"
-msgstr ""
+msgstr "Cambiar a minúsculas a palabra/selección"
 
 #: modules/cons.py:460 modules/cons.py:559 modules/cons.py:591
 msgid "Lower the Case of the Selection/the Underlying Word"
-msgstr ""
+msgstr "Cambiar a minúsculas a selección/a palabra subxacente"
 
 #: modules/cons.py:461 modules/cons.py:560 modules/cons.py:592
 msgid "_Upper Case of Selection/Word"
-msgstr ""
+msgstr "Cambiar a maiúsculas a selección/a palabra s_ubxacente"
 
 #: modules/cons.py:461 modules/cons.py:560 modules/cons.py:592
 msgid "Upper the Case of the Selection/the Underlying Word"
-msgstr ""
+msgstr "Cambiar a maiúsculas a selección/a palabra subxacente"
 
 #: modules/cons.py:462 modules/cons.py:561 modules/cons.py:593
 msgid "_Toggle Case of Selection/Word"
-msgstr ""
+msgstr "Cambiar a capi_talización da selección/palabra"
 
 #: modules/cons.py:462 modules/cons.py:561 modules/cons.py:593
 msgid "Toggle the Case of the Selection/the Underlying Word"
-msgstr ""
+msgstr "Cambia a capitalización da selección/palabra subxacente"
 
 #: modules/cons.py:463 modules/cons.py:563 modules/cons.py:595
 msgid "_Duplicate Row/Selection"
@@ -826,7 +821,7 @@ msgstr "Cambiar a cor de fondo do texto escollido"
 
 #: modules/cons.py:472 modules/cons.py:540
 msgid "Toggle _Bold Property"
-msgstr "Alternar _Negra"
+msgstr "Alternar _negra"
 
 #: modules/cons.py:472 modules/cons.py:540
 msgid "Toggle Bold Property of the Selected Text"
@@ -834,7 +829,7 @@ msgstr "Alterna a propiedade negra do texto escollido"
 
 #: modules/cons.py:473 modules/cons.py:541
 msgid "Toggle _Italic Property"
-msgstr "Alternar  _Cursiva"
+msgstr "Alternar  _cursiva"
 
 #: modules/cons.py:473 modules/cons.py:541
 msgid "Toggle Italic Property of the Selected Text"
@@ -906,7 +901,7 @@ msgstr "Aliña o parágrafo á dereita"
 
 #: modules/cons.py:482 modules/cons.py:567
 msgid "_Find in Node"
-msgstr "_Buscar un nodo"
+msgstr "_Buscar no nodo"
 
 #: modules/cons.py:482 modules/cons.py:567
 msgid "Find into the Selected Node"
@@ -926,11 +921,11 @@ msgstr "Buscar un _nodo"
 
 #: modules/cons.py:484 modules/cons.py:569
 msgid "Find a Node from its Name"
-msgstr "Buscar un nodo polo seu nodo"
+msgstr "Buscar un nodo polo seu nome"
 
 #: modules/cons.py:485 modules/cons.py:570
 msgid "Find _Again"
-msgstr "Buscar Outr_a Vez"
+msgstr "Buscar outr_a vez"
 
 #: modules/cons.py:485 modules/cons.py:570
 msgid "Iterate the Last Find Operation"
@@ -1026,7 +1021,7 @@ msgstr "Engadir nodos dende un cartafol de Basket ao árbore actual"
 
 #: modules/cons.py:497
 msgid "From _CherryTree File"
-msgstr "Dende fichero de _CherryTree"
+msgstr "Dende un fichero de _CherryTree"
 
 #: modules/cons.py:497
 msgid "Add Nodes of a CherryTree File to the Current Tree"
@@ -1057,14 +1052,12 @@ msgid "Add Nodes of a TuxCards File to the Current Tree"
 msgstr "Engadir nodos dende un ficheiro TuxCards ao árbore actual "
 
 #: modules/cons.py:501
-#, fuzzy
 msgid "From T_reepad Lite File"
-msgstr "Dende un cartafol de _KeepNote"
+msgstr "Dende un ficheiro de T_reepad Lite"
 
 #: modules/cons.py:501
-#, fuzzy
 msgid "Add Nodes of a Treepad Lite File to the Current Tree"
-msgstr "Engadir nodos dende un ficheiro de CherryTree ao árbore actual"
+msgstr "Engadir nodos dende un ficheiro de Treepad Lite ao árbore actual"
 
 #: modules/cons.py:502
 msgid "Application's Home Page"
@@ -1320,7 +1313,7 @@ msgstr "Reducir a altura da caixa de código"
 
 #: modules/imports.py:879
 msgid "Downloading"
-msgstr ""
+msgstr "Descargando"
 
 #: glade/cherrytree.glade.h:1
 msgid ""
@@ -1461,9 +1454,8 @@ msgid "<b>Table size</b>"
 msgstr "<b>Tamaño da táboa</b>"
 
 #: glade/cherrytree.glade.h:43
-#, fuzzy
 msgid "<b>Tags for Searching</b>"
-msgstr "<b>Opcións de busca</b>"
+msgstr "<b>Etiquetas para busca</b>"
 
 #: glade/cherrytree.glade.h:44
 msgid "<b>Text Editor</b>"
@@ -1542,12 +1534,11 @@ msgid "Close"
 msgstr "Pechar"
 
 #: glade/cherrytree.glade.h:63
-#, fuzzy
 msgid ""
 "Copyright &#xA9; 2009-2011\n"
 "Giuseppe Penone <giuspen@gmail.com>"
 msgstr ""
-"Copyright &#xA9; 2009-2010\n"
+"Copyright &#xA9; 2009-2011\n"
 "Giuseppe Penone <giuspen@gmail.com>"
 
 #: glade/cherrytree.glade.h:65
@@ -1578,7 +1569,7 @@ msgstr "Eliminar esta columna"
 
 #: glade/cherrytree.glade.h:75
 msgid "Display Tree on the Right Side"
-msgstr ""
+msgstr "Mostrar a árbore na parte dereita"
 
 #: glade/cherrytree.glade.h:76
 msgid "Do Not Display Nodes Icons"
