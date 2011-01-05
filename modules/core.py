@@ -706,7 +706,7 @@ class CherryTree:
                                             curr_folder=self.file_dir,
                                             parent=self.window)
       if filepath != None:
-         self.reset()
+         if not self.reset(): return
          self.file_load(filepath)
          if self.expand_tree: self.treeview.expand_all()
          first_node_iter = self.treestore.get_iter_first()
@@ -872,12 +872,11 @@ class CherryTree:
       
    def file_new(self, *args):
       """Starts a new unsaved instance"""
-      self.reset()
-      self.node_add()
+      if self.reset(): self.node_add()
       
    def reset(self):
       """Reset the Application"""
-      if not self.tree_is_empty() and not self.check_unsaved(): return
+      if not self.tree_is_empty() and not self.check_unsaved(): return False
       if self.curr_tree_iter != None:
          self.curr_buffer.set_text("")
          self.curr_tree_iter = None
@@ -888,6 +887,7 @@ class CherryTree:
       self.update_window_save_not_needed()
       self.state_machine.reset()
       self.sourceview.set_sensitive(False)
+      return True
       
    def node_and_subnodes_export(self, action):
       """Export the Selected Node and its Subnodes"""
