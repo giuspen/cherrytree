@@ -22,6 +22,9 @@
 import os, sys, xml.dom.minidom, gtk, pango, subprocess
 import cons
 
+ICONS_SIZE = {1: gtk.ICON_SIZE_MENU, 2: gtk.ICON_SIZE_SMALL_TOOLBAR, 3: gtk.ICON_SIZE_LARGE_TOOLBAR,
+              4: gtk.ICON_SIZE_DND, 5: gtk.ICON_SIZE_DIALOG}
+
 
 def config_file_load(inst):
    """Load the Preferences from Config File"""
@@ -116,7 +119,7 @@ def config_file_load(inst):
       else: inst.table_columns = 3
       if dom_iter.hasAttribute("toolbar_icon_size"):
          inst.toolbar_icon_size = int( dom_iter.attributes["toolbar_icon_size"].value )
-         if inst.toolbar_icon_size not in cons.ICONS_SIZE: inst.toolbar_icon_size = 1
+         if inst.toolbar_icon_size not in ICONS_SIZE: inst.toolbar_icon_size = 1
       else: inst.toolbar_icon_size = 1
       if dom_iter.hasAttribute("table_column_mode"):
          inst.table_column_mode = dom_iter.attributes["table_column_mode"].value
@@ -248,7 +251,7 @@ def config_file_apply(inst):
    inst.renderer_text.set_property('wrap-width', inst.cherry_wrap_width)
    inst.ui.get_widget("/ToolBar").set_property("visible", inst.toolbar_visible)
    inst.ui.get_widget("/ToolBar").set_style(gtk.TOOLBAR_ICONS)
-   inst.ui.get_widget("/ToolBar").set_property("icon-size", cons.ICONS_SIZE[inst.toolbar_icon_size])
+   inst.ui.get_widget("/ToolBar").set_property("icon-size", ICONS_SIZE[inst.toolbar_icon_size])
    if inst.autosave[0]: inst.autosave_timer_start()
    inst.user_active = True
 

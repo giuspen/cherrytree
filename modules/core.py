@@ -1777,7 +1777,7 @@ class CherryTree:
          support.dialog_info(_("The Size of the Toolbar Icons is already at the Maximum Value"), self.window)
          return
       self.toolbar_icon_size += 1
-      self.ui.get_widget("/ToolBar").set_property("icon-size", cons.ICONS_SIZE[self.toolbar_icon_size])
+      self.ui.get_widget("/ToolBar").set_property("icon-size", config.ICONS_SIZE[self.toolbar_icon_size])
    
    def toolbar_icons_size_decrease(self, *args):
       """Decrease the Size of the Toolbar Icons"""
@@ -1785,7 +1785,7 @@ class CherryTree:
          support.dialog_info(_("The Size of the Toolbar Icons is already at the Minimum Value"), self.window)
          return
       self.toolbar_icon_size -= 1
-      self.ui.get_widget("/ToolBar").set_property("icon-size", cons.ICONS_SIZE[self.toolbar_icon_size])
+      self.ui.get_widget("/ToolBar").set_property("icon-size", config.ICONS_SIZE[self.toolbar_icon_size])
       
    def toggle_show_hide_toolbar(self, *args):
       """Toggle Show/Hide the Toolbar"""

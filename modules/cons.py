@@ -19,7 +19,7 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
-import os, sys, gtk
+import os, sys
 
 
 VERSION = "0.19"
@@ -51,8 +51,6 @@ BAD_CHARS = "[\x00-\x08\x0b-\x1f]"
 TAG_PROPERTIES = ["weight", "foreground", "background", "style", "underline", "strikethrough",
                   "scale", "justification", "link"]
 CUSTOM_COLORS_ID = "custom-colors"
-ICONS_SIZE = {1: gtk.ICON_SIZE_MENU, 2: gtk.ICON_SIZE_SMALL_TOOLBAR, 3: gtk.ICON_SIZE_LARGE_TOOLBAR,
-              4: gtk.ICON_SIZE_DND, 5: gtk.ICON_SIZE_DIALOG}
 ANCHOR_CHAR = GLADE_PATH + 'anchor_char.png'
 NODES_ICONS = {0:'Red Cherry', 1:'Blue Cherry', 2:'Orange Cherry', 3:'Cyan Cherry',
                4:'Orange Dark Cherry', 5:'Sherbert Cherry', 6:'Yellow Cherry'}
