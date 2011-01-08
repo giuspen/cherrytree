@@ -285,22 +285,20 @@ class CherryTree:
       drop_info = self.treeview.get_dest_row_at_pos(x, y)
       if drop_info:
          drop_path, drop_pos = drop_info
-         if not drop_pos: return
+         if not drop_pos: drop_pos = gtk.TREE_VIEW_DROP_BEFORE
          drop_iter = self.treestore.get_iter(drop_path)
          if drop_pos == gtk.TREE_VIEW_DROP_BEFORE:
             prev_iter = self.get_tree_iter_prev_sibling(self.treestore, drop_iter)
-            self.node_move_after(self.drag_iter, self.treestore.iter_parent(drop_iter), prev_iter)
+            self.node_move_after(self.drag_iter, self.treestore.iter_parent(drop_iter), prev_iter, True)
          elif drop_pos == gtk.TREE_VIEW_DROP_AFTER:
             self.node_move_after(self.drag_iter, self.treestore.iter_parent(drop_iter), drop_iter)
          else: # drop in
             self.node_move_after(self.drag_iter, drop_iter)
-         #print "gonna drop", selection_data.data, "to", drop_info
       
    def on_drag_data_get_cherrytree(self, widget, drag_context, selection_data, info, timestamp):
       """Cherry Tree drag data received"""
       tree_model, tree_iter = self.treeviewselection.get_selected()
       self.drag_iter = tree_iter
-      #selection_data.set('UTF8_STRING', 8, tree_model[tree_iter][1])
    
    def on_key_press_choosenodedialog(self, widget, event):
       """Catches ChooseNode Dialog key presses"""
@@ -1088,10 +1086,11 @@ class CherryTree:
                               self.treestore.iter_parent(father_iter),
                               father_iter)
    
-   def node_move_after(self, iter_to_move, father_iter, brother_iter=None):
+   def node_move_after(self, iter_to_move, father_iter, brother_iter=None, set_first=False):
       """Move a node to a father and after a brother"""
       if brother_iter != None:
          new_node_iter = self.treestore.insert_after(father_iter, brother_iter, self.treestore[iter_to_move])
+      elif set_first: new_node_iter = self.treestore.prepend(father_iter, self.treestore[iter_to_move])
       else: new_node_iter = self.treestore.append(father_iter, self.treestore[iter_to_move])
       # we move also all the children
       self.node_move_children(iter_to_move, new_node_iter)
