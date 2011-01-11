@@ -20,7 +20,7 @@ if "py2exe" in sys.argv:
    data_files = [("glade", glob.glob("glade/*.*") )]
    for lang in cons.AVAILABLE_LANGS:
       if lang in ["default", "en"]: continue
-      data_files.append( ("share/locale/%s/LC_MESSAGES" % lang, ["locale/%s/LC_MESSAGES/cherrytree.mo" % lang] ) )
+      data_files.append( ("locale/%s/LC_MESSAGES" % lang, ["locale/%s/LC_MESSAGES/cherrytree.mo" % lang] ) )
 else:
    data_files = [
                   ("share/icons/hicolor/scalable/apps", ["linux/cherrytree.svg"] ),
@@ -62,5 +62,8 @@ setup(
    data_files = data_files
 )
 
-if "py2exe" in sys.argv: print "remember to move 'dist/share/locale' to 'dist/locale' and copy 'C:\gtksourceview\share\gtksourceview-2.0' to 'dist/share/', finally copy 7za.exe in the cherrytree folder"
+if "py2exe" in sys.argv:
+   import shutil
+   shutil.copytree("C:\gtksourceview\share\gtksourceview-2.0", "dist\share\gtksourceview-2.0")
+   print "remember to copy 7za.exe to the dist folder"
 else: subprocess.call("update-desktop-database")

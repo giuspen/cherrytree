@@ -115,11 +115,12 @@ class CherryTree:
       self.treestore = gtk.TreeStore(str, str, gobject.TYPE_PYOBJECT, long, str, int, str)
       self.treeview = gtk.TreeView(self.treestore)
       self.treeview.set_headers_visible(False)
-      self.treeview.enable_model_drag_source(gtk.gdk.BUTTON1_MASK,
-                                             [('CT_DND', gtk.TARGET_SAME_WIDGET, 0)],
-                                             gtk.gdk.ACTION_DEFAULT | gtk.gdk.ACTION_MOVE)
-      self.treeview.enable_model_drag_dest([('CT_DND', gtk.TARGET_SAME_WIDGET, 0)],
-                                           gtk.gdk.ACTION_DEFAULT)
+      self.treeview.drag_source_set(gtk.gdk.BUTTON1_MASK,
+                                    [('CT_DND', gtk.TARGET_SAME_WIDGET, 0)],
+                                    gtk.gdk.ACTION_MOVE)
+      self.treeview.drag_dest_set(gtk.DEST_DEFAULT_ALL,
+                                  [('CT_DND', gtk.TARGET_SAME_WIDGET, 0)],
+                                  gtk.gdk.ACTION_MOVE)
       self.renderer_pixbuf = gtk.CellRendererPixbuf()
       self.renderer_text = gtk.CellRendererText()
       self.renderer_text.set_property('wrap-mode', pango.WRAP_WORD_CHAR)
@@ -134,6 +135,7 @@ class CherryTree:
       self.treeview.connect('cursor-changed', self.on_node_changed)
       self.treeview.connect('button-press-event', self.on_mouse_button_clicked_tree)
       self.treeview.connect('key_press_event', self.on_key_press_cherrytree)
+      self.treeview.connect('drag-motion', self.on_drag_motion_cherrytree)
       self.treeview.connect('drag-data-received', self.on_drag_data_recv_cherrytree)
       self.treeview.connect('drag-data-get', self.on_drag_data_get_cherrytree)
       self.scrolledwindow_tree.add(self.treeview)
@@ -280,6 +282,14 @@ class CherryTree:
          self.ui.get_widget("/TreeMenu").popup(None, None, None, 0, event.time)
          widget.stop_emission("key_press_event")
    
+   def on_drag_motion_cherrytree(self, widget, drag_context, x, y, timestamp):
+      """Cherry Tree drag motion"""
+      drop_info = self.treeview.get_dest_row_at_pos(x, y)
+      if drop_info:
+         drop_path, drop_pos = drop_info
+         widget.set_drag_dest_row(drop_path, drop_pos)
+      return True
+   
    def on_drag_data_recv_cherrytree(self, widget, drag_context, x, y, selection_data, info, timestamp):
       """Cherry Tree drag data received"""
       drop_info = self.treeview.get_dest_row_at_pos(x, y)
@@ -294,11 +304,14 @@ class CherryTree:
             self.node_move_after(self.drag_iter, self.treestore.iter_parent(drop_iter), drop_iter)
          else: # drop in
             self.node_move_after(self.drag_iter, drop_iter)
+      return True
       
    def on_drag_data_get_cherrytree(self, widget, drag_context, selection_data, info, timestamp):
       """Cherry Tree drag data received"""
       tree_model, tree_iter = self.treeviewselection.get_selected()
       self.drag_iter = tree_iter
+      selection_data.set("UTF8_STRING", 8, "fake") # without this, the drag_data_recv will not be called
+      return True
    
    def on_key_press_choosenodedialog(self, widget, event):
       """Catches ChooseNode Dialog key presses"""
