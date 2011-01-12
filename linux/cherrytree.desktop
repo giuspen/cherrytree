@@ -1,9 +1,15 @@
 [Desktop Entry]
 Name=CherryTree
 Comment=Hierarchical Note Taking
-Comment[it]=Gestore di Appunti Gerarchico
-Comment[ru]=Записная книжка с иерархической структурой
+Comment[cs]=Hierarchická tvorba poznámek
+Comment[de]=Hierarchische Notizfunktion
 Comment[es]=Gestor de notas jerárquico
+Comment[fr]=Prise de Notes Hiérarchisées
+Comment[gl]=Xestor de notas xerárquico
+Comment[it]=Gestore di Appunti Gerarchico
+Comment[pl]=Strukturalny Notes
+Comment[ru]=Записная книжка с иерархической структурой
+Comment[uk]=Записник з ієрархічною структурою
 Exec=cherrytree %f
 Icon=/usr/share/icons/hicolor/scalable/apps/cherrytree.svg
 MimeType=text/cherrytree-ctd;text/cherrytree-ctz;
