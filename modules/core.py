@@ -260,8 +260,8 @@ class CherryTree:
             self.curr_buffer.insert(iter_end, text_to_duplicate)
          else:
             rich_text = self.clipboard_handler.rich_text_get_from_text_buffer_selection(self.curr_buffer,
-                                                                                           iter_start,
-                                                                                           iter_end)
+                                                                                        iter_start,
+                                                                                        iter_end)
             if cons.CHAR_NEWLINE in rich_text:
                self.curr_buffer.insert(iter_end, cons.CHAR_NEWLINE)
                iter_end = self.curr_buffer.get_iter_at_offset(sel_end_offset+1)

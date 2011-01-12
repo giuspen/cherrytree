@@ -1,4 +1,9 @@
 
+0.19.1 (January 10th, 2011)
+• fixed bugs
+• implemented the tree nodes drag and drop
+• updated French, all languages but German are now up to date
+
 0.19 (January 3rd, 2011)
 • before saving a new version of the file “file.ctd”, the former version is now backupped as “file.ctd~”
 • introduced a new file format “.ctz” which is the “.ctd” compressed and password protected using 7zip (the binary executable 7za). to switch between .ctd and .ctz click the menu item “file–set document protection”.
