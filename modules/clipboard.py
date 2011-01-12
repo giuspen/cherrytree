@@ -182,10 +182,18 @@ class ClipboardHandler:
    
    def to_html(self, clipboard, selectiondata, data):
       """From Clipboard to HTML Text"""
+      if len(selectiondata.data) < 2: return
+      if (selectiondata.data[0] == "\xff" and selectiondata.data[1] == "\xfe")\
+      or (selectiondata.data[0] == "\xfe" and selectiondata.data[1] == "\xff"):
+         # "utf-16"
+         selection_data = selectiondata.data[2:].decode("utf-16", "ignore")
+      else:
+         # "utf-8"
+         selection_data = selectiondata.data
       #print selectiondata.data
-      selection_data = re.sub(cons.BAD_CHARS, "", selectiondata.data)
       #for char in selection_data: print ord(char)
-      selection_data = selection_data.replace("\xa0", cons.CHAR_SPACE)
+      #selection_data = re.sub(cons.BAD_CHARS, "", selection_data)
+      #selection_data = selection_data.replace("\xa0", cons.CHAR_SPACE)
       html_import = imports.HTMLFromClipboardHandler(self.dad)
       xml_string = html_import.get_clipboard_selection_xml(selection_data)
       self.from_xml_string_to_buffer(xml_string)
