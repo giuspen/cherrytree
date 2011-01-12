@@ -251,17 +251,28 @@ class CherryTree:
       """Duplicates the Whole Row or a Selection"""
       if self.curr_buffer.get_has_selection():
          iter_start, iter_end = self.curr_buffer.get_selection_bounds() # there's a selection
+         sel_start_offset = iter_start.get_offset()
+         sel_end_offset = iter_end.get_offset()
          text_to_duplicate = self.curr_buffer.get_slice(iter_start, iter_end)
          if cons.CHAR_NEWLINE in text_to_duplicate: text_to_duplicate = cons.CHAR_NEWLINE + text_to_duplicate
          self.curr_buffer.insert(iter_end, text_to_duplicate)
+         self.curr_buffer.select_range(self.curr_buffer.get_iter_at_offset(sel_start_offset),
+                                       self.curr_buffer.get_iter_at_offset(sel_end_offset))
       else:
          iter_start, iter_end = self.lists_handler.get_paragraph_iters()
          if iter_start == None:
             iter_start = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
             self.curr_buffer.insert(iter_start, cons.CHAR_NEWLINE)
          else:
-            text_to_duplicate = self.curr_buffer.get_slice(iter_start, iter_end)
-            self.curr_buffer.insert(iter_end, cons.CHAR_NEWLINE + text_to_duplicate)
+            if self.syntax_highlighting != cons.CUSTOM_COLORS_ID:
+               text_to_duplicate = self.curr_buffer.get_slice(iter_start, iter_end)
+               self.curr_buffer.insert(iter_end, cons.CHAR_NEWLINE + text_to_duplicate)
+            else:
+               rich_text = self.clipboard_handler.rich_text_get_from_text_buffer_selection(self.curr_buffer,
+                                                                                           iter_start,
+                                                                                           iter_end)
+               self.curr_buffer.insert(iter_end, cons.CHAR_NEWLINE)
+               self.clipboard_handler.from_xml_string_to_buffer(rich_text)
       self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
       
    def text_row_delete(self, *args):
