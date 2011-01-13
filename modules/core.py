@@ -337,6 +337,7 @@ class CherryTree:
             self.node_move_after(self.drag_iter, self.treestore.iter_parent(drop_iter), drop_iter)
          else: # drop in
             self.node_move_after(self.drag_iter, drop_iter)
+         if self.nodes_icons == "c": self.treeview_refresh(change_icon=True)
       return True
       
    def on_drag_data_get_cherrytree(self, widget, drag_context, selection_data, info, timestamp):
@@ -656,6 +657,9 @@ class CherryTree:
    
    def change_icon_iter(self, tree_iter):
       """Changing all icons type - iter"""
+      father_iter = self.treestore.iter_parent(tree_iter)
+      if father_iter: self.treestore[tree_iter][5] = self.treestore[father_iter][5] + 1
+      else: self.treestore[tree_iter][5] = 0
       self.treestore[tree_iter][0] = self.get_node_icon(self.treestore[tree_iter][5], self.treestore[tree_iter][4])
       child_tree_iter = self.treestore.iter_children(tree_iter)
       while child_tree_iter:
@@ -1187,10 +1191,8 @@ class CherryTree:
             support.dialog_error(_("The new father can't be one of his sons!"), self.window)
             return
          move_towards_top_iter = self.treestore.iter_parent(move_towards_top_iter)
-      self.treestore[self.curr_tree_iter][5] = self.treestore[father_iter][5] + 1
-      self.treestore[self.curr_tree_iter][0] = self.get_node_icon(self.treestore[self.curr_tree_iter][5],
-                                                                  self.treestore[self.curr_tree_iter][4])
       self.node_move_after(self.curr_tree_iter, father_iter)
+      if self.nodes_icons == "c": self.treeview_refresh(change_icon=True)
    
    def node_choose_view_exist_or_create(self, node_sel_id=None):
       """If The View Was Never Used, this will Create It"""

@@ -183,7 +183,9 @@ class ClipboardHandler:
    def to_html(self, clipboard, selectiondata, data):
       """From Clipboard to HTML Text"""
       try: selection_data = selectiondata.data.decode("utf-8")
-      except: selection_data = selectiondata.data.decode("utf-16")
+      except:
+         try: selection_data = selectiondata.data.decode("utf-16")
+         except: selection_data = selectiondata.data
       #print selectiondata.data
       #for char in selection_data: print ord(char)
       selection_data = re.sub(cons.BAD_CHARS, "", selection_data)
