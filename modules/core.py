@@ -1129,12 +1129,10 @@ class CherryTree:
          return
       father_iter = self.treestore.iter_parent(self.curr_tree_iter)
       if father_iter != None:
-         self.treestore[self.curr_tree_iter][5] = self.treestore[father_iter][5]
-         self.treestore[self.curr_tree_iter][0] = self.get_node_icon(self.treestore[self.curr_tree_iter][5],
-                                                                     self.treestore[self.curr_tree_iter][4])
          self.node_move_after(self.curr_tree_iter,
                               self.treestore.iter_parent(father_iter),
                               father_iter)
+         if self.nodes_icons == "c": self.treeview_refresh(change_icon=True)
    
    def node_move_after(self, iter_to_move, father_iter, brother_iter=None, set_first=False):
       """Move a node to a father and after a brother"""
