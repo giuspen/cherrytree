@@ -325,6 +325,9 @@ class CherryTree:
          # check for bad drop
          if not self.drag_iter: return False
          drag_node_id = self.treestore[self.drag_iter][3]
+         if self.treestore[drop_iter][3] == drag_node_id:
+            print "drag node and drop node are the same"
+            return False
          move_towards_top_iter = self.treestore.iter_parent(drop_iter)
          while move_towards_top_iter:
             if self.treestore[move_towards_top_iter][3] == drag_node_id:
