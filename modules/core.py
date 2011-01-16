@@ -1942,6 +1942,7 @@ class CherryTree:
       else:
          self.glade.anchor_insert_edit_entry.set_text("")
          self.glade.anchorhandledialog.set_title(_("Insert Anchor"))
+      self.glade.anchor_insert_edit_entry.grab_focus()
       self.glade.anchor_enter_name_hbox.show()
       self.glade.scrolledwindow_anchors_list.hide()
       response = self.glade.anchorhandledialog.run()
