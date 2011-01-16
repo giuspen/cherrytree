@@ -323,6 +323,7 @@ class CherryTree:
          if not drop_pos: drop_pos = gtk.TREE_VIEW_DROP_BEFORE
          drop_iter = self.treestore.get_iter(drop_path)
          # check for bad drop
+         if not self.drag_iter: return False
          drag_node_id = self.treestore[self.drag_iter][3]
          move_towards_top_iter = self.treestore.iter_parent(drop_iter)
          while move_towards_top_iter:
