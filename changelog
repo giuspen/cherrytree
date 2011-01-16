@@ -1,4 +1,14 @@
 
+0.19.3
+• fixed tree nodes drag and drop bugs
+• assigned the shortcut ctrl+K to the deletion of a text row being it already used from other text editors such as geany and nano
+• when opening the anchor insert dialog now the cursor is always in the entry text
+
+0.19.2 (January 14th, 2011)
+• fixed bugs in pasting text from firefox web browser
+• fixed bugs in tree nodes drag and drop
+• improved the text duplication functionality (ctrl+D); now the rich text duplication is also supported
+
 0.19.1 (January 10th, 2011)
 • fixed bugs
 • implemented the tree nodes drag and drop
