@@ -733,7 +733,8 @@ class CherryTree:
          support.dialog_error("%s write failed - tree to xml" % filepath, self.window)
          return False
       # backup before save new version
-      if os.path.isfile(filepath): shutil.move(filepath, filepath + cons.CHAR_TILDE)
+      if self.backup_copy:
+         if os.path.isfile(filepath): shutil.move(filepath, filepath + cons.CHAR_TILDE)
       # if the filename is protected, we use unprotected type before compress and protect
       try:
          self.statusbar.push(self.statusbar_context_id, _("Writing to Disk..."))
@@ -1358,6 +1359,10 @@ class CherryTree:
    def on_checkbutton_newer_version_toggled(self, checkbutton):
       """Automatically Check for Newer Version Toggled"""
       self.check_version = checkbutton.get_active()
+   
+   def on_checkbutton_backup_before_saving_toggled(self, checkbutton):
+      """Automatically Check for Newer Version Toggled"""
+      self.backup_copy = checkbutton.get_active()
    
    def on_checkbutton_tree_right_side_toggled(self, checkbutton):
       """Display Tree on the Right Side Toggled"""

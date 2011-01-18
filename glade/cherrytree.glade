@@ -712,6 +712,19 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
                               </packing>
                             </child>
                             <child>
+                              <object class="GtkCheckButton" id="checkbutton_backup_before_saving">
+                                <property name="label" translatable="yes">Create a Backup Copy Before Saving</property>
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="receives_default">False</property>
+                                <property name="draw_indicator">True</property>
+                                <signal name="toggled" handler="on_checkbutton_backup_before_saving_toggled"/>
+                              </object>
+                              <packing>
+                                <property name="position">3</property>
+                              </packing>
+                            </child>
+                            <child>
                               <object class="GtkCheckButton" id="checkbutton_newer_version">
                                 <property name="label" translatable="yes">Automatically Check for Newer Version</property>
                                 <property name="visible">True</property>
@@ -721,7 +734,7 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
                                 <signal name="toggled" handler="on_checkbutton_newer_version_toggled"/>
                               </object>
                               <packing>
-                                <property name="position">3</property>
+                                <property name="position">4</property>
                               </packing>
                             </child>
                           </object>

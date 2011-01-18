@@ -1,5 +1,5 @@
 
-0.19.3
+0.19.3 (January 17th, 2011)
 • fixed tree nodes drag and drop bugs
 • assigned the shortcut ctrl+K to the deletion of a text row being it already used from other text editors such as geany and nano
 • when opening the anchor insert dialog now the cursor is always in the entry text
