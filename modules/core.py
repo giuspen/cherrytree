@@ -1361,8 +1361,12 @@ class CherryTree:
       self.check_version = checkbutton.get_active()
    
    def on_checkbutton_backup_before_saving_toggled(self, checkbutton):
-      """Automatically Check for Newer Version Toggled"""
+      """Backup Before Save Toggled"""
       self.backup_copy = checkbutton.get_active()
+   
+   def on_checkbutton_autosave_on_quit_toggled(self, checkbutton):
+      """Autosave on Quit Toggled"""
+      self.autosave_on_quit = checkbutton.get_active()
    
    def on_checkbutton_tree_right_side_toggled(self, checkbutton):
       """Display Tree on the Right Side Toggled"""
@@ -1912,7 +1916,7 @@ class CherryTree:
    def check_unsaved(self):
       """Before close the current document, check for possible Unsaved"""
       if self.curr_tree_iter != None and (self.curr_buffer.get_modified() == True or self.file_update == True):
-         if self.autosave[0]: response = 2
+         if self.autosave_on_quit: response = 2
          else:
             response = self.glade.exitdialog.run()
             self.glade.exitdialog.hide()
