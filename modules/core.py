@@ -715,7 +715,7 @@ class CherryTree:
                if self.file_write(filepath):
                   self.file_dir = os.path.dirname(filepath)
                   self.file_name = os.path.basename(filepath)
-                  if not filepath in self.recent_docs: self.recent_docs.append(filepath)
+                  support.add_recent_document(self, filepath)
                   self.update_window_save_not_needed()
                   self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
       
@@ -784,19 +784,23 @@ class CherryTree:
       except: support.dialog_error("%s write failed - writing to disk" % filepath, self.window)
       
    def file_open(self, *args):
-      """Opens a .CTD File"""
+      """Opens a dialog to browse for a cherrytree filepath"""
       filepath = support.dialog_file_select(filter_pattern="*.ct*",
                                             filter_name=_("CherryTree Document"),
                                             curr_folder=self.file_dir,
                                             parent=self.window)
-      if filepath != None:
-         if not self.reset(): return
-         self.file_load(filepath)
-         if self.expand_tree: self.treeview.expand_all()
-         first_node_iter = self.treestore.get_iter_first()
-         if first_node_iter != None:
-            self.treeview.set_cursor(self.treestore.get_path(first_node_iter))
-            self.sourceview.grab_focus()
+      if filepath == None: return
+      self.filepath_open(filepath)
+      
+   def filepath_open(self, filepath):
+      """Opens an existing filepath"""
+      if not self.reset(): return
+      self.file_load(filepath)
+      if self.expand_tree: self.treeview.expand_all()
+      first_node_iter = self.treestore.get_iter_first()
+      if first_node_iter != None:
+         self.treeview.set_cursor(self.treestore.get_path(first_node_iter))
+         self.sourceview.grab_focus()
       
    def dialog_edit_protection(self, *args):
       """Edit the Password for the Current Document"""
@@ -946,7 +950,7 @@ class CherryTree:
          if self.xml_handler.dom_to_treestore(cherrytree_string, discard_ids=False):
             self.file_dir = os.path.dirname(filepath)
             self.file_name = os.path.basename(filepath)
-            if not filepath in self.recent_docs: self.recent_docs.append(filepath)
+            support.add_recent_document(self, filepath)
             self.update_window_save_not_needed()
             file_loaded = True
       except: pass

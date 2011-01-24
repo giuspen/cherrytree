@@ -145,25 +145,46 @@ def dialog_error(message, parent=None):
 
 def set_recent_documents(inst):
    """Set Recent Documents Menu and Toolbar"""
-   recent_menu_1 = gtk.Menu()
-   recent_menu_2 = gtk.Menu()
+   inst.recent_menu_1 = gtk.Menu()
+   inst.recent_menu_2 = gtk.Menu()
    for target in [1, 2]:
-      for element in inst.recent_docs:
-         menu_item = gtk.ImageMenuItem(element)
+      for filepath in inst.recent_docs:
+         menu_item = gtk.ImageMenuItem(filepath)
          menu_item.set_image(gtk.image_new_from_stock("gtk-open", gtk.ICON_SIZE_MENU))
+         menu_item.connect("activate", open_recent_document, filepath, inst)
          menu_item.show()
-         if target == 1: recent_menu_1.append(menu_item)
-         else: recent_menu_2.append(menu_item)
+         if target == 1: inst.recent_menu_1.append(menu_item)
+         else: inst.recent_menu_2.append(menu_item)
    # main menu
    recent_menuitem = gtk.ImageMenuItem(_("_Recent Documents"))
    recent_menuitem.set_image(gtk.image_new_from_stock("gtk-open", gtk.ICON_SIZE_MENU))
    recent_menuitem.set_tooltip_text(_("Open a Recent CherryTree Document"))
-   recent_menuitem.set_submenu(recent_menu_1)
+   recent_menuitem.set_submenu(inst.recent_menu_1)
    inst.ui.get_widget("/MenuBar/FileMenu").get_submenu().insert(recent_menuitem, 3)
    # toolbar
    menu_toolbutton = gtk.MenuToolButton("gtk-open")
    menu_toolbutton.set_tooltip_text(_("Open a CherryTree Document"))
    menu_toolbutton.set_arrow_tooltip_text(_("Open a Recent CherryTree Document"))
-   menu_toolbutton.set_menu(recent_menu_2)
+   menu_toolbutton.set_menu(inst.recent_menu_2)
    menu_toolbutton.connect("clicked", inst.file_open)
    inst.ui.get_widget("/ToolBar").insert(menu_toolbutton, 3)
+
+def add_recent_document(inst, filepath):
+   """Add a Recent Document if Needed"""
+   if not filepath in inst.recent_docs:
+      inst.recent_docs.append(filepath)
+      for target in [1, 2]:
+         menu_item = gtk.ImageMenuItem(filepath)
+         menu_item.set_image(gtk.image_new_from_stock("gtk-open", gtk.ICON_SIZE_MENU))
+         menu_item.connect("activate", open_recent_document, filepath, inst)
+         menu_item.show()
+         if target == 1: inst.recent_menu_1.append(menu_item)
+         else: inst.recent_menu_2.append(menu_item)
+
+def open_recent_document(menu_item, filepath, dad):
+   """A Recent Document was Requested"""
+   if os.path.isfile(filepath): dad.filepath_open(filepath)
+   else:
+      dialog_error(_("The Document %s was Not Found") % filepath, dad.window)
+      try: dad.recent_docs.remove(filepath)
+      except: pass
