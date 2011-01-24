@@ -285,7 +285,6 @@ UI_INFO = """
       <toolitem action='ShowHideTree'/>
       <separator/>
       <toolitem action='NewInstance'/>
-      <toolitem action='OpenFile'/>
       <toolitem action='Save'/>
       <separator/>
       <toolitem action='Undo'/>

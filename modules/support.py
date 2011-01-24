@@ -142,3 +142,28 @@ def dialog_error(message, parent=None):
    dialog.set_title(_("Error"))
    dialog.run()
    dialog.destroy()
+
+def set_recent_documents(inst):
+   """Set Recent Documents Menu and Toolbar"""
+   recent_menu_1 = gtk.Menu()
+   recent_menu_2 = gtk.Menu()
+   for target in [1, 2]:
+      for element in  [0, 1]:
+         menu_item = gtk.ImageMenuItem("ciao")
+         menu_item.set_image(gtk.image_new_from_stock("gtk-open", gtk.ICON_SIZE_MENU))
+         menu_item.show()
+         if target == 1: recent_menu_1.append(menu_item)
+         else: recent_menu_2.append(menu_item)
+   # main menu
+   recent_menuitem = gtk.ImageMenuItem(_("_Recent Documents"))
+   recent_menuitem.set_image(gtk.image_new_from_stock("gtk-open", gtk.ICON_SIZE_MENU))
+   recent_menuitem.set_tooltip_text(_("Open a Recent CherryTree Document"))
+   recent_menuitem.set_submenu(recent_menu_1)
+   inst.ui.get_widget("/MenuBar/FileMenu").get_submenu().insert(recent_menuitem, 3)
+   # toolbar
+   menu_toolbutton = gtk.MenuToolButton("gtk-open")
+   menu_toolbutton.set_tooltip_text(_("Open a CherryTree Document"))
+   menu_toolbutton.set_arrow_tooltip_text(_("Open a Recent CherryTree Document"))
+   menu_toolbutton.set_menu(recent_menu_2)
+   menu_toolbutton.connect("clicked", inst.file_open)
+   inst.ui.get_widget("/ToolBar").insert(menu_toolbutton, 3)
