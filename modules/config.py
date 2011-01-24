@@ -19,7 +19,7 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
-import os, sys, xml.dom.minidom, gtk, pango, subprocess
+import os, sys, xml.dom.minidom, gtk, pango, subprocess, base64
 import cons
 
 ICONS_SIZE = {1: gtk.ICON_SIZE_MENU, 2: gtk.ICON_SIZE_SMALL_TOOLBAR, 3: gtk.ICON_SIZE_LARGE_TOOLBAR,
@@ -165,6 +165,11 @@ def config_file_load(inst):
       if dom_iter.hasAttribute("nodes_icons"):
          inst.nodes_icons = dom_iter.attributes["nodes_icons"].value
       else: inst.nodes_icons = "c"
+      inst.recent_docs = []
+      if dom_iter.hasAttribute("recent_docs"):
+         temp_recent_docs = dom_iter.attributes["recent_docs"].value.split(cons.CHAR_SPACE)
+         for element in temp_recent_docs:
+            if element: inst.recent_docs.append(base64.b64decode(element))
    else:
       if sys.platform[0:3] != "win": subprocess.call(cons.SHOW_MENU_ICONS, shell=True)
       inst.file_dir = ""
@@ -204,6 +209,7 @@ def config_file_load(inst):
       inst.hpaned_pos = 170
       inst.show_node_name_label = True
       inst.nodes_icons = "c"
+      inst.recent_docs = []
       inst.toolbar_visible = True
    
 def config_file_apply(inst):
@@ -322,6 +328,13 @@ def config_file_save(inst):
    config.setAttribute("autosave_on_quit", str(inst.autosave_on_quit))
    config.setAttribute("tree_right_side", str(inst.tree_right_side))
    config.setAttribute("nodes_icons", inst.nodes_icons)
+   if inst.recent_docs:
+      temp_recent_docs = []
+      for element in inst.recent_docs:
+         temp_recent_docs.append(base64.b64encode(element))
+      str_recent_docs = cons.CHAR_SPACE.join(temp_recent_docs)
+   else: str_recent_docs = ""
+   config.setAttribute("recent_docs", str_recent_docs)
    dom.appendChild(config)
    string_text = dom.toxml()
    config_file_descriptor = file(cons.CONFIG_PATH, 'w')

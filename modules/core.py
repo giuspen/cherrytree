@@ -715,6 +715,7 @@ class CherryTree:
                if self.file_write(filepath):
                   self.file_dir = os.path.dirname(filepath)
                   self.file_name = os.path.basename(filepath)
+                  if not filepath in self.recent_docs: self.recent_docs.append(filepath)
                   self.update_window_save_not_needed()
                   self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
       
@@ -945,6 +946,7 @@ class CherryTree:
          if self.xml_handler.dom_to_treestore(cherrytree_string, discard_ids=False):
             self.file_dir = os.path.dirname(filepath)
             self.file_name = os.path.basename(filepath)
+            if not filepath in self.recent_docs: self.recent_docs.append(filepath)
             self.update_window_save_not_needed()
             file_loaded = True
       except: pass

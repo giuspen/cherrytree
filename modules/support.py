@@ -148,8 +148,8 @@ def set_recent_documents(inst):
    recent_menu_1 = gtk.Menu()
    recent_menu_2 = gtk.Menu()
    for target in [1, 2]:
-      for element in  [0, 1]:
-         menu_item = gtk.ImageMenuItem("ciao")
+      for element in inst.recent_docs:
+         menu_item = gtk.ImageMenuItem(element)
          menu_item.set_image(gtk.image_new_from_stock("gtk-open", gtk.ICON_SIZE_MENU))
          menu_item.show()
          if target == 1: recent_menu_1.append(menu_item)
