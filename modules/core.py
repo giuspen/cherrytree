@@ -1018,7 +1018,12 @@ class CherryTree:
       if self.curr_tree_iter == None:
          support.dialog_warning(_("No Node is Selected!"), self.window)
          return
-      if self.html_handler.prepare_html_folder(self.treestore[self.curr_tree_iter][1]):
+      folder_name = self.treestore[self.curr_tree_iter][1]
+      father_iter = self.treestore.iter_parent(self.curr_tree_iter)
+      while father_iter:
+         folder_name = self.treestore[father_iter][1] + "--" + folder_name
+         father_iter = self.treestore.iter_parent(father_iter)
+      if self.html_handler.prepare_html_folder(folder_name.replace("/", "-")):
          self.html_handler.node_export_to_html(self.curr_tree_iter)
    
    def nodes_all_export_to_html(self, *args):

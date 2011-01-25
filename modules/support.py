@@ -186,5 +186,6 @@ def open_recent_document(menu_item, filepath, dad):
    if os.path.isfile(filepath): dad.filepath_open(filepath)
    else:
       dialog_error(_("The Document %s was Not Found") % filepath, dad.window)
+      menu_item.hide()
       try: dad.recent_docs.remove(filepath)
       except: pass

@@ -304,8 +304,13 @@ class Export2Html:
    
    def get_html_filename(self, tree_iter):
       """Get the HTML page filename given the tree iter"""
-      filename = "%s-%s.html" % (self.dad.treestore[tree_iter][3], self.dad.treestore[tree_iter][1])
-      return filename.replace("/", "-")
+      file_name = self.dad.treestore[tree_iter][1]
+      father_iter = self.dad.treestore.iter_parent(tree_iter)
+      while father_iter:
+         file_name = self.dad.treestore[father_iter][1] + "--" + file_name
+         father_iter = self.dad.treestore.iter_parent(father_iter)
+      file_name += ".html"
+      return file_name.replace("/", "-")
    
    def html_get_from_code_buffer(self, code_buffer, sel_range=None):
       """Get rich text from syntax highlighted code node"""
