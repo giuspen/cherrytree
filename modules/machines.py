@@ -88,6 +88,8 @@ class XMLHandler:
       else: unique_id = self.dad.node_id_get()
       if dom_iter.hasAttribute('tags'): node_tags = dom_iter.attributes['tags'].value
       else: node_tags = ""
+      if dom_iter.hasAttribute('readonly'): readonly = (dom_iter.attributes['readonly'].value == "True")
+      else: readonly = False
       syntax_highlighting = dom_iter.attributes['prog_lang'].value
       if syntax_highlighting != cons.CUSTOM_COLORS_ID and syntax_highlighting not in self.dad.available_languages:
          syntax_highlighting = syntax_highlighting.lower().replace("C++", "cpp")
@@ -119,7 +121,8 @@ class XMLHandler:
                                                           unique_id,
                                                           syntax_highlighting,
                                                           node_level,
-                                                          node_tags])
+                                                          node_tags,
+                                                          readonly])
       # loop for child nodes
       while child_dom_iter!= None:
          if child_dom_iter.nodeName == 'rich_text':

@@ -111,8 +111,8 @@ class CherryTree:
       self.statusbar = gtk.Statusbar()
       self.statusbar_context_id = self.statusbar.get_context_id('')
       vbox_main.pack_start(self.statusbar, False, False)
-      # ROW: 0-icon_stock_id, 1-name, 2-buffer, 3-unique_id, 4-syntax_highlighting, 5-level, 6-tags
-      self.treestore = gtk.TreeStore(str, str, gobject.TYPE_PYOBJECT, long, str, int, str)
+      # ROW: 0-icon_stock_id, 1-name, 2-buffer, 3-unique_id, 4-syntax_highlighting, 5-level, 6-tags, 7-readonly
+      self.treestore = gtk.TreeStore(str, str, gobject.TYPE_PYOBJECT, long, str, int, str, gobject.TYPE_BOOLEAN)
       self.treeview = gtk.TreeView(self.treestore)
       self.treeview.set_headers_visible(False)
       self.treeview.drag_source_set(gtk.gdk.BUTTON1_MASK,
@@ -1523,6 +1523,7 @@ class CherryTree:
       
    def node_add(self, *args):
       """Add a node having common father with the selected node's"""
+      self.glade.checkbutton_readonly.set_active(False)
       node_name = self.dialog_input(title=_("Insert the New Node Name..."), syntax_highlight=True)
       if node_name == None: return
       self.update_window_save_needed()
@@ -1538,7 +1539,8 @@ class CherryTree:
                                                                            self.node_id_get(),
                                                                            self.syntax_highlighting,
                                                                            node_level,
-                                                                           self.glade.tags_searching_entry.get_text()])
+                                                                           self.glade.tags_searching_entry.get_text(),
+                                                                           self.glade.checkbutton_readonly.get_active()])
       else:
          new_node_iter = self.treestore.append(None, [cherry,
                                                       node_name,
@@ -1546,7 +1548,8 @@ class CherryTree:
                                                       self.node_id_get(),
                                                       self.syntax_highlighting,
                                                       node_level,
-                                                      self.glade.tags_searching_entry.get_text()])
+                                                      self.glade.tags_searching_entry.get_text(),
+                                                      self.glade.checkbutton_readonly.get_active()])
       new_node_path = self.treestore.get_path(new_node_iter)
       self.treeview.set_cursor(new_node_path)
       self.sourceview.grab_focus()
@@ -1556,6 +1559,7 @@ class CherryTree:
       if self.curr_tree_iter == None:
          support.dialog_warning(_("No Node is Selected!"), self.window)
          return
+      self.glade.checkbutton_readonly.set_active(False)
       node_name = self.dialog_input(title=_("Insert the New Child Node Name..."), syntax_highlight=True)
       if node_name != None:
          self.update_window_save_needed()
@@ -1569,7 +1573,8 @@ class CherryTree:
                                                                      self.node_id_get(),
                                                                      self.syntax_highlighting,
                                                                      node_level,
-                                                                     self.glade.tags_searching_entry.get_text()])
+                                                                     self.glade.tags_searching_entry.get_text(),
+                                                                     self.glade.checkbutton_readonly.get_active()])
          new_node_path = self.treestore.get_path(new_node_iter)
          father_node_path = self.treestore.get_path(self.curr_tree_iter)
          self.treeview.expand_row(father_node_path, True) # second parameter tells whether to expand childrens too
@@ -1608,6 +1613,7 @@ class CherryTree:
          return
       self.glade.combobox_prog_lang.set_active_iter(self.get_combobox_prog_lang_iter(self.treestore[self.curr_tree_iter][4]))
       self.glade.tags_searching_entry.set_text(self.treestore[self.curr_tree_iter][6])
+      self.glade.checkbutton_readonly.set_active(self.treestore[self.curr_tree_iter][7])
       node_name = self.dialog_input(entry_hint=self.treestore[self.curr_tree_iter][1],
                                     title=_("Insert the New Name for the Node..."),
                                     syntax_highlight=True)
@@ -1628,10 +1634,12 @@ class CherryTree:
       self.treestore[self.curr_tree_iter][1] = node_name
       self.treestore[self.curr_tree_iter][4] = self.syntax_highlighting
       self.treestore[self.curr_tree_iter][6] = self.glade.tags_searching_entry.get_text()
+      self.treestore[self.curr_tree_iter][7] = self.glade.checkbutton_readonly.get_active()
       self.treestore[self.curr_tree_iter][0] = self.get_node_icon(self.treestore[self.curr_tree_iter][5],
                                                                   self.syntax_highlighting)
       if self.syntax_highlighting != cons.CUSTOM_COLORS_ID:
          self.set_sourcebuffer_syntax_highlight(self.curr_buffer, self.syntax_highlighting)
+      self.sourceview.set_editable(not self.treestore[self.curr_tree_iter][7])
       self.update_window_save_needed()
       self.sourceview.grab_focus()
       
@@ -1674,6 +1682,7 @@ class CherryTree:
          self.sourceview.modify_font(pango.FontDescription(self.text_font))
       else: self.sourceview.modify_font(pango.FontDescription(self.code_font))
       self.sourceview.set_sensitive(True)
+      self.sourceview.set_editable(not self.treestore[self.curr_tree_iter][7])
       self.header_node_name_label.set_text("<big><b><i>"+cgi.escape(self.treestore[self.curr_tree_iter][1])+"</i></b></big>")
       self.header_node_name_label.set_use_markup(True)
       self.state_machine.node_selected_changed(self.treestore[self.curr_tree_iter][3])
@@ -1862,6 +1871,7 @@ class CherryTree:
       self.glade.replace_options_frame.set_property("visible", replace_opt)
       self.glade.syntax_highlighting_frame.set_property("visible", syntax_highlight)
       self.glade.tags_searching_frame.set_property("visible", syntax_highlight)
+      self.glade.checkbutton_readonly.set_property("visible", syntax_highlight)
       response = self.glade.inputdialog.run()
       self.glade.inputdialog.hide()
       if response == 1:

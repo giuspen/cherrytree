@@ -402,6 +402,19 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
                 <property name="position">4</property>
               </packing>
             </child>
+            <child>
+              <object class="GtkCheckButton" id="checkbutton_readonly">
+                <property name="label" translatable="yes">Read Only</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="draw_indicator">True</property>
+              </object>
+              <packing>
+                <property name="padding">10</property>
+                <property name="position">5</property>
+              </packing>
+            </child>
           </object>
           <packing>
             <property name="position">1</property>
