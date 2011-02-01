@@ -240,6 +240,7 @@ class XMLHandler:
       programming_language = self.dad.treestore[tree_iter][4]
       dom_iter.setAttribute("prog_lang", programming_language)
       dom_iter.setAttribute("tags", self.dad.treestore[tree_iter][6])
+      dom_iter.setAttribute("readonly", str(self.dad.treestore[tree_iter][7]))
       dom_father.appendChild(dom_iter)
       # allocate and init the rich text attributes
       self.curr_attributes = {}
