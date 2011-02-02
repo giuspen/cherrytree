@@ -138,6 +138,7 @@ class CherryTree:
       self.treeview.connect('drag-motion', self.on_drag_motion_cherrytree)
       self.treeview.connect('drag-data-received', self.on_drag_data_recv_cherrytree)
       self.treeview.connect('drag-data-get', self.on_drag_data_get_cherrytree)
+      self.treeview.connect("motion-notify-event", self.on_treeview_motion_notify_event)
       self.scrolledwindow_tree.add(self.treeview)
       self.window.connect('window-state-event', self.on_window_state_event)
       self.window.connect("size-allocate", self.on_window_n_tree_size_allocate_event)
@@ -2707,6 +2708,19 @@ class CherryTree:
       if self.syntax_highlighting != cons.CUSTOM_COLORS_ID: return
       x, y = self.sourceview.window_to_buffer_coords(gtk.TEXT_WINDOW_WIDGET, int(event.x), int(event.y))
       self.sourceview_cursor_and_tooltips_handler(x, y)
+      return False
+   
+   def on_treeview_motion_notify_event(self, tree_view, event):
+      """Update the tooltip if the pointer moved"""
+      x, y = self.treeview.widget_to_tree_coords(int(event.x), int(event.y))
+      pointer_tuple = self.treeview.get_path_at_pos(x, y)
+      if pointer_tuple:
+         pointer_iter = self.treestore.get_iter(pointer_tuple[0])
+         self.treeview.set_tooltip_text(None)
+         tooltip_text = self.treestore[pointer_iter][4]
+         if self.treestore[pointer_iter][7]: tooltip_text += "  -  " + _("Read Only")
+         if self.treestore[pointer_iter][6]: tooltip_text += "  -  " + self.treestore[pointer_iter][6]
+         self.treeview.set_tooltip_text(tooltip_text)
       return False
    
    def on_sourceview_visibility_notify_event(self, text_view, event):

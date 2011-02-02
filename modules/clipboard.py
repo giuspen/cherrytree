@@ -52,8 +52,9 @@ class ClipboardHandler:
       sourceview.stop_emission("cut-clipboard")
       if not self.dad.curr_buffer.get_has_selection(): return
       self.selection_to_clipboard(self.dad.curr_buffer, sourceview)
-      self.dad.curr_buffer.delete_selection(True, sourceview.get_editable())
-      self.dad.sourceview.grab_focus()
+      if not self.dad.treestore[self.dad.curr_tree_iter][7]:
+         self.dad.curr_buffer.delete_selection(True, sourceview.get_editable())
+         self.dad.sourceview.grab_focus()
       
    def selection_to_clipboard(self, text_buffer, sourceview):
       """Write the Selected Content to the Clipboard"""
@@ -126,6 +127,7 @@ class ClipboardHandler:
    def paste(self, sourceview):
       """Paste from Clipboard"""
       sourceview.stop_emission("paste-clipboard")
+      if self.dad.treestore[self.dad.curr_tree_iter][7]: return
       targets = self.clipboard.wait_for_targets()
       if not targets: return
       self.dad.curr_buffer.delete_selection(True, sourceview.get_editable())
