@@ -450,9 +450,12 @@ class CherryTree:
          file_descriptor.close()
       except:
          support.dialog_error("Error opening the file %s" % filepath, self.window)
-         raise
          return
       self.nodes_add_from_string(cherrytree_string)
+      
+   def nodes_add_from_leo_file(self, action):
+      """Add Nodes Parsing a Leo File"""
+      print "TODO"
       
    def nodes_add_from_string(self, cherrytree_string):
       """Adds Nodes to the Tree Parsing a CherryTree XML String"""

@@ -259,6 +259,7 @@ UI_INFO = """
          <menuitem action='FromBasket'/>
          <menuitem action='FromCherryTree'/>
          <menuitem action='FromKeepNote'/>
+         <menuitem action='FromLeo'/>
          <menuitem action='FromNoteCase'/>
          <menuitem action='FromTreepad'/>
          <menuitem action='FromTuxCards'/>
@@ -345,6 +346,7 @@ UI_INFO = """
          <menuitem action='FromBasket'/>
          <menuitem action='FromCherryTree'/>
          <menuitem action='FromKeepNote'/>
+         <menuitem action='FromLeo'/>
          <menuitem action='FromNoteCase'/>
          <menuitem action='FromTreepad'/>
          <menuitem action='FromTuxCards'/>
@@ -496,6 +498,7 @@ def get_entries(inst):
    ( "FromKeepNote", "CherryTree Import", _("From _KeepNote Folder"), None, _("Add Nodes of a KeepNote Folder to the Current Tree"), inst.nodes_add_from_keepnote_folder),
    ( "FromTuxCards", "CherryTree Import", _("From _TuxCards File"), None, _("Add Nodes of a TuxCards File to the Current Tree"), inst.nodes_add_from_tuxcards_file),
    ( "FromTreepad", "CherryTree Import", _("From T_reepad Lite File"), None, _("Add Nodes of a Treepad Lite File to the Current Tree"), inst.nodes_add_from_treepad_file),
+   ( "FromLeo", "CherryTree Import", _("From _Leo File"), None, _("Add Nodes of a Leo File to the Current Tree"), inst.nodes_add_from_leo_file),
    ( "Help", "Help Contents", _("_Help"), None, _("Application's Home Page"), inst.on_help_menu_item_activated),
    ( "CheckNewer", "gtk-network", _("_Check Newer Version"), None, _("Check for a Newer Version"), inst.check_for_newer_version),
    ( "About", "gtk-about", _("_About"), None, _("About CherryTree"), inst.dialog_about),
