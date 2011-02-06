@@ -52,7 +52,6 @@ class LeoHandler:
                   self.tnodes_dict[tnode_dom_iter.attributes['tx'].value] = fill_text
                tnode_dom_iter = tnode_dom_iter.nextSibling
          child_dom_iter = child_dom_iter.nextSibling
-      print self.tnodes_dict
       while vnode_dom_iter:
          if vnode_dom_iter.nodeName == "v": self.append_leo_node(vnode_dom_iter)
          vnode_dom_iter = vnode_dom_iter.nextSibling
@@ -81,6 +80,7 @@ class LeoHandler:
             self.rich_text_serialize(self.tnodes_dict[vnode_dom_iter.attributes['t'].value])
          elif child_dom_iter.nodeName == "v": self.append_leo_node(child_dom_iter)
          child_dom_iter = child_dom_iter.nextSibling
+      self.nodes_list.pop()
       
    def get_cherrytree_xml(self, leo_string):
       """Parses the Given Notecase HTML String feeding the CherryTree XML dom"""

@@ -469,8 +469,7 @@ class CherryTree:
          return
       leo = imports.LeoHandler()
       cherrytree_string = leo.get_cherrytree_xml(leo_string)
-      print cherrytree_string
-      #self.nodes_add_from_string(cherrytree_string)
+      self.nodes_add_from_string(cherrytree_string)
       
    def nodes_add_from_string(self, cherrytree_string):
       """Adds Nodes to the Tree Parsing a CherryTree XML String"""
