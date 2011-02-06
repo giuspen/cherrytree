@@ -2712,11 +2712,12 @@ class CherryTree:
    
    def on_treeview_motion_notify_event(self, tree_view, event):
       """Update the tooltip if the pointer moved"""
+      self.treeview.set_tooltip_text(None)
+      self.treeview.trigger_tooltip_query()
       x, y = self.treeview.widget_to_tree_coords(int(event.x), int(event.y))
       pointer_tuple = self.treeview.get_path_at_pos(x, y)
       if pointer_tuple:
          pointer_iter = self.treestore.get_iter(pointer_tuple[0])
-         self.treeview.set_tooltip_text(None)
          tooltip_text = self.treestore[pointer_iter][4]
          if self.treestore[pointer_iter][7]: tooltip_text += "  -  " + _("Read Only")
          if self.treestore[pointer_iter][6]: tooltip_text += "  -  " + self.treestore[pointer_iter][6]
