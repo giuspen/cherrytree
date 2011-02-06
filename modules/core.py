@@ -455,7 +455,22 @@ class CherryTree:
       
    def nodes_add_from_leo_file(self, action):
       """Add Nodes Parsing a Leo File"""
-      print "TODO"
+      filepath = support.dialog_file_select(filter_pattern="*.leo",
+                                            filter_name=_("Leo Document"),
+                                            curr_folder=self.file_dir,
+                                            parent=self.window)
+      if filepath == None: return
+      try:
+         file_descriptor = open(filepath, 'r')
+         leo_string = file_descriptor.read()
+         file_descriptor.close()
+      except:
+         support.dialog_error("Error opening the file %s" % filepath, self.window)
+         return
+      leo = imports.LeoHandler()
+      cherrytree_string = leo.get_cherrytree_xml(leo_string)
+      print cherrytree_string
+      #self.nodes_add_from_string(cherrytree_string)
       
    def nodes_add_from_string(self, cherrytree_string):
       """Adds Nodes to the Tree Parsing a CherryTree XML String"""

@@ -24,6 +24,73 @@ import gtk, os, xml.dom.minidom, re, base64, urllib2
 import cons, machines
 
 
+class LeoHandler:
+   """The Handler of the Leo File Parsing"""
+   
+   def __init__(self):
+      """Machine boot"""
+      self.xml_handler = machines.XMLHandler(self)
+      
+   def parse_leo_xml(self, leo_string):
+      """Leo XML Parsing"""
+      self.tnodes_dict = {}
+      dom = xml.dom.minidom.parseString(leo_string)
+      dom_iter = dom.firstChild
+      while dom_iter:
+         if dom_iter.nodeName == "leo_file": break
+         dom_iter = dom_iter.nextSibling
+      child_dom_iter = dom_iter.firstChild
+      while child_dom_iter:
+         if child_dom_iter.nodeName == "vnodes":
+            vnode_dom_iter = child_dom_iter.firstChild
+         elif child_dom_iter.nodeName == "tnodes":
+            tnode_dom_iter = child_dom_iter.firstChild
+            while tnode_dom_iter:
+               if tnode_dom_iter.nodeName == "t":
+                  if tnode_dom_iter.firstChild: fill_text = tnode_dom_iter.firstChild.data
+                  else: fill_text = ""
+                  self.tnodes_dict[tnode_dom_iter.attributes['tx'].value] = fill_text
+               tnode_dom_iter = tnode_dom_iter.nextSibling
+         child_dom_iter = child_dom_iter.nextSibling
+      print self.tnodes_dict
+      while vnode_dom_iter:
+         if vnode_dom_iter.nodeName == "v": self.append_leo_node(vnode_dom_iter)
+         vnode_dom_iter = vnode_dom_iter.nextSibling
+   
+   def rich_text_serialize(self, text_data):
+      """Appends a new part to the XML rich text"""
+      dom_iter = self.dom.createElement("rich_text")
+      #for tag_property in cons.TAG_PROPERTIES:
+      #   if self.curr_attributes[tag_property] != "":
+      #      dom_iter.setAttribute(tag_property, self.curr_attributes[tag_property])
+      self.nodes_list[-1].appendChild(dom_iter)
+      text_iter = self.dom.createTextNode(text_data)
+      dom_iter.appendChild(text_iter)
+   
+   def append_leo_node(self, vnode_dom_iter):
+      """Append a Leo Node"""
+      self.nodes_list.append(self.dom.createElement("node"))
+      node_name = "?"
+      child_dom_iter = vnode_dom_iter.firstChild
+      while child_dom_iter:
+         if child_dom_iter.nodeName == "vh":
+            if child_dom_iter.firstChild: node_name = child_dom_iter.firstChild.data
+            self.nodes_list[-1].setAttribute("name", node_name)
+            self.nodes_list[-1].setAttribute("prog_lang", cons.CUSTOM_COLORS_ID)
+            self.nodes_list[-2].appendChild(self.nodes_list[-1])
+            self.rich_text_serialize(self.tnodes_dict[vnode_dom_iter.attributes['t'].value])
+         elif child_dom_iter.nodeName == "v": self.append_leo_node(child_dom_iter)
+         child_dom_iter = child_dom_iter.nextSibling
+      
+   def get_cherrytree_xml(self, leo_string):
+      """Parses the Given Notecase HTML String feeding the CherryTree XML dom"""
+      self.dom = xml.dom.minidom.Document()
+      self.nodes_list = [self.dom.createElement("cherrytree")]
+      self.dom.appendChild(self.nodes_list[0])
+      self.parse_leo_xml(leo_string)
+      return self.dom.toxml()
+
+
 class TuxCardsHandler(HTMLParser.HTMLParser):
    """The Handler of the TuxCards File Parsing"""
    
