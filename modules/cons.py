@@ -180,8 +180,11 @@ UI_INFO = """
             <menuitem action='UpCase'/>
             <menuitem action='ToggleCase'/>
          </menu>
-         <menuitem action='DuplicateRow'/>
+         <separator/>
+         <menuitem action='CutRow'/>
+         <menuitem action='CopyRow'/>
          <menuitem action='DeleteRow'/>
+         <menuitem action='DuplicateRow'/>
          <separator/>
          <menuitem action='BulletedList'/>
          <menuitem action='NumberedList'/>
@@ -461,6 +464,8 @@ def get_entries(inst):
    ( "ToggleCase", "Case Toggle", _("_Toggle Case of Selection/Word"), "<control>G", _("Toggle the Case of the Selection/the Underlying Word"), inst.text_selection_toggle_case),
    ( "DuplicateRow", "gtk-add", _("_Duplicate Row/Selection"), "<control>D", _("Duplicate the Whole Row/a Selection"), inst.text_row_selection_duplicate),
    ( "DeleteRow", "gtk-clear", _("De_lete Row"), "<control>K", _("Delete the Whole Row"), inst.text_row_delete),
+   ( "CutRow", "Cut", _("Cu_t Row"), "<control><shift>X", _("Cut the Whole Row"), inst.text_row_cut),
+   ( "CopyRow", "Copy", _("_Copy Row"), "<control><shift>C", _("Copy the Whole Row"), inst.text_row_copy),
    ( "Undo", "gtk-undo", _("_Undo"), "<control>Z", _("Undo Last Operation"), inst.requested_step_back),
    ( "Redo", "gtk-redo", _("_Redo"), "<control>Y", _("Redo Previously Discarded Operation"), inst.requested_step_ahead),
    ( "InheritSyntax", "gtk-execute", _("_Inherit Syntax"), None, _("Change the Selected Node's Children Syntax Highlighting to the Father's Syntax Highlighting"), inst.node_inherit_syntax),
@@ -560,8 +565,12 @@ def get_popup_menu_entries_text(inst):
    ("Case Up", _("_Upper Case of Selection/Word"), _("Upper the Case of the Selection/the Underlying Word"), inst.text_selection_upper_case),
    ("Case Toggle", _("_Toggle Case of Selection/Word"), _("Toggle the Case of the Selection/the Underlying Word"), inst.text_selection_toggle_case),
    ("submenu-end", None, None, None),
-   ("gtk-add", _("_Duplicate Row/Selection"), _("Duplicate the Whole Row/a Selection"), inst.text_row_selection_duplicate),
+   ("submenu-start", _("_Row") , "gtk-edit", None),
+   ("Cut", _("Cu_t Row"), _("Cut the Whole Row"), inst.text_row_cut),
+   ("Copy", _("C_opy Row"), _("Copy the Whole Row"), inst.text_row_copy),
    ("gtk-clear", _("De_lete Row"), _("Delete the Whole Row"), inst.text_row_delete),
+   ("gtk-add", _("_Duplicate Row/Selection"), _("Duplicate the Whole Row/a Selection"), inst.text_row_selection_duplicate),
+   ("submenu-end", None, None, None),
    ("separator", None, None, None),
    ("submenu-start", _("_Search") , "Find", None),
    ("Find", _("_Find in Node"), _("Find into the Selected Node"), inst.find_in_selected_node),
@@ -592,8 +601,11 @@ def get_popup_menu_entries_code(inst):
    ("Case Up", _("_Upper Case of Selection/Word"), _("Upper the Case of the Selection/the Underlying Word"), inst.text_selection_upper_case),
    ("Case Toggle", _("_Toggle Case of Selection/Word"), _("Toggle the Case of the Selection/the Underlying Word"), inst.text_selection_toggle_case),
    ("submenu-end", None, None, None),
-   ("gtk-add", _("_Duplicate Row/Selection"), _("Duplicate the Whole Row/a Selection"), inst.text_row_selection_duplicate),
+   ("separator",None,None,None),
+   ("Cut", _("Cu_t Row"), _("Cut the Whole Row"), inst.text_row_cut),
+   ("Copy", _("C_opy Row"), _("Copy the Whole Row"), inst.text_row_copy),
    ("gtk-clear", _("De_lete Row"), _("Delete the Whole Row"), inst.text_row_delete),
+   ("gtk-add", _("_Duplicate Row/Selection"), _("Duplicate the Whole Row/a Selection"), inst.text_row_selection_duplicate),
    ]
 
 def get_popup_menu_entries_codebox(inst):
