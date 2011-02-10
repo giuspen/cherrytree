@@ -463,7 +463,10 @@ class Export2Html:
                   dest_tree_iter = self.dad.get_tree_iter_from_node_id(int(vector[1]))
                   if not dest_tree_iter: continue
                   href = self.get_html_filename(dest_tree_iter)
-                  if len(vector) == 3: href += "#" + vector[2]
+                  if len(vector) >= 3:
+                     if len(vector) == 3: anchor_name = vector[2]
+                     else: anchor_name = property_value[len(vector[0]) + len(vector[1]) + 2:]
+                     href += "#" + anchor_name
                else: continue
                self.curr_html_text += '<a href="' + href + '">' + inner_text + "</a>"
                return

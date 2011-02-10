@@ -2409,7 +2409,10 @@ class CherryTree:
                   elif self.link_type == "file": self.glade.entry_file_to_link_to.set_text(base64.b64decode(vector[1]))
                   elif self.link_type == "node":
                      link_node_id = int(vector[1])
-                     if len(vector) == 3: self.glade.link_anchor_entry.set_text(vector[2])
+                     if len(vector) >= 3:
+                        if len(vector) == 3: anchor_name = vector[2]
+                        else: anchor_name = tag_property_value[len(vector[0]) + len(vector[1]) + 2:]
+                        self.glade.link_anchor_entry.set_text(anchor_name)
                   else:
                      support.dialog_error("Tag Name Not Recognized! (%s)" % self.link_type, self.window)
                      self.link_type = "webs"
@@ -2565,9 +2568,11 @@ class CherryTree:
          self.sourceview.grab_focus()
          self.sourceview.get_window(gtk.TEXT_WINDOW_TEXT).set_cursor(None)
          self.sourceview.set_tooltip_text(None)
-         if len(vector) == 3:
-            iter_anchor = self.link_seek_for_anchor(vector[2])
-            if iter_anchor == None: support.dialog_warning(_("No anchor named '%s' found") % vector[2], self.window)
+         if len(vector) >= 3:
+            if len(vector) == 3: anchor_name = vector[2]
+            else: anchor_name = tag_property_value[len(vector[0]) + len(vector[1]) + 2:]
+            iter_anchor = self.link_seek_for_anchor(anchor_name)
+            if iter_anchor == None: support.dialog_warning(_("No anchor named '%s' found") % anchor_name, self.window)
             else:
                self.curr_buffer.place_cursor(iter_anchor)
                self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), 0.3)
@@ -2650,7 +2655,10 @@ class CherryTree:
             if vector[0] == "file": tooltip = base64.b64decode(vector[1])
             else:
                tooltip = vector[1]
-               if len(vector) == 3: tooltip += "#" + vector[2]
+               if len(vector) >= 3:
+                  if len(vector) == 3: anchor_name = vector[2]
+                  else: anchor_name = tag_name[5 + len(vector[0]) + len(vector[1]) + 2:]
+                  tooltip += "#" + anchor_name
             break
       else:
          iter_anchor = iter.copy()
