@@ -167,6 +167,9 @@ UI_INFO = """
       <menu action='EditMenu'>
          <menuitem action='Preferences'/>
          <separator/>
+         <menuitem action='Undo'/>
+         <menuitem action='Redo'/>
+         <separator/>
          <menuitem action='HandleImage'/>
          <menuitem action='HandleTable'/>
          <menuitem action='HandleCodeBox'/>
@@ -188,9 +191,6 @@ UI_INFO = """
          <separator/>
          <menuitem action='BulletedList'/>
          <menuitem action='NumberedList'/>
-         <separator/>
-         <menuitem action='Undo'/>
-         <menuitem action='Redo'/>
       </menu>
       
       <menu action='FormattingMenu'>
@@ -233,6 +233,9 @@ UI_INFO = """
          <menuitem action='InheritSyntax'/>
          <separator/>
          <menuitem action='DeleteNode'/>
+         <separator/>
+         <menuitem action='GoBack'/>
+         <menuitem action='GoForward'/>
       </menu>
       
       <menu action='SearchMenu'>
@@ -291,12 +294,11 @@ UI_INFO = """
       <toolitem action='NewInstance'/>
       <toolitem action='Save'/>
       <separator/>
+      <toolitem action='GoBack'/>
+      <toolitem action='GoForward'/>
+      <separator/>
       <toolitem action='Undo'/>
       <toolitem action='Redo'/>
-      <separator/>
-      <toolitem action='JustifyLeft'/>
-      <toolitem action='JustifyCenter'/>
-      <toolitem action='JustifyRight'/>
       <separator/>
       <toolitem action='BulletedList'/>
       <toolitem action='NumberedList'/>
@@ -368,6 +370,9 @@ UI_INFO = """
       <menuitem action='InheritSyntax'/>
       <separator/>
       <menuitem action='DeleteNode'/>
+      <separator/>
+      <menuitem action='GoBack'/>
+      <menuitem action='GoForward'/>
    </popup>
    
    <popup name='SysTrayMenu'>
@@ -466,6 +471,8 @@ def get_entries(inst):
    ( "DeleteRow", "gtk-clear", _("De_lete Row"), "<control>K", _("Delete the Whole Row"), inst.text_row_delete),
    ( "CutRow", "Cut", _("Cu_t Row"), "<control><shift>X", _("Cut the Whole Row"), inst.text_row_cut),
    ( "CopyRow", "Copy", _("_Copy Row"), "<control><shift>C", _("Copy the Whole Row"), inst.text_row_copy),
+   ( "GoBack", "gtk-go-back", _("Go _Back"), "<control>Left", _("Go to the Previous Visited Node"), inst.go_back),
+   ( "GoForward", "gtk-go-forward", _("Go _Forward"), "<control>Right", _("Go to the Next Visited Node"), inst.go_forward),
    ( "Undo", "gtk-undo", _("_Undo"), "<control>Z", _("Undo Last Operation"), inst.requested_step_back),
    ( "Redo", "gtk-redo", _("_Redo"), "<control>Y", _("Redo Previously Discarded Operation"), inst.requested_step_ahead),
    ( "InheritSyntax", "gtk-execute", _("_Inherit Syntax"), None, _("Change the Selected Node's Children Syntax Highlighting to the Father's Syntax Highlighting"), inst.node_inherit_syntax),

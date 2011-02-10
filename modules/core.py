@@ -1817,6 +1817,14 @@ class CherryTree:
          prev_iter = model.get_iter(prev_path)
       return prev_iter
       
+   def go_back(self, *args):
+      """Go to the Previous Visited Node"""
+      print "BACK"
+      
+   def go_forward(self, *args):
+      """Go to the Next Visited Node"""
+      print "FORWARD"
+      
    def requested_step_back(self, *args):
       """Step Back for the Current Node, if Possible"""
       if self.curr_tree_iter == None: return
