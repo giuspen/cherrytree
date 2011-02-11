@@ -162,6 +162,7 @@ class CherryTree:
       self.hovering_over_link = False
       self.tag_table = gtk.TextTagTable()
       self.scrolledwindow_text.add(self.sourceview)
+      self.go_bk_fw_click = False
       self.password = None
       self.curr_tree_iter = None
       self.curr_window_n_tree_width = None
@@ -1819,11 +1820,23 @@ class CherryTree:
       
    def go_back(self, *args):
       """Go to the Previous Visited Node"""
-      print "BACK"
+      self.go_bk_fw_click = True
+      new_node_id = self.state_machine.requested_previous_visited()
+      if new_node_id:
+         node_iter = self.get_tree_iter_from_node_id(new_node_id)
+         if node_iter: self.treeview_safe_set_cursor(node_iter)
+         else: self.go_back()
+      self.go_bk_fw_click = False
       
    def go_forward(self, *args):
       """Go to the Next Visited Node"""
-      print "FORWARD"
+      self.go_bk_fw_click = True
+      new_node_id = self.state_machine.requested_next_visited()
+      if new_node_id:
+         node_iter = self.get_tree_iter_from_node_id(new_node_id)
+         if node_iter: self.treeview_safe_set_cursor(node_iter)
+         else: self.go_forward()
+      self.go_bk_fw_click = False
       
    def requested_step_back(self, *args):
       """Step Back for the Current Node, if Possible"""

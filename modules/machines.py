@@ -453,6 +453,8 @@ class StateMachine:
       self.nodes_vectors = {}
       self.nodes_indexes = {}
       self.nodes_indicators = {}
+      self.visited_nodes_list = []
+      self.visited_nodes_idx = 0
       # indicator 0 -> current text in node_vector matches the textbuffer
       # indicator 1 -> textbuffer is ahead, but only of non alphanumeric chars
       # indicator 2 -> textbuffer is ahead with alphanumeric chars
@@ -557,12 +559,40 @@ class StateMachine:
       del self.nodes_vectors
       del self.nodes_indexes
       del self.nodes_indicators
+      del self.visited_nodes_list
+      del self.visited_nodes_idx
       self.nodes_vectors = {}
       self.nodes_indexes = {}
       self.nodes_indicators = {}
+      self.visited_nodes_list = []
+      self.visited_nodes_idx = 0
+      
+   def requested_previous_visited(self):
+      """Requested the Previous Visited Node"""
+      if self.visited_nodes_idx != None and self.visited_nodes_idx > 0:
+         self.visited_nodes_idx -= 1
+         return self.visited_nodes_list[self.visited_nodes_idx]
+      else:
+         #print "self.visited_nodes_idx", self.visited_nodes_idx
+         return None
+      
+   def requested_next_visited(self):
+      """Requested the Next Visited Node"""
+      if self.visited_nodes_idx != None and self.visited_nodes_idx < len(self.visited_nodes_list) - 1:
+         self.visited_nodes_idx += 1
+         return self.visited_nodes_list[self.visited_nodes_idx]
+      else:
+         #print "self.visited_nodes_idx", self.visited_nodes_idx
+         #print "last_index",  len(self.visited_nodes_list) - 1
+         return None
       
    def node_selected_changed(self, node_id):
       """When a New Node is Selected"""
+      if not self.dad.go_bk_fw_click:
+         last_index = len(self.visited_nodes_list) - 1
+         if self.visited_nodes_idx != last_index: del self.visited_nodes_list[self.visited_nodes_idx+1:last_index+1]
+         self.visited_nodes_list.append(node_id)
+         self.visited_nodes_idx = len(self.visited_nodes_list) - 1
       if node_id not in self.nodes_vectors:
          self.nodes_vectors[node_id] = []
          xml_content = self.dad.xml_handler.treestore_node_to_dom(self.dad.curr_tree_iter)
