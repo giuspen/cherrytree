@@ -586,6 +586,11 @@ class StateMachine:
          #print "last_index",  len(self.visited_nodes_list) - 1
          return None
       
+   def forget_last_visited(self):
+      """Remove the latest element from the list of the visited nodes"""
+      self.visited_nodes_idx -= 1
+      self.visited_nodes_list.pop()
+      
    def node_selected_changed(self, node_id):
       """When a New Node is Selected"""
       if not self.dad.go_bk_fw_click:

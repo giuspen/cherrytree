@@ -726,6 +726,7 @@ class CherryTree:
             self.sourceview.grab_focus()
             # but then we try restore the latest situation
             if self.node_path != None:
+               self.state_machine.forget_last_visited()
                self.treeview.set_cursor(self.node_path)
                self.sourceview.grab_focus()
                self.curr_buffer.place_cursor(self.curr_buffer.get_iter_at_offset(self.cursor_position))
