@@ -606,36 +606,40 @@ def get_popup_menu_entries_text(inst):
 
 def get_popup_menu_entries_code(inst):
    """Returns the Menu Entries Given the Class Instance"""
-   # stock id, label, tooltip, callback | "separator", None, None, None |
-   # "submenu-start", label, stock id, None | "submenu-end", None, None, None
+   # stock id, label, accelerator, tooltip, callback |
+   # "separator", None, None, None, None |
+   # "submenu-start", label, stock id, None, None |
+   # "submenu-end", None, None, None, None
    return [
-   ("separator",None,None,None),
-   ("submenu-start", _("C_hange Case") , "Case Toggle", None),
-   ("Case Down", _("_Lower Case of Selection/Word"), _("Lower the Case of the Selection/the Underlying Word"), inst.text_selection_lower_case),
-   ("Case Up", _("_Upper Case of Selection/Word"), _("Upper the Case of the Selection/the Underlying Word"), inst.text_selection_upper_case),
-   ("Case Toggle", _("_Toggle Case of Selection/Word"), _("Toggle the Case of the Selection/the Underlying Word"), inst.text_selection_toggle_case),
-   ("submenu-end", None, None, None),
-   ("separator",None,None,None),
-   ("Cut", _("Cu_t Row"), _("Cut the Whole Row"), inst.text_row_cut),
-   ("Copy", _("C_opy Row"), _("Copy the Whole Row"), inst.text_row_copy),
-   ("gtk-clear", _("De_lete Row"), _("Delete the Whole Row"), inst.text_row_delete),
-   ("gtk-add", _("_Duplicate Row/Selection"), _("Duplicate the Whole Row/a Selection"), inst.text_row_selection_duplicate),
+   ("separator", None, None, None, None),
+   ("submenu-start", _("C_hange Case") , "Case Toggle", None, None),
+   ("Case Down", _("_Lower Case of Selection/Word"), "<control>W", _("Lower the Case of the Selection/the Underlying Word"), inst.text_selection_lower_case),
+   ("Case Up", _("_Upper Case of Selection/Word"), "<control><shift>W", _("Upper the Case of the Selection/the Underlying Word"), inst.text_selection_upper_case),
+   ("Case Toggle", _("_Toggle Case of Selection/Word"), "<control>G", _("Toggle the Case of the Selection/the Underlying Word"), inst.text_selection_toggle_case),
+   ("submenu-end", None, None, None, None),
+   ("separator", None, None, None, None),
+   ("Cut", _("Cu_t Row"), "<control><shift>X", _("Cut the Whole Row"), inst.text_row_cut),
+   ("Copy", _("C_opy Row"), "<control><shift>C", _("Copy the Whole Row"), inst.text_row_copy),
+   ("gtk-clear", _("De_lete Row"), "<control>K", _("Delete the Whole Row"), inst.text_row_delete),
+   ("gtk-add", _("_Duplicate Row/Selection"), "<control>D", _("Duplicate the Whole Row/a Selection"), inst.text_row_selection_duplicate),
    ]
 
 def get_popup_menu_entries_codebox(inst):
    """Returns the Menu Entries Given the Class Instance"""
-   # stock id, label, tooltip, callback | "separator", None, None, None |
-   # "submenu-start", label, stock id, None | "submenu-end", None, None, None
+   # stock id, label, accelerator, tooltip, callback |
+   # "separator", None, None, None, None |
+   # "submenu-start", label, stock id, None, None |
+   # "submenu-end", None, None, None, None
    return [
-   ("separator",None,None,None),
-   ("Cut", _("C_ut CodeBox"), _("Cut the Selected CodeBox"), inst.codebox_cut),
-   ("Copy", _("_Copy CodeBox"), _("Copy the Selected CodeBox"), inst.codebox_copy),
-   ("Delete", _("_Delete CodeBox"), _("Delete the Selected CodeBox"), inst.codebox_delete),
-   ("separator",None,None,None),
-   ("Edit CodeBox", _("Change CodeBox _Properties"), _("Edit the Properties of the CodeBox"), inst.codebox_change_properties),
-   ("separator",None,None,None),
-   ("gtk-go-forward", _("Increase CodeBox Width") + 20*CHAR_SPACE + "Ctrl+.", _("Increase the Width of the CodeBox"), inst.codebox_increase_width),
-   ("gtk-go-back", _("Decrease CodeBox Width") + 10*CHAR_SPACE + "Ctrl+Alt+.", _("Decrease the Width of the CodeBox"), inst.codebox_decrease_width),
-   ("gtk-go-down", _("Increase CodeBox Height") + 20*CHAR_SPACE + "Ctrl+,", _("Increase the Height of the CodeBox"), inst.codebox_increase_height),
-   ("gtk-go-up", _("Decrease CodeBox Height") + 10*CHAR_SPACE + "Ctrl+Alt+,", _("Decrease the Height of the CodeBox"), inst.codebox_decrease_height),
+   ("separator", None, None, None, None),
+   ("Cut", _("C_ut CodeBox"), None, _("Cut the Selected CodeBox"), inst.codebox_cut),
+   ("Copy", _("_Copy CodeBox"), None, _("Copy the Selected CodeBox"), inst.codebox_copy),
+   ("Delete", _("_Delete CodeBox"), None, _("Delete the Selected CodeBox"), inst.codebox_delete),
+   ("separator", None, None, None, None),
+   ("Edit CodeBox", _("Change CodeBox _Properties"), None, _("Edit the Properties of the CodeBox"), inst.codebox_change_properties),
+   ("separator", None, None, None, None),
+   ("gtk-go-forward", _("Increase CodeBox Width"), "<control>.", _("Increase the Width of the CodeBox"), inst.codebox_increase_width),
+   ("gtk-go-back", _("Decrease CodeBox Width"), "<control><alt>.", _("Decrease the Width of the CodeBox"), inst.codebox_decrease_width),
+   ("gtk-go-down", _("Increase CodeBox Height"), "<control>,", _("Increase the Height of the CodeBox"), inst.codebox_increase_height),
+   ("gtk-go-up", _("Decrease CodeBox Height"), "<control><alt>,", _("Decrease the Height of the CodeBox"), inst.codebox_decrease_height),
    ]
