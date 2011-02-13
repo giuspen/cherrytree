@@ -594,9 +594,12 @@ class CherryTree:
             continue
          else:
             menu_item = gtk.ImageMenuItem(attributes[1])
-            menu_item.connect('activate', attributes[3])
+            menu_item.connect('activate', attributes[4])
             menu_item.set_image(gtk.image_new_from_stock(attributes[0], gtk.ICON_SIZE_MENU))
-            menu_item.set_tooltip_text(attributes[2])
+            menu_item.set_tooltip_text(attributes[3])
+            if attributes[2]:
+               key, mod = gtk.accelerator_parse(attributes[2])
+               menu_item.add_accelerator("activate", self.ui.get_accel_group(), key, mod, gtk.ACCEL_VISIBLE)
             if curr_submenu: curr_submenu.append(menu_item)
             else: menu.append(menu_item)
          menu_item.show()
@@ -2337,11 +2340,11 @@ class CherryTree:
       """The Small Button was Pressed"""
       self.apply_tag("scale", "small")
    
-   def apply_tag_large(self, *args):
+   def apply_tag_h1(self, *args):
       """The H1 Button was Pressed"""
       self.apply_tag("scale", "h1")
       
-   def apply_tag_large2(self, *args):
+   def apply_tag_h2(self, *args):
       """The H2 Button was Pressed"""
       self.apply_tag("scale", "h2")
       
