@@ -638,8 +638,8 @@ def get_popup_menu_entries_codebox(inst):
    ("separator", None, None, None, None),
    ("Edit CodeBox", _("Change CodeBox _Properties"), None, _("Edit the Properties of the CodeBox"), inst.codebox_change_properties),
    ("separator", None, None, None, None),
-   ("gtk-go-forward", _("Increase CodeBox Width"), "<control>.", _("Increase the Width of the CodeBox"), inst.codebox_increase_width),
-   ("gtk-go-back", _("Decrease CodeBox Width"), "<control><alt>.", _("Decrease the Width of the CodeBox"), inst.codebox_decrease_width),
-   ("gtk-go-down", _("Increase CodeBox Height"), "<control>,", _("Increase the Height of the CodeBox"), inst.codebox_increase_height),
-   ("gtk-go-up", _("Decrease CodeBox Height"), "<control><alt>,", _("Decrease the Height of the CodeBox"), inst.codebox_decrease_height),
+   ("gtk-go-forward", _("Increase CodeBox Width"), "<control>period", _("Increase the Width of the CodeBox"), inst.codebox_increase_width),
+   ("gtk-go-back", _("Decrease CodeBox Width"), "<control><alt>period", _("Decrease the Width of the CodeBox"), inst.codebox_decrease_width),
+   ("gtk-go-down", _("Increase CodeBox Height"), "<control>comma", _("Increase the Height of the CodeBox"), inst.codebox_increase_height),
+   ("gtk-go-up", _("Decrease CodeBox Height"), "<control><alt>comma", _("Decrease the Height of the CodeBox"), inst.codebox_decrease_height),
    ]
