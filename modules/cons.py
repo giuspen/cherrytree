@@ -327,54 +327,6 @@ UI_INFO = """
       <toolitem action='QuitApp'/>
    </toolbar>
    
-   <popup name='TreeMenu'>
-      <menuitem action='AddNode'/>
-      <menuitem action='AddSubNode'/>
-      <separator/>
-      <menuitem action='ChangeNodeProp'/>
-      <menuitem action='TreeInfo'/>
-      <separator/>
-      <menu action='TreeMoveMenu'>
-         <menuitem action='NodeUp'/>
-         <menuitem action='NodeDown'/>
-         <menuitem action='NodeLeft'/>
-         <menuitem action='NodeChangeFather'/>
-      </menu>
-      <separator/>
-      <menuitem action='NodesExpandAll'/>
-      <menuitem action='NodesCollapseAll'/>
-      <separator/>
-      <menuitem action='FindNode'/>
-      <menuitem action='ReplaceInNodesNames'/>
-      <separator/>
-      <menu action='TreeImportMenu'>
-         <menuitem action='FromBasket'/>
-         <menuitem action='FromCherryTree'/>
-         <menuitem action='FromKeepNote'/>
-         <menuitem action='FromLeo'/>
-         <menuitem action='FromNoteCase'/>
-         <menuitem action='FromTreepad'/>
-         <menuitem action='FromTuxCards'/>
-      </menu>
-      <menu action='TreeExportMenu'>
-         <menuitem action='NodePrint'/>
-         <menuitem action='SelNode2Txt'/>
-         <menuitem action='SelNode2HTML'/>
-         <menuitem action='AllNodes2HTML'/>
-         <menuitem action='SelNode2CTD'/>
-      </menu>
-      <separator/>
-      <menuitem action='SortSiblingsDescending'/>
-      <menuitem action='SortSiblingsAscending'/>
-      <separator/>
-      <menuitem action='InheritSyntax'/>
-      <separator/>
-      <menuitem action='DeleteNode'/>
-      <separator/>
-      <menuitem action='GoBack'/>
-      <menuitem action='GoForward'/>
-   </popup>
-   
    <popup name='SysTrayMenu'>
       <menuitem action='ExitApp'/>
    </popup>
@@ -535,6 +487,60 @@ def get_entries(inst):
    ( "TableSortRowsDesc", "gtk-sort-descending", _("Sort Rows De_scending"), None, _("Sort all the Rows Descending"), inst.tables_handler.table_rows_sort_descending),
    ( "TableSortRowsAsc", "gtk-sort-ascending", _("Sort Rows As_cending"), None, _("Sort all the Rows Ascending"), inst.tables_handler.table_rows_sort_ascending),
    ( "TableExport", "Save Table", _("_Table Export"), None, _("Export Table as CSV File"), inst.tables_handler.table_export),
+   ]
+
+def get_popup_menu_tree(inst):
+   """Returns the Menu Entries Given the Class Instance"""
+   # stock id, label, accelerator, tooltip, callback |
+   # "separator", None, None, None, None |
+   # "submenu-start", label, stock id, None, None |
+   # "submenu-end", None, None, None, None
+   return [
+   ("gtk-add", _("Add _Node"), "<control>N", _("Add a Node having the same Father of the Selected Node"), inst.node_add),
+   ("gtk-add", _("Add _SubNode"), "<control><shift>N", _("Add a Child Node to the Selected Node"), inst.node_child_add),
+   ("separator", None, None, None, None),
+   ("Edit Node", _("Change Node _Properties"), "F2", _("Edit the Properties of the Selected Node"), inst.node_edit),
+   ("gtk-info", _("Tree _Info"), None, _("Tree Summary Information"), inst.tree_info),
+   ("separator", None, None, None, None),
+   ("submenu-start", _("Node _Move"), "gtk-jump-to", None, None),
+   ("gtk-go-up", _("Node _Up"), "<alt>Up", _("Move the Selected Node Up"), inst.node_up),
+   ("gtk-go-down", _("Node _Down"), "<alt>Down", _("Move the Selected Node Down"), inst.node_down),
+   ("gtk-go-back", _("Node _Left"), "<alt>Left", _("Move the Selected Node Left"), inst.node_left),
+   ("gtk-jump-to", _("Node Change _Father"), "<alt>Right", _("Change the Selected Node's Father"), inst.node_change_father),
+   ("submenu-end", None, None, None, None),
+   ("separator", None, None, None, None),
+   ("gtk-zoom-in", _("E_xpand All Nodes"), None, _("Expand All the Tree Nodes"), inst.nodes_expand_all),
+   ("gtk-zoom-out", _("_Collapse All Nodes"), None, _("Collapse All the Tree Nodes"), inst.nodes_collapse_all),
+   ("separator", None, None, None, None),
+   ("Find", _("Find a _Node"), "<control>T", _("Find a Node from its Name"), inst.find_a_node),
+   ("Find Replace", _("Replace in Nodes _Names"), "<control><shift>T", _("Replace in Nodes Names"), inst.replace_in_nodes_names),
+   ("separator", None, None, None, None),
+   ("submenu-start", _("Nodes _Import"), "CherryTree Import", None, None),
+   ("CherryTree Import", _("From _Basket Folder"), None, _("Add Nodes of a Basket Folder to the Current Tree"), inst.nodes_add_from_basket_folder),
+   ("CherryTree Import", _("From _CherryTree File"), None, _("Add Nodes of a CherryTree File to the Current Tree"), inst.nodes_add_from_cherrytree_file),
+   ("CherryTree Import", _("From _KeepNote Folder"), None, _("Add Nodes of a KeepNote Folder to the Current Tree"), inst.nodes_add_from_keepnote_folder),
+   ("CherryTree Import", _("From _Leo File"), None, _("Add Nodes of a Leo File to the Current Tree"), inst.nodes_add_from_leo_file),
+   ("CherryTree Import", _("From _NoteCase File"), None, _("Add Nodes of a NoteCase File to the Current Tree"), inst.nodes_add_from_notecase_file),
+   ("CherryTree Import", _("From T_reepad Lite File"), None, _("Add Nodes of a Treepad Lite File to the Current Tree"), inst.nodes_add_from_treepad_file),
+   ("CherryTree Import", _("From _TuxCards File"), None, _("Add Nodes of a TuxCards File to the Current Tree"), inst.nodes_add_from_tuxcards_file),
+   ("submenu-end", None, None, None, None),
+   ("submenu-start", _("Nodes E_xport"), "CherryTree Export", None, None),
+   ("gtk-print", _("Node _Print / Save as PDF, PS, SVG"), "<control>P", _("Print the Current Node / Save the Current Node as PDF, PS, SVG"), inst.node_print),
+   ("To Txt", _("Save Node as Plain _Text"), None, _("Save the Selected Node as Plain Text"), inst.node_export_to_plain_text),
+   ("To HTML", _("Export Node To _HTML"), None, _("Export the Selected Node To HTML"), inst.node_export_to_html),
+   ("To HTML", _("Export _Tree To HTML"), None, _("Export the Tree To HTML"), inst.nodes_all_export_to_html),
+   ("CherryTree Export", _("_Export Node and Subnodes"), None, _("Export the Selected Node and its Subnodes"), inst.node_and_subnodes_export),
+   ("submenu-end", None, None, None, None),
+   ("separator", None, None, None, None),
+   ("gtk-sort-descending", _("Sort Siblings _Descending"), None, _("Sort all the Siblings of the Selected Node Descending"), inst.node_siblings_sort_descending),
+   ("gtk-sort-ascending", _("Sort Siblings _Ascending"), None, _("Sort all the Siblings of the Selected Node Ascending"), inst.node_siblings_sort_ascending),
+   ("separator", None, None, None, None),
+   ("gtk-execute", _("_Inherit Syntax"), None, _("Change the Selected Node's Children Syntax Highlighting to the Father's Syntax Highlighting"), inst.node_inherit_syntax),
+   ("separator", None, None, None, None),
+   ("gtk-clear", _("De_lete Node"), "<alt>Delete", _("Delete the Selected Node"), inst.node_delete),
+   ("separator", None, None, None, None),
+   ("gtk-go-back", _("Go _Back"), "<control>Left", _("Go to the Previous Visited Node"), inst.go_back),
+   ("gtk-go-forward", _("Go _Forward"), "<control>Right", _("Go to the Next Visited Node"), inst.go_forward),
    ]
 
 def get_popup_menu_entries_text(inst):

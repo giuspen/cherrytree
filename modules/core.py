@@ -327,7 +327,8 @@ class CherryTree:
       keyname = gtk.gdk.keyval_name(event.keyval)
       if keyname == "Return": self.node_edit()
       elif keyname == "Menu":
-         self.ui.get_widget("/TreeMenu").popup(None, None, None, 0, event.time)
+         self.menu_tree_exist_or_create()
+         self.menu_tree.popup(None, None, None, 0, event.time)
          widget.stop_emission("key_press_event")
    
    def on_drag_motion_cherrytree(self, widget, drag_context, x, y, timestamp):
@@ -603,6 +604,12 @@ class CherryTree:
             if curr_submenu: curr_submenu.append(menu_item)
             else: menu.append(menu_item)
          menu_item.show()
+      
+   def menu_tree_exist_or_create(self):
+      """Create the Tree Menu if it does not exist"""
+      if "menu_tree" in dir(self): return
+      self.menu_tree = gtk.Menu()
+      self.menu_populate_popup(self.menu_tree, cons.get_popup_menu_tree(self))
       
    def on_window_state_event(self, window, event):
       """Catch Window's Events"""
@@ -1487,7 +1494,8 @@ class CherryTree:
    def on_mouse_button_clicked_tree(self, widget, event):
       """Catches mouse buttons clicks"""
       if event.button == 3:
-         self.ui.get_widget("/TreeMenu").popup(None, None, None, event.button, event.time)
+         self.menu_tree_exist_or_create()
+         self.menu_tree.popup(None, None, None, event.button, event.time)
       elif event.button == 1 and event.type == gtk.gdk._2BUTTON_PRESS:
          self.node_edit()
       
