@@ -736,7 +736,8 @@ class CherryTree:
             self.sourceview.grab_focus()
             # but then we try restore the latest situation
             if self.node_path != None:
-               self.state_machine.forget_last_visited()
+               if self.treestore.get_path(first_node_iter) != self.node_path:
+                  self.state_machine.forget_last_visited()
                self.treeview.set_cursor(self.node_path)
                self.sourceview.grab_focus()
                self.curr_buffer.place_cursor(self.curr_buffer.get_iter_at_offset(self.cursor_position))
@@ -754,7 +755,7 @@ class CherryTree:
       if self.tree_is_empty(): support.dialog_warning(_("The Tree is Empty!"), self.window)
       else:
          filepath = support.dialog_file_save_as(self.file_name,
-                                                filter_pattern="*.ctd",
+                                                filter_pattern="*.ct*",
                                                 filter_name=_("CherryTree Document"),
                                                 curr_folder=self.file_dir,
                                                 parent=self.window)
