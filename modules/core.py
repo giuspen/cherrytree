@@ -761,13 +761,21 @@ class CherryTree:
          if filepath != None:
             if not os.path.isfile(filepath)\
             or support.dialog_question(_("The File %s\nAlready Exists, do you want to Overwrite?") % filepath, self.window):
-               if len(filepath) < 4 or filepath[-4:] != ".ctd": filepath += ".ctd"
+               filepath = self.filepath_extension_fix(filepath)
                if self.file_write(filepath):
                   self.file_dir = os.path.dirname(filepath)
                   self.file_name = os.path.basename(filepath)
                   support.add_recent_document(self, filepath)
                   self.update_window_save_not_needed()
                   self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
+      
+   def filepath_extension_fix(self, filepath):
+      """Check a filepath to have the proper extension"""
+      if not self.password:
+         if len(filepath) < 4 or filepath[-4:] != ".ctd": return filepath + ".ctd"
+      else:
+         if len(filepath) < 4 or filepath[-4:] != ".ctz": return filepath + ".ctz"
+      return filepath
       
    def file_save(self, *args):
       """Save the file"""
@@ -1041,7 +1049,7 @@ class CherryTree:
       if filepath == None: return
       if not os.path.isfile(filepath)\
       or support.dialog_question(_("The File %s\nAlready Exists, do you want to Overwrite?") % filepath, self.window):
-         if len(filepath) < 4 or filepath[-4:] != ".ctd": filepath += ".ctd"
+         filepath = self.filepath_extension_fix(filepath)
          self.file_write_node_and_subnodes(filepath)
       
    def node_export_to_plain_text(self, *args):
