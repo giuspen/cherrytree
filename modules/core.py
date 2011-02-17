@@ -576,8 +576,9 @@ class CherryTree:
          self.menu_populate_popup(menu, cons.get_popup_menu_entries_text(self))
       else: self.menu_populate_popup(menu, cons.get_popup_menu_entries_code(self))
       
-   def menu_populate_popup(self, menu, entries):
+   def menu_populate_popup(self, menu, entries, accel_group=None):
       """Populate the given menu with the given entries"""
+      if not accel_group: accel_group = self.ui.get_accel_group()
       curr_submenu = None
       for attributes in entries:
          if attributes[0] == "separator":
@@ -600,7 +601,7 @@ class CherryTree:
             menu_item.set_tooltip_text(attributes[3])
             if attributes[2]:
                key, mod = gtk.accelerator_parse(attributes[2])
-               menu_item.add_accelerator("activate", self.ui.get_accel_group(), key, mod, gtk.ACCEL_VISIBLE)
+               menu_item.add_accelerator("activate", accel_group, key, mod, gtk.ACCEL_VISIBLE)
             if curr_submenu: curr_submenu.append(menu_item)
             else: menu.append(menu_item)
          menu_item.show()

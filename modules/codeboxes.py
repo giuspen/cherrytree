@@ -95,6 +95,7 @@ class CodeBoxesHandler:
       anchor.sourceview.set_insert_spaces_instead_of_tabs(self.dad.spaces_instead_tabs)
       anchor.sourceview.set_tab_width(self.dad.tabs_width)
       anchor.sourceview.set_auto_indent(self.dad.auto_indent)
+      anchor.accel_group = gtk.AccelGroup()
       anchor.sourceview.connect('populate-popup', self.on_sourceview_populate_popup_codebox, anchor)
       anchor.sourceview.connect('key_press_event', self.on_sourceview_key_press_codebox, anchor)
       if self.dad.line_wrapping: anchor.sourceview.set_wrap_mode(gtk.WRAP_WORD)
@@ -191,4 +192,4 @@ class CodeBoxesHandler:
       """Extend the Default Right-Click Menu of the CodeBox"""
       self.curr_codebox_anchor = anchor
       self.dad.object_set_selection(self.curr_codebox_anchor)
-      self.dad.menu_populate_popup(menu, cons.get_popup_menu_entries_codebox(self))
+      self.dad.menu_populate_popup(menu, cons.get_popup_menu_entries_codebox(self), anchor.accel_group)
