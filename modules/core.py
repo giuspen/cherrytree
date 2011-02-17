@@ -1011,6 +1011,7 @@ class CherryTree:
             self.file_dir = os.path.dirname(filepath)
             self.file_name = os.path.basename(filepath)
             support.add_recent_document(self, filepath)
+            support.set_bookmarks_menu_items(self)
             self.update_window_save_not_needed()
             file_loaded = True
       except: pass
@@ -2854,6 +2855,20 @@ class CherryTree:
       self.curr_buffer.remove_all_tags(iter_sel_start, iter_sel_end)
       self.update_window_save_needed()
       self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
+      
+   def bookmark_curr_node(self, *args):
+      """Add the Current Node to the Bookmarks List"""
+      if self.curr_tree_iter == None:
+         support.dialog_warning(_("No Node is Selected"), self.window)
+         return
+      curr_node_id_str = str(self.treestore[self.curr_tree_iter][3])
+      if not curr_node_id_str in self.bookmarks:
+         self.bookmarks.append(curr_node_id_str)
+         self.update_window_save_needed()
+      
+   def bookmarks_handle(self, *args):
+      """Handle the Bookmarks List"""
+      print self.bookmarks
       
    def tree_is_empty(self):
       """Return True if the treestore is empty"""

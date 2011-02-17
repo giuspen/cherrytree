@@ -261,6 +261,11 @@ UI_INFO = """
          <menuitem action='DecreaseToolbarIconsSize'/>
       </menu>
       
+      <menu action='BookmarksMenu'>
+         <menuitem action='BookmarkThisNode'/>
+         <menuitem action='BookmarksHandle'/>
+      </menu>
+      
       <menu action='ImportMenu'>
          <menuitem action='FromBasket'/>
          <menuitem action='FromCherryTree'/>
@@ -380,6 +385,7 @@ def get_entries(inst):
    ( "SearchMenu", None, _("_Search") ),
    ( "ReplaceMenu", None, _("_Replace") ),
    ( "ViewMenu", None, _("_View") ),
+   ( "BookmarksMenu", None, _("_Bookmarks") ),
    ( "ImportMenu", None, _("_Import") ),
    ( "ExportMenu", None, _("E_xport") ),
    ( "HelpMenu", None, _("_Help") ),
@@ -487,6 +493,8 @@ def get_entries(inst):
    ( "TableSortRowsDesc", "gtk-sort-descending", _("Sort Rows De_scending"), None, _("Sort all the Rows Descending"), inst.tables_handler.table_rows_sort_descending),
    ( "TableSortRowsAsc", "gtk-sort-ascending", _("Sort Rows As_cending"), None, _("Sort all the Rows Ascending"), inst.tables_handler.table_rows_sort_ascending),
    ( "TableExport", "Save Table", _("_Table Export"), None, _("Export Table as CSV File"), inst.tables_handler.table_export),
+   ( "BookmarkThisNode", "gtk-add", _("_Bookmark This Node"), None, _("Add the Current Node to the Bookmarks List"), inst.bookmark_curr_node),
+   ( "BookmarksHandle", "gtk-edit", _("_Handle Bookmarks"), None, _("Handle the Bookmarks List"), inst.bookmarks_handle),
    ]
 
 def get_popup_menu_tree(inst):

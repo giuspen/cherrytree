@@ -72,11 +72,15 @@ class XMLHandler:
       """Parse an XML Cherry Tree Document file and build the Tree"""
       dom = xml.dom.minidom.parseString(ctd)
       cherrytree = dom.firstChild
+      self.dad.bookmarks = []
+      self.dad.bookmarks_menu_items = []
       if cherrytree.nodeName != "cherrytree": return False
       else:
          dom_iter = cherrytree.firstChild
          while dom_iter!= None:
             if dom_iter.nodeName == "node": self.append_tree_node(dom_iter, tree_father, discard_ids)
+            elif dom_iter.nodeName == "bookmarks":
+               self.dad.bookmarks = dom_iter.attributes['list'].value.split(",")
             dom_iter = dom_iter.nextSibling
          return True
          
@@ -230,7 +234,15 @@ class XMLHandler:
       while tree_iter != None:
          self.append_dom_node(tree_iter, cherrytree, to_disk=True)
          tree_iter = self.dad.treestore.iter_next(tree_iter)
+      self.append_bookmarks(cherrytree)
       return self.dom.toxml()
+      
+   def append_bookmarks(self, dom_father):
+      """Adds the bookmarks data to the DOM"""
+      if len(self.dad.bookmarks) == 0: return
+      dom_iter = self.dom.createElement("bookmarks")
+      dom_iter.setAttribute("list", ",".join(self.dad.bookmarks))
+      dom_father.appendChild(dom_iter)
       
    def append_dom_node(self, tree_iter, dom_father, to_disk):
       """Given the tree_iter node, adds it to the DOM"""

@@ -143,6 +143,23 @@ def dialog_error(message, parent=None):
    dialog.run()
    dialog.destroy()
 
+def set_bookmarks_menu_items(inst):
+   """Set Bookmarks Menu Items"""
+   bookmarks_menu = inst.ui.get_widget("/MenuBar/BookmarksMenu").get_submenu()
+   for menu_item in inst.bookmarks_menu_items:
+      bookmarks_menu.remove(menu_item)
+   menu_item = gtk.SeparatorMenuItem()
+   menu_item.show()
+   bookmarks_menu.append(menu_item)
+   inst.bookmarks_menu_items = [menu_item]
+   for node_id_str in inst.bookmarks:
+      menu_item = gtk.ImageMenuItem(node_id_str)
+      menu_item.set_image(gtk.image_new_from_stock("gtk-open", gtk.ICON_SIZE_MENU))
+      menu_item.connect("activate", select_bookmark_node, node_id_str, inst)
+      menu_item.show()
+      bookmarks_menu.append(menu_item)
+      inst.bookmarks_menu_items.append(menu_item)
+
 def set_recent_documents(inst):
    """Set Recent Documents Menu and Toolbar"""
    inst.recent_menu_1 = gtk.Menu()
@@ -189,3 +206,7 @@ def open_recent_document(menu_item, filepath, dad):
       menu_item.hide()
       try: dad.recent_docs.remove(filepath)
       except: pass
+
+def select_bookmark_node(menu_item, node_id_str, dad):
+   """Select a Node in the Bookmarks List"""
+   print node_id_str
