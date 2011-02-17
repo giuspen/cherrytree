@@ -201,6 +201,7 @@ class FindReplace:
          self.dad.glade.allmatchesdialog.set_title(str(self.matches_num) + cons.CHAR_SPACE + _("Matches"))
          self.dad.glade.allmatchesdialog.run()
          self.dad.glade.allmatchesdialog.hide()
+      if self.matches_num: self.dad.update_window_save_needed()
    
    def find_pattern(self, pattern, start_iter, forward, all_matches):
       """Returns (start_iter, end_iter) or (None, None)"""
