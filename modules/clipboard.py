@@ -200,7 +200,8 @@ class ClipboardHandler:
       iter_insert = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
       start_offset = iter_insert.get_offset()
       self.dad.curr_buffer.insert(iter_insert, plain_text)
-      if not cons.CHAR_NEWLINE in plain_text\
+      if self.dad.syntax_highlighting == cons.CUSTOM_COLORS_ID\
+      and not cons.CHAR_NEWLINE in plain_text\
       and len(plain_text) > 7\
       and (plain_text[0:4] == "http" or plain_text[0:3] == "ftp"):
          iter_sel_start = self.dad.curr_buffer.get_iter_at_offset(start_offset)
