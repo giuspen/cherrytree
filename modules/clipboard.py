@@ -163,7 +163,7 @@ class ClipboardHandler:
       for element in uri_list:
          if len(element) > 7:
             iter_insert = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
-            if element[0:4] == "http": property_value = "webs " + element
+            if (element[0:4] == "http" or element[0:3] == "ftp"): property_value = "webs " + element
             elif element[0:7] == "file://":
                file_path = element[7:].replace("%20", cons.CHAR_SPACE)
                mimetype = mimetypes.guess_type(file_path)[0]
@@ -197,8 +197,17 @@ class ClipboardHandler:
    def to_plain_text(self, clipboard, selectiondata, data):
       """From Clipboard to Plain Text"""
       plain_text = selectiondata.get_text()
-      self.dad.curr_buffer.insert(self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert()),
-                                  plain_text)
+      iter_insert = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
+      start_offset = iter_insert.get_offset()
+      self.dad.curr_buffer.insert(iter_insert, plain_text)
+      if not cons.CHAR_NEWLINE in plain_text\
+      and len(plain_text) > 7\
+      and (plain_text[0:4] == "http" or plain_text[0:3] == "ftp"):
+         iter_sel_start = self.dad.curr_buffer.get_iter_at_offset(start_offset)
+         iter_sel_end = self.dad.curr_buffer.get_iter_at_offset(start_offset + len(plain_text))
+         property_value = "webs " + plain_text
+         self.dad.curr_buffer.apply_tag_by_name(self.dad.apply_tag_exist_or_create("link", property_value),
+                                                iter_sel_start, iter_sel_end)
    
    def to_rich_text(self, clipboard, selectiondata, data):
       """From Clipboard to Rich Text"""
