@@ -153,7 +153,8 @@ def set_bookmarks_menu_items(inst):
    bookmarks_menu.append(menu_item)
    inst.bookmarks_menu_items = [menu_item]
    for node_id_str in inst.bookmarks:
-      menu_item = gtk.ImageMenuItem(node_id_str)
+      if not long(node_id_str) in inst.nodes_names_dict: continue
+      menu_item = gtk.ImageMenuItem(inst.nodes_names_dict[long(node_id_str)])
       menu_item.set_image(gtk.image_new_from_stock("gtk-open", gtk.ICON_SIZE_MENU))
       menu_item.connect("activate", select_bookmark_node, node_id_str, inst)
       menu_item.show()
@@ -209,4 +210,5 @@ def open_recent_document(menu_item, filepath, dad):
 
 def select_bookmark_node(menu_item, node_id_str, dad):
    """Select a Node in the Bookmarks List"""
-   print node_id_str
+   node_iter = dad.get_tree_iter_from_node_id(long(node_id_str))
+   if node_iter: dad.treeview_safe_set_cursor(node_iter)

@@ -163,6 +163,7 @@ class CherryTree:
       self.tag_table = gtk.TextTagTable()
       self.scrolledwindow_text.add(self.sourceview)
       self.go_bk_fw_click = False
+      self.bookmarks_menu_items = []
       self.password = None
       self.curr_tree_iter = None
       self.curr_window_n_tree_width = None
@@ -2868,6 +2869,7 @@ class CherryTree:
       curr_node_id_str = str(self.treestore[self.curr_tree_iter][3])
       if not curr_node_id_str in self.bookmarks:
          self.bookmarks.append(curr_node_id_str)
+         support.set_bookmarks_menu_items(self)
          self.update_window_save_needed()
       
    def bookmarks_handle(self, *args):

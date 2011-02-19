@@ -73,8 +73,12 @@ class XMLHandler:
       dom = xml.dom.minidom.parseString(ctd)
       cherrytree = dom.firstChild
       self.dad.bookmarks = []
-      if reset_nodes_names: self.dad.nodes_names_dict = {}
-      self.dad.bookmarks_menu_items = []
+      if reset_nodes_names:
+         self.dad.nodes_names_dict = {}
+         bookmarks_menu = self.dad.ui.get_widget("/MenuBar/BookmarksMenu").get_submenu()
+         for menu_item in self.dad.bookmarks_menu_items:
+            bookmarks_menu.remove(menu_item)
+         self.dad.bookmarks_menu_items = []
       if cherrytree.nodeName != "cherrytree": return False
       else:
          dom_iter = cherrytree.firstChild
