@@ -460,7 +460,7 @@ class Export2Html:
                if vector[0] == "webs": href = vector[1]
                elif vector[0] == "file": href = "file://" + base64.b64decode(vector[1])
                elif vector[0] == "node":
-                  dest_tree_iter = self.dad.get_tree_iter_from_node_id(int(vector[1]))
+                  dest_tree_iter = self.dad.get_tree_iter_from_node_id(long(vector[1]))
                   if not dest_tree_iter: continue
                   href = self.get_html_filename(dest_tree_iter)
                   if len(vector) >= 3:

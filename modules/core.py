@@ -526,7 +526,8 @@ class CherryTree:
             return
       try:
          # the imported nodes unique_ids must be discarded!
-         if self.xml_handler.dom_to_treestore(cherrytree_string, discard_ids=True, tree_father=tree_father):
+         if self.xml_handler.dom_to_treestore(cherrytree_string, discard_ids=True,
+                                              tree_father=tree_father, reset_nodes_names=False):
             if self.expand_tree: self.treeview.expand_all()
             file_loaded = True
       except: pass
@@ -1612,6 +1613,7 @@ class CherryTree:
                                                       node_level,
                                                       self.glade.tags_searching_entry.get_text(),
                                                       self.glade.checkbutton_readonly.get_active()])
+      self.nodes_names_dict[self.treestore[new_node_iter][3]] = self.treestore[new_node_iter][1]
       new_node_path = self.treestore.get_path(new_node_iter)
       self.treeview.set_cursor(new_node_path)
       self.sourceview.grab_focus()
@@ -1637,6 +1639,7 @@ class CherryTree:
                                                                      node_level,
                                                                      self.glade.tags_searching_entry.get_text(),
                                                                      self.glade.checkbutton_readonly.get_active()])
+         self.nodes_names_dict[self.treestore[new_node_iter][3]] = self.treestore[new_node_iter][1]
          new_node_path = self.treestore.get_path(new_node_iter)
          father_node_path = self.treestore.get_path(self.curr_tree_iter)
          self.treeview.expand_row(father_node_path, True) # second parameter tells whether to expand childrens too
@@ -2452,7 +2455,7 @@ class CherryTree:
                   if self.link_type == "webs": self.glade.link_website_entry.set_text(vector[1])
                   elif self.link_type == "file": self.glade.entry_file_to_link_to.set_text(base64.b64decode(vector[1]))
                   elif self.link_type == "node":
-                     link_node_id = int(vector[1])
+                     link_node_id = long(vector[1])
                      if len(vector) >= 3:
                         if len(vector) == 3: anchor_name = vector[2]
                         else: anchor_name = tag_property_value[len(vector[0]) + len(vector[1]) + 2:]
@@ -2604,7 +2607,7 @@ class CherryTree:
          else: subprocess.call("xdg-open %s" % re.escape(filepath), shell=True)
       elif vector[0] == "node":
          # link to a tree node
-         tree_iter = self.get_tree_iter_from_node_id(int(vector[1]))
+         tree_iter = self.get_tree_iter_from_node_id(long(vector[1]))
          if tree_iter == None:
             support.dialog_error(_("The Link Refers to a Node that Does Not Exist Anymore (Id = %s)") % vector[1], self.window)
             return
@@ -2698,7 +2701,8 @@ class CherryTree:
             vector = tag_name[5:].split()
             if vector[0] == "file": tooltip = base64.b64decode(vector[1])
             else:
-               tooltip = vector[1]
+               if vector[0] == "node" and long(vector[1]) in self.nodes_names_dict: tooltip = self.nodes_names_dict[long(vector[1])]
+               else: tooltip = vector[1]
                if len(vector) >= 3:
                   if len(vector) == 3: anchor_name = vector[2]
                   else: anchor_name = tag_name[5 + len(vector[0]) + len(vector[1]) + 2:]

@@ -68,11 +68,12 @@ class XMLHandler:
       textbuffer.set_modified(False)
       return True
    
-   def dom_to_treestore(self, ctd, discard_ids, tree_father=None):
+   def dom_to_treestore(self, ctd, discard_ids, tree_father=None, reset_nodes_names=True):
       """Parse an XML Cherry Tree Document file and build the Tree"""
       dom = xml.dom.minidom.parseString(ctd)
       cherrytree = dom.firstChild
       self.dad.bookmarks = []
+      if reset_nodes_names: self.dad.nodes_names_dict = {}
       self.dad.bookmarks_menu_items = []
       if cherrytree.nodeName != "cherrytree": return False
       else:
@@ -127,6 +128,7 @@ class XMLHandler:
                                                           node_level,
                                                           node_tags,
                                                           readonly])
+      self.dad.nodes_names_dict[self.dad.treestore[tree_iter][3]] = self.dad.treestore[tree_iter][1]
       # loop for child nodes
       while child_dom_iter!= None:
          if child_dom_iter.nodeName == 'rich_text':
