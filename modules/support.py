@@ -161,8 +161,30 @@ def set_bookmarks_menu_items(inst):
       bookmarks_menu.append(menu_item)
       inst.bookmarks_menu_items.append(menu_item)
 
-def set_recent_documents(inst):
-   """Set Recent Documents Menu and Toolbar"""
+def set_menu_items_justification(inst):
+   """Set Justification menu items on toolbar Toolbar"""
+   justification_menu = gtk.Menu()
+   menu_item = gtk.ImageMenuItem(_("Justify _Left"))
+   menu_item.set_tooltip_text(_("Justify Left the Current Paragraph"))
+   menu_item.set_image(gtk.image_new_from_stock("gtk-justify-left", gtk.ICON_SIZE_MENU))
+   menu_item.connect("activate", inst.apply_tag_justify_left)
+   menu_item.show()
+   justification_menu.append(menu_item)
+   menu_item = gtk.ImageMenuItem(_("Justify _Right"))
+   menu_item.set_tooltip_text(_("Justify Right the Current Paragraph"))
+   menu_item.set_image(gtk.image_new_from_stock("gtk-justify-right", gtk.ICON_SIZE_MENU))
+   menu_item.connect("activate", inst.apply_tag_justify_right)
+   menu_item.show()
+   justification_menu.append(menu_item)
+   menu_toolbutton = gtk.MenuToolButton("gtk-justify-center")
+   menu_toolbutton.set_tooltip_text(_("Justify Center the Current Paragraph"))
+   menu_toolbutton.set_arrow_tooltip_text(_("Justify Left/Right the Current Paragraph"))
+   menu_toolbutton.set_menu(justification_menu)
+   menu_toolbutton.connect("clicked", inst.apply_tag_justify_center)
+   inst.ui.get_widget("/ToolBar").insert(menu_toolbutton, 14)
+
+def set_menu_items_recent_documents(inst):
+   """Set Recent Documents menu items on Menu and Toolbar"""
    inst.recent_menu_1 = gtk.Menu()
    inst.recent_menu_2 = gtk.Menu()
    for target in [1, 2]:
@@ -212,3 +234,7 @@ def select_bookmark_node(menu_item, node_id_str, dad):
    """Select a Node in the Bookmarks List"""
    node_iter = dad.get_tree_iter_from_node_id(long(node_id_str))
    if node_iter: dad.treeview_safe_set_cursor(node_iter)
+
+def bookmarks_handle(dad):
+   """Handle the Bookmarks List"""
+   print dad.bookmarks
