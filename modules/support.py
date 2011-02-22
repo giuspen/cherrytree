@@ -249,6 +249,13 @@ def bookmarks_handle(dad):
    treeview = gtk.TreeView(liststore)
    treeview.set_headers_visible(False)
    treeview.set_reorderable(True)
+   treeviewselection = treeview.get_selection()
+   def on_key_press_liststore(widget, event):
+      keyname = gtk.gdk.keyval_name(event.keyval)
+      if keyname == "Delete":
+         model, tree_iter = treeviewselection.get_selected()
+         if tree_iter: model.remove(tree_iter)
+   treeview.connect('key_press_event', on_key_press_liststore)
    renderer_pixbuf = gtk.CellRendererPixbuf()
    renderer_text = gtk.CellRendererText()
    column = gtk.TreeViewColumn()
