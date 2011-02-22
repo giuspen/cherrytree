@@ -249,6 +249,7 @@ def bookmarks_handle(dad):
    treeview = gtk.TreeView(liststore)
    treeview.set_headers_visible(False)
    treeview.set_reorderable(True)
+   treeview.set_tooltip_text(_("Sort with Drag and Drop, Delete with the Delete Key"))
    treeviewselection = treeview.get_selection()
    def on_key_press_liststore(widget, event):
       keyname = gtk.gdk.keyval_name(event.keyval)
