@@ -155,7 +155,7 @@ def set_bookmarks_menu_items(inst):
    for node_id_str in inst.bookmarks:
       if not long(node_id_str) in inst.nodes_names_dict: continue
       menu_item = gtk.ImageMenuItem(inst.nodes_names_dict[long(node_id_str)])
-      menu_item.set_image(gtk.image_new_from_stock("gtk-open", gtk.ICON_SIZE_MENU))
+      menu_item.set_image(gtk.image_new_from_stock("Red Cherry", gtk.ICON_SIZE_MENU))
       menu_item.connect("activate", select_bookmark_node, node_id_str, inst)
       menu_item.show()
       bookmarks_menu.append(menu_item)
@@ -237,4 +237,40 @@ def select_bookmark_node(menu_item, node_id_str, dad):
 
 def bookmarks_handle(dad):
    """Handle the Bookmarks List"""
-   print dad.bookmarks
+   dialog = gtk.Dialog(title=_("Handle the Bookmarks List"),
+                       parent=dad.window,
+                       flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
+                       buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
+                       gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
+   dialog.set_default_size(500, 400)
+   liststore = gtk.ListStore(str, str, str)
+   for node_id_str in dad.bookmarks:
+      liststore.append(["Red Cherry", dad.nodes_names_dict[long(node_id_str)], node_id_str])
+   treeview = gtk.TreeView(liststore)
+   treeview.set_headers_visible(False)
+   treeview.set_reorderable(True)
+   renderer_pixbuf = gtk.CellRendererPixbuf()
+   renderer_text = gtk.CellRendererText()
+   column = gtk.TreeViewColumn()
+   column.pack_start(renderer_pixbuf, False)
+   column.pack_start(renderer_text, True)
+   column.set_attributes(renderer_pixbuf, stock_id=0)
+   column.set_attributes(renderer_text, text=1)
+   treeview.append_column(column)
+   scrolledwindow = gtk.ScrolledWindow()
+   scrolledwindow.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+   scrolledwindow.add(treeview)
+   content_area = dialog.get_content_area()
+   content_area.pack_start(scrolledwindow)
+   content_area.show_all()
+   response = dialog.run()
+   temp_bookmarks = []
+   tree_iter = liststore.get_iter_first()
+   while tree_iter != None:
+      temp_bookmarks.append(liststore[tree_iter][2])
+      tree_iter = liststore.iter_next(tree_iter)
+   dialog.destroy()
+   if response != gtk.RESPONSE_ACCEPT: return False
+   dad.bookmarks = temp_bookmarks
+   set_bookmarks_menu_items(dad)
+   return True

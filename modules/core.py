@@ -69,6 +69,7 @@ class CherryTree:
          iconset = gtk.IconSet(pixbuf)
          factory.add(stock_name, iconset)
       factory.add_default()
+      gtk.settings_get_default().set_property("gtk-button-images", True)
       # glade
       self.glade = GladeWidgetsWrapper(cons.GLADE_PATH + 'cherrytree.glade', self) # glade widgets access
       self.window = self.glade.window
@@ -2875,7 +2876,8 @@ class CherryTree:
       
    def bookmarks_handle(self, *args):
       """Handle the Bookmarks List"""
-      support.bookmarks_handle(self)
+      if support.bookmarks_handle(self):
+         self.update_window_save_needed()
       
    def tree_is_empty(self):
       """Return True if the treestore is empty"""
