@@ -6,44 +6,96 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.17.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-01 01:05+0200\n"
+"POT-Creation-Date: 2011-02-23 15:04+0100\n"
 "PO-Revision-Date: 2011-01-01 15:32+0100\n"
 "Last-Translator: Dario Villar Veres <dario.villar.v@gmail.com>\n"
 "Language-Team: Galician <>\n"
+"Language: gl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: gl\n"
 "X-Generator: Lokalize 1.1\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: modules/support.py:33
+#: modules/support.py:34
 msgid "Save File as"
 msgstr "Gardar o ficheiro como"
 
-#: modules/support.py:58
+#: modules/support.py:59
 msgid "Select File"
 msgstr "Seleccionar ficheiro"
 
-#: modules/support.py:81
+#: modules/support.py:82
 msgid "Select Folder"
 msgstr "Escoller o cartafol"
 
-#: modules/support.py:104
+#: modules/support.py:105
 msgid "Question"
 msgstr "Pregunta"
 
-#: modules/support.py:119
+#: modules/support.py:120
 msgid "Info"
 msgstr "Información"
 
-#: modules/support.py:130 glade/cherrytree.glade.h:113
+#: modules/support.py:131 glade/cherrytree.glade.h:116
 msgid "Warning"
 msgstr "Aviso"
 
-#: modules/support.py:141
+#: modules/support.py:142
 msgid "Error"
 msgstr "Erro"
+
+#: modules/support.py:167 modules/cons.py:448 modules/cons.py:577
+msgid "Justify _Left"
+msgstr "Aliñar á _esquerda"
+
+#: modules/support.py:168 modules/cons.py:448 modules/cons.py:577
+msgid "Justify Left the Current Paragraph"
+msgstr "Aliña parágrafo á esquerda"
+
+#: modules/support.py:173 modules/cons.py:450 modules/cons.py:579
+msgid "Justify _Right"
+msgstr "Aliñar á _dereita"
+
+#: modules/support.py:174 modules/cons.py:450 modules/cons.py:579
+msgid "Justify Right the Current Paragraph"
+msgstr "Aliña o parágrafo á dereita"
+
+#: modules/support.py:180 modules/cons.py:449 modules/cons.py:578
+msgid "Justify Center the Current Paragraph"
+msgstr "Centra o parágrafo"
+
+#: modules/support.py:181
+#, fuzzy
+msgid "Justify Left/Right the Current Paragraph"
+msgstr "Aliña o parágrafo á dereita"
+
+#: modules/support.py:199
+#, fuzzy
+msgid "_Recent Documents"
+msgstr "Documento de Treepad"
+
+#: modules/support.py:201 modules/support.py:207
+#, fuzzy
+msgid "Open a Recent CherryTree Document"
+msgstr "Abrir un documento de CherryTree"
+
+#: modules/support.py:206 modules/cons.py:394
+msgid "Open a CherryTree Document"
+msgstr "Abrir un documento de CherryTree"
+
+#: modules/support.py:228
+#, fuzzy, python-format
+msgid "The Document %s was Not Found"
+msgstr "Non se econtrou o patrón «%s»"
+
+#: modules/support.py:240 modules/cons.py:497
+msgid "Handle the Bookmarks List"
+msgstr ""
+
+#: modules/support.py:252
+msgid "Sort with Drag and Drop, Delete with the Delete Key"
+msgstr ""
 
 #: modules/findreplace.py:45
 msgid "Search in Current Node..."
@@ -80,75 +132,84 @@ msgstr "Buscar por un nome de un nodo..."
 msgid "Replace in Node Names..."
 msgstr "Substituír nos nomes dos nodos..."
 
-#: modules/findreplace.py:373
+#: modules/findreplace.py:374
 msgid "No Previous Search Was Performed During This Session"
 msgstr "Non se realizou ningunha búsqueda durante esta sesión"
 
-#: modules/findreplace.py:417
+#: modules/findreplace.py:418
 msgid "Node Name"
 msgstr "Nome do nodo"
 
-#: modules/findreplace.py:419
+#: modules/findreplace.py:420
 msgid "Line Content"
 msgstr "Contido da liña"
 
-#: modules/core.py:78
+#: modules/core.py:79
 msgid "Another Instance of CherryTree is Already Running"
 msgstr "Xa hai outra instancia de CherryTree en execución"
 
-#: modules/core.py:175 modules/core.py:187
+#: modules/core.py:190 modules/core.py:202
 #, python-format
 msgid "Version %s"
 msgstr "Versión %s"
 
-#: modules/core.py:179
+#: modules/core.py:194
 msgid "Checking for Newer Version..."
 msgstr "Verificando se hai unha nova versión..."
 
-#: modules/core.py:185
+#: modules/core.py:200
 msgid "A Newer Version Is Available!"
 msgstr "Hai unha nova versión dispoñíbel!"
 
-#: modules/core.py:204 modules/core.py:2251 modules/core.py:2256
-#: modules/core.py:2638
+#: modules/core.py:219 modules/core.py:2449 modules/core.py:2454
+#: modules/core.py:2859
 msgid "No Text is Selected"
 msgstr "Non se escolleu texto"
 
-#: modules/core.py:294 modules/core.py:626 modules/core.py:705
-#: modules/core.py:899
+#: modules/core.py:361 modules/core.py:1271
+msgid "The new father can't be one of his sons!"
+msgstr "O nodo pai non pode ser un dos seus fillos!"
+
+#: modules/core.py:399 modules/core.py:764 modules/core.py:853
+#: modules/core.py:1053
 msgid "CherryTree Document"
 msgstr "Documento de CherryTree"
 
-#: modules/core.py:310
+#: modules/core.py:415
 msgid "NoteCase Document"
 msgstr "Documento de Notecase"
 
-#: modules/core.py:362
+#: modules/core.py:467
 msgid "Treepad Document"
 msgstr "Documento de Treepad"
 
-#: modules/core.py:390
+#: modules/core.py:484
+#, fuzzy
+msgid "Leo Document"
+msgstr "Documento de Treepad"
+
+#: modules/core.py:512
 msgid "Who is the Father?"
 msgstr "Quen é o pai?"
 
-#: modules/core.py:395
+#: modules/core.py:517
 msgid "The Tree Root"
 msgstr "A raíz do árbore"
 
-#: modules/core.py:396
+#: modules/core.py:518
 msgid "The Selected Node"
 msgstr "O nodo escollido"
 
-#: modules/core.py:527
+#: modules/core.py:660
 msgid "CherryTree Hierarchical Note Taking"
 msgstr "CherryTree - Xestor de notas xerárquico"
 
-#: modules/core.py:622 modules/core.py:642 modules/core.py:938
-#: modules/core.py:1636 modules/core.py:1647 modules/core.py:1928
+#: modules/core.py:760 modules/core.py:789 modules/core.py:1097
+#: modules/core.py:1812 modules/core.py:1823 modules/core.py:2126
 msgid "The Tree is Empty!"
 msgstr "O árbore está baleiro!"
 
-#: modules/core.py:631 modules/core.py:904 modules/core.py:920
+#: modules/core.py:769 modules/core.py:1058 modules/core.py:1074
 #: modules/tablez.py:63
 #, python-format
 msgid ""
@@ -158,47 +219,47 @@ msgstr ""
 "O ficheiro %s\n"
 "Xa existe, desexa sobrescrilo?"
 
-#: modules/core.py:658
+#: modules/core.py:806
 msgid "Writing to Disk..."
 msgstr "Escribindo no disco..."
 
-#: modules/core.py:672 modules/core.py:831
+#: modules/core.py:820 modules/core.py:983
 msgid ""
 "The Contemporary Presence of Single and Double Quotes in the File Path "
 "Prevents 7za.exe to Work, Please Change the File Name"
 msgstr ""
-"A presencia de comiñas dobres ou sinxelas na ruta do ficheiro "
-"impidelle traballara 7za.exe, cambie o nome do ficheiro"
+"A presencia de comiñas dobres ou sinxelas na ruta do ficheiro impidelle "
+"traballara 7za.exe, cambie o nome do ficheiro"
 
-#: modules/core.py:720
+#: modules/core.py:872
 msgid "No Document is Opened"
 msgstr "Non hai ningún documento aberto"
 
-#: modules/core.py:722
+#: modules/core.py:874
 msgid "Document Protection"
 msgstr "Protección do documento"
 
-#: modules/core.py:727
+#: modules/core.py:879
 msgid "Not Protected"
 msgstr "Non está protexido"
 
-#: modules/core.py:728
+#: modules/core.py:880
 msgid "Password Protected"
 msgstr "Protexido por contrasinal"
 
-#: modules/core.py:737
+#: modules/core.py:889
 msgid "Enter the New Password Twice"
 msgstr "Introducir o novo contrasinal dúas veces"
 
-#: modules/core.py:771
+#: modules/core.py:923
 msgid "The Password Fields Must be Filled"
 msgstr "Os campos de contrasinal deben ser enchidos"
 
-#: modules/core.py:774
+#: modules/core.py:926
 msgid "The Two Inserted Passwords Do Not Match"
 msgstr "Os dous contrasinales inseridos non coinciden"
 
-#: modules/core.py:789
+#: modules/core.py:941
 msgid ""
 "Binary Executable '7za' Not Found, Check The Package 'p7zip-full' to be "
 "Installed Properly"
@@ -206,70 +267,66 @@ msgstr ""
 "Non se atopou o executable «7za», comprobe que o paquete «p7zip-full» esté "
 "instalado correctamente"
 
-#: modules/core.py:795
+#: modules/core.py:947
 #, python-format
 msgid "Enter Password for %s"
 msgstr "Introducir contrasinal para %s"
 
-#: modules/core.py:842
+#: modules/core.py:994
 msgid "Wrong Password"
 msgstr "Contrasinal incorrecto"
 
-#: modules/core.py:846 modules/core.py:869
+#: modules/core.py:998 modules/core.py:1023
 #, python-format
 msgid "\"%s\" is Not a CherryTree Document"
 msgstr "«%s» non é un documento de CherryTree"
 
-#: modules/core.py:895 modules/core.py:911 modules/core.py:930
-#: modules/core.py:954 modules/core.py:1003 modules/core.py:1029
-#: modules/core.py:1040 modules/core.py:1051 modules/core.py:1088
-#: modules/core.py:1458 modules/core.py:1483 modules/core.py:1508
-#: modules/core.py:1625
+#: modules/core.py:1049 modules/core.py:1065 modules/core.py:1084
+#: modules/core.py:1113 modules/core.py:1162 modules/core.py:1188
+#: modules/core.py:1199 modules/core.py:1210 modules/core.py:1246
+#: modules/core.py:1627 modules/core.py:1655 modules/core.py:1680
+#: modules/core.py:1801
 msgid "No Node is Selected!"
 msgstr "Non se escolleu ningún nodo!"
 
-#: modules/core.py:915
+#: modules/core.py:1069
 msgid "Plain Text Document"
 msgstr "Documento de texto plano"
 
-#: modules/core.py:1097 glade/cherrytree.glade.h:100
+#: modules/core.py:1255 glade/cherrytree.glade.h:103
 msgid "Select the New Father"
 msgstr "Escoller o novo pai"
 
-#: modules/core.py:1105
+#: modules/core.py:1263
 msgid "The new father can't be the very node to move!"
 msgstr "O novo pai non pode ser o nodo que se está a mover!"
 
-#: modules/core.py:1108
+#: modules/core.py:1266
 msgid "The new choosed father is again the old father!"
 msgstr "O novo pai escollido é o antigo pai!"
 
-#: modules/core.py:1113
-msgid "The new father can't be one of his sons!"
-msgstr "O nodo pai non pode ser un dos seus fillos!"
-
-#: modules/core.py:1364
+#: modules/core.py:1529
 msgid "Disabled (Custom Colors)"
 msgstr "Desactivar (Cores personalizados)"
 
-#: modules/core.py:1392
+#: modules/core.py:1557
 msgid "The New Language will be Available Only After Restarting CherryTree"
 msgstr "A nova lingua estará dispoñibel despois de reiniciar CherryTree"
 
-#: modules/core.py:1427
+#: modules/core.py:1593
 msgid "Insert the New Node Name..."
 msgstr "Inserir o nome do novo nodo..."
 
-#: modules/core.py:1460
+#: modules/core.py:1630
 msgid "Insert the New Child Node Name..."
 msgstr "Inserir o nome para o novo nodo fillo..."
 
-#: modules/core.py:1485
+#: modules/core.py:1657
 #, python-format
 msgid "Are you sure to <b>Delete the node '%s'?</b>"
 msgstr "Ten a certeza de que desexa <b>Eliminar o nodo «%s»</b>"
 
-#: modules/core.py:1487
+#: modules/core.py:1659
 msgid ""
 "\n"
 "\n"
@@ -279,11 +336,11 @@ msgstr ""
 "\n"
 "O nodo <b>ten fillos, van a ser eleiminados tamén!</b>"
 
-#: modules/core.py:1513
+#: modules/core.py:1686
 msgid "Insert the New Name for the Node..."
 msgstr "Inserir o novo nome para o nodo..."
 
-#: modules/core.py:1518
+#: modules/core.py:1691
 msgid ""
 "Entering the Automatic Syntax Highlighting you will Lose all Custom Colors "
 "for This Node, Do you want to Continue?"
@@ -291,88 +348,93 @@ msgstr ""
 "Ao activar o resaltado de sintaxe automático perderá todas as cores "
 "personalizadas para este nodo, Desexa continuar de todos modos?"
 
-#: modules/core.py:1752 modules/core.py:1911 modules/core.py:2245
+#: modules/core.py:1948 modules/core.py:2109 modules/core.py:2443
+#: modules/core.py:2869
 msgid "No Node is Selected"
 msgstr "Non se escolleu ningún nodo"
 
-#: modules/core.py:1777
+#: modules/core.py:1974
 msgid "The Size of the Toolbar Icons is already at the Maximum Value"
 msgstr "O tamaño para as iconas da barra de ferramentas xa ten o valor máximo"
 
-#: modules/core.py:1785
+#: modules/core.py:1982
 msgid "The Size of the Toolbar Icons is already at the Minimum Value"
 msgstr "O tamaño para as iconas da barra de ferramentas xa ten o valor mínimo"
 
-#: modules/core.py:1863
+#: modules/core.py:2060
 msgid "Edit Anchor"
 msgstr "Editar ancora"
 
-#: modules/core.py:1866
+#: modules/core.py:2063
 msgid "Insert Anchor"
 msgstr "Inserir ancora"
 
-#: modules/core.py:1874
+#: modules/core.py:2072
 msgid "The Anchor Name is Mandatory!"
 msgstr "É obrigatorio o nome da ancora!"
 
-#: modules/core.py:1889
+#: modules/core.py:2087
 msgid "Not Any H1 or H2 Formatting Found"
 msgstr "Non se atopou ningun formatado H1 ou H2"
 
-#: modules/core.py:1914 modules/core.py:2221 modules/core.py:2228
-#: modules/core.py:2240
+#: modules/core.py:2112 modules/core.py:2419 modules/core.py:2426
+#: modules/core.py:2438
 msgid ""
 "Automatic Syntax Highlighting Must be Disabled in order to Use This Feature"
 msgstr ""
 "O realzado de sintaxe debe estar desactivado para usar esta característica"
 
-#: modules/core.py:2032
+#: modules/core.py:2230
 msgid "PNG Image"
 msgstr "Imaxe PNG"
 
-#: modules/core.py:2038
+#: modules/core.py:2236
 #, python-format
 msgid "Write to %s Failed"
 msgstr "A escritura en %s fallou"
 
-#: modules/core.py:2234
+#: modules/core.py:2432
 msgid "No Previous Text Format Was Performed During This Session"
 msgstr "Non se realizou ningún formatado de texto durante esta sesión"
 
-#: modules/core.py:2274
+#: modules/core.py:2475
 msgid "The Cursor is Not into a Paragraph"
 msgstr "O cursor non está nun parágrafo"
 
-#: modules/core.py:2283
+#: modules/core.py:2484
 msgid "Insert/Edit a Link"
 msgstr "Inserir/Editar unha ligazón"
 
-#: modules/core.py:2406
+#: modules/core.py:2607
 #, python-format
 msgid "The File Link '%s' is Not Valid"
 msgstr "O enlace «%s» non é válido"
 
-#: modules/core.py:2414
+#: modules/core.py:2615
 #, python-format
 msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
 msgstr "O enlace refírese a un nodo que xa non existe (Id = %s)"
 
-#: modules/core.py:2422
+#: modules/core.py:2625
 #, python-format
 msgid "No anchor named '%s' found"
 msgstr "Non se atopou unha áncora nomeada «%s»"
 
-#: modules/core.py:2460
+#: modules/core.py:2663
 msgid "There are No Anchors in the Selected Node"
 msgstr "Non hai áncoras no nodo escollido"
 
-#: modules/core.py:2465
+#: modules/core.py:2668
 msgid "Choose Existing Anchor"
 msgstr "Escoller ancora existente"
 
-#: modules/core.py:2478
+#: modules/core.py:2681
 msgid "Anchor Name"
 msgstr "Nome da ancora"
+
+#: modules/core.py:2818 glade/cherrytree.glade.h:99
+msgid "Read Only"
+msgstr ""
 
 #: modules/tablez.py:59 modules/tablez.py:94
 msgid "CSV File"
@@ -382,7 +444,7 @@ msgstr "Ficheiro CVS"
 msgid "Insert Table"
 msgstr "Inserir táboa"
 
-#: modules/tablez.py:119 modules/imports.py:937
+#: modules/tablez.py:119 modules/imports.py:1005
 msgid "click me"
 msgstr "premema"
 
@@ -398,388 +460,427 @@ msgstr "Editar as propiedades da táboa"
 msgid "Table Column Action"
 msgstr "Acción na columna da táboa"
 
-#: modules/codeboxes.py:61 modules/cons.py:459 modules/cons.py:552
+#: modules/codeboxes.py:61 modules/cons.py:424 modules/cons.py:585
 msgid "Insert a CodeBox"
 msgstr "Inserir unha caixa de código"
 
-#: modules/codeboxes.py:162
+#: modules/codeboxes.py:163
 msgid "Edit CodeBox"
 msgstr "Editar caixa de código"
 
-#: modules/cons.py:413
+#: modules/cons.py:377
 msgid "_File"
 msgstr "_Ficheiro"
 
-#: modules/cons.py:414
+#: modules/cons.py:378
 msgid "_Edit"
 msgstr "_Editar"
 
-#: modules/cons.py:415 modules/cons.py:534
+#: modules/cons.py:379 modules/cons.py:562
 msgid "For_matting"
 msgstr "For_mato"
 
-#: modules/cons.py:416
+#: modules/cons.py:380
 msgid "_Tree"
 msgstr "Á_rbore"
 
-#: modules/cons.py:417
+#: modules/cons.py:381 modules/cons.py:513
 msgid "Node _Move"
 msgstr "_Mover nodos"
 
-#: modules/cons.py:418
+#: modules/cons.py:382 modules/cons.py:526
 msgid "Nodes _Import"
 msgstr "_Importar nodos"
 
-#: modules/cons.py:419
+#: modules/cons.py:383 modules/cons.py:535
 msgid "Nodes E_xport"
 msgstr "E_xportar nodos"
 
-#: modules/cons.py:420 modules/cons.py:558 modules/cons.py:590
+#: modules/cons.py:384 modules/cons.py:591 modules/cons.py:629
 msgid "C_hange Case"
 msgstr "Cambiar a capitali_zación"
 
-#: modules/cons.py:421 modules/cons.py:566
+#: modules/cons.py:385 modules/cons.py:603
 msgid "_Search"
 msgstr "_Buscar"
 
-#: modules/cons.py:422 modules/cons.py:573
+#: modules/cons.py:386 modules/cons.py:610
 msgid "_Replace"
 msgstr "_Substituír"
 
-#: modules/cons.py:423
+#: modules/cons.py:387
 msgid "_View"
 msgstr "_Ver"
 
-#: modules/cons.py:424
+#: modules/cons.py:388
+msgid "_Bookmarks"
+msgstr ""
+
+#: modules/cons.py:389
 msgid "_Import"
 msgstr "_Importar"
 
-#: modules/cons.py:425
+#: modules/cons.py:390
 msgid "E_xport"
 msgstr "E_xportar"
 
-#: modules/cons.py:426 modules/cons.py:502
+#: modules/cons.py:391 modules/cons.py:472
 msgid "_Help"
 msgstr "_Axuda"
 
-#: modules/cons.py:428
+#: modules/cons.py:393
 msgid "New _Instance"
 msgstr "Nova _Instancia"
 
-#: modules/cons.py:428
+#: modules/cons.py:393
 msgid "Start a New Instance of CherryTree"
 msgstr "Iniciar unha nova instancia de CherryTree"
 
-#: modules/cons.py:429
+#: modules/cons.py:394
 msgid "_Open File"
 msgstr "Abrir ficheir_o"
 
-#: modules/cons.py:429
-msgid "Open a CherryTree Document"
-msgstr "Abrir un documento de CherryTree"
-
-#: modules/cons.py:430
+#: modules/cons.py:395
 msgid "Set _Document Protection"
 msgstr "Estabelecer a protección do _documento"
 
-#: modules/cons.py:430
+#: modules/cons.py:395
 msgid "Set Protection of the Current Document"
 msgstr "Estabelece a protección do documento actual"
 
-#: modules/cons.py:431
+#: modules/cons.py:396
 msgid "_Save"
 msgstr "_Gardar"
 
-#: modules/cons.py:431
+#: modules/cons.py:396
 msgid "Save File"
 msgstr "Gardar o ficheiro"
 
-#: modules/cons.py:432
+#: modules/cons.py:397
 msgid "Save _As"
 msgstr "Gardar _como..."
 
-#: modules/cons.py:432
+#: modules/cons.py:397
 msgid "Save File As"
 msgstr "Gardar o ficheiro como"
 
-#: modules/cons.py:433
+#: modules/cons.py:398 modules/cons.py:539
 msgid "Export _Tree To HTML"
 msgstr "Expor_tar árbore a HTML"
 
-#: modules/cons.py:433
+#: modules/cons.py:398 modules/cons.py:539
 msgid "Export the Tree To HTML"
 msgstr "Exporta o árbore a HTML"
 
-#: modules/cons.py:434
+#: modules/cons.py:399 modules/cons.py:538
 msgid "Export Node To _HTML"
 msgstr "Exportar nodo a _HTML"
 
-#: modules/cons.py:434
+#: modules/cons.py:399 modules/cons.py:538
 msgid "Export the Selected Node To HTML"
 msgstr "Exporta o nodo escollido a HTML"
 
-#: modules/cons.py:435
+#: modules/cons.py:400 modules/cons.py:537
 msgid "Save Node as Plain _Text"
 msgstr "Gardar o nodo como _texto plano"
 
-#: modules/cons.py:435
+#: modules/cons.py:400 modules/cons.py:537
 msgid "Save the Selected Node as Plain Text"
 msgstr "Gardar o nodo seleccionado como texto plano"
 
-#: modules/cons.py:436
+#: modules/cons.py:401 modules/cons.py:540
 msgid "_Export Node and Subnodes"
 msgstr "_Exportar nodo e subnodos"
 
-#: modules/cons.py:436
+#: modules/cons.py:401 modules/cons.py:540
 msgid "Export the Selected Node and its Subnodes"
 msgstr "Exportar o nodo escollido e os seus subnodos"
 
-#: modules/cons.py:437
+#: modules/cons.py:402
 msgid "Pa_ge Setup"
 msgstr "Confi_guración da páxina"
 
-#: modules/cons.py:437
+#: modules/cons.py:402
 msgid "Set up the Page for Printing"
 msgstr "Configura a páxina para imprimir"
 
-#: modules/cons.py:438
+#: modules/cons.py:403 modules/cons.py:536
 msgid "Node _Print / Save as PDF, PS, SVG"
 msgstr "Im_primir nodo / Gardar como PDF, PS, SVG"
 
-#: modules/cons.py:438
+#: modules/cons.py:403 modules/cons.py:536
 msgid "Print the Current Node / Save the Current Node as PDF, PS, SVG"
 msgstr "Imprimir o nodo actual / Gardar o nodo actual como PDF, PS, SVG"
 
-#: modules/cons.py:439
+#: modules/cons.py:404
 msgid "_Quit"
 msgstr "_Saír"
 
-#: modules/cons.py:439
+#: modules/cons.py:404
 msgid "Quit the Application"
 msgstr "Saír do programa"
 
-#: modules/cons.py:440
+#: modules/cons.py:405
 msgid "_Exit CherryTree"
 msgstr "Pec_har CherryTree"
 
-#: modules/cons.py:440
+#: modules/cons.py:405
 msgid "Exit from CherryTree"
 msgstr "Saír de CherryTree"
 
-#: modules/cons.py:441
+#: modules/cons.py:406
 msgid "_Preferences"
 msgstr "_Preferencias"
 
-#: modules/cons.py:441 glade/cherrytree.glade.h:96
+#: modules/cons.py:406 glade/cherrytree.glade.h:98
 msgid "Preferences"
 msgstr "Preferencias"
 
-#: modules/cons.py:442 modules/cons.py:556
+#: modules/cons.py:407 modules/cons.py:589
 msgid "Insert _Horizontal Rule"
 msgstr "Inserir regra _horizontal"
 
-#: modules/cons.py:442 modules/cons.py:556
+#: modules/cons.py:407 modules/cons.py:589
 msgid "Insert Horizontal Rule"
 msgstr "Inserir regra horizontal"
 
-#: modules/cons.py:443 modules/cons.py:580
+#: modules/cons.py:408 modules/cons.py:617
 msgid "Set/Unset _Bulleted List"
 msgstr "Pór/Quitar lista _punteada"
 
-#: modules/cons.py:443 modules/cons.py:580
+#: modules/cons.py:408 modules/cons.py:617
 msgid "Set/Unset the Current Paragraph as a Bulleted List Element"
 msgstr ""
 "Estabelecer/Desestabelecer o parágrafo actual como unha lista de elementos "
 "punteada"
 
-#: modules/cons.py:444 modules/cons.py:581
+#: modules/cons.py:409 modules/cons.py:618
 msgid "Set/Unset _Numbered List"
 msgstr "Pór/Quitar lista _numerada"
 
-#: modules/cons.py:444 modules/cons.py:581
+#: modules/cons.py:409 modules/cons.py:618
 msgid "Set/Unset the Current Paragraph as a Numbered List Element"
 msgstr ""
 "Estabelecer/Desestabelecer o parágrafo actual como unha lista de elementos "
 "numerada"
 
-#: modules/cons.py:445 modules/cons.py:553
+#: modules/cons.py:410 modules/cons.py:586
 msgid "Insert/Edit _Link"
 msgstr "Inserir/Editar _ligazón"
 
-#: modules/cons.py:445 modules/cons.py:553
+#: modules/cons.py:410 modules/cons.py:586
 msgid "Insert a Link/Edit the Underlying Link"
 msgstr "Insire unha ligazón/Edita a ligazón subxacente"
 
-#: modules/cons.py:446 modules/cons.py:555
+#: modules/cons.py:411 modules/cons.py:588
 msgid "Insert T_OC"
 msgstr "Inserir táboa de c_ontidos"
 
-#: modules/cons.py:446 modules/cons.py:555
+#: modules/cons.py:411 modules/cons.py:588
 msgid "Insert Table of Contents"
 msgstr "Inserir táboa de contidos"
 
-#: modules/cons.py:447 modules/cons.py:554
+#: modules/cons.py:412 modules/cons.py:587
 msgid "Insert _Anchor"
 msgstr "Inserir _ancora"
 
-#: modules/cons.py:447 modules/cons.py:554
+#: modules/cons.py:412 modules/cons.py:587
 msgid "Insert an Anchor"
 msgstr "Insire unha ancora"
 
-#: modules/cons.py:448
+#: modules/cons.py:413
 msgid "Edit _Anchor"
 msgstr "Editar _ancora"
 
-#: modules/cons.py:448
+#: modules/cons.py:413
 msgid "Edit the Underlying Anchor"
 msgstr "Edita a ancora subxacente"
 
-#: modules/cons.py:449 modules/cons.py:550
+#: modules/cons.py:414 modules/cons.py:583
 msgid "Insert I_mage"
 msgstr "Inserir I_maxe"
 
-#: modules/cons.py:449 modules/cons.py:550
+#: modules/cons.py:414 modules/cons.py:583
 msgid "Insert an Image"
 msgstr "Insire unha imaxe"
 
-#: modules/cons.py:450
+#: modules/cons.py:415
 msgid "_Save Image as PNG"
 msgstr "_Gardar imaxe como PDF"
 
-#: modules/cons.py:450
+#: modules/cons.py:415
 msgid "Save the Selected Image as a PNG file"
 msgstr "Gardar a imaxe escollida como un ficheiro PNG"
 
-#: modules/cons.py:451
+#: modules/cons.py:416
 msgid "_Edit Image"
 msgstr "_Editar Imaxe"
 
-#: modules/cons.py:451
+#: modules/cons.py:416
 msgid "Edit the Selected Image"
 msgstr "Editar a imaxe escollida"
 
-#: modules/cons.py:452
+#: modules/cons.py:417
 msgid "C_ut Image"
 msgstr "Cortar Ima_xe"
 
-#: modules/cons.py:452
+#: modules/cons.py:417
 msgid "Cut the Selected Image"
 msgstr "Cortar a imaxe escollida"
 
-#: modules/cons.py:453
+#: modules/cons.py:418
 msgid "_Copy Image"
 msgstr "_Copiar imaxe"
 
-#: modules/cons.py:453
+#: modules/cons.py:418
 msgid "Copy the Selected Image"
 msgstr "Copia a imaxe escollida"
 
-#: modules/cons.py:454
+#: modules/cons.py:419
 msgid "_Delete Image"
 msgstr "Eli_minar a imaxe"
 
-#: modules/cons.py:454
+#: modules/cons.py:419
 msgid "Delete the Selected Image"
 msgstr "Elimina a imaxe escollida"
 
-#: modules/cons.py:455
+#: modules/cons.py:420
 msgid "C_ut Table"
 msgstr "Cor_tar a táboa"
 
-#: modules/cons.py:455
+#: modules/cons.py:420
 msgid "Cut the Selected Table"
 msgstr "Corta a táboa escollida"
 
-#: modules/cons.py:456
+#: modules/cons.py:421
 msgid "_Copy Table"
 msgstr "_Copiar a táboa"
 
-#: modules/cons.py:456
+#: modules/cons.py:421
 msgid "Copy the Selected Table"
 msgstr "Copia a táboa escollida"
 
-#: modules/cons.py:457
+#: modules/cons.py:422
 msgid "_Delete Table"
 msgstr "Eli_minar a táboa"
 
-#: modules/cons.py:457
+#: modules/cons.py:422
 msgid "Delete the Selected Table"
 msgstr "Eliminar a táboa escollida"
 
-#: modules/cons.py:458 modules/cons.py:551
+#: modules/cons.py:423 modules/cons.py:584
 msgid "Insert _Table"
 msgstr "Inserir _táboa"
 
-#: modules/cons.py:458 modules/cons.py:551
+#: modules/cons.py:423 modules/cons.py:584
 msgid "Insert a Table"
 msgstr "Insire unha táboa"
 
-#: modules/cons.py:459 modules/cons.py:552
+#: modules/cons.py:424 modules/cons.py:585
 msgid "Insert _CodeBox"
 msgstr "Inserir _caixa de código"
 
-#: modules/cons.py:460 modules/cons.py:559 modules/cons.py:591
+#: modules/cons.py:425 modules/cons.py:592 modules/cons.py:630
 msgid "_Lower Case of Selection/Word"
 msgstr "Cambiar a minúsculas a palabra/selección"
 
-#: modules/cons.py:460 modules/cons.py:559 modules/cons.py:591
+#: modules/cons.py:425 modules/cons.py:592 modules/cons.py:630
 msgid "Lower the Case of the Selection/the Underlying Word"
 msgstr "Cambiar a minúsculas a selección/a palabra subxacente"
 
-#: modules/cons.py:461 modules/cons.py:560 modules/cons.py:592
+#: modules/cons.py:426 modules/cons.py:593 modules/cons.py:631
 msgid "_Upper Case of Selection/Word"
 msgstr "Cambiar a maiúsculas a selección/a palabra s_ubxacente"
 
-#: modules/cons.py:461 modules/cons.py:560 modules/cons.py:592
+#: modules/cons.py:426 modules/cons.py:593 modules/cons.py:631
 msgid "Upper the Case of the Selection/the Underlying Word"
 msgstr "Cambiar a maiúsculas a selección/a palabra subxacente"
 
-#: modules/cons.py:462 modules/cons.py:561 modules/cons.py:593
+#: modules/cons.py:427 modules/cons.py:594 modules/cons.py:632
 msgid "_Toggle Case of Selection/Word"
 msgstr "Cambiar a capi_talización da selección/palabra"
 
-#: modules/cons.py:462 modules/cons.py:561 modules/cons.py:593
+#: modules/cons.py:427 modules/cons.py:594 modules/cons.py:632
 msgid "Toggle the Case of the Selection/the Underlying Word"
 msgstr "Cambia a capitalización da selección/palabra subxacente"
 
-#: modules/cons.py:463 modules/cons.py:563 modules/cons.py:595
+#: modules/cons.py:428 modules/cons.py:600 modules/cons.py:638
 msgid "_Duplicate Row/Selection"
 msgstr "_Duplicar fila/selección"
 
-#: modules/cons.py:463 modules/cons.py:563 modules/cons.py:595
+#: modules/cons.py:428 modules/cons.py:600 modules/cons.py:638
 msgid "Duplicate the Whole Row/a Selection"
 msgstr "Duplica a fila completa / selección"
 
-#: modules/cons.py:464 modules/cons.py:520 modules/cons.py:564
-#: modules/cons.py:596
+#: modules/cons.py:429 modules/cons.py:490 modules/cons.py:599
+#: modules/cons.py:637
 msgid "De_lete Row"
 msgstr "E_liminar fila"
 
-#: modules/cons.py:464 modules/cons.py:564 modules/cons.py:596
+#: modules/cons.py:429 modules/cons.py:599 modules/cons.py:637
 msgid "Delete the Whole Row"
 msgstr "Eliminar a fila completa"
 
-#: modules/cons.py:465
+#: modules/cons.py:430 modules/cons.py:597 modules/cons.py:635
+#, fuzzy
+msgid "Cu_t Row"
+msgstr "E_liminar fila"
+
+#: modules/cons.py:430 modules/cons.py:597 modules/cons.py:635
+#, fuzzy
+msgid "Cut the Whole Row"
+msgstr "Eliminar a fila completa"
+
+#: modules/cons.py:431
+#, fuzzy
+msgid "_Copy Row"
+msgstr "_Copiar a caixa de código"
+
+#: modules/cons.py:431 modules/cons.py:598 modules/cons.py:636
+#, fuzzy
+msgid "Copy the Whole Row"
+msgstr "Eliminar a fila completa"
+
+#: modules/cons.py:432 modules/cons.py:550
+#, fuzzy
+msgid "Go _Back"
+msgstr "_Buscar anterior"
+
+#: modules/cons.py:432 modules/cons.py:550
+msgid "Go to the Previous Visited Node"
+msgstr ""
+
+#: modules/cons.py:433 modules/cons.py:551
+#, fuzzy
+msgid "Go _Forward"
+msgstr "Adiante"
+
+#: modules/cons.py:433 modules/cons.py:551
+#, fuzzy
+msgid "Go to the Next Visited Node"
+msgstr "Buscar no nodo escollido"
+
+#: modules/cons.py:434
 msgid "_Undo"
 msgstr "_Desfacer"
 
-#: modules/cons.py:465
+#: modules/cons.py:434
 msgid "Undo Last Operation"
 msgstr "Desfai a útima operación"
 
-#: modules/cons.py:466
+#: modules/cons.py:435
 msgid "_Redo"
 msgstr "_Refacer"
 
-#: modules/cons.py:466
+#: modules/cons.py:435
 msgid "Redo Previously Discarded Operation"
 msgstr "Refai a última operación descartada"
 
-#: modules/cons.py:467
+#: modules/cons.py:436 modules/cons.py:546
 msgid "_Inherit Syntax"
 msgstr "Heredar a s_intaxe"
 
-#: modules/cons.py:467
+#: modules/cons.py:436 modules/cons.py:546
 msgid ""
 "Change the Selected Node's Children Syntax Highlighting to the Father's "
 "Syntax Highlighting"
@@ -787,531 +888,546 @@ msgstr ""
 "Cambiar o realzado de sintaxe dos nodos fillo ao realzado de sintaxe dos "
 "nodos pai"
 
-#: modules/cons.py:468 modules/cons.py:535
+#: modules/cons.py:437 modules/cons.py:563
 msgid "Format _Latest"
 msgstr "U_ltimo formato"
 
-#: modules/cons.py:468 modules/cons.py:535
+#: modules/cons.py:437 modules/cons.py:563
 msgid "Memory of Latest Text Format Type"
 msgstr "Ultimos tipos de formatado de texto"
 
-#: modules/cons.py:469 modules/cons.py:536
+#: modules/cons.py:438 modules/cons.py:564
 msgid "_Remove Formatting"
 msgstr "_Eliminar o formatado"
 
-#: modules/cons.py:469 modules/cons.py:536
+#: modules/cons.py:438 modules/cons.py:564
 msgid "Remove the Formatting from the Selected Text"
 msgstr "Eliminar o formato do texto escollido"
 
-#: modules/cons.py:470 modules/cons.py:538
+#: modules/cons.py:439 modules/cons.py:566
 msgid "Text _Color Foreground"
 msgstr "_Cor do texto"
 
-#: modules/cons.py:470 modules/cons.py:538
+#: modules/cons.py:439 modules/cons.py:566
 msgid "Change the Color of the Selected Text Foreground"
 msgstr "Cambiar a cor do texto escollido"
 
-#: modules/cons.py:471 modules/cons.py:539
+#: modules/cons.py:440 modules/cons.py:567
 msgid "Text C_olor Background"
 msgstr "C_or de fondo do texto"
 
-#: modules/cons.py:471 modules/cons.py:539
+#: modules/cons.py:440 modules/cons.py:567
 msgid "Change the Color of the Selected Text Background"
 msgstr "Cambiar a cor de fondo do texto escollido"
 
-#: modules/cons.py:472 modules/cons.py:540
+#: modules/cons.py:441 modules/cons.py:568
 msgid "Toggle _Bold Property"
 msgstr "Alternar _negra"
 
-#: modules/cons.py:472 modules/cons.py:540
+#: modules/cons.py:441 modules/cons.py:568
 msgid "Toggle Bold Property of the Selected Text"
 msgstr "Alterna a propiedade negra do texto escollido"
 
-#: modules/cons.py:473 modules/cons.py:541
+#: modules/cons.py:442 modules/cons.py:569
 msgid "Toggle _Italic Property"
 msgstr "Alternar  _cursiva"
 
-#: modules/cons.py:473 modules/cons.py:541
+#: modules/cons.py:442 modules/cons.py:569
 msgid "Toggle Italic Property of the Selected Text"
 msgstr "Alterna a propiedade cursiva para o texto escollido"
 
-#: modules/cons.py:474 modules/cons.py:542
+#: modules/cons.py:443 modules/cons.py:570
 msgid "Toggle _Underline Property"
 msgstr "Alternar s_ubliñado"
 
-#: modules/cons.py:474 modules/cons.py:542
+#: modules/cons.py:443 modules/cons.py:570
 msgid "Toggle Underline Property of the Selected Text"
 msgstr "Alterna a propiedade subliñado do texto escollido"
 
-#: modules/cons.py:475 modules/cons.py:543
+#: modules/cons.py:444 modules/cons.py:571
 msgid "Toggle Stri_kethrough Property"
 msgstr "Alternar tac_hado"
 
-#: modules/cons.py:475 modules/cons.py:543
+#: modules/cons.py:444 modules/cons.py:571
 msgid "Toggle Strikethrough Property of the Selected Text"
 msgstr "Alterna a propiedade tachadp do texto escollido"
 
-#: modules/cons.py:476 modules/cons.py:544
+#: modules/cons.py:445 modules/cons.py:572
 msgid "Toggle h_1 Property"
 msgstr "Alterna a propiedade h_1"
 
-#: modules/cons.py:476 modules/cons.py:544
+#: modules/cons.py:445 modules/cons.py:572
 msgid "Toggle h1 Property of the Selected Text"
 msgstr "Alterna a propiedade h2 do texto escollido"
 
-#: modules/cons.py:477 modules/cons.py:545
+#: modules/cons.py:446 modules/cons.py:573
 msgid "Toggle h_2 Property"
 msgstr "Alterna a propiedade h_2"
 
-#: modules/cons.py:477 modules/cons.py:545
+#: modules/cons.py:446 modules/cons.py:573
 msgid "Toggle h2 Property of the Selected Text"
 msgstr "Alterna a propiedade h2 do texto escollido"
 
-#: modules/cons.py:478 modules/cons.py:546
+#: modules/cons.py:447 modules/cons.py:574
 msgid "Toggle _Small Property"
 msgstr "Alterna a propiedade _Pequena"
 
-#: modules/cons.py:478 modules/cons.py:546
+#: modules/cons.py:447 modules/cons.py:574
 msgid "Toggle Small Property of the Selected Text"
 msgstr "Alterna a propiedade «Pequena» do texto escollido"
 
-#: modules/cons.py:479
-msgid "Justify _Left"
-msgstr "Aliñar á _esquerda"
-
-#: modules/cons.py:479
-msgid "Justify Left the Current Paragraph"
-msgstr "Aliña parágrafo á esquerda"
-
-#: modules/cons.py:480
+#: modules/cons.py:449 modules/cons.py:578
 msgid "Justify _Center"
 msgstr "_Centrar"
 
-#: modules/cons.py:480
-msgid "Justify Center the Current Paragraph"
-msgstr "Centra o parágrafo"
-
-#: modules/cons.py:481
-msgid "Justify _Right"
-msgstr "Aliñar á _dereita"
-
-#: modules/cons.py:481
-msgid "Justify Right the Current Paragraph"
-msgstr "Aliña o parágrafo á dereita"
-
-#: modules/cons.py:482 modules/cons.py:567
+#: modules/cons.py:451 modules/cons.py:604
 msgid "_Find in Node"
 msgstr "_Buscar no nodo"
 
-#: modules/cons.py:482 modules/cons.py:567
+#: modules/cons.py:451 modules/cons.py:604
 msgid "Find into the Selected Node"
 msgstr "Buscar no nodo escollido"
 
-#: modules/cons.py:483 modules/cons.py:568
+#: modules/cons.py:452 modules/cons.py:605
 msgid "Find in Node_s"
 msgstr "Buscar nodo_s"
 
-#: modules/cons.py:483 modules/cons.py:568
+#: modules/cons.py:452 modules/cons.py:605
 msgid "Find into all the Tree Nodes"
 msgstr "Buscar en todos os nodos da árbore"
 
-#: modules/cons.py:484 modules/cons.py:569
+#: modules/cons.py:453 modules/cons.py:523 modules/cons.py:606
 msgid "Find a _Node"
 msgstr "Buscar un _nodo"
 
-#: modules/cons.py:484 modules/cons.py:569
+#: modules/cons.py:453 modules/cons.py:523 modules/cons.py:606
 msgid "Find a Node from its Name"
 msgstr "Buscar un nodo polo seu nome"
 
-#: modules/cons.py:485 modules/cons.py:570
+#: modules/cons.py:454 modules/cons.py:607
 msgid "Find _Again"
 msgstr "Buscar outr_a vez"
 
-#: modules/cons.py:485 modules/cons.py:570
+#: modules/cons.py:454 modules/cons.py:607
 msgid "Iterate the Last Find Operation"
 msgstr "Iterar a última operación de búsqueda"
 
-#: modules/cons.py:486 modules/cons.py:571
+#: modules/cons.py:455 modules/cons.py:608
 msgid "Find _Back"
 msgstr "_Buscar anterior"
 
-#: modules/cons.py:486 modules/cons.py:571
+#: modules/cons.py:455 modules/cons.py:608
 msgid "Iterate the Last Find Operation in Opposite Direction"
 msgstr "Iterar a última operación de busca na dirección oposta"
 
-#: modules/cons.py:487 modules/cons.py:574
+#: modules/cons.py:456 modules/cons.py:611
 msgid "_Replace in Node"
 msgstr "_Substituí_r no nodo"
 
-#: modules/cons.py:487 modules/cons.py:574
+#: modules/cons.py:456 modules/cons.py:611
 msgid "Replace into the Selected Node"
 msgstr "Substituír no nodo escollido"
 
-#: modules/cons.py:488 modules/cons.py:575
+#: modules/cons.py:457 modules/cons.py:612
 msgid "Replace in Node_s"
 msgstr "Subtituír nos nodo_s"
 
-#: modules/cons.py:488 modules/cons.py:575
+#: modules/cons.py:457 modules/cons.py:612
 msgid "Replace into all the Tree Nodes"
 msgstr "Substituír en todos os nodos da árbore"
 
-#: modules/cons.py:489 modules/cons.py:576
+#: modules/cons.py:458 modules/cons.py:524 modules/cons.py:613
 msgid "Replace in Nodes _Names"
 msgstr "Substituír nos _nomes dos nodos"
 
-#: modules/cons.py:489 modules/cons.py:576
+#: modules/cons.py:458 modules/cons.py:524 modules/cons.py:613
 msgid "Replace in Nodes Names"
 msgstr "Substituír nos nomes dos nodos"
 
-#: modules/cons.py:490 modules/cons.py:577
+#: modules/cons.py:459 modules/cons.py:614
 msgid "Replace _Again"
 msgstr "Substituír outr_a vez"
 
-#: modules/cons.py:490 modules/cons.py:577
+#: modules/cons.py:459 modules/cons.py:614
 msgid "Iterate the Last Replace Operation"
 msgstr "Iterar a última operación de reemplazo"
 
-#: modules/cons.py:491
+#: modules/cons.py:460
 msgid "Show/Hide Node Name _Header"
 msgstr "Mostrar/Agochar _cabeceira do nome do nodo"
 
-#: modules/cons.py:491
+#: modules/cons.py:460
 msgid "Toggle Show/Hide Node Name Header"
 msgstr "Alternar Amosar/Ocultar cabeceira do nome do nodo"
 
-#: modules/cons.py:492
+#: modules/cons.py:461
 msgid "Show/Hide _Tree"
 msgstr "_Mostrar/Agochar Árbore"
 
-#: modules/cons.py:492
+#: modules/cons.py:461
 msgid "Toggle Show/Hide Tree"
 msgstr "Alternar Mostrar/Agochar árbore"
 
-#: modules/cons.py:493
+#: modules/cons.py:462
 msgid "Show/Hide Tool_bar"
 msgstr "Mostrar/Agochar _barra de ferramentas"
 
-#: modules/cons.py:493
+#: modules/cons.py:462
 msgid "Toggle Show/Hide Toolbar"
 msgstr "Alternar Mostrar/Agochar barra de ferramentas"
 
-#: modules/cons.py:494
+#: modules/cons.py:463
 msgid "_Increase Toolbar Icons Size"
 msgstr "_Incrementar o tamaño das iconas da barra de ferramentas"
 
-#: modules/cons.py:494
+#: modules/cons.py:463
 msgid "Increase the Size of the Toolbar Icons"
 msgstr "Incrementa o tamaño das iconas da Barra de ferramentas"
 
-#: modules/cons.py:495
+#: modules/cons.py:464
 msgid "_Decrease Toolbar Icons Size"
 msgstr "_Reducir o tamaño das iconas da barra de ferramentas"
 
-#: modules/cons.py:495
+#: modules/cons.py:464
 msgid "Decrease the Size of the Toolbar Icons"
 msgstr "Reducir o tamaño das iconas da barra de ferramentas"
 
-#: modules/cons.py:496
+#: modules/cons.py:465 modules/cons.py:527
 msgid "From _Basket Folder"
 msgstr "Dende un cartafol _Basket"
 
-#: modules/cons.py:496
+#: modules/cons.py:465 modules/cons.py:527
 msgid "Add Nodes of a Basket Folder to the Current Tree"
 msgstr "Engadir nodos dende un cartafol de Basket ao árbore actual"
 
-#: modules/cons.py:497
+#: modules/cons.py:466 modules/cons.py:528
 msgid "From _CherryTree File"
 msgstr "Dende un fichero de _CherryTree"
 
-#: modules/cons.py:497
+#: modules/cons.py:466 modules/cons.py:528
 msgid "Add Nodes of a CherryTree File to the Current Tree"
 msgstr "Engadir nodos dende un ficheiro de CherryTree ao árbore actual"
 
-#: modules/cons.py:498
+#: modules/cons.py:467 modules/cons.py:531
 msgid "From _NoteCase File"
 msgstr "Dende un ficheiro _NodeCase"
 
-#: modules/cons.py:498
+#: modules/cons.py:467 modules/cons.py:531
 msgid "Add Nodes of a NoteCase File to the Current Tree"
 msgstr "Enga"
 
-#: modules/cons.py:499
+#: modules/cons.py:468 modules/cons.py:529
 msgid "From _KeepNote Folder"
 msgstr "Dende un cartafol de _KeepNote"
 
-#: modules/cons.py:499
+#: modules/cons.py:468 modules/cons.py:529
 msgid "Add Nodes of a KeepNote Folder to the Current Tree"
 msgstr "Engadir nodos dende un cartafol de KeepNote ao árbore actual"
 
-#: modules/cons.py:500
+#: modules/cons.py:469 modules/cons.py:533
 msgid "From _TuxCards File"
 msgstr "Dende un ficheiro de _TuxCards"
 
-#: modules/cons.py:500
+#: modules/cons.py:469 modules/cons.py:533
 msgid "Add Nodes of a TuxCards File to the Current Tree"
 msgstr "Engadir nodos dende un ficheiro TuxCards ao árbore actual "
 
-#: modules/cons.py:501
+#: modules/cons.py:470 modules/cons.py:532
 msgid "From T_reepad Lite File"
 msgstr "Dende un ficheiro de T_reepad Lite"
 
-#: modules/cons.py:501
+#: modules/cons.py:470 modules/cons.py:532
 msgid "Add Nodes of a Treepad Lite File to the Current Tree"
 msgstr "Engadir nodos dende un ficheiro de Treepad Lite ao árbore actual"
 
-#: modules/cons.py:502
+#: modules/cons.py:471 modules/cons.py:530
+#, fuzzy
+msgid "From _Leo File"
+msgstr "Dende un ficheiro _NodeCase"
+
+#: modules/cons.py:471 modules/cons.py:530
+#, fuzzy
+msgid "Add Nodes of a Leo File to the Current Tree"
+msgstr "Enga"
+
+#: modules/cons.py:472
 msgid "Application's Home Page"
 msgstr "Páxina de inicio do aplicativo"
 
-#: modules/cons.py:503
+#: modules/cons.py:473
 msgid "_Check Newer Version"
 msgstr "Verifi_car se hai unha nova versión"
 
-#: modules/cons.py:503
+#: modules/cons.py:473
 msgid "Check for a Newer Version"
 msgstr "Verificar se hai unha nova versión"
 
-#: modules/cons.py:504
+#: modules/cons.py:474
 msgid "_About"
 msgstr "_Sobre"
 
-#: modules/cons.py:504 glade/cherrytree.glade.h:51
+#: modules/cons.py:474 glade/cherrytree.glade.h:51
 msgid "About CherryTree"
 msgstr "Sobre CherryTree"
 
-#: modules/cons.py:505
+#: modules/cons.py:475 modules/cons.py:511
 msgid "Tree _Info"
 msgstr "_Información da árbore"
 
-#: modules/cons.py:505 glade/cherrytree.glade.h:109
+#: modules/cons.py:475 modules/cons.py:511 glade/cherrytree.glade.h:112
 msgid "Tree Summary Information"
 msgstr "Resumo de información do árbore"
 
-#: modules/cons.py:506
+#: modules/cons.py:476 modules/cons.py:507
 msgid "Add _Node"
 msgstr "Engadir _nodo"
 
-#: modules/cons.py:506
+#: modules/cons.py:476 modules/cons.py:507
 msgid "Add a Node having the same Father of the Selected Node"
 msgstr "Engadir un nodo tendo o mesmo pai que o nodo escollido"
 
-#: modules/cons.py:507
+#: modules/cons.py:477 modules/cons.py:508
 msgid "Add _SubNode"
 msgstr "Engadir _subnodo"
 
-#: modules/cons.py:507
+#: modules/cons.py:477 modules/cons.py:508
 msgid "Add a Child Node to the Selected Node"
 msgstr "Engadir un nodo fillo ao nodo escollido"
 
-#: modules/cons.py:508
+#: modules/cons.py:478 modules/cons.py:510
 msgid "Change Node _Properties"
 msgstr "Cambiar as  _propiedades do nodo"
 
-#: modules/cons.py:508
+#: modules/cons.py:478 modules/cons.py:510
 msgid "Edit the Properties of the Selected Node"
 msgstr "Editar as propiedades do nodo escollido"
 
-#: modules/cons.py:509
+#: modules/cons.py:479 modules/cons.py:514
 msgid "Node _Up"
 msgstr "_Subir nodo"
 
-#: modules/cons.py:509
+#: modules/cons.py:479 modules/cons.py:514
 msgid "Move the Selected Node Up"
 msgstr "Subir o nodo escollido"
 
-#: modules/cons.py:510
+#: modules/cons.py:480 modules/cons.py:515
 msgid "Node _Down"
 msgstr "_Baixar nodo"
 
-#: modules/cons.py:510
+#: modules/cons.py:480 modules/cons.py:515
 msgid "Move the Selected Node Down"
 msgstr "Baixar o nodo escollido"
 
-#: modules/cons.py:511
+#: modules/cons.py:481 modules/cons.py:516
 msgid "Node _Left"
 msgstr "Mover nodo á _esquerda"
 
-#: modules/cons.py:511
+#: modules/cons.py:481 modules/cons.py:516
 msgid "Move the Selected Node Left"
 msgstr "Move o nodo esquerdo seleccionado"
 
-#: modules/cons.py:512
+#: modules/cons.py:482 modules/cons.py:517
 msgid "Node Change _Father"
 msgstr "Cambiar _pai do nodo"
 
-#: modules/cons.py:512
+#: modules/cons.py:482 modules/cons.py:517
 msgid "Change the Selected Node's Father"
 msgstr "Cambiar o pai dos nodos escollidos"
 
-#: modules/cons.py:513
+#: modules/cons.py:483 modules/cons.py:520
 msgid "E_xpand All Nodes"
 msgstr "E_xpandir todos os nodos"
 
-#: modules/cons.py:513
+#: modules/cons.py:483 modules/cons.py:520
 msgid "Expand All the Tree Nodes"
 msgstr "Expandir todos os nodos"
 
-#: modules/cons.py:514
+#: modules/cons.py:484 modules/cons.py:521
 msgid "_Collapse All Nodes"
 msgstr "Re_coller todos os nodos"
 
-#: modules/cons.py:514
+#: modules/cons.py:484 modules/cons.py:521
 msgid "Collapse All the Tree Nodes"
 msgstr "Recoller todos os nodos da árboe"
 
-#: modules/cons.py:515
+#: modules/cons.py:485 modules/cons.py:543
 msgid "Sort Siblings _Descending"
 msgstr "Ordear os irmáns en orde _descendente"
 
-#: modules/cons.py:515
+#: modules/cons.py:485 modules/cons.py:543
 msgid "Sort all the Siblings of the Selected Node Descending"
 msgstr "Ordear todos os nodos irmáns do nodo seleccionadoen orde descendente"
 
-#: modules/cons.py:516
+#: modules/cons.py:486 modules/cons.py:544
 msgid "Sort Siblings _Ascending"
 msgstr "Ordear os irmáns en orde _ascendente"
 
-#: modules/cons.py:516
+#: modules/cons.py:486 modules/cons.py:544
 msgid "Sort all the Siblings of the Selected Node Ascending"
 msgstr "Ordear todos os nodos irmáns do nodo seleccionado en orde ascendente"
 
-#: modules/cons.py:517
+#: modules/cons.py:487 modules/cons.py:548
 msgid "De_lete Node"
 msgstr "E_liminar nodo"
 
-#: modules/cons.py:517
+#: modules/cons.py:487 modules/cons.py:548
 msgid "Delete the Selected Node"
 msgstr "Borrar o elemento escollido"
 
-#: modules/cons.py:518
+#: modules/cons.py:488
 msgid "_Edit Table Properties"
 msgstr "_Editar propiedades da táboa"
 
-#: modules/cons.py:518
+#: modules/cons.py:488
 msgid "Edit the Table Properties"
 msgstr "Editar as propiedades da táboa"
 
-#: modules/cons.py:519
+#: modules/cons.py:489
 msgid "_Add Row"
 msgstr "_Engadir fila"
 
-#: modules/cons.py:519
+#: modules/cons.py:489
 msgid "Add a Table Row"
 msgstr "Engadir unha fila á taboa"
 
-#: modules/cons.py:520
+#: modules/cons.py:490
 msgid "Delete the Selected Table Row"
 msgstr "Eliminar as filas da táboa seleccionados"
 
-#: modules/cons.py:521
+#: modules/cons.py:491
 msgid "Move Row _Up"
 msgstr "S_ubir fila"
 
-#: modules/cons.py:521
+#: modules/cons.py:491
 msgid "Move the Selected Row Up"
 msgstr "Subir a fila escollida"
 
-#: modules/cons.py:522
+#: modules/cons.py:492
 msgid "Move Row _Down"
 msgstr "Bai_xar fila"
 
-#: modules/cons.py:522
+#: modules/cons.py:492
 msgid "Move the Selected Row Down"
 msgstr "Baixar a fila escollida"
 
-#: modules/cons.py:523
+#: modules/cons.py:493
 msgid "Sort Rows De_scending"
 msgstr "Ordear filas de_scendentemente"
 
-#: modules/cons.py:523
+#: modules/cons.py:493
 msgid "Sort all the Rows Descending"
 msgstr "Orde as fila en orde descendente"
 
-#: modules/cons.py:524
+#: modules/cons.py:494
 msgid "Sort Rows As_cending"
 msgstr "Ordear filas a_scendentemente"
 
-#: modules/cons.py:524
+#: modules/cons.py:494
 msgid "Sort all the Rows Ascending"
 msgstr "Orde as fila en orde ascendente"
 
-#: modules/cons.py:525
+#: modules/cons.py:495
 msgid "_Table Export"
 msgstr "Esportar _táboa"
 
-#: modules/cons.py:525
+#: modules/cons.py:495
 msgid "Export Table as CSV File"
 msgstr "Exportar táboa como un ficheiro CSV"
 
-#: modules/cons.py:549
+#: modules/cons.py:496
+msgid "_Bookmark This Node"
+msgstr ""
+
+#: modules/cons.py:496
+msgid "Add the Current Node to the Bookmarks List"
+msgstr ""
+
+#: modules/cons.py:497
+msgid "_Handle Bookmarks"
+msgstr ""
+
+#: modules/cons.py:576
+#, fuzzy
+msgid "_Justify"
+msgstr "Aliñar á _esquerda"
+
+#: modules/cons.py:582
 msgid "_Insert"
 msgstr "_Inserir"
 
-#: modules/cons.py:605
+#: modules/cons.py:596
+msgid "_Row"
+msgstr ""
+
+#: modules/cons.py:598 modules/cons.py:636
+msgid "C_opy Row"
+msgstr ""
+
+#: modules/cons.py:649
 msgid "C_ut CodeBox"
 msgstr "Corta_r a caixa de código"
 
-#: modules/cons.py:605
+#: modules/cons.py:649
 msgid "Cut the Selected CodeBox"
 msgstr "Cortar a caixa de código"
 
-#: modules/cons.py:606
+#: modules/cons.py:650
 msgid "_Copy CodeBox"
 msgstr "_Copiar a caixa de código"
 
-#: modules/cons.py:606
+#: modules/cons.py:650
 msgid "Copy the Selected CodeBox"
 msgstr "Copiar as caixas de código seleccionadas"
 
-#: modules/cons.py:607
+#: modules/cons.py:651
 msgid "_Delete CodeBox"
 msgstr "Eliminar caixa de có_digo"
 
-#: modules/cons.py:607
+#: modules/cons.py:651
 msgid "Delete the Selected CodeBox"
 msgstr "Eliminar a caixa de código seleccionada"
 
-#: modules/cons.py:609
+#: modules/cons.py:653
 msgid "Change CodeBox _Properties"
 msgstr "Cambiar as  _propiedades da caixa de código"
 
-#: modules/cons.py:609
+#: modules/cons.py:653
 msgid "Edit the Properties of the CodeBox"
 msgstr "Editar as propiedades da caixa de código"
 
-#: modules/cons.py:611
+#: modules/cons.py:655
 msgid "Increase CodeBox Width"
 msgstr "Aumentar a largura da caixa de código"
 
-#: modules/cons.py:611
+#: modules/cons.py:655
 msgid "Increase the Width of the CodeBox"
 msgstr "Aumentar a largura da caixa de código"
 
-#: modules/cons.py:612
+#: modules/cons.py:656
 msgid "Decrease CodeBox Width"
 msgstr "Reducir a largura da caixa de código"
 
-#: modules/cons.py:612
+#: modules/cons.py:656
 msgid "Decrease the Width of the CodeBox"
 msgstr "Reducir a largura da caixa de código"
 
-#: modules/cons.py:613
+#: modules/cons.py:657
 msgid "Increase CodeBox Height"
 msgstr "Aumentar a altura da caixa de código"
 
-#: modules/cons.py:613
+#: modules/cons.py:657
 msgid "Increase the Height of the CodeBox"
 msgstr "Aumentar a largura da caixa de código"
 
-#: modules/cons.py:614
+#: modules/cons.py:658
 msgid "Decrease CodeBox Height"
 msgstr "Reducir a altura da caixa de código"
 
-#: modules/cons.py:614
+#: modules/cons.py:658
 msgid "Decrease the Height of the CodeBox"
 msgstr "Reducir a altura da caixa de código"
 
-#: modules/imports.py:879
+#: modules/imports.py:946
 msgid "Downloading"
 msgstr "Descargando"
 
@@ -1510,30 +1626,35 @@ msgid "Autosave Every "
 msgstr "Gardar automaticamente  "
 
 #: glade/cherrytree.glade.h:57
+#, fuzzy
+msgid "Autosave on Quit"
+msgstr "Gardar automaticamente  "
+
+#: glade/cherrytree.glade.h:58
 msgid "Backward"
 msgstr "Atrás "
 
-#: glade/cherrytree.glade.h:58
+#: glade/cherrytree.glade.h:59
 msgid "Browse for Existing Anchors on the Selected Node"
 msgstr "Buscar ancoras existentes no nodo escollido "
 
-#: glade/cherrytree.glade.h:59
+#: glade/cherrytree.glade.h:60
 msgid "Browse for a File to link to"
 msgstr "Buscar un ficheiro para enlazar"
 
-#: glade/cherrytree.glade.h:60
+#: glade/cherrytree.glade.h:61
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: glade/cherrytree.glade.h:61
+#: glade/cherrytree.glade.h:62
 msgid "CherryTree"
 msgstr "CherryTree"
 
-#: glade/cherrytree.glade.h:62
+#: glade/cherrytree.glade.h:63
 msgid "Close"
 msgstr "Pechar"
 
-#: glade/cherrytree.glade.h:63
+#: glade/cherrytree.glade.h:64
 msgid ""
 "Copyright &#xA9; 2009-2011\n"
 "Giuseppe Penone <giuspen@gmail.com>"
@@ -1541,7 +1662,11 @@ msgstr ""
 "Copyright &#xA9; 2009-2011\n"
 "Giuseppe Penone <giuspen@gmail.com>"
 
-#: glade/cherrytree.glade.h:65
+#: glade/cherrytree.glade.h:66
+msgid "Create a Backup Copy Before Saving"
+msgstr ""
+
+#: glade/cherrytree.glade.h:67
 msgid ""
 "Czech (cs) Pavel Fric <fripohled@blogspot.com>\n"
 "French (fr) Ludovic Troisi <axalis@cegetel.net>\n"
@@ -1563,171 +1688,171 @@ msgstr ""
 "Spanish (es) Daniel MC <ixzus@archlinux.co.uk>\n"
 "Ukrainian (uk) Andriy Kovtun <kovtunos@yandex.ru>"
 
-#: glade/cherrytree.glade.h:74
+#: glade/cherrytree.glade.h:76
 msgid "Delete Column"
 msgstr "Eliminar esta columna"
 
-#: glade/cherrytree.glade.h:75
+#: glade/cherrytree.glade.h:77
 msgid "Display Tree on the Right Side"
 msgstr "Mostrar a árbore na parte dereita"
 
-#: glade/cherrytree.glade.h:76
+#: glade/cherrytree.glade.h:78
 msgid "Do Not Display Nodes Icons"
 msgstr "Non mostrar as iconas dos nodos"
 
-#: glade/cherrytree.glade.h:77
+#: glade/cherrytree.glade.h:79
 msgid "Enable Automatic Indentation"
 msgstr "Activar indentación automática"
 
-#: glade/cherrytree.glade.h:78
+#: glade/cherrytree.glade.h:80
 msgid "Enable Custom Weblink Clicked Action"
 msgstr "Habilitar acción personalizada ao premer unha ligazón"
 
-#: glade/cherrytree.glade.h:79
+#: glade/cherrytree.glade.h:81
 msgid "Enable System Tray Docking"
 msgstr "Habilitar icona na bandexa do sistema"
 
-#: glade/cherrytree.glade.h:80
+#: glade/cherrytree.glade.h:82
 msgid "Expand All Nodes When Loading the Tree"
 msgstr "Expandir todos os nodos cando se carga a árbore"
 
-#: glade/cherrytree.glade.h:81
+#: glade/cherrytree.glade.h:83
 msgid "First From Selection"
 msgstr "O primeiro da selección"
 
-#: glade/cherrytree.glade.h:82
+#: glade/cherrytree.glade.h:84
 msgid "First in All Range"
 msgstr "Primeiro en todo o intervalo"
 
-#: glade/cherrytree.glade.h:83
+#: glade/cherrytree.glade.h:85
 msgid "Forward"
 msgstr "Adiante"
 
-#: glade/cherrytree.glade.h:84
+#: glade/cherrytree.glade.h:86
 msgid "Height"
 msgstr "Altura"
 
-#: glade/cherrytree.glade.h:85
+#: glade/cherrytree.glade.h:87
 msgid "Image Properties"
 msgstr "Propriedades da imaxe"
 
-#: glade/cherrytree.glade.h:86
+#: glade/cherrytree.glade.h:88
 msgid "Import from CSV File"
 msgstr "Importar dun ficheiro CSV"
 
-#: glade/cherrytree.glade.h:87
+#: glade/cherrytree.glade.h:89
 msgid "Input Dialog"
 msgstr "Diálogo de entrada"
 
-#: glade/cherrytree.glade.h:88
+#: glade/cherrytree.glade.h:90
 msgid "Insert Spaces Instead of Tabs"
 msgstr "Empregar espazos no canto de tabuladores "
 
-#: glade/cherrytree.glade.h:89
+#: glade/cherrytree.glade.h:91
 msgid "Match Case"
 msgstr "Distinguir a capitalización"
 
-#: glade/cherrytree.glade.h:90
+#: glade/cherrytree.glade.h:92
 msgid "Min Width"
 msgstr "Largura minima"
 
-#: glade/cherrytree.glade.h:91
+#: glade/cherrytree.glade.h:93
 msgid "Move Column Left"
 msgstr "Mover a columa á esquerda"
 
-#: glade/cherrytree.glade.h:92
+#: glade/cherrytree.glade.h:94
 msgid "Move Column Right"
 msgstr "Mover a columa á dereita"
 
-#: glade/cherrytree.glade.h:93
+#: glade/cherrytree.glade.h:95
 msgid "No"
 msgstr "Non"
 
-#: glade/cherrytree.glade.h:94
+#: glade/cherrytree.glade.h:96
 msgid "OK"
 msgstr "Aceptar"
 
-#: glade/cherrytree.glade.h:95
+#: glade/cherrytree.glade.h:97
 msgid "Pick a Color"
 msgstr "Seleccione unha cor"
 
-#: glade/cherrytree.glade.h:97
+#: glade/cherrytree.glade.h:100
 msgid "Regular Expression"
 msgstr "Expresión regular"
 
-#: glade/cherrytree.glade.h:98
+#: glade/cherrytree.glade.h:101
 msgid "Rename Column"
 msgstr "Mudar o nome da columna"
 
-#: glade/cherrytree.glade.h:99
+#: glade/cherrytree.glade.h:102
 msgid "Rows  "
 msgstr "Filas  "
 
-#: glade/cherrytree.glade.h:101
+#: glade/cherrytree.glade.h:104
 msgid "Show Line Numbers"
 msgstr "Mostrar os números de liña"
 
-#: glade/cherrytree.glade.h:102
+#: glade/cherrytree.glade.h:105
 msgid "Start Minimized on the System Tray"
 msgstr "Comezar minimizado na bandexa do sistema"
 
-#: glade/cherrytree.glade.h:103
+#: glade/cherrytree.glade.h:106
 msgid "Start Word"
 msgstr "Comezar palabra"
 
-#: glade/cherrytree.glade.h:104
+#: glade/cherrytree.glade.h:107
 msgid "Tab Width  "
 msgstr "Ancho da tabulación  "
 
-#: glade/cherrytree.glade.h:105
+#: glade/cherrytree.glade.h:108
 msgid "To File"
 msgstr "A ficheiro"
 
-#: glade/cherrytree.glade.h:106
+#: glade/cherrytree.glade.h:109
 msgid "To Node  "
 msgstr "A nodo  "
 
-#: glade/cherrytree.glade.h:107
+#: glade/cherrytree.glade.h:110
 msgid "To WebSite  "
 msgstr "A sitio web  "
 
-#: glade/cherrytree.glade.h:108
+#: glade/cherrytree.glade.h:111
 msgid "Tree Nodes Names Wrapping Width"
 msgstr "Largura do axuste de liña dos nodos das árbores"
 
-#: glade/cherrytree.glade.h:110
+#: glade/cherrytree.glade.h:113
 msgid "Use Bullets as Nodes Icons"
 msgstr "Usar balas como iconas de nodos"
 
-#: glade/cherrytree.glade.h:111
+#: glade/cherrytree.glade.h:114
 msgid "Use Cherries as Nodes Icons"
 msgstr "Usar cereixas como iconas de nodos"
 
-#: glade/cherrytree.glade.h:112
+#: glade/cherrytree.glade.h:115
 msgid "Use Line Wrapping"
 msgstr "Usar división de liñas"
 
-#: glade/cherrytree.glade.h:114
+#: glade/cherrytree.glade.h:117
 msgid "Whole Word"
 msgstr "Palabra completa"
 
-#: glade/cherrytree.glade.h:115
+#: glade/cherrytree.glade.h:118
 msgid "Width"
 msgstr "Largura"
 
-#: glade/cherrytree.glade.h:116
+#: glade/cherrytree.glade.h:119
 msgid "Width "
 msgstr "Largura "
 
-#: glade/cherrytree.glade.h:117
+#: glade/cherrytree.glade.h:120
 msgid "Yes"
 msgstr "Si"
 
-#: glade/cherrytree.glade.h:118
+#: glade/cherrytree.glade.h:121
 msgid "http://www.giuspen.com/cherrytree/"
 msgstr "http://www.giuspen.com/cherrytree/"
 
-#: glade/cherrytree.glade.h:119
+#: glade/cherrytree.glade.h:122
 msgid "pixels"
 msgstr "píxeles"
 
