@@ -169,6 +169,7 @@ class CherryTree:
       self.curr_tree_iter = None
       self.curr_window_n_tree_width = None
       self.curr_buffer = None
+      self.curr_colors = {'f':None, 'b':None}
       self.nodes_cursor_pos = {}
       self.latest_tag = ["", ""] # [latest tag property, latest tag value]
       self.file_update = False
@@ -2506,10 +2507,16 @@ class CherryTree:
                property_value = "node" + cons.CHAR_SPACE + str(self.treestore[tree_iter][3])
                if len(link_anchor) > 0: property_value += cons.CHAR_SPACE + link_anchor
          else:
+            if tag_property[0] == 'f':
+               if self.curr_colors['f']: self.glade.colorselection.set_current_color(self.curr_colors['f'])
+            elif tag_property[0] == 'b':
+               if self.curr_colors['b']: self.glade.colorselection.set_current_color(self.curr_colors['b'])
+            else: print "ERROR bad tag_property"
             response = self.glade.colorselectiondialog.run()
             self.glade.colorselectiondialog.hide()
             if response == 2: return # cancel was clicked
-            property_value = self.glade.colorselection.get_current_color().to_string()
+            self.curr_colors[tag_property[0]] = self.glade.colorselection.get_current_color()
+            property_value = self.curr_colors[tag_property[0]].to_string()
       if tag_property != "link":
          self.latest_tag = [tag_property, property_value]
       curr_tags = iter_sel_start.get_tags()
