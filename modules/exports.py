@@ -162,6 +162,8 @@ class Export2Html:
          self.tree_links_nums[-1] = str( int(self.tree_links_nums[-1]) + 1 )
          tree_iter = self.dad.treestore.iter_next(tree_iter)
       self.tree_links_text += '</table>'
+      # create index html page
+      self.create_tree_index_page()
       # create html pages
       tree_iter = self.dad.treestore.get_iter_first()
       while tree_iter:
@@ -192,6 +194,15 @@ class Export2Html:
          self.tree_links_nums[-1] = str( int(self.tree_links_nums[-1]) + 1 )
          child_tree_iter = self.dad.treestore.iter_next(child_tree_iter)
       self.tree_links_nums.pop()
+   
+   def create_tree_index_page(self):
+      """Write the index html file for the tree"""
+      html_text = cons.HTML_HEADER % self.dad.file_name
+      html_text += self.tree_links_text
+      html_text += cons.HTML_FOOTER
+      file_descriptor = open(os.path.join(self.new_path, "index.html"), 'w')
+      file_descriptor.write(html_text)
+      file_descriptor.close()
    
    def node_export_to_html(self, tree_iter):
       """Export the Selected Node To HTML"""
