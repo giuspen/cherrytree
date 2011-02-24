@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-02-23 15:04+0100\n"
-"PO-Revision-Date: 2011-01-01 13:21+0100\n"
-"Last-Translator: Pavel Fric <fripohled@blogspot.com>\n"
+"PO-Revision-Date: 2011-02-24 14:59+0100\n"
+"Last-Translator: Pavel\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
@@ -69,36 +69,33 @@ msgid "Justify Center the Current Paragraph"
 msgstr "Zarovnat současný odstavec na střed"
 
 #: modules/support.py:181
-#, fuzzy
 msgid "Justify Left/Right the Current Paragraph"
-msgstr "Zarovnat současný odstavec vpravo"
+msgstr "Zarovnat současný odstavec vlevo/vpravo"
 
 #: modules/support.py:199
-#, fuzzy
 msgid "_Recent Documents"
-msgstr "Dokument Treepad"
+msgstr "_Nedávné dokumenty"
 
 #: modules/support.py:201 modules/support.py:207
-#, fuzzy
 msgid "Open a Recent CherryTree Document"
-msgstr "Otevřít dokument CherryTree"
+msgstr "Otevřít nedávný dokument CherryTree"
 
 #: modules/support.py:206 modules/cons.py:394
 msgid "Open a CherryTree Document"
 msgstr "Otevřít dokument CherryTree"
 
 #: modules/support.py:228
-#, fuzzy, python-format
+#, python-format
 msgid "The Document %s was Not Found"
-msgstr "Hledaný pojem '%s' nenalezen"
+msgstr "Dokument %s nebyl nalezen"
 
 #: modules/support.py:240 modules/cons.py:497
 msgid "Handle the Bookmarks List"
-msgstr ""
+msgstr "Pracovat se seznamem záložek"
 
 #: modules/support.py:252
 msgid "Sort with Drag and Drop, Delete with the Delete Key"
-msgstr ""
+msgstr "Třídit pomocí \"táhni a pusť\", smazat pomocí klávesy Delete"
 
 #: modules/findreplace.py:45
 msgid "Search in Current Node..."
@@ -188,9 +185,8 @@ msgid "Treepad Document"
 msgstr "Dokument Treepad"
 
 #: modules/core.py:484
-#, fuzzy
 msgid "Leo Document"
-msgstr "Dokument Treepad"
+msgstr "Dokument Leo"
 
 #: modules/core.py:512
 msgid "Who is the Father?"
@@ -439,7 +435,7 @@ msgstr "Název kotvy"
 
 #: modules/core.py:2818 glade/cherrytree.glade.h:99
 msgid "Read Only"
-msgstr ""
+msgstr "Pouze pro čtení"
 
 #: modules/tablez.py:59 modules/tablez.py:94
 msgid "CSV File"
@@ -519,7 +515,7 @@ msgstr "_Pohled"
 
 #: modules/cons.py:388
 msgid "_Bookmarks"
-msgstr ""
+msgstr "_Záložky"
 
 #: modules/cons.py:389
 msgid "_Import"
@@ -823,43 +819,36 @@ msgid "Delete the Whole Row"
 msgstr "Smazat celý řádek"
 
 #: modules/cons.py:430 modules/cons.py:597 modules/cons.py:635
-#, fuzzy
 msgid "Cu_t Row"
-msgstr "Smazat řá_dek"
+msgstr "Vyjmou_t řádek"
 
 #: modules/cons.py:430 modules/cons.py:597 modules/cons.py:635
-#, fuzzy
 msgid "Cut the Whole Row"
-msgstr "Smazat celý řádek"
+msgstr "Vyjmout celý řádek"
 
 #: modules/cons.py:431
-#, fuzzy
 msgid "_Copy Row"
-msgstr "_Kopírovat CodeBox"
+msgstr "_Kopírovat řádek"
 
 #: modules/cons.py:431 modules/cons.py:598 modules/cons.py:636
-#, fuzzy
 msgid "Copy the Whole Row"
-msgstr "Smazat celý řádek"
+msgstr "Kopírovat celý řádek"
 
 #: modules/cons.py:432 modules/cons.py:550
-#, fuzzy
 msgid "Go _Back"
-msgstr "Hledat _pozpátku"
+msgstr "Jít _zpět"
 
 #: modules/cons.py:432 modules/cons.py:550
 msgid "Go to the Previous Visited Node"
-msgstr ""
+msgstr "Jít na předchozí navštívený uzel"
 
 #: modules/cons.py:433 modules/cons.py:551
-#, fuzzy
 msgid "Go _Forward"
-msgstr "Vpřed"
+msgstr "Jít _před"
 
 #: modules/cons.py:433 modules/cons.py:551
-#, fuzzy
 msgid "Go to the Next Visited Node"
-msgstr "Hledat v nyní označeném uzlu"
+msgstr "Jít na další navštívený uzel"
 
 #: modules/cons.py:434
 msgid "_Undo"
@@ -1140,14 +1129,12 @@ msgid "Add Nodes of a Treepad Lite File to the Current Tree"
 msgstr "Přidat uzly ze souboru Treepad Lite do současné stromové stavby"
 
 #: modules/cons.py:471 modules/cons.py:530
-#, fuzzy
 msgid "From _Leo File"
-msgstr "Ze souboru _NoteCase"
+msgstr "Ze souboru _Leo"
 
 #: modules/cons.py:471 modules/cons.py:530
-#, fuzzy
 msgid "Add Nodes of a Leo File to the Current Tree"
-msgstr "Přidat uzly ze souboru NoteCase do současné stromové stavby"
+msgstr "Přidat uzly ze souboru Leo do současné stromové stavby"
 
 #: modules/cons.py:472
 msgid "Application's Home Page"
@@ -1335,20 +1322,19 @@ msgstr "Vyvést tabulku jako soubor CSV"
 
 #: modules/cons.py:496
 msgid "_Bookmark This Node"
-msgstr ""
+msgstr "_Opatřit tento uzel záložkou"
 
 #: modules/cons.py:496
 msgid "Add the Current Node to the Bookmarks List"
-msgstr ""
+msgstr "Přidat současný uzel do seznamu záložek"
 
 #: modules/cons.py:497
 msgid "_Handle Bookmarks"
-msgstr ""
+msgstr "_Pracovat se záložkami"
 
 #: modules/cons.py:576
-#, fuzzy
 msgid "_Justify"
-msgstr "Zarovnat _vlevo"
+msgstr "_Zarovnat"
 
 #: modules/cons.py:582
 msgid "_Insert"
@@ -1356,11 +1342,11 @@ msgstr "_Vložit"
 
 #: modules/cons.py:596
 msgid "_Row"
-msgstr ""
+msgstr "Řá_dek"
 
 #: modules/cons.py:598 modules/cons.py:636
 msgid "C_opy Row"
-msgstr ""
+msgstr "K_opírovat řádek"
 
 #: modules/cons.py:649
 msgid "C_ut CodeBox"
@@ -1619,9 +1605,8 @@ msgid "Autosave Every "
 msgstr "Automaticky uložit každých "
 
 #: glade/cherrytree.glade.h:57
-#, fuzzy
 msgid "Autosave on Quit"
-msgstr "Automaticky uložit každých "
+msgstr "Automaticky uložit při ukončení"
 
 #: glade/cherrytree.glade.h:58
 msgid "Backward"
@@ -1657,7 +1642,7 @@ msgstr ""
 
 #: glade/cherrytree.glade.h:66
 msgid "Create a Backup Copy Before Saving"
-msgstr ""
+msgstr "Před uložením vytvořit záložní kopii"
 
 #: glade/cherrytree.glade.h:67
 msgid ""

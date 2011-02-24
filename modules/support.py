@@ -162,7 +162,7 @@ def set_bookmarks_menu_items(inst):
       inst.bookmarks_menu_items.append(menu_item)
 
 def set_menu_items_justification(inst):
-   """Set Justification menu items on toolbar Toolbar"""
+   """Set Justification menu items on Toolbar"""
    justification_menu = gtk.Menu()
    menu_item = gtk.ImageMenuItem(_("Justify _Left"))
    menu_item.set_tooltip_text(_("Justify Left the Current Paragraph"))
