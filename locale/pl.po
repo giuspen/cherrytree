@@ -66,36 +66,34 @@ msgid "Justify Center the Current Paragraph"
 msgstr "Wyjustuj do środka aktualny paragraf"
 
 #: modules/support.py:181
-#, fuzzy
 msgid "Justify Left/Right the Current Paragraph"
-msgstr "Wyjustuj do prawej aktualny paragraf"
+msgstr "Wyjustuj do lewej/prawej aktualny paragraf"
 
 #: modules/support.py:199
-#, fuzzy
 msgid "_Recent Documents"
-msgstr "Dokument Treepad"
+msgstr "_Ostatnie dokumenty"
 
 #: modules/support.py:201 modules/support.py:207
-#, fuzzy
 msgid "Open a Recent CherryTree Document"
-msgstr "Otwórz Dokument CherryTree"
+msgstr "Otwórz ostatni dokument CherryTree"
 
 #: modules/support.py:206 modules/cons.py:394
 msgid "Open a CherryTree Document"
 msgstr "Otwórz Dokument CherryTree"
 
 #: modules/support.py:228
-#, fuzzy, python-format
+#, python-format
 msgid "The Document %s was Not Found"
-msgstr "Wyrażenie '%s' nie zostało znalezione"
+msgstr "Dokument '%s' nie został znaleziony"
 
 #: modules/support.py:240 modules/cons.py:497
 msgid "Handle the Bookmarks List"
-msgstr ""
+msgstr "Obsłuż liste zakładek"
 
 #: modules/support.py:252
 msgid "Sort with Drag and Drop, Delete with the Delete Key"
 msgstr ""
+"Sortuj za pomocą Przytrzymaj i upuść, Usuwaj za pomocą przycisku Delete"
 
 #: modules/findreplace.py:45
 msgid "Search in Current Node..."
@@ -184,9 +182,8 @@ msgid "Treepad Document"
 msgstr "Dokument Treepad"
 
 #: modules/core.py:484
-#, fuzzy
 msgid "Leo Document"
-msgstr "Dokument Treepad"
+msgstr "Dokument Leo"
 
 #: modules/core.py:512
 msgid "Who is the Father?"
@@ -432,7 +429,7 @@ msgstr "Nazwa kotwicy"
 
 #: modules/core.py:2818 glade/cherrytree.glade.h:99
 msgid "Read Only"
-msgstr ""
+msgstr "Tylko do odczytu"
 
 #: modules/tablez.py:59 modules/tablez.py:94
 msgid "CSV File"
@@ -512,7 +509,7 @@ msgstr "_Widok"
 
 #: modules/cons.py:388
 msgid "_Bookmarks"
-msgstr ""
+msgstr "_Zakładki"
 
 #: modules/cons.py:389
 msgid "_Import"
@@ -816,43 +813,36 @@ msgid "Delete the Whole Row"
 msgstr "Usuń cały wiersz"
 
 #: modules/cons.py:430 modules/cons.py:597 modules/cons.py:635
-#, fuzzy
 msgid "Cu_t Row"
-msgstr "Usuń wiersz"
+msgstr "Wytnij wiersz"
 
 #: modules/cons.py:430 modules/cons.py:597 modules/cons.py:635
-#, fuzzy
 msgid "Cut the Whole Row"
-msgstr "Usuń cały wiersz"
+msgstr "Wytnij cały wiersz"
 
 #: modules/cons.py:431
-#, fuzzy
 msgid "_Copy Row"
-msgstr "Kopiuj pole kodu"
+msgstr "Kopiuj wiersz"
 
 #: modules/cons.py:431 modules/cons.py:598 modules/cons.py:636
-#, fuzzy
 msgid "Copy the Whole Row"
-msgstr "Usuń cały wiersz"
+msgstr "Kopiuj cały wiersz"
 
 #: modules/cons.py:432 modules/cons.py:550
-#, fuzzy
 msgid "Go _Back"
-msgstr "Znajdź wstecz"
+msgstr "Wstecz"
 
 #: modules/cons.py:432 modules/cons.py:550
 msgid "Go to the Previous Visited Node"
-msgstr ""
+msgstr "Idź do poprzednio odwiedzonej gałęzi"
 
 #: modules/cons.py:433 modules/cons.py:551
-#, fuzzy
 msgid "Go _Forward"
 msgstr "Naprzód"
 
 #: modules/cons.py:433 modules/cons.py:551
-#, fuzzy
 msgid "Go to the Next Visited Node"
-msgstr "Znajdź w zaznaczonej gałęzi"
+msgstr "Idź do następnej odwiedzonej gałęzi"
 
 #: modules/cons.py:434
 msgid "_Undo"
@@ -1133,14 +1123,12 @@ msgid "Add Nodes of a Treepad Lite File to the Current Tree"
 msgstr "Dodaj gałązi z pliku Treepad Lite do aktualnego drzewa"
 
 #: modules/cons.py:471 modules/cons.py:530
-#, fuzzy
 msgid "From _Leo File"
-msgstr "Z pliku _NoteCase"
+msgstr "Z pliku _Leo"
 
 #: modules/cons.py:471 modules/cons.py:530
-#, fuzzy
 msgid "Add Nodes of a Leo File to the Current Tree"
-msgstr "Dodaj gałąź z pliku NoteCase do aktualnego drzewa"
+msgstr "Dodaj gałąź z pliku Leo do aktualnego drzewa"
 
 #: modules/cons.py:472
 msgid "Application's Home Page"
@@ -1328,20 +1316,19 @@ msgstr "Eksportuj tabele jako plik CSV"
 
 #: modules/cons.py:496
 msgid "_Bookmark This Node"
-msgstr ""
+msgstr "Dodaj zakładkę"
 
 #: modules/cons.py:496
 msgid "Add the Current Node to the Bookmarks List"
-msgstr ""
+msgstr "Dodaj zakładkę do aktualnej gałęzi"
 
 #: modules/cons.py:497
 msgid "_Handle Bookmarks"
-msgstr ""
+msgstr "Zakładki"
 
 #: modules/cons.py:576
-#, fuzzy
 msgid "_Justify"
-msgstr "Wyjustuj do lewej"
+msgstr "Wyjustuj"
 
 #: modules/cons.py:582
 msgid "_Insert"
@@ -1349,11 +1336,11 @@ msgstr "Dodaj"
 
 #: modules/cons.py:596
 msgid "_Row"
-msgstr ""
+msgstr "Wiersz"
 
 #: modules/cons.py:598 modules/cons.py:636
 msgid "C_opy Row"
-msgstr ""
+msgstr "Kopiuj wiersz"
 
 #: modules/cons.py:649
 msgid "C_ut CodeBox"
@@ -1614,9 +1601,8 @@ msgid "Autosave Every "
 msgstr "Autozapis co "
 
 #: glade/cherrytree.glade.h:57
-#, fuzzy
 msgid "Autosave on Quit"
-msgstr "Autozapis co "
+msgstr "Autozapis przy wyjściu"
 
 #: glade/cherrytree.glade.h:58
 msgid "Backward"
@@ -1652,7 +1638,7 @@ msgstr ""
 
 #: glade/cherrytree.glade.h:66
 msgid "Create a Backup Copy Before Saving"
-msgstr ""
+msgstr "Stwórz kopie zapasową przed zapisem"
 
 #: glade/cherrytree.glade.h:67
 msgid ""

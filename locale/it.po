@@ -82,6 +82,7 @@ msgid "Open a CherryTree Document"
 msgstr "Apri un Documento CherryTree"
 
 #: modules/support.py:228
+#, python-format
 msgid "The Document %s was Not Found"
 msgstr "Il Documento %s Non e' Stato Trovato"
 
