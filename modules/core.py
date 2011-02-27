@@ -396,19 +396,16 @@ class CherryTree:
       
    def nodes_add_from_cherrytree_file(self, action):
       """Appends Nodes at the Bottom of the Current Ones, Importing from a CherryTree File"""
-      filepath = support.dialog_file_select(filter_pattern="*.ctd",
+      filepath = support.dialog_file_select(filter_pattern="*.ct*",
                                             filter_name=_("CherryTree Document"),
                                             curr_folder=self.file_dir,
                                             parent=self.window)
       if filepath == None: return
-      try:
-         file_descriptor = open(filepath, 'r')
-         cherrytree_string = file_descriptor.read()
-         file_descriptor.close()
+      try: cherrytree_string = self.file_get_cherrytree_xml(filepath, False)
       except:
          support.dialog_error("Error opening the file %s" % filepath, self.window)
          return
-      self.nodes_add_from_string(cherrytree_string)
+      if cherrytree_string: self.nodes_add_from_string(cherrytree_string)
       
    def nodes_add_from_notecase_file(self, action):
       """Add Nodes Parsing a NoteCase File"""
@@ -966,15 +963,18 @@ class CherryTree:
       passw = entry.get_text()
       enter_password_dialog.destroy()
       while gtk.events_pending(): gtk.main_iteration()
-      if response != gtk.RESPONSE_ACCEPT: return False
-      self.password = passw
-      return True
+      if response != gtk.RESPONSE_ACCEPT: return ""
+      return passw
       
-   def file_load(self, filepath):
-      """Loads a .CTD into a GTK TreeStore"""
+   def file_get_cherrytree_xml(self, filepath, main_file):
+      """returns the cherrytree_string given the filepath"""
+      password_protected = False
       if filepath[-1] == "z":
-         if not self.dialog_insert_password(os.path.basename(filepath)): return
-         if not self.is_7za_available(): return
+         password_protected = True
+         password_str = self.dialog_insert_password(os.path.basename(filepath))
+         if not password_str: return None
+         if main_file: self.password = password_str
+         if not self.is_7za_available(): return None
          if not os.path.isdir(cons.TMP_FOLDER): os.mkdir(cons.TMP_FOLDER)
          filepath_tmp = os.path.join(cons.TMP_FOLDER, os.path.basename(filepath[:-1] + "d"))
          if sys.platform[0:3] == "win":
@@ -982,33 +982,38 @@ class CherryTree:
             filepath_4win = support.windows_cmd_prepare_path(filepath)
             if not dest_dir_4win or not filepath_4win:
                support.dialog_error(_("The Contemporary Presence of Single and Double Quotes in the File Path Prevents 7za.exe to Work, Please Change the File Name"), self.window)
-               return
-            bash_str = '7za e -p%s -bd -y ' % self.password +\
+               return None
+            bash_str = '7za e -p%s -bd -y ' % password_str +\
                        dest_dir_4win + cons.CHAR_SPACE + filepath_4win
          else:
-            bash_str = '7za e -p%s -bd -y -o%s %s' % (self.password,
+            bash_str = '7za e -p%s -bd -y -o%s %s' % (password_str,
                                                       re.escape(cons.TMP_FOLDER),
                                                       re.escape(filepath))
          #print bash_str
          ret_code = subprocess.call(bash_str, shell=True)
          if ret_code != 0:
             support.dialog_error(_('Wrong Password'), self.window)
-            return
+            return None
       elif filepath[-1] != "d":
          print "bad filepath[-1]", filepath[-1]
          support.dialog_error(_('"%s" is Not a CherryTree Document') % filepath, self.window)
-         return
-      else: self.password = None
+         return None
+      elif main_file: self.password = None
       try:
-         if self.password: file_descriptor = open(filepath_tmp, 'r')
+         if password_protected: file_descriptor = open(filepath_tmp, 'r')
          else: file_descriptor = open(filepath, 'r')
          cherrytree_string = file_descriptor.read()
          file_descriptor.close()
-         if self.password: os.remove(filepath_tmp)
+         if password_protected: os.remove(filepath_tmp)
       except:
          support.dialog_error("Error opening the file %s" % filepath, self.window)
-         return
-      cherrytree_string = re.sub(cons.BAD_CHARS, "", cherrytree_string)
+         return None
+      return re.sub(cons.BAD_CHARS, "", cherrytree_string)
+      
+   def file_load(self, filepath):
+      """Loads a .CTD into a GTK TreeStore"""
+      cherrytree_string = self.file_get_cherrytree_xml(filepath, True)
+      if not cherrytree_string: return
       self.user_active = False
       file_loaded = False
       try:
