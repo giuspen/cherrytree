@@ -69,7 +69,8 @@ class CherryTree:
          iconset = gtk.IconSet(pixbuf)
          factory.add(stock_name, iconset)
       factory.add_default()
-      gtk.settings_get_default().set_property("gtk-button-images", True)
+      try: gtk.settings_get_default().set_property("gtk-button-images", True)
+      except: pass # older gtk do not have the property "gtk-button-images"
       # glade
       self.glade = GladeWidgetsWrapper(cons.GLADE_PATH + 'cherrytree.glade', self) # glade widgets access
       self.window = self.glade.window
