@@ -790,6 +790,33 @@ class CherryTree:
             self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
       else: self.file_save_as()
       
+   def file_write_low_level(self, filepath, xml_string):
+      """File Write Low Level (ctd or ctz)"""
+      if self.password:
+         if not os.path.isdir(cons.TMP_FOLDER): os.mkdir(cons.TMP_FOLDER)
+         filepath_tmp = os.path.join(cons.TMP_FOLDER, os.path.basename(filepath[:-1] + "d"))
+         file_descriptor = open(filepath_tmp, 'w')
+      else: file_descriptor = open(filepath, 'w')
+      file_descriptor.write(xml_string)
+      file_descriptor.close()
+      if self.password:
+         if sys.platform[0:3] == "win":
+            filepath_4win = support.windows_cmd_prepare_path(filepath)
+            filepath_tmp_4win = support.windows_cmd_prepare_path(filepath_tmp)
+            if not filepath_4win or not filepath_tmp_4win:
+               support.dialog_error(_("The Contemporary Presence of Single and Double Quotes in the File Path Prevents 7za.exe to Work, Please Change the File Name"), self.window)
+               raise
+            bash_str = '7za a -p%s -bd -y ' % self.password +\
+                       filepath_4win + cons.CHAR_SPACE + filepath_tmp_4win
+         else:
+            bash_str = '7za a -p%s -bd -y %s %s' % (self.password,
+                                                    re.escape(filepath),
+                                                    re.escape(filepath_tmp))
+         #print bash_str
+         ret_code = subprocess.call(bash_str, shell=True)
+         #print ret_code
+         os.remove(filepath_tmp)
+      
    def file_write(self, filepath):
       """File Write"""
       try: xml_string = self.xml_handler.treestore_to_dom()
@@ -803,30 +830,7 @@ class CherryTree:
       try:
          self.statusbar.push(self.statusbar_context_id, _("Writing to Disk..."))
          while gtk.events_pending(): gtk.main_iteration()
-         if self.password:
-            if not os.path.isdir(cons.TMP_FOLDER): os.mkdir(cons.TMP_FOLDER)
-            filepath_tmp = os.path.join(cons.TMP_FOLDER, os.path.basename(filepath[:-1] + "d"))
-            file_descriptor = open(filepath_tmp, 'w')
-         else: file_descriptor = open(filepath, 'w')
-         file_descriptor.write(xml_string)
-         file_descriptor.close()
-         if self.password:
-            if sys.platform[0:3] == "win":
-               filepath_4win = support.windows_cmd_prepare_path(filepath)
-               filepath_tmp_4win = support.windows_cmd_prepare_path(filepath_tmp)
-               if not filepath_4win or not filepath_tmp_4win:
-                  support.dialog_error(_("The Contemporary Presence of Single and Double Quotes in the File Path Prevents 7za.exe to Work, Please Change the File Name"), self.window)
-                  raise
-               bash_str = '7za a -p%s -bd -y ' % self.password +\
-                          filepath_4win + cons.CHAR_SPACE + filepath_tmp_4win
-            else:
-               bash_str = '7za a -p%s -bd -y %s %s' % (self.password,
-                                                       re.escape(filepath),
-                                                       re.escape(filepath_tmp))
-            #print bash_str
-            ret_code = subprocess.call(bash_str, shell=True)
-            #print ret_code
-            os.remove(filepath_tmp)
+         self.file_write_low_level(filepath, xml_string)
          self.statusbar.pop(self.statusbar_context_id)
          return True
       except:
@@ -839,10 +843,7 @@ class CherryTree:
       except:
          support.dialog_error("%s write failed - sel node and subnodes to xml" % filepath, self.window)
          return
-      try:
-         file_descriptor = open(filepath, 'w')
-         file_descriptor.write(xml_string)
-         file_descriptor.close()
+      try: self.file_write_low_level(filepath, xml_string)
       except: support.dialog_error("%s write failed - writing to disk" % filepath, self.window)
       
    def file_open(self, *args):
@@ -1054,8 +1055,14 @@ class CherryTree:
       if self.curr_tree_iter == None:
          support.dialog_warning(_("No Node is Selected!"), self.window)
          return
-      filepath = support.dialog_file_save_as(self.treestore[self.curr_tree_iter][1] + ".ctd",
-                                             filter_pattern="*.ctd",
+      if self.password:
+         export_hint = self.treestore[self.curr_tree_iter][1] + ".ctz"
+         filter_pattern = "*.ctz"
+      else:
+         export_hint = self.treestore[self.curr_tree_iter][1] + ".ctd"
+         filter_pattern = "*.ctd"
+      filepath = support.dialog_file_save_as(export_hint,
+                                             filter_pattern=filter_pattern,
                                              filter_name=_("CherryTree Document"),
                                              curr_folder=self.file_dir,
                                              parent=self.window)
