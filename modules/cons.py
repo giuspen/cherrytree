@@ -43,7 +43,7 @@ else:
    else:
       GLADE_PATH = '/usr/share/cherrytree/glade/'
       LOCALE_PATH = '/usr/share/locale/'
-AVAILABLE_LANGS = ['default', 'cs', 'de', 'en', 'es', 'fr', 'gl', 'it', 'pl', 'ru', 'uk']
+AVAILABLE_LANGS = ['default', 'cs', 'de', 'en', 'es', 'fr', 'it', 'pl', 'ru', 'uk']
 SHOW_MENU_ICONS = "gconftool-2 --set /desktop/gnome/interface/menus_have_icons --type bool 1"
 COLOR_WHITE = "#ffffffffffff"
 COLOR_BLACK = "#000000000000"

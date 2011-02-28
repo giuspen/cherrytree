@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <requires lib="gtk+" version="2.16"/>
   <!-- interface-naming-policy project-wide -->
@@ -22,9 +22,8 @@
     <property name="destroy_with_parent">True</property>
     <property name="type_hint">dialog</property>
     <property name="transient_for">window</property>
-    <property name="has_separator">False</property>
     <property name="program_name">CherryTree</property>
-    <property name="copyright" translatable="yes">Copyright &#xA9; 2009-2011
+    <property name="copyright" translatable="yes">Copyright © 2009-2011
 Giuseppe Penone &lt;giuspen@gmail.com&gt;</property>
     <property name="comments" translatable="yes">A Hierarchical Note Taking Application, featuring Rich Text and Syntax Highlighting</property>
     <property name="website">http://www.giuspen.com/cherrytree/</property>
@@ -48,7 +47,6 @@ MA 02110-1301, USA.
     <property name="authors">Giuseppe Penone &lt;giuspen@gmail.com&gt;</property>
     <property name="translator_credits" translatable="yes">Czech (cs) Pavel Fric &lt;fripohled@blogspot.com&gt;
 French (fr) Ludovic Troisi &lt;axalis@cegetel.net&gt;
-Galician (gl) Dario Villar &lt;dario.villar.v@gmail.com&gt;
 German (de) Sven Neubauer &lt;me@dampfklon.de&gt;
 Italian (it) Giuseppe Penone &lt;giuspen@gmail.com&gt;
 Polish (pl) Marcin Swierczynski &lt;orneo1212@gmail.com&gt;
@@ -88,7 +86,6 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
     <property name="destroy_with_parent">True</property>
     <property name="type_hint">dialog</property>
     <property name="transient_for">window</property>
-    <property name="has_separator">False</property>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog-vbox2">
         <property name="visible">True</property>
@@ -103,7 +100,7 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
                 <property name="can_default">True</property>
                 <property name="has_default">True</property>
                 <property name="receives_default">True</property>
-                <property name="invisible_char">&#x25CF;</property>
+                <property name="invisible_char">●</property>
               </object>
               <packing>
                 <property name="position">0</property>
@@ -324,7 +321,7 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
                       <object class="GtkEntry" id="replace_entry">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="invisible_char">&#x25CF;</property>
+                        <property name="invisible_char">●</property>
                       </object>
                     </child>
                   </object>
@@ -385,7 +382,7 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
                       <object class="GtkEntry" id="tags_searching_entry">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="invisible_char">&#x25CF;</property>
+                        <property name="invisible_char">●</property>
                       </object>
                     </child>
                   </object>
@@ -517,7 +514,6 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
     <property name="destroy_with_parent">True</property>
     <property name="type_hint">normal</property>
     <property name="transient_for">window</property>
-    <property name="has_separator">False</property>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog-vbox3">
         <property name="visible">True</property>
@@ -557,7 +553,7 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
                                   <object class="GtkSpinButton" id="spinbutton_tab_width">
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
-                                    <property name="invisible_char">&#x25CF;</property>
+                                    <property name="invisible_char">●</property>
                                     <property name="adjustment">adjustment_tab_width</property>
                                     <signal name="value_changed" handler="on_spinbutton_tab_width_value_changed"/>
                                   </object>
@@ -699,7 +695,7 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
                                   <object class="GtkSpinButton" id="spinbutton_autosave">
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
-                                    <property name="invisible_char">&#x25CF;</property>
+                                    <property name="invisible_char">●</property>
                                     <property name="adjustment">adjustment_autosave</property>
                                   </object>
                                   <packing>
@@ -1021,7 +1017,7 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
                                   <object class="GtkSpinButton" id="spinbutton_tree_nodes_names_width">
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
-                                    <property name="invisible_char">&#x25CF;</property>
+                                    <property name="invisible_char">●</property>
                                     <property name="adjustment">adjustment_tree_nodes_names_width</property>
                                     <signal name="value_changed" handler="on_spinbutton_tree_nodes_names_width_value_changed"/>
                                   </object>
@@ -1170,7 +1166,7 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
                                   <object class="GtkEntry" id="entry_custom_weblink_cmd">
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
-                                    <property name="invisible_char">&#x25CF;</property>
+                                    <property name="invisible_char">●</property>
                                     <signal name="changed" handler="on_entry_custom_weblink_cmd_changed"/>
                                   </object>
                                   <packing>
@@ -1273,7 +1269,6 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
     <property name="destroy_with_parent">True</property>
     <property name="type_hint">normal</property>
     <property name="transient_for">window</property>
-    <property name="has_separator">False</property>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog-vbox4">
         <property name="visible">True</property>
@@ -1439,7 +1434,6 @@ do you want to save the changes?</property>
     <property name="destroy_with_parent">True</property>
     <property name="type_hint">normal</property>
     <property name="transient_for">window</property>
-    <property name="has_separator">False</property>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog-vbox5">
         <property name="visible">True</property>
@@ -1555,7 +1549,6 @@ do you want to save the changes?</property>
     <property name="destroy_with_parent">True</property>
     <property name="type_hint">normal</property>
     <property name="transient_for">window</property>
-    <property name="has_separator">False</property>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog-vbox6">
         <property name="visible">True</property>
@@ -1646,7 +1639,7 @@ do you want to save the changes?</property>
                   <object class="GtkSpinButton" id="spinbutton_image_width">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="invisible_char">&#x25CF;</property>
+                    <property name="invisible_char">●</property>
                     <property name="adjustment">adjustment_image_width</property>
                     <signal name="value_changed" handler="on_spinbutton_image_width_value_changed"/>
                   </object>
@@ -1667,7 +1660,7 @@ do you want to save the changes?</property>
                   <object class="GtkSpinButton" id="spinbutton_image_height">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="invisible_char">&#x25CF;</property>
+                    <property name="invisible_char">●</property>
                     <property name="adjustment">adjustment_image_height</property>
                     <signal name="value_changed" handler="on_spinbutton_image_height_value_changed"/>
                   </object>
@@ -1819,7 +1812,6 @@ do you want to save the changes?</property>
     <property name="window_position">center-on-parent</property>
     <property name="type_hint">normal</property>
     <property name="transient_for">window</property>
-    <property name="has_separator">False</property>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog-vbox7">
         <property name="visible">True</property>
@@ -1948,7 +1940,6 @@ do you want to save the changes?</property>
     <property name="default_height">400</property>
     <property name="type_hint">normal</property>
     <property name="transient_for">window</property>
-    <property name="has_separator">False</property>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog-vbox8">
         <property name="visible">True</property>
@@ -2098,7 +2089,7 @@ do you want to save the changes?</property>
                           <object class="GtkEntry" id="link_website_entry">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
-                            <property name="invisible_char">&#x25CF;</property>
+                            <property name="invisible_char">●</property>
                           </object>
                         </child>
                       </object>
@@ -2133,7 +2124,7 @@ do you want to save the changes?</property>
                               <object class="GtkEntry" id="entry_file_to_link_to">
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
-                                <property name="invisible_char">&#x25CF;</property>
+                                <property name="invisible_char">●</property>
                               </object>
                               <packing>
                                 <property name="position">0</property>
@@ -2237,7 +2228,7 @@ do you want to save the changes?</property>
                               <object class="GtkEntry" id="link_anchor_entry">
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
-                                <property name="invisible_char">&#x25CF;</property>
+                                <property name="invisible_char">●</property>
                               </object>
                               <packing>
                                 <property name="position">0</property>
@@ -2383,7 +2374,6 @@ do you want to save the changes?</property>
     <property name="border_width">5</property>
     <property name="type_hint">normal</property>
     <property name="transient_for">window</property>
-    <property name="has_separator">False</property>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog-vbox9">
         <property name="visible">True</property>
@@ -2407,7 +2397,7 @@ do you want to save the changes?</property>
                   <object class="GtkEntry" id="anchor_insert_edit_entry">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="invisible_char">&#x25CF;</property>
+                    <property name="invisible_char">●</property>
                   </object>
                   <packing>
                     <property name="padding">10</property>
@@ -2530,7 +2520,6 @@ do you want to save the changes?</property>
     <property name="border_width">5</property>
     <property name="type_hint">normal</property>
     <property name="transient_for">window</property>
-    <property name="has_separator">False</property>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog-vbox10">
         <property name="visible">True</property>
@@ -2564,7 +2553,7 @@ do you want to save the changes?</property>
                           <object class="GtkSpinButton" id="spinbutton_table_rows">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
-                            <property name="invisible_char">&#x25CF;</property>
+                            <property name="invisible_char">●</property>
                             <property name="adjustment">adjustment_table_rows</property>
                           </object>
                           <packing>
@@ -2589,7 +2578,7 @@ do you want to save the changes?</property>
                           <object class="GtkSpinButton" id="spinbutton_table_columns">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
-                            <property name="invisible_char">&#x25CF;</property>
+                            <property name="invisible_char">●</property>
                             <property name="adjustment">adjustment_table_columns</property>
                           </object>
                           <packing>
@@ -2635,7 +2624,7 @@ do you want to save the changes?</property>
                           <object class="GtkSpinButton" id="spinbutton_table_col_min">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
-                            <property name="invisible_char">&#x25CF;</property>
+                            <property name="invisible_char">●</property>
                             <property name="adjustment">adjustment_table_col_min</property>
                           </object>
                           <packing>
@@ -2661,7 +2650,7 @@ do you want to save the changes?</property>
                           <object class="GtkSpinButton" id="spinbutton_table_col_max">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
-                            <property name="invisible_char">&#x25CF;</property>
+                            <property name="invisible_char">●</property>
                             <property name="adjustment">adjustment_table_col_max</property>
                           </object>
                           <packing>
@@ -2710,7 +2699,7 @@ do you want to save the changes?</property>
                   <object class="GtkEntry" id="table_column_rename_entry">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="invisible_char">&#x25CF;</property>
+                    <property name="invisible_char">●</property>
                   </object>
                   <packing>
                     <property name="padding">7</property>
@@ -2820,7 +2809,7 @@ do you want to save the changes?</property>
                       <object class="GtkEntry" id="table_column_new_entry">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="invisible_char">&#x25CF;</property>
+                        <property name="invisible_char">●</property>
                       </object>
                       <packing>
                         <property name="position">2</property>
@@ -3041,7 +3030,6 @@ do you want to save the changes?</property>
     <property name="default_height">150</property>
     <property name="type_hint">normal</property>
     <property name="transient_for">window</property>
-    <property name="has_separator">False</property>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog-vbox11">
         <property name="visible">True</property>
@@ -3194,7 +3182,6 @@ do you want to save the changes?</property>
     <property name="border_width">5</property>
     <property name="type_hint">normal</property>
     <property name="transient_for">window</property>
-    <property name="has_separator">False</property>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog-vbox12">
         <property name="visible">True</property>
@@ -3259,7 +3246,7 @@ do you want to save the changes?</property>
                           <object class="GtkSpinButton" id="spinbutton_codebox_width">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
-                            <property name="invisible_char">&#x25CF;</property>
+                            <property name="invisible_char">●</property>
                             <property name="adjustment">adjustment_codebox_width</property>
                           </object>
                           <packing>
@@ -3329,7 +3316,7 @@ do you want to save the changes?</property>
                           <object class="GtkSpinButton" id="spinbutton_codebox_height">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
-                            <property name="invisible_char">&#x25CF;</property>
+                            <property name="invisible_char">●</property>
                             <property name="adjustment">adjustment_codebox_height</property>
                           </object>
                           <packing>
@@ -3481,7 +3468,6 @@ do you want to save the changes?</property>
     <property name="default_height">350</property>
     <property name="type_hint">normal</property>
     <property name="transient_for">window</property>
-    <property name="has_separator">False</property>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog-vbox13">
         <property name="visible">True</property>
