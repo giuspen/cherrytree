@@ -1,4 +1,19 @@
 
+0.20 (February 28th, 2011)
+• fixed several bugs
+• preferences dialog: added the option to create a backup copy of the document before saving the new version (before the backup was automatic and mandatory)
+• preferences dialog: added the option to autosave on quit (before this option came with the autosave every N minutes)
+• implemented the recently opened documents memory and the option to quickly open one of those documents
+• added the option for a node to be read only
+• implemented the import from leo outliner
+• implemented the utilities to copy/cut the whole underlying row
+• implemented the visited nodes history with option to go back/forward
+• implemented the bookmarks handling
+• when exporting tree to html an index.html file is also generated
+• the latest picked color for either foreground and background is now remembered (before there was only one memory for both of them)
+• removed Galician language support due to translator runaway (many thanks Dario for wasting my time)
+• some keyboard shortcuts were changed (trying to be the more standard possible); the keyboard shortcuts are indicated on all menu items
+
 0.19.3 (January 17th, 2011)
 • fixed tree nodes drag and drop bugs
 • assigned the shortcut ctrl+K to the deletion of a text row being it already used from other text editors such as geany and nano

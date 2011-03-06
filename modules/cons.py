@@ -213,29 +213,6 @@ UI_INFO = """
       </menu>
       
       <menu action='TreeMenu'>
-         <menuitem action='AddNode'/>
-         <menuitem action='AddSubNode'/>
-         <separator/>
-         <menuitem action='ChangeNodeProp'/>
-         <menuitem action='TreeInfo'/>
-         <separator/>
-         <menuitem action='NodeUp'/>
-         <menuitem action='NodeDown'/>
-         <menuitem action='NodeLeft'/>
-         <menuitem action='NodeChangeFather'/>
-         <separator/>
-         <menuitem action='NodesExpandAll'/>
-         <menuitem action='NodesCollapseAll'/>
-         <separator/>
-         <menuitem action='SortSiblingsDescending'/>
-         <menuitem action='SortSiblingsAscending'/>
-         <separator/>
-         <menuitem action='InheritSyntax'/>
-         <separator/>
-         <menuitem action='DeleteNode'/>
-         <separator/>
-         <menuitem action='GoBack'/>
-         <menuitem action='GoForward'/>
       </menu>
       
       <menu action='SearchMenu'>
@@ -472,19 +449,6 @@ def get_entries(inst):
    ( "Help", "Help Contents", _("_Help"), None, _("Application's Home Page"), inst.on_help_menu_item_activated),
    ( "CheckNewer", "gtk-network", _("_Check Newer Version"), None, _("Check for a Newer Version"), inst.check_for_newer_version),
    ( "About", "gtk-about", _("_About"), None, _("About CherryTree"), inst.dialog_about),
-   ( "TreeInfo", "gtk-info", _("Tree _Info"), None, _("Tree Summary Information"), inst.tree_info),
-   ( "AddNode", "gtk-add", _("Add _Node"), "<control>N", _("Add a Node having the same Father of the Selected Node"), inst.node_add),
-   ( "AddSubNode", "gtk-add", _("Add _SubNode"), "<control><shift>N", _("Add a Child Node to the Selected Node"), inst.node_child_add),
-   ( "ChangeNodeProp", "Edit Node", _("Change Node _Properties"), "F2", _("Edit the Properties of the Selected Node"), inst.node_edit),
-   ( "NodeUp", "gtk-go-up", _("Node _Up"), None, _("Move the Selected Node Up"), inst.node_up),
-   ( "NodeDown", "gtk-go-down", _("Node _Down"), None, _("Move the Selected Node Down"), inst.node_down),
-   ( "NodeLeft", "gtk-go-back", _("Node _Left"), None, _("Move the Selected Node Left"), inst.node_left),
-   ( "NodeChangeFather", "gtk-jump-to", _("Node Change _Father"), None, _("Change the Selected Node's Father"), inst.node_change_father),
-   ( "NodesExpandAll", "gtk-zoom-in", _("E_xpand All Nodes"), None, _("Expand All the Tree Nodes"), inst.nodes_expand_all),
-   ( "NodesCollapseAll", "gtk-zoom-out", _("_Collapse All Nodes"), None, _("Collapse All the Tree Nodes"), inst.nodes_collapse_all),
-   ( "SortSiblingsDescending", "gtk-sort-descending", _("Sort Siblings _Descending"), None, _("Sort all the Siblings of the Selected Node Descending"), inst.node_siblings_sort_descending),
-   ( "SortSiblingsAscending", "gtk-sort-ascending", _("Sort Siblings _Ascending"), None, _("Sort all the Siblings of the Selected Node Ascending"), inst.node_siblings_sort_ascending),
-   ( "DeleteNode", "gtk-clear", _("De_lete Node"), "<shift>Delete", _("Delete the Selected Node"), inst.node_delete),
    ( "TableEditProp", "Edit Table", _("_Edit Table Properties"), None, _("Edit the Table Properties"), inst.tables_handler.table_edit_properties),
    ( "TableRowAdd", "gtk-add", _("_Add Row"), None, _("Add a Table Row"), inst.tables_handler.table_row_add),
    ( "TableRowDelete", "gtk-clear", _("De_lete Row"), None, _("Delete the Selected Table Row"), inst.tables_handler.table_row_delete),
@@ -511,10 +475,10 @@ def get_popup_menu_tree(inst):
    ("gtk-info", _("Tree _Info"), None, _("Tree Summary Information"), inst.tree_info),
    ("separator", None, None, None, None),
    ("submenu-start", _("Node _Move"), "gtk-jump-to", None, None),
-   ("gtk-go-up", _("Node _Up"), None, _("Move the Selected Node Up"), inst.node_up),
-   ("gtk-go-down", _("Node _Down"), None, _("Move the Selected Node Down"), inst.node_down),
-   ("gtk-go-back", _("Node _Left"), None, _("Move the Selected Node Left"), inst.node_left),
-   ("gtk-jump-to", _("Node Change _Father"), None, _("Change the Selected Node's Father"), inst.node_change_father),
+   ("gtk-go-up", _("Node _Up"), "<shift>Up", _("Move the Selected Node Up"), inst.node_up),
+   ("gtk-go-down", _("Node _Down"), "<shift>Down", _("Move the Selected Node Down"), inst.node_down),
+   ("gtk-go-back", _("Node _Left"), "<shift>Left", _("Move the Selected Node Left"), inst.node_left),
+   ("gtk-jump-to", _("Node Change _Father"), "<shift>Right", _("Change the Selected Node's Father"), inst.node_change_father),
    ("submenu-end", None, None, None, None),
    ("separator", None, None, None, None),
    ("gtk-zoom-in", _("E_xpand All Nodes"), None, _("Expand All the Tree Nodes"), inst.nodes_expand_all),
