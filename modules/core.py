@@ -331,6 +331,7 @@ class CherryTree:
       
    def on_key_press_cherrytree(self, widget, event):
       """Catches ChooseNode Dialog key presses"""
+      if not self.curr_tree_iter: return
       keyname = gtk.gdk.keyval_name(event.keyval)
       if event.state & gtk.gdk.SHIFT_MASK:
          if keyname == "Up": self.node_up()
@@ -338,7 +339,19 @@ class CherryTree:
          elif keyname == "Left": self.node_left()
          elif keyname == "Right": self.node_change_father()
       else:
-         if keyname == "Return": self.node_edit()
+         if keyname == "Up":
+            prev_iter = self.get_tree_iter_prev_sibling(self.treestore, self.curr_tree_iter)
+            if prev_iter: self.treeview_safe_set_cursor(prev_iter)
+         elif keyname == "Down":
+            next_iter = self.treestore.iter_next(self.curr_tree_iter)
+            if next_iter: self.treeview_safe_set_cursor(next_iter)
+         elif keyname == "Left":
+            father_iter = self.treestore.iter_parent(self.curr_tree_iter)
+            if father_iter: self.treeview_safe_set_cursor(father_iter)
+         elif keyname == "Right":
+            child_iter = self.treestore.iter_children(self.curr_tree_iter)
+            if child_iter: self.treeview_safe_set_cursor(child_iter)
+         elif keyname == "Return": self.node_edit()
          elif keyname == "Menu":
             self.menu_tree.popup(None, None, None, 0, event.time)
       widget.stop_emission("key_press_event")
