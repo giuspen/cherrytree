@@ -3,7 +3,7 @@ Section: accessories
 Priority: optional
 Maintainer: Giuseppe Penone <giuspen@gmail.com>
 Package: cherrytree
-Version: 0.20-1
+Version: 0.20.1-1
 Architecture: all
 Depends: python-gtk2, python-gtksourceview2, p7zip-full
 Description: Hierarchical Note Taking

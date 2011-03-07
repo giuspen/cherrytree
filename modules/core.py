@@ -52,6 +52,7 @@ class CherryTree:
    
    def __init__(self, lang_str, first_instance, open_with_file):
       """GUI Startup"""
+      self.user_active = True
       # instantiate external handlers
       self.clipboard_handler = clipboard.ClipboardHandler(self)
       self.lists_handler = lists.ListsHandler(self)
