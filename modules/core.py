@@ -167,7 +167,9 @@ class CherryTree:
       self.tag_table = gtk.TextTagTable()
       self.scrolledwindow_text.add(self.sourceview)
       self.go_bk_fw_click = False
+      self.bookmarks = []
       self.bookmarks_menu_items = []
+      self.nodes_names_dict = {}
       self.password = None
       self.curr_tree_iter = None
       self.curr_window_n_tree_width = None
@@ -850,6 +852,7 @@ class CherryTree:
       try: xml_string = self.xml_handler.treestore_to_dom()
       except:
          support.dialog_error("%s write failed - tree to xml" % filepath, self.window)
+         raise
          return False
       # backup before save new version
       if self.backup_copy:
