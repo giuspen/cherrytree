@@ -26,12 +26,13 @@ VERSION = "0.20.1"
 APP_NAME = "cherrytree"
 NEWER_VERSION_URL = "http://www.giuspen.com/software/version_cherrytree"
 if sys.platform[0:3] == "win":
-   CONFIG_PATH = 'config.xml'
-   LANG_PATH = 'lang'
-   IMG_PATH = 'glade/img_tmp.png'
-   TMP_FOLDER = os.path.join(os.getcwd(), 'glade/ct_tmp/')
-   GLADE_PATH = 'glade/'
-   LOCALE_PATH = 'locale/'
+   EXE_DIR = os.getcwd()
+   CONFIG_PATH = os.path.join(EXE_DIR, 'config.xml')
+   LANG_PATH = os.path.join(EXE_DIR, 'lang')
+   IMG_PATH = os.path.join(EXE_DIR, 'glade/img_tmp.png')
+   TMP_FOLDER = os.path.join(EXE_DIR, 'glade/ct_tmp/')
+   GLADE_PATH = os.path.join(EXE_DIR, 'glade/')
+   LOCALE_PATH = os.path.join(EXE_DIR, 'locale/')
 else:
    CONFIG_PATH = os.path.join(os.path.expanduser('~'), '.config/cherrytree/config.xml')
    LANG_PATH = os.path.join(os.path.expanduser('~'), '.config/cherrytree/lang')
