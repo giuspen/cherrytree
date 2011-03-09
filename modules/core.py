@@ -1431,6 +1431,7 @@ class CherryTree:
       
    def on_checkbutton_systray_toggled(self, checkbutton):
       """SysTray Toggled Handling"""
+      if not self.user_active: return
       self.systray = checkbutton.get_active()
       if self.systray:
          if "status_icon" in dir(self): self.status_icon.set_property('visible', True)
