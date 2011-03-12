@@ -441,7 +441,7 @@ msgstr "CSV File"
 
 #: modules/tablez.py:77
 msgid "Insert Table"
-msgstr "Inserisci Ta_bella"
+msgstr "Inserisci Tabella"
 
 #: modules/tablez.py:119 modules/imports.py:1005
 msgid "click me"
