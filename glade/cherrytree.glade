@@ -2060,6 +2060,39 @@ do you want to save the changes?</property>
                             <property name="position">2</property>
                           </packing>
                         </child>
+                        <child>
+                          <object class="GtkHBox" id="hbox_linkdialog_tofolder">
+                            <property name="visible">True</property>
+                            <child>
+                              <object class="GtkImage" id="image6">
+                                <property name="visible">True</property>
+                                <property name="stock">gtk-directory</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">False</property>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkRadioButton" id="radiobutton_link_folder">
+                                <property name="label" translatable="yes">To Folder</property>
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="receives_default">False</property>
+                                <property name="draw_indicator">True</property>
+                                <property name="group">radiobutton_link_website</property>
+                                <signal name="toggled" handler="on_radiobutton_link_folder_toggled"/>
+                              </object>
+                              <packing>
+                                <property name="position">1</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="position">3</property>
+                          </packing>
+                        </child>
                       </object>
                     </child>
                     <child type="label">
@@ -2157,7 +2190,7 @@ do you want to save the changes?</property>
                     <child type="label">
                       <object class="GtkLabel" id="label35">
                         <property name="visible">True</property>
-                        <property name="label" translatable="yes">&lt;b&gt;File Path&lt;/b&gt;</property>
+                        <property name="label" translatable="yes">&lt;b&gt;File/Folder Path&lt;/b&gt;</property>
                         <property name="use_markup">True</property>
                       </object>
                     </child>

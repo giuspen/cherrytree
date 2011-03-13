@@ -1516,23 +1516,28 @@ class CherryTree:
    def on_radiobutton_link_website_toggled(self, radiobutton):
       """Show/Hide Relative Frames"""
       if radiobutton.get_active(): self.link_type = "webs"
-      self.glade.frame_link_website_url.set_sensitive(self.link_type == "webs")
-      self.glade.hbox_link_node_anchor.set_sensitive(self.link_type == "node")
-      self.glade.frame_link_filepath.set_sensitive(self.link_type == "file")
+      self.link_type_changed_on_dialog()
       
    def on_radiobutton_link_node_anchor_toggled(self, checkbutton):
       """Show/Hide Relative Frames"""
       if checkbutton.get_active(): self.link_type = "node"
-      self.glade.frame_link_website_url.set_sensitive(self.link_type == "webs")
-      self.glade.hbox_link_node_anchor.set_sensitive(self.link_type == "node")
-      self.glade.frame_link_filepath.set_sensitive(self.link_type == "file")
+      self.link_type_changed_on_dialog()
       
    def on_radiobutton_link_file_toggled(self, radiobutton):
       """Show/Hide Relative Frames"""
       if radiobutton.get_active(): self.link_type = "file"
+      self.link_type_changed_on_dialog()
+   
+   def on_radiobutton_link_folder_toggled(self, radiobutton):
+      """Show/Hide Relative Frames"""
+      if radiobutton.get_active(): self.link_type = "fold"
+      self.link_type_changed_on_dialog()
+   
+   def link_type_changed_on_dialog(self):
+      """Change the Graphic of the Dialog according to the New Link Type"""
       self.glade.frame_link_website_url.set_sensitive(self.link_type == "webs")
       self.glade.hbox_link_node_anchor.set_sensitive(self.link_type == "node")
-      self.glade.frame_link_filepath.set_sensitive(self.link_type == "file")
+      self.glade.frame_link_filepath.set_sensitive(self.link_type in ["file", "fold"])
    
    def on_radiobutton_node_icon_cherry_toggled(self, radiobutton):
       """Change Variable Value Accordingly"""
@@ -2501,7 +2506,8 @@ class CherryTree:
                   vector = tag_property_value.split()
                   self.link_type = vector[0]
                   if self.link_type == "webs": self.glade.link_website_entry.set_text(vector[1])
-                  elif self.link_type == "file": self.glade.entry_file_to_link_to.set_text(base64.b64decode(vector[1]))
+                  elif self.link_type in ["file", "fold"]:
+                     self.glade.entry_file_to_link_to.set_text(base64.b64decode(vector[1]))
                   elif self.link_type == "node":
                      link_node_id = long(vector[1])
                      if len(vector) >= 3:
@@ -2515,6 +2521,7 @@ class CherryTree:
                   self.glade.radiobutton_link_website.set_active(self.link_type == "webs")
                   self.glade.radiobutton_link_node_anchor.set_active(self.link_type == "node")
                   self.glade.radiobutton_link_file.set_active(self.link_type == "file")
+                  self.glade.radiobutton_link_folder.set_active(self.link_type == "fold")
             iter_sel_start, iter_sel_end = self.curr_buffer.get_selection_bounds()
          else:
             support.dialog_warning(_("The Cursor is Not into a Paragraph"), self.window)
@@ -2523,28 +2530,28 @@ class CherryTree:
          if tag_property == "link":
             if self.next_chars_from_iter_are(iter_sel_start, 7, "http://")\
             or self.next_chars_from_iter_are(iter_sel_start, 8, "https://"):
-               self.link_type == "webs"
+               self.link_type = "webs"
                self.glade.link_website_entry.set_text(self.curr_buffer.get_text(iter_sel_start, iter_sel_end))
             self.node_choose_view_exist_or_create(link_node_id)
             self.glade.choosenodedialog.set_title(_("Insert/Edit a Link"))
             self.glade.link_dialog_top_vbox.show()
             self.glade.frame_link_anchor.show()
-            self.glade.frame_link_website_url.set_sensitive(self.link_type == "webs")
-            self.glade.hbox_link_node_anchor.set_sensitive(self.link_type == "node")
-            self.glade.frame_link_filepath.set_sensitive(self.link_type == "file")
+            self.link_type_changed_on_dialog()
             response = self.glade.choosenodedialog.run()
             self.glade.choosenodedialog.hide()
             if response != 1: return # the user aborted the operation
             if self.link_type == "webs":
                link_url = self.glade.link_website_entry.get_text().strip()
+               if not link_url: return
                if len(link_url) < 8\
                or (link_url[0:7] != "http://" and link_url[0:8] != "https://"):
                   link_url = "http://" + link_url
                property_value = "webs" + cons.CHAR_SPACE + link_url
-            elif self.link_type == "file":
+            elif self.link_type in ["file", "fold"]:
                link_uri = self.glade.entry_file_to_link_to.get_text().strip()
+               if not link_uri: return
                link_uri = base64.b64encode(link_uri)
-               property_value = "file" + cons.CHAR_SPACE + link_uri
+               property_value = self.link_type + cons.CHAR_SPACE + link_uri
             elif self.link_type == "node":
                model, tree_iter = self.treeviewselection_2.get_selected()
                link_anchor = self.glade.link_anchor_entry.get_text().strip()
@@ -2624,6 +2631,9 @@ class CherryTree:
          elif property_value[0:4] == "file":
             tag.set_property("underline", pango.UNDERLINE_SINGLE)
             tag.set_property("foreground", "#8b8b69691414")
+         elif property_value[0:4] == "fold":
+            tag.set_property("underline", pango.UNDERLINE_SINGLE)
+            tag.set_property("foreground", "#7f7f7f7f7f7f")
          else: tag.set_property(tag_property, property_value)
          self.tag_table.add(tag)
       return str(tag_name)
@@ -2659,6 +2669,14 @@ class CherryTree:
             return
          if sys.platform[0:3] == "win": os.startfile(filepath)
          else: subprocess.call("xdg-open %s" % re.escape(filepath), shell=True)
+      elif vector[0] == "fold":
+         # link to folder
+         filepath = base64.b64decode(vector[1])
+         if not os.path.isdir(filepath):
+            support.dialog_error(_("The Folder Link '%s' is Not Valid") % filepath, self.window)
+            return
+         if sys.platform[0:3] == "win": os.startfile(filepath)
+         else: subprocess.call("xdg-open %s" % re.escape(filepath), shell=True)
       elif vector[0] == "node":
          # link to a tree node
          tree_iter = self.get_tree_iter_from_node_id(long(vector[1]))
@@ -2681,9 +2699,11 @@ class CherryTree:
       
    def on_button_browse_for_file_to_link_to_clicked(self, *args):
       """The Button to browse for a file path on the links dialog was pressed"""
-      filepath = support.dialog_file_select(curr_folder=self.pick_dir, parent=self.window)
+      if self.link_type == "file":
+         filepath = support.dialog_file_select(curr_folder=self.pick_dir, parent=self.window)
+      else: filepath = support.dialog_folder_select(curr_folder=self.pick_dir, parent=self.window)
       if filepath == None: return
-      self.pick_dir = os.path.dirname(filepath)
+      if self.link_type[0] == "file": self.pick_dir = os.path.dirname(filepath)
       self.glade.entry_file_to_link_to.set_text(filepath)
       
    def link_seek_for_anchor(self, anchor_name):
@@ -2753,7 +2773,7 @@ class CherryTree:
          if tag_name[0:4] == "link":
             hovering_link = True
             vector = tag_name[5:].split()
-            if vector[0] == "file": tooltip = base64.b64decode(vector[1])
+            if vector[0] in ["file", "fold"]: tooltip = base64.b64decode(vector[1])
             else:
                if vector[0] == "node" and long(vector[1]) in self.nodes_names_dict: tooltip = self.nodes_names_dict[long(vector[1])]
                else: tooltip = vector[1]
