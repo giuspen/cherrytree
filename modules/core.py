@@ -2514,27 +2514,29 @@ class CherryTree:
                else:
                   tag_property_value = self.link_check_around_cursor()
                   if tag_property_value == "":
-                     support.dialog_warning(_("No Text is Selected"), self.window)
-                     return
-                  vector = tag_property_value.split()
-                  self.link_type = vector[0]
-                  if self.link_type == "webs": self.glade.link_website_entry.set_text(vector[1])
-                  elif self.link_type in ["file", "fold"]:
-                     self.glade.entry_file_to_link_to.set_text(base64.b64decode(vector[1]))
-                  elif self.link_type == "node":
-                     link_node_id = long(vector[1])
-                     if len(vector) >= 3:
-                        if len(vector) == 3: anchor_name = vector[2]
-                        else: anchor_name = tag_property_value[len(vector[0]) + len(vector[1]) + 2:]
-                        self.glade.link_anchor_entry.set_text(anchor_name)
+                     if not self.apply_tag_try_automatic_bounds():
+                        support.dialog_warning(_("No Text is Selected"), self.window)
+                        return
                   else:
-                     support.dialog_error("Tag Name Not Recognized! (%s)" % self.link_type, self.window)
-                     self.link_type = "webs"
-                     return
-                  self.glade.radiobutton_link_website.set_active(self.link_type == "webs")
-                  self.glade.radiobutton_link_node_anchor.set_active(self.link_type == "node")
-                  self.glade.radiobutton_link_file.set_active(self.link_type == "file")
-                  self.glade.radiobutton_link_folder.set_active(self.link_type == "fold")
+                     vector = tag_property_value.split()
+                     self.link_type = vector[0]
+                     if self.link_type == "webs": self.glade.link_website_entry.set_text(vector[1])
+                     elif self.link_type in ["file", "fold"]:
+                        self.glade.entry_file_to_link_to.set_text(base64.b64decode(vector[1]))
+                     elif self.link_type == "node":
+                        link_node_id = long(vector[1])
+                        if len(vector) >= 3:
+                           if len(vector) == 3: anchor_name = vector[2]
+                           else: anchor_name = tag_property_value[len(vector[0]) + len(vector[1]) + 2:]
+                           self.glade.link_anchor_entry.set_text(anchor_name)
+                     else:
+                        support.dialog_error("Tag Name Not Recognized! (%s)" % self.link_type, self.window)
+                        self.link_type = "webs"
+                        return
+                     self.glade.radiobutton_link_website.set_active(self.link_type == "webs")
+                     self.glade.radiobutton_link_node_anchor.set_active(self.link_type == "node")
+                     self.glade.radiobutton_link_file.set_active(self.link_type == "file")
+                     self.glade.radiobutton_link_folder.set_active(self.link_type == "fold")
             iter_sel_start, iter_sel_end = self.curr_buffer.get_selection_bounds()
          else:
             support.dialog_warning(_("The Cursor is Not into a Paragraph"), self.window)
