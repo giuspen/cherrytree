@@ -147,6 +147,7 @@ class CherryTree:
       self.menu_tree_create()
       self.window.connect('window-state-event', self.on_window_state_event)
       self.window.connect("size-allocate", self.on_window_n_tree_size_allocate_event)
+      self.window.connect('key_press_event', self.on_key_press_window)
       self.scrolledwindow_tree.connect("size-allocate", self.on_window_n_tree_size_allocate_event)
       self.glade.inputdialog.connect('key_press_event', self.on_key_press_input_dialog)
       self.glade.anchorhandledialog.connect('key_press_event', self.on_key_press_anchorhandledialog)
@@ -332,8 +333,16 @@ class CherryTree:
       self.curr_buffer.select_range(iter_start, iter_end)
       self.sourceview.emit("copy-clipboard")
       
+   def on_key_press_window(self, widget, event):
+      """Catches Window key presses"""
+      if not self.curr_tree_iter: return
+      keyname = gtk.gdk.keyval_name(event.keyval)
+      if event.state & gtk.gdk.MOD1_MASK:
+         if keyname == "Left": self.go_back()
+         elif keyname == "Right": self.go_forward()
+      
    def on_key_press_cherrytree(self, widget, event):
-      """Catches ChooseNode Dialog key presses"""
+      """Catches Tree key presses"""
       if not self.curr_tree_iter: return
       keyname = gtk.gdk.keyval_name(event.keyval)
       if event.state & gtk.gdk.SHIFT_MASK:
@@ -341,6 +350,10 @@ class CherryTree:
          elif keyname == "Down": self.node_down()
          elif keyname == "Left": self.node_left()
          elif keyname == "Right": self.node_change_father()
+      elif event.state & gtk.gdk.MOD1_MASK:
+         pass
+      elif event.state & gtk.gdk.CONTROL_MASK:
+         pass
       else:
          if keyname == "Up":
             prev_iter = self.get_tree_iter_prev_sibling(self.treestore, self.curr_tree_iter)

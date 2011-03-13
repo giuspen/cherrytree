@@ -1810,6 +1810,7 @@ do you want to save the changes?</property>
     <property name="border_width">5</property>
     <property name="title" translatable="yes">Warning</property>
     <property name="window_position">center-on-parent</property>
+    <property name="destroy_with_parent">True</property>
     <property name="type_hint">normal</property>
     <property name="transient_for">window</property>
     <child internal-child="vbox">
@@ -1938,6 +1939,7 @@ do you want to save the changes?</property>
     <property name="window_position">center-on-parent</property>
     <property name="default_width">400</property>
     <property name="default_height">400</property>
+    <property name="destroy_with_parent">True</property>
     <property name="type_hint">normal</property>
     <property name="transient_for">window</property>
     <child internal-child="vbox">
@@ -2405,6 +2407,7 @@ do you want to save the changes?</property>
   </object>
   <object class="GtkDialog" id="anchorhandledialog">
     <property name="border_width">5</property>
+    <property name="destroy_with_parent">True</property>
     <property name="type_hint">normal</property>
     <property name="transient_for">window</property>
     <child internal-child="vbox">
@@ -2551,6 +2554,7 @@ do you want to save the changes?</property>
   </object>
   <object class="GtkDialog" id="tablehandledialog">
     <property name="border_width">5</property>
+    <property name="destroy_with_parent">True</property>
     <property name="type_hint">normal</property>
     <property name="transient_for">window</property>
     <child internal-child="vbox">
@@ -3061,6 +3065,7 @@ do you want to save the changes?</property>
     <property name="title" translatable="yes">Tree Summary Information</property>
     <property name="default_width">300</property>
     <property name="default_height">150</property>
+    <property name="destroy_with_parent">True</property>
     <property name="type_hint">normal</property>
     <property name="transient_for">window</property>
     <child internal-child="vbox">
@@ -3213,6 +3218,7 @@ do you want to save the changes?</property>
   </object>
   <object class="GtkDialog" id="codeboxhandledialog">
     <property name="border_width">5</property>
+    <property name="destroy_with_parent">True</property>
     <property name="type_hint">normal</property>
     <property name="transient_for">window</property>
     <child internal-child="vbox">
@@ -3499,6 +3505,7 @@ do you want to save the changes?</property>
     <property name="border_width">5</property>
     <property name="default_width">700</property>
     <property name="default_height">350</property>
+    <property name="destroy_with_parent">True</property>
     <property name="type_hint">normal</property>
     <property name="transient_for">window</property>
     <child internal-child="vbox">
