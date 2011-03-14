@@ -34,7 +34,10 @@ def dialog_file_save_as(filename=None, filter_pattern=None, filter_name=None, cu
    chooser = gtk.FileChooserDialog(title=_("Save File as"),
                                    action=gtk.FILE_CHOOSER_ACTION_SAVE,
                                    buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, gtk.STOCK_SAVE, gtk.RESPONSE_OK) )
-   if parent != None: chooser.set_transient_for(parent)
+   if parent != None:
+      chooser.set_transient_for(parent)
+      chooser.set_property("modal", True)
+      chooser.set_property("destroy-with-parent", True)
    if curr_folder == None or os.path.isdir(curr_folder) == False:
       chooser.set_current_folder(os.path.expanduser('~'))
    else:
@@ -59,7 +62,10 @@ def dialog_file_select(filter_pattern=None, filter_name=None, curr_folder=None, 
    chooser = gtk.FileChooserDialog(title = _("Select File"),
                                    action=gtk.FILE_CHOOSER_ACTION_OPEN,
                                    buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, gtk.STOCK_OPEN, gtk.RESPONSE_OK) )
-   if parent != None: chooser.set_transient_for(parent)
+   if parent != None:
+      chooser.set_transient_for(parent)
+      chooser.set_property("modal", True)
+      chooser.set_property("destroy-with-parent", True)
    if curr_folder == None or os.path.isdir(curr_folder) == False:
       chooser.set_current_folder(os.path.expanduser('~'))
    else:
@@ -82,7 +88,10 @@ def dialog_folder_select(curr_folder=None, parent=None):
    chooser = gtk.FileChooserDialog(title = _("Select Folder"),
                                    action=gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER,
                                    buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, gtk.STOCK_OPEN, gtk.RESPONSE_OK) )
-   if parent != None: chooser.set_transient_for(parent)
+   if parent != None:
+      chooser.set_transient_for(parent)
+      chooser.set_property("modal", True)
+      chooser.set_property("destroy-with-parent", True)
    if curr_folder == None or os.path.isdir(curr_folder) == False:
       chooser.set_current_folder(os.path.expanduser('~'))
    else:
