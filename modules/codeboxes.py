@@ -63,11 +63,13 @@ class CodeBoxesHandler:
       self.dad.glade.codeboxhandledialog.hide()
       if response != 1: return # the user aborted the operation
       codebox_dict = {
-      'frame_width': int(self.dad.glade.spinbutton_codebox_width.get_value()),
-      'frame_height': int(self.dad.glade.spinbutton_codebox_height.get_value()),
-      'width_in_pixels': self.dad.glade.radiobutton_codebox_pixels.get_active(),
-      'syntax_highlighting': self.dad.prog_lang_liststore[self.dad.glade.combobox_prog_lang_codebox.get_active_iter()][1],
-      'fill_text': fill_text
+         'frame_width': int(self.dad.glade.spinbutton_codebox_width.get_value()),
+         'frame_height': int(self.dad.glade.spinbutton_codebox_height.get_value()),
+         'width_in_pixels': self.dad.glade.radiobutton_codebox_pixels.get_active(),
+         'syntax_highlighting': self.dad.prog_lang_liststore[self.dad.glade.combobox_prog_lang_codebox.get_active_iter()][1],
+         'highlight_brackets': self.dad.glade.checkbutton_codebox_matchbrackets.get_active(),
+         'show_line_numbers': self.dad.glade.checkbutton_codebox_linenumbers.get_active(),
+         'fill_text': fill_text
       }
       if fill_text: self.dad.curr_buffer.delete(iter_sel_start, iter_sel_end)
       iter_insert = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
@@ -80,9 +82,11 @@ class CodeBoxesHandler:
       anchor.frame_height = codebox_dict['frame_height']
       anchor.width_in_pixels = codebox_dict['width_in_pixels']
       anchor.syntax_highlighting = codebox_dict['syntax_highlighting']
+      anchor.highlight_brackets = codebox_dict['highlight_brackets']
+      anchor.show_line_numbers = codebox_dict['show_line_numbers']
       anchor.sourcebuffer = gtksourceview2.Buffer()
       self.dad.set_sourcebuffer_syntax_highlight(anchor.sourcebuffer, anchor.syntax_highlighting)
-      anchor.sourcebuffer.set_highlight_matching_brackets(True)
+      anchor.sourcebuffer.set_highlight_matching_brackets(anchor.highlight_brackets)
       anchor.sourcebuffer.connect('insert-text', self.dad.on_text_insertion)
       anchor.sourcebuffer.connect('delete-range', self.dad.on_text_removal)
       anchor.sourcebuffer.connect('modified-changed', self.dad.on_modified_changed)
@@ -91,7 +95,7 @@ class CodeBoxesHandler:
          anchor.sourcebuffer.set_modified(False)
       anchor.sourceview = gtksourceview2.View(anchor.sourcebuffer)
       anchor.sourceview.modify_font(pango.FontDescription(self.dad.code_font))
-      anchor.sourceview.set_show_line_numbers(self.dad.show_line_numbers)
+      anchor.sourceview.set_show_line_numbers(anchor.show_line_numbers)
       anchor.sourceview.set_insert_spaces_instead_of_tabs(self.dad.spaces_instead_tabs)
       anchor.sourceview.set_tab_width(self.dad.tabs_width)
       anchor.sourceview.set_auto_indent(self.dad.auto_indent)
@@ -158,6 +162,8 @@ class CodeBoxesHandler:
       self.dad.glade.spinbutton_codebox_height.set_value(self.curr_codebox_anchor.frame_height)
       self.dad.glade.radiobutton_codebox_pixels.set_active(self.curr_codebox_anchor.width_in_pixels)
       self.dad.glade.radiobutton_codebox_percent.set_active(not self.curr_codebox_anchor.width_in_pixels)
+      self.dad.glade.checkbutton_codebox_matchbrackets.set_active(self.curr_codebox_anchor.highlight_brackets)
+      self.dad.glade.checkbutton_codebox_linenumbers.set_active(self.curr_codebox_anchor.show_line_numbers)
       self.dad.glade.combobox_prog_lang_codebox.set_active_iter(self.dad.get_combobox_prog_lang_iter(self.curr_codebox_anchor.syntax_highlighting))
       self.dad.glade.codeboxhandledialog.set_title(_("Edit CodeBox"))
       self.dad.user_active = True
@@ -169,6 +175,10 @@ class CodeBoxesHandler:
       self.curr_codebox_anchor.frame_width = int(self.dad.glade.spinbutton_codebox_width.get_value())
       self.curr_codebox_anchor.frame_height = int(self.dad.glade.spinbutton_codebox_height.get_value())
       self.curr_codebox_anchor.width_in_pixels = self.dad.glade.radiobutton_codebox_pixels.get_active()
+      self.curr_codebox_anchor.highlight_brackets = self.dad.glade.checkbutton_codebox_matchbrackets.get_active()
+      self.curr_codebox_anchor.sourcebuffer.set_highlight_matching_brackets(self.curr_codebox_anchor.highlight_brackets)
+      self.curr_codebox_anchor.show_line_numbers = self.dad.glade.checkbutton_codebox_linenumbers.get_active()
+      self.curr_codebox_anchor.sourceview.set_show_line_numbers(self.curr_codebox_anchor.show_line_numbers)
       self.codebox_apply_width_height(self.curr_codebox_anchor)
       self.dad.update_window_save_needed()
       self.dad.state_machine.update_state(self.dad.treestore[self.dad.curr_tree_iter][3])

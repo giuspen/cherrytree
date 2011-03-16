@@ -283,19 +283,15 @@ class ClipboardHandler:
    
    def dom_node_to_codebox(self, dom_node):
       """From dom_node to CodeBox"""
-      if dom_node.hasAttribute("justification"): justification = dom_node.attributes["justification"].value
-      else: justification = "left"
-      if dom_node.hasAttribute("width_in_pixels") and dom_node.attributes['width_in_pixels'].value != "True":
-         width_in_pixels = False
-      else: width_in_pixels = True
-      if dom_node.firstChild: fill_text = dom_node.firstChild.data
-      else: fill_text = ""
+      justification = dom_node.attributes["justification"].value if dom_node.hasAttribute("justification") else "left"
       codebox_dict = {
-      'frame_width': int(dom_node.attributes['frame_width'].value),
-      'frame_height': int(dom_node.attributes['frame_height'].value),
-      'width_in_pixels': width_in_pixels,
-      'syntax_highlighting': dom_node.attributes['syntax_highlighting'].value,
-      'fill_text': fill_text
+         'frame_width': int(dom_node.attributes['frame_width'].value),
+         'frame_height': int(dom_node.attributes['frame_height'].value),
+         'width_in_pixels': dom_node.hasAttribute("width_in_pixels") and dom_node.attributes['width_in_pixels'].value == "True",
+         'syntax_highlighting': dom_node.attributes['syntax_highlighting'].value,
+         'highlight_brackets': dom_node.hasAttribute("highlight_brackets") and dom_node.attributes['highlight_brackets'].value == "True",
+         'show_line_numbers': dom_node.hasAttribute("show_line_numbers") and dom_node.attributes['show_line_numbers'].value == "True",
+         'fill_text': dom_node.firstChild.data if dom_node.firstChild else ""
       }
       self.dad.codeboxes_handler.codebox_insert(self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert()),
                                                 codebox_dict,

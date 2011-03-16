@@ -144,20 +144,16 @@ class XMLHandler:
    def codebox_deserialize(self, curr_buffer, dom_node):
       """From the XML codebox text to the SourceBuffer"""
       char_offset = int(dom_node.attributes["char_offset"].value)
-      if dom_node.hasAttribute("justification"): justification = dom_node.attributes["justification"].value
-      else: justification = "left"
+      justification = dom_node.attributes["justification"].value if dom_node.hasAttribute("justification") else "left"
       self.dad.curr_buffer = curr_buffer # the table_insert method will need this
-      if dom_node.hasAttribute("width_in_pixels") and dom_node.attributes['width_in_pixels'].value != "True":
-         width_in_pixels = False
-      else: width_in_pixels = True
-      if dom_node.firstChild: fill_text = dom_node.firstChild.data
-      else: fill_text = ""
       codebox_dict = {
-      'frame_width': int(dom_node.attributes['frame_width'].value),
-      'frame_height': int(dom_node.attributes['frame_height'].value),
-      'width_in_pixels': width_in_pixels,
-      'syntax_highlighting': dom_node.attributes['syntax_highlighting'].value,
-      'fill_text': fill_text
+         'frame_width': int(dom_node.attributes['frame_width'].value),
+         'frame_height': int(dom_node.attributes['frame_height'].value),
+         'width_in_pixels': dom_node.hasAttribute("width_in_pixels") and dom_node.attributes['width_in_pixels'].value == "True",
+         'syntax_highlighting': dom_node.attributes['syntax_highlighting'].value,
+         'highlight_brackets': dom_node.hasAttribute("highlight_brackets") and dom_node.attributes['highlight_brackets'].value == "True",
+         'show_line_numbers': dom_node.hasAttribute("show_line_numbers") and dom_node.attributes['show_line_numbers'].value == "True",
+         'fill_text': dom_node.firstChild.data if dom_node.firstChild else ""
       }
       self.dad.codeboxes_handler.codebox_insert(curr_buffer.get_iter_at_offset(char_offset),
                                                 codebox_dict,
@@ -306,6 +302,8 @@ class XMLHandler:
       dom_iter.setAttribute("frame_height", str(element[1]['frame_height']))
       dom_iter.setAttribute("width_in_pixels", str(element[1]['width_in_pixels']))
       dom_iter.setAttribute("syntax_highlighting", str(element[1]['syntax_highlighting']))
+      dom_iter.setAttribute("highlight_brackets", str(element[1]['highlight_brackets']))
+      dom_iter.setAttribute("show_line_numbers", str(element[1]['show_line_numbers']))
       dom_node.appendChild(dom_iter)
       text_iter = self.dom.createTextNode(element[1]['fill_text'])
       dom_iter.appendChild(text_iter)
@@ -523,6 +521,8 @@ class StateMachine:
       'frame_height': anchor.frame_height,
       'width_in_pixels': anchor.width_in_pixels,
       'syntax_highlighting': anchor.syntax_highlighting,
+      'highlight_brackets': anchor.highlight_brackets,
+      'show_line_numbers': anchor.show_line_numbers,
       'fill_text': ""
       }
       if for_print == 1:
@@ -559,6 +559,8 @@ class StateMachine:
       'frame_height': element[1]['frame_height'],
       'width_in_pixels': element[1]['width_in_pixels'],
       'syntax_highlighting': element[1]['syntax_highlighting'],
+      'highlight_brackets': element[1]['highlight_brackets'],
+      'show_line_numbers': element[1]['show_line_numbers'],
       'fill_text': element[1]['fill_text']
       }
       self.dad.codeboxes_handler.codebox_insert(iter_insert,
