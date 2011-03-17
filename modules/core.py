@@ -1433,14 +1433,34 @@ class CherryTree:
       self.treeview_refresh()
       
    def on_checkbutton_custom_weblink_cmd_toggled(self, checkbutton):
-      """Custom Weblink Clicked Action Toggled Handling"""
+      """Custom Web Link Clicked Action Toggled Handling"""
       if checkbutton.get_active(): self.weblink_custom_action[0] = True
       else: self.weblink_custom_action[0] = False
       self.glade.entry_custom_weblink_cmd.set_sensitive(self.weblink_custom_action[0])
       
    def on_entry_custom_weblink_cmd_changed(self, entry):
-      """Custom Weblink Clicked Action Edited"""
+      """Custom Web Link Clicked Action Edited"""
       self.weblink_custom_action[1] = entry.get_text()
+      
+   def on_checkbutton_custom_filelink_cmd_toggled(self, checkbutton):
+      """Custom File Link Clicked Action Toggled Handling"""
+      if checkbutton.get_active(): self.filelink_custom_action[0] = True
+      else: self.filelink_custom_action[0] = False
+      self.glade.entry_custom_filelink_cmd.set_sensitive(self.filelink_custom_action[0])
+      
+   def on_entry_custom_filelink_cmd_changed(self, entry):
+      """Custom File Link Clicked Action Edited"""
+      self.filelink_custom_action[1] = entry.get_text()
+      
+   def on_checkbutton_custom_folderlink_cmd_toggled(self, checkbutton):
+      """Custom Folder Link Clicked Action Toggled Handling"""
+      if checkbutton.get_active(): self.folderlink_custom_action[0] = True
+      else: self.folderlink_custom_action[0] = False
+      self.glade.entry_custom_folderlink_cmd.set_sensitive(self.folderlink_custom_action[0])
+      
+   def on_entry_custom_folderlink_cmd_changed(self, entry):
+      """Custom Folder Link Clicked Action Edited"""
+      self.folderlink_custom_action[1] = entry.get_text()
       
    def on_checkbutton_systray_toggled(self, checkbutton):
       """SysTray Toggled Handling"""
@@ -2682,16 +2702,22 @@ class CherryTree:
          if not os.path.isfile(filepath):
             support.dialog_error(_("The File Link '%s' is Not Valid") % filepath, self.window)
             return
-         if sys.platform[0:3] == "win": os.startfile(filepath)
-         else: subprocess.call("xdg-open %s" % re.escape(filepath), shell=True)
+         if self.filelink_custom_action[0]:
+            subprocess.call(self.filelink_custom_action[1] % re.escape(filepath), shell=True)
+         else:
+            if sys.platform[0:3] == "win": os.startfile(filepath)
+            else: subprocess.call("xdg-open %s" % re.escape(filepath), shell=True)
       elif vector[0] == "fold":
          # link to folder
          filepath = base64.b64decode(vector[1])
          if not os.path.isdir(filepath):
             support.dialog_error(_("The Folder Link '%s' is Not Valid") % filepath, self.window)
             return
-         if sys.platform[0:3] == "win": os.startfile(filepath)
-         else: subprocess.call("xdg-open %s" % re.escape(filepath), shell=True)
+         if self.folderlink_custom_action[0]:
+            subprocess.call(self.folderlink_custom_action[1] % re.escape(filepath), shell=True)
+         else:
+            if sys.platform[0:3] == "win": os.startfile(filepath)
+            else: subprocess.call("xdg-open %s" % re.escape(filepath), shell=True)
       elif vector[0] == "node":
          # link to a tree node
          tree_iter = self.get_tree_iter_from_node_id(long(vector[1]))

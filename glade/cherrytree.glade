@@ -1187,6 +1187,7 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="invisible_char">•</property>
+                                    <signal name="changed" handler="on_entry_custom_filelink_cmd_changed"/>
                                   </object>
                                   <packing>
                                     <property name="padding">3</property>
@@ -1240,6 +1241,7 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="invisible_char">•</property>
+                                    <signal name="changed" handler="on_entry_custom_folderlink_cmd_changed"/>
                                   </object>
                                   <packing>
                                     <property name="padding">3</property>

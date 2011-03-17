@@ -141,6 +141,16 @@ def config_file_load(inst):
          if temp_str[:4] == "True": inst.weblink_custom_action = [True, temp_str[4:]]
          else: inst.weblink_custom_action = [False, temp_str[5:]]
       else: inst.weblink_custom_action = [False, "firefox %s"]
+      if dom_iter.hasAttribute("filelink_custom_action"):
+         temp_str = dom_iter.attributes["filelink_custom_action"].value
+         if temp_str[:4] == "True": inst.filelink_custom_action = [True, temp_str[4:]]
+         else: inst.filelink_custom_action = [False, temp_str[5:]]
+      else: inst.filelink_custom_action = [False, "xdg-open %s"]
+      if dom_iter.hasAttribute("folderlink_custom_action"):
+         temp_str = dom_iter.attributes["folderlink_custom_action"].value
+         if temp_str[:4] == "True": inst.folderlink_custom_action = [True, temp_str[4:]]
+         else: inst.folderlink_custom_action = [False, temp_str[5:]]
+      else: inst.folderlink_custom_action = [False, "xdg-open %s"]
       if dom_iter.hasAttribute("codebox_width"):
          inst.glade.spinbutton_codebox_width.set_value(int(dom_iter.attributes["codebox_width"].value))
       else: inst.glade.spinbutton_codebox_width.set_value(700)
@@ -200,6 +210,8 @@ def config_file_load(inst):
       inst.cherry_wrap_width = 130
       inst.start_on_systray = False
       inst.weblink_custom_action = [False, "firefox %s"]
+      inst.filelink_custom_action = [False, "xdg-open %s"]
+      inst.folderlink_custom_action = [False, "xdg-open %s"]
       inst.glade.spinbutton_codebox_width.set_value(700)
       inst.glade.spinbutton_codebox_height.set_value(100)
       inst.check_version = False
@@ -245,9 +257,17 @@ def config_file_apply(inst):
    inst.glade.checkbutton_tree_right_side.set_active(inst.tree_right_side)
    inst.glade.checkbutton_start_on_systray.set_active(inst.start_on_systray)
    inst.glade.checkbutton_start_on_systray.set_sensitive(inst.systray)
+   # custom link clicked actions
    inst.glade.checkbutton_custom_weblink_cmd.set_active(inst.weblink_custom_action[0])
    inst.glade.entry_custom_weblink_cmd.set_sensitive(inst.weblink_custom_action[0])
    inst.glade.entry_custom_weblink_cmd.set_text(inst.weblink_custom_action[1])
+   inst.glade.checkbutton_custom_filelink_cmd.set_active(inst.filelink_custom_action[0])
+   inst.glade.entry_custom_filelink_cmd.set_sensitive(inst.filelink_custom_action[0])
+   inst.glade.entry_custom_filelink_cmd.set_text(inst.filelink_custom_action[1])
+   inst.glade.checkbutton_custom_folderlink_cmd.set_active(inst.folderlink_custom_action[0])
+   inst.glade.entry_custom_folderlink_cmd.set_sensitive(inst.folderlink_custom_action[0])
+   inst.glade.entry_custom_folderlink_cmd.set_text(inst.folderlink_custom_action[1])
+   #
    inst.glade.radiobutton_link_website.set_active(inst.link_type == "webs")
    inst.glade.radiobutton_link_node_anchor.set_active(inst.link_type == "node")
    inst.glade.radiobutton_link_file.set_active(inst.link_type == "file")
@@ -317,6 +337,8 @@ def config_file_save(inst):
    config.setAttribute("cherry_wrap_width", str(inst.cherry_wrap_width))
    config.setAttribute("start_on_systray", str(inst.start_on_systray))
    config.setAttribute("weblink_custom_action", str(inst.weblink_custom_action[0])+inst.weblink_custom_action[1])
+   config.setAttribute("filelink_custom_action", str(inst.filelink_custom_action[0])+inst.filelink_custom_action[1])
+   config.setAttribute("folderlink_custom_action", str(inst.folderlink_custom_action[0])+inst.folderlink_custom_action[1])
    config.setAttribute("expand_tree", str(inst.expand_tree) )
    if not inst.expand_tree:
       config.setAttribute("expanded_collapsed_string", get_tree_expanded_collapsed_string(inst) )
