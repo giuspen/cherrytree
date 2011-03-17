@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <requires lib="gtk+" version="2.16"/>
   <!-- interface-naming-policy project-wide -->
@@ -23,7 +23,7 @@
     <property name="type_hint">dialog</property>
     <property name="transient_for">window</property>
     <property name="program_name">CherryTree</property>
-    <property name="copyright" translatable="yes">Copyright &#xA9; 2009-2011
+    <property name="copyright" translatable="yes">Copyright © 2009-2011
 Giuseppe Penone &lt;giuspen@gmail.com&gt;</property>
     <property name="comments" translatable="yes">A Hierarchical Note Taking Application, featuring Rich Text and Syntax Highlighting</property>
     <property name="website">http://www.giuspen.com/cherrytree/</property>
@@ -100,7 +100,7 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
                 <property name="can_default">True</property>
                 <property name="has_default">True</property>
                 <property name="receives_default">True</property>
-                <property name="invisible_char">&#x25CF;</property>
+                <property name="invisible_char">●</property>
               </object>
               <packing>
                 <property name="position">0</property>
@@ -321,7 +321,7 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
                       <object class="GtkEntry" id="replace_entry">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="invisible_char">&#x25CF;</property>
+                        <property name="invisible_char">●</property>
                       </object>
                     </child>
                   </object>
@@ -382,7 +382,7 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
                       <object class="GtkEntry" id="tags_searching_entry">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="invisible_char">&#x25CF;</property>
+                        <property name="invisible_char">●</property>
                       </object>
                     </child>
                   </object>
@@ -553,7 +553,7 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
                                   <object class="GtkSpinButton" id="spinbutton_tab_width">
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
-                                    <property name="invisible_char">&#x25CF;</property>
+                                    <property name="invisible_char">●</property>
                                     <property name="adjustment">adjustment_tab_width</property>
                                     <signal name="value_changed" handler="on_spinbutton_tab_width_value_changed"/>
                                   </object>
@@ -633,7 +633,160 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
                     </child>
                   </object>
                   <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">False</property>
                     <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkFrame" id="frame7">
+                    <property name="visible">True</property>
+                    <property name="label_xalign">0</property>
+                    <child>
+                      <object class="GtkAlignment" id="alignment16">
+                        <property name="visible">True</property>
+                        <property name="left_padding">12</property>
+                        <child>
+                          <object class="GtkTable" id="table3">
+                            <property name="visible">True</property>
+                            <property name="n_rows">3</property>
+                            <property name="n_columns">3</property>
+                            <child>
+                              <object class="GtkImage" id="image27">
+                                <property name="visible">True</property>
+                                <property name="stock">gtk-select-font</property>
+                              </object>
+                              <packing>
+                                <property name="x_options"></property>
+                                <property name="y_options"></property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkImage" id="image40">
+                                <property name="visible">True</property>
+                                <property name="stock">gtk-select-font</property>
+                              </object>
+                              <packing>
+                                <property name="top_attach">1</property>
+                                <property name="bottom_attach">2</property>
+                                <property name="x_options"></property>
+                                <property name="y_options"></property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkImage" id="image28">
+                                <property name="visible">True</property>
+                                <property name="stock">Tree</property>
+                              </object>
+                              <packing>
+                                <property name="top_attach">2</property>
+                                <property name="bottom_attach">3</property>
+                                <property name="x_options"></property>
+                                <property name="y_options"></property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel" id="label6">
+                                <property name="visible">True</property>
+                                <property name="label" translatable="yes">Text Font</property>
+                              </object>
+                              <packing>
+                                <property name="left_attach">1</property>
+                                <property name="right_attach">2</property>
+                                <property name="x_options"></property>
+                                <property name="y_options"></property>
+                                <property name="x_padding">10</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel" id="label18">
+                                <property name="visible">True</property>
+                                <property name="label" translatable="yes">Code Font</property>
+                              </object>
+                              <packing>
+                                <property name="left_attach">1</property>
+                                <property name="right_attach">2</property>
+                                <property name="top_attach">1</property>
+                                <property name="bottom_attach">2</property>
+                                <property name="x_options"></property>
+                                <property name="y_options"></property>
+                                <property name="x_padding">10</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel" id="label7">
+                                <property name="visible">True</property>
+                                <property name="label" translatable="yes">Tree Font</property>
+                              </object>
+                              <packing>
+                                <property name="left_attach">1</property>
+                                <property name="right_attach">2</property>
+                                <property name="top_attach">2</property>
+                                <property name="bottom_attach">3</property>
+                                <property name="x_options"></property>
+                                <property name="y_options"></property>
+                                <property name="x_padding">10</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkFontButton" id="fontbutton_text">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="receives_default">True</property>
+                                <property name="font_name">Sans 9</property>
+                                <signal name="font_set" handler="on_fontbutton_text_font_set"/>
+                              </object>
+                              <packing>
+                                <property name="left_attach">2</property>
+                                <property name="right_attach">3</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkFontButton" id="fontbutton_code">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="receives_default">True</property>
+                                <property name="font_name">Monospace 9</property>
+                                <signal name="font_set" handler="on_fontbutton_code_font_set"/>
+                              </object>
+                              <packing>
+                                <property name="left_attach">2</property>
+                                <property name="right_attach">3</property>
+                                <property name="top_attach">1</property>
+                                <property name="bottom_attach">2</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkFontButton" id="fontbutton_tree">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="receives_default">True</property>
+                                <property name="font_name">Sans 8</property>
+                                <signal name="font_set" handler="on_fontbutton_tree_font_set"/>
+                              </object>
+                              <packing>
+                                <property name="left_attach">2</property>
+                                <property name="right_attach">3</property>
+                                <property name="top_attach">2</property>
+                                <property name="bottom_attach">3</property>
+                              </packing>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child type="label">
+                      <object class="GtkLabel" id="label66">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">&lt;b&gt;Fonts&lt;/b&gt;</property>
+                        <property name="use_markup">True</property>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">False</property>
+                    <property name="position">1</property>
                   </packing>
                 </child>
                 <child>
@@ -695,7 +848,7 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
                                   <object class="GtkSpinButton" id="spinbutton_autosave">
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
-                                    <property name="invisible_char">&#x25CF;</property>
+                                    <property name="invisible_char">●</property>
                                     <property name="adjustment">adjustment_autosave</property>
                                   </object>
                                   <packing>
@@ -774,35 +927,6 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">False</property>
-                    <property name="position">1</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkFrame" id="frame6">
-                    <property name="visible">True</property>
-                    <property name="label_xalign">0</property>
-                    <child>
-                      <object class="GtkAlignment" id="alignment13">
-                        <property name="visible">True</property>
-                        <property name="left_padding">12</property>
-                        <child>
-                          <object class="GtkComboBox" id="combobox_country_language">
-                            <property name="visible">True</property>
-                            <property name="focus_on_click">False</property>
-                            <property name="button_sensitivity">on</property>
-                          </object>
-                        </child>
-                      </object>
-                    </child>
-                    <child type="label">
-                      <object class="GtkLabel" id="label52">
-                        <property name="visible">True</property>
-                        <property name="label" translatable="yes">&lt;b&gt;Language&lt;/b&gt;</property>
-                        <property name="use_markup">True</property>
-                      </object>
-                    </child>
-                  </object>
-                  <packing>
                     <property name="position">2</property>
                   </packing>
                 </child>
@@ -815,164 +939,6 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
             <child>
               <object class="GtkVBox" id="vbox5">
                 <property name="visible">True</property>
-                <child>
-                  <object class="GtkFrame" id="frame1">
-                    <property name="visible">True</property>
-                    <property name="label_xalign">0</property>
-                    <child>
-                      <object class="GtkAlignment" id="alignment4">
-                        <property name="visible">True</property>
-                        <property name="left_padding">12</property>
-                        <child>
-                          <object class="GtkVBox" id="vbox6">
-                            <property name="visible">True</property>
-                            <child>
-                              <object class="GtkHBox" id="hbox2">
-                                <property name="visible">True</property>
-                                <child>
-                                  <object class="GtkImage" id="image27">
-                                    <property name="visible">True</property>
-                                    <property name="stock">gtk-select-font</property>
-                                  </object>
-                                  <packing>
-                                    <property name="expand">False</property>
-                                    <property name="position">0</property>
-                                  </packing>
-                                </child>
-                                <child>
-                                  <object class="GtkLabel" id="label6">
-                                    <property name="visible">True</property>
-                                    <property name="label" translatable="yes">  Text Font    </property>
-                                  </object>
-                                  <packing>
-                                    <property name="expand">False</property>
-                                    <property name="fill">False</property>
-                                    <property name="position">1</property>
-                                  </packing>
-                                </child>
-                                <child>
-                                  <object class="GtkFontButton" id="fontbutton_text">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">True</property>
-                                    <property name="receives_default">True</property>
-                                    <property name="font_name">Sans 9</property>
-                                    <signal name="font_set" handler="on_fontbutton_text_font_set"/>
-                                  </object>
-                                  <packing>
-                                    <property name="expand">False</property>
-                                    <property name="fill">False</property>
-                                    <property name="position">2</property>
-                                  </packing>
-                                </child>
-                              </object>
-                              <packing>
-                                <property name="position">0</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkHBox" id="hbox5">
-                                <property name="visible">True</property>
-                                <child>
-                                  <object class="GtkImage" id="image40">
-                                    <property name="visible">True</property>
-                                    <property name="stock">gtk-select-font</property>
-                                  </object>
-                                  <packing>
-                                    <property name="expand">False</property>
-                                    <property name="position">0</property>
-                                  </packing>
-                                </child>
-                                <child>
-                                  <object class="GtkLabel" id="label18">
-                                    <property name="visible">True</property>
-                                    <property name="label" translatable="yes">  Code Font  </property>
-                                  </object>
-                                  <packing>
-                                    <property name="expand">False</property>
-                                    <property name="fill">False</property>
-                                    <property name="position">1</property>
-                                  </packing>
-                                </child>
-                                <child>
-                                  <object class="GtkFontButton" id="fontbutton_code">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">True</property>
-                                    <property name="receives_default">True</property>
-                                    <property name="font_name">Monospace 9</property>
-                                    <signal name="font_set" handler="on_fontbutton_code_font_set"/>
-                                  </object>
-                                  <packing>
-                                    <property name="expand">False</property>
-                                    <property name="fill">False</property>
-                                    <property name="position">2</property>
-                                  </packing>
-                                </child>
-                              </object>
-                              <packing>
-                                <property name="position">1</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkHBox" id="hbox3">
-                                <property name="visible">True</property>
-                                <child>
-                                  <object class="GtkImage" id="image28">
-                                    <property name="visible">True</property>
-                                    <property name="stock">Tree</property>
-                                  </object>
-                                  <packing>
-                                    <property name="expand">False</property>
-                                    <property name="position">0</property>
-                                  </packing>
-                                </child>
-                                <child>
-                                  <object class="GtkLabel" id="label7">
-                                    <property name="visible">True</property>
-                                    <property name="label" translatable="yes">  Tree Font    </property>
-                                  </object>
-                                  <packing>
-                                    <property name="expand">False</property>
-                                    <property name="fill">False</property>
-                                    <property name="position">1</property>
-                                  </packing>
-                                </child>
-                                <child>
-                                  <object class="GtkFontButton" id="fontbutton_tree">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">True</property>
-                                    <property name="receives_default">True</property>
-                                    <property name="font_name">Sans 8</property>
-                                    <signal name="font_set" handler="on_fontbutton_tree_font_set"/>
-                                  </object>
-                                  <packing>
-                                    <property name="expand">False</property>
-                                    <property name="fill">False</property>
-                                    <property name="position">2</property>
-                                  </packing>
-                                </child>
-                              </object>
-                              <packing>
-                                <property name="position">2</property>
-                              </packing>
-                            </child>
-                          </object>
-                        </child>
-                      </object>
-                    </child>
-                    <child type="label">
-                      <object class="GtkLabel" id="label8">
-                        <property name="visible">True</property>
-                        <property name="label" translatable="yes">&lt;b&gt;Fonts&lt;/b&gt;</property>
-                        <property name="use_markup">True</property>
-                      </object>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">False</property>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
                 <child>
                   <object class="GtkFrame" id="frame4">
                     <property name="visible">True</property>
@@ -1017,7 +983,7 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
                                   <object class="GtkSpinButton" id="spinbutton_tree_nodes_names_width">
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
-                                    <property name="invisible_char">&#x25CF;</property>
+                                    <property name="invisible_char">●</property>
                                     <property name="adjustment">adjustment_tree_nodes_names_width</property>
                                     <signal name="value_changed" handler="on_spinbutton_tree_nodes_names_width_value_changed"/>
                                   </object>
@@ -1121,7 +1087,7 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">False</property>
-                    <property name="position">1</property>
+                    <property name="position">0</property>
                   </packing>
                 </child>
                 <child>
@@ -1137,7 +1103,7 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
                             <property name="visible">True</property>
                             <child>
                               <object class="GtkCheckButton" id="checkbutton_custom_weblink_cmd">
-                                <property name="label" translatable="yes">Enable Custom Weblink Clicked Action</property>
+                                <property name="label" translatable="yes">Enable Custom Web Link Clicked Action</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
@@ -1166,7 +1132,7 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
                                   <object class="GtkEntry" id="entry_custom_weblink_cmd">
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
-                                    <property name="invisible_char">&#x25CF;</property>
+                                    <property name="invisible_char">●</property>
                                     <signal name="changed" handler="on_entry_custom_weblink_cmd_changed"/>
                                   </object>
                                   <packing>
@@ -1179,6 +1145,112 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
                                 <property name="position">1</property>
                               </packing>
                             </child>
+                            <child>
+                              <object class="GtkHSeparator" id="hseparator6">
+                                <property name="visible">True</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="padding">3</property>
+                                <property name="position">2</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkCheckButton" id="checkbutton_custom_filelink_cmd">
+                                <property name="label" translatable="yes">Enable Custom File Link Clicked Action</property>
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="receives_default">False</property>
+                                <property name="draw_indicator">True</property>
+                                <signal name="toggled" handler="on_checkbutton_custom_filelink_cmd_toggled"/>
+                              </object>
+                              <packing>
+                                <property name="position">3</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkHBox" id="hbox24">
+                                <property name="visible">True</property>
+                                <child>
+                                  <object class="GtkImage" id="image7">
+                                    <property name="visible">True</property>
+                                    <property name="stock">gnome-stock-blank</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">False</property>
+                                    <property name="position">0</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkEntry" id="entry_custom_filelink_cmd">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">True</property>
+                                    <property name="invisible_char">•</property>
+                                  </object>
+                                  <packing>
+                                    <property name="padding">3</property>
+                                    <property name="position">1</property>
+                                  </packing>
+                                </child>
+                              </object>
+                              <packing>
+                                <property name="position">4</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkHSeparator" id="hseparator7">
+                                <property name="visible">True</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="padding">3</property>
+                                <property name="position">5</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkCheckButton" id="checkbutton_custom_folderlink_cmd">
+                                <property name="label" translatable="yes">Enable Custom Folder Link Clicked Action</property>
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="receives_default">False</property>
+                                <property name="draw_indicator">True</property>
+                                <signal name="toggled" handler="on_checkbutton_custom_folderlink_cmd_toggled"/>
+                              </object>
+                              <packing>
+                                <property name="position">6</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkHBox" id="hbox25">
+                                <property name="visible">True</property>
+                                <child>
+                                  <object class="GtkImage" id="image8">
+                                    <property name="visible">True</property>
+                                    <property name="stock">gnome-stock-blank</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">False</property>
+                                    <property name="position">0</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkEntry" id="entry_custom_folderlink_cmd">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">True</property>
+                                    <property name="invisible_char">•</property>
+                                  </object>
+                                  <packing>
+                                    <property name="padding">3</property>
+                                    <property name="position">1</property>
+                                  </packing>
+                                </child>
+                              </object>
+                              <packing>
+                                <property name="position">7</property>
+                              </packing>
+                            </child>
                           </object>
                         </child>
                       </object>
@@ -1187,6 +1259,37 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
                       <object class="GtkLabel" id="label46">
                         <property name="visible">True</property>
                         <property name="label" translatable="yes">&lt;b&gt;Links&lt;/b&gt;</property>
+                        <property name="use_markup">True</property>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">False</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkFrame" id="frame6">
+                    <property name="visible">True</property>
+                    <property name="label_xalign">0</property>
+                    <child>
+                      <object class="GtkAlignment" id="alignment13">
+                        <property name="visible">True</property>
+                        <property name="left_padding">12</property>
+                        <child>
+                          <object class="GtkComboBox" id="combobox_country_language">
+                            <property name="visible">True</property>
+                            <property name="focus_on_click">False</property>
+                            <property name="button_sensitivity">on</property>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child type="label">
+                      <object class="GtkLabel" id="label52">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">&lt;b&gt;Language&lt;/b&gt;</property>
                         <property name="use_markup">True</property>
                       </object>
                     </child>
@@ -1639,7 +1742,7 @@ do you want to save the changes?</property>
                   <object class="GtkSpinButton" id="spinbutton_image_width">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="invisible_char">&#x25CF;</property>
+                    <property name="invisible_char">●</property>
                     <property name="adjustment">adjustment_image_width</property>
                     <signal name="value_changed" handler="on_spinbutton_image_width_value_changed"/>
                   </object>
@@ -1660,7 +1763,7 @@ do you want to save the changes?</property>
                   <object class="GtkSpinButton" id="spinbutton_image_height">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="invisible_char">&#x25CF;</property>
+                    <property name="invisible_char">●</property>
                     <property name="adjustment">adjustment_image_height</property>
                     <signal name="value_changed" handler="on_spinbutton_image_height_value_changed"/>
                   </object>
@@ -2105,7 +2208,7 @@ do you want to save the changes?</property>
                           <object class="GtkEntry" id="link_website_entry">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
-                            <property name="invisible_char">&#x25CF;</property>
+                            <property name="invisible_char">●</property>
                           </object>
                         </child>
                       </object>
@@ -2140,7 +2243,7 @@ do you want to save the changes?</property>
                               <object class="GtkEntry" id="entry_file_to_link_to">
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
-                                <property name="invisible_char">&#x25CF;</property>
+                                <property name="invisible_char">●</property>
                               </object>
                               <packing>
                                 <property name="position">0</property>
@@ -2244,7 +2347,7 @@ do you want to save the changes?</property>
                               <object class="GtkEntry" id="link_anchor_entry">
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
-                                <property name="invisible_char">&#x25CF;</property>
+                                <property name="invisible_char">●</property>
                               </object>
                               <packing>
                                 <property name="position">0</property>
@@ -2414,7 +2517,7 @@ do you want to save the changes?</property>
                   <object class="GtkEntry" id="anchor_insert_edit_entry">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="invisible_char">&#x25CF;</property>
+                    <property name="invisible_char">●</property>
                   </object>
                   <packing>
                     <property name="padding">10</property>
@@ -2571,7 +2674,7 @@ do you want to save the changes?</property>
                           <object class="GtkSpinButton" id="spinbutton_table_rows">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
-                            <property name="invisible_char">&#x25CF;</property>
+                            <property name="invisible_char">●</property>
                             <property name="adjustment">adjustment_table_rows</property>
                           </object>
                           <packing>
@@ -2596,7 +2699,7 @@ do you want to save the changes?</property>
                           <object class="GtkSpinButton" id="spinbutton_table_columns">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
-                            <property name="invisible_char">&#x25CF;</property>
+                            <property name="invisible_char">●</property>
                             <property name="adjustment">adjustment_table_columns</property>
                           </object>
                           <packing>
@@ -2642,7 +2745,7 @@ do you want to save the changes?</property>
                           <object class="GtkSpinButton" id="spinbutton_table_col_min">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
-                            <property name="invisible_char">&#x25CF;</property>
+                            <property name="invisible_char">●</property>
                             <property name="adjustment">adjustment_table_col_min</property>
                           </object>
                           <packing>
@@ -2668,7 +2771,7 @@ do you want to save the changes?</property>
                           <object class="GtkSpinButton" id="spinbutton_table_col_max">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
-                            <property name="invisible_char">&#x25CF;</property>
+                            <property name="invisible_char">●</property>
                             <property name="adjustment">adjustment_table_col_max</property>
                           </object>
                           <packing>
@@ -2717,7 +2820,7 @@ do you want to save the changes?</property>
                   <object class="GtkEntry" id="table_column_rename_entry">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="invisible_char">&#x25CF;</property>
+                    <property name="invisible_char">●</property>
                   </object>
                   <packing>
                     <property name="padding">7</property>
@@ -2827,7 +2930,7 @@ do you want to save the changes?</property>
                       <object class="GtkEntry" id="table_column_new_entry">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="invisible_char">&#x25CF;</property>
+                        <property name="invisible_char">●</property>
                       </object>
                       <packing>
                         <property name="position">2</property>
@@ -3268,7 +3371,7 @@ do you want to save the changes?</property>
                           <object class="GtkSpinButton" id="spinbutton_codebox_width">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
-                            <property name="invisible_char">&#x25CF;</property>
+                            <property name="invisible_char">●</property>
                             <property name="adjustment">adjustment_codebox_width</property>
                           </object>
                           <packing>
@@ -3345,7 +3448,7 @@ do you want to save the changes?</property>
                           <object class="GtkSpinButton" id="spinbutton_codebox_height">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
-                            <property name="invisible_char">&#x25CF;</property>
+                            <property name="invisible_char">●</property>
                             <property name="adjustment">adjustment_codebox_height</property>
                           </object>
                           <packing>

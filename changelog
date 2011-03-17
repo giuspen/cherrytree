@@ -1,4 +1,8 @@
 
+0.20.1 (March 7th, 2011)
+• fixed critical bugs
+• using the keyboard arrows it is now possible to move the selection between all the tree nodes (including parent/children), holding shift while using the arrows moves the selected node
+
 0.20 (February 28th, 2011)
 • fixed several bugs
 • preferences dialog: added the option to create a backup copy of the document before saving the new version (before the backup was automatic and mandatory)
