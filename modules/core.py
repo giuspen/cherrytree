@@ -372,6 +372,13 @@ class CherryTree:
             self.menu_tree.popup(None, None, None, 0, event.time)
       widget.stop_emission("key_press_event")
    
+   def fullscreen_toggle(self, *args):
+      """Toggle Fullscreen State"""
+      if (self.window.window.get_state() & gtk.gdk.WINDOW_STATE_FULLSCREEN):
+         self.window.window.unfullscreen()
+      else:
+         self.window.window.fullscreen()
+   
    def on_drag_motion_cherrytree(self, widget, drag_context, x, y, timestamp):
       """Cherry Tree drag motion"""
       drop_info = self.treeview.get_dest_row_at_pos(x, y)

@@ -232,11 +232,14 @@ UI_INFO = """
       </menu>
       
       <menu action='ViewMenu'>
-         <menuitem action='ShowHideNodeNameHeader'/>
          <menuitem action='ShowHideTree'/>
          <menuitem action='ShowHideToolbar'/>
+         <menuitem action='ShowHideNodeNameHeader'/>
+         <separator/>
          <menuitem action='IncreaseToolbarIconsSize'/>
          <menuitem action='DecreaseToolbarIconsSize'/>
+         <separator/>
+         <menuitem action='Fullscreen'/>
       </menu>
       
       <menu action='BookmarksMenu'>
@@ -440,6 +443,7 @@ def get_entries(inst):
    ( "ShowHideToolbar", "Toolbar", _("Show/Hide Tool_bar"), None, _("Toggle Show/Hide Toolbar"), inst.toggle_show_hide_toolbar),
    ( "IncreaseToolbarIconsSize", "gtk-add", _("_Increase Toolbar Icons Size"), None, _("Increase the Size of the Toolbar Icons"), inst.toolbar_icons_size_increase),
    ( "DecreaseToolbarIconsSize", "gtk-remove", _("_Decrease Toolbar Icons Size"), None, _("Decrease the Size of the Toolbar Icons"), inst.toolbar_icons_size_decrease),
+   ( "Fullscreen", "gtk-fullscreen", _("_Full Screen On/Off"), "F11", _("Toggle Full Screen On/Off"), inst.fullscreen_toggle),
    ( "FromBasket", "CherryTree Import", _("From _Basket Folder"), None, _("Add Nodes of a Basket Folder to the Current Tree"), inst.nodes_add_from_basket_folder),
    ( "FromCherryTree", "CherryTree Import", _("From _CherryTree File"), None, _("Add Nodes of a CherryTree File to the Current Tree"), inst.nodes_add_from_cherrytree_file),
    ( "FromNoteCase", "CherryTree Import", _("From _NoteCase File"), None, _("Add Nodes of a NoteCase File to the Current Tree"), inst.nodes_add_from_notecase_file),
