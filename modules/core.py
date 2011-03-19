@@ -1973,6 +1973,9 @@ class CherryTree:
                if element[0] == "pixbuf": self.state_machine.load_embedded_image_element(self.curr_buffer, element[1])
                elif element[0] == "table": self.state_machine.load_embedded_table_element(self.curr_buffer, element[1])
                elif element[0] == "codebox": self.state_machine.load_embedded_codebox_element(self.curr_buffer, element[1])
+            self.sourceview.set_buffer(None)
+            self.sourceview.set_buffer(self.curr_buffer)
+            self.objects_buffer_refresh()
             self.curr_buffer.place_cursor(self.curr_buffer.get_iter_at_offset(step_back[2]))
             self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), 0.3)
             self.user_active = True
@@ -1997,6 +2000,9 @@ class CherryTree:
                if element[0] == "pixbuf": self.state_machine.load_embedded_image_element(self.curr_buffer, element[1])
                elif element[0] == "table": self.state_machine.load_embedded_table_element(self.curr_buffer, element[1])
                elif element[0] == "codebox": self.state_machine.load_embedded_codebox_element(self.curr_buffer, element[1])
+            self.sourceview.set_buffer(None)
+            self.sourceview.set_buffer(self.curr_buffer)
+            self.objects_buffer_refresh()
             self.curr_buffer.place_cursor(self.curr_buffer.get_iter_at_offset(step_ahead[2]))
             self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), 0.3)
             self.user_active = True
