@@ -184,9 +184,25 @@ class TablesHandler:
       
    def table_cell_edited(self, cell, path, new_text, model, col_num):
       """A Table Cell is going to be Edited"""
-      model[path][col_num] = new_text
-      self.dad.state_machine.update_state(self.dad.treestore[self.dad.curr_tree_iter][3])
-      self.dad.update_window_save_needed()
+      if model[path][col_num] != new_text:
+         model[path][col_num] = new_text
+         self.dad.state_machine.update_state(self.dad.treestore[self.dad.curr_tree_iter][3])
+         self.dad.update_window_save_needed()
+      if col_num < self.table_columns-1:
+         next_col_num = col_num + 1
+         next_path = path
+      else:
+         next_iter = model.iter_next(model.get_iter(path))
+         if not next_iter: return
+         next_path = model.get_path(next_iter)
+         next_col_num = 0
+      #print "(path, col_num) = (%s, %s)" % (path, col_num)
+      #print "(next_path, next_col_num) = (%s, %s)" % (next_path, next_col_num)
+      next_column = self.curr_table_anchor.treeview.get_columns()[next_col_num]
+      self.curr_table_anchor.treeview.set_cursor_on_cell(next_path,
+                                                         focus_column=next_column,
+                                                         focus_cell=next_column.get_cell_renderers()[0],
+                                                         start_editing=True)
       
    def table_column_clicked(self, column, anchor, col_num):
       """The Column Header was Clicked"""
