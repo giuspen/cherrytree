@@ -112,6 +112,7 @@ STOCKS_N_FILES = {'Node Bullet':'node_bullet.png',
                   'Delete':'edit-delete.png',
                   'Copy':'edit-copy.png',
                   'Cut':'edit-cut.png',
+                  'Paste':'edit-paste.png',
                   'Find':'find.png',
                   'Find Again':'find_again.png',
                   'Find Back':'find_back.png',
@@ -336,17 +337,18 @@ UI_INFO = """
       <menuitem action='DeleteTable'/>
       <separator/>
       <menuitem action='TableRowAdd'/>
+      <menuitem action='TableRowCut'/>
+      <menuitem action='TableRowCopy'/>
+      <menuitem action='TableRowPaste'/>
+      <menuitem action='TableRowDelete'/>
       <separator/>
       <menuitem action='TableRowUp'/>
       <menuitem action='TableRowDown'/>
       <menuitem action='TableSortRowsDesc'/>
       <menuitem action='TableSortRowsAsc'/>
       <separator/>
-      <menuitem action='TableRowDelete'/>
-      <separator/>
       <menuitem action='TableEditProp'/>
       <menuitem action='TableExport'/>
-      <separator/>
    </popup>
 </ui>
 """
@@ -456,7 +458,10 @@ def get_entries(inst):
    ( "About", "gtk-about", _("_About"), None, _("About CherryTree"), inst.dialog_about),
    ( "TableEditProp", "Edit Table", _("_Edit Table Properties"), None, _("Edit the Table Properties"), inst.tables_handler.table_edit_properties),
    ( "TableRowAdd", "gtk-add", _("_Add Row"), None, _("Add a Table Row"), inst.tables_handler.table_row_add),
-   ( "TableRowDelete", "gtk-clear", _("De_lete Row"), None, _("Delete the Selected Table Row"), inst.tables_handler.table_row_delete),
+   ( "TableRowCut", "Cut", _("Cu_t Row"), None, _("Cut a Table Row"), inst.tables_handler.table_row_cut),
+   ( "TableRowCopy", "Copy", _("_Copy Row"), None, _("Copy a Table Row"), inst.tables_handler.table_row_copy),
+   ( "TableRowPaste", "Paste", _("_Paste Row"), None, _("Paste a Table Row"), inst.tables_handler.table_row_paste),
+   ( "TableRowDelete", "Delete", _("De_lete Row"), None, _("Delete the Selected Table Row"), inst.tables_handler.table_row_delete),
    ( "TableRowUp", "gtk-go-up", _("Move Row _Up"), None, _("Move the Selected Row Up"), inst.tables_handler.table_row_up),
    ( "TableRowDown", "gtk-go-down", _("Move Row _Down"), None, _("Move the Selected Row Down"), inst.tables_handler.table_row_down),
    ( "TableSortRowsDesc", "gtk-sort-descending", _("Sort Rows De_scending"), None, _("Sort all the Rows Descending"), inst.tables_handler.table_rows_sort_descending),

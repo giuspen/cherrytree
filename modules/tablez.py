@@ -289,6 +289,18 @@ class TablesHandler:
       """Add a Table Row"""
       self.table_row_action("add")
    
+   def table_row_cut(self, *args):
+      """Cut a Table Row"""
+      print "table row cut"
+   
+   def table_row_copy(self, *args):
+      """Copy a Table Row"""
+      print "table row copy"
+   
+   def table_row_paste(self, *args):
+      """Paste a Table Row"""
+      print "table row paste"
+   
    def table_row_delete(self, *args):
       """Delete a Table Row"""
       self.table_row_action("delete")

@@ -1077,7 +1077,7 @@ class CherryTree:
             support.set_bookmarks_menu_items(self)
             self.update_window_save_not_needed()
             file_loaded = True
-      except: pass
+      except: raise
       if not file_loaded:
          support.dialog_error(_('"%s" is Not a CherryTree Document') % filepath, self.window)
          self.file_name = ""
