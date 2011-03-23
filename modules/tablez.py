@@ -133,7 +133,8 @@ class TablesHandler:
          renderer_text.set_property('wrap-width', table_col_max)
          renderer_text.set_property('wrap-mode', pango.WRAP_WORD_CHAR)
          renderer_text.set_property('font-desc', pango.FontDescription(self.dad.text_font))
-         renderer_text.connect('edited', self.table_cell_edited, anchor.liststore, element)
+         renderer_text.connect('edited', self.on_table_cell_edited, anchor.liststore, element)
+         renderer_text.connect('editing-started', self.on_table_cell_editing_started, anchor.liststore, element)
          column = gtk.TreeViewColumn("", renderer_text, text=element)
          column.set_min_width(table_col_min)
          column.set_clickable(True)
@@ -182,27 +183,54 @@ class TablesHandler:
       self.dad.curr_buffer.delete(iter_insert, iter_bound)
       self.table_insert(iter_insert, table, table_justification)
       
-   def table_cell_edited(self, cell, path, new_text, model, col_num):
+   def on_key_press_table_cell(self, widget, event, path, model, col_num):
+      """Catches Table Cell key presses"""
+      keyname = gtk.gdk.keyval_name(event.keyval)
+      if keyname in ["Return", "Up", "Down"]:
+         if keyname == "Up":
+            if col_num > 0:
+               next_col_num = col_num - 1
+               next_path = path
+            else:
+               next_iter = None
+               next_path =  model.get_path(model.get_iter(path))
+               while not next_iter and next_path[0] > 0:
+                  node_path_list = list(next_path)
+                  node_path_list[0] -= 1
+                  next_path = tuple(node_path_list)
+                  next_iter = model.get_iter(next_path)
+               #next_iter = model.iter_next(model.get_iter(path))
+               if not next_iter: return
+               next_path = model.get_path(next_iter)
+               next_col_num = self.table_columns-1
+         else:
+            if col_num < self.table_columns-1:
+               next_col_num = col_num + 1
+               next_path = path
+            else:
+               next_iter = model.iter_next(model.get_iter(path))
+               if not next_iter: return
+               next_path = model.get_path(next_iter)
+               next_col_num = 0
+         #print "(path, col_num) = (%s, %s)" % (path, col_num)
+         #print "(next_path, next_col_num) = (%s, %s)" % (next_path, next_col_num)
+         next_column = self.curr_table_anchor.treeview.get_columns()[next_col_num]
+         self.curr_table_anchor.treeview.set_cursor_on_cell(next_path,
+                                                            focus_column=next_column,
+                                                            focus_cell=next_column.get_cell_renderers()[0],
+                                                            start_editing=True)
+      
+   def on_table_cell_editing_started(self, cell, editable, path, model, col_num):
       """A Table Cell is going to be Edited"""
+      if isinstance(editable, gtk.Entry):
+         editable.connect('key_press_event', self.on_key_press_table_cell, path, model, col_num)
+   
+   def on_table_cell_edited(self, cell, path, new_text, model, col_num):
+      """A Table Cell has been Edited"""
       if model[path][col_num] != new_text:
          model[path][col_num] = new_text
          self.dad.state_machine.update_state(self.dad.treestore[self.dad.curr_tree_iter][3])
          self.dad.update_window_save_needed()
-      if col_num < self.table_columns-1:
-         next_col_num = col_num + 1
-         next_path = path
-      else:
-         next_iter = model.iter_next(model.get_iter(path))
-         if not next_iter: return
-         next_path = model.get_path(next_iter)
-         next_col_num = 0
-      #print "(path, col_num) = (%s, %s)" % (path, col_num)
-      #print "(next_path, next_col_num) = (%s, %s)" % (next_path, next_col_num)
-      next_column = self.curr_table_anchor.treeview.get_columns()[next_col_num]
-      self.curr_table_anchor.treeview.set_cursor_on_cell(next_path,
-                                                         focus_column=next_column,
-                                                         focus_cell=next_column.get_cell_renderers()[0],
-                                                         start_editing=True)
       
    def table_column_clicked(self, column, anchor, col_num):
       """The Column Header was Clicked"""
