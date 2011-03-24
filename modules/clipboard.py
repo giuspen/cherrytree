@@ -64,6 +64,15 @@ class ClipboardHandler:
                                    self.clear_func,
                                    (table_dict, None, html_text))
       
+   def table_row_paste(self, model_n_iter):
+      """Paste Table Row from the Clipboard"""
+      targets = self.clipboard.wait_for_targets()
+      if not targets: return False
+      if TARGET_CTD_TABLE in targets:
+         self.clipboard.request_contents(TARGET_CTD_TABLE, self.to_table, model_n_iter)
+         return True
+      return False
+      
    def selection_to_clipboard(self, text_buffer, sourceview):
       """Write the Selected Content to the Clipboard"""
       iter_sel_start, iter_sel_end = text_buffer.get_selection_bounds()
@@ -147,7 +156,7 @@ class ClipboardHandler:
          self.clipboard.request_contents(TARGET_CTD_CODEBOX, self.to_codebox)
          return
       if TARGET_CTD_TABLE in targets and self.dad.syntax_highlighting == cons.CUSTOM_COLORS_ID:
-         self.clipboard.request_contents(TARGET_CTD_TABLE, self.to_table)
+         self.clipboard.request_contents(TARGET_CTD_TABLE, self.to_table, None)
          return
       if TARGET_HTML in targets and self.dad.syntax_highlighting == cons.CUSTOM_COLORS_ID:
          self.clipboard.request_contents(TARGET_HTML, self.to_html)
@@ -305,16 +314,16 @@ class ClipboardHandler:
                                                 codebox_dict,
                                                 justification)
    
-   def to_table(self, clipboard, selectiondata, data):
+   def to_table(self, clipboard, selectiondata, table_model_n_iter):
       """From Clipboard to Table"""
       dom = xml.dom.minidom.parseString(selectiondata.get_text())
       dom_node = dom.firstChild
       if dom_node.nodeName != "table":
          print "table from clipboard error"
          return
-      self.dom_node_to_table(dom_node)
+      self.dom_node_to_table(dom_node, table_model_n_iter)
    
-   def dom_node_to_table(self, dom_node):
+   def dom_node_to_table(self, dom_node, table_model_n_iter):
       """From dom_node to Table"""
       if dom_node.hasAttribute("justification"): justification = dom_node.attributes["justification"].value
       else: justification = "left"
@@ -332,9 +341,20 @@ class ClipboardHandler:
                   else: table['matrix'][-1].append("")
                nephew_dom_iter = nephew_dom_iter.nextSibling
          child_dom_iter = child_dom_iter.nextSibling
-      self.dad.tables_handler.table_insert(self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert()),
-                                           table,
-                                           justification)
+      if not table_model_n_iter:
+         # insert new table
+         self.dad.tables_handler.table_insert(self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert()),
+                                              table,
+                                              justification)
+      else:
+         # paste into existing table
+         (model, iter) = table_model_n_iter
+         num_columns = model.get_n_columns()
+         for i, table_row in enumerate(table['matrix']):
+            if i < len(table['matrix']) - 1:
+               if len(table_row) > num_columns: table_row = table_row[:num_columns]
+               elif len(table_row) < num_columns: table_row = table_row + [""]*(num_columns - len(table_row))
+               iter = model.insert_after(iter, table_row)
    
    def rich_text_get_from_text_buffer_selection(self, text_buffer, iter_sel_start, iter_sel_end, change_case="n"):
       """Given text_buffer and selection, returns the rich text xml"""

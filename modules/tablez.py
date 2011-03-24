@@ -326,6 +326,8 @@ class TablesHandler:
          self.dad.clipboard_handler.table_row_to_clipboard(table)
          if action == "cut": model.remove(iter)
          else: return
+      elif action == "paste":
+         if not self.dad.clipboard_handler.table_row_paste([model, iter]): return
       else: return
       self.dad.update_window_save_needed()
       self.dad.state_machine.update_state(self.dad.treestore[self.dad.curr_tree_iter][3])
@@ -344,7 +346,7 @@ class TablesHandler:
    
    def table_row_paste(self, *args):
       """Paste a Table Row"""
-      print "table row paste"
+      self.table_row_action("paste")
    
    def table_row_delete(self, *args):
       """Delete a Table Row"""
