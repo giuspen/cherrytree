@@ -56,6 +56,14 @@ class ClipboardHandler:
          self.dad.curr_buffer.delete_selection(True, sourceview.get_editable())
          self.dad.sourceview.grab_focus()
       
+   def table_row_to_clipboard(self, table_dict):
+      """Put the Selected Table Row to the Clipboard"""
+      html_text = self.dad.html_handler.table_export_to_html(table_dict)
+      self.clipboard.set_with_data([(t, 0, 0) for t in (TARGET_CTD_TABLE, TARGET_HTML)],
+                                   self.get_func,
+                                   self.clear_func,
+                                   (table_dict, None, html_text))
+      
    def selection_to_clipboard(self, text_buffer, sourceview):
       """Write the Selected Content to the Clipboard"""
       iter_sel_start, iter_sel_end = text_buffer.get_selection_bounds()

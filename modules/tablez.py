@@ -20,7 +20,7 @@
 #       MA 02110-1301, USA.
 
 import gtk, pango
-import os, csv, codecs, cStringIO
+import os, csv, codecs, cStringIO, copy
 import support
 
 
@@ -309,6 +309,18 @@ class TablesHandler:
          while self.dad.node_siblings_sort_iteration(model, father_iter, False, 0):
             movements = True
          if not movements: return
+      elif action in ["cut", "copy"]:
+         columns_num = len(self.curr_table_anchor.headers)
+         table = {'matrix':[],
+                  'col_min': self.curr_table_anchor.table_col_min,
+                  'col_max': self.curr_table_anchor.table_col_max}
+         row = []
+         for column in range(columns_num): row.append(self.curr_table_anchor.liststore[iter][column])
+         table['matrix'].append(row)
+         table['matrix'].append(copy.deepcopy(self.curr_table_anchor.headers))
+         self.dad.clipboard_handler.table_row_to_clipboard(table)
+         if action == "cut": model.remove(iter)
+         else: return
       else: return
       self.dad.update_window_save_needed()
       self.dad.state_machine.update_state(self.dad.treestore[self.dad.curr_tree_iter][3])
@@ -319,11 +331,11 @@ class TablesHandler:
    
    def table_row_cut(self, *args):
       """Cut a Table Row"""
-      print "table row cut"
+      self.table_row_action("cut")
    
    def table_row_copy(self, *args):
       """Copy a Table Row"""
-      print "table row copy"
+      self.table_row_action("copy")
    
    def table_row_paste(self, *args):
       """Paste a Table Row"""
