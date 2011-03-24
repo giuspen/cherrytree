@@ -187,6 +187,10 @@ class TablesHandler:
       """Catches Table Cell key presses"""
       keyname = gtk.gdk.keyval_name(event.keyval)
       if keyname in ["Return", "Up", "Down"]:
+         if model[path][col_num] != widget.get_text():
+            model[path][col_num] = widget.get_text()
+            self.dad.state_machine.update_state(self.dad.treestore[self.dad.curr_tree_iter][3])
+            self.dad.update_window_save_needed()
          if keyname == "Up":
             if col_num > 0:
                next_col_num = col_num - 1
@@ -241,6 +245,7 @@ class TablesHandler:
       self.dad.glade.tablehandle_vbox_col.show()
       col_label = column.get_widget()
       self.dad.glade.table_column_rename_entry.set_text(col_label.get_text())
+      self.dad.glade.table_column_rename_entry.grab_focus()
       self.dad.glade.table_column_new_entry.set_sensitive(self.dad.table_column_mode == 'add')
       self.dad.glade.table_column_rename_entry.set_sensitive(self.dad.table_column_mode == 'rename')
       response = self.dad.glade.tablehandledialog.run()
