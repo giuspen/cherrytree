@@ -21,7 +21,7 @@
 
 import gtk, pango
 import os, csv, codecs, cStringIO, copy
-import support
+import cons, support
 
 
 class TablesHandler:
@@ -186,43 +186,50 @@ class TablesHandler:
    def on_key_press_table_cell(self, widget, event, path, model, col_num):
       """Catches Table Cell key presses"""
       keyname = gtk.gdk.keyval_name(event.keyval)
-      if keyname in ["Return", "Up", "Down"]:
-         if model[path][col_num] != widget.get_text():
-            model[path][col_num] = widget.get_text()
-            self.dad.state_machine.update_state(self.dad.treestore[self.dad.curr_tree_iter][3])
-            self.dad.update_window_save_needed()
-         if keyname == "Up":
-            if col_num > 0:
-               next_col_num = col_num - 1
-               next_path = path
+      if event.state & gtk.gdk.SHIFT_MASK:
+         pass
+      elif event.state & gtk.gdk.MOD1_MASK:
+         pass
+      elif event.state & gtk.gdk.CONTROL_MASK:
+         pass
+      else:
+         if keyname in ["Return", "Up", "Down"]:
+            if model[path][col_num] != widget.get_text():
+               model[path][col_num] = widget.get_text()
+               self.dad.state_machine.update_state(self.dad.treestore[self.dad.curr_tree_iter][3])
+               self.dad.update_window_save_needed()
+            if keyname == "Up":
+               if col_num > 0:
+                  next_col_num = col_num - 1
+                  next_path = path
+               else:
+                  next_iter = None
+                  next_path =  model.get_path(model.get_iter(path))
+                  while not next_iter and next_path[0] > 0:
+                     node_path_list = list(next_path)
+                     node_path_list[0] -= 1
+                     next_path = tuple(node_path_list)
+                     next_iter = model.get_iter(next_path)
+                  #next_iter = model.iter_next(model.get_iter(path))
+                  if not next_iter: return
+                  next_path = model.get_path(next_iter)
+                  next_col_num = self.table_columns-1
             else:
-               next_iter = None
-               next_path =  model.get_path(model.get_iter(path))
-               while not next_iter and next_path[0] > 0:
-                  node_path_list = list(next_path)
-                  node_path_list[0] -= 1
-                  next_path = tuple(node_path_list)
-                  next_iter = model.get_iter(next_path)
-               #next_iter = model.iter_next(model.get_iter(path))
-               if not next_iter: return
-               next_path = model.get_path(next_iter)
-               next_col_num = self.table_columns-1
-         else:
-            if col_num < self.table_columns-1:
-               next_col_num = col_num + 1
-               next_path = path
-            else:
-               next_iter = model.iter_next(model.get_iter(path))
-               if not next_iter: return
-               next_path = model.get_path(next_iter)
-               next_col_num = 0
-         #print "(path, col_num) = (%s, %s)" % (path, col_num)
-         #print "(next_path, next_col_num) = (%s, %s)" % (next_path, next_col_num)
-         next_column = self.curr_table_anchor.treeview.get_columns()[next_col_num]
-         self.curr_table_anchor.treeview.set_cursor_on_cell(next_path,
-                                                            focus_column=next_column,
-                                                            focus_cell=next_column.get_cell_renderers()[0],
-                                                            start_editing=True)
+               if col_num < self.table_columns-1:
+                  next_col_num = col_num + 1
+                  next_path = path
+               else:
+                  next_iter = model.iter_next(model.get_iter(path))
+                  if not next_iter: return
+                  next_path = model.get_path(next_iter)
+                  next_col_num = 0
+            #print "(path, col_num) = (%s, %s)" % (path, col_num)
+            #print "(next_path, next_col_num) = (%s, %s)" % (next_path, next_col_num)
+            next_column = self.curr_table_anchor.treeview.get_columns()[next_col_num]
+            self.curr_table_anchor.treeview.set_cursor_on_cell(next_path,
+                                                               focus_column=next_column,
+                                                               focus_cell=next_column.get_cell_renderers()[0],
+                                                               start_editing=True)
       
    def on_table_cell_editing_started(self, cell, editable, path, model, col_num):
       """A Table Cell is going to be Edited"""

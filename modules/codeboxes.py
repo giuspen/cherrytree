@@ -100,7 +100,7 @@ class CodeBoxesHandler:
       anchor.sourceview.set_tab_width(self.dad.tabs_width)
       anchor.sourceview.set_auto_indent(self.dad.auto_indent)
       anchor.sourceview.connect('populate-popup', self.on_sourceview_populate_popup_codebox, anchor)
-      anchor.sourceview.connect('key_press_event', self.on_sourceview_key_press_codebox, anchor)
+      anchor.sourceview.connect('key_press_event', self.on_key_press_sourceview_codebox, anchor)
       if self.dad.line_wrapping: anchor.sourceview.set_wrap_mode(gtk.WRAP_WORD)
       else: anchor.sourceview.set_wrap_mode(gtk.WRAP_NONE)
       scrolledwindow = gtk.ScrolledWindow()
@@ -183,7 +183,7 @@ class CodeBoxesHandler:
       self.dad.update_window_save_needed()
       self.dad.state_machine.update_state(self.dad.treestore[self.dad.curr_tree_iter][3])
    
-   def on_sourceview_key_press_codebox(self, widget, event, anchor):
+   def on_key_press_sourceview_codebox(self, widget, event, anchor):
       """Extend the Default Right-Click Menu of the CodeBox"""
       if event.state & gtk.gdk.CONTROL_MASK:
          keyname = gtk.gdk.keyval_name(event.keyval)
