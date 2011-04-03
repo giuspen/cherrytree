@@ -50,8 +50,9 @@ class GladeWidgetsWrapper:
 class CherryTree:
    """Application's GUI"""
    
-   def __init__(self, lang_str, first_instance, open_with_file):
+   def __init__(self, lang_str, open_with_file, boss):
       """GUI Startup"""
+      self.boss = boss
       self.user_active = True
       # instantiate external handlers
       self.clipboard_handler = clipboard.ClipboardHandler(self)
@@ -77,9 +78,6 @@ class CherryTree:
       self.window = self.glade.window
       vbox_main = gtk.VBox()
       self.window.add(vbox_main)
-      if not first_instance:
-         support.dialog_error(_("Another Instance of CherryTree is Already Running"), self.window)
-         sys.exit(1)
       self.country_lang = lang_str
       config.config_file_load(self)
       # ui manager
@@ -148,6 +146,7 @@ class CherryTree:
       self.window.connect('window-state-event', self.on_window_state_event)
       self.window.connect("size-allocate", self.on_window_n_tree_size_allocate_event)
       self.window.connect('key_press_event', self.on_key_press_window)
+      self.window.connect("destroy", self.boss.on_window_destroy_event)
       self.scrolledwindow_tree.connect("size-allocate", self.on_window_n_tree_size_allocate_event)
       self.glade.inputdialog.connect('key_press_event', self.on_key_press_input_dialog)
       self.glade.anchorhandledialog.connect('key_press_event', self.on_key_press_anchorhandledialog)

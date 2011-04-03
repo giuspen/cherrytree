@@ -20,12 +20,87 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
-import sys, os, gtk, gettext
+import gtk, gobject
+import sys, os, gettext, socket, threading
 import cons, core
 
+HOST = "127.0.0.1"
+PORT = 63891
 
-def main(OPEN_WITH_FILE):
-   """Everything Starts from Here"""
+
+class ServerThread(threading.Thread):
+   """Server listening for requests to open new documents"""
+   def __init__(self, semaphore, msg_server_to_core):
+      super(ServerThread, self).__init__()
+      self.semaphore = semaphore
+      self.msg_server_to_core = msg_server_to_core
+      self.time_to_quit = False
+      
+   def run(self):
+      sock_srv = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+      sock_srv.bind((HOST, PORT))
+      sock_srv.settimeout(2) # 2 sec
+      sock_srv.listen(1)
+      while not self.time_to_quit:
+         try: conn, addr = sock_srv.accept()
+         except: continue
+         print "connected with", addr
+         while not self.time_to_quit:
+            data = conn.recv(1024)
+            if not data: break
+            if len(data) < 4 or data[:4] != "ct*=":
+               print "bad data =", data
+               break
+            conn.send("okz")
+            self.semaphore.acquire()
+            self.msg_server_to_core['p'] = data[4:]
+            self.msg_server_to_core['f'] = 1
+            self.semaphore.release()
+         conn.close()
+
+
+class CherryTreeHandler():
+   def __init__(self, filepath, semaphore, msg_server_to_core, lang_str):
+      self.semaphore = semaphore
+      self.msg_server_to_core = msg_server_to_core
+      self.lang_str = lang_str
+      self.running_windows = []
+      self.window_open_new(filepath)
+      self.server_check_timer_id = gobject.timeout_add(1000, self.server_periodic_check) # 1 sec
+      
+   def window_open_new(self, filepath):
+      """Open a new top level Window"""
+      window = core.CherryTree(self.lang_str, filepath, self)
+      self.running_windows.append(window)
+      self.curr_win_idx = -1
+      
+   def on_window_destroy_event(self, widget):
+      """Before close the application (from the window top right X)..."""
+      self.running_windows.pop(self.curr_win_idx)
+      self.curr_win_idx = -1
+      if not self.running_windows: gtk.main_quit()
+      
+   def server_periodic_check(self):
+      """Check Whether the server posted messages"""
+      self.semaphore.acquire()
+      #print "check '%s'" % self.msg_server_to_core['f']
+      if self.msg_server_to_core['f']:
+         self.msg_server_to_core['f'] = 0
+         for i, runn_win in enumerate(self.running_windows):
+            if self.msg_server_to_core['p'] and runn_win.file_name and self.msg_server_to_core['p'] == os.path.join(runn_win.file_dir, runn_win.file_name):
+               print "rise existing '%s'" % self.msg_server_to_core['p']
+               self.curr_win_idx = i
+               runn_win.window.present()
+               break
+         else:
+            print "run '%s'" % self.msg_server_to_core['p']
+            self.window_open_new(self.msg_server_to_core['p'])
+      self.semaphore.release()
+      return True # this way we keep the timer alive
+
+
+def initializations():
+   """Initializations"""
    if sys.platform[0:3] == "win":
       import warnings
       warnings.filterwarnings("ignore")
@@ -54,7 +129,29 @@ def main(OPEN_WITH_FILE):
       def _(transl_str):
          return transl_str
       __builtin__._ = _
-   # start the app
-   core.CherryTree(lang_str, True, OPEN_WITH_FILE)
-   gtk.main() # start the gtk main loop
-   return 0
+   return lang_str
+
+
+def main(OPEN_WITH_FILE):
+   """Everything Starts from Here"""
+   try:
+      # client
+      sock_cln = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+      sock_cln.connect((HOST, PORT))
+      sock_cln.send("ct*=%s" % OPEN_WITH_FILE)
+      data = sock_cln.recv(1024)
+      sock_cln.close()
+      if data != "okz": raise
+   except:
+      # server + core
+      lang_str = initializations()
+      gobject.threads_init()
+      semaphore = threading.Semaphore()
+      msg_server_to_core = {'f':0, 'p':""}
+      server_thread = ServerThread(semaphore, msg_server_to_core)
+      server_thread.start()
+      CherryTreeHandler(OPEN_WITH_FILE, semaphore, msg_server_to_core, lang_str)
+      gtk.main() # start the gtk main loop
+      # quit thread
+      server_thread.time_to_quit = True
+      return 0
