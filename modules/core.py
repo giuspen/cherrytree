@@ -778,6 +778,7 @@ class CherryTree:
       if open_with_file != "":
          self.file_name = os.path.basename(open_with_file)
          self.file_dir = os.path.dirname(open_with_file)
+         if not self.file_dir: self.file_dir = os.curdir
       if self.file_dir != "" and self.file_name != "" and os.path.isfile(os.path.join(self.file_dir, self.file_name)):
          self.file_load(os.path.join(self.file_dir, self.file_name))
          if self.expand_tree: self.treeview.expand_all()

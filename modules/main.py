@@ -87,7 +87,9 @@ class CherryTreeHandler():
       if self.msg_server_to_core['f']:
          self.msg_server_to_core['f'] = 0
          for i, runn_win in enumerate(self.running_windows):
-            if self.msg_server_to_core['p'] and runn_win.file_name and self.msg_server_to_core['p'] == os.path.join(runn_win.file_dir, runn_win.file_name):
+            if self.msg_server_to_core['p']\
+            and runn_win.file_name\
+            and self.msg_server_to_core['p'] in [os.path.join(runn_win.file_dir, runn_win.file_name), runn_win.file_name]:
                print "rise existing '%s'" % self.msg_server_to_core['p']
                self.curr_win_idx = i
                runn_win.window.present()
