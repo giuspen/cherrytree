@@ -52,8 +52,12 @@ class ServerThread(threading.Thread):
                print "bad data =", data
                break
             conn.send("okz")
+            filepath = data[4:]
+            if not os.path.dirname(filepath): filepath = os.path.join(os.getcwd(), filepath)
+            else: filepath = os.path.abspath(filepath)
+            #print filepath
             self.semaphore.acquire()
-            self.msg_server_to_core['p'] = data[4:]
+            self.msg_server_to_core['p'] = filepath
             self.msg_server_to_core['f'] = 1
             self.semaphore.release()
          conn.close()
@@ -65,6 +69,8 @@ class CherryTreeHandler():
       self.msg_server_to_core = msg_server_to_core
       self.lang_str = lang_str
       self.running_windows = []
+      if not os.path.dirname(filepath): filepath = os.path.join(os.getcwd(), filepath)
+      else: filepath = os.path.abspath(filepath)
       self.window_open_new(filepath)
       self.server_check_timer_id = gobject.timeout_add(1000, self.server_periodic_check) # 1 sec
       
@@ -89,7 +95,7 @@ class CherryTreeHandler():
          for i, runn_win in enumerate(self.running_windows):
             if self.msg_server_to_core['p']\
             and runn_win.file_name\
-            and self.msg_server_to_core['p'] in [os.path.join(runn_win.file_dir, runn_win.file_name), runn_win.file_name]:
+            and self.msg_server_to_core['p'] == os.path.join(runn_win.file_dir, runn_win.file_name):
                print "rise existing '%s'" % self.msg_server_to_core['p']
                self.curr_win_idx = i
                runn_win.window.present()
