@@ -52,10 +52,7 @@ class ServerThread(threading.Thread):
                print "bad data =", data
                break
             conn.send("okz")
-            filepath = data[4:]
-            if not os.path.dirname(filepath): filepath = os.path.join(os.getcwd(), filepath)
-            else: filepath = os.path.abspath(filepath)
-            #print filepath
+            filepath = filepath_fix(data[4:])
             self.semaphore.acquire()
             self.msg_server_to_core['p'] = filepath
             self.msg_server_to_core['f'] = 1
@@ -69,8 +66,7 @@ class CherryTreeHandler():
       self.msg_server_to_core = msg_server_to_core
       self.lang_str = lang_str
       self.running_windows = []
-      if not os.path.dirname(filepath): filepath = os.path.join(os.getcwd(), filepath)
-      else: filepath = os.path.abspath(filepath)
+      filepath = filepath_fix(filepath)
       self.window_open_new(filepath)
       self.server_check_timer_id = gobject.timeout_add(1000, self.server_periodic_check) # 1 sec
       
@@ -92,17 +88,28 @@ class CherryTreeHandler():
       #print "check '%s'" % self.msg_server_to_core['f']
       if self.msg_server_to_core['f']:
          self.msg_server_to_core['f'] = 0
+         # 1) check for opened window with same filepath
          for i, runn_win in enumerate(self.running_windows):
             if self.msg_server_to_core['p']\
             and runn_win.file_name\
             and self.msg_server_to_core['p'] == os.path.join(runn_win.file_dir, runn_win.file_name):
-               print "rise existing '%s'" % self.msg_server_to_core['p']
+               print "1 rise existing '%s'" % self.msg_server_to_core['p']
                self.curr_win_idx = i
                runn_win.window.present()
                break
          else:
-            print "run '%s'" % self.msg_server_to_core['p']
-            self.window_open_new(self.msg_server_to_core['p'])
+            # 2) check for opened window with empty path
+            for i, runn_win in enumerate(self.running_windows):
+               if not runn_win.file_name:
+                  print "2 rise existing '%s'" % self.msg_server_to_core['p']
+                  self.curr_win_idx = i
+                  runn_win.window.present()
+                  runn_win.file_startup_load(self.msg_server_to_core['p'])
+                  break
+            else:
+               # 3) run new window
+               print "3 run '%s'" % self.msg_server_to_core['p']
+               self.window_open_new(self.msg_server_to_core['p'])
       self.semaphore.release()
       return True # this way we keep the timer alive
 
@@ -138,6 +145,14 @@ def initializations():
          return transl_str
       __builtin__._ = _
    return lang_str
+
+
+def filepath_fix(filepath):
+   """Fix a FilePath to an Absolute Path"""
+   if not filepath: return ""
+   if not os.path.dirname(filepath): filepath = os.path.join(os.getcwd(), filepath)
+   else: filepath = os.path.abspath(filepath)
+   return filepath
 
 
 def main(OPEN_WITH_FILE):

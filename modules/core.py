@@ -1065,7 +1065,9 @@ class CherryTree:
    def file_load(self, filepath):
       """Loads a .CTD into a GTK TreeStore"""
       cherrytree_string = self.file_get_cherrytree_xml(filepath, True)
-      if not cherrytree_string: return
+      if not cherrytree_string:
+         self.file_name = ""
+         return
       self.user_active = False
       file_loaded = False
       try:
