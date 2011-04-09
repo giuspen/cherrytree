@@ -557,8 +557,6 @@ class CherryTree:
                                              buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
                                                       gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
          append_location_dialog.set_transient_for(self.window)
-         append_location_dialog.set_property("modal", True)
-         append_location_dialog.set_property("destroy-with-parent", True)
          append_location_dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
          radiobutton_root = gtk.RadioButton(label=_("The Tree Root"))
          radiobutton_curr_node = gtk.RadioButton(label=_("The Selected Node"))
@@ -933,8 +931,6 @@ class CherryTree:
                                           buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
                                           gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
       edit_protection_dialog.set_transient_for(self.window)
-      edit_protection_dialog.set_property("modal", True)
-      edit_protection_dialog.set_property("destroy-with-parent", True)
       edit_protection_dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
       radiobutton_unprotected = gtk.RadioButton(label=_("Not Protected"))
       radiobutton_protected = gtk.RadioButton(label=_("Password Protected"))
@@ -1011,8 +1007,6 @@ class CherryTree:
                                          gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
       enter_password_dialog.set_default_size(300, -1)
       enter_password_dialog.set_transient_for(self.window)
-      enter_password_dialog.set_property("modal", True)
-      enter_password_dialog.set_property("destroy-with-parent", True)
       enter_password_dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
       entry = gtk.Entry()
       entry.set_visibility(False)
@@ -2233,23 +2227,58 @@ class CherryTree:
       
    def tree_info(self, action):
       """Tree Summary Information"""
-      if self.tree_is_empty(): support.dialog_warning(_("The Tree is Empty!"), self.window)
-      else:
-         self.summary_nodes_text_num = 0
-         self.summary_nodes_code_num = 0
-         self.summary_images_num = 0
-         self.summary_tables_num = 0
-         # full tree parsing
-         tree_iter = self.treestore.get_iter_first()
-         while tree_iter != None:
-            self.tree_info_iter(tree_iter)
-            tree_iter = self.treestore.iter_next(tree_iter)
-         self.glade.label_summary_text_nodes.set_text("%s" % self.summary_nodes_text_num)
-         self.glade.label_summary_code_nodes.set_text("%s" % self.summary_nodes_code_num)
-         self.glade.label_summary_images.set_text("%s" % self.summary_images_num)
-         self.glade.label_summary_tables.set_text("%s" % self.summary_tables_num)
-         self.glade.dialogtreeinfo.run()
-         self.glade.dialogtreeinfo.hide()
+      if self.tree_is_empty():
+         support.dialog_warning(_("The Tree is Empty!"), self.window)
+         return
+      dialog = gtk.Dialog(title=_("Tree Summary Information"),
+                          parent=self.window,
+                          flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
+                          buttons=(gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
+      dialog.set_default_size(400, 300)
+      dialog.set_transient_for(self.window)
+      dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+      table = gtk.Table(5, 2)
+      label = gtk.Label()
+      label.set_markup("<b>" + _("Number of Text Nodes") + "</b>")
+      table.attach(label, 0, 1, 0, 1)
+      label = gtk.Label()
+      label.set_markup("<b>" + _("Number of Code Nodes") + "</b>")
+      table.attach(label, 0, 1, 1, 2)
+      label = gtk.Label()
+      label.set_markup("<b>" + _("Number of Images") + "</b>")
+      table.attach(label, 0, 1, 2, 3)
+      label = gtk.Label()
+      label.set_markup("<b>" + _("Number of Tables") + "</b>")
+      table.attach(label, 0, 1, 3, 4)
+      label = gtk.Label()
+      label.set_markup("<b>" + _("Number of CodeBoxes") + "</b>")
+      table.attach(label, 0, 1, 4, 5)
+      self.summary_nodes_text_num = 0
+      self.summary_nodes_code_num = 0
+      self.summary_images_num = 0
+      self.summary_tables_num = 0
+      self.summary_codeboxes_num = 0
+      # full tree parsing
+      tree_iter = self.treestore.get_iter_first()
+      while tree_iter != None:
+         self.tree_info_iter(tree_iter)
+         tree_iter = self.treestore.iter_next(tree_iter)
+      label = gtk.Label("%s" % self.summary_nodes_text_num)
+      table.attach(label, 1, 2, 0, 1)
+      label = gtk.Label("%s" % self.summary_nodes_code_num)
+      table.attach(label, 1, 2, 1, 2)
+      label = gtk.Label("%s" % self.summary_images_num)
+      table.attach(label, 1, 2, 2, 3)
+      label = gtk.Label("%s" % self.summary_tables_num)
+      table.attach(label, 1, 2, 3, 4)
+      label = gtk.Label("%s" % self.summary_codeboxes_num)
+      table.attach(label, 1, 2, 4, 5)
+      content_area = dialog.get_content_area()
+      content_area.pack_start(table)
+      content_area.show_all()
+      dialog.get_action_area().set_layout(gtk.BUTTONBOX_SPREAD)
+      dialog.run()
+      dialog.destroy()
       
    def tree_info_iter(self, tree_iter):
       """Tree Summary Information Iteration"""
@@ -2260,11 +2289,14 @@ class CherryTree:
       else: self.summary_nodes_code_num += 1
       curr_node_images = 0
       curr_node_tables = 0
+      curr_node_codeboxes = 0
       for element in pixbuf_table_vector:
          if element[0] == "pixbuf": curr_node_images += 1
          elif element[0] == "table": curr_node_tables += 1
+         elif element[0] == "codebox": curr_node_codeboxes += 1
       self.summary_images_num += curr_node_images
       self.summary_tables_num += curr_node_tables
+      self.summary_codeboxes_num += curr_node_codeboxes
       # iterate children
       tree_iter = self.treestore.iter_children(tree_iter)
       while tree_iter != None:

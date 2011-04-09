@@ -118,8 +118,6 @@ def dialog_question(message, parent=None):
                               message_format=message)
    if parent != None:
       dialog.set_transient_for(parent)
-      dialog.set_property("modal", True)
-      dialog.set_property("destroy-with-parent", True)
       dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
    else: dialog.set_position(gtk.WIN_POS_CENTER)
    dialog.set_title(_("Question"))
@@ -138,8 +136,6 @@ def dialog_info(message, parent=None):
                               message_format=message)
    if parent != None:
       dialog.set_transient_for(parent)
-      dialog.set_property("modal", True)
-      chooser.set_property("destroy-with-parent", True)
       dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
    else: dialog.set_position(gtk.WIN_POS_CENTER)
    dialog.set_title(_("Info"))
@@ -154,8 +150,6 @@ def dialog_warning(message, parent=None):
                               message_format=message)
    if parent != None:
       dialog.set_transient_for(parent)
-      dialog.set_property("modal", True)
-      dialog.set_property("destroy-with-parent", True)
       dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
    else: dialog.set_position(gtk.WIN_POS_CENTER)
    dialog.set_title(_("Warning"))
@@ -170,8 +164,6 @@ def dialog_error(message, parent=None):
                               message_format=message)
    if parent != None:
       dialog.set_transient_for(parent)
-      dialog.set_property("modal", True)
-      dialog.set_property("destroy-with-parent", True)
       dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
    else: dialog.set_position(gtk.WIN_POS_CENTER)
    dialog.set_title(_("Error"))
@@ -279,8 +271,6 @@ def bookmarks_handle(dad):
                        gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
    dialog.set_default_size(500, 400)
    dialog.set_transient_for(dad.window)
-   dialog.set_property("modal", True)
-   dialog.set_property("destroy-with-parent", True)
    dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
    liststore = gtk.ListStore(str, str, str)
    for node_id_str in dad.bookmarks:
