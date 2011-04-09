@@ -112,6 +112,7 @@ def dialog_question(message, parent=None):
                               message_format=message)
    if parent != None: dialog.set_transient_for(parent)
    dialog.set_title(_("Question"))
+   dialog.set_property("modal", True)
    if dialog.run() == gtk.RESPONSE_OK:
       dialog.destroy()
       return True
@@ -127,6 +128,7 @@ def dialog_info(message, parent=None):
                               message_format=message)
    if parent != None: dialog.set_transient_for(parent)
    dialog.set_title(_("Info"))
+   dialog.set_property("modal", True)
    dialog.run()
    dialog.destroy()
 
@@ -138,6 +140,7 @@ def dialog_warning(message, parent=None):
                               message_format=message)
    if parent != None: dialog.set_transient_for(parent)
    dialog.set_title(_("Warning"))
+   dialog.set_property("modal", True)
    dialog.run()
    dialog.destroy()
    
@@ -149,6 +152,7 @@ def dialog_error(message, parent=None):
                               message_format=message)
    if parent != None: dialog.set_transient_for(parent)
    dialog.set_title(_("Error"))
+   dialog.set_property("modal", True)
    dialog.run()
    dialog.destroy()
 
