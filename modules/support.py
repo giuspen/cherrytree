@@ -38,6 +38,8 @@ def dialog_file_save_as(filename=None, filter_pattern=None, filter_name=None, cu
       chooser.set_transient_for(parent)
       chooser.set_property("modal", True)
       chooser.set_property("destroy-with-parent", True)
+      chooser.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+   else: chooser.set_position(gtk.WIN_POS_CENTER)
    if curr_folder == None or os.path.isdir(curr_folder) == False:
       chooser.set_current_folder(os.path.expanduser('~'))
    else:
@@ -66,6 +68,8 @@ def dialog_file_select(filter_pattern=None, filter_name=None, curr_folder=None, 
       chooser.set_transient_for(parent)
       chooser.set_property("modal", True)
       chooser.set_property("destroy-with-parent", True)
+      chooser.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+   else: chooser.set_position(gtk.WIN_POS_CENTER)
    if curr_folder == None or os.path.isdir(curr_folder) == False:
       chooser.set_current_folder(os.path.expanduser('~'))
    else:
@@ -92,6 +96,8 @@ def dialog_folder_select(curr_folder=None, parent=None):
       chooser.set_transient_for(parent)
       chooser.set_property("modal", True)
       chooser.set_property("destroy-with-parent", True)
+      chooser.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+   else: chooser.set_position(gtk.WIN_POS_CENTER)
    if curr_folder == None or os.path.isdir(curr_folder) == False:
       chooser.set_current_folder(os.path.expanduser('~'))
    else:
@@ -110,9 +116,13 @@ def dialog_question(message, parent=None):
                               type=gtk.MESSAGE_QUESTION,
                               buttons=gtk.BUTTONS_OK_CANCEL,
                               message_format=message)
-   if parent != None: dialog.set_transient_for(parent)
+   if parent != None:
+      dialog.set_transient_for(parent)
+      dialog.set_property("modal", True)
+      dialog.set_property("destroy-with-parent", True)
+      dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+   else: dialog.set_position(gtk.WIN_POS_CENTER)
    dialog.set_title(_("Question"))
-   dialog.set_property("modal", True)
    if dialog.run() == gtk.RESPONSE_OK:
       dialog.destroy()
       return True
@@ -126,9 +136,13 @@ def dialog_info(message, parent=None):
                               type=gtk.MESSAGE_INFO,
                               buttons=gtk.BUTTONS_OK,
                               message_format=message)
-   if parent != None: dialog.set_transient_for(parent)
+   if parent != None:
+      dialog.set_transient_for(parent)
+      dialog.set_property("modal", True)
+      chooser.set_property("destroy-with-parent", True)
+      dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+   else: dialog.set_position(gtk.WIN_POS_CENTER)
    dialog.set_title(_("Info"))
-   dialog.set_property("modal", True)
    dialog.run()
    dialog.destroy()
 
@@ -138,9 +152,13 @@ def dialog_warning(message, parent=None):
                               type=gtk.MESSAGE_WARNING,
                               buttons=gtk.BUTTONS_OK,
                               message_format=message)
-   if parent != None: dialog.set_transient_for(parent)
+   if parent != None:
+      dialog.set_transient_for(parent)
+      dialog.set_property("modal", True)
+      dialog.set_property("destroy-with-parent", True)
+      dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+   else: dialog.set_position(gtk.WIN_POS_CENTER)
    dialog.set_title(_("Warning"))
-   dialog.set_property("modal", True)
    dialog.run()
    dialog.destroy()
    
@@ -150,9 +168,13 @@ def dialog_error(message, parent=None):
                               type=gtk.MESSAGE_ERROR,
                               buttons=gtk.BUTTONS_OK,
                               message_format=message)
-   if parent != None: dialog.set_transient_for(parent)
+   if parent != None:
+      dialog.set_transient_for(parent)
+      dialog.set_property("modal", True)
+      dialog.set_property("destroy-with-parent", True)
+      dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+   else: dialog.set_position(gtk.WIN_POS_CENTER)
    dialog.set_title(_("Error"))
-   dialog.set_property("modal", True)
    dialog.run()
    dialog.destroy()
 
@@ -256,6 +278,10 @@ def bookmarks_handle(dad):
                        buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
                        gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
    dialog.set_default_size(500, 400)
+   dialog.set_transient_for(dad.window)
+   dialog.set_property("modal", True)
+   dialog.set_property("destroy-with-parent", True)
+   dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
    liststore = gtk.ListStore(str, str, str)
    for node_id_str in dad.bookmarks:
       liststore.append(["Red Cherry", dad.nodes_names_dict[long(node_id_str)], node_id_str])

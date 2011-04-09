@@ -556,6 +556,10 @@ class CherryTree:
                                              flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
                                              buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
                                                       gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
+         append_location_dialog.set_transient_for(self.window)
+         append_location_dialog.set_property("modal", True)
+         append_location_dialog.set_property("destroy-with-parent", True)
+         append_location_dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
          radiobutton_root = gtk.RadioButton(label=_("The Tree Root"))
          radiobutton_curr_node = gtk.RadioButton(label=_("The Selected Node"))
          radiobutton_curr_node.set_group(radiobutton_root)
@@ -928,6 +932,10 @@ class CherryTree:
                                           flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
                                           buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
                                           gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
+      edit_protection_dialog.set_transient_for(self.window)
+      edit_protection_dialog.set_property("modal", True)
+      edit_protection_dialog.set_property("destroy-with-parent", True)
+      edit_protection_dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
       radiobutton_unprotected = gtk.RadioButton(label=_("Not Protected"))
       radiobutton_protected = gtk.RadioButton(label=_("Password Protected"))
       radiobutton_protected.set_group(radiobutton_unprotected)
@@ -1002,6 +1010,10 @@ class CherryTree:
                                          buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
                                          gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
       enter_password_dialog.set_default_size(300, -1)
+      enter_password_dialog.set_transient_for(self.window)
+      enter_password_dialog.set_property("modal", True)
+      enter_password_dialog.set_property("destroy-with-parent", True)
+      enter_password_dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
       entry = gtk.Entry()
       entry.set_visibility(False)
       content_area = enter_password_dialog.get_content_area()
