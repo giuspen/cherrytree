@@ -185,6 +185,7 @@ class CherryTree:
       support.set_menu_items_recent_documents(self)
       support.set_menu_items_justification(self)
       self.window.show_all() # this before the config_file_apply that could hide something
+      self.window.present()
       config.config_file_apply(self)
       self.combobox_country_lang_init()
       self.combobox_prog_lang_init()
