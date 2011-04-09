@@ -38,7 +38,10 @@ class ServerThread(threading.Thread):
       
    def run(self):
       sock_srv = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-      sock_srv.bind((HOST, PORT))
+      try: sock_srv.bind((HOST, PORT))
+      except:
+         print "port %s busy => cherrytree multiple instances centralized control disabled" % PORT
+         return
       sock_srv.settimeout(2) # 2 sec
       sock_srv.listen(1)
       while not self.time_to_quit:
