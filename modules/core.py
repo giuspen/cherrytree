@@ -1185,7 +1185,7 @@ class CherryTree:
       
    def node_print(self, action):
       """Start Print Operations"""
-      if self.curr_tree_iter == None:
+      if not self.curr_tree_iter:
          support.dialog_warning(_("No Node is Selected!"), self.window)
          return
       if self.treestore[self.curr_tree_iter][4] == cons.CUSTOM_COLORS_ID:
@@ -1201,8 +1201,31 @@ class CherryTree:
          print_compositor = gtksourceview2.print_compositor_new_from_view(self.sourceview)
          self.print_handler.print_code(self.glade.window, print_compositor, self.code_font)
    
+   def tree_sort_level_and_sublevels(self, model, father_iter, ascending):
+      """Sorts the Tree Level and All the Sublevels"""
+      movements = False
+      while self.node_siblings_sort_iteration(model, father_iter, ascending, 1):
+         movements = True
+      if father_iter: curr_sibling = model.iter_children(father_iter)
+      else: curr_sibling = model.get_iter_first()
+      while curr_sibling:
+         if self.tree_sort_level_and_sublevels(model, curr_sibling, ascending): movements = True
+         curr_sibling = model.iter_next(curr_sibling)
+      return movements
+   
+   def tree_sort_ascending(self, *args):
+      """Sorts the Tree Ascending"""
+      if self.tree_sort_level_and_sublevels(self.treestore, None, True): self.update_window_save_needed()
+      
+   def tree_sort_descending(self, *args):
+      """Sorts the Tree Descending"""
+      if self.tree_sort_level_and_sublevels(self.treestore, None, False): self.update_window_save_needed()
+   
    def node_siblings_sort_ascending(self, *args):
       """Sorts all the Siblings of the Selected Node Ascending"""
+      if not self.curr_tree_iter:
+         support.dialog_warning(_("No Node is Selected!"), self.window)
+         return
       father_iter = self.treestore.iter_parent(self.curr_tree_iter)
       movements = False
       while self.node_siblings_sort_iteration(self.treestore, father_iter, True, 1):
@@ -1211,21 +1234,25 @@ class CherryTree:
       
    def node_siblings_sort_descending(self, *args):
       """Sorts all the Siblings of the Selected Node Descending"""
+      if not self.curr_tree_iter:
+         support.dialog_warning(_("No Node is Selected!"), self.window)
+         return
       father_iter = self.treestore.iter_parent(self.curr_tree_iter)
       movements = False
       while self.node_siblings_sort_iteration(self.treestore, father_iter, False, 1):
          movements = True
       if movements: self.update_window_save_needed()
       
-   def node_siblings_sort_iteration(self, model, father_iter, descending, column):
+   def node_siblings_sort_iteration(self, model, father_iter, ascending, column):
       """Runs One Sorting Iteration, Returns True if Any Swap was Necessary"""
-      if father_iter != None: curr_sibling = model.iter_children(father_iter)
+      if father_iter: curr_sibling = model.iter_children(father_iter)
       else: curr_sibling = model.get_iter_first()
+      if not curr_sibling: return False
       next_sibling = model.iter_next(curr_sibling)
       swap_executed = False
       while next_sibling != None:
-         if (descending and model[next_sibling][column].lower() < model[curr_sibling][column].lower())\
-         or (not descending and model[next_sibling][column].lower() > model[curr_sibling][column].lower()):
+         if (ascending and model[next_sibling][column].lower() < model[curr_sibling][column].lower())\
+         or (not ascending and model[next_sibling][column].lower() > model[curr_sibling][column].lower()):
             model.swap(next_sibling, curr_sibling)
             swap_executed = True
          else: curr_sibling = next_sibling
