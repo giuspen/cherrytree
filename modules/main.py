@@ -91,6 +91,9 @@ class CherryTreeHandler():
       #print "check '%s'" % self.msg_server_to_core['f']
       if self.msg_server_to_core['f']:
          self.msg_server_to_core['f'] = 0
+         # 0) debug
+         for i, runn_win in enumerate(self.running_windows):
+            print "already running '%s' - '%s'" % (runn_win.file_dir, runn_win.file_name)
          # 1) check for opened window with same filepath
          for i, runn_win in enumerate(self.running_windows):
             if self.msg_server_to_core['p']\
