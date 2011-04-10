@@ -42,7 +42,8 @@ class ServerThread(threading.Thread):
       except:
          print "port %s busy => cherrytree multiple instances centralized control disabled" % PORT
          return
-      if not sys.platform[0:3] == "win": sock_srv.settimeout(3) # 3 sec
+      sock_srv.setblocking(0)
+      sock_srv.settimeout(3) # 3 sec
       sock_srv.listen(1)
       while not self.time_to_quit:
          try: conn, addr = sock_srv.accept()
