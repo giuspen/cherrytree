@@ -215,12 +215,18 @@ class FindReplace:
       if self.dad.glade.checkbutton_match_case.get_active(): # CASE SENSITIVE
          pattern = re.compile(pattern, re.UNICODE|re.MULTILINE)
       else: pattern = re.compile(pattern, re.IGNORECASE|re.UNICODE|re.MULTILINE)
+      start_offset = start_iter.get_offset()
+      start_offset -= self.get_num_objs_before_offset(start_offset)
       if forward:
-         match = pattern.search(text, start_iter.get_offset())
+         match = pattern.search(text, start_offset)
       else:
          match = None
-         for temp_match in pattern.finditer(text, 0, start_iter.get_offset()): match = temp_match
+         for temp_match in pattern.finditer(text, 0, start_offset): match = temp_match
       if match:
+         print self.check_pattern_in_object_between(pattern,
+                                                    start_iter.get_offset(),
+                                                    match.start(),
+                                                    forward)
          num_objs = self.get_num_objs_before_offset(match.start())
          target = self.dad.curr_buffer.get_iter_at_offset(match.start() + num_objs)
          self.dad.curr_buffer.place_cursor(target)
@@ -240,6 +246,32 @@ class FindReplace:
             self.dad.state_machine.update_state(self.dad.treestore[self.dad.curr_tree_iter][3])
          return True
       else: return False
+   
+   def check_pattern_in_object(self, pattern, obj):
+      """Search for the pattern in the given object"""
+      if obj[0] == "table":
+         for row in obj[1][1]['matrix']:
+            for col in row:
+               if pattern.search(col): return True
+      elif obj[0] == "codebox":
+         if pattern.search(obj[1][1]['fill_text']): return True
+      return False
+   
+   def check_pattern_in_object_between(self, pattern, start_offset, end_offset, forward):
+      """Search for the pattern in the given slice and direction"""
+      sel_range = (start_offset, end_offset) if forward else (end_offset, start_offset)
+      obj_vec = self.dad.state_machine.get_embedded_pixbufs_tables_codeboxes(self.dad.curr_buffer,
+                                                                             sel_range=sel_range)
+      if not obj_vec: return (None, None)
+      if forward:
+         for element in obj_vec:
+            if self.check_pattern_in_object(pattern, element):
+               return (element[1][0], element[1][0]+1)
+      else:
+         for element in reversed(obj_vec):
+            if self.check_pattern_in_object(pattern, element):
+               return (element[1][0], element[1][0]+1)
+      return (None, None)
    
    def get_num_objs_before_offset(self, max_offset):
       """Returns the num of objects from buffer start to the given offset"""
