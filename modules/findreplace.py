@@ -223,17 +223,19 @@ class FindReplace:
          match = None
          for temp_match in pattern.finditer(text, 0, start_offset): match = temp_match
       if match:
-         obj_match_offsets = self.check_pattern_in_object_between(pattern,
-                                                                  start_iter.get_offset(),
-                                                                  match.start(),
-                                                                  forward)
+         if self.replace_active: obj_match_offsets = (None, None)
+         else: obj_match_offsets = self.check_pattern_in_object_between(pattern,
+                                                                        start_iter.get_offset(),
+                                                                        match.start(),
+                                                                        forward)
          if obj_match_offsets[0]: match_offsets = (obj_match_offsets[0], obj_match_offsets[1])
          else: match_offsets = (match.start(), match.end())
       else:
-         obj_match_offsets = self.check_pattern_in_object_between(pattern,
-                                                                  start_iter.get_offset(),
-                                                                  -1,
-                                                                  forward)
+         if self.replace_active: obj_match_offsets = (None, None)
+         else: obj_match_offsets = self.check_pattern_in_object_between(pattern,
+                                                                        start_iter.get_offset(),
+                                                                        -1,
+                                                                        forward)
          if obj_match_offsets[0]: match_offsets = (obj_match_offsets[0], obj_match_offsets[1])
          else: match_offsets = (None, None)
       if match_offsets[0]:
