@@ -249,7 +249,7 @@ class FindReplace:
                                    match_offsets[0] + num_objs,
                                    match_offsets[1] + num_objs,
                                    self.dad.treestore[self.dad.curr_tree_iter][1],
-                                   self.get_line_content(target)])
+                                   self.get_line_content(target) if not obj_match_offsets[0] else obj_match_offsets[2]])
          if self.replace_active:
             replacer_text = self.dad.glade.replace_entry.get_text().decode("utf-8")
             self.dad.curr_buffer.delete_selection(interactive=False, default_editable=True)
@@ -263,10 +263,10 @@ class FindReplace:
       if obj[0] == "table":
          for row in obj[1][1]['matrix']:
             for col in row:
-               if pattern.search(col): return True
+               if pattern.search(col): return (True, "<table>")
       elif obj[0] == "codebox":
-         if pattern.search(obj[1][1]['fill_text']): return True
-      return False
+         if pattern.search(obj[1][1]['fill_text']): return (True, "<codebox>")
+      return (False, "")
    
    def check_pattern_in_object_between(self, pattern, start_offset, end_offset, forward):
       """Search for the pattern in the given slice and direction"""
@@ -279,12 +279,14 @@ class FindReplace:
       if not obj_vec: return (None, None)
       if forward:
          for element in obj_vec:
-            if self.check_pattern_in_object(pattern, element):
-               return (element[1][0], element[1][0]+1)
+            patt_in_obj = self.check_pattern_in_object(pattern, element)
+            if patt_in_obj[0]:
+               return (element[1][0], element[1][0]+1, patt_in_obj[1])
       else:
          for element in reversed(obj_vec):
-            if self.check_pattern_in_object(pattern, element):
-               return (element[1][0], element[1][0]+1)
+            patt_in_obj = self.check_pattern_in_object(pattern, element)
+            if patt_in_obj[0]:
+               return (element[1][0], element[1][0]+1, patt_in_obj[1])
       return (None, None)
    
    def get_num_objs_before_offset(self, max_offset):
