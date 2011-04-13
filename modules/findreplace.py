@@ -223,20 +223,31 @@ class FindReplace:
          match = None
          for temp_match in pattern.finditer(text, 0, start_offset): match = temp_match
       if match:
-         print self.check_pattern_in_object_between(pattern,
-                                                    start_iter.get_offset(),
-                                                    match.start(),
-                                                    forward)
-         num_objs = self.get_num_objs_before_offset(match.start())
-         target = self.dad.curr_buffer.get_iter_at_offset(match.start() + num_objs)
+         obj_match_offsets = self.check_pattern_in_object_between(pattern,
+                                                                  start_iter.get_offset(),
+                                                                  match.start(),
+                                                                  forward)
+         if obj_match_offsets[0]: match_offsets = (obj_match_offsets[0], obj_match_offsets[1])
+         else: match_offsets = (match.start(), match.end())
+      else:
+         obj_match_offsets = self.check_pattern_in_object_between(pattern,
+                                                                  start_iter.get_offset(),
+                                                                  -1,
+                                                                  forward)
+         if obj_match_offsets[0]: match_offsets = (obj_match_offsets[0], obj_match_offsets[1])
+         else: match_offsets = (None, None)
+      if match_offsets[0]:
+         if not obj_match_offsets[0]: num_objs = self.get_num_objs_before_offset(match_offsets[0])
+         else: num_objs = 0
+         target = self.dad.curr_buffer.get_iter_at_offset(match_offsets[0] + num_objs)
          self.dad.curr_buffer.place_cursor(target)
-         target.forward_chars(match.end() - match.start())
+         target.forward_chars(match_offsets[1] - match_offsets[0])
          self.dad.curr_buffer.move_mark(self.dad.curr_buffer.get_selection_bound(), target)
          self.dad.sourceview.scroll_to_mark(self.dad.curr_buffer.get_insert(), 0.25)
          if all_matches:
             self.liststore.append([self.dad.curr_tree_iter,
-                                   match.start() + num_objs,
-                                   match.end() + num_objs,
+                                   match_offsets[0] + num_objs,
+                                   match_offsets[1] + num_objs,
                                    self.dad.treestore[self.dad.curr_tree_iter][1],
                                    self.get_line_content(target)])
          if self.replace_active:
@@ -259,6 +270,9 @@ class FindReplace:
    
    def check_pattern_in_object_between(self, pattern, start_offset, end_offset, forward):
       """Search for the pattern in the given slice and direction"""
+      if not forward: start_offset -= 1
+      if end_offset < 0:
+         end_offset = self.dad.curr_buffer.get_end_iter().get_offset() if forward else 0
       sel_range = (start_offset, end_offset) if forward else (end_offset, start_offset)
       obj_vec = self.dad.state_machine.get_embedded_pixbufs_tables_codeboxes(self.dad.curr_buffer,
                                                                              sel_range=sel_range)
