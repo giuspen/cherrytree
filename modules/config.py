@@ -341,7 +341,8 @@ def config_file_save(inst):
    config.setAttribute("folderlink_custom_action", str(inst.folderlink_custom_action[0])+inst.folderlink_custom_action[1])
    config.setAttribute("expand_tree", str(inst.expand_tree) )
    if not inst.expand_tree:
-      config.setAttribute("expanded_collapsed_string", get_tree_expanded_collapsed_string(inst) )
+      get_tree_expanded_collapsed_string(inst)
+      config.setAttribute("expanded_collapsed_string", inst.expanded_collapsed_string)
    config.setAttribute("codebox_width", str(int(inst.glade.spinbutton_codebox_width.get_value())))
    config.setAttribute("codebox_height", str(int(inst.glade.spinbutton_codebox_height.get_value())))
    config.setAttribute("codebox_width_pixels", str(inst.glade.radiobutton_codebox_pixels.get_active()))
@@ -370,8 +371,8 @@ def get_tree_expanded_collapsed_string(inst):
    while tree_iter != None:
       expanded_collapsed_string += get_tree_expanded_collapsed_string_iter(tree_iter, inst)
       tree_iter = inst.treestore.iter_next(tree_iter)
-   if len(expanded_collapsed_string) > 0: return expanded_collapsed_string[1:]
-   else: return ""
+   if len(expanded_collapsed_string) > 0: inst.expanded_collapsed_string = expanded_collapsed_string[1:]
+   else: inst.expanded_collapsed_string = ""
       
 def get_tree_expanded_collapsed_string_iter(tree_iter, inst):
    """Iter of the Info about Expanded and Collapsed Nodes"""

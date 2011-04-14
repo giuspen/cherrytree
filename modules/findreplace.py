@@ -107,7 +107,7 @@ class FindReplace:
          else: node_iter = self.dad.get_tree_iter_last_sibling(None)
       self.matches_num = 0
       if all_matches: self.liststore_create_or_clean()
-      self.dad.expanded_collapsed_string = config.get_tree_expanded_collapsed_string(self.dad)
+      config.get_tree_expanded_collapsed_string(self.dad)
       # searching start
       while node_iter:
          self.all_matches_first_in_node = True
@@ -134,11 +134,16 @@ class FindReplace:
          self.dad.sourceview.grab_focus()
          self.dad.curr_buffer.place_cursor(self.dad.curr_buffer.get_iter_at_offset(current_cursor_pos))
          self.dad.sourceview.scroll_to_mark(self.dad.curr_buffer.get_insert(), 0.3)
-      elif all_matches:
+      else:
          config.set_tree_expanded_collapsed_string(self.dad)
-         self.dad.glade.allmatchesdialog.set_title(str(self.matches_num) + cons.CHAR_SPACE + _("Matches"))
-         self.dad.glade.allmatchesdialog.run()
-         self.dad.glade.allmatchesdialog.hide()
+         if all_matches:
+            self.dad.glade.allmatchesdialog.set_title(str(self.matches_num) + cons.CHAR_SPACE + _("Matches"))
+            self.dad.glade.allmatchesdialog.run()
+            self.dad.glade.allmatchesdialog.hide()
+         else:
+            self.dad.treeview_safe_set_cursor(self.dad.curr_tree_iter)
+            self.dad.sourceview.grab_focus()
+            self.dad.sourceview.scroll_to_mark(self.dad.curr_buffer.get_insert(), 0.3)
    
    def find_a_node(self, *args):
       """Search for a pattern between all the Node's Names"""

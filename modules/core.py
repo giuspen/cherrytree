@@ -753,7 +753,7 @@ class CherryTree:
    def treeview_refresh(self, change_icon=False):
       """Refresh the Treeview"""
       if self.curr_buffer:
-         if not self.expand_tree: self.expanded_collapsed_string = config.get_tree_expanded_collapsed_string(self)
+         if not self.expand_tree: config.get_tree_expanded_collapsed_string(self)
          self.treeview.set_model(None)
          if change_icon:
             tree_iter = self.treestore.get_iter_first()
