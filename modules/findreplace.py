@@ -222,6 +222,10 @@ class FindReplace:
       else: pattern = re.compile(pattern, re.IGNORECASE|re.UNICODE|re.MULTILINE)
       start_offset = start_iter.get_offset()
       start_offset -= self.get_num_objs_before_offset(start_offset)
+      if start_offset == 0:
+         text = cons.CHAR_SPACE + text
+         workaround_first_empty_char = True
+      else: workaround_first_empty_char = False
       if forward:
          match = pattern.search(text, start_offset)
       else:
@@ -244,6 +248,7 @@ class FindReplace:
          if obj_match_offsets[0]: match_offsets = (obj_match_offsets[0], obj_match_offsets[1])
          else: match_offsets = (None, None)
       if match_offsets[0]:
+         if workaround_first_empty_char: match_offsets = (match_offsets[0]-1, match_offsets[1]-1)
          if not obj_match_offsets[0]: num_objs = self.get_num_objs_before_offset(match_offsets[0])
          else: num_objs = 0
          target = self.dad.curr_buffer.get_iter_at_offset(match_offsets[0] + num_objs)
