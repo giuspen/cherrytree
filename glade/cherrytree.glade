@@ -2074,7 +2074,7 @@ do you want to save the changes?</property>
                         <property name="n_columns">2</property>
                         <child>
                           <object class="GtkRadioButton" id="radiobutton_link_website">
-                            <property name="label" translatable="yes">To WebSite  </property>
+                            <property name="label" translatable="yes">To WebSite</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
@@ -2089,7 +2089,7 @@ do you want to save the changes?</property>
                         </child>
                         <child>
                           <object class="GtkRadioButton" id="radiobutton_link_node_anchor">
-                            <property name="label" translatable="yes">To Node  </property>
+                            <property name="label" translatable="yes">To Node</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
