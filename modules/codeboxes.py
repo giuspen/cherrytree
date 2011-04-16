@@ -101,8 +101,7 @@ class CodeBoxesHandler:
       anchor.sourceview.set_auto_indent(self.dad.auto_indent)
       anchor.sourceview.connect('populate-popup', self.on_sourceview_populate_popup_codebox, anchor)
       anchor.sourceview.connect('key_press_event', self.on_key_press_sourceview_codebox, anchor)
-      anchor.sourceview.connect('focus-in-event', self.on_focus_in_sourceview_codebox, anchor)
-      anchor.sourceview.connect('focus-out-event', self.on_focus_out_sourceview_codebox)
+      anchor.sourceview.connect('button-press-event', self.on_mouse_button_clicked_codebox, anchor)
       if self.dad.line_wrapping: anchor.sourceview.set_wrap_mode(gtk.WRAP_WORD)
       else: anchor.sourceview.set_wrap_mode(gtk.WRAP_NONE)
       scrolledwindow = gtk.ScrolledWindow()
@@ -198,16 +197,11 @@ class CodeBoxesHandler:
                self.codebox_decrease_height()
             else: self.codebox_increase_height()
       
-   def on_sourceview_populate_popup_codebox(self, textview, menu, anchor):
-      """Extend the Default Right-Click Menu of the CodeBox"""
+   def on_mouse_button_clicked_codebox(self, widget, event, anchor):
+      """Catches mouse buttons clicks"""
       self.curr_codebox_anchor = anchor
       self.dad.object_set_selection(self.curr_codebox_anchor)
+      
+   def on_sourceview_populate_popup_codebox(self, textview, menu, anchor):
+      """Extend the Default Right-Click Menu of the CodeBox"""
       self.dad.menu_populate_popup(menu, cons.get_popup_menu_entries_codebox(self), self.dad.orphan_accel_group)
-   
-   def on_focus_in_sourceview_codebox(self, widget, event, anchor):
-      """Codebox Focus In"""
-      support.set_object_highlight(self.dad, anchor.frame)
-
-   def on_focus_out_sourceview_codebox(self, widget, event):
-      """Codebox Focus Out"""
-      support.set_object_highlight(self.dad, None)

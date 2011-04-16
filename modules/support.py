@@ -314,9 +314,9 @@ def bookmarks_handle(dad):
 
 def set_object_highlight(inst, obj_highl):
    """Set the Highlight to obj_highl only"""
-   for widget in inst.highlighted_objs:
-      widget.drag_unhighlight()
-      inst.highlighted_objs = []
+   if inst.highlighted_obj:
+      inst.highlighted_obj.drag_unhighlight()
+      inst.highlighted_obj = None
    if obj_highl:
       obj_highl.drag_highlight()
-      inst.highlighted_objs.append(obj_highl)
+      inst.highlighted_obj = obj_highl

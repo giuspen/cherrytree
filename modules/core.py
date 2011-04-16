@@ -168,7 +168,7 @@ class CherryTree:
       self.tag_table = gtk.TextTagTable()
       self.scrolledwindow_text.add(self.sourceview)
       self.go_bk_fw_click = False
-      self.highlighted_objs = []
+      self.highlighted_obj = None
       self.bookmarks = []
       self.bookmarks_menu_items = []
       self.nodes_names_dict = {}
@@ -1876,6 +1876,7 @@ class CherryTree:
       if self.syntax_highlighting == cons.CUSTOM_COLORS_ID:
          self.curr_buffer.connect('insert-text', self.on_text_insertion)
          self.curr_buffer.connect('delete-range', self.on_text_removal)
+         self.curr_buffer.connect('mark-set', self.on_textbuffer_mark_set)
          self.sourceview.modify_font(pango.FontDescription(self.text_font))
       else: self.sourceview.modify_font(pango.FontDescription(self.code_font))
       self.sourceview.set_sensitive(True)
@@ -1888,7 +1889,23 @@ class CherryTree:
       if model[new_iter][3] in self.nodes_cursor_pos:
          self.curr_buffer.place_cursor(self.curr_buffer.get_iter_at_offset(self.nodes_cursor_pos[model[new_iter][3]]))
          self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), 0.3)
-      
+   
+   def on_textbuffer_mark_set(self, text_buffer, text_iter, text_mark):
+      """"""
+      if not text_buffer.get_has_selection():
+         if self.highlighted_obj: support.set_object_highlight(self, None)
+         return
+      try:
+         iter_sel_start, iter_sel_end = text_buffer.get_selection_bounds()
+         if iter_sel_end.get_offset() - iter_sel_start.get_offset() == 1:
+            anchor = iter_sel_start.get_child_anchor()
+            if anchor != None:
+               anchor_dir = dir(anchor)
+               if "pixbuf" in anchor_dir: support.set_object_highlight(self, anchor.eventbox)
+               elif "liststore" in anchor_dir: support.set_object_highlight(self, anchor.frame)
+               elif "sourcebuffer" in anchor_dir: support.set_object_highlight(self, anchor.frame)
+      except: pass
+   
    def update_window_save_needed(self):
       """Window title preceeded by an asterix"""
       if self.file_name != "": self.window.set_title("*" + self.file_name + " - CherryTree")
