@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-04-15 23:36+0200\n"
-"PO-Revision-Date: 2011-02-24 14:59+0100\n"
-"Last-Translator: Pavel\n"
+"PO-Revision-Date: 2011-04-16 04:26+0200\n"
+"Last-Translator: Pavel Fric\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
@@ -386,29 +386,24 @@ msgid "Tree Summary Information"
 msgstr "Přehled o stavbě stromu"
 
 #: modules/core.py:2271
-#, fuzzy
 msgid "Number of Text Nodes"
-msgstr "<b>Počet uzlů textu</b>"
+msgstr "Počet uzlů textu"
 
 #: modules/core.py:2274
-#, fuzzy
 msgid "Number of Code Nodes"
-msgstr "<b>Počet uzlů zdrojového kódu</b>"
+msgstr "Počet uzlů zdrojového kódu"
 
 #: modules/core.py:2277
-#, fuzzy
 msgid "Number of Images"
-msgstr "<b>Počet obrázků</b>"
+msgstr "Počet obrázků"
 
 #: modules/core.py:2280
-#, fuzzy
 msgid "Number of Tables"
-msgstr "<b>Počet tabulek</b>"
+msgstr "Počet tabulek"
 
 #: modules/core.py:2283
-#, fuzzy
 msgid "Number of CodeBoxes"
-msgstr "<b>Počet uzlů zdrojového kódu</b>"
+msgstr "Počet obdélníků se zdrojovým kódem"
 
 #: modules/core.py:2401
 msgid "PNG Image"
@@ -437,9 +432,9 @@ msgid "The File Link '%s' is Not Valid"
 msgstr "Cesta k souboru '%s' není platná"
 
 #: modules/core.py:2802
-#, fuzzy, python-format
+#, python-format
 msgid "The Folder Link '%s' is Not Valid"
-msgstr "Cesta k souboru '%s' není platná"
+msgstr "Odkaz na složku '%s' není platný"
 
 #: modules/core.py:2813
 #, python-format
@@ -1113,11 +1108,11 @@ msgstr "Zmenšit velikost ikon v nástrojovém pruhu"
 
 #: modules/cons.py:448
 msgid "_Full Screen On/Off"
-msgstr ""
+msgstr "_Zobrazení na celou obrazovku Zapnuto/Vypnuto"
 
 #: modules/cons.py:448
 msgid "Toggle Full Screen On/Off"
-msgstr ""
+msgstr "Přepnout zobrazení na celou obrazovku Zapnuto/Vypnuto"
 
 #: modules/cons.py:449 modules/cons.py:508
 msgid "From _Basket Folder"
@@ -1212,24 +1207,20 @@ msgid "Add a Table Row"
 msgstr "Přidat řádek v tabulce"
 
 #: modules/cons.py:461
-#, fuzzy
 msgid "Cut a Table Row"
-msgstr "Přidat řádek v tabulce"
+msgstr "Vyjmout řádek v tabulce"
 
 #: modules/cons.py:462
-#, fuzzy
 msgid "Copy a Table Row"
-msgstr "Přidat řádek v tabulce"
+msgstr "Kopírovat řádek v tabulce"
 
 #: modules/cons.py:463
-#, fuzzy
 msgid "_Paste Row"
-msgstr "Smazat řá_dek"
+msgstr "_Vložit řádek"
 
 #: modules/cons.py:463
-#, fuzzy
 msgid "Paste a Table Row"
-msgstr "Přidat řádek v tabulce"
+msgstr "Vložit řádek v tabulce"
 
 #: modules/cons.py:464
 msgid "Delete the Selected Table Row"
@@ -1348,43 +1339,36 @@ msgid "Change the Selected Node's Father"
 msgstr "Změnit nadřízený uzel označeného uzlu"
 
 #: modules/cons.py:494
-#, fuzzy
 msgid "Nodes _Sort"
-msgstr "_Zavedení uzlů"
+msgstr "_Třídění uzlů"
 
 #: modules/cons.py:495
-#, fuzzy
 msgid "Sort Tree _Ascending"
-msgstr "Třídit řádky vzest_upně"
+msgstr "Třídit strom vzest_upně"
 
 #: modules/cons.py:495
-#, fuzzy
 msgid "Sort the Tree Ascending"
-msgstr "Třídit všechny řádky vzestupně"
+msgstr "Třídit strom vzestupně"
 
 #: modules/cons.py:496
-#, fuzzy
 msgid "Sort Tree _Descending"
-msgstr "Třídit řádky ses_tupně"
+msgstr "Třídit strom ses_tupně"
 
 #: modules/cons.py:496
-#, fuzzy
 msgid "Sort the Tree Descending"
-msgstr "Třídit všechny řádky sestupně"
+msgstr "Třídit strom sestupně"
 
 #: modules/cons.py:497
-#, fuzzy
 msgid "Sort Siblings A_scending"
-msgstr "Třídit úrovně uzlů _vzestupně"
+msgstr "Třídit sourozence _vzestupně"
 
 #: modules/cons.py:497
 msgid "Sort all the Siblings of the Selected Node Ascending"
 msgstr "Třídit všechny uzly na této úrovni vzestupně"
 
 #: modules/cons.py:498
-#, fuzzy
 msgid "Sort Siblings D_escending"
-msgstr "Třídit úrovně uzlů s_estupně"
+msgstr "Třídit sourozence s_estupně"
 
 #: modules/cons.py:498
 msgid "Sort all the Siblings of the Selected Node Descending"
@@ -1563,9 +1547,8 @@ msgid "<b>Columns Properties</b>"
 msgstr "<b>Vlastnosti sloupců</b>"
 
 #: glade/cherrytree.glade.h:26
-#, fuzzy
 msgid "<b>File/Folder Path</b>"
-msgstr "<b>Cesta k souboru</b>"
+msgstr "<b>Cesta k souboru/složce</b>"
 
 #: glade/cherrytree.glade.h:27
 msgid "<b>Fonts</b>"
@@ -1588,9 +1571,8 @@ msgid "<b>Node</b>"
 msgstr "<b>Uzly</b>"
 
 #: glade/cherrytree.glade.h:32
-#, fuzzy
 msgid "<b>Options</b>"
-msgstr "<b>Písma</b>"
+msgstr "<b>Volby</b>"
 
 #: glade/cherrytree.glade.h:33
 msgid "<b>Replace with</b>"
@@ -1693,9 +1675,8 @@ msgid "Close"
 msgstr "Zavřít"
 
 #: glade/cherrytree.glade.h:58
-#, fuzzy
 msgid "Code Font"
-msgstr "  Písmo kódu   "
+msgstr "Písmo kódu  "
 
 #: glade/cherrytree.glade.h:59
 msgid ""
@@ -1746,19 +1727,16 @@ msgid "Enable Automatic Indentation"
 msgstr "Povolit automatické odsazení"
 
 #: glade/cherrytree.glade.h:74
-#, fuzzy
 msgid "Enable Custom File Link Clicked Action"
-msgstr "Povolit vlastní užití pro internetové odkazy"
+msgstr "Povolit vlastní činnost při klepnutí na odkaz souboru"
 
 #: glade/cherrytree.glade.h:75
-#, fuzzy
 msgid "Enable Custom Folder Link Clicked Action"
-msgstr "Povolit vlastní užití pro internetové odkazy"
+msgstr "Povolit vlastní činnost při klepnutí na odkaz složky"
 
 #: glade/cherrytree.glade.h:76
-#, fuzzy
 msgid "Enable Custom Web Link Clicked Action"
-msgstr "Povolit vlastní užití pro internetové odkazy"
+msgstr "Povolit vlastní činnost při klepnutí na internetový odkaz"
 
 #: glade/cherrytree.glade.h:77
 msgid "Enable System Tray Docking"
@@ -1786,7 +1764,7 @@ msgstr "Výška"
 
 #: glade/cherrytree.glade.h:83
 msgid "Highlight Matching Brackets"
-msgstr ""
+msgstr "Zvýraznit odpovídající si závorky"
 
 #: glade/cherrytree.glade.h:84
 msgid "Image Properties"
@@ -1861,33 +1839,28 @@ msgid "Tab Width  "
 msgstr "Šířka zarážky  "
 
 #: glade/cherrytree.glade.h:105
-#, fuzzy
 msgid "Text Font"
-msgstr "  Písmo textu    "
+msgstr "Písmo textu   "
 
 #: glade/cherrytree.glade.h:106
 msgid "To File"
-msgstr "K souboru"
+msgstr "Pro soubor"
 
 #: glade/cherrytree.glade.h:107
-#, fuzzy
 msgid "To Folder"
-msgstr "K souboru"
+msgstr "Pro složku"
 
 #: glade/cherrytree.glade.h:108
-#, fuzzy
 msgid "To Node"
-msgstr "K uzlu  "
+msgstr "Pro uzel"
 
 #: glade/cherrytree.glade.h:109
-#, fuzzy
 msgid "To WebSite"
-msgstr "K internetové stránce  "
+msgstr "Pro internetovou stránku"
 
 #: glade/cherrytree.glade.h:110
-#, fuzzy
 msgid "Tree Font"
-msgstr "  Písmo ve stromu  "
+msgstr "Písmo ve stromuu "
 
 #: glade/cherrytree.glade.h:111
 msgid "Tree Nodes Names Wrapping Width"
