@@ -2388,14 +2388,6 @@ class CherryTree:
          # if I apply a justification, the state is already updated
          self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
       
-   def on_focus_in_eventbox_image(self, widget, event, anchor):
-      """Image Focus In"""
-      support.set_object_highlight(self.dad, anchor.image)
-
-   def on_focus_out_eventbox_image(self, widget, event):
-      """Image Focus Out"""
-      support.set_object_highlight(self.dad, None)
-      
    def image_edit(self, *args):
       """Edit the selected Image"""
       iter_insert = self.curr_buffer.get_iter_at_child_anchor(self.curr_image_anchor)
@@ -2445,17 +2437,16 @@ class CherryTree:
       if event.button == 3:
          self.ui.get_widget("/ImageMenu").popup(None, None, None, event.button, event.time)
       elif event.type == gtk.gdk._2BUTTON_PRESS: self.image_edit()
-         
+      return True # do not propagate the event
+   
    def on_mouse_button_clicked_anchor(self, widget, event, anchor):
       """Catches mouse buttons clicks upon images"""
       self.curr_anchor_anchor = anchor
-      iter_anchor = self.curr_buffer.get_iter_at_child_anchor(self.curr_anchor_anchor)
-      iter_bound = iter_anchor.copy()
-      iter_bound.forward_char()
-      self.curr_buffer.select_range(iter_anchor, iter_bound)
+      self.object_set_selection(self.curr_anchor_anchor)
       if event.button == 3:
          self.ui.get_widget("/AnchorMenu").popup(None, None, None, event.button, event.time)
       elif event.type == gtk.gdk._2BUTTON_PRESS: self.anchor_edit()
+      return True # do not propagate the event
       
    def image_load_into_dialog(self):
       """Load/Reload the Image Under Editing"""
