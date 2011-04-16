@@ -122,7 +122,6 @@ class TablesHandler:
       anchor = self.dad.curr_buffer.create_child_anchor(iter_insert)
       anchor.liststore = gtk.ListStore(*(str,)*self.table_columns)
       anchor.treeview = gtk.TreeView(anchor.liststore)
-      self.dad.sourceview.add_child_at_anchor(anchor.treeview, anchor)
       for element in range(self.table_columns):
          label = gtk.Label('<b>' + headers[element] + '</b>')
          label.set_use_markup(True)
@@ -147,7 +146,12 @@ class TablesHandler:
       anchor.table_col_max = table_col_max
       anchor.treeview.set_grid_lines(gtk.TREE_VIEW_GRID_LINES_BOTH)
       anchor.treeview.connect('button-press-event', self.on_mouse_button_clicked_table, anchor)
-      anchor.treeview.show_all()
+      anchor.treeview.connect('focus-in-event', self.on_focus_in_treeview_table, anchor)
+      anchor.treeview.connect('focus-out-event', self.on_focus_out_treeview_table)
+      anchor.frame = gtk.Frame()
+      anchor.frame.add(anchor.treeview)
+      self.dad.sourceview.add_child_at_anchor(anchor.frame, anchor)
+      anchor.frame.show_all()
       for row in range(self.table_rows):
          row_iter = anchor.liststore.append([""]*self.table_columns)
          if table != None:
@@ -381,6 +385,14 @@ class TablesHandler:
       self.dad.object_set_selection(self.curr_table_anchor)
       if event.button == 3:
          self.dad.ui.get_widget("/TableMenu").popup(None, None, None, event.button, event.time)
+   
+   def on_focus_in_treeview_table(self, widget, event, anchor):
+      """Table Focus In"""
+      support.set_object_highlight(self.dad, anchor.frame)
+
+   def on_focus_out_treeview_table(self, widget, event):
+      """Table Focus Out"""
+      support.set_object_highlight(self.dad, None)
    
 
 class UTF8Recoder:

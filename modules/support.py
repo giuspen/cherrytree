@@ -311,3 +311,12 @@ def bookmarks_handle(dad):
    dad.bookmarks = temp_bookmarks
    set_bookmarks_menu_items(dad)
    return True
+
+def set_object_highlight(inst, obj_highl):
+   """Set the Highlight to obj_highl only"""
+   for widget in inst.highlighted_objs:
+      widget.drag_unhighlight()
+      inst.highlighted_objs = []
+   if obj_highl:
+      obj_highl.drag_highlight()
+      inst.highlighted_objs.append(obj_highl)

@@ -168,6 +168,7 @@ class CherryTree:
       self.tag_table = gtk.TextTagTable()
       self.scrolledwindow_text.add(self.sourceview)
       self.go_bk_fw_click = False
+      self.highlighted_objs = []
       self.bookmarks = []
       self.bookmarks_menu_items = []
       self.nodes_names_dict = {}
@@ -2386,6 +2387,14 @@ class CherryTree:
       else:
          # if I apply a justification, the state is already updated
          self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
+      
+   def on_focus_in_eventbox_image(self, widget, event, anchor):
+      """Image Focus In"""
+      support.set_object_highlight(self.dad, anchor.image)
+
+   def on_focus_out_eventbox_image(self, widget, event):
+      """Image Focus Out"""
+      support.set_object_highlight(self.dad, None)
       
    def image_edit(self, *args):
       """Edit the selected Image"""
