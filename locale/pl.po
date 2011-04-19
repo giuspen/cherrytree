@@ -380,29 +380,24 @@ msgid "Tree Summary Information"
 msgstr "Skrócone informacje o drzewie"
 
 #: modules/core.py:2271
-#, fuzzy
 msgid "Number of Text Nodes"
-msgstr "<b>Ilość tekstowych gałęzi</b>"
+msgstr "Ilość tekstowych gałęzi"
 
 #: modules/core.py:2274
-#, fuzzy
 msgid "Number of Code Nodes"
-msgstr "<b>Ilość gałęzi z kodem</b>"
+msgstr "Ilość gałęzi z kodem"
 
 #: modules/core.py:2277
-#, fuzzy
 msgid "Number of Images"
-msgstr "<b>Ilość obrazków</b>"
+msgstr "Ilość obrazków"
 
 #: modules/core.py:2280
-#, fuzzy
 msgid "Number of Tables"
-msgstr "<b>Ilość tabel</b>"
+msgstr "Ilość tabel"
 
 #: modules/core.py:2283
-#, fuzzy
 msgid "Number of CodeBoxes"
-msgstr "<b>Ilość gałęzi z kodem</b>"
+msgstr "Ilość gałęzi z polem kodu"
 
 #: modules/core.py:2401
 msgid "PNG Image"
@@ -431,9 +426,9 @@ msgid "The File Link '%s' is Not Valid"
 msgstr "Link do pliku '%s' nie jest prawidłowy"
 
 #: modules/core.py:2802
-#, fuzzy, python-format
+#, python-format
 msgid "The Folder Link '%s' is Not Valid"
-msgstr "Link do pliku '%s' nie jest prawidłowy"
+msgstr "Link do folderu '%s' nie jest prawidłowy"
 
 #: modules/core.py:2813
 #, python-format
@@ -1107,11 +1102,11 @@ msgstr "Zmniejsz rozmiar ikon na pasku narzędziowym"
 
 #: modules/cons.py:448
 msgid "_Full Screen On/Off"
-msgstr ""
+msgstr "Pełny ekran Włącz/Wyłącz"
 
 #: modules/cons.py:448
 msgid "Toggle Full Screen On/Off"
-msgstr ""
+msgstr "Przełącz pełny ekran"
 
 #: modules/cons.py:449 modules/cons.py:508
 msgid "From _Basket Folder"
@@ -1206,24 +1201,20 @@ msgid "Add a Table Row"
 msgstr "Dodaj wiersz tabeli"
 
 #: modules/cons.py:461
-#, fuzzy
 msgid "Cut a Table Row"
-msgstr "Dodaj wiersz tabeli"
+msgstr "Wytnij wiersz tabeli"
 
 #: modules/cons.py:462
-#, fuzzy
 msgid "Copy a Table Row"
-msgstr "Dodaj wiersz tabeli"
+msgstr "Kopiuj wiersz tabeli"
 
 #: modules/cons.py:463
-#, fuzzy
 msgid "_Paste Row"
-msgstr "Usuń wiersz"
+msgstr "Wklej wiersz"
 
 #: modules/cons.py:463
-#, fuzzy
 msgid "Paste a Table Row"
-msgstr "Dodaj wiersz tabeli"
+msgstr "Wklej wiersz tabeli"
 
 #: modules/cons.py:464
 msgid "Delete the Selected Table Row"
@@ -1342,47 +1333,40 @@ msgid "Change the Selected Node's Father"
 msgstr "Zmień gałąź nadrzędną gałęzi"
 
 #: modules/cons.py:494
-#, fuzzy
 msgid "Nodes _Sort"
-msgstr "_Importuj gałęzię"
+msgstr "_Sortowanie gałęzi"
 
 #: modules/cons.py:495
-#, fuzzy
 msgid "Sort Tree _Ascending"
-msgstr "Posortuj wszystkie wiersze rosnąco"
+msgstr "Posortuj drzewo rosnąco"
 
 #: modules/cons.py:495
-#, fuzzy
 msgid "Sort the Tree Ascending"
-msgstr "Posortuj wszystkie wiersze rosnąco"
+msgstr "Posortuj drzewo rosnąco"
 
 #: modules/cons.py:496
-#, fuzzy
 msgid "Sort Tree _Descending"
-msgstr "Posortuj wiersze malejąco"
+msgstr "Posortuj drzewo malejąco"
 
 #: modules/cons.py:496
-#, fuzzy
 msgid "Sort the Tree Descending"
-msgstr "Posortuj wszystkie wiersze malejąco"
+msgstr "Posortuj drzewo malejąco"
 
 #: modules/cons.py:497
-#, fuzzy
 msgid "Sort Siblings A_scending"
-msgstr "Posortuj gałęzi podrzędne rosnąco"
+msgstr "Posortuj gałęzi potomne rosnąco"
 
 #: modules/cons.py:497
 msgid "Sort all the Siblings of the Selected Node Ascending"
-msgstr "Posortuj wszystkie podrzędne gałęzi rosnąco"
+msgstr "Posortuj wszystkie potomne gałęzi rosnąco"
 
 #: modules/cons.py:498
-#, fuzzy
 msgid "Sort Siblings D_escending"
-msgstr "Posortuj gałęzi podrzędne malejąco"
+msgstr "Posortuj gałęzi potomne malejąco"
 
 #: modules/cons.py:498
 msgid "Sort all the Siblings of the Selected Node Descending"
-msgstr "Posortuj wszystkie podrzędne gałęzi malejąco"
+msgstr "Posortuj wszystkie potomne gałęzi malejąco"
 
 #: modules/cons.py:501
 msgid "E_xpand All Nodes"
@@ -1561,9 +1545,8 @@ msgid "<b>Columns Properties</b>"
 msgstr "<b>Właściwości kolumn</b>"
 
 #: glade/cherrytree.glade.h:26
-#, fuzzy
 msgid "<b>File/Folder Path</b>"
-msgstr "<b>Ścieżka pliku</b>"
+msgstr "<b>Ścieżka pliku/folderu</b>"
 
 #: glade/cherrytree.glade.h:27
 msgid "<b>Fonts</b>"
@@ -1586,9 +1569,8 @@ msgid "<b>Node</b>"
 msgstr "<b>Gałąź</b>"
 
 #: glade/cherrytree.glade.h:32
-#, fuzzy
 msgid "<b>Options</b>"
-msgstr "<b>Czcionki</b>"
+msgstr "<b>Opcje</b>"
 
 #: glade/cherrytree.glade.h:33
 msgid "<b>Replace with</b>"
@@ -1689,7 +1671,6 @@ msgid "Close"
 msgstr "Zamknij"
 
 #: glade/cherrytree.glade.h:58
-#, fuzzy
 msgid "Code Font"
 msgstr "  Czcionka kodu  "
 
@@ -1742,19 +1723,16 @@ msgid "Enable Automatic Indentation"
 msgstr "Włącz automatyczne wcięcia"
 
 #: glade/cherrytree.glade.h:74
-#, fuzzy
 msgid "Enable Custom File Link Clicked Action"
-msgstr "Włącz własne akcje dla linków"
+msgstr "Włącz własną akcje dla linków do pliku"
 
 #: glade/cherrytree.glade.h:75
-#, fuzzy
 msgid "Enable Custom Folder Link Clicked Action"
-msgstr "Włącz własne akcje dla linków"
+msgstr "Włącz własne akcje dla linków do pliku"
 
 #: glade/cherrytree.glade.h:76
-#, fuzzy
 msgid "Enable Custom Web Link Clicked Action"
-msgstr "Włącz własne akcje dla linków"
+msgstr "Włącz własne akcje dla linków internetowych"
 
 #: glade/cherrytree.glade.h:77
 msgid "Enable System Tray Docking"
@@ -1782,7 +1760,7 @@ msgstr "Wysokość "
 
 #: glade/cherrytree.glade.h:83
 msgid "Highlight Matching Brackets"
-msgstr ""
+msgstr "Zaznacz pasujące nawiasy"
 
 #: glade/cherrytree.glade.h:84
 msgid "Image Properties"
@@ -1857,33 +1835,28 @@ msgid "Tab Width  "
 msgstr "Rozmiar Tabulatora  "
 
 #: glade/cherrytree.glade.h:105
-#, fuzzy
 msgid "Text Font"
-msgstr "  Czcionka tekstu    "
+msgstr "Czcionka tekstu"
 
 #: glade/cherrytree.glade.h:106
 msgid "To File"
 msgstr "Do pliku "
 
 #: glade/cherrytree.glade.h:107
-#, fuzzy
 msgid "To Folder"
-msgstr "Do pliku "
+msgstr "Do folderu"
 
 #: glade/cherrytree.glade.h:108
-#, fuzzy
 msgid "To Node"
-msgstr "Do gałęzi   "
+msgstr "Do gałęzi"
 
 #: glade/cherrytree.glade.h:109
-#, fuzzy
 msgid "To WebSite"
-msgstr "Strona internetowa  "
+msgstr "Do strony internetowej"
 
 #: glade/cherrytree.glade.h:110
-#, fuzzy
 msgid "Tree Font"
-msgstr "  Czcionka drzewa    "
+msgstr "Czcionka drzewa"
 
 #: glade/cherrytree.glade.h:111
 msgid "Tree Nodes Names Wrapping Width"
