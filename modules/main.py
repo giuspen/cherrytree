@@ -34,7 +34,6 @@ class ServerThread(threading.Thread):
       super(ServerThread, self).__init__()
       self.semaphore = semaphore
       self.msg_server_to_core = msg_server_to_core
-      self.time_to_quit = False
       
    def run(self):
       sock_srv = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -42,14 +41,12 @@ class ServerThread(threading.Thread):
       except:
          print "port %s busy => cherrytree multiple instances centralized control disabled" % PORT
          return
-      sock_srv.setblocking(0)
-      sock_srv.settimeout(3) # 3 sec
       sock_srv.listen(1)
-      while not self.time_to_quit:
+      while True:
          try: conn, addr = sock_srv.accept()
          except: continue
          print "connected with", addr
-         while not self.time_to_quit:
+         while True:
             data = conn.recv(1024)
             if not data: break
             if len(data) < 4 or data[:4] != "ct*=":
@@ -183,5 +180,12 @@ def main(OPEN_WITH_FILE):
       CherryTreeHandler(OPEN_WITH_FILE, semaphore, msg_server_to_core, lang_str)
       gtk.main() # start the gtk main loop
       # quit thread
-      server_thread.time_to_quit = True
-      return 0
+      if sys.platform[0:3] == "win":
+         import ctypes
+         PROCESS_TERMINATE = 1
+         handle = ctypes.windll.kernel32.OpenProcess(PROCESS_TERMINATE, False, os.getpid())
+         ctypes.windll.kernel32.TerminateProcess(handle, -1)
+         ctypes.windll.kernel32.CloseHandle(handle)
+      else:
+         import signal
+         os.kill(os.getpid(), signal.SIGALRM)
