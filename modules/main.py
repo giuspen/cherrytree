@@ -124,6 +124,11 @@ def initializations():
       import warnings
       warnings.filterwarnings("ignore")
    else:
+      # config dir check
+      all_apps_config_dir = os.path.join(os.path.expanduser('~'), '.config')
+      if not os.path.isdir(all_apps_config_dir): os.mkdir(all_apps_config_dir)
+      cherrytree_config_dir = os.path.join(all_apps_config_dir, 'cherrytree')
+      if not os.path.isdir(cherrytree_config_dir): os.mkdir(cherrytree_config_dir)
       try:
          # change process name
          import ctypes, ctypes.util
@@ -135,11 +140,6 @@ def initializations():
       import locale
       locale.bindtextdomain(cons.APP_NAME, cons.LOCALE_PATH)
    except: print "locale.bindtextdomain not available, the glade i18n may not work properly"
-   # config dir check
-   all_apps_config_dir = os.path.join(os.path.expanduser('~'), '.config')
-   if not os.path.isdir(all_apps_config_dir): os.mkdir(all_apps_config_dir)
-   cherrytree_config_dir = os.path.join(all_apps_config_dir, 'cherrytree')
-   if not os.path.isdir(cherrytree_config_dir): os.mkdir(cherrytree_config_dir)
    # language installation
    if os.path.isfile(cons.LANG_PATH):
       lang_file_descriptor = file(cons.LANG_PATH, 'r')
