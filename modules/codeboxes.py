@@ -111,6 +111,8 @@ class CodeBoxesHandler:
       self.codebox_apply_width_height(anchor)
       anchor.frame.add(scrolledwindow)
       self.dad.sourceview.add_child_at_anchor(anchor.frame, anchor)
+      for win in [gtk.TEXT_WINDOW_LEFT, gtk.TEXT_WINDOW_RIGHT, gtk.TEXT_WINDOW_TOP, gtk.TEXT_WINDOW_BOTTOM]:
+         anchor.sourceview.set_border_window_size(win, 1)
       anchor.frame.show_all()
       if codebox_justification:
          self.dad.state_machine.apply_image_justification(self.dad.curr_buffer.get_iter_at_child_anchor(anchor), codebox_justification)
