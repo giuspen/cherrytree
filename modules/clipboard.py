@@ -256,7 +256,7 @@ class ClipboardHandler:
                elif nephew_dom_iter.nodeName == "encoded_png":
                   self.dom_node_to_image(nephew_dom_iter)
                elif nephew_dom_iter.nodeName == "table":
-                  self.dom_node_to_table(nephew_dom_iter)
+                  self.dom_node_to_table(nephew_dom_iter, None)
                elif nephew_dom_iter.nodeName == "codebox":
                   self.dom_node_to_codebox(nephew_dom_iter)
                nephew_dom_iter = nephew_dom_iter.nextSibling
