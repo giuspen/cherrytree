@@ -148,9 +148,11 @@ class TablesHandler:
       anchor.treeview.connect('button-press-event', self.on_mouse_button_clicked_table, anchor)
       anchor.frame = gtk.Frame()
       anchor.frame.add(anchor.treeview)
-      self.dad.sourceview.add_child_at_anchor(anchor.frame, anchor)
       anchor.frame.set_shadow_type(gtk.SHADOW_NONE)
-      anchor.frame.show_all()
+      anchor.eventbox = gtk.EventBox()
+      anchor.eventbox.add(anchor.frame)
+      self.dad.sourceview.add_child_at_anchor(anchor.eventbox, anchor)
+      anchor.eventbox.show_all()
       for row in range(self.table_rows):
          row_iter = anchor.liststore.append([""]*self.table_columns)
          if table != None:
