@@ -149,6 +149,7 @@ class TablesHandler:
       anchor.frame = gtk.Frame()
       anchor.frame.add(anchor.treeview)
       self.dad.sourceview.add_child_at_anchor(anchor.frame, anchor)
+      anchor.frame.set_shadow_type(gtk.SHADOW_NONE)
       anchor.frame.show_all()
       for row in range(self.table_rows):
          row_iter = anchor.liststore.append([""]*self.table_columns)
