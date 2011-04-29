@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: svn_cherrytree 0.14\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-28 11:03+0200\n"
+"POT-Creation-Date: 2011-04-29 22:57+0200\n"
 "PO-Revision-Date: 2011-04-16 21:03+0100\n"
 "Last-Translator: Ludovic Troisi <axalis@cegetel.net>\n"
 "Language-Team: French\n"
@@ -479,11 +479,11 @@ msgstr "Cliquez-moi"
 msgid "Click to Edit the Column Settings"
 msgstr "Cliquer pour Éditer les Paramètres de la Colonne"
 
-#: modules/tablez.py:167
+#: modules/tablez.py:170
 msgid "Edit Table Properties"
 msgstr "Éditer les Propriétés du Tableau"
 
-#: modules/tablez.py:250
+#: modules/tablez.py:253
 msgid "Table Column Action"
 msgstr "Actions de la Colonne du Tableau"
 
@@ -491,7 +491,7 @@ msgstr "Actions de la Colonne du Tableau"
 msgid "Insert a CodeBox"
 msgstr "Insérer une CodeBox"
 
-#: modules/codeboxes.py:168
+#: modules/codeboxes.py:171
 msgid "Edit CodeBox"
 msgstr "Éditer une CodeBox"
 

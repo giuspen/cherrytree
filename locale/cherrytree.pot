@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-28 11:03+0200\n"
+"POT-Creation-Date: 2011-04-29 22:57+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -461,11 +461,11 @@ msgstr ""
 msgid "Click to Edit the Column Settings"
 msgstr ""
 
-#: modules/tablez.py:167
+#: modules/tablez.py:170
 msgid "Edit Table Properties"
 msgstr ""
 
-#: modules/tablez.py:250
+#: modules/tablez.py:253
 msgid "Table Column Action"
 msgstr ""
 
@@ -473,7 +473,7 @@ msgstr ""
 msgid "Insert a CodeBox"
 msgstr ""
 
-#: modules/codeboxes.py:168
+#: modules/codeboxes.py:171
 msgid "Edit CodeBox"
 msgstr ""
 

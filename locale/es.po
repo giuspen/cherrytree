@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.9.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-28 11:03+0200\n"
+"POT-Creation-Date: 2011-04-29 22:57+0200\n"
 "PO-Revision-Date: 2011-04-20 23:37+0100\n"
 "Last-Translator: Daniel MC <i.e.betel@gmail.com>\n"
 "Language-Team: Spanish <>\n"
@@ -474,11 +474,11 @@ msgstr "haz click"
 msgid "Click to Edit the Column Settings"
 msgstr "Hacer click para editar las características de la columna"
 
-#: modules/tablez.py:167
+#: modules/tablez.py:170
 msgid "Edit Table Properties"
 msgstr "_Editar propiedades de la tabla"
 
-#: modules/tablez.py:250
+#: modules/tablez.py:253
 msgid "Table Column Action"
 msgstr "Acción en columna de tabla"
 
@@ -486,7 +486,7 @@ msgstr "Acción en columna de tabla"
 msgid "Insert a CodeBox"
 msgstr "Inserta Caja de Código"
 
-#: modules/codeboxes.py:168
+#: modules/codeboxes.py:171
 msgid "Edit CodeBox"
 msgstr "Editar Caja de Código"
 

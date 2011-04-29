@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-28 11:03+0200\n"
+"POT-Creation-Date: 2011-04-29 22:57+0200\n"
 "PO-Revision-Date: 2011-04-16 04:26+0200\n"
 "Last-Translator: Pavel Fric\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -478,11 +478,11 @@ msgstr "Klepni mě"
 msgid "Click to Edit the Column Settings"
 msgstr "Klepněte pro úpravu nastavení sloupce"
 
-#: modules/tablez.py:167
+#: modules/tablez.py:170
 msgid "Edit Table Properties"
 msgstr "Upravit vlastnosti tabulky..."
 
-#: modules/tablez.py:250
+#: modules/tablez.py:253
 msgid "Table Column Action"
 msgstr "Upravit sloupec v tabulce"
 
@@ -490,7 +490,7 @@ msgstr "Upravit sloupec v tabulce"
 msgid "Insert a CodeBox"
 msgstr "Vložit CodeBox"
 
-#: modules/codeboxes.py:168
+#: modules/codeboxes.py:171
 msgid "Edit CodeBox"
 msgstr "Upravit CodeBox"
 

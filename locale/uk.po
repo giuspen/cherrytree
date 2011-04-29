@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CherryTree\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-28 11:03+0200\n"
+"POT-Creation-Date: 2011-04-29 22:57+0200\n"
 "PO-Revision-Date: 2011-04-16 10:59+0300\n"
 "Last-Translator: Andriy Kovtun <kovtunos@yandex.ru>\n"
 "Language-Team: Russian <kovtunos@yandex.ru>\n"
@@ -474,11 +474,11 @@ msgstr "натисни сюди"
 msgid "Click to Edit the Column Settings"
 msgstr "Клікніть для редагування властивостей стовпця"
 
-#: modules/tablez.py:167
+#: modules/tablez.py:170
 msgid "Edit Table Properties"
 msgstr "Редагувати параметри таблиці"
 
-#: modules/tablez.py:250
+#: modules/tablez.py:253
 msgid "Table Column Action"
 msgstr "Дії над стовпцями таблиці"
 
@@ -486,7 +486,7 @@ msgstr "Дії над стовпцями таблиці"
 msgid "Insert a CodeBox"
 msgstr "Вставити блок коду"
 
-#: modules/codeboxes.py:168
+#: modules/codeboxes.py:171
 msgid "Edit CodeBox"
 msgstr "Редагувати блок коду"
 
