@@ -665,7 +665,7 @@ msgstr "ho_rizontale Linie einfügen"
 
 #: modules/cons.py:390 modules/cons.py:567
 msgid "Insert Horizontal Rule"
-msgstr "hoizontale Linie  einfügen"
+msgstr "horizontale Linie einfügen"
 
 #: modules/cons.py:391 modules/cons.py:595
 msgid "Set/Unset _Bulleted List"
@@ -805,7 +805,7 @@ msgstr "Auswahl/Wort klein schreiben"
 
 #: modules/cons.py:408 modules/cons.py:570 modules/cons.py:608
 msgid "Lower the Case of the Selection/the Underlying Word"
-msgstr "Auswahl/Wort in klein schreiben"
+msgstr "Auswahl/Wort klein schreiben"
 
 #: modules/cons.py:409 modules/cons.py:571 modules/cons.py:609
 msgid "_Upper Case of Selection/Word"
@@ -1568,9 +1568,8 @@ msgid "<b>Columns Properties</b>"
 msgstr "<b>Spalten Eigenschaften</b>"
 
 #: glade/cherrytree.glade.h:26
-#, fuzzy
 msgid "<b>File/Folder Path</b>"
-msgstr "<b>Dateipfad</b>"
+msgstr "<b>Datei/Verzeichnispfad</b>"
 
 #: glade/cherrytree.glade.h:27
 msgid "<b>Fonts</b>"
@@ -1696,7 +1695,6 @@ msgid "Close"
 msgstr "Schließen"
 
 #: glade/cherrytree.glade.h:58
-#, fuzzy
 msgid "Code Font"
 msgstr "Code Schriftart"
 
