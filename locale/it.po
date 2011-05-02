@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-29 22:57+0200\n"
+"POT-Creation-Date: 2011-05-02 23:34+0200\n"
 "PO-Revision-Date: 2010-02-20 22:22+0100\n"
 "Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
 "Language-Team: Italian\n"
@@ -154,54 +154,54 @@ msgstr "Verifica Disponibilita' Nuova Versione..."
 msgid "A Newer Version Is Available!"
 msgstr "Una Nuova Versione e' Disponibile!"
 
-#: modules/core.py:228 modules/core.py:2637 modules/core.py:2643
-#: modules/core.py:3076
+#: modules/core.py:228 modules/core.py:2638 modules/core.py:2644
+#: modules/core.py:3077
 msgid "No Text is Selected"
 msgstr "Non vi e' alcuna Selezione di Testo"
 
-#: modules/core.py:407 modules/core.py:1375
+#: modules/core.py:408 modules/core.py:1376
 msgid "The new father can't be one of his sons!"
 msgstr "Il Nuovo Padre Non Puo' Essere uno dei Suoi Figli!"
 
-#: modules/core.py:445 modules/core.py:819 modules/core.py:910
-#: modules/core.py:1130
+#: modules/core.py:446 modules/core.py:820 modules/core.py:911
+#: modules/core.py:1131
 msgid "CherryTree Document"
 msgstr "Documento CherryTree"
 
-#: modules/core.py:458
+#: modules/core.py:459
 msgid "NoteCase Document"
 msgstr "Documento NoteCase"
 
-#: modules/core.py:510
+#: modules/core.py:511
 msgid "Treepad Document"
 msgstr "Documento Treepad"
 
-#: modules/core.py:527
+#: modules/core.py:528
 msgid "Leo Document"
 msgstr "Documento Leo"
 
-#: modules/core.py:555
+#: modules/core.py:556
 msgid "Who is the Father?"
 msgstr "Chi e' il Padre?"
 
-#: modules/core.py:562
+#: modules/core.py:563
 msgid "The Tree Root"
 msgstr "La Radice dell'Albero"
 
-#: modules/core.py:563
+#: modules/core.py:564
 msgid "The Selected Node"
 msgstr "Il Nodo Selezionato"
 
-#: modules/core.py:712
+#: modules/core.py:713
 msgid "CherryTree Hierarchical Note Taking"
 msgstr "CherryTree Gestore di Appunti Gerarchico"
 
-#: modules/core.py:815 modules/core.py:844 modules/core.py:1174
-#: modules/core.py:1958 modules/core.py:1969 modules/core.py:2278
+#: modules/core.py:816 modules/core.py:845 modules/core.py:1175
+#: modules/core.py:1959 modules/core.py:1970 modules/core.py:2279
 msgid "The Tree is Empty!"
 msgstr "L'Albero e' Vuoto!"
 
-#: modules/core.py:824 modules/core.py:1135 modules/core.py:1151
+#: modules/core.py:825 modules/core.py:1136 modules/core.py:1152
 #: modules/tablez.py:63
 #, python-format
 msgid ""
@@ -211,7 +211,7 @@ msgstr ""
 "Il File %s\n"
 "Esiste gia', vuoi Sovrascriverlo?"
 
-#: modules/core.py:864 modules/core.py:1047
+#: modules/core.py:865 modules/core.py:1048
 msgid ""
 "The Contemporary Presence of Single and Double Quotes in the File Path "
 "Prevents 7za.exe to Work, Please Change the File Name"
@@ -219,39 +219,39 @@ msgstr ""
 "La Contemporanea Presenza di Singole e Doppie Virgolette nel Percorso del "
 "File Impedisce il Funzionamento di 7za.exe, Prego Cambiare il Nome del File"
 
-#: modules/core.py:889
+#: modules/core.py:890
 msgid "Writing to Disk..."
 msgstr "Scrittura su Disco in Corso..."
 
-#: modules/core.py:929
+#: modules/core.py:930
 msgid "No Document is Opened"
 msgstr "Nessun Documento e' Aperto"
 
-#: modules/core.py:931
+#: modules/core.py:932
 msgid "Document Protection"
 msgstr "Protezione Documento"
 
-#: modules/core.py:938
+#: modules/core.py:939
 msgid "Not Protected"
 msgstr "Non Protetto"
 
-#: modules/core.py:939
+#: modules/core.py:940
 msgid "Password Protected"
 msgstr "Protetto da Password"
 
-#: modules/core.py:948
+#: modules/core.py:949
 msgid "Enter the New Password Twice"
 msgstr "Inserisci la Nuova Password Due Volte"
 
-#: modules/core.py:982
+#: modules/core.py:983
 msgid "The Password Fields Must be Filled"
 msgstr "I Campi Password Devono Essere Compilati"
 
-#: modules/core.py:985
+#: modules/core.py:986
 msgid "The Two Inserted Passwords Do Not Match"
 msgstr "Le Due Password Inserite Non Corrispondono"
 
-#: modules/core.py:1000
+#: modules/core.py:1001
 msgid ""
 "Binary Executable '7za' Not Found, Check The Package 'p7zip-full' to be "
 "Installed Properly"
@@ -259,66 +259,66 @@ msgstr ""
 "Binario Eseguibile '7za' Non Trovato, Controlla che il Pacchetto 'p7zip-"
 "full'sia Installato Correttamente"
 
-#: modules/core.py:1006
+#: modules/core.py:1007
 #, python-format
 msgid "Enter Password for %s"
 msgstr "Inserisci la Password per %s"
 
-#: modules/core.py:1058
+#: modules/core.py:1059
 msgid "Wrong Password"
 msgstr "Password Errata"
 
-#: modules/core.py:1062 modules/core.py:1094
+#: modules/core.py:1063 modules/core.py:1095
 #, python-format
 msgid "\"%s\" is Not a CherryTree Document"
 msgstr "\"%s\" Non e' un Documento CherryTree"
 
-#: modules/core.py:1120 modules/core.py:1142 modules/core.py:1161
-#: modules/core.py:1190 modules/core.py:1228 modules/core.py:1239
-#: modules/core.py:1266 modules/core.py:1292 modules/core.py:1303
-#: modules/core.py:1314 modules/core.py:1350 modules/core.py:1756
-#: modules/core.py:1784 modules/core.py:1809 modules/core.py:1947
+#: modules/core.py:1121 modules/core.py:1143 modules/core.py:1162
+#: modules/core.py:1191 modules/core.py:1229 modules/core.py:1240
+#: modules/core.py:1267 modules/core.py:1293 modules/core.py:1304
+#: modules/core.py:1315 modules/core.py:1351 modules/core.py:1757
+#: modules/core.py:1785 modules/core.py:1810 modules/core.py:1948
 msgid "No Node is Selected!"
 msgstr "Nessun Nodo e' Selezionato"
 
-#: modules/core.py:1146
+#: modules/core.py:1147
 msgid "Plain Text Document"
 msgstr "Documento in Testo Semplice"
 
-#: modules/core.py:1359 glade/cherrytree.glade.h:100
+#: modules/core.py:1360 glade/cherrytree.glade.h:100
 msgid "Select the New Father"
 msgstr "Seleziona il Nuovo Padre"
 
-#: modules/core.py:1367
+#: modules/core.py:1368
 msgid "The new father can't be the very node to move!"
 msgstr "Il Nuovo Padre Non Puo' Essere lo Stesso Nodo da Spostare!"
 
-#: modules/core.py:1370
+#: modules/core.py:1371
 msgid "The new choosed father is again the old father!"
 msgstr "Il Nuovo Padre Scelto e' Ancora il Vecchio Padre!"
 
-#: modules/core.py:1658
+#: modules/core.py:1659
 msgid "Disabled (Custom Colors)"
 msgstr "Disabilitata (Colori Personalizzati)"
 
-#: modules/core.py:1686
+#: modules/core.py:1687
 msgid "The New Language will be Available Only After Restarting CherryTree"
 msgstr "La Nuova Lingua Sara' Disponibile Solo Dopo il Riavvio di CherryTree"
 
-#: modules/core.py:1722
+#: modules/core.py:1723
 msgid "Insert the New Node Name..."
 msgstr "Inserisci il Nuovo Nome di Nodo..."
 
-#: modules/core.py:1759
+#: modules/core.py:1760
 msgid "Insert the New Child Node Name..."
 msgstr "Inserisci il Nome del Nuovo Nodo Figlio..."
 
-#: modules/core.py:1786
+#: modules/core.py:1787
 #, python-format
 msgid "Are you sure to <b>Delete the node '%s'?</b>"
 msgstr "Sei sicuro di voler <b>Eliminare il Nodo '%s'?</b>"
 
-#: modules/core.py:1788
+#: modules/core.py:1789
 msgid ""
 "\n"
 "\n"
@@ -328,11 +328,11 @@ msgstr ""
 "\n"
 "Il Nodo <b>ha Figli, Anche Loro Verranno Eliminati!</b>"
 
-#: modules/core.py:1815
+#: modules/core.py:1816
 msgid "Insert the New Name for the Node..."
 msgstr "Inserisci il Nuovo Nome per il Nodo..."
 
-#: modules/core.py:1820
+#: modules/core.py:1821
 msgid ""
 "Entering the Automatic Syntax Highlighting you will Lose all Custom Colors "
 "for This Node, Do you want to Continue?"
@@ -340,123 +340,123 @@ msgstr ""
 "Entrando nell'Evidenziazione Automatica della Sintassi, Perderai la "
 "Formattazione del Testo per Questo Nodo, Vuoi Continuare?"
 
-#: modules/core.py:2100 modules/core.py:2260 modules/core.py:2631
-#: modules/core.py:3086
+#: modules/core.py:2101 modules/core.py:2261 modules/core.py:2632
+#: modules/core.py:3087
 msgid "No Node is Selected"
 msgstr "Nessun Nodo e' Selezionato"
 
-#: modules/core.py:2126
+#: modules/core.py:2127
 msgid "The Size of the Toolbar Icons is already at the Maximum Value"
 msgstr "La Dimensione della Toolbar e' gia' al Massimo Valore"
 
-#: modules/core.py:2134
+#: modules/core.py:2135
 msgid "The Size of the Toolbar Icons is already at the Minimum Value"
 msgstr "La Dimensione della Toolbar e' gia' al Minimo Valore"
 
-#: modules/core.py:2211
+#: modules/core.py:2212
 msgid "Edit Anchor"
 msgstr "Modifica Ancora"
 
-#: modules/core.py:2214
+#: modules/core.py:2215
 msgid "Insert Anchor"
 msgstr "Inserisci Ancora"
 
-#: modules/core.py:2223
+#: modules/core.py:2224
 msgid "The Anchor Name is Mandatory!"
 msgstr "Il Nome dell'Ancora e' Obbligatorio!"
 
-#: modules/core.py:2238
+#: modules/core.py:2239
 msgid "Not Any H1 or H2 Formatting Found"
 msgstr "Nessuna Formattazione H1 o H2 Trovata"
 
-#: modules/core.py:2263 modules/core.py:2607 modules/core.py:2614
-#: modules/core.py:2626
+#: modules/core.py:2264 modules/core.py:2608 modules/core.py:2615
+#: modules/core.py:2627
 msgid ""
 "Automatic Syntax Highlighting Must be Disabled in order to Use This Feature"
 msgstr ""
 "L'Evidenziazione Automatica della Sintassi Deve Essere Disabilitata per "
 "Utilizzare questo Comando"
 
-#: modules/core.py:2280 modules/cons.py:485
+#: modules/core.py:2281 modules/cons.py:485
 msgid "Tree Summary Information"
 msgstr "Informazioni Riassuntive dell'Albero"
 
-#: modules/core.py:2289
+#: modules/core.py:2290
 msgid "Number of Text Nodes"
 msgstr "Numero di Nodi di Testo"
 
-#: modules/core.py:2292
+#: modules/core.py:2293
 msgid "Number of Code Nodes"
 msgstr "Numero di Nodi di Codice"
 
-#: modules/core.py:2295
+#: modules/core.py:2296
 msgid "Number of Images"
 msgstr "Numero di Immagini"
 
-#: modules/core.py:2298
+#: modules/core.py:2299
 msgid "Number of Tables"
 msgstr "Numero di Tabelle"
 
-#: modules/core.py:2301
+#: modules/core.py:2302
 msgid "Number of CodeBoxes"
 msgstr "Numero di CodeBox"
 
-#: modules/core.py:2419
+#: modules/core.py:2420
 msgid "PNG Image"
 msgstr "Immagine PNG"
 
-#: modules/core.py:2425
+#: modules/core.py:2426
 #, python-format
 msgid "Write to %s Failed"
 msgstr "Scrittura di %s Fallita"
 
-#: modules/core.py:2620
+#: modules/core.py:2621
 msgid "No Previous Text Format Was Performed During This Session"
 msgstr ""
 "Nessuna Formattazione del Testo e' stata Fatta Precedentemente Durante "
 "Questa Sessione"
 
-#: modules/core.py:2667
+#: modules/core.py:2668
 msgid "The Cursor is Not into a Paragraph"
 msgstr "Il Cursore Non e' in un Paragrafo"
 
-#: modules/core.py:2676
+#: modules/core.py:2677
 msgid "Insert/Edit a Link"
 msgstr "Inserisci/Modifica un Link"
 
-#: modules/core.py:2808
+#: modules/core.py:2809
 #, python-format
 msgid "The File Link '%s' is Not Valid"
 msgstr "Il Link a File '%s' Non e' Valido"
 
-#: modules/core.py:2819
+#: modules/core.py:2820
 #, python-format
 msgid "The Folder Link '%s' is Not Valid"
 msgstr "Il Link a Cartella '%s' Non e' Valido"
 
-#: modules/core.py:2830
+#: modules/core.py:2831
 #, python-format
 msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
 msgstr "Il Link si Riferisce ad un Nodo che Non Esiste Piu' (Id = %s)"
 
-#: modules/core.py:2840
+#: modules/core.py:2841
 #, python-format
 msgid "No anchor named '%s' found"
 msgstr "Nessun Ancora Chiamata '%s' Trovata"
 
-#: modules/core.py:2880
+#: modules/core.py:2881
 msgid "There are No Anchors in the Selected Node"
 msgstr "Non vi Sono Ancore Nel Nodo Selezionato"
 
-#: modules/core.py:2885
+#: modules/core.py:2886
 msgid "Choose Existing Anchor"
 msgstr "Scegli un'Ancora Esistente"
 
-#: modules/core.py:2898
+#: modules/core.py:2899
 msgid "Anchor Name"
 msgstr "Nome Ancora"
 
-#: modules/core.py:3035 glade/cherrytree.glade.h:96
+#: modules/core.py:3036 glade/cherrytree.glade.h:96
 msgid "Read Only"
 msgstr "Sola Lettura"
 
@@ -1699,7 +1699,7 @@ msgstr "Crea una Copia di Backup Prima di Salvare"
 msgid ""
 "Czech (cs) Pavel Fric <fripohled@blogspot.com>\n"
 "French (fr) Ludovic Troisi <axalis@cegetel.net>\n"
-"German (de) Sven Neubauer <me@dampfklon.de>\n"
+"German (de) Frank Brungräber <calexu@arcor.de> (former Sven Neubauer)\n"
 "Italian (it) Giuseppe Penone <giuspen@gmail.com>\n"
 "Polish (pl) Marcin Swierczynski <orneo1212@gmail.com>\n"
 "Russian (ru) Andriy Kovtun <kovtunos@yandex.ru>\n"
@@ -1708,7 +1708,7 @@ msgid ""
 msgstr ""
 "Ceco (cs) Pavel Fric <fripohled@blogspot.com>\n"
 "Francese (fr) Ludovic Troisi <axalis@cegetel.net>\n"
-"Tedesco (de) Sven Neubauer <me@dampfklon.de>\n"
+"Tedesco (de) Frank Brungräber <calexu@arcor.de> (precedente Sven Neubauer)\n"
 "Italiano (it) Giuseppe Penone <giuspen@gmail.com>\n"
 "Polacco (pl) Marcin Swierczynski <orneo1212@gmail.com>\n"
 "Russo (ru) Andriy Kovtun <kovtunos@yandex.ru>\n"
