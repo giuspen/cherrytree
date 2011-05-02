@@ -369,6 +369,7 @@ class CherryTree:
             child_iter = self.treestore.iter_children(self.curr_tree_iter)
             if child_iter: self.treeview_safe_set_cursor(child_iter)
          elif keyname == "Return": self.node_edit()
+         elif keyname == "Delete": self.node_delete()
          elif keyname == "Menu":
             self.menu_tree.popup(None, None, None, 0, event.time)
       widget.stop_emission("key_press_event")
@@ -650,7 +651,7 @@ class CherryTree:
             menu_item.set_tooltip_text(attributes[3])
             if attributes[2]:
                key, mod = gtk.accelerator_parse(attributes[2])
-               for element in ["Up", "Down", "Left", "Right"]:
+               for element in ["Up", "Down", "Left", "Right", "Delete"]:
                   if element in attributes[2]:
                      accel_group = self.orphan_accel_group
                      break
