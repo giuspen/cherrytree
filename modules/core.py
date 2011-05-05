@@ -1023,6 +1023,7 @@ class CherryTree:
             buttons = button_box.get_children()
             buttons[0].clicked() # first is the ok button
       enter_password_dialog.connect("key_press_event", on_key_press_enter_password_dialog)
+      entry.grab_focus()
       response = enter_password_dialog.run()
       passw = entry.get_text()
       enter_password_dialog.destroy()
