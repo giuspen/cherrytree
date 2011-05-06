@@ -1016,14 +1016,17 @@ class CherryTree:
       entry.set_visibility(False)
       content_area = enter_password_dialog.get_content_area()
       content_area.pack_start(entry)
-      content_area.show_all()
       def on_key_press_enter_password_dialog(widget, event):
          if gtk.gdk.keyval_name(event.keyval) == "Return":
             button_box = enter_password_dialog.get_action_area()
             buttons = button_box.get_children()
             buttons[0].clicked() # first is the ok button
       enter_password_dialog.connect("key_press_event", on_key_press_enter_password_dialog)
-      entry.grab_focus()
+      enter_password_dialog.show_all()
+      if not sys.platform[0:3] == "win":
+         the_window = enter_password_dialog.get_window()
+         the_window.focus(gtk.gdk.x11_get_server_time(the_window))
+      enter_password_dialog.present()
       response = enter_password_dialog.run()
       passw = entry.get_text()
       enter_password_dialog.destroy()
