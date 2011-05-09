@@ -1,7 +1,7 @@
 # German translations for svn_cherrytree package.
 # Copyright (C) 2010 THE svn_cherrytree'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the svn_cherrytree package.
-# maul <giuspen@gmail.com>, 2010.
+# Giuseppe Penone <giuspen@gmail.com>, 2010.
 #
 msgid ""
 msgstr ""
@@ -76,11 +76,11 @@ msgstr "_Zuletzt benutzte Dokumente"
 
 #: modules/support.py:228 modules/support.py:234
 msgid "Open a Recent CherryTree Document"
-msgstr "Zuletzt benutzte CherryTree Dokumente öffnen"
+msgstr "Zuletzt benutzte CherryTree-Dokumente öffnen"
 
 #: modules/support.py:233 modules/cons.py:377
 msgid "Open a CherryTree Document"
-msgstr "CherryTree Dokument öffnen"
+msgstr "CherryTree-Dokument öffnen"
 
 #: modules/support.py:255
 #, python-format
@@ -124,7 +124,7 @@ msgstr "In allen Knoten ersetzen..."
 
 #: modules/findreplace.py:152
 msgid "Search For a Node Name..."
-msgstr "Nach Knotenname suchen..."
+msgstr "Nach Knotennamen suchen..."
 
 #: modules/findreplace.py:154
 msgid "Replace in Node Names..."
@@ -153,7 +153,7 @@ msgstr "Suche nach neuer Version..."
 
 #: modules/core.py:209
 msgid "A Newer Version Is Available!"
-msgstr "Neue Version ist verfügbar!"
+msgstr "Eine neue Version ist verfügbar!"
 
 #: modules/core.py:228 modules/core.py:2638 modules/core.py:2644
 #: modules/core.py:3077
@@ -167,19 +167,19 @@ msgstr "Der übergeordnete Knoten kann nicht gleichzeitig untergeordnet sein."
 #: modules/core.py:446 modules/core.py:820 modules/core.py:911
 #: modules/core.py:1131
 msgid "CherryTree Document"
-msgstr "CherryTree Datei"
+msgstr "CherryTree-Datei"
 
 #: modules/core.py:459
 msgid "NoteCase Document"
-msgstr "NoteCase Datei"
+msgstr "NoteCase-Datei"
 
 #: modules/core.py:511
 msgid "Treepad Document"
-msgstr "Treepad  Datei"
+msgstr "Treepad-Datei"
 
 #: modules/core.py:528
 msgid "Leo Document"
-msgstr "Leo  Datei"
+msgstr "Leo-Datei"
 
 #: modules/core.py:556
 msgid "Who is the Father?"
@@ -187,7 +187,7 @@ msgstr "Welcher ist der übergeordnete Knoten?"
 
 #: modules/core.py:563
 msgid "The Tree Root"
-msgstr "Die Baumstruktur"
+msgstr "Der Anfang der Baumstruktur"
 
 #: modules/core.py:564
 msgid "The Selected Node"
@@ -195,7 +195,7 @@ msgstr "Der markierte Knoten"
 
 #: modules/core.py:713
 msgid "CherryTree Hierarchical Note Taking"
-msgstr "CherryTree Strukturiertes Notizprogramm"
+msgstr "CherryTree Hierarchisches Notizprogramm"
 
 #: modules/core.py:816 modules/core.py:845 modules/core.py:1175
 #: modules/core.py:1959 modules/core.py:1970 modules/core.py:2279
@@ -272,7 +272,7 @@ msgstr "Falsches Passwort"
 #: modules/core.py:1063 modules/core.py:1095
 #, python-format
 msgid "\"%s\" is Not a CherryTree Document"
-msgstr "\"%s\" ist kein CherryTree Dokument"
+msgstr "\"%s\" ist kein CherryTree-Dokument"
 
 #: modules/core.py:1121 modules/core.py:1143 modules/core.py:1162
 #: modules/core.py:1191 modules/core.py:1229 modules/core.py:1240
@@ -284,7 +284,7 @@ msgstr "Kein Knoten ausgewählt!"
 
 #: modules/core.py:1147
 msgid "Plain Text Document"
-msgstr "Text Dokument"
+msgstr "Textdatei"
 
 #: modules/core.py:1360 glade/cherrytree.glade.h:100
 msgid "Select the New Father"
@@ -589,7 +589,7 @@ msgstr "Datei speichern unter..."
 
 #: modules/cons.py:381 modules/cons.py:520
 msgid "Export _Tree To HTML"
-msgstr "Baumstruktur nach HTML exportieren"
+msgstr "_Baumstruktur nach HTML exportieren"
 
 #: modules/cons.py:381 modules/cons.py:520
 msgid "Export the Tree To HTML"
@@ -597,7 +597,7 @@ msgstr "Baumstruktur nach HTML exportieren"
 
 #: modules/cons.py:382 modules/cons.py:519
 msgid "Export Node To _HTML"
-msgstr "Knoten nach HTML exportieren"
+msgstr "Knoten nach _HTML exportieren"
 
 #: modules/cons.py:382 modules/cons.py:519
 msgid "Export the Selected Node To HTML"
@@ -605,7 +605,7 @@ msgstr "Markierten Knoten nach HTML exportieren"
 
 #: modules/cons.py:383 modules/cons.py:518
 msgid "Save Node as Plain _Text"
-msgstr "Knoten als Text speichern"
+msgstr "_Knoten als Text speichern"
 
 #: modules/cons.py:383 modules/cons.py:518
 msgid "Save the Selected Node as Plain Text"
@@ -621,11 +621,11 @@ msgstr "Markierten und alle untergeordnete Knoten exportieren"
 
 #: modules/cons.py:385
 msgid "Pa_ge Setup"
-msgstr "Seite einrichten"
+msgstr "Seite _einrichten"
 
 #: modules/cons.py:385
 msgid "Set up the Page for Printing"
-msgstr "Seitenausdruck einrichten"
+msgstr "Seite einrichten"
 
 #: modules/cons.py:386 modules/cons.py:517
 msgid "Node _Print / Save as PDF, PS, SVG"
@@ -641,7 +641,7 @@ msgstr "S_chließen (zum Tray)"
 
 #: modules/cons.py:387
 msgid "Quit the Application"
-msgstr "Programm beenden"
+msgstr "S_chließen (zum Tray)"
 
 #: modules/cons.py:388
 msgid "_Exit CherryTree"
@@ -693,7 +693,7 @@ msgstr "Link einfügen/Markierten Link bearbeiten"
 
 #: modules/cons.py:394 modules/cons.py:566
 msgid "Insert T_OC"
-msgstr "Inhaltsverzeichnis einfügen"
+msgstr "_Inhaltsverzeichnis einfügen"
 
 #: modules/cons.py:394 modules/cons.py:566
 msgid "Insert Table of Contents"
@@ -834,7 +834,7 @@ msgstr "Gesamte Zeile/Auswahl duplizieren"
 #: modules/cons.py:412 modules/cons.py:464 modules/cons.py:577
 #: modules/cons.py:615
 msgid "De_lete Row"
-msgstr "_Zeile löschen"
+msgstr "Zeile l_öschen"
 
 #: modules/cons.py:412 modules/cons.py:577 modules/cons.py:615
 msgid "Delete the Whole Row"
@@ -851,7 +851,7 @@ msgstr "Gesamte Zeile ausschneiden"
 
 #: modules/cons.py:414 modules/cons.py:462
 msgid "_Copy Row"
-msgstr "Zeile kopieren"
+msgstr "Zeile k_opieren"
 
 #: modules/cons.py:414 modules/cons.py:576 modules/cons.py:614
 msgid "Copy the Whole Row"
@@ -909,7 +909,7 @@ msgstr "Die letzte Textformatierung wiederholen"
 
 #: modules/cons.py:421 modules/cons.py:542
 msgid "_Remove Formatting"
-msgstr "_Formatierung entfernen"
+msgstr "Formatierung _entfernen"
 
 #: modules/cons.py:421 modules/cons.py:542
 msgid "Remove the Formatting from the Selected Text"
@@ -1049,7 +1049,7 @@ msgstr "In allen Knoten der Baumstruktur ersetzen"
 
 #: modules/cons.py:441 modules/cons.py:505 modules/cons.py:591
 msgid "Replace in Nodes _Names"
-msgstr "_Knotennamen ersetzen..."
+msgstr "Kn_otennamen ersetzen..."
 
 #: modules/cons.py:441 modules/cons.py:505 modules/cons.py:591
 msgid "Replace in Nodes Names"
@@ -1089,7 +1089,7 @@ msgstr "Symbolleiste anzeigen/ausblenden"
 
 #: modules/cons.py:446
 msgid "_Increase Toolbar Icons Size"
-msgstr "Icons ver_größern"
+msgstr "Symbole vergr_ößern"
 
 #: modules/cons.py:446
 msgid "Increase the Size of the Toolbar Icons"
@@ -1105,7 +1105,7 @@ msgstr "Die Icons in der Symbolleiste verkleinern"
 
 #: modules/cons.py:448
 msgid "_Full Screen On/Off"
-msgstr "Vollbild an/aus"
+msgstr "_Vollbild an/aus"
 
 #: modules/cons.py:448
 msgid "Toggle Full Screen On/Off"
@@ -1146,7 +1146,7 @@ msgstr "Knoten aus einem KeepNote Ordner zur aktuellen Baumstruktur hinzufügen"
 
 #: modules/cons.py:453 modules/cons.py:514
 msgid "From _TuxCards File"
-msgstr "aus _TuxCards Datei..."
+msgstr "aus Tu_xCards Datei..."
 
 #: modules/cons.py:453 modules/cons.py:514
 msgid "Add Nodes of a TuxCards File to the Current Tree"
@@ -1288,7 +1288,7 @@ msgstr ""
 
 #: modules/cons.py:482
 msgid "Add _SubNode"
-msgstr "Unter_geordneter Knoten hinzufügen..."
+msgstr "Unterge_ordneten Knoten hinzufügen..."
 
 #: modules/cons.py:482
 msgid "Add a Child Node to the Selected Node"
@@ -1332,7 +1332,7 @@ msgstr "Einrückung des Knotens vermindern"
 
 #: modules/cons.py:491
 msgid "Node Change _Father"
-msgstr "Übergeordneter Knoten _wechseln..."
+msgstr "Übergeordneten Knoten _wechseln..."
 
 #: modules/cons.py:491
 msgid "Change the Selected Node's Father"
@@ -1501,38 +1501,20 @@ msgid ""
 "MA 02110-1301, USA.\n"
 msgstr ""
 "\n"
-"Dieses Programm ist freie Software. Sie können es unter den Bedingungen\n"
-"der GNU General Public License, wie von der Free Software Foundation "
-"veröffentlicht,\n"
-"weitergeben und/oder modifizieren, entweder gemäß Version 2 der Lizenz\n"
-"oder (nach Ihrer Option) jeder späteren Version.\n"
-"\n"
-"Die Veröffentlichung dieses Programms erfolgt in der Hoffnung, daß es Ihnen "
-"von\n"
-"Nutzen sein wird, aber OHNE IRGENDEINE GARANTIE, sogar ohne die implizite \n"
-"Garantie der MARKTREIFE oder der VERWENDBARKEIT FÜR EINEN BESTIMMTEN "
-"ZWECK. \n"
-"Details finden Sie in der GNU General Public License.\n"
-"\n"
-"Sie sollten ein Exemplar der GNU General Public License zusammen mit diesem\n"
-"Programm erhalten haben. Falls nicht, siehe <http://www.gnu.org/licenses/"
-">. \n"
-"\n"
-"\n"
-"This program is free software; you can redistribute it and/or modify\n"
-"it under the terms of the GNU General Public License as published by\n"
-"the Free Software Foundation; either version 2 of the License, or\n"
-"(at your option) any later version.\n"
-"\n"
-"This program is distributed in the hope that it will be useful,\n"
-"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-"GNU General Public License for more details.\n"
-"\n"
-"You should have received a copy of the GNU General Public License\n"
-"along with this program; if not, write to the Free Software\n"
-"Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,\n"
-"MA 02110-1301, USA.\n"
+"Dieses Programm ist freie Software, Sie können sie weitergeben und/oder\n"
+"verändern solange Sie sich an die Regeln der GNU General Public License\n"
+"halten, so wie sie von der Free Software Foundation festgelegt wurden;\n"
+"entweder in Version 2 der Lizenz oder (nach Ihrem Ermessen) in jeder folgenden Lizenz.\n \n"
+
+"Dieses Programm wurde mit dem Ziel veröffentlicht, dass Sie es nützlich finden,\n"
+"jedoch OHNE JEDWEDE GARANTIE, sogar ohne eine implizite Garantie\n"
+"der VERKAUFBARKEIT oder der NUTZBARKEIT FÜR EINEN SPEZIELLEN ZWECK.\n"
+"Schauen Sie für weitere Informationen bitte in der GNU General Public License (GNU GPL) nach.\n \n"
+
+"Mit diesem Programm sollten Sie außerdem eine Kopie der GNU General Public License erhalten\n"
+"haben. Wenn dem nicht so ist, so schreiben Sie bitte an die\n"
+"Free Software Foundation, Inc.,\n"
+"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.\n"
 
 #: glade/cherrytree.glade.h:17
 msgid "      Height "
@@ -1643,7 +1625,7 @@ msgid ""
 "A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
 "Highlighting"
 msgstr ""
-"Ein strukturiertes Notizprogramm mit Textformatierung und Syntax-Hervorhebung"
+"Ein hierarchisches Notizprogramm mit Textformatierung und Syntaxhervorhebung"
 
 #: glade/cherrytree.glade.h:46
 msgid "Add Column"
@@ -1655,7 +1637,7 @@ msgstr "Alle Übereinstimmungen auflisten"
 
 #: glade/cherrytree.glade.h:48
 msgid "Are you sure to Delete the node?"
-msgstr "Wollen Sie den Knoten löschen?"
+msgstr "Wollen Sie den Knoten wirklich löschen?"
 
 #: glade/cherrytree.glade.h:49
 msgid "Automatically Check for Newer Version"
@@ -1695,7 +1677,7 @@ msgstr "Schließen"
 
 #: glade/cherrytree.glade.h:58
 msgid "Code Font"
-msgstr "Code Schriftart"
+msgstr "Code-Schriftart"
 
 #: glade/cherrytree.glade.h:59
 msgid ""
@@ -1722,7 +1704,7 @@ msgid ""
 msgstr ""
 "Czech (cs) Pavel Fric <fripohled@blogspot.com>\n"
 "French (fr) Ludovic Troisi <axalis@cegetel.net>\n"
-"German (de) Frank Brungräber <calexu@arcor.de> (former Sven Neubauer)\n"
+"German (de) Frank Brungräber <calexu@arcor.de> (until 0.21.2: Sven Neubauer)\n"
 "Italian (it) Giuseppe Penone <giuspen@gmail.com>\n"
 "Polish (pl) Marcin Swierczynski <orneo1212@gmail.com>\n"
 "Russian (ru) Andriy Kovtun <kovtunos@yandex.ru>\n"
@@ -1811,11 +1793,11 @@ msgstr "Min. Breite"
 
 #: glade/cherrytree.glade.h:90
 msgid "Move Column Left"
-msgstr "Spalte nach rechts verschieben"
+msgstr "Spalte nach links verschieben"
 
 #: glade/cherrytree.glade.h:91
 msgid "Move Column Right"
-msgstr "Spalte nach links verschieben"
+msgstr "Spalte nach rechts verschieben"
 
 #: glade/cherrytree.glade.h:92
 msgid "No"
@@ -1847,7 +1829,7 @@ msgstr "Zeilennummern anzeigen"
 
 #: glade/cherrytree.glade.h:102
 msgid "Start Minimized on the System Tray"
-msgstr "Automatisch minimiert im Tray starten"
+msgstr "minimiert im Tray starten"
 
 #: glade/cherrytree.glade.h:103
 msgid "Start Word"
@@ -1855,11 +1837,11 @@ msgstr "Wortanfang"
 
 #: glade/cherrytree.glade.h:104
 msgid "Tab Width  "
-msgstr "Tab Breite"
+msgstr "Tab-Breite"
 
 #: glade/cherrytree.glade.h:105
 msgid "Text Font"
-msgstr "Text Schriftart"
+msgstr "Text-Schriftart"
 
 #: glade/cherrytree.glade.h:106
 msgid "To File"
@@ -1879,11 +1861,11 @@ msgstr "zur Webseite"
 
 #: glade/cherrytree.glade.h:110
 msgid "Tree Font"
-msgstr "Baum Schriftart"
+msgstr "Baum-Schriftart"
 
 #: glade/cherrytree.glade.h:111
 msgid "Tree Nodes Names Wrapping Width"
-msgstr "Max. Breite der Knotennamen vor Zeilenumbruch"
+msgstr "Zeilenlänge für Knotennamen"
 
 #: glade/cherrytree.glade.h:112
 msgid "Use Bullets as Nodes Icons"
