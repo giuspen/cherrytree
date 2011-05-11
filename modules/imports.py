@@ -885,6 +885,7 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
          if tag == "table":
             self.curr_state = 2
             self.curr_table = []
+            self.curr_rows_span = []
             self.curr_table_header = False
          elif tag == "b": self.curr_attributes["weight"] = "heavy"
          elif tag == "i": self.curr_attributes["style"] = "italic"
@@ -960,6 +961,11 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
          if tag == "tr": self.curr_table.append([])
          elif tag in ["td", "th"]:
             self.curr_cell = ""
+            self.curr_rowspan = 1
+            for attr in attrs:
+               if attr[0] == "rowspan":
+                  self.curr_rowspan = int(attr[1])
+                  break
             if tag == "th": self.curr_table_header = True
    
    def handle_endtag(self, tag):
@@ -987,7 +993,27 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
          elif tag == "a": self.curr_attributes["link"] = ""
          elif tag == "li": self.rich_text_serialize(cons.CHAR_NEWLINE)
       elif self.curr_state == 2:
-         if tag in ["td", "th"]: self.curr_table[-1].append(self.curr_cell)
+         if tag in ["td", "th"]:
+            self.curr_table[-1].append(self.curr_cell)
+            if len(self.curr_table) == 1: self.curr_rows_span.append(self.curr_rowspan)
+            else:
+               index = len(self.curr_table[-1])-1
+               #print "self.curr_rows_span", self.curr_rows_span
+               if self.curr_rows_span[index] == 1: self.curr_rows_span[index] = self.curr_rowspan
+               else:
+                  unos_found = 0
+                  while unos_found < 2:
+                     if not unos_found: self.curr_table[-1].insert(index, "")
+                     else: self.curr_table[-1].append("")
+                     self.curr_rows_span[index] -= 1
+                     index += 1
+                     if index == len(self.curr_rows_span): break
+                     if self.curr_rows_span[index] == 1:
+                        unos_found += 1
+                        if unos_found < 2:
+                           index += 1
+                           if index == len(self.curr_rows_span): break
+                           if self.curr_rows_span[index] == 1: unos_found += 1
          elif tag == "table":
             self.curr_state = 1
             if len(self.curr_table) == 1 and len(self.curr_table[0]) == 1:
