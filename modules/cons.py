@@ -537,6 +537,8 @@ def get_popup_menu_entries_text(inst):
    # "submenu-end", None, None, None, None
    return [
    ("separator", None, None, None, None),
+   ("Paste", _("_Paste as Plain Text"), None, _("Paste as Plain Text, Discard the Rich Text Formatting"), inst.paste_as_plain_text),
+   ("separator", None, None, None, None),
    ("submenu-start", _("For_matting") , "Format Text", None, None),
    ("Format Text Latest", _("Format _Latest"), "F7", _("Memory of Latest Text Format Type"), inst.apply_tag_latest),
    ("gtk-clear", _("_Remove Formatting"), None, _("Remove the Formatting from the Selected Text"), inst.remove_text_formatting),

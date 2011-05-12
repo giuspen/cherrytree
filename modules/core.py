@@ -2436,6 +2436,11 @@ class CherryTree:
       iter_bound.forward_char()
       self.curr_buffer.select_range(iter_image, iter_bound)
       
+   def paste_as_plain_text(self, *args):
+      """Paste as Plain Text"""
+      self.clipboard_handler.force_plain_text = True
+      self.sourceview.emit("paste-clipboard")
+      
    def image_cut(self, *args):
       """Cut Image"""
       self.object_set_selection(self.curr_image_anchor)

@@ -40,6 +40,7 @@ class ClipboardHandler:
       """Clipboard Handler boot"""
       self.dad = dad
       self.clipboard = gtk.clipboard_get()
+      self.force_plain_text = False
       
    def copy(self, sourceview):
       """Copy to Clipboard"""
@@ -148,6 +149,12 @@ class ClipboardHandler:
       targets = self.clipboard.wait_for_targets()
       if not targets: return
       self.dad.curr_buffer.delete_selection(True, sourceview.get_editable())
+      if self.force_plain_text:
+         self.force_plain_text = False
+         for target in TARGETS_PLAIN_TEXT:
+            if target in targets:
+               self.clipboard.request_contents(target, self.to_plain_text)
+               return
       #print targets
       if TARGET_CTD_RICH_TEXT in targets and self.dad.syntax_highlighting == cons.CUSTOM_COLORS_ID:
          self.clipboard.request_contents(TARGET_CTD_RICH_TEXT, self.to_rich_text)
