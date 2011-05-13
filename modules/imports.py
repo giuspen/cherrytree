@@ -367,6 +367,152 @@ class KeepnoteHandler(HTMLParser.HTMLParser):
       return self.dom.toxml()
 
 
+class TomboyHandler(HTMLParser.HTMLParser):
+   """The Handler of the Tomboy Folder Parsing"""
+   
+   def __init__(self, folderpath):
+      """Machine boot"""
+      HTMLParser.HTMLParser.__init__(self)
+      self.folderpath = folderpath
+      self.xml_handler = machines.XMLHandler(self)
+   
+   def rich_text_serialize(self, text_data):
+      """Appends a new part to the XML rich text"""
+      dom_iter = self.dom.createElement("rich_text")
+      for tag_property in cons.TAG_PROPERTIES:
+         if self.curr_attributes[tag_property] != "":
+            dom_iter.setAttribute(tag_property, self.curr_attributes[tag_property])
+      self.nodes_list[-1].appendChild(dom_iter)
+      text_iter = self.dom.createTextNode(text_data)
+      dom_iter.appendChild(text_iter)
+   
+   def start_parsing(self):
+      """Start the Parsing"""
+      for element in reversed(os.listdir(self.folderpath)):
+         if os.path.isfile(os.path.join(self.folderpath, element)):
+            file_descriptor = open(os.path.join(self.folderpath, element), 'r')
+            xml_string = file_descriptor.read()
+            file_descriptor.close()
+            self.doc_parse(xml_string)
+   
+   def doc_parse(self, xml_string):
+      """Parse an xml file"""
+      dom = xml.dom.minidom.parseString(xml_string)
+      dom_iter = dom.firstChild
+      while dom_iter:
+         if dom_iter.nodeName == "note": break
+         dom_iter = dom_iter.nextSibling
+      child_dom_iter = dom_iter.firstChild
+      node_title = "???"
+      while child_dom_iter:
+         if child_dom_iter.nodeName == "title":
+            node_title = child_dom_iter.firstChild.data if child_dom_iter.firstChild else "???"
+         elif child_dom_iter.nodeName == "text":
+            break
+         child_dom_iter = child_dom_iter.nextSibling
+      nephew_dom_iter = child_dom_iter.firstChild
+      while nephew_dom_iter:
+         if nephew_dom_iter.nodeName == "note-content":
+            node_string = nephew_dom_iter.firstChild.data if nephew_dom_iter.firstChild else ""
+            self.node_add(node_title, node_string.decode("utf-8", "ignore"))
+            break
+         nephew_dom_iter = nephew_dom_iter.nextSibling
+   
+   def node_add(self, node_title, node_string):
+      """Add a Node"""
+      self.nodes_list.append(self.dom.createElement("node"))
+      self.nodes_list[-1].setAttribute("name", node_title)
+      self.nodes_list[-1].setAttribute("prog_lang", cons.CUSTOM_COLORS_ID)
+      self.nodes_list[-2].appendChild(self.nodes_list[-1])
+      self.curr_state = 0
+      # curr_state 0: standby, taking no data
+      # curr_state 1: waiting for node content, take many data
+      self.pixbuf_vector = []
+      self.chars_counter = 0
+      self.feed(node_string.replace(cons.CHAR_NEWLINE, "<br>"))
+      for pixbuf_element in self.pixbuf_vector:
+         self.xml_handler.pixbuf_element_to_xml(pixbuf_element, self.nodes_list[-1], self.dom)
+      self.nodes_list.pop()
+   
+   def handle_starttag(self, tag, attrs):
+      """Encountered the beginning of a tag"""
+      if tag == "b": self.curr_attributes["weight"] = "heavy"
+      elif tag == "i": self.curr_attributes["style"] = "italic"
+      elif tag == "u": self.curr_attributes["underline"] = "single"
+      elif tag == "strike": self.curr_attributes["strikethrough"] = "true"
+      elif tag == "span" and attrs[0][0] == "style":
+         match = re.match("(?<=^)(.+):(.+)(?=$)", attrs[0][1])
+         if match != None:
+            if match.group(1) == "color":
+               self.curr_attributes["foreground"] = match.group(2).strip()
+               self.latest_span = "foreground"
+            elif match.group(1) == "background-color":
+               self.curr_attributes["background"] = match.group(2).strip()
+               self.latest_span = "background"
+      elif tag == "a" and len(attrs) > 0:
+         link_url = attrs[0][1]
+         if len(link_url) > 7:
+            if link_url[0:4] == "http": self.curr_attributes["link"] = "webs %s" % link_url
+            elif link_url[0:7] == "file://": self.curr_attributes["link"] = "file %s" % base64.b64encode(link_url[7:])
+            else: self.curr_attributes["link"] = "webs %s" % ("http://" + link_url)
+      elif tag == "img" and len(attrs) > 0:
+         img_name = attrs[0][1]
+         img_path = os.path.join(self.curr_folder, img_name)
+         if os.path.isfile(img_path):
+            pixbuf = gtk.gdk.pixbuf_new_from_file(img_path)
+            self.pixbuf_vector.append([self.chars_counter, pixbuf, "left"])
+            self.chars_counter += 1
+         else: print "%s not found" % img_path
+      elif tag == "br":
+         # this is a data block composed only by an endline
+         self.rich_text_serialize("\n")
+         self.chars_counter += 1
+      elif tag == "hr":
+         # this is a data block composed only by an horizontal rule
+         self.rich_text_serialize(cons.HORIZONTAL_RULE)
+         self.chars_counter += len(cons.HORIZONTAL_RULE)
+      elif tag == "li":
+         self.rich_text_serialize("\n• ")
+         self.chars_counter += 3
+   
+   def handle_endtag(self, tag):
+      """Encountered the end of a tag"""
+      if tag == "b": self.curr_attributes["weight"] = ""
+      elif tag == "i": self.curr_attributes["style"] = ""
+      elif tag == "u": self.curr_attributes["underline"] = ""
+      elif tag == "strike": self.curr_attributes["strikethrough"] = ""
+      elif tag == "span":
+         if self.latest_span == "foreground": self.curr_attributes["foreground"] = ""
+         elif self.latest_span == "background": self.curr_attributes["background"] = ""
+      elif tag == "a": self.curr_attributes["link"] = ""
+      
+   def handle_data(self, data):
+      """Found Data"""
+      if data in ['\n', '\n\n']: return
+      data = data.replace("\n", "")
+      self.rich_text_serialize(data)
+      self.chars_counter += len(data)
+      
+   def handle_entityref(self, name):
+      """Found Entity Reference like &name;"""
+      if self.curr_state == 0: return
+      if name in htmlentitydefs.name2codepoint:
+         unicode_char = unichr(htmlentitydefs.name2codepoint[name])
+         self.rich_text_serialize(unicode_char)
+         self.chars_counter += 1
+   
+   def get_cherrytree_xml(self):
+      """Returns a CherryTree string Containing the KeepNote Nodes"""
+      self.dom = xml.dom.minidom.Document()
+      self.nodes_list = [self.dom.createElement("cherrytree")]
+      self.dom.appendChild(self.nodes_list[0])
+      self.curr_attributes = {}
+      for tag_property in cons.TAG_PROPERTIES: self.curr_attributes[tag_property] = ""
+      self.latest_span = ""
+      self.start_parsing()
+      return self.dom.toxml()
+
+
 class BasketHandler(HTMLParser.HTMLParser):
    """The Handler of the Basket Folder Parsing"""
    

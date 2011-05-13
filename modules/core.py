@@ -495,6 +495,15 @@ class CherryTree:
       cherrytree_string = keepnote.get_cherrytree_xml()
       self.nodes_add_from_string(cherrytree_string)
       
+   def nodes_add_from_tomboy_folder(self, action):
+      """Add Nodes Parsing a Tomboy Folder"""
+      folderpath = support.dialog_folder_select(curr_folder=os.path.join(os.path.expanduser('~'), ".local/share/tomboy"),
+                                                parent=self.window)
+      if folderpath == None: return
+      tomboy = imports.TomboyHandler(folderpath)
+      cherrytree_string = tomboy.get_cherrytree_xml()
+      self.nodes_add_from_string(cherrytree_string)
+      
    def nodes_add_from_basket_folder(self, action):
       """Add Nodes Parsing a Basket Folder"""
       folderpath = support.dialog_folder_select(curr_folder=os.path.join(os.path.expanduser('~'), ".kde/share/apps/basket/baskets"),
