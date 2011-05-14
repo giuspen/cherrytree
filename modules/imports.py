@@ -406,6 +406,8 @@ class TomboyHandler():
       while child_dom_iter:
          if child_dom_iter.nodeName == "title":
             node_title = child_dom_iter.firstChild.data if child_dom_iter.firstChild else "???"
+            if len(node_title) > 18 and node_title[-18:] == " Notebook Template":
+               return
          elif child_dom_iter.nodeName == "text":
             break
          child_dom_iter = child_dom_iter.nextSibling
