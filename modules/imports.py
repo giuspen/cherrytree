@@ -447,6 +447,20 @@ class TomboyHandler():
             self.curr_attributes["background"] = cons.COLOR_YELLOW
             self.node_add_iter(dom_iter.firstChild)
             self.curr_attributes["background"] = ""
+         elif dom_iter.nodeName == "size:small":
+            self.curr_attributes["scale"] = "small"
+            self.node_add_iter(dom_iter.firstChild)
+            self.curr_attributes["scale"] = ""
+         elif dom_iter.nodeName == "size:large":
+            self.curr_attributes["scale"] = "h1"
+            self.node_add_iter(dom_iter.firstChild)
+            self.curr_attributes["scale"] = ""
+         elif dom_iter.nodeName == "size:huge":
+            self.curr_attributes["scale"] = "h2"
+            self.node_add_iter(dom_iter.firstChild)
+            self.curr_attributes["scale"] = ""
+         elif dom_iter.firstChild:
+            self.node_add_iter(dom_iter.firstChild)
          dom_iter = dom_iter.nextSibling
    
    def get_cherrytree_xml(self):
