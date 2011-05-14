@@ -431,49 +431,23 @@ class TomboyHandler():
       while dom_iter:
          if dom_iter.nodeName == "#text":
             self.rich_text_serialize(dom_iter.data)
-         else: print dom_iter.nodeName
+         elif dom_iter.nodeName == "bold":
+            self.curr_attributes["weight"] = "heavy"
+            self.node_add_iter(dom_iter.firstChild)
+            self.curr_attributes["weight"] = ""
+         elif dom_iter.nodeName == "italic":
+            self.curr_attributes["style"] = "italic"
+            self.node_add_iter(dom_iter.firstChild)
+            self.curr_attributes["style"] = ""
+         elif dom_iter.nodeName == "strikethrough":
+            self.curr_attributes["strikethrough"] = "true"
+            self.node_add_iter(dom_iter.firstChild)
+            self.curr_attributes["strikethrough"] = ""
+         elif dom_iter.nodeName == "highlight":
+            self.curr_attributes["background"] = cons.COLOR_YELLOW
+            self.node_add_iter(dom_iter.firstChild)
+            self.curr_attributes["background"] = ""
          dom_iter = dom_iter.nextSibling
-   
-   def handle_starttag(self, tag, attrs):
-      """Encountered the beginning of a tag"""
-      if tag == "b": self.curr_attributes["weight"] = "heavy"
-      elif tag == "i": self.curr_attributes["style"] = "italic"
-      elif tag == "u": self.curr_attributes["underline"] = "single"
-      elif tag == "strike": self.curr_attributes["strikethrough"] = "true"
-      elif tag == "span" and attrs[0][0] == "style":
-         match = re.match("(?<=^)(.+):(.+)(?=$)", attrs[0][1])
-         if match != None:
-            if match.group(1) == "color":
-               self.curr_attributes["foreground"] = match.group(2).strip()
-               self.latest_span = "foreground"
-            elif match.group(1) == "background-color":
-               self.curr_attributes["background"] = match.group(2).strip()
-               self.latest_span = "background"
-      elif tag == "a" and len(attrs) > 0:
-         link_url = attrs[0][1]
-         if len(link_url) > 7:
-            if link_url[0:4] == "http": self.curr_attributes["link"] = "webs %s" % link_url
-            elif link_url[0:7] == "file://": self.curr_attributes["link"] = "file %s" % base64.b64encode(link_url[7:])
-            else: self.curr_attributes["link"] = "webs %s" % ("http://" + link_url)
-      elif tag == "img" and len(attrs) > 0:
-         img_name = attrs[0][1]
-         img_path = os.path.join(self.curr_folder, img_name)
-         if os.path.isfile(img_path):
-            pixbuf = gtk.gdk.pixbuf_new_from_file(img_path)
-            self.pixbuf_vector.append([self.chars_counter, pixbuf, "left"])
-            self.chars_counter += 1
-         else: print "%s not found" % img_path
-      elif tag == "br":
-         # this is a data block composed only by an endline
-         self.rich_text_serialize("\n")
-         self.chars_counter += 1
-      elif tag == "hr":
-         # this is a data block composed only by an horizontal rule
-         self.rich_text_serialize(cons.HORIZONTAL_RULE)
-         self.chars_counter += len(cons.HORIZONTAL_RULE)
-      elif tag == "li":
-         self.rich_text_serialize("\n• ")
-         self.chars_counter += 3
    
    def get_cherrytree_xml(self):
       """Returns a CherryTree string Containing the KeepNote Nodes"""

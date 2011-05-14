@@ -497,8 +497,8 @@ class CherryTree:
       
    def nodes_add_from_tomboy_folder(self, action):
       """Add Nodes Parsing a Tomboy Folder"""
-      folderpath = support.dialog_folder_select(curr_folder=os.path.join(os.path.expanduser('~'), ".local/share/tomboy"),
-                                                parent=self.window)
+      start_folder = os.path.join(os.path.expanduser('~'), ".local/share/tomboy")
+      folderpath = support.dialog_folder_select(curr_folder=start_folder, parent=self.window)
       if folderpath == None: return
       tomboy = imports.TomboyHandler(folderpath)
       cherrytree_string = tomboy.get_cherrytree_xml()
@@ -506,8 +506,8 @@ class CherryTree:
       
    def nodes_add_from_basket_folder(self, action):
       """Add Nodes Parsing a Basket Folder"""
-      folderpath = support.dialog_folder_select(curr_folder=os.path.join(os.path.expanduser('~'), ".kde/share/apps/basket/baskets"),
-                                                parent=self.window)
+      start_folder = os.path.join(os.path.expanduser('~'), ".kde/share/apps/basket/baskets")
+      folderpath = support.dialog_folder_select(curr_folder=start_folder, parent=self.window)
       if folderpath == None: return
       basket = imports.BasketHandler(folderpath)
       if basket.check_basket_structure():

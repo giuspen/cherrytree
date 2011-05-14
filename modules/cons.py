@@ -46,6 +46,7 @@ else:
       LOCALE_PATH = '/usr/share/locale/'
 AVAILABLE_LANGS = ['default', 'cs', 'de', 'en', 'es', 'fr', 'it', 'pl', 'ru', 'uk']
 SHOW_MENU_ICONS = "gconftool-2 --set /desktop/gnome/interface/menus_have_icons --type bool 1"
+COLOR_YELLOW = "#ffffffff0000"
 COLOR_WHITE = "#ffffffffffff"
 COLOR_BLACK = "#000000000000"
 BAD_CHARS = "[\x00-\x08\x0b-\x1f]"
