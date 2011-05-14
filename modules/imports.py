@@ -430,6 +430,8 @@ class TomboyHandler():
       """Recursively parse nodes"""
       while dom_iter:
          if dom_iter.nodeName == "#text":
+            if self.curr_attributes["link"] == "webs ":
+               self.curr_attributes["link"] += dom_iter.data
             self.rich_text_serialize(dom_iter.data)
          elif dom_iter.nodeName == "bold":
             self.curr_attributes["weight"] = "heavy"
@@ -459,6 +461,10 @@ class TomboyHandler():
             self.curr_attributes["scale"] = "h2"
             self.node_add_iter(dom_iter.firstChild)
             self.curr_attributes["scale"] = ""
+         elif dom_iter.nodeName == "link:url":
+            self.curr_attributes["link"] = "webs "
+            self.node_add_iter(dom_iter.firstChild)
+            self.curr_attributes["link"] = ""
          elif dom_iter.firstChild:
             self.node_add_iter(dom_iter.firstChild)
          dom_iter = dom_iter.nextSibling
