@@ -381,7 +381,7 @@ class TomboyHandler():
       for tag_property in cons.TAG_PROPERTIES:
          if self.curr_attributes[tag_property] != "":
             dom_iter.setAttribute(tag_property, self.curr_attributes[tag_property])
-      self.nodes_list[-1].appendChild(dom_iter)
+      self.dest_dom_new.appendChild(dom_iter)
       text_iter = self.dom.createTextNode(text_data)
       dom_iter.appendChild(text_iter)
    
@@ -396,6 +396,7 @@ class TomboyHandler():
    
    def doc_parse(self, xml_string):
       """Parse an xml file"""
+      dest_dom_father = self.dest_orphans_dom_node
       dom = xml.dom.minidom.parseString(xml_string)
       dom_iter = dom.firstChild
       while dom_iter:
@@ -409,24 +410,32 @@ class TomboyHandler():
             if len(node_title) > 18 and node_title[-18:] == " Notebook Template":
                return
          elif child_dom_iter.nodeName == "text":
-            break
+            text_dom_iter = child_dom_iter
+         elif child_dom_iter.nodeName == "tags":
+            tag_dom_iter = child_dom_iter.firstChild
+            while tag_dom_iter:
+               if tag_dom_iter.nodeName == "tag":
+                  if tag_dom_iter.firstChild:
+                     tag_text = tag_dom_iter.firstChild.data
+                     if len(tag_text) > 16 and tag_text[:16] == "system:notebook:":
+                        dest_dom_father = self.notebook_exist_or_create(tag_text[16:])
+               tag_dom_iter = tag_dom_iter.nextSibling
          child_dom_iter = child_dom_iter.nextSibling
-      nephew_dom_iter = child_dom_iter.firstChild
+      nephew_dom_iter = text_dom_iter.firstChild
       while nephew_dom_iter:
          if nephew_dom_iter.nodeName == "note-content":
-            self.node_add(node_title, nephew_dom_iter)
+            self.node_add(node_title, nephew_dom_iter, dest_dom_father)
             break
          nephew_dom_iter = nephew_dom_iter.nextSibling
    
-   def node_add(self, node_title, content_iter):
+   def node_add(self, node_title, content_iter, dest_dom_father):
       """Add a Node"""
-      self.nodes_list.append(self.dom.createElement("node"))
-      self.nodes_list[-1].setAttribute("name", node_title)
-      self.nodes_list[-1].setAttribute("prog_lang", cons.CUSTOM_COLORS_ID)
-      self.nodes_list[-2].appendChild(self.nodes_list[-1])
+      self.dest_dom_new = self.dom.createElement("node")
+      self.dest_dom_new.setAttribute("name", node_title)
+      self.dest_dom_new.setAttribute("prog_lang", cons.CUSTOM_COLORS_ID)
+      dest_dom_father.appendChild(self.dest_dom_new)
       for tag_property in cons.TAG_PROPERTIES: self.curr_attributes[tag_property] = ""
       self.node_add_iter(content_iter.firstChild)
-      self.nodes_list.pop()
    
    def node_add_iter(self, dom_iter):
       """Recursively parse nodes"""
@@ -471,12 +480,29 @@ class TomboyHandler():
             self.node_add_iter(dom_iter.firstChild)
          dom_iter = dom_iter.nextSibling
    
+   def notebook_exist_or_create(self, notebook_title):
+      """Check if there's already a notebook with this title"""
+      if not notebook_title in self.dest_notebooks_dom_nodes: 
+         self.dest_notebooks_dom_nodes[notebook_title] = self.dom.createElement("node")
+         self.dest_notebooks_dom_nodes[notebook_title].setAttribute("name", notebook_title)
+         self.dest_notebooks_dom_nodes[notebook_title].setAttribute("prog_lang", cons.CUSTOM_COLORS_ID)
+         self.dest_top_dom.appendChild(self.dest_notebooks_dom_nodes[notebook_title])
+      return self.dest_notebooks_dom_nodes[notebook_title]
+   
    def get_cherrytree_xml(self):
       """Returns a CherryTree string Containing the KeepNote Nodes"""
       self.dom = xml.dom.minidom.Document()
-      self.nodes_list = [self.dom.createElement("cherrytree")]
-      self.dom.appendChild(self.nodes_list[0])
+      self.dest_top_dom = self.dom.createElement("cherrytree")
+      self.dom.appendChild(self.dest_top_dom)
       self.curr_attributes = {}
+      # orphans node
+      self.dest_orphans_dom_node = self.dom.createElement("node")
+      self.dest_orphans_dom_node.setAttribute("name", "ORPHANS")
+      self.dest_orphans_dom_node.setAttribute("prog_lang", cons.CUSTOM_COLORS_ID)
+      self.dest_top_dom.appendChild(self.dest_orphans_dom_node)
+      # notebooks nodes
+      self.dest_notebooks_dom_nodes = {}
+      # start parsing
       self.start_parsing()
       return self.dom.toxml()
 
