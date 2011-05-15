@@ -441,9 +441,12 @@ class TomboyHandler():
       """Recursively parse nodes"""
       while dom_iter:
          if dom_iter.nodeName == "#text":
+            text_data = dom_iter.data
             if self.curr_attributes["link"] == "webs ":
                self.curr_attributes["link"] += dom_iter.data
-            self.rich_text_serialize(dom_iter.data)
+            elif self.is_list_item:
+               text_data = "• " + text_data
+            self.rich_text_serialize(text_data)
          elif dom_iter.nodeName == "bold":
             self.curr_attributes["weight"] = "heavy"
             self.node_add_iter(dom_iter.firstChild)
@@ -476,7 +479,12 @@ class TomboyHandler():
             self.curr_attributes["link"] = "webs "
             self.node_add_iter(dom_iter.firstChild)
             self.curr_attributes["link"] = ""
+         elif dom_iter.nodeName == "list-item":
+            self.is_list_item = True
+            self.node_add_iter(dom_iter.firstChild)
+            self.is_list_item = False
          elif dom_iter.firstChild:
+            #print dom_iter.nodeName
             self.node_add_iter(dom_iter.firstChild)
          dom_iter = dom_iter.nextSibling
    
@@ -495,6 +503,7 @@ class TomboyHandler():
       self.dest_top_dom = self.dom.createElement("cherrytree")
       self.dom.appendChild(self.dest_top_dom)
       self.curr_attributes = {}
+      self.is_list_item = False
       # orphans node
       self.dest_orphans_dom_node = self.dom.createElement("node")
       self.dest_orphans_dom_node.setAttribute("name", "ORPHANS")
