@@ -403,11 +403,11 @@ class TomboyHandler():
          if dom_iter.nodeName == "note": break
          dom_iter = dom_iter.nextSibling
       child_dom_iter = dom_iter.firstChild
-      node_title = "???"
+      self.node_title = "???"
       while child_dom_iter:
          if child_dom_iter.nodeName == "title":
-            node_title = child_dom_iter.firstChild.data if child_dom_iter.firstChild else "???"
-            if len(node_title) > 18 and node_title[-18:] == " Notebook Template":
+            self.node_title = child_dom_iter.firstChild.data if child_dom_iter.firstChild else "???"
+            if len(self.node_title) > 18 and self.node_title[-18:] == " Notebook Template":
                return
          elif child_dom_iter.nodeName == "text":
             text_dom_iter = child_dom_iter
@@ -424,17 +424,18 @@ class TomboyHandler():
       nephew_dom_iter = text_dom_iter.firstChild
       while nephew_dom_iter:
          if nephew_dom_iter.nodeName == "note-content":
-            self.node_add(node_title, nephew_dom_iter, dest_dom_father)
+            self.node_add(nephew_dom_iter, dest_dom_father)
             break
          nephew_dom_iter = nephew_dom_iter.nextSibling
    
-   def node_add(self, node_title, content_iter, dest_dom_father):
+   def node_add(self, content_iter, dest_dom_father):
       """Add a Node"""
       self.dest_dom_new = self.dom.createElement("node")
-      self.dest_dom_new.setAttribute("name", node_title)
+      self.dest_dom_new.setAttribute("name", self.node_title)
       self.dest_dom_new.setAttribute("prog_lang", cons.CUSTOM_COLORS_ID)
       dest_dom_father.appendChild(self.dest_dom_new)
       for tag_property in cons.TAG_PROPERTIES: self.curr_attributes[tag_property] = ""
+      self.chars_counter = 0
       self.node_add_iter(content_iter.firstChild)
    
    def node_add_iter(self, dom_iter):
@@ -446,7 +447,13 @@ class TomboyHandler():
                self.curr_attributes["link"] += dom_iter.data
             elif self.is_list_item:
                text_data = "• " + text_data
+            elif self.is_link_to_node:
+               self.links_to_node_list.append({'name_dest':text_data,
+                                               'node_source':self.node_title,
+                                               'char_start':self.chars_counter,
+                                               'char_end':self.chars_counter+len(text_data)})
             self.rich_text_serialize(text_data)
+            self.chars_counter += len(text_data)
          elif dom_iter.nodeName == "bold":
             self.curr_attributes["weight"] = "heavy"
             self.node_add_iter(dom_iter.firstChild)
@@ -483,6 +490,10 @@ class TomboyHandler():
             self.is_list_item = True
             self.node_add_iter(dom_iter.firstChild)
             self.is_list_item = False
+         elif dom_iter.nodeName == "link:internal":
+            self.is_link_to_node = True
+            self.node_add_iter(dom_iter.firstChild)
+            self.is_link_to_node = False
          elif dom_iter.firstChild:
             #print dom_iter.nodeName
             self.node_add_iter(dom_iter.firstChild)
@@ -504,6 +515,8 @@ class TomboyHandler():
       self.dom.appendChild(self.dest_top_dom)
       self.curr_attributes = {}
       self.is_list_item = False
+      self.is_link_to_node = False
+      self.links_to_node_list = []
       # orphans node
       self.dest_orphans_dom_node = self.dom.createElement("node")
       self.dest_orphans_dom_node.setAttribute("name", "ORPHANS")
@@ -514,6 +527,25 @@ class TomboyHandler():
       # start parsing
       self.start_parsing()
       return self.dom.toxml()
+   
+   def set_links_to_nodes(self, dad):
+      """After the node import, set the links to nodes on the new tree"""
+      for link_to_node in self.links_to_node_list:
+         node_dest = dad.get_tree_iter_from_node_name(link_to_node['name_dest'])
+         node_source = dad.get_tree_iter_from_node_name(link_to_node['node_source'])
+         if not node_dest:
+            #print "node_dest not found"
+            continue
+         if not node_source:
+            #print "node_source not found"
+            continue
+         source_buffer = dad.treestore[node_source][2]
+         if source_buffer.get_char_count() < link_to_node['char_end']:
+            continue
+         property_value = "node" + cons.CHAR_SPACE + str(dad.treestore[node_dest][3])
+         source_buffer.apply_tag_by_name(dad.apply_tag_exist_or_create("link", property_value),
+                                         source_buffer.get_iter_at_offset(link_to_node['char_start']),
+                                         source_buffer.get_iter_at_offset(link_to_node['char_end']))
 
 
 class BasketHandler(HTMLParser.HTMLParser):

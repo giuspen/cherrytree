@@ -503,6 +503,7 @@ class CherryTree:
       tomboy = imports.TomboyHandler(folderpath)
       cherrytree_string = tomboy.get_cherrytree_xml()
       self.nodes_add_from_string(cherrytree_string)
+      tomboy.set_links_to_nodes(self)
       
    def nodes_add_from_basket_folder(self, action):
       """Add Nodes Parsing a Basket Folder"""
@@ -1436,6 +1437,26 @@ class CherryTree:
       while tree_iter != None:
          if self.treestore[tree_iter][3] == node_id: return tree_iter
          child_tree_iter = self.get_tree_iter_from_node_id_children(tree_iter, node_id)
+         if child_tree_iter != None: return child_tree_iter
+         tree_iter = self.treestore.iter_next(tree_iter)
+      return None
+         
+   def get_tree_iter_from_node_name(self, node_name):
+      """Given a Node Id, Returns the TreeIter or None"""
+      tree_iter = self.treestore.get_iter_first()
+      while tree_iter != None:
+         if self.treestore[tree_iter][1] == node_name: return tree_iter
+         child_tree_iter = self.get_tree_iter_from_node_name_children(tree_iter, node_name)
+         if child_tree_iter != None: return child_tree_iter
+         tree_iter = self.treestore.iter_next(tree_iter)
+      return None
+   
+   def get_tree_iter_from_node_name_children(self, father_iter, node_name):
+      """Iterative function searching for Node Id between Children"""
+      tree_iter = self.treestore.iter_children(father_iter)
+      while tree_iter != None:
+         if self.treestore[tree_iter][1] == node_name: return tree_iter
+         child_tree_iter = self.get_tree_iter_from_node_name_children(tree_iter, node_name)
          if child_tree_iter != None: return child_tree_iter
          tree_iter = self.treestore.iter_next(tree_iter)
       return None
