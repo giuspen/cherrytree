@@ -944,7 +944,6 @@ class CherryTree:
                                           flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
                                           buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
                                           gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
-      edit_protection_dialog.set_transient_for(self.window)
       edit_protection_dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
       radiobutton_unprotected = gtk.RadioButton(label=_("Not Protected"))
       radiobutton_protected = gtk.RadioButton(label=_("Password Protected"))
@@ -1170,26 +1169,29 @@ class CherryTree:
          file_descriptor.write(plain_text)
          file_descriptor.close()
       
-   def node_export_to_html(self, *args):
-      """Export the Selected Node To HTML"""
+   def export_to_html(self, *args):
+      """Export to HTML"""
       if self.curr_tree_iter == None:
          support.dialog_warning(_("No Node is Selected!"), self.window)
          return
-      folder_name = self.treestore[self.curr_tree_iter][1]
-      father_iter = self.treestore.iter_parent(self.curr_tree_iter)
-      while father_iter:
-         folder_name = self.treestore[father_iter][1] + "--" + folder_name
-         father_iter = self.treestore.iter_parent(father_iter)
-      if self.html_handler.prepare_html_folder(folder_name.replace("/", "-")):
-         self.html_handler.node_export_to_html(self.curr_tree_iter)
-   
-   def nodes_all_export_to_html(self, *args):
-      """Export All Nodes To HTML"""
-      if self.tree_is_empty():
-         support.dialog_warning(_("The Tree is Empty!"), self.window)
-         return
-      if self.html_handler.prepare_html_folder(self.file_name):
-         self.html_handler.nodes_all_export_to_html()
+      export_type = support.dialog_selnode_selnodeandsub_alltree(self.window)
+      if export_type == 0: return
+      if export_type == 1:
+         # only selected node
+         folder_name = self.treestore[self.curr_tree_iter][1]
+         father_iter = self.treestore.iter_parent(self.curr_tree_iter)
+         while father_iter:
+            folder_name = self.treestore[father_iter][1] + "--" + folder_name
+            father_iter = self.treestore.iter_parent(father_iter)
+         if self.html_handler.prepare_html_folder(folder_name.replace("/", "-")):
+            self.html_handler.node_export_to_html(self.curr_tree_iter)
+      elif export_type == 2:
+         # selected node and subnodes
+         print "TODO"
+      else:
+         # all nodes
+         if self.html_handler.prepare_html_folder(self.file_name):
+            self.html_handler.nodes_all_export_to_html()
       
    def node_print_page_setup(self, action):
       """Print Page Setup Operations"""

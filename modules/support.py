@@ -170,6 +170,32 @@ def dialog_error(message, parent=None):
    dialog.run()
    dialog.destroy()
 
+def dialog_selnode_selnodeandsub_alltree(father_win):
+   """Dialog to select between the Selected Node/Selected Node + Subnodes/All Tree"""
+   dialog = gtk.Dialog(title=_("Involved Nodes"),
+                               parent=father_win,
+                               flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
+                               buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
+                               gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
+   dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+   radiobutton_selnode = gtk.RadioButton(label=_("Selected Node Only"))
+   radiobutton_selnodeandsub = gtk.RadioButton(label=_("Selected Node and Subnodes"))
+   radiobutton_alltree = gtk.RadioButton(label=_("All the Tree"))
+   radiobutton_selnodeandsub.set_group(radiobutton_selnode)
+   radiobutton_alltree.set_group(radiobutton_selnode)
+   content_area = dialog.get_content_area()
+   content_area.pack_start(radiobutton_selnode)
+   content_area.pack_start(radiobutton_selnodeandsub)
+   content_area.pack_start(radiobutton_alltree)
+   content_area.show_all()
+   response = dialog.run()
+   if radiobutton_selnode.get_active(): ret_val = 1
+   elif radiobutton_selnodeandsub.get_active(): ret_val = 2
+   else: ret_val = 3
+   dialog.destroy()
+   if response != gtk.RESPONSE_ACCEPT: ret_val = 0
+   return ret_val
+
 def set_bookmarks_menu_items(inst):
    """Set Bookmarks Menu Items"""
    bookmarks_menu = inst.ui.get_widget("/MenuBar/BookmarksMenu").get_submenu()

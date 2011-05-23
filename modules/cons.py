@@ -263,8 +263,7 @@ UI_INFO = """
       <menu action='ExportMenu'>
          <menuitem action='NodePrint'/>
          <menuitem action='SelNode2Txt'/>
-         <menuitem action='SelNode2HTML'/>
-         <menuitem action='AllNodes2HTML'/>
+         <menuitem action='Export2HTML'/>
          <menuitem action='SelNode2CTD'/>
       </menu>
       
@@ -380,8 +379,7 @@ def get_entries(inst):
    ( "CTDProtection", "gtk-dialog-authentication", _("Set _Document Protection"), None, _("Set Protection of the Current Document"), inst.dialog_edit_protection),
    ( "Save", "gtk-save", _("_Save"), "<control>S", _("Save File"), inst.file_save),
    ( "SaveAs", "gtk-save-as", _("Save _As"), "<control><shift>S", _("Save File As"), inst.file_save_as),
-   ( "AllNodes2HTML", "To HTML", _("Export _Tree To HTML"), None, _("Export the Tree To HTML"), inst.nodes_all_export_to_html),
-   ( "SelNode2HTML", "To HTML", _("Export Node To _HTML"), None, _("Export the Selected Node To HTML"), inst.node_export_to_html),
+   ( "Export2HTML", "To HTML", _("Export To _HTML"), None, _("Export To HTML"), inst.export_to_html),
    ( "SelNode2Txt", "To Txt", _("Save Node as Plain _Text"), None, _("Save the Selected Node as Plain Text"), inst.node_export_to_plain_text),
    ( "SelNode2CTD", "CherryTree Export", _("_Export Node and Subnodes"), None, _("Export the Selected Node and its Subnodes"), inst.node_and_subnodes_export),
    ( "PageSetup", "gtk-print", _("Pa_ge Setup"), "<control><shift>P", _("Set up the Page for Printing"), inst.node_print_page_setup),
@@ -520,8 +518,7 @@ def get_popup_menu_tree(inst):
    ("submenu-start", _("Nodes E_xport"), "CherryTree Export", None, None),
    ("gtk-print", _("Node _Print / Save as PDF, PS, SVG"), "<control>P", _("Print the Current Node / Save the Current Node as PDF, PS, SVG"), inst.node_print),
    ("To Txt", _("Save Node as Plain _Text"), None, _("Save the Selected Node as Plain Text"), inst.node_export_to_plain_text),
-   ("To HTML", _("Export Node To _HTML"), None, _("Export the Selected Node To HTML"), inst.node_export_to_html),
-   ("To HTML", _("Export _Tree To HTML"), None, _("Export the Tree To HTML"), inst.nodes_all_export_to_html),
+   ("To HTML", _("Export To _HTML"), None, _("Export To HTML"), inst.export_to_html),
    ("CherryTree Export", _("_Export Node and Subnodes"), None, _("Export the Selected Node and its Subnodes"), inst.node_and_subnodes_export),
    ("submenu-end", None, None, None, None),
    ("separator", None, None, None, None),
