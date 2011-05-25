@@ -1151,7 +1151,7 @@ class CherryTree:
          self.file_write_node_and_subnodes(filepath)
       
    def export_to_txt(self, *args):
-      """Export the To Plain Text"""
+      """Export To Plain Text"""
       if self.curr_tree_iter == None:
          support.dialog_warning(_("No Node is Selected!"), self.window)
          return
@@ -1161,17 +1161,18 @@ class CherryTree:
       if export_type == 1:
          # only selected node
          proposed_name = support.get_node_hierarchical_name(self, self.curr_tree_iter)
-         txt_handler.node_export_to_txt(self.curr_buffer, proposed_name)
+         txt_filepath = txt_handler.get_single_txt_filepath(proposed_name)
+         if txt_filepath:
+            txt_handler.node_export_to_txt(self.curr_buffer, txt_filepath)
       elif export_type == 2:
-         print "TODO"
          # selected node and subnodes
-         #if self.html_handler.prepare_html_folder(self.treestore[self.curr_tree_iter][1]):
-            #self.html_handler.nodes_all_export_to_html(self.curr_tree_iter)
+         folder_name = support.get_node_hierarchical_name(self, self.curr_tree_iter)
+         if txt_handler.prepare_txt_folder(folder_name):
+            txt_handler.nodes_all_export_to_txt(self.curr_tree_iter)
       else:
-         print "TODO"
          # all nodes
-         #if self.html_handler.prepare_html_folder(self.file_name):
-            #self.html_handler.nodes_all_export_to_html()
+         if txt_handler.prepare_txt_folder(self.file_name):
+            txt_handler.nodes_all_export_to_txt()
       
    def export_to_html(self, *args):
       """Export to HTML"""
@@ -1187,7 +1188,8 @@ class CherryTree:
             self.html_handler.node_export_to_html(self.curr_tree_iter)
       elif export_type == 2:
          # selected node and subnodes
-         if self.html_handler.prepare_html_folder(self.treestore[self.curr_tree_iter][1]):
+         folder_name = support.get_node_hierarchical_name(self, self.curr_tree_iter)
+         if self.html_handler.prepare_html_folder(folder_name):
             self.html_handler.nodes_all_export_to_html(self.curr_tree_iter)
       else:
          # all nodes
