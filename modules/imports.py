@@ -765,26 +765,27 @@ class BasketHandler(HTMLParser.HTMLParser):
       return self.dom.toxml()
 
 
-class KnowitHandler:
+class KnowitHandler(HTMLParser.HTMLParser):
    """The Handler of the Knowit File Parsing"""
    
    def __init__(self):
       """Machine boot"""
+      HTMLParser.HTMLParser.__init__(self)
       self.xml_handler = machines.XMLHandler(self)
       
    def rich_text_serialize(self, text_data):
       """Appends a new part to the XML rich text"""
       dom_iter = self.dom.createElement("rich_text")
-      #for tag_property in cons.TAG_PROPERTIES:
-      #   if self.curr_attributes[tag_property] != "":
-      #      dom_iter.setAttribute(tag_property, self.curr_attributes[tag_property])
+      for tag_property in cons.TAG_PROPERTIES:
+         if self.curr_attributes[tag_property] != "":
+            dom_iter.setAttribute(tag_property, self.curr_attributes[tag_property])
       self.nodes_list[-1].appendChild(dom_iter)
       text_iter = self.dom.createTextNode(text_data)
       dom_iter.appendChild(text_iter)
       
    def parse_string_lines(self, file_descriptor):
       """Parse the string line by line"""
-      self.curr_state = 0
+      self.curr_xml_state = 0
       self.curr_node_name = ""
       self.curr_node_content = ""
       self.curr_node_level = 0
@@ -793,9 +794,8 @@ class KnowitHandler:
       # 1: gathering node content
       for text_line in file_descriptor:
          text_line = text_line.decode("utf-8", "ignore")
-         if self.curr_state == 0:
+         if self.curr_xml_state == 0:
             if len(text_line) > 10 and text_line[:10] == "\NewEntry ":
-               self.curr_state = 1
                match = re.match("(\d+) (.*)$", text_line[10:-1])
                self.curr_node_level = int(match.group(1))
                self.curr_node_name = match.group(2)
@@ -806,23 +806,70 @@ class KnowitHandler:
                   self.nodes_list.pop()
                self.former_node_level = self.curr_node_level
                self.curr_node_content = ""
-               self.curr_state = 1
+               self.curr_xml_state = 1
                self.nodes_list.append(self.dom.createElement("node"))
                self.nodes_list[-1].setAttribute("name", self.curr_node_name)
                self.nodes_list[-1].setAttribute("prog_lang", cons.CUSTOM_COLORS_ID)
                self.nodes_list[-2].appendChild(self.nodes_list[-1])
             else: self.curr_node_name += text_line.replace(cons.CHAR_CR, "").replace(cons.CHAR_NEWLINE, "") + cons.CHAR_SPACE
-         elif self.curr_state == 1:
+         elif self.curr_xml_state == 1:
             if len(text_line) > 14 and text_line[:14] == "</body></html>":
-               self.curr_state = 0
-               self.rich_text_serialize(self.curr_node_content)
+               self.curr_xml_state = 0
+               self.curr_html_state = 0
+               self.feed(self.curr_node_content.decode("utf-8", "ignore"))
             else: self.curr_node_content += text_line
+      
+   def handle_starttag(self, tag, attrs):
+      """Encountered the beginning of a tag"""
+      if self.curr_html_state == 0:
+         if tag == "body": self.curr_html_state = 1
+      else: # self.curr_html_state == 1
+         if tag == "span" and attrs[0][0] == "style":
+            if "font-weight" in attrs[0][1]: self.curr_attributes["weight"] = "heavy"
+            elif "font-style" in attrs[0][1] and "italic" in attrs[0][1]: self.curr_attributes["style"] = "italic"
+            elif "text-decoration" in attrs[0][1] and "underline" in attrs[0][1]: self.curr_attributes["underline"] = "single"
+            elif "color" in attrs[0][1]:
+               match = re.match("(?<=^).+:(.+)(?=$)", attrs[0][1])
+               if match != None: self.curr_attributes["foreground"] = match.group(1).strip()
+         elif tag == "br":
+            # this is a data block composed only by an endline
+            self.rich_text_serialize("\n")
+         elif tag == "li":
+            self.rich_text_serialize("\n• ")
+   
+   def handle_endtag(self, tag):
+      """Encountered the end of a tag"""
+      if self.curr_html_state == 0: return
+      if tag == "p":
+         # this is a data block composed only by an endline
+         self.rich_text_serialize("\n")
+      elif tag == "span":
+         self.curr_attributes["weight"] = ""
+         self.curr_attributes["style"] = ""
+         self.curr_attributes["underline"] = ""
+         self.curr_attributes["foreground"] = ""
+      
+   def handle_data(self, data):
+      """Found Data"""
+      if self.curr_html_state == 0 or data in ['\n', '\n\n']: return
+      data = data.replace("\n", "")
+      self.rich_text_serialize(data)
+      
+   def handle_entityref(self, name):
+      """Found Entity Reference like &name;"""
+      if self.curr_html_state == 0: return
+      if name in htmlentitydefs.name2codepoint:
+         unicode_char = unichr(htmlentitydefs.name2codepoint[name])
+         self.rich_text_serialize(unicode_char)
       
    def get_cherrytree_xml(self, file_descriptor):
       """Returns a CherryTree string Containing the Knowit Nodes"""
       self.dom = xml.dom.minidom.Document()
       self.nodes_list = [self.dom.createElement("cherrytree")]
       self.dom.appendChild(self.nodes_list[0])
+      self.curr_attributes = {}
+      for tag_property in cons.TAG_PROPERTIES: self.curr_attributes[tag_property] = ""
+      self.latest_span = ""
       self.parse_string_lines(file_descriptor)
       return self.dom.toxml()
 
