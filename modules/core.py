@@ -532,6 +532,23 @@ class CherryTree:
          return
       self.nodes_add_from_string(cherrytree_string)
       
+   def nodes_add_from_knowit_file(self, action):
+      """Add Nodes Parsing a Knowit File"""
+      filepath = support.dialog_file_select(filter_pattern="*.kno",
+                                            filter_name=_("Knowit Document"),
+                                            curr_folder=self.file_dir,
+                                            parent=self.window)
+      if filepath == None: return
+      try:
+         file_descriptor = open(filepath, 'r')
+         knowit = imports.KnowitHandler()
+         cherrytree_string = knowit.get_cherrytree_xml(file_descriptor)
+         file_descriptor.close()
+      except:
+         support.dialog_error("Error opening the file %s" % filepath, self.window)
+         return
+      self.nodes_add_from_string(cherrytree_string)
+      
    def nodes_add_from_leo_file(self, action):
       """Add Nodes Parsing a Leo File"""
       filepath = support.dialog_file_select(filter_pattern="*.leo",

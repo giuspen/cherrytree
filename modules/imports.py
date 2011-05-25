@@ -83,7 +83,7 @@ class LeoHandler:
       self.nodes_list.pop()
       
    def get_cherrytree_xml(self, leo_string):
-      """Parses the Given Notecase HTML String feeding the CherryTree XML dom"""
+      """Returns a CherryTree string Containing the Leo Nodes"""
       self.dom = xml.dom.minidom.Document()
       self.nodes_list = [self.dom.createElement("cherrytree")]
       self.dom.appendChild(self.nodes_list[0])
@@ -509,7 +509,7 @@ class TomboyHandler():
       return self.dest_notebooks_dom_nodes[notebook_title]
    
    def get_cherrytree_xml(self):
-      """Returns a CherryTree string Containing the KeepNote Nodes"""
+      """Returns a CherryTree string Containing the Tomboy Nodes"""
       self.dom = xml.dom.minidom.Document()
       self.dest_top_dom = self.dom.createElement("cherrytree")
       self.dom.appendChild(self.dest_top_dom)
@@ -754,7 +754,7 @@ class BasketHandler(HTMLParser.HTMLParser):
          self.chars_counter += 1
    
    def get_cherrytree_xml(self):
-      """Returns a CherryTree string Containing the KeepNote Nodes"""
+      """Returns a CherryTree string Containing the Basket Nodes"""
       self.dom = xml.dom.minidom.Document()
       self.nodes_list = [self.dom.createElement("cherrytree")]
       self.dom.appendChild(self.nodes_list[0])
@@ -762,6 +762,68 @@ class BasketHandler(HTMLParser.HTMLParser):
       for tag_property in cons.TAG_PROPERTIES: self.curr_attributes[tag_property] = ""
       self.latest_span = ""
       self.start_parsing()
+      return self.dom.toxml()
+
+
+class KnowitHandler:
+   """The Handler of the Knowit File Parsing"""
+   
+   def __init__(self):
+      """Machine boot"""
+      self.xml_handler = machines.XMLHandler(self)
+      
+   def rich_text_serialize(self, text_data):
+      """Appends a new part to the XML rich text"""
+      dom_iter = self.dom.createElement("rich_text")
+      #for tag_property in cons.TAG_PROPERTIES:
+      #   if self.curr_attributes[tag_property] != "":
+      #      dom_iter.setAttribute(tag_property, self.curr_attributes[tag_property])
+      self.nodes_list[-1].appendChild(dom_iter)
+      text_iter = self.dom.createTextNode(text_data)
+      dom_iter.appendChild(text_iter)
+      
+   def parse_string_lines(self, file_descriptor):
+      """Parse the string line by line"""
+      self.curr_state = 0
+      self.curr_node_name = ""
+      self.curr_node_content = ""
+      self.curr_node_level = 0
+      self.former_node_level = -1
+      # 0: waiting for \NewEntry
+      # 1: gathering node content
+      for text_line in file_descriptor:
+         text_line = text_line.decode("utf-8", "ignore")
+         if self.curr_state == 0:
+            if len(text_line) > 10 and text_line[:10] == "\NewEntry ":
+               self.curr_state = 1
+               match = re.match("(\d+) (.*)$", text_line[10:-1])
+               self.curr_node_level = int(match.group(1))
+               self.curr_node_name = match.group(2)
+               #print "node name = '%s', node level = %s" % (self.curr_node_name, self.curr_node_level)
+               if self.curr_node_level <= self.former_node_level:
+                  for count in range(self.former_node_level - self.curr_node_level):
+                     self.nodes_list.pop()
+                  self.nodes_list.pop()
+               self.former_node_level = self.curr_node_level
+               self.curr_node_content = ""
+               self.curr_state = 1
+               self.nodes_list.append(self.dom.createElement("node"))
+               self.nodes_list[-1].setAttribute("name", self.curr_node_name)
+               self.nodes_list[-1].setAttribute("prog_lang", cons.CUSTOM_COLORS_ID)
+               self.nodes_list[-2].appendChild(self.nodes_list[-1])
+            else: self.curr_node_name += text_line.replace(cons.CHAR_CR, "").replace(cons.CHAR_NEWLINE, "") + cons.CHAR_SPACE
+         elif self.curr_state == 1:
+            if len(text_line) > 14 and text_line[:14] == "</body></html>":
+               self.curr_state = 0
+               self.rich_text_serialize(self.curr_node_content)
+            else: self.curr_node_content += text_line
+      
+   def get_cherrytree_xml(self, file_descriptor):
+      """Returns a CherryTree string Containing the Knowit Nodes"""
+      self.dom = xml.dom.minidom.Document()
+      self.nodes_list = [self.dom.createElement("cherrytree")]
+      self.dom.appendChild(self.nodes_list[0])
+      self.parse_string_lines(file_descriptor)
       return self.dom.toxml()
 
 
@@ -825,7 +887,7 @@ class TreepadHandler:
             else: self.curr_node_content += text_line.replace(cons.CHAR_CR, "").replace(cons.CHAR_NEWLINE, "") + cons.CHAR_NEWLINE
       
    def get_cherrytree_xml(self, file_descriptor):
-      """Parses the Given Notecase HTML String feeding the CherryTree XML dom"""
+      """Returns a CherryTree string Containing the Treepad Nodes"""
       self.dom = xml.dom.minidom.Document()
       self.nodes_list = [self.dom.createElement("cherrytree")]
       self.dom.appendChild(self.nodes_list[0])

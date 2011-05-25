@@ -253,6 +253,7 @@ UI_INFO = """
          <menuitem action='FromBasket'/>
          <menuitem action='FromCherryTree'/>
          <menuitem action='FromKeepNote'/>
+         <menuitem action='FromKnowit'/>
          <menuitem action='FromLeo'/>
          <menuitem action='FromNoteCase'/>
          <menuitem action='FromTomboy'/>
@@ -450,6 +451,7 @@ def get_entries(inst):
    ( "FromCherryTree", "CherryTree Import", _("From _CherryTree File"), None, _("Add Nodes of a CherryTree File to the Current Tree"), inst.nodes_add_from_cherrytree_file),
    ( "FromNoteCase", "CherryTree Import", _("From _NoteCase File"), None, _("Add Nodes of a NoteCase File to the Current Tree"), inst.nodes_add_from_notecase_file),
    ( "FromKeepNote", "CherryTree Import", _("From _KeepNote Folder"), None, _("Add Nodes of a KeepNote Folder to the Current Tree"), inst.nodes_add_from_keepnote_folder),
+   ( "FromKnowit", "CherryTree Import", _("From K_nowit File"), None, _("Add Nodes of a Knowit File to the Current Tree"), inst.nodes_add_from_knowit_file),
    ( "FromTomboy", "CherryTree Import", _("From T_omboy Folder"), None, _("Add Nodes of a Tomboy Folder to the Current Tree"), inst.nodes_add_from_tomboy_folder),
    ( "FromTuxCards", "CherryTree Import", _("From _TuxCards File"), None, _("Add Nodes of a TuxCards File to the Current Tree"), inst.nodes_add_from_tuxcards_file),
    ( "FromTreepad", "CherryTree Import", _("From T_reepad Lite File"), None, _("Add Nodes of a Treepad Lite File to the Current Tree"), inst.nodes_add_from_treepad_file),
@@ -509,6 +511,7 @@ def get_popup_menu_tree(inst):
    ("CherryTree Import", _("From _Basket Folder"), None, _("Add Nodes of a Basket Folder to the Current Tree"), inst.nodes_add_from_basket_folder),
    ("CherryTree Import", _("From _CherryTree File"), None, _("Add Nodes of a CherryTree File to the Current Tree"), inst.nodes_add_from_cherrytree_file),
    ("CherryTree Import", _("From _KeepNote Folder"), None, _("Add Nodes of a KeepNote Folder to the Current Tree"), inst.nodes_add_from_keepnote_folder),
+   ("CherryTree Import", _("From K_nowit File"), None, _("Add Nodes of a Knowit File to the Current Tree"), inst.nodes_add_from_knowit_file),
    ("CherryTree Import", _("From _Leo File"), None, _("Add Nodes of a Leo File to the Current Tree"), inst.nodes_add_from_leo_file),
    ("CherryTree Import", _("From _NoteCase File"), None, _("Add Nodes of a NoteCase File to the Current Tree"), inst.nodes_add_from_notecase_file),
    ("CherryTree Import", _("From T_omboy Folder"), None, _("Add Nodes of a Tomboy Folder to the Current Tree"), inst.nodes_add_from_tomboy_folder),
