@@ -149,25 +149,29 @@ class Export2Html:
       os.mkdir(self.images_dir)
       return True
    
-   def nodes_all_export_to_html(self):
+   def nodes_all_export_to_html(self, top_tree_iter=None):
       """Export All Nodes To HTML"""
       # create tree links text
       self.tree_links_nums = ["1"]
       for image_stock_id in cons.NODES_STOCKS:
          shutil.copy(cons.GLADE_PATH + cons.STOCKS_N_FILES[image_stock_id], self.images_dir)
       self.tree_links_text = '<table style="text-align:left">'
-      tree_iter = self.dad.treestore.get_iter_first()
+      if not top_tree_iter: tree_iter = self.dad.treestore.get_iter_first()
+      else: tree_iter = top_tree_iter.copy()
       while tree_iter:
          self.tree_links_text_iter(tree_iter)
          self.tree_links_nums[-1] = str( int(self.tree_links_nums[-1]) + 1 )
+         if top_tree_iter: break
          tree_iter = self.dad.treestore.iter_next(tree_iter)
       self.tree_links_text += '</table>'
       # create index html page
       self.create_tree_index_page()
       # create html pages
-      tree_iter = self.dad.treestore.get_iter_first()
+      if not top_tree_iter: tree_iter = self.dad.treestore.get_iter_first()
+      else: tree_iter = top_tree_iter.copy()
       while tree_iter:
          self.nodes_all_export_to_html_iter(tree_iter)
+         if top_tree_iter: break
          tree_iter = self.dad.treestore.iter_next(tree_iter)
       self.tree_links_text = ""
    

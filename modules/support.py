@@ -23,6 +23,15 @@ import gtk, os
 import cons
 
 
+def get_node_hierarchical_name(dad, tree_iter):
+   """Get the Node Hierarchical Name"""
+   hierarchical_name = dad.treestore[tree_iter][1]
+   father_iter = dad.treestore.iter_parent(tree_iter)
+   while father_iter:
+      hierarchical_name = dad.treestore[father_iter][1] + "--" + hierarchical_name
+      father_iter = dad.treestore.iter_parent(father_iter)
+   return hierarchical_name.replace("/", "-")
+
 def windows_cmd_prepare_path(filepath):
    """Prepares a Path to be digested by windows command line"""
    if not cons.CHAR_DQUOTE in filepath: return cons.CHAR_DQUOTE + filepath + cons.CHAR_DQUOTE

@@ -1178,16 +1178,13 @@ class CherryTree:
       if export_type == 0: return
       if export_type == 1:
          # only selected node
-         folder_name = self.treestore[self.curr_tree_iter][1]
-         father_iter = self.treestore.iter_parent(self.curr_tree_iter)
-         while father_iter:
-            folder_name = self.treestore[father_iter][1] + "--" + folder_name
-            father_iter = self.treestore.iter_parent(father_iter)
-         if self.html_handler.prepare_html_folder(folder_name.replace("/", "-")):
+         folder_name = support.get_node_hierarchical_name(self, self.curr_tree_iter)
+         if self.html_handler.prepare_html_folder(folder_name):
             self.html_handler.node_export_to_html(self.curr_tree_iter)
       elif export_type == 2:
          # selected node and subnodes
-         print "TODO"
+         if self.html_handler.prepare_html_folder(self.treestore[self.curr_tree_iter][1]):
+            self.html_handler.nodes_all_export_to_html(self.curr_tree_iter)
       else:
          # all nodes
          if self.html_handler.prepare_html_folder(self.file_name):
