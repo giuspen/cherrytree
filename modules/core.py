@@ -1150,24 +1150,28 @@ class CherryTree:
          filepath = self.filepath_extension_fix(filepath)
          self.file_write_node_and_subnodes(filepath)
       
-   def node_export_to_plain_text(self, *args):
-      """Export the Selected Node To Plain Text"""
+   def export_to_txt(self, *args):
+      """Export the To Plain Text"""
       if self.curr_tree_iter == None:
          support.dialog_warning(_("No Node is Selected!"), self.window)
          return
-      filepath = support.dialog_file_save_as(self.treestore[self.curr_tree_iter][1] + ".txt",
-                                             filter_pattern="*.txt",
-                                             filter_name=_("Plain Text Document"),
-                                             curr_folder=self.file_dir,
-                                             parent=self.window)
-      if filepath == None: return
-      if not os.path.isfile(filepath)\
-      or support.dialog_question(_("The File %s\nAlready Exists, do you want to Overwrite?") % filepath, self.window):
-         if len(filepath) < 4 or filepath[-4:] != ".txt": filepath += ".txt"
-         plain_text = self.curr_buffer.get_text(*self.curr_buffer.get_bounds())
-         file_descriptor = open(filepath, 'w')
-         file_descriptor.write(plain_text)
-         file_descriptor.close()
+      export_type = support.dialog_selnode_selnodeandsub_alltree(self.window)
+      if export_type == 0: return
+      txt_handler = exports.Export2Txt(self)
+      if export_type == 1:
+         # only selected node
+         proposed_name = support.get_node_hierarchical_name(self, self.curr_tree_iter)
+         txt_handler.node_export_to_txt(self.curr_buffer, proposed_name)
+      elif export_type == 2:
+         print "TODO"
+         # selected node and subnodes
+         #if self.html_handler.prepare_html_folder(self.treestore[self.curr_tree_iter][1]):
+            #self.html_handler.nodes_all_export_to_html(self.curr_tree_iter)
+      else:
+         print "TODO"
+         # all nodes
+         #if self.html_handler.prepare_html_folder(self.file_name):
+            #self.html_handler.nodes_all_export_to_html()
       
    def export_to_html(self, *args):
       """Export to HTML"""

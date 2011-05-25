@@ -23,6 +23,76 @@ import os, cgi, base64, shutil, copy
 import cons, support
 
 
+class Export2Txt:
+   """The Export to Txt Class"""
+   
+   def __init__(self, dad):
+      """Export to Txt boot"""
+      self.dad = dad
+   
+   def prepare_txt_folder(self, new_folder):
+      """Prepare the website folder"""
+      dir_place = support.dialog_folder_select(curr_folder=self.dad.file_dir, parent=self.dad.window)
+      if dir_place == None: return False
+      while os.path.exists(os.path.join(dir_place, new_folder)):
+         new_folder += "2"
+      self.new_path = os.path.join(dir_place, new_folder)
+      self.images_dir = os.path.join(self.new_path, "images")
+      os.mkdir(self.new_path)
+      os.mkdir(self.images_dir)
+      return True
+   
+   def nodes_all_export_to_txt(self, top_tree_iter=None):
+      """Export All Nodes To Txt"""
+      # create tree links text
+      self.tree_links_nums = ["1"]
+      for image_stock_id in cons.NODES_STOCKS:
+         shutil.copy(cons.GLADE_PATH + cons.STOCKS_N_FILES[image_stock_id], self.images_dir)
+      self.tree_links_text = '<table style="text-align:left">'
+      if not top_tree_iter: tree_iter = self.dad.treestore.get_iter_first()
+      else: tree_iter = top_tree_iter.copy()
+      while tree_iter:
+         self.tree_links_text_iter(tree_iter)
+         self.tree_links_nums[-1] = str( int(self.tree_links_nums[-1]) + 1 )
+         if top_tree_iter: break
+         tree_iter = self.dad.treestore.iter_next(tree_iter)
+      self.tree_links_text += '</table>'
+      # create index html page
+      self.create_tree_index_page()
+      # create html pages
+      if not top_tree_iter: tree_iter = self.dad.treestore.get_iter_first()
+      else: tree_iter = top_tree_iter.copy()
+      while tree_iter:
+         self.nodes_all_export_to_html_iter(tree_iter)
+         if top_tree_iter: break
+         tree_iter = self.dad.treestore.iter_next(tree_iter)
+      self.tree_links_text = ""
+   
+   def nodes_all_export_to_txt_iter(self, tree_iter):
+      """Export All Nodes To Txt - iter"""
+      self.node_export_to_html(tree_iter)
+      child_tree_iter = self.dad.treestore.iter_children(tree_iter)
+      while child_tree_iter:
+         self.nodes_all_export_to_html_iter(child_tree_iter)
+         child_tree_iter = self.dad.treestore.iter_next(child_tree_iter)
+   
+   def node_export_to_txt(self, text_buffer, proposed_name):
+      """Export the Selected Node To Txt"""
+      filepath = support.dialog_file_save_as(proposed_name + ".txt",
+                                             filter_pattern="*.txt",
+                                             filter_name=_("Plain Text Document"),
+                                             curr_folder=self.dad.file_dir,
+                                             parent=self.dad.window)
+      if filepath == None: return
+      if not os.path.isfile(filepath)\
+      or support.dialog_question(_("The File %s\nAlready Exists, do you want to Overwrite?") % filepath, self.dad.window):
+         if len(filepath) < 4 or filepath[-4:] != ".txt": filepath += ".txt"
+         plain_text = text_buffer.get_text(*text_buffer.get_bounds())
+         file_descriptor = open(filepath, 'w')
+         file_descriptor.write(plain_text)
+         file_descriptor.close()
+
+
 class Export2Pango:
    """The Export to Pango Class"""
    
