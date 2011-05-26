@@ -530,7 +530,8 @@ class Export2Html:
                elif property_value == "h2": property_value = "x-large"
             elif tag_property == "justification":
                # text-align:center/left/right
-               tag_property = "text-align"
+               #tag_property = "text-align"
+               continue
             elif tag_property == "link":
                # <a href="http://www.example.com/">link-text goes here</a>
                vector = property_value.split()
@@ -556,7 +557,7 @@ class Export2Html:
          elif "x-large" in html_attrs:
             html_attrs = html_attrs.replace("font-size:x-large;", "")
             self.curr_html_text += '<h2 style="' + html_attrs + '">' + inner_text + "</h2>"
-         elif "text-align" in html_attrs: self.curr_html_text += '<p style="' + html_attrs + '">' + inner_text + "</p>"
+         #elif "text-align" in html_attrs: self.curr_html_text += '<p style="' + html_attrs + '">' + inner_text + "</p>"
          else: self.curr_html_text += '<span style="' + html_attrs + '">' + inner_text + "</span>"
       #print "###############"
       #print self.curr_html_text
