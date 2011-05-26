@@ -1185,6 +1185,7 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
          elif tag == "span":
             for attr in attrs:
                if attr[0] == "style":
+                  #print attr[1]
                   match = re.match("(?<=^)(.+):(.+)(?=$)", attr[1])
                   if match != None:
                      if match.group(1) == "color":
@@ -1365,6 +1366,9 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
       input_string = input_string.decode("utf-8", "ignore")
       if not HTMLCheck().is_html_ok(input_string):
          input_string = cons.HTML_HEADER % "" + input_string + cons.HTML_FOOTER
+      #print "###############"
+      #print input_string
+      #print "###############"
       self.feed(input_string)
       return self.dom.toxml()
 

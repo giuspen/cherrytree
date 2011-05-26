@@ -497,6 +497,7 @@ class Export2Html:
       for tag_property in cons.TAG_PROPERTIES:
          if self.curr_attributes[tag_property] != '':
             property_value = self.curr_attributes[tag_property]
+            #print property_value
             if tag_property == "weight":
                # font-weight:bolder
                tag_property = "font-weight"
@@ -550,17 +551,16 @@ class Export2Html:
       if html_attrs == "" or inner_text == "<br/>": self.curr_html_text += inner_text
       else:
          if "xx-large" in html_attrs:
-            if "text-align:center" in html_attrs: html_attrs = "text-align:center;"
-            elif "text-align:right" in html_attrs: html_attrs = "text-align:right;"
-            else: html_attrs = "text-align:left;"
+            html_attrs = html_attrs.replace("font-size:xx-large;", "")
             self.curr_html_text += '<h1 style="' + html_attrs + '">' + inner_text + "</h1>"
          elif "x-large" in html_attrs:
-            if "text-align:center" in html_attrs: html_attrs = "text-align:center;"
-            elif "text-align:right" in html_attrs: html_attrs = "text-align:right;"
-            else: html_attrs = "text-align:left;"
+            html_attrs = html_attrs.replace("font-size:x-large;", "")
             self.curr_html_text += '<h2 style="' + html_attrs + '">' + inner_text + "</h2>"
          elif "text-align" in html_attrs: self.curr_html_text += '<p style="' + html_attrs + '">' + inner_text + "</p>"
          else: self.curr_html_text += '<span style="' + html_attrs + '">' + inner_text + "</span>"
+      #print "###############"
+      #print self.curr_html_text
+      #print "###############"
    
    def rgb_to_24(self, rgb_in):
       """Convert RRRRGGGGBBBB to RRGGBB if needed"""
