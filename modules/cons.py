@@ -265,7 +265,7 @@ UI_INFO = """
          <menuitem action='NodePrint'/>
          <menuitem action='Export2Txt'/>
          <menuitem action='Export2HTML'/>
-         <menuitem action='SelNode2CTD'/>
+         <menuitem action='Export2CTD'/>
       </menu>
       
       <menu action='HelpMenu'>
@@ -382,7 +382,7 @@ def get_entries(inst):
    ( "SaveAs", "gtk-save-as", _("Save _As"), "<control><shift>S", _("Save File As"), inst.file_save_as),
    ( "Export2HTML", "To HTML", _("Export To _HTML"), None, _("Export To HTML"), inst.export_to_html),
    ( "Export2Txt", "To Txt", _("Export to Plain _Text"), None, _("Export to Plain Text"), inst.export_to_txt),
-   ( "SelNode2CTD", "CherryTree Export", _("_Export Node and Subnodes"), None, _("Export the Selected Node and its Subnodes"), inst.node_and_subnodes_export),
+   ( "Export2CTD", "CherryTree Export", _("_Export To CherryTree Document"), None, _("Export To CherryTree Document"), inst.export_to_ctd),
    ( "PageSetup", "gtk-print", _("Pa_ge Setup"), "<control><shift>P", _("Set up the Page for Printing"), inst.node_print_page_setup),
    ( "NodePrint", "gtk-print", _("Node _Print / Save as PDF, PS, SVG"), "<control>P", _("Print the Current Node / Save the Current Node as PDF, PS, SVG"), inst.node_print),
    ( "QuitApp", "Quit App", _("_Quit"), "<control>Q", _("Quit the Application"), inst.quit_application),
@@ -522,7 +522,7 @@ def get_popup_menu_tree(inst):
    ("gtk-print", _("Node _Print / Save as PDF, PS, SVG"), "<control>P", _("Print the Current Node / Save the Current Node as PDF, PS, SVG"), inst.node_print),
    ("To Txt", _("Export to Plain _Text"), None, _("Export to Plain Text"), inst.export_to_txt),
    ("To HTML", _("Export To _HTML"), None, _("Export To HTML"), inst.export_to_html),
-   ("CherryTree Export", _("_Export Node and Subnodes"), None, _("Export the Selected Node and its Subnodes"), inst.node_and_subnodes_export),
+   ("CherryTree Export", _("_Export To CherryTree Document"), None, _("Export To CherryTree Document"), inst.export_to_ctd),
    ("submenu-end", None, None, None, None),
    ("separator", None, None, None, None),
    ("gtk-execute", _("_Inherit Syntax"), None, _("Change the Selected Node's Children Syntax Highlighting to the Father's Syntax Highlighting"), inst.node_inherit_syntax),

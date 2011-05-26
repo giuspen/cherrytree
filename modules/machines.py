@@ -215,6 +215,16 @@ class XMLHandler:
       self.append_dom_node(node_iter, self.dom, to_disk=False)
       return self.dom.toxml()
       
+   def treestore_sel_node_only_to_dom(self, tree_iter):
+      """Parse the Given Node and Subnodes and Generate an XML Cherry Tree Document"""
+      if "dom" in dir(self): del self.dom
+      self.dom = xml.dom.minidom.Document()
+      cherrytree = self.dom.createElement("cherrytree")
+      self.dom.appendChild(cherrytree)
+      # given node and subnodes parsing
+      self.append_dom_node(tree_iter, cherrytree, to_disk=True, skip_children=True)
+      return self.dom.toxml()
+      
    def treestore_sel_node_and_subnodes_to_dom(self, tree_iter):
       """Parse the Given Node and Subnodes and Generate an XML Cherry Tree Document"""
       if "dom" in dir(self): del self.dom
@@ -246,7 +256,7 @@ class XMLHandler:
       dom_iter.setAttribute("list", ",".join(self.dad.bookmarks))
       dom_father.appendChild(dom_iter)
       
-   def append_dom_node(self, tree_iter, dom_father, to_disk):
+   def append_dom_node(self, tree_iter, dom_father, to_disk, skip_children=False):
       """Given the tree_iter node, adds it to the DOM"""
       dom_iter = self.dom.createElement("node")
       dom_iter.setAttribute("name", self.dad.treestore[tree_iter][1])
@@ -288,10 +298,11 @@ class XMLHandler:
       else:
          # plain text insert
          self.rich_text_serialize(dom_iter, start_iter, end_iter, self.curr_attributes)
-      tree_iter = self.dad.treestore.iter_children(tree_iter) # check for childrens
-      while tree_iter != None:
-         self.append_dom_node(tree_iter, dom_iter, to_disk)
-         tree_iter = self.dad.treestore.iter_next(tree_iter)
+      if not skip_children:
+         tree_iter = self.dad.treestore.iter_children(tree_iter) # check for childrens
+         while tree_iter != None:
+            self.append_dom_node(tree_iter, dom_iter, to_disk)
+            tree_iter = self.dad.treestore.iter_next(tree_iter)
          
    def codebox_element_to_xml(self, element, dom_node):
       """From element [char_offset, codebox, justification] to dom node"""

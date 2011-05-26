@@ -923,15 +923,6 @@ class CherryTree:
          support.dialog_error("%s write failed - writing to disk" % filepath, self.window)
          return False
       
-   def file_write_node_and_subnodes(self, filepath):
-      """File Write with Selected Node and Subnodes"""
-      try: xml_string = self.xml_handler.treestore_sel_node_and_subnodes_to_dom(self.curr_tree_iter)
-      except:
-         support.dialog_error("%s write failed - sel node and subnodes to xml" % filepath, self.window)
-         return
-      try: self.file_write_low_level(filepath, xml_string)
-      except: support.dialog_error("%s write failed - writing to disk" % filepath, self.window)
-      
    def file_open(self, *args):
       """Opens a dialog to browse for a cherrytree filepath"""
       filepath = support.dialog_file_select(filter_pattern="*.ct*",
@@ -1145,27 +1136,38 @@ class CherryTree:
       self.sourceview.set_sensitive(False)
       return True
       
-   def node_and_subnodes_export(self, action):
+   def export_to_ctd(self, action):
       """Export the Selected Node and its Subnodes"""
       if self.curr_tree_iter == None:
          support.dialog_warning(_("No Node is Selected!"), self.window)
          return
-      if self.password:
-         export_hint = self.treestore[self.curr_tree_iter][1] + ".ctz"
-         filter_pattern = "*.ctz"
+      export_type = support.dialog_selnode_selnodeandsub_alltree(self.window)
+      if export_type == 0: return
+      ctd_handler = exports.Export2CTD(self)
+      if self.password: filter_pattern = "*.ctz"
+      else: filter_pattern = "*.ctd"
+      if export_type == 1:
+         # only selected node
+         proposed_name = support.get_node_hierarchical_name(self, self.curr_tree_iter)
+         if self.password: proposed_name += ".ctz"
+         else: proposed_name += ".ctd"
+         ctd_filepath = ctd_handler.get_single_ctd_filepath(proposed_name, filter_pattern)
+         if ctd_filepath:
+            ctd_handler.node_export_to_ctd(self.curr_tree_iter, ctd_filepath)
+      elif export_type == 2:
+         # selected node and subnodes
+         proposed_name = support.get_node_hierarchical_name(self, self.curr_tree_iter)
+         if self.password: proposed_name += ".ctz"
+         else: proposed_name += ".ctd"
+         ctd_filepath = ctd_handler.get_single_ctd_filepath(proposed_name, filter_pattern)
+         if ctd_filepath:
+            ctd_handler.node_and_subnodes_export_to_ctd(self.curr_tree_iter, ctd_filepath)
       else:
-         export_hint = self.treestore[self.curr_tree_iter][1] + ".ctd"
-         filter_pattern = "*.ctd"
-      filepath = support.dialog_file_save_as(export_hint,
-                                             filter_pattern=filter_pattern,
-                                             filter_name=_("CherryTree Document"),
-                                             curr_folder=self.file_dir,
-                                             parent=self.window)
-      if filepath == None: return
-      if not os.path.isfile(filepath)\
-      or support.dialog_question(_("The File %s\nAlready Exists, do you want to Overwrite?") % filepath, self.window):
-         filepath = self.filepath_extension_fix(filepath)
-         self.file_write_node_and_subnodes(filepath)
+         # all nodes
+         proposed_name = self.file_name
+         ctd_filepath = ctd_handler.get_single_ctd_filepath(proposed_name, filter_pattern)
+         if ctd_filepath:
+            ctd_handler.nodes_all_export_to_ctd(ctd_filepath)
       
    def export_to_txt(self, *args):
       """Export To Plain Text"""
