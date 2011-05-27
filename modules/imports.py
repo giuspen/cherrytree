@@ -1277,6 +1277,7 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
             if "background" in self.latest_span: self.curr_attributes["background"] = ""
             if "underline" in self.latest_span: self.curr_attributes["underline"] = ""
             if "weight" in self.latest_span: self.curr_attributes["weight"] = ""
+            self.latest_span = []
          elif tag == "font":
             if self.latest_font == "foreground": self.curr_attributes["foreground"] = ""
          elif tag in ["h1", "h2"]:

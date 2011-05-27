@@ -53,7 +53,7 @@ class Export2CTD:
       except: support.dialog_error("%s write failed - writing to disk" % filepath, self.dad.window)
    
    def node_and_subnodes_export_to_ctd(self, tree_iter, filepath):
-      """Export All Nodes To CTD - iter"""
+      """Export Node and Subnodes To CTD"""
       try: xml_string = self.dad.xml_handler.treestore_sel_node_and_subnodes_to_dom(tree_iter)
       except:
          support.dialog_error("%s write failed - sel node and subnodes to xml" % filepath, self.dad.window)
@@ -69,6 +69,39 @@ class Export2CTD:
          return
       try: self.dad.file_write_low_level(filepath, xml_string)
       except: support.dialog_error("%s write failed - writing to disk" % filepath, self.dad.window)
+
+
+class ExportPrint:
+   """The Export Print Class"""
+   
+   def __init__(self, dad):
+      """Export Print boot"""
+      self.dad = dad
+      self.pango_handler = Export2Pango(dad)
+   
+   def nodes_all_export_print(self):
+      """Export Print All Nodes"""
+      print "TODO"
+   
+   def node_and_subnodes_export_print(self, tree_iter):
+      """Export Print All Nodes"""
+      print "TODO"
+   
+   def node_export_print(self, tree_iter):
+      """Export Print the Selected Node"""
+      if self.dad.treestore[tree_iter][4] == cons.CUSTOM_COLORS_ID:
+         pango_text, pixbuf_table_codebox_vector = self.pango_handler.pango_get_from_treestore_node(tree_iter)
+         text_font = self.dad.text_font
+      else:
+         pango_text = [self.pango_handler.pango_get_from_code_buffer(self.dad.treestore[tree_iter][2])]
+         pixbuf_table_codebox_vector = []
+         text_font = self.dad.code_font
+      self.dad.print_handler.print_text(self.dad.window,
+                                        pango_text,
+                                        text_font,
+                                        self.dad.code_font,
+                                        pixbuf_table_codebox_vector,
+                                        self.dad.get_text_window_width())
 
 
 class Export2Txt:

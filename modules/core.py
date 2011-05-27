@@ -1228,20 +1228,18 @@ class CherryTree:
       if not self.curr_tree_iter:
          support.dialog_warning(_("No Node is Selected!"), self.window)
          return
-      pango_handler = exports.Export2Pango(self)
-      if self.treestore[self.curr_tree_iter][4] == cons.CUSTOM_COLORS_ID:
-         pango_text, pixbuf_table_codebox_vector = pango_handler.pango_get_from_treestore_node(self.curr_tree_iter)
-         text_font = self.text_font
+      export_type = support.dialog_selnode_selnodeandsub_alltree(self.window)
+      if export_type == 0: return
+      pdf_handler = exports.ExportPrint(self)
+      if export_type == 1:
+         # only selected node
+         pdf_handler.node_export_print(self.curr_tree_iter)
+      elif export_type == 2:
+         # selected node and subnodes
+         pdf_handler.node_and_subnodes_export_print(self.curr_tree_iter)
       else:
-         pango_text = [pango_handler.pango_get_from_code_buffer(self.curr_buffer)]
-         pixbuf_table_codebox_vector = []
-         text_font = self.code_font
-      self.print_handler.print_text(self.glade.window,
-                                    pango_text,
-                                    text_font,
-                                    self.code_font,
-                                    pixbuf_table_codebox_vector,
-                                    self.get_text_window_width())
+         # all nodes
+         pdf_handler.nodes_all_export_print()
    
    def tree_sort_level_and_sublevels(self, model, father_iter, ascending):
       """Sorts the Tree Level and All the Sublevels"""
