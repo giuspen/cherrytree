@@ -184,6 +184,7 @@ class CherryTree:
       self.node_id_counter = long(0)
       self.glade.aboutdialog.set_version(cons.VERSION)
       support.set_menu_items_recent_documents(self)
+      support.set_menu_items_todo(self)
       support.set_menu_items_justification(self)
       self.window.show_all() # this before the config_file_apply that could hide something
       self.window.present()
@@ -2678,6 +2679,14 @@ class CherryTree:
          support.dialog_warning(_("Automatic Syntax Highlighting Must be Disabled in order to Use This Feature"), self.window)
          return
       self.lists_handler.list_numbered_handler()
+      
+   def list_todo_handler(self, *args):
+      """Handler of the ToDo List"""
+      if self.syntax_highlighting != cons.CUSTOM_COLORS_ID:
+         support.dialog_warning(_("Automatic Syntax Highlighting Must be Disabled in order to Use This Feature"), self.window)
+         return
+      #self.lists_handler.list_numbered_handler()
+      print "TODO"
       
    def apply_tag_latest(self, *args):
       """The Iterate Tagging Button was Pressed"""

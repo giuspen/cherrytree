@@ -106,6 +106,7 @@ STOCKS_N_FILES = {'Node Bullet':'node_bullet.png',
                   'Edit Node':'cherry_edit.png',
                   'Bulleted List':'list_bulleted.png',
                   'Numbered List':'list_numbered.png',
+                  'ToDo List':'list_todo.png',
                   'Node Name Header':'node_name_header.png',
                   'Case Toggle':'case_toggle.png',
                   'Case Up':'case_upper.png',
@@ -194,6 +195,7 @@ UI_INFO = """
          <separator/>
          <menuitem action='BulletedList'/>
          <menuitem action='NumberedList'/>
+         <menuitem action='ToDoList'/>
       </menu>
       
       <menu action='FormattingMenu'>
@@ -288,9 +290,6 @@ UI_INFO = """
       <separator/>
       <toolitem action='Undo'/>
       <toolitem action='Redo'/>
-      <separator/>
-      <toolitem action='BulletedList'/>
-      <toolitem action='NumberedList'/>
       <separator/>
       <toolitem action='HandleImage'/>
       <toolitem action='HandleTable'/>
@@ -389,8 +388,9 @@ def get_entries(inst):
    ( "ExitApp", "Quit App", _("_Exit CherryTree"), "<control><shift>Q", _("Exit from CherryTree"), inst.quit_application_totally),
    ( "Preferences", "gtk-preferences", _("_Preferences"), "<control><alt>P", _("Preferences"), inst.dialog_preferences),
    ( "HorizontalRule", "Horizontal Rule", _("Insert _Horizontal Rule"), "<control>R", _("Insert Horizontal Rule"), inst.horizontal_rule_insert),
-   ( "BulletedList", "Bulleted List", _("Set/Unset _Bulleted List"), None, _("Set/Unset the Current Paragraph as a Bulleted List Element"), inst.list_bulleted_handler),
-   ( "NumberedList", "Numbered List", _("Set/Unset _Numbered List"), None, _("Set/Unset the Current Paragraph as a Numbered List Element"), inst.list_numbered_handler),
+   ( "BulletedList", "Bulleted List", _("Set/Unset _Bulleted List"), None, _("Set/Unset the Current Paragraph/Selection as a Bulleted List"), inst.list_bulleted_handler),
+   ( "NumberedList", "Numbered List", _("Set/Unset _Numbered List"), None, _("Set/Unset the Current Paragraph/Selection as a Numbered List"), inst.list_numbered_handler),
+   ( "ToDoList", "ToDo List", _("Set/Unset _To-Do List"), None, _("Set/Unset the Current Paragraph/Selection as a To-Do List"), inst.list_todo_handler),
    ( "HandleLink", "Handle Link", _("Insert/Edit _Link"), "<control>L", _("Insert a Link/Edit the Underlying Link"), inst.apply_tag_link),
    ( "InsertTOC", "Index", _("Insert T_OC"), None, _("Insert Table of Contents"), inst.toc_insert),
    ( "HandleAnchor", "Insert Anchor", _("Insert _Anchor"), None, _("Insert an Anchor"), inst.anchor_handle),
@@ -562,6 +562,11 @@ def get_popup_menu_entries_text(inst):
    ("gtk-justify-center", _("Justify _Center"), None, _("Justify Center the Current Paragraph"), inst.apply_tag_justify_center),
    ("gtk-justify-right", _("Justify _Right"), None, _("Justify Right the Current Paragraph"), inst.apply_tag_justify_right),
    ("submenu-end", None, None, None, None),
+   ("submenu-start", _("_List") , "Bulleted List", None, None),
+   ("Bulleted List", _("Set/Unset _Bulleted List"), None, _("Set/Unset the Current Paragraph as a Bulleted List Element"), inst.list_bulleted_handler),
+   ("Numbered List", _("Set/Unset _Numbered List"), None, _("Set/Unset the Current Paragraph as a Numbered List Element"), inst.list_numbered_handler),
+   ("ToDo List", _("Set/Unset _To-Do List"), None, _("Set/Unset the Current Paragraph as a To-Do List Element"), inst.list_todo_handler),
+   ("submenu-end", None, None, None, None),
    ("separator", None, None, None, None),
    ("submenu-start", _("_Insert") , "Insert", None, None),
    ("Insert Image", _("Insert I_mage"), None, _("Insert an Image"), inst.image_handle),
@@ -597,9 +602,6 @@ def get_popup_menu_entries_text(inst):
    ("Find Replace", _("Replace in Nodes _Names"), "<control><shift>T", _("Replace in Nodes Names"), inst.replace_in_nodes_names),
    ("Find Replace", _("Replace _Again"), "F6", _("Iterate the Last Replace Operation"), inst.replace_again),
    ("submenu-end", None, None, None, None),
-   ("separator", None, None, None, None),
-   ("Bulleted List", _("Set/Unset _Bulleted List"), None, _("Set/Unset the Current Paragraph as a Bulleted List Element"), inst.list_bulleted_handler),
-   ("Numbered List", _("Set/Unset _Numbered List"), None, _("Set/Unset the Current Paragraph as a Numbered List Element"), inst.list_numbered_handler),
    ]
 
 def get_popup_menu_entries_code(inst):
