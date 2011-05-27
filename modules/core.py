@@ -3058,7 +3058,7 @@ class CherryTree:
          keyname = gtk.gdk.keyval_name(event.keyval)
          if (event.state & gtk.gdk.SHIFT_MASK): # Shift held down
             if keyname == "Return":
-               self.curr_buffer.insert(self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert()), '   ')
+               self.curr_buffer.insert(self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert()), 3*cons.CHAR_SPACE)
          elif keyname == "Return":
             iter_insert = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
             if iter_insert == None: return False
@@ -3071,6 +3071,9 @@ class CherryTree:
             if (list_info[0] == 0 and iter_list_quit.backward_chars(3) and iter_list_quit.get_char() == cons.CHAR_LISTBUL):
                self.curr_buffer.delete(iter_list_quit, iter_insert)
                return False # former was an empty paragraph => list quit
+            elif (list_info[0] == -1 and iter_list_quit.backward_chars(5) and iter_list_quit.get_char() == '['):
+               self.curr_buffer.delete(iter_list_quit, iter_insert)
+               return False # former was an empty paragraph => list quit
             elif (list_info[0] > 0 and iter_list_quit.backward_chars(2) and iter_list_quit.get_char() == cons.CHAR_SPACE\
             and iter_list_quit.backward_char() and iter_list_quit.get_char() == '.'):
                iter_list_quit.backward_chars(len(str(list_info[0])))
@@ -3081,6 +3084,7 @@ class CherryTree:
                iter_start.backward_chars(3)
                self.curr_buffer.delete(iter_start, iter_insert)
             if list_info[0] == 0: self.curr_buffer.insert(iter_insert, cons.CHAR_LISTBUL + cons.CHAR_SPACE)
+            elif list_info[0] == -1: self.curr_buffer.insert(iter_insert, "[ ] ")
             else:
                curr_num = list_info[0] + 1
                self.curr_buffer.insert(iter_insert, '%s. ' % curr_num)

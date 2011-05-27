@@ -62,7 +62,7 @@ class ListsHandler:
             if not iter_start: break
       elif list_info[0] == 0:
          # this is a bulleted list paragraph and we turn it into todo list
-         print "TODO from bull to todo"
+         self.list_adjust_ahead(None, list_info[2]-1, "bul2tod")
       elif list_info[0] == -1:
          # this is a todo list and we turn it into normal text
          first_iteration = True
@@ -81,8 +81,7 @@ class ListsHandler:
             if not iter_start: break
       else:
          # this is a numbered list and we turn it into todo list
-         #self.list_adjust_ahead(None, list_info[2]-1, "num2bul")
-         print "TODO from numb to todo"
+         self.list_adjust_ahead(None, list_info[2]-1, "num2tod")
    
    def list_bulleted_handler(self):
       """Handler of the Bulleted List"""
@@ -131,7 +130,7 @@ class ListsHandler:
             if not iter_start: break
       elif list_info[0] == -1:
          # this is a todo list and we turn it into bulleted list
-         print "TODO from todo to bull"
+         self.list_adjust_ahead(None, list_info[2]-1, "tod2bul")
       else:
          # this is a numbered list and we turn it into bulleted list
          self.list_adjust_ahead(None, list_info[2]-1, "num2bul")
@@ -171,7 +170,7 @@ class ListsHandler:
          self.list_adjust_ahead(0, list_info[2]-1, "bul2num")
       elif list_info[0] == -1:
          # this is a todo list and we turn it into numbered list
-         print "TODO from todo to numb"
+         self.list_adjust_ahead(None, list_info[2]-1, "tod2num")
       else:
          # this is a numbered list paragraph and we turn it into normal text
          first_iteration = True
@@ -204,30 +203,39 @@ class ListsHandler:
          and iter_start.forward_char() and iter_start.get_char() == cons.CHAR_SPACE:
             self.list_adjust_ahead(curr_num, iter_start.get_offset(), adj_type) # go on searching
          else: return # not an indentation
-      elif adj_type in ["num2num", "num2bul"]:
+      elif adj_type[0:3] == "num":
          match = re.match('[1-9]', iter_start.get_char())
          if not match: return
          iter_end = iter_start.copy()
          while iter_end.forward_char() and re.match('[0-9]', iter_end.get_char()): pass
          if iter_end.get_char() != ".": return # something's wrong
          self.list_adjust_ahead_write_in(iter_start, iter_end, curr_num, adj_type)
-      elif adj_type == "bul2num":
+      elif adj_type[0:3] == "bul":
          if iter_start.get_char() != cons.CHAR_LISTBUL: return
          iter_end = iter_start.copy()
          self.list_adjust_ahead_write_in(iter_start, iter_end, curr_num, adj_type)
-      else: print "no case matched!"
+      elif adj_type[0:3] == "tod":
+         if iter_start.get_char() != '[': return
+         iter_end = iter_start.copy()
+         iter_end.forward_chars(2)
+         self.list_adjust_ahead_write_in(iter_start, iter_end, curr_num, adj_type)
+      else: print "bad adj_type", adj_type
       
    def list_adjust_ahead_write_in(self, iter_start, iter_end, curr_num, adj_type):
       """Write a Replacement of List Point"""
       iter_end.forward_char()
       self.dad.curr_buffer.delete(iter_start, iter_end)
-      if adj_type in ["num2num", "bul2num"]: 
+      if adj_type[-3:] == "num":
          curr_num += 1
          self.dad.curr_buffer.insert(iter_start, '%s.' % curr_num)
          self.list_adjust_ahead(curr_num, iter_start.get_offset(), adj_type)
-      else: # "num2bul"
+      elif adj_type[-3:] == "bul":
          self.dad.curr_buffer.insert(iter_start, cons.CHAR_LISTBUL)
          self.list_adjust_ahead(None, iter_start.get_offset(), adj_type)
+      elif adj_type[-3:] == "tod":
+         self.dad.curr_buffer.insert(iter_start, "[ ]")
+         self.list_adjust_ahead(None, iter_start.get_offset(), adj_type)
+      else: print "bad adj_type", adj_type
       
    def list_get_number(self, iter_first_paragraph):
       """Returns a Number or None (0 fot the bulleted list)"""
