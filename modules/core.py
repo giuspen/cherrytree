@@ -1236,7 +1236,7 @@ class CherryTree:
          pdf_handler.node_export_print(self.curr_tree_iter)
       elif export_type == 2:
          # selected node and subnodes
-         pdf_handler.node_and_subnodes_export_print(self.curr_tree_iter)
+         pdf_handler.nodes_all_export_print(self.curr_tree_iter)
       else:
          # all nodes
          pdf_handler.nodes_all_export_print()

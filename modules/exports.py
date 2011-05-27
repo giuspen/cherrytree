@@ -79,28 +79,55 @@ class ExportPrint:
       self.dad = dad
       self.pango_handler = Export2Pango(dad)
    
-   def nodes_all_export_print(self):
+   def nodes_all_export_print(self, top_tree_iter=None):
       """Export Print All Nodes"""
-      print "TODO"
+      self.pango_text = []
+      self.pixbuf_table_codebox_vector = []
+      self.text_font = self.dad.code_font
+      if not top_tree_iter: tree_iter = self.dad.treestore.get_iter_first()
+      else: tree_iter = top_tree_iter.copy()
+      while tree_iter:
+         self.nodes_all_export_print_iter(tree_iter)
+         if top_tree_iter: break
+         tree_iter = self.dad.treestore.iter_next(tree_iter)
+      self.run_print()
    
-   def node_and_subnodes_export_print(self, tree_iter):
-      """Export Print All Nodes"""
-      print "TODO"
+   def nodes_all_export_print_iter(self, tree_iter):
+      """Export Print All Nodes - Iter"""
+      if self.dad.treestore[tree_iter][4] == cons.CUSTOM_COLORS_ID:
+         pango_text, pixbuf_table_codebox_vector = self.pango_handler.pango_get_from_treestore_node(tree_iter)
+         self.text_font = self.dad.text_font # text font for all (also eventual code nodes)
+      else:
+         pango_text = [self.pango_handler.pango_get_from_code_buffer(self.dad.treestore[tree_iter][2])]
+         pixbuf_table_codebox_vector = []
+      if not self.pango_text: self.pango_text = pango_text
+      else:
+         self.pango_text[-1] += cons.CHAR_NEWLINE*3 + pango_text[0]
+         if len(pango_text) > 1: self.pango_text += pango_text[1:]
+      self.pixbuf_table_codebox_vector += pixbuf_table_codebox_vector
+      child_tree_iter = self.dad.treestore.iter_children(tree_iter)
+      while child_tree_iter:
+         self.nodes_all_export_print_iter(child_tree_iter)
+         child_tree_iter = self.dad.treestore.iter_next(child_tree_iter)
    
    def node_export_print(self, tree_iter):
       """Export Print the Selected Node"""
       if self.dad.treestore[tree_iter][4] == cons.CUSTOM_COLORS_ID:
-         pango_text, pixbuf_table_codebox_vector = self.pango_handler.pango_get_from_treestore_node(tree_iter)
-         text_font = self.dad.text_font
+         self.pango_text, self.pixbuf_table_codebox_vector = self.pango_handler.pango_get_from_treestore_node(tree_iter)
+         self.text_font = self.dad.text_font
       else:
-         pango_text = [self.pango_handler.pango_get_from_code_buffer(self.dad.treestore[tree_iter][2])]
-         pixbuf_table_codebox_vector = []
-         text_font = self.dad.code_font
+         self.pango_text = [self.pango_handler.pango_get_from_code_buffer(self.dad.treestore[tree_iter][2])]
+         self.pixbuf_table_codebox_vector = []
+         self.text_font = self.dad.code_font
+      self.run_print()
+   
+   def run_print(self):
+      """Finally Run the Print"""
       self.dad.print_handler.print_text(self.dad.window,
-                                        pango_text,
-                                        text_font,
+                                        self.pango_text,
+                                        self.text_font,
                                         self.dad.code_font,
-                                        pixbuf_table_codebox_vector,
+                                        self.pixbuf_table_codebox_vector,
                                         self.dad.get_text_window_width())
 
 
