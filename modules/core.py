@@ -1215,7 +1215,7 @@ class CherryTree:
          if self.html_handler.prepare_html_folder(self.file_name):
             self.html_handler.nodes_all_export_to_html()
       
-   def node_print_page_setup(self, action):
+   def export_print_page_setup(self, action):
       """Print Page Setup Operations"""
       if self.print_handler.settings is None:
          self.print_handler.settings = gtk.PrintSettings()
@@ -1223,23 +1223,25 @@ class CherryTree:
                                                                       self.print_handler.page_setup,
                                                                       self.print_handler.settings)
       
-   def node_print(self, action):
+   def export_print(self, action):
       """Start Print Operations"""
       if not self.curr_tree_iter:
          support.dialog_warning(_("No Node is Selected!"), self.window)
          return
+      pango_handler = exports.Export2Pango(self)
       if self.treestore[self.curr_tree_iter][4] == cons.CUSTOM_COLORS_ID:
-         pango_handler = exports.Export2Pango(self)
          pango_text, pixbuf_table_codebox_vector = pango_handler.pango_get_from_treestore_node(self.curr_tree_iter)
-         self.print_handler.print_text(self.glade.window,
-                                       pango_text,
-                                       self.text_font,
-                                       self.code_font,
-                                       pixbuf_table_codebox_vector,
-                                       self.get_text_window_width())
+         text_font = self.text_font
       else:
-         print_compositor = gtksourceview2.print_compositor_new_from_view(self.sourceview)
-         self.print_handler.print_code(self.glade.window, print_compositor, self.code_font)
+         pango_text = [pango_handler.pango_get_from_code_buffer(self.curr_buffer)]
+         pixbuf_table_codebox_vector = []
+         text_font = self.code_font
+      self.print_handler.print_text(self.glade.window,
+                                    pango_text,
+                                    text_font,
+                                    self.code_font,
+                                    pixbuf_table_codebox_vector,
+                                    self.get_text_window_width())
    
    def tree_sort_level_and_sublevels(self, model, father_iter, ascending):
       """Sorts the Tree Level and All the Sublevels"""

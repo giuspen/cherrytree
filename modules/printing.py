@@ -70,33 +70,6 @@ class PrintHandler:
       """Print Operation Status Changed"""
       if operation.is_finished(): active_prints.remove(operation)
    
-   def print_code(self, window, print_compositor, code_font):
-      """Start the Print Operations for Code"""
-      self.print_compositor = print_compositor
-      self.print_compositor.set_body_font_name(code_font)
-      self.print_compositor.set_print_header(True)
-      self.print_compositor.set_left_margin(0.5, gtk.UNIT_INCH)
-      self.print_compositor.set_right_margin(0.5, gtk.UNIT_INCH)
-      self.print_compositor.set_top_margin(0.3, gtk.UNIT_INCH)
-      self.print_compositor.set_bottom_margin(0.3, gtk.UNIT_INCH)
-      self.print_compositor.set_wrap_mode(gtk.WRAP_WORD_CHAR)
-      print_operation = self.get_print_operation()
-      print_operation.connect("begin-print", self.on_begin_print_code)
-      print_operation.connect("draw-page", self.on_draw_page_code)
-      self.run_print_operation(print_operation, window)
-   
-   def on_begin_print_code(self, print_operation, context):
-      """Begin the Print Operations for Code"""
-      res = self.print_compositor.paginate(context)
-      while res != True:
-         res = self.print_compositor.paginate(context)
-      print_operation.set_n_pages(self.print_compositor.get_n_pages())
-      return True
-
-   def on_draw_page_code(self, print_operation, context, page_nr):
-      """Draw the Page for Code"""
-      self.print_compositor.draw_page(context, page_nr)
-   
    def print_text(self, window, pango_text, text_font, code_font, pixbuf_table_codebox_vector, text_window_width):
       """Start the Print Operations for Text"""
       self.pango_font = pango.FontDescription(text_font)
