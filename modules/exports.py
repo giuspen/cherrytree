@@ -149,6 +149,7 @@ class Export2Pango:
          curr_tags = curr_iter.get_tags()
          if len(curr_tags) > 0:
             curr_tag_str = curr_tags[0].get_property("foreground-gdk").to_string()
+            font_weight = curr_tags[0].get_property("weight")
             if curr_tag_str == cons.COLOR_BLACK:
                if former_tag_str != curr_tag_str:
                   former_tag_str = curr_tag_str
@@ -161,7 +162,7 @@ class Export2Pango:
                   if span_opened: pango_text += "</span>"
                   # start of tag
                   if curr_tag_str == cons.COLOR_WHITE: curr_tag_str = cons.COLOR_BLACK
-                  pango_text += '<span foreground="%s">' % curr_tag_str
+                  pango_text += '<span foreground="%s" font_weight="%s">' % (curr_tag_str, font_weight)
                   span_opened = True
          elif span_opened:
             span_opened = False
@@ -448,6 +449,7 @@ class Export2Html:
          curr_tags = curr_iter.get_tags()
          if len(curr_tags) > 0:
             curr_tag_str = curr_tags[0].get_property("foreground-gdk").to_string()
+            font_weight = curr_tags[0].get_property("weight")
             if curr_tag_str == cons.COLOR_BLACK:
                if former_tag_str != curr_tag_str:
                   former_tag_str = curr_tag_str
@@ -460,7 +462,7 @@ class Export2Html:
                   if span_opened: html_text += "</span>"
                   # start of tag
                   if curr_tag_str == cons.COLOR_WHITE: curr_tag_str = cons.COLOR_BLACK
-                  html_text += '<span style="color:#%s">' % self.rgb_to_24(curr_tag_str[1:])
+                  html_text += '<span style="color:#%s;font-weight:%s">' % (self.rgb_to_24(curr_tag_str[1:]), font_weight)
                   span_opened = True
          elif span_opened:
             span_opened = False

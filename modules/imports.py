@@ -1185,27 +1185,29 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
          elif tag == "span":
             for attr in attrs:
                if attr[0] == "style":
-                  #print attr[1]
-                  match = re.match("(?<=^)(.+):(.+)(?=$)", attr[1])
-                  if match != None:
-                     if match.group(1) == "color":
-                        attribute = self.get_rgb_gtk_attribute(match.group(2).strip())
-                        if attribute:
-                           self.curr_attributes["foreground"] = attribute
-                           self.latest_span = "foreground"
-                     elif match.group(1) in ["background", "background-color"]:
-                        attribute = self.get_rgb_gtk_attribute(match.group(2).strip())
-                        if attribute:
-                           self.curr_attributes["background"] = attribute
-                           self.latest_span = "background"
-                     elif match.group(1) == "text-decoration":
-                        if match.group(2).strip() in ["underline", "underline;"]:
-                           self.curr_attributes["underline"] = "single"
-                           self.latest_span = "underline"
-                     elif match.group(1) == "font-weight":
-                        if match.group(2).strip() in ["bolder", "bolder;"]:
-                           self.curr_attributes["weight"] = "heavy"
-                           self.latest_span = "weight"
+                  attributes = attr[1].split(";")
+                  for attribute in attributes:
+                     #print "attribute", attribute
+                     match = re.match("(?<=^)(.+):(.+)(?=$)", attribute)
+                     if match != None:
+                        if match.group(1) == "color":
+                           attribute = self.get_rgb_gtk_attribute(match.group(2).strip())
+                           if attribute:
+                              self.curr_attributes["foreground"] = attribute
+                              self.latest_span.append("foreground")
+                        elif match.group(1) in ["background", "background-color"]:
+                           attribute = self.get_rgb_gtk_attribute(match.group(2).strip())
+                           if attribute:
+                              self.curr_attributes["background"] = attribute
+                              self.latest_span.append("background")
+                        elif match.group(1) == "text-decoration":
+                           if match.group(2).strip() in ["underline", "underline;"]:
+                              self.curr_attributes["underline"] = "single"
+                              self.latest_span.append("underline")
+                        elif match.group(1) == "font-weight":
+                           if match.group(2).strip() in ["bolder", "700"]:
+                              self.curr_attributes["weight"] = "heavy"
+                              self.latest_span.append("weight")
          elif tag == "font":
             for attr in attrs:
                if attr[0] == "color":
@@ -1271,10 +1273,10 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
          elif tag == "u": self.curr_attributes["underline"] = ""
          elif tag == "s": self.curr_attributes["strikethrough"] = ""
          elif tag == "span":
-            if self.latest_span == "foreground": self.curr_attributes["foreground"] = ""
-            elif self.latest_span == "background": self.curr_attributes["background"] = ""
-            elif self.latest_span == "underline": self.curr_attributes["underline"] = ""
-            elif self.latest_span == "weight": self.curr_attributes["weight"] = ""
+            if "foreground" in self.latest_span: self.curr_attributes["foreground"] = ""
+            if "background" in self.latest_span: self.curr_attributes["background"] = ""
+            if "underline" in self.latest_span: self.curr_attributes["underline"] = ""
+            if "weight" in self.latest_span: self.curr_attributes["weight"] = ""
          elif tag == "font":
             if self.latest_font == "foreground": self.curr_attributes["foreground"] = ""
          elif tag in ["h1", "h2"]:
@@ -1355,7 +1357,7 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
       self.curr_state = 0
       self.curr_attributes = {}
       for tag_property in cons.TAG_PROPERTIES: self.curr_attributes[tag_property] = ""
-      self.latest_span = ""
+      self.latest_span = []
       self.latest_font = ""
       self.curr_cell = ""
       self.in_a_tag = 0
