@@ -31,6 +31,59 @@ class ListsHandler:
       """Lists Handler boot"""
       self.dad = dad
       
+   def list_todo_handler(self):
+      """Handler of the ToDo List"""
+      if self.dad.curr_buffer.get_has_selection():
+         iter_start, sel_end = self.dad.curr_buffer.get_selection_bounds()
+         end_offset = sel_end.get_offset() - 1
+      else:
+         end_offset = 0
+         iter_start = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
+      # get info about the paragraph starting with iter_start ([Number, Whether multiple line, List Start Iter Offset])
+      list_info = self.get_paragraph_list_info(iter_start)
+      if list_info[0] == None:
+         # this is not a list
+         first_iteration = True
+         while first_iteration or new_par_offset < end_offset:
+            first_iteration = False
+            iter_start, iter_end = self.get_paragraph_iters(iter_start)
+            if not iter_start:
+               # it's an empty paragraph
+               iter_start = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
+               self.dad.curr_buffer.insert(iter_start, "[ ] ")
+               break
+            elif self.is_list_indented_continuation(iter_start):
+               new_par_offset = iter_end.get_offset() + 1
+            else:
+               new_par_offset = iter_end.get_offset() + 4 + 1
+               self.dad.curr_buffer.insert(iter_start, "[ ] ")
+               end_offset += 4
+            iter_start = self.dad.curr_buffer.get_iter_at_offset(new_par_offset)
+            if not iter_start: break
+      elif list_info[0] == 0:
+         # this is a bulleted list paragraph and we turn it into todo list
+         print "TODO from bull to todo"
+      elif list_info[0] == -1:
+         # this is a todo list and we turn it into normal text
+         first_iteration = True
+         while first_iteration or new_par_offset < end_offset:
+            first_iteration = False
+            iter_start, iter_end = self.get_paragraph_iters(iter_start)
+            if self.is_list_indented_continuation(iter_start):
+               new_par_offset = iter_end.get_offset() + 1
+            else:
+               new_par_offset = iter_end.get_offset() - 4 + 1
+               iter_end_deletion = iter_start.copy()
+               iter_end_deletion.forward_chars(4)
+               self.dad.curr_buffer.delete(iter_start, iter_end_deletion)
+               end_offset -= 4
+            iter_start = self.dad.curr_buffer.get_iter_at_offset(new_par_offset)
+            if not iter_start: break
+      else:
+         # this is a numbered list and we turn it into todo list
+         #self.list_adjust_ahead(None, list_info[2]-1, "num2bul")
+         print "TODO from numb to todo"
+   
    def list_bulleted_handler(self):
       """Handler of the Bulleted List"""
       if self.dad.curr_buffer.get_has_selection():
@@ -76,6 +129,9 @@ class ListsHandler:
                end_offset -= 2
             iter_start = self.dad.curr_buffer.get_iter_at_offset(new_par_offset)
             if not iter_start: break
+      elif list_info[0] == -1:
+         # this is a todo list and we turn it into bulleted list
+         print "TODO from todo to bull"
       else:
          # this is a numbered list and we turn it into bulleted list
          self.list_adjust_ahead(None, list_info[2]-1, "num2bul")
@@ -113,6 +169,9 @@ class ListsHandler:
       elif list_info[0] == 0:
          # this is a bulleted list and we turn it into numbered list
          self.list_adjust_ahead(0, list_info[2]-1, "bul2num")
+      elif list_info[0] == -1:
+         # this is a todo list and we turn it into numbered list
+         print "TODO from todo to numb"
       else:
          # this is a numbered list paragraph and we turn it into normal text
          first_iteration = True
@@ -175,6 +234,10 @@ class ListsHandler:
       iter_start = iter_first_paragraph.copy()
       char = iter_start.get_char()
       if char == cons.CHAR_LISTBUL: return 0
+      if char == '[':
+         iter_tmp = iter_start.copy()
+         if iter_tmp.forward_chars(2) and iter_tmp.get_char() == ']':
+            return -1
       match = re.match('[1-9]', char)
       if not match: return None
       number_str = char

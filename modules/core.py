@@ -2685,8 +2685,7 @@ class CherryTree:
       if self.syntax_highlighting != cons.CUSTOM_COLORS_ID:
          support.dialog_warning(_("Automatic Syntax Highlighting Must be Disabled in order to Use This Feature"), self.window)
          return
-      #self.lists_handler.list_numbered_handler()
-      print "TODO"
+      self.lists_handler.list_todo_handler()
       
    def apply_tag_latest(self, *args):
       """The Iterate Tagging Button was Pressed"""
