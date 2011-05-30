@@ -170,7 +170,7 @@ class ListsHandler:
          self.list_adjust_ahead(0, list_info[2]-1, "bul2num")
       elif list_info[0] == -1:
          # this is a todo list and we turn it into numbered list
-         self.list_adjust_ahead(None, list_info[2]-1, "tod2num")
+         self.list_adjust_ahead(0, list_info[2]-1, "tod2num")
       else:
          # this is a numbered list paragraph and we turn it into normal text
          first_iteration = True
