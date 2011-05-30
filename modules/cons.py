@@ -72,6 +72,9 @@ CHAR_LISTBUL = "•"
 CHAR_TILDE = "~"
 CHAR_DQUOTE = '"'
 CHAR_SQUOTE = "'"
+CHAR_SQ_BR_OPEN = "["
+CHAR_X = "X"
+CHAR_SQ_BR_CLOSE = "]"
 
 HTML_HEADER = '<!doctype html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><title>%s</title><meta name="generator" content="CherryTree"></head><body>'
 HTML_FOOTER = '</body></html>'
@@ -290,6 +293,10 @@ UI_INFO = """
       <separator/>
       <toolitem action='Undo'/>
       <toolitem action='Redo'/>
+      <separator/>
+      <toolitem action='BulletedList'/>
+      <toolitem action='NumberedList'/>
+      <toolitem action='ToDoList'/>
       <separator/>
       <toolitem action='HandleImage'/>
       <toolitem action='HandleTable'/>

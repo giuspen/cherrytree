@@ -229,29 +229,6 @@ def set_bookmarks_menu_items(inst):
       bookmarks_menu.append(menu_item)
       inst.bookmarks_menu_items.append(menu_item)
 
-def set_menu_items_todo(inst):
-   """Set ToDo menu items on Toolbar"""
-   todo_menu = gtk.Menu()
-   menu_item = gtk.ImageMenuItem(_("Set/Unset _Numbered List"))
-   menu_item.set_tooltip_text(_("Set/Unset the Current Paragraph/Selection as a Numbered List"))
-   menu_item.set_image(gtk.image_new_from_stock("Numbered List", gtk.ICON_SIZE_MENU))
-   menu_item.connect("activate", inst.list_numbered_handler)
-   menu_item.show()
-   todo_menu.append(menu_item)
-   menu_item = gtk.ImageMenuItem(_("Set/Unset _To-Do List"))
-   menu_item.set_tooltip_text(_("Set/Unset the Current Paragraph/Selection as a To-Do List"))
-   menu_item.set_image(gtk.image_new_from_stock("ToDo List", gtk.ICON_SIZE_MENU))
-   menu_item.connect("activate", inst.list_todo_handler)
-   menu_item.show()
-   todo_menu.append(menu_item)
-   menu_toolbutton = gtk.MenuToolButton("Bulleted List")
-   menu_toolbutton.set_tooltip_text(_("Set/Unset the Current Paragraph/Selection as a Bulleted List"))
-   menu_toolbutton.set_arrow_tooltip_text(_("Set/Unset the Current Paragraph/Selection as a List"))
-   menu_toolbutton.set_menu(todo_menu)
-   menu_toolbutton.connect("clicked", inst.list_bulleted_handler)
-   inst.ui.get_widget("/ToolBar").insert(menu_toolbutton, 12)
-   inst.ui.get_widget("/ToolBar").insert(gtk.SeparatorToolItem(), 13)
-
 def set_menu_items_justification(inst):
    """Set Justification menu items on Toolbar"""
    justification_menu = gtk.Menu()
@@ -272,8 +249,8 @@ def set_menu_items_justification(inst):
    menu_toolbutton.set_arrow_tooltip_text(_("Justify Left/Right the Current Paragraph"))
    menu_toolbutton.set_menu(justification_menu)
    menu_toolbutton.connect("clicked", inst.apply_tag_justify_center)
-   inst.ui.get_widget("/ToolBar").insert(menu_toolbutton, 14)
-   inst.ui.get_widget("/ToolBar").insert(gtk.SeparatorToolItem(), 15)
+   inst.ui.get_widget("/ToolBar").insert(menu_toolbutton, 16)
+   inst.ui.get_widget("/ToolBar").insert(gtk.SeparatorToolItem(), 17)
 
 def set_menu_items_recent_documents(inst):
    """Set Recent Documents menu items on Menu and Toolbar"""

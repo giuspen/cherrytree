@@ -184,7 +184,6 @@ class CherryTree:
       self.node_id_counter = long(0)
       self.glade.aboutdialog.set_version(cons.VERSION)
       support.set_menu_items_recent_documents(self)
-      support.set_menu_items_todo(self)
       support.set_menu_items_justification(self)
       self.window.show_all() # this before the config_file_apply that could hide something
       self.window.present()
@@ -2984,8 +2983,24 @@ class CherryTree:
          and if one of them is a link, change the cursor to the HAND2 cursor"""
       hovering_link = False
       hovering_anchor = False
-      iter = self.sourceview.get_iter_at_location(x, y)
-      tags = iter.get_tags()
+      hovering_todo_list = False
+      text_iter = self.sourceview.get_iter_at_location(x, y)
+      if text_iter.get_char() == cons.CHAR_SQ_BR_OPEN:
+         text_iter_bis = text_iter.copy()
+         hovering_todo_list = self.lists_handler.is_list_todo_beginning(text_iter_bis)
+      elif text_iter.get_char() in [cons.CHAR_SPACE, cons.CHAR_X]:
+         text_iter_bis = text_iter.copy()
+         if text_iter_bis.backward_char():
+            hovering_todo_list = self.lists_handler.is_list_todo_beginning(text_iter_bis)
+      elif text_iter.get_char() == cons.CHAR_SQ_BR_CLOSE:
+         text_iter_bis = text_iter.copy()
+         if text_iter_bis.backward_chars(2):
+            hovering_todo_list = self.lists_handler.is_list_todo_beginning(text_iter_bis)
+      if hovering_todo_list:
+         self.sourceview.get_window(gtk.TEXT_WINDOW_TEXT).set_cursor(gtk.gdk.Cursor(gtk.gdk.X_CURSOR))
+         self.sourceview.set_tooltip_text(None)
+         return
+      tags = text_iter.get_tags()
       for tag in tags:
          tag_name = tag.get_property("name")
          if tag_name[0:4] == "link":
@@ -3001,7 +3016,7 @@ class CherryTree:
                   tooltip += "#" + anchor_name
             break
       else:
-         iter_anchor = iter.copy()
+         iter_anchor = text_iter.copy()
          pixbuf = iter_anchor.get_pixbuf()
          if pixbuf != None and "anchor" in dir(pixbuf): hovering_anchor = True
          else:
@@ -3071,7 +3086,7 @@ class CherryTree:
             if (list_info[0] == 0 and iter_list_quit.backward_chars(3) and iter_list_quit.get_char() == cons.CHAR_LISTBUL):
                self.curr_buffer.delete(iter_list_quit, iter_insert)
                return False # former was an empty paragraph => list quit
-            elif (list_info[0] == -1 and iter_list_quit.backward_chars(5) and iter_list_quit.get_char() == '['):
+            elif (list_info[0] == -1 and iter_list_quit.backward_chars(5) and iter_list_quit.get_char() == cons.CHAR_SQ_BR_OPEN):
                self.curr_buffer.delete(iter_list_quit, iter_insert)
                return False # former was an empty paragraph => list quit
             elif (list_info[0] > 0 and iter_list_quit.backward_chars(2) and iter_list_quit.get_char() == cons.CHAR_SPACE\

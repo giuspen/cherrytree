@@ -215,7 +215,7 @@ class ListsHandler:
          iter_end = iter_start.copy()
          self.list_adjust_ahead_write_in(iter_start, iter_end, curr_num, adj_type)
       elif adj_type[0:3] == "tod":
-         if iter_start.get_char() != '[': return
+         if iter_start.get_char() != cons.CHAR_SQ_BR_OPEN: return
          iter_end = iter_start.copy()
          iter_end.forward_chars(2)
          self.list_adjust_ahead_write_in(iter_start, iter_end, curr_num, adj_type)
@@ -242,7 +242,7 @@ class ListsHandler:
       iter_start = iter_first_paragraph.copy()
       char = iter_start.get_char()
       if char == cons.CHAR_LISTBUL: return 0
-      if char == '[':
+      if char == cons.CHAR_SQ_BR_OPEN:
          iter_tmp = iter_start.copy()
          if iter_tmp.forward_chars(2) and iter_tmp.get_char() == ']':
             return -1
@@ -311,3 +311,15 @@ class ListsHandler:
       if not iter_start.forward_char() or iter_start.get_char() != cons.CHAR_SPACE: return False
       if not iter_start.forward_char() or iter_start.get_char() != cons.CHAR_SPACE: return False
       return True
+   
+   def is_list_todo_beginning(self, square_bracket_open_iter):
+      """Check if it is [X] or [ ]"""
+      if square_bracket_open_iter.backward_char():
+         if square_bracket_open_iter.get_char() == cons.CHAR_NEWLINE:
+            square_bracket_open_iter.forward_chars(2)
+         else: return False
+      else: square_bracket_open_iter.forward_char()
+      if square_bracket_open_iter.get_char() in [cons.CHAR_SPACE, cons.CHAR_X]\
+      and square_bracket_open_iter.forward_char() and square_bracket_open_iter.get_char() == cons.CHAR_SQ_BR_CLOSE:
+         return True
+      return False
