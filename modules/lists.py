@@ -314,12 +314,24 @@ class ListsHandler:
    
    def is_list_todo_beginning(self, square_bracket_open_iter):
       """Check if it is [X] or [ ]"""
-      if square_bracket_open_iter.backward_char():
-         if square_bracket_open_iter.get_char() == cons.CHAR_NEWLINE:
-            square_bracket_open_iter.forward_chars(2)
+      text_iter = square_bracket_open_iter.copy()
+      if text_iter.backward_char():
+         if text_iter.get_char() == cons.CHAR_NEWLINE:
+            text_iter.forward_chars(2)
          else: return False
-      else: square_bracket_open_iter.forward_char()
-      if square_bracket_open_iter.get_char() in [cons.CHAR_SPACE, cons.CHAR_X]\
-      and square_bracket_open_iter.forward_char() and square_bracket_open_iter.get_char() == cons.CHAR_SQ_BR_CLOSE:
+      else: text_iter.forward_char()
+      if text_iter.get_char() in [cons.CHAR_SPACE, cons.CHAR_X]\
+      and text_iter.forward_char() and text_iter.get_char() == cons.CHAR_SQ_BR_CLOSE:
          return True
       return False
+   
+   def todo_list_invert_checked_status(self, square_bracket_open_iter):
+      """From [ ] to [X] or vice-versa"""
+      square_bracket_open_iter.forward_char()
+      iter_offset = square_bracket_open_iter.get_offset()
+      if self.dad.curr_buffer.get_iter_at_offset(iter_offset).get_char() == cons.CHAR_SPACE:
+         self.dad.curr_buffer.delete(square_bracket_open_iter, self.dad.curr_buffer.get_iter_at_offset(iter_offset+1))
+         self.dad.curr_buffer.insert(self.dad.curr_buffer.get_iter_at_offset(iter_offset), cons.CHAR_X)
+      else:
+         self.dad.curr_buffer.delete(square_bracket_open_iter, self.dad.curr_buffer.get_iter_at_offset(iter_offset+1))
+         self.dad.curr_buffer.insert(self.dad.curr_buffer.get_iter_at_offset(iter_offset), cons.CHAR_SPACE)
