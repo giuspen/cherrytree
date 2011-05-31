@@ -335,3 +335,14 @@ class ListsHandler:
       else:
          self.dad.curr_buffer.delete(square_bracket_open_iter, self.dad.curr_buffer.get_iter_at_offset(iter_offset+1))
          self.dad.curr_buffer.insert(self.dad.curr_buffer.get_iter_at_offset(iter_offset), cons.CHAR_SPACE)
+      iter_offset += 3
+      iter_start = self.dad.curr_buffer.get_iter_at_offset(iter_offset)
+      if not iter_start: return
+      iter_end = iter_start.copy()
+      while 1:
+         if not iter_end.forward_char(): break
+         if iter_end.get_char() == cons.CHAR_NEWLINE: break
+      if iter_start.equal(iter_end): return
+      self.dad.curr_buffer.move_mark(self.dad.curr_buffer.get_insert(), iter_end)
+      self.dad.curr_buffer.move_mark(self.dad.curr_buffer.get_selection_bound(), iter_start)
+      self.dad.apply_tag_strikethrough()
