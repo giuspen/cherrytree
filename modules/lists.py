@@ -338,11 +338,18 @@ class ListsHandler:
       iter_offset += 3
       iter_start = self.dad.curr_buffer.get_iter_at_offset(iter_offset)
       if not iter_start: return
-      iter_end = iter_start.copy()
       while 1:
-         if not iter_end.forward_char(): break
-         if iter_end.get_char() == cons.CHAR_NEWLINE: break
-      if iter_start.equal(iter_end): return
-      self.dad.curr_buffer.move_mark(self.dad.curr_buffer.get_insert(), iter_end)
-      self.dad.curr_buffer.move_mark(self.dad.curr_buffer.get_selection_bound(), iter_start)
-      self.dad.apply_tag_strikethrough()
+         iter_end = iter_start.copy()
+         while 1:
+            if not iter_end.forward_char(): break
+            if iter_end.get_char() == cons.CHAR_NEWLINE: break
+         if iter_start.equal(iter_end): return
+         iter_offset = iter_end.get_offset()
+         self.dad.curr_buffer.move_mark(self.dad.curr_buffer.get_insert(), iter_end)
+         self.dad.curr_buffer.move_mark(self.dad.curr_buffer.get_selection_bound(), iter_start)
+         self.dad.apply_tag_strikethrough()
+         iter_start = self.dad.curr_buffer.get_iter_at_offset(iter_offset+1)
+         if not (iter_start and iter_start.get_char() == cons.CHAR_SPACE\
+         and iter_start.forward_char() and iter_start.get_char() == cons.CHAR_SPACE\
+         and iter_start.forward_char() and iter_start.get_char() == cons.CHAR_SPACE):
+            break # not an indentation
