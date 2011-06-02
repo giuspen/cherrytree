@@ -51,19 +51,16 @@ msgid "Involved Nodes"
 msgstr ""
 
 #: modules/support.py:190
-#, fuzzy
 msgid "Selected Node Only"
-msgstr "Der markierte Knoten"
+msgstr "markierten Knoten"
 
 #: modules/support.py:191
-#, fuzzy
 msgid "Selected Node and Subnodes"
-msgstr "Markierten und alle untergeordnete Knoten exportieren"
+msgstr "markierten und untergeordnete Knoten"
 
 #: modules/support.py:192
-#, fuzzy
 msgid "All the Tree"
-msgstr "Alle Knoten der Baumstruktur ausklappen"
+msgstr "gesamte Baumstruktur"
 
 #: modules/support.py:235 modules/cons.py:439 modules/cons.py:568
 msgid "Justify _Left"
@@ -196,9 +193,8 @@ msgid "Treepad Document"
 msgstr "Treepad-Datei"
 
 #: modules/core.py:538
-#, fuzzy
 msgid "Knowit Document"
-msgstr "Leo-Datei"
+msgstr "Knowit-Datei"
 
 #: modules/core.py:555
 msgid "Leo Document"
@@ -606,33 +602,28 @@ msgid "Save File As"
 msgstr "Datei speichern unter..."
 
 #: modules/cons.py:389 modules/cons.py:531
-#, fuzzy
 msgid "Export To _HTML"
-msgstr "Knoten nach _HTML exportieren"
+msgstr "als _HTML exportieren"
 
 #: modules/cons.py:389 modules/cons.py:531
-#, fuzzy
 msgid "Export To HTML"
-msgstr "_Baumstruktur nach HTML exportieren"
+msgstr "als HTML exportieren"
 
 #: modules/cons.py:390 modules/cons.py:530
-#, fuzzy
 msgid "Export to Plain _Text"
-msgstr "_Knoten als Text speichern"
+msgstr "als _Textdatei exportieren"
 
 #: modules/cons.py:390 modules/cons.py:530
 msgid "Export to Plain Text"
-msgstr ""
+msgstr "als Textdatei exportieren"
 
 #: modules/cons.py:391 modules/cons.py:532
-#, fuzzy
 msgid "_Export To CherryTree Document"
-msgstr "CherryTree-Dokument öffnen"
+msgstr "als _CherryTree-Dokument exportieren"
 
 #: modules/cons.py:391 modules/cons.py:532
-#, fuzzy
 msgid "Export To CherryTree Document"
-msgstr "CherryTree-Dokument öffnen"
+msgstr "als CherryTree-Dokument exportieren"
 
 #: modules/cons.py:392
 msgid "Pa_ge Setup"
@@ -656,7 +647,7 @@ msgstr "S_chließen (zum Tray)"
 
 #: modules/cons.py:394
 msgid "Quit the Application"
-msgstr "S_chließen (zum Tray)"
+msgstr "Schließen (zum Tray)"
 
 #: modules/cons.py:395
 msgid "_Exit CherryTree"
@@ -687,28 +678,24 @@ msgid "Set/Unset _Bulleted List"
 msgstr "_Aufzählung an/aus"
 
 #: modules/cons.py:398 modules/cons.py:573
-#, fuzzy
 msgid "Set/Unset the Current Paragraph/Selection as a Bulleted List"
-msgstr "Aufzählung für markierten Absatz an/aus"
+msgstr "Aufzählungzeichen an/aus"
 
 #: modules/cons.py:399 modules/cons.py:574
 msgid "Set/Unset _Numbered List"
 msgstr "_Nummerierung an/aus"
 
 #: modules/cons.py:399 modules/cons.py:574
-#, fuzzy
 msgid "Set/Unset the Current Paragraph/Selection as a Numbered List"
-msgstr "Nummerierung für markierten Absatz an/aus"
+msgstr "Nummerierung an/aus"
 
 #: modules/cons.py:400 modules/cons.py:575
-#, fuzzy
 msgid "Set/Unset _To-Do List"
-msgstr "_Aufzählung an/aus"
+msgstr "_Aufgabenliste an/aus"
 
 #: modules/cons.py:400 modules/cons.py:575
-#, fuzzy
 msgid "Set/Unset the Current Paragraph/Selection as a To-Do List"
-msgstr "Aufzählung für markierten Absatz an/aus"
+msgstr "Aufgabenliste an/aus"
 
 #: modules/cons.py:401 modules/cons.py:582
 msgid "Insert/Edit _Link"
@@ -716,7 +703,7 @@ msgstr "_Link einfügen/bearbeiten..."
 
 #: modules/cons.py:401 modules/cons.py:582
 msgid "Insert a Link/Edit the Underlying Link"
-msgstr "Link einfügen/Markierten Link bearbeiten"
+msgstr "Link einfügen/bearbeiten"
 
 #: modules/cons.py:402 modules/cons.py:584
 msgid "Insert T_OC"
@@ -740,7 +727,7 @@ msgstr "An_ker bearbeiten..."
 
 #: modules/cons.py:404
 msgid "Edit the Underlying Anchor"
-msgstr "Den markierten Anker bearbeiten"
+msgstr "Anker bearbeiten"
 
 #: modules/cons.py:405 modules/cons.py:579
 msgid "Insert I_mage"
@@ -764,7 +751,7 @@ msgstr "_Bild bearbeiten"
 
 #: modules/cons.py:407
 msgid "Edit the Selected Image"
-msgstr "Das markierte Bild bearbeiten"
+msgstr "Bild bearbeiten"
 
 #: modules/cons.py:408
 msgid "C_ut Image"
@@ -772,7 +759,7 @@ msgstr "Bild ausschneiden"
 
 #: modules/cons.py:408
 msgid "Cut the Selected Image"
-msgstr "Das markierte Bild ausschneiden"
+msgstr "Bild ausschneiden"
 
 #: modules/cons.py:409
 msgid "_Copy Image"
@@ -780,7 +767,7 @@ msgstr "Bild kopieren"
 
 #: modules/cons.py:409
 msgid "Copy the Selected Image"
-msgstr "markiertes Bild kopieren"
+msgstr "Bild kopieren"
 
 #: modules/cons.py:410
 msgid "_Delete Image"
@@ -788,7 +775,7 @@ msgstr "Bild löschen"
 
 #: modules/cons.py:410
 msgid "Delete the Selected Image"
-msgstr "markiertes Bild löschen"
+msgstr "Bild löschen"
 
 #: modules/cons.py:411
 msgid "C_ut Table"
@@ -796,7 +783,7 @@ msgstr "Tabelle ausschneiden"
 
 #: modules/cons.py:411
 msgid "Cut the Selected Table"
-msgstr "Markierte Tabelle ausschneiden"
+msgstr "Tabelle ausschneiden"
 
 #: modules/cons.py:412
 msgid "_Copy Table"
@@ -804,7 +791,7 @@ msgstr "Tabelle kopieren"
 
 #: modules/cons.py:412
 msgid "Copy the Selected Table"
-msgstr "Markierte Tabelle kopieren"
+msgstr "Tabelle kopieren"
 
 #: modules/cons.py:413
 msgid "_Delete Table"
@@ -812,7 +799,7 @@ msgstr "Tabelle löschen"
 
 #: modules/cons.py:413
 msgid "Delete the Selected Table"
-msgstr "Markierte Tabelle löschen"
+msgstr "Tabelle löschen"
 
 #: modules/cons.py:414 modules/cons.py:580
 msgid "Insert _Table"
@@ -820,7 +807,7 @@ msgstr "_Tabelle einfügen..."
 
 #: modules/cons.py:414 modules/cons.py:580
 msgid "Insert a Table"
-msgstr "Eine Tabelle einfügen"
+msgstr "Tabelle einfügen"
 
 #: modules/cons.py:415 modules/cons.py:581
 msgid "Insert _CodeBox"
@@ -865,7 +852,7 @@ msgstr "Zeile l_öschen"
 
 #: modules/cons.py:420 modules/cons.py:595 modules/cons.py:630
 msgid "Delete the Whole Row"
-msgstr "Gesamte Zeile löschen"
+msgstr "Zeile löschen"
 
 #: modules/cons.py:421 modules/cons.py:471 modules/cons.py:593
 #: modules/cons.py:628
@@ -874,7 +861,7 @@ msgstr "_Zeile ausschneiden"
 
 #: modules/cons.py:421 modules/cons.py:593 modules/cons.py:628
 msgid "Cut the Whole Row"
-msgstr "Gesamte Zeile ausschneiden"
+msgstr "Zeile ausschneiden"
 
 #: modules/cons.py:422 modules/cons.py:472
 msgid "_Copy Row"
@@ -882,7 +869,7 @@ msgstr "Zeile k_opieren"
 
 #: modules/cons.py:422 modules/cons.py:594 modules/cons.py:629
 msgid "Copy the Whole Row"
-msgstr "Gesamte Zeile kopieren"
+msgstr "Zeile kopieren"
 
 #: modules/cons.py:423 modules/cons.py:539
 msgid "Go _Back"
@@ -940,7 +927,7 @@ msgstr "Formatierung _entfernen"
 
 #: modules/cons.py:429 modules/cons.py:555
 msgid "Remove the Formatting from the Selected Text"
-msgstr "Die Formatierung des markierten Texts entfernen"
+msgstr "Die Formatierung entfernen"
 
 #: modules/cons.py:430 modules/cons.py:557
 msgid "Text _Color Foreground"
@@ -948,7 +935,7 @@ msgstr "_Schriftfarbe..."
 
 #: modules/cons.py:430 modules/cons.py:557
 msgid "Change the Color of the Selected Text Foreground"
-msgstr "Schriftfarbe des markierten Text verändern"
+msgstr "Schriftfarbe des ändern"
 
 #: modules/cons.py:431 modules/cons.py:558
 msgid "Text C_olor Background"
@@ -956,7 +943,7 @@ msgstr "_Hintergrundfarbe..."
 
 #: modules/cons.py:431 modules/cons.py:558
 msgid "Change the Color of the Selected Text Background"
-msgstr "Hintergrundfarbe des markierten Text verändern"
+msgstr "Hintergrundfarbe ändern"
 
 #: modules/cons.py:432 modules/cons.py:559
 msgid "Toggle _Bold Property"
@@ -964,7 +951,7 @@ msgstr "_Fett"
 
 #: modules/cons.py:432 modules/cons.py:559
 msgid "Toggle Bold Property of the Selected Text"
-msgstr "Markierten Text fett formatieren"
+msgstr "Fett"
 
 #: modules/cons.py:433 modules/cons.py:560
 msgid "Toggle _Italic Property"
@@ -972,7 +959,7 @@ msgstr "_Kursiv"
 
 #: modules/cons.py:433 modules/cons.py:560
 msgid "Toggle Italic Property of the Selected Text"
-msgstr "Markierten Text kursiv formatieren"
+msgstr "Kursiv"
 
 #: modules/cons.py:434 modules/cons.py:561
 msgid "Toggle _Underline Property"
@@ -980,7 +967,7 @@ msgstr "_Unterstrichen"
 
 #: modules/cons.py:434 modules/cons.py:561
 msgid "Toggle Underline Property of the Selected Text"
-msgstr "Markierten Text unterstrichen formatieren"
+msgstr "Unterstrichen"
 
 #: modules/cons.py:435 modules/cons.py:562
 msgid "Toggle Stri_kethrough Property"
@@ -988,7 +975,7 @@ msgstr "_Durchgestrichen"
 
 #: modules/cons.py:435 modules/cons.py:562
 msgid "Toggle Strikethrough Property of the Selected Text"
-msgstr "Markierten Text durchgestrichen formatieren"
+msgstr "Durchgestrichen"
 
 #: modules/cons.py:436 modules/cons.py:563
 msgid "Toggle h_1 Property"
@@ -996,7 +983,7 @@ msgstr "Überschrift _1"
 
 #: modules/cons.py:436 modules/cons.py:563
 msgid "Toggle h1 Property of the Selected Text"
-msgstr "Markierten Text als Überschrift 1 formatieren"
+msgstr "Überschrift 1"
 
 #: modules/cons.py:437 modules/cons.py:564
 msgid "Toggle h_2 Property"
@@ -1004,7 +991,7 @@ msgstr "Überschrift _2"
 
 #: modules/cons.py:437 modules/cons.py:564
 msgid "Toggle h2 Property of the Selected Text"
-msgstr "Markierten Text als Überschrift 2 formatieren"
+msgstr "Überschrift 2"
 
 #: modules/cons.py:438 modules/cons.py:565
 msgid "Toggle _Small Property"
@@ -1012,7 +999,7 @@ msgstr "_Klein"
 
 #: modules/cons.py:438 modules/cons.py:565
 msgid "Toggle Small Property of the Selected Text"
-msgstr "Markierten Text klein formatieren"
+msgstr "Klein"
 
 #: modules/cons.py:440 modules/cons.py:569
 msgid "Justify _Center"
@@ -1024,7 +1011,7 @@ msgstr "Im _aktuellen Knoten suchen..."
 
 #: modules/cons.py:442 modules/cons.py:600
 msgid "Find into the Selected Node"
-msgstr "Im aktuell markierten Knoten suchen"
+msgstr "Im markierten Knoten suchen"
 
 #: modules/cons.py:443 modules/cons.py:601
 msgid "Find in Node_s"
@@ -1064,7 +1051,7 @@ msgstr "Im _aktuellen Knoten ersetzen..."
 
 #: modules/cons.py:447 modules/cons.py:607
 msgid "Replace into the Selected Node"
-msgstr "Im aktuell markierten Knoten ersetzen"
+msgstr "Im markierten Knoten ersetzen"
 
 #: modules/cons.py:448 modules/cons.py:608
 msgid "Replace in Node_s"
@@ -1172,22 +1159,18 @@ msgid "Add Nodes of a KeepNote Folder to the Current Tree"
 msgstr "Knoten aus einem KeepNote Ordner zur aktuellen Baumstruktur hinzufügen"
 
 #: modules/cons.py:461 modules/cons.py:521
-#, fuzzy
 msgid "From K_nowit File"
-msgstr "aus _Leo Datei..."
+msgstr "aus Kno_wit-Datei..."
 
 #: modules/cons.py:461 modules/cons.py:521
-#, fuzzy
 msgid "Add Nodes of a Knowit File to the Current Tree"
-msgstr "Knoten aus einer Leo Datei zur aktuellen Baumstruktur hinzufügen"
+msgstr "Knoten aus einer Knowit-Datei einfügen"
 
 #: modules/cons.py:462 modules/cons.py:524
-#, fuzzy
 msgid "From T_omboy Folder"
-msgstr "aus _KeepNote Ordner..."
+msgstr "aus T_omboy-Verzeichnis.."
 
 #: modules/cons.py:462 modules/cons.py:524
-#, fuzzy
 msgid "Add Nodes of a Tomboy Folder to the Current Tree"
 msgstr "Knoten aus einer Leo Datei zur aktuellen Baumstruktur hinzufügen"
 
@@ -1270,7 +1253,7 @@ msgstr "Tabellenzeile einfügen"
 
 #: modules/cons.py:474
 msgid "Delete the Selected Table Row"
-msgstr "Markierte Tabellenzeile löschen"
+msgstr "Tabellenzeile löschen"
 
 #: modules/cons.py:475
 msgid "Move Row _Up"
@@ -1278,7 +1261,7 @@ msgstr "Zeile nach _oben verschieben"
 
 #: modules/cons.py:475
 msgid "Move the Selected Row Up"
-msgstr "Markierte Zeile nach oben verschieben"
+msgstr "Zeile nach oben verschieben"
 
 #: modules/cons.py:476
 msgid "Move Row _Down"
@@ -1286,7 +1269,7 @@ msgstr "Zeile nach _unten verschieben"
 
 #: modules/cons.py:476
 msgid "Move the Selected Row Down"
-msgstr "Markierte Zeile nach unten verschieben"
+msgstr "Zeile nach unten verschieben"
 
 #: modules/cons.py:477
 msgid "Sort Rows De_scending"
@@ -1331,7 +1314,7 @@ msgstr "Knoten _hinzufügen..."
 #: modules/cons.py:491
 msgid "Add a Node having the same Father of the Selected Node"
 msgstr ""
-"Einen Knoten mit dem selben übergeordneten Knoten wie dem markierten einfügen"
+"Einen Knoten mit demselben übergeordneten Knoten einfügen"
 
 #: modules/cons.py:492
 msgid "Add _SubNode"
@@ -1339,7 +1322,7 @@ msgstr "Unterge_ordneten Knoten hinzufügen..."
 
 #: modules/cons.py:492
 msgid "Add a Child Node to the Selected Node"
-msgstr "Dem markiertem Knoten untergeordneten Knoten hinzufügen"
+msgstr "untergeordneten Knoten hinzufügen"
 
 #: modules/cons.py:494
 msgid "Change Node _Properties"
@@ -1347,7 +1330,7 @@ msgstr "Knoten_eigenschaften ändern..."
 
 #: modules/cons.py:494
 msgid "Edit the Properties of the Selected Node"
-msgstr "Die Eigenschaften des markierten Knoten bearbeiten"
+msgstr "Eigenschaften des markierten Knotens bearbeiten"
 
 #: modules/cons.py:495
 msgid "Tree _Info"
@@ -1359,7 +1342,7 @@ msgstr "Knoten nach _oben verschieben"
 
 #: modules/cons.py:498
 msgid "Move the Selected Node Up"
-msgstr "Markierten Knoten nach oben verschieben"
+msgstr "Knoten nach oben verschieben"
 
 #: modules/cons.py:499
 msgid "Node _Down"
@@ -1367,7 +1350,7 @@ msgstr "Knoten nach _unten verschieben"
 
 #: modules/cons.py:499
 msgid "Move the Selected Node Down"
-msgstr "Markierten Knoten nach unten verschieben"
+msgstr "Knoten nach unten verschieben"
 
 #: modules/cons.py:500
 msgid "Node _Left"
@@ -1383,7 +1366,7 @@ msgstr "Übergeordneten Knoten _wechseln..."
 
 #: modules/cons.py:501
 msgid "Change the Selected Node's Father"
-msgstr "Übergeordneten Knoten des markierten Knotens wechseln"
+msgstr "Übergeordneten Knoten wechseln"
 
 #: modules/cons.py:504
 msgid "Nodes _Sort"
@@ -1443,16 +1426,15 @@ msgstr "Knoten _löschen"
 
 #: modules/cons.py:537
 msgid "Delete the Selected Node"
-msgstr "Den markierten Knoten löschen"
+msgstr "Knoten löschen"
 
 #: modules/cons.py:551
-#, fuzzy
 msgid "_Paste as Plain Text"
-msgstr "_Knoten als Text speichern"
+msgstr "_als unformatierten Text einfügen"
 
 #: modules/cons.py:551
 msgid "Paste as Plain Text, Discard the Rich Text Formatting"
-msgstr ""
+msgstr "als unformatierten Text einfügen"
 
 #: modules/cons.py:567
 msgid "_Justify"
@@ -1460,7 +1442,7 @@ msgstr "_Blocksatz"
 
 #: modules/cons.py:572
 msgid "_List"
-msgstr ""
+msgstr "_Liste"
 
 #: modules/cons.py:578
 msgid "_Insert"
@@ -1480,7 +1462,7 @@ msgstr "CodeBox ausschneiden"
 
 #: modules/cons.py:642
 msgid "Cut the Selected CodeBox"
-msgstr "markierte CodeBox ausschneiden"
+msgstr "CodeBox ausschneiden"
 
 #: modules/cons.py:643
 msgid "_Copy CodeBox"
@@ -1488,7 +1470,7 @@ msgstr "CodeBox kopieren"
 
 #: modules/cons.py:643
 msgid "Copy the Selected CodeBox"
-msgstr "markierte CodeBox kopieren"
+msgstr "CodeBox kopieren"
 
 #: modules/cons.py:644
 msgid "_Delete CodeBox"
@@ -1496,7 +1478,7 @@ msgstr "CodeBox _löschen"
 
 #: modules/cons.py:644
 msgid "Delete the Selected CodeBox"
-msgstr "markierte CodeBox löschen"
+msgstr "CodeBox löschen"
 
 #: modules/cons.py:646
 msgid "Change CodeBox _Properties"
@@ -1721,7 +1703,7 @@ msgstr "Nach oben"
 
 #: glade/cherrytree.glade.h:53
 msgid "Browse for Existing Anchors on the Selected Node"
-msgstr "Markierten Knoten nach existierenden Ankern durchsuchen"
+msgstr "Markierten Knoten nach Ankern durchsuchen"
 
 #: glade/cherrytree.glade.h:54
 msgid "Browse for a File to link to"
@@ -1768,7 +1750,7 @@ msgid ""
 msgstr ""
 "Czech (cs) Pavel Fric <fripohled@blogspot.com>\n"
 "French (fr) Ludovic Troisi <axalis@cegetel.net>\n"
-"German (de) Frank Brungräber <calexu@arcor.de> (until 0.21.2: Sven "
+"German (de) Frank Brungräber <calexu@arcor.de> (bis 0.21.2: Sven "
 "Neubauer)\n"
 "Italian (it) Giuseppe Penone <giuspen@gmail.com>\n"
 "Polish (pl) Marcin Swierczynski <orneo1212@gmail.com>\n"
@@ -1975,10 +1957,10 @@ msgstr "Pixel"
 #~ msgstr "Baumstruktur nach HTML exportieren"
 
 #~ msgid "Export the Selected Node To HTML"
-#~ msgstr "Markierten Knoten nach HTML exportieren"
+#~ msgstr "Knoten nach HTML exportieren"
 
 #~ msgid "Save the Selected Node as Plain Text"
-#~ msgstr "Markierten Knoten als Text speichern"
+#~ msgstr "Knoten als Text speichern"
 
 #~ msgid "_Export Node and Subnodes"
 #~ msgstr "_Markierten und untergeordnete Knoten exportieren"
@@ -1988,7 +1970,7 @@ msgstr "Pixel"
 
 #~ msgid "Print the Current Node / Save the Current Node as PDF, PS, SVG"
 #~ msgstr ""
-#~ "Aktuellen Knoten drucken / Aktuellen Knoten als PDF,PS,SVG speichern"
+#~ "Knoten drucken / Knoten als PDF,PS,SVG speichern"
 
 #~ msgid "Another Instance of CherryTree is Already Running"
 #~ msgstr "CherryTree läuft bereits"

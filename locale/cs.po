@@ -5,20 +5,21 @@
 # maul <giuspen@gmail.com>, 2010.
 # Pavel Fric <fripohled@blogspot.com>, 2010, 2011.
 # Pavel Fric <fripohled.blogspot.com>, 2010, 2011.
+# Pavel Fric <pavelfric@seznam.cz>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-06-02 00:04+0200\n"
-"PO-Revision-Date: 2011-04-16 04:26+0200\n"
-"Last-Translator: Pavel Fric\n"
+"PO-Revision-Date: 2011-06-02 19:06+0200\n"
+"Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 1.1\n"
+"X-Generator: Lokalize 1.2\n"
 
 #: modules/support.py:43
 msgid "Save File as"
@@ -50,22 +51,19 @@ msgstr "Chyba"
 
 #: modules/support.py:184
 msgid "Involved Nodes"
-msgstr ""
+msgstr "Související uzly"
 
 #: modules/support.py:190
-#, fuzzy
 msgid "Selected Node Only"
-msgstr "Označený uzel"
+msgstr "Pouze označený uzel"
 
 #: modules/support.py:191
-#, fuzzy
 msgid "Selected Node and Subnodes"
-msgstr "Vyvést označený uzel a všechny podřízené uzly"
+msgstr "Označený uzel a podřízené uzly"
 
 #: modules/support.py:192
-#, fuzzy
 msgid "All the Tree"
-msgstr "Rozbalit všechny uzly stromové stavby"
+msgstr "Celý strom"
 
 #: modules/support.py:235 modules/cons.py:439 modules/cons.py:568
 msgid "Justify _Left"
@@ -199,9 +197,8 @@ msgid "Treepad Document"
 msgstr "Dokument Treepad"
 
 #: modules/core.py:538
-#, fuzzy
 msgid "Knowit Document"
-msgstr "Dokument Leo"
+msgstr "Dokument Knowit"
 
 #: modules/core.py:555
 msgid "Leo Document"
@@ -609,33 +606,28 @@ msgid "Save File As"
 msgstr "Uložit soubor jako"
 
 #: modules/cons.py:389 modules/cons.py:531
-#, fuzzy
 msgid "Export To _HTML"
-msgstr "Vyvést _uzel jako HTML"
+msgstr "Vyvést _jako HTML"
 
 #: modules/cons.py:389 modules/cons.py:531
-#, fuzzy
 msgid "Export To HTML"
-msgstr "Vyvést _strom jako HTML"
+msgstr "Vyvést jako HTML"
 
 #: modules/cons.py:390 modules/cons.py:530
-#, fuzzy
 msgid "Export to Plain _Text"
-msgstr "Uložit uzel jako prostý _text"
+msgstr "Vyvést jako prostý _text"
 
 #: modules/cons.py:390 modules/cons.py:530
 msgid "Export to Plain Text"
-msgstr ""
+msgstr "Vyvést jako prostý text"
 
 #: modules/cons.py:391 modules/cons.py:532
-#, fuzzy
 msgid "_Export To CherryTree Document"
-msgstr "Otevřít dokument CherryTree"
+msgstr "_Vyvést jako dokument CherryTree"
 
 #: modules/cons.py:391 modules/cons.py:532
-#, fuzzy
 msgid "Export To CherryTree Document"
-msgstr "Otevřít dokument CherryTree"
+msgstr "Vyvést jako dokument CherryTree"
 
 #: modules/cons.py:392
 msgid "Pa_ge Setup"
@@ -647,11 +639,11 @@ msgstr "Nastavit stranu pro tisk"
 
 #: modules/cons.py:393 modules/cons.py:529
 msgid "_Print / Export To PDF"
-msgstr ""
+msgstr "_Tisknout/Vyvést jako PDF"
 
 #: modules/cons.py:393 modules/cons.py:529
 msgid "Print / Export To PDF"
-msgstr ""
+msgstr "Tisknout/Vyvést jako PDF"
 
 #: modules/cons.py:394
 msgid "_Quit"
@@ -690,28 +682,27 @@ msgid "Set/Unset _Bulleted List"
 msgstr "Zapnout/Vypnout _seznam s odrážkami"
 
 #: modules/cons.py:398 modules/cons.py:573
-#, fuzzy
 msgid "Set/Unset the Current Paragraph/Selection as a Bulleted List"
-msgstr "Zapnout/Vypnout označený odstavec jako položku seznamu s odrážkami"
+msgstr ""
+"Zapnout/Vypnout označený odstavec/výběr jako položku seznamu s odrážkami"
 
 #: modules/cons.py:399 modules/cons.py:574
 msgid "Set/Unset _Numbered List"
 msgstr "Zapnout/Vypnout čís_lovaný seznam"
 
 #: modules/cons.py:399 modules/cons.py:574
-#, fuzzy
 msgid "Set/Unset the Current Paragraph/Selection as a Numbered List"
-msgstr "Zapnout/Vypnout označený odstavec jako položku číslovaného seznamu"
+msgstr ""
+"Zapnout/Vypnout označený odstavec/výběr jako položku číslovaného seznamu"
 
 #: modules/cons.py:400 modules/cons.py:575
-#, fuzzy
 msgid "Set/Unset _To-Do List"
-msgstr "Zapnout/Vypnout _seznam s odrážkami"
+msgstr "Zapnout/Vypnout _seznam pracovních úkolů"
 
 #: modules/cons.py:400 modules/cons.py:575
-#, fuzzy
 msgid "Set/Unset the Current Paragraph/Selection as a To-Do List"
-msgstr "Zapnout/Vypnout označený odstavec jako položku seznamu s odrážkami"
+msgstr ""
+"Zapnout/Vypnout označený odstavec/výběr jako položku seznamu pracovních úkolů"
 
 #: modules/cons.py:401 modules/cons.py:582
 msgid "Insert/Edit _Link"
@@ -1174,24 +1165,20 @@ msgid "Add Nodes of a KeepNote Folder to the Current Tree"
 msgstr "Přidat uzly ze složky KeepNote do současné stromové stavby"
 
 #: modules/cons.py:461 modules/cons.py:521
-#, fuzzy
 msgid "From K_nowit File"
-msgstr "Ze souboru _Leo"
+msgstr "Ze souboru K_nowit"
 
 #: modules/cons.py:461 modules/cons.py:521
-#, fuzzy
 msgid "Add Nodes of a Knowit File to the Current Tree"
-msgstr "Přidat uzly ze souboru Leo do současné stromové stavby"
+msgstr "Přidat uzly ze souboru Knowit do současné stromové stavby"
 
 #: modules/cons.py:462 modules/cons.py:524
-#, fuzzy
 msgid "From T_omboy Folder"
-msgstr "Ze složky _KeepNote"
+msgstr "Ze složky T_omboy"
 
 #: modules/cons.py:462 modules/cons.py:524
-#, fuzzy
 msgid "Add Nodes of a Tomboy Folder to the Current Tree"
-msgstr "Přidat uzly ze souboru Leo do současné stromové stavby"
+msgstr "Přidat uzly ze složky Tomboy do současné stromové stavby"
 
 #: modules/cons.py:463 modules/cons.py:526
 msgid "From _TuxCards File"
@@ -1446,13 +1433,12 @@ msgid "Delete the Selected Node"
 msgstr "Smazat označený uzel"
 
 #: modules/cons.py:551
-#, fuzzy
 msgid "_Paste as Plain Text"
-msgstr "Uložit uzel jako prostý _text"
+msgstr "_Vložit jako prostý text"
 
 #: modules/cons.py:551
 msgid "Paste as Plain Text, Discard the Rich Text Formatting"
-msgstr ""
+msgstr "Vložit jako prostý text, odložit formátování formátovaného textu (RTF)"
 
 #: modules/cons.py:567
 msgid "_Justify"
@@ -1460,7 +1446,7 @@ msgstr "_Zarovnat"
 
 #: modules/cons.py:572
 msgid "_List"
-msgstr ""
+msgstr "_Vypsat"
 
 #: modules/cons.py:578
 msgid "_Insert"
