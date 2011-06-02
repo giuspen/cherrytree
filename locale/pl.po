@@ -47,22 +47,19 @@ msgstr "Błąd"
 
 #: modules/support.py:184
 msgid "Involved Nodes"
-msgstr ""
+msgstr "Wplątane gałęzie"
 
 #: modules/support.py:190
-#, fuzzy
 msgid "Selected Node Only"
-msgstr "Zaznaczona gałąź"
+msgstr "Tylko zaznaczoną gałąź"
 
 #: modules/support.py:191
-#, fuzzy
 msgid "Selected Node and Subnodes"
-msgstr "Eksportuj gałąź oraz jej podgałęzie"
+msgstr "Zaznaczoną gałąź i podgałęzie"
 
 #: modules/support.py:192
-#, fuzzy
 msgid "All the Tree"
-msgstr "Rozwiń wszystkie gałęzie"
+msgstr "Całe drzewo"
 
 #: modules/support.py:235 modules/cons.py:439 modules/cons.py:568
 msgid "Justify _Left"
@@ -196,9 +193,8 @@ msgid "Treepad Document"
 msgstr "Dokument Treepad"
 
 #: modules/core.py:538
-#, fuzzy
 msgid "Knowit Document"
-msgstr "Dokument Leo"
+msgstr "Dokument Knowit"
 
 #: modules/core.py:555
 msgid "Leo Document"
@@ -603,33 +599,28 @@ msgid "Save File As"
 msgstr "Zapisz plik jako"
 
 #: modules/cons.py:389 modules/cons.py:531
-#, fuzzy
 msgid "Export To _HTML"
-msgstr "Eksportuj gałąź do HTML"
+msgstr "Eksportuj do HTML"
 
 #: modules/cons.py:389 modules/cons.py:531
-#, fuzzy
 msgid "Export To HTML"
-msgstr "Eksportuj drzewo do HTML"
+msgstr "Eksportuj do HTML"
 
 #: modules/cons.py:390 modules/cons.py:530
-#, fuzzy
 msgid "Export to Plain _Text"
-msgstr "Zapisz gałąź jako plik tekstowy"
+msgstr "Eksportuj jako plik tekstowy"
 
 #: modules/cons.py:390 modules/cons.py:530
 msgid "Export to Plain Text"
-msgstr ""
+msgstr "Eksportuj jako plik tekstowy"
 
 #: modules/cons.py:391 modules/cons.py:532
-#, fuzzy
 msgid "_Export To CherryTree Document"
-msgstr "Otwórz Dokument CherryTree"
+msgstr "_Eksportuj do dokumentu CherryTree"
 
 #: modules/cons.py:391 modules/cons.py:532
-#, fuzzy
 msgid "Export To CherryTree Document"
-msgstr "Otwórz Dokument CherryTree"
+msgstr "Eksportuj do dokumentu CherryTree"
 
 #: modules/cons.py:392
 msgid "Pa_ge Setup"
@@ -641,11 +632,11 @@ msgstr "Ustaw stronę do druku"
 
 #: modules/cons.py:393 modules/cons.py:529
 msgid "_Print / Export To PDF"
-msgstr ""
+msgstr "Drukuj / Eksportuj do PDF"
 
 #: modules/cons.py:393 modules/cons.py:529
 msgid "Print / Export To PDF"
-msgstr ""
+msgstr "Drukuj / Eksportuj do PDF"
 
 #: modules/cons.py:394
 msgid "_Quit"
@@ -684,28 +675,24 @@ msgid "Set/Unset _Bulleted List"
 msgstr "Przełącz wypunktowaną listę"
 
 #: modules/cons.py:398 modules/cons.py:573
-#, fuzzy
 msgid "Set/Unset the Current Paragraph/Selection as a Bulleted List"
-msgstr "Przełącz aktualny paragraf jako lista wypunktowana"
+msgstr "Przełącz aktualny paragraf/zaznaczenie jako lista wypunktowana"
 
 #: modules/cons.py:399 modules/cons.py:574
 msgid "Set/Unset _Numbered List"
 msgstr "Przełącz numerowaną listę"
 
 #: modules/cons.py:399 modules/cons.py:574
-#, fuzzy
 msgid "Set/Unset the Current Paragraph/Selection as a Numbered List"
-msgstr "Przełącz aktualny paragraf jako lista numerowana"
+msgstr "Przełącz aktualny paragraf/zaznaczenie jako lista numerowaną"
 
 #: modules/cons.py:400 modules/cons.py:575
-#, fuzzy
 msgid "Set/Unset _To-Do List"
-msgstr "Przełącz wypunktowaną listę"
+msgstr "Przełącz listę do-zrobienia"
 
 #: modules/cons.py:400 modules/cons.py:575
-#, fuzzy
 msgid "Set/Unset the Current Paragraph/Selection as a To-Do List"
-msgstr "Przełącz aktualny paragraf jako lista wypunktowana"
+msgstr "Przełącz aktualny paragraf/zaznaczenie jako liste do-zrobienia"
 
 #: modules/cons.py:401 modules/cons.py:582
 msgid "Insert/Edit _Link"
@@ -1168,24 +1155,20 @@ msgid "Add Nodes of a KeepNote Folder to the Current Tree"
 msgstr "Dodaj gałąź z folderu KeepNote do aktualnego drzewa"
 
 #: modules/cons.py:461 modules/cons.py:521
-#, fuzzy
 msgid "From K_nowit File"
-msgstr "Z pliku _Leo"
+msgstr "Z pliku K_nowit"
 
 #: modules/cons.py:461 modules/cons.py:521
-#, fuzzy
 msgid "Add Nodes of a Knowit File to the Current Tree"
-msgstr "Dodaj gałąź z pliku Leo do aktualnego drzewa"
+msgstr "Dodaj gałąź z pliku Knowit do aktualnego drzewa"
 
 #: modules/cons.py:462 modules/cons.py:524
-#, fuzzy
 msgid "From T_omboy Folder"
-msgstr "Z folderu _KeepNote"
+msgstr "Z folderu T_omboy"
 
 #: modules/cons.py:462 modules/cons.py:524
-#, fuzzy
 msgid "Add Nodes of a Tomboy Folder to the Current Tree"
-msgstr "Dodaj gałąź z pliku Leo do aktualnego drzewa"
+msgstr "Dodaj gałęzie z folderu Tomboy do aktualnego drzewa"
 
 #: modules/cons.py:463 modules/cons.py:526
 msgid "From _TuxCards File"
@@ -1440,13 +1423,12 @@ msgid "Delete the Selected Node"
 msgstr "Usuń zaznaczoną gałąź"
 
 #: modules/cons.py:551
-#, fuzzy
 msgid "_Paste as Plain Text"
-msgstr "Zapisz gałąź jako plik tekstowy"
+msgstr "Wklej jako surowy tekst"
 
 #: modules/cons.py:551
 msgid "Paste as Plain Text, Discard the Rich Text Formatting"
-msgstr ""
+msgstr "Wklej jako surowy, odrzucając formatowanie"
 
 #: modules/cons.py:567
 msgid "_Justify"
@@ -1454,7 +1436,7 @@ msgstr "Wyjustuj"
 
 #: modules/cons.py:572
 msgid "_List"
-msgstr ""
+msgstr "_Lista"
 
 #: modules/cons.py:578
 msgid "_Insert"
