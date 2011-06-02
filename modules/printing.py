@@ -88,8 +88,8 @@ class PrintHandler:
 
    def on_begin_print_text(self, operation, context, print_data):
       """Here we Compute the Lines Positions, the Number of Pages Needed and the Page Breaks"""
-      page_width = context.get_width()
-      page_height = context.get_height() * 1.02 # tolerance at bottom of the page
+      self.page_width = context.get_width()
+      self.page_height = context.get_height() * 1.02 # tolerance at bottom of the page
       while 1:
          exit_ok = True
          print_data.layout = []
@@ -100,7 +100,7 @@ class PrintHandler:
          for i, text_slot in enumerate(print_data.text):
             print_data.layout.append(context.create_pango_layout())
             print_data.layout[-1].set_font_description(self.pango_font)
-            print_data.layout[-1].set_width(int(page_width*pango.SCALE))
+            print_data.layout[-1].set_width(int(self.page_width*pango.SCALE))
             print_data.layout[-1].set_markup(text_slot)
             if text_slot == cons.CHAR_NEWLINE:
                print_data.layout_is_new_line.append(True) # in other case we detect the newline from a following line
@@ -122,13 +122,13 @@ class PrintHandler:
                # process the line
                if line_height > inline_pending_height: inline_pending_height = line_height
                if layout_line_idx < print_data.layout_num_lines[i]-1 or print_data.layout_is_new_line[i]:
-                  if curr_y + inline_pending_height > page_height:
+                  if curr_y + inline_pending_height > self.page_height:
                      print_data.page_breaks.append(inline_starter)
                      #print "added page break", inline_starter
                      curr_y = 0
-                     if inline_pending_height > page_height:
+                     if inline_pending_height > self.page_height:
                         if self.pixbuf_table_codebox_vector[i-1][0] == "codebox"\
-                        and codebox_height > page_height:
+                        and codebox_height > self.page_height:
                            self.codebox_long_split(i-1, context, print_data)
                            exit_ok = False
                            break # go to a new main loop
@@ -169,6 +169,11 @@ class PrintHandler:
       else: end_line_num = [len(print_data.layout)-1, print_data.layout_num_lines[-1]]
       #print "end_line_num", end_line_num
       cairo_context = context.get_cairo_context()
+      cairo_context.set_source_rgb(0.5, 0.5, 0.5)
+      cairo_context.set_font_size(12)
+      page_num_str = "%s/%s" % (page_nr+1, operation.get_property("n-pages"))
+      cairo_context.move_to(self.page_width/2, self.page_height+17)
+      cairo_context.show_text(page_num_str)
       curr_x = float(0)
       i = start_line_num[0]
       layout_line_idx = start_line_num[1]
@@ -243,7 +248,7 @@ class PrintHandler:
       layout.set_font_description(self.codebox_font)
       if codebox_dict['width_in_pixels']: codebox_width = codebox_dict['frame_width']
       else: codebox_width = self.text_window_width*codebox_dict['frame_width']/100
-      if codebox_width > context.get_width(): codebox_width = context.get_width()
+      if codebox_width > self.page_width: codebox_width = self.page_width
       layout.set_width(int(codebox_width*pango.SCALE))
       layout.set_wrap(pango.WRAP_WORD_CHAR)
       layout.set_markup(codebox_dict['fill_text'])
@@ -381,8 +386,6 @@ class PrintHandler:
    
    def codebox_long_split(self, idx, context, print_data):
       """Split Long CodeBoxes"""
-      page_width = context.get_width()
-      page_height = context.get_height()
       codebox_dict = self.pixbuf_table_codebox_vector[idx][1][1]
       original_splitted_pango = codebox_dict['fill_text'].split(cons.CHAR_NEWLINE)
       splitted_pango = copy.deepcopy(original_splitted_pango)
@@ -394,7 +397,7 @@ class PrintHandler:
          codebox_dict_jolly['fill_text'] = partial_pango
          codebox_layout = self.get_codebox_layout(context, codebox_dict_jolly)
          codebox_height = self.get_height_from_layout(codebox_layout)
-         if codebox_height < page_height:
+         if codebox_height < self.page_height:
             # this slot is done
             partial_pango_vec.append(partial_pango)
             # let's get ready for the next slot
@@ -404,7 +407,7 @@ class PrintHandler:
             codebox_dict_jolly['fill_text'] = partial_pango
             codebox_layout = self.get_codebox_layout(context, codebox_dict_jolly)
             codebox_height = self.get_height_from_layout(codebox_layout)
-            if codebox_height < page_height:
+            if codebox_height < self.page_height:
                # this is the last piece
                partial_pango_vec.append(partial_pango)
                break
