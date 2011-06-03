@@ -229,29 +229,6 @@ def set_bookmarks_menu_items(inst):
       bookmarks_menu.append(menu_item)
       inst.bookmarks_menu_items.append(menu_item)
 
-def set_menu_items_justification(inst):
-   """Set Justification menu items on Toolbar"""
-   justification_menu = gtk.Menu()
-   menu_item = gtk.ImageMenuItem(_("Justify _Left"))
-   menu_item.set_tooltip_text(_("Justify Left the Current Paragraph"))
-   menu_item.set_image(gtk.image_new_from_stock("gtk-justify-left", gtk.ICON_SIZE_MENU))
-   menu_item.connect("activate", inst.apply_tag_justify_left)
-   menu_item.show()
-   justification_menu.append(menu_item)
-   menu_item = gtk.ImageMenuItem(_("Justify _Right"))
-   menu_item.set_tooltip_text(_("Justify Right the Current Paragraph"))
-   menu_item.set_image(gtk.image_new_from_stock("gtk-justify-right", gtk.ICON_SIZE_MENU))
-   menu_item.connect("activate", inst.apply_tag_justify_right)
-   menu_item.show()
-   justification_menu.append(menu_item)
-   menu_toolbutton = gtk.MenuToolButton("gtk-justify-center")
-   menu_toolbutton.set_tooltip_text(_("Justify Center the Current Paragraph"))
-   menu_toolbutton.set_arrow_tooltip_text(_("Justify Left/Right the Current Paragraph"))
-   menu_toolbutton.set_menu(justification_menu)
-   menu_toolbutton.connect("clicked", inst.apply_tag_justify_center)
-   inst.ui.get_widget("/ToolBar").insert(menu_toolbutton, 16)
-   inst.ui.get_widget("/ToolBar").insert(gtk.SeparatorToolItem(), 17)
-
 def set_menu_items_recent_documents(inst):
    """Set Recent Documents menu items on Menu and Toolbar"""
    inst.recent_menu_1 = gtk.Menu()
