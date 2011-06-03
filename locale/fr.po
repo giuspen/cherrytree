@@ -47,22 +47,19 @@ msgstr "Erreur"
 
 #: modules/support.py:184
 msgid "Involved Nodes"
-msgstr ""
+msgstr "Nœuds impliqués"
 
 #: modules/support.py:190
-#, fuzzy
 msgid "Selected Node Only"
-msgstr "Le Nœud Sélectionné"
+msgstr "Nœud sélectionné uniquement"
 
 #: modules/support.py:191
-#, fuzzy
 msgid "Selected Node and Subnodes"
-msgstr "Exporter le Nœud sélectionné et ses Sous-Nœuds"
+msgstr "Nœud sélectionné et ses Sous-Nœuds"
 
 #: modules/support.py:192
-#, fuzzy
 msgid "All the Tree"
-msgstr "Dérouler tous les Nœuds"
+msgstr "Toute l'arborescence"
 
 #: modules/support.py:235 modules/cons.py:439 modules/cons.py:568
 msgid "Justify _Left"
@@ -197,9 +194,8 @@ msgid "Treepad Document"
 msgstr "Document Treepad"
 
 #: modules/core.py:538
-#, fuzzy
 msgid "Knowit Document"
-msgstr "Document Leo"
+msgstr "Document Knowit"
 
 #: modules/core.py:555
 msgid "Leo Document"
@@ -610,33 +606,28 @@ msgid "Save File As"
 msgstr "Enregistrer le Fichier sous"
 
 #: modules/cons.py:389 modules/cons.py:531
-#, fuzzy
 msgid "Export To _HTML"
-msgstr "Exporter le Nœud en _HTML"
+msgstr "Exporter en _HTML"
 
 #: modules/cons.py:389 modules/cons.py:531
-#, fuzzy
 msgid "Export To HTML"
-msgstr "Exporter l'_arborescence en HTML"
+msgstr "Exporter en HTML"
 
 #: modules/cons.py:390 modules/cons.py:530
-#, fuzzy
 msgid "Export to Plain _Text"
-msgstr "Enregistrer le Nœud en Texte _Brut"
+msgstr "Exporter en Texte _Brut"
 
 #: modules/cons.py:390 modules/cons.py:530
 msgid "Export to Plain Text"
-msgstr ""
+msgstr "Exporter en Texte Brut"
 
 #: modules/cons.py:391 modules/cons.py:532
-#, fuzzy
 msgid "_Export To CherryTree Document"
-msgstr "Ouvrir un Document CherryTree"
+msgstr "_Exporter en Document CherryTree"
 
 #: modules/cons.py:391 modules/cons.py:532
-#, fuzzy
 msgid "Export To CherryTree Document"
-msgstr "Ouvrir un Document CherryTree"
+msgstr "Exporter en Document CherryTree"
 
 #: modules/cons.py:392
 msgid "Pa_ge Setup"
@@ -648,11 +639,11 @@ msgstr "Mettre en page pour Impression"
 
 #: modules/cons.py:393 modules/cons.py:529
 msgid "_Print / Export To PDF"
-msgstr ""
+msgstr "_Imprimer / Exporter en PDF"
 
 #: modules/cons.py:393 modules/cons.py:529
 msgid "Print / Export To PDF"
-msgstr ""
+msgstr "Imprimer / Exporter en PDF"
 
 #: modules/cons.py:394
 msgid "_Quit"
@@ -691,28 +682,24 @@ msgid "Set/Unset _Bulleted List"
 msgstr "(Dés)Activer la Liste à Puces"
 
 #: modules/cons.py:398 modules/cons.py:573
-#, fuzzy
 msgid "Set/Unset the Current Paragraph/Selection as a Bulleted List"
-msgstr "Afficher le Paragraphe dans une Liste à Puces"
+msgstr "(Dés)Afficher le Paragraphe/Selection actuelle en Liste à Puces"
 
 #: modules/cons.py:399 modules/cons.py:574
 msgid "Set/Unset _Numbered List"
 msgstr "(Dés)Activer la Liste Numérotée"
 
 #: modules/cons.py:399 modules/cons.py:574
-#, fuzzy
 msgid "Set/Unset the Current Paragraph/Selection as a Numbered List"
-msgstr "Afficher le Paragraphe dans une Liste à Puces"
+msgstr "(Dés)Afficher le Paragraphe/Selection actuelle en Liste numérotée"
 
 #: modules/cons.py:400 modules/cons.py:575
-#, fuzzy
 msgid "Set/Unset _To-Do List"
-msgstr "(Dés)Activer la Liste à Puces"
+msgstr "(Dés)Activer la Liste de _choses à faire"
 
 #: modules/cons.py:400 modules/cons.py:575
-#, fuzzy
 msgid "Set/Unset the Current Paragraph/Selection as a To-Do List"
-msgstr "Afficher le Paragraphe dans une Liste à Puces"
+msgstr "(Dés)Afficher le Paragraphe/Selection actuelle en Liste de choses à faire"
 
 #: modules/cons.py:401 modules/cons.py:582
 msgid "Insert/Edit _Link"
@@ -1177,24 +1164,21 @@ msgid "Add Nodes of a KeepNote Folder to the Current Tree"
 msgstr "Ajouter les Nœuds d'un Répertoire KeepNote à l'Arborescence actuelle"
 
 #: modules/cons.py:461 modules/cons.py:521
-#, fuzzy
 msgid "From K_nowit File"
-msgstr "À partir d'un Fichier _Leo"
+msgstr "À partir d'un Fichier K_nowit"
 
 #: modules/cons.py:461 modules/cons.py:521
-#, fuzzy
 msgid "Add Nodes of a Knowit File to the Current Tree"
-msgstr "Ajouter les Nœuds d'un Fichier Leo à l'Arborescence actuelle"
+msgstr "Ajouter les Nœuds d'un Fichier Knowit à l'Arborescence actuelle"
 
 #: modules/cons.py:462 modules/cons.py:524
-#, fuzzy
+
 msgid "From T_omboy Folder"
-msgstr "À partir d'un Répertoire _KeepNote"
+msgstr "À partir d'un Répertoire T_omboy"
 
 #: modules/cons.py:462 modules/cons.py:524
-#, fuzzy
 msgid "Add Nodes of a Tomboy Folder to the Current Tree"
-msgstr "Ajouter les Nœuds d'un Fichier Leo à l'Arborescence actuelle"
+msgstr "Ajouter les Nœuds d'un Dossier Tomboy à l'Arborescence actuelle"
 
 #: modules/cons.py:463 modules/cons.py:526
 msgid "From _TuxCards File"
@@ -1449,13 +1433,12 @@ msgid "Delete the Selected Node"
 msgstr "Supprimer le Nœud Sélectionné"
 
 #: modules/cons.py:551
-#, fuzzy
 msgid "_Paste as Plain Text"
-msgstr "Enregistrer le Nœud en Texte _Brut"
+msgstr "_Coller comme Texte Brut"
 
 #: modules/cons.py:551
 msgid "Paste as Plain Text, Discard the Rich Text Formatting"
-msgstr ""
+msgstr "Coller comme Texte Brut, Supprimer le formattage en Texte Riche"
 
 #: modules/cons.py:567
 msgid "_Justify"
@@ -1463,7 +1446,7 @@ msgstr "_Justifier"
 
 #: modules/cons.py:572
 msgid "_List"
-msgstr ""
+msgstr "_Lister"
 
 #: modules/cons.py:578
 msgid "_Insert"

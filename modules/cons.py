@@ -195,10 +195,6 @@ UI_INFO = """
          <menuitem action='CopyRow'/>
          <menuitem action='DeleteRow'/>
          <menuitem action='DuplicateRow'/>
-         <separator/>
-         <menuitem action='BulletedList'/>
-         <menuitem action='NumberedList'/>
-         <menuitem action='ToDoList'/>
       </menu>
       
       <menu action='FormattingMenu'>
@@ -214,6 +210,10 @@ UI_INFO = """
          <menuitem action='H1'/>
          <menuitem action='H2'/>
          <menuitem action='Small'/>
+         <separator/>
+         <menuitem action='BulletedList'/>
+         <menuitem action='NumberedList'/>
+         <menuitem action='ToDoList'/>
          <separator/>
          <menuitem action='JustifyLeft'/>
          <menuitem action='JustifyCenter'/>
@@ -294,6 +294,8 @@ UI_INFO = """
       <toolitem action='Undo'/>
       <toolitem action='Redo'/>
       <separator/>
+      <toolitem action='FindInNodes'/>
+      <separator/>
       <toolitem action='BulletedList'/>
       <toolitem action='NumberedList'/>
       <toolitem action='ToDoList'/>
@@ -314,10 +316,6 @@ UI_INFO = """
       <toolitem action='H2'/>
       <toolitem action='Small'/>
       <toolitem action='FormatLatest'/>
-      <separator/>
-      <toolitem action='FindAgain'/>
-      <toolitem action='FindBack'/>
-      <toolitem action='ReplaceAgain'/>
       <separator/>
       <toolitem action='QuitApp'/>
    </toolbar>
