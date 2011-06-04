@@ -24,6 +24,13 @@ import gtk, os, xml.dom.minidom, re, base64, urllib2
 import cons, machines
 
 
+def get_internal_link_from_http_url(link_url):
+   """From HTTP link url to internal cherrytree link attribute"""
+   if link_url[0:4] == "http": return "webs %s" % link_url
+   elif link_url[0:7] == "file://": return "file %s" % base64.b64encode(link_url[7:])
+   else: return "webs %s" % ("http://" + link_url)
+
+
 class LeoHandler:
    """The Handler of the Leo File Parsing"""
    
@@ -164,9 +171,7 @@ class TuxCardsHandler(HTMLParser.HTMLParser):
          elif tag == "a" and len(attrs) > 0:
             link_url = attrs[0][1]
             if len(link_url) > 7:
-               if link_url[0:4] == "http": self.curr_attributes["link"] = "webs %s" % link_url
-               elif link_url[0:7] == "file://": self.curr_attributes["link"] = "file %s" % base64.b64encode(link_url[7:])
-               else: self.curr_attributes["link"] = "webs %s" % ("http://" + link_url)
+               self.curr_attributes["link"] = get_internal_link_from_http_url(link_url)
          elif tag == "img" and len(attrs) > 0:
             img_path = attrs[0][1]
             if os.path.isfile(img_path):
@@ -305,9 +310,7 @@ class KeepnoteHandler(HTMLParser.HTMLParser):
          elif tag == "a" and len(attrs) > 0:
             link_url = attrs[0][1]
             if len(link_url) > 7:
-               if link_url[0:4] == "http": self.curr_attributes["link"] = "webs %s" % link_url
-               elif link_url[0:7] == "file://": self.curr_attributes["link"] = "file %s" % base64.b64encode(link_url[7:])
-               else: self.curr_attributes["link"] = "webs %s" % ("http://" + link_url)
+               self.curr_attributes["link"] = get_internal_link_from_http_url(link_url)
          elif tag == "img" and len(attrs) > 0:
             img_name = attrs[0][1]
             img_path = os.path.join(self.curr_folder, img_name)
@@ -706,9 +709,7 @@ class BasketHandler(HTMLParser.HTMLParser):
          elif tag == "a" and len(attrs) > 0:
             link_url = attrs[0][1]
             if len(link_url) > 7:
-               if link_url[0:4] == "http": self.curr_attributes["link"] = "webs %s" % link_url
-               elif link_url[0:7] == "file://": self.curr_attributes["link"] = "file %s" % base64.b64encode(link_url[7:])
-               else: self.curr_attributes["link"] = "webs %s" % ("http://" + link_url)
+               self.curr_attributes["link"] = get_internal_link_from_http_url(link_url)
          elif tag == "br":
             # this is a data block composed only by an endline
             self.rich_text_serialize("\n")
@@ -1002,8 +1003,7 @@ class NotecaseHandler(HTMLParser.HTMLParser):
          elif tag == "a" and len(attrs) > 0:
             link_url = attrs[0][1]
             if len(link_url) > 7:
-               if link_url[0:4] == "http": self.curr_attributes["link"] = "webs %s" % link_url
-               elif link_url[0:7] == "file://": self.curr_attributes["link"] = "file %s" % base64.b64encode(link_url[7:])
+               self.curr_attributes["link"] = get_internal_link_from_http_url(link_url)
          elif tag == "br":
             # this is a data block composed only by an endline
             self.rich_text_serialize("\n")
@@ -1224,8 +1224,7 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
          elif tag == "a" and len(attrs) > 0:
             link_url = attrs[0][1]
             if len(link_url) > 7:
-               if link_url[0:4] == "http": self.curr_attributes["link"] = "webs %s" % link_url
-               elif link_url[0:7] == "file://": self.curr_attributes["link"] = "file %s" % base64.b64encode(link_url[7:])
+               self.curr_attributes["link"] = get_internal_link_from_http_url(link_url)
          elif tag == "br": self.rich_text_serialize(cons.CHAR_NEWLINE)
          elif tag == "ol": self.curr_list_type = ["o", 1]
          elif tag == "ul": self.curr_list_type = ["u", 0]
