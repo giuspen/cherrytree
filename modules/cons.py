@@ -140,6 +140,8 @@ STOCKS_N_FILES = {'Node Bullet':'node_bullet.png',
                   'New Instance':'new-instance.png',
                   'Toolbar':'toolbar.png',
                   'Tree':'cherries.png',
+                  'Add Node':'tree-node-add.png',
+                  'Add SubNode':'tree-subnode-add.png',
                   'Help Contents':'help-contents.png',
                   'Index':'index.png',
                   'Horizontal Rule':'horizontal_rule.png'}
@@ -285,11 +287,14 @@ UI_INFO = """
    <toolbar name='ToolBar'>
       <toolitem action='ShowHideTree'/>
       <separator/>
-      <toolitem action='NewInstance'/>
-      <toolitem action='Save'/>
+      <toolitem action='TreeAddNode'/>
+      <toolitem action='TreeAddSubNode'/>
       <separator/>
       <toolitem action='GoBack'/>
       <toolitem action='GoForward'/>
+      <separator/>
+      <toolitem action='NewInstance'/>
+      <toolitem action='Save'/>
       <separator/>
       <toolitem action='Undo'/>
       <toolitem action='Redo'/>
@@ -316,8 +321,6 @@ UI_INFO = """
       <toolitem action='H2'/>
       <toolitem action='Small'/>
       <toolitem action='FormatLatest'/>
-      <separator/>
-      <toolitem action='QuitApp'/>
    </toolbar>
    
    <popup name='SysTrayMenu'>
@@ -477,6 +480,8 @@ def get_entries(inst):
    ( "TableExport", "Save Table", _("_Table Export"), None, _("Export Table as CSV File"), inst.tables_handler.table_export),
    ( "BookmarkThisNode", "gtk-add", _("_Bookmark This Node"), None, _("Add the Current Node to the Bookmarks List"), inst.bookmark_curr_node),
    ( "BookmarksHandle", "gtk-edit", _("_Handle Bookmarks"), None, _("Handle the Bookmarks List"), inst.bookmarks_handle),
+   ( "TreeAddNode", "Add Node", _("Add _Node"), "<control>N", _("Add a Node having the same Father of the Selected Node"), inst.node_add),
+   ( "TreeAddSubNode", "Add SubNode", _("Add _SubNode"), "<control><shift>N", _("Add a Child Node to the Selected Node"), inst.node_child_add),
    ]
 
 def get_popup_menu_tree(inst):
@@ -486,8 +491,8 @@ def get_popup_menu_tree(inst):
    # "submenu-start", label, stock id, None, None |
    # "submenu-end", None, None, None, None
    return [
-   ("gtk-add", _("Add _Node"), "<control>N", _("Add a Node having the same Father of the Selected Node"), inst.node_add),
-   ("gtk-add", _("Add _SubNode"), "<control><shift>N", _("Add a Child Node to the Selected Node"), inst.node_child_add),
+   ("Add Node", _("Add _Node"), "<control>N", _("Add a Node having the same Father of the Selected Node"), inst.node_add),
+   ("Add SubNode", _("Add _SubNode"), "<control><shift>N", _("Add a Child Node to the Selected Node"), inst.node_child_add),
    ("separator", None, None, None, None),
    ("Edit Node", _("Change Node _Properties"), "F2", _("Edit the Properties of the Selected Node"), inst.node_edit),
    ("gtk-info", _("Tree _Info"), None, _("Tree Summary Information"), inst.tree_info),
