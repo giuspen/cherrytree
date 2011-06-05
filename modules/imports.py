@@ -25,11 +25,38 @@ import cons, machines
 
 
 def get_internal_link_from_http_url(link_url):
-   """From HTTP link url to internal cherrytree link attribute"""
+   """Get internal cherrytree link attribute from HTTP link url"""
    if link_url[0:4] == "http": return "webs %s" % link_url
    elif link_url[0:7] == "file://": return "file %s" % base64.b64encode(link_url[7:])
    else: return "webs %s" % ("http://" + link_url)
-
+   
+def get_web_links_offsets_from_plain_text(plain_text):
+   """Parse plain text for possible web links"""
+   web_links = []
+   max_end_offset = len(plain_text)
+   max_start_offset = max_end_offset - 7
+   start_offset = 0
+   while start_offset < max_start_offset:
+      is_link = False
+      if plain_text[start_offset] == "h":
+         if plain_text[start_offset:start_offset+4] == "http":
+            is_link = True
+      elif plain_text[start_offset] == "f":
+         if plain_text[start_offset:start_offset+3] == "ftp":
+            is_link = True
+      elif plain_text[start_offset] == "w":
+         if plain_text[start_offset:start_offset+4] == "www.":
+            is_link = True
+      if is_link:
+         end_offset = start_offset + 3
+         while (plain_text[end_offset] not in [cons.CHAR_SPACE, cons.CHAR_NEWLINE])\
+         and (end_offset < max_end_offset):
+            end_offset += 1
+         web_links.append([start_offset, end_offset])
+         start_offset = end_offset + 1
+      else: start_offset += 1
+   return web_links
+   
 
 class LeoHandler:
    """The Handler of the Leo File Parsing"""
