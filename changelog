@@ -1,4 +1,26 @@
 
+0.21.3 (May 3rd, 2011)
+• updated German language
+• fixed minor bugs
+
+0.21.2 (April 29th, 2011)
+• fixed minor bugs
+
+0.21.1 (April 26th, 2011)
+• fixed critical bug (involving first cherrytree installation only, not upgrades and not 0.21 windows version)
+
+0.21 (April 23rd, 2011)
+• fixed bugs
+• added links to folders
+• added custom action for clicked link to files and folders
+• added some customizable properties to the codeboxes
+• added fullscreen mode
+• implemented the cut/copy/paste of a table row
+• tables: pressing arrows up/down switches to former/next cell to edit, pressing return also switches to the next cell to edit
+• now multiple instances are allowed and handled
+• added the opportunity to sort the whole tree (before it was possible to sort only the siblings of the selected node)
+• the find utility now will signal that a pattern exist in a table/codebox moving the focus on the table/codebox but not on the text
+
 0.20.1 (March 7th, 2011)
 • fixed critical bugs
 • using the keyboard arrows it is now possible to move the selection between all the tree nodes (including parent/children), holding shift while using the arrows moves the selected node
