@@ -176,7 +176,7 @@ class Export2Txt:
       """Export All Nodes To Txt - iter"""
       text_buffer = self.dad.treestore[tree_iter][2]
       filepath = os.path.join(self.new_path,
-                              support.get_node_hierarchical_name(self.dad, tree_iter))
+                              support.get_node_hierarchical_name(self.dad, tree_iter) + ".txt")
       self.node_export_to_txt(text_buffer, filepath)
       child_tree_iter = self.dad.treestore.iter_children(tree_iter)
       while child_tree_iter:
