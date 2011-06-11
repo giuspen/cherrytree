@@ -1276,6 +1276,7 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
             except:
                print "failed download of", img_path
                self.dad.statusbar.pop(self.dad.statusbar_context_id)
+         elif tag == "pre": self.pre_tag = "p"
       elif self.curr_state == 2:
          if tag == "tr": self.curr_table.append([])
          elif tag in ["td", "th"]:
@@ -1312,6 +1313,7 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
             self.rich_text_serialize(cons.CHAR_NEWLINE)
          elif tag == "a": self.curr_attributes["link"] = ""
          elif tag == "li": self.rich_text_serialize(cons.CHAR_NEWLINE)
+         elif tag == "pre": self.pre_tag = ""
       elif self.curr_state == 2:
          if tag in ["td", "th"]:
             self.curr_table[-1].append(self.curr_cell)
@@ -1359,6 +1361,9 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
    def handle_data(self, data):
       """Found Data"""
       if self.curr_state == 0: return
+      if self.pre_tag == "p":
+         self.rich_text_serialize(data)
+         return
       if self.in_a_tag: clean_data = data.replace(cons.CHAR_NEWLINE, cons.CHAR_SPACE)
       else: clean_data = data.replace(cons.CHAR_NEWLINE, "")
       if not clean_data or clean_data == cons.CHAR_TAB: return
@@ -1389,6 +1394,7 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
       self.curr_cell = ""
       self.in_a_tag = 0
       self.curr_list_type = ["u", 0]
+      self.pre_tag = ""
       # curr_state 0: standby, taking no data
       # curr_state 1: receiving rich text
       # curr_state 2: receiving table or codebox data
