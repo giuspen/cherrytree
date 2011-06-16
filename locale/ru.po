@@ -1480,7 +1480,7 @@ msgstr "Добавить ветку"
 
 #: modules/cons.py:491
 msgid "Add a Node having the same Father of the Selected Node"
-msgstr "Добавить дочернюю ветку"
+msgstr "Добавить ветку"
 
 #: modules/cons.py:492
 msgid "Add _SubNode"

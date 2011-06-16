@@ -1480,7 +1480,7 @@ msgstr "Додати гілку"
 
 #: modules/cons.py:491
 msgid "Add a Node having the same Father of the Selected Node"
-msgstr "Додати дочірню гілку"
+msgstr "Додати гілку"
 
 #: modules/cons.py:492
 msgid "Add _SubNode"
