@@ -49,8 +49,8 @@ def get_web_links_offsets_from_plain_text(plain_text):
             is_link = True
       if is_link:
          end_offset = start_offset + 3
-         while (plain_text[end_offset] not in [cons.CHAR_SPACE, cons.CHAR_NEWLINE])\
-         and (end_offset < max_end_offset):
+         while (end_offset < max_end_offset)\
+         and (plain_text[end_offset] not in [cons.CHAR_SPACE, cons.CHAR_NEWLINE]):
             end_offset += 1
          web_links.append([start_offset, end_offset])
          start_offset = end_offset + 1
