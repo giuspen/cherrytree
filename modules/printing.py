@@ -19,7 +19,7 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
-import gtk, gobject, pango, cairo
+from gi.repository import Gtk, GObject, Pango
 import copy
 import support, cons
 
@@ -45,23 +45,23 @@ class PrintHandler:
 
     def get_print_operation(self):
         """Return a Print Operation"""
-        print_operation = gtk.PrintOperation()
+        print_operation = Gtk.PrintOperation()
         print_operation.set_show_progress(True)
-        if self.page_setup is None: self.page_setup = gtk.PageSetup()
-        if self.settings is None: self.settings = gtk.PrintSettings()
+        if self.page_setup is None: self.page_setup = Gtk.PageSetup()
+        if self.settings is None: self.settings = Gtk.PrintSettings()
         print_operation.set_default_page_setup(self.page_setup)
         print_operation.set_print_settings(self.settings)
         return print_operation
 
     def run_print_operation(self, print_operation, parent):
         """Run a Ready Print Operation"""
-        try: res = print_operation.run(gtk.PRINT_OPERATION_ACTION_PRINT_DIALOG, parent)
-        except gobject.GError, ex:
+        try: res = print_operation.run(Gtk.PRINT_OPERATION_ACTION_PRINT_DIALOG, parent)
+        except GObject.GError, ex:
             support.dialog_error("Error printing file:\n%s (exception catched)" % str(ex), parent)
         else:
-            if res == gtk.PRINT_OPERATION_RESULT_ERROR:
+            if res == Gtk.PRINT_OPERATION_RESULT_ERROR:
                 support.dialog_error("Error printing file (bad res)", parent)
-            elif res == gtk.PRINT_OPERATION_RESULT_APPLY:
+            elif res == Gtk.PRINT_OPERATION_RESULT_APPLY:
                 self.settings = print_operation.get_print_settings()
         if not print_operation.is_finished():
             print_operation.connect("status_changed", self.on_print_status_changed)
@@ -72,10 +72,10 @@ class PrintHandler:
 
     def print_text(self, window, pango_text, text_font, code_font, pixbuf_table_codebox_vector, text_window_width):
         """Start the Print Operations for Text"""
-        self.pango_font = pango.FontDescription(text_font)
-        self.codebox_font = pango.FontDescription(code_font)
+        self.pango_font = Pango.FontDescription(text_font)
+        self.codebox_font = Pango.FontDescription(code_font)
         self.text_window_width = text_window_width
-        self.table_text_row_height = self.pango_font.get_size()/pango.SCALE
+        self.table_text_row_height = self.pango_font.get_size()/Pango.SCALE
         self.table_line_thickness = 6
         self.pixbuf_table_codebox_vector = pixbuf_table_codebox_vector
         # pixbuf_table_codebox_vector is [ [ "pixbuf"/"table"/"codebox", [offset, pixbuf, alignment] ],... ]
@@ -100,7 +100,7 @@ class PrintHandler:
             for i, text_slot in enumerate(print_data.text):
                 print_data.layout.append(context.create_pango_layout())
                 print_data.layout[-1].set_font_description(self.pango_font)
-                print_data.layout[-1].set_width(int(self.page_width*pango.SCALE))
+                print_data.layout[-1].set_width(int(self.page_width*Pango.SCALE))
                 print_data.layout[-1].set_markup(text_slot)
                 if text_slot == cons.CHAR_NEWLINE:
                     print_data.layout_is_new_line.append(True) # in other case we detect the newline from a following line
@@ -249,8 +249,8 @@ class PrintHandler:
         if codebox_dict['width_in_pixels']: codebox_width = codebox_dict['frame_width']
         else: codebox_width = self.text_window_width*codebox_dict['frame_width']/100
         if codebox_width > self.page_width: codebox_width = self.page_width
-        layout.set_width(int(codebox_width*pango.SCALE))
-        layout.set_wrap(pango.WRAP_WORD_CHAR)
+        layout.set_width(int(codebox_width*Pango.SCALE))
+        layout.set_wrap(Pango.WrapMode.WORD_CHAR)
         layout.set_markup(codebox_dict['fill_text'])
         return layout
 
@@ -283,8 +283,8 @@ class PrintHandler:
                 layout = context.create_pango_layout()
                 layout.set_font_description(self.pango_font)
                 if i == 0: cell_text = "<b>" + cell_text + "</b>"
-                layout.set_width(int(table['col_max']*pango.SCALE))
-                layout.set_wrap(pango.WRAP_WORD_CHAR)
+                layout.set_width(int(table['col_max']*Pango.SCALE))
+                layout.set_wrap(Pango.WrapMode.WORD_CHAR)
                 layout.set_markup(cell_text)
                 table_layouts[i].append(layout)
         return table_layouts

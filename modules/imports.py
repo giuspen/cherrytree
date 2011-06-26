@@ -19,8 +19,9 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
+from gi.repository import Gtk
 import HTMLParser, htmlentitydefs
-import gtk, os, xml.dom.minidom, re, base64, urllib2
+import os, xml.dom.minidom, re, base64, urllib2
 import cons, machines
 
 
@@ -202,7 +203,7 @@ class TuxCardsHandler(HTMLParser.HTMLParser):
             elif tag == "img" and len(attrs) > 0:
                 img_path = attrs[0][1]
                 if os.path.isfile(img_path):
-                    pixbuf = gtk.gdk.pixbuf_new_from_file(img_path)
+                    pixbuf = GdkPixbuf.Pixbuf.new_from_file(img_path)
                     self.pixbuf_vector.append([self.chars_counter, pixbuf, "left"])
                     self.chars_counter += 1
                 else: print "%s not found" % img_path
@@ -342,7 +343,7 @@ class KeepnoteHandler(HTMLParser.HTMLParser):
                 img_name = attrs[0][1]
                 img_path = os.path.join(self.curr_folder, img_name)
                 if os.path.isfile(img_path):
-                    pixbuf = gtk.gdk.pixbuf_new_from_file(img_path)
+                    pixbuf = GdkPixbuf.Pixbuf.new_from_file(img_path)
                     self.pixbuf_vector.append([self.chars_counter, pixbuf, "left"])
                     self.chars_counter += 1
                 else: print "%s not found" % img_path
@@ -696,7 +697,7 @@ class BasketHandler(HTMLParser.HTMLParser):
                 if content_dom_iter.nodeName == "content":
                     content_path = os.path.join(self.subfolder_path, content_dom_iter.firstChild.data)
                     if os.path.isfile(content_path):
-                        pixbuf = gtk.gdk.pixbuf_new_from_file(content_path)
+                        pixbuf = GdkPixbuf.Pixbuf.new_from_file(content_path)
                         self.pixbuf_vector.append([self.chars_counter, pixbuf, "left"])
                         self.chars_counter += 1
                         self.rich_text_serialize("\n")
@@ -1043,7 +1044,7 @@ class NotecaseHandler(HTMLParser.HTMLParser):
                     if attribute[0] == "src":
                         if attribute[1][:23] == "data:image/jpeg;base64,":
                             jpeg_data = attribute[1][23:]
-                            pixbuf_loader = gtk.gdk.pixbuf_loader_new_with_mime_type("image/jpeg")
+                            pixbuf_loader = GdkPixbuf.Pixbuf.loader_new_with_mime_type("image/jpeg")
                             try: pixbuf_loader.write(base64.b64decode(jpeg_data))
                             except:
                                 try: pixbuf_loader.write(base64.b64decode(jpeg_data + "="))
@@ -1054,7 +1055,7 @@ class NotecaseHandler(HTMLParser.HTMLParser):
                             self.chars_counter += 1
                         elif attribute[1][:22] == "data:image/png;base64,":
                             png_data = attribute[1][22:]
-                            pixbuf_loader = gtk.gdk.pixbuf_loader_new_with_mime_type("image/png")
+                            pixbuf_loader = GdkPixbuf.Pixbuf.loader_new_with_mime_type("image/png")
                             try: pixbuf_loader.write(base64.b64decode(png_data))
                             except:
                                 try: pixbuf_loader.write(base64.b64decode(png_data + "="))
@@ -1264,10 +1265,10 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
                 img_path = attrs[0][1]
                 try:
                     self.dad.statusbar.push(self.dad.statusbar_context_id, _("Downloading") + " %s ..." % img_path)
-                    while gtk.events_pending(): gtk.main_iteration()
+                    while Gtk.events_pending(): Gtk.main_iteration()
                     url_desc = urllib2.urlopen(img_path, timeout=3)
                     image_file = url_desc.read()
-                    pixbuf_loader = gtk.gdk.PixbufLoader()
+                    pixbuf_loader = GdkPixbuf.PixbufLoader()
                     pixbuf_loader.write(image_file)
                     pixbuf_loader.close()
                     pixbuf = pixbuf_loader.get_pixbuf()

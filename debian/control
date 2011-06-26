@@ -10,6 +10,6 @@ Package: cherrytree
 Architecture: all
 XS-Python-Version: >=2.4
 XB-Python-Version: >=2.4
-Depends: python-gtk2, python-gtksourceview2, p7zip-full
+Depends: gir1.2-gtk-3.0, gir1.2-gtksource-3.0, gir1.2-pango-1.0, p7zip-full
 Description: Hierarchical Note Taking
  A hierarchical note taking application, featuring rich text and syntax highlighting, storing all the data (including images) in a single xml file with extension ".ctd"

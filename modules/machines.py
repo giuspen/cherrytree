@@ -19,7 +19,8 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
-import gtk, xml.dom.minidom, re, base64, copy, StringIO
+from gi.repository import Gtk
+import xml.dom.minidom, re, base64, copy, StringIO
 import cons, support, exports
 
 
@@ -32,7 +33,7 @@ def get_encoded_buffer_from_pixbuf(pixbuf):
 
 def get_pixbuf_from_encoded_buffer(buffer):
     """Encoded Buffer To Pixbuf"""
-    pixbuf_loader = gtk.gdk.pixbuf_loader_new_with_mime_type("image/png")
+    pixbuf_loader = GdkPixbuf.Pixbuf.loader_new_with_mime_type("image/png")
     pixbuf_loader.write(base64.b64decode(buffer))
     pixbuf_loader.close()
     pixbuf = pixbuf_loader.get_pixbuf()
@@ -43,7 +44,7 @@ def get_pixbuf_from_png_encoded_string(png_encoded_string):
     fd = open(cons.IMG_PATH, "wb")
     fd.write(base64.b64decode(png_encoded_string))
     fd.close()
-    pixbuf = gtk.gdk.pixbuf_new_from_file(cons.IMG_PATH)
+    pixbuf = GdkPixbuf.Pixbuf.new_from_file(cons.IMG_PATH)
     return pixbuf
 
 
@@ -187,7 +188,7 @@ class XMLHandler:
         if dom_node.hasAttribute("justification"): justification = dom_node.attributes["justification"].value
         else: justification = "left"
         if dom_node.hasAttribute("anchor"):
-            pixbuf = gtk.gdk.pixbuf_new_from_file(cons.ANCHOR_CHAR)
+            pixbuf = GdkPixbuf.Pixbuf.new_from_file(cons.ANCHOR_CHAR)
             pixbuf.anchor = dom_node.attributes["anchor"].value
         else:
             if version == 2: pixbuf = get_pixbuf_from_encoded_buffer(dom_node.firstChild.data)
@@ -466,7 +467,7 @@ class XMLHandler:
                 start_offset -= 1
                 end_offset -= 1
                 start_iter = text_buffer.get_iter_at_offset(start_offset)
-        pixbuf = gtk.gdk.pixbuf_new_from_file(cons.ANCHOR_CHAR)
+        pixbuf = GdkPixbuf.Pixbuf.new_from_file(cons.ANCHOR_CHAR)
         pixbuf.anchor = self.toc_list[-1][0]
         self.dad.image_insert(start_iter, pixbuf)
         return (start_offset+1, end_offset+1)

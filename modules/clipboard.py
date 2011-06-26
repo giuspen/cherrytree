@@ -19,7 +19,8 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
-import gtk, os, xml.dom.minidom, re, base64, mimetypes
+from gi.repository import Gtk
+import os, xml.dom.minidom, re, base64, mimetypes
 import cons, machines, exports, imports
 
 
@@ -39,7 +40,7 @@ class ClipboardHandler:
     def __init__(self, dad):
         """Clipboard Handler boot"""
         self.dad = dad
-        self.clipboard = gtk.clipboard_get()
+        self.clipboard = Gtk.clipboard_get()
         self.force_plain_text = False
 
     def copy(self, sourceview):
@@ -192,7 +193,7 @@ class ClipboardHandler:
                     file_path = element[7:].replace("%20", cons.CHAR_SPACE)
                     mimetype = mimetypes.guess_type(file_path)[0]
                     if len(mimetype) > 5 and mimetype[0:6] == "image/" and os.path.isfile(file_path):
-                        self.dad.image_insert(iter_insert, gtk.gdk.pixbuf_new_from_file(file_path))
+                        self.dad.image_insert(iter_insert, GdkPixbuf.Pixbuf.new_from_file(file_path))
                         iter_insert = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
                         self.dad.curr_buffer.insert(iter_insert, 3*cons.CHAR_SPACE)
                         continue
@@ -297,7 +298,7 @@ class ClipboardHandler:
         if dom_node.hasAttribute("justification"): justification = dom_node.attributes["justification"].value
         else: justification = "left"
         if dom_node.hasAttribute("anchor"):
-            pixbuf = gtk.gdk.pixbuf_new_from_file(cons.ANCHOR_CHAR)
+            pixbuf = GdkPixbuf.Pixbuf.new_from_file(cons.ANCHOR_CHAR)
             pixbuf.anchor = dom_node.attributes["anchor"].value
         else: pixbuf = machines.get_pixbuf_from_encoded_buffer(dom_node.firstChild.data)
         self.dad.image_insert(self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert()),

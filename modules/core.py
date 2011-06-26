@@ -19,7 +19,7 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
-import gtk, pango, gtksourceview2, gobject
+from gi.repository import Gtk, GtkSource, Pango, GObject
 import sys, os, re, subprocess, webbrowser, base64, cgi, urllib2, shutil
 import cons, support, config, machines, clipboard, imports, exports, printing, tablez, lists, findreplace, codeboxes
 
@@ -29,7 +29,7 @@ class GladeWidgetsWrapper:
 
     def __init__(self, glade_file_path, gui_instance):
         try:
-            self.glade_widgets = gtk.Builder()
+            self.glade_widgets = Gtk.Builder()
             self.glade_widgets.set_translation_domain(cons.APP_NAME)
             self.glade_widgets.add_from_file(glade_file_path)
             self.glade_widgets.connect_signals(gui_instance)
@@ -65,68 +65,68 @@ class CherryTree:
         self.find_handler = findreplace.FindReplace(self)
         self.print_handler = printing.PrintHandler()
         # icon factory
-        factory = gtk.IconFactory()
+        factory = Gtk.IconFactory()
         for stock_name in cons.STOCKS_N_FILES:
-            pixbuf = gtk.gdk.pixbuf_new_from_file(cons.GLADE_PATH + cons.STOCKS_N_FILES[stock_name])
-            iconset = gtk.IconSet(pixbuf)
+            pixbuf = GdkPixbuf.Pixbuf.new_from_file(cons.GLADE_PATH + cons.STOCKS_N_FILES[stock_name])
+            iconset = Gtk.IconSet(pixbuf)
             factory.add(stock_name, iconset)
         factory.add_default()
-        try: gtk.settings_get_default().set_property("gtk-button-images", True)
+        try: Gtk.Settings.get_default().set_property("gtk-button-images", True)
         except: pass # older gtk do not have the property "gtk-button-images"
         # glade
         self.glade = GladeWidgetsWrapper(cons.GLADE_PATH + 'cherrytree.glade', self) # glade widgets access
         self.window = self.glade.window
-        vbox_main = gtk.VBox()
+        vbox_main = Gtk.VBox()
         self.window.add(vbox_main)
         self.country_lang = lang_str
         config.config_file_load(self)
         # ui manager
-        actions = gtk.ActionGroup("Actions")
+        actions = Gtk.ActionGroup("Actions")
         actions.add_actions(cons.get_entries(self))
-        self.ui = gtk.UIManager()
+        self.ui = Gtk.UIManager()
         self.ui.insert_action_group(actions, 0)
         self.window.add_accel_group(self.ui.get_accel_group())
         self.ui.add_ui_from_string(cons.UI_INFO)
         # menubar add
-        vbox_main.pack_start(self.ui.get_widget("/MenuBar"), False, False)
+        vbox_main.pack_start(self.ui.get_widget("/MenuBar", True, True, 0), False, False)
         # toolbar add
-        vbox_main.pack_start(self.ui.get_widget("/ToolBar"), False, False)
+        vbox_main.pack_start(self.ui.get_widget("/ToolBar", True, True, 0), False, False)
         # hpaned add
-        self.hpaned = gtk.HPaned()
-        self.scrolledwindow_tree = gtk.ScrolledWindow()
-        self.scrolledwindow_tree.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-        self.scrolledwindow_text = gtk.ScrolledWindow()
-        self.scrolledwindow_text.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-        self.vbox_text = gtk.VBox()
-        self.header_node_name_label = gtk.Label()
+        self.hpaned = Gtk.HPaned()
+        self.scrolledwindow_tree = Gtk.ScrolledWindow()
+        self.scrolledwindow_tree.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
+        self.scrolledwindow_text = Gtk.ScrolledWindow()
+        self.scrolledwindow_text.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
+        self.vbox_text = Gtk.VBox()
+        self.header_node_name_label = Gtk.Label()
         self.vbox_text.pack_start(self.header_node_name_label, False, False)
-        self.vbox_text.pack_start(self.scrolledwindow_text)
+        self.vbox_text.pack_start(self.scrolledwindow_text, True, True, 0)
         if self.tree_right_side:
             self.hpaned.add1(self.vbox_text)
             self.hpaned.add2(self.scrolledwindow_tree)
         else:
             self.hpaned.add1(self.scrolledwindow_tree)
             self.hpaned.add2(self.vbox_text)
-        vbox_main.pack_start(self.hpaned)
+        vbox_main.pack_start(self.hpaned, True, True, 0)
         # statusbar add
-        self.statusbar = gtk.Statusbar()
+        self.statusbar = Gtk.Statusbar()
         self.statusbar_context_id = self.statusbar.get_context_id('')
         vbox_main.pack_start(self.statusbar, False, False)
         # ROW: 0-icon_stock_id, 1-name, 2-buffer, 3-unique_id, 4-syntax_highlighting, 5-level, 6-tags, 7-readonly
-        self.treestore = gtk.TreeStore(str, str, gobject.TYPE_PYOBJECT, long, str, int, str, gobject.TYPE_BOOLEAN)
-        self.treeview = gtk.TreeView(self.treestore)
+        self.treestore = Gtk.TreeStore(str, str, GObject.TYPE_PYOBJECT, long, str, int, str, GObject.TYPE_BOOLEAN)
+        self.treeview = Gtk.TreeView(self.treestore)
         self.treeview.set_headers_visible(False)
-        self.treeview.drag_source_set(gtk.gdk.BUTTON1_MASK,
-                                      [('CT_DND', gtk.TARGET_SAME_WIDGET, 0)],
-                                      gtk.gdk.ACTION_MOVE)
-        self.treeview.drag_dest_set(gtk.DEST_DEFAULT_ALL,
-                                    [('CT_DND', gtk.TARGET_SAME_WIDGET, 0)],
-                                    gtk.gdk.ACTION_MOVE)
-        self.renderer_pixbuf = gtk.CellRendererPixbuf()
-        self.renderer_text = gtk.CellRendererText()
-        self.renderer_text.set_property('wrap-mode', pango.WRAP_WORD_CHAR)
+        self.treeview.drag_source_set(Gdk.EventMask.BUTTON1_MASK,
+                                      [('CT_DND', Gtk.TargetFlags.SAME_WIDGET, 0)],
+                                      Gdk.DragAction.MOVE)
+        self.Gtk.drag_dest_set(treeview, Gtk.DEST_DEFAULT_ALL,
+                                    [('CT_DND', Gtk.TargetFlags.SAME_WIDGET, 0)],
+                                    Gdk.DragAction.MOVE)
+        self.renderer_pixbuf = Gtk.CellRendererPixbuf()
+        self.renderer_text = Gtk.CellRendererText()
+        self.renderer_text.set_property('wrap-mode', Pango.WrapMode.WORD_CHAR)
         self.renderer_text.connect('edited', self.tree_cell_edited)
-        self.column = gtk.TreeViewColumn()
+        self.column = Gtk.TreeViewColumn()
         self.column.pack_start(self.renderer_pixbuf, False)
         self.column.pack_start(self.renderer_text, True)
         self.column.set_attributes(self.renderer_pixbuf, stock_id=0)
@@ -141,7 +141,7 @@ class CherryTree:
         self.treeview.connect('drag-data-get', self.on_drag_data_get_cherrytree)
         self.treeview.connect("motion-notify-event", self.on_treeview_motion_notify_event)
         self.scrolledwindow_tree.add(self.treeview)
-        self.orphan_accel_group = gtk.AccelGroup()
+        self.orphan_accel_group = Gtk.AccelGroup()
         self.menu_tree_create()
         self.window.connect('window-state-event', self.on_window_state_event)
         self.window.connect("size-allocate", self.on_window_n_tree_size_allocate_event)
@@ -153,7 +153,7 @@ class CherryTree:
         self.glade.choosenodedialog.connect('key_press_event', self.on_key_press_choosenodedialog)
         self.glade.tablehandledialog.connect('key_press_event', self.tables_handler.on_key_press_tablehandledialog)
         self.glade.codeboxhandledialog.connect('key_press_event', self.codeboxes_handler.on_key_press_codeboxhandledialog)
-        self.sourceview = gtksourceview2.View()
+        self.sourceview = GtkSource.View()
         self.sourceview.set_sensitive(False)
         self.sourceview.connect('populate-popup', self.on_sourceview_populate_popup)
         self.sourceview.connect("motion-notify-event", self.on_sourceview_motion_notify_event)
@@ -165,7 +165,7 @@ class CherryTree:
         self.sourceview.set_left_margin(7)
         self.sourceview.set_right_margin(7)
         self.hovering_over_link = False
-        self.tag_table = gtk.TextTagTable()
+        self.tag_table = Gtk.TextTagTable()
         self.scrolledwindow_text.add(self.sourceview)
         self.go_bk_fw_click = False
         self.highlighted_obj = None
@@ -200,7 +200,7 @@ class CherryTree:
     def check_for_newer_version(self, *args):
         """Check for a Newer Version"""
         self.statusbar.push(self.statusbar_context_id, _("Checking for Newer Version..."))
-        while gtk.events_pending(): gtk.main_iteration()
+        while Gtk.events_pending(): Gtk.main_iteration()
         try:
             fd = urllib2.urlopen(cons.NEWER_VERSION_URL, timeout=3)
             latest_version = fd.read().replace("\n", "")
@@ -336,23 +336,23 @@ class CherryTree:
     def on_key_press_window(self, widget, event):
         """Catches Window key presses"""
         if not self.curr_tree_iter: return
-        keyname = gtk.gdk.keyval_name(event.keyval)
-        if event.state & gtk.gdk.MOD1_MASK:
+        keyname = Gdk.keyval_name(event.keyval)
+        if event.get_state() & Gdk.ModifierType.MOD1_MASK:
             if keyname == "Left": self.go_back()
             elif keyname == "Right": self.go_forward()
 
     def on_key_press_cherrytree(self, widget, event):
         """Catches Tree key presses"""
         if not self.curr_tree_iter: return
-        keyname = gtk.gdk.keyval_name(event.keyval)
-        if event.state & gtk.gdk.SHIFT_MASK:
+        keyname = Gdk.keyval_name(event.keyval)
+        if event.get_state() & Gdk.EventMask.SHIFT_MASK:
             if keyname == "Up": self.node_up()
             elif keyname == "Down": self.node_down()
             elif keyname == "Left": self.node_left()
             elif keyname == "Right": self.node_change_father()
-        elif event.state & gtk.gdk.MOD1_MASK:
+        elif event.get_state() & Gdk.ModifierType.MOD1_MASK:
             pass
-        elif event.state & gtk.gdk.CONTROL_MASK:
+        elif event.get_state() & Gdk.EventMask.CONTROL_MASK:
             pass
         else:
             if keyname == "Up":
@@ -375,7 +375,7 @@ class CherryTree:
 
     def fullscreen_toggle(self, *args):
         """Toggle Fullscreen State"""
-        if (self.window.window.get_state() & gtk.gdk.WINDOW_STATE_FULLSCREEN):
+        if (self.window.window.get_state() & Gdk.WINDOW_STATE_FULLSCREEN):
             self.window.window.unfullscreen()
         else:
             self.window.window.fullscreen()
@@ -393,7 +393,7 @@ class CherryTree:
         drop_info = self.treeview.get_dest_row_at_pos(x, y)
         if drop_info:
             drop_path, drop_pos = drop_info
-            if not drop_pos: drop_pos = gtk.TREE_VIEW_DROP_BEFORE
+            if not drop_pos: drop_pos = Gtk.TREE_VIEW_DROP_BEFORE
             drop_iter = self.treestore.get_iter(drop_path)
             # check for bad drop
             if not self.drag_iter: return False
@@ -407,10 +407,10 @@ class CherryTree:
                     support.dialog_error(_("The new father can't be one of his sons!"), self.window)
                     return False
                 move_towards_top_iter = self.treestore.iter_parent(move_towards_top_iter)
-            if drop_pos == gtk.TREE_VIEW_DROP_BEFORE:
+            if drop_pos == Gtk.TREE_VIEW_DROP_BEFORE:
                 prev_iter = self.get_tree_iter_prev_sibling(self.treestore, drop_iter)
                 self.node_move_after(self.drag_iter, self.treestore.iter_parent(drop_iter), prev_iter, True)
-            elif drop_pos == gtk.TREE_VIEW_DROP_AFTER:
+            elif drop_pos == Gtk.TREE_VIEW_DROP_AFTER:
                 self.node_move_after(self.drag_iter, self.treestore.iter_parent(drop_iter), drop_iter)
             else: # drop in
                 self.node_move_after(self.drag_iter, drop_iter)
@@ -426,17 +426,17 @@ class CherryTree:
 
     def on_key_press_choosenodedialog(self, widget, event):
         """Catches ChooseNode Dialog key presses"""
-        keyname = gtk.gdk.keyval_name(event.keyval)
+        keyname = Gdk.keyval_name(event.keyval)
         if keyname == "Return": self.glade.choosenodedialog_button_ok.clicked()
 
     def on_key_press_anchorhandledialog(self, widget, event):
         """Catches AnchorHandle Dialog key presses"""
-        keyname = gtk.gdk.keyval_name(event.keyval)
+        keyname = Gdk.keyval_name(event.keyval)
         if keyname == "Return": self.glade.anchorhandledialog_button_ok.clicked()
 
     def on_key_press_input_dialog(self, widget, event):
         """Catches Input Dialog key presses"""
-        keyname = gtk.gdk.keyval_name(event.keyval)
+        keyname = Gdk.keyval_name(event.keyval)
         if keyname == "Return": self.glade.input_dialog_ok_button.clicked()
 
     def nodes_add_from_cherrytree_file(self, action):
@@ -579,24 +579,24 @@ class CherryTree:
                 self.file_update = True
                 self.curr_buffer.set_modified(False)
                 self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
-            append_location_dialog = gtk.Dialog(title=_("Who is the Father?"),
+            append_location_dialog = Gtk.Dialog(title=_("Who is the Father?"),
                                                 parent=self.window,
-                                                flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
-                                                buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
-                                                         gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
+                                                flags=Gtk.DialogFlags.MODAL|Gtk.DialogFlags.DESTROY_WITH_PARENT,
+                                                buttons=(Gtk.STOCK_CANCEL, Gtk.ResponseType.REJECT,
+                                                         Gtk.STOCK_OK, Gtk.ResponseType.ACCEPT) )
             append_location_dialog.set_transient_for(self.window)
-            append_location_dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-            radiobutton_root = gtk.RadioButton(label=_("The Tree Root"))
-            radiobutton_curr_node = gtk.RadioButton(label=_("The Selected Node"))
+            append_location_dialog.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
+            radiobutton_root = Gtk.RadioButton(label=_("The Tree Root"))
+            radiobutton_curr_node = Gtk.RadioButton(label=_("The Selected Node"))
             radiobutton_curr_node.set_group(radiobutton_root)
             content_area = append_location_dialog.get_content_area()
-            content_area.pack_start(radiobutton_root)
-            content_area.pack_start(radiobutton_curr_node)
+            content_area.pack_start(radiobutton_root, True, True, 0)
+            content_area.pack_start(radiobutton_curr_node, True, True, 0)
             content_area.show_all()
             response = append_location_dialog.run()
             if radiobutton_curr_node.get_active(): tree_father = self.curr_tree_iter
             append_location_dialog.destroy()
-            if response != gtk.RESPONSE_ACCEPT:
+            if response != Gtk.ResponseType.ACCEPT:
                 self.user_active = True
                 return
         try:
@@ -619,8 +619,8 @@ class CherryTree:
                 if self.syntax_highlighting == cons.CUSTOM_COLORS_ID:
                     self.curr_buffer.connect('insert-text', self.on_text_insertion)
                     self.curr_buffer.connect('delete-range', self.on_text_removal)
-                    self.sourceview.modify_font(pango.FontDescription(self.text_font))
-                else: self.sourceview.modify_font(pango.FontDescription(self.code_font))
+                    self.sourceview.modify_font(Pango.FontDescription(self.text_font))
+                else: self.sourceview.modify_font(Pango.FontDescription(self.code_font))
                 self.sourceview.set_sensitive(True)
                 self.header_node_name_label.set_text("<big><b><i>"+cgi.escape(self.treestore[self.curr_tree_iter][1])+"</i></b></big>")
                 self.header_node_name_label.set_use_markup(True)
@@ -658,37 +658,37 @@ class CherryTree:
         curr_submenu = None
         for attributes in entries:
             if attributes[0] == "separator":
-                menu_item = gtk.SeparatorMenuItem()
+                menu_item = Gtk.SeparatorMenuItem()
                 if curr_submenu: curr_submenu.append(menu_item)
                 else: menu.append(menu_item)
             elif attributes[0] == "submenu-start":
-                curr_submenu = gtk.Menu()
-                menu_item = gtk.ImageMenuItem(attributes[1])
-                menu_item.set_image(gtk.image_new_from_stock(attributes[2], gtk.ICON_SIZE_MENU))
+                curr_submenu = Gtk.Menu()
+                menu_item = Gtk.ImageMenuItem(attributes[1])
+                menu_item.set_image(Gtk.Image.new_from_stock(attributes[2], Gtk.IconSize.MENU))
                 menu_item.set_submenu(curr_submenu)
                 menu.append(menu_item)
             elif attributes[0] == "submenu-end":
                 curr_submenu = None
                 continue
             else:
-                menu_item = gtk.ImageMenuItem(attributes[1])
+                menu_item = Gtk.ImageMenuItem(attributes[1])
                 menu_item.connect('activate', attributes[4])
-                menu_item.set_image(gtk.image_new_from_stock(attributes[0], gtk.ICON_SIZE_MENU))
+                menu_item.set_image(Gtk.Image.new_from_stock(attributes[0], Gtk.IconSize.MENU))
                 menu_item.set_tooltip_text(attributes[3])
                 if attributes[2]:
-                    key, mod = gtk.accelerator_parse(attributes[2])
+                    key, mod = Gtk.accelerator_parse(attributes[2])
                     for element in ["Up", "Down", "Left", "Right", "Delete"]:
                         if element in attributes[2]:
                             accel_group = self.orphan_accel_group
                             break
-                    menu_item.add_accelerator("activate", accel_group, key, mod, gtk.ACCEL_VISIBLE)
+                    menu_item.add_accelerator("activate", accel_group, key, mod, Gtk.ACCEL_VISIBLE)
                 if curr_submenu: curr_submenu.append(menu_item)
                 else: menu.append(menu_item)
             menu_item.show()
 
     def menu_tree_create(self):
         """Create the Tree Menus"""
-        self.menu_tree = gtk.Menu()
+        self.menu_tree = Gtk.Menu()
         top_menu_tree = self.ui.get_widget("/MenuBar/TreeMenu").get_submenu()
         for menuitem in top_menu_tree:
             top_menu_tree.remove(menuitem)
@@ -697,8 +697,8 @@ class CherryTree:
 
     def on_window_state_event(self, window, event):
         """Catch Window's Events"""
-        if event.changed_mask & gtk.gdk.WINDOW_STATE_MAXIMIZED:
-            if event.new_window_state & gtk.gdk.WINDOW_STATE_MAXIMIZED:
+        if event.changed_mask & Gdk.WINDOW_STATE_MAXIMIZED:
+            if event.new_window_state & Gdk.WINDOW_STATE_MAXIMIZED:
                 # the window was maximized
                 self.win_is_maximized = True
             else:
@@ -718,11 +718,11 @@ class CherryTree:
 
     def autosave_timer_start(self):
         """Start Autosave Timer"""
-        self.autosave_timer_id = gobject.timeout_add(self.autosave[1]*1000*60, self.autosave_timer_iter)
+        self.autosave_timer_id = GObject.timeout_add(self.autosave[1]*1000*60, self.autosave_timer_iter)
 
     def autosave_timer_stop(self):
         """Stop Autosave Timer"""
-        gobject.source_remove(self.autosave_timer_id)
+        GObject.source_remove(self.autosave_timer_id)
         self.autosave_timer_id = None
 
     def autosave_timer_iter(self):
@@ -733,7 +733,7 @@ class CherryTree:
 
     def status_icon_enable(self):
         """Creates the Stats Icon"""
-        self.status_icon = gtk.StatusIcon()
+        self.status_icon = Gtk.StatusIcon()
         self.status_icon.set_from_stock("CherryTree")
         self.status_icon.connect('button-press-event', self.on_mouse_button_clicked_systray)
         self.status_icon.set_tooltip(_("CherryTree Hierarchical Note Taking"))
@@ -760,13 +760,13 @@ class CherryTree:
         """A New Font For the Text was Chosen"""
         self.text_font = picker.get_font_name()
         if self.treestore[self.curr_tree_iter][4] == cons.CUSTOM_COLORS_ID:
-            self.sourceview.modify_font(pango.FontDescription(self.text_font))
+            self.sourceview.modify_font(Pango.FontDescription(self.text_font))
 
     def on_fontbutton_code_font_set(self, picker):
         """A New Font For the Text was Chosen"""
         self.code_font = picker.get_font_name()
         if self.treestore[self.curr_tree_iter][4] != cons.CUSTOM_COLORS_ID:
-            self.sourceview.modify_font(pango.FontDescription(self.code_font))
+            self.sourceview.modify_font(Pango.FontDescription(self.code_font))
 
     def on_fontbutton_tree_font_set(self, picker):
         """A New Font For the Tree was Chosen"""
@@ -775,7 +775,7 @@ class CherryTree:
 
     def set_treeview_font(self):
         """Update the TreeView Font"""
-        self.renderer_text.set_property('font-desc', pango.FontDescription(self.tree_font))
+        self.renderer_text.set_property('font-desc', Pango.FontDescription(self.tree_font))
         self.treeview_refresh()
 
     def treeview_refresh(self, change_icon=False):
@@ -914,7 +914,7 @@ class CherryTree:
         # if the filename is protected, we use unprotected type before compress and protect
         try:
             self.statusbar.push(self.statusbar_context_id, _("Writing to Disk..."))
-            while gtk.events_pending(): gtk.main_iteration()
+            while Gtk.events_pending(): Gtk.main_iteration()
             self.file_write_low_level(filepath, xml_string)
             self.statusbar.pop(self.statusbar_context_id)
             return True
@@ -946,23 +946,23 @@ class CherryTree:
         if len(self.file_name) < 4:
             support.dialog_warning(_("No Document is Opened"), self.window)
             return
-        edit_protection_dialog = gtk.Dialog(title=_("Document Protection"),
+        edit_protection_dialog = Gtk.Dialog(title=_("Document Protection"),
                                             parent=self.window,
-                                            flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
-                                            buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
-                                            gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
-        edit_protection_dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-        radiobutton_unprotected = gtk.RadioButton(label=_("Not Protected"))
-        radiobutton_protected = gtk.RadioButton(label=_("Password Protected"))
+                                            flags=Gtk.DialogFlags.MODAL|Gtk.DialogFlags.DESTROY_WITH_PARENT,
+                                            buttons=(Gtk.STOCK_CANCEL, Gtk.ResponseType.REJECT,
+                                            Gtk.STOCK_OK, Gtk.ResponseType.ACCEPT) )
+        edit_protection_dialog.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
+        radiobutton_unprotected = Gtk.RadioButton(label=_("Not Protected"))
+        radiobutton_protected = Gtk.RadioButton(label=_("Password Protected"))
         radiobutton_protected.set_group(radiobutton_unprotected)
-        entry_passw_1 = gtk.Entry()
+        entry_passw_1 = Gtk.Entry()
         entry_passw_1.set_visibility(False)
-        entry_passw_2 = gtk.Entry()
+        entry_passw_2 = Gtk.Entry()
         entry_passw_2.set_visibility(False)
-        vbox_passw = gtk.VBox()
-        vbox_passw.pack_start(entry_passw_1)
-        vbox_passw.pack_start(entry_passw_2)
-        passw_frame = gtk.Frame(label="<b>"+_("Enter the New Password Twice")+"</b>")
+        vbox_passw = Gtk.VBox()
+        vbox_passw.pack_start(entry_passw_1, True, True, 0)
+        vbox_passw.pack_start(entry_passw_2, True, True, 0)
+        passw_frame = Gtk.Frame(label="<b>"+_("Enter the New Password Twice")+"</b>")
         passw_frame.get_label_widget().set_use_markup(True)
         passw_frame.add(vbox_passw)
         if self.password:
@@ -974,12 +974,12 @@ class CherryTree:
             radiobutton_protected.set_active(False)
             passw_frame.set_sensitive(False)
         content_area = edit_protection_dialog.get_content_area()
-        content_area.pack_start(radiobutton_unprotected)
-        content_area.pack_start(radiobutton_protected)
-        content_area.pack_start(passw_frame)
+        content_area.pack_start(radiobutton_unprotected, True, True, 0)
+        content_area.pack_start(radiobutton_protected, True, True, 0)
+        content_area.pack_start(passw_frame, True, True, 0)
         content_area.show_all()
         def on_key_press_edit_protection_dialog(widget, event):
-            if gtk.gdk.keyval_name(event.keyval) == "Return":
+            if Gdk.keyval_name(event.keyval) == "Return":
                 button_box = edit_protection_dialog.get_action_area()
                 buttons = button_box.get_children()
                 buttons[0].clicked() # first is the ok button
@@ -992,7 +992,7 @@ class CherryTree:
                           'p1':entry_passw_1.get_text(),
                           'p2':entry_passw_2.get_text()}
         edit_protection_dialog.destroy()
-        if response != gtk.RESPONSE_ACCEPT: return
+        if response != Gtk.ResponseType.ACCEPT: return
         former_filename = self.file_name
         if new_protection['on']:
             if new_protection['p1'] == "":
@@ -1020,20 +1020,20 @@ class CherryTree:
 
     def dialog_insert_password(self, file_name):
         """Prompts a Dialog Asking for the File Password"""
-        enter_password_dialog = gtk.Dialog(title=_("Enter Password for %s") % file_name,
+        enter_password_dialog = Gtk.Dialog(title=_("Enter Password for %s") % file_name,
                                            parent=self.window,
-                                           flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
-                                           buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
-                                           gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
+                                           flags=Gtk.DialogFlags.MODAL|Gtk.DialogFlags.DESTROY_WITH_PARENT,
+                                           buttons=(Gtk.STOCK_CANCEL, Gtk.ResponseType.REJECT,
+                                           Gtk.STOCK_OK, Gtk.ResponseType.ACCEPT) )
         enter_password_dialog.set_default_size(300, -1)
         enter_password_dialog.set_transient_for(self.window)
-        enter_password_dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-        entry = gtk.Entry()
+        enter_password_dialog.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
+        entry = Gtk.Entry()
         entry.set_visibility(False)
         content_area = enter_password_dialog.get_content_area()
-        content_area.pack_start(entry)
+        content_area.pack_start(entry, True, True, 0)
         def on_key_press_enter_password_dialog(widget, event):
-            if gtk.gdk.keyval_name(event.keyval) == "Return":
+            if Gdk.keyval_name(event.keyval) == "Return":
                 button_box = enter_password_dialog.get_action_area()
                 buttons = button_box.get_children()
                 buttons[0].clicked() # first is the ok button
@@ -1041,13 +1041,13 @@ class CherryTree:
         enter_password_dialog.show_all()
         if not sys.platform[0:3] == "win":
             the_window = enter_password_dialog.get_window()
-            the_window.focus(gtk.gdk.x11_get_server_time(the_window))
+            the_window.focus(GdkX11.get_server_time(the_window))
         enter_password_dialog.present()
         response = enter_password_dialog.run()
         passw = entry.get_text()
         enter_password_dialog.destroy()
-        while gtk.events_pending(): gtk.main_iteration()
-        if response != gtk.RESPONSE_ACCEPT: return ""
+        while Gtk.events_pending(): Gtk.main_iteration()
+        if response != Gtk.ResponseType.ACCEPT: return ""
         return passw
 
     def file_get_cherrytree_xml(self, filepath, main_file):
@@ -1217,8 +1217,8 @@ class CherryTree:
     def export_print_page_setup(self, action):
         """Print Page Setup Operations"""
         if self.print_handler.settings is None:
-            self.print_handler.settings = gtk.PrintSettings()
-        self.print_handler.page_setup = gtk.print_run_page_setup_dialog(self.glade.window,
+            self.print_handler.settings = Gtk.PrintSettings()
+        self.print_handler.page_setup = Gtk.print_run_page_setup_dialog(self.glade.window,
                                                                         self.print_handler.page_setup,
                                                                         self.print_handler.settings)
 
@@ -1419,11 +1419,11 @@ class CherryTree:
     def node_choose_view_exist_or_create(self, node_sel_id=None):
         """If The View Was Never Used, this will Create It"""
         if "treeview_2" not in dir(self):
-            self.treeview_2 = gtk.TreeView(self.treestore)
+            self.treeview_2 = Gtk.TreeView(self.treestore)
             self.treeview_2.set_headers_visible(False)
-            self.renderer_pixbuf_2 = gtk.CellRendererPixbuf()
-            self.renderer_text_2 = gtk.CellRendererText()
-            self.column_2 = gtk.TreeViewColumn()
+            self.renderer_pixbuf_2 = Gtk.CellRendererPixbuf()
+            self.renderer_text_2 = Gtk.CellRendererText()
+            self.column_2 = Gtk.TreeViewColumn()
             self.column_2.pack_start(self.renderer_pixbuf_2, False)
             self.column_2.pack_start(self.renderer_text_2, True)
             self.column_2.set_attributes(self.renderer_pixbuf_2, stock_id=0)
@@ -1442,7 +1442,7 @@ class CherryTree:
     def on_mouse_button_clicked_treeview_2(self, widget, event):
         """Catches mouse buttons clicks"""
         if event.button != 1: return
-        if event.type == gtk.gdk._2BUTTON_PRESS: self.glade.choosenodedialog_button_ok.clicked()
+        if event.type == Gdk._2BUTTON_PRESS: self.glade.choosenodedialog_button_ok.clicked()
 
     def get_tree_iter_from_node_id(self, node_id):
         """Given a Node Id, Returns the TreeIter or None"""
@@ -1594,8 +1594,8 @@ class CherryTree:
     def on_checkbutton_line_wrap_toggled(self, checkbutton):
         """Lines Wrapping Toggled Handling"""
         self.line_wrapping = checkbutton.get_active()
-        if self.line_wrapping: self.sourceview.set_wrap_mode(gtk.WRAP_WORD)
-        else: self.sourceview.set_wrap_mode(gtk.WRAP_NONE)
+        if self.line_wrapping: self.sourceview.set_wrap_mode(Gtk.WrapMode.WORD)
+        else: self.sourceview.set_wrap_mode(Gtk.WrapMode.NONE)
 
     def on_checkbutton_spaces_tabs_toggled(self, checkbutton):
         """Insert Spaces Instead of Tabs Toggled Handling"""
@@ -1698,30 +1698,30 @@ class CherryTree:
         """Catches mouse buttons clicks"""
         if event.button == 3:
             self.menu_tree.popup(None, None, None, event.button, event.time)
-        elif event.button == 1 and event.type == gtk.gdk._2BUTTON_PRESS:
+        elif event.button == 1 and event.type == Gdk._2BUTTON_PRESS:
             self.node_edit()
 
     def buffer_create(self, syntax_highlighting):
         """Returns a New Instantiated SourceBuffer"""
         if syntax_highlighting != cons.CUSTOM_COLORS_ID:
-            buffer = gtksourceview2.Buffer()
+            buffer = GtkSource.Buffer()
             self.set_sourcebuffer_syntax_highlight(buffer, syntax_highlighting)
             buffer.set_highlight_matching_brackets(True)
             return buffer
-        else: return gtk.TextBuffer(self.tag_table)
+        else: return Gtk.TextBuffer(self.tag_table)
 
     def combobox_prog_lang_init(self):
         """Init The Programming Languages Syntax Highlighting"""
-        self.prog_lang_liststore = gtk.ListStore(str, str)
+        self.prog_lang_liststore = Gtk.ListStore(str, str)
         self.prog_lang_liststore.append([_("Disabled (Custom Colors)"), cons.CUSTOM_COLORS_ID])
-        self.language_manager = gtksourceview2.LanguageManager()
+        self.language_manager = GtkSource.LanguageManager()
         self.available_languages = self.language_manager.get_language_ids()
         if "def" in self.available_languages: self.available_languages.remove("def")
         for language_id in sorted(self.available_languages):
             self.prog_lang_liststore.append([self.language_manager.get_language(language_id).get_name(), language_id])
         for combobox in [self.glade.combobox_prog_lang, self.glade.combobox_prog_lang_codebox]:
             combobox.set_model(self.prog_lang_liststore)
-            cell = gtk.CellRendererText()
+            cell = Gtk.CellRendererText()
             combobox.pack_start(cell, True)
             combobox.add_attribute(cell, 'text', 0)
             combobox.set_active_iter(self.get_combobox_prog_lang_iter(self.syntax_highlighting))
@@ -1749,9 +1749,9 @@ class CherryTree:
     def combobox_country_lang_init(self):
         """Init The Programming Languages Syntax Highlighting"""
         combobox = self.glade.combobox_country_language
-        self.country_lang_liststore = gtk.ListStore(str)
+        self.country_lang_liststore = Gtk.ListStore(str)
         combobox.set_model(self.country_lang_liststore)
-        cell = gtk.CellRendererText()
+        cell = Gtk.CellRendererText()
         combobox.pack_start(cell, True)
         combobox.add_attribute(cell, 'text', 0)
         for country_lang in cons.AVAILABLE_LANGS:
@@ -1909,9 +1909,9 @@ class CherryTree:
         if new_syntax_highl == cons.CUSTOM_COLORS_ID:
             self.treestore[iter][2].connect('insert-text', self.on_text_insertion)
             self.treestore[iter][2].connect('delete-range', self.on_text_removal)
-            self.sourceview.modify_font(pango.FontDescription(self.text_font))
+            self.sourceview.modify_font(Pango.FontDescription(self.text_font))
         else:
-            self.sourceview.modify_font(pango.FontDescription(self.code_font))
+            self.sourceview.modify_font(Pango.FontDescription(self.code_font))
         self.user_active = True
 
     def on_node_changed(self, *args):
@@ -1935,8 +1935,8 @@ class CherryTree:
             self.curr_buffer.connect('insert-text', self.on_text_insertion)
             self.curr_buffer.connect('delete-range', self.on_text_removal)
             self.curr_buffer.connect('mark-set', self.on_textbuffer_mark_set)
-            self.sourceview.modify_font(pango.FontDescription(self.text_font))
-        else: self.sourceview.modify_font(pango.FontDescription(self.code_font))
+            self.sourceview.modify_font(Pango.FontDescription(self.text_font))
+        else: self.sourceview.modify_font(Pango.FontDescription(self.code_font))
         self.sourceview.set_sensitive(True)
         self.sourceview.set_editable(not self.treestore[self.curr_tree_iter][7])
         self.header_node_name_label.set_text("<big><b><i>"+cgi.escape(self.treestore[self.curr_tree_iter][1])+"</i></b></big>")
@@ -2253,7 +2253,7 @@ class CherryTree:
         """Insert an Anchor"""
         if not self.node_sel_and_rich_text(): return
         iter_insert = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
-        self.anchor_edit_dialog(gtk.gdk.pixbuf_new_from_file(cons.ANCHOR_CHAR), iter_insert)
+        self.anchor_edit_dialog(GdkPixbuf.Pixbuf.new_from_file(cons.ANCHOR_CHAR), iter_insert)
 
     def anchor_edit(self, *args):
         """Edit an Anchor"""
@@ -2335,27 +2335,27 @@ class CherryTree:
         if self.tree_is_empty():
             support.dialog_warning(_("The Tree is Empty!"), self.window)
             return
-        dialog = gtk.Dialog(title=_("Tree Summary Information"),
+        dialog = Gtk.Dialog(title=_("Tree Summary Information"),
                             parent=self.window,
-                            flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
-                            buttons=(gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
+                            flags=Gtk.DialogFlags.MODAL|Gtk.DialogFlags.DESTROY_WITH_PARENT,
+                            buttons=(Gtk.STOCK_OK, Gtk.ResponseType.ACCEPT) )
         dialog.set_default_size(400, 300)
         dialog.set_transient_for(self.window)
-        dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-        table = gtk.Table(5, 2)
-        label = gtk.Label()
+        dialog.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
+        table = Gtk.Table(5, 2)
+        label = Gtk.Label()
         label.set_markup("<b>" + _("Number of Text Nodes") + "</b>")
         table.attach(label, 0, 1, 0, 1)
-        label = gtk.Label()
+        label = Gtk.Label()
         label.set_markup("<b>" + _("Number of Code Nodes") + "</b>")
         table.attach(label, 0, 1, 1, 2)
-        label = gtk.Label()
+        label = Gtk.Label()
         label.set_markup("<b>" + _("Number of Images") + "</b>")
         table.attach(label, 0, 1, 2, 3)
-        label = gtk.Label()
+        label = Gtk.Label()
         label.set_markup("<b>" + _("Number of Tables") + "</b>")
         table.attach(label, 0, 1, 3, 4)
-        label = gtk.Label()
+        label = Gtk.Label()
         label.set_markup("<b>" + _("Number of CodeBoxes") + "</b>")
         table.attach(label, 0, 1, 4, 5)
         self.summary_nodes_text_num = 0
@@ -2368,20 +2368,20 @@ class CherryTree:
         while tree_iter != None:
             self.tree_info_iter(tree_iter)
             tree_iter = self.treestore.iter_next(tree_iter)
-        label = gtk.Label("%s" % self.summary_nodes_text_num)
+        label = Gtk.Label(label="%s" % self.summary_nodes_text_num)
         table.attach(label, 1, 2, 0, 1)
-        label = gtk.Label("%s" % self.summary_nodes_code_num)
+        label = Gtk.Label(label="%s" % self.summary_nodes_code_num)
         table.attach(label, 1, 2, 1, 2)
-        label = gtk.Label("%s" % self.summary_images_num)
+        label = Gtk.Label(label="%s" % self.summary_images_num)
         table.attach(label, 1, 2, 2, 3)
-        label = gtk.Label("%s" % self.summary_tables_num)
+        label = Gtk.Label(label="%s" % self.summary_tables_num)
         table.attach(label, 1, 2, 3, 4)
-        label = gtk.Label("%s" % self.summary_codeboxes_num)
+        label = Gtk.Label(label="%s" % self.summary_codeboxes_num)
         table.attach(label, 1, 2, 4, 5)
         content_area = dialog.get_content_area()
-        content_area.pack_start(table)
+        content_area.pack_start(table, True, True, 0)
         content_area.show_all()
-        dialog.get_action_area().set_layout(gtk.BUTTONBOX_SPREAD)
+        dialog.get_action_area().set_layout(Gtk.ButtonBoxStyle.SPREAD)
         dialog.run()
         dialog.destroy()
 
@@ -2415,7 +2415,7 @@ class CherryTree:
         filename = support.dialog_file_select(curr_folder=self.pick_dir, parent=self.window)
         if filename == None: return
         self.pick_dir = os.path.dirname(filename)
-        pixbuf = gtk.gdk.pixbuf_new_from_file(filename)
+        pixbuf = GdkPixbuf.Pixbuf.new_from_file(filename)
         self.image_edit_dialog(pixbuf, self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert()))
 
     def image_edit_dialog(self, pixbuf, insert_iter, iter_bound=None):
@@ -2437,21 +2437,21 @@ class CherryTree:
         self.image_insert(insert_iter,
                           self.original_pixbuf.scale_simple(int(self.temp_image_width),
                                                             int(self.temp_image_height),
-                                                            gtk.gdk.INTERP_BILINEAR),
+                                                            GdkPixbuf.InterpType.BILINEAR),
                           image_justification)
 
     def image_insert(self, iter_insert, pixbuf, image_justification=None):
         image_offset = iter_insert.get_offset()
         anchor = self.curr_buffer.create_child_anchor(iter_insert)
         anchor.pixbuf = pixbuf
-        anchor.eventbox = gtk.EventBox()
+        anchor.eventbox = Gtk.EventBox()
         anchor.eventbox.set_visible_window(False)
         if "anchor" in dir(pixbuf):
             anchor.eventbox.connect("button-press-event", self.on_mouse_button_clicked_anchor, anchor)
             anchor.eventbox.set_tooltip_text(pixbuf.anchor)
         else:
             anchor.eventbox.connect("button-press-event", self.on_mouse_button_clicked_image, anchor)
-        anchor.image = gtk.Image()
+        anchor.image = Gtk.Image()
         anchor.eventbox.add(anchor.image)
         anchor.image.set_from_pixbuf(anchor.pixbuf)
         self.sourceview.add_child_at_anchor(anchor.eventbox, anchor)
@@ -2516,7 +2516,7 @@ class CherryTree:
         self.object_set_selection(self.curr_image_anchor)
         if event.button == 3:
             self.ui.get_widget("/ImageMenu").popup(None, None, None, event.button, event.time)
-        elif event.type == gtk.gdk._2BUTTON_PRESS: self.image_edit()
+        elif event.type == Gdk._2BUTTON_PRESS: self.image_edit()
         return True # do not propagate the event
 
     def on_mouse_button_clicked_anchor(self, widget, event, anchor):
@@ -2525,7 +2525,7 @@ class CherryTree:
         self.object_set_selection(self.curr_anchor_anchor)
         if event.button == 3:
             self.ui.get_widget("/AnchorMenu").popup(None, None, None, event.button, event.time)
-        elif event.type == gtk.gdk._2BUTTON_PRESS: self.anchor_edit()
+        elif event.type == Gdk._2BUTTON_PRESS: self.anchor_edit()
         return True # do not propagate the event
 
     def image_load_into_dialog(self):
@@ -2537,7 +2537,7 @@ class CherryTree:
             # original size into the dialog
             pixbuf = self.original_pixbuf.scale_simple(int(self.temp_image_width),
                                                        int(self.temp_image_height),
-                                                       gtk.gdk.INTERP_BILINEAR)
+                                                       GdkPixbuf.InterpType.BILINEAR)
         else:
             # reduced size visible into the dialog
             if self.temp_image_width > 900:
@@ -2548,7 +2548,7 @@ class CherryTree:
                 temp_image_width = temp_image_height * self.image_w_h_ration
             pixbuf = self.original_pixbuf.scale_simple(int(temp_image_width),
                                                        int(temp_image_height),
-                                                       gtk.gdk.INTERP_BILINEAR)
+                                                       GdkPixbuf.InterpType.BILINEAR)
         self.glade.image_under_editing.set_from_pixbuf(pixbuf)
         self.user_active = True
 
@@ -2821,28 +2821,28 @@ class CherryTree:
         tag_name = tag_property + "_" + property_value
         tag = self.tag_table.lookup(str(tag_name))
         if tag == None:
-            tag = gtk.TextTag(str(tag_name))
-            if property_value == "heavy": tag.set_property(tag_property, pango.WEIGHT_HEAVY)
-            elif property_value == "small": tag.set_property(tag_property, pango.SCALE_X_SMALL)
-            elif property_value == "h1": tag.set_property(tag_property, pango.SCALE_XX_LARGE)
-            elif property_value == "h2": tag.set_property(tag_property, pango.SCALE_X_LARGE)
-            elif property_value == "italic": tag.set_property(tag_property, pango.STYLE_ITALIC)
-            elif property_value == "single": tag.set_property(tag_property, pango.UNDERLINE_SINGLE)
+            tag = Gtk.TextTag(str(tag_name))
+            if property_value == "heavy": tag.set_property(tag_property, Pango.Weight.HEAVY)
+            elif property_value == "small": tag.set_property(tag_property, Pango.SCALE_X_SMALL)
+            elif property_value == "h1": tag.set_property(tag_property, Pango.SCALE_XX_LARGE)
+            elif property_value == "h2": tag.set_property(tag_property, Pango.SCALE_X_LARGE)
+            elif property_value == "italic": tag.set_property(tag_property, Pango.Style.ITALIC)
+            elif property_value == "single": tag.set_property(tag_property, Pango.Underline.SINGLE)
             elif property_value == "true": tag.set_property(tag_property, True)
-            elif property_value == "left": tag.set_property(tag_property, gtk.JUSTIFY_LEFT)
-            elif property_value == "right": tag.set_property(tag_property, gtk.JUSTIFY_RIGHT)
-            elif property_value == "center": tag.set_property(tag_property, gtk.JUSTIFY_CENTER)
+            elif property_value == "left": tag.set_property(tag_property, Gtk.Justification.LEFT)
+            elif property_value == "right": tag.set_property(tag_property, Gtk.Justification.RIGHT)
+            elif property_value == "center": tag.set_property(tag_property, Gtk.Justification.CENTER)
             elif property_value[0:4] == "webs":
-                tag.set_property("underline", pango.UNDERLINE_SINGLE)
+                tag.set_property("underline", Pango.Underline.SINGLE)
                 tag.set_property("foreground", "#00000000ffff")
             elif property_value[0:4] == "node":
-                tag.set_property("underline", pango.UNDERLINE_SINGLE)
+                tag.set_property("underline", Pango.Underline.SINGLE)
                 tag.set_property("foreground", "#071c838e071c")
             elif property_value[0:4] == "file":
-                tag.set_property("underline", pango.UNDERLINE_SINGLE)
+                tag.set_property("underline", Pango.Underline.SINGLE)
                 tag.set_property("foreground", "#8b8b69691414")
             elif property_value[0:4] == "fold":
-                tag.set_property("underline", pango.UNDERLINE_SINGLE)
+                tag.set_property("underline", Pango.Underline.SINGLE)
                 tag.set_property("foreground", "#7f7f7f7f7f7f")
             else: tag.set_property(tag_property, property_value)
             self.tag_table.add(tag)
@@ -2901,7 +2901,7 @@ class CherryTree:
                 return
             self.treeview_safe_set_cursor(tree_iter)
             self.sourceview.grab_focus()
-            self.sourceview.get_window(gtk.TEXT_WINDOW_TEXT).set_cursor(None)
+            self.sourceview.get_window(Gtk.TextWindowType.TEXT).set_cursor(None)
             self.sourceview.set_tooltip_text(None)
             if len(vector) >= 3:
                 if len(vector) == 3: anchor_name = vector[2]
@@ -2962,10 +2962,10 @@ class CherryTree:
     def anchors_liststore_exist_or_create(self):
         """If Does Not Exist => Create Anchors Browser Liststore"""
         if not "anchors_liststore" in dir(self):
-            self.anchors_liststore = gtk.ListStore(str)
-            self.anchors_treeview = gtk.TreeView(self.anchors_liststore)
-            self.anchors_renderer_text = gtk.CellRendererText()
-            self.anchors_column = gtk.TreeViewColumn(_("Anchor Name"), self.anchors_renderer_text, text=0)
+            self.anchors_liststore = Gtk.ListStore(str)
+            self.anchors_treeview = Gtk.TreeView(self.anchors_liststore)
+            self.anchors_renderer_text = Gtk.CellRendererText()
+            self.anchors_column = Gtk.TreeViewColumn(_("Anchor Name"), self.anchors_renderer_text, text=0)
             self.anchors_treeview.append_column(self.anchors_column)
             self.anchors_treeviewselection = self.anchors_treeview.get_selection()
             self.anchors_treeview.connect('button-press-event', self.on_mouse_button_clicked_anchors_list)
@@ -2975,7 +2975,7 @@ class CherryTree:
     def on_mouse_button_clicked_anchors_list(self, widget, event):
         """Catches mouse buttons clicks"""
         if event.button != 1: return
-        if event.type == gtk.gdk._2BUTTON_PRESS: self.glade.anchorhandledialog_button_ok.clicked()
+        if event.type == Gdk._2BUTTON_PRESS: self.glade.anchorhandledialog_button_ok.clicked()
 
     def sourceview_cursor_and_tooltips_handler(self, x, y):
         """Looks at all tags covering the position (x, y) in the text view,
@@ -2996,7 +2996,7 @@ class CherryTree:
             if text_iter_bis.backward_chars(2):
                 hovering_todo_list = self.lists_handler.is_list_todo_beginning(text_iter_bis)
         if hovering_todo_list:
-            self.sourceview.get_window(gtk.TEXT_WINDOW_TEXT).set_cursor(gtk.gdk.Cursor(gtk.gdk.X_CURSOR))
+            self.sourceview.get_window(Gtk.TextWindowType.TEXT).set_cursor(Gdk.Cursor.new(Gdk.CursorType.X_CURSOR))
             self.sourceview.set_tooltip_text(None)
             return
         tags = text_iter.get_tags()
@@ -3027,16 +3027,16 @@ class CherryTree:
             self.sourceview.set_tooltip_text(pixbuf.anchor)
             return
         if self.hovering_over_link:
-            self.sourceview.get_window(gtk.TEXT_WINDOW_TEXT).set_cursor(gtk.gdk.Cursor(gtk.gdk.HAND2))
+            self.sourceview.get_window(Gtk.TextWindowType.TEXT).set_cursor(Gdk.Cursor.new(Gdk.HAND2))
             self.sourceview.set_tooltip_text(tooltip)
         else:
-            self.sourceview.get_window(gtk.TEXT_WINDOW_TEXT).set_cursor(None)
+            self.sourceview.get_window(Gtk.TextWindowType.TEXT).set_cursor(None)
             self.sourceview.set_tooltip_text(None)
 
     def on_sourceview_event_after(self, text_view, event):
         """Called after every event on the SourceView"""
-        if event.type == gtk.gdk._2BUTTON_PRESS and event.button == 1:
-            x, y = text_view.window_to_buffer_coords(gtk.TEXT_WINDOW_WIDGET, int(event.x), int(event.y))
+        if event.type == Gdk._2BUTTON_PRESS and event.button == 1:
+            x, y = text_view.window_to_buffer_coords(Gtk.TextWindowType.WIDGET, int(event.x), int(event.y))
             iter_end = text_view.get_iter_at_location(x, y)
             iter_start = iter_end.copy()
             match = re.match('\w', iter_end.get_char()) # alphanumeric char
@@ -3053,9 +3053,9 @@ class CherryTree:
             self.curr_buffer.move_mark(self.curr_buffer.get_insert(), iter_start)
             self.curr_buffer.move_mark(self.curr_buffer.get_selection_bound(), iter_end)
         elif self.syntax_highlighting != cons.CUSTOM_COLORS_ID: return
-        if event.type == gtk.gdk.BUTTON_PRESS:
+        if event.type == Gdk.EventType.BUTTON_PRESS:
             if event.button == 1:
-                x, y = text_view.window_to_buffer_coords(gtk.TEXT_WINDOW_WIDGET, int(event.x), int(event.y))
+                x, y = text_view.window_to_buffer_coords(Gtk.TextWindowType.WIDGET, int(event.x), int(event.y))
                 text_iter = self.sourceview.get_iter_at_location(x, y)
                 tags = text_iter.get_tags()
                 # check whether we are hovering a link
@@ -3078,12 +3078,12 @@ class CherryTree:
                     if hovering_todo_list:
                         self.lists_handler.todo_list_invert_checked_status(text_iter)
             elif event.button == 3 and not self.curr_buffer.get_has_selection():
-                x, y = text_view.window_to_buffer_coords(gtk.TEXT_WINDOW_WIDGET, int(event.x), int(event.y))
+                x, y = text_view.window_to_buffer_coords(Gtk.TextWindowType.WIDGET, int(event.x), int(event.y))
                 text_iter = self.sourceview.get_iter_at_location(x, y)
                 self.curr_buffer.place_cursor(text_iter)
-        elif event.type == gtk.gdk.KEY_PRESS:
-            keyname = gtk.gdk.keyval_name(event.keyval)
-            if (event.state & gtk.gdk.SHIFT_MASK): # Shift held down
+        elif event.type == Gdk.KEY_PRESS:
+            keyname = Gdk.keyval_name(event.keyval)
+            if (event.get_state() & Gdk.EventMask.SHIFT_MASK): # Shift held down
                 if keyname == "Return":
                     self.curr_buffer.insert(self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert()), 3*cons.CHAR_SPACE)
             elif keyname == "Return":
@@ -3122,7 +3122,7 @@ class CherryTree:
         """Update the cursor image if the pointer moved"""
         if not self.sourceview.get_cursor_visible(): self.sourceview.set_cursor_visible(True)
         if self.syntax_highlighting != cons.CUSTOM_COLORS_ID: return
-        x, y = self.sourceview.window_to_buffer_coords(gtk.TEXT_WINDOW_WIDGET, int(event.x), int(event.y))
+        x, y = self.sourceview.window_to_buffer_coords(Gtk.TextWindowType.WIDGET, int(event.x), int(event.y))
         self.sourceview_cursor_and_tooltips_handler(x, y)
         return False
 
@@ -3144,7 +3144,7 @@ class CherryTree:
         """Update the cursor image if the window becomes visible (e.g. when a window covering it got iconified)"""
         if self.syntax_highlighting != cons.CUSTOM_COLORS_ID: return
         wx, wy, mod = self.sourceview.window.get_pointer()
-        bx, by = self.sourceview.window_to_buffer_coords(gtk.TEXT_WINDOW_WIDGET, wx, wy)
+        bx, by = self.sourceview.window_to_buffer_coords(Gtk.TextWindowType.WIDGET, wx, wy)
         self.sourceview_cursor_and_tooltips_handler(bx, by)
         return False
 

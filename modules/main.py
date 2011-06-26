@@ -20,7 +20,7 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
-import gtk, gobject
+from gi.repository import Gtk, GObject
 import sys, os, gettext, socket, threading
 import cons, core
 
@@ -69,7 +69,7 @@ class CherryTreeHandler():
         self.running_windows = []
         filepath = filepath_fix(filepath)
         self.window_open_new(filepath)
-        self.server_check_timer_id = gobject.timeout_add(1000, self.server_periodic_check) # 1 sec
+        self.server_check_timer_id = GObject.timeout_add(1000, self.server_periodic_check) # 1 sec
 
     def window_open_new(self, filepath):
         """Open a new top level Window"""
@@ -81,7 +81,7 @@ class CherryTreeHandler():
         """Before close the application (from the window top right X)..."""
         self.running_windows.pop(self.curr_win_idx)
         self.curr_win_idx = -1
-        if not self.running_windows: gtk.main_quit()
+        if not self.running_windows: Gtk.main_quit()
 
     def server_periodic_check(self):
         """Check Whether the server posted messages"""
@@ -177,13 +177,13 @@ def main(OPEN_WITH_FILE):
     except:
         # server + core
         lang_str = initializations()
-        gobject.threads_init()
+        GObject.threads_init()
         semaphore = threading.Semaphore()
         msg_server_to_core = {'f':0, 'p':""}
         server_thread = ServerThread(semaphore, msg_server_to_core)
         server_thread.start()
         CherryTreeHandler(OPEN_WITH_FILE, semaphore, msg_server_to_core, lang_str)
-        gtk.main() # start the gtk main loop
+        Gtk.main() # start the gtk main loop
         # quit thread
         if sys.platform[0:3] == "win":
             import ctypes

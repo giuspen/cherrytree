@@ -19,7 +19,8 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
-import gtk, os
+from gi.repository import Gtk
+import os
 import cons
 
 
@@ -40,15 +41,15 @@ def windows_cmd_prepare_path(filepath):
 
 def dialog_file_save_as(filename=None, filter_pattern=None, filter_name=None, curr_folder=None, parent=None):
     """The Save file as dialog, Returns the retrieved filepath or None"""
-    chooser = gtk.FileChooserDialog(title=_("Save File as"),
-                                    action=gtk.FILE_CHOOSER_ACTION_SAVE,
-                                    buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, gtk.STOCK_SAVE, gtk.RESPONSE_OK) )
+    chooser = Gtk.FileChooserDialog(title=_("Save File as"),
+                                    action=Gtk.FileChooserAction.SAVE,
+                                    buttons=(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, Gtk.STOCK_SAVE, Gtk.ResponseType.OK) )
     if parent != None:
         chooser.set_transient_for(parent)
         chooser.set_property("modal", True)
         chooser.set_property("destroy-with-parent", True)
-        chooser.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-    else: chooser.set_position(gtk.WIN_POS_CENTER)
+        chooser.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
+    else: chooser.set_position(Gtk.WindowPosition.CENTER)
     if curr_folder == None or os.path.isdir(curr_folder) == False:
         chooser.set_current_folder(os.path.expanduser('~'))
     else:
@@ -56,11 +57,11 @@ def dialog_file_save_as(filename=None, filter_pattern=None, filter_name=None, cu
     if filename != None:
         chooser.set_current_name(filename)
     if filter_pattern != None:
-        filter = gtk.FileFilter()
+        filter = Gtk.FileFilter()
         filter.set_name(filter_name)
         filter.add_pattern(filter_pattern)
         chooser.add_filter(filter)
-    if chooser.run() == gtk.RESPONSE_OK:
+    if chooser.run() == Gtk.ResponseType.OK:
         filepath = chooser.get_filename()
         chooser.destroy()
         return filepath
@@ -70,25 +71,25 @@ def dialog_file_save_as(filename=None, filter_pattern=None, filter_name=None, cu
 
 def dialog_file_select(filter_pattern=None, filter_name=None, curr_folder=None, parent=None):
     """The Select file dialog, Returns the retrieved filepath or None"""
-    chooser = gtk.FileChooserDialog(title = _("Select File"),
-                                    action=gtk.FILE_CHOOSER_ACTION_OPEN,
-                                    buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, gtk.STOCK_OPEN, gtk.RESPONSE_OK) )
+    chooser = Gtk.FileChooserDialog(title = _("Select File"),
+                                    action=Gtk.FileChooserAction.OPEN,
+                                    buttons=(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, Gtk.STOCK_OPEN, Gtk.ResponseType.OK) )
     if parent != None:
         chooser.set_transient_for(parent)
         chooser.set_property("modal", True)
         chooser.set_property("destroy-with-parent", True)
-        chooser.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-    else: chooser.set_position(gtk.WIN_POS_CENTER)
+        chooser.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
+    else: chooser.set_position(Gtk.WindowPosition.CENTER)
     if curr_folder == None or os.path.isdir(curr_folder) == False:
         chooser.set_current_folder(os.path.expanduser('~'))
     else:
         chooser.set_current_folder(curr_folder)
     if filter_pattern != None:
-        filter = gtk.FileFilter()
+        filter = Gtk.FileFilter()
         filter.set_name(filter_name)
         filter.add_pattern(filter_pattern)
         chooser.add_filter(filter)
-    if chooser.run() == gtk.RESPONSE_OK:
+    if chooser.run() == Gtk.ResponseType.OK:
         filepath = chooser.get_filename()
         chooser.destroy()
         return filepath
@@ -98,20 +99,20 @@ def dialog_file_select(filter_pattern=None, filter_name=None, curr_folder=None, 
 
 def dialog_folder_select(curr_folder=None, parent=None):
     """The Select folder dialog, returns the retrieved folderpath or None"""
-    chooser = gtk.FileChooserDialog(title = _("Select Folder"),
-                                    action=gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER,
-                                    buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, gtk.STOCK_OPEN, gtk.RESPONSE_OK) )
+    chooser = Gtk.FileChooserDialog(title = _("Select Folder"),
+                                    action=Gtk.FileChooserAction.SELECT_FOLDER,
+                                    buttons=(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, Gtk.STOCK_OPEN, Gtk.ResponseType.OK) )
     if parent != None:
         chooser.set_transient_for(parent)
         chooser.set_property("modal", True)
         chooser.set_property("destroy-with-parent", True)
-        chooser.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-    else: chooser.set_position(gtk.WIN_POS_CENTER)
+        chooser.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
+    else: chooser.set_position(Gtk.WindowPosition.CENTER)
     if curr_folder == None or os.path.isdir(curr_folder) == False:
         chooser.set_current_folder(os.path.expanduser('~'))
     else:
         chooser.set_current_folder(curr_folder)
-    if chooser.run() == gtk.RESPONSE_OK:
+    if chooser.run() == Gtk.ResponseType.OK:
         folderpath = chooser.get_filename()
         chooser.destroy()
         return folderpath
@@ -121,16 +122,16 @@ def dialog_folder_select(curr_folder=None, parent=None):
 
 def dialog_question(message, parent=None):
     """The Question dialog, returns True if the user presses OK"""
-    dialog = gtk.MessageDialog(flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
-                               type=gtk.MESSAGE_QUESTION,
-                               buttons=gtk.BUTTONS_OK_CANCEL,
+    dialog = Gtk.MessageDialog(flags=Gtk.DialogFlags.MODAL|Gtk.DialogFlags.DESTROY_WITH_PARENT,
+                               type=Gtk.MessageType.QUESTION,
+                               buttons=Gtk.ButtonsType.OK_CANCEL,
                                message_format=message)
     if parent != None:
         dialog.set_transient_for(parent)
-        dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-    else: dialog.set_position(gtk.WIN_POS_CENTER)
+        dialog.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
+    else: dialog.set_position(Gtk.WindowPosition.CENTER)
     dialog.set_title(_("Question"))
-    if dialog.run() == gtk.RESPONSE_OK:
+    if dialog.run() == Gtk.ResponseType.OK:
         dialog.destroy()
         return True
     else:
@@ -139,65 +140,65 @@ def dialog_question(message, parent=None):
 
 def dialog_info(message, parent=None):
     """The Info dialog"""
-    dialog = gtk.MessageDialog(flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
-                               type=gtk.MESSAGE_INFO,
-                               buttons=gtk.BUTTONS_OK,
+    dialog = Gtk.MessageDialog(flags=Gtk.DialogFlags.MODAL|Gtk.DialogFlags.DESTROY_WITH_PARENT,
+                               type=Gtk.MessageType.INFO,
+                               buttons=Gtk.ButtonsType.OK,
                                message_format=message)
     if parent != None:
         dialog.set_transient_for(parent)
-        dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-    else: dialog.set_position(gtk.WIN_POS_CENTER)
+        dialog.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
+    else: dialog.set_position(Gtk.WindowPosition.CENTER)
     dialog.set_title(_("Info"))
     dialog.run()
     dialog.destroy()
 
 def dialog_warning(message, parent=None):
     """The Warning dialog"""
-    dialog = gtk.MessageDialog(flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
-                               type=gtk.MESSAGE_WARNING,
-                               buttons=gtk.BUTTONS_OK,
+    dialog = Gtk.MessageDialog(flags=Gtk.DialogFlags.MODAL|Gtk.DialogFlags.DESTROY_WITH_PARENT,
+                               type=Gtk.MessageType.WARNING,
+                               buttons=Gtk.ButtonsType.OK,
                                message_format=message)
     if parent != None:
         dialog.set_transient_for(parent)
-        dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-    else: dialog.set_position(gtk.WIN_POS_CENTER)
+        dialog.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
+    else: dialog.set_position(Gtk.WindowPosition.CENTER)
     dialog.set_title(_("Warning"))
     dialog.run()
     dialog.destroy()
 
 def dialog_error(message, parent=None):
     """The Error dialog"""
-    dialog = gtk.MessageDialog(flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
-                               type=gtk.MESSAGE_ERROR,
-                               buttons=gtk.BUTTONS_OK,
+    dialog = Gtk.MessageDialog(flags=Gtk.DialogFlags.MODAL|Gtk.DialogFlags.DESTROY_WITH_PARENT,
+                               type=Gtk.MessageType.ERROR,
+                               buttons=Gtk.ButtonsType.OK,
                                message_format=message)
     if parent != None:
         dialog.set_transient_for(parent)
-        dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-    else: dialog.set_position(gtk.WIN_POS_CENTER)
+        dialog.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
+    else: dialog.set_position(Gtk.WindowPosition.CENTER)
     dialog.set_title(_("Error"))
     dialog.run()
     dialog.destroy()
 
 def dialog_selnode_selnodeandsub_alltree(father_win):
     """Dialog to select between the Selected Node/Selected Node + Subnodes/All Tree"""
-    dialog = gtk.Dialog(title=_("Involved Nodes"),
+    dialog = Gtk.Dialog(title=_("Involved Nodes"),
                                 parent=father_win,
-                                flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
-                                buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
-                                gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
-    dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-    radiobutton_selnode = gtk.RadioButton(label=_("Selected Node Only"))
-    radiobutton_selnodeandsub = gtk.RadioButton(label=_("Selected Node and Subnodes"))
-    radiobutton_alltree = gtk.RadioButton(label=_("All the Tree"))
+                                flags=Gtk.DialogFlags.MODAL|Gtk.DialogFlags.DESTROY_WITH_PARENT,
+                                buttons=(Gtk.STOCK_CANCEL, Gtk.ResponseType.REJECT,
+                                Gtk.STOCK_OK, Gtk.ResponseType.ACCEPT) )
+    dialog.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
+    radiobutton_selnode = Gtk.RadioButton(label=_("Selected Node Only"))
+    radiobutton_selnodeandsub = Gtk.RadioButton(label=_("Selected Node and Subnodes"))
+    radiobutton_alltree = Gtk.RadioButton(label=_("All the Tree"))
     radiobutton_selnodeandsub.set_group(radiobutton_selnode)
     radiobutton_alltree.set_group(radiobutton_selnode)
     content_area = dialog.get_content_area()
-    content_area.pack_start(radiobutton_selnode)
-    content_area.pack_start(radiobutton_selnodeandsub)
-    content_area.pack_start(radiobutton_alltree)
+    content_area.pack_start(radiobutton_selnode, True, True, 0)
+    content_area.pack_start(radiobutton_selnodeandsub, True, True, 0)
+    content_area.pack_start(radiobutton_alltree, True, True, 0)
     def on_key_press_enter_dialog(widget, event):
-        if gtk.gdk.keyval_name(event.keyval) == "Return":
+        if Gdk.keyval_name(event.keyval) == "Return":
             button_box = dialog.get_action_area()
             buttons = button_box.get_children()
             buttons[0].clicked() # first is the ok button
@@ -208,7 +209,7 @@ def dialog_selnode_selnodeandsub_alltree(father_win):
     elif radiobutton_selnodeandsub.get_active(): ret_val = 2
     else: ret_val = 3
     dialog.destroy()
-    if response != gtk.RESPONSE_ACCEPT: ret_val = 0
+    if response != Gtk.ResponseType.ACCEPT: ret_val = 0
     return ret_val
 
 def set_bookmarks_menu_items(inst):
@@ -216,14 +217,14 @@ def set_bookmarks_menu_items(inst):
     bookmarks_menu = inst.ui.get_widget("/MenuBar/BookmarksMenu").get_submenu()
     for menu_item in inst.bookmarks_menu_items:
         bookmarks_menu.remove(menu_item)
-    menu_item = gtk.SeparatorMenuItem()
+    menu_item = Gtk.SeparatorMenuItem()
     menu_item.show()
     bookmarks_menu.append(menu_item)
     inst.bookmarks_menu_items = [menu_item]
     for node_id_str in inst.bookmarks:
         if not long(node_id_str) in inst.nodes_names_dict: continue
-        menu_item = gtk.ImageMenuItem(inst.nodes_names_dict[long(node_id_str)])
-        menu_item.set_image(gtk.image_new_from_stock("Red Cherry", gtk.ICON_SIZE_MENU))
+        menu_item = Gtk.ImageMenuItem(inst.nodes_names_dict[long(node_id_str)])
+        menu_item.set_image(Gtk.Image.new_from_stock("Red Cherry", Gtk.IconSize.MENU))
         menu_item.connect("activate", select_bookmark_node, node_id_str, inst)
         menu_item.show()
         bookmarks_menu.append(menu_item)
@@ -231,24 +232,24 @@ def set_bookmarks_menu_items(inst):
 
 def set_menu_items_recent_documents(inst):
     """Set Recent Documents menu items on Menu and Toolbar"""
-    inst.recent_menu_1 = gtk.Menu()
-    inst.recent_menu_2 = gtk.Menu()
+    inst.recent_menu_1 = Gtk.Menu()
+    inst.recent_menu_2 = Gtk.Menu()
     for target in [1, 2]:
         for filepath in inst.recent_docs:
-            menu_item = gtk.ImageMenuItem(filepath)
-            menu_item.set_image(gtk.image_new_from_stock("gtk-open", gtk.ICON_SIZE_MENU))
+            menu_item = Gtk.ImageMenuItem(filepath)
+            menu_item.set_image(Gtk.Image.new_from_stock("gtk-open", Gtk.IconSize.MENU))
             menu_item.connect("activate", open_recent_document, filepath, inst)
             menu_item.show()
             if target == 1: inst.recent_menu_1.append(menu_item)
             else: inst.recent_menu_2.append(menu_item)
     # main menu
-    recent_menuitem = gtk.ImageMenuItem(_("_Recent Documents"))
-    recent_menuitem.set_image(gtk.image_new_from_stock("gtk-open", gtk.ICON_SIZE_MENU))
+    recent_menuitem = Gtk.ImageMenuItem(_("_Recent Documents"))
+    recent_menuitem.set_image(Gtk.Image.new_from_stock("gtk-open", Gtk.IconSize.MENU))
     recent_menuitem.set_tooltip_text(_("Open a Recent CherryTree Document"))
     recent_menuitem.set_submenu(inst.recent_menu_1)
     inst.ui.get_widget("/MenuBar/FileMenu").get_submenu().insert(recent_menuitem, 9)
     # toolbar
-    menu_toolbutton = gtk.MenuToolButton("gtk-open")
+    menu_toolbutton = Gtk.MenuToolButton("gtk-open")
     menu_toolbutton.set_tooltip_text(_("Open a CherryTree Document"))
     menu_toolbutton.set_arrow_tooltip_text(_("Open a Recent CherryTree Document"))
     menu_toolbutton.set_menu(inst.recent_menu_2)
@@ -260,8 +261,8 @@ def add_recent_document(inst, filepath):
     if not filepath in inst.recent_docs:
         inst.recent_docs.append(filepath)
         for target in [1, 2]:
-            menu_item = gtk.ImageMenuItem(filepath)
-            menu_item.set_image(gtk.image_new_from_stock("gtk-open", gtk.ICON_SIZE_MENU))
+            menu_item = Gtk.ImageMenuItem(filepath)
+            menu_item.set_image(Gtk.Image.new_from_stock("gtk-open", Gtk.IconSize.MENU))
             menu_item.connect("activate", open_recent_document, filepath, inst)
             menu_item.show()
             if target == 1: inst.recent_menu_1.append(menu_item)
@@ -283,41 +284,41 @@ def select_bookmark_node(menu_item, node_id_str, dad):
 
 def bookmarks_handle(dad):
     """Handle the Bookmarks List"""
-    dialog = gtk.Dialog(title=_("Handle the Bookmarks List"),
+    dialog = Gtk.Dialog(title=_("Handle the Bookmarks List"),
                         parent=dad.window,
-                        flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
-                        buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
-                        gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
+                        flags=Gtk.DialogFlags.MODAL|Gtk.DialogFlags.DESTROY_WITH_PARENT,
+                        buttons=(Gtk.STOCK_CANCEL, Gtk.ResponseType.REJECT,
+                        Gtk.STOCK_OK, Gtk.ResponseType.ACCEPT) )
     dialog.set_default_size(500, 400)
     dialog.set_transient_for(dad.window)
-    dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-    liststore = gtk.ListStore(str, str, str)
+    dialog.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
+    liststore = Gtk.ListStore(str, str, str)
     for node_id_str in dad.bookmarks:
         liststore.append(["Red Cherry", dad.nodes_names_dict[long(node_id_str)], node_id_str])
-    treeview = gtk.TreeView(liststore)
+    treeview = Gtk.TreeView(liststore)
     treeview.set_headers_visible(False)
     treeview.set_reorderable(True)
     treeview.set_tooltip_text(_("Sort with Drag and Drop, Delete with the Delete Key"))
     treeviewselection = treeview.get_selection()
     def on_key_press_liststore(widget, event):
-        keyname = gtk.gdk.keyval_name(event.keyval)
+        keyname = Gdk.keyval_name(event.keyval)
         if keyname == "Delete":
             model, tree_iter = treeviewselection.get_selected()
             if tree_iter: model.remove(tree_iter)
     treeview.connect('key_press_event', on_key_press_liststore)
-    renderer_pixbuf = gtk.CellRendererPixbuf()
-    renderer_text = gtk.CellRendererText()
-    column = gtk.TreeViewColumn()
+    renderer_pixbuf = Gtk.CellRendererPixbuf()
+    renderer_text = Gtk.CellRendererText()
+    column = Gtk.TreeViewColumn()
     column.pack_start(renderer_pixbuf, False)
     column.pack_start(renderer_text, True)
     column.set_attributes(renderer_pixbuf, stock_id=0)
     column.set_attributes(renderer_text, text=1)
     treeview.append_column(column)
-    scrolledwindow = gtk.ScrolledWindow()
-    scrolledwindow.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+    scrolledwindow = Gtk.ScrolledWindow()
+    scrolledwindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
     scrolledwindow.add(treeview)
     content_area = dialog.get_content_area()
-    content_area.pack_start(scrolledwindow)
+    content_area.pack_start(scrolledwindow, True, True, 0)
     content_area.show_all()
     response = dialog.run()
     temp_bookmarks = []
@@ -326,7 +327,7 @@ def bookmarks_handle(dad):
         temp_bookmarks.append(liststore[tree_iter][2])
         tree_iter = liststore.iter_next(tree_iter)
     dialog.destroy()
-    if response != gtk.RESPONSE_ACCEPT: return False
+    if response != Gtk.ResponseType.ACCEPT: return False
     dad.bookmarks = temp_bookmarks
     set_bookmarks_menu_items(dad)
     return True

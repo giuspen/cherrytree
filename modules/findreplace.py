@@ -19,7 +19,7 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
-import gtk, gobject
+from gi.repository import Gtk, GObject
 import re
 import cons, support, config
 
@@ -471,13 +471,13 @@ class FindReplace:
             self.liststore.clear()
             return
         # ROW: 0-node_iter, 1-start_offset, 2-end_offset, 3-node_name, 4-line_content
-        self.liststore = gtk.ListStore(gobject.TYPE_PYOBJECT, long, long, str, str)
-        self.treeview = gtk.TreeView(self.liststore)
-        self.renderer_text_node = gtk.CellRendererText()
-        self.renderer_text_line = gtk.CellRendererText()
-        self.node_column = gtk.TreeViewColumn(_("Node Name"), self.renderer_text_node, text=3)
+        self.liststore = Gtk.ListStore(GObject.TYPE_PYOBJECT, long, long, str, str)
+        self.treeview = Gtk.TreeView(self.liststore)
+        self.renderer_text_node = Gtk.CellRendererText()
+        self.renderer_text_line = Gtk.CellRendererText()
+        self.node_column = Gtk.TreeViewColumn(_("Node Name"), self.renderer_text_node, text=3)
         self.treeview.append_column(self.node_column)
-        self.line_column = gtk.TreeViewColumn(_("Line Content"), self.renderer_text_line, text=4)
+        self.line_column = Gtk.TreeViewColumn(_("Line Content"), self.renderer_text_line, text=4)
         self.treeview.append_column(self.line_column)
         self.treeviewselection = self.treeview.get_selection()
         self.treeview.connect('event-after', self.on_treeview_event_after)
@@ -486,7 +486,7 @@ class FindReplace:
 
     def on_treeview_event_after(self, treeview, event):
         """Catches mouse buttons clicks"""
-        if event.type != gtk.gdk.BUTTON_PRESS: return
+        if event.type != Gdk.EventType.BUTTON_PRESS: return
         model, list_iter = self.treeviewselection.get_selected()
         self.dad.treeview_safe_set_cursor(model[list_iter][0])
         if model[list_iter][1] != 0 and model[list_iter][2] != 0:

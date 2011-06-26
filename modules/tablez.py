@@ -19,7 +19,7 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
-import gtk, pango
+from gi.repository import Gtk, Pango
 import os, csv, codecs, cStringIO, copy
 import cons, support
 
@@ -49,7 +49,7 @@ class TablesHandler:
 
     def on_key_press_tablehandledialog(self, widget, event):
         """Catches TableHandle Dialog key presses"""
-        keyname = gtk.gdk.keyval_name(event.keyval)
+        keyname = Gdk.keyval_name(event.keyval)
         if keyname == "Return": self.dad.glade.tablehandledialog_button_ok.clicked()
 
     def table_export(self, action):
@@ -120,36 +120,36 @@ class TablesHandler:
             table_col_min = self.table_col_min
             table_col_max = self.table_col_max
         anchor = self.dad.curr_buffer.create_child_anchor(iter_insert)
-        anchor.liststore = gtk.ListStore(*(str,)*self.table_columns)
-        anchor.treeview = gtk.TreeView(anchor.liststore)
+        anchor.liststore = Gtk.ListStore(*(str,)*self.table_columns)
+        anchor.treeview = Gtk.TreeView(anchor.liststore)
         for element in range(self.table_columns):
-            label = gtk.Label('<b>' + headers[element] + '</b>')
+            label = Gtk.Label(label='<b>' + headers[element] + '</b>')
             label.set_use_markup(True)
             label.set_tooltip_text(_("Click to Edit the Column Settings"))
             label.show()
-            renderer_text = gtk.CellRendererText()
+            renderer_text = Gtk.CellRendererText()
             renderer_text.set_property('editable', True)
             renderer_text.set_property('wrap-width', table_col_max)
-            renderer_text.set_property('wrap-mode', pango.WRAP_WORD_CHAR)
-            renderer_text.set_property('font-desc', pango.FontDescription(self.dad.text_font))
+            renderer_text.set_property('wrap-mode', Pango.WrapMode.WORD_CHAR)
+            renderer_text.set_property('font-desc', Pango.FontDescription(self.dad.text_font))
             renderer_text.connect('edited', self.on_table_cell_edited, anchor.liststore, element)
             renderer_text.connect('editing-started', self.on_table_cell_editing_started, anchor.liststore, element)
-            column = gtk.TreeViewColumn("", renderer_text, text=element)
+            column = Gtk.TreeViewColumn("", renderer_text, text=element)
             column.set_min_width(table_col_min)
             column.set_clickable(True)
             column.set_widget(label)
-            column.set_sizing(gtk.TREE_VIEW_COLUMN_AUTOSIZE)
+            column.set_sizing(Gtk.TreeViewColumnSizing.AUTOSIZE)
             column.connect('clicked', self.table_column_clicked, anchor, element)
             anchor.treeview.append_column(column)
         anchor.headers = headers
         anchor.table_col_min = table_col_min
         anchor.table_col_max = table_col_max
-        anchor.treeview.set_grid_lines(gtk.TREE_VIEW_GRID_LINES_BOTH)
+        anchor.treeview.set_grid_lines(Gtk.TREE_VIEW_GRID_LINES_BOTH)
         anchor.treeview.connect('button-press-event', self.on_mouse_button_clicked_table, anchor)
-        anchor.frame = gtk.Frame()
+        anchor.frame = Gtk.Frame()
         anchor.frame.add(anchor.treeview)
-        anchor.frame.set_shadow_type(gtk.SHADOW_NONE)
-        anchor.eventbox = gtk.EventBox()
+        anchor.frame.set_shadow_type(Gtk.ShadowType.NONE)
+        anchor.eventbox = Gtk.EventBox()
         anchor.eventbox.add(anchor.frame)
         self.dad.sourceview.add_child_at_anchor(anchor.eventbox, anchor)
         anchor.eventbox.show_all()
@@ -190,12 +190,12 @@ class TablesHandler:
 
     def on_key_press_table_cell(self, widget, event, path, model, col_num):
         """Catches Table Cell key presses"""
-        keyname = gtk.gdk.keyval_name(event.keyval)
-        if event.state & gtk.gdk.SHIFT_MASK:
+        keyname = Gdk.keyval_name(event.keyval)
+        if event.get_state() & Gdk.EventMask.SHIFT_MASK:
             pass
-        elif event.state & gtk.gdk.MOD1_MASK:
+        elif event.get_state() & Gdk.ModifierType.MOD1_MASK:
             pass
-        elif event.state & gtk.gdk.CONTROL_MASK:
+        elif event.get_state() & Gdk.EventMask.CONTROL_MASK:
             pass
         else:
             if keyname in ["Return", "Up", "Down"]:
@@ -238,7 +238,7 @@ class TablesHandler:
 
     def on_table_cell_editing_started(self, cell, editable, path, model, col_num):
         """A Table Cell is going to be Edited"""
-        if isinstance(editable, gtk.Entry):
+        if isinstance(editable, Gtk.Entry):
             editable.connect('key_press_event', self.on_key_press_table_cell, path, model, col_num)
 
     def on_table_cell_edited(self, cell, path, new_text, model, col_num):

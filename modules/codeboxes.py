@@ -19,7 +19,7 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
-import gtk, gtksourceview2, pango
+from gi.repository import Gtk, GtkSource, Pango
 import os
 import cons, support
 
@@ -49,7 +49,7 @@ class CodeBoxesHandler:
 
     def on_key_press_codeboxhandledialog(self, widget, event):
         """Catches CodeBoxHandle Dialog key presses"""
-        keyname = gtk.gdk.keyval_name(event.keyval)
+        keyname = Gdk.keyval_name(event.keyval)
         if keyname == "Return": self.dad.glade.codeboxhandledialog_button_ok.clicked()
 
     def codebox_handle(self):
@@ -84,7 +84,7 @@ class CodeBoxesHandler:
         anchor.syntax_highlighting = codebox_dict['syntax_highlighting']
         anchor.highlight_brackets = codebox_dict['highlight_brackets']
         anchor.show_line_numbers = codebox_dict['show_line_numbers']
-        anchor.sourcebuffer = gtksourceview2.Buffer()
+        anchor.sourcebuffer = GtkSource.Buffer()
         self.dad.set_sourcebuffer_syntax_highlight(anchor.sourcebuffer, anchor.syntax_highlighting)
         anchor.sourcebuffer.set_highlight_matching_brackets(anchor.highlight_brackets)
         anchor.sourcebuffer.connect('insert-text', self.dad.on_text_insertion)
@@ -93,8 +93,8 @@ class CodeBoxesHandler:
         if codebox_dict['fill_text']:
             anchor.sourcebuffer.set_text(codebox_dict['fill_text'])
             anchor.sourcebuffer.set_modified(False)
-        anchor.sourceview = gtksourceview2.View(anchor.sourcebuffer)
-        anchor.sourceview.modify_font(pango.FontDescription(self.dad.code_font))
+        anchor.sourceview = GtkSource.View(anchor.sourcebuffer)
+        anchor.sourceview.modify_font(Pango.FontDescription(self.dad.code_font))
         anchor.sourceview.set_show_line_numbers(anchor.show_line_numbers)
         anchor.sourceview.set_insert_spaces_instead_of_tabs(self.dad.spaces_instead_tabs)
         anchor.sourceview.set_tab_width(self.dad.tabs_width)
@@ -102,18 +102,18 @@ class CodeBoxesHandler:
         anchor.sourceview.connect('populate-popup', self.on_sourceview_populate_popup_codebox, anchor)
         anchor.sourceview.connect('key_press_event', self.on_key_press_sourceview_codebox, anchor)
         anchor.sourceview.connect('button-press-event', self.on_mouse_button_clicked_codebox, anchor)
-        if self.dad.line_wrapping: anchor.sourceview.set_wrap_mode(gtk.WRAP_WORD)
-        else: anchor.sourceview.set_wrap_mode(gtk.WRAP_NONE)
-        scrolledwindow = gtk.ScrolledWindow()
-        scrolledwindow.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+        if self.dad.line_wrapping: anchor.sourceview.set_wrap_mode(Gtk.WrapMode.WORD)
+        else: anchor.sourceview.set_wrap_mode(Gtk.WrapMode.NONE)
+        scrolledwindow = Gtk.ScrolledWindow()
+        scrolledwindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
         scrolledwindow.add(anchor.sourceview)
-        anchor.frame = gtk.Frame()
+        anchor.frame = Gtk.Frame()
         self.codebox_apply_width_height(anchor)
         anchor.frame.add(scrolledwindow)
         self.dad.sourceview.add_child_at_anchor(anchor.frame, anchor)
-        for win in [gtk.TEXT_WINDOW_LEFT, gtk.TEXT_WINDOW_RIGHT, gtk.TEXT_WINDOW_TOP, gtk.TEXT_WINDOW_BOTTOM]:
+        for win in [Gtk.TextWindowType.LEFT, Gtk.TextWindowType.RIGHT, Gtk.TextWindowType.TOP, Gtk.TextWindowType.BOTTOM]:
             anchor.sourceview.set_border_window_size(win, 1)
-        anchor.frame.set_shadow_type(gtk.SHADOW_NONE)
+        anchor.frame.set_shadow_type(Gtk.ShadowType.NONE)
         anchor.frame.show_all()
         if codebox_justification:
             self.dad.state_machine.apply_image_justification(self.dad.curr_buffer.get_iter_at_child_anchor(anchor), codebox_justification)
@@ -188,15 +188,15 @@ class CodeBoxesHandler:
 
     def on_key_press_sourceview_codebox(self, widget, event, anchor):
         """Extend the Default Right-Click Menu of the CodeBox"""
-        if event.state & gtk.gdk.CONTROL_MASK:
-            keyname = gtk.gdk.keyval_name(event.keyval)
+        if event.get_state() & Gdk.EventMask.CONTROL_MASK:
+            keyname = Gdk.keyval_name(event.keyval)
             self.curr_codebox_anchor = anchor
             if keyname == "period":
-                if event.state & gtk.gdk.MOD1_MASK:
+                if event.get_state() & Gdk.ModifierType.MOD1_MASK:
                     self.codebox_decrease_width()
                 else: self.codebox_increase_width()
             elif keyname == "comma":
-                if event.state & gtk.gdk.MOD1_MASK:
+                if event.get_state() & Gdk.ModifierType.MOD1_MASK:
                     self.codebox_decrease_height()
                 else: self.codebox_increase_height()
 

@@ -19,11 +19,12 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
-import os, sys, xml.dom.minidom, gtk, pango, subprocess, base64
+from gi.repository import Gtk, Pango
+import os, sys, xml.dom.minidom, subprocess, base64
 import cons
 
-ICONS_SIZE = {1: gtk.ICON_SIZE_MENU, 2: gtk.ICON_SIZE_SMALL_TOOLBAR, 3: gtk.ICON_SIZE_LARGE_TOOLBAR,
-              4: gtk.ICON_SIZE_DND, 5: gtk.ICON_SIZE_DIALOG}
+ICONS_SIZE = {1: Gtk.IconSize.MENU, 2: Gtk.IconSize.SMALL_TOOLBAR, 3: Gtk.IconSize.LARGE_TOOLBAR,
+              4: Gtk.IconSize.DND, 5: Gtk.IconSize.DIALOG}
 
 
 def config_file_load(inst):
@@ -241,8 +242,8 @@ def config_file_apply(inst):
     inst.glade.checkbutton_spaces_tabs.set_active(inst.spaces_instead_tabs)
     inst.sourceview.set_tab_width(inst.tabs_width)
     inst.glade.spinbutton_tab_width.set_value(inst.tabs_width)
-    if inst.line_wrapping: inst.sourceview.set_wrap_mode(gtk.WRAP_WORD)
-    else: inst.sourceview.set_wrap_mode(gtk.WRAP_NONE)
+    if inst.line_wrapping: inst.sourceview.set_wrap_mode(Gtk.WrapMode.WORD)
+    else: inst.sourceview.set_wrap_mode(Gtk.WrapMode.NONE)
     inst.glade.checkbutton_line_wrap.set_active(inst.line_wrapping)
     inst.sourceview.set_auto_indent(inst.auto_indent)
     inst.glade.checkbutton_auto_indent.set_active(inst.auto_indent)
@@ -286,7 +287,7 @@ def config_file_apply(inst):
     inst.glade.spinbutton_tree_nodes_names_width.set_value(inst.cherry_wrap_width)
     inst.renderer_text.set_property('wrap-width', inst.cherry_wrap_width)
     inst.ui.get_widget("/ToolBar").set_property("visible", inst.toolbar_visible)
-    inst.ui.get_widget("/ToolBar").set_style(gtk.TOOLBAR_ICONS)
+    inst.ui.get_widget("/ToolBar").set_style(Gtk.TOOLBAR_ICONS)
     inst.ui.get_widget("/ToolBar").set_property("icon-size", ICONS_SIZE[inst.toolbar_icon_size])
     if inst.autosave[0]: inst.autosave_timer_start()
     inst.user_active = True
