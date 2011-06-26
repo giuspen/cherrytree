@@ -19,7 +19,7 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
-from gi.repository import Gtk
+from gi.repository import Gtk, Gdk
 import os, xml.dom.minidom, re, base64, mimetypes
 import cons, machines, exports, imports
 
@@ -40,7 +40,8 @@ class ClipboardHandler:
     def __init__(self, dad):
         """Clipboard Handler boot"""
         self.dad = dad
-        self.clipboard = Gtk.clipboard_get()
+        atom = Gdk.atom_intern('CLIPBOARD', True)
+        self.clipboard = Gtk.Clipboard.get(atom)
         self.force_plain_text = False
 
     def copy(self, sourceview):

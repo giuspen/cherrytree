@@ -19,7 +19,7 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
-from gi.repository import Gtk, GtkSource, Pango, GObject
+from gi.repository import Gtk, Gdk, GdkPixbuf, GtkSource, Pango, GObject
 import sys, os, re, subprocess, webbrowser, base64, cgi, urllib2, shutil
 import cons, support, config, machines, clipboard, imports, exports, printing, tablez, lists, findreplace, codeboxes
 
@@ -68,7 +68,7 @@ class CherryTree:
         factory = Gtk.IconFactory()
         for stock_name in cons.STOCKS_N_FILES:
             pixbuf = GdkPixbuf.Pixbuf.new_from_file(cons.GLADE_PATH + cons.STOCKS_N_FILES[stock_name])
-            iconset = Gtk.IconSet(pixbuf)
+            iconset = Gtk.IconSet.new_from_pixbuf(pixbuf)
             factory.add(stock_name, iconset)
         factory.add_default()
         try: Gtk.Settings.get_default().set_property("gtk-button-images", True)
@@ -88,9 +88,9 @@ class CherryTree:
         self.window.add_accel_group(self.ui.get_accel_group())
         self.ui.add_ui_from_string(cons.UI_INFO)
         # menubar add
-        vbox_main.pack_start(self.ui.get_widget("/MenuBar", True, True, 0), False, False)
+        vbox_main.pack_start(self.ui.get_widget("/MenuBar"), False, False, 0)
         # toolbar add
-        vbox_main.pack_start(self.ui.get_widget("/ToolBar", True, True, 0), False, False)
+        vbox_main.pack_start(self.ui.get_widget("/ToolBar"), False, False, 0)
         # hpaned add
         self.hpaned = Gtk.HPaned()
         self.scrolledwindow_tree = Gtk.ScrolledWindow()
@@ -99,7 +99,7 @@ class CherryTree:
         self.scrolledwindow_text.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
         self.vbox_text = Gtk.VBox()
         self.header_node_name_label = Gtk.Label()
-        self.vbox_text.pack_start(self.header_node_name_label, False, False)
+        self.vbox_text.pack_start(self.header_node_name_label, False, False, 0)
         self.vbox_text.pack_start(self.scrolledwindow_text, True, True, 0)
         if self.tree_right_side:
             self.hpaned.add1(self.vbox_text)
@@ -111,16 +111,16 @@ class CherryTree:
         # statusbar add
         self.statusbar = Gtk.Statusbar()
         self.statusbar_context_id = self.statusbar.get_context_id('')
-        vbox_main.pack_start(self.statusbar, False, False)
+        vbox_main.pack_start(self.statusbar, False, False, 0)
         # ROW: 0-icon_stock_id, 1-name, 2-buffer, 3-unique_id, 4-syntax_highlighting, 5-level, 6-tags, 7-readonly
         self.treestore = Gtk.TreeStore(str, str, GObject.TYPE_PYOBJECT, long, str, int, str, GObject.TYPE_BOOLEAN)
-        self.treeview = Gtk.TreeView(self.treestore)
+        self.treeview = Gtk.TreeView.new_with_model(self.treestore)
         self.treeview.set_headers_visible(False)
-        self.treeview.drag_source_set(Gdk.EventMask.BUTTON1_MASK,
-                                      [('CT_DND', Gtk.TargetFlags.SAME_WIDGET, 0)],
+        self.treeview.drag_source_set(Gdk.ModifierType.BUTTON1_MASK,
+                                      [Gtk.TargetEntry.new('CT_DND', Gtk.TargetFlags.SAME_WIDGET, 0)],
                                       Gdk.DragAction.MOVE)
-        self.Gtk.drag_dest_set(treeview, Gtk.DEST_DEFAULT_ALL,
-                                    [('CT_DND', Gtk.TargetFlags.SAME_WIDGET, 0)],
+        self.treeview.drag_dest_set(Gtk.DestDefaults.ALL,
+                                    [Gtk.TargetEntry.new('CT_DND', Gtk.TargetFlags.SAME_WIDGET, 0)],
                                     Gdk.DragAction.MOVE)
         self.renderer_pixbuf = Gtk.CellRendererPixbuf()
         self.renderer_text = Gtk.CellRendererText()
