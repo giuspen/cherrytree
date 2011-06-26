@@ -1,0 +1,12 @@
+syntax: glob
+*.pyc
+cs
+de
+es
+fr
+gl
+it
+pl
+ru
+uk
+glade/cherrytree.glade.h
