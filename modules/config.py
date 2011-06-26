@@ -287,7 +287,7 @@ def config_file_apply(inst):
     inst.glade.spinbutton_tree_nodes_names_width.set_value(inst.cherry_wrap_width)
     inst.renderer_text.set_property('wrap-width', inst.cherry_wrap_width)
     inst.ui.get_widget("/ToolBar").set_property("visible", inst.toolbar_visible)
-    inst.ui.get_widget("/ToolBar").set_style(Gtk.TOOLBAR_ICONS)
+    inst.ui.get_widget("/ToolBar").set_style(Gtk.ToolbarStyle.ICONS)
     inst.ui.get_widget("/ToolBar").set_property("icon-size", ICONS_SIZE[inst.toolbar_icon_size])
     if inst.autosave[0]: inst.autosave_timer_start()
     inst.user_active = True

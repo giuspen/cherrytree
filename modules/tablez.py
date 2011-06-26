@@ -309,7 +309,7 @@ class TablesHandler:
             prev_iter = self.dad.get_tree_iter_prev_sibling(model, iter)
             if prev_iter == None: return
             model.swap(iter, prev_iter)
-            self.curr_table_anchor.treeview.set_cursor(model.get_path(iter))
+            self.curr_table_anchor.treeview.set_cursor(model.get_path(iter), None, False)
         elif action == "move_down":
             subseq_iter = model.iter_next(iter)
             if subseq_iter == None: return

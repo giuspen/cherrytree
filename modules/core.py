@@ -129,8 +129,8 @@ class CherryTree:
         self.column = Gtk.TreeViewColumn()
         self.column.pack_start(self.renderer_pixbuf, False)
         self.column.pack_start(self.renderer_text, True)
-        self.column.set_attributes(self.renderer_pixbuf, stock_id=0)
-        self.column.set_attributes(self.renderer_text, text=1)
+        self.column.add_attribute(self.renderer_pixbuf, "stock_id", 0)
+        self.column.add_attribute(self.renderer_text, "text", 1)
         self.treeview.append_column(self.column)
         self.treeviewselection = self.treeview.get_selection()
         self.treeview.connect('cursor-changed', self.on_node_changed)
@@ -663,7 +663,7 @@ class CherryTree:
                 else: menu.append(menu_item)
             elif attributes[0] == "submenu-start":
                 curr_submenu = Gtk.Menu()
-                menu_item = Gtk.ImageMenuItem(attributes[1])
+                menu_item = Gtk.ImageMenuItem.new_with_label(attributes[1])
                 menu_item.set_image(Gtk.Image.new_from_stock(attributes[2], Gtk.IconSize.MENU))
                 menu_item.set_submenu(curr_submenu)
                 menu.append(menu_item)
@@ -671,7 +671,7 @@ class CherryTree:
                 curr_submenu = None
                 continue
             else:
-                menu_item = Gtk.ImageMenuItem(attributes[1])
+                menu_item = Gtk.ImageMenuItem.new_with_label(attributes[1])
                 menu_item.connect('activate', attributes[4])
                 menu_item.set_image(Gtk.Image.new_from_stock(attributes[0], Gtk.IconSize.MENU))
                 menu_item.set_tooltip_text(attributes[3])
@@ -681,7 +681,7 @@ class CherryTree:
                         if element in attributes[2]:
                             accel_group = self.orphan_accel_group
                             break
-                    menu_item.add_accelerator("activate", accel_group, key, mod, Gtk.ACCEL_VISIBLE)
+                    menu_item.add_accelerator("activate", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
                 if curr_submenu: curr_submenu.append(menu_item)
                 else: menu.append(menu_item)
             menu_item.show()
@@ -791,7 +791,7 @@ class CherryTree:
             self.treeview.set_model(self.treestore)
             if self.expand_tree: self.treeview.expand_all()
             else: config.set_tree_expanded_collapsed_string(self)
-            self.treeview.set_cursor(self.treestore.get_path(self.curr_tree_iter))
+            self.treeview.set_cursor(self.treestore.get_path(self.curr_tree_iter), None, False)
 
     def change_icon_iter(self, tree_iter):
         """Changing all icons type - iter"""
@@ -819,13 +819,13 @@ class CherryTree:
             # we put the cursor on the first node as default
             first_node_iter = self.treestore.get_iter_first()
             if first_node_iter != None:
-                self.treeview.set_cursor(self.treestore.get_path(first_node_iter))
+                self.treeview.set_cursor(self.treestore.get_path(first_node_iter), None, False)
                 self.sourceview.grab_focus()
                 # but then we try restore the latest situation
                 if self.node_path != None:
-                    if self.treestore.get_path(first_node_iter) != self.node_path:
+                    if self.treestore.get_path(first_node_iter) != Gtk.TreePath.new_from_string(str(self.node_path)):
                         self.state_machine.forget_last_visited()
-                    self.treeview.set_cursor(self.node_path)
+                    self.treeview.set_cursor(self.node_path, None, False)
                     self.sourceview.grab_focus()
                     self.curr_buffer.place_cursor(self.curr_buffer.get_iter_at_offset(self.cursor_position))
                     self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), 0.3)
@@ -938,7 +938,7 @@ class CherryTree:
         if self.expand_tree: self.treeview.expand_all()
         first_node_iter = self.treestore.get_iter_first()
         if first_node_iter != None:
-            self.treeview.set_cursor(self.treestore.get_path(first_node_iter))
+            self.treeview.set_cursor(self.treestore.get_path(first_node_iter), None, False)
             self.sourceview.grab_focus()
 
     def dialog_edit_protection(self, *args):
@@ -1332,7 +1332,7 @@ class CherryTree:
         prev_iter = self.get_tree_iter_prev_sibling(self.treestore, self.curr_tree_iter)
         if prev_iter != None:
             self.treestore.swap(self.curr_tree_iter, prev_iter)
-            self.treeview.set_cursor(self.treestore.get_path(self.curr_tree_iter))
+            self.treeview.set_cursor(self.treestore.get_path(self.curr_tree_iter), None, False)
             self.update_window_save_needed()
 
     def node_down(self, *args):
@@ -1343,7 +1343,7 @@ class CherryTree:
         subseq_iter = self.treestore.iter_next(self.curr_tree_iter)
         if subseq_iter != None:
             self.treestore.swap(self.curr_tree_iter, subseq_iter)
-            self.treeview.set_cursor(self.treestore.get_path(self.curr_tree_iter))
+            self.treeview.set_cursor(self.treestore.get_path(self.curr_tree_iter), None, False)
             self.update_window_save_needed()
 
     def node_left(self, *args):
@@ -1371,7 +1371,7 @@ class CherryTree:
         if father_iter != None: self.treeview.expand_row(self.treestore.get_path(father_iter), True)
         else: self.treeview.expand_row(self.treestore.get_path(new_node_iter), True)
         self.curr_tree_iter = new_node_iter
-        self.treeview.set_cursor(self.treestore.get_path(new_node_iter))
+        self.treeview.set_cursor(self.treestore.get_path(new_node_iter), None, False)
         self.update_window_save_needed()
 
     def node_move_children(self, old_father, new_father):
@@ -1493,7 +1493,7 @@ class CherryTree:
             father_iter = self.treestore.iter_parent(father_iter)
         for element_iter in nodes_to_expand:
             self.treeview.expand_row(self.treestore.get_path(element_iter), open_all=False)
-        self.treeview.set_cursor(self.treestore.get_path(tree_iter))
+        self.treeview.set_cursor(self.treestore.get_path(tree_iter), None, False)
 
     def on_table_column_rename_radiobutton_toggled(self, radiobutton):
         """Table Column Rename Toggled"""
@@ -1708,7 +1708,7 @@ class CherryTree:
             self.set_sourcebuffer_syntax_highlight(buffer, syntax_highlighting)
             buffer.set_highlight_matching_brackets(True)
             return buffer
-        else: return Gtk.TextBuffer(self.tag_table)
+        else: return Gtk.TextBuffer.new(self.tag_table)
 
     def combobox_prog_lang_init(self):
         """Init The Programming Languages Syntax Highlighting"""
@@ -1805,7 +1805,7 @@ class CherryTree:
                                                          self.glade.checkbutton_readonly.get_active()])
         self.nodes_names_dict[self.treestore[new_node_iter][3]] = self.treestore[new_node_iter][1]
         new_node_path = self.treestore.get_path(new_node_iter)
-        self.treeview.set_cursor(new_node_path)
+        self.treeview.set_cursor(new_node_path, None, False)
         self.sourceview.grab_focus()
 
     def node_child_add(self, *args):
@@ -1833,7 +1833,7 @@ class CherryTree:
             new_node_path = self.treestore.get_path(new_node_iter)
             father_node_path = self.treestore.get_path(self.curr_tree_iter)
             self.treeview.expand_row(father_node_path, True) # second parameter tells whether to expand childrens too
-            self.treeview.set_cursor(new_node_path)
+            self.treeview.set_cursor(new_node_path, None, False)
             self.sourceview.grab_focus()
 
     def node_delete(self, *args):
@@ -1857,7 +1857,7 @@ class CherryTree:
         self.treestore.remove(self.curr_tree_iter)
         self.curr_tree_iter = None
         if new_iter != None:
-            self.treeview.set_cursor(self.treestore.get_path(new_iter))
+            self.treeview.set_cursor(self.treestore.get_path(new_iter), None, False)
             self.sourceview.grab_focus()
         self.update_window_save_needed()
 
@@ -2821,11 +2821,11 @@ class CherryTree:
         tag_name = tag_property + "_" + property_value
         tag = self.tag_table.lookup(str(tag_name))
         if tag == None:
-            tag = Gtk.TextTag(str(tag_name))
+            tag = Gtk.TextTag.new(str(tag_name))
             if property_value == "heavy": tag.set_property(tag_property, Pango.Weight.HEAVY)
-            elif property_value == "small": tag.set_property(tag_property, Pango.SCALE_X_SMALL)
-            elif property_value == "h1": tag.set_property(tag_property, Pango.SCALE_XX_LARGE)
-            elif property_value == "h2": tag.set_property(tag_property, Pango.SCALE_X_LARGE)
+            elif property_value == "small": tag.set_property(tag_property, Pango.Stretch.CONDENSED)
+            elif property_value == "h1": tag.set_property(tag_property, Pango.Stretch.ULTRA_EXPANDED)
+            elif property_value == "h2": tag.set_property(tag_property, Pango.Stretch.EXPANDED)
             elif property_value == "italic": tag.set_property(tag_property, Pango.Style.ITALIC)
             elif property_value == "single": tag.set_property(tag_property, Pango.Underline.SINGLE)
             elif property_value == "true": tag.set_property(tag_property, True)
@@ -2949,7 +2949,7 @@ class CherryTree:
         if anchor_first_iter == None:
             support.dialog_info(_("There are No Anchors in the Selected Node"), self.window)
             return
-        else: self.anchors_treeview.set_cursor(self.anchors_liststore.get_path(anchor_first_iter))
+        else: self.anchors_treeview.set_cursor(self.anchors_liststore.get_path(anchor_first_iter), None, False)
         self.glade.anchor_enter_name_hbox.hide()
         self.glade.scrolledwindow_anchors_list.show()
         self.glade.anchorhandledialog.set_title(_("Choose Existing Anchor"))

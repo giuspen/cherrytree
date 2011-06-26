@@ -223,7 +223,7 @@ def set_bookmarks_menu_items(inst):
     inst.bookmarks_menu_items = [menu_item]
     for node_id_str in inst.bookmarks:
         if not long(node_id_str) in inst.nodes_names_dict: continue
-        menu_item = Gtk.ImageMenuItem(inst.nodes_names_dict[long(node_id_str)])
+        menu_item = Gtk.ImageMenuItem.new_with_label(inst.nodes_names_dict[long(node_id_str)])
         menu_item.set_image(Gtk.Image.new_from_stock("Red Cherry", Gtk.IconSize.MENU))
         menu_item.connect("activate", select_bookmark_node, node_id_str, inst)
         menu_item.show()
@@ -236,20 +236,20 @@ def set_menu_items_recent_documents(inst):
     inst.recent_menu_2 = Gtk.Menu()
     for target in [1, 2]:
         for filepath in inst.recent_docs:
-            menu_item = Gtk.ImageMenuItem(filepath)
+            menu_item = Gtk.ImageMenuItem.new_with_label(filepath)
             menu_item.set_image(Gtk.Image.new_from_stock("gtk-open", Gtk.IconSize.MENU))
             menu_item.connect("activate", open_recent_document, filepath, inst)
             menu_item.show()
             if target == 1: inst.recent_menu_1.append(menu_item)
             else: inst.recent_menu_2.append(menu_item)
     # main menu
-    recent_menuitem = Gtk.ImageMenuItem(_("_Recent Documents"))
+    recent_menuitem = Gtk.ImageMenuItem.new_with_label(_("_Recent Documents"))
     recent_menuitem.set_image(Gtk.Image.new_from_stock("gtk-open", Gtk.IconSize.MENU))
     recent_menuitem.set_tooltip_text(_("Open a Recent CherryTree Document"))
     recent_menuitem.set_submenu(inst.recent_menu_1)
     inst.ui.get_widget("/MenuBar/FileMenu").get_submenu().insert(recent_menuitem, 9)
     # toolbar
-    menu_toolbutton = Gtk.MenuToolButton("gtk-open")
+    menu_toolbutton = Gtk.MenuToolButton.new_from_stock("gtk-open")
     menu_toolbutton.set_tooltip_text(_("Open a CherryTree Document"))
     menu_toolbutton.set_arrow_tooltip_text(_("Open a Recent CherryTree Document"))
     menu_toolbutton.set_menu(inst.recent_menu_2)
@@ -261,7 +261,7 @@ def add_recent_document(inst, filepath):
     if not filepath in inst.recent_docs:
         inst.recent_docs.append(filepath)
         for target in [1, 2]:
-            menu_item = Gtk.ImageMenuItem(filepath)
+            menu_item = Gtk.ImageMenuItem.new_with_label(filepath)
             menu_item.set_image(Gtk.Image.new_from_stock("gtk-open", Gtk.IconSize.MENU))
             menu_item.connect("activate", open_recent_document, filepath, inst)
             menu_item.show()
