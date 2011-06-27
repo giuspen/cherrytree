@@ -697,8 +697,8 @@ class CherryTree:
 
     def on_window_state_event(self, window, event):
         """Catch Window's Events"""
-        if event.changed_mask & Gdk.WINDOW_STATE_MAXIMIZED:
-            if event.new_window_state & Gdk.WINDOW_STATE_MAXIMIZED:
+        if event.changed_mask & Gdk.WindowState.MAXIMIZED:
+            if event.new_window_state & Gdk.WindowState.MAXIMIZED:
                 # the window was maximized
                 self.win_is_maximized = True
             else:
@@ -823,12 +823,12 @@ class CherryTree:
                 self.sourceview.grab_focus()
                 # but then we try restore the latest situation
                 if self.node_path != None:
-                    if self.treestore.get_path(first_node_iter) != Gtk.TreePath.new_from_string(str(self.node_path)):
+                    if self.treestore.get_path(first_node_iter) != Gtk.TreePath.new_from_string(self.node_path):
                         self.state_machine.forget_last_visited()
-                    self.treeview.set_cursor(self.node_path, None, False)
+                    self.treeview.set_cursor(Gtk.TreePath.new_from_string(self.node_path), None, False)
                     self.sourceview.grab_focus()
                     self.curr_buffer.place_cursor(self.curr_buffer.get_iter_at_offset(self.cursor_position))
-                    self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), 0.3)
+                    self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), 0.3, False, 0, 0)
         else: self.file_name = ""
         self.file_update = False
 
@@ -1442,7 +1442,7 @@ class CherryTree:
     def on_mouse_button_clicked_treeview_2(self, widget, event):
         """Catches mouse buttons clicks"""
         if event.button != 1: return
-        if event.type == Gdk._2BUTTON_PRESS: self.glade.choosenodedialog_button_ok.clicked()
+        if event.type == Gdk.EventType._2BUTTON_PRESS: self.glade.choosenodedialog_button_ok.clicked()
 
     def get_tree_iter_from_node_id(self, node_id):
         """Given a Node Id, Returns the TreeIter or None"""
@@ -1698,7 +1698,7 @@ class CherryTree:
         """Catches mouse buttons clicks"""
         if event.button == 3:
             self.menu_tree.popup(None, None, None, event.button, event.time)
-        elif event.button == 1 and event.type == Gdk._2BUTTON_PRESS:
+        elif event.button == 1 and event.type == Gdk.EventType._2BUTTON_PRESS:
             self.node_edit()
 
     def buffer_create(self, syntax_highlighting):
@@ -2516,7 +2516,7 @@ class CherryTree:
         self.object_set_selection(self.curr_image_anchor)
         if event.button == 3:
             self.ui.get_widget("/ImageMenu").popup(None, None, None, event.button, event.time)
-        elif event.type == Gdk._2BUTTON_PRESS: self.image_edit()
+        elif event.type == Gdk.EventType._2BUTTON_PRESS: self.image_edit()
         return True # do not propagate the event
 
     def on_mouse_button_clicked_anchor(self, widget, event, anchor):
@@ -2525,7 +2525,7 @@ class CherryTree:
         self.object_set_selection(self.curr_anchor_anchor)
         if event.button == 3:
             self.ui.get_widget("/AnchorMenu").popup(None, None, None, event.button, event.time)
-        elif event.type == Gdk._2BUTTON_PRESS: self.anchor_edit()
+        elif event.type == Gdk.EventType._2BUTTON_PRESS: self.anchor_edit()
         return True # do not propagate the event
 
     def image_load_into_dialog(self):
@@ -2975,7 +2975,7 @@ class CherryTree:
     def on_mouse_button_clicked_anchors_list(self, widget, event):
         """Catches mouse buttons clicks"""
         if event.button != 1: return
-        if event.type == Gdk._2BUTTON_PRESS: self.glade.anchorhandledialog_button_ok.clicked()
+        if event.type == Gdk.EventType._2BUTTON_PRESS: self.glade.anchorhandledialog_button_ok.clicked()
 
     def sourceview_cursor_and_tooltips_handler(self, x, y):
         """Looks at all tags covering the position (x, y) in the text view,
@@ -3035,7 +3035,7 @@ class CherryTree:
 
     def on_sourceview_event_after(self, text_view, event):
         """Called after every event on the SourceView"""
-        if event.type == Gdk._2BUTTON_PRESS and event.button == 1:
+        if event.type == Gdk.EventType._2BUTTON_PRESS and event.button == 1:
             x, y = text_view.window_to_buffer_coords(Gtk.TextWindowType.WIDGET, int(event.x), int(event.y))
             iter_end = text_view.get_iter_at_location(x, y)
             iter_start = iter_end.copy()

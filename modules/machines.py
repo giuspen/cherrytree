@@ -368,7 +368,7 @@ class XMLHandler:
 
     def rich_text_attributes_update(self, curr_iter, curr_attributes):
         """Updates the list of Attributes for the Current Slice"""
-        toggled_off = curr_iter.get_toggled_tags(toggled_on=False)
+        toggled_off = curr_iter.get_toggled_tags(False)
         for tag in toggled_off:
             tag_name = tag.get_property("name")
             if tag_name:
@@ -382,7 +382,7 @@ class XMLHandler:
                 elif tag_name[0:14] == "justification_": curr_attributes["justification"] = ""
                 elif tag_name[0:5] == "link_": curr_attributes["link"] = ""
                 else: support.dialog_error("Failure processing the toggling OFF tag %s" % tag_name, self.dad.window)
-        toggled_on = curr_iter.get_toggled_tags(toggled_on=True)
+        toggled_on = curr_iter.get_toggled_tags(True)
         for tag in toggled_on:
             tag_name = tag.get_property("name")
             if tag_name:

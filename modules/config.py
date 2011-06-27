@@ -60,12 +60,8 @@ def config_file_load(inst):
         if dom_iter.hasAttribute("file_name"): inst.file_name = dom_iter.attributes["file_name"].value
         else: inst.file_name = ""
         if dom_iter.hasAttribute("node_path"):
-            # restor the selected node
-            str_path_list_of_str = dom_iter.attributes["node_path"].value
-            path_list_of_str = str_path_list_of_str.split()
-            path_list_of_int = []
-            for element in path_list_of_str: path_list_of_int.append( int(element) )
-            inst.node_path = tuple(path_list_of_int)
+            # restore the node selection
+            inst.node_path = dom_iter.attributes["node_path"].value
             if dom_iter.hasAttribute("cursor_position"):
                 inst.cursor_position = int( dom_iter.attributes["cursor_position"].value )
         else: inst.node_path = None
@@ -309,10 +305,7 @@ def config_file_save(inst):
         config.setAttribute("win_size_h", str(win_size[1]) )
     config.setAttribute("hpaned_pos", str(inst.hpaned.get_property('position')) )
     if inst.curr_tree_iter != None:
-        path_list_of_str = []
-        for element in inst.treestore.get_path(inst.curr_tree_iter):
-            path_list_of_str.append( str(element) )
-        config.setAttribute("node_path", " ".join(path_list_of_str) )
+        config.setAttribute("node_path", inst.treestore.get_path(inst.curr_tree_iter).to_string() )
         config.setAttribute("cursor_position", str(inst.curr_buffer.get_property('cursor-position') ) )
     config.setAttribute("text_font", inst.text_font)
     config.setAttribute("tree_font", inst.tree_font)
