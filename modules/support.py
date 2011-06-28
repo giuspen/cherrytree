@@ -295,7 +295,7 @@ def bookmarks_handle(dad):
     liststore = Gtk.ListStore(str, str, str)
     for node_id_str in dad.bookmarks:
         liststore.append(["Red Cherry", dad.nodes_names_dict[long(node_id_str)], node_id_str])
-    treeview = Gtk.TreeView(liststore)
+    treeview = Gtk.TreeView.new_with_model(liststore)
     treeview.set_headers_visible(False)
     treeview.set_reorderable(True)
     treeview.set_tooltip_text(_("Sort with Drag and Drop, Delete with the Delete Key"))

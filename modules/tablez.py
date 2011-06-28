@@ -19,7 +19,7 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
-from gi.repository import Gtk, Pango
+from gi.repository import Gtk, Gdk, Pango
 import os, csv, codecs, cStringIO, copy
 import cons, support
 
@@ -121,7 +121,7 @@ class TablesHandler:
             table_col_max = self.table_col_max
         anchor = self.dad.curr_buffer.create_child_anchor(iter_insert)
         anchor.liststore = Gtk.ListStore(*(str,)*self.table_columns)
-        anchor.treeview = Gtk.TreeView(anchor.liststore)
+        anchor.treeview = Gtk.TreeView.new_with_model(anchor.liststore)
         for element in range(self.table_columns):
             label = Gtk.Label(label='<b>' + headers[element] + '</b>')
             label.set_use_markup(True)
@@ -144,7 +144,7 @@ class TablesHandler:
         anchor.headers = headers
         anchor.table_col_min = table_col_min
         anchor.table_col_max = table_col_max
-        anchor.treeview.set_grid_lines(Gtk.TREE_VIEW_GRID_LINES_BOTH)
+        anchor.treeview.set_grid_lines(Gtk.TreeViewGridLines.BOTH)
         anchor.treeview.connect('button-press-event', self.on_mouse_button_clicked_table, anchor)
         anchor.frame = Gtk.Frame()
         anchor.frame.add(anchor.treeview)
@@ -386,7 +386,7 @@ class TablesHandler:
         self.curr_table_anchor = anchor
         self.dad.object_set_selection(self.curr_table_anchor)
         if event.button == 3:
-            self.dad.ui.get_widget("/TableMenu").popup(None, None, None, event.button, event.time)
+            self.dad.ui.get_widget("/TableMenu").popup(None, None, None, None, event.button, event.time)
 
 
 class UTF8Recoder:

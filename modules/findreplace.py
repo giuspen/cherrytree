@@ -473,7 +473,7 @@ class FindReplace:
             return
         # ROW: 0-node_iter, 1-start_offset, 2-end_offset, 3-node_name, 4-line_content
         self.liststore = Gtk.ListStore(GObject.TYPE_PYOBJECT, long, long, str, str)
-        self.treeview = Gtk.TreeView(self.liststore)
+        self.treeview = Gtk.TreeView.new_with_model(self.liststore)
         self.renderer_text_node = Gtk.CellRendererText()
         self.renderer_text_line = Gtk.CellRendererText()
         self.node_column = Gtk.TreeViewColumn(_("Node Name"), self.renderer_text_node, text=3)

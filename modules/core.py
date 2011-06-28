@@ -372,7 +372,7 @@ class CherryTree:
             elif keyname == "Return": self.node_edit()
             elif keyname == "Delete": self.node_delete()
             elif keyname == "Menu":
-                self.menu_tree.popup(None, None, None, 0, event.time)
+                self.menu_tree.popup(None, None, None, None, 0, event.time)
         widget.stop_emission("key_press_event")
 
     def fullscreen_toggle(self, *args):
@@ -666,6 +666,7 @@ class CherryTree:
             elif attributes[0] == "submenu-start":
                 curr_submenu = Gtk.Menu()
                 menu_item = Gtk.ImageMenuItem.new_with_label(attributes[1])
+                menu_item.set_use_underline(True)
                 menu_item.set_image(Gtk.Image.new_from_stock(attributes[2], Gtk.IconSize.MENU))
                 menu_item.set_submenu(curr_submenu)
                 menu.append(menu_item)
@@ -674,6 +675,7 @@ class CherryTree:
                 continue
             else:
                 menu_item = Gtk.ImageMenuItem.new_with_label(attributes[1])
+                menu_item.set_use_underline(True)
                 menu_item.connect('activate', attributes[4])
                 menu_item.set_image(Gtk.Image.new_from_stock(attributes[0], Gtk.IconSize.MENU))
                 menu_item.set_tooltip_text(attributes[3])
@@ -747,7 +749,7 @@ class CherryTree:
             else:
                 self.window.show()
                 self.window.deiconify()
-        elif event.button == 3: self.ui.get_widget("/SysTrayMenu").popup(None, None, None, event.button, event.time)
+        elif event.button == 3: self.ui.get_widget("/SysTrayMenu").popup(None, None, None, None, event.button, event.time)
 
     def node_id_get(self):
         """Returns the node_ids, all Different Each Other"""
@@ -1421,7 +1423,7 @@ class CherryTree:
     def node_choose_view_exist_or_create(self, node_sel_id=None):
         """If The View Was Never Used, this will Create It"""
         if "treeview_2" not in dir(self):
-            self.treeview_2 = Gtk.TreeView(self.treestore)
+            self.treeview_2 = Gtk.TreeView.new_with_model(self.treestore)
             self.treeview_2.set_headers_visible(False)
             self.renderer_pixbuf_2 = Gtk.CellRendererPixbuf()
             self.renderer_text_2 = Gtk.CellRendererText()
@@ -1699,7 +1701,7 @@ class CherryTree:
     def on_mouse_button_clicked_tree(self, widget, event):
         """Catches mouse buttons clicks"""
         if event.button == 3:
-            self.menu_tree.popup(None, None, None, event.button, event.time)
+            self.menu_tree.popup(None, None, None, None, event.button, event.time)
         elif event.button == 1 and event.type == Gdk.EventType._2BUTTON_PRESS:
             self.node_edit()
 
@@ -2518,7 +2520,7 @@ class CherryTree:
         self.curr_image_anchor = anchor
         self.object_set_selection(self.curr_image_anchor)
         if event.button == 3:
-            self.ui.get_widget("/ImageMenu").popup(None, None, None, event.button, event.time)
+            self.ui.get_widget("/ImageMenu").popup(None, None, None, None, event.button, event.time)
         elif event.type == Gdk.EventType._2BUTTON_PRESS: self.image_edit()
         return True # do not propagate the event
 
@@ -2527,7 +2529,7 @@ class CherryTree:
         self.curr_anchor_anchor = anchor
         self.object_set_selection(self.curr_anchor_anchor)
         if event.button == 3:
-            self.ui.get_widget("/AnchorMenu").popup(None, None, None, event.button, event.time)
+            self.ui.get_widget("/AnchorMenu").popup(None, None, None, None, event.button, event.time)
         elif event.type == Gdk.EventType._2BUTTON_PRESS: self.anchor_edit()
         return True # do not propagate the event
 
@@ -2966,7 +2968,7 @@ class CherryTree:
         """If Does Not Exist => Create Anchors Browser Liststore"""
         if not "anchors_liststore" in dir(self):
             self.anchors_liststore = Gtk.ListStore(str)
-            self.anchors_treeview = Gtk.TreeView(self.anchors_liststore)
+            self.anchors_treeview = Gtk.TreeView.new_with_model(self.anchors_liststore)
             self.anchors_renderer_text = Gtk.CellRendererText()
             self.anchors_column = Gtk.TreeViewColumn(_("Anchor Name"), self.anchors_renderer_text, text=0)
             self.anchors_treeview.append_column(self.anchors_column)
