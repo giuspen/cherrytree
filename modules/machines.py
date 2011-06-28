@@ -57,7 +57,8 @@ class XMLHandler:
 
     def dom_to_buffer(self, textbuffer, tagged_text):
         """Given a TextBuffer and a string of rich text, fills the buffer properly"""
-        textbuffer.delete(*textbuffer.get_bounds())
+        start_iter, end_iter = textbuffer.get_bounds()
+        textbuffer.delete(start_iter, end_iter)
         dom = xml.dom.minidom.parseString(tagged_text)
         dom_iter = dom.firstChild
         if dom_iter.nodeName != "node": return False
@@ -455,10 +456,10 @@ class XMLHandler:
         end_offset = end_iter.get_offset()
         if self.curr_attributes["scale"] == "h1":
             self.toc_counters["h1"] += 1
-            self.toc_list.append(["h1-%d" % self.toc_counters["h1"], text_buffer.get_text(start_iter, end_iter)])
+            self.toc_list.append(["h1-%d" % self.toc_counters["h1"], text_buffer.get_text(start_iter, end_iter, False)])
         else:
             self.toc_counters["h2"] += 1
-            self.toc_list.append(["h2-%d" % self.toc_counters["h2"], text_buffer.get_text(start_iter, end_iter)])
+            self.toc_list.append(["h2-%d" % self.toc_counters["h2"], text_buffer.get_text(start_iter, end_iter, False)])
         anchor_start = start_iter.copy()
         if anchor_start.backward_char():
             anchor = anchor_start.get_child_anchor()
@@ -542,7 +543,9 @@ class StateMachine:
             codebox_dict['fill_text'] = pango_handler.pango_get_from_code_buffer(anchor.sourcebuffer)
         elif for_print == 2:
             codebox_dict['fill_text'] = self.dad.html_handler.html_get_from_code_buffer(anchor.sourcebuffer)
-        else: codebox_dict['fill_text'] = anchor.sourcebuffer.get_text(*anchor.sourcebuffer.get_bounds())
+        else:
+            start_iter, end_iter = anchor.sourcebuffer.get_bounds()
+            codebox_dict['fill_text'] = anchor.sourcebuffer.get_text(start_iter, end_iter, False)
         return codebox_dict
 
     def get_iter_alignment(self, iter_text):

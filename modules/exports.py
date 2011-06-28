@@ -185,7 +185,8 @@ class Export2Txt:
 
     def node_export_to_txt(self, text_buffer, filepath):
         """Export the Selected Node To Txt"""
-        plain_text = text_buffer.get_text(*text_buffer.get_bounds())
+        start_iter, end_iter = text_buffer.get_bounds()
+        plain_text = text_buffer.get_text(start_iter, end_iter, False)
         file_descriptor = open(filepath, 'w')
         file_descriptor.write(plain_text)
         file_descriptor.close()

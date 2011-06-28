@@ -110,14 +110,14 @@ class ClipboardHandler:
         if not os.path.isdir(cons.TMP_FOLDER): os.mkdir(cons.TMP_FOLDER)
         html_text = self.dad.html_handler.selection_export_to_html(text_buffer, iter_sel_start, iter_sel_end, self.dad.syntax_highlighting)
         if self.dad.syntax_highlighting == cons.CUSTOM_COLORS_ID:
-            plain_text = text_buffer.get_text(iter_sel_start, iter_sel_end)
+            plain_text = text_buffer.get_text(iter_sel_start, iter_sel_end, False)
             rich_text = self.rich_text_get_from_text_buffer_selection(text_buffer, iter_sel_start, iter_sel_end)
             self.clipboard.set_with_data([(t, 0, 0) for t in (TARGET_CTD_PLAIN_TEXT, TARGET_CTD_RICH_TEXT, TARGET_HTML)],
                                          self.get_func,
                                          self.clear_func,
                                          (plain_text, rich_text, html_text))
         else:
-            plain_text = text_buffer.get_text(iter_sel_start, iter_sel_end)
+            plain_text = text_buffer.get_text(iter_sel_start, iter_sel_end, False)
             self.clipboard.set_with_data([(t, 0, 0) for t in (TARGET_CTD_PLAIN_TEXT, TARGET_HTML)],
                                          self.get_func,
                                          self.clear_func,

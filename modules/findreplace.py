@@ -40,7 +40,7 @@ class FindReplace:
         if not self.from_find_iterated:
             iter_insert = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
             iter_bound = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_selection_bound())
-            entry_predefined_text = self.dad.curr_buffer.get_text(iter_insert, iter_bound)
+            entry_predefined_text = self.dad.curr_buffer.get_text(iter_insert, iter_bound, False)
             if not self.replace_active:
                 pattern = self.dad.dialog_input(title=_("Search in Current Node..."),
                                             entry_hint=entry_predefined_text,
@@ -78,7 +78,7 @@ class FindReplace:
         if not self.from_find_iterated:
             iter_insert = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
             iter_bound = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_selection_bound())
-            entry_predefined_text = self.dad.curr_buffer.get_text(iter_insert, iter_bound)
+            entry_predefined_text = self.dad.curr_buffer.get_text(iter_insert, iter_bound, False)
             if not self.replace_active:
                 pattern = self.dad.dialog_input(title=_("Search in All Nodes..."),
                                             entry_hint=entry_predefined_text,
@@ -133,7 +133,7 @@ class FindReplace:
             self.dad.treeview_safe_set_cursor(starting_tree_iter)
             self.dad.sourceview.grab_focus()
             self.dad.curr_buffer.place_cursor(self.dad.curr_buffer.get_iter_at_offset(current_cursor_pos))
-            self.dad.sourceview.scroll_to_mark(self.dad.curr_buffer.get_insert(), 0.3)
+            self.dad.sourceview.scroll_to_mark(self.dad.curr_buffer.get_insert(), 0.3, False, 0, 0)
         else:
             config.set_tree_expanded_collapsed_string(self.dad)
             if all_matches:
@@ -143,7 +143,7 @@ class FindReplace:
             else:
                 self.dad.treeview_safe_set_cursor(self.dad.curr_tree_iter)
                 self.dad.sourceview.grab_focus()
-                self.dad.sourceview.scroll_to_mark(self.dad.curr_buffer.get_insert(), 0.3)
+                self.dad.sourceview.scroll_to_mark(self.dad.curr_buffer.get_insert(), 0.3, False, 0, 0)
 
     def find_a_node(self, *args):
         """Search for a pattern between all the Node's Names"""
@@ -210,7 +210,8 @@ class FindReplace:
 
     def find_pattern(self, pattern, start_iter, forward, all_matches):
         """Returns (start_iter, end_iter) or (None, None)"""
-        text = self.dad.curr_buffer.get_text(*self.dad.curr_buffer.get_bounds()).decode("utf-8")
+        start_iter, end_iter = self.dad.curr_buffer.get_bounds()
+        text = self.dad.curr_buffer.get_text(start_iter, end_iter, False).decode("utf-8")
         if not self.dad.glade.checkbutton_re.get_active(): # NOT REGULAR EXPRESSION
             pattern = re.escape(pattern) # backslashes all non alphanum chars => to not spoil re
             if self.dad.glade.checkbutton_whole_word.get_active(): # WHOLE WORD
@@ -255,7 +256,7 @@ class FindReplace:
             self.dad.curr_buffer.place_cursor(target)
             target.forward_chars(match_offsets[1] - match_offsets[0])
             self.dad.curr_buffer.move_mark(self.dad.curr_buffer.get_selection_bound(), target)
-            self.dad.sourceview.scroll_to_mark(self.dad.curr_buffer.get_insert(), 0.25)
+            self.dad.sourceview.scroll_to_mark(self.dad.curr_buffer.get_insert(), 0.25, False, 0, 0)
             if all_matches:
                 self.liststore.append([self.dad.curr_tree_iter,
                                        match_offsets[0] + num_objs,
@@ -453,7 +454,7 @@ class FindReplace:
         else: line_start.forward_char()
         while line_end.get_char() != cons.CHAR_NEWLINE:
             if not line_end.forward_char(): break
-        return self.dad.curr_buffer.get_text(line_start, line_end)
+        return self.dad.curr_buffer.get_text(line_start, line_end, False)
 
     def get_first_line_content(self, text_buffer):
         """Returns the First Not Empty Line Content Given the Text Buffer"""
@@ -463,7 +464,7 @@ class FindReplace:
         end_iter = start_iter.copy()
         while end_iter.get_char() != cons.CHAR_NEWLINE:
             if not end_iter.forward_char(): break
-        return text_buffer.get_text(start_iter, end_iter)
+        return text_buffer.get_text(start_iter, end_iter, False)
 
     def liststore_create_or_clean(self):
         """Check Whether the Liststore was Already Created or Not"""
@@ -494,5 +495,5 @@ class FindReplace:
                                            self.dad.curr_buffer.get_iter_at_offset(model[list_iter][1]))
             self.dad.curr_buffer.move_mark(self.dad.curr_buffer.get_selection_bound(),
                                            self.dad.curr_buffer.get_iter_at_offset(model[list_iter][2]))
-            self.dad.sourceview.scroll_to_mark(self.dad.curr_buffer.get_insert(), 0.25)
+            self.dad.sourceview.scroll_to_mark(self.dad.curr_buffer.get_insert(), 0.25, False, 0, 0)
         else: self.dad.sourceview.grab_focus()

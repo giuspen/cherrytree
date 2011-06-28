@@ -56,7 +56,7 @@ class CodeBoxesHandler:
         """Insert Code Box"""
         if self.dad.curr_buffer.get_has_selection():
             iter_sel_start, iter_sel_end = self.dad.curr_buffer.get_selection_bounds()
-            fill_text = self.dad.curr_buffer.get_text(iter_sel_start, iter_sel_end)
+            fill_text = self.dad.curr_buffer.get_text(iter_sel_start, iter_sel_end, False)
         else: fill_text = None
         self.dad.glade.codeboxhandledialog.set_title(_("Insert a CodeBox"))
         response = self.dad.glade.codeboxhandledialog.run()
@@ -188,15 +188,16 @@ class CodeBoxesHandler:
 
     def on_key_press_sourceview_codebox(self, widget, event, anchor):
         """Extend the Default Right-Click Menu of the CodeBox"""
-        if event.get_state() & Gdk.EventMask.CONTROL_MASK:
+        event_state = event.get_state()
+        if event_state & Gdk.ModifierType.CONTROL_MASK:
             keyname = Gdk.keyval_name(event.keyval)
             self.curr_codebox_anchor = anchor
             if keyname == "period":
-                if event.get_state() & Gdk.ModifierType.MOD1_MASK:
+                if event_state & Gdk.ModifierType.MOD1_MASK:
                     self.codebox_decrease_width()
                 else: self.codebox_increase_width()
             elif keyname == "comma":
-                if event.get_state() & Gdk.ModifierType.MOD1_MASK:
+                if event_state & Gdk.ModifierType.MOD1_MASK:
                     self.codebox_decrease_height()
                 else: self.codebox_increase_height()
 

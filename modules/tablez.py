@@ -191,11 +191,12 @@ class TablesHandler:
     def on_key_press_table_cell(self, widget, event, path, model, col_num):
         """Catches Table Cell key presses"""
         keyname = Gdk.keyval_name(event.keyval)
-        if event.get_state() & Gdk.EventMask.SHIFT_MASK:
+        event_state = event.get_state()
+        if event_state & Gdk.ModifierType.SHIFT_MASK:
             pass
-        elif event.get_state() & Gdk.ModifierType.MOD1_MASK:
+        elif event_state & Gdk.ModifierType.MOD1_MASK:
             pass
-        elif event.get_state() & Gdk.EventMask.CONTROL_MASK:
+        elif event_state & Gdk.ModifierType.CONTROL_MASK:
             pass
         else:
             if keyname in ["Return", "Up", "Down"]:

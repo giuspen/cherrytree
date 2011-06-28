@@ -337,7 +337,8 @@ class CherryTree:
         """Catches Window key presses"""
         if not self.curr_tree_iter: return
         keyname = Gdk.keyval_name(event.keyval)
-        if event.get_state() & Gdk.ModifierType.MOD1_MASK:
+        event_state = event.get_state()
+        if event_state & Gdk.ModifierType.MOD1_MASK:
             if keyname == "Left": self.go_back()
             elif keyname == "Right": self.go_forward()
 
@@ -345,14 +346,15 @@ class CherryTree:
         """Catches Tree key presses"""
         if not self.curr_tree_iter: return
         keyname = Gdk.keyval_name(event.keyval)
-        if event.get_state() & Gdk.EventMask.SHIFT_MASK:
+        event_state = event.get_state()
+        if event_state & Gdk.ModifierType.SHIFT_MASK:
             if keyname == "Up": self.node_up()
             elif keyname == "Down": self.node_down()
             elif keyname == "Left": self.node_left()
             elif keyname == "Right": self.node_change_father()
-        elif event.get_state() & Gdk.ModifierType.MOD1_MASK:
+        elif event_state & Gdk.ModifierType.MOD1_MASK:
             pass
-        elif event.get_state() & Gdk.EventMask.CONTROL_MASK:
+        elif event_state & Gdk.ModifierType.CONTROL_MASK:
             pass
         else:
             if keyname == "Up":
@@ -629,7 +631,7 @@ class CherryTree:
                 # try to restore cursor position if in memory
                 if self.treestore[former_node][3] in self.nodes_cursor_pos:
                     self.curr_buffer.place_cursor(self.curr_buffer.get_iter_at_offset(self.nodes_cursor_pos[self.treestore[former_node][3]]))
-                    self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), 0.3)
+                    self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), 0.3, False, 0, 0)
         else: support.dialog_error('Error Parsing the CherryTree XML String', self.window)
         self.user_active = True
 
@@ -1898,10 +1900,11 @@ class CherryTree:
         self.update_window_save_needed()
         self.sourceview.grab_focus()
 
-    def switch_buffer_text_source(self, buffer, iter, new_syntax_highl):
+    def switch_buffer_text_source(self, text_buffer, iter, new_syntax_highl):
         """Switch TextBuffer -> SourceBuffer or SourceBuffer -> TextBuffer"""
         self.user_active = False
-        node_text = buffer.get_text(*buffer.get_bounds())
+        start_iter, end_iter = text_buffer.get_bounds()
+        node_text = buffer.get_text(start_iter, end_iter, False)
         self.treestore[iter][2] = self.buffer_create(new_syntax_highl)
         self.treestore[iter][2].set_text(node_text)
         self.sourceview.set_buffer(self.treestore[iter][2])
@@ -1946,7 +1949,7 @@ class CherryTree:
         # try to restore cursor position if in memory
         if model[new_iter][3] in self.nodes_cursor_pos:
             self.curr_buffer.place_cursor(self.curr_buffer.get_iter_at_offset(self.nodes_cursor_pos[model[new_iter][3]]))
-            self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), 0.3)
+            self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), 0.3, False, 0, 0)
 
     def on_textbuffer_mark_set(self, text_buffer, text_iter, text_mark):
         """"""
@@ -2091,7 +2094,7 @@ class CherryTree:
                 self.sourceview.set_buffer(self.curr_buffer)
                 self.objects_buffer_refresh()
                 self.curr_buffer.place_cursor(self.curr_buffer.get_iter_at_offset(step_back[2]))
-                self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), 0.3)
+                self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), 0.3, False, 0, 0)
                 self.user_active = True
                 self.update_window_save_needed()
         elif self.curr_buffer.can_undo():
@@ -2118,7 +2121,7 @@ class CherryTree:
                 self.sourceview.set_buffer(self.curr_buffer)
                 self.objects_buffer_refresh()
                 self.curr_buffer.place_cursor(self.curr_buffer.get_iter_at_offset(step_ahead[2]))
-                self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), 0.3)
+                self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), 0.3, False, 0, 0)
                 self.user_active = True
                 self.update_window_save_needed()
         elif self.curr_buffer.can_redo():
@@ -2150,7 +2153,7 @@ class CherryTree:
         """Text removal callback"""
         if self.user_active:
             self.state_machine.text_variation(self.treestore[self.curr_tree_iter][3],
-                                              sourcebuffer.get_text(start_iter, end_iter))
+                                              sourcebuffer.get_text(start_iter, end_iter, False))
 
     def horizontal_rule_insert(self, action):
         """Insert a Horizontal Line"""
@@ -2902,7 +2905,7 @@ class CherryTree:
             self.treeview_safe_set_cursor(tree_iter)
             self.sourceview.grab_focus()
             self.sourceview.get_window(Gtk.TextWindowType.TEXT).set_cursor(None)
-            self.sourceview.set_tooltip_text(None)
+            self.sourceview.set_property("has-tooltip", False)
             if len(vector) >= 3:
                 if len(vector) == 3: anchor_name = vector[2]
                 else: anchor_name = tag_property_value[len(vector[0]) + len(vector[1]) + 2:]
@@ -2910,7 +2913,7 @@ class CherryTree:
                 if iter_anchor == None: support.dialog_warning(_("No anchor named '%s' found") % anchor_name, self.window)
                 else:
                     self.curr_buffer.place_cursor(iter_anchor)
-                    self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), 0.3)
+                    self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), 0.3, False, 0, 0)
         else: support.dialog_error("Tag Name Not Recognized! (%s)" % vector[0], self.window)
 
     def on_button_browse_for_file_to_link_to_clicked(self, *args):
@@ -2997,7 +3000,7 @@ class CherryTree:
                 hovering_todo_list = self.lists_handler.is_list_todo_beginning(text_iter_bis)
         if hovering_todo_list:
             self.sourceview.get_window(Gtk.TextWindowType.TEXT).set_cursor(Gdk.Cursor.new(Gdk.CursorType.X_CURSOR))
-            self.sourceview.set_tooltip_text(None)
+            self.sourceview.set_property("has-tooltip", False)
             return
         tags = text_iter.get_tags()
         for tag in tags:
@@ -3031,7 +3034,7 @@ class CherryTree:
             self.sourceview.set_tooltip_text(tooltip)
         else:
             self.sourceview.get_window(Gtk.TextWindowType.TEXT).set_cursor(None)
-            self.sourceview.set_tooltip_text(None)
+            self.sourceview.set_property("has-tooltip", False)
 
     def on_sourceview_event_after(self, text_view, event):
         """Called after every event on the SourceView"""
@@ -3081,9 +3084,10 @@ class CherryTree:
                 x, y = text_view.window_to_buffer_coords(Gtk.TextWindowType.WIDGET, int(event.x), int(event.y))
                 text_iter = self.sourceview.get_iter_at_location(x, y)
                 self.curr_buffer.place_cursor(text_iter)
-        elif event.type == Gdk.KEY_PRESS:
+        elif event.type == Gdk.EventType.KEY_PRESS:
             keyname = Gdk.keyval_name(event.keyval)
-            if (event.get_state() & Gdk.EventMask.SHIFT_MASK): # Shift held down
+            event_state = event.get_state()
+            if (event_state[1] & Gdk.ModifierType.SHIFT_MASK): # Shift held down
                 if keyname == "Return":
                     self.curr_buffer.insert(self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert()), 3*cons.CHAR_SPACE)
             elif keyname == "Return":
@@ -3128,9 +3132,9 @@ class CherryTree:
 
     def on_treeview_motion_notify_event(self, tree_view, event):
         """Update the tooltip if the pointer moved"""
-        self.treeview.set_tooltip_text(None)
+        self.treeview.set_property("has-tooltip", False)
         self.treeview.trigger_tooltip_query()
-        x, y = self.treeview.widget_to_tree_coords(int(event.x), int(event.y))
+        x, y = self.treeview.convert_widget_to_tree_coords(int(event.x), int(event.y))
         pointer_tuple = self.treeview.get_path_at_pos(x, y)
         if pointer_tuple:
             pointer_iter = self.treestore.get_iter(pointer_tuple[0])
@@ -3143,7 +3147,8 @@ class CherryTree:
     def on_sourceview_visibility_notify_event(self, text_view, event):
         """Update the cursor image if the window becomes visible (e.g. when a window covering it got iconified)"""
         if self.syntax_highlighting != cons.CUSTOM_COLORS_ID: return
-        wx, wy, mod = self.sourceview.window.get_pointer()
+        sourceview_gdk_win = self.sourceview.get_window(Gtk.TextWindowType.WIDGET)
+        gdk_win_containing_pointer, wx, wy, flags = sourceview_gdk_win.get_pointer()
         bx, by = self.sourceview.window_to_buffer_coords(Gtk.TextWindowType.WIDGET, wx, wy)
         self.sourceview_cursor_and_tooltips_handler(bx, by)
         return False
