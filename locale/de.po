@@ -48,7 +48,7 @@ msgstr "Fehler"
 
 #: modules/support.py:184
 msgid "Involved Nodes"
-msgstr ""
+msgstr "Knoten auswählen"
 
 #: modules/support.py:190
 msgid "Selected Node Only"
@@ -214,7 +214,7 @@ msgstr "Der markierte Knoten"
 
 #: modules/core.py:740
 msgid "CherryTree Hierarchical Note Taking"
-msgstr "CherryTree Hierarchisches Notizprogramm"
+msgstr "CherryTree - Ein hierarchisches Notizprogramm"
 
 #: modules/core.py:843 modules/core.py:872 modules/core.py:2017
 #: modules/core.py:2028 modules/core.py:2337
@@ -341,7 +341,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Der Knoten besitzt <b>untergeordnete Knoten, diese werden auch gelöscht!</b>"
+"Der Knoten besitzt untergeordnete Knoten, <b>diese werden auch gelöscht!</b>"
 
 #: modules/core.py:1874
 msgid "Insert the New Name for the Node..."
@@ -362,11 +362,11 @@ msgstr "Kein Knoten ausgewählt"
 
 #: modules/core.py:2185
 msgid "The Size of the Toolbar Icons is already at the Maximum Value"
-msgstr "Die Icons in der Symbolleiste sind schon so groß wie möglich"
+msgstr "Die Icons in der Symbolleiste können nicht weiter vergrößert werden"
 
 #: modules/core.py:2193
 msgid "The Size of the Toolbar Icons is already at the Minimum Value"
-msgstr "Die Icons in der Symbolleiste sind schon so klein wie möglich"
+msgstr "Die Icons in der Symbolleiste können nicht weiter verkleinert werden"
 
 #: modules/core.py:2270
 msgid "Edit Anchor"
@@ -378,7 +378,7 @@ msgstr "Anker einfügen..."
 
 #: modules/core.py:2282
 msgid "The Anchor Name is Mandatory!"
-msgstr "Der Ankername wird benötigt!"
+msgstr "Der Ankername fehlt!"
 
 #: modules/core.py:2297
 msgid "Not Any H1 or H2 Formatting Found"
@@ -440,7 +440,7 @@ msgstr "Link einfügen/bearbeiten..."
 #: modules/core.py:2879
 #, python-format
 msgid "The File Link '%s' is Not Valid"
-msgstr "Der Dateipfad '%s' ist nicht gültig"
+msgstr "Der Dateipfad '%s' ist ungültig"
 
 #: modules/core.py:2890
 #, python-format
@@ -450,7 +450,7 @@ msgstr "Die Adresse des Verzeichnisses '%s' ist ungültig"
 #: modules/core.py:2901
 #, python-format
 msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
-msgstr "Der Link verweist auf einen Knoten der nicht mehr existiert (ID = %s)"
+msgstr "Der Link verweist auf einen Knoten, der nicht mehr existiert (ID = %s)"
 
 #: modules/core.py:2911
 #, python-format
@@ -463,7 +463,7 @@ msgstr "Keine Anker im ausgewählten Knoten vorhanden"
 
 #: modules/core.py:2956
 msgid "Choose Existing Anchor"
-msgstr "Bestehenden Anker wählen"
+msgstr "Vorhandenen Anker wählen"
 
 #: modules/core.py:2969
 msgid "Anchor Name"
@@ -635,11 +635,11 @@ msgstr "Seite einrichten"
 
 #: modules/cons.py:393 modules/cons.py:529
 msgid "_Print / Export To PDF"
-msgstr ""
+msgstr "_Drucken / als PDF exportieren"
 
 #: modules/cons.py:393 modules/cons.py:529
 msgid "Print / Export To PDF"
-msgstr ""
+msgstr "Drucken / als PDF exportieren"
 
 #: modules/cons.py:394
 msgid "_Quit"
@@ -905,7 +905,7 @@ msgstr "Letzte zurückgenommene Aktion wiederherstellen"
 
 #: modules/cons.py:427 modules/cons.py:535
 msgid "_Inherit Syntax"
-msgstr "_Syntax vererben"
+msgstr "Syntax _vererben"
 
 #: modules/cons.py:427 modules/cons.py:535
 msgid ""
@@ -1019,7 +1019,7 @@ msgstr "In allen Knoten _suchen..."
 
 #: modules/cons.py:443 modules/cons.py:601
 msgid "Find into all the Tree Nodes"
-msgstr "In allen Knoten der Baumstruktur suchen"
+msgstr "In allen Knoten suchen"
 
 #: modules/cons.py:444 modules/cons.py:514 modules/cons.py:602
 msgid "Find a _Node"
@@ -1059,7 +1059,7 @@ msgstr "In allen Knoten _ersetzen..."
 
 #: modules/cons.py:448 modules/cons.py:608
 msgid "Replace into all the Tree Nodes"
-msgstr "In allen Knoten der Baumstruktur ersetzen"
+msgstr "In allen Knoten ersetzen"
 
 #: modules/cons.py:449 modules/cons.py:515 modules/cons.py:609
 msgid "Replace in Nodes _Names"
@@ -1314,19 +1314,19 @@ msgstr "Knoten _hinzufügen..."
 #: modules/cons.py:491
 msgid "Add a Node having the same Father of the Selected Node"
 msgstr ""
-"Einen Knoten mit demselben übergeordneten Knoten einfügen"
+"gleichrangigen Knoten einfügen"
 
 #: modules/cons.py:492
 msgid "Add _SubNode"
-msgstr "Unterge_ordneten Knoten hinzufügen..."
+msgstr "unterge_ordneten Knoten einfügen"
 
 #: modules/cons.py:492
 msgid "Add a Child Node to the Selected Node"
-msgstr "untergeordneten Knoten hinzufügen"
+msgstr "untergeordneten Knoten einfügen"
 
 #: modules/cons.py:494
 msgid "Change Node _Properties"
-msgstr "Knoten_eigenschaften ändern..."
+msgstr "Knoten_eigenschaften ändern"
 
 #: modules/cons.py:494
 msgid "Edit the Properties of the Selected Node"
@@ -1334,7 +1334,7 @@ msgstr "Eigenschaften des markierten Knotens bearbeiten"
 
 #: modules/cons.py:495
 msgid "Tree _Info"
-msgstr "Baumstruktur _Info..."
+msgstr "Baumstruktur-S_tatistik"
 
 #: modules/cons.py:498
 msgid "Node _Up"
