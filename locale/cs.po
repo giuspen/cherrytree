@@ -1874,7 +1874,7 @@ msgid "Show Line Numbers"
 msgstr "Ukázat čísla řádků"
 
 #: glade/cherrytree.glade.h:102
-msgid "Start Minimized on the System Tray"
+msgid "Start Minimized in the System Tray"
 msgstr "Spustit zmenšeno v oznamovací oblasti panelu"
 
 #: glade/cherrytree.glade.h:103

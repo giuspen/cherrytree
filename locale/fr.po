@@ -1876,7 +1876,7 @@ msgid "Show Line Numbers"
 msgstr "Montrer les Numéros de Lignes"
 
 #: glade/cherrytree.glade.h:102
-msgid "Start Minimized on the System Tray"
+msgid "Start Minimized in the System Tray"
 msgstr "Démarrage rapide"
 
 #: glade/cherrytree.glade.h:103
