@@ -1875,7 +1875,7 @@ msgid "Show Line Numbers"
 msgstr "Mostra Numeri di Riga"
 
 #: glade/cherrytree.glade.h:102
-msgid "Start Minimized on the System Tray"
+msgid "Start Minimized in the System Tray"
 msgstr "Inizia Minimizzato sulla System Tray"
 
 #: glade/cherrytree.glade.h:103

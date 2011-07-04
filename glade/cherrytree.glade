@@ -3097,7 +3097,7 @@ do you want to save the changes?</property>
                             </child>
                             <child>
                               <object class="GtkCheckButton" id="checkbutton_start_on_systray">
-                                <property name="label" translatable="yes">Start Minimized on the System Tray</property>
+                                <property name="label" translatable="yes">Start Minimized in the System Tray</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>

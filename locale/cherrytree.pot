@@ -1825,7 +1825,7 @@ msgid "Show Line Numbers"
 msgstr ""
 
 #: glade/cherrytree.glade.h:102
-msgid "Start Minimized on the System Tray"
+msgid "Start Minimized in the System Tray"
 msgstr ""
 
 #: glade/cherrytree.glade.h:103
