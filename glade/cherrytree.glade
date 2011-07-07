@@ -1702,6 +1702,8 @@ do you want to save the changes?</property>
     <property name="title" translatable="yes">Image Properties</property>
     <property name="modal">True</property>
     <property name="window_position">center-on-parent</property>
+    <property name="default_width">600</property>
+    <property name="default_height">600</property>
     <property name="destroy_with_parent">True</property>
     <property name="type_hint">normal</property>
     <property name="transient_for">window</property>
@@ -1839,15 +1841,29 @@ do you want to save the changes?</property>
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkImage" id="image_under_editing">
+                  <object class="GtkScrolledWindow" id="scrolledwindow1">
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="stock">gtk-missing-image</property>
-                    <property name="icon-size">6</property>
+                    <property name="can_focus">True</property>
+                    <property name="hscrollbar_policy">automatic</property>
+                    <property name="vscrollbar_policy">automatic</property>
+                    <child>
+                      <object class="GtkViewport" id="viewport1">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <child>
+                          <object class="GtkImage" id="image_under_editing">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="stock">gtk-missing-image</property>
+                            <property name="icon-size">6</property>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
                   </object>
                   <packing>
                     <property name="expand">True</property>
-                    <property name="fill">False</property>
+                    <property name="fill">True</property>
                     <property name="position">1</property>
                   </packing>
                 </child>
