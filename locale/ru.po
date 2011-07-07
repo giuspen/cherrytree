@@ -1863,7 +1863,7 @@ msgstr "Сохранение при закрытии"
 
 #: glade/cherrytree.glade.h:52
 msgid "Backward"
-msgstr "Вперед"
+msgstr "Назад"
 
 #: glade/cherrytree.glade.h:53
 msgid "Browse for Existing Anchors on the Selected Node"
