@@ -818,13 +818,17 @@ class KnowitHandler(HTMLParser.HTMLParser):
         self.curr_node_content = ""
         self.curr_node_level = 0
         self.former_node_level = -1
-        # 0: waiting for \NewEntry
+        # 0: waiting for \NewEntry or \CurrentEntry
         # 1: gathering node content
         for text_line in file_descriptor:
             text_line = text_line.decode("utf-8", "ignore")
             if self.curr_xml_state == 0:
-                if len(text_line) > 10 and text_line[:10] == "\NewEntry ":
-                    match = re.match("(\d+) (.*)$", text_line[10:-1])
+                if (len(text_line) > 10 and text_line[:10] == "\NewEntry ")\
+                or (len(text_line) > 14 and text_line[:14] == "\CurrentEntry "):
+                    if text_line[1] == "N": text_to_parse = text_line[10:-1]
+                    else: text_to_parse = text_line[14:-1]
+                    match = re.match("(\d+) (.*)$", text_to_parse)
+                    if not match: print '%s' % text_to_parse
                     self.curr_node_level = int(match.group(1))
                     self.curr_node_name = match.group(2)
                     #print "node name = '%s', node level = %s" % (self.curr_node_name, self.curr_node_level)
@@ -842,9 +846,14 @@ class KnowitHandler(HTMLParser.HTMLParser):
                 else: self.curr_node_name += text_line.replace(cons.CHAR_CR, "").replace(cons.CHAR_NEWLINE, "") + cons.CHAR_SPACE
             elif self.curr_xml_state == 1:
                 if len(text_line) > 14 and text_line[:14] == "</body></html>":
+                    # node content end
                     self.curr_xml_state = 0
                     self.curr_html_state = 0
                     self.feed(self.curr_node_content.decode("utf-8", "ignore"))
+                elif self.curr_node_content == "" and text_line == cons.CHAR_NEWLINE:
+                    # empty node
+                    self.curr_xml_state = 0
+                    self.curr_html_state = 0
                 else: self.curr_node_content += text_line
 
     def handle_starttag(self, tag, attrs):
