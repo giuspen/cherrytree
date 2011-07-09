@@ -448,7 +448,8 @@ class CherryTree:
         if filepath == None: return
         try: cherrytree_string = self.file_get_cherrytree_xml(filepath, False)
         except:
-            support.dialog_error("Error opening the file %s" % filepath, self.window)
+            support.dialog_error("Error importing the file %s" % filepath, self.window)
+            raise
             return
         if cherrytree_string: self.nodes_add_from_string(cherrytree_string)
 
@@ -464,7 +465,8 @@ class CherryTree:
             notecase_string = file_descriptor.read()
             file_descriptor.close()
         except:
-            support.dialog_error("Error opening the file %s" % filepath, self.window)
+            support.dialog_error("Error importing the file %s" % filepath, self.window)
+            raise
             return
         notecase = imports.NotecaseHandler()
         cherrytree_string = notecase.get_cherrytree_xml(notecase_string)
@@ -480,7 +482,8 @@ class CherryTree:
             tuxcards_string = file_descriptor.read()
             file_descriptor.close()
         except:
-            support.dialog_error("Error opening the file %s" % filepath, self.window)
+            support.dialog_error("Error importing the file %s" % filepath, self.window)
+            raise
             return
         tuxcards = imports.TuxCardsHandler()
         cherrytree_string = tuxcards.get_cherrytree_xml(tuxcards_string)
@@ -527,7 +530,8 @@ class CherryTree:
             cherrytree_string = treepad.get_cherrytree_xml(file_descriptor)
             file_descriptor.close()
         except:
-            support.dialog_error("Error opening the file %s" % filepath, self.window)
+            support.dialog_error("Error importing the file %s" % filepath, self.window)
+            raise
             return
         self.nodes_add_from_string(cherrytree_string)
 
@@ -544,7 +548,8 @@ class CherryTree:
             cherrytree_string = knowit.get_cherrytree_xml(file_descriptor)
             file_descriptor.close()
         except:
-            support.dialog_error("Error opening the file %s" % filepath, self.window)
+            support.dialog_error("Error importing the file %s" % filepath, self.window)
+            raise
             return
         self.nodes_add_from_string(cherrytree_string)
 
@@ -560,7 +565,8 @@ class CherryTree:
             leo_string = file_descriptor.read()
             file_descriptor.close()
         except:
-            support.dialog_error("Error opening the file %s" % filepath, self.window)
+            support.dialog_error("Error importing the file %s" % filepath, self.window)
+            raise
             return
         leo = imports.LeoHandler()
         cherrytree_string = leo.get_cherrytree_xml(leo_string)
@@ -1090,7 +1096,8 @@ class CherryTree:
             file_descriptor.close()
             if password_protected: os.remove(filepath_tmp)
         except:
-            support.dialog_error("Error opening the file %s" % filepath, self.window)
+            support.dialog_error("Error importing the file %s" % filepath, self.window)
+            raise
             return None
         return re.sub(cons.BAD_CHARS, "", cherrytree_string)
 
