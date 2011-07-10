@@ -139,7 +139,6 @@ class CherryTree:
         self.treeview.connect('drag-motion', self.on_drag_motion_cherrytree)
         self.treeview.connect('drag-data-received', self.on_drag_data_recv_cherrytree)
         self.treeview.connect('drag-data-get', self.on_drag_data_get_cherrytree)
-        self.treeview.connect("motion-notify-event", self.on_treeview_motion_notify_event)
         self.scrolledwindow_tree.add(self.treeview)
         self.orphan_accel_group = gtk.AccelGroup()
         self.menu_tree_create()
@@ -195,10 +194,11 @@ class CherryTree:
         else: self.ui.get_widget("/MenuBar/FileMenu/ExitApp").set_property('visible', False)
         self.file_startup_load(open_with_file)
         if self.check_version: self.check_for_newer_version()
-        else: self.statusbar.push(self.statusbar_context_id, _("Version %s") % cons.VERSION)
+        else: self.update_selected_node_statusbar_info()
 
     def check_for_newer_version(self, *args):
         """Check for a Newer Version"""
+        self.statusbar.pop(self.statusbar_context_id)
         self.statusbar.push(self.statusbar_context_id, _("Checking for Newer Version..."))
         while gtk.events_pending(): gtk.main_iteration()
         try:
@@ -207,7 +207,7 @@ class CherryTree:
             if latest_version != cons.VERSION:
                 support.dialog_info(_("A Newer Version Is Available!") + " (%s)" % latest_version, self.window)
         except: pass
-        self.statusbar.push(self.statusbar_context_id, _("Version %s") % cons.VERSION)
+        self.update_selected_node_statusbar_info()
 
     def get_node_icon(self, node_level, node_code):
         """Returns the Stock Id given the Node Level"""
@@ -919,6 +919,7 @@ class CherryTree:
             if os.path.isfile(filepath): shutil.move(filepath, filepath + cons.CHAR_TILDE)
         # if the filename is protected, we use unprotected type before compress and protect
         try:
+            self.statusbar.pop(self.statusbar_context_id)
             self.statusbar.push(self.statusbar_context_id, _("Writing to Disk..."))
             while gtk.events_pending(): gtk.main_iteration()
             self.file_write_low_level(filepath, xml_string)
@@ -1902,6 +1903,7 @@ class CherryTree:
         if self.syntax_highlighting != cons.CUSTOM_COLORS_ID:
             self.set_sourcebuffer_syntax_highlight(self.curr_buffer, self.syntax_highlighting)
         self.sourceview.set_editable(not self.treestore[self.curr_tree_iter][7])
+        self.update_selected_node_statusbar_info()
         self.update_window_save_needed()
         self.sourceview.grab_focus()
 
@@ -1950,6 +1952,7 @@ class CherryTree:
         self.header_node_name_label.set_use_markup(True)
         self.state_machine.node_selected_changed(self.treestore[self.curr_tree_iter][3])
         self.objects_buffer_refresh()
+        self.update_selected_node_statusbar_info()
         # try to restore cursor position if in memory
         if model[new_iter][3] in self.nodes_cursor_pos:
             self.curr_buffer.place_cursor(self.curr_buffer.get_iter_at_offset(self.nodes_cursor_pos[model[new_iter][3]]))
@@ -1973,14 +1976,14 @@ class CherryTree:
 
     def update_window_save_needed(self):
         """Window title preceeded by an asterix"""
-        if self.file_name != "": self.window.set_title("*" + self.file_name + " - CherryTree")
+        if self.file_name != "": self.window.set_title("*" + self.file_name + " - CherryTree %s" % cons.VERSION)
         else: self.window.set_title("*CherryTree")
         self.file_update = True
 
     def update_window_save_not_needed(self):
         """Window title not preceeded by an asterix"""
-        if self.file_name != "": self.window.set_title(self.file_name + " - CherryTree")
-        else: self.window.set_title("CherryTree")
+        if self.file_name != "": self.window.set_title(self.file_name + " - CherryTree %s" % cons.VERSION)
+        else: self.window.set_title("CherryTree %s" % cons.VERSION)
         self.file_update = False
         if self.curr_tree_iter != None:
             self.curr_buffer.set_modified(False)
@@ -3133,19 +3136,16 @@ class CherryTree:
         self.sourceview_cursor_and_tooltips_handler(x, y)
         return False
 
-    def on_treeview_motion_notify_event(self, tree_view, event):
-        """Update the tooltip if the pointer moved"""
-        self.treeview.set_tooltip_text(None)
-        self.treeview.trigger_tooltip_query()
-        x, y = self.treeview.widget_to_tree_coords(int(event.x), int(event.y))
-        pointer_tuple = self.treeview.get_path_at_pos(x, y)
-        if pointer_tuple:
-            pointer_iter = self.treestore.get_iter(pointer_tuple[0])
-            tooltip_text = self.treestore[pointer_iter][4]
-            if self.treestore[pointer_iter][7]: tooltip_text += "  -  " + _("Read Only")
-            if self.treestore[pointer_iter][6]: tooltip_text += "  -  " + self.treestore[pointer_iter][6]
-            self.treeview.set_tooltip_text(tooltip_text)
-        return False
+    def update_selected_node_statusbar_info(self):
+        """Update the statusbar with node info"""
+        if not self.curr_tree_iter:
+            tooltip_text = _("No Node is Selected")
+        else:
+            tooltip_text = self.treestore[self.curr_tree_iter][4]
+            if self.treestore[self.curr_tree_iter][7]: tooltip_text += "  -  " + _("Read Only")
+            if self.treestore[self.curr_tree_iter][6]: tooltip_text += "  -  " + self.treestore[self.curr_tree_iter][6]
+        self.statusbar.pop(self.statusbar_context_id)
+        self.statusbar.push(self.statusbar_context_id, tooltip_text)
 
     def on_sourceview_visibility_notify_event(self, text_view, event):
         """Update the cursor image if the window becomes visible (e.g. when a window covering it got iconified)"""
