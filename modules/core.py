@@ -3141,7 +3141,8 @@ class CherryTree:
         if not self.curr_tree_iter:
             tooltip_text = _("No Node is Selected")
         else:
-            tooltip_text = self.treestore[self.curr_tree_iter][4]
+            if self.treestore[self.curr_tree_iter][4] == cons.CUSTOM_COLORS_ID: tooltip_text = _("Rich Text")
+            else: tooltip_text = self.treestore[self.curr_tree_iter][4]
             if self.treestore[self.curr_tree_iter][7]: tooltip_text += "  -  " + _("Read Only")
             if self.treestore[self.curr_tree_iter][6]: tooltip_text += "  -  " + self.treestore[self.curr_tree_iter][6]
         self.statusbar.pop(self.statusbar_context_id)
