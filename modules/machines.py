@@ -682,7 +682,7 @@ class StateMachine:
         self.nodes_vectors[node_id].append([xml_content, pixbuf_table_codebox_vector, cursor_pos])
         num_saved_states = len(self.nodes_vectors[node_id])
         if num_saved_states == 2: self.nodes_vectors[node_id][0][2] = cursor_pos
-        while num_saved_states > cons.MAX_NODES_STATES_NUM:
+        while num_saved_states > self.dad.limit_undoable_steps:
             self.nodes_vectors[node_id].pop(0)
             num_saved_states -= 1
         self.nodes_indexes[node_id] = num_saved_states - 1

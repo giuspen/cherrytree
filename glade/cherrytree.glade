@@ -105,6 +105,13 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
   </object>
+  <object class="GtkAdjustment" id="adjustment_limit_undoable_steps">
+    <property name="lower">1</property>
+    <property name="upper">100</property>
+    <property name="value">20</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
   <object class="GtkAdjustment" id="adjustment_tab_width">
     <property name="lower">1</property>
     <property name="upper">100</property>
@@ -2844,8 +2851,8 @@ do you want to save the changes?</property>
                                 <signal name="toggled" handler="on_checkbutton_spaces_tabs_toggled" swapped="no"/>
                               </object>
                               <packing>
-                                <property name="expand">True</property>
-                                <property name="fill">True</property>
+                                <property name="expand">False</property>
+                                <property name="fill">False</property>
                                 <property name="position">1</property>
                               </packing>
                             </child>
@@ -2860,8 +2867,8 @@ do you want to save the changes?</property>
                                 <signal name="toggled" handler="on_checkbutton_line_wrap_toggled" swapped="no"/>
                               </object>
                               <packing>
-                                <property name="expand">True</property>
-                                <property name="fill">True</property>
+                                <property name="expand">False</property>
+                                <property name="fill">False</property>
                                 <property name="position">2</property>
                               </packing>
                             </child>
@@ -2877,8 +2884,8 @@ do you want to save the changes?</property>
                                 <signal name="toggled" handler="on_checkbutton_auto_indent_toggled" swapped="no"/>
                               </object>
                               <packing>
-                                <property name="expand">True</property>
-                                <property name="fill">True</property>
+                                <property name="expand">False</property>
+                                <property name="fill">False</property>
                                 <property name="position">3</property>
                               </packing>
                             </child>
@@ -2893,8 +2900,8 @@ do you want to save the changes?</property>
                                 <signal name="toggled" handler="on_checkbutton_line_nums_toggled" swapped="no"/>
                               </object>
                               <packing>
-                                <property name="expand">True</property>
-                                <property name="fill">True</property>
+                                <property name="expand">False</property>
+                                <property name="fill">False</property>
                                 <property name="position">4</property>
                               </packing>
                             </child>
@@ -3106,8 +3113,8 @@ do you want to save the changes?</property>
                                 <signal name="toggled" handler="on_checkbutton_systray_toggled" swapped="no"/>
                               </object>
                               <packing>
-                                <property name="expand">True</property>
-                                <property name="fill">True</property>
+                                <property name="expand">False</property>
+                                <property name="fill">False</property>
                                 <property name="position">0</property>
                               </packing>
                             </child>
@@ -3122,9 +3129,20 @@ do you want to save the changes?</property>
                                 <signal name="toggled" handler="on_checkbutton_start_on_systray_toggled" swapped="no"/>
                               </object>
                               <packing>
-                                <property name="expand">True</property>
-                                <property name="fill">True</property>
+                                <property name="expand">False</property>
+                                <property name="fill">False</property>
                                 <property name="position">1</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkHSeparator" id="hseparator8">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">2</property>
                               </packing>
                             </child>
                             <child>
@@ -3133,7 +3151,7 @@ do you want to save the changes?</property>
                                 <property name="can_focus">False</property>
                                 <child>
                                   <object class="GtkCheckButton" id="checkbutton_autosave">
-                                    <property name="label" translatable="yes">Autosave Every </property>
+                                    <property name="label" translatable="yes">Autosave Every</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">False</property>
@@ -3161,6 +3179,7 @@ do you want to save the changes?</property>
                                   <packing>
                                     <property name="expand">False</property>
                                     <property name="fill">True</property>
+                                    <property name="padding">2</property>
                                     <property name="position">1</property>
                                   </packing>
                                 </child>
@@ -3168,7 +3187,7 @@ do you want to save the changes?</property>
                                   <object class="GtkLabel" id="label20">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="label" translatable="yes"> Minutes</property>
+                                    <property name="label" translatable="yes">Minutes</property>
                                   </object>
                                   <packing>
                                     <property name="expand">False</property>
@@ -3180,7 +3199,7 @@ do you want to save the changes?</property>
                               <packing>
                                 <property name="expand">False</property>
                                 <property name="fill">False</property>
-                                <property name="position">2</property>
+                                <property name="position">3</property>
                               </packing>
                             </child>
                             <child>
@@ -3194,9 +3213,20 @@ do you want to save the changes?</property>
                                 <signal name="toggled" handler="on_checkbutton_autosave_on_quit_toggled" swapped="no"/>
                               </object>
                               <packing>
-                                <property name="expand">True</property>
+                                <property name="expand">False</property>
+                                <property name="fill">False</property>
+                                <property name="position">4</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkHSeparator" id="hseparator9">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
                                 <property name="fill">True</property>
-                                <property name="position">3</property>
+                                <property name="position">5</property>
                               </packing>
                             </child>
                             <child>
@@ -3210,9 +3240,62 @@ do you want to save the changes?</property>
                                 <signal name="toggled" handler="on_checkbutton_backup_before_saving_toggled" swapped="no"/>
                               </object>
                               <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">False</property>
+                                <property name="position">6</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkHSeparator" id="hseparator10">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">7</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkHBox" id="hbox2">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <child>
+                                  <object class="GtkLabel" id="label8">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="label" translatable="yes">Limit of Undoable Steps Per Node</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">0</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkSpinButton" id="spinbutton_limit_undoable_steps">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">True</property>
+                                    <property name="invisible_char">•</property>
+                                    <property name="primary_icon_activatable">False</property>
+                                    <property name="secondary_icon_activatable">False</property>
+                                    <property name="primary_icon_sensitive">True</property>
+                                    <property name="secondary_icon_sensitive">True</property>
+                                    <property name="adjustment">adjustment_limit_undoable_steps</property>
+                                    <signal name="value-changed" handler="on_spinbutton_limit_undoable_steps_value_changed" swapped="no"/>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="padding">2</property>
+                                    <property name="position">1</property>
+                                  </packing>
+                                </child>
+                              </object>
+                              <packing>
                                 <property name="expand">True</property>
                                 <property name="fill">True</property>
-                                <property name="position">4</property>
+                                <property name="position">8</property>
                               </packing>
                             </child>
                             <child>
@@ -3226,9 +3309,9 @@ do you want to save the changes?</property>
                                 <signal name="toggled" handler="on_checkbutton_newer_version_toggled" swapped="no"/>
                               </object>
                               <packing>
-                                <property name="expand">True</property>
-                                <property name="fill">True</property>
-                                <property name="position">5</property>
+                                <property name="expand">False</property>
+                                <property name="fill">False</property>
+                                <property name="position">9</property>
                               </packing>
                             </child>
                           </object>
@@ -3288,8 +3371,8 @@ do you want to save the changes?</property>
                                 <signal name="toggled" handler="on_checkbutton_expand_tree_toggled" swapped="no"/>
                               </object>
                               <packing>
-                                <property name="expand">True</property>
-                                <property name="fill">True</property>
+                                <property name="expand">False</property>
+                                <property name="fill">False</property>
                                 <property name="position">0</property>
                               </packing>
                             </child>
@@ -3324,14 +3407,14 @@ do you want to save the changes?</property>
                                   </object>
                                   <packing>
                                     <property name="expand">False</property>
-                                    <property name="fill">False</property>
+                                    <property name="fill">True</property>
                                     <property name="position">1</property>
                                   </packing>
                                 </child>
                               </object>
                               <packing>
-                                <property name="expand">True</property>
-                                <property name="fill">True</property>
+                                <property name="expand">False</property>
+                                <property name="fill">False</property>
                                 <property name="position">1</property>
                               </packing>
                             </child>
@@ -3346,8 +3429,8 @@ do you want to save the changes?</property>
                                 <signal name="toggled" handler="on_checkbutton_tree_right_side_toggled" swapped="no"/>
                               </object>
                               <packing>
-                                <property name="expand">True</property>
-                                <property name="fill">True</property>
+                                <property name="expand">False</property>
+                                <property name="fill">False</property>
                                 <property name="position">2</property>
                               </packing>
                             </child>
@@ -3378,8 +3461,8 @@ do you want to save the changes?</property>
                                     <signal name="toggled" handler="on_radiobutton_node_icon_cherry_toggled" swapped="no"/>
                                   </object>
                                   <packing>
-                                    <property name="expand">True</property>
-                                    <property name="fill">True</property>
+                                    <property name="expand">False</property>
+                                    <property name="fill">False</property>
                                     <property name="position">0</property>
                                   </packing>
                                 </child>
@@ -3396,8 +3479,8 @@ do you want to save the changes?</property>
                                     <signal name="toggled" handler="on_radiobutton_node_icon_bullet_toggled" swapped="no"/>
                                   </object>
                                   <packing>
-                                    <property name="expand">True</property>
-                                    <property name="fill">True</property>
+                                    <property name="expand">False</property>
+                                    <property name="fill">False</property>
                                     <property name="position">1</property>
                                   </packing>
                                 </child>
@@ -3414,8 +3497,8 @@ do you want to save the changes?</property>
                                     <signal name="toggled" handler="on_radiobutton_node_icon_none_toggled" swapped="no"/>
                                   </object>
                                   <packing>
-                                    <property name="expand">True</property>
-                                    <property name="fill">True</property>
+                                    <property name="expand">False</property>
+                                    <property name="fill">False</property>
                                     <property name="position">2</property>
                                   </packing>
                                 </child>
@@ -3470,8 +3553,8 @@ do you want to save the changes?</property>
                                 <signal name="toggled" handler="on_checkbutton_custom_weblink_cmd_toggled" swapped="no"/>
                               </object>
                               <packing>
-                                <property name="expand">True</property>
-                                <property name="fill">True</property>
+                                <property name="expand">False</property>
+                                <property name="fill">False</property>
                                 <property name="position">0</property>
                               </packing>
                             </child>
@@ -3539,8 +3622,8 @@ do you want to save the changes?</property>
                                 <signal name="toggled" handler="on_checkbutton_custom_filelink_cmd_toggled" swapped="no"/>
                               </object>
                               <packing>
-                                <property name="expand">True</property>
-                                <property name="fill">True</property>
+                                <property name="expand">False</property>
+                                <property name="fill">False</property>
                                 <property name="position">3</property>
                               </packing>
                             </child>
@@ -3608,8 +3691,8 @@ do you want to save the changes?</property>
                                 <signal name="toggled" handler="on_checkbutton_custom_folderlink_cmd_toggled" swapped="no"/>
                               </object>
                               <packing>
-                                <property name="expand">True</property>
-                                <property name="fill">True</property>
+                                <property name="expand">False</property>
+                                <property name="fill">False</property>
                                 <property name="position">6</property>
                               </packing>
                             </child>

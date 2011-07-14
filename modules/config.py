@@ -130,6 +130,9 @@ def config_file_load(inst):
         if dom_iter.hasAttribute("table_col_max"):
             inst.table_col_max = int(dom_iter.attributes["table_col_max"].value)
         else: inst.table_col_max = 60
+        if dom_iter.hasAttribute("limit_undoable_steps"):
+            inst.limit_undoable_steps = int(dom_iter.attributes["limit_undoable_steps"].value)
+        else: inst.limit_undoable_steps = 20
         if dom_iter.hasAttribute("cherry_wrap_width"):
             inst.cherry_wrap_width = int(dom_iter.attributes["cherry_wrap_width"].value)
         else: inst.cherry_wrap_width = 130
@@ -207,6 +210,7 @@ def config_file_load(inst):
         inst.table_column_mode = "rename"
         inst.table_col_min = 40
         inst.table_col_max = 60
+        inst.limit_undoable_steps = 20
         inst.cherry_wrap_width = 130
         inst.start_on_systray = False
         inst.weblink_custom_action = [False, "firefox %s"]
@@ -283,6 +287,7 @@ def config_file_apply(inst):
     inst.glade.spinbutton_table_columns.set_value(inst.table_columns)
     inst.glade.spinbutton_table_col_min.set_value(inst.table_col_min)
     inst.glade.spinbutton_table_col_max.set_value(inst.table_col_max)
+    inst.glade.spinbutton_limit_undoable_steps.set_value(inst.limit_undoable_steps)
     inst.glade.spinbutton_tree_nodes_names_width.set_value(inst.cherry_wrap_width)
     inst.renderer_text.set_property('wrap-width', inst.cherry_wrap_width)
     inst.ui.get_widget("/ToolBar").set_property("visible", inst.toolbar_visible)
@@ -334,6 +339,7 @@ def config_file_save(inst):
     config.setAttribute("table_column_mode", inst.table_column_mode)
     config.setAttribute("table_col_min", str(inst.table_col_min))
     config.setAttribute("table_col_max", str(inst.table_col_max))
+    config.setAttribute("limit_undoable_steps", str(inst.limit_undoable_steps))
     config.setAttribute("cherry_wrap_width", str(inst.cherry_wrap_width))
     config.setAttribute("start_on_systray", str(inst.start_on_systray))
     config.setAttribute("weblink_custom_action", str(inst.weblink_custom_action[0])+inst.weblink_custom_action[1])
