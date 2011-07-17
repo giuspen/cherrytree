@@ -33,21 +33,20 @@ class FindReplace:
         self.replace_active = False
         self.curr_find = [None, ""] # [latest find type, latest find pattern]
         self.from_find_iterated = False
+        self.from_find_back = False
     
     def iterated_find_dialog(self):
         """Iterated Find/Replace Dialog"""
-        if self.replace_active:
-            self.dad.glade.button_iterated_find_replace.show()
-            self.dad.glade.button_iterated_find_unreplace.show()
-        else:
-            self.dad.glade.button_iterated_find_replace.hide()
-            self.dad.glade.button_iterated_find_unreplace.hide()
         response = self.dad.glade.iteratedfinddialog.run()
         self.dad.glade.iteratedfinddialog.hide()
-        if response == 1: self.dad.find_again()
-        elif response == 2: pass
+        if response == 1:
+            self.replace_active = False
+            self.find_again()
+        elif response == 2:
+            self.replace_active = True
+            self.dad.find_again()
         elif response == 3: pass
-        elif response == 4: self.dad.find_back()
+        elif response == 4: self.find_back()
     
     def find_in_selected_node(self):
         """Search for a pattern in the selected Node"""
@@ -71,6 +70,9 @@ class FindReplace:
             else: return
         else: pattern = self.curr_find[1]
         forward = self.dad.glade.search_fw_radiobutton.get_active()
+        if self.from_find_back:
+            forward = not forward
+            self.from_find_back = False
         first_fromsel = self.dad.glade.search_first_fromsel_radiobutton.get_active()
         all_matches = self.dad.glade.search_all_radiobutton.get_active()
         self.matches_num = 0
@@ -113,6 +115,9 @@ class FindReplace:
         starting_tree_iter = self.dad.curr_tree_iter.copy()
         current_cursor_pos = self.dad.curr_buffer.get_property('cursor-position')
         forward = self.dad.glade.search_fw_radiobutton.get_active()
+        if self.from_find_back:
+            forward = not forward
+            self.from_find_back = False
         first_fromsel = self.dad.glade.search_first_fromsel_radiobutton.get_active()
         all_matches = self.dad.glade.search_all_radiobutton.get_active()
         if first_fromsel:
@@ -185,6 +190,9 @@ class FindReplace:
             pattern = re.compile(pattern_ready, re.UNICODE|re.MULTILINE)
         else: pattern = re.compile(pattern_ready, re.IGNORECASE|re.UNICODE|re.MULTILINE)
         forward = self.dad.glade.search_fw_radiobutton.get_active()
+        if self.from_find_back:
+            forward = not forward
+            self.from_find_back = False
         first_fromsel = self.dad.glade.search_first_fromsel_radiobutton.get_active()
         all_matches = self.dad.glade.search_all_radiobutton.get_active()
         if first_fromsel:
@@ -272,10 +280,8 @@ class FindReplace:
             if workaround_first_empty_char: match_offsets = (match_offsets[0]-1, match_offsets[1]-1)
             if not obj_match_offsets[0]: num_objs = self.get_num_objs_before_offset(match_offsets[0])
             else: num_objs = 0
-            target = self.dad.curr_buffer.get_iter_at_offset(match_offsets[0] + num_objs)
-            self.dad.curr_buffer.place_cursor(target)
-            target.forward_chars(match_offsets[1] - match_offsets[0])
-            self.dad.curr_buffer.move_mark(self.dad.curr_buffer.get_selection_bound(), target)
+            self.dad.set_selection_at_offset_n_delta(match_offsets[0] + num_objs,
+                                                     match_offsets[1] - match_offsets[0])
             self.dad.sourceview.scroll_to_mark(self.dad.curr_buffer.get_insert(), 0.25)
             if all_matches:
                 self.liststore.append([self.dad.curr_tree_iter,
@@ -287,10 +293,12 @@ class FindReplace:
                 replacer_text = self.dad.glade.replace_entry.get_text().decode("utf-8")
                 self.dad.curr_buffer.delete_selection(interactive=False, default_editable=True)
                 self.dad.curr_buffer.insert_at_cursor(replacer_text)
+                self.dad.set_selection_at_offset_n_delta(match_offsets[0] + num_objs,
+                                                         len(replacer_text))
                 self.dad.state_machine.update_state(self.dad.treestore[self.dad.curr_tree_iter][3])
             return True
         else: return False
-
+    
     def check_pattern_in_object(self, pattern, obj):
         """Search for the pattern in the given object"""
         if obj[0] == "table":
@@ -422,14 +430,9 @@ class FindReplace:
 
     def find_back(self):
         """Continue the previous search (a_node/in_selected_node/in_all_nodes) but in Opposite Direction"""
-        if self.dad.glade.search_fw_radiobutton.get_active() == True:
-            self.dad.glade.search_bw_radiobutton.set_active(True)
-            self.find_again()
-            self.dad.glade.search_fw_radiobutton.set_active(True)
-        else:
-            self.dad.glade.search_fw_radiobutton.set_active(True)
-            self.find_again()
-            self.dad.glade.search_bw_radiobutton.set_active(True)
+        self.from_find_back = True
+        self.replace_active = False
+        self.find_again()
 
     def replace_in_selected_node(self):
         """Replace a pattern in the selected Node"""
