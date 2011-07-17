@@ -33,7 +33,22 @@ class FindReplace:
         self.replace_active = False
         self.curr_find = [None, ""] # [latest find type, latest find pattern]
         self.from_find_iterated = False
-
+    
+    def iterated_find_dialog(self):
+        """Iterated Find/Replace Dialog"""
+        if self.replace_active:
+            self.dad.glade.button_iterated_find_replace.show()
+            self.dad.glade.button_iterated_find_unreplace.show()
+        else:
+            self.dad.glade.button_iterated_find_replace.hide()
+            self.dad.glade.button_iterated_find_unreplace.hide()
+        response = self.dad.glade.iteratedfinddialog.run()
+        self.dad.glade.iteratedfinddialog.hide()
+        if response == 1: self.dad.find_again()
+        elif response == 2: pass
+        elif response == 3: pass
+        elif response == 4: self.dad.find_back()
+    
     def find_in_selected_node(self):
         """Search for a pattern in the selected Node"""
         entry_hint = ""
@@ -73,7 +88,7 @@ class FindReplace:
             self.dad.glade.allmatchesdialog.run()
             self.dad.glade.allmatchesdialog.hide()
         elif self.dad.glade.checkbutton_iterated_find_dialog.get_active():
-            print "show iterated find dialog"
+            self.iterated_find_dialog()
 
     def find_in_all_nodes(self):
         """Search for a pattern in all the Tree Nodes"""
@@ -147,7 +162,7 @@ class FindReplace:
                 self.dad.sourceview.grab_focus()
                 self.dad.sourceview.scroll_to_mark(self.dad.curr_buffer.get_insert(), 0.3)
                 if self.dad.glade.checkbutton_iterated_find_dialog.get_active():
-                    print "show iterated find dialog"
+                    self.iterated_find_dialog()
 
     def find_a_node(self, *args):
         """Search for a pattern between all the Node's Names"""
@@ -211,7 +226,7 @@ class FindReplace:
             self.dad.glade.allmatchesdialog.run()
             self.dad.glade.allmatchesdialog.hide()
         elif self.dad.glade.checkbutton_iterated_find_dialog.get_active():
-            print "show iterated find dialog"
+            self.iterated_find_dialog()
         if self.matches_num and self.replace_active: self.dad.update_window_save_needed()
 
     def find_pattern(self, pattern, start_iter, forward, all_matches):
