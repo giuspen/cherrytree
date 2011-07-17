@@ -55,9 +55,9 @@ class FindReplace:
             if pattern != None: self.curr_find = ["in_selected_node", pattern]
             else: return
         else: pattern = self.curr_find[1]
-        forward = self.dad.glade.search_fw_radiobutton.get_property("active")
-        first_fromsel = self.dad.glade.search_first_fromsel_radiobutton.get_property("active")
-        all_matches = self.dad.glade.search_all_radiobutton.get_property("active")
+        forward = self.dad.glade.search_fw_radiobutton.get_active()
+        first_fromsel = self.dad.glade.search_first_fromsel_radiobutton.get_active()
+        all_matches = self.dad.glade.search_all_radiobutton.get_active()
         self.matches_num = 0
         if all_matches:
             self.liststore_create_or_clean()
@@ -72,6 +72,8 @@ class FindReplace:
             self.dad.glade.allmatchesdialog.set_title(str(self.matches_num) + cons.CHAR_SPACE + _("Matches"))
             self.dad.glade.allmatchesdialog.run()
             self.dad.glade.allmatchesdialog.hide()
+        elif self.dad.glade.checkbutton_iterated_find_dialog.get_active():
+            print "show iterated find dialog"
 
     def find_in_all_nodes(self):
         """Search for a pattern in all the Tree Nodes"""
@@ -95,9 +97,9 @@ class FindReplace:
         else: pattern = self.curr_find[1]
         starting_tree_iter = self.dad.curr_tree_iter.copy()
         current_cursor_pos = self.dad.curr_buffer.get_property('cursor-position')
-        forward = self.dad.glade.search_fw_radiobutton.get_property("active")
-        first_fromsel = self.dad.glade.search_first_fromsel_radiobutton.get_property("active")
-        all_matches = self.dad.glade.search_all_radiobutton.get_property("active")
+        forward = self.dad.glade.search_fw_radiobutton.get_active()
+        first_fromsel = self.dad.glade.search_first_fromsel_radiobutton.get_active()
+        all_matches = self.dad.glade.search_all_radiobutton.get_active()
         if first_fromsel:
             self.first_useful_node = False # no one node content was parsed yet
             node_iter = self.dad.curr_tree_iter.copy()
@@ -144,6 +146,8 @@ class FindReplace:
                 self.dad.treeview_safe_set_cursor(self.dad.curr_tree_iter)
                 self.dad.sourceview.grab_focus()
                 self.dad.sourceview.scroll_to_mark(self.dad.curr_buffer.get_insert(), 0.3)
+                if self.dad.glade.checkbutton_iterated_find_dialog.get_active():
+                    print "show iterated find dialog"
 
     def find_a_node(self, *args):
         """Search for a pattern between all the Node's Names"""
@@ -165,9 +169,9 @@ class FindReplace:
         if self.dad.glade.checkbutton_match_case.get_active(): # CASE SENSITIVE
             pattern = re.compile(pattern_ready, re.UNICODE|re.MULTILINE)
         else: pattern = re.compile(pattern_ready, re.IGNORECASE|re.UNICODE|re.MULTILINE)
-        forward = self.dad.glade.search_fw_radiobutton.get_property("active")
-        first_fromsel = self.dad.glade.search_first_fromsel_radiobutton.get_property("active")
-        all_matches = self.dad.glade.search_all_radiobutton.get_property("active")
+        forward = self.dad.glade.search_fw_radiobutton.get_active()
+        first_fromsel = self.dad.glade.search_first_fromsel_radiobutton.get_active()
+        all_matches = self.dad.glade.search_all_radiobutton.get_active()
         if first_fromsel:
             if forward: node_iter = self.dad.treestore.iter_next(self.dad.curr_tree_iter)
             else: node_iter = self.dad.get_tree_iter_prev_sibling(self.dad.treestore, self.dad.curr_tree_iter)
@@ -206,7 +210,9 @@ class FindReplace:
             self.dad.glade.allmatchesdialog.set_title(str(self.matches_num) + cons.CHAR_SPACE + _("Matches"))
             self.dad.glade.allmatchesdialog.run()
             self.dad.glade.allmatchesdialog.hide()
-        if self.matches_num: self.dad.update_window_save_needed()
+        elif self.dad.glade.checkbutton_iterated_find_dialog.get_active():
+            print "show iterated find dialog"
+        if self.matches_num and self.replace_active: self.dad.update_window_save_needed()
 
     def find_pattern(self, pattern, start_iter, forward, all_matches):
         """Returns (start_iter, end_iter) or (None, None)"""
@@ -401,14 +407,14 @@ class FindReplace:
 
     def find_back(self):
         """Continue the previous search (a_node/in_selected_node/in_all_nodes) but in Opposite Direction"""
-        if self.dad.glade.search_fw_radiobutton.get_property("active") == True:
-            self.dad.glade.search_bw_radiobutton.set_property("active", True)
+        if self.dad.glade.search_fw_radiobutton.get_active() == True:
+            self.dad.glade.search_bw_radiobutton.set_active(True)
             self.find_again()
-            self.dad.glade.search_fw_radiobutton.set_property("active", True)
+            self.dad.glade.search_fw_radiobutton.set_active(True)
         else:
-            self.dad.glade.search_fw_radiobutton.set_property("active", True)
+            self.dad.glade.search_fw_radiobutton.set_active(True)
             self.find_again()
-            self.dad.glade.search_bw_radiobutton.set_property("active", True)
+            self.dad.glade.search_bw_radiobutton.set_active(True)
 
     def replace_in_selected_node(self):
         """Replace a pattern in the selected Node"""
