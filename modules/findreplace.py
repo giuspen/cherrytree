@@ -37,16 +37,31 @@ class FindReplace:
     
     def iterated_find_dialog(self):
         """Iterated Find/Replace Dialog"""
-        response = self.dad.glade.iteratedfinddialog.run()
-        self.dad.glade.iteratedfinddialog.hide()
+        dialog = self.dad.glade.iteratedfinddialog
+        def on_key_press_iterated_find_dialog(widget, event):
+            if gtk.gdk.keyval_name(event.keyval) == "Return":
+                button_box = dialog.get_action_area()
+                buttons = button_box.get_children()
+                buttons[2].clicked()
+                return True
+        dialog.connect("key_press_event", on_key_press_iterated_find_dialog)
+        response = dialog.run()
+        dialog.hide()
         if response == 1:
+            # find forward
             self.replace_active = False
             self.find_again()
         elif response == 2:
+            # replace
             self.replace_active = True
-            self.dad.find_again()
-        elif response == 3: pass
-        elif response == 4: self.find_back()
+            self.find_again()
+        elif response == 3:
+            # undo replace
+            self.dad.requested_step_back()
+            self.iterated_find_dialog()
+        elif response == 4:
+            # find backward
+            self.find_back()
     
     def find_in_selected_node(self):
         """Search for a pattern in the selected Node"""
