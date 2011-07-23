@@ -2003,10 +2003,12 @@ class CherryTree:
 
     def find_again(self, *args):
         """Continue the previous search (a_node/in_selected_node/in_all_nodes)"""
+        self.glade.checkbutton_iterated_find_dialog.set_active(False)
         self.find_handler.find_again()
 
     def find_back(self, *args):
         """Continue the previous search (a_node/in_selected_node/in_all_nodes) but in Opposite Direction"""
+        self.glade.checkbutton_iterated_find_dialog.set_active(False)
         self.find_handler.find_back()
 
     def replace_in_selected_node(self, *args):
