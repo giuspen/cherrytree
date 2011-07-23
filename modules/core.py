@@ -1578,6 +1578,10 @@ class CherryTree:
         """Custom Folder Link Clicked Action Edited"""
         self.folderlink_custom_action[1] = entry.get_text()
 
+    def on_entry_timestamp_format_changed(self, entry):
+        """Timestamp Format Edited"""
+        self.timestamp_format = entry.get_text()
+
     def on_checkbutton_systray_toggled(self, checkbutton):
         """SysTray Toggled Handling"""
         if not self.user_active: return

@@ -154,6 +154,7 @@ def config_file_load(inst):
             if temp_str[:4] == "True": inst.folderlink_custom_action = [True, temp_str[4:]]
             else: inst.folderlink_custom_action = [False, temp_str[5:]]
         else: inst.folderlink_custom_action = [False, "xdg-open %s"]
+        inst.timestamp_format = dom_iter.attributes["timestamp_format"].value if dom_iter.hasAttribute("timestamp_format") else "%Y/%m/%d-%H:%M"
         if dom_iter.hasAttribute("codebox_width"):
             inst.glade.spinbutton_codebox_width.set_value(int(dom_iter.attributes["codebox_width"].value))
         else: inst.glade.spinbutton_codebox_width.set_value(700)
@@ -216,6 +217,7 @@ def config_file_load(inst):
         inst.weblink_custom_action = [False, "firefox %s"]
         inst.filelink_custom_action = [False, "xdg-open %s"]
         inst.folderlink_custom_action = [False, "xdg-open %s"]
+        inst.timestamp_format = "%Y/%m/%d-%H:%M"
         inst.glade.spinbutton_codebox_width.set_value(700)
         inst.glade.spinbutton_codebox_height.set_value(100)
         inst.check_version = False
@@ -271,6 +273,7 @@ def config_file_apply(inst):
     inst.glade.checkbutton_custom_folderlink_cmd.set_active(inst.folderlink_custom_action[0])
     inst.glade.entry_custom_folderlink_cmd.set_sensitive(inst.folderlink_custom_action[0])
     inst.glade.entry_custom_folderlink_cmd.set_text(inst.folderlink_custom_action[1])
+    inst.glade.entry_timestamp_format.set_text(inst.timestamp_format)
     #
     inst.glade.radiobutton_link_website.set_active(inst.link_type == "webs")
     inst.glade.radiobutton_link_node_anchor.set_active(inst.link_type == "node")
@@ -345,6 +348,7 @@ def config_file_save(inst):
     config.setAttribute("weblink_custom_action", str(inst.weblink_custom_action[0])+inst.weblink_custom_action[1])
     config.setAttribute("filelink_custom_action", str(inst.filelink_custom_action[0])+inst.filelink_custom_action[1])
     config.setAttribute("folderlink_custom_action", str(inst.folderlink_custom_action[0])+inst.folderlink_custom_action[1])
+    config.setAttribute("timestamp_format", inst.timestamp_format)
     config.setAttribute("expand_tree", str(inst.expand_tree) )
     if not inst.expand_tree:
         get_tree_expanded_collapsed_string(inst)
