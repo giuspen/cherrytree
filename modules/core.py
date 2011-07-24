@@ -20,7 +20,7 @@
 #       MA 02110-1301, USA.
 
 import gtk, pango, gtksourceview2, gobject
-import sys, os, re, subprocess, webbrowser, base64, cgi, urllib2, shutil
+import sys, os, re, subprocess, webbrowser, base64, cgi, urllib2, shutil, time
 import cons, support, config, machines, clipboard, imports, exports, printing, tablez, lists, findreplace, codeboxes
 
 
@@ -3216,6 +3216,13 @@ class CherryTree:
         """Handle the Bookmarks List"""
         if support.bookmarks_handle(self):
             self.update_window_save_needed()
+    
+    def timestamp_insert(self, *args):
+        """Insert Timestamp"""
+        if self.curr_tree_iter == None:
+            support.dialog_warning(_("No Node is Selected"), self.window)
+            return
+        self.curr_buffer.insert_at_cursor(time.strftime(self.timestamp_format))
     
     def set_selection_at_offset_n_delta(self, offset, delta):
         """Set the Selection from given offset to offset+delta"""

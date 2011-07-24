@@ -143,6 +143,7 @@ STOCKS_N_FILES = {'Node Bullet':'node_bullet.png',
                   'Add SubNode':'tree-subnode-add.png',
                   'Help Contents':'help-contents.png',
                   'Index':'index.png',
+                  'Timestamp':'timestamp.png',
                   'Horizontal Rule':'horizontal_rule.png'}
 
 NODES_STOCKS = ['Node Bullet', 'Node NoIcon', 'Black Cherry',
@@ -184,6 +185,7 @@ UI_INFO = """
             <menuitem action='HandleLink'/>
             <menuitem action='HandleAnchor'/>
             <menuitem action='InsertTOC'/>
+            <menuitem action='Timestamp'/>
             <menuitem action='HorizontalRule'/>
             <separator/>
             <menu action='ChangeCaseMenu'>
@@ -395,6 +397,7 @@ def get_entries(inst):
     ( "ExitApp", "Quit App", _("_Exit CherryTree"), "<control><shift>Q", _("Exit from CherryTree"), inst.quit_application_totally),
     ( "Preferences", "gtk-preferences", _("_Preferences"), "<control><alt>P", _("Preferences"), inst.dialog_preferences),
     ( "HorizontalRule", "Horizontal Rule", _("Insert _Horizontal Rule"), "<control>R", _("Insert Horizontal Rule"), inst.horizontal_rule_insert),
+    ( "Timestamp", "Timestamp", _("Insert _Timestamp"), "<control>M", _("Insert Timestamp"), inst.timestamp_insert),
     ( "BulletedList", "Bulleted List", _("Set/Unset _Bulleted List"), None, _("Set/Unset the Current Paragraph/Selection as a Bulleted List"), inst.list_bulleted_handler),
     ( "NumberedList", "Numbered List", _("Set/Unset _Numbered List"), None, _("Set/Unset the Current Paragraph/Selection as a Numbered List"), inst.list_numbered_handler),
     ( "ToDoList", "ToDo List", _("Set/Unset _To-Do List"), None, _("Set/Unset the Current Paragraph/Selection as a To-Do List"), inst.list_todo_handler),
