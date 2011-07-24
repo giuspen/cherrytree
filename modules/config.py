@@ -154,7 +154,7 @@ def config_file_load(inst):
             if temp_str[:4] == "True": inst.folderlink_custom_action = [True, temp_str[4:]]
             else: inst.folderlink_custom_action = [False, temp_str[5:]]
         else: inst.folderlink_custom_action = [False, "xdg-open %s"]
-        inst.timestamp_format = dom_iter.attributes["timestamp_format"].value if dom_iter.hasAttribute("timestamp_format") else "%Y/%m/%d-%H:%M"
+        inst.timestamp_format = dom_iter.attributes["timestamp_format"].value if dom_iter.hasAttribute("timestamp_format") else "%Y/%m/%d - %H:%M"
         if dom_iter.hasAttribute("codebox_width"):
             inst.glade.spinbutton_codebox_width.set_value(int(dom_iter.attributes["codebox_width"].value))
         else: inst.glade.spinbutton_codebox_width.set_value(700)
@@ -217,7 +217,7 @@ def config_file_load(inst):
         inst.weblink_custom_action = [False, "firefox %s"]
         inst.filelink_custom_action = [False, "xdg-open %s"]
         inst.folderlink_custom_action = [False, "xdg-open %s"]
-        inst.timestamp_format = "%Y/%m/%d-%H:%M"
+        inst.timestamp_format = "%Y/%m/%d - %H:%M"
         inst.glade.spinbutton_codebox_width.set_value(700)
         inst.glade.spinbutton_codebox_height.set_value(100)
         inst.check_version = False
