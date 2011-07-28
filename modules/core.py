@@ -747,10 +747,11 @@ class CherryTree:
     def on_mouse_button_clicked_systray(self, widget, event):
         """Catches mouse buttons clicks upon the system tray icon"""
         if event.button == 1:
-            if self.window.get_property('visible'): self.window.hide()
+            if self.window.has_toplevel_focus(): self.window.hide()
             else:
                 self.window.show()
                 self.window.deiconify()
+                self.window.present()
         elif event.button == 3: self.ui.get_widget("/SysTrayMenu").popup(None, None, None, event.button, event.time)
 
     def node_id_get(self):
