@@ -1380,7 +1380,9 @@ class CherryTree:
         if father_iter != None: self.treeview.expand_row(self.treestore.get_path(father_iter), True)
         else: self.treeview.expand_row(self.treestore.get_path(new_node_iter), True)
         self.curr_tree_iter = new_node_iter
-        self.treeview.set_cursor(self.treestore.get_path(new_node_iter))
+        new_node_path = self.treestore.get_path(new_node_iter)
+        self.treeview.collapse_row(new_node_path)
+        self.treeview.set_cursor(new_node_path)
         self.update_window_save_needed()
 
     def node_move_children(self, old_father, new_father):
