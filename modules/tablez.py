@@ -59,17 +59,15 @@ class TablesHandler:
                                                filter_name=_("CSV File"),
                                                parent=self.dad.window)
         if filename == None: return
-        if not os.path.isfile(filename)\
-        or support.dialog_question(_("The File %s\nAlready Exists, do you want to Overwrite?") % filename, self.dad.window):
-            if len(filename) < 4 or filename[-4:] != ".csv": filename += ".csv"
-            self.dad.pick_dir = os.path.dirname(filename)
-            table_dict = self.dad.state_machine.table_to_dict(self.curr_table_anchor)
-            table_matrix = table_dict['matrix']
-            table_matrix.insert(0, table_matrix.pop())
-            file_descriptor = open(filename, "w")
-            writer = UnicodeWriter(file_descriptor)
-            writer.writerows(table_matrix)
-            file_descriptor.close()
+        if len(filename) < 4 or filename[-4:] != ".csv": filename += ".csv"
+        self.dad.pick_dir = os.path.dirname(filename)
+        table_dict = self.dad.state_machine.table_to_dict(self.curr_table_anchor)
+        table_matrix = table_dict['matrix']
+        table_matrix.insert(0, table_matrix.pop())
+        file_descriptor = open(filename, "w")
+        writer = UnicodeWriter(file_descriptor)
+        writer.writerows(table_matrix)
+        file_descriptor.close()
 
     def table_handle(self):
         """Insert Table"""

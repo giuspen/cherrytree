@@ -853,16 +853,14 @@ class CherryTree:
                                                    filter_name=_("CherryTree Document"),
                                                    curr_folder=self.file_dir,
                                                    parent=self.window)
-            if filepath != None:
-                if not os.path.isfile(filepath)\
-                or support.dialog_question(_("The File %s\nAlready Exists, do you want to Overwrite?") % filepath, self.window):
-                    filepath = self.filepath_extension_fix(filepath)
-                    if self.file_write(filepath):
-                        self.file_dir = os.path.dirname(filepath)
-                        self.file_name = os.path.basename(filepath)
-                        support.add_recent_document(self, filepath)
-                        self.update_window_save_not_needed()
-                        self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
+            if filepath == None: return
+            filepath = self.filepath_extension_fix(filepath)
+            if not self.file_write(filepath): return
+            self.file_dir = os.path.dirname(filepath)
+            self.file_name = os.path.basename(filepath)
+            support.add_recent_document(self, filepath)
+            self.update_window_save_not_needed()
+            self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
 
     def filepath_extension_fix(self, filepath):
         """Check a filepath to have the proper extension"""

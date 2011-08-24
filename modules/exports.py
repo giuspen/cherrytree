@@ -38,10 +38,7 @@ class Export2CTD:
                                                curr_folder=self.dad.file_dir,
                                                parent=self.dad.window)
         if filepath == None: return None
-        if not os.path.isfile(filepath)\
-        or support.dialog_question(_("The File %s\nAlready Exists, do you want to Overwrite?") % filepath, self.dad.window):
-            return self.dad.filepath_extension_fix(filepath)
-        return None
+        return self.dad.filepath_extension_fix(filepath)
 
     def nodes_all_export_to_ctd(self, filepath):
         """Export All Nodes To CTD"""
@@ -146,11 +143,8 @@ class Export2Txt:
                                                curr_folder=self.dad.file_dir,
                                                parent=self.dad.window)
         if filepath == None: return None
-        if not os.path.isfile(filepath)\
-        or support.dialog_question(_("The File %s\nAlready Exists, do you want to Overwrite?") % filepath, self.dad.window):
-            if len(filepath) < 4 or filepath[-4:] != ".txt": filepath += ".txt"
-            return filepath
-        return None
+        if len(filepath) < 4 or filepath[-4:] != ".txt": filepath += ".txt"
+        return filepath
 
     def prepare_txt_folder(self, new_folder):
         """Prepare the website folder"""
