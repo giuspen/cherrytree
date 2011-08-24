@@ -43,6 +43,7 @@ def dialog_file_save_as(filename=None, filter_pattern=None, filter_name=None, cu
     chooser = gtk.FileChooserDialog(title=_("Save File as"),
                                     action=gtk.FILE_CHOOSER_ACTION_SAVE,
                                     buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, gtk.STOCK_SAVE, gtk.RESPONSE_OK) )
+    chooser.set_do_overwrite_confirmation(True)
     if parent != None:
         chooser.set_transient_for(parent)
         chooser.set_property("modal", True)
