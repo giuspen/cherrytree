@@ -1,4 +1,17 @@
 
+0.22.2 (July 10th, 2011)
+• fixed bugs
+
+0.22.1 (June 23rd, 2011)
+• bugs fixed
+
+0.22 (June 7th, 2011)
+• fixed bugs
+• added the right click option ‘paste as plain text’ to the rich text nodes
+• added imports from tomboy and knowit
+• all the exports (pdf/html/txt/ctd) now offer the options: only current node / current node and subnodes / all the tree
+• implemented simple clickable to-do lists
+
 0.21.3 (May 3rd, 2011)
 • updated German language
 • fixed minor bugs
