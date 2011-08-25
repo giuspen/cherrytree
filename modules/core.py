@@ -2733,6 +2733,9 @@ class CherryTree:
                             if not self.apply_tag_try_automatic_bounds():
                                 support.dialog_warning(_("No Text is Selected"), self.window)
                                 return
+                            self.glade.link_website_entry.set_text("")
+                            self.glade.entry_file_to_link_to.set_text("")
+                            self.glade.link_anchor_entry.set_text("")
                         else:
                             vector = tag_property_value.split()
                             self.link_type = vector[0]
@@ -2940,7 +2943,7 @@ class CherryTree:
             filepath = support.dialog_file_select(curr_folder=self.pick_dir, parent=self.window)
         else: filepath = support.dialog_folder_select(curr_folder=self.pick_dir, parent=self.window)
         if filepath == None: return
-        if self.link_type[0] == "file": self.pick_dir = os.path.dirname(filepath)
+        if self.link_type == "file": self.pick_dir = os.path.dirname(filepath)
         self.glade.entry_file_to_link_to.set_text(filepath)
 
     def link_seek_for_anchor(self, anchor_name):
