@@ -836,7 +836,9 @@ class CherryTree:
                     self.sourceview.grab_focus()
                     self.curr_buffer.place_cursor(self.curr_buffer.get_iter_at_offset(self.cursor_position))
                     self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), 0.3)
-        else: self.file_name = ""
+        else:
+            self.file_name = ""
+            self.update_window_save_not_needed()
         self.file_update = False
 
     def on_modified_changed(self, sourcebuffer):
