@@ -1534,6 +1534,10 @@ class CherryTree:
         """Show the application's Home Page"""
         webbrowser.open("http://www.giuspen.com/cherrytree/")
 
+    def on_button_strftime_help_clicked(self, menuitem, data=None):
+        """Show the strftime Manual Page"""
+        webbrowser.open("http://linux.die.net/man/3/strftime")
+
     def on_spinbutton_tab_width_value_changed(self, spinbutton):
         """Tabs Width (in chars) Change Handling"""
         self.tabs_width = int(spinbutton.get_value())
