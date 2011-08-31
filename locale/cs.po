@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-08-30 00:28+0300\n"
-"PO-Revision-Date: 2011-06-02 19:06+0200\n"
-"Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
+"PO-Revision-Date: 2011-08-30 20:48+0200\n"
+"Last-Translator: Pavel Fric <fripohled.blogspot.com>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
@@ -644,14 +644,12 @@ msgid "Insert Horizontal Rule"
 msgstr "Vložit oddělovací čáru"
 
 #: modules/cons.py:400 modules/cons.py:590 modules/cons.py:628
-#, fuzzy
 msgid "Insert Ti_mestamp"
-msgstr "Vložit _obrázek"
+msgstr "Vložit časo_vé razítko"
 
 #: modules/cons.py:400 modules/cons.py:590 modules/cons.py:628
-#, fuzzy
 msgid "Insert Timestamp"
-msgstr "Vložit tabulku"
+msgstr "Vložit časové razítko"
 
 #: modules/cons.py:401 modules/cons.py:578
 msgid "Set/Unset _Bulleted List"
@@ -1620,12 +1618,11 @@ msgstr "<b>Volby</b>"
 
 #: glade/cherrytree.glade.h:32
 msgid "<b>Replace with</b>"
-msgstr "<b>Nahradit</b>"
+msgstr "<b>Nahrazení</b>"
 
 #: glade/cherrytree.glade.h:33
-#, fuzzy
 msgid "<b>Saving</b>"
-msgstr "<b>Velikost</b>"
+msgstr "<b>Ukládání</b>"
 
 #: glade/cherrytree.glade.h:34
 msgid "<b>Search options</b>"
@@ -1636,9 +1633,8 @@ msgid "<b>Size</b>"
 msgstr "<b>Velikost</b>"
 
 #: glade/cherrytree.glade.h:36
-#, fuzzy
 msgid "<b>System Tray</b>"
-msgstr "<b>Velikost</b>"
+msgstr "<b>Oznamovací oblast panelu</b>"
 
 #: glade/cherrytree.glade.h:37
 msgid "<b>Table size</b>"
@@ -1697,9 +1693,8 @@ msgid "Automatically Check for Newer Version"
 msgstr "Automaticky vyhledat novou verzi"
 
 #: glade/cherrytree.glade.h:51
-#, fuzzy
 msgid "Autosave Every"
-msgstr "Automaticky uložit každých "
+msgstr "Automaticky uložit každých"
 
 #: glade/cherrytree.glade.h:52
 msgid "Autosave on Quit"
@@ -1772,7 +1767,7 @@ msgstr "Smazat sloupec"
 
 #: glade/cherrytree.glade.h:72
 msgid "Detail of Available Format Codes"
-msgstr ""
+msgstr "Podrobnosti dostupných formátových kódů"
 
 #: glade/cherrytree.glade.h:73
 msgid "Display Tree on the Right Side"
@@ -1808,7 +1803,7 @@ msgstr "Rozbalit stavbu stromu při nahrání"
 
 #: glade/cherrytree.glade.h:81
 msgid "Find"
-msgstr ""
+msgstr "Najít"
 
 #: glade/cherrytree.glade.h:82
 msgid "First From Selection"
@@ -1847,13 +1842,12 @@ msgid "Insert Spaces Instead of Tabs"
 msgstr "Vložit mezery místo zarážek"
 
 #: glade/cherrytree.glade.h:91
-#, fuzzy
 msgid "Iterate Latest Find/Replace"
-msgstr "Zopakovat poslední nahrazení"
+msgstr "Zopakovat poslední hledání/nahrazení"
 
 #: glade/cherrytree.glade.h:94
 msgid "Limit of Undoable Steps Per Node"
-msgstr ""
+msgstr "Počet kroků zpět na uzel"
 
 #: glade/cherrytree.glade.h:95
 msgid "Match Case"
@@ -1864,9 +1858,8 @@ msgid "Min Width"
 msgstr "Nejmenší šířka"
 
 #: glade/cherrytree.glade.h:97
-#, fuzzy
 msgid "Minutes"
-msgstr " minut"
+msgstr "Minut"
 
 #: glade/cherrytree.glade.h:98
 msgid "Move Column Left"
@@ -1897,18 +1890,16 @@ msgid "Rename Column"
 msgstr "Přejmenovat sloupec"
 
 #: glade/cherrytree.glade.h:107
-#, fuzzy
 msgid "Replace"
-msgstr "_Nahrazení"
+msgstr "Nahradit"
 
 #: glade/cherrytree.glade.h:108
 msgid "Rows  "
 msgstr "Řádky "
 
 #: glade/cherrytree.glade.h:110
-#, fuzzy
 msgid "Show Iterated Find/Replace Dialog"
-msgstr "Zopakovat poslední nahrazení"
+msgstr "Ukázat dialog pro zopakování hledání/nahrazení"
 
 #: glade/cherrytree.glade.h:111
 msgid "Show Line Numbers"
@@ -1932,7 +1923,7 @@ msgstr "Písmo textu   "
 
 #: glade/cherrytree.glade.h:116
 msgid "Timestamp Format"
-msgstr ""
+msgstr "Formát časového razítka"
 
 #: glade/cherrytree.glade.h:117
 msgid "To File"
@@ -1959,13 +1950,12 @@ msgid "Tree Nodes Names Wrapping Width"
 msgstr "Největší šířka názvu uzlu před zalomením"
 
 #: glade/cherrytree.glade.h:123
-#, fuzzy
 msgid "Undo"
-msgstr "_Zpět"
+msgstr "Zpět"
 
 #: glade/cherrytree.glade.h:124
 msgid "Undo the Latest Replace"
-msgstr ""
+msgstr "Zpět poslední nahrazení"
 
 #: glade/cherrytree.glade.h:125
 msgid "Use Bullets as Nodes Icons"

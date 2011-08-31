@@ -637,14 +637,12 @@ msgid "Insert Horizontal Rule"
 msgstr "Dodaj poziomą linię"
 
 #: modules/cons.py:400 modules/cons.py:590 modules/cons.py:628
-#, fuzzy
 msgid "Insert Ti_mestamp"
-msgstr "Dodaj obrazek"
+msgstr "Dodaj date/godzine"
 
 #: modules/cons.py:400 modules/cons.py:590 modules/cons.py:628
-#, fuzzy
 msgid "Insert Timestamp"
-msgstr "Dodaj ta_bele"
+msgstr "Dodaj date/godzine"
 
 #: modules/cons.py:401 modules/cons.py:578
 msgid "Set/Unset _Bulleted List"
@@ -1617,9 +1615,8 @@ msgid "<b>Replace with</b>"
 msgstr "<b>Zamień na</b>"
 
 #: glade/cherrytree.glade.h:33
-#, fuzzy
 msgid "<b>Saving</b>"
-msgstr "<b>Rozmiar</b>"
+msgstr "<b>Zapisywanie</b>"
 
 #: glade/cherrytree.glade.h:34
 msgid "<b>Search options</b>"
@@ -1630,9 +1627,8 @@ msgid "<b>Size</b>"
 msgstr "<b>Rozmiar</b>"
 
 #: glade/cherrytree.glade.h:36
-#, fuzzy
 msgid "<b>System Tray</b>"
-msgstr "<b>Rozmiar</b>"
+msgstr "<b>Zasobnik systemowy</b>"
 
 #: glade/cherrytree.glade.h:37
 msgid "<b>Table size</b>"
@@ -1689,7 +1685,6 @@ msgid "Automatically Check for Newer Version"
 msgstr "Automatycznie sprawdź wersję"
 
 #: glade/cherrytree.glade.h:51
-#, fuzzy
 msgid "Autosave Every"
 msgstr "Autozapis co "
 
@@ -1763,7 +1758,7 @@ msgstr "Usuń kolumne"
 
 #: glade/cherrytree.glade.h:72
 msgid "Detail of Available Format Codes"
-msgstr ""
+msgstr "Szczegóły dostępnych kodów"
 
 #: glade/cherrytree.glade.h:73
 msgid "Display Tree on the Right Side"
@@ -1799,7 +1794,7 @@ msgstr "Rozwiń wszystkie gałęzi w czasie ładowania drzewa"
 
 #: glade/cherrytree.glade.h:81
 msgid "Find"
-msgstr ""
+msgstr "Znajdź"
 
 #: glade/cherrytree.glade.h:82
 msgid "First From Selection"
@@ -1838,13 +1833,12 @@ msgid "Insert Spaces Instead of Tabs"
 msgstr "Wstaw spacje zamiast tabulatorów"
 
 #: glade/cherrytree.glade.h:91
-#, fuzzy
 msgid "Iterate Latest Find/Replace"
-msgstr "Powtórz ostatnią zamianę"
+msgstr "Iteruj ostatnią zamianę"
 
 #: glade/cherrytree.glade.h:94
 msgid "Limit of Undoable Steps Per Node"
-msgstr ""
+msgstr "Ilość cofnięć dla każdej gałęzi"
 
 #: glade/cherrytree.glade.h:95
 msgid "Match Case"
@@ -1855,9 +1849,8 @@ msgid "Min Width"
 msgstr "Min szerokość"
 
 #: glade/cherrytree.glade.h:97
-#, fuzzy
 msgid "Minutes"
-msgstr " Minut"
+msgstr "Minut"
 
 #: glade/cherrytree.glade.h:98
 msgid "Move Column Left"
@@ -1888,18 +1881,16 @@ msgid "Rename Column"
 msgstr "Zmień nazwę kolumny"
 
 #: glade/cherrytree.glade.h:107
-#, fuzzy
 msgid "Replace"
-msgstr "_Zamień"
+msgstr "Zamień"
 
 #: glade/cherrytree.glade.h:108
 msgid "Rows  "
 msgstr "Wiersze  "
 
 #: glade/cherrytree.glade.h:110
-#, fuzzy
 msgid "Show Iterated Find/Replace Dialog"
-msgstr "Powtórz ostatnią zamianę"
+msgstr "Pokarz okno Znajdź/Zamien"
 
 #: glade/cherrytree.glade.h:111
 msgid "Show Line Numbers"
@@ -1923,7 +1914,7 @@ msgstr "Czcionka tekstu"
 
 #: glade/cherrytree.glade.h:116
 msgid "Timestamp Format"
-msgstr ""
+msgstr "Format czasu"
 
 #: glade/cherrytree.glade.h:117
 msgid "To File"
@@ -1950,13 +1941,12 @@ msgid "Tree Nodes Names Wrapping Width"
 msgstr "Szerokość załamywania nazwy gałęzi"
 
 #: glade/cherrytree.glade.h:123
-#, fuzzy
 msgid "Undo"
 msgstr "Cofnij"
 
 #: glade/cherrytree.glade.h:124
 msgid "Undo the Latest Replace"
-msgstr ""
+msgstr "Cofnij ostatnią zamiane"
 
 #: glade/cherrytree.glade.h:125
 msgid "Use Bullets as Nodes Icons"
