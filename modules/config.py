@@ -87,7 +87,7 @@ def config_file_load(inst):
             inst.spaces_instead_tabs = (dom_iter.attributes["spaces_instead_tabs"].value == "True")
         else: inst.spaces_instead_tabs = True
         if dom_iter.hasAttribute("tabs_width"): inst.tabs_width = int( dom_iter.attributes["tabs_width"].value )
-        else: inst.tabs_width = 3
+        else: inst.tabs_width = 4
         if dom_iter.hasAttribute("line_wrapping"):
             inst.line_wrapping = (dom_iter.attributes["line_wrapping"].value == "True")
         else: inst.line_wrapping = True
@@ -195,7 +195,7 @@ def config_file_load(inst):
         inst.show_line_numbers = False
         inst.syntax_highlighting = cons.CUSTOM_COLORS_ID
         inst.spaces_instead_tabs = True
-        inst.tabs_width = 3
+        inst.tabs_width = 4
         inst.line_wrapping = True
         inst.auto_indent = True
         inst.systray = False
