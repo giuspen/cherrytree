@@ -1769,7 +1769,7 @@ msgstr "Spalte löschen"
 
 #: glade/cherrytree.glade.h:72
 msgid "Detail of Available Format Codes"
-msgstr "Vorhandene Formatcodes"
+msgstr "Codes für die Formatierung von Zeitangaben"
 
 #: glade/cherrytree.glade.h:73
 msgid "Display Tree on the Right Side"
