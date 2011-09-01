@@ -1538,7 +1538,8 @@ class CherryTree:
 
     def on_button_strftime_help_clicked(self, menuitem, data=None):
         """Show the strftime Manual Page"""
-        webbrowser.open("http://linux.die.net/man/3/strftime")
+        page_lang = os.environ["LANGUAGE"] if os.environ["LANGUAGE"] in ["de", "es", "fr"] else ""
+        webbrowser.open("http://man.cx/strftime%283%29/" + page_lang)
 
     def on_spinbutton_tab_width_value_changed(self, spinbutton):
         """Tabs Width (in chars) Change Handling"""
