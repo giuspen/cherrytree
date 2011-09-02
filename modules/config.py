@@ -61,6 +61,7 @@ def config_file_load(inst):
             inst.cursor_position = int( dom_iter.attributes["cursor_position"].value ) if dom_iter.hasAttribute("cursor_position") else 0
         else: inst.node_path = None
         inst.hpaned_pos = int( dom_iter.attributes["hpaned_pos"].value ) if dom_iter.hasAttribute("hpaned_pos") else 170
+        inst.syntax_highlighting = dom_iter.attributes["syntax_highlighting"].value if dom_iter.hasAttribute("syntax_highlighting") else cons.CUSTOM_COLORS_ID
         inst.text_font = dom_iter.attributes["text_font"].value if dom_iter.hasAttribute("text_font") else "Sans 9" # default text font
         inst.tree_font = dom_iter.attributes["tree_font"].value if dom_iter.hasAttribute("tree_font") else "Sans 8" # default tree font
         inst.code_font = dom_iter.attributes["code_font"].value if dom_iter.hasAttribute("code_font") else "Monospace 9" # default code font
@@ -128,6 +129,7 @@ def config_file_load(inst):
         inst.file_dir = ""
         inst.file_name = ""
         inst.node_path = None
+        inst.syntax_highlighting = cons.CUSTOM_COLORS_ID
         inst.tree_font = "Sans 8" # default tree font
         inst.text_font = "Sans 9" # default text font
         inst.code_font = "Monospace 9" # default code font
@@ -259,6 +261,7 @@ def config_file_save(inst):
             path_list_of_str.append( str(element) )
         config.setAttribute("node_path", " ".join(path_list_of_str) )
         config.setAttribute("cursor_position", str(inst.curr_buffer.get_property('cursor-position') ) )
+    config.setAttribute("syntax_highlighting", inst.syntax_highlighting)
     config.setAttribute("text_font", inst.text_font)
     config.setAttribute("tree_font", inst.tree_font)
     config.setAttribute("code_font", inst.code_font)
