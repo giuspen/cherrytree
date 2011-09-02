@@ -37,9 +37,7 @@ def config_file_load(inst):
         if dom_iter.nodeName != "config":
             print "invalid config file!"
             return
-        if dom_iter.hasAttribute("win_is_maximized"):
-            inst.win_is_maximized = (dom_iter.attributes["win_is_maximized"].value == "True")
-        else: inst.win_is_maximized = False
+        inst.win_is_maximized = (dom_iter.attributes["win_is_maximized"].value == "True") if dom_iter.hasAttribute("win_is_maximized") else False
         # restore window size and position
         if inst.win_is_maximized: inst.window.maximize()
         else:
@@ -51,108 +49,59 @@ def config_file_load(inst):
                 win_position = [int(dom_iter.attributes["win_position_x"].value),
                                 int(dom_iter.attributes["win_position_y"].value)]
                 inst.window.move(win_position[0], win_position[1])
-        if dom_iter.hasAttribute("toolbar_visible") and dom_iter.attributes["toolbar_visible"].value == "False":
-            inst.toolbar_visible = False
-        else: inst.toolbar_visible = True
-        if dom_iter.hasAttribute("file_dir"): inst.file_dir = dom_iter.attributes["file_dir"].value
-        else: inst.file_dir = ""
-        if dom_iter.hasAttribute("file_name"): inst.file_name = dom_iter.attributes["file_name"].value
-        else: inst.file_name = ""
+        inst.toolbar_visible = False if dom_iter.hasAttribute("toolbar_visible") and dom_iter.attributes["toolbar_visible"].value == "False" else True
+        inst.file_dir = dom_iter.attributes["file_dir"].value if dom_iter.hasAttribute("file_dir") else ""
+        inst.file_name = dom_iter.attributes["file_name"].value if dom_iter.hasAttribute("file_name") else ""
         if dom_iter.hasAttribute("node_path"):
             # restor the selected node
             str_path_list_of_str = dom_iter.attributes["node_path"].value
             path_list_of_str = str_path_list_of_str.split()
-            path_list_of_int = []
-            for element in path_list_of_str: path_list_of_int.append( int(element) )
+            path_list_of_int = [int(element) for element in path_list_of_str]
             inst.node_path = tuple(path_list_of_int)
-            if dom_iter.hasAttribute("cursor_position"):
-                inst.cursor_position = int( dom_iter.attributes["cursor_position"].value )
+            inst.cursor_position = int( dom_iter.attributes["cursor_position"].value ) if dom_iter.hasAttribute("cursor_position") else 0
         else: inst.node_path = None
-        if dom_iter.hasAttribute("hpaned_pos"):
-            inst.hpaned_pos = int( dom_iter.attributes["hpaned_pos"].value )
-        else: inst.hpaned_pos = 170
-        if dom_iter.hasAttribute("text_font"): inst.text_font = dom_iter.attributes["text_font"].value
-        else: inst.text_font = "Sans 9" # default text font
-        if dom_iter.hasAttribute("tree_font"): inst.tree_font = dom_iter.attributes["tree_font"].value
-        else: inst.tree_font = "Sans 8" # default tree font
-        if dom_iter.hasAttribute("code_font"): inst.code_font = dom_iter.attributes["code_font"].value
-        else: inst.code_font = "Monospace 9" # default code font
-        if dom_iter.hasAttribute("show_line_numbers"):
-            inst.show_line_numbers = (dom_iter.attributes["show_line_numbers"].value == "True")
-        else: inst.show_line_numbers = False
-        if dom_iter.hasAttribute("syntax_highlighting"):
-            inst.syntax_highlighting = dom_iter.attributes["syntax_highlighting"].value
-        else: inst.syntax_highlighting = cons.CUSTOM_COLORS_ID
-        if dom_iter.hasAttribute("spaces_instead_tabs"):
-            inst.spaces_instead_tabs = (dom_iter.attributes["spaces_instead_tabs"].value == "True")
-        else: inst.spaces_instead_tabs = True
-        if dom_iter.hasAttribute("tabs_width"): inst.tabs_width = int( dom_iter.attributes["tabs_width"].value )
-        else: inst.tabs_width = 4
-        if dom_iter.hasAttribute("line_wrapping"):
-            inst.line_wrapping = (dom_iter.attributes["line_wrapping"].value == "True")
-        else: inst.line_wrapping = True
-        if dom_iter.hasAttribute("auto_indent"): inst.auto_indent = (dom_iter.attributes["auto_indent"].value == "True")
-        else: inst.auto_indent = True
-        if dom_iter.hasAttribute("systray"): inst.systray = (dom_iter.attributes["systray"].value == "True")
-        else: inst.systray = False
+        inst.hpaned_pos = int( dom_iter.attributes["hpaned_pos"].value ) if dom_iter.hasAttribute("hpaned_pos") else 170
+        inst.text_font = dom_iter.attributes["text_font"].value if dom_iter.hasAttribute("text_font") else "Sans 9" # default text font
+        inst.tree_font = dom_iter.attributes["tree_font"].value if dom_iter.hasAttribute("tree_font") else "Sans 8" # default tree font
+        inst.code_font = dom_iter.attributes["code_font"].value if dom_iter.hasAttribute("code_font") else "Monospace 9" # default code font
+        inst.show_line_numbers = (dom_iter.attributes["show_line_numbers"].value == "True") if dom_iter.hasAttribute("show_line_numbers") else False
+        inst.spaces_instead_tabs = (dom_iter.attributes["spaces_instead_tabs"].value == "True") if dom_iter.hasAttribute("spaces_instead_tabs") else True
+        inst.tabs_width = int( dom_iter.attributes["tabs_width"].value ) if dom_iter.hasAttribute("tabs_width") else 4
+        inst.line_wrapping = (dom_iter.attributes["line_wrapping"].value == "True") if dom_iter.hasAttribute("line_wrapping") else True
+        inst.auto_indent = (dom_iter.attributes["auto_indent"].value == "True") if dom_iter.hasAttribute("auto_indent") else True
+        inst.systray = (dom_iter.attributes["systray"].value == "True") if dom_iter.hasAttribute("systray") else False
         if dom_iter.hasAttribute("autosave") and dom_iter.hasAttribute("autosave_val"):
             inst.autosave = [(dom_iter.attributes["autosave"].value == "True"),
                              int(dom_iter.attributes["autosave_val"].value)]
         else: inst.autosave = [False, 5]
-        if dom_iter.hasAttribute("expand_tree"): inst.expand_tree = (dom_iter.attributes["expand_tree"].value == "True")
-        else: inst.expand_tree = False
-        if dom_iter.hasAttribute("expanded_collapsed_string"):
-            inst.expanded_collapsed_string = dom_iter.attributes["expanded_collapsed_string"].value
-        else: inst.expanded_collapsed_string = ""
-        if dom_iter.hasAttribute("pick_dir"): inst.pick_dir = dom_iter.attributes["pick_dir"].value
-        else: inst.pick_dir = ""
-        if dom_iter.hasAttribute("link_type"): inst.link_type = dom_iter.attributes["link_type"].value
-        else: inst.link_type = "webs"
-        if dom_iter.hasAttribute("show_node_name_label"):
-            inst.show_node_name_label = (dom_iter.attributes["show_node_name_label"].value == "True")
-        else: inst.show_node_name_label = True
-        if dom_iter.hasAttribute("table_rows"):
-            inst.table_rows = int(dom_iter.attributes["table_rows"].value)
-        else: inst.table_rows = 3
-        if dom_iter.hasAttribute("table_columns"):
-            inst.table_columns = int(dom_iter.attributes["table_columns"].value)
-        else: inst.table_columns = 3
+        inst.expand_tree = (dom_iter.attributes["expand_tree"].value == "True") if dom_iter.hasAttribute("expand_tree") else False
+        inst.expanded_collapsed_string = dom_iter.attributes["expanded_collapsed_string"].value if dom_iter.hasAttribute("expanded_collapsed_string") else ""
+        inst.pick_dir = dom_iter.attributes["pick_dir"].value if dom_iter.hasAttribute("pick_dir") else ""
+        inst.link_type = dom_iter.attributes["link_type"].value if dom_iter.hasAttribute("link_type") else "webs"
+        inst.show_node_name_label = (dom_iter.attributes["show_node_name_label"].value == "True") if dom_iter.hasAttribute("show_node_name_label") else True
+        inst.table_rows = int(dom_iter.attributes["table_rows"].value) if dom_iter.hasAttribute("table_rows") else 3
+        inst.table_columns = int(dom_iter.attributes["table_columns"].value) if dom_iter.hasAttribute("table_columns") else 3
         if dom_iter.hasAttribute("toolbar_icon_size"):
             inst.toolbar_icon_size = int( dom_iter.attributes["toolbar_icon_size"].value )
             if inst.toolbar_icon_size not in ICONS_SIZE: inst.toolbar_icon_size = 1
         else: inst.toolbar_icon_size = 1
-        if dom_iter.hasAttribute("table_column_mode"):
-            inst.table_column_mode = dom_iter.attributes["table_column_mode"].value
-        else: inst.table_column_mode = "rename"
-        if dom_iter.hasAttribute("table_col_min"):
-            inst.table_col_min = int(dom_iter.attributes["table_col_min"].value)
-        else: inst.table_col_min = 40
-        if dom_iter.hasAttribute("table_col_max"):
-            inst.table_col_max = int(dom_iter.attributes["table_col_max"].value)
-        else: inst.table_col_max = 60
-        if dom_iter.hasAttribute("limit_undoable_steps"):
-            inst.limit_undoable_steps = int(dom_iter.attributes["limit_undoable_steps"].value)
-        else: inst.limit_undoable_steps = 20
-        if dom_iter.hasAttribute("cherry_wrap_width"):
-            inst.cherry_wrap_width = int(dom_iter.attributes["cherry_wrap_width"].value)
-        else: inst.cherry_wrap_width = 130
-        if dom_iter.hasAttribute("start_on_systray"):
-            inst.start_on_systray = (dom_iter.attributes["start_on_systray"].value == "True")
-        else: inst.start_on_systray = False
+        inst.table_column_mode = dom_iter.attributes["table_column_mode"].value if dom_iter.hasAttribute("table_column_mode") else "rename"
+        inst.table_col_min = int(dom_iter.attributes["table_col_min"].value) if dom_iter.hasAttribute("table_col_min") else 40
+        inst.table_col_max = int(dom_iter.attributes["table_col_max"].value) if dom_iter.hasAttribute("table_col_max") else 60
+        inst.limit_undoable_steps = int(dom_iter.attributes["limit_undoable_steps"].value) if dom_iter.hasAttribute("limit_undoable_steps") else 20
+        inst.cherry_wrap_width = int(dom_iter.attributes["cherry_wrap_width"].value) if dom_iter.hasAttribute("cherry_wrap_width") else 130
+        inst.start_on_systray = (dom_iter.attributes["start_on_systray"].value == "True") if dom_iter.hasAttribute("start_on_systray") else False
         if dom_iter.hasAttribute("weblink_custom_action"):
             temp_str = dom_iter.attributes["weblink_custom_action"].value
-            if temp_str[:4] == "True": inst.weblink_custom_action = [True, temp_str[4:]]
-            else: inst.weblink_custom_action = [False, temp_str[5:]]
+            inst.weblink_custom_action = [True, temp_str[4:]] if temp_str[:4] == "True" else [False, temp_str[5:]]
         else: inst.weblink_custom_action = [False, "firefox %s"]
         if dom_iter.hasAttribute("filelink_custom_action"):
             temp_str = dom_iter.attributes["filelink_custom_action"].value
-            if temp_str[:4] == "True": inst.filelink_custom_action = [True, temp_str[4:]]
-            else: inst.filelink_custom_action = [False, temp_str[5:]]
+            inst.filelink_custom_action = [True, temp_str[4:]] if temp_str[:4] == "True" else [False, temp_str[5:]]
         else: inst.filelink_custom_action = [False, "xdg-open %s"]
         if dom_iter.hasAttribute("folderlink_custom_action"):
             temp_str = dom_iter.attributes["folderlink_custom_action"].value
-            if temp_str[:4] == "True": inst.folderlink_custom_action = [True, temp_str[4:]]
-            else: inst.folderlink_custom_action = [False, temp_str[5:]]
+            inst.folderlink_custom_action = [True, temp_str[4:]] if temp_str[:4] == "True" else [False, temp_str[5:]]
         else: inst.folderlink_custom_action = [False, "xdg-open %s"]
         inst.timestamp_format = dom_iter.attributes["timestamp_format"].value if dom_iter.hasAttribute("timestamp_format") else "%Y/%m/%d - %H:%M"
         if dom_iter.hasAttribute("codebox_width"):
@@ -164,21 +113,11 @@ def config_file_load(inst):
         if dom_iter.hasAttribute("codebox_width_pixels"):
             inst.glade.radiobutton_codebox_pixels.set_active(dom_iter.attributes["codebox_width_pixels"].value == "True")
             inst.glade.radiobutton_codebox_percent.set_active(dom_iter.attributes["codebox_width_pixels"].value != "True")
-        if dom_iter.hasAttribute("check_version"):
-            inst.check_version = (dom_iter.attributes["check_version"].value == "True")
-        else: inst.check_version = False
-        if dom_iter.hasAttribute("backup_copy"):
-            inst.backup_copy = (dom_iter.attributes["backup_copy"].value == "True")
-        else: inst.backup_copy = True
-        if dom_iter.hasAttribute("autosave_on_quit"):
-            inst.autosave_on_quit = (dom_iter.attributes["autosave_on_quit"].value == "True")
-        else: inst.autosave_on_quit = False
-        if dom_iter.hasAttribute("tree_right_side"):
-            inst.tree_right_side = (dom_iter.attributes["tree_right_side"].value == "True")
-        else: inst.tree_right_side = False
-        if dom_iter.hasAttribute("nodes_icons"):
-            inst.nodes_icons = dom_iter.attributes["nodes_icons"].value
-        else: inst.nodes_icons = "c"
+        inst.check_version = (dom_iter.attributes["check_version"].value == "True") if dom_iter.hasAttribute("check_version") else False
+        inst.backup_copy = (dom_iter.attributes["backup_copy"].value == "True") if dom_iter.hasAttribute("backup_copy") else True
+        inst.autosave_on_quit = (dom_iter.attributes["autosave_on_quit"].value == "True") if dom_iter.hasAttribute("autosave_on_quit") else False
+        inst.tree_right_side = (dom_iter.attributes["tree_right_side"].value == "True") if dom_iter.hasAttribute("tree_right_side") else False
+        inst.nodes_icons = dom_iter.attributes["nodes_icons"].value if dom_iter.hasAttribute("nodes_icons") else "c"
         inst.recent_docs = []
         if dom_iter.hasAttribute("recent_docs"):
             temp_recent_docs = dom_iter.attributes["recent_docs"].value.split(cons.CHAR_SPACE)
@@ -193,7 +132,6 @@ def config_file_load(inst):
         inst.text_font = "Sans 9" # default text font
         inst.code_font = "Monospace 9" # default code font
         inst.show_line_numbers = False
-        inst.syntax_highlighting = cons.CUSTOM_COLORS_ID
         inst.spaces_instead_tabs = True
         inst.tabs_width = 4
         inst.line_wrapping = True
@@ -325,7 +263,6 @@ def config_file_save(inst):
     config.setAttribute("tree_font", inst.tree_font)
     config.setAttribute("code_font", inst.code_font)
     config.setAttribute("show_line_numbers", str(inst.show_line_numbers) )
-    config.setAttribute("syntax_highlighting", inst.syntax_highlighting)
     config.setAttribute("spaces_instead_tabs", str(inst.spaces_instead_tabs) )
     config.setAttribute("tabs_width", str(inst.tabs_width) )
     config.setAttribute("line_wrapping", str(inst.line_wrapping) )
