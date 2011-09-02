@@ -173,6 +173,7 @@ class CherryTree:
         self.nodes_names_dict = {}
         self.password = None
         self.curr_tree_iter = None
+        self.syntax_highlighting = cons.CUSTOM_COLORS_ID
         self.curr_window_n_tree_width = None
         self.curr_buffer = None
         self.curr_colors = {'f':None, 'b':None}
