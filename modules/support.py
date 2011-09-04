@@ -294,6 +294,7 @@ def bookmarks_handle(dad):
     dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
     liststore = gtk.ListStore(str, str, str)
     for node_id_str in dad.bookmarks:
+        # icon, node name, node id string
         liststore.append(["Red Cherry", dad.nodes_names_dict[long(node_id_str)], node_id_str])
     treeview = gtk.TreeView(liststore)
     treeview.set_headers_visible(False)
@@ -305,7 +306,15 @@ def bookmarks_handle(dad):
         if keyname == "Delete":
             model, tree_iter = treeviewselection.get_selected()
             if tree_iter: model.remove(tree_iter)
+    def on_mouse_button_clicked_liststore(widget, event):
+        """Catches mouse buttons clicks"""
+        if event.button != 1: return
+        if event.type != gtk.gdk._2BUTTON_PRESS: return
+        tree_path = treeview.get_path_at_pos(int(event.x), int(event.y))[0]
+        dad_tree_path = dad.get_tree_iter_from_node_id(long(liststore[tree_path][2]))
+        dad.treeview_safe_set_cursor(dad_tree_path)
     treeview.connect('key_press_event', on_key_press_liststore)
+    treeview.connect('button-press-event', on_mouse_button_clicked_liststore)
     renderer_pixbuf = gtk.CellRendererPixbuf()
     renderer_text = gtk.CellRendererText()
     column = gtk.TreeViewColumn()
