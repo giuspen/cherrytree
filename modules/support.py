@@ -310,7 +310,9 @@ def bookmarks_handle(dad):
         """Catches mouse buttons clicks"""
         if event.button != 1: return
         if event.type != gtk.gdk._2BUTTON_PRESS: return
-        tree_path = treeview.get_path_at_pos(int(event.x), int(event.y))[0]
+        path_n_tvc = treeview.get_path_at_pos(int(event.x), int(event.y))
+        if not path_n_tvc: return
+        tree_path = path_n_tvc[0]
         dad_tree_path = dad.get_tree_iter_from_node_id(long(liststore[tree_path][2]))
         dad.treeview_safe_set_cursor(dad_tree_path)
     treeview.connect('key_press_event', on_key_press_liststore)
