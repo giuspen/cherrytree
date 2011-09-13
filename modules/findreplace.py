@@ -297,13 +297,15 @@ class FindReplace:
             else: num_objs = 0
             self.dad.set_selection_at_offset_n_delta(match_offsets[0] + num_objs,
                                                      match_offsets[1] - match_offsets[0])
-            self.dad.sourceview.scroll_to_mark(self.dad.curr_buffer.get_insert(), 0.25)
+            mark_insert = self.dad.curr_buffer.get_insert()
+            iter_insert = self.dad.curr_buffer.get_iter_at_mark(mark_insert)
+            self.dad.sourceview.scroll_to_mark(mark_insert, 0.25)
             if all_matches:
                 self.liststore.append([self.dad.curr_tree_iter,
                                        match_offsets[0] + num_objs,
                                        match_offsets[1] + num_objs,
                                        self.dad.treestore[self.dad.curr_tree_iter][1],
-                                       self.get_line_content(target) if not obj_match_offsets[0] else obj_match_offsets[2]])
+                                       self.get_line_content(iter_insert) if not obj_match_offsets[0] else obj_match_offsets[2]])
             if self.replace_active:
                 replacer_text = self.dad.glade.replace_entry.get_text().decode("utf-8")
                 self.dad.curr_buffer.delete_selection(interactive=False, default_editable=True)
