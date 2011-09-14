@@ -310,8 +310,9 @@ class FindReplace:
                 replacer_text = self.dad.glade.replace_entry.get_text().decode("utf-8")
                 self.dad.curr_buffer.delete_selection(interactive=False, default_editable=True)
                 self.dad.curr_buffer.insert_at_cursor(replacer_text)
-                self.dad.set_selection_at_offset_n_delta(match_offsets[0] + num_objs,
-                                                         len(replacer_text))
+                if not all_matches:
+                    self.dad.set_selection_at_offset_n_delta(match_offsets[0] + num_objs,
+                                                             len(replacer_text))
                 self.dad.state_machine.update_state(self.dad.treestore[self.dad.curr_tree_iter][3])
             return True
         else: return False
