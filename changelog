@@ -1,4 +1,10 @@
 
+0.23 (September 4th, 2011)
+• the limit of undoable steps per node is now configurable (lower the limit to save ram)
+• implemented a dialog to iterate graphical way the find/replace (before it was possible only through keyboard shortcuts)
+• implemented the insertion of timestamps. the timestamp format is configurable through preferences dialog
+• fixed some bugs/bad behaviors related to system tray, nodes drag n drop, links to files dialog and others
+
 0.22.2 (July 10th, 2011)
 • fixed bugs
 
