@@ -40,6 +40,16 @@ class CherryTreeDist(Distribution):
 class BuildData(build):
     def run(self):
         build.run(self)
+        cherrytree_man_file = "linux/cherrytree.1"
+        cherrytree_man_file_gz = cherrytree_man_file + ".gz"
+        if newer(cherrytree_man_file, cherrytree_man_file_gz):
+            if os.path.isfile(cherrytree_man_file_gz): os.remove(cherrytree_man_file_gz)
+            import gzip
+            f_in = open(cherrytree_man_file, 'rb')
+            f_out = gzip.open(cherrytree_man_file_gz, 'wb')
+            f_out.writelines(f_in)
+            f_out.close()
+            f_in.close()
         if self.distribution.without_gettext: return
         for po in glob.glob(os.path.join (PO_DIR, '*.po')):
             lang = os.path.basename(po[:-3])
@@ -184,7 +194,8 @@ else:
                       ("share/cherrytree/modules", glob.glob("modules/*.py") ),
                       ("share/mime/packages", ["linux/cherrytree.xml"]),
                       ("share/mime-info", ["linux/cherrytree.mime", "linux/cherrytree.keys"]),
-                      ("share/application-registry", ["linux/cherrytree.applications"])
+                      ("share/application-registry", ["linux/cherrytree.applications"]),
+                      ("share/man/man1", ["linux/cherrytree.1.gz"])
                    ],
        cmdclass={
             'build': BuildData,
