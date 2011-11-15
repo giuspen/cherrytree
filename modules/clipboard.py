@@ -300,9 +300,10 @@ class ClipboardHandler:
             pixbuf = gtk.gdk.pixbuf_new_from_file(cons.ANCHOR_CHAR)
             pixbuf.anchor = dom_node.attributes["anchor"].value
         else: pixbuf = machines.get_pixbuf_from_encoded_buffer(dom_node.firstChild.data)
-        self.dad.image_insert(self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert()),
-                              pixbuf,
-                              justification)
+        if pixbuf:
+            self.dad.image_insert(self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert()),
+                                  pixbuf,
+                                  justification)
 
     def to_codebox(self, clipboard, selectiondata, data):
         """From Clipboard to CodeBox"""
