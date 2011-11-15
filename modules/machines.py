@@ -33,9 +33,11 @@ def get_encoded_buffer_from_pixbuf(pixbuf):
 def get_pixbuf_from_encoded_buffer(buffer):
     """Encoded Buffer To Pixbuf"""
     pixbuf_loader = gtk.gdk.pixbuf_loader_new_with_mime_type("image/png")
-    pixbuf_loader.write(base64.b64decode(buffer))
-    pixbuf_loader.close()
-    pixbuf = pixbuf_loader.get_pixbuf()
+    try:
+        pixbuf_loader.write(base64.b64decode(buffer))
+        pixbuf_loader.close()
+        pixbuf = pixbuf_loader.get_pixbuf()
+    except: pixbuf = None
     return pixbuf
 
 def get_pixbuf_from_png_encoded_string(png_encoded_string):
@@ -193,7 +195,7 @@ class XMLHandler:
             if version == 2: pixbuf = get_pixbuf_from_encoded_buffer(dom_node.firstChild.data)
             else: pixbuf = get_pixbuf_from_png_encoded_string(dom_node.firstChild.data)
         self.dad.curr_buffer = curr_buffer # the apply_tag method will need this
-        self.dad.image_insert(curr_buffer.get_iter_at_offset(char_offset), pixbuf, justification)
+        if pixbuf: self.dad.image_insert(curr_buffer.get_iter_at_offset(char_offset), pixbuf, justification)
 
     def rich_text_deserialize(self, curr_buffer, dom_node):
         """From the XML rich text to the SourceBuffer"""
