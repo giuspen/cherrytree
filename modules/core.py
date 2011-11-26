@@ -21,6 +21,10 @@
 
 import gtk, pango, gtksourceview2, gobject
 import sys, os, re, subprocess, webbrowser, base64, cgi, urllib2, shutil, time
+try:
+    import appindicator
+    HAS_APPINDICATOR = True
+except: HAS_APPINDICATOR = False
 import cons, support, config, machines, clipboard, imports, exports, printing, tablez, lists, findreplace, codeboxes
 
 
@@ -739,10 +743,17 @@ class CherryTree:
 
     def status_icon_enable(self):
         """Creates the Stats Icon"""
-        self.status_icon = gtk.StatusIcon()
-        self.status_icon.set_from_stock("CherryTree")
-        self.status_icon.connect('button-press-event', self.on_mouse_button_clicked_systray)
-        self.status_icon.set_tooltip(_("CherryTree Hierarchical Note Taking"))
+        if HAS_APPINDICATOR:
+            self.ind = appindicator.Indicator("cherrytree", "indicator-messages", appindicator.CATEGORY_APPLICATION_STATUS)
+            self.ind.set_status(appindicator.STATUS_ACTIVE)
+            self.ind.set_attention_icon("indicator-messages-new")
+            self.ind.set_icon("cherrytree")
+            self.ind.set_menu(self.ui.get_widget("/SysTrayMenu"))
+        else:
+            self.status_icon = gtk.StatusIcon()
+            self.status_icon.set_from_stock("CherryTree")
+            self.status_icon.connect('button-press-event', self.on_mouse_button_clicked_systray)
+            self.status_icon.set_tooltip(_("CherryTree Hierarchical Note Taking"))
 
     def on_mouse_button_clicked_systray(self, widget, event):
         """Catches mouse buttons clicks upon the system tray icon"""
@@ -1595,12 +1606,17 @@ class CherryTree:
         if not self.user_active: return
         self.systray = checkbutton.get_active()
         if self.systray:
-            if "status_icon" in dir(self): self.status_icon.set_property('visible', True)
-            else: self.status_icon_enable()
+            if not HAS_APPINDICATOR:
+                if "status_icon" in dir(self): self.status_icon.set_property('visible', True)
+                else: self.status_icon_enable()
+            else:
+                if "ind" in dir(self): self.ind.set_status(appindicator.STATUS_ACTIVE)
+                else: self.status_icon_enable()
             self.ui.get_widget("/MenuBar/FileMenu/ExitApp").set_property('visible', True)
             self.glade.checkbutton_start_on_systray.set_sensitive(True)
         else:
-            self.status_icon.set_property('visible', False)
+            if not HAS_APPINDICATOR: self.status_icon.set_property('visible', False)
+            else: self.ind.set_status(appindicator.STATUS_PASSIVE)
             self.ui.get_widget("/MenuBar/FileMenu/ExitApp").set_property('visible', False)
             self.glade.checkbutton_start_on_systray.set_sensitive(False)
 
@@ -2251,7 +2267,7 @@ class CherryTree:
             return
         config.config_file_save(self)
         self.window.destroy()
-        if "status_icon" in dir(self): self.status_icon.set_visible(False)
+        if not HAS_APPINDICATOR and "status_icon" in dir(self): self.status_icon.set_visible(False)
 
     def on_window_delete_event(self, widget, event, data=None):
         """Before close the application (from the window top right X)..."""
