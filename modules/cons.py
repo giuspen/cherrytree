@@ -325,6 +325,7 @@ UI_INFO = """
     </toolbar>
 
     <popup name='SysTrayMenu'>
+        <menuitem action='ShowHideMainWin'/>
         <menuitem action='ExitApp'/>
     </popup>
 
@@ -453,6 +454,7 @@ def get_entries(inst):
     ( "ReplaceAgain", "Find Replace", _("Replace _Again"), "F6", _("Iterate the Last Replace Operation"), inst.replace_again),
     ( "ShowHideNodeNameHeader", "Node Name Header", _("Show/Hide Node Name _Header"), None, _("Toggle Show/Hide Node Name Header"), inst.toggle_show_hide_node_name_header),
     ( "ShowHideTree", "Tree", _("Show/Hide _Tree"), "F9", _("Toggle Show/Hide Tree"), inst.toggle_show_hide_tree),
+    ( "ShowHideMainWin", "CherryTree", _("Show/Hide _CherryTree"), None, _("Toggle Show/Hide CherryTree"), inst.toggle_show_hide_main_window),
     ( "ShowHideToolbar", "Toolbar", _("Show/Hide Tool_bar"), None, _("Toggle Show/Hide Toolbar"), inst.toggle_show_hide_toolbar),
     ( "IncreaseToolbarIconsSize", "gtk-add", _("_Increase Toolbar Icons Size"), None, _("Increase the Size of the Toolbar Icons"), inst.toolbar_icons_size_increase),
     ( "DecreaseToolbarIconsSize", "gtk-remove", _("_Decrease Toolbar Icons Size"), None, _("Decrease the Size of the Toolbar Icons"), inst.toolbar_icons_size_decrease),

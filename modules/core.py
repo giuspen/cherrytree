@@ -755,14 +755,16 @@ class CherryTree:
             self.status_icon.connect('button-press-event', self.on_mouse_button_clicked_systray)
             self.status_icon.set_tooltip(_("CherryTree Hierarchical Note Taking"))
 
+    def toggle_show_hide_main_window(self, *args):
+        if self.window.has_toplevel_focus(): self.window.hide()
+        else:
+            self.window.show()
+            self.window.deiconify()
+            self.window.present()
+
     def on_mouse_button_clicked_systray(self, widget, event):
         """Catches mouse buttons clicks upon the system tray icon"""
-        if event.button == 1:
-            if self.window.has_toplevel_focus(): self.window.hide()
-            else:
-                self.window.show()
-                self.window.deiconify()
-                self.window.present()
+        if event.button == 1: self.toggle_show_hide_main_window()
         elif event.button == 3: self.ui.get_widget("/SysTrayMenu").popup(None, None, None, event.button, event.time)
 
     def node_id_get(self):
