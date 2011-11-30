@@ -326,6 +326,7 @@ UI_INFO = """
 
     <popup name='SysTrayMenu'>
         <menuitem action='ShowHideMainWin'/>
+        <separator/>
         <menuitem action='ExitApp'/>
     </popup>
 
