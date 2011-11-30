@@ -75,8 +75,13 @@ class CherryTree:
             iconset = gtk.IconSet(pixbuf)
             factory.add(stock_name, iconset)
         factory.add_default()
-        try: gtk.settings_get_default().set_property("gtk-button-images", True)
-        except: pass # older gtk do not have the property "gtk-button-images"
+        # system settings
+        try:
+            gtk_settings = gtk.settings_get_default()
+            gtk_settings.set_property("gtk-button-images", True)
+            gtk_settings.set_property("gtk-menu-images", True)
+        except: pass # older gtk do not have the property "gtk-menu-images"
+        os.environ['UBUNTU_MENUPROXY'] = '0' # cherrytree has custom stock icons not visible in appmenu
         # glade
         self.glade = GladeWidgetsWrapper(cons.GLADE_PATH + 'cherrytree.glade', self) # glade widgets access
         self.window = self.glade.window
