@@ -23,6 +23,22 @@ import gtk, os
 import cons
 
 
+def text_file_rm_emptylines(filepath):
+    """Remove empty lines in a text file"""
+    overwrite_needed = False
+    fd = open(filepath, 'r')
+    file_lines = []
+    for file_line in fd:
+        if file_line not in ["\r\n", "\n\r", cons.CHAR_NEWLINE]:
+            file_lines.append(file_line)
+        else: overwrite_needed = True
+    fd.close()
+    if overwrite_needed:
+        print filepath, "empty lines removed"
+        fd = open(filepath, 'w')
+        fd.writelines(file_lines)
+        fd.close()
+
 def get_node_hierarchical_name(dad, tree_iter):
     """Get the Node Hierarchical Name"""
     hierarchical_name = dad.treestore[tree_iter][1]
