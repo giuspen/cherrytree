@@ -94,7 +94,8 @@ class TablesHandler:
                                                   parent=self.dad.window)
             if filepath != None:
                 self.dad.pick_dir = os.path.dirname(filepath)
-                file_descriptor = open(filepath, "r")
+                support.text_file_rm_emptylines(filepath)
+                file_descriptor = open(filepath, 'r')
                 reader = UnicodeReader(file_descriptor)
                 table_matrix = []
                 row = reader.next()
@@ -405,7 +406,7 @@ class UnicodeReader:
     A CSV reader which will iterate over lines in the CSV file "f",
     which is encoded in the given encoding.
     """
-    def __init__(self, f, dialect=csv.excel, encoding="raw_unicode_escape", **kwds):
+    def __init__(self, f, dialect=csv.excel, encoding="utf-8", **kwds):
         f = UTF8Recoder(f, encoding)
         self.reader = csv.reader(f, dialect=dialect, **kwds)
 
@@ -425,7 +426,7 @@ class UnicodeWriter:
     which is encoded in the given encoding.
     """
 
-    def __init__(self, f, dialect=csv.excel, encoding="raw_unicode_escape", **kwds):
+    def __init__(self, f, dialect=csv.excel, encoding="utf-8", **kwds):
         # Redirect output to a queue
         self.queue = cStringIO.StringIO()
         self.writer = csv.writer(self.queue, dialect=dialect, **kwds)
