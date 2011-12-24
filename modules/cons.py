@@ -199,6 +199,8 @@ UI_INFO = """
             <menuitem action='CopyRow'/>
             <menuitem action='DeleteRow'/>
             <menuitem action='DuplicateRow'/>
+            <menuitem action='MoveRowUp'/>
+            <menuitem action='MoveRowDown'/>
         </menu>
 
         <menu action='FormattingMenu'>
@@ -422,10 +424,12 @@ def get_entries(inst):
     ( "DownCase", "Case Down", _("_Lower Case of Selection/Word"), "<control>W", _("Lower the Case of the Selection/the Underlying Word"), inst.text_selection_lower_case),
     ( "UpCase", "Case Up", _("_Upper Case of Selection/Word"), "<control><shift>W", _("Upper the Case of the Selection/the Underlying Word"), inst.text_selection_upper_case),
     ( "ToggleCase", "Case Toggle", _("_Toggle Case of Selection/Word"), "<control>G", _("Toggle the Case of the Selection/the Underlying Word"), inst.text_selection_toggle_case),
-    ( "DuplicateRow", "gtk-add", _("_Duplicate Row/Selection"), "<control>D", _("Duplicate the Whole Row/a Selection"), inst.text_row_selection_duplicate),
-    ( "DeleteRow", "Delete", _("De_lete Row"), "<control>K", _("Delete the Whole Row"), inst.text_row_delete),
-    ( "CutRow", "Cut", _("Cu_t Row"), "<control><shift>X", _("Cut the Whole Row"), inst.text_row_cut),
-    ( "CopyRow", "Copy", _("_Copy Row"), "<control><shift>C", _("Copy the Whole Row"), inst.text_row_copy),
+    ( "DuplicateRow", "gtk-add", _("_Duplicate Row"), "<control>D", _("Duplicate the Current Row/Selected Rows"), inst.text_row_selection_duplicate),
+    ( "MoveRowUp", "gtk-go-up", _("Move _Up Row"), "<alt>Up", _("Move Up the Current Row/Selected Rows"), inst.text_row_up),
+    ( "MoveRowDown", "gtk-go-down", _("Move _Down Row"), "<alt>Down", _("Move Down the Current Row/Selected Rows"), inst.text_row_down),
+    ( "DeleteRow", "Delete", _("De_lete Row"), "<control>K", _("Delete the Current Row/Selected Rows"), inst.text_row_delete),
+    ( "CutRow", "Cut", _("Cu_t Row"), "<control><shift>X", _("Cut the Current Row/Selected Rows"), inst.text_row_cut),
+    ( "CopyRow", "Copy", _("_Copy Row"), "<control><shift>C", _("Copy the Current Row/Selected Rows"), inst.text_row_copy),
     ( "GoBack", "gtk-go-back", _("Go _Back"), "<alt>Left", _("Go to the Previous Visited Node"), inst.go_back),
     ( "GoForward", "gtk-go-forward", _("Go _Forward"), "<alt>Right", _("Go to the Next Visited Node"), inst.go_forward),
     ( "Undo", "gtk-undo", _("_Undo"), "<control>Z", _("Undo Last Operation"), inst.requested_step_back),
@@ -600,10 +604,12 @@ def get_popup_menu_entries_text(inst):
     ("Case Toggle", _("_Toggle Case of Selection/Word"), "<control>G", _("Toggle the Case of the Selection/the Underlying Word"), inst.text_selection_toggle_case),
     ("submenu-end", None, None, None, None),
     ("submenu-start", _("_Row") , "gtk-edit", None, None),
-    ("Cut", _("Cu_t Row"), "<control><shift>X", _("Cut the Whole Row"), inst.text_row_cut),
-    ("Copy", _("C_opy Row"), "<control><shift>C", _("Copy the Whole Row"), inst.text_row_copy),
-    ("Delete", _("De_lete Row"), "<control>K", _("Delete the Whole Row"), inst.text_row_delete),
-    ("gtk-add", _("_Duplicate Row/Selection"), "<control>D", _("Duplicate the Whole Row/a Selection"), inst.text_row_selection_duplicate),
+    ("Cut", _("Cu_t Row"), "<control><shift>X", _("Cut the Current Row/Selected Rows"), inst.text_row_cut),
+    ("Copy", _("C_opy Row"), "<control><shift>C", _("Copy the Current Row/Selected Rows"), inst.text_row_copy),
+    ("Delete", _("De_lete Row"), "<control>K", _("Delete the Current Row/Selected Rows"), inst.text_row_delete),
+    ("gtk-add", _("_Duplicate Row"), "<control>D", _("Duplicate the Current Row/Selected Rows"), inst.text_row_selection_duplicate),
+    ("gtk-go-up", _("Move _Up Row"), "<alt>Up", _("Move Up the Current Row/Selected Rows"), inst.text_row_up),
+    ("gtk-go-down", _("Move _Down Row"), "<alt>Down", _("Move Down the Current Row/Selected Rows"), inst.text_row_down),
     ("submenu-end", None, None, None, None),
     ("separator", None, None, None, None),
     ("submenu-start", _("_Search") , "Find", None, None),
@@ -636,10 +642,12 @@ def get_popup_menu_entries_code(inst):
     ("Case Toggle", _("_Toggle Case of Selection/Word"), "<control>G", _("Toggle the Case of the Selection/the Underlying Word"), inst.text_selection_toggle_case),
     ("submenu-end", None, None, None, None),
     ("submenu-start", _("_Row") , "gtk-edit", None, None),
-    ("Cut", _("Cu_t Row"), "<control><shift>X", _("Cut the Whole Row"), inst.text_row_cut),
-    ("Copy", _("C_opy Row"), "<control><shift>C", _("Copy the Whole Row"), inst.text_row_copy),
-    ("Delete", _("De_lete Row"), "<control>K", _("Delete the Whole Row"), inst.text_row_delete),
-    ("gtk-add", _("_Duplicate Row/Selection"), "<control>D", _("Duplicate the Whole Row/a Selection"), inst.text_row_selection_duplicate),
+    ("Cut", _("Cu_t Row"), "<control><shift>X", _("Cut the Current Row/Selected Rows"), inst.text_row_cut),
+    ("Copy", _("C_opy Row"), "<control><shift>C", _("Copy the Current Row/Selected Rows"), inst.text_row_copy),
+    ("Delete", _("De_lete Row"), "<control>K", _("Delete the Current Row/Selected Rows"), inst.text_row_delete),
+    ("gtk-add", _("_Duplicate Row"), "<control>D", _("Duplicate the Current Row/Selected Rows"), inst.text_row_selection_duplicate),
+    ("gtk-go-up", _("Move _Up Row"), "<alt>Up", _("Move Up the Current Row/Selected Rows"), inst.text_row_up),
+    ("gtk-go-down", _("Move _Down Row"), "<alt>Down", _("Move Down the Current Row/Selected Rows"), inst.text_row_down),
     ("submenu-end", None, None, None, None),
     ("separator", None, None, None, None),
     ("submenu-start", _("_Search") , "Find", None, None),
