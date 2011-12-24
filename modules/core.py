@@ -314,6 +314,14 @@ class CherryTree:
                     self.clipboard_handler.from_xml_string_to_buffer(rich_text)
         self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
 
+    def text_row_up(self, *args):
+        """Moves Up the Whole Row/Selection"""
+        print "up"
+
+    def text_row_down(self, *args):
+        """Moves Down the Whole Row/Selection"""
+        print "down"
+
     def text_row_delete(self, *args):
         """Deletes the Whole Row"""
         iter_start, iter_end = self.lists_handler.get_paragraph_iters()
