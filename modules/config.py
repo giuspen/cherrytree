@@ -120,6 +120,7 @@ def config_file_load(inst):
         inst.autosave_on_quit = (dom_iter.attributes["autosave_on_quit"].value == "True") if dom_iter.hasAttribute("autosave_on_quit") else False
         inst.tree_right_side = (dom_iter.attributes["tree_right_side"].value == "True") if dom_iter.hasAttribute("tree_right_side") else False
         inst.show_white_spaces = (dom_iter.attributes["show_white_spaces"].value == "True") if dom_iter.hasAttribute("show_white_spaces") else True
+        inst.highl_curr_line = (dom_iter.attributes["highl_curr_line"].value == "True") if dom_iter.hasAttribute("highl_curr_line") else True
         inst.nodes_icons = dom_iter.attributes["nodes_icons"].value if dom_iter.hasAttribute("nodes_icons") else "c"
         inst.recent_docs = []
         if dom_iter.hasAttribute("recent_docs"):
@@ -167,6 +168,7 @@ def config_file_load(inst):
         inst.autosave_on_quit = False
         inst.tree_right_side = False
         inst.show_white_spaces = True
+        inst.highl_curr_line = True
         inst.hpaned_pos = 170
         inst.show_node_name_label = True
         inst.nodes_icons = "c"
@@ -205,6 +207,7 @@ def config_file_apply(inst):
     inst.glade.checkbutton_autosave_on_quit.set_active(inst.autosave_on_quit)
     inst.glade.checkbutton_tree_right_side.set_active(inst.tree_right_side)
     inst.glade.checkbutton_show_white_spaces.set_active(inst.show_white_spaces)
+    inst.glade.checkbutton_highlight_current_line.set_active(inst.highl_curr_line)
     inst.glade.checkbutton_start_on_systray.set_active(inst.start_on_systray)
     inst.glade.checkbutton_start_on_systray.set_sensitive(inst.systray)
     # custom link clicked actions
@@ -306,6 +309,7 @@ def config_file_save(inst):
     config.setAttribute("autosave_on_quit", str(inst.autosave_on_quit))
     config.setAttribute("tree_right_side", str(inst.tree_right_side))
     config.setAttribute("show_white_spaces", str(inst.show_white_spaces))
+    config.setAttribute("highl_curr_line", str(inst.highl_curr_line))
     config.setAttribute("nodes_icons", inst.nodes_icons)
     if inst.recent_docs:
         temp_recent_docs = []
