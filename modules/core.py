@@ -1985,7 +1985,10 @@ class CherryTree:
             self.curr_buffer.connect('delete-range', self.on_text_removal)
             self.curr_buffer.connect('mark-set', self.on_textbuffer_mark_set)
             self.sourceview.modify_font(pango.FontDescription(self.text_font))
-        else: self.sourceview.modify_font(pango.FontDescription(self.code_font))
+            self.sourceview.set_draw_spaces(0)
+        else:
+            self.sourceview.modify_font(pango.FontDescription(self.code_font))
+            self.sourceview.set_draw_spaces(codeboxes.DRAW_SPACES_FLAGS)
         self.sourceview.set_sensitive(True)
         self.sourceview.set_editable(not self.treestore[self.curr_tree_iter][7])
         self.header_node_name_label.set_text("<big><b><i>"+cgi.escape(self.treestore[self.curr_tree_iter][1])+"</i></b></big>")
