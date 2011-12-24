@@ -3005,7 +3005,8 @@ do you want to save the changes?</property>
                       <object class="GtkAlignment" id="alignment5">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="left_padding">12</property>
+                        <property name="left_padding">3</property>
+                        <property name="right_padding">3</property>
                         <child>
                           <object class="GtkVBox" id="vbox7">
                             <property name="visible">True</property>
@@ -3134,6 +3135,37 @@ do you want to save the changes?</property>
                   </packing>
                 </child>
                 <child>
+                  <object class="GtkFrame" id="frame9">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label_xalign">0</property>
+                    <child>
+                      <object class="GtkAlignment" id="alignment18">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="left_padding">3</property>
+                        <property name="right_padding">3</property>
+                        <child>
+                          <placeholder/>
+                        </child>
+                      </object>
+                    </child>
+                    <child type="label">
+                      <object class="GtkLabel" id="label11">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">&lt;b&gt;Automatic Syntax Highlighting&lt;/b&gt;</property>
+                        <property name="use_markup">True</property>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
                   <object class="GtkFrame" id="frame7">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
@@ -3142,7 +3174,8 @@ do you want to save the changes?</property>
                       <object class="GtkAlignment" id="alignment16">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="left_padding">12</property>
+                        <property name="left_padding">3</property>
+                        <property name="right_padding">3</property>
                         <child>
                           <object class="GtkTable" id="table3">
                             <property name="visible">True</property>
@@ -3294,7 +3327,7 @@ do you want to save the changes?</property>
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">True</property>
-                    <property name="position">1</property>
+                    <property name="position">2</property>
                   </packing>
                 </child>
                 <child>
@@ -3306,7 +3339,8 @@ do you want to save the changes?</property>
                       <object class="GtkAlignment" id="alignment17">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="left_padding">12</property>
+                        <property name="left_padding">3</property>
+                        <property name="right_padding">3</property>
                         <child>
                           <object class="GtkVBox" id="vbox45">
                             <property name="visible">True</property>
@@ -3415,7 +3449,7 @@ do you want to save the changes?</property>
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">True</property>
-                    <property name="position">2</property>
+                    <property name="position">3</property>
                   </packing>
                 </child>
                 <child>
@@ -3427,7 +3461,8 @@ do you want to save the changes?</property>
                       <object class="GtkAlignment" id="alignment6">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="left_padding">12</property>
+                        <property name="left_padding">3</property>
+                        <property name="right_padding">3</property>
                         <child>
                           <object class="GtkVBox" id="vbox14">
                             <property name="visible">True</property>
@@ -3564,7 +3599,7 @@ do you want to save the changes?</property>
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">True</property>
-                    <property name="position">3</property>
+                    <property name="position">4</property>
                   </packing>
                 </child>
               </object>
@@ -3588,7 +3623,8 @@ do you want to save the changes?</property>
                       <object class="GtkAlignment" id="alignment11">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="left_padding">12</property>
+                        <property name="left_padding">3</property>
+                        <property name="right_padding">3</property>
                         <child>
                           <object class="GtkVBox" id="vbox31">
                             <property name="visible">True</property>
@@ -3769,7 +3805,8 @@ do you want to save the changes?</property>
                       <object class="GtkAlignment" id="alignment4">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="left_padding">12</property>
+                        <property name="left_padding">3</property>
+                        <property name="right_padding">3</property>
                         <child>
                           <object class="GtkVBox" id="vbox44">
                             <property name="visible">True</property>
@@ -3834,7 +3871,8 @@ do you want to save the changes?</property>
                       <object class="GtkAlignment" id="alignment12">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="left_padding">12</property>
+                        <property name="left_padding">3</property>
+                        <property name="right_padding">3</property>
                         <child>
                           <object class="GtkVBox" id="vbox32">
                             <property name="visible">True</property>
@@ -4056,7 +4094,8 @@ do you want to save the changes?</property>
                       <object class="GtkAlignment" id="alignment13">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="left_padding">12</property>
+                        <property name="left_padding">3</property>
+                        <property name="right_padding">3</property>
                         <child>
                           <object class="GtkComboBox" id="combobox_country_language">
                             <property name="visible">True</property>
