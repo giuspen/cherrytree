@@ -163,6 +163,7 @@ class CherryTree:
         self.glade.codeboxhandledialog.connect('key_press_event', self.codeboxes_handler.on_key_press_codeboxhandledialog)
         self.sourceview = gtksourceview2.View()
         self.sourceview.set_sensitive(False)
+        self.sourceview.set_highlight_current_line(True)
         self.sourceview.connect('populate-popup', self.on_sourceview_populate_popup)
         self.sourceview.connect("motion-notify-event", self.on_sourceview_motion_notify_event)
         self.sourceview.connect("event-after", self.on_sourceview_event_after)
