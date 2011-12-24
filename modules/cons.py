@@ -53,6 +53,7 @@ BAD_CHARS = "[\x00-\x08\x0b-\x1f]"
 TAG_PROPERTIES = ["weight", "foreground", "background", "style", "underline", "strikethrough",
                   "scale", "justification", "link"]
 CUSTOM_COLORS_ID = "custom-colors"
+STYLE_SCHEME_DEFAULT = "cobalt"
 ANCHOR_CHAR = GLADE_PATH + 'anchor_char.png'
 NODES_ICONS = {0:'Red Cherry', 1:'Blue Cherry', 2:'Orange Cherry', 3:'Cyan Cherry',
                4:'Orange Dark Cherry', 5:'Sherbert Cherry', 6:'Yellow Cherry'}
