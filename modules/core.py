@@ -161,12 +161,9 @@ class CherryTree:
         self.glade.choosenodedialog.connect('key_press_event', self.on_key_press_choosenodedialog)
         self.glade.tablehandledialog.connect('key_press_event', self.tables_handler.on_key_press_tablehandledialog)
         self.glade.codeboxhandledialog.connect('key_press_event', self.codeboxes_handler.on_key_press_codeboxhandledialog)
-        self.sourcestylemanager = gtksourceview2.StyleSchemeManager()
-        self.sourcestylescheme = self.sourcestylemanager.get_scheme("cobalt")
-        print self.sourcestylescheme.get_name()
+        self.sourcestyleschememanager = gtksourceview2.StyleSchemeManager()
         self.sourceview = gtksourceview2.View()
         self.sourceview.set_sensitive(False)
-        self.sourceview.set_highlight_current_line(True)
         self.sourceview.connect('populate-popup', self.on_sourceview_populate_popup)
         self.sourceview.connect("motion-notify-event", self.on_sourceview_motion_notify_event)
         self.sourceview.connect("event-after", self.on_sourceview_event_after)
@@ -200,6 +197,7 @@ class CherryTree:
         self.window.present()
         config.config_file_apply(self)
         self.combobox_country_lang_init()
+        self.combobox_style_scheme_init()
         self.combobox_prog_lang_init()
         if self.systray:
             self.status_icon_enable()
@@ -1761,14 +1759,15 @@ class CherryTree:
     def buffer_create(self, syntax_highlighting):
         """Returns a New Instantiated SourceBuffer"""
         if syntax_highlighting != cons.CUSTOM_COLORS_ID:
-            buffer = gtksourceview2.Buffer()
-            self.set_sourcebuffer_syntax_highlight(buffer, syntax_highlighting)
-            buffer.set_highlight_matching_brackets(True)
-            return buffer
+            sourcebuffer = gtksourceview2.Buffer()
+            sourcebuffer.set_style_scheme(self.sourcestyleschememanager.get_scheme(self.style_scheme))
+            self.set_sourcebuffer_syntax_highlight(sourcebuffer, syntax_highlighting)
+            sourcebuffer.set_highlight_matching_brackets(True)
+            return sourcebuffer
         else: return gtk.TextBuffer(self.tag_table)
 
     def combobox_prog_lang_init(self):
-        """Init The Programming Languages Syntax Highlighting"""
+        """Init The Programming Languages Syntax Highlighting ComboBox"""
         self.prog_lang_liststore = gtk.ListStore(str, str)
         self.prog_lang_liststore.append([_("Disabled (Custom Colors)"), cons.CUSTOM_COLORS_ID])
         self.language_manager = gtksourceview2.LanguageManager()
@@ -1804,7 +1803,7 @@ class CherryTree:
             lang_file_descriptor.close()
 
     def combobox_country_lang_init(self):
-        """Init The Programming Languages Syntax Highlighting"""
+        """Init The Country Language ComboBox"""
         combobox = self.glade.combobox_country_language
         self.country_lang_liststore = gtk.ListStore(str)
         combobox.set_model(self.country_lang_liststore)
@@ -1814,7 +1813,7 @@ class CherryTree:
         for country_lang in cons.AVAILABLE_LANGS:
             self.country_lang_liststore.append([country_lang])
         combobox.set_active_iter(self.get_combobox_country_lang_iter(self.country_lang))
-        self.glade.combobox_country_language.connect('changed', self.on_combobox_country_language_changed)
+        combobox.connect('changed', self.on_combobox_country_language_changed)
 
     def get_combobox_country_lang_iter(self, country_language):
         """Returns the Language iter Given the Language Name"""
@@ -1824,7 +1823,40 @@ class CherryTree:
             else: curr_iter = self.country_lang_liststore.iter_next(curr_iter)
         else: return self.country_lang_liststore.get_iter_first()
         return curr_iter
-
+    
+    def on_combobox_style_scheme_changed(self, combobox):
+        """New Style Scheme Choosed"""
+        new_iter = self.glade.combobox_style_scheme.get_active_iter()
+        new_style = self.style_scheme_liststore[new_iter][0]
+        if new_style != self.style_scheme:
+            self.style_scheme = new_style
+            support.dialog_info(_("This Change will have Effect Only After Restarting CherryTree"), self.window)
+    
+    def combobox_style_scheme_init(self):
+        """Init The Style Scheme ComboBox"""
+        combobox = self.glade.combobox_style_scheme
+        self.style_scheme_liststore = gtk.ListStore(str)
+        combobox.set_model(self.style_scheme_liststore)
+        cell = gtk.CellRendererText()
+        combobox.pack_start(cell, True)
+        combobox.add_attribute(cell, 'text', 0)
+        style_schemes_list = []
+        for style_scheme in self.sourcestyleschememanager.get_scheme_ids():
+            self.style_scheme_liststore.append([style_scheme])
+            style_schemes_list.append(style_scheme)
+        if not self.style_scheme in style_schemes_list: self.style_scheme = style_schemes_list[0]
+        combobox.set_active_iter(self.get_combobox_style_scheme_iter(self.style_scheme))
+        combobox.connect('changed', self.on_combobox_style_scheme_changed)
+    
+    def get_combobox_style_scheme_iter(self, style_scheme):
+        """Returns the Style Scheme iter Given the Style Scheme Name"""
+        curr_iter = self.style_scheme_liststore.get_iter_first()
+        while curr_iter != None:
+            if self.style_scheme_liststore[curr_iter][0] == style_scheme: break
+            else: curr_iter = self.style_scheme_liststore.iter_next(curr_iter)
+        else: return self.style_scheme_liststore.get_iter_first()
+        return curr_iter
+    
     def set_sourcebuffer_syntax_highlight(self, sourcebuffer, syntax_highlighting):
         """Set the given syntax highlighting to the given sourcebuffer"""
         language_id = self.prog_lang_liststore[self.get_combobox_prog_lang_iter(syntax_highlighting)][1]
@@ -1995,10 +2027,12 @@ class CherryTree:
             self.curr_buffer.connect('mark-set', self.on_textbuffer_mark_set)
             self.sourceview.modify_font(pango.FontDescription(self.text_font))
             self.sourceview.set_draw_spaces(0)
+            self.sourceview.set_highlight_current_line(False)
         else:
             self.sourceview.modify_font(pango.FontDescription(self.code_font))
             if self.show_white_spaces:
                 self.sourceview.set_draw_spaces(codeboxes.DRAW_SPACES_FLAGS)
+            self.sourceview.set_highlight_current_line(True)
         self.sourceview.set_sensitive(True)
         self.sourceview.set_editable(not self.treestore[self.curr_tree_iter][7])
         self.header_node_name_label.set_text("<big><b><i>"+cgi.escape(self.treestore[self.curr_tree_iter][1])+"</i></b></big>")

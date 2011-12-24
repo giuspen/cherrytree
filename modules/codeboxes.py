@@ -87,7 +87,7 @@ class CodeBoxesHandler:
         anchor.highlight_brackets = codebox_dict['highlight_brackets']
         anchor.show_line_numbers = codebox_dict['show_line_numbers']
         anchor.sourcebuffer = gtksourceview2.Buffer()
-        anchor.sourcebuffer.set_style_scheme(self.dad.sourcestylescheme)
+        anchor.sourcebuffer.set_style_scheme(self.dad.sourcestyleschememanager.get_scheme(self.dad.style_scheme))
         self.dad.set_sourcebuffer_syntax_highlight(anchor.sourcebuffer, anchor.syntax_highlighting)
         anchor.sourcebuffer.set_highlight_matching_brackets(anchor.highlight_brackets)
         anchor.sourcebuffer.connect('insert-text', self.dad.on_text_insertion)
