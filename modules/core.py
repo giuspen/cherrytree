@@ -1679,6 +1679,12 @@ class CherryTree:
         """Autosave on Quit Toggled"""
         self.autosave_on_quit = checkbutton.get_active()
 
+    def on_checkbutton_show_white_spaces_toggled(self, checkbutton):
+        """Show White Spaces Toggled"""
+        self.show_white_spaces = checkbutton.get_active()
+        if self.user_active:
+            support.dialog_info(_("This Change will have Effect Only After Restarting CherryTree"), self.window)
+
     def on_checkbutton_tree_right_side_toggled(self, checkbutton):
         """Display Tree on the Right Side Toggled"""
         if not self.user_active: return
@@ -1991,7 +1997,8 @@ class CherryTree:
             self.sourceview.set_draw_spaces(0)
         else:
             self.sourceview.modify_font(pango.FontDescription(self.code_font))
-            self.sourceview.set_draw_spaces(codeboxes.DRAW_SPACES_FLAGS)
+            if self.show_white_spaces:
+                self.sourceview.set_draw_spaces(codeboxes.DRAW_SPACES_FLAGS)
         self.sourceview.set_sensitive(True)
         self.sourceview.set_editable(not self.treestore[self.curr_tree_iter][7])
         self.header_node_name_label.set_text("<big><b><i>"+cgi.escape(self.treestore[self.curr_tree_iter][1])+"</i></b></big>")
