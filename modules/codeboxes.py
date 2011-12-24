@@ -97,9 +97,8 @@ class CodeBoxesHandler:
             anchor.sourcebuffer.set_text(codebox_dict['fill_text'])
             anchor.sourcebuffer.set_modified(False)
         anchor.sourceview = gtksourceview2.View(anchor.sourcebuffer)
-        anchor.sourceview.set_highlight_current_line(True)
-        if self.dad.show_white_spaces:
-            anchor.sourceview.set_draw_spaces(DRAW_SPACES_FLAGS)
+        if self.dad.highl_curr_line: anchor.sourceview.set_highlight_current_line(True)
+        if self.dad.show_white_spaces: anchor.sourceview.set_draw_spaces(DRAW_SPACES_FLAGS)
         anchor.sourceview.modify_font(pango.FontDescription(self.dad.code_font))
         anchor.sourceview.set_show_line_numbers(anchor.show_line_numbers)
         anchor.sourceview.set_insert_spaces_instead_of_tabs(self.dad.spaces_instead_tabs)
