@@ -240,7 +240,7 @@ class CherryTree:
             return
         iter_start, iter_end = self.curr_buffer.get_selection_bounds()
         if self.syntax_highlighting != cons.CUSTOM_COLORS_ID:
-            text_to_change_case = self.curr_buffer.get_slice(iter_start, iter_end)
+            text_to_change_case = self.curr_buffer.get_text(iter_start, iter_end)
             if change_type == "l": text_to_change_case = text_to_change_case.lower()
             elif change_type == "u": text_to_change_case = text_to_change_case.upper()
             elif change_type == "t": text_to_change_case = text_to_change_case.swapcase()
@@ -280,7 +280,7 @@ class CherryTree:
             sel_start_offset = iter_start.get_offset()
             sel_end_offset = iter_end.get_offset()
             if self.syntax_highlighting != cons.CUSTOM_COLORS_ID:
-                text_to_duplicate = self.curr_buffer.get_slice(iter_start, iter_end)
+                text_to_duplicate = self.curr_buffer.get_text(iter_start, iter_end)
                 if cons.CHAR_NEWLINE in text_to_duplicate:
                     text_to_duplicate = cons.CHAR_NEWLINE + text_to_duplicate
                 self.curr_buffer.insert(iter_end, text_to_duplicate)
@@ -302,7 +302,7 @@ class CherryTree:
                 self.curr_buffer.insert(iter_start, cons.CHAR_NEWLINE)
             else:
                 if self.syntax_highlighting != cons.CUSTOM_COLORS_ID:
-                    text_to_duplicate = self.curr_buffer.get_slice(iter_start, iter_end)
+                    text_to_duplicate = self.curr_buffer.get_text(iter_start, iter_end)
                     self.curr_buffer.insert(iter_end, cons.CHAR_NEWLINE + text_to_duplicate)
                 else:
                     rich_text = self.clipboard_handler.rich_text_get_from_text_buffer_selection(self.curr_buffer,
@@ -337,27 +337,28 @@ class CherryTree:
         destination_offset = destination_iter.get_offset()
         #print "destination_iter", ord(destination_iter.get_char()), destination_iter.get_char()
         if self.syntax_highlighting != cons.CUSTOM_COLORS_ID:
-            text_to_move = self.curr_buffer.get_slice(iter_start, iter_end)
+            text_to_move = self.curr_buffer.get_text(iter_start, iter_end)
             self.curr_buffer.delete(iter_start, iter_end)
             destination_iter = self.curr_buffer.get_iter_at_offset(destination_offset)
             if not text_to_move or text_to_move[-1] != cons.CHAR_NEWLINE: text_to_move += cons.CHAR_NEWLINE
             self.curr_buffer.insert(destination_iter, text_to_move)
             self.set_selection_at_offset_n_delta(destination_offset, len(text_to_move)-1)
         else:
-            text_to_move = self.curr_buffer.get_slice(iter_start, iter_end)
+            text_to_move = self.curr_buffer.get_text(iter_start, iter_end)
+            diff_offsets = iter_end.get_offset() - iter_start.get_offset()
             rich_text = self.clipboard_handler.rich_text_get_from_text_buffer_selection(self.curr_buffer,
                                                                                         iter_start,
                                                                                         iter_end)
             self.curr_buffer.delete(iter_start, iter_end)
             destination_iter = self.curr_buffer.get_iter_at_offset(destination_offset)
             if not text_to_move or text_to_move[-1] != cons.CHAR_NEWLINE:
-                text_to_move += cons.CHAR_NEWLINE
+                diff_offsets += 1
                 append_newline = True
             else: append_newline = False
             self.curr_buffer.move_mark(self.curr_buffer.get_insert(), destination_iter)
             self.clipboard_handler.from_xml_string_to_buffer(rich_text)
             if append_newline: self.curr_buffer.insert_at_cursor(cons.CHAR_NEWLINE)
-            self.set_selection_at_offset_n_delta(destination_offset, len(text_to_move)-1)
+            self.set_selection_at_offset_n_delta(destination_offset, diff_offsets-1)
         self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
 
     def text_row_down(self, *args):
@@ -380,7 +381,7 @@ class CherryTree:
         destination_offset = destination_iter.get_offset()
         #print "destination_iter", ord(destination_iter.get_char()), destination_iter.get_char()
         if self.syntax_highlighting != cons.CUSTOM_COLORS_ID:
-            text_to_move = self.curr_buffer.get_slice(iter_start, iter_end)
+            text_to_move = self.curr_buffer.get_text(iter_start, iter_end)
             self.curr_buffer.delete(iter_start, iter_end)
             destination_offset -= len(text_to_move)
             destination_iter = self.curr_buffer.get_iter_at_offset(destination_offset)
@@ -392,27 +393,28 @@ class CherryTree:
             else:
                 self.set_selection_at_offset_n_delta(destination_offset+1, len(text_to_move)-2)
         else:
-            text_to_move = self.curr_buffer.get_slice(iter_start, iter_end)
+            text_to_move = self.curr_buffer.get_text(iter_start, iter_end)
+            diff_offsets = iter_end.get_offset() - iter_start.get_offset()
             rich_text = self.clipboard_handler.rich_text_get_from_text_buffer_selection(self.curr_buffer,
                                                                                         iter_start,
                                                                                         iter_end)
             self.curr_buffer.delete(iter_start, iter_end)
-            destination_offset -= len(text_to_move)
+            destination_offset -= diff_offsets
             destination_iter = self.curr_buffer.get_iter_at_offset(destination_offset)
             if not text_to_move or text_to_move[-1] != cons.CHAR_NEWLINE:
-                text_to_move += cons.CHAR_NEWLINE
+                diff_offsets += 1
                 append_newline = True
             else: append_newline = False
             self.curr_buffer.move_mark(self.curr_buffer.get_insert(), destination_iter)
             if missing_leading_newline:
-                text_to_move = cons.CHAR_NEWLINE + text_to_move
+                diff_offsets += 1
                 self.curr_buffer.insert_at_cursor(cons.CHAR_NEWLINE)
             self.clipboard_handler.from_xml_string_to_buffer(rich_text)
             if append_newline: self.curr_buffer.insert_at_cursor(cons.CHAR_NEWLINE)
             if not missing_leading_newline:
-                self.set_selection_at_offset_n_delta(destination_offset, len(text_to_move)-1)
+                self.set_selection_at_offset_n_delta(destination_offset, diff_offsets-1)
             else:
-                self.set_selection_at_offset_n_delta(destination_offset+1, len(text_to_move)-2)
+                self.set_selection_at_offset_n_delta(destination_offset+1, diff_offsets-2)
         self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
 
     def text_row_delete(self, *args):
