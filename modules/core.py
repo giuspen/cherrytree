@@ -327,7 +327,7 @@ class CherryTree:
         while destination_iter.get_char() != cons.CHAR_NEWLINE:
             if not destination_iter.backward_char(): break
         destination_offset = destination_iter.get_offset()
-        if destination_offset > 0: destination_offset += 1
+        destination_offset += 1
         if self.syntax_highlighting != cons.CUSTOM_COLORS_ID:
             text_to_move = self.curr_buffer.get_slice(iter_start, iter_end)
             self.curr_buffer.delete(iter_start, iter_end)
