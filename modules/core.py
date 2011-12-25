@@ -344,7 +344,20 @@ class CherryTree:
             self.curr_buffer.insert(destination_iter, text_to_move)
             self.set_selection_at_offset_n_delta(destination_offset, len(text_to_move)-1)
         else:
-            print "up"
+            text_to_move = self.curr_buffer.get_slice(iter_start, iter_end)
+            rich_text = self.clipboard_handler.rich_text_get_from_text_buffer_selection(self.curr_buffer,
+                                                                                        iter_start,
+                                                                                        iter_end)
+            self.curr_buffer.delete(iter_start, iter_end)
+            destination_iter = self.curr_buffer.get_iter_at_offset(destination_offset)
+            if not text_to_move or text_to_move[-1] != cons.CHAR_NEWLINE:
+                text_to_move += cons.CHAR_NEWLINE
+                append_newline = True
+            else: append_newline = False
+            self.curr_buffer.move_mark(self.curr_buffer.get_insert(), destination_iter)
+            self.clipboard_handler.from_xml_string_to_buffer(rich_text)
+            if append_newline: self.curr_buffer.insert_at_cursor(cons.CHAR_NEWLINE)
+            self.set_selection_at_offset_n_delta(destination_offset, len(text_to_move)-1)
         self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
 
     def text_row_down(self, *args):
@@ -379,7 +392,27 @@ class CherryTree:
             else:
                 self.set_selection_at_offset_n_delta(destination_offset+1, len(text_to_move)-2)
         else:
-            print "down"
+            text_to_move = self.curr_buffer.get_slice(iter_start, iter_end)
+            rich_text = self.clipboard_handler.rich_text_get_from_text_buffer_selection(self.curr_buffer,
+                                                                                        iter_start,
+                                                                                        iter_end)
+            self.curr_buffer.delete(iter_start, iter_end)
+            destination_offset -= len(text_to_move)
+            destination_iter = self.curr_buffer.get_iter_at_offset(destination_offset)
+            if not text_to_move or text_to_move[-1] != cons.CHAR_NEWLINE:
+                text_to_move += cons.CHAR_NEWLINE
+                append_newline = True
+            else: append_newline = False
+            self.curr_buffer.move_mark(self.curr_buffer.get_insert(), destination_iter)
+            if missing_leading_newline:
+                text_to_move = cons.CHAR_NEWLINE + text_to_move
+                self.curr_buffer.insert_at_cursor(cons.CHAR_NEWLINE)
+            self.clipboard_handler.from_xml_string_to_buffer(rich_text)
+            if append_newline: self.curr_buffer.insert_at_cursor(cons.CHAR_NEWLINE)
+            if not missing_leading_newline:
+                self.set_selection_at_offset_n_delta(destination_offset, len(text_to_move)-1)
+            else:
+                self.set_selection_at_offset_n_delta(destination_offset+1, len(text_to_move)-2)
         self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
 
     def text_row_delete(self, *args):
