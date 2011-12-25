@@ -323,16 +323,19 @@ class CherryTree:
             iter_end = iter_start.copy()
         last_line_situation = False
         iter_end.forward_char()
-        print "***"
-        print "iter_start", ord(iter_start.get_char()), iter_start.get_char()
-        print "iter_end", ord(iter_end.get_char()), iter_end.get_char()
+        #print "***"
+        #print "iter_start", ord(iter_start.get_char()), iter_start.get_char()
+        #print "iter_end", ord(iter_end.get_char()), iter_end.get_char()
+        missing_leading_newline = False
         destination_iter = iter_start.copy()
         if not destination_iter.backward_chars(2): return
         while destination_iter.get_char() != cons.CHAR_NEWLINE:
-            if not destination_iter.backward_char(): break
-        destination_iter.forward_char()
+            if not destination_iter.backward_char():
+                missing_leading_newline = True
+                break
+        if not missing_leading_newline: destination_iter.forward_char()
         destination_offset = destination_iter.get_offset()
-        print "destination_iter", ord(destination_iter.get_char()), destination_iter.get_char()
+        #print "destination_iter", ord(destination_iter.get_char()), destination_iter.get_char()
         if self.syntax_highlighting != cons.CUSTOM_COLORS_ID:
             text_to_move = self.curr_buffer.get_slice(iter_start, iter_end)
             self.curr_buffer.delete(iter_start, iter_end)
@@ -351,9 +354,9 @@ class CherryTree:
             iter_start = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
             iter_end = iter_start.copy()
         if not iter_end.forward_char(): return
-        print "***"
-        print "iter_start", ord(iter_start.get_char()), iter_start.get_char()
-        print "iter_end", ord(iter_end.get_char()), iter_end.get_char()
+        #print "***"
+        #print "iter_start", ord(iter_start.get_char()), iter_start.get_char()
+        #print "iter_end", ord(iter_end.get_char()), iter_end.get_char()
         missing_leading_newline = False
         destination_iter = iter_end.copy()
         while destination_iter.get_char() != cons.CHAR_NEWLINE:
@@ -362,7 +365,7 @@ class CherryTree:
                 break
         destination_iter.forward_char()
         destination_offset = destination_iter.get_offset()
-        print "destination_iter", ord(destination_iter.get_char()), destination_iter.get_char()
+        #print "destination_iter", ord(destination_iter.get_char()), destination_iter.get_char()
         if self.syntax_highlighting != cons.CUSTOM_COLORS_ID:
             text_to_move = self.curr_buffer.get_slice(iter_start, iter_end)
             self.curr_buffer.delete(iter_start, iter_end)
