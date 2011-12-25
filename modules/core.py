@@ -323,19 +323,21 @@ class CherryTree:
             iter_end = iter_start.copy()
         last_line_situation = False
         iter_end.forward_char()
-        #print "***"
-        #print "iter_start", ord(iter_start.get_char()), iter_start.get_char()
-        #print "iter_end", ord(iter_end.get_char()), iter_end.get_char()
         missing_leading_newline = False
         destination_iter = iter_start.copy()
-        if not destination_iter.backward_chars(2): return
-        while destination_iter.get_char() != cons.CHAR_NEWLINE:
-            if not destination_iter.backward_char():
-                missing_leading_newline = True
-                break
+        if not destination_iter.backward_char(): return
+        if not destination_iter.backward_char(): missing_leading_newline = True
+        else:
+            while destination_iter.get_char() != cons.CHAR_NEWLINE:
+                if not destination_iter.backward_char():
+                    missing_leading_newline = True
+                    break
         if not missing_leading_newline: destination_iter.forward_char()
         destination_offset = destination_iter.get_offset()
-        #print "destination_iter", ord(destination_iter.get_char()), destination_iter.get_char()
+        #print "***"
+        #print "iter_start", iter_start.get_offset(), ord(iter_start.get_char()), iter_start.get_char()
+        #print "iter_end", iter_end.get_offset(), ord(iter_end.get_char()), iter_end.get_char()
+        #print "destination_iter", destination_iter.get_offset(), ord(destination_iter.get_char()), destination_iter.get_char()
         if self.syntax_highlighting != cons.CUSTOM_COLORS_ID:
             text_to_move = self.curr_buffer.get_text(iter_start, iter_end)
             self.curr_buffer.delete(iter_start, iter_end)
@@ -348,7 +350,8 @@ class CherryTree:
             diff_offsets = iter_end.get_offset() - iter_start.get_offset()
             rich_text = self.clipboard_handler.rich_text_get_from_text_buffer_selection(self.curr_buffer,
                                                                                         iter_start,
-                                                                                        iter_end)
+                                                                                        iter_end,
+                                                                                        exclude_iter_sel_end=True)
             self.curr_buffer.delete(iter_start, iter_end)
             destination_iter = self.curr_buffer.get_iter_at_offset(destination_offset)
             if not text_to_move or text_to_move[-1] != cons.CHAR_NEWLINE:
@@ -368,9 +371,6 @@ class CherryTree:
             iter_start = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
             iter_end = iter_start.copy()
         if not iter_end.forward_char(): return
-        #print "***"
-        #print "iter_start", ord(iter_start.get_char()), iter_start.get_char()
-        #print "iter_end", ord(iter_end.get_char()), iter_end.get_char()
         missing_leading_newline = False
         destination_iter = iter_end.copy()
         while destination_iter.get_char() != cons.CHAR_NEWLINE:
@@ -379,7 +379,10 @@ class CherryTree:
                 break
         destination_iter.forward_char()
         destination_offset = destination_iter.get_offset()
-        #print "destination_iter", ord(destination_iter.get_char()), destination_iter.get_char()
+        #print "***"
+        #print "iter_start", iter_start.get_offset(), ord(iter_start.get_char()), iter_start.get_char()
+        #print "iter_end", iter_end.get_offset(), ord(iter_end.get_char()), iter_end.get_char()
+        #print "destination_iter", destination_iter.get_offset(), ord(destination_iter.get_char()), destination_iter.get_char()
         if self.syntax_highlighting != cons.CUSTOM_COLORS_ID:
             text_to_move = self.curr_buffer.get_text(iter_start, iter_end)
             self.curr_buffer.delete(iter_start, iter_end)
@@ -397,7 +400,8 @@ class CherryTree:
             diff_offsets = iter_end.get_offset() - iter_start.get_offset()
             rich_text = self.clipboard_handler.rich_text_get_from_text_buffer_selection(self.curr_buffer,
                                                                                         iter_start,
-                                                                                        iter_end)
+                                                                                        iter_end,
+                                                                                        exclude_iter_sel_end=True)
             self.curr_buffer.delete(iter_start, iter_end)
             destination_offset -= diff_offsets
             destination_iter = self.curr_buffer.get_iter_at_offset(destination_offset)
