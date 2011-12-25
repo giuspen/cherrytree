@@ -315,11 +315,35 @@ class CherryTree:
         self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
 
     def text_row_up(self, *args):
-        """Moves Up the Whole Row/Selection"""
-        print "up"
+        """Moves Up the Current Row/Selected Rows"""
+        iter_start, iter_end = self.lists_handler.get_paragraph_iters()
+        if iter_start == None:
+            iter_start = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
+            iter_end = iter_start.copy()
+        last_line_situation = False
+        if not iter_end.forward_char(): last_line_situation = True # missing trailing newline
+        destination_iter = iter_start.copy()
+        if not destination_iter.backward_chars(2): return
+        while destination_iter.get_char() != cons.CHAR_NEWLINE:
+            if not destination_iter.backward_char(): break
+        destination_offset = destination_iter.get_offset()
+        if destination_offset > 0: destination_offset += 1
+        if self.syntax_highlighting != cons.CUSTOM_COLORS_ID:
+            text_to_move = self.curr_buffer.get_slice(iter_start, iter_end)
+            self.curr_buffer.delete(iter_start, iter_end)
+            destination_iter = self.curr_buffer.get_iter_at_offset(destination_offset)
+            self.curr_buffer.insert(destination_iter, text_to_move)
+            if last_line_situation:
+                destination_iter = self.curr_buffer.get_iter_at_offset(destination_offset+len(text_to_move))
+                self.curr_buffer.insert(destination_iter, cons.CHAR_NEWLINE)
+                self.set_selection_at_offset_n_delta(destination_offset, len(text_to_move))
+            else: self.set_selection_at_offset_n_delta(destination_offset, len(text_to_move)-1)
+        else:
+            print "up"
+        self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
 
     def text_row_down(self, *args):
-        """Moves Down the Whole Row/Selection"""
+        """Moves Down the Current Row/Selected Rows"""
         print "down"
 
     def text_row_delete(self, *args):
