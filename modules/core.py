@@ -322,23 +322,24 @@ class CherryTree:
             iter_start = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
             iter_end = iter_start.copy()
         last_line_situation = False
-        if not iter_end.forward_char(): last_line_situation = True # missing trailing newline
+        iter_end.forward_char()
+        print "***"
+        print "iter_start", ord(iter_start.get_char()), iter_start.get_char()
+        print "iter_end", ord(iter_end.get_char()), iter_end.get_char()
         destination_iter = iter_start.copy()
         if not destination_iter.backward_chars(2): return
         while destination_iter.get_char() != cons.CHAR_NEWLINE:
             if not destination_iter.backward_char(): break
+        destination_iter.forward_char()
         destination_offset = destination_iter.get_offset()
-        destination_offset += 1
+        print "destination_iter", ord(destination_iter.get_char()), destination_iter.get_char()
         if self.syntax_highlighting != cons.CUSTOM_COLORS_ID:
             text_to_move = self.curr_buffer.get_slice(iter_start, iter_end)
             self.curr_buffer.delete(iter_start, iter_end)
             destination_iter = self.curr_buffer.get_iter_at_offset(destination_offset)
+            if text_to_move[-1] != cons.CHAR_NEWLINE: text_to_move += cons.CHAR_NEWLINE
             self.curr_buffer.insert(destination_iter, text_to_move)
-            if last_line_situation:
-                destination_iter = self.curr_buffer.get_iter_at_offset(destination_offset+len(text_to_move))
-                self.curr_buffer.insert(destination_iter, cons.CHAR_NEWLINE)
-                self.set_selection_at_offset_n_delta(destination_offset, len(text_to_move))
-            else: self.set_selection_at_offset_n_delta(destination_offset, len(text_to_move)-1)
+            self.set_selection_at_offset_n_delta(destination_offset, len(text_to_move)-1)
         else:
             print "up"
         self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
@@ -350,16 +351,21 @@ class CherryTree:
             iter_start = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
             iter_end = iter_start.copy()
         if not iter_end.forward_char(): return
+        print "***"
+        print "iter_start", ord(iter_start.get_char()), iter_start.get_char()
+        print "iter_end", ord(iter_end.get_char()), iter_end.get_char()
         destination_iter = iter_end.copy()
         while destination_iter.get_char() != cons.CHAR_NEWLINE:
             if not destination_iter.forward_char(): break
+        destination_iter.forward_char()
         destination_offset = destination_iter.get_offset()
-        destination_offset += 1
+        print "destination_iter", ord(destination_iter.get_char()), destination_iter.get_char()
         if self.syntax_highlighting != cons.CUSTOM_COLORS_ID:
             text_to_move = self.curr_buffer.get_slice(iter_start, iter_end)
             self.curr_buffer.delete(iter_start, iter_end)
             destination_offset -= len(text_to_move)
             destination_iter = self.curr_buffer.get_iter_at_offset(destination_offset)
+            if text_to_move[-1] != cons.CHAR_NEWLINE: text_to_move += cons.CHAR_NEWLINE
             self.curr_buffer.insert(destination_iter, text_to_move)
             self.set_selection_at_offset_n_delta(destination_offset, len(text_to_move)-1)
         else:
