@@ -354,9 +354,12 @@ class CherryTree:
         print "***"
         print "iter_start", ord(iter_start.get_char()), iter_start.get_char()
         print "iter_end", ord(iter_end.get_char()), iter_end.get_char()
+        missing_leading_newline = False
         destination_iter = iter_end.copy()
         while destination_iter.get_char() != cons.CHAR_NEWLINE:
-            if not destination_iter.forward_char(): break
+            if not destination_iter.forward_char():
+                missing_leading_newline = True
+                break
         destination_iter.forward_char()
         destination_offset = destination_iter.get_offset()
         print "destination_iter", ord(destination_iter.get_char()), destination_iter.get_char()
@@ -366,8 +369,12 @@ class CherryTree:
             destination_offset -= len(text_to_move)
             destination_iter = self.curr_buffer.get_iter_at_offset(destination_offset)
             if not text_to_move or text_to_move[-1] != cons.CHAR_NEWLINE: text_to_move += cons.CHAR_NEWLINE
+            if missing_leading_newline: text_to_move = cons.CHAR_NEWLINE + text_to_move
             self.curr_buffer.insert(destination_iter, text_to_move)
-            self.set_selection_at_offset_n_delta(destination_offset, len(text_to_move)-1)
+            if not missing_leading_newline:
+                self.set_selection_at_offset_n_delta(destination_offset, len(text_to_move)-1)
+            else:
+                self.set_selection_at_offset_n_delta(destination_offset+1, len(text_to_move)-2)
         else:
             print "down"
         self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
