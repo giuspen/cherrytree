@@ -1849,7 +1849,7 @@ msgstr "Altezza"
 
 #: glade/cherrytree.glade.h:86
 msgid "Highlight Current Line"
-msgstr ""
+msgstr "Evidenzia Riga Corrente"
 
 #: glade/cherrytree.glade.h:87
 msgid "Highlight Matching Brackets"
@@ -1937,7 +1937,7 @@ msgstr "Mostra Numeri di Riga"
 
 #: glade/cherrytree.glade.h:113
 msgid "Show White Spaces"
-msgstr ""
+msgstr "Mostra Spazi Bianchi"
 
 #: glade/cherrytree.glade.h:114
 msgid "Start Minimized in the System Tray"
@@ -1949,7 +1949,7 @@ msgstr "Inizio di Parola"
 
 #: glade/cherrytree.glade.h:116
 msgid "Style Scheme"
-msgstr ""
+msgstr "Schema di Stile"
 
 #: glade/cherrytree.glade.h:117
 msgid "Tab Width  "
