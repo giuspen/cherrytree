@@ -337,7 +337,7 @@ class CherryTree:
             text_to_move = self.curr_buffer.get_slice(iter_start, iter_end)
             self.curr_buffer.delete(iter_start, iter_end)
             destination_iter = self.curr_buffer.get_iter_at_offset(destination_offset)
-            if text_to_move[-1] != cons.CHAR_NEWLINE: text_to_move += cons.CHAR_NEWLINE
+            if not text_to_move or text_to_move[-1] != cons.CHAR_NEWLINE: text_to_move += cons.CHAR_NEWLINE
             self.curr_buffer.insert(destination_iter, text_to_move)
             self.set_selection_at_offset_n_delta(destination_offset, len(text_to_move)-1)
         else:
@@ -365,7 +365,7 @@ class CherryTree:
             self.curr_buffer.delete(iter_start, iter_end)
             destination_offset -= len(text_to_move)
             destination_iter = self.curr_buffer.get_iter_at_offset(destination_offset)
-            if text_to_move[-1] != cons.CHAR_NEWLINE: text_to_move += cons.CHAR_NEWLINE
+            if not text_to_move or text_to_move[-1] != cons.CHAR_NEWLINE: text_to_move += cons.CHAR_NEWLINE
             self.curr_buffer.insert(destination_iter, text_to_move)
             self.set_selection_at_offset_n_delta(destination_offset, len(text_to_move)-1)
         else:
