@@ -352,7 +352,7 @@ class Export2Html:
         href = self.get_html_filename(tree_iter)
         self.tree_links_text += "<tr><td>"
         self.tree_links_text += "&nbsp;&nbsp;&nbsp;" * len(self.tree_links_nums)
-        icon_rel_path = os.path.join(self.images_dir, cons.STOCKS_N_FILES[self.dad.treestore[tree_iter][0]])
+        icon_rel_path = os.path.join("images", cons.STOCKS_N_FILES[self.dad.treestore[tree_iter][0]])
         self.tree_links_text += '<img src="%s" alt="%s" height="22" width="22"/>' % (icon_rel_path, icon_rel_path)
         self.tree_links_text += '<a href="' + href + '">' + ".".join(self.tree_links_nums) + " " + self.dad.treestore[tree_iter][1] + "</a></td></tr>"
         child_tree_iter = self.dad.treestore.iter_children(tree_iter)
@@ -440,7 +440,7 @@ class Export2Html:
         self.images_count += 1
         if tree_iter:
             image_name = "%s-%s.png" % (self.dad.treestore[tree_iter][3], self.images_count)
-            image_rel_path = os.path.join(self.images_dir, image_name)
+            image_rel_path = os.path.join("images", image_name)
         else:
             image_name = "%s.png" % self.images_count
             image_rel_path = "file://" + os.path.join(self.images_dir, image_name)
