@@ -164,6 +164,7 @@ class CherryTree:
         self.sourcestyleschememanager = gtksourceview2.StyleSchemeManager()
         self.sourceview = gtksourceview2.View()
         self.sourceview.set_sensitive(False)
+        self.sourceview.set_smart_home_end(gtksourceview2.SMART_HOME_END_BEFORE)
         self.sourceview.connect('populate-popup', self.on_sourceview_populate_popup)
         self.sourceview.connect("motion-notify-event", self.on_sourceview_motion_notify_event)
         self.sourceview.connect("event-after", self.on_sourceview_event_after)
@@ -344,7 +345,26 @@ class CherryTree:
 
     def text_row_down(self, *args):
         """Moves Down the Current Row/Selected Rows"""
-        print "down"
+        iter_start, iter_end = self.lists_handler.get_paragraph_iters()
+        if iter_start == None:
+            iter_start = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
+            iter_end = iter_start.copy()
+        if not iter_end.forward_char(): return
+        destination_iter = iter_end.copy()
+        while destination_iter.get_char() != cons.CHAR_NEWLINE:
+            if not destination_iter.forward_char(): break
+        destination_offset = destination_iter.get_offset()
+        destination_offset += 1
+        if self.syntax_highlighting != cons.CUSTOM_COLORS_ID:
+            text_to_move = self.curr_buffer.get_slice(iter_start, iter_end)
+            self.curr_buffer.delete(iter_start, iter_end)
+            destination_offset -= len(text_to_move)
+            destination_iter = self.curr_buffer.get_iter_at_offset(destination_offset)
+            self.curr_buffer.insert(destination_iter, text_to_move)
+            self.set_selection_at_offset_n_delta(destination_offset, len(text_to_move)-1)
+        else:
+            print "down"
+        self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
 
     def text_row_delete(self, *args):
         """Deletes the Whole Row"""
