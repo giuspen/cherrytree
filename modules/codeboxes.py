@@ -97,6 +97,7 @@ class CodeBoxesHandler:
             anchor.sourcebuffer.set_text(codebox_dict['fill_text'])
             anchor.sourcebuffer.set_modified(False)
         anchor.sourceview = gtksourceview2.View(anchor.sourcebuffer)
+        anchor.sourceview.set_smart_home_end(gtksourceview2.SMART_HOME_END_BEFORE)
         if self.dad.highl_curr_line: anchor.sourceview.set_highlight_current_line(True)
         if self.dad.show_white_spaces: anchor.sourceview.set_draw_spaces(DRAW_SPACES_FLAGS)
         anchor.sourceview.modify_font(pango.FontDescription(self.dad.code_font))
