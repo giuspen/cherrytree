@@ -372,11 +372,16 @@ class ClipboardHandler:
                     elif len(table_row) < num_columns: table_row = table_row + [""]*(num_columns - len(table_row))
                     iter = model.insert_after(iter, table_row)
 
-    def rich_text_get_from_text_buffer_selection(self, text_buffer, iter_sel_start, iter_sel_end, change_case="n"):
+    def rich_text_get_from_text_buffer_selection(self, text_buffer, iter_sel_start, iter_sel_end,
+                                                 change_case="n", exclude_iter_sel_end=False):
         """Given text_buffer and selection, returns the rich text xml"""
+        iter_sel_start_offset = iter_sel_start.get_offset()
+        iter_sel_end_offset = iter_sel_end.get_offset()
+        if exclude_iter_sel_end: iter_sel_end_offset -= 1
+        iter_sel_range = (iter_sel_start_offset, iter_sel_end_offset)
         pixbuf_table_codebox_vector = self.dad.state_machine.get_embedded_pixbufs_tables_codeboxes(text_buffer,
                                                                                                    for_print=0,
-                                                                                                   sel_range=(iter_sel_start.get_offset(), iter_sel_end.get_offset()))
+                                                                                                   sel_range=iter_sel_range)
         # pixbuf_table_codebox_vector is [ [ "pixbuf"/"table"/"codebox", [offset, pixbuf, alignment] ],... ]
         dom = xml.dom.minidom.Document()
         root = dom.createElement("root")
