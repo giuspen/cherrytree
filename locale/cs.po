@@ -11,15 +11,15 @@ msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-12-25 23:45+0200\n"
-"PO-Revision-Date: 2011-08-30 20:48+0200\n"
-"Last-Translator: Pavel Fric <fripohled.blogspot.com>\n"
+"PO-Revision-Date: 2011-12-26 09:30+0100\n"
+"Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 1.2\n"
+"X-Generator: Lokalize 1.1\n"
 
 #: modules/support.py:59
 msgid "Save File as"
@@ -55,11 +55,11 @@ msgstr "Související uzly"
 
 #: modules/support.py:207
 msgid "Selected Node Only"
-msgstr "Pouze označený uzel"
+msgstr "Pouze vybraný uzel"
 
 #: modules/support.py:208
 msgid "Selected Node and Subnodes"
-msgstr "Označený uzel a podřízené uzly"
+msgstr "Vybraný uzel a podřízené uzly"
 
 #: modules/support.py:209
 msgid "All the Tree"
@@ -185,7 +185,7 @@ msgstr "Kořen stromu"
 
 #: modules/core.py:714
 msgid "The Selected Node"
-msgstr "Označený uzel"
+msgstr "Vybraný uzel"
 
 #: modules/core.py:870
 msgid "CherryTree Hierarchical Note Taking"
@@ -279,9 +279,8 @@ msgid "The new choosed father is again the old father!"
 msgstr "Nový vybraný nadřízený uzel je opět ten starý nadřízený uzel!"
 
 #: modules/core.py:1791 modules/core.py:1797 modules/core.py:1946
-#, fuzzy
 msgid "This Change will have Effect Only After Restarting CherryTree"
-msgstr "Nový jazyk bude dostupný až po novém spuštění CherryTree"
+msgstr "Tato změna se projeví až po novém spuštění CherryTree"
 
 #: modules/core.py:1885
 msgid "Disabled (Custom Colors)"
@@ -663,7 +662,7 @@ msgstr "Zapnout/Vypnout _seznam s odrážkami"
 #: modules/cons.py:406 modules/cons.py:586
 msgid "Set/Unset the Current Paragraph/Selection as a Bulleted List"
 msgstr ""
-"Zapnout/Vypnout označený odstavec/výběr jako položku seznamu s odrážkami"
+"Zapnout/Vypnout nynější odstavec/výběr jako položku seznamu s odrážkami"
 
 #: modules/cons.py:407 modules/cons.py:587
 msgid "Set/Unset _Numbered List"
@@ -672,7 +671,7 @@ msgstr "Zapnout/Vypnout čís_lovaný seznam"
 #: modules/cons.py:407 modules/cons.py:587
 msgid "Set/Unset the Current Paragraph/Selection as a Numbered List"
 msgstr ""
-"Zapnout/Vypnout označený odstavec/výběr jako položku číslovaného seznamu"
+"Zapnout/Vypnout nynější odstavec/výběr jako položku číslovaného seznamu"
 
 #: modules/cons.py:408 modules/cons.py:588
 msgid "Set/Unset _To-Do List"
@@ -681,7 +680,7 @@ msgstr "Zapnout/Vypnout _seznam pracovních úkolů"
 #: modules/cons.py:408 modules/cons.py:588
 msgid "Set/Unset the Current Paragraph/Selection as a To-Do List"
 msgstr ""
-"Zapnout/Vypnout označený odstavec/výběr jako položku seznamu pracovních úkolů"
+"Zapnout/Vypnout nynější odstavec/výběr jako položku seznamu pracovních úkolů"
 
 #: modules/cons.py:409 modules/cons.py:595
 msgid "Insert/Edit _Link"
@@ -824,34 +823,28 @@ msgid "Toggle the Case of the Selection/the Underlying Word"
 msgstr "Přepnout velikost písmen výběru/spodního slova"
 
 #: modules/cons.py:427 modules/cons.py:610 modules/cons.py:648
-#, fuzzy
 msgid "_Duplicate Row"
-msgstr "_Zdvojit řádek/výběr"
+msgstr "_Zdvojit řádek"
 
 #: modules/cons.py:427 modules/cons.py:610 modules/cons.py:648
-#, fuzzy
 msgid "Duplicate the Current Row/Selection"
-msgstr "Zdvojit celý řádek/výběr"
+msgstr "Zdvojit nynější řádek/výběr"
 
 #: modules/cons.py:428 modules/cons.py:611 modules/cons.py:649
-#, fuzzy
 msgid "Move _Up Row"
 msgstr "Posunout řádek _nahoru"
 
 #: modules/cons.py:428 modules/cons.py:611 modules/cons.py:649
-#, fuzzy
 msgid "Move Up the Current Row/Selected Rows"
-msgstr "Posunout označený řádek nahoru"
+msgstr "Posunout nynější řádek/vybrané řádky nahoru"
 
 #: modules/cons.py:429 modules/cons.py:612 modules/cons.py:650
-#, fuzzy
 msgid "Move _Down Row"
 msgstr "Posunout řádek _dolů"
 
 #: modules/cons.py:429 modules/cons.py:612 modules/cons.py:650
-#, fuzzy
 msgid "Move Down the Current Row/Selected Rows"
-msgstr "Posunout označený řádek nahoru"
+msgstr "Posunout nynější řádek/vybrané řádky dolů"
 
 #: modules/cons.py:430 modules/cons.py:485 modules/cons.py:609
 #: modules/cons.py:647
@@ -859,9 +852,8 @@ msgid "De_lete Row"
 msgstr "Smazat řá_dek"
 
 #: modules/cons.py:430 modules/cons.py:609 modules/cons.py:647
-#, fuzzy
 msgid "Delete the Current Row/Selected Rows"
-msgstr "Smazat označený řádek v tabulce"
+msgstr "Smazat nynější řádek/vybrané řádky"
 
 #: modules/cons.py:431 modules/cons.py:482 modules/cons.py:607
 #: modules/cons.py:645
@@ -869,18 +861,16 @@ msgid "Cu_t Row"
 msgstr "Vyjmou_t řádek"
 
 #: modules/cons.py:431 modules/cons.py:607 modules/cons.py:645
-#, fuzzy
 msgid "Cut the Current Row/Selected Rows"
-msgstr "Vyjmout vybraný CodeBox"
+msgstr "Vyjmout nynější řádek/vybrané řádky"
 
 #: modules/cons.py:432 modules/cons.py:483
 msgid "_Copy Row"
 msgstr "_Kopírovat řádek"
 
 #: modules/cons.py:432 modules/cons.py:608 modules/cons.py:646
-#, fuzzy
 msgid "Copy the Current Row/Selected Rows"
-msgstr "Kopírovat vybraný CodeBox"
+msgstr "Kopírovat nynější řádek/vybrané řádky"
 
 #: modules/cons.py:433 modules/cons.py:552
 msgid "Go _Back"
@@ -938,7 +928,7 @@ msgstr "Odstranit f_ormátování"
 
 #: modules/cons.py:439 modules/cons.py:568
 msgid "Remove the Formatting from the Selected Text"
-msgstr "Odstranit formátování z označeného textu"
+msgstr "Odstranit formátování z vybraného textu"
 
 #: modules/cons.py:440 modules/cons.py:570
 msgid "Text _Color Foreground"
@@ -946,7 +936,7 @@ msgstr "_Barva písma"
 
 #: modules/cons.py:440 modules/cons.py:570
 msgid "Change the Color of the Selected Text Foreground"
-msgstr "Změnit barvu písma u označeného textu"
+msgstr "Změnit barvu písma u vybraného textu"
 
 #: modules/cons.py:441 modules/cons.py:571
 msgid "Text C_olor Background"
@@ -954,7 +944,7 @@ msgstr "B_arva pozadí"
 
 #: modules/cons.py:441 modules/cons.py:571
 msgid "Change the Color of the Selected Text Background"
-msgstr "Změnit barvu pozadí u označeného textu"
+msgstr "Změnit barvu pozadí u vybraného textu"
 
 #: modules/cons.py:442 modules/cons.py:572
 msgid "Toggle _Bold Property"
@@ -962,7 +952,7 @@ msgstr "_Tučné"
 
 #: modules/cons.py:442 modules/cons.py:572
 msgid "Toggle Bold Property of the Selected Text"
-msgstr "Formátovat označený text tučně"
+msgstr "Formátovat vybraný text tučně"
 
 #: modules/cons.py:443 modules/cons.py:573
 msgid "Toggle _Italic Property"
@@ -970,7 +960,7 @@ msgstr "_Kurzíva"
 
 #: modules/cons.py:443 modules/cons.py:573
 msgid "Toggle Italic Property of the Selected Text"
-msgstr "Formátovat označený text kurzívně"
+msgstr "Formátovat vybraný text kurzívně"
 
 #: modules/cons.py:444 modules/cons.py:574
 msgid "Toggle _Underline Property"
@@ -978,7 +968,7 @@ msgstr "_Podtržení"
 
 #: modules/cons.py:444 modules/cons.py:574
 msgid "Toggle Underline Property of the Selected Text"
-msgstr "Formátovat označený text podtržením"
+msgstr "Formátovat vybraný text podtržením"
 
 #: modules/cons.py:445 modules/cons.py:575
 msgid "Toggle Stri_kethrough Property"
@@ -986,7 +976,7 @@ msgstr "_Přeškrtnutí"
 
 #: modules/cons.py:445 modules/cons.py:575
 msgid "Toggle Strikethrough Property of the Selected Text"
-msgstr "Formátovat označený text přeškrtnutím"
+msgstr "Formátovat vybraný text přeškrtnutím"
 
 #: modules/cons.py:446 modules/cons.py:576
 msgid "Toggle h_1 Property"
@@ -994,7 +984,7 @@ msgstr "Nadpis _1"
 
 #: modules/cons.py:446 modules/cons.py:576
 msgid "Toggle h1 Property of the Selected Text"
-msgstr "Formátovat označený text jako nadpis 1"
+msgstr "Formátovat vybraný text jako nadpis 1"
 
 #: modules/cons.py:447 modules/cons.py:577
 msgid "Toggle h_2 Property"
@@ -1002,7 +992,7 @@ msgstr "Nadpis _2"
 
 #: modules/cons.py:447 modules/cons.py:577
 msgid "Toggle h2 Property of the Selected Text"
-msgstr "Formátovat označený text jako nadpis 2"
+msgstr "Formátovat vybraný text jako nadpis 2"
 
 #: modules/cons.py:448 modules/cons.py:578
 msgid "Toggle _Small Property"
@@ -1010,7 +1000,7 @@ msgstr "_Malý"
 
 #: modules/cons.py:448 modules/cons.py:578
 msgid "Toggle Small Property of the Selected Text"
-msgstr "Formátovat označený text jako malý"
+msgstr "Formátovat vybraný text jako malý"
 
 #: modules/cons.py:449 modules/cons.py:581
 msgid "Justify _Left"
@@ -1042,7 +1032,7 @@ msgstr "Hledat v _nynějším uzlu"
 
 #: modules/cons.py:452 modules/cons.py:616 modules/cons.py:654
 msgid "Find into the Selected Node"
-msgstr "Hledat v nyní označeném uzlu"
+msgstr "Hledat v nyní vybraném uzlu"
 
 #: modules/cons.py:453 modules/cons.py:617 modules/cons.py:655
 msgid "Find in Node_s"
@@ -1086,7 +1076,7 @@ msgstr "Nahradit v n_ynějším uzlu"
 
 #: modules/cons.py:457 modules/cons.py:623 modules/cons.py:661
 msgid "Replace into the Selected Node"
-msgstr "Nahradit v nyní označeném uzlu"
+msgstr "Nahradit v nyní vybraném uzlu"
 
 #: modules/cons.py:458 modules/cons.py:624 modules/cons.py:662
 msgid "Replace in Node_s"
@@ -1131,14 +1121,12 @@ msgid "Toggle Show/Hide Tree"
 msgstr "Ukázat/Skrýt strom"
 
 #: modules/cons.py:463
-#, fuzzy
 msgid "Show/Hide _CherryTree"
-msgstr "Ukázat/Skrýt stavbu _stromu"
+msgstr "Ukázat/Skrýt _CherryTree"
 
 #: modules/cons.py:463
-#, fuzzy
 msgid "Toggle Show/Hide CherryTree"
-msgstr "Ukázat/Skrýt strom"
+msgstr "Ukázat/Skrýt _CherryTree"
 
 #: modules/cons.py:464
 msgid "Show/Hide Tool_bar"
@@ -1298,7 +1286,7 @@ msgstr "Vložit řádek v tabulce"
 
 #: modules/cons.py:485
 msgid "Delete the Selected Table Row"
-msgstr "Smazat označený řádek v tabulce"
+msgstr "Smazat vybraný řádek v tabulce"
 
 #: modules/cons.py:486
 msgid "Move Row _Up"
@@ -1306,7 +1294,7 @@ msgstr "Posunout řádek _nahoru"
 
 #: modules/cons.py:486
 msgid "Move the Selected Row Up"
-msgstr "Posunout označený řádek nahoru"
+msgstr "Posunout vybraný řádek nahoru"
 
 #: modules/cons.py:487
 msgid "Move Row _Down"
@@ -1314,7 +1302,7 @@ msgstr "Posunout řádek _dolů"
 
 #: modules/cons.py:487
 msgid "Move the Selected Row Down"
-msgstr "Posunout označený řádek dolů"
+msgstr "Posunout vybraný řádek dolů"
 
 #: modules/cons.py:488
 msgid "Sort Rows De_scending"
@@ -1358,7 +1346,7 @@ msgstr "Přidat _uzel"
 
 #: modules/cons.py:493 modules/cons.py:504
 msgid "Add a Node having the same Father of the Selected Node"
-msgstr "Přidat uzel se stejným nadřízeným uzlem, jaký má označený uzel"
+msgstr "Přidat uzel se stejným nadřízeným uzlem, jaký má vybraný uzel"
 
 #: modules/cons.py:494 modules/cons.py:505
 msgid "Add _SubNode"
@@ -1366,7 +1354,7 @@ msgstr "Přidat _podřízený uzel"
 
 #: modules/cons.py:494 modules/cons.py:505
 msgid "Add a Child Node to the Selected Node"
-msgstr "Přidat uzel podřízený označenému uzlu"
+msgstr "Přidat uzel podřízený vybranému uzlu"
 
 #: modules/cons.py:507
 msgid "Change Node _Properties"
@@ -1374,7 +1362,7 @@ msgstr "Změnit _vlastnosti uzlu"
 
 #: modules/cons.py:507
 msgid "Edit the Properties of the Selected Node"
-msgstr "Upravit vlastnosti označeného uzlu"
+msgstr "Upravit vlastnosti vybraného uzlu"
 
 #: modules/cons.py:508
 msgid "Tree _Info"
@@ -1386,7 +1374,7 @@ msgstr "Posunout uzel nahor_u"
 
 #: modules/cons.py:511
 msgid "Move the Selected Node Up"
-msgstr "Posunout označený uzel nahoru"
+msgstr "Posunout vybraný uzel nahoru"
 
 #: modules/cons.py:512
 msgid "Node _Down"
@@ -1394,7 +1382,7 @@ msgstr "Posunout uzel _dolů"
 
 #: modules/cons.py:512
 msgid "Move the Selected Node Down"
-msgstr "Posunout označený uzel dolů"
+msgstr "Posunout vybraný uzel dolů"
 
 #: modules/cons.py:513
 msgid "Node _Left"
@@ -1410,7 +1398,7 @@ msgstr "Změnit nadřízený uzel"
 
 #: modules/cons.py:514
 msgid "Change the Selected Node's Father"
-msgstr "Změnit nadřízený uzel označeného uzlu"
+msgstr "Změnit nadřízený uzel vybraného uzlu"
 
 #: modules/cons.py:517
 msgid "Nodes _Sort"
@@ -1470,7 +1458,7 @@ msgstr "Smazat u_zel"
 
 #: modules/cons.py:550
 msgid "Delete the Selected Node"
-msgstr "Smazat označený uzel"
+msgstr "Smazat vybraný uzel"
 
 #: modules/cons.py:564
 msgid "_Paste as Plain Text"
@@ -1746,7 +1734,7 @@ msgstr "Zpět"
 
 #: glade/cherrytree.glade.h:54
 msgid "Browse for Existing Anchors on the Selected Node"
-msgstr "Prohledat označený uzel na stávající kotvy"
+msgstr "Prohledat vybraný uzel na stávající kotvy"
 
 #: glade/cherrytree.glade.h:55
 msgid "Browse for a File to link to"
@@ -1863,7 +1851,7 @@ msgstr "Výška"
 
 #: glade/cherrytree.glade.h:86
 msgid "Highlight Current Line"
-msgstr ""
+msgstr "Zvýraznit nynější řádek"
 
 #: glade/cherrytree.glade.h:87
 msgid "Highlight Matching Brackets"
@@ -1951,7 +1939,7 @@ msgstr "Ukázat čísla řádků"
 
 #: glade/cherrytree.glade.h:113
 msgid "Show White Spaces"
-msgstr ""
+msgstr "Ukázat prázdná místa"
 
 #: glade/cherrytree.glade.h:114
 msgid "Start Minimized in the System Tray"
@@ -1963,7 +1951,7 @@ msgstr "Začátek slova"
 
 #: glade/cherrytree.glade.h:116
 msgid "Style Scheme"
-msgstr ""
+msgstr "Nákres stylu"
 
 #: glade/cherrytree.glade.h:117
 msgid "Tab Width  "
@@ -2044,53 +2032,3 @@ msgstr "http://www.giuspen.com/cherrytree/"
 #: glade/cherrytree.glade.h:137
 msgid "pixels"
 msgstr "pixely"
-
-#, fuzzy
-#~ msgid "Duplicate the Current Row/Selected Rows"
-#~ msgstr "Zdvojit celý řádek/výběr"
-
-#~ msgid "Delete the Whole Row"
-#~ msgstr "Smazat celý řádek"
-
-#~ msgid "Cut the Whole Row"
-#~ msgstr "Vyjmout celý řádek"
-
-#~ msgid "Copy the Whole Row"
-#~ msgstr "Kopírovat celý řádek"
-
-#~ msgid ""
-#~ "The File %s\n"
-#~ "Already Exists, do you want to Overwrite?"
-#~ msgstr ""
-#~ "Soubor %s\n"
-#~ "již existuje. Chcete jej přepsat?"
-
-#~ msgid "Justify Left/Right the Current Paragraph"
-#~ msgstr "Zarovnat současný odstavec vlevo/vpravo"
-
-#~ msgid "Version %s"
-#~ msgstr "Verze %s"
-
-#~ msgid "Plain Text Document"
-#~ msgstr "Dokument v prostém textu"
-
-#~ msgid "Export the Tree To HTML"
-#~ msgstr "Vyvést celý strom jako HTML"
-
-#~ msgid "Export the Selected Node To HTML"
-#~ msgstr "Vyvést označený uzel jako HTML"
-
-#~ msgid "Save the Selected Node as Plain Text"
-#~ msgstr "Uložit vybraný uzel jako prostý text"
-
-#~ msgid "_Export Node and Subnodes"
-#~ msgstr "_Vyvést označený uzel a podřízené uzly"
-
-#~ msgid "Node _Print / Save as PDF, PS, SVG"
-#~ msgstr "Uzel _vytisknout/uložit jako PDF, PS, SVG"
-
-#~ msgid "Print the Current Node / Save the Current Node as PDF, PS, SVG"
-#~ msgstr "Nynější uzel _vytisknout/uložit jako PDF, PS, SVG"
-
-#~ msgid "Another Instance of CherryTree is Already Running"
-#~ msgstr "CherryTree již běží"
