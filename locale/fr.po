@@ -276,10 +276,9 @@ msgid "The new choosed father is again the old father!"
 msgstr "Le nouveau Parent est encore l'ancien Parent !"
 
 #: modules/core.py:1791 modules/core.py:1797 modules/core.py:1946
-#, fuzzy
 msgid "This Change will have Effect Only After Restarting CherryTree"
 msgstr ""
-"La nouvelle langue sera activée uniquement après avoir relancé CherryTree"
+"Ce changement prendra effet uniquement après avoir relancé CherryTree"
 
 #: modules/core.py:1885
 msgid "Disabled (Custom Colors)"
@@ -823,34 +822,28 @@ msgid "Toggle the Case of the Selection/the Underlying Word"
 msgstr "(Dés)Activer les Majuscules/Minuscules de la sélection"
 
 #: modules/cons.py:427 modules/cons.py:610 modules/cons.py:648
-#, fuzzy
 msgid "_Duplicate Row"
-msgstr "_Dupliquer la Ligne/la Sélection"
+msgstr "_Dupliquer la Ligne"
 
 #: modules/cons.py:427 modules/cons.py:610 modules/cons.py:648
-#, fuzzy
 msgid "Duplicate the Current Row/Selection"
-msgstr "Dupliquer la Ligne entière/une Sélection"
+msgstr "Dupliquer la Ligne/Sélection actuelle"
 
 #: modules/cons.py:428 modules/cons.py:611 modules/cons.py:649
-#, fuzzy
 msgid "Move _Up Row"
-msgstr "Déplacer Ligne vers le _Haut"
+msgstr "Déplacer la Ligne vers le _Haut"
 
 #: modules/cons.py:428 modules/cons.py:611 modules/cons.py:649
-#, fuzzy
 msgid "Move Up the Current Row/Selected Rows"
-msgstr "Déplacer la Ligne vers le Haut"
+msgstr "Déplacer la Ligne actuelle/sélectionnée vers le Haut"
 
 #: modules/cons.py:429 modules/cons.py:612 modules/cons.py:650
-#, fuzzy
 msgid "Move _Down Row"
-msgstr "Déplacer Ligne vers le _Bas"
+msgstr "Déplacer la Ligne vers le _Bas"
 
 #: modules/cons.py:429 modules/cons.py:612 modules/cons.py:650
-#, fuzzy
 msgid "Move Down the Current Row/Selected Rows"
-msgstr "Déplacer la Ligne vers le Haut"
+msgstr "Déplacer la Ligne actuelle/sélectionnée vers le Bas"
 
 #: modules/cons.py:430 modules/cons.py:485 modules/cons.py:609
 #: modules/cons.py:647
@@ -858,9 +851,8 @@ msgid "De_lete Row"
 msgstr "_Supprimer la Ligne"
 
 #: modules/cons.py:430 modules/cons.py:609 modules/cons.py:647
-#, fuzzy
 msgid "Delete the Current Row/Selected Rows"
-msgstr "Supprimer la Ligne du Tableau"
+msgstr "Supprimer la Ligne actuelle/sélectionnée"
 
 #: modules/cons.py:431 modules/cons.py:482 modules/cons.py:607
 #: modules/cons.py:645
@@ -868,18 +860,16 @@ msgid "Cu_t Row"
 msgstr "Co_uper la Ligne"
 
 #: modules/cons.py:431 modules/cons.py:607 modules/cons.py:645
-#, fuzzy
 msgid "Cut the Current Row/Selected Rows"
-msgstr "Couper la CodeBox Sélectionnée"
+msgstr "Couper la Ligne actuelle/sélectionnée"
 
 #: modules/cons.py:432 modules/cons.py:483
 msgid "_Copy Row"
 msgstr "_Copier la Ligne"
 
 #: modules/cons.py:432 modules/cons.py:608 modules/cons.py:646
-#, fuzzy
 msgid "Copy the Current Row/Selected Rows"
-msgstr "Copier la CodeBox Sélectionnée"
+msgstr "Copier la Ligne actuelle/sélectionnée"
 
 #: modules/cons.py:433 modules/cons.py:552
 msgid "Go _Back"
@@ -1132,14 +1122,12 @@ msgid "Toggle Show/Hide Tree"
 msgstr "Activer/Désactiver l'Arborescence du projet"
 
 #: modules/cons.py:463
-#, fuzzy
 msgid "Show/Hide _CherryTree"
-msgstr "Afficher/Cacher l'_Arborescence"
+msgstr "Afficher/Cacher _CherryTree"
 
 #: modules/cons.py:463
-#, fuzzy
 msgid "Toggle Show/Hide CherryTree"
-msgstr "Activer/Désactiver l'Arborescence du projet"
+msgstr "(Dés)Activer Afficher/Cacher CherryTree"
 
 #: modules/cons.py:464
 msgid "Show/Hide Tool_bar"
@@ -1866,7 +1854,7 @@ msgstr "Hauteur"
 
 #: glade/cherrytree.glade.h:86
 msgid "Highlight Current Line"
-msgstr ""
+msgstr "Surligner la Ligne actuelle"
 
 #: glade/cherrytree.glade.h:87
 msgid "Highlight Matching Brackets"
@@ -1954,7 +1942,7 @@ msgstr "Montrer les Numéros de Lignes"
 
 #: glade/cherrytree.glade.h:113
 msgid "Show White Spaces"
-msgstr ""
+msgstr "Afficher les espaces vides"
 
 #: glade/cherrytree.glade.h:114
 msgid "Start Minimized in the System Tray"
@@ -1966,7 +1954,7 @@ msgstr "Commencer au mot"
 
 #: glade/cherrytree.glade.h:116
 msgid "Style Scheme"
-msgstr ""
+msgstr "Plan du Style"
 
 #: glade/cherrytree.glade.h:117
 msgid "Tab Width  "
@@ -2047,54 +2035,3 @@ msgstr "http://www.giuspen.com/cherrytree/"
 #: glade/cherrytree.glade.h:137
 msgid "pixels"
 msgstr "pixels"
-
-#, fuzzy
-#~ msgid "Duplicate the Current Row/Selected Rows"
-#~ msgstr "Dupliquer la Ligne entière/une Sélection"
-
-#~ msgid "Delete the Whole Row"
-#~ msgstr "Supprimer toute la Ligne"
-
-#~ msgid "Cut the Whole Row"
-#~ msgstr "Couper toute la Ligne"
-
-#~ msgid "Copy the Whole Row"
-#~ msgstr "Copier toute la Ligne"
-
-#~ msgid ""
-#~ "The File %s\n"
-#~ "Already Exists, do you want to Overwrite?"
-#~ msgstr ""
-#~ "Le Fichier %s\n"
-#~ "existe déjà. Voulez-vous l'écraser ?"
-
-#~ msgid "Justify Left/Right the Current Paragraph"
-#~ msgstr "Justifier le Paragraphe à Droite/Gauche"
-
-#~ msgid "Version %s"
-#~ msgstr "Version %s"
-
-#~ msgid "Plain Text Document"
-#~ msgstr "Document Texte Brut"
-
-#~ msgid "Export the Tree To HTML"
-#~ msgstr "Exporter l'_arborescence en HTML"
-
-#~ msgid "Export the Selected Node To HTML"
-#~ msgstr "Exporter le Nœud sélectionné en HTML"
-
-#~ msgid "Save the Selected Node as Plain Text"
-#~ msgstr "Enregistrer le Nœud Sélectionné en Texte Brut"
-
-#~ msgid "_Export Node and Subnodes"
-#~ msgstr "E_xporter les Nœuds et Sous-Nœuds"
-
-#~ msgid "Node _Print / Save as PDF, PS, SVG"
-#~ msgstr "Imprimer le _Nœud / Enregistrer en PDF, PS, SVG"
-
-#~ msgid "Print the Current Node / Save the Current Node as PDF, PS, SVG"
-#~ msgstr ""
-#~ "Imprimer le Nœud actuel / Enregistrer le Nœud actuel en PDF, PS, SVG"
-
-#~ msgid "Another Instance of CherryTree is Already Running"
-#~ msgstr "Une instance de CherryTree est déjà lancée"
