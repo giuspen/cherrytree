@@ -132,6 +132,7 @@ def config_file_load(inst):
         inst.file_dir = ""
         inst.file_name = ""
         inst.node_path = None
+        inst.syntax_highlighting = cons.CUSTOM_COLORS_ID
         inst.style_scheme = cons.STYLE_SCHEME_DEFAULT
         inst.tree_font = "Sans 8" # default tree font
         inst.text_font = "Sans 9" # default text font
