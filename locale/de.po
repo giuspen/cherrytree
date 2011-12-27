@@ -275,9 +275,8 @@ msgid "The new choosed father is again the old father!"
 msgstr "Der neue übergeordnete Knoten ist der alte!"
 
 #: modules/core.py:1791 modules/core.py:1797 modules/core.py:1946
-#, fuzzy
 msgid "This Change will have Effect Only After Restarting CherryTree"
-msgstr "CherryTree muss neu gestartet werden, um die Sprache zu übernehmen."
+msgstr "CherryTree muss neu gestartet werden, um die Änderungen zu übernehmen."
 
 #: modules/core.py:1885
 msgid "Disabled (Custom Colors)"
@@ -817,34 +816,28 @@ msgid "Toggle the Case of the Selection/the Underlying Word"
 msgstr "Groß- und Kleinschreibung des markierten Textes invertieren"
 
 #: modules/cons.py:427 modules/cons.py:610 modules/cons.py:648
-#, fuzzy
 msgid "_Duplicate Row"
-msgstr "Zeile/Auswahl _duplizieren"
+msgstr "Zeile _duplizieren"
 
 #: modules/cons.py:427 modules/cons.py:610 modules/cons.py:648
-#, fuzzy
 msgid "Duplicate the Current Row/Selection"
-msgstr "Auswahl duplizieren"
+msgstr "Zeile/Markierung duplizieren"
 
 #: modules/cons.py:428 modules/cons.py:611 modules/cons.py:649
-#, fuzzy
 msgid "Move _Up Row"
 msgstr "Zeile nach _oben verschieben"
 
 #: modules/cons.py:428 modules/cons.py:611 modules/cons.py:649
-#, fuzzy
 msgid "Move Up the Current Row/Selected Rows"
-msgstr "Zeile nach oben verschieben"
+msgstr "Zeilen nach oben verschieben"
 
 #: modules/cons.py:429 modules/cons.py:612 modules/cons.py:650
-#, fuzzy
 msgid "Move _Down Row"
 msgstr "Zeile nach _unten verschieben"
 
 #: modules/cons.py:429 modules/cons.py:612 modules/cons.py:650
-#, fuzzy
 msgid "Move Down the Current Row/Selected Rows"
-msgstr "Zeile nach oben verschieben"
+msgstr "markierte Zeilen nach unten verschieben"
 
 #: modules/cons.py:430 modules/cons.py:485 modules/cons.py:609
 #: modules/cons.py:647
@@ -852,9 +845,8 @@ msgid "De_lete Row"
 msgstr "Zeile l_öschen"
 
 #: modules/cons.py:430 modules/cons.py:609 modules/cons.py:647
-#, fuzzy
 msgid "Delete the Current Row/Selected Rows"
-msgstr "Tabellenzeile löschen"
+msgstr "Zeilen löschen"
 
 #: modules/cons.py:431 modules/cons.py:482 modules/cons.py:607
 #: modules/cons.py:645
@@ -862,18 +854,17 @@ msgid "Cu_t Row"
 msgstr "_Zeile ausschneiden"
 
 #: modules/cons.py:431 modules/cons.py:607 modules/cons.py:645
-#, fuzzy
+
 msgid "Cut the Current Row/Selected Rows"
-msgstr "CodeBox ausschneiden"
+msgstr "Zeilen ausschneiden"
 
 #: modules/cons.py:432 modules/cons.py:483
 msgid "_Copy Row"
 msgstr "Zeile k_opieren"
 
 #: modules/cons.py:432 modules/cons.py:608 modules/cons.py:646
-#, fuzzy
 msgid "Copy the Current Row/Selected Rows"
-msgstr "CodeBox kopieren"
+msgstr "Zeilen kopieren"
 
 #: modules/cons.py:433 modules/cons.py:552
 msgid "Go _Back"
@@ -1124,14 +1115,12 @@ msgid "Toggle Show/Hide Tree"
 msgstr "Baumstruktur anzeigen/ausblenden"
 
 #: modules/cons.py:463
-#, fuzzy
 msgid "Show/Hide _CherryTree"
-msgstr "_Baumstruktur anzeigen"
+msgstr "_CherryTree anzeigen/ausblenden"
 
 #: modules/cons.py:463
-#, fuzzy
 msgid "Toggle Show/Hide CherryTree"
-msgstr "Baumstruktur anzeigen/ausblenden"
+msgstr "CherryTree anzeigen/ausblenden"
 
 #: modules/cons.py:464
 msgid "Show/Hide Tool_bar"
@@ -1171,8 +1160,7 @@ msgstr "aus _Basket-Verzeichnis..."
 
 #: modules/cons.py:468 modules/cons.py:531
 msgid "Add Nodes of a Basket Folder to the Current Tree"
-msgstr ""
-"Knoten aus einem Basket-Verzeichnis zur aktuellen Baumstruktur hinzufügen"
+msgstr "Knoten aus einem Basket-Verzeichnis zur aktuellen Baumstruktur hinzufügen"
 
 #: modules/cons.py:469 modules/cons.py:532
 msgid "From _CherryTree File"
@@ -1180,8 +1168,7 @@ msgstr "aus _CherryTree-Datei..."
 
 #: modules/cons.py:469 modules/cons.py:532
 msgid "Add Nodes of a CherryTree File to the Current Tree"
-msgstr ""
-"Knoten aus einer CherryTree-Datei zur aktuellen Baumstruktur hinzufügen"
+msgstr "Knoten aus einer CherryTree-Datei zur aktuellen Baumstruktur hinzufügen"
 
 #: modules/cons.py:470 modules/cons.py:536
 msgid "From _NoteCase File"
@@ -1197,8 +1184,7 @@ msgstr "aus _KeepNote-Verzeichnis..."
 
 #: modules/cons.py:471 modules/cons.py:533
 msgid "Add Nodes of a KeepNote Folder to the Current Tree"
-msgstr ""
-"Knoten aus einem KeepNote-Verzeichnis zur aktuellen Baumstruktur hinzufügen"
+msgstr "Knoten aus einem KeepNote-Verzeichnis zur aktuellen Baumstruktur hinzufügen"
 
 #: modules/cons.py:472 modules/cons.py:534
 msgid "From K_nowit File"
@@ -1214,8 +1200,7 @@ msgstr "aus T_omboy-Verzeichnis.."
 
 #: modules/cons.py:473 modules/cons.py:537
 msgid "Add Nodes of a Tomboy Folder to the Current Tree"
-msgstr ""
-"Knoten aus einem Tomboy-Verzeichnis zur aktuellen Baumstruktur hinzufügen"
+msgstr "Knoten aus einem Tomboy-Verzeichnis zur aktuellen Baumstruktur hinzufügen"
 
 #: modules/cons.py:474 modules/cons.py:539
 msgid "From _TuxCards File"
@@ -1231,8 +1216,7 @@ msgstr "aus _Treepad Lite-Datei..."
 
 #: modules/cons.py:475 modules/cons.py:538
 msgid "Add Nodes of a Treepad Lite File to the Current Tree"
-msgstr ""
-"Knoten aus einer Treepad Lite-Datei zur aktuellen Baumstruktur hinzufügen"
+msgstr "Knoten aus einer Treepad Lite-Datei zur aktuellen Baumstruktur hinzufügen"
 
 #: modules/cons.py:476 modules/cons.py:535
 msgid "From _Leo File"
@@ -1716,8 +1700,7 @@ msgstr "<b>URL der Webseite</b>"
 msgid ""
 "A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
 "Highlighting"
-msgstr ""
-"Ein hierarchisches Notizprogramm mit Textformatierung und Syntaxhervorhebung"
+msgstr "Ein hierarchisches Notizprogramm mit Textformatierung und Syntaxhervorhebung"
 
 #: glade/cherrytree.glade.h:47
 msgid "Add Column"
@@ -1865,7 +1848,7 @@ msgstr "Höhe"
 
 #: glade/cherrytree.glade.h:86
 msgid "Highlight Current Line"
-msgstr ""
+msgstr "Zeile markieren"
 
 #: glade/cherrytree.glade.h:87
 msgid "Highlight Matching Brackets"
@@ -1953,7 +1936,7 @@ msgstr "Zeilennummern anzeigen"
 
 #: glade/cherrytree.glade.h:113
 msgid "Show White Spaces"
-msgstr ""
+msgstr "Leerzeichen anzeigen"
 
 #: glade/cherrytree.glade.h:114
 msgid "Start Minimized in the System Tray"
@@ -1965,7 +1948,7 @@ msgstr "Wortanfang"
 
 #: glade/cherrytree.glade.h:116
 msgid "Style Scheme"
-msgstr ""
+msgstr "Farbschema"
 
 #: glade/cherrytree.glade.h:117
 msgid "Tab Width  "
@@ -2046,53 +2029,3 @@ msgstr "http://www.giuspen.com/cherrytree/"
 #: glade/cherrytree.glade.h:137
 msgid "pixels"
 msgstr "Pixel"
-
-#, fuzzy
-#~ msgid "Duplicate the Current Row/Selected Rows"
-#~ msgstr "Auswahl duplizieren"
-
-#~ msgid "Delete the Whole Row"
-#~ msgstr "Zeile löschen"
-
-#~ msgid "Cut the Whole Row"
-#~ msgstr "Zeile ausschneiden"
-
-#~ msgid "Copy the Whole Row"
-#~ msgstr "Zeile kopieren"
-
-#~ msgid ""
-#~ "The File %s\n"
-#~ "Already Exists, do you want to Overwrite?"
-#~ msgstr ""
-#~ "Die Datei %s\n"
-#~ "existiert bereits. Soll sie überschrieben werden?"
-
-#~ msgid "Justify Left/Right the Current Paragraph"
-#~ msgstr "Aktuellen Absatz links-/rechtsbündig ausrichten"
-
-#~ msgid "Version %s"
-#~ msgstr "Version %s"
-
-#~ msgid "Plain Text Document"
-#~ msgstr "Textdatei"
-
-#~ msgid "Export the Tree To HTML"
-#~ msgstr "Baumstruktur nach HTML exportieren"
-
-#~ msgid "Export the Selected Node To HTML"
-#~ msgstr "Knoten nach HTML exportieren"
-
-#~ msgid "Save the Selected Node as Plain Text"
-#~ msgstr "Knoten als Text speichern"
-
-#~ msgid "_Export Node and Subnodes"
-#~ msgstr "_Markierten und untergeordnete Knoten exportieren"
-
-#~ msgid "Node _Print / Save as PDF, PS, SVG"
-#~ msgstr "Knoten _drucken / Speichern als PDF,PS,SVG..."
-
-#~ msgid "Print the Current Node / Save the Current Node as PDF, PS, SVG"
-#~ msgstr "Knoten drucken / Knoten als PDF,PS,SVG speichern"
-
-#~ msgid "Another Instance of CherryTree is Already Running"
-#~ msgstr "CherryTree läuft bereits"
