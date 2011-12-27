@@ -1954,7 +1954,7 @@ class CherryTree:
         combobox.pack_start(cell, True)
         combobox.add_attribute(cell, 'text', 0)
         style_schemes_list = []
-        for style_scheme in self.sourcestyleschememanager.get_scheme_ids():
+        for style_scheme in sorted(self.sourcestyleschememanager.get_scheme_ids()):
             self.style_scheme_liststore.append([style_scheme])
             style_schemes_list.append(style_scheme)
         if not self.style_scheme in style_schemes_list: self.style_scheme = style_schemes_list[0]
