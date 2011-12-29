@@ -25,7 +25,7 @@ try:
     import appindicator
     HAS_APPINDICATOR = True
 except: HAS_APPINDICATOR = False
-import cons, support, config, machines, clipboard, imports, exports, printing, tablez, lists, findreplace, codeboxes
+import cons, support, config, machines, clipboard, imports, exports, printing, tablez, lists, findreplace, codeboxes, ctdb
 
 
 class GladeWidgetsWrapper:
@@ -67,6 +67,7 @@ class CherryTree:
         self.xml_handler = machines.XMLHandler(self)
         self.html_handler = exports.Export2Html(self)
         self.find_handler = findreplace.FindReplace(self)
+        self.ctdb_handler = ctdb.CTDBHandler(self)
         self.print_handler = printing.PrintHandler()
         # icon factory
         factory = gtk.IconFactory()
