@@ -3,6 +3,7 @@ codeboxes.pyc
 config.pyc
 cons.pyc
 core.pyc
+ctdb.pyc
 exports.pyc
 findreplace.pyc
 imports.pyc
