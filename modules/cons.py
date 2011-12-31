@@ -155,6 +155,63 @@ NODES_STOCKS = ['Node Bullet', 'Node NoIcon', 'Black Cherry',
 
 HORIZONTAL_RULE = "\n=============================================\n"
 
+TABLE_NODE_CREATE = """CREATE TABLE node (
+node_id INTEGER,
+name TEXT,
+txt TEXT,
+syntax TEXT,
+tags TEXT,
+is_ro INTEGER,
+is_richtxt INTEGER,
+has_codebox INTEGER,
+has_table INTEGER,
+has_image INTEGER,
+has_children INTEGER,
+level INTEGER
+)
+"""
+
+TABLE_CODEBOX_CREATE = """CREATE TABLE codebox (
+node_id INTEGER,
+offset INTEGER,
+justification TEXT,
+txt TEXT,
+syntax TEXT,
+width INTEGER,
+height INTEGER,
+is_width_pix INTEGER,
+do_highl_bra INTEGER,
+do_show_linenum INTEGER
+)
+"""
+
+TABLE_TABLE_CREATE = """CREATE TABLE table (
+node_id INTEGER,
+offset INTEGER,
+justification TEXT,
+txt TEXT,
+col_min INTEGER,
+col_max INTEGER
+)
+"""
+
+TABLE_IMAGE_CREATE = """CREATE TABLE image (
+node_id INTEGER,
+offset INTEGER,
+justification TEXT,
+png BLOB
+)
+"""
+
+TABLE_CHILDREN_CREATE = """CREATE TABLE children (
+node_id INTEGER,
+father_id INTEGER,
+sequence INTEGER
+)
+"""
+
+TABLE_BOOKMARK_CREATE = """CREATE TABLE bookmark (node_id INTEGER)"""
+
 UI_INFO = """
 <ui>
     <menubar name='MenuBar'>
