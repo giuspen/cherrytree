@@ -2,7 +2,7 @@
 #
 #       ctdb.py
 #
-#       Copyright 2011 Giuseppe Penone <giuspen@gmail.com>
+#       Copyright 2012 Giuseppe Penone <giuspen@gmail.com>
 #
 #       This program is free software; you can redistribute it and/or modify
 #       it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 #       MA 02110-1301, USA.
 
 import gtk
-import os
+import os, sqlite3
 import cons, support
 
 
@@ -30,3 +30,15 @@ class CTDBHandler:
     def __init__(self, dad):
         """CherryTree DataBase boot"""
         self.dad = dad
+    
+    def new_db(self, dbpath):
+        """Create a new DataBase"""
+        conn = sqlite3.connect(dbpath)
+        cursor = conn.cursor()
+        cursor.execute(cons.TABLE_NODE_CREATE)
+        cursor.execute(cons.TABLE_CODEBOX_CREATE)
+        cursor.execute(cons.TABLE_TABLE_CREATE)
+        cursor.execute(cons.TABLE_IMAGE_CREATE)
+        cursor.execute(cons.TABLE_BOOKMARK_CREATE)
+        conn.commit()
+        cursor.close()
