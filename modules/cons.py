@@ -167,7 +167,8 @@ has_codebox INTEGER,
 has_table INTEGER,
 has_image INTEGER,
 has_children INTEGER,
-level INTEGER
+level INTEGER,
+sequence INTEGER
 )
 """
 
@@ -205,8 +206,7 @@ png BLOB
 
 TABLE_CHILDREN_CREATE = """CREATE TABLE children (
 node_id INTEGER,
-father_id INTEGER,
-sequence INTEGER
+father_id INTEGER
 )
 """
 
