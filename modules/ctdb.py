@@ -145,16 +145,13 @@ class CTDBHandler:
                 elif element[0] == "codebox": codeboxes_tuples.append(self.get_codebox_db_tuple(element[1], node_id))
             if codeboxes_tuples:
                 has_codebox = 1
-                for codebox_tuple in codeboxes_tuples:
-                    db.execute('INSERT INTO codebox VALUES(?,?,?,?,?,?,?,?,?,?)', codebox_tuple)
+                db.executemany('INSERT INTO codebox VALUES(?,?,?,?,?,?,?,?,?,?)', codeboxes_tuples)
             if tables_tuples:
                 has_table = 1
-                for table_tuple in tables_tuples:
-                    db.execute('INSERT INTO table VALUES(?,?,?,?,?,?)', table_tuple)
+                db.executemany('INSERT INTO table VALUES(?,?,?,?,?,?)', tables_tuples)
             if images_tuples:
                 has_image = 1
-                for image_tuple in images_tuples:
-                    db.execute('INSERT INTO image VALUES(?,?,?,?,?)', image_tuple)
+                db.executemany('INSERT INTO image VALUES(?,?,?,?,?)', images_tuples)
             # retrieve xml text
             txt = self.dom.toxml()
         else:
@@ -187,3 +184,22 @@ class CTDBHandler:
             self.write_db_node(db, tree_iter, 1, sequence, None)
             tree_iter = self.dad.treestore.iter_next(tree_iter)
         self.write_db_bookmarks(db)
+    
+    def read_db_full(self, dbpath, discard_ids, tree_father=None, reset_nodes_names=True):
+        """Read the whole DB"""
+        self.dad.bookmarks = []
+        if reset_nodes_names:
+            self.dad.nodes_names_dict = {}
+            bookmarks_menu = self.dad.ui.get_widget("/MenuBar/BookmarksMenu").get_submenu()
+            for menu_item in self.dad.bookmarks_menu_items:
+                bookmarks_menu.remove(menu_item)
+            self.dad.bookmarks_menu_items = []
+        db = sqlite3.connect(dbpath)
+        db.row_factory = sqlite3.Row
+        node_row = db.execute('SELECT node_id, name, syntax, tags, has_children FROM node WHERE level=0 ORDER BY sequence ASC').fetchall()
+        #dom_iter = cherrytree.firstChild
+        #while dom_iter!= None:
+            #if dom_iter.nodeName == "node": self.append_tree_node(dom_iter, tree_father, discard_ids)
+            #elif dom_iter.nodeName == "bookmarks":
+                #self.dad.bookmarks = dom_iter.attributes['list'].value.split(",")
+            #dom_iter = dom_iter.nextSibling
