@@ -412,7 +412,8 @@ class ClipboardHandler:
         tag_found = curr_iter.forward_to_tag_toggle(None)
         while tag_found:
             if curr_iter.get_offset() > end_offset: curr_iter = text_buffer.get_iter_at_offset(end_offset)
-            self.dad.xml_handler.rich_text_serialize(dom_iter, start_iter, curr_iter, self.curr_attributes, change_case)
+            self.dad.xml_handler.rich_txt_serialize(dom_iter, start_iter, curr_iter, self.curr_attributes,
+                                                    change_case=change_case, dom=dom)
             offset_old = curr_iter.get_offset()
             if offset_old >= end_offset: break
             else:
@@ -422,7 +423,8 @@ class ClipboardHandler:
                 if curr_iter.get_offset() == offset_old: break
         else:
             if curr_iter.get_offset() > end_offset: curr_iter = text_buffer.get_iter_at_offset(end_offset)
-            self.dad.xml_handler.rich_text_serialize(dom_iter, start_iter, curr_iter, self.curr_attributes, change_case)
+            self.dad.xml_handler.rich_txt_serialize(dom_iter, start_iter, curr_iter, self.curr_attributes,
+                                                    change_case=change_case, dom=dom)
         if obj_element:
             if obj_element[0] == "pixbuf": self.dad.xml_handler.pixbuf_element_to_xml(obj_element[1], dom_iter, dom)
             elif obj_element[0] == "table": self.dad.xml_handler.table_element_to_xml(obj_element[1], dom_iter)

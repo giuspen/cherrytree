@@ -77,7 +77,27 @@ class CTDBHandler:
             self.curr_attributes = {}
             for tag_property in cons.TAG_PROPERTIES: self.curr_attributes[tag_property] = ""
             # go!
-            
+            curr_iter = start_iter.copy()
+            self.dad.xml_handler.rich_text_attributes_update(curr_iter, self.curr_attributes)
+            tag_found = curr_iter.forward_to_tag_toggle(None)
+            while tag_found:
+                self.dad.xml_handler.rich_txt_serialize(dom_iter, start_iter, curr_iter, self.curr_attributes, dom=self.dom)
+                if curr_iter.compare(end_iter) == 0: break
+                else:
+                    self.rich_text_attributes_update(curr_iter, self.curr_attributes)
+                    offset_old = curr_iter.get_offset()
+                    start_iter.set_offset(offset_old)
+                    tag_found = curr_iter.forward_to_tag_toggle(None)
+                    if curr_iter.get_offset() == offset_old: break
+            else:  self.dad.xml_handler.rich_txt_serialize(dom_iter, start_iter, curr_iter, self.curr_attributes, dom=self.dom)
+            # in case of writing to disk it's time to serialize the info about the images
+            if to_disk == True:
+                pixbuf_table_codebox_vector = self.dad.state_machine.get_embedded_pixbufs_tables_codeboxes(curr_buffer)
+                # pixbuf_table_codebox_vector is [ [ "pixbuf"/"table"/"codebox", [offset, pixbuf, alignment] ],... ]
+                for element in pixbuf_table_codebox_vector:
+                    if element[0] == "pixbuf": self.pixbuf_element_to_xml(element[1], dom_iter, self.dom)
+                    elif element[0] == "table": self.table_element_to_xml(element[1], dom_iter)
+                    elif element[0] == "codebox": self.codebox_element_to_xml(element[1], dom_iter)
             # retrieve xml text
             txt = self.dom.toxml()
         else: txt = start_iter.get_text(end_iter)
