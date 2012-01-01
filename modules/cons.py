@@ -200,6 +200,7 @@ TABLE_IMAGE_CREATE = """CREATE TABLE image (
 node_id INTEGER,
 offset INTEGER,
 justification TEXT,
+anchor TEXT,
 png BLOB
 )
 """

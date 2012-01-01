@@ -19,9 +19,8 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
-import gtk
-import os, sqlite3, xml.dom.minidom
-import cons, support
+import sqlite3, xml.dom.minidom
+import cons, machines
 
 
 class CTDBHandler:
@@ -30,6 +29,19 @@ class CTDBHandler:
     def __init__(self, dad):
         """CherryTree DataBase boot"""
         self.dad = dad
+    
+    def get_image_db_tuple(self, image_element, node_id):
+        """From image element to db tuple"""
+        offset = image_element[0]
+        pixbuf = image_element[1]
+        justification = image_element[2]
+        if not "anchor" in dir(pixbuf):
+            anchor = ""
+            png_blob = machines.get_blob_buffer_from_pixbuf(pixbuf)
+        else:
+            anchor = pixbuf.anchor
+            png_blob = None
+        return (node_id, offset, justification, anchor, png_blob)
     
     def get_table_db_tuple(self, table_element, node_id):
         """From table element to db tuple"""
@@ -133,8 +145,7 @@ class CTDBHandler:
             tables_tuples = []
             images_tuples = []
             for element in pixbuf_table_codebox_vector:
-                if element[0] == "pixbuf":
-                    self.pixbuf_element_to_xml(element[1], dom_iter, self.dom)
+                if element[0] == "pixbuf": images_tuples.append(self.get_image_db_tuple(element[1], node_id))
                 elif element[0] == "table": tables_tuples.append(self.get_table_db_tuple(element[1], node_id))
                 elif element[0] == "codebox": codeboxes_tuples.append(self.get_codebox_db_tuple(element[1], node_id))
             if codeboxes_tuples:
@@ -148,7 +159,7 @@ class CTDBHandler:
             if images_tuples:
                 has_image = 1
                 for image_tuple in images_tuples:
-                    db.execute('INSERT INTO image VALUES(?,?,?,?)', image_tuple)
+                    db.execute('INSERT INTO image VALUES(?,?,?,?,?)', image_tuple)
             # retrieve xml text
             txt = self.dom.toxml()
         else: txt = start_iter.get_text(end_iter)
