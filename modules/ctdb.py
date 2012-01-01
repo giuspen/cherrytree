@@ -31,6 +31,27 @@ class CTDBHandler:
         """CherryTree DataBase boot"""
         self.dad = dad
     
+    def get_table_db_tuple(self, table_element, node_id):
+        """From table element to db tuple"""
+        offset = table_element[0]
+        table = table_element[1]
+        justification = table_element[2]
+        col_min = table_element['col_min']
+        col_max = table_element['col_max']
+        table_dom = xml.dom.minidom.Document()
+        dom_iter = table_dom.createElement("table")
+        table_dom.appendChild(dom_iter)
+        for row in table_element['matrix']:
+            dom_row = table_dom.createElement("row")
+            dom_iter.appendChild(dom_row)
+            for cell in row:
+                dom_cell = table_dom.createElement("cell")
+                dom_row.appendChild(dom_cell)
+                text_iter = table_dom.createTextNode(cell)
+                dom_cell.appendChild(text_iter)
+        txt = table_dom.toxml()
+        return (node_id, offset, justification, txt, col_min, col_max)
+    
     def get_codebox_db_tuple(self, codebox_element, node_id):
         """From codebox element to db tuple"""
         offset = codebox_element[0]
@@ -114,10 +135,8 @@ class CTDBHandler:
             for element in pixbuf_table_codebox_vector:
                 if element[0] == "pixbuf":
                     self.pixbuf_element_to_xml(element[1], dom_iter, self.dom)
-                elif element[0] == "table":
-                    self.table_element_to_xml(element[1], dom_iter)
-                elif element[0] == "codebox":
-                    self.codebox_element_to_xml(element[1], dom_iter)
+                elif element[0] == "table": tables_tuples.append(self.get_table_db_tuple(element[1], node_id))
+                elif element[0] == "codebox": codeboxes_tuples.append(self.get_codebox_db_tuple(element[1], node_id))
             if codeboxes_tuples:
                 has_codebox = 1
                 for codebox_tuple in codeboxes_tuples:
