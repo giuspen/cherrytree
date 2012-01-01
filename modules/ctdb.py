@@ -88,8 +88,8 @@ class CTDBHandler:
         db.execute(cons.TABLE_IMAGE_CREATE)
         db.execute(cons.TABLE_CHILDREN_CREATE)
         db.execute(cons.TABLE_BOOKMARK_CREATE)
-        db.commit()
         self.write_db_full(db)
+        db.commit()
         db.close()
     
     def write_db_bookmarks(self, db):
@@ -98,9 +98,8 @@ class CTDBHandler:
         for bookmark_str in self.dad.bookmarks:
             bookmark_tuple = tuple(int(bookmark_str))
             db.execute('INSERT INTO bookmark VALUES(?)', bookmark_tuple)
-        db.commit()
     
-    def write_db_node(self, db, tree_iter, level, sequence):
+    def write_db_node(self, db, tree_iter, level, sequence, node_father_id):
         """Write a node in DB"""
         node_id = self.dad.treestore[tree_iter][3]
         name = self.dad.treestore[tree_iter][1]
@@ -108,10 +107,6 @@ class CTDBHandler:
         tags = self.dad.treestore[tree_iter][6]
         is_ro = 1 if self.dad.treestore[tree_iter][7] else 0
         is_richtxt = 1 if syntax == cons.CUSTOM_COLORS_ID else 0
-        has_codebox = 0
-        has_table = 0
-        has_image = 0
-        has_children = 0
         curr_buffer = self.dad.treestore[tree_iter][2]
         start_iter = curr_buffer.get_start_iter()
         end_iter = curr_buffer.get_end_iter()
@@ -162,12 +157,26 @@ class CTDBHandler:
                     db.execute('INSERT INTO image VALUES(?,?,?,?,?)', image_tuple)
             # retrieve xml text
             txt = self.dom.toxml()
-        else: txt = start_iter.get_text(end_iter)
+        else:
+            has_codebox = 0
+            has_table = 0
+            has_image = 0
+            txt = start_iter.get_text(end_iter)
+        child_tree_iter = self.dad.treestore.iter_children(tree_iter) # check for childrens
+        has_children = 1 if child_tree_iter != None else 0
         node_tuple = (node_id, name, txt, syntax, tags,
                       is_ro, is_richtxt, has_codebox, has_table, has_image,
                       has_children, level, sequence)
-        db.execute('INSERT INTO node VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)', bookmark_tuple)
-        db.commit()
+        db.execute('INSERT INTO node VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)', node_tuple)
+        if node_father_id != None:
+            db.execute('INSERT INTO children VALUES(?,?)', (node_id, node_father_id))
+        if has_children:
+            # let's take care about the children
+            child_sequence = 0
+            while child_tree_iter != None:
+                child_sequence += 1
+                self.write_db_node(db, child_tree_iter, level+1, child_sequence, node_id)
+                child_tree_iter = self.dad.treestore.iter_next(child_tree_iter)
     
     def write_db_full(self, db):
         """Write the whole DB"""
@@ -175,6 +184,6 @@ class CTDBHandler:
         sequence = 0
         while tree_iter != None:
             sequence += 1
-            self.write_db_node(db, tree_iter, 1, sequence)
+            self.write_db_node(db, tree_iter, 1, sequence, None)
             tree_iter = self.dad.treestore.iter_next(tree_iter)
         self.write_db_bookmarks(db)
