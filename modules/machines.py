@@ -23,6 +23,23 @@ import gtk, xml.dom.minidom, re, base64, copy, StringIO
 import cons, support, exports
 
 
+def get_blob_buffer_from_pixbuf(pixbuf):
+    """Pixbuf To BLOB Buffer"""
+    io = StringIO.StringIO()
+    pixbuf.save_to_callback(io.write, "png")
+    blob_buffer = buffer(io.getvalue())
+    return blob_buffer
+
+def get_pixbuf_from_blob_buffer(blob_buffer):
+    """Encoded Buffer To Pixbuf"""
+    pixbuf_loader = gtk.gdk.pixbuf_loader_new_with_mime_type("image/png")
+    try:
+        pixbuf_loader.write(blob_buffer)
+        pixbuf_loader.close()
+        pixbuf = pixbuf_loader.get_pixbuf()
+    except: pixbuf = None
+    return pixbuf
+
 def get_encoded_buffer_from_pixbuf(pixbuf):
     """Pixbuf To Encoded Buffer"""
     io = StringIO.StringIO()
@@ -30,11 +47,11 @@ def get_encoded_buffer_from_pixbuf(pixbuf):
     encoded_buffer = base64.b64encode(io.getvalue())
     return encoded_buffer
 
-def get_pixbuf_from_encoded_buffer(buffer):
+def get_pixbuf_from_encoded_buffer(encoded_buffer):
     """Encoded Buffer To Pixbuf"""
     pixbuf_loader = gtk.gdk.pixbuf_loader_new_with_mime_type("image/png")
     try:
-        pixbuf_loader.write(base64.b64decode(buffer))
+        pixbuf_loader.write(base64.b64decode(encoded_buffer))
         pixbuf_loader.close()
         pixbuf = pixbuf_loader.get_pixbuf()
     except: pixbuf = None
