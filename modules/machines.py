@@ -318,7 +318,7 @@ class XMLHandler:
             # plain text insert
             self.rich_txt_serialize(dom_iter, start_iter, end_iter, self.curr_attributes)
         if not skip_children:
-            tree_iter = self.dad.treestore.iter_children(tree_iter) # check for childrens
+            tree_iter = self.dad.treestore.iter_children(tree_iter) # check for children
             while tree_iter != None:
                 self.append_dom_node(tree_iter, dom_iter, to_disk)
                 tree_iter = self.dad.treestore.iter_next(tree_iter)
