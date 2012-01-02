@@ -168,7 +168,6 @@ has_table INTEGER,
 has_image INTEGER,
 has_children INTEGER,
 level INTEGER,
-sequence INTEGER
 )"""
 
 TABLE_CODEBOX_CREATE = """CREATE TABLE codebox (
@@ -203,7 +202,8 @@ png BLOB
 
 TABLE_CHILDREN_CREATE = """CREATE TABLE children (
 node_id INTEGER UNIQUE,
-father_id INTEGER
+father_id INTEGER,
+sequence INTEGER
 )"""
 
 TABLE_BOOKMARK_CREATE = """CREATE TABLE bookmark (

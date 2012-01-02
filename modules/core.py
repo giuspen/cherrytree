@@ -2035,7 +2035,7 @@ class CherryTree:
             self.nodes_names_dict[self.treestore[new_node_iter][3]] = self.treestore[new_node_iter][1]
             new_node_path = self.treestore.get_path(new_node_iter)
             father_node_path = self.treestore.get_path(self.curr_tree_iter)
-            self.treeview.expand_row(father_node_path, True) # second parameter tells whether to expand childrens too
+            self.treeview.expand_row(father_node_path, True) # second parameter tells whether to expand children too
             self.treeview.set_cursor(new_node_path)
             self.sourceview.grab_focus()
 

@@ -402,7 +402,7 @@ class FindReplace:
             # not first_fromsel or first_fromsel with first_node already parsed
             self.dad.treeview_safe_set_cursor(node_iter)
             if self.parse_current_node_content(pattern, forward, first_fromsel, all_matches, False): return True # not first_node node
-        node_iter = self.dad.treestore.iter_children(node_iter) # check for childrens
+        node_iter = self.dad.treestore.iter_children(node_iter) # check for children
         if node_iter != None and not forward: node_iter = self.dad.get_tree_iter_last_sibling(node_iter)
         while node_iter != None:
             self.all_matches_first_in_node = True
@@ -436,7 +436,7 @@ class FindReplace:
                 self.dad.treeview_safe_set_cursor(node_iter)
                 self.dad.sourceview.grab_focus()
             return True
-        node_iter = self.dad.treestore.iter_children(node_iter) # check for childrens
+        node_iter = self.dad.treestore.iter_children(node_iter) # check for children
         if node_iter != None and not forward: node_iter = self.dad.get_tree_iter_last_sibling(node_iter)
         while node_iter != None:
             if self.parse_node_name(node_iter, pattern, forward, all_matches):

@@ -161,14 +161,13 @@ class CTDBHandler:
             has_table = 0
             has_image = 0
             txt = start_iter.get_text(end_iter)
-        child_tree_iter = self.dad.treestore.iter_children(tree_iter) # check for childrens
+        child_tree_iter = self.dad.treestore.iter_children(tree_iter) # check for children
         has_children = 1 if child_tree_iter != None else 0
         node_tuple = (node_id, name, txt, syntax, tags,
                       is_ro, is_richtxt, has_codebox, has_table, has_image,
-                      has_children, level, sequence)
-        db.execute('INSERT INTO node VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)', node_tuple)
-        if node_father_id != None:
-            db.execute('INSERT INTO children VALUES(?,?)', (node_id, node_father_id))
+                      has_children, level)
+        db.execute('INSERT INTO node VALUES(?,?,?,?,?,?,?,?,?,?,?,?)', node_tuple)
+        db.execute('INSERT INTO children VALUES(?,?,?)', (node_id, node_father_id, sequence))
         if has_children:
             # let's take care about the children
             child_sequence = 0
@@ -183,9 +182,63 @@ class CTDBHandler:
         sequence = 0
         while tree_iter != None:
             sequence += 1
-            self.write_db_node(db, tree_iter, 1, sequence, None)
+            self.write_db_node(db, tree_iter, 1, sequence, 0)
             tree_iter = self.dad.treestore.iter_next(tree_iter)
         self.write_db_bookmarks(db)
+    
+    def read_db_node_content(self, tree_iter):
+        """Read a node content from DB"""
+        curr_buffer = self.dad.buffer_create(syntax_highlighting)
+        if syntax_highlighting != cons.CUSTOM_COLORS_ID:
+            curr_buffer.begin_not_undoable_action()
+            curr_buffer.set_text()
+            curr_buffer.end_not_undoable_action()
+        else:
+            # loop into rich text, write into the buffer
+            child_dom_iter = dom_iter.firstChild
+            while child_dom_iter != None:
+                if child_dom_iter.nodeName == "rich_text":
+                    self.rich_text_deserialize(curr_buffer, child_dom_iter)
+                elif child_dom_iter.nodeName == "encoded_png": self.image_deserialize(curr_buffer, child_dom_iter, 2)
+                elif child_dom_iter.nodeName == "table": self.table_deserialize(curr_buffer, child_dom_iter)
+                elif child_dom_iter.nodeName == "codebox": self.codebox_deserialize(curr_buffer, child_dom_iter)
+                elif child_dom_iter.nodeName == "encoded_image": self.image_deserialize(curr_buffer, child_dom_iter, 1)
+                elif child_dom_iter.nodeName == "node": break
+                child_dom_iter = child_dom_iter.nextSibling
+        curr_buffer.set_modified(False)
+    
+    def read_db_node_n_children(self, node_row, tree_father, discard_ids):
+        """Read a node and his children from DB"""
+        if not discard_ids:
+            unique_id = node_row['node_id']
+            self.dad.node_id_add(unique_id)
+        else: unique_id = self.dad.node_id_get()
+        node_tags = node_row['tags']
+        readonly = node_row['is_ro']
+        syntax_highlighting = node_row['syntax']
+        if syntax_highlighting != cons.CUSTOM_COLORS_ID and syntax_highlighting not in self.dad.available_languages:
+            syntax_highlighting = syntax_highlighting.lower().replace("C++", "cpp")
+            if syntax_highlighting not in self.dad.available_languages:
+                syntax_highlighting = cons.CUSTOM_COLORS_ID
+        if tree_father == None: node_level = 0
+        else: node_level = self.dad.treestore[tree_father][5] + 1
+        cherry = self.dad.get_node_icon(node_level, syntax_highlighting)
+        #print unique_id
+        # insert the node containing the buffer into the tree
+        tree_iter = self.dad.treestore.append(tree_father, [cherry,
+                                                            node_row['name'],
+                                                            None, # no buffer for now
+                                                            unique_id,
+                                                            syntax_highlighting,
+                                                            node_level,
+                                                            node_tags,
+                                                            readonly])
+        self.dad.nodes_names_dict[self.dad.treestore[tree_iter][3]] = self.dad.treestore[tree_iter][1]
+        # loop for child nodes
+        children_rows = db.execute('SELECT * FROM children WHERE father_id=? ORDER BY sequence ASC', unique_id).fetchall()
+        for child_row in children_rows:
+            child_node_row = db.execute('SELECT node_id, name, syntax, tags, has_children, level FROM node WHERE node_id=?', child_row['node_id']).fetchone()
+            if child_node_row: read_db_node_n_children(self, child_node_row, tree_iter, discard_ids)
     
     def read_db_full(self, dbpath, discard_ids, tree_father=None, reset_nodes_names=True):
         """Read the whole DB"""
@@ -199,8 +252,10 @@ class CTDBHandler:
         db = sqlite3.connect(dbpath)
         db.row_factory = sqlite3.Row
         # tree nodes
-        nodes_rows = db.execute('SELECT node_id, name, syntax, tags, has_children, level, sequence FROM node WHERE level=0 ORDER BY sequence ASC').fetchall()
-        for node_row in nodes_rows: self.read_db_node(node_row, discard_ids)
+        children_rows = db.execute('SELECT * FROM children WHERE father_id=0 ORDER BY sequence ASC').fetchall()
+        for child_row in children_rows:
+            child_node_row = db.execute('SELECT node_id, name, syntax, tags, has_children, level FROM node WHERE node_id=?', child_row['node_id']).fetchone()
+            if child_node_row: read_db_node_n_children(self, child_node_row, None, discard_ids)
         # bookmarks
         bookmarks_rows = db.execute('SELECT * FROM bookmark ORDER BY sequence ASC').fetchall()
         for bookmark_row in bookmarks_rows: self.dad.bookmarks.append(str(bookmark_row['node_id']))
