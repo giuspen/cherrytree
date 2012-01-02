@@ -186,24 +186,32 @@ class CTDBHandler:
             tree_iter = self.dad.treestore.iter_next(tree_iter)
         self.write_db_bookmarks(db)
     
-    def read_db_node_content(self, tree_iter):
+    def read_db_node_content(self, tree_iter, db):
         """Read a node content from DB"""
+        syntax_highlighting = self.dad.treestore[tree_iter][4]
+        node_id = self.dad.treestore[tree_iter][3]
         curr_buffer = self.dad.buffer_create(syntax_highlighting)
+        self.dad.treestore[tree_iter][3] = curr_buffer
+        node_row = db.execute('SELECT txt, has_codebox, has_table, has_image FROM node WHERE node_id=?', node_id).fetchone()
         if syntax_highlighting != cons.CUSTOM_COLORS_ID:
             curr_buffer.begin_not_undoable_action()
-            curr_buffer.set_text()
+            curr_buffer.set_text(node_row['txt'])
             curr_buffer.end_not_undoable_action()
         else:
-            # loop into rich text, write into the buffer
-            child_dom_iter = dom_iter.firstChild
+            try: dom = xml.dom.minidom.parseString(node_row['txt'])
+            except:
+                print "** failed to parse **"
+                print node_row['txt']
+                return
+            dom_node = dom.firstChild
+            if not dom_node or dom_node.nodeName != "node":
+                print "** node name != 'node' **"
+                print node_row['txt']
+                return
+            child_dom_iter = dom_node.firstChild
             while child_dom_iter != None:
                 if child_dom_iter.nodeName == "rich_text":
-                    self.rich_text_deserialize(curr_buffer, child_dom_iter)
-                elif child_dom_iter.nodeName == "encoded_png": self.image_deserialize(curr_buffer, child_dom_iter, 2)
-                elif child_dom_iter.nodeName == "table": self.table_deserialize(curr_buffer, child_dom_iter)
-                elif child_dom_iter.nodeName == "codebox": self.codebox_deserialize(curr_buffer, child_dom_iter)
-                elif child_dom_iter.nodeName == "encoded_image": self.image_deserialize(curr_buffer, child_dom_iter, 1)
-                elif child_dom_iter.nodeName == "node": break
+                    self.dad.xml_handler.rich_text_deserialize(curr_buffer, child_dom_iter)
                 child_dom_iter = child_dom_iter.nextSibling
         curr_buffer.set_modified(False)
     
