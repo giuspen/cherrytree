@@ -95,9 +95,11 @@ class CTDBHandler:
     def write_db_bookmarks(self, db):
         """Write all the bookmarks in DB"""
         if not self.dad.bookmarks: return
+        sequence = 0
         for bookmark_str in self.dad.bookmarks:
-            bookmark_tuple = tuple(int(bookmark_str))
-            db.execute('INSERT INTO bookmark VALUES(?)', bookmark_tuple)
+            sequence += 1
+            bookmark_tuple = (int(bookmark_str), sequence)
+            db.execute('INSERT INTO bookmark VALUES(?,?)', bookmark_tuple)
     
     def write_db_node(self, db, tree_iter, level, sequence, node_father_id):
         """Write a node in DB"""
@@ -196,10 +198,9 @@ class CTDBHandler:
             self.dad.bookmarks_menu_items = []
         db = sqlite3.connect(dbpath)
         db.row_factory = sqlite3.Row
-        node_row = db.execute('SELECT node_id, name, syntax, tags, has_children FROM node WHERE level=0 ORDER BY sequence ASC').fetchall()
-        #dom_iter = cherrytree.firstChild
-        #while dom_iter!= None:
-            #if dom_iter.nodeName == "node": self.append_tree_node(dom_iter, tree_father, discard_ids)
-            #elif dom_iter.nodeName == "bookmarks":
-                #self.dad.bookmarks = dom_iter.attributes['list'].value.split(",")
-            #dom_iter = dom_iter.nextSibling
+        # tree nodes
+        nodes_rows = db.execute('SELECT node_id, name, syntax, tags, has_children, level, sequence FROM node WHERE level=0 ORDER BY sequence ASC').fetchall()
+        for node_row in nodes_rows: self.read_db_node(node_row, discard_ids)
+        # bookmarks
+        bookmarks_rows = db.execute('SELECT * FROM bookmark ORDER BY sequence ASC').fetchall()
+        for bookmark_row in bookmarks_rows: self.dad.bookmarks.append(str(bookmark_row['node_id']))
