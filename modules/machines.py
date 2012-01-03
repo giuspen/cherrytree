@@ -30,7 +30,7 @@ def get_blob_buffer_from_pixbuf(pixbuf):
     blob_buffer = buffer(io.getvalue())
     return blob_buffer
 
-def get_pixbuf_from_blob_buffer(blob_buffer):
+def get_pixbuf_from_png_blob_buffer(blob_buffer):
     """Encoded Buffer To Pixbuf"""
     pixbuf_loader = gtk.gdk.pixbuf_loader_new_with_mime_type("image/png")
     try:
