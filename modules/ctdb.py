@@ -19,6 +19,7 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
+import gtk
 import sqlite3, xml.dom.minidom
 import cons, machines
 
@@ -187,7 +188,7 @@ class CTDBHandler:
         self.write_db_bookmarks(db)
     
     def add_node_codebox(self, codebox_row, text_buffer):
-        """Add Codeboxe to Text Buffer"""
+        """Add Codebox to Text Buffer"""
         pass
     
     def add_node_table(self, table_row, text_buffer):
@@ -196,7 +197,13 @@ class CTDBHandler:
     
     def add_node_image(self, image_row, text_buffer):
         """Add Image to Text Buffer"""
-        pass
+        iter_insert = text_buffer.get_iter_at_offset(image_row['offset'])
+        if image_row['anchor']:
+            pixbuf = gtk.gdk.pixbuf_new_from_file(cons.ANCHOR_CHAR)
+            pixbuf.anchor = image_row['anchor']
+        else: pixbuf = machines.get_pixbuf_from_png_blob_buffer(image_row['png'])
+        self.dad.curr_buffer = curr_buffer # the apply_tag method will need this
+        if pixbuf: self.dad.image_insert(iter_insert, pixbuf, image_row['justification'])
     
     def read_db_node_content(self, tree_iter, db):
         """Read a node content from DB"""
