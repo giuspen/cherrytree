@@ -164,7 +164,6 @@ class XMLHandler:
         """From the XML codebox text to the SourceBuffer"""
         char_offset = int(dom_node.attributes["char_offset"].value)
         justification = dom_node.attributes["justification"].value if dom_node.hasAttribute("justification") else "left"
-        self.dad.curr_buffer = curr_buffer # the codebox_insert method will need this
         codebox_dict = {
            'frame_width': int(dom_node.attributes['frame_width'].value),
            'frame_height': int(dom_node.attributes['frame_height'].value),
@@ -174,6 +173,7 @@ class XMLHandler:
            'show_line_numbers': dom_node.hasAttribute("show_line_numbers") and dom_node.attributes['show_line_numbers'].value == "True",
            'fill_text': dom_node.firstChild.data if dom_node.firstChild else ""
         }
+        self.dad.curr_buffer = curr_buffer # the codebox_insert method will need this
         self.dad.codeboxes_handler.codebox_insert(curr_buffer.get_iter_at_offset(char_offset),
                                                   codebox_dict,
                                                   justification)
@@ -183,22 +183,25 @@ class XMLHandler:
         char_offset = int(dom_node.attributes["char_offset"].value)
         if dom_node.hasAttribute("justification"): justification = dom_node.attributes["justification"].value
         else: justification = "left"
-        table = {'matrix': [],
-                 'col_min': int(dom_node.attributes['col_min'].value),
-                 'col_max': int(dom_node.attributes["col_max"].value)}
+        table_dict = {
+            'matrix': [],
+            'col_min': int(dom_node.attributes['col_min'].value),
+            'col_max': int(dom_node.attributes["col_max"].value)
+        }
         child_dom_iter = dom_node.firstChild
         while child_dom_iter != None:
             if child_dom_iter.nodeName == "row":
-                table['matrix'].append([])
+                table_dict['matrix'].append([])
                 nephew_dom_iter = child_dom_iter.firstChild
                 while nephew_dom_iter != None:
                     if nephew_dom_iter.nodeName == "cell":
-                        if nephew_dom_iter.firstChild != None: table['matrix'][-1].append(nephew_dom_iter.firstChild.data)
-                        else: table['matrix'][-1].append("")
+                        if nephew_dom_iter.firstChild != None:
+                            table_dict['matrix'][-1].append(nephew_dom_iter.firstChild.data)
+                        else: table_dict['matrix'][-1].append("")
                     nephew_dom_iter = nephew_dom_iter.nextSibling
             child_dom_iter = child_dom_iter.nextSibling
         self.dad.curr_buffer = curr_buffer # the table_insert method will need this
-        self.dad.tables_handler.table_insert(curr_buffer.get_iter_at_offset(char_offset), table, justification)
+        self.dad.tables_handler.table_insert(curr_buffer.get_iter_at_offset(char_offset), table_dict, justification)
 
     def image_deserialize(self, curr_buffer, dom_node, version):
         """From the XML embedded image text to the SourceBuffer"""
@@ -535,15 +538,15 @@ class StateMachine:
     def table_to_dict(self, anchor):
         """Given an Anchor, Returns the Embedded Table as a dictionary"""
         columns_num = len(anchor.headers)
-        table = {'matrix':[], 'col_min': anchor.table_col_min, 'col_max': anchor.table_col_max}
+        table_dict = {'matrix':[], 'col_min': anchor.table_col_min, 'col_max': anchor.table_col_max}
         tree_iter = anchor.liststore.get_iter_first()
         while tree_iter != None:
             row = []
             for column in range(columns_num): row.append(anchor.liststore[tree_iter][column])
-            table['matrix'].append(row)
+            table_dict['matrix'].append(row)
             tree_iter = anchor.liststore.iter_next(tree_iter)
-        table['matrix'].append(copy.deepcopy(anchor.headers))
-        return table
+        table_dict['matrix'].append(copy.deepcopy(anchor.headers))
+        return table_dict
 
     def codebox_to_dict(self, anchor, for_print):
         """Given an Anchor, Returns the Embedded Codebox as a dictionary"""

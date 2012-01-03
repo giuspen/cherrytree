@@ -47,14 +47,14 @@ class CTDBHandler:
     def get_table_db_tuple(self, table_element, node_id):
         """From table element to db tuple"""
         offset = table_element[0]
-        table = table_element[1]
+        table_dict = table_element[1]
         justification = table_element[2]
-        col_min = table_element['col_min']
-        col_max = table_element['col_max']
+        col_min = table_dict['col_min']
+        col_max = table_dict['col_max']
         table_dom = xml.dom.minidom.Document()
         dom_iter = table_dom.createElement("table")
         table_dom.appendChild(dom_iter)
-        for row in table_element['matrix']:
+        for row in table_dict['matrix']:
             dom_row = table_dom.createElement("row")
             dom_iter.appendChild(dom_row)
             for cell in row:
@@ -68,15 +68,15 @@ class CTDBHandler:
     def get_codebox_db_tuple(self, codebox_element, node_id):
         """From codebox element to db tuple"""
         offset = codebox_element[0]
-        codebox = codebox_element[1]
+        codebox_dict = codebox_element[1]
         justification = codebox_element[2]
-        txt = codebox['fill_text']
-        syntax = codebox['syntax_highlighting']
-        width = codebox['frame_width']
-        height = codebox['frame_height']
-        is_width_pix = codebox['width_in_pixels']
-        do_highl_bra = codebox['highlight_brackets']
-        do_show_linenum = codebox['show_line_numbers']
+        txt = codebox_dict['fill_text']
+        syntax = codebox_dict['syntax_highlighting']
+        width = codebox_dict['frame_width']
+        height = codebox_dict['frame_height']
+        is_width_pix = codebox_dict['width_in_pixels']
+        do_highl_bra = codebox_dict['highlight_brackets']
+        do_show_linenum = codebox_dict['show_line_numbers']
         return (node_id, offset, justification, txt, syntax,
                 width, height, is_width_pix, do_highl_bra, do_show_linenum)
     
@@ -190,7 +190,6 @@ class CTDBHandler:
     def add_node_codebox(self, codebox_row, text_buffer):
         """Add Codebox to Text Buffer"""
         iter_insert = text_buffer.get_iter_at_offset(codebox_row['offset'])
-        self.dad.curr_buffer = text_buffer # the codebox_insert method will need this
         codebox_dict = {
            'frame_width': codebox_row['width'],
            'frame_height': codebox_row['height'],
@@ -200,11 +199,41 @@ class CTDBHandler:
            'show_line_numbers': bool(codebox_row['do_show_linenum']),
            'fill_text': codebox_row['txt']
         }
+        self.dad.curr_buffer = text_buffer # the codebox_insert method will need this
         self.dad.codeboxes_handler.codebox_insert(iter_insert, codebox_dict, codebox_row['justification'])
     
     def add_node_table(self, table_row, text_buffer):
         """Add Table to Text Buffer"""
         iter_insert = text_buffer.get_iter_at_offset(table_row['offset'])
+        table_dict = {
+            'matrix': [],
+            'col_min': table_row['col_min'],
+            'col_max': table_row["col_max"]
+        }
+        try: dom = xml.dom.minidom.parseString(table_row['txt'])
+        except:
+            print "** failed to parse **"
+            print table_row['txt']
+            return
+        dom_node = dom.firstChild
+        if not dom_node or dom_node.nodeName != "node":
+            print "** table name != 'table' **"
+            print table_row['txt']
+            return
+        child_dom_iter = dom_node.firstChild
+        while child_dom_iter != None:
+            if child_dom_iter.nodeName == "row":
+                table_dict['matrix'].append([])
+                nephew_dom_iter = child_dom_iter.firstChild
+                while nephew_dom_iter != None:
+                    if nephew_dom_iter.nodeName == "cell":
+                        if nephew_dom_iter.firstChild != None:
+                            table_dict['matrix'][-1].append(nephew_dom_iter.firstChild.data)
+                        else: table_dict['matrix'][-1].append("")
+                    nephew_dom_iter = nephew_dom_iter.nextSibling
+            child_dom_iter = child_dom_iter.nextSibling
+        self.dad.curr_buffer = text_buffer # the table_insert method will need this
+        self.dad.tables_handler.table_insert(iter_insert, table_dict, table_row['justification'])
     
     def add_node_image(self, image_row, text_buffer):
         """Add Image to Text Buffer"""
