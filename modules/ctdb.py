@@ -186,6 +186,18 @@ class CTDBHandler:
             tree_iter = self.dad.treestore.iter_next(tree_iter)
         self.write_db_bookmarks(db)
     
+    def add_node_codebox(self, codebox_row, text_buffer):
+        """Add Codeboxe to Text Buffer"""
+        pass
+    
+    def add_node_table(self, table_row, text_buffer):
+        """Add Table to Text Buffer"""
+        pass
+    
+    def add_node_image(self, image_row, text_buffer):
+        """Add Image to Text Buffer"""
+        pass
+    
     def read_db_node_content(self, tree_iter, db):
         """Read a node content from DB"""
         syntax_highlighting = self.dad.treestore[tree_iter][4]
@@ -198,6 +210,7 @@ class CTDBHandler:
             curr_buffer.set_text(node_row['txt'])
             curr_buffer.end_not_undoable_action()
         else:
+            # first we go for the rich text
             try: dom = xml.dom.minidom.parseString(node_row['txt'])
             except:
                 print "** failed to parse **"
@@ -213,6 +226,34 @@ class CTDBHandler:
                 if child_dom_iter.nodeName == "rich_text":
                     self.dad.xml_handler.rich_text_deserialize(curr_buffer, child_dom_iter)
                 child_dom_iter = child_dom_iter.nextSibling
+            # then we go for the objects
+            objects_index_list = []
+            if node_row['has_codebox']:
+                codeboxes_rows = db.execute('SELECT * FROM codebox WHERE node_id=? ORDER BY offset ASC', node_id).fetchall()
+                for i, c_row in enumerate(codeboxes_rows):
+                    objects_index_list.append(['c', i, c_row['offset']])
+            if node_row['has_table']:
+                tables_rows = db.execute('SELECT * FROM table WHERE node_id=? ORDER BY offset ASC', node_id).fetchall()
+                for i, t_row in enumerate(tables_rows):
+                    new_obj_idx_elem = ['t', i, t_row['offset']]
+                    for j, obj_idx in enumerate(objects_index_list):
+                        if new_obj_idx_elem[2] < obj_idx[2]:
+                            objects_index_list.insert(j, new_obj_idx_elem)
+                            break
+                    else: objects_index_list.append(new_obj_idx_elem)
+            if node_row['has_image']:
+                images_rows = db.execute('SELECT * FROM image WHERE node_id=? ORDER BY offset ASC', node_id).fetchall()
+                for i, i_row in enumerate(images_rows):
+                    new_obj_idx_elem = ['i', i, i_row['offset']]
+                    for j, obj_idx in enumerate(objects_index_list):
+                        if new_obj_idx_elem[2] < obj_idx[2]:
+                            objects_index_list.insert(j, new_obj_idx_elem)
+                            break
+                    else: objects_index_list.append(new_obj_idx_elem)
+            for obj_idx in objects_index_list:
+                if obj_idx[0] == 'c': self.add_node_codebox(codeboxes_rows[obj_idx[1]], curr_buffer)
+                elif obj_idx[0] == 't': self.add_node_table(tables_rows[obj_idx[1]], curr_buffer)
+                else: self.add_node_image(images_rows[obj_idx[1]], curr_buffer)
         curr_buffer.set_modified(False)
     
     def read_db_node_n_children(self, node_row, tree_father, discard_ids):
