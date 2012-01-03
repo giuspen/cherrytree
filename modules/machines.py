@@ -164,7 +164,7 @@ class XMLHandler:
         """From the XML codebox text to the SourceBuffer"""
         char_offset = int(dom_node.attributes["char_offset"].value)
         justification = dom_node.attributes["justification"].value if dom_node.hasAttribute("justification") else "left"
-        self.dad.curr_buffer = curr_buffer # the table_insert method will need this
+        self.dad.curr_buffer = curr_buffer # the codebox_insert method will need this
         codebox_dict = {
            'frame_width': int(dom_node.attributes['frame_width'].value),
            'frame_height': int(dom_node.attributes['frame_height'].value),

@@ -189,11 +189,22 @@ class CTDBHandler:
     
     def add_node_codebox(self, codebox_row, text_buffer):
         """Add Codebox to Text Buffer"""
-        pass
+        iter_insert = text_buffer.get_iter_at_offset(codebox_row['offset'])
+        self.dad.curr_buffer = text_buffer # the codebox_insert method will need this
+        codebox_dict = {
+           'frame_width': codebox_row['width'],
+           'frame_height': codebox_row['height'],
+           'width_in_pixels': bool(codebox_row['is_width_pix']),
+           'syntax_highlighting': codebox_row['syntax'],
+           'highlight_brackets': bool(codebox_row['do_highl_bra']),
+           'show_line_numbers': bool(codebox_row['do_show_linenum']),
+           'fill_text': codebox_row['txt']
+        }
+        self.dad.codeboxes_handler.codebox_insert(iter_insert, codebox_dict, codebox_row['justification'])
     
     def add_node_table(self, table_row, text_buffer):
         """Add Table to Text Buffer"""
-        pass
+        iter_insert = text_buffer.get_iter_at_offset(table_row['offset'])
     
     def add_node_image(self, image_row, text_buffer):
         """Add Image to Text Buffer"""
