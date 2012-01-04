@@ -218,6 +218,7 @@ UI_INFO = """
             <menuitem action='NewInstance'/>
             <menuitem action='OpenFile'/>
             <separator/>
+            <menuitem action='CTDStorage'/>
             <menuitem action='CTDProtection'/>
             <separator/>
             <menuitem action='Save'/>
@@ -447,6 +448,7 @@ def get_entries(inst):
     ( "NewInstance", "New Instance", _("New _Instance"), None, _("Start a New Instance of CherryTree"), inst.file_new),
     ( "OpenFile", "gtk-open", _("_Open File"), "<control>O", _("Open a CherryTree Document"), inst.file_open),
     ( "CTDProtection", "gtk-dialog-authentication", _("Set _Document Protection"), None, _("Set Protection of the Current Document"), inst.dialog_edit_protection),
+    ( "CTDStorage", "gtk-harddisk", _("Set Data Storage _Type"), None, _("Set Data Storage Type of the Current Document"), inst.dialog_edit_data_storage_type),
     ( "Save", "gtk-save", _("_Save"), "<control>S", _("Save File"), inst.file_save),
     ( "SaveAs", "gtk-save-as", _("Save _As"), "<control><shift>S", _("Save File As"), inst.file_save_as),
     ( "Export2HTML", "To HTML", _("Export To _HTML"), None, _("Export To HTML"), inst.export_to_html),
