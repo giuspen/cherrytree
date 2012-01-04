@@ -1011,13 +1011,27 @@ class CherryTree:
 
     def file_write_low_level(self, filepath, xml_string):
         """File Write Low Level (ctd or ctz)"""
+        if not xml_string:
+            # db storage
+            if os.path.isfile(filepath):
+                filepath_check = filepath
+                while os.path.isfile(filepath_check):
+                    filepath_check = "old." + filepath_check
+                shutil.move(filepath, filepath_check)
         if self.password:
             if not os.path.isdir(cons.TMP_FOLDER): os.mkdir(cons.TMP_FOLDER)
-            filepath_tmp = os.path.join(cons.TMP_FOLDER, os.path.basename(filepath[:-1] + "d"))
-            file_descriptor = open(filepath_tmp, 'w')
-        else: file_descriptor = open(filepath, 'w')
-        file_descriptor.write(xml_string)
-        file_descriptor.close()
+            last_letter = "d" if xml_string else "b"
+            filepath_tmp = os.path.join(cons.TMP_FOLDER, os.path.basename(filepath[:-1] + last_letter))
+            if xml_string: file_descriptor = open(filepath_tmp, 'w')
+            else:
+                if os.path.isfile(filepath_tmp): os.remove(filepath_tmp)
+                self.ctdb_handler.new_db(filepath_tmp)
+        else:
+            if xml_string: file_descriptor = open(filepath_tmp, 'w')
+            else: self.ctdb_handler.new_db(filepath)
+        if xml_string:
+            file_descriptor.write(xml_string)
+            file_descriptor.close()
         if self.password:
             if sys.platform[0:3] == "win":
                 filepath_4win = support.windows_cmd_prepare_path(filepath)
@@ -1038,11 +1052,13 @@ class CherryTree:
 
     def file_write(self, filepath):
         """File Write"""
-        try: xml_string = self.xml_handler.treestore_to_dom()
-        except:
-            support.dialog_error("%s write failed - tree to xml" % filepath, self.window)
-            raise
-            return False
+        if self.file_name[-3:] in ["ctd", "ctz"]:
+            try: xml_string = self.xml_handler.treestore_to_dom()
+            except:
+                support.dialog_error("%s write failed - tree to xml" % filepath, self.window)
+                raise
+                return False
+        else: xml_string = ""
         # backup before save new version
         if self.backup_copy:
             if os.path.isfile(filepath): shutil.move(filepath, filepath + cons.CHAR_TILDE)
@@ -1111,7 +1127,17 @@ class CherryTree:
         new_data_storage_is_xml = radiobutton_xml.get_active()
         dialog.destroy()
         if response != gtk.RESPONSE_ACCEPT: return
-        print old_data_storage_is_xml, new_data_storage_is_xml
+        #print old_data_storage_is_xml, new_data_storage_is_xml
+        if new_data_storage_is_xml == old_data_storage_is_xml: return
+        former_filename = self.file_name
+        if new_data_storage_is_xml:
+            if self.password: self.file_name = self.file_name[:-1] + "z"
+            else: self.file_name = self.file_name[:-1] + "d"
+        else:
+            if self.password: self.file_name = self.file_name[:-1] + "x"
+            else: self.file_name = self.file_name[:-1] + "b"
+        self.window.set_title(self.window.get_title().replace(former_filename, self.file_name))
+        self.file_save()
 
     def dialog_edit_protection(self, *args):
         """Edit the Password for the Current Document"""
@@ -1175,10 +1201,12 @@ class CherryTree:
                 return
             if not self.password and not self.is_7za_available(): return
             self.password = new_protection['p1']
-            self.file_name = self.file_name[:-1] + "z"
+            if self.file_name[-3:] == "ctd": self.file_name = self.file_name[:-1] + "z"
+            else: self.file_name = self.file_name[:-1] + "x"
         else:
             self.password = None
-            self.file_name = self.file_name[:-1] + "d"
+            if self.file_name[-3:] == "ctz": self.file_name = self.file_name[:-1] + "d"
+            else: self.file_name = self.file_name[:-1] + "b"
         self.window.set_title(self.window.get_title().replace(former_filename, self.file_name))
         self.file_save()
 
