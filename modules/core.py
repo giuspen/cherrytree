@@ -1260,7 +1260,7 @@ class CherryTree:
                 return None
         elif filepath[-1] not in ["d", "b"]:
             print "bad filepath[-1]", filepath[-1]
-            return None
+            return False
         elif main_file: self.password = None
         if filepath[-1] in ["d", "z"]:
             try:
@@ -1272,7 +1272,7 @@ class CherryTree:
             except:
                 print "error reading from plain text xml"
                 raise
-                return None
+                return False
             return re.sub(cons.BAD_CHARS, "", cherrytree_string)
         else:
             try:
@@ -1282,7 +1282,7 @@ class CherryTree:
             except:
                 print "error connecting to db"
                 raise
-                return None
+                return False
             return db
 
     def file_load(self, filepath):
@@ -1293,11 +1293,13 @@ class CherryTree:
             self.filetype = "d"
             cherrytree_string = self.file_get_cherrytree_data(filepath, True)
             if cherrytree_string: document_loaded_ok = True
+            elif cherrytree_string == None: return # no error exit
         elif filepath[-3:] in ["ctb", "ctx"]:
             # db
             self.filetype = "b"
             self.db = self.file_get_cherrytree_data(filepath, True)
             if self.db: document_loaded_ok = True
+            elif self.db == None: return # no error exit
         if document_loaded_ok:
             self.user_active = False
             file_loaded = False
