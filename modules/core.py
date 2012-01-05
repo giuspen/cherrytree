@@ -57,7 +57,7 @@ class CherryTree:
     def __init__(self, lang_str, open_with_file, boss):
         """GUI Startup"""
         self.boss = boss
-        self.filetype_is_xml = True
+        self.filetype = ""
         self.user_active = True
         # instantiate external handlers
         self.clipboard_handler = clipboard.ClipboardHandler(self)
@@ -981,6 +981,7 @@ class CherryTree:
         """Save the file providing a new name"""
         if self.tree_is_empty(): support.dialog_warning(_("The Tree is Empty!"), self.window)
         else:
+            self.dialog_edit_data_storage()
             filepath = support.dialog_file_save_as(self.file_name,
                                                    filter_pattern="*.ct*",
                                                    filter_name=_("CherryTree Document"),
@@ -998,10 +999,10 @@ class CherryTree:
     def filepath_extension_fix(self, filepath):
         """Check a filepath to have the proper extension"""
         if not self.password:
-            if self.filetype_is_xml: extension = ".ctd"
+            if self.filetype == "d": extension = ".ctd"
             else: extension = ".ctb"
         else:
-            if self.filetype_is_xml: extension = ".ctz"
+            if self.filetype == "d": extension = ".ctz"
             else: extension = ".ctx"
         if len(filepath) < 4 or filepath[-4:] != extension: return filepath + extension
         return filepath
@@ -1058,7 +1059,7 @@ class CherryTree:
 
     def file_write(self, filepath):
         """File Write"""
-        if self.file_name[-3:] in ["ctd", "ctz"]:
+        if self.filetype in ["d", "z"]:
             try: xml_string = self.xml_handler.treestore_to_dom()
             except:
                 support.dialog_error("%s write failed - tree to xml" % filepath, self.window)
@@ -1102,9 +1103,6 @@ class CherryTree:
 
     def dialog_edit_data_storage(self, *args):
         """Edit the CherryTree data storage type (xml or db) and protection"""
-        if len(self.file_name) < 4:
-            support.dialog_warning(_("No Document is Opened"), self.window)
-            return
         dialog = gtk.Dialog(title=_("Data Storage Type/Protection"),
                             parent=self.window,
                             flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
@@ -1115,12 +1113,10 @@ class CherryTree:
         radiobutton_xml = gtk.RadioButton(label=_("XML File"))
         radiobutton_db = gtk.RadioButton(label=_("SQLite File"))
         radiobutton_db.set_group(radiobutton_xml)
-        if self.file_name[-3:] in ["ctd", "ctz"]:
-            old_data_storage_is_xml = True
-            radiobutton_xml.set_active(True)
-        else:
-            old_data_storage_is_xml = False
-            radiobutton_db.set_active(True)
+        if len(self.file_name) > 4:
+            if self.file_name[-1] in ["d", "z"]:
+                radiobutton_xml.set_active(True)
+            else: radiobutton_db.set_active(True)
         radiobutton_unprotected = gtk.RadioButton(label=_("Not Protected"))
         radiobutton_protected = gtk.RadioButton(label=_("Password Protected"))
         radiobutton_protected.set_group(radiobutton_unprotected)
@@ -1156,19 +1152,20 @@ class CherryTree:
                 buttons = button_box.get_children()
                 buttons[0].clicked() # first is the ok button
         def on_radiobutton_protected_toggled(widget):
-            passw_frame.set_sensitive(widget.get_active())
+            if widget.get_active():
+                passw_frame.set_sensitive(True)
+                entry_passw_1.grab_focus()
+            else: passw_frame.set_sensitive(False)
+            
         radiobutton_protected.connect("toggled", on_radiobutton_protected_toggled)
         dialog.connect("key_press_event", on_key_press_edit_data_storage_type_dialog)
         response = dialog.run()
-        new_protection = {'on':radiobutton_protected.get_active(),
-                          'p1':entry_passw_1.get_text(),
-                          'p2':entry_passw_2.get_text()}
-        new_data_storage_is_xml = radiobutton_xml.get_active()
+        storage_type_is_xml = radiobutton_xml.get_active()
+        new_protection = {'on': radiobutton_protected.get_active(),
+                          'p1': entry_passw_1.get_text(),
+                          'p2': entry_passw_2.get_text()}
         dialog.destroy()
         if response != gtk.RESPONSE_ACCEPT: return
-        #print old_data_storage_is_xml, new_data_storage_is_xml
-        if new_data_storage_is_xml == old_data_storage_is_xml: return
-        former_filename = self.file_name
         if new_protection['on']:
             if new_protection['p1'] == "":
                 support.dialog_error(_("The Password Fields Must be Filled"), self.window)
@@ -1176,17 +1173,21 @@ class CherryTree:
             if new_protection['p1'] != new_protection['p2']:
                 support.dialog_error(_("The Two Inserted Passwords Do Not Match"), self.window)
                 return
-            if not self.password or not self.is_7za_available(): return
+            if not new_protection['p1'] or not self.is_7za_available(): return
             self.password = new_protection['p1']
         else: self.password = None
-        if new_data_storage_is_xml:
-            if self.password: self.file_name = self.file_name[:-1] + "z"
-            else: self.file_name = self.file_name[:-1] + "d"
+        if storage_type_is_xml:
+            if self.password: self.filetype = "z"
+            else: self.filetype = "d"
         else:
-            if self.password: self.file_name = self.file_name[:-1] + "x"
-            else: self.file_name = self.file_name[:-1] + "b"
-        self.window.set_title(self.window.get_title().replace(former_filename, self.file_name))
-        self.file_save()
+            if self.password: self.filetype = "x"
+            else: self.filetype = "b"
+        print "self.filetype = '%s'" % self.filetype
+        if len(self.file_name) > 4:
+            former_filename = self.file_name
+            self.file_name = self.file_name[:-1] + self.filetype
+            self.window.set_title(self.window.get_title().replace(former_filename, self.file_name))
+        self.update_window_save_needed()
 
     def is_7za_available(self):
         """Check 7za binary executable to be available"""
@@ -1289,18 +1290,18 @@ class CherryTree:
         document_loaded_ok = False
         if filepath[-3:] in ["ctd", "ctz"]:
             # xml
-            self.filetype_is_xml = True
+            self.filetype = "d"
             cherrytree_string = self.file_get_cherrytree_data(filepath, True)
             if cherrytree_string: document_loaded_ok = True
         elif filepath[-3:] in ["ctb", "ctx"]:
             # db
-            self.filetype_is_xml = False
+            self.filetype = "b"
             self.db = self.file_get_cherrytree_data(filepath, True)
             if self.db: document_loaded_ok = True
         if document_loaded_ok:
             self.user_active = False
             file_loaded = False
-            if self.filetype_is_xml:
+            if self.filetype in ["d", "z"]:
                 # xml
                 try:
                     if not self.xml_handler.dom_to_treestore(cherrytree_string, discard_ids=False):
@@ -1317,6 +1318,7 @@ class CherryTree:
             if document_loaded_ok:
                 self.file_dir = os.path.dirname(filepath)
                 self.file_name = os.path.basename(filepath)
+                self.filetype = self.file_name[-1]
                 support.add_recent_document(self, filepath)
                 support.set_bookmarks_menu_items(self)
                 self.update_window_save_not_needed()
