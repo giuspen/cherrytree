@@ -566,12 +566,14 @@ class CherryTree:
                                               curr_folder=self.file_dir,
                                               parent=self.window)
         if filepath == None: return
-        try: cherrytree_string = self.file_get_cherrytree_xml(filepath, False)
+        try:
+            cherrytree_string = self.file_get_cherrytree_data(filepath, False)
+            if not cherrytree_string: raise
         except:
             support.dialog_error("Error importing the file %s" % filepath, self.window)
             raise
             return
-        if cherrytree_string: self.nodes_add_from_string(cherrytree_string)
+        self.nodes_add_from_string(cherrytree_string)
 
     def nodes_add_from_notecase_file(self, action):
         """Add Nodes Parsing a NoteCase File"""
@@ -1031,7 +1033,7 @@ class CherryTree:
                 if os.path.isfile(filepath_tmp): os.remove(filepath_tmp)
                 self.ctdb_handler.new_db(filepath_tmp)
         else:
-            if xml_string: file_descriptor = open(filepath_tmp, 'w')
+            if xml_string: file_descriptor = open(filepath, 'w')
             else: self.ctdb_handler.new_db(filepath)
         if xml_string:
             file_descriptor.write(xml_string)
@@ -1255,17 +1257,18 @@ class CherryTree:
         if response != gtk.RESPONSE_ACCEPT: return ""
         return passw
 
-    def file_get_cherrytree_xml(self, filepath, main_file):
-        """returns the cherrytree_string given the filepath"""
+    def file_get_cherrytree_data(self, filepath, main_file):
+        """returns the cherrytree xml string or db descriptor given the filepath"""
         password_protected = False
-        if filepath[-1] == "z":
+        if filepath[-1] in ["z", "x"]:
             password_protected = True
             password_str = self.dialog_insert_password(os.path.basename(filepath))
             if not password_str: return None
             if main_file: self.password = password_str
             if not self.is_7za_available(): return None
             if not os.path.isdir(cons.TMP_FOLDER): os.mkdir(cons.TMP_FOLDER)
-            filepath_tmp = os.path.join(cons.TMP_FOLDER, os.path.basename(filepath[:-1] + "d"))
+            last_letter = "d" if filepath[-1] == "z" else "b"
+            filepath_tmp = os.path.join(cons.TMP_FOLDER, os.path.basename(filepath[:-1] + last_letter))
             if sys.platform[0:3] == "win":
                 dest_dir_4win = support.windows_cmd_prepare_path("-o" + cons.TMP_FOLDER)
                 filepath_4win = support.windows_cmd_prepare_path(filepath)
@@ -1283,59 +1286,73 @@ class CherryTree:
             if ret_code != 0:
                 support.dialog_error(_('Wrong Password'), self.window)
                 return None
-        elif filepath[-1] != "d":
+        elif filepath[-1] not in ["d", "b"]:
             print "bad filepath[-1]", filepath[-1]
-            support.dialog_error(_('"%s" is Not a CherryTree Document') % filepath, self.window)
             return None
         elif main_file: self.password = None
-        try:
-            if password_protected: file_descriptor = open(filepath_tmp, 'r')
-            else: file_descriptor = open(filepath, 'r')
-            cherrytree_string = file_descriptor.read()
-            file_descriptor.close()
-            if password_protected: os.remove(filepath_tmp)
-        except:
-            support.dialog_error("Error importing the file %s" % filepath, self.window)
-            raise
-            return None
-        return re.sub(cons.BAD_CHARS, "", cherrytree_string)
+        if filepath[-1] in ["d", "z"]:
+            try:
+                if password_protected: file_descriptor = open(filepath_tmp, 'r')
+                else: file_descriptor = open(filepath, 'r')
+                cherrytree_string = file_descriptor.read()
+                file_descriptor.close()
+                if password_protected: os.remove(filepath_tmp)
+            except:
+                print "error reading from plain text xml"
+                raise
+                return None
+            return re.sub(cons.BAD_CHARS, "", cherrytree_string)
+        else:
+            try:
+                if password_protected: db = self.ctdb_handler.get_connected_db_from_dbpath(filepath_tmp)
+                else: db = self.ctdb_handler.get_connected_db_from_dbpath(filepath)
+                if password_protected: os.remove(filepath_tmp)
+            except:
+                print "error connecting to db"
+                raise
+                return None
+            return db
 
     def file_load(self, filepath):
         """Loads a .CTD into a GTK TreeStore"""
+        document_loaded_ok = False
         if filepath[-3:] in ["ctd", "ctz"]:
             # xml
             self.filetype_is_xml = True
-            cherrytree_string = self.file_get_cherrytree_xml(filepath, True)
-            if not cherrytree_string:
-                self.file_name = ""
-                return
+            cherrytree_string = self.file_get_cherrytree_data(filepath, True)
+            if cherrytree_string: document_loaded_ok = True
         elif filepath[-3:] in ["ctb", "ctx"]:
             # db
             self.filetype_is_xml = False
-        else:
+            self.db = self.file_get_cherrytree_data(filepath, True)
+            if self.db: document_loaded_ok = True
+        if document_loaded_ok:
+            self.user_active = False
+            file_loaded = False
+            if self.filetype_is_xml:
+                # xml
+                try:
+                    if not self.xml_handler.dom_to_treestore(cherrytree_string, discard_ids=False):
+                        raise
+                except:
+                    raise
+                    document_loaded_ok = False
+            else:
+                # db
+                try: self.ctdb_handler.read_db_full(self.db, False)
+                except:
+                    raise
+                    document_loaded_ok = False
+            if document_loaded_ok:
+                self.file_dir = os.path.dirname(filepath)
+                self.file_name = os.path.basename(filepath)
+                support.add_recent_document(self, filepath)
+                support.set_bookmarks_menu_items(self)
+                self.update_window_save_not_needed()
+            self.user_active = True
+        if not document_loaded_ok:
             support.dialog_error(_('"%s" is Not a CherryTree Document') % filepath, self.window)
             self.file_name = ""
-            return
-        self.user_active = False
-        file_loaded = False
-        if self.filetype_is_xml:
-            # xml
-            try:
-                if self.xml_handler.dom_to_treestore(cherrytree_string, discard_ids=False):
-                    self.file_dir = os.path.dirname(filepath)
-                    self.file_name = os.path.basename(filepath)
-                    support.add_recent_document(self, filepath)
-                    support.set_bookmarks_menu_items(self)
-                    self.update_window_save_not_needed()
-                    file_loaded = True
-            except: raise
-        else:
-            # db
-            pass
-        if not file_loaded:
-            support.dialog_error(_('"%s" is Not a CherryTree Document') % filepath, self.window)
-            self.file_name = ""
-        self.user_active = True
 
     def file_new(self, *args):
         """Starts a new unsaved instance"""

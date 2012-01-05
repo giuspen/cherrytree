@@ -80,9 +80,13 @@ class CTDBHandler:
         return (node_id, offset, justification, txt, syntax,
                 width, height, is_width_pix, do_highl_bra, do_show_linenum)
     
+    def get_connected_db_from_dbpath(self, dbpath):
+        """Returns DB connection descriptor given the dbpath"""
+        return sqlite3.connect(dbpath)
+    
     def new_db(self, dbpath):
         """Create a new DataBase"""
-        db = sqlite3.connect(dbpath)
+        db = self.get_connected_db_from_dbpath(dbpath)
         db.execute(cons.TABLE_NODE_CREATE)
         db.execute(cons.TABLE_CODEBOX_CREATE)
         db.execute(cons.TABLE_TABLE_CREATE)
@@ -336,7 +340,7 @@ class CTDBHandler:
             child_node_row = db.execute('SELECT node_id, name, syntax, tags, has_children, level FROM node WHERE node_id=?', child_row['node_id']).fetchone()
             if child_node_row: read_db_node_n_children(self, child_node_row, tree_iter, discard_ids)
     
-    def read_db_full(self, dbpath, discard_ids, tree_father=None, reset_nodes_names=True):
+    def read_db_full(self, db, discard_ids, tree_father=None, reset_nodes_names=True):
         """Read the whole DB"""
         self.dad.bookmarks = []
         if reset_nodes_names:
@@ -345,7 +349,6 @@ class CTDBHandler:
             for menu_item in self.dad.bookmarks_menu_items:
                 bookmarks_menu.remove(menu_item)
             self.dad.bookmarks_menu_items = []
-        db = sqlite3.connect(dbpath)
         db.row_factory = sqlite3.Row
         # tree nodes
         children_rows = db.execute('SELECT * FROM children WHERE father_id=0 ORDER BY sequence ASC').fetchall()

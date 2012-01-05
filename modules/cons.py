@@ -167,7 +167,7 @@ has_codebox INTEGER,
 has_table INTEGER,
 has_image INTEGER,
 has_children INTEGER,
-level INTEGER,
+level INTEGER
 )"""
 
 TABLE_CODEBOX_CREATE = """CREATE TABLE codebox (
