@@ -183,7 +183,7 @@ do_highl_bra INTEGER,
 do_show_linenum INTEGER
 )"""
 
-TABLE_TABLE_CREATE = """CREATE TABLE table (
+TABLE_TABLE_CREATE = """CREATE TABLE grid (
 node_id INTEGER,
 offset INTEGER,
 justification TEXT,

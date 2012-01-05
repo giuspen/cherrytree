@@ -155,7 +155,7 @@ class CTDBHandler:
                 db.executemany('INSERT INTO codebox VALUES(?,?,?,?,?,?,?,?,?,?)', codeboxes_tuples)
             if tables_tuples:
                 has_table = 1
-                db.executemany('INSERT INTO table VALUES(?,?,?,?,?,?)', tables_tuples)
+                db.executemany('INSERT INTO grid VALUES(?,?,?,?,?,?)', tables_tuples)
             if images_tuples:
                 has_image = 1
                 db.executemany('INSERT INTO image VALUES(?,?,?,?,?)', images_tuples)
@@ -284,7 +284,7 @@ class CTDBHandler:
                 for i, c_row in enumerate(codeboxes_rows):
                     objects_index_list.append(['c', i, c_row['offset']])
             if node_row['has_table']:
-                tables_rows = db.execute('SELECT * FROM table WHERE node_id=? ORDER BY offset ASC', node_id).fetchall()
+                tables_rows = db.execute('SELECT * FROM grid WHERE node_id=? ORDER BY offset ASC', node_id).fetchall()
                 for i, t_row in enumerate(tables_rows):
                     new_obj_idx_elem = ['t', i, t_row['offset']]
                     for j, obj_idx in enumerate(objects_index_list):
