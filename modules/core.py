@@ -57,6 +57,7 @@ class CherryTree:
     def __init__(self, lang_str, open_with_file, boss):
         """GUI Startup"""
         self.boss = boss
+        self.filetype_is_xml = True
         self.user_active = True
         # instantiate external handlers
         self.clipboard_handler = clipboard.ClipboardHandler(self)
@@ -995,9 +996,12 @@ class CherryTree:
     def filepath_extension_fix(self, filepath):
         """Check a filepath to have the proper extension"""
         if not self.password:
-            if len(filepath) < 4 or filepath[-4:] != ".ctd": return filepath + ".ctd"
+            if self.filetype_is_xml: extension = ".ctd"
+            else: extension = ".ctb"
         else:
-            if len(filepath) < 4 or filepath[-4:] != ".ctz": return filepath + ".ctz"
+            if self.filetype_is_xml: extension = ".ctz"
+            else: extension = ".ctx"
+        if len(filepath) < 4 or filepath[-4:] != extension: return filepath + extension
         return filepath
 
     def file_save(self, *args):
@@ -1072,6 +1076,7 @@ class CherryTree:
             return True
         except:
             support.dialog_error("%s write failed - writing to disk" % filepath, self.window)
+            raise
             return False
 
     def file_open(self, *args):
@@ -1297,21 +1302,36 @@ class CherryTree:
 
     def file_load(self, filepath):
         """Loads a .CTD into a GTK TreeStore"""
-        cherrytree_string = self.file_get_cherrytree_xml(filepath, True)
-        if not cherrytree_string:
+        if filepath[-3:] in ["ctd", "ctz"]:
+            # xml
+            self.filetype_is_xml = True
+            cherrytree_string = self.file_get_cherrytree_xml(filepath, True)
+            if not cherrytree_string:
+                self.file_name = ""
+                return
+        elif filepath[-3:] in ["ctb", "ctx"]:
+            # db
+            self.filetype_is_xml = False
+        else:
+            support.dialog_error(_('"%s" is Not a CherryTree Document') % filepath, self.window)
             self.file_name = ""
             return
         self.user_active = False
         file_loaded = False
-        try:
-            if self.xml_handler.dom_to_treestore(cherrytree_string, discard_ids=False):
-                self.file_dir = os.path.dirname(filepath)
-                self.file_name = os.path.basename(filepath)
-                support.add_recent_document(self, filepath)
-                support.set_bookmarks_menu_items(self)
-                self.update_window_save_not_needed()
-                file_loaded = True
-        except: raise
+        if self.filetype_is_xml:
+            # xml
+            try:
+                if self.xml_handler.dom_to_treestore(cherrytree_string, discard_ids=False):
+                    self.file_dir = os.path.dirname(filepath)
+                    self.file_name = os.path.basename(filepath)
+                    support.add_recent_document(self, filepath)
+                    support.set_bookmarks_menu_items(self)
+                    self.update_window_save_not_needed()
+                    file_loaded = True
+            except: raise
+        else:
+            # db
+            pass
         if not file_loaded:
             support.dialog_error(_('"%s" is Not a CherryTree Document') % filepath, self.window)
             self.file_name = ""
