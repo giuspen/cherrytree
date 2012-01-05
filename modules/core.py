@@ -981,15 +981,22 @@ class CherryTree:
         """Save the file providing a new name"""
         if self.tree_is_empty(): support.dialog_warning(_("The Tree is Empty!"), self.window)
         else:
-            self.dialog_edit_data_storage()
-            filepath = support.dialog_file_save_as(self.file_name,
-                                                   filter_pattern="*.ct*",
+            if not self.dialog_choose_data_storage(): return
+            filename_hint = self.file_name[:-1] + self.filetype if len(self.file_name) > 4 else ""
+            filepath = support.dialog_file_save_as(filename_hint,
+                                                   filter_pattern="*.ct" + self.filetype,
                                                    filter_name=_("CherryTree Document"),
                                                    curr_folder=self.file_dir,
                                                    parent=self.window)
-            if filepath == None: return
-            filepath = self.filepath_extension_fix(filepath)
-            if not self.file_write(filepath): return
+            restore_filetype = False
+            if filepath == None: restore_filetype = True
+            if not restore_filetype:
+                filepath = self.filepath_extension_fix(filepath)
+                if not self.file_write(filepath): restore_filetype = True
+            if restore_filetype:
+                # restore filetype previous dialog_choose_data_storage
+                if len(self.file_name) > 4: self.filetype = self.file_name[-1]
+                return
             self.file_dir = os.path.dirname(filepath)
             self.file_name = os.path.basename(filepath)
             support.add_recent_document(self, filepath)
@@ -998,12 +1005,7 @@ class CherryTree:
 
     def filepath_extension_fix(self, filepath):
         """Check a filepath to have the proper extension"""
-        if not self.password:
-            if self.filetype == "d": extension = ".ctd"
-            else: extension = ".ctb"
-        else:
-            if self.filetype == "d": extension = ".ctz"
-            else: extension = ".ctx"
+        extension = ".ct" + self.filetype
         if len(filepath) < 4 or filepath[-4:] != extension: return filepath + extension
         return filepath
 
@@ -1101,9 +1103,9 @@ class CherryTree:
             self.treeview.set_cursor(self.treestore.get_path(first_node_iter))
             self.sourceview.grab_focus()
 
-    def dialog_edit_data_storage(self, *args):
-        """Edit the CherryTree data storage type (xml or db) and protection"""
-        dialog = gtk.Dialog(title=_("Data Storage Type/Protection"),
+    def dialog_choose_data_storage(self, *args):
+        """Choose the CherryTree data storage type (xml or db) and protection"""
+        dialog = gtk.Dialog(title=_("Choose Storage Type/Protection"),
                             parent=self.window,
                             flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
                             buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
@@ -1156,7 +1158,6 @@ class CherryTree:
                 passw_frame.set_sensitive(True)
                 entry_passw_1.grab_focus()
             else: passw_frame.set_sensitive(False)
-            
         radiobutton_protected.connect("toggled", on_radiobutton_protected_toggled)
         dialog.connect("key_press_event", on_key_press_edit_data_storage_type_dialog)
         response = dialog.run()
@@ -1165,7 +1166,7 @@ class CherryTree:
                           'p1': entry_passw_1.get_text(),
                           'p2': entry_passw_2.get_text()}
         dialog.destroy()
-        if response != gtk.RESPONSE_ACCEPT: return
+        if response != gtk.RESPONSE_ACCEPT: return False
         if new_protection['on']:
             if new_protection['p1'] == "":
                 support.dialog_error(_("The Password Fields Must be Filled"), self.window)
@@ -1173,7 +1174,7 @@ class CherryTree:
             if new_protection['p1'] != new_protection['p2']:
                 support.dialog_error(_("The Two Inserted Passwords Do Not Match"), self.window)
                 return
-            if not new_protection['p1'] or not self.is_7za_available(): return
+            if not new_protection['p1'] or not self.is_7za_available(): return False
             self.password = new_protection['p1']
         else: self.password = None
         if storage_type_is_xml:
@@ -1182,12 +1183,8 @@ class CherryTree:
         else:
             if self.password: self.filetype = "x"
             else: self.filetype = "b"
-        print "self.filetype = '%s'" % self.filetype
-        if len(self.file_name) > 4:
-            former_filename = self.file_name
-            self.file_name = self.file_name[:-1] + self.filetype
-            self.window.set_title(self.window.get_title().replace(former_filename, self.file_name))
-        self.update_window_save_needed()
+        #print "self.filetype = '%s'" % self.filetype
+        return True
 
     def is_7za_available(self):
         """Check 7za binary executable to be available"""
@@ -2252,14 +2249,12 @@ class CherryTree:
 
     def update_window_save_needed(self):
         """Window title preceeded by an asterix"""
-        if self.file_name != "": self.window.set_title("*" + self.file_name + " - CherryTree %s" % cons.VERSION)
-        else: self.window.set_title("*CherryTree")
+        self.window_title_update(True)
         self.file_update = True
 
     def update_window_save_not_needed(self):
         """Window title not preceeded by an asterix"""
-        if self.file_name != "": self.window.set_title(self.file_name + " - CherryTree %s" % cons.VERSION)
-        else: self.window.set_title("CherryTree %s" % cons.VERSION)
+        self.window_title_update(False)
         self.file_update = False
         if self.curr_tree_iter != None:
             self.curr_buffer.set_modified(False)
@@ -2268,6 +2263,15 @@ class CherryTree:
                 anchor = curr_iter.get_child_anchor()
                 if anchor != None and "sourcebuffer" in dir(anchor): anchor.sourcebuffer.set_modified(False)
                 if not curr_iter.forward_char(): break
+
+    def window_title_update(self, save_needed):
+        """Update window title"""
+        if save_needed:
+            if self.file_name != "": self.window.set_title("*" + self.file_name + " - CherryTree %s" % cons.VERSION)
+            else: self.window.set_title("*CherryTree")
+        else:
+            if self.file_name != "": self.window.set_title(self.file_name + " - CherryTree %s" % cons.VERSION)
+            else: self.window.set_title("CherryTree %s" % cons.VERSION)
 
     def replace_again(self, *args):
         """Continue the previous replace (a_node/in_selected_node/in_all_nodes)"""
