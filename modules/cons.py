@@ -2,7 +2,7 @@
 #
 #       cons.py
 #
-#       Copyright 2009-2011 Giuseppe Penone <giuspen@gmail.com>
+#       Copyright 2009-2012 Giuseppe Penone <giuspen@gmail.com>
 #
 #       This program is free software; you can redistribute it and/or modify
 #       it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 import os, sys
 
 
-VERSION = "0.24"
+VERSION = "0.25"
 APP_NAME = "cherrytree"
 NEWER_VERSION_URL = "http://www.giuspen.com/software/version_cherrytree"
 if sys.platform[0:3] == "win":
@@ -38,14 +38,13 @@ else:
     LANG_PATH = os.path.join(os.path.expanduser('~'), '.config/cherrytree/lang')
     IMG_PATH = os.path.join(os.path.expanduser('~'), '.config/cherrytree/img_tmp.png')
     TMP_FOLDER = '/tmp/ct_tmp/'
-    if os.path.isdir('modules'):
+    if os.path.isfile('modules/cons.py'):
         GLADE_PATH = 'glade/'
         LOCALE_PATH = 'locale/'
     else:
-        GLADE_PATH = '/usr/share/cherrytree/glade/'
-        LOCALE_PATH = '/usr/share/locale/'
+        GLADE_PATH = os.path.join(SHARE_PATH, 'cherrytree/glade/')
+        LOCALE_PATH = os.path.join(SHARE_PATH, 'locale')
 AVAILABLE_LANGS = ['default', 'cs', 'de', 'en', 'es', 'fr', 'it', 'pl', 'ru', 'uk']
-SHOW_MENU_ICONS = "gconftool-2 --set /desktop/gnome/interface/menus_have_icons --type bool 1"
 COLOR_YELLOW = "#ffffffff0000"
 COLOR_WHITE = "#ffffffffffff"
 COLOR_BLACK = "#000000000000"
