@@ -1100,17 +1100,18 @@ class CherryTree:
             self.treeview.set_cursor(self.treestore.get_path(first_node_iter))
             self.sourceview.grab_focus()
 
-    def dialog_edit_data_storage_type(self, *args):
-        """Edit the CherryTree data storage type (xml or db)"""
+    def dialog_edit_data_storage(self, *args):
+        """Edit the CherryTree data storage type (xml or db) and protection"""
         if len(self.file_name) < 4:
             support.dialog_warning(_("No Document is Opened"), self.window)
             return
-        dialog = gtk.Dialog(title=_("Data Storage Type"),
+        dialog = gtk.Dialog(title=_("Data Storage Type/Protection"),
                             parent=self.window,
                             flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
                             buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
                             gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
         dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+        dialog.set_default_size(300, -1)
         radiobutton_xml = gtk.RadioButton(label=_("XML File"))
         radiobutton_db = gtk.RadioButton(label=_("SQLite File"))
         radiobutton_db.set_group(radiobutton_xml)
@@ -1120,43 +1121,6 @@ class CherryTree:
         else:
             old_data_storage_is_xml = False
             radiobutton_db.set_active(True)
-        content_area = dialog.get_content_area()
-        content_area.pack_start(radiobutton_xml)
-        content_area.pack_start(radiobutton_db)
-        content_area.show_all()
-        def on_key_press_edit_data_storage_type_dialog(widget, event):
-            if gtk.gdk.keyval_name(event.keyval) == "Return":
-                button_box = dialog.get_action_area()
-                buttons = button_box.get_children()
-                buttons[0].clicked() # first is the ok button
-        dialog.connect("key_press_event", on_key_press_edit_data_storage_type_dialog)
-        response = dialog.run()
-        new_data_storage_is_xml = radiobutton_xml.get_active()
-        dialog.destroy()
-        if response != gtk.RESPONSE_ACCEPT: return
-        #print old_data_storage_is_xml, new_data_storage_is_xml
-        if new_data_storage_is_xml == old_data_storage_is_xml: return
-        former_filename = self.file_name
-        if new_data_storage_is_xml:
-            if self.password: self.file_name = self.file_name[:-1] + "z"
-            else: self.file_name = self.file_name[:-1] + "d"
-        else:
-            if self.password: self.file_name = self.file_name[:-1] + "x"
-            else: self.file_name = self.file_name[:-1] + "b"
-        self.window.set_title(self.window.get_title().replace(former_filename, self.file_name))
-        self.file_save()
-
-    def dialog_edit_protection(self, *args):
-        """Edit the Password for the Current Document"""
-        if len(self.file_name) < 4:
-            support.dialog_warning(_("No Document is Opened"), self.window)
-            return
-        dialog = gtk.Dialog(title=_("Document Protection"),
-                            parent=self.window,
-                            flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
-                            buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
-                            gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
-        dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
         radiobutton_unprotected = gtk.RadioButton(label=_("Not Protected"))
         radiobutton_protected = gtk.RadioButton(label=_("Password Protected"))
         radiobutton_protected.set_group(radiobutton_unprotected)
@@ -1179,11 +1143,14 @@ class CherryTree:
             radiobutton_protected.set_active(False)
             passw_frame.set_sensitive(False)
         content_area = dialog.get_content_area()
+        content_area.pack_start(radiobutton_xml)
+        content_area.pack_start(radiobutton_db)
+        content_area.pack_start(gtk.HSeparator())
         content_area.pack_start(radiobutton_unprotected)
         content_area.pack_start(radiobutton_protected)
         content_area.pack_start(passw_frame)
         content_area.show_all()
-        def on_key_press_edit_protection_dialog(widget, event):
+        def on_key_press_edit_data_storage_type_dialog(widget, event):
             if gtk.gdk.keyval_name(event.keyval) == "Return":
                 button_box = dialog.get_action_area()
                 buttons = button_box.get_children()
@@ -1191,13 +1158,16 @@ class CherryTree:
         def on_radiobutton_protected_toggled(widget):
             passw_frame.set_sensitive(widget.get_active())
         radiobutton_protected.connect("toggled", on_radiobutton_protected_toggled)
-        dialog.connect("key_press_event", on_key_press_edit_protection_dialog)
+        dialog.connect("key_press_event", on_key_press_edit_data_storage_type_dialog)
         response = dialog.run()
         new_protection = {'on':radiobutton_protected.get_active(),
                           'p1':entry_passw_1.get_text(),
                           'p2':entry_passw_2.get_text()}
+        new_data_storage_is_xml = radiobutton_xml.get_active()
         dialog.destroy()
         if response != gtk.RESPONSE_ACCEPT: return
+        #print old_data_storage_is_xml, new_data_storage_is_xml
+        if new_data_storage_is_xml == old_data_storage_is_xml: return
         former_filename = self.file_name
         if new_protection['on']:
             if new_protection['p1'] == "":
@@ -1206,13 +1176,14 @@ class CherryTree:
             if new_protection['p1'] != new_protection['p2']:
                 support.dialog_error(_("The Two Inserted Passwords Do Not Match"), self.window)
                 return
-            if not self.password and not self.is_7za_available(): return
+            if not self.password or not self.is_7za_available(): return
             self.password = new_protection['p1']
-            if self.file_name[-3:] == "ctd": self.file_name = self.file_name[:-1] + "z"
-            else: self.file_name = self.file_name[:-1] + "x"
+        else: self.password = None
+        if new_data_storage_is_xml:
+            if self.password: self.file_name = self.file_name[:-1] + "z"
+            else: self.file_name = self.file_name[:-1] + "d"
         else:
-            self.password = None
-            if self.file_name[-3:] == "ctz": self.file_name = self.file_name[:-1] + "d"
+            if self.password: self.file_name = self.file_name[:-1] + "x"
             else: self.file_name = self.file_name[:-1] + "b"
         self.window.set_title(self.window.get_title().replace(former_filename, self.file_name))
         self.file_save()
