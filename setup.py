@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# for linux install: "python setup.py install --prefix=/usr --exec-prefix=/usr -f"
+# for linux install: "python setup.py install --prefix=/usr -f"
 # for windows exe creation: "python setup.py py2exe"
 
 from distutils.core import setup
