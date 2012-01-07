@@ -140,7 +140,10 @@ class CTDBHandler:
                     tag_found = curr_iter.forward_to_tag_toggle(None)
                     if curr_iter.get_offset() == offset_old: break
             else:  self.dad.xml_handler.rich_txt_serialize(dom_iter, start_iter, curr_iter, self.curr_attributes, dom=self.dom)
-            # time to retrieve the objects
+            # time for the objects
+            db.execute('REMOVE FROM codebox WHERE node_id=?', node_id)
+            db.execute('REMOVE FROM grid WHERE node_id=?', node_id)
+            db.execute('REMOVE FROM image WHERE node_id=?', node_id)
             pixbuf_table_codebox_vector = self.dad.state_machine.get_embedded_pixbufs_tables_codeboxes(curr_buffer)
             # pixbuf_table_codebox_vector is [ [ "pixbuf"/"table"/"codebox", [offset, pixbuf, alignment] ],... ]
             codeboxes_tuples = []
@@ -185,6 +188,7 @@ class CTDBHandler:
         """Write the whole DB"""
         tree_iter = self.dad.treestore.get_iter_first()
         sequence = 0
+        write_dict = {'upd': False, 'prop': True, 'buff': True, 'hier': True}
         while tree_iter != None:
             sequence += 1
             self.write_db_node(db, tree_iter, 1, sequence, 0)
