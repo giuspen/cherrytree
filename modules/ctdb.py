@@ -104,94 +104,109 @@ class CTDBHandler:
         for bookmark_str in self.dad.bookmarks:
             sequence += 1
             bookmark_tuple = (int(bookmark_str), sequence)
+            db.execute('REMOVE * FROM bookmark')
             db.execute('INSERT INTO bookmark VALUES(?,?)', bookmark_tuple)
     
-    def write_db_node(self, db, tree_iter, level, sequence, node_father_id):
+    def write_db_node(self, db, tree_iter, level, sequence, node_father_id, write_dict):
         """Write a node in DB"""
         node_id = self.dad.treestore[tree_iter][3]
+        child_tree_iter = self.dad.treestore.iter_children(tree_iter) # check for children
+        has_children = 1 if child_tree_iter != None else 0
         name = self.dad.treestore[tree_iter][1]
         syntax = self.dad.treestore[tree_iter][4]
         tags = self.dad.treestore[tree_iter][6]
         is_ro = 1 if self.dad.treestore[tree_iter][7] else 0
         is_richtxt = 1 if syntax == cons.CUSTOM_COLORS_ID else 0
-        curr_buffer = self.dad.treestore[tree_iter][2]
-        start_iter = curr_buffer.get_start_iter()
-        end_iter = curr_buffer.get_end_iter()
-        if is_richtxt:
-            # prepare xml dom node
-            if "dom" in dir(self): del self.dom
-            self.dom = xml.dom.minidom.Document()
-            dom_iter = self.dom.createElement("node")
-            self.dom.appendChild(dom_iter)
-            # init attributes
-            self.curr_attributes = {}
-            for tag_property in cons.TAG_PROPERTIES: self.curr_attributes[tag_property] = ""
-            # go!
-            curr_iter = start_iter.copy()
-            self.dad.xml_handler.rich_text_attributes_update(curr_iter, self.curr_attributes)
-            tag_found = curr_iter.forward_to_tag_toggle(None)
-            while tag_found:
-                self.dad.xml_handler.rich_txt_serialize(dom_iter, start_iter, curr_iter, self.curr_attributes, dom=self.dom)
-                if curr_iter.compare(end_iter) == 0: break
-                else:
-                    self.dad.xml_handler.rich_text_attributes_update(curr_iter, self.curr_attributes)
-                    offset_old = curr_iter.get_offset()
-                    start_iter.set_offset(offset_old)
-                    tag_found = curr_iter.forward_to_tag_toggle(None)
-                    if curr_iter.get_offset() == offset_old: break
-            else:  self.dad.xml_handler.rich_txt_serialize(dom_iter, start_iter, curr_iter, self.curr_attributes, dom=self.dom)
-            # time for the objects
-            db.execute('REMOVE FROM codebox WHERE node_id=?', node_id)
-            db.execute('REMOVE FROM grid WHERE node_id=?', node_id)
-            db.execute('REMOVE FROM image WHERE node_id=?', node_id)
-            pixbuf_table_codebox_vector = self.dad.state_machine.get_embedded_pixbufs_tables_codeboxes(curr_buffer)
-            # pixbuf_table_codebox_vector is [ [ "pixbuf"/"table"/"codebox", [offset, pixbuf, alignment] ],... ]
-            codeboxes_tuples = []
-            tables_tuples = []
-            images_tuples = []
-            for element in pixbuf_table_codebox_vector:
-                if element[0] == "pixbuf": images_tuples.append(self.get_image_db_tuple(element[1], node_id))
-                elif element[0] == "table": tables_tuples.append(self.get_table_db_tuple(element[1], node_id))
-                elif element[0] == "codebox": codeboxes_tuples.append(self.get_codebox_db_tuple(element[1], node_id))
-            if codeboxes_tuples:
-                has_codebox = 1
-                db.executemany('INSERT INTO codebox VALUES(?,?,?,?,?,?,?,?,?,?)', codeboxes_tuples)
-            if tables_tuples:
-                has_table = 1
-                db.executemany('INSERT INTO grid VALUES(?,?,?,?,?,?)', tables_tuples)
-            if images_tuples:
-                has_image = 1
-                db.executemany('INSERT INTO image VALUES(?,?,?,?,?)', images_tuples)
-            # retrieve xml text
-            txt = self.dom.toxml()
-        else:
-            has_codebox = 0
-            has_table = 0
-            has_image = 0
-            txt = start_iter.get_text(end_iter)
-        child_tree_iter = self.dad.treestore.iter_children(tree_iter) # check for children
-        has_children = 1 if child_tree_iter != None else 0
-        node_tuple = (node_id, name, txt, syntax, tags,
-                      is_ro, is_richtxt, has_codebox, has_table, has_image,
-                      has_children, level)
-        db.execute('INSERT INTO node VALUES(?,?,?,?,?,?,?,?,?,?,?,?)', node_tuple)
-        db.execute('INSERT INTO children VALUES(?,?,?)', (node_id, node_father_id, sequence))
+        if write_dict['buff']:
+            curr_buffer = self.dad.treestore[tree_iter][2]
+            start_iter = curr_buffer.get_start_iter()
+            end_iter = curr_buffer.get_end_iter()
+            if is_richtxt:
+                # prepare xml dom node
+                if "dom" in dir(self): del self.dom
+                self.dom = xml.dom.minidom.Document()
+                dom_iter = self.dom.createElement("node")
+                self.dom.appendChild(dom_iter)
+                # init attributes
+                self.curr_attributes = {}
+                for tag_property in cons.TAG_PROPERTIES: self.curr_attributes[tag_property] = ""
+                # go!
+                curr_iter = start_iter.copy()
+                self.dad.xml_handler.rich_text_attributes_update(curr_iter, self.curr_attributes)
+                tag_found = curr_iter.forward_to_tag_toggle(None)
+                while tag_found:
+                    self.dad.xml_handler.rich_txt_serialize(dom_iter, start_iter, curr_iter, self.curr_attributes, dom=self.dom)
+                    if curr_iter.compare(end_iter) == 0: break
+                    else:
+                        self.dad.xml_handler.rich_text_attributes_update(curr_iter, self.curr_attributes)
+                        offset_old = curr_iter.get_offset()
+                        start_iter.set_offset(offset_old)
+                        tag_found = curr_iter.forward_to_tag_toggle(None)
+                        if curr_iter.get_offset() == offset_old: break
+                else:  self.dad.xml_handler.rich_txt_serialize(dom_iter, start_iter, curr_iter, self.curr_attributes, dom=self.dom)
+                # time for the objects
+                if write_dict['upd']:
+                    db.execute('REMOVE FROM codebox WHERE node_id=?', node_id)
+                    db.execute('REMOVE FROM grid WHERE node_id=?', node_id)
+                    db.execute('REMOVE FROM image WHERE node_id=?', node_id)
+                pixbuf_table_codebox_vector = self.dad.state_machine.get_embedded_pixbufs_tables_codeboxes(curr_buffer)
+                # pixbuf_table_codebox_vector is [ [ "pixbuf"/"table"/"codebox", [offset, pixbuf, alignment] ],... ]
+                codeboxes_tuples = []
+                tables_tuples = []
+                images_tuples = []
+                for element in pixbuf_table_codebox_vector:
+                    if element[0] == "pixbuf": images_tuples.append(self.get_image_db_tuple(element[1], node_id))
+                    elif element[0] == "table": tables_tuples.append(self.get_table_db_tuple(element[1], node_id))
+                    elif element[0] == "codebox": codeboxes_tuples.append(self.get_codebox_db_tuple(element[1], node_id))
+                if codeboxes_tuples:
+                    has_codebox = 1
+                    db.executemany('INSERT INTO codebox VALUES(?,?,?,?,?,?,?,?,?,?)', codeboxes_tuples)
+                if tables_tuples:
+                    has_table = 1
+                    db.executemany('INSERT INTO grid VALUES(?,?,?,?,?,?)', tables_tuples)
+                if images_tuples:
+                    has_image = 1
+                    db.executemany('INSERT INTO image VALUES(?,?,?,?,?)', images_tuples)
+                # retrieve xml text
+                txt = self.dom.toxml()
+            else:
+                # not richtext
+                has_codebox = 0
+                has_table = 0
+                has_image = 0
+                txt = start_iter.get_text(end_iter)
+        if write_dict['prop'] and write_dict['buff']:
+            if write_dict['upd']:
+                db.execute('REMOVE FROM node WHERE node_id=?', node_id)
+            node_tuple = (node_id, name, txt, syntax, tags,
+                          is_ro, is_richtxt, has_codebox, has_table, has_image,
+                          has_children, level)
+            db.execute('INSERT INTO node VALUES(?,?,?,?,?,?,?,?,?,?,?,?)', node_tuple)
+        elif write_dict['buff']:
+            db.execute('UPDATE node SET txt=?, syntax=?, is_richtxt=?, has_codebox=?, has_table=?, has_image=? WHERE node_id=?', (txt, syntax, is_richtxt, has_codebox, has_table, has_image, node_id))
+        elif write_dict['prop']:
+            db.execute('UPDATE node SET name=?, tags=?, is_ro=? WHERE node_id=?', (name, tags, is_ro, node_id))
+        if write_dict['hier']:
+            if write_dict['upd']:
+                db.execute('REMOVE FROM children WHERE node_id=?', node_id)
+            db.execute('INSERT INTO children VALUES(?,?,?)', (node_id, node_father_id, sequence))
+        if not write_dict['child']: return
+        # let's take care about the children
         if has_children:
-            # let's take care about the children
             child_sequence = 0
             while child_tree_iter != None:
                 child_sequence += 1
-                self.write_db_node(db, child_tree_iter, level+1, child_sequence, node_id)
+                self.write_db_node(db, child_tree_iter, level+1, child_sequence, node_id, write_dict)
                 child_tree_iter = self.dad.treestore.iter_next(child_tree_iter)
     
     def write_db_full(self, db):
         """Write the whole DB"""
         tree_iter = self.dad.treestore.get_iter_first()
         sequence = 0
-        write_dict = {'upd': False, 'prop': True, 'buff': True, 'hier': True}
+        write_dict = {'upd': False, 'prop': True, 'buff': True, 'hier': True, 'child': True}
         while tree_iter != None:
             sequence += 1
-            self.write_db_node(db, tree_iter, 1, sequence, 0)
+            self.write_db_node(db, tree_iter, 1, sequence, 0, write_dict)
             tree_iter = self.dad.treestore.iter_next(tree_iter)
         self.write_db_bookmarks(db)
     
