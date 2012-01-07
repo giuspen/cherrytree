@@ -998,7 +998,7 @@ class CherryTree:
             if filepath == None: restore_filetype = True
             if not restore_filetype:
                 filepath = self.filepath_extension_fix(filepath)
-                if not self.file_write(filepath): restore_filetype = True
+                if not self.file_write(filepath, True): restore_filetype = True
             if restore_filetype:
                 # restore filetype previous dialog_choose_data_storage
                 if len(self.file_name) > 4: self.filetype = self.file_name[-1]
@@ -1019,12 +1019,12 @@ class CherryTree:
         """Save the file"""
         if self.file_dir != "" and self.file_name != "":
             if self.tree_is_empty(): support.dialog_warning(_("The Tree is Empty!"), self.window)
-            elif self.file_write(os.path.join(self.file_dir, self.file_name)):
+            elif self.file_write(os.path.join(self.file_dir, self.file_name), False):
                 self.update_window_save_not_needed()
                 self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
         else: self.file_save_as()
 
-    def file_write_low_level(self, filepath, xml_string):
+    def file_write_low_level(self, filepath, xml_string, first_write):
         """File Write Low Level (ctd or ctz)"""
         if not xml_string:
             # db storage
@@ -1039,11 +1039,17 @@ class CherryTree:
             filepath_tmp = os.path.join(cons.TMP_FOLDER, os.path.basename(filepath[:-1] + last_letter))
             if xml_string: file_descriptor = open(filepath_tmp, 'w')
             else:
-                if os.path.isfile(filepath_tmp): os.remove(filepath_tmp)
-                self.ctdb_handler.new_db(filepath_tmp)
+                if first_write:
+                    if "db" in dir(self): self.db.close()
+                    self.db = self.ctdb_handler.new_db(filepath_tmp)
+                else: self.ctdb_handler.write_pending_data(self.db)
         else:
             if xml_string: file_descriptor = open(filepath, 'w')
-            else: self.ctdb_handler.new_db(filepath)
+            else:
+                if first_write:
+                    if "db" in dir(self): self.db.close()
+                    self.db = self.ctdb_handler.new_db(filepath)
+                else: self.ctdb_handler.write_pending_data(self.db)
         if xml_string:
             file_descriptor.write(xml_string)
             file_descriptor.close()
@@ -1063,9 +1069,10 @@ class CherryTree:
             #print bash_str
             ret_code = subprocess.call(bash_str, shell=True)
             #print ret_code
-            os.remove(filepath_tmp)
+            if xml_string: os.remove(filepath_tmp)
+            else: self.ctdb_handler.remove_at_quit_set.add(filepath_tmp)
 
-    def file_write(self, filepath):
+    def file_write(self, filepath, first_write):
         """File Write"""
         if self.filetype in ["d", "z"]:
             try: xml_string = self.xml_handler.treestore_to_dom()
@@ -1082,7 +1089,7 @@ class CherryTree:
             self.statusbar.pop(self.statusbar_context_id)
             self.statusbar.push(self.statusbar_context_id, _("Writing to Disk..."))
             while gtk.events_pending(): gtk.main_iteration()
-            self.file_write_low_level(filepath, xml_string)
+            self.file_write_low_level(filepath, xml_string, first_write)
             self.statusbar.pop(self.statusbar_context_id)
             return True
         except:
@@ -2523,6 +2530,8 @@ class CherryTree:
             self.really_quit = False # user pressed cancel
             return
         config.config_file_save(self)
+        if "db" in dir(self): self.db.close()
+        for filepath_tmp in self.ctdb_handler.remove_at_quit_set: os.remove(filepath_tmp)
         self.window.destroy()
         if not HAS_APPINDICATOR and "status_icon" in dir(self): self.status_icon.set_visible(False)
 

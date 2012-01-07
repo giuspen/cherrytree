@@ -30,6 +30,16 @@ class CTDBHandler:
     def __init__(self, dad):
         """CherryTree DataBase boot"""
         self.dad = dad
+        self.nodes_to_write = []
+        self.bookmarks_to_write = False
+        self.remove_at_quit_set = set()
+    
+    def write_pending_data(self, db):
+        """Write pending data"""
+        if self.bookmarks_to_write:
+            self.write_db_bookmarks(db)
+        for node_to_write in self.nodes_to_write:
+            pass
     
     def get_image_db_tuple(self, image_element, node_id):
         """From image element to db tuple"""
@@ -86,6 +96,7 @@ class CTDBHandler:
     
     def new_db(self, dbpath):
         """Create a new DataBase"""
+        if os.path.isfile(dbpath): os.remove(dbpath)
         db = self.get_connected_db_from_dbpath(dbpath)
         db.execute(cons.TABLE_NODE_CREATE)
         db.execute(cons.TABLE_CODEBOX_CREATE)
@@ -95,16 +106,16 @@ class CTDBHandler:
         db.execute(cons.TABLE_BOOKMARK_CREATE)
         self.write_db_full(db)
         db.commit()
-        db.close()
+        return db
     
     def write_db_bookmarks(self, db):
         """Write all the bookmarks in DB"""
         if not self.dad.bookmarks: return
+        db.execute('REMOVE * FROM bookmark')
         sequence = 0
         for bookmark_str in self.dad.bookmarks:
             sequence += 1
             bookmark_tuple = (int(bookmark_str), sequence)
-            db.execute('REMOVE * FROM bookmark')
             db.execute('INSERT INTO bookmark VALUES(?,?)', bookmark_tuple)
     
     def write_db_node(self, db, tree_iter, level, sequence, node_father_id, write_dict):

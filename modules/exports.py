@@ -46,7 +46,7 @@ class Export2CTD:
         except:
             support.dialog_error("%s write failed - all nodes to xml" % filepath, self.dad.window)
             return
-        try: self.dad.file_write_low_level(filepath, xml_string)
+        try: self.dad.file_write_low_level(filepath, xml_string, True)
         except: support.dialog_error("%s write failed - writing to disk" % filepath, self.dad.window)
 
     def node_and_subnodes_export_to_ctd(self, tree_iter, filepath):
@@ -55,7 +55,7 @@ class Export2CTD:
         except:
             support.dialog_error("%s write failed - sel node and subnodes to xml" % filepath, self.dad.window)
             return
-        try: self.dad.file_write_low_level(filepath, xml_string)
+        try: self.dad.file_write_low_level(filepath, xml_string, True)
         except: support.dialog_error("%s write failed - writing to disk" % filepath, self.dad.window)
 
     def node_export_to_ctd(self, tree_iter, filepath):
@@ -64,7 +64,7 @@ class Export2CTD:
         except:
             support.dialog_error("%s write failed - sel node to xml" % filepath, self.dad.window)
             return
-        try: self.dad.file_write_low_level(filepath, xml_string)
+        try: self.dad.file_write_low_level(filepath, xml_string, True)
         except: support.dialog_error("%s write failed - writing to disk" % filepath, self.dad.window)
 
 
