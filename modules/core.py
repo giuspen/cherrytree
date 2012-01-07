@@ -2210,6 +2210,9 @@ class CherryTree:
                 self.curr_buffer.set_modified(False)
                 self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
         self.curr_tree_iter = new_iter
+        if not self.treestore[self.curr_tree_iter][2]:
+            # we are using db storage and the buffer was not created yet
+            self.ctdb_handler.read_db_node_content(self.curr_tree_iter, self.db)
         self.curr_buffer = self.treestore[self.curr_tree_iter][2]
         self.sourceview.set_buffer(self.curr_buffer)
         self.syntax_highlighting = self.treestore[self.curr_tree_iter][4]
