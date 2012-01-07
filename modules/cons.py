@@ -165,7 +165,6 @@ is_richtxt INTEGER,
 has_codebox INTEGER,
 has_table INTEGER,
 has_image INTEGER,
-has_children INTEGER,
 level INTEGER
 )"""
 

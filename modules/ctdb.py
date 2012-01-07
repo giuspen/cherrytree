@@ -110,8 +110,6 @@ class CTDBHandler:
     def write_db_node(self, db, tree_iter, level, sequence, node_father_id, write_dict):
         """Write a node in DB"""
         node_id = self.dad.treestore[tree_iter][3]
-        child_tree_iter = self.dad.treestore.iter_children(tree_iter) # check for children
-        has_children = 1 if child_tree_iter != None else 0
         name = self.dad.treestore[tree_iter][1]
         syntax = self.dad.treestore[tree_iter][4]
         tags = self.dad.treestore[tree_iter][6]
@@ -180,24 +178,27 @@ class CTDBHandler:
                 db.execute('REMOVE FROM node WHERE node_id=?', node_id)
             node_tuple = (node_id, name, txt, syntax, tags,
                           is_ro, is_richtxt, has_codebox, has_table, has_image,
-                          has_children, level)
+                          level)
             db.execute('INSERT INTO node VALUES(?,?,?,?,?,?,?,?,?,?,?,?)', node_tuple)
         elif write_dict['buff']:
-            db.execute('UPDATE node SET txt=?, syntax=?, is_richtxt=?, has_codebox=?, has_table=?, has_image=? WHERE node_id=?', (txt, syntax, is_richtxt, has_codebox, has_table, has_image, node_id))
+            db.execute('UPDATE node SET txt=?, syntax=?, is_richtxt=?, has_codebox=?, has_table=?, has_image=?, level=? WHERE node_id=?', (txt, syntax, is_richtxt, has_codebox, has_table, has_image, level, node_id))
         elif write_dict['prop']:
-            db.execute('UPDATE node SET name=?, tags=?, is_ro=? WHERE node_id=?', (name, tags, is_ro, node_id))
+            db.execute('UPDATE node SET name=?, tags=?, is_ro=?, level=? WHERE node_id=?', (name, tags, is_ro, level, node_id))
         if write_dict['hier']:
             if write_dict['upd']:
                 db.execute('REMOVE FROM children WHERE node_id=?', node_id)
             db.execute('INSERT INTO children VALUES(?,?,?)', (node_id, node_father_id, sequence))
+            # need to write "level"
+            if not write_dict['buff'] and not write_dict['prop']:
+                db.execute('UPDATE node SET level=? WHERE node_id=?', (level, node_id))
         if not write_dict['child']: return
         # let's take care about the children
-        if has_children:
-            child_sequence = 0
-            while child_tree_iter != None:
-                child_sequence += 1
-                self.write_db_node(db, child_tree_iter, level+1, child_sequence, node_id, write_dict)
-                child_tree_iter = self.dad.treestore.iter_next(child_tree_iter)
+        child_tree_iter = self.dad.treestore.iter_children(tree_iter)
+        child_sequence = 0
+        while child_tree_iter != None:
+            child_sequence += 1
+            self.write_db_node(db, child_tree_iter, level+1, child_sequence, node_id, write_dict)
+            child_tree_iter = self.dad.treestore.iter_next(child_tree_iter)
     
     def write_db_full(self, db):
         """Write the whole DB"""
@@ -356,7 +357,7 @@ class CTDBHandler:
         # loop for child nodes
         children_rows = db.execute('SELECT * FROM children WHERE father_id=? ORDER BY sequence ASC', unique_id).fetchall()
         for child_row in children_rows:
-            child_node_row = db.execute('SELECT node_id, name, syntax, tags, has_children, level FROM node WHERE node_id=?', child_row['node_id']).fetchone()
+            child_node_row = db.execute('SELECT node_id, name, syntax, tags, level FROM node WHERE node_id=?', child_row['node_id']).fetchone()
             if child_node_row: read_db_node_n_children(self, child_node_row, tree_iter, discard_ids)
     
     def read_db_full(self, db, discard_ids, tree_father=None, reset_nodes_names=True):
@@ -372,7 +373,7 @@ class CTDBHandler:
         # tree nodes
         children_rows = db.execute('SELECT * FROM children WHERE father_id=0 ORDER BY sequence ASC').fetchall()
         for child_row in children_rows:
-            child_node_row = db.execute('SELECT node_id, name, syntax, tags, has_children, level FROM node WHERE node_id=?', child_row['node_id']).fetchone()
+            child_node_row = db.execute('SELECT node_id, name, syntax, tags, level FROM node WHERE node_id=?', child_row['node_id']).fetchone()
             if child_node_row: read_db_node_n_children(self, child_node_row, None, discard_ids)
         # bookmarks
         bookmarks_rows = db.execute('SELECT * FROM bookmark ORDER BY sequence ASC').fetchall()
