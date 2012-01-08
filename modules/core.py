@@ -123,7 +123,7 @@ class CherryTree:
         self.statusbar = gtk.Statusbar()
         self.statusbar_context_id = self.statusbar.get_context_id('')
         vbox_main.pack_start(self.statusbar, False, False)
-        # ROW: 0-icon_stock_id, 1-name, 2-buffer, 3-unique_id, 4-syntax_highlighting, 5-level, 6-tags, 7-readonly
+        # ROW: 0-icon_stock_id, 1-name, 2-buffer, 3-unique_id, 4-syntax_highlighting, 5-node_sequence, 6-tags, 7-readonly
         self.treestore = gtk.TreeStore(str, str, gobject.TYPE_PYOBJECT, long, str, int, str, gobject.TYPE_BOOLEAN)
         self.treeview = gtk.TreeView(self.treestore)
         self.treeview.set_headers_visible(False)
@@ -939,10 +939,8 @@ class CherryTree:
 
     def change_icon_iter(self, tree_iter):
         """Changing all icons type - iter"""
-        father_iter = self.treestore.iter_parent(tree_iter)
-        if father_iter: self.treestore[tree_iter][5] = self.treestore[father_iter][5] + 1
-        else: self.treestore[tree_iter][5] = 0
-        self.treestore[tree_iter][0] = self.get_node_icon(self.treestore[tree_iter][5], self.treestore[tree_iter][4])
+        self.treestore[tree_iter][0] = self.get_node_icon(self.treestore.iter_depth(tree_iter),
+                                                          self.treestore[tree_iter][4])
         child_tree_iter = self.treestore.iter_children(tree_iter)
         while child_tree_iter:
             self.change_icon_iter(child_tree_iter)
@@ -1535,7 +1533,7 @@ class CherryTree:
         while iter_child != None:
             if self.treestore[iter_child][4] != self.treestore[iter_father][4]:
                 self.treestore[iter_child][4] = self.treestore[iter_father][4]
-                self.treestore[iter_child][0] = self.get_node_icon(self.treestore[iter_child][5],
+                self.treestore[iter_child][0] = self.get_node_icon(self.treestore.iter_depth(iter_child),
                                                                    self.treestore[iter_child][4])
                 self.switch_buffer_text_source(self.treestore[iter_child][2],
                                                iter_child,
@@ -2063,6 +2061,23 @@ class CherryTree:
         sourcebuffer.set_language(self.language_manager.get_language(language_id))
         sourcebuffer.set_highlight_syntax(True)
 
+    def nodes_sequences_fix(self, father_iter, process_children):
+        """Parse Tree and Fix Node Sequences"""
+        tree_iter = self.treestore.iter_children(father_iter)
+        node_sequence = 0
+        while tree_iter != None:
+            node_sequence += 1
+            if self.treestore[tree_iter][5] != node_sequence:
+                self.treestore[tree_iter][5] = node_sequence
+                node_id = self.treestore[tree_iter][3]
+                if node_id in self.ctdb_handler.nodes_to_write:
+                    pass
+                else:
+                    pass
+            if process_children:
+                self.nodes_sequences_fix(tree_iter, process_children)
+            tree_iter = self.treestore.iter_next(tree_iter)
+
     def node_add(self, *args):
         """Add a node having common father with the selected node's"""
         self.glade.checkbutton_readonly.set_active(False)
@@ -2070,28 +2085,29 @@ class CherryTree:
         if node_name == None: return
         self.update_window_save_needed()
         self.syntax_highlighting = self.prog_lang_liststore[self.glade.combobox_prog_lang.get_active_iter()][1]
-        if self.curr_tree_iter == None: node_level = 0
-        else: node_level = self.treestore[self.curr_tree_iter][5]
         cherry = self.get_node_icon(node_level, self.syntax_highlighting)
         if self.curr_tree_iter != None:
-            new_node_iter = self.treestore.insert_after(self.treestore.iter_parent(self.curr_tree_iter),
+            father_iter = self.treestore.iter_parent(self.curr_tree_iter)
+            new_node_iter = self.treestore.insert_after(father_iter,
                                                         self.curr_tree_iter, [cherry,
                                                                               node_name,
                                                                               self.buffer_create(self.syntax_highlighting),
                                                                               self.node_id_get(),
                                                                               self.syntax_highlighting,
-                                                                              node_level,
+                                                                              0,
                                                                               self.glade.tags_searching_entry.get_text(),
                                                                               self.glade.checkbutton_readonly.get_active()])
         else:
+            father_iter = None
             new_node_iter = self.treestore.append(None, [cherry,
                                                          node_name,
                                                          self.buffer_create(self.syntax_highlighting),
                                                          self.node_id_get(),
                                                          self.syntax_highlighting,
-                                                         node_level,
+                                                         0,
                                                          self.glade.tags_searching_entry.get_text(),
                                                          self.glade.checkbutton_readonly.get_active()])
+        self.nodes_sequences_fix(father_iter, False)
         self.nodes_names_dict[self.treestore[new_node_iter][3]] = self.treestore[new_node_iter][1]
         new_node_path = self.treestore.get_path(new_node_iter)
         self.treeview.set_cursor(new_node_path)
@@ -2107,17 +2123,16 @@ class CherryTree:
         if node_name != None:
             self.update_window_save_needed()
             self.syntax_highlighting = self.prog_lang_liststore[self.glade.combobox_prog_lang.get_active_iter()][1]
-            if self.curr_tree_iter == None: node_level = 0
-            else: node_level = self.treestore[self.curr_tree_iter][5] + 1
             cherry = self.get_node_icon(node_level, self.syntax_highlighting)
             new_node_iter = self.treestore.append(self.curr_tree_iter, [cherry,
                                                                         node_name,
                                                                         self.buffer_create(self.syntax_highlighting),
                                                                         self.node_id_get(),
                                                                         self.syntax_highlighting,
-                                                                        node_level,
+                                                                        0,
                                                                         self.glade.tags_searching_entry.get_text(),
                                                                         self.glade.checkbutton_readonly.get_active()])
+            self.nodes_sequences_fix(self.curr_tree_iter, False)
             self.nodes_names_dict[self.treestore[new_node_iter][3]] = self.treestore[new_node_iter][1]
             new_node_path = self.treestore.get_path(new_node_iter)
             father_node_path = self.treestore.get_path(self.curr_tree_iter)
@@ -2179,7 +2194,7 @@ class CherryTree:
         self.treestore[self.curr_tree_iter][4] = self.syntax_highlighting
         self.treestore[self.curr_tree_iter][6] = self.glade.tags_searching_entry.get_text()
         self.treestore[self.curr_tree_iter][7] = self.glade.checkbutton_readonly.get_active()
-        self.treestore[self.curr_tree_iter][0] = self.get_node_icon(self.treestore[self.curr_tree_iter][5],
+        self.treestore[self.curr_tree_iter][0] = self.get_node_icon(self.treestore.iter_depth(self.curr_tree_iter),
                                                                     self.syntax_highlighting)
         if self.syntax_highlighting != cons.CUSTOM_COLORS_ID:
             self.set_sourcebuffer_syntax_highlight(self.curr_buffer, self.syntax_highlighting)

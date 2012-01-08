@@ -101,14 +101,17 @@ class XMLHandler:
         if cherrytree.nodeName != "cherrytree": return False
         else:
             dom_iter = cherrytree.firstChild
+            node_sequence = 0
             while dom_iter!= None:
-                if dom_iter.nodeName == "node": self.append_tree_node(dom_iter, tree_father, discard_ids)
+                if dom_iter.nodeName == "node":
+                    node_sequence += 1
+                    self.append_tree_node(dom_iter, tree_father, discard_ids, node_sequence)
                 elif dom_iter.nodeName == "bookmarks":
                     self.dad.bookmarks = dom_iter.attributes['list'].value.split(",")
                 dom_iter = dom_iter.nextSibling
             return True
 
-    def append_tree_node(self, dom_iter, tree_father, discard_ids):
+    def append_tree_node(self, dom_iter, tree_father, discard_ids, node_sequence):
         """Given the dom_iter node, adds it to the tree"""
         if not discard_ids and dom_iter.hasAttribute('unique_id'):
             unique_id = long(dom_iter.attributes['unique_id'].value)
@@ -123,9 +126,8 @@ class XMLHandler:
             syntax_highlighting = syntax_highlighting.lower().replace("C++", "cpp")
             if syntax_highlighting not in self.dad.available_languages:
                 syntax_highlighting = cons.CUSTOM_COLORS_ID
-        if tree_father == None: node_level = 0
-        else: node_level = self.dad.treestore[tree_father][5] + 1
-        cherry = self.dad.get_node_icon(node_level, syntax_highlighting)
+        node_depth = 0 if not tree_father else self.dad.treestore.iter_depth(tree_father)+1
+        cherry = self.dad.get_node_icon(node_depth, syntax_highlighting)
         curr_buffer = self.dad.buffer_create(syntax_highlighting)
         if syntax_highlighting != cons.CUSTOM_COLORS_ID: curr_buffer.begin_not_undoable_action()
         # loop into rich text, write into the buffer
@@ -148,16 +150,19 @@ class XMLHandler:
                                                             curr_buffer,
                                                             unique_id,
                                                             syntax_highlighting,
-                                                            node_level,
+                                                            node_sequence,
                                                             node_tags,
                                                             readonly])
         self.dad.nodes_names_dict[self.dad.treestore[tree_iter][3]] = self.dad.treestore[tree_iter][1]
         # loop for child nodes
+        child_sequence = 0
         while child_dom_iter!= None:
-            if child_dom_iter.nodeName == 'rich_text':
+            if child_dom_iter.nodeName == "node":
+                child_sequence += 1
+                self.append_tree_node(child_dom_iter, tree_iter, discard_ids, child_sequence)
+            elif child_dom_iter.nodeName == 'rich_text':
                 support.dialog_error("Rich text instead of child node??!!", self.dad.window)
                 break
-            elif child_dom_iter.nodeName == "node": self.append_tree_node(child_dom_iter, tree_iter, discard_ids)
             child_dom_iter = child_dom_iter.nextSibling
 
     def codebox_deserialize(self, curr_buffer, dom_node):

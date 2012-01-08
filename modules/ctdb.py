@@ -30,16 +30,31 @@ class CTDBHandler:
     def __init__(self, dad):
         """CherryTree DataBase boot"""
         self.dad = dad
-        self.nodes_to_write = []
+        self.nodes_to_write = {}
+        self.nodes_to_rm = []
         self.bookmarks_to_write = False
         self.remove_at_quit_set = set()
     
     def write_pending_data(self, db):
         """Write pending data"""
+        need_to_commit = False
         if self.bookmarks_to_write:
             self.write_db_bookmarks(db)
-        for node_to_write in self.nodes_to_write:
-            pass
+            need_to_commit = True
+        for node_id_to_write in self.nodes_to_write:
+            write_dict = self.nodes_to_write[node_id_to_write]
+            tree_iter = self.dad.get_tree_iter_from_node_id(node_id)
+            level = self.dad.treestore.iter_depth(tree_iter)
+            node_sequence = self.dad.treestore[tree_iter][5]
+            father_iter = father_iter = self.dad.treestore.iter_parent(tree_iter)
+            node_father_id = 0 if not father_iter else self.dad.treestore[father_iter][3]
+            self.write_db_node(db, tree_iter, level, node_sequence, node_father_id, write_dict)
+            del self.nodes_to_write[node_id_to_write]
+            need_to_commit = True
+        for node_to_rm in self.nodes_to_rm:
+            self.remove_db_node(db, node_to_rm)
+            need_to_commit = True
+        if need_to_commit: db.commit()
     
     def get_image_db_tuple(self, image_element, node_id):
         """From image element to db tuple"""
@@ -117,6 +132,14 @@ class CTDBHandler:
             sequence += 1
             bookmark_tuple = (int(bookmark_str), sequence)
             db.execute('INSERT INTO bookmark VALUES(?,?)', bookmark_tuple)
+    
+    def remove_db_node(self, db, node_id):
+        """Remove a Node from DB"""
+        db.execute('REMOVE FROM codebox WHERE node_id=?', node_id)
+        db.execute('REMOVE FROM grid WHERE node_id=?', node_id)
+        db.execute('REMOVE FROM image WHERE node_id=?', node_id)
+        db.execute('REMOVE FROM node WHERE node_id=?', node_id)
+        db.execute('REMOVE FROM children WHERE node_id=?', node_id)
     
     def write_db_node(self, db, tree_iter, level, sequence, node_father_id, write_dict):
         """Write a node in DB"""
@@ -214,11 +237,13 @@ class CTDBHandler:
     def write_db_full(self, db):
         """Write the whole DB"""
         tree_iter = self.dad.treestore.get_iter_first()
+        level = 0
         sequence = 0
+        node_father_id = 0
         write_dict = {'upd': False, 'prop': True, 'buff': True, 'hier': True, 'child': True}
         while tree_iter != None:
             sequence += 1
-            self.write_db_node(db, tree_iter, 1, sequence, 0, write_dict)
+            self.write_db_node(db, tree_iter, level, sequence, node_father_id, write_dict)
             tree_iter = self.dad.treestore.iter_next(tree_iter)
         self.write_db_bookmarks(db)
     
@@ -338,7 +363,7 @@ class CTDBHandler:
                 else: self.add_node_image(images_rows[obj_idx[1]], curr_buffer)
         curr_buffer.set_modified(False)
     
-    def read_db_node_n_children(self, node_row, tree_father, discard_ids):
+    def read_db_node_n_children(self, node_row, tree_father, discard_ids, node_sequence):
         """Read a node and his children from DB"""
         if not discard_ids:
             unique_id = node_row['node_id']
@@ -351,8 +376,6 @@ class CTDBHandler:
             syntax_highlighting = syntax_highlighting.lower().replace("C++", "cpp")
             if syntax_highlighting not in self.dad.available_languages:
                 syntax_highlighting = cons.CUSTOM_COLORS_ID
-        if tree_father == None: node_level = 0
-        else: node_level = self.dad.treestore[tree_father][5] + 1
         cherry = self.dad.get_node_icon(node_level, syntax_highlighting)
         #print unique_id
         # insert the node containing the buffer into the tree
@@ -361,15 +384,18 @@ class CTDBHandler:
                                                             None, # no buffer for now
                                                             unique_id,
                                                             syntax_highlighting,
-                                                            node_level,
+                                                            node_sequence,
                                                             node_tags,
                                                             readonly])
         self.dad.nodes_names_dict[self.dad.treestore[tree_iter][3]] = self.dad.treestore[tree_iter][1]
         # loop for child nodes
+        child_sequence = 0
         children_rows = db.execute('SELECT * FROM children WHERE father_id=? ORDER BY sequence ASC', unique_id).fetchall()
         for child_row in children_rows:
             child_node_row = db.execute('SELECT node_id, name, syntax, tags, level FROM node WHERE node_id=?', child_row['node_id']).fetchone()
-            if child_node_row: read_db_node_n_children(self, child_node_row, tree_iter, discard_ids)
+            if child_node_row:
+                child_sequence += 1
+                read_db_node_n_children(self, child_node_row, tree_iter, discard_ids, child_sequence)
     
     def read_db_full(self, db, discard_ids, tree_father=None, reset_nodes_names=True):
         """Read the whole DB"""
@@ -382,10 +408,13 @@ class CTDBHandler:
             self.dad.bookmarks_menu_items = []
         db.row_factory = sqlite3.Row
         # tree nodes
+        node_sequence = 0
         children_rows = db.execute('SELECT * FROM children WHERE father_id=0 ORDER BY sequence ASC').fetchall()
         for child_row in children_rows:
             child_node_row = db.execute('SELECT node_id, name, syntax, tags, level FROM node WHERE node_id=?', child_row['node_id']).fetchone()
-            if child_node_row: read_db_node_n_children(self, child_node_row, None, discard_ids)
+            if child_node_row:
+                node_sequence += 1
+                read_db_node_n_children(self, child_node_row, None, discard_ids, node_sequence)
         # bookmarks
         bookmarks_rows = db.execute('SELECT * FROM bookmark ORDER BY sequence ASC').fetchall()
         for bookmark_row in bookmarks_rows: self.dad.bookmarks.append(str(bookmark_row['node_id']))
