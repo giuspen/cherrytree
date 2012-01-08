@@ -357,6 +357,7 @@ def bookmarks_handle(dad):
     if response != gtk.RESPONSE_ACCEPT: return False
     dad.bookmarks = temp_bookmarks
     set_bookmarks_menu_items(dad)
+    dad.ctdb_handler.pending_edit_db_bookmarks()
     return True
 
 def set_object_highlight(inst, obj_highl):
