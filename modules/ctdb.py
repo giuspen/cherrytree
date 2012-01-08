@@ -30,30 +30,32 @@ class CTDBHandler:
     def __init__(self, dad):
         """CherryTree DataBase boot"""
         self.dad = dad
-        self.nodes_to_write = {}
-        self.nodes_to_rm = []
+        self.nodes_to_write_dict = {}
+        self.nodes_to_rm_set = set()
         self.bookmarks_to_write = False
         self.remove_at_quit_set = set()
     
-    def write_pending_data(self, db):
+    def pending_data_write(self, db):
         """Write pending data"""
         need_to_commit = False
         if self.bookmarks_to_write:
             self.write_db_bookmarks(db)
             need_to_commit = True
-        for node_id_to_write in self.nodes_to_write:
-            write_dict = self.nodes_to_write[node_id_to_write]
+        self.bookmarks_to_write = False
+        for node_to_rm in self.nodes_to_rm_set:
+            self.remove_db_node(db, node_to_rm)
+            need_to_commit = True
+        self.nodes_to_rm_set.clean()
+        for node_id_to_write in self.nodes_to_write_dict:
+            write_dict = self.nodes_to_write_dict[node_id_to_write]
             tree_iter = self.dad.get_tree_iter_from_node_id(node_id)
             level = self.dad.treestore.iter_depth(tree_iter)
             node_sequence = self.dad.treestore[tree_iter][5]
             father_iter = father_iter = self.dad.treestore.iter_parent(tree_iter)
             node_father_id = 0 if not father_iter else self.dad.treestore[father_iter][3]
             self.write_db_node(db, tree_iter, level, node_sequence, node_father_id, write_dict)
-            del self.nodes_to_write[node_id_to_write]
             need_to_commit = True
-        for node_to_rm in self.nodes_to_rm:
-            self.remove_db_node(db, node_to_rm)
-            need_to_commit = True
+        self.nodes_to_write_dict.clean()
         if need_to_commit: db.commit()
     
     def get_image_db_tuple(self, image_element, node_id):
@@ -132,6 +134,33 @@ class CTDBHandler:
             sequence += 1
             bookmark_tuple = (int(bookmark_str), sequence)
             db.execute('INSERT INTO bookmark VALUES(?,?)', bookmark_tuple)
+    
+    def pending_edit_db_node_hier(self, node_id):
+        """The node needs hier update"""
+        if self.dad.filetype not in ["b", "x"]: return
+        if node_id in self.ctdb_handler.nodes_to_write_dict:
+            self.ctdb_handler.nodes_to_write_dict[node_id]['hier'] = True
+        else:
+            write_dict = {'upd': True, 'prop': False, 'buff': False, 'hier': True, 'child': False}
+            self.nodes_to_write_dict[node_id] = write_dict
+    
+    def pending_new_db_node(self, node_id):
+        """Pending Add a Node to DB"""
+        if self.dad.filetype not in ["b", "x"]: return
+        write_dict = {'upd': False, 'prop': True, 'buff': True, 'hier': True, 'child': True}
+        self.nodes_to_write_dict[node_id] = write_dict
+    
+    def pending_rm_db_node(self, node_id):
+        """Pending RM a Node from DB"""
+        if self.dad.filetype not in ["b", "x"]: return
+        if node_id in self.nodes_to_write_dict:
+            # no need to write changes to a node that got to be removed
+            node_just_inserted = not self.nodes_to_write_dict[node_id]['upd']
+            del self.nodes_to_write_dict[node_id]
+            if node_just_inserted:
+                # no need to rm the node, we just do not add it
+                return
+        self.nodes_to_rm_set.add(node_id)
     
     def remove_db_node(self, db, node_id):
         """Remove a Node from DB"""
