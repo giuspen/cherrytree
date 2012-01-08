@@ -135,8 +135,26 @@ class CTDBHandler:
             bookmark_tuple = (int(bookmark_str), sequence)
             db.execute('INSERT INTO bookmark VALUES(?,?)', bookmark_tuple)
     
+    def pending_edit_db_node_prop(self, node_id):
+        """Pending Node Needs 'prop' Update"""
+        if self.dad.filetype not in ["b", "x"]: return
+        if node_id in self.ctdb_handler.nodes_to_write_dict:
+            self.ctdb_handler.nodes_to_write_dict[node_id]['prop'] = True
+        else:
+            write_dict = {'upd': True, 'prop': True, 'buff': False, 'hier': False, 'child': False}
+            self.nodes_to_write_dict[node_id] = write_dict
+    
+    def pending_edit_db_node_buff(self, node_id):
+        """Pending Node Needs 'buff' Update"""
+        if self.dad.filetype not in ["b", "x"]: return
+        if node_id in self.ctdb_handler.nodes_to_write_dict:
+            self.ctdb_handler.nodes_to_write_dict[node_id]['buff'] = True
+        else:
+            write_dict = {'upd': True, 'prop': False, 'buff': True, 'hier': False, 'child': False}
+            self.nodes_to_write_dict[node_id] = write_dict
+    
     def pending_edit_db_node_hier(self, node_id):
-        """The node needs hier update"""
+        """Pending Node Needs 'hier' Update"""
         if self.dad.filetype not in ["b", "x"]: return
         if node_id in self.ctdb_handler.nodes_to_write_dict:
             self.ctdb_handler.nodes_to_write_dict[node_id]['hier'] = True
@@ -249,7 +267,7 @@ class CTDBHandler:
         elif write_dict['buff']:
             db.execute('UPDATE node SET txt=?, syntax=?, is_richtxt=?, has_codebox=?, has_table=?, has_image=?, level=? WHERE node_id=?', (txt, syntax, is_richtxt, has_codebox, has_table, has_image, level, node_id))
         elif write_dict['prop']:
-            db.execute('UPDATE node SET name=?, tags=?, is_ro=?, level=? WHERE node_id=?', (name, tags, is_ro, level, node_id))
+            db.execute('UPDATE node SET name=?, syntax=?, tags=?, is_ro=?, level=? WHERE node_id=?', (name, syntax, tags, is_ro, level, node_id))
         if write_dict['hier']:
             if write_dict['upd']:
                 db.execute('REMOVE FROM children WHERE node_id=?', node_id)
