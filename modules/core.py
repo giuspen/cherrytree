@@ -1554,6 +1554,8 @@ class CherryTree:
         if prev_iter != None:
             self.treestore.swap(self.curr_tree_iter, prev_iter)
             self.nodes_sequences_swap(self.curr_tree_iter, prev_iter)
+            self.ctdb_handler.pending_edit_db_node_hier(self.treestore[self.curr_tree_iter][3])
+            self.ctdb_handler.pending_edit_db_node_hier(self.treestore[prev_iter][3])
             self.treeview.set_cursor(self.treestore.get_path(self.curr_tree_iter))
             self.update_window_save_needed()
 
@@ -1566,6 +1568,8 @@ class CherryTree:
         if subseq_iter != None:
             self.treestore.swap(self.curr_tree_iter, subseq_iter)
             self.nodes_sequences_swap(self.curr_tree_iter, subseq_iter)
+            self.ctdb_handler.pending_edit_db_node_hier(self.treestore[self.curr_tree_iter][3])
+            self.ctdb_handler.pending_edit_db_node_hier(self.treestore[prev_iter][3])
             self.treeview.set_cursor(self.treestore.get_path(self.curr_tree_iter))
             self.update_window_save_needed()
 
