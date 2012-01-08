@@ -1040,14 +1040,14 @@ class CherryTree:
                 if first_write:
                     if "db" in dir(self): self.db.close()
                     self.db = self.ctdb_handler.new_db(filepath_tmp)
-                else: self.ctdb_handler.write_pending_data(self.db)
+                else: self.ctdb_handler.pending_data_write(self.db)
         else:
             if xml_string: file_descriptor = open(filepath, 'w')
             else:
                 if first_write:
                     if "db" in dir(self): self.db.close()
                     self.db = self.ctdb_handler.new_db(filepath)
-                else: self.ctdb_handler.write_pending_data(self.db)
+                else: self.ctdb_handler.pending_data_write(self.db)
         if xml_string:
             file_descriptor.write(xml_string)
             file_descriptor.close()
@@ -2078,12 +2078,7 @@ class CherryTree:
             node_sequence += 1
             if self.treestore[tree_iter][5] != node_sequence:
                 self.treestore[tree_iter][5] = node_sequence
-                node_id = self.treestore[tree_iter][3]
-                if node_id in self.ctdb_handler.nodes_to_write:
-                    self.ctdb_handler[node_id]['hier'] = True
-                else:
-                    write_dict = {'upd': True, 'prop': False, 'buff': False, 'hier': True, 'child': False}
-                    self.ctdb_handler[node_id] = write_dict
+                self.ctdb_handler.pending_edit_db_node_hier(self.treestore[tree_iter][3])
             if process_children:
                 self.nodes_sequences_fix(tree_iter, process_children)
             tree_iter = self.treestore.iter_next(tree_iter)
@@ -2096,13 +2091,14 @@ class CherryTree:
         self.update_window_save_needed()
         self.syntax_highlighting = self.prog_lang_liststore[self.glade.combobox_prog_lang.get_active_iter()][1]
         cherry = self.get_node_icon(node_level, self.syntax_highlighting)
+        new_node_id = self.node_id_get()
         if self.curr_tree_iter != None:
             father_iter = self.treestore.iter_parent(self.curr_tree_iter)
             new_node_iter = self.treestore.insert_after(father_iter,
                                                         self.curr_tree_iter, [cherry,
                                                                               node_name,
                                                                               self.buffer_create(self.syntax_highlighting),
-                                                                              self.node_id_get(),
+                                                                              new_node_id,
                                                                               self.syntax_highlighting,
                                                                               0,
                                                                               self.glade.tags_searching_entry.get_text(),
@@ -2112,13 +2108,14 @@ class CherryTree:
             new_node_iter = self.treestore.append(None, [cherry,
                                                          node_name,
                                                          self.buffer_create(self.syntax_highlighting),
-                                                         self.node_id_get(),
+                                                         new_node_id,
                                                          self.syntax_highlighting,
                                                          0,
                                                          self.glade.tags_searching_entry.get_text(),
                                                          self.glade.checkbutton_readonly.get_active()])
+        self.ctdb_handler.pending_new_db_node(new_node_id)
         self.nodes_sequences_fix(father_iter, False)
-        self.nodes_names_dict[self.treestore[new_node_iter][3]] = self.treestore[new_node_iter][1]
+        self.nodes_names_dict[new_node_id] = node_name
         new_node_path = self.treestore.get_path(new_node_iter)
         self.treeview.set_cursor(new_node_path)
         self.sourceview.grab_focus()
@@ -2134,16 +2131,18 @@ class CherryTree:
             self.update_window_save_needed()
             self.syntax_highlighting = self.prog_lang_liststore[self.glade.combobox_prog_lang.get_active_iter()][1]
             cherry = self.get_node_icon(node_level, self.syntax_highlighting)
+            new_node_id = self.node_id_get()
             new_node_iter = self.treestore.append(self.curr_tree_iter, [cherry,
                                                                         node_name,
                                                                         self.buffer_create(self.syntax_highlighting),
-                                                                        self.node_id_get(),
+                                                                        new_node_id,
                                                                         self.syntax_highlighting,
                                                                         0,
                                                                         self.glade.tags_searching_entry.get_text(),
                                                                         self.glade.checkbutton_readonly.get_active()])
+            self.ctdb_handler.pending_new_db_node(new_node_id)
             self.nodes_sequences_fix(self.curr_tree_iter, False)
-            self.nodes_names_dict[self.treestore[new_node_iter][3]] = self.treestore[new_node_iter][1]
+            self.nodes_names_dict[new_node_id] = node_name
             new_node_path = self.treestore.get_path(new_node_iter)
             father_node_path = self.treestore.get_path(self.curr_tree_iter)
             self.treeview.expand_row(father_node_path, True) # second parameter tells whether to expand children too
@@ -2168,6 +2167,7 @@ class CherryTree:
         if new_iter == None:
             new_iter = self.treestore.iter_next(self.curr_tree_iter)
             if new_iter == None: new_iter = self.treestore.iter_parent(self.curr_tree_iter)
+        self.ctdb_handler.pending_rm_db_node(self.treestore[self.curr_tree_iter][3])
         self.treestore.remove(self.curr_tree_iter)
         self.curr_tree_iter = None
         if new_iter != None:
