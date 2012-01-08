@@ -20,7 +20,7 @@
 #       MA 02110-1301, USA.
 
 import gtk
-import sqlite3, xml.dom.minidom
+import os, sqlite3, xml.dom.minidom
 import cons, machines
 
 
@@ -187,11 +187,11 @@ class CTDBHandler:
     
     def remove_db_node_n_children(self, db, node_id):
         """Remove a Node and his children from DB"""
-        db.execute('REMOVE FROM codebox WHERE node_id=?', node_id)
-        db.execute('REMOVE FROM grid WHERE node_id=?', node_id)
-        db.execute('REMOVE FROM image WHERE node_id=?', node_id)
-        db.execute('REMOVE FROM node WHERE node_id=?', node_id)
-        db.execute('REMOVE FROM children WHERE node_id=?', node_id)
+        db.execute('REMOVE FROM codebox WHERE node_id=?', (node_id,))
+        db.execute('REMOVE FROM grid WHERE node_id=?', (node_id,))
+        db.execute('REMOVE FROM image WHERE node_id=?', (node_id,))
+        db.execute('REMOVE FROM node WHERE node_id=?', (node_id,))
+        db.execute('REMOVE FROM children WHERE node_id=?', (node_id,))
         children_rows = self.get_children_rows_from_father_id(db, node_id)
         for child_row in children_rows:
             self.remove_db_node_n_children(db, child_row['node_id'])
@@ -233,9 +233,9 @@ class CTDBHandler:
                 else:  self.dad.xml_handler.rich_txt_serialize(dom_iter, start_iter, curr_iter, self.curr_attributes, dom=self.dom)
                 # time for the objects
                 if write_dict['upd']:
-                    db.execute('REMOVE FROM codebox WHERE node_id=?', node_id)
-                    db.execute('REMOVE FROM grid WHERE node_id=?', node_id)
-                    db.execute('REMOVE FROM image WHERE node_id=?', node_id)
+                    db.execute('REMOVE FROM codebox WHERE node_id=?', (node_id,))
+                    db.execute('REMOVE FROM grid WHERE node_id=?', (node_id,))
+                    db.execute('REMOVE FROM image WHERE node_id=?', (node_id,))
                 pixbuf_table_codebox_vector = self.dad.state_machine.get_embedded_pixbufs_tables_codeboxes(curr_buffer)
                 # pixbuf_table_codebox_vector is [ [ "pixbuf"/"table"/"codebox", [offset, pixbuf, alignment] ],... ]
                 codeboxes_tuples = []
@@ -248,12 +248,15 @@ class CTDBHandler:
                 if codeboxes_tuples:
                     has_codebox = 1
                     db.executemany('INSERT INTO codebox VALUES(?,?,?,?,?,?,?,?,?,?)', codeboxes_tuples)
+                else: has_codebox = 0
                 if tables_tuples:
                     has_table = 1
                     db.executemany('INSERT INTO grid VALUES(?,?,?,?,?,?)', tables_tuples)
+                else: has_table = 0
                 if images_tuples:
                     has_image = 1
                     db.executemany('INSERT INTO image VALUES(?,?,?,?,?)', images_tuples)
+                else: has_image = 0
                 # retrieve xml text
                 txt = self.dom.toxml()
             else:
@@ -264,18 +267,18 @@ class CTDBHandler:
                 txt = start_iter.get_text(end_iter)
         if write_dict['prop'] and write_dict['buff']:
             if write_dict['upd']:
-                db.execute('REMOVE FROM node WHERE node_id=?', node_id)
+                db.execute('REMOVE FROM node WHERE node_id=?', (node_id,))
             node_tuple = (node_id, name, txt, syntax, tags,
                           is_ro, is_richtxt, has_codebox, has_table, has_image,
                           level)
-            db.execute('INSERT INTO node VALUES(?,?,?,?,?,?,?,?,?,?,?,?)', node_tuple)
+            db.execute('INSERT INTO node VALUES(?,?,?,?,?,?,?,?,?,?,?)', node_tuple)
         elif write_dict['buff']:
             db.execute('UPDATE node SET txt=?, syntax=?, is_richtxt=?, has_codebox=?, has_table=?, has_image=?, level=? WHERE node_id=?', (txt, syntax, is_richtxt, has_codebox, has_table, has_image, level, node_id))
         elif write_dict['prop']:
             db.execute('UPDATE node SET name=?, syntax=?, tags=?, is_ro=?, level=? WHERE node_id=?', (name, syntax, tags, is_ro, level, node_id))
         if write_dict['hier']:
             if write_dict['upd']:
-                db.execute('REMOVE FROM children WHERE node_id=?', node_id)
+                db.execute('REMOVE FROM children WHERE node_id=?', (node_id,))
             db.execute('INSERT INTO children VALUES(?,?,?)', (node_id, node_father_id, sequence))
             # need to write "level"
             if not write_dict['buff'] and not write_dict['prop']:
@@ -366,7 +369,7 @@ class CTDBHandler:
         node_id = self.dad.treestore[tree_iter][3]
         curr_buffer = self.dad.buffer_create(syntax_highlighting)
         self.dad.treestore[tree_iter][3] = curr_buffer
-        node_row = db.execute('SELECT txt, has_codebox, has_table, has_image FROM node WHERE node_id=?', node_id).fetchone()
+        node_row = db.execute('SELECT txt, has_codebox, has_table, has_image FROM node WHERE node_id=?', (node_id,)).fetchone()
         if syntax_highlighting != cons.CUSTOM_COLORS_ID:
             curr_buffer.begin_not_undoable_action()
             curr_buffer.set_text(node_row['txt'])
@@ -391,11 +394,11 @@ class CTDBHandler:
             # then we go for the objects
             objects_index_list = []
             if node_row['has_codebox']:
-                codeboxes_rows = db.execute('SELECT * FROM codebox WHERE node_id=? ORDER BY offset ASC', node_id).fetchall()
+                codeboxes_rows = db.execute('SELECT * FROM codebox WHERE node_id=? ORDER BY offset ASC', (node_id,)).fetchall()
                 for i, c_row in enumerate(codeboxes_rows):
                     objects_index_list.append(['c', i, c_row['offset']])
             if node_row['has_table']:
-                tables_rows = db.execute('SELECT * FROM grid WHERE node_id=? ORDER BY offset ASC', node_id).fetchall()
+                tables_rows = db.execute('SELECT * FROM grid WHERE node_id=? ORDER BY offset ASC', (node_id,)).fetchall()
                 for i, t_row in enumerate(tables_rows):
                     new_obj_idx_elem = ['t', i, t_row['offset']]
                     for j, obj_idx in enumerate(objects_index_list):
@@ -404,7 +407,7 @@ class CTDBHandler:
                             break
                     else: objects_index_list.append(new_obj_idx_elem)
             if node_row['has_image']:
-                images_rows = db.execute('SELECT * FROM image WHERE node_id=? ORDER BY offset ASC', node_id).fetchall()
+                images_rows = db.execute('SELECT * FROM image WHERE node_id=? ORDER BY offset ASC', (node_id,)).fetchall()
                 for i, i_row in enumerate(images_rows):
                     new_obj_idx_elem = ['i', i, i_row['offset']]
                     for j, obj_idx in enumerate(objects_index_list):
@@ -418,12 +421,17 @@ class CTDBHandler:
                 else: self.add_node_image(images_rows[obj_idx[1]], curr_buffer)
         curr_buffer.set_modified(False)
     
-    def get_children_rows_from_father_id(self, father_id):
+    def get_children_rows_from_father_id(self, db, father_id):
         """Returns the children rows given the father_id"""
-        children_rows = db.execute('SELECT * FROM children WHERE father_id=? ORDER BY sequence ASC', father_id).fetchall()
+        children_rows = db.execute('SELECT * FROM children WHERE father_id=? ORDER BY sequence ASC', (father_id,)).fetchall()
         return children_rows
     
-    def read_db_node_n_children(self, node_row, tree_father, discard_ids, node_sequence):
+    def get_node_row_partial_from_id(self, db, node_id):
+        """Returns the (partial) node row given the node_id"""
+        node_row = db.execute('SELECT node_id, name, syntax, tags, is_ro, level FROM node WHERE node_id=?', (node_id,)).fetchone()
+        return node_row
+    
+    def read_db_node_n_children(self, db, node_row, tree_father, discard_ids, node_sequence):
         """Read a node and his children from DB"""
         if not discard_ids:
             unique_id = node_row['node_id']
@@ -436,6 +444,7 @@ class CTDBHandler:
             syntax_highlighting = syntax_highlighting.lower().replace("C++", "cpp")
             if syntax_highlighting not in self.dad.available_languages:
                 syntax_highlighting = cons.CUSTOM_COLORS_ID
+        node_level = self.dad.treestore.iter_depth(tree_father)+1 if tree_father else 0
         cherry = self.dad.get_node_icon(node_level, syntax_highlighting)
         #print unique_id
         # insert the node containing the buffer into the tree
@@ -452,10 +461,10 @@ class CTDBHandler:
         child_sequence = 0
         children_rows = self.get_children_rows_from_father_id(db, unique_id)
         for child_row in children_rows:
-            child_node_row = db.execute('SELECT node_id, name, syntax, tags, level FROM node WHERE node_id=?', child_row['node_id']).fetchone()
+            child_node_row = self.get_node_row_partial_from_id(db, child_row['node_id'])
             if child_node_row:
                 child_sequence += 1
-                read_db_node_n_children(self, child_node_row, tree_iter, discard_ids, child_sequence)
+                self.read_db_node_n_children(db, child_node_row, tree_iter, discard_ids, child_sequence)
     
     def read_db_full(self, db, discard_ids, tree_father=None, reset_nodes_names=True):
         """Read the whole DB"""
@@ -471,10 +480,10 @@ class CTDBHandler:
         node_sequence = 0
         children_rows = self.get_children_rows_from_father_id(db, 0)
         for child_row in children_rows:
-            child_node_row = db.execute('SELECT node_id, name, syntax, tags, level FROM node WHERE node_id=?', child_row['node_id']).fetchone()
+            child_node_row = self.get_node_row_partial_from_id(db, child_row['node_id'])
             if child_node_row:
                 node_sequence += 1
-                read_db_node_n_children(self, child_node_row, None, discard_ids, node_sequence)
+                self.read_db_node_n_children(db, child_node_row, None, discard_ids, node_sequence)
         # bookmarks
         bookmarks_rows = db.execute('SELECT * FROM bookmark ORDER BY sequence ASC').fetchall()
         for bookmark_row in bookmarks_rows: self.dad.bookmarks.append(str(bookmark_row['node_id']))
