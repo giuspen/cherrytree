@@ -1553,6 +1553,7 @@ class CherryTree:
         prev_iter = self.get_tree_iter_prev_sibling(self.treestore, self.curr_tree_iter)
         if prev_iter != None:
             self.treestore.swap(self.curr_tree_iter, prev_iter)
+            self.nodes_sequences_swap(self.curr_tree_iter, prev_iter)
             self.treeview.set_cursor(self.treestore.get_path(self.curr_tree_iter))
             self.update_window_save_needed()
 
@@ -1564,6 +1565,7 @@ class CherryTree:
         subseq_iter = self.treestore.iter_next(self.curr_tree_iter)
         if subseq_iter != None:
             self.treestore.swap(self.curr_tree_iter, subseq_iter)
+            self.nodes_sequences_swap(self.curr_tree_iter, subseq_iter)
             self.treeview.set_cursor(self.treestore.get_path(self.curr_tree_iter))
             self.update_window_save_needed()
 
@@ -1589,6 +1591,7 @@ class CherryTree:
         self.node_move_children(iter_to_move, new_node_iter)
         # now we can remove the old iter (and all children)
         self.treestore.remove(iter_to_move)
+        self.nodes_sequences_fix(None, True)
         if father_iter != None: self.treeview.expand_row(self.treestore.get_path(father_iter), True)
         else: self.treeview.expand_row(self.treestore.get_path(new_node_iter), True)
         self.curr_tree_iter = new_node_iter
@@ -2061,9 +2064,15 @@ class CherryTree:
         sourcebuffer.set_language(self.language_manager.get_language(language_id))
         sourcebuffer.set_highlight_syntax(True)
 
+    def nodes_sequences_swap(self, first_iter, second_iter):
+        """Swap the sequences num of the two iters"""
+        first_iter_seq = self.treestore[first_iter][5]
+        self.treestore[first_iter][5] = self.treestore[second_iter][5]
+        self.treestore[second_iter][5] = first_iter_seq
+
     def nodes_sequences_fix(self, father_iter, process_children):
         """Parse Tree and Fix Node Sequences"""
-        tree_iter = self.treestore.iter_children(father_iter)
+        tree_iter = self.treestore.iter_children(father_iter) if father_iter else self.treestore.get_iter_first()
         node_sequence = 0
         while tree_iter != None:
             node_sequence += 1
@@ -2071,9 +2080,10 @@ class CherryTree:
                 self.treestore[tree_iter][5] = node_sequence
                 node_id = self.treestore[tree_iter][3]
                 if node_id in self.ctdb_handler.nodes_to_write:
-                    pass
+                    self.ctdb_handler[node_id]['hier'] = True
                 else:
-                    pass
+                    write_dict = {'upd': True, 'prop': False, 'buff': False, 'hier': True, 'child': False}
+                    self.ctdb_handler[node_id] = write_dict
             if process_children:
                 self.nodes_sequences_fix(tree_iter, process_children)
             tree_iter = self.treestore.iter_next(tree_iter)
