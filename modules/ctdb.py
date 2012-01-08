@@ -135,6 +135,11 @@ class CTDBHandler:
             bookmark_tuple = (int(bookmark_str), sequence)
             db.execute('INSERT INTO bookmark VALUES(?,?)', bookmark_tuple)
     
+    def pending_edit_db_bookmarks(self):
+        """Pending Bookmarks Update"""
+        if self.dad.filetype not in ["b", "x"]: return
+        self.bookmarks_to_write = True
+    
     def pending_edit_db_node_prop(self, node_id):
         """Pending Node Needs 'prop' Update"""
         if self.dad.filetype not in ["b", "x"]: return

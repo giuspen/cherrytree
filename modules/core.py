@@ -3538,6 +3538,7 @@ class CherryTree:
         if not curr_node_id_str in self.bookmarks:
             self.bookmarks.append(curr_node_id_str)
             support.set_bookmarks_menu_items(self)
+            self.ctdb_handler.pending_edit_db_bookmarks()
             self.update_window_save_needed()
 
     def bookmarks_handle(self, *args):
