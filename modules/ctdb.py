@@ -43,7 +43,7 @@ class CTDBHandler:
             need_to_commit = True
         self.bookmarks_to_write = False
         for node_to_rm in self.nodes_to_rm_set:
-            self.remove_db_node(db, node_to_rm)
+            self.remove_db_node_n_children(db, node_to_rm)
             need_to_commit = True
         self.nodes_to_rm_set.clean()
         for node_id_to_write in self.nodes_to_write_dict:
@@ -162,13 +162,16 @@ class CTDBHandler:
                 return
         self.nodes_to_rm_set.add(node_id)
     
-    def remove_db_node(self, db, node_id):
-        """Remove a Node from DB"""
+    def remove_db_node_n_children(self, db, node_id):
+        """Remove a Node and his children from DB"""
         db.execute('REMOVE FROM codebox WHERE node_id=?', node_id)
         db.execute('REMOVE FROM grid WHERE node_id=?', node_id)
         db.execute('REMOVE FROM image WHERE node_id=?', node_id)
         db.execute('REMOVE FROM node WHERE node_id=?', node_id)
         db.execute('REMOVE FROM children WHERE node_id=?', node_id)
+        children_rows = self.get_children_rows_from_father_id(db, node_id)
+        for child_row in children_rows:
+            self.remove_db_node_n_children(db, child_row['node_id'])
     
     def write_db_node(self, db, tree_iter, level, sequence, node_father_id, write_dict):
         """Write a node in DB"""
@@ -392,6 +395,11 @@ class CTDBHandler:
                 else: self.add_node_image(images_rows[obj_idx[1]], curr_buffer)
         curr_buffer.set_modified(False)
     
+    def get_children_rows_from_father_id(self, father_id):
+        """Returns the children rows given the father_id"""
+        children_rows = db.execute('SELECT * FROM children WHERE father_id=? ORDER BY sequence ASC', father_id).fetchall()
+        return children_rows
+    
     def read_db_node_n_children(self, node_row, tree_father, discard_ids, node_sequence):
         """Read a node and his children from DB"""
         if not discard_ids:
@@ -419,7 +427,7 @@ class CTDBHandler:
         self.dad.nodes_names_dict[self.dad.treestore[tree_iter][3]] = self.dad.treestore[tree_iter][1]
         # loop for child nodes
         child_sequence = 0
-        children_rows = db.execute('SELECT * FROM children WHERE father_id=? ORDER BY sequence ASC', unique_id).fetchall()
+        children_rows = self.get_children_rows_from_father_id(db, unique_id)
         for child_row in children_rows:
             child_node_row = db.execute('SELECT node_id, name, syntax, tags, level FROM node WHERE node_id=?', child_row['node_id']).fetchone()
             if child_node_row:
@@ -438,7 +446,7 @@ class CTDBHandler:
         db.row_factory = sqlite3.Row
         # tree nodes
         node_sequence = 0
-        children_rows = db.execute('SELECT * FROM children WHERE father_id=0 ORDER BY sequence ASC').fetchall()
+        children_rows = self.get_children_rows_from_father_id(db, 0)
         for child_row in children_rows:
             child_node_row = db.execute('SELECT node_id, name, syntax, tags, level FROM node WHERE node_id=?', child_row['node_id']).fetchone()
             if child_node_row:

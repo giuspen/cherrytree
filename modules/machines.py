@@ -153,7 +153,10 @@ class XMLHandler:
                                                             node_sequence,
                                                             node_tags,
                                                             readonly])
-        self.dad.nodes_names_dict[self.dad.treestore[tree_iter][3]] = self.dad.treestore[tree_iter][1]
+        if discard_ids:
+            # we are importing nodes
+            self.dad.ctdb_handler.pending_new_db_node(unique_id)
+        self.dad.nodes_names_dict[unique_id] = self.dad.treestore[tree_iter][1]
         # loop for child nodes
         child_sequence = 0
         while child_dom_iter!= None:
