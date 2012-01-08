@@ -2095,10 +2095,11 @@ class CherryTree:
         if node_name == None: return
         self.update_window_save_needed()
         self.syntax_highlighting = self.prog_lang_liststore[self.glade.combobox_prog_lang.get_active_iter()][1]
+        father_iter = self.treestore.iter_parent(self.curr_tree_iter) if self.curr_tree_iter else None
+        node_level = self.dad.treestore.iter_depth(father_iter)+1 if father_iter else 0
         cherry = self.get_node_icon(node_level, self.syntax_highlighting)
         new_node_id = self.node_id_get()
         if self.curr_tree_iter != None:
-            father_iter = self.treestore.iter_parent(self.curr_tree_iter)
             new_node_iter = self.treestore.insert_after(father_iter,
                                                         self.curr_tree_iter, [cherry,
                                                                               node_name,
@@ -2109,15 +2110,14 @@ class CherryTree:
                                                                               self.glade.tags_searching_entry.get_text(),
                                                                               self.glade.checkbutton_readonly.get_active()])
         else:
-            father_iter = None
-            new_node_iter = self.treestore.append(None, [cherry,
-                                                         node_name,
-                                                         self.buffer_create(self.syntax_highlighting),
-                                                         new_node_id,
-                                                         self.syntax_highlighting,
-                                                         0,
-                                                         self.glade.tags_searching_entry.get_text(),
-                                                         self.glade.checkbutton_readonly.get_active()])
+            new_node_iter = self.treestore.append(father_iter, [cherry,
+                                                                node_name,
+                                                                self.buffer_create(self.syntax_highlighting),
+                                                                new_node_id,
+                                                                self.syntax_highlighting,
+                                                                0,
+                                                                self.glade.tags_searching_entry.get_text(),
+                                                                self.glade.checkbutton_readonly.get_active()])
         self.ctdb_handler.pending_new_db_node(new_node_id)
         self.nodes_sequences_fix(father_iter, False)
         self.nodes_names_dict[new_node_id] = node_name
@@ -2135,6 +2135,7 @@ class CherryTree:
         if node_name != None:
             self.update_window_save_needed()
             self.syntax_highlighting = self.prog_lang_liststore[self.glade.combobox_prog_lang.get_active_iter()][1]
+            node_level = self.dad.treestore.iter_depth(self.curr_tree_iter)+1 if self.curr_tree_iter else 0
             cherry = self.get_node_icon(node_level, self.syntax_highlighting)
             new_node_id = self.node_id_get()
             new_node_iter = self.treestore.append(self.curr_tree_iter, [cherry,
