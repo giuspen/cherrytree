@@ -979,6 +979,7 @@ class CherryTree:
     def on_modified_changed(self, sourcebuffer):
         """When the modification flag is changed"""
         if self.user_active and sourcebuffer.get_modified() == True:
+            self.ctdb_handler.pending_edit_db_node_buff(self.treestore[self.curr_tree_iter][3])
             self.update_window_save_needed()
 
     def file_save_as(self, *args):
@@ -2196,14 +2197,16 @@ class CherryTree:
             if not support.dialog_question(_("Entering the Automatic Syntax Highlighting you will Lose all Custom Colors for This Node, Do you want to Continue?"), self.window):
                 self.syntax_highlighting = cons.CUSTOM_COLORS_ID # STEP BACK (we stay in CUSTOM COLORS)
                 return
-            else:
-                # SWITCH TextBuffer -> SourceBuffer
-                self.switch_buffer_text_source(self.curr_buffer, self.curr_tree_iter, self.syntax_highlighting)
-                self.curr_buffer = self.treestore[self.curr_tree_iter][2]
+            # SWITCH TextBuffer -> SourceBuffer
+            self.switch_buffer_text_source(self.curr_buffer, self.curr_tree_iter, self.syntax_highlighting)
+            self.curr_buffer = self.treestore[self.curr_tree_iter][2]
+            change_rich_text_automatic_syntax = True
         elif self.treestore[self.curr_tree_iter][4] != cons.CUSTOM_COLORS_ID and self.syntax_highlighting == cons.CUSTOM_COLORS_ID:
             # SWITCH SourceBuffer -> TextBuffer
             self.switch_buffer_text_source(self.curr_buffer, self.curr_tree_iter, self.syntax_highlighting)
             self.curr_buffer = self.treestore[self.curr_tree_iter][2]
+            change_rich_text_automatic_syntax = True
+        else: change_rich_text_automatic_syntax = False
         self.treestore[self.curr_tree_iter][1] = node_name
         self.treestore[self.curr_tree_iter][4] = self.syntax_highlighting
         self.treestore[self.curr_tree_iter][6] = self.glade.tags_searching_entry.get_text()
@@ -2213,6 +2216,9 @@ class CherryTree:
         if self.syntax_highlighting != cons.CUSTOM_COLORS_ID:
             self.set_sourcebuffer_syntax_highlight(self.curr_buffer, self.syntax_highlighting)
         self.sourceview.set_editable(not self.treestore[self.curr_tree_iter][7])
+        self.ctdb_handler.pending_edit_db_node_prop(self.treestore[self.curr_tree_iter][3])
+        if change_rich_text_automatic_syntax:
+            self.ctdb_handler.pending_edit_db_node_buff(self.treestore[self.curr_tree_iter][3])
         self.update_selected_node_statusbar_info()
         self.update_window_save_needed()
         self.sourceview.grab_focus()
