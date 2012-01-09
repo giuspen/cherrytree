@@ -334,7 +334,7 @@ class CTDBHandler:
             print table_row['txt']
             return
         dom_node = dom.firstChild
-        if not dom_node or dom_node.nodeName != "node":
+        if not dom_node or dom_node.nodeName != "table":
             print "** table name != 'table' **"
             print table_row['txt']
             return
