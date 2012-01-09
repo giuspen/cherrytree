@@ -958,19 +958,20 @@ class CherryTree:
             self.file_load(os.path.join(self.file_dir, self.file_name))
             if self.expand_tree: self.treeview.expand_all()
             else: config.set_tree_expanded_collapsed_string(self) # restore expanded/collapsed nodes
-            # we put the cursor on the first node as default
-            first_node_iter = self.treestore.get_iter_first()
-            if first_node_iter != None:
-                self.treeview.set_cursor(self.treestore.get_path(first_node_iter))
-                self.sourceview.grab_focus()
-                # but then we try restore the latest situation
-                if self.node_path != None:
-                    if self.treestore.get_path(first_node_iter) != self.node_path:
-                        self.state_machine.forget_last_visited()
+            # we try to restore the focused node
+            if self.node_path != None:
+                node_iter_to_focus = self.treestore.get_iter(self.node_path)
+                if node_iter_to_focus:
                     self.treeview.set_cursor(self.node_path)
                     self.sourceview.grab_focus()
                     self.curr_buffer.place_cursor(self.curr_buffer.get_iter_at_offset(self.cursor_position))
                     self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), 0.3)
+            else: node_iter_to_focus = None
+            if not node_iter_to_focus:
+                node_iter_to_focus = self.treestore.get_iter_first()
+                if node_iter_to_focus:
+                    self.treeview.set_cursor(self.treestore.get_path(node_iter_to_focus))
+                    self.sourceview.grab_focus()
         else:
             self.file_name = ""
             self.update_window_save_not_needed()
@@ -1078,7 +1079,6 @@ class CherryTree:
             shutil.copy(filepath, filepath + cons.CHAR_TILDE)
         # if the filename is protected, we use unprotected type before compress and protect
         try:
-            self.statusbar.pop(self.statusbar_context_id)
             self.statusbar.push(self.statusbar_context_id, _("Writing to Disk..."))
             while gtk.events_pending(): gtk.main_iteration()
             self.file_write_low_level(filepath, xml_string, first_write)
