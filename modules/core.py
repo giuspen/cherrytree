@@ -2730,6 +2730,9 @@ class CherryTree:
 
     def tree_info_iter(self, tree_iter):
         """Tree Summary Information Iteration"""
+        if not self.treestore[tree_iter][2]:
+            # we are using db storage and the buffer was not created yet
+            self.ctdb_handler.read_db_node_content(tree_iter, self.db)
         curr_buffer = self.treestore[tree_iter][2]
         pixbuf_table_vector = self.state_machine.get_embedded_pixbufs_tables_codeboxes(curr_buffer)
         # pixbuf_table_vector is [ [ "pixbuf"/"table", [offset, pixbuf, alignment] ],... ]
@@ -2739,12 +2742,14 @@ class CherryTree:
         curr_node_tables = 0
         curr_node_codeboxes = 0
         for element in pixbuf_table_vector:
-            if element[0] == "pixbuf": curr_node_images += 1
+            if element[0] == "pixbuf" and not "anchor" in dir(element[1][1]): curr_node_images += 1
             elif element[0] == "table": curr_node_tables += 1
             elif element[0] == "codebox": curr_node_codeboxes += 1
-        self.summary_images_num += curr_node_images
-        self.summary_tables_num += curr_node_tables
-        self.summary_codeboxes_num += curr_node_codeboxes
+        if curr_node_images or curr_node_tables or curr_node_codeboxes:
+            print "node with object(s):", self.treestore[tree_iter][1]
+            self.summary_images_num += curr_node_images
+            self.summary_tables_num += curr_node_tables
+            self.summary_codeboxes_num += curr_node_codeboxes
         # iterate children
         tree_iter = self.treestore.iter_children(tree_iter)
         while tree_iter != None:
