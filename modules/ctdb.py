@@ -45,17 +45,17 @@ class CTDBHandler:
         for node_to_rm in self.nodes_to_rm_set:
             self.remove_db_node_n_children(db, node_to_rm)
             need_to_commit = True
-        self.nodes_to_rm_set.clean()
+        self.nodes_to_rm_set.clear()
         for node_id_to_write in self.nodes_to_write_dict:
             write_dict = self.nodes_to_write_dict[node_id_to_write]
-            tree_iter = self.dad.get_tree_iter_from_node_id(node_id)
+            tree_iter = self.dad.get_tree_iter_from_node_id(node_id_to_write)
             level = self.dad.treestore.iter_depth(tree_iter)
             node_sequence = self.dad.treestore[tree_iter][5]
-            father_iter = father_iter = self.dad.treestore.iter_parent(tree_iter)
+            father_iter = self.dad.treestore.iter_parent(tree_iter)
             node_father_id = 0 if not father_iter else self.dad.treestore[father_iter][3]
             self.write_db_node(db, tree_iter, level, node_sequence, node_father_id, write_dict)
             need_to_commit = True
-        self.nodes_to_write_dict.clean()
+        self.nodes_to_write_dict.clear()
         if need_to_commit: db.commit()
     
     def get_image_db_tuple(self, image_element, node_id):
@@ -143,8 +143,8 @@ class CTDBHandler:
     def pending_edit_db_node_prop(self, node_id):
         """Pending Node Needs 'prop' Update"""
         if self.dad.filetype not in ["b", "x"]: return
-        if node_id in self.ctdb_handler.nodes_to_write_dict:
-            self.ctdb_handler.nodes_to_write_dict[node_id]['prop'] = True
+        if node_id in self.nodes_to_write_dict:
+            self.nodes_to_write_dict[node_id]['prop'] = True
         else:
             write_dict = {'upd': True, 'prop': True, 'buff': False, 'hier': False, 'child': False}
             self.nodes_to_write_dict[node_id] = write_dict
@@ -152,8 +152,8 @@ class CTDBHandler:
     def pending_edit_db_node_buff(self, node_id):
         """Pending Node Needs 'buff' Update"""
         if self.dad.filetype not in ["b", "x"]: return
-        if node_id in self.ctdb_handler.nodes_to_write_dict:
-            self.ctdb_handler.nodes_to_write_dict[node_id]['buff'] = True
+        if node_id in self.nodes_to_write_dict:
+            self.nodes_to_write_dict[node_id]['buff'] = True
         else:
             write_dict = {'upd': True, 'prop': False, 'buff': True, 'hier': False, 'child': False}
             self.nodes_to_write_dict[node_id] = write_dict
@@ -161,8 +161,8 @@ class CTDBHandler:
     def pending_edit_db_node_hier(self, node_id):
         """Pending Node Needs 'hier' Update"""
         if self.dad.filetype not in ["b", "x"]: return
-        if node_id in self.ctdb_handler.nodes_to_write_dict:
-            self.ctdb_handler.nodes_to_write_dict[node_id]['hier'] = True
+        if node_id in self.nodes_to_write_dict:
+            self.nodes_to_write_dict[node_id]['hier'] = True
         else:
             write_dict = {'upd': True, 'prop': False, 'buff': False, 'hier': True, 'child': False}
             self.nodes_to_write_dict[node_id] = write_dict
@@ -187,11 +187,11 @@ class CTDBHandler:
     
     def remove_db_node_n_children(self, db, node_id):
         """Remove a Node and his children from DB"""
-        db.execute('REMOVE FROM codebox WHERE node_id=?', (node_id,))
-        db.execute('REMOVE FROM grid WHERE node_id=?', (node_id,))
-        db.execute('REMOVE FROM image WHERE node_id=?', (node_id,))
-        db.execute('REMOVE FROM node WHERE node_id=?', (node_id,))
-        db.execute('REMOVE FROM children WHERE node_id=?', (node_id,))
+        db.execute('DELETE FROM codebox WHERE node_id=?', (node_id,))
+        db.execute('DELETE FROM grid WHERE node_id=?', (node_id,))
+        db.execute('DELETE FROM image WHERE node_id=?', (node_id,))
+        db.execute('DELETE FROM node WHERE node_id=?', (node_id,))
+        db.execute('DELETE FROM children WHERE node_id=?', (node_id,))
         children_rows = self.get_children_rows_from_father_id(db, node_id)
         for child_row in children_rows:
             self.remove_db_node_n_children(db, child_row['node_id'])
@@ -233,9 +233,9 @@ class CTDBHandler:
                 else:  self.dad.xml_handler.rich_txt_serialize(dom_iter, start_iter, curr_iter, self.curr_attributes, dom=self.dom)
                 # time for the objects
                 if write_dict['upd']:
-                    db.execute('REMOVE FROM codebox WHERE node_id=?', (node_id,))
-                    db.execute('REMOVE FROM grid WHERE node_id=?', (node_id,))
-                    db.execute('REMOVE FROM image WHERE node_id=?', (node_id,))
+                    db.execute('DELETE FROM codebox WHERE node_id=?', (node_id,))
+                    db.execute('DELETE FROM grid WHERE node_id=?', (node_id,))
+                    db.execute('DELETE FROM image WHERE node_id=?', (node_id,))
                 pixbuf_table_codebox_vector = self.dad.state_machine.get_embedded_pixbufs_tables_codeboxes(curr_buffer)
                 # pixbuf_table_codebox_vector is [ [ "pixbuf"/"table"/"codebox", [offset, pixbuf, alignment] ],... ]
                 codeboxes_tuples = []
@@ -267,7 +267,7 @@ class CTDBHandler:
                 txt = start_iter.get_text(end_iter)
         if write_dict['prop'] and write_dict['buff']:
             if write_dict['upd']:
-                db.execute('REMOVE FROM node WHERE node_id=?', (node_id,))
+                db.execute('DELETE FROM node WHERE node_id=?', (node_id,))
             node_tuple = (node_id, name, txt, syntax, tags,
                           is_ro, is_richtxt, has_codebox, has_table, has_image,
                           level)
@@ -278,7 +278,7 @@ class CTDBHandler:
             db.execute('UPDATE node SET name=?, syntax=?, tags=?, is_ro=?, level=? WHERE node_id=?', (name, syntax, tags, is_ro, level, node_id))
         if write_dict['hier']:
             if write_dict['upd']:
-                db.execute('REMOVE FROM children WHERE node_id=?', (node_id,))
+                db.execute('DELETE FROM children WHERE node_id=?', (node_id,))
             db.execute('INSERT INTO children VALUES(?,?,?)', (node_id, node_father_id, sequence))
             # need to write "level"
             if not write_dict['buff'] and not write_dict['prop']:
