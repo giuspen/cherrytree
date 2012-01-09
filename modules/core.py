@@ -1024,14 +1024,7 @@ class CherryTree:
         else: self.file_save_as()
 
     def file_write_low_level(self, filepath, xml_string, first_write):
-        """File Write Low Level (ctd or ctz)"""
-        if not xml_string:
-            # db storage
-            if os.path.isfile(filepath):
-                filepath_check = filepath
-                while os.path.isfile(filepath_check):
-                    filepath_check = "old." + filepath_check
-                shutil.move(filepath, filepath_check)
+        """File Write Low Level (ctd, ctb, ctz, ctx)"""
         if self.password:
             if not os.path.isdir(cons.TMP_FOLDER): os.mkdir(cons.TMP_FOLDER)
             last_letter = "d" if xml_string else "b"
@@ -1081,8 +1074,8 @@ class CherryTree:
                 return False
         else: xml_string = ""
         # backup before save new version
-        if self.backup_copy:
-            if os.path.isfile(filepath): shutil.move(filepath, filepath + cons.CHAR_TILDE)
+        if self.backup_copy and os.path.isfile(filepath):
+            shutil.copy(filepath, filepath + cons.CHAR_TILDE)
         # if the filename is protected, we use unprotected type before compress and protect
         try:
             self.statusbar.pop(self.statusbar_context_id)
@@ -2096,7 +2089,7 @@ class CherryTree:
         self.update_window_save_needed()
         self.syntax_highlighting = self.prog_lang_liststore[self.glade.combobox_prog_lang.get_active_iter()][1]
         father_iter = self.treestore.iter_parent(self.curr_tree_iter) if self.curr_tree_iter else None
-        node_level = self.dad.treestore.iter_depth(father_iter)+1 if father_iter else 0
+        node_level = self.treestore.iter_depth(father_iter)+1 if father_iter else 0
         cherry = self.get_node_icon(node_level, self.syntax_highlighting)
         new_node_id = self.node_id_get()
         if self.curr_tree_iter != None:
@@ -2135,7 +2128,7 @@ class CherryTree:
         if node_name != None:
             self.update_window_save_needed()
             self.syntax_highlighting = self.prog_lang_liststore[self.glade.combobox_prog_lang.get_active_iter()][1]
-            node_level = self.dad.treestore.iter_depth(self.curr_tree_iter)+1 if self.curr_tree_iter else 0
+            node_level = self.treestore.iter_depth(self.curr_tree_iter)+1 if self.curr_tree_iter else 0
             cherry = self.get_node_icon(node_level, self.syntax_highlighting)
             new_node_id = self.node_id_get()
             new_node_iter = self.treestore.append(self.curr_tree_iter, [cherry,
