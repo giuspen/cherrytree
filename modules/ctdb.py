@@ -360,11 +360,12 @@ class CTDBHandler:
             pixbuf = gtk.gdk.pixbuf_new_from_file(cons.ANCHOR_CHAR)
             pixbuf.anchor = image_row['anchor']
         else: pixbuf = machines.get_pixbuf_from_png_blob_buffer(image_row['png'])
-        self.dad.curr_buffer = curr_buffer # the apply_tag method will need this
+        self.dad.curr_buffer = text_buffer # the apply_tag method will need this
         if pixbuf: self.dad.image_insert(iter_insert, pixbuf, image_row['justification'])
     
     def read_db_node_content(self, tree_iter, db):
         """Read a node content from DB"""
+        self.dad.user_active = False
         syntax_highlighting = self.dad.treestore[tree_iter][4]
         node_id = self.dad.treestore[tree_iter][3]
         curr_buffer = self.dad.buffer_create(syntax_highlighting)
@@ -420,6 +421,7 @@ class CTDBHandler:
                 elif obj_idx[0] == 't': self.add_node_table(tables_rows[obj_idx[1]], curr_buffer)
                 else: self.add_node_image(images_rows[obj_idx[1]], curr_buffer)
         curr_buffer.set_modified(False)
+        self.dad.user_active = True
     
     def get_children_rows_from_father_id(self, db, father_id):
         """Returns the children rows given the father_id"""
