@@ -364,8 +364,9 @@ class CTDBHandler:
             pixbuf = gtk.gdk.pixbuf_new_from_file(cons.ANCHOR_CHAR)
             pixbuf.anchor = image_row['anchor']
         else: pixbuf = machines.get_pixbuf_from_png_blob_buffer(image_row['png'])
-        self.dad.curr_buffer = text_buffer # the apply_tag method will need this
-        if pixbuf: self.dad.image_insert(iter_insert, pixbuf, image_row['justification'])
+        if pixbuf:
+            self.dad.curr_buffer = text_buffer # the apply_tag method will need this
+            self.dad.image_insert(iter_insert, pixbuf, image_row['justification'])
     
     def read_db_node_content(self, tree_iter, db):
         """Read a node content from DB"""
