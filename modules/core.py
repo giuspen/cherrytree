@@ -960,7 +960,8 @@ class CherryTree:
             else: config.set_tree_expanded_collapsed_string(self) # restore expanded/collapsed nodes
             # we try to restore the focused node
             if self.node_path != None:
-                node_iter_to_focus = self.treestore.get_iter(self.node_path)
+                try: node_iter_to_focus = self.treestore.get_iter(self.node_path)
+                except: node_iter_to_focus = None
                 if node_iter_to_focus:
                     self.treeview.set_cursor(self.node_path)
                     self.sourceview.grab_focus()
@@ -998,7 +999,7 @@ class CherryTree:
             if filepath == None: restore_filetype = True
             if not restore_filetype:
                 filepath = self.filepath_extension_fix(filepath)
-                if not self.file_write(filepath, True): restore_filetype = True
+                if not self.file_write(filepath, first_write=True): restore_filetype = True
             if restore_filetype:
                 # restore filetype previous dialog_choose_data_storage
                 if len(self.file_name) > 4: self.filetype = self.file_name[-1]
@@ -1019,7 +1020,7 @@ class CherryTree:
         """Save the file"""
         if self.file_dir != "" and self.file_name != "":
             if self.tree_is_empty(): support.dialog_warning(_("The Tree is Empty!"), self.window)
-            elif self.file_write(os.path.join(self.file_dir, self.file_name), False):
+            elif self.file_write(os.path.join(self.file_dir, self.file_name), first_write=False):
                 self.update_window_save_not_needed()
                 self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
         else: self.file_save_as()
@@ -1033,15 +1034,17 @@ class CherryTree:
             if xml_string: file_descriptor = open(filepath_tmp, 'w')
             else:
                 if first_write:
-                    if "db" in dir(self): self.db.close()
+                    if "db" in dir(self): self.db_old = self.db
                     self.db = self.ctdb_handler.new_db(filepath_tmp)
+                    if "db_old" in dir(self): self.db_old.close()
                 else: self.ctdb_handler.pending_data_write(self.db)
         else:
             if xml_string: file_descriptor = open(filepath, 'w')
             else:
                 if first_write:
-                    if "db" in dir(self): self.db.close()
+                    if "db" in dir(self): self.db_old = self.db
                     self.db = self.ctdb_handler.new_db(filepath)
+                    if "db_old" in dir(self): self.db_old.close()
                 else: self.ctdb_handler.pending_data_write(self.db)
         if xml_string:
             file_descriptor.write(xml_string)
@@ -1146,8 +1149,8 @@ class CherryTree:
             radiobutton_protected.set_active(False)
             passw_frame.set_sensitive(False)
         content_area = dialog.get_content_area()
-        content_area.pack_start(radiobutton_xml)
         content_area.pack_start(radiobutton_db)
+        content_area.pack_start(radiobutton_xml)
         content_area.pack_start(gtk.HSeparator())
         content_area.pack_start(radiobutton_unprotected)
         content_area.pack_start(radiobutton_protected)
@@ -1348,6 +1351,7 @@ class CherryTree:
         self.update_window_save_not_needed()
         self.state_machine.reset()
         self.sourceview.set_sensitive(False)
+        if "db" in dir(self) and self.db: self.db.close()
         return True
 
     def export_to_ctd(self, action):
@@ -2559,7 +2563,7 @@ class CherryTree:
             self.really_quit = False # user pressed cancel
             return
         config.config_file_save(self)
-        if "db" in dir(self): self.db.close()
+        if "db" in dir(self) and self.db: self.db.close()
         for filepath_tmp in self.ctdb_handler.remove_at_quit_set: os.remove(filepath_tmp)
         self.window.destroy()
         if not HAS_APPINDICATOR and "status_icon" in dir(self): self.status_icon.set_visible(False)
