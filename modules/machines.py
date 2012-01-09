@@ -242,7 +242,7 @@ class XMLHandler:
         """Given a treestore iter returns the CherryTree rich text"""
         if "dom" in dir(self): del self.dom
         self.dom = xml.dom.minidom.Document()
-        self.append_dom_node(node_iter, self.dom, to_disk=False)
+        self.append_dom_node(node_iter, self.dom, to_disk=False, skip_children=True)
         return self.dom.toxml()
 
     def treestore_sel_node_only_to_dom(self, tree_iter):
