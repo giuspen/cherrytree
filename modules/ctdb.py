@@ -199,12 +199,16 @@ class CTDBHandler:
     def write_db_node(self, db, tree_iter, level, sequence, node_father_id, write_dict):
         """Write a node in DB"""
         node_id = self.dad.treestore[tree_iter][3]
+        print "write node content, node_id", node_id, ", write_dict", write_dict
         name = self.dad.treestore[tree_iter][1]
         syntax = self.dad.treestore[tree_iter][4]
         tags = self.dad.treestore[tree_iter][6]
         is_ro = 1 if self.dad.treestore[tree_iter][7] else 0
         is_richtxt = 1 if syntax == cons.CUSTOM_COLORS_ID else 0
         if write_dict['buff']:
+            if not self.dad.treestore[tree_iter][2]:
+                # we are using db storage and the buffer was not created yet
+                self.read_db_node_content(tree_iter, self.dad.db_old)
             curr_buffer = self.dad.treestore[tree_iter][2]
             start_iter = curr_buffer.get_start_iter()
             end_iter = curr_buffer.get_end_iter()
