@@ -461,7 +461,7 @@ class CTDBHandler:
                 syntax_highlighting = cons.CUSTOM_COLORS_ID
         node_level = self.dad.treestore.iter_depth(tree_father)+1 if tree_father else 0
         cherry = self.dad.get_node_icon(node_level, syntax_highlighting)
-        print "added node with unique_id", unique_id
+        #print "added node with unique_id", unique_id
         # insert the node containing the buffer into the tree
         tree_iter = self.dad.treestore.append(tree_father, [cherry,
                                                             node_row['name'],

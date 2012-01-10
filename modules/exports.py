@@ -380,6 +380,7 @@ class Export2Html:
             td_tree = r'<td valign="top" align="left" width=30%>'
             td_page = r'<td valign="top" align="left" width=70%>'
             html_text += td_tree + self.tree_links_text + td_page
+        self.dad.get_textbuffer_from_tree_iter(tree_iter)
         if self.dad.treestore[tree_iter][4] == cons.CUSTOM_COLORS_ID:
             text_n_objects = self.html_get_from_treestore_node(tree_iter)
             self.images_count = 0
