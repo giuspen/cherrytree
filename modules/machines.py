@@ -95,12 +95,12 @@ class XMLHandler:
             bookmarks_menu.remove(menu_item)
         self.dad.bookmarks_menu_items = []
 
-    def dom_to_treestore(self, ctd, discard_ids, tree_father=None, reset_nodes_names=True):
+    def dom_to_treestore(self, ctd, discard_ids, tree_father=None):
         """Parse an XML Cherry Tree Document file and build the Tree"""
         dom = xml.dom.minidom.parseString(ctd)
         cherrytree = dom.firstChild
-        self.dad.bookmarks = []
-        if reset_nodes_names: self.reset_nodes_names()
+        if discard_ids: self.reset_nodes_names()
+        else: self.dad.bookmarks = []
         if cherrytree.nodeName != "cherrytree": return False
         else:
             dom_iter = cherrytree.firstChild

@@ -489,8 +489,8 @@ class CTDBHandler:
     
     def read_db_full(self, db, discard_ids, tree_father=None, reset_nodes_names=True):
         """Read the whole DB"""
-        self.dad.bookmarks = []
-        if reset_nodes_names: self.dad.xml_handler.reset_nodes_names()
+        if discard_ids: self.dad.xml_handler.reset_nodes_names()
+        else: self.dad.bookmarks = []
         db.row_factory = sqlite3.Row
         # tree nodes
         node_sequence = 0
