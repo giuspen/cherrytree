@@ -127,8 +127,7 @@ class CTDBHandler:
     
     def write_db_bookmarks(self, db):
         """Write all the bookmarks in DB"""
-        if not self.dad.bookmarks: return
-        db.execute('REMOVE * FROM bookmark')
+        db.execute('DELETE FROM bookmark')
         sequence = 0
         for bookmark_str in self.dad.bookmarks:
             sequence += 1
