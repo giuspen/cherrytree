@@ -99,8 +99,9 @@ class XMLHandler:
         """Parse an XML Cherry Tree Document file and build the Tree"""
         dom = xml.dom.minidom.parseString(ctd)
         cherrytree = dom.firstChild
-        if discard_ids: self.reset_nodes_names()
-        else: self.dad.bookmarks = []
+        if not discard_ids:
+            self.reset_nodes_names()
+            self.dad.bookmarks = []
         if cherrytree.nodeName != "cherrytree": return False
         else:
             dom_iter = cherrytree.firstChild
