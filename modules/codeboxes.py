@@ -77,9 +77,10 @@ class CodeBoxesHandler:
         iter_insert = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
         self.codebox_insert(iter_insert, codebox_dict)
 
-    def codebox_insert(self, iter_insert, codebox_dict, codebox_justification=None):
+    def codebox_insert(self, iter_insert, codebox_dict, codebox_justification=None, text_buffer=None):
         """Insert Code Box"""
-        anchor = self.dad.curr_buffer.create_child_anchor(iter_insert)
+        if not text_buffer: text_buffer = self.dad.curr_buffer
+        anchor = text_buffer.create_child_anchor(iter_insert)
         anchor.frame_width = codebox_dict['frame_width']
         anchor.frame_height = codebox_dict['frame_height']
         anchor.width_in_pixels = codebox_dict['width_in_pixels']
@@ -122,8 +123,9 @@ class CodeBoxesHandler:
         anchor.frame.set_shadow_type(gtk.SHADOW_NONE)
         anchor.frame.show_all()
         if codebox_justification:
-            self.dad.state_machine.apply_image_justification(self.dad.curr_buffer.get_iter_at_child_anchor(anchor), codebox_justification)
-        else:
+            text_iter = text_buffer.get_iter_at_child_anchor(anchor)
+            self.dad.state_machine.apply_object_justification(text_iter, codebox_justification, text_buffer)
+        elif self.user_active:
             # if I apply a justification, the state is already updated
             self.dad.state_machine.update_state(self.dad.treestore[self.dad.curr_tree_iter][3])
 

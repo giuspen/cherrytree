@@ -2788,9 +2788,10 @@ class CherryTree:
                                                             gtk.gdk.INTERP_BILINEAR),
                           image_justification)
 
-    def image_insert(self, iter_insert, pixbuf, image_justification=None):
+    def image_insert(self, iter_insert, pixbuf, image_justification=None, text_buffer=None):
+        if not text_buffer: text_buffer = self.curr_buffer
         image_offset = iter_insert.get_offset()
-        anchor = self.curr_buffer.create_child_anchor(iter_insert)
+        anchor = text_buffer.create_child_anchor(iter_insert)
         anchor.pixbuf = pixbuf
         anchor.eventbox = gtk.EventBox()
         anchor.eventbox.set_visible_window(False)
@@ -2805,9 +2806,9 @@ class CherryTree:
         self.sourceview.add_child_at_anchor(anchor.eventbox, anchor)
         anchor.eventbox.show_all()
         if image_justification:
-            self.state_machine.apply_image_justification(self.curr_buffer.get_iter_at_offset(image_offset),
-                                                         image_justification)
-        else:
+            text_iter = text_buffer.get_iter_at_offset(image_offset)
+            self.state_machine.apply_object_justification(text_iter, image_justification, text_buffer)
+        elif self.user_active:
             # if I apply a justification, the state is already updated
             self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
 
@@ -3038,18 +3039,19 @@ class CherryTree:
         if self.latest_tag[0] == "": support.dialog_warning(_("No Previous Text Format Was Performed During This Session"), self.window)
         else: self.apply_tag(*self.latest_tag)
 
-    def apply_tag(self, tag_property, property_value=None, iter_sel_start=None, iter_sel_end=None):
+    def apply_tag(self, tag_property, property_value=None, iter_sel_start=None, iter_sel_end=None, text_buffer=None):
         """Apply a tag"""
         if self.syntax_highlighting != cons.CUSTOM_COLORS_ID and self.user_active:
             support.dialog_warning(_("Automatic Syntax Highlighting Must be Disabled in order to Use This Feature"), self.window)
             return
+        if not text_buffer: text_buffer = self.curr_buffer
         if iter_sel_start == None and iter_sel_end == None:
             if tag_property != "justification":
                 if self.curr_tree_iter == None:
                     support.dialog_warning(_("No Node is Selected"), self.window)
                     return
                 if tag_property == "link": link_node_id = None
-                if not self.curr_buffer.get_has_selection():
+                if not text_buffer.get_has_selection():
                     if tag_property != "link":
                         if not self.apply_tag_try_automatic_bounds():
                             support.dialog_warning(_("No Text is Selected"), self.window)
@@ -3083,7 +3085,7 @@ class CherryTree:
                             self.glade.radiobutton_link_node_anchor.set_active(self.link_type == "node")
                             self.glade.radiobutton_link_file.set_active(self.link_type == "file")
                             self.glade.radiobutton_link_folder.set_active(self.link_type == "fold")
-                iter_sel_start, iter_sel_end = self.curr_buffer.get_selection_bounds()
+                iter_sel_start, iter_sel_end = text_buffer.get_selection_bounds()
             else:
                 support.dialog_warning(_("The Cursor is Not into a Paragraph"), self.window)
                 return
@@ -3092,7 +3094,7 @@ class CherryTree:
                 if self.next_chars_from_iter_are(iter_sel_start, 7, "http://")\
                 or self.next_chars_from_iter_are(iter_sel_start, 8, "https://"):
                     self.link_type = "webs"
-                    self.glade.link_website_entry.set_text(self.curr_buffer.get_text(iter_sel_start, iter_sel_end))
+                    self.glade.link_website_entry.set_text(text_buffer.get_text(iter_sel_start, iter_sel_end))
                 self.node_choose_view_exist_or_create(link_node_id)
                 self.glade.choosenodedialog.set_title(_("Insert/Edit a Link"))
                 self.glade.link_dialog_top_vbox.show()
@@ -3139,19 +3141,19 @@ class CherryTree:
             or (tag_property == "style" and tag_name[0:6] == "style_")\
             or (tag_property == "underline" and tag_name[0:10] == "underline_")\
             or (tag_property == "strikethrough" and tag_name[0:14] == "strikethrough_"):
-                self.curr_buffer.remove_tag(curr_tag, iter_sel_start, iter_sel_end)
+                text_buffer.remove_tag(curr_tag, iter_sel_start, iter_sel_end)
                 return # just tag removal
             elif tag_property == "scale" and tag_name[0:6] == "scale_":
-                self.curr_buffer.remove_tag(curr_tag, iter_sel_start, iter_sel_end)
+                text_buffer.remove_tag(curr_tag, iter_sel_start, iter_sel_end)
                 #print property_value, tag_name[6:]
                 if property_value == tag_name[6:]: return # just tag removal
             elif tag_property == "justification" and tag_name[0:14] == "justification_":
-                self.curr_buffer.remove_tag(curr_tag, iter_sel_start, iter_sel_end)
+                text_buffer.remove_tag(curr_tag, iter_sel_start, iter_sel_end)
             elif (tag_property == "foreground" and tag_name[0:11] == "foreground_")\
             or (tag_property == "background" and tag_name[0:11] == "background_")\
             or (tag_property == "link" and tag_name[0:5] == "link_"):
-                self.curr_buffer.remove_tag(curr_tag, iter_sel_start, iter_sel_end)
-        self.curr_buffer.apply_tag_by_name(self.apply_tag_exist_or_create(tag_property, property_value),
+                text_buffer.remove_tag(curr_tag, iter_sel_start, iter_sel_end)
+        text_buffer.apply_tag_by_name(self.apply_tag_exist_or_create(tag_property, property_value),
                                            iter_sel_start, iter_sel_end)
         if self.user_active:
             if self.file_update == False: self.update_window_save_needed() # file save needed

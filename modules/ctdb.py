@@ -321,8 +321,10 @@ class CTDBHandler:
            'show_line_numbers': bool(codebox_row['do_show_linenum']),
            'fill_text': codebox_row['txt']
         }
-        self.dad.curr_buffer = text_buffer # the codebox_insert method will need this
-        self.dad.codeboxes_handler.codebox_insert(iter_insert, codebox_dict, codebox_row['justification'])
+        self.dad.codeboxes_handler.codebox_insert(iter_insert,
+                                                  codebox_dict,
+                                                  codebox_justification=codebox_row['justification'],
+                                                  text_buffer=text_buffer)
     
     def add_node_table(self, table_row, text_buffer):
         """Add Table to Text Buffer"""
@@ -354,8 +356,10 @@ class CTDBHandler:
                         else: table_dict['matrix'][-1].append("")
                     nephew_dom_iter = nephew_dom_iter.nextSibling
             child_dom_iter = child_dom_iter.nextSibling
-        self.dad.curr_buffer = text_buffer # the table_insert method will need this
-        self.dad.tables_handler.table_insert(iter_insert, table_dict, table_row['justification'])
+        self.dad.tables_handler.table_insert(iter_insert,
+                                             table_dict,
+                                             table_justification=table_row['justification'],
+                                             text_buffer=text_buffer)
     
     def add_node_image(self, image_row, text_buffer):
         """Add Image to Text Buffer"""
@@ -365,8 +369,10 @@ class CTDBHandler:
             pixbuf.anchor = image_row['anchor']
         else: pixbuf = machines.get_pixbuf_from_png_blob_buffer(image_row['png'])
         if pixbuf:
-            self.dad.curr_buffer = text_buffer # the apply_tag method will need this
-            self.dad.image_insert(iter_insert, pixbuf, image_row['justification'])
+            self.dad.image_insert(iter_insert,
+                                  pixbuf,
+                                  image_justification=image_row['justification'],
+                                  text_buffer=text_buffer)
     
     def read_db_node_content(self, tree_iter, db):
         """Read a node content from DB"""
