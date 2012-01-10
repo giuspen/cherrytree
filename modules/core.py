@@ -749,12 +749,12 @@ class CherryTree:
             if not cherrytree_db:
                 cherrytree_string = re.sub(cons.BAD_CHARS, "", cherrytree_string)
                 if self.xml_handler.dom_to_treestore(cherrytree_string, discard_ids=True,
-                                                     tree_father=tree_father, reset_nodes_names=False):
+                                                     tree_father=tree_father):
                     if self.expand_tree: self.treeview.expand_all()
                     file_loaded = True
             else:
                 self.ctdb_handler.read_db_full(cherrytree_db, discard_ids=True,
-                                               tree_father=tree_father, reset_nodes_names=False)
+                                               tree_father=tree_father)
                 cherrytree_db.close()
                 file_loaded = True
         except: raise
