@@ -106,8 +106,9 @@ class TablesHandler:
                 table_matrix.append(table_matrix.pop(0))
                 self.table_insert(iter_insert, {'col_min': 40, 'col_max': 1000, 'matrix': table_matrix})
 
-    def table_insert(self, iter_insert, table=None, table_justification=None):
+    def table_insert(self, iter_insert, table=None, table_justification=None, text_buffer=None):
         """Insert a Table at the Given Iter"""
+        if not text_buffer: text_buffer = self.dad.curr_buffer
         if table != None:
             self.table_columns = len(table['matrix'][0])
             self.table_rows = len(table['matrix']) - 1
@@ -118,7 +119,7 @@ class TablesHandler:
             headers = [_("click me")]*self.table_columns
             table_col_min = self.table_col_min
             table_col_max = self.table_col_max
-        anchor = self.dad.curr_buffer.create_child_anchor(iter_insert)
+        anchor = text_buffer.create_child_anchor(iter_insert)
         anchor.liststore = gtk.ListStore(*(str,)*self.table_columns)
         anchor.treeview = gtk.TreeView(anchor.liststore)
         for element in range(self.table_columns):
@@ -158,7 +159,11 @@ class TablesHandler:
                 for column in range(self.table_columns):
                     anchor.liststore[row_iter][column] = table['matrix'][row][column]
         if table_justification:
-            self.dad.state_machine.apply_image_justification(self.dad.curr_buffer.get_iter_at_child_anchor(anchor), table_justification)
+            text_iter = text_buffer.get_iter_at_child_anchor(anchor)
+            self.dad.state_machine.apply_object_justification(text_iter, table_justification, text_buffer)
+        elif self.user_active:
+            # if I apply a justification, the state is already updated
+            self.dad.state_machine.update_state(self.dad.treestore[self.dad.curr_tree_iter][3])
 
     def table_edit_properties(self, *args):
         """Edit Table Properties"""

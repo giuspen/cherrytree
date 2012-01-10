@@ -303,7 +303,8 @@ class ClipboardHandler:
         if pixbuf:
             self.dad.image_insert(self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert()),
                                   pixbuf,
-                                  justification)
+                                  image_justification=justification,
+                                  text_buffer=self.dad.curr_buffer)
 
     def to_codebox(self, clipboard, selectiondata, data):
         """From Clipboard to CodeBox"""
@@ -328,7 +329,8 @@ class ClipboardHandler:
         }
         self.dad.codeboxes_handler.codebox_insert(self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert()),
                                                   codebox_dict,
-                                                  justification)
+                                                  codebox_justification=justification,
+                                                  text_buffer=self.dad.curr_buffer)
 
     def to_table(self, clipboard, selectiondata, table_model_n_iter):
         """From Clipboard to Table"""
@@ -361,7 +363,8 @@ class ClipboardHandler:
             # insert new table
             self.dad.tables_handler.table_insert(self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert()),
                                                  table,
-                                                 justification)
+                                                 table_justification=justification,
+                                                 text_buffer=self.dad.curr_buffer)
         else:
             # paste into existing table
             (model, iter) = table_model_n_iter

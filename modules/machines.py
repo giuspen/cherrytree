@@ -181,10 +181,10 @@ class XMLHandler:
            'show_line_numbers': dom_node.hasAttribute("show_line_numbers") and dom_node.attributes['show_line_numbers'].value == "True",
            'fill_text': dom_node.firstChild.data if dom_node.firstChild else ""
         }
-        self.dad.curr_buffer = curr_buffer # the codebox_insert method will need this
         self.dad.codeboxes_handler.codebox_insert(curr_buffer.get_iter_at_offset(char_offset),
                                                   codebox_dict,
-                                                  justification)
+                                                  codebox_justification=justification,
+                                                  text_buffer=curr_buffer)
 
     def table_deserialize(self, curr_buffer, dom_node):
         """From the XML table text to the SourceBuffer"""
@@ -208,8 +208,10 @@ class XMLHandler:
                         else: table_dict['matrix'][-1].append("")
                     nephew_dom_iter = nephew_dom_iter.nextSibling
             child_dom_iter = child_dom_iter.nextSibling
-        self.dad.curr_buffer = curr_buffer # the table_insert method will need this
-        self.dad.tables_handler.table_insert(curr_buffer.get_iter_at_offset(char_offset), table_dict, justification)
+        self.dad.tables_handler.table_insert(curr_buffer.get_iter_at_offset(char_offset),
+                                             table_dict,
+                                             table_justification=justification,
+                                             text_buffer=curr_buffer)
 
     def image_deserialize(self, curr_buffer, dom_node, version):
         """From the XML embedded image text to the SourceBuffer"""
@@ -222,8 +224,10 @@ class XMLHandler:
         else:
             if version == 2: pixbuf = get_pixbuf_from_encoded_buffer(dom_node.firstChild.data)
             else: pixbuf = get_pixbuf_from_png_encoded_string(dom_node.firstChild.data)
-        self.dad.curr_buffer = curr_buffer # the apply_tag method will need this
-        if pixbuf: self.dad.image_insert(curr_buffer.get_iter_at_offset(char_offset), pixbuf, justification)
+        if pixbuf: self.dad.image_insert(curr_buffer.get_iter_at_offset(char_offset),
+                                         pixbuf,
+                                         image_justification=justification,
+                                         text_buffer=curr_buffer)
 
     def rich_text_deserialize(self, curr_buffer, dom_node):
         """From the XML rich text to the SourceBuffer"""
@@ -607,14 +611,19 @@ class StateMachine:
         }
         self.dad.codeboxes_handler.codebox_insert(iter_insert,
                                                   codebox_dict,
-                                                  element[2])
+                                                  codebox_justification=element[2],
+                                                  text_buffer=text_buffer)
 
-    def apply_image_justification(self, iter_start, justification):
+    def apply_object_justification(self, iter_start, justification, text_buffer):
         """Apply the Proper Justification to an Image"""
         if justification == None: return
         iter_end = iter_start.copy()
         iter_end.forward_char()
-        self.dad.apply_tag("justification", justification, iter_sel_start=iter_start, iter_sel_end=iter_end)
+        self.dad.apply_tag("justification",
+                           justification,
+                           iter_sel_start=iter_start,
+                           iter_sel_end=iter_end,
+                           text_buffer=text_buffer)
 
     def reset(self):
         """State Machine Reset"""
