@@ -571,15 +571,28 @@ class CherryTree:
                                               filter_name=_("CherryTree Document"),
                                               curr_folder=self.file_dir,
                                               parent=self.window)
-        if filepath == None: return
-        try:
-            cherrytree_string = self.file_get_cherrytree_data(filepath, False)
-            if not cherrytree_string: raise
-        except:
-            support.dialog_error("Error importing the file %s" % filepath, self.window)
-            raise
+        if not filepath: return
+        document_loaded_ok = False
+        if filepath[-1] in ["d", "z"]:
+            # xml
+            cherrytree_string = self.file_get_cherrytree_data(filepath, main_file=False)
+            if cherrytree_string: document_loaded_ok = True
+            elif cherrytree_string == None: return # no error exit
+        elif filepath[-1] in ["b", "x"]:
+            # db
+            source_db = self.file_get_cherrytree_data(filepath, True)
+            if source_db: document_loaded_ok = True
+            elif source_db == None: return # no error exit
+        if document_loaded_ok:
+            try:
+                if filepath[-1] in ["d", "z"]:
+                    self.nodes_add_from_cherrytree_data(cherrytree_string)
+                else: self.nodes_add_from_cherrytree_data("", source_db)
+                document_loaded_ok = True
+            except: document_loaded_ok = False
+        if not document_loaded_ok:
+            support.dialog_error(_('"%s" is Not a CherryTree Document') % filepath, self.window)
             return
-        self.nodes_add_from_string(cherrytree_string)
 
     def nodes_add_from_notecase_file(self, action):
         """Add Nodes Parsing a NoteCase File"""
@@ -598,7 +611,7 @@ class CherryTree:
             return
         notecase = imports.NotecaseHandler()
         cherrytree_string = notecase.get_cherrytree_xml(notecase_string)
-        self.nodes_add_from_string(cherrytree_string)
+        self.nodes_add_from_cherrytree_data(cherrytree_string)
 
     def nodes_add_from_tuxcards_file(self, action):
         """Add Nodes Parsing a TuxCards File"""
@@ -615,7 +628,7 @@ class CherryTree:
             return
         tuxcards = imports.TuxCardsHandler()
         cherrytree_string = tuxcards.get_cherrytree_xml(tuxcards_string)
-        self.nodes_add_from_string(cherrytree_string)
+        self.nodes_add_from_cherrytree_data(cherrytree_string)
 
     def nodes_add_from_keepnote_folder(self, action):
         """Add Nodes Parsing a KeepNote Folder"""
@@ -623,7 +636,7 @@ class CherryTree:
         if folderpath == None: return
         keepnote = imports.KeepnoteHandler(folderpath)
         cherrytree_string = keepnote.get_cherrytree_xml()
-        self.nodes_add_from_string(cherrytree_string)
+        self.nodes_add_from_cherrytree_data(cherrytree_string)
 
     def nodes_add_from_tomboy_folder(self, action):
         """Add Nodes Parsing a Tomboy Folder"""
@@ -632,7 +645,7 @@ class CherryTree:
         if folderpath == None: return
         tomboy = imports.TomboyHandler(folderpath)
         cherrytree_string = tomboy.get_cherrytree_xml()
-        self.nodes_add_from_string(cherrytree_string)
+        self.nodes_add_from_cherrytree_data(cherrytree_string)
         tomboy.set_links_to_nodes(self)
 
     def nodes_add_from_basket_folder(self, action):
@@ -643,7 +656,7 @@ class CherryTree:
         basket = imports.BasketHandler(folderpath)
         if basket.check_basket_structure():
             cherrytree_string = basket.get_cherrytree_xml()
-            self.nodes_add_from_string(cherrytree_string)
+            self.nodes_add_from_cherrytree_data(cherrytree_string)
 
     def nodes_add_from_treepad_file(self, action):
         """Add Nodes Parsing a Treepad File"""
@@ -661,7 +674,7 @@ class CherryTree:
             support.dialog_error("Error importing the file %s" % filepath, self.window)
             raise
             return
-        self.nodes_add_from_string(cherrytree_string)
+        self.nodes_add_from_cherrytree_data(cherrytree_string)
 
     def nodes_add_from_knowit_file(self, action):
         """Add Nodes Parsing a Knowit File"""
@@ -679,7 +692,7 @@ class CherryTree:
             support.dialog_error("Error importing the file %s" % filepath, self.window)
             raise
             return
-        self.nodes_add_from_string(cherrytree_string)
+        self.nodes_add_from_cherrytree_data(cherrytree_string)
 
     def nodes_add_from_leo_file(self, action):
         """Add Nodes Parsing a Leo File"""
@@ -698,11 +711,10 @@ class CherryTree:
             return
         leo = imports.LeoHandler()
         cherrytree_string = leo.get_cherrytree_xml(leo_string)
-        self.nodes_add_from_string(cherrytree_string)
+        self.nodes_add_from_cherrytree_data(cherrytree_string)
 
-    def nodes_add_from_string(self, cherrytree_string):
-        """Adds Nodes to the Tree Parsing a CherryTree XML String"""
-        cherrytree_string = re.sub(cons.BAD_CHARS, "", cherrytree_string)
+    def nodes_add_from_cherrytree_data(self, cherrytree_string, cherrytree_db=None):
+        """Adds Nodes to the Tree Parsing a CherryTree XML String / CherryTree DB"""
         self.user_active = False
         file_loaded = False
         former_node = self.curr_tree_iter # we'll restore after the import
@@ -713,33 +725,39 @@ class CherryTree:
                 self.file_update = True
                 self.curr_buffer.set_modified(False)
                 self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
-            append_location_dialog = gtk.Dialog(title=_("Who is the Father?"),
-                                                parent=self.window,
-                                                flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
-                                                buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
-                                                         gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
-            append_location_dialog.set_transient_for(self.window)
-            append_location_dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+            dialog = gtk.Dialog(title=_("Who is the Father?"),
+                                parent=self.window,
+                                flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
+                                buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
+                                         gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
+            dialog.set_transient_for(self.window)
+            dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
             radiobutton_root = gtk.RadioButton(label=_("The Tree Root"))
             radiobutton_curr_node = gtk.RadioButton(label=_("The Selected Node"))
             radiobutton_curr_node.set_group(radiobutton_root)
-            content_area = append_location_dialog.get_content_area()
+            content_area = dialog.get_content_area()
             content_area.pack_start(radiobutton_root)
             content_area.pack_start(radiobutton_curr_node)
             content_area.show_all()
-            response = append_location_dialog.run()
+            response = dialog.run()
             if radiobutton_curr_node.get_active(): tree_father = self.curr_tree_iter
-            append_location_dialog.destroy()
+            dialog.destroy()
             if response != gtk.RESPONSE_ACCEPT:
                 self.user_active = True
                 return
         try:
-            # the imported nodes unique_ids must be discarded!
-            if self.xml_handler.dom_to_treestore(cherrytree_string, discard_ids=True,
-                                                 tree_father=tree_father, reset_nodes_names=False):
-                if self.expand_tree: self.treeview.expand_all()
+            if not cherrytree_db:
+                cherrytree_string = re.sub(cons.BAD_CHARS, "", cherrytree_string)
+                if self.xml_handler.dom_to_treestore(cherrytree_string, discard_ids=True,
+                                                     tree_father=tree_father, reset_nodes_names=False):
+                    if self.expand_tree: self.treeview.expand_all()
+                    file_loaded = True
+            else:
+                self.ctdb_handler.read_db_full(cherrytree_db, discard_ids=True,
+                                               tree_father=tree_father, reset_nodes_names=False)
+                cherrytree_db.close()
                 file_loaded = True
-        except: pass
+        except: raise
         if file_loaded:
             self.update_window_save_needed()
             if not former_node: former_node = self.treestore.get_iter_first()
@@ -764,7 +782,7 @@ class CherryTree:
                 if self.treestore[former_node][3] in self.nodes_cursor_pos:
                     self.curr_buffer.place_cursor(self.curr_buffer.get_iter_at_offset(self.nodes_cursor_pos[self.treestore[former_node][3]]))
                     self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), 0.3)
-        else: support.dialog_error('Error Parsing the CherryTree XML String', self.window)
+        else: support.dialog_error('Error Parsing the CherryTree File', self.window)
         self.user_active = True
 
     def nodes_expand_all(self, action):
@@ -1298,7 +1316,7 @@ class CherryTree:
         if filepath[-3:] in ["ctd", "ctz"]:
             # xml
             self.filetype = "d"
-            cherrytree_string = self.file_get_cherrytree_data(filepath, True)
+            cherrytree_string = self.file_get_cherrytree_data(filepath, main_file=True)
             if cherrytree_string: document_loaded_ok = True
             elif cherrytree_string == None: return # no error exit
         elif filepath[-3:] in ["ctb", "ctx"]:
@@ -1308,22 +1326,17 @@ class CherryTree:
             if self.db: document_loaded_ok = True
             elif self.db == None: return # no error exit
         if document_loaded_ok:
+            document_loaded_ok = False
             self.user_active = False
             file_loaded = False
             if self.filetype in ["d", "z"]:
                 # xml
-                try:
-                    if not self.xml_handler.dom_to_treestore(cherrytree_string, discard_ids=False):
-                        raise
-                except:
-                    raise
-                    document_loaded_ok = False
+                if self.xml_handler.dom_to_treestore(cherrytree_string, discard_ids=False):
+                    document_loaded_ok = True
             else:
                 # db
-                try: self.ctdb_handler.read_db_full(self.db, False)
-                except:
-                    raise
-                    document_loaded_ok = False
+                self.ctdb_handler.read_db_full(self.db, discard_ids=False)
+                document_loaded_ok = True
             if document_loaded_ok:
                 self.file_dir = os.path.dirname(filepath)
                 self.file_name = os.path.basename(filepath)

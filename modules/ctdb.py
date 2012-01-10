@@ -373,9 +373,9 @@ class CTDBHandler:
                                   image_justification=image_row['justification'],
                                   text_buffer=text_buffer)
     
-    def read_db_node_content(self, tree_iter, db):
+    def read_db_node_content(self, tree_iter, db, write_user_active=True):
         """Read a node content from DB"""
-        self.dad.user_active = False
+        if write_user_active: self.dad.user_active = False
         syntax_highlighting = self.dad.treestore[tree_iter][4]
         node_id = self.dad.treestore[tree_iter][3]
         print "read node content, node_id", node_id
@@ -432,7 +432,7 @@ class CTDBHandler:
                 elif obj_idx[0] == 't': self.add_node_table(tables_rows[obj_idx[1]], curr_buffer)
                 else: self.add_node_image(images_rows[obj_idx[1]], curr_buffer)
         curr_buffer.set_modified(False)
-        self.dad.user_active = True
+        if write_user_active: self.dad.user_active = True
     
     def get_children_rows_from_father_id(self, db, father_id):
         """Returns the children rows given the father_id"""
@@ -470,6 +470,10 @@ class CTDBHandler:
                                                             node_tags,
                                                             readonly])
         self.dad.nodes_names_dict[self.dad.treestore[tree_iter][3]] = self.dad.treestore[tree_iter][1]
+        if discard_ids:
+            # we are importing (=> adding) a node
+            self.pending_new_db_node(unique_id)
+            self.read_db_node_content(tree_iter, db, write_user_active=False)
         # loop for child nodes
         child_sequence = 0
         children_rows = self.get_children_rows_from_father_id(db, unique_id)
@@ -477,17 +481,16 @@ class CTDBHandler:
             child_node_row = self.get_node_row_partial_from_id(db, child_row['node_id'])
             if child_node_row:
                 child_sequence += 1
-                self.read_db_node_n_children(db, child_node_row, tree_iter, discard_ids, child_sequence)
+                self.read_db_node_n_children(db,
+                                             child_node_row,
+                                             tree_iter,
+                                             discard_ids,
+                                             child_sequence)
     
     def read_db_full(self, db, discard_ids, tree_father=None, reset_nodes_names=True):
         """Read the whole DB"""
         self.dad.bookmarks = []
-        if reset_nodes_names:
-            self.dad.nodes_names_dict = {}
-            bookmarks_menu = self.dad.ui.get_widget("/MenuBar/BookmarksMenu").get_submenu()
-            for menu_item in self.dad.bookmarks_menu_items:
-                bookmarks_menu.remove(menu_item)
-            self.dad.bookmarks_menu_items = []
+        if reset_nodes_names: self.dad.xml_handler.reset_nodes_names()
         db.row_factory = sqlite3.Row
         # tree nodes
         node_sequence = 0
@@ -496,7 +499,11 @@ class CTDBHandler:
             child_node_row = self.get_node_row_partial_from_id(db, child_row['node_id'])
             if child_node_row:
                 node_sequence += 1
-                self.read_db_node_n_children(db, child_node_row, None, discard_ids, node_sequence)
+                self.read_db_node_n_children(db,
+                                             child_node_row,
+                                             tree_father,
+                                             discard_ids,
+                                             node_sequence)
         # bookmarks
         bookmarks_rows = db.execute('SELECT * FROM bookmark ORDER BY sequence ASC').fetchall()
         for bookmark_row in bookmarks_rows: self.dad.bookmarks.append(str(bookmark_row['node_id']))

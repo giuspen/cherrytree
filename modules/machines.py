@@ -87,17 +87,20 @@ class XMLHandler:
         textbuffer.set_modified(False)
         return True
 
+    def reset_nodes_names(self):
+        """Reset Nodes Names"""
+        self.dad.nodes_names_dict = {}
+        bookmarks_menu = self.dad.ui.get_widget("/MenuBar/BookmarksMenu").get_submenu()
+        for menu_item in self.dad.bookmarks_menu_items:
+            bookmarks_menu.remove(menu_item)
+        self.dad.bookmarks_menu_items = []
+
     def dom_to_treestore(self, ctd, discard_ids, tree_father=None, reset_nodes_names=True):
         """Parse an XML Cherry Tree Document file and build the Tree"""
         dom = xml.dom.minidom.parseString(ctd)
         cherrytree = dom.firstChild
         self.dad.bookmarks = []
-        if reset_nodes_names:
-            self.dad.nodes_names_dict = {}
-            bookmarks_menu = self.dad.ui.get_widget("/MenuBar/BookmarksMenu").get_submenu()
-            for menu_item in self.dad.bookmarks_menu_items:
-                bookmarks_menu.remove(menu_item)
-            self.dad.bookmarks_menu_items = []
+        if reset_nodes_names: self.reset_nodes_names()
         if cherrytree.nodeName != "cherrytree": return False
         else:
             dom_iter = cherrytree.firstChild
@@ -153,10 +156,10 @@ class XMLHandler:
                                                             node_sequence,
                                                             node_tags,
                                                             readonly])
+        self.dad.nodes_names_dict[unique_id] = self.dad.treestore[tree_iter][1]
         if discard_ids:
             # we are importing nodes
             self.dad.ctdb_handler.pending_new_db_node(unique_id)
-        self.dad.nodes_names_dict[unique_id] = self.dad.treestore[tree_iter][1]
         # loop for child nodes
         child_sequence = 0
         while child_dom_iter!= None:
