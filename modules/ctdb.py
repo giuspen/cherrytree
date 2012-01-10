@@ -374,15 +374,18 @@ class CTDBHandler:
                                   image_justification=image_row['justification'],
                                   text_buffer=text_buffer)
     
-    def read_db_node_content(self, tree_iter, db, write_user_active=True, original_id=None):
+    def read_db_node_content(self, tree_iter, db, original_id=None):
         """Read a node content from DB"""
-        if write_user_active: self.dad.user_active = False
+        if self.dad.user_active:
+            self.dad.user_active = False
+            back_to_user_active = True
+        else: back_to_user_active = False
         syntax_highlighting = self.dad.treestore[tree_iter][4]
         if original_id: node_id = original_id
         else: node_id = self.dad.treestore[tree_iter][3]
         print "read node content, node_id", node_id
-        curr_buffer = self.dad.buffer_create(syntax_highlighting)
-        self.dad.treestore[tree_iter][2] = curr_buffer
+        self.dad.treestore[tree_iter][2] = self.dad.buffer_create(syntax_highlighting)
+        curr_buffer = self.dad.treestore[tree_iter][2]
         node_row = db.execute('SELECT txt, has_codebox, has_table, has_image FROM node WHERE node_id=?', (node_id,)).fetchone()
         if syntax_highlighting != cons.CUSTOM_COLORS_ID:
             curr_buffer.begin_not_undoable_action()
@@ -429,12 +432,15 @@ class CTDBHandler:
                             objects_index_list.insert(j, new_obj_idx_elem)
                             break
                     else: objects_index_list.append(new_obj_idx_elem)
-            for obj_idx in objects_index_list:
-                if obj_idx[0] == 'c': self.add_node_codebox(codeboxes_rows[obj_idx[1]], curr_buffer)
-                elif obj_idx[0] == 't': self.add_node_table(tables_rows[obj_idx[1]], curr_buffer)
-                else: self.add_node_image(images_rows[obj_idx[1]], curr_buffer)
+            if objects_index_list:
+                self.dad.sourceview.set_buffer(curr_buffer)
+                for obj_idx in objects_index_list:
+                    if obj_idx[0] == 'c': self.add_node_codebox(codeboxes_rows[obj_idx[1]], curr_buffer)
+                    elif obj_idx[0] == 't': self.add_node_table(tables_rows[obj_idx[1]], curr_buffer)
+                    else: self.add_node_image(images_rows[obj_idx[1]], curr_buffer)
+                self.dad.sourceview.set_buffer(self.dad.curr_buffer)
         curr_buffer.set_modified(False)
-        if write_user_active: self.dad.user_active = True
+        if back_to_user_active: self.dad.user_active = True
     
     def get_children_rows_from_father_id(self, db, father_id):
         """Returns the children rows given the father_id"""
@@ -475,7 +481,7 @@ class CTDBHandler:
         if discard_ids:
             # we are importing (=> adding) a node
             self.pending_new_db_node(unique_id)
-            self.read_db_node_content(tree_iter, db, write_user_active=False, original_id=node_row['node_id'])
+            self.read_db_node_content(tree_iter, db, original_id=node_row['node_id'])
         # loop for child nodes
         child_sequence = 0
         children_rows = self.get_children_rows_from_father_id(db, node_row['node_id'])
