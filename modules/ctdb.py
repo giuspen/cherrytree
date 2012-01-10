@@ -47,6 +47,7 @@ class CTDBHandler:
             need_to_commit = True
         self.nodes_to_rm_set.clear()
         for node_id_to_write in self.nodes_to_write_dict:
+            #print "node_id_to_write", node_id_to_write
             write_dict = self.nodes_to_write_dict[node_id_to_write]
             tree_iter = self.dad.get_tree_iter_from_node_id(node_id_to_write)
             level = self.dad.treestore.iter_depth(tree_iter)
@@ -169,7 +170,7 @@ class CTDBHandler:
     def pending_new_db_node(self, node_id):
         """Pending Add a Node to DB"""
         if self.dad.filetype not in ["b", "x"]: return
-        write_dict = {'upd': False, 'prop': True, 'buff': True, 'hier': True, 'child': True}
+        write_dict = {'upd': False, 'prop': True, 'buff': True, 'hier': True, 'child': False}
         self.nodes_to_write_dict[node_id] = write_dict
     
     def pending_rm_db_node(self, node_id):
@@ -373,11 +374,12 @@ class CTDBHandler:
                                   image_justification=image_row['justification'],
                                   text_buffer=text_buffer)
     
-    def read_db_node_content(self, tree_iter, db, write_user_active=True):
+    def read_db_node_content(self, tree_iter, db, write_user_active=True, original_id=None):
         """Read a node content from DB"""
         if write_user_active: self.dad.user_active = False
         syntax_highlighting = self.dad.treestore[tree_iter][4]
-        node_id = self.dad.treestore[tree_iter][3]
+        if original_id: node_id = original_id
+        else: node_id = self.dad.treestore[tree_iter][3]
         print "read node content, node_id", node_id
         curr_buffer = self.dad.buffer_create(syntax_highlighting)
         self.dad.treestore[tree_iter][2] = curr_buffer
@@ -459,7 +461,7 @@ class CTDBHandler:
                 syntax_highlighting = cons.CUSTOM_COLORS_ID
         node_level = self.dad.treestore.iter_depth(tree_father)+1 if tree_father else 0
         cherry = self.dad.get_node_icon(node_level, syntax_highlighting)
-        #print unique_id
+        print "added node with unique_id", unique_id
         # insert the node containing the buffer into the tree
         tree_iter = self.dad.treestore.append(tree_father, [cherry,
                                                             node_row['name'],
@@ -473,10 +475,10 @@ class CTDBHandler:
         if discard_ids:
             # we are importing (=> adding) a node
             self.pending_new_db_node(unique_id)
-            self.read_db_node_content(tree_iter, db, write_user_active=False)
+            self.read_db_node_content(tree_iter, db, write_user_active=False, original_id=node_row['node_id'])
         # loop for child nodes
         child_sequence = 0
-        children_rows = self.get_children_rows_from_father_id(db, unique_id)
+        children_rows = self.get_children_rows_from_father_id(db, node_row['node_id'])
         for child_row in children_rows:
             child_node_row = self.get_node_row_partial_from_id(db, child_row['node_id'])
             if child_node_row:
@@ -487,10 +489,11 @@ class CTDBHandler:
                                              discard_ids,
                                              child_sequence)
     
-    def read_db_full(self, db, discard_ids, tree_father=None, reset_nodes_names=True):
+    def read_db_full(self, db, discard_ids, tree_father=None):
         """Read the whole DB"""
-        if discard_ids: self.dad.xml_handler.reset_nodes_names()
-        else: self.dad.bookmarks = []
+        if not discard_ids:
+            self.dad.xml_handler.reset_nodes_names()
+            self.dad.bookmarks = []
         db.row_factory = sqlite3.Row
         # tree nodes
         node_sequence = 0
