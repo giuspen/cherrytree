@@ -1283,7 +1283,9 @@ class CherryTree:
             try:
                 if password_protected: db = self.ctdb_handler.get_connected_db_from_dbpath(filepath_tmp)
                 else: db = self.ctdb_handler.get_connected_db_from_dbpath(filepath)
-                if password_protected: os.remove(filepath_tmp)
+                if password_protected:
+                    if filepath[-1] == "z": os.remove(filepath_tmp)
+                    else: self.ctdb_handler.remove_at_quit_set.add(filepath_tmp)
             except:
                 print "error connecting to db"
                 raise
@@ -2250,10 +2252,7 @@ class CherryTree:
                 self.curr_buffer.set_modified(False)
                 self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
         self.curr_tree_iter = new_iter
-        if not self.treestore[self.curr_tree_iter][2]:
-            # we are using db storage and the buffer was not created yet
-            self.ctdb_handler.read_db_node_content(self.curr_tree_iter, self.db)
-        self.curr_buffer = self.treestore[self.curr_tree_iter][2]
+        self.curr_buffer = self.get_textbuffer_from_tree_iter(self.curr_tree_iter)
         self.sourceview.set_buffer(self.curr_buffer)
         self.syntax_highlighting = self.treestore[self.curr_tree_iter][4]
         self.curr_buffer.connect('modified-changed', self.on_modified_changed)
@@ -2279,6 +2278,13 @@ class CherryTree:
         if model[new_iter][3] in self.nodes_cursor_pos:
             self.curr_buffer.place_cursor(self.curr_buffer.get_iter_at_offset(self.nodes_cursor_pos[model[new_iter][3]]))
             self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), 0.3)
+
+    def get_textbuffer_from_tree_iter(self, tree_iter):
+        """Returns the text buffer given the tree iter"""
+        if not self.treestore[tree_iter][2]:
+            # we are using db storage and the buffer was not created yet
+            self.ctdb_handler.read_db_node_content(tree_iter, self.db)
+        return self.treestore[tree_iter][2]
 
     def on_textbuffer_mark_set(self, text_buffer, text_iter, text_mark):
         """"""
@@ -2730,10 +2736,7 @@ class CherryTree:
 
     def tree_info_iter(self, tree_iter):
         """Tree Summary Information Iteration"""
-        if not self.treestore[tree_iter][2]:
-            # we are using db storage and the buffer was not created yet
-            self.ctdb_handler.read_db_node_content(tree_iter, self.db)
-        curr_buffer = self.treestore[tree_iter][2]
+        curr_buffer = self.get_textbuffer_from_tree_iter(tree_iter)
         pixbuf_table_vector = self.state_machine.get_embedded_pixbufs_tables_codeboxes(curr_buffer)
         # pixbuf_table_vector is [ [ "pixbuf"/"table", [offset, pixbuf, alignment] ],... ]
         if self.treestore[tree_iter][4] == cons.CUSTOM_COLORS_ID: self.summary_nodes_text_num += 1
