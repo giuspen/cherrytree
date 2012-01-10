@@ -91,6 +91,7 @@ class ExportPrint:
 
     def nodes_all_export_print_iter(self, tree_iter):
         """Export Print All Nodes - Iter"""
+        self.dad.get_textbuffer_from_tree_iter(tree_iter)
         if self.dad.treestore[tree_iter][4] == cons.CUSTOM_COLORS_ID:
             pango_text, pixbuf_table_codebox_vector = self.pango_handler.pango_get_from_treestore_node(tree_iter)
             self.text_font = self.dad.text_font # text font for all (also eventual code nodes)
@@ -168,7 +169,7 @@ class Export2Txt:
 
     def nodes_all_export_to_txt_iter(self, tree_iter):
         """Export All Nodes To Txt - iter"""
-        text_buffer = self.dad.treestore[tree_iter][2]
+        text_buffer = self.dad.get_textbuffer_from_tree_iter(tree_iter)
         filepath = os.path.join(self.new_path,
                                 support.get_node_hierarchical_name(self.dad, tree_iter) + ".txt")
         self.node_export_to_txt(text_buffer, filepath)
