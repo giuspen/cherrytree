@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <requires lib="gtk+" version="2.20"/>
+  <requires lib="gtk+" version="2.16"/>
+  <!-- interface-naming-policy toplevel-contextual -->
   <object class="GtkAboutDialog" id="aboutdialog">
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
@@ -46,13 +47,12 @@ Ukrainian (uk) Andriy Kovtun &lt;kovtunos@yandex.ru&gt;</property>
 Zeltak &lt;zeltak@gmail.com&gt;</property>
     <property name="logo">cherrytree.png</property>
     <child internal-child="vbox">
-      <object class="GtkBox" id="dialog-vbox1">
+      <object class="GtkVBox" id="dialog-vbox1">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="orientation">vertical</property>
         <property name="spacing">2</property>
         <child internal-child="action_area">
-          <object class="GtkButtonBox" id="dialog-action_area1">
+          <object class="GtkHButtonBox" id="dialog-action_area1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="layout_style">end</property>
@@ -165,13 +165,12 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
     <property name="type_hint">normal</property>
     <property name="transient_for">window</property>
     <child internal-child="vbox">
-      <object class="GtkBox" id="dialog-vbox13">
+      <object class="GtkVBox" id="dialog-vbox13">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="orientation">vertical</property>
         <property name="spacing">2</property>
         <child internal-child="action_area">
-          <object class="GtkButtonBox" id="dialog-action_area13">
+          <object class="GtkHButtonBox" id="dialog-action_area13">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="layout_style">center</property>
@@ -227,13 +226,12 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
     <property name="type_hint">normal</property>
     <property name="transient_for">window</property>
     <child internal-child="vbox">
-      <object class="GtkBox" id="dialog-vbox9">
+      <object class="GtkVBox" id="dialog-vbox9">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="orientation">vertical</property>
         <property name="spacing">2</property>
         <child internal-child="action_area">
-          <object class="GtkButtonBox" id="dialog-action_area9">
+          <object class="GtkHButtonBox" id="dialog-action_area9">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="layout_style">center</property>
@@ -358,6 +356,8 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
                     <property name="invisible_char">●</property>
                     <property name="primary_icon_activatable">False</property>
                     <property name="secondary_icon_activatable">False</property>
+                    <property name="primary_icon_sensitive">True</property>
+                    <property name="secondary_icon_sensitive">True</property>
                   </object>
                   <packing>
                     <property name="expand">True</property>
@@ -413,13 +413,12 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
     <property name="type_hint">normal</property>
     <property name="transient_for">window</property>
     <child internal-child="vbox">
-      <object class="GtkBox" id="dialog-vbox8">
+      <object class="GtkVBox" id="dialog-vbox8">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="orientation">vertical</property>
         <property name="spacing">2</property>
         <child internal-child="action_area">
-          <object class="GtkButtonBox" id="dialog-action_area8">
+          <object class="GtkHButtonBox" id="dialog-action_area8">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="layout_style">center</property>
@@ -694,6 +693,8 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
                             <property name="invisible_char">●</property>
                             <property name="primary_icon_activatable">False</property>
                             <property name="secondary_icon_activatable">False</property>
+                            <property name="primary_icon_sensitive">True</property>
+                            <property name="secondary_icon_sensitive">True</property>
                           </object>
                         </child>
                       </object>
@@ -735,6 +736,8 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
                                 <property name="invisible_char">●</property>
                                 <property name="primary_icon_activatable">False</property>
                                 <property name="secondary_icon_activatable">False</property>
+                                <property name="primary_icon_sensitive">True</property>
+                                <property name="secondary_icon_sensitive">True</property>
                               </object>
                               <packing>
                                 <property name="expand">True</property>
@@ -853,6 +856,8 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
                                 <property name="invisible_char">●</property>
                                 <property name="primary_icon_activatable">False</property>
                                 <property name="secondary_icon_activatable">False</property>
+                                <property name="primary_icon_sensitive">True</property>
+                                <property name="secondary_icon_sensitive">True</property>
                               </object>
                               <packing>
                                 <property name="expand">True</property>
@@ -931,13 +936,12 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
     <property name="type_hint">normal</property>
     <property name="transient_for">window</property>
     <child internal-child="vbox">
-      <object class="GtkBox" id="dialog-vbox12">
+      <object class="GtkVBox" id="dialog-vbox12">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="orientation">vertical</property>
         <property name="spacing">3</property>
         <child internal-child="action_area">
-          <object class="GtkButtonBox" id="dialog-action_area12">
+          <object class="GtkHButtonBox" id="dialog-action_area12">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="layout_style">center</property>
@@ -1110,6 +1114,8 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
                             <property name="invisible_char">●</property>
                             <property name="primary_icon_activatable">False</property>
                             <property name="secondary_icon_activatable">False</property>
+                            <property name="primary_icon_sensitive">True</property>
+                            <property name="secondary_icon_sensitive">True</property>
                             <property name="adjustment">adjustment_codebox_width</property>
                           </object>
                           <packing>
@@ -1197,6 +1203,8 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
                             <property name="invisible_char">●</property>
                             <property name="primary_icon_activatable">False</property>
                             <property name="secondary_icon_activatable">False</property>
+                            <property name="primary_icon_sensitive">True</property>
+                            <property name="secondary_icon_sensitive">True</property>
                             <property name="adjustment">adjustment_codebox_height</property>
                           </object>
                           <packing>
@@ -1329,13 +1337,12 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
     <property name="type_hint">normal</property>
     <property name="transient_for">window</property>
     <child internal-child="vbox">
-      <object class="GtkBox" id="dialog-vbox5">
+      <object class="GtkVBox" id="dialog-vbox5">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="orientation">vertical</property>
         <property name="spacing">2</property>
         <child internal-child="action_area">
-          <object class="GtkButtonBox" id="dialog-action_area5">
+          <object class="GtkHButtonBox" id="dialog-action_area5">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="layout_style">end</property>
@@ -1469,13 +1476,12 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
     <property name="type_hint">normal</property>
     <property name="transient_for">window</property>
     <child internal-child="vbox">
-      <object class="GtkBox" id="dialog-vbox4">
+      <object class="GtkVBox" id="dialog-vbox4">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="orientation">vertical</property>
         <property name="spacing">2</property>
         <child internal-child="action_area">
-          <object class="GtkButtonBox" id="dialog-action_area4">
+          <object class="GtkHButtonBox" id="dialog-action_area4">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="layout_style">center</property>
@@ -1675,13 +1681,12 @@ do you want to save the changes?</property>
     <property name="type_hint">normal</property>
     <property name="transient_for">window</property>
     <child internal-child="vbox">
-      <object class="GtkBox" id="dialog-vbox6">
+      <object class="GtkVBox" id="dialog-vbox6">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="orientation">vertical</property>
         <property name="spacing">2</property>
         <child internal-child="action_area">
-          <object class="GtkButtonBox" id="dialog-action_area6">
+          <object class="GtkHButtonBox" id="dialog-action_area6">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="layout_style">center</property>
@@ -1896,6 +1901,8 @@ do you want to save the changes?</property>
                     <property name="invisible_char">●</property>
                     <property name="primary_icon_activatable">False</property>
                     <property name="secondary_icon_activatable">False</property>
+                    <property name="primary_icon_sensitive">True</property>
+                    <property name="secondary_icon_sensitive">True</property>
                     <property name="adjustment">adjustment_image_width</property>
                     <signal name="value-changed" handler="on_spinbutton_image_width_value_changed" swapped="no"/>
                   </object>
@@ -1924,6 +1931,8 @@ do you want to save the changes?</property>
                     <property name="invisible_char">●</property>
                     <property name="primary_icon_activatable">False</property>
                     <property name="secondary_icon_activatable">False</property>
+                    <property name="primary_icon_sensitive">True</property>
+                    <property name="secondary_icon_sensitive">True</property>
                     <property name="adjustment">adjustment_image_height</property>
                     <signal name="value-changed" handler="on_spinbutton_image_height_value_changed" swapped="no"/>
                   </object>
@@ -1977,13 +1986,12 @@ do you want to save the changes?</property>
     <property name="type_hint">dialog</property>
     <property name="transient_for">window</property>
     <child internal-child="vbox">
-      <object class="GtkBox" id="dialog-vbox2">
+      <object class="GtkVBox" id="dialog-vbox2">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="orientation">vertical</property>
         <property name="spacing">2</property>
         <child internal-child="action_area">
-          <object class="GtkButtonBox" id="dialog-action_area2">
+          <object class="GtkHButtonBox" id="dialog-action_area2">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="layout_style">end</property>
@@ -2097,6 +2105,8 @@ do you want to save the changes?</property>
                 <property name="invisible_char">●</property>
                 <property name="primary_icon_activatable">False</property>
                 <property name="secondary_icon_activatable">False</property>
+                <property name="primary_icon_sensitive">True</property>
+                <property name="secondary_icon_sensitive">True</property>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -2122,6 +2132,8 @@ do you want to save the changes?</property>
                         <property name="invisible_char">●</property>
                         <property name="primary_icon_activatable">False</property>
                         <property name="secondary_icon_activatable">False</property>
+                        <property name="primary_icon_sensitive">True</property>
+                        <property name="secondary_icon_sensitive">True</property>
                       </object>
                     </child>
                   </object>
@@ -2477,6 +2489,8 @@ do you want to save the changes?</property>
                         <property name="invisible_char">●</property>
                         <property name="primary_icon_activatable">False</property>
                         <property name="secondary_icon_activatable">False</property>
+                        <property name="primary_icon_sensitive">True</property>
+                        <property name="secondary_icon_sensitive">True</property>
                       </object>
                     </child>
                   </object>
@@ -2533,13 +2547,12 @@ do you want to save the changes?</property>
     <property name="type_hint">dialog</property>
     <property name="transient_for">window</property>
     <child internal-child="vbox">
-      <object class="GtkBox" id="dialog-vbox17">
+      <object class="GtkVBox" id="dialog-vbox17">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="orientation">vertical</property>
         <property name="spacing">2</property>
         <child internal-child="action_area">
-          <object class="GtkButtonBox" id="dialog-action_area17">
+          <object class="GtkHButtonBox" id="dialog-action_area17">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="layout_style">center</property>
@@ -2796,13 +2809,12 @@ do you want to save the changes?</property>
     <property name="type_hint">normal</property>
     <property name="transient_for">window</property>
     <child internal-child="vbox">
-      <object class="GtkBox" id="dialog-vbox7">
+      <object class="GtkVBox" id="dialog-vbox7">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="orientation">vertical</property>
         <property name="spacing">2</property>
         <child internal-child="action_area">
-          <object class="GtkButtonBox" id="dialog-action_area7">
+          <object class="GtkHButtonBox" id="dialog-action_area7">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="layout_style">center</property>
@@ -2954,13 +2966,12 @@ do you want to save the changes?</property>
     <property name="type_hint">normal</property>
     <property name="transient_for">window</property>
     <child internal-child="vbox">
-      <object class="GtkBox" id="dialog-vbox3">
+      <object class="GtkVBox" id="dialog-vbox3">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="orientation">vertical</property>
         <property name="spacing">2</property>
         <child internal-child="action_area">
-          <object class="GtkButtonBox" id="dialog-action_area3">
+          <object class="GtkHButtonBox" id="dialog-action_area3">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="layout_style">center</property>
@@ -3034,6 +3045,8 @@ do you want to save the changes?</property>
                                     <property name="invisible_char">●</property>
                                     <property name="primary_icon_activatable">False</property>
                                     <property name="secondary_icon_activatable">False</property>
+                                    <property name="primary_icon_sensitive">True</property>
+                                    <property name="secondary_icon_sensitive">True</property>
                                     <property name="adjustment">adjustment_tab_width</property>
                                     <signal name="value-changed" handler="on_spinbutton_tab_width_value_changed" swapped="no"/>
                                   </object>
@@ -3460,6 +3473,8 @@ do you want to save the changes?</property>
                                     <property name="invisible_char_set">True</property>
                                     <property name="primary_icon_activatable">False</property>
                                     <property name="secondary_icon_activatable">False</property>
+                                    <property name="primary_icon_sensitive">True</property>
+                                    <property name="secondary_icon_sensitive">True</property>
                                     <signal name="changed" handler="on_entry_custom_weblink_cmd_changed" swapped="no"/>
                                   </object>
                                   <packing>
@@ -3529,6 +3544,8 @@ do you want to save the changes?</property>
                                     <property name="invisible_char_set">True</property>
                                     <property name="primary_icon_activatable">False</property>
                                     <property name="secondary_icon_activatable">False</property>
+                                    <property name="primary_icon_sensitive">True</property>
+                                    <property name="secondary_icon_sensitive">True</property>
                                     <signal name="changed" handler="on_entry_custom_filelink_cmd_changed" swapped="no"/>
                                   </object>
                                   <packing>
@@ -3598,6 +3615,8 @@ do you want to save the changes?</property>
                                     <property name="invisible_char_set">True</property>
                                     <property name="primary_icon_activatable">False</property>
                                     <property name="secondary_icon_activatable">False</property>
+                                    <property name="primary_icon_sensitive">True</property>
+                                    <property name="secondary_icon_sensitive">True</property>
                                     <signal name="changed" handler="on_entry_custom_folderlink_cmd_changed" swapped="no"/>
                                   </object>
                                   <packing>
@@ -3701,6 +3720,8 @@ do you want to save the changes?</property>
                                     <property name="invisible_char">●</property>
                                     <property name="primary_icon_activatable">False</property>
                                     <property name="secondary_icon_activatable">False</property>
+                                    <property name="primary_icon_sensitive">True</property>
+                                    <property name="secondary_icon_sensitive">True</property>
                                     <property name="adjustment">adjustment_tree_nodes_names_width</property>
                                     <signal name="value-changed" handler="on_spinbutton_tree_nodes_names_width_value_changed" swapped="no"/>
                                   </object>
@@ -3871,6 +3892,8 @@ do you want to save the changes?</property>
                                     <property name="invisible_char_set">True</property>
                                     <property name="primary_icon_activatable">False</property>
                                     <property name="secondary_icon_activatable">False</property>
+                                    <property name="primary_icon_sensitive">True</property>
+                                    <property name="secondary_icon_sensitive">True</property>
                                     <property name="adjustment">adjustment_autosave</property>
                                   </object>
                                   <packing>
@@ -4058,6 +4081,8 @@ do you want to save the changes?</property>
                                     <property name="invisible_char_set">True</property>
                                     <property name="primary_icon_activatable">False</property>
                                     <property name="secondary_icon_activatable">False</property>
+                                    <property name="primary_icon_sensitive">True</property>
+                                    <property name="secondary_icon_sensitive">True</property>
                                     <signal name="changed" handler="on_entry_timestamp_format_changed" swapped="no"/>
                                   </object>
                                   <packing>
@@ -4072,7 +4097,7 @@ do you want to save the changes?</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
                                     <property name="has_tooltip">True</property>
-                                    <property name="tooltip_markup" translatable="yes">Detail of Available Format Codes</property>
+                                    <property name="tooltip_markup">Detail of Available Format Codes</property>
                                     <property name="tooltip_text" translatable="yes">Detail of Available Format Codes</property>
                                     <property name="use_action_appearance">False</property>
                                     <signal name="clicked" handler="on_button_strftime_help_clicked" swapped="no"/>
@@ -4122,6 +4147,8 @@ do you want to save the changes?</property>
                                     <property name="invisible_char_set">True</property>
                                     <property name="primary_icon_activatable">False</property>
                                     <property name="secondary_icon_activatable">False</property>
+                                    <property name="primary_icon_sensitive">True</property>
+                                    <property name="secondary_icon_sensitive">True</property>
                                     <property name="adjustment">adjustment_limit_undoable_steps</property>
                                     <signal name="value-changed" handler="on_spinbutton_limit_undoable_steps_value_changed" swapped="no"/>
                                   </object>
@@ -4241,13 +4268,12 @@ do you want to save the changes?</property>
     <property name="type_hint">normal</property>
     <property name="transient_for">window</property>
     <child internal-child="vbox">
-      <object class="GtkBox" id="dialog-vbox10">
+      <object class="GtkVBox" id="dialog-vbox10">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="orientation">vertical</property>
         <property name="spacing">2</property>
         <child internal-child="action_area">
-          <object class="GtkButtonBox" id="dialog-action_area10">
+          <object class="GtkHButtonBox" id="dialog-action_area10">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="layout_style">center</property>
@@ -4382,6 +4408,8 @@ do you want to save the changes?</property>
                             <property name="invisible_char">●</property>
                             <property name="primary_icon_activatable">False</property>
                             <property name="secondary_icon_activatable">False</property>
+                            <property name="primary_icon_sensitive">True</property>
+                            <property name="secondary_icon_sensitive">True</property>
                             <property name="adjustment">adjustment_table_rows</property>
                           </object>
                           <packing>
@@ -4410,6 +4438,8 @@ do you want to save the changes?</property>
                             <property name="invisible_char">●</property>
                             <property name="primary_icon_activatable">False</property>
                             <property name="secondary_icon_activatable">False</property>
+                            <property name="primary_icon_sensitive">True</property>
+                            <property name="secondary_icon_sensitive">True</property>
                             <property name="adjustment">adjustment_table_columns</property>
                           </object>
                           <packing>
@@ -4464,6 +4494,8 @@ do you want to save the changes?</property>
                             <property name="invisible_char">●</property>
                             <property name="primary_icon_activatable">False</property>
                             <property name="secondary_icon_activatable">False</property>
+                            <property name="primary_icon_sensitive">True</property>
+                            <property name="secondary_icon_sensitive">True</property>
                             <property name="adjustment">adjustment_table_col_min</property>
                           </object>
                           <packing>
@@ -4493,6 +4525,8 @@ do you want to save the changes?</property>
                             <property name="invisible_char">●</property>
                             <property name="primary_icon_activatable">False</property>
                             <property name="secondary_icon_activatable">False</property>
+                            <property name="primary_icon_sensitive">True</property>
+                            <property name="secondary_icon_sensitive">True</property>
                             <property name="adjustment">adjustment_table_col_max</property>
                           </object>
                           <packing>
@@ -4553,6 +4587,8 @@ do you want to save the changes?</property>
                     <property name="invisible_char">●</property>
                     <property name="primary_icon_activatable">False</property>
                     <property name="secondary_icon_activatable">False</property>
+                    <property name="primary_icon_sensitive">True</property>
+                    <property name="secondary_icon_sensitive">True</property>
                   </object>
                   <packing>
                     <property name="expand">True</property>
@@ -4686,6 +4722,8 @@ do you want to save the changes?</property>
                         <property name="invisible_char">●</property>
                         <property name="primary_icon_activatable">False</property>
                         <property name="secondary_icon_activatable">False</property>
+                        <property name="primary_icon_sensitive">True</property>
+                        <property name="secondary_icon_sensitive">True</property>
                       </object>
                       <packing>
                         <property name="expand">True</property>

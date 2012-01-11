@@ -2,7 +2,7 @@ Source: cherrytree
 Section: utils
 Priority: optional
 Maintainer: Giuseppe Penone <giuspen@gmail.com>
-Build-Depends: debhelper (>= 7), python-central (>=0.5.6), python (>=2.5), python-gtk2 (>=2.20), python-gnome2 (>=2.28), python-gnomeapplet (>=2.30)
+Build-Depends: debhelper (>= 7), python-central (>=0.5.6), python (>=2.5), python-gtk2 (>=2.16), python-gnome2 (>=2.28), python-gnomeapplet (>=2.30)
 Standards-Version: 3.8.1
 Homepage: http://www.giuspen.com/cherrytree/
 
@@ -10,6 +10,6 @@ Package: cherrytree
 Architecture: all
 XS-Python-Version: >=2.5
 XB-Python-Version: >=2.5
-Depends: python (>=2.5), python-gtk2 (>=2.20), python-gtksourceview2, p7zip-full
+Depends: python (>=2.5), python-gtk2 (>=2.16), python-gtksourceview2, p7zip-full
 Description: Hierarchical Note Taking
  A hierarchical note taking application, featuring rich text and syntax highlighting, storing all the data (including images) in a single xml file with extension ".ctd"
