@@ -1377,6 +1377,8 @@ class CherryTree:
         self.state_machine.reset()
         self.sourceview.set_sensitive(False)
         if "db" in dir(self) and self.db: self.db.close()
+        for filepath_tmp in self.ctdb_handler.remove_at_quit_set: os.remove(filepath_tmp)
+        self.ctdb_handler.reset()
         return True
 
     def export_to_ctd(self, action):

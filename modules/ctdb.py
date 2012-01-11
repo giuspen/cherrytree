@@ -35,6 +35,13 @@ class CTDBHandler:
         self.bookmarks_to_write = False
         self.remove_at_quit_set = set()
     
+    def reset(self):
+        """Reset Variables"""
+        self.nodes_to_write_dict = {}
+        self.nodes_to_rm_set.clear()
+        self.bookmarks_to_write = False
+        self.remove_at_quit_set.clear()
+    
     def pending_data_write(self, db):
         """Write pending data"""
         need_to_commit = False
