@@ -145,11 +145,15 @@ class CTDBHandler:
     def pending_edit_db_bookmarks(self):
         """Pending Bookmarks Update"""
         if self.dad.filetype not in ["b", "x"]: return
+        if not self.dad.user_active: return
+        print "pending_edit_db_bookmarks"
         self.bookmarks_to_write = True
     
     def pending_edit_db_node_prop(self, node_id):
         """Pending Node Needs 'prop' Update"""
         if self.dad.filetype not in ["b", "x"]: return
+        if not self.dad.user_active: return
+        print "pending_edit_db_node_prop", node_id
         if node_id in self.nodes_to_write_dict:
             self.nodes_to_write_dict[node_id]['prop'] = True
         else:
@@ -159,6 +163,8 @@ class CTDBHandler:
     def pending_edit_db_node_buff(self, node_id):
         """Pending Node Needs 'buff' Update"""
         if self.dad.filetype not in ["b", "x"]: return
+        if not self.dad.user_active: return
+        print "pending_edit_db_node_buff", node_id
         if node_id in self.nodes_to_write_dict:
             self.nodes_to_write_dict[node_id]['buff'] = True
         else:
@@ -168,6 +174,8 @@ class CTDBHandler:
     def pending_edit_db_node_hier(self, node_id):
         """Pending Node Needs 'hier' Update"""
         if self.dad.filetype not in ["b", "x"]: return
+        if not self.dad.user_active: return
+        print "pending_edit_db_node_hier", node_id
         if node_id in self.nodes_to_write_dict:
             self.nodes_to_write_dict[node_id]['hier'] = True
         else:
@@ -177,12 +185,15 @@ class CTDBHandler:
     def pending_new_db_node(self, node_id):
         """Pending Add a Node to DB"""
         if self.dad.filetype not in ["b", "x"]: return
+        print "pending_new_db_node", node_id
         write_dict = {'upd': False, 'prop': True, 'buff': True, 'hier': True, 'child': False}
         self.nodes_to_write_dict[node_id] = write_dict
     
     def pending_rm_db_node(self, node_id):
         """Pending RM a Node from DB"""
         if self.dad.filetype not in ["b", "x"]: return
+        if not self.dad.user_active: return
+        print "pending_rm_db_node", node_id
         if node_id in self.nodes_to_write_dict:
             # no need to write changes to a node that got to be removed
             node_just_inserted = not self.nodes_to_write_dict[node_id]['upd']
