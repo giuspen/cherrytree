@@ -1141,13 +1141,13 @@ class CherryTree:
 
     def dialog_choose_data_storage(self, *args):
         """Choose the CherryTree data storage type (xml or db) and protection"""
-        dialog = gtk.Dialog(title=_("Choose Storage Type/Protection"),
+        dialog = gtk.Dialog(title=_("Choose Storage Type and Protection"),
                             parent=self.window,
                             flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
                             buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
                             gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
         dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-        dialog.set_default_size(300, -1)
+        dialog.set_default_size(350, -1)
         radiobutton_xml = gtk.RadioButton(label=_("XML File"))
         radiobutton_db = gtk.RadioButton(label=_("SQLite File"))
         radiobutton_db.set_group(radiobutton_xml)
