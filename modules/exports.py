@@ -30,21 +30,27 @@ class Export2CTD:
         """Export to Txt boot"""
         self.dad = dad
 
-    def get_single_ctd_filepath(self, proposed_name, filter_pattern):
+    def get_single_ct_filepath(self, filename_hint):
         """Prepare for the CTD file save"""
-        filepath = support.dialog_file_save_as(proposed_name,
-                                               filter_pattern=filter_pattern,
+        restore_passw = self.dad.password
+        restore_filetype = self.dad.filetype
+        if not self.dad.dialog_choose_data_storage(): return ""
+        filepath = support.dialog_file_save_as(filename_hint,
+                                               filter_pattern="*.ct*",
                                                filter_name=_("CherryTree Document"),
                                                curr_folder=self.dad.file_dir,
                                                parent=self.dad.window)
-        if filepath == None: return None
-        return self.dad.filepath_extension_fix(filepath)
+        if filepath: filepath = self.dad.filepath_extension_fix(filepath)
+        self.dad.password = restore_passw
+        self.dad.filetype = restore_filetype
+        return filepath
 
     def nodes_all_export_to_ctd(self, filepath):
         """Export All Nodes To CTD"""
         try: xml_string = self.dad.xml_handler.treestore_to_dom()
         except:
             support.dialog_error("%s write failed - all nodes to xml" % filepath, self.dad.window)
+            raise
             return
         try: self.dad.file_write_low_level(filepath, xml_string, True)
         except: support.dialog_error("%s write failed - writing to disk" % filepath, self.dad.window)
@@ -54,6 +60,7 @@ class Export2CTD:
         try: xml_string = self.dad.xml_handler.treestore_sel_node_and_subnodes_to_dom(tree_iter)
         except:
             support.dialog_error("%s write failed - sel node and subnodes to xml" % filepath, self.dad.window)
+            raise
             return
         try: self.dad.file_write_low_level(filepath, xml_string, True)
         except: support.dialog_error("%s write failed - writing to disk" % filepath, self.dad.window)
@@ -63,6 +70,7 @@ class Export2CTD:
         try: xml_string = self.dad.xml_handler.treestore_sel_node_only_to_dom(tree_iter)
         except:
             support.dialog_error("%s write failed - sel node to xml" % filepath, self.dad.window)
+            raise
             return
         try: self.dad.file_write_low_level(filepath, xml_string, True)
         except: support.dialog_error("%s write failed - writing to disk" % filepath, self.dad.window)

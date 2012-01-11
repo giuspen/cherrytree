@@ -1196,10 +1196,10 @@ class CherryTree:
         if new_protection['on']:
             if new_protection['p1'] == "":
                 support.dialog_error(_("The Password Fields Must be Filled"), self.window)
-                return
+                return False
             if new_protection['p1'] != new_protection['p2']:
                 support.dialog_error(_("The Two Inserted Passwords Do Not Match"), self.window)
-                return
+                return False
             if not new_protection['p1'] or not self.is_7za_available(): return False
             self.password = new_protection['p1']
         else: self.password = None
@@ -1377,28 +1377,24 @@ class CherryTree:
         export_type = support.dialog_selnode_selnodeandsub_alltree(self.window)
         if export_type == 0: return
         ctd_handler = exports.Export2CTD(self)
-        if self.password: filter_pattern = "*.ctz"
-        else: filter_pattern = "*.ctd"
         if export_type == 1:
             # only selected node
             proposed_name = support.get_node_hierarchical_name(self, self.curr_tree_iter)
-            if self.password: proposed_name += ".ctz"
-            else: proposed_name += ".ctd"
-            ctd_filepath = ctd_handler.get_single_ctd_filepath(proposed_name, filter_pattern)
+            proposed_name = self.filepath_extension_fix(proposed_name)
+            ctd_filepath = ctd_handler.get_single_ct_filepath(proposed_name)
             if ctd_filepath:
                 ctd_handler.node_export_to_ctd(self.curr_tree_iter, ctd_filepath)
         elif export_type == 2:
             # selected node and subnodes
             proposed_name = support.get_node_hierarchical_name(self, self.curr_tree_iter)
-            if self.password: proposed_name += ".ctz"
-            else: proposed_name += ".ctd"
-            ctd_filepath = ctd_handler.get_single_ctd_filepath(proposed_name, filter_pattern)
+            proposed_name = self.filepath_extension_fix(proposed_name)
+            ctd_filepath = ctd_handler.get_single_ct_filepath(proposed_name)
             if ctd_filepath:
                 ctd_handler.node_and_subnodes_export_to_ctd(self.curr_tree_iter, ctd_filepath)
         else:
             # all nodes
             proposed_name = self.file_name
-            ctd_filepath = ctd_handler.get_single_ctd_filepath(proposed_name, filter_pattern)
+            ctd_filepath = ctd_handler.get_single_ct_filepath(proposed_name)
             if ctd_filepath:
                 ctd_handler.nodes_all_export_to_ctd(ctd_filepath)
 
