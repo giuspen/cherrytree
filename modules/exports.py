@@ -102,6 +102,7 @@ class ExportPrint:
             self.nodes_all_export_print_iter(tree_iter)
             if top_tree_iter: break
             tree_iter = self.dad.treestore.iter_next(tree_iter)
+        self.dad.objects_buffer_refresh()
         self.run_print()
 
     def nodes_all_export_print_iter(self, tree_iter):
@@ -181,6 +182,7 @@ class Export2Txt:
             self.nodes_all_export_to_txt_iter(tree_iter)
             if top_tree_iter: break
             tree_iter = self.dad.treestore.iter_next(tree_iter)
+        self.dad.objects_buffer_refresh()
 
     def nodes_all_export_to_txt_iter(self, tree_iter):
         """Export All Nodes To Txt - iter"""
@@ -354,6 +356,7 @@ class Export2Html:
             if top_tree_iter: break
             tree_iter = self.dad.treestore.iter_next(tree_iter)
         self.tree_links_text = ""
+        self.dad.objects_buffer_refresh()
 
     def nodes_all_export_to_html_iter(self, tree_iter):
         """Export All Nodes To HTML - iter"""
@@ -389,7 +392,7 @@ class Export2Html:
         file_descriptor.close()
 
     def node_export_to_html(self, tree_iter):
-        """Export the Selected Node To HTML"""
+        """Export a Node To HTML"""
         html_text = cons.HTML_HEADER % self.dad.treestore[tree_iter][1]
         if self.tree_links_text:
             html_text += r'<table width="100%"><tr>'

@@ -2743,6 +2743,7 @@ class CherryTree:
         while tree_iter != None:
             self.tree_info_iter(tree_iter)
             tree_iter = self.treestore.iter_next(tree_iter)
+        self.objects_buffer_refresh()
         label = gtk.Label("%s" % self.summary_nodes_text_num)
         table.attach(label, 1, 2, 0, 1)
         label = gtk.Label("%s" % self.summary_nodes_code_num)
