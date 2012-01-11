@@ -1406,7 +1406,7 @@ class CherryTree:
                 ctd_handler.node_and_subnodes_export_to_ctd(self.curr_tree_iter, ctd_filepath)
         else:
             # all nodes
-            proposed_name = self.file_name
+            proposed_name = self.file_name[:-1] + self.filetype
             ctd_filepath = ctd_handler.get_single_ct_filepath(proposed_name)
             if ctd_filepath:
                 ctd_handler.nodes_all_export_to_ctd(ctd_filepath)
