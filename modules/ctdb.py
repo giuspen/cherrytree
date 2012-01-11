@@ -112,7 +112,7 @@ class CTDBHandler:
         """Returns DB connection descriptor given the dbpath"""
         return sqlite3.connect(dbpath)
     
-    def new_db(self, dbpath):
+    def new_db(self, dbpath, exporting=""):
         """Create a new DataBase"""
         if os.path.isfile(dbpath): os.remove(dbpath)
         db = self.get_connected_db_from_dbpath(dbpath)
@@ -122,7 +122,7 @@ class CTDBHandler:
         db.execute(cons.TABLE_IMAGE_CREATE)
         db.execute(cons.TABLE_CHILDREN_CREATE)
         db.execute(cons.TABLE_BOOKMARK_CREATE)
-        self.write_db_full(db)
+        self.write_db_full(db, exporting)
         db.commit()
         return db
     
@@ -196,7 +196,7 @@ class CTDBHandler:
         for child_row in children_rows:
             self.remove_db_node_n_children(db, child_row['node_id'])
     
-    def write_db_node(self, db, tree_iter, level, sequence, node_father_id, write_dict):
+    def write_db_node(self, db, tree_iter, level, sequence, node_father_id, write_dict, exporting=""):
         """Write a node in DB"""
         node_id = self.dad.treestore[tree_iter][3]
         print "write node content, node_id", node_id, ", write_dict", write_dict
@@ -208,7 +208,8 @@ class CTDBHandler:
         if write_dict['buff']:
             if not self.dad.treestore[tree_iter][2]:
                 # we are using db storage and the buffer was not created yet
-                self.read_db_node_content(tree_iter, self.dad.db_old)
+                if exporting: self.read_db_node_content(tree_iter, self.dad.db)
+                else: self.read_db_node_content(tree_iter, self.dad.db_old)
             curr_buffer = self.dad.treestore[tree_iter][2]
             start_iter = curr_buffer.get_start_iter()
             end_iter = curr_buffer.get_end_iter()
@@ -293,21 +294,25 @@ class CTDBHandler:
         child_sequence = 0
         while child_tree_iter != None:
             child_sequence += 1
-            self.write_db_node(db, child_tree_iter, level+1, child_sequence, node_id, write_dict)
+            self.write_db_node(db, child_tree_iter, level+1, child_sequence, node_id, write_dict, exporting)
             child_tree_iter = self.dad.treestore.iter_next(child_tree_iter)
     
-    def write_db_full(self, db):
+    def write_db_full(self, db, exporting=""):
         """Write the whole DB"""
-        tree_iter = self.dad.treestore.get_iter_first()
+        if not exporting or exporting == "a": tree_iter = self.dad.treestore.get_iter_first()
+        else: tree_iter = self.dad.curr_tree_iter
         level = 0
         sequence = 0
         node_father_id = 0
-        write_dict = {'upd': False, 'prop': True, 'buff': True, 'hier': True, 'child': True}
+        if exporting == "n":
+            write_dict = {'upd': False, 'prop': True, 'buff': True, 'hier': True, 'child': False}
+        else: write_dict = {'upd': False, 'prop': True, 'buff': True, 'hier': True, 'child': True}
         while tree_iter != None:
             sequence += 1
-            self.write_db_node(db, tree_iter, level, sequence, node_father_id, write_dict)
-            tree_iter = self.dad.treestore.iter_next(tree_iter)
-        self.write_db_bookmarks(db)
+            self.write_db_node(db, tree_iter, level, sequence, node_father_id, write_dict, exporting)
+            if not exporting or exporting == "a": tree_iter = self.dad.treestore.iter_next(tree_iter)
+            else: break
+        if not exporting or exporting == "a": self.write_db_bookmarks(db)
     
     def add_node_codebox(self, codebox_row, text_buffer):
         """Add Codebox to Text Buffer"""

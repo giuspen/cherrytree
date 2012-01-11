@@ -1043,7 +1043,7 @@ class CherryTree:
                 self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
         else: self.file_save_as()
 
-    def file_write_low_level(self, filepath, xml_string, first_write):
+    def file_write_low_level(self, filepath, xml_string, first_write, exporting=""):
         """File Write Low Level (ctd, ctb, ctz, ctx)"""
         if self.password:
             if not os.path.isdir(cons.TMP_FOLDER): os.mkdir(cons.TMP_FOLDER)
@@ -1052,17 +1052,27 @@ class CherryTree:
             if xml_string: file_descriptor = open(filepath_tmp, 'w')
             else:
                 if first_write:
-                    if "db" in dir(self): self.db_old = self.db
-                    self.db = self.ctdb_handler.new_db(filepath_tmp)
-                    if "db_old" in dir(self): self.db_old.close()
+                    if not exporting:
+                        if "db" in dir(self): self.db_old = self.db
+                        self.db = self.ctdb_handler.new_db(filepath_tmp)
+                        if "db_old" in dir(self): self.db_old.close()
+                    elif exporting in ["a", "s", "n"]:
+                        print "exporting", exporting
+                        exp_db = self.ctdb_handler.new_db(filepath_tmp, exporting)
+                        exp_db.close()
                 else: self.ctdb_handler.pending_data_write(self.db)
         else:
             if xml_string: file_descriptor = open(filepath, 'w')
             else:
                 if first_write:
-                    if "db" in dir(self): self.db_old = self.db
-                    self.db = self.ctdb_handler.new_db(filepath)
-                    if "db_old" in dir(self): self.db_old.close()
+                    if not exporting:
+                        if "db" in dir(self): self.db_old = self.db
+                        self.db = self.ctdb_handler.new_db(filepath)
+                        if "db_old" in dir(self): self.db_old.close()
+                    elif exporting in ["a", "s", "n"]:
+                        print "exporting", exporting
+                        exp_db = self.ctdb_handler.new_db(filepath, exporting)
+                        exp_db.close()
                 else: self.ctdb_handler.pending_data_write(self.db)
         if xml_string:
             file_descriptor.write(xml_string)
@@ -1377,6 +1387,9 @@ class CherryTree:
         export_type = support.dialog_selnode_selnodeandsub_alltree(self.window)
         if export_type == 0: return
         ctd_handler = exports.Export2CTD(self)
+        restore_passw = self.password
+        restore_filetype = self.filetype
+        if not self.dialog_choose_data_storage(): return
         if export_type == 1:
             # only selected node
             proposed_name = support.get_node_hierarchical_name(self, self.curr_tree_iter)
@@ -1397,6 +1410,8 @@ class CherryTree:
             ctd_filepath = ctd_handler.get_single_ct_filepath(proposed_name)
             if ctd_filepath:
                 ctd_handler.nodes_all_export_to_ctd(ctd_filepath)
+        self.password = restore_passw
+        self.filetype = restore_filetype
 
     def export_to_txt(self, *args):
         """Export To Plain Text"""
