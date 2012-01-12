@@ -143,13 +143,13 @@ msgid "A Newer Version Is Available!"
 msgstr "Eine neue Version ist verfügbar!"
 
 #: modules/core.py:227
-#, fuzzy
 msgid "This is the Latest Version Available"
-msgstr "Eine neue Version ist verfügbar!"
+msgstr "Dies ist die aktuelle Version."
 
 #: modules/core.py:230
 msgid "Failed to Retrieve Latest Version Information - Try Again Later"
-msgstr ""
+msgstr "Informationen zu neue Versionen konnten nicht abgerufen werden. "
+"Bitte versuchen Sie es später noch einmal."
 
 #: modules/core.py:247 modules/core.py:3084 modules/core.py:3090
 #: modules/core.py:3557
@@ -220,17 +220,15 @@ msgstr "Schreibe auf Festplatte..."
 
 #: modules/core.py:1144
 msgid "Choose Storage Type and Protection"
-msgstr ""
+msgstr "Speichertyp und Schutz auswählen"
 
 #: modules/core.py:1151
-#, fuzzy
 msgid "XML File"
-msgstr "zu Datei"
+msgstr "XML"
 
 #: modules/core.py:1152
-#, fuzzy
 msgid "SQLite File"
-msgstr "Datei speichern"
+msgstr "SQLite"
 
 #: modules/core.py:1158
 msgid "Not Protected"
@@ -257,7 +255,7 @@ msgid ""
 "Binary Executable '7za' Not Found, Check The Package 'p7zip-full' to be "
 "Installed Properly"
 msgstr ""
-"7za nicht gefunden. Bitte überprüfen Sie, ob das Paket 'p7zip-full' korrekt "
+"7za wurde nicht gefunden. Bitte überprüfen Sie, ob das Paket 'p7zip-full' korrekt "
 "installiert ist."
 
 #: modules/core.py:1235
@@ -1767,7 +1765,6 @@ msgid "Code Font"
 msgstr "Code-Schriftart"
 
 #: glade/cherrytree.glade.h:60
-#, fuzzy
 msgid ""
 "Copyright © 2009-2012\n"
 "Giuseppe Penone <giuspen@gmail.com>"
