@@ -981,7 +981,7 @@ class CherryTree:
                 try: node_iter_to_focus = self.treestore.get_iter(self.node_path)
                 except: node_iter_to_focus = None
                 if node_iter_to_focus:
-                    self.treeview.set_cursor(self.node_path)
+                    self.treeview_safe_set_cursor(node_iter_to_focus)
                     self.sourceview.grab_focus()
                     self.curr_buffer.place_cursor(self.curr_buffer.get_iter_at_offset(self.cursor_position))
                     self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), 0.3)

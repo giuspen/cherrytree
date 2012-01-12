@@ -12,4 +12,4 @@ XS-Python-Version: >=2.5
 XB-Python-Version: >=2.5
 Depends: python (>=2.5), python-gtk2 (>=2.16), python-gtksourceview2, p7zip-full
 Description: Hierarchical Note Taking
- A hierarchical note taking application, featuring rich text and syntax highlighting, storing all the data (including images) in a single xml file with extension ".ctd"
+ A hierarchical note taking application, featuring rich text and syntax highlighting, storing all the data in a single xml or sqlite file

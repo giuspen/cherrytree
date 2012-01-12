@@ -2039,15 +2039,3 @@ msgstr "http://www.giuspen.com/cherrytree/"
 #: glade/cherrytree.glade.h:137
 msgid "pixels"
 msgstr "Pixel"
-
-#~ msgid "No Document is Opened"
-#~ msgstr "Kein Dokument geöffnet"
-
-#~ msgid "Document Protection"
-#~ msgstr "Dokumentenschutz"
-
-#~ msgid "Set _Document Protection"
-#~ msgstr "_Dokumentenschutz aktivieren"
-
-#~ msgid "Set Protection of the Current Document"
-#~ msgstr "Dokumentenschutz in der aktuellen Datei aktivieren"
