@@ -22,7 +22,7 @@
 
 import sys, os, __builtin__
 
-if os.path.isfile('modules/cons.py'): MODULES_PATH = 'modules'
+if os.path.isdir('glade'): MODULES_PATH = 'modules'
 else:
     SHARE_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'share')
     MODULES_PATH = os.path.join(SHARE_PATH, 'cherrytree', 'modules')
