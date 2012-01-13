@@ -144,13 +144,12 @@ msgid "A Newer Version Is Available!"
 msgstr "Une nouvelle version est disponible !"
 
 #: modules/core.py:227
-#, fuzzy
 msgid "This is the Latest Version Available"
-msgstr "Une nouvelle version est disponible !"
+msgstr "Vous disposez de la dernière version en date !"
 
 #: modules/core.py:230
 msgid "Failed to Retrieve Latest Version Information - Try Again Later"
-msgstr ""
+msgstr "Impossible de récupérer les informations de la dernière version en date - Essayez ultérieurement"
 
 #: modules/core.py:247 modules/core.py:3084 modules/core.py:3090
 #: modules/core.py:3557
@@ -221,17 +220,15 @@ msgstr "Écriture vers le Disque en cours ..."
 
 #: modules/core.py:1144
 msgid "Choose Storage Type and Protection"
-msgstr ""
+msgstr "Choisir un Mode de Stockage et une Protection"
 
 #: modules/core.py:1151
-#, fuzzy
 msgid "XML File"
-msgstr "Vers un Fichier"
+msgstr "Fichier XML"
 
 #: modules/core.py:1152
-#, fuzzy
 msgid "SQLite File"
-msgstr "Enregistrer le fichier"
+msgstr "Fichier SQLite"
 
 #: modules/core.py:1158
 msgid "Not Protected"
@@ -1767,12 +1764,11 @@ msgid "Code Font"
 msgstr "Police du Code"
 
 #: glade/cherrytree.glade.h:60
-#, fuzzy
 msgid ""
 "Copyright © 2009-2012\n"
 "Giuseppe Penone <giuspen@gmail.com>"
 msgstr ""
-"Copyright © 2009-2011\n"
+"Copyright © 2009-2012\n"
 "Giuseppe Penone <giuspen@gmail.com>"
 
 #: glade/cherrytree.glade.h:62
@@ -2042,15 +2038,3 @@ msgstr "http://www.giuspen.com/cherrytree/"
 #: glade/cherrytree.glade.h:137
 msgid "pixels"
 msgstr "pixels"
-
-#~ msgid "No Document is Opened"
-#~ msgstr "Aucun Document n'est ouvert"
-
-#~ msgid "Document Protection"
-#~ msgstr "Protection du Document"
-
-#~ msgid "Set _Document Protection"
-#~ msgstr "Dé_finir la Protection du Document"
-
-#~ msgid "Set Protection of the Current Document"
-#~ msgstr "Définir la Protection du Document sélectionné"
