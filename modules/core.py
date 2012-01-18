@@ -2249,20 +2249,29 @@ class CherryTree:
         self.update_window_save_needed()
         self.sourceview.grab_focus()
 
-    def switch_buffer_text_source(self, buffer, iter, new_syntax_highl):
-        """Switch TextBuffer -> SourceBuffer or SourceBuffer -> TextBuffer"""
-        self.user_active = False
-        node_text = buffer.get_text(*buffer.get_bounds())
-        self.treestore[iter][2] = self.buffer_create(new_syntax_highl)
-        self.treestore[iter][2].set_text(node_text)
-        self.sourceview.set_buffer(self.treestore[iter][2])
-        self.treestore[iter][2].connect('modified-changed', self.on_modified_changed)
-        if new_syntax_highl == cons.CUSTOM_COLORS_ID:
-            self.treestore[iter][2].connect('insert-text', self.on_text_insertion)
-            self.treestore[iter][2].connect('delete-range', self.on_text_removal)
+    def sourceview_set_properties(self, tree_iter, syntax_highl):
+        """Set sourceview properties according to current node"""
+        if syntax_highl == cons.CUSTOM_COLORS_ID:
+            self.treestore[tree_iter][2].connect('insert-text', self.on_text_insertion)
+            self.treestore[tree_iter][2].connect('delete-range', self.on_text_removal)
+            self.treestore[tree_iter][2].connect('mark-set', self.on_textbuffer_mark_set)
             self.sourceview.modify_font(pango.FontDescription(self.text_font))
+            self.sourceview.set_draw_spaces(0)
+            self.sourceview.set_highlight_current_line(False)
         else:
             self.sourceview.modify_font(pango.FontDescription(self.code_font))
+            if self.show_white_spaces: self.sourceview.set_draw_spaces(codeboxes.DRAW_SPACES_FLAGS)
+            if self.highl_curr_line: self.sourceview.set_highlight_current_line(True)
+
+    def switch_buffer_text_source(self, text_buffer, tree_iter, new_syntax_highl):
+        """Switch TextBuffer -> SourceBuffer or SourceBuffer -> TextBuffer"""
+        self.user_active = False
+        node_text = text_buffer.get_text(*text_buffer.get_bounds())
+        self.treestore[tree_iter][2] = self.buffer_create(new_syntax_highl)
+        self.treestore[tree_iter][2].set_text(node_text)
+        self.sourceview.set_buffer(self.treestore[tree_iter][2])
+        self.treestore[tree_iter][2].connect('modified-changed', self.on_modified_changed)
+        self.sourceview_set_properties(tree_iter, new_syntax_highl)
         self.user_active = True
 
     def on_node_changed(self, *args):
@@ -2282,17 +2291,7 @@ class CherryTree:
         self.sourceview.set_buffer(self.curr_buffer)
         self.syntax_highlighting = self.treestore[self.curr_tree_iter][4]
         self.curr_buffer.connect('modified-changed', self.on_modified_changed)
-        if self.syntax_highlighting == cons.CUSTOM_COLORS_ID:
-            self.curr_buffer.connect('insert-text', self.on_text_insertion)
-            self.curr_buffer.connect('delete-range', self.on_text_removal)
-            self.curr_buffer.connect('mark-set', self.on_textbuffer_mark_set)
-            self.sourceview.modify_font(pango.FontDescription(self.text_font))
-            self.sourceview.set_draw_spaces(0)
-            self.sourceview.set_highlight_current_line(False)
-        else:
-            self.sourceview.modify_font(pango.FontDescription(self.code_font))
-            if self.show_white_spaces: self.sourceview.set_draw_spaces(codeboxes.DRAW_SPACES_FLAGS)
-            if self.highl_curr_line: self.sourceview.set_highlight_current_line(True)
+        self.sourceview_set_properties(self.curr_tree_iter, self.syntax_highlighting)
         self.sourceview.set_sensitive(True)
         self.sourceview.set_editable(not self.treestore[self.curr_tree_iter][7])
         self.header_node_name_label.set_text("<big><b><i>"+cgi.escape(self.treestore[self.curr_tree_iter][1])+"</i></b></big>")
