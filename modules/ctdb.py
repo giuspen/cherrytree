@@ -97,7 +97,7 @@ class CTDBHandler:
                 dom_row.appendChild(dom_cell)
                 text_iter = table_dom.createTextNode(cell)
                 dom_cell.appendChild(text_iter)
-        txt = table_dom.toxml()
+        txt = (table_dom.toxml()).decode('utf-8')
         return (node_id, offset, justification, txt, col_min, col_max)
     
     def get_codebox_db_tuple(self, codebox_element, node_id):
@@ -281,7 +281,7 @@ class CTDBHandler:
                     db.executemany('INSERT INTO image VALUES(?,?,?,?,?)', images_tuples)
                 else: has_image = 0
                 # retrieve xml text
-                txt = self.dom.toxml()
+                txt = (self.dom.toxml()).decode('utf-8')
             else:
                 # not richtext
                 has_codebox = 0
