@@ -1742,14 +1742,9 @@ class CherryTree:
 
     def treeview_safe_set_cursor(self, tree_iter):
         """Set Cursor being sure the Node is Expanded"""
-        nodes_to_expand = []
-        father_iter = self.treestore.iter_parent(tree_iter)
-        while father_iter:
-            nodes_to_expand.insert(0, father_iter)
-            father_iter = self.treestore.iter_parent(father_iter)
-        for element_iter in nodes_to_expand:
-            self.treeview.expand_row(self.treestore.get_path(element_iter), open_all=False)
-        self.treeview.set_cursor(self.treestore.get_path(tree_iter))
+        tree_path = self.treestore.get_path(tree_iter)
+        self.treeview.expand_to_path(tree_path)
+        self.treeview.set_cursor(tree_path)
 
     def on_table_column_rename_radiobutton_toggled(self, radiobutton):
         """Table Column Rename Toggled"""
