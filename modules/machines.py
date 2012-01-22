@@ -284,7 +284,6 @@ class XMLHandler:
         while tree_iter != None:
             self.append_dom_node(tree_iter, cherrytree, to_disk=True)
             tree_iter = self.dad.treestore.iter_next(tree_iter)
-        self.dad.objects_buffer_refresh()
         self.append_bookmarks(cherrytree)
         return self.dom.toxml()
 
