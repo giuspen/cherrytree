@@ -307,7 +307,7 @@ class XMLHandler:
         # allocate and init the rich text attributes
         self.curr_attributes = {}
         for tag_property in cons.TAG_PROPERTIES: self.curr_attributes[tag_property] = ""
-        curr_buffer = self.dad.treestore[tree_iter][2]
+        curr_buffer = self.dad.get_textbuffer_from_tree_iter(tree_iter)
         start_iter = curr_buffer.get_start_iter()
         end_iter = curr_buffer.get_end_iter()
         if programming_language == cons.CUSTOM_COLORS_ID:
