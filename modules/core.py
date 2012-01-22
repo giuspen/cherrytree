@@ -1027,6 +1027,7 @@ class CherryTree:
             support.add_recent_document(self, filepath)
             self.update_window_save_not_needed()
             self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
+            self.objects_buffer_refresh()
 
     def filepath_extension_fix(self, filepath):
         """Check a filepath to have the proper extension"""
@@ -1406,12 +1407,18 @@ class CherryTree:
             ctd_filepath = ctd_handler.get_single_ct_filepath(proposed_name)
             if ctd_filepath:
                 ctd_handler.node_and_subnodes_export_to_ctd(self.curr_tree_iter, ctd_filepath)
+                if restore_filetype in ["b", "x"] and self.curr_tree_iter:
+                    self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
+                    self.objects_buffer_refresh()
         else:
             # all nodes
             proposed_name = self.file_name[:-1] + self.filetype
             ctd_filepath = ctd_handler.get_single_ct_filepath(proposed_name)
             if ctd_filepath:
                 ctd_handler.nodes_all_export_to_ctd(ctd_filepath)
+                if restore_filetype in ["b", "x"] and self.curr_tree_iter:
+                    self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
+                    self.objects_buffer_refresh()
         self.password = restore_passw
         self.filetype = restore_filetype
 
@@ -1456,10 +1463,16 @@ class CherryTree:
             folder_name = support.get_node_hierarchical_name(self, self.curr_tree_iter)
             if self.html_handler.prepare_html_folder(folder_name):
                 self.html_handler.nodes_all_export_to_html(self.curr_tree_iter)
+                if self.filetype in ["b", "x"] and self.curr_tree_iter:
+                    self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
+                    self.objects_buffer_refresh()
         else:
             # all nodes
             if self.html_handler.prepare_html_folder(self.file_name):
                 self.html_handler.nodes_all_export_to_html()
+                if self.filetype in ["b", "x"] and self.curr_tree_iter:
+                    self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
+                    self.objects_buffer_refresh()
 
     def export_print_page_setup(self, action):
         """Print Page Setup Operations"""
@@ -2500,6 +2513,7 @@ class CherryTree:
 
     def objects_buffer_refresh(self):
         """Buffer Refresh (Needed for Objects)"""
+        if not self.curr_tree_iter: return
         refresh = self.state_machine.requested_current_state(self.treestore[self.curr_tree_iter][3])
         # refresh is [ [rich_text, pixbuf_table_vector, cursor_position],... ]
         pixbuf_table_vector = refresh[1]
