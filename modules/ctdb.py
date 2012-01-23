@@ -117,7 +117,9 @@ class CTDBHandler:
     
     def get_connected_db_from_dbpath(self, dbpath):
         """Returns DB connection descriptor given the dbpath"""
-        return sqlite3.connect(dbpath)
+        db = sqlite3.connect(dbpath)
+        db.row_factory = sqlite3.Row
+        return db
     
     def new_db(self, dbpath, exporting=""):
         """Create a new DataBase"""
@@ -421,6 +423,7 @@ class CTDBHandler:
             except:
                 print "** failed to parse **"
                 print node_row['txt']
+                raise
                 return
             dom_node = dom.firstChild
             if not dom_node or dom_node.nodeName != "node":
@@ -524,7 +527,6 @@ class CTDBHandler:
         if not discard_ids:
             self.dad.xml_handler.reset_nodes_names()
             self.dad.bookmarks = []
-        db.row_factory = sqlite3.Row
         # tree nodes
         node_sequence = 0
         children_rows = self.get_children_rows_from_father_id(db, 0)
