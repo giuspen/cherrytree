@@ -1056,7 +1056,9 @@ class CherryTree:
                     if not exporting:
                         if "db" in dir(self): self.db_old = self.db
                         self.db = self.ctdb_handler.new_db(filepath_tmp)
-                        if "db_old" in dir(self): self.db_old.close()
+                        if "db_old" in dir(self):
+                            self.db_old.close()
+                            del self.db_old
                     elif exporting in ["a", "s", "n"]:
                         print "exporting", exporting
                         exp_db = self.ctdb_handler.new_db(filepath_tmp, exporting)
@@ -1092,10 +1094,13 @@ class CherryTree:
                                                         re.escape(filepath),
                                                         re.escape(filepath_tmp))
             #print bash_str
+            if not xml_string: self.db.close()
             ret_code = subprocess.call(bash_str, shell=True)
             #print ret_code
             if xml_string: os.remove(filepath_tmp)
-            else: self.ctdb_handler.remove_at_quit_set.add(filepath_tmp)
+            else:
+                self.db = self.ctdb_handler.get_connected_db_from_dbpath(filepath_tmp)
+                self.ctdb_handler.remove_at_quit_set.add(filepath_tmp)
 
     def file_write(self, filepath, first_write):
         """File Write"""
