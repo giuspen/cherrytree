@@ -1071,7 +1071,9 @@ class CherryTree:
                     if not exporting:
                         if "db" in dir(self): self.db_old = self.db
                         self.db = self.ctdb_handler.new_db(filepath)
-                        if "db_old" in dir(self): self.db_old.close()
+                        if "db_old" in dir(self):
+                            self.db_old.close()
+                            del self.db_old
                     elif exporting in ["a", "s", "n"]:
                         print "exporting", exporting
                         exp_db = self.ctdb_handler.new_db(filepath, exporting)
@@ -1080,6 +1082,10 @@ class CherryTree:
         if xml_string:
             file_descriptor.write(xml_string)
             file_descriptor.close()
+            if first_write and not exporting:
+                if "db" in dir(self) and self.db:
+                    self.db.close()
+                    del self.db
         if self.password:
             if sys.platform[0:3] == "win":
                 filepath_4win = support.windows_cmd_prepare_path(filepath)
@@ -1094,11 +1100,11 @@ class CherryTree:
                                                         re.escape(filepath),
                                                         re.escape(filepath_tmp))
             #print bash_str
-            if not xml_string: self.db.close()
+            if not xml_string and not exporting: self.db.close()
             ret_code = subprocess.call(bash_str, shell=True)
             #print ret_code
             if xml_string: os.remove(filepath_tmp)
-            else:
+            elif not exporting:
                 self.db = self.ctdb_handler.get_connected_db_from_dbpath(filepath_tmp)
                 self.ctdb_handler.remove_at_quit_set.add(filepath_tmp)
 
