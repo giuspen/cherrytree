@@ -3211,6 +3211,7 @@ class CherryTree:
         text_buffer.apply_tag_by_name(self.apply_tag_exist_or_create(tag_property, property_value),
                                            iter_sel_start, iter_sel_end)
         if self.user_active:
+            self.ctdb_handler.pending_edit_db_node_buff(self.treestore[self.curr_tree_iter][3])
             if self.file_update == False: self.update_window_save_needed() # file save needed
             self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
 
