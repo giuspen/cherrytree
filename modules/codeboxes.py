@@ -163,8 +163,7 @@ class CodeBoxesHandler:
         else: frame_width = self.dad.get_text_window_width()*anchor.frame_width/100
         anchor.frame.set_size_request(frame_width, anchor.frame_height)
         if from_shortcut:
-            self.dad.update_window_save_needed()
-            self.dad.state_machine.update_state(self.dad.treestore[self.dad.curr_tree_iter][3])
+            self.dad.update_window_save_needed("nbuf", True)
 
     def codebox_change_properties(self, action):
         """Change CodeBox Properties"""
@@ -191,8 +190,7 @@ class CodeBoxesHandler:
         self.curr_codebox_anchor.show_line_numbers = self.dad.glade.checkbutton_codebox_linenumbers.get_active()
         self.curr_codebox_anchor.sourceview.set_show_line_numbers(self.curr_codebox_anchor.show_line_numbers)
         self.codebox_apply_width_height(self.curr_codebox_anchor)
-        self.dad.update_window_save_needed()
-        self.dad.state_machine.update_state(self.dad.treestore[self.dad.curr_tree_iter][3])
+        self.dad.update_window_save_needed("nbuf", True)
 
     def on_key_press_sourceview_codebox(self, widget, event, anchor):
         """Extend the Default Right-Click Menu of the CodeBox"""

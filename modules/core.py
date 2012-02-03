@@ -999,8 +999,7 @@ class CherryTree:
     def on_modified_changed(self, sourcebuffer):
         """When the modification flag is changed"""
         if self.user_active and sourcebuffer.get_modified() == True:
-            self.ctdb_handler.pending_edit_db_node_buff(self.treestore[self.curr_tree_iter][3])
-            self.update_window_save_needed()
+            self.update_window_save_needed("nbuf")
 
     def file_save_as(self, *args):
         """Save the file providing a new name"""
@@ -1591,6 +1590,7 @@ class CherryTree:
                 if self.treestore[iter_child][4] != cons.CUSTOM_COLORS_ID:
                     self.set_sourcebuffer_syntax_highlight(self.treestore[iter_child][2],
                                                            self.treestore[iter_child][4])
+                self.ctdb_handler.pending_edit_db_node_prop(self.treestore[iter_child][3])
                 self.update_window_save_needed()
             self.node_inherit_syntax_iter(iter_child)
             iter_child = self.treestore.iter_next(iter_child)
@@ -2223,13 +2223,12 @@ class CherryTree:
         if new_iter == None:
             new_iter = self.treestore.iter_next(self.curr_tree_iter)
             if new_iter == None: new_iter = self.treestore.iter_parent(self.curr_tree_iter)
-        self.ctdb_handler.pending_rm_db_node(self.treestore[self.curr_tree_iter][3])
+        self.update_window_save_needed("ndel")
         self.treestore.remove(self.curr_tree_iter)
         self.curr_tree_iter = None
         if new_iter != None:
             self.treeview.set_cursor(self.treestore.get_path(new_iter))
             self.sourceview.grab_focus()
-        self.update_window_save_needed()
 
     def node_edit(self, *args):
         """Edit the Properties of the Selected Node"""
@@ -2251,13 +2250,10 @@ class CherryTree:
             # SWITCH TextBuffer -> SourceBuffer
             self.switch_buffer_text_source(self.curr_buffer, self.curr_tree_iter, self.syntax_highlighting)
             self.curr_buffer = self.treestore[self.curr_tree_iter][2]
-            change_rich_text_automatic_syntax = True
         elif self.treestore[self.curr_tree_iter][4] != cons.CUSTOM_COLORS_ID and self.syntax_highlighting == cons.CUSTOM_COLORS_ID:
             # SWITCH SourceBuffer -> TextBuffer
             self.switch_buffer_text_source(self.curr_buffer, self.curr_tree_iter, self.syntax_highlighting)
             self.curr_buffer = self.treestore[self.curr_tree_iter][2]
-            change_rich_text_automatic_syntax = True
-        else: change_rich_text_automatic_syntax = False
         self.treestore[self.curr_tree_iter][1] = node_name
         self.treestore[self.curr_tree_iter][4] = self.syntax_highlighting
         self.treestore[self.curr_tree_iter][6] = self.glade.tags_searching_entry.get_text()
@@ -2267,11 +2263,8 @@ class CherryTree:
         if self.syntax_highlighting != cons.CUSTOM_COLORS_ID:
             self.set_sourcebuffer_syntax_highlight(self.curr_buffer, self.syntax_highlighting)
         self.sourceview.set_editable(not self.treestore[self.curr_tree_iter][7])
-        self.ctdb_handler.pending_edit_db_node_prop(self.treestore[self.curr_tree_iter][3])
-        if change_rich_text_automatic_syntax:
-            self.ctdb_handler.pending_edit_db_node_buff(self.treestore[self.curr_tree_iter][3])
         self.update_selected_node_statusbar_info()
-        self.update_window_save_needed()
+        self.update_window_save_needed("npro")
         self.sourceview.grab_focus()
 
     def sourceview_set_properties(self, tree_iter, syntax_highl):
@@ -2298,6 +2291,7 @@ class CherryTree:
         self.treestore[tree_iter][2].connect('modified-changed', self.on_modified_changed)
         self.sourceview_set_properties(tree_iter, new_syntax_highl)
         self.user_active = True
+        self.ctdb_handler.pending_edit_db_node_buff(self.treestore[tree_iter][3])
 
     def on_node_changed(self, *args):
         """Actions to be triggered from the changing of node"""
@@ -2352,10 +2346,24 @@ class CherryTree:
                     elif "sourcebuffer" in anchor_dir: support.set_object_highlight(self, anchor.frame)
         except: pass
 
-    def update_window_save_needed(self):
+    def update_window_save_needed(self, update_type=None, new_state_machine=False):
         """Window title preceeded by an asterix"""
-        self.window_title_update(True)
-        self.file_update = True
+        if not self.file_update:
+            self.window_title_update(True)
+            self.file_update = True
+        if update_type:
+            if update_type == "nbuf":
+                if self.curr_tree_iter:
+                    self.ctdb_handler.pending_edit_db_node_buff(self.treestore[self.curr_tree_iter][3])
+            elif update_type == "npro":
+                if self.curr_tree_iter:
+                    self.ctdb_handler.pending_edit_db_node_prop(self.treestore[self.curr_tree_iter][3])
+            elif update_type == "ndel":
+                if self.curr_tree_iter:
+                    self.ctdb_handler.pending_rm_db_node(self.treestore[self.curr_tree_iter][3])
+            elif update_type == "book": self.ctdb_handler.pending_edit_db_bookmarks()
+        if new_state_machine and self.curr_tree_iter:
+            self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
 
     def update_window_save_not_needed(self):
         """Window title not preceeded by an asterix"""
@@ -2490,10 +2498,10 @@ class CherryTree:
                 self.curr_buffer.place_cursor(self.curr_buffer.get_iter_at_offset(step_back[2]))
                 self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), 0.3)
                 self.user_active = True
-                self.update_window_save_needed()
+                self.update_window_save_needed("nbuf")
         elif self.curr_buffer.can_undo():
             self.curr_buffer.undo()
-            self.update_window_save_needed()
+            self.update_window_save_needed("nbuf")
 
     def requested_step_ahead(self, *args):
         """Step Ahead for the Current Node, if Possible"""
@@ -2517,10 +2525,10 @@ class CherryTree:
                 self.curr_buffer.place_cursor(self.curr_buffer.get_iter_at_offset(step_ahead[2]))
                 self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), 0.3)
                 self.user_active = True
-                self.update_window_save_needed()
+                self.update_window_save_needed("nbuf")
         elif self.curr_buffer.can_redo():
             self.curr_buffer.redo()
-            self.update_window_save_needed()
+            self.update_window_save_needed("nbuf")
 
     def objects_buffer_refresh(self):
         """Buffer Refresh (Needed for Objects)"""
@@ -2723,12 +2731,12 @@ class CherryTree:
         return True
 
     def tree_cell_edited(self, cell, path, new_text):
-        """A Table Cell is going to be Edited"""
+        """A Tree Node Name is going to be Edited"""
         if new_text != self.treestore[path][1]:
             self.treestore[path][1] = new_text
             self.header_node_name_label.set_text("<big><b><i>"+new_text+"</i></b></big>")
             self.header_node_name_label.set_use_markup(True)
-            self.update_window_save_needed()
+            self.update_window_save_needed("npro")
 
     def tree_info(self, action):
         """Tree Summary Information"""
@@ -3211,9 +3219,7 @@ class CherryTree:
         text_buffer.apply_tag_by_name(self.apply_tag_exist_or_create(tag_property, property_value),
                                            iter_sel_start, iter_sel_end)
         if self.user_active:
-            self.ctdb_handler.pending_edit_db_node_buff(self.treestore[self.curr_tree_iter][3])
-            if self.file_update == False: self.update_window_save_needed() # file save needed
-            self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
+            self.update_window_save_needed("nbuf", True)
 
     def next_chars_from_iter_are(self, iter_start, num, chars):
         """Returns True if the Given Chars are the next 'num' after iter"""
@@ -3587,8 +3593,7 @@ class CherryTree:
             return
         iter_sel_start, iter_sel_end = self.curr_buffer.get_selection_bounds()
         self.curr_buffer.remove_all_tags(iter_sel_start, iter_sel_end)
-        self.update_window_save_needed()
-        self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
+        self.update_window_save_needed("nbuf", True)
 
     def bookmark_curr_node(self, *args):
         """Add the Current Node to the Bookmarks List"""
@@ -3599,13 +3604,12 @@ class CherryTree:
         if not curr_node_id_str in self.bookmarks:
             self.bookmarks.append(curr_node_id_str)
             support.set_bookmarks_menu_items(self)
-            self.ctdb_handler.pending_edit_db_bookmarks()
-            self.update_window_save_needed()
+            self.update_window_save_needed("book")
 
     def bookmarks_handle(self, *args):
         """Handle the Bookmarks List"""
         if support.bookmarks_handle(self):
-            self.update_window_save_needed()
+            self.update_window_save_needed("book")
     
     def timestamp_insert(self, *args):
         """Insert Timestamp"""
