@@ -205,8 +205,7 @@ class TablesHandler:
             if keyname in ["Return", "Up", "Down"]:
                 if model[path][col_num] != widget.get_text():
                     model[path][col_num] = widget.get_text()
-                    self.dad.state_machine.update_state(self.dad.treestore[self.dad.curr_tree_iter][3])
-                    self.dad.update_window_save_needed()
+                    self.dad.update_window_save_needed("nbuf", True)
                 if keyname == "Up":
                     if col_num > 0:
                         next_col_num = col_num - 1
@@ -249,8 +248,7 @@ class TablesHandler:
         """A Table Cell has been Edited"""
         if model[path][col_num] != new_text:
             model[path][col_num] = new_text
-            self.dad.state_machine.update_state(self.dad.treestore[self.dad.curr_tree_iter][3])
-            self.dad.update_window_save_needed()
+            self.dad.update_window_save_needed("nbuf", True)
 
     def table_column_clicked(self, column, anchor, col_num):
         """The Column Header was Clicked"""
@@ -345,8 +343,7 @@ class TablesHandler:
         elif action == "paste":
             if not self.dad.clipboard_handler.table_row_paste([model, iter]): return
         else: return
-        self.dad.update_window_save_needed()
-        self.dad.state_machine.update_state(self.dad.treestore[self.dad.curr_tree_iter][3])
+        self.dad.update_window_save_needed("nbuf", True)
 
     def table_row_add(self, *args):
         """Add a Table Row"""
