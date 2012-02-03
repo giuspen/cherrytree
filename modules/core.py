@@ -1581,6 +1581,7 @@ class CherryTree:
         iter_child = self.treestore.iter_children(iter_father)
         while iter_child != None:
             if self.treestore[iter_child][4] != self.treestore[iter_father][4]:
+                self.get_textbuffer_from_tree_iter(iter_child)
                 self.treestore[iter_child][4] = self.treestore[iter_father][4]
                 self.treestore[iter_child][0] = self.get_node_icon(self.treestore.iter_depth(iter_child),
                                                                    self.treestore[iter_child][4])
