@@ -867,6 +867,8 @@ class CherryTree:
             self.autosave[1] = new_autosave_value
             if self.autosave_timer_id != None: self.autosave_timer_stop()
         if self.autosave[0] and self.autosave_timer_id == None: self.autosave_timer_start()
+        # update config file (for people that do not close the app but just logout/shutdown)
+        config.config_file_save(self)
 
     def autosave_timer_start(self):
         """Start Autosave Timer"""
