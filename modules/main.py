@@ -138,7 +138,13 @@ def initializations():
         # change locale text domain
         import locale
         locale.bindtextdomain(cons.APP_NAME, cons.LOCALE_PATH)
-    except: print "locale.bindtextdomain not available, the glade i18n may not work properly"
+    except:
+        try:
+            from ctypes import cdll
+            libintl = cdll.intl
+            libintl.bindtextdomain(cons.APP_NAME, cons.LOCALE_PATH)
+        except:
+            print "bindtextdomain not available, the glade i18n will not work properly"
     # language installation
     if os.path.isfile(cons.LANG_PATH):
         lang_file_descriptor = file(cons.LANG_PATH, 'r')
