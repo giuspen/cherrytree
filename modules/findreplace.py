@@ -31,6 +31,7 @@ class FindReplace:
         """Lists Handler boot"""
         self.dad = dad
         self.replace_active = False
+        self.replace_subsequent = False
         self.curr_find = [None, ""] # [latest find type, latest find pattern]
         self.from_find_iterated = False
         self.from_find_back = False
@@ -54,7 +55,9 @@ class FindReplace:
         elif response == 2:
             # replace
             self.replace_active = True
+            self.replace_subsequent = True
             self.find_again()
+            self.replace_subsequent = False
         elif response == 3:
             # undo replace
             self.dad.requested_step_back()
@@ -373,8 +376,8 @@ class FindReplace:
         or (all_matches and not self.all_matches_first_in_node):
             iter_insert = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
             iter_bound = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_selection_bound())
-            if not self.replace_active:
-                # it's a find, so we want, given a selected word, to find for the subsequent one
+            if not self.replace_active or self.replace_subsequent:
+                # it's a find or subsequent replace, so we want, given a selected word, to find for the subsequent one
                 if forward:
                     if iter_bound != None and iter_insert.compare(iter_bound) < 0: start_iter = iter_bound
                     else: start_iter = iter_insert
@@ -382,7 +385,7 @@ class FindReplace:
                     if iter_bound != None and iter_insert.compare(iter_bound) > 0: start_iter = iter_bound
                     else: start_iter = iter_insert
             else:
-                # it's a replace, so we want, given a selected word, to replace starting from this one
+                # it's a first replace, so we want, given a selected word, to replace starting from this one
                 if forward:
                     if iter_bound != None and iter_insert.compare(iter_bound) > 0: start_iter = iter_bound
                     else: start_iter = iter_insert
@@ -489,8 +492,10 @@ class FindReplace:
     def replace_again(self):
         """Continue the previous replace (a_node/in_selected_node/in_all_nodes)"""
         self.replace_active = True
+        self.replace_subsequent = True
         self.find_again()
         self.replace_active = False
+        self.replace_subsequent = False
 
     def get_line_content(self, text_iter):
         """Returns the Line Content Given the Text Iter"""
