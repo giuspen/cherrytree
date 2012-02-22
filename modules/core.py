@@ -715,7 +715,10 @@ class CherryTree:
 
     def nodes_add_from_cherrytree_data(self, cherrytree_string, cherrytree_db=None):
         """Adds Nodes to the Tree Parsing a CherryTree XML String / CherryTree DB"""
-        self.user_active = False
+        if self.user_active:
+            self.user_active = False
+            user_active_restore = True
+        else: user_active_restore = False
         file_loaded = False
         former_node = self.curr_tree_iter # we'll restore after the import
         tree_father = None # init the value of the imported nodes father
@@ -743,7 +746,7 @@ class CherryTree:
             if radiobutton_curr_node.get_active(): tree_father = self.curr_tree_iter
             dialog.destroy()
             if response != gtk.RESPONSE_ACCEPT:
-                self.user_active = True
+                if user_active_restore: self.user_active = True
                 return
         try:
             if not cherrytree_db:
@@ -783,7 +786,7 @@ class CherryTree:
                     self.curr_buffer.place_cursor(self.curr_buffer.get_iter_at_offset(self.nodes_cursor_pos[self.treestore[former_node][3]]))
                     self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), 0.3)
         else: support.dialog_error('Error Parsing the CherryTree File', self.window)
-        self.user_active = True
+        if user_active_restore: self.user_active = True
 
     def nodes_expand_all(self, action):
         """Expand all Tree Nodes"""
@@ -1350,7 +1353,10 @@ class CherryTree:
             elif self.db == None: return # no error exit
         if document_loaded_ok:
             document_loaded_ok = False
-            self.user_active = False
+            if self.user_active:
+                self.user_active = False
+                user_active_restore = True
+            else: user_active_restore = False
             file_loaded = False
             if self.filetype in ["d", "z"]:
                 # xml
@@ -1367,7 +1373,7 @@ class CherryTree:
                 support.add_recent_document(self, filepath)
                 support.set_bookmarks_menu_items(self)
                 self.update_window_save_not_needed()
-            self.user_active = True
+            if user_active_restore: self.user_active = True
         if not document_loaded_ok:
             support.dialog_error(_('"%s" is Not a CherryTree Document') % filepath, self.window)
             self.file_name = ""
@@ -2286,14 +2292,17 @@ class CherryTree:
 
     def switch_buffer_text_source(self, text_buffer, tree_iter, new_syntax_highl):
         """Switch TextBuffer -> SourceBuffer or SourceBuffer -> TextBuffer"""
-        self.user_active = False
+        if self.user_active:
+            self.user_active = False
+            user_active_restore = True
+        else: user_active_restore = False
         node_text = text_buffer.get_text(*text_buffer.get_bounds())
         self.treestore[tree_iter][2] = self.buffer_create(new_syntax_highl)
         self.treestore[tree_iter][2].set_text(node_text)
         self.sourceview.set_buffer(self.treestore[tree_iter][2])
         self.treestore[tree_iter][2].connect('modified-changed', self.on_modified_changed)
         self.sourceview_set_properties(tree_iter, new_syntax_highl)
-        self.user_active = True
+        if user_active_restore: self.user_active = True
         self.ctdb_handler.pending_edit_db_node_buff(self.treestore[tree_iter][3])
 
     def on_node_changed(self, *args):
@@ -2302,9 +2311,10 @@ class CherryTree:
         if new_iter == None: return # no node selected
         elif self.curr_tree_iter != None and model[new_iter][3] == model[self.curr_tree_iter][3]:
             return # if i click on an already selected node
-        if self.curr_tree_iter != None:
-            self.nodes_cursor_pos[model[self.curr_tree_iter][3]] = self.curr_buffer.get_property('cursor-position')
-            if self.curr_buffer.get_modified() == True:
+        if self.curr_tree_iter:
+            if self.user_active:
+                self.nodes_cursor_pos[model[self.curr_tree_iter][3]] = self.curr_buffer.get_property('cursor-position')
+            if self.curr_buffer.get_modified():
                 self.file_update = True
                 self.curr_buffer.set_modified(False)
                 self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
@@ -2487,7 +2497,10 @@ class CherryTree:
             step_back = self.state_machine.requested_previous_state(self.treestore[self.curr_tree_iter][3])
             # step_back is [ [rich_text, pixbuf_table_vector, cursor_position],... ]
             if step_back != None:
-                self.user_active = False
+                if self.user_active:
+                    self.user_active = False
+                    user_active_restore = True
+                else: user_active_restore = False
                 self.xml_handler.dom_to_buffer(self.curr_buffer, step_back[0])
                 pixbuf_table_vector = step_back[1]
                 # pixbuf_table_vector is [ [ "pixbuf"/"table"/"codebox", [offset, pixbuf, alignment] ],... ]
@@ -2500,7 +2513,7 @@ class CherryTree:
                 self.objects_buffer_refresh()
                 self.curr_buffer.place_cursor(self.curr_buffer.get_iter_at_offset(step_back[2]))
                 self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), 0.3)
-                self.user_active = True
+                if user_active_restore: self.user_active = True
                 self.update_window_save_needed("nbuf")
         elif self.curr_buffer.can_undo():
             self.curr_buffer.undo()
@@ -2514,7 +2527,10 @@ class CherryTree:
             step_ahead = self.state_machine.requested_subsequent_state(self.treestore[self.curr_tree_iter][3])
             # step_ahead is [ [rich_text, pixbuf_table_vector, cursor_position],... ]
             if step_ahead != None:
-                self.user_active = False
+                if self.user_active:
+                    self.user_active = False
+                    user_active_restore = True
+                else: user_active_restore = False
                 self.xml_handler.dom_to_buffer(self.curr_buffer, step_ahead[0])
                 pixbuf_table_vector = step_ahead[1]
                 # pixbuf_table_vector is [ [ "pixbuf"/"table", [offset, pixbuf, alignment] ],... ]
@@ -2527,7 +2543,7 @@ class CherryTree:
                 self.objects_buffer_refresh()
                 self.curr_buffer.place_cursor(self.curr_buffer.get_iter_at_offset(step_ahead[2]))
                 self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), 0.3)
-                self.user_active = True
+                if user_active_restore: self.user_active = True
                 self.update_window_save_needed("nbuf")
         elif self.curr_buffer.can_redo():
             self.curr_buffer.redo()
@@ -2540,7 +2556,10 @@ class CherryTree:
         # refresh is [ [rich_text, pixbuf_table_vector, cursor_position],... ]
         pixbuf_table_vector = refresh[1]
         if len(pixbuf_table_vector) > 0:
-            self.user_active = False
+            if self.user_active:
+                self.user_active = False
+                user_active_restore = True
+            else: user_active_restore = False
             self.curr_buffer.set_text("")
             self.xml_handler.dom_to_buffer(self.curr_buffer, refresh[0])
             for element in pixbuf_table_vector:
@@ -2548,7 +2567,7 @@ class CherryTree:
                 elif element[0] == "table": self.state_machine.load_embedded_table_element(self.curr_buffer, element[1])
                 elif element[0] == "codebox": self.state_machine.load_embedded_codebox_element(self.curr_buffer, element[1])
             self.curr_buffer.set_modified(False)
-            self.user_active = True
+            if user_active_restore: self.user_active = True
 
     def on_text_insertion(self, sourcebuffer, text_iter, text_inserted, length):
         """Text insertion callback"""
@@ -2945,7 +2964,10 @@ class CherryTree:
 
     def image_load_into_dialog(self):
         """Load/Reload the Image Under Editing"""
-        self.user_active = False
+        if self.user_active:
+            self.user_active = False
+            user_active_restore = True
+        else: user_active_restore = False
         self.glade.spinbutton_image_width.set_value(self.temp_image_width)
         self.glade.spinbutton_image_height.set_value(self.temp_image_height)
         if self.temp_image_width <= 900 and self.temp_image_height <= 600:
@@ -2965,7 +2987,7 @@ class CherryTree:
                                                        int(temp_image_height),
                                                        gtk.gdk.INTERP_BILINEAR)
         self.glade.image_under_editing.set_from_pixbuf(pixbuf)
-        self.user_active = True
+        if user_active_restore: self.user_active = True
 
     def on_button_rotate_90_cw_clicked(self, *args):
         """Image Edit - Rotate 90 ClockWise"""

@@ -177,7 +177,10 @@ def config_file_load(inst):
 
 def config_file_apply(inst):
     """Apply the Preferences from Config File"""
-    inst.user_active = False
+    if inst.user_active:
+        inst.user_active = False
+        user_active_restore = True
+    else: user_active_restore = False
     # treeview
     inst.hpaned.set_property('position', inst.hpaned_pos)
     inst.header_node_name_label.set_property("visible", inst.show_node_name_label)
@@ -244,7 +247,7 @@ def config_file_apply(inst):
     inst.ui.get_widget("/ToolBar").set_style(gtk.TOOLBAR_ICONS)
     inst.ui.get_widget("/ToolBar").set_property("icon-size", ICONS_SIZE[inst.toolbar_icon_size])
     if inst.autosave[0]: inst.autosave_timer_start()
-    inst.user_active = True
+    if user_active_restore: inst.user_active = True
 
 def config_file_save(inst):
     """Save the Preferences to Config File"""

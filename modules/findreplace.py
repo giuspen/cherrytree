@@ -146,6 +146,10 @@ class FindReplace:
         if all_matches: self.liststore_create_or_clean()
         config.get_tree_expanded_collapsed_string(self.dad)
         # searching start
+        if self.dad.user_active:
+            self.dad.user_active = False
+            user_active_restore = True
+        else: user_active_restore = False
         while node_iter:
             self.all_matches_first_in_node = True
             while self.parse_given_node_content(node_iter, pattern, forward, first_fromsel, all_matches):
@@ -183,6 +187,7 @@ class FindReplace:
                 self.dad.sourceview.scroll_to_mark(self.dad.curr_buffer.get_insert(), 0.3)
                 if self.dad.glade.checkbutton_iterated_find_dialog.get_active():
                     self.iterated_find_dialog()
+        if user_active_restore: self.dad.user_active = True
 
     def find_a_node(self, *args):
         """Search for a pattern between all the Node's Names"""

@@ -167,7 +167,10 @@ class CodeBoxesHandler:
 
     def codebox_change_properties(self, action):
         """Change CodeBox Properties"""
-        self.dad.user_active = False
+        if self.dad.user_active:
+            self.dad.user_active = False
+            user_active_restore = True
+        else: user_active_restore = False
         self.dad.glade.spinbutton_codebox_width.set_value(self.curr_codebox_anchor.frame_width)
         self.dad.glade.spinbutton_codebox_height.set_value(self.curr_codebox_anchor.frame_height)
         self.dad.glade.radiobutton_codebox_pixels.set_active(self.curr_codebox_anchor.width_in_pixels)
@@ -176,7 +179,7 @@ class CodeBoxesHandler:
         self.dad.glade.checkbutton_codebox_linenumbers.set_active(self.curr_codebox_anchor.show_line_numbers)
         self.dad.glade.combobox_prog_lang_codebox.set_active_iter(self.dad.get_combobox_prog_lang_iter(self.curr_codebox_anchor.syntax_highlighting))
         self.dad.glade.codeboxhandledialog.set_title(_("Edit CodeBox"))
-        self.dad.user_active = True
+        if user_active_restore: self.dad.user_active = True
         response = self.dad.glade.codeboxhandledialog.run()
         self.dad.glade.codeboxhandledialog.hide()
         if response != 1: return # the user aborted the operation
