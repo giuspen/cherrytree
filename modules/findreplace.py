@@ -319,7 +319,7 @@ class FindReplace:
                     self.dad.set_selection_at_offset_n_delta(match_offsets[0] + num_objs,
                                                              len(replacer_text))
                 self.dad.state_machine.update_state(self.dad.treestore[self.dad.curr_tree_iter][3])
-                self.ctdb_handler.pending_edit_db_node_buff(self.dad.treestore[self.dad.curr_tree_iter][3])
+                self.dad.ctdb_handler.pending_edit_db_node_buff(self.dad.treestore[self.dad.curr_tree_iter][3])
             return True
         else: return False
     
