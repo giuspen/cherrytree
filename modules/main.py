@@ -133,7 +133,8 @@ def initializations():
             import ctypes, ctypes.util
             libc = ctypes.cdll.LoadLibrary(ctypes.util.find_library("libc"))
             libc.prctl(15, cons.APP_NAME, 0, 0, 0)
-        except: print "libc.prctl not available, the process name will be python and not cherrytree"
+        except:
+            print "libc.prctl not available, the process name will be python and not cherrytree"
     try:
         # change locale text domain
         import locale
@@ -144,7 +145,13 @@ def initializations():
             libintl = cdll.intl
             libintl.bindtextdomain(cons.APP_NAME, cons.LOCALE_PATH)
         except:
-            print "bindtextdomain not available, the glade i18n will not work properly"
+            print "ctypes.cdll.intl.bindtextdomain not available, the glade i18n will not work properly"
+        try:
+            from ctypes import windll
+            lcid = windll.kernel32.GetUserDefaultUILanguage()
+            os.environ["LANGUAGE"] = cons.MICROSOFT_WINDOWS_LCID_to_ISO_LANG[lcid]
+        except:
+            print "ctypes.windll.kernel32.GetUserDefaultUILanguage, the i18n may not work properly"
     # language installation
     if os.path.isfile(cons.LANG_PATH):
         lang_file_descriptor = file(cons.LANG_PATH, 'r')
