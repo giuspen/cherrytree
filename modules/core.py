@@ -3053,6 +3053,14 @@ class CherryTree:
         """The Small Button was Pressed"""
         self.apply_tag("scale", "small")
 
+    def apply_tag_subscript(self, *args):
+        """The Subscript Button was Pressed"""
+        self.apply_tag("script", "sub")
+
+    def apply_tag_superscript(self, *args):
+        """The Superscript Button was Pressed"""
+        self.apply_tag("script", "sup")
+
     def apply_tag_h1(self, *args):
         """The H1 Button was Pressed"""
         self.apply_tag("scale", "h1")
@@ -3272,6 +3280,14 @@ class CherryTree:
             elif property_value == "left": tag.set_property(tag_property, gtk.JUSTIFY_LEFT)
             elif property_value == "right": tag.set_property(tag_property, gtk.JUSTIFY_RIGHT)
             elif property_value == "center": tag.set_property(tag_property, gtk.JUSTIFY_CENTER)
+            elif property_value == "sub":
+               tag.set_property("scale", pango.SCALE_X_SMALL)
+               rise = pango.FontDescription(self.text_font).get_size() / -4
+               tag.set_property("rise", rise)
+            elif property_value == "sup":
+               tag.set_property("scale", pango.SCALE_X_SMALL)
+               rise = pango.FontDescription(self.text_font).get_size() / 2
+               tag.set_property("rise", rise)
             elif property_value[0:4] == "webs":
                 tag.set_property("underline", pango.UNDERLINE_SINGLE)
                 tag.set_property("foreground", "#00000000ffff")
