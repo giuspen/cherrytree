@@ -126,6 +126,8 @@ STOCKS_N_FILES = {'Node Bullet':'node_bullet.png',
                   'Format Text Large':'format-text-large.png',
                   'Format Text Large2':'format-text-large2.png',
                   'Format Text Small':'format-text-small.png',
+                  'Format Text Subscript':'format-text-subscript.png',
+                  'Format Text Superscript':'format-text-superscript.png',
                   'Format Text Latest':'format_text_latest.png',
                   'Format Text':'format_text.png',
                   'Rotate Left':'object-rotate-left.png',
@@ -268,6 +270,8 @@ UI_INFO = """
             <menuitem action='H1'/>
             <menuitem action='H2'/>
             <menuitem action='Small'/>
+            <menuitem action='Superscript'/>
+            <menuitem action='Subscript'/>
             <separator/>
             <menuitem action='BulletedList'/>
             <menuitem action='NumberedList'/>
@@ -376,6 +380,8 @@ UI_INFO = """
         <toolitem action='H1'/>
         <toolitem action='H2'/>
         <toolitem action='Small'/>
+        <toolitem action='Superscript'/>
+        <toolitem action='Subscript'/>
         <toolitem action='FormatLatest'/>
     </toolbar>
 
@@ -497,6 +503,8 @@ def get_entries(inst):
     ( "H1", "Format Text Large", _("Toggle h_1 Property"), "<control>1", _("Toggle h1 Property of the Selected Text"), inst.apply_tag_h1),
     ( "H2", "Format Text Large2", _("Toggle h_2 Property"), "<control>2", _("Toggle h2 Property of the Selected Text"), inst.apply_tag_h2),
     ( "Small", "Format Text Small", _("Toggle _Small Property"), "<control>0", _("Toggle Small Property of the Selected Text"), inst.apply_tag_small),
+    ( "Superscript", "Format Text Superscript", _("Toggle Su_perscript Property"), None, _("Toggle Superscript Property of the Selected Text"), inst.apply_tag_superscript),
+    ( "Subscript", "Format Text Subscript", _("Toggle Su_bscript Property"), None, _("Toggle Subscript Property of the Selected Text"), inst.apply_tag_subscript),
     ( "JustifyLeft", "gtk-justify-left", _("Justify _Left"), None, _("Justify Left the Current Paragraph"), inst.apply_tag_justify_left),
     ( "JustifyCenter", "gtk-justify-center", _("Justify _Center"), None, _("Justify Center the Current Paragraph"), inst.apply_tag_justify_center),
     ( "JustifyRight", "gtk-justify-right", _("Justify _Right"), None, _("Justify Right the Current Paragraph"), inst.apply_tag_justify_right),
@@ -627,6 +635,8 @@ def get_popup_menu_entries_text(inst):
     ("Format Text Large", _("Toggle h_1 Property"), "<control>1", _("Toggle h1 Property of the Selected Text"), inst.apply_tag_h1),
     ("Format Text Large2", _("Toggle h_2 Property"), "<control>2", _("Toggle h2 Property of the Selected Text"), inst.apply_tag_h2),
     ("Format Text Small", _("Toggle _Small Property"), "<control>0", _("Toggle Small Property of the Selected Text"), inst.apply_tag_small),
+    ("Format Text Superscript", _("Toggle Su_perscript Property"), None, _("Toggle Superscript Property of the Selected Text"), inst.apply_tag_superscript),
+    ("Format Text Subscript", _("Toggle Su_bscript Property"), None, _("Toggle Subscript Property of the Selected Text"), inst.apply_tag_subscript),
     ("submenu-end", None, None, None, None),
     ("submenu-start", _("_Justify") , "gtk-justify-center", None, None),
     ("gtk-justify-left", _("Justify _Left"), None, _("Justify Left the Current Paragraph"), inst.apply_tag_justify_left),
