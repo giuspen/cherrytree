@@ -419,7 +419,7 @@ class XMLHandler:
                 elif tag_name[0:6] == "scale_": curr_attributes["scale"] = ""
                 elif tag_name[0:14] == "justification_": curr_attributes["justification"] = ""
                 elif tag_name[0:5] == "link_": curr_attributes["link"] = ""
-                elif tag_name[0:7] == "script_": curr_attributes["script"] = ""
+                elif tag_name[0:7] == "family_": curr_attributes["family"] = ""
                 else: support.dialog_error("Failure processing the toggling OFF tag %s" % tag_name, self.dad.window)
         toggled_on = curr_iter.get_toggled_tags(toggled_on=True)
         for tag in toggled_on:
@@ -438,7 +438,7 @@ class XMLHandler:
                 elif tag_name[0:10] == "underline_": curr_attributes["underline"] = tag_name[10:]
                 elif tag_name[0:14] == "strikethrough_": curr_attributes["strikethrough"] = tag_name[14:]
                 elif tag_name[0:5] == "link_": curr_attributes["link"] = tag_name[5:]
-                elif tag_name[0:7] == "script_": curr_attributes["script"] = tag_name[7:]
+                elif tag_name[0:7] == "family_": curr_attributes["family"] = tag_name[7:]
                 else: support.dialog_error("Failure processing the toggling ON tag %s" % tag_name, self.dad.window)
 
     def toc_insert(self, text_buffer, node_id):
