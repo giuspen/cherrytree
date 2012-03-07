@@ -296,18 +296,35 @@ class Export2Pango:
     def pango_text_serialize(self, start_iter, end_iter):
         """Adds a slice to the Pango Text"""
         pango_attrs = ''
+        superscript_active = False
+        subscript_active = False
+        monospace_active = False
         for tag_property in cons.TAG_PROPERTIES:
             if tag_property not in ["justification", "link"] and self.curr_attributes[tag_property] != '':
                 property_value = self.curr_attributes[tag_property]
                 # tag names fix
-                if tag_property == "scale": tag_property = "size"
-                # tag properties fix
-                if property_value == "small": property_value = 'x-small'
-                elif property_value == "h1": property_value = 'xx-large'
-                elif property_value == "h2": property_value = 'x-large'
+                if tag_property == "scale":
+                    if property_value == "sup":
+                        superscript_active = True
+                        continue
+                    elif property_value == "sub":
+                        subscript_active = True
+                        continue
+                    else: tag_property = "size"
+                    # tag properties fix
+                    if property_value == "small": property_value = 'x-small'
+                    elif property_value == "h1": property_value = 'xx-large'
+                    elif property_value == "h2": property_value = 'x-large'
+                elif tag_property == "family":
+                    monospace_active = True
+                    continue
                 pango_attrs += ' %s="%s"' % (tag_property, property_value)
-        if pango_attrs == '': self.curr_pango_text += cgi.escape(start_iter.get_text(end_iter))
-        else: self.curr_pango_text += '<span' + pango_attrs + '>' + cgi.escape(start_iter.get_text(end_iter)) + '</span>'
+        if pango_attrs == '': tagged_text = cgi.escape(start_iter.get_text(end_iter))
+        else: tagged_text = '<span' + pango_attrs + '>' + cgi.escape(start_iter.get_text(end_iter)) + '</span>'
+        if superscript_active: tagged_text = "<sup>" + tagged_text + "</sup>"
+        if subscript_active: tagged_text = "<sub>" + tagged_text + "</sub>"
+        if monospace_active: tagged_text = "<tt>" + tagged_text + "</tt>"
+        self.curr_pango_text += tagged_text
 
 
 class Export2Html:
@@ -618,6 +635,9 @@ class Export2Html:
         if inner_text == "": return
         inner_text = inner_text.replace(cons.CHAR_NEWLINE, "<br>")
         html_attrs = ""
+        superscript_active = False
+        subscript_active = False
+        monospace_active = False
         for tag_property in cons.TAG_PROPERTIES:
             if self.curr_attributes[tag_property] != '':
                 property_value = self.curr_attributes[tag_property]
@@ -647,11 +667,21 @@ class Export2Html:
                     tag_property = "text-decoration"
                     property_value = "line-through"
                 elif tag_property == "scale":
-                    # font-size:xx-large/x-large/x-small
-                    tag_property = "font-size"
-                    if property_value == "small": property_value = "x-small"
-                    elif property_value == "h1": property_value = "xx-large"
-                    elif property_value == "h2": property_value = "x-large"
+                    if property_value == "sup":
+                        superscript_active = True
+                        continue
+                    elif property_value == "sub":
+                        subscript_active = True
+                        continue
+                    else:
+                        # font-size:xx-large/x-large/x-small
+                        tag_property = "font-size"
+                        if property_value == "small": property_value = "x-small"
+                        elif property_value == "h1": property_value = "xx-large"
+                        elif property_value == "h2": property_value = "x-large"
+                elif tag_property == "family":
+                    monospace_active = True
+                    continue
                 elif tag_property == "justification":
                     # text-align:center/left/right
                     #tag_property = "text-align"
@@ -673,16 +703,20 @@ class Export2Html:
                     self.curr_html_text += '<a href="' + href + '">' + inner_text + "</a>"
                     return
                 html_attrs += "%s:%s;" % (tag_property, property_value)
-        if html_attrs == "" or inner_text == "<br/>": self.curr_html_text += inner_text
+        if html_attrs == "" or inner_text == "<br/>": tagged_text = inner_text
         else:
             if "xx-large" in html_attrs:
                 html_attrs = html_attrs.replace("font-size:xx-large;", "")
-                self.curr_html_text += '<h1 style="' + html_attrs + '">' + inner_text + "</h1>"
+                tagged_text = '<h1 style="' + html_attrs + '">' + inner_text + "</h1>"
             elif "x-large" in html_attrs:
                 html_attrs = html_attrs.replace("font-size:x-large;", "")
-                self.curr_html_text += '<h2 style="' + html_attrs + '">' + inner_text + "</h2>"
+                tagged_text = '<h2 style="' + html_attrs + '">' + inner_text + "</h2>"
             #elif "text-align" in html_attrs: self.curr_html_text += '<p style="' + html_attrs + '">' + inner_text + "</p>"
-            else: self.curr_html_text += '<span style="' + html_attrs + '">' + inner_text + "</span>"
+            else: tagged_text = '<span style="' + html_attrs + '">' + inner_text + "</span>"
+        if superscript_active: tagged_text = "<sup>" + tagged_text + "</sup>"
+        if subscript_active: tagged_text = "<sub>" + tagged_text + "</sub>"
+        if monospace_active: tagged_text = "<tt>" + tagged_text + "</tt>"
+        self.curr_html_text += tagged_text
         #print "###############"
         #print self.curr_html_text
         #print "###############"
