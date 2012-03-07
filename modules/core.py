@@ -3055,11 +3055,15 @@ class CherryTree:
 
     def apply_tag_subscript(self, *args):
         """The Subscript Button was Pressed"""
-        self.apply_tag("script", "sub")
+        self.apply_tag("scale", "sub")
 
     def apply_tag_superscript(self, *args):
         """The Superscript Button was Pressed"""
-        self.apply_tag("script", "sup")
+        self.apply_tag("scale", "sup")
+
+    def apply_tag_monospace(self, *args):
+        """The Monospace Button was Pressed"""
+        self.apply_tag("family", "monospace")
 
     def apply_tag_h1(self, *args):
         """The H1 Button was Pressed"""
@@ -3233,13 +3237,14 @@ class CherryTree:
         # if there's already a tag about this property, we remove it before apply the new one
         for curr_tag in curr_tags:
             tag_name = curr_tag.get_property("name")
-            if (tag_property == "weight" and tag_name[0:7] == "weight_")\
-            or (tag_property == "style" and tag_name[0:6] == "style_")\
-            or (tag_property == "underline" and tag_name[0:10] == "underline_")\
-            or (tag_property == "strikethrough" and tag_name[0:14] == "strikethrough_"):
+            if (tag_property == "weight" and tag_name.startswith("weight_"))\
+            or (tag_property == "style" and tag_name.startswith("style_"))\
+            or (tag_property == "underline" and tag_name.startswith("underline_"))\
+            or (tag_property == "strikethrough" and tag_name.startswith("strikethrough_"))\
+            or (tag_property == "family" and tag_name.startswith("family_")):
                 text_buffer.remove_tag(curr_tag, iter_sel_start, iter_sel_end)
                 return # just tag removal
-            elif tag_property == "scale" and tag_name[0:6] == "scale_":
+            elif tag_property == "scale" and tag_name.startswith("scale_"):
                 text_buffer.remove_tag(curr_tag, iter_sel_start, iter_sel_end)
                 #print property_value, tag_name[6:]
                 if property_value == tag_name[6:]: return # just tag removal
@@ -3281,13 +3286,13 @@ class CherryTree:
             elif property_value == "right": tag.set_property(tag_property, gtk.JUSTIFY_RIGHT)
             elif property_value == "center": tag.set_property(tag_property, gtk.JUSTIFY_CENTER)
             elif property_value == "sub":
-               tag.set_property("scale", pango.SCALE_X_SMALL)
-               rise = pango.FontDescription(self.text_font).get_size() / -4
-               tag.set_property("rise", rise)
+                tag.set_property("scale", pango.SCALE_X_SMALL)
+                rise = pango.FontDescription(self.text_font).get_size() / -4
+                tag.set_property("rise", rise)
             elif property_value == "sup":
-               tag.set_property("scale", pango.SCALE_X_SMALL)
-               rise = pango.FontDescription(self.text_font).get_size() / 2
-               tag.set_property("rise", rise)
+                tag.set_property("scale", pango.SCALE_X_SMALL)
+                rise = pango.FontDescription(self.text_font).get_size() / 2
+                tag.set_property("rise", rise)
             elif property_value[0:4] == "webs":
                 tag.set_property("underline", pango.UNDERLINE_SINGLE)
                 tag.set_property("foreground", "#00000000ffff")

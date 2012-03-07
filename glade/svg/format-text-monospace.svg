@@ -20,7 +20,7 @@
    enable-background="new 0 0 489.31 494.244"
    xml:space="preserve"
    inkscape:version="0.48.2 r9819"
-   sodipodi:docname="format-text-small.svg"><metadata
+   sodipodi:docname="format-text-monospace.svg"><metadata
    id="metadata246"><rdf:RDF><cc:Work
        rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
          rdf:resource="http://purl.org/dc/dcmitype/StillImage" /></cc:Work></rdf:RDF></metadata><defs
@@ -102,32 +102,7 @@
      inkscape:vp_z="48 : 24 : 1"
      inkscape:vp_y="0 : 1000 : 0"
      inkscape:vp_x="0 : 24 : 1"
-     sodipodi:type="inkscape:persp3d" /><filter
-     id="filter3294"
-     inkscape:menu-tooltip="In and out glow with a possible offset and colorizable flood"
-     inkscape:menu="Shadows and Glows"
-     inkscape:label="Cutout Glow"
-     color-interpolation-filters="sRGB"><feOffset
-       id="feOffset3296"
-       dy="3"
-       dx="3" /><feGaussianBlur
-       id="feGaussianBlur3298"
-       result="result8"
-       stdDeviation="3" /><feFlood
-       id="feFlood3300"
-       flood-color="rgb(0,0,0)"
-       flood-opacity="1"
-       in="result8"
-       result="result10" /><feComposite
-       in2="SourceGraphic"
-       id="feComposite3302"
-       operator="in"
-       in="result10"
-       result="result9" /><feBlend
-       in2="result9"
-       id="feBlend3304"
-       mode="normal"
-       in="result8" /></filter></defs><sodipodi:namedview
+     sodipodi:type="inkscape:persp3d" /></defs><sodipodi:namedview
    pagecolor="#ffffff"
    bordercolor="#666666"
    borderopacity="1"
@@ -141,7 +116,7 @@
    id="namedview242"
    showgrid="false"
    inkscape:zoom="0.47749696"
-   inkscape:cx="248.84351"
+   inkscape:cx="261.40904"
    inkscape:cy="247.12199"
    inkscape:window-x="66"
    inkscape:window-y="24"
@@ -617,16 +592,20 @@
 
 
 
+
+
+
+
 <text
    xml:space="preserve"
-   style="font-size:487.11502074999998513px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#333333;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial;filter:url(#filter3294)"
-   x="100.82802"
-   y="390.36774"
-   id="text2957"
-   transform="scale(1.0842717,0.92227806)"><tspan
+   style="font-size:422.73428345px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Monospace;-inkscape-font-specification:Sans Bold"
+   x="5.7053823"
+   y="362.81393"
+   id="text3118"
+   sodipodi:linespacing="125%"
+   transform="scale(0.99506806,1.0049564)"><tspan
      sodipodi:role="line"
-     id="tspan2959"
-     x="100.82802"
-     y="390.36774">s</tspan></text>
-
+     id="tspan3120"
+     x="5.7053823"
+     y="362.81393">ms</tspan></text>
 </svg>
