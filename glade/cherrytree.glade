@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <requires lib="gtk+" version="2.16"/>
-  <!-- interface-naming-policy toplevel-contextual -->
+  <!-- interface-naming-policy project-wide -->
   <object class="GtkAboutDialog" id="aboutdialog">
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 MA 02110-1301, USA.
 </property>
     <property name="authors">Giuseppe Penone &lt;giuspen@gmail.com&gt;</property>
+    <property name="documenters">Robert Boudreau &lt;RobtTheB@gmail.com&gt;</property>
     <property name="translator_credits" translatable="yes">Czech (cs) Pavel Fric &lt;fripohled@blogspot.com&gt;
 French (fr) Ludovic Troisi &lt;axalis@cegetel.net&gt;
 German (de) Frank Brungräber &lt;calexu@arcor.de&gt; (former Sven Neubauer)
@@ -2446,11 +2447,55 @@ do you want to save the changes?</property>
                     <property name="left_padding">5</property>
                     <property name="right_padding">5</property>
                     <child>
-                      <object class="GtkComboBox" id="combobox_prog_lang">
+                      <object class="GtkVBox" id="vbox5">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="focus_on_click">False</property>
-                        <property name="button_sensitivity">on</property>
+                        <child>
+                          <object class="GtkRadioButton" id="radiobutton_node_rich_text">
+                            <property name="label" translatable="yes">Rich Text</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">False</property>
+                            <property name="use_action_appearance">False</property>
+                            <property name="active">True</property>
+                            <property name="draw_indicator">True</property>
+                          </object>
+                          <packing>
+                            <property name="expand">True</property>
+                            <property name="fill">True</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkRadioButton" id="radiobutton_node_auto_syntax">
+                            <property name="label" translatable="yes">Automatic Syntax Highlighting</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">False</property>
+                            <property name="use_action_appearance">False</property>
+                            <property name="active">True</property>
+                            <property name="draw_indicator">True</property>
+                            <property name="group">radiobutton_node_rich_text</property>
+                          </object>
+                          <packing>
+                            <property name="expand">True</property>
+                            <property name="fill">True</property>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkComboBox" id="combobox_prog_lang">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="focus_on_click">False</property>
+                            <property name="button_sensitivity">on</property>
+                          </object>
+                          <packing>
+                            <property name="expand">True</property>
+                            <property name="fill">True</property>
+                            <property name="position">2</property>
+                          </packing>
+                        </child>
                       </object>
                     </child>
                   </object>
@@ -2459,7 +2504,7 @@ do you want to save the changes?</property>
                   <object class="GtkLabel" id="label5">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">&lt;b&gt;Automatic Syntax Highlighting&lt;/b&gt;</property>
+                    <property name="label" translatable="yes">&lt;b&gt;Node Type&lt;/b&gt;</property>
                     <property name="use_markup">True</property>
                   </object>
                 </child>
@@ -3661,7 +3706,7 @@ do you want to save the changes?</property>
               </packing>
             </child>
             <child>
-              <object class="GtkVBox" id="vbox5">
+              <object class="GtkVBox" id="vbox14">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <child>
@@ -4053,7 +4098,7 @@ do you want to save the changes?</property>
                         <property name="left_padding">3</property>
                         <property name="right_padding">3</property>
                         <child>
-                          <object class="GtkVBox" id="vbox14">
+                          <object class="GtkVBox" id="vbox28">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <child>
@@ -4284,7 +4329,7 @@ do you want to save the changes?</property>
                 <property name="receives_default">True</property>
                 <property name="use_action_appearance">False</property>
                 <child>
-                  <object class="GtkVBox" id="vbox28">
+                  <object class="GtkVBox" id="vbox29">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <child>
@@ -4372,7 +4417,7 @@ do you want to save the changes?</property>
           </packing>
         </child>
         <child>
-          <object class="GtkVBox" id="vbox29">
+          <object class="GtkVBox" id="vbox42">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <child>
