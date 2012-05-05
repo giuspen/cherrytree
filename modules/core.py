@@ -2034,7 +2034,6 @@ class CherryTree:
     def combobox_prog_lang_init(self):
         """Init The Programming Languages Syntax Highlighting ComboBox"""
         self.prog_lang_liststore = gtk.ListStore(str, str)
-        self.prog_lang_liststore.append([_("Disabled (Custom Colors)"), cons.CUSTOM_COLORS_ID])
         self.language_manager = gtksourceview2.LanguageManager()
         self.available_languages = self.language_manager.get_language_ids()
         if "def" in self.available_languages: self.available_languages.remove("def")
@@ -2045,7 +2044,9 @@ class CherryTree:
             cell = gtk.CellRendererText()
             combobox.pack_start(cell, True)
             combobox.add_attribute(cell, 'text', 0)
-            combobox.set_active_iter(self.get_combobox_prog_lang_iter(self.syntax_highlighting))
+            if self.syntax_highlighting:
+                combobox.set_active_iter(self.get_combobox_prog_lang_iter(self.syntax_highlighting))
+            else: combobox.set_active(0)
 
     def get_combobox_prog_lang_iter(self, prog_language):
         """Returns the Language iter Given the Language Name"""
@@ -2153,7 +2154,7 @@ class CherryTree:
         node_name = self.dialog_input(title=_("Insert the New Node Name..."), syntax_highlight=True)
         if node_name == None: return
         self.update_window_save_needed()
-        self.syntax_highlighting = self.prog_lang_liststore[self.glade.combobox_prog_lang.get_active_iter()][1]
+        self.syntax_highlighting = self.get_syntax_highlighting_from_dialog()
         father_iter = self.treestore.iter_parent(self.curr_tree_iter) if self.curr_tree_iter else None
         node_level = self.treestore.iter_depth(father_iter)+1 if father_iter else 0
         cherry = self.get_node_icon(node_level, self.syntax_highlighting)
@@ -2193,7 +2194,7 @@ class CherryTree:
         node_name = self.dialog_input(title=_("Insert the New Child Node Name..."), syntax_highlight=True)
         if node_name != None:
             self.update_window_save_needed()
-            self.syntax_highlighting = self.prog_lang_liststore[self.glade.combobox_prog_lang.get_active_iter()][1]
+            self.syntax_highlighting = self.get_syntax_highlighting_from_dialog()
             node_level = self.treestore.iter_depth(self.curr_tree_iter)+1 if self.curr_tree_iter else 0
             cherry = self.get_node_icon(node_level, self.syntax_highlighting)
             new_node_id = self.node_id_get()
@@ -2244,14 +2245,18 @@ class CherryTree:
         if self.curr_tree_iter == None:
             support.dialog_warning(_("No Node is Selected!"), self.window)
             return
-        self.glade.combobox_prog_lang.set_active_iter(self.get_combobox_prog_lang_iter(self.treestore[self.curr_tree_iter][4]))
+        if self.syntax_highlighting == cons.CUSTOM_COLORS_ID:
+            self.glade.radiobutton_node_rich_text.set_active(True)
+        else:
+            self.glade.radiobutton_node_auto_syntax.set_active(True)
+            self.glade.combobox_prog_lang.set_active_iter(self.get_combobox_prog_lang_iter(self.treestore[self.curr_tree_iter][4]))
         self.glade.tags_searching_entry.set_text(self.treestore[self.curr_tree_iter][6])
         self.glade.checkbutton_readonly.set_active(self.treestore[self.curr_tree_iter][7])
         node_name = self.dialog_input(entry_hint=self.treestore[self.curr_tree_iter][1],
                                       title=_("Insert the New Name for the Node..."),
                                       syntax_highlight=True)
         if node_name == None: return
-        self.syntax_highlighting = self.prog_lang_liststore[self.glade.combobox_prog_lang.get_active_iter()][1]
+        self.syntax_highlighting = self.get_syntax_highlighting_from_dialog()
         if self.treestore[self.curr_tree_iter][4] == cons.CUSTOM_COLORS_ID and self.syntax_highlighting != cons.CUSTOM_COLORS_ID:
             if not support.dialog_question(_("Entering the Automatic Syntax Highlighting you will Lose all Custom Colors for This Node, Do you want to Continue?"), self.window):
                 self.syntax_highlighting = cons.CUSTOM_COLORS_ID # STEP BACK (we stay in CUSTOM COLORS)
@@ -2275,6 +2280,12 @@ class CherryTree:
         self.update_selected_node_statusbar_info()
         self.update_window_save_needed("npro")
         self.sourceview.grab_focus()
+
+    def get_syntax_highlighting_from_dialog(self):
+        """Retrieve the Value eof the Syntax Highlighting from the dialog"""
+        if self.glade.radiobutton_node_rich_text.get_active():
+            return cons.CUSTOM_COLORS_ID
+        return self.prog_lang_liststore[self.glade.combobox_prog_lang.get_active_iter()][1]
 
     def sourceview_set_properties(self, tree_iter, syntax_highl):
         """Set sourceview properties according to current node"""
