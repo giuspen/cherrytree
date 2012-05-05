@@ -2151,6 +2151,7 @@ class CherryTree:
     def node_add(self, *args):
         """Add a node having common father with the selected node's"""
         self.glade.checkbutton_readonly.set_active(False)
+        self.glade.combobox_prog_lang.set_sensitive(not self.glade.radiobutton_node_rich_text.get_active())
         node_name = self.dialog_input(title=_("Insert the New Node Name..."), syntax_highlight=True)
         if node_name == None: return
         self.update_window_save_needed()
@@ -2191,6 +2192,7 @@ class CherryTree:
             support.dialog_warning(_("No Node is Selected!"), self.window)
             return
         self.glade.checkbutton_readonly.set_active(False)
+        self.glade.combobox_prog_lang.set_sensitive(not self.glade.radiobutton_node_rich_text.get_active())
         node_name = self.dialog_input(title=_("Insert the New Child Node Name..."), syntax_highlight=True)
         if node_name != None:
             self.update_window_save_needed()
@@ -2247,8 +2249,10 @@ class CherryTree:
             return
         if self.syntax_highlighting == cons.CUSTOM_COLORS_ID:
             self.glade.radiobutton_node_rich_text.set_active(True)
+            self.glade.combobox_prog_lang.set_sensitive(False)
         else:
             self.glade.radiobutton_node_auto_syntax.set_active(True)
+            self.glade.combobox_prog_lang.set_sensitive(True)
             self.glade.combobox_prog_lang.set_active_iter(self.get_combobox_prog_lang_iter(self.treestore[self.curr_tree_iter][4]))
         self.glade.tags_searching_entry.set_text(self.treestore[self.curr_tree_iter][6])
         self.glade.checkbutton_readonly.set_active(self.treestore[self.curr_tree_iter][7])
@@ -2745,6 +2749,11 @@ class CherryTree:
         """Insert Code Box"""
         if not self.node_sel_and_rich_text(): return
         self.codeboxes_handler.codebox_handle()
+
+    def on_radiobutton_node_rich_text_toggled(self, radiobutton):
+        """Radiobutton Node Type Rich Text Toggled"""
+        if not self.user_active: return
+        self.glade.combobox_prog_lang.set_sensitive(not radiobutton.get_active())
 
     def on_radiobutton_codebox_pixels_toggled(self, radiobutton):
         """Radiobutton CodeBox Pixels/Percent Toggled"""
