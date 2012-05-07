@@ -1203,9 +1203,7 @@ class CherryTree:
             else: passw_frame.set_sensitive(False)
         def on_key_press_edit_data_storage_type_dialog(widget, event):
             if gtk.gdk.keyval_name(event.keyval) == "Return":
-                button_box = dialog.get_action_area()
-                buttons = button_box.get_children()
-                buttons[0].clicked() # first is the ok button
+                dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
         radiobutton_sqlite_not_protected.connect("toggled", on_radiobutton_savetype_toggled)
         radiobutton_sqlite_pass_protected.connect("toggled", on_radiobutton_savetype_toggled)
         radiobutton_xml_not_protected.connect("toggled", on_radiobutton_savetype_toggled)
