@@ -1246,32 +1246,30 @@ class CherryTree:
 
     def dialog_insert_password(self, file_name):
         """Prompts a Dialog Asking for the File Password"""
-        enter_password_dialog = gtk.Dialog(title=_("Enter Password for %s") % file_name,
-                                           parent=self.window,
-                                           flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
-                                           buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
-                                           gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
-        enter_password_dialog.set_default_size(300, -1)
-        enter_password_dialog.set_transient_for(self.window)
-        enter_password_dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+        dialog = gtk.Dialog(title=_("Enter Password for %s") % file_name,
+                            parent=self.window,
+                            flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
+                            buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
+                            gtk.STOCK_OK, gtk.RESPONSE_ACCEPT))
+        dialog.set_default_size(300, -1)
+        dialog.set_transient_for(self.window)
+        dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
         entry = gtk.Entry()
         entry.set_visibility(False)
-        content_area = enter_password_dialog.get_content_area()
+        content_area = dialog.get_content_area()
         content_area.pack_start(entry)
         def on_key_press_enter_password_dialog(widget, event):
             if gtk.gdk.keyval_name(event.keyval) == "Return":
-                button_box = enter_password_dialog.get_action_area()
-                buttons = button_box.get_children()
-                buttons[0].clicked() # first is the ok button
-        enter_password_dialog.connect("key_press_event", on_key_press_enter_password_dialog)
-        enter_password_dialog.show_all()
+                dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
+        dialog.connect("key_press_event", on_key_press_enter_password_dialog)
+        dialog.show_all()
         if not sys.platform[0:3] == "win":
-            the_window = enter_password_dialog.get_window()
+            the_window = dialog.get_window()
             the_window.focus(gtk.gdk.x11_get_server_time(the_window))
-        enter_password_dialog.present()
-        response = enter_password_dialog.run()
+        dialog.present()
+        response = dialog.run()
         passw = entry.get_text()
-        enter_password_dialog.destroy()
+        dialog.destroy()
         while gtk.events_pending(): gtk.main_iteration()
         if response != gtk.RESPONSE_ACCEPT: return ""
         return passw

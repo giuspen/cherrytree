@@ -215,9 +215,7 @@ def dialog_selnode_selnodeandsub_alltree(father_win):
     content_area.pack_start(radiobutton_alltree)
     def on_key_press_enter_dialog(widget, event):
         if gtk.gdk.keyval_name(event.keyval) == "Return":
-            button_box = dialog.get_action_area()
-            buttons = button_box.get_children()
-            buttons[0].clicked() # first is the ok button
+            dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
     dialog.connect("key_press_event", on_key_press_enter_dialog)
     content_area.show_all()
     response = dialog.run()
