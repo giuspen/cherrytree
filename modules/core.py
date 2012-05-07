@@ -1164,16 +1164,13 @@ class CherryTree:
                             gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
         dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
         dialog.set_default_size(350, -1)
-        radiobutton_xml = gtk.RadioButton(label=_("XML File"))
-        radiobutton_db = gtk.RadioButton(label=_("SQLite File"))
-        radiobutton_db.set_group(radiobutton_xml)
-        if len(self.file_name) > 4:
-            if self.file_name[-1] in ["d", "z"]:
-                radiobutton_xml.set_active(True)
-            else: radiobutton_db.set_active(True)
-        radiobutton_unprotected = gtk.RadioButton(label=_("Not Protected"))
-        radiobutton_protected = gtk.RadioButton(label=_("Password Protected"))
-        radiobutton_protected.set_group(radiobutton_unprotected)
+        radiobutton_sqlite_not_protected = gtk.RadioButton(label="SQLite, " + _("Not Protected") + " (.ctb)")
+        radiobutton_sqlite_pass_protected = gtk.RadioButton(label="SQLite, " + _("Password Protected") + " (.ctx)")
+        radiobutton_sqlite_pass_protected.set_group(radiobutton_sqlite_not_protected)
+        radiobutton_xml_not_protected = gtk.RadioButton(label="XML, " + _("Not Protected") + " (.ctd)")
+        radiobutton_xml_not_protected.set_group(radiobutton_sqlite_not_protected)
+        radiobutton_xml_pass_protected = gtk.RadioButton(label="XML, " + _("Password Protected") + " (.ctz)")
+        radiobutton_xml_pass_protected.set_group(radiobutton_sqlite_not_protected)
         entry_passw_1 = gtk.Entry()
         entry_passw_1.set_visibility(False)
         entry_passw_2 = gtk.Entry()
@@ -1184,37 +1181,40 @@ class CherryTree:
         passw_frame = gtk.Frame(label="<b>"+_("Enter the New Password Twice")+"</b>")
         passw_frame.get_label_widget().set_use_markup(True)
         passw_frame.add(vbox_passw)
-        if self.password:
-            radiobutton_unprotected.set_active(False)
-            radiobutton_protected.set_active(True)
-            passw_frame.set_sensitive(True)
-        else:
-            radiobutton_unprotected.set_active(True)
-            radiobutton_protected.set_active(False)
-            passw_frame.set_sensitive(False)
+        if len(self.file_name) > 4:
+            if self.file_name[-1] == "b": radiobutton_sqlite_not_protected.set_active(True)
+            elif self.file_name[-1] == "x": radiobutton_sqlite_pass_protected.set_active(True)
+            elif self.file_name[-1] == "d": radiobutton_xml_not_protected.set_active(True)
+            else: radiobutton_xml_pass_protected.set_active(True)
+        if self.password: passw_frame.set_sensitive(True)
+        else: passw_frame.set_sensitive(False)
         content_area = dialog.get_content_area()
-        content_area.pack_start(radiobutton_db)
-        content_area.pack_start(radiobutton_xml)
-        content_area.pack_start(gtk.HSeparator())
-        content_area.pack_start(radiobutton_unprotected)
-        content_area.pack_start(radiobutton_protected)
+        content_area.pack_start(radiobutton_sqlite_not_protected)
+        content_area.pack_start(radiobutton_sqlite_pass_protected)
+        content_area.pack_start(radiobutton_xml_not_protected)
+        content_area.pack_start(radiobutton_xml_pass_protected)
         content_area.pack_start(passw_frame)
         content_area.show_all()
+        def on_radiobutton_savetype_toggled(widget):
+            if radiobutton_sqlite_pass_protected.get_active()\
+            or radiobutton_xml_pass_protected.get_active():
+                passw_frame.set_sensitive(True)
+                entry_passw_1.grab_focus()
+            else: passw_frame.set_sensitive(False)
         def on_key_press_edit_data_storage_type_dialog(widget, event):
             if gtk.gdk.keyval_name(event.keyval) == "Return":
                 button_box = dialog.get_action_area()
                 buttons = button_box.get_children()
                 buttons[0].clicked() # first is the ok button
-        def on_radiobutton_protected_toggled(widget):
-            if widget.get_active():
-                passw_frame.set_sensitive(True)
-                entry_passw_1.grab_focus()
-            else: passw_frame.set_sensitive(False)
-        radiobutton_protected.connect("toggled", on_radiobutton_protected_toggled)
+        radiobutton_sqlite_not_protected.connect("toggled", on_radiobutton_savetype_toggled)
+        radiobutton_sqlite_pass_protected.connect("toggled", on_radiobutton_savetype_toggled)
+        radiobutton_xml_not_protected.connect("toggled", on_radiobutton_savetype_toggled)
         dialog.connect("key_press_event", on_key_press_edit_data_storage_type_dialog)
         response = dialog.run()
-        storage_type_is_xml = radiobutton_xml.get_active()
-        new_protection = {'on': radiobutton_protected.get_active(),
+        storage_type_is_xml = (radiobutton_xml_not_protected.get_active()\
+                               or radiobutton_xml_pass_protected.get_active())
+        new_protection = {'on': (radiobutton_sqlite_pass_protected.get_active()\
+                                 or radiobutton_xml_pass_protected.get_active()),
                           'p1': entry_passw_1.get_text(),
                           'p2': entry_passw_2.get_text()}
         dialog.destroy()
