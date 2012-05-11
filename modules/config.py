@@ -25,6 +25,9 @@ import cons
 ICONS_SIZE = {1: gtk.ICON_SIZE_MENU, 2: gtk.ICON_SIZE_SMALL_TOOLBAR, 3: gtk.ICON_SIZE_LARGE_TOOLBAR,
               4: gtk.ICON_SIZE_DND, 5: gtk.ICON_SIZE_DIALOG}
 
+LINK_CUSTOM_ACTION_DEFAULT_WEB = "firefox %s &"
+LINK_CUSTOM_ACTION_DEFAULT_FILE = "xdg-open %s &"
+
 
 def config_file_load(inst):
     """Load the Preferences from Config File"""
@@ -96,15 +99,15 @@ def config_file_load(inst):
         if dom_iter.hasAttribute("weblink_custom_action"):
             temp_str = dom_iter.attributes["weblink_custom_action"].value
             inst.weblink_custom_action = [True, temp_str[4:]] if temp_str[:4] == "True" else [False, temp_str[5:]]
-        else: inst.weblink_custom_action = [False, "firefox %s"]
+        else: inst.weblink_custom_action = [False, LINK_CUSTOM_ACTION_DEFAULT_WEB]
         if dom_iter.hasAttribute("filelink_custom_action"):
             temp_str = dom_iter.attributes["filelink_custom_action"].value
             inst.filelink_custom_action = [True, temp_str[4:]] if temp_str[:4] == "True" else [False, temp_str[5:]]
-        else: inst.filelink_custom_action = [False, "xdg-open %s"]
+        else: inst.filelink_custom_action = [False, LINK_CUSTOM_ACTION_DEFAULT_FILE]
         if dom_iter.hasAttribute("folderlink_custom_action"):
             temp_str = dom_iter.attributes["folderlink_custom_action"].value
             inst.folderlink_custom_action = [True, temp_str[4:]] if temp_str[:4] == "True" else [False, temp_str[5:]]
-        else: inst.folderlink_custom_action = [False, "xdg-open %s"]
+        else: inst.folderlink_custom_action = [False, LINK_CUSTOM_ACTION_DEFAULT_FILE]
         inst.timestamp_format = dom_iter.attributes["timestamp_format"].value if dom_iter.hasAttribute("timestamp_format") else "%Y/%m/%d - %H:%M"
         if dom_iter.hasAttribute("codebox_width"):
             inst.glade.spinbutton_codebox_width.set_value(int(dom_iter.attributes["codebox_width"].value))
@@ -157,9 +160,9 @@ def config_file_load(inst):
         inst.limit_undoable_steps = 20
         inst.cherry_wrap_width = 130
         inst.start_on_systray = False
-        inst.weblink_custom_action = [False, "firefox %s"]
-        inst.filelink_custom_action = [False, "xdg-open %s"]
-        inst.folderlink_custom_action = [False, "xdg-open %s"]
+        inst.weblink_custom_action = [False, LINK_CUSTOM_ACTION_DEFAULT_WEB]
+        inst.filelink_custom_action = [False, LINK_CUSTOM_ACTION_DEFAULT_FILE]
+        inst.folderlink_custom_action = [False, LINK_CUSTOM_ACTION_DEFAULT_FILE]
         inst.timestamp_format = "%Y/%m/%d - %H:%M"
         inst.glade.spinbutton_codebox_width.set_value(700)
         inst.glade.spinbutton_codebox_height.set_value(100)
