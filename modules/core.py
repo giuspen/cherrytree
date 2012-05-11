@@ -3358,7 +3358,7 @@ class CherryTree:
                 subprocess.call(self.filelink_custom_action[1] % re.escape(filepath), shell=True)
             else:
                 if sys.platform[0:3] == "win": os.startfile(filepath)
-                else: subprocess.call("xdg-open %s" % re.escape(filepath), shell=True)
+                else: subprocess.call(config.LINK_CUSTOM_ACTION_DEFAULT_FILE % re.escape(filepath), shell=True)
         elif vector[0] == "fold":
             # link to folder
             filepath = base64.b64decode(vector[1])
@@ -3369,7 +3369,7 @@ class CherryTree:
                 subprocess.call(self.folderlink_custom_action[1] % re.escape(filepath), shell=True)
             else:
                 if sys.platform[0:3] == "win": os.startfile(filepath)
-                else: subprocess.call("xdg-open %s" % re.escape(filepath), shell=True)
+                else: subprocess.call(config.LINK_CUSTOM_ACTION_DEFAULT_FILE % re.escape(filepath), shell=True)
         elif vector[0] == "node":
             # link to a tree node
             tree_iter = self.get_tree_iter_from_node_id(long(vector[1]))
