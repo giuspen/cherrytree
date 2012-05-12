@@ -31,6 +31,7 @@ RICH_TEXT_DEFAULT_FG = "#ffffff"
 RICH_TEXT_DEFAULT_BG = "#001b33"
 TREE_TEXT_DEFAULT_FG = "#0b0c0c"
 TREE_TEXT_DEFAULT_BG = "#e0e0e0"
+HORIZONTAL_RULE = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 
 
 def config_file_load(inst):
@@ -77,6 +78,7 @@ def config_file_load(inst):
         inst.rt_def_bg = dom_iter.attributes["rt_def_bg"].value if dom_iter.hasAttribute("rt_def_bg") else RICH_TEXT_DEFAULT_BG
         inst.tt_def_fg = dom_iter.attributes["tt_def_fg"].value if dom_iter.hasAttribute("tt_def_fg") else TREE_TEXT_DEFAULT_FG
         inst.tt_def_bg = dom_iter.attributes["tt_def_bg"].value if dom_iter.hasAttribute("tt_def_bg") else TREE_TEXT_DEFAULT_BG
+        inst.h_rule = dom_iter.attributes["h_rule"].value if dom_iter.hasAttribute("h_rule") else HORIZONTAL_RULE
         inst.show_line_numbers = (dom_iter.attributes["show_line_numbers"].value == "True") if dom_iter.hasAttribute("show_line_numbers") else False
         inst.spaces_instead_tabs = (dom_iter.attributes["spaces_instead_tabs"].value == "True") if dom_iter.hasAttribute("spaces_instead_tabs") else True
         inst.tabs_width = int( dom_iter.attributes["tabs_width"].value ) if dom_iter.hasAttribute("tabs_width") else 4
@@ -151,6 +153,7 @@ def config_file_load(inst):
         inst.rt_def_bg = RICH_TEXT_DEFAULT_BG
         inst.tt_def_fg = TREE_TEXT_DEFAULT_FG
         inst.tt_def_bg = TREE_TEXT_DEFAULT_BG
+        inst.h_rule = HORIZONTAL_RULE
         inst.show_line_numbers = False
         inst.spaces_instead_tabs = True
         inst.tabs_width = 4
@@ -210,6 +213,7 @@ def config_file_apply(inst):
     inst.glade.colorbutton_tree_bg.set_color(gtk.gdk.color_parse(inst.tt_def_bg))
     inst.treeview.modify_base(gtk.STATE_NORMAL, gtk.gdk.color_parse(inst.tt_def_bg))
     inst.treeview.modify_text(gtk.STATE_NORMAL, gtk.gdk.color_parse(inst.tt_def_fg))
+    inst.glade.entry_horizontal_rule.set_text(inst.h_rule)
     inst.sourceview.set_show_line_numbers(inst.show_line_numbers)
     inst.glade.checkbutton_line_nums.set_active(inst.show_line_numbers)
     inst.sourceview.set_insert_spaces_instead_of_tabs(inst.spaces_instead_tabs)
@@ -301,6 +305,7 @@ def config_file_save(inst):
     config.setAttribute("rt_def_bg", inst.rt_def_bg)
     config.setAttribute("tt_def_fg", inst.tt_def_fg)
     config.setAttribute("tt_def_bg", inst.tt_def_bg)
+    config.setAttribute("h_rule", inst.h_rule)
     config.setAttribute("show_line_numbers", str(inst.show_line_numbers) )
     config.setAttribute("spaces_instead_tabs", str(inst.spaces_instead_tabs) )
     config.setAttribute("tabs_width", str(inst.tabs_width) )
