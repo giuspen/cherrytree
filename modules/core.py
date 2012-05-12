@@ -2294,6 +2294,8 @@ class CherryTree:
             self.treestore[tree_iter][2].connect('delete-range', self.on_text_removal)
             self.treestore[tree_iter][2].connect('mark-set', self.on_textbuffer_mark_set)
             self.sourceview.modify_font(pango.FontDescription(self.text_font))
+            self.sourceview.modify_base(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.rt_def_bg))
+            self.sourceview.modify_text(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.rt_def_fg))
             self.sourceview.set_draw_spaces(0)
             self.sourceview.set_highlight_current_line(False)
         else:
@@ -3409,6 +3411,32 @@ class CherryTree:
                     return curr_iter
             if not curr_iter.forward_char(): break
         return None
+
+    def on_colorbutton_text_fg_color_set(self, colorbutton):
+        """ColorButton Rich Text FG Set"""
+        if not self.user_active: return
+        self.rt_def_fg = "#" + self.html_handler.rgb_to_24(colorbutton.get_color().to_string()[1:])
+        if self.curr_tree_iter and self.syntax_highlighting == cons.CUSTOM_COLORS_ID:
+            self.sourceview.modify_text(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.rt_def_fg))
+
+    def on_colorbutton_text_bg_color_set(self, colorbutton):
+        """ColorButton Rich Text BG Set"""
+        if not self.user_active: return
+        self.rt_def_bg = "#" + self.html_handler.rgb_to_24(colorbutton.get_color().to_string()[1:])
+        if self.curr_tree_iter and self.syntax_highlighting == cons.CUSTOM_COLORS_ID:
+            self.sourceview.modify_base(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.rt_def_bg))
+
+    def on_colorbutton_tree_fg_color_set(self, colorbutton):
+        """ColorButton Rich Text FG Set"""
+        if not self.user_active: return
+        self.tt_def_fg = "#" + self.html_handler.rgb_to_24(colorbutton.get_color().to_string()[1:])
+        self.treeview.modify_text(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.tt_def_fg))
+
+    def on_colorbutton_tree_bg_color_set(self, colorbutton):
+        """ColorButton Rich Text FG Set"""
+        if not self.user_active: return
+        self.tt_def_bg = "#" + self.html_handler.rgb_to_24(colorbutton.get_color().to_string()[1:])
+        self.treeview.modify_base(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.tt_def_bg))
 
     def on_browse_anchors_button_clicked(self, *args):
         """Browse for Existing Anchors on the Selected Node"""
