@@ -27,6 +27,10 @@ ICONS_SIZE = {1: gtk.ICON_SIZE_MENU, 2: gtk.ICON_SIZE_SMALL_TOOLBAR, 3: gtk.ICON
 
 LINK_CUSTOM_ACTION_DEFAULT_WEB = "firefox %s &"
 LINK_CUSTOM_ACTION_DEFAULT_FILE = "xdg-open %s &"
+RICH_TEXT_DEFAULT_FG = "#ffffff"
+RICH_TEXT_DEFAULT_BG = "#000000"
+TREE_TEXT_DEFAULT_FG = "#ffffff"
+TREE_TEXT_DEFAULT_BG = "#000000"
 
 
 def config_file_load(inst):
@@ -69,6 +73,10 @@ def config_file_load(inst):
         inst.text_font = dom_iter.attributes["text_font"].value if dom_iter.hasAttribute("text_font") else "Sans 9" # default text font
         inst.tree_font = dom_iter.attributes["tree_font"].value if dom_iter.hasAttribute("tree_font") else "Sans 8" # default tree font
         inst.code_font = dom_iter.attributes["code_font"].value if dom_iter.hasAttribute("code_font") else "Monospace 9" # default code font
+        inst.rt_def_fg = dom_iter.attributes["rt_def_fg"].value if dom_iter.hasAttribute("rt_def_fg") else RICH_TEXT_DEFAULT_FG
+        inst.rt_def_bg = dom_iter.attributes["rt_def_bg"].value if dom_iter.hasAttribute("rt_def_bg") else RICH_TEXT_DEFAULT_BG
+        inst.tt_def_fg = dom_iter.attributes["tt_def_fg"].value if dom_iter.hasAttribute("tt_def_fg") else TREE_TEXT_DEFAULT_FG
+        inst.tt_def_bg = dom_iter.attributes["tt_def_bg"].value if dom_iter.hasAttribute("tt_def_bg") else TREE_TEXT_DEFAULT_BG
         inst.show_line_numbers = (dom_iter.attributes["show_line_numbers"].value == "True") if dom_iter.hasAttribute("show_line_numbers") else False
         inst.spaces_instead_tabs = (dom_iter.attributes["spaces_instead_tabs"].value == "True") if dom_iter.hasAttribute("spaces_instead_tabs") else True
         inst.tabs_width = int( dom_iter.attributes["tabs_width"].value ) if dom_iter.hasAttribute("tabs_width") else 4
@@ -139,6 +147,10 @@ def config_file_load(inst):
         inst.tree_font = "Sans 8" # default tree font
         inst.text_font = "Sans 9" # default text font
         inst.code_font = "Monospace 9" # default code font
+        inst.rt_def_fg = RICH_TEXT_DEFAULT_FG
+        inst.rt_def_bg = RICH_TEXT_DEFAULT_BG
+        inst.tt_def_fg = TREE_TEXT_DEFAULT_FG
+        inst.tt_def_bg = TREE_TEXT_DEFAULT_BG
         inst.show_line_numbers = False
         inst.spaces_instead_tabs = True
         inst.tabs_width = 4
@@ -192,6 +204,12 @@ def config_file_apply(inst):
     # sourceview
     inst.glade.fontbutton_text.set_font_name(inst.text_font)
     inst.glade.fontbutton_code.set_font_name(inst.code_font)
+    inst.glade.colorbutton_text_fg.set_color(gtk.gdk.color_parse(inst.rt_def_fg))
+    inst.glade.colorbutton_text_bg.set_color(gtk.gdk.color_parse(inst.rt_def_bg))
+    inst.glade.colorbutton_tree_fg.set_color(gtk.gdk.color_parse(inst.tt_def_fg))
+    inst.glade.colorbutton_tree_bg.set_color(gtk.gdk.color_parse(inst.tt_def_bg))
+    inst.treeview.modify_base(gtk.STATE_NORMAL, gtk.gdk.color_parse(inst.tt_def_bg))
+    inst.treeview.modify_text(gtk.STATE_NORMAL, gtk.gdk.color_parse(inst.tt_def_fg))
     inst.sourceview.set_show_line_numbers(inst.show_line_numbers)
     inst.glade.checkbutton_line_nums.set_active(inst.show_line_numbers)
     inst.sourceview.set_insert_spaces_instead_of_tabs(inst.spaces_instead_tabs)
@@ -279,6 +297,10 @@ def config_file_save(inst):
     config.setAttribute("text_font", inst.text_font)
     config.setAttribute("tree_font", inst.tree_font)
     config.setAttribute("code_font", inst.code_font)
+    config.setAttribute("rt_def_fg", inst.rt_def_fg)
+    config.setAttribute("rt_def_bg", inst.rt_def_bg)
+    config.setAttribute("tt_def_fg", inst.tt_def_fg)
+    config.setAttribute("tt_def_bg", inst.tt_def_bg)
     config.setAttribute("show_line_numbers", str(inst.show_line_numbers) )
     config.setAttribute("spaces_instead_tabs", str(inst.spaces_instead_tabs) )
     config.setAttribute("tabs_width", str(inst.tabs_width) )
