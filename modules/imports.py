@@ -1178,7 +1178,7 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
     def __init__(self, dad):
         """Machine boot"""
         self.dad = dad
-        self.monitored_tags = ["p", "b", "i", "u", "s", "h1", "h2", "span", "font"]
+        self.monitored_tags = ["p", "b", "i", "u", "s", "h1", "h2", "h3", "span", "font"]
         HTMLParser.HTMLParser.__init__(self)
 
     def rich_text_serialize(self, text_data):
@@ -1251,10 +1251,11 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
                         if attribute:
                             self.curr_attributes["foreground"] = attribute
                             self.latest_font = "foreground"
-            elif tag in ["h1", "h2"]:
+            elif tag in ["h1", "h2", "h3"]:
                 self.rich_text_serialize(cons.CHAR_NEWLINE)
                 if tag == "h1": self.curr_attributes["scale"] = "h1"
-                else: self.curr_attributes["scale"] = "h2"
+                elif tag == "h2": self.curr_attributes["scale"] = "h2"
+                else: self.curr_attributes["scale"] = "h3"
                 for attr in attrs:
                     if attr[0] == "align": self.curr_attributes["justification"] = attr[1].strip().lower()
             elif tag == "a" and len(attrs) > 0:
@@ -1316,7 +1317,7 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
                 self.latest_span = []
             elif tag == "font":
                 if self.latest_font == "foreground": self.curr_attributes["foreground"] = ""
-            elif tag in ["h1", "h2"]:
+            elif tag in ["h1", "h2", "h3"]:
                 self.curr_attributes["scale"] = ""
                 self.curr_attributes["justification"] = ""
                 self.rich_text_serialize(cons.CHAR_NEWLINE)
