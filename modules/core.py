@@ -3090,11 +3090,13 @@ class CherryTree:
 
     def apply_tag_h1(self, *args):
         """The H1 Button was Pressed"""
-        self.apply_tag("scale", "h1")
+        iter_start, iter_end = self.lists_handler.get_paragraph_iters()
+        self.apply_tag("scale", "h1", iter_sel_start=iter_start, iter_sel_end=iter_end)
 
     def apply_tag_h2(self, *args):
         """The H2 Button was Pressed"""
-        self.apply_tag("scale", "h2")
+        iter_start, iter_end = self.lists_handler.get_paragraph_iters()
+        self.apply_tag("scale", "h2", iter_sel_start=iter_start, iter_sel_end=iter_end)
 
     def apply_tag_justify_right(self, *args):
         """The Justify Right Button was Pressed"""
