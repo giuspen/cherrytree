@@ -22,7 +22,7 @@
 import os, sys
 
 
-VERSION = "0.25.4"
+VERSION = "0.26"
 APP_NAME = "cherrytree"
 NEWER_VERSION_URL = "http://www.giuspen.com/software/version_cherrytree"
 if sys.platform[0:3] == "win":
@@ -154,8 +154,6 @@ NODES_STOCKS = ['Node Bullet', 'Node NoIcon', 'Black Cherry',
                 'Gray Cherry', 'Orange Cherry', 'Orange Dark Cherry',
                 'Purple Cherry', 'Red Cherry', 'Sherbert Cherry',
                 'Yellow Cherry']
-
-HORIZONTAL_RULE = "\n=============================================\n"
 
 TABLE_NODE_CREATE = """CREATE TABLE node (
 node_id INTEGER UNIQUE,

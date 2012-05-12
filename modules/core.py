@@ -1859,6 +1859,11 @@ class CherryTree:
         """Timestamp Format Edited"""
         self.timestamp_format = entry.get_text()
 
+    def on_entry_horizontal_rule_changed(self, entry):
+        """Horizontal Rule Edited"""
+        if not self.user_active: return
+        self.h_rule = entry.get_text()
+
     def on_checkbutton_systray_toggled(self, checkbutton):
         """SysTray Toggled Handling"""
         if not self.user_active: return
@@ -2598,7 +2603,7 @@ class CherryTree:
         if self.curr_tree_iter == None:
             support.dialog_warning(_("No Node is Selected"), self.window)
             return
-        self.curr_buffer.insert_at_cursor(cons.HORIZONTAL_RULE)
+        self.curr_buffer.insert_at_cursor(cons.CHAR_NEWLINE+self.h_rule+cons.CHAR_NEWLINE)
 
     def dialog_input(self, entry_hint=None, title=None, search_opt=False, replace_opt=False, syntax_highlight=False):
         """Opens the Input Dialog"""

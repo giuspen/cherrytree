@@ -212,8 +212,8 @@ class TuxCardsHandler(HTMLParser.HTMLParser):
                 self.chars_counter += 1
             elif tag == "hr":
                 # this is a data block composed only by an horizontal rule
-                self.rich_text_serialize(cons.HORIZONTAL_RULE)
-                self.chars_counter += len(cons.HORIZONTAL_RULE)
+                self.rich_text_serialize(cons.CHAR_NEWLINE+self.h_rule+cons.CHAR_NEWLINE)
+                self.chars_counter += len(self.h_rule)+2
             elif tag == "li":
                 self.rich_text_serialize("\n• ")
                 self.chars_counter += 3
@@ -352,8 +352,8 @@ class KeepnoteHandler(HTMLParser.HTMLParser):
                 self.chars_counter += 1
             elif tag == "hr":
                 # this is a data block composed only by an horizontal rule
-                self.rich_text_serialize(cons.HORIZONTAL_RULE)
-                self.chars_counter += len(cons.HORIZONTAL_RULE)
+                self.rich_text_serialize(cons.CHAR_NEWLINE+self.h_rule+cons.CHAR_NEWLINE)
+                self.chars_counter += len(self.h_rule)+2
             elif tag == "li":
                 self.rich_text_serialize("\n• ")
                 self.chars_counter += 3
@@ -743,8 +743,8 @@ class BasketHandler(HTMLParser.HTMLParser):
                 self.chars_counter += 1
             elif tag == "hr":
                 # this is a data block composed only by an horizontal rule
-                self.rich_text_serialize(cons.HORIZONTAL_RULE)
-                self.chars_counter += len(cons.HORIZONTAL_RULE)
+                self.rich_text_serialize(cons.CHAR_NEWLINE+self.h_rule+cons.CHAR_NEWLINE)
+                self.chars_counter += len(self.h_rule)+2
             elif tag == "li":
                 self.rich_text_serialize("\n• ")
                 self.chars_counter += 3
