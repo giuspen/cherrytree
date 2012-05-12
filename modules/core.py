@@ -3098,6 +3098,11 @@ class CherryTree:
         iter_start, iter_end = self.lists_handler.get_paragraph_iters()
         self.apply_tag("scale", "h2", iter_sel_start=iter_start, iter_sel_end=iter_end)
 
+    def apply_tag_h3(self, *args):
+        """The H3 Button was Pressed"""
+        iter_start, iter_end = self.lists_handler.get_paragraph_iters()
+        self.apply_tag("scale", "h3", iter_sel_start=iter_start, iter_sel_end=iter_end)
+
     def apply_tag_justify_right(self, *args):
         """The Justify Right Button was Pressed"""
         iter_start, iter_end = self.lists_handler.get_paragraph_iters()
@@ -3304,6 +3309,7 @@ class CherryTree:
             elif property_value == "small": tag.set_property(tag_property, pango.SCALE_X_SMALL)
             elif property_value == "h1": tag.set_property(tag_property, pango.SCALE_XX_LARGE)
             elif property_value == "h2": tag.set_property(tag_property, pango.SCALE_X_LARGE)
+            elif property_value == "h3": tag.set_property(tag_property, pango.SCALE_LARGE)
             elif property_value == "italic": tag.set_property(tag_property, pango.STYLE_ITALIC)
             elif property_value == "single": tag.set_property(tag_property, pango.UNDERLINE_SINGLE)
             elif property_value == "true": tag.set_property(tag_property, True)

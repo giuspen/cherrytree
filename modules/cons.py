@@ -125,6 +125,7 @@ STOCKS_N_FILES = {'Node Bullet':'node_bullet.png',
                   'Change Color Foreground':'color_foreground.png',
                   'Format Text Large':'format-text-large.png',
                   'Format Text Large2':'format-text-large2.png',
+                  'Format Text Large3':'format-text-large3.png',
                   'Format Text Small':'format-text-small.png',
                   'Format Text Subscript':'format-text-subscript.png',
                   'Format Text Superscript':'format-text-superscript.png',
@@ -268,6 +269,7 @@ UI_INFO = """
             <menuitem action='Strikethrough'/>
             <menuitem action='H1'/>
             <menuitem action='H2'/>
+            <menuitem action='H3'/>
             <menuitem action='Small'/>
             <menuitem action='Superscript'/>
             <menuitem action='Subscript'/>
@@ -379,6 +381,7 @@ UI_INFO = """
         <toolitem action='Strikethrough'/>
         <toolitem action='H1'/>
         <toolitem action='H2'/>
+        <toolitem action='H3'/>
         <toolitem action='Small'/>
         <toolitem action='Superscript'/>
         <toolitem action='Subscript'/>
@@ -503,6 +506,7 @@ def get_entries(inst):
     ( "Strikethrough", "gtk-strikethrough", _("Toggle Stri_kethrough Property"), "<control>E", _("Toggle Strikethrough Property of the Selected Text"), inst.apply_tag_strikethrough),
     ( "H1", "Format Text Large", _("Toggle h_1 Property"), "<control>1", _("Toggle h1 Property of the Selected Text"), inst.apply_tag_h1),
     ( "H2", "Format Text Large2", _("Toggle h_2 Property"), "<control>2", _("Toggle h2 Property of the Selected Text"), inst.apply_tag_h2),
+    ( "H3", "Format Text Large3", _("Toggle h_3 Property"), "<control>3", _("Toggle h3 Property of the Selected Text"), inst.apply_tag_h3),
     ( "Small", "Format Text Small", _("Toggle _Small Property"), "<control>0", _("Toggle Small Property of the Selected Text"), inst.apply_tag_small),
     ( "Superscript", "Format Text Superscript", _("Toggle Su_perscript Property"), None, _("Toggle Superscript Property of the Selected Text"), inst.apply_tag_superscript),
     ( "Subscript", "Format Text Subscript", _("Toggle Su_bscript Property"), None, _("Toggle Subscript Property of the Selected Text"), inst.apply_tag_subscript),
@@ -636,6 +640,7 @@ def get_popup_menu_entries_text(inst):
     ("gtk-strikethrough", _("Toggle Stri_kethrough Property"), "<control>E", _("Toggle Strikethrough Property of the Selected Text"), inst.apply_tag_strikethrough),
     ("Format Text Large", _("Toggle h_1 Property"), "<control>1", _("Toggle h1 Property of the Selected Text"), inst.apply_tag_h1),
     ("Format Text Large2", _("Toggle h_2 Property"), "<control>2", _("Toggle h2 Property of the Selected Text"), inst.apply_tag_h2),
+    ("Format Text Large3", _("Toggle h_3 Property"), "<control>3", _("Toggle h3 Property of the Selected Text"), inst.apply_tag_h3),
     ("Format Text Small", _("Toggle _Small Property"), "<control>0", _("Toggle Small Property of the Selected Text"), inst.apply_tag_small),
     ("Format Text Superscript", _("Toggle Su_perscript Property"), None, _("Toggle Superscript Property of the Selected Text"), inst.apply_tag_superscript),
     ("Format Text Subscript", _("Toggle Su_bscript Property"), None, _("Toggle Subscript Property of the Selected Text"), inst.apply_tag_subscript),

@@ -315,6 +315,7 @@ class Export2Pango:
                     if property_value == "small": property_value = 'x-small'
                     elif property_value == "h1": property_value = 'xx-large'
                     elif property_value == "h2": property_value = 'x-large'
+                    elif property_value == "h3": property_value = 'large'
                 elif tag_property == "family":
                     monospace_active = True
                     continue
@@ -679,6 +680,7 @@ class Export2Html:
                         if property_value == "small": property_value = "x-small"
                         elif property_value == "h1": property_value = "xx-large"
                         elif property_value == "h2": property_value = "x-large"
+                        elif property_value == "h3": property_value = "large"
                 elif tag_property == "family":
                     monospace_active = True
                     continue
@@ -711,6 +713,9 @@ class Export2Html:
             elif "x-large" in html_attrs:
                 html_attrs = html_attrs.replace("font-size:x-large;", "")
                 tagged_text = '<h2 style="' + html_attrs + '">' + inner_text + "</h2>"
+            elif "large" in html_attrs:
+                html_attrs = html_attrs.replace("font-size:large;", "")
+                tagged_text = '<h3 style="' + html_attrs + '">' + inner_text + "</h3>"
             #elif "text-align" in html_attrs: self.curr_html_text += '<p style="' + html_attrs + '">' + inner_text + "</p>"
             else: tagged_text = '<span style="' + html_attrs + '">' + inner_text + "</span>"
         if superscript_active: tagged_text = "<sup>" + tagged_text + "</sup>"
