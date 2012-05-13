@@ -444,8 +444,8 @@ class XMLHandler:
     def toc_insert(self, text_buffer, node_id):
         """Given the text_buffer, inserts the Table Of Contents"""
         self.curr_attributes = {}
-        self.toc_counters = {"h1":0, "h2":0}
-        self.toc_list = [] # 0: anchor name; 1: text in h1 or h2
+        self.toc_counters = {"h1":0, "h2":0, "h3":0}
+        self.toc_list = [] # 0: anchor name; 1: text in h1, h2 or h3
         for tag_property in cons.TAG_PROPERTIES: self.curr_attributes[tag_property] = ""
         start_iter = text_buffer.get_start_iter()
         end_iter = text_buffer.get_end_iter()
@@ -478,9 +478,12 @@ class XMLHandler:
             if element[0][:2] == "h1":
                 text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), cons.CHAR_LISTBUL + cons.CHAR_SPACE)
                 curr_offset += 2
-            else:
+            elif element[0][:2] == "h2":
                 text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), 3*cons.CHAR_SPACE + cons.CHAR_LISTBUL + cons.CHAR_SPACE)
                 curr_offset += 5
+            else:
+                text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), 6*cons.CHAR_SPACE + cons.CHAR_LISTBUL + cons.CHAR_SPACE)
+                curr_offset += 8
             text_buffer.insert_with_tags_by_name(text_buffer.get_iter_at_offset(curr_offset), element[1], *tag_names)
             curr_offset += len(element[1])
             text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), cons.CHAR_NEWLINE)
@@ -490,15 +493,18 @@ class XMLHandler:
 
     def toc_insert_parser(self, text_buffer, start_iter, end_iter):
         """Parses a Tagged String for the TOC insert"""
-        if self.curr_attributes["scale"] not in ["h1", "h2"]: return None
+        if self.curr_attributes["scale"] not in ["h1", "h2", "h3"]: return None
         start_offset = start_iter.get_offset()
         end_offset = end_iter.get_offset()
         if self.curr_attributes["scale"] == "h1":
             self.toc_counters["h1"] += 1
             self.toc_list.append(["h1-%d" % self.toc_counters["h1"], text_buffer.get_text(start_iter, end_iter)])
-        else:
+        elif self.curr_attributes["scale"] == "h2":
             self.toc_counters["h2"] += 1
             self.toc_list.append(["h2-%d" % self.toc_counters["h2"], text_buffer.get_text(start_iter, end_iter)])
+        else:
+            self.toc_counters["h3"] += 1
+            self.toc_list.append(["h3-%d" % self.toc_counters["h3"], text_buffer.get_text(start_iter, end_iter)])
         anchor_start = start_iter.copy()
         if anchor_start.backward_char():
             anchor = anchor_start.get_child_anchor()
