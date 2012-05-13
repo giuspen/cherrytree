@@ -2282,12 +2282,3 @@ msgstr "Muovi Colonna a Destra"
 #: glade/cherrytree.glade.h:145
 msgid "CherryTree"
 msgstr "CherryTree"
-
-#~ msgid "XML File"
-#~ msgstr "File XML"
-
-#~ msgid "SQLite File"
-#~ msgstr "File SQLite"
-
-#~ msgid "Disabled (Custom Colors)"
-#~ msgstr "Disabilitata (Colori Personalizzati)"

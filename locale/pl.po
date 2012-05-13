@@ -2,7 +2,7 @@
 # Copyright (C) 2010 THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Marcin Swierczynski <orneo1212@gmail.com>, 2010.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
@@ -300,12 +300,8 @@ msgid "Are you sure to <b>Delete the node '%s'?</b>"
 msgstr "Jesteś pewien aby <b>Usunąć gałąź '%s'?</b>"
 
 #: modules/core.py:2228
-#, fuzzy
 msgid "The node <b>has Children, they will be Deleted too!</b>"
-msgstr ""
-"\n"
-"\n"
-"gałąź <b>posiada gałęzi podrzędne, one także zostaną usunięte!</b>"
+msgstr "Gałąź <b>posiada gałęzi podrzędne, one także zostaną usunięte!</b>"
 
 #: modules/core.py:2262
 msgid "Insert the New Name for the Node..."
@@ -345,9 +341,8 @@ msgid "The Anchor Name is Mandatory!"
 msgstr "Nazwa kotwicy jest już zajęta!"
 
 #: modules/core.py:2771
-#, fuzzy
 msgid "Not Any H1, H2 or H3 Formatting Found"
-msgstr "Nie znaleziono H1 oraz H2"
+msgstr "Nie znaleziono żadnego H1, H2 lub H3"
 
 #: modules/core.py:2801 modules/core.py:3181 modules/core.py:3188
 #: modules/core.py:3195 modules/core.py:3207
@@ -978,14 +973,12 @@ msgid "Toggle h2 Property of the Selected Text"
 msgstr "Przełącz H2 dla zaznaczonego tekstu"
 
 #: modules/cons.py:509 modules/cons.py:643
-#, fuzzy
 msgid "Toggle h_3 Property"
-msgstr "Przełącz H1"
+msgstr "Przełącz nagłówek H_3"
 
 #: modules/cons.py:509 modules/cons.py:643
-#, fuzzy
 msgid "Toggle h3 Property of the Selected Text"
-msgstr "Przełącz H_1 fla zaznaczonego tekstu"
+msgstr "Przełącz nagłówek H3 dla zaznaczonego tekstu"
 
 #: modules/cons.py:510 modules/cons.py:644
 msgid "Toggle _Small Property"
@@ -996,34 +989,28 @@ msgid "Toggle Small Property of the Selected Text"
 msgstr "Przełącz indeks dla zaznaczonego tekstu"
 
 #: modules/cons.py:511 modules/cons.py:645
-#, fuzzy
 msgid "Toggle Su_perscript Property"
-msgstr "Przełącz podkreślenie"
+msgstr "Przełącz superskrypt"
 
 #: modules/cons.py:511 modules/cons.py:645
-#, fuzzy
 msgid "Toggle Superscript Property of the Selected Text"
-msgstr "Przełącz podkreślenie dla zaznaczonego tekstu"
+msgstr "Przełącz superskrypt dla zaznaczonego tekstu"
 
 #: modules/cons.py:512 modules/cons.py:646
-#, fuzzy
 msgid "Toggle Su_bscript Property"
-msgstr "Przełącz H1"
+msgstr "Przełącz subskrypt"
 
 #: modules/cons.py:512 modules/cons.py:646
-#, fuzzy
 msgid "Toggle Subscript Property of the Selected Text"
-msgstr "Przełącz H_1 fla zaznaczonego tekstu"
+msgstr "Przełącz subskrypt dla zaznaczonego tekstu"
 
 #: modules/cons.py:513 modules/cons.py:647
-#, fuzzy
 msgid "Toggle _Monospace Property"
-msgstr "Przełącz pochylenie"
+msgstr "Przełącz _Monospace"
 
 #: modules/cons.py:513 modules/cons.py:647
-#, fuzzy
 msgid "Toggle Monospace Property of the Selected Text"
-msgstr "Przełącz pochylenie dla zaznaczonego tekstu"
+msgstr "Przełącz Monospace dla zaznaczonego tekstu"
 
 #: modules/cons.py:514 modules/cons.py:650
 msgid "Justify _Left"
@@ -1257,12 +1244,11 @@ msgstr "Dodaj gałąź z pliku Leo do aktualnego drzewa"
 
 #: modules/cons.py:542
 msgid "Online _Manual"
-msgstr ""
+msgstr "Poradnik online"
 
 #: modules/cons.py:542
-#, fuzzy
 msgid "Application's Online Manual"
-msgstr "Strona domowa programu"
+msgstr "Poradnik aplikacji online"
 
 #: modules/cons.py:543
 msgid "_Check Newer Version"
@@ -1831,14 +1817,12 @@ msgid "<b>Search options</b>"
 msgstr "<b>Opcje szukania</b>"
 
 #: glade/cherrytree.glade.h:77
-#, fuzzy
 msgid "Automatic Syntax Highlighting"
 msgstr "<b>Automatyczne kolorowanie składni</b>"
 
 #: glade/cherrytree.glade.h:78
-#, fuzzy
 msgid "<b>Node Type</b>"
-msgstr "<b>Gałąź</b>"
+msgstr "<b>Typ gałązi</b>"
 
 #: glade/cherrytree.glade.h:79
 msgid "<b>Tags for Searching</b>"
@@ -1906,21 +1890,19 @@ msgstr "Podświetlaj aktualną linię"
 
 #: glade/cherrytree.glade.h:99
 msgid "Default Text Color"
-msgstr ""
+msgstr "Domyślny kolor tekstu"
 
 #: glade/cherrytree.glade.h:100
 msgid "Default Background Color"
-msgstr ""
+msgstr "Domyślny color tła"
 
 #: glade/cherrytree.glade.h:101
-#, fuzzy
 msgid "Anchor Size"
-msgstr "Nazwa kotwicy"
+msgstr "Rozmiar kotwicy"
 
 #: glade/cherrytree.glade.h:102
-#, fuzzy
 msgid "<b>Rich Text</b>"
-msgstr "Formatowanie"
+msgstr "<b>Tekst z formatowaniem</b>"
 
 #: glade/cherrytree.glade.h:103
 msgid "Text Font"
@@ -2023,9 +2005,8 @@ msgid "Detail of Available Format Codes"
 msgstr "Szczegóły dostępnych kodów"
 
 #: glade/cherrytree.glade.h:128
-#, fuzzy
 msgid "Horizontal Rule"
-msgstr "Dodaj poziomą linię"
+msgstr "Dodaj poziomą linijkę"
 
 #: glade/cherrytree.glade.h:129
 msgid "Limit of Undoable Steps Per Node"
@@ -2094,12 +2075,3 @@ msgstr "Prznieś kolumne w prawo"
 #: glade/cherrytree.glade.h:145
 msgid "CherryTree"
 msgstr "CherryTree"
-
-#~ msgid "XML File"
-#~ msgstr "Plik XML"
-
-#~ msgid "SQLite File"
-#~ msgstr "Plik SQLite"
-
-#~ msgid "Disabled (Custom Colors)"
-#~ msgstr "Wyłączony (Własne kolory)"
