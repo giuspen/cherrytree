@@ -392,6 +392,7 @@ class CTDBHandler:
         iter_insert = text_buffer.get_iter_at_offset(image_row['offset'])
         if image_row['anchor']:
             pixbuf = gtk.gdk.pixbuf_new_from_file(cons.ANCHOR_CHAR)
+            pixbuf = pixbuf.scale_simple(self.dad.anchor_size, self.dad.anchor_size, gtk.gdk.INTERP_BILINEAR)
             pixbuf.anchor = image_row['anchor']
         else: pixbuf = machines.get_pixbuf_from_png_blob_buffer(image_row['png'])
         if pixbuf:

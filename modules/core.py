@@ -2701,7 +2701,9 @@ class CherryTree:
         """Insert an Anchor"""
         if not self.node_sel_and_rich_text(): return
         iter_insert = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
-        self.anchor_edit_dialog(gtk.gdk.pixbuf_new_from_file(cons.ANCHOR_CHAR), iter_insert)
+        pixbuf = gtk.gdk.pixbuf_new_from_file(cons.ANCHOR_CHAR)
+        pixbuf = pixbuf.scale_simple(self.anchor_size, self.anchor_size, gtk.gdk.INTERP_BILINEAR)
+        self.anchor_edit_dialog(pixbuf, iter_insert)
 
     def anchor_edit(self, *args):
         """Edit an Anchor"""
@@ -3056,6 +3058,11 @@ class CherryTree:
             self.temp_image_height = self.glade.spinbutton_image_height.get_value()
             self.temp_image_width = self.temp_image_height * self.image_w_h_ration
             self.image_load_into_dialog()
+
+    def on_spinbutton_anchor_size_value_changed(self, spinbutton):
+        """Anchor Size Handling"""
+        if not self.user_active: return
+        self.anchor_size = int(self.glade.spinbutton_anchor_size.get_value())
 
     def apply_tag_foreground(self, *args):
         """The Foreground Color Chooser Button was Pressed"""
