@@ -1,25 +1,24 @@
 # German translations for svn_cherrytree package.
 # Copyright (C) 2010 THE svn_cherrytree'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the svn_cherrytree package.
-#
+# 
 # maul <giuspen@gmail.com>, 2010.
-# Pavel Fric <fripohled@blogspot.com>, 2010, 2011.
-# Pavel Fric <fripohled.blogspot.com>, 2010, 2011.
+# Pavel Fric <pavelfric@seznam.cz>, 2010, 2011.
 # Pavel Fric <pavelfric@seznam.cz>, 2011, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-05-13 18:08+0200\n"
-"PO-Revision-Date: 2012-01-11 23:25+0100\n"
-"Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
+"PO-Revision-Date: 2012-05-13 20:44+0200\n"
+"Last-Translator: Pavel <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 1.1\n"
+"X-Generator: Lokalize 1.4\n"
 
 #: modules/support.py:59
 msgid "Save File as"
@@ -306,12 +305,8 @@ msgid "Are you sure to <b>Delete the node '%s'?</b>"
 msgstr "Opravdu chcete <b>smazat uzel '%s'?</b>"
 
 #: modules/core.py:2228
-#, fuzzy
 msgid "The node <b>has Children, they will be Deleted too!</b>"
-msgstr ""
-"\n"
-"\n"
-"Uzel má <b>podřízené uzly, které budou rovněž smazány!</b>"
+msgstr "Uzel má <b>podřízené uzly, které budou rovněž smazány!</b>"
 
 #: modules/core.py:2262
 msgid "Insert the New Name for the Node..."
@@ -351,9 +346,8 @@ msgid "The Anchor Name is Mandatory!"
 msgstr "Název kotvy je povinný!"
 
 #: modules/core.py:2771
-#, fuzzy
 msgid "Not Any H1, H2 or H3 Formatting Found"
-msgstr "Nebyly nalezeny žádné nadpisy"
+msgstr "Nebylo nalezeno žádné formátování nadpisů (H1, H2 nebo H3)"
 
 #: modules/core.py:2801 modules/core.py:3181 modules/core.py:3188
 #: modules/core.py:3195 modules/core.py:3207
@@ -534,7 +528,7 @@ msgstr "_Zavedení"
 
 #: modules/cons.py:450
 msgid "E_xport"
-msgstr "_Vyvést"
+msgstr "_Vyvedení"
 
 #: modules/cons.py:451
 msgid "_Help"
@@ -988,14 +982,12 @@ msgid "Toggle h2 Property of the Selected Text"
 msgstr "Formátovat vybraný text jako nadpis 2"
 
 #: modules/cons.py:509 modules/cons.py:643
-#, fuzzy
 msgid "Toggle h_3 Property"
-msgstr "Nadpis _1"
+msgstr "Nadpis _3"
 
 #: modules/cons.py:509 modules/cons.py:643
-#, fuzzy
 msgid "Toggle h3 Property of the Selected Text"
-msgstr "Formátovat vybraný text jako nadpis 1"
+msgstr "Formátovat vybraný text jako nadpis 3"
 
 #: modules/cons.py:510 modules/cons.py:644
 msgid "Toggle _Small Property"
@@ -1006,34 +998,28 @@ msgid "Toggle Small Property of the Selected Text"
 msgstr "Formátovat vybraný text jako malý"
 
 #: modules/cons.py:511 modules/cons.py:645
-#, fuzzy
 msgid "Toggle Su_perscript Property"
-msgstr "_Podtržení"
+msgstr "Horní index"
 
 #: modules/cons.py:511 modules/cons.py:645
-#, fuzzy
 msgid "Toggle Superscript Property of the Selected Text"
-msgstr "Formátovat vybraný text podtržením"
+msgstr "Formátovat vybraný text jako horní index"
 
 #: modules/cons.py:512 modules/cons.py:646
-#, fuzzy
 msgid "Toggle Su_bscript Property"
-msgstr "Nadpis _1"
+msgstr "Dolní index"
 
 #: modules/cons.py:512 modules/cons.py:646
-#, fuzzy
 msgid "Toggle Subscript Property of the Selected Text"
-msgstr "Formátovat vybraný text jako nadpis 1"
+msgstr "Formátovat vybraný text jako dolní index"
 
 #: modules/cons.py:513 modules/cons.py:647
-#, fuzzy
 msgid "Toggle _Monospace Property"
-msgstr "_Kurzíva"
+msgstr "Neproporcionální písmo"
 
 #: modules/cons.py:513 modules/cons.py:647
-#, fuzzy
 msgid "Toggle Monospace Property of the Selected Text"
-msgstr "Formátovat vybraný text kurzívně"
+msgstr "Formátovat vybraný text jako neproporcionální"
 
 #: modules/cons.py:514 modules/cons.py:650
 msgid "Justify _Left"
@@ -1045,7 +1031,7 @@ msgstr "Zarovnat současný odstavec vlevo"
 
 #: modules/cons.py:515 modules/cons.py:651
 msgid "Justify _Center"
-msgstr "_Na střed"
+msgstr "Zarovnat _na střed"
 
 #: modules/cons.py:515 modules/cons.py:651
 msgid "Justify Center the Current Paragraph"
@@ -1187,7 +1173,7 @@ msgstr "Zmenšit velikost ikon v nástrojovém pruhu"
 
 #: modules/cons.py:532
 msgid "_Full Screen On/Off"
-msgstr "_Zobrazení na celou obrazovku Zapnuto/Vypnuto"
+msgstr "_Zobrazení na celou obrazovku zapnuto/vypnuto"
 
 #: modules/cons.py:532
 msgid "Toggle Full Screen On/Off"
@@ -1267,12 +1253,11 @@ msgstr "Přidat uzly ze souboru Leo do současné stromové stavby"
 
 #: modules/cons.py:542
 msgid "Online _Manual"
-msgstr ""
+msgstr "_Příručka na internetu"
 
 #: modules/cons.py:542
-#, fuzzy
 msgid "Application's Online Manual"
-msgstr "Domovské stránky programu"
+msgstr "_Příručka programu na internetu"
 
 #: modules/cons.py:543
 msgid "_Check Newer Version"
@@ -1840,14 +1825,12 @@ msgid "<b>Search options</b>"
 msgstr "<b>Volby pro hledání</b>"
 
 #: glade/cherrytree.glade.h:77
-#, fuzzy
 msgid "Automatic Syntax Highlighting"
-msgstr "<b>Automatické zvýrazňování skladby</b>"
+msgstr "Automatické zvýrazňování skladby"
 
 #: glade/cherrytree.glade.h:78
-#, fuzzy
 msgid "<b>Node Type</b>"
-msgstr "<b>Uzly</b>"
+msgstr "<b>Typ uzlu</b>"
 
 #: glade/cherrytree.glade.h:79
 msgid "<b>Tags for Searching</b>"
@@ -1915,21 +1898,19 @@ msgstr "Zvýraznit nynější řádek"
 
 #: glade/cherrytree.glade.h:99
 msgid "Default Text Color"
-msgstr ""
+msgstr "Výchozí barva textu"
 
 #: glade/cherrytree.glade.h:100
 msgid "Default Background Color"
-msgstr ""
+msgstr "Výchozí barva pozadí"
 
 #: glade/cherrytree.glade.h:101
-#, fuzzy
 msgid "Anchor Size"
-msgstr "Název kotvy"
+msgstr "Velikost kotvy"
 
 #: glade/cherrytree.glade.h:102
-#, fuzzy
 msgid "<b>Rich Text</b>"
-msgstr "Formátovaný text"
+msgstr "<b>Bohatý text</b>"
 
 #: glade/cherrytree.glade.h:103
 msgid "Text Font"
@@ -1941,7 +1922,7 @@ msgstr "Písmo kódu  "
 
 #: glade/cherrytree.glade.h:105
 msgid "Tree Font"
-msgstr "Písmo ve stromuu "
+msgstr "Písmo ve stromu"
 
 #: glade/cherrytree.glade.h:106
 msgid "<b>Fonts</b>"
@@ -2032,9 +2013,8 @@ msgid "Detail of Available Format Codes"
 msgstr "Podrobnosti dostupných formátových kódů"
 
 #: glade/cherrytree.glade.h:128
-#, fuzzy
 msgid "Horizontal Rule"
-msgstr "Vložit oddělovací čáru"
+msgstr "Oddělovací čára"
 
 #: glade/cherrytree.glade.h:129
 msgid "Limit of Undoable Steps Per Node"
@@ -2103,12 +2083,3 @@ msgstr "Posunout sloupec vpravo"
 #: glade/cherrytree.glade.h:145
 msgid "CherryTree"
 msgstr "CherryTree"
-
-#~ msgid "XML File"
-#~ msgstr "Soubor XML"
-
-#~ msgid "SQLite File"
-#~ msgstr "Soubor SQLite"
-
-#~ msgid "Disabled (Custom Colors)"
-#~ msgstr "Vypnuto (vlastní barvy)"

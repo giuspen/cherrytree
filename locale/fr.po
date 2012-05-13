@@ -2,7 +2,7 @@
 # Copyright (C) 2010 THE svn_cherrytree'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the svn_cherrytree package.
 # giuspen <giuspen@gmail.com>, 2010.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: svn_cherrytree 0.14\n"
@@ -305,12 +305,8 @@ msgid "Are you sure to <b>Delete the node '%s'?</b>"
 msgstr "Êtes-vous sûr de vouloir <b>Supprimer le nœud '%s'?</b>"
 
 #: modules/core.py:2228
-#, fuzzy
 msgid "The node <b>has Children, they will be Deleted too!</b>"
-msgstr ""
-"\n"
-"\n"
-"Le nœud <b>a des Enfants, ils seront supprimés également !</b>"
+msgstr "Le nœud <b>a des Enfants, ils seront supprimés également !</b>"
 
 #: modules/core.py:2262
 msgid "Insert the New Name for the Node..."
@@ -350,9 +346,8 @@ msgid "The Anchor Name is Mandatory!"
 msgstr "Le Nom de l'Ancre est Obligatoire !"
 
 #: modules/core.py:2771
-#, fuzzy
 msgid "Not Any H1, H2 or H3 Formatting Found"
-msgstr "Aucune mise en forme H1 ou H2 n'a été trouvée'"
+msgstr "Aucune mise en forme H1, H2 ou H3 n'a été trouvée'"
 
 #: modules/core.py:2801 modules/core.py:3181 modules/core.py:3188
 #: modules/core.py:3195 modules/core.py:3207
@@ -989,14 +984,12 @@ msgid "Toggle h2 Property of the Selected Text"
 msgstr "Augmenter la taille du Texte (taille moyenne)"
 
 #: modules/cons.py:509 modules/cons.py:643
-#, fuzzy
 msgid "Toggle h_3 Property"
-msgstr "Activer la Taille du Texte en h1"
+msgstr "Activer la fonction h_3"
 
 #: modules/cons.py:509 modules/cons.py:643
-#, fuzzy
 msgid "Toggle h3 Property of the Selected Text"
-msgstr "Augmenter la Taille du Texte (grande taille)"
+msgstr "Activer la fonction h3 pour le texte sélectionné"
 
 #: modules/cons.py:510 modules/cons.py:644
 msgid "Toggle _Small Property"
@@ -1007,34 +1000,28 @@ msgid "Toggle Small Property of the Selected Text"
 msgstr "Diminuer la Taille du Texte (petite taille)"
 
 #: modules/cons.py:511 modules/cons.py:645
-#, fuzzy
 msgid "Toggle Su_perscript Property"
-msgstr "Activer la Fonction _Souligné"
+msgstr "Activer la fonction E_xposant"
 
 #: modules/cons.py:511 modules/cons.py:645
-#, fuzzy
 msgid "Toggle Superscript Property of the Selected Text"
-msgstr "Souligner le texte sélectionné"
+msgstr "Activer la fonction Exposant pour le texte sélectionné"
 
 #: modules/cons.py:512 modules/cons.py:646
-#, fuzzy
 msgid "Toggle Su_bscript Property"
-msgstr "Activer la Taille du Texte en h1"
+msgstr "Activer la fonction In_dice"
 
 #: modules/cons.py:512 modules/cons.py:646
-#, fuzzy
 msgid "Toggle Subscript Property of the Selected Text"
-msgstr "Augmenter la Taille du Texte (grande taille)"
+msgstr "Activer la fonction Indice pour le texte sélectionné"
 
 #: modules/cons.py:513 modules/cons.py:647
-#, fuzzy
 msgid "Toggle _Monospace Property"
-msgstr "Activer la Fonction _Italique"
+msgstr "Activer la fonction _Monospace"
 
 #: modules/cons.py:513 modules/cons.py:647
-#, fuzzy
 msgid "Toggle Monospace Property of the Selected Text"
-msgstr "Mettre le texte sélectionné en Italique"
+msgstr "Activer la fonction _Monospace pour le texte sélectionné"
 
 #: modules/cons.py:514 modules/cons.py:650
 msgid "Justify _Left"
@@ -1268,12 +1255,11 @@ msgstr "Ajouter les Nœuds d'un Fichier Leo à l'Arborescence actuelle"
 
 #: modules/cons.py:542
 msgid "Online _Manual"
-msgstr ""
+msgstr "_Manuel d'utilisation en ligne"
 
 #: modules/cons.py:542
-#, fuzzy
 msgid "Application's Online Manual"
-msgstr "Page d'Acceuil de l'Application"
+msgstr "Manuel en ligne de l'Application"
 
 #: modules/cons.py:543
 msgid "_Check Newer Version"
@@ -1843,14 +1829,12 @@ msgid "<b>Search options</b>"
 msgstr "<b>Options de Recherche</b>"
 
 #: glade/cherrytree.glade.h:77
-#, fuzzy
 msgid "Automatic Syntax Highlighting"
-msgstr "<b>Marquage Automatique de la Syntaxe</b>"
+msgstr "Marquage Automatique de la Syntaxe"
 
 #: glade/cherrytree.glade.h:78
-#, fuzzy
 msgid "<b>Node Type</b>"
-msgstr "<b>Nœud</b>"
+msgstr "<b>Type de Nœud</b>"
 
 #: glade/cherrytree.glade.h:79
 msgid "<b>Tags for Searching</b>"
@@ -1918,21 +1902,19 @@ msgstr "Surligner la Ligne actuelle"
 
 #: glade/cherrytree.glade.h:99
 msgid "Default Text Color"
-msgstr ""
+msgstr "Couleur par défaut du texte"
 
 #: glade/cherrytree.glade.h:100
 msgid "Default Background Color"
-msgstr ""
+msgstr "Couleur d'arrière-plan par défaut"
 
 #: glade/cherrytree.glade.h:101
-#, fuzzy
 msgid "Anchor Size"
-msgstr "Nom de l'Ancre"
+msgstr "Taille de l'Ancre"
 
 #: glade/cherrytree.glade.h:102
-#, fuzzy
 msgid "<b>Rich Text</b>"
-msgstr "Texte Enrichi"
+msgstr "<b>Texte Enrichi</b>"
 
 #: glade/cherrytree.glade.h:103
 msgid "Text Font"
@@ -2035,9 +2017,8 @@ msgid "Detail of Available Format Codes"
 msgstr "Détail des Codes de formattage disponibles"
 
 #: glade/cherrytree.glade.h:128
-#, fuzzy
 msgid "Horizontal Rule"
-msgstr "Insérer une Ligne Horizontale"
+msgstr "Ligne Horizontale"
 
 #: glade/cherrytree.glade.h:129
 msgid "Limit of Undoable Steps Per Node"
@@ -2106,12 +2087,3 @@ msgstr "Déplacer Colonne à Droite"
 #: glade/cherrytree.glade.h:145
 msgid "CherryTree"
 msgstr "CherryTree"
-
-#~ msgid "XML File"
-#~ msgstr "Fichier XML"
-
-#~ msgid "SQLite File"
-#~ msgstr "Fichier SQLite"
-
-#~ msgid "Disabled (Custom Colors)"
-#~ msgstr "Désactivé (Couleurs Personnelles)"
