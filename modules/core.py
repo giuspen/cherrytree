@@ -1802,8 +1802,8 @@ class CherryTree:
         if radiobutton.get_active(): self.table_column_mode = "right"
 
     def on_help_menu_item_activated(self, menuitem, data=None):
-        """Show the application's Home Page"""
-        webbrowser.open("http://www.giuspen.com/cherrytree/")
+        """Show the Online Manual"""
+        webbrowser.open("http://dl.dropbox.com/u/29682329/CherrytreeManual.ctb_html/Introduction.html")
 
     def on_button_strftime_help_clicked(self, menuitem, data=None):
         """Show the strftime Manual Page"""
