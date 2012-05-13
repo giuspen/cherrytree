@@ -2739,9 +2739,22 @@ class CherryTree:
 
     def toc_insert(self, *args):
         """Insert Table Of Contents"""
+        if self.curr_tree_iter == None:
+            support.dialog_warning(_("No Node is Selected!"), self.window)
+            return
         if not self.node_sel_and_rich_text(): return
-        if not self.xml_handler.toc_insert(self.curr_buffer, self.treestore[self.curr_tree_iter][3]):
-            support.dialog_warning(_("Not Any H1, H2 or H3 Formatting Found"), self.window)
+        toc_type = support.dialog_selnode_selnodeandsub_alltree(self.window)
+        if toc_type == 0: return
+        if toc_type == 1:
+            # only selected node
+            ret_toc_list = self.xml_handler.toc_insert_one(self.curr_buffer, self.treestore[self.curr_tree_iter][3])
+        elif toc_type == 2:
+            # selected node and subnodes
+            ret_toc_list = self.xml_handler.toc_insert_all(self.curr_buffer, self.curr_tree_iter)
+        else:
+            # all nodes
+            ret_toc_list = self.xml_handler.toc_insert_all(self.curr_buffer, self.treestore.get_iter_first())
+        if not ret_toc_list: support.dialog_warning(_("Not Any H1, H2 or H3 Formatting Found"), self.window)
 
     def table_handle(self, *args):
         """Insert Table"""

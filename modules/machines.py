@@ -441,11 +441,32 @@ class XMLHandler:
                 elif tag_name[0:7] == "family_": curr_attributes["family"] = tag_name[7:]
                 else: support.dialog_error("Failure processing the toggling ON tag %s" % tag_name, self.dad.window)
 
-    def toc_insert(self, text_buffer, node_id):
+    def toc_insert_all(self, text_buffer, top_tree_iter):
+        """Insert a TOC at top of text_buffer, including Node and Subnodes starting from top_tree_iter"""
+        toc_list_per_node = []
+        while top_tree_iter != None:
+            toc_list_per_node.extend(self.toc_insert_all_iter(top_tree_iter))
+            top_tree_iter = self.dad.treestore.iter_next(top_tree_iter)
+        self.dad.objects_buffer_refresh()
+        
+    def toc_insert_all_iter(self, top_tree_iter):
+        """Iterate on nodes for toc_insert_all"""
+        if self.dad.treestore[top_tree_iter][4] != cons.CUSTOM_COLORS_ID: return []
+        node_id = self.dad.treestore[top_tree_iter][3]
+        text_buffer = self.dad.get_textbuffer_from_tree_iter(top_tree_iter)
+        toc_list_per_node = []
+        toc_list_per_node.extend(self.toc_insert_one(text_buffer, node_id, just_get_toc_list=True))
+        child_tree_iter = self.dad.treestore.iter_children(top_tree_iter)
+        while child_tree_iter != None:
+            toc_list_per_node.extend(self.toc_insert_all_iter(child_tree_iter))
+            child_tree_iter = self.dad.treestore.iter_next(child_tree_iter)
+        return toc_list_per_node
+
+    def toc_insert_one(self, text_buffer, node_id, just_get_toc_list=False):
         """Given the text_buffer, inserts the Table Of Contents"""
         self.curr_attributes = {}
         self.toc_counters = {"h1":0, "h2":0, "h3":0}
-        self.toc_list = [] # 0: anchor name; 1: text in h1, h2 or h3
+        self.toc_list = [] # 0: anchor name; 1: text in h1, h2 or h3; 2:node id
         for tag_property in cons.TAG_PROPERTIES: self.curr_attributes[tag_property] = ""
         start_iter = text_buffer.get_start_iter()
         end_iter = text_buffer.get_end_iter()
@@ -453,7 +474,7 @@ class XMLHandler:
         self.rich_text_attributes_update(curr_iter, self.curr_attributes)
         tag_found = curr_iter.forward_to_tag_toggle(None)
         while tag_found:
-            offsets = self.toc_insert_parser(text_buffer, start_iter, curr_iter)
+            offsets = self.toc_insert_parser(text_buffer, start_iter, curr_iter, node_id)
             if offsets:
                 start_iter = text_buffer.get_iter_at_offset(offsets[0])
                 curr_iter = text_buffer.get_iter_at_offset(offsets[1])
@@ -465,46 +486,46 @@ class XMLHandler:
                 start_iter.set_offset(offset_old)
                 tag_found = curr_iter.forward_to_tag_toggle(None)
                 if curr_iter.get_offset() == offset_old: break
-        else: self.toc_insert_parser(text_buffer, start_iter, curr_iter)
-        if len(self.toc_list) == 0: return False
-        tag_property == "link"
-        property_value = "node" + cons.CHAR_SPACE + str(node_id)
-        curr_offset = 0
-        text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), cons.CHAR_NEWLINE)
-        curr_offset += 1
-        for element in self.toc_list:
-            tag_names = []
-            tag_names.append(self.dad.apply_tag_exist_or_create(tag_property, property_value + cons.CHAR_SPACE + element[0]))
-            if element[0][:2] == "h1":
-                text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), cons.CHAR_LISTBUL + cons.CHAR_SPACE)
-                curr_offset += 2
-            elif element[0][:2] == "h2":
-                text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), 3*cons.CHAR_SPACE + cons.CHAR_LISTBUL + cons.CHAR_SPACE)
-                curr_offset += 5
-            else:
-                text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), 6*cons.CHAR_SPACE + cons.CHAR_LISTBUL + cons.CHAR_SPACE)
-                curr_offset += 8
-            text_buffer.insert_with_tags_by_name(text_buffer.get_iter_at_offset(curr_offset), element[1], *tag_names)
-            curr_offset += len(element[1])
+        else: self.toc_insert_parser(text_buffer, start_iter, curr_iter, node_id)
+        if self.toc_list and not just_get_toc_list:
+            tag_property == "link"
+            property_value = "node" + cons.CHAR_SPACE + str(node_id)
+            curr_offset = 0
             text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), cons.CHAR_NEWLINE)
             curr_offset += 1
-        text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), cons.CHAR_NEWLINE)
-        return True
+            for element in self.toc_list:
+                tag_names = []
+                tag_names.append(self.dad.apply_tag_exist_or_create(tag_property, property_value + cons.CHAR_SPACE + element[0]))
+                if element[0][:2] == "h1":
+                    text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), cons.CHAR_LISTBUL + cons.CHAR_SPACE)
+                    curr_offset += 2
+                elif element[0][:2] == "h2":
+                    text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), 3*cons.CHAR_SPACE + cons.CHAR_LISTBUL + cons.CHAR_SPACE)
+                    curr_offset += 5
+                else:
+                    text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), 6*cons.CHAR_SPACE + cons.CHAR_LISTBUL + cons.CHAR_SPACE)
+                    curr_offset += 8
+                text_buffer.insert_with_tags_by_name(text_buffer.get_iter_at_offset(curr_offset), element[1], *tag_names)
+                curr_offset += len(element[1])
+                text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), cons.CHAR_NEWLINE)
+                curr_offset += 1
+            text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), cons.CHAR_NEWLINE)
+        return self.toc_list
 
-    def toc_insert_parser(self, text_buffer, start_iter, end_iter):
+    def toc_insert_parser(self, text_buffer, start_iter, end_iter, node_id):
         """Parses a Tagged String for the TOC insert"""
         if self.curr_attributes["scale"] not in ["h1", "h2", "h3"]: return None
         start_offset = start_iter.get_offset()
         end_offset = end_iter.get_offset()
         if self.curr_attributes["scale"] == "h1":
             self.toc_counters["h1"] += 1
-            self.toc_list.append(["h1-%d" % self.toc_counters["h1"], text_buffer.get_text(start_iter, end_iter)])
+            self.toc_list.append(["h1-%d" % self.toc_counters["h1"], text_buffer.get_text(start_iter, end_iter), node_id])
         elif self.curr_attributes["scale"] == "h2":
             self.toc_counters["h2"] += 1
-            self.toc_list.append(["h2-%d" % self.toc_counters["h2"], text_buffer.get_text(start_iter, end_iter)])
+            self.toc_list.append(["h2-%d" % self.toc_counters["h2"], text_buffer.get_text(start_iter, end_iter), node_id])
         else:
             self.toc_counters["h3"] += 1
-            self.toc_list.append(["h3-%d" % self.toc_counters["h3"], text_buffer.get_text(start_iter, end_iter)])
+            self.toc_list.append(["h3-%d" % self.toc_counters["h3"], text_buffer.get_text(start_iter, end_iter), node_id])
         anchor_start = start_iter.copy()
         if anchor_start.backward_char():
             anchor = anchor_start.get_child_anchor()
