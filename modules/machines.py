@@ -20,7 +20,7 @@
 #       MA 02110-1301, USA.
 
 import gtk, xml.dom.minidom, re, base64, copy, StringIO
-import cons, support, exports
+import cons, config, support, exports
 
 
 def get_blob_buffer_from_pixbuf(pixbuf):
@@ -443,15 +443,45 @@ class XMLHandler:
 
     def toc_insert_all(self, text_buffer, top_tree_iter):
         """Insert a TOC at top of text_buffer, including Node and Subnodes starting from top_tree_iter"""
+        config.get_tree_expanded_collapsed_string(self.dad)
+        starting_tree_iter = self.dad.curr_tree_iter.copy()
         toc_list_per_node = []
         while top_tree_iter != None:
             toc_list_per_node.extend(self.toc_insert_all_iter(top_tree_iter))
             top_tree_iter = self.dad.treestore.iter_next(top_tree_iter)
+        config.set_tree_expanded_collapsed_string(self.dad)
+        self.dad.treeview_safe_set_cursor(starting_tree_iter)
         self.dad.objects_buffer_refresh()
+        #print toc_list_per_node
+        if toc_list_per_node:
+            tag_property = "link"
+            curr_offset = 0
+            text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), cons.CHAR_NEWLINE)
+            curr_offset += 1
+            for element in toc_list_per_node:
+                property_value = "node" + cons.CHAR_SPACE + str(element[2])
+                tag_names = []
+                tag_names.append(self.dad.apply_tag_exist_or_create(tag_property, property_value + cons.CHAR_SPACE + element[0]))
+                if element[0][:2] == "h1":
+                    text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), cons.CHAR_LISTBUL + cons.CHAR_SPACE)
+                    curr_offset += 2
+                elif element[0][:2] == "h2":
+                    text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), 3*cons.CHAR_SPACE + cons.CHAR_LISTBUL + cons.CHAR_SPACE)
+                    curr_offset += 5
+                else:
+                    text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), 6*cons.CHAR_SPACE + cons.CHAR_LISTBUL + cons.CHAR_SPACE)
+                    curr_offset += 8
+                text_buffer.insert_with_tags_by_name(text_buffer.get_iter_at_offset(curr_offset), element[1], *tag_names)
+                curr_offset += len(element[1])
+                text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), cons.CHAR_NEWLINE)
+                curr_offset += 1
+            text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), cons.CHAR_NEWLINE)
+        return toc_list_per_node
         
     def toc_insert_all_iter(self, top_tree_iter):
         """Iterate on nodes for toc_insert_all"""
         if self.dad.treestore[top_tree_iter][4] != cons.CUSTOM_COLORS_ID: return []
+        self.dad.treeview_safe_set_cursor(top_tree_iter)
         node_id = self.dad.treestore[top_tree_iter][3]
         text_buffer = self.dad.get_textbuffer_from_tree_iter(top_tree_iter)
         toc_list_per_node = []
@@ -488,7 +518,7 @@ class XMLHandler:
                 if curr_iter.get_offset() == offset_old: break
         else: self.toc_insert_parser(text_buffer, start_iter, curr_iter, node_id)
         if self.toc_list and not just_get_toc_list:
-            tag_property == "link"
+            tag_property = "link"
             property_value = "node" + cons.CHAR_SPACE + str(node_id)
             curr_offset = 0
             text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), cons.CHAR_NEWLINE)
