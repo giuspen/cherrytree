@@ -82,6 +82,7 @@ def config_file_load(inst):
         inst.show_line_numbers = (dom_iter.attributes["show_line_numbers"].value == "True") if dom_iter.hasAttribute("show_line_numbers") else False
         inst.spaces_instead_tabs = (dom_iter.attributes["spaces_instead_tabs"].value == "True") if dom_iter.hasAttribute("spaces_instead_tabs") else True
         inst.tabs_width = int( dom_iter.attributes["tabs_width"].value ) if dom_iter.hasAttribute("tabs_width") else 4
+        inst.anchor_size = int( dom_iter.attributes["anchor_size"].value ) if dom_iter.hasAttribute("anchor_size") else 16
         inst.line_wrapping = (dom_iter.attributes["line_wrapping"].value == "True") if dom_iter.hasAttribute("line_wrapping") else True
         inst.auto_indent = (dom_iter.attributes["auto_indent"].value == "True") if dom_iter.hasAttribute("auto_indent") else True
         inst.systray = (dom_iter.attributes["systray"].value == "True") if dom_iter.hasAttribute("systray") else False
@@ -157,6 +158,7 @@ def config_file_load(inst):
         inst.show_line_numbers = False
         inst.spaces_instead_tabs = True
         inst.tabs_width = 4
+        inst.anchor_size = 16
         inst.line_wrapping = True
         inst.auto_indent = True
         inst.systray = False
@@ -220,6 +222,7 @@ def config_file_apply(inst):
     inst.glade.checkbutton_spaces_tabs.set_active(inst.spaces_instead_tabs)
     inst.sourceview.set_tab_width(inst.tabs_width)
     inst.glade.spinbutton_tab_width.set_value(inst.tabs_width)
+    inst.glade.spinbutton_anchor_size.set_value(inst.anchor_size)
     if inst.line_wrapping: inst.sourceview.set_wrap_mode(gtk.WRAP_WORD)
     else: inst.sourceview.set_wrap_mode(gtk.WRAP_NONE)
     inst.glade.checkbutton_line_wrap.set_active(inst.line_wrapping)
@@ -309,6 +312,7 @@ def config_file_save(inst):
     config.setAttribute("show_line_numbers", str(inst.show_line_numbers) )
     config.setAttribute("spaces_instead_tabs", str(inst.spaces_instead_tabs) )
     config.setAttribute("tabs_width", str(inst.tabs_width) )
+    config.setAttribute("anchor_size", str(inst.anchor_size) )
     config.setAttribute("line_wrapping", str(inst.line_wrapping) )
     config.setAttribute("auto_indent", str(inst.auto_indent) )
     config.setAttribute("systray", str(inst.systray) )
