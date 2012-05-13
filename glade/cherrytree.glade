@@ -3403,6 +3403,18 @@ do you want to save the changes?</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <child>
+                                  <object class="GtkImage" id="image5">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="stock">Anchor</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">0</property>
+                                  </packing>
+                                </child>
+                                <child>
                                   <object class="GtkLabel" id="label73">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
@@ -3412,7 +3424,7 @@ do you want to save the changes?</property>
                                     <property name="expand">False</property>
                                     <property name="fill">True</property>
                                     <property name="padding">3</property>
-                                    <property name="position">0</property>
+                                    <property name="position">1</property>
                                   </packing>
                                 </child>
                                 <child>
@@ -3426,18 +3438,6 @@ do you want to save the changes?</property>
                                     <property name="secondary_icon_sensitive">True</property>
                                     <property name="adjustment">adjustment_anchor_size</property>
                                     <signal name="value-changed" handler="on_spinbutton_anchor_size_value_changed" swapped="no"/>
-                                  </object>
-                                  <packing>
-                                    <property name="expand">True</property>
-                                    <property name="fill">True</property>
-                                    <property name="position">1</property>
-                                  </packing>
-                                </child>
-                                <child>
-                                  <object class="GtkImage" id="image5">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="stock">Anchor</property>
                                   </object>
                                   <packing>
                                     <property name="expand">False</property>

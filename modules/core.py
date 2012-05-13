@@ -2225,7 +2225,8 @@ class CherryTree:
             return
         warning_label = _("Are you sure to <b>Delete the node '%s'?</b>") % self.treestore[self.curr_tree_iter][1]
         if self.treestore.iter_children(self.curr_tree_iter) != None:
-            warning_label += _("\n\nThe node <b>has Children, they will be Deleted too!</b>")
+            warning_label += "\n\n"+_("The node <b>has Children, they will be Deleted too!</b>")
+            warning_label += self.get_node_children_list(self.curr_tree_iter, 0)
         self.glade.label_node_delete.set_text(warning_label)
         self.glade.label_node_delete.set_use_markup(True)
         response = self.glade.nodedeletedialog.run()
@@ -2285,6 +2286,17 @@ class CherryTree:
         self.update_selected_node_statusbar_info()
         self.update_window_save_needed("npro")
         self.sourceview.grab_focus()
+
+    def get_node_children_list(self, father_tree_iter, level):
+        """Return a string listing the node children"""
+        node_children_list = ""
+        node_children_list += cons.CHAR_NEWLINE + level*3*cons.CHAR_SPACE + cons.CHAR_LISTBUL + \
+                              cons.CHAR_SPACE +self.treestore[father_tree_iter][1]
+        tree_iter = self.treestore.iter_children(father_tree_iter)
+        while tree_iter:
+            node_children_list += self.get_node_children_list(tree_iter, level+1)
+            tree_iter = self.treestore.iter_next(tree_iter)
+        return node_children_list
 
     def get_syntax_highlighting_from_dialog(self):
         """Retrieve the Value eof the Syntax Highlighting from the dialog"""
