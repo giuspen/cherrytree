@@ -2,13 +2,13 @@
 # Copyright (C) 2010 THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # maul <giuspen@gmail.com>, 2010.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: CherryTree\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-05-13 18:08+0200\n"
-"PO-Revision-Date: 2012-01-11 20:51+0300\n"
+"PO-Revision-Date: 2012-05-14 12:16+0300\n"
 "Last-Translator: Andriy Kovtun <kovtunos@yandex.ru>\n"
 "Language-Team: Russian <kovtunos@yandex.ru>\n"
 "Language: ru\n"
@@ -20,6 +20,8 @@ msgstr ""
 "X-Poedit-Language: Russian\n"
 "X-Poedit-Country: RUSSIAN FEDERATION\n"
 "X-Poedit-SourceCharset: utf-8\n"
+"X-Language: ru_RU\n"
+"X-Source-Language: C\n"
 
 #: modules/support.py:59
 msgid "Save File as"
@@ -147,7 +149,7 @@ msgstr "Доступна новая версия!"
 
 #: modules/core.py:227
 msgid "This is the Latest Version Available"
-msgstr "Доступна новая версия программы!"
+msgstr "Доступна новая версия программы"
 
 #: modules/core.py:230
 msgid "Failed to Retrieve Latest Version Information - Try Again Later"
@@ -214,7 +216,7 @@ msgid ""
 "Prevents 7za.exe to Work, Please Change the File Name"
 msgstr ""
 "Наличие в имени файла одиночных и двойных кавычек не даёт возможности 7za "
-"продолжить работу. Пожалуйста, измените название документа."
+"продолжить работу. Пожалуйста, измените название документа"
 
 #: modules/core.py:1129
 msgid "Writing to Disk..."
@@ -290,11 +292,11 @@ msgstr "Изменение языка вступит в силу после пе
 
 #: modules/core.py:2156
 msgid "Insert the New Node Name..."
-msgstr "Введите название ветки"
+msgstr "Введите название ветки..."
 
 #: modules/core.py:2197
 msgid "Insert the New Child Node Name..."
-msgstr "Введите название ветки"
+msgstr "Введите название ветки..."
 
 #: modules/core.py:2226
 #, python-format
@@ -302,16 +304,12 @@ msgid "Are you sure to <b>Delete the node '%s'?</b>"
 msgstr "Вы уверены что хотите <b>удалить ветку '%s'?</b>"
 
 #: modules/core.py:2228
-#, fuzzy
 msgid "The node <b>has Children, they will be Deleted too!</b>"
-msgstr ""
-"\n"
-"\n"
-"Ветка <b>имеет дочерние ветки и они также будут удалены!</b>"
+msgstr "Ветка <b>имеет дочерние ветки и они также будут удалены!</b>"
 
 #: modules/core.py:2262
 msgid "Insert the New Name for the Node..."
-msgstr "Введите название ветки"
+msgstr "Введите название ветки..."
 
 #: modules/core.py:2267
 msgid ""
@@ -344,12 +342,11 @@ msgstr "Вставить якорь"
 
 #: modules/core.py:2743
 msgid "The Anchor Name is Mandatory!"
-msgstr "Название якоря обязательно"
+msgstr "Название якоря обязательно!"
 
 #: modules/core.py:2771
-#, fuzzy
 msgid "Not Any H1, H2 or H3 Formatting Found"
-msgstr "Не найдены заголовки H1, H2"
+msgstr "Не найдены заголовки H1, H2, H3"
 
 #: modules/core.py:2801 modules/core.py:3181 modules/core.py:3188
 #: modules/core.py:3195 modules/core.py:3207
@@ -979,14 +976,12 @@ msgid "Toggle h2 Property of the Selected Text"
 msgstr "Применить заголовок h2 к выделенному фрагменту"
 
 #: modules/cons.py:509 modules/cons.py:643
-#, fuzzy
 msgid "Toggle h_3 Property"
-msgstr "Заголовок h1"
+msgstr "Заголовок h3"
 
 #: modules/cons.py:509 modules/cons.py:643
-#, fuzzy
 msgid "Toggle h3 Property of the Selected Text"
-msgstr "Применить заголовок h1 к выделенному фрагменту"
+msgstr "Применить заголовок h3 к выделенному фрагменту"
 
 #: modules/cons.py:510 modules/cons.py:644
 msgid "Toggle _Small Property"
@@ -997,34 +992,28 @@ msgid "Toggle Small Property of the Selected Text"
 msgstr "Применить уменьшенный шрифт к выделенному фрагменту"
 
 #: modules/cons.py:511 modules/cons.py:645
-#, fuzzy
 msgid "Toggle Su_perscript Property"
-msgstr "Подчеркнутый текст"
+msgstr "Верхний индекс"
 
 #: modules/cons.py:511 modules/cons.py:645
-#, fuzzy
 msgid "Toggle Superscript Property of the Selected Text"
-msgstr "Применить подчеркнутый текст к выделенному фрагменту"
+msgstr "Применить верхний индекс к выделенному фрагменту"
 
 #: modules/cons.py:512 modules/cons.py:646
-#, fuzzy
 msgid "Toggle Su_bscript Property"
-msgstr "Заголовок h1"
+msgstr "Нижний индекс"
 
 #: modules/cons.py:512 modules/cons.py:646
-#, fuzzy
 msgid "Toggle Subscript Property of the Selected Text"
-msgstr "Применить заголовок h1 к выделенному фрагменту"
+msgstr "Применить нижний индекс к выделенному фрагменту"
 
 #: modules/cons.py:513 modules/cons.py:647
-#, fuzzy
 msgid "Toggle _Monospace Property"
-msgstr "Курсивное начертание"
+msgstr "Моноширинный шрифт"
 
 #: modules/cons.py:513 modules/cons.py:647
-#, fuzzy
 msgid "Toggle Monospace Property of the Selected Text"
-msgstr "Применить курсивное начертание к выделенному фрагменту"
+msgstr "Применить моноширинный шрифт к выделенному фрагменту"
 
 #: modules/cons.py:514 modules/cons.py:650
 msgid "Justify _Left"
@@ -1258,12 +1247,11 @@ msgstr "Импортировать из файла Leo в существующе
 
 #: modules/cons.py:542
 msgid "Online _Manual"
-msgstr ""
+msgstr "Справка онлайн"
 
 #: modules/cons.py:542
-#, fuzzy
 msgid "Application's Online Manual"
-msgstr "Домашняя страница проекта"
+msgstr "Справка онлайн"
 
 #: modules/cons.py:543
 msgid "_Check Newer Version"
@@ -1836,14 +1824,12 @@ msgid "<b>Search options</b>"
 msgstr "<b>Настройки поиска</b>"
 
 #: glade/cherrytree.glade.h:77
-#, fuzzy
 msgid "Automatic Syntax Highlighting"
-msgstr "<b>Автоматическая подсветка синтаксиса</b>"
+msgstr "Автоматическая подсветка синтаксиса"
 
 #: glade/cherrytree.glade.h:78
-#, fuzzy
 msgid "<b>Node Type</b>"
-msgstr "<b>Ветка</b>"
+msgstr "<b>Тип ветки</b>"
 
 #: glade/cherrytree.glade.h:79
 msgid "<b>Tags for Searching</b>"
@@ -1911,21 +1897,19 @@ msgstr "Подсветка текущей строки"
 
 #: glade/cherrytree.glade.h:99
 msgid "Default Text Color"
-msgstr ""
+msgstr "Цвет текста"
 
 #: glade/cherrytree.glade.h:100
 msgid "Default Background Color"
-msgstr ""
+msgstr "Цвет фона"
 
 #: glade/cherrytree.glade.h:101
-#, fuzzy
 msgid "Anchor Size"
-msgstr "Название якоря"
+msgstr "Размер якоря"
 
 #: glade/cherrytree.glade.h:102
-#, fuzzy
 msgid "<b>Rich Text</b>"
-msgstr "Форматирования текста"
+msgstr "<b>Форматированный текст</b>"
 
 #: glade/cherrytree.glade.h:103
 msgid "Text Font"
@@ -2028,9 +2012,8 @@ msgid "Detail of Available Format Codes"
 msgstr "Подробнее о формате даты"
 
 #: glade/cherrytree.glade.h:128
-#, fuzzy
 msgid "Horizontal Rule"
-msgstr "Bставить горизонтальную линию"
+msgstr "Горизонтальная линия"
 
 #: glade/cherrytree.glade.h:129
 msgid "Limit of Undoable Steps Per Node"
@@ -2099,12 +2082,3 @@ msgstr "Столбец вправо"
 #: glade/cherrytree.glade.h:145
 msgid "CherryTree"
 msgstr "CherryTree"
-
-#~ msgid "XML File"
-#~ msgstr "Файл XML"
-
-#~ msgid "SQLite File"
-#~ msgstr "Файл SQLite"
-
-#~ msgid "Disabled (Custom Colors)"
-#~ msgstr "Отключено (Пользовательские цвета)"
