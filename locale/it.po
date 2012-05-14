@@ -2097,11 +2097,11 @@ msgstr "Evidenzia Riga Corrente"
 
 #: glade/cherrytree.glade.h:99
 msgid "Default Text Color"
-msgstr "Colore Testo di Default"
+msgstr "Colore Testo Predefinito"
 
 #: glade/cherrytree.glade.h:100
 msgid "Default Background Color"
-msgstr "Colore Sfondo di Default"
+msgstr "Colore Sfondo Predefinito"
 
 #: glade/cherrytree.glade.h:101
 msgid "Anchor Size"
