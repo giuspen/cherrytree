@@ -1894,7 +1894,7 @@ msgstr "Domyślny kolor tekstu"
 
 #: glade/cherrytree.glade.h:100
 msgid "Default Background Color"
-msgstr "Domyślny color tła"
+msgstr "Domyślny kolor tła"
 
 #: glade/cherrytree.glade.h:101
 msgid "Anchor Size"
