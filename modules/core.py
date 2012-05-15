@@ -2368,8 +2368,9 @@ class CherryTree:
 
     def update_node_name_header(self, plain_text):
         """Update Node Name Header"""
+        self.header_node_name_eventbox.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.tt_def_bg))
         self.header_node_name_label.set_text(
-            "<b><i><span foreground=\"" + self.rt_def_fg + "\" size=\"xx-large\">"+\
+            "<b><i><span foreground=\"" + self.tt_def_fg + "\" size=\"xx-large\">"+\
             cgi.escape(plain_text) + "</span></i></b>")
         self.header_node_name_label.set_use_markup(True)
 
@@ -3462,7 +3463,6 @@ class CherryTree:
         self.rt_def_fg = "#" + self.html_handler.rgb_to_24(colorbutton.get_color().to_string()[1:])
         if self.curr_tree_iter and self.syntax_highlighting == cons.CUSTOM_COLORS_ID:
             self.sourceview.modify_text(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.rt_def_fg))
-            self.update_node_name_header(self.treestore[self.curr_tree_iter][1])
 
     def on_colorbutton_text_bg_color_set(self, colorbutton):
         """ColorButton Rich Text BG Set"""
@@ -3470,19 +3470,20 @@ class CherryTree:
         self.rt_def_bg = "#" + self.html_handler.rgb_to_24(colorbutton.get_color().to_string()[1:])
         if self.curr_tree_iter and self.syntax_highlighting == cons.CUSTOM_COLORS_ID:
             self.sourceview.modify_base(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.rt_def_bg))
-            self.header_node_name_eventbox.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.rt_def_bg))
 
     def on_colorbutton_tree_fg_color_set(self, colorbutton):
         """ColorButton Rich Text FG Set"""
         if not self.user_active: return
         self.tt_def_fg = "#" + self.html_handler.rgb_to_24(colorbutton.get_color().to_string()[1:])
         self.treeview.modify_text(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.tt_def_fg))
+        self.update_node_name_header(self.treestore[self.curr_tree_iter][1])
 
     def on_colorbutton_tree_bg_color_set(self, colorbutton):
         """ColorButton Rich Text FG Set"""
         if not self.user_active: return
         self.tt_def_bg = "#" + self.html_handler.rgb_to_24(colorbutton.get_color().to_string()[1:])
         self.treeview.modify_base(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.tt_def_bg))
+        self.update_node_name_header(self.treestore[self.curr_tree_iter][1])
 
     def on_browse_anchors_button_clicked(self, *args):
         """Browse for Existing Anchors on the Selected Node"""
