@@ -138,7 +138,6 @@ class CherryTree:
         self.renderer_pixbuf = gtk.CellRendererPixbuf()
         self.renderer_text = gtk.CellRendererText()
         self.renderer_text.set_property('wrap-mode', pango.WRAP_WORD_CHAR)
-        self.renderer_text.connect('edited', self.tree_cell_edited)
         self.column = gtk.TreeViewColumn()
         self.column.pack_start(self.renderer_pixbuf, False)
         self.column.pack_start(self.renderer_text, True)
@@ -2809,13 +2808,6 @@ class CherryTree:
             support.dialog_warning(_("Automatic Syntax Highlighting Must be Disabled in order to Use This Feature"), self.window)
             return False
         return True
-
-    def tree_cell_edited(self, cell, path, new_text):
-        """A Tree Node Name is going to be Edited"""
-        if new_text != self.treestore[path][1]:
-            self.treestore[path][1] = new_text
-            self.update_node_name_header(new_text)
-            self.update_window_save_needed("npro")
 
     def tree_info(self, action):
         """Tree Summary Information"""
