@@ -211,7 +211,6 @@ def config_file_apply(inst):
     inst.glade.fontbutton_code.set_font_name(inst.code_font)
     inst.glade.colorbutton_text_fg.set_color(gtk.gdk.color_parse(inst.rt_def_fg))
     inst.glade.colorbutton_text_bg.set_color(gtk.gdk.color_parse(inst.rt_def_bg))
-    inst.header_node_name_eventbox.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(inst.rt_def_bg))
     inst.glade.colorbutton_tree_fg.set_color(gtk.gdk.color_parse(inst.tt_def_fg))
     inst.glade.colorbutton_tree_bg.set_color(gtk.gdk.color_parse(inst.tt_def_bg))
     inst.treeview.modify_base(gtk.STATE_NORMAL, gtk.gdk.color_parse(inst.tt_def_bg))
