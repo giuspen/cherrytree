@@ -2,7 +2,7 @@
 # Copyright (C) 2010 THE svn_cherrytree'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the svn_cherrytree package.
 # Giuseppe Penone <giuspen@gmail.com>, 2010.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
@@ -303,12 +303,8 @@ msgid "Are you sure to <b>Delete the node '%s'?</b>"
 msgstr "Wollen Sie den <b>Knoten '%s' wirklich löschen?</b>"
 
 #: modules/core.py:2228
-#, fuzzy
 msgid "The node <b>has Children, they will be Deleted too!</b>"
-msgstr ""
-"\n"
-"\n"
-"Der Knoten besitzt untergeordnete Knoten, <b>diese werden auch gelöscht!</b>"
+msgstr "Der Knoten hat untergeordnete Knoten, <b>diese werden auch gelöscht!</b>"
 
 #: modules/core.py:2262
 msgid "Insert the New Name for the Node..."
@@ -348,9 +344,8 @@ msgid "The Anchor Name is Mandatory!"
 msgstr "Der Ankername fehlt!"
 
 #: modules/core.py:2771
-#, fuzzy
 msgid "Not Any H1, H2 or H3 Formatting Found"
-msgstr "Keine Überschriften gefunden"
+msgstr "Keine Überschriften-Formate gefunden"
 
 #: modules/core.py:2801 modules/core.py:3181 modules/core.py:3188
 #: modules/core.py:3195 modules/core.py:3207
@@ -663,7 +658,7 @@ msgstr "Nummerierung an/aus"
 
 #: modules/cons.py:469 modules/cons.py:657
 msgid "Set/Unset _To-Do List"
-msgstr "_Aufgabenliste an/aus"
+msgstr "Auf_gabenliste an/aus"
 
 #: modules/cons.py:469 modules/cons.py:657
 msgid "Set/Unset the Current Paragraph/Selection as a To-Do List"
@@ -982,14 +977,12 @@ msgid "Toggle h2 Property of the Selected Text"
 msgstr "Überschrift 2"
 
 #: modules/cons.py:509 modules/cons.py:643
-#, fuzzy
 msgid "Toggle h_3 Property"
-msgstr "Überschrift _1"
+msgstr "Überschrift _3"
 
 #: modules/cons.py:509 modules/cons.py:643
-#, fuzzy
 msgid "Toggle h3 Property of the Selected Text"
-msgstr "Überschrift 1"
+msgstr "Überschrift 3"
 
 #: modules/cons.py:510 modules/cons.py:644
 msgid "Toggle _Small Property"
@@ -1000,34 +993,28 @@ msgid "Toggle Small Property of the Selected Text"
 msgstr "Klein"
 
 #: modules/cons.py:511 modules/cons.py:645
-#, fuzzy
 msgid "Toggle Su_perscript Property"
-msgstr "_Unterstrichen"
+msgstr "_Hochgestellt"
 
 #: modules/cons.py:511 modules/cons.py:645
-#, fuzzy
 msgid "Toggle Superscript Property of the Selected Text"
-msgstr "Unterstrichen"
+msgstr "Tiefgestellt"
 
 #: modules/cons.py:512 modules/cons.py:646
-#, fuzzy
 msgid "Toggle Su_bscript Property"
-msgstr "Überschrift _1"
+msgstr "_Tiefgestellt"
 
 #: modules/cons.py:512 modules/cons.py:646
-#, fuzzy
 msgid "Toggle Subscript Property of the Selected Text"
-msgstr "Überschrift 1"
+msgstr "Tiefgestellt"
 
 #: modules/cons.py:513 modules/cons.py:647
-#, fuzzy
 msgid "Toggle _Monospace Property"
-msgstr "_Kursiv"
+msgstr "_Feste Breite"
 
 #: modules/cons.py:513 modules/cons.py:647
-#, fuzzy
 msgid "Toggle Monospace Property of the Selected Text"
-msgstr "Kursiv"
+msgstr "Feste Breite"
 
 #: modules/cons.py:514 modules/cons.py:650
 msgid "Justify _Left"
@@ -1035,7 +1022,7 @@ msgstr "_Linksbündig"
 
 #: modules/cons.py:514 modules/cons.py:650
 msgid "Justify Left the Current Paragraph"
-msgstr "Aktuellen Absatz linksbündig ausrichten"
+msgstr "Linksbündig"
 
 #: modules/cons.py:515 modules/cons.py:651
 msgid "Justify _Center"
@@ -1043,7 +1030,7 @@ msgstr "_Zentriert"
 
 #: modules/cons.py:515 modules/cons.py:651
 msgid "Justify Center the Current Paragraph"
-msgstr "Aktuellen Absatz zentrieren"
+msgstr "Zentriert"
 
 #: modules/cons.py:516 modules/cons.py:652
 msgid "Justify _Right"
@@ -1051,11 +1038,11 @@ msgstr "_Rechtsbündig"
 
 #: modules/cons.py:516 modules/cons.py:652
 msgid "Justify Right the Current Paragraph"
-msgstr "Aktuellen Absatz rechtsbündig ausrichten"
+msgstr "Rechtsbündig"
 
 #: modules/cons.py:517 modules/cons.py:685 modules/cons.py:723
 msgid "_Find in Node"
-msgstr "Im _aktuellen Knoten suchen..."
+msgstr "Im Knoten _suchen..."
 
 #: modules/cons.py:517 modules/cons.py:685 modules/cons.py:723
 msgid "Find into the Selected Node"
@@ -1266,12 +1253,11 @@ msgstr "Knoten aus einer Leo-Datei zur aktuellen Baumstruktur hinzufügen"
 
 #: modules/cons.py:542
 msgid "Online _Manual"
-msgstr ""
+msgstr "Online-_Handbuch"
 
 #: modules/cons.py:542
-#, fuzzy
 msgid "Application's Online Manual"
-msgstr "Webseite des Programms"
+msgstr "Online-Handbuch des Programms"
 
 #: modules/cons.py:543
 msgid "_Check Newer Version"
@@ -1843,14 +1829,12 @@ msgid "<b>Search options</b>"
 msgstr "<b>Suchoptionen</b>"
 
 #: glade/cherrytree.glade.h:77
-#, fuzzy
 msgid "Automatic Syntax Highlighting"
 msgstr "<b>Automatische Syntaxhervorhebung</b>"
 
 #: glade/cherrytree.glade.h:78
-#, fuzzy
 msgid "<b>Node Type</b>"
-msgstr "<b>Knoten</b>"
+msgstr "<b>Knotentyp</b>"
 
 #: glade/cherrytree.glade.h:79
 msgid "<b>Tags for Searching</b>"
@@ -1918,21 +1902,19 @@ msgstr "Zeile markieren"
 
 #: glade/cherrytree.glade.h:99
 msgid "Default Text Color"
-msgstr ""
+msgstr "Standard-Textfarbe"
 
 #: glade/cherrytree.glade.h:100
 msgid "Default Background Color"
-msgstr ""
+msgstr "Standard-Hintergrundfarbe"
 
 #: glade/cherrytree.glade.h:101
-#, fuzzy
 msgid "Anchor Size"
-msgstr "Anker Name"
+msgstr "Ankergröße"
 
 #: glade/cherrytree.glade.h:102
-#, fuzzy
 msgid "<b>Rich Text</b>"
-msgstr "Textformatierung"
+msgstr "Rich Text"
 
 #: glade/cherrytree.glade.h:103
 msgid "Text Font"
@@ -2035,9 +2017,8 @@ msgid "Detail of Available Format Codes"
 msgstr "Codes für die Formatierung von Zeitangaben"
 
 #: glade/cherrytree.glade.h:128
-#, fuzzy
 msgid "Horizontal Rule"
-msgstr "horizontale Linie einfügen"
+msgstr "horizontale Linie"
 
 #: glade/cherrytree.glade.h:129
 msgid "Limit of Undoable Steps Per Node"
@@ -2106,12 +2087,3 @@ msgstr "Spalte nach rechts verschieben"
 #: glade/cherrytree.glade.h:145
 msgid "CherryTree"
 msgstr "CherryTree"
-
-#~ msgid "XML File"
-#~ msgstr "XML"
-
-#~ msgid "SQLite File"
-#~ msgstr "SQLite"
-
-#~ msgid "Disabled (Custom Colors)"
-#~ msgstr "Deaktiviert (Eigene Farben)"
