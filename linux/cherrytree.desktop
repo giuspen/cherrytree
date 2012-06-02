@@ -10,6 +10,7 @@ Comment[it]=Gestore di Appunti Gerarchico
 Comment[pl]=Strukturalny Notes
 Comment[ru]=Записная книжка с иерархической структурой
 Comment[uk]=Записник з ієрархічною структурою
+Comment[zh_CN]=分层笔记
 Exec=cherrytree %f
 Icon=/usr/share/icons/hicolor/scalable/apps/cherrytree.svg
 MimeType=application/cherrytree-ctd;application/cherrytree-ctz;application/cherrytree-ctb;application/cherrytree-ctx;
