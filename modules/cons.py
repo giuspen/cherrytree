@@ -22,7 +22,7 @@
 import os, sys
 
 
-VERSION = "0.26"
+VERSION = "0.26.1"
 APP_NAME = "cherrytree"
 NEWER_VERSION_URL = "http://www.giuspen.com/software/version_cherrytree"
 if sys.platform[0:3] == "win":
@@ -44,7 +44,7 @@ else:
     else:
         GLADE_PATH = os.path.join(SHARE_PATH, 'cherrytree/glade/')
         LOCALE_PATH = os.path.join(SHARE_PATH, 'locale')
-AVAILABLE_LANGS = ['default', 'cs', 'de', 'en', 'es', 'fr', 'it', 'pl', 'ru', 'uk']
+AVAILABLE_LANGS = ['default', 'cs', 'de', 'en', 'es', 'fr', 'it', 'pl', 'ru', 'uk', 'zh_CN']
 COLOR_YELLOW = "#ffffffff0000"
 COLOR_WHITE = "#ffffffffffff"
 COLOR_BLACK = "#000000000000"
