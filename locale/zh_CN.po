@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cherrytree 0.26\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-13 18:08+0200\n"
+"POT-Creation-Date: 2012-06-03 22:34+0200\n"
 "PO-Revision-Date: 2012-06-01 15:19+0800\n"
 "Last-Translator:  <mamimoluo@gmail.com>\n"
 "Language-Team: Chinese (simplified)\n"
@@ -36,7 +36,7 @@ msgstr "询问"
 msgid "Info"
 msgstr "消息"
 
-#: modules/support.py:181 glade/cherrytree.glade.h:55
+#: modules/support.py:181 glade/cherrytree.glade.h:56
 msgid "Warning"
 msgstr "警告"
 
@@ -132,74 +132,74 @@ msgstr "节点名称"
 msgid "Line Content"
 msgstr "首行内容"
 
-#: modules/core.py:216
+#: modules/core.py:217
 msgid "Checking for Newer Version..."
 msgstr "查找新版本..."
 
-#: modules/core.py:222
+#: modules/core.py:223
 msgid "A Newer Version Is Available!"
 msgstr "有新版本可用！"
 
-#: modules/core.py:227
+#: modules/core.py:228
 msgid "This is the Latest Version Available"
 msgstr "这已是最新版本"
 
-#: modules/core.py:230
+#: modules/core.py:231
 msgid "Failed to Retrieve Latest Version Information - Try Again Later"
 msgstr "获取最新版本信息失败，稍候再试"
 
-#: modules/core.py:247 modules/core.py:3219 modules/core.py:3225
-#: modules/core.py:3727
+#: modules/core.py:248 modules/core.py:3219 modules/core.py:3225
+#: modules/core.py:3729
 msgid "No Text is Selected"
 msgstr "没有文字被选择"
 
-#: modules/core.py:533 modules/core.py:1698
+#: modules/core.py:534 modules/core.py:1698
 msgid "The new father can't be one of his sons!"
 msgstr "父节点不能成为其自身的子节点"
 
-#: modules/core.py:571 modules/core.py:1017 modules/core.py:1142
+#: modules/core.py:572 modules/core.py:1017 modules/core.py:1142
 msgid "CherryTree Document"
 msgstr "CherryTree文档"
 
-#: modules/core.py:594 modules/core.py:1374
+#: modules/core.py:595 modules/core.py:1374
 #, python-format
 msgid "\"%s\" is Not a CherryTree Document"
 msgstr "\"%s\" 不是一个CherryTree文档"
 
-#: modules/core.py:600
+#: modules/core.py:601
 msgid "NoteCase Document"
 msgstr "NoteCase 文档"
 
-#: modules/core.py:664
+#: modules/core.py:665
 msgid "Treepad Document"
 msgstr "Treepad 文档"
 
-#: modules/core.py:682
+#: modules/core.py:683
 msgid "Knowit Document"
 msgstr "Treepad 文档"
 
-#: modules/core.py:700
+#: modules/core.py:701
 msgid "Leo Document"
 msgstr "Treepad 文档"
 
-#: modules/core.py:731
+#: modules/core.py:732
 msgid "Who is the Father?"
 msgstr "哪个是父节点？"
 
-#: modules/core.py:738
+#: modules/core.py:739
 msgid "The Tree Root"
 msgstr "树根"
 
-#: modules/core.py:739
+#: modules/core.py:740
 msgid "The Selected Node"
 msgstr "已选择的节点"
 
 #: modules/core.py:903
 msgid "CherryTree Hierarchical Note Taking"
-msgstr "CherryTree层级笔记"
+msgstr "CherryTree层级笔记记录"
 
-#: modules/core.py:1011 modules/core.py:1045 modules/core.py:2464
-#: modules/core.py:2475 modules/core.py:2816
+#: modules/core.py:1011 modules/core.py:1045 modules/core.py:2472
+#: modules/core.py:2483 modules/core.py:2816
 msgid "The Tree is Empty!"
 msgstr "树为空！"
 
@@ -256,12 +256,12 @@ msgstr "密码错误"
 #: modules/core.py:1502 modules/core.py:1540 modules/core.py:1551
 #: modules/core.py:1578 modules/core.py:1606 modules/core.py:1620
 #: modules/core.py:1634 modules/core.py:1673 modules/core.py:2193
-#: modules/core.py:2224 modules/core.py:2250 modules/core.py:2453
-#: modules/core.py:2757
+#: modules/core.py:2224 modules/core.py:2250 modules/core.py:2461
+#: modules/core.py:2765
 msgid "No Node is Selected!"
 msgstr "没有节点被选中！"
 
-#: modules/core.py:1682 glade/cherrytree.glade.h:32
+#: modules/core.py:1682 glade/cherrytree.glade.h:33
 msgid "Select the New Father"
 msgstr "选择新的父节点"
 
@@ -308,36 +308,36 @@ msgid ""
 "for This Node, Do you want to Continue?"
 msgstr "自动语法高亮会覆盖当前节点的所有自定义颜色，继续吗？"
 
-#: modules/core.py:2616 modules/core.py:2798 modules/core.py:3213
-#: modules/core.py:3682 modules/core.py:3736 modules/core.py:3752
+#: modules/core.py:2624 modules/core.py:2806 modules/core.py:3213
+#: modules/core.py:3684 modules/core.py:3738 modules/core.py:3754
 msgid "No Node is Selected"
 msgstr "没有节点被选中"
 
-#: modules/core.py:2642
+#: modules/core.py:2650
 msgid "The Size of the Toolbar Icons is already at the Maximum Value"
 msgstr "工具栏图标已经最大"
 
-#: modules/core.py:2650
+#: modules/core.py:2658
 msgid "The Size of the Toolbar Icons is already at the Minimum Value"
 msgstr "工具栏图标已经最小"
 
-#: modules/core.py:2731
+#: modules/core.py:2739
 msgid "Edit Anchor"
 msgstr "编辑锚点"
 
-#: modules/core.py:2734
+#: modules/core.py:2742
 msgid "Insert Anchor"
 msgstr "插入锚点"
 
-#: modules/core.py:2743
+#: modules/core.py:2751
 msgid "The Anchor Name is Mandatory!"
 msgstr "锚点名称必填！"
 
-#: modules/core.py:2771
+#: modules/core.py:2779
 msgid "Not Any H1, H2 or H3 Formatting Found"
 msgstr "未找到任何H1, H2或H3格式"
 
-#: modules/core.py:2801 modules/core.py:3181 modules/core.py:3188
+#: modules/core.py:2809 modules/core.py:3181 modules/core.py:3188
 #: modules/core.py:3195 modules/core.py:3207
 msgid ""
 "Automatic Syntax Highlighting Must be Disabled in order to Use This Feature"
@@ -408,23 +408,23 @@ msgstr "链接所指向的节点不存在 (Id = %s)"
 msgid "No anchor named '%s' found"
 msgstr "未找到锚点 '%s'"
 
-#: modules/core.py:3500
+#: modules/core.py:3502
 msgid "There are No Anchors in the Selected Node"
 msgstr "在已选中的节点中没有锚点"
 
-#: modules/core.py:3505
+#: modules/core.py:3507
 msgid "Choose Existing Anchor"
 msgstr "选择现有的锚点"
 
-#: modules/core.py:3518
+#: modules/core.py:3520
 msgid "Anchor Name"
 msgstr "锚点名称"
 
-#: modules/core.py:3684 glade/cherrytree.glade.h:76
+#: modules/core.py:3686 glade/cherrytree.glade.h:77
 msgid "Rich Text"
 msgstr "富文本"
 
-#: modules/core.py:3686 glade/cherrytree.glade.h:80
+#: modules/core.py:3688 glade/cherrytree.glade.h:81
 msgid "Read Only"
 msgstr "只读"
 
@@ -608,17 +608,17 @@ msgstr "从ChrerrTree中退出"
 msgid "_Preferences"
 msgstr "设置(_P)"
 
-#: modules/cons.py:464 glade/cherrytree.glade.h:90
+#: modules/cons.py:464 glade/cherrytree.glade.h:91
 msgid "Preferences"
 msgstr "设置"
 
 #: modules/cons.py:465 modules/cons.py:668
 msgid "Insert _Horizontal Rule"
-msgstr "插入横向标尺(_H)"
+msgstr "插入分割线(_H)"
 
 #: modules/cons.py:465 modules/cons.py:668
 msgid "Insert Horizontal Rule"
-msgstr "插入横向标尺"
+msgstr "插入分割线"
 
 #: modules/cons.py:466 modules/cons.py:667 modules/cons.py:707
 msgid "Insert Ti_mestamp"
@@ -1059,7 +1059,7 @@ msgid "Find _Again"
 msgstr "重复搜索(_A)"
 
 #: modules/cons.py:520 modules/cons.py:688 modules/cons.py:726
-#: glade/cherrytree.glade.h:85
+#: glade/cherrytree.glade.h:86
 msgid "Iterate the Last Find Operation"
 msgstr "重复上次的搜索操作"
 
@@ -1068,7 +1068,7 @@ msgid "Find _Back"
 msgstr "反向搜索(_B)"
 
 #: modules/cons.py:521 modules/cons.py:689 modules/cons.py:727
-#: glade/cherrytree.glade.h:83
+#: glade/cherrytree.glade.h:84
 msgid "Iterate the Last Find Operation in Opposite Direction"
 msgstr "反方向重复上次搜索"
 
@@ -1124,11 +1124,11 @@ msgstr "切换树的显示"
 
 #: modules/cons.py:528
 msgid "Show/Hide _CherryTree"
-msgstr "显示/隐藏樱桃树(_C)"
+msgstr "显示/隐藏CherryTree(_C)"
 
 #: modules/cons.py:528
 msgid "Toggle Show/Hide CherryTree"
-msgstr "切换樱桃树的显示"
+msgstr "切换CherryTree的显示"
 
 #: modules/cons.py:529
 msgid "Show/Hide Tool_bar"
@@ -1256,7 +1256,7 @@ msgstr "关于(_A)"
 
 #: modules/cons.py:544 glade/cherrytree.glade.h:1
 msgid "About CherryTree"
-msgstr "关于樱桃树"
+msgstr "关于CherryTree"
 
 #: modules/cons.py:545
 msgid "_Edit Table Properties"
@@ -1572,7 +1572,7 @@ msgstr ""
 msgid ""
 "A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
 "Highlighting"
-msgstr "一个支持无限层级的笔记软件，具有富文本和代码高亮的功能"
+msgstr "一个层级式笔记记录程序，具有富文本和代码高亮的功能"
 
 #: glade/cherrytree.glade.h:5
 msgid "http://www.giuspen.com/cherrytree/"
@@ -1605,13 +1605,14 @@ msgstr ""
 "的担保。\n"
 "有关详细信息，请参阅GNU通用许可证。\n"
 "  \n"
-"您应该随本程序收到了一份GNU通用许可证；如果没有，可写一份信向自由基金会索"
+"您应该随本程序收到了一份GNU通用许可证；如果没有，可写一份信向自由软件基金会索"
 "取。\n"
-"51 Franklin Street, Fifth Floor, Boston,\n"
+"Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,\n"
 "MA 02110-1301, USA.\n"
 
 #: glade/cherrytree.glade.h:22
 msgid ""
+"Chinese Simplified (zh_CN) Channing Wong <mamimoluo@gmail.com>\n"
 "Czech (cs) Pavel Fric <fripohled@blogspot.com>\n"
 "French (fr) Ludovic Troisi <axalis@cegetel.net>\n"
 "German (de) Frank Brungräber <calexu@arcor.de> (former Sven Neubauer)\n"
@@ -1622,107 +1623,107 @@ msgid ""
 "Ukrainian (uk) Andriy Kovtun <kovtunos@yandex.ru>"
 msgstr ""
 
-#: glade/cherrytree.glade.h:30
+#: glade/cherrytree.glade.h:31
 msgid "Cancel"
 msgstr "取消"
 
-#: glade/cherrytree.glade.h:31
+#: glade/cherrytree.glade.h:32
 msgid "OK"
 msgstr "确定"
 
-#: glade/cherrytree.glade.h:33
+#: glade/cherrytree.glade.h:34
 msgid "To WebSite"
 msgstr "连接到网址"
 
-#: glade/cherrytree.glade.h:34
+#: glade/cherrytree.glade.h:35
 msgid "To Node"
 msgstr "连接到节点"
 
-#: glade/cherrytree.glade.h:35
+#: glade/cherrytree.glade.h:36
 msgid "To File"
 msgstr "连接到文件"
 
-#: glade/cherrytree.glade.h:36
+#: glade/cherrytree.glade.h:37
 msgid "To Folder"
 msgstr "连接到文件夹"
 
-#: glade/cherrytree.glade.h:37
+#: glade/cherrytree.glade.h:38
 msgid "<b>Type</b>"
 msgstr "<b>类型</b>"
 
-#: glade/cherrytree.glade.h:38
+#: glade/cherrytree.glade.h:39
 msgid "<b>WebSite URL</b>"
 msgstr "<b>网址</b>"
 
-#: glade/cherrytree.glade.h:39
+#: glade/cherrytree.glade.h:40
 msgid "Browse for a File to link to"
 msgstr "查找一个文件/文件夹作为链接地址"
 
-#: glade/cherrytree.glade.h:40
+#: glade/cherrytree.glade.h:41
 msgid "<b>File/Folder Path</b>"
 msgstr "<b>文件/文件夹路径</b>"
 
-#: glade/cherrytree.glade.h:41
+#: glade/cherrytree.glade.h:42
 msgid "<b>Node</b>"
 msgstr "<b>节点</b>"
 
-#: glade/cherrytree.glade.h:42
+#: glade/cherrytree.glade.h:43
 msgid "Browse for Existing Anchors on the Selected Node"
 msgstr "在当前所选节点查找已存在的锚点"
 
-#: glade/cherrytree.glade.h:43
+#: glade/cherrytree.glade.h:44
 msgid "<b>Anchor Name (optional)</b>"
 msgstr "<b>锚点名称(可选)</b>"
 
-#: glade/cherrytree.glade.h:44
+#: glade/cherrytree.glade.h:45
 msgid "<b>Automatic Syntax Highlighting</b>"
 msgstr "<b>自动语法高亮</b>"
 
-#: glade/cherrytree.glade.h:45
+#: glade/cherrytree.glade.h:46
 msgid "Width"
 msgstr "宽"
 
-#: glade/cherrytree.glade.h:46
+#: glade/cherrytree.glade.h:47
 msgid "pixels"
 msgstr "像素"
 
-#: glade/cherrytree.glade.h:48
+#: glade/cherrytree.glade.h:49
 msgid "%"
 msgstr ""
 
-#: glade/cherrytree.glade.h:49
+#: glade/cherrytree.glade.h:50
 msgid "Height"
 msgstr "高"
 
-#: glade/cherrytree.glade.h:50
+#: glade/cherrytree.glade.h:51
 msgid "<b>Size</b>"
 msgstr "<b>尺寸</b>"
 
-#: glade/cherrytree.glade.h:51
+#: glade/cherrytree.glade.h:52
 msgid "Show Line Numbers"
 msgstr "显示行号"
 
-#: glade/cherrytree.glade.h:52
+#: glade/cherrytree.glade.h:53
 msgid "Highlight Matching Brackets"
 msgstr "高亮括号匹配"
 
-#: glade/cherrytree.glade.h:53
+#: glade/cherrytree.glade.h:54
 msgid "<b>Options</b>"
 msgstr "<b>选项</b>"
 
-#: glade/cherrytree.glade.h:54
+#: glade/cherrytree.glade.h:55
 msgid "Pick a Color"
 msgstr "选择颜色"
 
-#: glade/cherrytree.glade.h:56
+#: glade/cherrytree.glade.h:57
 msgid "No"
 msgstr "否"
 
-#: glade/cherrytree.glade.h:57
+#: glade/cherrytree.glade.h:58
 msgid "Yes"
 msgstr "是"
 
-#: glade/cherrytree.glade.h:58
+#: glade/cherrytree.glade.h:59
 msgid ""
 "<b>The current document was updated</b>,\n"
 "do you want to save the changes?"
@@ -1730,326 +1731,326 @@ msgstr ""
 "<b>当前文档已被更改</b>,\n"
 "要保存这些更改吗？"
 
-#: glade/cherrytree.glade.h:60
+#: glade/cherrytree.glade.h:61
 msgid "Image Properties"
 msgstr "图片属性"
 
-#: glade/cherrytree.glade.h:61
+#: glade/cherrytree.glade.h:62
 msgid "Width "
 msgstr "宽 "
 
-#: glade/cherrytree.glade.h:62
+#: glade/cherrytree.glade.h:63
 msgid "      Height "
 msgstr "      高 "
 
-#: glade/cherrytree.glade.h:63
+#: glade/cherrytree.glade.h:64
 msgid "Input Dialog"
 msgstr "输入对话框"
 
-#: glade/cherrytree.glade.h:64
+#: glade/cherrytree.glade.h:65
 msgid "<b>Replace with</b>"
 msgstr "<b>替换为</b>"
 
-#: glade/cherrytree.glade.h:65
+#: glade/cherrytree.glade.h:66
 msgid "Match Case"
 msgstr "匹配大小写"
 
-#: glade/cherrytree.glade.h:66
+#: glade/cherrytree.glade.h:67
 msgid "Regular Expression"
 msgstr "正则表达式"
 
-#: glade/cherrytree.glade.h:67
+#: glade/cherrytree.glade.h:68
 msgid "Whole Word"
 msgstr "完整单词"
 
-#: glade/cherrytree.glade.h:68
+#: glade/cherrytree.glade.h:69
 msgid "Start Word"
 msgstr "单词开始部分"
 
-#: glade/cherrytree.glade.h:69
+#: glade/cherrytree.glade.h:70
 msgid "Forward"
 msgstr "向前"
 
-#: glade/cherrytree.glade.h:70
+#: glade/cherrytree.glade.h:71
 msgid "Backward"
 msgstr "向后"
 
-#: glade/cherrytree.glade.h:71
+#: glade/cherrytree.glade.h:72
 msgid "All, List Matches"
 msgstr "所有，并列出匹配"
 
-#: glade/cherrytree.glade.h:72
+#: glade/cherrytree.glade.h:73
 msgid "First From Selection"
 msgstr "在所选中搜索"
 
-#: glade/cherrytree.glade.h:73
+#: glade/cherrytree.glade.h:74
 msgid "First in All Range"
 msgstr "在当前页搜索"
 
-#: glade/cherrytree.glade.h:74
+#: glade/cherrytree.glade.h:75
 msgid "Show Iterated Find/Replace Dialog"
 msgstr "显示循环搜索/替换对话框"
 
-#: glade/cherrytree.glade.h:75
+#: glade/cherrytree.glade.h:76
 msgid "<b>Search options</b>"
 msgstr "<b>搜索选项</b>"
 
-#: glade/cherrytree.glade.h:77
+#: glade/cherrytree.glade.h:78
 msgid "Automatic Syntax Highlighting"
 msgstr "自动语法高亮"
 
-#: glade/cherrytree.glade.h:78
+#: glade/cherrytree.glade.h:79
 msgid "<b>Node Type</b>"
 msgstr "<b>节点类型</b>"
 
-#: glade/cherrytree.glade.h:79
+#: glade/cherrytree.glade.h:80
 msgid "<b>Tags for Searching</b>"
 msgstr "<b>搜索标签</b>"
 
-#: glade/cherrytree.glade.h:81
+#: glade/cherrytree.glade.h:82
 msgid "Iterate Latest Find/Replace"
 msgstr "重复上次搜索/替换"
 
-#: glade/cherrytree.glade.h:82
+#: glade/cherrytree.glade.h:83
 msgid "Close"
 msgstr "关闭"
 
-#: glade/cherrytree.glade.h:84
+#: glade/cherrytree.glade.h:85
 msgid "Find"
 msgstr "搜索"
 
-#: glade/cherrytree.glade.h:86
+#: glade/cherrytree.glade.h:87
 msgid "Replace"
 msgstr "替换"
 
-#: glade/cherrytree.glade.h:87
+#: glade/cherrytree.glade.h:88
 msgid "Undo the Latest Replace"
 msgstr "撤销上次替换"
 
-#: glade/cherrytree.glade.h:88
+#: glade/cherrytree.glade.h:89
 msgid "Undo"
 msgstr "撤销"
 
-#: glade/cherrytree.glade.h:89
+#: glade/cherrytree.glade.h:90
 msgid "Are you sure to Delete the node?"
 msgstr "确定删除此节点吗？"
 
-#: glade/cherrytree.glade.h:91
+#: glade/cherrytree.glade.h:92
 msgid "Tab Width  "
 msgstr "Tab宽度  "
 
-#: glade/cherrytree.glade.h:92
+#: glade/cherrytree.glade.h:93
 msgid "Insert Spaces Instead of Tabs"
 msgstr "用空格代替Tab"
 
-#: glade/cherrytree.glade.h:93
+#: glade/cherrytree.glade.h:94
 msgid "Use Line Wrapping"
 msgstr "启用换行显示"
 
-#: glade/cherrytree.glade.h:94
+#: glade/cherrytree.glade.h:95
 msgid "Enable Automatic Indentation"
 msgstr "启用自动缩进"
 
-#: glade/cherrytree.glade.h:95
+#: glade/cherrytree.glade.h:96
 msgid "<b>Text Editor</b>"
 msgstr "<b>文字编辑</b>"
 
-#: glade/cherrytree.glade.h:96
+#: glade/cherrytree.glade.h:97
 msgid "Style Scheme"
 msgstr "主题"
 
-#: glade/cherrytree.glade.h:97
+#: glade/cherrytree.glade.h:98
 msgid "Show White Spaces"
 msgstr "显示空白字符"
 
-#: glade/cherrytree.glade.h:98
+#: glade/cherrytree.glade.h:99
 msgid "Highlight Current Line"
 msgstr "高亮当前行"
 
-#: glade/cherrytree.glade.h:99
+#: glade/cherrytree.glade.h:100
 msgid "Default Text Color"
 msgstr "默认文字颜色"
 
-#: glade/cherrytree.glade.h:100
+#: glade/cherrytree.glade.h:101
 msgid "Default Background Color"
 msgstr "默认背景颜色"
 
-#: glade/cherrytree.glade.h:101
+#: glade/cherrytree.glade.h:102
 msgid "Anchor Size"
 msgstr "锚点大小"
 
-#: glade/cherrytree.glade.h:102
+#: glade/cherrytree.glade.h:103
 msgid "<b>Rich Text</b>"
 msgstr "<b>富文本</b>"
 
-#: glade/cherrytree.glade.h:103
+#: glade/cherrytree.glade.h:104
 msgid "Text Font"
 msgstr "文本字体"
 
-#: glade/cherrytree.glade.h:104
+#: glade/cherrytree.glade.h:105
 msgid "Code Font"
 msgstr "代码字体"
 
-#: glade/cherrytree.glade.h:105
+#: glade/cherrytree.glade.h:106
 msgid "Tree Font"
 msgstr "树字体"
 
-#: glade/cherrytree.glade.h:106
+#: glade/cherrytree.glade.h:107
 msgid "<b>Fonts</b>"
 msgstr "<b>字体</b>"
 
-#: glade/cherrytree.glade.h:107
+#: glade/cherrytree.glade.h:108
 msgid "Enable Custom Web Link Clicked Action"
 msgstr "启用并定义Web链接点击动作"
 
-#: glade/cherrytree.glade.h:108
+#: glade/cherrytree.glade.h:109
 msgid "Enable Custom File Link Clicked Action"
 msgstr "启用并定义文件链接点击动作"
 
-#: glade/cherrytree.glade.h:109
+#: glade/cherrytree.glade.h:110
 msgid "Enable Custom Folder Link Clicked Action"
 msgstr "启用并定义文件夹链接点击动作"
 
-#: glade/cherrytree.glade.h:110
+#: glade/cherrytree.glade.h:111
 msgid "<b>Links</b>"
 msgstr "<b>链接</b>"
 
-#: glade/cherrytree.glade.h:111
+#: glade/cherrytree.glade.h:112
 msgid "Expand All Nodes When Loading the Tree"
 msgstr "加载树时展开全部节点"
 
-#: glade/cherrytree.glade.h:112
+#: glade/cherrytree.glade.h:113
 msgid "Tree Nodes Names Wrapping Width"
 msgstr "节点名称换行显示时的宽度"
 
-#: glade/cherrytree.glade.h:113
+#: glade/cherrytree.glade.h:114
 msgid "Display Tree on the Right Side"
 msgstr "节点树显示在右侧"
 
-#: glade/cherrytree.glade.h:114
+#: glade/cherrytree.glade.h:115
 msgid "Use Cherries as Nodes Icons"
 msgstr "使用樱桃作为节点图标"
 
-#: glade/cherrytree.glade.h:115
+#: glade/cherrytree.glade.h:116
 msgid "Use Bullets as Nodes Icons"
 msgstr "使用圆点作为节点图标"
 
-#: glade/cherrytree.glade.h:116
+#: glade/cherrytree.glade.h:117
 msgid "Do Not Display Nodes Icons"
 msgstr "不显示节点图标"
 
-#: glade/cherrytree.glade.h:117
+#: glade/cherrytree.glade.h:118
 msgid "<b>Tree</b>"
 msgstr "<b>树</b>"
 
-#: glade/cherrytree.glade.h:118
+#: glade/cherrytree.glade.h:119
 msgid "Autosave Every"
 msgstr "自动保存每隔"
 
-#: glade/cherrytree.glade.h:119
+#: glade/cherrytree.glade.h:120
 msgid "Minutes"
 msgstr "分钟"
 
-#: glade/cherrytree.glade.h:120
+#: glade/cherrytree.glade.h:121
 msgid "Autosave on Quit"
 msgstr "退出前自动保存"
 
-#: glade/cherrytree.glade.h:121
+#: glade/cherrytree.glade.h:122
 msgid "Create a Backup Copy Before Saving"
 msgstr "保存前创建备份"
 
-#: glade/cherrytree.glade.h:122
+#: glade/cherrytree.glade.h:123
 msgid "<b>Saving</b>"
 msgstr "<b>保存</b>"
 
-#: glade/cherrytree.glade.h:123
+#: glade/cherrytree.glade.h:124
 msgid "Enable System Tray Docking"
 msgstr "启用系统托盘"
 
-#: glade/cherrytree.glade.h:124
+#: glade/cherrytree.glade.h:125
 msgid "Start Minimized in the System Tray"
 msgstr "程序启动后最小化到托盘"
 
-#: glade/cherrytree.glade.h:125
+#: glade/cherrytree.glade.h:126
 msgid "<b>System Tray</b>"
 msgstr "<b>系统托盘</b>"
 
-#: glade/cherrytree.glade.h:126
+#: glade/cherrytree.glade.h:127
 msgid "Timestamp Format"
 msgstr "时间戳格式"
 
-#: glade/cherrytree.glade.h:127
+#: glade/cherrytree.glade.h:128
 msgid "Detail of Available Format Codes"
 msgstr "时间格式化代码说明"
 
-#: glade/cherrytree.glade.h:128
-msgid "Horizontal Rule"
-msgstr "横向标尺"
-
 #: glade/cherrytree.glade.h:129
+msgid "Horizontal Rule"
+msgstr "定义分割线"
+
+#: glade/cherrytree.glade.h:130
 msgid "Limit of Undoable Steps Per Node"
 msgstr "每个节点撤销步数限制"
 
-#: glade/cherrytree.glade.h:130
+#: glade/cherrytree.glade.h:131
 msgid "Automatically Check for Newer Version"
 msgstr "自动检查新版本"
 
-#: glade/cherrytree.glade.h:131
+#: glade/cherrytree.glade.h:132
 msgid "<b>Miscellaneous</b>"
 msgstr "<b>杂项</b>"
 
-#: glade/cherrytree.glade.h:132
+#: glade/cherrytree.glade.h:133
 msgid "<b>Language</b>"
 msgstr "<b>界面语言</b>"
 
-#: glade/cherrytree.glade.h:133
+#: glade/cherrytree.glade.h:134
 msgid "Rows  "
 msgstr "行  "
 
-#: glade/cherrytree.glade.h:134
+#: glade/cherrytree.glade.h:135
 msgid "     Columns  "
 msgstr "     列  "
 
-#: glade/cherrytree.glade.h:135
+#: glade/cherrytree.glade.h:136
 msgid "<b>Table size</b>"
 msgstr "<b>表格属性</b>"
 
-#: glade/cherrytree.glade.h:136
+#: glade/cherrytree.glade.h:137
 msgid "Min Width"
 msgstr "最小宽度"
 
-#: glade/cherrytree.glade.h:137
+#: glade/cherrytree.glade.h:138
 msgid "   Max Width"
 msgstr "   最大宽度"
 
-#: glade/cherrytree.glade.h:138
+#: glade/cherrytree.glade.h:139
 msgid "<b>Columns Properties</b>"
 msgstr "<b>列属性</b>"
 
-#: glade/cherrytree.glade.h:139
+#: glade/cherrytree.glade.h:140
 msgid "Import from CSV File"
 msgstr "从CSV文件导入"
 
-#: glade/cherrytree.glade.h:140
+#: glade/cherrytree.glade.h:141
 msgid "Rename Column"
 msgstr "重命名列"
 
-#: glade/cherrytree.glade.h:141
+#: glade/cherrytree.glade.h:142
 msgid "Delete Column"
 msgstr "删除列"
 
-#: glade/cherrytree.glade.h:142
+#: glade/cherrytree.glade.h:143
 msgid "Add Column"
 msgstr "添加列"
 
-#: glade/cherrytree.glade.h:143
+#: glade/cherrytree.glade.h:144
 msgid "Move Column Left"
 msgstr "左移列"
 
-#: glade/cherrytree.glade.h:144
+#: glade/cherrytree.glade.h:145
 msgid "Move Column Right"
 msgstr "右移列"
 
-#: glade/cherrytree.glade.h:145
+#: glade/cherrytree.glade.h:146
 msgid "CherryTree"
 msgstr ""

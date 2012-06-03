@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CherryTree\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-13 18:08+0200\n"
+"POT-Creation-Date: 2012-06-03 22:34+0200\n"
 "PO-Revision-Date: 2012-05-14 12:16+0300\n"
 "Last-Translator: Andriy Kovtun <kovtunos@yandex.ru>\n"
 "Language-Team: Russian <kovtunos@yandex.ru>\n"
@@ -43,7 +43,7 @@ msgstr "Вопрос"
 msgid "Info"
 msgstr "Информация"
 
-#: modules/support.py:181 glade/cherrytree.glade.h:55
+#: modules/support.py:181 glade/cherrytree.glade.h:56
 msgid "Warning"
 msgstr "Предупреждение"
 
@@ -139,65 +139,65 @@ msgstr "Название ветки"
 msgid "Line Content"
 msgstr "Содержимое сроки"
 
-#: modules/core.py:216
+#: modules/core.py:217
 msgid "Checking for Newer Version..."
 msgstr "Проверка доступности новых версий..."
 
-#: modules/core.py:222
+#: modules/core.py:223
 msgid "A Newer Version Is Available!"
 msgstr "Доступна новая версия!"
 
-#: modules/core.py:227
+#: modules/core.py:228
 msgid "This is the Latest Version Available"
 msgstr "Доступна новая версия программы"
 
-#: modules/core.py:230
+#: modules/core.py:231
 msgid "Failed to Retrieve Latest Version Information - Try Again Later"
 msgstr "Невозможно проверить доступность новой версии. Попробуйте позже"
 
-#: modules/core.py:247 modules/core.py:3219 modules/core.py:3225
-#: modules/core.py:3727
+#: modules/core.py:248 modules/core.py:3219 modules/core.py:3225
+#: modules/core.py:3729
 msgid "No Text is Selected"
 msgstr "Текст не выделен"
 
-#: modules/core.py:533 modules/core.py:1698
+#: modules/core.py:534 modules/core.py:1698
 msgid "The new father can't be one of his sons!"
 msgstr "Новая родительская ветка не может быть дочерней!"
 
-#: modules/core.py:571 modules/core.py:1017 modules/core.py:1142
+#: modules/core.py:572 modules/core.py:1017 modules/core.py:1142
 msgid "CherryTree Document"
 msgstr "Документ CherryTree"
 
-#: modules/core.py:594 modules/core.py:1374
+#: modules/core.py:595 modules/core.py:1374
 #, python-format
 msgid "\"%s\" is Not a CherryTree Document"
 msgstr "\"%s\" не является документом CherryTree"
 
-#: modules/core.py:600
+#: modules/core.py:601
 msgid "NoteCase Document"
 msgstr "Документ NoteCase"
 
-#: modules/core.py:664
+#: modules/core.py:665
 msgid "Treepad Document"
 msgstr "Документ Treepad"
 
-#: modules/core.py:682
+#: modules/core.py:683
 msgid "Knowit Document"
 msgstr "Документ Knowit"
 
-#: modules/core.py:700
+#: modules/core.py:701
 msgid "Leo Document"
 msgstr "Документ Leo"
 
-#: modules/core.py:731
+#: modules/core.py:732
 msgid "Who is the Father?"
 msgstr "Укажите родительскую ветку"
 
-#: modules/core.py:738
+#: modules/core.py:739
 msgid "The Tree Root"
 msgstr "Дерево"
 
-#: modules/core.py:739
+#: modules/core.py:740
 msgid "The Selected Node"
 msgstr "Выделенная ветка"
 
@@ -205,8 +205,8 @@ msgstr "Выделенная ветка"
 msgid "CherryTree Hierarchical Note Taking"
 msgstr "Записная книжка CherryTree"
 
-#: modules/core.py:1011 modules/core.py:1045 modules/core.py:2464
-#: modules/core.py:2475 modules/core.py:2816
+#: modules/core.py:1011 modules/core.py:1045 modules/core.py:2472
+#: modules/core.py:2483 modules/core.py:2816
 msgid "The Tree is Empty!"
 msgstr "Дерево пустое!"
 
@@ -265,12 +265,12 @@ msgstr "Неправильный пароль"
 #: modules/core.py:1502 modules/core.py:1540 modules/core.py:1551
 #: modules/core.py:1578 modules/core.py:1606 modules/core.py:1620
 #: modules/core.py:1634 modules/core.py:1673 modules/core.py:2193
-#: modules/core.py:2224 modules/core.py:2250 modules/core.py:2453
-#: modules/core.py:2757
+#: modules/core.py:2224 modules/core.py:2250 modules/core.py:2461
+#: modules/core.py:2765
 msgid "No Node is Selected!"
 msgstr "Ветка выделена!"
 
-#: modules/core.py:1682 glade/cherrytree.glade.h:32
+#: modules/core.py:1682 glade/cherrytree.glade.h:33
 msgid "Select the New Father"
 msgstr "Выделите новую родительскую ветку"
 
@@ -319,36 +319,36 @@ msgstr ""
 "При включении автоматической подсветки, Вы потеряете настройки "
 "пользовательских цветов для этой ветки, продолжить?"
 
-#: modules/core.py:2616 modules/core.py:2798 modules/core.py:3213
-#: modules/core.py:3682 modules/core.py:3736 modules/core.py:3752
+#: modules/core.py:2624 modules/core.py:2806 modules/core.py:3213
+#: modules/core.py:3684 modules/core.py:3738 modules/core.py:3754
 msgid "No Node is Selected"
 msgstr "Ветка не выделена"
 
-#: modules/core.py:2642
+#: modules/core.py:2650
 msgid "The Size of the Toolbar Icons is already at the Maximum Value"
 msgstr "Размер иконок панели инструментов максимальный"
 
-#: modules/core.py:2650
+#: modules/core.py:2658
 msgid "The Size of the Toolbar Icons is already at the Minimum Value"
 msgstr "Размер иконок панели инструментов минимальный"
 
-#: modules/core.py:2731
+#: modules/core.py:2739
 msgid "Edit Anchor"
 msgstr "Редактировать якорь"
 
-#: modules/core.py:2734
+#: modules/core.py:2742
 msgid "Insert Anchor"
 msgstr "Вставить якорь"
 
-#: modules/core.py:2743
+#: modules/core.py:2751
 msgid "The Anchor Name is Mandatory!"
 msgstr "Название якоря обязательно!"
 
-#: modules/core.py:2771
+#: modules/core.py:2779
 msgid "Not Any H1, H2 or H3 Formatting Found"
 msgstr "Не найдены заголовки H1, H2, H3"
 
-#: modules/core.py:2801 modules/core.py:3181 modules/core.py:3188
+#: modules/core.py:2809 modules/core.py:3181 modules/core.py:3188
 #: modules/core.py:3195 modules/core.py:3207
 msgid ""
 "Automatic Syntax Highlighting Must be Disabled in order to Use This Feature"
@@ -419,23 +419,23 @@ msgstr "Ссылка ссылается на ветку, которой не с�
 msgid "No anchor named '%s' found"
 msgstr "Не найдено якоря с названием '%s'"
 
-#: modules/core.py:3500
+#: modules/core.py:3502
 msgid "There are No Anchors in the Selected Node"
 msgstr "В выделенной ветке нет якорей"
 
-#: modules/core.py:3505
+#: modules/core.py:3507
 msgid "Choose Existing Anchor"
 msgstr "Выберите существующий якорь"
 
-#: modules/core.py:3518
+#: modules/core.py:3520
 msgid "Anchor Name"
 msgstr "Название якоря"
 
-#: modules/core.py:3684 glade/cherrytree.glade.h:76
+#: modules/core.py:3686 glade/cherrytree.glade.h:77
 msgid "Rich Text"
 msgstr "Форматирования текста"
 
-#: modules/core.py:3686 glade/cherrytree.glade.h:80
+#: modules/core.py:3688 glade/cherrytree.glade.h:81
 msgid "Read Only"
 msgstr "Только чтение"
 
@@ -619,7 +619,7 @@ msgstr "Выйти из CherryTree"
 msgid "_Preferences"
 msgstr "Параметры"
 
-#: modules/cons.py:464 glade/cherrytree.glade.h:90
+#: modules/cons.py:464 glade/cherrytree.glade.h:91
 msgid "Preferences"
 msgstr "Параметры"
 
@@ -1070,7 +1070,7 @@ msgid "Find _Again"
 msgstr "Повторить поиск"
 
 #: modules/cons.py:520 modules/cons.py:688 modules/cons.py:726
-#: glade/cherrytree.glade.h:85
+#: glade/cherrytree.glade.h:86
 msgid "Iterate the Last Find Operation"
 msgstr "Повторить последний поиск"
 
@@ -1079,7 +1079,7 @@ msgid "Find _Back"
 msgstr "Повторить поиск в обратном направлении"
 
 #: modules/cons.py:521 modules/cons.py:689 modules/cons.py:727
-#: glade/cherrytree.glade.h:83
+#: glade/cherrytree.glade.h:84
 msgid "Iterate the Last Find Operation in Opposite Direction"
 msgstr "Повторить последний поиск в обратном направлении"
 
@@ -1633,6 +1633,7 @@ msgstr ""
 
 #: glade/cherrytree.glade.h:22
 msgid ""
+"Chinese Simplified (zh_CN) Channing Wong <mamimoluo@gmail.com>\n"
 "Czech (cs) Pavel Fric <fripohled@blogspot.com>\n"
 "French (fr) Ludovic Troisi <axalis@cegetel.net>\n"
 "German (de) Frank Brungräber <calexu@arcor.de> (former Sven Neubauer)\n"
@@ -1642,6 +1643,7 @@ msgid ""
 "Spanish (es) Daniel MC <i.e.betel@gmail.com>\n"
 "Ukrainian (uk) Andriy Kovtun <kovtunos@yandex.ru>"
 msgstr ""
+"Китайский Упрощенный (zh_CN) Channing Wong <mamimoluo@gmail.com>\n"
 "Чешский (cs) Pavel Fric <fripohled@blogspot.com>\n"
 "Французский (fr) Ludovic Troisi <axalis@cegetel.net>\n"
 "Немецкий (de) Frank Brungräber <calexu@arcor.de> (former Sven Neubauer)\n"
@@ -1651,107 +1653,107 @@ msgstr ""
 "Испанский (es) Daniel MC <i.e.betel@gmail.com>\n"
 "Украинский (uk) Andriy Kovtun <kovtunos@yandex.ru>"
 
-#: glade/cherrytree.glade.h:30
+#: glade/cherrytree.glade.h:31
 msgid "Cancel"
 msgstr "Отмена"
 
-#: glade/cherrytree.glade.h:31
+#: glade/cherrytree.glade.h:32
 msgid "OK"
 msgstr "OK"
 
-#: glade/cherrytree.glade.h:33
+#: glade/cherrytree.glade.h:34
 msgid "To WebSite"
 msgstr "Вебсайт"
 
-#: glade/cherrytree.glade.h:34
+#: glade/cherrytree.glade.h:35
 msgid "To Node"
 msgstr "Ветка"
 
-#: glade/cherrytree.glade.h:35
+#: glade/cherrytree.glade.h:36
 msgid "To File"
 msgstr "Файл"
 
-#: glade/cherrytree.glade.h:36
+#: glade/cherrytree.glade.h:37
 msgid "To Folder"
 msgstr "Каталог"
 
-#: glade/cherrytree.glade.h:37
+#: glade/cherrytree.glade.h:38
 msgid "<b>Type</b>"
 msgstr "<b>Тип</b>"
 
-#: glade/cherrytree.glade.h:38
+#: glade/cherrytree.glade.h:39
 msgid "<b>WebSite URL</b>"
 msgstr "<b>URL сайта</b>"
 
-#: glade/cherrytree.glade.h:39
+#: glade/cherrytree.glade.h:40
 msgid "Browse for a File to link to"
 msgstr "Найти файл для ссылки"
 
-#: glade/cherrytree.glade.h:40
+#: glade/cherrytree.glade.h:41
 msgid "<b>File/Folder Path</b>"
 msgstr "<b>Путь к файлу/каталогу</b>"
 
-#: glade/cherrytree.glade.h:41
+#: glade/cherrytree.glade.h:42
 msgid "<b>Node</b>"
 msgstr "<b>Ветка</b>"
 
-#: glade/cherrytree.glade.h:42
+#: glade/cherrytree.glade.h:43
 msgid "Browse for Existing Anchors on the Selected Node"
 msgstr "Просмотреть существующие якоря выделенной ветки"
 
-#: glade/cherrytree.glade.h:43
+#: glade/cherrytree.glade.h:44
 msgid "<b>Anchor Name (optional)</b>"
 msgstr "<b>Название якоря (по желанию)</b>"
 
-#: glade/cherrytree.glade.h:44
+#: glade/cherrytree.glade.h:45
 msgid "<b>Automatic Syntax Highlighting</b>"
 msgstr "<b>Автоматическая подсветка синтаксиса</b>"
 
-#: glade/cherrytree.glade.h:45
+#: glade/cherrytree.glade.h:46
 msgid "Width"
 msgstr "Ширина "
 
-#: glade/cherrytree.glade.h:46
+#: glade/cherrytree.glade.h:47
 msgid "pixels"
 msgstr "пикселей"
 
-#: glade/cherrytree.glade.h:48
+#: glade/cherrytree.glade.h:49
 msgid "%"
 msgstr "%"
 
-#: glade/cherrytree.glade.h:49
+#: glade/cherrytree.glade.h:50
 msgid "Height"
 msgstr "Высота "
 
-#: glade/cherrytree.glade.h:50
+#: glade/cherrytree.glade.h:51
 msgid "<b>Size</b>"
 msgstr "<b>Размер</b>"
 
-#: glade/cherrytree.glade.h:51
+#: glade/cherrytree.glade.h:52
 msgid "Show Line Numbers"
 msgstr "Показать номера строк"
 
-#: glade/cherrytree.glade.h:52
+#: glade/cherrytree.glade.h:53
 msgid "Highlight Matching Brackets"
 msgstr "Подсветка соответствующих скобок"
 
-#: glade/cherrytree.glade.h:53
+#: glade/cherrytree.glade.h:54
 msgid "<b>Options</b>"
 msgstr "<b>Настройки</b>"
 
-#: glade/cherrytree.glade.h:54
+#: glade/cherrytree.glade.h:55
 msgid "Pick a Color"
 msgstr "Выбор цвета"
 
-#: glade/cherrytree.glade.h:56
+#: glade/cherrytree.glade.h:57
 msgid "No"
 msgstr "Нет"
 
-#: glade/cherrytree.glade.h:57
+#: glade/cherrytree.glade.h:58
 msgid "Yes"
 msgstr "Да"
 
-#: glade/cherrytree.glade.h:58
+#: glade/cherrytree.glade.h:59
 msgid ""
 "<b>The current document was updated</b>,\n"
 "do you want to save the changes?"
@@ -1759,326 +1761,326 @@ msgstr ""
 "<b>Текущий документ был обновлен</b>,\n"
 "Вы хотите сохранить изменения?"
 
-#: glade/cherrytree.glade.h:60
+#: glade/cherrytree.glade.h:61
 msgid "Image Properties"
 msgstr "Свойства изображения"
 
-#: glade/cherrytree.glade.h:61
+#: glade/cherrytree.glade.h:62
 msgid "Width "
 msgstr "Ширина "
 
-#: glade/cherrytree.glade.h:62
+#: glade/cherrytree.glade.h:63
 msgid "      Height "
 msgstr "      Высота "
 
-#: glade/cherrytree.glade.h:63
+#: glade/cherrytree.glade.h:64
 msgid "Input Dialog"
 msgstr "Диалог ввода"
 
-#: glade/cherrytree.glade.h:64
+#: glade/cherrytree.glade.h:65
 msgid "<b>Replace with</b>"
 msgstr "<b>Заменить</b>"
 
-#: glade/cherrytree.glade.h:65
+#: glade/cherrytree.glade.h:66
 msgid "Match Case"
 msgstr "Учитывать регистр"
 
-#: glade/cherrytree.glade.h:66
+#: glade/cherrytree.glade.h:67
 msgid "Regular Expression"
 msgstr "Регулярное выражение"
 
-#: glade/cherrytree.glade.h:67
+#: glade/cherrytree.glade.h:68
 msgid "Whole Word"
 msgstr "Целое слово"
 
-#: glade/cherrytree.glade.h:68
+#: glade/cherrytree.glade.h:69
 msgid "Start Word"
 msgstr "Слово"
 
-#: glade/cherrytree.glade.h:69
+#: glade/cherrytree.glade.h:70
 msgid "Forward"
 msgstr "Вперед"
 
-#: glade/cherrytree.glade.h:70
+#: glade/cherrytree.glade.h:71
 msgid "Backward"
 msgstr "Назад"
 
-#: glade/cherrytree.glade.h:71
+#: glade/cherrytree.glade.h:72
 msgid "All, List Matches"
 msgstr "Весь список совпадений"
 
-#: glade/cherrytree.glade.h:72
+#: glade/cherrytree.glade.h:73
 msgid "First From Selection"
 msgstr "Первое от выделения"
 
-#: glade/cherrytree.glade.h:73
+#: glade/cherrytree.glade.h:74
 msgid "First in All Range"
 msgstr "Первое по всему диапазону"
 
-#: glade/cherrytree.glade.h:74
+#: glade/cherrytree.glade.h:75
 msgid "Show Iterated Find/Replace Dialog"
 msgstr "Показать диалог последних замен"
 
-#: glade/cherrytree.glade.h:75
+#: glade/cherrytree.glade.h:76
 msgid "<b>Search options</b>"
 msgstr "<b>Настройки поиска</b>"
 
-#: glade/cherrytree.glade.h:77
+#: glade/cherrytree.glade.h:78
 msgid "Automatic Syntax Highlighting"
 msgstr "Автоматическая подсветка синтаксиса"
 
-#: glade/cherrytree.glade.h:78
+#: glade/cherrytree.glade.h:79
 msgid "<b>Node Type</b>"
 msgstr "<b>Тип ветки</b>"
 
-#: glade/cherrytree.glade.h:79
+#: glade/cherrytree.glade.h:80
 msgid "<b>Tags for Searching</b>"
 msgstr "<b>Тэги для поиска</b>"
 
-#: glade/cherrytree.glade.h:81
+#: glade/cherrytree.glade.h:82
 msgid "Iterate Latest Find/Replace"
 msgstr "Повторить последнюю замену"
 
-#: glade/cherrytree.glade.h:82
+#: glade/cherrytree.glade.h:83
 msgid "Close"
 msgstr "Закрыть"
 
-#: glade/cherrytree.glade.h:84
+#: glade/cherrytree.glade.h:85
 msgid "Find"
 msgstr "Найти"
 
-#: glade/cherrytree.glade.h:86
+#: glade/cherrytree.glade.h:87
 msgid "Replace"
 msgstr "Заменить"
 
-#: glade/cherrytree.glade.h:87
+#: glade/cherrytree.glade.h:88
 msgid "Undo the Latest Replace"
 msgstr "Отменить последнюю замену"
 
-#: glade/cherrytree.glade.h:88
+#: glade/cherrytree.glade.h:89
 msgid "Undo"
 msgstr "Отменить"
 
-#: glade/cherrytree.glade.h:89
+#: glade/cherrytree.glade.h:90
 msgid "Are you sure to Delete the node?"
 msgstr "Вы уверены, что хотите удалить ветку?"
 
-#: glade/cherrytree.glade.h:91
+#: glade/cherrytree.glade.h:92
 msgid "Tab Width  "
 msgstr "Ширина табуляции  "
 
-#: glade/cherrytree.glade.h:92
+#: glade/cherrytree.glade.h:93
 msgid "Insert Spaces Instead of Tabs"
 msgstr "Использовать пробелы вместо табуляции"
 
-#: glade/cherrytree.glade.h:93
+#: glade/cherrytree.glade.h:94
 msgid "Use Line Wrapping"
 msgstr "Включить режим переноса текста"
 
-#: glade/cherrytree.glade.h:94
+#: glade/cherrytree.glade.h:95
 msgid "Enable Automatic Indentation"
 msgstr "Включить автоматический отступ"
 
-#: glade/cherrytree.glade.h:95
+#: glade/cherrytree.glade.h:96
 msgid "<b>Text Editor</b>"
 msgstr "<b>Текстовый редактор</b>"
 
-#: glade/cherrytree.glade.h:96
+#: glade/cherrytree.glade.h:97
 msgid "Style Scheme"
 msgstr "Цветовая тема"
 
-#: glade/cherrytree.glade.h:97
+#: glade/cherrytree.glade.h:98
 msgid "Show White Spaces"
 msgstr "Отображать пробельные символы"
 
-#: glade/cherrytree.glade.h:98
+#: glade/cherrytree.glade.h:99
 msgid "Highlight Current Line"
 msgstr "Подсветка текущей строки"
 
-#: glade/cherrytree.glade.h:99
+#: glade/cherrytree.glade.h:100
 msgid "Default Text Color"
 msgstr "Цвет текста"
 
-#: glade/cherrytree.glade.h:100
+#: glade/cherrytree.glade.h:101
 msgid "Default Background Color"
 msgstr "Цвет фона"
 
-#: glade/cherrytree.glade.h:101
+#: glade/cherrytree.glade.h:102
 msgid "Anchor Size"
 msgstr "Размер якоря"
 
-#: glade/cherrytree.glade.h:102
+#: glade/cherrytree.glade.h:103
 msgid "<b>Rich Text</b>"
 msgstr "<b>Форматированный текст</b>"
 
-#: glade/cherrytree.glade.h:103
+#: glade/cherrytree.glade.h:104
 msgid "Text Font"
 msgstr "Шрифт текста"
 
-#: glade/cherrytree.glade.h:104
+#: glade/cherrytree.glade.h:105
 msgid "Code Font"
 msgstr "Шрифт кода  "
 
-#: glade/cherrytree.glade.h:105
+#: glade/cherrytree.glade.h:106
 msgid "Tree Font"
 msgstr "Шрифт дерева  "
 
-#: glade/cherrytree.glade.h:106
+#: glade/cherrytree.glade.h:107
 msgid "<b>Fonts</b>"
 msgstr "<b>Шрифты</b>"
 
-#: glade/cherrytree.glade.h:107
+#: glade/cherrytree.glade.h:108
 msgid "Enable Custom Web Link Clicked Action"
 msgstr "Открывать веб-ссылки"
 
-#: glade/cherrytree.glade.h:108
+#: glade/cherrytree.glade.h:109
 msgid "Enable Custom File Link Clicked Action"
 msgstr "Открывать файлы"
 
-#: glade/cherrytree.glade.h:109
+#: glade/cherrytree.glade.h:110
 msgid "Enable Custom Folder Link Clicked Action"
 msgstr "Открывать каталоги"
 
-#: glade/cherrytree.glade.h:110
+#: glade/cherrytree.glade.h:111
 msgid "<b>Links</b>"
 msgstr "<b>Гиперссылки</b>"
 
-#: glade/cherrytree.glade.h:111
+#: glade/cherrytree.glade.h:112
 msgid "Expand All Nodes When Loading the Tree"
 msgstr "Развернуть все ветки при запуске программы"
 
-#: glade/cherrytree.glade.h:112
+#: glade/cherrytree.glade.h:113
 msgid "Tree Nodes Names Wrapping Width"
 msgstr "Ширина переноса в названиях ветки "
 
-#: glade/cherrytree.glade.h:113
+#: glade/cherrytree.glade.h:114
 msgid "Display Tree on the Right Side"
 msgstr "Отображать дерево слева"
 
-#: glade/cherrytree.glade.h:114
+#: glade/cherrytree.glade.h:115
 msgid "Use Cherries as Nodes Icons"
 msgstr "Использовать вишенки в качестве значков"
 
-#: glade/cherrytree.glade.h:115
+#: glade/cherrytree.glade.h:116
 msgid "Use Bullets as Nodes Icons"
 msgstr "Использовать маркеры в качестве значков"
 
-#: glade/cherrytree.glade.h:116
+#: glade/cherrytree.glade.h:117
 msgid "Do Not Display Nodes Icons"
 msgstr "Не отображать значки веток"
 
-#: glade/cherrytree.glade.h:117
+#: glade/cherrytree.glade.h:118
 msgid "<b>Tree</b>"
 msgstr "<b>Дерево</b>"
 
-#: glade/cherrytree.glade.h:118
+#: glade/cherrytree.glade.h:119
 msgid "Autosave Every"
 msgstr "Автосохранение каждые "
 
-#: glade/cherrytree.glade.h:119
+#: glade/cherrytree.glade.h:120
 msgid "Minutes"
 msgstr "минут"
 
-#: glade/cherrytree.glade.h:120
+#: glade/cherrytree.glade.h:121
 msgid "Autosave on Quit"
 msgstr "Сохранение при закрытии"
 
-#: glade/cherrytree.glade.h:121
+#: glade/cherrytree.glade.h:122
 msgid "Create a Backup Copy Before Saving"
 msgstr "Сохранить резервную копию перед сохранением"
 
-#: glade/cherrytree.glade.h:122
+#: glade/cherrytree.glade.h:123
 msgid "<b>Saving</b>"
 msgstr "<b>Сохранение</b>"
 
-#: glade/cherrytree.glade.h:123
+#: glade/cherrytree.glade.h:124
 msgid "Enable System Tray Docking"
 msgstr "Спрятать в системный лоток"
 
-#: glade/cherrytree.glade.h:124
+#: glade/cherrytree.glade.h:125
 msgid "Start Minimized in the System Tray"
 msgstr "Свернуть в системный лоток при запуске"
 
-#: glade/cherrytree.glade.h:125
+#: glade/cherrytree.glade.h:126
 msgid "<b>System Tray</b>"
 msgstr "<b>Системный лоток</b>"
 
-#: glade/cherrytree.glade.h:126
+#: glade/cherrytree.glade.h:127
 msgid "Timestamp Format"
 msgstr "Формат даты"
 
-#: glade/cherrytree.glade.h:127
+#: glade/cherrytree.glade.h:128
 msgid "Detail of Available Format Codes"
 msgstr "Подробнее о формате даты"
 
-#: glade/cherrytree.glade.h:128
+#: glade/cherrytree.glade.h:129
 msgid "Horizontal Rule"
 msgstr "Горизонтальная линия"
 
-#: glade/cherrytree.glade.h:129
+#: glade/cherrytree.glade.h:130
 msgid "Limit of Undoable Steps Per Node"
 msgstr "Лимит операций отмены"
 
-#: glade/cherrytree.glade.h:130
+#: glade/cherrytree.glade.h:131
 msgid "Automatically Check for Newer Version"
 msgstr "Автоматически проверять обновления"
 
-#: glade/cherrytree.glade.h:131
+#: glade/cherrytree.glade.h:132
 msgid "<b>Miscellaneous</b>"
 msgstr "<b>Разное</b>"
 
-#: glade/cherrytree.glade.h:132
+#: glade/cherrytree.glade.h:133
 msgid "<b>Language</b>"
 msgstr "<b>Язык</b>"
 
-#: glade/cherrytree.glade.h:133
+#: glade/cherrytree.glade.h:134
 msgid "Rows  "
 msgstr "Строки"
 
-#: glade/cherrytree.glade.h:134
+#: glade/cherrytree.glade.h:135
 msgid "     Columns  "
 msgstr "     Столбцы"
 
-#: glade/cherrytree.glade.h:135
+#: glade/cherrytree.glade.h:136
 msgid "<b>Table size</b>"
 msgstr "<b>Размер таблицы</b>"
 
-#: glade/cherrytree.glade.h:136
+#: glade/cherrytree.glade.h:137
 msgid "Min Width"
 msgstr "Минимальная ширина"
 
-#: glade/cherrytree.glade.h:137
+#: glade/cherrytree.glade.h:138
 msgid "   Max Width"
 msgstr "   Максимальная ширина"
 
-#: glade/cherrytree.glade.h:138
+#: glade/cherrytree.glade.h:139
 msgid "<b>Columns Properties</b>"
 msgstr "<b>Свойства столбца</b>"
 
-#: glade/cherrytree.glade.h:139
+#: glade/cherrytree.glade.h:140
 msgid "Import from CSV File"
 msgstr "Импорт из файла CSV"
 
-#: glade/cherrytree.glade.h:140
+#: glade/cherrytree.glade.h:141
 msgid "Rename Column"
 msgstr "Переименовать столбец"
 
-#: glade/cherrytree.glade.h:141
+#: glade/cherrytree.glade.h:142
 msgid "Delete Column"
 msgstr "Удалить столбец"
 
-#: glade/cherrytree.glade.h:142
+#: glade/cherrytree.glade.h:143
 msgid "Add Column"
 msgstr "Добавить столбец"
 
-#: glade/cherrytree.glade.h:143
+#: glade/cherrytree.glade.h:144
 msgid "Move Column Left"
 msgstr "Столбец влево"
 
-#: glade/cherrytree.glade.h:144
+#: glade/cherrytree.glade.h:145
 msgid "Move Column Right"
 msgstr "Столбец вправо"
 
-#: glade/cherrytree.glade.h:145
+#: glade/cherrytree.glade.h:146
 msgid "CherryTree"
 msgstr "CherryTree"
