@@ -424,7 +424,7 @@ class CTDBHandler:
             except:
                 print "** failed to parse **"
                 print node_row['txt']
-                raise
+                #raise
                 return
             dom_node = dom.firstChild
             if not dom_node or dom_node.nodeName != "node":
