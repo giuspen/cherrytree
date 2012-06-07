@@ -20,7 +20,7 @@
 #       MA 02110-1301, USA.
 
 import gtk, pango, gtksourceview2, gobject
-import sys, os, re, subprocess, webbrowser, base64, cgi, urllib2, shutil, time
+import sys, os, re, subprocess, webbrowser, base64, cgi, urllib2, shutil, time, locale
 try:
     import appindicator
     HAS_APPINDICATOR = True
@@ -1807,7 +1807,10 @@ class CherryTree:
 
     def on_button_strftime_help_clicked(self, menuitem, data=None):
         """Show the strftime Manual Page"""
-        page_lang = os.environ["LANGUAGE"] if os.environ["LANGUAGE"] in ["de", "es", "fr"] else ""
+        lang_code = locale.getdefaultlocale()[0]
+        if lang_code:
+            page_lang = lang_code[0:2] if lang_code[0:2] in ["de", "es", "fr"] else ""
+        else: page_lang = ""
         webbrowser.open("http://man.cx/strftime%283%29/" + page_lang)
 
     def on_spinbutton_tab_width_value_changed(self, spinbutton):
