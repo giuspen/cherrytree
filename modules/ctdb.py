@@ -424,12 +424,13 @@ class CTDBHandler:
             except:
                 print "** failed to parse **"
                 print node_row['txt']
-                #raise
+                if user_active_restore: self.dad.user_active = True
                 return
             dom_node = dom.firstChild
             if not dom_node or dom_node.nodeName != "node":
                 print "** node name != 'node' **"
                 print node_row['txt']
+                if user_active_restore: self.dad.user_active = True
                 return
             child_dom_iter = dom_node.firstChild
             while child_dom_iter != None:
