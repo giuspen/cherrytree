@@ -20,7 +20,7 @@
 #       MA 02110-1301, USA.
 
 import gtk
-import os, sqlite3, xml.dom.minidom
+import os, sqlite3, xml.dom.minidom, re
 import cons, machines
 
 
@@ -420,7 +420,8 @@ class CTDBHandler:
             curr_buffer.end_not_undoable_action()
         else:
             # first we go for the rich text
-            try: dom = xml.dom.minidom.parseString(node_row['txt'])
+            rich_text_xml = re.sub(cons.BAD_CHARS, "", node_row['txt'])
+            try: dom = xml.dom.minidom.parseString(rich_text_xml)
             except:
                 print "** failed to parse **"
                 print node_row['txt']
