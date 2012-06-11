@@ -2364,10 +2364,12 @@ class CherryTree:
         self.state_machine.node_selected_changed(self.treestore[self.curr_tree_iter][3])
         self.objects_buffer_refresh()
         self.update_selected_node_statusbar_info()
-        if model[new_iter][3] in self.nodes_cursor_pos: cursor_pos = self.nodes_cursor_pos[model[new_iter][3]]
-        else: cursor_pos = 0
-        self.curr_buffer.place_cursor(self.curr_buffer.get_iter_at_offset(cursor_pos))
-        self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), 0.3)
+        if self.user_active:
+            if model[new_iter][3] in self.nodes_cursor_pos: cursor_pos = self.nodes_cursor_pos[model[new_iter][3]]
+            else: cursor_pos = 0
+            cursor_iter = self.curr_buffer.get_iter_at_offset(cursor_pos)
+            if cursor_iter:
+                self.sourceview.scroll_to_iter(cursor_iter, 0.3)
 
     def update_node_name_header(self, plain_text):
         """Update Node Name Header"""
