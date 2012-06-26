@@ -445,13 +445,13 @@ class FindReplace:
             if not all_matches:
                 self.dad.treeview_safe_set_cursor(node_iter)
                 self.dad.sourceview.grab_focus()
-            return True
+                return True
+            else: self.matches_num += 1
         node_iter = self.dad.treestore.iter_children(node_iter) # check for children
         if node_iter != None and not forward: node_iter = self.dad.get_tree_iter_last_sibling(node_iter)
         while node_iter != None:
-            if self.parse_node_name(node_iter, pattern, forward, all_matches):
-                self.matches_num += 1
-                if not all_matches: return True
+            if self.parse_node_name(node_iter, pattern, forward, all_matches)\
+            and not all_matches: return True
             if forward: node_iter = self.dad.treestore.iter_next(node_iter)
             else: node_iter = self.dad.get_tree_iter_prev_sibling(self.dad.treestore, node_iter)
         return False
