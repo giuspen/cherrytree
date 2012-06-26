@@ -436,7 +436,7 @@ class FindReplace:
                                        0,
                                        0,
                                        self.dad.treestore[node_iter][1],
-                                       self.get_first_line_content(self.dad.treestore[node_iter][2])])
+                                       self.get_first_line_content(self.dad.get_textbuffer_from_tree_iter(node_iter))])
             if self.replace_active:
                 replacer_text = self.dad.glade.replace_entry.get_text().decode("utf-8")
                 text_name = text_name.replace(self.curr_find[1], replacer_text)
