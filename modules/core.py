@@ -1381,6 +1381,10 @@ class CherryTree:
     def reset(self):
         """Reset the Application"""
         if not self.tree_is_empty() and not self.check_unsaved(): return False
+        if self.user_active:
+            self.user_active = False
+            user_active_restore = True
+        else: user_active_restore = False
         if self.curr_tree_iter != None:
             self.curr_buffer.set_text("")
             self.curr_tree_iter = None
@@ -1394,6 +1398,7 @@ class CherryTree:
         if "db" in dir(self) and self.db: self.db.close()
         for filepath_tmp in self.ctdb_handler.remove_at_quit_set: os.remove(filepath_tmp)
         self.ctdb_handler.reset()
+        if user_active_restore: self.user_active = True
         return True
 
     def export_to_ctd(self, action):
