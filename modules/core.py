@@ -1118,12 +1118,13 @@ class CherryTree:
             try: xml_string = self.xml_handler.treestore_to_dom()
             except:
                 support.dialog_error("%s write failed - tree to xml" % filepath, self.window)
-                raise
+                #raise
                 return False
         else: xml_string = ""
         # backup before save new version
         if self.backup_copy and os.path.isfile(filepath):
-            shutil.copy(filepath, filepath + cons.CHAR_TILDE)
+            try: shutil.copy(filepath, filepath + cons.CHAR_TILDE)
+            except: subprocess.call("cp %s %s~" % (re.escape(filepath), re.escape(filepath)), shell=True)
         # if the filename is protected, we use unprotected type before compress and protect
         try:
             self.statusbar.push(self.statusbar_context_id, _("Writing to Disk..."))
