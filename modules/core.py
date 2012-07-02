@@ -3369,7 +3369,7 @@ class CherryTree:
                 tag.set_property("rise", rise)
             elif property_value[0:4] == "webs":
                 tag.set_property("underline", pango.UNDERLINE_SINGLE)
-                tag.set_property("foreground", "#00000000ffff")
+                tag.set_property("foreground", "#00004444ffff")
             elif property_value[0:4] == "node":
                 tag.set_property("underline", pango.UNDERLINE_SINGLE)
                 tag.set_property("foreground", "#071c838e071c")
