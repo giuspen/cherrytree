@@ -164,6 +164,7 @@ class CherryTree:
         self.glade.choosenodedialog.connect('key_press_event', self.on_key_press_choosenodedialog)
         self.glade.tablehandledialog.connect('key_press_event', self.tables_handler.on_key_press_tablehandledialog)
         self.glade.codeboxhandledialog.connect('key_press_event', self.codeboxes_handler.on_key_press_codeboxhandledialog)
+        self.glade.exitdialog.connect('key_press_event', self.on_key_press_exitdialog)
         self.sourcestyleschememanager = gtksourceview2.StyleSchemeManager()
         self.sourceview = gtksourceview2.View()
         self.sourceview.set_sensitive(False)
@@ -2722,6 +2723,14 @@ class CherryTree:
         else: response = 0 # no need to save
         if response == 6: return False # button CANCEL
         else: return True
+
+    def on_key_press_exitdialog(self, widget, event):
+        """Catches Exit Dialog key presses"""
+        keyname = gtk.gdk.keyval_name(event.keyval)
+        if keyname == "Return": self.glade.button_exitdialog_yes.clicked()
+        elif keyname == "Escape": self.glade.button_exitdialog_canc.clicked()
+        else: print keyname
+        return True
 
     def dialog_about(self, *args):
         """Show the About Dialog and hide it when a button is pressed"""
