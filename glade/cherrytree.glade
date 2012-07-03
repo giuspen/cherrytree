@@ -1495,7 +1495,7 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
             <property name="can_focus">False</property>
             <property name="layout_style">center</property>
             <child>
-              <object class="GtkButton" id="button2">
+              <object class="GtkButton" id="button_exitdialog_canc">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -1538,7 +1538,7 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
               </packing>
             </child>
             <child>
-              <object class="GtkButton" id="button3">
+              <object class="GtkButton" id="button_exitdialog_no">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -1581,7 +1581,7 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
               </packing>
             </child>
             <child>
-              <object class="GtkButton" id="button4">
+              <object class="GtkButton" id="button_exitdialog_yes">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -1673,9 +1673,9 @@ do you want to save the changes?</property>
       </object>
     </child>
     <action-widgets>
-      <action-widget response="6">button2</action-widget>
-      <action-widget response="4">button3</action-widget>
-      <action-widget response="2">button4</action-widget>
+      <action-widget response="6">button_exitdialog_canc</action-widget>
+      <action-widget response="4">button_exitdialog_no</action-widget>
+      <action-widget response="2">button_exitdialog_yes</action-widget>
     </action-widgets>
   </object>
   <object class="GtkDialog" id="imageeditdialog">
