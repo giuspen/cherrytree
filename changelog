@@ -1,4 +1,53 @@
 
+0.26.2 (June 11th, 2012)
+• fixed bugs
+
+0.26.1 (June 6th, 2012 )
+• added language Chinese Simplified (great job from Channing Wong)
+• fixed minor bug
+
+0.26 (May 16th, 2012)
+• added text formatting superscript, subscript, monospace and h3
+• h1, h2 and h3 formatting is now automatically applied to the whole row
+• the switch between rich text and automatic syntax highlighting for the nodes is now simpler
+• the dialog to choose the file storage type is now file extension oriented
+• it is now possible to configure the default rich text foreground and background, so is for the tree
+• the horizontal rule inserted characters are now configurable
+• the TOC now includes h3 and can be created also for the whole tree
+• the links anchors size is now configurable
+• fixed several bugs
+• we have now a complete manual of the application linked at help–manual (great job from Robert)
+• WARNING: documents edited with a version >= 0.26 cannot be edited again with a version < 0.26
+
+0.25.4 (February 24th, 2012)
+• fixed bugs
+
+0.25.3 (February 3rd, 2012)
+• fixed bugs
+
+0.25.2 (January 24th, 2012)
+• fixed bugs
+
+0.25.1 (January 21st, 2012)
+• fixed bugs
+• mouse middle-click (or wheel-click) on a tree node expands/collapses it
+
+0.25 (January 14th, 2012)
+• on linux, cherrytree can now be installed on any “prefix”, but the “exec-prefix” is not to be set different than “prefix”
+• the minimum required gtk version is now 2.16
+• the single (but very big) new feature is a new data storage type, a sqlite 3 database (which is anyway a single file). Storing the old way (a single xml file) will be still available but probably not much used since the new storage type offers faster reading, faster saving and less memory usage. To the two old file extensions “ctd” and “ctz” (xml and xml 7zipped+password protected) were added “ctb” and “ctx” (sqlite and sqlite 7zipped+password protected)
+• since really a lot of code changed I ask everybody to backup the data and report possible bugs. To try the new storage type just click file–save as
+
+0.24 (December 28th, 2011)
+• automatic syntax highlighting: it is now possible to choose between several style schemes (a couple of them with dark background), the same style scheme is used for tree nodes and codeboxes
+• automatic syntax highlighting: added the options to show white spaces and highlight the current line
+• added menu items and keyboard shortcuts to move the current row/selected rows up and down the document
+• added support for appindicator where the system tray is not supported (ubuntu unity)
+• fixed several bugs and bad behaviours
+
+0.23.1 (September 16th, 2011)
+• fixed bugs
+
 0.23 (September 4th, 2011)
 • the limit of undoable steps per node is now configurable (lower the limit to save ram)
 • implemented a dialog to iterate graphical way the find/replace (before it was possible only through keyboard shortcuts)
