@@ -640,6 +640,16 @@ class CherryTree:
         cherrytree_string = keepnote.get_cherrytree_xml()
         self.nodes_add_from_cherrytree_data(cherrytree_string)
 
+    def nodes_add_from_gnote_folder(self, action):
+        """Add Nodes Parsing a Gnote Folder"""
+        start_folder = os.path.join(os.path.expanduser('~'), ".local/share/gnote")
+        folderpath = support.dialog_folder_select(curr_folder=start_folder, parent=self.window)
+        if folderpath == None: return
+        gnote = imports.TomboyHandler(folderpath)
+        cherrytree_string = gnote.get_cherrytree_xml()
+        self.nodes_add_from_cherrytree_data(cherrytree_string)
+        gnote.set_links_to_nodes(self)
+
     def nodes_add_from_tomboy_folder(self, action):
         """Add Nodes Parsing a Tomboy Folder"""
         start_folder = os.path.join(os.path.expanduser('~'), ".local/share/tomboy")
