@@ -1263,9 +1263,13 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
                 for attr in attrs:
                     if attr[0] == "align": self.curr_attributes["justification"] = attr[1].strip().lower()
             elif tag == "a" and len(attrs) > 0:
-                link_url = attrs[0][1]
-                if len(link_url) > 7:
-                    self.curr_attributes["link"] = get_internal_link_from_http_url(link_url)
+                #print "attrs", attrs
+                for attr in attrs:
+                    if attr[0] == "href":
+                        link_url = attr[1]
+                        if len(link_url) > 7:
+                            self.curr_attributes["link"] = get_internal_link_from_http_url(link_url)
+                        break
             elif tag == "br": self.rich_text_serialize(cons.CHAR_NEWLINE)
             elif tag == "ol": self.curr_list_type = ["o", 1]
             elif tag == "ul": self.curr_list_type = ["u", 0]
