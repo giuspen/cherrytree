@@ -905,7 +905,12 @@ class CherryTree:
             self.ind = appindicator.Indicator("cherrytree", "indicator-messages", appindicator.CATEGORY_APPLICATION_STATUS)
             self.ind.set_status(appindicator.STATUS_ACTIVE)
             self.ind.set_attention_icon("indicator-messages-new")
-            self.ind.set_icon("cherrytree")
+            for icp in ["/usr/share/icons/hicolor/scalable/apps/cherrytree.svg", "/usr/local/share/icons/hicolor/scalable/apps/cherrytree.svg", "glade/cherrytree.png"]:
+                if os.path.isfile(icp):
+                    icon_path = icp
+                    break
+            else: icon_path = cons.APP_NAME
+            self.ind.set_icon(icon_path)
             self.ind.set_menu(self.ui.get_widget("/SysTrayMenu"))
         else:
             self.status_icon = gtk.StatusIcon()
