@@ -189,7 +189,7 @@ else:
        url = "http://www.giuspen.com/cherrytree/",
        license = "GPL",
        data_files = [
-                      ("share/icons/hicolor/scalable/apps", ["linux/cherrytree.svg"] ),
+                      ("share/icons/hicolor/scalable/apps", ["glade/svg/cherrytree.svg"] ),
                       ("share/cherrytree/glade", glob.glob("glade/*.*") ),
                       ("share/cherrytree/modules", glob.glob("modules/*.py") ),
                       ("share/mime/packages", ["linux/cherrytree.xml"]),
