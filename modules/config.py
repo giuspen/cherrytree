@@ -54,14 +54,60 @@ def config_file_load(inst):
             if config.has_option(section, "win_position_x") and config.has_option(section, "win_position_y"):
                 win_position = [config.getint(section, "win_position_x"), config.getint(section, "win_position_y")]
                 inst.window.move(win_position[0], win_position[1])
-        
-        
+        inst.hpaned_pos = int( dom_iter.attributes["hpaned_pos"].value ) if config.has_option(section, "hpaned_pos") else 170
+        if config.has_option(section, "node_path"):
+            # restor the selected node
+            str_path_list_of_str = dom_iter.attributes["node_path"].value
+            path_list_of_str = str_path_list_of_str.split()
+            path_list_of_int = [int(element) for element in path_list_of_str]
+            inst.node_path = tuple(path_list_of_int)
+            inst.cursor_position = int( dom_iter.attributes["cursor_position"].value ) if config.has_option(section, "cursor_position") else 0
+        else: inst.node_path = None
+        inst.recent_docs = []
+        if config.has_option(section, "recent_docs"):
+            temp_recent_docs = dom_iter.attributes["recent_docs"].value.split(cons.CHAR_SPACE)
+            for element in temp_recent_docs:
+                if element: inst.recent_docs.append(base64.b64decode(element))
+        inst.pick_dir = dom_iter.attributes["pick_dir"].value if config.has_option(section, "pick_dir") else ""
+        inst.link_type = dom_iter.attributes["link_type"].value if config.has_option(section, "link_type") else "webs"
+        inst.show_node_name_label = (dom_iter.attributes["show_node_name_label"].value == "True") if config.has_option(section, "show_node_name_label") else True
+        if config.has_option(section, "toolbar_icon_size"):
+            inst.toolbar_icon_size = int( dom_iter.attributes["toolbar_icon_size"].value )
+            if inst.toolbar_icon_size not in ICONS_SIZE: inst.toolbar_icon_size = 1
+        else: inst.toolbar_icon_size = 1
         
         section = "tree"
-        
+        inst.expand_tree = (dom_iter.attributes["expand_tree"].value == "True") if config.has_option(section, "expand_tree") else False
+        inst.expanded_collapsed_string = dom_iter.attributes["expanded_collapsed_string"].value if config.has_option(section, "expanded_collapsed_string") else ""
+        inst.nodes_icons = dom_iter.attributes["nodes_icons"].value if config.has_option(section, "nodes_icons") else "c"
+        inst.tree_right_side = (dom_iter.attributes["tree_right_side"].value == "True") if config.has_option(section, "tree_right_side") else False
+        inst.cherry_wrap_width = int(dom_iter.attributes["cherry_wrap_width"].value) if config.has_option(section, "cherry_wrap_width") else 130
         
         section = "editor"
-        
+        inst.syntax_highlighting = dom_iter.attributes["syntax_highlighting"].value if config.has_option(section, "syntax_highlighting") else cons.CUSTOM_COLORS_ID
+        inst.style_scheme = dom_iter.attributes["style_scheme"].value if config.has_option(section, "style_scheme") else cons.STYLE_SCHEME_DEFAULT
+        inst.show_line_numbers = (dom_iter.attributes["show_line_numbers"].value == "True") if config.has_option(section, "show_line_numbers") else False
+        inst.spaces_instead_tabs = (dom_iter.attributes["spaces_instead_tabs"].value == "True") if config.has_option(section, "spaces_instead_tabs") else True
+        inst.tabs_width = int( dom_iter.attributes["tabs_width"].value ) if config.has_option(section, "tabs_width") else 4
+        inst.anchor_size = int( dom_iter.attributes["anchor_size"].value ) if config.has_option(section, "anchor_size") else 16
+        inst.line_wrapping = (dom_iter.attributes["line_wrapping"].value == "True") if config.has_option(section, "line_wrapping") else True
+        inst.auto_indent = (dom_iter.attributes["auto_indent"].value == "True") if config.has_option(section, "auto_indent") else True
+        inst.show_white_spaces = (dom_iter.attributes["show_white_spaces"].value == "True") if config.has_option(section, "show_white_spaces") else True
+        inst.highl_curr_line = (dom_iter.attributes["highl_curr_line"].value == "True") if config.has_option(section, "highl_curr_line") else True
+        inst.h_rule = dom_iter.attributes["h_rule"].value if config.has_option(section, "h_rule") else HORIZONTAL_RULE
+        inst.timestamp_format = dom_iter.attributes["timestamp_format"].value if config.has_option(section, "timestamp_format") else "%Y/%m/%d - %H:%M"
+        if config.has_option(section, "weblink_custom_action"):
+            temp_str = dom_iter.attributes["weblink_custom_action"].value
+            inst.weblink_custom_action = [True, temp_str[4:]] if temp_str[:4] == "True" else [False, temp_str[5:]]
+        else: inst.weblink_custom_action = [False, LINK_CUSTOM_ACTION_DEFAULT_WEB]
+        if config.has_option(section, "filelink_custom_action"):
+            temp_str = dom_iter.attributes["filelink_custom_action"].value
+            inst.filelink_custom_action = [True, temp_str[4:]] if temp_str[:4] == "True" else [False, temp_str[5:]]
+        else: inst.filelink_custom_action = [False, LINK_CUSTOM_ACTION_DEFAULT_FILE]
+        if config.has_option(section, "folderlink_custom_action"):
+            temp_str = dom_iter.attributes["folderlink_custom_action"].value
+            inst.folderlink_custom_action = [True, temp_str[4:]] if temp_str[:4] == "True" else [False, temp_str[5:]]
+        else: inst.folderlink_custom_action = [False, LINK_CUSTOM_ACTION_DEFAULT_FILE]
         
         section = "codebox"
         if config.has_option(section, "codebox_width"):
@@ -75,7 +121,11 @@ def config_file_load(inst):
             inst.glade.radiobutton_codebox_percent.set_active(dom_iter.attributes["codebox_width_pixels"].value != "True")
         
         section = "table"
-        
+        inst.table_rows = int(dom_iter.attributes["table_rows"].value) if config.has_option(section, "table_rows") else 3
+        inst.table_columns = int(dom_iter.attributes["table_columns"].value) if config.has_option(section, "table_columns") else 3
+        inst.table_column_mode = dom_iter.attributes["table_column_mode"].value if config.has_option(section, "table_column_mode") else "rename"
+        inst.table_col_min = int(dom_iter.attributes["table_col_min"].value) if config.has_option(section, "table_col_min") else 40
+        inst.table_col_max = int(dom_iter.attributes["table_col_max"].value) if config.has_option(section, "table_col_max") else 60
         
         section = "fonts"
         inst.text_font = dom_iter.attributes["text_font"].value if config.has_option(section, "text_font") else "Sans 9" # default text font
@@ -89,78 +139,16 @@ def config_file_load(inst):
         inst.tt_def_bg = dom_iter.attributes["tt_def_bg"].value if config.has_option(section, "tt_def_bg") else TREE_TEXT_DEFAULT_BG
         
         section = "misc"
-        
-        
-        
-       
-        if config.has_option(section, "node_path"):
-            # restor the selected node
-            str_path_list_of_str = dom_iter.attributes["node_path"].value
-            path_list_of_str = str_path_list_of_str.split()
-            path_list_of_int = [int(element) for element in path_list_of_str]
-            inst.node_path = tuple(path_list_of_int)
-            inst.cursor_position = int( dom_iter.attributes["cursor_position"].value ) if config.has_option(section, "cursor_position") else 0
-        else: inst.node_path = None
-        inst.hpaned_pos = int( dom_iter.attributes["hpaned_pos"].value ) if config.has_option(section, "hpaned_pos") else 170
-        inst.syntax_highlighting = dom_iter.attributes["syntax_highlighting"].value if config.has_option(section, "syntax_highlighting") else cons.CUSTOM_COLORS_ID
-        inst.style_scheme = dom_iter.attributes["style_scheme"].value if config.has_option(section, "style_scheme") else cons.STYLE_SCHEME_DEFAULT
-        
-        
-        inst.h_rule = dom_iter.attributes["h_rule"].value if config.has_option(section, "h_rule") else HORIZONTAL_RULE
-        inst.show_line_numbers = (dom_iter.attributes["show_line_numbers"].value == "True") if config.has_option(section, "show_line_numbers") else False
-        inst.spaces_instead_tabs = (dom_iter.attributes["spaces_instead_tabs"].value == "True") if config.has_option(section, "spaces_instead_tabs") else True
-        inst.tabs_width = int( dom_iter.attributes["tabs_width"].value ) if config.has_option(section, "tabs_width") else 4
-        inst.anchor_size = int( dom_iter.attributes["anchor_size"].value ) if config.has_option(section, "anchor_size") else 16
-        inst.line_wrapping = (dom_iter.attributes["line_wrapping"].value == "True") if config.has_option(section, "line_wrapping") else True
-        inst.auto_indent = (dom_iter.attributes["auto_indent"].value == "True") if config.has_option(section, "auto_indent") else True
         inst.systray = (dom_iter.attributes["systray"].value == "True") if config.has_option(section, "systray") else False
+        inst.start_on_systray = (dom_iter.attributes["start_on_systray"].value == "True") if config.has_option(section, "start_on_systray") else False
         if config.has_option(section, "autosave") and config.has_option(section, "autosave_val"):
             inst.autosave = [(dom_iter.attributes["autosave"].value == "True"),
                              int(dom_iter.attributes["autosave_val"].value)]
         else: inst.autosave = [False, 5]
-        inst.expand_tree = (dom_iter.attributes["expand_tree"].value == "True") if config.has_option(section, "expand_tree") else False
-        inst.expanded_collapsed_string = dom_iter.attributes["expanded_collapsed_string"].value if config.has_option(section, "expanded_collapsed_string") else ""
-        inst.pick_dir = dom_iter.attributes["pick_dir"].value if config.has_option(section, "pick_dir") else ""
-        inst.link_type = dom_iter.attributes["link_type"].value if config.has_option(section, "link_type") else "webs"
-        inst.show_node_name_label = (dom_iter.attributes["show_node_name_label"].value == "True") if config.has_option(section, "show_node_name_label") else True
-        inst.table_rows = int(dom_iter.attributes["table_rows"].value) if config.has_option(section, "table_rows") else 3
-        inst.table_columns = int(dom_iter.attributes["table_columns"].value) if config.has_option(section, "table_columns") else 3
-        if config.has_option(section, "toolbar_icon_size"):
-            inst.toolbar_icon_size = int( dom_iter.attributes["toolbar_icon_size"].value )
-            if inst.toolbar_icon_size not in ICONS_SIZE: inst.toolbar_icon_size = 1
-        else: inst.toolbar_icon_size = 1
-        inst.table_column_mode = dom_iter.attributes["table_column_mode"].value if config.has_option(section, "table_column_mode") else "rename"
-        inst.table_col_min = int(dom_iter.attributes["table_col_min"].value) if config.has_option(section, "table_col_min") else 40
-        inst.table_col_max = int(dom_iter.attributes["table_col_max"].value) if config.has_option(section, "table_col_max") else 60
-        inst.limit_undoable_steps = int(dom_iter.attributes["limit_undoable_steps"].value) if config.has_option(section, "limit_undoable_steps") else 20
-        inst.cherry_wrap_width = int(dom_iter.attributes["cherry_wrap_width"].value) if config.has_option(section, "cherry_wrap_width") else 130
-        inst.start_on_systray = (dom_iter.attributes["start_on_systray"].value == "True") if config.has_option(section, "start_on_systray") else False
-        if config.has_option(section, "weblink_custom_action"):
-            temp_str = dom_iter.attributes["weblink_custom_action"].value
-            inst.weblink_custom_action = [True, temp_str[4:]] if temp_str[:4] == "True" else [False, temp_str[5:]]
-        else: inst.weblink_custom_action = [False, LINK_CUSTOM_ACTION_DEFAULT_WEB]
-        if config.has_option(section, "filelink_custom_action"):
-            temp_str = dom_iter.attributes["filelink_custom_action"].value
-            inst.filelink_custom_action = [True, temp_str[4:]] if temp_str[:4] == "True" else [False, temp_str[5:]]
-        else: inst.filelink_custom_action = [False, LINK_CUSTOM_ACTION_DEFAULT_FILE]
-        if config.has_option(section, "folderlink_custom_action"):
-            temp_str = dom_iter.attributes["folderlink_custom_action"].value
-            inst.folderlink_custom_action = [True, temp_str[4:]] if temp_str[:4] == "True" else [False, temp_str[5:]]
-        else: inst.folderlink_custom_action = [False, LINK_CUSTOM_ACTION_DEFAULT_FILE]
-        inst.timestamp_format = dom_iter.attributes["timestamp_format"].value if config.has_option(section, "timestamp_format") else "%Y/%m/%d - %H:%M"
-        
         inst.check_version = (dom_iter.attributes["check_version"].value == "True") if config.has_option(section, "check_version") else False
         inst.backup_copy = (dom_iter.attributes["backup_copy"].value == "True") if config.has_option(section, "backup_copy") else True
         inst.autosave_on_quit = (dom_iter.attributes["autosave_on_quit"].value == "True") if config.has_option(section, "autosave_on_quit") else False
-        inst.tree_right_side = (dom_iter.attributes["tree_right_side"].value == "True") if config.has_option(section, "tree_right_side") else False
-        inst.show_white_spaces = (dom_iter.attributes["show_white_spaces"].value == "True") if config.has_option(section, "show_white_spaces") else True
-        inst.highl_curr_line = (dom_iter.attributes["highl_curr_line"].value == "True") if config.has_option(section, "highl_curr_line") else True
-        inst.nodes_icons = dom_iter.attributes["nodes_icons"].value if config.has_option(section, "nodes_icons") else "c"
-        inst.recent_docs = []
-        if config.has_option(section, "recent_docs"):
-            temp_recent_docs = dom_iter.attributes["recent_docs"].value.split(cons.CHAR_SPACE)
-            for element in temp_recent_docs:
-                if element: inst.recent_docs.append(base64.b64decode(element))
+        inst.limit_undoable_steps = int(dom_iter.attributes["limit_undoable_steps"].value) if config.has_option(section, "limit_undoable_steps") else 20
     else:
         inst.file_dir = ""
         inst.file_name = ""
