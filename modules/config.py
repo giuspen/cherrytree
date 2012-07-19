@@ -111,10 +111,10 @@ def config_file_load(inst):
         
         section = "codebox"
         if config.has_option(section, "codebox_width"):
-            inst.glade.spinbutton_codebox_width.set_value(config.getint(section, "codebox_width"))
+            inst.glade.spinbutton_codebox_width.set_value(config.getfloat(section, "codebox_width"))
         else: inst.glade.spinbutton_codebox_width.set_value(700)
         if config.has_option(section, "codebox_height"):
-            inst.glade.spinbutton_codebox_height.set_value(config.getint(section, "codebox_height"))
+            inst.glade.spinbutton_codebox_height.set_value(config.getfloat(section, "codebox_height"))
         else: inst.glade.spinbutton_codebox_height.set_value(100)
         if config.has_option(section, "codebox_width_pixels"):
             inst.glade.radiobutton_codebox_pixels.set_active(config.getboolean(section, "codebox_width_pixels"))
@@ -315,10 +315,10 @@ def config_file_save(inst):
         str_recent_docs = cons.CHAR_SPACE.join(temp_recent_docs)
     else: str_recent_docs = ""
     config.set(section, "recent_docs", str_recent_docs)
-    set(section, "pick_dir", inst.pick_dir)
-    set(section, "link_type", inst.link_type)
-    set(section, "show_node_name_label", inst.header_node_name_label.get_property("visible"))
-    set(section, "toolbar_icon_size", inst.toolbar_icon_size)
+    config.set(section, "pick_dir", inst.pick_dir)
+    config.set(section, "link_type", inst.link_type)
+    config.set(section, "show_node_name_label", inst.header_node_name_label.get_property("visible"))
+    config.set(section, "toolbar_icon_size", inst.toolbar_icon_size)
     
     section = "tree"
     config.add_section(section)
@@ -331,6 +331,7 @@ def config_file_save(inst):
     config.set(section, "cherry_wrap_width", inst.cherry_wrap_width)
     
     section = "editor"
+    config.add_section(section)
     config.set(section, "syntax_highlighting", inst.syntax_highlighting)
     config.set(section, "style_scheme", inst.style_scheme)
     config.set(section, "show_line_numbers", inst.show_line_numbers)
