@@ -27,7 +27,7 @@ APP_NAME = "cherrytree"
 NEWER_VERSION_URL = "http://www.giuspen.com/software/version_cherrytree"
 if sys.platform[0:3] == "win":
     EXE_DIR = os.getcwd()
-    CONFIG_PATH = os.path.join(EXE_DIR, 'config.xml')
+    CONFIG_PATH = os.path.join(EXE_DIR, 'config.cfg')
     LANG_PATH = os.path.join(EXE_DIR, 'lang')
     IMG_PATH = os.path.join(EXE_DIR, 'glade/img_tmp.png')
     TMP_FOLDER = os.path.join(EXE_DIR, 'glade/ct_tmp/')
