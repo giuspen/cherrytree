@@ -41,9 +41,9 @@ def config_file_load(inst):
         config.read(cons.CONFIG_PATH)
         
         section = "state"
-        inst.file_dir = dom_iter.attributes["file_dir"].value if config.has_option(section, "file_dir") else ""
-        inst.file_name = dom_iter.attributes["file_name"].value if config.has_option(section, "file_name") else ""
-        inst.toolbar_visible = False if config.has_option(section, "toolbar_visible") and dom_iter.attributes["toolbar_visible"].value == "False" else True
+        inst.file_dir = config.get(section, "file_dir") if config.has_option(section, "file_dir") else ""
+        inst.file_name = config.get(section, "file_name") if config.has_option(section, "file_name") else ""
+        inst.toolbar_visible = config.getboolean(section, "toolbar_visible") if config.has_option(section, "toolbar_visible") else True
         inst.win_is_maximized = config.getboolean(section, "win_is_maximized") if config.has_option(section, "win_is_maximized") else False
         # restore window size and position
         if inst.win_is_maximized: inst.window.maximize()
@@ -54,101 +54,100 @@ def config_file_load(inst):
             if config.has_option(section, "win_position_x") and config.has_option(section, "win_position_y"):
                 win_position = [config.getint(section, "win_position_x"), config.getint(section, "win_position_y")]
                 inst.window.move(win_position[0], win_position[1])
-        inst.hpaned_pos = int( dom_iter.attributes["hpaned_pos"].value ) if config.has_option(section, "hpaned_pos") else 170
+        inst.hpaned_pos = config.getint(section, "hpaned_pos") if config.has_option(section, "hpaned_pos") else 170
         if config.has_option(section, "node_path"):
             # restor the selected node
-            str_path_list_of_str = dom_iter.attributes["node_path"].value
+            str_path_list_of_str = config.get(section, "node_path")
             path_list_of_str = str_path_list_of_str.split()
             path_list_of_int = [int(element) for element in path_list_of_str]
             inst.node_path = tuple(path_list_of_int)
-            inst.cursor_position = int( dom_iter.attributes["cursor_position"].value ) if config.has_option(section, "cursor_position") else 0
+            inst.cursor_position = config.getint(section, "cursor_position") if config.has_option(section, "cursor_position") else 0
         else: inst.node_path = None
         inst.recent_docs = []
         if config.has_option(section, "recent_docs"):
-            temp_recent_docs = dom_iter.attributes["recent_docs"].value.split(cons.CHAR_SPACE)
+            temp_recent_docs = config.get(section, "recent_docs").split(cons.CHAR_SPACE)
             for element in temp_recent_docs:
                 if element: inst.recent_docs.append(base64.b64decode(element))
-        inst.pick_dir = dom_iter.attributes["pick_dir"].value if config.has_option(section, "pick_dir") else ""
-        inst.link_type = dom_iter.attributes["link_type"].value if config.has_option(section, "link_type") else "webs"
-        inst.show_node_name_label = (dom_iter.attributes["show_node_name_label"].value == "True") if config.has_option(section, "show_node_name_label") else True
+        inst.pick_dir = config.get(section, "pick_dir") if config.has_option(section, "pick_dir") else ""
+        inst.link_type = config.get(section, "link_type") if config.has_option(section, "link_type") else "webs"
+        inst.show_node_name_label = config.getboolean(section, "show_node_name_label") if config.has_option(section, "show_node_name_label") else True
         if config.has_option(section, "toolbar_icon_size"):
-            inst.toolbar_icon_size = int( dom_iter.attributes["toolbar_icon_size"].value )
+            inst.toolbar_icon_size = config.getint(section, "toolbar_icon_size")
             if inst.toolbar_icon_size not in ICONS_SIZE: inst.toolbar_icon_size = 1
         else: inst.toolbar_icon_size = 1
         
         section = "tree"
-        inst.expand_tree = (dom_iter.attributes["expand_tree"].value == "True") if config.has_option(section, "expand_tree") else False
-        inst.expanded_collapsed_string = dom_iter.attributes["expanded_collapsed_string"].value if config.has_option(section, "expanded_collapsed_string") else ""
-        inst.nodes_icons = dom_iter.attributes["nodes_icons"].value if config.has_option(section, "nodes_icons") else "c"
-        inst.tree_right_side = (dom_iter.attributes["tree_right_side"].value == "True") if config.has_option(section, "tree_right_side") else False
-        inst.cherry_wrap_width = int(dom_iter.attributes["cherry_wrap_width"].value) if config.has_option(section, "cherry_wrap_width") else 130
+        inst.expand_tree = config.getboolean(section, "expand_tree") if config.has_option(section, "expand_tree") else False
+        inst.expanded_collapsed_string = config.get(section, "expanded_collapsed_string") if config.has_option(section, "expanded_collapsed_string") else ""
+        inst.nodes_icons = config.get(section, "nodes_icons") if config.has_option(section, "nodes_icons") else "c"
+        inst.tree_right_side = config.getboolean(section, "tree_right_side") if config.has_option(section, "tree_right_side") else False
+        inst.cherry_wrap_width = config.getint(section, "cherry_wrap_width") if config.has_option(section, "cherry_wrap_width") else 130
         
         section = "editor"
-        inst.syntax_highlighting = dom_iter.attributes["syntax_highlighting"].value if config.has_option(section, "syntax_highlighting") else cons.CUSTOM_COLORS_ID
-        inst.style_scheme = dom_iter.attributes["style_scheme"].value if config.has_option(section, "style_scheme") else cons.STYLE_SCHEME_DEFAULT
-        inst.show_line_numbers = (dom_iter.attributes["show_line_numbers"].value == "True") if config.has_option(section, "show_line_numbers") else False
-        inst.spaces_instead_tabs = (dom_iter.attributes["spaces_instead_tabs"].value == "True") if config.has_option(section, "spaces_instead_tabs") else True
-        inst.tabs_width = int( dom_iter.attributes["tabs_width"].value ) if config.has_option(section, "tabs_width") else 4
-        inst.anchor_size = int( dom_iter.attributes["anchor_size"].value ) if config.has_option(section, "anchor_size") else 16
-        inst.line_wrapping = (dom_iter.attributes["line_wrapping"].value == "True") if config.has_option(section, "line_wrapping") else True
-        inst.auto_indent = (dom_iter.attributes["auto_indent"].value == "True") if config.has_option(section, "auto_indent") else True
-        inst.show_white_spaces = (dom_iter.attributes["show_white_spaces"].value == "True") if config.has_option(section, "show_white_spaces") else True
-        inst.highl_curr_line = (dom_iter.attributes["highl_curr_line"].value == "True") if config.has_option(section, "highl_curr_line") else True
-        inst.h_rule = dom_iter.attributes["h_rule"].value if config.has_option(section, "h_rule") else HORIZONTAL_RULE
-        inst.timestamp_format = dom_iter.attributes["timestamp_format"].value if config.has_option(section, "timestamp_format") else "%Y/%m/%d - %H:%M"
+        inst.syntax_highlighting = config.get(section, "syntax_highlighting") if config.has_option(section, "syntax_highlighting") else cons.CUSTOM_COLORS_ID
+        inst.style_scheme = config.get(section, "style_scheme") if config.has_option(section, "style_scheme") else cons.STYLE_SCHEME_DEFAULT
+        inst.show_line_numbers = config.getboolean(section, "show_line_numbers") if config.has_option(section, "show_line_numbers") else False
+        inst.spaces_instead_tabs = config.getboolean(section, "spaces_instead_tabs") if config.has_option(section, "spaces_instead_tabs") else True
+        inst.tabs_width = config.getint(section, "tabs_width") if config.has_option(section, "tabs_width") else 4
+        inst.anchor_size = config.getint(section, "anchor_size") if config.has_option(section, "anchor_size") else 16
+        inst.line_wrapping = config.getboolean(section, "line_wrapping") if config.has_option(section, "line_wrapping") else True
+        inst.auto_indent = config.getboolean(section, "auto_indent") if config.has_option(section, "auto_indent") else True
+        inst.show_white_spaces = config.getboolean(section, "show_white_spaces") if config.has_option(section, "show_white_spaces") else True
+        inst.highl_curr_line = config.getboolean(section, "highl_curr_line") if config.has_option(section, "highl_curr_line") else True
+        inst.h_rule = config.get(section, "h_rule") if config.has_option(section, "h_rule") else HORIZONTAL_RULE
+        inst.timestamp_format = config.get(section, "timestamp_format") if config.has_option(section, "timestamp_format") else "%Y/%m/%d - %H:%M"
         if config.has_option(section, "weblink_custom_action"):
-            temp_str = dom_iter.attributes["weblink_custom_action"].value
+            temp_str = config.get(section, "weblink_custom_action")
             inst.weblink_custom_action = [True, temp_str[4:]] if temp_str[:4] == "True" else [False, temp_str[5:]]
         else: inst.weblink_custom_action = [False, LINK_CUSTOM_ACTION_DEFAULT_WEB]
         if config.has_option(section, "filelink_custom_action"):
-            temp_str = dom_iter.attributes["filelink_custom_action"].value
+            temp_str = config.get(section, "filelink_custom_action")
             inst.filelink_custom_action = [True, temp_str[4:]] if temp_str[:4] == "True" else [False, temp_str[5:]]
         else: inst.filelink_custom_action = [False, LINK_CUSTOM_ACTION_DEFAULT_FILE]
         if config.has_option(section, "folderlink_custom_action"):
-            temp_str = dom_iter.attributes["folderlink_custom_action"].value
+            temp_str = config.get(section, "folderlink_custom_action")
             inst.folderlink_custom_action = [True, temp_str[4:]] if temp_str[:4] == "True" else [False, temp_str[5:]]
         else: inst.folderlink_custom_action = [False, LINK_CUSTOM_ACTION_DEFAULT_FILE]
         
         section = "codebox"
         if config.has_option(section, "codebox_width"):
-            inst.glade.spinbutton_codebox_width.set_value(int(dom_iter.attributes["codebox_width"].value))
+            inst.glade.spinbutton_codebox_width.set_value(config.getint(section, "codebox_width"))
         else: inst.glade.spinbutton_codebox_width.set_value(700)
         if config.has_option(section, "codebox_height"):
-            inst.glade.spinbutton_codebox_height.set_value(int(dom_iter.attributes["codebox_height"].value))
+            inst.glade.spinbutton_codebox_height.set_value(config.getint(section, "codebox_height"))
         else: inst.glade.spinbutton_codebox_height.set_value(100)
         if config.has_option(section, "codebox_width_pixels"):
-            inst.glade.radiobutton_codebox_pixels.set_active(dom_iter.attributes["codebox_width_pixels"].value == "True")
-            inst.glade.radiobutton_codebox_percent.set_active(dom_iter.attributes["codebox_width_pixels"].value != "True")
+            inst.glade.radiobutton_codebox_pixels.set_active(config.getboolean(section, "codebox_width_pixels"))
+            inst.glade.radiobutton_codebox_percent.set_active(not config.getboolean(section, "codebox_width_pixels"))
         
         section = "table"
-        inst.table_rows = int(dom_iter.attributes["table_rows"].value) if config.has_option(section, "table_rows") else 3
-        inst.table_columns = int(dom_iter.attributes["table_columns"].value) if config.has_option(section, "table_columns") else 3
-        inst.table_column_mode = dom_iter.attributes["table_column_mode"].value if config.has_option(section, "table_column_mode") else "rename"
-        inst.table_col_min = int(dom_iter.attributes["table_col_min"].value) if config.has_option(section, "table_col_min") else 40
-        inst.table_col_max = int(dom_iter.attributes["table_col_max"].value) if config.has_option(section, "table_col_max") else 60
+        inst.table_rows = config.getint(section, "table_rows") if config.has_option(section, "table_rows") else 3
+        inst.table_columns = config.getint(section, "table_columns") if config.has_option(section, "table_columns") else 3
+        inst.table_column_mode = config.get(section, "table_column_mode") if config.has_option(section, "table_column_mode") else "rename"
+        inst.table_col_min = config.getint(section, "table_col_min") if config.has_option(section, "table_col_min") else 40
+        inst.table_col_max = config.getint(section, "table_col_max") if config.has_option(section, "table_col_max") else 60
         
         section = "fonts"
-        inst.text_font = dom_iter.attributes["text_font"].value if config.has_option(section, "text_font") else "Sans 9" # default text font
-        inst.tree_font = dom_iter.attributes["tree_font"].value if config.has_option(section, "tree_font") else "Sans 8" # default tree font
-        inst.code_font = dom_iter.attributes["code_font"].value if config.has_option(section, "code_font") else "Monospace 9" # default code font
+        inst.text_font = config.get(section, "text_font") if config.has_option(section, "text_font") else "Sans 9" # default text font
+        inst.tree_font = config.get(section, "tree_font") if config.has_option(section, "tree_font") else "Sans 8" # default tree font
+        inst.code_font = config.get(section, "code_font") if config.has_option(section, "code_font") else "Monospace 9" # default code font
         
         section = "colors"
-        inst.rt_def_fg = dom_iter.attributes["rt_def_fg"].value if config.has_option(section, "rt_def_fg") else RICH_TEXT_DEFAULT_FG
-        inst.rt_def_bg = dom_iter.attributes["rt_def_bg"].value if config.has_option(section, "rt_def_bg") else RICH_TEXT_DEFAULT_BG
-        inst.tt_def_fg = dom_iter.attributes["tt_def_fg"].value if config.has_option(section, "tt_def_fg") else TREE_TEXT_DEFAULT_FG
-        inst.tt_def_bg = dom_iter.attributes["tt_def_bg"].value if config.has_option(section, "tt_def_bg") else TREE_TEXT_DEFAULT_BG
+        inst.rt_def_fg = config.get(section, "rt_def_fg") if config.has_option(section, "rt_def_fg") else RICH_TEXT_DEFAULT_FG
+        inst.rt_def_bg = config.get(section, "rt_def_bg") if config.has_option(section, "rt_def_bg") else RICH_TEXT_DEFAULT_BG
+        inst.tt_def_fg = config.get(section, "tt_def_fg") if config.has_option(section, "tt_def_fg") else TREE_TEXT_DEFAULT_FG
+        inst.tt_def_bg = config.get(section, "tt_def_bg") if config.has_option(section, "tt_def_bg") else TREE_TEXT_DEFAULT_BG
         
         section = "misc"
-        inst.systray = (dom_iter.attributes["systray"].value == "True") if config.has_option(section, "systray") else False
-        inst.start_on_systray = (dom_iter.attributes["start_on_systray"].value == "True") if config.has_option(section, "start_on_systray") else False
+        inst.systray = config.getboolean(section, "systray") if config.has_option(section, "systray") else False
+        inst.start_on_systray = config.getboolean(section, "start_on_systray") if config.has_option(section, "start_on_systray") else False
         if config.has_option(section, "autosave") and config.has_option(section, "autosave_val"):
-            inst.autosave = [(dom_iter.attributes["autosave"].value == "True"),
-                             int(dom_iter.attributes["autosave_val"].value)]
+            inst.autosave = [config.getboolean(section, "autosave"), config.getint(section, "autosave_val")]
         else: inst.autosave = [False, 5]
-        inst.check_version = (dom_iter.attributes["check_version"].value == "True") if config.has_option(section, "check_version") else False
-        inst.backup_copy = (dom_iter.attributes["backup_copy"].value == "True") if config.has_option(section, "backup_copy") else True
-        inst.autosave_on_quit = (dom_iter.attributes["autosave_on_quit"].value == "True") if config.has_option(section, "autosave_on_quit") else False
-        inst.limit_undoable_steps = int(dom_iter.attributes["limit_undoable_steps"].value) if config.has_option(section, "limit_undoable_steps") else 20
+        inst.check_version = config.getboolean(section, "check_version") if config.has_option(section, "check_version") else False
+        inst.backup_copy = config.getboolean(section, "backup_copy") if config.has_option(section, "backup_copy") else True
+        inst.autosave_on_quit = config.getboolean(section, "autosave_on_quit") if config.has_option(section, "autosave_on_quit") else False
+        inst.limit_undoable_steps = config.getint(section, "limit_undoable_steps") if config.has_option(section, "limit_undoable_steps") else 20
     else:
         inst.file_dir = ""
         inst.file_name = ""
