@@ -34,7 +34,7 @@ if sys.platform[0:3] == "win":
     GLADE_PATH = os.path.join(EXE_DIR, 'glade/')
     LOCALE_PATH = os.path.join(EXE_DIR, 'locale/')
 else:
-    CONFIG_PATH = os.path.join(os.path.expanduser('~'), '.config/cherrytree/config.xml')
+    CONFIG_PATH = os.path.join(os.path.expanduser('~'), '.config/cherrytree/config.cfg')
     LANG_PATH = os.path.join(os.path.expanduser('~'), '.config/cherrytree/lang')
     IMG_PATH = os.path.join(os.path.expanduser('~'), '.config/cherrytree/img_tmp.png')
     TMP_FOLDER = '/tmp/ct_tmp/'
