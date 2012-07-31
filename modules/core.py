@@ -211,6 +211,7 @@ class CherryTree:
         self.file_startup_load(open_with_file)
         if self.check_version: self.check_for_newer_version()
         else: self.update_selected_node_statusbar_info()
+        self.modification_time_sentinel_start()
 
     def check_for_newer_version(self, *args):
         """Check for a Newer Version"""
@@ -897,6 +898,16 @@ class CherryTree:
         """Iteration of the Autosave"""
         if self.file_update or (self.curr_tree_iter != None and self.curr_buffer.get_modified() == True):
             self.file_save()
+        return True # this way we keep the timer alive
+
+    def modification_time_sentinel_start(self):
+        """Start Timer that checks for modification time"""
+        self.mod_time_sentinel = gobject.timeout_add(20*1000, self.modification_time_sentinel_iter) # 20 sec
+
+    def modification_time_sentinel_iter(self):
+        """Iteration of the Modification Time Sentinel"""
+        if self.file_dir and self.file_name:
+            print "last modified: %s" % time.ctime(os.path.getmtime(os.path.join(self.file_dir, self.file_name)))
         return True # this way we keep the timer alive
 
     def status_icon_enable(self):
