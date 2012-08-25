@@ -195,6 +195,7 @@ class CherryTree:
         self.latest_tag = ["", ""] # [latest tag property, latest tag value]
         self.file_update = False
         self.autosave_timer_id = None
+        self.mod_time_sentinel_id = None
         self.node_id_counter = long(0)
         self.glade.aboutdialog.set_version(cons.VERSION)
         support.set_menu_items_recent_documents(self)
@@ -211,7 +212,6 @@ class CherryTree:
         self.file_startup_load(open_with_file)
         if self.check_version: self.check_for_newer_version()
         else: self.update_selected_node_statusbar_info()
-        self.modification_time_sentinel_start()
 
     def check_for_newer_version(self, *args):
         """Check for a Newer Version"""
@@ -902,7 +902,12 @@ class CherryTree:
 
     def modification_time_sentinel_start(self):
         """Start Timer that checks for modification time"""
-        self.mod_time_sentinel = gobject.timeout_add(20*1000, self.modification_time_sentinel_iter) # 20 sec
+        self.mod_time_sentinel_id = gobject.timeout_add(20*1000, self.modification_time_sentinel_iter) # 20 sec
+
+    def modification_time_sentinel_stop(self):
+        """Stop Timer that checks for modification time"""
+        gobject.source_remove(self.mod_time_sentinel_id)
+        self.mod_time_sentinel_id = None
 
     def modification_time_sentinel_iter(self):
         """Iteration of the Modification Time Sentinel"""
@@ -1929,6 +1934,16 @@ class CherryTree:
         self.autosave[0] = checkbutton.get_active()
         if not self.autosave[0] and self.autosave_timer_id != None: self.autosave_timer_stop()
         self.glade.spinbutton_autosave.set_sensitive(self.autosave[0])
+
+    def on_checkbutton_mod_time_sentinel_toggled(self, checkbutton):
+        """Modification Time Sentinel Toggled Handling"""
+        self.enable_mod_time_sentinel = checkbutton.get_active()
+        if self.enable_mod_time_sentinel:
+            if self.mod_time_sentinel_id == None:
+                self.modification_time_sentinel_start()
+        else:
+            if self.mod_time_sentinel_id != None:
+                self.modification_time_sentinel_stop()
 
     def on_checkbutton_line_wrap_toggled(self, checkbutton):
         """Lines Wrapping Toggled Handling"""
