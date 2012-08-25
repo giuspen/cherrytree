@@ -196,6 +196,7 @@ class CherryTree:
         self.file_update = False
         self.autosave_timer_id = None
         self.mod_time_sentinel_id = None
+        self.mod_time_val = 0
         self.node_id_counter = long(0)
         self.glade.aboutdialog.set_version(cons.VERSION)
         support.set_menu_items_recent_documents(self)
@@ -911,8 +912,9 @@ class CherryTree:
 
     def modification_time_sentinel_iter(self):
         """Iteration of the Modification Time Sentinel"""
-        if self.file_dir and self.file_name:
-            print "last modified: %s" % time.ctime(os.path.getmtime(os.path.join(self.file_dir, self.file_name)))
+        if self.file_dir and self.file_name and self.mod_time_val:
+            read_mod_time = os.path.getmtime(os.path.join(self.file_dir, self.file_name))
+            print "last modified: %s (%s)" % (time.ctime(read_mod_time), read_mod_time)
         return True # this way we keep the timer alive
 
     def status_icon_enable(self):
