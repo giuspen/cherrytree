@@ -914,8 +914,13 @@ class CherryTree:
         """Iteration of the Modification Time Sentinel"""
         if self.file_dir and self.file_name and self.mod_time_val:
             read_mod_time = os.path.getmtime(os.path.join(self.file_dir, self.file_name))
+            print "former modified: %s (%s)" % (time.ctime(self.mod_time_val), self.mod_time_val)
             print "last modified: %s (%s)" % (time.ctime(read_mod_time), read_mod_time)
         return True # this way we keep the timer alive
+
+    def modification_time_update_value(self, mtime):
+        """Update Value of Modification Time Sentinel"""
+        self.mod_time_val = os.path.getmtime(os.path.join(self.file_dir, self.file_name)) if mtime else 0
 
     def status_icon_enable(self):
         """Creates the Stats Icon"""
