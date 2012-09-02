@@ -918,6 +918,8 @@ class CherryTree:
             #print "last modified: %s (%s)" % (time.ctime(read_mod_time), read_mod_time)
             if read_mod_time != self.mod_time_val:
                 self.filepath_open(os.path.join(self.file_dir, self.file_name), force_reset=True)
+                self.statusbar.pop(self.statusbar_context_id)
+                self.statusbar.push(self.statusbar_context_id, _("The Document was Updated After Non-CherryTree Update to CT* File"))
         return True # this way we keep the timer alive
 
     def modification_time_update_value(self, mtime):
