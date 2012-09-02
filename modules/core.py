@@ -1018,6 +1018,7 @@ class CherryTree:
             return
         if self.file_dir and self.file_name and os.path.isfile(os.path.join(self.file_dir, self.file_name)):
             self.file_load(os.path.join(self.file_dir, self.file_name))
+            self.modification_time_update_value(True)
             if self.expand_tree: self.treeview.expand_all()
             else: config.set_tree_expanded_collapsed_string(self) # restore expanded/collapsed nodes
             # we try to restore the focused node
@@ -1058,19 +1059,21 @@ class CherryTree:
                                                    parent=self.window)
             restore_filetype = False
             if filepath == None: restore_filetype = True
+            self.modification_time_update_value(False)
             if not restore_filetype:
                 filepath = self.filepath_extension_fix(filepath)
                 if not self.file_write(filepath, first_write=True): restore_filetype = True
             if restore_filetype:
                 # restore filetype previous dialog_choose_data_storage
                 if len(self.file_name) > 4: self.filetype = self.file_name[-1]
-                return
-            self.file_dir = os.path.dirname(filepath)
-            self.file_name = os.path.basename(filepath)
-            support.add_recent_document(self, filepath)
-            self.update_window_save_not_needed()
-            self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
-            self.objects_buffer_refresh()
+            else:
+                self.file_dir = os.path.dirname(filepath)
+                self.file_name = os.path.basename(filepath)
+                support.add_recent_document(self, filepath)
+                self.update_window_save_not_needed()
+                self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
+                self.objects_buffer_refresh()
+            self.modification_time_update_value(True)
 
     def filepath_extension_fix(self, filepath):
         """Check a filepath to have the proper extension"""
@@ -1081,10 +1084,12 @@ class CherryTree:
     def file_save(self, *args):
         """Save the file"""
         if self.file_dir != "" and self.file_name != "":
+            self.modification_time_update_value(False)
             if self.tree_is_empty(): support.dialog_warning(_("The Tree is Empty!"), self.window)
             elif self.file_write(os.path.join(self.file_dir, self.file_name), first_write=False):
                 self.update_window_save_not_needed()
                 self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
+            self.modification_time_update_value(True)
         else: self.file_save_as()
 
     def file_write_low_level(self, filepath, xml_string, first_write, exporting=""):
@@ -1189,6 +1194,7 @@ class CherryTree:
         """Opens an existing filepath"""
         if not self.reset(): return
         self.file_load(filepath)
+        self.modification_time_update_value(True)
         if self.expand_tree: self.treeview.expand_all()
         first_node_iter = self.treestore.get_iter_first()
         if first_node_iter != None:
@@ -1421,6 +1427,7 @@ class CherryTree:
     def reset(self):
         """Reset the Application"""
         if not self.tree_is_empty() and not self.check_unsaved(): return False
+        self.modification_time_update_value(False)
         if self.user_active:
             self.user_active = False
             user_active_restore = True
