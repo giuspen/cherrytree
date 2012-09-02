@@ -914,8 +914,10 @@ class CherryTree:
         """Iteration of the Modification Time Sentinel"""
         if self.file_dir and self.file_name and self.mod_time_val:
             read_mod_time = os.path.getmtime(os.path.join(self.file_dir, self.file_name))
-            print "former modified: %s (%s)" % (time.ctime(self.mod_time_val), self.mod_time_val)
-            print "last modified: %s (%s)" % (time.ctime(read_mod_time), read_mod_time)
+            #print "former modified: %s (%s)" % (time.ctime(self.mod_time_val), self.mod_time_val)
+            #print "last modified: %s (%s)" % (time.ctime(read_mod_time), read_mod_time)
+            if read_mod_time != self.mod_time_val:
+                self.filepath_open(os.path.join(self.file_dir, self.file_name), force_reset=True)
         return True # this way we keep the timer alive
 
     def modification_time_update_value(self, mtime):
@@ -1190,9 +1192,9 @@ class CherryTree:
         if filepath == None: return
         self.filepath_open(filepath)
 
-    def filepath_open(self, filepath):
+    def filepath_open(self, filepath, force_reset=False):
         """Opens an existing filepath"""
-        if not self.reset(): return
+        if not self.reset(force_reset): return
         self.file_load(filepath)
         self.modification_time_update_value(True)
         if self.expand_tree: self.treeview.expand_all()
@@ -1424,9 +1426,9 @@ class CherryTree:
         """Starts a new unsaved instance"""
         if self.reset(): self.node_add()
 
-    def reset(self):
+    def reset(self, force_reset=False):
         """Reset the Application"""
-        if not self.tree_is_empty() and not self.check_unsaved(): return False
+        if not force_reset and not self.tree_is_empty() and not self.check_unsaved(): return False
         self.modification_time_update_value(False)
         if self.user_active:
             self.user_active = False
