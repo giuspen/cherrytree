@@ -141,6 +141,7 @@ def config_file_load(inst):
         section = "misc"
         inst.systray = config.getboolean(section, "systray") if config.has_option(section, "systray") else False
         inst.start_on_systray = config.getboolean(section, "start_on_systray") if config.has_option(section, "start_on_systray") else False
+        inst.use_appind = config.getboolean(section, "use_appind") if config.has_option(section, "use_appind") else False
         if config.has_option(section, "autosave") and config.has_option(section, "autosave_val"):
             inst.autosave = [config.getboolean(section, "autosave"), config.getint(section, "autosave_val")]
         else: inst.autosave = [False, 5]
@@ -185,6 +186,7 @@ def config_file_load(inst):
         inst.limit_undoable_steps = 20
         inst.cherry_wrap_width = 130
         inst.start_on_systray = False
+        inst.use_appind = False
         inst.weblink_custom_action = [False, LINK_CUSTOM_ACTION_DEFAULT_WEB]
         inst.filelink_custom_action = [False, LINK_CUSTOM_ACTION_DEFAULT_FILE]
         inst.folderlink_custom_action = [False, LINK_CUSTOM_ACTION_DEFAULT_FILE]
@@ -238,6 +240,7 @@ def config_file_apply(inst):
     inst.sourceview.set_auto_indent(inst.auto_indent)
     inst.glade.checkbutton_auto_indent.set_active(inst.auto_indent)
     inst.glade.checkbutton_systray.set_active(inst.systray)
+    inst.glade.checkbutton_use_appind.set_active(inst.use_appind)
     inst.glade.spinbutton_autosave.set_value(inst.autosave[1])
     inst.glade.spinbutton_autosave.set_sensitive(inst.autosave[0])
     inst.glade.checkbutton_autosave.set_active(inst.autosave[0])
@@ -382,6 +385,7 @@ def config_file_save(inst):
     config.add_section(section)
     config.set(section, "systray", inst.systray)
     config.set(section, "start_on_systray", inst.start_on_systray)
+    config.set(section, "use_appind", inst.use_appind)
     config.set(section, "autosave", inst.autosave[0])
     config.set(section, "autosave_val", inst.autosave[1])
     config.set(section, "check_version", inst.check_version)
