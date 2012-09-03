@@ -25,6 +25,7 @@ try:
     import appindicator
     HAS_APPINDICATOR = True
 except: HAS_APPINDICATOR = False
+HAS_SYSTRAY = not (os.environ['XDG_CURRENT_DESKTOP'] and os.environ['XDG_CURRENT_DESKTOP'] == "Unity")
 import cons, support, config, machines, clipboard, imports, exports, printing, tablez, lists, findreplace, codeboxes, ctdb
 
 
@@ -91,6 +92,9 @@ class CherryTree:
         self.window.add(vbox_main)
         self.country_lang = lang_str
         config.config_file_load(self)
+        if not HAS_APPINDICATOR: self.use_appind = False
+        elif not HAS_SYSTRAY: self.use_appind = True
+        if not HAS_APPINDICATOR or not HAS_SYSTRAY: self.glade.checkbutton_use_appind.set_sensitive(False)
         # ui manager
         actions = gtk.ActionGroup("Actions")
         actions.add_actions(cons.get_entries(self))
@@ -928,7 +932,7 @@ class CherryTree:
 
     def status_icon_enable(self):
         """Creates the Stats Icon"""
-        if HAS_APPINDICATOR:
+        if self.use_appind:
             self.ind = appindicator.Indicator("cherrytree", "indicator-messages", appindicator.CATEGORY_APPLICATION_STATUS)
             self.ind.set_status(appindicator.STATUS_ACTIVE)
             self.ind.set_attention_icon("indicator-messages-new")
@@ -1928,7 +1932,7 @@ class CherryTree:
         if not self.user_active: return
         self.systray = checkbutton.get_active()
         if self.systray:
-            if not HAS_APPINDICATOR:
+            if not self.use_appind:
                 if "status_icon" in dir(self): self.status_icon.set_property('visible', True)
                 else: self.status_icon_enable()
             else:
@@ -1937,7 +1941,7 @@ class CherryTree:
             self.ui.get_widget("/MenuBar/FileMenu/ExitApp").set_property('visible', True)
             self.glade.checkbutton_start_on_systray.set_sensitive(True)
         else:
-            if not HAS_APPINDICATOR: self.status_icon.set_property('visible', False)
+            if not self.use_appind: self.status_icon.set_property('visible', False)
             else: self.ind.set_status(appindicator.STATUS_PASSIVE)
             self.ui.get_widget("/MenuBar/FileMenu/ExitApp").set_property('visible', False)
             self.glade.checkbutton_start_on_systray.set_sensitive(False)
@@ -1946,6 +1950,17 @@ class CherryTree:
         """Start Minimized on SysTray Toggled Handling"""
         if checkbutton.get_active(): self.start_on_systray = True
         else: self.start_on_systray = False
+
+    def on_checkbutton_use_appind_toggled(self, checkbutton):
+        """Use AppIndicator Toggled Handling"""
+        if self.glade.checkbutton_systray.get_active():
+            former_active = True
+            self.glade.checkbutton_systray.set_active(False)
+        else: former_active = False
+        if checkbutton.get_active(): self.use_appind = True
+        else: self.use_appind = False
+        if former_active:
+            self.glade.checkbutton_systray.set_active(True)
 
     def on_checkbutton_autosave_toggled(self, checkbutton):
         """Autosave Toggled Handling"""
@@ -2762,7 +2777,7 @@ class CherryTree:
         if "db" in dir(self) and self.db: self.db.close()
         for filepath_tmp in self.ctdb_handler.remove_at_quit_set: os.remove(filepath_tmp)
         self.window.destroy()
-        if not HAS_APPINDICATOR and "status_icon" in dir(self): self.status_icon.set_visible(False)
+        if not self.use_appind and "status_icon" in dir(self): self.status_icon.set_visible(False)
 
     def on_window_delete_event(self, widget, event, data=None):
         """Before close the application (from the window top right X)..."""
