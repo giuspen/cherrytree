@@ -1458,9 +1458,7 @@ class CherryTree:
 
     def export_to_ctd(self, action):
         """Export the Selected Node and its Subnodes"""
-        if self.curr_tree_iter == None:
-            support.dialog_warning(_("No Node is Selected!"), self.window)
-            return
+        if not self.is_there_selected_node_or_error(): return
         export_type = support.dialog_selnode_selnodeandsub_alltree(self.window)
         if export_type == 0: return
         ctd_handler = exports.Export2CTD(self)
@@ -1498,9 +1496,7 @@ class CherryTree:
 
     def export_to_txt(self, *args):
         """Export To Plain Text"""
-        if self.curr_tree_iter == None:
-            support.dialog_warning(_("No Node is Selected!"), self.window)
-            return
+        if not self.is_there_selected_node_or_error(): return
         export_type = support.dialog_selnode_selnodeandsub_alltree(self.window)
         if export_type == 0: return
         txt_handler = exports.Export2Txt(self)
@@ -1522,9 +1518,7 @@ class CherryTree:
 
     def export_to_html(self, *args):
         """Export to HTML"""
-        if self.curr_tree_iter == None:
-            support.dialog_warning(_("No Node is Selected!"), self.window)
-            return
+        if not self.is_there_selected_node_or_error(): return
         export_type = support.dialog_selnode_selnodeandsub_alltree(self.window)
         if export_type == 0: return
         if export_type == 1:
@@ -1558,9 +1552,7 @@ class CherryTree:
 
     def export_print(self, action):
         """Start Print Operations"""
-        if not self.curr_tree_iter:
-            support.dialog_warning(_("No Node is Selected!"), self.window)
-            return
+        if not self.is_there_selected_node_or_error(): return
         export_type = support.dialog_selnode_selnodeandsub_alltree(self.window)
         if export_type == 0: return
         pdf_handler = exports.ExportPrint(self)
@@ -1596,9 +1588,7 @@ class CherryTree:
 
     def node_siblings_sort_ascending(self, *args):
         """Sorts all the Siblings of the Selected Node Ascending"""
-        if not self.curr_tree_iter:
-            support.dialog_warning(_("No Node is Selected!"), self.window)
-            return
+        if not self.is_there_selected_node_or_error(): return
         father_iter = self.treestore.iter_parent(self.curr_tree_iter)
         movements = False
         while self.node_siblings_sort_iteration(self.treestore, father_iter, True, 1):
@@ -1607,9 +1597,7 @@ class CherryTree:
 
     def node_siblings_sort_descending(self, *args):
         """Sorts all the Siblings of the Selected Node Descending"""
-        if not self.curr_tree_iter:
-            support.dialog_warning(_("No Node is Selected!"), self.window)
-            return
+        if not self.is_there_selected_node_or_error(): return
         father_iter = self.treestore.iter_parent(self.curr_tree_iter)
         movements = False
         while self.node_siblings_sort_iteration(self.treestore, father_iter, False, 1):
@@ -1634,9 +1622,7 @@ class CherryTree:
 
     def node_inherit_syntax(self, *args):
         """Change the Selected Node's Children Syntax Highlighting to the Father's Syntax Highlighting"""
-        if self.curr_tree_iter == None:
-            support.dialog_warning(_("No Node is Selected!"), self.window)
-            return
+        if not self.is_there_selected_node_or_error(): return
         self.node_inherit_syntax_iter(self.curr_tree_iter)
         self.sourceview.set_buffer(self.treestore[self.curr_tree_iter][2])
 
@@ -1662,9 +1648,7 @@ class CherryTree:
 
     def node_up(self, *args):
         """Node up one position"""
-        if self.curr_tree_iter == None:
-            support.dialog_warning(_("No Node is Selected!"), self.window)
-            return
+        if not self.is_there_selected_node_or_error(): return
         prev_iter = self.get_tree_iter_prev_sibling(self.treestore, self.curr_tree_iter)
         if prev_iter != None:
             self.treestore.swap(self.curr_tree_iter, prev_iter)
@@ -1676,9 +1660,7 @@ class CherryTree:
 
     def node_down(self, *args):
         """Node down one position"""
-        if self.curr_tree_iter == None:
-            support.dialog_warning(_("No Node is Selected!"), self.window)
-            return
+        if not self.is_there_selected_node_or_error(): return
         subseq_iter = self.treestore.iter_next(self.curr_tree_iter)
         if subseq_iter != None:
             self.treestore.swap(self.curr_tree_iter, subseq_iter)
@@ -1690,9 +1672,7 @@ class CherryTree:
 
     def node_left(self, *args):
         """Node left one position"""
-        if self.curr_tree_iter == None:
-            support.dialog_warning(_("No Node is Selected!"), self.window)
-            return
+        if not self.is_there_selected_node_or_error(): return
         father_iter = self.treestore.iter_parent(self.curr_tree_iter)
         if father_iter != None:
             self.node_move_after(self.curr_tree_iter,
@@ -1729,9 +1709,7 @@ class CherryTree:
 
     def node_change_father(self, *args):
         """Node browse for a new father"""
-        if self.curr_tree_iter == None:
-            support.dialog_warning(_("No Node is Selected!"), self.window)
-            return
+        if not self.is_there_selected_node_or_error(): return
         curr_node_id = self.treestore[self.curr_tree_iter][3]
         old_father_iter = self.treestore.iter_parent(self.curr_tree_iter)
         if old_father_iter != None: old_father_node_id = self.treestore[old_father_iter][3]
@@ -2273,9 +2251,7 @@ class CherryTree:
 
     def node_child_add(self, *args):
         """Add a node having as father the selected node"""
-        if self.curr_tree_iter == None:
-            support.dialog_warning(_("No Node is Selected!"), self.window)
-            return
+        if not self.is_there_selected_node_or_error(): return
         self.glade.checkbutton_readonly.set_active(False)
         self.glade.combobox_prog_lang.set_sensitive(not self.glade.radiobutton_node_rich_text.get_active())
         node_name = self.dialog_input(title=_("Insert the New Child Node Name..."), syntax_highlight=True)
@@ -2304,9 +2280,7 @@ class CherryTree:
 
     def node_delete(self, *args):
         """Delete the Selected Node"""
-        if self.curr_tree_iter == None:
-            support.dialog_warning(_("No Node is Selected!"), self.window)
-            return
+        if not self.is_there_selected_node_or_error(): return
         warning_label = _("Are you sure to <b>Delete the node '%s'?</b>") % self.treestore[self.curr_tree_iter][1]
         if self.treestore.iter_children(self.curr_tree_iter) != None:
             warning_label += "\n\n"+_("The node <b>has Children, they will be Deleted too!</b>")
@@ -2330,9 +2304,7 @@ class CherryTree:
 
     def node_edit(self, *args):
         """Edit the Properties of the Selected Node"""
-        if self.curr_tree_iter == None:
-            support.dialog_warning(_("No Node is Selected!"), self.window)
-            return
+        if not self.is_there_selected_node_or_error(): return
         if self.syntax_highlighting == cons.CUSTOM_COLORS_ID:
             self.glade.radiobutton_node_rich_text.set_active(True)
             self.glade.combobox_prog_lang.set_sensitive(False)
@@ -2543,9 +2515,7 @@ class CherryTree:
 
     def find_in_selected_node(self, *args):
         """Search for a pattern in the selected Node"""
-        if self.curr_tree_iter == None:
-            support.dialog_warning(_("No Node is Selected!"), self.window)
-            return
+        if not self.is_there_selected_node_or_error(): return
         self.find_handler.find_in_selected_node()
 
     def replace_in_all_nodes(self, *args):
@@ -2706,9 +2676,7 @@ class CherryTree:
 
     def horizontal_rule_insert(self, action):
         """Insert a Horizontal Line"""
-        if self.curr_tree_iter == None:
-            support.dialog_warning(_("No Node is Selected"), self.window)
-            return
+        if not self.is_there_selected_node_or_error(): return
         self.curr_buffer.insert_at_cursor(cons.CHAR_NEWLINE+self.h_rule+cons.CHAR_NEWLINE)
 
     def dialog_input(self, entry_hint=None, title=None, search_opt=False, replace_opt=False, syntax_highlight=False):
@@ -2855,9 +2823,7 @@ class CherryTree:
 
     def toc_insert(self, *args):
         """Insert Table Of Contents"""
-        if self.curr_tree_iter == None:
-            support.dialog_warning(_("No Node is Selected!"), self.window)
-            return
+        if not self.is_there_selected_node_or_error(): return
         if not self.node_sel_and_rich_text(): return
         toc_type = support.dialog_selnode_selnodeandsub_alltree(self.window)
         if toc_type == 0: return
@@ -2894,14 +2860,24 @@ class CherryTree:
             self.glade.spinbutton_codebox_width.set_value(700)
         else: self.glade.spinbutton_codebox_width.set_value(100)
 
-    def node_sel_and_rich_text(self):
-        """Returns True if there's not a node selected or is not rich text"""
-        if self.curr_tree_iter == None:
-            support.dialog_warning(_("No Node is Selected"), self.window)
-            return False
+    def is_curr_node_not_syntax_highlighting_or_error(self):
+        """Returns True if ok (no syntax highlighting) or False and prompts error dialog"""
         if self.syntax_highlighting != cons.CUSTOM_COLORS_ID:
             support.dialog_warning(_("Automatic Syntax Highlighting Must be Disabled in order to Use This Feature"), self.window)
             return False
+        return True
+
+    def is_there_selected_node_or_error(self):
+        """Returns True if ok (there's a selected node) or False and prompts error dialog"""
+        if not self.curr_tree_iter:
+            support.dialog_warning(_("No Node is Selected"), self.window)
+            return False
+        return True
+
+    def node_sel_and_rich_text(self):
+        """Returns True if there's not a node selected or is not rich text"""
+        if not self.is_there_selected_node_or_error(): return False
+        if not self.is_curr_node_not_syntax_highlighting_or_error(): return False
         return True
 
     def tree_info(self, action):
@@ -3271,24 +3247,18 @@ class CherryTree:
 
     def list_bulleted_handler(self, *args):
         """Handler of the Bulleted List"""
-        if self.syntax_highlighting != cons.CUSTOM_COLORS_ID:
-            support.dialog_warning(_("Automatic Syntax Highlighting Must be Disabled in order to Use This Feature"), self.window)
-            return
-        self.lists_handler.list_bulleted_handler()
+        if self.is_curr_node_not_syntax_highlighting_or_error():
+            self.lists_handler.list_bulleted_handler()
 
     def list_numbered_handler(self, *args):
         """Handler of the Numbered List"""
-        if self.syntax_highlighting != cons.CUSTOM_COLORS_ID:
-            support.dialog_warning(_("Automatic Syntax Highlighting Must be Disabled in order to Use This Feature"), self.window)
-            return
-        self.lists_handler.list_numbered_handler()
+        if self.is_curr_node_not_syntax_highlighting_or_error():
+            self.lists_handler.list_numbered_handler()
 
     def list_todo_handler(self, *args):
         """Handler of the ToDo List"""
-        if self.syntax_highlighting != cons.CUSTOM_COLORS_ID:
-            support.dialog_warning(_("Automatic Syntax Highlighting Must be Disabled in order to Use This Feature"), self.window)
-            return
-        self.lists_handler.list_todo_handler()
+        if self.is_curr_node_not_syntax_highlighting_or_error():
+            self.lists_handler.list_todo_handler()
 
     def apply_tag_latest(self, *args):
         """The Iterate Tagging Button was Pressed"""
@@ -3297,15 +3267,11 @@ class CherryTree:
 
     def apply_tag(self, tag_property, property_value=None, iter_sel_start=None, iter_sel_end=None, text_buffer=None):
         """Apply a tag"""
-        if self.syntax_highlighting != cons.CUSTOM_COLORS_ID and self.user_active:
-            support.dialog_warning(_("Automatic Syntax Highlighting Must be Disabled in order to Use This Feature"), self.window)
-            return
+        if not self.is_curr_node_not_syntax_highlighting_or_error(): return
         if not text_buffer: text_buffer = self.curr_buffer
         if iter_sel_start == None and iter_sel_end == None:
             if tag_property != "justification":
-                if self.curr_tree_iter == None:
-                    support.dialog_warning(_("No Node is Selected"), self.window)
-                    return
+                if not self.is_there_selected_node_or_error(): return
                 if tag_property == "link": link_node_id = None
                 if not text_buffer.get_has_selection():
                     if tag_property != "link":
@@ -3828,9 +3794,7 @@ class CherryTree:
 
     def bookmark_curr_node(self, *args):
         """Add the Current Node to the Bookmarks List"""
-        if self.curr_tree_iter == None:
-            support.dialog_warning(_("No Node is Selected"), self.window)
-            return
+        if not self.is_there_selected_node_or_error(): return
         curr_node_id_str = str(self.treestore[self.curr_tree_iter][3])
         if not curr_node_id_str in self.bookmarks:
             self.bookmarks.append(curr_node_id_str)
@@ -3844,9 +3808,7 @@ class CherryTree:
     
     def timestamp_insert(self, *args):
         """Insert Timestamp"""
-        if self.curr_tree_iter == None:
-            support.dialog_warning(_("No Node is Selected"), self.window)
-            return
+        if not self.is_there_selected_node_or_error(): return
         self.curr_buffer.insert_at_cursor(time.strftime(self.timestamp_format))
     
     def set_selection_at_offset_n_delta(self, offset, delta):
