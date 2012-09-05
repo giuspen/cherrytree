@@ -260,7 +260,7 @@ class ListsHandler:
         if iter_start.get_char() == cons.CHAR_NEWLINE: iter_start.backward_char() # if we are exactly on the paragraph end
         # let's search for the paragraph start
         buffer_start = False
-        while iter_start != None:
+        while iter_start:
             if iter_start.get_char() == cons.CHAR_NEWLINE: break # we got the previous paragraph start
             elif not iter_start.backward_char():
                 buffer_start = True
@@ -273,7 +273,7 @@ class ListsHandler:
             if iter_start.forward_char() and iter_start.get_char() == cons.CHAR_SPACE\
             and iter_start.forward_char() and iter_start.get_char() == cons.CHAR_SPACE:
                 # we are inside of a list paragraph but after a shift+return
-                iter_start.backward_chars(4)
+                iter_start.backward_chars(3)
                 list_info = self.get_paragraph_list_info(iter_start)
                 return [list_info[0], True, list_info[2]] # multiple line = True
         return [None, None, None] # this paragraph is not a list
