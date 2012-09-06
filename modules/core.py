@@ -3272,7 +3272,7 @@ class CherryTree:
 
     def apply_tag(self, tag_property, property_value=None, iter_sel_start=None, iter_sel_end=None, text_buffer=None):
         """Apply a tag"""
-        if not self.is_curr_node_not_syntax_highlighting_or_error(): return
+        if self.user_active and not self.is_curr_node_not_syntax_highlighting_or_error(): return
         if not text_buffer: text_buffer = self.curr_buffer
         if iter_sel_start == None and iter_sel_end == None:
             if tag_property != "justification":
