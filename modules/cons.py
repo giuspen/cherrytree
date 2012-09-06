@@ -71,6 +71,7 @@ CHAR_LISTBUL = "•"
 CHAR_TILDE = "~"
 CHAR_DQUOTE = '"'
 CHAR_SQUOTE = "'"
+CHAR_BSLASH = "\\"
 CHAR_SQ_BR_OPEN = "["
 CHAR_X = "X"
 CHAR_SQ_BR_CLOSE = "]"
