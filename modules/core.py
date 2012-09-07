@@ -3000,6 +3000,7 @@ class CherryTree:
                           image_justification)
 
     def image_insert(self, iter_insert, pixbuf, image_justification=None, text_buffer=None):
+        if not pixbuf: return
         if not text_buffer: text_buffer = self.curr_buffer
         image_offset = iter_insert.get_offset()
         anchor = text_buffer.create_child_anchor(iter_insert)
