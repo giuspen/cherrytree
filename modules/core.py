@@ -25,7 +25,8 @@ try:
     import appindicator
     HAS_APPINDICATOR = True
 except: HAS_APPINDICATOR = False
-HAS_SYSTRAY = not (os.environ['XDG_CURRENT_DESKTOP'] and os.environ['XDG_CURRENT_DESKTOP'] == "Unity")
+XDG_CURRENT_DESKTOP = 'XDG_CURRENT_DESKTOP'
+HAS_SYSTRAY = not (XDG_CURRENT_DESKTOP in os.environ and os.environ[XDG_CURRENT_DESKTOP] == "Unity")
 import cons, support, config, machines, clipboard, imports, exports, printing, tablez, lists, findreplace, codeboxes, ctdb
 
 
