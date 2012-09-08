@@ -429,10 +429,10 @@ class XMLHandler:
                 if tag_name[0:7] == "weight_": curr_attributes["weight"] = tag_name[7:]
                 elif tag_name[0:11] == "foreground_":
                     new_foreground = tag_name[11:]
-                    if new_foreground != cons.COLOR_BLACK: curr_attributes["foreground"] = new_foreground
+                    if new_foreground != cons.COLOR_48_BLACK: curr_attributes["foreground"] = new_foreground
                 elif tag_name[0:11] == "background_":
                     new_background = tag_name[11:]
-                    if new_background != cons.COLOR_WHITE: curr_attributes["background"] = new_background
+                    if new_background != cons.COLOR_48_WHITE: curr_attributes["background"] = new_background
                 elif tag_name[0:6] == "scale_": curr_attributes["scale"] = tag_name[6:]
                 elif tag_name[0:14] == "justification_": curr_attributes["justification"] = tag_name[14:]
                 elif tag_name[0:6] == "style_": curr_attributes["style"] = tag_name[6:]
