@@ -221,14 +221,22 @@ def config_file_apply(inst):
     inst.glade.colorbutton_tree_fg.set_color(gtk.gdk.color_parse(inst.tt_def_fg))
     inst.glade.colorbutton_tree_bg.set_color(gtk.gdk.color_parse(inst.tt_def_bg))
     if inst.rt_def_fg == cons.RICH_TEXT_DARK_FG and inst.rt_def_bg == cons.RICH_TEXT_DARK_BG:
-        inst.glade.radiobutton_rt_col_light.set_active(True)
-    elif inst.rt_def_fg == cons.RICH_TEXT_LIGHT_FG and inst.rt_def_bg == cons.RICH_TEXT_LIGHT_BG:
         inst.glade.radiobutton_rt_col_dark.set_active(True)
+        inst.glade.colorbutton_text_fg.set_sensitive(False)
+        inst.glade.colorbutton_text_bg.set_sensitive(False)
+    elif inst.rt_def_fg == cons.RICH_TEXT_LIGHT_FG and inst.rt_def_bg == cons.RICH_TEXT_LIGHT_BG:
+        inst.glade.radiobutton_rt_col_light.set_active(True)
+        inst.glade.colorbutton_text_fg.set_sensitive(False)
+        inst.glade.colorbutton_text_bg.set_sensitive(False)
     else: inst.glade.radiobutton_rt_col_custom.set_active(True)
     if inst.tt_def_fg == cons.TREE_TEXT_DARK_FG and inst.tt_def_bg == cons.TREE_TEXT_DARK_BG:
-        inst.glade.radiobutton_tt_col_light.set_active(True)
-    elif inst.tt_def_fg == cons.TREE_TEXT_LIGHT_FG and inst.tt_def_bg == cons.TREE_TEXT_LIGHT_BG:
         inst.glade.radiobutton_tt_col_dark.set_active(True)
+        inst.glade.colorbutton_tree_fg.set_sensitive(False)
+        inst.glade.colorbutton_tree_bg.set_sensitive(False)
+    elif inst.tt_def_fg == cons.TREE_TEXT_LIGHT_FG and inst.tt_def_bg == cons.TREE_TEXT_LIGHT_BG:
+        inst.glade.radiobutton_tt_col_light.set_active(True)
+        inst.glade.colorbutton_tree_fg.set_sensitive(False)
+        inst.glade.colorbutton_tree_bg.set_sensitive(False)
     else: inst.glade.radiobutton_tt_col_custom.set_active(True)
     inst.treeview.modify_base(gtk.STATE_NORMAL, gtk.gdk.color_parse(inst.tt_def_bg))
     inst.treeview.modify_text(gtk.STATE_NORMAL, gtk.gdk.color_parse(inst.tt_def_fg))
