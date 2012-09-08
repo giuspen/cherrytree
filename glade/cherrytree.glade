@@ -3358,14 +3358,16 @@ do you want to save the changes?</property>
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <child>
-                              <object class="GtkRadioButton" id="radiobutton_rt_col_light">
-                                <property name="label" translatable="yes">Light Text, Dark Background</property>
+                              <object class="GtkRadioButton" id="radiobutton_rt_col_dark">
+                                <property name="label" translatable="yes">Dark Background, Light Text</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
                                 <property name="use_action_appearance">False</property>
                                 <property name="active">True</property>
                                 <property name="draw_indicator">True</property>
+                                <property name="group">radiobutton_rt_col_light</property>
+                                <signal name="toggled" handler="on_radiobutton_rt_col_dark_toggled" swapped="no"/>
                               </object>
                               <packing>
                                 <property name="expand">True</property>
@@ -3374,15 +3376,15 @@ do you want to save the changes?</property>
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkRadioButton" id="radiobutton_rt_col_dark">
-                                <property name="label" translatable="yes">Dark Text, Light Background</property>
+                              <object class="GtkRadioButton" id="radiobutton_rt_col_light">
+                                <property name="label" translatable="yes">Light Background, Dark Text</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
                                 <property name="use_action_appearance">False</property>
                                 <property name="active">True</property>
                                 <property name="draw_indicator">True</property>
-                                <property name="group">radiobutton_rt_col_light</property>
+                                <signal name="toggled" handler="on_radiobutton_rt_col_light_toggled" swapped="no"/>
                               </object>
                               <packing>
                                 <property name="expand">True</property>
@@ -3403,6 +3405,7 @@ do you want to save the changes?</property>
                                     <property name="use_action_appearance">False</property>
                                     <property name="draw_indicator">True</property>
                                     <property name="group">radiobutton_rt_col_light</property>
+                                    <signal name="toggled" handler="on_radiobutton_rt_col_custom_toggled" swapped="no"/>
                                   </object>
                                   <packing>
                                     <property name="expand">True</property>
@@ -4135,13 +4138,14 @@ do you want to save the changes?</property>
                             </child>
                             <child>
                               <object class="GtkRadioButton" id="radiobutton_tt_col_light">
-                                <property name="label" translatable="yes">Light Text, Dark Background</property>
+                                <property name="label" translatable="yes">Light Background, Dark Text</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
                                 <property name="use_action_appearance">False</property>
                                 <property name="active">True</property>
                                 <property name="draw_indicator">True</property>
+                                <signal name="toggled" handler="on_radiobutton_tt_col_light_toggled" swapped="no"/>
                               </object>
                               <packing>
                                 <property name="expand">True</property>
@@ -4151,13 +4155,14 @@ do you want to save the changes?</property>
                             </child>
                             <child>
                               <object class="GtkRadioButton" id="radiobutton_tt_col_dark">
-                                <property name="label" translatable="yes">Dark Text, Light Background</property>
+                                <property name="label" translatable="yes">Dark Background, Light Text</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
                                 <property name="use_action_appearance">False</property>
                                 <property name="draw_indicator">True</property>
                                 <property name="group">radiobutton_tt_col_light</property>
+                                <signal name="toggled" handler="on_radiobutton_tt_col_dark_toggled" swapped="no"/>
                               </object>
                               <packing>
                                 <property name="expand">True</property>
@@ -4178,6 +4183,7 @@ do you want to save the changes?</property>
                                     <property name="use_action_appearance">False</property>
                                     <property name="draw_indicator">True</property>
                                     <property name="group">radiobutton_tt_col_light</property>
+                                    <signal name="toggled" handler="on_radiobutton_tt_col_custom_toggled" swapped="no"/>
                                   </object>
                                   <packing>
                                     <property name="expand">True</property>

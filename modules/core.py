@@ -2855,6 +2855,58 @@ class CherryTree:
         if not self.node_sel_and_rich_text(): return
         self.codeboxes_handler.codebox_handle()
 
+    def on_radiobutton_rt_col_light_toggled(self, radiobutton):
+        """Radiobutton Rich Text Color Light Toggled"""
+        if not self.user_active or not radiobutton.get_active(): return
+        self.glade.colorbutton_text_fg.set_color(gtk.gdk.color_parse(cons.RICH_TEXT_LIGHT_FG))
+        self.glade.colorbutton_text_bg.set_color(gtk.gdk.color_parse(cons.RICH_TEXT_LIGHT_BG))
+        self.glade.colorbutton_text_fg.set_sensitive(False)
+        self.glade.colorbutton_text_bg.set_sensitive(False)
+        self.on_colorbutton_text_fg_color_set(self.glade.colorbutton_text_fg)
+        self.on_colorbutton_text_bg_color_set(self.glade.colorbutton_text_bg)
+
+    def on_radiobutton_rt_col_dark_toggled(self, radiobutton):
+        """Radiobutton Rich Text Color Dark Toggled"""
+        if not self.user_active or not radiobutton.get_active(): return
+        self.glade.colorbutton_text_fg.set_color(gtk.gdk.color_parse(cons.RICH_TEXT_DARK_FG))
+        self.glade.colorbutton_text_bg.set_color(gtk.gdk.color_parse(cons.RICH_TEXT_DARK_BG))
+        self.glade.colorbutton_text_fg.set_sensitive(False)
+        self.glade.colorbutton_text_bg.set_sensitive(False)
+        self.on_colorbutton_text_fg_color_set(self.glade.colorbutton_text_fg)
+        self.on_colorbutton_text_bg_color_set(self.glade.colorbutton_text_bg)
+
+    def on_radiobutton_rt_col_custom_toggled(self, radiobutton):
+        """Radiobutton Rich Text Color Custom Toggled"""
+        if not self.user_active or not radiobutton.get_active(): return
+        self.glade.colorbutton_text_fg.set_sensitive(True)
+        self.glade.colorbutton_text_bg.set_sensitive(True)
+
+    def on_radiobutton_tt_col_light_toggled(self, radiobutton):
+        """Radiobutton Tree Text Color Light Toggled"""
+        if not self.user_active or not radiobutton.get_active(): return
+        self.glade.colorbutton_tree_fg.set_color(gtk.gdk.color_parse(cons.TREE_TEXT_LIGHT_FG))
+        self.glade.colorbutton_tree_bg.set_color(gtk.gdk.color_parse(cons.TREE_TEXT_LIGHT_BG))
+        self.glade.colorbutton_tree_fg.set_sensitive(False)
+        self.glade.colorbutton_tree_bg.set_sensitive(False)
+        self.on_colorbutton_tree_fg_color_set(self.glade.colorbutton_tree_fg)
+        self.on_colorbutton_tree_bg_color_set(self.glade.colorbutton_tree_bg)
+
+    def on_radiobutton_tt_col_dark_toggled(self, radiobutton):
+        """Radiobutton Tree Text Color Dark Toggled"""
+        if not self.user_active or not radiobutton.get_active(): return
+        self.glade.colorbutton_tree_fg.set_color(gtk.gdk.color_parse(cons.TREE_TEXT_DARK_FG))
+        self.glade.colorbutton_tree_bg.set_color(gtk.gdk.color_parse(cons.TREE_TEXT_DARK_BG))
+        self.glade.colorbutton_tree_fg.set_sensitive(False)
+        self.glade.colorbutton_tree_bg.set_sensitive(False)
+        self.on_colorbutton_tree_fg_color_set(self.glade.colorbutton_tree_fg)
+        self.on_colorbutton_tree_bg_color_set(self.glade.colorbutton_tree_bg)
+
+    def on_radiobutton_tt_col_custom_toggled(self, radiobutton):
+        """Radiobutton Tree Text Color Custom Toggled"""
+        if not self.user_active or not radiobutton.get_active(): return
+        self.glade.colorbutton_tree_fg.set_sensitive(True)
+        self.glade.colorbutton_tree_bg.set_sensitive(True)
+
     def on_radiobutton_node_rich_text_toggled(self, radiobutton):
         """Radiobutton Node Type Rich Text Toggled"""
         if not self.user_active: return
