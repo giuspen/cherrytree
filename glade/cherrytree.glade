@@ -3102,10 +3102,12 @@ do you want to save the changes?</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="label_xalign">0</property>
+                    <property name="shadow_type">none</property>
                     <child>
                       <object class="GtkAlignment" id="alignment5">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="top_padding">3</property>
                         <property name="left_padding">3</property>
                         <property name="right_padding">3</property>
                         <child>
@@ -3234,6 +3236,7 @@ do you want to save the changes?</property>
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">True</property>
+                    <property name="padding">2</property>
                     <property name="position">0</property>
                   </packing>
                 </child>
@@ -3242,10 +3245,12 @@ do you want to save the changes?</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="label_xalign">0</property>
+                    <property name="shadow_type">none</property>
                     <child>
                       <object class="GtkAlignment" id="alignment18">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="top_padding">3</property>
                         <property name="left_padding">3</property>
                         <property name="right_padding">3</property>
                         <child>
@@ -3339,6 +3344,7 @@ do you want to save the changes?</property>
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">True</property>
+                    <property name="padding">2</property>
                     <property name="position">1</property>
                   </packing>
                 </child>
@@ -3347,10 +3353,12 @@ do you want to save the changes?</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="label_xalign">0</property>
+                    <property name="shadow_type">none</property>
                     <child>
                       <object class="GtkAlignment" id="alignment19">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="top_padding">3</property>
                         <property name="left_padding">3</property>
                         <property name="right_padding">3</property>
                         <child>
@@ -3358,54 +3366,19 @@ do you want to save the changes?</property>
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <child>
-                              <object class="GtkRadioButton" id="radiobutton_rt_col_dark">
-                                <property name="label" translatable="yes">Dark Background, Light Text</property>
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="receives_default">False</property>
-                                <property name="use_action_appearance">False</property>
-                                <property name="active">True</property>
-                                <property name="draw_indicator">True</property>
-                                <property name="group">radiobutton_rt_col_light</property>
-                                <signal name="toggled" handler="on_radiobutton_rt_col_dark_toggled" swapped="no"/>
-                              </object>
-                              <packing>
-                                <property name="expand">True</property>
-                                <property name="fill">True</property>
-                                <property name="position">0</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkRadioButton" id="radiobutton_rt_col_light">
-                                <property name="label" translatable="yes">Light Background, Dark Text</property>
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="receives_default">False</property>
-                                <property name="use_action_appearance">False</property>
-                                <property name="active">True</property>
-                                <property name="draw_indicator">True</property>
-                                <signal name="toggled" handler="on_radiobutton_rt_col_light_toggled" swapped="no"/>
-                              </object>
-                              <packing>
-                                <property name="expand">True</property>
-                                <property name="fill">True</property>
-                                <property name="position">1</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkHBox" id="hbox33">
+                              <object class="GtkVBox" id="vbox_text_fg_bg">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <child>
-                                  <object class="GtkRadioButton" id="radiobutton_rt_col_custom">
-                                    <property name="label" translatable="yes">Custom Text</property>
+                                  <object class="GtkRadioButton" id="radiobutton_rt_col_light">
+                                    <property name="label" translatable="yes">Light Background, Dark Text</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">False</property>
                                     <property name="use_action_appearance">False</property>
+                                    <property name="active">True</property>
                                     <property name="draw_indicator">True</property>
-                                    <property name="group">radiobutton_rt_col_light</property>
-                                    <signal name="toggled" handler="on_radiobutton_rt_col_custom_toggled" swapped="no"/>
+                                    <signal name="toggled" handler="on_radiobutton_rt_col_light_toggled" swapped="no"/>
                                   </object>
                                   <packing>
                                     <property name="expand">True</property>
@@ -3414,13 +3387,16 @@ do you want to save the changes?</property>
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkColorButton" id="colorbutton_text_fg">
+                                  <object class="GtkRadioButton" id="radiobutton_rt_col_dark">
+                                    <property name="label" translatable="yes">Dark Background, Light Text</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
-                                    <property name="receives_default">True</property>
+                                    <property name="receives_default">False</property>
                                     <property name="use_action_appearance">False</property>
-                                    <property name="color">#000000000000</property>
-                                    <signal name="color-set" handler="on_colorbutton_text_fg_color_set" swapped="no"/>
+                                    <property name="active">True</property>
+                                    <property name="draw_indicator">True</property>
+                                    <property name="group">radiobutton_rt_col_light</property>
+                                    <signal name="toggled" handler="on_radiobutton_rt_col_dark_toggled" swapped="no"/>
                                   </object>
                                   <packing>
                                     <property name="expand">True</property>
@@ -3429,10 +3405,69 @@ do you want to save the changes?</property>
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkLabel" id="label75">
+                                  <object class="GtkHBox" id="hbox33">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="label" translatable="yes">and Background</property>
+                                    <child>
+                                      <object class="GtkRadioButton" id="radiobutton_rt_col_custom">
+                                        <property name="label" translatable="yes">Custom Background</property>
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="receives_default">False</property>
+                                        <property name="use_action_appearance">False</property>
+                                        <property name="active">True</property>
+                                        <property name="draw_indicator">True</property>
+                                        <property name="group">radiobutton_rt_col_light</property>
+                                        <signal name="toggled" handler="on_radiobutton_rt_col_custom_toggled" swapped="no"/>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">True</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">0</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkColorButton" id="colorbutton_text_bg">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="receives_default">True</property>
+                                        <property name="use_action_appearance">False</property>
+                                        <property name="color">#000000000000</property>
+                                        <signal name="color-set" handler="on_colorbutton_text_bg_color_set" swapped="no"/>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">True</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">1</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkLabel" id="label75">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="label" translatable="yes">and Text</property>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">True</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">2</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkColorButton" id="colorbutton_text_fg">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="receives_default">True</property>
+                                        <property name="use_action_appearance">False</property>
+                                        <property name="color">#000000000000</property>
+                                        <signal name="color-set" handler="on_colorbutton_text_fg_color_set" swapped="no"/>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">True</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">3</property>
+                                      </packing>
+                                    </child>
                                   </object>
                                   <packing>
                                     <property name="expand">True</property>
@@ -3440,38 +3475,11 @@ do you want to save the changes?</property>
                                     <property name="position">2</property>
                                   </packing>
                                 </child>
-                                <child>
-                                  <object class="GtkColorButton" id="colorbutton_text_bg">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">True</property>
-                                    <property name="receives_default">True</property>
-                                    <property name="use_action_appearance">False</property>
-                                    <property name="color">#000000000000</property>
-                                    <signal name="color-set" handler="on_colorbutton_text_bg_color_set" swapped="no"/>
-                                  </object>
-                                  <packing>
-                                    <property name="expand">True</property>
-                                    <property name="fill">True</property>
-                                    <property name="position">3</property>
-                                  </packing>
-                                </child>
                               </object>
                               <packing>
                                 <property name="expand">True</property>
                                 <property name="fill">True</property>
-                                <property name="position">2</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkHSeparator" id="hseparator9">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="fill">True</property>
-                                <property name="padding">3</property>
-                                <property name="position">3</property>
+                                <property name="position">0</property>
                               </packing>
                             </child>
                             <child>
@@ -3523,9 +3531,9 @@ do you want to save the changes?</property>
                                 </child>
                               </object>
                               <packing>
-                                <property name="expand">True</property>
+                                <property name="expand">False</property>
                                 <property name="fill">True</property>
-                                <property name="position">4</property>
+                                <property name="position">1</property>
                               </packing>
                             </child>
                           </object>
@@ -3544,6 +3552,7 @@ do you want to save the changes?</property>
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">True</property>
+                    <property name="padding">2</property>
                     <property name="position">2</property>
                   </packing>
                 </child>
@@ -3552,10 +3561,12 @@ do you want to save the changes?</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="label_xalign">0</property>
+                    <property name="shadow_type">none</property>
                     <child>
                       <object class="GtkAlignment" id="alignment16">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="top_padding">3</property>
                         <property name="left_padding">3</property>
                         <property name="right_padding">3</property>
                         <child>
@@ -3709,6 +3720,7 @@ do you want to save the changes?</property>
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">True</property>
+                    <property name="padding">2</property>
                     <property name="position">3</property>
                   </packing>
                 </child>
@@ -3717,6 +3729,7 @@ do you want to save the changes?</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="label_xalign">0</property>
+                    <property name="shadow_type">none</property>
                     <child>
                       <object class="GtkAlignment" id="alignment12">
                         <property name="visible">True</property>
@@ -3787,18 +3800,6 @@ do you want to save the changes?</property>
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkHSeparator" id="hseparator6">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="fill">True</property>
-                                <property name="padding">3</property>
-                                <property name="position">2</property>
-                              </packing>
-                            </child>
-                            <child>
                               <object class="GtkCheckButton" id="checkbutton_custom_filelink_cmd">
                                 <property name="label" translatable="yes">Enable Custom File Link Clicked Action</property>
                                 <property name="visible">True</property>
@@ -3812,7 +3813,7 @@ do you want to save the changes?</property>
                               <packing>
                                 <property name="expand">False</property>
                                 <property name="fill">False</property>
-                                <property name="position">3</property>
+                                <property name="position">2</property>
                               </packing>
                             </child>
                             <child>
@@ -3854,19 +3855,7 @@ do you want to save the changes?</property>
                               <packing>
                                 <property name="expand">True</property>
                                 <property name="fill">True</property>
-                                <property name="position">4</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkHSeparator" id="hseparator7">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="fill">True</property>
-                                <property name="padding">3</property>
-                                <property name="position">5</property>
+                                <property name="position">3</property>
                               </packing>
                             </child>
                             <child>
@@ -3883,7 +3872,7 @@ do you want to save the changes?</property>
                               <packing>
                                 <property name="expand">False</property>
                                 <property name="fill">False</property>
-                                <property name="position">6</property>
+                                <property name="position">4</property>
                               </packing>
                             </child>
                             <child>
@@ -3925,7 +3914,7 @@ do you want to save the changes?</property>
                               <packing>
                                 <property name="expand">True</property>
                                 <property name="fill">True</property>
-                                <property name="position">7</property>
+                                <property name="position">5</property>
                               </packing>
                             </child>
                           </object>
@@ -3944,6 +3933,7 @@ do you want to save the changes?</property>
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">True</property>
+                    <property name="padding">2</property>
                     <property name="position">4</property>
                   </packing>
                 </child>
@@ -3964,10 +3954,12 @@ do you want to save the changes?</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="label_xalign">0</property>
+                    <property name="shadow_type">none</property>
                     <child>
                       <object class="GtkAlignment" id="alignment11">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="top_padding">3</property>
                         <property name="left_padding">3</property>
                         <property name="right_padding">3</property>
                         <child>
@@ -4050,17 +4042,6 @@ do you want to save the changes?</property>
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkHSeparator" id="hseparator1">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="fill">True</property>
-                                <property name="position">3</property>
-                              </packing>
-                            </child>
-                            <child>
                               <object class="GtkVBox" id="vbox_node_icon">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
@@ -4121,69 +4102,24 @@ do you want to save the changes?</property>
                               <packing>
                                 <property name="expand">False</property>
                                 <property name="fill">True</property>
-                                <property name="position">4</property>
+                                <property name="padding">4</property>
+                                <property name="position">3</property>
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkHSeparator" id="hseparator8">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="fill">True</property>
-                                <property name="padding">1</property>
-                                <property name="position">5</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkRadioButton" id="radiobutton_tt_col_light">
-                                <property name="label" translatable="yes">Light Background, Dark Text</property>
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="receives_default">False</property>
-                                <property name="use_action_appearance">False</property>
-                                <property name="active">True</property>
-                                <property name="draw_indicator">True</property>
-                                <signal name="toggled" handler="on_radiobutton_tt_col_light_toggled" swapped="no"/>
-                              </object>
-                              <packing>
-                                <property name="expand">True</property>
-                                <property name="fill">True</property>
-                                <property name="position">6</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkRadioButton" id="radiobutton_tt_col_dark">
-                                <property name="label" translatable="yes">Dark Background, Light Text</property>
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="receives_default">False</property>
-                                <property name="use_action_appearance">False</property>
-                                <property name="draw_indicator">True</property>
-                                <property name="group">radiobutton_tt_col_light</property>
-                                <signal name="toggled" handler="on_radiobutton_tt_col_dark_toggled" swapped="no"/>
-                              </object>
-                              <packing>
-                                <property name="expand">True</property>
-                                <property name="fill">True</property>
-                                <property name="position">7</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkHBox" id="hbox26">
+                              <object class="GtkVBox" id="vbox_tree_fg_bg">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <child>
-                                  <object class="GtkRadioButton" id="radiobutton_tt_col_custom">
-                                    <property name="label" translatable="yes">Custom Text</property>
+                                  <object class="GtkRadioButton" id="radiobutton_tt_col_light">
+                                    <property name="label" translatable="yes">Light Background, Dark Text</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">False</property>
                                     <property name="use_action_appearance">False</property>
+                                    <property name="active">True</property>
                                     <property name="draw_indicator">True</property>
-                                    <property name="group">radiobutton_tt_col_light</property>
-                                    <signal name="toggled" handler="on_radiobutton_tt_col_custom_toggled" swapped="no"/>
+                                    <signal name="toggled" handler="on_radiobutton_tt_col_light_toggled" swapped="no"/>
                                   </object>
                                   <packing>
                                     <property name="expand">True</property>
@@ -4192,13 +4128,16 @@ do you want to save the changes?</property>
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkColorButton" id="colorbutton_tree_fg">
+                                  <object class="GtkRadioButton" id="radiobutton_tt_col_dark">
+                                    <property name="label" translatable="yes">Dark Background, Light Text</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
-                                    <property name="receives_default">True</property>
+                                    <property name="receives_default">False</property>
                                     <property name="use_action_appearance">False</property>
-                                    <property name="color">#000000000000</property>
-                                    <signal name="color-set" handler="on_colorbutton_tree_fg_color_set" swapped="no"/>
+                                    <property name="active">True</property>
+                                    <property name="draw_indicator">True</property>
+                                    <property name="group">radiobutton_tt_col_light</property>
+                                    <signal name="toggled" handler="on_radiobutton_tt_col_dark_toggled" swapped="no"/>
                                   </object>
                                   <packing>
                                     <property name="expand">True</property>
@@ -4207,10 +4146,69 @@ do you want to save the changes?</property>
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkLabel" id="label67">
+                                  <object class="GtkHBox" id="hbox26">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="label" translatable="yes">and Background</property>
+                                    <child>
+                                      <object class="GtkRadioButton" id="radiobutton_tt_col_custom">
+                                        <property name="label" translatable="yes">Custom Background</property>
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="receives_default">False</property>
+                                        <property name="use_action_appearance">False</property>
+                                        <property name="active">True</property>
+                                        <property name="draw_indicator">True</property>
+                                        <property name="group">radiobutton_tt_col_light</property>
+                                        <signal name="toggled" handler="on_radiobutton_tt_col_custom_toggled" swapped="no"/>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">True</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">0</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkColorButton" id="colorbutton_tree_bg">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="receives_default">True</property>
+                                        <property name="use_action_appearance">False</property>
+                                        <property name="color">#000000000000</property>
+                                        <signal name="color-set" handler="on_colorbutton_tree_bg_color_set" swapped="no"/>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">True</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">1</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkLabel" id="label67">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="label" translatable="yes">and Text</property>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">True</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">2</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkColorButton" id="colorbutton_tree_fg">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="receives_default">True</property>
+                                        <property name="use_action_appearance">False</property>
+                                        <property name="color">#000000000000</property>
+                                        <signal name="color-set" handler="on_colorbutton_tree_fg_color_set" swapped="no"/>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">True</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">3</property>
+                                      </packing>
+                                    </child>
                                   </object>
                                   <packing>
                                     <property name="expand">True</property>
@@ -4218,26 +4216,11 @@ do you want to save the changes?</property>
                                     <property name="position">2</property>
                                   </packing>
                                 </child>
-                                <child>
-                                  <object class="GtkColorButton" id="colorbutton_tree_bg">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">True</property>
-                                    <property name="receives_default">True</property>
-                                    <property name="use_action_appearance">False</property>
-                                    <property name="color">#000000000000</property>
-                                    <signal name="color-set" handler="on_colorbutton_tree_bg_color_set" swapped="no"/>
-                                  </object>
-                                  <packing>
-                                    <property name="expand">True</property>
-                                    <property name="fill">True</property>
-                                    <property name="position">3</property>
-                                  </packing>
-                                </child>
                               </object>
                               <packing>
                                 <property name="expand">True</property>
                                 <property name="fill">True</property>
-                                <property name="position">8</property>
+                                <property name="position">4</property>
                               </packing>
                             </child>
                           </object>
@@ -4256,6 +4239,7 @@ do you want to save the changes?</property>
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">True</property>
+                    <property name="padding">2</property>
                     <property name="position">0</property>
                   </packing>
                 </child>
@@ -4264,10 +4248,12 @@ do you want to save the changes?</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="label_xalign">0</property>
+                    <property name="shadow_type">none</property>
                     <child>
                       <object class="GtkAlignment" id="alignment17">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="top_padding">3</property>
                         <property name="left_padding">3</property>
                         <property name="right_padding">3</property>
                         <child>
@@ -4383,6 +4369,7 @@ do you want to save the changes?</property>
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">True</property>
+                    <property name="padding">2</property>
                     <property name="position">1</property>
                   </packing>
                 </child>
@@ -4391,10 +4378,12 @@ do you want to save the changes?</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="label_xalign">0</property>
+                    <property name="shadow_type">none</property>
                     <child>
                       <object class="GtkAlignment" id="alignment4">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="top_padding">3</property>
                         <property name="left_padding">3</property>
                         <property name="right_padding">3</property>
                         <child>
@@ -4465,6 +4454,7 @@ do you want to save the changes?</property>
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">True</property>
+                    <property name="padding">2</property>
                     <property name="position">2</property>
                   </packing>
                 </child>
@@ -4473,10 +4463,12 @@ do you want to save the changes?</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="label_xalign">0</property>
+                    <property name="shadow_type">none</property>
                     <child>
                       <object class="GtkAlignment" id="alignment6">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="top_padding">3</property>
                         <property name="left_padding">3</property>
                         <property name="right_padding">3</property>
                         <child>
@@ -4684,6 +4676,7 @@ do you want to save the changes?</property>
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">True</property>
+                    <property name="padding">2</property>
                     <property name="position">3</property>
                   </packing>
                 </child>
@@ -4692,10 +4685,12 @@ do you want to save the changes?</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="label_xalign">0</property>
+                    <property name="shadow_type">none</property>
                     <child>
                       <object class="GtkAlignment" id="alignment13">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="top_padding">3</property>
                         <property name="left_padding">3</property>
                         <property name="right_padding">3</property>
                         <child>
@@ -4720,6 +4715,7 @@ do you want to save the changes?</property>
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">True</property>
+                    <property name="padding">2</property>
                     <property name="position">4</property>
                   </packing>
                 </child>
