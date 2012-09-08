@@ -3359,7 +3359,7 @@ do you want to save the changes?</property>
                             <property name="can_focus">False</property>
                             <child>
                               <object class="GtkRadioButton" id="radiobutton_rt_col_light">
-                                <property name="label" translatable="yes">Dark Text, Light Background</property>
+                                <property name="label" translatable="yes">Light Text, Dark Background</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
@@ -3375,7 +3375,7 @@ do you want to save the changes?</property>
                             </child>
                             <child>
                               <object class="GtkRadioButton" id="radiobutton_rt_col_dark">
-                                <property name="label" translatable="yes">Light Text, Dark Background</property>
+                                <property name="label" translatable="yes">Dark Text, Light Background</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
@@ -4134,8 +4134,8 @@ do you want to save the changes?</property>
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkRadioButton" id="radiobutton_tr_col_light">
-                                <property name="label" translatable="yes">Dark Text, Light Background</property>
+                              <object class="GtkRadioButton" id="radiobutton_tt_col_light">
+                                <property name="label" translatable="yes">Light Text, Dark Background</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
@@ -4150,14 +4150,14 @@ do you want to save the changes?</property>
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkRadioButton" id="radiobutton_tr_col_dark">
-                                <property name="label" translatable="yes">Light Text, Dark Background</property>
+                              <object class="GtkRadioButton" id="radiobutton_tt_col_dark">
+                                <property name="label" translatable="yes">Dark Text, Light Background</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
                                 <property name="use_action_appearance">False</property>
                                 <property name="draw_indicator">True</property>
-                                <property name="group">radiobutton_tr_col_light</property>
+                                <property name="group">radiobutton_tt_col_light</property>
                               </object>
                               <packing>
                                 <property name="expand">True</property>
@@ -4170,14 +4170,14 @@ do you want to save the changes?</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <child>
-                                  <object class="GtkRadioButton" id="radiobutton_tr_col_custom">
+                                  <object class="GtkRadioButton" id="radiobutton_tt_col_custom">
                                     <property name="label" translatable="yes">Custom Text</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">False</property>
                                     <property name="use_action_appearance">False</property>
                                     <property name="draw_indicator">True</property>
-                                    <property name="group">radiobutton_tr_col_light</property>
+                                    <property name="group">radiobutton_tt_col_light</property>
                                   </object>
                                   <packing>
                                     <property name="expand">True</property>
