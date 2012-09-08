@@ -497,7 +497,7 @@ class TomboyHandler():
                 self.node_add_iter(dom_iter.firstChild)
                 self.curr_attributes["strikethrough"] = ""
             elif dom_iter.nodeName == "highlight":
-                self.curr_attributes["background"] = cons.COLOR_YELLOW
+                self.curr_attributes["background"] = cons.COLOR_48_YELLOW
                 self.node_add_iter(dom_iter.firstChild)
                 self.curr_attributes["background"] = ""
             elif dom_iter.nodeName == "monospace":

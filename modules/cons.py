@@ -45,9 +45,22 @@ else:
         GLADE_PATH = os.path.join(SHARE_PATH, 'cherrytree/glade/')
         LOCALE_PATH = os.path.join(SHARE_PATH, 'locale')
 AVAILABLE_LANGS = ['default', 'cs', 'de', 'en', 'es', 'fr', 'it', 'pl', 'ru', 'uk', 'zh_CN']
-COLOR_YELLOW = "#ffffffff0000"
-COLOR_WHITE = "#ffffffffffff"
-COLOR_BLACK = "#000000000000"
+COLOR_48_YELLOW = "#ffffffff0000"
+COLOR_48_WHITE = "#ffffffffffff"
+COLOR_48_BLACK = "#000000000000"
+COLOR_24_BLACK = "#000000"
+COLOR_24_WHITE = "#ffffff"
+COLOR_24_BLUEBG = "#001b33"
+COLOR_24_LBLACK = "#0b0c0c"
+COLOR_24_GRAY = "#e0e0e0"
+RICH_TEXT_DARK_FG = COLOR_24_WHITE
+RICH_TEXT_DARK_BG = COLOR_24_BLUEBG
+RICH_TEXT_LIGHT_FG = COLOR_24_BLACK
+RICH_TEXT_LIGHT_BG = COLOR_24_WHITE
+TREE_TEXT_DARK_FG = COLOR_24_WHITE
+TREE_TEXT_DARK_BG = COLOR_24_BLUEBG
+TREE_TEXT_LIGHT_FG = COLOR_24_LBLACK
+TREE_TEXT_LIGHT_BG = COLOR_24_GRAY
 BAD_CHARS = "[\x00-\x08\x0b-\x1f]"
 TAG_PROPERTIES = ["weight", "foreground", "background", "style", "underline", "strikethrough",
                   "scale", "family", "justification", "link"]

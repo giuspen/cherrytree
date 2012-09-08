@@ -215,14 +215,14 @@ class Export2Pango:
         curr_iter = code_buffer.get_start_iter()
         code_buffer.ensure_highlight(curr_iter, code_buffer.get_end_iter())
         pango_text = ""
-        former_tag_str = cons.COLOR_BLACK
+        former_tag_str = cons.COLOR_48_BLACK
         span_opened = False
         while 1:
             curr_tags = curr_iter.get_tags()
             if len(curr_tags) > 0:
                 curr_tag_str = curr_tags[0].get_property("foreground-gdk").to_string()
                 font_weight = curr_tags[0].get_property("weight")
-                if curr_tag_str == cons.COLOR_BLACK:
+                if curr_tag_str == cons.COLOR_48_BLACK:
                     if former_tag_str != curr_tag_str:
                         former_tag_str = curr_tag_str
                         # end of tag
@@ -233,12 +233,12 @@ class Export2Pango:
                         former_tag_str = curr_tag_str
                         if span_opened: pango_text += "</span>"
                         # start of tag
-                        if curr_tag_str == cons.COLOR_WHITE: curr_tag_str = cons.COLOR_BLACK
+                        if curr_tag_str == cons.COLOR_48_WHITE: curr_tag_str = cons.COLOR_48_BLACK
                         pango_text += '<span foreground="%s" font_weight="%s">' % (curr_tag_str, font_weight)
                         span_opened = True
             elif span_opened:
                 span_opened = False
-                former_tag_str = cons.COLOR_BLACK
+                former_tag_str = cons.COLOR_48_BLACK
                 pango_text += "</span>"
             pango_text += cgi.escape(curr_iter.get_char())
             if not curr_iter.forward_char():
@@ -535,14 +535,14 @@ class Export2Html:
         else: curr_iter = code_buffer.get_start_iter()
         code_buffer.ensure_highlight(curr_iter, code_buffer.get_end_iter())
         html_text = ""
-        former_tag_str = cons.COLOR_BLACK
+        former_tag_str = cons.COLOR_48_BLACK
         span_opened = False
         while 1:
             curr_tags = curr_iter.get_tags()
             if len(curr_tags) > 0:
                 curr_tag_str = curr_tags[0].get_property("foreground-gdk").to_string()
                 font_weight = curr_tags[0].get_property("weight")
-                if curr_tag_str == cons.COLOR_BLACK:
+                if curr_tag_str == cons.COLOR_48_BLACK:
                     if former_tag_str != curr_tag_str:
                         former_tag_str = curr_tag_str
                         # end of tag
@@ -553,12 +553,12 @@ class Export2Html:
                         former_tag_str = curr_tag_str
                         if span_opened: html_text += "</span>"
                         # start of tag
-                        if curr_tag_str == cons.COLOR_WHITE: curr_tag_str = cons.COLOR_BLACK
+                        if curr_tag_str == cons.COLOR_48_WHITE: curr_tag_str = cons.COLOR_48_BLACK
                         html_text += '<span style="color:#%s;font-weight:%s">' % (self.rgb_to_24(curr_tag_str[1:]), font_weight)
                         span_opened = True
             elif span_opened:
                 span_opened = False
-                former_tag_str = cons.COLOR_BLACK
+                former_tag_str = cons.COLOR_48_BLACK
                 html_text += "</span>"
             html_text += cgi.escape(curr_iter.get_char()).replace(" ", "&nbsp;")
             if not curr_iter.forward_char() or (sel_range and curr_iter.get_offset() > sel_range[1]):

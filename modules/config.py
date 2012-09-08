@@ -27,10 +27,6 @@ ICONS_SIZE = {1: gtk.ICON_SIZE_MENU, 2: gtk.ICON_SIZE_SMALL_TOOLBAR, 3: gtk.ICON
 
 LINK_CUSTOM_ACTION_DEFAULT_WEB = "firefox %s &"
 LINK_CUSTOM_ACTION_DEFAULT_FILE = "xdg-open %s &"
-RICH_TEXT_DEFAULT_FG = "#ffffff"
-RICH_TEXT_DEFAULT_BG = "#001b33"
-TREE_TEXT_DEFAULT_FG = "#0b0c0c"
-TREE_TEXT_DEFAULT_BG = "#e0e0e0"
 HORIZONTAL_RULE = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 
 
@@ -133,10 +129,10 @@ def config_file_load(inst):
         inst.code_font = config.get(section, "code_font") if config.has_option(section, "code_font") else "Monospace 9" # default code font
         
         section = "colors"
-        inst.rt_def_fg = config.get(section, "rt_def_fg") if config.has_option(section, "rt_def_fg") else RICH_TEXT_DEFAULT_FG
-        inst.rt_def_bg = config.get(section, "rt_def_bg") if config.has_option(section, "rt_def_bg") else RICH_TEXT_DEFAULT_BG
-        inst.tt_def_fg = config.get(section, "tt_def_fg") if config.has_option(section, "tt_def_fg") else TREE_TEXT_DEFAULT_FG
-        inst.tt_def_bg = config.get(section, "tt_def_bg") if config.has_option(section, "tt_def_bg") else TREE_TEXT_DEFAULT_BG
+        inst.rt_def_fg = config.get(section, "rt_def_fg") if config.has_option(section, "rt_def_fg") else cons.RICH_TEXT_DARK_FG
+        inst.rt_def_bg = config.get(section, "rt_def_bg") if config.has_option(section, "rt_def_bg") else cons.RICH_TEXT_DARK_BG
+        inst.tt_def_fg = config.get(section, "tt_def_fg") if config.has_option(section, "tt_def_fg") else cons.TREE_TEXT_DARK_FG
+        inst.tt_def_bg = config.get(section, "tt_def_bg") if config.has_option(section, "tt_def_bg") else cons.TREE_TEXT_DARK_BG
         
         section = "misc"
         inst.systray = config.getboolean(section, "systray") if config.has_option(section, "systray") else False
@@ -159,10 +155,10 @@ def config_file_load(inst):
         inst.tree_font = "Sans 8" # default tree font
         inst.text_font = "Sans 9" # default text font
         inst.code_font = "Monospace 9" # default code font
-        inst.rt_def_fg = RICH_TEXT_DEFAULT_FG
-        inst.rt_def_bg = RICH_TEXT_DEFAULT_BG
-        inst.tt_def_fg = TREE_TEXT_DEFAULT_FG
-        inst.tt_def_bg = TREE_TEXT_DEFAULT_BG
+        inst.rt_def_fg = cons.RICH_TEXT_DARK_FG
+        inst.rt_def_bg = cons.RICH_TEXT_DARK_BG
+        inst.tt_def_fg = cons.TREE_TEXT_DARK_FG
+        inst.tt_def_bg = cons.TREE_TEXT_DARK_BG
         inst.h_rule = HORIZONTAL_RULE
         inst.show_line_numbers = False
         inst.spaces_instead_tabs = True
