@@ -421,8 +421,12 @@ class Export2Html:
         file_descriptor.write(html_text)
         file_descriptor.close()
 
-    def node_export_to_html(self, tree_iter):
+    def node_export_to_html(self, tree_iter, only_selection=False):
         """Export a Node To HTML"""
+        if only_selection:
+            iter_start, iter_end = self.dad.curr_buffer.get_selection_bounds()
+            sel_range = [iter_start.get_offset(), iter_end.get_offset()]
+        else: sel_range = None
         html_text = cons.HTML_HEADER % self.dad.treestore[tree_iter][1]
         if self.tree_links_text:
             html_text += r'<table width="100%"><tr>'
@@ -431,7 +435,7 @@ class Export2Html:
             html_text += td_tree + self.tree_links_text + td_page
         self.dad.get_textbuffer_from_tree_iter(tree_iter)
         if self.dad.treestore[tree_iter][4] == cons.CUSTOM_COLORS_ID:
-            text_n_objects = self.html_get_from_treestore_node(tree_iter)
+            text_n_objects = self.html_get_from_treestore_node(tree_iter, sel_range)
             self.images_count = 0
             for i, html_slot in enumerate(text_n_objects[0]):
                 html_text += html_slot
@@ -440,7 +444,7 @@ class Export2Html:
                     if curr_object[0] == "pixbuf": html_text += self.get_image_html(curr_object[1], tree_iter)
                     elif curr_object[0] == "table": html_text += self.get_table_html(curr_object[1])
                     elif curr_object[0] == "codebox": html_text += self.get_codebox_html(curr_object[1])
-        else: html_text += self.html_get_from_code_buffer(self.dad.treestore[tree_iter][2])
+        else: html_text += self.html_get_from_code_buffer(self.dad.treestore[tree_iter][2], sel_range)
         if self.tree_links_text:
             html_text += '</td></tr></table>'
         html_text += cons.HTML_FOOTER
@@ -579,18 +583,21 @@ class Export2Html:
         html_text = html_text.replace(cons.CHAR_NEWLINE, "<br>")
         return html_text
 
-    def html_get_from_treestore_node(self, node_iter):
+    def html_get_from_treestore_node(self, node_iter, sel_range=None):
         """Given a treestore iter returns the HTML rich text"""
         curr_buffer = self.dad.treestore[node_iter][2]
-        pixbuf_table_codebox_vector = self.dad.state_machine.get_embedded_pixbufs_tables_codeboxes(curr_buffer, for_print=2)
+        pixbuf_table_codebox_vector = self.dad.state_machine.get_embedded_pixbufs_tables_codeboxes(curr_buffer,
+                                                                                                   for_print=2,
+                                                                                                   sel_range=sel_range)
         # pixbuf_table_codebox_vector is [ [ "pixbuf"/"table"/"codebox", [offset, pixbuf, alignment] ],... ]
         self.curr_html_slots = []
-        start_offset = 0
+        start_offset = 0 if not sel_range else sel_range[0]
         for end_offset_element in pixbuf_table_codebox_vector:
             end_offset = end_offset_element[1][0]
             self.html_process_slot(start_offset, end_offset, curr_buffer)
             start_offset = end_offset
-        self.html_process_slot(start_offset, -1, curr_buffer)
+        if not sel_range: self.html_process_slot(start_offset, -1, curr_buffer)
+        else: self.html_process_slot(start_offset, sel_range[1], curr_buffer)
         #print "curr_html_slots", self.curr_html_slots
         #print "pixbuf_table_codebox_vector", pixbuf_table_codebox_vector
         return [self.curr_html_slots, pixbuf_table_codebox_vector]
