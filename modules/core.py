@@ -1464,7 +1464,7 @@ class CherryTree:
     def export_to_ctd(self, action):
         """Export the Selected Node and its Subnodes"""
         if not self.is_there_selected_node_or_error(): return
-        export_type = support.dialog_selnode_selnodeandsub_alltree(self.window)
+        export_type = support.dialog_selnode_selnodeandsub_alltree(self.window, also_selection=True)
         if export_type == 0: return
         ctd_handler = exports.Export2CTD(self)
         restore_passw = self.password
@@ -1502,7 +1502,7 @@ class CherryTree:
     def export_to_txt(self, *args):
         """Export To Plain Text"""
         if not self.is_there_selected_node_or_error(): return
-        export_type = support.dialog_selnode_selnodeandsub_alltree(self.window)
+        export_type = support.dialog_selnode_selnodeandsub_alltree(self.window, also_selection=True)
         if export_type == 0: return
         txt_handler = exports.Export2Txt(self)
         if export_type == 1:
@@ -1524,7 +1524,7 @@ class CherryTree:
     def export_to_html(self, *args):
         """Export to HTML"""
         if not self.is_there_selected_node_or_error(): return
-        export_type = support.dialog_selnode_selnodeandsub_alltree(self.window)
+        export_type = support.dialog_selnode_selnodeandsub_alltree(self.window, also_selection=True)
         if export_type == 0: return
         if export_type == 1:
             # only selected node
@@ -1558,7 +1558,7 @@ class CherryTree:
     def export_print(self, action):
         """Start Print Operations"""
         if not self.is_there_selected_node_or_error(): return
-        export_type = support.dialog_selnode_selnodeandsub_alltree(self.window)
+        export_type = support.dialog_selnode_selnodeandsub_alltree(self.window, also_selection=True)
         if export_type == 0: return
         pdf_handler = exports.ExportPrint(self)
         if export_type == 1:
@@ -1567,9 +1567,13 @@ class CherryTree:
         elif export_type == 2:
             # selected node and subnodes
             pdf_handler.nodes_all_export_print(self.curr_tree_iter)
-        else:
+        elif export_type == 3:
             # all nodes
             pdf_handler.nodes_all_export_print()
+        else:
+            # only selection
+            if self.is_there_text_selection_or_error():
+                pdf_handler.node_export_print(self.curr_tree_iter, only_selection=True)
 
     def tree_sort_level_and_sublevels(self, model, father_iter, ascending):
         """Sorts the Tree Level and All the Sublevels"""
@@ -2832,7 +2836,7 @@ class CherryTree:
         """Insert Table Of Contents"""
         if not self.is_there_selected_node_or_error(): return
         if not self.node_sel_and_rich_text(): return
-        toc_type = support.dialog_selnode_selnodeandsub_alltree(self.window)
+        toc_type = support.dialog_selnode_selnodeandsub_alltree(self.window, also_selection=False)
         if toc_type == 0: return
         if toc_type == 1:
             # only selected node
@@ -2937,6 +2941,14 @@ class CherryTree:
         """Returns True if the Tree is Not Empty or False and prompts error dialog"""
         if self.tree_is_empty():
             support.dialog_error(_("The Tree is Empty!"), self.window)
+            return False
+        return True
+
+    def is_there_text_selection_or_error(self):
+        """Returns True if ok (there's a selection) or False and prompts error dialog"""
+        if not self.is_there_selected_node_or_error(): return False
+        if not self.curr_buffer.get_has_selection():
+            support.dialog_error(_("No Text is Selected"), self.window)
             return False
         return True
 

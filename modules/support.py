@@ -196,7 +196,7 @@ def dialog_error(message, parent=None):
     dialog.run()
     dialog.destroy()
 
-def dialog_selnode_selnodeandsub_alltree(father_win):
+def dialog_selnode_selnodeandsub_alltree(father_win, also_selection):
     """Dialog to select between the Selected Node/Selected Node + Subnodes/All Tree"""
     dialog = gtk.Dialog(title=_("Involved Nodes"),
                                 parent=father_win,
@@ -204,12 +204,15 @@ def dialog_selnode_selnodeandsub_alltree(father_win):
                                 buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
                                 gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
     dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+    if also_selection: radiobutton_selection = gtk.RadioButton(label=_("Selected Text Only"))
     radiobutton_selnode = gtk.RadioButton(label=_("Selected Node Only"))
     radiobutton_selnodeandsub = gtk.RadioButton(label=_("Selected Node and Subnodes"))
     radiobutton_alltree = gtk.RadioButton(label=_("All the Tree"))
     radiobutton_selnodeandsub.set_group(radiobutton_selnode)
     radiobutton_alltree.set_group(radiobutton_selnode)
+    if also_selection: radiobutton_selection.set_group(radiobutton_selnode)
     content_area = dialog.get_content_area()
+    if also_selection: content_area.pack_start(radiobutton_selection)
     content_area.pack_start(radiobutton_selnode)
     content_area.pack_start(radiobutton_selnodeandsub)
     content_area.pack_start(radiobutton_alltree)
@@ -221,7 +224,8 @@ def dialog_selnode_selnodeandsub_alltree(father_win):
     response = dialog.run()
     if radiobutton_selnode.get_active(): ret_val = 1
     elif radiobutton_selnodeandsub.get_active(): ret_val = 2
-    else: ret_val = 3
+    elif radiobutton_alltree.get_active(): ret_val = 3
+    else: ret_val = 4
     dialog.destroy()
     if response != gtk.RESPONSE_ACCEPT: ret_val = 0
     return ret_val
