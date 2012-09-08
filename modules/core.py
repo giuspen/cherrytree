@@ -1516,10 +1516,18 @@ class CherryTree:
             folder_name = support.get_node_hierarchical_name(self, self.curr_tree_iter)
             if txt_handler.prepare_txt_folder(folder_name):
                 txt_handler.nodes_all_export_to_txt(self.curr_tree_iter)
-        else:
+        elif export_type == 3:
             # all nodes
             if txt_handler.prepare_txt_folder(self.file_name):
                 txt_handler.nodes_all_export_to_txt()
+        else:
+            # only selection
+            if self.is_there_text_selection_or_error():
+                iter_start, iter_end = self.curr_buffer.get_selection_bounds()
+                proposed_name = support.get_node_hierarchical_name(self, self.curr_tree_iter)
+                txt_filepath = txt_handler.get_single_txt_filepath(proposed_name)
+                if txt_filepath:
+                    txt_handler.node_export_to_txt(self.curr_buffer, txt_filepath, [iter_start.get_offset(), iter_end.get_offset()])
 
     def export_to_html(self, *args):
         """Export to HTML"""

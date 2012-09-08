@@ -199,9 +199,14 @@ class Export2Txt:
             self.nodes_all_export_to_txt_iter(child_tree_iter)
             child_tree_iter = self.dad.treestore.iter_next(child_tree_iter)
 
-    def node_export_to_txt(self, text_buffer, filepath):
+    def node_export_to_txt(self, text_buffer, filepath, sel_range=None):
         """Export the Selected Node To Txt"""
-        plain_text = text_buffer.get_text(*text_buffer.get_bounds())
+        if sel_range:
+            iter_start = text_buffer.get_iter_at_offset(sel_range[0])
+            iter_end = text_buffer.get_iter_at_offset(sel_range[1])
+        else:
+            iter_start, iter_end = text_buffer.get_bounds()
+        plain_text = text_buffer.get_text(iter_start, iter_end)
         file_descriptor = open(filepath, 'w')
         file_descriptor.write(plain_text)
         file_descriptor.close()
