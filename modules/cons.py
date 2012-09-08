@@ -76,6 +76,8 @@ CHAR_SQ_BR_OPEN = "["
 CHAR_X = "X"
 CHAR_SQ_BR_CLOSE = "]"
 
+STR_VISIBLE = "visible"
+
 HTML_HEADER = '<!doctype html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><title>%s</title><meta name="generator" content="CherryTree"></head><body>'
 HTML_FOOTER = '</body></html>'
 
@@ -307,6 +309,7 @@ UI_INFO = """
             <menuitem action='ShowHideTree'/>
             <menuitem action='ShowHideToolbar'/>
             <menuitem action='ShowHideNodeNameHeader'/>
+            <menuitem action='ShowAllMatchesDialog'/>
             <separator/>
             <menuitem action='IncreaseToolbarIconsSize'/>
             <menuitem action='DecreaseToolbarIconsSize'/>
@@ -529,6 +532,7 @@ def get_entries(inst):
     ( "ShowHideTree", "Tree", _("Show/Hide _Tree"), "F9", _("Toggle Show/Hide Tree"), inst.toggle_show_hide_tree),
     ( "ShowHideMainWin", "CherryTree", _("Show/Hide _CherryTree"), None, _("Toggle Show/Hide CherryTree"), inst.toggle_show_hide_main_window),
     ( "ShowHideToolbar", "Toolbar", _("Show/Hide Tool_bar"), None, _("Toggle Show/Hide Toolbar"), inst.toggle_show_hide_toolbar),
+    ( "ShowAllMatchesDialog", "Find", _("Show _All Matches Dialog"), "<control><shift>A", _("Show _All Matches Dialog"), inst.find_allmatchesdialog_restore),
     ( "IncreaseToolbarIconsSize", "gtk-add", _("_Increase Toolbar Icons Size"), None, _("Increase the Size of the Toolbar Icons"), inst.toolbar_icons_size_increase),
     ( "DecreaseToolbarIconsSize", "gtk-remove", _("_Decrease Toolbar Icons Size"), None, _("Decrease the Size of the Toolbar Icons"), inst.toolbar_icons_size_decrease),
     ( "Fullscreen", "gtk-fullscreen", _("_Full Screen On/Off"), "F11", _("Toggle Full Screen On/Off"), inst.fullscreen_toggle),

@@ -214,7 +214,7 @@ class CherryTree:
         if self.systray:
             self.status_icon_enable()
             if self.start_on_systray: self.window.hide()
-        else: self.ui.get_widget("/MenuBar/FileMenu/ExitApp").set_property('visible', False)
+        else: self.ui.get_widget("/MenuBar/FileMenu/ExitApp").set_property(cons.STR_VISIBLE, False)
         self.file_startup_load(open_with_file)
         if self.check_version: self.check_for_newer_version()
         else: self.update_selected_node_statusbar_info()
@@ -1057,32 +1057,31 @@ class CherryTree:
 
     def file_save_as(self, *args):
         """Save the file providing a new name"""
-        if self.tree_is_empty(): support.dialog_warning(_("The Tree is Empty!"), self.window)
+        if not self.is_tree_not_empty_or_error(): return
+        if not self.dialog_choose_data_storage(): return
+        filename_hint = self.file_name[:-1] + self.filetype if len(self.file_name) > 4 else ""
+        filepath = support.dialog_file_save_as(filename_hint,
+                                               filter_pattern="*.ct" + self.filetype,
+                                               filter_name=_("CherryTree Document"),
+                                               curr_folder=self.file_dir,
+                                               parent=self.window)
+        restore_filetype = False
+        if filepath == None: restore_filetype = True
+        self.modification_time_update_value(False)
+        if not restore_filetype:
+            filepath = self.filepath_extension_fix(filepath)
+            if not self.file_write(filepath, first_write=True): restore_filetype = True
+        if restore_filetype:
+            # restore filetype previous dialog_choose_data_storage
+            if len(self.file_name) > 4: self.filetype = self.file_name[-1]
         else:
-            if not self.dialog_choose_data_storage(): return
-            filename_hint = self.file_name[:-1] + self.filetype if len(self.file_name) > 4 else ""
-            filepath = support.dialog_file_save_as(filename_hint,
-                                                   filter_pattern="*.ct" + self.filetype,
-                                                   filter_name=_("CherryTree Document"),
-                                                   curr_folder=self.file_dir,
-                                                   parent=self.window)
-            restore_filetype = False
-            if filepath == None: restore_filetype = True
-            self.modification_time_update_value(False)
-            if not restore_filetype:
-                filepath = self.filepath_extension_fix(filepath)
-                if not self.file_write(filepath, first_write=True): restore_filetype = True
-            if restore_filetype:
-                # restore filetype previous dialog_choose_data_storage
-                if len(self.file_name) > 4: self.filetype = self.file_name[-1]
-            else:
-                self.file_dir = os.path.dirname(filepath)
-                self.file_name = os.path.basename(filepath)
-                support.add_recent_document(self, filepath)
-                self.update_window_save_not_needed()
-                self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
-                self.objects_buffer_refresh()
-            self.modification_time_update_value(True)
+            self.file_dir = os.path.dirname(filepath)
+            self.file_name = os.path.basename(filepath)
+            support.add_recent_document(self, filepath)
+            self.update_window_save_not_needed()
+            self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
+            self.objects_buffer_refresh()
+        self.modification_time_update_value(True)
 
     def filepath_extension_fix(self, filepath):
         """Check a filepath to have the proper extension"""
@@ -1094,8 +1093,8 @@ class CherryTree:
         """Save the file"""
         if self.file_dir != "" and self.file_name != "":
             self.modification_time_update_value(False)
-            if self.tree_is_empty(): support.dialog_warning(_("The Tree is Empty!"), self.window)
-            elif self.file_write(os.path.join(self.file_dir, self.file_name), first_write=False):
+            if self.is_tree_not_empty_or_error() \
+            and self.file_write(os.path.join(self.file_dir, self.file_name), first_write=False):
                 self.update_window_save_not_needed()
                 self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
             self.modification_time_update_value(True)
@@ -1917,17 +1916,17 @@ class CherryTree:
         self.systray = checkbutton.get_active()
         if self.systray:
             if not self.use_appind:
-                if "status_icon" in dir(self): self.status_icon.set_property('visible', True)
+                if "status_icon" in dir(self): self.status_icon.set_property(cons.STR_VISIBLE, True)
                 else: self.status_icon_enable()
             else:
                 if "ind" in dir(self): self.ind.set_status(appindicator.STATUS_ACTIVE)
                 else: self.status_icon_enable()
-            self.ui.get_widget("/MenuBar/FileMenu/ExitApp").set_property('visible', True)
+            self.ui.get_widget("/MenuBar/FileMenu/ExitApp").set_property(cons.STR_VISIBLE, True)
             self.glade.checkbutton_start_on_systray.set_sensitive(True)
         else:
-            if not self.use_appind: self.status_icon.set_property('visible', False)
+            if not self.use_appind: self.status_icon.set_property(cons.STR_VISIBLE, False)
             else: self.ind.set_status(appindicator.STATUS_PASSIVE)
-            self.ui.get_widget("/MenuBar/FileMenu/ExitApp").set_property('visible', False)
+            self.ui.get_widget("/MenuBar/FileMenu/ExitApp").set_property(cons.STR_VISIBLE, False)
             self.glade.checkbutton_start_on_systray.set_sensitive(False)
 
     def on_checkbutton_start_on_systray_toggled(self, checkbutton):
@@ -2530,9 +2529,7 @@ class CherryTree:
 
     def find_in_all_nodes(self, *args):
         """Search for a pattern in all the Tree Nodes"""
-        if self.tree_is_empty():
-            support.dialog_warning(_("The Tree is Empty!"), self.window)
-            return
+        if not self.is_tree_not_empty_or_error(): return
         self.find_handler.find_in_all_nodes()
 
     def replace_in_nodes_names(self, *args):
@@ -2541,10 +2538,14 @@ class CherryTree:
 
     def find_a_node(self, *args):
         """Search for a pattern between all the Node's Names"""
-        if self.tree_is_empty():
-            support.dialog_warning(_("The Tree is Empty!"), self.window)
-            return
+        if not self.is_tree_not_empty_or_error(): return
         self.find_handler.find_a_node()
+
+    def find_allmatchesdialog_restore(self, *args):
+        """Display the AllMatchesDialog Again"""
+        if not self.glade.allmatchesdialog.get_property(cons.STR_VISIBLE):
+            self.glade.allmatchesdialog.run()
+            self.glade.allmatchesdialog.hide()
 
     def get_tree_iter_last_sibling(self, node_iter):
         """Returns the last top level iter or None if the tree is empty"""
@@ -2691,11 +2692,11 @@ class CherryTree:
         if entry_hint != None: self.glade.input_entry.set_text(entry_hint)
         else: self.glade.input_entry.set_text("")
         self.glade.input_entry.grab_focus()
-        self.glade.search_options_frame.set_property("visible", search_opt)
-        self.glade.replace_options_frame.set_property("visible", replace_opt)
-        self.glade.syntax_highlighting_frame.set_property("visible", syntax_highlight)
-        self.glade.tags_searching_frame.set_property("visible", syntax_highlight)
-        self.glade.checkbutton_readonly.set_property("visible", syntax_highlight)
+        self.glade.search_options_frame.set_property(cons.STR_VISIBLE, search_opt)
+        self.glade.replace_options_frame.set_property(cons.STR_VISIBLE, replace_opt)
+        self.glade.syntax_highlighting_frame.set_property(cons.STR_VISIBLE, syntax_highlight)
+        self.glade.tags_searching_frame.set_property(cons.STR_VISIBLE, syntax_highlight)
+        self.glade.checkbutton_readonly.set_property(cons.STR_VISIBLE, syntax_highlight)
         response = self.glade.inputdialog.run()
         self.glade.inputdialog.hide()
         if response == 1:
@@ -2722,18 +2723,18 @@ class CherryTree:
 
     def toggle_show_hide_toolbar(self, *args):
         """Toggle Show/Hide the Toolbar"""
-        if self.ui.get_widget("/ToolBar").get_property("visible"): self.ui.get_widget("/ToolBar").hide()
+        if self.ui.get_widget("/ToolBar").get_property(cons.STR_VISIBLE): self.ui.get_widget("/ToolBar").hide()
         else: self.ui.get_widget("/ToolBar").show()
 
     def toggle_show_hide_tree(self, *args):
         """Toggle Show/Hide the Tree"""
-        if self.scrolledwindow_tree.get_property("visible"):
+        if self.scrolledwindow_tree.get_property(cons.STR_VISIBLE):
             self.scrolledwindow_tree.hide()
         else: self.scrolledwindow_tree.show()
 
     def toggle_show_hide_node_name_header(self, *args):
         """Toggle Show/Hide the Node Title Header"""
-        if self.header_node_name_label.get_property("visible"):
+        if self.header_node_name_label.get_property(cons.STR_VISIBLE):
             self.header_node_name_label.hide()
         else: self.header_node_name_label.show()
 
@@ -2880,6 +2881,13 @@ class CherryTree:
             return False
         return True
 
+    def is_tree_not_empty_or_error(self):
+        """Returns True if the Tree is Not Empty or False and prompts error dialog"""
+        if self.tree_is_empty():
+            support.dialog_error(_("The Tree is Empty!"), self.window)
+            return False
+        return True
+
     def node_sel_and_rich_text(self):
         """Returns True if there's not a node selected or is not rich text"""
         if not self.is_there_selected_node_or_error(): return False
@@ -2888,9 +2896,7 @@ class CherryTree:
 
     def tree_info(self, action):
         """Tree Summary Information"""
-        if self.tree_is_empty():
-            support.dialog_warning(_("The Tree is Empty!"), self.window)
-            return
+        if not self.is_tree_not_empty_or_error(): return
         dialog = gtk.Dialog(title=_("Tree Summary Information"),
                             parent=self.window,
                             flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,

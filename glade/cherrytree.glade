@@ -184,13 +184,41 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
             <property name="can_focus">False</property>
             <property name="layout_style">center</property>
             <child>
-              <object class="GtkButton" id="button10">
-                <property name="label">gtk-close</property>
+              <object class="GtkButton" id="button2">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="use_action_appearance">False</property>
-                <property name="use_stock">True</property>
+                <child>
+                  <object class="GtkHBox" id="hbox32">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <child>
+                      <object class="GtkImage" id="image14">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="stock">gtk-close</property>
+                      </object>
+                      <packing>
+                        <property name="expand">True</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="label74">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">Hide (Restore with Ctrl+Shift+A)</property>
+                      </object>
+                      <packing>
+                        <property name="expand">True</property>
+                        <property name="fill">True</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -225,7 +253,7 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
       </object>
     </child>
     <action-widgets>
-      <action-widget response="0">button10</action-widget>
+      <action-widget response="0">button2</action-widget>
     </action-widgets>
   </object>
   <object class="GtkDialog" id="anchorhandledialog">
