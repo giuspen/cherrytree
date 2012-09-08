@@ -1487,7 +1487,7 @@ class CherryTree:
                 if restore_filetype in ["b", "x"] and self.curr_tree_iter:
                     self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
                     self.objects_buffer_refresh()
-        else:
+        elif export_type == 3:
             # all nodes
             proposed_name = self.file_name[:-1] + self.filetype
             ctd_filepath = ctd_handler.get_single_ct_filepath(proposed_name)
@@ -1496,6 +1496,16 @@ class CherryTree:
                 if restore_filetype in ["b", "x"] and self.curr_tree_iter:
                     self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
                     self.objects_buffer_refresh()
+        else:
+            # only selection
+            if self.is_there_text_selection_or_error():
+                iter_start, iter_end = self.curr_buffer.get_selection_bounds()
+                proposed_name = support.get_node_hierarchical_name(self, self.curr_tree_iter)
+                proposed_name = self.filepath_extension_fix(proposed_name)
+                ctd_filepath = ctd_handler.get_single_ct_filepath(proposed_name)
+                if ctd_filepath:
+                    sel_range = [iter_start.get_offset(), iter_end.get_offset()]
+                    ctd_handler.node_export_to_ctd(self.curr_tree_iter, ctd_filepath, sel_range)
         self.password = restore_passw
         self.filetype = restore_filetype
 
@@ -1527,7 +1537,8 @@ class CherryTree:
                 proposed_name = support.get_node_hierarchical_name(self, self.curr_tree_iter)
                 txt_filepath = txt_handler.get_single_txt_filepath(proposed_name)
                 if txt_filepath:
-                    txt_handler.node_export_to_txt(self.curr_buffer, txt_filepath, [iter_start.get_offset(), iter_end.get_offset()])
+                    sel_range = [iter_start.get_offset(), iter_end.get_offset()]
+                    txt_handler.node_export_to_txt(self.curr_buffer, txt_filepath, sel_range)
 
     def export_to_html(self, *args):
         """Export to HTML"""

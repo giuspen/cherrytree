@@ -254,14 +254,14 @@ class XMLHandler:
         self.append_dom_node(node_iter, self.dom, to_disk=False, skip_children=True)
         return self.dom.toxml()
 
-    def treestore_sel_node_only_to_dom(self, tree_iter):
+    def treestore_sel_node_only_to_dom(self, tree_iter, sel_range=None):
         """Parse the Given Node and Subnodes and Generate an XML Cherry Tree Document"""
         if "dom" in dir(self): del self.dom
         self.dom = xml.dom.minidom.Document()
         cherrytree = self.dom.createElement("cherrytree")
         self.dom.appendChild(cherrytree)
         # given node and subnodes parsing
-        self.append_dom_node(tree_iter, cherrytree, to_disk=True, skip_children=True)
+        self.append_dom_node(tree_iter, cherrytree, to_disk=True, skip_children=True, sel_range=sel_range)
         return self.dom.toxml()
 
     def treestore_sel_node_and_subnodes_to_dom(self, tree_iter):
@@ -295,7 +295,7 @@ class XMLHandler:
         dom_iter.setAttribute("list", ",".join(self.dad.bookmarks))
         dom_father.appendChild(dom_iter)
 
-    def append_dom_node(self, tree_iter, dom_father, to_disk, skip_children=False):
+    def append_dom_node(self, tree_iter, dom_father, to_disk, skip_children=False, sel_range=None):
         """Given the tree_iter node, adds it to the DOM"""
         dom_iter = self.dom.createElement("node")
         dom_iter.setAttribute("name", self.dad.treestore[tree_iter][1])
@@ -309,8 +309,12 @@ class XMLHandler:
         self.curr_attributes = {}
         for tag_property in cons.TAG_PROPERTIES: self.curr_attributes[tag_property] = ""
         curr_buffer = self.dad.get_textbuffer_from_tree_iter(tree_iter)
-        start_iter = curr_buffer.get_start_iter()
-        end_iter = curr_buffer.get_end_iter()
+        if not sel_range:
+            start_iter = curr_buffer.get_start_iter()
+            end_iter = curr_buffer.get_end_iter()
+        else:
+            start_iter = curr_buffer.get_iter_at_offset(sel_range[0])
+            end_iter = curr_buffer.get_iter_at_offset(sel_range[1])
         if programming_language == cons.CUSTOM_COLORS_ID:
             # rich text insert
             curr_iter = start_iter.copy()
@@ -318,7 +322,7 @@ class XMLHandler:
             tag_found = curr_iter.forward_to_tag_toggle(None)
             while tag_found:
                 self.rich_txt_serialize(dom_iter, start_iter, curr_iter, self.curr_attributes)
-                if curr_iter.compare(end_iter) == 0: break
+                if curr_iter.compare(end_iter) >= 0: break
                 else:
                     self.rich_text_attributes_update(curr_iter, self.curr_attributes)
                     offset_old = curr_iter.get_offset()
@@ -328,9 +332,10 @@ class XMLHandler:
             else: self.rich_txt_serialize(dom_iter, start_iter, curr_iter, self.curr_attributes)
             # in case of writing to disk it's time to serialize the info about the images
             if to_disk == True:
-                pixbuf_table_codebox_vector = self.dad.state_machine.get_embedded_pixbufs_tables_codeboxes(curr_buffer)
+                pixbuf_table_codebox_vector = self.dad.state_machine.get_embedded_pixbufs_tables_codeboxes(curr_buffer, sel_range=sel_range)
                 # pixbuf_table_codebox_vector is [ [ "pixbuf"/"table"/"codebox", [offset, pixbuf, alignment] ],... ]
                 for element in pixbuf_table_codebox_vector:
+                    if sel_range: element[1][0] -= sel_range[0]
                     if element[0] == "pixbuf": self.pixbuf_element_to_xml(element[1], dom_iter, self.dom)
                     elif element[0] == "table": self.table_element_to_xml(element[1], dom_iter)
                     elif element[0] == "codebox": self.codebox_element_to_xml(element[1], dom_iter)
