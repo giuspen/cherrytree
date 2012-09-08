@@ -124,13 +124,17 @@ class ExportPrint:
             self.nodes_all_export_print_iter(child_tree_iter)
             child_tree_iter = self.dad.treestore.iter_next(child_tree_iter)
 
-    def node_export_print(self, tree_iter):
+    def node_export_print(self, tree_iter, only_selection=False):
         """Export Print the Selected Node"""
+        if only_selection:
+            iter_start, iter_end = self.dad.curr_buffer.get_selection_bounds()
+            sel_range = [iter_start.get_offset(), iter_end.get_offset()]
+        else: sel_range = None
         if self.dad.treestore[tree_iter][4] == cons.CUSTOM_COLORS_ID:
-            self.pango_text, self.pixbuf_table_codebox_vector = self.pango_handler.pango_get_from_treestore_node(tree_iter)
+            self.pango_text, self.pixbuf_table_codebox_vector = self.pango_handler.pango_get_from_treestore_node(tree_iter, sel_range)
             self.text_font = self.dad.text_font
         else:
-            self.pango_text = [self.pango_handler.pango_get_from_code_buffer(self.dad.treestore[tree_iter][2])]
+            self.pango_text = [self.pango_handler.pango_get_from_code_buffer(self.dad.treestore[tree_iter][2], sel_range)]
             self.pixbuf_table_codebox_vector = []
             self.text_font = self.dad.code_font
         self.run_print()
@@ -210,10 +214,15 @@ class Export2Pango:
         """Export to Pango boot"""
         self.dad = dad
 
-    def pango_get_from_code_buffer(self, code_buffer):
+    def pango_get_from_code_buffer(self, code_buffer, sel_range=None):
         """Get rich text from syntax highlighted code node"""
-        curr_iter = code_buffer.get_start_iter()
-        code_buffer.ensure_highlight(curr_iter, code_buffer.get_end_iter())
+        if not sel_range:
+            curr_iter = code_buffer.get_start_iter()
+            end_iter = code_buffer.get_end_iter()
+        else:
+            curr_iter = code_buffer.get_iter_at_offset(sel_range[0])
+            end_iter = code_buffer.get_iter_at_offset(sel_range[1])
+        code_buffer.ensure_highlight(curr_iter, end_iter)
         pango_text = ""
         former_tag_str = cons.COLOR_48_BLACK
         span_opened = False
@@ -241,23 +250,26 @@ class Export2Pango:
                 former_tag_str = cons.COLOR_48_BLACK
                 pango_text += "</span>"
             pango_text += cgi.escape(curr_iter.get_char())
-            if not curr_iter.forward_char():
+            if not curr_iter.forward_char() or (sel_range and curr_iter.get_offset() > sel_range[1]):
                 if span_opened: pango_text += "</span>"
                 break
         return pango_text
 
-    def pango_get_from_treestore_node(self, node_iter):
+    def pango_get_from_treestore_node(self, node_iter, sel_range=None):
         """Given a treestore iter returns the Pango rich text"""
         curr_buffer = self.dad.treestore[node_iter][2]
-        pixbuf_table_codebox_vector = self.dad.state_machine.get_embedded_pixbufs_tables_codeboxes(curr_buffer, for_print=1)
+        pixbuf_table_codebox_vector = self.dad.state_machine.get_embedded_pixbufs_tables_codeboxes(curr_buffer,
+                                                                                                   for_print=1,
+                                                                                                   sel_range=sel_range)
         # pixbuf_table_codebox_vector is [ [ "pixbuf"/"table"/"codebox", [offset, pixbuf, alignment] ],... ]
         self.curr_pango_slots = []
-        start_offset = 0
+        start_offset = 0 if not sel_range else sel_range[0]
         for end_offset_element in pixbuf_table_codebox_vector:
             end_offset = end_offset_element[1][0]
             self.pango_process_slot(start_offset, end_offset, curr_buffer)
             start_offset = end_offset
-        self.pango_process_slot(start_offset, -1, curr_buffer)
+        if not sel_range: self.pango_process_slot(start_offset, -1, curr_buffer)
+        else: self.pango_process_slot(start_offset, sel_range[1], curr_buffer)
         #print "curr_pango_slots", self.curr_pango_slots
         #print "pixbuf_table_codebox_vector", pixbuf_table_codebox_vector
         # fix the problem of the latest char not being a new line char
