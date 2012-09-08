@@ -210,6 +210,8 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
           <object class="GtkScrolledWindow" id="scrolledwindow_allmatches">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="hscrollbar_policy">automatic</property>
+            <property name="vscrollbar_policy">automatic</property>
             <child>
               <placeholder/>
             </child>
@@ -386,6 +388,8 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
               <object class="GtkScrolledWindow" id="scrolledwindow_anchors_list">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <property name="hscrollbar_policy">automatic</property>
+                <property name="vscrollbar_policy">automatic</property>
                 <child>
                   <placeholder/>
                 </child>
@@ -821,6 +825,8 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
                           <object class="GtkScrolledWindow" id="scrolledwindow_choosenode">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
+                            <property name="hscrollbar_policy">automatic</property>
+                            <property name="vscrollbar_policy">automatic</property>
                             <child>
                               <placeholder/>
                             </child>
@@ -1826,6 +1832,8 @@ do you want to save the changes?</property>
                   <object class="GtkScrolledWindow" id="scrolledwindow1">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="hscrollbar_policy">automatic</property>
+                    <property name="vscrollbar_policy">automatic</property>
                     <child>
                       <object class="GtkViewport" id="viewport1">
                         <property name="visible">True</property>
