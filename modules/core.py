@@ -1539,13 +1539,19 @@ class CherryTree:
                 if self.filetype in ["b", "x"] and self.curr_tree_iter:
                     self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
                     self.objects_buffer_refresh()
-        else:
+        elif export_type == 3:
             # all nodes
             if self.html_handler.prepare_html_folder(self.file_name):
                 self.html_handler.nodes_all_export_to_html()
                 if self.filetype in ["b", "x"] and self.curr_tree_iter:
                     self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
                     self.objects_buffer_refresh()
+        else:
+            # only selection
+            if self.is_there_text_selection_or_error():
+                folder_name = support.get_node_hierarchical_name(self, self.curr_tree_iter)
+                if self.html_handler.prepare_html_folder(folder_name):
+                    self.html_handler.node_export_to_html(self.curr_tree_iter, only_selection=True)
 
     def export_print_page_setup(self, action):
         """Print Page Setup Operations"""
