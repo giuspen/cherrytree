@@ -315,7 +315,10 @@ class Export2Pango:
                 start_iter.set_offset(offset_old)
                 tag_found = curr_iter.forward_to_tag_toggle(None)
                 if curr_iter.get_offset() == offset_old: break
-        else: self.pango_text_serialize(start_iter, curr_iter)
+        else:
+            if curr_iter.get_offset() > end_offset:
+                curr_iter = curr_buffer.get_iter_at_offset(end_offset)
+            self.pango_text_serialize(start_iter, curr_iter)
         self.curr_pango_slots.append(self.curr_pango_text)
 
     def pango_text_serialize(self, start_iter, end_iter):
@@ -646,7 +649,8 @@ class Export2Html:
         self.dad.xml_handler.rich_text_attributes_update(curr_iter, self.curr_attributes)
         tag_found = curr_iter.forward_to_tag_toggle(None)
         while tag_found:
-            if curr_iter.get_offset() > end_offset: curr_iter = curr_buffer.get_iter_at_offset(end_offset)
+            if curr_iter.get_offset() > end_offset:
+                curr_iter = curr_buffer.get_iter_at_offset(end_offset)
             self.html_text_serialize(start_iter, curr_iter)
             offset_old = curr_iter.get_offset()
             if offset_old >= end_offset: break
@@ -656,7 +660,8 @@ class Export2Html:
                 tag_found = curr_iter.forward_to_tag_toggle(None)
                 if curr_iter.get_offset() == offset_old: break
         else:
-            if curr_iter.get_offset() > end_offset: curr_iter = curr_buffer.get_iter_at_offset(end_offset)
+            if curr_iter.get_offset() > end_offset:
+                curr_iter = curr_buffer.get_iter_at_offset(end_offset)
             self.html_text_serialize(start_iter, curr_iter)
         self.curr_html_text = self.curr_html_text.replace("<br/><p ", "<p ")
         self.curr_html_text = self.curr_html_text.replace("</p><br/>", "</p>")
