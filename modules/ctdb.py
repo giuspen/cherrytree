@@ -338,6 +338,10 @@ class CTDBHandler:
             if not exporting or exporting == "a": tree_iter = self.dad.treestore.iter_next(tree_iter)
             else: break
         if not exporting or exporting == "a": self.write_db_bookmarks(db)
+        if not exporting:
+            self.bookmarks_to_write = False
+            self.nodes_to_rm_set.clear()
+            self.nodes_to_write_dict.clear()
         self.dad.objects_buffer_refresh()
     
     def add_node_codebox(self, codebox_row, text_buffer):
