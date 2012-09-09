@@ -131,8 +131,8 @@ def config_file_load(inst):
         section = "colors"
         inst.rt_def_fg = config.get(section, "rt_def_fg") if config.has_option(section, "rt_def_fg") else cons.RICH_TEXT_DARK_FG
         inst.rt_def_bg = config.get(section, "rt_def_bg") if config.has_option(section, "rt_def_bg") else cons.RICH_TEXT_DARK_BG
-        inst.tt_def_fg = config.get(section, "tt_def_fg") if config.has_option(section, "tt_def_fg") else cons.TREE_TEXT_DARK_FG
-        inst.tt_def_bg = config.get(section, "tt_def_bg") if config.has_option(section, "tt_def_bg") else cons.TREE_TEXT_DARK_BG
+        inst.tt_def_fg = config.get(section, "tt_def_fg") if config.has_option(section, "tt_def_fg") else cons.TREE_TEXT_LIGHT_FG
+        inst.tt_def_bg = config.get(section, "tt_def_bg") if config.has_option(section, "tt_def_bg") else cons.TREE_TEXT_LIGHT_BG
         
         section = "misc"
         inst.systray = config.getboolean(section, "systray") if config.has_option(section, "systray") else False
@@ -157,8 +157,8 @@ def config_file_load(inst):
         inst.code_font = "Monospace 9" # default code font
         inst.rt_def_fg = cons.RICH_TEXT_DARK_FG
         inst.rt_def_bg = cons.RICH_TEXT_DARK_BG
-        inst.tt_def_fg = cons.TREE_TEXT_DARK_FG
-        inst.tt_def_bg = cons.TREE_TEXT_DARK_BG
+        inst.tt_def_fg = cons.TREE_TEXT_LIGHT_FG
+        inst.tt_def_bg = cons.TREE_TEXT_LIGHT_BG
         inst.h_rule = HORIZONTAL_RULE
         inst.show_line_numbers = False
         inst.spaces_instead_tabs = True
