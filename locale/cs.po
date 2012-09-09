@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-09-09 18:31+0200\n"
-"PO-Revision-Date: 2012-05-13 20:44+0200\n"
-"Last-Translator: Pavel <pavelfric@seznam.cz>\n"
+"PO-Revision-Date: 2012-09-09 19:17+0200\n"
+"Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
@@ -53,9 +53,8 @@ msgid "Involved Nodes"
 msgstr "Související uzly"
 
 #: modules/support.py:207
-#, fuzzy
 msgid "Selected Text Only"
-msgstr "Pouze vybraný uzel"
+msgstr "Pouze vybraný text"
 
 #: modules/support.py:208
 msgid "Selected Node Only"
@@ -70,9 +69,8 @@ msgid "All the Tree"
 msgstr "Celý strom"
 
 #: modules/support.py:215
-#, fuzzy
 msgid "Include Node Name"
-msgstr "Název uzlu"
+msgstr "Zahrnout název uzlu"
 
 #: modules/support.py:273
 msgid "_Recent Documents"
@@ -212,7 +210,7 @@ msgstr "Vybraný uzel"
 
 #: modules/core.py:927
 msgid "The Document was Updated After Non-CherryTree Update to CT* File"
-msgstr ""
+msgstr "Dokument byl aktualizován po ne-CherryTree aktualizaci souboru CT*"
 
 #: modules/core.py:951
 msgid "CherryTree Hierarchical Note Taking"
@@ -257,7 +255,7 @@ msgstr "Ta dvě vložená hesla se neshodují"
 #: modules/core.py:1284
 #, python-format
 msgid "The Characters  %s  are Not Allowed"
-msgstr ""
+msgstr "Znaky %s nejsou dovoleny"
 
 #: modules/core.py:1302
 msgid ""
@@ -1152,7 +1150,7 @@ msgstr "Ukázat/Skrýt _CherryTree"
 
 #: modules/cons.py:546
 msgid "Toggle Show/Hide CherryTree"
-msgstr "Ukázat/Skrýt _CherryTree"
+msgstr "Ukázat/Skrýt CherryTree"
 
 #: modules/cons.py:547
 msgid "Show/Hide Tool_bar"
@@ -1163,14 +1161,12 @@ msgid "Toggle Show/Hide Toolbar"
 msgstr "Ukázat/Skrýt nástrojový pruh"
 
 #: modules/cons.py:548
-#, fuzzy
 msgid "Show _All Matches Dialog"
-msgstr "Ukázat dialog pro zopakování hledání/nahrazení"
+msgstr "Ukázat dialog _všechny shody"
 
 #: modules/cons.py:548
-#, fuzzy
 msgid "Show Search All Matches Dialog"
-msgstr "Ukázat dialog pro zopakování hledání/nahrazení"
+msgstr "Ukázat dialog pro vyhledání všech shod"
 
 #: modules/cons.py:549
 msgid "_Increase Toolbar Icons Size"
@@ -1245,14 +1241,12 @@ msgid "Add Nodes of a Tomboy Folder to the Current Tree"
 msgstr "Přidat uzly ze složky Tomboy do současné stromové stavby"
 
 #: modules/cons.py:558 modules/cons.py:618
-#, fuzzy
 msgid "From _Gnote Folder"
-msgstr "Ze složky _KeepNote"
+msgstr "Ze složky _Gnote"
 
 #: modules/cons.py:558 modules/cons.py:618
-#, fuzzy
 msgid "Add Nodes of a Gnote Folder to the Current Tree"
-msgstr "Přidat uzly ze složky KeepNote do současné stromové stavby"
+msgstr "Přidat uzly ze složky Gnote do současné stromové stavby"
 
 #: modules/cons.py:559 modules/cons.py:625
 msgid "From _TuxCards File"
@@ -1683,7 +1677,7 @@ msgstr ""
 
 #: glade/cherrytree.glade.h:31
 msgid "Hide (Restore with Ctrl+Shift+A)"
-msgstr ""
+msgstr "Skrýt (Obnovit Ctrl+Shift+A)"
 
 #: glade/cherrytree.glade.h:32
 msgid "Cancel"
@@ -1919,20 +1913,19 @@ msgstr "Zvýraznit nynější řádek"
 
 #: glade/cherrytree.glade.h:98
 msgid "Light Background, Dark Text"
-msgstr ""
+msgstr "Světlé pozadí, tmavý text"
 
 #: glade/cherrytree.glade.h:99
 msgid "Dark Background, Light Text"
-msgstr ""
+msgstr "Tmavé pozadí, světlý text"
 
 #: glade/cherrytree.glade.h:100
-#, fuzzy
 msgid "Custom Background"
-msgstr "B_arva pozadí"
+msgstr "Vlastní pozadí"
 
 #: glade/cherrytree.glade.h:101
 msgid "and Text"
-msgstr ""
+msgstr "a text"
 
 #: glade/cherrytree.glade.h:102
 msgid "Anchor Size"
@@ -2032,7 +2025,7 @@ msgstr "Spustit zmenšeno v oznamovací oblasti panelu"
 
 #: glade/cherrytree.glade.h:126
 msgid "Use AppIndicator for Docking"
-msgstr ""
+msgstr "Použít ukazatele programů pro ukotvení v panelu"
 
 #: glade/cherrytree.glade.h:127
 msgid "<b>System Tray</b>"
@@ -2060,7 +2053,7 @@ msgstr "Automaticky vyhledat novou verzi"
 
 #: glade/cherrytree.glade.h:133
 msgid "Detect Non-CherryTree Updates to CT* File"
-msgstr ""
+msgstr "Zjistit aktualizace ne-CherryTree souboru CT*"
 
 #: glade/cherrytree.glade.h:134
 msgid "<b>Miscellaneous</b>"
