@@ -114,6 +114,7 @@ class ExportPrint:
         else:
             pango_text = [self.pango_handler.pango_get_from_code_buffer(self.dad.treestore[tree_iter][2])]
             pixbuf_table_codebox_vector = []
+        self.pango_text_add_node_name(tree_iter, pango_text)
         if not self.pango_text: self.pango_text = pango_text
         else:
             self.pango_text[-1] += cons.CHAR_NEWLINE*3 + pango_text[0]
@@ -123,6 +124,12 @@ class ExportPrint:
         while child_tree_iter:
             self.nodes_all_export_print_iter(child_tree_iter)
             child_tree_iter = self.dad.treestore.iter_next(child_tree_iter)
+
+    def pango_text_add_node_name(self, tree_iter, pango_text):
+        """Add Node Name to Pango Text Vector"""
+        pango_text[0] = "<span size=\"xx-large\">" \
+                      + self.dad.treestore[tree_iter][1] \
+                      + "</span>" + 2*cons.CHAR_NEWLINE + pango_text[0]
 
     def node_export_print(self, tree_iter, only_selection=False):
         """Export Print the Selected Node"""
@@ -137,6 +144,7 @@ class ExportPrint:
             self.pango_text = [self.pango_handler.pango_get_from_code_buffer(self.dad.treestore[tree_iter][2], sel_range)]
             self.pixbuf_table_codebox_vector = []
             self.text_font = self.dad.code_font
+        self.pango_text_add_node_name(tree_iter, self.pango_text)
         self.run_print()
 
     def run_print(self):
