@@ -1100,7 +1100,7 @@ class CherryTree:
             self.modification_time_update_value(True)
         else: self.file_save_as()
 
-    def file_write_low_level(self, filepath, xml_string, first_write, exporting=""):
+    def file_write_low_level(self, filepath, xml_string, first_write, exporting="", sel_range=None):
         """File Write Low Level (ctd, ctb, ctz, ctx)"""
         if self.password:
             if not os.path.isdir(cons.TMP_FOLDER): os.mkdir(cons.TMP_FOLDER)
@@ -1117,7 +1117,7 @@ class CherryTree:
                             del self.db_old
                     elif exporting in ["a", "s", "n"]:
                         print "exporting", exporting
-                        exp_db = self.ctdb_handler.new_db(filepath_tmp, exporting)
+                        exp_db = self.ctdb_handler.new_db(filepath_tmp, exporting, sel_range)
                         exp_db.close()
                 else: self.ctdb_handler.pending_data_write(self.db)
         else:
@@ -1132,7 +1132,7 @@ class CherryTree:
                             del self.db_old
                     elif exporting in ["a", "s", "n"]:
                         print "exporting", exporting
-                        exp_db = self.ctdb_handler.new_db(filepath, exporting)
+                        exp_db = self.ctdb_handler.new_db(filepath, exporting, sel_range)
                         exp_db.close()
                 else: self.ctdb_handler.pending_data_write(self.db)
         if xml_string:
