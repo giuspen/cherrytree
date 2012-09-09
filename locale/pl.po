@@ -50,9 +50,8 @@ msgid "Involved Nodes"
 msgstr "Wplątane gałęzie"
 
 #: modules/support.py:207
-#, fuzzy
 msgid "Selected Text Only"
-msgstr "Tylko zaznaczoną gałąź"
+msgstr "Tylko zaznaczony tekst"
 
 #: modules/support.py:208
 msgid "Selected Node Only"
@@ -67,9 +66,8 @@ msgid "All the Tree"
 msgstr "Całe drzewo"
 
 #: modules/support.py:215
-#, fuzzy
 msgid "Include Node Name"
-msgstr "Nazwa gałęzi"
+msgstr "Dołącz nazwę gałęzi"
 
 #: modules/support.py:273
 msgid "_Recent Documents"
@@ -209,7 +207,7 @@ msgstr "Zaznaczona gałąź"
 
 #: modules/core.py:927
 msgid "The Document was Updated After Non-CherryTree Update to CT* File"
-msgstr ""
+msgstr "Dokument został zmieniony poprzez zmiane pliku CT*"
 
 #: modules/core.py:951
 msgid "CherryTree Hierarchical Note Taking"
@@ -254,7 +252,7 @@ msgstr "Dwa wprowadzone hasła nie są jednakowe"
 #: modules/core.py:1284
 #, python-format
 msgid "The Characters  %s  are Not Allowed"
-msgstr ""
+msgstr "Znak %s jest niedozwolony"
 
 #: modules/core.py:1302
 msgid ""
@@ -1154,14 +1152,12 @@ msgid "Toggle Show/Hide Toolbar"
 msgstr "Przełącz wyświetlanie paska narzędziowego"
 
 #: modules/cons.py:548
-#, fuzzy
 msgid "Show _All Matches Dialog"
-msgstr "Pokarz okno Znajdź/Zamien"
+msgstr "Pokarz okno wszystkich pasujących"
 
 #: modules/cons.py:548
-#, fuzzy
 msgid "Show Search All Matches Dialog"
-msgstr "Pokarz okno Znajdź/Zamien"
+msgstr "Pokarz okno Znajdź wszystkie pasujące"
 
 #: modules/cons.py:549
 msgid "_Increase Toolbar Icons Size"
@@ -1236,14 +1232,12 @@ msgid "Add Nodes of a Tomboy Folder to the Current Tree"
 msgstr "Dodaj gałęzie z folderu Tomboy do aktualnego drzewa"
 
 #: modules/cons.py:558 modules/cons.py:618
-#, fuzzy
 msgid "From _Gnote Folder"
-msgstr "Z folderu _KeepNote"
+msgstr "Z folderu _Gnote"
 
 #: modules/cons.py:558 modules/cons.py:618
-#, fuzzy
 msgid "Add Nodes of a Gnote Folder to the Current Tree"
-msgstr "Dodaj gałąź z folderu KeepNote do aktualnego drzewa"
+msgstr "Dodaj gałązi z folderu Gnote do aktualnego drzewa"
 
 #: modules/cons.py:559 modules/cons.py:625
 msgid "From _TuxCards File"
@@ -1675,7 +1669,7 @@ msgstr ""
 
 #: glade/cherrytree.glade.h:31
 msgid "Hide (Restore with Ctrl+Shift+A)"
-msgstr ""
+msgstr "Ukryj (przywróć przez Ctrl+Shift+A)"
 
 #: glade/cherrytree.glade.h:32
 msgid "Cancel"
@@ -1911,20 +1905,19 @@ msgstr "Podświetlaj aktualną linię"
 
 #: glade/cherrytree.glade.h:98
 msgid "Light Background, Dark Text"
-msgstr ""
+msgstr "Jasne tło, Ciemny tekst"
 
 #: glade/cherrytree.glade.h:99
 msgid "Dark Background, Light Text"
-msgstr ""
+msgstr "Ciemne tło, Jasny tekst"
 
 #: glade/cherrytree.glade.h:100
-#, fuzzy
 msgid "Custom Background"
-msgstr "Kolor tła"
+msgstr "Własne tło"
 
 #: glade/cherrytree.glade.h:101
 msgid "and Text"
-msgstr ""
+msgstr "i tekst"
 
 #: glade/cherrytree.glade.h:102
 msgid "Anchor Size"
@@ -2024,7 +2017,7 @@ msgstr "Na starcie uruchom w zasobniku."
 
 #: glade/cherrytree.glade.h:126
 msgid "Use AppIndicator for Docking"
-msgstr ""
+msgstr "Użyj AppIndicator do dokowania"
 
 #: glade/cherrytree.glade.h:127
 msgid "<b>System Tray</b>"
@@ -2052,7 +2045,7 @@ msgstr "Automatycznie sprawdź wersję"
 
 #: glade/cherrytree.glade.h:133
 msgid "Detect Non-CherryTree Updates to CT* File"
-msgstr ""
+msgstr "Wykryj zewnętrzne zmiany w pliku CT"
 
 #: glade/cherrytree.glade.h:134
 msgid "<b>Miscellaneous</b>"
