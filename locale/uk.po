@@ -2,7 +2,7 @@
 # Copyright (C) 2010 THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # maul <giuspen@gmail.com>, 2010.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: CherryTree\n"
@@ -15,8 +15,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Poedit-Language: Ukrainian\n"
 "X-Poedit-Country: UKRAINE\n"
 "X-Poedit-SourceCharset: utf-8\n"
@@ -25,7 +24,7 @@ msgstr ""
 
 #: modules/support.py:59
 msgid "Save File as"
-msgstr "Зберегти файл як..."
+msgstr "Зберегти файл як"
 
 #: modules/support.py:90
 msgid "Select File"
@@ -56,9 +55,8 @@ msgid "Involved Nodes"
 msgstr "Зв'язані гілки"
 
 #: modules/support.py:207
-#, fuzzy
 msgid "Selected Text Only"
-msgstr "Тільки виділена гілка"
+msgstr "Тільки виділений текст"
 
 #: modules/support.py:208
 msgid "Selected Node Only"
@@ -73,9 +71,8 @@ msgid "All the Tree"
 msgstr "Усе дерево"
 
 #: modules/support.py:215
-#, fuzzy
 msgid "Include Node Name"
-msgstr "Назва гілки"
+msgstr "Друкувати назву гілки"
 
 #: modules/support.py:273
 msgid "_Recent Documents"
@@ -213,7 +210,7 @@ msgstr "Виділена гілка"
 
 #: modules/core.py:927
 msgid "The Document was Updated After Non-CherryTree Update to CT* File"
-msgstr ""
+msgstr "Документ був оновлений іншою програмою"
 
 #: modules/core.py:951
 msgid "CherryTree Hierarchical Note Taking"
@@ -258,7 +255,7 @@ msgstr "Уведені паролі не співпадають"
 #: modules/core.py:1284
 #, python-format
 msgid "The Characters  %s  are Not Allowed"
-msgstr ""
+msgstr "Символи  %s  не дозволяються"
 
 #: modules/core.py:1302
 msgid ""
@@ -440,7 +437,7 @@ msgstr "Назва якора"
 
 #: modules/core.py:3858 glade/cherrytree.glade.h:75
 msgid "Rich Text"
-msgstr "Форматувати текст"
+msgstr "Форматований текст"
 
 #: modules/core.py:3860 glade/cherrytree.glade.h:79
 msgid "Read Only"
@@ -1157,14 +1154,12 @@ msgid "Toggle Show/Hide Toolbar"
 msgstr "Показати / Сховати дерево панель інструментів"
 
 #: modules/cons.py:548
-#, fuzzy
 msgid "Show _All Matches Dialog"
-msgstr "Показати діалог останніх замін"
+msgstr "Показати останні співпадання"
 
 #: modules/cons.py:548
-#, fuzzy
 msgid "Show Search All Matches Dialog"
-msgstr "Показати діалог останніх замін"
+msgstr "Показати діалог останніх співпадань"
 
 #: modules/cons.py:549
 msgid "_Increase Toolbar Icons Size"
@@ -1196,7 +1191,7 @@ msgstr "З Basket"
 
 #: modules/cons.py:552 modules/cons.py:616
 msgid "Add Nodes of a Basket Folder to the Current Tree"
-msgstr "Імпортувати з каталога Basket в існуюче дерево"
+msgstr "Імпортувати з каталогу Basket в існуюче дерево"
 
 #: modules/cons.py:553 modules/cons.py:617
 msgid "From _CherryTree File"
@@ -1228,25 +1223,23 @@ msgstr "З файлу K_nowit"
 
 #: modules/cons.py:556 modules/cons.py:620
 msgid "Add Nodes of a Knowit File to the Current Tree"
-msgstr "Додати гілки з файлу Knowit в існуюче дерево"
+msgstr "Імпортувати з файлу Knowit в існуюче дерево"
 
 #: modules/cons.py:557 modules/cons.py:623
 msgid "From T_omboy Folder"
-msgstr "З каталогу T_omboy"
+msgstr "З T_omboy"
 
 #: modules/cons.py:557 modules/cons.py:623
 msgid "Add Nodes of a Tomboy Folder to the Current Tree"
 msgstr "Додати гілки з каталогу Tomboy в існуюче дерево"
 
 #: modules/cons.py:558 modules/cons.py:618
-#, fuzzy
 msgid "From _Gnote Folder"
-msgstr "З KeepNote"
+msgstr "З Gnote"
 
 #: modules/cons.py:558 modules/cons.py:618
-#, fuzzy
 msgid "Add Nodes of a Gnote Folder to the Current Tree"
-msgstr "Імпортувати з каталогу KeepNote в існуюче дерево"
+msgstr "Імпортувати з каталогу Gnote в існуюче дерево"
 
 #: modules/cons.py:559 modules/cons.py:625
 msgid "From _TuxCards File"
@@ -1682,7 +1675,7 @@ msgstr ""
 
 #: glade/cherrytree.glade.h:31
 msgid "Hide (Restore with Ctrl+Shift+A)"
-msgstr ""
+msgstr "Заховати (Для відкриття натисніть Ctrl+Shift+A)"
 
 #: glade/cherrytree.glade.h:32
 msgid "Cancel"
@@ -1918,20 +1911,19 @@ msgstr "Підсвічування пробільні символи"
 
 #: glade/cherrytree.glade.h:98
 msgid "Light Background, Dark Text"
-msgstr ""
+msgstr "Світлий фон, темний текст"
 
 #: glade/cherrytree.glade.h:99
 msgid "Dark Background, Light Text"
-msgstr ""
+msgstr "Темний фон, світлий текст"
 
 #: glade/cherrytree.glade.h:100
-#, fuzzy
 msgid "Custom Background"
-msgstr "Колір фону"
+msgstr "Інший колір фону"
 
 #: glade/cherrytree.glade.h:101
 msgid "and Text"
-msgstr ""
+msgstr "і текст"
 
 #: glade/cherrytree.glade.h:102
 msgid "Anchor Size"
@@ -2031,7 +2023,7 @@ msgstr "Звернути в трей після запуску"
 
 #: glade/cherrytree.glade.h:126
 msgid "Use AppIndicator for Docking"
-msgstr ""
+msgstr "Використовувати AppIndicator"
 
 #: glade/cherrytree.glade.h:127
 msgid "<b>System Tray</b>"
@@ -2059,7 +2051,7 @@ msgstr "Автоматично перевіряти оновлення"
 
 #: glade/cherrytree.glade.h:133
 msgid "Detect Non-CherryTree Updates to CT* File"
-msgstr ""
+msgstr "Слідкувати за зміненням файлу іншою програмою"
 
 #: glade/cherrytree.glade.h:134
 msgid "<b>Miscellaneous</b>"
