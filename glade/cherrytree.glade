@@ -182,7 +182,7 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
           <object class="GtkHButtonBox" id="dialog-action_area13">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="layout_style">center</property>
+            <property name="layout_style">end</property>
             <child>
               <object class="GtkButton" id="button2">
                 <property name="visible">True</property>
@@ -273,7 +273,7 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
           <object class="GtkHButtonBox" id="dialog-action_area9">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="layout_style">center</property>
+            <property name="layout_style">end</property>
             <child>
               <object class="GtkButton" id="anchorhandledialog_button_cancel">
                 <property name="visible">True</property>
@@ -462,7 +462,7 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
           <object class="GtkHButtonBox" id="dialog-action_area8">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="layout_style">center</property>
+            <property name="layout_style">end</property>
             <child>
               <object class="GtkButton" id="choosenodedialog_button_cancel">
                 <property name="visible">True</property>
@@ -783,6 +783,7 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
                           <object class="GtkHBox" id="hbox11">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
+                            <property name="spacing">3</property>
                             <child>
                               <object class="GtkEntry" id="entry_file_to_link_to">
                                 <property name="visible">True</property>
@@ -895,71 +896,91 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkFrame" id="frame_link_anchor">
+                  <object class="GtkVBox" id="vbox47">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="label_xalign">0</property>
-                    <property name="shadow_type">none</property>
+                    <property name="homogeneous">True</property>
                     <child>
-                      <object class="GtkAlignment" id="alignment8">
+                      <placeholder/>
+                    </child>
+                    <child>
+                      <object class="GtkFrame" id="frame_link_anchor">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="top_padding">3</property>
-                        <property name="left_padding">3</property>
-                        <property name="right_padding">3</property>
+                        <property name="label_xalign">0</property>
+                        <property name="shadow_type">none</property>
                         <child>
-                          <object class="GtkHBox" id="hbox9">
+                          <object class="GtkAlignment" id="alignment8">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
+                            <property name="top_padding">3</property>
+                            <property name="left_padding">3</property>
+                            <property name="right_padding">3</property>
                             <child>
-                              <object class="GtkEntry" id="link_anchor_entry">
+                              <object class="GtkHBox" id="hbox9">
                                 <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="invisible_char">●</property>
-                                <property name="primary_icon_activatable">False</property>
-                                <property name="secondary_icon_activatable">False</property>
-                                <property name="primary_icon_sensitive">True</property>
-                                <property name="secondary_icon_sensitive">True</property>
-                              </object>
-                              <packing>
-                                <property name="expand">True</property>
-                                <property name="fill">True</property>
-                                <property name="position">0</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkButton" id="browse_anchors_button">
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="receives_default">True</property>
-                                <property name="tooltip_text" translatable="yes">Browse for Existing Anchors on the Selected Node</property>
-                                <property name="use_action_appearance">False</property>
-                                <signal name="clicked" handler="on_browse_anchors_button_clicked" swapped="no"/>
+                                <property name="can_focus">False</property>
+                                <property name="spacing">3</property>
                                 <child>
-                                  <object class="GtkImage" id="image49">
+                                  <object class="GtkEntry" id="link_anchor_entry">
                                     <property name="visible">True</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="stock">Anchor</property>
+                                    <property name="can_focus">True</property>
+                                    <property name="invisible_char">●</property>
+                                    <property name="invisible_char_set">True</property>
+                                    <property name="primary_icon_activatable">False</property>
+                                    <property name="secondary_icon_activatable">False</property>
+                                    <property name="primary_icon_sensitive">True</property>
+                                    <property name="secondary_icon_sensitive">True</property>
                                   </object>
+                                  <packing>
+                                    <property name="expand">True</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">0</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkButton" id="browse_anchors_button">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">True</property>
+                                    <property name="receives_default">True</property>
+                                    <property name="use_action_appearance">False</property>
+                                    <signal name="clicked" handler="on_browse_anchors_button_clicked" swapped="no"/>
+                                    <child>
+                                      <object class="GtkImage" id="image49">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="stock">Anchor</property>
+                                      </object>
+                                    </child>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">False</property>
+                                    <property name="position">1</property>
+                                  </packing>
                                 </child>
                               </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="fill">False</property>
-                                <property name="position">1</property>
-                              </packing>
                             </child>
                           </object>
                         </child>
+                        <child type="label">
+                          <object class="GtkLabel" id="label31">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="label" translatable="yes">&lt;b&gt;Anchor Name (optional)&lt;/b&gt;</property>
+                            <property name="use_markup">True</property>
+                          </object>
+                        </child>
                       </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">False</property>
+                        <property name="padding">2</property>
+                        <property name="position">1</property>
+                      </packing>
                     </child>
-                    <child type="label">
-                      <object class="GtkLabel" id="label31">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">&lt;b&gt;Anchor Name (optional)&lt;/b&gt;</property>
-                        <property name="use_markup">True</property>
-                      </object>
+                    <child>
+                      <placeholder/>
                     </child>
                   </object>
                   <packing>
@@ -1007,7 +1028,7 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
           <object class="GtkHButtonBox" id="dialog-action_area12">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="layout_style">center</property>
+            <property name="layout_style">end</property>
             <child>
               <object class="GtkButton" id="codeboxhandledialog_button_cancel">
                 <property name="visible">True</property>
@@ -1569,7 +1590,7 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
           <object class="GtkHButtonBox" id="dialog-action_area4">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="layout_style">center</property>
+            <property name="layout_style">end</property>
             <child>
               <object class="GtkButton" id="button_exitdialog_canc">
                 <property name="visible">True</property>
@@ -1774,7 +1795,7 @@ do you want to save the changes?</property>
           <object class="GtkHButtonBox" id="dialog-action_area6">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="layout_style">center</property>
+            <property name="layout_style">end</property>
             <child>
               <object class="GtkButton" id="button_edit_cancel">
                 <property name="visible">True</property>
@@ -1832,7 +1853,7 @@ do you want to save the changes?</property>
                       <object class="GtkImage" id="image42">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="stock">gtk-add</property>
+                        <property name="stock">gtk-apply</property>
                       </object>
                       <packing>
                         <property name="expand">True</property>
@@ -1873,10 +1894,12 @@ do you want to save the changes?</property>
           <object class="GtkVBox" id="vbox16">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="spacing">6</property>
             <child>
               <object class="GtkHBox" id="hbox7">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="spacing">2</property>
                 <child>
                   <object class="GtkButton" id="button_rotate_90_ccw">
                     <property name="visible">True</property>
@@ -1954,30 +1977,19 @@ do you want to save the changes?</property>
               </packing>
             </child>
             <child>
-              <object class="GtkHSeparator" id="hseparator2">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="padding">3</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-            <child>
               <object class="GtkHBox" id="hbox_image_width_height">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="spacing">2</property>
                 <child>
                   <object class="GtkLabel" id="label22">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Width </property>
+                    <property name="label" translatable="yes">Width</property>
                   </object>
                   <packing>
                     <property name="expand">True</property>
-                    <property name="fill">True</property>
+                    <property name="fill">False</property>
                     <property name="position">0</property>
                   </packing>
                 </child>
@@ -1995,7 +2007,7 @@ do you want to save the changes?</property>
                   </object>
                   <packing>
                     <property name="expand">True</property>
-                    <property name="fill">True</property>
+                    <property name="fill">False</property>
                     <property name="position">1</property>
                   </packing>
                 </child>
@@ -2003,11 +2015,11 @@ do you want to save the changes?</property>
                   <object class="GtkLabel" id="label23">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">      Height </property>
+                    <property name="label" translatable="yes">Height</property>
                   </object>
                   <packing>
                     <property name="expand">True</property>
-                    <property name="fill">True</property>
+                    <property name="fill">False</property>
                     <property name="position">2</property>
                   </packing>
                 </child>
@@ -2025,7 +2037,7 @@ do you want to save the changes?</property>
                   </object>
                   <packing>
                     <property name="expand">True</property>
-                    <property name="fill">True</property>
+                    <property name="fill">False</property>
                     <property name="position">3</property>
                   </packing>
                 </child>
@@ -2033,19 +2045,7 @@ do you want to save the changes?</property>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">False</property>
-                <property name="position">2</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkHSeparator" id="hseparator5">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="padding">3</property>
-                <property name="position">3</property>
+                <property name="position">1</property>
               </packing>
             </child>
           </object>
@@ -2346,6 +2346,18 @@ do you want to save the changes?</property>
                           </packing>
                         </child>
                         <child>
+                          <object class="GtkHSeparator" id="hseparator1">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="padding">3</property>
+                            <property name="position">2</property>
+                          </packing>
+                        </child>
+                        <child>
                           <object class="GtkHBox" id="hbox22">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
@@ -2386,8 +2398,19 @@ do you want to save the changes?</property>
                           <packing>
                             <property name="expand">True</property>
                             <property name="fill">True</property>
-                            <property name="padding">12</property>
-                            <property name="position">2</property>
+                            <property name="position">3</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkHSeparator" id="hseparator3">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="padding">3</property>
+                            <property name="position">4</property>
                           </packing>
                         </child>
                         <child>
@@ -2458,7 +2481,19 @@ do you want to save the changes?</property>
                           <packing>
                             <property name="expand">True</property>
                             <property name="fill">True</property>
-                            <property name="position">3</property>
+                            <property name="position">5</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkHSeparator" id="hseparator4">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="padding">3</property>
+                            <property name="position">6</property>
                           </packing>
                         </child>
                         <child>
@@ -2474,8 +2509,7 @@ do you want to save the changes?</property>
                           <packing>
                             <property name="expand">True</property>
                             <property name="fill">True</property>
-                            <property name="padding">12</property>
-                            <property name="position">4</property>
+                            <property name="position">7</property>
                           </packing>
                         </child>
                       </object>
@@ -2929,7 +2963,7 @@ do you want to save the changes?</property>
           <object class="GtkHButtonBox" id="dialog-action_area7">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="layout_style">center</property>
+            <property name="layout_style">end</property>
             <child>
               <object class="GtkButton" id="button7">
                 <property name="visible">True</property>
@@ -3086,7 +3120,7 @@ do you want to save the changes?</property>
           <object class="GtkHButtonBox" id="dialog-action_area3">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="layout_style">center</property>
+            <property name="layout_style">end</property>
             <child>
               <object class="GtkButton" id="button1">
                 <property name="label">gtk-close</property>
@@ -4779,7 +4813,7 @@ do you want to save the changes?</property>
           <object class="GtkHButtonBox" id="dialog-action_area10">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="layout_style">center</property>
+            <property name="layout_style">end</property>
             <child>
               <object class="GtkButton" id="tablehandledialog_button_cancel">
                 <property name="visible">True</property>
