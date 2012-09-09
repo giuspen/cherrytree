@@ -91,7 +91,7 @@ class ExportPrint:
         self.dad = dad
         self.pango_handler = Export2Pango(dad)
 
-    def nodes_all_export_print(self, top_tree_iter=None):
+    def nodes_all_export_print(self, top_tree_iter, include_node_name):
         """Export Print All Nodes"""
         self.pango_text = []
         self.pixbuf_table_codebox_vector = []
@@ -99,13 +99,13 @@ class ExportPrint:
         if not top_tree_iter: tree_iter = self.dad.treestore.get_iter_first()
         else: tree_iter = top_tree_iter.copy()
         while tree_iter:
-            self.nodes_all_export_print_iter(tree_iter)
+            self.nodes_all_export_print_iter(tree_iter, include_node_name)
             if top_tree_iter: break
             tree_iter = self.dad.treestore.iter_next(tree_iter)
         self.dad.objects_buffer_refresh()
         self.run_print()
 
-    def nodes_all_export_print_iter(self, tree_iter):
+    def nodes_all_export_print_iter(self, tree_iter, include_node_name):
         """Export Print All Nodes - Iter"""
         self.dad.get_textbuffer_from_tree_iter(tree_iter)
         if self.dad.treestore[tree_iter][4] == cons.CUSTOM_COLORS_ID:
@@ -114,7 +114,7 @@ class ExportPrint:
         else:
             pango_text = [self.pango_handler.pango_get_from_code_buffer(self.dad.treestore[tree_iter][2])]
             pixbuf_table_codebox_vector = []
-        self.pango_text_add_node_name(tree_iter, pango_text)
+        if include_node_name: self.pango_text_add_node_name(tree_iter, pango_text)
         if not self.pango_text: self.pango_text = pango_text
         else:
             self.pango_text[-1] += cons.CHAR_NEWLINE*3 + pango_text[0]
@@ -131,7 +131,7 @@ class ExportPrint:
                       + self.dad.treestore[tree_iter][1] \
                       + "</span>" + 2*cons.CHAR_NEWLINE + pango_text[0]
 
-    def node_export_print(self, tree_iter, only_selection=False):
+    def node_export_print(self, tree_iter, include_node_name, only_selection):
         """Export Print the Selected Node"""
         if only_selection:
             iter_start, iter_end = self.dad.curr_buffer.get_selection_bounds()
@@ -144,7 +144,7 @@ class ExportPrint:
             self.pango_text = [self.pango_handler.pango_get_from_code_buffer(self.dad.treestore[tree_iter][2], sel_range)]
             self.pixbuf_table_codebox_vector = []
             self.text_font = self.dad.code_font
-        self.pango_text_add_node_name(tree_iter, self.pango_text)
+        if include_node_name: self.pango_text_add_node_name(tree_iter, self.pango_text)
         self.run_print()
 
     def run_print(self):

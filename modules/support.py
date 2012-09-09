@@ -196,7 +196,7 @@ def dialog_error(message, parent=None):
     dialog.run()
     dialog.destroy()
 
-def dialog_selnode_selnodeandsub_alltree(father_win, also_selection):
+def dialog_selnode_selnodeandsub_alltree(father_win, also_selection, also_node_name=False):
     """Dialog to select between the Selected Node/Selected Node + Subnodes/All Tree"""
     dialog = gtk.Dialog(title=_("Involved Nodes"),
                                 parent=father_win,
@@ -210,12 +210,19 @@ def dialog_selnode_selnodeandsub_alltree(father_win, also_selection):
     radiobutton_alltree = gtk.RadioButton(label=_("All the Tree"))
     radiobutton_selnodeandsub.set_group(radiobutton_selnode)
     radiobutton_alltree.set_group(radiobutton_selnode)
+    if also_node_name:
+        separator_item = gtk.HSeparator()
+        checkbutton_node_name = gtk.CheckButton(label=_("Include Node Name"))
+        checkbutton_node_name.set_active(True)
     if also_selection: radiobutton_selection.set_group(radiobutton_selnode)
     content_area = dialog.get_content_area()
     if also_selection: content_area.pack_start(radiobutton_selection)
     content_area.pack_start(radiobutton_selnode)
     content_area.pack_start(radiobutton_selnodeandsub)
     content_area.pack_start(radiobutton_alltree)
+    if also_node_name:
+        content_area.pack_start(separator_item)
+        content_area.pack_start(checkbutton_node_name)
     def on_key_press_enter_dialog(widget, event):
         if gtk.gdk.keyval_name(event.keyval) == "Return":
             dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
@@ -226,9 +233,11 @@ def dialog_selnode_selnodeandsub_alltree(father_win, also_selection):
     elif radiobutton_selnodeandsub.get_active(): ret_val = 2
     elif radiobutton_alltree.get_active(): ret_val = 3
     else: ret_val = 4
+    if also_node_name and checkbutton_node_name.get_active(): ret_node_name = True
+    else: ret_node_name = False
     dialog.destroy()
     if response != gtk.RESPONSE_ACCEPT: ret_val = 0
-    return ret_val
+    return [ret_val, ret_node_name]
 
 def set_bookmarks_menu_items(inst):
     """Set Bookmarks Menu Items"""
