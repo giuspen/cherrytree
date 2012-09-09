@@ -121,7 +121,7 @@ class CTDBHandler:
         db.row_factory = sqlite3.Row
         return db
     
-    def new_db(self, dbpath, exporting=""):
+    def new_db(self, dbpath, exporting="", sel_range=None):
         """Create a new DataBase"""
         if os.path.isfile(dbpath): os.remove(dbpath)
         db = self.get_connected_db_from_dbpath(dbpath)
@@ -131,7 +131,7 @@ class CTDBHandler:
         db.execute(cons.TABLE_IMAGE_CREATE)
         db.execute(cons.TABLE_CHILDREN_CREATE)
         db.execute(cons.TABLE_BOOKMARK_CREATE)
-        self.write_db_full(db, exporting)
+        self.write_db_full(db, exporting, sel_range)
         db.commit()
         return db
     
@@ -216,7 +216,7 @@ class CTDBHandler:
         for child_row in children_rows:
             self.remove_db_node_n_children(db, child_row['node_id'])
     
-    def write_db_node(self, db, tree_iter, level, sequence, node_father_id, write_dict, exporting=""):
+    def write_db_node(self, db, tree_iter, level, sequence, node_father_id, write_dict, exporting="", sel_range=None):
         """Write a node in DB"""
         node_id = self.dad.treestore[tree_iter][3]
         print "write node content, node_id", node_id, ", write_dict", write_dict
@@ -231,8 +231,12 @@ class CTDBHandler:
                 if exporting: self.read_db_node_content(tree_iter, self.dad.db)
                 else: self.read_db_node_content(tree_iter, self.dad.db_old)
             curr_buffer = self.dad.treestore[tree_iter][2]
-            start_iter = curr_buffer.get_start_iter()
-            end_iter = curr_buffer.get_end_iter()
+            if not sel_range:
+                start_iter = curr_buffer.get_start_iter()
+                end_iter = curr_buffer.get_end_iter()
+            else:
+                start_iter = curr_buffer.get_iter_at_offset(sel_range[0])
+                end_iter = curr_buffer.get_iter_at_offset(sel_range[1])
             if is_richtxt:
                 # prepare xml dom node
                 if "dom" in dir(self): del self.dom
@@ -248,7 +252,7 @@ class CTDBHandler:
                 tag_found = curr_iter.forward_to_tag_toggle(None)
                 while tag_found:
                     self.dad.xml_handler.rich_txt_serialize(dom_iter, start_iter, curr_iter, self.curr_attributes, dom=self.dom)
-                    if curr_iter.compare(end_iter) == 0: break
+                    if curr_iter.compare(end_iter) >= 0: break
                     else:
                         self.dad.xml_handler.rich_text_attributes_update(curr_iter, self.curr_attributes)
                         offset_old = curr_iter.get_offset()
@@ -261,12 +265,13 @@ class CTDBHandler:
                     db.execute('DELETE FROM codebox WHERE node_id=?', (node_id,))
                     db.execute('DELETE FROM grid WHERE node_id=?', (node_id,))
                     db.execute('DELETE FROM image WHERE node_id=?', (node_id,))
-                pixbuf_table_codebox_vector = self.dad.state_machine.get_embedded_pixbufs_tables_codeboxes(curr_buffer)
+                pixbuf_table_codebox_vector = self.dad.state_machine.get_embedded_pixbufs_tables_codeboxes(curr_buffer, sel_range=sel_range)
                 # pixbuf_table_codebox_vector is [ [ "pixbuf"/"table"/"codebox", [offset, pixbuf, alignment] ],... ]
                 codeboxes_tuples = []
                 tables_tuples = []
                 images_tuples = []
                 for element in pixbuf_table_codebox_vector:
+                    if sel_range: element[1][0] -= sel_range[0]
                     if element[0] == "pixbuf": images_tuples.append(self.get_image_db_tuple(element[1], node_id))
                     elif element[0] == "table": tables_tuples.append(self.get_table_db_tuple(element[1], node_id))
                     elif element[0] == "codebox": codeboxes_tuples.append(self.get_codebox_db_tuple(element[1], node_id))
@@ -317,7 +322,7 @@ class CTDBHandler:
             self.write_db_node(db, child_tree_iter, level+1, child_sequence, node_id, write_dict, exporting)
             child_tree_iter = self.dad.treestore.iter_next(child_tree_iter)
     
-    def write_db_full(self, db, exporting=""):
+    def write_db_full(self, db, exporting="", sel_range=None):
         """Write the whole DB"""
         if not exporting or exporting == "a": tree_iter = self.dad.treestore.get_iter_first()
         else: tree_iter = self.dad.curr_tree_iter
@@ -329,7 +334,7 @@ class CTDBHandler:
         else: write_dict = {'upd': False, 'prop': True, 'buff': True, 'hier': True, 'child': True}
         while tree_iter != None:
             sequence += 1
-            self.write_db_node(db, tree_iter, level, sequence, node_father_id, write_dict, exporting)
+            self.write_db_node(db, tree_iter, level, sequence, node_father_id, write_dict, exporting, sel_range)
             if not exporting or exporting == "a": tree_iter = self.dad.treestore.iter_next(tree_iter)
             else: break
         if not exporting or exporting == "a": self.write_db_bookmarks(db)

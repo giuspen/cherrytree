@@ -71,13 +71,13 @@ class Export2CTD:
     def node_export_to_ctd(self, tree_iter, filepath, sel_range=None):
         """Export the Selected Node To CTD"""
         if self.dad.filetype in ["d", "z"]:
-            try: xml_string = self.dad.xml_handler.treestore_sel_node_only_to_dom(tree_iter, sel_range)
+            try: xml_string = self.dad.xml_handler.treestore_sel_node_only_to_dom(tree_iter, sel_range=sel_range)
             except:
                 support.dialog_error("%s write failed - sel node to xml" % filepath, self.dad.window)
                 raise
                 return
         else: xml_string = ""
-        try: self.dad.file_write_low_level(filepath, xml_string, first_write=True, exporting="n")
+        try: self.dad.file_write_low_level(filepath, xml_string, first_write=True, exporting="n", sel_range=sel_range)
         except:
             support.dialog_error("%s write failed - writing to disk" % filepath, self.dad.window)
             raise
