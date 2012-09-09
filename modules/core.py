@@ -1464,7 +1464,8 @@ class CherryTree:
     def export_to_ctd(self, action):
         """Export the Selected Node and its Subnodes"""
         if not self.is_there_selected_node_or_error(): return
-        export_type = support.dialog_selnode_selnodeandsub_alltree(self.window, also_selection=True)
+        export_type = support.dialog_selnode_selnodeandsub_alltree(self.window,
+                                                                   also_selection=True)[0]
         if export_type == 0: return
         ctd_handler = exports.Export2CTD(self)
         restore_passw = self.password
@@ -1512,7 +1513,8 @@ class CherryTree:
     def export_to_txt(self, *args):
         """Export To Plain Text"""
         if not self.is_there_selected_node_or_error(): return
-        export_type = support.dialog_selnode_selnodeandsub_alltree(self.window, also_selection=True)
+        export_type = support.dialog_selnode_selnodeandsub_alltree(self.window,
+                                                                   also_selection=True)[0]
         if export_type == 0: return
         txt_handler = exports.Export2Txt(self)
         if export_type == 1:
@@ -1543,7 +1545,8 @@ class CherryTree:
     def export_to_html(self, *args):
         """Export to HTML"""
         if not self.is_there_selected_node_or_error(): return
-        export_type = support.dialog_selnode_selnodeandsub_alltree(self.window, also_selection=True)
+        export_type = support.dialog_selnode_selnodeandsub_alltree(self.window,
+                                                                   also_selection=True)[0]
         if export_type == 0: return
         if export_type == 1:
             # only selected node
@@ -1583,22 +1586,28 @@ class CherryTree:
     def export_print(self, action):
         """Start Print Operations"""
         if not self.is_there_selected_node_or_error(): return
-        export_type = support.dialog_selnode_selnodeandsub_alltree(self.window, also_selection=True)
+        export_type, include_node_name = support.dialog_selnode_selnodeandsub_alltree(self.window,
+                                                          also_selection=True, also_node_name=True)
         if export_type == 0: return
         pdf_handler = exports.ExportPrint(self)
         if export_type == 1:
             # only selected node
-            pdf_handler.node_export_print(self.curr_tree_iter)
+            pdf_handler.node_export_print(self.curr_tree_iter,
+                                          include_node_name,
+                                          only_selection=False)
         elif export_type == 2:
             # selected node and subnodes
-            pdf_handler.nodes_all_export_print(self.curr_tree_iter)
+            pdf_handler.nodes_all_export_print(self.curr_tree_iter,
+                                               include_node_name)
         elif export_type == 3:
             # all nodes
-            pdf_handler.nodes_all_export_print()
+            pdf_handler.nodes_all_export_print(None, include_node_name)
         else:
             # only selection
             if self.is_there_text_selection_or_error():
-                pdf_handler.node_export_print(self.curr_tree_iter, only_selection=True)
+                pdf_handler.node_export_print(self.curr_tree_iter,
+                                              include_node_name,
+                                              only_selection=True)
 
     def tree_sort_level_and_sublevels(self, model, father_iter, ascending):
         """Sorts the Tree Level and All the Sublevels"""
@@ -2861,7 +2870,8 @@ class CherryTree:
         """Insert Table Of Contents"""
         if not self.is_there_selected_node_or_error(): return
         if not self.node_sel_and_rich_text(): return
-        toc_type = support.dialog_selnode_selnodeandsub_alltree(self.window, also_selection=False)
+        toc_type = support.dialog_selnode_selnodeandsub_alltree(self.window,
+                                                                also_selection=False)[0]
         if toc_type == 0: return
         if toc_type == 1:
             # only selected node
