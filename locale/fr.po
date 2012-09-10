@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: svn_cherrytree 0.14\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-09 18:31+0200\n"
+"POT-Creation-Date: 2012-09-10 23:37+0200\n"
 "PO-Revision-Date: 2011-04-16 21:03+0100\n"
 "Last-Translator: Ludovic Troisi <axalis@cegetel.net>\n"
 "Language-Team: French\n"
@@ -210,7 +210,7 @@ msgid "The Selected Node"
 msgstr "Le Nœud Sélectionné"
 
 #: modules/core.py:927
-msgid "The Document was Updated After Non-CherryTree Update to CT* File"
+msgid "The Document was Reloaded After External Update to CT* File"
 msgstr ""
 
 #: modules/core.py:951
@@ -2063,7 +2063,7 @@ msgid "Automatically Check for Newer Version"
 msgstr "Vérifier les mises-à-jour automatiquement"
 
 #: glade/cherrytree.glade.h:133
-msgid "Detect Non-CherryTree Updates to CT* File"
+msgid "Reload After External Update to CT* File"
 msgstr ""
 
 #: glade/cherrytree.glade.h:134

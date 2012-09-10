@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cherrytree 0.27\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-09 18:31+0200\n"
-"PO-Revision-Date: 2012-09-09 18:32+0100\n"
+"POT-Creation-Date: 2012-09-10 23:37+0200\n"
+"PO-Revision-Date: 2012-09-10 23:39+0100\n"
 "Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
 "Language-Team: Italian\n"
 "Language: \n"
@@ -217,8 +217,8 @@ msgid "The Selected Node"
 msgstr "Il Nodo Selezionato"
 
 #: modules/core.py:927
-msgid "The Document was Updated After Non-CherryTree Update to CT* File"
-msgstr "Il Documento è stato Aggiornato dopo un Aggiornamento Esterno al File CT*"
+msgid "The Document was Reloaded After External Update to CT* File"
+msgstr "Il Documento è stato Riletto dopo un Aggiornamento Esterno al File CT*"
 
 #: modules/core.py:951
 msgid "CherryTree Hierarchical Note Taking"
@@ -2235,8 +2235,8 @@ msgid "Automatically Check for Newer Version"
 msgstr "Controllo Automatico Nuova Versione"
 
 #: glade/cherrytree.glade.h:133
-msgid "Detect Non-CherryTree Updates to CT* File"
-msgstr "Rileva Aggiornamenti Esterni al File CT*"
+msgid "Reload After External Update to CT* File"
+msgstr "Rileggi Dopo Aggiornamento Esterno al File CT*"
 
 #: glade/cherrytree.glade.h:134
 msgid "<b>Miscellaneous</b>"
