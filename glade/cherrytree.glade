@@ -4702,7 +4702,7 @@ do you want to save the changes?</property>
                             </child>
                             <child>
                               <object class="GtkCheckButton" id="checkbutton_mod_time_sentinel">
-                                <property name="label" translatable="yes">Detect Non-CherryTree Updates to CT* File</property>
+                                <property name="label" translatable="yes">Reload After External Update to CT* File</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
