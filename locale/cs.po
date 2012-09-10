@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-09 18:31+0200\n"
+"POT-Creation-Date: 2012-09-10 23:37+0200\n"
 "PO-Revision-Date: 2012-09-09 19:17+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -209,7 +209,8 @@ msgid "The Selected Node"
 msgstr "Vybraný uzel"
 
 #: modules/core.py:927
-msgid "The Document was Updated After Non-CherryTree Update to CT* File"
+#, fuzzy
+msgid "The Document was Reloaded After External Update to CT* File"
 msgstr "Dokument byl aktualizován po ne-CherryTree aktualizaci souboru CT*"
 
 #: modules/core.py:951
@@ -2052,7 +2053,8 @@ msgid "Automatically Check for Newer Version"
 msgstr "Automaticky vyhledat novou verzi"
 
 #: glade/cherrytree.glade.h:133
-msgid "Detect Non-CherryTree Updates to CT* File"
+#, fuzzy
+msgid "Reload After External Update to CT* File"
 msgstr "Zjistit aktualizace ne-CherryTree souboru CT*"
 
 #: glade/cherrytree.glade.h:134
