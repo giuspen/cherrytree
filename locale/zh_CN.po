@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: cherrytree 0.26\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-09-10 23:37+0200\n"
-"PO-Revision-Date: 2012-06-01 15:19+0800\n"
+"PO-Revision-Date: 2012-09-11 13:47+0800\n"
 "Last-Translator:  <mamimoluo@gmail.com>\n"
 "Language-Team: Chinese (simplified)\n"
 "Language: zh_CN\n"
@@ -49,9 +49,8 @@ msgid "Involved Nodes"
 msgstr "涉及到的节点"
 
 #: modules/support.py:207
-#, fuzzy
 msgid "Selected Text Only"
-msgstr "已选择的节点"
+msgstr "已选择的文本"
 
 #: modules/support.py:208
 msgid "Selected Node Only"
@@ -66,9 +65,8 @@ msgid "All the Tree"
 msgstr "所有的树"
 
 #: modules/support.py:215
-#, fuzzy
 msgid "Include Node Name"
-msgstr "节点名称"
+msgstr "包含节点名称"
 
 #: modules/support.py:273
 msgid "_Recent Documents"
@@ -1146,14 +1144,12 @@ msgid "Toggle Show/Hide Toolbar"
 msgstr "切换工具栏的显示"
 
 #: modules/cons.py:548
-#, fuzzy
 msgid "Show _All Matches Dialog"
-msgstr "显示循环搜索/替换对话框"
+msgstr "显示所有已匹配的对话框"
 
 #: modules/cons.py:548
-#, fuzzy
 msgid "Show Search All Matches Dialog"
-msgstr "显示循环搜索/替换对话框"
+msgstr "显示所有已匹配的搜索对话框"
 
 #: modules/cons.py:549
 msgid "_Increase Toolbar Icons Size"
@@ -1228,14 +1224,12 @@ msgid "Add Nodes of a Tomboy Folder to the Current Tree"
 msgstr "从Tomboy文件夹添加节点到当前树"
 
 #: modules/cons.py:558 modules/cons.py:618
-#, fuzzy
 msgid "From _Gnote Folder"
-msgstr "从KeepNote文件夹(_K)"
+msgstr "从Gnote文件夹(_G)"
 
 #: modules/cons.py:558 modules/cons.py:618
-#, fuzzy
 msgid "Add Nodes of a Gnote Folder to the Current Tree"
-msgstr "从KeepNote文件夹添加节点到当前树"
+msgstr "从Gnote文件夹添加节点到当前树"
 
 #: modules/cons.py:559 modules/cons.py:625
 msgid "From _TuxCards File"
@@ -1605,7 +1599,7 @@ msgstr "一个层级式笔记记录程序，具有富文本和代码高亮的功
 
 #: glade/cherrytree.glade.h:5
 msgid "http://www.giuspen.com/cherrytree/"
-msgstr ""
+msgstr "http://www.giuspen.com/cherrytree/"
 
 #: glade/cherrytree.glade.h:6
 msgid ""
@@ -1651,6 +1645,15 @@ msgid ""
 "Spanish (es) Daniel MC <i.e.betel@gmail.com>\n"
 "Ukrainian (uk) Andriy Kovtun <kovtunos@yandex.ru>"
 msgstr ""
+"简体中文 (zh_CN) Channing Wong <mamimoluo@gmail.com>\n"
+"捷克语 (cs) Pavel Fric <fripohled@blogspot.com>\n"
+"法语 (fr) Ludovic Troisi <axalis@cegetel.net>\n"
+"德语 (de) Frank Brungräber <calexu@arcor.de> (former Sven Neubauer)\n"
+"意大利语 (it) Giuseppe Penone <giuspen@gmail.com>\n"
+"波兰语 (pl) Marcin Swierczynski <orneo1212@gmail.com>\n"
+"俄语 (ru) Andriy Kovtun <kovtunos@yandex.ru>\n"
+"西班牙语 (es) Daniel MC <i.e.betel@gmail.com>\n"
+"乌克兰语 (uk) Andriy Kovtun <kovtunos@yandex.ru>"
 
 #: glade/cherrytree.glade.h:31
 msgid "Hide (Restore with Ctrl+Shift+A)"
@@ -1718,7 +1721,7 @@ msgstr "像素"
 
 #: glade/cherrytree.glade.h:49
 msgid "%"
-msgstr ""
+msgstr "%"
 
 #: glade/cherrytree.glade.h:50
 msgid "Height"
@@ -1897,9 +1900,8 @@ msgid "Dark Background, Light Text"
 msgstr "深色背景，浅色文字"
 
 #: glade/cherrytree.glade.h:100
-#, fuzzy
 msgid "Custom Background"
-msgstr "文字背景色(_O)"
+msgstr "自定义背景"
 
 #: glade/cherrytree.glade.h:101
 msgid "and Text"
@@ -2091,7 +2093,7 @@ msgstr "右移列"
 
 #: glade/cherrytree.glade.h:148
 msgid "CherryTree"
-msgstr ""
+msgstr "CherryTree"
 
 #~ msgid "No Node is Selected!"
 #~ msgstr "没有节点被选中！"
