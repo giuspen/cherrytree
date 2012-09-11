@@ -206,9 +206,8 @@ msgid "The Selected Node"
 msgstr "Zaznaczona gałąź"
 
 #: modules/core.py:927
-#, fuzzy
 msgid "The Document was Reloaded After External Update to CT* File"
-msgstr "Dokument został zmieniony poprzez zmiane pliku CT*"
+msgstr "Dokument został przeładowany po zewnętrznej zmiane pliku CT*"
 
 #: modules/core.py:951
 msgid "CherryTree Hierarchical Note Taking"
@@ -2045,9 +2044,8 @@ msgid "Automatically Check for Newer Version"
 msgstr "Automatycznie sprawdź wersję"
 
 #: glade/cherrytree.glade.h:133
-#, fuzzy
 msgid "Reload After External Update to CT* File"
-msgstr "Wykryj zewnętrzne zmiany w pliku CT"
+msgstr "Przeładuj zewnętrzne zmiany w pliku CT"
 
 #: glade/cherrytree.glade.h:134
 msgid "<b>Miscellaneous</b>"

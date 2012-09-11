@@ -206,7 +206,7 @@ msgstr "已选择的节点"
 
 #: modules/core.py:927
 msgid "The Document was Reloaded After External Update to CT* File"
-msgstr ""
+msgstr "因CT*文件在外部被修改，文档已重载"
 
 #: modules/core.py:951
 msgid "CherryTree Hierarchical Note Taking"
@@ -249,7 +249,7 @@ msgstr "两次输入密码不匹配"
 #: modules/core.py:1284
 #, python-format
 msgid "The Characters  %s  are Not Allowed"
-msgstr ""
+msgstr "%s 字符被禁用"
 
 #: modules/core.py:1302
 msgid ""
@@ -335,7 +335,7 @@ msgstr "锚点名称必填！"
 
 #: modules/core.py:2885
 msgid "Not Any H1, H2 or H3 Formatting Found"
-msgstr "未找到任何H1, H2或H3格式"
+msgstr "未找到任何H1，H2或H3格式"
 
 #: modules/core.py:2964
 msgid ""
@@ -1594,6 +1594,8 @@ msgid ""
 "Copyright © 2009-2012\n"
 "Giuseppe Penone <giuspen@gmail.com>"
 msgstr ""
+"版权所有 © 2009-2012\n"
+"Giuseppe Penone <giuspen@gmail.com>"
 
 #: glade/cherrytree.glade.h:4
 msgid ""
@@ -1652,7 +1654,7 @@ msgstr ""
 
 #: glade/cherrytree.glade.h:31
 msgid "Hide (Restore with Ctrl+Shift+A)"
-msgstr ""
+msgstr "隐藏 (可用 Ctrl+Shift+A 组合键恢复)"
 
 #: glade/cherrytree.glade.h:32
 msgid "Cancel"
@@ -1888,11 +1890,11 @@ msgstr "高亮当前行"
 
 #: glade/cherrytree.glade.h:98
 msgid "Light Background, Dark Text"
-msgstr ""
+msgstr "浅色背景，深色文字"
 
 #: glade/cherrytree.glade.h:99
 msgid "Dark Background, Light Text"
-msgstr ""
+msgstr "深色背景，浅色文字"
 
 #: glade/cherrytree.glade.h:100
 #, fuzzy
@@ -1901,7 +1903,7 @@ msgstr "文字背景色(_O)"
 
 #: glade/cherrytree.glade.h:101
 msgid "and Text"
-msgstr ""
+msgstr "和文字"
 
 #: glade/cherrytree.glade.h:102
 msgid "Anchor Size"
@@ -2001,7 +2003,7 @@ msgstr "程序启动后最小化到托盘"
 
 #: glade/cherrytree.glade.h:126
 msgid "Use AppIndicator for Docking"
-msgstr ""
+msgstr "采用窗口停靠模式"
 
 #: glade/cherrytree.glade.h:127
 msgid "<b>System Tray</b>"
@@ -2029,7 +2031,7 @@ msgstr "自动检查新版本"
 
 #: glade/cherrytree.glade.h:133
 msgid "Reload After External Update to CT* File"
-msgstr ""
+msgstr "将重载，因CT*文件在外部被修改"
 
 #: glade/cherrytree.glade.h:134
 msgid "<b>Miscellaneous</b>"
