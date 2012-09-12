@@ -2060,9 +2060,8 @@ msgstr "Automatisch nach neuer Version suchen"
 
 # ### msgid "The Document was Updated After Non-CherryTree Update to CT* File"
 #: glade/cherrytree.glade.h:133
-#, fuzzy
 msgid "Reload After External Update to CT* File"
-msgstr "Die CT*-Datei wurde nach einer externen Aktualisierung neu geladen"
+msgstr "CT*-Datei nach externer Aktualisierung neu laden"
 
 #: glade/cherrytree.glade.h:134
 msgid "<b>Miscellaneous</b>"
