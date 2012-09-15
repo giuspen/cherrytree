@@ -380,7 +380,7 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
                   <object class="GtkImage" id="image50">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="stock">Handle Anchor</property>
+                    <property name="stock">anchor</property>
                   </object>
                   <packing>
                     <property name="expand">True</property>
@@ -684,7 +684,7 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
                               <object class="GtkImage" id="image41">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="stock">WebSite Link</property>
+                                <property name="stock">link_website</property>
                               </object>
                               <packing>
                                 <property name="x_options"></property>
@@ -695,7 +695,7 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
                               <object class="GtkImage" id="image48">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="stock">CherryTree</property>
+                                <property name="stock">cherrytree</property>
                               </object>
                               <packing>
                                 <property name="top_attach">1</property>
@@ -949,7 +949,7 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
                                       <object class="GtkImage" id="image49">
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
-                                        <property name="stock">Anchor</property>
+                                        <property name="stock">anchor</property>
                                       </object>
                                     </child>
                                   </object>
@@ -1911,7 +1911,7 @@ do you want to save the changes?</property>
                       <object class="GtkImage" id="image44">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="stock">Rotate Left</property>
+                        <property name="stock">object-rotate-left</property>
                       </object>
                     </child>
                   </object>
@@ -1959,7 +1959,7 @@ do you want to save the changes?</property>
                       <object class="GtkImage" id="image45">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="stock">Rotate Right</property>
+                        <property name="stock">object-rotate-right</property>
                       </object>
                     </child>
                   </object>
@@ -2760,7 +2760,7 @@ do you want to save the changes?</property>
                       <object class="GtkImage" id="image10">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="stock">Find Back</property>
+                        <property name="stock">find_back</property>
                       </object>
                       <packing>
                         <property name="expand">True</property>
@@ -2804,7 +2804,7 @@ do you want to save the changes?</property>
                       <object class="GtkImage" id="image11">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="stock">Find Again</property>
+                        <property name="stock">find_again</property>
                       </object>
                       <packing>
                         <property name="expand">True</property>
@@ -2848,7 +2848,7 @@ do you want to save the changes?</property>
                       <object class="GtkImage" id="image9">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="stock">Find Replace</property>
+                        <property name="stock">find_replace</property>
                       </object>
                       <packing>
                         <property name="expand">True</property>
@@ -3546,7 +3546,7 @@ do you want to save the changes?</property>
                                   <object class="GtkImage" id="image5">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="stock">Anchor</property>
+                                    <property name="stock">anchor</property>
                                   </object>
                                   <packing>
                                     <property name="expand">False</property>
@@ -3659,7 +3659,7 @@ do you want to save the changes?</property>
                               <object class="GtkImage" id="image28">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="stock">Tree</property>
+                                <property name="stock">cherries</property>
                               </object>
                               <packing>
                                 <property name="top_attach">2</property>

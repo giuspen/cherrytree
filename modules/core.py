@@ -74,8 +74,10 @@ class CherryTree:
         self.print_handler = printing.PrintHandler()
         # icon factory
         factory = gtk.IconFactory()
-        for stock_name in cons.STOCKS_N_FILES:
-            pixbuf = gtk.gdk.pixbuf_new_from_file(cons.GLADE_PATH + cons.STOCKS_N_FILES[stock_name])
+        for filename in cons.STOCKS_N_FILES:
+            stock_name = filename[:-4]
+            filepath = os.path.join(cons.GLADE_PATH, filename)
+            pixbuf = gtk.gdk.pixbuf_new_from_file(filepath)
             iconset = gtk.IconSet(pixbuf)
             factory.add(stock_name, iconset)
         factory.add_default()
@@ -935,6 +937,7 @@ class CherryTree:
         """Creates the Stats Icon"""
         if self.use_appind:
             self.ind = appindicator.Indicator("cherrytree", "indicator-messages", appindicator.CATEGORY_APPLICATION_STATUS)
+            self.ind.set_icon_theme_path(cons.GLADE_PATH)
             self.ind.set_status(appindicator.STATUS_ACTIVE)
             self.ind.set_attention_icon("indicator-messages-new")
             for icp in ["/usr/share/icons/hicolor/scalable/apps/cherrytree.svg", "/usr/local/share/icons/hicolor/scalable/apps/cherrytree.svg", "glade/cherrytree.png"]:
@@ -946,7 +949,7 @@ class CherryTree:
             self.ind.set_menu(self.ui.get_widget("/SysTrayMenu"))
         else:
             self.status_icon = gtk.StatusIcon()
-            self.status_icon.set_from_stock("CherryTree")
+            self.status_icon.set_from_stock("cherrytree")
             self.status_icon.connect('button-press-event', self.on_mouse_button_clicked_systray)
             self.status_icon.set_tooltip(_("CherryTree Hierarchical Note Taking"))
 

@@ -382,7 +382,7 @@ class Export2Html:
         # create tree links text
         self.tree_links_nums = ["1"]
         for image_stock_id in cons.NODES_STOCKS:
-            shutil.copy(cons.GLADE_PATH + cons.STOCKS_N_FILES[image_stock_id], self.images_dir)
+            shutil.copy(cons.GLADE_PATH + image_stock_id + ".png", self.images_dir)
         self.tree_links_text = '<table style="text-align:left">'
         if not top_tree_iter: tree_iter = self.dad.treestore.get_iter_first()
         else: tree_iter = top_tree_iter.copy()
@@ -417,7 +417,7 @@ class Export2Html:
         href = self.get_html_filename(tree_iter)
         self.tree_links_text += "<tr><td>"
         self.tree_links_text += "&nbsp;&nbsp;&nbsp;" * len(self.tree_links_nums)
-        icon_rel_path = os.path.join("images", cons.STOCKS_N_FILES[self.dad.treestore[tree_iter][0]])
+        icon_rel_path = os.path.join("images", self.dad.treestore[tree_iter][0] + ".png")
         self.tree_links_text += '<img src="%s" alt="%s" height="22" width="22"/>' % (icon_rel_path, icon_rel_path)
         self.tree_links_text += '<a href="' + href + '">' + ".".join(self.tree_links_nums) + " " + self.dad.treestore[tree_iter][1] + "</a></td></tr>"
         child_tree_iter = self.dad.treestore.iter_children(tree_iter)
