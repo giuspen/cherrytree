@@ -122,7 +122,7 @@ class ExportPrint:
         self.pixbuf_table_codebox_vector += pixbuf_table_codebox_vector
         child_tree_iter = self.dad.treestore.iter_children(tree_iter)
         while child_tree_iter:
-            self.nodes_all_export_print_iter(child_tree_iter)
+            self.nodes_all_export_print_iter(child_tree_iter, include_node_name)
             child_tree_iter = self.dad.treestore.iter_next(child_tree_iter)
 
     def pango_text_add_node_name(self, tree_iter, pango_text):
