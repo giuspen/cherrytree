@@ -1,4 +1,20 @@
 
+0.27 (September 18th, 2012)
+• added preference option to enable the periodic check of the cherrytree document file for external updates
+• added preference option to choose between appindicator and systray for panel docking
+• added opportunity to restore the latest search all matches dialog with shortcut (Ctrl+Shift+A)
+• added preference options for text and tree to choose between dark theme, light theme or custom colors
+• added the opportunity to print / save as pdf / export of the selected text only
+• added the opportunity to include the node name in print / save as pdf
+• added import from Gnote (code from Rahul Sundaram)
+• shortcut for paste as plain text in rich text node (Ctrl+Shift+V)
+• adopted python ConfigParser for saving preferences, old preferences will be lost
+• fixed several bugs
+• a new French language maintainer is needed, thanks Ludovic for the great job you made
+
+0.26.3 (July 4th, 2012)
+• fixed bugs
+
 0.26.2 (June 11th, 2012)
 • fixed bugs
 
