@@ -995,13 +995,13 @@ class CherryTree:
     def on_fontbutton_text_font_set(self, picker):
         """A New Font For the Text was Chosen"""
         self.text_font = picker.get_font_name()
-        if self.treestore[self.curr_tree_iter][4] == cons.CUSTOM_COLORS_ID:
+        if self.curr_tree_iter and self.syntax_highlighting == cons.CUSTOM_COLORS_ID:
             self.sourceview.modify_font(pango.FontDescription(self.text_font))
 
     def on_fontbutton_code_font_set(self, picker):
         """A New Font For the Text was Chosen"""
         self.code_font = picker.get_font_name()
-        if self.treestore[self.curr_tree_iter][4] != cons.CUSTOM_COLORS_ID:
+        if self.curr_tree_iter and self.syntax_highlighting != cons.CUSTOM_COLORS_ID:
             self.sourceview.modify_font(pango.FontDescription(self.code_font))
 
     def on_fontbutton_tree_font_set(self, picker):
@@ -3673,14 +3673,16 @@ class CherryTree:
         if not self.user_active: return
         self.tt_def_fg = "#" + self.html_handler.rgb_to_24(colorbutton.get_color().to_string()[1:])
         self.treeview.modify_text(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.tt_def_fg))
-        self.update_node_name_header(self.treestore[self.curr_tree_iter][1])
+        if self.curr_tree_iter:
+            self.update_node_name_header(self.treestore[self.curr_tree_iter][1])
 
     def on_colorbutton_tree_bg_color_set(self, colorbutton):
         """ColorButton Rich Text FG Set"""
         if not self.user_active: return
         self.tt_def_bg = "#" + self.html_handler.rgb_to_24(colorbutton.get_color().to_string()[1:])
         self.treeview.modify_base(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.tt_def_bg))
-        self.update_node_name_header(self.treestore[self.curr_tree_iter][1])
+        if self.curr_tree_iter:
+            self.update_node_name_header(self.treestore[self.curr_tree_iter][1])
 
     def on_browse_anchors_button_clicked(self, *args):
         """Browse for Existing Anchors on the Selected Node"""
