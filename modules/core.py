@@ -3492,6 +3492,7 @@ class CherryTree:
         # if there's already a tag about this property, we remove it before apply the new one
         for curr_tag in curr_tags:
             tag_name = curr_tag.get_property("name")
+            if not tag_name: continue
             if (tag_property == "weight" and tag_name.startswith("weight_"))\
             or (tag_property == "style" and tag_name.startswith("style_"))\
             or (tag_property == "underline" and tag_name.startswith("underline_"))\
@@ -3571,7 +3572,7 @@ class CherryTree:
         tags = iter.get_tags()
         for tag in tags:
             tag_name = tag.get_property("name")
-            if tag_name[0:4] == "link": break
+            if tag_name and tag_name[0:4] == "link": break
         else: return ""
         iter_end = iter.copy()
         if not iter_end.forward_to_tag_toggle(tag): return ""
@@ -3747,7 +3748,7 @@ class CherryTree:
         tags = text_iter.get_tags()
         for tag in tags:
             tag_name = tag.get_property("name")
-            if tag_name[0:4] == "link":
+            if tag_name and tag_name[0:4] == "link":
                 hovering_link = True
                 vector = tag_name[5:].split()
                 if vector[0] in ["file", "fold"]: tooltip = base64.b64decode(vector[1])
@@ -3807,7 +3808,7 @@ class CherryTree:
                 if tags:
                     for tag in tags:
                         tag_name = tag.get_property("name")
-                        if tag_name[0:4] == "link":
+                        if tag_name and tag_name[0:4] == "link":
                             self.link_clicked(tag_name[5:])
                             break
                 else:
