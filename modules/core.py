@@ -2575,6 +2575,7 @@ class CherryTree:
 
     def replace_in_selected_node(self, *args):
         """Replace a pattern in the selected Node"""
+        if not self.is_there_selected_node_or_error(): return
         self.find_handler.replace_in_selected_node()
 
     def find_in_selected_node(self, *args):
@@ -2584,6 +2585,7 @@ class CherryTree:
 
     def replace_in_all_nodes(self, *args):
         """Replace the pattern in all the Tree Nodes"""
+        if not self.is_tree_not_empty_or_error(): return
         self.find_handler.replace_in_all_nodes()
 
     def find_in_all_nodes(self, *args):
@@ -2593,6 +2595,7 @@ class CherryTree:
 
     def replace_in_nodes_names(self, *args):
         """Replace the pattern between all the Node's Names"""
+        if not self.is_tree_not_empty_or_error(): return
         self.find_handler.replace_in_nodes_names()
 
     def find_a_node(self, *args):
