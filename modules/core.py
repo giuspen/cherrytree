@@ -2736,7 +2736,7 @@ class CherryTree:
 
     def on_text_removal(self, sourcebuffer, start_iter, end_iter):
         """Text removal callback"""
-        if self.user_active:
+        if self.user_active and self.curr_tree_iter:
             self.state_machine.text_variation(self.treestore[self.curr_tree_iter][3],
                                               sourcebuffer.get_text(start_iter, end_iter))
 
