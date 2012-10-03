@@ -22,7 +22,7 @@
 import os, sys
 
 
-VERSION = "0.27.1"
+VERSION = "0.28"
 APP_NAME = "cherrytree"
 NEWER_VERSION_URL = "http://www.giuspen.com/software/version_cherrytree"
 if sys.platform[0:3] == "win":
@@ -342,6 +342,7 @@ UI_INFO = """
             <menuitem action='FromKeepNote'/>
             <menuitem action='FromKnowit'/>
             <menuitem action='FromLeo'/>
+            <menuitem action='FromMempad'/>
             <menuitem action='FromNoteCase'/>
             <menuitem action='FromTomboy'/>
             <menuitem action='FromTreepad'/>
@@ -558,6 +559,7 @@ def get_entries(inst):
     ( "FromGnote", "import_in_cherrytree", _("From _Gnote Folder"), None, _("Add Nodes of a Gnote Folder to the Current Tree"), inst.nodes_add_from_gnote_folder),
     ( "FromTuxCards", "import_in_cherrytree", _("From _TuxCards File"), None, _("Add Nodes of a TuxCards File to the Current Tree"), inst.nodes_add_from_tuxcards_file),
     ( "FromTreepad", "import_in_cherrytree", _("From T_reepad Lite File"), None, _("Add Nodes of a Treepad Lite File to the Current Tree"), inst.nodes_add_from_treepad_file),
+    ( "FromMempad", "import_in_cherrytree", _("From _Mempad File"), None, _("Add Nodes of a Mempad File to the Current Tree"), inst.nodes_add_from_mempad_file),
     ( "FromLeo", "import_in_cherrytree", _("From _Leo File"), None, _("Add Nodes of a Leo File to the Current Tree"), inst.nodes_add_from_leo_file),
     ( "Help", "help-contents", _("Online _Manual"), None, _("Application's Online Manual"), inst.on_help_menu_item_activated),
     ( "CheckNewer", "gtk-network", _("_Check Newer Version"), None, _("Check for a Newer Version"), inst.check_for_newer_version),
@@ -619,6 +621,7 @@ def get_popup_menu_tree(inst):
     ("import_in_cherrytree", _("From _KeepNote Folder"), None, _("Add Nodes of a KeepNote Folder to the Current Tree"), inst.nodes_add_from_keepnote_folder),
     ("import_in_cherrytree", _("From K_nowit File"), None, _("Add Nodes of a Knowit File to the Current Tree"), inst.nodes_add_from_knowit_file),
     ("import_in_cherrytree", _("From _Leo File"), None, _("Add Nodes of a Leo File to the Current Tree"), inst.nodes_add_from_leo_file),
+    ("import_in_cherrytree", _("From _Mempad File"), None, _("Add Nodes of a Mempad File to the Current Tree"), inst.nodes_add_from_mempad_file),
     ("import_in_cherrytree", _("From _NoteCase File"), None, _("Add Nodes of a NoteCase File to the Current Tree"), inst.nodes_add_from_notecase_file),
     ("import_in_cherrytree", _("From T_omboy Folder"), None, _("Add Nodes of a Tomboy Folder to the Current Tree"), inst.nodes_add_from_tomboy_folder),
     ("import_in_cherrytree", _("From T_reepad Lite File"), None, _("Add Nodes of a Treepad Lite File to the Current Tree"), inst.nodes_add_from_treepad_file),

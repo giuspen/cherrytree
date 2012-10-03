@@ -925,9 +925,6 @@ class TreepadHandler:
     def rich_text_serialize(self, text_data):
         """Appends a new part to the XML rich text"""
         dom_iter = self.dom.createElement("rich_text")
-        #for tag_property in cons.TAG_PROPERTIES:
-        #   if self.curr_attributes[tag_property] != "":
-        #      dom_iter.setAttribute(tag_property, self.curr_attributes[tag_property])
         self.nodes_list[-1].appendChild(dom_iter)
         text_iter = self.dom.createTextNode(text_data)
         dom_iter.appendChild(text_iter)
@@ -980,6 +977,72 @@ class TreepadHandler:
         self.nodes_list = [self.dom.createElement("cherrytree")]
         self.dom.appendChild(self.nodes_list[0])
         self.parse_string_lines(file_descriptor)
+        return self.dom.toxml()
+
+
+class MempadHandler:
+    """The Handler of the Mempad File Parsing"""
+
+    def __init__(self):
+        """Machine boot"""
+        self.xml_handler = machines.XMLHandler(self)
+
+    def rich_text_serialize(self, text_data):
+        """Appends a new part to the XML rich text"""
+        dom_iter = self.dom.createElement("rich_text")
+        self.nodes_list[-1].appendChild(dom_iter)
+        text_iter = self.dom.createTextNode(text_data)
+        dom_iter.appendChild(text_iter)
+
+    def parse_binary_bytes(self, file_descriptor):
+        """Parse the binary bytes one by one"""
+        self.curr_state = 0
+        self.curr_node_name = ""
+        self.curr_node_content = ""
+        self.curr_node_level = 0
+        self.former_node_level = -1
+        # 0: waiting for first node level
+        # 1: filling node name
+        # 2: filling node content
+        # 3: waiting for subsequent node level
+        all_data = file_descriptor.read()
+        for element in all_data:
+            if self.curr_state == 0:
+                if ord(element) == 1:
+                    self.curr_node_level = 1
+                    self.curr_state = 1
+            elif self.curr_state == 1:
+                if ord(element) == 0:
+                    #print self.curr_node_name
+                    self.curr_node_content = ""
+                    self.curr_state = 2
+                    if self.curr_node_level <= self.former_node_level:
+                        for count in range(self.former_node_level - self.curr_node_level):
+                            self.nodes_list.pop()
+                        self.nodes_list.pop()
+                    self.former_node_level = self.curr_node_level
+                    self.nodes_list.append(self.dom.createElement("node"))
+                    self.nodes_list[-1].setAttribute("name", self.curr_node_name)
+                    self.nodes_list[-1].setAttribute("prog_lang", cons.CUSTOM_COLORS_ID)
+                    self.nodes_list[-2].appendChild(self.nodes_list[-1])
+                else: self.curr_node_name += element
+            elif self.curr_state == 2:
+                if ord(element) == 0:
+                    #print self.curr_node_content
+                    self.curr_state = 3
+                    self.rich_text_serialize(self.curr_node_content)
+                else: self.curr_node_content += element
+            else:
+                self.curr_node_level = ord(element)
+                self.curr_node_name = ""
+                self.curr_state = 1
+
+    def get_cherrytree_xml(self, file_descriptor):
+        """Returns a CherryTree string Containing the Mempad Nodes"""
+        self.dom = xml.dom.minidom.Document()
+        self.nodes_list = [self.dom.createElement("cherrytree")]
+        self.dom.appendChild(self.nodes_list[0])
+        self.parse_binary_bytes(file_descriptor)
         return self.dom.toxml()
 
 
