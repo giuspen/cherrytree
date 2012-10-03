@@ -4427,6 +4427,7 @@ do you want to save the changes?</property>
                   <object class="GtkAlignment" id="alignment12">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="top_padding">3</property>
                     <property name="left_padding">3</property>
                     <property name="right_padding">3</property>
                     <child>
