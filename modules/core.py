@@ -248,9 +248,9 @@ class CherryTree:
                 else: return cons.NODES_ICONS[6]
             else:
                 if node_code in cons.CODE_ICONS: return cons.CODE_ICONS[node_code]
-                else: return "Gray Cherry"
-        elif self.nodes_icons == "b": return "Node Bullet"
-        else: return "Node NoIcon"
+                else: return "cherry_gray"
+        elif self.nodes_icons == "b": return "node_bullet"
+        else: return "node_no_icon"
 
     def text_selection_change_case(self, change_type):
         """Change the Case of the Selected Text/the Underlying Word"""
