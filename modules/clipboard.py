@@ -196,8 +196,17 @@ class ClipboardHandler:
                         iter_insert = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
                         self.dad.curr_buffer.insert(iter_insert, 3*cons.CHAR_SPACE)
                         continue
-                    else: property_value = "file %s" % base64.b64encode(file_path)
-                else: property_value = None
+                    else:
+                        if os.path.isdir(file_path):
+                            property_value = "fold %s" % base64.b64encode(file_path)
+                        elif os.path.isfile(file_path):
+                            property_value = "file %s" % base64.b64encode(file_path)
+                        else:
+                            property_value = None
+                            print "ERROR: discarded file uri '%s'" % file_path
+                else:
+                    property_value = None
+                    print "ERROR: discarded ? uri '%s'" % file_path
                 start_offset = iter_insert.get_offset()
                 self.dad.curr_buffer.insert(iter_insert, element + 3*cons.CHAR_SPACE)
                 if property_value:
