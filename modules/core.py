@@ -3889,6 +3889,10 @@ class CherryTree:
                         elif iter_start.get_char().lower() == "r" and iter_start.backward_char()\
                         and iter_start.get_char() == cons.CHAR_PARENTH_OPEN:
                             self.special_char_replace(cons.SPECIAL_CHAR_REGISTERED_TRADEMARK, iter_start, iter_insert)
+                        elif iter_start.get_char().lower() == "m" and iter_start.backward_char()\
+                        and iter_start.get_char() == "t" and iter_start.backward_char()\
+                        and iter_start.get_char() == cons.CHAR_PARENTH_OPEN:
+                            self.special_char_replace(cons.SPECIAL_CHAR_UNREGISTERED_TRADEMARK, iter_start, iter_insert)
         return False
 
     def special_char_replace(self, special_char, iter_start, iter_insert):
