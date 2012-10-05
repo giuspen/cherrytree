@@ -191,7 +191,7 @@ class ClipboardHandler:
                 elif element[0:7] == "file://":
                     file_path = element[7:].replace("%20", cons.CHAR_SPACE)
                     mimetype = mimetypes.guess_type(file_path)[0]
-                    if len(mimetype) > 5 and mimetype[0:6] == "image/" and os.path.isfile(file_path):
+                    if mimetype and len(mimetype) > 5 and mimetype[0:6] == "image/" and os.path.isfile(file_path):
                         self.dad.image_insert(iter_insert, gtk.gdk.pixbuf_new_from_file(file_path))
                         iter_insert = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
                         self.dad.curr_buffer.insert(iter_insert, 3*cons.CHAR_SPACE)
