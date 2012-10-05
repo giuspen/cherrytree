@@ -31,6 +31,7 @@ TARGET_HTML = 'text/html'
 TARGET_URI_LIST = 'text/uri-list'
 TARGETS_PLAIN_TEXT = ("UTF8_STRING", "COMPOUND_TEXT", "STRING", "TEXT")
 TARGETS_IMAGES = ('image/png', 'image/jpeg', 'image/bmp', 'image/tiff', 'image/x-MS-bmp', 'image/x-bmp')
+TARGET_WINDOWS_FILE_NAME = 'FileName'
 
 
 class ClipboardHandler:
@@ -179,6 +180,9 @@ class ClipboardHandler:
             if target in targets:
                 self.clipboard.request_contents(target, self.to_plain_text)
                 return
+        if TARGET_WINDOWS_FILE_NAME in targets:
+            self.clipboard.request_contents(TARGET_WINDOWS_FILE_NAME, self.to_uri_list)
+            return
         print "WARNING: targets not handled", targets
 
     def to_uri_list(self, clipboard, selectiondata, data):
@@ -206,8 +210,13 @@ class ClipboardHandler:
                             property_value = None
                             print "ERROR: discarded file uri '%s'" % file_path
                 else:
-                    property_value = None
-                    print "ERROR: discarded ? uri '%s'" % element
+                    if os.path.isdir(element):
+                        property_value = "fold %s" % base64.b64encode(element)
+                    elif os.path.isfile(element):
+                        property_value = "file %s" % base64.b64encode(element)
+                    else:
+                        property_value = None
+                        print "ERROR: discarded ? uri '%s'" % element
                 start_offset = iter_insert.get_offset()
                 self.dad.curr_buffer.insert(iter_insert, element + 3*cons.CHAR_SPACE)
                 if property_value:
