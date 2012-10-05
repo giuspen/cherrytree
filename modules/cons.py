@@ -70,7 +70,7 @@ ANCHOR_CHAR = GLADE_PATH + 'anchor.png'
 NODES_ICONS = {0:'cherry_red', 1:'cherry_blue', 2:'cherry_orange', 3:'cherry_cyan',
                4:'cherry_orange_dark', 5:'cherry_sherbert', 6:'cherry_yellow'}
 CODE_ICONS = {"python": 'cherry_green', "sh":'cherry_purple',
-              "c":'cherry_black', "cpp":'Black Cherry', "chdr":'Black Cherry'}
+              "c":'cherry_black', "cpp":'cherry_black', "chdr":'cherry_black'}
 
 WHITE_SPACE_BETW_PIXB_AND_TEXT = 3
 GRID_SLIP_OFFSET = 3
