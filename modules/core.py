@@ -3867,7 +3867,36 @@ class CherryTree:
                     curr_num = list_info[0] + 1
                     self.curr_buffer.insert(iter_insert, '%s. ' % curr_num)
                     self.lists_handler.list_adjust_ahead(curr_num, iter_insert.get_offset(), "num2num")
+            elif keyname == "space":
+                iter_insert = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
+                if iter_insert == None: return False
+                iter_start = iter_insert.copy()
+                if iter_start.backward_chars(2):
+                    if iter_start.get_char() == cons.CHAR_GREATER and iter_start.backward_char()\
+                    and iter_start.get_char() == cons.CHAR_MINUS and iter_start.backward_char():
+                        if iter_start.get_char() == cons.CHAR_LESSER:
+                            self.special_char_replace(cons.SPECIAL_CHAR_ARROW_DOUBLE, iter_start, iter_insert)
+                        elif iter_start.get_char() == cons.CHAR_MINUS:
+                            self.special_char_replace(cons.SPECIAL_CHAR_ARROW_RIGHT, iter_start, iter_insert)
+                    elif iter_start.get_char() == cons.CHAR_MINUS and iter_start.backward_char()\
+                    and iter_start.get_char() == cons.CHAR_MINUS and iter_start.backward_char()\
+                    and iter_start.get_char() == cons.CHAR_LESSER:
+                        self.special_char_replace(cons.SPECIAL_CHAR_ARROW_LEFT, iter_start, iter_insert)
+                    elif iter_start.get_char() == cons.CHAR_PARENTH_CLOSE and iter_start.backward_char():
+                        if iter_start.get_char().lower() == "c" and iter_start.backward_char()\
+                        and iter_start.get_char() == cons.CHAR_PARENTH_OPEN:
+                            self.special_char_replace(cons.SPECIAL_CHAR_COPYRIGHT, iter_start, iter_insert)
+                        elif iter_start.get_char().lower() == "r" and iter_start.backward_char()\
+                        and iter_start.get_char() == cons.CHAR_PARENTH_OPEN:
+                            self.special_char_replace(cons.SPECIAL_CHAR_REGISTERED_TRADEMARK, iter_start, iter_insert)
         return False
+
+    def special_char_replace(self, special_char, iter_start, iter_insert):
+        """A special char replacement is triggered"""
+        self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
+        self.curr_buffer.delete(iter_start, iter_insert)
+        iter_insert = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
+        self.curr_buffer.insert(iter_insert, special_char + cons.CHAR_SPACE)
 
     def on_sourceview_motion_notify_event(self, text_view, event):
         """Update the cursor image if the pointer moved"""
