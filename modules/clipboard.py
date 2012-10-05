@@ -178,7 +178,8 @@ class ClipboardHandler:
         for target in TARGETS_PLAIN_TEXT:
             if target in targets:
                 self.clipboard.request_contents(target, self.to_plain_text)
-                break
+                return
+        print "WARNING: targets not handled", targets
 
     def to_uri_list(self, clipboard, selectiondata, data):
         """From Clipboard to URI list"""
@@ -206,7 +207,7 @@ class ClipboardHandler:
                             print "ERROR: discarded file uri '%s'" % file_path
                 else:
                     property_value = None
-                    print "ERROR: discarded ? uri '%s'" % file_path
+                    print "ERROR: discarded ? uri '%s'" % element
                 start_offset = iter_insert.get_offset()
                 self.dad.curr_buffer.insert(iter_insert, element + 3*cons.CHAR_SPACE)
                 if property_value:
