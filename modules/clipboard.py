@@ -256,14 +256,30 @@ class ClipboardHandler:
         start_offset = iter_insert.get_offset()
         self.dad.curr_buffer.insert(iter_insert, plain_text)
         if self.dad.syntax_highlighting == cons.CUSTOM_COLORS_ID:
-            for offsets in imports.get_web_links_offsets_from_plain_text(plain_text):
-                iter_sel_start = self.dad.curr_buffer.get_iter_at_offset(start_offset + offsets[0])
-                iter_sel_end = self.dad.curr_buffer.get_iter_at_offset(start_offset + offsets[1])
-                link_url = plain_text[offsets[0]:offsets[1]]
-                if link_url[0:3] not in ["htt", "ftp"]: link_url = "http://" + link_url
-                property_value = "webs " + link_url
-                self.dad.curr_buffer.apply_tag_by_name(self.dad.apply_tag_exist_or_create("link", property_value),
-                                                       iter_sel_start, iter_sel_end)
+            web_links_offsets = imports.get_web_links_offsets_from_plain_text(plain_text)
+            if web_links_offsets:
+                for offsets in web_links_offsets:
+                    iter_sel_start = self.dad.curr_buffer.get_iter_at_offset(start_offset + offsets[0])
+                    iter_sel_end = self.dad.curr_buffer.get_iter_at_offset(start_offset + offsets[1])
+                    link_url = plain_text[offsets[0]:offsets[1]]
+                    if link_url[0:3] not in ["htt", "ftp"]: link_url = "http://" + link_url
+                    property_value = "webs " + link_url
+                    self.dad.curr_buffer.apply_tag_by_name(self.dad.apply_tag_exist_or_create("link", property_value),
+                                                           iter_sel_start, iter_sel_end)
+            else:
+                # check for file or folder path
+                if not cons.CHAR_NEWLINE in plain_text:
+                    property_value = None
+                    if os.path.isdir(plain_text):
+                        property_value = "fold %s" % base64.b64encode(plain_text)
+                    elif os.path.isfile(plain_text):
+                        property_value = "file %s" % base64.b64encode(plain_text)
+                    if property_value:
+                        iter_sel_end = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
+                        iter_sel_start = iter_sel_end.copy()
+                        iter_sel_start.backward_chars(len(plain_text))
+                        self.dad.curr_buffer.apply_tag_by_name(self.dad.apply_tag_exist_or_create("link", property_value),
+                                                               iter_sel_start, iter_sel_end)
 
     def to_rich_text(self, clipboard, selectiondata, data):
         """From Clipboard to Rich Text"""
