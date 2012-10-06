@@ -169,7 +169,7 @@ class ClipboardHandler:
         if TARGET_HTML in targets and self.dad.syntax_highlighting == cons.CUSTOM_COLORS_ID:
             self.clipboard.request_contents(TARGET_HTML, self.to_html)
             return
-        if TARGET_URI_LIST in targets and self.dad.syntax_highlighting == cons.CUSTOM_COLORS_ID:
+        if TARGET_URI_LIST in targets:
             self.clipboard.request_contents(TARGET_URI_LIST, self.to_uri_list)
             return
         for target in TARGETS_IMAGES:
@@ -188,6 +188,10 @@ class ClipboardHandler:
     def to_uri_list(self, clipboard, selectiondata, data):
         """From Clipboard to URI list"""
         selection_data = re.sub(cons.BAD_CHARS, "", selectiondata.data)
+        if self.dad.syntax_highlighting != cons.CUSTOM_COLORS_ID:
+            iter_insert = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
+            self.dad.curr_buffer.insert(iter_insert, selection_data)
+            return
         uri_list = selection_data.split(cons.CHAR_NEWLINE)
         for element in uri_list:
             if len(element) > 7:
@@ -218,7 +222,7 @@ class ClipboardHandler:
                         property_value = None
                         print "ERROR: discarded ? uri '%s'" % element
                 start_offset = iter_insert.get_offset()
-                self.dad.curr_buffer.insert(iter_insert, element + 3*cons.CHAR_SPACE)
+                self.dad.curr_buffer.insert(iter_insert, element + cons.CHAR_NEWLINE)
                 if property_value:
                     iter_sel_start = self.dad.curr_buffer.get_iter_at_offset(start_offset)
                     iter_sel_end = self.dad.curr_buffer.get_iter_at_offset(start_offset + len(element))
