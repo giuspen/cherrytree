@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-10-06 23:37+0200\n"
-"PO-Revision-Date: 2012-09-11 13:01+0200\n"
+"PO-Revision-Date: 2012-10-07 09:24+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 1.4\n"
+"X-Generator: Lokalize 1.5\n"
 
 #: modules/support.py:59
 msgid "Save File as"
@@ -189,9 +189,8 @@ msgid "Treepad Document"
 msgstr "Dokument Treepad"
 
 #: modules/core.py:703
-#, fuzzy
 msgid "Mempad Document"
-msgstr "Dokument Treepad"
+msgstr "Dokument Mempad"
 
 #: modules/core.py:721
 msgid "Knowit Document"
@@ -1270,14 +1269,12 @@ msgid "Add Nodes of a Treepad Lite File to the Current Tree"
 msgstr "Přidat uzly ze souboru Treepad Lite do současné stromové stavby"
 
 #: modules/cons.py:574 modules/cons.py:636
-#, fuzzy
 msgid "From _Mempad File"
-msgstr "Ze souboru _Leo"
+msgstr "Ze souboru _Mempad"
 
 #: modules/cons.py:574 modules/cons.py:636
-#, fuzzy
 msgid "Add Nodes of a Mempad File to the Current Tree"
-msgstr "Přidat uzly ze souboru Leo do současné stromové stavby"
+msgstr "Přidat uzly ze souboru Mempad do současné stromové stavby"
 
 #: modules/cons.py:575 modules/cons.py:635
 msgid "From _Leo File"
@@ -1927,9 +1924,8 @@ msgid "<b>Miscellaneous</b>"
 msgstr "<b>Různé</b>"
 
 #: glade/cherrytree.glade.h:98
-#, fuzzy
 msgid "All Nodes"
-msgstr "Roz_balit všechny uzly"
+msgstr "Všechny uzly"
 
 #: glade/cherrytree.glade.h:99
 msgid "Light Background, Dark Text"
@@ -1948,18 +1944,16 @@ msgid "and Text"
 msgstr "a text"
 
 #: glade/cherrytree.glade.h:103
-#, fuzzy
 msgid "<b>Theme</b>"
-msgstr "<b>Stavba stromu</b>"
+msgstr "<b>Motiv</b>"
 
 #: glade/cherrytree.glade.h:104
 msgid "Limit of Undoable Steps Per Node"
 msgstr "Počet kroků zpět na uzel"
 
 #: glade/cherrytree.glade.h:105
-#, fuzzy
 msgid "Text Nodes"
-msgstr "Pro uzel"
+msgstr "Uzly s textem"
 
 #: glade/cherrytree.glade.h:106
 msgid "Style Scheme"
@@ -1974,9 +1968,8 @@ msgid "Highlight Current Line"
 msgstr "Zvýraznit nynější řádek"
 
 #: glade/cherrytree.glade.h:109
-#, fuzzy
 msgid "Code Nodes"
-msgstr "Pro uzel"
+msgstr "Uzly s kódem"
 
 #: glade/cherrytree.glade.h:110
 msgid "Use Cherries as Nodes Icons"
@@ -1991,13 +1984,12 @@ msgid "Do Not Display Nodes Icons"
 msgstr "Nezobrazovat ikony k uzlům"
 
 #: glade/cherrytree.glade.h:113
-#, fuzzy
 msgid "<b>Nodes Icons</b>"
-msgstr "<b>Uzly</b>"
+msgstr "<b>Ikony uzlů</b>"
 
 #: glade/cherrytree.glade.h:114
 msgid "Expand All Nodes When Loading the Tree"
-msgstr "Rozbalit stavbu stromu při nahrání"
+msgstr "Rozbalit všechny uzly při nahrání stromu"
 
 #: glade/cherrytree.glade.h:115
 msgid "Tree Nodes Names Wrapping Width"
@@ -2008,9 +2000,8 @@ msgid "Display Tree on the Right Side"
 msgstr "Zobrazit strom na pravé straně"
 
 #: glade/cherrytree.glade.h:117
-#, fuzzy
 msgid "Tree"
-msgstr "S_trom"
+msgstr "Strom"
 
 #: glade/cherrytree.glade.h:118
 msgid "Text Font"
@@ -2030,7 +2021,7 @@ msgstr "<b>Písma</b>"
 
 #: glade/cherrytree.glade.h:122
 msgid "Fonts"
-msgstr ""
+msgstr "Písma"
 
 #: glade/cherrytree.glade.h:123
 msgid "Enable Custom Web Link Clicked Action"
@@ -2054,7 +2045,7 @@ msgstr "<b>Odkazy</b>"
 
 #: glade/cherrytree.glade.h:128
 msgid "Links"
-msgstr ""
+msgstr "Odkazy"
 
 #: glade/cherrytree.glade.h:129
 msgid "Enable System Tray Docking"
@@ -2078,7 +2069,7 @@ msgstr "Automaticky uložit každých"
 
 #: glade/cherrytree.glade.h:134
 msgid "Minutes"
-msgstr "Minut"
+msgstr "minut"
 
 #: glade/cherrytree.glade.h:135
 msgid "Autosave on Quit"
@@ -2105,9 +2096,8 @@ msgid "<b>Language</b>"
 msgstr "<b>Jazyk</b>"
 
 #: glade/cherrytree.glade.h:141
-#, fuzzy
 msgid "Miscellaneous"
-msgstr "<b>Různé</b>"
+msgstr "Různé"
 
 #: glade/cherrytree.glade.h:142
 msgid "Rows  "

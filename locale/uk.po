@@ -15,8 +15,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Poedit-Language: Ukrainian\n"
 "X-Poedit-Country: UKRAINE\n"
 "X-Poedit-SourceCharset: utf-8\n"
@@ -190,9 +189,8 @@ msgid "Treepad Document"
 msgstr "Документ Treepad"
 
 #: modules/core.py:703
-#, fuzzy
 msgid "Mempad Document"
-msgstr "Документ Treepad"
+msgstr "Документ Mempad"
 
 #: modules/core.py:721
 msgid "Knowit Document"
@@ -1225,7 +1223,7 @@ msgstr "Імпортувати з каталогу KeepNote в існуюче д
 
 #: modules/cons.py:569 modules/cons.py:634
 msgid "From K_nowit File"
-msgstr "З файлу K_nowit"
+msgstr "З K_nowit"
 
 #: modules/cons.py:569 modules/cons.py:634
 msgid "Add Nodes of a Knowit File to the Current Tree"
@@ -1264,14 +1262,12 @@ msgid "Add Nodes of a Treepad Lite File to the Current Tree"
 msgstr "Імпортувати з файлу Treepad в існуюче дерево"
 
 #: modules/cons.py:574 modules/cons.py:636
-#, fuzzy
 msgid "From _Mempad File"
-msgstr "З Leo"
+msgstr "З Mempad"
 
 #: modules/cons.py:574 modules/cons.py:636
-#, fuzzy
 msgid "Add Nodes of a Mempad File to the Current Tree"
-msgstr "Імпортувати з файлу Leo в існуюче дерево"
+msgstr "Імпортувати з файлу Mempad в існуюче дерево"
 
 #: modules/cons.py:575 modules/cons.py:635
 msgid "From _Leo File"
@@ -1926,9 +1922,8 @@ msgid "<b>Miscellaneous</b>"
 msgstr "<b>Різне</b>"
 
 #: glade/cherrytree.glade.h:98
-#, fuzzy
 msgid "All Nodes"
-msgstr "Розгорнути гілки"
+msgstr "Усі гілки"
 
 #: glade/cherrytree.glade.h:99
 msgid "Light Background, Dark Text"
@@ -1947,18 +1942,16 @@ msgid "and Text"
 msgstr "і текст"
 
 #: glade/cherrytree.glade.h:103
-#, fuzzy
 msgid "<b>Theme</b>"
-msgstr "<b>Дерево</b>"
+msgstr "<b>Тема</b>"
 
 #: glade/cherrytree.glade.h:104
 msgid "Limit of Undoable Steps Per Node"
 msgstr "Ліміт операцій відміни"
 
 #: glade/cherrytree.glade.h:105
-#, fuzzy
 msgid "Text Nodes"
-msgstr "Гілка"
+msgstr "Текстові гілки"
 
 #: glade/cherrytree.glade.h:106
 msgid "Style Scheme"
@@ -1973,9 +1966,8 @@ msgid "Highlight Current Line"
 msgstr "Підсвічування пробільні символи"
 
 #: glade/cherrytree.glade.h:109
-#, fuzzy
 msgid "Code Nodes"
-msgstr "Гілка"
+msgstr "Кодові гілка"
 
 #: glade/cherrytree.glade.h:110
 msgid "Use Cherries as Nodes Icons"
@@ -1990,9 +1982,8 @@ msgid "Do Not Display Nodes Icons"
 msgstr "Не відображувати значки гілок"
 
 #: glade/cherrytree.glade.h:113
-#, fuzzy
 msgid "<b>Nodes Icons</b>"
-msgstr "<b>Гілка</b>"
+msgstr "<b>Значки гілок</b>"
 
 #: glade/cherrytree.glade.h:114
 msgid "Expand All Nodes When Loading the Tree"
@@ -2007,7 +1998,6 @@ msgid "Display Tree on the Right Side"
 msgstr "Відображати дерево ліворуч"
 
 #: glade/cherrytree.glade.h:117
-#, fuzzy
 msgid "Tree"
 msgstr "Дерево"
 
@@ -2029,7 +2019,7 @@ msgstr "<b>Шрифти</b>"
 
 #: glade/cherrytree.glade.h:122
 msgid "Fonts"
-msgstr ""
+msgstr "Шрифти"
 
 #: glade/cherrytree.glade.h:123
 msgid "Enable Custom Web Link Clicked Action"
@@ -2053,7 +2043,7 @@ msgstr "<b>Гіперпосилання</b>"
 
 #: glade/cherrytree.glade.h:128
 msgid "Links"
-msgstr ""
+msgstr "Посилання"
 
 #: glade/cherrytree.glade.h:129
 msgid "Enable System Tray Docking"
@@ -2104,9 +2094,8 @@ msgid "<b>Language</b>"
 msgstr "<b>Мова</b>"
 
 #: glade/cherrytree.glade.h:141
-#, fuzzy
 msgid "Miscellaneous"
-msgstr "<b>Різне</b>"
+msgstr "Різне"
 
 #: glade/cherrytree.glade.h:142
 msgid "Rows  "

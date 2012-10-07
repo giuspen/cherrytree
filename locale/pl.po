@@ -186,9 +186,8 @@ msgid "Treepad Document"
 msgstr "Dokument Treepad"
 
 #: modules/core.py:703
-#, fuzzy
 msgid "Mempad Document"
-msgstr "Dokument Treepad"
+msgstr "Dokument Mempad"
 
 #: modules/core.py:721
 msgid "Knowit Document"
@@ -1261,14 +1260,12 @@ msgid "Add Nodes of a Treepad Lite File to the Current Tree"
 msgstr "Dodaj gałązi z pliku Treepad Lite do aktualnego drzewa"
 
 #: modules/cons.py:574 modules/cons.py:636
-#, fuzzy
 msgid "From _Mempad File"
-msgstr "Z pliku _Leo"
+msgstr "Z pliku _Mempad"
 
 #: modules/cons.py:574 modules/cons.py:636
-#, fuzzy
 msgid "Add Nodes of a Mempad File to the Current Tree"
-msgstr "Dodaj gałąź z pliku Leo do aktualnego drzewa"
+msgstr "Dodaj gałąź z pliku Mempad do aktualnego drzewa"
 
 #: modules/cons.py:575 modules/cons.py:635
 msgid "From _Leo File"
@@ -1919,9 +1916,8 @@ msgid "<b>Miscellaneous</b>"
 msgstr "<b>Inne</b>"
 
 #: glade/cherrytree.glade.h:98
-#, fuzzy
 msgid "All Nodes"
-msgstr "_Rozwiń wszystkie gałęzie"
+msgstr "Wszystkie gałęzie"
 
 #: glade/cherrytree.glade.h:99
 msgid "Light Background, Dark Text"
@@ -1940,18 +1936,16 @@ msgid "and Text"
 msgstr "i tekst"
 
 #: glade/cherrytree.glade.h:103
-#, fuzzy
 msgid "<b>Theme</b>"
-msgstr "<b>Drzewo</b>"
+msgstr "<b>Motyw</b>"
 
 #: glade/cherrytree.glade.h:104
 msgid "Limit of Undoable Steps Per Node"
 msgstr "Ilość cofnięć dla każdej gałęzi"
 
 #: glade/cherrytree.glade.h:105
-#, fuzzy
 msgid "Text Nodes"
-msgstr "Do gałęzi"
+msgstr "Gałęzi tekstowe"
 
 #: glade/cherrytree.glade.h:106
 msgid "Style Scheme"
@@ -1966,9 +1960,8 @@ msgid "Highlight Current Line"
 msgstr "Podświetlaj aktualną linię"
 
 #: glade/cherrytree.glade.h:109
-#, fuzzy
 msgid "Code Nodes"
-msgstr "Do gałęzi"
+msgstr "Gałęzi kodu"
 
 #: glade/cherrytree.glade.h:110
 msgid "Use Cherries as Nodes Icons"
@@ -1983,9 +1976,8 @@ msgid "Do Not Display Nodes Icons"
 msgstr "Nie wyświetlaj ikon gałęźi"
 
 #: glade/cherrytree.glade.h:113
-#, fuzzy
 msgid "<b>Nodes Icons</b>"
-msgstr "<b>Gałąź</b>"
+msgstr "<b>Ikony gałęzi</b>"
 
 #: glade/cherrytree.glade.h:114
 msgid "Expand All Nodes When Loading the Tree"
@@ -2000,9 +1992,8 @@ msgid "Display Tree on the Right Side"
 msgstr "Wyświetlaj drzewo po prawej stronie"
 
 #: glade/cherrytree.glade.h:117
-#, fuzzy
 msgid "Tree"
-msgstr "_Drzewo"
+msgstr "Drzewo"
 
 #: glade/cherrytree.glade.h:118
 msgid "Text Font"
@@ -2022,7 +2013,7 @@ msgstr "<b>Czcionki</b>"
 
 #: glade/cherrytree.glade.h:122
 msgid "Fonts"
-msgstr ""
+msgstr "Czcionki"
 
 #: glade/cherrytree.glade.h:123
 msgid "Enable Custom Web Link Clicked Action"
@@ -2046,7 +2037,7 @@ msgstr "<b>Linki</b>"
 
 #: glade/cherrytree.glade.h:128
 msgid "Links"
-msgstr ""
+msgstr "Linki"
 
 #: glade/cherrytree.glade.h:129
 msgid "Enable System Tray Docking"
@@ -2097,9 +2088,8 @@ msgid "<b>Language</b>"
 msgstr "<b>Język</b>"
 
 #: glade/cherrytree.glade.h:141
-#, fuzzy
 msgid "Miscellaneous"
-msgstr "<b>Inne</b>"
+msgstr "Inne"
 
 #: glade/cherrytree.glade.h:142
 msgid "Rows  "
