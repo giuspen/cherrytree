@@ -8,13 +8,14 @@ msgstr ""
 "Project-Id-Version: cherrytree 0.26\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-10-06 23:37+0200\n"
-"PO-Revision-Date: 2012-09-11 13:47+0800\n"
-"Last-Translator:  <mamimoluo@gmail.com>\n"
+"PO-Revision-Date: 2012-10-09 12:01+0800\n"
+"Last-Translator: Channing Wong <mamimoluo@gmail.com>\n"
 "Language-Team: Chinese (simplified)\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.3\n"
 
 #: modules/support.py:59
 msgid "Save File as"
@@ -183,9 +184,8 @@ msgid "Treepad Document"
 msgstr "Treepad 文档"
 
 #: modules/core.py:703
-#, fuzzy
 msgid "Mempad Document"
-msgstr "Treepad 文档"
+msgstr "Mempad 文档"
 
 #: modules/core.py:721
 msgid "Knowit Document"
@@ -1253,14 +1253,12 @@ msgid "Add Nodes of a Treepad Lite File to the Current Tree"
 msgstr "从Treepad文件添加节点到当前树"
 
 #: modules/cons.py:574 modules/cons.py:636
-#, fuzzy
 msgid "From _Mempad File"
-msgstr "从Leo文件(_L)"
+msgstr "从Mempad文件(_M)"
 
 #: modules/cons.py:574 modules/cons.py:636
-#, fuzzy
 msgid "Add Nodes of a Mempad File to the Current Tree"
-msgstr "从Leo文件添加节点到当前树"
+msgstr "从Mempad文件添加节点到当前树"
 
 #: modules/cons.py:575 modules/cons.py:635
 msgid "From _Leo File"
@@ -1907,9 +1905,8 @@ msgid "<b>Miscellaneous</b>"
 msgstr "<b>杂项</b>"
 
 #: glade/cherrytree.glade.h:98
-#, fuzzy
 msgid "All Nodes"
-msgstr "展开所有节点(_X)"
+msgstr "所有节点"
 
 #: glade/cherrytree.glade.h:99
 msgid "Light Background, Dark Text"
@@ -1928,18 +1925,16 @@ msgid "and Text"
 msgstr "和文字"
 
 #: glade/cherrytree.glade.h:103
-#, fuzzy
 msgid "<b>Theme</b>"
-msgstr "<b>树</b>"
+msgstr "<b>主题</b>"
 
 #: glade/cherrytree.glade.h:104
 msgid "Limit of Undoable Steps Per Node"
 msgstr "每个节点撤销步数限制"
 
 #: glade/cherrytree.glade.h:105
-#, fuzzy
 msgid "Text Nodes"
-msgstr "连接到节点"
+msgstr "文本节点"
 
 #: glade/cherrytree.glade.h:106
 msgid "Style Scheme"
@@ -1954,9 +1949,8 @@ msgid "Highlight Current Line"
 msgstr "高亮当前行"
 
 #: glade/cherrytree.glade.h:109
-#, fuzzy
 msgid "Code Nodes"
-msgstr "连接到节点"
+msgstr "代码节点"
 
 #: glade/cherrytree.glade.h:110
 msgid "Use Cherries as Nodes Icons"
@@ -1971,9 +1965,8 @@ msgid "Do Not Display Nodes Icons"
 msgstr "不显示节点图标"
 
 #: glade/cherrytree.glade.h:113
-#, fuzzy
 msgid "<b>Nodes Icons</b>"
-msgstr "<b>节点</b>"
+msgstr "<b>节点图标</b>"
 
 #: glade/cherrytree.glade.h:114
 msgid "Expand All Nodes When Loading the Tree"
@@ -1988,9 +1981,8 @@ msgid "Display Tree on the Right Side"
 msgstr "节点树显示在右侧"
 
 #: glade/cherrytree.glade.h:117
-#, fuzzy
 msgid "Tree"
-msgstr "树(_T)"
+msgstr "树"
 
 #: glade/cherrytree.glade.h:118
 msgid "Text Font"
@@ -2010,7 +2002,7 @@ msgstr "<b>字体</b>"
 
 #: glade/cherrytree.glade.h:122
 msgid "Fonts"
-msgstr ""
+msgstr "字体"
 
 #: glade/cherrytree.glade.h:123
 msgid "Enable Custom Web Link Clicked Action"
@@ -2034,7 +2026,7 @@ msgstr "<b>链接</b>"
 
 #: glade/cherrytree.glade.h:128
 msgid "Links"
-msgstr ""
+msgstr "链接"
 
 #: glade/cherrytree.glade.h:129
 msgid "Enable System Tray Docking"
@@ -2085,9 +2077,8 @@ msgid "<b>Language</b>"
 msgstr "<b>界面语言</b>"
 
 #: glade/cherrytree.glade.h:141
-#, fuzzy
 msgid "Miscellaneous"
-msgstr "<b>杂项</b>"
+msgstr "杂项"
 
 #: glade/cherrytree.glade.h:142
 msgid "Rows  "
