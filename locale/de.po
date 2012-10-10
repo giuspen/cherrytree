@@ -187,9 +187,8 @@ msgid "Treepad Document"
 msgstr "Treepad-Datei"
 
 #: modules/core.py:703
-#, fuzzy
 msgid "Mempad Document"
-msgstr "Treepad-Datei"
+msgstr "Mempad-Datei"
 
 #: modules/core.py:721
 msgid "Knowit Document"
@@ -478,7 +477,7 @@ msgstr "Tabellenspalten bearbeiten..."
 
 #: modules/codeboxes.py:63 modules/cons.py:515 modules/cons.py:699
 msgid "Insert a CodeBox"
-msgstr "Eine CodeBox einfügen"
+msgstr "CodeBox einfügen"
 
 #: modules/codeboxes.py:181
 msgid "Edit CodeBox"
@@ -574,27 +573,27 @@ msgstr "Datei speichern unter..."
 
 #: modules/cons.py:488 modules/cons.py:645
 msgid "Export To _HTML"
-msgstr "als _HTML exportieren"
+msgstr "_HTML"
 
 #: modules/cons.py:488 modules/cons.py:645
 msgid "Export To HTML"
-msgstr "als HTML exportieren"
+msgstr "HTML"
 
 #: modules/cons.py:489 modules/cons.py:644
 msgid "Export to Plain _Text"
-msgstr "als _Textdatei exportieren"
+msgstr "_Text"
 
 #: modules/cons.py:489 modules/cons.py:644
 msgid "Export to Plain Text"
-msgstr "als Textdatei exportieren"
+msgstr "Text"
 
 #: modules/cons.py:490 modules/cons.py:646
 msgid "_Export To CherryTree Document"
-msgstr "als _CherryTree-Dokument exportieren"
+msgstr "_CherryTree-Datei"
 
 #: modules/cons.py:490 modules/cons.py:646
 msgid "Export To CherryTree Document"
-msgstr "als CherryTree-Dokument exportieren"
+msgstr "CherryTree-Datei"
 
 #: modules/cons.py:491
 msgid "Pa_ge Setup"
@@ -606,11 +605,11 @@ msgstr "Seite einrichten"
 
 #: modules/cons.py:492 modules/cons.py:643
 msgid "_Print / Export To PDF"
-msgstr "_Drucken / als PDF exportieren"
+msgstr "PDF / _Drucken"
 
 #: modules/cons.py:492 modules/cons.py:643
 msgid "Print / Export To PDF"
-msgstr "Drucken / als PDF exportieren"
+msgstr "PDF / Drucken"
 
 #: modules/cons.py:493
 msgid "_Quit"
@@ -698,7 +697,7 @@ msgstr "An_ker einfügen..."
 
 #: modules/cons.py:503 modules/cons.py:701
 msgid "Insert an Anchor"
-msgstr "Einen Anker einfügen"
+msgstr "Anker einfügen"
 
 #: modules/cons.py:504
 msgid "Edit _Anchor"
@@ -714,7 +713,7 @@ msgstr "_Bild einfügen..."
 
 #: modules/cons.py:505 modules/cons.py:697
 msgid "Insert an Image"
-msgstr "Ein Bild einfügen"
+msgstr "Bild einfügen"
 
 #: modules/cons.py:506
 msgid "_Save Image as PNG"
@@ -868,11 +867,11 @@ msgstr "Zeilen kopieren"
 
 #: modules/cons.py:525 modules/cons.py:653
 msgid "Go _Back"
-msgstr "Zu_rück zum letzen Knoten"
+msgstr "Zu_rück zum letzten Knoten"
 
 #: modules/cons.py:525 modules/cons.py:653
 msgid "Go to the Previous Visited Node"
-msgstr "Zurück zum letzen Knoten"
+msgstr "Zurück zum letzten Knoten"
 
 #: modules/cons.py:526 modules/cons.py:654
 msgid "Go _Forward"
@@ -888,7 +887,7 @@ msgstr "Rü_ckgängig"
 
 #: modules/cons.py:527
 msgid "Undo Last Operation"
-msgstr "Letzte Änderung rückgängig machen"
+msgstr "Rückgängig"
 
 #: modules/cons.py:528
 msgid "_Redo"
@@ -930,7 +929,7 @@ msgstr "_Schriftfarbe..."
 
 #: modules/cons.py:532 modules/cons.py:671
 msgid "Change the Color of the Selected Text Foreground"
-msgstr "Schriftfarbe des ändern"
+msgstr "Schriftfarbe ändern"
 
 #: modules/cons.py:533 modules/cons.py:672
 msgid "Text C_olor Background"
@@ -1180,7 +1179,7 @@ msgstr "Die Icons in der Symbolleiste vergrößern"
 
 #: modules/cons.py:563
 msgid "_Decrease Toolbar Icons Size"
-msgstr "Icons ver_kleinern"
+msgstr "Symbole ver_kleinern"
 
 #: modules/cons.py:563
 msgid "Decrease the Size of the Toolbar Icons"
@@ -1205,7 +1204,7 @@ msgstr ""
 
 #: modules/cons.py:566 modules/cons.py:631
 msgid "From _CherryTree File"
-msgstr "aus _CherryTree-Datei..."
+msgstr "_CherryTree-Datei..."
 
 #: modules/cons.py:566 modules/cons.py:631
 msgid "Add Nodes of a CherryTree File to the Current Tree"
@@ -1214,11 +1213,11 @@ msgstr ""
 
 #: modules/cons.py:567 modules/cons.py:637
 msgid "From _NoteCase File"
-msgstr "aus _NoteCase-Datei..."
+msgstr "_NoteCase-Datei..."
 
 #: modules/cons.py:567 modules/cons.py:637
 msgid "Add Nodes of a NoteCase File to the Current Tree"
-msgstr "Knoten aus einer NoteCase-Datei zur aktuellen Baumstruktur hinzufügen"
+msgstr "Knoten aus einer NoteCase-Datei einfügen"
 
 #: modules/cons.py:568 modules/cons.py:633
 msgid "From _KeepNote Folder"
@@ -1226,16 +1225,15 @@ msgstr "aus _KeepNote-Verzeichnis..."
 
 #: modules/cons.py:568 modules/cons.py:633
 msgid "Add Nodes of a KeepNote Folder to the Current Tree"
-msgstr ""
-"Knoten aus einem KeepNote-Verzeichnis zur aktuellen Baumstruktur hinzufügen"
+msgstr "Knoten aus einem KeepNote-Verzeichnis einfügen"
 
 #: modules/cons.py:569 modules/cons.py:634
 msgid "From K_nowit File"
-msgstr "aus Kno_wit-Datei..."
+msgstr "Kno_wit-Datei..."
 
 #: modules/cons.py:569 modules/cons.py:634
 msgid "Add Nodes of a Knowit File to the Current Tree"
-msgstr "Knoten aus einer Knowit-Datei zur aktuellen Baumstruktur hinzufügen"
+msgstr "Knoten aus einer Knowit-Datei einfügen"
 
 #: modules/cons.py:570 modules/cons.py:638
 msgid "From T_omboy Folder"
@@ -1243,8 +1241,7 @@ msgstr "aus T_omboy-Verzeichnis.."
 
 #: modules/cons.py:570 modules/cons.py:638
 msgid "Add Nodes of a Tomboy Folder to the Current Tree"
-msgstr ""
-"Knoten aus einem Tomboy-Verzeichnis zur aktuellen Baumstruktur hinzufügen"
+msgstr "Knoten aus einem Tomboy-Verzeichnis einfügen"
 
 #: modules/cons.py:571 modules/cons.py:632
 msgid "From _Gnote Folder"
@@ -1252,43 +1249,39 @@ msgstr "aus _Gnote-Verzeichnis..."
 
 #: modules/cons.py:571 modules/cons.py:632
 msgid "Add Nodes of a Gnote Folder to the Current Tree"
-msgstr ""
-"Knoten aus einem Gnote-Verzeichnis zur aktuellen Baumstruktur hinzufügen"
+msgstr "Knoten aus einem Gnote-Verzeichnis einfügen"
 
 #: modules/cons.py:572 modules/cons.py:640
 msgid "From _TuxCards File"
-msgstr "aus Tu_xCards-Datei..."
+msgstr "Tu_xCards-Datei..."
 
 #: modules/cons.py:572 modules/cons.py:640
 msgid "Add Nodes of a TuxCards File to the Current Tree"
-msgstr "Knoten aus einer TuxCards-Datei zur aktuellen Baumstruktur hinzufügen"
+msgstr "Knoten aus einer TuxCards-Datei einfügen"
 
 #: modules/cons.py:573 modules/cons.py:639
 msgid "From T_reepad Lite File"
-msgstr "aus _Treepad Lite-Datei..."
+msgstr "_Treepad Lite-Datei..."
 
 #: modules/cons.py:573 modules/cons.py:639
 msgid "Add Nodes of a Treepad Lite File to the Current Tree"
-msgstr ""
-"Knoten aus einer Treepad Lite-Datei zur aktuellen Baumstruktur hinzufügen"
+msgstr "Knoten aus einer Treepad Lite-Datei einfügen"
 
 #: modules/cons.py:574 modules/cons.py:636
-#, fuzzy
 msgid "From _Mempad File"
-msgstr "aus _Leo-Datei..."
+msgstr "_Mempad-Datei..."
 
 #: modules/cons.py:574 modules/cons.py:636
-#, fuzzy
 msgid "Add Nodes of a Mempad File to the Current Tree"
-msgstr "Knoten aus einer Leo-Datei zur aktuellen Baumstruktur hinzufügen"
+msgstr "Knoten aus einer Mempad-Datei einfügen"
 
 #: modules/cons.py:575 modules/cons.py:635
 msgid "From _Leo File"
-msgstr "aus _Leo-Datei..."
+msgstr "_Leo-Datei..."
 
 #: modules/cons.py:575 modules/cons.py:635
 msgid "Add Nodes of a Leo File to the Current Tree"
-msgstr "Knoten aus einer Leo-Datei zur aktuellen Baumstruktur hinzufügen"
+msgstr "Knoten aus einer Leo-Datei einfügen"
 
 #: modules/cons.py:576
 msgid "Online _Manual"
@@ -1388,7 +1381,7 @@ msgstr "_Tabelle exportieren"
 
 #: modules/cons.py:589
 msgid "Export Table as CSV File"
-msgstr "Tabelle als CVS Datei exportieren"
+msgstr "Tabelle als CSV-Datei exportieren"
 
 #: modules/cons.py:590
 msgid "_Bookmark This Node"
@@ -1934,9 +1927,8 @@ msgid "<b>Miscellaneous</b>"
 msgstr "<b>Sonstiges </b>"
 
 #: glade/cherrytree.glade.h:98
-#, fuzzy
 msgid "All Nodes"
-msgstr "Alle Knoten _ausklappen"
+msgstr "Alle Knoten"
 
 #: glade/cherrytree.glade.h:99
 msgid "Light Background, Dark Text"
@@ -1948,25 +1940,23 @@ msgstr "Dunkler Hintergrund, heller Text"
 
 #: glade/cherrytree.glade.h:101
 msgid "Custom Background"
-msgstr "Benutzerdefinierte _Hintergrundfarbe..."
+msgstr "Benutzerdefiniert: Hintergrundfarbe"
 
 #: glade/cherrytree.glade.h:102
 msgid "and Text"
-msgstr "und Text"
+msgstr "Text"
 
 #: glade/cherrytree.glade.h:103
-#, fuzzy
 msgid "<b>Theme</b>"
-msgstr "<b>Baumstruktur</b>"
+msgstr "<b>Thema</b>"
 
 #: glade/cherrytree.glade.h:104
 msgid "Limit of Undoable Steps Per Node"
 msgstr "Anzahl der Rückgängig-Schritte pro Knoten"
 
 #: glade/cherrytree.glade.h:105
-#, fuzzy
 msgid "Text Nodes"
-msgstr "zum Knoten"
+msgstr "Text-Knoten"
 
 #: glade/cherrytree.glade.h:106
 msgid "Style Scheme"
@@ -1981,9 +1971,8 @@ msgid "Highlight Current Line"
 msgstr "Zeile markieren"
 
 #: glade/cherrytree.glade.h:109
-#, fuzzy
 msgid "Code Nodes"
-msgstr "zum Knoten"
+msgstr "Code-Knoten"
 
 #: glade/cherrytree.glade.h:110
 msgid "Use Cherries as Nodes Icons"
@@ -1998,9 +1987,8 @@ msgid "Do Not Display Nodes Icons"
 msgstr "Knotensymbole nicht anzeigen"
 
 #: glade/cherrytree.glade.h:113
-#, fuzzy
 msgid "<b>Nodes Icons</b>"
-msgstr "<b>Knoten</b>"
+msgstr "<b>Knotensymbole</b>"
 
 #: glade/cherrytree.glade.h:114
 msgid "Expand All Nodes When Loading the Tree"
@@ -2015,9 +2003,8 @@ msgid "Display Tree on the Right Side"
 msgstr "Baumstruktur rechts anzeigen"
 
 #: glade/cherrytree.glade.h:117
-#, fuzzy
 msgid "Tree"
-msgstr "Ba_umstruktur"
+msgstr "Baumstruktur"
 
 #: glade/cherrytree.glade.h:118
 msgid "Text Font"
@@ -2037,7 +2024,7 @@ msgstr "<b>Schriftart</b>"
 
 #: glade/cherrytree.glade.h:122
 msgid "Fonts"
-msgstr ""
+msgstr "Schriftart"
 
 #: glade/cherrytree.glade.h:123
 msgid "Enable Custom Web Link Clicked Action"
@@ -2061,7 +2048,7 @@ msgstr "<b>Links</b>"
 
 #: glade/cherrytree.glade.h:128
 msgid "Links"
-msgstr ""
+msgstr "Links"
 
 #: glade/cherrytree.glade.h:129
 msgid "Enable System Tray Docking"
@@ -2113,7 +2100,6 @@ msgid "<b>Language</b>"
 msgstr "<b>Sprache</b>"
 
 #: glade/cherrytree.glade.h:141
-#, fuzzy
 msgid "Miscellaneous"
 msgstr "<b>Sonstiges </b>"
 
@@ -2143,7 +2129,7 @@ msgstr "<b>Spalten Eigenschaften</b>"
 
 #: glade/cherrytree.glade.h:148
 msgid "Import from CSV File"
-msgstr "aus CSV Datei importieren"
+msgstr "CSV Datei importieren"
 
 #: glade/cherrytree.glade.h:149
 msgid "Rename Column"
