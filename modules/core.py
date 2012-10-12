@@ -1905,7 +1905,7 @@ class CherryTree:
 
     def on_help_menu_item_activated(self, menuitem, data=None):
         """Show the Online Manual"""
-        webbrowser.open("http://dl.dropbox.com/u/29682329/CherrytreeManual.ctb_html/Introduction.html")
+        webbrowser.open("https://sites.google.com/site/cherrytreeusermanual/")
 
     def on_button_strftime_help_clicked(self, menuitem, data=None):
         """Show the strftime Manual Page"""
