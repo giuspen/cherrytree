@@ -269,7 +269,7 @@ class ListsHandler:
         # get the number of the paragraph starting with iter_start
         number = self.list_get_number(iter_start)
         if number != None: return [number, False, iter_start.get_offset()] # multiple line = False
-        elif iter_start.get_char() == cons.CHAR_SPACE:
+        elif not buffer_start and iter_start.get_char() == cons.CHAR_SPACE:
             if iter_start.forward_char() and iter_start.get_char() == cons.CHAR_SPACE\
             and iter_start.forward_char() and iter_start.get_char() == cons.CHAR_SPACE:
                 # we are inside of a list paragraph but after a shift+return
