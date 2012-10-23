@@ -1,4 +1,13 @@
 
+0.28 (October 10th, 2012)
+• reduced the size of the preferences dialog adopting tabs
+• some special symbols are automatically inserted after typing the characters that compose them followed by spacebar; ctrl+z undoes the replacement ( --> to → , <-- to ← , <-> to ↔ , (c) to © , (tm) to ™ , (r) to ® )
+• added import from Mempad
+• fixed several bugs
+
+0.27.1 (September 23rd, 2012)
+• fixed bug: print / save as pdf of the whole tree not working in 0.27
+
 0.27 (September 18th, 2012)
 • added preference option to enable the periodic check of the cherrytree document file for external updates
 • added preference option to choose between appindicator and systray for panel docking

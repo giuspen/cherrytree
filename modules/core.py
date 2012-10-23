@@ -117,6 +117,7 @@ class CherryTree:
         self.scrolledwindow_text.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
         self.vbox_text = gtk.VBox()
         self.header_node_name_label = gtk.Label()
+        self.header_node_name_label.set_ellipsize(pango.ELLIPSIZE_END)
         self.header_node_name_eventbox = gtk.EventBox()
         self.header_node_name_eventbox.add(self.header_node_name_label)
         self.vbox_text.pack_start(self.header_node_name_eventbox, False, False)
