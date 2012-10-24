@@ -201,7 +201,9 @@ class TablesHandler:
             pass
         elif event.state & gtk.gdk.CONTROL_MASK:
             if keyname == "period":
-                widget.insert_text(cons.CHAR_NEWLINE, widget.get_position())
+                cursor_pos = widget.get_position()
+                widget.insert_text(cons.CHAR_NEWLINE, cursor_pos)
+                widget.set_position(cursor_pos+1)
         else:
             if keyname in ["Return", "Up", "Down"]:
                 if model[path][col_num] != widget.get_text():
