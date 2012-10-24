@@ -266,6 +266,8 @@ class Export2Pango:
             if not curr_iter.forward_char() or (sel_range and curr_iter.get_offset() > sel_range[1]):
                 if span_opened: pango_text += "</span>"
                 break
+        if len(pango_text) == 0 or pango_text[-1] != cons.CHAR_NEWLINE:
+            pango_text += cons.CHAR_NEWLINE
         return pango_text
 
     def pango_get_from_treestore_node(self, node_iter, sel_range=None):
