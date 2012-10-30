@@ -39,14 +39,14 @@ def text_file_rm_emptylines(filepath):
         fd.writelines(file_lines)
         fd.close()
 
-def get_node_hierarchical_name(dad, tree_iter):
+def get_node_hierarchical_name(dad, tree_iter, separator="--"):
     """Get the Node Hierarchical Name"""
-    hierarchical_name = dad.treestore[tree_iter][1]
+    hierarchical_name = dad.treestore[tree_iter][1].replace("/", "-")
     father_iter = dad.treestore.iter_parent(tree_iter)
     while father_iter:
-        hierarchical_name = dad.treestore[father_iter][1] + "--" + hierarchical_name
+        hierarchical_name = dad.treestore[father_iter][1].replace("/", "-") + separator + hierarchical_name
         father_iter = dad.treestore.iter_parent(father_iter)
-    return hierarchical_name.replace("/", "-")
+    return hierarchical_name
 
 def windows_cmd_prepare_path(filepath):
     """Prepares a Path to be digested by windows command line"""

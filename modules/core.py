@@ -117,7 +117,8 @@ class CherryTree:
         self.scrolledwindow_text.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
         self.vbox_text = gtk.VBox()
         self.header_node_name_label = gtk.Label()
-        self.header_node_name_label.set_ellipsize(pango.ELLIPSIZE_END)
+        self.header_node_name_label.set_padding(10, 0)
+        self.header_node_name_label.set_ellipsize(pango.ELLIPSIZE_START)
         self.header_node_name_eventbox = gtk.EventBox()
         self.header_node_name_eventbox.add(self.header_node_name_label)
         self.vbox_text.pack_start(self.header_node_name_eventbox, False, False)
@@ -817,7 +818,7 @@ class CherryTree:
                     self.sourceview.modify_font(pango.FontDescription(self.text_font))
                 else: self.sourceview.modify_font(pango.FontDescription(self.code_font))
                 self.sourceview.set_sensitive(True)
-                self.update_node_name_header(self.treestore[self.curr_tree_iter][1])
+                self.update_node_name_header()
                 self.state_machine.node_selected_changed(self.treestore[self.curr_tree_iter][3])
                 self.objects_buffer_refresh()
                 # try to restore cursor position if in memory
@@ -2408,7 +2409,7 @@ class CherryTree:
             self.set_sourcebuffer_syntax_highlight(self.curr_buffer, self.syntax_highlighting)
         self.sourceview.set_editable(not self.treestore[self.curr_tree_iter][7])
         self.update_selected_node_statusbar_info()
-        self.update_node_name_header(self.treestore[self.curr_tree_iter][1])
+        self.update_node_name_header()
         self.update_window_save_needed("npro")
         self.sourceview.grab_focus()
 
@@ -2481,7 +2482,7 @@ class CherryTree:
         self.sourceview_set_properties(self.curr_tree_iter, self.syntax_highlighting)
         self.sourceview.set_sensitive(True)
         self.sourceview.set_editable(not self.treestore[self.curr_tree_iter][7])
-        self.update_node_name_header(self.treestore[self.curr_tree_iter][1])
+        self.update_node_name_header()
         self.state_machine.node_selected_changed(self.treestore[self.curr_tree_iter][3])
         self.objects_buffer_refresh()
         self.update_selected_node_statusbar_info()
@@ -2492,12 +2493,13 @@ class CherryTree:
             if cursor_iter:
                 self.sourceview.scroll_to_iter(cursor_iter, 0.3)
 
-    def update_node_name_header(self, plain_text):
+    def update_node_name_header(self):
         """Update Node Name Header"""
+        node_hier_name = self.treestore[self.curr_tree_iter][1]
         self.header_node_name_eventbox.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.tt_def_bg))
         self.header_node_name_label.set_text(
             "<b><i><span foreground=\"" + self.tt_def_fg + "\" size=\"xx-large\">"+\
-            cgi.escape(plain_text) + "</span></i></b>")
+            cgi.escape(node_hier_name) + "</span></i></b>")
         self.header_node_name_label.set_use_markup(True)
 
     def get_textbuffer_from_tree_iter(self, tree_iter):
@@ -3678,7 +3680,7 @@ class CherryTree:
         self.tt_def_fg = "#" + self.html_handler.rgb_to_24(colorbutton.get_color().to_string()[1:])
         self.treeview.modify_text(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.tt_def_fg))
         if self.curr_tree_iter:
-            self.update_node_name_header(self.treestore[self.curr_tree_iter][1])
+            self.update_node_name_header()
 
     def on_colorbutton_tree_bg_color_set(self, colorbutton):
         """ColorButton Rich Text FG Set"""
@@ -3686,7 +3688,7 @@ class CherryTree:
         self.tt_def_bg = "#" + self.html_handler.rgb_to_24(colorbutton.get_color().to_string()[1:])
         self.treeview.modify_base(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.tt_def_bg))
         if self.curr_tree_iter:
-            self.update_node_name_header(self.treestore[self.curr_tree_iter][1])
+            self.update_node_name_header()
 
     def on_browse_anchors_button_clicked(self, *args):
         """Browse for Existing Anchors on the Selected Node"""
