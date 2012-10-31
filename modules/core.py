@@ -1189,7 +1189,7 @@ class CherryTree:
 
     def file_write(self, filepath, first_write):
         """File Write"""
-        if not os.access(filepath, os.W_OK):
+        if not os.access(os.path.dirname(filepath), os.W_OK):
             support.dialog_error(_("Read Only"))
             return False
         if self.filetype in ["d", "z"]:
