@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: svn_cherrytree 0.14\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-10-06 23:37+0200\n"
-"PO-Revision-Date: 2011-04-16 21:03+0100\n"
-"Last-Translator: Ludovic Troisi <axalis@cegetel.net>\n"
+"PO-Revision-Date: 2012-10-31 15:24+0100\n"
+"Last-Translator: Benoît <benoit.dangelo@gmx.fr>\n"
 "Language-Team: French\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -50,9 +50,8 @@ msgid "Involved Nodes"
 msgstr "Nœuds impliqués"
 
 #: modules/support.py:207
-#, fuzzy
 msgid "Selected Text Only"
-msgstr "Nœud sélectionné uniquement"
+msgstr "Texte sélectionné uniquement"
 
 #: modules/support.py:208
 msgid "Selected Node Only"
@@ -67,9 +66,8 @@ msgid "All the Tree"
 msgstr "Toute l'arborescence"
 
 #: modules/support.py:215
-#, fuzzy
 msgid "Include Node Name"
-msgstr "Nom du Nœud"
+msgstr "Inclure le nom des Nœuds"
 
 #: modules/support.py:273
 msgid "_Recent Documents"
@@ -190,9 +188,8 @@ msgid "Treepad Document"
 msgstr "Document Treepad"
 
 #: modules/core.py:703
-#, fuzzy
 msgid "Mempad Document"
-msgstr "Document Treepad"
+msgstr "Document Mempad"
 
 #: modules/core.py:721
 msgid "Knowit Document"
@@ -217,6 +214,7 @@ msgstr "Le Nœud Sélectionné"
 #: modules/core.py:947
 msgid "The Document was Reloaded After External Update to CT* File"
 msgstr ""
+"Le document a été rechargé après modification extérieure du fichier CT*"
 
 #: modules/core.py:972
 msgid "CherryTree Hierarchical Note Taking"
@@ -261,7 +259,7 @@ msgstr "Les deux Mots de Passe renseignés ne correspondent pas"
 #: modules/core.py:1305
 #, python-format
 msgid "The Characters  %s  are Not Allowed"
-msgstr ""
+msgstr "Les caractères % ne sont pas autorisés"
 
 #: modules/core.py:1323
 msgid ""
@@ -1170,14 +1168,12 @@ msgid "Toggle Show/Hide Toolbar"
 msgstr "Activer/Désactiver la Barre d'Outils"
 
 #: modules/cons.py:561
-#, fuzzy
 msgid "Show _All Matches Dialog"
-msgstr "Montrer la fenêtre de réitération de Recherche/Remplacement"
+msgstr "Montrer la fenêtre des occurrences"
 
 #: modules/cons.py:561
-#, fuzzy
 msgid "Show Search All Matches Dialog"
-msgstr "Montrer la fenêtre de réitération de Recherche/Remplacement"
+msgstr "Montrer la fenêtre de recherche de toutes les occurrences"
 
 #: modules/cons.py:562
 msgid "_Increase Toolbar Icons Size"
@@ -1252,14 +1248,12 @@ msgid "Add Nodes of a Tomboy Folder to the Current Tree"
 msgstr "Ajouter les Nœuds d'un Dossier Tomboy à l'Arborescence actuelle"
 
 #: modules/cons.py:571 modules/cons.py:632
-#, fuzzy
 msgid "From _Gnote Folder"
-msgstr "À partir d'un Répertoire _KeepNote"
+msgstr "À partir d'un Répertoire _Gnote"
 
 #: modules/cons.py:571 modules/cons.py:632
-#, fuzzy
 msgid "Add Nodes of a Gnote Folder to the Current Tree"
-msgstr "Ajouter les Nœuds d'un Répertoire KeepNote à l'Arborescence actuelle"
+msgstr "Ajouter les Nœuds d'un Répertoire Gnote à l'Arborescence actuelle"
 
 #: modules/cons.py:572 modules/cons.py:640
 msgid "From _TuxCards File"
@@ -1278,14 +1272,12 @@ msgid "Add Nodes of a Treepad Lite File to the Current Tree"
 msgstr "Ajouter les Nœuds d'un Fichier Treepad Lite à l'Arborescence actuelle"
 
 #: modules/cons.py:574 modules/cons.py:636
-#, fuzzy
 msgid "From _Mempad File"
-msgstr "À partir d'un Fichier _Leo"
+msgstr "À partir d'un Fichier _Mempad"
 
 #: modules/cons.py:574 modules/cons.py:636
-#, fuzzy
 msgid "Add Nodes of a Mempad File to the Current Tree"
-msgstr "Ajouter les Nœuds d'un Fichier Leo à l'Arborescence actuelle"
+msgstr "Ajouter les Nœuds d'un Fichier Mempad à l'Arborescence actuelle"
 
 #: modules/cons.py:575 modules/cons.py:635
 msgid "From _Leo File"
@@ -1702,7 +1694,7 @@ msgstr ""
 
 #: glade/cherrytree.glade.h:31
 msgid "Hide (Restore with Ctrl+Shift+A)"
-msgstr ""
+msgstr "Cacher (Restaurer avec Ctrl+Shift+A)"
 
 #: glade/cherrytree.glade.h:32
 msgid "Cancel"
@@ -1937,40 +1929,36 @@ msgid "<b>Miscellaneous</b>"
 msgstr "<b>Autres</b>"
 
 #: glade/cherrytree.glade.h:98
-#, fuzzy
 msgid "All Nodes"
-msgstr "Dé_rouler tous les Nœuds"
+msgstr "Tous les nœuds"
 
 #: glade/cherrytree.glade.h:99
 msgid "Light Background, Dark Text"
-msgstr ""
+msgstr "Arrière plan clair, texte sombre"
 
 #: glade/cherrytree.glade.h:100
 msgid "Dark Background, Light Text"
-msgstr ""
+msgstr "Arrière plan sombre, texte clair"
 
 #: glade/cherrytree.glade.h:101
-#, fuzzy
 msgid "Custom Background"
-msgstr "C_ouleur d'Arrière Plan du Texte"
+msgstr "Personnalisation de l'arrière plan"
 
 #: glade/cherrytree.glade.h:102
 msgid "and Text"
-msgstr ""
+msgstr "du texte"
 
 #: glade/cherrytree.glade.h:103
-#, fuzzy
 msgid "<b>Theme</b>"
-msgstr "<b>Arborescence</b>"
+msgstr "<b>Thème</b>"
 
 #: glade/cherrytree.glade.h:104
 msgid "Limit of Undoable Steps Per Node"
 msgstr "Limite d'annulations par Nœud"
 
 #: glade/cherrytree.glade.h:105
-#, fuzzy
 msgid "Text Nodes"
-msgstr "Vers un Nœud"
+msgstr "Nœud de texte"
 
 #: glade/cherrytree.glade.h:106
 msgid "Style Scheme"
@@ -1985,9 +1973,8 @@ msgid "Highlight Current Line"
 msgstr "Surligner la Ligne actuelle"
 
 #: glade/cherrytree.glade.h:109
-#, fuzzy
 msgid "Code Nodes"
-msgstr "Vers un Nœud"
+msgstr "Nœud de code"
 
 #: glade/cherrytree.glade.h:110
 msgid "Use Cherries as Nodes Icons"
@@ -2002,9 +1989,8 @@ msgid "Do Not Display Nodes Icons"
 msgstr "Ne pas afficher les icônes des Nœuds"
 
 #: glade/cherrytree.glade.h:113
-#, fuzzy
 msgid "<b>Nodes Icons</b>"
-msgstr "<b>Nœud</b>"
+msgstr "<b>Icônes des Nœuds</b>"
 
 #: glade/cherrytree.glade.h:114
 msgid "Expand All Nodes When Loading the Tree"
@@ -2019,9 +2005,8 @@ msgid "Display Tree on the Right Side"
 msgstr "Afficher l'Arborescence à Droite"
 
 #: glade/cherrytree.glade.h:117
-#, fuzzy
 msgid "Tree"
-msgstr "_Arborescence"
+msgstr "Arborescence"
 
 #: glade/cherrytree.glade.h:118
 msgid "Text Font"
@@ -2041,7 +2026,7 @@ msgstr "<b>Polices</b>"
 
 #: glade/cherrytree.glade.h:122
 msgid "Fonts"
-msgstr ""
+msgstr "Polices"
 
 #: glade/cherrytree.glade.h:123
 msgid "Enable Custom Web Link Clicked Action"
@@ -2065,7 +2050,7 @@ msgstr "<b>Liens</b>"
 
 #: glade/cherrytree.glade.h:128
 msgid "Links"
-msgstr ""
+msgstr "Liens"
 
 #: glade/cherrytree.glade.h:129
 msgid "Enable System Tray Docking"
@@ -2077,7 +2062,7 @@ msgstr "Démarrage rapide"
 
 #: glade/cherrytree.glade.h:131
 msgid "Use AppIndicator for Docking"
-msgstr ""
+msgstr "Utiliser l'indicateur d'application"
 
 #: glade/cherrytree.glade.h:132
 msgid "<b>System Tray</b>"
@@ -2109,16 +2094,15 @@ msgstr "Vérifier les mises-à-jour automatiquement"
 
 #: glade/cherrytree.glade.h:139
 msgid "Reload After External Update to CT* File"
-msgstr ""
+msgstr "Recharger après mise à jour extérieure du fichier CT*"
 
 #: glade/cherrytree.glade.h:140
 msgid "<b>Language</b>"
 msgstr "<b>Langue</b>"
 
 #: glade/cherrytree.glade.h:141
-#, fuzzy
 msgid "Miscellaneous"
-msgstr "<b>Autres</b>"
+msgstr "Autres"
 
 #: glade/cherrytree.glade.h:142
 msgid "Rows  "
