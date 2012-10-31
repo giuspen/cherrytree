@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CherryTree\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-06 23:37+0200\n"
+"POT-Creation-Date: 2012-10-31 18:25+0100\n"
 "PO-Revision-Date: 2012-05-14 12:16+0300\n"
 "Last-Translator: Andriy Kovtun <kovtunos@yandex.ru>\n"
 "Language-Team: Russian <kovtunos@yandex.ru>\n"
@@ -15,7 +15,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Poedit-Language: Ukrainian\n"
 "X-Poedit-Country: UKRAINE\n"
 "X-Poedit-SourceCharset: utf-8\n"
@@ -146,81 +147,81 @@ msgstr "Назва гілки"
 msgid "Line Content"
 msgstr "Зміст рядка"
 
-#: modules/core.py:227
+#: modules/core.py:229
 msgid "Checking for Newer Version..."
 msgstr "Перевірка наявності нових версій..."
 
-#: modules/core.py:233
+#: modules/core.py:235
 msgid "A Newer Version Is Available!"
 msgstr "Доступна нова версія програми!"
 
-#: modules/core.py:238
+#: modules/core.py:240
 msgid "This is the Latest Version Available"
 msgstr "Доступна нова версія програми"
 
-#: modules/core.py:241
+#: modules/core.py:243
 msgid "Failed to Retrieve Latest Version Information - Try Again Later"
 msgstr "Неможливо перевірити наявність нової версії. Спробуйте пізніше"
 
-#: modules/core.py:258 modules/core.py:3010 modules/core.py:3415
-#: modules/core.py:3421 modules/core.py:3961
+#: modules/core.py:260 modules/core.py:3016 modules/core.py:3421
+#: modules/core.py:3427 modules/core.py:3967
 msgid "No Text is Selected"
 msgstr "Текст не виділено"
 
-#: modules/core.py:544 modules/core.py:1800
+#: modules/core.py:546 modules/core.py:1805
 msgid "The new father can't be one of his sons!"
 msgstr "Нова батьківська гілка не може бути дочірньою!"
 
-#: modules/core.py:582 modules/core.py:1086 modules/core.py:1216
+#: modules/core.py:584 modules/core.py:1088 modules/core.py:1221
 msgid "CherryTree Document"
 msgstr "Документ CherryTree"
 
-#: modules/core.py:605 modules/core.py:1454
+#: modules/core.py:607 modules/core.py:1459
 #, python-format
 msgid "\"%s\" is Not a CherryTree Document"
 msgstr "\"%s\" не є документом CherryTree"
 
-#: modules/core.py:611
+#: modules/core.py:613
 msgid "NoteCase Document"
 msgstr "Документ NoteCase"
 
-#: modules/core.py:685
+#: modules/core.py:687
 msgid "Treepad Document"
 msgstr "Документ Treepad"
 
-#: modules/core.py:703
+#: modules/core.py:705
 msgid "Mempad Document"
 msgstr "Документ Mempad"
 
-#: modules/core.py:721
+#: modules/core.py:723
 msgid "Knowit Document"
 msgstr "Документ Knowit"
 
-#: modules/core.py:739
+#: modules/core.py:741
 msgid "Leo Document"
 msgstr "Документ Leo"
 
-#: modules/core.py:770
+#: modules/core.py:772
 msgid "Who is the Father?"
 msgstr "Вкажіть батьківську гілку"
 
-#: modules/core.py:777
+#: modules/core.py:779
 msgid "The Tree Root"
 msgstr "Дерево"
 
-#: modules/core.py:778
+#: modules/core.py:780
 msgid "The Selected Node"
 msgstr "Виділена гілка"
 
-#: modules/core.py:947
+#: modules/core.py:949
 msgid "The Document was Reloaded After External Update to CT* File"
 msgstr "Документ було перезавантажено після оновлення файла іншою програмою"
 
-#: modules/core.py:972
+#: modules/core.py:974
 msgid "CherryTree Hierarchical Note Taking"
 msgstr "Записник CherryTree"
 
-#: modules/core.py:1171 modules/core.py:1373
+#: modules/core.py:1173 modules/core.py:1378
 msgid ""
 "The Contemporary Presence of Single and Double Quotes in the File Path "
 "Prevents 7za.exe to Work, Please Change the File Name"
@@ -228,96 +229,100 @@ msgstr ""
 "Наявність в назві файлу одиничних чи подвійних лапок не дає можливість 7za "
 "продовжити роботу. Будь ласка, змініть назву документу"
 
-#: modules/core.py:1203
+#: modules/core.py:1193 modules/core.py:3926 glade/cherrytree.glade.h:79
+msgid "Read Only"
+msgstr "Тільки читання"
+
+#: modules/core.py:1208
 msgid "Writing to Disk..."
 msgstr "Запис на диск..."
 
-#: modules/core.py:1235
+#: modules/core.py:1240
 msgid "Choose Storage Type and Protection"
 msgstr "Виберіть тип даних і захист"
 
-#: modules/core.py:1242 modules/core.py:1245
+#: modules/core.py:1247 modules/core.py:1250
 msgid "Not Protected"
 msgstr "Не захищено"
 
-#: modules/core.py:1243 modules/core.py:1247
+#: modules/core.py:1248 modules/core.py:1252
 msgid "Password Protected"
 msgstr "Захищено паролем"
 
-#: modules/core.py:1256
+#: modules/core.py:1261
 msgid "Enter the New Password Twice"
 msgstr "Введіть пароль двічі"
 
-#: modules/core.py:1297
+#: modules/core.py:1302
 msgid "The Password Fields Must be Filled"
 msgstr "Пароль повинен бути уведений"
 
-#: modules/core.py:1300
+#: modules/core.py:1305
 msgid "The Two Inserted Passwords Do Not Match"
 msgstr "Уведені паролі не співпадають"
 
-#: modules/core.py:1305
+#: modules/core.py:1310
 #, python-format
 msgid "The Characters  %s  are Not Allowed"
 msgstr "Символи  %s  не дозволяються"
 
-#: modules/core.py:1323
+#: modules/core.py:1328
 msgid ""
 "Binary Executable '7za' Not Found, Check The Package 'p7zip-full' to be "
 "Installed Properly"
 msgstr "Файл '7za' не знайдений. Перевірте, чи встановлений пакет 'p7zip-full'"
 
-#: modules/core.py:1329
+#: modules/core.py:1334
 #, python-format
 msgid "Enter Password for %s"
 msgstr "Введіть пароль для %s"
 
-#: modules/core.py:1384
+#: modules/core.py:1389
 msgid "Wrong Password"
 msgstr "Невірний пароль"
 
-#: modules/core.py:1784 glade/cherrytree.glade.h:34
+#: modules/core.py:1789 glade/cherrytree.glade.h:34
 msgid "Select the New Father"
 msgstr "Виділіть нову батьківську гілку"
 
-#: modules/core.py:1792
+#: modules/core.py:1797
 msgid "The new father can't be the very node to move!"
 msgstr "Нову батьківську гілку неможливо пересунути!"
 
-#: modules/core.py:1795
+#: modules/core.py:1800
 msgid "The new choosed father is again the old father!"
 msgstr "Вибрана нова батьківська гілка є старою!"
 
-#: modules/core.py:2064 modules/core.py:2070 modules/core.py:2226
+#: modules/core.py:2069 modules/core.py:2075 modules/core.py:2231
 msgid "This Change will have Effect Only After Restarting CherryTree"
 msgstr "Зміни набудуть чинності після перезапускання CherryTree"
 
-#: modules/core.py:2193
+#: modules/core.py:2198
 msgid "The New Language will be Available Only After Restarting CherryTree"
 msgstr "Зміна мови набуде чинності після перезапускання CherryTree"
 
-#: modules/core.py:2282
+#: modules/core.py:2287
 msgid "Insert the New Node Name..."
 msgstr "Введіть назву гілки..."
 
-#: modules/core.py:2321
+#: modules/core.py:2326
 msgid "Insert the New Child Node Name..."
 msgstr "Введіть назву гілки..."
 
-#: modules/core.py:2348
+#: modules/core.py:2353
 #, python-format
 msgid "Are you sure to <b>Delete the node '%s'?</b>"
 msgstr "Ви впевнені, що хочете <b>видалити гілку '%s'?</b>"
 
-#: modules/core.py:2350
+#: modules/core.py:2355
 msgid "The node <b>has Children, they will be Deleted too!</b>"
 msgstr "Гілка <b>має дочірні гілки, які теж будуть видалені!</b>"
 
-#: modules/core.py:2382
+#: modules/core.py:2387
 msgid "Insert the New Name for the Node..."
 msgstr "Введіть назву гілки..."
 
-#: modules/core.py:2387
+#: modules/core.py:2392
 msgid ""
 "Entering the Automatic Syntax Highlighting you will Lose all Custom Colors "
 "for This Node, Do you want to Continue?"
@@ -325,127 +330,123 @@ msgstr ""
 "При включенні автоматичного підсвічування, буде втрачено налаштування "
 "користувацьких кольорів для цієї гілки, продовжити?"
 
-#: modules/core.py:2773
+#: modules/core.py:2779
 msgid "The Size of the Toolbar Icons is already at the Maximum Value"
 msgstr "Розмір іконок панелі інструментів максимальний"
 
-#: modules/core.py:2781
+#: modules/core.py:2787
 msgid "The Size of the Toolbar Icons is already at the Minimum Value"
 msgstr "Розмір іконок панелі інструментів мінімальний"
 
-#: modules/core.py:2870
+#: modules/core.py:2876
 msgid "Edit Anchor"
 msgstr "Редагувати якір"
 
-#: modules/core.py:2873
+#: modules/core.py:2879
 msgid "Insert Anchor"
 msgstr "Вставити якір"
 
-#: modules/core.py:2882
+#: modules/core.py:2888
 msgid "The Anchor Name is Mandatory!"
 msgstr "Назва якіра обов'язкова!"
 
-#: modules/core.py:2909
+#: modules/core.py:2915
 msgid "Not Any H1, H2 or H3 Formatting Found"
 msgstr "jНе знайдені заголовки H1, H2, H3"
 
-#: modules/core.py:2988
+#: modules/core.py:2994
 msgid ""
 "Automatic Syntax Highlighting Must be Disabled in order to Use This Feature"
 msgstr "Щоб використати цю функцію, відключить підсвічування синтаксису"
 
-#: modules/core.py:2995 modules/core.py:3916
+#: modules/core.py:3001 modules/core.py:3922
 msgid "No Node is Selected"
 msgstr "Гілку не виділено"
 
-#: modules/core.py:3002
+#: modules/core.py:3008
 msgid "The Tree is Empty!"
 msgstr "Дерево пусте!"
 
-#: modules/core.py:3023 modules/cons.py:607
+#: modules/core.py:3029 modules/cons.py:607
 msgid "Tree Summary Information"
 msgstr "Сумарна інформація про дерево"
 
-#: modules/core.py:3032
+#: modules/core.py:3038
 msgid "Number of Text Nodes"
 msgstr "Кількість гілок з текстом"
 
-#: modules/core.py:3035
+#: modules/core.py:3041
 msgid "Number of Code Nodes"
 msgstr "Кількість гілок з кодом"
 
-#: modules/core.py:3038
+#: modules/core.py:3044
 msgid "Number of Images"
 msgstr "Кількість зображень"
 
-#: modules/core.py:3041
+#: modules/core.py:3047
 msgid "Number of Tables"
 msgstr "Кількість таблиць"
 
-#: modules/core.py:3044
+#: modules/core.py:3050
 msgid "Number of CodeBoxes"
 msgstr "Кількість блоків коду"
 
-#: modules/core.py:3167
+#: modules/core.py:3173
 msgid "PNG Image"
 msgstr "Зображення PNG"
 
-#: modules/core.py:3173
+#: modules/core.py:3179
 #, python-format
 msgid "Write to %s Failed"
 msgstr "Записати в %s не вдалося"
 
-#: modules/core.py:3401
+#: modules/core.py:3407
 msgid "No Previous Text Format Was Performed During This Session"
 msgstr "В цій сесії не було операцій форматування тексту"
 
-#: modules/core.py:3448
+#: modules/core.py:3454
 msgid "The Cursor is Not into a Paragraph"
 msgstr "Курсор за межами абзацу"
 
-#: modules/core.py:3457
+#: modules/core.py:3463
 msgid "Insert/Edit a Link"
 msgstr "Вставити / редагувати гіперпосилання"
 
-#: modules/core.py:3599
+#: modules/core.py:3605
 #, python-format
 msgid "The File Link '%s' is Not Valid"
 msgstr "Посилання на файл '%s' некоректне"
 
-#: modules/core.py:3610
+#: modules/core.py:3616
 #, python-format
 msgid "The Folder Link '%s' is Not Valid"
 msgstr "Посилання на каталог '%s' некоректне"
 
-#: modules/core.py:3621
+#: modules/core.py:3627
 #, python-format
 msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
 msgstr "Посилання на неіснуючу гілку (Id = %s)"
 
-#: modules/core.py:3631
+#: modules/core.py:3637
 #, python-format
 msgid "No anchor named '%s' found"
 msgstr "Якір з назвою '%s' знайдено"
 
-#: modules/core.py:3701
+#: modules/core.py:3707
 msgid "There are No Anchors in the Selected Node"
 msgstr "В виділеній гілці немає якорів"
 
-#: modules/core.py:3706
+#: modules/core.py:3712
 msgid "Choose Existing Anchor"
 msgstr "Виберіть існуючий якір"
 
-#: modules/core.py:3719
+#: modules/core.py:3725
 msgid "Anchor Name"
 msgstr "Назва якора"
 
-#: modules/core.py:3918 glade/cherrytree.glade.h:75
+#: modules/core.py:3924 glade/cherrytree.glade.h:75
 msgid "Rich Text"
 msgstr "Форматований текст"
-
-#: modules/core.py:3920 glade/cherrytree.glade.h:79
-msgid "Read Only"
-msgstr "Тільки читання"
 
 #: modules/tablez.py:59 modules/tablez.py:92
 msgid "CSV File"
@@ -467,7 +468,7 @@ msgstr "Клікніть для редагування властивостей 
 msgid "Edit Table Properties"
 msgstr "Редагувати параметри таблиці"
 
-#: modules/tablez.py:255
+#: modules/tablez.py:258
 msgid "Table Column Action"
 msgstr "Дії над стовпцями таблиці"
 
@@ -1667,7 +1668,7 @@ msgstr ""
 msgid ""
 "Chinese Simplified (zh_CN) Channing Wong <mamimoluo@gmail.com>\n"
 "Czech (cs) Pavel Fric <fripohled@blogspot.com>\n"
-"French (fr) Ludovic Troisi <axalis@cegetel.net>\n"
+"French (fr) Benoît D'Angelo <benoit.dangelo@gmx.fr> (former Ludovic Troisi)\n"
 "German (de) Frank Brungräber <calexu@arcor.de> (former Sven Neubauer)\n"
 "Italian (it) Giuseppe Penone <giuspen@gmail.com>\n"
 "Polish (pl) Marcin Swierczynski <orneo1212@gmail.com>\n"
@@ -1677,7 +1678,7 @@ msgid ""
 msgstr ""
 "Китайський Спрощений (zh_CN) Channing Wong <mamimoluo@gmail.com>\n"
 "Чеський (cs) Pavel Fric <fripohled@blogspot.com>\n"
-"Французький (fr) Ludovic Troisi <axalis@cegetel.net>\n"
+"Французький (fr) Benoît D'Angelo <benoit.dangelo@gmx.fr> (former Ludovic Troisi)\n"
 "Німецький (de) Frank Brungräber <calexu@arcor.de> (former Sven Neubauer)\n"
 "Італійський (it) Giuseppe Penone <giuspen@gmail.com>\n"
 "Польський (pl) Marcin Swierczynski <orneo1212@gmail.com>\n"

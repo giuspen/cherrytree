@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-06 23:37+0200\n"
+"POT-Creation-Date: 2012-10-31 18:25+0100\n"
 "PO-Revision-Date: 2010-02-20 22:22+0100\n"
 "Last-Translator: Marcin Swierczynski <orneo1212@gmail.com>\n"
 "Language-Team: Polish\n"
@@ -142,82 +142,82 @@ msgstr "Nazwa gałęzi"
 msgid "Line Content"
 msgstr "Zawartość lini"
 
-#: modules/core.py:227
+#: modules/core.py:229
 msgid "Checking for Newer Version..."
 msgstr "Sprawdzanie czy jest nowa wersja"
 
-#: modules/core.py:233
+#: modules/core.py:235
 msgid "A Newer Version Is Available!"
 msgstr "Nowa wersja jest dostępna"
 
-#: modules/core.py:238
+#: modules/core.py:240
 msgid "This is the Latest Version Available"
 msgstr "To jest aktualna dostępna wersja"
 
-#: modules/core.py:241
+#: modules/core.py:243
 msgid "Failed to Retrieve Latest Version Information - Try Again Later"
 msgstr ""
 "Nie udało się pobrać informacji o nowej wersji - Proszę spróbować pózniej"
 
-#: modules/core.py:258 modules/core.py:3010 modules/core.py:3415
-#: modules/core.py:3421 modules/core.py:3961
+#: modules/core.py:260 modules/core.py:3016 modules/core.py:3421
+#: modules/core.py:3427 modules/core.py:3967
 msgid "No Text is Selected"
 msgstr "Żaden tekst nie jest zaznaczony"
 
-#: modules/core.py:544 modules/core.py:1800
+#: modules/core.py:546 modules/core.py:1805
 msgid "The new father can't be one of his sons!"
 msgstr "Nowa gałąź nadrzędna nie może być jedna z jej gałęzi podrzędnych!"
 
-#: modules/core.py:582 modules/core.py:1086 modules/core.py:1216
+#: modules/core.py:584 modules/core.py:1088 modules/core.py:1221
 msgid "CherryTree Document"
 msgstr "Dokument CherryTree"
 
-#: modules/core.py:605 modules/core.py:1454
+#: modules/core.py:607 modules/core.py:1459
 #, python-format
 msgid "\"%s\" is Not a CherryTree Document"
 msgstr "\"%s\" nie jest dokumentem CherryTree"
 
-#: modules/core.py:611
+#: modules/core.py:613
 msgid "NoteCase Document"
 msgstr "Dokument NoteCase"
 
-#: modules/core.py:685
+#: modules/core.py:687
 msgid "Treepad Document"
 msgstr "Dokument Treepad"
 
-#: modules/core.py:703
+#: modules/core.py:705
 msgid "Mempad Document"
 msgstr "Dokument Mempad"
 
-#: modules/core.py:721
+#: modules/core.py:723
 msgid "Knowit Document"
 msgstr "Dokument Knowit"
 
-#: modules/core.py:739
+#: modules/core.py:741
 msgid "Leo Document"
 msgstr "Dokument Leo"
 
-#: modules/core.py:770
+#: modules/core.py:772
 msgid "Who is the Father?"
 msgstr "Która gałąź ma być nadrzędną"
 
-#: modules/core.py:777
+#: modules/core.py:779
 msgid "The Tree Root"
 msgstr "Główna gałąź drzewa"
 
-#: modules/core.py:778
+#: modules/core.py:780
 msgid "The Selected Node"
 msgstr "Zaznaczona gałąź"
 
-#: modules/core.py:947
+#: modules/core.py:949
 msgid "The Document was Reloaded After External Update to CT* File"
 msgstr "Dokument został przeładowany po zewnętrznej zmiane pliku CT*"
 
-#: modules/core.py:972
+#: modules/core.py:974
 msgid "CherryTree Hierarchical Note Taking"
 msgstr "CherryTree Strukturalny Notes"
 
-#: modules/core.py:1171 modules/core.py:1373
+#: modules/core.py:1173 modules/core.py:1378
 msgid ""
 "The Contemporary Presence of Single and Double Quotes in the File Path "
 "Prevents 7za.exe to Work, Please Change the File Name"
@@ -225,96 +225,100 @@ msgstr ""
 "Nazwa pliku nie może zawierać cudzysłowów oraz apostrołów.Proszę zmienić "
 "nazwe pliku."
 
-#: modules/core.py:1203
+#: modules/core.py:1193 modules/core.py:3926 glade/cherrytree.glade.h:79
+msgid "Read Only"
+msgstr "Tylko do odczytu"
+
+#: modules/core.py:1208
 msgid "Writing to Disk..."
 msgstr "Zapisywanie na dysk..."
 
-#: modules/core.py:1235
+#: modules/core.py:1240
 msgid "Choose Storage Type and Protection"
 msgstr "Wybierz typ pliku oraz ochrone"
 
-#: modules/core.py:1242 modules/core.py:1245
+#: modules/core.py:1247 modules/core.py:1250
 msgid "Not Protected"
 msgstr "Bez ochrony"
 
-#: modules/core.py:1243 modules/core.py:1247
+#: modules/core.py:1248 modules/core.py:1252
 msgid "Password Protected"
 msgstr "Chroniony hasłem"
 
-#: modules/core.py:1256
+#: modules/core.py:1261
 msgid "Enter the New Password Twice"
 msgstr "Wprowadź nowe hasło dwa razy"
 
-#: modules/core.py:1297
+#: modules/core.py:1302
 msgid "The Password Fields Must be Filled"
 msgstr "Pole haseł muszą być wypełnione"
 
-#: modules/core.py:1300
+#: modules/core.py:1305
 msgid "The Two Inserted Passwords Do Not Match"
 msgstr "Dwa wprowadzone hasła nie są jednakowe"
 
-#: modules/core.py:1305
+#: modules/core.py:1310
 #, python-format
 msgid "The Characters  %s  are Not Allowed"
 msgstr "Znak %s jest niedozwolony"
 
-#: modules/core.py:1323
+#: modules/core.py:1328
 msgid ""
 "Binary Executable '7za' Not Found, Check The Package 'p7zip-full' to be "
 "Installed Properly"
 msgstr "Program '7za' nie został znaleziony, Zainstaluj pakiet 'p7zip-full'"
 
-#: modules/core.py:1329
+#: modules/core.py:1334
 #, python-format
 msgid "Enter Password for %s"
 msgstr "Wprowadź hasło dla %s"
 
-#: modules/core.py:1384
+#: modules/core.py:1389
 msgid "Wrong Password"
 msgstr "Złe hasło"
 
-#: modules/core.py:1784 glade/cherrytree.glade.h:34
+#: modules/core.py:1789 glade/cherrytree.glade.h:34
 msgid "Select the New Father"
 msgstr "Zaznacz nową gałąź nadrzędną"
 
-#: modules/core.py:1792
+#: modules/core.py:1797
 msgid "The new father can't be the very node to move!"
 msgstr "Il Nuovo Padre Non Puo' Essere lo Stesso Nodo da Spostare!"
 
-#: modules/core.py:1795
+#: modules/core.py:1800
 msgid "The new choosed father is again the old father!"
 msgstr "Wybrana gałąź jest poprzednią nadrzędną gałęzią!"
 
-#: modules/core.py:2064 modules/core.py:2070 modules/core.py:2226
+#: modules/core.py:2069 modules/core.py:2075 modules/core.py:2231
 msgid "This Change will have Effect Only After Restarting CherryTree"
 msgstr "Ta zmiana zostanie zatwierdzona po ponowynym uruchomieniu CherryTree"
 
-#: modules/core.py:2193
+#: modules/core.py:2198
 msgid "The New Language will be Available Only After Restarting CherryTree"
 msgstr "Nowy język będzie dostępny po zrestartowaniu CherryTree"
 
-#: modules/core.py:2282
+#: modules/core.py:2287
 msgid "Insert the New Node Name..."
 msgstr "Wprowadz nową nazwę dla gałęzi..."
 
-#: modules/core.py:2321
+#: modules/core.py:2326
 msgid "Insert the New Child Node Name..."
 msgstr "Wprowadz nazwę gałęzi podrzędnej..."
 
-#: modules/core.py:2348
+#: modules/core.py:2353
 #, python-format
 msgid "Are you sure to <b>Delete the node '%s'?</b>"
 msgstr "Jesteś pewien aby <b>Usunąć gałąź '%s'?</b>"
 
-#: modules/core.py:2350
+#: modules/core.py:2355
 msgid "The node <b>has Children, they will be Deleted too!</b>"
 msgstr "Gałąź <b>posiada gałęzi podrzędne, one także zostaną usunięte!</b>"
 
-#: modules/core.py:2382
+#: modules/core.py:2387
 msgid "Insert the New Name for the Node..."
 msgstr "Wprowadź nową nazwę dla gałęzi..."
 
-#: modules/core.py:2387
+#: modules/core.py:2392
 msgid ""
 "Entering the Automatic Syntax Highlighting you will Lose all Custom Colors "
 "for This Node, Do you want to Continue?"
@@ -322,128 +326,124 @@ msgstr ""
 "Ustawienie automatycznego kolorowania składni, usunie własne formatowaniedla "
 "tej gałęzi, Czy chcesz kontynułować?"
 
-#: modules/core.py:2773
+#: modules/core.py:2779
 msgid "The Size of the Toolbar Icons is already at the Maximum Value"
 msgstr "Rozmiar paska narzędziowego jest już największy"
 
-#: modules/core.py:2781
+#: modules/core.py:2787
 msgid "The Size of the Toolbar Icons is already at the Minimum Value"
 msgstr "Rozmiar paska narzędziowego jest już najmniejszy"
 
-#: modules/core.py:2870
+#: modules/core.py:2876
 msgid "Edit Anchor"
 msgstr "Zmień Kotwice"
 
-#: modules/core.py:2873
+#: modules/core.py:2879
 msgid "Insert Anchor"
 msgstr "Dod_aj Kotwice"
 
-#: modules/core.py:2882
+#: modules/core.py:2888
 msgid "The Anchor Name is Mandatory!"
 msgstr "Nazwa kotwicy jest już zajęta!"
 
-#: modules/core.py:2909
+#: modules/core.py:2915
 msgid "Not Any H1, H2 or H3 Formatting Found"
 msgstr "Nie znaleziono żadnego H1, H2 lub H3"
 
-#: modules/core.py:2988
+#: modules/core.py:2994
 msgid ""
 "Automatic Syntax Highlighting Must be Disabled in order to Use This Feature"
 msgstr ""
 "Automatyczne kolorowanie składni musi być wyłączony, aby uzyć tej funkcji"
 
-#: modules/core.py:2995 modules/core.py:3916
+#: modules/core.py:3001 modules/core.py:3922
 msgid "No Node is Selected"
 msgstr "Nie zaznaczono gałęzi"
 
-#: modules/core.py:3002
+#: modules/core.py:3008
 msgid "The Tree is Empty!"
 msgstr "Drzewo jest puste!"
 
-#: modules/core.py:3023 modules/cons.py:607
+#: modules/core.py:3029 modules/cons.py:607
 msgid "Tree Summary Information"
 msgstr "Skrócone informacje o drzewie"
 
-#: modules/core.py:3032
+#: modules/core.py:3038
 msgid "Number of Text Nodes"
 msgstr "Ilość tekstowych gałęzi"
 
-#: modules/core.py:3035
+#: modules/core.py:3041
 msgid "Number of Code Nodes"
 msgstr "Ilość gałęzi z kodem"
 
-#: modules/core.py:3038
+#: modules/core.py:3044
 msgid "Number of Images"
 msgstr "Ilość obrazków"
 
-#: modules/core.py:3041
+#: modules/core.py:3047
 msgid "Number of Tables"
 msgstr "Ilość tabel"
 
-#: modules/core.py:3044
+#: modules/core.py:3050
 msgid "Number of CodeBoxes"
 msgstr "Ilość gałęzi z polem kodu"
 
-#: modules/core.py:3167
+#: modules/core.py:3173
 msgid "PNG Image"
 msgstr "Obrazek PNG"
 
-#: modules/core.py:3173
+#: modules/core.py:3179
 #, python-format
 msgid "Write to %s Failed"
 msgstr "Zapis do %s Nie powiódł się"
 
-#: modules/core.py:3401
+#: modules/core.py:3407
 msgid "No Previous Text Format Was Performed During This Session"
 msgstr "Nie wykonano żadnego formatowania w tej sesji"
 
-#: modules/core.py:3448
+#: modules/core.py:3454
 msgid "The Cursor is Not into a Paragraph"
 msgstr "Kursor nie jest w paragrafie"
 
-#: modules/core.py:3457
+#: modules/core.py:3463
 msgid "Insert/Edit a Link"
 msgstr "Dodaj/Zmień link"
 
-#: modules/core.py:3599
+#: modules/core.py:3605
 #, python-format
 msgid "The File Link '%s' is Not Valid"
 msgstr "Link do pliku '%s' nie jest prawidłowy"
 
-#: modules/core.py:3610
+#: modules/core.py:3616
 #, python-format
 msgid "The Folder Link '%s' is Not Valid"
 msgstr "Link do folderu '%s' nie jest prawidłowy"
 
-#: modules/core.py:3621
+#: modules/core.py:3627
 #, python-format
 msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
 msgstr "Link prowadzi do gałęzi która już nie istnieje (Id = %s)"
 
-#: modules/core.py:3631
+#: modules/core.py:3637
 #, python-format
 msgid "No anchor named '%s' found"
 msgstr "Brak kotwicy o nazwie '%s' "
 
-#: modules/core.py:3701
+#: modules/core.py:3707
 msgid "There are No Anchors in the Selected Node"
 msgstr "Brak kotwic w aktualnej gałęzi"
 
-#: modules/core.py:3706
+#: modules/core.py:3712
 msgid "Choose Existing Anchor"
 msgstr "Wybierz istniejącą kotwice"
 
-#: modules/core.py:3719
+#: modules/core.py:3725
 msgid "Anchor Name"
 msgstr "Nazwa kotwicy"
 
-#: modules/core.py:3918 glade/cherrytree.glade.h:75
+#: modules/core.py:3924 glade/cherrytree.glade.h:75
 msgid "Rich Text"
 msgstr "Formatowanie"
-
-#: modules/core.py:3920 glade/cherrytree.glade.h:79
-msgid "Read Only"
-msgstr "Tylko do odczytu"
 
 #: modules/tablez.py:59 modules/tablez.py:92
 msgid "CSV File"
@@ -465,7 +465,7 @@ msgstr "Kliknij aby zmienić ustawienia kolumn"
 msgid "Edit Table Properties"
 msgstr "Edytuj wlaściwości tabeli"
 
-#: modules/tablez.py:255
+#: modules/tablez.py:258
 msgid "Table Column Action"
 msgstr "Akcja kolumny tabli"
 
@@ -1661,7 +1661,7 @@ msgstr ""
 msgid ""
 "Chinese Simplified (zh_CN) Channing Wong <mamimoluo@gmail.com>\n"
 "Czech (cs) Pavel Fric <fripohled@blogspot.com>\n"
-"French (fr) Ludovic Troisi <axalis@cegetel.net>\n"
+"French (fr) Benoît D'Angelo <benoit.dangelo@gmx.fr> (former Ludovic Troisi)\n"
 "German (de) Frank Brungräber <calexu@arcor.de> (former Sven Neubauer)\n"
 "Italian (it) Giuseppe Penone <giuspen@gmail.com>\n"
 "Polish (pl) Marcin Swierczynski <orneo1212@gmail.com>\n"
@@ -1671,7 +1671,7 @@ msgid ""
 msgstr ""
 "Chiński Uproszczony (zh_CN) Channing Wong <mamimoluo@gmail.com>\n"
 "Czeski (cs) Pavel Fric <fripohled@blogspot.com>\n"
-"Francuski (fr) Ludovic Troisi <axalis@cegetel.net>\n"
+"Francuski (fr) Benoît D'Angelo <benoit.dangelo@gmx.fr> (former Ludovic Troisi)\n"
 "Niemiecki (de) Frank Brungräber <calexu@arcor.de> (former Sven Neubauer)\n"
 "Włoski (it) Giuseppe Penone <giuspen@gmail.com>\n"
 "Polski (pl) Marcin Świerczyński <orneo1212@gmail.com>\n"
