@@ -1,4 +1,14 @@
 
+0.28.3 (October 31st, 2012)
+• updated French language: welcome to Benoît
+
+0.28.2 (October 31st, 2012)
+• fixed bugs: cannot save file as in 0.28.1
+
+0.28.1 (October 31st, 2012)
+• fixed several bugs
+• ctrl+period inserts a newline in a table cell
+
 0.28 (October 10th, 2012)
 • reduced the size of the preferences dialog adopting tabs
 • some special symbols are automatically inserted after typing the characters that compose them followed by spacebar; ctrl+z undoes the replacement ( --> to → , <-- to ← , <-> to ↔ , (c) to © , (tm) to ™ , (r) to ® )
