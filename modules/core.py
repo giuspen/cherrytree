@@ -1474,6 +1474,8 @@ class CherryTree:
         if self.curr_tree_iter != None:
             self.curr_buffer.set_text("")
             self.curr_tree_iter = None
+            self.update_node_name_header()
+            self.update_selected_node_statusbar_info()
         self.treestore.clear()
         self.file_name = ""
         self.password = None
@@ -2495,7 +2497,7 @@ class CherryTree:
 
     def update_node_name_header(self):
         """Update Node Name Header"""
-        node_hier_name = self.treestore[self.curr_tree_iter][1]
+        node_hier_name = self.treestore[self.curr_tree_iter][1] if self.curr_tree_iter else ""
         self.header_node_name_eventbox.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.tt_def_bg))
         self.header_node_name_label.set_text(
             "<b><i><span foreground=\"" + self.tt_def_fg + "\" size=\"xx-large\">"+\
