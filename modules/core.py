@@ -3597,9 +3597,10 @@ class CherryTree:
         vector = tag_property_value.split()
         if vector[0] == "webs":
             # link to webpage
+            clean_weblink = vector[1].replace("amp;", "")
             if self.weblink_custom_action[0]:
-                subprocess.call(self.weblink_custom_action[1] % vector[1], shell=True)
-            else: webbrowser.open(vector[1])
+                subprocess.call(self.weblink_custom_action[1] % clean_weblink, shell=True)
+            else: webbrowser.open(clean_weblink)
         elif vector[0] == "file":
             # link to file
             filepath = base64.b64decode(vector[1])
@@ -3767,7 +3768,7 @@ class CherryTree:
                 if vector[0] in ["file", "fold"]: tooltip = base64.b64decode(vector[1])
                 else:
                     if vector[0] == "node" and long(vector[1]) in self.nodes_names_dict: tooltip = self.nodes_names_dict[long(vector[1])]
-                    else: tooltip = vector[1]
+                    else: tooltip = vector[1].replace("amp;", "")
                     if len(vector) >= 3:
                         if len(vector) == 3: anchor_name = vector[2]
                         else: anchor_name = tag_name[5 + len(vector[0]) + len(vector[1]) + 2:]
