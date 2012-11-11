@@ -139,6 +139,7 @@ def initializations():
         # change locale text domain
         import locale
         locale.bindtextdomain(cons.APP_NAME, cons.LOCALE_PATH)
+        locale.setlocale(locale.LC_ALL, '')
     except:
         try:
             from ctypes import cdll
