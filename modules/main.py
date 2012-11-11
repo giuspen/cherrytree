@@ -140,11 +140,13 @@ def initializations():
     try:
         # change locale text domain
         locale.bindtextdomain(cons.APP_NAME, cons.LOCALE_PATH)
+        locale.bind_textdomain_codeset(cons.APP_NAME, 'UTF-8')
     except:
         try:
             from ctypes import cdll
             libintl = cdll.intl
             libintl.bindtextdomain(cons.APP_NAME, cons.LOCALE_PATH)
+            libintl.bind_textdomain_codeset(cons.APP_NAME, 'UTF-8')
         except:
             print "ctypes.cdll.intl.bindtextdomain not available, the glade i18n will not work properly"
         try:
