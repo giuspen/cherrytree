@@ -745,18 +745,7 @@ class Export2Html:
                     return
                 html_attrs += "%s:%s;" % (tag_property, property_value)
         if html_attrs == "" or inner_text == "<br/>": tagged_text = inner_text
-        else:
-            if "xx-large" in html_attrs:
-                html_attrs = html_attrs.replace("font-size:xx-large;", "")
-                tagged_text = '<h1 style="' + html_attrs + '">' + inner_text + "</h1>"
-            elif "x-large" in html_attrs:
-                html_attrs = html_attrs.replace("font-size:x-large;", "")
-                tagged_text = '<h2 style="' + html_attrs + '">' + inner_text + "</h2>"
-            elif "large" in html_attrs:
-                html_attrs = html_attrs.replace("font-size:large;", "")
-                tagged_text = '<h3 style="' + html_attrs + '">' + inner_text + "</h3>"
-            #elif "text-align" in html_attrs: self.curr_html_text += '<p style="' + html_attrs + '">' + inner_text + "</p>"
-            else: tagged_text = '<span style="' + html_attrs + '">' + inner_text + "</span>"
+        else: tagged_text = '<span style="' + html_attrs + '">' + inner_text + "</span>"
         if superscript_active: tagged_text = "<sup>" + tagged_text + "</sup>"
         if subscript_active: tagged_text = "<sub>" + tagged_text + "</sub>"
         if monospace_active: tagged_text = "<tt>" + tagged_text + "</tt>"
