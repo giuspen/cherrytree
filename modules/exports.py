@@ -450,8 +450,8 @@ class Export2Html:
         html_text = cons.HTML_HEADER % self.dad.treestore[tree_iter][1]
         if self.tree_links_text:
             html_text += r'<table width="100%"><tr>'
-            td_tree = r'<td valign="top" align="left" width=30%>'
-            td_page = r'<td valign="top" align="left" width=70%>'
+            td_tree = r'<td valign="top" align="left" width=20%>'
+            td_page = r'<td valign="top" align="left" width=80%>'
             html_text += td_tree + self.tree_links_text + td_page
         pango_font = pango.FontDescription(self.dad.text_font if self.dad.treestore[tree_iter][4] == cons.CUSTOM_COLORS_ID else self.dad.code_font)
         html_text += '<span style="font-family: %s; font-size:%spt">' % (pango_font.get_family(), pango_font.get_size()/pango.SCALE)
@@ -528,8 +528,9 @@ class Export2Html:
     def get_codebox_html(self, codebox):
         """Returns the HTML CodeBox"""
         # codebox is: [offset, dict, justification]
+        pango_font = pango.FontDescription(self.dad.code_font)
         codebox_align_text = self.get_object_alignment_string(codebox[2])
-        codebox_html = '<table border="1" style="%s"><tr><td>' % codebox_align_text
+        codebox_html = '<table border="1" style="%s; font-family: %s; font-size:%spt"><tr><td>' % (codebox_align_text, pango_font.get_family(), pango_font.get_size()/pango.SCALE)
         codebox_html += codebox[1]['fill_text']
         codebox_html += "</td></tr></table>"
         return codebox_html
