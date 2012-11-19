@@ -388,7 +388,7 @@ class Export2Html:
             shutil.copy(cons.GLADE_PATH + image_stock_id + ".png", self.images_dir)
         self.tree_links_text = '<table style="text-align:left">'
         pango_font = pango.FontDescription(self.dad.tree_font)
-        self.tree_links_text += '<font face="%s" size="%s">' % (pango_font.get_family(), pango_font.get_size()/pango.SCALE)
+        self.tree_links_text += '<span style="font-family: %s; font-size:%spt">' % (pango_font.get_family(), pango_font.get_size()/pango.SCALE)
         if not top_tree_iter: tree_iter = self.dad.treestore.get_iter_first()
         else: tree_iter = top_tree_iter.copy()
         while tree_iter:
@@ -396,7 +396,7 @@ class Export2Html:
             self.tree_links_nums[-1] = str( int(self.tree_links_nums[-1]) + 1 )
             if top_tree_iter: break
             tree_iter = self.dad.treestore.iter_next(tree_iter)
-        self.tree_links_text += '</font></table>'
+        self.tree_links_text += '</span></table>'
         # create index html page
         self.create_tree_index_page()
         # create html pages
@@ -455,7 +455,7 @@ class Export2Html:
             td_page = r'<td valign="top" align="left" width=70%>'
             html_text += td_tree + self.tree_links_text + td_page
         pango_font = pango.FontDescription(self.dad.text_font if self.dad.treestore[tree_iter][4] == cons.CUSTOM_COLORS_ID else self.dad.code_font)
-        html_text += '<font face="%s" size="%s">' % (pango_font.get_family(), pango_font.get_size()/pango.SCALE)
+        html_text += '<span style="font-family: %s; font-size:%spt">' % (pango_font.get_family(), pango_font.get_size()/pango.SCALE)
         self.dad.get_textbuffer_from_tree_iter(tree_iter)
         if self.dad.treestore[tree_iter][4] == cons.CUSTOM_COLORS_ID:
             text_n_objects = self.html_get_from_treestore_node(tree_iter, sel_range)
@@ -468,7 +468,7 @@ class Export2Html:
                     elif curr_object[0] == "table": html_text += self.get_table_html(curr_object[1])
                     elif curr_object[0] == "codebox": html_text += self.get_codebox_html(curr_object[1])
         else: html_text += self.html_get_from_code_buffer(self.dad.treestore[tree_iter][2], sel_range)
-        html_text += "</font>"
+        html_text += "</span>"
         if self.tree_links_text:
             html_text += '</td></tr></table>'
         html_text += cons.HTML_FOOTER
