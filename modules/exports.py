@@ -678,14 +678,18 @@ class Export2Html:
         superscript_active = False
         subscript_active = False
         monospace_active = False
+        bold_active = False
+        italic_active = False
         for tag_property in cons.TAG_PROPERTIES:
             if self.curr_attributes[tag_property] != '':
                 property_value = self.curr_attributes[tag_property]
                 #print property_value
                 if tag_property == "weight":
                     # font-weight:bolder
-                    tag_property = "font-weight"
-                    property_value = "bolder"
+                    #tag_property = "font-weight"
+                    #property_value = "bolder"
+                    bold_active = True
+                    continue
                 elif tag_property == "foreground":
                     # color:#FFFF00
                     tag_property = "color"
@@ -696,8 +700,10 @@ class Export2Html:
                     property_value = "#" + self.rgb_to_24(property_value[1:])
                 elif tag_property == "style":
                     # font-style:italic
-                    tag_property = "font-style"
-                    property_value = "italic"
+                    #tag_property = "font-style"
+                    #property_value = "italic"
+                    italic_active = True
+                    continue
                 elif tag_property == "underline":
                     # text-decoration:underline
                     tag_property = "text-decoration"
@@ -749,6 +755,8 @@ class Export2Html:
         if superscript_active: tagged_text = "<sup>" + tagged_text + "</sup>"
         if subscript_active: tagged_text = "<sub>" + tagged_text + "</sub>"
         if monospace_active: tagged_text = "<tt>" + tagged_text + "</tt>"
+        if bold_active: tagged_text = "<b>" + tagged_text + "</b>"
+        if italic_active: tagged_text = "<i>" + tagged_text + "</i>"
         self.curr_html_text += tagged_text
         #print "###############"
         #print self.curr_html_text
