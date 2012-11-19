@@ -386,9 +386,8 @@ class Export2Html:
         self.tree_links_nums = ["1"]
         for image_stock_id in cons.NODES_STOCKS:
             shutil.copy(cons.GLADE_PATH + image_stock_id + ".png", self.images_dir)
-        self.tree_links_text = '<table style="text-align:left">'
         pango_font = pango.FontDescription(self.dad.tree_font)
-        self.tree_links_text += '<span style="font-family: %s; font-size:%spt">' % (pango_font.get_family(), pango_font.get_size()/pango.SCALE)
+        self.tree_links_text = '<table style="text-align:left; font-family: %s; font-size:%spt">' % (pango_font.get_family(), pango_font.get_size()/pango.SCALE)
         if not top_tree_iter: tree_iter = self.dad.treestore.get_iter_first()
         else: tree_iter = top_tree_iter.copy()
         while tree_iter:
@@ -396,7 +395,7 @@ class Export2Html:
             self.tree_links_nums[-1] = str( int(self.tree_links_nums[-1]) + 1 )
             if top_tree_iter: break
             tree_iter = self.dad.treestore.iter_next(tree_iter)
-        self.tree_links_text += '</span></table>'
+        self.tree_links_text += '</table>'
         # create index html page
         self.create_tree_index_page()
         # create html pages
