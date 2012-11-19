@@ -42,14 +42,13 @@ def config_file_load(inst):
         inst.toolbar_visible = config.getboolean(section, "toolbar_visible") if config.has_option(section, "toolbar_visible") else True
         inst.win_is_maximized = config.getboolean(section, "win_is_maximized") if config.has_option(section, "win_is_maximized") else False
         # restore window size and position
+        if config.has_option(section, "win_position_x") and config.has_option(section, "win_position_y"):
+            win_position = [config.getint(section, "win_position_x"), config.getint(section, "win_position_y")]
+            inst.window.move(win_position[0], win_position[1])
         if inst.win_is_maximized: inst.window.maximize()
-        else:
-            if config.has_option(section, "win_size_w") and config.has_option(section, "win_size_h"):
-                win_size = [config.getint(section, "win_size_w"), config.getint(section, "win_size_h")]
-                inst.window.resize(win_size[0], win_size[1])
-            if config.has_option(section, "win_position_x") and config.has_option(section, "win_position_y"):
-                win_position = [config.getint(section, "win_position_x"), config.getint(section, "win_position_y")]
-                inst.window.move(win_position[0], win_position[1])
+        elif config.has_option(section, "win_size_w") and config.has_option(section, "win_size_h"):
+            win_size = [config.getint(section, "win_size_w"), config.getint(section, "win_size_h")]
+            inst.window.resize(win_size[0], win_size[1])
         inst.hpaned_pos = config.getint(section, "hpaned_pos") if config.has_option(section, "hpaned_pos") else 170
         if config.has_option(section, "node_path"):
             # restor the selected node
@@ -314,11 +313,11 @@ def config_file_save(inst):
     config.set(section, "file_name", inst.file_name)
     config.set(section, "toolbar_visible", inst.ui.get_widget("/ToolBar").get_property(cons.STR_VISIBLE))
     config.set(section, "win_is_maximized", inst.win_is_maximized)
+    win_position = inst.window.get_position()
+    config.set(section, "win_position_x", win_position[0])
+    config.set(section, "win_position_y", win_position[1])
     if not inst.win_is_maximized:
-        win_position = inst.window.get_position()
         win_size = inst.window.get_size()
-        config.set(section, "win_position_x", win_position[0])
-        config.set(section, "win_position_y", win_position[1])
         config.set(section, "win_size_w", win_size[0])
         config.set(section, "win_size_h", win_size[1])
     config.set(section, "hpaned_pos", inst.hpaned.get_property('position'))
