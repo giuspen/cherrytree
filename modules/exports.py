@@ -388,7 +388,7 @@ class Export2Html:
             shutil.copy(cons.GLADE_PATH + image_stock_id + ".png", self.images_dir)
         self.tree_links_text = '<table style="text-align:left">'
         pango_font = pango.FontDescription(self.dad.tree_font)
-        self.tree_links_text += '<font face="%s" size="%s">' % (pango_font.get_family(), pango_font.get_size())
+        self.tree_links_text += '<font face="%s" size="%s">' % (pango_font.get_family(), pango_font.get_size()/pango.SCALE)
         if not top_tree_iter: tree_iter = self.dad.treestore.get_iter_first()
         else: tree_iter = top_tree_iter.copy()
         while tree_iter:
@@ -455,7 +455,7 @@ class Export2Html:
             td_page = r'<td valign="top" align="left" width=70%>'
             html_text += td_tree + self.tree_links_text + td_page
         pango_font = pango.FontDescription(self.dad.text_font if self.dad.treestore[tree_iter][4] == cons.CUSTOM_COLORS_ID else self.dad.code_font)
-        html_text += '<font face="%s" size="%s">' % (pango_font.get_family(), pango_font.get_size())
+        html_text += '<font face="%s" size="%s">' % (pango_font.get_family(), pango_font.get_size()/pango.SCALE)
         self.dad.get_textbuffer_from_tree_iter(tree_iter)
         if self.dad.treestore[tree_iter][4] == cons.CUSTOM_COLORS_ID:
             text_n_objects = self.html_get_from_treestore_node(tree_iter, sel_range)
