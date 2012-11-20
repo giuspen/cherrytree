@@ -329,7 +329,7 @@ class FindReplace:
                     self.dad.set_selection_at_offset_n_delta(match_offsets[0] + num_objs,
                                                              len(replacer_text))
                 self.dad.state_machine.update_state(self.dad.treestore[self.dad.curr_tree_iter][3])
-                self.dad.ctdb_handler.pending_edit_db_node_buff(self.dad.treestore[self.dad.curr_tree_iter][3])
+                self.dad.ctdb_handler.pending_edit_db_node_buff(self.dad.treestore[self.dad.curr_tree_iter][3], force_user_active=True)
             return True
         return False
     
@@ -417,7 +417,9 @@ class FindReplace:
             buff_start_iter = self.dad.curr_buffer.get_start_iter()
             buff_step_iter = buff_start_iter.copy()
             if buff_step_iter.forward_char(): self.dad.curr_buffer.delete(buff_start_iter, buff_step_iter)
-            if restore_modified: self.dad.curr_buffer.set_modified(False)
+            if self.replace_active and pattern_found:
+                self.dad.update_window_save_needed("nbuf")
+            elif restore_modified: self.dad.curr_buffer.set_modified(False)
         return pattern_found
 
     def parse_given_node_content(self, node_iter, pattern, forward, first_fromsel, all_matches):

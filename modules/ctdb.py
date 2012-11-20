@@ -162,10 +162,10 @@ class CTDBHandler:
             write_dict = {'upd': True, 'prop': True, 'buff': False, 'hier': False, 'child': False}
             self.nodes_to_write_dict[node_id] = write_dict
     
-    def pending_edit_db_node_buff(self, node_id):
+    def pending_edit_db_node_buff(self, node_id, force_user_active=False):
         """Pending Node Needs 'buff' Update"""
         if self.dad.filetype not in ["b", "x"]: return
-        if not self.dad.user_active: return
+        if not self.dad.user_active and not force_user_active: return
         print "pending_edit_db_node_buff", node_id
         if node_id in self.nodes_to_write_dict:
             self.nodes_to_write_dict[node_id]['buff'] = True
