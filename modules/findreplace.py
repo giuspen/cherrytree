@@ -322,7 +322,7 @@ class FindReplace:
                 self.dad.state_machine.update_state(self.dad.treestore[self.dad.curr_tree_iter][3])
                 self.dad.ctdb_handler.pending_edit_db_node_buff(self.dad.treestore[self.dad.curr_tree_iter][3])
             return True
-        else: return False
+        return False
     
     def check_pattern_in_object(self, pattern, obj):
         """Search for the pattern in the given object"""

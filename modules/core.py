@@ -3997,9 +3997,13 @@ class CherryTree:
     def set_selection_at_offset_n_delta(self, offset, delta):
         """Set the Selection from given offset to offset+delta"""
         target = self.curr_buffer.get_iter_at_offset(offset)
-        self.curr_buffer.place_cursor(target)
-        target.forward_chars(delta)
-        self.curr_buffer.move_mark(self.curr_buffer.get_selection_bound(), target)
+        if target:
+            self.curr_buffer.place_cursor(target)
+            if not target.forward_chars(delta):
+                print "? bad offset=%s, delta=%s on node %s" % (offset, delta, self.treestore[self.curr_tree_iter][1])
+            self.curr_buffer.move_mark(self.curr_buffer.get_selection_bound(), target)
+            return
+        print "! bad offset=%s, delta=%s on node %s" % (offset, delta, self.treestore[self.curr_tree_iter][1])
     
     def tree_is_empty(self):
         """Return True if the treestore is empty"""

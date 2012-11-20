@@ -226,6 +226,7 @@ def dialog_selnode_selnodeandsub_alltree(father_win, also_selection, also_node_n
     def on_key_press_enter_dialog(widget, event):
         if gtk.gdk.keyval_name(event.keyval) == "Return":
             dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
+            return True
     dialog.connect("key_press_event", on_key_press_enter_dialog)
     content_area.show_all()
     response = dialog.run()
