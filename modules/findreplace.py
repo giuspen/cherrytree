@@ -275,7 +275,10 @@ class FindReplace:
         if start_offset == 0:
             text = cons.CHAR_SPACE + text
             workaround_first_empty_char = True
-        else: workaround_first_empty_char = False
+            #print "EMPTY CHAR!"
+        else:
+            #print "NO EMPTY CHAR"
+            workaround_first_empty_char = False
         if forward:
             match = pattern.search(text, start_offset)
         else:
@@ -303,12 +306,11 @@ class FindReplace:
             else: num_objs = 0
             final_start_offset = match_offsets[0] + num_objs
             final_delta_offset = match_offsets[1] - match_offsets[0]
-            print "IN", final_start_offset, final_delta_offset, self.dad.treestore[self.dad.curr_tree_iter][1]
-            for count in range(final_delta_offset):
-                print count, self.dad.curr_buffer.get_iter_at_offset(final_start_offset+count).get_char()
-            self.dad.set_selection_at_offset_n_delta(match_offsets[0] + num_objs,
-                                                     match_offsets[1] - match_offsets[0])
-            print "OUT"
+            #print "IN", final_start_offset, final_delta_offset, self.dad.treestore[self.dad.curr_tree_iter][1]
+            #for count in range(final_delta_offset):
+            #    print count, self.dad.curr_buffer.get_iter_at_offset(final_start_offset+count).get_char()
+            self.dad.set_selection_at_offset_n_delta(final_start_offset, final_delta_offset)
+            #print "OUT"
             mark_insert = self.dad.curr_buffer.get_insert()
             iter_insert = self.dad.curr_buffer.get_iter_at_mark(mark_insert)
             self.dad.sourceview.scroll_to_mark(mark_insert, 0.25)
