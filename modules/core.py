@@ -118,7 +118,7 @@ class CherryTree:
         self.vbox_text = gtk.VBox()
         self.header_node_name_label = gtk.Label()
         self.header_node_name_label.set_padding(10, 0)
-        self.header_node_name_label.set_ellipsize(pango.ELLIPSIZE_START)
+        self.header_node_name_label.set_ellipsize(pango.ELLIPSIZE_MIDDLE)
         self.header_node_name_eventbox = gtk.EventBox()
         self.header_node_name_eventbox.add(self.header_node_name_label)
         self.vbox_text.pack_start(self.header_node_name_eventbox, False, False)
