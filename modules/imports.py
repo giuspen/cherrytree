@@ -1406,6 +1406,10 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
                 else:
                     index = len(self.curr_table[-1])-1
                     #print "self.curr_rows_span", self.curr_rows_span
+                    while index >= len(self.curr_rows_span):
+                        # rowspan in very first row
+                        self.curr_rows_span.append(1)
+                        self.curr_table[-2].append("")
                     if self.curr_rows_span[index] == 1: self.curr_rows_span[index] = self.curr_rowspan
                     else:
                         unos_found = 0
