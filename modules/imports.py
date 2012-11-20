@@ -1359,7 +1359,11 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
                     self.dad.statusbar.pop(self.dad.statusbar_context_id)
             elif tag == "pre": self.pre_tag = "p"
         elif self.curr_state == 2:
-            if tag == "tr": self.curr_table.append([])
+            if tag == "table": # nested tables
+                self.curr_table = []
+                self.curr_rows_span = []
+                self.curr_table_header = False
+            elif tag == "tr": self.curr_table.append([])
             elif tag in ["td", "th"]:
                 self.curr_cell = ""
                 self.curr_rowspan = 1
