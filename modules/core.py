@@ -1284,6 +1284,7 @@ class CherryTree:
         def on_key_press_edit_data_storage_type_dialog(widget, event):
             if gtk.gdk.keyval_name(event.keyval) == "Return":
                 dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
+                return True
         radiobutton_sqlite_not_protected.connect("toggled", on_radiobutton_savetype_toggled)
         radiobutton_sqlite_pass_protected.connect("toggled", on_radiobutton_savetype_toggled)
         radiobutton_xml_not_protected.connect("toggled", on_radiobutton_savetype_toggled)
@@ -1346,6 +1347,7 @@ class CherryTree:
         def on_key_press_enter_password_dialog(widget, event):
             if gtk.gdk.keyval_name(event.keyval) == "Return":
                 dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
+                return True
         dialog.connect("key_press_event", on_key_press_enter_password_dialog)
         dialog.show_all()
         if not sys.platform[0:3] == "win":
