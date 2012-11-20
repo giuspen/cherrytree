@@ -4000,7 +4000,8 @@ class CherryTree:
         if target:
             self.curr_buffer.place_cursor(target)
             if not target.forward_chars(delta):
-                print "? bad offset=%s, delta=%s on node %s" % (offset, delta, self.treestore[self.curr_tree_iter][1])
+                #print "? bad offset=%s, delta=%s on node %s" % (offset, delta, self.treestore[self.curr_tree_iter][1])
+                pass
             self.curr_buffer.move_mark(self.curr_buffer.get_selection_bound(), target)
             return
         print "! bad offset=%s, delta=%s on node %s" % (offset, delta, self.treestore[self.curr_tree_iter][1])
