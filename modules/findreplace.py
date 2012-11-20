@@ -93,6 +93,11 @@ class FindReplace:
         first_fromsel = self.dad.glade.search_first_fromsel_radiobutton.get_active()
         all_matches = self.dad.glade.search_all_radiobutton.get_active()
         self.matches_num = 0
+        # searching start
+        if self.dad.user_active:
+            self.dad.user_active = False
+            user_active_restore = True
+        else: user_active_restore = False
         if all_matches:
             self.liststore_create_or_clean()
             self.all_matches_first_in_node = True
@@ -108,6 +113,7 @@ class FindReplace:
             self.dad.glade.allmatchesdialog.hide()
         elif self.dad.glade.checkbutton_iterated_find_dialog.get_active():
             self.iterated_find_dialog()
+        if user_active_restore: self.dad.user_active = True
 
     def find_in_all_nodes(self):
         """Search for a pattern in all the Tree Nodes"""
