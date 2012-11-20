@@ -35,6 +35,7 @@ class FindReplace:
         self.curr_find = [None, ""] # [latest find type, latest find pattern]
         self.from_find_iterated = False
         self.from_find_back = False
+        self.newline_trick = False
     
     def iterated_find_dialog(self):
         """Iterated Find/Replace Dialog"""
@@ -272,13 +273,6 @@ class FindReplace:
         else: pattern = re.compile(pattern, re.IGNORECASE|re.UNICODE|re.MULTILINE)
         start_offset = start_iter.get_offset()
         start_offset -= self.get_num_objs_before_offset(start_offset)
-        if start_offset == 0:
-            text = cons.CHAR_SPACE + text
-            workaround_first_empty_char = True
-            #print "EMPTY CHAR!"
-        else:
-            #print "NO EMPTY CHAR"
-            workaround_first_empty_char = False
         if forward:
             match = pattern.search(text, start_offset)
         else:
@@ -301,7 +295,6 @@ class FindReplace:
             if obj_match_offsets[0] != None: match_offsets = (obj_match_offsets[0], obj_match_offsets[1])
             else: match_offsets = (None, None)
         if match_offsets[0] != None:
-            if workaround_first_empty_char: match_offsets = (match_offsets[0]-1, match_offsets[1]-1)
             if obj_match_offsets[0] == None: num_objs = self.get_num_objs_before_offset(match_offsets[0])
             else: num_objs = 0
             final_start_offset = match_offsets[0] + num_objs
@@ -315,9 +308,11 @@ class FindReplace:
             iter_insert = self.dad.curr_buffer.get_iter_at_mark(mark_insert)
             self.dad.sourceview.scroll_to_mark(mark_insert, 0.25)
             if all_matches:
+                if self.newline_trick: newline_trick_offset = 1
+                else: newline_trick_offset = 0
                 self.liststore.append([self.dad.curr_tree_iter,
-                                       match_offsets[0] + num_objs,
-                                       match_offsets[1] + num_objs,
+                                       match_offsets[0] + num_objs - newline_trick_offset,
+                                       match_offsets[1] + num_objs - newline_trick_offset,
                                        self.dad.treestore[self.dad.curr_tree_iter][1],
                                        self.get_line_content(iter_insert) if obj_match_offsets[0] == None else obj_match_offsets[2]])
             if self.replace_active:
@@ -378,6 +373,15 @@ class FindReplace:
 
     def parse_current_node_content(self, pattern, forward, first_fromsel, all_matches, first_node):
         """Returns True if pattern was find, False otherwise"""
+        buff_start_iter = self.dad.curr_buffer.get_start_iter()
+        if buff_start_iter.get_char() != cons.CHAR_NEWLINE:
+            self.newline_trick = True
+            if not self.dad.curr_buffer.get_modified(): restore_modified = True
+            else: restore_modified = False
+            self.dad.curr_buffer.insert(buff_start_iter, cons.CHAR_NEWLINE)
+        else:
+            self.newline_trick = False
+            restore_modified = False
         if (first_fromsel and first_node)\
         or (all_matches and not self.all_matches_first_in_node):
             iter_insert = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
@@ -402,7 +406,13 @@ class FindReplace:
             if forward: start_iter = self.dad.curr_buffer.get_start_iter()
             else: start_iter = self.dad.curr_buffer.get_end_iter()
             if all_matches: self.all_matches_first_in_node = False
-        return self.find_pattern(pattern, start_iter, forward, all_matches)
+        pattern_found = self.find_pattern(pattern, start_iter, forward, all_matches)
+        if self.newline_trick:
+            buff_start_iter = self.dad.curr_buffer.get_start_iter()
+            buff_step_iter = buff_start_iter.copy()
+            if buff_step_iter.forward_char(): self.dad.curr_buffer.delete(buff_start_iter, buff_step_iter)
+            if restore_modified: self.dad.curr_buffer.set_modified(False)
+        return pattern_found
 
     def parse_given_node_content(self, node_iter, pattern, forward, first_fromsel, all_matches):
         """Returns True if pattern was found, False otherwise"""
