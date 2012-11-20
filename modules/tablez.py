@@ -157,7 +157,8 @@ class TablesHandler:
             row_iter = anchor.liststore.append([""]*self.table_columns)
             if table != None:
                 for column in range(self.table_columns):
-                    anchor.liststore[row_iter][column] = table['matrix'][row][column]
+                    try: anchor.liststore[row_iter][column] = table['matrix'][row][column]
+                    except: pass # there are cases when some rows have less columns
         if table_justification:
             text_iter = text_buffer.get_iter_at_child_anchor(anchor)
             self.dad.state_machine.apply_object_justification(text_iter, table_justification, text_buffer)
