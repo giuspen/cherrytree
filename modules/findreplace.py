@@ -287,7 +287,7 @@ class FindReplace:
                                                                            start_iter.get_offset(),
                                                                            match.start(),
                                                                            forward)
-            if obj_match_offsets[0]: match_offsets = (obj_match_offsets[0], obj_match_offsets[1])
+            if obj_match_offsets[0] != None: match_offsets = (obj_match_offsets[0], obj_match_offsets[1])
             else: match_offsets = (match.start(), match.end())
         else:
             if self.replace_active: obj_match_offsets = (None, None)
@@ -295,11 +295,11 @@ class FindReplace:
                                                                            start_iter.get_offset(),
                                                                            -1,
                                                                            forward)
-            if obj_match_offsets[0]: match_offsets = (obj_match_offsets[0], obj_match_offsets[1])
+            if obj_match_offsets[0] != None: match_offsets = (obj_match_offsets[0], obj_match_offsets[1])
             else: match_offsets = (None, None)
-        if match_offsets[0]:
+        if match_offsets[0] != None:
             if workaround_first_empty_char: match_offsets = (match_offsets[0]-1, match_offsets[1]-1)
-            if not obj_match_offsets[0]: num_objs = self.get_num_objs_before_offset(match_offsets[0])
+            if obj_match_offsets[0] == None: num_objs = self.get_num_objs_before_offset(match_offsets[0])
             else: num_objs = 0
             self.dad.set_selection_at_offset_n_delta(match_offsets[0] + num_objs,
                                                      match_offsets[1] - match_offsets[0])
@@ -311,7 +311,7 @@ class FindReplace:
                                        match_offsets[0] + num_objs,
                                        match_offsets[1] + num_objs,
                                        self.dad.treestore[self.dad.curr_tree_iter][1],
-                                       self.get_line_content(iter_insert) if not obj_match_offsets[0] else obj_match_offsets[2]])
+                                       self.get_line_content(iter_insert) if obj_match_offsets[0] == None else obj_match_offsets[2]])
             if self.replace_active:
                 replacer_text = self.dad.glade.replace_entry.get_text().decode("utf-8")
                 self.dad.curr_buffer.delete_selection(interactive=False, default_editable=True)
