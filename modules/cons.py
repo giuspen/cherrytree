@@ -26,17 +26,13 @@ VERSION = "0.28.5"
 APP_NAME = "cherrytree"
 NEWER_VERSION_URL = "http://www.giuspen.com/software/version_cherrytree"
 if sys.platform[0:3] == "win":
+    CONFIG_DIR = os.path.join(environ['APPDATA'], APP_NAME)
     EXE_DIR = os.getcwd()
-    CONFIG_PATH = os.path.join(EXE_DIR, 'config.cfg')
-    LANG_PATH = os.path.join(EXE_DIR, 'lang')
-    IMG_PATH = os.path.join(EXE_DIR, 'glade/img_tmp.png')
     TMP_FOLDER = os.path.join(EXE_DIR, 'glade/ct_tmp/')
     GLADE_PATH = os.path.join(EXE_DIR, 'glade/')
     LOCALE_PATH = os.path.join(EXE_DIR, 'locale/')
 else:
-    CONFIG_PATH = os.path.join(os.path.expanduser('~'), '.config/cherrytree/config.cfg')
-    LANG_PATH = os.path.join(os.path.expanduser('~'), '.config/cherrytree/lang')
-    IMG_PATH = os.path.join(os.path.expanduser('~'), '.config/cherrytree/img_tmp.png')
+    CONFIG_DIR = os.path.join(os.path.expanduser('~'), '.config/cherrytree')
     TMP_FOLDER = '/tmp/ct_tmp/'
     if os.path.isfile('modules/cons.py'):
         GLADE_PATH = os.path.join(os.getcwd(), "glade/")
@@ -44,6 +40,10 @@ else:
     else:
         GLADE_PATH = os.path.join(SHARE_PATH, 'cherrytree/glade/')
         LOCALE_PATH = os.path.join(SHARE_PATH, 'locale')
+CONFIG_PATH = os.path.join(CONFIG_DIR, 'config.cfg')
+LANG_PATH = os.path.join(CONFIG_DIR, 'lang')
+IMG_PATH = os.path.join(CONFIG_DIR, 'img_tmp.png')
+
 AVAILABLE_LANGS = ['default', 'cs', 'de', 'en', 'es', 'fr', 'it', 'pl', 'ru', 'uk', 'zh_CN']
 COLOR_48_YELLOW = "#ffffffff0000"
 COLOR_48_WHITE = "#ffffffffffff"
