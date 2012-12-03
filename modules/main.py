@@ -119,15 +119,12 @@ class CherryTreeHandler():
 
 def initializations():
     """Initializations"""
+    if not os.path.isdir(os.path.dirname(cons.CONFIG_DIR)): os.mkdir(os.path.dirname(cons.CONFIG_DIR))
+    if not os.path.isdir(cons.CONFIG_DIR): os.mkdir(cons.CONFIG_DIR)
     if sys.platform[0:3] == "win":
         import warnings
         warnings.filterwarnings("ignore")
     else:
-        # config dir check
-        all_apps_config_dir = os.path.join(os.path.expanduser('~'), '.config')
-        if not os.path.isdir(all_apps_config_dir): os.mkdir(all_apps_config_dir)
-        cherrytree_config_dir = os.path.join(all_apps_config_dir, 'cherrytree')
-        if not os.path.isdir(cherrytree_config_dir): os.mkdir(cherrytree_config_dir)
         try:
             # change process name
             import ctypes, ctypes.util
