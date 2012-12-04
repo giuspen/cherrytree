@@ -28,7 +28,7 @@ NEWER_VERSION_URL = "http://www.giuspen.com/software/version_cherrytree"
 if sys.platform[0:3] == "win":
     CONFIG_DIR = os.path.join(os.environ['APPDATA'], APP_NAME)
     EXE_DIR = os.getcwd()
-    TMP_FOLDER = os.path.join(EXE_DIR, 'glade/ct_tmp/')
+    TMP_FOLDER = os.path.join(CONFIG_DIR, 'ct_tmp/')
     GLADE_PATH = os.path.join(EXE_DIR, 'glade/')
     LOCALE_PATH = os.path.join(EXE_DIR, 'locale/')
 else:
