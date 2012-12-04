@@ -23,6 +23,7 @@ DefaultDirName={pf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 DisableProgramGroupPage=yes
 OutputDir=C:\Documents and Settings\giu\Desktop
+LicenseFile=C:\Documents and Settings\giu\Desktop\cherrytree_{#MyAppVersion}_win32_portable\license.txt
 OutputBaseFilename=cherrytree_{#MyAppVersion}_setup
 SetupIconFile=C:\Documents and Settings\giu\Desktop\cherrytree_{#MyAppVersion}_win32_portable\bin\glade\cherrytree.ico
 Compression=lzma
