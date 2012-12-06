@@ -20,13 +20,20 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
-import sys, os, __builtin__
+import os, sys, __builtin__
 
-if os.path.isdir('glade'): MODULES_PATH = 'modules'
+if os.path.isfile('glade/cherrytree.glade'):
+    SHARE_PATH = ""
+    MODULES_PATH = 'modules'
 else:
-    SHARE_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'share')
-    MODULES_PATH = os.path.join(SHARE_PATH, 'cherrytree', 'modules')
-    __builtin__.SHARE_PATH = SHARE_PATH
+    if sys.platform[0:3] == "win":
+        SHARE_PATH = os.path.dirname(unicode(sys.executable, sys.getfilesystemencoding()))
+        MODULES_PATH = os.path.join(SHARE_PATH, 'modules')
+    else:
+        SHARE_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'share')
+        MODULES_PATH = os.path.join(SHARE_PATH, 'cherrytree', 'modules')
+
+__builtin__.SHARE_PATH = SHARE_PATH
 
 sys.path.insert(0, MODULES_PATH)
 

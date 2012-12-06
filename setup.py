@@ -21,6 +21,7 @@ import __builtin__
 def _(transl_str):
     return transl_str
 __builtin__._ = _
+__builtin__.SHARE_PATH = ""
 sys.path.append(os.path.join(os.getcwd(), "modules"))
 import cons
 
