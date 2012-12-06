@@ -1166,7 +1166,7 @@ class CherryTree:
                     self.db.close()
                     del self.db
         if self.password:
-            if sys.platform[0:3] == "win":
+            if cons.IS_WIN_OS:
                 filepath_4win = support.windows_cmd_prepare_path(filepath)
                 filepath_tmp_4win = support.windows_cmd_prepare_path(filepath_tmp)
                 if not filepath_4win or not filepath_tmp_4win:
@@ -1350,7 +1350,7 @@ class CherryTree:
                 return True
         dialog.connect("key_press_event", on_key_press_enter_password_dialog)
         dialog.show_all()
-        if not sys.platform[0:3] == "win":
+        if not cons.IS_WIN_OS:
             the_window = dialog.get_window()
             the_window.focus(gtk.gdk.x11_get_server_time(the_window))
         dialog.present()
@@ -1373,7 +1373,7 @@ class CherryTree:
             if not os.path.isdir(cons.TMP_FOLDER): os.mkdir(cons.TMP_FOLDER)
             last_letter = "d" if filepath[-1] == "z" else "b"
             filepath_tmp = os.path.join(cons.TMP_FOLDER, os.path.basename(filepath[:-1] + last_letter))
-            if sys.platform[0:3] == "win":
+            if cons.IS_WIN_OS:
                 dest_dir_4win = support.windows_cmd_prepare_path("-o" + cons.TMP_FOLDER)
                 filepath_4win = support.windows_cmd_prepare_path(filepath)
                 if not dest_dir_4win or not filepath_4win:
@@ -3612,7 +3612,7 @@ class CherryTree:
             if self.filelink_custom_action[0]:
                 subprocess.call(self.filelink_custom_action[1] % re.escape(filepath), shell=True)
             else:
-                if sys.platform[0:3] == "win": os.startfile(filepath)
+                if cons.IS_WIN_OS: os.startfile(filepath)
                 else: subprocess.call(config.LINK_CUSTOM_ACTION_DEFAULT_FILE % re.escape(filepath), shell=True)
         elif vector[0] == "fold":
             # link to folder
@@ -3623,7 +3623,7 @@ class CherryTree:
             if self.folderlink_custom_action[0]:
                 subprocess.call(self.folderlink_custom_action[1] % re.escape(filepath), shell=True)
             else:
-                if sys.platform[0:3] == "win": os.startfile(filepath)
+                if cons.IS_WIN_OS: os.startfile(filepath)
                 else: subprocess.call(config.LINK_CUSTOM_ACTION_DEFAULT_FILE % re.escape(filepath), shell=True)
         elif vector[0] == "node":
             # link to a tree node

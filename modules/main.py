@@ -121,7 +121,7 @@ def initializations():
     """Initializations"""
     if not os.path.isdir(os.path.dirname(cons.CONFIG_DIR)): os.mkdir(os.path.dirname(cons.CONFIG_DIR))
     if not os.path.isdir(cons.CONFIG_DIR): os.mkdir(cons.CONFIG_DIR)
-    if sys.platform[0:3] == "win":
+    if cons.IS_WIN_OS:
         import warnings
         warnings.filterwarnings("ignore")
     else:
@@ -197,7 +197,7 @@ def main(OPEN_WITH_FILE):
         CherryTreeHandler(OPEN_WITH_FILE, semaphore, msg_server_to_core, lang_str)
         gtk.main() # start the gtk main loop
         # quit thread
-        if sys.platform[0:3] == "win":
+        if cons.IS_WIN_OS:
             import ctypes
             PROCESS_TERMINATE = 1
             handle = ctypes.windll.kernel32.OpenProcess(PROCESS_TERMINATE, False, os.getpid())
