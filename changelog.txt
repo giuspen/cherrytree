@@ -1,4 +1,8 @@
 
+0.28.5 (November 20th, 2012)
+• fixed several bugs
+• export to html: the font of tree and text is now set to the one in use in cherrytree at export time
+
 0.28.4 (November 12th, 2012)
 • fixed internationalization/localization bugs and other minor bugs
 
