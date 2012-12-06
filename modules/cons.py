@@ -27,14 +27,15 @@ APP_NAME = "cherrytree"
 NEWER_VERSION_URL = "http://www.giuspen.com/software/version_cherrytree"
 if sys.platform[0:3] == "win":
     CONFIG_DIR = os.path.join(os.environ['APPDATA'], APP_NAME)
-    EXE_DIR = os.getcwd()
+    if SHARE_PATH: EXE_DIR = SHARE_PATH
+    else: EXE_DIR = os.getcwd()
     TMP_FOLDER = os.path.join(os.environ['TEMP'], 'ct_tmp/')
     GLADE_PATH = os.path.join(EXE_DIR, 'glade/')
     LOCALE_PATH = os.path.join(EXE_DIR, 'locale/')
 else:
     CONFIG_DIR = os.path.join(os.path.expanduser('~'), '.config/cherrytree')
     TMP_FOLDER = '/tmp/ct_tmp/'
-    if os.path.isfile('modules/cons.py'):
+    if not SHARE_PATH:
         GLADE_PATH = os.path.join(os.getcwd(), "glade/")
         LOCALE_PATH = 'locale/'
     else:
