@@ -3826,19 +3826,18 @@ class CherryTree:
                         tag_name = tag.get_property("name")
                         if tag_name and tag_name[0:4] == "link":
                             self.link_clicked(tag_name[5:])
-                            break
-                else:
-                    hovering_todo_list = False
-                    if text_iter.get_char() == cons.CHAR_SQ_BR_OPEN:
+                            return False
+                hovering_todo_list = False
+                if text_iter.get_char() == cons.CHAR_SQ_BR_OPEN:
+                    hovering_todo_list = self.lists_handler.is_list_todo_beginning(text_iter)
+                elif text_iter.get_char() in [cons.CHAR_SPACE, cons.CHAR_X]:
+                    if text_iter.backward_char():
                         hovering_todo_list = self.lists_handler.is_list_todo_beginning(text_iter)
-                    elif text_iter.get_char() in [cons.CHAR_SPACE, cons.CHAR_X]:
-                        if text_iter.backward_char():
-                            hovering_todo_list = self.lists_handler.is_list_todo_beginning(text_iter)
-                    elif text_iter.get_char() == cons.CHAR_SQ_BR_CLOSE:
-                        if text_iter.backward_chars(2):
-                            hovering_todo_list = self.lists_handler.is_list_todo_beginning(text_iter)
-                    if hovering_todo_list:
-                        self.lists_handler.todo_list_invert_checked_status(text_iter)
+                elif text_iter.get_char() == cons.CHAR_SQ_BR_CLOSE:
+                    if text_iter.backward_chars(2):
+                        hovering_todo_list = self.lists_handler.is_list_todo_beginning(text_iter)
+                if hovering_todo_list:
+                    self.lists_handler.todo_list_invert_checked_status(text_iter)
             elif event.button == 3 and not self.curr_buffer.get_has_selection():
                 x, y = text_view.window_to_buffer_coords(gtk.TEXT_WINDOW_WIDGET, int(event.x), int(event.y))
                 text_iter = self.sourceview.get_iter_at_location(x, y)
