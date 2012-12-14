@@ -316,7 +316,7 @@ class FindReplace:
             if all_matches:
                 if self.newline_trick: newline_trick_offset = 1
                 else: newline_trick_offset = 0
-                self.liststore.append([self.dad.curr_tree_iter,
+                self.liststore.append([self.dad.treestore[self.dad.curr_tree_iter][3],
                                        match_offsets[0] + num_objs - newline_trick_offset,
                                        match_offsets[1] + num_objs - newline_trick_offset,
                                        self.dad.treestore[self.dad.curr_tree_iter][1],
@@ -456,7 +456,7 @@ class FindReplace:
             match = pattern.search(text_tags)
         if match:
             if all_matches:
-                self.liststore.append([node_iter,
+                self.liststore.append([self.dad.treestore[node_iter][3],
                                        0,
                                        0,
                                        self.dad.treestore[node_iter][1],
@@ -548,8 +548,8 @@ class FindReplace:
         if "liststore" in dir(self):
             self.liststore.clear()
             return
-        # ROW: 0-node_iter, 1-start_offset, 2-end_offset, 3-node_name, 4-line_content
-        self.liststore = gtk.ListStore(gobject.TYPE_PYOBJECT, long, long, str, str)
+        # ROW: 0-node_id, 1-start_offset, 2-end_offset, 3-node_name, 4-line_content
+        self.liststore = gtk.ListStore(long, long, long, str, str)
         self.treeview = gtk.TreeView(self.liststore)
         self.renderer_text_node = gtk.CellRendererText()
         self.renderer_text_line = gtk.CellRendererText()
@@ -566,7 +566,12 @@ class FindReplace:
         """Catches mouse buttons clicks"""
         if event.type != gtk.gdk.BUTTON_PRESS: return
         model, list_iter = self.treeviewselection.get_selected()
-        self.dad.treeview_safe_set_cursor(model[list_iter][0])
+        tree_iter = self.dad.get_tree_iter_from_node_id(model[list_iter][0])
+        if not tree_iter:
+            support.dialog_error(_("The Link Refers to a Node that Does Not Exist Anymore (Id = %s)") % model[list_iter][0], self.dad.window)
+            self.liststore.remove(list_iter)
+            return
+        self.dad.treeview_safe_set_cursor(tree_iter)
         if model[list_iter][1] != 0 and model[list_iter][2] != 0:
             self.dad.curr_buffer.move_mark(self.dad.curr_buffer.get_insert(),
                                            self.dad.curr_buffer.get_iter_at_offset(model[list_iter][1]))
