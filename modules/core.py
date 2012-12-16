@@ -206,7 +206,6 @@ class CherryTree:
         self.autosave_timer_id = None
         self.mod_time_sentinel_id = None
         self.mod_time_val = 0
-        self.node_id_counter = long(0)
         self.glade.aboutdialog.set_version(cons.VERSION)
         support.set_menu_items_recent_documents(self)
         self.window.show_all() # this before the config_file_apply that could hide something
