@@ -119,7 +119,6 @@ class XMLHandler:
         """Given the dom_iter node, adds it to the tree"""
         if not discard_ids and dom_iter.hasAttribute('unique_id'):
             unique_id = long(dom_iter.attributes['unique_id'].value)
-            self.dad.node_id_add(unique_id)
         else: unique_id = self.dad.node_id_get()
         if dom_iter.hasAttribute('tags'): node_tags = dom_iter.attributes['tags'].value
         else: node_tags = ""

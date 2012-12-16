@@ -495,7 +495,6 @@ class CTDBHandler:
         """Read a node and his children from DB"""
         if not discard_ids:
             unique_id = node_row['node_id']
-            self.dad.node_id_add(unique_id)
         else: unique_id = self.dad.node_id_get()
         node_tags = node_row['tags']
         readonly = node_row['is_ro']
