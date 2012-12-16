@@ -987,12 +987,10 @@ class CherryTree:
 
     def node_id_get(self):
         """Returns the node_ids, all Different Each Other"""
-        self.node_id_counter += 1
-        return self.node_id_counter
-
-    def node_id_add(self, node_id):
-        """Updates the Maximum node_id Value Considering the Received One"""
-        if node_id > self.node_id_counter: self.node_id_counter = node_id
+        new_node_id = 1
+        while self.get_tree_iter_from_node_id(new_node_id):
+            new_node_id += 1
+        return new_node_id
 
     def on_fontbutton_text_font_set(self, picker):
         """A New Font For the Text was Chosen"""
@@ -1481,7 +1479,6 @@ class CherryTree:
         self.treestore.clear()
         self.file_name = ""
         self.password = None
-        self.node_id_counter = long(0)
         self.update_window_save_not_needed()
         self.state_machine.reset()
         self.sourceview.set_sensitive(False)
