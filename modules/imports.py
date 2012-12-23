@@ -1434,6 +1434,8 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
                     'frame_height': 150,
                     'width_in_pixels': True,
                     'syntax_highlighting': cons.CUSTOM_COLORS_ID,
+                    'highlight_brackets': False,
+                    'show_line_numbers': False,
                     'fill_text': self.curr_table[0][0]
                     }
                     self.dad.xml_handler.codebox_element_to_xml([0, codebox_dict, "left"], self.curr_dom_slot)
