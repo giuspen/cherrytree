@@ -957,22 +957,22 @@ class CherryTree:
         """Creates the Stats Icon"""
         self.boss.systray_active = True
         if self.use_appind:
-            self.ind = appindicator.Indicator(cons.APP_NAME, "indicator-messages", appindicator.CATEGORY_APPLICATION_STATUS)
-            self.ind.set_icon_theme_path(cons.GLADE_PATH)
-            self.ind.set_status(appindicator.STATUS_ACTIVE)
-            self.ind.set_attention_icon("indicator-messages-new")
+            self.boss.ind = appindicator.Indicator(cons.APP_NAME, "indicator-messages", appindicator.CATEGORY_APPLICATION_STATUS)
+            self.boss.ind.set_icon_theme_path(cons.GLADE_PATH)
+            self.boss.ind.set_status(appindicator.STATUS_ACTIVE)
+            self.boss.ind.set_attention_icon("indicator-messages-new")
             for icp in ["/usr/share/icons/hicolor/scalable/apps/cherrytree.svg", "/usr/local/share/icons/hicolor/scalable/apps/cherrytree.svg", "glade/cherrytree.png"]:
                 if os.path.isfile(icp):
                     icon_path = icp
                     break
             else: icon_path = cons.APP_NAME
-            self.ind.set_icon(icon_path)
-            self.ind.set_menu(self.ui.get_widget("/SysTrayMenu"))
+            self.boss.ind.set_icon(icon_path)
+            self.boss.ind.set_menu(self.ui.get_widget("/SysTrayMenu"))
         else:
-            self.status_icon = gtk.StatusIcon()
-            self.status_icon.set_from_stock(cons.APP_NAME)
-            self.status_icon.connect('button-press-event', self.on_mouse_button_clicked_systray)
-            self.status_icon.set_tooltip(_("CherryTree Hierarchical Note Taking"))
+            self.boss.status_icon = gtk.StatusIcon()
+            self.boss.status_icon.set_from_stock(cons.APP_NAME)
+            self.boss.status_icon.connect('button-press-event', self.on_mouse_button_clicked_systray)
+            self.boss.status_icon.set_tooltip(_("CherryTree Hierarchical Note Taking"))
 
     def toggle_show_hide_main_window(self, *args):
         do_show = True
@@ -1995,14 +1995,14 @@ class CherryTree:
         if not self.user_active: return
         if self.systray:
             if not self.use_appind:
-                if "status_icon" in dir(self): self.status_icon.set_property(cons.STR_VISIBLE, True)
+                if "status_icon" in dir(self.boss): self.boss.status_icon.set_property(cons.STR_VISIBLE, True)
                 else: self.status_icon_enable()
             else:
-                if "ind" in dir(self): self.ind.set_status(appindicator.STATUS_ACTIVE)
+                if "ind" in dir(self.boss): self.boss.ind.set_status(appindicator.STATUS_ACTIVE)
                 else: self.status_icon_enable()
         else:
-            if not self.use_appind: self.status_icon.set_property(cons.STR_VISIBLE, False)
-            else: self.ind.set_status(appindicator.STATUS_PASSIVE)
+            if not self.use_appind: self.boss.status_icon.set_property(cons.STR_VISIBLE, False)
+            else: self.boss.ind.set_status(appindicator.STATUS_PASSIVE)
         self.boss.systray_active = self.systray
         if len(self.boss.running_windows) > 1:
             for runn_win in self.boss.running_windows:
@@ -2848,7 +2848,7 @@ class CherryTree:
         for filepath_tmp in self.ctdb_handler.remove_at_quit_set: os.remove(filepath_tmp)
         self.window.destroy()
         if not self.boss.running_windows:
-            if not self.use_appind and "status_icon" in dir(self): self.status_icon.set_visible(False)
+            if not self.use_appind and "status_icon" in dir(self.boss): self.boss.status_icon.set_visible(False)
 
     def on_window_delete_event(self, widget, event, data=None):
         """Before close the application (from the window top right X)..."""
