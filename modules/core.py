@@ -975,12 +975,18 @@ class CherryTree:
             self.status_icon.set_tooltip(_("CherryTree Hierarchical Note Taking"))
 
     def toggle_show_hide_main_window(self, *args):
-        if len(self.boss.running_windows) == 1 and self.window.has_toplevel_focus(): self.window.hide()
-        else:
-            for runn_win in self.boss.running_windows:
+        do_show = True
+        for runn_win in self.boss.running_windows:
+            if runn_win.window.has_toplevel_focus():
+                do_show = False
+                break
+        for runn_win in self.boss.running_windows:
+            if do_show:
                 runn_win.window.show()
                 runn_win.window.deiconify()
                 runn_win.window.present()
+            else:
+                runn_win.window.hide()
 
     def on_mouse_button_clicked_systray(self, widget, event):
         """Catches mouse buttons clicks upon the system tray icon"""
@@ -1979,8 +1985,14 @@ class CherryTree:
 
     def on_checkbutton_systray_toggled(self, checkbutton):
         """SysTray Toggled Handling"""
-        if not self.user_active: return
         self.systray = checkbutton.get_active()
+        if self.systray:
+            self.ui.get_widget("/MenuBar/FileMenu/ExitApp").set_property(cons.STR_VISIBLE, True)
+            self.glade.checkbutton_start_on_systray.set_sensitive(True)
+        else:
+            self.ui.get_widget("/MenuBar/FileMenu/ExitApp").set_property(cons.STR_VISIBLE, False)
+            self.glade.checkbutton_start_on_systray.set_sensitive(False)
+        if not self.user_active: return
         if self.systray:
             if not self.use_appind:
                 if "status_icon" in dir(self): self.status_icon.set_property(cons.STR_VISIBLE, True)
@@ -1988,16 +2000,13 @@ class CherryTree:
             else:
                 if "ind" in dir(self): self.ind.set_status(appindicator.STATUS_ACTIVE)
                 else: self.status_icon_enable()
-            self.ui.get_widget("/MenuBar/FileMenu/ExitApp").set_property(cons.STR_VISIBLE, True)
-            self.glade.checkbutton_start_on_systray.set_sensitive(True)
         else:
             if not self.use_appind: self.status_icon.set_property(cons.STR_VISIBLE, False)
             else: self.ind.set_status(appindicator.STATUS_PASSIVE)
-            self.ui.get_widget("/MenuBar/FileMenu/ExitApp").set_property(cons.STR_VISIBLE, False)
-            self.glade.checkbutton_start_on_systray.set_sensitive(False)
         self.boss.systray_active = self.systray
         if len(self.boss.running_windows) > 1:
             for runn_win in self.boss.running_windows:
+                if runn_win.window == self.window: continue
                 runn_win.user_active = False
                 runn_win.systray = self.boss.systray_active
                 runn_win.glade.checkbutton_systray.set_active(self.boss.systray_active)
@@ -2010,6 +2019,7 @@ class CherryTree:
 
     def on_checkbutton_use_appind_toggled(self, checkbutton):
         """Use AppIndicator Toggled Handling"""
+        if not self.user_active: return
         if self.glade.checkbutton_systray.get_active():
             former_active = True
             self.glade.checkbutton_systray.set_active(False)
@@ -2018,6 +2028,13 @@ class CherryTree:
         else: self.use_appind = False
         if former_active:
             self.glade.checkbutton_systray.set_active(True)
+        if len(self.boss.running_windows) > 1:
+            for runn_win in self.boss.running_windows:
+                if runn_win.window == self.window: continue
+                runn_win.user_active = False
+                runn_win.use_appind = self.use_appind
+                runn_win.glade.checkbutton_use_appind.set_active(self.use_appind)
+                runn_win.user_active = True
 
     def on_checkbutton_autosave_toggled(self, checkbutton):
         """Autosave Toggled Handling"""
