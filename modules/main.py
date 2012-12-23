@@ -114,9 +114,19 @@ class CherryTreeHandler():
                         runn_win.file_startup_load(self.msg_server_to_core['p'])
                         break
                 else:
-                    # 3) run new window
-                    print "3 run '%s'" % self.msg_server_to_core['p']
-                    self.window_open_new(self.msg_server_to_core['p'])
+                    # 3) check for opened window hidden (systray) in case there's no filepath (run from launcher)
+                    just_run_new_win = True
+                    if not self.msg_server_to_core['p']:
+                        for i, runn_win in enumerate(self.running_windows):
+                            if not runn_win.window.get_visible():
+                                print "3 rise existing hidden in systray"
+                                runn_win.window.present()
+                                just_run_new_win = False
+                                break
+                    if just_run_new_win:
+                        # 4) run new window
+                        print "4 run '%s'" % self.msg_server_to_core['p']
+                        self.window_open_new(self.msg_server_to_core['p'])
         self.semaphore.release()
         return True # this way we keep the timer alive
 
