@@ -74,12 +74,17 @@ class CherryTreeHandler():
         """Open a new top level Window"""
         window = core.CherryTree(self.lang_str, filepath, self)
         self.running_windows.append(window)
-        self.curr_win_idx = -1
 
     def on_window_destroy_event(self, widget):
         """Before close the application (from the window top right X)..."""
-        self.running_windows.pop(self.curr_win_idx)
-        self.curr_win_idx = -1
+        for i, runn_win in enumerate(self.running_windows):
+            if runn_win.window == widget:
+                print "win destroy: runn_win found with id", i
+                break
+        else:
+            print "win destroy: runn_win not found"
+            i = -1
+        self.running_windows.pop(i)
         if not self.running_windows: gtk.main_quit()
 
     def server_periodic_check(self):
@@ -97,7 +102,6 @@ class CherryTreeHandler():
                 and runn_win.file_name\
                 and self.msg_server_to_core['p'] == os.path.join(runn_win.file_dir, runn_win.file_name):
                     print "1 rise existing '%s'" % self.msg_server_to_core['p']
-                    self.curr_win_idx = i
                     runn_win.window.present()
                     break
             else:
@@ -105,7 +109,6 @@ class CherryTreeHandler():
                 for i, runn_win in enumerate(self.running_windows):
                     if not runn_win.file_name:
                         print "2 rise existing '%s'" % self.msg_server_to_core['p']
-                        self.curr_win_idx = i
                         runn_win.window.present()
                         runn_win.file_startup_load(self.msg_server_to_core['p'])
                         break
