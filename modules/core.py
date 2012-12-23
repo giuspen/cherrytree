@@ -218,7 +218,7 @@ class CherryTree:
             if not self.boss.systray_active:
                 self.status_icon_enable()
             if self.start_on_systray: self.window.hide()
-        else: self.ui.get_widget("/MenuBar/FileMenu/ExitApp").set_property(cons.STR_VISIBLE, False)
+        else: self.ui.get_widget("/MenuBar/FileMenu/ExitApp").set_visible(False)
         self.file_startup_load(open_with_file)
         if self.check_version: self.check_for_newer_version()
         else: self.update_selected_node_statusbar_info()
@@ -1987,21 +1987,21 @@ class CherryTree:
         """SysTray Toggled Handling"""
         self.systray = checkbutton.get_active()
         if self.systray:
-            self.ui.get_widget("/MenuBar/FileMenu/ExitApp").set_property(cons.STR_VISIBLE, True)
+            self.ui.get_widget("/MenuBar/FileMenu/ExitApp").set_visible(True)
             self.glade.checkbutton_start_on_systray.set_sensitive(True)
         else:
-            self.ui.get_widget("/MenuBar/FileMenu/ExitApp").set_property(cons.STR_VISIBLE, False)
+            self.ui.get_widget("/MenuBar/FileMenu/ExitApp").set_visible(False)
             self.glade.checkbutton_start_on_systray.set_sensitive(False)
         if not self.user_active: return
         if self.systray:
             if not self.use_appind:
-                if "status_icon" in dir(self.boss): self.boss.status_icon.set_property(cons.STR_VISIBLE, True)
+                if "status_icon" in dir(self.boss): self.boss.status_icon.set_visible(True)
                 else: self.status_icon_enable()
             else:
                 if "ind" in dir(self.boss): self.boss.ind.set_status(appindicator.STATUS_ACTIVE)
                 else: self.status_icon_enable()
         else:
-            if not self.use_appind: self.boss.status_icon.set_property(cons.STR_VISIBLE, False)
+            if not self.use_appind: self.boss.status_icon.set_visible(False)
             else: self.boss.ind.set_status(appindicator.STATUS_PASSIVE)
         self.boss.systray_active = self.systray
         if len(self.boss.running_windows) > 1:
@@ -2638,7 +2638,7 @@ class CherryTree:
 
     def find_allmatchesdialog_restore(self, *args):
         """Display the AllMatchesDialog Again"""
-        if not self.glade.allmatchesdialog.get_property(cons.STR_VISIBLE):
+        if not self.glade.allmatchesdialog.get_visible():
             self.glade.allmatchesdialog.run()
             self.glade.allmatchesdialog.hide()
 
@@ -2787,11 +2787,11 @@ class CherryTree:
         if entry_hint != None: self.glade.input_entry.set_text(entry_hint)
         else: self.glade.input_entry.set_text("")
         self.glade.input_entry.grab_focus()
-        self.glade.search_options_frame.set_property(cons.STR_VISIBLE, search_opt)
-        self.glade.replace_options_frame.set_property(cons.STR_VISIBLE, replace_opt)
-        self.glade.syntax_highlighting_frame.set_property(cons.STR_VISIBLE, syntax_highlight)
-        self.glade.tags_searching_frame.set_property(cons.STR_VISIBLE, syntax_highlight)
-        self.glade.checkbutton_readonly.set_property(cons.STR_VISIBLE, syntax_highlight)
+        self.glade.search_options_frame.set_visible(search_opt)
+        self.glade.replace_options_frame.set_visible(replace_opt)
+        self.glade.syntax_highlighting_frame.set_visible(syntax_highlight)
+        self.glade.tags_searching_frame.set_visible(syntax_highlight)
+        self.glade.checkbutton_readonly.set_visible(syntax_highlight)
         response = self.glade.inputdialog.run()
         self.glade.inputdialog.hide()
         if response == 1:
@@ -2818,18 +2818,18 @@ class CherryTree:
 
     def toggle_show_hide_toolbar(self, *args):
         """Toggle Show/Hide the Toolbar"""
-        if self.ui.get_widget("/ToolBar").get_property(cons.STR_VISIBLE): self.ui.get_widget("/ToolBar").hide()
+        if self.ui.get_widget("/ToolBar").get_visible(): self.ui.get_widget("/ToolBar").hide()
         else: self.ui.get_widget("/ToolBar").show()
 
     def toggle_show_hide_tree(self, *args):
         """Toggle Show/Hide the Tree"""
-        if self.scrolledwindow_tree.get_property(cons.STR_VISIBLE):
+        if self.scrolledwindow_tree.get_visible():
             self.scrolledwindow_tree.hide()
         else: self.scrolledwindow_tree.show()
 
     def toggle_show_hide_node_name_header(self, *args):
         """Toggle Show/Hide the Node Title Header"""
-        if self.header_node_name_label.get_property(cons.STR_VISIBLE):
+        if self.header_node_name_label.get_visible():
             self.header_node_name_label.hide()
         else: self.header_node_name_label.show()
 
