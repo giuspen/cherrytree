@@ -119,7 +119,7 @@ class LeoHandler:
     def get_cherrytree_xml(self, leo_string):
         """Returns a CherryTree string Containing the Leo Nodes"""
         self.dom = xml.dom.minidom.Document()
-        self.nodes_list = [self.dom.createElement("cherrytree")]
+        self.nodes_list = [self.dom.createElement(cons.APP_NAME)]
         self.dom.appendChild(self.nodes_list[0])
         self.parse_leo_xml(leo_string)
         return self.dom.toxml()
@@ -250,7 +250,7 @@ class TuxCardsHandler(HTMLParser.HTMLParser):
     def get_cherrytree_xml(self, tuxcards_string):
         """Returns a CherryTree string Containing the TuxCards Nodes"""
         self.dom = xml.dom.minidom.Document()
-        self.nodes_list = [self.dom.createElement("cherrytree")]
+        self.nodes_list = [self.dom.createElement(cons.APP_NAME)]
         self.dom.appendChild(self.nodes_list[0])
         self.curr_attributes = {}
         for tag_property in cons.TAG_PROPERTIES: self.curr_attributes[tag_property] = ""
@@ -388,7 +388,7 @@ class KeepnoteHandler(HTMLParser.HTMLParser):
     def get_cherrytree_xml(self):
         """Returns a CherryTree string Containing the KeepNote Nodes"""
         self.dom = xml.dom.minidom.Document()
-        self.nodes_list = [self.dom.createElement("cherrytree")]
+        self.nodes_list = [self.dom.createElement(cons.APP_NAME)]
         self.dom.appendChild(self.nodes_list[0])
         self.curr_attributes = {}
         for tag_property in cons.TAG_PROPERTIES: self.curr_attributes[tag_property] = ""
@@ -545,7 +545,7 @@ class TomboyHandler():
     def get_cherrytree_xml(self):
         """Returns a CherryTree string Containing the Tomboy Nodes"""
         self.dom = xml.dom.minidom.Document()
-        self.dest_top_dom = self.dom.createElement("cherrytree")
+        self.dest_top_dom = self.dom.createElement(cons.APP_NAME)
         self.dom.appendChild(self.dest_top_dom)
         self.curr_attributes = {}
         self.is_list_item = False
@@ -788,7 +788,7 @@ class BasketHandler(HTMLParser.HTMLParser):
     def get_cherrytree_xml(self):
         """Returns a CherryTree string Containing the Basket Nodes"""
         self.dom = xml.dom.minidom.Document()
-        self.nodes_list = [self.dom.createElement("cherrytree")]
+        self.nodes_list = [self.dom.createElement(cons.APP_NAME)]
         self.dom.appendChild(self.nodes_list[0])
         self.curr_attributes = {}
         for tag_property in cons.TAG_PROPERTIES: self.curr_attributes[tag_property] = ""
@@ -906,7 +906,7 @@ class KnowitHandler(HTMLParser.HTMLParser):
     def get_cherrytree_xml(self, file_descriptor):
         """Returns a CherryTree string Containing the Knowit Nodes"""
         self.dom = xml.dom.minidom.Document()
-        self.nodes_list = [self.dom.createElement("cherrytree")]
+        self.nodes_list = [self.dom.createElement(cons.APP_NAME)]
         self.dom.appendChild(self.nodes_list[0])
         self.curr_attributes = {}
         for tag_property in cons.TAG_PROPERTIES: self.curr_attributes[tag_property] = ""
@@ -974,7 +974,7 @@ class TreepadHandler:
     def get_cherrytree_xml(self, file_descriptor):
         """Returns a CherryTree string Containing the Treepad Nodes"""
         self.dom = xml.dom.minidom.Document()
-        self.nodes_list = [self.dom.createElement("cherrytree")]
+        self.nodes_list = [self.dom.createElement(cons.APP_NAME)]
         self.dom.appendChild(self.nodes_list[0])
         self.parse_string_lines(file_descriptor)
         return self.dom.toxml()
@@ -1040,7 +1040,7 @@ class MempadHandler:
     def get_cherrytree_xml(self, file_descriptor):
         """Returns a CherryTree string Containing the Mempad Nodes"""
         self.dom = xml.dom.minidom.Document()
-        self.nodes_list = [self.dom.createElement("cherrytree")]
+        self.nodes_list = [self.dom.createElement(cons.APP_NAME)]
         self.dom.appendChild(self.nodes_list[0])
         self.parse_binary_bytes(file_descriptor)
         return self.dom.toxml()
@@ -1223,7 +1223,7 @@ class NotecaseHandler(HTMLParser.HTMLParser):
     def get_cherrytree_xml(self, input_string):
         """Parses the Given Notecase HTML String feeding the CherryTree XML dom"""
         self.dom = xml.dom.minidom.Document()
-        self.nodes_list = [self.dom.createElement("cherrytree")]
+        self.nodes_list = [self.dom.createElement(cons.APP_NAME)]
         self.dom.appendChild(self.nodes_list[0])
         self.curr_state = 0
         self.curr_title = ""
