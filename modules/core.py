@@ -215,7 +215,8 @@ class CherryTree:
         self.combobox_style_scheme_init()
         self.combobox_prog_lang_init()
         if self.systray:
-            self.status_icon_enable()
+            if not self.boss.systray_active:
+                self.status_icon_enable()
             if self.start_on_systray: self.window.hide()
         else: self.ui.get_widget("/MenuBar/FileMenu/ExitApp").set_property(cons.STR_VISIBLE, False)
         self.file_startup_load(open_with_file)
@@ -954,6 +955,7 @@ class CherryTree:
 
     def status_icon_enable(self):
         """Creates the Stats Icon"""
+        self.boss.systray_active = True
         if self.use_appind:
             self.ind = appindicator.Indicator(cons.APP_NAME, "indicator-messages", appindicator.CATEGORY_APPLICATION_STATUS)
             self.ind.set_icon_theme_path(cons.GLADE_PATH)
@@ -973,11 +975,12 @@ class CherryTree:
             self.status_icon.set_tooltip(_("CherryTree Hierarchical Note Taking"))
 
     def toggle_show_hide_main_window(self, *args):
-        if self.window.has_toplevel_focus(): self.window.hide()
+        if len(self.boss.running_windows) == 1 and self.window.has_toplevel_focus(): self.window.hide()
         else:
-            self.window.show()
-            self.window.deiconify()
-            self.window.present()
+            for runn_win in self.boss.running_windows:
+                runn_win.window.show()
+                runn_win.window.deiconify()
+                runn_win.window.present()
 
     def on_mouse_button_clicked_systray(self, widget, event):
         """Catches mouse buttons clicks upon the system tray icon"""
@@ -1992,6 +1995,13 @@ class CherryTree:
             else: self.ind.set_status(appindicator.STATUS_PASSIVE)
             self.ui.get_widget("/MenuBar/FileMenu/ExitApp").set_property(cons.STR_VISIBLE, False)
             self.glade.checkbutton_start_on_systray.set_sensitive(False)
+        self.boss.systray_active = self.systray
+        if len(self.boss.running_windows) > 1:
+            for runn_win in self.boss.running_windows:
+                runn_win.user_active = False
+                runn_win.systray = self.boss.systray_active
+                runn_win.glade.checkbutton_systray.set_active(self.boss.systray_active)
+                runn_win.user_active = True
 
     def on_checkbutton_start_on_systray_toggled(self, checkbutton):
         """Start Minimized on SysTray Toggled Handling"""
@@ -2820,7 +2830,8 @@ class CherryTree:
         if "db" in dir(self) and self.db: self.db.close()
         for filepath_tmp in self.ctdb_handler.remove_at_quit_set: os.remove(filepath_tmp)
         self.window.destroy()
-        if not self.use_appind and "status_icon" in dir(self): self.status_icon.set_visible(False)
+        if not self.boss.running_windows:
+            if not self.use_appind and "status_icon" in dir(self): self.status_icon.set_visible(False)
 
     def on_window_delete_event(self, widget, event, data=None):
         """Before close the application (from the window top right X)..."""

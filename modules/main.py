@@ -66,6 +66,7 @@ class CherryTreeHandler():
         self.msg_server_to_core = msg_server_to_core
         self.lang_str = lang_str
         self.running_windows = []
+        self.systray_active = False
         filepath = filepath_fix(filepath)
         self.window_open_new(filepath)
         self.server_check_timer_id = gobject.timeout_add(1000, self.server_periodic_check) # 1 sec
