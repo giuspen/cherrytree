@@ -209,7 +209,7 @@ def config_file_apply(inst):
     else: user_active_restore = False
     # treeview
     inst.hpaned.set_property('position', inst.hpaned_pos)
-    inst.header_node_name_label.set_property(cons.STR_VISIBLE, inst.show_node_name_label)
+    inst.header_node_name_label.set_visible(inst.show_node_name_label)
     inst.set_treeview_font()
     inst.glade.fontbutton_tree.set_font_name(inst.tree_font)
     # sourceview
@@ -297,7 +297,7 @@ def config_file_apply(inst):
     inst.glade.spinbutton_limit_undoable_steps.set_value(inst.limit_undoable_steps)
     inst.glade.spinbutton_tree_nodes_names_width.set_value(inst.cherry_wrap_width)
     inst.renderer_text.set_property('wrap-width', inst.cherry_wrap_width)
-    inst.ui.get_widget("/ToolBar").set_property(cons.STR_VISIBLE, inst.toolbar_visible)
+    inst.ui.get_widget("/ToolBar").set_visible(inst.toolbar_visible)
     inst.ui.get_widget("/ToolBar").set_style(gtk.TOOLBAR_ICONS)
     inst.ui.get_widget("/ToolBar").set_property("icon-size", ICONS_SIZE[inst.toolbar_icon_size])
     if inst.autosave[0]: inst.autosave_timer_start()
@@ -311,7 +311,7 @@ def config_file_save(inst):
     config.add_section(section)
     config.set(section, "file_dir", inst.file_dir)
     config.set(section, "file_name", inst.file_name)
-    config.set(section, "toolbar_visible", inst.ui.get_widget("/ToolBar").get_property(cons.STR_VISIBLE))
+    config.set(section, "toolbar_visible", inst.ui.get_widget("/ToolBar").get_visible())
     config.set(section, "win_is_maximized", inst.win_is_maximized)
     win_position = inst.window.get_position()
     config.set(section, "win_position_x", win_position[0])
@@ -336,7 +336,7 @@ def config_file_save(inst):
     config.set(section, "recent_docs", str_recent_docs)
     config.set(section, "pick_dir", inst.pick_dir)
     config.set(section, "link_type", inst.link_type)
-    config.set(section, "show_node_name_label", inst.header_node_name_label.get_property(cons.STR_VISIBLE))
+    config.set(section, "show_node_name_label", inst.header_node_name_label.get_visible())
     config.set(section, "toolbar_icon_size", inst.toolbar_icon_size)
     
     section = "tree"

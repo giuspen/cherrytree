@@ -106,8 +106,6 @@ SPECIAL_CHAR_COPYRIGHT = "©"
 SPECIAL_CHAR_UNREGISTERED_TRADEMARK = "™"
 SPECIAL_CHAR_REGISTERED_TRADEMARK = "®"
 
-STR_VISIBLE = "visible"
-
 HTML_HEADER = '<!doctype html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><title>%s</title><meta name="generator" content="CherryTree"></head><body>'
 HTML_FOOTER = '</body></html>'
 
