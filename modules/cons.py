@@ -561,7 +561,7 @@ def get_entries(inst):
     ( "ReplaceAgain", "find_replace", _("Replace _Again"), "F6", _("Iterate the Last Replace Operation"), inst.replace_again),
     ( "ShowHideNodeNameHeader", "node_name_header", _("Show/Hide Node Name _Header"), None, _("Toggle Show/Hide Node Name Header"), inst.toggle_show_hide_node_name_header),
     ( "ShowHideTree", "cherries", _("Show/Hide _Tree"), "F9", _("Toggle Show/Hide Tree"), inst.toggle_show_hide_tree),
-    ( "ShowHideMainWin", "cherrytree", _("Show/Hide _CherryTree"), None, _("Toggle Show/Hide CherryTree"), inst.toggle_show_hide_main_window),
+    ( "ShowHideMainWin", APP_NAME, _("Show/Hide _CherryTree"), None, _("Toggle Show/Hide CherryTree"), inst.toggle_show_hide_main_window),
     ( "ShowHideToolbar", "toolbar", _("Show/Hide Tool_bar"), None, _("Toggle Show/Hide Toolbar"), inst.toggle_show_hide_toolbar),
     ( "ShowAllMatchesDialog", "find", _("Show _All Matches Dialog"), "<control><shift>A", _("Show Search All Matches Dialog"), inst.find_allmatchesdialog_restore),
     ( "IncreaseToolbarIconsSize", "gtk-add", _("_Increase Toolbar Icons Size"), None, _("Increase the Size of the Toolbar Icons"), inst.toolbar_icons_size_increase),

@@ -102,7 +102,7 @@ class XMLHandler:
         if not discard_ids:
             self.reset_nodes_names()
             self.dad.bookmarks = []
-        if cherrytree.nodeName != "cherrytree": return False
+        if cherrytree.nodeName != cons.APP_NAME: return False
         else:
             dom_iter = cherrytree.firstChild
             node_sequence = 0
@@ -257,7 +257,7 @@ class XMLHandler:
         """Parse the Given Node and Subnodes and Generate an XML Cherry Tree Document"""
         if "dom" in dir(self): del self.dom
         self.dom = xml.dom.minidom.Document()
-        cherrytree = self.dom.createElement("cherrytree")
+        cherrytree = self.dom.createElement(cons.APP_NAME)
         self.dom.appendChild(cherrytree)
         # given node and subnodes parsing
         self.append_dom_node(tree_iter, cherrytree, to_disk=True, skip_children=True, sel_range=sel_range)
@@ -267,7 +267,7 @@ class XMLHandler:
         """Parse the Given Node and Subnodes and Generate an XML Cherry Tree Document"""
         if "dom" in dir(self): del self.dom
         self.dom = xml.dom.minidom.Document()
-        cherrytree = self.dom.createElement("cherrytree")
+        cherrytree = self.dom.createElement(cons.APP_NAME)
         self.dom.appendChild(cherrytree)
         # given node and subnodes parsing
         self.append_dom_node(tree_iter, cherrytree, to_disk=True)
@@ -277,7 +277,7 @@ class XMLHandler:
         """Parse the Tree and Generate an XML Cherry Tree Document"""
         if "dom" in dir(self): del self.dom
         self.dom = xml.dom.minidom.Document()
-        cherrytree = self.dom.createElement("cherrytree")
+        cherrytree = self.dom.createElement(cons.APP_NAME)
         self.dom.appendChild(cherrytree)
         # full tree parsing
         tree_iter = self.dad.treestore.get_iter_first()

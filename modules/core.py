@@ -955,7 +955,7 @@ class CherryTree:
     def status_icon_enable(self):
         """Creates the Stats Icon"""
         if self.use_appind:
-            self.ind = appindicator.Indicator("cherrytree", "indicator-messages", appindicator.CATEGORY_APPLICATION_STATUS)
+            self.ind = appindicator.Indicator(cons.APP_NAME, "indicator-messages", appindicator.CATEGORY_APPLICATION_STATUS)
             self.ind.set_icon_theme_path(cons.GLADE_PATH)
             self.ind.set_status(appindicator.STATUS_ACTIVE)
             self.ind.set_attention_icon("indicator-messages-new")
@@ -968,7 +968,7 @@ class CherryTree:
             self.ind.set_menu(self.ui.get_widget("/SysTrayMenu"))
         else:
             self.status_icon = gtk.StatusIcon()
-            self.status_icon.set_from_stock("cherrytree")
+            self.status_icon.set_from_stock(cons.APP_NAME)
             self.status_icon.connect('button-press-event', self.on_mouse_button_clicked_systray)
             self.status_icon.set_tooltip(_("CherryTree Hierarchical Note Taking"))
 
