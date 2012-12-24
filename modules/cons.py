@@ -339,6 +339,8 @@ UI_INFO = """
             <menuitem action='ShowHideNodeNameHeader'/>
             <menuitem action='ShowAllMatchesDialog'/>
             <separator/>
+            <menuitem action='ToggleTreeText'/>
+            <separator/>
             <menuitem action='IncreaseToolbarIconsSize'/>
             <menuitem action='DecreaseToolbarIconsSize'/>
             <separator/>
@@ -564,6 +566,7 @@ def get_entries(inst):
     ( "ShowAllMatchesDialog", "find", _("Show _All Matches Dialog"), "<control><shift>A", _("Show Search All Matches Dialog"), inst.find_allmatchesdialog_restore),
     ( "IncreaseToolbarIconsSize", "gtk-add", _("_Increase Toolbar Icons Size"), None, _("Increase the Size of the Toolbar Icons"), inst.toolbar_icons_size_increase),
     ( "DecreaseToolbarIconsSize", "gtk-remove", _("_Decrease Toolbar Icons Size"), None, _("Decrease the Size of the Toolbar Icons"), inst.toolbar_icons_size_decrease),
+    ( "ToggleTreeText", "gtk-jump-to", _("Toggle Focus Tree/Text"), "<control>J", _("Toggle Focus Between Tree and Text"), inst.toggle_tree_text),
     ( "Fullscreen", "gtk-fullscreen", _("_Full Screen On/Off"), "F11", _("Toggle Full Screen On/Off"), inst.fullscreen_toggle),
     ( "FromBasket", "import_in_cherrytree", _("From _Basket Folder"), None, _("Add Nodes of a Basket Folder to the Current Tree"), inst.nodes_add_from_basket_folder),
     ( "FromCherryTree", "import_in_cherrytree", _("From _CherryTree File"), None, _("Add Nodes of a CherryTree File to the Current Tree"), inst.nodes_add_from_cherrytree_file),

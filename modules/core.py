@@ -519,6 +519,12 @@ class CherryTree:
         else:
             self.window.window.fullscreen()
 
+    def toggle_tree_text(self, *args):
+        """Toggle Focus Between Tree and Text"""
+        if self.treeview.is_focus():
+            self.sourceview.grab_focus()
+        else: self.treeview.grab_focus()
+
     def on_drag_motion_cherrytree(self, widget, drag_context, x, y, timestamp):
         """Cherry Tree drag motion"""
         drop_info = self.treeview.get_dest_row_at_pos(x, y)
