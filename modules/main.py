@@ -52,9 +52,12 @@ class ServerThread(threading.Thread):
                     print "bad data =", data
                     break
                 conn.send("okz")
-                filepath = filepath_fix(data[4:])
+                sep_pos = data.find("\x03")
+                filepath = filepath_fix(data[4:sep_pos] if sep_pos != -1 else data[4:])
+                node_name = data[sep_pos+1:] if sep_pos != -1 else ""
                 self.semaphore.acquire()
                 self.msg_server_to_core['p'] = filepath
+                self.msg_server_to_core['n'] = node_name
                 self.msg_server_to_core['f'] = 1
                 self.semaphore.release()
             conn.close()
@@ -125,7 +128,7 @@ class CherryTreeHandler():
                     if just_run_new_win:
                         # 4) run new window
                         print "4 run '%s'" % self.msg_server_to_core['p']
-                        self.window_open_new(self.msg_server_to_core['p'])
+                        self.window_open_new(self.msg_server_to_core['p'], self.msg_server_to_core['n'])
         self.semaphore.release()
         return True # this way we keep the timer alive
 
@@ -195,11 +198,13 @@ def main(args):
         # client
         sock_cln = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock_cln.connect((HOST, PORT))
-        sock_cln.send("ct*=%s" % args.filepath)
+        if not args.node: sock_cln.send("ct*=%s" % args.filepath)
+        else: sock_cln.send("ct*=%s\x03%s" % (args.filepath, args.node))
         data = sock_cln.recv(1024)
         sock_cln.close()
         if data != "okz": raise
     except:
+        #raise
         # server + core
         lang_str = initializations()
         gobject.threads_init()
