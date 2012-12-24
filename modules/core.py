@@ -1213,7 +1213,7 @@ class CherryTree:
     def file_write(self, filepath, first_write):
         """File Write"""
         if not cons.IS_WIN_OS and not os.access(os.path.dirname(filepath), os.W_OK):
-            support.dialog_error(_("Read Only"))
+            support.dialog_error(_("You Have No Write Access to %s") % os.path.dirname(filepath))
             return False
         if self.filetype in ["d", "z"]:
             try: xml_string = self.xml_handler.treestore_to_dom()
