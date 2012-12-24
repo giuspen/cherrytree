@@ -2,7 +2,7 @@
 #
 #       cons.py
 #
-#       Copyright 2009-2012 Giuseppe Penone <giuspen@gmail.com>
+#       Copyright 2009-2013 Giuseppe Penone <giuspen@gmail.com>
 #
 #       This program is free software; you can redistribute it and/or modify
 #       it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 import os, sys
 
 
-VERSION = "0.28.5"
+VERSION = "0.29"
 APP_NAME = "cherrytree"
 NEWER_VERSION_URL = "http://www.giuspen.com/software/version_cherrytree"
 if sys.platform[0:3] == "win":

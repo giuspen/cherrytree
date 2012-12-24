@@ -2,7 +2,7 @@
 #
 #       main.py
 #
-#       Copyright 2009-2012 Giuseppe Penone <giuspen@gmail.com>
+#       Copyright 2009-2013 Giuseppe Penone <giuspen@gmail.com>
 #
 #       This program is free software; you can redistribute it and/or modify
 #       it under the terms of the GNU General Public License as published by
@@ -190,13 +190,13 @@ def filepath_fix(filepath):
     return filepath
 
 
-def main(OPEN_WITH_FILE):
+def main(args):
     """Everything Starts from Here"""
     try:
         # client
         sock_cln = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock_cln.connect((HOST, PORT))
-        sock_cln.send("ct*=%s" % OPEN_WITH_FILE)
+        sock_cln.send("ct*=%s" % args.filepath)
         data = sock_cln.recv(1024)
         sock_cln.close()
         if data != "okz": raise
@@ -208,7 +208,7 @@ def main(OPEN_WITH_FILE):
         msg_server_to_core = {'f':0, 'p':""}
         server_thread = ServerThread(semaphore, msg_server_to_core)
         server_thread.start()
-        CherryTreeHandler(OPEN_WITH_FILE, semaphore, msg_server_to_core, lang_str)
+        CherryTreeHandler(args.filepath, semaphore, msg_server_to_core, lang_str)
         gtk.main() # start the gtk main loop
         # quit thread
         if cons.IS_WIN_OS:
