@@ -61,19 +61,18 @@ class ServerThread(threading.Thread):
 
 
 class CherryTreeHandler():
-    def __init__(self, filepath, semaphore, msg_server_to_core, lang_str):
+    def __init__(self, args, semaphore, msg_server_to_core, lang_str):
         self.semaphore = semaphore
         self.msg_server_to_core = msg_server_to_core
         self.lang_str = lang_str
         self.running_windows = []
         self.systray_active = False
-        filepath = filepath_fix(filepath)
-        self.window_open_new(filepath)
+        self.window_open_new(filepath_fix(args.filepath), args.node)
         self.server_check_timer_id = gobject.timeout_add(1000, self.server_periodic_check) # 1 sec
 
-    def window_open_new(self, filepath):
+    def window_open_new(self, filepath, node_name):
         """Open a new top level Window"""
-        window = core.CherryTree(self.lang_str, filepath, self)
+        window = core.CherryTree(self.lang_str, filepath, node_name, self)
         self.running_windows.append(window)
 
     def on_window_destroy_event(self, widget):
@@ -111,7 +110,7 @@ class CherryTreeHandler():
                     if not runn_win.file_name:
                         print "2 rise existing '%s'" % self.msg_server_to_core['p']
                         runn_win.window.present()
-                        runn_win.file_startup_load(self.msg_server_to_core['p'])
+                        runn_win.file_startup_load(self.msg_server_to_core['p'], "")
                         break
                 else:
                     # 3) check for opened window hidden (systray) in case there's no filepath (run from launcher)
@@ -208,7 +207,7 @@ def main(args):
         msg_server_to_core = {'f':0, 'p':""}
         server_thread = ServerThread(semaphore, msg_server_to_core)
         server_thread.start()
-        CherryTreeHandler(args.filepath, semaphore, msg_server_to_core, lang_str)
+        CherryTreeHandler(args, semaphore, msg_server_to_core, lang_str)
         gtk.main() # start the gtk main loop
         # quit thread
         if cons.IS_WIN_OS:
