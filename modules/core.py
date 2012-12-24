@@ -56,7 +56,7 @@ class GladeWidgetsWrapper:
 class CherryTree:
     """Application's GUI"""
 
-    def __init__(self, lang_str, open_with_file, boss):
+    def __init__(self, lang_str, open_with_file, node_name, boss):
         """GUI Startup"""
         self.boss = boss
         self.filetype = ""
@@ -219,7 +219,7 @@ class CherryTree:
                 self.status_icon_enable()
             if self.start_on_systray: self.window.hide()
         else: self.ui.get_widget("/MenuBar/FileMenu/ExitApp").set_visible(False)
-        self.file_startup_load(open_with_file)
+        self.file_startup_load(open_with_file, node_name)
         if self.check_version: self.check_for_newer_version()
         else: self.update_selected_node_statusbar_info()
 
@@ -1046,7 +1046,7 @@ class CherryTree:
             self.change_icon_iter(child_tree_iter)
             child_tree_iter = self.treestore.iter_next(child_tree_iter)
 
-    def file_startup_load(self, open_with_file):
+    def file_startup_load(self, open_with_file, node_name):
         """Try to load a file if there are the conditions"""
         if open_with_file:
             self.file_name = os.path.basename(open_with_file)
@@ -1059,6 +1059,13 @@ class CherryTree:
             self.modification_time_update_value(True)
             if self.expand_tree: self.treeview.expand_all()
             else: config.set_tree_expanded_collapsed_string(self) # restore expanded/collapsed nodes
+            # is there a node name to focus?
+            if node_name:
+                node_name_iter = self.get_tree_iter_from_node_name(node_name, use_content=False)
+                if node_name_iter: self.node_path = self.treestore.get_path(node_name_iter)
+                else:
+                    node_name_iter = self.get_tree_iter_from_node_name(node_name, use_content=True)
+                    if node_name_iter: self.node_path = self.treestore.get_path(node_name_iter)
             # we try to restore the focused node
             if self.node_path != None:
                 try: node_iter_to_focus = self.treestore.get_iter(self.node_path)
@@ -1865,22 +1872,28 @@ class CherryTree:
             tree_iter = self.treestore.iter_next(tree_iter)
         return None
 
-    def get_tree_iter_from_node_name(self, node_name):
+    def get_tree_iter_from_node_name(self, node_name, use_content=False):
         """Given a Node Id, Returns the TreeIter or None"""
         tree_iter = self.treestore.get_iter_first()
         while tree_iter != None:
-            if self.treestore[tree_iter][1] == node_name: return tree_iter
-            child_tree_iter = self.get_tree_iter_from_node_name_children(tree_iter, node_name)
+            if not use_content:
+                if self.treestore[tree_iter][1] == node_name: return tree_iter
+            else:
+                if node_name.lower() in self.treestore[tree_iter][1].lower(): return tree_iter
+            child_tree_iter = self.get_tree_iter_from_node_name_children(tree_iter, node_name, use_content)
             if child_tree_iter != None: return child_tree_iter
             tree_iter = self.treestore.iter_next(tree_iter)
         return None
 
-    def get_tree_iter_from_node_name_children(self, father_iter, node_name):
+    def get_tree_iter_from_node_name_children(self, father_iter, node_name, use_content):
         """Iterative function searching for Node Id between Children"""
         tree_iter = self.treestore.iter_children(father_iter)
         while tree_iter != None:
-            if self.treestore[tree_iter][1] == node_name: return tree_iter
-            child_tree_iter = self.get_tree_iter_from_node_name_children(tree_iter, node_name)
+            if not use_content:
+                if self.treestore[tree_iter][1] == node_name: return tree_iter
+            else:
+                if node_name.lower() in self.treestore[tree_iter][1].lower(): return tree_iter
+            child_tree_iter = self.get_tree_iter_from_node_name_children(tree_iter, node_name, use_content)
             if child_tree_iter != None: return child_tree_iter
             tree_iter = self.treestore.iter_next(tree_iter)
         return None
