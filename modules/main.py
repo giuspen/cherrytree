@@ -106,6 +106,14 @@ class CherryTreeHandler():
                 and self.msg_server_to_core['p'] == os.path.join(runn_win.file_dir, runn_win.file_name):
                     print "1 rise existing '%s'" % self.msg_server_to_core['p']
                     runn_win.window.present()
+                    node_name = self.msg_server_to_core['n']
+                    if node_name:
+                        node_name_iter = runn_win.get_tree_iter_from_node_name(node_name, use_content=False)
+                        if not node_name_iter:
+                            node_name_iter = runn_win.get_tree_iter_from_node_name(node_name, use_content=True)
+                        if node_name_iter:
+                            runn_win.treeview_safe_set_cursor(node_name_iter)
+                            runn_win.sourceview.grab_focus()
                     break
             else:
                 # 2) check for opened window with empty path
