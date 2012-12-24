@@ -39,10 +39,10 @@ def f_main(args):
     __builtin__.SHARE_PATH = SHARE_PATH
     sys.path.insert(0, MODULES_PATH)
     import main
-    main.main(args.filepath)
+    main.main(args)
 
 parser = argparse.ArgumentParser()
-parser.add_argument('filepath', nargs='?', help='Optional CherryTree Documento to Open')
+parser.add_argument('filepath', nargs='?', help='Optional CherryTree Document to Open')
 parser.add_argument("-n", "--node", help="Node Name to Focus")
 args = parser.parse_args()
 f_main(args)

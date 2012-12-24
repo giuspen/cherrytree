@@ -13,7 +13,7 @@
     <property name="type_hint">dialog</property>
     <property name="transient_for">window</property>
     <property name="program_name">CherryTree</property>
-    <property name="copyright" translatable="yes">Copyright © 2009-2012
+    <property name="copyright" translatable="yes">Copyright © 2009-2013
 Giuseppe Penone &lt;giuspen@gmail.com&gt;</property>
     <property name="comments" translatable="yes">A Hierarchical Note Taking Application, featuring Rich Text and Syntax Highlighting</property>
     <property name="website">http://www.giuspen.com/cherrytree/</property>
