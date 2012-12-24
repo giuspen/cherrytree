@@ -1062,10 +1062,14 @@ class CherryTree:
             # is there a node name to focus?
             if node_name:
                 node_name_iter = self.get_tree_iter_from_node_name(node_name, use_content=False)
-                if node_name_iter: self.node_path = self.treestore.get_path(node_name_iter)
+                if node_name_iter:
+                    self.node_path = self.treestore.get_path(node_name_iter)
+                    self.cursor_position = 0
                 else:
                     node_name_iter = self.get_tree_iter_from_node_name(node_name, use_content=True)
-                    if node_name_iter: self.node_path = self.treestore.get_path(node_name_iter)
+                    if node_name_iter:
+                        self.node_path = self.treestore.get_path(node_name_iter)
+                        self.cursor_position = 0
             # we try to restore the focused node
             if self.node_path != None:
                 try: node_iter_to_focus = self.treestore.get_iter(self.node_path)
