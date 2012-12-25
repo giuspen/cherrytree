@@ -116,7 +116,7 @@
    id="namedview242"
    showgrid="false"
    inkscape:zoom="0.47749696"
-   inkscape:cx="265.59755"
+   inkscape:cx="269.78606"
    inkscape:cy="247.12199"
    inkscape:window-x="50"
    inkscape:window-y="0"
@@ -598,15 +598,16 @@
 
 <text
    xml:space="preserve"
-   style="font-size:422.73428345000002082px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#1a1a1a;fill-opacity:1;stroke:none;font-family:Monospace;-inkscape-font-specification:Sans Bold"
+   style="font-size:422.73428345px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#1a1a1a;fill-opacity:1;stroke:none;font-family:Monospace;-inkscape-font-specification:Sans Bold"
    x="5.7053823"
-   y="362.81393"
+   y="390.67593"
    id="text3118"
    sodipodi:linespacing="125%"
-   transform="scale(0.99506806,1.0049564)"><tspan
+   transform="scale(0.99506805,1.0049564)"><tspan
      sodipodi:role="line"
      id="tspan3120"
      x="5.7053823"
-     y="362.81393">ms</tspan></text>
+     y="390.67593">ms</tspan></text>
+
 
 </svg>
