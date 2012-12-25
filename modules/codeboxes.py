@@ -81,6 +81,7 @@ class CodeBoxesHandler:
         """Insert Code Box"""
         if not text_buffer: text_buffer = self.dad.curr_buffer
         anchor = text_buffer.create_child_anchor(iter_insert)
+        self.curr_codebox_anchor = anchor
         anchor.frame_width = codebox_dict['frame_width']
         anchor.frame_height = codebox_dict['frame_height']
         anchor.width_in_pixels = codebox_dict['width_in_pixels']
@@ -131,31 +132,28 @@ class CodeBoxesHandler:
 
     def codebox_increase_width(self, *args):
         """Increase CodeBox Width"""
-        if self.curr_codebox_anchor.width_in_pixels: self.curr_codebox_anchor.frame_width += 10
-        else: self.curr_codebox_anchor.frame_width += 3
-        self.codebox_apply_width_height(self.curr_codebox_anchor, True)
+        if self.curr_codebox_anchor.width_in_pixels:
+            self.codebox_change_width_height(self.curr_codebox_anchor.frame_width + 10, 0)
+        else:
+            self.codebox_change_width_height(self.curr_codebox_anchor.frame_width + 3, 0)
 
     def codebox_decrease_width(self, *args):
         """Increase CodeBox Width"""
         if self.curr_codebox_anchor.width_in_pixels:
             if self.curr_codebox_anchor.frame_width - 10 >= 10:
-                self.curr_codebox_anchor.frame_width -= 10
-                self.codebox_apply_width_height(self.curr_codebox_anchor, True)
+                self.codebox_change_width_height(self.curr_codebox_anchor.frame_width - 10, 0)
         else:
             if self.curr_codebox_anchor.frame_width - 3 >= 10:
-                self.curr_codebox_anchor.frame_width -= 3
-                self.codebox_apply_width_height(self.curr_codebox_anchor, True)
+                self.codebox_change_width_height(self.curr_codebox_anchor.frame_width - 3, 0)
 
     def codebox_increase_height(self, *args):
         """Increase CodeBox Width"""
-        self.curr_codebox_anchor.frame_height += 10
-        self.codebox_apply_width_height(self.curr_codebox_anchor, True)
+        self.codebox_change_width_height(0, self.curr_codebox_anchor.frame_height + 10)
 
     def codebox_decrease_height(self, *args):
         """Increase CodeBox Width"""
         if self.curr_codebox_anchor.frame_height - 10 >= 10:
-            self.curr_codebox_anchor.frame_height -= 10
-            self.codebox_apply_width_height(self.curr_codebox_anchor, True)
+            self.codebox_change_width_height(0, self.curr_codebox_anchor.frame_height - 10)
 
     def codebox_apply_width_height(self, anchor, from_shortcut=False):
         """Apply Width and Height Changes to CodeBox"""
@@ -164,6 +162,20 @@ class CodeBoxesHandler:
         anchor.frame.set_size_request(frame_width, anchor.frame_height)
         if from_shortcut:
             self.dad.update_window_save_needed("nbuf", True)
+
+    def codebox_change_width_height(self, new_width, new_height):
+        """Replace CodeBox changing Width and Height"""
+        codebox_iter = self.dad.curr_buffer.get_iter_at_child_anchor(self.curr_codebox_anchor)
+        codebox_element = [codebox_iter.get_offset(),
+                           self.dad.state_machine.codebox_to_dict(self.curr_codebox_anchor,
+                                                                  for_print=0),
+                           self.dad.state_machine.get_iter_alignment(codebox_iter)]
+        if new_width: codebox_element[1]['frame_width'] = new_width
+        if new_height: codebox_element[1]['frame_height'] = new_height
+        self.codebox_delete()
+        iter_insert = self.dad.curr_buffer.get_iter_at_offset(codebox_element[0])
+        self.codebox_insert(iter_insert, codebox_element[1], codebox_element[2])
+        self.curr_codebox_anchor.sourceview.grab_focus()
 
     def codebox_change_properties(self, action):
         """Change CodeBox Properties"""
