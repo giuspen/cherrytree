@@ -798,7 +798,7 @@ class StateMachine:
         if curr_index != last_index: del self.nodes_vectors[node_id][curr_index+1:last_index+1]
         xml_content = self.dad.xml_handler.treestore_node_to_dom(self.dad.curr_tree_iter)
         pixbuf_table_codebox_vector = self.get_embedded_pixbufs_tables_codeboxes(self.dad.curr_buffer)
-        cursor_pos = self.dad.curr_buffer.get_property('cursor-position')
+        cursor_pos = self.dad.curr_buffer.get_property(cons.STR_CURSOR_POSITION)
         self.nodes_vectors[node_id].append([xml_content, pixbuf_table_codebox_vector, cursor_pos])
         num_saved_states = len(self.nodes_vectors[node_id])
         if num_saved_states == 2: self.nodes_vectors[node_id][0][2] = cursor_pos

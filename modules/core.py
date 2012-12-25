@@ -770,7 +770,7 @@ class CherryTree:
         former_node = self.curr_tree_iter # we'll restore after the import
         tree_father = None # init the value of the imported nodes father
         if self.curr_tree_iter:
-            self.nodes_cursor_pos[self.treestore[self.curr_tree_iter][3]] = self.curr_buffer.get_property('cursor-position')
+            self.nodes_cursor_pos[self.treestore[self.curr_tree_iter][3]] = self.curr_buffer.get_property(cons.STR_CURSOR_POSITION)
             if self.curr_buffer.get_modified() == True:
                 self.file_update = True
                 self.curr_buffer.set_modified(False)
@@ -2519,7 +2519,7 @@ class CherryTree:
             return # if i click on an already selected node
         if self.curr_tree_iter:
             if self.user_active:
-                self.nodes_cursor_pos[model[self.curr_tree_iter][3]] = self.curr_buffer.get_property('cursor-position')
+                self.nodes_cursor_pos[model[self.curr_tree_iter][3]] = self.curr_buffer.get_property(cons.STR_CURSOR_POSITION)
             if self.curr_buffer.get_modified():
                 self.file_update = True
                 self.curr_buffer.set_modified(False)

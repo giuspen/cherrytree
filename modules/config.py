@@ -326,7 +326,7 @@ def config_file_save(inst):
         for element in inst.treestore.get_path(inst.curr_tree_iter):
             path_list_of_str.append( str(element) )
         config.set(section, "node_path", " ".join(path_list_of_str))
-        config.set(section, "cursor_position", inst.curr_buffer.get_property('cursor-position'))
+        config.set(section, "cursor_position", inst.curr_buffer.get_property(cons.STR_CURSOR_POSITION))
     if inst.recent_docs:
         temp_recent_docs = []
         for element in inst.recent_docs:
