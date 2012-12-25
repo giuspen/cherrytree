@@ -111,14 +111,14 @@
    guidetolerance="10"
    inkscape:pageopacity="0"
    inkscape:pageshadow="2"
-   inkscape:window-width="1286"
-   inkscape:window-height="746"
+   inkscape:window-width="1230"
+   inkscape:window-height="778"
    id="namedview242"
    showgrid="false"
    inkscape:zoom="0.47749696"
-   inkscape:cx="244.655"
+   inkscape:cx="248.84351"
    inkscape:cy="163.35182"
-   inkscape:window-x="80"
+   inkscape:window-x="50"
    inkscape:window-y="0"
    inkscape:window-maximized="1"
    inkscape:current-layer="Layer_1" />
@@ -588,7 +588,7 @@
 
 <text
    xml:space="preserve"
-   style="font-size:501.87725829999999405px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#333333;fill-opacity:1;stroke:none;font-family:Arial Black;-inkscape-font-specification:'Arial Black, Bold'"
+   style="font-size:501.87725829999999405px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#1a1a1a;fill-opacity:1;stroke:none;font-family:Arial Black;-inkscape-font-specification:'Arial Black, Bold'"
    x="15.477295"
    y="411.07181"
    id="text2948"
@@ -603,9 +603,10 @@
 
 
 
+
 <text
    xml:space="preserve"
-   style="font-size:234.93786621px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#333333;fill-opacity:1;stroke:none;font-family:KacstDigital;-inkscape-font-specification:KacstFarsi Bold"
+   style="font-size:234.93786621000000991px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#1a1a1a;fill-opacity:1;stroke:none;font-family:KacstDigital;-inkscape-font-specification:KacstFarsi Bold"
    x="377.33615"
    y="390.77615"
    id="text3120"
@@ -615,5 +616,6 @@
      id="tspan3122"
      x="377.33615"
      y="390.77615"
-     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:KacstFarsi;-inkscape-font-specification:KacstFarsi Bold">3</tspan></text>
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:KacstFarsi;-inkscape-font-specification:KacstFarsi Bold;fill:#1a1a1a">3</tspan></text>
+
 </svg>

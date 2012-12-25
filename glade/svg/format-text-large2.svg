@@ -19,7 +19,7 @@
    viewBox="0 0 489.31 494.244"
    enable-background="new 0 0 489.31 494.244"
    xml:space="preserve"
-   inkscape:version="0.47 r22583"
+   inkscape:version="0.48.3.1 r9886"
    sodipodi:docname="format-text-large2.svg"><metadata
    id="metadata246"><rdf:RDF><cc:Work
        rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
@@ -111,15 +111,15 @@
    guidetolerance="10"
    inkscape:pageopacity="0"
    inkscape:pageshadow="2"
-   inkscape:window-width="1024"
-   inkscape:window-height="703"
+   inkscape:window-width="1230"
+   inkscape:window-height="778"
    id="namedview242"
    showgrid="false"
    inkscape:zoom="0.47749696"
-   inkscape:cx="244.655"
+   inkscape:cx="248.84351"
    inkscape:cy="247.12199"
-   inkscape:window-x="0"
-   inkscape:window-y="25"
+   inkscape:window-x="50"
+   inkscape:window-y="0"
    inkscape:window-maximized="1"
    inkscape:current-layer="Layer_1" />
 <pattern
@@ -588,7 +588,7 @@
 
 <text
    xml:space="preserve"
-   style="font-size:501.87725829999999405px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#333333;fill-opacity:1;stroke:none;font-family:Arial Black;-inkscape-font-specification:'Arial Black, Bold'"
+   style="font-size:501.87725829999999405px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#1a1a1a;fill-opacity:1;stroke:none;font-family:Arial Black;-inkscape-font-specification:'Arial Black, Bold'"
    x="15.477295"
    y="411.07181"
    id="text2948"
@@ -600,9 +600,10 @@
 
 
 
+
 <text
    xml:space="preserve"
-   style="font-size:230.66680908000000727px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#333333;fill-opacity:1;stroke:none;font-family:Arial Black;-inkscape-font-specification:'Arial Black, Bold'"
+   style="font-size:230.66680908000000727px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#1a1a1a;fill-opacity:1;stroke:none;font-family:Arial Black;-inkscape-font-specification:'Arial Black, Bold'"
    x="391.53027"
    y="377.5011"
    id="text2949"
@@ -611,5 +612,6 @@
      id="tspan2951"
      x="391.53027"
      y="377.5011">2</tspan></text>
+
 
 </svg>
