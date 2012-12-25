@@ -140,10 +140,10 @@ class CodeBoxesHandler:
     def codebox_decrease_width(self, *args):
         """Increase CodeBox Width"""
         if self.curr_codebox_anchor.width_in_pixels:
-            if self.curr_codebox_anchor.frame_width - 10 >= 10:
+            if self.curr_codebox_anchor.frame_width - 10 >= 40:
                 self.codebox_change_width_height(self.curr_codebox_anchor.frame_width - 10, 0)
         else:
-            if self.curr_codebox_anchor.frame_width - 3 >= 10:
+            if self.curr_codebox_anchor.frame_width - 3 >= 40:
                 self.codebox_change_width_height(self.curr_codebox_anchor.frame_width - 3, 0)
 
     def codebox_increase_height(self, *args):
@@ -152,7 +152,7 @@ class CodeBoxesHandler:
 
     def codebox_decrease_height(self, *args):
         """Increase CodeBox Width"""
-        if self.curr_codebox_anchor.frame_height - 10 >= 10:
+        if self.curr_codebox_anchor.frame_height - 10 >= 30:
             self.codebox_change_width_height(0, self.curr_codebox_anchor.frame_height - 10)
 
     def codebox_apply_width_height(self, anchor, from_shortcut=False):
@@ -172,13 +172,13 @@ class CodeBoxesHandler:
                            self.dad.state_machine.get_iter_alignment(codebox_iter)]
         if new_width: codebox_element[1]['frame_width'] = new_width
         if new_height: codebox_element[1]['frame_height'] = new_height
-        cursor_pos_restore = self.curr_codebox_anchor.sourcebuffer.get_property(cons.STR_CURSOR_POSITION)
+        #cursor_pos_restore = self.curr_codebox_anchor.sourcebuffer.get_property(cons.STR_CURSOR_POSITION)
         self.codebox_delete()
         iter_insert = self.dad.curr_buffer.get_iter_at_offset(codebox_element[0])
         self.codebox_insert(iter_insert, codebox_element[1], codebox_element[2])
         self.curr_codebox_anchor.sourceview.grab_focus()
-        self.curr_codebox_anchor.sourcebuffer.place_cursor(self.curr_codebox_anchor.sourcebuffer.get_iter_at_offset(cursor_pos_restore))
-        self.curr_codebox_anchor.sourceview.scroll_to_mark(self.curr_codebox_anchor.sourcebuffer.get_insert(), 0.3)
+        #self.curr_codebox_anchor.sourcebuffer.place_cursor(self.curr_codebox_anchor.sourcebuffer.get_iter_at_offset(cursor_pos_restore))
+        #self.curr_codebox_anchor.sourceview.scroll_to_mark(self.curr_codebox_anchor.sourcebuffer.get_insert(), 0.3)
 
     def codebox_change_properties(self, action):
         """Change CodeBox Properties"""
