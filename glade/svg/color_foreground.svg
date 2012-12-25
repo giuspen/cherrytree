@@ -14,7 +14,7 @@
    height="48"
    id="svg2"
    sodipodi:version="0.32"
-   inkscape:version="0.47pre4 r22446"
+   inkscape:version="0.48.3.1 r9886"
    version="1.0"
    sodipodi:docname="color_foreground.svg"
    inkscape:export-filename="/home/lapo/Desktop/xubuntu/pngs/wksp.png"
@@ -22,7 +22,7 @@
    inkscape:export-ydpi="90"
    inkscape:output_extension="org.inkscape.output.svg.inkscape">
   <sodipodi:namedview
-     inkscape:window-height="808"
+     inkscape:window-height="800"
      inkscape:window-width="1051"
      inkscape:pageshadow="2"
      inkscape:pageopacity="0.0"
@@ -37,10 +37,10 @@
      inkscape:showpageshadow="false"
      showborder="false"
      inkscape:zoom="2.13"
-     inkscape:cx="6.2548541"
+     inkscape:cx="7.1938212"
      inkscape:cy="4.8359811"
      inkscape:window-x="58"
-     inkscape:window-y="49"
+     inkscape:window-y="0"
      inkscape:current-layer="layer1"
      inkscape:grid-points="true"
      showguides="true"
@@ -760,22 +760,24 @@
        sodipodi:nodetypes="csczc" />
     <g
        id="g2943"
-       transform="matrix(1.0557726,0,0,1.2164983,-15.038266,-19.55075)">
+       transform="matrix(1.0557726,0,0,1.2164983,-15.038266,-19.55075)"
+       style="fill:#1a1a1a">
       <g
-         style="display:inline"
+         style="display:inline;fill:#1a1a1a"
          inkscape:label="pixmap"
          id="layer1-0" />
       <g
-         style="display:inline"
+         style="display:inline;fill:#1a1a1a"
          inkscape:label="vectors"
          id="layer2">
         <g
            transform="matrix(0.186703,0,0,0.186703,-21.1073,57.62299)"
-           id="g891" />
+           id="g891"
+           style="fill:#1a1a1a" />
         <path
            id="text2841"
            d="m 25.468627,24.981002 c -2.64578,7e-6 -4.478834,0.219444 -5.499164,0.658307 -1.020348,0.438875 -1.53052,1.187534 -1.530516,2.245977 -4e-6,0.843322 0.379655,1.514536 1.138987,2.013639 0.771182,0.490504 1.815249,0.735755 3.132211,0.735753 1.815246,2e-6 3.26864,-0.464685 4.360183,-1.394057 1.103377,-0.937974 1.65507,-2.181434 1.655088,-3.730391 l 0,-0.529228 -3.256789,0 M 32,24 l 0,8.248169 -3.274584,0 0,-2.194348 c -0.747475,0.877741 -1.678833,1.527437 -2.794077,1.949096 -1.115268,0.413056 -2.479678,0.619583 -4.09323,0.619583 -2.040688,0 -3.666114,-0.413053 -4.876283,-1.239162 -1.198311,-0.834711 -1.797465,-1.949096 -1.797462,-3.343154 -3e-6,-1.626395 0.747457,-2.852646 2.242378,-3.678762 1.506776,-0.826098 3.749154,-1.239152 6.727137,-1.239161 l 4.591537,0 0,-0.232342 c -1.8e-5,-1.092863 -0.498324,-1.93618 -1.49492,-2.529958 -0.984764,-0.602356 -2.372899,-0.903539 -4.164417,-0.903552 -1.138994,1.3e-5 -2.248322,0.09896 -3.327978,0.296882 -1.079666,0.197934 -2.117803,0.494815 -3.114413,0.890647 l 0,-2.194351 c 1.198305,-0.335589 2.361019,-0.585144 3.488146,-0.748657 1.127114,-0.172092 2.224574,-0.258145 3.292383,-0.258159 2.883042,1.4e-5 5.036436,0.542148 6.460182,1.6264 C 31.288114,20.153446 31.999978,21.797056 32,24"
-           style="font-size:22.27977753px;font-style:normal;font-weight:normal;fill:#333333;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans" />
+           style="font-size:22.27977753000000050px;font-style:normal;font-weight:normal;fill:#1a1a1a;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans" />
       </g>
     </g>
   </g>
