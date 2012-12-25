@@ -136,7 +136,7 @@ class FindReplace:
             else: return
         else: pattern = self.curr_find[1]
         starting_tree_iter = self.dad.curr_tree_iter.copy()
-        current_cursor_pos = self.dad.curr_buffer.get_property('cursor-position')
+        current_cursor_pos = self.dad.curr_buffer.get_property(cons.STR_CURSOR_POSITION)
         forward = self.dad.glade.search_fw_radiobutton.get_active()
         if self.from_find_back:
             forward = not forward
