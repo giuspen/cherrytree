@@ -24,6 +24,10 @@ import os
 import cons, support
 
 DRAW_SPACES_FLAGS = gtksourceview2.DRAW_SPACES_ALL & ~gtksourceview2.DRAW_SPACES_NEWLINE
+CB_WIDTH_HEIGHT_STEP_PIX = 30
+CB_WIDTH_HEIGHT_STEP_PERC = 9
+CB_WIDTH_LIMIT_MIN = 40
+CB_HEIGHT_LIMIT_MIN = 30
 
 
 class CodeBoxesHandler:
@@ -133,27 +137,27 @@ class CodeBoxesHandler:
     def codebox_increase_width(self, *args):
         """Increase CodeBox Width"""
         if self.curr_codebox_anchor.width_in_pixels:
-            self.codebox_change_width_height(self.curr_codebox_anchor.frame_width + 10, 0)
+            self.codebox_change_width_height(self.curr_codebox_anchor.frame_width + CB_WIDTH_HEIGHT_STEP_PIX, 0)
         else:
-            self.codebox_change_width_height(self.curr_codebox_anchor.frame_width + 3, 0)
+            self.codebox_change_width_height(self.curr_codebox_anchor.frame_width + CB_WIDTH_HEIGHT_STEP_PERC, 0)
 
     def codebox_decrease_width(self, *args):
         """Increase CodeBox Width"""
         if self.curr_codebox_anchor.width_in_pixels:
-            if self.curr_codebox_anchor.frame_width - 10 >= 40:
-                self.codebox_change_width_height(self.curr_codebox_anchor.frame_width - 10, 0)
+            if self.curr_codebox_anchor.frame_width - CB_WIDTH_HEIGHT_STEP_PIX >= CB_WIDTH_LIMIT_MIN:
+                self.codebox_change_width_height(self.curr_codebox_anchor.frame_width - CB_WIDTH_HEIGHT_STEP_PIX, 0)
         else:
-            if self.curr_codebox_anchor.frame_width - 3 >= 40:
-                self.codebox_change_width_height(self.curr_codebox_anchor.frame_width - 3, 0)
+            if self.curr_codebox_anchor.frame_width - CB_WIDTH_HEIGHT_STEP_PERC >= CB_WIDTH_LIMIT_MIN:
+                self.codebox_change_width_height(self.curr_codebox_anchor.frame_width - CB_WIDTH_HEIGHT_STEP_PERC, 0)
 
     def codebox_increase_height(self, *args):
         """Increase CodeBox Width"""
-        self.codebox_change_width_height(0, self.curr_codebox_anchor.frame_height + 10)
+        self.codebox_change_width_height(0, self.curr_codebox_anchor.frame_height + CB_WIDTH_HEIGHT_STEP_PIX)
 
     def codebox_decrease_height(self, *args):
         """Increase CodeBox Width"""
-        if self.curr_codebox_anchor.frame_height - 10 >= 30:
-            self.codebox_change_width_height(0, self.curr_codebox_anchor.frame_height - 10)
+        if self.curr_codebox_anchor.frame_height - CB_WIDTH_HEIGHT_STEP_PIX >= CB_HEIGHT_LIMIT_MIN:
+            self.codebox_change_width_height(0, self.curr_codebox_anchor.frame_height - CB_WIDTH_HEIGHT_STEP_PIX)
 
     def codebox_apply_width_height(self, anchor, from_shortcut=False):
         """Apply Width and Height Changes to CodeBox"""
