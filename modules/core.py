@@ -800,7 +800,6 @@ class CherryTree:
                 cherrytree_string = re.sub(cons.BAD_CHARS, "", cherrytree_string)
                 if self.xml_handler.dom_to_treestore(cherrytree_string, discard_ids=True,
                                                      tree_father=tree_father):
-                    if self.expand_tree: self.treeview.expand_all()
                     file_loaded = True
             else:
                 self.ctdb_handler.read_db_full(cherrytree_db, discard_ids=True,
@@ -1031,7 +1030,7 @@ class CherryTree:
     def treeview_refresh(self, change_icon=False):
         """Refresh the Treeview"""
         if self.curr_buffer:
-            if not self.expand_tree: config.get_tree_expanded_collapsed_string(self)
+            config.get_tree_expanded_collapsed_string(self)
             self.treeview.set_model(None)
             if change_icon:
                 tree_iter = self.treestore.get_iter_first()
@@ -1039,8 +1038,7 @@ class CherryTree:
                     self.change_icon_iter(tree_iter)
                     tree_iter = self.treestore.iter_next(tree_iter)
             self.treeview.set_model(self.treestore)
-            if self.expand_tree: self.treeview.expand_all()
-            else: config.set_tree_expanded_collapsed_string(self)
+            config.set_tree_expanded_collapsed_string(self)
             self.treeview.set_cursor(self.treestore.get_path(self.curr_tree_iter))
 
     def change_icon_iter(self, tree_iter):
@@ -1063,8 +1061,8 @@ class CherryTree:
         if self.file_dir and self.file_name and os.path.isfile(os.path.join(self.file_dir, self.file_name)):
             self.file_load(os.path.join(self.file_dir, self.file_name))
             self.modification_time_update_value(True)
-            if self.expand_tree: self.treeview.expand_all()
-            else: config.set_tree_expanded_collapsed_string(self) # restore expanded/collapsed nodes
+            if self.rest_exp_coll == 1: self.treeview.expand_all()
+            elif self.rest_exp_coll == 0: config.set_tree_expanded_collapsed_string(self)
             # is there a node name to focus?
             if node_name:
                 node_name_iter = self.get_tree_iter_from_node_name(node_name, use_content=False)
@@ -1252,7 +1250,7 @@ class CherryTree:
         if not self.reset(force_reset): return
         self.file_load(filepath)
         self.modification_time_update_value(True)
-        if self.expand_tree: self.treeview.expand_all()
+        if self.rest_exp_coll == 1: self.treeview.expand_all()
         first_node_iter = self.treestore.get_iter_first()
         if first_node_iter != None:
             self.treeview.set_cursor(self.treestore.get_path(first_node_iter))
@@ -2096,9 +2094,17 @@ class CherryTree:
         self.show_line_numbers = checkbutton.get_active()
         self.sourceview.set_show_line_numbers(self.show_line_numbers)
 
-    def on_checkbutton_expand_tree_toggled(self, checkbutton):
+    def on_radiobutton_nodes_startup_restore_toggled(self, checkbutton):
+        """Restore Tree When Loaded Toggled"""
+        if checkbutton.get_active(): self.rest_exp_coll = 0
+
+    def on_radiobutton_nodes_startup_expand_toggled(self, checkbutton):
         """Expand Tree When Loaded Toggled"""
-        self.expand_tree = checkbutton.get_active()
+        if checkbutton.get_active(): self.rest_exp_coll = 1
+
+    def on_radiobutton_nodes_startup_collapse_toggled(self, checkbutton):
+        """Collapse Tree When Loaded Toggled"""
+        if checkbutton.get_active(): self.rest_exp_coll = 2
 
     def on_checkbutton_newer_version_toggled(self, checkbutton):
         """Automatically Check for Newer Version Toggled"""
