@@ -3854,16 +3854,16 @@ class CherryTree:
             x, y = text_view.window_to_buffer_coords(gtk.TEXT_WINDOW_WIDGET, int(event.x), int(event.y))
             iter_end = text_view.get_iter_at_location(x, y)
             iter_start = iter_end.copy()
-            match = re.match('\w', iter_end.get_char()) # alphanumeric char
+            match = re.match('\w', iter_end.get_char(), re.UNICODE) # alphanumeric char
             if not match: return # double-click was not upon alphanumeric
             while match:
                 if not iter_end.forward_char(): break # end of buffer
-                match = re.match('\w', iter_end.get_char()) # alphanumeric char
+                match = re.match('\w', iter_end.get_char(), re.UNICODE) # alphanumeric char
             iter_start.backward_char()
-            match = re.match('\w', iter_start.get_char()) # alphanumeric char
+            match = re.match('\w', iter_start.get_char(), re.UNICODE) # alphanumeric char
             while match:
                 if not iter_start.backward_char(): break # start of buffer
-                match = re.match('\w', iter_start.get_char()) # alphanumeric char
+                match = re.match('\w', iter_start.get_char(), re.UNICODE) # alphanumeric char
             if not match: iter_start.forward_char()
             self.curr_buffer.move_mark(self.curr_buffer.get_insert(), iter_start)
             self.curr_buffer.move_mark(self.curr_buffer.get_selection_bound(), iter_end)
