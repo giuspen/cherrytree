@@ -72,7 +72,7 @@ def config_file_load(inst):
         else: inst.toolbar_icon_size = 1
         
         section = "tree"
-        inst.expand_tree = config.getboolean(section, "expand_tree") if config.has_option(section, "expand_tree") else False
+        inst.rest_exp_coll = config.getint(section, "rest_exp_coll") if config.has_option(section, "rest_exp_coll") else 0
         inst.expanded_collapsed_string = config.get(section, "expanded_collapsed_string") if config.has_option(section, "expanded_collapsed_string") else ""
         inst.nodes_icons = config.get(section, "nodes_icons") if config.has_option(section, "nodes_icons") else "c"
         inst.tree_right_side = config.getboolean(section, "tree_right_side") if config.has_option(section, "tree_right_side") else False
@@ -168,7 +168,7 @@ def config_file_load(inst):
         inst.systray = False
         inst.autosave = [False, 5]
         inst.win_is_maximized = False
-        inst.expand_tree = False
+        inst.rest_exp_coll = 0
         inst.expanded_collapsed_string = ""
         inst.pick_dir = ""
         inst.link_type = "webs"
@@ -257,7 +257,9 @@ def config_file_apply(inst):
     inst.glade.spinbutton_autosave.set_value(inst.autosave[1])
     inst.glade.spinbutton_autosave.set_sensitive(inst.autosave[0])
     inst.glade.checkbutton_autosave.set_active(inst.autosave[0])
-    inst.glade.checkbutton_expand_tree.set_active(inst.expand_tree)
+    inst.glade.radiobutton_nodes_startup_restore.set_active(inst.rest_exp_coll == 0)
+    inst.glade.radiobutton_nodes_startup_expand.set_active(inst.rest_exp_coll == 1)
+    inst.glade.radiobutton_nodes_startup_collapse.set_active(inst.rest_exp_coll == 2)
     inst.glade.checkbutton_newer_version.set_active(inst.check_version)
     inst.glade.checkbutton_mod_time_sentinel.set_active(inst.enable_mod_time_sentinel)
     inst.glade.checkbutton_backup_before_saving.set_active(inst.backup_copy)
@@ -341,8 +343,8 @@ def config_file_save(inst):
     
     section = "tree"
     config.add_section(section)
-    config.set(section, "expand_tree", inst.expand_tree)
-    if not inst.expand_tree:
+    config.set(section, "rest_exp_coll", inst.rest_exp_coll)
+    if inst.rest_exp_coll == 0:
         get_tree_expanded_collapsed_string(inst)
         config.set(section, "expanded_collapsed_string", inst.expanded_collapsed_string)
     config.set(section, "nodes_icons", inst.nodes_icons)
