@@ -3426,14 +3426,14 @@ class CherryTree:
         end_moved = False
         while iter_end != None:
             char = iter_end.get_char()
-            match = re.match('\w', char) # alphanumeric char
+            match = re.match('\w', char, re.UNICODE) # alphanumeric char
             if not match: break # we got it
             elif not iter_end.forward_char(): break # we reached the buffer end
             end_moved = True
         if not end_moved: iter_start.backward_char() # we could be at the end of a word
         while iter_start != None:
             char = iter_start.get_char()
-            match = re.match('\w', char) # alphanumeric char
+            match = re.match('\w', char, re.UNICODE) # alphanumeric char
             if not match: # we got it
                 iter_start.forward_char() # step forward to the beginning of the word
                 break
