@@ -1038,7 +1038,7 @@ class CherryTree:
                     self.change_icon_iter(tree_iter)
                     tree_iter = self.treestore.iter_next(tree_iter)
             self.treeview.set_model(self.treestore)
-            config.set_tree_expanded_collapsed_string(self)
+            if self.user_active: config.set_tree_expanded_collapsed_string(self)
             self.treeview.set_cursor(self.treestore.get_path(self.curr_tree_iter))
 
     def change_icon_iter(self, tree_iter):
