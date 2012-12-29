@@ -397,6 +397,89 @@ class KeepnoteHandler(HTMLParser.HTMLParser):
         return self.dom.toxml()
 
 
+class ZimHandler():
+    """The Handler of the Zim Folder Parsing"""
+    
+    def __init__(self, folderpath):
+        """Machine boot"""
+        self.folderpath = folderpath
+        self.xml_handler = machines.XMLHandler(self)
+    
+    def rich_text_serialize(self, text_data):
+        """Appends a new part to the XML rich text"""
+        dom_iter = self.dom.createElement("rich_text")
+        for tag_property in cons.TAG_PROPERTIES:
+            if self.curr_attributes[tag_property] != "":
+                dom_iter.setAttribute(tag_property, self.curr_attributes[tag_property])
+        self.dest_dom_new.appendChild(dom_iter)
+        text_iter = self.dom.createTextNode(text_data)
+        dom_iter.appendChild(text_iter)
+    
+    def parse_folder(self, curr_folder):
+        """Start the Parsing"""
+        for element in reversed(os.listdir(curr_folder)):
+            if len(element) > 4 and element[-4:] == ".txt" \
+            and os.path.isfile(os.path.join(curr_folder, element)):
+                file_descriptor = open(os.path.join(curr_folder, element), 'r')
+                wiki_string = file_descriptor.read()
+                file_descriptor.close()
+                #
+                node_name = os.path.splitext(element)[0]
+                self.node_add(wiki_string, node_name)
+                # check if the node has children
+                children_folder = os.path.join(curr_folder, node_name)
+                if os.path.isdir(children_folder):
+                    self.parse_folder(curr_folder)
+                self.nodes_list.pop()
+    
+    def node_add(self, wiki_string, node_name):
+        """Parse a wiki file"""
+        self.nodes_list.append(self.dom.createElement("node"))
+        self.nodes_list[-1].setAttribute("name", node_name)
+        self.nodes_list[-1].setAttribute("prog_lang", cons.CUSTOM_COLORS_ID)
+        self.nodes_list[-2].appendChild(self.nodes_list[-1])
+        #
+        self.curr_state = 0
+        # curr_state 0: standby, taking no data
+        # curr_state 1: waiting for node content, take many data
+        self.pixbuf_vector = []
+        self.chars_counter = 0
+        
+        
+        for pixbuf_element in self.pixbuf_vector:
+            self.xml_handler.pixbuf_element_to_xml(pixbuf_element, self.nodes_list[-1], self.dom)
+    
+    def get_cherrytree_xml(self):
+        """Returns a CherryTree string Containing the Zim Nodes"""
+        self.dom = xml.dom.minidom.Document()
+        self.nodes_list = [self.dom.createElement(cons.APP_NAME)]
+        self.dom.appendChild(self.nodes_list[0])
+        self.curr_attributes = {}
+        for tag_property in cons.TAG_PROPERTIES: self.curr_attributes[tag_property] = ""
+        self.links_to_node_list = []
+        self.parse_folder(self.folderpath)
+        return self.dom.toxml()
+
+    def set_links_to_nodes(self, dad):
+        """After the node import, set the links to nodes on the new tree"""
+        for link_to_node in self.links_to_node_list:
+            node_dest = dad.get_tree_iter_from_node_name(link_to_node['name_dest'])
+            node_source = dad.get_tree_iter_from_node_name(link_to_node['node_source'])
+            if not node_dest:
+                #print "node_dest not found"
+                continue
+            if not node_source:
+                #print "node_source not found"
+                continue
+            source_buffer = dad.treestore[node_source][2]
+            if source_buffer.get_char_count() < link_to_node['char_end']:
+                continue
+            property_value = "node" + cons.CHAR_SPACE + str(dad.treestore[node_dest][3])
+            source_buffer.apply_tag_by_name(dad.apply_tag_exist_or_create("link", property_value),
+                                            source_buffer.get_iter_at_offset(link_to_node['char_start']),
+                                            source_buffer.get_iter_at_offset(link_to_node['char_end']))
+
+
 class TomboyHandler():
     """The Handler of the Tomboy Folder Parsing"""
 
