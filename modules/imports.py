@@ -411,13 +411,13 @@ class ZimHandler():
         for tag_property in cons.TAG_PROPERTIES:
             if self.curr_attributes[tag_property] != "":
                 dom_iter.setAttribute(tag_property, self.curr_attributes[tag_property])
-        self.dest_dom_new.appendChild(dom_iter)
+        self.nodes_list[-1].appendChild(dom_iter)
         text_iter = self.dom.createTextNode(text_data)
         dom_iter.appendChild(text_iter)
     
     def parse_folder(self, curr_folder):
         """Start the Parsing"""
-        for element in reversed(os.listdir(curr_folder)):
+        for element in os.listdir(curr_folder):
             if len(element) > 4 and element[-4:] == ".txt" \
             and os.path.isfile(os.path.join(curr_folder, element)):
                 file_descriptor = open(os.path.join(curr_folder, element), 'r')
@@ -429,7 +429,7 @@ class ZimHandler():
                 # check if the node has children
                 children_folder = os.path.join(curr_folder, node_name)
                 if os.path.isdir(children_folder):
-                    self.parse_folder(curr_folder)
+                    self.parse_folder(children_folder)
                 self.nodes_list.pop()
     
     def node_add(self, wiki_string, node_name):
@@ -445,6 +445,7 @@ class ZimHandler():
         self.pixbuf_vector = []
         self.chars_counter = 0
         
+        self.rich_text_serialize(wiki_string)
         
         for pixbuf_element in self.pixbuf_vector:
             self.xml_handler.pixbuf_element_to_xml(pixbuf_element, self.nodes_list[-1], self.dom)
