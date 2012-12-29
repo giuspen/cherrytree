@@ -107,6 +107,7 @@ SPECIAL_CHAR_UNREGISTERED_TRADEMARK = "™"
 SPECIAL_CHAR_REGISTERED_TRADEMARK = "®"
 
 STR_CURSOR_POSITION = "cursor-position"
+STR_STOCK_CT_IMP = "import_in_cherrytree"
 
 HTML_HEADER = '<!doctype html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><title>%s</title><meta name="generator" content="CherryTree"></head><body>'
 HTML_FOOTER = '</body></html>'
@@ -174,7 +175,7 @@ STOCKS_N_FILES = ['node_bullet.png',
                   'to_txt.png',
                   'to_html.png',
                   'export_from_cherrytree.png',
-                  'import_in_cherrytree.png',
+                  STR_STOCK_CT_IMP + '.png',
                   'cherrytree.png',
                   'quit-app.png',
                   'new-instance.png',
@@ -370,6 +371,7 @@ UI_INFO = """
             <menuitem action='FromTomboy'/>
             <menuitem action='FromTreepad'/>
             <menuitem action='FromTuxCards'/>
+            <menuitem action='FromZim'/>
         </menu>
 
         <menu action='ExportMenu'>
@@ -481,7 +483,7 @@ def get_entries(inst):
     ( "FormattingMenu", None, _("For_matting") ),
     ( "TreeMenu", None, _("_Tree") ),
     ( "TreeMoveMenu", "gtk-jump-to", _("Node _Move") ),
-    ( "TreeImportMenu", "import_in_cherrytree", _("Nodes _Import") ),
+    ( "TreeImportMenu", STR_STOCK_CT_IMP, _("Nodes _Import") ),
     ( "TreeExportMenu", "export_from_cherrytree", _("Nodes E_xport") ),
     ( "ChangeCaseMenu", "case_toggle", _("C_hange Case") ),
     ( "SearchMenu", None, _("_Search") ),
@@ -574,17 +576,18 @@ def get_entries(inst):
     ( "DecreaseToolbarIconsSize", "gtk-remove", _("_Decrease Toolbar Icons Size"), None, _("Decrease the Size of the Toolbar Icons"), inst.toolbar_icons_size_decrease),
     ( "ToggleTreeText", "gtk-jump-to", _("Toggle Focus Tree/Text"), "<control>J", _("Toggle Focus Between Tree and Text"), inst.toggle_tree_text),
     ( "Fullscreen", "gtk-fullscreen", _("_Full Screen On/Off"), "F11", _("Toggle Full Screen On/Off"), inst.fullscreen_toggle),
-    ( "FromBasket", "import_in_cherrytree", _("From _Basket Folder"), None, _("Add Nodes of a Basket Folder to the Current Tree"), inst.nodes_add_from_basket_folder),
-    ( "FromCherryTree", "import_in_cherrytree", _("From _CherryTree File"), None, _("Add Nodes of a CherryTree File to the Current Tree"), inst.nodes_add_from_cherrytree_file),
-    ( "FromNoteCase", "import_in_cherrytree", _("From _NoteCase File"), None, _("Add Nodes of a NoteCase File to the Current Tree"), inst.nodes_add_from_notecase_file),
-    ( "FromKeepNote", "import_in_cherrytree", _("From _KeepNote Folder"), None, _("Add Nodes of a KeepNote Folder to the Current Tree"), inst.nodes_add_from_keepnote_folder),
-    ( "FromKnowit", "import_in_cherrytree", _("From K_nowit File"), None, _("Add Nodes of a Knowit File to the Current Tree"), inst.nodes_add_from_knowit_file),
-    ( "FromTomboy", "import_in_cherrytree", _("From T_omboy Folder"), None, _("Add Nodes of a Tomboy Folder to the Current Tree"), inst.nodes_add_from_tomboy_folder),
-    ( "FromGnote", "import_in_cherrytree", _("From _Gnote Folder"), None, _("Add Nodes of a Gnote Folder to the Current Tree"), inst.nodes_add_from_gnote_folder),
-    ( "FromTuxCards", "import_in_cherrytree", _("From _TuxCards File"), None, _("Add Nodes of a TuxCards File to the Current Tree"), inst.nodes_add_from_tuxcards_file),
-    ( "FromTreepad", "import_in_cherrytree", _("From T_reepad Lite File"), None, _("Add Nodes of a Treepad Lite File to the Current Tree"), inst.nodes_add_from_treepad_file),
-    ( "FromMempad", "import_in_cherrytree", _("From _Mempad File"), None, _("Add Nodes of a Mempad File to the Current Tree"), inst.nodes_add_from_mempad_file),
-    ( "FromLeo", "import_in_cherrytree", _("From _Leo File"), None, _("Add Nodes of a Leo File to the Current Tree"), inst.nodes_add_from_leo_file),
+    ( "FromBasket", STR_STOCK_CT_IMP, _("From _Basket Folder"), None, _("Add Nodes of a Basket Folder to the Current Tree"), inst.nodes_add_from_basket_folder),
+    ( "FromCherryTree", STR_STOCK_CT_IMP, _("From _CherryTree File"), None, _("Add Nodes of a CherryTree File to the Current Tree"), inst.nodes_add_from_cherrytree_file),
+    ( "FromNoteCase", STR_STOCK_CT_IMP, _("From _NoteCase File"), None, _("Add Nodes of a NoteCase File to the Current Tree"), inst.nodes_add_from_notecase_file),
+    ( "FromKeepNote", STR_STOCK_CT_IMP, _("From _KeepNote Folder"), None, _("Add Nodes of a KeepNote Folder to the Current Tree"), inst.nodes_add_from_keepnote_folder),
+    ( "FromKnowit", STR_STOCK_CT_IMP, _("From K_nowit File"), None, _("Add Nodes of a Knowit File to the Current Tree"), inst.nodes_add_from_knowit_file),
+    ( "FromZim", STR_STOCK_CT_IMP, _("From _Zim Folder"), None, _("Add Nodes of a Zim Folder to the Current Tree"), inst.nodes_add_from_zim_folder),
+    ( "FromTomboy", STR_STOCK_CT_IMP, _("From T_omboy Folder"), None, _("Add Nodes of a Tomboy Folder to the Current Tree"), inst.nodes_add_from_tomboy_folder),
+    ( "FromGnote", STR_STOCK_CT_IMP, _("From _Gnote Folder"), None, _("Add Nodes of a Gnote Folder to the Current Tree"), inst.nodes_add_from_gnote_folder),
+    ( "FromTuxCards", STR_STOCK_CT_IMP, _("From _TuxCards File"), None, _("Add Nodes of a TuxCards File to the Current Tree"), inst.nodes_add_from_tuxcards_file),
+    ( "FromTreepad", STR_STOCK_CT_IMP, _("From T_reepad Lite File"), None, _("Add Nodes of a Treepad Lite File to the Current Tree"), inst.nodes_add_from_treepad_file),
+    ( "FromMempad", STR_STOCK_CT_IMP, _("From _Mempad File"), None, _("Add Nodes of a Mempad File to the Current Tree"), inst.nodes_add_from_mempad_file),
+    ( "FromLeo", STR_STOCK_CT_IMP, _("From _Leo File"), None, _("Add Nodes of a Leo File to the Current Tree"), inst.nodes_add_from_leo_file),
     ( "Help", "help-contents", _("Online _Manual"), None, _("Application's Online Manual"), inst.on_help_menu_item_activated),
     ( "CheckNewer", "gtk-network", _("_Check Newer Version"), None, _("Check for a Newer Version"), inst.check_for_newer_version),
     ( "About", "gtk-about", _("_About"), None, _("About CherryTree"), inst.dialog_about),
@@ -638,18 +641,19 @@ def get_popup_menu_tree(inst):
     ("find", _("Find a _Node"), "<control>T", _("Find a Node from its Name"), inst.find_a_node),
     ("find_replace", _("Replace in Nodes _Names"), "<control><shift>T", _("Replace in Nodes Names"), inst.replace_in_nodes_names),
     ("separator", None, None, None, None),
-    ("submenu-start", _("Nodes _Import"), "import_in_cherrytree", None, None),
-    ("import_in_cherrytree", _("From _Basket Folder"), None, _("Add Nodes of a Basket Folder to the Current Tree"), inst.nodes_add_from_basket_folder),
-    ("import_in_cherrytree", _("From _CherryTree File"), None, _("Add Nodes of a CherryTree File to the Current Tree"), inst.nodes_add_from_cherrytree_file),
-    ("import_in_cherrytree", _("From _Gnote Folder"), None, _("Add Nodes of a Gnote Folder to the Current Tree"), inst.nodes_add_from_gnote_folder),
-    ("import_in_cherrytree", _("From _KeepNote Folder"), None, _("Add Nodes of a KeepNote Folder to the Current Tree"), inst.nodes_add_from_keepnote_folder),
-    ("import_in_cherrytree", _("From K_nowit File"), None, _("Add Nodes of a Knowit File to the Current Tree"), inst.nodes_add_from_knowit_file),
-    ("import_in_cherrytree", _("From _Leo File"), None, _("Add Nodes of a Leo File to the Current Tree"), inst.nodes_add_from_leo_file),
-    ("import_in_cherrytree", _("From _Mempad File"), None, _("Add Nodes of a Mempad File to the Current Tree"), inst.nodes_add_from_mempad_file),
-    ("import_in_cherrytree", _("From _NoteCase File"), None, _("Add Nodes of a NoteCase File to the Current Tree"), inst.nodes_add_from_notecase_file),
-    ("import_in_cherrytree", _("From T_omboy Folder"), None, _("Add Nodes of a Tomboy Folder to the Current Tree"), inst.nodes_add_from_tomboy_folder),
-    ("import_in_cherrytree", _("From T_reepad Lite File"), None, _("Add Nodes of a Treepad Lite File to the Current Tree"), inst.nodes_add_from_treepad_file),
-    ("import_in_cherrytree", _("From _TuxCards File"), None, _("Add Nodes of a TuxCards File to the Current Tree"), inst.nodes_add_from_tuxcards_file),
+    ("submenu-start", _("Nodes _Import"), STR_STOCK_CT_IMP, None, None),
+    (STR_STOCK_CT_IMP, _("From _Basket Folder"), None, _("Add Nodes of a Basket Folder to the Current Tree"), inst.nodes_add_from_basket_folder),
+    (STR_STOCK_CT_IMP, _("From _CherryTree File"), None, _("Add Nodes of a CherryTree File to the Current Tree"), inst.nodes_add_from_cherrytree_file),
+    (STR_STOCK_CT_IMP, _("From _Gnote Folder"), None, _("Add Nodes of a Gnote Folder to the Current Tree"), inst.nodes_add_from_gnote_folder),
+    (STR_STOCK_CT_IMP, _("From _KeepNote Folder"), None, _("Add Nodes of a KeepNote Folder to the Current Tree"), inst.nodes_add_from_keepnote_folder),
+    (STR_STOCK_CT_IMP, _("From K_nowit File"), None, _("Add Nodes of a Knowit File to the Current Tree"), inst.nodes_add_from_knowit_file),
+    (STR_STOCK_CT_IMP, _("From _Leo File"), None, _("Add Nodes of a Leo File to the Current Tree"), inst.nodes_add_from_leo_file),
+    (STR_STOCK_CT_IMP, _("From _Mempad File"), None, _("Add Nodes of a Mempad File to the Current Tree"), inst.nodes_add_from_mempad_file),
+    (STR_STOCK_CT_IMP, _("From _NoteCase File"), None, _("Add Nodes of a NoteCase File to the Current Tree"), inst.nodes_add_from_notecase_file),
+    (STR_STOCK_CT_IMP, _("From T_omboy Folder"), None, _("Add Nodes of a Tomboy Folder to the Current Tree"), inst.nodes_add_from_tomboy_folder),
+    (STR_STOCK_CT_IMP, _("From T_reepad Lite File"), None, _("Add Nodes of a Treepad Lite File to the Current Tree"), inst.nodes_add_from_treepad_file),
+    (STR_STOCK_CT_IMP, _("From _TuxCards File"), None, _("Add Nodes of a TuxCards File to the Current Tree"), inst.nodes_add_from_tuxcards_file),
+    (STR_STOCK_CT_IMP, _("From _Zim Folder"), None, _("Add Nodes of a Zim Folder to the Current Tree"), inst.nodes_add_from_zim_folder),
     ("submenu-end", None, None, None, None),
     ("submenu-start", _("Nodes E_xport"), "export_from_cherrytree", None, None),
     ("gtk-print", _("_Print / Export To PDF"), "<control>P", _("Print / Export To PDF"), inst.export_print),
