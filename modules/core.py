@@ -221,7 +221,6 @@ class CherryTree:
         else: self.ui.get_widget("/MenuBar/FileMenu/ExitApp").set_visible(False)
         self.file_startup_load(open_with_file, node_name)
         if self.check_version: self.check_for_newer_version()
-        else: self.update_selected_node_statusbar_info()
 
     def check_for_newer_version(self, *args):
         """Check for a Newer Version"""
@@ -4002,9 +4001,9 @@ class CherryTree:
             else: tooltip_text = self.treestore[self.curr_tree_iter][4]
             if self.treestore[self.curr_tree_iter][7]: tooltip_text += "  -  " + _("Read Only")
             if self.treestore[self.curr_tree_iter][6]: tooltip_text += "  -  " + self.treestore[self.curr_tree_iter][6]
+            print "sel node id=%s, seq=%s" % (self.treestore[self.curr_tree_iter][3], self.treestore[self.curr_tree_iter][5])
         self.statusbar.pop(self.statusbar_context_id)
         self.statusbar.push(self.statusbar_context_id, tooltip_text)
-        print "node id=%s, seq=%s" % (self.treestore[self.curr_tree_iter][3], self.treestore[self.curr_tree_iter][5])
 
     def on_sourceview_visibility_notify_event(self, text_view, event):
         """Update the cursor image if the window becomes visible (e.g. when a window covering it got iconified)"""
