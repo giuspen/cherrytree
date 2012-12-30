@@ -419,7 +419,7 @@ class CTDBHandler:
         syntax_highlighting = self.dad.treestore[tree_iter][4]
         if original_id: node_id = original_id
         else: node_id = self.dad.treestore[tree_iter][3]
-        print "read node content, node_id", node_id
+        #print "read node content, node_id", node_id
         self.dad.treestore[tree_iter][2] = self.dad.buffer_create(syntax_highlighting)
         curr_buffer = self.dad.treestore[tree_iter][2]
         node_row = db.execute('SELECT txt, has_codebox, has_table, has_image FROM node WHERE node_id=?', (node_id,)).fetchone()

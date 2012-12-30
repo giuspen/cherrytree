@@ -105,7 +105,7 @@ class XMLHandler:
         if cherrytree.nodeName != cons.APP_NAME: return False
         else:
             dom_iter = cherrytree.firstChild
-            node_sequence = 0
+            node_sequence = self.dad.nodes_sequences_get_max_siblings(tree_father)
             while dom_iter!= None:
                 if dom_iter.nodeName == "node":
                     node_sequence += 1
