@@ -2333,6 +2333,16 @@ class CherryTree:
         self.treestore[first_iter][5] = self.treestore[second_iter][5]
         self.treestore[second_iter][5] = first_iter_seq
 
+    def nodes_sequences_get_max_siblings(self, tree_father):
+        """Get Maximum sibling sequence num"""
+        tree_iter = self.treestore.iter_children(tree_father) if tree_father else self.treestore.get_iter_first()
+        node_sequence = 0
+        while tree_iter != None:
+            if self.treestore[tree_iter][5] > node_sequence:
+                node_sequence = self.treestore[tree_iter][5]
+            tree_iter = self.treestore.iter_next(tree_iter)
+        return node_sequence
+
     def nodes_sequences_fix(self, father_iter, process_children):
         """Parse Tree and Fix Node Sequences"""
         tree_iter = self.treestore.iter_children(father_iter) if father_iter else self.treestore.get_iter_first()
@@ -3994,6 +4004,7 @@ class CherryTree:
             if self.treestore[self.curr_tree_iter][6]: tooltip_text += "  -  " + self.treestore[self.curr_tree_iter][6]
         self.statusbar.pop(self.statusbar_context_id)
         self.statusbar.push(self.statusbar_context_id, tooltip_text)
+        print "node id=%s, seq=%s" % (self.treestore[self.curr_tree_iter][3], self.treestore[self.curr_tree_iter][5])
 
     def on_sourceview_visibility_notify_event(self, text_view, event):
         """Update the cursor image if the window becomes visible (e.g. when a window covering it got iconified)"""
