@@ -433,7 +433,7 @@ class ZimHandler():
                 self.nodes_list.pop()
     
     def node_add(self, wiki_string, node_name):
-        """Parse a wiki file"""
+        """Add a node"""
         self.nodes_list.append(self.dom.createElement("node"))
         self.nodes_list[-1].setAttribute("name", node_name)
         self.nodes_list[-1].setAttribute("prog_lang", cons.CUSTOM_COLORS_ID)
@@ -445,10 +445,25 @@ class ZimHandler():
         self.pixbuf_vector = []
         self.chars_counter = 0
         
-        self.rich_text_serialize(wiki_string)
+        self.node_wiki_parse(wiki_string)
         
         for pixbuf_element in self.pixbuf_vector:
             self.xml_handler.pixbuf_element_to_xml(pixbuf_element, self.nodes_list[-1], self.dom)
+    
+    def node_wiki_parse(self, wiki_string):
+        """Parse the node wiki content"""
+        curr_pos = 0
+        max_pos = len(wiki_string)
+        newline_count = 0
+        wiki_slot = ""
+        while curr_pos <= max_pos:
+            curr_char = wiki_string[curr_pos:curr_pos+1]
+            if newline_count < 4:
+                if curr_char == cons.CHAR_NEWLINE: newline_count += 1
+            else:
+                wiki_slot += curr_char
+            curr_pos += 1
+        self.rich_text_serialize(wiki_slot)
     
     def get_cherrytree_xml(self):
         """Returns a CherryTree string Containing the Zim Nodes"""
