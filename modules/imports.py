@@ -456,14 +456,50 @@ class ZimHandler():
         max_pos = len(wiki_string)
         newline_count = 0
         wiki_slot = ""
-        while curr_pos <= max_pos:
+        while curr_pos < max_pos:
             curr_char = wiki_string[curr_pos:curr_pos+1]
+            next_char = wiki_string[curr_pos+1:curr_pos+2] if curr_pos+1 < max_pos else cons.CHAR_SPACE
             if newline_count < 4:
                 if curr_char == cons.CHAR_NEWLINE: newline_count += 1
             else:
-                wiki_slot += curr_char
+                if curr_char == cons.CHAR_STAR and next_char == cons.CHAR_STAR:
+                    if wiki_slot:
+                        self.rich_text_serialize(wiki_slot)
+                        wiki_slot = ""
+                    if self.curr_attributes["weight"]: self.curr_attributes["weight"] = ""
+                    else: self.curr_attributes["weight"] = "heavy"
+                    curr_pos += 1
+                elif curr_char == cons.CHAR_SLASH and next_char == cons.CHAR_SLASH:
+                    if wiki_slot:
+                        self.rich_text_serialize(wiki_slot)
+                        wiki_slot = ""
+                    if self.curr_attributes["style"]: self.curr_attributes["style"] = ""
+                    else: self.curr_attributes["style"] = "italic"
+                    curr_pos += 1
+                elif curr_char == cons.CHAR_USCORE and next_char == cons.CHAR_USCORE:
+                    if wiki_slot:
+                        self.rich_text_serialize(wiki_slot)
+                        wiki_slot = ""
+                    if self.curr_attributes["background"]: self.curr_attributes["background"] = ""
+                    else: self.curr_attributes["background"] = cons.COLOR_48_YELLOW
+                    curr_pos += 1
+                elif curr_char == cons.CHAR_TILDE and next_char == cons.CHAR_TILDE:
+                    if wiki_slot:
+                        self.rich_text_serialize(wiki_slot)
+                        wiki_slot = ""
+                    if self.curr_attributes["strikethrough"]: self.curr_attributes["strikethrough"] = ""
+                    else: self.curr_attributes["strikethrough"] = "true"
+                    curr_pos += 1
+                elif curr_char == cons.CHAR_SQUOTE and next_char == cons.CHAR_SQUOTE:
+                    if wiki_slot:
+                        self.rich_text_serialize(wiki_slot)
+                        wiki_slot = ""
+                    if self.curr_attributes["family"]: self.curr_attributes["family"] = ""
+                    else: self.curr_attributes["family"] = "monospace"
+                    curr_pos += 1
+                else: wiki_slot += curr_char
             curr_pos += 1
-        self.rich_text_serialize(wiki_slot)
+        if wiki_slot: self.rich_text_serialize(wiki_slot)
     
     def get_cherrytree_xml(self):
         """Returns a CherryTree string Containing the Zim Nodes"""

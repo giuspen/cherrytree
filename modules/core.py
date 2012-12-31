@@ -790,6 +790,7 @@ class CherryTree:
                                 buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
                                          gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
             dialog.set_transient_for(self.window)
+            dialog.set_size_request(350, -1)
             dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
             radiobutton_root = gtk.RadioButton(label=_("The Tree Root"))
             radiobutton_curr_node = gtk.RadioButton(label=_("The Selected Node"))
