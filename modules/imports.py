@@ -412,6 +412,9 @@ class ZimHandler():
             if self.curr_attributes[tag_property] != "":
                 dom_iter.setAttribute(tag_property, self.curr_attributes[tag_property])
         self.nodes_list[-1].appendChild(dom_iter)
+        if self.curr_attributes["scale"] in ["h1", "h2", "h3"]:
+            try: text_data = text_data[1:-1]
+            except: pass
         text_iter = self.dom.createTextNode(text_data)
         dom_iter.appendChild(text_iter)
     
@@ -497,6 +500,30 @@ class ZimHandler():
                     if self.curr_attributes["family"]: self.curr_attributes["family"] = ""
                     else: self.curr_attributes["family"] = "monospace"
                     curr_pos += 1
+                elif curr_char == cons.CHAR_EQUAL and next_char == cons.CHAR_EQUAL:
+                    if wiki_slot:
+                        self.rich_text_serialize(wiki_slot)
+                        wiki_slot = ""
+                    if curr_pos+5 < max_pos and wiki_string[curr_pos+2:curr_pos+6] == cons.CHAR_EQUAL*4:
+                        if self.curr_attributes["scale"]: self.curr_attributes["scale"] = ""
+                        else: self.curr_attributes["scale"] = "h1"
+                        curr_pos += 5
+                    elif curr_pos+4 < max_pos and wiki_string[curr_pos+2:curr_pos+5] == cons.CHAR_EQUAL*3:
+                        if self.curr_attributes["scale"]: self.curr_attributes["scale"] = ""
+                        else: self.curr_attributes["scale"] = "h2"
+                        curr_pos += 4
+                    elif curr_pos+3 < max_pos and wiki_string[curr_pos+2:curr_pos+4] == cons.CHAR_EQUAL*2:
+                        if self.curr_attributes["scale"]: self.curr_attributes["scale"] = ""
+                        else: self.curr_attributes["scale"] = "h3"
+                        curr_pos += 3
+                    elif curr_pos+2 < max_pos and wiki_string[curr_pos+2:curr_pos+3] == cons.CHAR_EQUAL:
+                        if self.curr_attributes["scale"]: self.curr_attributes["scale"] = ""
+                        else: self.curr_attributes["scale"] = "h3"
+                        curr_pos += 2
+                    else:
+                        if self.curr_attributes["scale"]: self.curr_attributes["scale"] = ""
+                        else: self.curr_attributes["scale"] = "h3"
+                        curr_pos += 1
                 else: wiki_slot += curr_char
             curr_pos += 1
         if wiki_slot: self.rich_text_serialize(wiki_slot)
