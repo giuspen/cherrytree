@@ -50,7 +50,7 @@ LANG_PATH = os.path.join(CONFIG_DIR, 'lang')
 IMG_PATH = os.path.join(CONFIG_DIR, 'img_tmp.png')
 
 AVAILABLE_LANGS = ['default', 'cs', 'de', 'en', 'es', 'fr', 'it', 'pl', 'ru', 'uk', 'zh_CN']
-COLOR_48_YELLOW = "#ffffffff0000"
+COLOR_48_YELLOW = "#bbbbbbbb0000"
 COLOR_48_WHITE = "#ffffffffffff"
 COLOR_48_BLACK = "#000000000000"
 COLOR_24_BLACK = "#000000"
@@ -101,6 +101,7 @@ CHAR_GREATER = ">"
 CHAR_STAR = "*"
 CHAR_SLASH = "/"
 CHAR_USCORE = "_"
+CHAR_EQUAL = "="
 
 SPECIAL_CHAR_ARROW_RIGHT = "→"
 SPECIAL_CHAR_ARROW_LEFT = "←"
