@@ -415,6 +415,7 @@ class ZimHandler():
         if self.curr_attributes["scale"] in ["h1", "h2", "h3"]:
             try: text_data = text_data[1:-1]
             except: pass
+        self.chars_counter += len(text_data)
         text_iter = self.dom.createTextNode(text_data)
         dom_iter.appendChild(text_iter)
     
@@ -443,6 +444,7 @@ class ZimHandler():
         self.nodes_list[-2].appendChild(self.nodes_list[-1])
         #
         self.pixbuf_vector = []
+        self.chars_counter = 0
         self.node_wiki_parse(wiki_string)
         for pixbuf_element in self.pixbuf_vector:
             self.xml_handler.pixbuf_element_to_xml(pixbuf_element, self.nodes_list[-1], self.dom)
@@ -535,6 +537,23 @@ class ZimHandler():
                         self.rich_text_serialize(wiki_slot)
                         wiki_slot = ""
                     self.curr_attributes["scale"] = ""
+                elif curr_char == cons.CHAR_BR_OPEN and next_char == cons.CHAR_BR_OPEN:
+                    if wiki_slot:
+                        self.rich_text_serialize(wiki_slot)
+                        wiki_slot = ""
+                    curr_pos += 1
+                elif curr_char == cons.CHAR_BR_CLOSE and next_char == cons.CHAR_BR_CLOSE:
+                    valid_image = False
+                    wiki_slot = os.path.expanduser(wiki_slot)
+                    if os.path.isfile(wiki_slot):
+                        try:
+                            pixbuf = gtk.gdk.pixbuf_new_from_file(wiki_slot)
+                            self.pixbuf_vector.append([self.chars_counter, pixbuf, "left"])
+                            valid_image = True
+                        except: pass
+                    if not valid_image: print "! error: '%s' is not a valid image" % wiki_slot
+                    wiki_slot = ""
+                    curr_pos += 1
                 else: wiki_slot += curr_char
             curr_pos += 1
         if wiki_slot: self.rich_text_serialize(wiki_slot)
