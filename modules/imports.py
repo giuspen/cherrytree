@@ -429,14 +429,14 @@ class ZimHandler():
                 file_descriptor.close()
                 #
                 node_name = os.path.splitext(element)[0]
-                self.node_add(wiki_string, node_name)
+                self.node_add(wiki_string, node_name, curr_folder)
                 # check if the node has children
                 children_folder = os.path.join(curr_folder, node_name)
                 if os.path.isdir(children_folder):
                     self.parse_folder(children_folder)
                 self.nodes_list.pop()
     
-    def node_add(self, wiki_string, node_name):
+    def node_add(self, wiki_string, node_name, curr_folder):
         """Add a node"""
         self.nodes_list.append(self.dom.createElement("node"))
         self.nodes_list[-1].setAttribute("name", node_name)
@@ -445,11 +445,11 @@ class ZimHandler():
         #
         self.pixbuf_vector = []
         self.chars_counter = 0
-        self.node_wiki_parse(wiki_string)
+        self.node_wiki_parse(wiki_string, node_name, curr_folder)
         for pixbuf_element in self.pixbuf_vector:
             self.xml_handler.pixbuf_element_to_xml(pixbuf_element, self.nodes_list[-1], self.dom)
     
-    def node_wiki_parse(self, wiki_string):
+    def node_wiki_parse(self, wiki_string, node_name, curr_folder):
         """Parse the node wiki content"""
         curr_pos = 0
         max_pos = len(wiki_string)
@@ -537,7 +537,8 @@ class ZimHandler():
                         self.rich_text_serialize(wiki_slot)
                         wiki_slot = ""
                     self.curr_attributes["scale"] = ""
-                elif curr_char == cons.CHAR_BR_OPEN and next_char == cons.CHAR_BR_OPEN:
+                elif curr_char == cons.CHAR_BR_OPEN and next_char == cons.CHAR_BR_OPEN \
+                  or curr_char == cons.CHAR_SQ_BR_OPEN and next_char == cons.CHAR_SQ_BR_OPEN:
                     if wiki_slot:
                         self.rich_text_serialize(wiki_slot)
                         wiki_slot = ""
@@ -552,6 +553,21 @@ class ZimHandler():
                             valid_image = True
                         except: pass
                     if not valid_image: print "! error: '%s' is not a valid image" % wiki_slot
+                    wiki_slot = ""
+                    curr_pos += 1
+                elif curr_char == cons.CHAR_SQ_BR_CLOSE and next_char == cons.CHAR_SQ_BR_CLOSE:
+                    if cons.CHAR_PIPE in wiki_slot:
+                        target_n_label = wiki_slot.split(cons.CHAR_PIPE)
+                    else:
+                        target_n_label = [wiki_slot, wiki_slot]
+                    exp_filepath = os.path.expanduser(target_n_label[0])
+                    if exp_filepath.startswith("./"): exp_filepath = os.path.join(curr_folder, node_name, exp_filepath[2:])
+                    if cons.CHAR_SLASH in exp_filepath:
+                        self.curr_attributes["link"] = "file %s" % base64.b64encode(exp_filepath)
+                        self.rich_text_serialize(target_n_label[1])
+                        self.curr_attributes["link"] = ""
+                    else:
+                        pass
                     wiki_slot = ""
                     curr_pos += 1
                 else: wiki_slot += curr_char
