@@ -442,14 +442,8 @@ class ZimHandler():
         self.nodes_list[-1].setAttribute("prog_lang", cons.CUSTOM_COLORS_ID)
         self.nodes_list[-2].appendChild(self.nodes_list[-1])
         #
-        self.curr_state = 0
-        # curr_state 0: standby, taking no data
-        # curr_state 1: waiting for node content, take many data
         self.pixbuf_vector = []
-        self.chars_counter = 0
-        
         self.node_wiki_parse(wiki_string)
-        
         for pixbuf_element in self.pixbuf_vector:
             self.xml_handler.pixbuf_element_to_xml(pixbuf_element, self.nodes_list[-1], self.dom)
     
@@ -524,6 +518,23 @@ class ZimHandler():
                         if self.curr_attributes["scale"]: self.curr_attributes["scale"] = ""
                         else: self.curr_attributes["scale"] = "h3"
                         curr_pos += 1
+                elif curr_char == cons.CHAR_CARET and next_char == cons.CHAR_BR_OPEN:
+                    if wiki_slot:
+                        self.rich_text_serialize(wiki_slot)
+                        wiki_slot = ""
+                    self.curr_attributes["scale"] = "sup"
+                    curr_pos += 1
+                elif curr_char == cons.CHAR_USCORE and next_char == cons.CHAR_BR_OPEN:
+                    if wiki_slot:
+                        self.rich_text_serialize(wiki_slot)
+                        wiki_slot = ""
+                    self.curr_attributes["scale"] = "sub"
+                    curr_pos += 1
+                elif curr_char == cons.CHAR_BR_CLOSE and self.curr_attributes["scale"] in ["sup", "sub"]:
+                    if wiki_slot:
+                        self.rich_text_serialize(wiki_slot)
+                        wiki_slot = ""
+                    self.curr_attributes["scale"] = ""
                 else: wiki_slot += curr_char
             curr_pos += 1
         if wiki_slot: self.rich_text_serialize(wiki_slot)
