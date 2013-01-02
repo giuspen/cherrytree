@@ -201,9 +201,27 @@ class CTDBHandler:
             node_just_inserted = not self.nodes_to_write_dict[node_id]['upd']
             del self.nodes_to_write_dict[node_id]
             if node_just_inserted:
+                # check if there are also children just added
+                tree_iter = self.dad.get_tree_iter_from_node_id(node_id)
+                tree_iter_children = self.dad.treestore.iter_children(tree_iter)
+                while tree_iter_children:
+                    self.pending_rm_just_added_node_children(tree_iter_children)
+                    tree_iter_children = self.dad.treestore.iter_next(tree_iter_children)
                 # no need to rm the node, we just do not add it
                 return
         self.nodes_to_rm_set.add(node_id)
+    
+    def pending_rm_just_added_node_children(self, tree_iter):
+        """Handle situation of nodes children just added and immediately removed"""
+        node_id = self.dad.treestore[tree_iter][3]
+        node_just_inserted = node_id in self.nodes_to_write_dict and not self.nodes_to_write_dict[node_id]['upd']
+        if node_just_inserted:
+            print "pending_rm_just_added_node_children", node_id
+            del self.nodes_to_write_dict[node_id]
+        tree_iter_children = self.dad.treestore.iter_children(tree_iter)
+        while tree_iter_children:
+            self.pending_rm_just_added_node_children(tree_iter_children)
+            tree_iter_children = self.dad.treestore.iter_next(tree_iter_children)
     
     def remove_db_node_n_children(self, db, node_id):
         """Remove a Node and his children from DB"""
