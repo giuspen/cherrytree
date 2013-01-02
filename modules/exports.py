@@ -450,8 +450,8 @@ class Export2Html:
         html_text = cons.HTML_HEADER % self.dad.treestore[tree_iter][1]
         if self.tree_links_text:
             html_text += r'<table width="100%"><tr>'
-            td_tree = r'<td valign="top" align="left" width=20%>'
-            td_page = r'<td valign="top" align="left" width=80%>'
+            td_tree = r'<td valign="top" align=cons.TAG_PROP_LEFT width=20%>'
+            td_page = r'<td valign="top" align=cons.TAG_PROP_LEFT width=80%>'
             html_text += td_tree + self.tree_links_text + td_page
         pango_font = pango.FontDescription(self.dad.text_font if self.dad.treestore[tree_iter][4] == cons.CUSTOM_COLORS_ID else self.dad.code_font)
         html_text += '<span style="font-family: %s; font-size:%spt">' % (pango_font.get_family(), pango_font.get_size()/pango.SCALE)
@@ -497,14 +497,14 @@ class Export2Html:
     def table_export_to_html(self, table_dict):
         """Returns the HTML given the table dict"""
         html_text = cons.HTML_HEADER % ""
-        html_text += self.get_table_html([0, table_dict, "left"])
+        html_text += self.get_table_html([0, table_dict, cons.TAG_PROP_LEFT])
         html_text += cons.HTML_FOOTER
         return html_text
 
     def codebox_export_to_html(self, codebox_dict):
         """Returns the HTML given the table dict"""
         html_text = cons.HTML_HEADER % ""
-        html_text += self.get_codebox_html([0, codebox_dict, "left"])
+        html_text += self.get_codebox_html([0, codebox_dict, cons.TAG_PROP_LEFT])
         html_text += cons.HTML_FOOTER
         return html_text
 
@@ -555,8 +555,8 @@ class Export2Html:
 
     def get_object_alignment_string(self, alignment):
         """Returns the style attribute(s) according to the alignment"""
-        if alignment == "center": return "margin-left:auto;margin-right:auto"
-        elif alignment == "right": return "margin-left:auto"
+        if alignment == cons.TAG_PROP_CENTER: return "margin-left:auto;margin-right:auto"
+        elif alignment == cons.TAG_PROP_RIGHT: return "margin-left:auto"
         else: return "display:inline-table"
 
     def get_html_filename(self, tree_iter):

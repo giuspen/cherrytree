@@ -203,7 +203,7 @@ class TuxCardsHandler(HTMLParser.HTMLParser):
                 img_path = attrs[0][1]
                 if os.path.isfile(img_path):
                     pixbuf = gtk.gdk.pixbuf_new_from_file(img_path)
-                    self.pixbuf_vector.append([self.chars_counter, pixbuf, "left"])
+                    self.pixbuf_vector.append([self.chars_counter, pixbuf, cons.TAG_PROP_LEFT])
                     self.chars_counter += 1
                 else: print "%s not found" % img_path
             elif tag == "br":
@@ -343,7 +343,7 @@ class KeepnoteHandler(HTMLParser.HTMLParser):
                 img_path = os.path.join(self.curr_folder, img_name)
                 if os.path.isfile(img_path):
                     pixbuf = gtk.gdk.pixbuf_new_from_file(img_path)
-                    self.pixbuf_vector.append([self.chars_counter, pixbuf, "left"])
+                    self.pixbuf_vector.append([self.chars_counter, pixbuf, cons.TAG_PROP_LEFT])
                     self.chars_counter += 1
                 else: print "%s not found" % img_path
             elif tag == "br":
@@ -550,7 +550,7 @@ class ZimHandler():
                     if os.path.isfile(wiki_slot):
                         try:
                             pixbuf = gtk.gdk.pixbuf_new_from_file(wiki_slot)
-                            self.pixbuf_vector.append([self.chars_counter, pixbuf, "left"])
+                            self.pixbuf_vector.append([self.chars_counter, pixbuf, cons.TAG_PROP_LEFT])
                             valid_image = True
                         except: pass
                     if not valid_image: print "! error: '%s' is not a valid image" % wiki_slot
@@ -914,7 +914,7 @@ class BasketHandler(HTMLParser.HTMLParser):
                     content_path = os.path.join(self.subfolder_path, content_dom_iter.firstChild.data)
                     if os.path.isfile(content_path):
                         pixbuf = gtk.gdk.pixbuf_new_from_file(content_path)
-                        self.pixbuf_vector.append([self.chars_counter, pixbuf, "left"])
+                        self.pixbuf_vector.append([self.chars_counter, pixbuf, cons.TAG_PROP_LEFT])
                         self.chars_counter += 1
                         self.rich_text_serialize(cons.CHAR_NEWLINE)
                         self.chars_counter += 1
@@ -1339,7 +1339,7 @@ class NotecaseHandler(HTMLParser.HTMLParser):
                                 except: pixbuf_loader.write(base64.b64decode(jpeg_data + "=="))
                             pixbuf_loader.close()
                             pixbuf = pixbuf_loader.get_pixbuf()
-                            self.pixbuf_vector.append([self.chars_counter, pixbuf, "left"])
+                            self.pixbuf_vector.append([self.chars_counter, pixbuf, cons.TAG_PROP_LEFT])
                             self.chars_counter += 1
                         elif attribute[1][:22] == "data:image/png;base64,":
                             png_data = attribute[1][22:]
@@ -1350,7 +1350,7 @@ class NotecaseHandler(HTMLParser.HTMLParser):
                                 except: pixbuf_loader.write(base64.b64decode(png_data + "=="))
                             pixbuf_loader.close()
                             pixbuf = pixbuf_loader.get_pixbuf()
-                            self.pixbuf_vector.append([self.chars_counter, pixbuf, "left"])
+                            self.pixbuf_vector.append([self.chars_counter, pixbuf, cons.TAG_PROP_LEFT])
                             self.chars_counter += 1
 
     def handle_endtag(self, tag):
@@ -1565,7 +1565,7 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
                     pixbuf_loader.write(image_file)
                     pixbuf_loader.close()
                     pixbuf = pixbuf_loader.get_pixbuf()
-                    self.dad.xml_handler.pixbuf_element_to_xml([0, pixbuf, "left"], self.curr_dom_slot, self.dom)
+                    self.dad.xml_handler.pixbuf_element_to_xml([0, pixbuf, cons.TAG_PROP_LEFT], self.curr_dom_slot, self.dom)
                     self.dad.statusbar.pop(self.dad.statusbar_context_id)
                 except:
                     print "failed download of", img_path
@@ -1651,7 +1651,7 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
                     'show_line_numbers': False,
                     'fill_text': self.curr_table[0][0]
                     }
-                    self.dad.xml_handler.codebox_element_to_xml([0, codebox_dict, "left"], self.curr_dom_slot)
+                    self.dad.xml_handler.codebox_element_to_xml([0, codebox_dict, cons.TAG_PROP_LEFT], self.curr_dom_slot)
                 else:
                     # it's a table
                     if not self.curr_table_header: self.curr_table.append([_("click me")]*len(self.curr_table[0]))
@@ -1659,7 +1659,7 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
                     table_dict = {'col_min': 40,
                                   'col_max': 1000,
                                   'matrix': self.curr_table}
-                    self.dad.xml_handler.table_element_to_xml([0, table_dict, "left"], self.curr_dom_slot)
+                    self.dad.xml_handler.table_element_to_xml([0, table_dict, cons.TAG_PROP_LEFT], self.curr_dom_slot)
                 self.rich_text_serialize(cons.CHAR_NEWLINE)
 
     def handle_data(self, data):

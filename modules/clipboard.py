@@ -130,11 +130,11 @@ class ClipboardHandler:
         elif target == TARGET_HTML: selectiondata.set('UTF8_STRING', 8, data[2])
         elif target == TARGET_CTD_CODEBOX:
             dom = xml.dom.minidom.Document()
-            self.dad.xml_handler.codebox_element_to_xml([0, data[0], "left"], dom)
+            self.dad.xml_handler.codebox_element_to_xml([0, data[0], cons.TAG_PROP_LEFT], dom)
             selectiondata.set('UTF8_STRING', 8, dom.toxml())
         elif target == TARGET_CTD_TABLE:
             dom = xml.dom.minidom.Document()
-            self.dad.xml_handler.table_element_to_xml([0, data[0], "left"], dom)
+            self.dad.xml_handler.table_element_to_xml([0, data[0], cons.TAG_PROP_LEFT], dom)
             selectiondata.set('UTF8_STRING', 8, dom.toxml())
         elif target in TARGETS_IMAGES: selectiondata.set_pixbuf(data)
 
@@ -334,7 +334,7 @@ class ClipboardHandler:
     def dom_node_to_image(self, dom_node):
         """From dom_node to Image"""
         if dom_node.hasAttribute("justification"): justification = dom_node.attributes["justification"].value
-        else: justification = "left"
+        else: justification = cons.TAG_PROP_LEFT
         if dom_node.hasAttribute("anchor"):
             pixbuf = gtk.gdk.pixbuf_new_from_file(cons.ANCHOR_CHAR)
             pixbuf = pixbuf.scale_simple(self.dad.anchor_size, self.dad.anchor_size, gtk.gdk.INTERP_BILINEAR)
@@ -357,7 +357,7 @@ class ClipboardHandler:
 
     def dom_node_to_codebox(self, dom_node):
         """From dom_node to CodeBox"""
-        justification = dom_node.attributes["justification"].value if dom_node.hasAttribute("justification") else "left"
+        justification = dom_node.attributes["justification"].value if dom_node.hasAttribute("justification") else cons.TAG_PROP_LEFT
         codebox_dict = {
            'frame_width': int(dom_node.attributes['frame_width'].value),
            'frame_height': int(dom_node.attributes['frame_height'].value),
@@ -384,7 +384,7 @@ class ClipboardHandler:
     def dom_node_to_table(self, dom_node, table_model_n_iter):
         """From dom_node to Table"""
         if dom_node.hasAttribute("justification"): justification = dom_node.attributes["justification"].value
-        else: justification = "left"
+        else: justification = cons.TAG_PROP_LEFT
         table = {'matrix': [],
                  'col_min': int(dom_node.attributes['col_min'].value),
                  'col_max': int(dom_node.attributes["col_max"].value)}

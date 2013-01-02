@@ -1942,11 +1942,11 @@ class CherryTree:
 
     def on_table_column_left_radiobutton_toggled(self, radiobutton):
         """Table Column Left Toggled"""
-        if radiobutton.get_active(): self.table_column_mode = "left"
+        if radiobutton.get_active(): self.table_column_mode = cons.TAG_PROP_LEFT
 
     def on_table_column_right_radiobutton_toggled(self, radiobutton):
         """Table Column Right Toggled"""
-        if radiobutton.get_active(): self.table_column_mode = "right"
+        if radiobutton.get_active(): self.table_column_mode = cons.TAG_PROP_RIGHT
 
     def on_help_menu_item_activated(self, menuitem, data=None):
         """Show the Online Manual"""
@@ -3427,17 +3427,17 @@ class CherryTree:
     def apply_tag_justify_right(self, *args):
         """The Justify Right Button was Pressed"""
         iter_start, iter_end = self.lists_handler.get_paragraph_iters()
-        self.apply_tag(cons.TAG_JUSTIFICATION, "right", iter_sel_start=iter_start, iter_sel_end=iter_end)
+        self.apply_tag(cons.TAG_JUSTIFICATION, cons.TAG_PROP_RIGHT, iter_sel_start=iter_start, iter_sel_end=iter_end)
 
     def apply_tag_justify_left(self, *args):
         """The Justify Left Button was Pressed"""
         iter_start, iter_end = self.lists_handler.get_paragraph_iters()
-        self.apply_tag(cons.TAG_JUSTIFICATION, "left", iter_sel_start=iter_start, iter_sel_end=iter_end)
+        self.apply_tag(cons.TAG_JUSTIFICATION, cons.TAG_PROP_LEFT, iter_sel_start=iter_start, iter_sel_end=iter_end)
 
     def apply_tag_justify_center(self, *args):
         """The Justify Center Button was Pressed"""
         iter_start, iter_end = self.lists_handler.get_paragraph_iters()
-        self.apply_tag(cons.TAG_JUSTIFICATION, "center", iter_sel_start=iter_start, iter_sel_end=iter_end)
+        self.apply_tag(cons.TAG_JUSTIFICATION, cons.TAG_PROP_CENTER, iter_sel_start=iter_start, iter_sel_end=iter_end)
 
     def apply_tag_try_automatic_bounds(self):
         """Try to Select a Word Forward/Backward the Cursor"""
@@ -3625,9 +3625,9 @@ class CherryTree:
             elif property_value == cons.TAG_PROP_ITALIC: tag.set_property(tag_property, pango.STYLE_ITALIC)
             elif property_value == cons.TAG_PROP_SINGLE: tag.set_property(tag_property, pango.UNDERLINE_SINGLE)
             elif property_value == cons.TAG_PROP_TRUE: tag.set_property(tag_property, True)
-            elif property_value == "left": tag.set_property(tag_property, gtk.JUSTIFY_LEFT)
-            elif property_value == "right": tag.set_property(tag_property, gtk.JUSTIFY_RIGHT)
-            elif property_value == "center": tag.set_property(tag_property, gtk.JUSTIFY_CENTER)
+            elif property_value == cons.TAG_PROP_LEFT: tag.set_property(tag_property, gtk.JUSTIFY_LEFT)
+            elif property_value == cons.TAG_PROP_RIGHT: tag.set_property(tag_property, gtk.JUSTIFY_RIGHT)
+            elif property_value == cons.TAG_PROP_CENTER: tag.set_property(tag_property, gtk.JUSTIFY_CENTER)
             elif property_value == "sub":
                 tag.set_property(cons.TAG_SCALE, pango.SCALE_X_SMALL)
                 rise = pango.FontDescription(self.text_font).get_size() / -4
