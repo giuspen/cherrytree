@@ -567,7 +567,11 @@ class ZimHandler():
                         self.rich_text_serialize(target_n_label[1])
                         self.curr_attributes["link"] = ""
                     else:
-                        pass
+                        self.links_to_node_list.append({'name_dest': target_n_label[0],
+                                                        'node_source': node_name,
+                                                        'char_start': self.chars_counter,
+                                                        'char_end': self.chars_counter+len(target_n_label[1])})
+                        self.rich_text_serialize(target_n_label[1])
                     wiki_slot = ""
                     curr_pos += 1
                 else: wiki_slot += curr_char
