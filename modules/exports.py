@@ -344,9 +344,9 @@ class Export2Pango:
                     else: tag_property = "size"
                     # tag properties fix
                     if property_value == "small": property_value = 'x-small'
-                    elif property_value == "h1": property_value = 'xx-large'
-                    elif property_value == "h2": property_value = 'x-large'
-                    elif property_value == "h3": property_value = 'large'
+                    elif property_value == cons.TAG_PROP_H1: property_value = 'xx-large'
+                    elif property_value == cons.TAG_PROP_H2: property_value = 'x-large'
+                    elif property_value == cons.TAG_PROP_H3: property_value = 'large'
                 elif tag_property == cons.TAG_FAMILY:
                     monospace_active = True
                     continue
@@ -707,7 +707,7 @@ class Export2Html:
                 elif tag_property == cons.TAG_STYLE:
                     # font-style:italic
                     #tag_property = "font-style"
-                    #property_value = "italic"
+                    #property_value = cons.TAG_PROP_ITALIC
                     italic_active = True
                     continue
                 elif tag_property == cons.TAG_UNDERLINE:
@@ -729,9 +729,9 @@ class Export2Html:
                         # font-size:xx-large/x-large/x-small
                         tag_property = "font-size"
                         if property_value == "small": property_value = "x-small"
-                        elif property_value == "h1": property_value = "xx-large"
-                        elif property_value == "h2": property_value = "x-large"
-                        elif property_value == "h3": property_value = "large"
+                        elif property_value == cons.TAG_PROP_H1: property_value = "xx-large"
+                        elif property_value == cons.TAG_PROP_H2: property_value = "x-large"
+                        elif property_value == cons.TAG_PROP_H3: property_value = "large"
                 elif tag_property == cons.TAG_FAMILY:
                     monospace_active = True
                     continue

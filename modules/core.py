@@ -229,7 +229,7 @@ class CherryTree:
         while gtk.events_pending(): gtk.main_iteration()
         try:
             fd = urllib2.urlopen(cons.NEWER_VERSION_URL, timeout=3)
-            latest_version = fd.read().replace("\n", "")
+            latest_version = fd.read().replace(cons.CHAR_NEWLINE, "")
             if latest_version != cons.VERSION:
                 support.dialog_info(_("A Newer Version Is Available!") + " (%s)" % latest_version, self.window)
                 self.statusbar.pop(self.statusbar_context_id)
@@ -2428,7 +2428,7 @@ class CherryTree:
         if not self.is_there_selected_node_or_error(): return
         warning_label = _("Are you sure to <b>Delete the node '%s'?</b>") % self.treestore[self.curr_tree_iter][1]
         if self.treestore.iter_children(self.curr_tree_iter) != None:
-            warning_label += "\n\n"+_("The node <b>has Children, they will be Deleted too!</b>")
+            warning_label += cons.CHAR_NEWLINE*2+_("The node <b>has Children, they will be Deleted too!</b>")
             warning_label += self.get_node_children_list(self.curr_tree_iter, 0)
         self.glade.label_node_delete.set_text(warning_label)
         self.glade.label_node_delete.set_use_markup(True)
@@ -3379,19 +3379,19 @@ class CherryTree:
 
     def apply_tag_bold(self, *args):
         """The Bold Button was Pressed"""
-        self.apply_tag(cons.TAG_WEIGHT, "heavy")
+        self.apply_tag(cons.TAG_WEIGHT, cons.TAG_PROP_HEAVY)
 
     def apply_tag_italic(self, *args):
         """The Italic Button was Pressed"""
-        self.apply_tag(cons.TAG_STYLE, "italic")
+        self.apply_tag(cons.TAG_STYLE, cons.TAG_PROP_ITALIC)
 
     def apply_tag_underline(self, *args):
         """The Underline Button was Pressed"""
-        self.apply_tag(cons.TAG_UNDERLINE, "single")
+        self.apply_tag(cons.TAG_UNDERLINE, cons.TAG_PROP_SINGLE)
 
     def apply_tag_strikethrough(self, *args):
         """The Strikethrough Button was Pressed"""
-        self.apply_tag(cons.TAG_STRIKETHROUGH, "true")
+        self.apply_tag(cons.TAG_STRIKETHROUGH, cons.TAG_PROP_TRUE)
 
     def apply_tag_small(self, *args):
         """The Small Button was Pressed"""
@@ -3412,17 +3412,17 @@ class CherryTree:
     def apply_tag_h1(self, *args):
         """The H1 Button was Pressed"""
         iter_start, iter_end = self.lists_handler.get_paragraph_iters()
-        self.apply_tag(cons.TAG_SCALE, "h1", iter_sel_start=iter_start, iter_sel_end=iter_end)
+        self.apply_tag(cons.TAG_SCALE, cons.TAG_PROP_H1, iter_sel_start=iter_start, iter_sel_end=iter_end)
 
     def apply_tag_h2(self, *args):
         """The H2 Button was Pressed"""
         iter_start, iter_end = self.lists_handler.get_paragraph_iters()
-        self.apply_tag(cons.TAG_SCALE, "h2", iter_sel_start=iter_start, iter_sel_end=iter_end)
+        self.apply_tag(cons.TAG_SCALE, cons.TAG_PROP_H2, iter_sel_start=iter_start, iter_sel_end=iter_end)
 
     def apply_tag_h3(self, *args):
         """The H3 Button was Pressed"""
         iter_start, iter_end = self.lists_handler.get_paragraph_iters()
-        self.apply_tag(cons.TAG_SCALE, "h3", iter_sel_start=iter_start, iter_sel_end=iter_end)
+        self.apply_tag(cons.TAG_SCALE, cons.TAG_PROP_H3, iter_sel_start=iter_start, iter_sel_end=iter_end)
 
     def apply_tag_justify_right(self, *args):
         """The Justify Right Button was Pressed"""
@@ -3611,20 +3611,20 @@ class CherryTree:
 
     def apply_tag_exist_or_create(self, tag_property, property_value):
         """Check into the Tags Table whether the Tag Exists, if Not Creates it"""
-        if property_value == "large": property_value = "h1"
-        elif property_value == "largo": property_value = "h2"
+        if property_value == "large": property_value = cons.TAG_PROP_H1
+        elif property_value == "largo": property_value = cons.TAG_PROP_H2
         tag_name = tag_property + "_" + property_value
         tag = self.tag_table.lookup(str(tag_name))
         if tag == None:
             tag = gtk.TextTag(str(tag_name))
-            if property_value == "heavy": tag.set_property(tag_property, pango.WEIGHT_HEAVY)
+            if property_value == cons.TAG_PROP_HEAVY: tag.set_property(tag_property, pango.WEIGHT_HEAVY)
             elif property_value == "small": tag.set_property(tag_property, pango.SCALE_X_SMALL)
-            elif property_value == "h1": tag.set_property(tag_property, pango.SCALE_XX_LARGE)
-            elif property_value == "h2": tag.set_property(tag_property, pango.SCALE_X_LARGE)
-            elif property_value == "h3": tag.set_property(tag_property, pango.SCALE_LARGE)
-            elif property_value == "italic": tag.set_property(tag_property, pango.STYLE_ITALIC)
-            elif property_value == "single": tag.set_property(tag_property, pango.UNDERLINE_SINGLE)
-            elif property_value == "true": tag.set_property(tag_property, True)
+            elif property_value == cons.TAG_PROP_H1: tag.set_property(tag_property, pango.SCALE_XX_LARGE)
+            elif property_value == cons.TAG_PROP_H2: tag.set_property(tag_property, pango.SCALE_X_LARGE)
+            elif property_value == cons.TAG_PROP_H3: tag.set_property(tag_property, pango.SCALE_LARGE)
+            elif property_value == cons.TAG_PROP_ITALIC: tag.set_property(tag_property, pango.STYLE_ITALIC)
+            elif property_value == cons.TAG_PROP_SINGLE: tag.set_property(tag_property, pango.UNDERLINE_SINGLE)
+            elif property_value == cons.TAG_PROP_TRUE: tag.set_property(tag_property, True)
             elif property_value == "left": tag.set_property(tag_property, gtk.JUSTIFY_LEFT)
             elif property_value == "right": tag.set_property(tag_property, gtk.JUSTIFY_RIGHT)
             elif property_value == "center": tag.set_property(tag_property, gtk.JUSTIFY_CENTER)

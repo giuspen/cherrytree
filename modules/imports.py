@@ -189,9 +189,9 @@ class TuxCardsHandler(HTMLParser.HTMLParser):
             if tag == "body": self.curr_state = 1
         else: # self.curr_state == 1
             if tag == "span" and attrs[0][0] == cons.TAG_STYLE:
-                if "font-weight" in attrs[0][1]: self.curr_attributes[cons.TAG_WEIGHT] = "heavy"
-                elif "font-style" in attrs[0][1] and "italic" in attrs[0][1]: self.curr_attributes[cons.TAG_STYLE] = "italic"
-                elif "text-decoration" in attrs[0][1] and cons.TAG_UNDERLINE in attrs[0][1]: self.curr_attributes[cons.TAG_UNDERLINE] = "single"
+                if "font-weight" in attrs[0][1]: self.curr_attributes[cons.TAG_WEIGHT] = cons.TAG_PROP_HEAVY
+                elif "font-style" in attrs[0][1] and cons.TAG_PROP_ITALIC in attrs[0][1]: self.curr_attributes[cons.TAG_STYLE] = cons.TAG_PROP_ITALIC
+                elif "text-decoration" in attrs[0][1] and cons.TAG_UNDERLINE in attrs[0][1]: self.curr_attributes[cons.TAG_UNDERLINE] = cons.TAG_PROP_SINGLE
                 elif "color" in attrs[0][1]:
                     match = re.match("(?<=^).+:(.+);(?=$)", attrs[0][1])
                     if match != None: self.curr_attributes[cons.TAG_FOREGROUND] = match.group(1).strip()
@@ -208,14 +208,14 @@ class TuxCardsHandler(HTMLParser.HTMLParser):
                 else: print "%s not found" % img_path
             elif tag == "br":
                 # this is a data block composed only by an endline
-                self.rich_text_serialize("\n")
+                self.rich_text_serialize(cons.CHAR_NEWLINE)
                 self.chars_counter += 1
             elif tag == "hr":
                 # this is a data block composed only by an horizontal rule
                 self.rich_text_serialize(cons.CHAR_NEWLINE+self.h_rule+cons.CHAR_NEWLINE)
                 self.chars_counter += len(self.h_rule)+2
             elif tag == "li":
-                self.rich_text_serialize("\n• ")
+                self.rich_text_serialize(cons.CHAR_NEWLINE+cons.CHAR_LISTBUL+cons.CHAR_SPACE)
                 self.chars_counter += 3
 
     def handle_endtag(self, tag):
@@ -223,7 +223,7 @@ class TuxCardsHandler(HTMLParser.HTMLParser):
         if self.curr_state == 0: return
         if tag == "p":
             # this is a data block composed only by an endline
-            self.rich_text_serialize("\n")
+            self.rich_text_serialize(cons.CHAR_NEWLINE)
             self.chars_counter += 1
         elif tag == "span":
             self.curr_attributes[cons.TAG_WEIGHT] = ""
@@ -234,8 +234,8 @@ class TuxCardsHandler(HTMLParser.HTMLParser):
 
     def handle_data(self, data):
         """Found Data"""
-        if self.curr_state == 0 or data in ['\n', '\n\n']: return
-        data = data.replace("\n", "")
+        if self.curr_state == 0 or data in [cons.CHAR_NEWLINE, cons.CHAR_NEWLINE*2]: return
+        data = data.replace(cons.CHAR_NEWLINE, "")
         self.rich_text_serialize(data)
         self.chars_counter += len(data)
 
@@ -321,10 +321,10 @@ class KeepnoteHandler(HTMLParser.HTMLParser):
         if self.curr_state == 0:
             if tag == "body": self.curr_state = 1
         else: # self.curr_state == 1
-            if tag == "b": self.curr_attributes[cons.TAG_WEIGHT] = "heavy"
-            elif tag == "i": self.curr_attributes[cons.TAG_STYLE] = "italic"
-            elif tag == "u": self.curr_attributes[cons.TAG_UNDERLINE] = "single"
-            elif tag == "strike": self.curr_attributes[cons.TAG_STRIKETHROUGH] = "true"
+            if tag == "b": self.curr_attributes[cons.TAG_WEIGHT] = cons.TAG_PROP_HEAVY
+            elif tag == "i": self.curr_attributes[cons.TAG_STYLE] = cons.TAG_PROP_ITALIC
+            elif tag == "u": self.curr_attributes[cons.TAG_UNDERLINE] = cons.TAG_PROP_SINGLE
+            elif tag == "strike": self.curr_attributes[cons.TAG_STRIKETHROUGH] = cons.TAG_PROP_TRUE
             elif tag == "span" and attrs[0][0] == cons.TAG_STYLE:
                 match = re.match("(?<=^)(.+):(.+)(?=$)", attrs[0][1])
                 if match != None:
@@ -348,14 +348,14 @@ class KeepnoteHandler(HTMLParser.HTMLParser):
                 else: print "%s not found" % img_path
             elif tag == "br":
                 # this is a data block composed only by an endline
-                self.rich_text_serialize("\n")
+                self.rich_text_serialize(cons.CHAR_NEWLINE)
                 self.chars_counter += 1
             elif tag == "hr":
                 # this is a data block composed only by an horizontal rule
                 self.rich_text_serialize(cons.CHAR_NEWLINE+self.h_rule+cons.CHAR_NEWLINE)
                 self.chars_counter += len(self.h_rule)+2
             elif tag == "li":
-                self.rich_text_serialize("\n• ")
+                self.rich_text_serialize(cons.CHAR_NEWLINE+cons.CHAR_LISTBUL+cons.CHAR_SPACE)
                 self.chars_counter += 3
 
     def handle_endtag(self, tag):
@@ -372,8 +372,8 @@ class KeepnoteHandler(HTMLParser.HTMLParser):
 
     def handle_data(self, data):
         """Found Data"""
-        if self.curr_state == 0 or data in ['\n', '\n\n']: return
-        data = data.replace("\n", "")
+        if self.curr_state == 0 or data in [cons.CHAR_NEWLINE, cons.CHAR_NEWLINE*2]: return
+        data = data.replace(cons.CHAR_NEWLINE, "")
         self.rich_text_serialize(data)
         self.chars_counter += len(data)
 
@@ -412,7 +412,7 @@ class ZimHandler():
             if self.curr_attributes[tag_property] != "":
                 dom_iter.setAttribute(tag_property, self.curr_attributes[tag_property])
         self.nodes_list[-1].appendChild(dom_iter)
-        if self.curr_attributes[cons.TAG_SCALE] in ["h1", "h2", "h3"]:
+        if self.curr_attributes[cons.TAG_SCALE] in [cons.TAG_PROP_H1, cons.TAG_PROP_H2, cons.TAG_PROP_H3]:
             try: text_data = text_data[1:-1]
             except: pass
         self.chars_counter += len(text_data)
@@ -467,14 +467,14 @@ class ZimHandler():
                         self.rich_text_serialize(wiki_slot)
                         wiki_slot = ""
                     if self.curr_attributes[cons.TAG_WEIGHT]: self.curr_attributes[cons.TAG_WEIGHT] = ""
-                    else: self.curr_attributes[cons.TAG_WEIGHT] = "heavy"
+                    else: self.curr_attributes[cons.TAG_WEIGHT] = cons.TAG_PROP_HEAVY
                     curr_pos += 1
                 elif curr_char == cons.CHAR_SLASH and next_char == cons.CHAR_SLASH:
                     if wiki_slot:
                         self.rich_text_serialize(wiki_slot)
                         wiki_slot = ""
                     if self.curr_attributes[cons.TAG_STYLE]: self.curr_attributes[cons.TAG_STYLE] = ""
-                    else: self.curr_attributes[cons.TAG_STYLE] = "italic"
+                    else: self.curr_attributes[cons.TAG_STYLE] = cons.TAG_PROP_ITALIC
                     curr_pos += 1
                 elif curr_char == cons.CHAR_USCORE and next_char == cons.CHAR_USCORE:
                     if wiki_slot:
@@ -488,7 +488,7 @@ class ZimHandler():
                         self.rich_text_serialize(wiki_slot)
                         wiki_slot = ""
                     if self.curr_attributes[cons.TAG_STRIKETHROUGH]: self.curr_attributes[cons.TAG_STRIKETHROUGH] = ""
-                    else: self.curr_attributes[cons.TAG_STRIKETHROUGH] = "true"
+                    else: self.curr_attributes[cons.TAG_STRIKETHROUGH] = cons.TAG_PROP_TRUE
                     curr_pos += 1
                 elif curr_char == cons.CHAR_SQUOTE and next_char == cons.CHAR_SQUOTE:
                     if wiki_slot:
@@ -503,23 +503,23 @@ class ZimHandler():
                         wiki_slot = ""
                     if curr_pos+5 < max_pos and wiki_string[curr_pos+2:curr_pos+6] == cons.CHAR_EQUAL*4:
                         if self.curr_attributes[cons.TAG_SCALE]: self.curr_attributes[cons.TAG_SCALE] = ""
-                        else: self.curr_attributes[cons.TAG_SCALE] = "h1"
+                        else: self.curr_attributes[cons.TAG_SCALE] = cons.TAG_PROP_H1
                         curr_pos += 5
                     elif curr_pos+4 < max_pos and wiki_string[curr_pos+2:curr_pos+5] == cons.CHAR_EQUAL*3:
                         if self.curr_attributes[cons.TAG_SCALE]: self.curr_attributes[cons.TAG_SCALE] = ""
-                        else: self.curr_attributes[cons.TAG_SCALE] = "h2"
+                        else: self.curr_attributes[cons.TAG_SCALE] = cons.TAG_PROP_H2
                         curr_pos += 4
                     elif curr_pos+3 < max_pos and wiki_string[curr_pos+2:curr_pos+4] == cons.CHAR_EQUAL*2:
                         if self.curr_attributes[cons.TAG_SCALE]: self.curr_attributes[cons.TAG_SCALE] = ""
-                        else: self.curr_attributes[cons.TAG_SCALE] = "h3"
+                        else: self.curr_attributes[cons.TAG_SCALE] = cons.TAG_PROP_H3
                         curr_pos += 3
                     elif curr_pos+2 < max_pos and wiki_string[curr_pos+2:curr_pos+3] == cons.CHAR_EQUAL:
                         if self.curr_attributes[cons.TAG_SCALE]: self.curr_attributes[cons.TAG_SCALE] = ""
-                        else: self.curr_attributes[cons.TAG_SCALE] = "h3"
+                        else: self.curr_attributes[cons.TAG_SCALE] = cons.TAG_PROP_H3
                         curr_pos += 2
                     else:
                         if self.curr_attributes[cons.TAG_SCALE]: self.curr_attributes[cons.TAG_SCALE] = ""
-                        else: self.curr_attributes[cons.TAG_SCALE] = "h3"
+                        else: self.curr_attributes[cons.TAG_SCALE] = cons.TAG_PROP_H3
                         curr_pos += 1
                 elif curr_char == cons.CHAR_CARET and next_char == cons.CHAR_BR_OPEN:
                     if wiki_slot:
@@ -601,7 +601,7 @@ class ZimHandler():
             if not node_source:
                 #print "node_source not found"
                 continue
-            source_buffer = dad.treestore[node_source][2]
+            source_buffer = dad.get_textbuffer_from_tree_iter(node_source)
             if source_buffer.get_char_count() < link_to_node['char_end']:
                 continue
             property_value = "node" + cons.CHAR_SPACE + str(dad.treestore[node_dest][3])
@@ -689,7 +689,7 @@ class TomboyHandler():
                 if self.curr_attributes[cons.TAG_LINK] == "webs ":
                     self.curr_attributes[cons.TAG_LINK] += dom_iter.data
                 elif self.is_list_item:
-                    text_data = "• " + text_data
+                    text_data = cons.CHAR_LISTBUL+cons.CHAR_SPACE + text_data
                 elif self.is_link_to_node:
                     self.links_to_node_list.append({'name_dest':text_data,
                                                     'node_source':self.node_title,
@@ -698,15 +698,15 @@ class TomboyHandler():
                 self.rich_text_serialize(text_data)
                 self.chars_counter += len(text_data)
             elif dom_iter.nodeName == "bold":
-                self.curr_attributes[cons.TAG_WEIGHT] = "heavy"
+                self.curr_attributes[cons.TAG_WEIGHT] = cons.TAG_PROP_HEAVY
                 self.node_add_iter(dom_iter.firstChild)
                 self.curr_attributes[cons.TAG_WEIGHT] = ""
-            elif dom_iter.nodeName == "italic":
-                self.curr_attributes[cons.TAG_STYLE] = "italic"
+            elif dom_iter.nodeName == cons.TAG_PROP_ITALIC:
+                self.curr_attributes[cons.TAG_STYLE] = cons.TAG_PROP_ITALIC
                 self.node_add_iter(dom_iter.firstChild)
                 self.curr_attributes[cons.TAG_STYLE] = ""
             elif dom_iter.nodeName == cons.TAG_STRIKETHROUGH:
-                self.curr_attributes[cons.TAG_STRIKETHROUGH] = "true"
+                self.curr_attributes[cons.TAG_STRIKETHROUGH] = cons.TAG_PROP_TRUE
                 self.node_add_iter(dom_iter.firstChild)
                 self.curr_attributes[cons.TAG_STRIKETHROUGH] = ""
             elif dom_iter.nodeName == "highlight":
@@ -722,11 +722,11 @@ class TomboyHandler():
                 self.node_add_iter(dom_iter.firstChild)
                 self.curr_attributes[cons.TAG_SCALE] = ""
             elif dom_iter.nodeName == "size:large":
-                self.curr_attributes[cons.TAG_SCALE] = "h2"
+                self.curr_attributes[cons.TAG_SCALE] = cons.TAG_PROP_H2
                 self.node_add_iter(dom_iter.firstChild)
                 self.curr_attributes[cons.TAG_SCALE] = ""
             elif dom_iter.nodeName == "size:huge":
-                self.curr_attributes[cons.TAG_SCALE] = "h1"
+                self.curr_attributes[cons.TAG_SCALE] = cons.TAG_PROP_H1
                 self.node_add_iter(dom_iter.firstChild)
                 self.curr_attributes[cons.TAG_SCALE] = ""
             elif dom_iter.nodeName == "link:url":
@@ -786,7 +786,7 @@ class TomboyHandler():
             if not node_source:
                 #print "node_source not found"
                 continue
-            source_buffer = dad.treestore[node_source][2]
+            source_buffer = dad.get_textbuffer_from_tree_iter(node_source)
             if source_buffer.get_char_count() < link_to_node['char_end']:
                 continue
             property_value = "node" + cons.CHAR_SPACE + str(dad.treestore[node_dest][3])
@@ -903,7 +903,7 @@ class BasketHandler(HTMLParser.HTMLParser):
                         file_descriptor.close()
                     else: node_string = "" # empty node
                     self.feed(node_string.decode("utf-8", "ignore"))
-                    self.rich_text_serialize("\n")
+                    self.rich_text_serialize(cons.CHAR_NEWLINE)
                     self.chars_counter += 1
                     break
                 content_dom_iter = content_dom_iter.nextSibling
@@ -916,7 +916,7 @@ class BasketHandler(HTMLParser.HTMLParser):
                         pixbuf = gtk.gdk.pixbuf_new_from_file(content_path)
                         self.pixbuf_vector.append([self.chars_counter, pixbuf, "left"])
                         self.chars_counter += 1
-                        self.rich_text_serialize("\n")
+                        self.rich_text_serialize(cons.CHAR_NEWLINE)
                         self.chars_counter += 1
                     break
                 content_dom_iter = content_dom_iter.nextSibling
@@ -933,7 +933,7 @@ class BasketHandler(HTMLParser.HTMLParser):
                         content_title = content_dom_iter.attributes['title'].value
                         self.rich_text_serialize(content_title)
                         self.curr_attributes[cons.TAG_LINK] = ""
-                        self.rich_text_serialize("\n")
+                        self.rich_text_serialize(cons.CHAR_NEWLINE)
                         self.chars_counter += len(content_title) + 1
                     break
                 content_dom_iter = content_dom_iter.nextSibling
@@ -944,9 +944,9 @@ class BasketHandler(HTMLParser.HTMLParser):
             if tag == "body": self.curr_state = 1
         else: # self.curr_state == 1
             if tag == "span" and attrs[0][0] == cons.TAG_STYLE:
-                if "font-weight" in attrs[0][1]: self.curr_attributes[cons.TAG_WEIGHT] = "heavy"
-                elif "font-style" in attrs[0][1] and "italic" in attrs[0][1]: self.curr_attributes[cons.TAG_STYLE] = "italic"
-                elif "text-decoration" in attrs[0][1] and cons.TAG_UNDERLINE in attrs[0][1]: self.curr_attributes[cons.TAG_UNDERLINE] = "single"
+                if "font-weight" in attrs[0][1]: self.curr_attributes[cons.TAG_WEIGHT] = cons.TAG_PROP_HEAVY
+                elif "font-style" in attrs[0][1] and cons.TAG_PROP_ITALIC in attrs[0][1]: self.curr_attributes[cons.TAG_STYLE] = cons.TAG_PROP_ITALIC
+                elif "text-decoration" in attrs[0][1] and cons.TAG_UNDERLINE in attrs[0][1]: self.curr_attributes[cons.TAG_UNDERLINE] = cons.TAG_PROP_SINGLE
                 elif "color" in attrs[0][1]:
                     match = re.match("(?<=^).+:(.+);(?=$)", attrs[0][1])
                     if match != None: self.curr_attributes[cons.TAG_FOREGROUND] = match.group(1).strip()
@@ -956,14 +956,14 @@ class BasketHandler(HTMLParser.HTMLParser):
                     self.curr_attributes[cons.TAG_LINK] = get_internal_link_from_http_url(link_url)
             elif tag == "br":
                 # this is a data block composed only by an endline
-                self.rich_text_serialize("\n")
+                self.rich_text_serialize(cons.CHAR_NEWLINE)
                 self.chars_counter += 1
             elif tag == "hr":
                 # this is a data block composed only by an horizontal rule
                 self.rich_text_serialize(cons.CHAR_NEWLINE+self.h_rule+cons.CHAR_NEWLINE)
                 self.chars_counter += len(self.h_rule)+2
             elif tag == "li":
-                self.rich_text_serialize("\n• ")
+                self.rich_text_serialize(cons.CHAR_NEWLINE+cons.CHAR_LISTBUL+cons.CHAR_SPACE)
                 self.chars_counter += 3
 
     def handle_endtag(self, tag):
@@ -971,7 +971,7 @@ class BasketHandler(HTMLParser.HTMLParser):
         if self.curr_state == 0: return
         if tag == "p":
             # this is a data block composed only by an endline
-            self.rich_text_serialize("\n")
+            self.rich_text_serialize(cons.CHAR_NEWLINE)
             self.chars_counter += 1
         elif tag == "span":
             self.curr_attributes[cons.TAG_WEIGHT] = ""
@@ -980,13 +980,13 @@ class BasketHandler(HTMLParser.HTMLParser):
             self.curr_attributes[cons.TAG_FOREGROUND] = ""
         elif tag == "a": self.curr_attributes[cons.TAG_LINK] = ""
         elif tag == "body":
-            self.rich_text_serialize("\n")
+            self.rich_text_serialize(cons.CHAR_NEWLINE)
             self.chars_counter += 1
 
     def handle_data(self, data):
         """Found Data"""
-        if self.curr_state == 0 or data in ['\n', '\n\n']: return
-        data = data.replace("\n", "")
+        if self.curr_state == 0 or data in [cons.CHAR_NEWLINE, cons.CHAR_NEWLINE*2]: return
+        data = data.replace(cons.CHAR_NEWLINE, "")
         self.rich_text_serialize(data)
         self.chars_counter += len(data)
 
@@ -1079,24 +1079,24 @@ class KnowitHandler(HTMLParser.HTMLParser):
             if tag == "body": self.curr_html_state = 1
         else: # self.curr_html_state == 1
             if tag == "span" and attrs[0][0] == cons.TAG_STYLE:
-                if "font-weight" in attrs[0][1]: self.curr_attributes[cons.TAG_WEIGHT] = "heavy"
-                elif "font-style" in attrs[0][1] and "italic" in attrs[0][1]: self.curr_attributes[cons.TAG_STYLE] = "italic"
-                elif "text-decoration" in attrs[0][1] and cons.TAG_UNDERLINE in attrs[0][1]: self.curr_attributes[cons.TAG_UNDERLINE] = "single"
+                if "font-weight" in attrs[0][1]: self.curr_attributes[cons.TAG_WEIGHT] = cons.TAG_PROP_HEAVY
+                elif "font-style" in attrs[0][1] and cons.TAG_PROP_ITALIC in attrs[0][1]: self.curr_attributes[cons.TAG_STYLE] = cons.TAG_PROP_ITALIC
+                elif "text-decoration" in attrs[0][1] and cons.TAG_UNDERLINE in attrs[0][1]: self.curr_attributes[cons.TAG_UNDERLINE] = cons.TAG_PROP_SINGLE
                 elif "color" in attrs[0][1]:
                     match = re.match("(?<=^).+:(.+)(?=$)", attrs[0][1])
                     if match != None: self.curr_attributes[cons.TAG_FOREGROUND] = match.group(1).strip()
             elif tag == "br":
                 # this is a data block composed only by an endline
-                self.rich_text_serialize("\n")
+                self.rich_text_serialize(cons.CHAR_NEWLINE)
             elif tag == "li":
-                self.rich_text_serialize("\n• ")
+                self.rich_text_serialize(cons.CHAR_NEWLINE+cons.CHAR_LISTBUL+cons.CHAR_SPACE)
 
     def handle_endtag(self, tag):
         """Encountered the end of a tag"""
         if self.curr_html_state == 0: return
         if tag == "p":
             # this is a data block composed only by an endline
-            self.rich_text_serialize("\n")
+            self.rich_text_serialize(cons.CHAR_NEWLINE)
         elif tag == "span":
             self.curr_attributes[cons.TAG_WEIGHT] = ""
             self.curr_attributes[cons.TAG_STYLE] = ""
@@ -1105,8 +1105,8 @@ class KnowitHandler(HTMLParser.HTMLParser):
 
     def handle_data(self, data):
         """Found Data"""
-        if self.curr_html_state == 0 or data in ['\n', '\n\n']: return
-        data = data.replace("\n", "")
+        if self.curr_html_state == 0 or data in [cons.CHAR_NEWLINE, cons.CHAR_NEWLINE*2]: return
+        data = data.replace(cons.CHAR_NEWLINE, "")
         self.rich_text_serialize(data)
 
     def handle_entityref(self, name):
@@ -1303,10 +1303,10 @@ class NotecaseHandler(HTMLParser.HTMLParser):
                 # waiting for the title
                 # got dt, we go state 2->1
                 self.curr_state = 1
-            elif tag == "b": self.curr_attributes[cons.TAG_WEIGHT] = "heavy"
-            elif tag == "i": self.curr_attributes[cons.TAG_STYLE] = "italic"
-            elif tag == "u": self.curr_attributes[cons.TAG_UNDERLINE] = "single"
-            elif tag == "s": self.curr_attributes[cons.TAG_STRIKETHROUGH] = "true"
+            elif tag == "b": self.curr_attributes[cons.TAG_WEIGHT] = cons.TAG_PROP_HEAVY
+            elif tag == "i": self.curr_attributes[cons.TAG_STYLE] = cons.TAG_PROP_ITALIC
+            elif tag == "u": self.curr_attributes[cons.TAG_UNDERLINE] = cons.TAG_PROP_SINGLE
+            elif tag == "s": self.curr_attributes[cons.TAG_STRIKETHROUGH] = cons.TAG_PROP_TRUE
             elif tag == "span" and attrs[0][0] == cons.TAG_STYLE:
                 match = re.match("(?<=^)(.+):(.+)(?=$)", attrs[0][1])
                 if match != None:
@@ -1322,10 +1322,10 @@ class NotecaseHandler(HTMLParser.HTMLParser):
                     self.curr_attributes[cons.TAG_LINK] = get_internal_link_from_http_url(link_url)
             elif tag == "br":
                 # this is a data block composed only by an endline
-                self.rich_text_serialize("\n")
+                self.rich_text_serialize(cons.CHAR_NEWLINE)
                 self.chars_counter += 1
             elif tag == "li":
-                self.rich_text_serialize("\n• ")
+                self.rich_text_serialize(cons.CHAR_NEWLINE+cons.CHAR_LISTBUL+cons.CHAR_SPACE)
                 self.chars_counter += 3
             elif tag == "img" and len(attrs) > 0:
                 for attribute in attrs:
@@ -1410,13 +1410,13 @@ class NotecaseHandler(HTMLParser.HTMLParser):
 
     def handle_data(self, data):
         """Found Data"""
-        if self.curr_state == 0 or data in ['\n', '\n\n']: return
+        if self.curr_state == 0 or data in [cons.CHAR_NEWLINE, cons.CHAR_NEWLINE*2]: return
         if self.curr_state == 1:
             # state 1 got title
             self.curr_title += data
         elif self.curr_state == 2:
             # state 2 got data
-            clean_data = data.replace("\n", "")
+            clean_data = data.replace(cons.CHAR_NEWLINE, "")
             self.rich_text_serialize(clean_data)
             self.chars_counter += len(clean_data)
 
@@ -1458,7 +1458,7 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
     def __init__(self, dad):
         """Machine boot"""
         self.dad = dad
-        self.monitored_tags = ["p", "b", "i", "u", "s", "h1", "h2", "h3", "span", "font"]
+        self.monitored_tags = ["p", "b", "i", "u", "s", cons.TAG_PROP_H1, cons.TAG_PROP_H2, cons.TAG_PROP_H3, "span", "font"]
         HTMLParser.HTMLParser.__init__(self)
 
     def rich_text_serialize(self, text_data):
@@ -1493,10 +1493,10 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
                 self.curr_table = []
                 self.curr_rows_span = []
                 self.curr_table_header = False
-            elif tag == "b": self.curr_attributes[cons.TAG_WEIGHT] = "heavy"
-            elif tag == "i": self.curr_attributes[cons.TAG_STYLE] = "italic"
-            elif tag == "u": self.curr_attributes[cons.TAG_UNDERLINE] = "single"
-            elif tag == "s": self.curr_attributes[cons.TAG_STRIKETHROUGH] = "true"
+            elif tag == "b": self.curr_attributes[cons.TAG_WEIGHT] = cons.TAG_PROP_HEAVY
+            elif tag == "i": self.curr_attributes[cons.TAG_STYLE] = cons.TAG_PROP_ITALIC
+            elif tag == "u": self.curr_attributes[cons.TAG_UNDERLINE] = cons.TAG_PROP_SINGLE
+            elif tag == "s": self.curr_attributes[cons.TAG_STRIKETHROUGH] = cons.TAG_PROP_TRUE
             elif tag == cons.TAG_STYLE: self.curr_state = 0
             elif tag == "span":
                 for attr in attrs:
@@ -1518,11 +1518,11 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
                                         self.latest_span.append(cons.TAG_BACKGROUND)
                                 elif match.group(1) == "text-decoration":
                                     if match.group(2).strip() in [cons.TAG_UNDERLINE, "underline;"]:
-                                        self.curr_attributes[cons.TAG_UNDERLINE] = "single"
+                                        self.curr_attributes[cons.TAG_UNDERLINE] = cons.TAG_PROP_SINGLE
                                         self.latest_span.append(cons.TAG_UNDERLINE)
                                 elif match.group(1) == "font-weight":
                                     if match.group(2).strip() in ["bolder", "700"]:
-                                        self.curr_attributes[cons.TAG_WEIGHT] = "heavy"
+                                        self.curr_attributes[cons.TAG_WEIGHT] = cons.TAG_PROP_HEAVY
                                         self.latest_span.append(cons.TAG_WEIGHT)
             elif tag == "font":
                 for attr in attrs:
@@ -1531,11 +1531,11 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
                         if attribute:
                             self.curr_attributes[cons.TAG_FOREGROUND] = attribute
                             self.latest_font = cons.TAG_FOREGROUND
-            elif tag in ["h1", "h2", "h3"]:
+            elif tag in [cons.TAG_PROP_H1, cons.TAG_PROP_H2, cons.TAG_PROP_H3]:
                 self.rich_text_serialize(cons.CHAR_NEWLINE)
-                if tag == "h1": self.curr_attributes[cons.TAG_SCALE] = "h1"
-                elif tag == "h2": self.curr_attributes[cons.TAG_SCALE] = "h2"
-                else: self.curr_attributes[cons.TAG_SCALE] = "h3"
+                if tag == cons.TAG_PROP_H1: self.curr_attributes[cons.TAG_SCALE] = cons.TAG_PROP_H1
+                elif tag == cons.TAG_PROP_H2: self.curr_attributes[cons.TAG_SCALE] = cons.TAG_PROP_H2
+                else: self.curr_attributes[cons.TAG_SCALE] = cons.TAG_PROP_H3
                 for attr in attrs:
                     if attr[0] == "align": self.curr_attributes[cons.TAG_JUSTIFICATION] = attr[1].strip().lower()
             elif tag == "a" and len(attrs) > 0:
@@ -1550,7 +1550,7 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
             elif tag == "ol": self.curr_list_type = ["o", 1]
             elif tag == "ul": self.curr_list_type = ["u", 0]
             elif tag == "li":
-                if self.curr_list_type[0] == "u": self.rich_text_serialize("• ")
+                if self.curr_list_type[0] == "u": self.rich_text_serialize(cons.CHAR_LISTBUL+cons.CHAR_SPACE)
                 else:
                     self.rich_text_serialize("%s. " % self.curr_list_type[1])
                     self.curr_list_type[1] += 1
@@ -1605,7 +1605,7 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
                 self.latest_span = []
             elif tag == "font":
                 if self.latest_font == cons.TAG_FOREGROUND: self.curr_attributes[cons.TAG_FOREGROUND] = ""
-            elif tag in ["h1", "h2", "h3"]:
+            elif tag in [cons.TAG_PROP_H1, cons.TAG_PROP_H2, cons.TAG_PROP_H3]:
                 self.curr_attributes[cons.TAG_SCALE] = ""
                 self.curr_attributes[cons.TAG_JUSTIFICATION] = ""
                 self.rich_text_serialize(cons.CHAR_NEWLINE)

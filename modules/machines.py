@@ -478,10 +478,10 @@ class XMLHandler:
                     text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), cons.CHAR_NEWLINE)
                     curr_offset += 1
                 tag_names = [self.dad.apply_tag_exist_or_create(tag_property, property_value + cons.CHAR_SPACE + element[0])]
-                if element[0][:2] == "h1":
+                if element[0][:2] == cons.TAG_PROP_H1:
                     text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), 3*cons.CHAR_SPACE + cons.CHAR_LISTBUL + cons.CHAR_SPACE)
                     curr_offset += 5
-                elif element[0][:2] == "h2":
+                elif element[0][:2] == cons.TAG_PROP_H2:
                     text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), 6*cons.CHAR_SPACE + cons.CHAR_LISTBUL + cons.CHAR_SPACE)
                     curr_offset += 8
                 else:
@@ -511,7 +511,7 @@ class XMLHandler:
     def toc_insert_one(self, text_buffer, node_id, just_get_toc_list=False):
         """Given the text_buffer, inserts the Table Of Contents"""
         self.curr_attributes = {}
-        self.toc_counters = {"h1":0, "h2":0, "h3":0}
+        self.toc_counters = {cons.TAG_PROP_H1:0, cons.TAG_PROP_H2:0, cons.TAG_PROP_H3:0}
         self.toc_list = [] # 0: anchor name; 1: text in h1, h2 or h3; 2:node id
         for tag_property in cons.TAG_PROPERTIES: self.curr_attributes[tag_property] = ""
         start_iter = text_buffer.get_start_iter()
@@ -542,10 +542,10 @@ class XMLHandler:
             for element in self.toc_list:
                 tag_names = []
                 tag_names.append(self.dad.apply_tag_exist_or_create(tag_property, property_value + cons.CHAR_SPACE + element[0]))
-                if element[0][:2] == "h1":
+                if element[0][:2] == cons.TAG_PROP_H1:
                     text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), cons.CHAR_LISTBUL + cons.CHAR_SPACE)
                     curr_offset += 2
-                elif element[0][:2] == "h2":
+                elif element[0][:2] == cons.TAG_PROP_H2:
                     text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), 3*cons.CHAR_SPACE + cons.CHAR_LISTBUL + cons.CHAR_SPACE)
                     curr_offset += 5
                 else:
@@ -560,18 +560,18 @@ class XMLHandler:
 
     def toc_insert_parser(self, text_buffer, start_iter, end_iter, node_id):
         """Parses a Tagged String for the TOC insert"""
-        if self.curr_attributes[cons.TAG_SCALE] not in ["h1", "h2", "h3"]: return None
+        if self.curr_attributes[cons.TAG_SCALE] not in [cons.TAG_PROP_H1, cons.TAG_PROP_H2, cons.TAG_PROP_H3]: return None
         start_offset = start_iter.get_offset()
         end_offset = end_iter.get_offset()
-        if self.curr_attributes[cons.TAG_SCALE] == "h1":
-            self.toc_counters["h1"] += 1
-            self.toc_list.append(["h1-%d" % self.toc_counters["h1"], text_buffer.get_text(start_iter, end_iter), node_id])
-        elif self.curr_attributes[cons.TAG_SCALE] == "h2":
-            self.toc_counters["h2"] += 1
-            self.toc_list.append(["h2-%d" % self.toc_counters["h2"], text_buffer.get_text(start_iter, end_iter), node_id])
+        if self.curr_attributes[cons.TAG_SCALE] == cons.TAG_PROP_H1:
+            self.toc_counters[cons.TAG_PROP_H1] += 1
+            self.toc_list.append(["h1-%d" % self.toc_counters[cons.TAG_PROP_H1], text_buffer.get_text(start_iter, end_iter), node_id])
+        elif self.curr_attributes[cons.TAG_SCALE] == cons.TAG_PROP_H2:
+            self.toc_counters[cons.TAG_PROP_H2] += 1
+            self.toc_list.append(["h2-%d" % self.toc_counters[cons.TAG_PROP_H2], text_buffer.get_text(start_iter, end_iter), node_id])
         else:
-            self.toc_counters["h3"] += 1
-            self.toc_list.append(["h3-%d" % self.toc_counters["h3"], text_buffer.get_text(start_iter, end_iter), node_id])
+            self.toc_counters[cons.TAG_PROP_H3] += 1
+            self.toc_list.append(["h3-%d" % self.toc_counters[cons.TAG_PROP_H3], text_buffer.get_text(start_iter, end_iter), node_id])
         anchor_start = start_iter.copy()
         if anchor_start.backward_char():
             anchor = anchor_start.get_child_anchor()
