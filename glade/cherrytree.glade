@@ -3526,7 +3526,7 @@ do you want to save the changes?</property>
                                     <signal name="toggled" handler="on_radiobutton_rt_col_custom_toggled" swapped="no"/>
                                   </object>
                                   <packing>
-                                    <property name="expand">True</property>
+                                    <property name="expand">False</property>
                                     <property name="fill">True</property>
                                     <property name="position">0</property>
                                   </packing>
@@ -3543,6 +3543,7 @@ do you want to save the changes?</property>
                                   <packing>
                                     <property name="expand">False</property>
                                     <property name="fill">True</property>
+                                    <property name="padding">2</property>
                                     <property name="position">1</property>
                                   </packing>
                                 </child>
@@ -3553,7 +3554,7 @@ do you want to save the changes?</property>
                                     <property name="label" translatable="yes">and Text</property>
                                   </object>
                                   <packing>
-                                    <property name="expand">True</property>
+                                    <property name="expand">False</property>
                                     <property name="fill">True</property>
                                     <property name="position">2</property>
                                   </packing>
@@ -3570,6 +3571,7 @@ do you want to save the changes?</property>
                                   <packing>
                                     <property name="expand">False</property>
                                     <property name="fill">True</property>
+                                    <property name="padding">2</property>
                                     <property name="position">3</property>
                                   </packing>
                                 </child>
@@ -3873,7 +3875,7 @@ do you want to save the changes?</property>
                                     <signal name="toggled" handler="on_radiobutton_tt_col_custom_toggled" swapped="no"/>
                                   </object>
                                   <packing>
-                                    <property name="expand">True</property>
+                                    <property name="expand">False</property>
                                     <property name="fill">True</property>
                                     <property name="position">0</property>
                                   </packing>
@@ -3890,6 +3892,7 @@ do you want to save the changes?</property>
                                   <packing>
                                     <property name="expand">False</property>
                                     <property name="fill">True</property>
+                                    <property name="padding">2</property>
                                     <property name="position">1</property>
                                   </packing>
                                 </child>
@@ -3900,7 +3903,7 @@ do you want to save the changes?</property>
                                     <property name="label" translatable="yes">and Text</property>
                                   </object>
                                   <packing>
-                                    <property name="expand">True</property>
+                                    <property name="expand">False</property>
                                     <property name="fill">True</property>
                                     <property name="position">2</property>
                                   </packing>
@@ -3917,6 +3920,7 @@ do you want to save the changes?</property>
                                   <packing>
                                     <property name="expand">False</property>
                                     <property name="fill">True</property>
+                                    <property name="padding">2</property>
                                     <property name="position">3</property>
                                   </packing>
                                 </child>
