@@ -188,17 +188,17 @@ class TuxCardsHandler(HTMLParser.HTMLParser):
         if self.curr_state == 0:
             if tag == "body": self.curr_state = 1
         else: # self.curr_state == 1
-            if tag == "span" and attrs[0][0] == "style":
-                if "font-weight" in attrs[0][1]: self.curr_attributes["weight"] = "heavy"
-                elif "font-style" in attrs[0][1] and "italic" in attrs[0][1]: self.curr_attributes["style"] = "italic"
-                elif "text-decoration" in attrs[0][1] and "underline" in attrs[0][1]: self.curr_attributes["underline"] = "single"
+            if tag == "span" and attrs[0][0] == cons.TAG_STYLE:
+                if "font-weight" in attrs[0][1]: self.curr_attributes[cons.TAG_WEIGHT] = "heavy"
+                elif "font-style" in attrs[0][1] and "italic" in attrs[0][1]: self.curr_attributes[cons.TAG_STYLE] = "italic"
+                elif "text-decoration" in attrs[0][1] and cons.TAG_UNDERLINE in attrs[0][1]: self.curr_attributes[cons.TAG_UNDERLINE] = "single"
                 elif "color" in attrs[0][1]:
                     match = re.match("(?<=^).+:(.+);(?=$)", attrs[0][1])
-                    if match != None: self.curr_attributes["foreground"] = match.group(1).strip()
+                    if match != None: self.curr_attributes[cons.TAG_FOREGROUND] = match.group(1).strip()
             elif tag == "a" and len(attrs) > 0:
                 link_url = attrs[0][1]
                 if len(link_url) > 7:
-                    self.curr_attributes["link"] = get_internal_link_from_http_url(link_url)
+                    self.curr_attributes[cons.TAG_LINK] = get_internal_link_from_http_url(link_url)
             elif tag == "img" and len(attrs) > 0:
                 img_path = attrs[0][1]
                 if os.path.isfile(img_path):
@@ -226,11 +226,11 @@ class TuxCardsHandler(HTMLParser.HTMLParser):
             self.rich_text_serialize("\n")
             self.chars_counter += 1
         elif tag == "span":
-            self.curr_attributes["weight"] = ""
-            self.curr_attributes["style"] = ""
-            self.curr_attributes["underline"] = ""
-            self.curr_attributes["foreground"] = ""
-        elif tag == "a": self.curr_attributes["link"] = ""
+            self.curr_attributes[cons.TAG_WEIGHT] = ""
+            self.curr_attributes[cons.TAG_STYLE] = ""
+            self.curr_attributes[cons.TAG_UNDERLINE] = ""
+            self.curr_attributes[cons.TAG_FOREGROUND] = ""
+        elif tag == "a": self.curr_attributes[cons.TAG_LINK] = ""
 
     def handle_data(self, data):
         """Found Data"""
@@ -321,23 +321,23 @@ class KeepnoteHandler(HTMLParser.HTMLParser):
         if self.curr_state == 0:
             if tag == "body": self.curr_state = 1
         else: # self.curr_state == 1
-            if tag == "b": self.curr_attributes["weight"] = "heavy"
-            elif tag == "i": self.curr_attributes["style"] = "italic"
-            elif tag == "u": self.curr_attributes["underline"] = "single"
-            elif tag == "strike": self.curr_attributes["strikethrough"] = "true"
-            elif tag == "span" and attrs[0][0] == "style":
+            if tag == "b": self.curr_attributes[cons.TAG_WEIGHT] = "heavy"
+            elif tag == "i": self.curr_attributes[cons.TAG_STYLE] = "italic"
+            elif tag == "u": self.curr_attributes[cons.TAG_UNDERLINE] = "single"
+            elif tag == "strike": self.curr_attributes[cons.TAG_STRIKETHROUGH] = "true"
+            elif tag == "span" and attrs[0][0] == cons.TAG_STYLE:
                 match = re.match("(?<=^)(.+):(.+)(?=$)", attrs[0][1])
                 if match != None:
                     if match.group(1) == "color":
-                        self.curr_attributes["foreground"] = match.group(2).strip()
-                        self.latest_span = "foreground"
+                        self.curr_attributes[cons.TAG_FOREGROUND] = match.group(2).strip()
+                        self.latest_span = cons.TAG_FOREGROUND
                     elif match.group(1) == "background-color":
-                        self.curr_attributes["background"] = match.group(2).strip()
-                        self.latest_span = "background"
+                        self.curr_attributes[cons.TAG_BACKGROUND] = match.group(2).strip()
+                        self.latest_span = cons.TAG_BACKGROUND
             elif tag == "a" and len(attrs) > 0:
                 link_url = attrs[0][1]
                 if len(link_url) > 7:
-                    self.curr_attributes["link"] = get_internal_link_from_http_url(link_url)
+                    self.curr_attributes[cons.TAG_LINK] = get_internal_link_from_http_url(link_url)
             elif tag == "img" and len(attrs) > 0:
                 img_name = attrs[0][1]
                 img_path = os.path.join(self.curr_folder, img_name)
@@ -361,14 +361,14 @@ class KeepnoteHandler(HTMLParser.HTMLParser):
     def handle_endtag(self, tag):
         """Encountered the end of a tag"""
         if self.curr_state == 0: return
-        if tag == "b": self.curr_attributes["weight"] = ""
-        elif tag == "i": self.curr_attributes["style"] = ""
-        elif tag == "u": self.curr_attributes["underline"] = ""
-        elif tag == "strike": self.curr_attributes["strikethrough"] = ""
+        if tag == "b": self.curr_attributes[cons.TAG_WEIGHT] = ""
+        elif tag == "i": self.curr_attributes[cons.TAG_STYLE] = ""
+        elif tag == "u": self.curr_attributes[cons.TAG_UNDERLINE] = ""
+        elif tag == "strike": self.curr_attributes[cons.TAG_STRIKETHROUGH] = ""
         elif tag == "span":
-            if self.latest_span == "foreground": self.curr_attributes["foreground"] = ""
-            elif self.latest_span == "background": self.curr_attributes["background"] = ""
-        elif tag == "a": self.curr_attributes["link"] = ""
+            if self.latest_span == cons.TAG_FOREGROUND: self.curr_attributes[cons.TAG_FOREGROUND] = ""
+            elif self.latest_span == cons.TAG_BACKGROUND: self.curr_attributes[cons.TAG_BACKGROUND] = ""
+        elif tag == "a": self.curr_attributes[cons.TAG_LINK] = ""
 
     def handle_data(self, data):
         """Found Data"""
@@ -412,7 +412,7 @@ class ZimHandler():
             if self.curr_attributes[tag_property] != "":
                 dom_iter.setAttribute(tag_property, self.curr_attributes[tag_property])
         self.nodes_list[-1].appendChild(dom_iter)
-        if self.curr_attributes["scale"] in ["h1", "h2", "h3"]:
+        if self.curr_attributes[cons.TAG_SCALE] in ["h1", "h2", "h3"]:
             try: text_data = text_data[1:-1]
             except: pass
         self.chars_counter += len(text_data)
@@ -466,78 +466,78 @@ class ZimHandler():
                     if wiki_slot:
                         self.rich_text_serialize(wiki_slot)
                         wiki_slot = ""
-                    if self.curr_attributes["weight"]: self.curr_attributes["weight"] = ""
-                    else: self.curr_attributes["weight"] = "heavy"
+                    if self.curr_attributes[cons.TAG_WEIGHT]: self.curr_attributes[cons.TAG_WEIGHT] = ""
+                    else: self.curr_attributes[cons.TAG_WEIGHT] = "heavy"
                     curr_pos += 1
                 elif curr_char == cons.CHAR_SLASH and next_char == cons.CHAR_SLASH:
                     if wiki_slot:
                         self.rich_text_serialize(wiki_slot)
                         wiki_slot = ""
-                    if self.curr_attributes["style"]: self.curr_attributes["style"] = ""
-                    else: self.curr_attributes["style"] = "italic"
+                    if self.curr_attributes[cons.TAG_STYLE]: self.curr_attributes[cons.TAG_STYLE] = ""
+                    else: self.curr_attributes[cons.TAG_STYLE] = "italic"
                     curr_pos += 1
                 elif curr_char == cons.CHAR_USCORE and next_char == cons.CHAR_USCORE:
                     if wiki_slot:
                         self.rich_text_serialize(wiki_slot)
                         wiki_slot = ""
-                    if self.curr_attributes["background"]: self.curr_attributes["background"] = ""
-                    else: self.curr_attributes["background"] = cons.COLOR_48_YELLOW
+                    if self.curr_attributes[cons.TAG_BACKGROUND]: self.curr_attributes[cons.TAG_BACKGROUND] = ""
+                    else: self.curr_attributes[cons.TAG_BACKGROUND] = cons.COLOR_48_YELLOW
                     curr_pos += 1
                 elif curr_char == cons.CHAR_TILDE and next_char == cons.CHAR_TILDE:
                     if wiki_slot:
                         self.rich_text_serialize(wiki_slot)
                         wiki_slot = ""
-                    if self.curr_attributes["strikethrough"]: self.curr_attributes["strikethrough"] = ""
-                    else: self.curr_attributes["strikethrough"] = "true"
+                    if self.curr_attributes[cons.TAG_STRIKETHROUGH]: self.curr_attributes[cons.TAG_STRIKETHROUGH] = ""
+                    else: self.curr_attributes[cons.TAG_STRIKETHROUGH] = "true"
                     curr_pos += 1
                 elif curr_char == cons.CHAR_SQUOTE and next_char == cons.CHAR_SQUOTE:
                     if wiki_slot:
                         self.rich_text_serialize(wiki_slot)
                         wiki_slot = ""
-                    if self.curr_attributes["family"]: self.curr_attributes["family"] = ""
-                    else: self.curr_attributes["family"] = "monospace"
+                    if self.curr_attributes[cons.TAG_FAMILY]: self.curr_attributes[cons.TAG_FAMILY] = ""
+                    else: self.curr_attributes[cons.TAG_FAMILY] = "monospace"
                     curr_pos += 1
                 elif curr_char == cons.CHAR_EQUAL and next_char == cons.CHAR_EQUAL:
                     if wiki_slot:
                         self.rich_text_serialize(wiki_slot)
                         wiki_slot = ""
                     if curr_pos+5 < max_pos and wiki_string[curr_pos+2:curr_pos+6] == cons.CHAR_EQUAL*4:
-                        if self.curr_attributes["scale"]: self.curr_attributes["scale"] = ""
-                        else: self.curr_attributes["scale"] = "h1"
+                        if self.curr_attributes[cons.TAG_SCALE]: self.curr_attributes[cons.TAG_SCALE] = ""
+                        else: self.curr_attributes[cons.TAG_SCALE] = "h1"
                         curr_pos += 5
                     elif curr_pos+4 < max_pos and wiki_string[curr_pos+2:curr_pos+5] == cons.CHAR_EQUAL*3:
-                        if self.curr_attributes["scale"]: self.curr_attributes["scale"] = ""
-                        else: self.curr_attributes["scale"] = "h2"
+                        if self.curr_attributes[cons.TAG_SCALE]: self.curr_attributes[cons.TAG_SCALE] = ""
+                        else: self.curr_attributes[cons.TAG_SCALE] = "h2"
                         curr_pos += 4
                     elif curr_pos+3 < max_pos and wiki_string[curr_pos+2:curr_pos+4] == cons.CHAR_EQUAL*2:
-                        if self.curr_attributes["scale"]: self.curr_attributes["scale"] = ""
-                        else: self.curr_attributes["scale"] = "h3"
+                        if self.curr_attributes[cons.TAG_SCALE]: self.curr_attributes[cons.TAG_SCALE] = ""
+                        else: self.curr_attributes[cons.TAG_SCALE] = "h3"
                         curr_pos += 3
                     elif curr_pos+2 < max_pos and wiki_string[curr_pos+2:curr_pos+3] == cons.CHAR_EQUAL:
-                        if self.curr_attributes["scale"]: self.curr_attributes["scale"] = ""
-                        else: self.curr_attributes["scale"] = "h3"
+                        if self.curr_attributes[cons.TAG_SCALE]: self.curr_attributes[cons.TAG_SCALE] = ""
+                        else: self.curr_attributes[cons.TAG_SCALE] = "h3"
                         curr_pos += 2
                     else:
-                        if self.curr_attributes["scale"]: self.curr_attributes["scale"] = ""
-                        else: self.curr_attributes["scale"] = "h3"
+                        if self.curr_attributes[cons.TAG_SCALE]: self.curr_attributes[cons.TAG_SCALE] = ""
+                        else: self.curr_attributes[cons.TAG_SCALE] = "h3"
                         curr_pos += 1
                 elif curr_char == cons.CHAR_CARET and next_char == cons.CHAR_BR_OPEN:
                     if wiki_slot:
                         self.rich_text_serialize(wiki_slot)
                         wiki_slot = ""
-                    self.curr_attributes["scale"] = "sup"
+                    self.curr_attributes[cons.TAG_SCALE] = "sup"
                     curr_pos += 1
                 elif curr_char == cons.CHAR_USCORE and next_char == cons.CHAR_BR_OPEN:
                     if wiki_slot:
                         self.rich_text_serialize(wiki_slot)
                         wiki_slot = ""
-                    self.curr_attributes["scale"] = "sub"
+                    self.curr_attributes[cons.TAG_SCALE] = "sub"
                     curr_pos += 1
-                elif curr_char == cons.CHAR_BR_CLOSE and self.curr_attributes["scale"] in ["sup", "sub"]:
+                elif curr_char == cons.CHAR_BR_CLOSE and self.curr_attributes[cons.TAG_SCALE] in ["sup", "sub"]:
                     if wiki_slot:
                         self.rich_text_serialize(wiki_slot)
                         wiki_slot = ""
-                    self.curr_attributes["scale"] = ""
+                    self.curr_attributes[cons.TAG_SCALE] = ""
                 elif curr_char == cons.CHAR_BR_OPEN and next_char == cons.CHAR_BR_OPEN \
                   or curr_char == cons.CHAR_SQ_BR_OPEN and next_char == cons.CHAR_SQ_BR_OPEN:
                     if wiki_slot:
@@ -564,9 +564,9 @@ class ZimHandler():
                     exp_filepath = os.path.expanduser(target_n_label[0])
                     if exp_filepath.startswith("./"): exp_filepath = os.path.join(curr_folder, node_name, exp_filepath[2:])
                     if cons.CHAR_SLASH in exp_filepath:
-                        self.curr_attributes["link"] = "file %s" % base64.b64encode(exp_filepath)
+                        self.curr_attributes[cons.TAG_LINK] = "file %s" % base64.b64encode(exp_filepath)
                         self.rich_text_serialize(target_n_label[1])
-                        self.curr_attributes["link"] = ""
+                        self.curr_attributes[cons.TAG_LINK] = ""
                     else:
                         self.links_to_node_list.append({'name_dest': target_n_label[0],
                                                         'node_source': node_name,
@@ -605,7 +605,7 @@ class ZimHandler():
             if source_buffer.get_char_count() < link_to_node['char_end']:
                 continue
             property_value = "node" + cons.CHAR_SPACE + str(dad.treestore[node_dest][3])
-            source_buffer.apply_tag_by_name(dad.apply_tag_exist_or_create("link", property_value),
+            source_buffer.apply_tag_by_name(dad.apply_tag_exist_or_create(cons.TAG_LINK, property_value),
                                             source_buffer.get_iter_at_offset(link_to_node['char_start']),
                                             source_buffer.get_iter_at_offset(link_to_node['char_end']))
 
@@ -686,8 +686,8 @@ class TomboyHandler():
         while dom_iter:
             if dom_iter.nodeName == "#text":
                 text_data = dom_iter.data
-                if self.curr_attributes["link"] == "webs ":
-                    self.curr_attributes["link"] += dom_iter.data
+                if self.curr_attributes[cons.TAG_LINK] == "webs ":
+                    self.curr_attributes[cons.TAG_LINK] += dom_iter.data
                 elif self.is_list_item:
                     text_data = "• " + text_data
                 elif self.is_link_to_node:
@@ -698,41 +698,41 @@ class TomboyHandler():
                 self.rich_text_serialize(text_data)
                 self.chars_counter += len(text_data)
             elif dom_iter.nodeName == "bold":
-                self.curr_attributes["weight"] = "heavy"
+                self.curr_attributes[cons.TAG_WEIGHT] = "heavy"
                 self.node_add_iter(dom_iter.firstChild)
-                self.curr_attributes["weight"] = ""
+                self.curr_attributes[cons.TAG_WEIGHT] = ""
             elif dom_iter.nodeName == "italic":
-                self.curr_attributes["style"] = "italic"
+                self.curr_attributes[cons.TAG_STYLE] = "italic"
                 self.node_add_iter(dom_iter.firstChild)
-                self.curr_attributes["style"] = ""
-            elif dom_iter.nodeName == "strikethrough":
-                self.curr_attributes["strikethrough"] = "true"
+                self.curr_attributes[cons.TAG_STYLE] = ""
+            elif dom_iter.nodeName == cons.TAG_STRIKETHROUGH:
+                self.curr_attributes[cons.TAG_STRIKETHROUGH] = "true"
                 self.node_add_iter(dom_iter.firstChild)
-                self.curr_attributes["strikethrough"] = ""
+                self.curr_attributes[cons.TAG_STRIKETHROUGH] = ""
             elif dom_iter.nodeName == "highlight":
-                self.curr_attributes["background"] = cons.COLOR_48_YELLOW
+                self.curr_attributes[cons.TAG_BACKGROUND] = cons.COLOR_48_YELLOW
                 self.node_add_iter(dom_iter.firstChild)
-                self.curr_attributes["background"] = ""
+                self.curr_attributes[cons.TAG_BACKGROUND] = ""
             elif dom_iter.nodeName == "monospace":
-                self.curr_attributes["family"] = dom_iter.nodeName
+                self.curr_attributes[cons.TAG_FAMILY] = dom_iter.nodeName
                 self.node_add_iter(dom_iter.firstChild)
-                self.curr_attributes["family"] = ""
+                self.curr_attributes[cons.TAG_FAMILY] = ""
             elif dom_iter.nodeName == "size:small":
-                self.curr_attributes["scale"] = "small"
+                self.curr_attributes[cons.TAG_SCALE] = "small"
                 self.node_add_iter(dom_iter.firstChild)
-                self.curr_attributes["scale"] = ""
+                self.curr_attributes[cons.TAG_SCALE] = ""
             elif dom_iter.nodeName == "size:large":
-                self.curr_attributes["scale"] = "h2"
+                self.curr_attributes[cons.TAG_SCALE] = "h2"
                 self.node_add_iter(dom_iter.firstChild)
-                self.curr_attributes["scale"] = ""
+                self.curr_attributes[cons.TAG_SCALE] = ""
             elif dom_iter.nodeName == "size:huge":
-                self.curr_attributes["scale"] = "h1"
+                self.curr_attributes[cons.TAG_SCALE] = "h1"
                 self.node_add_iter(dom_iter.firstChild)
-                self.curr_attributes["scale"] = ""
+                self.curr_attributes[cons.TAG_SCALE] = ""
             elif dom_iter.nodeName == "link:url":
-                self.curr_attributes["link"] = "webs "
+                self.curr_attributes[cons.TAG_LINK] = "webs "
                 self.node_add_iter(dom_iter.firstChild)
-                self.curr_attributes["link"] = ""
+                self.curr_attributes[cons.TAG_LINK] = ""
             elif dom_iter.nodeName == "list-item":
                 self.is_list_item = True
                 self.node_add_iter(dom_iter.firstChild)
@@ -790,7 +790,7 @@ class TomboyHandler():
             if source_buffer.get_char_count() < link_to_node['char_end']:
                 continue
             property_value = "node" + cons.CHAR_SPACE + str(dad.treestore[node_dest][3])
-            source_buffer.apply_tag_by_name(dad.apply_tag_exist_or_create("link", property_value),
+            source_buffer.apply_tag_by_name(dad.apply_tag_exist_or_create(cons.TAG_LINK, property_value),
                                             source_buffer.get_iter_at_offset(link_to_node['char_start']),
                                             source_buffer.get_iter_at_offset(link_to_node['char_end']))
 
@@ -920,19 +920,19 @@ class BasketHandler(HTMLParser.HTMLParser):
                         self.chars_counter += 1
                     break
                 content_dom_iter = content_dom_iter.nextSibling
-        elif note_dom_iter.attributes['type'].value == "link":
+        elif note_dom_iter.attributes['type'].value == cons.TAG_LINK:
             content_dom_iter = note_dom_iter.firstChild
             while content_dom_iter:
                 if content_dom_iter.nodeName == "content":
                     content = content_dom_iter.firstChild.data
                     if content[:4] in ["http", "file"]:
                         if content[:4] == "http":
-                            self.curr_attributes["link"] = "webs %s" % content
+                            self.curr_attributes[cons.TAG_LINK] = "webs %s" % content
                         elif content[:4] == "file":
-                            self.curr_attributes["link"] = "file %s" % base64.b64encode(content[7:])
+                            self.curr_attributes[cons.TAG_LINK] = "file %s" % base64.b64encode(content[7:])
                         content_title = content_dom_iter.attributes['title'].value
                         self.rich_text_serialize(content_title)
-                        self.curr_attributes["link"] = ""
+                        self.curr_attributes[cons.TAG_LINK] = ""
                         self.rich_text_serialize("\n")
                         self.chars_counter += len(content_title) + 1
                     break
@@ -943,17 +943,17 @@ class BasketHandler(HTMLParser.HTMLParser):
         if self.curr_state == 0:
             if tag == "body": self.curr_state = 1
         else: # self.curr_state == 1
-            if tag == "span" and attrs[0][0] == "style":
-                if "font-weight" in attrs[0][1]: self.curr_attributes["weight"] = "heavy"
-                elif "font-style" in attrs[0][1] and "italic" in attrs[0][1]: self.curr_attributes["style"] = "italic"
-                elif "text-decoration" in attrs[0][1] and "underline" in attrs[0][1]: self.curr_attributes["underline"] = "single"
+            if tag == "span" and attrs[0][0] == cons.TAG_STYLE:
+                if "font-weight" in attrs[0][1]: self.curr_attributes[cons.TAG_WEIGHT] = "heavy"
+                elif "font-style" in attrs[0][1] and "italic" in attrs[0][1]: self.curr_attributes[cons.TAG_STYLE] = "italic"
+                elif "text-decoration" in attrs[0][1] and cons.TAG_UNDERLINE in attrs[0][1]: self.curr_attributes[cons.TAG_UNDERLINE] = "single"
                 elif "color" in attrs[0][1]:
                     match = re.match("(?<=^).+:(.+);(?=$)", attrs[0][1])
-                    if match != None: self.curr_attributes["foreground"] = match.group(1).strip()
+                    if match != None: self.curr_attributes[cons.TAG_FOREGROUND] = match.group(1).strip()
             elif tag == "a" and len(attrs) > 0:
                 link_url = attrs[0][1]
                 if len(link_url) > 7:
-                    self.curr_attributes["link"] = get_internal_link_from_http_url(link_url)
+                    self.curr_attributes[cons.TAG_LINK] = get_internal_link_from_http_url(link_url)
             elif tag == "br":
                 # this is a data block composed only by an endline
                 self.rich_text_serialize("\n")
@@ -974,11 +974,11 @@ class BasketHandler(HTMLParser.HTMLParser):
             self.rich_text_serialize("\n")
             self.chars_counter += 1
         elif tag == "span":
-            self.curr_attributes["weight"] = ""
-            self.curr_attributes["style"] = ""
-            self.curr_attributes["underline"] = ""
-            self.curr_attributes["foreground"] = ""
-        elif tag == "a": self.curr_attributes["link"] = ""
+            self.curr_attributes[cons.TAG_WEIGHT] = ""
+            self.curr_attributes[cons.TAG_STYLE] = ""
+            self.curr_attributes[cons.TAG_UNDERLINE] = ""
+            self.curr_attributes[cons.TAG_FOREGROUND] = ""
+        elif tag == "a": self.curr_attributes[cons.TAG_LINK] = ""
         elif tag == "body":
             self.rich_text_serialize("\n")
             self.chars_counter += 1
@@ -1078,13 +1078,13 @@ class KnowitHandler(HTMLParser.HTMLParser):
         if self.curr_html_state == 0:
             if tag == "body": self.curr_html_state = 1
         else: # self.curr_html_state == 1
-            if tag == "span" and attrs[0][0] == "style":
-                if "font-weight" in attrs[0][1]: self.curr_attributes["weight"] = "heavy"
-                elif "font-style" in attrs[0][1] and "italic" in attrs[0][1]: self.curr_attributes["style"] = "italic"
-                elif "text-decoration" in attrs[0][1] and "underline" in attrs[0][1]: self.curr_attributes["underline"] = "single"
+            if tag == "span" and attrs[0][0] == cons.TAG_STYLE:
+                if "font-weight" in attrs[0][1]: self.curr_attributes[cons.TAG_WEIGHT] = "heavy"
+                elif "font-style" in attrs[0][1] and "italic" in attrs[0][1]: self.curr_attributes[cons.TAG_STYLE] = "italic"
+                elif "text-decoration" in attrs[0][1] and cons.TAG_UNDERLINE in attrs[0][1]: self.curr_attributes[cons.TAG_UNDERLINE] = "single"
                 elif "color" in attrs[0][1]:
                     match = re.match("(?<=^).+:(.+)(?=$)", attrs[0][1])
-                    if match != None: self.curr_attributes["foreground"] = match.group(1).strip()
+                    if match != None: self.curr_attributes[cons.TAG_FOREGROUND] = match.group(1).strip()
             elif tag == "br":
                 # this is a data block composed only by an endline
                 self.rich_text_serialize("\n")
@@ -1098,10 +1098,10 @@ class KnowitHandler(HTMLParser.HTMLParser):
             # this is a data block composed only by an endline
             self.rich_text_serialize("\n")
         elif tag == "span":
-            self.curr_attributes["weight"] = ""
-            self.curr_attributes["style"] = ""
-            self.curr_attributes["underline"] = ""
-            self.curr_attributes["foreground"] = ""
+            self.curr_attributes[cons.TAG_WEIGHT] = ""
+            self.curr_attributes[cons.TAG_STYLE] = ""
+            self.curr_attributes[cons.TAG_UNDERLINE] = ""
+            self.curr_attributes[cons.TAG_FOREGROUND] = ""
 
     def handle_data(self, data):
         """Found Data"""
@@ -1303,23 +1303,23 @@ class NotecaseHandler(HTMLParser.HTMLParser):
                 # waiting for the title
                 # got dt, we go state 2->1
                 self.curr_state = 1
-            elif tag == "b": self.curr_attributes["weight"] = "heavy"
-            elif tag == "i": self.curr_attributes["style"] = "italic"
-            elif tag == "u": self.curr_attributes["underline"] = "single"
-            elif tag == "s": self.curr_attributes["strikethrough"] = "true"
-            elif tag == "span" and attrs[0][0] == "style":
+            elif tag == "b": self.curr_attributes[cons.TAG_WEIGHT] = "heavy"
+            elif tag == "i": self.curr_attributes[cons.TAG_STYLE] = "italic"
+            elif tag == "u": self.curr_attributes[cons.TAG_UNDERLINE] = "single"
+            elif tag == "s": self.curr_attributes[cons.TAG_STRIKETHROUGH] = "true"
+            elif tag == "span" and attrs[0][0] == cons.TAG_STYLE:
                 match = re.match("(?<=^)(.+):(.+)(?=$)", attrs[0][1])
                 if match != None:
                     if match.group(1) == "color":
-                        self.curr_attributes["foreground"] = match.group(2).strip()
-                        self.latest_span = "foreground"
+                        self.curr_attributes[cons.TAG_FOREGROUND] = match.group(2).strip()
+                        self.latest_span = cons.TAG_FOREGROUND
                     elif match.group(1) == "background-color":
-                        self.curr_attributes["background"] = match.group(2).strip()
-                        self.latest_span = "background"
+                        self.curr_attributes[cons.TAG_BACKGROUND] = match.group(2).strip()
+                        self.latest_span = cons.TAG_BACKGROUND
             elif tag == "a" and len(attrs) > 0:
                 link_url = attrs[0][1]
                 if len(link_url) > 7:
-                    self.curr_attributes["link"] = get_internal_link_from_http_url(link_url)
+                    self.curr_attributes[cons.TAG_LINK] = get_internal_link_from_http_url(link_url)
             elif tag == "br":
                 # this is a data block composed only by an endline
                 self.rich_text_serialize("\n")
@@ -1392,14 +1392,14 @@ class NotecaseHandler(HTMLParser.HTMLParser):
                 self.nodes_list.pop()
                 # got /dl, we go state 2->0 and wait for a father's brother
                 self.curr_state = 0
-            elif tag == "b": self.curr_attributes["weight"] = ""
-            elif tag == "i": self.curr_attributes["style"] = ""
-            elif tag == "u": self.curr_attributes["underline"] = ""
-            elif tag == "s": self.curr_attributes["strikethrough"] = ""
+            elif tag == "b": self.curr_attributes[cons.TAG_WEIGHT] = ""
+            elif tag == "i": self.curr_attributes[cons.TAG_STYLE] = ""
+            elif tag == "u": self.curr_attributes[cons.TAG_UNDERLINE] = ""
+            elif tag == "s": self.curr_attributes[cons.TAG_STRIKETHROUGH] = ""
             elif tag == "span":
-                if self.latest_span == "foreground": self.curr_attributes["foreground"] = ""
-                elif self.latest_span == "background": self.curr_attributes["background"] = ""
-            elif tag == "a": self.curr_attributes["link"] = ""
+                if self.latest_span == cons.TAG_FOREGROUND: self.curr_attributes[cons.TAG_FOREGROUND] = ""
+                elif self.latest_span == cons.TAG_BACKGROUND: self.curr_attributes[cons.TAG_BACKGROUND] = ""
+            elif tag == "a": self.curr_attributes[cons.TAG_LINK] = ""
         elif tag == "dl":
             # backward one level in nodes list
             for pixbuf_element in self.pixbuf_vector:
@@ -1493,14 +1493,14 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
                 self.curr_table = []
                 self.curr_rows_span = []
                 self.curr_table_header = False
-            elif tag == "b": self.curr_attributes["weight"] = "heavy"
-            elif tag == "i": self.curr_attributes["style"] = "italic"
-            elif tag == "u": self.curr_attributes["underline"] = "single"
-            elif tag == "s": self.curr_attributes["strikethrough"] = "true"
-            elif tag == "style": self.curr_state = 0
+            elif tag == "b": self.curr_attributes[cons.TAG_WEIGHT] = "heavy"
+            elif tag == "i": self.curr_attributes[cons.TAG_STYLE] = "italic"
+            elif tag == "u": self.curr_attributes[cons.TAG_UNDERLINE] = "single"
+            elif tag == "s": self.curr_attributes[cons.TAG_STRIKETHROUGH] = "true"
+            elif tag == cons.TAG_STYLE: self.curr_state = 0
             elif tag == "span":
                 for attr in attrs:
-                    if attr[0] == "style":
+                    if attr[0] == cons.TAG_STYLE:
                         attributes = attr[1].split(";")
                         for attribute in attributes:
                             #print "attribute", attribute
@@ -1509,42 +1509,42 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
                                 if match.group(1) == "color":
                                     attribute = self.get_rgb_gtk_attribute(match.group(2).strip())
                                     if attribute:
-                                        self.curr_attributes["foreground"] = attribute
-                                        self.latest_span.append("foreground")
-                                elif match.group(1) in ["background", "background-color"]:
+                                        self.curr_attributes[cons.TAG_FOREGROUND] = attribute
+                                        self.latest_span.append(cons.TAG_FOREGROUND)
+                                elif match.group(1) in [cons.TAG_BACKGROUND, "background-color"]:
                                     attribute = self.get_rgb_gtk_attribute(match.group(2).strip())
                                     if attribute:
-                                        self.curr_attributes["background"] = attribute
-                                        self.latest_span.append("background")
+                                        self.curr_attributes[cons.TAG_BACKGROUND] = attribute
+                                        self.latest_span.append(cons.TAG_BACKGROUND)
                                 elif match.group(1) == "text-decoration":
-                                    if match.group(2).strip() in ["underline", "underline;"]:
-                                        self.curr_attributes["underline"] = "single"
-                                        self.latest_span.append("underline")
+                                    if match.group(2).strip() in [cons.TAG_UNDERLINE, "underline;"]:
+                                        self.curr_attributes[cons.TAG_UNDERLINE] = "single"
+                                        self.latest_span.append(cons.TAG_UNDERLINE)
                                 elif match.group(1) == "font-weight":
                                     if match.group(2).strip() in ["bolder", "700"]:
-                                        self.curr_attributes["weight"] = "heavy"
-                                        self.latest_span.append("weight")
+                                        self.curr_attributes[cons.TAG_WEIGHT] = "heavy"
+                                        self.latest_span.append(cons.TAG_WEIGHT)
             elif tag == "font":
                 for attr in attrs:
                     if attr[0] == "color":
                         attribute = self.get_rgb_gtk_attribute(attr[1].strip())
                         if attribute:
-                            self.curr_attributes["foreground"] = attribute
-                            self.latest_font = "foreground"
+                            self.curr_attributes[cons.TAG_FOREGROUND] = attribute
+                            self.latest_font = cons.TAG_FOREGROUND
             elif tag in ["h1", "h2", "h3"]:
                 self.rich_text_serialize(cons.CHAR_NEWLINE)
-                if tag == "h1": self.curr_attributes["scale"] = "h1"
-                elif tag == "h2": self.curr_attributes["scale"] = "h2"
-                else: self.curr_attributes["scale"] = "h3"
+                if tag == "h1": self.curr_attributes[cons.TAG_SCALE] = "h1"
+                elif tag == "h2": self.curr_attributes[cons.TAG_SCALE] = "h2"
+                else: self.curr_attributes[cons.TAG_SCALE] = "h3"
                 for attr in attrs:
-                    if attr[0] == "align": self.curr_attributes["justification"] = attr[1].strip().lower()
+                    if attr[0] == "align": self.curr_attributes[cons.TAG_JUSTIFICATION] = attr[1].strip().lower()
             elif tag == "a" and len(attrs) > 0:
                 #print "attrs", attrs
                 for attr in attrs:
                     if attr[0] == "href":
                         link_url = attr[1]
                         if len(link_url) > 7:
-                            self.curr_attributes["link"] = get_internal_link_from_http_url(link_url)
+                            self.curr_attributes[cons.TAG_LINK] = get_internal_link_from_http_url(link_url)
                         break
             elif tag == "br": self.rich_text_serialize(cons.CHAR_NEWLINE)
             elif tag == "ol": self.curr_list_type = ["o", 1]
@@ -1590,26 +1590,26 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
         """Encountered the end of a tag"""
         if tag in self.monitored_tags: self.in_a_tag -= 1
         if self.curr_state == 0:
-            if tag == "style": self.curr_state = 1
+            if tag == cons.TAG_STYLE: self.curr_state = 1
         if self.curr_state == 1:
             if tag == "p": self.rich_text_serialize(cons.CHAR_NEWLINE)
-            elif tag == "b": self.curr_attributes["weight"] = ""
-            elif tag == "i": self.curr_attributes["style"] = ""
-            elif tag == "u": self.curr_attributes["underline"] = ""
-            elif tag == "s": self.curr_attributes["strikethrough"] = ""
+            elif tag == "b": self.curr_attributes[cons.TAG_WEIGHT] = ""
+            elif tag == "i": self.curr_attributes[cons.TAG_STYLE] = ""
+            elif tag == "u": self.curr_attributes[cons.TAG_UNDERLINE] = ""
+            elif tag == "s": self.curr_attributes[cons.TAG_STRIKETHROUGH] = ""
             elif tag == "span":
-                if "foreground" in self.latest_span: self.curr_attributes["foreground"] = ""
-                if "background" in self.latest_span: self.curr_attributes["background"] = ""
-                if "underline" in self.latest_span: self.curr_attributes["underline"] = ""
-                if "weight" in self.latest_span: self.curr_attributes["weight"] = ""
+                if cons.TAG_FOREGROUND in self.latest_span: self.curr_attributes[cons.TAG_FOREGROUND] = ""
+                if cons.TAG_BACKGROUND in self.latest_span: self.curr_attributes[cons.TAG_BACKGROUND] = ""
+                if cons.TAG_UNDERLINE in self.latest_span: self.curr_attributes[cons.TAG_UNDERLINE] = ""
+                if cons.TAG_WEIGHT in self.latest_span: self.curr_attributes[cons.TAG_WEIGHT] = ""
                 self.latest_span = []
             elif tag == "font":
-                if self.latest_font == "foreground": self.curr_attributes["foreground"] = ""
+                if self.latest_font == cons.TAG_FOREGROUND: self.curr_attributes[cons.TAG_FOREGROUND] = ""
             elif tag in ["h1", "h2", "h3"]:
-                self.curr_attributes["scale"] = ""
-                self.curr_attributes["justification"] = ""
+                self.curr_attributes[cons.TAG_SCALE] = ""
+                self.curr_attributes[cons.TAG_JUSTIFICATION] = ""
                 self.rich_text_serialize(cons.CHAR_NEWLINE)
-            elif tag == "a": self.curr_attributes["link"] = ""
+            elif tag == "a": self.curr_attributes[cons.TAG_LINK] = ""
             elif tag == "li": self.rich_text_serialize(cons.CHAR_NEWLINE)
             elif tag == "pre": self.pre_tag = ""
         elif self.curr_state == 2:
