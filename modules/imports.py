@@ -452,6 +452,7 @@ class ZimHandler():
     def node_wiki_parse(self, wiki_string, node_name, curr_folder):
         """Parse the node wiki content"""
         curr_pos = 0
+        wiki_string = wiki_string.replace(cons.CHAR_NEWLINE+cons.CHAR_STAR+cons.CHAR_SPACE, cons.CHAR_NEWLINE+cons.CHAR_LISTBUL+cons.CHAR_SPACE)
         max_pos = len(wiki_string)
         newline_count = 0
         wiki_slot = ""
