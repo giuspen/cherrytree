@@ -67,8 +67,20 @@ TREE_TEXT_DARK_BG = COLOR_24_BLUEBG
 TREE_TEXT_LIGHT_FG = COLOR_24_LBLACK
 TREE_TEXT_LIGHT_BG = COLOR_24_GRAY
 BAD_CHARS = "[\x00-\x08\x0b-\x1f]"
-TAG_PROPERTIES = ["weight", "foreground", "background", "style", "underline", "strikethrough",
-                  "scale", "family", "justification", "link"]
+
+TAG_WEIGHT = "weight"
+TAG_FOREGROUND = "foreground"
+TAG_BACKGROUND = "background"
+TAG_STYLE = "style"
+TAG_UNDERLINE = "underline"
+TAG_STRIKETHROUGH = "strikethrough"
+TAG_SCALE = "scale"
+TAG_FAMILY = "family"
+TAG_JUSTIFICATION = "justification"
+TAG_LINK = "link"
+TAG_PROPERTIES = [TAG_WEIGHT, TAG_FOREGROUND, TAG_BACKGROUND, TAG_STYLE, TAG_UNDERLINE,
+                  TAG_STRIKETHROUGH, TAG_SCALE, TAG_FAMILY, TAG_JUSTIFICATION, TAG_LINK]
+
 CUSTOM_COLORS_ID = "custom-colors"
 STYLE_SCHEME_DEFAULT = "cobalt"
 ANCHOR_CHAR = GLADE_PATH + 'anchor.png'

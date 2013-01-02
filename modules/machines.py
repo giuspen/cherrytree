@@ -174,7 +174,7 @@ class XMLHandler:
     def codebox_deserialize(self, curr_buffer, dom_node):
         """From the XML codebox text to the SourceBuffer"""
         char_offset = int(dom_node.attributes["char_offset"].value)
-        justification = dom_node.attributes["justification"].value if dom_node.hasAttribute("justification") else "left"
+        justification = dom_node.attributes[cons.TAG_JUSTIFICATION].value if dom_node.hasAttribute(cons.TAG_JUSTIFICATION) else "left"
         codebox_dict = {
            'frame_width': int(dom_node.attributes['frame_width'].value),
            'frame_height': int(dom_node.attributes['frame_height'].value),
@@ -192,7 +192,7 @@ class XMLHandler:
     def table_deserialize(self, curr_buffer, dom_node):
         """From the XML table text to the SourceBuffer"""
         char_offset = int(dom_node.attributes["char_offset"].value)
-        if dom_node.hasAttribute("justification"): justification = dom_node.attributes["justification"].value
+        if dom_node.hasAttribute(cons.TAG_JUSTIFICATION): justification = dom_node.attributes[cons.TAG_JUSTIFICATION].value
         else: justification = "left"
         table_dict = {
             'matrix': [],
@@ -219,7 +219,7 @@ class XMLHandler:
     def image_deserialize(self, curr_buffer, dom_node, version):
         """From the XML embedded image text to the SourceBuffer"""
         char_offset = int(dom_node.attributes["char_offset"].value)
-        if dom_node.hasAttribute("justification"): justification = dom_node.attributes["justification"].value
+        if dom_node.hasAttribute(cons.TAG_JUSTIFICATION): justification = dom_node.attributes[cons.TAG_JUSTIFICATION].value
         else: justification = "left"
         if dom_node.hasAttribute("anchor"):
             pixbuf = gtk.gdk.pixbuf_new_from_file(cons.ANCHOR_CHAR)
@@ -351,7 +351,7 @@ class XMLHandler:
         """From element [char_offset, codebox, justification] to dom node"""
         dom_iter = self.dom.createElement("codebox")
         dom_iter.setAttribute("char_offset", str(element[0]))
-        if element[2] != "left": dom_iter.setAttribute("justification", element[2])
+        if element[2] != "left": dom_iter.setAttribute(cons.TAG_JUSTIFICATION, element[2])
         dom_iter.setAttribute("frame_width", str(element[1]['frame_width']))
         dom_iter.setAttribute("frame_height", str(element[1]['frame_height']))
         dom_iter.setAttribute("width_in_pixels", str(element[1]['width_in_pixels']))
@@ -366,7 +366,7 @@ class XMLHandler:
         """From element [char_offset, table, justification] to dom node"""
         dom_iter = self.dom.createElement("table")
         dom_iter.setAttribute("char_offset", str(element[0]))
-        if element[2] != "left": dom_iter.setAttribute("justification", element[2])
+        if element[2] != "left": dom_iter.setAttribute(cons.TAG_JUSTIFICATION, element[2])
         dom_iter.setAttribute("col_min", str(element[1]['col_min']))
         dom_iter.setAttribute("col_max", str(element[1]['col_max']))
         dom_node.appendChild(dom_iter)
@@ -383,7 +383,7 @@ class XMLHandler:
         """From element [char_offset, pixbuf, justification] to dom node"""
         dom_iter = dom.createElement("encoded_png")
         dom_iter.setAttribute("char_offset", str(element[0]))
-        if element[2] != "left": dom_iter.setAttribute("justification", element[2])
+        if element[2] != "left": dom_iter.setAttribute(cons.TAG_JUSTIFICATION, element[2])
         if "anchor" in dir(element[1]):
             dom_iter.setAttribute("anchor", element[1].anchor)
             is_anchor_image = True
@@ -415,35 +415,35 @@ class XMLHandler:
         for tag in toggled_off:
             tag_name = tag.get_property("name")
             if tag_name:
-                if tag_name[0:7] == "weight_": curr_attributes["weight"] = ""
-                elif tag_name[0:11] == "foreground_": curr_attributes["foreground"] = ""
-                elif tag_name[0:11] == "background_": curr_attributes["background"] = ""
-                elif tag_name[0:6] == "style_": curr_attributes["style"] = ""
-                elif tag_name[0:10] == "underline_": curr_attributes["underline"] = ""
-                elif tag_name[0:14] == "strikethrough_": curr_attributes["strikethrough"] = ""
-                elif tag_name[0:6] == "scale_": curr_attributes["scale"] = ""
-                elif tag_name[0:14] == "justification_": curr_attributes["justification"] = ""
-                elif tag_name[0:5] == "link_": curr_attributes["link"] = ""
-                elif tag_name[0:7] == "family_": curr_attributes["family"] = ""
+                if tag_name[0:7] == "weight_": curr_attributes[cons.TAG_WEIGHT] = ""
+                elif tag_name[0:11] == "foreground_": curr_attributes[cons.TAG_FOREGROUND] = ""
+                elif tag_name[0:11] == "background_": curr_attributes[cons.TAG_BACKGROUND] = ""
+                elif tag_name[0:6] == "style_": curr_attributes[cons.TAG_STYLE] = ""
+                elif tag_name[0:10] == "underline_": curr_attributes[cons.TAG_UNDERLINE] = ""
+                elif tag_name[0:14] == "strikethrough_": curr_attributes[cons.TAG_STRIKETHROUGH] = ""
+                elif tag_name[0:6] == "scale_": curr_attributes[cons.TAG_SCALE] = ""
+                elif tag_name[0:14] == "justification_": curr_attributes[cons.TAG_JUSTIFICATION] = ""
+                elif tag_name[0:5] == "link_": curr_attributes[cons.TAG_LINK] = ""
+                elif tag_name[0:7] == "family_": curr_attributes[cons.TAG_FAMILY] = ""
                 else: support.dialog_error("Failure processing the toggling OFF tag %s" % tag_name, self.dad.window)
         toggled_on = curr_iter.get_toggled_tags(toggled_on=True)
         for tag in toggled_on:
             tag_name = tag.get_property("name")
             if tag_name:
-                if tag_name[0:7] == "weight_": curr_attributes["weight"] = tag_name[7:]
+                if tag_name[0:7] == "weight_": curr_attributes[cons.TAG_WEIGHT] = tag_name[7:]
                 elif tag_name[0:11] == "foreground_":
                     new_foreground = tag_name[11:]
-                    if new_foreground != cons.COLOR_48_BLACK: curr_attributes["foreground"] = new_foreground
+                    if new_foreground != cons.COLOR_48_BLACK: curr_attributes[cons.TAG_FOREGROUND] = new_foreground
                 elif tag_name[0:11] == "background_":
                     new_background = tag_name[11:]
-                    if new_background != cons.COLOR_48_WHITE: curr_attributes["background"] = new_background
-                elif tag_name[0:6] == "scale_": curr_attributes["scale"] = tag_name[6:]
-                elif tag_name[0:14] == "justification_": curr_attributes["justification"] = tag_name[14:]
-                elif tag_name[0:6] == "style_": curr_attributes["style"] = tag_name[6:]
-                elif tag_name[0:10] == "underline_": curr_attributes["underline"] = tag_name[10:]
-                elif tag_name[0:14] == "strikethrough_": curr_attributes["strikethrough"] = tag_name[14:]
-                elif tag_name[0:5] == "link_": curr_attributes["link"] = tag_name[5:]
-                elif tag_name[0:7] == "family_": curr_attributes["family"] = tag_name[7:]
+                    if new_background != cons.COLOR_48_WHITE: curr_attributes[cons.TAG_BACKGROUND] = new_background
+                elif tag_name[0:6] == "scale_": curr_attributes[cons.TAG_SCALE] = tag_name[6:]
+                elif tag_name[0:14] == "justification_": curr_attributes[cons.TAG_JUSTIFICATION] = tag_name[14:]
+                elif tag_name[0:6] == "style_": curr_attributes[cons.TAG_STYLE] = tag_name[6:]
+                elif tag_name[0:10] == "underline_": curr_attributes[cons.TAG_UNDERLINE] = tag_name[10:]
+                elif tag_name[0:14] == "strikethrough_": curr_attributes[cons.TAG_STRIKETHROUGH] = tag_name[14:]
+                elif tag_name[0:5] == "link_": curr_attributes[cons.TAG_LINK] = tag_name[5:]
+                elif tag_name[0:7] == "family_": curr_attributes[cons.TAG_FAMILY] = tag_name[7:]
                 else: support.dialog_error("Failure processing the toggling ON tag %s" % tag_name, self.dad.window)
 
     def toc_insert_all(self, text_buffer, top_tree_iter):
@@ -460,7 +460,7 @@ class XMLHandler:
         #print toc_list_per_node
         curr_node_id = -1
         if toc_list_per_node:
-            tag_property = "link"
+            tag_property = cons.TAG_LINK
             curr_offset = 0
             text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), cons.CHAR_NEWLINE)
             curr_offset += 1
@@ -534,7 +534,7 @@ class XMLHandler:
                 if curr_iter.get_offset() == offset_old: break
         else: self.toc_insert_parser(text_buffer, start_iter, curr_iter, node_id)
         if self.toc_list and not just_get_toc_list:
-            tag_property = "link"
+            tag_property = cons.TAG_LINK
             property_value = "node" + cons.CHAR_SPACE + str(node_id)
             curr_offset = 0
             text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), cons.CHAR_NEWLINE)
@@ -560,13 +560,13 @@ class XMLHandler:
 
     def toc_insert_parser(self, text_buffer, start_iter, end_iter, node_id):
         """Parses a Tagged String for the TOC insert"""
-        if self.curr_attributes["scale"] not in ["h1", "h2", "h3"]: return None
+        if self.curr_attributes[cons.TAG_SCALE] not in ["h1", "h2", "h3"]: return None
         start_offset = start_iter.get_offset()
         end_offset = end_iter.get_offset()
-        if self.curr_attributes["scale"] == "h1":
+        if self.curr_attributes[cons.TAG_SCALE] == "h1":
             self.toc_counters["h1"] += 1
             self.toc_list.append(["h1-%d" % self.toc_counters["h1"], text_buffer.get_text(start_iter, end_iter), node_id])
-        elif self.curr_attributes["scale"] == "h2":
+        elif self.curr_attributes[cons.TAG_SCALE] == "h2":
             self.toc_counters["h2"] += 1
             self.toc_list.append(["h2-%d" % self.toc_counters["h2"], text_buffer.get_text(start_iter, end_iter), node_id])
         else:
@@ -661,8 +661,8 @@ class StateMachine:
 
     def get_iter_alignment(self, iter_text):
         """Get the Alignment Value of the given Iter"""
-        align_center = self.dad.apply_tag_exist_or_create("justification", "center")
-        align_right = self.dad.apply_tag_exist_or_create("justification", "right")
+        align_center = self.dad.apply_tag_exist_or_create(cons.TAG_JUSTIFICATION, "center")
+        align_right = self.dad.apply_tag_exist_or_create(cons.TAG_JUSTIFICATION, "right")
         if iter_text.has_tag(self.dad.tag_table.lookup(align_center)): return "center"
         elif iter_text.has_tag(self.dad.tag_table.lookup(align_right)): return "right"
         else: return "left"
@@ -699,7 +699,7 @@ class StateMachine:
         if justification == None: return
         iter_end = iter_start.copy()
         iter_end.forward_char()
-        self.dad.apply_tag("justification",
+        self.dad.apply_tag(cons.TAG_JUSTIFICATION,
                            justification,
                            iter_sel_start=iter_start,
                            iter_sel_end=iter_end,

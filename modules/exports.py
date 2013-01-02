@@ -244,7 +244,7 @@ class Export2Pango:
             curr_tags = curr_iter.get_tags()
             if len(curr_tags) > 0:
                 curr_tag_str = curr_tags[0].get_property("foreground-gdk").to_string()
-                font_weight = curr_tags[0].get_property("weight")
+                font_weight = curr_tags[0].get_property(cons.TAG_WEIGHT)
                 if curr_tag_str == cons.COLOR_48_BLACK:
                     if former_tag_str != curr_tag_str:
                         former_tag_str = curr_tag_str
@@ -331,10 +331,10 @@ class Export2Pango:
         subscript_active = False
         monospace_active = False
         for tag_property in cons.TAG_PROPERTIES:
-            if tag_property not in ["justification", "link"] and self.curr_attributes[tag_property] != '':
+            if tag_property not in [cons.TAG_JUSTIFICATION, cons.TAG_LINK] and self.curr_attributes[tag_property] != '':
                 property_value = self.curr_attributes[tag_property]
                 # tag names fix
-                if tag_property == "scale":
+                if tag_property == cons.TAG_SCALE:
                     if property_value == "sup":
                         superscript_active = True
                         continue
@@ -347,7 +347,7 @@ class Export2Pango:
                     elif property_value == "h1": property_value = 'xx-large'
                     elif property_value == "h2": property_value = 'x-large'
                     elif property_value == "h3": property_value = 'large'
-                elif tag_property == "family":
+                elif tag_property == cons.TAG_FAMILY:
                     monospace_active = True
                     continue
                 pango_attrs += ' %s="%s"' % (tag_property, property_value)
@@ -581,7 +581,7 @@ class Export2Html:
             curr_tags = curr_iter.get_tags()
             if len(curr_tags) > 0:
                 curr_tag_str = curr_tags[0].get_property("foreground-gdk").to_string()
-                font_weight = curr_tags[0].get_property("weight")
+                font_weight = curr_tags[0].get_property(cons.TAG_WEIGHT)
                 if curr_tag_str == cons.COLOR_48_BLACK:
                     if former_tag_str != curr_tag_str:
                         former_tag_str = curr_tag_str
@@ -690,35 +690,35 @@ class Export2Html:
             if self.curr_attributes[tag_property] != '':
                 property_value = self.curr_attributes[tag_property]
                 #print property_value
-                if tag_property == "weight":
+                if tag_property == cons.TAG_WEIGHT:
                     # font-weight:bolder
                     #tag_property = "font-weight"
                     #property_value = "bolder"
                     bold_active = True
                     continue
-                elif tag_property == "foreground":
+                elif tag_property == cons.TAG_FOREGROUND:
                     # color:#FFFF00
                     tag_property = "color"
                     property_value = "#" + self.rgb_to_24(property_value[1:])
-                elif tag_property == "background":
+                elif tag_property == cons.TAG_BACKGROUND:
                     # background-color:#FFFF00
                     tag_property = "background-color"
                     property_value = "#" + self.rgb_to_24(property_value[1:])
-                elif tag_property == "style":
+                elif tag_property == cons.TAG_STYLE:
                     # font-style:italic
                     #tag_property = "font-style"
                     #property_value = "italic"
                     italic_active = True
                     continue
-                elif tag_property == "underline":
+                elif tag_property == cons.TAG_UNDERLINE:
                     # text-decoration:underline
                     tag_property = "text-decoration"
-                    property_value = "underline"
-                elif tag_property == "strikethrough":
+                    property_value = cons.TAG_UNDERLINE
+                elif tag_property == cons.TAG_STRIKETHROUGH:
                     # text-decoration:line-through
                     tag_property = "text-decoration"
                     property_value = "line-through"
-                elif tag_property == "scale":
+                elif tag_property == cons.TAG_SCALE:
                     if property_value == "sup":
                         superscript_active = True
                         continue
@@ -732,14 +732,14 @@ class Export2Html:
                         elif property_value == "h1": property_value = "xx-large"
                         elif property_value == "h2": property_value = "x-large"
                         elif property_value == "h3": property_value = "large"
-                elif tag_property == "family":
+                elif tag_property == cons.TAG_FAMILY:
                     monospace_active = True
                     continue
-                elif tag_property == "justification":
+                elif tag_property == cons.TAG_JUSTIFICATION:
                     # text-align:center/left/right
                     #tag_property = "text-align"
                     continue
-                elif tag_property == "link":
+                elif tag_property == cons.TAG_LINK:
                     # <a href="http://www.example.com/">link-text goes here</a>
                     vector = property_value.split()
                     if vector[0] == "webs": href = vector[1]

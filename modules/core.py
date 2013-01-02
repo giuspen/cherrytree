@@ -3367,77 +3367,77 @@ class CherryTree:
 
     def apply_tag_foreground(self, *args):
         """The Foreground Color Chooser Button was Pressed"""
-        self.apply_tag("foreground")
+        self.apply_tag(cons.TAG_FOREGROUND)
 
     def apply_tag_background(self, *args):
         """The Background Color Chooser Button was Pressed"""
-        self.apply_tag("background")
+        self.apply_tag(cons.TAG_BACKGROUND)
 
     def apply_tag_link(self, *args):
         """The Link Insert Button was Pressed"""
-        self.apply_tag("link")
+        self.apply_tag(cons.TAG_LINK)
 
     def apply_tag_bold(self, *args):
         """The Bold Button was Pressed"""
-        self.apply_tag("weight", "heavy")
+        self.apply_tag(cons.TAG_WEIGHT, "heavy")
 
     def apply_tag_italic(self, *args):
         """The Italic Button was Pressed"""
-        self.apply_tag("style", "italic")
+        self.apply_tag(cons.TAG_STYLE, "italic")
 
     def apply_tag_underline(self, *args):
         """The Underline Button was Pressed"""
-        self.apply_tag("underline", "single")
+        self.apply_tag(cons.TAG_UNDERLINE, "single")
 
     def apply_tag_strikethrough(self, *args):
         """The Strikethrough Button was Pressed"""
-        self.apply_tag("strikethrough", "true")
+        self.apply_tag(cons.TAG_STRIKETHROUGH, "true")
 
     def apply_tag_small(self, *args):
         """The Small Button was Pressed"""
-        self.apply_tag("scale", "small")
+        self.apply_tag(cons.TAG_SCALE, "small")
 
     def apply_tag_subscript(self, *args):
         """The Subscript Button was Pressed"""
-        self.apply_tag("scale", "sub")
+        self.apply_tag(cons.TAG_SCALE, "sub")
 
     def apply_tag_superscript(self, *args):
         """The Superscript Button was Pressed"""
-        self.apply_tag("scale", "sup")
+        self.apply_tag(cons.TAG_SCALE, "sup")
 
     def apply_tag_monospace(self, *args):
         """The Monospace Button was Pressed"""
-        self.apply_tag("family", "monospace")
+        self.apply_tag(cons.TAG_FAMILY, "monospace")
 
     def apply_tag_h1(self, *args):
         """The H1 Button was Pressed"""
         iter_start, iter_end = self.lists_handler.get_paragraph_iters()
-        self.apply_tag("scale", "h1", iter_sel_start=iter_start, iter_sel_end=iter_end)
+        self.apply_tag(cons.TAG_SCALE, "h1", iter_sel_start=iter_start, iter_sel_end=iter_end)
 
     def apply_tag_h2(self, *args):
         """The H2 Button was Pressed"""
         iter_start, iter_end = self.lists_handler.get_paragraph_iters()
-        self.apply_tag("scale", "h2", iter_sel_start=iter_start, iter_sel_end=iter_end)
+        self.apply_tag(cons.TAG_SCALE, "h2", iter_sel_start=iter_start, iter_sel_end=iter_end)
 
     def apply_tag_h3(self, *args):
         """The H3 Button was Pressed"""
         iter_start, iter_end = self.lists_handler.get_paragraph_iters()
-        self.apply_tag("scale", "h3", iter_sel_start=iter_start, iter_sel_end=iter_end)
+        self.apply_tag(cons.TAG_SCALE, "h3", iter_sel_start=iter_start, iter_sel_end=iter_end)
 
     def apply_tag_justify_right(self, *args):
         """The Justify Right Button was Pressed"""
         iter_start, iter_end = self.lists_handler.get_paragraph_iters()
-        self.apply_tag("justification", "right", iter_sel_start=iter_start, iter_sel_end=iter_end)
+        self.apply_tag(cons.TAG_JUSTIFICATION, "right", iter_sel_start=iter_start, iter_sel_end=iter_end)
 
     def apply_tag_justify_left(self, *args):
         """The Justify Left Button was Pressed"""
         iter_start, iter_end = self.lists_handler.get_paragraph_iters()
-        self.apply_tag("justification", "left", iter_sel_start=iter_start, iter_sel_end=iter_end)
+        self.apply_tag(cons.TAG_JUSTIFICATION, "left", iter_sel_start=iter_start, iter_sel_end=iter_end)
 
     def apply_tag_justify_center(self, *args):
         """The Justify Center Button was Pressed"""
         iter_start, iter_end = self.lists_handler.get_paragraph_iters()
-        self.apply_tag("justification", "center", iter_sel_start=iter_start, iter_sel_end=iter_end)
+        self.apply_tag(cons.TAG_JUSTIFICATION, "center", iter_sel_start=iter_start, iter_sel_end=iter_end)
 
     def apply_tag_try_automatic_bounds(self):
         """Try to Select a Word Forward/Backward the Cursor"""
@@ -3489,11 +3489,11 @@ class CherryTree:
         if self.user_active and not self.is_curr_node_not_syntax_highlighting_or_error(): return
         if not text_buffer: text_buffer = self.curr_buffer
         if iter_sel_start == None and iter_sel_end == None:
-            if tag_property != "justification":
+            if tag_property != cons.TAG_JUSTIFICATION:
                 if not self.is_there_selected_node_or_error(): return
-                if tag_property == "link": link_node_id = None
+                if tag_property == cons.TAG_LINK: link_node_id = None
                 if not text_buffer.get_has_selection():
-                    if tag_property != "link":
+                    if tag_property != cons.TAG_LINK:
                         if not self.apply_tag_try_automatic_bounds():
                             support.dialog_warning(_("No Text is Selected"), self.window)
                             return
@@ -3531,7 +3531,7 @@ class CherryTree:
                 support.dialog_warning(_("The Cursor is Not into a Paragraph"), self.window)
                 return
         if property_value == None:
-            if tag_property == "link":
+            if tag_property == cons.TAG_LINK:
                 if self.next_chars_from_iter_are(iter_sel_start, 7, "http://")\
                 or self.next_chars_from_iter_are(iter_sel_start, 8, "https://"):
                     self.link_type = "webs"
@@ -3572,29 +3572,29 @@ class CherryTree:
                 if response == 2: return # cancel was clicked
                 self.curr_colors[tag_property[0]] = self.glade.colorselection.get_current_color()
                 property_value = self.curr_colors[tag_property[0]].to_string()
-        if tag_property != "link":
+        if tag_property != cons.TAG_LINK:
             self.latest_tag = [tag_property, property_value]
         curr_tags = iter_sel_start.get_tags()
         # if there's already a tag about this property, we remove it before apply the new one
         for curr_tag in curr_tags:
             tag_name = curr_tag.get_property("name")
             if not tag_name: continue
-            if (tag_property == "weight" and tag_name.startswith("weight_"))\
-            or (tag_property == "style" and tag_name.startswith("style_"))\
-            or (tag_property == "underline" and tag_name.startswith("underline_"))\
-            or (tag_property == "strikethrough" and tag_name.startswith("strikethrough_"))\
-            or (tag_property == "family" and tag_name.startswith("family_")):
+            if (tag_property == cons.TAG_WEIGHT and tag_name.startswith("weight_"))\
+            or (tag_property == cons.TAG_STYLE and tag_name.startswith("style_"))\
+            or (tag_property == cons.TAG_UNDERLINE and tag_name.startswith("underline_"))\
+            or (tag_property == cons.TAG_STRIKETHROUGH and tag_name.startswith("strikethrough_"))\
+            or (tag_property == cons.TAG_FAMILY and tag_name.startswith("family_")):
                 text_buffer.remove_tag(curr_tag, iter_sel_start, iter_sel_end)
                 return # just tag removal
-            elif tag_property == "scale" and tag_name.startswith("scale_"):
+            elif tag_property == cons.TAG_SCALE and tag_name.startswith("scale_"):
                 text_buffer.remove_tag(curr_tag, iter_sel_start, iter_sel_end)
                 #print property_value, tag_name[6:]
                 if property_value == tag_name[6:]: return # just tag removal
-            elif tag_property == "justification" and tag_name[0:14] == "justification_":
+            elif tag_property == cons.TAG_JUSTIFICATION and tag_name[0:14] == "justification_":
                 text_buffer.remove_tag(curr_tag, iter_sel_start, iter_sel_end)
-            elif (tag_property == "foreground" and tag_name[0:11] == "foreground_")\
-            or (tag_property == "background" and tag_name[0:11] == "background_")\
-            or (tag_property == "link" and tag_name[0:5] == "link_"):
+            elif (tag_property == cons.TAG_FOREGROUND and tag_name[0:11] == "foreground_")\
+            or (tag_property == cons.TAG_BACKGROUND and tag_name[0:11] == "background_")\
+            or (tag_property == cons.TAG_LINK and tag_name[0:5] == "link_"):
                 text_buffer.remove_tag(curr_tag, iter_sel_start, iter_sel_end)
         text_buffer.apply_tag_by_name(self.apply_tag_exist_or_create(tag_property, property_value),
                                            iter_sel_start, iter_sel_end)
@@ -3629,25 +3629,25 @@ class CherryTree:
             elif property_value == "right": tag.set_property(tag_property, gtk.JUSTIFY_RIGHT)
             elif property_value == "center": tag.set_property(tag_property, gtk.JUSTIFY_CENTER)
             elif property_value == "sub":
-                tag.set_property("scale", pango.SCALE_X_SMALL)
+                tag.set_property(cons.TAG_SCALE, pango.SCALE_X_SMALL)
                 rise = pango.FontDescription(self.text_font).get_size() / -4
                 tag.set_property("rise", rise)
             elif property_value == "sup":
-                tag.set_property("scale", pango.SCALE_X_SMALL)
+                tag.set_property(cons.TAG_SCALE, pango.SCALE_X_SMALL)
                 rise = pango.FontDescription(self.text_font).get_size() / 2
                 tag.set_property("rise", rise)
             elif property_value[0:4] == "webs":
-                tag.set_property("underline", pango.UNDERLINE_SINGLE)
-                tag.set_property("foreground", "#00004444ffff")
+                tag.set_property(cons.TAG_UNDERLINE, pango.UNDERLINE_SINGLE)
+                tag.set_property(cons.TAG_FOREGROUND, "#00004444ffff")
             elif property_value[0:4] == "node":
-                tag.set_property("underline", pango.UNDERLINE_SINGLE)
-                tag.set_property("foreground", "#071c838e071c")
+                tag.set_property(cons.TAG_UNDERLINE, pango.UNDERLINE_SINGLE)
+                tag.set_property(cons.TAG_FOREGROUND, "#071c838e071c")
             elif property_value[0:4] == "file":
-                tag.set_property("underline", pango.UNDERLINE_SINGLE)
-                tag.set_property("foreground", "#8b8b69691414")
+                tag.set_property(cons.TAG_UNDERLINE, pango.UNDERLINE_SINGLE)
+                tag.set_property(cons.TAG_FOREGROUND, "#8b8b69691414")
             elif property_value[0:4] == "fold":
-                tag.set_property("underline", pango.UNDERLINE_SINGLE)
-                tag.set_property("foreground", "#7f7f7f7f7f7f")
+                tag.set_property(cons.TAG_UNDERLINE, pango.UNDERLINE_SINGLE)
+                tag.set_property(cons.TAG_FOREGROUND, "#7f7f7f7f7f7f")
             else: tag.set_property(tag_property, property_value)
             self.tag_table.add(tag)
         return str(tag_name)
@@ -3658,7 +3658,7 @@ class CherryTree:
         tags = iter.get_tags()
         for tag in tags:
             tag_name = tag.get_property("name")
-            if tag_name and tag_name[0:4] == "link": break
+            if tag_name and tag_name[0:4] == cons.TAG_LINK: break
         else: return ""
         iter_end = iter.copy()
         if not iter_end.forward_to_tag_toggle(tag): return ""
@@ -3837,7 +3837,7 @@ class CherryTree:
         tags = text_iter.get_tags()
         for tag in tags:
             tag_name = tag.get_property("name")
-            if tag_name and tag_name[0:4] == "link":
+            if tag_name and tag_name[0:4] == cons.TAG_LINK:
                 hovering_link = True
                 vector = tag_name[5:].split()
                 if vector[0] in ["file", "fold"]: tooltip = base64.b64decode(vector[1])
@@ -3897,7 +3897,7 @@ class CherryTree:
                 if tags:
                     for tag in tags:
                         tag_name = tag.get_property("name")
-                        if tag_name and tag_name[0:4] == "link":
+                        if tag_name and tag_name[0:4] == cons.TAG_LINK:
                             self.link_clicked(tag_name[5:])
                             return False
                 hovering_todo_list = False
