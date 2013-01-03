@@ -235,7 +235,7 @@ msgstr ""
 #: modules/core.py:1224
 #, python-format
 msgid "You Have No Write Access to %s"
-msgstr ""
+msgstr "Sie haben keine Schreibrechte für %s"
 
 #: modules/core.py:1239
 msgid "Writing to Disk..."
@@ -251,7 +251,7 @@ msgstr "Nicht geschützt"
 
 #: modules/core.py:1279 modules/core.py:1283
 msgid "Password Protected"
-msgstr "Passwort geschützt"
+msgstr "passwortgeschützt"
 
 #: modules/core.py:1292
 msgid "Enter the New Password Twice"
@@ -318,7 +318,7 @@ msgstr "Neuen untergeordneten Knotennamen eingeben..."
 #: modules/core.py:2429
 #, python-format
 msgid "Are you sure to <b>Delete the node '%s'?</b>"
-msgstr "Wollen Sie den <b>Knoten '%s' wirklich löschen?</b>"
+msgstr "Wollen Sie den Knoten <b>'%s'</b> wirklich löschen?"
 
 #: modules/core.py:2431
 msgid "The node <b>has Children, they will be Deleted too!</b>"
@@ -339,11 +339,11 @@ msgstr ""
 
 #: modules/core.py:2855
 msgid "The Size of the Toolbar Icons is already at the Maximum Value"
-msgstr "Die Icons in der Symbolleiste können nicht weiter vergrößert werden"
+msgstr "Größere Icons sind nicht möglich"
 
 #: modules/core.py:2863
 msgid "The Size of the Toolbar Icons is already at the Minimum Value"
-msgstr "Die Icons in der Symbolleiste können nicht weiter verkleinert werden"
+msgstr "Kleinere Icons sind nicht möglich"
 
 #: modules/core.py:2953
 msgid "Edit Anchor"
@@ -1191,13 +1191,12 @@ msgid "Decrease the Size of the Toolbar Icons"
 msgstr "Die Icons in der Symbolleiste verkleinern"
 
 #: modules/cons.py:610
-#, fuzzy
 msgid "Toggle Focus Tree/Text"
-msgstr "Baumstruktur anzeigen/ausblenden"
+msgstr "Fokus zwischen Baumstruktur und Text umschalten"
 
 #: modules/cons.py:610
 msgid "Toggle Focus Between Tree and Text"
-msgstr ""
+msgstr "Fokus zwischen Baumstruktur und Text umschalten"
 
 #: modules/cons.py:611
 msgid "_Full Screen On/Off"
@@ -1209,7 +1208,7 @@ msgstr "Vollbild an/aus"
 
 #: modules/cons.py:612 modules/cons.py:678
 msgid "From _Basket Folder"
-msgstr "aus _Basket-Verzeichnis..."
+msgstr "_Basket-Verzeichnis..."
 
 #: modules/cons.py:612 modules/cons.py:678
 msgid "Add Nodes of a Basket Folder to the Current Tree"
@@ -1235,7 +1234,7 @@ msgstr "Knoten aus einer NoteCase-Datei einfügen"
 
 #: modules/cons.py:615 modules/cons.py:681
 msgid "From _KeepNote Folder"
-msgstr "aus _KeepNote-Verzeichnis..."
+msgstr "_KeepNote-Verzeichnis..."
 
 #: modules/cons.py:615 modules/cons.py:681
 msgid "Add Nodes of a KeepNote Folder to the Current Tree"
@@ -1250,18 +1249,16 @@ msgid "Add Nodes of a Knowit File to the Current Tree"
 msgstr "Knoten aus einer Knowit-Datei einfügen"
 
 #: modules/cons.py:617 modules/cons.py:689
-#, fuzzy
 msgid "From _Zim Folder"
-msgstr "aus T_omboy-Verzeichnis.."
+msgstr "_Zim-Verzeichnis.."
 
 #: modules/cons.py:617 modules/cons.py:689
-#, fuzzy
 msgid "Add Nodes of a Zim Folder to the Current Tree"
-msgstr "Knoten aus einem Tomboy-Verzeichnis einfügen"
+msgstr "Knoten aus einem Zim-Verzeichnis einfügen"
 
 #: modules/cons.py:618 modules/cons.py:686
 msgid "From T_omboy Folder"
-msgstr "aus T_omboy-Verzeichnis.."
+msgstr "T_omboy-Verzeichnis.."
 
 #: modules/cons.py:618 modules/cons.py:686
 msgid "Add Nodes of a Tomboy Folder to the Current Tree"
@@ -1269,7 +1266,7 @@ msgstr "Knoten aus einem Tomboy-Verzeichnis einfügen"
 
 #: modules/cons.py:619 modules/cons.py:680
 msgid "From _Gnote Folder"
-msgstr "aus _Gnote-Verzeichnis..."
+msgstr "_Gnote-Verzeichnis..."
 
 #: modules/cons.py:619 modules/cons.py:680
 msgid "Add Nodes of a Gnote Folder to the Current Tree"
@@ -1636,12 +1633,11 @@ msgid "Downloading"
 msgstr "Lade herunter"
 
 #: glade/cherrytree.glade.h:2
-#, fuzzy
 msgid ""
 "Copyright © 2009-2013\n"
 "Giuseppe Penone <giuspen@gmail.com>"
 msgstr ""
-"Copyright © 2009-2011\n"
+"Copyright © 2009-2013\n"
 "Giuseppe Penone <giuspen@gmail.com>"
 
 #: glade/cherrytree.glade.h:4
@@ -2018,21 +2014,19 @@ msgstr "<b>Knotensymbole</b>"
 
 #: glade/cherrytree.glade.h:114
 msgid "Restore Expanded/Collapsed Status"
-msgstr ""
+msgstr "Ein-/Ausgeklappte Knoten merken"
 
 #: glade/cherrytree.glade.h:115
-#, fuzzy
 msgid "Expand all Nodes"
 msgstr "Alle Knoten _ausklappen"
 
 #: glade/cherrytree.glade.h:116
-#, fuzzy
 msgid "Collapse all Nodes"
 msgstr "Alle Knoten _zuklappen"
 
 #: glade/cherrytree.glade.h:117
 msgid "<b>Nodes Status at Startup</b>"
-msgstr ""
+msgstr "Status der Knoten beim Programmstart"
 
 #: glade/cherrytree.glade.h:118
 msgid "Tree Nodes Names Wrapping Width"

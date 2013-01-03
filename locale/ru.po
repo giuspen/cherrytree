@@ -2,7 +2,7 @@
 # Copyright (C) 2010 THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # maul <giuspen@gmail.com>, 2010.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: CherryTree\n"
@@ -237,7 +237,7 @@ msgstr ""
 #: modules/core.py:1224
 #, python-format
 msgid "You Have No Write Access to %s"
-msgstr ""
+msgstr "Недоступна запись в файл %s"
 
 #: modules/core.py:1239
 msgid "Writing to Disk..."
@@ -1188,13 +1188,12 @@ msgid "Decrease the Size of the Toolbar Icons"
 msgstr "Уменьшить иконки панели инструментов"
 
 #: modules/cons.py:610
-#, fuzzy
 msgid "Toggle Focus Tree/Text"
-msgstr "Показать / Скрыть дерево"
+msgstr "Переключить фокус Дерево/Ветка"
 
 #: modules/cons.py:610
 msgid "Toggle Focus Between Tree and Text"
-msgstr ""
+msgstr "Переключить фокус между Деревом и Веткой"
 
 #: modules/cons.py:611
 msgid "_Full Screen On/Off"
@@ -1245,14 +1244,12 @@ msgid "Add Nodes of a Knowit File to the Current Tree"
 msgstr "Добавить ветки из файла Knowit в существующее дерево"
 
 #: modules/cons.py:617 modules/cons.py:689
-#, fuzzy
 msgid "From _Zim Folder"
-msgstr "Из T_omboy"
+msgstr "Из Zim"
 
 #: modules/cons.py:617 modules/cons.py:689
-#, fuzzy
 msgid "Add Nodes of a Zim Folder to the Current Tree"
-msgstr "Импортировать из каталога Tomboy в существующее дерево"
+msgstr "Импортировать из каталога Zim в существующее дерево"
 
 #: modules/cons.py:618 modules/cons.py:686
 msgid "From T_omboy Folder"
@@ -1631,12 +1628,11 @@ msgid "Downloading"
 msgstr "Скачивание"
 
 #: glade/cherrytree.glade.h:2
-#, fuzzy
 msgid ""
 "Copyright © 2009-2013\n"
 "Giuseppe Penone <giuspen@gmail.com>"
 msgstr ""
-"Авторские права © 2009-2012\n"
+"Авторские права © 2009-2013\n"
 "Giuseppe Penone <giuspen@gmail.com>"
 
 #: glade/cherrytree.glade.h:4
@@ -2014,21 +2010,19 @@ msgstr "<b>Иконки веток</b>"
 
 #: glade/cherrytree.glade.h:114
 msgid "Restore Expanded/Collapsed Status"
-msgstr ""
+msgstr "Сохранять статус веток"
 
 #: glade/cherrytree.glade.h:115
-#, fuzzy
 msgid "Expand all Nodes"
 msgstr "Развернуть ветки"
 
 #: glade/cherrytree.glade.h:116
-#, fuzzy
 msgid "Collapse all Nodes"
 msgstr "Свернуть ветки"
 
 #: glade/cherrytree.glade.h:117
 msgid "<b>Nodes Status at Startup</b>"
-msgstr ""
+msgstr "<b>Статус веток после запуска</b>"
 
 #: glade/cherrytree.glade.h:118
 msgid "Tree Nodes Names Wrapping Width"

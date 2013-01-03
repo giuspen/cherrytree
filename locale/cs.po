@@ -1,16 +1,16 @@
 # German translations for svn_cherrytree package.
 # Copyright (C) 2010 THE svn_cherrytree'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the svn_cherrytree package.
-# 
+#
 # maul <giuspen@gmail.com>, 2010.
 # Pavel Fric <pavelfric@seznam.cz>, 2010, 2011.
-# Pavel Fric <pavelfric@seznam.cz>, 2011, 2012.
+# Pavel Fric <pavelfric@seznam.cz>, 2011, 2012, 2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-01-02 18:05+0200\n"
-"PO-Revision-Date: 2012-10-07 09:24+0200\n"
+"PO-Revision-Date: 2013-01-02 20:47+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 1.5\n"
+"X-Generator: Lokalize 1.4\n"
 
 #: modules/support.py:59
 msgid "Save File as"
@@ -236,7 +236,7 @@ msgstr ""
 #: modules/core.py:1224
 #, python-format
 msgid "You Have No Write Access to %s"
-msgstr ""
+msgstr "Nemáte oprávnění pro zápis do %s"
 
 #: modules/core.py:1239
 msgid "Writing to Disk..."
@@ -1194,13 +1194,12 @@ msgid "Decrease the Size of the Toolbar Icons"
 msgstr "Zmenšit velikost ikon v nástrojovém pruhu"
 
 #: modules/cons.py:610
-#, fuzzy
 msgid "Toggle Focus Tree/Text"
-msgstr "Ukázat/Skrýt strom"
+msgstr "Přepnout zaměření strom/text"
 
 #: modules/cons.py:610
 msgid "Toggle Focus Between Tree and Text"
-msgstr ""
+msgstr "Přepnout zaměření mezi stromem a textem"
 
 #: modules/cons.py:611
 msgid "_Full Screen On/Off"
@@ -1251,14 +1250,12 @@ msgid "Add Nodes of a Knowit File to the Current Tree"
 msgstr "Přidat uzly ze souboru Knowit do současné stromové stavby"
 
 #: modules/cons.py:617 modules/cons.py:689
-#, fuzzy
 msgid "From _Zim Folder"
-msgstr "Ze složky T_omboy"
+msgstr "Ze složky __Zim"
 
 #: modules/cons.py:617 modules/cons.py:689
-#, fuzzy
 msgid "Add Nodes of a Zim Folder to the Current Tree"
-msgstr "Přidat uzly ze složky Tomboy do současné stromové stavby"
+msgstr "Přidat uzly ze složky Zim do současné stromové stavby"
 
 #: modules/cons.py:618 modules/cons.py:686
 msgid "From T_omboy Folder"
@@ -1637,12 +1634,11 @@ msgid "Downloading"
 msgstr "Stažení"
 
 #: glade/cherrytree.glade.h:2
-#, fuzzy
 msgid ""
 "Copyright © 2009-2013\n"
 "Giuseppe Penone <giuspen@gmail.com>"
 msgstr ""
-"Autorské právo © 2009-2012\n"
+"Autorské právo © 2009-2013\n"
 "Giuseppe Penone <giuspen@gmail.com>"
 
 #: glade/cherrytree.glade.h:4
@@ -2015,21 +2011,19 @@ msgstr "<b>Ikony uzlů</b>"
 
 #: glade/cherrytree.glade.h:114
 msgid "Restore Expanded/Collapsed Status"
-msgstr ""
+msgstr "Obnovit stav rozbaleno/sbaleno"
 
 #: glade/cherrytree.glade.h:115
-#, fuzzy
 msgid "Expand all Nodes"
-msgstr "Roz_balit všechny uzly"
+msgstr "Rozbalit všechny uzly"
 
 #: glade/cherrytree.glade.h:116
-#, fuzzy
 msgid "Collapse all Nodes"
-msgstr "S_ložit všechny uzly"
+msgstr "Složit všechny uzly"
 
 #: glade/cherrytree.glade.h:117
 msgid "<b>Nodes Status at Startup</b>"
-msgstr ""
+msgstr "<b>Stav uzlů při spuštění</b>"
 
 #: glade/cherrytree.glade.h:118
 msgid "Tree Nodes Names Wrapping Width"
