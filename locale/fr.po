@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: svn_cherrytree 0.14\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-01-02 18:05+0200\n"
-"PO-Revision-Date: 2012-10-31 15:24+0100\n"
+"PO-Revision-Date: 2013-01-03 08:48+0100\n"
 "Last-Translator: Benoît <benoit.dangelo@gmx.fr>\n"
 "Language-Team: French\n"
 "Language: \n"
@@ -236,7 +236,7 @@ msgstr ""
 #: modules/core.py:1224
 #, python-format
 msgid "You Have No Write Access to %s"
-msgstr ""
+msgstr "Vous n'avez pas d'accès en écriture sur %s"
 
 #: modules/core.py:1239
 msgid "Writing to Disk..."
@@ -1197,13 +1197,12 @@ msgid "Decrease the Size of the Toolbar Icons"
 msgstr "Diminuer la taille des icônes de la Barre d'Outils"
 
 #: modules/cons.py:610
-#, fuzzy
 msgid "Toggle Focus Tree/Text"
-msgstr "Activer/Désactiver l'Arborescence du projet"
+msgstr "Bascule zone active Arborescence/Zone de texte"
 
 #: modules/cons.py:610
 msgid "Toggle Focus Between Tree and Text"
-msgstr ""
+msgstr "Basculer la zone active entre l'arborescence et la zone de texte"
 
 #: modules/cons.py:611
 msgid "_Full Screen On/Off"
@@ -1254,14 +1253,12 @@ msgid "Add Nodes of a Knowit File to the Current Tree"
 msgstr "Ajouter les Nœuds d'un Fichier Knowit à l'Arborescence actuelle"
 
 #: modules/cons.py:617 modules/cons.py:689
-#, fuzzy
 msgid "From _Zim Folder"
-msgstr "À partir d'un Répertoire T_omboy"
+msgstr "À partir d'un Répertoire _Zim"
 
 #: modules/cons.py:617 modules/cons.py:689
-#, fuzzy
 msgid "Add Nodes of a Zim Folder to the Current Tree"
-msgstr "Ajouter les Nœuds d'un Dossier Tomboy à l'Arborescence actuelle"
+msgstr "Ajouter les Nœuds d'un Dossier Zim à l'Arborescence actuelle"
 
 #: modules/cons.py:618 modules/cons.py:686
 msgid "From T_omboy Folder"
@@ -1640,12 +1637,11 @@ msgid "Downloading"
 msgstr "Téléchargement"
 
 #: glade/cherrytree.glade.h:2
-#, fuzzy
 msgid ""
 "Copyright © 2009-2013\n"
 "Giuseppe Penone <giuspen@gmail.com>"
 msgstr ""
-"Copyright © 2009-2012\n"
+"Copyright © 2009-2013\n"
 "Giuseppe Penone <giuspen@gmail.com>"
 
 #: glade/cherrytree.glade.h:4
@@ -2020,21 +2016,19 @@ msgstr "<b>Icônes des Nœuds</b>"
 
 #: glade/cherrytree.glade.h:114
 msgid "Restore Expanded/Collapsed Status"
-msgstr ""
+msgstr "Restaurer l'état déroulé/replié"
 
 #: glade/cherrytree.glade.h:115
-#, fuzzy
 msgid "Expand all Nodes"
-msgstr "Dé_rouler tous les Nœuds"
+msgstr "Dérouler tous les Nœuds"
 
 #: glade/cherrytree.glade.h:116
-#, fuzzy
 msgid "Collapse all Nodes"
-msgstr "C_acher tous les Nœuds"
+msgstr "Replier tous les Nœuds"
 
 #: glade/cherrytree.glade.h:117
 msgid "<b>Nodes Status at Startup</b>"
-msgstr ""
+msgstr "<b>État des nœuds au démarrage</b>"
 
 #: glade/cherrytree.glade.h:118
 msgid "Tree Nodes Names Wrapping Width"
