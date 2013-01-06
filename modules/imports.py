@@ -1556,20 +1556,7 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
                     self.curr_list_type[1] += 1
             elif tag == "img" and len(attrs) > 0:
                 img_path = attrs[0][1]
-                try:
-                    self.dad.statusbar.push(self.dad.statusbar_context_id, _("Downloading") + " %s ..." % img_path)
-                    while gtk.events_pending(): gtk.main_iteration()
-                    url_desc = urllib2.urlopen(img_path, timeout=3)
-                    image_file = url_desc.read()
-                    pixbuf_loader = gtk.gdk.PixbufLoader()
-                    pixbuf_loader.write(image_file)
-                    pixbuf_loader.close()
-                    pixbuf = pixbuf_loader.get_pixbuf()
-                    self.dad.xml_handler.pixbuf_element_to_xml([0, pixbuf, cons.TAG_PROP_LEFT], self.curr_dom_slot, self.dom)
-                    self.dad.statusbar.pop(self.dad.statusbar_context_id)
-                except:
-                    print "failed download of", img_path
-                    self.dad.statusbar.pop(self.dad.statusbar_context_id)
+                self.insert_image(img_path)
             elif tag == "pre": self.pre_tag = "p"
         elif self.curr_state == 2:
             if tag == "table": # nested tables
@@ -1585,6 +1572,27 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
                         self.curr_rowspan = int(attr[1])
                         break
                 if tag == "th": self.curr_table_header = True
+            elif tag == "img" and len(attrs) > 0:
+                img_path = attrs[0][1]
+                self.insert_image(img_path, cons.CHAR_NEWLINE*2)
+
+    def insert_image(self, img_path, trailing_chars=""):
+        """Insert Image in Buffer"""
+        try:
+            self.dad.statusbar.push(self.dad.statusbar_context_id, _("Downloading") + " %s ..." % img_path)
+            while gtk.events_pending(): gtk.main_iteration()
+            url_desc = urllib2.urlopen(img_path, timeout=3)
+            image_file = url_desc.read()
+            pixbuf_loader = gtk.gdk.PixbufLoader()
+            pixbuf_loader.write(image_file)
+            pixbuf_loader.close()
+            pixbuf = pixbuf_loader.get_pixbuf()
+            self.dad.xml_handler.pixbuf_element_to_xml([0, pixbuf, cons.TAG_PROP_LEFT], self.curr_dom_slot, self.dom)
+            self.dad.statusbar.pop(self.dad.statusbar_context_id)
+            if trailing_chars: self.rich_text_serialize(trailing_chars)
+        except:
+            print "failed download of", img_path
+            self.dad.statusbar.pop(self.dad.statusbar_context_id)
 
     def handle_endtag(self, tag):
         """Encountered the end of a tag"""
