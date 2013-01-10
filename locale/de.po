@@ -2018,11 +2018,11 @@ msgstr "Ein-/Ausgeklappte Knoten merken"
 
 #: glade/cherrytree.glade.h:115
 msgid "Expand all Nodes"
-msgstr "Alle Knoten _ausklappen"
+msgstr "Alle Knoten ausklappen"
 
 #: glade/cherrytree.glade.h:116
 msgid "Collapse all Nodes"
-msgstr "Alle Knoten _zuklappen"
+msgstr "Alle Knoten zuklappen"
 
 #: glade/cherrytree.glade.h:117
 msgid "<b>Nodes Status at Startup</b>"
@@ -2135,7 +2135,7 @@ msgstr "<b>Sprache</b>"
 
 #: glade/cherrytree.glade.h:144
 msgid "Miscellaneous"
-msgstr "<b>Sonstiges </b>"
+msgstr "Sonstiges"
 
 #: glade/cherrytree.glade.h:145
 msgid "Rows  "
