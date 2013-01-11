@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: cherrytree 0.26\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-01-02 18:05+0200\n"
-"PO-Revision-Date: 2012-10-09 12:01+0800\n"
+"PO-Revision-Date: 2013-01-11 09:38+0800\n"
 "Last-Translator: Channing Wong <mamimoluo@gmail.com>\n"
 "Language-Team: Chinese (simplified)\n"
 "Language: zh_CN\n"
@@ -229,7 +229,7 @@ msgstr "当前文件路径中的单引号和双引号阻止了7za.exe的工作�
 #: modules/core.py:1224
 #, python-format
 msgid "You Have No Write Access to %s"
-msgstr ""
+msgstr "您没有%s文件的写入权限"
 
 #: modules/core.py:1239
 msgid "Writing to Disk..."
@@ -1178,13 +1178,12 @@ msgid "Decrease the Size of the Toolbar Icons"
 msgstr "减少工具栏图标大小"
 
 #: modules/cons.py:610
-#, fuzzy
 msgid "Toggle Focus Tree/Text"
-msgstr "切换树的显示"
+msgstr "切换树或文本焦点"
 
 #: modules/cons.py:610
 msgid "Toggle Focus Between Tree and Text"
-msgstr ""
+msgstr "在树和文本件切换焦点"
 
 #: modules/cons.py:611
 msgid "_Full Screen On/Off"
@@ -1235,14 +1234,12 @@ msgid "Add Nodes of a Knowit File to the Current Tree"
 msgstr "从Knowit文件添加节点到当前树"
 
 #: modules/cons.py:617 modules/cons.py:689
-#, fuzzy
 msgid "From _Zim Folder"
-msgstr "从Tomboy文件夹(_O)"
+msgstr "从Zim文件夹(_Z)"
 
 #: modules/cons.py:617 modules/cons.py:689
-#, fuzzy
 msgid "Add Nodes of a Zim Folder to the Current Tree"
-msgstr "从Tomboy文件夹添加节点到当前树"
+msgstr "从Zim文件夹添加节点到当前树"
 
 #: modules/cons.py:618 modules/cons.py:686
 msgid "From T_omboy Folder"
@@ -1621,12 +1618,11 @@ msgid "Downloading"
 msgstr "正在下载"
 
 #: glade/cherrytree.glade.h:2
-#, fuzzy
 msgid ""
 "Copyright © 2009-2013\n"
 "Giuseppe Penone <giuspen@gmail.com>"
 msgstr ""
-"版权所有 © 2009-2012\n"
+"版权所有 © 2009-2013\n"
 "Giuseppe Penone <giuspen@gmail.com>"
 
 #: glade/cherrytree.glade.h:4
@@ -1995,21 +1991,19 @@ msgstr "<b>节点图标</b>"
 
 #: glade/cherrytree.glade.h:114
 msgid "Restore Expanded/Collapsed Status"
-msgstr ""
+msgstr "还原展开/收起状态"
 
 #: glade/cherrytree.glade.h:115
-#, fuzzy
 msgid "Expand all Nodes"
-msgstr "展开所有节点(_X)"
+msgstr "展开所有节点"
 
 #: glade/cherrytree.glade.h:116
-#, fuzzy
 msgid "Collapse all Nodes"
-msgstr "收缩所有节点(_C)"
+msgstr "收缩所有节点"
 
 #: glade/cherrytree.glade.h:117
 msgid "<b>Nodes Status at Startup</b>"
-msgstr ""
+msgstr "<b>启动时节点状态</b>"
 
 #: glade/cherrytree.glade.h:118
 msgid "Tree Nodes Names Wrapping Width"
