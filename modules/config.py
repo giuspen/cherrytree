@@ -331,7 +331,8 @@ def config_file_save(inst):
         config.set(section, "cursor_position", inst.curr_buffer.get_property(cons.STR_CURSOR_POSITION))
     if inst.recent_docs:
         temp_recent_docs = []
-        for element in inst.recent_docs:
+        for i, element in enumerate(inst.recent_docs):
+            if i >= cons.MAX_RECENT_DOCS: break
             temp_recent_docs.append(base64.b64encode(element))
         str_recent_docs = cons.CHAR_SPACE.join(temp_recent_docs)
     else: str_recent_docs = ""
