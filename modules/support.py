@@ -263,7 +263,8 @@ def set_menu_items_recent_documents(inst):
     inst.recent_menu_1 = gtk.Menu()
     inst.recent_menu_2 = gtk.Menu()
     for target in [1, 2]:
-        for filepath in inst.recent_docs:
+        for i, filepath in enumerate(inst.recent_docs):
+            if i >= cons.MAX_RECENT_DOCS: break
             menu_item = gtk.ImageMenuItem(filepath)
             menu_item.set_image(gtk.image_new_from_stock("gtk-open", gtk.ICON_SIZE_MENU))
             menu_item.connect("activate", open_recent_document, filepath, inst)
