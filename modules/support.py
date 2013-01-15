@@ -260,8 +260,20 @@ def set_bookmarks_menu_items(inst):
 
 def set_menu_items_recent_documents(inst):
     """Set Recent Documents menu items on Menu and Toolbar"""
-    inst.recent_menu_1 = gtk.Menu()
-    inst.recent_menu_2 = gtk.Menu()
+    if not "recent_menu_1" in dir(inst):
+        inst.recent_menu_1 = gtk.Menu()
+        inst.recent_menu_2 = gtk.Menu()
+        first_run = True
+    else:
+        children_1 = inst.recent_menu_1.get_children()
+        children_2 = inst.recent_menu_2.get_children()
+        for children in children_1:
+            children.hide()
+            del children
+        for children in children_2:
+            children.hide()
+            del children
+        first_run = False
     for target in [1, 2]:
         for i, filepath in enumerate(inst.recent_docs):
             if i >= cons.MAX_RECENT_DOCS: break
@@ -271,31 +283,28 @@ def set_menu_items_recent_documents(inst):
             menu_item.show()
             if target == 1: inst.recent_menu_1.append(menu_item)
             else: inst.recent_menu_2.append(menu_item)
-    # main menu
-    recent_menuitem = gtk.ImageMenuItem(_("_Recent Documents"))
-    recent_menuitem.set_image(gtk.image_new_from_stock("gtk-open", gtk.ICON_SIZE_MENU))
-    recent_menuitem.set_tooltip_text(_("Open a Recent CherryTree Document"))
-    recent_menuitem.set_submenu(inst.recent_menu_1)
-    inst.ui.get_widget("/MenuBar/FileMenu").get_submenu().insert(recent_menuitem, 9)
-    # toolbar
-    menu_toolbutton = gtk.MenuToolButton("gtk-open")
-    menu_toolbutton.set_tooltip_text(_("Open a CherryTree Document"))
-    menu_toolbutton.set_arrow_tooltip_text(_("Open a Recent CherryTree Document"))
-    menu_toolbutton.set_menu(inst.recent_menu_2)
-    menu_toolbutton.connect("clicked", inst.file_open)
-    inst.ui.get_widget("/ToolBar").insert(menu_toolbutton, 9)
+    if first_run:
+        # main menu
+        recent_menuitem = gtk.ImageMenuItem(_("_Recent Documents"))
+        recent_menuitem.set_image(gtk.image_new_from_stock("gtk-open", gtk.ICON_SIZE_MENU))
+        recent_menuitem.set_tooltip_text(_("Open a Recent CherryTree Document"))
+        recent_menuitem.set_submenu(inst.recent_menu_1)
+        inst.ui.get_widget("/MenuBar/FileMenu").get_submenu().insert(recent_menuitem, 9)
+        # toolbar
+        menu_toolbutton = gtk.MenuToolButton("gtk-open")
+        menu_toolbutton.set_tooltip_text(_("Open a CherryTree Document"))
+        menu_toolbutton.set_arrow_tooltip_text(_("Open a Recent CherryTree Document"))
+        menu_toolbutton.set_menu(inst.recent_menu_2)
+        menu_toolbutton.connect("clicked", inst.file_open)
+        inst.ui.get_widget("/ToolBar").insert(menu_toolbutton, 9)
 
 def add_recent_document(inst, filepath):
     """Add a Recent Document if Needed"""
-    if not filepath in inst.recent_docs:
-        inst.recent_docs.append(filepath)
-        for target in [1, 2]:
-            menu_item = gtk.ImageMenuItem(filepath)
-            menu_item.set_image(gtk.image_new_from_stock("gtk-open", gtk.ICON_SIZE_MENU))
-            menu_item.connect("activate", open_recent_document, filepath, inst)
-            menu_item.show()
-            if target == 1: inst.recent_menu_1.append(menu_item)
-            else: inst.recent_menu_2.append(menu_item)
+    if filepath in inst.recent_docs and inst.recent_docs[0] == filepath:
+        return
+    if filepath in inst.recent_docs: inst.recent_docs.remove(filepath)
+    inst.recent_docs.insert(0, filepath)
+    set_menu_items_recent_documents(inst)
 
 def open_recent_document(menu_item, filepath, dad):
     """A Recent Document was Requested"""
