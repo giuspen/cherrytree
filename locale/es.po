@@ -2204,7 +2204,7 @@ msgstr "Expandir todos los nodos"
 
 #: glade/cherrytree.glade.h:116
 msgid "Collapse all Nodes"
-msgstr "_Contraer todos los nodos"
+msgstr "Contraer todos los nodos"
 
 #: glade/cherrytree.glade.h:117
 msgid "<b>Nodes Status at Startup</b>"
