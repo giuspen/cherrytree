@@ -2316,7 +2316,7 @@ msgstr "<b>Idioma</b>"
 
 #: glade/cherrytree.glade.h:144
 msgid "Miscellaneous"
-msgstr "<b>Otras opciones</b>"
+msgstr "Otras opciones"
 
 #: glade/cherrytree.glade.h:145
 msgid "Rows  "
