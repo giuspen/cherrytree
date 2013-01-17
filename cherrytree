@@ -20,10 +20,15 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
-import argparse
+import os, sys, __builtin__
+
+try:
+    import argparse
+    ARGPARSE_OK = True
+except:
+    ARGPARSE_OK = False
 
 def f_main(args):
-    import os, sys, __builtin__
     if os.path.isfile('glade/cherrytree.glade'):
         SHARE_PATH = ''
         MODULES_PATH = 'modules'
@@ -41,8 +46,15 @@ def f_main(args):
     import main
     main.main(args)
 
-parser = argparse.ArgumentParser()
-parser.add_argument('filepath', nargs='?', help='Optional CherryTree Document to Open')
-parser.add_argument("-n", "--node", help="Node Name to Focus")
-args = parser.parse_args()
+if ARGPARSE_OK:
+    parser = argparse.ArgumentParser()
+    parser.add_argument('filepath', nargs='?', help='Optional CherryTree Document to Open')
+    parser.add_argument("-n", "--node", help="Node Name to Focus")
+    args = parser.parse_args()
+else:
+    class CherryArgs:
+        node = None
+        filepath = None
+    args = CherryArgs
+    if len(sys.argv) > 1: args.filepath = sys.argv[1]
 f_main(args)
