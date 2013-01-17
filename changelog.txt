@@ -1,4 +1,12 @@
 
+0.29 (January 10th, 2013)
+• several bugs fixed
+• when running cherrytree from command line it is possible to indicate a node name to focus as argument (cherrytree filepath -n nodename)
+• added shortcut to toggle focus between tree and text (Ctrl+J)
+• updated several icons related to text formatting to have an unique style/theme for all of them
+• added the preferences option to collapse all nodes when loading the tree (now there are the options to expand all, collapse all or restore from latest session)
+• added import from zim
+
 0.28.5 (November 20th, 2012)
 • fixed several bugs
 • export to html: the font of tree and text is now set to the one in use in cherrytree at export time
