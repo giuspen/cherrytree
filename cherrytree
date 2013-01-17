@@ -56,5 +56,7 @@ else:
         node = None
         filepath = None
     args = CherryArgs
-    if len(sys.argv) > 1: args.filepath = sys.argv[1]
+    if len(sys.argv) > 1:
+        args.filepath = sys.argv[1]
+        if len(sys.argv) > 3 and sys.argv[2] == "-n": args.node = sys.argv[3]
 f_main(args)
