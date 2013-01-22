@@ -2546,6 +2546,7 @@ class CherryTree:
         if self.curr_tree_iter:
             if self.user_active:
                 self.nodes_cursor_pos[model[self.curr_tree_iter][3]] = self.curr_buffer.get_property(cons.STR_CURSOR_POSITION)
+                #print "cursor_pos %s save for node %s" % (self.nodes_cursor_pos[model[self.curr_tree_iter][3]], model[self.curr_tree_iter][3])
             if self.curr_buffer.get_modified():
                 self.file_update = True
                 self.curr_buffer.set_modified(False)
@@ -2567,7 +2568,9 @@ class CherryTree:
             else: cursor_pos = 0
             cursor_iter = self.curr_buffer.get_iter_at_offset(cursor_pos)
             if cursor_iter:
-                self.sourceview.scroll_to_iter(cursor_iter, 0.3)
+                #print "cursor_pos %s restore for node %s" % (cursor_pos, model[new_iter][3])
+                self.curr_buffer.place_cursor(cursor_iter)
+                self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), 0.3)
 
     def update_node_name_header(self):
         """Update Node Name Header"""
