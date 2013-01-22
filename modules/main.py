@@ -128,7 +128,7 @@ class CherryTreeHandler():
                     just_run_new_win = True
                     if not self.msg_server_to_core['p']:
                         for i, runn_win in enumerate(self.running_windows):
-                            if not runn_win.window.get_visible():
+                            if not runn_win.window.get_property(cons.STR_VISIBLE):
                                 print "3 rise existing hidden in systray"
                                 runn_win.window.present()
                                 just_run_new_win = False
