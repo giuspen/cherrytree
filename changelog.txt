@@ -1,4 +1,9 @@
 
+0.29.1 (January 18th, 2013)
+• updated Chinese, Spanish and German languages
+• added limit of recent documents to 10
+• added back support for python versions < 2.7 (broken in 0.29)
+
 0.29 (January 10th, 2013)
 • several bugs fixed
 • when running cherrytree from command line it is possible to indicate a node name to focus as argument (cherrytree filepath -n nodename)
