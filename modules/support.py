@@ -80,7 +80,7 @@ def dialog_file_save_as(filename=None, filter_pattern=None, filter_name=None, cu
     if chooser.run() == gtk.RESPONSE_OK:
         filepath = chooser.get_filename()
         chooser.destroy()
-        return filepath
+        return unicode(filepath) if filepath != None else None
     else:
         chooser.destroy()
         return None
@@ -108,7 +108,7 @@ def dialog_file_select(filter_pattern=None, filter_name=None, curr_folder=None, 
     if chooser.run() == gtk.RESPONSE_OK:
         filepath = chooser.get_filename()
         chooser.destroy()
-        return filepath
+        return unicode(filepath) if filepath != None else None
     else:
         chooser.destroy()
         return None
@@ -131,7 +131,7 @@ def dialog_folder_select(curr_folder=None, parent=None):
     if chooser.run() == gtk.RESPONSE_OK:
         folderpath = chooser.get_filename()
         chooser.destroy()
-        return folderpath
+        return unicode(folderpath) if folderpath != None else None
     else:
         chooser.destroy()
         return None
