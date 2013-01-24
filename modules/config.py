@@ -62,7 +62,7 @@ def config_file_load(inst):
         if config.has_option(section, "recent_docs"):
             temp_recent_docs = config.get(section, "recent_docs").split(cons.CHAR_SPACE)
             for element in temp_recent_docs:
-                if element: inst.recent_docs.append(base64.b64decode(element))
+                if element: inst.recent_docs.append(unicode(base64.b64decode(element)))
         inst.pick_dir = config.get(section, "pick_dir") if config.has_option(section, "pick_dir") else ""
         inst.link_type = config.get(section, "link_type") if config.has_option(section, "link_type") else "webs"
         inst.show_node_name_label = config.getboolean(section, "show_node_name_label") if config.has_option(section, "show_node_name_label") else True
