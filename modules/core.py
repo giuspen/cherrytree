@@ -1336,7 +1336,7 @@ class CherryTree:
             if new_protection['p1'] != new_protection['p2']:
                 support.dialog_error(_("The Two Inserted Passwords Do Not Match"), self.window)
                 return False
-            bad_chars_list = [cons.CHAR_SQUOTE, cons.CHAR_DQUOTE, cons.CHAR_BSLASH]
+            bad_chars_list = [cons.CHAR_SQUOTE, cons.CHAR_DQUOTE, cons.CHAR_BSLASH, cons.CHAR_SPACE]
             for bad_char in bad_chars_list:
                 if bad_char in new_protection['p1']:
                     support.dialog_error(_("The Characters  %s  are Not Allowed") % cons.CHAR_SPACE.join(bad_chars_list), self.window)
