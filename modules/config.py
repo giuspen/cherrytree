@@ -37,8 +37,8 @@ def config_file_load(inst):
         config.read(cons.CONFIG_PATH)
         
         section = "state"
-        inst.file_dir = config.get(section, "file_dir") if config.has_option(section, "file_dir") else ""
-        inst.file_name = config.get(section, "file_name") if config.has_option(section, "file_name") else ""
+        inst.file_dir = unicode(config.get(section, "file_dir")) if config.has_option(section, "file_dir") else ""
+        inst.file_name = unicode(config.get(section, "file_name")) if config.has_option(section, "file_name") else ""
         inst.toolbar_visible = config.getboolean(section, "toolbar_visible") if config.has_option(section, "toolbar_visible") else True
         inst.win_is_maximized = config.getboolean(section, "win_is_maximized") if config.has_option(section, "win_is_maximized") else False
         # restore window size and position
