@@ -37,8 +37,8 @@ def config_file_load(inst):
         config.read(cons.CONFIG_PATH)
         
         section = "state"
-        inst.file_dir = unicode(config.get(section, "file_dir")) if config.has_option(section, "file_dir") else ""
-        inst.file_name = unicode(config.get(section, "file_name")) if config.has_option(section, "file_name") else ""
+        inst.file_dir = unicode(config.get(section, "file_dir"), "utf-8", "ignore") if config.has_option(section, "file_dir") else ""
+        inst.file_name = unicode(config.get(section, "file_name"), "utf-8", "ignore") if config.has_option(section, "file_name") else ""
         inst.toolbar_visible = config.getboolean(section, "toolbar_visible") if config.has_option(section, "toolbar_visible") else True
         inst.win_is_maximized = config.getboolean(section, "win_is_maximized") if config.has_option(section, "win_is_maximized") else False
         # restore window size and position
@@ -62,7 +62,7 @@ def config_file_load(inst):
         if config.has_option(section, "recent_docs"):
             temp_recent_docs = config.get(section, "recent_docs").split(cons.CHAR_SPACE)
             for element in temp_recent_docs:
-                if element: inst.recent_docs.append(unicode(base64.b64decode(element)))
+                if element: inst.recent_docs.append(unicode(base64.b64decode(element), "utf-8", "ignore"))
         inst.pick_dir = config.get(section, "pick_dir") if config.has_option(section, "pick_dir") else ""
         inst.link_type = config.get(section, "link_type") if config.has_option(section, "link_type") else "webs"
         inst.show_node_name_label = config.getboolean(section, "show_node_name_label") if config.has_option(section, "show_node_name_label") else True

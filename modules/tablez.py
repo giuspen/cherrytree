@@ -419,7 +419,7 @@ class UnicodeReader:
     def next(self):
         try:
             row = self.reader.next()
-            return [unicode(s, "utf-8") for s in row]
+            return [unicode(s, "utf-8", "ignore") for s in row]
         except: return None
 
     def __iter__(self):
