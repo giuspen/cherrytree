@@ -75,7 +75,7 @@ class CTDBHandler:
             anchor = ""
             png_blob = machines.get_blob_buffer_from_pixbuf(pixbuf)
         else:
-            anchor = (pixbuf.anchor).decode('utf-8')
+            anchor = (pixbuf.anchor).decode(cons.STR_UTF8)
             png_blob = None
         return (node_id, offset, justification, anchor, png_blob)
     
@@ -97,7 +97,7 @@ class CTDBHandler:
                 dom_row.appendChild(dom_cell)
                 text_iter = table_dom.createTextNode(cell)
                 dom_cell.appendChild(text_iter)
-        txt = (table_dom.toxml()).decode('utf-8')
+        txt = (table_dom.toxml()).decode(cons.STR_UTF8)
         return (node_id, offset, justification, txt, col_min, col_max)
     
     def get_codebox_db_tuple(self, codebox_element, node_id):
@@ -105,7 +105,7 @@ class CTDBHandler:
         offset = codebox_element[0]
         codebox_dict = codebox_element[1]
         justification = codebox_element[2]
-        txt = codebox_dict['fill_text'].decode('utf-8')
+        txt = codebox_dict['fill_text'].decode(cons.STR_UTF8)
         syntax = codebox_dict['syntax_highlighting']
         width = codebox_dict['frame_width']
         height = codebox_dict['frame_height']
@@ -238,9 +238,9 @@ class CTDBHandler:
         """Write a node in DB"""
         node_id = self.dad.treestore[tree_iter][3]
         print "write node content, node_id", node_id, ", write_dict", write_dict
-        name = self.dad.treestore[tree_iter][1].decode('utf-8')
+        name = self.dad.treestore[tree_iter][1].decode(cons.STR_UTF8)
         syntax = self.dad.treestore[tree_iter][4]
-        tags = self.dad.treestore[tree_iter][6].decode('utf-8')
+        tags = self.dad.treestore[tree_iter][6].decode(cons.STR_UTF8)
         is_ro = 1 if self.dad.treestore[tree_iter][7] else 0
         is_richtxt = 1 if syntax == cons.CUSTOM_COLORS_ID else 0
         if write_dict['buff']:
@@ -306,13 +306,13 @@ class CTDBHandler:
                     db.executemany('INSERT INTO image VALUES(?,?,?,?,?)', images_tuples)
                 else: has_image = 0
                 # retrieve xml text
-                txt = (self.dom.toxml()).decode('utf-8')
+                txt = (self.dom.toxml()).decode(cons.STR_UTF8)
             else:
                 # not richtext
                 has_codebox = 0
                 has_table = 0
                 has_image = 0
-                txt = (start_iter.get_text(end_iter)).decode('utf-8')
+                txt = (start_iter.get_text(end_iter)).decode(cons.STR_UTF8)
         if write_dict['prop'] and write_dict['buff']:
             if write_dict['upd']:
                 db.execute('DELETE FROM node WHERE node_id=?', (node_id,))

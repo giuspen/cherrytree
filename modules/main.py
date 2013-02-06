@@ -147,7 +147,7 @@ def initializations():
     if not os.path.isdir(cons.CONFIG_DIR): os.mkdir(cons.CONFIG_DIR)
     if cons.IS_WIN_OS:
         import warnings
-        warnings.filterwarnings("ignore")
+        warnings.filterwarnings(cons.STR_IGNORE)
     else:
         try:
             # change process name
@@ -161,13 +161,13 @@ def initializations():
     try:
         # change locale text domain
         locale.bindtextdomain(cons.APP_NAME, cons.LOCALE_PATH)
-        locale.bind_textdomain_codeset(cons.APP_NAME, 'UTF-8')
+        locale.bind_textdomain_codeset(cons.APP_NAME, cons.STR_UTF8)
     except:
         try:
             from ctypes import cdll
             libintl = cdll.intl
             libintl.bindtextdomain(cons.APP_NAME, cons.LOCALE_PATH)
-            libintl.bind_textdomain_codeset(cons.APP_NAME, 'UTF-8')
+            libintl.bind_textdomain_codeset(cons.APP_NAME, cons.STR_UTF8)
         except:
             print "ctypes.cdll.intl.bindtextdomain not available, the glade i18n will not work properly"
         try:

@@ -233,15 +233,15 @@ class ClipboardHandler:
         """From Clipboard to HTML Text"""
         if ord(selectiondata.data[0]) == 0xff \
         and ord(selectiondata.data[1]) in [0xfe, 0xff]:
-            selection_data = selectiondata.data.decode("utf-16", "ignore")
+            selection_data = selectiondata.data.decode(cons.STR_UTF16, cons.STR_IGNORE)
         else:
             match = re.match('.*\x00\w\x00\w\x00\w.*', selectiondata.data, re.UNICODE) # \w is alphanumeric char
-            if match: selection_data = selectiondata.data.decode("utf-16", "ignore")
+            if match: selection_data = selectiondata.data.decode(cons.STR_UTF16, cons.STR_IGNORE)
             else: selection_data = selectiondata.data
         #print "###########################"
         #print selectiondata.data
         #print "###########################"
-        #print selectiondata.data.decode("utf-16", "ignore")
+        #print selectiondata.data.decode(cons.STR_UTF16, cons.STR_IGNORE)
         #print "###########################"
         #for char in selection_data: print ord(char)
         selection_data = re.sub(cons.BAD_CHARS, "", selection_data)
