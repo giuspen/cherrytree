@@ -143,6 +143,9 @@ SPECIAL_CHAR_REGISTERED_TRADEMARK = "®"
 STR_CURSOR_POSITION = "cursor-position"
 STR_STOCK_CT_IMP = "import_in_cherrytree"
 STR_VISIBLE = "visible"
+STR_UTF8 = "utf-8"
+STR_UTF16 = "utf-16"
+STR_IGNORE = "ignore"
 
 HTML_HEADER = '<!doctype html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><title>%s</title><meta name="generator" content="CherryTree"></head><body>'
 HTML_FOOTER = '</body></html>'

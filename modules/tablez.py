@@ -404,7 +404,7 @@ class UTF8Recoder:
         return self
 
     def next(self):
-        return self.reader.next().encode("utf-8")
+        return self.reader.next().encode(cons.STR_UTF8)
 
 
 class UnicodeReader:
@@ -412,14 +412,14 @@ class UnicodeReader:
     A CSV reader which will iterate over lines in the CSV file "f",
     which is encoded in the given encoding.
     """
-    def __init__(self, f, dialect=csv.excel, encoding="utf-8", **kwds):
+    def __init__(self, f, dialect=csv.excel, encoding=cons.STR_UTF8, **kwds):
         f = UTF8Recoder(f, encoding)
         self.reader = csv.reader(f, dialect=dialect, **kwds)
 
     def next(self):
         try:
             row = self.reader.next()
-            return [unicode(s, "utf-8", "ignore") for s in row]
+            return [unicode(s, cons.STR_UTF8, cons.STR_IGNORE) for s in row]
         except: return None
 
     def __iter__(self):
@@ -432,7 +432,7 @@ class UnicodeWriter:
     which is encoded in the given encoding.
     """
 
-    def __init__(self, f, dialect=csv.excel, encoding="utf-8", **kwds):
+    def __init__(self, f, dialect=csv.excel, encoding=cons.STR_UTF8, **kwds):
         # Redirect output to a queue
         self.queue = cStringIO.StringIO()
         self.writer = csv.writer(self.queue, dialect=dialect, **kwds)
@@ -440,10 +440,10 @@ class UnicodeWriter:
         self.encoder = codecs.getincrementalencoder(encoding)()
 
     def writerow(self, row):
-        self.writer.writerow([s.encode("utf-8") for s in row])
+        self.writer.writerow([s.encode(cons.STR_UTF8) for s in row])
         # Fetch UTF-8 output from the queue ...
         data = self.queue.getvalue()
-        data = data.decode("utf-8")
+        data = data.decode(cons.STR_UTF8)
         # ... and reencode it into the target encoding
         data = self.encoder.encode(data)
         # write to the target stream

@@ -175,7 +175,7 @@ class TuxCardsHandler(HTMLParser.HTMLParser):
                 # curr_state 1: waiting for node content, take many data
                 self.pixbuf_vector = []
                 self.chars_counter = 0
-                self.feed(node_string.decode("utf-8", "ignore"))
+                self.feed(node_string.decode(cons.STR_UTF8, cons.STR_IGNORE))
                 for pixbuf_element in self.pixbuf_vector:
                     self.xml_handler.pixbuf_element_to_xml(pixbuf_element, self.nodes_list[-1], self.dom)
             elif child_dom_iter.nodeName == "InformationElement":
@@ -307,7 +307,7 @@ class KeepnoteHandler(HTMLParser.HTMLParser):
         self.pixbuf_vector = []
         self.curr_folder = node_folder
         self.chars_counter = 0
-        self.feed(node_string.decode("utf-8", "ignore"))
+        self.feed(node_string.decode(cons.STR_UTF8, cons.STR_IGNORE))
         for pixbuf_element in self.pixbuf_vector:
             self.xml_handler.pixbuf_element_to_xml(pixbuf_element, self.nodes_list[-1], self.dom)
         # check if the node has children
@@ -902,7 +902,7 @@ class BasketHandler(HTMLParser.HTMLParser):
                         node_string = file_descriptor.read()
                         file_descriptor.close()
                     else: node_string = "" # empty node
-                    self.feed(node_string.decode("utf-8", "ignore"))
+                    self.feed(node_string.decode(cons.STR_UTF8, cons.STR_IGNORE))
                     self.rich_text_serialize(cons.CHAR_NEWLINE)
                     self.chars_counter += 1
                     break
@@ -1038,7 +1038,7 @@ class KnowitHandler(HTMLParser.HTMLParser):
         # 0: waiting for \NewEntry or \CurrentEntry
         # 1: gathering node content
         for text_line in file_descriptor:
-            text_line = text_line.decode("utf-8", "ignore")
+            text_line = text_line.decode(cons.STR_UTF8, cons.STR_IGNORE)
             if self.curr_xml_state == 0:
                 if (len(text_line) > 10 and text_line[:10] == "\NewEntry ")\
                 or (len(text_line) > 14 and text_line[:14] == "\CurrentEntry "):
@@ -1066,7 +1066,7 @@ class KnowitHandler(HTMLParser.HTMLParser):
                     # node content end
                     self.curr_xml_state = 0
                     self.curr_html_state = 0
-                    self.feed(self.curr_node_content.decode("utf-8", "ignore"))
+                    self.feed(self.curr_node_content.decode(cons.STR_UTF8, cons.STR_IGNORE))
                 elif self.curr_node_content == "" and text_line == cons.CHAR_NEWLINE:
                     # empty node
                     self.curr_xml_state = 0
@@ -1154,7 +1154,7 @@ class TreepadHandler:
         # 2: waiting for node level
         # 3: gathering node content
         for text_line in file_descriptor:
-            text_line = text_line.decode("utf-8", "ignore")
+            text_line = text_line.decode(cons.STR_UTF8, cons.STR_IGNORE)
             if self.curr_state == 0:
                 if len(text_line) > 5 and text_line[:6] == "<node>": self.curr_state = 1
             elif self.curr_state == 1:
@@ -1448,7 +1448,7 @@ class NotecaseHandler(HTMLParser.HTMLParser):
         # curr_state 2: waiting for node content, take many data
         self.pixbuf_vector = []
         self.chars_counter = 0
-        self.feed(input_string.decode("utf-8", "ignore"))
+        self.feed(input_string.decode(cons.STR_UTF8, cons.STR_IGNORE))
         return self.dom.toxml()
 
 
@@ -1710,7 +1710,7 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
         # curr_state 0: standby, taking no data
         # curr_state 1: receiving rich text
         # curr_state 2: receiving table or codebox data
-        input_string = input_string.decode("utf-8", "ignore")
+        input_string = input_string.decode(cons.STR_UTF8, cons.STR_IGNORE)
         if not HTMLCheck().is_html_ok(input_string):
             input_string = cons.HTML_HEADER % "" + input_string + cons.HTML_FOOTER
         #print "###############"
