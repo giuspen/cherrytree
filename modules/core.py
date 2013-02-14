@@ -2417,10 +2417,7 @@ class CherryTree:
             self.ctdb_handler.pending_new_db_node(new_node_id)
             self.nodes_sequences_fix(self.curr_tree_iter, False)
             self.nodes_names_dict[new_node_id] = node_name
-            new_node_path = self.treestore.get_path(new_node_iter)
-            father_node_path = self.treestore.get_path(self.curr_tree_iter)
-            self.treeview.expand_row(father_node_path, True) # second parameter tells whether to expand children too
-            self.treeview.set_cursor(new_node_path)
+            self.treeview_safe_set_cursor(new_node_iter)
             self.sourceview.grab_focus()
 
     def node_delete(self, *args):
