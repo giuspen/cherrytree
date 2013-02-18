@@ -43,8 +43,9 @@ def config_file_load(inst):
         inst.win_is_maximized = config.getboolean(section, "win_is_maximized") if config.has_option(section, "win_is_maximized") else False
         # restore window size and position
         if config.has_option(section, "win_position_x") and config.has_option(section, "win_position_y"):
-            win_position = [config.getint(section, "win_position_x"), config.getint(section, "win_position_y")]
-            inst.window.move(win_position[0], win_position[1])
+            inst.win_position = [config.getint(section, "win_position_x"), config.getint(section, "win_position_y")]
+            inst.window.move(inst.win_position[0], inst.win_position[1])
+        else: inst.win_position = [10, 10]
         if inst.win_is_maximized: inst.window.maximize()
         elif config.has_option(section, "win_size_w") and config.has_option(section, "win_size_h"):
             win_size = [config.getint(section, "win_size_w"), config.getint(section, "win_size_h")]
@@ -166,6 +167,7 @@ def config_file_load(inst):
         inst.line_wrapping = True
         inst.auto_indent = True
         inst.systray = False
+        inst.win_position = [10, 10]
         inst.autosave = [False, 5]
         inst.win_is_maximized = False
         inst.rest_exp_coll = 0
@@ -315,9 +317,9 @@ def config_file_save(inst):
     config.set(section, "file_name", inst.file_name)
     config.set(section, "toolbar_visible", inst.ui.get_widget("/ToolBar").get_property(cons.STR_VISIBLE))
     config.set(section, "win_is_maximized", inst.win_is_maximized)
-    win_position = inst.window.get_position()
-    config.set(section, "win_position_x", win_position[0])
-    config.set(section, "win_position_y", win_position[1])
+    inst.win_position = inst.window.get_position()
+    config.set(section, "win_position_x", inst.win_position[0])
+    config.set(section, "win_position_y", inst.win_position[1])
     if not inst.win_is_maximized:
         win_size = inst.window.get_size()
         config.set(section, "win_size_w", win_size[0])

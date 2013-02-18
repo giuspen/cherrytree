@@ -1000,7 +1000,10 @@ class CherryTree:
                 runn_win.window.show()
                 runn_win.window.deiconify()
                 runn_win.window.present()
+                runn_win.window.move(runn_win.win_position[0], runn_win.win_position[1])
+                #print "restored position", runn_win.win_position[0], runn_win.win_position[1]
             else:
+                runn_win.win_position = runn_win.window.get_position()
                 runn_win.window.hide()
 
     def on_mouse_button_clicked_systray(self, widget, event):
@@ -2884,7 +2887,9 @@ class CherryTree:
 
     def quit_application(self, *args):
         """Just Hide or Quit the gtk main loop"""
-        if self.systray: self.window.hide()
+        if self.systray:
+            self.win_position = self.window.get_position()
+            self.window.hide()
         else: self.quit_application_totally()
 
     def quit_application_totally(self, *args):
