@@ -23,6 +23,8 @@ import gtk, gobject, pango, cairo
 import copy
 import support, cons
 
+BOX_OFFSET = 4
+
 
 class PrintData:
     """Print Operation Data"""
@@ -215,14 +217,14 @@ class PrintHandler:
                     self.table_draw_grid(cairo_context,
                                          table_grid,
                                          curr_x,
-                                         print_data.all_lines_y[self.y_idx] - table_height,
+                                         print_data.all_lines_y[self.y_idx] - table_height + BOX_OFFSET,
                                          table_width,
                                          table_height)
                     self.table_draw_text(cairo_context,
                                          table_grid,
                                          table_layouts,
                                          curr_x,
-                                         print_data.all_lines_y[self.y_idx] - table_height)
+                                         print_data.all_lines_y[self.y_idx] - table_height + BOX_OFFSET)
                     curr_x += table_width
                 elif self.pixbuf_table_codebox_vector[i][0] == "codebox":
                     codebox_dict = self.pixbuf_table_codebox_vector[i][1][1]
@@ -232,13 +234,13 @@ class PrintHandler:
                     #print "codebox (%s, %s) to (%s, %s)" % (codebox_width, codebox_height, curr_x, print_data.all_lines_y[self.y_idx]-codebox_height)
                     self.codebox_draw_box(cairo_context,
                                           curr_x,
-                                          print_data.all_lines_y[self.y_idx] - codebox_height,
+                                          print_data.all_lines_y[self.y_idx] - codebox_height + BOX_OFFSET,
                                           codebox_width,
                                           codebox_height)
                     self.codebox_draw_code(cairo_context,
                                            codebox_layout,
                                            curr_x,
-                                           print_data.all_lines_y[self.y_idx] - codebox_height)
+                                           print_data.all_lines_y[self.y_idx] - codebox_height + BOX_OFFSET)
                     curr_x += codebox_width
             i += 1 # layout increment
 
