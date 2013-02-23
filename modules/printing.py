@@ -153,12 +153,12 @@ class PrintHandler:
                         table_layouts = self.get_table_layouts(context, table)
                         table_grid = self.get_table_grid(table_layouts, table['col_min'])
                         table_height = self.get_table_height_from_grid(table_grid)
-                        if inline_pending_height < table_height: inline_pending_height = table_height
+                        if inline_pending_height < table_height+BOX_OFFSET: inline_pending_height = table_height+BOX_OFFSET
                     elif self.pixbuf_table_codebox_vector[i][0] == "codebox":
                         codebox_dict = self.pixbuf_table_codebox_vector[i][1][1]
                         codebox_layout = self.get_codebox_layout(context, codebox_dict)
                         codebox_height = self.get_height_from_layout(codebox_layout)
-                        if inline_pending_height < codebox_height: inline_pending_height = codebox_height
+                        if inline_pending_height < codebox_height+BOX_OFFSET: inline_pending_height = codebox_height+BOX_OFFSET
             if exit_ok: break
         operation.set_n_pages(len(print_data.page_breaks) + 1)
 
@@ -217,14 +217,14 @@ class PrintHandler:
                     self.table_draw_grid(cairo_context,
                                          table_grid,
                                          curr_x,
-                                         print_data.all_lines_y[self.y_idx] - table_height + BOX_OFFSET,
+                                         print_data.all_lines_y[self.y_idx] - table_height,
                                          table_width,
                                          table_height)
                     self.table_draw_text(cairo_context,
                                          table_grid,
                                          table_layouts,
                                          curr_x,
-                                         print_data.all_lines_y[self.y_idx] - table_height + BOX_OFFSET)
+                                         print_data.all_lines_y[self.y_idx] - table_height)
                     curr_x += table_width
                 elif self.pixbuf_table_codebox_vector[i][0] == "codebox":
                     codebox_dict = self.pixbuf_table_codebox_vector[i][1][1]
@@ -234,13 +234,13 @@ class PrintHandler:
                     #print "codebox (%s, %s) to (%s, %s)" % (codebox_width, codebox_height, curr_x, print_data.all_lines_y[self.y_idx]-codebox_height)
                     self.codebox_draw_box(cairo_context,
                                           curr_x,
-                                          print_data.all_lines_y[self.y_idx] - codebox_height + BOX_OFFSET,
+                                          print_data.all_lines_y[self.y_idx] - codebox_height,
                                           codebox_width,
                                           codebox_height)
                     self.codebox_draw_code(cairo_context,
                                            codebox_layout,
                                            curr_x,
-                                           print_data.all_lines_y[self.y_idx] - codebox_height + BOX_OFFSET)
+                                           print_data.all_lines_y[self.y_idx] - codebox_height)
                     curr_x += codebox_width
             i += 1 # layout increment
 
