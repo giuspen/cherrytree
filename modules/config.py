@@ -71,6 +71,8 @@ def config_file_load(inst):
             inst.toolbar_icon_size = config.getint(section, "toolbar_icon_size")
             if inst.toolbar_icon_size not in ICONS_SIZE: inst.toolbar_icon_size = 1
         else: inst.toolbar_icon_size = 1
+        inst.curr_colors = {'f':gtk.gdk.color_parse(config.get(section, "fg")) if config.has_option(section, "fg") else None,
+                            'b':gtk.gdk.color_parse(config.get(section, "bg")) if config.has_option(section, "bg") else None}
         
         section = "tree"
         inst.rest_exp_coll = config.getint(section, "rest_exp_coll") if config.has_option(section, "rest_exp_coll") else 0
@@ -150,6 +152,7 @@ def config_file_load(inst):
         inst.file_dir = ""
         inst.file_name = ""
         inst.node_path = None
+        inst.curr_colors = {'f':None, 'b':None}
         inst.syntax_highlighting = cons.CUSTOM_COLORS_ID
         inst.style_scheme = cons.STYLE_SCHEME_DEFAULT
         inst.tree_font = "Sans 8" # default tree font
@@ -343,6 +346,8 @@ def config_file_save(inst):
     config.set(section, "link_type", inst.link_type)
     config.set(section, "show_node_name_label", inst.header_node_name_label.get_property(cons.STR_VISIBLE))
     config.set(section, "toolbar_icon_size", inst.toolbar_icon_size)
+    if inst.curr_colors['f']: config.set(section, "fg", inst.curr_colors['f'].to_string())
+    if inst.curr_colors['b']: config.set(section, "bg", inst.curr_colors['b'].to_string())
     
     section = "tree"
     config.add_section(section)
