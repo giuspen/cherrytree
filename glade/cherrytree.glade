@@ -46,7 +46,8 @@ Russian (ru) Andriy Kovtun &lt;kovtunos@yandex.ru&gt;
 Spanish (es) Daniel MC &lt;i.e.betel@gmail.com&gt;
 Ukrainian (uk) Andriy Kovtun &lt;kovtunos@yandex.ru&gt;</property>
     <property name="artists">OCAL &lt;http://www.openclipart.org/&gt;
-Zeltak &lt;zeltak@gmail.com&gt;</property>
+Zeltak &lt;zeltak@gmail.com&gt;
+Angelo Penone &lt;angelo.penone@gmail.com&gt;</property>
     <property name="logo">cherrytree.png</property>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog-vbox1">
@@ -663,8 +664,8 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
                               <packing>
                                 <property name="top_attach">3</property>
                                 <property name="bottom_attach">4</property>
-                                <property name="x_options"></property>
-                                <property name="y_options"></property>
+                                <property name="x_options"/>
+                                <property name="y_options"/>
                               </packing>
                             </child>
                             <child>
@@ -676,8 +677,8 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
                               <packing>
                                 <property name="top_attach">2</property>
                                 <property name="bottom_attach">3</property>
-                                <property name="x_options"></property>
-                                <property name="y_options"></property>
+                                <property name="x_options"/>
+                                <property name="y_options"/>
                               </packing>
                             </child>
                             <child>
@@ -687,8 +688,8 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
                                 <property name="stock">link_website</property>
                               </object>
                               <packing>
-                                <property name="x_options"></property>
-                                <property name="y_options"></property>
+                                <property name="x_options"/>
+                                <property name="y_options"/>
                               </packing>
                             </child>
                             <child>
@@ -700,8 +701,8 @@ Zeltak &lt;zeltak@gmail.com&gt;</property>
                               <packing>
                                 <property name="top_attach">1</property>
                                 <property name="bottom_attach">2</property>
-                                <property name="x_options"></property>
-                                <property name="y_options"></property>
+                                <property name="x_options"/>
+                                <property name="y_options"/>
                               </packing>
                             </child>
                           </object>
@@ -4267,8 +4268,8 @@ do you want to save the changes?</property>
                                 <property name="stock">gtk-select-font</property>
                               </object>
                               <packing>
-                                <property name="x_options"></property>
-                                <property name="y_options"></property>
+                                <property name="x_options"/>
+                                <property name="y_options"/>
                               </packing>
                             </child>
                             <child>
@@ -4280,8 +4281,8 @@ do you want to save the changes?</property>
                               <packing>
                                 <property name="top_attach">1</property>
                                 <property name="bottom_attach">2</property>
-                                <property name="x_options"></property>
-                                <property name="y_options"></property>
+                                <property name="x_options"/>
+                                <property name="y_options"/>
                               </packing>
                             </child>
                             <child>
@@ -4293,8 +4294,8 @@ do you want to save the changes?</property>
                               <packing>
                                 <property name="top_attach">2</property>
                                 <property name="bottom_attach">3</property>
-                                <property name="x_options"></property>
-                                <property name="y_options"></property>
+                                <property name="x_options"/>
+                                <property name="y_options"/>
                               </packing>
                             </child>
                             <child>
@@ -4306,8 +4307,8 @@ do you want to save the changes?</property>
                               <packing>
                                 <property name="left_attach">1</property>
                                 <property name="right_attach">2</property>
-                                <property name="x_options"></property>
-                                <property name="y_options"></property>
+                                <property name="x_options"/>
+                                <property name="y_options"/>
                                 <property name="x_padding">10</property>
                               </packing>
                             </child>
@@ -4322,8 +4323,8 @@ do you want to save the changes?</property>
                                 <property name="right_attach">2</property>
                                 <property name="top_attach">1</property>
                                 <property name="bottom_attach">2</property>
-                                <property name="x_options"></property>
-                                <property name="y_options"></property>
+                                <property name="x_options"/>
+                                <property name="y_options"/>
                                 <property name="x_padding">10</property>
                               </packing>
                             </child>
@@ -4338,8 +4339,8 @@ do you want to save the changes?</property>
                                 <property name="right_attach">2</property>
                                 <property name="top_attach">2</property>
                                 <property name="bottom_attach">3</property>
-                                <property name="x_options"></property>
-                                <property name="y_options"></property>
+                                <property name="x_options"/>
+                                <property name="y_options"/>
                                 <property name="x_padding">10</property>
                               </packing>
                             </child>
