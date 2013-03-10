@@ -144,7 +144,7 @@ def config_file_load(inst):
             inst.autosave = [config.getboolean(section, "autosave"), config.getint(section, "autosave_val")]
         else: inst.autosave = [False, 5]
         inst.check_version = config.getboolean(section, "check_version") if config.has_option(section, "check_version") else False
-        inst.enable_mod_time_sentinel = config.getboolean(section, "mod_time_sent") if config.has_option(section, "mod_time_sent") else False
+        inst.enable_mod_time_sentinel = config.getboolean(section, "mod_time_sent") if config.has_option(section, "mod_time_sent") else True
         inst.backup_copy = config.getboolean(section, "backup_copy") if config.has_option(section, "backup_copy") else True
         inst.autosave_on_quit = config.getboolean(section, "autosave_on_quit") if config.has_option(section, "autosave_on_quit") else False
         inst.limit_undoable_steps = config.getint(section, "limit_undoable_steps") if config.has_option(section, "limit_undoable_steps") else 20
@@ -194,7 +194,7 @@ def config_file_load(inst):
         inst.glade.spinbutton_codebox_width.set_value(700)
         inst.glade.spinbutton_codebox_height.set_value(100)
         inst.check_version = False
-        inst.enable_mod_time_sentinel = False
+        inst.enable_mod_time_sentinel = True
         inst.backup_copy = True
         inst.autosave_on_quit = False
         inst.tree_right_side = False
