@@ -1575,6 +1575,14 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
             elif tag == "img" and len(attrs) > 0:
                 img_path = attrs[0][1]
                 self.insert_image(img_path, cons.CHAR_NEWLINE*2)
+            elif tag == "br": self.curr_cell += cons.CHAR_NEWLINE
+            elif tag == "ol": self.curr_list_type = ["o", 1]
+            elif tag == "ul": self.curr_list_type = ["u", 0]
+            elif tag == "li":
+                if self.curr_list_type[0] == "u": self.curr_cell += cons.CHAR_LISTBUL+cons.CHAR_SPACE
+                else:
+                    self.curr_cell += "%s. " % self.curr_list_type[1]
+                    self.curr_list_type[1] += 1
 
     def insert_image(self, img_path, trailing_chars=""):
         """Insert Image in Buffer"""
@@ -1669,6 +1677,7 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
                                   'matrix': self.curr_table}
                     self.dad.xml_handler.table_element_to_xml([0, table_dict, cons.TAG_PROP_LEFT], self.curr_dom_slot)
                 self.rich_text_serialize(cons.CHAR_NEWLINE)
+            elif tag in ["p", "li"]: self.curr_cell += cons.CHAR_NEWLINE
 
     def handle_data(self, data):
         """Found Data"""
