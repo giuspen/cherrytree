@@ -1664,8 +1664,8 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
                     # it's a table
                     if not self.curr_table_header: self.curr_table.append([_("click me")]*len(self.curr_table[0]))
                     else: self.curr_table.append(self.curr_table.pop(0))
-                    table_dict = {'col_min': 40,
-                                  'col_max': 1000,
+                    table_dict = {'col_min': cons.TABLE_DEFAULT_COL_MIN,
+                                  'col_max': cons.TABLE_DEFAULT_COL_MAX,
                                   'matrix': self.curr_table}
                     self.dad.xml_handler.table_element_to_xml([0, table_dict, cons.TAG_PROP_LEFT], self.curr_dom_slot)
                 self.rich_text_serialize(cons.CHAR_NEWLINE)

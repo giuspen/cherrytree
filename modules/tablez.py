@@ -104,7 +104,9 @@ class TablesHandler:
                     row = reader.next()
                 file_descriptor.close()
                 table_matrix.append(table_matrix.pop(0))
-                self.table_insert(iter_insert, {'col_min': 40, 'col_max': 1000, 'matrix': table_matrix})
+                self.table_insert(iter_insert, {'col_min': cons.TABLE_DEFAULT_COL_MIN,
+                                                'col_max': cons.TABLE_DEFAULT_COL_MAX,
+                                                'matrix': table_matrix})
 
     def table_insert(self, iter_insert, table=None, table_justification=None, text_buffer=None):
         """Insert a Table at the Given Iter"""
