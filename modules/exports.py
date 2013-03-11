@@ -128,9 +128,9 @@ class ExportPrint:
 
     def pango_text_add_node_name(self, tree_iter, pango_text):
         """Add Node Name to Pango Text Vector"""
-        pango_text[0] = "<span size=\"xx-large\">" \
+        pango_text[0] = "<b><i><span size=\"xx-large\">" \
                       + self.dad.treestore[tree_iter][1] \
-                      + "</span>" + 2*cons.CHAR_NEWLINE + pango_text[0]
+                      + "</span></i></b>" + 2*cons.CHAR_NEWLINE + pango_text[0]
 
     def node_export_print(self, tree_iter, include_node_name, only_selection):
         """Export Print the Selected Node"""
