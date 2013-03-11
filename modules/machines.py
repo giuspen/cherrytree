@@ -612,9 +612,10 @@ class StateMachine:
             if anchor != None:
                 anchor_dir = dir(anchor)
                 if "pixbuf" in anchor_dir:
-                    pixbuf_table_codebox_vector.append(["pixbuf", [curr_iter.get_offset(),
-                                                        anchor.pixbuf,
-                                                        self.get_iter_alignment(curr_iter)] ])
+                    if for_print != 1 or not "anchor" in dir(anchor.pixbuf):
+                        pixbuf_table_codebox_vector.append(["pixbuf", [curr_iter.get_offset(),
+                                                            anchor.pixbuf,
+                                                            self.get_iter_alignment(curr_iter)] ])
                 elif "liststore" in anchor_dir:
                     pixbuf_table_codebox_vector.append(["table", [curr_iter.get_offset(),
                                                         self.table_to_dict(anchor),
