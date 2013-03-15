@@ -21,7 +21,7 @@
 
 import gtk
 import os, sqlite3, xml.dom.minidom, re
-import cons, machines
+import cons, machines, support
 
 
 class CTDBHandler:
