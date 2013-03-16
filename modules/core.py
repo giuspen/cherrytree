@@ -3573,7 +3573,7 @@ class CherryTree:
                 else: print "ERROR bad tag_property"
                 response = self.glade.colorselectiondialog.run()
                 self.glade.colorselectiondialog.hide()
-                if response == 2: return # cancel was clicked
+                if response != 1: return # cancel was clicked
                 self.curr_colors[tag_property[0]] = self.glade.colorselection.get_current_color()
                 property_value = self.curr_colors[tag_property[0]].to_string()
         if tag_property != cons.TAG_LINK:
