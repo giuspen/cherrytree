@@ -1,4 +1,19 @@
 
+0.29.3 (March 13th, 2013)
+• bugfix: problem of file paths with non ascii characters
+• bugfix: unwanted expanding of nodes when adding child node
+• bugfix: window position not restored in xfce window manager after hide() and show()
+• bugfixes in print to pdf
+• bugfixes in pasting tables from web pages to rich text nodes
+• several icons were changed adding a border to make them visible in dark themes
+• the latest palette for foreground and background is restored in new sessions
+• there’s a known unresolved problem for windows os only and password protection: file paths including non ascii characters may cause errors on opening and saving, this is due to 7za.exe (command line) by Igor Pavlov that does not work good with non ascii characters, I will probably have to find another cross platform way for password protection
+
+0.29.2 (January 25th, 2013)
+• bugfix: scrollbar position not restored when going back to an already visited node
+• bugfix: on windows os error when using filenames including non latin characters
+• added back support for pygtk versions < 2.22 (broken in 0.29 and 0.29.1)
+
 0.29.1 (January 18th, 2013)
 • updated Chinese, Spanish and German languages
 • added limit of recent documents to 10
