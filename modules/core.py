@@ -3567,6 +3567,10 @@ class CherryTree:
                     if len(link_anchor) > 0: property_value += cons.CHAR_SPACE + link_anchor
             else:
                 dialog = gtk.ColorSelectionDialog(_("Pick a Color"))
+                dialog.set_transient_for(self.window)
+                dialog.set_property("modal", True)
+                dialog.set_property("destroy-with-parent", True)
+                dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
                 gtk_settings = gtk.settings_get_default()
                 gtk_settings.set_property("gtk-color-palette", ":".join(self.palette_list))
                 colorselection = dialog.get_color_selection()
