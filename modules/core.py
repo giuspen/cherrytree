@@ -3585,6 +3585,8 @@ class CherryTree:
                 if response != gtk.RESPONSE_OK: return # cancel was clicked
                 self.curr_colors[tag_property[0]] = colorselection.get_current_color()
                 property_value = self.curr_colors[tag_property[0]].to_string()
+                color_str_hex8 = "#" + self.html_handler.rgb_to_24(property_value[1:])
+                print "color_str_hex8", color_str_hex8
         if tag_property != cons.TAG_LINK:
             self.latest_tag = [tag_property, property_value]
         curr_tags = iter_sel_start.get_tags()
