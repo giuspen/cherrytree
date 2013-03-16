@@ -28,10 +28,10 @@ ICONS_SIZE = {1: gtk.ICON_SIZE_MENU, 2: gtk.ICON_SIZE_SMALL_TOOLBAR, 3: gtk.ICON
 LINK_CUSTOM_ACTION_DEFAULT_WEB = "firefox %s &"
 LINK_CUSTOM_ACTION_DEFAULT_FILE = "xdg-open %s &"
 HORIZONTAL_RULE = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-COLOR_PALETTE_DEFAULT = ["#000000", "#FFFFFF", "#7F7F7F", "#FF0000", "#A020F0",
-                         "#0000FF", "#ADD8E6", "#00FF00", "#FFFF00", "#FFA500",
-                         "#E6E6FA", "#A52A2A", "#8B6914", "#1E90FF", "#FFC0CB",
-                         "#90EE90", "#1A1A1A", "#4D4D4D", "#BFBFBF", "#E5E5E5"]
+COLOR_PALETTE_DEFAULT = ["#000000", "#ffffff", "#7f7f7f", "#ff0000", "#a020f0",
+                         "#0000ff", "#add8e6", "#00ff00", "#ffff00", "#ffa500",
+                         "#e6e6fa", "#a52a2a", "#8b6914", "#1e90ff", "#ffc0cb",
+                         "#90ee90", "#1a1a1a", "#4d4d4d", "#bfbfbf", "#e5e5e5"]
 
 def config_file_load(inst):
     """Load the Preferences from Config File"""
