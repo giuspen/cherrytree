@@ -2832,11 +2832,10 @@ class CherryTree:
         if not self.is_there_selected_node_or_error(): return
         self.curr_buffer.insert_at_cursor(cons.CHAR_NEWLINE+self.h_rule+cons.CHAR_NEWLINE)
 
-    def dialog_input(self, entry_hint=None, title=None, search_opt=False, replace_opt=False, syntax_highlight=False):
+    def dialog_input(self, entry_hint="", title=None, search_opt=False, replace_opt=False, syntax_highlight=False):
         """Opens the Input Dialog"""
         if title != None: self.glade.inputdialog.set_title(title)
-        if entry_hint != None: self.glade.input_entry.set_text(entry_hint)
-        else: self.glade.input_entry.set_text("")
+        self.glade.input_entry.set_text(entry_hint)
         self.glade.input_entry.grab_focus()
         self.glade.search_options_frame.set_property(cons.STR_VISIBLE, search_opt)
         self.glade.replace_options_frame.set_property(cons.STR_VISIBLE, replace_opt)
