@@ -3566,15 +3566,20 @@ class CherryTree:
                     property_value = "node" + cons.CHAR_SPACE + str(self.treestore[tree_iter][3])
                     if len(link_anchor) > 0: property_value += cons.CHAR_SPACE + link_anchor
             else:
+                dialog = gtk.ColorSelectionDialog(_("Pick a Color"))
+                gtk_settings = gtk.settings_get_default()
+                gtk_settings.set_property("gtk-color-palette", ":".join(self.palette_list))
+                colorselection = dialog.get_color_selection()
+                colorselection.set_has_palette(True)
                 if tag_property[0] == 'f':
-                    if self.curr_colors['f']: self.glade.colorselection.set_current_color(self.curr_colors['f'])
+                    if self.curr_colors['f']: colorselection.set_current_color(self.curr_colors['f'])
                 elif tag_property[0] == 'b':
-                    if self.curr_colors['b']: self.glade.colorselection.set_current_color(self.curr_colors['b'])
+                    if self.curr_colors['b']: colorselection.set_current_color(self.curr_colors['b'])
                 else: print "ERROR bad tag_property"
-                response = self.glade.colorselectiondialog.run()
-                self.glade.colorselectiondialog.hide()
+                response = dialog.run()
+                dialog.hide()
                 if response != 1: return # cancel was clicked
-                self.curr_colors[tag_property[0]] = self.glade.colorselection.get_current_color()
+                self.curr_colors[tag_property[0]] = colorselection.get_current_color()
                 property_value = self.curr_colors[tag_property[0]].to_string()
         if tag_property != cons.TAG_LINK:
             self.latest_tag = [tag_property, property_value]

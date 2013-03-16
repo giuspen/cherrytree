@@ -28,7 +28,10 @@ ICONS_SIZE = {1: gtk.ICON_SIZE_MENU, 2: gtk.ICON_SIZE_SMALL_TOOLBAR, 3: gtk.ICON
 LINK_CUSTOM_ACTION_DEFAULT_WEB = "firefox %s &"
 LINK_CUSTOM_ACTION_DEFAULT_FILE = "xdg-open %s &"
 HORIZONTAL_RULE = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-
+COLOR_PALETTE_DEFAULT = ["#000000", "#FFFFFF", "#7F7F7F", "#FF0000", "#A020F0",
+                         "#0000FF", "#ADD8E6", "#00FF00", "#FFFF00", "#FFA500",
+                         "#E6E6FA", "#A52A2A", "#8B6914", "#1E90FF", "#FFC0CB",
+                         "#90EE90", "#1A1A1A", "#4D4D4D", "#BFBFBF", "#E5E5E5"]
 
 def config_file_load(inst):
     """Load the Preferences from Config File"""
@@ -135,6 +138,9 @@ def config_file_load(inst):
         inst.rt_def_bg = config.get(section, "rt_def_bg") if config.has_option(section, "rt_def_bg") else cons.RICH_TEXT_DARK_BG
         inst.tt_def_fg = config.get(section, "tt_def_fg") if config.has_option(section, "tt_def_fg") else cons.TREE_TEXT_LIGHT_FG
         inst.tt_def_bg = config.get(section, "tt_def_bg") if config.has_option(section, "tt_def_bg") else cons.TREE_TEXT_LIGHT_BG
+        if config.has_option(section, "palette_list"):
+            inst.palette_list = config.get(section, "palette_list").split(":")
+        else: inst.palette_list = COLOR_PALETTE_DEFAULT
         
         section = "misc"
         inst.systray = config.getboolean(section, "systray") if config.has_option(section, "systray") else False
@@ -162,6 +168,7 @@ def config_file_load(inst):
         inst.rt_def_bg = cons.RICH_TEXT_DARK_BG
         inst.tt_def_fg = cons.TREE_TEXT_LIGHT_FG
         inst.tt_def_bg = cons.TREE_TEXT_LIGHT_BG
+        inst.palette_list = COLOR_PALETTE_DEFAULT
         inst.h_rule = HORIZONTAL_RULE
         inst.show_line_numbers = False
         inst.spaces_instead_tabs = True
@@ -403,6 +410,7 @@ def config_file_save(inst):
     config.set(section, "rt_def_bg", inst.rt_def_bg)
     config.set(section, "tt_def_fg", inst.tt_def_fg)
     config.set(section, "tt_def_bg", inst.tt_def_bg)
+    config.set(section, "palette_list", ":".join(inst.palette_list))
     
     section = "misc"
     config.add_section(section)
