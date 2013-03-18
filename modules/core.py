@@ -938,8 +938,7 @@ class CherryTree:
 
     def autosave_timer_iter(self):
         """Iteration of the Autosave"""
-        if self.file_update or (self.curr_tree_iter != None and self.curr_buffer.get_modified() == True):
-            self.file_save()
+        self.file_save()
         return True # this way we keep the timer alive
 
     def modification_time_sentinel_start(self):
@@ -1148,12 +1147,14 @@ class CherryTree:
     def file_save(self, *args):
         """Save the file"""
         if self.file_dir != "" and self.file_name != "":
-            self.modification_time_update_value(False)
-            if self.is_tree_not_empty_or_error() \
-            and self.file_write(os.path.join(self.file_dir, self.file_name), first_write=False):
-                self.update_window_save_not_needed()
-                self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
-            self.modification_time_update_value(True)
+            if self.file_update or (self.curr_tree_iter != None and self.curr_buffer.get_modified() == True):
+                self.modification_time_update_value(False)
+                if self.is_tree_not_empty_or_error() \
+                and self.file_write(os.path.join(self.file_dir, self.file_name), first_write=False):
+                    self.update_window_save_not_needed()
+                    self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
+                self.modification_time_update_value(True)
+            else: print "no changes"
         else: self.file_save_as()
 
     def file_write_low_level(self, filepath, xml_string, first_write, exporting="", sel_range=None):
