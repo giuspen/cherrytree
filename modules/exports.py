@@ -208,14 +208,65 @@ class Export2Txt:
             self.nodes_all_export_to_txt_iter(child_tree_iter)
             child_tree_iter = self.dad.treestore.iter_next(child_tree_iter)
 
+    def plain_process_slot(self, start_offset, end_offset, curr_buffer):
+        """Process a Single plain Slot"""
+        start_iter = curr_buffer.get_iter_at_offset(start_offset)
+        if end_offset == -1:
+            end_offset = curr_buffer.get_end_iter().get_offset()
+        end_iter = curr_buffer.get_iter_at_offset(end_offset)
+        #print "process slot (%s->%s)" % (start_offset, end_offset)
+        # begin operations
+        self.curr_plain_slots.append(curr_buffer.get_text(start_iter, end_iter))
+
+    def get_codebox_plain(self, codebox):
+        """Returns the plain CodeBox"""
+        # codebox is: [offset, dict, justification]
+        codebox_plain = cons.CHAR_NEWLINE + self.dad.h_rule + cons.CHAR_NEWLINE
+        codebox_plain += codebox[1]['fill_text']
+        codebox_plain += cons.CHAR_NEWLINE + self.dad.h_rule + cons.CHAR_NEWLINE
+        return codebox_plain
+
+    def get_table_plain(self, table_orig):
+        """Returns the plain Table"""
+        # table is: [offset, dict, justification]
+        table_plain = cons.CHAR_NEWLINE + self.dad.h_rule + cons.CHAR_NEWLINE + cons.CHAR_PIPE*2
+        table = copy.deepcopy(table_orig)
+        table[1]['matrix'].insert(0, table[1]['matrix'].pop())
+        for j, row in enumerate(table[1]['matrix']):
+            for cell in row:
+                table_plain += cons.CHAR_SPACE + cell + cons.CHAR_SPACE + cons.CHAR_PIPE*2
+            table_plain += cons.CHAR_NEWLINE + self.dad.h_rule + cons.CHAR_NEWLINE
+        return table_plain
+
+    def plain_get_from_treestore_node(self, curr_buffer, sel_range=None):
+        """Given a treestore iter returns the HTML rich text"""
+        pixbuf_table_codebox_vector = self.dad.state_machine.get_embedded_pixbufs_tables_codeboxes(curr_buffer,
+                                                                                                   for_print=2,
+                                                                                                   sel_range=sel_range)
+        # pixbuf_table_codebox_vector is [ [ "pixbuf"/"table"/"codebox", [offset, pixbuf, alignment] ],... ]
+        self.curr_plain_slots = []
+        start_offset = 0 if not sel_range else sel_range[0]
+        for end_offset_element in pixbuf_table_codebox_vector:
+            end_offset = end_offset_element[1][0]
+            self.plain_process_slot(start_offset, end_offset, curr_buffer)
+            start_offset = end_offset
+        if not sel_range: self.plain_process_slot(start_offset, -1, curr_buffer)
+        else: self.plain_process_slot(start_offset, sel_range[1], curr_buffer)
+        #print "curr_plain_slots", curr_plain_slots
+        #print "pixbuf_table_codebox_vector", pixbuf_table_codebox_vector
+        return [self.curr_plain_slots, pixbuf_table_codebox_vector]
+
     def node_export_to_txt(self, text_buffer, filepath, sel_range=None):
         """Export the Selected Node To Txt"""
-        if sel_range:
-            iter_start = text_buffer.get_iter_at_offset(sel_range[0])
-            iter_end = text_buffer.get_iter_at_offset(sel_range[1])
-        else:
-            iter_start, iter_end = text_buffer.get_bounds()
-        plain_text = text_buffer.get_text(iter_start, iter_end)
+        plain_text = ""
+        text_n_objects = self.plain_get_from_treestore_node(text_buffer, sel_range)
+        self.images_count = 0
+        for i, plain_slot in enumerate(text_n_objects[0]):
+            plain_text += plain_slot
+            if i < len(text_n_objects[1]):
+                curr_object = text_n_objects[1][i]
+                if curr_object[0] == "table": plain_text += self.get_table_plain(curr_object[1])
+                elif curr_object[0] == "codebox": plain_text += self.get_codebox_plain(curr_object[1])
         file_descriptor = open(filepath, 'w')
         file_descriptor.write(plain_text)
         file_descriptor.close()
