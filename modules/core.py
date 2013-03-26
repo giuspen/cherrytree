@@ -168,7 +168,8 @@ class CherryTree:
         self.window.connect('key_press_event', self.on_key_press_window)
         self.window.connect("destroy", self.boss.on_window_destroy_event)
         self.scrolledwindow_tree.connect("size-allocate", self.on_window_n_tree_size_allocate_event)
-        self.glade.inputdialog.connect('key_press_event', self.on_key_press_input_dialog)
+        self.glade.nodepropdialog.connect('key_press_event', self.on_key_press_nodepropdialog)
+        self.glade.searchdialog.connect('key_press_event', self.on_key_press_searchdialog)
         self.glade.anchorhandledialog.connect('key_press_event', self.on_key_press_anchorhandledialog)
         self.glade.choosenodedialog.connect('key_press_event', self.on_key_press_choosenodedialog)
         self.glade.tablehandledialog.connect('key_press_event', self.tables_handler.on_key_press_tablehandledialog)
@@ -570,17 +571,22 @@ class CherryTree:
     def on_key_press_choosenodedialog(self, widget, event):
         """Catches ChooseNode Dialog key presses"""
         keyname = gtk.gdk.keyval_name(event.keyval)
-        if keyname == "Return": self.glade.choosenodedialog_button_ok.clicked()
+        if keyname == "Return": self.glade.choosenodedialog.get_widget_for_response(1).clicked()
 
     def on_key_press_anchorhandledialog(self, widget, event):
         """Catches AnchorHandle Dialog key presses"""
         keyname = gtk.gdk.keyval_name(event.keyval)
-        if keyname == "Return": self.glade.anchorhandledialog_button_ok.clicked()
+        if keyname == "Return": self.glade.anchorhandledialog.get_widget_for_response(1).clicked()
 
-    def on_key_press_input_dialog(self, widget, event):
-        """Catches Input Dialog key presses"""
+    def on_key_press_nodepropdialog(self, widget, event):
+        """Catches Node Properties Dialog key presses"""
         keyname = gtk.gdk.keyval_name(event.keyval)
-        if keyname == "Return": self.glade.input_dialog_ok_button.clicked()
+        if keyname == "Return": self.glade.nodepropdialog.get_widget_for_response(1).clicked()
+
+    def on_key_press_searchdialog(self, widget, event):
+        """Catches Search Dialog key presses"""
+        keyname = gtk.gdk.keyval_name(event.keyval)
+        if keyname == "Return": self.glade.searchdialog.get_widget_for_response(1).clicked()
 
     def nodes_add_from_cherrytree_file(self, action):
         """Appends Nodes at the Bottom of the Current Ones, Importing from a CherryTree File"""
@@ -2363,7 +2369,7 @@ class CherryTree:
         """Add a node having common father with the selected node's"""
         self.glade.checkbutton_readonly.set_active(False)
         self.glade.combobox_prog_lang.set_sensitive(not self.glade.radiobutton_node_rich_text.get_active())
-        node_name = self.dialog_input(title=_("Insert the New Node Name..."), syntax_highlight=True)
+        node_name = self.dialog_nodeprop(title=_("New Node Properties"))
         if node_name == None: return
         self.update_window_save_needed()
         self.syntax_highlighting = self.get_syntax_highlighting_from_dialog()
@@ -2402,7 +2408,7 @@ class CherryTree:
         if not self.is_there_selected_node_or_error(): return
         self.glade.checkbutton_readonly.set_active(False)
         self.glade.combobox_prog_lang.set_sensitive(not self.glade.radiobutton_node_rich_text.get_active())
-        node_name = self.dialog_input(title=_("Insert the New Child Node Name..."), syntax_highlight=True)
+        node_name = self.dialog_nodeprop(title=_("New Child Node Properties"))
         if node_name != None:
             self.update_window_save_needed()
             self.syntax_highlighting = self.get_syntax_highlighting_from_dialog()
@@ -2459,9 +2465,7 @@ class CherryTree:
             self.glade.combobox_prog_lang.set_active_iter(self.get_combobox_prog_lang_iter(self.treestore[self.curr_tree_iter][4]))
         self.glade.tags_searching_entry.set_text(self.treestore[self.curr_tree_iter][6])
         self.glade.checkbutton_readonly.set_active(self.treestore[self.curr_tree_iter][7])
-        node_name = self.dialog_input(entry_hint=self.treestore[self.curr_tree_iter][1],
-                                      title=_("Insert the New Name for the Node..."),
-                                      syntax_highlight=True)
+        node_name = self.dialog_nodeprop(entry_hint=self.treestore[self.curr_tree_iter][1], title=_("Node Properties"))
         if node_name == None: return
         self.syntax_highlighting = self.get_syntax_highlighting_from_dialog()
         if self.treestore[self.curr_tree_iter][4] == cons.CUSTOM_COLORS_ID and self.syntax_highlighting != cons.CUSTOM_COLORS_ID:
@@ -2833,18 +2837,27 @@ class CherryTree:
         if not self.is_there_selected_node_or_error(): return
         self.curr_buffer.insert_at_cursor(cons.CHAR_NEWLINE+self.h_rule+cons.CHAR_NEWLINE)
 
-    def dialog_input(self, entry_hint="", title=None, search_opt=False, replace_opt=False, syntax_highlight=False):
-        """Opens the Input Dialog"""
-        if title != None: self.glade.inputdialog.set_title(title)
+    def dialog_search(self, entry_hint="", title=None, replace_opt=False):
+        """Opens the Search Dialog"""
+        if title != None: self.glade.searchdialog.set_title(title)
+        self.glade.search_entry.set_text(entry_hint)
+        self.glade.search_entry.grab_focus()
+        self.glade.replace_options_frame.set_property(cons.STR_VISIBLE, replace_opt)
+        response = self.glade.searchdialog.run()
+        self.glade.searchdialog.hide()
+        if response == 1:
+            input_text = self.glade.search_entry.get_text().decode(cons.STR_UTF8)
+            if len(input_text) > 0: return input_text
+            else: return None
+        else: return None
+
+    def dialog_nodeprop(self, entry_hint="", title=None):
+        """Opens the Node Properties Dialog"""
+        if title != None: self.glade.nodepropdialog.set_title(title)
         self.glade.input_entry.set_text(entry_hint)
         self.glade.input_entry.grab_focus()
-        self.glade.search_options_frame.set_property(cons.STR_VISIBLE, search_opt)
-        self.glade.replace_options_frame.set_property(cons.STR_VISIBLE, replace_opt)
-        self.glade.syntax_highlighting_frame.set_property(cons.STR_VISIBLE, syntax_highlight)
-        self.glade.tags_searching_frame.set_property(cons.STR_VISIBLE, syntax_highlight)
-        self.glade.checkbutton_readonly.set_property(cons.STR_VISIBLE, syntax_highlight)
-        response = self.glade.inputdialog.run()
-        self.glade.inputdialog.hide()
+        response = self.glade.nodepropdialog.run()
+        self.glade.nodepropdialog.hide()
         if response == 1:
             input_text = self.glade.input_entry.get_text().decode(cons.STR_UTF8)
             if len(input_text) > 0: return input_text
