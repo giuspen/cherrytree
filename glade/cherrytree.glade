@@ -2979,7 +2979,6 @@ do you want to save the changes?</property>
                               <object class="GtkHBox" id="hbox1">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="spacing">2</property>
                                 <child>
                                   <object class="GtkLabel" id="label87">
                                     <property name="visible">True</property>
@@ -2989,22 +2988,34 @@ do you want to save the changes?</property>
                                   <packing>
                                     <property name="expand">False</property>
                                     <property name="fill">True</property>
+                                    <property name="padding">2</property>
                                     <property name="position">0</property>
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkScrolledWindow" id="scrolledwindow_special_chars">
+                                  <object class="GtkFrame" id="frame16">
                                     <property name="visible">True</property>
-                                    <property name="can_focus">True</property>
-                                    <property name="hscrollbar_policy">automatic</property>
-                                    <property name="vscrollbar_policy">automatic</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="label_xalign">0</property>
+                                    <property name="shadow_type">in</property>
                                     <child>
-                                      <object class="GtkTextView" id="textview_special_chars">
+                                      <object class="GtkScrolledWindow" id="scrolledwindow_special_chars">
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
-                                        <property name="wrap_mode">char</property>
-                                        <property name="buffer">textbuffer_special_chars</property>
+                                        <property name="hscrollbar_policy">automatic</property>
+                                        <property name="vscrollbar_policy">automatic</property>
+                                        <child>
+                                          <object class="GtkTextView" id="textview_special_chars">
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">True</property>
+                                            <property name="wrap_mode">char</property>
+                                            <property name="buffer">textbuffer_special_chars</property>
+                                          </object>
+                                        </child>
                                       </object>
+                                    </child>
+                                    <child type="label_item">
+                                      <placeholder/>
                                     </child>
                                   </object>
                                   <packing>
