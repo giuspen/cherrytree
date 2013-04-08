@@ -924,6 +924,10 @@ class CherryTree:
         """Opens the Preferences Dialog"""
         self.glade.prefdialog.run()
         self.glade.prefdialog.hide()
+        # special characters
+        if self.glade.textbuffer_special_chars.get_modified():
+            self.special_chars = self.glade.textbuffer_special_chars.get_text(*self.glade.textbuffer_special_chars.get_bounds()).replace(cons.CHAR_NEWLINE, "")
+            self.glade.textbuffer_special_chars.set_modified(False)
         # timer activate/modify handling
         new_autosave_value = int(self.glade.spinbutton_autosave.get_value())
         if self.autosave[1] != new_autosave_value:

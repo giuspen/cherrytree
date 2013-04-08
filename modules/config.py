@@ -256,6 +256,7 @@ def config_file_apply(inst):
     inst.treeview.modify_text(gtk.STATE_NORMAL, gtk.gdk.color_parse(inst.tt_def_fg))
     inst.glade.entry_horizontal_rule.set_text(inst.h_rule)
     inst.glade.textbuffer_special_chars.set_text(inst.special_chars)
+    inst.glade.textbuffer_special_chars.set_modified(False)
     inst.sourceview.set_show_line_numbers(inst.show_line_numbers)
     inst.glade.checkbutton_line_nums.set_active(inst.show_line_numbers)
     inst.sourceview.set_insert_spaces_instead_of_tabs(inst.spaces_instead_tabs)
