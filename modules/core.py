@@ -208,6 +208,7 @@ class CherryTree:
         self.mod_time_val = 0
         self.glade.aboutdialog.set_version(cons.VERSION)
         support.set_menu_items_recent_documents(self)
+        support.set_menu_items_special_chars(self)
         self.window.show_all() # this before the config_file_apply that could hide something
         self.window.present()
         config.config_file_apply(self)
@@ -928,6 +929,7 @@ class CherryTree:
         if self.glade.textbuffer_special_chars.get_modified():
             self.special_chars = self.glade.textbuffer_special_chars.get_text(*self.glade.textbuffer_special_chars.get_bounds()).replace(cons.CHAR_NEWLINE, "")
             self.glade.textbuffer_special_chars.set_modified(False)
+            support.set_menu_items_special_chars(self)
         # timer activate/modify handling
         new_autosave_value = int(self.glade.spinbutton_autosave.get_value())
         if self.autosave[1] != new_autosave_value:
