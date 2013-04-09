@@ -258,6 +258,10 @@ def set_bookmarks_menu_items(inst):
         bookmarks_menu.append(menu_item)
         inst.bookmarks_menu_items.append(menu_item)
 
+def set_menu_items_special_chars(inst):
+    """Set Special Chars menu items"""
+    pass
+
 def set_menu_items_recent_documents(inst):
     """Set Recent Documents menu items on Menu and Toolbar"""
     if not "recent_menu_1" in dir(inst):
