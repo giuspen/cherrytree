@@ -260,7 +260,27 @@ def set_bookmarks_menu_items(inst):
 
 def set_menu_items_special_chars(inst):
     """Set Special Chars menu items"""
-    pass
+    if not "special_menu_1" in dir(inst):
+        inst.special_menu_1 = gtk.Menu()
+        first_run = True
+    else:
+        children_1 = inst.special_menu_1.get_children()
+        for children in children_1:
+            children.hide()
+            del children
+        first_run = False
+    for special_char in inst.special_chars:
+        menu_item = gtk.MenuItem(special_char)
+        menu_item.connect("activate", insert_special_char, special_char, inst)
+        menu_item.show()
+        inst.special_menu_1.append(menu_item)
+    if first_run:
+        # main menu
+        special_menuitem = gtk.ImageMenuItem(_("Insert _Special Character"))
+        special_menuitem.set_image(gtk.image_new_from_stock("insert", gtk.ICON_SIZE_MENU))
+        special_menuitem.set_tooltip_text(_("Insert a Special Character"))
+        special_menuitem.set_submenu(inst.special_menu_1)
+        inst.ui.get_widget("/MenuBar/EditMenu").get_submenu().insert(special_menuitem, 14)
 
 def set_menu_items_recent_documents(inst):
     """Set Recent Documents menu items on Menu and Toolbar"""
@@ -309,6 +329,11 @@ def add_recent_document(inst, filepath):
     if filepath in inst.recent_docs: inst.recent_docs.remove(filepath)
     inst.recent_docs.insert(0, filepath)
     set_menu_items_recent_documents(inst)
+
+def insert_special_char(menu_item, special_char, dad):
+    """A Special character insert was Requested"""
+    if not dad.is_there_selected_node_or_error(): return
+    dad.curr_buffer.insert_at_cursor(special_char)
 
 def open_recent_document(menu_item, filepath, dad):
     """A Recent Document was Requested"""

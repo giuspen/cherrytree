@@ -927,7 +927,7 @@ class CherryTree:
         self.glade.prefdialog.hide()
         # special characters
         if self.glade.textbuffer_special_chars.get_modified():
-            self.special_chars = self.glade.textbuffer_special_chars.get_text(*self.glade.textbuffer_special_chars.get_bounds()).replace(cons.CHAR_NEWLINE, "")
+            self.special_chars = unicode(self.glade.textbuffer_special_chars.get_text(*self.glade.textbuffer_special_chars.get_bounds()).replace(cons.CHAR_NEWLINE, ""), cons.STR_UTF8, cons.STR_IGNORE)
             self.glade.textbuffer_special_chars.set_modified(False)
             support.set_menu_items_special_chars(self)
         # timer activate/modify handling
