@@ -97,7 +97,7 @@ def config_file_load(inst):
         inst.show_white_spaces = config.getboolean(section, "show_white_spaces") if config.has_option(section, "show_white_spaces") else True
         inst.highl_curr_line = config.getboolean(section, "highl_curr_line") if config.has_option(section, "highl_curr_line") else True
         inst.h_rule = config.get(section, "h_rule") if config.has_option(section, "h_rule") else HORIZONTAL_RULE
-        inst.special_chars = unicode(config.get(section, "special_chars"), cons.STR_UTF8, cons.STR_IGNORE) if config.has_option(section, "special_chars") else SPECIAL_CHARS_DEFAULT
+        inst.special_chars = unicode(config.get(section, "special_chars") if config.has_option(section, "special_chars") else SPECIAL_CHARS_DEFAULT, cons.STR_UTF8, cons.STR_IGNORE)
         inst.timestamp_format = config.get(section, "timestamp_format") if config.has_option(section, "timestamp_format") else "%Y/%m/%d - %H:%M"
         if config.has_option(section, "weblink_custom_action"):
             temp_str = config.get(section, "weblink_custom_action")
@@ -172,7 +172,7 @@ def config_file_load(inst):
         inst.tt_def_bg = cons.TREE_TEXT_LIGHT_BG
         inst.palette_list = COLOR_PALETTE_DEFAULT
         inst.h_rule = HORIZONTAL_RULE
-        inst.special_chars = SPECIAL_CHARS_DEFAULT
+        inst.special_chars = unicode(SPECIAL_CHARS_DEFAULT, cons.STR_UTF8, cons.STR_IGNORE)
         inst.show_line_numbers = False
         inst.spaces_instead_tabs = True
         inst.tabs_width = 4
