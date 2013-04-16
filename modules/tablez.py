@@ -282,12 +282,12 @@ class TablesHandler:
         iter_bound.forward_char()
         self.dad.curr_buffer.delete(iter_insert, iter_bound)
         if self.dad.table_column_mode == 'rename':
-            new_label = self.dad.glade.table_column_rename_entry.get_text()
+            new_label = unicode(self.dad.glade.table_column_rename_entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE)
             col_label.set_text("<b>" + new_label + "</b>")
             col_label.set_use_markup(True)
             headers[col_num] = new_label
         elif self.dad.table_column_mode == 'add':
-            headers.insert(col_num + 1, self.dad.glade.table_column_new_entry.get_text())
+            headers.insert(col_num + 1, unicode(self.dad.glade.table_column_new_entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE))
             for row in table['matrix']: row.insert(col_num + 1, "")
         elif self.dad.table_column_mode == 'delete':
             headers.pop(col_num)

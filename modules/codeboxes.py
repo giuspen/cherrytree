@@ -62,7 +62,7 @@ class CodeBoxesHandler:
         """Insert Code Box"""
         if self.dad.curr_buffer.get_has_selection():
             iter_sel_start, iter_sel_end = self.dad.curr_buffer.get_selection_bounds()
-            fill_text = self.dad.curr_buffer.get_text(iter_sel_start, iter_sel_end)
+            fill_text = unicode(self.dad.curr_buffer.get_text(iter_sel_start, iter_sel_end), cons.STR_UTF8, cons.STR_IGNORE)
         else: fill_text = None
         self.dad.glade.codeboxhandledialog.set_title(_("Insert a CodeBox"))
         response = self.dad.glade.codeboxhandledialog.run()

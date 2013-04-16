@@ -1340,8 +1340,8 @@ class CherryTree:
                                or radiobutton_xml_pass_protected.get_active())
         new_protection = {'on': (radiobutton_sqlite_pass_protected.get_active()\
                                  or radiobutton_xml_pass_protected.get_active()),
-                          'p1': entry_passw_1.get_text(),
-                          'p2': entry_passw_2.get_text()}
+                          'p1': unicode(entry_passw_1.get_text(), cons.STR_UTF8, cons.STR_IGNORE),
+                          'p2': unicode(entry_passw_2.get_text(), cons.STR_UTF8, cons.STR_IGNORE)}
         dialog.destroy()
         if response != gtk.RESPONSE_ACCEPT: return False
         if new_protection['on']:
@@ -1401,7 +1401,7 @@ class CherryTree:
             the_window.focus(gtk.gdk.x11_get_server_time(the_window))
         dialog.present()
         response = dialog.run()
-        passw = entry.get_text()
+        passw = unicode(entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE)
         dialog.destroy()
         while gtk.events_pending(): gtk.main_iteration()
         if response != gtk.RESPONSE_ACCEPT: return ""
@@ -2852,7 +2852,7 @@ class CherryTree:
         response = self.glade.searchdialog.run()
         self.glade.searchdialog.hide()
         if response == 1:
-            input_text = self.glade.search_entry.get_text().decode(cons.STR_UTF8)
+            input_text = unicode(self.glade.search_entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE)
             if len(input_text) > 0: return input_text
             else: return None
         else: return None
@@ -2865,7 +2865,7 @@ class CherryTree:
         response = self.glade.nodepropdialog.run()
         self.glade.nodepropdialog.hide()
         if response == 1:
-            input_text = self.glade.input_entry.get_text().decode(cons.STR_UTF8)
+            input_text = unicode(self.glade.input_entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE)
             if len(input_text) > 0: return input_text
             else: return None
         else: return None
