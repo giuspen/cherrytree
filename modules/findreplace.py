@@ -263,7 +263,7 @@ class FindReplace:
 
     def find_pattern(self, pattern, start_iter, forward, all_matches):
         """Returns (start_iter, end_iter) or (None, None)"""
-        text = self.dad.curr_buffer.get_text(*self.dad.curr_buffer.get_bounds()).decode(cons.STR_UTF8)
+        text = unicode(self.dad.curr_buffer.get_text(*self.dad.curr_buffer.get_bounds()), cons.STR_UTF8, cons.STR_IGNORE)
         if not self.dad.glade.checkbutton_re.get_active(): # NOT REGULAR EXPRESSION
             pattern = re.escape(pattern) # backslashes all non alphanum chars => to not spoil re
             if self.dad.glade.checkbutton_whole_word.get_active(): # WHOLE WORD
@@ -318,7 +318,7 @@ class FindReplace:
                                        self.dad.treestore[self.dad.curr_tree_iter][1],
                                        self.get_line_content(iter_insert) if obj_match_offsets[0] == None else obj_match_offsets[2]])
             if self.replace_active:
-                replacer_text = self.dad.glade.replace_entry.get_text().decode(cons.STR_UTF8)
+                replacer_text = unicode(self.dad.glade.replace_entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE)
                 self.dad.curr_buffer.delete_selection(interactive=False, default_editable=True)
                 self.dad.curr_buffer.insert_at_cursor(replacer_text)
                 if not all_matches:
@@ -458,7 +458,7 @@ class FindReplace:
                                        self.dad.treestore[node_iter][1],
                                        self.get_first_line_content(self.dad.get_textbuffer_from_tree_iter(node_iter))])
             if self.replace_active:
-                replacer_text = self.dad.glade.replace_entry.get_text().decode(cons.STR_UTF8)
+                replacer_text = unicode(self.dad.glade.replace_entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE)
                 text_name = text_name.replace(self.curr_find[1], replacer_text)
                 self.dad.treestore[node_iter][1] = text_name
                 self.ctdb_handler.pending_edit_db_node_prop(self.dad.treestore[node_iter][3])
