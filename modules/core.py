@@ -1933,8 +1933,11 @@ class CherryTree:
 
     def treeview_safe_set_cursor(self, tree_iter):
         """Set Cursor being sure the Node is Expanded"""
+        father_iter = self.treestore.iter_parent(tree_iter)
+        if father_iter:
+            father_path = self.treestore.get_path(father_iter)
+            self.treeview.expand_to_path(tree_path)
         tree_path = self.treestore.get_path(tree_iter)
-        self.treeview.expand_to_path(tree_path)
         self.treeview.set_cursor(tree_path)
 
     def on_table_column_rename_radiobutton_toggled(self, radiobutton):
