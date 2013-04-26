@@ -387,7 +387,6 @@ UI_INFO = """
             <menuitem action='ShowAllMatchesDialog'/>
             <separator/>
             <menuitem action='ToggleTreeText'/>
-            <menuitem action='ToggleNodeExpColl'/>
             <separator/>
             <menuitem action='IncreaseToolbarIconsSize'/>
             <menuitem action='DecreaseToolbarIconsSize'/>
@@ -616,7 +615,6 @@ def get_entries(inst):
     ( "IncreaseToolbarIconsSize", "gtk-add", _("_Increase Toolbar Icons Size"), None, _("Increase the Size of the Toolbar Icons"), inst.toolbar_icons_size_increase),
     ( "DecreaseToolbarIconsSize", "gtk-remove", _("_Decrease Toolbar Icons Size"), None, _("Decrease the Size of the Toolbar Icons"), inst.toolbar_icons_size_decrease),
     ( "ToggleTreeText", "gtk-jump-to", _("Toggle _Focus Tree/Text"), "<control>J", _("Toggle Focus Between Tree and Text"), inst.toggle_tree_text),
-    ( "ToggleNodeExpColl", "", _("Toggle Node _Expanded/Collapsed"), "<control><shift>J", _("Toggle Expanded/Collapsed Status of the Selected Node"), inst.toggle_tree_node_expanded_collapsed),
     ( "Fullscreen", "gtk-fullscreen", _("_Full Screen On/Off"), "F11", _("Toggle Full Screen On/Off"), inst.fullscreen_toggle),
     ( "FromBasket", STR_STOCK_CT_IMP, _("From _Basket Folder"), None, _("Add Nodes of a Basket Folder to the Current Tree"), inst.nodes_add_from_basket_folder),
     ( "FromCherryTree", STR_STOCK_CT_IMP, _("From _CherryTree File"), None, _("Add Nodes of a CherryTree File to the Current Tree"), inst.nodes_add_from_cherrytree_file),
@@ -677,6 +675,7 @@ def get_popup_menu_tree(inst):
     ("gtk-sort-descending", _("Sort Siblings D_escending"), None, _("Sort all the Siblings of the Selected Node Descending"), inst.node_siblings_sort_descending),
     ("submenu-end", None, None, None, None),
     ("separator", None, None, None, None),
+    ("gtk-zoom-in", _("Toggle Node _Expanded/Collapsed"), "<control><shift>J", _("Toggle Expanded/Collapsed Status of the Selected Node"), inst.toggle_tree_node_expanded_collapsed),
     ("gtk-zoom-in", _("E_xpand All Nodes"), None, _("Expand All the Tree Nodes"), inst.nodes_expand_all),
     ("gtk-zoom-out", _("_Collapse All Nodes"), None, _("Collapse All the Tree Nodes"), inst.nodes_collapse_all),
     ("separator", None, None, None, None),
