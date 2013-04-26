@@ -1936,7 +1936,7 @@ class CherryTree:
         father_iter = self.treestore.iter_parent(tree_iter)
         if father_iter:
             father_path = self.treestore.get_path(father_iter)
-            self.treeview.expand_to_path(tree_path)
+            self.treeview.expand_to_path(father_path)
         tree_path = self.treestore.get_path(tree_iter)
         self.treeview.set_cursor(tree_path)
 
