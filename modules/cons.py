@@ -387,6 +387,7 @@ UI_INFO = """
             <menuitem action='ShowAllMatchesDialog'/>
             <separator/>
             <menuitem action='ToggleTreeText'/>
+            <menuitem action='ToggleNodeExpColl'/>
             <separator/>
             <menuitem action='IncreaseToolbarIconsSize'/>
             <menuitem action='DecreaseToolbarIconsSize'/>
@@ -614,7 +615,8 @@ def get_entries(inst):
     ( "ShowAllMatchesDialog", "find", _("Show _All Matches Dialog"), "<control><shift>A", _("Show Search All Matches Dialog"), inst.find_allmatchesdialog_restore),
     ( "IncreaseToolbarIconsSize", "gtk-add", _("_Increase Toolbar Icons Size"), None, _("Increase the Size of the Toolbar Icons"), inst.toolbar_icons_size_increase),
     ( "DecreaseToolbarIconsSize", "gtk-remove", _("_Decrease Toolbar Icons Size"), None, _("Decrease the Size of the Toolbar Icons"), inst.toolbar_icons_size_decrease),
-    ( "ToggleTreeText", "gtk-jump-to", _("Toggle Focus Tree/Text"), "<control>J", _("Toggle Focus Between Tree and Text"), inst.toggle_tree_text),
+    ( "ToggleTreeText", "gtk-jump-to", _("Toggle _Focus Tree/Text"), "<control>J", _("Toggle Focus Between Tree and Text"), inst.toggle_tree_text),
+    ( "ToggleNodeExpColl", "", _("Toggle Node _Expanded/Collapsed"), "<control><shift>J", _("Toggle Expanded/Collapsed Status of the Selected Node"), inst.toggle_tree_node_expanded_collapsed),
     ( "Fullscreen", "gtk-fullscreen", _("_Full Screen On/Off"), "F11", _("Toggle Full Screen On/Off"), inst.fullscreen_toggle),
     ( "FromBasket", STR_STOCK_CT_IMP, _("From _Basket Folder"), None, _("Add Nodes of a Basket Folder to the Current Tree"), inst.nodes_add_from_basket_folder),
     ( "FromCherryTree", STR_STOCK_CT_IMP, _("From _CherryTree File"), None, _("Add Nodes of a CherryTree File to the Current Tree"), inst.nodes_add_from_cherrytree_file),

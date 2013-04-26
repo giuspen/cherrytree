@@ -519,6 +519,14 @@ class CherryTree:
         else:
             self.window.window.fullscreen()
 
+    def toggle_tree_node_expanded_collapsed(self, *args):
+        """Toggle Selected Tree Node Expanded/Collapsed"""
+        if not self.is_there_selected_node_or_error(): return
+        if self.treeview.row_expanded(self.treestore.get_path(self.curr_tree_iter)):
+            self.treeview.collapse_row(self.treestore.get_path(self.curr_tree_iter))
+        else:
+            self.treeview.expand_row(self.treestore.get_path(self.curr_tree_iter), open_all=False)
+
     def toggle_tree_text(self, *args):
         """Toggle Focus Between Tree and Text"""
         if self.treeview.is_focus():
