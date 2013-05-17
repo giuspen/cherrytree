@@ -307,13 +307,13 @@ class CTDBHandler:
                     db.executemany('INSERT INTO image VALUES(?,?,?,?,?)', images_tuples)
                 else: has_image = 0
                 # retrieve xml text
-                txt = unicode(self.dom.toxml(), cons.STR_UTF8, cons.STR_IGNORE)
+                txt = (self.dom.toxml()).decode(cons.STR_UTF8)
             else:
                 # not richtext
                 has_codebox = 0
                 has_table = 0
                 has_image = 0
-                txt = unicode(start_iter.get_text(end_iter), cons.STR_UTF8, cons.STR_IGNORE)
+                txt = (start_iter.get_text(end_iter)).decode(cons.STR_UTF8)
         if write_dict['prop'] and write_dict['buff']:
             if write_dict['upd']:
                 db.execute('DELETE FROM node WHERE node_id=?', (node_id,))
