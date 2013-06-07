@@ -20,7 +20,7 @@
 #       MA 02110-1301, USA.
 
 import gtk, pango, gtksourceview2, gobject
-import sys, os, re, subprocess, webbrowser, base64, cgi, urllib2, shutil, time, locale
+import sys, os, re, glob, subprocess, webbrowser, base64, cgi, urllib2, shutil, time, locale
 try:
     import appindicator
     HAS_APPINDICATOR = True
@@ -607,7 +607,7 @@ class CherryTree:
         document_loaded_ok = False
         if filepath[-1] in ["d", "z"]:
             # xml
-            cherrytree_string = self.file_get_cherrytree_data(filepath, main_file=False)
+            cherrytree_string = self.file_get_cherrytree_data(filepath, False)
             if cherrytree_string: document_loaded_ok = True
             elif cherrytree_string == None: return # no error exit
         elif filepath[-1] in ["b", "x"]:
@@ -1254,17 +1254,26 @@ class CherryTree:
                 return False
         else: xml_string = ""
         # backup before save new version
-        if self.backup_copy and os.path.isfile(filepath):
-            try: shutil.copy(filepath, filepath + cons.CHAR_TILDE)
-            except: subprocess.call("cp %s %s~" % (re.escape(filepath), re.escape(filepath)), shell=True)
+        if os.path.isfile(filepath):
+            if os.path.isfile(filepath + cons.CHAR_TILDE): os.remove(filepath + cons.CHAR_TILDE)
+            try: os.rename(filepath, filepath + cons.CHAR_TILDE)
+            except:
+                print "os.rename failed"
+                subprocess.call("mv %s %s~" % (re.escape(filepath), re.escape(filepath)), shell=True)
         # if the filename is protected, we use unprotected type before compress and protect
         try:
             self.statusbar.push(self.statusbar_context_id, _("Writing to Disk..."))
             while gtk.events_pending(): gtk.main_iteration()
             self.file_write_low_level(filepath, xml_string, first_write)
             self.statusbar.pop(self.statusbar_context_id)
+            if not self.backup_copy and os.path.isfile(filepath + cons.CHAR_TILDE): os.remove(filepath + cons.CHAR_TILDE)
             return True
         except:
+            if not os.path.isfile(filepath) and os.path.isfile(filepath + cons.CHAR_TILDE):
+                try: os.rename(filepath + cons.CHAR_TILDE, filepath)
+                except:
+                    print "os.rename failed"
+                    subprocess.call("mv %s~ %s" % (re.escape(filepath), re.escape(filepath)), shell=True)
             support.dialog_error("%s write failed - writing to disk" % filepath, self.window)
             raise
             return False
@@ -1444,6 +1453,12 @@ class CherryTree:
             if ret_code != 0:
                 support.dialog_error(_('Wrong Password'), self.window)
                 return None
+            if not os.path.isfile(filepath_tmp):
+                # the compressed file was renamed
+                files_list = glob.glob(os.path.join(os.path.dirname(filepath_tmp), "*"+filepath_tmp[-4:]))
+                if len(files_list) == 1:
+                    old_filepath_tmp = files_list[0]
+                    os.rename(old_filepath_tmp, filepath_tmp)
         elif filepath[-1] not in ["d", "b"]:
             print "bad filepath[-1]", filepath[-1]
             return False
@@ -1479,7 +1494,7 @@ class CherryTree:
         if filepath[-3:] in ["ctd", "ctz"]:
             # xml
             self.filetype = "d"
-            cherrytree_string = self.file_get_cherrytree_data(filepath, main_file=True)
+            cherrytree_string = self.file_get_cherrytree_data(filepath, True)
             if cherrytree_string: document_loaded_ok = True
             elif cherrytree_string == None: return # no error exit
         elif filepath[-3:] in ["ctb", "ctx"]:
