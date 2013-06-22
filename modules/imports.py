@@ -635,12 +635,15 @@ class TomboyHandler():
                 file_descriptor = open(os.path.join(self.folderpath, element), 'r')
                 xml_string = file_descriptor.read()
                 file_descriptor.close()
-                self.doc_parse(xml_string)
+                self.doc_parse(xml_string, element)
 
-    def doc_parse(self, xml_string):
+    def doc_parse(self, xml_string, file_name):
         """Parse an xml file"""
         dest_dom_father = self.dest_orphans_dom_node
-        dom = xml.dom.minidom.parseString(xml_string)
+        try: dom = xml.dom.minidom.parseString(xml_string)
+        except:
+            print "? non xml file:", file_name
+            return
         dom_iter = dom.firstChild
         while dom_iter:
             if dom_iter.nodeName == "note": break
