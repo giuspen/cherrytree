@@ -906,7 +906,23 @@ class CherryTree:
                             accel_group = self.orphan_accel_group
                             break
                     menu_item.add_accelerator("activate", accel_group, key, mod, gtk.ACCEL_VISIBLE)
-                if curr_submenu: curr_submenu.append(menu_item)
+                if curr_submenu:
+                    curr_submenu.append(menu_item)
+                    if attributes[0] == "horizontal_rule":
+                        menu_item.show()
+                        special_menu = gtk.Menu()
+                        for special_char in self.special_chars:
+                            menu_item = gtk.MenuItem(special_char)
+                            menu_item.connect("activate", support.insert_special_char, special_char, self)
+                            menu_item.show()
+                            special_menu.append(menu_item)
+                        special_menuitem = gtk.ImageMenuItem(_("Insert _Special Character"))
+                        special_menuitem.set_image(gtk.image_new_from_stock("insert", gtk.ICON_SIZE_MENU))
+                        special_menuitem.set_tooltip_text(_("Insert a Special Character"))
+                        special_menuitem.set_submenu(special_menu)
+                        curr_submenu.append(special_menuitem)
+                        special_menuitem.show()
+                    else: print attributes[0]
                 else: menu.append(menu_item)
             menu_item.show()
 
