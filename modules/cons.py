@@ -22,7 +22,7 @@
 import os, sys
 
 
-VERSION = "0.29.4"
+VERSION = "0.30"
 APP_NAME = "cherrytree"
 NEWER_VERSION_URL = "http://www.giuspen.com/software/version_cherrytree"
 if sys.platform[0:3] == "win":
@@ -419,7 +419,8 @@ UI_INFO = """
 
         <menu action='ExportMenu'>
             <menuitem action='NodePrint'/>
-            <menuitem action='Export2Txt'/>
+            <menuitem action='Export2TxtMultiple'/>
+            <menuitem action='Export2TxtSingle'/>
             <menuitem action='Export2HTML'/>
             <menuitem action='Export2CTD'/>
         </menu>
@@ -542,7 +543,8 @@ def get_entries(inst):
     ( "Save", "gtk-save", _("_Save"), "<control>S", _("Save File"), inst.file_save),
     ( "SaveAs", "gtk-save-as", _("Save _As"), "<control><shift>S", _("Save File As"), inst.file_save_as),
     ( "Export2HTML", "to_html", _("Export To _HTML"), None, _("Export To HTML"), inst.export_to_html),
-    ( "Export2Txt", "to_txt", _("Export to Plain _Text"), None, _("Export to Plain Text"), inst.export_to_txt),
+    ( "Export2TxtMultiple", "to_txt", _("Export to Multiple Plain _Text Files"), None, _("Export to Multiple Plain Text Files"), inst.export_to_txt_multiple),
+    ( "Export2TxtSingle", "to_txt", _("Export to _Single Plain Text File"), None, _("Export to Single Plain Text File"), inst.export_to_txt_single),
     ( "Export2CTD", "export_from_cherrytree", _("_Export To CherryTree Document"), None, _("Export To CherryTree Document"), inst.export_to_ctd),
     ( "PageSetup", "gtk-print", _("Pa_ge Setup"), "<control><shift>P", _("Set up the Page for Printing"), inst.export_print_page_setup),
     ( "NodePrint", "gtk-print", _("_Print / Export To PDF"), "<control>P", _("Print / Export To PDF"), inst.export_print),
@@ -700,7 +702,8 @@ def get_popup_menu_tree(inst):
     ("submenu-end", None, None, None, None),
     ("submenu-start", _("Nodes E_xport"), "export_from_cherrytree", None, None),
     ("gtk-print", _("_Print / Export To PDF"), "<control>P", _("Print / Export To PDF"), inst.export_print),
-    ("to_txt", _("Export to Plain _Text"), None, _("Export to Plain Text"), inst.export_to_txt),
+    ("to_txt", _("Export to Multiple Plain _Text Files"), None, _("Export to Multiple Plain Text Files"), inst.export_to_txt_multiple),
+    ("to_txt", _("Export to _Single Plain Text File"), None, _("Export to Single Plain Text File"), inst.export_to_txt_single),
     ("to_html", _("Export To _HTML"), None, _("Export To HTML"), inst.export_to_html),
     ("export_from_cherrytree", _("_Export To CherryTree Document"), None, _("Export To CherryTree Document"), inst.export_to_ctd),
     ("submenu-end", None, None, None, None),

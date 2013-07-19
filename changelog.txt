@@ -1,4 +1,9 @@
 
+0.29.4 (March 21st, 2013)
+• the color chooser palette keeps now memory of the latest 20 colors used
+• in the export to plain text of the rich text nodes, codeboxes and tables are also included
+• fixed a couple of minor bugs
+
 0.29.3 (March 13th, 2013)
 • bugfix: problem of file paths with non ascii characters
 • bugfix: unwanted expanding of nodes when adding child node

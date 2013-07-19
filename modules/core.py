@@ -197,6 +197,7 @@ class CherryTree:
         self.bookmarks_menu_items = []
         self.nodes_names_dict = {}
         self.password = None
+        self.export_single = False
         self.curr_tree_iter = None
         self.curr_window_n_tree_width = None
         self.curr_buffer = None
@@ -1624,8 +1625,14 @@ class CherryTree:
         self.password = restore_passw
         self.filetype = restore_filetype
 
-    def export_to_txt(self, *args):
-        """Export To Plain Text"""
+    def export_to_txt_single(self, *args):
+        """Export To Plain Text Single File"""
+        self.export_single = True
+        self.export_to_txt_multiple()
+        self.export_single = False
+
+    def export_to_txt_multiple(self, *args):
+        """Export To Plain Text Multiple Files"""
         if not self.is_there_selected_node_or_error(): return
         export_type = support.dialog_selnode_selnodeandsub_alltree(self.window,
                                                                    also_selection=True)[0]
