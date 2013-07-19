@@ -187,7 +187,7 @@ class Export2Txt:
         os.mkdir(self.new_path)
         return True
 
-    def nodes_all_export_to_txt(self, top_tree_iter=None):
+    def nodes_all_export_to_txt(self, top_tree_iter=None, single_txt_filepath=""):
         """Export All Nodes To Txt"""
         if not top_tree_iter: tree_iter = self.dad.treestore.get_iter_first()
         else: tree_iter = top_tree_iter.copy()
