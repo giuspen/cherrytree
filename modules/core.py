@@ -1646,13 +1646,23 @@ class CherryTree:
                 txt_handler.node_export_to_txt(self.curr_buffer, txt_filepath)
         elif export_type == 2:
             # selected node and subnodes
-            folder_name = support.get_node_hierarchical_name(self, self.curr_tree_iter)
-            if txt_handler.prepare_txt_folder(folder_name):
-                txt_handler.nodes_all_export_to_txt(self.curr_tree_iter)
+            if self.export_single:
+                txt_filepath = txt_handler.get_single_txt_filepath(self.file_name)
+                if txt_filepath:
+                    txt_handler.nodes_all_export_to_txt(top_tree_iter=self.curr_tree_iter, single_txt_filepath=txt_filepath)
+            else:
+                folder_name = support.get_node_hierarchical_name(self, self.curr_tree_iter)
+                if txt_handler.prepare_txt_folder(folder_name):
+                    txt_handler.nodes_all_export_to_txt(self.curr_tree_iter)
         elif export_type == 3:
             # all nodes
-            if txt_handler.prepare_txt_folder(self.file_name):
-                txt_handler.nodes_all_export_to_txt()
+            if self.export_single:
+                txt_filepath = txt_handler.get_single_txt_filepath(self.file_name)
+                if txt_filepath:
+                    txt_handler.nodes_all_export_to_txt(single_txt_filepath=txt_filepath)
+            else:
+                if txt_handler.prepare_txt_folder(self.file_name):
+                    txt_handler.nodes_all_export_to_txt()
         else:
             # only selection
             if self.is_there_text_selection_or_error():
