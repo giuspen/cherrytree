@@ -923,7 +923,9 @@ class CherryTree:
                         special_menuitem.set_submenu(special_menu)
                         curr_submenu.append(special_menuitem)
                         special_menuitem.show()
-                    else: print attributes[0]
+                    else:
+                        #print attributes[0]
+                        pass
                 else: menu.append(menu_item)
             menu_item.show()
 
