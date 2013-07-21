@@ -1634,8 +1634,8 @@ class CherryTree:
     def export_to_txt_multiple(self, *args):
         """Export To Plain Text Multiple Files"""
         if not self.is_there_selected_node_or_error(): return
-        export_type = support.dialog_selnode_selnodeandsub_alltree(self.window,
-                                                                   also_selection=True)[0]
+        export_type, include_node_name = support.dialog_selnode_selnodeandsub_alltree(self.window,
+                                                            also_selection=True, also_node_name=True)
         if export_type == 0: return
         txt_handler = exports.Export2Txt(self)
         if export_type == 1:
@@ -1643,26 +1643,27 @@ class CherryTree:
             proposed_name = support.get_node_hierarchical_name(self, self.curr_tree_iter)
             txt_filepath = txt_handler.get_single_txt_filepath(proposed_name)
             if txt_filepath:
-                txt_handler.node_export_to_txt(self.curr_buffer, txt_filepath)
+                tree_iter_for_node_name = self.curr_tree_iter if include_node_name else None
+                txt_handler.node_export_to_txt(self.curr_buffer, txt_filepath, tree_iter_for_node_name=tree_iter_for_node_name)
         elif export_type == 2:
             # selected node and subnodes
             if self.export_single:
                 txt_filepath = txt_handler.get_single_txt_filepath(self.file_name)
                 if txt_filepath:
-                    txt_handler.nodes_all_export_to_txt(top_tree_iter=self.curr_tree_iter, single_txt_filepath=txt_filepath)
+                    txt_handler.nodes_all_export_to_txt(top_tree_iter=self.curr_tree_iter, single_txt_filepath=txt_filepath, include_node_name=include_node_name)
             else:
                 folder_name = support.get_node_hierarchical_name(self, self.curr_tree_iter)
                 if txt_handler.prepare_txt_folder(folder_name):
-                    txt_handler.nodes_all_export_to_txt(self.curr_tree_iter)
+                    txt_handler.nodes_all_export_to_txt(self.curr_tree_iter, include_node_name=include_node_name)
         elif export_type == 3:
             # all nodes
             if self.export_single:
                 txt_filepath = txt_handler.get_single_txt_filepath(self.file_name)
                 if txt_filepath:
-                    txt_handler.nodes_all_export_to_txt(single_txt_filepath=txt_filepath)
+                    txt_handler.nodes_all_export_to_txt(single_txt_filepath=txt_filepath, include_node_name=include_node_name)
             else:
                 if txt_handler.prepare_txt_folder(self.file_name):
-                    txt_handler.nodes_all_export_to_txt()
+                    txt_handler.nodes_all_export_to_txt(include_node_name=include_node_name)
         else:
             # only selection
             if self.is_there_text_selection_or_error():
@@ -1671,7 +1672,8 @@ class CherryTree:
                 txt_filepath = txt_handler.get_single_txt_filepath(proposed_name)
                 if txt_filepath:
                     sel_range = [iter_start.get_offset(), iter_end.get_offset()]
-                    txt_handler.node_export_to_txt(self.curr_buffer, txt_filepath, sel_range)
+                    tree_iter_for_node_name = self.curr_tree_iter if include_node_name else None
+                    txt_handler.node_export_to_txt(self.curr_buffer, txt_filepath, sel_range, tree_iter_for_node_name=tree_iter_for_node_name)
 
     def export_to_html(self, *args):
         """Export to HTML"""
