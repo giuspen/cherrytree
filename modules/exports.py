@@ -187,25 +187,29 @@ class Export2Txt:
         os.mkdir(self.new_path)
         return True
 
-    def nodes_all_export_to_txt(self, top_tree_iter=None, single_txt_filepath=""):
+    def nodes_all_export_to_txt(self, top_tree_iter=None, single_txt_filepath="", include_node_name=True):
         """Export All Nodes To Txt"""
         if not top_tree_iter: tree_iter = self.dad.treestore.get_iter_first()
         else: tree_iter = top_tree_iter.copy()
         while tree_iter:
-            self.nodes_all_export_to_txt_iter(tree_iter)
+            self.nodes_all_export_to_txt_iter(tree_iter, single_txt_filepath, include_node_name)
             if top_tree_iter: break
             tree_iter = self.dad.treestore.iter_next(tree_iter)
         self.dad.objects_buffer_refresh()
 
-    def nodes_all_export_to_txt_iter(self, tree_iter):
+    def nodes_all_export_to_txt_iter(self, tree_iter, single_txt_filepath, include_node_name):
         """Export All Nodes To Txt - iter"""
         text_buffer = self.dad.get_textbuffer_from_tree_iter(tree_iter)
-        filepath = os.path.join(self.new_path,
-                                support.get_node_hierarchical_name(self.dad, tree_iter) + ".txt")
-        self.node_export_to_txt(text_buffer, filepath)
+        tree_iter_for_node_name = tree_iter if include_node_name else None
+        if not single_txt_filepath:
+            filepath = os.path.join(self.new_path,
+                                    support.get_node_hierarchical_name(self.dad, tree_iter) + ".txt")
+            self.node_export_to_txt(text_buffer, filepath, tree_iter_for_node_name=tree_iter_for_node_name)
+        else:
+            self.node_export_to_txt(text_buffer, single_txt_filepath, tree_iter_for_node_name=tree_iter_for_node_name)
         child_tree_iter = self.dad.treestore.iter_children(tree_iter)
         while child_tree_iter:
-            self.nodes_all_export_to_txt_iter(child_tree_iter)
+            self.nodes_all_export_to_txt_iter(child_tree_iter, single_txt_filepath, include_node_name)
             child_tree_iter = self.dad.treestore.iter_next(child_tree_iter)
 
     def plain_process_slot(self, start_offset, end_offset, curr_buffer):
@@ -256,7 +260,7 @@ class Export2Txt:
         #print "pixbuf_table_codebox_vector", pixbuf_table_codebox_vector
         return [self.curr_plain_slots, pixbuf_table_codebox_vector]
 
-    def node_export_to_txt(self, text_buffer, filepath, sel_range=None):
+    def node_export_to_txt(self, text_buffer, filepath, sel_range=None, tree_iter_for_node_name=None):
         """Export the Selected Node To Txt"""
         plain_text = ""
         text_n_objects = self.plain_get_from_treestore_node(text_buffer, sel_range)
@@ -267,10 +271,15 @@ class Export2Txt:
                 curr_object = text_n_objects[1][i]
                 if curr_object[0] == "table": plain_text += self.get_table_plain(curr_object[1])
                 elif curr_object[0] == "codebox": plain_text += self.get_codebox_plain(curr_object[1])
-        file_descriptor = open(filepath, 'w')
+        if tree_iter_for_node_name:
+            plain_text = self.plain_text_get_node_name(tree_iter_for_node_name) + plain_text
+        file_descriptor = open(filepath, 'a')
         file_descriptor.write(plain_text)
         file_descriptor.close()
-
+    
+    def plain_text_get_node_name(self, tree_iter):
+        """Get Node Name in Plain Text"""
+        return 2*cons.CHAR_NEWLINE + self.dad.treestore[tree_iter][1] + 2*cons.CHAR_NEWLINE
 
 class Export2Pango:
     """The Export to Pango Class"""
