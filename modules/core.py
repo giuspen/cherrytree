@@ -1273,19 +1273,15 @@ class CherryTree:
                 return False
         else: xml_string = ""
         # backup before save new version
-        if os.path.isfile(filepath):
-            if os.path.isfile(filepath + cons.CHAR_TILDE): os.remove(filepath + cons.CHAR_TILDE)
-            try: os.rename(filepath, filepath + cons.CHAR_TILDE)
-            except:
-                print "os.rename failed"
-                subprocess.call("mv %s %s~" % (re.escape(filepath), re.escape(filepath)), shell=True)
+        if self.backup_copy and os.path.isfile(filepath):
+            try: shutil.copy(filepath, filepath + cons.CHAR_TILDE)
+            except: subprocess.call("cp %s %s~" % (re.escape(filepath), re.escape(filepath)), shell=True)
         # if the filename is protected, we use unprotected type before compress and protect
         try:
             self.statusbar.push(self.statusbar_context_id, _("Writing to Disk..."))
             while gtk.events_pending(): gtk.main_iteration()
             self.file_write_low_level(filepath, xml_string, first_write)
             self.statusbar.pop(self.statusbar_context_id)
-            if not self.backup_copy and os.path.isfile(filepath + cons.CHAR_TILDE): os.remove(filepath + cons.CHAR_TILDE)
             return True
         except:
             if not os.path.isfile(filepath) and os.path.isfile(filepath + cons.CHAR_TILDE):
