@@ -1248,7 +1248,7 @@ class CherryTree:
                 bash_str = '7za a -p%s -bd -y ' % self.password +\
                            filepath_4win + cons.CHAR_SPACE + filepath_tmp_4win
             else:
-                bash_str = '7za a -p%s -bd -y %s %s' % (self.password,
+                bash_str = 'cd && 7za a -p%s -bd -y %s %s && cd -' % (self.password,
                                                         re.escape(filepath),
                                                         re.escape(filepath_tmp))
             #print bash_str
@@ -1460,7 +1460,7 @@ class CherryTree:
                 bash_str = '7za e -p%s -bd -y ' % password_str +\
                            dest_dir_4win + cons.CHAR_SPACE + filepath_4win
             else:
-                bash_str = '7za e -p%s -bd -y -o%s %s' % (password_str,
+                bash_str = 'cd && 7za e -p%s -bd -y -o%s %s && cd -' % (password_str,
                                                           re.escape(cons.TMP_FOLDER),
                                                           re.escape(filepath))
             #print bash_str
