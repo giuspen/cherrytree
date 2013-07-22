@@ -274,12 +274,12 @@ class Export2Txt:
         if tree_iter_for_node_name:
             plain_text = self.plain_text_get_node_name(tree_iter_for_node_name) + plain_text
         file_descriptor = open(filepath, 'a')
-        file_descriptor.write(plain_text)
+        file_descriptor.write(plain_text + 2*cons.CHAR_NEWLINE)
         file_descriptor.close()
     
     def plain_text_get_node_name(self, tree_iter):
         """Get Node Name in Plain Text"""
-        return 2*cons.CHAR_NEWLINE + self.dad.treestore[tree_iter][1] + 2*cons.CHAR_NEWLINE
+        return self.dad.treestore[tree_iter][1].upper() + cons.CHAR_NEWLINE
 
 class Export2Pango:
     """The Export to Pango Class"""
