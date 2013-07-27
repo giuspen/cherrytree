@@ -20,7 +20,7 @@
 #       MA 02110-1301, USA.
 
 import gtk, pango, gtksourceview2, gobject
-import sys, os, re, glob, subprocess, webbrowser, base64, cgi, urllib2, shutil, time, locale
+import sys, os, re, glob, subprocess, webbrowser, base64, cgi, urllib2, shutil, time, locale, gtkspellcheck
 try:
     import appindicator
     HAS_APPINDICATOR = True
@@ -2586,6 +2586,8 @@ class CherryTree:
             self.sourceview.modify_text(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.rt_def_fg))
             self.sourceview.set_draw_spaces(0)
             self.sourceview.set_highlight_current_line(False)
+            if self.enable_spell_check:
+                self.spellchecker.buffer_initialize()
         else:
             self.sourceview.modify_font(pango.FontDescription(self.code_font))
             if self.show_white_spaces: self.sourceview.set_draw_spaces(codeboxes.DRAW_SPACES_FLAGS)

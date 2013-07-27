@@ -19,7 +19,7 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
-import os, sys, ConfigParser, gtk, pango, subprocess, base64
+import os, sys, ConfigParser, gtk, pango, subprocess, base64, gtkspellcheck
 import cons
 
 ICONS_SIZE = {1: gtk.ICON_SIZE_MENU, 2: gtk.ICON_SIZE_SMALL_TOOLBAR, 3: gtk.ICON_SIZE_LARGE_TOOLBAR,
@@ -88,6 +88,7 @@ def config_file_load(inst):
         section = "editor"
         inst.syntax_highlighting = config.get(section, "syntax_highlighting") if config.has_option(section, "syntax_highlighting") else cons.CUSTOM_COLORS_ID
         inst.style_scheme = config.get(section, "style_scheme") if config.has_option(section, "style_scheme") else cons.STYLE_SCHEME_DEFAULT
+        inst.enable_spell_check = config.getboolean(section, "enable_spell_check") if config.has_option(section, "enable_spell_check") else True
         inst.show_line_numbers = config.getboolean(section, "show_line_numbers") if config.has_option(section, "show_line_numbers") else False
         inst.spaces_instead_tabs = config.getboolean(section, "spaces_instead_tabs") if config.has_option(section, "spaces_instead_tabs") else True
         inst.tabs_width = config.getint(section, "tabs_width") if config.has_option(section, "tabs_width") else 4
@@ -173,6 +174,7 @@ def config_file_load(inst):
         inst.palette_list = COLOR_PALETTE_DEFAULT
         inst.h_rule = HORIZONTAL_RULE
         inst.special_chars = unicode(SPECIAL_CHARS_DEFAULT, cons.STR_UTF8, cons.STR_IGNORE)
+        inst.enable_spell_check = True
         inst.show_line_numbers = False
         inst.spaces_instead_tabs = True
         inst.tabs_width = 4
@@ -257,6 +259,7 @@ def config_file_apply(inst):
     inst.glade.entry_horizontal_rule.set_text(inst.h_rule)
     inst.glade.textbuffer_special_chars.set_text(inst.special_chars)
     inst.glade.textbuffer_special_chars.set_modified(False)
+    inst.spellchecker = gtkspellcheck.SpellChecker(inst.sourceview)
     inst.sourceview.set_show_line_numbers(inst.show_line_numbers)
     inst.glade.checkbutton_line_nums.set_active(inst.show_line_numbers)
     inst.sourceview.set_insert_spaces_instead_of_tabs(inst.spaces_instead_tabs)
@@ -375,6 +378,7 @@ def config_file_save(inst):
     config.add_section(section)
     config.set(section, "syntax_highlighting", inst.syntax_highlighting)
     config.set(section, "style_scheme", inst.style_scheme)
+    config.set(section, "enable_spell_check", inst.enable_spell_check)
     config.set(section, "show_line_numbers", inst.show_line_numbers)
     config.set(section, "spaces_instead_tabs", inst.spaces_instead_tabs)
     config.set(section, "tabs_width", inst.tabs_width)
