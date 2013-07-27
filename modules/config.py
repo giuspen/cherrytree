@@ -90,7 +90,7 @@ def config_file_load(inst):
         section = "editor"
         inst.syntax_highlighting = config.get(section, "syntax_highlighting") if config.has_option(section, "syntax_highlighting") else cons.CUSTOM_COLORS_ID
         inst.style_scheme = config.get(section, "style_scheme") if config.has_option(section, "style_scheme") else cons.STYLE_SCHEME_DEFAULT
-        inst.enable_spell_check = config.getboolean(section, "enable_spell_check") if config.has_option(section, "enable_spell_check") else True
+        inst.enable_spell_check = config.getboolean(section, "enable_spell_check") if config.has_option(section, "enable_spell_check") else False
         inst.spell_check_lang = config.get(section, "spell_check_lang") if config.has_option(section, "spell_check_lang") else SPELL_CHECK_LANG_DEFAULT
         inst.show_line_numbers = config.getboolean(section, "show_line_numbers") if config.has_option(section, "show_line_numbers") else False
         inst.spaces_instead_tabs = config.getboolean(section, "spaces_instead_tabs") if config.has_option(section, "spaces_instead_tabs") else True
@@ -177,7 +177,7 @@ def config_file_load(inst):
         inst.palette_list = COLOR_PALETTE_DEFAULT
         inst.h_rule = HORIZONTAL_RULE
         inst.special_chars = unicode(SPECIAL_CHARS_DEFAULT, cons.STR_UTF8, cons.STR_IGNORE)
-        inst.enable_spell_check = True
+        inst.enable_spell_check = False
         inst.spell_check_lang = SPELL_CHECK_LANG_DEFAULT
         inst.show_line_numbers = False
         inst.spaces_instead_tabs = True
@@ -263,9 +263,11 @@ def config_file_apply(inst):
     inst.glade.entry_horizontal_rule.set_text(inst.h_rule)
     inst.glade.textbuffer_special_chars.set_text(inst.special_chars)
     inst.glade.textbuffer_special_chars.set_modified(False)
-    inst.glade.checkbutton_enable_spell_check.set_active(inst.enable_spell_check)
+    inst.glade.checkbutton_spell_check.set_active(inst.enable_spell_check)
     inst.spell_check_set_on()
-    if not inst.enable_spell_check: inst.spell_check_set_off()
+    if not inst.enable_spell_check:
+        inst.spell_check_set_off()
+        inst.glade.combobox_spell_check_lang.set_sensitive(False)
     inst.sourceview.set_show_line_numbers(inst.show_line_numbers)
     inst.glade.checkbutton_line_nums.set_active(inst.show_line_numbers)
     inst.sourceview.set_insert_spaces_instead_of_tabs(inst.spaces_instead_tabs)

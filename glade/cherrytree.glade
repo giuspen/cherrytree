@@ -3086,14 +3086,14 @@ do you want to save the changes?</property>
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <child>
-                              <object class="GtkCheckButton" id="checkbutton_enable_spell_check">
+                              <object class="GtkCheckButton" id="checkbutton_spell_check">
                                 <property name="label" translatable="yes">Enable Spell Check</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
                                 <property name="use_action_appearance">False</property>
                                 <property name="draw_indicator">True</property>
-                                <signal name="toggled" handler="on_checkbutton_enable_spell_check_toggled" swapped="no"/>
+                                <signal name="toggled" handler="on_checkbutton_spell_check_toggled" swapped="no"/>
                               </object>
                               <packing>
                                 <property name="expand">True</property>

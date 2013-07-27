@@ -2203,12 +2203,13 @@ class CherryTree:
         """Autosave on Quit Toggled"""
         self.autosave_on_quit = checkbutton.get_active()
 
-    def on_checkbutton_enable_spell_check_toggled(self, checkbutton):
+    def on_checkbutton_spell_check_toggled(self, checkbutton):
         """Enable Spell Check Toggled"""
         if not self.user_active: return
         self.enable_spell_check = checkbutton.get_active()
         if self.enable_spell_check: self.spell_check_set_on()
         else: self.spell_check_set_off()
+        self.glade.combobox_spell_check_lang.set_sensitive(self.enable_spell_check)
 
     def on_checkbutton_highlight_current_line_toggled(self, checkbutton):
         """Show White Spaces Toggled"""
@@ -2379,9 +2380,7 @@ class CherryTree:
         if not self.user_active: return
         new_iter = self.glade.combobox_spell_check_lang.get_active_iter()
         new_lang_code = self.spell_check_lang_liststore[new_iter][0]
-        if new_lang_code != self.spell_check_lang:
-            self.spell_check_lang = new_lang_code
-            support.dialog_info_after_restart(self.window)
+        if new_lang_code != self.spell_check_lang: self.spell_check_set_new_lang(new_lang_code)
     
     def combobox_spell_check_lang_init(self):
         """Init The Spell Check Language ComboBox"""
@@ -3763,12 +3762,21 @@ class CherryTree:
             self.tag_table.add(tag)
         return str(tag_name)
 
+    def spell_check_set_new_lang(self, new_lang):
+        """Set a New Language to Spell Checker"""
+        self.spellchecker._language = new_lang
+        self.spellchecker._dictionary = self.spellchecker._broker.request_dict(new_lang)
+        self.spellchecker.recheck()
+        self.spell_check_reload_on_buffer()
+        self.spell_check_lang = new_lang
+
     def spell_check_set_on(self):
         """Enable Spell Check"""
         if not "spellchecker" in dir(self):
             self.spellchecker = gtkspellcheck.SpellChecker(self.sourceview, self.spell_check_lang)
         else:
             self.spellchecker.enable()
+            self.spell_check_reload_on_buffer()
 
     def spell_check_set_off(self):
         """Disable Spell Check"""
