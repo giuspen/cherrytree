@@ -196,7 +196,7 @@ class CodeBoxesHandler:
         self.dad.glade.radiobutton_codebox_percent.set_active(not self.curr_codebox_anchor.width_in_pixels)
         self.dad.glade.checkbutton_codebox_matchbrackets.set_active(self.curr_codebox_anchor.highlight_brackets)
         self.dad.glade.checkbutton_codebox_linenumbers.set_active(self.curr_codebox_anchor.show_line_numbers)
-        self.dad.glade.combobox_prog_lang_codebox.set_active_iter(self.dad.get_combobox_prog_lang_iter(self.curr_codebox_anchor.syntax_highlighting))
+        self.dad.glade.combobox_prog_lang_codebox.set_active_iter(self.dad.get_combobox_iter_from_value(self.dad.prog_lang_liststore, 1, self.curr_codebox_anchor.syntax_highlighting))
         self.dad.glade.codeboxhandledialog.set_title(_("Edit CodeBox"))
         if user_active_restore: self.dad.user_active = True
         response = self.dad.glade.codeboxhandledialog.run()

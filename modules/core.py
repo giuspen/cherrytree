@@ -216,6 +216,7 @@ class CherryTree:
         self.combobox_country_lang_init()
         self.combobox_style_scheme_init()
         self.combobox_prog_lang_init()
+        self.combobox_spell_check_lang_init()
         if self.systray:
             if not self.boss.systray_active:
                 self.status_icon_enable()
@@ -2206,8 +2207,8 @@ class CherryTree:
         """Enable Spell Check Toggled"""
         if not self.user_active: return
         self.enable_spell_check = checkbutton.get_active()
-        if self.enable_spell_check: self.set_spell_check_on()
-        else: self.set_spell_check_off()
+        if self.enable_spell_check: self.spell_check_set_on()
+        else: self.spell_check_set_off()
 
     def on_checkbutton_highlight_current_line_toggled(self, checkbutton):
         """Show White Spaces Toggled"""
@@ -2324,17 +2325,8 @@ class CherryTree:
             combobox.pack_start(cell, True)
             combobox.add_attribute(cell, 'text', 0)
             if self.syntax_highlighting:
-                combobox.set_active_iter(self.get_combobox_prog_lang_iter(self.syntax_highlighting))
+                combobox.set_active_iter(self.get_combobox_iter_from_value(self.prog_lang_liststore, 1, self.syntax_highlighting))
             else: combobox.set_active(0)
-
-    def get_combobox_prog_lang_iter(self, prog_language):
-        """Returns the Language iter Given the Language Name"""
-        curr_iter = self.prog_lang_liststore.get_iter_first()
-        while curr_iter != None:
-            if self.prog_lang_liststore[curr_iter][1] == prog_language: break
-            else: curr_iter = self.prog_lang_liststore.iter_next(curr_iter)
-        else: return self.prog_lang_liststore.get_iter_first()
-        return curr_iter
 
     def on_combobox_country_language_changed(self, combobox):
         """New Country Language Choosed"""
@@ -2357,17 +2349,8 @@ class CherryTree:
         combobox.add_attribute(cell, 'text', 0)
         for country_lang in cons.AVAILABLE_LANGS:
             self.country_lang_liststore.append([country_lang])
-        combobox.set_active_iter(self.get_combobox_country_lang_iter(self.country_lang))
+        combobox.set_active_iter(self.get_combobox_iter_from_value(self.country_lang_liststore, 0, self.country_lang))
         combobox.connect('changed', self.on_combobox_country_language_changed)
-
-    def get_combobox_country_lang_iter(self, country_language):
-        """Returns the Language iter Given the Language Name"""
-        curr_iter = self.country_lang_liststore.get_iter_first()
-        while curr_iter != None:
-            if self.country_lang_liststore[curr_iter][0] == country_language: break
-            else: curr_iter = self.country_lang_liststore.iter_next(curr_iter)
-        else: return self.country_lang_liststore.get_iter_first()
-        return curr_iter
     
     def on_combobox_style_scheme_changed(self, combobox):
         """New Style Scheme Choosed"""
@@ -2390,21 +2373,45 @@ class CherryTree:
             self.style_scheme_liststore.append([style_scheme])
             style_schemes_list.append(style_scheme)
         if not self.style_scheme in style_schemes_list: self.style_scheme = style_schemes_list[0]
-        combobox.set_active_iter(self.get_combobox_style_scheme_iter(self.style_scheme))
+        combobox.set_active_iter(self.get_combobox_iter_from_value(self.style_scheme_liststore, 0, self.style_scheme))
         combobox.connect('changed', self.on_combobox_style_scheme_changed)
     
-    def get_combobox_style_scheme_iter(self, style_scheme):
-        """Returns the Style Scheme iter Given the Style Scheme Name"""
-        curr_iter = self.style_scheme_liststore.get_iter_first()
+    def on_combobox_spell_check_lang_changed(self, combobox):
+        """New Spell Check Language Choosed"""
+        if not self.user_active: return
+        #new_iter = self.glade.combobox_style_scheme.get_active_iter()
+        #new_style = self.style_scheme_liststore[new_iter][0]
+        #if new_style != self.style_scheme:
+        #    pass
+    
+    def combobox_spell_check_lang_init(self):
+        """Init The Spell Check Language ComboBox"""
+        combobox = self.glade.combobox_spell_check_lang
+        self.spell_check_lang_liststore = gtk.ListStore(str)
+        combobox.set_model(self.spell_check_lang_liststore)
+        cell = gtk.CellRendererText()
+        combobox.pack_start(cell, True)
+        combobox.add_attribute(cell, 'text', 0)
+        code_lang_list = []
+        for code_lang in self.spell_check_get_languages():
+            self.spell_check_lang_liststore.append([code_lang])
+            code_lang_list.append(code_lang)
+        if not self.spell_check_lang in code_lang_list: self.spell_check_lang = code_lang_list[0]
+        combobox.set_active_iter(self.get_combobox_iter_from_value(self.spell_check_lang_liststore, 0, self.spell_check_lang))
+        combobox.connect('changed', self.on_combobox_spell_check_lang_changed)
+    
+    def get_combobox_iter_from_value(self, liststore, column_num, value):
+        """Returns the Liststore iter Given the First Column Value"""
+        curr_iter = liststore.get_iter_first()
         while curr_iter != None:
-            if self.style_scheme_liststore[curr_iter][0] == style_scheme: break
-            else: curr_iter = self.style_scheme_liststore.iter_next(curr_iter)
-        else: return self.style_scheme_liststore.get_iter_first()
+            if liststore[curr_iter][column_num] == value: break
+            else: curr_iter = liststore.iter_next(curr_iter)
+        else: return liststore.get_iter_first()
         return curr_iter
     
     def set_sourcebuffer_syntax_highlight(self, sourcebuffer, syntax_highlighting):
         """Set the given syntax highlighting to the given sourcebuffer"""
-        language_id = self.prog_lang_liststore[self.get_combobox_prog_lang_iter(syntax_highlighting)][1]
+        language_id = self.prog_lang_liststore[self.get_combobox_iter_from_value(self.prog_lang_liststore, 1, syntax_highlighting)][1]
         sourcebuffer.set_language(self.language_manager.get_language(language_id))
         sourcebuffer.set_highlight_syntax(True)
 
@@ -2534,7 +2541,7 @@ class CherryTree:
         else:
             self.glade.radiobutton_node_auto_syntax.set_active(True)
             self.glade.combobox_prog_lang.set_sensitive(True)
-            self.glade.combobox_prog_lang.set_active_iter(self.get_combobox_prog_lang_iter(self.treestore[self.curr_tree_iter][4]))
+            self.glade.combobox_prog_lang.set_active_iter(self.get_combobox_iter_from_value(self.prog_lang_liststore, 1, self.treestore[self.curr_tree_iter][4]))
         self.glade.tags_searching_entry.set_text(self.treestore[self.curr_tree_iter][6])
         self.glade.checkbutton_readonly.set_active(self.treestore[self.curr_tree_iter][7])
         node_name = self.dialog_nodeprop(entry_hint=self.treestore[self.curr_tree_iter][1], title=_("Node Properties"))
@@ -2593,7 +2600,7 @@ class CherryTree:
             self.sourceview.modify_text(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.rt_def_fg))
             self.sourceview.set_draw_spaces(0)
             self.sourceview.set_highlight_current_line(False)
-            if self.enable_spell_check: self.set_spell_check_reload_on_buffer()
+            if self.enable_spell_check: self.spell_check_reload_on_buffer()
         else:
             self.sourceview.modify_font(pango.FontDescription(self.code_font))
             if self.show_white_spaces: self.sourceview.set_draw_spaces(codeboxes.DRAW_SPACES_FLAGS)
@@ -3757,20 +3764,24 @@ class CherryTree:
             self.tag_table.add(tag)
         return str(tag_name)
 
-    def set_spell_check_on(self):
+    def spell_check_set_on(self):
         """Enable Spell Check"""
         if not "spellchecker" in dir(self):
             self.spellchecker = gtkspellcheck.SpellChecker(self.sourceview, locale.getdefaultlocale()[0])
         else:
             self.spellchecker.enable()
 
-    def set_spell_check_off(self):
+    def spell_check_set_off(self):
         """Disable Spell Check"""
         self.spellchecker.disable()
 
-    def set_spell_check_reload_on_buffer(self):
+    def spell_check_reload_on_buffer(self):
         """Reload Spell Checker on curr Buffer"""
         self.spellchecker.buffer_initialize()
+
+    def spell_check_get_languages(self):
+        """Get Installed Dictionaries for Spell Check"""
+        return [code for code, name in self.spellchecker.languages]
 
     def link_check_around_cursor(self):
         """Check if the cursor is on a link, in this case select the link and return the tag_property_value"""
