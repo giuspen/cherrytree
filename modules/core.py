@@ -2213,14 +2213,12 @@ class CherryTree:
     def on_checkbutton_highlight_current_line_toggled(self, checkbutton):
         """Show White Spaces Toggled"""
         self.highl_curr_line = checkbutton.get_active()
-        if self.user_active:
-            support.dialog_info(_("This Change will have Effect Only After Restarting CherryTree"), self.window)
+        if self.user_active: support.dialog_info_after_restart(self.window)
 
     def on_checkbutton_show_white_spaces_toggled(self, checkbutton):
         """Show White Spaces Toggled"""
         self.show_white_spaces = checkbutton.get_active()
-        if self.user_active:
-            support.dialog_info(_("This Change will have Effect Only After Restarting CherryTree"), self.window)
+        if self.user_active: support.dialog_info_after_restart(self.window)
 
     def on_checkbutton_tree_right_side_toggled(self, checkbutton):
         """Display Tree on the Right Side Toggled"""
@@ -2358,7 +2356,7 @@ class CherryTree:
         new_style = self.style_scheme_liststore[new_iter][0]
         if new_style != self.style_scheme:
             self.style_scheme = new_style
-            support.dialog_info(_("This Change will have Effect Only After Restarting CherryTree"), self.window)
+            support.dialog_info_after_restart(self.window)
     
     def combobox_style_scheme_init(self):
         """Init The Style Scheme ComboBox"""
@@ -2379,10 +2377,11 @@ class CherryTree:
     def on_combobox_spell_check_lang_changed(self, combobox):
         """New Spell Check Language Choosed"""
         if not self.user_active: return
-        #new_iter = self.glade.combobox_style_scheme.get_active_iter()
-        #new_style = self.style_scheme_liststore[new_iter][0]
-        #if new_style != self.style_scheme:
-        #    pass
+        new_iter = self.glade.combobox_spell_check_lang.get_active_iter()
+        new_lang_code = self.spell_check_lang_liststore[new_iter][0]
+        if new_lang_code != self.spell_check_lang:
+            self.spell_check_lang = new_lang_code
+            support.dialog_info_after_restart(self.window)
     
     def combobox_spell_check_lang_init(self):
         """Init The Spell Check Language ComboBox"""
@@ -3767,7 +3766,7 @@ class CherryTree:
     def spell_check_set_on(self):
         """Enable Spell Check"""
         if not "spellchecker" in dir(self):
-            self.spellchecker = gtkspellcheck.SpellChecker(self.sourceview, locale.getdefaultlocale()[0])
+            self.spellchecker = gtkspellcheck.SpellChecker(self.sourceview, self.spell_check_lang)
         else:
             self.spellchecker.enable()
 

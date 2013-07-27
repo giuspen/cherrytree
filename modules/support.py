@@ -168,6 +168,10 @@ def dialog_info(message, parent=None):
     dialog.run()
     dialog.destroy()
 
+def dialog_info_after_restart(parent=None):
+    """Change Only After Restart"""
+    dialog_info(_("This Change will have Effect Only After Restarting CherryTree"), parent)
+
 def dialog_warning(message, parent=None):
     """The Warning dialog"""
     dialog = gtk.MessageDialog(flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,

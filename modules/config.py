@@ -19,7 +19,7 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
-import os, sys, ConfigParser, gtk, pango, subprocess, base64
+import os, sys, ConfigParser, gtk, pango, locale, subprocess, base64
 import cons
 
 ICONS_SIZE = {1: gtk.ICON_SIZE_MENU, 2: gtk.ICON_SIZE_SMALL_TOOLBAR, 3: gtk.ICON_SIZE_LARGE_TOOLBAR,
@@ -33,6 +33,8 @@ COLOR_PALETTE_DEFAULT = ["#000000", "#ffffff", "#7f7f7f", "#ff0000", "#a020f0",
                          "#e6e6fa", "#a52a2a", "#8b6914", "#1e90ff", "#ffc0cb",
                          "#90ee90", "#1a1a1a", "#4d4d4d", "#bfbfbf", "#e5e5e5"]
 SPECIAL_CHARS_DEFAULT = "“”„•…‰€©®™°↓↑→←↔↵⇓⇑⇒⇐⇔»«▼▲►◄≤≥≠±¹²³½¼⅛×÷∞ø∑√∫ΔδΠπΣΦΩωαβγεηλμ☺☻☼♥♀♂♪♫"
+
+SPELL_CHECK_LANG_DEFAULT = locale.getdefaultlocale()[0]
 
 def config_file_load(inst):
     """Load the Preferences from Config File"""
@@ -89,7 +91,7 @@ def config_file_load(inst):
         inst.syntax_highlighting = config.get(section, "syntax_highlighting") if config.has_option(section, "syntax_highlighting") else cons.CUSTOM_COLORS_ID
         inst.style_scheme = config.get(section, "style_scheme") if config.has_option(section, "style_scheme") else cons.STYLE_SCHEME_DEFAULT
         inst.enable_spell_check = config.getboolean(section, "enable_spell_check") if config.has_option(section, "enable_spell_check") else True
-        inst.spell_check_lang = config.get(section, "spell_check_lang") if config.has_option(section, "spell_check_lang") else ""
+        inst.spell_check_lang = config.get(section, "spell_check_lang") if config.has_option(section, "spell_check_lang") else SPELL_CHECK_LANG_DEFAULT
         inst.show_line_numbers = config.getboolean(section, "show_line_numbers") if config.has_option(section, "show_line_numbers") else False
         inst.spaces_instead_tabs = config.getboolean(section, "spaces_instead_tabs") if config.has_option(section, "spaces_instead_tabs") else True
         inst.tabs_width = config.getint(section, "tabs_width") if config.has_option(section, "tabs_width") else 4
@@ -176,7 +178,7 @@ def config_file_load(inst):
         inst.h_rule = HORIZONTAL_RULE
         inst.special_chars = unicode(SPECIAL_CHARS_DEFAULT, cons.STR_UTF8, cons.STR_IGNORE)
         inst.enable_spell_check = True
-        inst.spell_check_lang = ""
+        inst.spell_check_lang = SPELL_CHECK_LANG_DEFAULT
         inst.show_line_numbers = False
         inst.spaces_instead_tabs = True
         inst.tabs_width = 4
