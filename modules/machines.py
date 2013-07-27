@@ -414,7 +414,7 @@ class XMLHandler:
         toggled_off = curr_iter.get_toggled_tags(toggled_on=False)
         for tag in toggled_off:
             tag_name = tag.get_property("name")
-            if tag_name:
+            if tag_name and tag_name != cons.GTKSPELLCHECK_TAG_NAME:
                 if tag_name[0:7] == "weight_": curr_attributes[cons.TAG_WEIGHT] = ""
                 elif tag_name[0:11] == "foreground_": curr_attributes[cons.TAG_FOREGROUND] = ""
                 elif tag_name[0:11] == "background_": curr_attributes[cons.TAG_BACKGROUND] = ""
@@ -429,7 +429,7 @@ class XMLHandler:
         toggled_on = curr_iter.get_toggled_tags(toggled_on=True)
         for tag in toggled_on:
             tag_name = tag.get_property("name")
-            if tag_name:
+            if tag_name and tag_name != cons.GTKSPELLCHECK_TAG_NAME:
                 if tag_name[0:7] == "weight_": curr_attributes[cons.TAG_WEIGHT] = tag_name[7:]
                 elif tag_name[0:11] == "foreground_":
                     new_foreground = tag_name[11:]

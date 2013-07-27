@@ -268,7 +268,7 @@ class SpellChecker(object):
                        'click' : SpellChecker._Mark(self._buffer,
                            '{}-click'.format(self._prefix), start)}
         self._table = self._buffer.get_tag_table()
-        self._table.add(self._misspelled)
+        if not self._table.lookup(self._misspelled.get_property("name")): self._table.add(self._misspelled)
         self.ignored_tags = []
         def tag_added(tag, *args):
             if hasattr(tag, 'spell_check') and not getattr(tag, 'spell_check'):
