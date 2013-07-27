@@ -551,9 +551,11 @@ class XMLHandler:
                 else:
                     text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), 6*cons.CHAR_SPACE + cons.CHAR_LISTBUL + cons.CHAR_SPACE)
                     curr_offset += 8
-                text_buffer.insert_with_tags_by_name(text_buffer.get_iter_at_offset(curr_offset), element[1], *tag_names)
-                curr_offset += len(element[1])
                 text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), cons.CHAR_NEWLINE)
+                text_buffer.insert_with_tags_by_name(text_buffer.get_iter_at_offset(curr_offset), element[1], *tag_names)
+                curr_offset += 1
+                while text_buffer.get_iter_at_offset(curr_offset).get_char() != cons.CHAR_NEWLINE:
+                    curr_offset += 1
                 curr_offset += 1
             text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), cons.CHAR_NEWLINE)
         return self.toc_list
