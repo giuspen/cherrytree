@@ -25,3 +25,14 @@ Changes introduced by Giuseppe Penone:
              self.language = code
 +            self._cherrytree_instance.spell_check_notify_new_lang(code)
          if _pygobject:
+
+
+###### 3) problem of callbacks not to work when spell check is not enabled
+# file spellcheck.py
+     def _click_move_popup(self, *args):
++        if not self._enabled:
++            return False
+
+     def _click_move_button(self, widget, event):
++        if not self._enabled:
++            return
