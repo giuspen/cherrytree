@@ -560,11 +560,15 @@ class SpellChecker(object):
                         menu.show_all()
 
     def _click_move_popup(self, *args):
+        if not self._enabled:
+            return False
         self._marks['click'].move(self._buffer.get_iter_at_mark(
             self._buffer.get_insert()))
         return False
 
     def _click_move_button(self, widget, event):
+        if not self._enabled:
+            return
         if event.button == 3:
             if self._deferred_check:  self._check_deferred_range(True)
             x, y = self._view.window_to_buffer_coords(2, int(event.x),
