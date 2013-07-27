@@ -473,9 +473,11 @@ class XMLHandler:
                     tag_names = [self.dad.apply_tag_exist_or_create(tag_property, property_value)]
                     text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), cons.CHAR_LISTBUL + cons.CHAR_SPACE)
                     curr_offset += 2
-                    text_buffer.insert_with_tags_by_name(text_buffer.get_iter_at_offset(curr_offset), node_name, *tag_names)
-                    curr_offset += len(node_name)
                     text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), cons.CHAR_NEWLINE)
+                    text_buffer.insert_with_tags_by_name(text_buffer.get_iter_at_offset(curr_offset), node_name, *tag_names)
+                    curr_offset += 1
+                    while text_buffer.get_iter_at_offset(curr_offset).get_char() != cons.CHAR_NEWLINE:
+                        curr_offset += 1
                     curr_offset += 1
                 tag_names = [self.dad.apply_tag_exist_or_create(tag_property, property_value + cons.CHAR_SPACE + element[0])]
                 if element[0][:2] == cons.TAG_PROP_H1:
@@ -487,9 +489,11 @@ class XMLHandler:
                 else:
                     text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), 9*cons.CHAR_SPACE + cons.CHAR_LISTBUL + cons.CHAR_SPACE)
                     curr_offset += 11
-                text_buffer.insert_with_tags_by_name(text_buffer.get_iter_at_offset(curr_offset), element[1], *tag_names)
-                curr_offset += len(element[1])
                 text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), cons.CHAR_NEWLINE)
+                text_buffer.insert_with_tags_by_name(text_buffer.get_iter_at_offset(curr_offset), element[1], *tag_names)
+                curr_offset += 1
+                while text_buffer.get_iter_at_offset(curr_offset).get_char() != cons.CHAR_NEWLINE:
+                    curr_offset += 1
                 curr_offset += 1
             text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), cons.CHAR_NEWLINE)
         return toc_list_per_node
