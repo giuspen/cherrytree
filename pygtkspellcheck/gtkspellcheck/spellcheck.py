@@ -174,9 +174,10 @@ class SpellChecker(object):
         def move(self, location):
             self._buffer.move_mark(self._mark, location)
 
-    def __init__(self, view, language='en', prefix='gtkspellchecker',
+    def __init__(self, view, cherrytree_instance, language='en', prefix='gtkspellchecker',
                  collapse=True, params={}):
         self._view = view
+        self._cherrytree_instance = cherrytree_instance
         self.collapse = collapse
         self._view.connect('populate-popup',
                            lambda entry, menu:self._extend_menu(menu))
@@ -442,6 +443,7 @@ class SpellChecker(object):
     def _languages_menu(self):
         def _set_language(item, code):
             self.language = code
+            self._cherrytree_instance.spell_check_notify_new_lang(code)
         if _pygobject:
             menu = gtk.Menu.new()
             group = []

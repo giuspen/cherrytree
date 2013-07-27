@@ -3770,10 +3770,17 @@ class CherryTree:
         self.spell_check_reload_on_buffer()
         self.spell_check_lang = new_lang
 
+    def spell_check_notify_new_lang(self, new_lang):
+        """Receive New Lang from PyGtkSpellCheck"""
+        self.spell_check_lang = new_lang
+        self.user_active = False
+        self.glade.combobox_spell_check_lang.set_active_iter(self.get_combobox_iter_from_value(self.spell_check_lang_liststore, 0, self.spell_check_lang))
+        self.user_active = True
+
     def spell_check_set_on(self):
         """Enable Spell Check"""
         if not "spellchecker" in dir(self):
-            self.spellchecker = gtkspellcheck.SpellChecker(self.sourceview, self.spell_check_lang)
+            self.spellchecker = gtkspellcheck.SpellChecker(self.sourceview, self, self.spell_check_lang)
         else:
             self.spellchecker.enable()
             self.spell_check_reload_on_buffer()
