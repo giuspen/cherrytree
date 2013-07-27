@@ -3,22 +3,21 @@
 # Copyright (C) 2001, 2002 Gianluca Turconi
 # Copyright (C) 2002, 2003, 2004 Gianluca Turconi and Davide Prina
 # Copyright (C) 2004, 2005, 2006, 2007  Davide Prina
+# Copyright (C) 2010 Andrea Pescetti
 #
-# E-Mail: DavidePrina(CHIOCCIOLA)yahoo(PUNTO)com
-# home: http://linguistico.sf.net/wiki
+# E-Mail: pescetti(CHIOCCIOLA)openoffice(PUNTO)org
+# Home: http://extensions.services.openoffice.org/project/dict-it
+# License: GNU GPL 3
 #
-# Version 2.4 (01/09/2007) (DD/MM/YYYY)
-# Note: this file is unmodified in the current package, hence no
-# copyright notes have been added to it.
+# Version 3.3 (21/09/2010) (DD/MM/YYYY)
 #
 # This file is distributed under GPL license.
 #
 # This file is part of the "dizionario italiano".
 #
 # The "dizionario italiano" is free software; you can redistribute it and/or
-# modify it under the terms of the GNU General Public License as published 
-# by the Free Software Foundation; either version 3 of the License, or
-# (at your option) any later version.
+# modify it under the terms of the GNU General Public License, version 3, as
+# published by the Free Software Foundation.
 #
 # The "dizionario italiano" is distributed in the hope that it will be 
 # useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -31,8 +30,8 @@
 
 NAME Dizionario italiano
 LANG it_IT
-HOME http://linguistico.sourceforge.net/wiki
-VERSION 2.4 (01/09/2007)
+HOME http://extensions.services.openoffice.org/project/dict-it
+VERSION 3.3 (21/09/2010)
 SET ISO8859-15
 TRY aioertnsclmdpgubzfvh‡q'ACMSkBGPLxEyRTVÚIODNwFÈ˘ËÏjUZKHWJYQXŸ¿“»Ã…
 #Nota: non presenti nel dizionario: Ÿ¿“»Ã…, vanno aggiunte alla TRY rigenerata
