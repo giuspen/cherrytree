@@ -1,4 +1,5 @@
 
-sudo apt-get install myspell-cs hunspell-de-de myspell-es hunspell-fr myspell-it myspell-pl hunspell-ru myspell-uk
+sudo apt-get install hunspell-de-de hunspell-fr hunspell-ru
+sudo apt-get install myspell-cs myspell-es myspell-it myspell-pl myspell-uk
 cd /usr/share/hunspell
 ls
