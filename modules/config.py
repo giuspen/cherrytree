@@ -19,7 +19,7 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
-import os, sys, ConfigParser, gtk, pango, subprocess, base64, gtkspellcheck
+import os, sys, ConfigParser, gtk, pango, subprocess, base64
 import cons
 
 ICONS_SIZE = {1: gtk.ICON_SIZE_MENU, 2: gtk.ICON_SIZE_SMALL_TOOLBAR, 3: gtk.ICON_SIZE_LARGE_TOOLBAR,
@@ -259,7 +259,8 @@ def config_file_apply(inst):
     inst.glade.entry_horizontal_rule.set_text(inst.h_rule)
     inst.glade.textbuffer_special_chars.set_text(inst.special_chars)
     inst.glade.textbuffer_special_chars.set_modified(False)
-    inst.spellchecker = gtkspellcheck.SpellChecker(inst.sourceview)
+    inst.glade.checkbutton_enable_spell_check.set_active(inst.enable_spell_check)
+    if inst.enable_spell_check: inst.set_spell_check_on()
     inst.sourceview.set_show_line_numbers(inst.show_line_numbers)
     inst.glade.checkbutton_line_nums.set_active(inst.show_line_numbers)
     inst.sourceview.set_insert_spaces_instead_of_tabs(inst.spaces_instead_tabs)

@@ -2202,6 +2202,13 @@ class CherryTree:
         """Autosave on Quit Toggled"""
         self.autosave_on_quit = checkbutton.get_active()
 
+    def on_checkbutton_enable_spell_check_toggled(self, checkbutton):
+        """Enable Spell Check Toggled"""
+        if not self.user_active: return
+        self.enable_spell_check = checkbutton.get_active()
+        if self.enable_spell_check: self.set_spell_check_on()
+        else: self.set_spell_check_off()
+
     def on_checkbutton_highlight_current_line_toggled(self, checkbutton):
         """Show White Spaces Toggled"""
         self.highl_curr_line = checkbutton.get_active()
@@ -2586,8 +2593,7 @@ class CherryTree:
             self.sourceview.modify_text(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.rt_def_fg))
             self.sourceview.set_draw_spaces(0)
             self.sourceview.set_highlight_current_line(False)
-            if self.enable_spell_check:
-                self.spellchecker.buffer_initialize()
+            if self.enable_spell_check: self.set_spell_check_reload_on_buffer()
         else:
             self.sourceview.modify_font(pango.FontDescription(self.code_font))
             if self.show_white_spaces: self.sourceview.set_draw_spaces(codeboxes.DRAW_SPACES_FLAGS)
@@ -3750,6 +3756,21 @@ class CherryTree:
             else: tag.set_property(tag_property, property_value)
             self.tag_table.add(tag)
         return str(tag_name)
+
+    def set_spell_check_on(self):
+        """Enable Spell Check"""
+        if not "spellchecker" in dir(self):
+            self.spellchecker = gtkspellcheck.SpellChecker(self.sourceview, locale.getdefaultlocale()[0])
+        else:
+            self.spellchecker.enable()
+
+    def set_spell_check_off(self):
+        """Disable Spell Check"""
+        self.spellchecker.disable()
+
+    def set_spell_check_reload_on_buffer(self):
+        """Reload Spell Checker on curr Buffer"""
+        self.spellchecker.buffer_initialize()
 
     def link_check_around_cursor(self):
         """Check if the cursor is on a link, in this case select the link and return the tag_property_value"""
