@@ -1,8 +1,6 @@
 
-This is pygtkspellcheck 4.0.1 written by Maximilian Köhl and Carlos Jenkins
-
-
-Changes introduced by Giuseppe Penone:
+This is pygtkspellcheck 4.0.1 written by Maximilian Köhl <linuxmaxi@googlemail.com> and Carlos Jenkins <carlos@jenkins.co.cr>
+Changes introduced by Giuseppe Penone (giuspen) <giuspen@gmail.com>:
 
 
 ###### 1) problem of tag added to tag table twice
@@ -36,3 +34,8 @@ Changes introduced by Giuseppe Penone:
      def _click_move_button(self, widget, event):
 +        if not self._enabled:
 +            return
+
+###### 4) change necessary to have py2exe working
+gtkspellcheck/spellcheck.py ==> ../modules/pgsc_spellcheck.py
+pylocales/locales.py ==> ../modules/pgsc_locales.py
+pylocales/locales.db ==> ../glade/locales.db
