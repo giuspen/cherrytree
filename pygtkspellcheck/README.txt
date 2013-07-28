@@ -38,4 +38,4 @@ Changes introduced by Giuseppe Penone (giuspen) <giuspen@gmail.com>:
 ###### 4) change necessary to have py2exe working
 gtkspellcheck/spellcheck.py ==> ../modules/pgsc_spellcheck.py
 pylocales/locales.py ==> ../modules/pgsc_locales.py
-pylocales/locales.db ==> ../glade/locales.db
+pylocales/locales.db ==> ../glade/pgsc_locales.db
