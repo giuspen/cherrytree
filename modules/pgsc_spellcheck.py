@@ -27,6 +27,7 @@ automatic switching and binding detection. For automatic translation of the user
 interface it can use Gedit’s translation files.
 """
 
+import gtk
 import enchant
 #import gettext
 #import logging
@@ -62,8 +63,8 @@ class NoGtkBindingFound(Exception):
     #_pygobject = False
 #else:
     #raise NoGtkBindingFound('could not find any loaded Gtk binding')
-_pygobject = False
-import gtk
+#_pygobject = False
+
 
 # select base list class
 try:
@@ -72,22 +73,22 @@ try:
 except ImportError:
     _list = list
 
-if sys.version_info.major == 3:
-    _py3k = True
-else:
-    _py3k = False
+#if sys.version_info.major == 3:
+#    _py3k = True
+#else:
+#    _py3k = False
 
 # select base string
-if _py3k:
-    basestring = str
+#if _py3k:
+#    basestring = str
 
 # map between Gedit's translation and PyGtkSpellcheck's
-_GEDIT_MAP = {'Languages' : 'Languages',
-              'Ignore All' : 'Ignore _All',
-              'Suggestions' : 'Suggestions',
-              '(no suggestions)' : '(no suggested words)',
-              'Add "{}" to Dictionary' : 'Add w_ord',
-              'Unknown' : 'Unknown'}
+#_GEDIT_MAP = {'Languages' : 'Languages',
+              #'Ignore All' : 'Ignore _All',
+              #'Suggestions' : 'Suggestions',
+              #'(no suggestions)' : '(no suggested words)',
+              #'Add "{}" to Dictionary' : 'Add w_ord',
+              #'Unknown' : 'Unknown'}
 
 # translation
 #if gettext.find('gedit'):
@@ -138,10 +139,10 @@ class SpellChecker(object):
 
     class _LanguageList(_list):
         def __init__(self, *args, **kwargs):
-            if sys.version_info.major == 3:
-                super().__init__(*args, **kwargs)
-            else:
-                _list.__init__(self, *args, **kwargs)
+            #if sys.version_info.major == 3:
+            #    super().__init__(*args, **kwargs)
+            #else:
+            _list.__init__(self, *args, **kwargs)
             self.mapping = dict(self)
 
         @classmethod
@@ -190,11 +191,11 @@ class SpellChecker(object):
         self._view.connect('popup-menu', self._click_move_popup)
         self._view.connect('button-press-event', self._click_move_button)
         self._prefix = prefix
-        if _pygobject:
-            self._misspelled = gtk.TextTag.new('{}-misspelled'\
-                                               .format(self._prefix))
-        else:
-            self._misspelled = gtk.TextTag('{}-misspelled'.format(self._prefix))
+        #if _pygobject:
+        #    self._misspelled = gtk.TextTag.new('{}-misspelled'\
+        #                                       .format(self._prefix))
+        #else:
+        self._misspelled = gtk.TextTag('{}-misspelled'.format(self._prefix))
         self._misspelled.set_property('underline', 4)
         self._broker = enchant.Broker()
         for param, value in params.items(): self._broker.set_param(param, value)
@@ -288,10 +289,10 @@ class SpellChecker(object):
         self._table.foreach(tag_added, None)
         self.no_spell_check = self._table.lookup('no-spell-check')
         if not self.no_spell_check:
-            if _pygobject:
-                self.no_spell_check = gtk.TextTag.new('no-spell-check')
-            else:
-                self.no_spell_check = gtk.TextTag('no-spell-check')
+            #if _pygobject:
+            #    self.no_spell_check = gtk.TextTag.new('no-spell-check')
+            #else:
+            self.no_spell_check = gtk.TextTag('no-spell-check')
             self._table.add(self.no_spell_check)
         self.recheck()
 
@@ -450,19 +451,19 @@ class SpellChecker(object):
         def _set_language(item, code):
             self.language = code
             self._cherrytree_instance.spell_check_notify_new_lang(code)
-        if _pygobject:
-            menu = gtk.Menu.new()
-            group = []
-        else:
-            menu = gtk.Menu()
-            group = gtk.RadioMenuItem()
+        #if _pygobject:
+        #    menu = gtk.Menu.new()
+        #    group = []
+        #else:
+        menu = gtk.Menu()
+        group = gtk.RadioMenuItem()
         connect = []
         for code, name in self.languages:
-            if _pygobject:
-                item = gtk.RadioMenuItem.new_with_label(group, name)
-                group.append(item)
-            else:
-                item = gtk.RadioMenuItem(group, name)
+            #if _pygobject:
+            #    item = gtk.RadioMenuItem.new_with_label(group, name)
+            #    group.append(item)
+            #else:
+            item = gtk.RadioMenuItem(group, name)
             if code == self.language:
                 item.set_active(True)
             connect.append((item, code))
@@ -475,12 +476,12 @@ class SpellChecker(object):
         menu = []
         suggestions = self._dictionary.suggest(word)
         if not suggestions:
-            if _pygobject:
-                item = gtk.MenuItem.new()
-                label = gtk.Label.new('')
-            else:
-                item = gtk.MenuItem()
-                label = gtk.Label()
+            #if _pygobject:
+            #    item = gtk.MenuItem.new()
+            #    label = gtk.Label.new('')
+            #else:
+            item = gtk.MenuItem()
+            label = gtk.Label()
             try:
                 label.set_halign(gtk.Align.LEFT)
             except AttributeError:
@@ -490,12 +491,12 @@ class SpellChecker(object):
             menu.append(item)
         else:
             for suggestion in suggestions:
-                if _pygobject:
-                    item = gtk.MenuItem.new()
-                    label = gtk.Label.new('')
-                else:
-                    item = gtk.MenuItem()
-                    label = gtk.Label()
+                #if _pygobject:
+                #    item = gtk.MenuItem.new()
+                #    label = gtk.Label.new('')
+                #else:
+                item = gtk.MenuItem()
+                label = gtk.Label()
                 label.set_markup('<b>{text}</b>'.format(text=suggestion))
                 try:
                     label.set_halign(gtk.Align.LEFT)
@@ -504,19 +505,19 @@ class SpellChecker(object):
                 item.add(label)
                 item.connect('activate', self._replace_word, word, suggestion)
                 menu.append(item)
-        if _pygobject:
-            menu.append(gtk.SeparatorMenuItem.new())
-            item = gtk.MenuItem.new_with_label(
-                _('Add "{}" to Dictionary').format(word))
-        else:
-            menu.append(gtk.SeparatorMenuItem())
-            item = gtk.MenuItem(_('Add "{}" to Dictionary').format(word))
+        #if _pygobject:
+        #    menu.append(gtk.SeparatorMenuItem.new())
+        #    item = gtk.MenuItem.new_with_label(
+        #        _('Add "{}" to Dictionary').format(word))
+        #else:
+        menu.append(gtk.SeparatorMenuItem())
+        item = gtk.MenuItem(_('Add "{}" to Dictionary').format(word))
         item.connect('activate', lambda *args: self.add_to_dictionary(word))
         menu.append(item)
-        if _pygobject:
-            item = gtk.MenuItem.new_with_label(_('Ignore All'))
-        else:
-            item = gtk.MenuItem(_('Ignore All'))
+        #if _pygobject:
+        #    item = gtk.MenuItem.new_with_label(_('Ignore All'))
+        #else:
+        item = gtk.MenuItem(_('Ignore All'))
         item.connect('activate', lambda *args: self.ignore_all(word))
         menu.append(item)
         return menu
@@ -524,36 +525,36 @@ class SpellChecker(object):
     def _extend_menu(self, menu):
         if not self._enabled:
             return
-        if _pygobject:
-            separator = gtk.SeparatorMenuItem.new()
-        else:
-            separator = gtk.SeparatorMenuItem()
+        #if _pygobject:
+        #    separator = gtk.SeparatorMenuItem.new()
+        #else:
+        separator = gtk.SeparatorMenuItem()
         separator.show()
         menu.prepend(separator)
-        if _pygobject:
-            languages = gtk.MenuItem.new_with_label(_('Languages'))
-        else:
-            languages = gtk.MenuItem(_('Languages'))
+        #if _pygobject:
+        #    languages = gtk.MenuItem.new_with_label(_('Languages'))
+        #else:
+        languages = gtk.MenuItem(_('Languages'))
         languages.set_submenu(self._languages_menu())
         languages.show_all()
         menu.prepend(languages)
         if self._marks['click'].inside_word:
             start, end = self._marks['click'].word
             if start.has_tag(self._misspelled):
-                if _py3k:
-                    word = self._buffer.get_text(start, end, False)
-                else:
-                    word = self._buffer.get_text(start, end,
+                #if _py3k:
+                #    word = self._buffer.get_text(start, end, False)
+                #else:
+                word = self._buffer.get_text(start, end,
                                                  False).decode('utf-8')
                 items = self._suggestion_menu(word)
                 if self.collapse:
-                    if _pygobject:
-                        suggestions = gtk.MenuItem.new_with_label(
-                            _('Suggestions'))
-                        submenu = gtk.Menu.new()
-                    else:
-                        suggestions = gtk.MenuItem(_('Suggestions'))
-                        submenu = gtk.Menu()
+                    #if _pygobject:
+                    #    suggestions = gtk.MenuItem.new_with_label(
+                    #        _('Suggestions'))
+                    #    submenu = gtk.Menu.new()
+                    #else:
+                    suggestions = gtk.MenuItem(_('Suggestions'))
+                    submenu = gtk.Menu()
                     for item in items:
                         submenu.append(item)
                     suggestions.set_submenu(submenu)
@@ -617,10 +618,10 @@ class SpellChecker(object):
         for tag in self.ignored_tags:
             if start.has_tag(tag):
                 return
-        if _py3k:
-            word = self._buffer.get_text(start, end, False).strip()
-        else:
-            word = self._buffer.get_text(start, end, False).decode('utf-8').strip()
+        #if _py3k:
+        #    word = self._buffer.get_text(start, end, False).strip()
+        #else:
+        word = self._buffer.get_text(start, end, False).decode('utf-8').strip()
         if len(self._filters[SpellChecker.FILTER_WORD]):
             if self._regexes[SpellChecker.FILTER_WORD].match(word):
                 return
@@ -628,10 +629,10 @@ class SpellChecker(object):
             line_start = self._buffer.get_iter_at_line(start.get_line())
             line_end = end.copy()
             line_end.forward_to_line_end()
-            if _py3k:
-                line = self._buffer.get_text(line_start, line_end, False)
-            else:
-                line = self._buffer.get_text(line_start, line_end,
+            #if _py3k:
+            #    line = self._buffer.get_text(line_start, line_end, False)
+            #else:
+            line = self._buffer.get_text(line_start, line_end,
                                              False).decode('utf-8')
             for match in self._regexes[SpellChecker.FILTER_LINE].finditer(line):
                 if match.start() <= start.get_line_offset() <= match.end():
@@ -643,10 +644,10 @@ class SpellChecker(object):
                     return
         if len(self._filters[SpellChecker.FILTER_TEXT]):
             text_start, text_end = self._buffer.get_bounds()
-            if _py3k:
-                text = self._buffer.get_text(text_start, text_end, False)
-            else:
-                text = self._buffer.get_text(text_start, text_end,
+            #if _py3k:
+            #    text = self._buffer.get_text(text_start, text_end, False)
+            #else:
+            text = self._buffer.get_text(text_start, text_end,
                                              False).decode('utf-8')
             for match in self._regexes[SpellChecker.FILTER_TEXT].finditer(text):
                 if match.start() <= start.get_offset() <= match.end():
