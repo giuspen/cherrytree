@@ -202,18 +202,18 @@ class SpellChecker(object):
         if self.languages.exists(language):
             self._language = language
         elif self.languages.exists('en'):
-            logger.warning(('no installed dictionary for language "{}", '
-                            'fallback to english'.format(language)))
+            #logger.warning(('no installed dictionary for language "{}", '
+            #                'fallback to english'.format(language)))
             self._language = 'en'
         else:
             if self.languages:
                 self._language = self.languages[0][0]
-                logger.warning(('no installed dictionary for language "{}" '
-                                'and english, fallback to first language in'
-                                'language list ("{}")').format(language,
-                                                                self._language))
+                #logger.warning(('no installed dictionary for language "{}" '
+                #                'and english, fallback to first language in'
+                #                'language list ("{}")').format(language,
+                #                                                self._language))
             else:
-                logger.critical('no dictionaries found')
+                #logger.critical('no dictionaries found')
                 raise NoDictionariesFound()
         self._dictionary = self._broker.request_dict(self._language)
         self._deferred_check = False
