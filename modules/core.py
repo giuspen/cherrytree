@@ -20,7 +20,7 @@
 #       MA 02110-1301, USA.
 
 import gtk, pango, gtksourceview2, gobject
-import sys, os, re, glob, subprocess, webbrowser, base64, cgi, urllib2, shutil, time, locale, gtkspellcheck
+import sys, os, re, glob, subprocess, webbrowser, base64, cgi, urllib2, shutil, time, locale, pgsc_spellcheck
 try:
     import appindicator
     HAS_APPINDICATOR = True
@@ -3780,7 +3780,7 @@ class CherryTree:
     def spell_check_set_on(self):
         """Enable Spell Check"""
         if not "spellchecker" in dir(self):
-            self.spellchecker = gtkspellcheck.SpellChecker(self.sourceview, self, self.spell_check_lang)
+            self.spellchecker = pgsc_spellcheck.SpellChecker(self.sourceview, self, self.spell_check_lang)
         else:
             self.spellchecker.enable()
             self.spell_check_reload_on_buffer()

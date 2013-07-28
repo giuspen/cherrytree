@@ -42,7 +42,6 @@ def f_main(args):
             SHARE_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'share')
             MODULES_PATH = os.path.join(SHARE_PATH, 'cherrytree', 'modules')
     __builtin__.SHARE_PATH = SHARE_PATH
-    sys.path.insert(0, os.path.join(os.path.dirname(MODULES_PATH), "pygtkspellcheck"))
     sys.path.insert(0, MODULES_PATH)
     import main
     main.main(args)
