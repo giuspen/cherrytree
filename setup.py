@@ -148,6 +148,8 @@ class InstallData(install_data):
 
 if "py2exe" in sys.argv:
     data_files = [("glade", glob.glob("glade/*.*") )]
+    import enchant
+    data_files.extend(enchant.utils.win32_data_files())
     for lang in cons.AVAILABLE_LANGS:
         if lang in ["default", "en"]: continue
         data_files.append( ("locale/%s/LC_MESSAGES" % lang, ["locale/%s/LC_MESSAGES/cherrytree.mo" % lang] ) )
@@ -164,7 +166,7 @@ if "py2exe" in sys.argv:
                    "icon_resources": [(1, "glade/cherrytree.ico")]
                    }],
        options={"py2exe": {
-                   "includes": "pango,cairo,pangocairo,atk,gobject,gtk,gtksourceview2,gio",
+                   "includes": "pango,cairo,pangocairo,atk,gobject,gtk,gtksourceview2,gio,enchant",
                    "dll_excludes": [
                                  "iconv.dll","intl.dll","libatk-1.0-0.dll",
                                  "libgdk_pixbuf-2.0-0.dll","libgdk-win32-2.0-0.dll",
