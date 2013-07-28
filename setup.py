@@ -23,6 +23,9 @@ def _(transl_str):
 __builtin__._ = _
 __builtin__.SHARE_PATH = ""
 sys.path.append(os.path.join(os.getcwd(), "modules"))
+sys.path.append(os.path.join(os.getcwd(), "pygtkspellcheck"))
+sys.path.append(os.path.join(os.getcwd(), "pygtkspellcheck", "gtkspellcheck"))
+sys.path.append(os.path.join(os.getcwd(), "pygtkspellcheck", "pylocales"))
 import cons
 
 PO_DIR = 'locale'
@@ -195,6 +198,9 @@ else:
                       ("share/icons/hicolor/scalable/apps", ["glade/svg/cherrytree.svg"] ),
                       ("share/cherrytree/glade", glob.glob("glade/*.*") ),
                       ("share/cherrytree/modules", glob.glob("modules/*.py") ),
+                      ("share/cherrytree/pygtkspellcheck/gtkspellcheck", glob.glob("pygtkspellcheck/gtkspellcheck/*.py") ),
+                      ("share/cherrytree/pygtkspellcheck/pylocales", glob.glob("pygtkspellcheck/pylocales/*.py") ),
+                      ("share/cherrytree/pygtkspellcheck/pylocales", glob.glob("pygtkspellcheck/pylocales/*.db") ),
                       ("share/mime/packages", ["linux/cherrytree.xml"]),
                       ("share/mime-info", ["linux/cherrytree.mime", "linux/cherrytree.keys"]),
                       ("share/application-registry", ["linux/cherrytree.applications"]),
