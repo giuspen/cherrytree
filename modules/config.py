@@ -264,9 +264,9 @@ def config_file_apply(inst):
     inst.glade.textbuffer_special_chars.set_text(inst.special_chars)
     inst.glade.textbuffer_special_chars.set_modified(False)
     inst.glade.checkbutton_spell_check.set_active(inst.enable_spell_check)
-    inst.spell_check_set_on()
-    if not inst.enable_spell_check:
-        inst.spell_check_set_off()
+    if inst.enable_spell_check:
+        inst.spell_check_set_on()
+    else:
         inst.glade.combobox_spell_check_lang.set_sensitive(False)
     inst.sourceview.set_show_line_numbers(inst.show_line_numbers)
     inst.glade.checkbutton_line_nums.set_active(inst.show_line_numbers)
