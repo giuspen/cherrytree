@@ -216,7 +216,6 @@ class CherryTree:
         self.combobox_country_lang_init()
         self.combobox_style_scheme_init()
         self.combobox_prog_lang_init()
-        self.combobox_spell_check_lang_init()
         if self.systray:
             if not self.boss.systray_active:
                 self.status_icon_enable()
@@ -3781,6 +3780,7 @@ class CherryTree:
         """Enable Spell Check"""
         if not "spellchecker" in dir(self):
             self.spellchecker = pgsc_spellcheck.SpellChecker(self.sourceview, self, self.spell_check_lang)
+            self.combobox_spell_check_lang_init()
         else:
             self.spellchecker.enable()
             self.spell_check_reload_on_buffer()
