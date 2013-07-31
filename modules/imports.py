@@ -1141,6 +1141,9 @@ class KeynoteHandler:
     def rich_text_serialize(self, text_data):
         """Appends a new part to the XML rich text"""
         dom_iter = self.dom.createElement("rich_text")
+        for tag_property in cons.TAG_PROPERTIES:
+            if self.curr_attributes[tag_property] != "":
+                dom_iter.setAttribute(tag_property, self.curr_attributes[tag_property])
         self.nodes_list[-1].appendChild(dom_iter)
         text_iter = self.dom.createTextNode(text_data)
         dom_iter.appendChild(text_iter)
@@ -1188,11 +1191,16 @@ class KeynoteHandler:
                     self.rich_text_serialize(self.curr_node_content)
                 else: self.write_line_text(text_line.replace(cons.CHAR_CR, "").replace(cons.CHAR_NEWLINE, ""))
     
+    def check_pending_text_to_tag(self):
+        """Check if there's text to process before opening tag"""
+        if self.curr_node_content:
+            self.rich_text_serialize(self.curr_node_content)
+            self.curr_node_content = ""
+    
     def write_line_text(self, text_line):
         """Write Stripped Line Content"""
         print "'%s'" % text_line
         #if text_line.endswith("}"): return
-        final_line = ""
         curr_state = 0
         dummy_loop = 0
         in_br_num = 0
@@ -1203,23 +1211,23 @@ class KeynoteHandler:
                 continue
             if curr_char == cons.CHAR_BSLASH:
                 if text_line[i+1:].startswith(cons.CHAR_BSLASH):
-                    final_line += cons.CHAR_BSLASH
+                    self.curr_node_content += cons.CHAR_BSLASH
                     dummy_loop = 1
                     curr_state = 0
                 elif text_line[i+1:].startswith(cons.CHAR_BR_OPEN):
-                    final_line += cons.CHAR_BR_OPEN
+                    self.curr_node_content += cons.CHAR_BR_OPEN
                     dummy_loop = 1
                     curr_state = 0
                 elif text_line[i+1:].startswith(cons.CHAR_BR_CLOSE):
-                    final_line += cons.CHAR_BR_CLOSE
+                    self.curr_node_content += cons.CHAR_BR_CLOSE
                     dummy_loop = 1
                     curr_state = 0
                 elif text_line[i+1:] == "par":
-                    self.curr_node_content += final_line + cons.CHAR_NEWLINE
+                    self.curr_node_content += cons.CHAR_NEWLINE
                     break
                 elif text_line[i+1:].startswith("line"):
                     dummy_loop = 4
-                    final_line += cons.CHAR_NEWLINE + 3*cons.CHAR_SPACE
+                    self.curr_node_content += cons.CHAR_NEWLINE + 3*cons.CHAR_SPACE
                 elif text_line[i+1:].startswith("pntext"):
                     if text_line[i+8:i+10] == "f1":
                         dummy_loop = 10
@@ -1227,11 +1235,60 @@ class KeynoteHandler:
                         in_br_read_data = True
                     elif text_line[i+8:i+10] == "f2":
                         dummy_loop = 9
-                        final_line += cons.CHAR_LISTBUL + cons.CHAR_SPACE
+                        self.curr_node_content += cons.CHAR_LISTBUL + cons.CHAR_SPACE
                     else: print text_line[i+8:i+10]
-                elif text_line[i+1:].startswith("pnstart"):
-                    self.curr_node_content += text_line[i+8:i+9] + "." +cons.CHAR_SPACE
-                    break
+                elif (text_line[i+1:].startswith("b"+cons.CHAR_SPACE) or text_line[i+1:].startswith("b"+cons.CHAR_BSLASH)):
+                    self.check_pending_text_to_tag()
+                    self.curr_attributes[cons.TAG_WEIGHT] = cons.TAG_PROP_HEAVY
+                    if text_line[i+2:i+3] == cons.CHAR_SPACE:
+                        dummy_loop = 2
+                    else:
+                        dummy_loop = 1
+                    curr_state = 0
+                elif (text_line[i+1:].startswith("i"+cons.CHAR_SPACE) or text_line[i+1:].startswith("i"+cons.CHAR_BSLASH)):
+                    self.check_pending_text_to_tag()
+                    self.curr_attributes[cons.TAG_STYLE] = cons.TAG_PROP_ITALIC
+                    if text_line[i+2:i+3] == cons.CHAR_SPACE:
+                        dummy_loop = 2
+                    else:
+                        dummy_loop = 1
+                    curr_state = 0
+                elif (text_line[i+1:].startswith("ul"+cons.CHAR_SPACE) or text_line[i+1:].startswith("ul"+cons.CHAR_BSLASH)):
+                    self.check_pending_text_to_tag()
+                    self.curr_attributes[cons.TAG_UNDERLINE] = cons.TAG_PROP_SINGLE
+                    if text_line[i+3:i+4] == cons.CHAR_SPACE:
+                        dummy_loop = 3
+                    else:
+                        dummy_loop = 2
+                    curr_state = 0
+                elif (text_line[i+1:].startswith("strike"+cons.CHAR_SPACE) or text_line[i+1:].startswith("strike"+cons.CHAR_BSLASH)):
+                    self.check_pending_text_to_tag()
+                    self.curr_attributes[cons.TAG_STRIKETHROUGH] = cons.TAG_PROP_TRUE
+                    if text_line[i+7:i+8] == cons.CHAR_SPACE:
+                        dummy_loop = 7
+                    else:
+                        dummy_loop = 6
+                    curr_state = 0
+                elif text_line[i+1:].startswith("b0"):
+                    self.check_pending_text_to_tag()
+                    self.curr_attributes[cons.TAG_WEIGHT] = ""
+                    dummy_loop = 2
+                    curr_state = 0
+                elif text_line[i+1:].startswith("i0"):
+                    self.check_pending_text_to_tag()
+                    self.curr_attributes[cons.TAG_STYLE] = ""
+                    dummy_loop = 2
+                    curr_state = 0
+                elif text_line[i+1:].startswith("ulnone"):
+                    self.check_pending_text_to_tag()
+                    self.curr_attributes[cons.TAG_UNDERLINE] = ""
+                    dummy_loop = 6
+                    curr_state = 0
+                elif text_line[i+1:].startswith("strike0"):
+                    self.check_pending_text_to_tag()
+                    self.curr_attributes[cons.TAG_STRIKETHROUGH] = ""
+                    dummy_loop = 7
+                    curr_state = 0
                 else:
                     curr_state = 1
             elif curr_char == cons.CHAR_BR_OPEN:
@@ -1242,11 +1299,11 @@ class KeynoteHandler:
                 curr_state = 0
                 in_br_read_data = False
             elif in_br_read_data and curr_char == cons.CHAR_PARENTH_CLOSE:
-                final_line += "." + cons.CHAR_SPACE
+                self.curr_node_content += "." + cons.CHAR_SPACE
             else:
                 if in_br_num == 0 or in_br_read_data:
                     if curr_state == 0:
-                        final_line += curr_char
+                        self.curr_node_content += curr_char
                     elif curr_state == 1:
                         if curr_char == cons.CHAR_SPACE:
                             curr_state = 0
@@ -1256,6 +1313,8 @@ class KeynoteHandler:
         self.dom = xml.dom.minidom.Document()
         self.nodes_list = [self.dom.createElement(cons.APP_NAME)]
         self.dom.appendChild(self.nodes_list[0])
+        self.curr_attributes = {}
+        for tag_property in cons.TAG_PROPERTIES: self.curr_attributes[tag_property] = ""
         self.parse_string_lines(file_descriptor)
         return self.dom.toxml()
 
