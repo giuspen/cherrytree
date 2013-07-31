@@ -1181,6 +1181,7 @@ class KeynoteHandler:
                     self.nodes_list[-1].setAttribute("name", self.curr_node_name)
                     self.nodes_list[-1].setAttribute("prog_lang", cons.CUSTOM_COLORS_ID)
                     self.nodes_list[-2].appendChild(self.nodes_list[-1])
+                    self.node_br_ok = False
             elif self.curr_state == 3:
                 if text_line.startswith("%-") or text_line.startswith("%%"):
                     self.curr_state = 0
@@ -1190,15 +1191,42 @@ class KeynoteHandler:
     def write_line_text(self, text_line):
         """Write Stripped Line Content"""
         print "'%s'" % text_line
-        if text_line.endswith("}"): return
+        #if text_line.endswith("}"): return
         final_line = ""
         curr_state = 0
-        for curr_char in text_line:
-            if curr_state == 0:
-                if curr_char == "\\": curr_state = 1
-                else: final_line += curr_char
-            elif curr_state == 1:
-                if curr_char == " ": curr_state = 0
+        dummy_loop = 0
+        in_br_num = 0
+        for i, curr_char in enumerate(text_line):
+            if dummy_loop > 0:
+                dummy_loop -= 1
+                continue
+            if curr_char == cons.CHAR_BSLASH:
+                if text_line[i+1:].startswith(cons.CHAR_BSLASH):
+                    final_line += cons.CHAR_BSLASH
+                    dummy_loop = 1
+                    curr_state = 0
+                elif text_line[i+1:].startswith(cons.CHAR_BR_OPEN):
+                    final_line += cons.CHAR_BR_OPEN
+                    dummy_loop = 1
+                    curr_state = 0
+                elif text_line[i+1:].startswith(cons.CHAR_BR_CLOSE):
+                    final_line += cons.CHAR_BR_CLOSE
+                    dummy_loop = 1
+                    curr_state = 0
+                else:
+                    curr_state = 1
+            elif curr_char == cons.CHAR_BR_OPEN:
+                if self.node_br_ok: in_br_num += 1
+                else: self.node_br_ok = True
+            elif curr_char == cons.CHAR_BR_CLOSE:
+                in_br_num -= 1
+            else:
+                if in_br_num == 0:
+                    if curr_state == 0:
+                        final_line += curr_char
+                    elif curr_state == 1:
+                        if curr_char == cons.CHAR_SPACE:
+                            curr_state = 0
         self.curr_node_content += final_line + cons.CHAR_NEWLINE
     
     def get_cherrytree_xml(self, file_descriptor):
