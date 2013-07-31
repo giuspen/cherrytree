@@ -1222,13 +1222,16 @@ class KeynoteHandler:
                     final_line += cons.CHAR_NEWLINE + 3*cons.CHAR_SPACE
                 elif text_line[i+1:].startswith("pntext"):
                     if text_line[i+8:i+10] == "f1":
-                        dummy_loop = 9
+                        dummy_loop = 10
                         curr_state = 0
                         in_br_read_data = True
                     elif text_line[i+8:i+10] == "f2":
                         dummy_loop = 9
                         final_line += cons.CHAR_LISTBUL + cons.CHAR_SPACE
                     else: print text_line[i+8:i+10]
+                elif text_line[i+1:].startswith("pnstart"):
+                    self.curr_node_content += text_line[i+8:i+9] + "." +cons.CHAR_SPACE
+                    break
                 else:
                     curr_state = 1
             elif curr_char == cons.CHAR_BR_OPEN:
@@ -1238,6 +1241,8 @@ class KeynoteHandler:
                 in_br_num -= 1
                 curr_state = 0
                 in_br_read_data = False
+            elif in_br_read_data and curr_char == cons.CHAR_PARENTH_CLOSE:
+                final_line += "." + cons.CHAR_SPACE
             else:
                 if in_br_num == 0 or in_br_read_data:
                     if curr_state == 0:
