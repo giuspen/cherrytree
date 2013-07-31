@@ -1196,6 +1196,7 @@ class KeynoteHandler:
         curr_state = 0
         dummy_loop = 0
         in_br_num = 0
+        in_br_read_data = False
         for i, curr_char in enumerate(text_line):
             if dummy_loop > 0:
                 dummy_loop -= 1
@@ -1213,6 +1214,21 @@ class KeynoteHandler:
                     final_line += cons.CHAR_BR_CLOSE
                     dummy_loop = 1
                     curr_state = 0
+                elif text_line[i+1:] == "par":
+                    self.curr_node_content += final_line + cons.CHAR_NEWLINE
+                    break
+                elif text_line[i+1:].startswith("line"):
+                    dummy_loop = 4
+                    final_line += cons.CHAR_NEWLINE + 3*cons.CHAR_SPACE
+                elif text_line[i+1:].startswith("pntext"):
+                    if text_line[i+8:i+10] == "f1":
+                        dummy_loop = 9
+                        curr_state = 0
+                        in_br_read_data = True
+                    elif text_line[i+8:i+10] == "f2":
+                        dummy_loop = 9
+                        final_line += cons.CHAR_LISTBUL + cons.CHAR_SPACE
+                    else: print text_line[i+8:i+10]
                 else:
                     curr_state = 1
             elif curr_char == cons.CHAR_BR_OPEN:
@@ -1220,14 +1236,15 @@ class KeynoteHandler:
                 else: self.node_br_ok = True
             elif curr_char == cons.CHAR_BR_CLOSE:
                 in_br_num -= 1
+                curr_state = 0
+                in_br_read_data = False
             else:
-                if in_br_num == 0:
+                if in_br_num == 0 or in_br_read_data:
                     if curr_state == 0:
                         final_line += curr_char
                     elif curr_state == 1:
                         if curr_char == cons.CHAR_SPACE:
                             curr_state = 0
-        self.curr_node_content += final_line + cons.CHAR_NEWLINE
     
     def get_cherrytree_xml(self, file_descriptor):
         """Returns a CherryTree string Containing the Treepad Nodes"""
