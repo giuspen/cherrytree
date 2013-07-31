@@ -729,6 +729,24 @@ class CherryTree:
             return
         self.nodes_add_from_cherrytree_data(cherrytree_string)
 
+    def nodes_add_from_keynote_file(self, action):
+        """Add Nodes Parsing a Keynote File"""
+        filepath = support.dialog_file_select(filter_pattern="*.knt",
+                                              filter_name=_("KeyNote Document"),
+                                              curr_folder=self.file_dir,
+                                              parent=self.window)
+        if filepath == None: return
+        try:
+            file_descriptor = open(filepath, 'r')
+            keynote = imports.KeynoteHandler()
+            cherrytree_string = keynote.get_cherrytree_xml(file_descriptor)
+            file_descriptor.close()
+        except:
+            support.dialog_error("Error importing the file %s" % filepath, self.window)
+            raise
+            return
+        self.nodes_add_from_cherrytree_data(cherrytree_string)
+
     def nodes_add_from_mempad_file(self, action):
         """Add Nodes Parsing a Mempad File"""
         filepath = support.dialog_file_select(filter_pattern="*.lst",
