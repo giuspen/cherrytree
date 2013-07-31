@@ -1131,6 +1131,85 @@ class KnowitHandler(HTMLParser.HTMLParser):
         return self.dom.toxml()
 
 
+class KeynoteHandler:
+    """The Handler of the Treepad File Parsing"""
+
+    def __init__(self):
+        """Machine boot"""
+        self.xml_handler = machines.XMLHandler(self)
+        
+    def rich_text_serialize(self, text_data):
+        """Appends a new part to the XML rich text"""
+        dom_iter = self.dom.createElement("rich_text")
+        self.nodes_list[-1].appendChild(dom_iter)
+        text_iter = self.dom.createTextNode(text_data)
+        dom_iter.appendChild(text_iter)
+
+    def parse_string_lines(self, file_descriptor):
+        """Parse the string line by line"""
+        self.curr_state = 0
+        self.curr_node_name = ""
+        self.curr_node_content = ""
+        self.curr_node_level = 0
+        self.former_node_level = -1
+        # 0: waiting for LV=
+        # 1: waiting for ND=
+        # 2: waiting for %:
+        # 3: gathering node content
+        for text_line in file_descriptor:
+            text_line = text_line.decode(cons.STR_UTF8, cons.STR_IGNORE)
+            if self.curr_state == 0:
+                if text_line.startswith("LV="):
+                    print "node level:", text_line[3:]
+                    self.curr_state = 1
+                    self.curr_node_level = int(text_line[3:])
+                    if self.curr_node_level <= self.former_node_level:
+                        for count in range(self.former_node_level - self.curr_node_level):
+                            self.nodes_list.pop()
+                        self.nodes_list.pop()
+                    self.former_node_level = self.curr_node_level
+            elif self.curr_state == 1:
+                if text_line.startswith("ND="):
+                    print "node name:", text_line[3:]
+                    self.curr_state = 2
+                    self.curr_node_name = text_line[3:]
+            elif self.curr_state == 2:
+                if text_line.startswith("%:"):
+                    self.curr_state = 3
+                    self.curr_node_content = ""
+                    self.nodes_list.append(self.dom.createElement("node"))
+                    self.nodes_list[-1].setAttribute("name", self.curr_node_name)
+                    self.nodes_list[-1].setAttribute("prog_lang", cons.CUSTOM_COLORS_ID)
+                    self.nodes_list[-2].appendChild(self.nodes_list[-1])
+            elif self.curr_state == 3:
+                if text_line.startswith("%-") or text_line.startswith("%%"):
+                    self.curr_state = 0
+                    self.rich_text_serialize(self.curr_node_content)
+                else: self.write_line_text(text_line.replace(cons.CHAR_CR, "").replace(cons.CHAR_NEWLINE, ""))
+    
+    def write_line_text(self, text_line):
+        """Write Stripped Line Content"""
+        print "'%s'" % text_line
+        if text_line.endswith("}"): return
+        final_line = ""
+        curr_state = 0
+        for curr_char in text_line:
+            if curr_state == 0:
+                if curr_char == "\\": curr_state = 1
+                else: final_line += curr_char
+            elif curr_state == 1:
+                if curr_char == " ": curr_state = 0
+        self.curr_node_content += final_line + cons.CHAR_NEWLINE
+    
+    def get_cherrytree_xml(self, file_descriptor):
+        """Returns a CherryTree string Containing the Treepad Nodes"""
+        self.dom = xml.dom.minidom.Document()
+        self.nodes_list = [self.dom.createElement(cons.APP_NAME)]
+        self.dom.appendChild(self.nodes_list[0])
+        self.parse_string_lines(file_descriptor)
+        return self.dom.toxml()
+
+
 class TreepadHandler:
     """The Handler of the Treepad File Parsing"""
 

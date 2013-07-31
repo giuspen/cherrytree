@@ -407,6 +407,7 @@ UI_INFO = """
             <menuitem action='FromCherryTree'/>
             <menuitem action='FromGnote'/>
             <menuitem action='FromKeepNote'/>
+            <menuitem action='FromKeyNote'/>
             <menuitem action='FromKnowit'/>
             <menuitem action='FromLeo'/>
             <menuitem action='FromMempad'/>
@@ -626,16 +627,17 @@ def get_entries(inst):
     ( "Fullscreen", "gtk-fullscreen", _("_Full Screen On/Off"), "F11", _("Toggle Full Screen On/Off"), inst.fullscreen_toggle),
     ( "FromBasket", STR_STOCK_CT_IMP, _("From _Basket Folder"), None, _("Add Nodes of a Basket Folder to the Current Tree"), inst.nodes_add_from_basket_folder),
     ( "FromCherryTree", STR_STOCK_CT_IMP, _("From _CherryTree File"), None, _("Add Nodes of a CherryTree File to the Current Tree"), inst.nodes_add_from_cherrytree_file),
-    ( "FromNoteCase", STR_STOCK_CT_IMP, _("From _NoteCase File"), None, _("Add Nodes of a NoteCase File to the Current Tree"), inst.nodes_add_from_notecase_file),
-    ( "FromKeepNote", STR_STOCK_CT_IMP, _("From _KeepNote Folder"), None, _("Add Nodes of a KeepNote Folder to the Current Tree"), inst.nodes_add_from_keepnote_folder),
-    ( "FromKnowit", STR_STOCK_CT_IMP, _("From K_nowit File"), None, _("Add Nodes of a Knowit File to the Current Tree"), inst.nodes_add_from_knowit_file),
-    ( "FromZim", STR_STOCK_CT_IMP, _("From _Zim Folder"), None, _("Add Nodes of a Zim Folder to the Current Tree"), inst.nodes_add_from_zim_folder),
-    ( "FromTomboy", STR_STOCK_CT_IMP, _("From T_omboy Folder"), None, _("Add Nodes of a Tomboy Folder to the Current Tree"), inst.nodes_add_from_tomboy_folder),
     ( "FromGnote", STR_STOCK_CT_IMP, _("From _Gnote Folder"), None, _("Add Nodes of a Gnote Folder to the Current Tree"), inst.nodes_add_from_gnote_folder),
-    ( "FromTuxCards", STR_STOCK_CT_IMP, _("From _TuxCards File"), None, _("Add Nodes of a TuxCards File to the Current Tree"), inst.nodes_add_from_tuxcards_file),
-    ( "FromTreepad", STR_STOCK_CT_IMP, _("From T_reepad Lite File"), None, _("Add Nodes of a Treepad Lite File to the Current Tree"), inst.nodes_add_from_treepad_file),
-    ( "FromMempad", STR_STOCK_CT_IMP, _("From _Mempad File"), None, _("Add Nodes of a Mempad File to the Current Tree"), inst.nodes_add_from_mempad_file),
+    ( "FromKeepNote", STR_STOCK_CT_IMP, _("From _KeepNote Folder"), None, _("Add Nodes of a KeepNote Folder to the Current Tree"), inst.nodes_add_from_keepnote_folder),
+    ( "FromKeyNote", STR_STOCK_CT_IMP, _("From K_eyNote File"), None, _("Add Nodes of a KeyNote File to the Current Tree"), inst.nodes_add_from_keynote_file),
+    ( "FromKnowit", STR_STOCK_CT_IMP, _("From K_nowit File"), None, _("Add Nodes of a Knowit File to the Current Tree"), inst.nodes_add_from_knowit_file),
     ( "FromLeo", STR_STOCK_CT_IMP, _("From _Leo File"), None, _("Add Nodes of a Leo File to the Current Tree"), inst.nodes_add_from_leo_file),
+    ( "FromMempad", STR_STOCK_CT_IMP, _("From _Mempad File"), None, _("Add Nodes of a Mempad File to the Current Tree"), inst.nodes_add_from_mempad_file),
+    ( "FromNoteCase", STR_STOCK_CT_IMP, _("From _NoteCase File"), None, _("Add Nodes of a NoteCase File to the Current Tree"), inst.nodes_add_from_notecase_file),
+    ( "FromTomboy", STR_STOCK_CT_IMP, _("From T_omboy Folder"), None, _("Add Nodes of a Tomboy Folder to the Current Tree"), inst.nodes_add_from_tomboy_folder),
+    ( "FromTreepad", STR_STOCK_CT_IMP, _("From T_reepad Lite File"), None, _("Add Nodes of a Treepad Lite File to the Current Tree"), inst.nodes_add_from_treepad_file),
+    ( "FromTuxCards", STR_STOCK_CT_IMP, _("From _TuxCards File"), None, _("Add Nodes of a TuxCards File to the Current Tree"), inst.nodes_add_from_tuxcards_file),
+    ( "FromZim", STR_STOCK_CT_IMP, _("From _Zim Folder"), None, _("Add Nodes of a Zim Folder to the Current Tree"), inst.nodes_add_from_zim_folder),
     ( "Help", "help-contents", _("Online _Manual"), None, _("Application's Online Manual"), inst.on_help_menu_item_activated),
     ( "CheckNewer", "gtk-network", _("_Check Newer Version"), None, _("Check for a Newer Version"), inst.check_for_newer_version),
     ( "About", "gtk-about", _("_About"), None, _("About CherryTree"), inst.dialog_about),
@@ -691,6 +693,7 @@ def get_popup_menu_tree(inst):
     (STR_STOCK_CT_IMP, _("From _CherryTree File"), None, _("Add Nodes of a CherryTree File to the Current Tree"), inst.nodes_add_from_cherrytree_file),
     (STR_STOCK_CT_IMP, _("From _Gnote Folder"), None, _("Add Nodes of a Gnote Folder to the Current Tree"), inst.nodes_add_from_gnote_folder),
     (STR_STOCK_CT_IMP, _("From _KeepNote Folder"), None, _("Add Nodes of a KeepNote Folder to the Current Tree"), inst.nodes_add_from_keepnote_folder),
+    (STR_STOCK_CT_IMP, _("From K_eyNote File"), None, _("Add Nodes of a KeyNote File to the Current Tree"), inst.nodes_add_from_keynote_file),
     (STR_STOCK_CT_IMP, _("From K_nowit File"), None, _("Add Nodes of a Knowit File to the Current Tree"), inst.nodes_add_from_knowit_file),
     (STR_STOCK_CT_IMP, _("From _Leo File"), None, _("Add Nodes of a Leo File to the Current Tree"), inst.nodes_add_from_leo_file),
     (STR_STOCK_CT_IMP, _("From _Mempad File"), None, _("Add Nodes of a Mempad File to the Current Tree"), inst.nodes_add_from_mempad_file),
