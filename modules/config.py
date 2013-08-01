@@ -156,6 +156,7 @@ def config_file_load(inst):
             inst.autosave = [config.getboolean(section, "autosave"), config.getint(section, "autosave_val")]
         else: inst.autosave = [False, 5]
         inst.check_version = config.getboolean(section, "check_version") if config.has_option(section, "check_version") else False
+        inst.reload_doc_last = config.getboolean(section, "reload_doc_last") if config.has_option(section, "reload_doc_last") else True
         inst.enable_mod_time_sentinel = config.getboolean(section, "mod_time_sent") if config.has_option(section, "mod_time_sent") else True
         inst.backup_copy = config.getboolean(section, "backup_copy") if config.has_option(section, "backup_copy") else True
         inst.autosave_on_quit = config.getboolean(section, "autosave_on_quit") if config.has_option(section, "autosave_on_quit") else False
@@ -210,6 +211,7 @@ def config_file_load(inst):
         inst.glade.spinbutton_codebox_width.set_value(700)
         inst.glade.spinbutton_codebox_height.set_value(100)
         inst.check_version = False
+        inst.reload_doc_last = True
         inst.enable_mod_time_sentinel = True
         inst.backup_copy = True
         inst.autosave_on_quit = False
@@ -289,6 +291,7 @@ def config_file_apply(inst):
     inst.glade.radiobutton_nodes_startup_expand.set_active(inst.rest_exp_coll == 1)
     inst.glade.radiobutton_nodes_startup_collapse.set_active(inst.rest_exp_coll == 2)
     inst.glade.checkbutton_newer_version.set_active(inst.check_version)
+    inst.glade.checkbutton_reload_doc_last.set_active(inst.reload_doc_last)
     inst.glade.checkbutton_mod_time_sentinel.set_active(inst.enable_mod_time_sentinel)
     inst.glade.checkbutton_backup_before_saving.set_active(inst.backup_copy)
     inst.glade.checkbutton_autosave_on_quit.set_active(inst.autosave_on_quit)
@@ -439,6 +442,7 @@ def config_file_save(inst):
     config.set(section, "autosave", inst.autosave[0])
     config.set(section, "autosave_val", inst.autosave[1])
     config.set(section, "check_version", inst.check_version)
+    config.set(section, "reload_doc_last", inst.reload_doc_last)
     config.set(section, "mod_time_sent", inst.enable_mod_time_sentinel)
     config.set(section, "backup_copy", inst.backup_copy)
     config.set(section, "autosave_on_quit", inst.autosave_on_quit)
