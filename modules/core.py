@@ -221,7 +221,7 @@ class CherryTree:
                 self.status_icon_enable()
             if self.start_on_systray: self.window.hide()
         else: self.ui.get_widget("/MenuBar/FileMenu/ExitApp").set_property(cons.STR_VISIBLE, False)
-        self.file_startup_load(open_with_file, node_name)
+        if self.reload_doc_last: self.file_startup_load(open_with_file, node_name)
         if self.check_version: self.check_for_newer_version()
 
     def check_for_newer_version(self, *args):
@@ -2164,6 +2164,10 @@ class CherryTree:
         self.autosave[0] = checkbutton.get_active()
         if not self.autosave[0] and self.autosave_timer_id != None: self.autosave_timer_stop()
         self.glade.spinbutton_autosave.set_sensitive(self.autosave[0])
+
+    def on_checkbutton_reload_doc_last_toggled(self, checkbutton):
+        """Reload Doc Last Toggled Handling"""
+        self.reload_doc_last = checkbutton.get_active()
 
     def on_checkbutton_mod_time_sentinel_toggled(self, checkbutton):
         """Modification Time Sentinel Toggled Handling"""
