@@ -2412,7 +2412,7 @@ class CherryTree:
         combobox.pack_start(cell, True)
         combobox.add_attribute(cell, 'text', 0)
         code_lang_list = []
-        for code_lang in self.spell_check_get_languages():
+        for code_lang in sorted(self.spell_check_get_languages()):
             self.spell_check_lang_liststore.append([code_lang])
             code_lang_list.append(code_lang)
         if not self.spell_check_lang in code_lang_list: self.spell_check_lang = code_lang_list[0]
