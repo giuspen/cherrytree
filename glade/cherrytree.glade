@@ -3110,7 +3110,7 @@ do you want to save the changes?</property>
                                   <object class="GtkLabel" id="label88">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="label" translatable="yes">Lingua Spell Check</property>
+                                    <property name="label" translatable="yes">Spell Check Language</property>
                                   </object>
                                   <packing>
                                     <property name="expand">False</property>
