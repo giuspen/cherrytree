@@ -1155,6 +1155,7 @@ class KeynoteHandler:
         self.curr_node_content = ""
         self.curr_node_level = 0
         self.former_node_level = -1
+        self.in_picture = False
         # 0: waiting for LV=
         # 1: waiting for ND=
         # 2: waiting for %:
@@ -1209,6 +1210,9 @@ class KeynoteHandler:
             if dummy_loop > 0:
                 dummy_loop -= 1
                 continue
+            if self.in_picture:
+                if curr_char == cons.CHAR_BR_CLOSE: self.in_picture = False
+                else: continue
             if curr_char == cons.CHAR_BSLASH:
                 if text_line[i+1:].startswith(cons.CHAR_BSLASH):
                     self.curr_node_content += cons.CHAR_BSLASH
@@ -1289,6 +1293,9 @@ class KeynoteHandler:
                     self.curr_attributes[cons.TAG_STRIKETHROUGH] = ""
                     dummy_loop = 7
                     curr_state = 0
+                elif text_line[i+1:].startswith("pict"):
+                    self.in_picture = True
+                    curr_state = 1
                 else:
                     curr_state = 1
             elif curr_char == cons.CHAR_BR_OPEN:
