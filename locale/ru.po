@@ -81,12 +81,11 @@ msgstr "Печатать название ветки"
 
 #: modules/support.py:283 modules/core.py:938
 msgid "Insert _Special Character"
-msgstr ""
+msgstr "Вставить символ"
 
 #: modules/support.py:285 modules/core.py:940
-#, fuzzy
 msgid "Insert a Special Character"
-msgstr "Вставить таблицу"
+msgstr "Вставить специальный символ"
 
 #: modules/support.py:316
 msgid "_Recent Documents"
@@ -208,9 +207,8 @@ msgid "Treepad Document"
 msgstr "Документ Treepad"
 
 #: modules/core.py:735
-#, fuzzy
 msgid "KeyNote Document"
-msgstr "Документ NoteCase"
+msgstr "Документ KeyNote"
 
 #: modules/core.py:753
 msgid "Mempad Document"
@@ -322,14 +320,12 @@ msgid "The New Language will be Available Only After Restarting CherryTree"
 msgstr "Изменение языка вступит в силу после перезапуска CherryTree"
 
 #: modules/core.py:2470
-#, fuzzy
 msgid "New Node Properties"
-msgstr "Изменить свойства ветки"
+msgstr "Новые свойства ветки"
 
 #: modules/core.py:2509
-#, fuzzy
 msgid "New Child Node Properties"
-msgstr "Изменить свойства ветки"
+msgstr "Новые свойства дочерней ветки"
 
 #: modules/core.py:2533
 #, python-format
@@ -341,9 +337,8 @@ msgid "The node <b>has Children, they will be Deleted too!</b>"
 msgstr "Ветка <b>имеет дочерние ветки и они также будут удалены!</b>"
 
 #: modules/core.py:2566
-#, fuzzy
 msgid "Node Properties"
-msgstr "Изменить свойства ветки"
+msgstr "Свойства ветки"
 
 #: modules/core.py:2570
 msgid ""
@@ -603,24 +598,20 @@ msgid "Export To HTML"
 msgstr "Экспорт в HTML"
 
 #: modules/cons.py:547 modules/cons.py:708
-#, fuzzy
 msgid "Export to Multiple Plain _Text Files"
-msgstr "Экспорт в текстовый формат"
+msgstr "Экспорт в несколько текстовых файлов"
 
 #: modules/cons.py:547 modules/cons.py:708
-#, fuzzy
 msgid "Export to Multiple Plain Text Files"
-msgstr "Экспорт в текстовый формат"
+msgstr "Экспорт в несколько текстовых файлов"
 
 #: modules/cons.py:548 modules/cons.py:709
-#, fuzzy
 msgid "Export to _Single Plain Text File"
-msgstr "Экспорт в текстовый формат"
+msgstr "Экспорт в текстовый файл"
 
 #: modules/cons.py:548 modules/cons.py:709
-#, fuzzy
 msgid "Export to Single Plain Text File"
-msgstr "Экспорт в текстовый формат"
+msgstr "Экспорт в текстовый файл"
 
 #: modules/cons.py:549 modules/cons.py:711
 msgid "_Export To CherryTree Document"
@@ -1221,23 +1212,20 @@ msgid "Decrease the Size of the Toolbar Icons"
 msgstr "Уменьшить иконки панели инструментов"
 
 #: modules/cons.py:623
-#, fuzzy
 msgid "Toggle _Focus Tree/Text"
-msgstr "Переключить фокус Дерево/Ветка"
+msgstr "Переключить фокус Дерево/Текст"
 
 #: modules/cons.py:623
 msgid "Toggle Focus Between Tree and Text"
-msgstr "Переключить фокус между Деревом и Веткой"
+msgstr "Переключить фокус между Деревом и Текстом"
 
 #: modules/cons.py:624
-#, fuzzy
 msgid "Toggle Node _Expanded/Collapsed"
-msgstr "Сохранять статус веток"
+msgstr "Развернуть/Свернуть ветку"
 
 #: modules/cons.py:624
-#, fuzzy
 msgid "Toggle Expanded/Collapsed Status of the Selected Node"
-msgstr "Применить уменьшенный шрифт к выделенному фрагменту"
+msgstr "Переключение между развёрнутым/свёрнутым отображением ветки"
 
 #: modules/cons.py:625
 msgid "E_xpand All Nodes"
@@ -1296,14 +1284,12 @@ msgid "Add Nodes of a KeepNote Folder to the Current Tree"
 msgstr "Импортировать из каталога KeepNote в существующее дерево"
 
 #: modules/cons.py:632 modules/cons.py:696
-#, fuzzy
 msgid "From K_eyNote File"
-msgstr "Из Leo"
+msgstr "Из KeyNote"
 
 #: modules/cons.py:632 modules/cons.py:696
-#, fuzzy
 msgid "Add Nodes of a KeyNote File to the Current Tree"
-msgstr "Импортировать из файла Leo в существующее дерево"
+msgstr "Импортировать из файла KeyNote в существующее дерево"
 
 #: modules/cons.py:633 modules/cons.py:697
 msgid "From K_nowit File"
@@ -1683,29 +1669,27 @@ msgstr "Скачивание"
 
 #: modules/pgsc_spellcheck.py:105
 msgid "Unknown"
-msgstr ""
+msgstr "Неизвестно"
 
 #: modules/pgsc_spellcheck.py:489
 msgid "(no suggestions)"
-msgstr ""
+msgstr "(нет варианта)"
 
 #: modules/pgsc_spellcheck.py:514
 msgid "Add \"{}\" to Dictionary"
-msgstr ""
+msgstr "Добавить \"{}\" в словарь"
 
 #: modules/pgsc_spellcheck.py:520
 msgid "Ignore All"
-msgstr ""
+msgstr "Игнорировать всё"
 
 #: modules/pgsc_spellcheck.py:537
-#, fuzzy
 msgid "Languages"
-msgstr "<b>Язык</b>"
+msgstr "Языки"
 
 #: modules/pgsc_spellcheck.py:556
-#, fuzzy
 msgid "Suggestions"
-msgstr "Вопрос"
+msgstr "Варианты"
 
 #: glade/cherrytree.glade.h:2
 msgid ""
@@ -1925,9 +1909,8 @@ msgid "Are you sure to Delete the node?"
 msgstr "Вы уверены, что хотите удалить ветку?"
 
 #: glade/cherrytree.glade.h:70
-#, fuzzy
 msgid "<b>Node Name</b>"
-msgstr "<b>Ветка</b>"
+msgstr "<b>Название ветки</b>"
 
 #: glade/cherrytree.glade.h:72
 msgid "Automatic Syntax Highlighting"
@@ -1971,7 +1954,7 @@ msgstr "Горизонтальная линия"
 
 #: glade/cherrytree.glade.h:84
 msgid "Special Characters"
-msgstr ""
+msgstr "Специальные символы"
 
 #: glade/cherrytree.glade.h:85
 msgid "<b>Miscellaneous</b>"
@@ -1983,16 +1966,15 @@ msgstr "Все ветки"
 
 #: glade/cherrytree.glade.h:87
 msgid "Enable Spell Check"
-msgstr ""
+msgstr "Включить проверку орфографии"
 
 #: glade/cherrytree.glade.h:88
 msgid "Spell Check Language"
-msgstr ""
+msgstr "Язык проверки орфографии"
 
 #: glade/cherrytree.glade.h:89
-#, fuzzy
 msgid "<b>Spell Check</b>"
-msgstr "<b>Размер</b>"
+msgstr "<b>Проверка орфографии</b>"
 
 #: glade/cherrytree.glade.h:90
 msgid "Light Background, Dark Text"
@@ -2168,7 +2150,7 @@ msgstr "Автоматически проверять обновления"
 
 #: glade/cherrytree.glade.h:133
 msgid "Reload Document From Last Session"
-msgstr ""
+msgstr "Загрузить документ из последней сессии"
 
 #: glade/cherrytree.glade.h:134
 msgid "Reload After External Update to CT* File"
@@ -2183,9 +2165,8 @@ msgid "Miscellaneous"
 msgstr "Разное"
 
 #: glade/cherrytree.glade.h:137
-#, fuzzy
 msgid "<b>Search for</b>"
-msgstr "<b>Настройки поиска</b>"
+msgstr "<b>Искать</b>"
 
 #: glade/cherrytree.glade.h:138
 msgid "<b>Replace with</b>"

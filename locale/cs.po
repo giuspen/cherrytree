@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-08-02 19:00+0200\n"
-"PO-Revision-Date: 2013-01-02 20:47+0100\n"
+"PO-Revision-Date: 2013-08-03 11:57+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 1.4\n"
+"X-Generator: Lokalize 1.5\n"
 
 #: modules/support.py:59
 msgid "Save File as"
@@ -78,12 +78,11 @@ msgstr "Zahrnout název uzlu"
 
 #: modules/support.py:283 modules/core.py:938
 msgid "Insert _Special Character"
-msgstr ""
+msgstr "Vložit _zvláštní znak"
 
 #: modules/support.py:285 modules/core.py:940
-#, fuzzy
 msgid "Insert a Special Character"
-msgstr "Vložit jednu tabulku"
+msgstr "Vložit zvláštní znak"
 
 #: modules/support.py:316
 msgid "_Recent Documents"
@@ -207,9 +206,8 @@ msgid "Treepad Document"
 msgstr "Dokument Treepad"
 
 #: modules/core.py:735
-#, fuzzy
 msgid "KeyNote Document"
-msgstr "Dokument NoteCase"
+msgstr "Dokument KeyNote"
 
 #: modules/core.py:753
 msgid "Mempad Document"
@@ -323,14 +321,12 @@ msgid "The New Language will be Available Only After Restarting CherryTree"
 msgstr "Nový jazyk bude dostupný až po novém spuštění CherryTree"
 
 #: modules/core.py:2470
-#, fuzzy
 msgid "New Node Properties"
-msgstr "Změnit _vlastnosti uzlu"
+msgstr "Vlastnosti nového uzlu"
 
 #: modules/core.py:2509
-#, fuzzy
 msgid "New Child Node Properties"
-msgstr "Změnit _vlastnosti uzlu"
+msgstr "Vlastnosti nového podřízeného uzlu"
 
 #: modules/core.py:2533
 #, python-format
@@ -342,9 +338,8 @@ msgid "The node <b>has Children, they will be Deleted too!</b>"
 msgstr "Uzel má <b>podřízené uzly, které budou rovněž smazány!</b>"
 
 #: modules/core.py:2566
-#, fuzzy
 msgid "Node Properties"
-msgstr "Změnit _vlastnosti uzlu"
+msgstr "Vlastnosti uzlu"
 
 #: modules/core.py:2570
 msgid ""
@@ -606,24 +601,20 @@ msgid "Export To HTML"
 msgstr "Vyvést jako HTML"
 
 #: modules/cons.py:547 modules/cons.py:708
-#, fuzzy
 msgid "Export to Multiple Plain _Text Files"
-msgstr "Vyvést jako prostý _text"
+msgstr "Vyvést jako více souborů prostého _textu"
 
 #: modules/cons.py:547 modules/cons.py:708
-#, fuzzy
 msgid "Export to Multiple Plain Text Files"
-msgstr "Vyvést jako prostý text"
+msgstr "Vyvést jako více souborů prostého textu"
 
 #: modules/cons.py:548 modules/cons.py:709
-#, fuzzy
 msgid "Export to _Single Plain Text File"
-msgstr "Vyvést jako prostý text"
+msgstr "Vyvést jako jeden soubor prostého _textu"
 
 #: modules/cons.py:548 modules/cons.py:709
-#, fuzzy
 msgid "Export to Single Plain Text File"
-msgstr "Vyvést jako prostý text"
+msgstr "Vyvést jako jeden soubor prostého textu"
 
 #: modules/cons.py:549 modules/cons.py:711
 msgid "_Export To CherryTree Document"
@@ -1227,23 +1218,20 @@ msgid "Decrease the Size of the Toolbar Icons"
 msgstr "Zmenšit velikost ikon v nástrojovém pruhu"
 
 #: modules/cons.py:623
-#, fuzzy
 msgid "Toggle _Focus Tree/Text"
-msgstr "Přepnout zaměření strom/text"
+msgstr "Přepnout _zaměření strom/text"
 
 #: modules/cons.py:623
 msgid "Toggle Focus Between Tree and Text"
 msgstr "Přepnout zaměření mezi stromem a textem"
 
 #: modules/cons.py:624
-#, fuzzy
 msgid "Toggle Node _Expanded/Collapsed"
-msgstr "Obnovit stav rozbaleno/sbaleno"
+msgstr "Přepnout uzel rozbaleno/sbaleno"
 
 #: modules/cons.py:624
-#, fuzzy
 msgid "Toggle Expanded/Collapsed Status of the Selected Node"
-msgstr "Formátovat vybraný text jako malý"
+msgstr "Přepnout stav rozbaleno/sbaleno vybraného uzlu"
 
 #: modules/cons.py:625
 msgid "E_xpand All Nodes"
@@ -1302,14 +1290,12 @@ msgid "Add Nodes of a KeepNote Folder to the Current Tree"
 msgstr "Přidat uzly ze složky KeepNote do současné stromové stavby"
 
 #: modules/cons.py:632 modules/cons.py:696
-#, fuzzy
 msgid "From K_eyNote File"
-msgstr "Ze souboru _Leo"
+msgstr "Ze souboru K_eyNote"
 
 #: modules/cons.py:632 modules/cons.py:696
-#, fuzzy
 msgid "Add Nodes of a KeyNote File to the Current Tree"
-msgstr "Přidat uzly ze souboru Leo do současné stromové stavby"
+msgstr "Přidat uzly ze souboru KeyNote do současné stromové stavby"
 
 #: modules/cons.py:633 modules/cons.py:697
 msgid "From K_nowit File"
@@ -1689,29 +1675,27 @@ msgstr "Stažení"
 
 #: modules/pgsc_spellcheck.py:105
 msgid "Unknown"
-msgstr ""
+msgstr "Neznámý"
 
 #: modules/pgsc_spellcheck.py:489
 msgid "(no suggestions)"
-msgstr ""
+msgstr "(žádné návrhy)"
 
 #: modules/pgsc_spellcheck.py:514
 msgid "Add \"{}\" to Dictionary"
-msgstr ""
+msgstr "Přidat \"{}\" do slovníku"
 
 #: modules/pgsc_spellcheck.py:520
 msgid "Ignore All"
-msgstr ""
+msgstr "Přehlížet vše"
 
 #: modules/pgsc_spellcheck.py:537
-#, fuzzy
 msgid "Languages"
-msgstr "<b>Jazyk</b>"
+msgstr "Jazyky"
 
 #: modules/pgsc_spellcheck.py:556
-#, fuzzy
 msgid "Suggestions"
-msgstr "Otázka"
+msgstr "Návrhy"
 
 #: glade/cherrytree.glade.h:2
 msgid ""
@@ -1926,9 +1910,8 @@ msgid "Are you sure to Delete the node?"
 msgstr "Opravdu chcete smazat uzel?"
 
 #: glade/cherrytree.glade.h:70
-#, fuzzy
 msgid "<b>Node Name</b>"
-msgstr "<b>Uzly</b>"
+msgstr "<b>Název uzlu</b>"
 
 #: glade/cherrytree.glade.h:72
 msgid "Automatic Syntax Highlighting"
@@ -1972,7 +1955,7 @@ msgstr "Oddělovací čára"
 
 #: glade/cherrytree.glade.h:84
 msgid "Special Characters"
-msgstr ""
+msgstr "Zvláštní znaky"
 
 #: glade/cherrytree.glade.h:85
 msgid "<b>Miscellaneous</b>"
@@ -1984,16 +1967,15 @@ msgstr "Všechny uzly"
 
 #: glade/cherrytree.glade.h:87
 msgid "Enable Spell Check"
-msgstr ""
+msgstr "Povolit ověřování pravopisu"
 
 #: glade/cherrytree.glade.h:88
 msgid "Spell Check Language"
-msgstr ""
+msgstr "Jazyk ověřování pravopisu"
 
 #: glade/cherrytree.glade.h:89
-#, fuzzy
 msgid "<b>Spell Check</b>"
-msgstr "<b>Velikost</b>"
+msgstr "<b>Ověření správného psaní</b>"
 
 #: glade/cherrytree.glade.h:90
 msgid "Light Background, Dark Text"
@@ -2169,7 +2151,7 @@ msgstr "Automaticky vyhledat novou verzi"
 
 #: glade/cherrytree.glade.h:133
 msgid "Reload Document From Last Session"
-msgstr ""
+msgstr "Nahrát dokument z posledního sezení znovu"
 
 #: glade/cherrytree.glade.h:134
 msgid "Reload After External Update to CT* File"
@@ -2184,9 +2166,8 @@ msgid "Miscellaneous"
 msgstr "Různé"
 
 #: glade/cherrytree.glade.h:137
-#, fuzzy
 msgid "<b>Search for</b>"
-msgstr "<b>Volby pro hledání</b>"
+msgstr "<b>Hledání</b>"
 
 #: glade/cherrytree.glade.h:138
 msgid "<b>Replace with</b>"
