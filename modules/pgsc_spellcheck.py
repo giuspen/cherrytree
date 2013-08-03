@@ -414,6 +414,8 @@ class SpellChecker(object):
         """
         if not self._enabled:
             return
+        if start.equal(end):
+            return
         if end.inside_word(): end.forward_word_end()
         if not start.starts_word() and (start.inside_word() or
                                         start.ends_word()):
@@ -613,6 +615,8 @@ class SpellChecker(object):
         self.check_range(start, end, force_all)
 
     def _check_word(self, start, end):
+        if start.equal(end):
+            return
         if start.has_tag(self.no_spell_check):
             return
         for tag in self.ignored_tags:
@@ -647,13 +651,12 @@ class SpellChecker(object):
             #if _py3k:
             #    text = self._buffer.get_text(text_start, text_end, False)
             #else:
-            text = self._buffer.get_text(text_start, text_end,
-                                             False).decode('utf-8')
+            text = self._buffer.get_text(text_start, text_end, False).decode('utf-8')
             for match in self._regexes[SpellChecker.FILTER_TEXT].finditer(text):
                 if match.start() <= start.get_offset() <= match.end():
                     start = self._buffer.get_iter_at_offset(match.start())
                     end = self._buffer.get_iter_at_offset(match.end())
                     self._buffer.remove_tag(self._misspelled, start, end)
                     return
-        if not self._dictionary.check(word):
+        if word and not self._dictionary.check(word):
             self._buffer.apply_tag(self._misspelled, start, end)
