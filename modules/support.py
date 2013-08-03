@@ -41,7 +41,7 @@ def text_file_rm_emptylines(filepath):
 
 def clean_from_chars_not_for_filename(filename_in):
     """Clean a string from chars not good for filename"""
-    return filename_in.replace(cons.CHAR_SLASH, cons.CHAR_MINUS).replace(cons.CHAR_BSLASH, cons.CHAR_MINUS).replace(cons.CHAR_STAR, "").replace(cons.CHAR_QUESTION, "")
+    return filename_in.replace(cons.CHAR_SLASH, cons.CHAR_MINUS).replace(cons.CHAR_BSLASH, cons.CHAR_MINUS).replace(cons.CHAR_STAR, "").replace(cons.CHAR_QUESTION, "").replace(cons.CHAR_NEWLINE, "").replace(cons.CHAR_CR, "")
 
 def get_node_hierarchical_name(dad, tree_iter, separator="--"):
     """Get the Node Hierarchical Name"""
