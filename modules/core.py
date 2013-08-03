@@ -3852,7 +3852,9 @@ class CherryTree:
             if self.filelink_custom_action[0]:
                 subprocess.call(self.filelink_custom_action[1] % re.escape(filepath), shell=True)
             else:
-                if cons.IS_WIN_OS: os.startfile(filepath)
+                if cons.IS_WIN_OS:
+                    try: os.startfile(filepath)
+                    except: os.startfile(os.path.dirname(filepath))
                 else: subprocess.call(config.LINK_CUSTOM_ACTION_DEFAULT_FILE % re.escape(filepath), shell=True)
         elif vector[0] == "fold":
             # link to folder
