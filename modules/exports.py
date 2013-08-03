@@ -180,7 +180,7 @@ class Export2Txt:
         """Prepare the website folder"""
         dir_place = support.dialog_folder_select(curr_folder=self.dad.file_dir, parent=self.dad.window)
         if dir_place == None: return False
-        new_folder += "_txt"
+        new_folder += "_TXT"
         while os.path.exists(os.path.join(dir_place, new_folder)):
             new_folder += "2"
         self.new_path = os.path.join(dir_place, new_folder)
@@ -431,7 +431,7 @@ class Export2Html:
         """Prepare the website folder"""
         dir_place = support.dialog_folder_select(curr_folder=self.dad.file_dir, parent=self.dad.window)
         if dir_place == None: return False
-        new_folder += "_html"
+        new_folder += "_HTML"
         while os.path.exists(os.path.join(dir_place, new_folder)):
             new_folder += "2"
         self.new_path = os.path.join(dir_place, new_folder)
@@ -626,8 +626,7 @@ class Export2Html:
         while father_iter:
             file_name = self.dad.treestore[father_iter][1] + "--" + file_name
             father_iter = self.dad.treestore.iter_parent(father_iter)
-        file_name += ".html"
-        return support.clean_from_chars_not_for_filename(file_name)
+        return support.clean_from_chars_not_for_filename(file_name) + ".html"
 
     def html_get_from_code_buffer(self, code_buffer, sel_range=None):
         """Get rich text from syntax highlighted code node"""
