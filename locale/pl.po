@@ -2,7 +2,7 @@
 # Copyright (C) 2010 THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Marcin Swierczynski <orneo1212@gmail.com>, 2010.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
@@ -75,12 +75,11 @@ msgstr "Dołącz nazwę gałęzi"
 
 #: modules/support.py:283 modules/core.py:938
 msgid "Insert _Special Character"
-msgstr ""
+msgstr "Wstaw znak _specjalny"
 
 #: modules/support.py:285 modules/core.py:940
-#, fuzzy
 msgid "Insert a Special Character"
-msgstr "Dodaj tabele"
+msgstr "Dodaj znak specjalny"
 
 #: modules/support.py:316
 msgid "_Recent Documents"
@@ -204,9 +203,8 @@ msgid "Treepad Document"
 msgstr "Dokument Treepad"
 
 #: modules/core.py:735
-#, fuzzy
 msgid "KeyNote Document"
-msgstr "Dokument NoteCase"
+msgstr "Dokument KeyNote"
 
 #: modules/core.py:753
 msgid "Mempad Document"
@@ -318,14 +316,12 @@ msgid "The New Language will be Available Only After Restarting CherryTree"
 msgstr "Nowy język będzie dostępny po zrestartowaniu CherryTree"
 
 #: modules/core.py:2470
-#, fuzzy
 msgid "New Node Properties"
-msgstr "Zmień właściwości gałęzi"
+msgstr "Właściwości nowej gałęzi"
 
 #: modules/core.py:2509
-#, fuzzy
 msgid "New Child Node Properties"
-msgstr "Zmień właściwości gałęzi"
+msgstr "Zmień właściwości nowej podrzędnej gałęzi"
 
 #: modules/core.py:2533
 #, python-format
@@ -337,9 +333,8 @@ msgid "The node <b>has Children, they will be Deleted too!</b>"
 msgstr "Gałąź <b>posiada gałęzi podrzędne, one także zostaną usunięte!</b>"
 
 #: modules/core.py:2566
-#, fuzzy
 msgid "Node Properties"
-msgstr "Zmień właściwości gałęzi"
+msgstr "Właściwości gałęzi"
 
 #: modules/core.py:2570
 msgid ""
@@ -600,24 +595,20 @@ msgid "Export To HTML"
 msgstr "Eksportuj do HTML"
 
 #: modules/cons.py:547 modules/cons.py:708
-#, fuzzy
 msgid "Export to Multiple Plain _Text Files"
-msgstr "Eksportuj jako plik tekstowy"
+msgstr "Eksportuj do wielu plików _tekstowych"
 
 #: modules/cons.py:547 modules/cons.py:708
-#, fuzzy
 msgid "Export to Multiple Plain Text Files"
-msgstr "Eksportuj jako plik tekstowy"
+msgstr "Eksportuj do wielu plików tekstowych"
 
 #: modules/cons.py:548 modules/cons.py:709
-#, fuzzy
 msgid "Export to _Single Plain Text File"
-msgstr "Eksportuj jako plik tekstowy"
+msgstr "Eksportuj jako pojedyńczy plik tekstowy"
 
 #: modules/cons.py:548 modules/cons.py:709
-#, fuzzy
 msgid "Export to Single Plain Text File"
-msgstr "Eksportuj jako plik tekstowy"
+msgstr "Eksportuj jako pojedyńczy plik tekstowy"
 
 #: modules/cons.py:549 modules/cons.py:711
 msgid "_Export To CherryTree Document"
@@ -1218,23 +1209,20 @@ msgid "Decrease the Size of the Toolbar Icons"
 msgstr "Zmniejsz rozmiar ikon na pasku narzędziowym"
 
 #: modules/cons.py:623
-#, fuzzy
 msgid "Toggle _Focus Tree/Text"
-msgstr "Przełącz aktywność drzewo/tekst"
+msgstr "Przełącz aktywność drzewa/tekstu"
 
 #: modules/cons.py:623
 msgid "Toggle Focus Between Tree and Text"
 msgstr "Przełącz aktywnosc pomiędzy drzewem a tekstem"
 
 #: modules/cons.py:624
-#, fuzzy
 msgid "Toggle Node _Expanded/Collapsed"
-msgstr "Przywróć stan Zwiniętych/Rozwiniętych"
+msgstr "Przełącz stan Zwiniętych/Rozwiniętych gałęzi"
 
 #: modules/cons.py:624
-#, fuzzy
 msgid "Toggle Expanded/Collapsed Status of the Selected Node"
-msgstr "Przełącz indeks dla zaznaczonego tekstu"
+msgstr "Przełącz stan Zwiniętych/Rozwiniętych gałęzi w zaznaczonej gałęzi"
 
 #: modules/cons.py:625
 msgid "E_xpand All Nodes"
@@ -1293,14 +1281,12 @@ msgid "Add Nodes of a KeepNote Folder to the Current Tree"
 msgstr "Dodaj gałąź z folderu KeepNote do aktualnego drzewa"
 
 #: modules/cons.py:632 modules/cons.py:696
-#, fuzzy
 msgid "From K_eyNote File"
-msgstr "Z pliku _Leo"
+msgstr "Z pliku K_eyNote"
 
 #: modules/cons.py:632 modules/cons.py:696
-#, fuzzy
 msgid "Add Nodes of a KeyNote File to the Current Tree"
-msgstr "Dodaj gałąź z pliku Leo do aktualnego drzewa"
+msgstr "Dodaj gałązi z pliku KeyNote do aktualnego drzewa"
 
 #: modules/cons.py:633 modules/cons.py:697
 msgid "From K_nowit File"
@@ -1680,29 +1666,27 @@ msgstr "Ściąganie"
 
 #: modules/pgsc_spellcheck.py:105
 msgid "Unknown"
-msgstr ""
+msgstr "Nieznany"
 
 #: modules/pgsc_spellcheck.py:489
 msgid "(no suggestions)"
-msgstr ""
+msgstr "(brak sugestii)"
 
 #: modules/pgsc_spellcheck.py:514
 msgid "Add \"{}\" to Dictionary"
-msgstr ""
+msgstr "Dodaj \"{}\" do słownika"
 
 #: modules/pgsc_spellcheck.py:520
 msgid "Ignore All"
-msgstr ""
+msgstr "Ignoruj wszystkie"
 
 #: modules/pgsc_spellcheck.py:537
-#, fuzzy
 msgid "Languages"
-msgstr "<b>Język</b>"
+msgstr "Język"
 
 #: modules/pgsc_spellcheck.py:556
-#, fuzzy
 msgid "Suggestions"
-msgstr "Pytanie"
+msgstr "Sugestie"
 
 #: glade/cherrytree.glade.h:2
 msgid ""
@@ -1918,9 +1902,8 @@ msgid "Are you sure to Delete the node?"
 msgstr "Czy na pewno chcesz usunąć gałąź?"
 
 #: glade/cherrytree.glade.h:70
-#, fuzzy
 msgid "<b>Node Name</b>"
-msgstr "<b>Gałąź</b>"
+msgstr "<b>Nazwa gałęzi</b>"
 
 #: glade/cherrytree.glade.h:72
 msgid "Automatic Syntax Highlighting"
@@ -1964,7 +1947,7 @@ msgstr "Dodaj poziomą linijkę"
 
 #: glade/cherrytree.glade.h:84
 msgid "Special Characters"
-msgstr ""
+msgstr "Znaki specjalne"
 
 #: glade/cherrytree.glade.h:85
 msgid "<b>Miscellaneous</b>"
@@ -1976,16 +1959,15 @@ msgstr "Wszystkie gałęzie"
 
 #: glade/cherrytree.glade.h:87
 msgid "Enable Spell Check"
-msgstr ""
+msgstr "Włącz sprawdzanie pisowni"
 
 #: glade/cherrytree.glade.h:88
 msgid "Spell Check Language"
-msgstr ""
+msgstr "Język sprawdzania pisowni"
 
 #: glade/cherrytree.glade.h:89
-#, fuzzy
 msgid "<b>Spell Check</b>"
-msgstr "<b>Rozmiar</b>"
+msgstr "<b>Sprawdzanie pisowni</b>"
 
 #: glade/cherrytree.glade.h:90
 msgid "Light Background, Dark Text"
@@ -2161,7 +2143,7 @@ msgstr "Automatycznie sprawdź wersję"
 
 #: glade/cherrytree.glade.h:133
 msgid "Reload Document From Last Session"
-msgstr ""
+msgstr "Wczytaj dokument z poprzedniej sesji"
 
 #: glade/cherrytree.glade.h:134
 msgid "Reload After External Update to CT* File"
@@ -2176,9 +2158,8 @@ msgid "Miscellaneous"
 msgstr "Inne"
 
 #: glade/cherrytree.glade.h:137
-#, fuzzy
 msgid "<b>Search for</b>"
-msgstr "<b>Opcje szukania</b>"
+msgstr "<b>Szukaj</b>"
 
 #: glade/cherrytree.glade.h:138
 msgid "<b>Replace with</b>"
