@@ -46,7 +46,7 @@ def get_node_hierarchical_name(dad, tree_iter, separator="--"):
     while father_iter:
         hierarchical_name = dad.treestore[father_iter][1].replace("/", "-") + separator + hierarchical_name
         father_iter = dad.treestore.iter_parent(father_iter)
-    return hierarchical_name
+    return hierarchical_name.replace("*", "").replace("?", "")
 
 def windows_cmd_prepare_path(filepath):
     """Prepares a Path to be digested by windows command line"""
