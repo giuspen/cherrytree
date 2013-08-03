@@ -39,14 +39,18 @@ def text_file_rm_emptylines(filepath):
         fd.writelines(file_lines)
         fd.close()
 
+def clean_from_chars_not_for_filename(filename_in):
+    """Clean a string from chars not good for filename"""
+    return filename_in.replace(cons.CHAR_SLASH, cons.CHAR_MINUS).replace(cons.CHAR_BSLASH, cons.CHAR_MINUS).replace(cons.CHAR_STAR, "").replace(cons.CHAR_QUESTION, "")
+
 def get_node_hierarchical_name(dad, tree_iter, separator="--"):
     """Get the Node Hierarchical Name"""
-    hierarchical_name = dad.treestore[tree_iter][1].replace("/", "-")
+    hierarchical_name = dad.treestore[tree_iter][1]
     father_iter = dad.treestore.iter_parent(tree_iter)
     while father_iter:
-        hierarchical_name = dad.treestore[father_iter][1].replace("/", "-") + separator + hierarchical_name
+        hierarchical_name = dad.treestore[father_iter][1] + separator + hierarchical_name
         father_iter = dad.treestore.iter_parent(father_iter)
-    return hierarchical_name.replace("*", "").replace("?", "")
+    return clean_from_chars_not_for_filename(hierarchical_name)
 
 def windows_cmd_prepare_path(filepath):
     """Prepares a Path to be digested by windows command line"""

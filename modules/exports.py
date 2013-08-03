@@ -627,7 +627,7 @@ class Export2Html:
             file_name = self.dad.treestore[father_iter][1] + "--" + file_name
             father_iter = self.dad.treestore.iter_parent(father_iter)
         file_name += ".html"
-        return file_name.replace("/", "-").replace("*", "").replace("?", "")
+        return support.clean_from_chars_not_for_filename(file_name)
 
     def html_get_from_code_buffer(self, code_buffer, sel_range=None):
         """Get rich text from syntax highlighted code node"""
