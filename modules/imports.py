@@ -415,6 +415,8 @@ class ZimHandler():
         if self.curr_attributes[cons.TAG_SCALE] in [cons.TAG_PROP_H1, cons.TAG_PROP_H2, cons.TAG_PROP_H3]:
             try: text_data = text_data[1:-1]
             except: pass
+        #print "text_data = '%s'" % text_data
+        #print "chars_counter", self.chars_counter, "->", self.chars_counter + len(text_data)
         self.chars_counter += len(text_data)
         text_iter = self.dom.createTextNode(text_data)
         dom_iter.appendChild(text_iter)
@@ -452,7 +454,7 @@ class ZimHandler():
     def node_wiki_parse(self, wiki_string, node_name, curr_folder):
         """Parse the node wiki content"""
         curr_pos = 0
-        wiki_string = wiki_string.replace(cons.CHAR_NEWLINE+cons.CHAR_STAR+cons.CHAR_SPACE, cons.CHAR_NEWLINE+cons.CHAR_LISTBUL+cons.CHAR_SPACE)
+        wiki_string = wiki_string.replace(cons.CHAR_NEWLINE+cons.CHAR_STAR+cons.CHAR_SPACE, cons.CHAR_NEWLINE+cons.CHAR_LISTBUL+cons.CHAR_SPACE).replace(cons.CHAR_CR, "")
         max_pos = len(wiki_string)
         newline_count = 0
         wiki_slot = ""
@@ -554,6 +556,7 @@ class ZimHandler():
                         try:
                             pixbuf = gtk.gdk.pixbuf_new_from_file(wiki_slot)
                             self.pixbuf_vector.append([self.chars_counter, pixbuf, cons.TAG_PROP_LEFT])
+                            self.chars_counter += 1
                             valid_image = True
                         except: pass
                     if not valid_image: print "! error: '%s' is not a valid image" % wiki_slot
