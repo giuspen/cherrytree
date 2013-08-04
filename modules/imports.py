@@ -431,7 +431,7 @@ class ZimHandler():
                 file_descriptor.close()
                 #
                 node_name = os.path.splitext(element)[0]
-                self.node_add(wiki_string, node_name, curr_folder)
+                self.node_add(wiki_string.decode(cons.STR_UTF8), node_name, curr_folder)
                 # check if the node has children
                 children_folder = os.path.join(curr_folder, node_name)
                 if os.path.isdir(children_folder):
