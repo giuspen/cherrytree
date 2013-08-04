@@ -458,6 +458,7 @@ class ZimHandler():
         max_pos = len(wiki_string)
         newline_count = 0
         wiki_slot = ""
+        probably_url = False
         while curr_pos < max_pos:
             curr_char = wiki_string[curr_pos:curr_pos+1]
             next_char = wiki_string[curr_pos+1:curr_pos+2] if curr_pos+1 < max_pos else cons.CHAR_SPACE
@@ -472,6 +473,11 @@ class ZimHandler():
                     else: self.curr_attributes[cons.TAG_WEIGHT] = cons.TAG_PROP_HEAVY
                     curr_pos += 1
                 elif curr_char == cons.CHAR_SLASH and next_char == cons.CHAR_SLASH:
+                    if probably_url:
+                        wiki_slot += curr_char
+                        probably_url = False
+                        curr_pos += 1
+                        continue
                     if wiki_slot:
                         self.rich_text_serialize(wiki_slot)
                         wiki_slot = ""
@@ -581,7 +587,10 @@ class ZimHandler():
                         self.rich_text_serialize(target_n_label[1])
                     wiki_slot = ""
                     curr_pos += 1
-                else: wiki_slot += curr_char
+                else:
+                    wiki_slot += curr_char
+                    if curr_char == ":" and next_char == cons.CHAR_SLASH:
+                        probably_url = True
             curr_pos += 1
         if wiki_slot: self.rich_text_serialize(wiki_slot)
     
