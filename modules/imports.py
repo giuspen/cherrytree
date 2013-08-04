@@ -546,7 +546,10 @@ class ZimHandler():
                     curr_pos += 1
                 elif curr_char == cons.CHAR_BR_CLOSE and next_char == cons.CHAR_BR_CLOSE:
                     valid_image = False
-                    wiki_slot = os.path.expanduser(wiki_slot)
+                    if cons.CHAR_QUESTION in wiki_slot:
+                        splitted_wiki_slot = wiki_slot.split(cons.CHAR_QUESTION)
+                        wiki_slot = splitted_wiki_slot[0]
+                    if wiki_slot.startswith("./"): wiki_slot = os.path.join(curr_folder, node_name, wiki_slot[2:])
                     if os.path.isfile(wiki_slot):
                         try:
                             pixbuf = gtk.gdk.pixbuf_new_from_file(wiki_slot)
@@ -561,7 +564,7 @@ class ZimHandler():
                         target_n_label = wiki_slot.split(cons.CHAR_PIPE)
                     else:
                         target_n_label = [wiki_slot, wiki_slot]
-                    exp_filepath = os.path.expanduser(target_n_label[0])
+                    exp_filepath = target_n_label[0]
                     if exp_filepath.startswith("./"): exp_filepath = os.path.join(curr_folder, node_name, exp_filepath[2:])
                     if cons.CHAR_SLASH in exp_filepath:
                         self.curr_attributes[cons.TAG_LINK] = "file %s" % base64.b64encode(exp_filepath)
