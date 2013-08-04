@@ -76,12 +76,11 @@ msgstr "Knotennamen einschließen"
 
 #: modules/support.py:283 modules/core.py:938
 msgid "Insert _Special Character"
-msgstr ""
+msgstr "Sonderzeichen einfügen"
 
 #: modules/support.py:285 modules/core.py:940
-#, fuzzy
 msgid "Insert a Special Character"
-msgstr "Tabelle einfügen"
+msgstr "Sonderzeichen einfügen"
 
 #: modules/support.py:316
 msgid "_Recent Documents"
@@ -205,9 +204,8 @@ msgid "Treepad Document"
 msgstr "Treepad-Datei"
 
 #: modules/core.py:735
-#, fuzzy
 msgid "KeyNote Document"
-msgstr "NoteCase-Datei"
+msgstr "KeyNote-Datei"
 
 #: modules/core.py:753
 msgid "Mempad Document"
@@ -322,14 +320,12 @@ msgid "The New Language will be Available Only After Restarting CherryTree"
 msgstr "CherryTree muss neu gestartet werden, um die Sprache zu übernehmen."
 
 #: modules/core.py:2470
-#, fuzzy
 msgid "New Node Properties"
-msgstr "Knoten_eigenschaften ändern"
+msgstr "Eigenschaften des neuen Knotens"
 
 #: modules/core.py:2509
-#, fuzzy
 msgid "New Child Node Properties"
-msgstr "Knoten_eigenschaften ändern"
+msgstr "Eigenschaften des untergeordneten Knotens"
 
 #: modules/core.py:2533
 #, python-format
@@ -342,9 +338,8 @@ msgstr ""
 "Der Knoten hat untergeordnete Knoten, <b>diese werden auch gelöscht!</b>"
 
 #: modules/core.py:2566
-#, fuzzy
 msgid "Node Properties"
-msgstr "Knoten_eigenschaften ändern"
+msgstr "Knoteneigenschaften"
 
 #: modules/core.py:2570
 msgid ""
@@ -606,24 +601,20 @@ msgid "Export To HTML"
 msgstr "HTML"
 
 #: modules/cons.py:547 modules/cons.py:708
-#, fuzzy
 msgid "Export to Multiple Plain _Text Files"
-msgstr "_Text"
+msgstr "in mehrere Textdateien exportieren"
 
 #: modules/cons.py:547 modules/cons.py:708
-#, fuzzy
 msgid "Export to Multiple Plain Text Files"
-msgstr "Text"
+msgstr "in mehrere Textdateien exportieren"
 
 #: modules/cons.py:548 modules/cons.py:709
-#, fuzzy
 msgid "Export to _Single Plain Text File"
-msgstr "Text"
+msgstr "in einzelne Textdatei exportieren"
 
 #: modules/cons.py:548 modules/cons.py:709
-#, fuzzy
 msgid "Export to Single Plain Text File"
-msgstr "Text"
+msgstr "in einzelne Textdateien exportieren"
 
 #: modules/cons.py:549 modules/cons.py:711
 msgid "_Export To CherryTree Document"
@@ -1224,7 +1215,6 @@ msgid "Decrease the Size of the Toolbar Icons"
 msgstr "Die Icons in der Symbolleiste verkleinern"
 
 #: modules/cons.py:623
-#, fuzzy
 msgid "Toggle _Focus Tree/Text"
 msgstr "Fokus zwischen Baumstruktur und Text umschalten"
 
@@ -1233,14 +1223,12 @@ msgid "Toggle Focus Between Tree and Text"
 msgstr "Fokus zwischen Baumstruktur und Text umschalten"
 
 #: modules/cons.py:624
-#, fuzzy
 msgid "Toggle Node _Expanded/Collapsed"
-msgstr "Ein-/Ausgeklappte Knoten merken"
+msgstr "Knoten ein-/ausklappen"
 
 #: modules/cons.py:624
-#, fuzzy
 msgid "Toggle Expanded/Collapsed Status of the Selected Node"
-msgstr "Klein"
+msgstr "Knoten ein-/ausklappen"
 
 #: modules/cons.py:625
 msgid "E_xpand All Nodes"
@@ -1301,14 +1289,12 @@ msgid "Add Nodes of a KeepNote Folder to the Current Tree"
 msgstr "Knoten aus einem KeepNote-Verzeichnis einfügen"
 
 #: modules/cons.py:632 modules/cons.py:696
-#, fuzzy
 msgid "From K_eyNote File"
-msgstr "_Leo-Datei..."
+msgstr "KeyNote-Datei..."
 
 #: modules/cons.py:632 modules/cons.py:696
-#, fuzzy
 msgid "Add Nodes of a KeyNote File to the Current Tree"
-msgstr "Knoten aus einer Leo-Datei einfügen"
+msgstr "Knoten aus einer KeyNote-Datei einfügen"
 
 #: modules/cons.py:633 modules/cons.py:697
 msgid "From K_nowit File"
@@ -1688,29 +1674,27 @@ msgstr "Lade herunter"
 
 #: modules/pgsc_spellcheck.py:105
 msgid "Unknown"
-msgstr ""
+msgstr "Unbekannt"
 
 #: modules/pgsc_spellcheck.py:489
 msgid "(no suggestions)"
-msgstr ""
+msgstr "(keine Vorschläge)"
 
 #: modules/pgsc_spellcheck.py:514
 msgid "Add \"{}\" to Dictionary"
-msgstr ""
+msgstr "\"{}\" dem Wörterbuch hinzufügen"
 
 #: modules/pgsc_spellcheck.py:520
 msgid "Ignore All"
-msgstr ""
+msgstr "Alle ignorieren"
 
 #: modules/pgsc_spellcheck.py:537
-#, fuzzy
 msgid "Languages"
-msgstr "<b>Sprache</b>"
+msgstr "Sprachen"
 
 #: modules/pgsc_spellcheck.py:556
-#, fuzzy
 msgid "Suggestions"
-msgstr "Frage"
+msgstr "Vorschläge"
 
 #: glade/cherrytree.glade.h:2
 msgid ""
@@ -1929,9 +1913,8 @@ msgid "Are you sure to Delete the node?"
 msgstr "Wollen Sie den Knoten wirklich löschen?"
 
 #: glade/cherrytree.glade.h:70
-#, fuzzy
 msgid "<b>Node Name</b>"
-msgstr "<b>Knoten</b>"
+msgstr "<b>Knotenname</b>"
 
 #: glade/cherrytree.glade.h:72
 msgid "Automatic Syntax Highlighting"
@@ -1975,7 +1958,7 @@ msgstr "horizontale Linie"
 
 #: glade/cherrytree.glade.h:84
 msgid "Special Characters"
-msgstr ""
+msgstr "Sonderzeichen"
 
 #: glade/cherrytree.glade.h:85
 msgid "<b>Miscellaneous</b>"
@@ -1987,16 +1970,15 @@ msgstr "Alle Knoten"
 
 #: glade/cherrytree.glade.h:87
 msgid "Enable Spell Check"
-msgstr ""
+msgstr "Rechtschreibprüfung aktivieren"
 
 #: glade/cherrytree.glade.h:88
 msgid "Spell Check Language"
-msgstr ""
+msgstr "Sprache der Rechtschreibprüfung"
 
 #: glade/cherrytree.glade.h:89
-#, fuzzy
 msgid "<b>Spell Check</b>"
-msgstr "<b>Größe</b>"
+msgstr "<b>Rechtschreibprüfung</b>"
 
 #: glade/cherrytree.glade.h:90
 msgid "Light Background, Dark Text"
@@ -2172,7 +2154,7 @@ msgstr "Automatisch nach neuer Version suchen"
 
 #: glade/cherrytree.glade.h:133
 msgid "Reload Document From Last Session"
-msgstr ""
+msgstr "Dokument aus letzter Sitzung neu laden"
 
 # ### msgid "The Document was Updated After Non-CherryTree Update to CT* File"
 #: glade/cherrytree.glade.h:134
@@ -2188,9 +2170,8 @@ msgid "Miscellaneous"
 msgstr "Sonstiges"
 
 #: glade/cherrytree.glade.h:137
-#, fuzzy
 msgid "<b>Search for</b>"
-msgstr "<b>Suchoptionen</b>"
+msgstr "<b>Suchen</b>"
 
 #: glade/cherrytree.glade.h:138
 msgid "<b>Replace with</b>"
