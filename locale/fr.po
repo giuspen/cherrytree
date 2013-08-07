@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: svn_cherrytree 0.14\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-08-02 19:00+0200\n"
-"PO-Revision-Date: 2013-01-03 08:48+0100\n"
+"PO-Revision-Date: 2013-08-07 13:30+0100\n"
 "Last-Translator: Benoît <benoit.dangelo@gmx.fr>\n"
 "Language-Team: French\n"
 "Language: \n"
@@ -16,6 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 1.5.4\n"
 
 #: modules/support.py:59
 msgid "Save File as"
@@ -75,12 +76,11 @@ msgstr "Inclure le nom des Nœuds"
 
 #: modules/support.py:283 modules/core.py:938
 msgid "Insert _Special Character"
-msgstr ""
+msgstr "Insertion_Caractères spéciaux"
 
 #: modules/support.py:285 modules/core.py:940
-#, fuzzy
 msgid "Insert a Special Character"
-msgstr "Insérer un Tableau"
+msgstr "Insérer un caractère spécial"
 
 #: modules/support.py:316
 msgid "_Recent Documents"
@@ -206,9 +206,8 @@ msgid "Treepad Document"
 msgstr "Document Treepad"
 
 #: modules/core.py:735
-#, fuzzy
 msgid "KeyNote Document"
-msgstr "NoteCase Document"
+msgstr "Document KeyNote"
 
 #: modules/core.py:753
 msgid "Mempad Document"
@@ -287,7 +286,7 @@ msgstr "Les deux Mots de Passe renseignés ne correspondent pas"
 #: modules/core.py:1407
 #, python-format
 msgid "The Characters  %s  are Not Allowed"
-msgstr "Les caractères % ne sont pas autorisés"
+msgstr "Les caractères %s ne sont pas autorisés"
 
 #: modules/core.py:1425
 msgid ""
@@ -324,14 +323,12 @@ msgstr ""
 "La nouvelle langue sera activée uniquement après avoir relancé CherryTree"
 
 #: modules/core.py:2470
-#, fuzzy
 msgid "New Node Properties"
-msgstr "Changer les _Propriétés du Nœud"
+msgstr "Nouvelles propriétés du nœud"
 
 #: modules/core.py:2509
-#, fuzzy
 msgid "New Child Node Properties"
-msgstr "Changer les _Propriétés du Nœud"
+msgstr "Nouvelles propriétés du nœud fil"
 
 #: modules/core.py:2533
 #, python-format
@@ -343,9 +340,8 @@ msgid "The node <b>has Children, they will be Deleted too!</b>"
 msgstr "Le nœud <b>a des Enfants, ils seront supprimés également !</b>"
 
 #: modules/core.py:2566
-#, fuzzy
 msgid "Node Properties"
-msgstr "Changer les _Propriétés du Nœud"
+msgstr "Propriétés du nœud"
 
 #: modules/core.py:2570
 msgid ""
@@ -609,24 +605,20 @@ msgid "Export To HTML"
 msgstr "Exporter en HTML"
 
 #: modules/cons.py:547 modules/cons.py:708
-#, fuzzy
 msgid "Export to Multiple Plain _Text Files"
-msgstr "Exporter en Texte _Brut"
+msgstr "Exporter en Texte _Brut (fichiers multiples)"
 
 #: modules/cons.py:547 modules/cons.py:708
-#, fuzzy
 msgid "Export to Multiple Plain Text Files"
-msgstr "Exporter en Texte Brut"
+msgstr "Exporter en Texte Brut (fichiers multiples)"
 
 #: modules/cons.py:548 modules/cons.py:709
-#, fuzzy
 msgid "Export to _Single Plain Text File"
-msgstr "Exporter en Texte Brut"
+msgstr "Exporter en Texte Brut (fichier unique)"
 
 #: modules/cons.py:548 modules/cons.py:709
-#, fuzzy
 msgid "Export to Single Plain Text File"
-msgstr "Exporter en Texte Brut"
+msgstr "Exporter en Texte Brut (fichier unique)"
 
 #: modules/cons.py:549 modules/cons.py:711
 msgid "_Export To CherryTree Document"
@@ -1230,23 +1222,20 @@ msgid "Decrease the Size of the Toolbar Icons"
 msgstr "Diminuer la taille des icônes de la Barre d'Outils"
 
 #: modules/cons.py:623
-#, fuzzy
 msgid "Toggle _Focus Tree/Text"
-msgstr "Bascule zone active Arborescence/Zone de texte"
+msgstr "Bascule zone active : Arborescence/Zone de texte"
 
 #: modules/cons.py:623
 msgid "Toggle Focus Between Tree and Text"
 msgstr "Basculer la zone active entre l'arborescence et la zone de texte"
 
 #: modules/cons.py:624
-#, fuzzy
 msgid "Toggle Node _Expanded/Collapsed"
-msgstr "Restaurer l'état déroulé/replié"
+msgstr "Bascule nœud déroulé/nœud replié"
 
 #: modules/cons.py:624
-#, fuzzy
 msgid "Toggle Expanded/Collapsed Status of the Selected Node"
-msgstr "Diminuer la Taille du Texte (petite taille)"
+msgstr "État du nœud sélectionné (déroulé/replié)"
 
 #: modules/cons.py:625
 msgid "E_xpand All Nodes"
@@ -1305,14 +1294,12 @@ msgid "Add Nodes of a KeepNote Folder to the Current Tree"
 msgstr "Ajouter les Nœuds d'un Répertoire KeepNote à l'Arborescence actuelle"
 
 #: modules/cons.py:632 modules/cons.py:696
-#, fuzzy
 msgid "From K_eyNote File"
-msgstr "À partir d'un Fichier _Leo"
+msgstr "À partir d'un Fichier K_eyNote"
 
 #: modules/cons.py:632 modules/cons.py:696
-#, fuzzy
 msgid "Add Nodes of a KeyNote File to the Current Tree"
-msgstr "Ajouter les Nœuds d'un Fichier Leo à l'Arborescence actuelle"
+msgstr "Ajouter les Nœuds d'un Fichier KeyNote à l'Arborescence actuelle"
 
 #: modules/cons.py:633 modules/cons.py:697
 msgid "From K_nowit File"
@@ -1692,29 +1679,27 @@ msgstr "Téléchargement"
 
 #: modules/pgsc_spellcheck.py:105
 msgid "Unknown"
-msgstr ""
+msgstr "Inconnu"
 
 #: modules/pgsc_spellcheck.py:489
 msgid "(no suggestions)"
-msgstr ""
+msgstr "(pas de suggestions)"
 
 #: modules/pgsc_spellcheck.py:514
 msgid "Add \"{}\" to Dictionary"
-msgstr ""
+msgstr "Ajouter  \"{}\"  au dictionnaire"
 
 #: modules/pgsc_spellcheck.py:520
 msgid "Ignore All"
-msgstr ""
+msgstr "Ignorer tout"
 
 #: modules/pgsc_spellcheck.py:537
-#, fuzzy
 msgid "Languages"
-msgstr "<b>Langue</b>"
+msgstr "<b>Langues</b>"
 
 #: modules/pgsc_spellcheck.py:556
-#, fuzzy
 msgid "Suggestions"
-msgstr "Question"
+msgstr "Suggestions"
 
 #: glade/cherrytree.glade.h:2
 msgid ""
@@ -1931,9 +1916,8 @@ msgid "Are you sure to Delete the node?"
 msgstr "Êtes-vous sûr de vouloir Supprimer le Nœud ?"
 
 #: glade/cherrytree.glade.h:70
-#, fuzzy
 msgid "<b>Node Name</b>"
-msgstr "<b>Nœud</b>"
+msgstr "<b>Nom du nœud</b>"
 
 #: glade/cherrytree.glade.h:72
 msgid "Automatic Syntax Highlighting"
@@ -1977,7 +1961,7 @@ msgstr "Ligne Horizontale"
 
 #: glade/cherrytree.glade.h:84
 msgid "Special Characters"
-msgstr ""
+msgstr "Caractères spéciaux"
 
 #: glade/cherrytree.glade.h:85
 msgid "<b>Miscellaneous</b>"
@@ -1989,16 +1973,15 @@ msgstr "Tous les nœuds"
 
 #: glade/cherrytree.glade.h:87
 msgid "Enable Spell Check"
-msgstr ""
+msgstr "Activer la vérification orthographique"
 
 #: glade/cherrytree.glade.h:88
 msgid "Spell Check Language"
-msgstr ""
+msgstr "Langue de vérification orthographique"
 
 #: glade/cherrytree.glade.h:89
-#, fuzzy
 msgid "<b>Spell Check</b>"
-msgstr "<b>Taille</b>"
+msgstr "<b>Vérification orthographique</b>"
 
 #: glade/cherrytree.glade.h:90
 msgid "Light Background, Dark Text"
@@ -2174,7 +2157,7 @@ msgstr "Vérifier les mises-à-jour automatiquement"
 
 #: glade/cherrytree.glade.h:133
 msgid "Reload Document From Last Session"
-msgstr ""
+msgstr "Recharger le document à partir de la session précédente"
 
 #: glade/cherrytree.glade.h:134
 msgid "Reload After External Update to CT* File"
@@ -2189,9 +2172,8 @@ msgid "Miscellaneous"
 msgstr "Autres"
 
 #: glade/cherrytree.glade.h:137
-#, fuzzy
 msgid "<b>Search for</b>"
-msgstr "<b>Options de Recherche</b>"
+msgstr "<b>Rechercher</b>"
 
 #: glade/cherrytree.glade.h:138
 msgid "<b>Replace with</b>"
