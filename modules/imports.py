@@ -1215,7 +1215,7 @@ class KeynoteHandler:
     
     def write_line_text(self, text_line):
         """Write Stripped Line Content"""
-        print "'%s'" % text_line
+        #print "'%s'" % text_line
         #if text_line.endswith("}"): return
         curr_state = 0
         dummy_loop = 0
@@ -1229,7 +1229,11 @@ class KeynoteHandler:
                 if curr_char == cons.CHAR_BR_CLOSE: self.in_picture = False
                 else: continue
             if curr_char == cons.CHAR_BSLASH:
-                if text_line[i+1:].startswith(cons.CHAR_BSLASH):
+                if text_line[i+1:].startswith(cons.CHAR_SQUOTE):
+                    self.curr_node_content += unichr(int(text_line[i+2:i+4], 16))
+                    dummy_loop = 3
+                    curr_state = 0
+                elif text_line[i+1:].startswith(cons.CHAR_BSLASH):
                     self.curr_node_content += cons.CHAR_BSLASH
                     dummy_loop = 1
                     curr_state = 0
