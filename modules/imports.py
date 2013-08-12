@@ -1229,7 +1229,7 @@ class KeynoteHandler:
                 if curr_char == cons.CHAR_BR_CLOSE: self.in_picture = False
                 else: continue
             if curr_char == cons.CHAR_BSLASH:
-                if text_line[i+1:].startswith(cons.CHAR_SQUOTE):
+                if (in_br_num == 0 or in_br_read_data) and text_line[i+1:].startswith(cons.CHAR_SQUOTE):
                     self.curr_node_content += unichr(int(text_line[i+2:i+4], 16))
                     dummy_loop = 3
                     curr_state = 0
@@ -1252,14 +1252,18 @@ class KeynoteHandler:
                     dummy_loop = 4
                     self.curr_node_content += cons.CHAR_NEWLINE + 3*cons.CHAR_SPACE
                 elif text_line[i+1:].startswith("pntext"):
-                    if text_line[i+8:i+10] == "f1":
+                    fN = text_line[i+8:i+10]
+                    if fN == "f0":
+                        curr_state = 1
+                        in_br_read_data = True
+                    elif fN == "f1":
                         dummy_loop = 10
                         curr_state = 0
                         in_br_read_data = True
-                    elif text_line[i+8:i+10] == "f2":
+                    elif fN == "f2":
                         dummy_loop = 9
                         self.curr_node_content += cons.CHAR_LISTBUL + cons.CHAR_SPACE
-                    else: print text_line[i+8:i+10]
+                    else: print fN
                 elif (text_line[i+1:].startswith("b"+cons.CHAR_SPACE) or text_line[i+1:].startswith("b"+cons.CHAR_BSLASH)):
                     self.check_pending_text_to_tag()
                     self.curr_attributes[cons.TAG_WEIGHT] = cons.TAG_PROP_HEAVY
