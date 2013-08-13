@@ -41,14 +41,19 @@ def text_file_rm_emptylines(filepath):
 
 def clean_from_chars_not_for_filename(filename_in):
     """Clean a string from chars not good for filename"""
-    return filename_in.replace(cons.CHAR_SLASH, cons.CHAR_MINUS).replace(cons.CHAR_BSLASH, cons.CHAR_MINUS).replace(cons.CHAR_STAR, "").replace(cons.CHAR_QUESTION, "").replace(cons.CHAR_NEWLINE, "").replace(cons.CHAR_CR, "").strip()
+    filename_out = filename_in.replace(cons.CHAR_SLASH, cons.CHAR_MINUS).replace(cons.CHAR_BSLASH, cons.CHAR_MINUS)
+    filename_out = filename_out.replace(cons.CHAR_STAR, "").replace(cons.CHAR_QUESTION, "").replace(cons.CHAR_COLON, "")
+    filename_out = filename_out.replace(cons.CHAR_LESSER, "").replace(cons.CHAR_GREATER, "")
+    filename_out = filename_out.replace(cons.CHAR_PIPE, "").replace(cons.CHAR_DQUOTE, "")
+    filename_out = filename_out.replace(cons.CHAR_NEWLINE, "").replace(cons.CHAR_CR, "").strip()
+    return filename_out.replace(cons.CHAR_SPACE, cons.CHAR_USCORE)
 
 def get_node_hierarchical_name(dad, tree_iter, separator="--"):
     """Get the Node Hierarchical Name"""
-    hierarchical_name = dad.treestore[tree_iter][1]
+    hierarchical_name = dad.treestore[tree_iter][1].strip()
     father_iter = dad.treestore.iter_parent(tree_iter)
     while father_iter:
-        hierarchical_name = dad.treestore[father_iter][1] + separator + hierarchical_name
+        hierarchical_name = dad.treestore[father_iter][1].strip() + separator + hierarchical_name
         father_iter = dad.treestore.iter_parent(father_iter)
     return clean_from_chars_not_for_filename(hierarchical_name)
 
