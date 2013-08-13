@@ -1260,10 +1260,9 @@ class KeynoteHandler:
                         dummy_loop = 10
                         curr_state = 0
                         in_br_read_data = True
-                    elif fN == "f2":
+                    else:
                         dummy_loop = 9
                         self.curr_node_content += cons.CHAR_LISTBUL + cons.CHAR_SPACE
-                    else: print fN
                 elif (text_line[i+1:].startswith("b"+cons.CHAR_SPACE) or text_line[i+1:].startswith("b"+cons.CHAR_BSLASH)):
                     self.check_pending_text_to_tag()
                     self.curr_attributes[cons.TAG_WEIGHT] = cons.TAG_PROP_HEAVY
