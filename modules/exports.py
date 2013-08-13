@@ -532,6 +532,7 @@ class Export2Html:
             html_text += '</td></tr></table>'
         html_text += cons.HTML_FOOTER
         node_html_filepath = os.path.join(self.new_path, self.get_html_filename(tree_iter))
+        #print "full=%s(prefix=%s)" % (len(node_html_filepath), len(self.new_path))
         file_descriptor = open(node_html_filepath, 'w')
         file_descriptor.write(html_text)
         file_descriptor.close()
@@ -627,7 +628,10 @@ class Export2Html:
         while father_iter:
             file_name = self.dad.treestore[father_iter][1].strip() + "--" + file_name
             father_iter = self.dad.treestore.iter_parent(father_iter)
-        return support.clean_from_chars_not_for_filename(file_name) + ".html"
+        file_name = support.clean_from_chars_not_for_filename(file_name) + ".html"
+        if len(file_name) > cons.MAX_FILE_NAME_LEN:
+            file_name = file_name[-cons.MAX_FILE_NAME_LEN:]
+        return file_name
 
     def html_get_from_code_buffer(self, code_buffer, sel_range=None):
         """Get rich text from syntax highlighted code node"""
