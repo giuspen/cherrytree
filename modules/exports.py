@@ -180,7 +180,7 @@ class Export2Txt:
         """Prepare the website folder"""
         dir_place = support.dialog_folder_select(curr_folder=self.dad.file_dir, parent=self.dad.window)
         if dir_place == None: return False
-        new_folder += "_TXT"
+        new_folder = support.clean_from_chars_not_for_filename(new_folder) + "_TXT"
         while os.path.exists(os.path.join(dir_place, new_folder)):
             new_folder += "2"
         self.new_path = os.path.join(dir_place, new_folder)
@@ -431,7 +431,7 @@ class Export2Html:
         """Prepare the website folder"""
         dir_place = support.dialog_folder_select(curr_folder=self.dad.file_dir, parent=self.dad.window)
         if dir_place == None: return False
-        new_folder += "_HTML"
+        new_folder = support.clean_from_chars_not_for_filename(new_folder) + "_HTML"
         while os.path.exists(os.path.join(dir_place, new_folder)):
             new_folder += "2"
         self.new_path = os.path.join(dir_place, new_folder)
@@ -531,7 +531,8 @@ class Export2Html:
         if self.tree_links_text:
             html_text += '</td></tr></table>'
         html_text += cons.HTML_FOOTER
-        file_descriptor = open(os.path.join(self.new_path, self.get_html_filename(tree_iter)), 'w')
+        node_html_filepath = os.path.join(self.new_path, self.get_html_filename(tree_iter))
+        file_descriptor = open(node_html_filepath, 'w')
         file_descriptor.write(html_text)
         file_descriptor.close()
 
@@ -621,10 +622,10 @@ class Export2Html:
 
     def get_html_filename(self, tree_iter):
         """Get the HTML page filename given the tree iter"""
-        file_name = self.dad.treestore[tree_iter][1]
+        file_name = self.dad.treestore[tree_iter][1].strip()
         father_iter = self.dad.treestore.iter_parent(tree_iter)
         while father_iter:
-            file_name = self.dad.treestore[father_iter][1] + "--" + file_name
+            file_name = self.dad.treestore[father_iter][1].strip() + "--" + file_name
             father_iter = self.dad.treestore.iter_parent(father_iter)
         return support.clean_from_chars_not_for_filename(file_name) + ".html"
 
