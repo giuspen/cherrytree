@@ -145,6 +145,27 @@ class PrintHandler:
                 if i < len(print_data.layout) - 1: # the latest element is supposed to be text
                     if self.pixbuf_table_codebox_vector[i][0] == "pixbuf":
                         pixbuf = self.pixbuf_table_codebox_vector[i][1][1]
+                        pixbuf_was_resized = False
+                        pixbuf_width = pixbuf.get_width()
+                        pixbuf_height = pixbuf.get_height()
+                        if pixbuf_width > self.page_width:
+                            image_w_h_ration = float(pixbuf_width)/pixbuf_height
+                            image_width = self.page_width
+                            image_height = image_width / image_w_h_ration
+                            pixbuf = pixbuf.scale_simple(int(image_width),
+                                                         int(image_height),
+                                                         gtk.gdk.INTERP_BILINEAR)
+                            pixbuf_was_resized = True
+                        if pixbuf_height > self.page_height:
+                            image_w_h_ration = float(pixbuf_width)/pixbuf_height
+                            image_height = self.page_height
+                            image_width = image_height * image_w_h_ration
+                            pixbuf = pixbuf.scale_simple(int(image_width),
+                                                         int(image_height),
+                                                         gtk.gdk.INTERP_BILINEAR)
+                            pixbuf_was_resized = True
+                        if pixbuf_was_resized:
+                            self.pixbuf_table_codebox_vector[i][1][1] = pixbuf
                         pixbuf_height = pixbuf.get_height() + cons.WHITE_SPACE_BETW_PIXB_AND_TEXT
                         if inline_pending_height < pixbuf_height: inline_pending_height = pixbuf_height
                     elif self.pixbuf_table_codebox_vector[i][0] == "table":
