@@ -3671,21 +3671,25 @@ class CherryTree:
                 if response != 1: return # the user aborted the operation
                 if self.link_type == "webs":
                     link_url = self.glade.link_website_entry.get_text().strip()
-                    if not link_url: return
-                    if len(link_url) < 8\
-                    or (link_url[0:7] != "http://" and link_url[0:8] != "https://"):
-                        link_url = "http://" + link_url
-                    property_value = "webs" + cons.CHAR_SPACE + link_url
+                    if link_url:
+                        if len(link_url) < 8\
+                        or (link_url[0:7] != "http://" and link_url[0:8] != "https://"):
+                            link_url = "http://" + link_url
+                        property_value = "webs" + cons.CHAR_SPACE + link_url
+                    else: property_value = ""
                 elif self.link_type in ["file", "fold"]:
                     link_uri = self.glade.entry_file_to_link_to.get_text().strip()
-                    if not link_uri: return
-                    link_uri = base64.b64encode(link_uri)
-                    property_value = self.link_type + cons.CHAR_SPACE + link_uri
+                    if link_uri:
+                        link_uri = base64.b64encode(link_uri)
+                        property_value = self.link_type + cons.CHAR_SPACE + link_uri
+                    else: property_value = ""
                 elif self.link_type == "node":
                     model, tree_iter = self.treeviewselection_2.get_selected()
-                    link_anchor = self.glade.link_anchor_entry.get_text().strip()
-                    property_value = "node" + cons.CHAR_SPACE + str(self.treestore[tree_iter][3])
-                    if len(link_anchor) > 0: property_value += cons.CHAR_SPACE + link_anchor
+                    if tree_iter:
+                        link_anchor = self.glade.link_anchor_entry.get_text().strip()
+                        property_value = "node" + cons.CHAR_SPACE + str(self.treestore[tree_iter][3])
+                        if link_anchor: property_value += cons.CHAR_SPACE + link_anchor
+                    else: property_value = ""
             else:
                 dialog = gtk.ColorSelectionDialog(_("Pick a Color"))
                 dialog.set_transient_for(self.window)
@@ -3725,7 +3729,7 @@ class CherryTree:
             or (tag_property == cons.TAG_STRIKETHROUGH and tag_name.startswith("strikethrough_"))\
             or (tag_property == cons.TAG_FAMILY and tag_name.startswith("family_")):
                 text_buffer.remove_tag(curr_tag, iter_sel_start, iter_sel_end)
-                return # just tag removal
+                property_value = "" # just tag removal
             elif tag_property == cons.TAG_SCALE and tag_name.startswith("scale_"):
                 text_buffer.remove_tag(curr_tag, iter_sel_start, iter_sel_end)
                 #print property_value, tag_name[6:]
@@ -3736,8 +3740,9 @@ class CherryTree:
             or (tag_property == cons.TAG_BACKGROUND and tag_name[0:11] == "background_")\
             or (tag_property == cons.TAG_LINK and tag_name[0:5] == "link_"):
                 text_buffer.remove_tag(curr_tag, iter_sel_start, iter_sel_end)
-        text_buffer.apply_tag_by_name(self.apply_tag_exist_or_create(tag_property, property_value),
-                                           iter_sel_start, iter_sel_end)
+        if property_value:
+            text_buffer.apply_tag_by_name(self.apply_tag_exist_or_create(tag_property, property_value),
+                                          iter_sel_start, iter_sel_end)
         if self.user_active:
             self.update_window_save_needed("nbuf", True)
 
