@@ -2267,28 +2267,32 @@ class CherryTree:
     def on_radiobutton_link_website_toggled(self, radiobutton):
         """Show/Hide Relative Frames"""
         if radiobutton.get_active(): self.link_type = "webs"
-        self.link_type_changed_on_dialog()
+        self.link_type_changed_on_dialog(True)
 
     def on_radiobutton_link_node_anchor_toggled(self, checkbutton):
         """Show/Hide Relative Frames"""
         if checkbutton.get_active(): self.link_type = "node"
-        self.link_type_changed_on_dialog()
+        self.link_type_changed_on_dialog(True)
 
     def on_radiobutton_link_file_toggled(self, radiobutton):
         """Show/Hide Relative Frames"""
         if radiobutton.get_active(): self.link_type = "file"
-        self.link_type_changed_on_dialog()
+        self.link_type_changed_on_dialog(True)
 
     def on_radiobutton_link_folder_toggled(self, radiobutton):
         """Show/Hide Relative Frames"""
         if radiobutton.get_active(): self.link_type = "fold"
-        self.link_type_changed_on_dialog()
+        self.link_type_changed_on_dialog(True)
 
-    def link_type_changed_on_dialog(self):
+    def link_type_changed_on_dialog(self, clear_when_user_active):
         """Change the Graphic of the Dialog according to the New Link Type"""
         self.glade.frame_link_website_url.set_sensitive(self.link_type == "webs")
         self.glade.hbox_link_node_anchor.set_sensitive(self.link_type == "node")
         self.glade.frame_link_filepath.set_sensitive(self.link_type in ["file", "fold"])
+        if clear_when_user_active and self.user_active:
+            self.glade.link_website_entry.set_text("")
+            self.glade.entry_file_to_link_to.set_text("")
+            self.glade.link_anchor_entry.set_text("")
 
     def on_radiobutton_node_icon_cherry_toggled(self, radiobutton):
         """Change Variable Value Accordingly"""
@@ -3638,10 +3642,15 @@ class CherryTree:
                                 support.dialog_error("Tag Name Not Recognized! (%s)" % self.link_type, self.window)
                                 self.link_type = "webs"
                                 return
+                            if self.user_active:
+                                self.user_active = False
+                                user_active_restore = True
+                            else: user_active_restore = False
                             self.glade.radiobutton_link_website.set_active(self.link_type == "webs")
                             self.glade.radiobutton_link_node_anchor.set_active(self.link_type == "node")
                             self.glade.radiobutton_link_file.set_active(self.link_type == "file")
                             self.glade.radiobutton_link_folder.set_active(self.link_type == "fold")
+                            if user_active_restore: self.user_active = True
                 iter_sel_start, iter_sel_end = text_buffer.get_selection_bounds()
             else:
                 support.dialog_warning(_("The Cursor is Not into a Paragraph"), self.window)
@@ -3656,7 +3665,7 @@ class CherryTree:
                 self.glade.choosenodedialog.set_title(_("Insert/Edit a Link"))
                 self.glade.link_dialog_top_vbox.show()
                 self.glade.frame_link_anchor.show()
-                self.link_type_changed_on_dialog()
+                self.link_type_changed_on_dialog(False)
                 response = self.glade.choosenodedialog.run()
                 self.glade.choosenodedialog.hide()
                 if response != 1: return # the user aborted the operation
