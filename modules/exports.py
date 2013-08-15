@@ -806,9 +806,10 @@ class Export2Html:
                 elif tag_property == cons.TAG_LINK:
                     # <a href="http://www.example.com/">link-text goes here</a>
                     vector = property_value.split()
-                    if vector[0] == "webs": href = vector[1]
-                    elif vector[0] == "file": href = "file://" + base64.b64decode(vector[1])
-                    elif vector[0] == "node":
+                    if vector[0] == cons.LINK_TYPE_WEBS: href = vector[1]
+                    elif vector[0] == cons.LINK_TYPE_FILE:
+                        href = "file://" + base64.b64decode(vector[1])
+                    elif vector[0] == cons.LINK_TYPE_NODE:
                         dest_tree_iter = self.dad.get_tree_iter_from_node_id(long(vector[1]))
                         if not dest_tree_iter: continue
                         href = self.get_html_filename(dest_tree_iter)

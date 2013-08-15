@@ -465,7 +465,7 @@ class XMLHandler:
             text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), cons.CHAR_NEWLINE)
             curr_offset += 1
             for element in toc_list_per_node:
-                property_value = "node" + cons.CHAR_SPACE + str(element[2])
+                property_value = cons.LINK_TYPE_NODE + cons.CHAR_SPACE + str(element[2])
                 if curr_node_id != element[2]:
                     curr_node_id = element[2]
                     node_tree_iter = self.dad.get_tree_iter_from_node_id(curr_node_id)
@@ -539,7 +539,7 @@ class XMLHandler:
         else: self.toc_insert_parser(text_buffer, start_iter, curr_iter, node_id)
         if self.toc_list and not just_get_toc_list:
             tag_property = cons.TAG_LINK
-            property_value = "node" + cons.CHAR_SPACE + str(node_id)
+            property_value = cons.LINK_TYPE_NODE + cons.CHAR_SPACE + str(node_id)
             curr_offset = 0
             text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), cons.CHAR_NEWLINE)
             curr_offset += 1

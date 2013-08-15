@@ -71,7 +71,7 @@ def config_file_load(inst):
             for element in temp_recent_docs:
                 if element: inst.recent_docs.append(unicode(base64.b64decode(element), cons.STR_UTF8, cons.STR_IGNORE))
         inst.pick_dir = config.get(section, "pick_dir") if config.has_option(section, "pick_dir") else ""
-        inst.link_type = config.get(section, "link_type") if config.has_option(section, "link_type") else "webs"
+        inst.link_type = config.get(section, "link_type") if config.has_option(section, "link_type") else cons.LINK_TYPE_WEBS
         inst.show_node_name_label = config.getboolean(section, "show_node_name_label") if config.has_option(section, "show_node_name_label") else True
         if config.has_option(section, "toolbar_icon_size"):
             inst.toolbar_icon_size = config.getint(section, "toolbar_icon_size")
@@ -193,7 +193,7 @@ def config_file_load(inst):
         inst.rest_exp_coll = 0
         inst.expanded_collapsed_string = ""
         inst.pick_dir = ""
-        inst.link_type = "webs"
+        inst.link_type = cons.LINK_TYPE_WEBS
         inst.toolbar_icon_size = 1
         inst.table_rows = 3
         inst.table_columns = 3
@@ -312,9 +312,6 @@ def config_file_apply(inst):
     inst.glade.entry_custom_folderlink_cmd.set_text(inst.folderlink_custom_action[1])
     inst.glade.entry_timestamp_format.set_text(inst.timestamp_format)
     #
-    inst.glade.radiobutton_link_website.set_active(inst.link_type == "webs")
-    inst.glade.radiobutton_link_node_anchor.set_active(inst.link_type == "node")
-    inst.glade.radiobutton_link_file.set_active(inst.link_type == "file")
     inst.glade.table_column_rename_radiobutton.set_active(inst.table_column_mode == "rename")
     inst.glade.table_column_delete_radiobutton.set_active(inst.table_column_mode == "delete")
     inst.glade.table_column_add_radiobutton.set_active(inst.table_column_mode == "add")

@@ -619,7 +619,7 @@ class ZimHandler():
             source_buffer = dad.get_textbuffer_from_tree_iter(node_source)
             if source_buffer.get_char_count() < link_to_node['char_end']:
                 continue
-            property_value = "node" + cons.CHAR_SPACE + str(dad.treestore[node_dest][3])
+            property_value = cons.LINK_TYPE_NODE + cons.CHAR_SPACE + str(dad.treestore[node_dest][3])
             source_buffer.apply_tag_by_name(dad.apply_tag_exist_or_create(cons.TAG_LINK, property_value),
                                             source_buffer.get_iter_at_offset(link_to_node['char_start']),
                                             source_buffer.get_iter_at_offset(link_to_node['char_end']))
@@ -807,7 +807,7 @@ class TomboyHandler():
             source_buffer = dad.get_textbuffer_from_tree_iter(node_source)
             if source_buffer.get_char_count() < link_to_node['char_end']:
                 continue
-            property_value = "node" + cons.CHAR_SPACE + str(dad.treestore[node_dest][3])
+            property_value = cons.LINK_TYPE_NODE + cons.CHAR_SPACE + str(dad.treestore[node_dest][3])
             source_buffer.apply_tag_by_name(dad.apply_tag_exist_or_create(cons.TAG_LINK, property_value),
                                             source_buffer.get_iter_at_offset(link_to_node['char_start']),
                                             source_buffer.get_iter_at_offset(link_to_node['char_end']))
