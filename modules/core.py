@@ -3864,7 +3864,9 @@ class CherryTree:
                 support.dialog_error(_("The File Link '%s' is Not Valid") % filepath, self.window)
                 return
             if self.filelink_custom_action[0]:
-                subprocess.call(self.filelink_custom_action[1] % re.escape(filepath), shell=True)
+                if cons.IS_WIN_OS: filepath = cons.CHAR_DQUOTE + filepath + cons.CHAR_DQUOTE
+                else: filepath = re.escape(filepath)
+                subprocess.call(self.filelink_custom_action[1] % filepath, shell=True)
             else:
                 if cons.IS_WIN_OS:
                     try: os.startfile(filepath)
@@ -3877,7 +3879,9 @@ class CherryTree:
                 support.dialog_error(_("The Folder Link '%s' is Not Valid") % filepath, self.window)
                 return
             if self.folderlink_custom_action[0]:
-                subprocess.call(self.folderlink_custom_action[1] % re.escape(filepath), shell=True)
+                if cons.IS_WIN_OS: filepath = cons.CHAR_DQUOTE + filepath + cons.CHAR_DQUOTE
+                else: filepath = re.escape(filepath)
+                subprocess.call(self.folderlink_custom_action[1] % filepath, shell=True)
             else:
                 if cons.IS_WIN_OS: os.startfile(filepath)
                 else: subprocess.call(config.LINK_CUSTOM_ACTION_DEFAULT_FILE % re.escape(filepath), shell=True)
