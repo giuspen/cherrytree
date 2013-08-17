@@ -412,7 +412,7 @@ class SpellChecker(object):
         :param start: Start iter - checking starts here.
         :param end: End iter - checking ends here.
         """
-        if not self._enabled:
+        if not self._enabled or not self._cherrytree_instance.user_active:
             return
         if start.equal(end):
             return
@@ -525,7 +525,7 @@ class SpellChecker(object):
         return menu
 
     def _extend_menu(self, menu):
-        if not self._enabled:
+        if not self._enabled or not self._cherrytree_instance.user_active:
             return
         #if _pygobject:
         #    separator = gtk.SeparatorMenuItem.new()
@@ -569,14 +569,14 @@ class SpellChecker(object):
                         menu.show_all()
 
     def _click_move_popup(self, *args):
-        if not self._enabled:
+        if not self._enabled or not self._cherrytree_instance.user_active:
             return False
         self._marks['click'].move(self._buffer.get_iter_at_mark(
             self._buffer.get_insert()))
         return False
 
     def _click_move_button(self, widget, event):
-        if not self._enabled:
+        if not self._enabled or not self._cherrytree_instance.user_active:
             return
         if event.button == 3:
             if self._deferred_check:  self._check_deferred_range(True)
