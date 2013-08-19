@@ -32,7 +32,7 @@ COLOR_PALETTE_DEFAULT = ["#000000", "#ffffff", "#7f7f7f", "#ff0000", "#a020f0",
                          "#0000ff", "#add8e6", "#00ff00", "#ffff00", "#ffa500",
                          "#e6e6fa", "#a52a2a", "#8b6914", "#1e90ff", "#ffc0cb",
                          "#90ee90", "#1a1a1a", "#4d4d4d", "#bfbfbf", "#e5e5e5"]
-SPECIAL_CHARS_DEFAULT = "“”„•…‰€©®™°↓↑→←↔↵⇓⇑⇒⇐⇔»«▼▲►◄≤≥≠±¹²³½¼⅛×÷∞ø∑√∫ΔδΠπΣΦΩωαβγεηλμ☺☻☼♥♀♂♪♫"
+SPECIAL_CHARS_DEFAULT = "“”„•☐☑☒…‰€©®™°↓↑→←↔↵⇓⇑⇒⇐⇔»«▼▲►◄≤≥≠±¹²³½¼⅛×÷∞ø∑√∫ΔδΠπΣΦΩωαβγεηλμ☺☻☼♥♀♂♪♫"
 
 SPELL_CHECK_LANG_DEFAULT = locale.getdefaultlocale()[0]
 
