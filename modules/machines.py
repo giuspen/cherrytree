@@ -480,6 +480,7 @@ class XMLHandler:
                         curr_offset += 1
                     curr_offset += 1
                 tag_names = [self.dad.apply_tag_exist_or_create(tag_property, property_value + cons.CHAR_SPACE + element[0])]
+                if not element[0]: continue
                 if element[0][:2] == cons.TAG_PROP_H1:
                     text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), 3*cons.CHAR_SPACE + cons.CHAR_LISTBUL + cons.CHAR_SPACE)
                     curr_offset += 5
@@ -505,7 +506,8 @@ class XMLHandler:
         node_id = self.dad.treestore[top_tree_iter][3]
         text_buffer = self.dad.get_textbuffer_from_tree_iter(top_tree_iter)
         toc_list_per_node = []
-        toc_list_per_node.extend(self.toc_insert_one(text_buffer, node_id, just_get_toc_list=True))
+        toc_list_this_one = self.toc_insert_one(text_buffer, node_id, just_get_toc_list=True)
+        toc_list_per_node.extend(toc_list_this_one or [["", "", node_id]])
         child_tree_iter = self.dad.treestore.iter_children(top_tree_iter)
         while child_tree_iter != None:
             toc_list_per_node.extend(self.toc_insert_all_iter(child_tree_iter))
