@@ -3100,6 +3100,10 @@ class CherryTree:
         toc_type = support.dialog_selnode_selnodeandsub_alltree(self.window,
                                                                 also_selection=False)[0]
         if toc_type == 0: return
+        if self.user_active:
+            self.user_active = False
+            user_active_restore = True
+        else: user_active_restore = False
         if toc_type == 1:
             # only selected node
             ret_toc_list = self.xml_handler.toc_insert_one(self.curr_buffer, self.treestore[self.curr_tree_iter][3])
@@ -3109,7 +3113,11 @@ class CherryTree:
         else:
             # all nodes
             ret_toc_list = self.xml_handler.toc_insert_all(self.curr_buffer, self.treestore.get_iter_first())
-        if not ret_toc_list: support.dialog_warning(_("Not Any H1, H2 or H3 Formatting Found"), self.window)
+        if user_active_restore: self.user_active = True
+        if ret_toc_list:
+            self.file_update = False
+            self.update_window_save_needed("nbuf")
+        else: support.dialog_warning(_("Not Any H1, H2 or H3 Formatting Found"), self.window)
 
     def table_handle(self, *args):
         """Insert Table"""

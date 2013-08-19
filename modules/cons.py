@@ -118,6 +118,7 @@ CHAR_NEWLINE = "\n"
 CHAR_CR = "\r"
 CHAR_TAB = "\t"
 CHAR_LISTBUL = "•"
+CHAR_LISTARR = "►"
 CHAR_TILDE = "~"
 CHAR_MINUS = "-"
 CHAR_DQUOTE = '"'
