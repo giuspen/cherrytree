@@ -503,7 +503,6 @@ class XMLHandler:
         
     def toc_insert_all_iter(self, top_tree_iter):
         """Iterate on nodes for toc_insert_all"""
-        if self.dad.treestore[top_tree_iter][4] != cons.CUSTOM_COLORS_ID: return []
         self.dad.treeview_safe_set_cursor(top_tree_iter)
         node_id = self.dad.treestore[top_tree_iter][3]
         text_buffer = self.dad.get_textbuffer_from_tree_iter(top_tree_iter)
