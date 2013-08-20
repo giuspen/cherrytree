@@ -409,41 +409,53 @@ class XMLHandler:
         text_iter = dom.createTextNode(slot_text)
         dom_iter.appendChild(text_iter)
 
+    def tag_header_toggling_on_or_off(self, curr_iter):
+        """Check for tag header toggle on or off"""
+        toggled_onoff = []
+        toggled_off = curr_iter.get_toggled_tags(toggled_on=False)
+        toggled_on = curr_iter.get_toggled_tags(toggled_on=True)
+        if toggled_off: toggled_onoff.extend(toggled_off)
+        if toggled_on: toggled_onoff.extend(toggled_on)
+        for tag in toggled_onoff:
+            tag_name = tag.get_property("name")
+            if tag_name and tag_name.startswith("scale_"): return True
+        return False
+
     def rich_text_attributes_update(self, curr_iter, curr_attributes):
         """Updates the list of Attributes for the Current Slice"""
         toggled_off = curr_iter.get_toggled_tags(toggled_on=False)
         for tag in toggled_off:
             tag_name = tag.get_property("name")
             if tag_name and tag_name != cons.GTKSPELLCHECK_TAG_NAME:
-                if tag_name[0:7] == "weight_": curr_attributes[cons.TAG_WEIGHT] = ""
-                elif tag_name[0:11] == "foreground_": curr_attributes[cons.TAG_FOREGROUND] = ""
-                elif tag_name[0:11] == "background_": curr_attributes[cons.TAG_BACKGROUND] = ""
-                elif tag_name[0:6] == "style_": curr_attributes[cons.TAG_STYLE] = ""
-                elif tag_name[0:10] == "underline_": curr_attributes[cons.TAG_UNDERLINE] = ""
-                elif tag_name[0:14] == "strikethrough_": curr_attributes[cons.TAG_STRIKETHROUGH] = ""
-                elif tag_name[0:6] == "scale_": curr_attributes[cons.TAG_SCALE] = ""
-                elif tag_name[0:14] == "justification_": curr_attributes[cons.TAG_JUSTIFICATION] = ""
-                elif tag_name[0:5] == "link_": curr_attributes[cons.TAG_LINK] = ""
-                elif tag_name[0:7] == "family_": curr_attributes[cons.TAG_FAMILY] = ""
+                if tag_name.startswith("weight_"): curr_attributes[cons.TAG_WEIGHT] = ""
+                elif tag_name.startswith("foreground_"): curr_attributes[cons.TAG_FOREGROUND] = ""
+                elif tag_name.startswith("background_"): curr_attributes[cons.TAG_BACKGROUND] = ""
+                elif tag_name.startswith("style_"): curr_attributes[cons.TAG_STYLE] = ""
+                elif tag_name.startswith("underline_"): curr_attributes[cons.TAG_UNDERLINE] = ""
+                elif tag_name.startswith("strikethrough_"): curr_attributes[cons.TAG_STRIKETHROUGH] = ""
+                elif tag_name.startswith("scale_"): curr_attributes[cons.TAG_SCALE] = ""
+                elif tag_name.startswith("justification_"): curr_attributes[cons.TAG_JUSTIFICATION] = ""
+                elif tag_name.startswith("link_"): curr_attributes[cons.TAG_LINK] = ""
+                elif tag_name.startswith("family_"): curr_attributes[cons.TAG_FAMILY] = ""
                 else: support.dialog_error("Failure processing the toggling OFF tag %s" % tag_name, self.dad.window)
         toggled_on = curr_iter.get_toggled_tags(toggled_on=True)
         for tag in toggled_on:
             tag_name = tag.get_property("name")
             if tag_name and tag_name != cons.GTKSPELLCHECK_TAG_NAME:
-                if tag_name[0:7] == "weight_": curr_attributes[cons.TAG_WEIGHT] = tag_name[7:]
-                elif tag_name[0:11] == "foreground_":
+                if tag_name.startswith("weight_"): curr_attributes[cons.TAG_WEIGHT] = tag_name[7:]
+                elif tag_name.startswith("foreground_"):
                     new_foreground = tag_name[11:]
                     if new_foreground != cons.COLOR_48_BLACK: curr_attributes[cons.TAG_FOREGROUND] = new_foreground
-                elif tag_name[0:11] == "background_":
+                elif tag_name.startswith("background_"):
                     new_background = tag_name[11:]
                     if new_background != cons.COLOR_48_WHITE: curr_attributes[cons.TAG_BACKGROUND] = new_background
-                elif tag_name[0:6] == "scale_": curr_attributes[cons.TAG_SCALE] = tag_name[6:]
-                elif tag_name[0:14] == "justification_": curr_attributes[cons.TAG_JUSTIFICATION] = tag_name[14:]
-                elif tag_name[0:6] == "style_": curr_attributes[cons.TAG_STYLE] = tag_name[6:]
-                elif tag_name[0:10] == "underline_": curr_attributes[cons.TAG_UNDERLINE] = tag_name[10:]
-                elif tag_name[0:14] == "strikethrough_": curr_attributes[cons.TAG_STRIKETHROUGH] = tag_name[14:]
-                elif tag_name[0:5] == "link_": curr_attributes[cons.TAG_LINK] = tag_name[5:]
-                elif tag_name[0:7] == "family_": curr_attributes[cons.TAG_FAMILY] = tag_name[7:]
+                elif tag_name.startswith("scale_"): curr_attributes[cons.TAG_SCALE] = tag_name[6:]
+                elif tag_name.startswith("justification_"): curr_attributes[cons.TAG_JUSTIFICATION] = tag_name[14:]
+                elif tag_name.startswith("style_"): curr_attributes[cons.TAG_STYLE] = tag_name[6:]
+                elif tag_name.startswith("underline_"): curr_attributes[cons.TAG_UNDERLINE] = tag_name[10:]
+                elif tag_name.startswith("strikethrough_"): curr_attributes[cons.TAG_STRIKETHROUGH] = tag_name[14:]
+                elif tag_name.startswith("link_"): curr_attributes[cons.TAG_LINK] = tag_name[5:]
+                elif tag_name.startswith("family_"): curr_attributes[cons.TAG_FAMILY] = tag_name[7:]
                 else: support.dialog_error("Failure processing the toggling ON tag %s" % tag_name, self.dad.window)
 
     def toc_insert_all(self, text_buffer, top_tree_iter):
@@ -527,11 +539,14 @@ class XMLHandler:
         self.rich_text_attributes_update(curr_iter, self.curr_attributes)
         tag_found = curr_iter.forward_to_tag_toggle(None)
         while tag_found:
+            if not self.tag_header_toggling_on_or_off(curr_iter):
+                if not curr_iter.forward_char(): tag_found = False
+                else: tag_found = curr_iter.forward_to_tag_toggle(None)
+                continue
             offsets = self.toc_insert_parser(text_buffer, start_iter, curr_iter, node_id)
             if offsets:
                 start_iter = text_buffer.get_iter_at_offset(offsets[0])
                 curr_iter = text_buffer.get_iter_at_offset(offsets[1])
-                end_iter = text_buffer.get_end_iter()
             if curr_iter.compare(end_iter) == 0: break
             else:
                 self.rich_text_attributes_update(curr_iter, self.curr_attributes)
