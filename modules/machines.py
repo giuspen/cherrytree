@@ -594,6 +594,7 @@ class XMLHandler:
         pixbuf = pixbuf.scale_simple(self.dad.anchor_size, self.dad.anchor_size, gtk.gdk.INTERP_BILINEAR)
         pixbuf.anchor = self.toc_list[-1][0]
         self.dad.image_insert(start_iter, pixbuf)
+        self.dad.ctdb_handler.pending_edit_db_node_buff(node_id, force_user_active=True)
         return (start_offset+1, end_offset+1)
 
 
