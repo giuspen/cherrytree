@@ -320,6 +320,10 @@ class XMLHandler:
             self.rich_text_attributes_update(curr_iter, self.curr_attributes)
             tag_found = curr_iter.forward_to_tag_toggle(None)
             while tag_found:
+                if not self.tag_richtext_toggling_on_or_off(curr_iter):
+                    if not curr_iter.forward_char(): tag_found = False
+                    else: tag_found = curr_iter.forward_to_tag_toggle(None)
+                    continue
                 self.rich_txt_serialize(dom_iter, start_iter, curr_iter, self.curr_attributes)
                 if curr_iter.compare(end_iter) >= 0: break
                 else:
@@ -419,6 +423,29 @@ class XMLHandler:
         for tag in toggled_onoff:
             tag_name = tag.get_property("name")
             if tag_name and tag_name.startswith("scale_"): return True
+        return False
+        
+    def tag_richtext_toggling_on_or_off(self, curr_iter):
+        """Check for tag rich text toggle on or off"""
+        toggled_onoff = []
+        toggled_off = curr_iter.get_toggled_tags(toggled_on=False)
+        toggled_on = curr_iter.get_toggled_tags(toggled_on=True)
+        if toggled_off: toggled_onoff.extend(toggled_off)
+        if toggled_on: toggled_onoff.extend(toggled_on)
+        for tag in toggled_onoff:
+            tag_name = tag.get_property("name")
+            if not tag_name: continue
+            if tag_name.startswith("weight_") \
+            or tag_name.startswith("foreground_") \
+            or tag_name.startswith("background_") \
+            or tag_name.startswith("style_") \
+            or tag_name.startswith("underline_") \
+            or tag_name.startswith("strikethrough_") \
+            or tag_name.startswith("scale_") \
+            or tag_name.startswith("justification_") \
+            or tag_name.startswith("link_") \
+            or tag_name.startswith("family_"):
+                return True
         return False
 
     def rich_text_attributes_update(self, curr_iter, curr_attributes):
