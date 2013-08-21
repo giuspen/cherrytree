@@ -3283,6 +3283,8 @@ class CherryTree:
         dialog.get_action_area().set_layout(gtk.BUTTONBOX_SPREAD)
         dialog.run()
         dialog.destroy()
+        if self.enable_spell_check and self.syntax_highlighting == cons.CUSTOM_COLORS_ID:
+            self.spell_check_set_on()
 
     def tree_info_iter(self, tree_iter):
         """Tree Summary Information Iteration"""
