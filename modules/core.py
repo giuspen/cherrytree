@@ -2671,6 +2671,8 @@ class CherryTree:
         self.objects_buffer_refresh()
         self.update_selected_node_statusbar_info()
         if self.user_active:
+            if self.enable_spell_check and self.syntax_highlighting == cons.CUSTOM_COLORS_ID:
+                self.spell_check_set_on()
             if model[new_iter][3] in self.nodes_cursor_pos: cursor_pos = self.nodes_cursor_pos[model[new_iter][3]]
             else: cursor_pos = 0
             cursor_iter = self.curr_buffer.get_iter_at_offset(cursor_pos)
