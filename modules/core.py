@@ -4248,6 +4248,7 @@ class CherryTree:
             return
         iter_sel_start, iter_sel_end = self.curr_buffer.get_selection_bounds()
         self.curr_buffer.remove_all_tags(iter_sel_start, iter_sel_end)
+        if self.enable_spell_check: self.spell_check_set_on()
         self.update_window_save_needed("nbuf", True)
 
     def bookmark_curr_node(self, *args):
