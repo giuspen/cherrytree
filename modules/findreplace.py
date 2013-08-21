@@ -172,15 +172,16 @@ class FindReplace:
                     if forward: node_iter = self.dad.treestore.iter_next(node_iter)
                     else: node_iter = self.dad.get_tree_iter_prev_sibling(self.dad.treestore, node_iter)
                 else: break
-        if self.matches_num == 0:
-            config.set_tree_expanded_collapsed_string(self.dad)
-            support.dialog_info(_("The pattern '%s' was not found") % pattern, self.dad.window)
+        if user_active_restore: self.dad.user_active = True
+        config.set_tree_expanded_collapsed_string(self.dad)
+        if not self.matches_num or all_matches:
             self.dad.treeview_safe_set_cursor(starting_tree_iter)
             self.dad.sourceview.grab_focus()
             self.dad.curr_buffer.place_cursor(self.dad.curr_buffer.get_iter_at_offset(current_cursor_pos))
             self.dad.sourceview.scroll_to_mark(self.dad.curr_buffer.get_insert(), 0.3)
+        if not self.matches_num:
+            support.dialog_info(_("The pattern '%s' was not found") % pattern, self.dad.window)
         else:
-            config.set_tree_expanded_collapsed_string(self.dad)
             if all_matches:
                 self.dad.glade.allmatchesdialog.set_title(str(self.matches_num) + cons.CHAR_SPACE + _("Matches"))
                 self.dad.glade.allmatchesdialog.run()
@@ -191,7 +192,6 @@ class FindReplace:
                 self.dad.sourceview.scroll_to_mark(self.dad.curr_buffer.get_insert(), 0.3)
                 if self.dad.glade.checkbutton_iterated_find_dialog.get_active():
                     self.iterated_find_dialog()
-        if user_active_restore: self.dad.user_active = True
 
     def find_a_node(self, *args):
         """Search for a pattern between all the Node's Names"""
