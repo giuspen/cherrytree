@@ -334,6 +334,8 @@ UI_INFO = """
                 <menuitem action='ToggleCase'/>
             </menu>
             <separator/>
+            <menuitem action='PastePlainText'/>
+            <separator/>
             <menuitem action='CutRow'/>
             <menuitem action='CopyRow'/>
             <menuitem action='DeleteRow'/>
@@ -594,6 +596,7 @@ def get_entries(inst):
     ( "Redo", "gtk-redo", _("_Redo"), "<control>Y", _("Redo Previously Discarded Operation"), inst.requested_step_ahead),
     ( "InheritSyntax", "gtk-execute", _("_Inherit Syntax"), None, _("Change the Selected Node's Children Syntax Highlighting to the Father's Syntax Highlighting"), inst.node_inherit_syntax),
     ( "FormatLatest", "format_text_latest", _("Format _Latest"), "F7", _("Memory of Latest Text Format Type"), inst.apply_tag_latest),
+    ( "PastePlainText", "edit-paste", _("_Paste as Plain Text"), "<control><shift>V", _("Paste as Plain Text, Discard the Rich Text Formatting"), inst.paste_as_plain_text),
     ( "RemoveFormatting", "gtk-clear", _("_Remove Formatting"), "<control><shift>R", _("Remove the Formatting from the Selected Text"), inst.remove_text_formatting),
     ( "ColorForeground", "color_foreground", _("Text _Color Foreground"), None, _("Change the Color of the Selected Text Foreground"), inst.apply_tag_foreground),
     ( "ColorBackground", "color_background", _("Text C_olor Background"), None, _("Change the Color of the Selected Text Background"), inst.apply_tag_background),
