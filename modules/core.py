@@ -995,7 +995,10 @@ class CherryTree:
 
     def autosave_timer_iter(self):
         """Iteration of the Autosave"""
-        self.file_save()
+        if not self.tree_is_empty() and self.user_active:
+            print "autosave iter"
+            self.file_save()
+        else: print "autosave skip"
         return True # this way we keep the timer alive
 
     def modification_time_sentinel_start(self):
@@ -4284,5 +4287,4 @@ class CherryTree:
     
     def tree_is_empty(self):
         """Return True if the treestore is empty"""
-        if self.treestore.get_iter_first() == None: return True
-        else: return False
+        return (self.treestore.get_iter_first() == None)
