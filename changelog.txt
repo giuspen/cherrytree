@@ -1,4 +1,18 @@
 
+0.30.0 (August 21st, 2013)
+• Added spell check using the library pygtkspellcheck (which uses pyenchant). In windows version the dictionaries of all languages supported by translators except Chinese are included in the installer;
+• Added opportunity to insert special characters in text using top menu or right click menu. It is possible to edit the default list of characters in the preferences dialog;
+• Added export to single plain text file;
+• Improved TOC of the whole tree including links to all existing nodes of the tree, not only those with tags h1, h2 and h3;
+• Added menu item and shortcut (Ctrl+Shift+J) to expand/collapse the selected tree node;
+• Added shortcut to remove formatting from selected rich text (Ctrl+Shift+R);
+• Added basic import from keynote (.knt);
+• Added configurable option to enable/disable the option to reload the document from the last session at application start (before it was always enabled);
+• Fixed bug in shortcut to paste to rich text node as plain text, discarding formatting (Ctrl+Shift+V);
+• Fixed several bugs in export to HTML and PDF;
+• Fixed bugs in import from Zim, Tomboy and Gnote;
+• Fixed several other bugs.
+
 0.29.4 (March 21st, 2013)
 • the color chooser palette keeps now memory of the latest 20 colors used
 • in the export to plain text of the rich text nodes, codeboxes and tables are also included
