@@ -507,7 +507,7 @@ class CherryTree:
             elif keyname == "Right":
                 child_iter = self.treestore.iter_children(self.curr_tree_iter)
                 if child_iter: self.treeview_safe_set_cursor(child_iter)
-            elif keyname == "Return": self.node_edit()
+            elif keyname == "Return": self.toggle_tree_node_expanded_collapsed()
             elif keyname == "Delete": self.node_delete()
             elif keyname == "Menu":
                 self.menu_tree.popup(None, None, None, 0, event.time)
@@ -2320,13 +2320,9 @@ class CherryTree:
         if event.button == 3:
             self.menu_tree.popup(None, None, None, event.button, event.time)
         elif event.button == 2:
-            path_at_click = self.treeview.get_path_at_pos(int(event.x), int(event.y))
-            if path_at_click:
-                if self.treeview.row_expanded(path_at_click[0]):
-                    self.treeview.collapse_row(path_at_click[0])
-                else: self.treeview.expand_row(path_at_click[0], False)
+            self.toggle_tree_node_expanded_collapsed()
         elif event.button == 1 and event.type == gtk.gdk._2BUTTON_PRESS:
-            self.node_edit()
+            self.toggle_tree_node_expanded_collapsed()
 
     def buffer_create(self, syntax_highlighting):
         """Returns a New Instantiated SourceBuffer"""
