@@ -1,4 +1,13 @@
 
+0.30.2 (August 27th, 2013)
+• cherrytree can now work also without python-enchant installed, in this case it is not possible to activate spell check in the preferences dialog
+• a new language was added: Brazilian Portuguese (work from Vinicius Schmidt)
+• double click on a node or enter key press on a node now toggles expanded/collapsed state (before entered node properties dialog)
+
+0.30.1 (August 24th, 2013)
+• License upgrade from GPLv2+ to GPLv3+ needed to bundle pygtkspellcheck;
+• Bugfix: error dialog when autosave and empty tree.
+
 0.30.0 (August 21st, 2013)
 • Added spell check using the library pygtkspellcheck (which uses pyenchant). In windows version the dictionaries of all languages supported by translators except Chinese are included in the installer;
 • Added opportunity to insert special characters in text using top menu or right click menu. It is possible to edit the default list of characters in the preferences dialog;
