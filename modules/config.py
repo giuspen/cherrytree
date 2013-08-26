@@ -20,7 +20,7 @@
 #       MA 02110-1301, USA.
 
 import os, sys, ConfigParser, gtk, pango, locale, subprocess, base64
-import cons
+import cons, pgsc_spellcheck
 
 ICONS_SIZE = {1: gtk.ICON_SIZE_MENU, 2: gtk.ICON_SIZE_SMALL_TOOLBAR, 3: gtk.ICON_SIZE_LARGE_TOOLBAR,
               4: gtk.ICON_SIZE_DND, 5: gtk.ICON_SIZE_DIALOG}
@@ -265,6 +265,9 @@ def config_file_apply(inst):
     inst.glade.entry_horizontal_rule.set_text(inst.h_rule)
     inst.glade.textbuffer_special_chars.set_text(inst.special_chars)
     inst.glade.textbuffer_special_chars.set_modified(False)
+    if not pgsc_spellcheck.HAS_PYENCHANT:
+        inst.enable_spell_check = False
+        inst.glade.checkbutton_spell_check.set_sensitive(False)
     inst.glade.checkbutton_spell_check.set_active(inst.enable_spell_check)
     if inst.enable_spell_check:
         inst.spell_check_set_on()
