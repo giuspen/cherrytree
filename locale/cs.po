@@ -9,16 +9,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-23 23:09+0200\n"
-"PO-Revision-Date: 2013-08-03 11:57+0200\n"
-"Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
+"POT-Creation-Date: 2013-08-26 23:06+0200\n"
+"PO-Revision-Date: 2013-08-26 23:10+0100\n"
+"Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 1.5\n"
+"X-Generator: Poedit 1.5.4\n"
 
 #: modules/support.py:71
 msgid "Save File as"
@@ -44,7 +44,7 @@ msgstr "Informace"
 msgid "This Change will have Effect Only After Restarting CherryTree"
 msgstr "Tato změna se projeví až po novém spuštění CherryTree"
 
-#: modules/support.py:197 glade/cherrytree.glade.h:55
+#: modules/support.py:197 glade/cherrytree.glade.h:56
 msgid "Warning"
 msgstr "Varování"
 
@@ -156,7 +156,7 @@ msgstr "Název uzlu"
 msgid "Line Content"
 msgstr "Obsah řádku"
 
-#: modules/findreplace.py:567 modules/core.py:3906
+#: modules/findreplace.py:567 modules/core.py:3905
 #, python-format
 msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
 msgstr "Odkaz odkazuje na uzel, který už neexistuje (ID = %s)"
@@ -178,21 +178,21 @@ msgid "Failed to Retrieve Latest Version Information - Try Again Later"
 msgstr ""
 "Nepodařilo se dostat informace o nejnovější verzi - Zkuste to později znovu"
 
-#: modules/core.py:261 modules/core.py:3223 modules/core.py:3630
-#: modules/core.py:3636 modules/core.py:4247
+#: modules/core.py:261 modules/core.py:3222 modules/core.py:3629
+#: modules/core.py:3635 modules/core.py:4246
 msgid "No Text is Selected"
 msgstr "Není vybrán žádný text"
 
-#: modules/core.py:561 modules/core.py:1928
+#: modules/core.py:561 modules/core.py:1931
 msgid "The new father can't be one of his sons!"
 msgstr ""
 "Nový nadřízený uzel nemůže být jedním z podřízených uzlů nynějšího uzlu!"
 
-#: modules/core.py:604 modules/core.py:1177 modules/core.py:1317
+#: modules/core.py:604 modules/core.py:1180 modules/core.py:1320
 msgid "CherryTree Document"
 msgstr "Dokument CherryTree"
 
-#: modules/core.py:627 modules/core.py:1563
+#: modules/core.py:627 modules/core.py:1566
 #, python-format
 msgid "\"%s\" is Not a CherryTree Document"
 msgstr "\"%s\" není dokumentem CherryTree"
@@ -233,15 +233,15 @@ msgstr "Kořen stromu"
 msgid "The Selected Node"
 msgstr "Vybraný uzel"
 
-#: modules/core.py:1019
+#: modules/core.py:1022
 msgid "The Document was Reloaded After External Update to CT* File"
 msgstr "Dokument byl nahrán znovu po vnější aktualizaci na soubor CT*"
 
-#: modules/core.py:1045
+#: modules/core.py:1048
 msgid "CherryTree Hierarchical Note Taking"
 msgstr "Hierarchická tvorba poznámek v CherryTree"
 
-#: modules/core.py:1264 modules/core.py:1476
+#: modules/core.py:1267 modules/core.py:1479
 msgid ""
 "The Contemporary Presence of Single and Double Quotes in the File Path "
 "Prevents 7za.exe to Work, Please Change the File Name"
@@ -249,45 +249,45 @@ msgstr ""
 "Současná přítomnost jednoduchých a dvojitých uvozovek v souborové cestě "
 "zabraňuje, aby 7za.exe pracoval. Změňte, prosím, název souboru"
 
-#: modules/core.py:1284
+#: modules/core.py:1287
 #, python-format
 msgid "You Have No Write Access to %s"
 msgstr "Nemáte oprávnění pro zápis do %s"
 
-#: modules/core.py:1299
+#: modules/core.py:1302
 msgid "Writing to Disk..."
 msgstr "Zapisuje se na disk..."
 
-#: modules/core.py:1336
+#: modules/core.py:1339
 msgid "Choose Storage Type and Protection"
 msgstr "Vyberte typ úložiště a ochranu"
 
-#: modules/core.py:1343 modules/core.py:1346
+#: modules/core.py:1346 modules/core.py:1349
 msgid "Not Protected"
 msgstr "Nechráněn"
 
-#: modules/core.py:1344 modules/core.py:1348
+#: modules/core.py:1347 modules/core.py:1351
 msgid "Password Protected"
 msgstr "Heslo chráněno"
 
-#: modules/core.py:1357
+#: modules/core.py:1360
 msgid "Enter the New Password Twice"
 msgstr "Zadejte nové heslo dvakrát"
 
-#: modules/core.py:1399
+#: modules/core.py:1402
 msgid "The Password Fields Must be Filled"
 msgstr "Pole pro hesla musí být vyplněna"
 
-#: modules/core.py:1402
+#: modules/core.py:1405
 msgid "The Two Inserted Passwords Do Not Match"
 msgstr "Ta dvě vložená hesla se neshodují"
 
-#: modules/core.py:1407
+#: modules/core.py:1410
 #, python-format
 msgid "The Characters  %s  are Not Allowed"
 msgstr "Znaky %s nejsou dovoleny"
 
-#: modules/core.py:1425
+#: modules/core.py:1428
 msgid ""
 "Binary Executable '7za' Not Found, Check The Package 'p7zip-full' to be "
 "Installed Properly"
@@ -295,53 +295,53 @@ msgstr ""
 "Binární spustitelný soubor '7za' nebyl nalezen. Prověřte, zda je balíček "
 "'7za' nainstalován správně"
 
-#: modules/core.py:1431
+#: modules/core.py:1434
 #, python-format
 msgid "Enter Password for %s"
 msgstr "Zadejte heslo pro %s"
 
-#: modules/core.py:1487
+#: modules/core.py:1490
 msgid "Wrong Password"
 msgstr "Chybné heslo"
 
-#: modules/core.py:1912 glade/cherrytree.glade.h:34
+#: modules/core.py:1915 glade/cherrytree.glade.h:35
 msgid "Select the New Father"
 msgstr "Vybrat nový nadřízený uzel"
 
-#: modules/core.py:1920
+#: modules/core.py:1923
 msgid "The new father can't be the very node to move!"
 msgstr "Nový nadřízený uzel nemůže být vlastní uzel k přesunu!"
 
-#: modules/core.py:1923
+#: modules/core.py:1926
 msgid "The new choosed father is again the old father!"
 msgstr "Nový vybraný nadřízený uzel je opět ten starý nadřízený uzel!"
 
-#: modules/core.py:2361
+#: modules/core.py:2360
 msgid "The New Language will be Available Only After Restarting CherryTree"
 msgstr "Nový jazyk bude dostupný až po novém spuštění CherryTree"
 
-#: modules/core.py:2474
+#: modules/core.py:2473
 msgid "New Node Properties"
 msgstr "Vlastnosti nového uzlu"
 
-#: modules/core.py:2513
+#: modules/core.py:2512
 msgid "New Child Node Properties"
 msgstr "Vlastnosti nového podřízeného uzlu"
 
-#: modules/core.py:2537
+#: modules/core.py:2536
 #, python-format
 msgid "Are you sure to <b>Delete the node '%s'?</b>"
 msgstr "Opravdu chcete <b>smazat uzel '%s'?</b>"
 
-#: modules/core.py:2539
+#: modules/core.py:2538
 msgid "The node <b>has Children, they will be Deleted too!</b>"
 msgstr "Uzel má <b>podřízené uzly, které budou rovněž smazány!</b>"
 
-#: modules/core.py:2570
+#: modules/core.py:2569
 msgid "Node Properties"
 msgstr "Vlastnosti uzlu"
 
-#: modules/core.py:2574
+#: modules/core.py:2573
 msgid ""
 "Entering the Automatic Syntax Highlighting you will Lose all Custom Colors "
 "for This Node, Do you want to Continue?"
@@ -349,126 +349,126 @@ msgstr ""
 "Automatické zvýraznění skladby povede k zahození všech ručně stanovených "
 "vlastních barev v tomto uzlu. Chcete pokračovat?"
 
-#: modules/core.py:2975
+#: modules/core.py:2974
 msgid "The Size of the Toolbar Icons is already at the Maximum Value"
 msgstr "Ikony v nástrojovém pruhu jsou již tak velké, jak jen je to možné"
 
-#: modules/core.py:2983
+#: modules/core.py:2982
 msgid "The Size of the Toolbar Icons is already at the Minimum Value"
 msgstr "Ikony v nástrojovém pruhu jsou již tak malé, jak jen je to možné"
 
-#: modules/core.py:3075
+#: modules/core.py:3074
 msgid "Edit Anchor"
 msgstr "Upravit kotvu..."
 
-#: modules/core.py:3078
+#: modules/core.py:3077
 msgid "Insert Anchor"
 msgstr "Vložit kotvu..."
 
-#: modules/core.py:3087
+#: modules/core.py:3086
 msgid "The Anchor Name is Mandatory!"
 msgstr "Název kotvy je povinný!"
 
-#: modules/core.py:3122
+#: modules/core.py:3121
 msgid "Not Any H1, H2 or H3 Formatting Found"
 msgstr "Nebylo nalezeno žádné formátování nadpisů (H1, H2 nebo H3)"
 
-#: modules/core.py:3201
+#: modules/core.py:3200
 msgid ""
 "Automatic Syntax Highlighting Must be Disabled in order to Use This Feature"
 msgstr ""
 "Automatické zvýrazňování skladby nesmí být v činnosti, aby bylo možno "
 "používat tuto funkci"
 
-#: modules/core.py:3208 modules/core.py:4201
+#: modules/core.py:3207 modules/core.py:4200
 msgid "No Node is Selected"
 msgstr "Není vybrán žádný uzel"
 
-#: modules/core.py:3215
+#: modules/core.py:3214
 msgid "The Tree is Empty!"
 msgstr "Strom je prázdný!"
 
-#: modules/core.py:3236 modules/cons.py:682
+#: modules/core.py:3235 modules/cons.py:682
 msgid "Tree Summary Information"
 msgstr "Přehled o stavbě stromu"
 
-#: modules/core.py:3245
+#: modules/core.py:3244
 msgid "Number of Text Nodes"
 msgstr "Počet uzlů textu"
 
-#: modules/core.py:3248
+#: modules/core.py:3247
 msgid "Number of Code Nodes"
 msgstr "Počet uzlů zdrojového kódu"
 
-#: modules/core.py:3251
+#: modules/core.py:3250
 msgid "Number of Images"
 msgstr "Počet obrázků"
 
-#: modules/core.py:3254
+#: modules/core.py:3253
 msgid "Number of Tables"
 msgstr "Počet tabulek"
 
-#: modules/core.py:3257
+#: modules/core.py:3256
 msgid "Number of CodeBoxes"
 msgstr "Počet obdélníků se zdrojovým kódem"
 
-#: modules/core.py:3382
+#: modules/core.py:3381
 msgid "PNG Image"
 msgstr "Obrázek PNG"
 
-#: modules/core.py:3388
+#: modules/core.py:3387
 #, python-format
 msgid "Write to %s Failed"
 msgstr "Nepodařilo se zapsat %s"
 
-#: modules/core.py:3616
+#: modules/core.py:3615
 msgid "No Previous Text Format Was Performed During This Session"
 msgstr "Během tohoto sezení nebylo ještě provedeno žádné formátování textu"
 
-#: modules/core.py:3670
+#: modules/core.py:3669
 msgid "The Cursor is Not into a Paragraph"
 msgstr "Ukazovátko se nenachází v odstavci"
 
-#: modules/core.py:3679
+#: modules/core.py:3678
 msgid "Insert/Edit a Link"
 msgstr "Vložit/Upravit odkaz..."
 
-#: modules/core.py:3708
+#: modules/core.py:3707
 msgid "Pick a Color"
 msgstr "Vybrat barvu"
 
-#: modules/core.py:3878
+#: modules/core.py:3877
 #, python-format
 msgid "The File Link '%s' is Not Valid"
 msgstr "Cesta k souboru '%s' není platná"
 
-#: modules/core.py:3893
+#: modules/core.py:3892
 #, python-format
 msgid "The Folder Link '%s' is Not Valid"
 msgstr "Odkaz na složku '%s' není platný"
 
-#: modules/core.py:3916
+#: modules/core.py:3915
 #, python-format
 msgid "No anchor named '%s' found"
 msgstr "Nebyla nalezena žádná kotva s názvem '%s'"
 
-#: modules/core.py:3986
+#: modules/core.py:3985
 msgid "There are No Anchors in the Selected Node"
 msgstr "Ve vybraném uzlu nejsou žádné kotvy"
 
-#: modules/core.py:3991
+#: modules/core.py:3990
 msgid "Choose Existing Anchor"
 msgstr "Vybrat stávající kotvu"
 
-#: modules/core.py:4004
+#: modules/core.py:4003
 msgid "Anchor Name"
 msgstr "Název kotvy"
 
-#: modules/core.py:4203 glade/cherrytree.glade.h:71
+#: modules/core.py:4202 glade/cherrytree.glade.h:72
 msgid "Rich Text"
 msgstr "Formátovaný text"
 
-#: modules/core.py:4205 glade/cherrytree.glade.h:75
+#: modules/core.py:4204 glade/cherrytree.glade.h:76
 msgid "Read Only"
 msgstr "Pouze pro čtení"
 
@@ -660,7 +660,7 @@ msgstr "Ukončit CherryTree"
 msgid "_Preferences"
 msgstr "_Nastavení"
 
-#: modules/cons.py:563 glade/cherrytree.glade.h:76
+#: modules/cons.py:563 glade/cherrytree.glade.h:77
 msgid "Preferences"
 msgstr "Nastavení"
 
@@ -1122,7 +1122,7 @@ msgid "Find _Again"
 msgstr "_Hledat dál"
 
 #: modules/cons.py:620 modules/cons.py:799 modules/cons.py:837
-#: glade/cherrytree.glade.h:65
+#: glade/cherrytree.glade.h:66
 msgid "Iterate the Last Find Operation"
 msgstr "Pokračovat v hledání"
 
@@ -1131,7 +1131,7 @@ msgid "Find _Back"
 msgstr "Hledat _pozpátku"
 
 #: modules/cons.py:621 modules/cons.py:800 modules/cons.py:838
-#: glade/cherrytree.glade.h:63
+#: glade/cherrytree.glade.h:64
 msgid "Iterate the Last Find Operation in Opposite Direction"
 msgstr "Zopakovat poslední hledání v opačném směru"
 
@@ -1673,27 +1673,27 @@ msgstr "Zmenšit výšku CodeBox"
 msgid "Downloading"
 msgstr "Stažení"
 
-#: modules/pgsc_spellcheck.py:105
+#: modules/pgsc_spellcheck.py:109
 msgid "Unknown"
 msgstr "Neznámý"
 
-#: modules/pgsc_spellcheck.py:489
+#: modules/pgsc_spellcheck.py:493
 msgid "(no suggestions)"
 msgstr "(žádné návrhy)"
 
-#: modules/pgsc_spellcheck.py:514
+#: modules/pgsc_spellcheck.py:518
 msgid "Add \"{}\" to Dictionary"
 msgstr "Přidat \"{}\" do slovníku"
 
-#: modules/pgsc_spellcheck.py:520
+#: modules/pgsc_spellcheck.py:524
 msgid "Ignore All"
 msgstr "Přehlížet vše"
 
-#: modules/pgsc_spellcheck.py:537
+#: modules/pgsc_spellcheck.py:541
 msgid "Languages"
 msgstr "Jazyky"
 
-#: modules/pgsc_spellcheck.py:556
+#: modules/pgsc_spellcheck.py:560
 msgid "Suggestions"
 msgstr "Návrhy"
 
@@ -1757,6 +1757,7 @@ msgid ""
 "German (de) Frank Brungräber <calexu@arcor.de> (former Sven Neubauer)\n"
 "Italian (it) Giuseppe Penone <giuspen@gmail.com>\n"
 "Polish (pl) Marcin Swierczynski <orneo1212@gmail.com>\n"
+"Portuguese Brazil (pt_BR) Vinicius Schmidt <viniciussm@rocketmail.com>\n"
 "Russian (ru) Andriy Kovtun <kovtunos@yandex.ru>\n"
 "Spanish (es) Daniel MC <i.e.betel@gmail.com>\n"
 "Ukrainian (uk) Andriy Kovtun <kovtunos@yandex.ru>"
@@ -1769,107 +1770,108 @@ msgstr ""
 "Neubauer)\n"
 "Italský překlad (it) Giuseppe Penone <giuspen@gmail.com>\n"
 "Polský překlad (pl) Marcin Swierczynski <orneo1212@gmail.com>\n"
+"Portugalština Brazílie (pt_BR) Vinicius Schmidt <viniciussm@rocketmail.com>\n"
 "Ruský překlad (ru) Andriy Kovtun <kovtunos@yandex.ru>\n"
 "Španělský překlad (es) Daniel MC <i.e.betel@gmail.com>\n"
 "Ukrajinský překlad (uk) Andriy Kovtun <kovtunos@yandex.ru>"
 
-#: glade/cherrytree.glade.h:31
+#: glade/cherrytree.glade.h:32
 msgid "Hide (Restore with Ctrl+Shift+A)"
 msgstr "Skrýt (Obnovit Ctrl+Shift+A)"
 
-#: glade/cherrytree.glade.h:32
+#: glade/cherrytree.glade.h:33
 msgid "Cancel"
 msgstr "Zrušit"
 
-#: glade/cherrytree.glade.h:33
+#: glade/cherrytree.glade.h:34
 msgid "OK"
 msgstr "OK"
 
-#: glade/cherrytree.glade.h:35
+#: glade/cherrytree.glade.h:36
 msgid "To WebSite"
 msgstr "Pro internetovou stránku"
 
-#: glade/cherrytree.glade.h:36
+#: glade/cherrytree.glade.h:37
 msgid "To Node"
 msgstr "Pro uzel"
 
-#: glade/cherrytree.glade.h:37
+#: glade/cherrytree.glade.h:38
 msgid "To File"
 msgstr "Pro soubor"
 
-#: glade/cherrytree.glade.h:38
+#: glade/cherrytree.glade.h:39
 msgid "To Folder"
 msgstr "Pro složku"
 
-#: glade/cherrytree.glade.h:39
+#: glade/cherrytree.glade.h:40
 msgid "<b>Type</b>"
 msgstr "<b>Typ</b>"
 
-#: glade/cherrytree.glade.h:40
+#: glade/cherrytree.glade.h:41
 msgid "<b>WebSite URL</b>"
 msgstr "<b>Adresa stránek (URL)</b>"
 
-#: glade/cherrytree.glade.h:41
+#: glade/cherrytree.glade.h:42
 msgid "Browse for a File to link to"
 msgstr "Prohledat na soubor k odkázání"
 
-#: glade/cherrytree.glade.h:42
+#: glade/cherrytree.glade.h:43
 msgid "<b>File/Folder Path</b>"
 msgstr "<b>Cesta k souboru/složce</b>"
 
-#: glade/cherrytree.glade.h:43
+#: glade/cherrytree.glade.h:44
 msgid "<b>Node</b>"
 msgstr "<b>Uzly</b>"
 
-#: glade/cherrytree.glade.h:44
+#: glade/cherrytree.glade.h:45
 msgid "<b>Anchor Name (optional)</b>"
 msgstr "<b> Název kotvy (volitelný)</b>"
 
-#: glade/cherrytree.glade.h:45
+#: glade/cherrytree.glade.h:46
 msgid "<b>Automatic Syntax Highlighting</b>"
 msgstr "<b>Automatické zvýrazňování skladby</b>"
 
-#: glade/cherrytree.glade.h:46
+#: glade/cherrytree.glade.h:47
 msgid "Width"
 msgstr "Šířka"
 
-#: glade/cherrytree.glade.h:47
+#: glade/cherrytree.glade.h:48
 msgid "pixels"
 msgstr "pixely"
 
-#: glade/cherrytree.glade.h:49
+#: glade/cherrytree.glade.h:50
 msgid "%"
 msgstr "%"
 
-#: glade/cherrytree.glade.h:50
+#: glade/cherrytree.glade.h:51
 msgid "Height"
 msgstr "Výška"
 
-#: glade/cherrytree.glade.h:51
+#: glade/cherrytree.glade.h:52
 msgid "<b>Size</b>"
 msgstr "<b>Velikost</b>"
 
-#: glade/cherrytree.glade.h:52
+#: glade/cherrytree.glade.h:53
 msgid "Show Line Numbers"
 msgstr "Ukázat čísla řádků"
 
-#: glade/cherrytree.glade.h:53
+#: glade/cherrytree.glade.h:54
 msgid "Highlight Matching Brackets"
 msgstr "Zvýraznit odpovídající si závorky"
 
-#: glade/cherrytree.glade.h:54
+#: glade/cherrytree.glade.h:55
 msgid "<b>Options</b>"
 msgstr "<b>Volby</b>"
 
-#: glade/cherrytree.glade.h:56
+#: glade/cherrytree.glade.h:57
 msgid "No"
 msgstr "Ne"
 
-#: glade/cherrytree.glade.h:57
+#: glade/cherrytree.glade.h:58
 msgid "Yes"
 msgstr "Ano"
 
-#: glade/cherrytree.glade.h:58
+#: glade/cherrytree.glade.h:59
 msgid ""
 "<b>The current document was updated</b>,\n"
 "do you want to save the changes?"
@@ -1877,395 +1879,395 @@ msgstr ""
 "<b>nynější dokument byl upraven.</b>\n"
 "Chcete uložit změny?"
 
-#: glade/cherrytree.glade.h:60
+#: glade/cherrytree.glade.h:61
 msgid "Image Properties"
 msgstr "Vlastnosti obrázku"
 
-#: glade/cherrytree.glade.h:61
+#: glade/cherrytree.glade.h:62
 msgid "Iterate Latest Find/Replace"
 msgstr "Zopakovat poslední hledání/nahrazení"
 
-#: glade/cherrytree.glade.h:62
+#: glade/cherrytree.glade.h:63
 msgid "Close"
 msgstr "Zavřít"
 
-#: glade/cherrytree.glade.h:64
+#: glade/cherrytree.glade.h:65
 msgid "Find"
 msgstr "Najít"
 
-#: glade/cherrytree.glade.h:66
+#: glade/cherrytree.glade.h:67
 msgid "Replace"
 msgstr "Nahradit"
 
-#: glade/cherrytree.glade.h:67
+#: glade/cherrytree.glade.h:68
 msgid "Undo the Latest Replace"
 msgstr "Zpět poslední nahrazení"
 
-#: glade/cherrytree.glade.h:68
+#: glade/cherrytree.glade.h:69
 msgid "Undo"
 msgstr "Zpět"
 
-#: glade/cherrytree.glade.h:69
+#: glade/cherrytree.glade.h:70
 msgid "Are you sure to Delete the node?"
 msgstr "Opravdu chcete smazat uzel?"
 
-#: glade/cherrytree.glade.h:70
+#: glade/cherrytree.glade.h:71
 msgid "<b>Node Name</b>"
 msgstr "<b>Název uzlu</b>"
 
-#: glade/cherrytree.glade.h:72
+#: glade/cherrytree.glade.h:73
 msgid "Automatic Syntax Highlighting"
 msgstr "Automatické zvýrazňování skladby"
 
-#: glade/cherrytree.glade.h:73
+#: glade/cherrytree.glade.h:74
 msgid "<b>Node Type</b>"
 msgstr "<b>Typ uzlu</b>"
 
-#: glade/cherrytree.glade.h:74
+#: glade/cherrytree.glade.h:75
 msgid "<b>Tags for Searching</b>"
 msgstr "<b>Značky pro hledání</b>"
 
-#: glade/cherrytree.glade.h:77
+#: glade/cherrytree.glade.h:78
 msgid "Tab Width  "
 msgstr "Šířka zarážky  "
 
-#: glade/cherrytree.glade.h:78
+#: glade/cherrytree.glade.h:79
 msgid "Insert Spaces Instead of Tabs"
 msgstr "Vložit mezery místo zarážek"
 
-#: glade/cherrytree.glade.h:79
+#: glade/cherrytree.glade.h:80
 msgid "Use Line Wrapping"
 msgstr "Použít zalamování řádků"
 
-#: glade/cherrytree.glade.h:80
+#: glade/cherrytree.glade.h:81
 msgid "Enable Automatic Indentation"
 msgstr "Povolit automatické odsazení"
 
-#: glade/cherrytree.glade.h:81
+#: glade/cherrytree.glade.h:82
 msgid "<b>Text Editor</b>"
 msgstr "<b>Textový editor</b>"
 
-#: glade/cherrytree.glade.h:82
+#: glade/cherrytree.glade.h:83
 msgid "Timestamp Format"
 msgstr "Formát časového razítka"
 
-#: glade/cherrytree.glade.h:83
+#: glade/cherrytree.glade.h:84
 msgid "Horizontal Rule"
 msgstr "Oddělovací čára"
 
-#: glade/cherrytree.glade.h:84
+#: glade/cherrytree.glade.h:85
 msgid "Special Characters"
 msgstr "Zvláštní znaky"
 
-#: glade/cherrytree.glade.h:85
+#: glade/cherrytree.glade.h:86
 msgid "<b>Miscellaneous</b>"
 msgstr "<b>Různé</b>"
 
-#: glade/cherrytree.glade.h:86
+#: glade/cherrytree.glade.h:87
 msgid "All Nodes"
 msgstr "Všechny uzly"
 
-#: glade/cherrytree.glade.h:87
+#: glade/cherrytree.glade.h:88
 msgid "Enable Spell Check"
 msgstr "Povolit ověřování pravopisu"
 
-#: glade/cherrytree.glade.h:88
+#: glade/cherrytree.glade.h:89
 msgid "Spell Check Language"
 msgstr "Jazyk ověřování pravopisu"
 
-#: glade/cherrytree.glade.h:89
+#: glade/cherrytree.glade.h:90
 msgid "<b>Spell Check</b>"
 msgstr "<b>Ověření správného psaní</b>"
 
-#: glade/cherrytree.glade.h:90
+#: glade/cherrytree.glade.h:91
 msgid "Light Background, Dark Text"
 msgstr "Světlé pozadí, tmavý text"
 
-#: glade/cherrytree.glade.h:91
+#: glade/cherrytree.glade.h:92
 msgid "Dark Background, Light Text"
 msgstr "Tmavé pozadí, světlý text"
 
-#: glade/cherrytree.glade.h:92
+#: glade/cherrytree.glade.h:93
 msgid "Custom Background"
 msgstr "Vlastní pozadí"
 
-#: glade/cherrytree.glade.h:93
+#: glade/cherrytree.glade.h:94
 msgid "and Text"
 msgstr "a text"
 
-#: glade/cherrytree.glade.h:94
+#: glade/cherrytree.glade.h:95
 msgid "<b>Theme</b>"
 msgstr "<b>Motiv</b>"
 
-#: glade/cherrytree.glade.h:95
+#: glade/cherrytree.glade.h:96
 msgid "Limit of Undoable Steps Per Node"
 msgstr "Počet kroků zpět na uzel"
 
-#: glade/cherrytree.glade.h:96
+#: glade/cherrytree.glade.h:97
 msgid "Text Nodes"
 msgstr "Uzly s textem"
 
-#: glade/cherrytree.glade.h:97
+#: glade/cherrytree.glade.h:98
 msgid "Style Scheme"
 msgstr "Nákres stylu"
 
-#: glade/cherrytree.glade.h:98
+#: glade/cherrytree.glade.h:99
 msgid "Show White Spaces"
 msgstr "Ukázat prázdná místa"
 
-#: glade/cherrytree.glade.h:99
+#: glade/cherrytree.glade.h:100
 msgid "Highlight Current Line"
 msgstr "Zvýraznit nynější řádek"
 
-#: glade/cherrytree.glade.h:100
+#: glade/cherrytree.glade.h:101
 msgid "Code Nodes"
 msgstr "Uzly s kódem"
 
-#: glade/cherrytree.glade.h:101
+#: glade/cherrytree.glade.h:102
 msgid "Use Cherries as Nodes Icons"
 msgstr "Použít třešně jako ikony uzlů"
 
-#: glade/cherrytree.glade.h:102
+#: glade/cherrytree.glade.h:103
 msgid "Use Bullets as Nodes Icons"
 msgstr "Použít odrážky jako ikony uzlů"
 
-#: glade/cherrytree.glade.h:103
+#: glade/cherrytree.glade.h:104
 msgid "Do Not Display Nodes Icons"
 msgstr "Nezobrazovat ikony k uzlům"
 
-#: glade/cherrytree.glade.h:104
+#: glade/cherrytree.glade.h:105
 msgid "<b>Nodes Icons</b>"
 msgstr "<b>Ikony uzlů</b>"
 
-#: glade/cherrytree.glade.h:105
+#: glade/cherrytree.glade.h:106
 msgid "Restore Expanded/Collapsed Status"
 msgstr "Obnovit stav rozbaleno/sbaleno"
 
-#: glade/cherrytree.glade.h:106
+#: glade/cherrytree.glade.h:107
 msgid "Expand all Nodes"
 msgstr "Rozbalit všechny uzly"
 
-#: glade/cherrytree.glade.h:107
+#: glade/cherrytree.glade.h:108
 msgid "Collapse all Nodes"
 msgstr "Složit všechny uzly"
 
-#: glade/cherrytree.glade.h:108
+#: glade/cherrytree.glade.h:109
 msgid "<b>Nodes Status at Startup</b>"
 msgstr "<b>Stav uzlů při spuštění</b>"
 
-#: glade/cherrytree.glade.h:109
+#: glade/cherrytree.glade.h:110
 msgid "Tree Nodes Names Wrapping Width"
 msgstr "Největší šířka názvu uzlu před zalomením"
 
-#: glade/cherrytree.glade.h:110
+#: glade/cherrytree.glade.h:111
 msgid "Display Tree on the Right Side"
 msgstr "Zobrazit strom na pravé straně"
 
-#: glade/cherrytree.glade.h:111
+#: glade/cherrytree.glade.h:112
 msgid "Tree"
 msgstr "Strom"
 
-#: glade/cherrytree.glade.h:112
+#: glade/cherrytree.glade.h:113
 msgid "Text Font"
 msgstr "Písmo textu   "
 
-#: glade/cherrytree.glade.h:113
+#: glade/cherrytree.glade.h:114
 msgid "Code Font"
 msgstr "Písmo kódu  "
 
-#: glade/cherrytree.glade.h:114
+#: glade/cherrytree.glade.h:115
 msgid "Tree Font"
 msgstr "Písmo ve stromu"
 
-#: glade/cherrytree.glade.h:115
+#: glade/cherrytree.glade.h:116
 msgid "<b>Fonts</b>"
 msgstr "<b>Písma</b>"
 
-#: glade/cherrytree.glade.h:116
+#: glade/cherrytree.glade.h:117
 msgid "Fonts"
 msgstr "Písma"
 
-#: glade/cherrytree.glade.h:117
+#: glade/cherrytree.glade.h:118
 msgid "Enable Custom Web Link Clicked Action"
 msgstr "Povolit vlastní činnost při klepnutí na internetový odkaz"
 
-#: glade/cherrytree.glade.h:118
+#: glade/cherrytree.glade.h:119
 msgid "Enable Custom File Link Clicked Action"
 msgstr "Povolit vlastní činnost při klepnutí na odkaz souboru"
 
-#: glade/cherrytree.glade.h:119
+#: glade/cherrytree.glade.h:120
 msgid "Enable Custom Folder Link Clicked Action"
 msgstr "Povolit vlastní činnost při klepnutí na odkaz složky"
 
-#: glade/cherrytree.glade.h:120
+#: glade/cherrytree.glade.h:121
 msgid "Anchor Size"
 msgstr "Velikost kotvy"
 
-#: glade/cherrytree.glade.h:121
+#: glade/cherrytree.glade.h:122
 msgid "<b>Links</b>"
 msgstr "<b>Odkazy</b>"
 
-#: glade/cherrytree.glade.h:122
+#: glade/cherrytree.glade.h:123
 msgid "Links"
 msgstr "Odkazy"
 
-#: glade/cherrytree.glade.h:123
+#: glade/cherrytree.glade.h:124
 msgid "Enable System Tray Docking"
 msgstr "Povolit ikonu v oznamovací oblasti panelu"
 
-#: glade/cherrytree.glade.h:124
+#: glade/cherrytree.glade.h:125
 msgid "Start Minimized in the System Tray"
 msgstr "Spustit zmenšeno v oznamovací oblasti panelu"
 
-#: glade/cherrytree.glade.h:125
+#: glade/cherrytree.glade.h:126
 msgid "Use AppIndicator for Docking"
 msgstr "Použít ukazatele programů pro ukotvení v panelu"
 
-#: glade/cherrytree.glade.h:126
+#: glade/cherrytree.glade.h:127
 msgid "<b>System Tray</b>"
 msgstr "<b>Oznamovací oblast panelu</b>"
 
-#: glade/cherrytree.glade.h:127
+#: glade/cherrytree.glade.h:128
 msgid "Autosave Every"
 msgstr "Automaticky uložit každých"
 
-#: glade/cherrytree.glade.h:128
+#: glade/cherrytree.glade.h:129
 msgid "Minutes"
 msgstr "minut"
 
-#: glade/cherrytree.glade.h:129
+#: glade/cherrytree.glade.h:130
 msgid "Autosave on Quit"
 msgstr "Automaticky uložit při ukončení"
 
-#: glade/cherrytree.glade.h:130
+#: glade/cherrytree.glade.h:131
 msgid "Create a Backup Copy Before Saving"
 msgstr "Před uložením vytvořit záložní kopii"
 
-#: glade/cherrytree.glade.h:131
+#: glade/cherrytree.glade.h:132
 msgid "<b>Saving</b>"
 msgstr "<b>Ukládání</b>"
 
-#: glade/cherrytree.glade.h:132
+#: glade/cherrytree.glade.h:133
 msgid "Automatically Check for Newer Version"
 msgstr "Automaticky vyhledat novou verzi"
 
-#: glade/cherrytree.glade.h:133
+#: glade/cherrytree.glade.h:134
 msgid "Reload Document From Last Session"
 msgstr "Nahrát dokument z posledního sezení znovu"
 
-#: glade/cherrytree.glade.h:134
+#: glade/cherrytree.glade.h:135
 msgid "Reload After External Update to CT* File"
 msgstr "Nahrát znovu po vnější aktualizaci na soubor CT*"
 
-#: glade/cherrytree.glade.h:135
+#: glade/cherrytree.glade.h:136
 msgid "<b>Language</b>"
 msgstr "<b>Jazyk</b>"
 
-#: glade/cherrytree.glade.h:136
+#: glade/cherrytree.glade.h:137
 msgid "Miscellaneous"
 msgstr "Různé"
 
-#: glade/cherrytree.glade.h:137
+#: glade/cherrytree.glade.h:138
 msgid "<b>Search for</b>"
 msgstr "<b>Hledání</b>"
 
-#: glade/cherrytree.glade.h:138
+#: glade/cherrytree.glade.h:139
 msgid "<b>Replace with</b>"
 msgstr "<b>Nahrazení</b>"
 
-#: glade/cherrytree.glade.h:139
+#: glade/cherrytree.glade.h:140
 msgid "Match Case"
 msgstr "Rozlišovat velká a malá písmena"
 
-#: glade/cherrytree.glade.h:140
+#: glade/cherrytree.glade.h:141
 msgid "Regular Expression"
 msgstr "Regulární výraz"
 
-#: glade/cherrytree.glade.h:141
+#: glade/cherrytree.glade.h:142
 msgid "Whole Word"
 msgstr "Celé slovo"
 
-#: glade/cherrytree.glade.h:142
+#: glade/cherrytree.glade.h:143
 msgid "Start Word"
 msgstr "Začátek slova"
 
-#: glade/cherrytree.glade.h:143
+#: glade/cherrytree.glade.h:144
 msgid "Forward"
 msgstr "Vpřed"
 
-#: glade/cherrytree.glade.h:144
+#: glade/cherrytree.glade.h:145
 msgid "Backward"
 msgstr "Zpět"
 
-#: glade/cherrytree.glade.h:145
+#: glade/cherrytree.glade.h:146
 msgid "All, List Matches"
 msgstr "Sestavit seznam všech shod"
 
-#: glade/cherrytree.glade.h:146
+#: glade/cherrytree.glade.h:147
 msgid "First From Selection"
 msgstr "První ve výběru"
 
-#: glade/cherrytree.glade.h:147
+#: glade/cherrytree.glade.h:148
 msgid "First in All Range"
 msgstr "První v celém dokumentu"
 
-#: glade/cherrytree.glade.h:148
+#: glade/cherrytree.glade.h:149
 msgid "Show Iterated Find/Replace Dialog"
 msgstr "Ukázat dialog pro zopakování hledání/nahrazení"
 
-#: glade/cherrytree.glade.h:149
+#: glade/cherrytree.glade.h:150
 msgid "<b>Search options</b>"
 msgstr "<b>Volby pro hledání</b>"
 
-#: glade/cherrytree.glade.h:150
+#: glade/cherrytree.glade.h:151
 msgid "Rows  "
 msgstr "Řádky "
 
-#: glade/cherrytree.glade.h:151
+#: glade/cherrytree.glade.h:152
 msgid "     Columns  "
 msgstr "     Sloupce  "
 
-#: glade/cherrytree.glade.h:152
+#: glade/cherrytree.glade.h:153
 msgid "<b>Table size</b>"
 msgstr "<b>Velikost tabulky</b>"
 
-#: glade/cherrytree.glade.h:153
+#: glade/cherrytree.glade.h:154
 msgid "Min Width"
 msgstr "Nejmenší šířka"
 
-#: glade/cherrytree.glade.h:154
+#: glade/cherrytree.glade.h:155
 msgid "   Max Width"
 msgstr " Největší šířka"
 
-#: glade/cherrytree.glade.h:155
+#: glade/cherrytree.glade.h:156
 msgid "<b>Columns Properties</b>"
 msgstr "<b>Vlastnosti sloupců</b>"
 
-#: glade/cherrytree.glade.h:156
+#: glade/cherrytree.glade.h:157
 msgid "Import from CSV File"
 msgstr "Zavést ze souboru CSV"
 
-#: glade/cherrytree.glade.h:157
+#: glade/cherrytree.glade.h:158
 msgid "Rename Column"
 msgstr "Přejmenovat sloupec"
 
-#: glade/cherrytree.glade.h:158
+#: glade/cherrytree.glade.h:159
 msgid "Delete Column"
 msgstr "Smazat sloupec"
 
-#: glade/cherrytree.glade.h:159
+#: glade/cherrytree.glade.h:160
 msgid "Add Column"
 msgstr "Přidat sloupec"
 
-#: glade/cherrytree.glade.h:160
+#: glade/cherrytree.glade.h:161
 msgid "Move Column Left"
 msgstr "Posunout sloupec vlevo"
 
-#: glade/cherrytree.glade.h:161
+#: glade/cherrytree.glade.h:162
 msgid "Move Column Right"
 msgstr "Posunout sloupec vpravo"
 
-#: glade/cherrytree.glade.h:162
+#: glade/cherrytree.glade.h:163
 msgid "CherryTree"
 msgstr "CherryTree"
 
