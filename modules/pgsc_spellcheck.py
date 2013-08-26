@@ -28,7 +28,11 @@ interface it can use Gedit’s translation files.
 """
 
 import gtk
-import enchant
+try:
+    import enchant
+    HAS_PYENCHANT = True
+except:
+    HAS_PYENCHANT = False
 #import gettext
 #import logging
 import re
