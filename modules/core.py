@@ -2319,6 +2319,12 @@ class CherryTree:
         """Catches mouse buttons clicks"""
         if event.button == 3:
             self.menu_tree.popup(None, None, None, event.button, event.time)
+        elif event.button == 2:
+            path_at_click = self.treeview.get_path_at_pos(int(event.x), int(event.y))
+            if path_at_click:
+                if self.treeview.row_expanded(path_at_click[0]):
+                    self.treeview.collapse_row(path_at_click[0])
+                else: self.treeview.expand_row(path_at_click[0], False)
         elif event.button == 1 and event.type == gtk.gdk._2BUTTON_PRESS:
             self.toggle_tree_node_expanded_collapsed()
 
