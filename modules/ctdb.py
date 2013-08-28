@@ -2,7 +2,7 @@
 #
 #       ctdb.py
 #
-#       Copyright 2012 Giuseppe Penone <giuspen@gmail.com>
+#       Copyright 2009-2013 Giuseppe Penone <giuspen@gmail.com>
 #
 #       This program is free software; you can redistribute it and/or modify
 #       it under the terms of the GNU General Public License as published by
@@ -49,10 +49,6 @@ class CTDBHandler:
             self.write_db_bookmarks(db)
             need_to_commit = True
         self.bookmarks_to_write = False
-        for node_to_rm in self.nodes_to_rm_set:
-            self.remove_db_node_n_children(db, node_to_rm)
-            need_to_commit = True
-        self.nodes_to_rm_set.clear()
         for node_id_to_write in self.nodes_to_write_dict:
             #print "node_id_to_write", node_id_to_write
             write_dict = self.nodes_to_write_dict[node_id_to_write]
@@ -64,6 +60,10 @@ class CTDBHandler:
             self.write_db_node(db, tree_iter, level, node_sequence, node_father_id, write_dict)
             need_to_commit = True
         self.nodes_to_write_dict.clear()
+        for node_to_rm in self.nodes_to_rm_set:
+            self.remove_db_node_n_children(db, node_to_rm)
+            need_to_commit = True
+        self.nodes_to_rm_set.clear()
         if need_to_commit: db.commit()
         else: support.dialog_error("Writing DB Data but No Updates Found", self.dad.window)
     
