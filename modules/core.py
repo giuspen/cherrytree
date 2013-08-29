@@ -1072,7 +1072,7 @@ class CherryTree:
     def node_id_get(self):
         """Returns the node_ids, all Different Each Other"""
         new_node_id = 1
-        while self.get_tree_iter_from_node_id(new_node_id):
+        while self.get_tree_iter_from_node_id(new_node_id) or new_node_id in self.ctdb_handler.nodes_to_rm_set:
             new_node_id += 1
         return new_node_id
 
