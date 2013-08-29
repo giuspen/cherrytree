@@ -1,4 +1,9 @@
 
+0.30.3 (August 30th, 2013)
+• fixed critical bug causing loss of data in cherrytree when using sqlite as data storage type
+• fixed bug: middle (or wheel) click on tree node to expand/collapse
+• improved paste of data from web page selection
+
 0.30.2 (August 27th, 2013)
 • cherrytree can now work also without python-enchant installed, in this case it is not possible to activate spell check in the preferences dialog
 • a new language was added: Brazilian Portuguese (work from Vinicius Schmidt)
