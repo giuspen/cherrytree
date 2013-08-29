@@ -1,5 +1,5 @@
 
-0.30.3 (August 30th, 2013)
+0.30.4 (August 30th, 2013)
 • fixed critical bug causing loss of data in cherrytree when using sqlite as data storage type
 • fixed bug: middle (or wheel) click on tree node to expand/collapse
 • improved paste of data from web page selection
