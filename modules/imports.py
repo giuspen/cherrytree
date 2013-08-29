@@ -1878,16 +1878,19 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
                 self.curr_state = 1
                 if len(self.curr_table) == 1 and len(self.curr_table[0]) == 1:
                     # it's a codebox
-                    codebox_dict = {
-                    'frame_width': 300,
-                    'frame_height': 150,
-                    'width_in_pixels': True,
-                    'syntax_highlighting': cons.CUSTOM_COLORS_ID,
-                    'highlight_brackets': False,
-                    'show_line_numbers': False,
-                    'fill_text': self.curr_table[0][0]
-                    }
-                    self.dad.xml_handler.codebox_element_to_xml([0, codebox_dict, cons.TAG_PROP_LEFT], self.curr_dom_slot)
+                    text_inside_codebox = self.curr_table[0][0].strip()
+                    if text_inside_codebox:
+                        codebox_dict = {
+                        'frame_width': 300,
+                        'frame_height': 150,
+                        'width_in_pixels': True,
+                        'syntax_highlighting': cons.CUSTOM_COLORS_ID,
+                        'highlight_brackets': False,
+                        'show_line_numbers': False,
+                        'fill_text': text_inside_codebox
+                        }
+                        self.dad.xml_handler.codebox_element_to_xml([0, codebox_dict, cons.TAG_PROP_LEFT], self.curr_dom_slot)
+                    else: print "empty codebox skip"
                 else:
                     # it's a table
                     if not self.curr_table_header: self.curr_table.append([_("click me")]*len(self.curr_table[0]))
