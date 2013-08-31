@@ -613,7 +613,7 @@ class CherryTree:
             elif cherrytree_string == None: return # no error exit
         elif filepath[-1] in ["b", "x"]:
             # db
-            source_db = self.file_get_cherrytree_data(filepath, True)
+            source_db = self.file_get_cherrytree_data(filepath, False)
             if source_db: document_loaded_ok = True
             elif source_db == None: return # no error exit
         if document_loaded_ok:
