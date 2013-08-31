@@ -65,7 +65,7 @@ class CTDBHandler:
             need_to_commit = True
         self.nodes_to_rm_set.clear()
         if need_to_commit: db.commit()
-        else: support.dialog_error("Writing DB Data but No Updates Found", self.dad.window)
+        else: print "Writing DB Data but No Updates Found"
     
     def get_image_db_tuple(self, image_element, node_id):
         """From image element to db tuple"""
