@@ -3117,7 +3117,7 @@ class CherryTree:
             ret_toc_list = self.xml_handler.toc_insert_all(self.curr_buffer, self.curr_tree_iter)
         else:
             # all nodes
-            ret_toc_list = self.xml_handler.toc_insert_all(self.curr_buffer, self.treestore.get_iter_first())
+            ret_toc_list = self.xml_handler.toc_insert_all(self.curr_buffer, None)
         if user_active_restore: self.user_active = True
         if ret_toc_list:
             self.file_update = False
