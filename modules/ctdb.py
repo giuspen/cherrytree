@@ -572,3 +572,4 @@ class CTDBHandler:
         # bookmarks
         bookmarks_rows = db.execute('SELECT * FROM bookmark ORDER BY sequence ASC').fetchall()
         for bookmark_row in bookmarks_rows: self.dad.bookmarks.append(str(bookmark_row['node_id']))
+        self.dad.nodes_sequences_fix(tree_father, False)
