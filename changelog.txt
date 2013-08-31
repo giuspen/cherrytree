@@ -1,13 +1,18 @@
 
+0.30.5 (September 1st, 2013)
+• fixed critical bug that caused loss of unsaved data after import of nodes from a cherrytree document of type sqlite unprotected to sqlite protected;
+• bugfix: node position in the tree after imports
+• bugfix: TOC generation for selected node and subnodes
+
 0.30.4 (August 30th, 2013)
-• fixed critical bug causing loss of data in cherrytree when using sqlite as data storage type
-• fixed bug: middle (or wheel) click on tree node to expand/collapse
-• improved paste of data from web page selection
+• fixed critical bug causing loss of data in cherrytree when using sqlite as data storage type;
+• fixed bug: middle (or wheel) click on tree node to expand/collapse;
+• improved paste of data from web page selection.
 
 0.30.2 (August 27th, 2013)
-• cherrytree can now work also without python-enchant installed, in this case it is not possible to activate spell check in the preferences dialog
-• a new language was added: Brazilian Portuguese (work from Vinicius Schmidt)
-• double click on a node or enter key press on a node now toggles expanded/collapsed state (before entered node properties dialog)
+• cherrytree can now work also without python-enchant installed, in this case it is not possible to activate spell check in the preferences dialog;
+• a new language was added: Brazilian Portuguese (work from Vinicius Schmidt);
+• double click on a node or enter key press on a node now toggles expanded/collapsed state (before entered node properties dialog).
 
 0.30.1 (August 24th, 2013)
 • License upgrade from GPLv2+ to GPLv3+ needed to bundle pygtkspellcheck;
