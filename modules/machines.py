@@ -489,10 +489,13 @@ class XMLHandler:
         """Insert a TOC at top of text_buffer, including Node and Subnodes starting from top_tree_iter"""
         config.get_tree_expanded_collapsed_string(self.dad)
         starting_tree_iter = self.dad.curr_tree_iter.copy()
-        toc_list_per_node = []
-        while top_tree_iter != None:
-            toc_list_per_node.extend(self.toc_insert_all_iter(top_tree_iter))
-            top_tree_iter = self.dad.treestore.iter_next(top_tree_iter)
+        if top_tree_iter: toc_list_per_node = self.toc_insert_all_iter(top_tree_iter)
+        else:
+            top_tree_iter = self.dad.treestore.get_iter_first()
+            toc_list_per_node = []
+            while top_tree_iter != None:
+                toc_list_per_node.extend(self.toc_insert_all_iter(top_tree_iter))
+                top_tree_iter = self.dad.treestore.iter_next(top_tree_iter)
         config.set_tree_expanded_collapsed_string(self.dad)
         self.dad.treeview_safe_set_cursor(starting_tree_iter)
         self.dad.objects_buffer_refresh()
