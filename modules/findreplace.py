@@ -42,7 +42,8 @@ class FindReplace:
         dialog = self.dad.glade.iteratedfinddialog
         def on_key_press_iterated_find_dialog(widget, event):
             if gtk.gdk.keyval_name(event.keyval) == "Return":
-                dialog.get_widget_for_response(1).clicked()
+                try: dialog.get_widget_for_response(1).clicked()
+                except: print cons.STR_PYGTK_222_REQUIRED
                 return True
         dialog.connect("key_press_event", on_key_press_iterated_find_dialog)
         response = dialog.run()

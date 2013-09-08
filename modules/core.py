@@ -581,22 +581,30 @@ class CherryTree:
     def on_key_press_choosenodedialog(self, widget, event):
         """Catches ChooseNode Dialog key presses"""
         keyname = gtk.gdk.keyval_name(event.keyval)
-        if keyname == "Return": self.glade.choosenodedialog.get_widget_for_response(1).clicked()
+        if keyname == "Return":
+            try: self.glade.choosenodedialog.get_widget_for_response(1).clicked()
+            except: print cons.STR_PYGTK_222_REQUIRED
 
     def on_key_press_anchorhandledialog(self, widget, event):
         """Catches AnchorHandle Dialog key presses"""
         keyname = gtk.gdk.keyval_name(event.keyval)
-        if keyname == "Return": self.glade.anchorhandledialog.get_widget_for_response(1).clicked()
+        if keyname == "Return":
+            try: self.glade.anchorhandledialog.get_widget_for_response(1).clicked()
+            except: print cons.STR_PYGTK_222_REQUIRED
 
     def on_key_press_nodepropdialog(self, widget, event):
         """Catches Node Properties Dialog key presses"""
         keyname = gtk.gdk.keyval_name(event.keyval)
-        if keyname == "Return": self.glade.nodepropdialog.get_widget_for_response(1).clicked()
+        if keyname == "Return":
+            try: self.glade.nodepropdialog.get_widget_for_response(1).clicked()
+            except: print cons.STR_PYGTK_222_REQUIRED
 
     def on_key_press_searchdialog(self, widget, event):
         """Catches Search Dialog key presses"""
         keyname = gtk.gdk.keyval_name(event.keyval)
-        if keyname == "Return": self.glade.searchdialog.get_widget_for_response(1).clicked()
+        if keyname == "Return":
+            try: self.glade.searchdialog.get_widget_for_response(1).clicked()
+            except: print cons.STR_PYGTK_222_REQUIRED
 
     def nodes_add_from_cherrytree_file(self, action):
         """Appends Nodes at the Bottom of the Current Ones, Importing from a CherryTree File"""
@@ -1382,7 +1390,8 @@ class CherryTree:
             else: passw_frame.set_sensitive(False)
         def on_key_press_edit_data_storage_type_dialog(widget, event):
             if gtk.gdk.keyval_name(event.keyval) == "Return":
-                dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
+                try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
+                except: print cons.STR_PYGTK_222_REQUIRED
                 return True
         radiobutton_sqlite_not_protected.connect("toggled", on_radiobutton_savetype_toggled)
         radiobutton_sqlite_pass_protected.connect("toggled", on_radiobutton_savetype_toggled)
@@ -1445,7 +1454,8 @@ class CherryTree:
         content_area.pack_start(entry)
         def on_key_press_enter_password_dialog(widget, event):
             if gtk.gdk.keyval_name(event.keyval) == "Return":
-                dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
+                try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
+                except: print cons.STR_PYGTK_222_REQUIRED
                 return True
         dialog.connect("key_press_event", on_key_press_enter_password_dialog)
         dialog.show_all()

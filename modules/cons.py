@@ -155,6 +155,7 @@ STR_VISIBLE = "visible"
 STR_UTF8 = "utf-8"
 STR_UTF16 = "utf-16"
 STR_IGNORE = "ignore"
+STR_PYGTK_222_REQUIRED = "PyGTK 2.22 required"
 
 HTML_HEADER = '<!doctype html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><title>%s</title><meta name="generator" content="CherryTree"></head><body>'
 HTML_FOOTER = '</body></html>'
