@@ -28,7 +28,6 @@ iso-code messages are installed on your system.
 """
 
 import gettext
-#import logging
 import os
 import sqlite3
 import cons
@@ -45,24 +44,15 @@ _translator_country = gettext.translation('iso_3166', fallback=True).gettext
 # os.path.get_module_path monkey patch to determine the path where the module
 # is located it uses this. If not it searches in the directory of this source
 # code file.
-#__path__ = None
-#if hasattr(os.path, 'get_module_path'):
-    #__path__ = os.path.get_module_path(__file__)
-    #if not os.path.isfile(os.path.join(__path__, 'pgsc_locales.db')):
-        #__path__ = None
-#if __path__ is None:
-    #__path__ = os.path.abspath(os.path.realpath(os.path.dirname(__file__)))
 
 # loading the database
 _database = sqlite3.connect(os.path.join(cons.GLADE_PATH, 'pgsc_locales.db'))
-
-#logger = logging.getLogger(__name__)
 
 class LanguageNotFound(Exception):
     """
     The specified language wasn't found in the database.
     """
-    
+
 class CountryNotFound(Exception):
     """
     The specified country wasn't found in the database.
@@ -99,7 +89,8 @@ class Country(object):
     @classmethod
     def by_numeric(cls, code):
         return Country.get_country(code, 'numeric')
-   
+
+
 class Language(object):
     def __init__(self, rowid):
         language = _database.execute('SELECT * FROM languages WHERE rowid == ?',
@@ -140,8 +131,6 @@ def code_to_name(code, separator='_'):
     :param target: separator used to separate language from country
     :rtype: human readable and translated language name
     """
-    #logger.debug('requesting name for code "{}"'.format(code))
-    #print 'requesting name for code "{}"'.format(code)
     code = code.split(separator)
     if len(code) > 1:
         lang = Language.by_iso_639_1(code[0]).translation
