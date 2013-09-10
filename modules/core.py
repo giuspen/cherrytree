@@ -2206,7 +2206,6 @@ class CherryTree:
     def on_checkbutton_auto_indent_toggled(self, checkbutton):
         """Automatic Indentation Toggled Handling"""
         self.auto_indent = self.glade.checkbutton_auto_indent.get_active()
-        self.sourceview.set_auto_indent(self.auto_indent)
 
     def on_checkbutton_line_nums_toggled(self, checkbutton):
         """Show Line Num Toggled Handling"""
@@ -3684,8 +3683,9 @@ class CherryTree:
                 return
         if property_value == None:
             if tag_property == cons.TAG_LINK:
-                if self.next_chars_from_iter_are(iter_sel_start, 7, "http://")\
-                or self.next_chars_from_iter_are(iter_sel_start, 8, "https://"):
+                if support.get_next_chars_from_iter_are(iter_sel_start, 7, "http://")\
+                or support.get_next_chars_from_iter_are(iter_sel_start, 8, "https://")\
+                or support.get_next_chars_from_iter_are(iter_sel_start, 4, "www."):
                     self.link_type = cons.LINK_TYPE_WEBS
                     self.glade.link_website_entry.set_text(text_buffer.get_text(iter_sel_start, iter_sel_end))
                 self.node_choose_view_exist_or_create(link_node_id)
@@ -3772,14 +3772,6 @@ class CherryTree:
                                           iter_sel_start, iter_sel_end)
         if self.user_active:
             self.update_window_save_needed("nbuf", True)
-
-    def next_chars_from_iter_are(self, iter_start, num, chars):
-        """Returns True if the Given Chars are the next 'num' after iter"""
-        iter = iter_start.copy()
-        for i in range(num):
-            if iter.get_char() != chars[i]: return False
-            if i != num-1 and not iter.forward_char(): return False
-        return True
 
     def apply_tag_exist_or_create(self, tag_property, property_value):
         """Check into the Tags Table whether the Tag Exists, if Not Creates it"""
@@ -4137,11 +4129,18 @@ class CherryTree:
                     self.curr_buffer.insert(self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert()), 3*cons.CHAR_SPACE)
             elif keyname == "Return":
                 iter_insert = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
-                if iter_insert == None: return False
+                if iter_insert == None:
+                    return False
                 iter_start = iter_insert.copy()
-                if iter_start.backward_chars(2) and iter_start.get_char() == cons.CHAR_NEWLINE: return False # former was an empty row
+                if iter_start.backward_chars(2) and iter_start.get_char() == cons.CHAR_NEWLINE:
+                    return False # former was an empty row
                 list_info = self.lists_handler.get_paragraph_list_info(iter_start)
-                if list_info[0] == None: return False # former was not a list
+                if list_info[0] == None:
+                    if self.auto_indent:
+                        iter_start = iter_insert.copy()
+                        former_line_indent = support.get_former_line_indentation(iter_start)
+                        if former_line_indent: self.curr_buffer.insert_at_cursor(former_line_indent)
+                    return False # former was not a list
                 # possible list quit
                 iter_list_quit = iter_insert.copy()
                 if (list_info[0] == 0 and iter_list_quit.backward_chars(3) and iter_list_quit.get_char() == cons.CHAR_LISTBUL):

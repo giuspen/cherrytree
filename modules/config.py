@@ -283,7 +283,6 @@ def config_file_apply(inst):
     if inst.line_wrapping: inst.sourceview.set_wrap_mode(gtk.WRAP_WORD)
     else: inst.sourceview.set_wrap_mode(gtk.WRAP_NONE)
     inst.glade.checkbutton_line_wrap.set_active(inst.line_wrapping)
-    inst.sourceview.set_auto_indent(inst.auto_indent)
     inst.glade.checkbutton_auto_indent.set_active(inst.auto_indent)
     inst.glade.checkbutton_systray.set_active(inst.systray)
     inst.glade.checkbutton_use_appind.set_active(inst.use_appind)
