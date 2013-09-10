@@ -60,6 +60,36 @@ def get_node_hierarchical_name(dad, tree_iter, separator="--"):
         hierarchical_name = hierarchical_name[-cons.MAX_FILE_NAME_LEN:]
     return hierarchical_name
 
+def get_next_chars_from_iter_are(iter_start, num, chars):
+    """Returns True if the Given Chars are the next 'num' after iter"""
+    text_iter = iter_start.copy()
+    for i in range(num):
+        if text_iter.get_char() != chars[i]: return False
+        if i != num-1 and not text_iter.forward_char(): return False
+    return True
+
+def get_former_line_indentation(iter_start):
+    """Returns the indentation of the former paragraph or empty string"""
+    if not iter_start.backward_chars(2) or iter_start.get_char() == cons.CHAR_NEWLINE: return ""
+    buffer_start = False
+    while iter_start:
+        if iter_start.get_char() == cons.CHAR_NEWLINE: break # we got the previous paragraph start
+        elif not iter_start.backward_char():
+            buffer_start = True
+            break # we reached the buffer start
+    if not buffer_start: iter_start.forward_char()
+    if iter_start.get_char() == cons.CHAR_SPACE:
+        num_spaces = 1
+        while iter_start.forward_char() and iter_start.get_char() == cons.CHAR_SPACE:
+            num_spaces += 1
+        return num_spaces*cons.CHAR_SPACE
+    if iter_start.get_char() == cons.CHAR_TAB:
+        num_tabs = 1
+        while iter_start.forward_char() and iter_start.get_char() == cons.CHAR_TAB:
+            num_tabs += 1
+        return num_tabs*cons.CHAR_TAB
+    return ""
+
 def windows_cmd_prepare_path(filepath):
     """Prepares a Path to be digested by windows command line"""
     if not cons.CHAR_DQUOTE in filepath: return cons.CHAR_DQUOTE + filepath + cons.CHAR_DQUOTE

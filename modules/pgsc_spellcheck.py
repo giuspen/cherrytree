@@ -493,13 +493,11 @@ class SpellChecker(object):
 
     def _before_text_insert(self, textbuffer, location, text, length):
         if not self._cherrytree_instance.user_active: return
-        if text.strip() in ["",  "\n"]: return
         #print "before '%s'" % text
         self._marks['insert-start'].move(location)
 
     def _after_text_insert(self, textbuffer, location, text, length):
         if not self._cherrytree_instance.user_active: return
-        if text.strip() in ["",  "\n"]: return
         #print "after '%s'" % text
         start = self._marks['insert-start'].iter
         self.check_range(start, location)
