@@ -1269,14 +1269,20 @@ class CherryTree:
                     del self.db
         if self.password:
             if cons.IS_WIN_OS:
-                filepath_4win = support.windows_cmd_prepare_path(filepath)
-                filepath_tmp_4win = support.windows_cmd_prepare_path(filepath_tmp)
-                bash_str = '7za a -p%s -bd -y ' % self.password +\
-                           filepath_4win + cons.CHAR_SPACE + filepath_tmp_4win
+                esc_tmp_folder = support.windows_cmd_prepare_path(cons.TMP_FOLDER)
+                esc_filepath = support.windows_cmd_prepare_path(filepath)
+                esc_filepath_tmp = support.windows_cmd_prepare_path(filepath_tmp)
             else:
-                bash_str = 'cd && 7za a -p%s -bd -y %s %s && cd -' % (self.password,
-                                                        re.escape(filepath),
-                                                        re.escape(filepath_tmp))
+                esc_tmp_folder = re.escape(cons.TMP_FOLDER)
+                esc_filepath = re.escape(filepath)
+                esc_filepath_tmp = re.escape(filepath_tmp)
+            if os.path.isfile(filepath):
+                # clean older archive content
+                subprocess.call("7za d %s" % esc_filepath, shell=True)
+            bash_str = '7za a -p%s -w%s -bd -y %s %s' % (self.password,
+                                                         esc_tmp_folder,
+                                                         esc_filepath,
+                                                         esc_filepath_tmp)
             #print bash_str
             if not xml_string and not exporting: self.db.close()
             ret_code = subprocess.call(bash_str, shell=True)
@@ -1480,14 +1486,15 @@ class CherryTree:
             last_letter = "d" if filepath[-1] == "z" else "b"
             filepath_tmp = os.path.join(cons.TMP_FOLDER, os.path.basename(filepath[:-1] + last_letter))
             if cons.IS_WIN_OS:
-                dest_dir_4win = support.windows_cmd_prepare_path("-o" + cons.TMP_FOLDER)
-                filepath_4win = support.windows_cmd_prepare_path(filepath)
-                bash_str = '7za e -p%s -bd -y ' % password_str +\
-                           dest_dir_4win + cons.CHAR_SPACE + filepath_4win
+                esc_tmp_folder = support.windows_cmd_prepare_path(cons.TMP_FOLDER)
+                esc_filepath = support.windows_cmd_prepare_path(filepath)
             else:
-                bash_str = 'cd && 7za e -p%s -bd -y -o%s %s && cd -' % (password_str,
-                                                          re.escape(cons.TMP_FOLDER),
-                                                          re.escape(filepath))
+                esc_tmp_folder = re.escape(cons.TMP_FOLDER)
+                esc_filepath = re.escape(filepath)
+            bash_str = '7za e -p%s -w%s -bd -y -o%s %s' % (password_str,
+                                                           esc_tmp_folder,
+                                                           esc_tmp_folder,
+                                                           esc_filepath)
             #print bash_str
             ret_code = subprocess.call(bash_str, shell=True)
             if ret_code != 0:
