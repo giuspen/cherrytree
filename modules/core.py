@@ -1271,9 +1271,6 @@ class CherryTree:
             if cons.IS_WIN_OS:
                 filepath_4win = support.windows_cmd_prepare_path(filepath)
                 filepath_tmp_4win = support.windows_cmd_prepare_path(filepath_tmp)
-                if not filepath_4win or not filepath_tmp_4win:
-                    support.dialog_error(_("The Contemporary Presence of Single and Double Quotes in the File Path Prevents 7za.exe to Work, Please Change the File Name"), self.window)
-                    raise
                 bash_str = '7za a -p%s -bd -y ' % self.password +\
                            filepath_4win + cons.CHAR_SPACE + filepath_tmp_4win
             else:
@@ -1485,9 +1482,6 @@ class CherryTree:
             if cons.IS_WIN_OS:
                 dest_dir_4win = support.windows_cmd_prepare_path("-o" + cons.TMP_FOLDER)
                 filepath_4win = support.windows_cmd_prepare_path(filepath)
-                if not dest_dir_4win or not filepath_4win:
-                    support.dialog_error(_("The Contemporary Presence of Single and Double Quotes in the File Path Prevents 7za.exe to Work, Please Change the File Name"), self.window)
-                    return None
                 bash_str = '7za e -p%s -bd -y ' % password_str +\
                            dest_dir_4win + cons.CHAR_SPACE + filepath_4win
             else:
@@ -1500,7 +1494,7 @@ class CherryTree:
                 support.dialog_error(_('Wrong Password'), self.window)
                 return None
             if not os.path.isfile(filepath_tmp):
-                # the compressed file was renamed
+                print "? the compressed file was renamed"
                 files_list = glob.glob(os.path.join(os.path.dirname(filepath_tmp), "*"+filepath_tmp[-4:]))
                 if len(files_list) == 1:
                     old_filepath_tmp = files_list[0]
