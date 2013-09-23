@@ -719,6 +719,14 @@ class CherryTree:
             cherrytree_string = basket.get_cherrytree_xml()
             self.nodes_add_from_cherrytree_data(cherrytree_string)
 
+    def nodes_add_from_plain_text_file(self, action):
+        """Add Nodes from Selected Plain Text File(s)"""
+        pass
+
+    def nodes_add_from_plain_text_folder(self, action):
+        """Add Nodes from Plain Text File(s) in Selected Folder"""
+        pass
+
     def nodes_add_from_treepad_file(self, action):
         """Add Nodes Parsing a Treepad File"""
         filepath = support.dialog_file_select(filter_pattern="*.hjt",

@@ -360,6 +360,8 @@ UI_INFO = """
 
         <menu action='ImportMenu'>
             <menuitem action='FromCherryTree'/>
+            <menuitem action='FromTxtFile'/>
+            <menuitem action='FromTxtFolder'/>
             <menuitem action='FromBasket'/>
             <menuitem action='FromGnote'/>
             <menuitem action='FromKeepNote'/>
@@ -579,10 +581,12 @@ def get_entries(inst):
     ( "DecreaseToolbarIconsSize", "gtk-remove", _("_Decrease Toolbar Icons Size"), None, _("Decrease the Size of the Toolbar Icons"), inst.toolbar_icons_size_decrease),
     ( "ToggleTreeText", "gtk-jump-to", _("Toggle _Focus Tree/Text"), "<control>J", _("Toggle Focus Between Tree and Text"), inst.toggle_tree_text),
     ( "ToggleNodeExpColl", "gtk-zoom-in", _("Toggle Node _Expanded/Collapsed"), "<control><shift>J", _("Toggle Expanded/Collapsed Status of the Selected Node"), inst.toggle_tree_node_expanded_collapsed),
-    ( "NodesExpAll", "gtk-zoom-in", _("E_xpand All Nodes"), None, _("Expand All the Tree Nodes"), inst.nodes_expand_all),
-    ( "NodesCollAll", "gtk-zoom-out", _("_Collapse All Nodes"), None, _("Collapse All the Tree Nodes"), inst.nodes_collapse_all),
+    ( "NodesExpAll", "gtk-zoom-in", _("E_xpand All Nodes"), "<control><shift>E", _("Expand All the Tree Nodes"), inst.nodes_expand_all),
+    ( "NodesCollAll", "gtk-zoom-out", _("_Collapse All Nodes"), "<control><shift>L", _("Collapse All the Tree Nodes"), inst.nodes_collapse_all),
     ( "Fullscreen", "gtk-fullscreen", _("_Full Screen On/Off"), "F11", _("Toggle Full Screen On/Off"), inst.fullscreen_toggle),
     ( "FromCherryTree", "from_cherrytree", _("From _CherryTree File"), None, _("Add Nodes of a CherryTree File to the Current Tree"), inst.nodes_add_from_cherrytree_file),
+    ( "FromTxtFile", "from_txt", _("From _Plain Text File"), None, _("Add Node from a Plain Text File to the Current Tree"), inst.nodes_add_from_plain_text_file),
+    ( "FromTxtFolder", "from_txt", _("From _Folder of Plain Text Files"), None, _("Add Nodes from a Folder of Plain Text Files to the Current Tree"), inst.nodes_add_from_plain_text_folder),
     ( "FromBasket", STR_STOCK_CT_IMP, _("From _Basket Folder"), None, _("Add Nodes of a Basket Folder to the Current Tree"), inst.nodes_add_from_basket_folder),
     ( "FromGnote", STR_STOCK_CT_IMP, _("From _Gnote Folder"), None, _("Add Nodes of a Gnote Folder to the Current Tree"), inst.nodes_add_from_gnote_folder),
     ( "FromKeepNote", STR_STOCK_CT_IMP, _("From _KeepNote Folder"), None, _("Add Nodes of a KeepNote Folder to the Current Tree"), inst.nodes_add_from_keepnote_folder),
@@ -647,6 +651,8 @@ def get_popup_menu_tree(inst):
     ("separator", None, None, None, None),
     ("submenu-start", _("Nodes _Import"), STR_STOCK_CT_IMP, None, None),
     ("from_cherrytree", _("From _CherryTree File"), None, _("Add Nodes of a CherryTree File to the Current Tree"), inst.nodes_add_from_cherrytree_file),
+    ("from_txt", _("From _Plain Text File"), None, _("Add Node from a Plain Text File to the Current Tree"), inst.nodes_add_from_plain_text_file),
+    ("from_txt", _("From _Folder of Plain Text Files"), None, _("Add Nodes from a Folder of Plain Text Files to the Current Tree"), inst.nodes_add_from_plain_text_folder),
     (STR_STOCK_CT_IMP, _("From _Basket Folder"), None, _("Add Nodes of a Basket Folder to the Current Tree"), inst.nodes_add_from_basket_folder),
     (STR_STOCK_CT_IMP, _("From _Gnote Folder"), None, _("Add Nodes of a Gnote Folder to the Current Tree"), inst.nodes_add_from_gnote_folder),
     (STR_STOCK_CT_IMP, _("From _KeepNote Folder"), None, _("Add Nodes of a KeepNote Folder to the Current Tree"), inst.nodes_add_from_keepnote_folder),
