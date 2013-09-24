@@ -721,7 +721,9 @@ class CherryTree:
 
     def nodes_add_from_plain_text_file(self, action):
         """Add Nodes from Selected Plain Text File(s)"""
-        filepath = support.dialog_file_select(curr_folder=self.file_dir, parent=self.window)
+        filepath = support.dialog_file_select(filter_mime="text/plain",
+                                              filter_name=_("Plain Text Document"),
+                                              curr_folder=self.file_dir, parent=self.window)
         if filepath == None: return
         plain = imports.PlainTextHandler()
         cherrytree_string = plain.get_cherrytree_xml(filepath=filepath)
