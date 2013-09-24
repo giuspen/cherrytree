@@ -125,7 +125,7 @@ def dialog_file_save_as(filename=None, filter_pattern=None, filter_name=None, cu
         chooser.destroy()
         return None
 
-def dialog_file_select(filter_pattern=None, filter_name=None, curr_folder=None, parent=None):
+def dialog_file_select(filter_pattern=None, filter_mime=None, filter_name=None, curr_folder=None, parent=None):
     """The Select file dialog, Returns the retrieved filepath or None"""
     chooser = gtk.FileChooserDialog(title = _("Select File"),
                                     action=gtk.FILE_CHOOSER_ACTION_OPEN,
@@ -140,10 +140,11 @@ def dialog_file_select(filter_pattern=None, filter_name=None, curr_folder=None, 
         chooser.set_current_folder(os.path.expanduser('~'))
     else:
         chooser.set_current_folder(curr_folder)
-    if filter_pattern != None:
+    if filter_pattern or filter_mime:
         filter = gtk.FileFilter()
         filter.set_name(filter_name)
-        filter.add_pattern(filter_pattern)
+        if filter_pattern: filter.add_pattern(filter_pattern)
+        else: filter.add_mime_type(filter_mime)
         chooser.add_filter(filter)
     if chooser.run() == gtk.RESPONSE_OK:
         filepath = chooser.get_filename()
