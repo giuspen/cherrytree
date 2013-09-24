@@ -721,11 +721,19 @@ class CherryTree:
 
     def nodes_add_from_plain_text_file(self, action):
         """Add Nodes from Selected Plain Text File(s)"""
-        pass
+        filepath = support.dialog_file_select(curr_folder=self.file_dir, parent=self.window)
+        if filepath == None: return
+        plain = imports.PlainTextHandler()
+        cherrytree_string = plain.get_cherrytree_xml(filepath=filepath)
+        self.nodes_add_from_cherrytree_data(cherrytree_string)
 
     def nodes_add_from_plain_text_folder(self, action):
         """Add Nodes from Plain Text File(s) in Selected Folder"""
-        pass
+        folderpath = support.dialog_folder_select(curr_folder=self.file_dir, parent=self.window)
+        if folderpath == None: return
+        plain = imports.PlainTextHandler()
+        cherrytree_string = plain.get_cherrytree_xml(folderpath=folderpath)
+        self.nodes_add_from_cherrytree_data(cherrytree_string)
 
     def nodes_add_from_treepad_file(self, action):
         """Add Nodes Parsing a Treepad File"""

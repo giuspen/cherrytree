@@ -1413,6 +1413,58 @@ class TreepadHandler:
         return self.dom.toxml()
 
 
+class PlainTextHandler:
+    """The Handler of the Plain Text Parsing"""
+
+    def rich_text_serialize(self, text_data):
+        """Appends a new part to the XML rich text"""
+        dom_iter = self.dom.createElement("rich_text")
+        self.nodes_list[-1].appendChild(dom_iter)
+        text_iter = self.dom.createTextNode(text_data)
+        dom_iter.appendChild(text_iter)
+
+    def add_folder(self, folderpath):
+        """Add nodes from plain text files in a Folder"""
+        for element in sorted(os.listdir(folderpath)):
+            full_element = os.path.join(folderpath, element)
+            if os.path.isfile(full_element):
+                self.add_file(full_element)
+            elif os.path.isdir(full_element):
+                self.curr_node_level += 1
+                self.add_folder(full_element)
+                self.curr_node_level -= 1
+
+    def add_file(self, filepath):
+        """Add node from one plain text File"""
+        if self.curr_node_level <= self.former_node_level:
+            for count in range(self.former_node_level - self.curr_node_level):
+                self.nodes_list.pop()
+            self.nodes_list.pop()
+        self.former_node_level = self.curr_node_level
+        file_content = ""
+        try:
+            file_descriptor = open(filepath, 'r')
+            file_content = file_descriptor.read()
+            file_descriptor.close()
+        except: return
+        self.nodes_list.append(self.dom.createElement("node"))
+        self.nodes_list[-1].setAttribute("name", os.path.basename(filepath))
+        self.nodes_list[-1].setAttribute("prog_lang", cons.CUSTOM_COLORS_ID)
+        self.nodes_list[-2].appendChild(self.nodes_list[-1])
+        self.rich_text_serialize(file_content)
+
+    def get_cherrytree_xml(self, filepath="", folderpath=""):
+        """Returns a CherryTree string Containing the Mempad Nodes"""
+        self.dom = xml.dom.minidom.Document()
+        self.nodes_list = [self.dom.createElement(cons.APP_NAME)]
+        self.dom.appendChild(self.nodes_list[0])
+        self.curr_node_level = 0
+        self.former_node_level = -1
+        if filepath: self.add_file(filepath)
+        else: self.add_folder(folderpath)
+        return self.dom.toxml()
+
+
 class MempadHandler:
     """The Handler of the Mempad File Parsing"""
 
