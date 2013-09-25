@@ -1430,9 +1430,14 @@ class PlainTextHandler:
             if os.path.isfile(full_element):
                 gio_file = gio.File(full_element)
                 gio_file_info = gio_file.query_info("*")
-                mime_types = str(gio_file_info.get_icon())
-                if "text-" in mime_types:
-                    self.add_file(full_element)
+                if not cons.IS_WIN_OS:
+                    mime_types = str(gio_file_info.get_icon())
+                    if "text-" in mime_types:
+                        self.add_file(full_element)
+                else:
+                    mime_type = gio_file_info.get_content_type()
+                    if mime_type in [".txt", ".TXT"]:
+                        self.add_file(full_element)
             elif os.path.isdir(full_element):
                 self.add_node_with_content(full_element, "")
                 self.add_folder(full_element)
