@@ -1434,9 +1434,9 @@ class PlainTextHandler:
                 if "text-" in mime_types:
                     self.add_file(full_element)
             elif os.path.isdir(full_element):
-                self.curr_node_level += 1
+                self.add_node_with_content(full_element, "")
                 self.add_folder(full_element)
-                self.curr_node_level -= 1
+                self.nodes_list.pop()
 
     def add_file(self, filepath):
         """Add node from one plain text File"""
@@ -1447,11 +1447,11 @@ class PlainTextHandler:
             file_descriptor.close()
             file_content = file_content.decode(cons.STR_UTF8)
         except: return
-        if self.curr_node_level <= self.former_node_level:
-            for count in range(self.former_node_level - self.curr_node_level):
-                self.nodes_list.pop()
-            self.nodes_list.pop()
-        self.former_node_level = self.curr_node_level
+        self.add_node_with_content(filepath, file_content)
+        self.nodes_list.pop()
+
+    def add_node_with_content(self, filepath, file_content):
+        """Append Node and Fill Content"""
         self.nodes_list.append(self.dom.createElement("node"))
         self.nodes_list[-1].setAttribute("name", os.path.basename(filepath))
         self.nodes_list[-1].setAttribute("prog_lang", cons.CUSTOM_COLORS_ID)
@@ -1463,8 +1463,6 @@ class PlainTextHandler:
         self.dom = xml.dom.minidom.Document()
         self.nodes_list = [self.dom.createElement(cons.APP_NAME)]
         self.dom.appendChild(self.nodes_list[0])
-        self.curr_node_level = 0
-        self.former_node_level = -1
         if filepath: self.add_file(filepath)
         else: self.add_folder(folderpath)
         return self.dom.toxml()
