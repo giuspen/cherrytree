@@ -20,7 +20,7 @@
 #       MA 02110-1301, USA.
 
 import HTMLParser, htmlentitydefs
-import gtk, os, xml.dom.minidom, re, base64, urllib2
+import gtk, gio, os, xml.dom.minidom, re, base64, urllib2
 import cons, machines
 
 
@@ -1428,7 +1428,11 @@ class PlainTextHandler:
         for element in sorted(os.listdir(folderpath)):
             full_element = os.path.join(folderpath, element)
             if os.path.isfile(full_element):
-                self.add_file(full_element)
+                gio_file = gio.File(full_element)
+                gio_file_info = gio_file.query_info("*")
+                mime_types = str(gio_file_info.get_icon())
+                if "text-" in mime_types:
+                    self.add_file(full_element)
             elif os.path.isdir(full_element):
                 self.curr_node_level += 1
                 self.add_folder(full_element)
@@ -1436,17 +1440,18 @@ class PlainTextHandler:
 
     def add_file(self, filepath):
         """Add node from one plain text File"""
-        if self.curr_node_level <= self.former_node_level:
-            for count in range(self.former_node_level - self.curr_node_level):
-                self.nodes_list.pop()
-            self.nodes_list.pop()
-        self.former_node_level = self.curr_node_level
         file_content = ""
         try:
             file_descriptor = open(filepath, 'r')
             file_content = file_descriptor.read()
             file_descriptor.close()
+            file_content = file_content.decode(cons.STR_UTF8)
         except: return
+        if self.curr_node_level <= self.former_node_level:
+            for count in range(self.former_node_level - self.curr_node_level):
+                self.nodes_list.pop()
+            self.nodes_list.pop()
+        self.former_node_level = self.curr_node_level
         self.nodes_list.append(self.dom.createElement("node"))
         self.nodes_list[-1].setAttribute("name", os.path.basename(filepath))
         self.nodes_list[-1].setAttribute("prog_lang", cons.CUSTOM_COLORS_ID)
