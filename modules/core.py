@@ -608,7 +608,7 @@ class CherryTree:
 
     def nodes_add_from_cherrytree_file(self, action):
         """Appends Nodes at the Bottom of the Current Ones, Importing from a CherryTree File"""
-        filepath = support.dialog_file_select(filter_pattern="*.ct*",
+        filepath = support.dialog_file_select(filter_pattern=["*.ct*"],
                                               filter_name=_("CherryTree Document"),
                                               curr_folder=self.file_dir,
                                               parent=self.window)
@@ -637,7 +637,7 @@ class CherryTree:
 
     def nodes_add_from_notecase_file(self, action):
         """Add Nodes Parsing a NoteCase File"""
-        filepath = support.dialog_file_select(filter_pattern="*.ncd",
+        filepath = support.dialog_file_select(filter_pattern=["*.ncd"],
                                               filter_name=_("NoteCase Document"),
                                               curr_folder=self.file_dir,
                                               parent=self.window)
@@ -721,7 +721,8 @@ class CherryTree:
 
     def nodes_add_from_plain_text_file(self, action):
         """Add Nodes from Selected Plain Text File(s)"""
-        filepath = support.dialog_file_select(filter_mime="text/plain",
+        filepath = support.dialog_file_select(filter_pattern=["*.txt", "*.TXT"] if cons.IS_WIN_OS else [],
+                                              filter_mime=["text/*"] if not cons.IS_WIN_OS else [],
                                               filter_name=_("Plain Text Document"),
                                               curr_folder=self.file_dir, parent=self.window)
         if filepath == None: return
@@ -739,7 +740,7 @@ class CherryTree:
 
     def nodes_add_from_treepad_file(self, action):
         """Add Nodes Parsing a Treepad File"""
-        filepath = support.dialog_file_select(filter_pattern="*.hjt",
+        filepath = support.dialog_file_select(filter_pattern=["*.hjt"],
                                               filter_name=_("Treepad Document"),
                                               curr_folder=self.file_dir,
                                               parent=self.window)
@@ -757,7 +758,7 @@ class CherryTree:
 
     def nodes_add_from_keynote_file(self, action):
         """Add Nodes Parsing a Keynote File"""
-        filepath = support.dialog_file_select(filter_pattern="*.knt",
+        filepath = support.dialog_file_select(filter_pattern=["*.knt"],
                                               filter_name=_("KeyNote Document"),
                                               curr_folder=self.file_dir,
                                               parent=self.window)
@@ -775,7 +776,7 @@ class CherryTree:
 
     def nodes_add_from_mempad_file(self, action):
         """Add Nodes Parsing a Mempad File"""
-        filepath = support.dialog_file_select(filter_pattern="*.lst",
+        filepath = support.dialog_file_select(filter_pattern=["*.lst"],
                                               filter_name=_("Mempad Document"),
                                               curr_folder=self.file_dir,
                                               parent=self.window)
@@ -793,7 +794,7 @@ class CherryTree:
 
     def nodes_add_from_knowit_file(self, action):
         """Add Nodes Parsing a Knowit File"""
-        filepath = support.dialog_file_select(filter_pattern="*.kno",
+        filepath = support.dialog_file_select(filter_pattern=["*.kno"],
                                               filter_name=_("Knowit Document"),
                                               curr_folder=self.file_dir,
                                               parent=self.window)
@@ -811,7 +812,7 @@ class CherryTree:
 
     def nodes_add_from_leo_file(self, action):
         """Add Nodes Parsing a Leo File"""
-        filepath = support.dialog_file_select(filter_pattern="*.leo",
+        filepath = support.dialog_file_select(filter_pattern=["*.leo"],
                                               filter_name=_("Leo Document"),
                                               curr_folder=self.file_dir,
                                               parent=self.window)
@@ -1345,7 +1346,7 @@ class CherryTree:
 
     def file_open(self, *args):
         """Opens a dialog to browse for a cherrytree filepath"""
-        filepath = support.dialog_file_select(filter_pattern="*.ct*",
+        filepath = support.dialog_file_select(filter_pattern=["*.ct*"],
                                               filter_name=_("CherryTree Document"),
                                               curr_folder=self.file_dir,
                                               parent=self.window)

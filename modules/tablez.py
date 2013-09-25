@@ -88,7 +88,7 @@ class TablesHandler:
             self.table_col_max = int(self.dad.glade.spinbutton_table_col_max.get_value())
             self.table_insert(iter_insert)
         else:
-            filepath = support.dialog_file_select(filter_pattern="*.csv",
+            filepath = support.dialog_file_select(filter_pattern=["*.csv"],
                                                   filter_name=_("CSV File"),
                                                   curr_folder=self.dad.pick_dir,
                                                   parent=self.dad.window)
