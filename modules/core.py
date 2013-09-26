@@ -714,7 +714,7 @@ class CherryTree:
         start_folder = os.path.join(os.path.expanduser('~'), ".kde/share/apps/basket/baskets")
         folderpath = support.dialog_folder_select(curr_folder=start_folder, parent=self.window)
         if folderpath == None: return
-        basket = imports.BasketHandler(folderpath)
+        basket = imports.BasketHandler(self, folderpath)
         if basket.check_basket_structure():
             cherrytree_string = basket.get_cherrytree_xml()
             self.nodes_add_from_cherrytree_data(cherrytree_string)
