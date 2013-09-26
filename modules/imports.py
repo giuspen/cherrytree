@@ -826,6 +826,9 @@ class BasketHandler(HTMLParser.HTMLParser):
     def check_basket_structure(self):
         """Check the Selected Folder to be a Basket Folder"""
         self.baskets_xml_filepath = os.path.join(self.folderpath, "baskets.xml")
+        if os.path.isfile(self.baskets_xml_filepath): return True
+        self.folderpath = os.path.join(self.folderpath, "baskets")
+        self.baskets_xml_filepath = os.path.join(self.folderpath, "baskets.xml")
         return os.path.isfile(self.baskets_xml_filepath)
 
     def rich_text_serialize(self, text_data):

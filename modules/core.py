@@ -718,6 +718,7 @@ class CherryTree:
         if basket.check_basket_structure():
             cherrytree_string = basket.get_cherrytree_xml()
             self.nodes_add_from_cherrytree_data(cherrytree_string)
+        else: support.dialog_error("%s is not a basket folder" % folderpath, self.window)
 
     def nodes_add_from_plain_text_file(self, action):
         """Add Nodes from Selected Plain Text File(s)"""
