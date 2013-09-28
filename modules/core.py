@@ -2986,8 +2986,7 @@ class CherryTree:
         if response == 1:
             input_text = unicode(self.glade.search_entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE)
             if len(input_text) > 0: return input_text
-            else: return None
-        else: return None
+        return None
 
     def dialog_nodeprop(self, entry_hint="", title=None):
         """Opens the Node Properties Dialog"""
@@ -2999,8 +2998,7 @@ class CherryTree:
         if response == 1:
             input_text = unicode(self.glade.input_entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE)
             if len(input_text) > 0: return input_text
-            else: return None
-        else: return None
+        return None
 
     def toolbar_icons_size_increase(self, *args):
         """Increase the Size of the Toolbar Icons"""
