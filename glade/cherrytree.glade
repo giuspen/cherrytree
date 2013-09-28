@@ -2461,7 +2461,7 @@ do you want to save the changes?</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <child>
-              <object class="GtkFrame" id="replace_options_frame2">
+              <object class="GtkFrame" id="node_name_frame">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="label_xalign">0</property>
