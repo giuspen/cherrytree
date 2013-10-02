@@ -1251,9 +1251,14 @@ class CherryTree:
     def file_write_low_level(self, filepath, xml_string, first_write, exporting="", sel_range=None):
         """File Write Low Level (ctd, ctb, ctz, ctx)"""
         if self.password:
-            if not os.path.isdir(cons.TMP_FOLDER): os.mkdir(cons.TMP_FOLDER)
+            if cons.IS_WIN_OS: drive, tail = os.path.splitdrive(os.path.dirname(filepath))
+            else:
+                tail = os.path.dirname(filepath)
+                if tail.startswith(cons.CHAR_SLASH): tail = tail[1:]
+            tree_tmp_folder = os.path.join(cons.TMP_FOLDER, tail)
+            if not os.path.isdir(tree_tmp_folder): os.makedirs(tree_tmp_folder)
             last_letter = "d" if xml_string else "b"
-            filepath_tmp = os.path.join(cons.TMP_FOLDER, os.path.basename(filepath[:-1] + last_letter))
+            filepath_tmp = os.path.join(tree_tmp_folder, os.path.basename(filepath[:-1] + last_letter))
             if xml_string: file_descriptor = open(filepath_tmp, 'w')
             else:
                 if first_write:
@@ -1292,11 +1297,11 @@ class CherryTree:
                     del self.db
         if self.password:
             if cons.IS_WIN_OS:
-                esc_tmp_folder = support.windows_cmd_prepare_path(cons.TMP_FOLDER)
+                esc_tmp_folder = support.windows_cmd_prepare_path(tree_tmp_folder)
                 esc_filepath = support.windows_cmd_prepare_path(filepath)
                 esc_filepath_tmp = support.windows_cmd_prepare_path(filepath_tmp)
             else:
-                esc_tmp_folder = re.escape(cons.TMP_FOLDER)
+                esc_tmp_folder = re.escape(tree_tmp_folder)
                 esc_filepath = re.escape(filepath)
                 esc_filepath_tmp = re.escape(filepath_tmp)
             if os.path.isfile(filepath):
@@ -1505,14 +1510,19 @@ class CherryTree:
             if not password_str: return None
             if main_file: self.password = password_str
             if not self.is_7za_available(): return None
-            if not os.path.isdir(cons.TMP_FOLDER): os.mkdir(cons.TMP_FOLDER)
+            if cons.IS_WIN_OS: drive, tail = os.path.splitdrive(os.path.dirname(filepath))
+            else:
+                tail = os.path.dirname(filepath)
+                if tail.startswith(cons.CHAR_SLASH): tail = tail[1:]
+            tree_tmp_folder = os.path.join(cons.TMP_FOLDER, tail)
+            if not os.path.isdir(tree_tmp_folder): os.makedirs(tree_tmp_folder)
             last_letter = "d" if filepath[-1] == "z" else "b"
-            filepath_tmp = os.path.join(cons.TMP_FOLDER, os.path.basename(filepath[:-1] + last_letter))
+            filepath_tmp = os.path.join(tree_tmp_folder, os.path.basename(filepath[:-1] + last_letter))
             if cons.IS_WIN_OS:
-                esc_tmp_folder = support.windows_cmd_prepare_path(cons.TMP_FOLDER)
+                esc_tmp_folder = support.windows_cmd_prepare_path(tree_tmp_folder)
                 esc_filepath = support.windows_cmd_prepare_path(filepath)
             else:
-                esc_tmp_folder = re.escape(cons.TMP_FOLDER)
+                esc_tmp_folder = re.escape(tree_tmp_folder)
                 esc_filepath = re.escape(filepath)
             bash_str = '7za e -p%s -w%s -bd -y -o%s %s' % (password_str,
                                                            esc_tmp_folder,
@@ -1525,7 +1535,7 @@ class CherryTree:
                 return None
             if not os.path.isfile(filepath_tmp):
                 print "? the compressed file was renamed"
-                files_list = glob.glob(os.path.join(os.path.dirname(filepath_tmp), "*"+filepath_tmp[-4:]))
+                files_list = glob.glob(os.path.join(tree_tmp_folder, "*"+filepath_tmp[-4:]))
                 if len(files_list) == 1:
                     old_filepath_tmp = files_list[0]
                     os.rename(old_filepath_tmp, filepath_tmp)
