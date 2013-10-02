@@ -1041,18 +1041,21 @@ class CherryTree:
     def modification_time_sentinel_iter(self):
         """Iteration of the Modification Time Sentinel"""
         if self.file_dir and self.file_name and self.mod_time_val:
-            read_mod_time = os.path.getmtime(os.path.join(self.file_dir, self.file_name))
-            #print "former modified: %s (%s)" % (time.ctime(self.mod_time_val), self.mod_time_val)
-            #print "last modified: %s (%s)" % (time.ctime(read_mod_time), read_mod_time)
-            if read_mod_time != self.mod_time_val:
-                self.filepath_open(os.path.join(self.file_dir, self.file_name), force_reset=True)
-                self.statusbar.pop(self.statusbar_context_id)
-                self.statusbar.push(self.statusbar_context_id, _("The Document was Reloaded After External Update to CT* File"))
+            file_path = os.path.join(self.file_dir, self.file_name)
+            if os.path.isfile(file_path):
+                read_mod_time = os.path.getmtime(file_path)
+                #print "former modified: %s (%s)" % (time.ctime(self.mod_time_val), self.mod_time_val)
+                #print "last modified: %s (%s)" % (time.ctime(read_mod_time), read_mod_time)
+                if read_mod_time != self.mod_time_val:
+                    self.filepath_open(file_path, force_reset=True)
+                    self.statusbar.pop(self.statusbar_context_id)
+                    self.statusbar.push(self.statusbar_context_id, _("The Document was Reloaded After External Update to CT* File"))
         return True # this way we keep the timer alive
 
     def modification_time_update_value(self, mtime):
         """Update Value of Modification Time Sentinel"""
-        self.mod_time_val = os.path.getmtime(os.path.join(self.file_dir, self.file_name)) if mtime else 0
+        file_path = os.path.join(self.file_dir, self.file_name)
+        if os.path.isfile(file_path): self.mod_time_val = os.path.getmtime(file_path) if mtime else 0
 
     def status_icon_enable(self):
         """Creates the Stats Icon"""
