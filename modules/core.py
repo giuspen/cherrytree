@@ -1251,7 +1251,9 @@ class CherryTree:
     def file_write_low_level(self, filepath, xml_string, first_write, exporting="", sel_range=None):
         """File Write Low Level (ctd, ctb, ctz, ctx)"""
         if self.password:
-            if cons.IS_WIN_OS: drive, tail = os.path.splitdrive(os.path.dirname(filepath))
+            if cons.IS_WIN_OS:
+                drive, tail = os.path.splitdrive(os.path.dirname(filepath))
+                if tail.startswith(cons.CHAR_BSLASH): tail = tail[1:]
             else:
                 tail = os.path.dirname(filepath)
                 if tail.startswith(cons.CHAR_SLASH): tail = tail[1:]
@@ -1510,7 +1512,9 @@ class CherryTree:
             if not password_str: return None
             if main_file: self.password = password_str
             if not self.is_7za_available(): return None
-            if cons.IS_WIN_OS: drive, tail = os.path.splitdrive(os.path.dirname(filepath))
+            if cons.IS_WIN_OS:
+                drive, tail = os.path.splitdrive(os.path.dirname(filepath))
+                if tail.startswith(cons.CHAR_BSLASH): tail = tail[1:]
             else:
                 tail = os.path.dirname(filepath)
                 if tail.startswith(cons.CHAR_SLASH): tail = tail[1:]
