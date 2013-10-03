@@ -168,7 +168,6 @@ class CherryTree:
         self.window.connect('key_press_event', self.on_key_press_window)
         self.window.connect("destroy", self.boss.on_window_destroy_event)
         self.scrolledwindow_tree.connect("size-allocate", self.on_window_n_tree_size_allocate_event)
-        self.glade.nodepropdialog.connect('key_press_event', self.on_key_press_nodepropdialog)
         self.glade.searchdialog.connect('key_press_event', self.on_key_press_searchdialog)
         self.glade.anchorhandledialog.connect('key_press_event', self.on_key_press_anchorhandledialog)
         self.glade.choosenodedialog.connect('key_press_event', self.on_key_press_choosenodedialog)
@@ -590,13 +589,6 @@ class CherryTree:
         keyname = gtk.gdk.keyval_name(event.keyval)
         if keyname == "Return":
             try: self.glade.anchorhandledialog.get_widget_for_response(1).clicked()
-            except: print cons.STR_PYGTK_222_REQUIRED
-
-    def on_key_press_nodepropdialog(self, widget, event):
-        """Catches Node Properties Dialog key presses"""
-        keyname = gtk.gdk.keyval_name(event.keyval)
-        if keyname == "Return":
-            try: self.glade.nodepropdialog.get_widget_for_response(1).clicked()
             except: print cons.STR_PYGTK_222_REQUIRED
 
     def on_key_press_searchdialog(self, widget, event):
@@ -1391,6 +1383,15 @@ class CherryTree:
         radiobutton_xml_not_protected.set_group(radiobutton_sqlite_not_protected)
         radiobutton_xml_pass_protected = gtk.RadioButton(label="XML, " + _("Password Protected") + " (.ctz)")
         radiobutton_xml_pass_protected.set_group(radiobutton_sqlite_not_protected)
+        type_vbox = gtk.VBox()
+        type_vbox.pack_start(radiobutton_sqlite_not_protected)
+        type_vbox.pack_start(radiobutton_sqlite_pass_protected)
+        type_vbox.pack_start(radiobutton_xml_not_protected)
+        type_vbox.pack_start(radiobutton_xml_pass_protected)
+        type_frame = gtk.Frame(label="<b>"+_("Storage Type")+"</b>")
+        type_frame.get_label_widget().set_use_markup(True)
+        type_frame.set_shadow_type(gtk.SHADOW_NONE)
+        type_frame.add(type_vbox)
         entry_passw_1 = gtk.Entry()
         entry_passw_1.set_visibility(False)
         entry_passw_2 = gtk.Entry()
@@ -1400,6 +1401,7 @@ class CherryTree:
         vbox_passw.pack_start(entry_passw_2)
         passw_frame = gtk.Frame(label="<b>"+_("Enter the New Password Twice")+"</b>")
         passw_frame.get_label_widget().set_use_markup(True)
+        passw_frame.set_shadow_type(gtk.SHADOW_NONE)
         passw_frame.add(vbox_passw)
         if len(self.file_name) > 4:
             if self.file_name[-1] == "b": radiobutton_sqlite_not_protected.set_active(True)
@@ -1409,10 +1411,7 @@ class CherryTree:
         if self.password: passw_frame.set_sensitive(True)
         else: passw_frame.set_sensitive(False)
         content_area = dialog.get_content_area()
-        content_area.pack_start(radiobutton_sqlite_not_protected)
-        content_area.pack_start(radiobutton_sqlite_pass_protected)
-        content_area.pack_start(radiobutton_xml_not_protected)
-        content_area.pack_start(radiobutton_xml_pass_protected)
+        content_area.pack_start(type_frame)
         content_area.pack_start(passw_frame)
         content_area.show_all()
         def on_radiobutton_savetype_toggled(widget):
@@ -1478,7 +1477,7 @@ class CherryTree:
                             flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
                             buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
                             gtk.STOCK_OK, gtk.RESPONSE_ACCEPT))
-        dialog.set_default_size(300, -1)
+        dialog.set_default_size(350, -1)
         dialog.set_transient_for(self.window)
         dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
         entry = gtk.Entry()
@@ -2393,14 +2392,14 @@ class CherryTree:
         if "def" in self.available_languages: self.available_languages.remove("def")
         for language_id in sorted(self.available_languages):
             self.prog_lang_liststore.append([self.language_manager.get_language(language_id).get_name(), language_id])
-        for combobox in [self.glade.combobox_prog_lang, self.glade.combobox_prog_lang_codebox]:
-            combobox.set_model(self.prog_lang_liststore)
-            cell = gtk.CellRendererText()
-            combobox.pack_start(cell, True)
-            combobox.add_attribute(cell, 'text', 0)
-            if self.syntax_highlighting:
-                combobox.set_active_iter(self.get_combobox_iter_from_value(self.prog_lang_liststore, 1, self.syntax_highlighting))
-            else: combobox.set_active(0)
+        combobox = self.glade.combobox_prog_lang_codebox
+        combobox.set_model(self.prog_lang_liststore)
+        cell = gtk.CellRendererText()
+        combobox.pack_start(cell, True)
+        combobox.add_attribute(cell, 'text', 0)
+        if self.syntax_highlighting:
+            combobox.set_active_iter(self.get_combobox_iter_from_value(self.prog_lang_liststore, 1, self.syntax_highlighting))
+        else: combobox.set_active(0)
 
     def on_combobox_country_language_changed(self, combobox):
         """New Country Language Choosed"""
@@ -2519,12 +2518,10 @@ class CherryTree:
 
     def node_add(self, *args):
         """Add a node having common father with the selected node's"""
-        self.glade.checkbutton_readonly.set_active(False)
-        self.glade.combobox_prog_lang.set_sensitive(not self.glade.radiobutton_node_rich_text.get_active())
-        node_name = self.dialog_nodeprop(title=_("New Node Properties"))
-        if node_name == None: return
+        ret_name, ret_syntax, ret_tags, ret_ro = self.dialog_nodeprop(_("New Node Properties"))
+        if not ret_name: return
         self.update_window_save_needed()
-        self.syntax_highlighting = self.get_syntax_highlighting_from_dialog()
+        self.syntax_highlighting = ret_syntax
         father_iter = self.treestore.iter_parent(self.curr_tree_iter) if self.curr_tree_iter else None
         node_level = self.treestore.iter_depth(father_iter)+1 if father_iter else 0
         cherry = self.get_node_icon(node_level, self.syntax_highlighting)
@@ -2537,8 +2534,8 @@ class CherryTree:
                                                                               new_node_id,
                                                                               self.syntax_highlighting,
                                                                               0,
-                                                                              self.glade.tags_searching_entry.get_text(),
-                                                                              self.glade.checkbutton_readonly.get_active()])
+                                                                              ret_tags,
+                                                                              ret_ro])
         else:
             new_node_iter = self.treestore.append(father_iter, [cherry,
                                                                 node_name,
@@ -2546,8 +2543,8 @@ class CherryTree:
                                                                 new_node_id,
                                                                 self.syntax_highlighting,
                                                                 0,
-                                                                self.glade.tags_searching_entry.get_text(),
-                                                                self.glade.checkbutton_readonly.get_active()])
+                                                                ret_tags,
+                                                                ret_ro])
         self.ctdb_handler.pending_new_db_node(new_node_id)
         self.nodes_sequences_fix(father_iter, False)
         self.nodes_names_dict[new_node_id] = node_name
@@ -2558,28 +2555,26 @@ class CherryTree:
     def node_child_add(self, *args):
         """Add a node having as father the selected node"""
         if not self.is_there_selected_node_or_error(): return
-        self.glade.checkbutton_readonly.set_active(False)
-        self.glade.combobox_prog_lang.set_sensitive(not self.glade.radiobutton_node_rich_text.get_active())
-        node_name = self.dialog_nodeprop(title=_("New Child Node Properties"))
-        if node_name != None:
-            self.update_window_save_needed()
-            self.syntax_highlighting = self.get_syntax_highlighting_from_dialog()
-            node_level = self.treestore.iter_depth(self.curr_tree_iter)+1 if self.curr_tree_iter else 0
-            cherry = self.get_node_icon(node_level, self.syntax_highlighting)
-            new_node_id = self.node_id_get()
-            new_node_iter = self.treestore.append(self.curr_tree_iter, [cherry,
-                                                                        node_name,
-                                                                        self.buffer_create(self.syntax_highlighting),
-                                                                        new_node_id,
-                                                                        self.syntax_highlighting,
-                                                                        0,
-                                                                        self.glade.tags_searching_entry.get_text(),
-                                                                        self.glade.checkbutton_readonly.get_active()])
-            self.ctdb_handler.pending_new_db_node(new_node_id)
-            self.nodes_sequences_fix(self.curr_tree_iter, False)
-            self.nodes_names_dict[new_node_id] = node_name
-            self.treeview_safe_set_cursor(new_node_iter)
-            self.sourceview.grab_focus()
+        ret_name, ret_syntax, ret_tags, ret_ro = self.dialog_nodeprop(_("New Child Node Properties"))
+        if not ret_name: return
+        self.update_window_save_needed()
+        self.syntax_highlighting = ret_syntax
+        node_level = self.treestore.iter_depth(self.curr_tree_iter)+1 if self.curr_tree_iter else 0
+        cherry = self.get_node_icon(node_level, self.syntax_highlighting)
+        new_node_id = self.node_id_get()
+        new_node_iter = self.treestore.append(self.curr_tree_iter, [cherry,
+                                                                    node_name,
+                                                                    self.buffer_create(self.syntax_highlighting),
+                                                                    new_node_id,
+                                                                    self.syntax_highlighting,
+                                                                    0,
+                                                                    ret_tags,
+                                                                    ret_ro])
+        self.ctdb_handler.pending_new_db_node(new_node_id)
+        self.nodes_sequences_fix(self.curr_tree_iter, False)
+        self.nodes_names_dict[new_node_id] = node_name
+        self.treeview_safe_set_cursor(new_node_iter)
+        self.sourceview.grab_focus()
 
     def node_delete(self, *args):
         """Delete the Selected Node"""
@@ -2608,18 +2603,13 @@ class CherryTree:
     def node_edit(self, *args):
         """Edit the Properties of the Selected Node"""
         if not self.is_there_selected_node_or_error(): return
-        if self.syntax_highlighting == cons.CUSTOM_COLORS_ID:
-            self.glade.radiobutton_node_rich_text.set_active(True)
-            self.glade.combobox_prog_lang.set_sensitive(False)
-        else:
-            self.glade.radiobutton_node_auto_syntax.set_active(True)
-            self.glade.combobox_prog_lang.set_sensitive(True)
-            self.glade.combobox_prog_lang.set_active_iter(self.get_combobox_iter_from_value(self.prog_lang_liststore, 1, self.treestore[self.curr_tree_iter][4]))
-        self.glade.tags_searching_entry.set_text(self.treestore[self.curr_tree_iter][6])
-        self.glade.checkbutton_readonly.set_active(self.treestore[self.curr_tree_iter][7])
-        node_name = self.dialog_nodeprop(entry_hint=self.treestore[self.curr_tree_iter][1], title=_("Node Properties"))
-        if node_name == None: return
-        self.syntax_highlighting = self.get_syntax_highlighting_from_dialog()
+        ret_name, ret_syntax, ret_tags, ret_ro = self.dialog_nodeprop(_("Node Properties"),
+            name=self.treestore[self.curr_tree_iter][1],
+            syntax_highl=self.treestore[self.curr_tree_iter][4],
+            tags=self.treestore[self.curr_tree_iter][6],
+            ro=self.treestore[self.curr_tree_iter][7])
+        if not ret_name: return
+        self.syntax_highlighting = ret_syntax
         if self.treestore[self.curr_tree_iter][4] == cons.CUSTOM_COLORS_ID and self.syntax_highlighting != cons.CUSTOM_COLORS_ID:
             if not support.dialog_question(_("Entering the Automatic Syntax Highlighting you will Lose all Custom Colors for This Node, Do you want to Continue?"), self.window):
                 self.syntax_highlighting = cons.CUSTOM_COLORS_ID # STEP BACK (we stay in CUSTOM COLORS)
@@ -2633,8 +2623,8 @@ class CherryTree:
             self.curr_buffer = self.treestore[self.curr_tree_iter][2]
         self.treestore[self.curr_tree_iter][1] = node_name
         self.treestore[self.curr_tree_iter][4] = self.syntax_highlighting
-        self.treestore[self.curr_tree_iter][6] = self.glade.tags_searching_entry.get_text()
-        self.treestore[self.curr_tree_iter][7] = self.glade.checkbutton_readonly.get_active()
+        self.treestore[self.curr_tree_iter][6] = ret_tags
+        self.treestore[self.curr_tree_iter][7] = ret_ro
         self.treestore[self.curr_tree_iter][0] = self.get_node_icon(self.treestore.iter_depth(self.curr_tree_iter),
                                                                     self.syntax_highlighting)
         if self.syntax_highlighting != cons.CUSTOM_COLORS_ID:
@@ -2655,12 +2645,6 @@ class CherryTree:
             node_children_list += self.get_node_children_list(tree_iter, level+1)
             tree_iter = self.treestore.iter_next(tree_iter)
         return node_children_list
-
-    def get_syntax_highlighting_from_dialog(self):
-        """Retrieve the Value eof the Syntax Highlighting from the dialog"""
-        if self.glade.radiobutton_node_rich_text.get_active():
-            return cons.CUSTOM_COLORS_ID
-        return self.prog_lang_liststore[self.glade.combobox_prog_lang.get_active_iter()][1]
 
     def sourceview_set_properties(self, tree_iter, syntax_highl):
         """Set sourceview properties according to current node"""
@@ -3005,17 +2989,78 @@ class CherryTree:
             if len(input_text) > 0: return input_text
         return None
 
-    def dialog_nodeprop(self, entry_hint="", title=None):
+    def dialog_nodeprop(self, title, name="", syntax_highl=cons.CUSTOM_COLORS_ID, tags="", ro=False):
         """Opens the Node Properties Dialog"""
-        if title != None: self.glade.nodepropdialog.set_title(title)
-        self.glade.input_entry.set_text(entry_hint)
-        self.glade.input_entry.grab_focus()
-        response = self.glade.nodepropdialog.run()
-        self.glade.nodepropdialog.hide()
-        if response == 1:
-            input_text = unicode(self.glade.input_entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE)
-            if len(input_text) > 0: return input_text
-        return None
+        dialog = gtk.Dialog(title=title,
+                            parent=self.window,
+                            flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
+                            buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
+                            gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
+        dialog.set_default_size(300, -1)
+        dialog.set_transient_for(self.window)
+        dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+        name_entry = gtk.Entry()
+        name_entry.set_text(name)
+        name_frame = gtk.Frame(label="<b>"+_("Node Name")+"</b>")
+        name_frame.get_label_widget().set_use_markup(True)
+        name_frame.set_shadow_type(gtk.SHADOW_NONE)
+        name_frame.add(name_entry)
+        radiobutton_rich_text = gtk.RadioButton(label=_("Rich Text"))
+        radiobutton_auto_syntax_highl = gtk.RadioButton(label=_("Automatic Syntax Highlighting"))
+        radiobutton_auto_syntax_highl.set_group(radiobutton_rich_text)
+        combobox_prog_lang = gtk.ComboBox(model=self.prog_lang_liststore)
+        cell = gtk.CellRendererText()
+        combobox_prog_lang.pack_start(cell, True)
+        combobox_prog_lang.add_attribute(cell, 'text', 0)
+        combobox_prog_lang.set_active_iter(self.get_combobox_iter_from_value(self.prog_lang_liststore, 1, syntax_highl))
+        if syntax_highl == cons.CUSTOM_COLORS_ID:
+            radiobutton_rich_text.set_active(True)
+            combobox_prog_lang.set_sensitive(False)
+        else:
+            radiobutton_auto_syntax_highl.set_active(True)
+            combobox_prog_lang.set_active_iter(self.get_combobox_iter_from_value(self.prog_lang_liststore, 1, syntax_highl))
+        type_vbox = gtk.VBox()
+        type_vbox.pack_start(radiobutton_rich_text)
+        type_vbox.pack_start(radiobutton_auto_syntax_highl)
+        type_vbox.pack_start(combobox_prog_lang)
+        type_frame = gtk.Frame(label="<b>"+_("Node Type")+"</b>")
+        type_frame.get_label_widget().set_use_markup(True)
+        type_frame.set_shadow_type(gtk.SHADOW_NONE)
+        type_frame.add(type_vbox)
+        tags_entry = gtk.Entry()
+        tags_entry.set_text(tags)
+        tags_frame = gtk.Frame(label="<b>"+_("Tags for Searching")+"</b>")
+        tags_frame.get_label_widget().set_use_markup(True)
+        tags_frame.set_shadow_type(gtk.SHADOW_NONE)
+        tags_frame.add(tags_entry)
+        ro_checkbutton = gtk.CheckButton(label=_("Read Only"))
+        ro_checkbutton.set_active(ro)
+        content_area = dialog.get_content_area()
+        content_area.pack_start(name_frame)
+        content_area.pack_start(type_frame)
+        content_area.pack_start(tags_frame)
+        content_area.pack_start(ro_checkbutton)
+        content_area.show_all()
+        name_entry.grab_focus()
+        def on_key_press_nodepropdialog(widget, event):
+            keyname = gtk.gdk.keyval_name(event.keyval)
+            if keyname == "Return":
+                try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
+                except: print cons.STR_PYGTK_222_REQUIRED
+        def on_radiobutton_rich_text_toggled(radiobutton):
+            combobox_prog_lang.set_sensitive(not radiobutton.get_active())
+        radiobutton_rich_text.connect("toggled", on_radiobutton_rich_text_toggled)
+        dialog.connect('key_press_event', on_key_press_nodepropdialog)
+        response = dialog.run()
+        dialog.hide()
+        ret_name = ""
+        if response == gtk.RESPONSE_ACCEPT:
+            ret_name = unicode(name_entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE)
+            ret_syntax = cons.CUSTOM_COLORS_ID if radiobutton_rich_text.get_active() else self.prog_lang_liststore[combobox_prog_lang.get_active_iter()][1]
+            ret_tags = unicode(tags_entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE)
+            ret_ro = ro_checkbutton.get_active()
+            return [ret_name, ret_syntax, ret_tags, ret_ro]
+        return [None, None, None, None]
 
     def toolbar_icons_size_increase(self, *args):
         """Increase the Size of the Toolbar Icons"""
@@ -3230,11 +3275,6 @@ class CherryTree:
         if not self.user_active or not radiobutton.get_active(): return
         self.glade.colorbutton_tree_fg.set_sensitive(True)
         self.glade.colorbutton_tree_bg.set_sensitive(True)
-
-    def on_radiobutton_node_rich_text_toggled(self, radiobutton):
-        """Radiobutton Node Type Rich Text Toggled"""
-        if not self.user_active: return
-        self.glade.combobox_prog_lang.set_sensitive(not radiobutton.get_active())
 
     def on_radiobutton_codebox_pixels_toggled(self, radiobutton):
         """Radiobutton CodeBox Pixels/Percent Toggled"""
