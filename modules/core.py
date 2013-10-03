@@ -168,7 +168,6 @@ class CherryTree:
         self.window.connect('key_press_event', self.on_key_press_window)
         self.window.connect("destroy", self.boss.on_window_destroy_event)
         self.scrolledwindow_tree.connect("size-allocate", self.on_window_n_tree_size_allocate_event)
-        self.glade.nodepropdialog.connect('key_press_event', self.on_key_press_nodepropdialog)
         self.glade.searchdialog.connect('key_press_event', self.on_key_press_searchdialog)
         self.glade.anchorhandledialog.connect('key_press_event', self.on_key_press_anchorhandledialog)
         self.glade.choosenodedialog.connect('key_press_event', self.on_key_press_choosenodedialog)
@@ -590,13 +589,6 @@ class CherryTree:
         keyname = gtk.gdk.keyval_name(event.keyval)
         if keyname == "Return":
             try: self.glade.anchorhandledialog.get_widget_for_response(1).clicked()
-            except: print cons.STR_PYGTK_222_REQUIRED
-
-    def on_key_press_nodepropdialog(self, widget, event):
-        """Catches Node Properties Dialog key presses"""
-        keyname = gtk.gdk.keyval_name(event.keyval)
-        if keyname == "Return":
-            try: self.glade.nodepropdialog.get_widget_for_response(1).clicked()
             except: print cons.STR_PYGTK_222_REQUIRED
 
     def on_key_press_searchdialog(self, widget, event):
@@ -3005,15 +2997,58 @@ class CherryTree:
             if len(input_text) > 0: return input_text
         return None
 
-    def dialog_nodeprop(self, entry_hint="", title=None):
+    def dialog_nodeprop(self, entry_hint="", title=""):
         """Opens the Node Properties Dialog"""
-        if title != None: self.glade.nodepropdialog.set_title(title)
-        self.glade.input_entry.set_text(entry_hint)
-        self.glade.input_entry.grab_focus()
-        response = self.glade.nodepropdialog.run()
-        self.glade.nodepropdialog.hide()
-        if response == 1:
-            input_text = unicode(self.glade.input_entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE)
+        dialog = gtk.Dialog(title=title,
+                            parent=self.window,
+                            flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
+                            buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
+                            gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
+        dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+        name_entry = gtk.Entry()
+        name_entry.set_text(entry_hint)
+        name_frame = gtk.Frame(label="<b>"+_("Node Name")+"</b>")
+        name_frame.get_label_widget().set_use_markup(True)
+        name_frame.add(name_entry)
+        
+        radiobutton_rich_text = gtk.RadioButton(label=_("Rich Text"))
+        radiobutton_auto_syntax_highl = gtk.RadioButton(label=_("Automatic Syntax Highlighting"))
+        radiobutton_auto_syntax_highl.set_group(radiobutton_rich_text)
+        synthigh_combobox = gtk.ComboBox(model=)
+        
+        type_vbox = gtk.VBox()
+        type_vbox.pack_start(radiobutton_rich_text)
+        type_vbox.pack_start(radiobutton_auto_syntax_highl)
+        type_vbox.pack_start(synthigh_combobox)
+        type_frame = gtk.Frame(label="<b>"+_("Node Type")+"</b>")
+        type_frame.add(type_vbox)
+        
+        tags_entry = gtk.Entry()
+        tags_frame = gtk.Frame(label="<b>"+_("Tags for Searching")+"</b>")
+        tags_frame.get_label_widget().set_use_markup(True)
+        tags_frame.add(tags_entry)
+        ro_checkbutton = gtk.CheckButton(label=_("Read Only"))
+        
+        content_area = dialog.get_content_area()
+        content_area.pack_start(name_frame)
+        content_area.pack_start(type_frame)
+        content_area.pack_start(tags_frame)
+        content_area.pack_start(ro_checkbutton)
+        content_area.show_all()
+        name_entry.grab_focus()
+        def on_key_press_nodepropdialog(widget, event):
+            keyname = gtk.gdk.keyval_name(event.keyval)
+            if keyname == "Return":
+                try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
+                except: print cons.STR_PYGTK_222_REQUIRED
+        def on_radiobutton_rich_text_toggled(radiobutton):
+            synthigh_combobox.set_sensitive(not radiobutton.get_active())
+        radiobutton_rich_text.connect("toggled", on_radiobutton_rich_text_toggled)
+        dialog.connect('key_press_event', on_key_press_nodepropdialog)
+        response = dialog.run()
+        dialog.hide()
+        if response == gtk.RESPONSE_ACCEPT:
+            input_text = unicode(name_entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE)
             if len(input_text) > 0: return input_text
         return None
 
@@ -3230,11 +3265,6 @@ class CherryTree:
         if not self.user_active or not radiobutton.get_active(): return
         self.glade.colorbutton_tree_fg.set_sensitive(True)
         self.glade.colorbutton_tree_bg.set_sensitive(True)
-
-    def on_radiobutton_node_rich_text_toggled(self, radiobutton):
-        """Radiobutton Node Type Rich Text Toggled"""
-        if not self.user_active: return
-        self.glade.combobox_prog_lang.set_sensitive(not radiobutton.get_active())
 
     def on_radiobutton_codebox_pixels_toggled(self, radiobutton):
         """Radiobutton CodeBox Pixels/Percent Toggled"""
