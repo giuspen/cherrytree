@@ -1369,7 +1369,7 @@ class CherryTree:
 
     def dialog_choose_data_storage(self, *args):
         """Choose the CherryTree data storage type (xml or db) and protection"""
-        dialog = gtk.Dialog(title=_("Choose Storage Type and Protection"),
+        dialog = gtk.Dialog(title=_("Choose Storage Type"),
                             parent=self.window,
                             flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
                             buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
@@ -1411,6 +1411,7 @@ class CherryTree:
         if self.password: passw_frame.set_sensitive(True)
         else: passw_frame.set_sensitive(False)
         content_area = dialog.get_content_area()
+        content_area.set_spacing(5)
         content_area.pack_start(type_frame)
         content_area.pack_start(passw_frame)
         content_area.show_all()
@@ -2518,7 +2519,7 @@ class CherryTree:
 
     def node_add(self, *args):
         """Add a node having common father with the selected node's"""
-        ret_name, ret_syntax, ret_tags, ret_ro = self.dialog_nodeprop(_("New Node Properties"))
+        ret_name, ret_syntax, ret_tags, ret_ro = self.dialog_nodeprop(_("New Node Properties"), syntax_highl=self.syntax_highlighting)
         if not ret_name: return
         self.update_window_save_needed()
         self.syntax_highlighting = ret_syntax
@@ -2545,7 +2546,7 @@ class CherryTree:
     def node_child_add(self, *args):
         """Add a node having as father the selected node"""
         if not self.is_there_selected_node_or_error(): return
-        ret_name, ret_syntax, ret_tags, ret_ro = self.dialog_nodeprop(_("New Child Node Properties"))
+        ret_name, ret_syntax, ret_tags, ret_ro = self.dialog_nodeprop(_("New Child Node Properties"), syntax_highl=self.syntax_highlighting)
         if not ret_name: return
         self.update_window_save_needed()
         self.syntax_highlighting = ret_syntax
@@ -3021,6 +3022,7 @@ class CherryTree:
         ro_checkbutton = gtk.CheckButton(label=_("Read Only"))
         ro_checkbutton.set_active(ro)
         content_area = dialog.get_content_area()
+        content_area.set_spacing(5)
         content_area.pack_start(name_frame)
         content_area.pack_start(type_frame)
         content_area.pack_start(tags_frame)
