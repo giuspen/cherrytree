@@ -1783,6 +1783,19 @@ class CherryTree:
                                                                         self.print_handler.page_setup,
                                                                         self.print_handler.settings)
 
+    def export_to_pdf(self, action):
+        """Start Export to PDF Operations"""
+        ret_filepath = support.dialog_file_save_as(curr_folder=self.pick_dir,
+                                                   filter_pattern="*.pdf",
+                                                   filter_name=_("PDF File"),
+                                                   parent=self.window)
+        if ret_filepath == None: return
+        if not ret_filepath.endswith(".pdf"): ret_filepath += ".pdf"
+        self.pick_dir = os.path.dirname(ret_filepath)
+        self.print_handler.pdf_filepath = ret_filepath
+        self.export_print(action)
+        self.print_handler.pdf_filepath = ""
+
     def export_print(self, action):
         """Start Print Operations"""
         if not self.is_there_selected_node_or_error(): return
