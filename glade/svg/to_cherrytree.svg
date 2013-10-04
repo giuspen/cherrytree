@@ -12,8 +12,8 @@
    width="48"
    height="48"
    id="svg2"
-   inkscape:version="0.48.4 r9939"
-   sodipodi:docname="export_from_cherrytree.svg">
+   inkscape:version="0.48.3.1 r9886"
+   sodipodi:docname="to_cherrytree.svg">
   <metadata
      id="metadata55">
     <rdf:RDF>
@@ -4685,7 +4685,7 @@
      transform="translate(16.031038,1.1869409)" />
   <g
      id="g2471"
-     transform="matrix(-0.7858886,0.00202813,-0.00170586,-0.66101379,40.077846,45.59572)">
+     transform="matrix(-0.7858886,0.00202813,-0.00170586,-0.66101379,40.077846,33.59572)">
     <path
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccccsccccsccccc"

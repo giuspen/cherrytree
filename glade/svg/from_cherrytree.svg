@@ -12,7 +12,7 @@
    width="48"
    height="48"
    id="svg2"
-   inkscape:version="0.48.4 r9939"
+   inkscape:version="0.48.3.1 r9886"
    sodipodi:docname="from_cherrytree.svg"
    sodipodi:version="0.32"
    inkscape:output_extension="org.inkscape.output.svg.inkscape">
@@ -36,12 +36,12 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1366"
-     inkscape:window-height="719"
+     inkscape:window-width="1920"
+     inkscape:window-height="926"
      id="namedview53"
      showgrid="false"
      inkscape:zoom="4.9166667"
-     inkscape:cx="24.81356"
+     inkscape:cx="25.22034"
      inkscape:cy="15.864407"
      inkscape:window-x="0"
      inkscape:window-y="0"
@@ -695,7 +695,7 @@
   <g
      id="layer1"
      inkscape:label="Calque 1"
-     transform="matrix(0.78589122,0,0,0.66101599,0.18671097,10.864425)">
+     transform="matrix(0.78589122,0,0,0.66101599,0.18671097,22.864425)">
     <g
        transform="translate(-13,-13)"
        id="g2471">

@@ -12,7 +12,7 @@
    width="48"
    height="48"
    id="svg2"
-   inkscape:version="0.48.4 r9939"
+   inkscape:version="0.48.3.1 r9886"
    sodipodi:docname="from_txt.svg"
    sodipodi:version="0.32"
    inkscape:output_extension="org.inkscape.output.svg.inkscape">
@@ -36,12 +36,12 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1366"
-     inkscape:window-height="719"
+     inkscape:window-width="1920"
+     inkscape:window-height="926"
      id="namedview53"
      showgrid="false"
      inkscape:zoom="4.9166667"
-     inkscape:cx="38.033899"
+     inkscape:cx="38.440679"
      inkscape:cy="23.59322"
      inkscape:window-x="0"
      inkscape:window-y="0"
@@ -7344,7 +7344,7 @@
   <g
      id="layer1-49"
      inkscape:label="Calque 1"
-     transform="matrix(0.78589122,0,0,0.66101599,0.52202291,11.134815)">
+     transform="matrix(0.78589122,0,0,0.66101599,0.52202291,23.134815)">
     <g
        transform="translate(-13,-13)"
        id="g2471">

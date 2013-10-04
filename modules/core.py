@@ -1785,14 +1785,7 @@ class CherryTree:
 
     def export_to_pdf(self, action):
         """Start Export to PDF Operations"""
-        ret_filepath = support.dialog_file_save_as(curr_folder=self.pick_dir,
-                                                   filter_pattern="*.pdf",
-                                                   filter_name=_("PDF File"),
-                                                   parent=self.window)
-        if ret_filepath == None: return
-        if not ret_filepath.endswith(".pdf"): ret_filepath += ".pdf"
-        self.pick_dir = os.path.dirname(ret_filepath)
-        self.print_handler.pdf_filepath = ret_filepath
+        self.print_handler.pdf_filepath = cons.CHAR_TILDE
         self.export_print(action)
         self.print_handler.pdf_filepath = ""
 
@@ -1805,22 +1798,38 @@ class CherryTree:
         pdf_handler = exports.ExportPrint(self)
         if export_type == 1:
             # only selected node
-            pdf_handler.node_export_print(self.curr_tree_iter,
-                                          include_node_name,
-                                          only_selection=False)
+            if self.print_handler.pdf_filepath == cons.CHAR_TILDE:
+                proposed_name = support.get_node_hierarchical_name(self, self.curr_tree_iter)
+                pdf_filepath = pdf_handler.get_pdf_filepath(proposed_name)
+                if not pdf_filepath: return
+                self.print_handler.pdf_filepath = pdf_filepath
+            pdf_handler.node_export_print(self.curr_tree_iter, include_node_name)
         elif export_type == 2:
             # selected node and subnodes
-            pdf_handler.nodes_all_export_print(self.curr_tree_iter,
-                                               include_node_name)
+            if self.print_handler.pdf_filepath == cons.CHAR_TILDE:
+                pdf_filepath = pdf_handler.get_pdf_filepath(self.file_name)
+                if not pdf_filepath: return
+                self.print_handler.pdf_filepath = pdf_filepath
+            pdf_handler.nodes_all_export_print(self.curr_tree_iter, include_node_name)
         elif export_type == 3:
             # all nodes
+            if self.print_handler.pdf_filepath == cons.CHAR_TILDE:
+                pdf_filepath = pdf_handler.get_pdf_filepath(self.file_name)
+                if not pdf_filepath: return
+                self.print_handler.pdf_filepath = pdf_filepath
             pdf_handler.nodes_all_export_print(None, include_node_name)
         else:
             # only selection
             if self.is_there_text_selection_or_error():
+                iter_start, iter_end = self.curr_buffer.get_selection_bounds()
+                if self.print_handler.pdf_filepath == cons.CHAR_TILDE:
+                    proposed_name = support.get_node_hierarchical_name(self, self.curr_tree_iter)
+                    pdf_filepath = pdf_handler.get_pdf_filepath(proposed_name)
+                    if not pdf_filepath: return
+                    self.print_handler.pdf_filepath = pdf_filepath
                 pdf_handler.node_export_print(self.curr_tree_iter,
                                               include_node_name,
-                                              only_selection=True)
+                                              sel_range=[iter_start.get_offset(), iter_end.get_offset()])
 
     def tree_sort_level_and_sublevels(self, model, father_iter, ascending):
         """Sorts the Tree Level and All the Sublevels"""

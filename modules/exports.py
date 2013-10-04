@@ -92,6 +92,18 @@ class ExportPrint:
         self.dad = dad
         self.pango_handler = Export2Pango(dad)
 
+    def get_pdf_filepath(self, proposed_name):
+        """Dialog to select dest PDF"""
+        ret_filepath = support.dialog_file_save_as(proposed_name + ".pdf",
+                                                   filter_pattern="*.pdf",
+                                                   filter_name=_("PDF File"),
+                                                   curr_folder=self.dad.pick_dir,
+                                                   parent=self.dad.window)
+        if ret_filepath:
+            if not ret_filepath.endswith(".pdf"): ret_filepath += ".pdf"
+            self.dad.pick_dir = os.path.dirname(ret_filepath)
+        return ret_filepath
+
     def nodes_all_export_print(self, top_tree_iter, include_node_name):
         """Export Print All Nodes"""
         self.pango_text = []
@@ -132,12 +144,8 @@ class ExportPrint:
                       + cgi.escape(self.dad.treestore[tree_iter][1]) \
                       + "</span></i></b>" + 2*cons.CHAR_NEWLINE + pango_text[0]
 
-    def node_export_print(self, tree_iter, include_node_name, only_selection):
+    def node_export_print(self, tree_iter, include_node_name, sel_range=None):
         """Export Print the Selected Node"""
-        if only_selection:
-            iter_start, iter_end = self.dad.curr_buffer.get_selection_bounds()
-            sel_range = [iter_start.get_offset(), iter_end.get_offset()]
-        else: sel_range = None
         if self.dad.treestore[tree_iter][4] == cons.CUSTOM_COLORS_ID:
             self.pango_text, self.pixbuf_table_codebox_vector = self.pango_handler.pango_get_from_treestore_node(tree_iter, sel_range)
             self.text_font = self.dad.text_font
@@ -167,14 +175,15 @@ class Export2Txt:
 
     def get_single_txt_filepath(self, proposed_name):
         """Prepare for the txt file save"""
-        filepath = support.dialog_file_save_as(proposed_name + ".txt",
-                                               filter_pattern="*.txt",
-                                               filter_name=_("Plain Text Document"),
-                                               curr_folder=self.dad.file_dir,
-                                               parent=self.dad.window)
-        if filepath == None: return None
-        if len(filepath) < 4 or filepath[-4:] != ".txt": filepath += ".txt"
-        return filepath
+        ret_filepath = support.dialog_file_save_as(proposed_name + ".txt",
+                                                   filter_pattern="*.txt",
+                                                   filter_name=_("Plain Text Document"),
+                                                   curr_folder=self.dad.pick_dir,
+                                                   parent=self.dad.window)
+        if ret_filepath:
+            if not ret_filepath.endswith(".txt"): ret_filepath += ".txt"
+            self.dad.pick_dir = os.path.dirname(ret_filepath)
+        return ret_filepath
 
     def prepare_txt_folder(self, new_folder):
         """Prepare the website folder"""
