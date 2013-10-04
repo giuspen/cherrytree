@@ -1,0 +1,3 @@
+#!/bin/sh
+update-desktop-database &
+# End automatically added section

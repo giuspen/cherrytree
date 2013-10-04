@@ -1,0 +1,6 @@
+syntax: glob
+*.pyc
+*.mo
+glade/cherrytree.glade.h
+linux/cherrytree.1.gz
+debian/debhelper.log
