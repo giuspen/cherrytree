@@ -12,7 +12,7 @@
    width="48"
    height="48"
    id="svg2"
-   inkscape:version="0.48.4 r9939"
+   inkscape:version="0.48.3.1 r9886"
    sodipodi:docname="to_html.svg">
   <metadata
      id="metadata55">
@@ -40,7 +40,7 @@
      showgrid="false"
      inkscape:zoom="4.9166667"
      inkscape:cx="37.220339"
-     inkscape:cy="23.59322"
+     inkscape:cy="23.606992"
      inkscape:window-x="316"
      inkscape:window-y="54"
      inkscape:window-maximized="0"
@@ -3833,7 +3833,7 @@
   <g
      id="layer1"
      inkscape:label="Calque 1"
-     transform="matrix(-0.7858886,0.00202813,-0.00170586,-0.66101379,29.740284,36.011457)">
+     transform="matrix(-0.7858886,0.00202813,-0.00170586,-0.66101379,29.740284,26.011457)">
     <g
        transform="translate(-13,-13)"
        id="g2471">
