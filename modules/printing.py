@@ -44,6 +44,7 @@ class PrintHandler:
         self.active_prints = []
         self.settings = None
         self.page_setup = None
+        self.pdf_filepath = "/tmp/test.pdf"
 
     def get_print_operation(self):
         """Return a Print Operation"""
@@ -57,7 +58,9 @@ class PrintHandler:
 
     def run_print_operation(self, print_operation, parent):
         """Run a Ready Print Operation"""
-        try: res = print_operation.run(gtk.PRINT_OPERATION_ACTION_PRINT_DIALOG, parent)
+        if self.pdf_filepath: print_operation.set_export_filename(self.pdf_filepath)
+        print_operation_action = gtk.PRINT_OPERATION_ACTION_EXPORT if self.pdf_filepath else gtk.PRINT_OPERATION_ACTION_PRINT_DIALOG
+        try: res = print_operation.run(print_operation_action, parent)
         except gobject.GError, ex:
             support.dialog_error("Error printing file:\n%s (exception catched)" % str(ex), parent)
         else:
