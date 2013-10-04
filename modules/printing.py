@@ -44,7 +44,7 @@ class PrintHandler:
         self.active_prints = []
         self.settings = None
         self.page_setup = None
-        self.pdf_filepath = "/tmp/test.pdf"
+        self.pdf_filepath = ""
 
     def get_print_operation(self):
         """Return a Print Operation"""
