@@ -2528,26 +2528,16 @@ class CherryTree:
         new_node_id = self.node_id_get()
         if self.curr_tree_iter != None:
             new_node_iter = self.treestore.insert_after(father_iter,
-                                                        self.curr_tree_iter, [cherry,
-                                                                              node_name,
-                                                                              self.buffer_create(self.syntax_highlighting),
-                                                                              new_node_id,
-                                                                              self.syntax_highlighting,
-                                                                              0,
-                                                                              ret_tags,
-                                                                              ret_ro])
+                self.curr_tree_iter,
+                [cherry, ret_name, self.buffer_create(self.syntax_highlighting),
+                 new_node_id, self.syntax_highlighting, 0, ret_tags, ret_ro])
         else:
-            new_node_iter = self.treestore.append(father_iter, [cherry,
-                                                                node_name,
-                                                                self.buffer_create(self.syntax_highlighting),
-                                                                new_node_id,
-                                                                self.syntax_highlighting,
-                                                                0,
-                                                                ret_tags,
-                                                                ret_ro])
+            new_node_iter = self.treestore.append(father_iter,
+                [cherry, ret_name, self.buffer_create(self.syntax_highlighting),
+                 new_node_id, self.syntax_highlighting, 0, ret_tags, ret_ro])
         self.ctdb_handler.pending_new_db_node(new_node_id)
         self.nodes_sequences_fix(father_iter, False)
-        self.nodes_names_dict[new_node_id] = node_name
+        self.nodes_names_dict[new_node_id] = ret_name
         new_node_path = self.treestore.get_path(new_node_iter)
         self.treeview.set_cursor(new_node_path)
         self.sourceview.grab_focus()
