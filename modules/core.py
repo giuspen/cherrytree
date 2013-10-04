@@ -2552,17 +2552,12 @@ class CherryTree:
         node_level = self.treestore.iter_depth(self.curr_tree_iter)+1 if self.curr_tree_iter else 0
         cherry = self.get_node_icon(node_level, self.syntax_highlighting)
         new_node_id = self.node_id_get()
-        new_node_iter = self.treestore.append(self.curr_tree_iter, [cherry,
-                                                                    node_name,
-                                                                    self.buffer_create(self.syntax_highlighting),
-                                                                    new_node_id,
-                                                                    self.syntax_highlighting,
-                                                                    0,
-                                                                    ret_tags,
-                                                                    ret_ro])
+        new_node_iter = self.treestore.append(self.curr_tree_iter,
+            [cherry, ret_name, self.buffer_create(self.syntax_highlighting),
+             new_node_id, self.syntax_highlighting, 0, ret_tags, ret_ro])
         self.ctdb_handler.pending_new_db_node(new_node_id)
         self.nodes_sequences_fix(self.curr_tree_iter, False)
-        self.nodes_names_dict[new_node_id] = node_name
+        self.nodes_names_dict[new_node_id] = ret_name
         self.treeview_safe_set_cursor(new_node_iter)
         self.sourceview.grab_focus()
 
@@ -2611,7 +2606,7 @@ class CherryTree:
             # SWITCH SourceBuffer -> TextBuffer
             self.switch_buffer_text_source(self.curr_buffer, self.curr_tree_iter, self.syntax_highlighting)
             self.curr_buffer = self.treestore[self.curr_tree_iter][2]
-        self.treestore[self.curr_tree_iter][1] = node_name
+        self.treestore[self.curr_tree_iter][1] = ret_name
         self.treestore[self.curr_tree_iter][4] = self.syntax_highlighting
         self.treestore[self.curr_tree_iter][6] = ret_tags
         self.treestore[self.curr_tree_iter][7] = ret_ro
