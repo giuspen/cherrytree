@@ -168,7 +168,6 @@ class CherryTree:
         self.window.connect('key_press_event', self.on_key_press_window)
         self.window.connect("destroy", self.boss.on_window_destroy_event)
         self.scrolledwindow_tree.connect("size-allocate", self.on_window_n_tree_size_allocate_event)
-        self.glade.searchdialog.connect('key_press_event', self.on_key_press_searchdialog)
         self.glade.anchorhandledialog.connect('key_press_event', self.on_key_press_anchorhandledialog)
         self.glade.choosenodedialog.connect('key_press_event', self.on_key_press_choosenodedialog)
         self.glade.tablehandledialog.connect('key_press_event', self.tables_handler.on_key_press_tablehandledialog)
@@ -201,6 +200,7 @@ class CherryTree:
         self.curr_window_n_tree_width = None
         self.curr_buffer = None
         self.nodes_cursor_pos = {}
+        self.search_replace_dict = {}
         self.latest_tag = ["", ""] # [latest tag property, latest tag value]
         self.file_update = False
         self.autosave_timer_id = None
@@ -591,13 +591,6 @@ class CherryTree:
             try: self.glade.anchorhandledialog.get_widget_for_response(1).clicked()
             except: print cons.STR_PYGTK_222_REQUIRED
 
-    def on_key_press_searchdialog(self, widget, event):
-        """Catches Search Dialog key presses"""
-        keyname = gtk.gdk.keyval_name(event.keyval)
-        if keyname == "Return":
-            try: self.glade.searchdialog.get_widget_for_response(1).clicked()
-            except: print cons.STR_PYGTK_222_REQUIRED
-
     def nodes_add_from_cherrytree_file(self, action):
         """Appends Nodes at the Bottom of the Current Ones, Importing from a CherryTree File"""
         filepath = support.dialog_file_select(filter_pattern=["*.ct*"],
@@ -842,7 +835,6 @@ class CherryTree:
                                 flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
                                 buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
                                          gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
-            dialog.set_transient_for(self.window)
             dialog.set_size_request(350, -1)
             dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
             radiobutton_root = gtk.RadioButton(label=_("The Tree Root"))
@@ -1317,7 +1309,7 @@ class CherryTree:
     def file_write(self, filepath, first_write):
         """File Write"""
         if not cons.IS_WIN_OS and not os.access(os.path.dirname(filepath), os.W_OK):
-            support.dialog_error(_("You Have No Write Access to %s") % os.path.dirname(filepath))
+            support.dialog_error(_("You Have No Write Access to %s") % os.path.dirname(filepath), self.window)
             return False
         if self.filetype in ["d", "z"]:
             try: xml_string = self.xml_handler.treestore_to_dom()
@@ -1479,7 +1471,6 @@ class CherryTree:
                             buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
                             gtk.STOCK_OK, gtk.RESPONSE_ACCEPT))
         dialog.set_default_size(350, -1)
-        dialog.set_transient_for(self.window)
         dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
         entry = gtk.Entry()
         entry.set_visibility(False)
@@ -2984,17 +2975,51 @@ class CherryTree:
         if not self.is_there_selected_node_or_error(): return
         self.curr_buffer.insert_at_cursor(cons.CHAR_NEWLINE+self.h_rule+cons.CHAR_NEWLINE)
 
-    def dialog_search(self, entry_hint="", title=None, replace_opt=False):
+    def dialog_search(self, title, search_hint="", replace_on=False):
         """Opens the Search Dialog"""
-        if title != None: self.glade.searchdialog.set_title(title)
-        self.glade.search_entry.set_text(entry_hint)
-        self.glade.search_entry.grab_focus()
-        self.glade.replace_options_frame.set_property(cons.STR_VISIBLE, replace_opt)
-        response = self.glade.searchdialog.run()
-        self.glade.searchdialog.hide()
-        if response == 1:
-            input_text = unicode(self.glade.search_entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE)
-            if len(input_text) > 0: return input_text
+        dialog = gtk.Dialog(title=title,
+                            parent=self.window,
+                            flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
+                            buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
+                            gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
+        dialog.set_default_size(300, -1)
+        dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+        
+        search_entry = gtk.Entry()
+        search_entry.set_text(search_hint)
+        search_frame = gtk.Frame(label="<b>"+_("Search for")+"</b>")
+        search_frame.get_label_widget().set_use_markup(True)
+        search_frame.set_shadow_type(gtk.SHADOW_NONE)
+        search_frame.add(search_entry)
+        
+        if replace_on:
+            replace_entry = gtk.Entry()
+            replace_frame = gtk.Frame(label="<b>"+_("Replace with")+"</b>")
+            replace_frame.get_label_widget().set_use_markup(True)
+            replace_frame.set_shadow_type(gtk.SHADOW_NONE)
+            replace_frame.add(replace_entry)
+        
+        
+        
+        content_area = dialog.get_content_area()
+        content_area.set_spacing(5)
+        content_area.pack_start(search_frame)
+        if replace_on: content_area.pack_start(replace_frame)
+        content_area.show_all()
+        search_entry.grab_focus()
+        def on_key_press_searchdialog(widget, event):
+            keyname = gtk.gdk.keyval_name(event.keyval)
+            if keyname == "Return":
+                try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
+                except: print cons.STR_PYGTK_222_REQUIRED
+        dialog.connect('key_press_event', on_key_press_searchdialog)
+        response = dialog.run()
+        dialog.hide()
+        if response == gtk.RESPONSE_ACCEPT:
+            ret_search = unicode(search_entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE)
+            self.search_replace_dict['replace'] = unicode(replace_entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE)
+            
+            return ret_search
         return None
 
     def dialog_nodeprop(self, title, name="", syntax_highl=cons.CUSTOM_COLORS_ID, tags="", ro=False):
@@ -3005,7 +3030,6 @@ class CherryTree:
                             buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
                             gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
         dialog.set_default_size(300, -1)
-        dialog.set_transient_for(self.window)
         dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
         name_entry = gtk.Entry()
         name_entry.set_text(name)
@@ -3062,7 +3086,6 @@ class CherryTree:
         dialog.connect('key_press_event', on_key_press_nodepropdialog)
         response = dialog.run()
         dialog.hide()
-        ret_name = ""
         if response == gtk.RESPONSE_ACCEPT:
             ret_name = unicode(name_entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE)
             ret_syntax = cons.CUSTOM_COLORS_ID if radiobutton_rich_text.get_active() else self.prog_lang_liststore[combobox_prog_lang.get_active_iter()][1]
@@ -3335,7 +3358,6 @@ class CherryTree:
                             flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
                             buttons=(gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
         dialog.set_default_size(400, 300)
-        dialog.set_transient_for(self.window)
         dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
         table = gtk.Table(5, 2)
         label = gtk.Label()

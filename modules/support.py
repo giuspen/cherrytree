@@ -181,14 +181,12 @@ def dialog_folder_select(curr_folder=None, parent=None):
 
 def dialog_question(message, parent=None):
     """The Question dialog, returns True if the user presses OK"""
-    dialog = gtk.MessageDialog(flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
+    dialog = gtk.MessageDialog(parent=parent,
+                               flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
                                type=gtk.MESSAGE_QUESTION,
                                buttons=gtk.BUTTONS_OK_CANCEL,
                                message_format=message)
-    if parent != None:
-        dialog.set_transient_for(parent)
-        dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-    else: dialog.set_position(gtk.WIN_POS_CENTER)
+    dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
     dialog.set_title(_("Question"))
     if dialog.run() == gtk.RESPONSE_OK:
         dialog.destroy()
@@ -197,16 +195,14 @@ def dialog_question(message, parent=None):
         dialog.destroy()
         return False
 
-def dialog_info(message, parent=None):
+def dialog_info(message, parent):
     """The Info dialog"""
-    dialog = gtk.MessageDialog(flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
+    dialog = gtk.MessageDialog(parent=parent,
+                               flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
                                type=gtk.MESSAGE_INFO,
                                buttons=gtk.BUTTONS_OK,
                                message_format=message)
-    if parent != None:
-        dialog.set_transient_for(parent)
-        dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-    else: dialog.set_position(gtk.WIN_POS_CENTER)
+    dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
     dialog.set_title(_("Info"))
     dialog.run()
     dialog.destroy()
@@ -215,30 +211,26 @@ def dialog_info_after_restart(parent=None):
     """Change Only After Restart"""
     dialog_info(_("This Change will have Effect Only After Restarting CherryTree"), parent)
 
-def dialog_warning(message, parent=None):
+def dialog_warning(message, parent):
     """The Warning dialog"""
-    dialog = gtk.MessageDialog(flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
+    dialog = gtk.MessageDialog(parent=parent,
+                               flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
                                type=gtk.MESSAGE_WARNING,
                                buttons=gtk.BUTTONS_OK,
                                message_format=message)
-    if parent != None:
-        dialog.set_transient_for(parent)
-        dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-    else: dialog.set_position(gtk.WIN_POS_CENTER)
+    dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
     dialog.set_title(_("Warning"))
     dialog.run()
     dialog.destroy()
 
-def dialog_error(message, parent=None):
+def dialog_error(message, parent):
     """The Error dialog"""
-    dialog = gtk.MessageDialog(flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
+    dialog = gtk.MessageDialog(parent=parent,
+                               flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
                                type=gtk.MESSAGE_ERROR,
                                buttons=gtk.BUTTONS_OK,
                                message_format=message)
-    if parent != None:
-        dialog.set_transient_for(parent)
-        dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-    else: dialog.set_position(gtk.WIN_POS_CENTER)
+    dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
     dialog.set_title(_("Error"))
     dialog.run()
     dialog.destroy()
@@ -405,7 +397,6 @@ def bookmarks_handle(dad):
                         buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
                         gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
     dialog.set_default_size(500, 400)
-    dialog.set_transient_for(dad.window)
     dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
     liststore = gtk.ListStore(str, str, str)
     for node_id_str in dad.bookmarks:
