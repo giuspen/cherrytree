@@ -75,22 +75,22 @@ class FindReplace:
             entry_predefined_text = self.dad.curr_buffer.get_text(iter_insert, iter_bound)
             if not self.replace_active:
                 pattern = self.dad.dialog_search(title=_("Search in Current Node..."),
-                                            entry_hint=entry_predefined_text)
+                                            search_hint=entry_predefined_text)
             else:
                 pattern = self.dad.dialog_search(title=_("Replace in Current Node..."),
-                                            entry_hint=entry_predefined_text, replace_opt=True)
+                                            search_hint=entry_predefined_text, replace_on=True)
             if entry_predefined_text != "":
                 self.dad.curr_buffer.move_mark(self.dad.curr_buffer.get_insert(), iter_insert)
                 self.dad.curr_buffer.move_mark(self.dad.curr_buffer.get_selection_bound(), iter_bound)
             if pattern != None: self.curr_find = ["in_selected_node", pattern]
             else: return
         else: pattern = self.curr_find[1]
-        forward = self.dad.glade.search_fw_radiobutton.get_active()
+        forward = self.dad.search_replace_dict['fw']
         if self.from_find_back:
             forward = not forward
             self.from_find_back = False
-        first_fromsel = self.dad.glade.search_first_fromsel_radiobutton.get_active()
-        all_matches = self.dad.glade.search_all_radiobutton.get_active()
+        first_fromsel = self.dad.search_replace_dict['a_ff_fa'] == 1
+        all_matches = self.dad.search_replace_dict['a_ff_fa'] == 0
         self.matches_num = 0
         # searching start
         if self.dad.user_active:
@@ -110,7 +110,7 @@ class FindReplace:
             self.dad.glade.allmatchesdialog.set_title(str(self.matches_num) + cons.CHAR_SPACE + _("Matches"))
             self.dad.glade.allmatchesdialog.run()
             self.dad.glade.allmatchesdialog.hide()
-        elif self.dad.glade.checkbutton_iterated_find_dialog.get_active():
+        elif self.dad.search_replace_dict['idialog']:
             self.iterated_find_dialog()
         if user_active_restore: self.dad.user_active = True
 
@@ -122,10 +122,10 @@ class FindReplace:
             entry_predefined_text = self.dad.curr_buffer.get_text(iter_insert, iter_bound)
             if not self.replace_active:
                 pattern = self.dad.dialog_search(title=_("Search in All Nodes..."),
-                                            entry_hint=entry_predefined_text)
+                                            search_hint=entry_predefined_text)
             else:
                 pattern = self.dad.dialog_search(title=_("Replace in All Nodes..."),
-                                            entry_hint=entry_predefined_text, replace_opt=True)
+                                            search_hint=entry_predefined_text, replace_on=True)
             if entry_predefined_text != "":
                 self.dad.curr_buffer.move_mark(self.dad.curr_buffer.get_insert(), iter_insert)
                 self.dad.curr_buffer.move_mark(self.dad.curr_buffer.get_selection_bound(), iter_bound)
@@ -134,12 +134,12 @@ class FindReplace:
         else: pattern = self.curr_find[1]
         starting_tree_iter = self.dad.curr_tree_iter.copy()
         current_cursor_pos = self.dad.curr_buffer.get_property(cons.STR_CURSOR_POSITION)
-        forward = self.dad.glade.search_fw_radiobutton.get_active()
+        forward = self.dad.search_replace_dict['fw']
         if self.from_find_back:
             forward = not forward
             self.from_find_back = False
-        first_fromsel = self.dad.glade.search_first_fromsel_radiobutton.get_active()
-        all_matches = self.dad.glade.search_all_radiobutton.get_active()
+        first_fromsel = self.dad.search_replace_dict['a_ff_fa'] == 1
+        all_matches = self.dad.search_replace_dict['a_ff_fa'] == 0
         if first_fromsel:
             self.first_useful_node = False # no one node content was parsed yet
             node_iter = self.dad.curr_tree_iter.copy()
@@ -191,7 +191,7 @@ class FindReplace:
                 self.dad.treeview_safe_set_cursor(self.dad.curr_tree_iter)
                 self.dad.sourceview.grab_focus()
                 self.dad.sourceview.scroll_to_mark(self.dad.curr_buffer.get_insert(), 0.3)
-                if self.dad.glade.checkbutton_iterated_find_dialog.get_active():
+                if self.dad.search_replace_dict['idialog']:
                     self.iterated_find_dialog()
 
     def find_a_node(self, *args):
@@ -200,26 +200,26 @@ class FindReplace:
             if not self.replace_active:
                 pattern_clean = self.dad.dialog_search(title=_("Search For a Node Name..."))
             else:
-                pattern_clean = self.dad.dialog_search(title=_("Replace in Node Names..."), replace_opt=True)
+                pattern_clean = self.dad.dialog_search(title=_("Replace in Node Names..."), replace_on=True)
             if pattern_clean != None: self.curr_find = ["a_node", pattern_clean]
             else: return
         else: pattern_clean = self.curr_find[1]
-        if not self.dad.glade.checkbutton_re.get_active(): # NOT REGULAR EXPRESSION
+        if not self.dad.search_replace_dict['reg_exp']: # NOT REGULAR EXPRESSION
             pattern_ready = re.escape(pattern_clean) # backslashes all non alphanum chars => to not spoil re
-            if self.dad.glade.checkbutton_whole_word.get_active(): # WHOLE WORD
+            if self.dad.search_replace_dict['whole_word']: # WHOLE WORD
                 pattern_ready = r'\b' + pattern_ready + r'\b'
-            elif self.dad.glade.checkbutton_start_word.get_active(): # START WORD
+            elif self.dad.search_replace_dict['start_word']: # START WORD
                 pattern_ready = r'\b' + pattern_ready
         else: pattern_ready = pattern_clean
-        if self.dad.glade.checkbutton_match_case.get_active(): # CASE SENSITIVE
+        if self.dad.search_replace_dict['match_case']: # CASE SENSITIVE
             pattern = re.compile(pattern_ready, re.UNICODE|re.MULTILINE)
         else: pattern = re.compile(pattern_ready, re.IGNORECASE|re.UNICODE|re.MULTILINE)
-        forward = self.dad.glade.search_fw_radiobutton.get_active()
+        forward = self.dad.search_replace_dict['fw']
         if self.from_find_back:
             forward = not forward
             self.from_find_back = False
-        first_fromsel = self.dad.glade.search_first_fromsel_radiobutton.get_active()
-        all_matches = self.dad.glade.search_all_radiobutton.get_active()
+        first_fromsel = self.dad.search_replace_dict['a_ff_fa'] == 1
+        all_matches = self.dad.search_replace_dict['a_ff_fa'] == 0
         if first_fromsel:
             if forward: node_iter = self.dad.treestore.iter_next(self.dad.curr_tree_iter)
             else: node_iter = self.dad.get_tree_iter_prev_sibling(self.dad.treestore, self.dad.curr_tree_iter)
@@ -258,20 +258,20 @@ class FindReplace:
             self.dad.glade.allmatchesdialog.set_title(str(self.matches_num) + cons.CHAR_SPACE + _("Matches"))
             self.dad.glade.allmatchesdialog.run()
             self.dad.glade.allmatchesdialog.hide()
-        elif self.dad.glade.checkbutton_iterated_find_dialog.get_active():
+        elif self.dad.search_replace_dict['idialog']:
             self.iterated_find_dialog()
         if self.matches_num and self.replace_active: self.dad.update_window_save_needed()
 
     def find_pattern(self, pattern, start_iter, forward, all_matches):
         """Returns (start_iter, end_iter) or (None, None)"""
         text = unicode(self.dad.curr_buffer.get_text(*self.dad.curr_buffer.get_bounds()), cons.STR_UTF8, cons.STR_IGNORE)
-        if not self.dad.glade.checkbutton_re.get_active(): # NOT REGULAR EXPRESSION
+        if not self.dad.search_replace_dict['reg_exp']: # NOT REGULAR EXPRESSION
             pattern = re.escape(pattern) # backslashes all non alphanum chars => to not spoil re
-            if self.dad.glade.checkbutton_whole_word.get_active(): # WHOLE WORD
+            if self.dad.search_replace_dict['whole_word']: # WHOLE WORD
                 pattern = r'\b' + pattern + r'\b'
-            elif self.dad.glade.checkbutton_start_word.get_active(): # START WORD
+            elif self.dad.search_replace_dict['start_word']: # START WORD
                 pattern = r'\b' + pattern
-        if self.dad.glade.checkbutton_match_case.get_active(): # CASE SENSITIVE
+        if self.dad.search_replace_dict['match_case']: # CASE SENSITIVE
             pattern = re.compile(pattern, re.UNICODE|re.MULTILINE)
         else: pattern = re.compile(pattern, re.IGNORECASE|re.UNICODE|re.MULTILINE)
         start_offset = start_iter.get_offset()
@@ -319,7 +319,7 @@ class FindReplace:
                                        self.dad.treestore[self.dad.curr_tree_iter][1],
                                        self.get_line_content(iter_insert) if obj_match_offsets[0] == None else obj_match_offsets[2]])
             if self.replace_active:
-                replacer_text = unicode(self.dad.glade.replace_entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE)
+                replacer_text = self.dad.search_replace_dict['replace']
                 self.dad.curr_buffer.delete_selection(interactive=False, default_editable=True)
                 self.dad.curr_buffer.insert_at_cursor(replacer_text)
                 if not all_matches:
@@ -459,7 +459,7 @@ class FindReplace:
                                        self.dad.treestore[node_iter][1],
                                        self.get_first_line_content(self.dad.get_textbuffer_from_tree_iter(node_iter))])
             if self.replace_active:
-                replacer_text = unicode(self.dad.glade.replace_entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE)
+                replacer_text = self.dad.search_replace_dict['replace']
                 text_name = text_name.replace(self.curr_find[1], replacer_text)
                 self.dad.treestore[node_iter][1] = text_name
                 self.ctdb_handler.pending_edit_db_node_prop(self.dad.treestore[node_iter][3])
