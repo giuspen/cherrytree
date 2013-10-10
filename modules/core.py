@@ -200,7 +200,7 @@ class CherryTree:
         self.curr_window_n_tree_width = None
         self.curr_buffer = None
         self.nodes_cursor_pos = {}
-        self.search_replace_dict = {}
+        self.search_replace_dict = {'replace':"", 'match_case':False, 'reg_exp':False, 'whole_word':False, 'start_word':False, 'fw':True, 'a_ff_fa':0, 'idialog':True}
         self.latest_tag = ["", ""] # [latest tag property, latest tag value]
         self.file_update = False
         self.autosave_timer_id = None
@@ -2792,12 +2792,12 @@ class CherryTree:
 
     def find_again(self, *args):
         """Continue the previous search (a_node/in_selected_node/in_all_nodes)"""
-        self.glade.checkbutton_iterated_find_dialog.set_active(False)
+        self.search_replace_dict['idialog'] = False
         self.find_handler.find_again()
 
     def find_back(self, *args):
         """Continue the previous search (a_node/in_selected_node/in_all_nodes) but in Opposite Direction"""
-        self.glade.checkbutton_iterated_find_dialog.set_active(False)
+        self.search_replace_dict['idialog'] = False
         self.find_handler.find_back()
 
     def replace_in_selected_node(self, *args):
@@ -3003,18 +3003,28 @@ class CherryTree:
         three_hbox = gtk.HBox()
         three_vbox = gtk.VBox()
         match_case_checkbutton = gtk.CheckButton(label=_("Match Case"))
+        match_case_checkbutton.set_active(self.search_replace_dict['match_case'])
         reg_exp_checkbutton = gtk.CheckButton(label=_("Regular Expression"))
+        reg_exp_checkbutton.set_active(self.search_replace_dict['reg_exp'])
         whole_word_checkbutton = gtk.CheckButton(label=_("Whole Word"))
+        whole_word_checkbutton.set_active(self.search_replace_dict['whole_word'])
         start_word_checkbutton = gtk.CheckButton(label=_("Start Word"))
+        start_word_checkbutton.set_active(self.search_replace_dict['start_word'])
         fw_radiobutton = gtk.RadioButton(label=_("Forward"))
+        fw_radiobutton.set_active(self.search_replace_dict['fw'])
         bw_radiobutton = gtk.RadioButton(label=_("Backward"))
         bw_radiobutton.set_group(fw_radiobutton)
+        bw_radiobutton.set_active(not self.search_replace_dict['fw'])
         all_radiobutton = gtk.RadioButton(label=_("All, List Matches"))
+        all_radiobutton.set_active(self.search_replace_dict['a_ff_fa'] == 0)
         first_from_radiobutton = gtk.RadioButton(label=_("First From Selection"))
         first_from_radiobutton.set_group(all_radiobutton)
+        first_from_radiobutton.set_active(self.search_replace_dict['a_ff_fa'] == 1)
         first_all_radiobutton = gtk.RadioButton(label=_("First in All Range"))
         first_all_radiobutton.set_group(all_radiobutton)
+        first_all_radiobutton.set_active(self.search_replace_dict['a_ff_fa'] == 3)
         iter_dialog_checkbutton = gtk.CheckButton(label=_("Show Iterated Find/Replace Dialog"))
+        iter_dialog_checkbutton.set_active(self.search_replace_dict['idialog'])
         four_1_hbox.pack_start(match_case_checkbutton)
         four_1_hbox.pack_start(reg_exp_checkbutton)
         four_2_hbox.pack_start(whole_word_checkbutton)
@@ -3054,7 +3064,15 @@ class CherryTree:
         dialog.hide()
         if response == gtk.RESPONSE_ACCEPT:
             ret_search = unicode(search_entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE)
-            self.search_replace_dict['replace'] = unicode(replace_entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE)
+            if replace_on:
+                self.search_replace_dict['replace'] = unicode(replace_entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE)
+            self.search_replace_dict['match_case'] = match_case_checkbutton.get_active()
+            self.search_replace_dict['reg_exp'] = reg_exp_checkbutton.get_active()
+            self.search_replace_dict['whole_word'] = whole_word_checkbutton.get_active()
+            self.search_replace_dict['start_word'] = start_word_checkbutton.get_active()
+            self.search_replace_dict['fw'] = fw_radiobutton.get_active()
+            self.search_replace_dict['a_ff_fa'] = 0 if all_radiobutton.get_active() else 1 if first_from_radiobutton.get_active() else 2
+            self.search_replace_dict['idialog'] = iter_dialog_checkbutton.get_active()
             return ret_search
         return None
 
