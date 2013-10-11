@@ -3027,7 +3027,7 @@ class CherryTree:
         first_from_radiobutton.set_active(self.search_replace_dict['a_ff_fa'] == 1)
         first_all_radiobutton = gtk.RadioButton(label=_("First in All Range"))
         first_all_radiobutton.set_group(all_radiobutton)
-        first_all_radiobutton.set_active(self.search_replace_dict['a_ff_fa'] == 3)
+        first_all_radiobutton.set_active(self.search_replace_dict['a_ff_fa'] == 2)
         iter_dialog_checkbutton = gtk.CheckButton(label=_("Show Iterated Find/Replace Dialog"))
         iter_dialog_checkbutton.set_active(self.search_replace_dict['idialog'])
         four_1_hbox.pack_start(match_case_checkbutton)
