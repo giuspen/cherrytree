@@ -459,7 +459,7 @@ class FindReplace:
                 replacer_text = self.dad.search_replace_dict['replace']
                 text_name = text_name.replace(self.curr_find[1], replacer_text)
                 self.dad.treestore[node_iter][1] = text_name
-                self.ctdb_handler.pending_edit_db_node_prop(self.dad.treestore[node_iter][3])
+                self.dad.ctdb_handler.pending_edit_db_node_prop(self.dad.treestore[node_iter][3])
             if not all_matches:
                 self.dad.treeview_safe_set_cursor(node_iter)
                 self.dad.sourceview.grab_focus()
