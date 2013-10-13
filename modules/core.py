@@ -200,7 +200,7 @@ class CherryTree:
         self.curr_window_n_tree_width = None
         self.curr_buffer = None
         self.nodes_cursor_pos = {}
-        self.search_replace_dict = {'replace':"", 'match_case':False, 'reg_exp':False, 'whole_word':False, 'start_word':False, 'fw':True, 'a_ff_fa':0, 'idialog':True}
+        self.search_replace_dict = {'find':"", 'replace':"", 'match_case':False, 'reg_exp':False, 'whole_word':False, 'start_word':False, 'fw':True, 'a_ff_fa':0, 'idialog':True}
         self.latest_tag = ["", ""] # [latest tag property, latest tag value]
         self.file_update = False
         self.autosave_timer_id = None
@@ -2975,7 +2975,7 @@ class CherryTree:
         if not self.is_there_selected_node_or_error(): return
         self.curr_buffer.insert_at_cursor(cons.CHAR_NEWLINE+self.h_rule+cons.CHAR_NEWLINE)
 
-    def dialog_search(self, title, search_hint="", replace_on=False):
+    def dialog_search(self, title, replace_on):
         """Opens the Search Dialog"""
         dialog = gtk.Dialog(title=title,
                             parent=self.window,
@@ -2985,13 +2985,14 @@ class CherryTree:
         dialog.set_default_size(300, -1)
         dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
         search_entry = gtk.Entry()
-        search_entry.set_text(search_hint)
+        search_entry.set_text(self.search_replace_dict['find'])
         search_frame = gtk.Frame(label="<b>"+_("Search for")+"</b>")
         search_frame.get_label_widget().set_use_markup(True)
         search_frame.set_shadow_type(gtk.SHADOW_NONE)
         search_frame.add(search_entry)
         if replace_on:
             replace_entry = gtk.Entry()
+            replace_entry.set_text(self.search_replace_dict['replace'])
             replace_frame = gtk.Frame(label="<b>"+_("Replace with")+"</b>")
             replace_frame.get_label_widget().set_use_markup(True)
             replace_frame.set_shadow_type(gtk.SHADOW_NONE)
@@ -3068,7 +3069,7 @@ class CherryTree:
         response = dialog.run()
         dialog.hide()
         if response == gtk.RESPONSE_ACCEPT:
-            ret_search = unicode(search_entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE)
+            self.search_replace_dict['find'] = unicode(search_entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE)
             if replace_on:
                 self.search_replace_dict['replace'] = unicode(replace_entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE)
             self.search_replace_dict['match_case'] = match_case_checkbutton.get_active()
@@ -3078,7 +3079,7 @@ class CherryTree:
             self.search_replace_dict['fw'] = fw_radiobutton.get_active()
             self.search_replace_dict['a_ff_fa'] = 0 if all_radiobutton.get_active() else 1 if first_from_radiobutton.get_active() else 2
             self.search_replace_dict['idialog'] = iter_dialog_checkbutton.get_active()
-            return ret_search
+            return self.search_replace_dict['find']
         return None
 
     def dialog_nodeprop(self, title, name="", syntax_highl=cons.CUSTOM_COLORS_ID, tags="", ro=False):

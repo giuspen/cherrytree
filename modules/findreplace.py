@@ -73,12 +73,11 @@ class FindReplace:
             iter_insert = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
             iter_bound = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_selection_bound())
             entry_predefined_text = self.dad.curr_buffer.get_text(iter_insert, iter_bound)
-            if not self.replace_active:
-                pattern = self.dad.dialog_search(title=_("Search in Current Node..."),
-                                            search_hint=entry_predefined_text)
-            else:
-                pattern = self.dad.dialog_search(title=_("Replace in Current Node..."),
-                                            search_hint=entry_predefined_text, replace_on=True)
+            if entry_predefined_text:
+                self.dad.search_replace_dict['find'] = entry_predefined_text
+            if self.replace_active: title = _("Replace in Current Node...")
+            else: title = _("Search in Current Node...")
+            pattern = self.dad.dialog_search(title, self.replace_active)
             if entry_predefined_text != "":
                 self.dad.curr_buffer.move_mark(self.dad.curr_buffer.get_insert(), iter_insert)
                 self.dad.curr_buffer.move_mark(self.dad.curr_buffer.get_selection_bound(), iter_bound)
@@ -120,12 +119,11 @@ class FindReplace:
             iter_insert = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
             iter_bound = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_selection_bound())
             entry_predefined_text = self.dad.curr_buffer.get_text(iter_insert, iter_bound)
-            if not self.replace_active:
-                pattern = self.dad.dialog_search(title=_("Search in All Nodes..."),
-                                            search_hint=entry_predefined_text)
-            else:
-                pattern = self.dad.dialog_search(title=_("Replace in All Nodes..."),
-                                            search_hint=entry_predefined_text, replace_on=True)
+            if entry_predefined_text:
+                self.dad.search_replace_dict['find'] = entry_predefined_text
+            if self.replace_active: title = _("Replace in All Nodes...")
+            else: title = _("Search in All Nodes...")
+            pattern = self.dad.dialog_search(title, self.replace_active)
             if entry_predefined_text != "":
                 self.dad.curr_buffer.move_mark(self.dad.curr_buffer.get_insert(), iter_insert)
                 self.dad.curr_buffer.move_mark(self.dad.curr_buffer.get_selection_bound(), iter_bound)
@@ -197,10 +195,9 @@ class FindReplace:
     def find_a_node(self, *args):
         """Search for a pattern between all the Node's Names"""
         if not self.from_find_iterated:
-            if not self.replace_active:
-                pattern_clean = self.dad.dialog_search(title=_("Search For a Node Name..."))
-            else:
-                pattern_clean = self.dad.dialog_search(title=_("Replace in Node Names..."), replace_on=True)
+            if self.replace_active: title = _("Replace in Node Names...")
+            else: title = _("Search For a Node Name...")
+            pattern_clean = self.dad.dialog_search(title, self.replace_active)
             if pattern_clean != None: self.curr_find = ["a_node", pattern_clean]
             else: return
         else: pattern_clean = self.curr_find[1]
