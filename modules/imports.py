@@ -1454,8 +1454,10 @@ class PlainTextHandler:
             file_descriptor = open(filepath, 'r')
             file_content = file_descriptor.read()
             file_descriptor.close()
-            file_content = file_content.decode(cons.STR_UTF8)
-        except: return
+            file_content = unicode(file_content, cons.STR_UTF8, cons.STR_IGNORE)
+        except:
+            print "skip import of", filepath
+            return
         self.add_node_with_content(filepath, file_content)
         self.nodes_list.pop()
 
