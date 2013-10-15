@@ -399,12 +399,12 @@ class KeepnoteHandler(HTMLParser.HTMLParser):
 
 class ZimHandler():
     """The Handler of the Zim Folder Parsing"""
-    
+
     def __init__(self, folderpath):
         """Machine boot"""
         self.folderpath = folderpath
         self.xml_handler = machines.XMLHandler(self)
-    
+
     def rich_text_serialize(self, text_data):
         """Appends a new part to the XML rich text"""
         dom_iter = self.dom.createElement("rich_text")
@@ -420,7 +420,7 @@ class ZimHandler():
         self.chars_counter += len(text_data)
         text_iter = self.dom.createTextNode(text_data)
         dom_iter.appendChild(text_iter)
-    
+
     def parse_folder(self, curr_folder):
         """Start the Parsing"""
         for element in os.listdir(curr_folder):
@@ -437,7 +437,7 @@ class ZimHandler():
                 if os.path.isdir(children_folder):
                     self.parse_folder(children_folder)
                 self.nodes_list.pop()
-    
+
     def node_add(self, wiki_string, node_name, curr_folder):
         """Add a node"""
         self.nodes_list.append(self.dom.createElement("node"))
@@ -450,7 +450,7 @@ class ZimHandler():
         self.node_wiki_parse(wiki_string, node_name, curr_folder)
         for pixbuf_element in self.pixbuf_vector:
             self.xml_handler.pixbuf_element_to_xml(pixbuf_element, self.nodes_list[-1], self.dom)
-    
+
     def node_wiki_parse(self, wiki_string, node_name, curr_folder):
         """Parse the node wiki content"""
         curr_pos = 0
@@ -462,6 +462,7 @@ class ZimHandler():
         while curr_pos < max_pos:
             curr_char = wiki_string[curr_pos:curr_pos+1]
             next_char = wiki_string[curr_pos+1:curr_pos+2] if curr_pos+1 < max_pos else cons.CHAR_SPACE
+            third_char = wiki_string[curr_pos+2:curr_pos+3] if curr_pos+2 < max_pos else cons.CHAR_SPACE
             if newline_count < 4:
                 if curr_char == cons.CHAR_NEWLINE: newline_count += 1
             else:
@@ -587,13 +588,20 @@ class ZimHandler():
                         self.rich_text_serialize(target_n_label[1])
                     wiki_slot = ""
                     curr_pos += 1
+                elif curr_char == cons.CHAR_SQ_BR_OPEN\
+                and next_char in [cons.CHAR_SPACE, cons.CHAR_STAR, 'x']\
+                and third_char == cons.CHAR_SQ_BR_CLOSE:
+                    wiki_slot += cons.CHAR_SQ_BR_OPEN
+                    wiki_slot += cons.CHAR_SPACE if next_char == cons.CHAR_SPACE else cons.CHAR_X
+                    wiki_slot += cons.CHAR_SQ_BR_CLOSE + cons.CHAR_SPACE
+                    curr_pos += 4
                 else:
                     wiki_slot += curr_char
                     if curr_char == ":" and next_char == cons.CHAR_SLASH:
                         probably_url = True
             curr_pos += 1
         if wiki_slot: self.rich_text_serialize(wiki_slot)
-    
+
     def get_cherrytree_xml(self):
         """Returns a CherryTree string Containing the Zim Nodes"""
         self.dom = xml.dom.minidom.Document()
@@ -1156,7 +1164,7 @@ class KeynoteHandler:
     def __init__(self):
         """Machine boot"""
         self.xml_handler = machines.XMLHandler(self)
-        
+
     def rich_text_serialize(self, text_data):
         """Appends a new part to the XML rich text"""
         dom_iter = self.dom.createElement("rich_text")
@@ -1210,13 +1218,13 @@ class KeynoteHandler:
                     self.curr_state = 0
                     self.rich_text_serialize(self.curr_node_content)
                 else: self.write_line_text(text_line.replace(cons.CHAR_CR, "").replace(cons.CHAR_NEWLINE, ""))
-    
+
     def check_pending_text_to_tag(self):
         """Check if there's text to process before opening tag"""
         if self.curr_node_content:
             self.rich_text_serialize(self.curr_node_content)
             self.curr_node_content = ""
-    
+
     def write_line_text(self, text_line):
         """Write Stripped Line Content"""
         #print "'%s'" % text_line
@@ -1340,7 +1348,7 @@ class KeynoteHandler:
                     elif curr_state == 1:
                         if curr_char == cons.CHAR_SPACE:
                             curr_state = 0
-    
+
     def get_cherrytree_xml(self, file_descriptor):
         """Returns a CherryTree string Containing the Treepad Nodes"""
         self.dom = xml.dom.minidom.Document()
