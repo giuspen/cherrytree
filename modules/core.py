@@ -4297,7 +4297,7 @@ class CherryTree:
                 if (list_info[0] == 0 and iter_list_quit.backward_chars(3) and iter_list_quit.get_char() == cons.CHAR_LISTBUL):
                     self.curr_buffer.delete(iter_list_quit, iter_insert)
                     return False # former was an empty paragraph => list quit
-                elif (list_info[0] == -1 and iter_list_quit.backward_chars(5) and iter_list_quit.get_char() == cons.CHAR_SQ_BR_OPEN):
+                elif (list_info[0] == -1 and iter_list_quit.backward_chars(3) and iter_list_quit.get_char() in [cons.CHAR_LISTTODO, cons.CHAR_LISTDONEOK, cons.CHAR_LISTDONEFAIL]):
                     self.curr_buffer.delete(iter_list_quit, iter_insert)
                     return False # former was an empty paragraph => list quit
                 elif (list_info[0] > 0 and iter_list_quit.backward_chars(2) and iter_list_quit.get_char() == cons.CHAR_SPACE\
