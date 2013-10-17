@@ -591,10 +591,11 @@ class ZimHandler():
                 elif curr_char == cons.CHAR_SQ_BR_OPEN\
                 and next_char in [cons.CHAR_SPACE, cons.CHAR_STAR, 'x']\
                 and third_char == cons.CHAR_SQ_BR_CLOSE:
-                    wiki_slot += cons.CHAR_SQ_BR_OPEN
-                    wiki_slot += cons.CHAR_SPACE if next_char == cons.CHAR_SPACE else cons.CHAR_X
-                    wiki_slot += cons.CHAR_SQ_BR_CLOSE + cons.CHAR_SPACE
-                    curr_pos += 4
+                    if next_char == cons.CHAR_SPACE: wiki_slot += cons.CHAR_LISTTODO
+                    elif next_char == cons.CHAR_STAR: wiki_slot += cons.CHAR_LISTDONEOK
+                    else: wiki_slot += cons.CHAR_LISTDONEFAIL
+                    wiki_slot += cons.CHAR_SPACE
+                    curr_pos += 2
                 else:
                     wiki_slot += curr_char
                     if curr_char == ":" and next_char == cons.CHAR_SLASH:
