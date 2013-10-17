@@ -331,3 +331,20 @@ class ListsHandler:
         elif todo_char_iter.get_char() == cons.CHAR_LISTDONEFAIL:
             self.dad.curr_buffer.delete(todo_char_iter, self.dad.curr_buffer.get_iter_at_offset(iter_offset+1))
             self.dad.curr_buffer.insert(self.dad.curr_buffer.get_iter_at_offset(iter_offset), cons.CHAR_LISTTODO)
+
+    def todo_lists_old_to_new_conversion(self, text_buffer):
+        """Conversion of todo lists from old to new type for a node"""
+        curr_iter = text_buffer.get_start_iter()
+        while curr_iter:
+            if curr_iter.get_char() == cons.CHAR_NEWLINE and curr_iter.forward_char()\
+            and curr_iter.get_char() == cons.CHAR_SQ_BR_OPEN and curr_iter.forward_char()\
+            and curr_iter.get_char() in [cons.CHAR_SPACE, "X"]:
+                middle_char = curr_iter.get_char()
+                if curr_iter.forward_char() and curr_iter.get_char() == cons.CHAR_SQ_BR_CLOSE:
+                    first_iter = curr_iter.copy()
+                    first_iter.backward_chars(3)
+                    iter_offset = first_iter.get_offset()
+                    text_buffer.delete(first_iter, curr_iter)
+                    todo_char = cons.CHAR_LISTTODO if middle_char == cons.CHAR_SPACE else cons.CHAR_LISTDONEOK
+                    text_buffer.insert(text_buffer.get_iter_at_offset(iter_offset), todo_char)
+            if not curr_iter.forward_char(): break
