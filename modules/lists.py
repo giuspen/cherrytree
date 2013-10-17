@@ -340,11 +340,13 @@ class ListsHandler:
             and curr_iter.get_char() == cons.CHAR_SQ_BR_OPEN and curr_iter.forward_char()\
             and curr_iter.get_char() in [cons.CHAR_SPACE, "X"]:
                 middle_char = curr_iter.get_char()
-                if curr_iter.forward_char() and curr_iter.get_char() == cons.CHAR_SQ_BR_CLOSE:
+                if curr_iter.forward_char() and curr_iter.get_char() == cons.CHAR_SQ_BR_CLOSE\
+                and curr_iter.forward_char():
                     first_iter = curr_iter.copy()
                     first_iter.backward_chars(3)
                     iter_offset = first_iter.get_offset()
                     text_buffer.delete(first_iter, curr_iter)
                     todo_char = cons.CHAR_LISTTODO if middle_char == cons.CHAR_SPACE else cons.CHAR_LISTDONEOK
                     text_buffer.insert(text_buffer.get_iter_at_offset(iter_offset), todo_char)
+                    curr_iter = text_buffer.get_iter_at_mark(text_buffer.get_insert())
             if not curr_iter.forward_char(): break
