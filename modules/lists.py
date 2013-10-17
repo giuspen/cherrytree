@@ -50,14 +50,14 @@ class ListsHandler:
                 if not iter_start:
                     # it's an empty paragraph
                     iter_start = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
-                    self.dad.curr_buffer.insert(iter_start, "[ ] ")
+                    self.dad.curr_buffer.insert(iter_start, cons.CHAR_LISTTODO + cons.CHAR_SPACE)
                     break
                 elif self.is_list_indented_continuation(iter_start):
                     new_par_offset = iter_end.get_offset() + 1
                 else:
-                    new_par_offset = iter_end.get_offset() + 4 + 1
-                    self.dad.curr_buffer.insert(iter_start, "[ ] ")
-                    end_offset += 4
+                    new_par_offset = iter_end.get_offset() + 2 + 1
+                    self.dad.curr_buffer.insert(iter_start, cons.CHAR_LISTTODO + cons.CHAR_SPACE)
+                    end_offset += 2
                 iter_start = self.dad.curr_buffer.get_iter_at_offset(new_par_offset)
                 if not iter_start: break
         elif list_info[0] == 0:
@@ -72,11 +72,11 @@ class ListsHandler:
                 if self.is_list_indented_continuation(iter_start):
                     new_par_offset = iter_end.get_offset() + 1
                 else:
-                    new_par_offset = iter_end.get_offset() - 4 + 1
+                    new_par_offset = iter_end.get_offset() - 2 + 1
                     iter_end_deletion = iter_start.copy()
-                    iter_end_deletion.forward_chars(4)
+                    iter_end_deletion.forward_chars(2)
                     self.dad.curr_buffer.delete(iter_start, iter_end_deletion)
-                    end_offset -= 4
+                    end_offset -= 2
                 iter_start = self.dad.curr_buffer.get_iter_at_offset(new_par_offset)
                 if not iter_start: break
         else:
@@ -215,9 +215,8 @@ class ListsHandler:
             iter_end = iter_start.copy()
             self.list_adjust_ahead_write_in(iter_start, iter_end, curr_num, adj_type)
         elif adj_type[0:3] == "tod":
-            if iter_start.get_char() != cons.CHAR_SQ_BR_OPEN: return
+            if not iter_start.get_char() in [cons.CHAR_LISTTODO, cons.CHAR_LISTDONEOK, cons.CHAR_LISTDONEFAIL]: return
             iter_end = iter_start.copy()
-            iter_end.forward_chars(2)
             self.list_adjust_ahead_write_in(iter_start, iter_end, curr_num, adj_type)
         else: print "bad adj_type", adj_type
 
@@ -233,7 +232,7 @@ class ListsHandler:
             self.dad.curr_buffer.insert(iter_start, cons.CHAR_LISTBUL)
             self.list_adjust_ahead(None, iter_start.get_offset(), adj_type)
         elif adj_type[-3:] == "tod":
-            self.dad.curr_buffer.insert(iter_start, "[ ]")
+            self.dad.curr_buffer.insert(iter_start, cons.CHAR_LISTTODO)
             self.list_adjust_ahead(None, iter_start.get_offset(), adj_type)
         else: print "bad adj_type", adj_type
 
@@ -242,10 +241,7 @@ class ListsHandler:
         iter_start = iter_first_paragraph.copy()
         char = iter_start.get_char()
         if char == cons.CHAR_LISTBUL: return 0
-        if char == cons.CHAR_SQ_BR_OPEN:
-            iter_tmp = iter_start.copy()
-            if iter_tmp.forward_chars(2) and iter_tmp.get_char() == ']':
-                return -1
+        if char in [cons.CHAR_LISTTODO, cons.CHAR_LISTDONEOK, cons.CHAR_LISTDONEFAIL]: return -1
         match = re.match('[1-9]', char)
         if not match: return None
         number_str = char
@@ -313,29 +309,26 @@ class ListsHandler:
         return True
 
     def is_list_todo_beginning(self, square_bracket_open_iter):
-        """Check if it is [X] or [ ]"""
+        """Check if ☐ or ☑ or ☒"""
         text_iter = square_bracket_open_iter.copy()
         if text_iter.backward_char():
             if text_iter.get_char() == cons.CHAR_NEWLINE:
-                text_iter.forward_chars(2)
+                text_iter.forward_char()
             else: return False
-        else: text_iter.forward_char()
-        if text_iter.get_char() in [cons.CHAR_SPACE, cons.CHAR_X]\
-        and text_iter.forward_char() and text_iter.get_char() == cons.CHAR_SQ_BR_CLOSE:
+        if text_iter.get_char() in [cons.CHAR_LISTTODO, cons.CHAR_LISTDONEOK, cons.CHAR_LISTDONEFAIL]:
             return True
         return False
 
-    def todo_list_invert_checked_status(self, square_bracket_open_iter):
-        """From [ ] to [X] or vice-versa"""
-        square_bracket_open_iter.forward_char()
-        iter_offset = square_bracket_open_iter.get_offset()
-        if self.dad.curr_buffer.get_iter_at_offset(iter_offset).get_char() == cons.CHAR_SPACE:
-            self.dad.curr_buffer.delete(square_bracket_open_iter, self.dad.curr_buffer.get_iter_at_offset(iter_offset+1))
-            self.dad.curr_buffer.insert(self.dad.curr_buffer.get_iter_at_offset(iter_offset), cons.CHAR_X)
-        else:
-            self.dad.curr_buffer.delete(square_bracket_open_iter, self.dad.curr_buffer.get_iter_at_offset(iter_offset+1))
-            self.dad.curr_buffer.insert(self.dad.curr_buffer.get_iter_at_offset(iter_offset), cons.CHAR_SPACE)
-        iter_offset += 3
+    def todo_list_rotate_status(self, todo_char_iter):
+        """Rotate status between ☐ and ☑ and ☒"""
+        iter_offset = todo_char_iter.get_offset()
+        if todo_char_iter.get_char() == cons.CHAR_LISTTODO:
+            self.dad.curr_buffer.delete(todo_char_iter, self.dad.curr_buffer.get_iter_at_offset(iter_offset+1))
+            self.dad.curr_buffer.insert(self.dad.curr_buffer.get_iter_at_offset(iter_offset), cons.CHAR_LISTDONE)
+        elif todo_char_iter.get_char() == cons.CHAR_LISTDONE:
+            self.dad.curr_buffer.delete(todo_char_iter, self.dad.curr_buffer.get_iter_at_offset(iter_offset+1))
+            self.dad.curr_buffer.insert(self.dad.curr_buffer.get_iter_at_offset(iter_offset), cons.CHAR_LISTTODO)
+        iter_offset += 2
         iter_start = self.dad.curr_buffer.get_iter_at_offset(iter_offset)
         if not iter_start: return
         while 1:

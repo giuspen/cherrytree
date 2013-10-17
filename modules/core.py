@@ -4190,20 +4190,8 @@ class CherryTree:
            and if one of them is a link, change the cursor to the HAND2 cursor"""
         hovering_link = False
         hovering_anchor = False
-        hovering_todo_list = False
         text_iter = self.sourceview.get_iter_at_location(x, y)
-        if text_iter.get_char() == cons.CHAR_SQ_BR_OPEN:
-            text_iter_bis = text_iter.copy()
-            hovering_todo_list = self.lists_handler.is_list_todo_beginning(text_iter_bis)
-        elif text_iter.get_char() in [cons.CHAR_SPACE, cons.CHAR_X]:
-            text_iter_bis = text_iter.copy()
-            if text_iter_bis.backward_char():
-                hovering_todo_list = self.lists_handler.is_list_todo_beginning(text_iter_bis)
-        elif text_iter.get_char() == cons.CHAR_SQ_BR_CLOSE:
-            text_iter_bis = text_iter.copy()
-            if text_iter_bis.backward_chars(2):
-                hovering_todo_list = self.lists_handler.is_list_todo_beginning(text_iter_bis)
-        if hovering_todo_list:
+        if self.lists_handler.is_list_todo_beginning(text_iter):
             self.sourceview.get_window(gtk.TEXT_WINDOW_TEXT).set_cursor(gtk.gdk.Cursor(gtk.gdk.X_CURSOR))
             self.sourceview.set_tooltip_text(None)
             return
@@ -4274,17 +4262,8 @@ class CherryTree:
                         if tag_name and tag_name[0:4] == cons.TAG_LINK:
                             self.link_clicked(tag_name[5:])
                             return False
-                hovering_todo_list = False
-                if text_iter.get_char() == cons.CHAR_SQ_BR_OPEN:
-                    hovering_todo_list = self.lists_handler.is_list_todo_beginning(text_iter)
-                elif text_iter.get_char() in [cons.CHAR_SPACE, cons.CHAR_X]:
-                    if text_iter.backward_char():
-                        hovering_todo_list = self.lists_handler.is_list_todo_beginning(text_iter)
-                elif text_iter.get_char() == cons.CHAR_SQ_BR_CLOSE:
-                    if text_iter.backward_chars(2):
-                        hovering_todo_list = self.lists_handler.is_list_todo_beginning(text_iter)
-                if hovering_todo_list:
-                    self.lists_handler.todo_list_invert_checked_status(text_iter)
+                if self.lists_handler.is_list_todo_beginning(text_iter):
+                    self.lists_handler.todo_list_rotate_status(text_iter)
             elif event.button == 3 and not self.curr_buffer.get_has_selection():
                 x, y = text_view.window_to_buffer_coords(gtk.TEXT_WINDOW_WIDGET, int(event.x), int(event.y))
                 text_iter = self.sourceview.get_iter_at_location(x, y)
@@ -4326,7 +4305,7 @@ class CherryTree:
                     iter_start.backward_chars(3)
                     self.curr_buffer.delete(iter_start, iter_insert)
                 if list_info[0] == 0: self.curr_buffer.insert(iter_insert, cons.CHAR_LISTBUL + cons.CHAR_SPACE)
-                elif list_info[0] == -1: self.curr_buffer.insert(iter_insert, "[ ] ")
+                elif list_info[0] == -1: self.curr_buffer.insert(iter_insert, cons.CHAR_LISTTODO + cons.CHAR_SPACE)
                 else:
                     curr_num = list_info[0] + 1
                     self.curr_buffer.insert(iter_insert, '%s. ' % curr_num)
