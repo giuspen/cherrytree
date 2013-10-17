@@ -4336,6 +4336,17 @@ class CherryTree:
                         and iter_start.get_char() == "t" and iter_start.backward_char()\
                         and iter_start.get_char() == cons.CHAR_PARENTH_OPEN:
                             self.special_char_replace(cons.SPECIAL_CHAR_UNREGISTERED_TRADEMARK, iter_start, iter_insert)
+                    # Start bulleted list on "* " at line start
+                    elif iter_start.get_char() == cons.CHAR_STAR and iter_start.get_line_offset() == 0:
+                        self.curr_buffer.delete(iter_start, iter_insert)
+                        self.lists_handler.list_bulleted_handler()
+                    # Start todo list on "[ ]" at line start
+                    elif iter_start.get_char() == cons.CHAR_SQ_BR_CLOSE and iter_start.backward_char()\
+                    and iter_start.get_char() == cons.CHAR_SPACE and iter_start.backward_char()\
+                    and iter_start.get_char() == cons.CHAR_SQ_BR_OPEN\
+                    and iter_start.get_line_offset() == 0:
+                        self.curr_buffer.delete(iter_start, iter_insert)
+                        self.lists_handler.list_todo_handler()
         return False
 
     def special_char_replace(self, special_char, iter_start, iter_insert):
