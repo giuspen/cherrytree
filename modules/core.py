@@ -2704,15 +2704,20 @@ class CherryTree:
         self.objects_buffer_refresh()
         self.update_selected_node_statusbar_info()
         if self.user_active:
-            if self.enable_spell_check and self.syntax_highlighting == cons.CUSTOM_COLORS_ID:
-                self.spell_check_set_on()
-            if model[new_iter][3] in self.nodes_cursor_pos: cursor_pos = self.nodes_cursor_pos[model[new_iter][3]]
-            else: cursor_pos = 0
+            if model[new_iter][3] in self.nodes_cursor_pos:
+                already_visited = True
+                cursor_pos = self.nodes_cursor_pos[model[new_iter][3]]
+            else:
+                already_visited = False
+                cursor_pos = 0
             cursor_iter = self.curr_buffer.get_iter_at_offset(cursor_pos)
             if cursor_iter:
                 #print "cursor_pos %s restore for node %s" % (cursor_pos, model[new_iter][3])
                 self.curr_buffer.place_cursor(cursor_iter)
                 self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), 0.3)
+            if self.syntax_highlighting == cons.CUSTOM_COLORS_ID:
+                if self.enable_spell_check: self.spell_check_set_on()
+                if not already_visited: self.lists_handler.todo_lists_old_to_new_conversion(self.curr_buffer)
 
     def update_node_name_header(self):
         """Update Node Name Header"""
