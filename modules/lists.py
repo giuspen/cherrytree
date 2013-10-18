@@ -332,6 +332,13 @@ class ListsHandler:
             self.dad.curr_buffer.delete(todo_char_iter, self.dad.curr_buffer.get_iter_at_offset(iter_offset+1))
             self.dad.curr_buffer.insert(self.dad.curr_buffer.get_iter_at_offset(iter_offset), cons.CHAR_LISTTODO)
 
+    def char_iter_forward_to_newline(self, char_iter):
+        """Forwards char iter to line end"""
+        if not char_iter.forward_char(): return False
+        while char_iter.get_char() != cons.CHAR_NEWLINE:
+            if not char_iter.forward_char(): return False
+        return True
+
     def todo_lists_old_to_new_conversion(self, text_buffer):
         """Conversion of todo lists from old to new type for a node"""
         curr_iter = text_buffer.get_start_iter()
@@ -348,5 +355,13 @@ class ListsHandler:
                     text_buffer.delete(first_iter, curr_iter)
                     todo_char = cons.CHAR_LISTTODO if middle_char == cons.CHAR_SPACE else cons.CHAR_LISTDONEOK
                     text_buffer.insert(text_buffer.get_iter_at_offset(iter_offset), todo_char)
-                    curr_iter = text_buffer.get_iter_at_mark(text_buffer.get_insert())
-            if not curr_iter.forward_char(): break
+                    curr_iter = text_buffer.get_iter_at_offset(iter_offset)
+                    if middle_char != cons.CHAR_SPACE:
+                        first_iter = curr_iter.copy()
+                        if self.char_iter_forward_to_newline(curr_iter):
+                            print "%s(%s),%s(%s)" % (first_iter.get_char(), first_iter.get_offset(), curr_iter.get_char(), curr_iter.get_offset())
+                            text_buffer.remove_all_tags(first_iter, curr_iter)
+                            if self.dad.enable_spell_check: self.dad.spell_check_set_on()
+                            continue
+                        else: break
+            if not self.char_iter_forward_to_newline(curr_iter): break
