@@ -4309,10 +4309,6 @@ class CherryTree:
                     iter_list_quit.backward_chars(len(str(list_info[0])))
                     self.curr_buffer.delete(iter_list_quit, iter_insert)
                     return False # former was an empty paragraph => list quit
-                if list_info[1]: # multiple line paragraph
-                    iter_start = iter_insert.copy()
-                    iter_start.backward_chars(3)
-                    self.curr_buffer.delete(iter_start, iter_insert)
                 if list_info[0] == 0: self.curr_buffer.insert(iter_insert, cons.CHAR_LISTBUL + cons.CHAR_SPACE)
                 elif list_info[0] == -1: self.curr_buffer.insert(iter_insert, cons.CHAR_LISTTODO + cons.CHAR_SPACE)
                 else:
