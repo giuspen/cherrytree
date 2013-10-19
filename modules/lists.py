@@ -359,7 +359,7 @@ class ListsHandler:
                     if middle_char != cons.CHAR_SPACE:
                         first_iter = curr_iter.copy()
                         if self.char_iter_forward_to_newline(curr_iter):
-                            print "%s(%s),%s(%s)" % (first_iter.get_char(), first_iter.get_offset(), curr_iter.get_char(), curr_iter.get_offset())
+                            #print "%s(%s),%s(%s)" % (first_iter.get_char(), first_iter.get_offset(), curr_iter.get_char(), curr_iter.get_offset())
                             text_buffer.remove_all_tags(first_iter, curr_iter)
                             if self.dad.enable_spell_check: self.dad.spell_check_set_on()
                             continue

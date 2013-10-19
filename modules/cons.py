@@ -772,6 +772,7 @@ def get_popup_menu_entries_code(inst):
     return [
     ("separator", None, None, None, None),
     ("timestamp", _("Insert Ti_mestamp"), "<control>M", _("Insert Timestamp"), inst.timestamp_insert),
+    ("gtk-clear", _("Stri_p Trailing Spaces"), None, _("Strip Trailing Spaces"), inst.strip_trailing_spaces),
     ("submenu-start", _("C_hange Case") , "case_toggle", None, None),
     ("case_lower", _("_Lower Case of Selection/Word"), "<control>W", _("Lower the Case of the Selection/the Underlying Word"), inst.text_selection_lower_case),
     ("case_upper", _("_Upper Case of Selection/Word"), "<control><shift>W", _("Upper the Case of the Selection/the Underlying Word"), inst.text_selection_upper_case),

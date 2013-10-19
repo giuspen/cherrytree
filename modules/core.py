@@ -3681,6 +3681,10 @@ class CherryTree:
         if not self.user_active: return
         self.anchor_size = int(self.glade.spinbutton_anchor_size.get_value())
 
+    def strip_trailing_spaces(self, *args):
+        """Remove trailing spaces/tabs"""
+        support.strip_trailing_spaces(self.curr_buffer)
+
     def apply_tag_foreground(self, *args):
         """The Foreground Color Chooser Button was Pressed"""
         self.apply_tag(cons.TAG_FOREGROUND)
