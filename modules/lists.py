@@ -343,25 +343,27 @@ class ListsHandler:
         """Conversion of todo lists from old to new type for a node"""
         curr_iter = text_buffer.get_start_iter()
         while curr_iter:
-            if curr_iter.get_char() == cons.CHAR_NEWLINE and curr_iter.forward_char()\
-            and curr_iter.get_char() == cons.CHAR_SQ_BR_OPEN and curr_iter.forward_char()\
-            and curr_iter.get_char() in [cons.CHAR_SPACE, "X"]:
-                middle_char = curr_iter.get_char()
-                if curr_iter.forward_char() and curr_iter.get_char() == cons.CHAR_SQ_BR_CLOSE\
-                and curr_iter.forward_char():
-                    first_iter = curr_iter.copy()
-                    first_iter.backward_chars(3)
-                    iter_offset = first_iter.get_offset()
-                    text_buffer.delete(first_iter, curr_iter)
-                    todo_char = cons.CHAR_LISTTODO if middle_char == cons.CHAR_SPACE else cons.CHAR_LISTDONEOK
-                    text_buffer.insert(text_buffer.get_iter_at_offset(iter_offset), todo_char)
-                    curr_iter = text_buffer.get_iter_at_offset(iter_offset)
-                    if middle_char != cons.CHAR_SPACE:
+            fw_needed = True
+            if curr_iter.get_char() == cons.CHAR_NEWLINE and curr_iter.forward_char():
+                if curr_iter.get_char() == cons.CHAR_SQ_BR_OPEN and curr_iter.forward_char()\
+                and curr_iter.get_char() in [cons.CHAR_SPACE, "X"]:
+                    middle_char = curr_iter.get_char()
+                    if curr_iter.forward_char() and curr_iter.get_char() == cons.CHAR_SQ_BR_CLOSE\
+                    and curr_iter.forward_char():
                         first_iter = curr_iter.copy()
-                        if self.char_iter_forward_to_newline(curr_iter):
-                            #print "%s(%s),%s(%s)" % (first_iter.get_char(), first_iter.get_offset(), curr_iter.get_char(), curr_iter.get_offset())
-                            text_buffer.remove_all_tags(first_iter, curr_iter)
-                            if self.dad.enable_spell_check: self.dad.spell_check_set_on()
-                            continue
-                        else: break
-            if not self.char_iter_forward_to_newline(curr_iter): break
+                        first_iter.backward_chars(3)
+                        iter_offset = first_iter.get_offset()
+                        text_buffer.delete(first_iter, curr_iter)
+                        todo_char = cons.CHAR_LISTTODO if middle_char == cons.CHAR_SPACE else cons.CHAR_LISTDONEOK
+                        text_buffer.insert(text_buffer.get_iter_at_offset(iter_offset), todo_char)
+                        curr_iter = text_buffer.get_iter_at_offset(iter_offset)
+                        if middle_char != cons.CHAR_SPACE:
+                            first_iter = curr_iter.copy()
+                            if self.char_iter_forward_to_newline(curr_iter):
+                                #print "%s(%s),%s(%s)" % (first_iter.get_char(), first_iter.get_offset(), curr_iter.get_char(), curr_iter.get_offset())
+                                text_buffer.remove_all_tags(first_iter, curr_iter)
+                                if self.dad.enable_spell_check: self.dad.spell_check_set_on()
+                                continue
+                            else: break
+                else: fw_needed = False
+            if fw_needed and not self.char_iter_forward_to_newline(curr_iter): break
