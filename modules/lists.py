@@ -342,9 +342,20 @@ class ListsHandler:
     def todo_lists_old_to_new_conversion(self, text_buffer):
         """Conversion of todo lists from old to new type for a node"""
         curr_iter = text_buffer.get_start_iter()
+        keep_cleaning = False
         while curr_iter:
             fw_needed = True
             if curr_iter.get_char() == cons.CHAR_NEWLINE and curr_iter.forward_char():
+                if keep_cleaning:
+                    iter_bis = curr_iter.copy()
+                    if iter_bis.get_char() == cons.CHAR_SPACE and iter_bis.forward_char()\
+                    and iter_bis.get_char() == cons.CHAR_SPACE and iter_bis.forward_char()\
+                    and iter_bis.get_char() == cons.CHAR_SPACE:
+                        no_stop = self.char_iter_forward_to_newline(curr_iter)
+                        text_buffer.remove_all_tags(iter_bis, curr_iter)
+                        if no_stop: continue
+                        else: break
+                    else: keep_cleaning = False
                 if curr_iter.get_char() == cons.CHAR_SQ_BR_OPEN and curr_iter.forward_char()\
                 and curr_iter.get_char() in [cons.CHAR_SPACE, "X"]:
                     middle_char = curr_iter.get_char()
@@ -359,11 +370,12 @@ class ListsHandler:
                         curr_iter = text_buffer.get_iter_at_offset(iter_offset)
                         if middle_char != cons.CHAR_SPACE:
                             first_iter = curr_iter.copy()
-                            if self.char_iter_forward_to_newline(curr_iter):
-                                #print "%s(%s),%s(%s)" % (first_iter.get_char(), first_iter.get_offset(), curr_iter.get_char(), curr_iter.get_offset())
-                                text_buffer.remove_all_tags(first_iter, curr_iter)
-                                if self.dad.enable_spell_check: self.dad.spell_check_set_on()
-                                continue
+                            no_stop = self.char_iter_forward_to_newline(curr_iter)
+                            #print "%s(%s),%s(%s)" % (first_iter.get_char(), first_iter.get_offset(), curr_iter.get_char(), curr_iter.get_offset())
+                            text_buffer.remove_all_tags(first_iter, curr_iter)
+                            keep_cleaning = True
+                            if no_stop: continue
                             else: break
                 else: fw_needed = False
             if fw_needed and not self.char_iter_forward_to_newline(curr_iter): break
+        if self.dad.enable_spell_check: self.dad.spell_check_set_on()
