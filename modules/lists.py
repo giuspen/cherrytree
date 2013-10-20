@@ -343,9 +343,11 @@ class ListsHandler:
         """Conversion of todo lists from old to new type for a node"""
         curr_iter = text_buffer.get_start_iter()
         keep_cleaning = False
+        first_line = True
         while curr_iter:
             fw_needed = True
-            if curr_iter.get_char() == cons.CHAR_NEWLINE and curr_iter.forward_char():
+            if first_line or curr_iter.get_char() == cons.CHAR_NEWLINE and curr_iter.forward_char():
+                first_line = False
                 if keep_cleaning:
                     iter_bis = curr_iter.copy()
                     if iter_bis.get_char() == cons.CHAR_SPACE and iter_bis.forward_char()\
