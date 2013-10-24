@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CherryTree 0.30.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-23 22:40+0200\n"
+"POT-Creation-Date: 2013-10-24 23:11+0200\n"
 "PO-Revision-Date: 2013-08-26 23:24+0100\n"
 "Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
 "Language-Team: Brazilian Portuguese\n"
@@ -42,7 +42,7 @@ msgstr "Informação"
 msgid "This Change will have Effect Only After Restarting CherryTree"
 msgstr "Esta mudança só terá efeito após reiniciar o CherryTree"
 
-#: modules/support.py:246 glade/cherrytree.glade.h:56
+#: modules/support.py:246 glade/cherrytree.glade.h:57
 msgid "Warning"
 msgstr "Aviso"
 
@@ -305,7 +305,7 @@ msgstr "Digite a senha para %s"
 msgid "Wrong Password"
 msgstr "Senha errada"
 
-#: modules/core.py:1976 glade/cherrytree.glade.h:35
+#: modules/core.py:1976 glade/cherrytree.glade.h:36
 msgid "Select the New Father"
 msgstr "Selecione o novo pai"
 
@@ -740,7 +740,7 @@ msgstr "Sair do CherryTree "
 msgid "_Preferences"
 msgstr "_Preferências"
 
-#: modules/cons.py:515 glade/cherrytree.glade.h:71
+#: modules/cons.py:515 glade/cherrytree.glade.h:72
 msgid "Preferences"
 msgstr "Preferências"
 
@@ -1199,7 +1199,7 @@ msgid "Find _Again"
 msgstr "Procurar _novamente"
 
 #: modules/cons.py:572 modules/cons.py:755 modules/cons.py:794
-#: glade/cherrytree.glade.h:66
+#: glade/cherrytree.glade.h:67
 msgid "Iterate the Last Find Operation"
 msgstr "Iterar a última operação de pesquisa"
 
@@ -1208,7 +1208,7 @@ msgid "Find _Back"
 msgstr "Procurar _Reverso"
 
 #: modules/cons.py:573 modules/cons.py:756 modules/cons.py:795
-#: glade/cherrytree.glade.h:64
+#: glade/cherrytree.glade.h:65
 msgid "Iterate the Last Find Operation in Opposite Direction"
 msgstr "Iterar a última operação de Encontrar na direção oposta"
 
@@ -1857,9 +1857,11 @@ msgstr ""
 "MA 02110-1301, USA.\n"
 
 #: glade/cherrytree.glade.h:22
+#, fuzzy
 msgid ""
 "Chinese Simplified (zh_CN) Channing Wong <mamimoluo@gmail.com>\n"
 "Czech (cs) Pavel Fric <fripohled@blogspot.com>\n"
+"Dutch (nl) Patrick Vijgeboom <pj.vijgeboom@gmail.com>\n"
 "French (fr) Benoît D'Angelo <benoit.dangelo@gmx.fr> (former Ludovic Troisi)\n"
 "German (de) Frank Brungräber <calexu@arcor.de> (former Sven Neubauer)\n"
 "Italian (it) Giuseppe Penone <giuspen@gmail.com>\n"
@@ -1881,103 +1883,103 @@ msgstr ""
 "Espanhol (es) Daniel MC <i.e.betel@gmail.com>\n"
 "Ucraniano (uk) Andriy Kovtun <kovtunos@yandex.ru>"
 
-#: glade/cherrytree.glade.h:32
+#: glade/cherrytree.glade.h:33
 msgid "Hide (Restore with Ctrl+Shift+A)"
 msgstr "Esconder (Restaurar com Ctrl+Shift+A)"
 
-#: glade/cherrytree.glade.h:33
+#: glade/cherrytree.glade.h:34
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: glade/cherrytree.glade.h:34
+#: glade/cherrytree.glade.h:35
 msgid "OK"
 msgstr "OK"
 
-#: glade/cherrytree.glade.h:36
+#: glade/cherrytree.glade.h:37
 msgid "To WebSite"
 msgstr "Para WebSite"
 
-#: glade/cherrytree.glade.h:37
+#: glade/cherrytree.glade.h:38
 msgid "To Node"
 msgstr "Para Nó"
 
-#: glade/cherrytree.glade.h:38
+#: glade/cherrytree.glade.h:39
 msgid "To File"
 msgstr "Para Arquivo"
 
-#: glade/cherrytree.glade.h:39
+#: glade/cherrytree.glade.h:40
 msgid "To Folder"
 msgstr "Para Pasta"
 
-#: glade/cherrytree.glade.h:40
+#: glade/cherrytree.glade.h:41
 msgid "<b>Type</b>"
 msgstr "<b>Tipo</b>"
 
-#: glade/cherrytree.glade.h:41
+#: glade/cherrytree.glade.h:42
 msgid "<b>WebSite URL</b>"
 msgstr "<b>URL do WebSite</b>"
 
-#: glade/cherrytree.glade.h:42
+#: glade/cherrytree.glade.h:43
 msgid "Browse for a File to link to"
 msgstr "Procurar por um arquivo a ligar"
 
-#: glade/cherrytree.glade.h:43
+#: glade/cherrytree.glade.h:44
 msgid "<b>File/Folder Path</b>"
 msgstr "<b>Caminho do arquivo/pasta</b>"
 
-#: glade/cherrytree.glade.h:44
+#: glade/cherrytree.glade.h:45
 msgid "<b>Node</b>"
 msgstr "<b>Nó</b>"
 
-#: glade/cherrytree.glade.h:45
+#: glade/cherrytree.glade.h:46
 msgid "<b>Anchor Name (optional)</b>"
 msgstr "<b>Nome da âncora (opcional)</b>"
 
-#: glade/cherrytree.glade.h:46
+#: glade/cherrytree.glade.h:47
 msgid "<b>Automatic Syntax Highlighting</b>"
 msgstr "<b>Realce automático de sintaxe</b>"
 
-#: glade/cherrytree.glade.h:47
+#: glade/cherrytree.glade.h:48
 msgid "Width"
 msgstr "Largura"
 
-#: glade/cherrytree.glade.h:48
+#: glade/cherrytree.glade.h:49
 msgid "pixels"
 msgstr "pixels"
 
-#: glade/cherrytree.glade.h:50
+#: glade/cherrytree.glade.h:51
 msgid "%"
 msgstr "%"
 
-#: glade/cherrytree.glade.h:51
+#: glade/cherrytree.glade.h:52
 msgid "Height"
 msgstr "Altura"
 
-#: glade/cherrytree.glade.h:52
+#: glade/cherrytree.glade.h:53
 msgid "<b>Size</b>"
 msgstr "<b>Tamanho</b>"
 
-#: glade/cherrytree.glade.h:53
+#: glade/cherrytree.glade.h:54
 msgid "Show Line Numbers"
 msgstr "Exibir números de linha"
 
-#: glade/cherrytree.glade.h:54
+#: glade/cherrytree.glade.h:55
 msgid "Highlight Matching Brackets"
 msgstr "Destacar parênteses correspondentes"
 
-#: glade/cherrytree.glade.h:55
+#: glade/cherrytree.glade.h:56
 msgid "<b>Options</b>"
 msgstr "<b>Opções</b>"
 
-#: glade/cherrytree.glade.h:57
+#: glade/cherrytree.glade.h:58
 msgid "No"
 msgstr "Não"
 
-#: glade/cherrytree.glade.h:58
+#: glade/cherrytree.glade.h:59
 msgid "Yes"
 msgstr "Sim"
 
-#: glade/cherrytree.glade.h:59
+#: glade/cherrytree.glade.h:60
 msgid ""
 "<b>The current document was updated</b>,\n"
 "do you want to save the changes?"
@@ -1985,327 +1987,327 @@ msgstr ""
 "<b>O documento atual foi alterado</b>,\n"
 "você quer salvar as alterações?"
 
-#: glade/cherrytree.glade.h:61
+#: glade/cherrytree.glade.h:62
 msgid "Image Properties"
 msgstr "Propriedades da imagem"
 
-#: glade/cherrytree.glade.h:62
+#: glade/cherrytree.glade.h:63
 msgid "Iterate Latest Find/Replace"
 msgstr "Iterar o último Encontrar/Substituir"
 
-#: glade/cherrytree.glade.h:63
+#: glade/cherrytree.glade.h:64
 msgid "Close"
 msgstr "Fechar"
 
-#: glade/cherrytree.glade.h:65
+#: glade/cherrytree.glade.h:66
 msgid "Find"
 msgstr "Encontrar"
 
-#: glade/cherrytree.glade.h:67
+#: glade/cherrytree.glade.h:68
 msgid "Replace"
 msgstr "Substituir"
 
-#: glade/cherrytree.glade.h:68
+#: glade/cherrytree.glade.h:69
 msgid "Undo the Latest Replace"
 msgstr "Desfazer a última substituição"
 
-#: glade/cherrytree.glade.h:69
+#: glade/cherrytree.glade.h:70
 msgid "Undo"
 msgstr "Desfazer"
 
-#: glade/cherrytree.glade.h:70
+#: glade/cherrytree.glade.h:71
 msgid "Are you sure to Delete the node?"
 msgstr "Tem certeza de que quer deletar o nó?"
 
-#: glade/cherrytree.glade.h:72
+#: glade/cherrytree.glade.h:73
 msgid "Tab Width  "
 msgstr "Largura da tabulação "
 
-#: glade/cherrytree.glade.h:73
+#: glade/cherrytree.glade.h:74
 msgid "Insert Spaces Instead of Tabs"
 msgstr "Inserir espaçoes em vez de tabulações"
 
-#: glade/cherrytree.glade.h:74
+#: glade/cherrytree.glade.h:75
 msgid "Use Line Wrapping"
 msgstr "Usar quebra de linha"
 
-#: glade/cherrytree.glade.h:75
+#: glade/cherrytree.glade.h:76
 msgid "Enable Automatic Indentation"
 msgstr "Habilitar indentação automática"
 
-#: glade/cherrytree.glade.h:76
+#: glade/cherrytree.glade.h:77
 msgid "<b>Text Editor</b>"
 msgstr "<b>Editor de texto</b>"
 
-#: glade/cherrytree.glade.h:77
+#: glade/cherrytree.glade.h:78
 msgid "Timestamp Format"
 msgstr "Formato da marcação de tempo"
 
-#: glade/cherrytree.glade.h:78
+#: glade/cherrytree.glade.h:79
 msgid "Horizontal Rule"
 msgstr "Régua horizontal"
 
-#: glade/cherrytree.glade.h:79
+#: glade/cherrytree.glade.h:80
 msgid "Special Characters"
 msgstr "Caracteres especiais"
 
-#: glade/cherrytree.glade.h:80
+#: glade/cherrytree.glade.h:81
 msgid "<b>Miscellaneous</b>"
 msgstr "<b>Diversos</b>"
 
-#: glade/cherrytree.glade.h:81
+#: glade/cherrytree.glade.h:82
 msgid "All Nodes"
 msgstr "Todos os nós"
 
-#: glade/cherrytree.glade.h:82
+#: glade/cherrytree.glade.h:83
 msgid "Enable Spell Check"
 msgstr "Habilitar correção ortográfica"
 
-#: glade/cherrytree.glade.h:83
+#: glade/cherrytree.glade.h:84
 msgid "Spell Check Language"
 msgstr "Idioma da correção ortográfica"
 
-#: glade/cherrytree.glade.h:84
+#: glade/cherrytree.glade.h:85
 msgid "<b>Spell Check</b>"
 msgstr "<b>Correção ortográfica</b>"
 
-#: glade/cherrytree.glade.h:85
+#: glade/cherrytree.glade.h:86
 msgid "Light Background, Dark Text"
 msgstr "Fundo claro, texto escuro"
 
-#: glade/cherrytree.glade.h:86
+#: glade/cherrytree.glade.h:87
 msgid "Dark Background, Light Text"
 msgstr "Fundo escuro, texto claro"
 
-#: glade/cherrytree.glade.h:87
+#: glade/cherrytree.glade.h:88
 msgid "Custom Background"
 msgstr "Fundo personalizado"
 
-#: glade/cherrytree.glade.h:88
+#: glade/cherrytree.glade.h:89
 msgid "and Text"
 msgstr "e texto"
 
-#: glade/cherrytree.glade.h:89
+#: glade/cherrytree.glade.h:90
 msgid "<b>Theme</b>"
 msgstr "<b>Tema</b>"
 
-#: glade/cherrytree.glade.h:90
+#: glade/cherrytree.glade.h:91
 msgid "Limit of Undoable Steps Per Node"
 msgstr "Limite de passos reversíveis por nó"
 
-#: glade/cherrytree.glade.h:91
+#: glade/cherrytree.glade.h:92
 msgid "Text Nodes"
 msgstr "Nós de texto"
 
-#: glade/cherrytree.glade.h:92
+#: glade/cherrytree.glade.h:93
 msgid "Style Scheme"
 msgstr "Esquema de Cores"
 
-#: glade/cherrytree.glade.h:93
+#: glade/cherrytree.glade.h:94
 msgid "Show White Spaces"
 msgstr "Exibir espaços"
 
-#: glade/cherrytree.glade.h:94
+#: glade/cherrytree.glade.h:95
 msgid "Highlight Current Line"
 msgstr "Destacar linha atual"
 
-#: glade/cherrytree.glade.h:95
+#: glade/cherrytree.glade.h:96
 msgid "Code Nodes"
 msgstr "Nós de código"
 
-#: glade/cherrytree.glade.h:96
+#: glade/cherrytree.glade.h:97
 msgid "Use Cherries as Nodes Icons"
 msgstr "Usar cerejas como ícone dos nós"
 
-#: glade/cherrytree.glade.h:97
+#: glade/cherrytree.glade.h:98
 msgid "Use Bullets as Nodes Icons"
 msgstr "Usar pontos como ícone dos nós"
 
-#: glade/cherrytree.glade.h:98
+#: glade/cherrytree.glade.h:99
 msgid "Do Not Display Nodes Icons"
 msgstr "Não mostrar ícones nos nós"
 
-#: glade/cherrytree.glade.h:99
+#: glade/cherrytree.glade.h:100
 msgid "<b>Nodes Icons</b>"
 msgstr "<b>Ícones dos Nós</b>"
 
-#: glade/cherrytree.glade.h:100
+#: glade/cherrytree.glade.h:101
 msgid "Restore Expanded/Collapsed Status"
 msgstr "Restaurar estado expandido/contraído"
 
-#: glade/cherrytree.glade.h:101
+#: glade/cherrytree.glade.h:102
 msgid "Expand all Nodes"
 msgstr "Expandir todos os nós"
 
-#: glade/cherrytree.glade.h:102
+#: glade/cherrytree.glade.h:103
 msgid "Collapse all Nodes"
 msgstr "Contrair todos os nós"
 
-#: glade/cherrytree.glade.h:103
+#: glade/cherrytree.glade.h:104
 msgid "<b>Nodes Status at Startup</b>"
 msgstr "<b>Estado dos Nós na Inicialização</b>"
 
-#: glade/cherrytree.glade.h:104
+#: glade/cherrytree.glade.h:105
 msgid "Tree Nodes Names Wrapping Width"
 msgstr "Tamanho do nome do nó para quebra de linha"
 
-#: glade/cherrytree.glade.h:105
+#: glade/cherrytree.glade.h:106
 msgid "Display Tree on the Right Side"
 msgstr "Mostrar árvore no lado direito"
 
-#: glade/cherrytree.glade.h:106
+#: glade/cherrytree.glade.h:107
 msgid "Tree"
 msgstr "Árvore"
 
-#: glade/cherrytree.glade.h:107
+#: glade/cherrytree.glade.h:108
 msgid "Text Font"
 msgstr "Fonte de texto"
 
-#: glade/cherrytree.glade.h:108
+#: glade/cherrytree.glade.h:109
 msgid "Code Font"
 msgstr "Fonte de código"
 
-#: glade/cherrytree.glade.h:109
+#: glade/cherrytree.glade.h:110
 msgid "Tree Font"
 msgstr "Fonte da árvore"
 
-#: glade/cherrytree.glade.h:110
+#: glade/cherrytree.glade.h:111
 msgid "<b>Fonts</b>"
 msgstr "<b>Fontes</b>"
 
-#: glade/cherrytree.glade.h:111
+#: glade/cherrytree.glade.h:112
 msgid "Fonts"
 msgstr "Fontes"
 
-#: glade/cherrytree.glade.h:112
+#: glade/cherrytree.glade.h:113
 msgid "Enable Custom Web Link Clicked Action"
 msgstr "Executar um comando personalizado ao clicar em link web"
 
-#: glade/cherrytree.glade.h:113
+#: glade/cherrytree.glade.h:114
 msgid "Enable Custom File Link Clicked Action"
 msgstr "Executar comando personalizado ao clicar em link para arquivo"
 
-#: glade/cherrytree.glade.h:114
+#: glade/cherrytree.glade.h:115
 msgid "Enable Custom Folder Link Clicked Action"
 msgstr "Executar comando personalizado ao clicar em link para pasta"
 
-#: glade/cherrytree.glade.h:115
+#: glade/cherrytree.glade.h:116
 msgid "Anchor Size"
 msgstr "Tamanho da âncora"
 
-#: glade/cherrytree.glade.h:116
+#: glade/cherrytree.glade.h:117
 msgid "<b>Links</b>"
 msgstr "<b>Links</b>"
 
-#: glade/cherrytree.glade.h:117
+#: glade/cherrytree.glade.h:118
 msgid "Links"
 msgstr "Links"
 
-#: glade/cherrytree.glade.h:118
+#: glade/cherrytree.glade.h:119
 msgid "Enable System Tray Docking"
 msgstr "Fixar na bandeja do sistema"
 
-#: glade/cherrytree.glade.h:119
+#: glade/cherrytree.glade.h:120
 msgid "Start Minimized in the System Tray"
 msgstr "Iniciar minimizado na bandeja do sistema"
 
-#: glade/cherrytree.glade.h:120
+#: glade/cherrytree.glade.h:121
 msgid "Use AppIndicator for Docking"
 msgstr "Usar AppIndicator para fixar"
 
-#: glade/cherrytree.glade.h:121
+#: glade/cherrytree.glade.h:122
 msgid "<b>System Tray</b>"
 msgstr "<b>Bandeja do Sistema</b>"
 
-#: glade/cherrytree.glade.h:122
+#: glade/cherrytree.glade.h:123
 msgid "Autosave Every"
 msgstr "Salvar automaticamente a cada"
 
-#: glade/cherrytree.glade.h:123
+#: glade/cherrytree.glade.h:124
 msgid "Minutes"
 msgstr "minutos"
 
-#: glade/cherrytree.glade.h:124
+#: glade/cherrytree.glade.h:125
 msgid "Autosave on Quit"
 msgstr "Salvar automaticamente ao sair"
 
-#: glade/cherrytree.glade.h:125
+#: glade/cherrytree.glade.h:126
 msgid "Create a Backup Copy Before Saving"
 msgstr "Criar uma cópia de segurança antes de salvar"
 
-#: glade/cherrytree.glade.h:126
+#: glade/cherrytree.glade.h:127
 msgid "<b>Saving</b>"
 msgstr "<b>Salvando</b>"
 
-#: glade/cherrytree.glade.h:127
+#: glade/cherrytree.glade.h:128
 msgid "Automatically Check for Newer Version"
 msgstr "Verificar automaticamente por nova versão"
 
-#: glade/cherrytree.glade.h:128
+#: glade/cherrytree.glade.h:129
 msgid "Reload Document From Last Session"
 msgstr "Recarregar documento da última sessão"
 
-#: glade/cherrytree.glade.h:129
+#: glade/cherrytree.glade.h:130
 msgid "Reload After External Update to CT* File"
 msgstr "Recarregar após modificação externa do arquivo CT*"
 
-#: glade/cherrytree.glade.h:130
+#: glade/cherrytree.glade.h:131
 msgid "<b>Language</b>"
 msgstr "<b>Idioma</b>"
 
-#: glade/cherrytree.glade.h:131
+#: glade/cherrytree.glade.h:132
 msgid "Miscellaneous"
 msgstr "Diversos"
 
-#: glade/cherrytree.glade.h:132
+#: glade/cherrytree.glade.h:133
 msgid "Rows  "
 msgstr "Linhas  "
 
-#: glade/cherrytree.glade.h:133
+#: glade/cherrytree.glade.h:134
 msgid "     Columns  "
 msgstr "     Colunas  "
 
-#: glade/cherrytree.glade.h:134
+#: glade/cherrytree.glade.h:135
 msgid "<b>Table size</b>"
 msgstr "<b>Tamanho da tabela</b>"
 
-#: glade/cherrytree.glade.h:135
+#: glade/cherrytree.glade.h:136
 msgid "Min Width"
 msgstr "Largura mínima"
 
-#: glade/cherrytree.glade.h:136
+#: glade/cherrytree.glade.h:137
 msgid "   Max Width"
 msgstr "   Largura máxima"
 
-#: glade/cherrytree.glade.h:137
+#: glade/cherrytree.glade.h:138
 msgid "<b>Columns Properties</b>"
 msgstr "<b>Propriedades da coluna</b>"
 
-#: glade/cherrytree.glade.h:138
+#: glade/cherrytree.glade.h:139
 msgid "Import from CSV File"
 msgstr "Importar de um arquivo CSV"
 
-#: glade/cherrytree.glade.h:139
+#: glade/cherrytree.glade.h:140
 msgid "Rename Column"
 msgstr "Renomear coluna"
 
-#: glade/cherrytree.glade.h:140
+#: glade/cherrytree.glade.h:141
 msgid "Delete Column"
 msgstr "Deletar coluna"
 
-#: glade/cherrytree.glade.h:141
+#: glade/cherrytree.glade.h:142
 msgid "Add Column"
 msgstr "Adicionar coluna"
 
-#: glade/cherrytree.glade.h:142
+#: glade/cherrytree.glade.h:143
 msgid "Move Column Left"
 msgstr "Mover coluna para a esquerda"
 
-#: glade/cherrytree.glade.h:143
+#: glade/cherrytree.glade.h:144
 msgid "Move Column Right"
 msgstr "Mover coluna para a direita"
 
-#: glade/cherrytree.glade.h:144
+#: glade/cherrytree.glade.h:145
 msgid "CherryTree"
 msgstr "CherryTree"
 
