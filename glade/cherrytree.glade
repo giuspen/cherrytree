@@ -2,79 +2,6 @@
 <interface>
   <requires lib="gtk+" version="2.16"/>
   <!-- interface-naming-policy project-wide -->
-  <object class="GtkAboutDialog" id="aboutdialog">
-    <property name="can_focus">False</property>
-    <property name="border_width">5</property>
-    <property name="title" translatable="yes">About CherryTree</property>
-    <property name="resizable">False</property>
-    <property name="modal">True</property>
-    <property name="window_position">center-on-parent</property>
-    <property name="destroy_with_parent">True</property>
-    <property name="type_hint">dialog</property>
-    <property name="transient_for">window</property>
-    <property name="program_name">CherryTree</property>
-    <property name="copyright" translatable="yes">Copyright © 2009-2013
-Giuseppe Penone &lt;giuspen@gmail.com&gt;</property>
-    <property name="comments" translatable="yes">A Hierarchical Note Taking Application, featuring Rich Text and Syntax Highlighting</property>
-    <property name="website">http://www.giuspen.com/cherrytree/</property>
-    <property name="website_label" translatable="yes">http://www.giuspen.com/cherrytree/</property>
-    <property name="license" translatable="yes">
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 3 of the License, or
-(at your option) any later version.
-  
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-  
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
-MA 02110-1301, USA.
-</property>
-    <property name="authors">Giuseppe Penone &lt;giuspen@gmail.com&gt;</property>
-    <property name="documenters">Robert Boudreau &lt;RobtTheB@gmail.com&gt;</property>
-    <property name="translator_credits" translatable="yes">Chinese Simplified (zh_CN) Channing Wong &lt;mamimoluo@gmail.com&gt;
-Czech (cs) Pavel Fric &lt;fripohled@blogspot.com&gt;
-Dutch (nl) Patrick Vijgeboom &lt;pj.vijgeboom@gmail.com&gt;
-French (fr) Benoît D'Angelo &lt;benoit.dangelo@gmx.fr&gt; (former Ludovic Troisi)
-German (de) Frank Brungräber &lt;calexu@arcor.de&gt; (former Sven Neubauer)
-Italian (it) Giuseppe Penone &lt;giuspen@gmail.com&gt;
-Polish (pl) Marcin Swierczynski &lt;orneo1212@gmail.com&gt;
-Portuguese Brazil (pt_BR) Vinicius Schmidt &lt;viniciussm@rocketmail.com&gt;
-Russian (ru) Andriy Kovtun &lt;kovtunos@yandex.ru&gt;
-Spanish (es) Daniel MC &lt;i.e.betel@gmail.com&gt;
-Ukrainian (uk) Andriy Kovtun &lt;kovtunos@yandex.ru&gt;</property>
-    <property name="artists">OCAL &lt;http://www.openclipart.org/&gt;
-Zeltak &lt;zeltak@gmail.com&gt;
-Angelo Penone &lt;angelo.penone@gmail.com&gt;</property>
-    <property name="logo">cherrytree.png</property>
-    <child internal-child="vbox">
-      <object class="GtkVBox" id="dialog-vbox1">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="spacing">2</property>
-        <child internal-child="action_area">
-          <object class="GtkHButtonBox" id="dialog-action_area1">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="layout_style">end</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="pack_type">end</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-      </object>
-    </child>
-  </object>
   <object class="GtkAdjustment" id="adjustment_anchor_size">
     <property name="lower">1</property>
     <property name="upper">100</property>
@@ -191,7 +118,6 @@ Angelo Penone &lt;angelo.penone@gmail.com&gt;</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
                 <child>
                   <object class="GtkHBox" id="hbox32">
                     <property name="visible">True</property>
@@ -282,7 +208,6 @@ Angelo Penone &lt;angelo.penone@gmail.com&gt;</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
                 <child>
                   <object class="GtkVBox" id="vbox25">
                     <property name="visible">True</property>
@@ -325,7 +250,6 @@ Angelo Penone &lt;angelo.penone@gmail.com&gt;</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
                 <child>
                   <object class="GtkVBox" id="vbox27">
                     <property name="visible">True</property>
@@ -471,7 +395,6 @@ Angelo Penone &lt;angelo.penone@gmail.com&gt;</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
                 <child>
                   <object class="GtkVBox" id="vbox22">
                     <property name="visible">True</property>
@@ -514,7 +437,6 @@ Angelo Penone &lt;angelo.penone@gmail.com&gt;</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
                 <child>
                   <object class="GtkVBox" id="vbox23">
                     <property name="visible">True</property>
@@ -593,7 +515,6 @@ Angelo Penone &lt;angelo.penone@gmail.com&gt;</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
-                                <property name="use_action_appearance">False</property>
                                 <property name="active">True</property>
                                 <property name="draw_indicator">True</property>
                                 <signal name="toggled" handler="on_radiobutton_link_website_toggled" swapped="no"/>
@@ -609,7 +530,6 @@ Angelo Penone &lt;angelo.penone@gmail.com&gt;</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
-                                <property name="use_action_appearance">False</property>
                                 <property name="draw_indicator">True</property>
                                 <property name="group">radiobutton_link_website</property>
                                 <signal name="toggled" handler="on_radiobutton_link_node_anchor_toggled" swapped="no"/>
@@ -627,7 +547,6 @@ Angelo Penone &lt;angelo.penone@gmail.com&gt;</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
-                                <property name="use_action_appearance">False</property>
                                 <property name="draw_indicator">True</property>
                                 <property name="group">radiobutton_link_website</property>
                                 <signal name="toggled" handler="on_radiobutton_link_file_toggled" swapped="no"/>
@@ -645,7 +564,6 @@ Angelo Penone &lt;angelo.penone@gmail.com&gt;</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
-                                <property name="use_action_appearance">False</property>
                                 <property name="draw_indicator">True</property>
                                 <property name="group">radiobutton_link_website</property>
                                 <signal name="toggled" handler="on_radiobutton_link_folder_toggled" swapped="no"/>
@@ -809,7 +727,6 @@ Angelo Penone &lt;angelo.penone@gmail.com&gt;</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
                                 <property name="tooltip_text" translatable="yes">Browse for a File to link to</property>
-                                <property name="use_action_appearance">False</property>
                                 <signal name="clicked" handler="on_button_browse_for_file_to_link_to_clicked" swapped="no"/>
                                 <child>
                                   <object class="GtkImage" id="image55">
@@ -946,7 +863,6 @@ Angelo Penone &lt;angelo.penone@gmail.com&gt;</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
-                                    <property name="use_action_appearance">False</property>
                                     <signal name="clicked" handler="on_browse_anchors_button_clicked" swapped="no"/>
                                     <child>
                                       <object class="GtkImage" id="image49">
@@ -1037,7 +953,6 @@ Angelo Penone &lt;angelo.penone@gmail.com&gt;</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
                 <child>
                   <object class="GtkVBox" id="vbox35">
                     <property name="visible">True</property>
@@ -1080,7 +995,6 @@ Angelo Penone &lt;angelo.penone@gmail.com&gt;</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
                 <child>
                   <object class="GtkVBox" id="vbox40">
                     <property name="visible">True</property>
@@ -1232,7 +1146,6 @@ Angelo Penone &lt;angelo.penone@gmail.com&gt;</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">False</property>
-                                    <property name="use_action_appearance">False</property>
                                     <property name="active">True</property>
                                     <property name="draw_indicator">True</property>
                                     <signal name="toggled" handler="on_radiobutton_codebox_pixels_toggled" swapped="no"/>
@@ -1249,7 +1162,6 @@ Angelo Penone &lt;angelo.penone@gmail.com&gt;</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">False</property>
-                                    <property name="use_action_appearance">False</property>
                                     <property name="draw_indicator">True</property>
                                     <property name="group">radiobutton_codebox_pixels</property>
                                   </object>
@@ -1374,7 +1286,6 @@ Angelo Penone &lt;angelo.penone@gmail.com&gt;</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
-                            <property name="use_action_appearance">False</property>
                             <property name="focus_on_click">False</property>
                             <property name="draw_indicator">True</property>
                           </object>
@@ -1391,7 +1302,6 @@ Angelo Penone &lt;angelo.penone@gmail.com&gt;</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
-                            <property name="use_action_appearance">False</property>
                             <property name="focus_on_click">False</property>
                             <property name="draw_indicator">True</property>
                           </object>
@@ -1460,7 +1370,6 @@ Angelo Penone &lt;angelo.penone@gmail.com&gt;</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
                 <child>
                   <object class="GtkVBox" id="vbox10">
                     <property name="visible">True</property>
@@ -1503,7 +1412,6 @@ Angelo Penone &lt;angelo.penone@gmail.com&gt;</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
                 <child>
                   <object class="GtkVBox" id="vbox11">
                     <property name="visible">True</property>
@@ -1546,7 +1454,6 @@ Angelo Penone &lt;angelo.penone@gmail.com&gt;</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
                 <child>
                   <object class="GtkVBox" id="vbox12">
                     <property name="visible">True</property>
@@ -1665,7 +1572,6 @@ do you want to save the changes?</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
                 <child>
                   <object class="GtkVBox" id="vbox17">
                     <property name="visible">True</property>
@@ -1708,7 +1614,6 @@ do you want to save the changes?</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
                 <child>
                   <object class="GtkVBox" id="vbox18">
                     <property name="visible">True</property>
@@ -1769,7 +1674,6 @@ do you want to save the changes?</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
-                    <property name="use_action_appearance">False</property>
                     <signal name="clicked" handler="on_button_rotate_90_ccw_clicked" swapped="no"/>
                     <child>
                       <object class="GtkImage" id="image44">
@@ -1817,7 +1721,6 @@ do you want to save the changes?</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
-                    <property name="use_action_appearance">False</property>
                     <signal name="clicked" handler="on_button_rotate_90_cw_clicked" swapped="no"/>
                     <child>
                       <object class="GtkImage" id="image45">
@@ -1947,7 +1850,6 @@ do you want to save the changes?</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
                 <child>
                   <object class="GtkVBox" id="vbox6">
                     <property name="visible">True</property>
@@ -1991,7 +1893,6 @@ do you want to save the changes?</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="tooltip_text" translatable="yes">Iterate the Last Find Operation in Opposite Direction</property>
-                <property name="use_action_appearance">False</property>
                 <child>
                   <object class="GtkVBox" id="vbox30">
                     <property name="visible">True</property>
@@ -2035,7 +1936,6 @@ do you want to save the changes?</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="tooltip_text" translatable="yes">Iterate the Last Find Operation</property>
-                <property name="use_action_appearance">False</property>
                 <child>
                   <object class="GtkVBox" id="vbox34">
                     <property name="visible">True</property>
@@ -2079,7 +1979,6 @@ do you want to save the changes?</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="tooltip_text" translatable="yes">Replace</property>
-                <property name="use_action_appearance">False</property>
                 <child>
                   <object class="GtkVBox" id="vbox26">
                     <property name="visible">True</property>
@@ -2123,7 +2022,6 @@ do you want to save the changes?</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="tooltip_text" translatable="yes">Undo the Latest Replace</property>
-                <property name="use_action_appearance">False</property>
                 <child>
                   <object class="GtkVBox" id="vbox43">
                     <property name="visible">True</property>
@@ -2209,7 +2107,6 @@ do you want to save the changes?</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
                 <child>
                   <object class="GtkVBox" id="vbox20">
                     <property name="visible">True</property>
@@ -2252,7 +2149,6 @@ do you want to save the changes?</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
                 <child>
                   <object class="GtkVBox" id="vbox21">
                     <property name="visible">True</property>
@@ -2367,7 +2263,6 @@ do you want to save the changes?</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
                 <property name="use_stock">True</property>
               </object>
               <packing>
@@ -2459,7 +2354,6 @@ do you want to save the changes?</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
-                                <property name="use_action_appearance">False</property>
                                 <property name="draw_indicator">True</property>
                                 <signal name="toggled" handler="on_checkbutton_spaces_tabs_toggled" swapped="no"/>
                               </object>
@@ -2475,7 +2369,6 @@ do you want to save the changes?</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
-                                <property name="use_action_appearance">False</property>
                                 <property name="draw_indicator">True</property>
                                 <signal name="toggled" handler="on_checkbutton_line_wrap_toggled" swapped="no"/>
                               </object>
@@ -2491,7 +2384,6 @@ do you want to save the changes?</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
-                                <property name="use_action_appearance">False</property>
                                 <property name="active">True</property>
                                 <property name="draw_indicator">True</property>
                                 <signal name="toggled" handler="on_checkbutton_auto_indent_toggled" swapped="no"/>
@@ -2508,7 +2400,6 @@ do you want to save the changes?</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
-                                <property name="use_action_appearance">False</property>
                                 <property name="draw_indicator">True</property>
                                 <signal name="toggled" handler="on_checkbutton_line_nums_toggled" swapped="no"/>
                               </object>
@@ -2595,7 +2486,6 @@ do you want to save the changes?</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
-                                    <property name="use_action_appearance">False</property>
                                     <signal name="clicked" handler="on_button_strftime_help_clicked" swapped="no"/>
                                     <child>
                                       <object class="GtkImage" id="image13">
@@ -2777,7 +2667,6 @@ do you want to save the changes?</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
-                                <property name="use_action_appearance">False</property>
                                 <property name="draw_indicator">True</property>
                                 <signal name="toggled" handler="on_checkbutton_spell_check_toggled" swapped="no"/>
                               </object>
@@ -2866,7 +2755,6 @@ do you want to save the changes?</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
-                                <property name="use_action_appearance">False</property>
                                 <property name="active">True</property>
                                 <property name="draw_indicator">True</property>
                                 <signal name="toggled" handler="on_radiobutton_rt_col_light_toggled" swapped="no"/>
@@ -2883,7 +2771,6 @@ do you want to save the changes?</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
-                                <property name="use_action_appearance">False</property>
                                 <property name="active">True</property>
                                 <property name="draw_indicator">True</property>
                                 <property name="group">radiobutton_rt_col_light</property>
@@ -2905,7 +2792,6 @@ do you want to save the changes?</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">False</property>
-                                    <property name="use_action_appearance">False</property>
                                     <property name="active">True</property>
                                     <property name="draw_indicator">True</property>
                                     <property name="group">radiobutton_rt_col_light</property>
@@ -2922,7 +2808,6 @@ do you want to save the changes?</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
-                                    <property name="use_action_appearance">False</property>
                                     <property name="color">#000000000000</property>
                                     <signal name="color-set" handler="on_colorbutton_text_bg_color_set" swapped="no"/>
                                   </object>
@@ -2950,7 +2835,6 @@ do you want to save the changes?</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
-                                    <property name="use_action_appearance">False</property>
                                     <property name="color">#000000000000</property>
                                     <signal name="color-set" handler="on_colorbutton_text_fg_color_set" swapped="no"/>
                                   </object>
@@ -3133,7 +3017,6 @@ do you want to save the changes?</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
-                            <property name="use_action_appearance">False</property>
                             <property name="xalign">0</property>
                             <property name="draw_indicator">True</property>
                             <signal name="toggled" handler="on_checkbutton_show_white_spaces_toggled" swapped="no"/>
@@ -3150,7 +3033,6 @@ do you want to save the changes?</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
-                            <property name="use_action_appearance">False</property>
                             <property name="xalign">0</property>
                             <property name="draw_indicator">True</property>
                             <signal name="toggled" handler="on_checkbutton_highlight_current_line_toggled" swapped="no"/>
@@ -3217,7 +3099,6 @@ do you want to save the changes?</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
-                                <property name="use_action_appearance">False</property>
                                 <property name="active">True</property>
                                 <property name="draw_indicator">True</property>
                                 <signal name="toggled" handler="on_radiobutton_tt_col_light_toggled" swapped="no"/>
@@ -3234,7 +3115,6 @@ do you want to save the changes?</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
-                                <property name="use_action_appearance">False</property>
                                 <property name="draw_indicator">True</property>
                                 <property name="group">radiobutton_tt_col_light</property>
                                 <signal name="toggled" handler="on_radiobutton_tt_col_dark_toggled" swapped="no"/>
@@ -3255,7 +3135,6 @@ do you want to save the changes?</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">False</property>
-                                    <property name="use_action_appearance">False</property>
                                     <property name="draw_indicator">True</property>
                                     <property name="group">radiobutton_tt_col_light</property>
                                     <signal name="toggled" handler="on_radiobutton_tt_col_custom_toggled" swapped="no"/>
@@ -3271,7 +3150,6 @@ do you want to save the changes?</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
-                                    <property name="use_action_appearance">False</property>
                                     <property name="color">#000000000000</property>
                                     <signal name="color-set" handler="on_colorbutton_tree_bg_color_set" swapped="no"/>
                                   </object>
@@ -3299,7 +3177,6 @@ do you want to save the changes?</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
-                                    <property name="use_action_appearance">False</property>
                                     <property name="color">#000000000000</property>
                                     <signal name="color-set" handler="on_colorbutton_tree_fg_color_set" swapped="no"/>
                                   </object>
@@ -3359,7 +3236,6 @@ do you want to save the changes?</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
-                                <property name="use_action_appearance">False</property>
                                 <property name="active">True</property>
                                 <property name="draw_indicator">True</property>
                                 <signal name="toggled" handler="on_radiobutton_node_icon_cherry_toggled" swapped="no"/>
@@ -3376,7 +3252,6 @@ do you want to save the changes?</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
-                                <property name="use_action_appearance">False</property>
                                 <property name="draw_indicator">True</property>
                                 <property name="group">radiobutton_node_icon_cherry</property>
                                 <signal name="toggled" handler="on_radiobutton_node_icon_bullet_toggled" swapped="no"/>
@@ -3393,7 +3268,6 @@ do you want to save the changes?</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
-                                <property name="use_action_appearance">False</property>
                                 <property name="draw_indicator">True</property>
                                 <property name="group">radiobutton_node_icon_cherry</property>
                                 <signal name="toggled" handler="on_radiobutton_node_icon_none_toggled" swapped="no"/>
@@ -3446,7 +3320,6 @@ do you want to save the changes?</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
-                                <property name="use_action_appearance">False</property>
                                 <property name="active">True</property>
                                 <property name="draw_indicator">True</property>
                                 <signal name="toggled" handler="on_radiobutton_nodes_startup_restore_toggled" swapped="no"/>
@@ -3463,7 +3336,6 @@ do you want to save the changes?</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
-                                <property name="use_action_appearance">False</property>
                                 <property name="active">True</property>
                                 <property name="draw_indicator">True</property>
                                 <property name="group">radiobutton_nodes_startup_restore</property>
@@ -3481,7 +3353,6 @@ do you want to save the changes?</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
-                                <property name="use_action_appearance">False</property>
                                 <property name="draw_indicator">True</property>
                                 <property name="group">radiobutton_nodes_startup_restore</property>
                                 <signal name="toggled" handler="on_radiobutton_nodes_startup_collapse_toggled" swapped="no"/>
@@ -3577,7 +3448,6 @@ do you want to save the changes?</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
-                                <property name="use_action_appearance">False</property>
                                 <property name="draw_indicator">True</property>
                                 <signal name="toggled" handler="on_checkbutton_tree_right_side_toggled" swapped="no"/>
                               </object>
@@ -3734,7 +3604,6 @@ do you want to save the changes?</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
-                                <property name="use_action_appearance">False</property>
                                 <property name="font_name">Sans 9</property>
                                 <signal name="font-set" handler="on_fontbutton_text_font_set" swapped="no"/>
                               </object>
@@ -3748,7 +3617,6 @@ do you want to save the changes?</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
-                                <property name="use_action_appearance">False</property>
                                 <property name="font_name">Monospace 9</property>
                                 <signal name="font-set" handler="on_fontbutton_code_font_set" swapped="no"/>
                               </object>
@@ -3764,7 +3632,6 @@ do you want to save the changes?</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
-                                <property name="use_action_appearance">False</property>
                                 <property name="font_name">Sans 8</property>
                                 <signal name="font-set" handler="on_fontbutton_tree_font_set" swapped="no"/>
                               </object>
@@ -3836,7 +3703,6 @@ do you want to save the changes?</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
-                            <property name="use_action_appearance">False</property>
                             <property name="xalign">0</property>
                             <property name="draw_indicator">True</property>
                             <signal name="toggled" handler="on_checkbutton_custom_weblink_cmd_toggled" swapped="no"/>
@@ -3895,7 +3761,6 @@ do you want to save the changes?</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
-                            <property name="use_action_appearance">False</property>
                             <property name="xalign">0</property>
                             <property name="draw_indicator">True</property>
                             <signal name="toggled" handler="on_checkbutton_custom_filelink_cmd_toggled" swapped="no"/>
@@ -3954,7 +3819,6 @@ do you want to save the changes?</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
-                            <property name="use_action_appearance">False</property>
                             <property name="xalign">0</property>
                             <property name="draw_indicator">True</property>
                             <signal name="toggled" handler="on_checkbutton_custom_folderlink_cmd_toggled" swapped="no"/>
@@ -4119,7 +3983,6 @@ do you want to save the changes?</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
-                                <property name="use_action_appearance">False</property>
                                 <property name="draw_indicator">True</property>
                                 <signal name="toggled" handler="on_checkbutton_systray_toggled" swapped="no"/>
                               </object>
@@ -4135,7 +3998,6 @@ do you want to save the changes?</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
-                                <property name="use_action_appearance">False</property>
                                 <property name="draw_indicator">True</property>
                                 <signal name="toggled" handler="on_checkbutton_start_on_systray_toggled" swapped="no"/>
                               </object>
@@ -4151,7 +4013,6 @@ do you want to save the changes?</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
-                                <property name="use_action_appearance">False</property>
                                 <property name="draw_indicator">True</property>
                                 <signal name="toggled" handler="on_checkbutton_use_appind_toggled" swapped="no"/>
                               </object>
@@ -4208,7 +4069,6 @@ do you want to save the changes?</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">False</property>
-                                    <property name="use_action_appearance">False</property>
                                     <property name="xalign">0</property>
                                     <property name="draw_indicator">True</property>
                                     <signal name="toggled" handler="on_checkbutton_autosave_toggled" swapped="no"/>
@@ -4263,7 +4123,6 @@ do you want to save the changes?</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
-                                <property name="use_action_appearance">False</property>
                                 <property name="xalign">0</property>
                                 <property name="draw_indicator">True</property>
                                 <signal name="toggled" handler="on_checkbutton_autosave_on_quit_toggled" swapped="no"/>
@@ -4280,7 +4139,6 @@ do you want to save the changes?</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
-                                <property name="use_action_appearance">False</property>
                                 <property name="xalign">0</property>
                                 <property name="draw_indicator">True</property>
                                 <signal name="toggled" handler="on_checkbutton_backup_before_saving_toggled" swapped="no"/>
@@ -4334,7 +4192,6 @@ do you want to save the changes?</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
-                                <property name="use_action_appearance">False</property>
                                 <property name="xalign">0</property>
                                 <property name="draw_indicator">True</property>
                                 <signal name="toggled" handler="on_checkbutton_newer_version_toggled" swapped="no"/>
@@ -4351,7 +4208,6 @@ do you want to save the changes?</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
-                                <property name="use_action_appearance">False</property>
                                 <property name="draw_indicator">True</property>
                                 <signal name="toggled" handler="on_checkbutton_reload_doc_last_toggled" swapped="no"/>
                               </object>
@@ -4367,7 +4223,6 @@ do you want to save the changes?</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
-                                <property name="use_action_appearance">False</property>
                                 <property name="draw_indicator">True</property>
                                 <signal name="toggled" handler="on_checkbutton_mod_time_sentinel_toggled" swapped="no"/>
                               </object>
@@ -4488,7 +4343,6 @@ do you want to save the changes?</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
                 <child>
                   <object class="GtkVBox" id="vbox29">
                     <property name="visible">True</property>
@@ -4531,7 +4385,6 @@ do you want to save the changes?</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
                 <child>
                   <object class="GtkVBox" id="vbox33">
                     <property name="visible">True</property>
@@ -4791,7 +4644,6 @@ do you want to save the changes?</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
-                    <property name="use_action_appearance">False</property>
                     <property name="draw_indicator">True</property>
                     <signal name="toggled" handler="on_checkbutton_table_ins_from_file_toggled" swapped="no"/>
                   </object>
@@ -4852,7 +4704,6 @@ do you want to save the changes?</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
-                        <property name="use_action_appearance">False</property>
                         <property name="active">True</property>
                         <property name="draw_indicator">True</property>
                         <signal name="toggled" handler="on_table_column_rename_radiobutton_toggled" swapped="no"/>
@@ -4893,7 +4744,6 @@ do you want to save the changes?</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
-                        <property name="use_action_appearance">False</property>
                         <property name="active">True</property>
                         <property name="draw_indicator">True</property>
                         <property name="group">table_column_rename_radiobutton</property>
@@ -4935,7 +4785,6 @@ do you want to save the changes?</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
-                        <property name="use_action_appearance">False</property>
                         <property name="active">True</property>
                         <property name="draw_indicator">True</property>
                         <property name="group">table_column_rename_radiobutton</property>
@@ -4993,7 +4842,6 @@ do you want to save the changes?</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
-                        <property name="use_action_appearance">False</property>
                         <property name="active">True</property>
                         <property name="draw_indicator">True</property>
                         <property name="group">table_column_rename_radiobutton</property>
@@ -5035,7 +4883,6 @@ do you want to save the changes?</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
-                        <property name="use_action_appearance">False</property>
                         <property name="active">True</property>
                         <property name="draw_indicator">True</property>
                         <property name="group">table_column_rename_radiobutton</property>

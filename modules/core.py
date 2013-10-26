@@ -206,7 +206,6 @@ class CherryTree:
         self.autosave_timer_id = None
         self.mod_time_sentinel_id = None
         self.mod_time_val = 0
-        self.glade.aboutdialog.set_version(cons.VERSION)
         support.set_menu_items_recent_documents(self)
         support.set_menu_items_special_chars(self)
         self.window.show_all() # this before the config_file_apply that could hide something
@@ -3240,8 +3239,7 @@ class CherryTree:
 
     def dialog_about(self, *args):
         """Show the About Dialog and hide it when a button is pressed"""
-        self.glade.aboutdialog.run()
-        self.glade.aboutdialog.hide()
+        support.dialog_about(self)
 
     def anchor_handle(self, action):
         """Insert an Anchor"""
