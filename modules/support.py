@@ -259,6 +259,55 @@ def dialog_error(message, parent):
     dialog.run()
     dialog.destroy()
 
+def dialog_about(dad):
+    """Application About Dialog"""
+    dialog = gtk.AboutDialog()
+    dialog.set_program_name("CherryTree")
+    dialog.set_version(cons.VERSION)
+    dialog.set_copyright(_("""Copyright © 2009-2013
+Giuseppe Penone <giuspen@gmail.com>"""))
+    dialog.set_comments(_("A Hierarchical Note Taking Application, featuring Rich Text and Syntax Highlighting"))
+    dialog.set_license(_("""
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 3 of the License, or
+(at your option) any later version.
+  
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+  
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+MA 02110-1301, USA.
+"""))
+    dialog.set_website("http://www.giuspen.com/cherrytree/")
+    dialog.set_authors("Giuseppe Penone <giuspen@gmail.com>")
+    dialog.set_documenters("Robert Boudreau <RobtTheB@gmail.com>")
+    dialog.set_artists("""OCAL <http://www.openclipart.org/>
+Zeltak <zeltak@gmail.com>
+Angelo Penone <angelo.penone@gmail.com>""")
+    dialog.set_translator_credits(_("""Chinese Simplified (zh_CN) Channing Wong <mamimoluo@gmail.com>
+Czech (cs) Pavel Fric <fripohled@blogspot.com>
+Dutch (nl) Patrick Vijgeboom <pj.vijgeboom@gmail.com>
+French (fr) Benoît D'Angelo <benoit.dangelo@gmx.fr> (former Ludovic Troisi)
+German (de) Frank Brungräber <calexu@arcor.de> (former Sven Neubauer)
+Italian (it) Giuseppe Penone <giuspen@gmail.com>
+Polish (pl) Marcin Swierczynski <orneo1212@gmail.com>
+Portuguese Brazil (pt_BR) Vinicius Schmidt <viniciussm@rocketmail.com>
+Russian (ru) Andriy Kovtun <kovtunos@yandex.ru>
+Spanish (es) Daniel MC <i.e.betel@gmail.com>
+Ukrainian (uk) Andriy Kovtun <kovtunos@yandex.ru>"""))
+    dialog.set_logo(gtk.gdk.pixbuf_new_from_file(os.path.join(cons.GLADE_PATH, "cherrytree.png")))
+    dialog.set_title(_("About CherryTree"))
+    dialog.set_transient_for(dad.window)
+    dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+    dialog.set_modal(True)
+    dialog.run()
+    dialog.hide()
+
 def dialog_selnode_selnodeandsub_alltree(father_win, also_selection, also_node_name=False):
     """Dialog to select between the Selected Node/Selected Node + Subnodes/All Tree"""
     dialog = gtk.Dialog(title=_("Involved Nodes"),
