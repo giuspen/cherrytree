@@ -284,11 +284,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 MA 02110-1301, USA.
 """))
     dialog.set_website("http://www.giuspen.com/cherrytree/")
-    dialog.set_authors("Giuseppe Penone <giuspen@gmail.com>")
-    dialog.set_documenters("Robert Boudreau <RobtTheB@gmail.com>")
-    dialog.set_artists("""OCAL <http://www.openclipart.org/>
-Zeltak <zeltak@gmail.com>
-Angelo Penone <angelo.penone@gmail.com>""")
+    dialog.set_authors(["Giuseppe Penone <giuspen@gmail.com>"])
+    dialog.set_documenters(["Robert Boudreau <RobtTheB@gmail.com>"])
+    dialog.set_artists(["OCAL <http://www.openclipart.org/>", "Zeltak <zeltak@gmail.com>", "Angelo Penone <angelo.penone@gmail.com>"])
     dialog.set_translator_credits(_("""Chinese Simplified (zh_CN) Channing Wong <mamimoluo@gmail.com>
 Czech (cs) Pavel Fric <fripohled@blogspot.com>
 Dutch (nl) Patrick Vijgeboom <pj.vijgeboom@gmail.com>
