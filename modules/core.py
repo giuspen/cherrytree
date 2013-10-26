@@ -61,6 +61,9 @@ class CherryTree:
         self.boss = boss
         self.filetype = ""
         self.user_active = True
+        # glade
+        self.glade = GladeWidgetsWrapper(cons.GLADE_PATH + 'cherrytree.glade', self) # glade widgets access
+        self.window = self.glade.window
         # instantiate external handlers
         self.clipboard_handler = clipboard.ClipboardHandler(self)
         self.lists_handler = lists.ListsHandler(self)
@@ -88,9 +91,6 @@ class CherryTree:
             gtk_settings.set_property("gtk-menu-images", True)
         except: pass # older gtk do not have the property "gtk-menu-images"
         os.environ['UBUNTU_MENUPROXY'] = '0' # cherrytree has custom stock icons not visible in appmenu
-        # glade
-        self.glade = GladeWidgetsWrapper(cons.GLADE_PATH + 'cherrytree.glade', self) # glade widgets access
-        self.window = self.glade.window
         vbox_main = gtk.VBox()
         self.window.add(vbox_main)
         self.country_lang = lang_str
@@ -2836,9 +2836,9 @@ class CherryTree:
 
     def find_allmatchesdialog_restore(self, *args):
         """Display the AllMatchesDialog Again"""
-        if not self.glade.allmatchesdialog.get_property(cons.STR_VISIBLE):
-            self.glade.allmatchesdialog.run()
-            self.glade.allmatchesdialog.hide()
+        if not self.find_handler.allmatchesdialog.get_property(cons.STR_VISIBLE):
+            self.find_handler.allmatchesdialog.run()
+            self.find_handler.allmatchesdialog.hide()
 
     def get_tree_iter_last_sibling(self, node_iter):
         """Returns the last top level iter or None if the tree is empty"""

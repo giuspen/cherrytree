@@ -36,6 +36,7 @@ class FindReplace:
         self.from_find_iterated = False
         self.from_find_back = False
         self.newline_trick = False
+        self.allmatchesdialog_init()
     
     def iterated_find_dialog(self):
         """Iterated Find/Replace Dialog"""
@@ -97,7 +98,7 @@ class FindReplace:
             user_active_restore = True
         else: user_active_restore = False
         if all_matches:
-            self.liststore_create_or_clean()
+            self.liststore.clear()
             self.all_matches_first_in_node = True
             while self.parse_current_node_content(pattern, forward, first_fromsel, all_matches, True):
                 self.matches_num += 1
@@ -106,9 +107,9 @@ class FindReplace:
         if self.matches_num == 0:
             support.dialog_info(_("The pattern '%s' was not found") % pattern, self.dad.window)
         elif all_matches:
-            self.dad.glade.allmatchesdialog.set_title(str(self.matches_num) + cons.CHAR_SPACE + _("Matches"))
-            self.dad.glade.allmatchesdialog.run()
-            self.dad.glade.allmatchesdialog.hide()
+            self.allmatchesdialog.set_title(str(self.matches_num) + cons.CHAR_SPACE + _("Matches"))
+            self.allmatchesdialog.run()
+            self.allmatchesdialog.hide()
         elif self.dad.search_replace_dict['idialog']:
             self.iterated_find_dialog()
         if user_active_restore: self.dad.user_active = True
@@ -146,7 +147,7 @@ class FindReplace:
             if forward: node_iter = self.dad.treestore.get_iter_first()
             else: node_iter = self.dad.get_tree_iter_last_sibling(None)
         self.matches_num = 0
-        if all_matches: self.liststore_create_or_clean()
+        if all_matches: self.liststore.clear()
         config.get_tree_expanded_collapsed_string(self.dad)
         # searching start
         if self.dad.user_active:
@@ -182,9 +183,9 @@ class FindReplace:
             support.dialog_info(_("The pattern '%s' was not found") % pattern, self.dad.window)
         else:
             if all_matches:
-                self.dad.glade.allmatchesdialog.set_title(str(self.matches_num) + cons.CHAR_SPACE + _("Matches"))
-                self.dad.glade.allmatchesdialog.run()
-                self.dad.glade.allmatchesdialog.hide()
+                self.allmatchesdialog.set_title(str(self.matches_num) + cons.CHAR_SPACE + _("Matches"))
+                self.allmatchesdialog.run()
+                self.allmatchesdialog.hide()
             else:
                 self.dad.treeview_safe_set_cursor(self.dad.curr_tree_iter)
                 self.dad.sourceview.grab_focus()
@@ -231,7 +232,7 @@ class FindReplace:
             if forward: node_iter = self.dad.treestore.get_iter_first()
             else: node_iter = self.dad.get_tree_iter_last_sibling(None)
         self.matches_num = 0
-        if all_matches: self.liststore_create_or_clean()
+        if all_matches: self.liststore.clear()
         # searching start
         while node_iter != None:
             if self.parse_node_name(node_iter, pattern, forward, all_matches):
@@ -252,9 +253,9 @@ class FindReplace:
         if self.matches_num == 0:
             support.dialog_info(_("The pattern '%s' was not found") % pattern_clean, self.dad.window)
         elif all_matches:
-            self.dad.glade.allmatchesdialog.set_title(str(self.matches_num) + cons.CHAR_SPACE + _("Matches"))
-            self.dad.glade.allmatchesdialog.run()
-            self.dad.glade.allmatchesdialog.hide()
+            self.allmatchesdialog.set_title(str(self.matches_num) + cons.CHAR_SPACE + _("Matches"))
+            self.allmatchesdialog.run()
+            self.allmatchesdialog.hide()
         elif self.dad.search_replace_dict['idialog']:
             self.iterated_find_dialog()
         if self.matches_num and self.replace_active: self.dad.update_window_save_needed()
@@ -537,11 +538,13 @@ class FindReplace:
             if not end_iter.forward_char(): break
         return text_buffer.get_text(start_iter, end_iter)
 
-    def liststore_create_or_clean(self):
-        """Check Whether the Liststore was Already Created or Not"""
-        if "liststore" in dir(self):
-            self.liststore.clear()
-            return
+    def allmatchesdialog_init(self):
+        """Create the All Matches Dialog"""
+        self.allmatchesdialog = gtk.Dialog(parent=self.dad.window,
+            flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
+            buttons=(_("Hide (Restore with Ctrl+Shift+A)"), gtk.RESPONSE_CLOSE))
+        self.allmatchesdialog.set_default_size(700, 350)
+        self.allmatchesdialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
         # ROW: 0-node_id, 1-start_offset, 2-end_offset, 3-node_name, 4-line_content
         self.liststore = gtk.ListStore(long, long, long, str, str)
         self.treeview = gtk.TreeView(self.liststore)
@@ -553,8 +556,12 @@ class FindReplace:
         self.treeview.append_column(self.line_column)
         self.treeviewselection = self.treeview.get_selection()
         self.treeview.connect('event-after', self.on_treeview_event_after)
-        self.dad.glade.scrolledwindow_allmatches.add(self.treeview)
-        self.dad.glade.scrolledwindow_allmatches.show_all()
+        scrolledwindow_allmatches = gtk.ScrolledWindow()
+        scrolledwindow_allmatches.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+        scrolledwindow_allmatches.add(self.treeview)
+        content_area = self.allmatchesdialog.get_content_area()
+        content_area.pack_start(scrolledwindow_allmatches)
+        content_area.show_all()
 
     def on_treeview_event_after(self, treeview, event):
         """Catches mouse buttons clicks"""
