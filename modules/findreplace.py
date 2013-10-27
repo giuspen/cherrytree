@@ -37,18 +37,45 @@ class FindReplace:
         self.from_find_back = False
         self.newline_trick = False
         self.allmatchesdialog_init()
-    
-    def iterated_find_dialog(self):
-        """Iterated Find/Replace Dialog"""
-        dialog = self.dad.glade.iteratedfinddialog
+        self.iteratedfinddialog = None
+
+    def iterated_find_dialog_exist_or_create(self):
+        """Exist or Create the Iterated Find Dialog"""
+        if self.iteratedfinddialog: return
+        dialog = gtk.Dialog(title=_("Iterate Latest Find/Replace"),
+            parent=self.dad.window,
+            flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
+            buttons=(_("Close"), 0,
+                     _("Find"), 4,
+                     _("Find"), 1,
+                     _("Replace"), 2,
+                     _("Undo"), 3) )
+        dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+        try:
+            button = dialog.get_widget_for_response(0)
+            button.set_image(gtk.image_new_from_stock(gtk.STOCK_CLOSE, gtk.ICON_SIZE_LARGE_TOOLBAR))
+            button = dialog.get_widget_for_response(4)
+            button.set_image(gtk.image_new_from_stock("find_back", gtk.ICON_SIZE_LARGE_TOOLBAR))
+            button = dialog.get_widget_for_response(1)
+            button.set_image(gtk.image_new_from_stock("find_again", gtk.ICON_SIZE_LARGE_TOOLBAR))
+            button = dialog.get_widget_for_response(2)
+            button.set_image(gtk.image_new_from_stock("find_replace", gtk.ICON_SIZE_LARGE_TOOLBAR))
+            button = dialog.get_widget_for_response(3)
+            button.set_image(gtk.image_new_from_stock(gtk.STOCK_UNDO, gtk.ICON_SIZE_LARGE_TOOLBAR))
+        except: pass
         def on_key_press_iterated_find_dialog(widget, event):
             if gtk.gdk.keyval_name(event.keyval) == "Return":
                 try: dialog.get_widget_for_response(1).clicked()
                 except: print cons.STR_PYGTK_222_REQUIRED
                 return True
         dialog.connect("key_press_event", on_key_press_iterated_find_dialog)
-        response = dialog.run()
-        dialog.hide()
+        self.iteratedfinddialog = dialog
+
+    def iterated_find_dialog(self):
+        """Iterated Find/Replace Dialog"""
+        self.iterated_find_dialog_exist_or_create()
+        response = self.iteratedfinddialog.run()
+        self.iteratedfinddialog.hide()
         if response == 1:
             # find forward
             self.replace_active = False
@@ -545,6 +572,10 @@ class FindReplace:
             buttons=(_("Hide (Restore with Ctrl+Shift+A)"), gtk.RESPONSE_CLOSE))
         self.allmatchesdialog.set_default_size(700, 350)
         self.allmatchesdialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+        try:
+            button = self.allmatchesdialog.get_widget_for_response(gtk.RESPONSE_CLOSE)
+            button.set_image(gtk.image_new_from_stock(gtk.STOCK_CLOSE, gtk.ICON_SIZE_LARGE_TOOLBAR))
+        except: pass
         # ROW: 0-node_id, 1-start_offset, 2-end_offset, 3-node_name, 4-line_content
         self.liststore = gtk.ListStore(long, long, long, str, str)
         self.treeview = gtk.TreeView(self.liststore)
