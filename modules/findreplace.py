@@ -565,7 +565,7 @@ class FindReplace:
 
     def on_treeview_event_after(self, treeview, event):
         """Catches mouse buttons clicks"""
-        if event.type != gtk.gdk.BUTTON_PRESS: return
+        if event.type not in [gtk.gdk.BUTTON_PRESS, gtk.gdk.KEY_PRESS]: return
         model, list_iter = self.treeviewselection.get_selected()
         tree_iter = self.dad.get_tree_iter_from_node_id(model[list_iter][0])
         if not tree_iter:
