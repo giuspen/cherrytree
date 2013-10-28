@@ -1946,8 +1946,8 @@ class CherryTree:
         # now we can remove the old iter (and all children)
         self.treestore.remove(iter_to_move)
         self.nodes_sequences_fix(None, True)
-        if father_iter != None: self.treeview.expand_row(self.treestore.get_path(father_iter), True)
-        else: self.treeview.expand_row(self.treestore.get_path(new_node_iter), True)
+        if father_iter != None: self.treeview.expand_row(self.treestore.get_path(father_iter), False)
+        else: self.treeview.expand_row(self.treestore.get_path(new_node_iter), False)
         self.curr_tree_iter = new_node_iter
         new_node_path = self.treestore.get_path(new_node_iter)
         self.treeview.collapse_row(new_node_path)
