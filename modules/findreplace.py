@@ -53,15 +53,15 @@ class FindReplace:
         dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
         try:
             button = dialog.get_widget_for_response(0)
-            button.set_image(gtk.image_new_from_stock(gtk.STOCK_CLOSE, gtk.ICON_SIZE_LARGE_TOOLBAR))
+            button.set_image(gtk.image_new_from_stock(gtk.STOCK_CLOSE, gtk.ICON_SIZE_BUTTON))
             button = dialog.get_widget_for_response(4)
-            button.set_image(gtk.image_new_from_stock("find_back", gtk.ICON_SIZE_LARGE_TOOLBAR))
+            button.set_image(gtk.image_new_from_stock("find_back", gtk.ICON_SIZE_BUTTON))
             button = dialog.get_widget_for_response(1)
-            button.set_image(gtk.image_new_from_stock("find_again", gtk.ICON_SIZE_LARGE_TOOLBAR))
+            button.set_image(gtk.image_new_from_stock("find_again", gtk.ICON_SIZE_BUTTON))
             button = dialog.get_widget_for_response(2)
-            button.set_image(gtk.image_new_from_stock("find_replace", gtk.ICON_SIZE_LARGE_TOOLBAR))
+            button.set_image(gtk.image_new_from_stock("find_replace", gtk.ICON_SIZE_BUTTON))
             button = dialog.get_widget_for_response(3)
-            button.set_image(gtk.image_new_from_stock(gtk.STOCK_UNDO, gtk.ICON_SIZE_LARGE_TOOLBAR))
+            button.set_image(gtk.image_new_from_stock(gtk.STOCK_UNDO, gtk.ICON_SIZE_BUTTON))
         except: pass
         def on_key_press_iterated_find_dialog(widget, event):
             if gtk.gdk.keyval_name(event.keyval) == "Return":
@@ -574,7 +574,7 @@ class FindReplace:
         self.allmatchesdialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
         try:
             button = self.allmatchesdialog.get_widget_for_response(gtk.RESPONSE_CLOSE)
-            button.set_image(gtk.image_new_from_stock(gtk.STOCK_CLOSE, gtk.ICON_SIZE_LARGE_TOOLBAR))
+            button.set_image(gtk.image_new_from_stock(gtk.STOCK_CLOSE, gtk.ICON_SIZE_BUTTON))
         except: pass
         # ROW: 0-node_id, 1-start_offset, 2-end_offset, 3-node_name, 4-line_content
         self.liststore = gtk.ListStore(long, long, long, str, str)
