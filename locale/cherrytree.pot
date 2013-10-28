@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-24 23:13+0200\n"
+"POT-Creation-Date: 2013-10-28 22:15+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,7 +41,7 @@ msgstr ""
 msgid "This Change will have Effect Only After Restarting CherryTree"
 msgstr ""
 
-#: modules/support.py:246 glade/cherrytree.glade.h:57
+#: modules/support.py:246 glade/cherrytree.glade.h:24
 msgid "Warning"
 msgstr ""
 
@@ -49,479 +49,553 @@ msgstr ""
 msgid "Error"
 msgstr ""
 
-#: modules/support.py:264
-msgid "Involved Nodes"
+#: modules/support.py:267
+msgid ""
+"Copyright © 2009-2013\n"
+"Giuseppe Penone <giuspen@gmail.com>"
+msgstr ""
+
+#: modules/support.py:269
+msgid ""
+"A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
+"Highlighting"
 msgstr ""
 
 #: modules/support.py:270
+msgid ""
+"\n"
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 3 of the License, or\n"
+"(at your option) any later version.\n"
+"  \n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"  \n"
+"You should have received a copy of the GNU General Public License\n"
+"along with this program; if not, write to the Free Software\n"
+"Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,\n"
+"MA 02110-1301, USA.\n"
+msgstr ""
+
+#: modules/support.py:290
+msgid ""
+"Chinese Simplified (zh_CN) Channing Wong <mamimoluo@gmail.com>\n"
+"Czech (cs) Pavel Fric <fripohled@blogspot.com>\n"
+"Dutch (nl) Patrick Vijgeboom <pj.vijgeboom@gmail.com>\n"
+"French (fr) Benoît D'Angelo <benoit.dangelo@gmx.fr> (former Ludovic Troisi)\n"
+"German (de) Frank Brungräber <calexu@arcor.de> (former Sven Neubauer)\n"
+"Italian (it) Giuseppe Penone <giuspen@gmail.com>\n"
+"Polish (pl) Marcin Swierczynski <orneo1212@gmail.com>\n"
+"Portuguese Brazil (pt_BR) Vinicius Schmidt <viniciussm@rocketmail.com>\n"
+"Russian (ru) Andriy Kovtun <kovtunos@yandex.ru>\n"
+"Spanish (es) Daniel MC <i.e.betel@gmail.com>\n"
+"Ukrainian (uk) Andriy Kovtun <kovtunos@yandex.ru>"
+msgstr ""
+
+#: modules/support.py:302 modules/cons.py:607
+msgid "About CherryTree"
+msgstr ""
+
+#: modules/support.py:311
+msgid "Involved Nodes"
+msgstr ""
+
+#: modules/support.py:317
 msgid "Selected Text Only"
 msgstr ""
 
-#: modules/support.py:271
+#: modules/support.py:318
 msgid "Selected Node Only"
 msgstr ""
 
-#: modules/support.py:272
+#: modules/support.py:319
 msgid "Selected Node and Subnodes"
 msgstr ""
 
-#: modules/support.py:273
+#: modules/support.py:320
 msgid "All the Tree"
 msgstr ""
 
-#: modules/support.py:278
+#: modules/support.py:325
 msgid "Include Node Name"
 msgstr ""
 
-#: modules/support.py:343 modules/core.py:950
+#: modules/support.py:390 modules/core.py:949
 msgid "Insert _Special Character"
 msgstr ""
 
-#: modules/support.py:345 modules/core.py:952
+#: modules/support.py:392 modules/core.py:951
 msgid "Insert a Special Character"
 msgstr ""
 
-#: modules/support.py:376
+#: modules/support.py:423
 msgid "_Recent Documents"
 msgstr ""
 
-#: modules/support.py:378 modules/support.py:384
+#: modules/support.py:425 modules/support.py:431
 msgid "Open a Recent CherryTree Document"
 msgstr ""
 
-#: modules/support.py:383 modules/cons.py:503
+#: modules/support.py:430 modules/cons.py:503
 msgid "Open a CherryTree Document"
 msgstr ""
 
-#: modules/support.py:406
+#: modules/support.py:453
 #, python-format
 msgid "The Document %s was Not Found"
 msgstr ""
 
-#: modules/support.py:418 modules/cons.py:620
+#: modules/support.py:465 modules/cons.py:620
 msgid "Handle the Bookmarks List"
 msgstr ""
 
-#: modules/support.py:432
+#: modules/support.py:479
 msgid "Sort with Drag and Drop, Delete with the Delete Key"
 msgstr ""
 
-#: modules/findreplace.py:78
+#: modules/findreplace.py:45
+msgid "Iterate Latest Find/Replace"
+msgstr ""
+
+#: modules/findreplace.py:48
+msgid "Close"
+msgstr ""
+
+#: modules/findreplace.py:49 modules/findreplace.py:50
+msgid "Find"
+msgstr ""
+
+#: modules/findreplace.py:51
+msgid "Replace"
+msgstr ""
+
+#: modules/findreplace.py:52
+msgid "Undo"
+msgstr ""
+
+#: modules/findreplace.py:106
 msgid "Replace in Current Node..."
 msgstr ""
 
-#: modules/findreplace.py:79
+#: modules/findreplace.py:107
 msgid "Search in Current Node..."
 msgstr ""
 
-#: modules/findreplace.py:107 modules/findreplace.py:182
-#: modules/findreplace.py:253
+#: modules/findreplace.py:135 modules/findreplace.py:210
+#: modules/findreplace.py:281
 #, python-format
 msgid "The pattern '%s' was not found"
 msgstr ""
 
-#: modules/findreplace.py:109 modules/findreplace.py:185
-#: modules/findreplace.py:255
+#: modules/findreplace.py:137 modules/findreplace.py:213
+#: modules/findreplace.py:283
 msgid "Matches"
 msgstr ""
 
-#: modules/findreplace.py:124
+#: modules/findreplace.py:152
 msgid "Replace in All Nodes..."
 msgstr ""
 
-#: modules/findreplace.py:125
+#: modules/findreplace.py:153
 msgid "Search in All Nodes..."
 msgstr ""
 
-#: modules/findreplace.py:198
+#: modules/findreplace.py:226
 msgid "Replace in Node Names..."
 msgstr ""
 
-#: modules/findreplace.py:199
+#: modules/findreplace.py:227
 msgid "Search For a Node Name..."
 msgstr ""
 
-#: modules/findreplace.py:504
+#: modules/findreplace.py:532
 msgid "No Previous Search Was Performed During This Session"
 msgstr ""
 
-#: modules/findreplace.py:550 modules/core.py:3101
+#: modules/findreplace.py:572
+msgid "Hide (Restore with Ctrl+Shift+A)"
+msgstr ""
+
+#: modules/findreplace.py:584 modules/core.py:3100
 msgid "Node Name"
 msgstr ""
 
-#: modules/findreplace.py:552
+#: modules/findreplace.py:586
 msgid "Line Content"
 msgstr ""
 
-#: modules/findreplace.py:565 modules/core.py:4087
+#: modules/findreplace.py:603 modules/core.py:4085
 #, python-format
 msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
 msgstr ""
 
-#: modules/core.py:229
+#: modules/core.py:228
 msgid "Checking for Newer Version..."
 msgstr ""
 
-#: modules/core.py:235
+#: modules/core.py:234
 msgid "A Newer Version Is Available!"
 msgstr ""
 
-#: modules/core.py:240
+#: modules/core.py:239
 msgid "This is the Latest Version Available"
 msgstr ""
 
-#: modules/core.py:243
+#: modules/core.py:242
 msgid "Failed to Retrieve Latest Version Information - Try Again Later"
 msgstr ""
 
-#: modules/core.py:260 modules/core.py:3408 modules/core.py:3818
-#: modules/core.py:3824 modules/core.py:4421
+#: modules/core.py:259 modules/core.py:3406 modules/core.py:3816
+#: modules/core.py:3822 modules/core.py:4419
 msgid "No Text is Selected"
 msgstr ""
 
-#: modules/core.py:560 modules/core.py:1992
+#: modules/core.py:559 modules/core.py:1991
 msgid "The new father can't be one of his sons!"
 msgstr ""
 
-#: modules/core.py:597 modules/core.py:1195 modules/core.py:1345
+#: modules/core.py:596 modules/core.py:1194 modules/core.py:1344
 msgid "CherryTree Document"
 msgstr ""
 
-#: modules/core.py:620 modules/core.py:1605
+#: modules/core.py:619 modules/core.py:1604
 #, python-format
 msgid "\"%s\" is Not a CherryTree Document"
 msgstr ""
 
-#: modules/core.py:626
+#: modules/core.py:625
 msgid "NoteCase Document"
 msgstr ""
 
-#: modules/core.py:712
+#: modules/core.py:711
 msgid "Plain Text Document"
 msgstr ""
 
-#: modules/core.py:730
+#: modules/core.py:729
 msgid "Treepad Document"
 msgstr ""
 
-#: modules/core.py:748
+#: modules/core.py:747
 msgid "KeyNote Document"
 msgstr ""
 
-#: modules/core.py:766
+#: modules/core.py:765
 msgid "Mempad Document"
 msgstr ""
 
-#: modules/core.py:784
+#: modules/core.py:783
 msgid "Knowit Document"
 msgstr ""
 
-#: modules/core.py:802
+#: modules/core.py:801
 msgid "Leo Document"
 msgstr ""
 
-#: modules/core.py:833
+#: modules/core.py:832
 msgid "Who is the Father?"
 msgstr ""
 
-#: modules/core.py:840
+#: modules/core.py:839
 msgid "The Tree Root"
 msgstr ""
 
-#: modules/core.py:841
+#: modules/core.py:840
 msgid "The Selected Node"
 msgstr ""
 
-#: modules/core.py:1036
+#: modules/core.py:1035
 msgid "The Document was Reloaded After External Update to CT* File"
 msgstr ""
 
-#: modules/core.py:1063
+#: modules/core.py:1062
 msgid "CherryTree Hierarchical Note Taking"
 msgstr ""
 
-#: modules/core.py:1312
+#: modules/core.py:1311
 #, python-format
 msgid "You Have No Write Access to %s"
 msgstr ""
 
-#: modules/core.py:1327
+#: modules/core.py:1326
 msgid "Writing to Disk..."
 msgstr ""
 
-#: modules/core.py:1364
+#: modules/core.py:1363
 msgid "Choose Storage Type"
 msgstr ""
 
-#: modules/core.py:1371 modules/core.py:1374
+#: modules/core.py:1370 modules/core.py:1373
 msgid "Not Protected"
 msgstr ""
 
-#: modules/core.py:1372 modules/core.py:1376
+#: modules/core.py:1371 modules/core.py:1375
 msgid "Password Protected"
 msgstr ""
 
-#: modules/core.py:1383
+#: modules/core.py:1382
 msgid "Storage Type"
 msgstr ""
 
-#: modules/core.py:1394
+#: modules/core.py:1393
 msgid "Enter the New Password Twice"
 msgstr ""
 
-#: modules/core.py:1436
+#: modules/core.py:1435
 msgid "The Password Fields Must be Filled"
 msgstr ""
 
-#: modules/core.py:1439
+#: modules/core.py:1438
 msgid "The Two Inserted Passwords Do Not Match"
 msgstr ""
 
-#: modules/core.py:1444
+#: modules/core.py:1443
 #, python-format
 msgid "The Characters  %s  are Not Allowed"
 msgstr ""
 
-#: modules/core.py:1462
+#: modules/core.py:1461
 msgid ""
 "Binary Executable '7za' Not Found, Check The Package 'p7zip-full' to be "
 "Installed Properly"
 msgstr ""
 
-#: modules/core.py:1468
+#: modules/core.py:1467
 #, python-format
 msgid "Enter Password for %s"
 msgstr ""
 
-#: modules/core.py:1529
+#: modules/core.py:1528
 msgid "Wrong Password"
 msgstr ""
 
-#: modules/core.py:1976 glade/cherrytree.glade.h:36
+#: modules/core.py:1975 glade/cherrytree.glade.h:3
 msgid "Select the New Father"
 msgstr ""
 
-#: modules/core.py:1984
+#: modules/core.py:1983
 msgid "The new father can't be the very node to move!"
 msgstr ""
 
-#: modules/core.py:1987
+#: modules/core.py:1986
 msgid "The new choosed father is again the old father!"
 msgstr ""
 
-#: modules/core.py:2424
+#: modules/core.py:2423
 msgid "The New Language will be Available Only After Restarting CherryTree"
 msgstr ""
 
-#: modules/core.py:2535
+#: modules/core.py:2534
 msgid "New Node Properties"
 msgstr ""
 
-#: modules/core.py:2562
+#: modules/core.py:2561
 msgid "New Child Node Properties"
 msgstr ""
 
-#: modules/core.py:2581
+#: modules/core.py:2580
 #, python-format
 msgid "Are you sure to <b>Delete the node '%s'?</b>"
 msgstr ""
 
-#: modules/core.py:2583
+#: modules/core.py:2582
 msgid "The node <b>has Children, they will be Deleted too!</b>"
 msgstr ""
 
-#: modules/core.py:2605
+#: modules/core.py:2604
 msgid "Node Properties"
 msgstr ""
 
-#: modules/core.py:2613
+#: modules/core.py:2612
 msgid ""
 "Entering the Automatic Syntax Highlighting you will Lose all Custom Colors "
 "for This Node, Do you want to Continue?"
 msgstr ""
 
-#: modules/core.py:2994
+#: modules/core.py:2993
 msgid "Search for"
 msgstr ""
 
-#: modules/core.py:3001
+#: modules/core.py:3000
 msgid "Replace with"
 msgstr ""
 
-#: modules/core.py:3016
+#: modules/core.py:3015
 msgid "Match Case"
 msgstr ""
 
-#: modules/core.py:3018
+#: modules/core.py:3017
 msgid "Regular Expression"
 msgstr ""
 
-#: modules/core.py:3020
+#: modules/core.py:3019
 msgid "Whole Word"
 msgstr ""
 
-#: modules/core.py:3022
+#: modules/core.py:3021
 msgid "Start Word"
 msgstr ""
 
-#: modules/core.py:3024
+#: modules/core.py:3023
 msgid "Forward"
 msgstr ""
 
-#: modules/core.py:3026
+#: modules/core.py:3025
 msgid "Backward"
 msgstr ""
 
-#: modules/core.py:3029
+#: modules/core.py:3028
 msgid "All, List Matches"
 msgstr ""
 
-#: modules/core.py:3031
+#: modules/core.py:3030
 msgid "First From Selection"
 msgstr ""
 
-#: modules/core.py:3034
+#: modules/core.py:3033
 msgid "First in All Range"
 msgstr ""
 
-#: modules/core.py:3037
+#: modules/core.py:3036
 msgid "Show Iterated Find/Replace Dialog"
 msgstr ""
 
-#: modules/core.py:3057
+#: modules/core.py:3056
 msgid "Search options"
 msgstr ""
 
-#: modules/core.py:3105 modules/core.py:4377
+#: modules/core.py:3104 modules/core.py:4375
 msgid "Rich Text"
 msgstr ""
 
-#: modules/core.py:3106
+#: modules/core.py:3105
 msgid "Automatic Syntax Highlighting"
 msgstr ""
 
-#: modules/core.py:3123
+#: modules/core.py:3122
 msgid "Node Type"
 msgstr ""
 
-#: modules/core.py:3129
+#: modules/core.py:3128
 msgid "Tags for Searching"
 msgstr ""
 
-#: modules/core.py:3133 modules/core.py:4379
+#: modules/core.py:3132 modules/core.py:4377
 msgid "Read Only"
 msgstr ""
 
-#: modules/core.py:3165
+#: modules/core.py:3164
 msgid "The Size of the Toolbar Icons is already at the Maximum Value"
 msgstr ""
 
-#: modules/core.py:3173
+#: modules/core.py:3172
 msgid "The Size of the Toolbar Icons is already at the Minimum Value"
 msgstr ""
 
-#: modules/core.py:3265
+#: modules/core.py:3263
 msgid "Edit Anchor"
 msgstr ""
 
-#: modules/core.py:3268
+#: modules/core.py:3266
 msgid "Insert Anchor"
 msgstr ""
 
-#: modules/core.py:3277
+#: modules/core.py:3275
 msgid "The Anchor Name is Mandatory!"
 msgstr ""
 
-#: modules/core.py:3312
+#: modules/core.py:3310
 msgid "Not Any H1, H2 or H3 Formatting Found"
 msgstr ""
 
-#: modules/core.py:3386
+#: modules/core.py:3384
 msgid ""
 "Automatic Syntax Highlighting Must be Disabled in order to Use This Feature"
 msgstr ""
 
-#: modules/core.py:3393 modules/core.py:4375
+#: modules/core.py:3391 modules/core.py:4373
 msgid "No Node is Selected"
 msgstr ""
 
-#: modules/core.py:3400
+#: modules/core.py:3398
 msgid "The Tree is Empty!"
 msgstr ""
 
-#: modules/core.py:3421 modules/cons.py:636
+#: modules/core.py:3419 modules/cons.py:636
 msgid "Tree Summary Information"
 msgstr ""
 
-#: modules/core.py:3429
+#: modules/core.py:3427
 msgid "Number of Text Nodes"
 msgstr ""
 
-#: modules/core.py:3432
+#: modules/core.py:3430
 msgid "Number of Code Nodes"
 msgstr ""
 
-#: modules/core.py:3435
+#: modules/core.py:3433
 msgid "Number of Images"
 msgstr ""
 
-#: modules/core.py:3438
+#: modules/core.py:3436
 msgid "Number of Tables"
 msgstr ""
 
-#: modules/core.py:3441
+#: modules/core.py:3439
 msgid "Number of CodeBoxes"
 msgstr ""
 
-#: modules/core.py:3566
+#: modules/core.py:3564
 msgid "PNG Image"
 msgstr ""
 
-#: modules/core.py:3572
+#: modules/core.py:3570
 #, python-format
 msgid "Write to %s Failed"
 msgstr ""
 
-#: modules/core.py:3804
+#: modules/core.py:3802
 msgid "No Previous Text Format Was Performed During This Session"
 msgstr ""
 
-#: modules/core.py:3858
+#: modules/core.py:3856
 msgid "The Cursor is Not into a Paragraph"
 msgstr ""
 
-#: modules/core.py:3868
+#: modules/core.py:3866
 msgid "Insert/Edit a Link"
 msgstr ""
 
-#: modules/core.py:3897
+#: modules/core.py:3895
 msgid "Pick a Color"
 msgstr ""
 
-#: modules/core.py:4059
+#: modules/core.py:4057
 #, python-format
 msgid "The File Link '%s' is Not Valid"
 msgstr ""
 
-#: modules/core.py:4074
+#: modules/core.py:4072
 #, python-format
 msgid "The Folder Link '%s' is Not Valid"
 msgstr ""
 
-#: modules/core.py:4097
+#: modules/core.py:4095
 #, python-format
 msgid "No anchor named '%s' found"
 msgstr ""
 
-#: modules/core.py:4167
+#: modules/core.py:4165
 msgid "There are No Anchors in the Selected Node"
 msgstr ""
 
-#: modules/core.py:4172
+#: modules/core.py:4170
 msgid "Choose Existing Anchor"
 msgstr ""
 
-#: modules/core.py:4185
+#: modules/core.py:4183
 msgid "Anchor Name"
 msgstr ""
 
@@ -721,7 +795,7 @@ msgstr ""
 msgid "_Preferences"
 msgstr ""
 
-#: modules/cons.py:515 glade/cherrytree.glade.h:72
+#: modules/cons.py:515 glade/cherrytree.glade.h:31
 msgid "Preferences"
 msgstr ""
 
@@ -1180,7 +1254,6 @@ msgid "Find _Again"
 msgstr ""
 
 #: modules/cons.py:572 modules/cons.py:755 modules/cons.py:794
-#: glade/cherrytree.glade.h:67
 msgid "Iterate the Last Find Operation"
 msgstr ""
 
@@ -1189,7 +1262,6 @@ msgid "Find _Back"
 msgstr ""
 
 #: modules/cons.py:573 modules/cons.py:756 modules/cons.py:795
-#: glade/cherrytree.glade.h:65
 msgid "Iterate the Last Find Operation in Opposite Direction"
 msgstr ""
 
@@ -1461,10 +1533,6 @@ msgstr ""
 
 #: modules/cons.py:607
 msgid "_About"
-msgstr ""
-
-#: modules/cons.py:607 glade/cherrytree.glade.h:1
-msgid "About CherryTree"
 msgstr ""
 
 #: modules/cons.py:608
@@ -1779,478 +1847,400 @@ msgstr ""
 msgid "Suggestions"
 msgstr ""
 
-#: glade/cherrytree.glade.h:2
-msgid ""
-"Copyright © 2009-2013\n"
-"Giuseppe Penone <giuspen@gmail.com>"
-msgstr ""
-
-#: glade/cherrytree.glade.h:4
-msgid ""
-"A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
-"Highlighting"
-msgstr ""
-
-#: glade/cherrytree.glade.h:5
-msgid "http://www.giuspen.com/cherrytree/"
-msgstr ""
-
-#: glade/cherrytree.glade.h:6
-msgid ""
-"\n"
-"This program is free software; you can redistribute it and/or modify\n"
-"it under the terms of the GNU General Public License as published by\n"
-"the Free Software Foundation; either version 3 of the License, or\n"
-"(at your option) any later version.\n"
-"  \n"
-"This program is distributed in the hope that it will be useful,\n"
-"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-"GNU General Public License for more details.\n"
-"  \n"
-"You should have received a copy of the GNU General Public License\n"
-"along with this program; if not, write to the Free Software\n"
-"Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,\n"
-"MA 02110-1301, USA.\n"
-msgstr ""
-
-#: glade/cherrytree.glade.h:22
-msgid ""
-"Chinese Simplified (zh_CN) Channing Wong <mamimoluo@gmail.com>\n"
-"Czech (cs) Pavel Fric <fripohled@blogspot.com>\n"
-"Dutch (nl) Patrick Vijgeboom <pj.vijgeboom@gmail.com>\n"
-"French (fr) Benoît D'Angelo <benoit.dangelo@gmx.fr> (former Ludovic Troisi)\n"
-"German (de) Frank Brungräber <calexu@arcor.de> (former Sven Neubauer)\n"
-"Italian (it) Giuseppe Penone <giuspen@gmail.com>\n"
-"Polish (pl) Marcin Swierczynski <orneo1212@gmail.com>\n"
-"Portuguese Brazil (pt_BR) Vinicius Schmidt <viniciussm@rocketmail.com>\n"
-"Russian (ru) Andriy Kovtun <kovtunos@yandex.ru>\n"
-"Spanish (es) Daniel MC <i.e.betel@gmail.com>\n"
-"Ukrainian (uk) Andriy Kovtun <kovtunos@yandex.ru>"
-msgstr ""
-
-#: glade/cherrytree.glade.h:33
-msgid "Hide (Restore with Ctrl+Shift+A)"
-msgstr ""
-
-#: glade/cherrytree.glade.h:34
+#: glade/cherrytree.glade.h:1
 msgid "Cancel"
 msgstr ""
 
-#: glade/cherrytree.glade.h:35
+#: glade/cherrytree.glade.h:2
 msgid "OK"
 msgstr ""
 
-#: glade/cherrytree.glade.h:37
+#: glade/cherrytree.glade.h:4
 msgid "To WebSite"
 msgstr ""
 
-#: glade/cherrytree.glade.h:38
+#: glade/cherrytree.glade.h:5
 msgid "To Node"
 msgstr ""
 
-#: glade/cherrytree.glade.h:39
+#: glade/cherrytree.glade.h:6
 msgid "To File"
 msgstr ""
 
-#: glade/cherrytree.glade.h:40
+#: glade/cherrytree.glade.h:7
 msgid "To Folder"
 msgstr ""
 
-#: glade/cherrytree.glade.h:41
+#: glade/cherrytree.glade.h:8
 msgid "<b>Type</b>"
 msgstr ""
 
-#: glade/cherrytree.glade.h:42
+#: glade/cherrytree.glade.h:9
 msgid "<b>WebSite URL</b>"
 msgstr ""
 
-#: glade/cherrytree.glade.h:43
+#: glade/cherrytree.glade.h:10
 msgid "Browse for a File to link to"
 msgstr ""
 
-#: glade/cherrytree.glade.h:44
+#: glade/cherrytree.glade.h:11
 msgid "<b>File/Folder Path</b>"
 msgstr ""
 
-#: glade/cherrytree.glade.h:45
+#: glade/cherrytree.glade.h:12
 msgid "<b>Node</b>"
 msgstr ""
 
-#: glade/cherrytree.glade.h:46
+#: glade/cherrytree.glade.h:13
 msgid "<b>Anchor Name (optional)</b>"
 msgstr ""
 
-#: glade/cherrytree.glade.h:47
+#: glade/cherrytree.glade.h:14
 msgid "<b>Automatic Syntax Highlighting</b>"
 msgstr ""
 
-#: glade/cherrytree.glade.h:48
+#: glade/cherrytree.glade.h:15
 msgid "Width"
 msgstr ""
 
-#: glade/cherrytree.glade.h:49
+#: glade/cherrytree.glade.h:16
 msgid "pixels"
 msgstr ""
 
-#: glade/cherrytree.glade.h:51
+#: glade/cherrytree.glade.h:18
 msgid "%"
 msgstr ""
 
-#: glade/cherrytree.glade.h:52
+#: glade/cherrytree.glade.h:19
 msgid "Height"
 msgstr ""
 
-#: glade/cherrytree.glade.h:53
+#: glade/cherrytree.glade.h:20
 msgid "<b>Size</b>"
 msgstr ""
 
-#: glade/cherrytree.glade.h:54
+#: glade/cherrytree.glade.h:21
 msgid "Show Line Numbers"
 msgstr ""
 
-#: glade/cherrytree.glade.h:55
+#: glade/cherrytree.glade.h:22
 msgid "Highlight Matching Brackets"
 msgstr ""
 
-#: glade/cherrytree.glade.h:56
+#: glade/cherrytree.glade.h:23
 msgid "<b>Options</b>"
 msgstr ""
 
-#: glade/cherrytree.glade.h:58
+#: glade/cherrytree.glade.h:25
 msgid "No"
 msgstr ""
 
-#: glade/cherrytree.glade.h:59
+#: glade/cherrytree.glade.h:26
 msgid "Yes"
 msgstr ""
 
-#: glade/cherrytree.glade.h:60
+#: glade/cherrytree.glade.h:27
 msgid ""
 "<b>The current document was updated</b>,\n"
 "do you want to save the changes?"
 msgstr ""
 
-#: glade/cherrytree.glade.h:62
+#: glade/cherrytree.glade.h:29
 msgid "Image Properties"
 msgstr ""
 
-#: glade/cherrytree.glade.h:63
-msgid "Iterate Latest Find/Replace"
-msgstr ""
-
-#: glade/cherrytree.glade.h:64
-msgid "Close"
-msgstr ""
-
-#: glade/cherrytree.glade.h:66
-msgid "Find"
-msgstr ""
-
-#: glade/cherrytree.glade.h:68
-msgid "Replace"
-msgstr ""
-
-#: glade/cherrytree.glade.h:69
-msgid "Undo the Latest Replace"
-msgstr ""
-
-#: glade/cherrytree.glade.h:70
-msgid "Undo"
-msgstr ""
-
-#: glade/cherrytree.glade.h:71
+#: glade/cherrytree.glade.h:30
 msgid "Are you sure to Delete the node?"
 msgstr ""
 
-#: glade/cherrytree.glade.h:73
+#: glade/cherrytree.glade.h:32
 msgid "Tab Width  "
 msgstr ""
 
-#: glade/cherrytree.glade.h:74
+#: glade/cherrytree.glade.h:33
 msgid "Insert Spaces Instead of Tabs"
 msgstr ""
 
-#: glade/cherrytree.glade.h:75
+#: glade/cherrytree.glade.h:34
 msgid "Use Line Wrapping"
 msgstr ""
 
-#: glade/cherrytree.glade.h:76
+#: glade/cherrytree.glade.h:35
 msgid "Enable Automatic Indentation"
 msgstr ""
 
-#: glade/cherrytree.glade.h:77
+#: glade/cherrytree.glade.h:36
 msgid "<b>Text Editor</b>"
 msgstr ""
 
-#: glade/cherrytree.glade.h:78
+#: glade/cherrytree.glade.h:37
 msgid "Timestamp Format"
 msgstr ""
 
-#: glade/cherrytree.glade.h:79
+#: glade/cherrytree.glade.h:38
 msgid "Horizontal Rule"
 msgstr ""
 
-#: glade/cherrytree.glade.h:80
+#: glade/cherrytree.glade.h:39
 msgid "Special Characters"
 msgstr ""
 
-#: glade/cherrytree.glade.h:81
+#: glade/cherrytree.glade.h:40
 msgid "<b>Miscellaneous</b>"
 msgstr ""
 
-#: glade/cherrytree.glade.h:82
+#: glade/cherrytree.glade.h:41
 msgid "All Nodes"
 msgstr ""
 
-#: glade/cherrytree.glade.h:83
+#: glade/cherrytree.glade.h:42
 msgid "Enable Spell Check"
 msgstr ""
 
-#: glade/cherrytree.glade.h:84
+#: glade/cherrytree.glade.h:43
 msgid "Spell Check Language"
 msgstr ""
 
-#: glade/cherrytree.glade.h:85
+#: glade/cherrytree.glade.h:44
 msgid "<b>Spell Check</b>"
 msgstr ""
 
-#: glade/cherrytree.glade.h:86
+#: glade/cherrytree.glade.h:45
 msgid "Light Background, Dark Text"
 msgstr ""
 
-#: glade/cherrytree.glade.h:87
+#: glade/cherrytree.glade.h:46
 msgid "Dark Background, Light Text"
 msgstr ""
 
-#: glade/cherrytree.glade.h:88
+#: glade/cherrytree.glade.h:47
 msgid "Custom Background"
 msgstr ""
 
-#: glade/cherrytree.glade.h:89
+#: glade/cherrytree.glade.h:48
 msgid "and Text"
 msgstr ""
 
-#: glade/cherrytree.glade.h:90
+#: glade/cherrytree.glade.h:49
 msgid "<b>Theme</b>"
 msgstr ""
 
-#: glade/cherrytree.glade.h:91
+#: glade/cherrytree.glade.h:50
 msgid "Limit of Undoable Steps Per Node"
 msgstr ""
 
-#: glade/cherrytree.glade.h:92
+#: glade/cherrytree.glade.h:51
 msgid "Text Nodes"
 msgstr ""
 
-#: glade/cherrytree.glade.h:93
+#: glade/cherrytree.glade.h:52
 msgid "Style Scheme"
 msgstr ""
 
-#: glade/cherrytree.glade.h:94
+#: glade/cherrytree.glade.h:53
 msgid "Show White Spaces"
 msgstr ""
 
-#: glade/cherrytree.glade.h:95
+#: glade/cherrytree.glade.h:54
 msgid "Highlight Current Line"
 msgstr ""
 
-#: glade/cherrytree.glade.h:96
+#: glade/cherrytree.glade.h:55
 msgid "Code Nodes"
 msgstr ""
 
-#: glade/cherrytree.glade.h:97
+#: glade/cherrytree.glade.h:56
 msgid "Use Cherries as Nodes Icons"
 msgstr ""
 
-#: glade/cherrytree.glade.h:98
+#: glade/cherrytree.glade.h:57
 msgid "Use Bullets as Nodes Icons"
 msgstr ""
 
-#: glade/cherrytree.glade.h:99
+#: glade/cherrytree.glade.h:58
 msgid "Do Not Display Nodes Icons"
 msgstr ""
 
-#: glade/cherrytree.glade.h:100
+#: glade/cherrytree.glade.h:59
 msgid "<b>Nodes Icons</b>"
 msgstr ""
 
-#: glade/cherrytree.glade.h:101
+#: glade/cherrytree.glade.h:60
 msgid "Restore Expanded/Collapsed Status"
 msgstr ""
 
-#: glade/cherrytree.glade.h:102
+#: glade/cherrytree.glade.h:61
 msgid "Expand all Nodes"
 msgstr ""
 
-#: glade/cherrytree.glade.h:103
+#: glade/cherrytree.glade.h:62
 msgid "Collapse all Nodes"
 msgstr ""
 
-#: glade/cherrytree.glade.h:104
+#: glade/cherrytree.glade.h:63
 msgid "<b>Nodes Status at Startup</b>"
 msgstr ""
 
-#: glade/cherrytree.glade.h:105
+#: glade/cherrytree.glade.h:64
 msgid "Tree Nodes Names Wrapping Width"
 msgstr ""
 
-#: glade/cherrytree.glade.h:106
+#: glade/cherrytree.glade.h:65
 msgid "Display Tree on the Right Side"
 msgstr ""
 
-#: glade/cherrytree.glade.h:107
+#: glade/cherrytree.glade.h:66
 msgid "Tree"
 msgstr ""
 
-#: glade/cherrytree.glade.h:108
+#: glade/cherrytree.glade.h:67
 msgid "Text Font"
 msgstr ""
 
-#: glade/cherrytree.glade.h:109
+#: glade/cherrytree.glade.h:68
 msgid "Code Font"
 msgstr ""
 
-#: glade/cherrytree.glade.h:110
+#: glade/cherrytree.glade.h:69
 msgid "Tree Font"
 msgstr ""
 
-#: glade/cherrytree.glade.h:111
+#: glade/cherrytree.glade.h:70
 msgid "<b>Fonts</b>"
 msgstr ""
 
-#: glade/cherrytree.glade.h:112
+#: glade/cherrytree.glade.h:71
 msgid "Fonts"
 msgstr ""
 
-#: glade/cherrytree.glade.h:113
+#: glade/cherrytree.glade.h:72
 msgid "Enable Custom Web Link Clicked Action"
 msgstr ""
 
-#: glade/cherrytree.glade.h:114
+#: glade/cherrytree.glade.h:73
 msgid "Enable Custom File Link Clicked Action"
 msgstr ""
 
-#: glade/cherrytree.glade.h:115
+#: glade/cherrytree.glade.h:74
 msgid "Enable Custom Folder Link Clicked Action"
 msgstr ""
 
-#: glade/cherrytree.glade.h:116
+#: glade/cherrytree.glade.h:75
 msgid "Anchor Size"
 msgstr ""
 
-#: glade/cherrytree.glade.h:117
+#: glade/cherrytree.glade.h:76
 msgid "<b>Links</b>"
 msgstr ""
 
-#: glade/cherrytree.glade.h:118
+#: glade/cherrytree.glade.h:77
 msgid "Links"
 msgstr ""
 
-#: glade/cherrytree.glade.h:119
+#: glade/cherrytree.glade.h:78
 msgid "Enable System Tray Docking"
 msgstr ""
 
-#: glade/cherrytree.glade.h:120
+#: glade/cherrytree.glade.h:79
 msgid "Start Minimized in the System Tray"
 msgstr ""
 
-#: glade/cherrytree.glade.h:121
+#: glade/cherrytree.glade.h:80
 msgid "Use AppIndicator for Docking"
 msgstr ""
 
-#: glade/cherrytree.glade.h:122
+#: glade/cherrytree.glade.h:81
 msgid "<b>System Tray</b>"
 msgstr ""
 
-#: glade/cherrytree.glade.h:123
+#: glade/cherrytree.glade.h:82
 msgid "Autosave Every"
 msgstr ""
 
-#: glade/cherrytree.glade.h:124
+#: glade/cherrytree.glade.h:83
 msgid "Minutes"
 msgstr ""
 
-#: glade/cherrytree.glade.h:125
+#: glade/cherrytree.glade.h:84
 msgid "Autosave on Quit"
 msgstr ""
 
-#: glade/cherrytree.glade.h:126
+#: glade/cherrytree.glade.h:85
 msgid "Create a Backup Copy Before Saving"
 msgstr ""
 
-#: glade/cherrytree.glade.h:127
+#: glade/cherrytree.glade.h:86
 msgid "<b>Saving</b>"
 msgstr ""
 
-#: glade/cherrytree.glade.h:128
+#: glade/cherrytree.glade.h:87
 msgid "Automatically Check for Newer Version"
 msgstr ""
 
-#: glade/cherrytree.glade.h:129
+#: glade/cherrytree.glade.h:88
 msgid "Reload Document From Last Session"
 msgstr ""
 
-#: glade/cherrytree.glade.h:130
+#: glade/cherrytree.glade.h:89
 msgid "Reload After External Update to CT* File"
 msgstr ""
 
-#: glade/cherrytree.glade.h:131
+#: glade/cherrytree.glade.h:90
 msgid "<b>Language</b>"
 msgstr ""
 
-#: glade/cherrytree.glade.h:132
+#: glade/cherrytree.glade.h:91
 msgid "Miscellaneous"
 msgstr ""
 
-#: glade/cherrytree.glade.h:133
+#: glade/cherrytree.glade.h:92
 msgid "Rows  "
 msgstr ""
 
-#: glade/cherrytree.glade.h:134
+#: glade/cherrytree.glade.h:93
 msgid "     Columns  "
 msgstr ""
 
-#: glade/cherrytree.glade.h:135
+#: glade/cherrytree.glade.h:94
 msgid "<b>Table size</b>"
 msgstr ""
 
-#: glade/cherrytree.glade.h:136
+#: glade/cherrytree.glade.h:95
 msgid "Min Width"
 msgstr ""
 
-#: glade/cherrytree.glade.h:137
+#: glade/cherrytree.glade.h:96
 msgid "   Max Width"
 msgstr ""
 
-#: glade/cherrytree.glade.h:138
+#: glade/cherrytree.glade.h:97
 msgid "<b>Columns Properties</b>"
 msgstr ""
 
-#: glade/cherrytree.glade.h:139
+#: glade/cherrytree.glade.h:98
 msgid "Import from CSV File"
 msgstr ""
 
-#: glade/cherrytree.glade.h:140
+#: glade/cherrytree.glade.h:99
 msgid "Rename Column"
 msgstr ""
 
-#: glade/cherrytree.glade.h:141
+#: glade/cherrytree.glade.h:100
 msgid "Delete Column"
 msgstr ""
 
-#: glade/cherrytree.glade.h:142
+#: glade/cherrytree.glade.h:101
 msgid "Add Column"
 msgstr ""
 
-#: glade/cherrytree.glade.h:143
+#: glade/cherrytree.glade.h:102
 msgid "Move Column Left"
 msgstr ""
 
-#: glade/cherrytree.glade.h:144
+#: glade/cherrytree.glade.h:103
 msgid "Move Column Right"
 msgstr ""
 
-#: glade/cherrytree.glade.h:145
+#: glade/cherrytree.glade.h:104
 msgid "CherryTree"
 msgstr ""

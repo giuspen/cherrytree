@@ -2,21 +2,22 @@
 # Copyright (C) 2013 THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # giuspen <giuspen@gmail.com>, 2013.
+# Patrick Vijgeboom <pj.vijgeboom@gmail.com>, 2013.
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: cherrytree 0.30.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-24 23:11+0200\n"
-"PO-Revision-Date: 2013-10-24 20:33+0100\n"
+"POT-Creation-Date: 2013-10-28 22:15+0100\n"
+"PO-Revision-Date: 2013-10-28 19:39+0100\n"
 "Last-Translator: Patrick Vijgeboom <pj.vijgeboom@gmail.com>\n"
-"Language-Team: Dutch\n"
+"Language-Team: Nederlands <>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Gtranslator 2.91.6\n"
 
 #: modules/support.py:123
 msgid "Save File as"
@@ -42,7 +43,7 @@ msgstr "Info"
 msgid "This Change will have Effect Only After Restarting CherryTree"
 msgstr "Om de verandering toe te passen moet CherryTree opnieuw worden gestart"
 
-#: modules/support.py:246 glade/cherrytree.glade.h:57
+#: modules/support.py:246 glade/cherrytree.glade.h:24
 msgid "Warning"
 msgstr "Waarschuwing"
 
@@ -50,240 +51,345 @@ msgstr "Waarschuwing"
 msgid "Error"
 msgstr "Fout"
 
-#: modules/support.py:264
+#: modules/support.py:267
+msgid ""
+"Copyright © 2009-2013\n"
+"Giuseppe Penone <giuspen@gmail.com>"
+msgstr ""
+"Copyright © 2009-2013\n"
+"Giuseppe Penone <giuspen@gmail.com>"
+
+#: modules/support.py:269
+msgid ""
+"A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
+"Highlighting"
+msgstr ""
+"CherryTree hiërarchische notitie programma, gekenmerkt door Rich Text en "
+"Syntax markering"
+
+#: modules/support.py:270
+msgid ""
+"\n"
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 3 of the License, or\n"
+"(at your option) any later version.\n"
+"  \n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"  \n"
+"You should have received a copy of the GNU General Public License\n"
+"along with this program; if not, write to the Free Software\n"
+"Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,\n"
+"MA 02110-1301, USA.\n"
+msgstr ""
+"\n"
+"Dit programma is vrije software; u kunt het verspreiden en / of wijzigen\n"
+"onder de voorwaarden van de GNU General Public License zoals gepubliceerd "
+"door\n"
+"de Free Software Foundation; ofwel versie 3 van de Licentie, of\n"
+"(naar uw keuze) enige latere versie.\n"
+"  \n"
+"Dit programma wordt verspreid in de hoop dat het nuttig zal zijn,\n"
+"maar ZONDER ENIGE GARANTIE; zelfs zonder de impliciete garantie van\n"
+"Verkoopbaarheid of geschiktheid voor een bepaald doel. Zie het\n"
+"GNU General Public License voor meer details.\n"
+"  \n"
+"U moet een kopie van de GNU General Public License hebben ontvangen\n"
+"samen met dit programma, zo niet, schrijf naar de Free Software\n"
+"Foundation, Inc, 51 Franklin Street, Fifth Floor, Boston,\n"
+"MA 02110-1301, USA.\n"
+
+#: modules/support.py:290
+#, fuzzy
+msgid ""
+"Chinese Simplified (zh_CN) Channing Wong <mamimoluo@gmail.com>\n"
+"Czech (cs) Pavel Fric <fripohled@blogspot.com>\n"
+"Dutch (nl) Patrick Vijgeboom <pj.vijgeboom@gmail.com>\n"
+"French (fr) Benoît D'Angelo <benoit.dangelo@gmx.fr> (former Ludovic Troisi)\n"
+"German (de) Frank Brungräber <calexu@arcor.de> (former Sven Neubauer)\n"
+"Italian (it) Giuseppe Penone <giuspen@gmail.com>\n"
+"Polish (pl) Marcin Swierczynski <orneo1212@gmail.com>\n"
+"Portuguese Brazil (pt_BR) Vinicius Schmidt <viniciussm@rocketmail.com>\n"
+"Russian (ru) Andriy Kovtun <kovtunos@yandex.ru>\n"
+"Spanish (es) Daniel MC <i.e.betel@gmail.com>\n"
+"Ukrainian (uk) Andriy Kovtun <kovtunos@yandex.ru>"
+msgstr ""
+"Chinese Simplified (zh_CN) Channing Wong <mamimoluo@gmail.com>\n"
+"Czech (cs) Pavel Fric <fripohled@blogspot.com>\n"
+"French (fr) Benoît D'Angelo <benoit.dangelo@gmx.fr> (former Ludovic Troisi)\n"
+"German (de) Frank Brungräber <calexu@arcor.de> (former Sven Neubauer)\n"
+"Italian (it) Giuseppe Penone <giuspen@gmail.com>\n"
+"Polish (pl) Marcin Swierczynski <orneo1212@gmail.com>\n"
+"Portuguese Brazil (pt_BR) Vinicius Schmidt <viniciussm@rocketmail.com>\n"
+"Russian (ru) Andriy Kovtun <kovtunos@yandex.ru>\n"
+"Spanish (es) Daniel MC <i.e.betel@gmail.com>\n"
+"Ukrainian (uk) Andriy Kovtun <kovtunos@yandex.ru>"
+
+#: modules/support.py:302 modules/cons.py:607
+msgid "About CherryTree"
+msgstr "Over CherryTree"
+
+#: modules/support.py:311
 msgid "Involved Nodes"
 msgstr "Betrokken knooppunten"
 
-#: modules/support.py:270
+#: modules/support.py:317
 msgid "Selected Text Only"
 msgstr "Alleen geselecteerde tekst"
 
-#: modules/support.py:271
+#: modules/support.py:318
 msgid "Selected Node Only"
 msgstr "Alleen geselecteerde knooppunten"
 
-#: modules/support.py:272
+#: modules/support.py:319
 msgid "Selected Node and Subnodes"
 msgstr "Geselecteerde knooppunten en subknooppunten"
 
-#: modules/support.py:273
+#: modules/support.py:320
 msgid "All the Tree"
 msgstr "De hele boom"
 
-#: modules/support.py:278
+#: modules/support.py:325
 msgid "Include Node Name"
 msgstr "Inclusief knooppunt naam"
 
-#: modules/support.py:343 modules/core.py:950
+#: modules/support.py:390 modules/core.py:949
 msgid "Insert _Special Character"
 msgstr "_Speciaal teken invoegen"
 
-#: modules/support.py:345 modules/core.py:952
+#: modules/support.py:392 modules/core.py:951
 msgid "Insert a Special Character"
 msgstr "Een speciaal teken invoegen"
 
-#: modules/support.py:376
+#: modules/support.py:423
 msgid "_Recent Documents"
 msgstr "_Recente documenten"
 
-#: modules/support.py:378 modules/support.py:384
+#: modules/support.py:425 modules/support.py:431
 msgid "Open a Recent CherryTree Document"
 msgstr "Een recent CherryTree document openen"
 
-#: modules/support.py:383 modules/cons.py:503
+#: modules/support.py:430 modules/cons.py:503
 msgid "Open a CherryTree Document"
 msgstr "Een CherryTree document openen"
 
-#: modules/support.py:406
+#: modules/support.py:453
 #, python-format
 msgid "The Document %s was Not Found"
 msgstr "Het document %s is niet gevonden"
 
-#: modules/support.py:418 modules/cons.py:620
+#: modules/support.py:465 modules/cons.py:620
 msgid "Handle the Bookmarks List"
 msgstr "Bewerk de bladwijzerlijst"
 
-#: modules/support.py:432
+#: modules/support.py:479
 msgid "Sort with Drag and Drop, Delete with the Delete Key"
 msgstr "Sorteer door slepen en loslaten, verwijderen met de Delete toets"
 
-#: modules/findreplace.py:78
+#: modules/findreplace.py:45
+msgid "Iterate Latest Find/Replace"
+msgstr "Laatste Zoek/Vervang herhalen"
+
+#: modules/findreplace.py:48
+msgid "Close"
+msgstr "Sluiten"
+
+#: modules/findreplace.py:49 modules/findreplace.py:50
+msgid "Find"
+msgstr "Zoek"
+
+#: modules/findreplace.py:51
+msgid "Replace"
+msgstr "Vervang"
+
+#: modules/findreplace.py:52
+msgid "Undo"
+msgstr "Ongedaan maken"
+
+#: modules/findreplace.py:106
 msgid "Replace in Current Node..."
 msgstr "Vervang in huidige knooppunt..."
 
-#: modules/findreplace.py:79
+#: modules/findreplace.py:107
 msgid "Search in Current Node..."
 msgstr "Zoek in huidige knooppunt..."
 
-#: modules/findreplace.py:107 modules/findreplace.py:182
-#: modules/findreplace.py:253
+#: modules/findreplace.py:135 modules/findreplace.py:210
+#: modules/findreplace.py:281
 #, python-format
 msgid "The pattern '%s' was not found"
 msgstr "Het patroon '%s' is niet gevonden"
 
-#: modules/findreplace.py:109 modules/findreplace.py:185
-#: modules/findreplace.py:255
+#: modules/findreplace.py:137 modules/findreplace.py:213
+#: modules/findreplace.py:283
 msgid "Matches"
 msgstr "Gelijke"
 
-#: modules/findreplace.py:124
+#: modules/findreplace.py:152
 msgid "Replace in All Nodes..."
 msgstr "Vervang in alle knooppunten..."
 
-#: modules/findreplace.py:125
+#: modules/findreplace.py:153
 msgid "Search in All Nodes..."
 msgstr "Zoek in alle knooppunten..."
 
-#: modules/findreplace.py:198
+#: modules/findreplace.py:226
 msgid "Replace in Node Names..."
 msgstr "Vervang in knooppunt namen..."
 
-#: modules/findreplace.py:199
+#: modules/findreplace.py:227
 msgid "Search For a Node Name..."
 msgstr "Zoek naar knooppunt naam..."
 
-#: modules/findreplace.py:504
+#: modules/findreplace.py:532
 msgid "No Previous Search Was Performed During This Session"
 msgstr "Geen vorige zoekopdracht is uitgevoerd tijdens deze sessie"
 
-#: modules/findreplace.py:550 modules/core.py:3101
+#: modules/findreplace.py:572
+msgid "Hide (Restore with Ctrl+Shift+A)"
+msgstr "Verbergen (Herstellen door Ctrl+Shift+A)"
+
+#: modules/findreplace.py:584 modules/core.py:3100
 msgid "Node Name"
 msgstr "Knooppunt naam"
 
-#: modules/findreplace.py:552
+#: modules/findreplace.py:586
 msgid "Line Content"
 msgstr "Regelinhoud"
 
-#: modules/findreplace.py:565 modules/core.py:4087
+#: modules/findreplace.py:603 modules/core.py:4085
 #, python-format
 msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
 msgstr "The koppeling wijst naar een knooppunt die niet meer bestaat (Id = %s)"
 
-#: modules/core.py:229
+#: modules/core.py:228
 msgid "Checking for Newer Version..."
 msgstr "Controleren op nieuwe versie..."
 
-#: modules/core.py:235
+#: modules/core.py:234
 msgid "A Newer Version Is Available!"
-msgstr "Een nieuwere versie is beschikbaar!"
+msgstr "Een nieuwe versie is beschikbaar!"
 
-#: modules/core.py:240
+#: modules/core.py:239
 msgid "This is the Latest Version Available"
 msgstr "Dit is de nieuwste  versie beschikbaar"
 
-#: modules/core.py:243
+#: modules/core.py:242
 msgid "Failed to Retrieve Latest Version Information - Try Again Later"
 msgstr "Ophalen nieuwe versie informatie mislukt - Probeer het later nog eens"
 
-#: modules/core.py:260 modules/core.py:3408 modules/core.py:3818
-#: modules/core.py:3824 modules/core.py:4421
+#: modules/core.py:259 modules/core.py:3406 modules/core.py:3816
+#: modules/core.py:3822 modules/core.py:4419
 msgid "No Text is Selected"
 msgstr "Geen tekst geselecteerd"
 
-#: modules/core.py:560 modules/core.py:1992
+#: modules/core.py:559 modules/core.py:1991
 msgid "The new father can't be one of his sons!"
 msgstr "De nieuwe vader kan niet een van zijn zonen zijn!"
 
-#: modules/core.py:597 modules/core.py:1195 modules/core.py:1345
+#: modules/core.py:596 modules/core.py:1194 modules/core.py:1344
 msgid "CherryTree Document"
 msgstr "CherryTree document"
 
-#: modules/core.py:620 modules/core.py:1605
+#: modules/core.py:619 modules/core.py:1604
 #, python-format
 msgid "\"%s\" is Not a CherryTree Document"
 msgstr "\"%s\" is geen CherryTree document"
 
-#: modules/core.py:626
+#: modules/core.py:625
 msgid "NoteCase Document"
 msgstr "Notecase document"
 
-#: modules/core.py:712
+#: modules/core.py:711
 msgid "Plain Text Document"
 msgstr "Platte tekst document"
 
-#: modules/core.py:730
+#: modules/core.py:729
 msgid "Treepad Document"
 msgstr "Treepad document"
 
-#: modules/core.py:748
+#: modules/core.py:747
 msgid "KeyNote Document"
 msgstr "KeyNote document"
 
-#: modules/core.py:766
+#: modules/core.py:765
 msgid "Mempad Document"
 msgstr "Mempad document"
 
-#: modules/core.py:784
+#: modules/core.py:783
 msgid "Knowit Document"
 msgstr "Knowit document"
 
-#: modules/core.py:802
+#: modules/core.py:801
 msgid "Leo Document"
 msgstr "Leo document"
 
-#: modules/core.py:833
+#: modules/core.py:832
 msgid "Who is the Father?"
 msgstr "Wie is de vader?"
 
-#: modules/core.py:840
+#: modules/core.py:839
 msgid "The Tree Root"
 msgstr "De boomwortel"
 
-#: modules/core.py:841
+#: modules/core.py:840
 msgid "The Selected Node"
 msgstr "Het geselecteerde knooppunt"
 
-#: modules/core.py:1036
+#: modules/core.py:1035
 msgid "The Document was Reloaded After External Update to CT* File"
 msgstr "Dit document is geladen na een externe update naar CT* bestand"
 
-#: modules/core.py:1063
+#: modules/core.py:1062
 msgid "CherryTree Hierarchical Note Taking"
 msgstr "CherryTree hiërarchische notitie programma"
 
-#: modules/core.py:1312
+#: modules/core.py:1311
 #, python-format
 msgid "You Have No Write Access to %s"
 msgstr "U heeft geen schrijfrechten op %s"
 
-#: modules/core.py:1327
+#: modules/core.py:1326
 msgid "Writing to Disk..."
 msgstr "Schrijven naar schijf"
 
-#: modules/core.py:1364
+#: modules/core.py:1363
 msgid "Choose Storage Type"
 msgstr "Kies opslagtype"
 
-#: modules/core.py:1371 modules/core.py:1374
+#: modules/core.py:1370 modules/core.py:1373
 msgid "Not Protected"
 msgstr "Niet beveiligd"
 
-#: modules/core.py:1372 modules/core.py:1376
+#: modules/core.py:1371 modules/core.py:1375
 msgid "Password Protected"
 msgstr "Wachtwoord beveiligd"
 
-#: modules/core.py:1383
+#: modules/core.py:1382
 msgid "Storage Type"
 msgstr "Opslagtype"
 
-#: modules/core.py:1394
+#: modules/core.py:1393
 msgid "Enter the New Password Twice"
 msgstr "Geef twee maal het nieuwe wachtwoord in"
 
-#: modules/core.py:1436
+#: modules/core.py:1435
 msgid "The Password Fields Must be Filled"
 msgstr "De wachtwoord velden moeten zijn ingevuld"
 
-#: modules/core.py:1439
+#: modules/core.py:1438
 msgid "The Two Inserted Passwords Do Not Match"
 msgstr "De ingegeven wachtwoorden komen niet overeen"
 
-#: modules/core.py:1444
+#: modules/core.py:1443
 #, python-format
 msgid "The Characters  %s  are Not Allowed"
 msgstr "De tekens %s zijn niet toegestaan"
 
-#: modules/core.py:1462
+#: modules/core.py:1461
 msgid ""
 "Binary Executable '7za' Not Found, Check The Package 'p7zip-full' to be "
 "Installed Properly"
@@ -291,53 +397,53 @@ msgstr ""
 "Uitvoerprogramma '7za' niet gevonden. Controleer of het pakket 'p7zip-full' "
 "geïnstalleerd is."
 
-#: modules/core.py:1468
+#: modules/core.py:1467
 #, python-format
 msgid "Enter Password for %s"
 msgstr "Geef wachtwoord voor %s"
 
-#: modules/core.py:1529
+#: modules/core.py:1528
 msgid "Wrong Password"
 msgstr "Verkeerd wachtwoord"
 
-#: modules/core.py:1976 glade/cherrytree.glade.h:36
+#: modules/core.py:1975 glade/cherrytree.glade.h:3
 msgid "Select the New Father"
 msgstr "Selecteer de nieuwe vader"
 
-#: modules/core.py:1984
+#: modules/core.py:1983
 msgid "The new father can't be the very node to move!"
 msgstr "De nieuwe vader kan niet het knooppunt zijn om te verplaatsen"
 
-#: modules/core.py:1987
+#: modules/core.py:1986
 msgid "The new choosed father is again the old father!"
 msgstr "De nieuw gekozen vader is weer de oude vader!"
 
-#: modules/core.py:2424
+#: modules/core.py:2423
 msgid "The New Language will be Available Only After Restarting CherryTree"
 msgstr "De nieuwe taal is beschikbaar nadat CherryTree opnieuw is opgestart"
 
-#: modules/core.py:2535
+#: modules/core.py:2534
 msgid "New Node Properties"
 msgstr "Nieuw knooppunt eigenschappen"
 
-#: modules/core.py:2562
+#: modules/core.py:2561
 msgid "New Child Node Properties"
 msgstr "Nieuw kind knooppunt eigenschappen"
 
-#: modules/core.py:2581
+#: modules/core.py:2580
 #, python-format
 msgid "Are you sure to <b>Delete the node '%s'?</b>"
 msgstr "Weet u zeker dat u <b>het knooppunt '%s' wilt verwijderen?</b>"
 
-#: modules/core.py:2583
+#: modules/core.py:2582
 msgid "The node <b>has Children, they will be Deleted too!</b>"
 msgstr "Dit knooppunt <b>heeft kinderen, en worden ook verwijderd!</b>"
 
-#: modules/core.py:2605
+#: modules/core.py:2604
 msgid "Node Properties"
 msgstr "Knooppunt eigenschappen"
 
-#: modules/core.py:2613
+#: modules/core.py:2612
 msgid ""
 "Entering the Automatic Syntax Highlighting you will Lose all Custom Colors "
 "for This Node, Do you want to Continue?"
@@ -345,190 +451,190 @@ msgstr ""
 "Activeren van Automatische Syntax Markering zal alle aangepaste kleuren in "
 "dit knooppunt verwijderen, wilt u doorgaan?"
 
-#: modules/core.py:2994
+#: modules/core.py:2993
 msgid "Search for"
 msgstr "Zoeken naar"
 
-#: modules/core.py:3001
+#: modules/core.py:3000
 msgid "Replace with"
 msgstr "Vervangen met"
 
-#: modules/core.py:3016
+#: modules/core.py:3015
 msgid "Match Case"
 msgstr ""
 
-#: modules/core.py:3018
+#: modules/core.py:3017
 msgid "Regular Expression"
 msgstr "Reguliere expressie"
 
-#: modules/core.py:3020
+#: modules/core.py:3019
 msgid "Whole Word"
 msgstr "Hele woord"
 
-#: modules/core.py:3022
+#: modules/core.py:3021
 msgid "Start Word"
 msgstr "Begin woord"
 
-#: modules/core.py:3024
+#: modules/core.py:3023
 msgid "Forward"
 msgstr "Volgende"
 
-#: modules/core.py:3026
+#: modules/core.py:3025
 msgid "Backward"
 msgstr "Vorige"
 
-#: modules/core.py:3029
+#: modules/core.py:3028
 msgid "All, List Matches"
 msgstr "Alle, lijst overeenkomsten"
 
-#: modules/core.py:3031
+#: modules/core.py:3030
 msgid "First From Selection"
 msgstr "Eerste van selectie"
 
-#: modules/core.py:3034
+#: modules/core.py:3033
 msgid "First in All Range"
 msgstr "Eerste in hele bereik"
 
-#: modules/core.py:3037
+#: modules/core.py:3036
 msgid "Show Iterated Find/Replace Dialog"
 msgstr "Herhaaldelijk Zoek/Vervang dialoogvenster weergeven"
 
-#: modules/core.py:3057
+#: modules/core.py:3056
 msgid "Search options"
 msgstr "Zoek opties"
 
-#: modules/core.py:3105 modules/core.py:4377
+#: modules/core.py:3104 modules/core.py:4375
 msgid "Rich Text"
 msgstr "Rich Text"
 
-#: modules/core.py:3106
+#: modules/core.py:3105
 msgid "Automatic Syntax Highlighting"
 msgstr "Automatic Syntax Highlighting"
 
-#: modules/core.py:3123
+#: modules/core.py:3122
 msgid "Node Type"
 msgstr "Knooppunt type"
 
-#: modules/core.py:3129
+#: modules/core.py:3128
 msgid "Tags for Searching"
 msgstr "Tags voor zoeken"
 
-#: modules/core.py:3133 modules/core.py:4379
+#: modules/core.py:3132 modules/core.py:4377
 msgid "Read Only"
 msgstr "Alleen lezen"
 
-#: modules/core.py:3165
+#: modules/core.py:3164
 msgid "The Size of the Toolbar Icons is already at the Maximum Value"
 msgstr "De grootte van de knoppenbalk is al op de maximale waarde"
 
-#: modules/core.py:3173
+#: modules/core.py:3172
 msgid "The Size of the Toolbar Icons is already at the Minimum Value"
 msgstr "De grootte van de knoppenbalk is al op de minimale waarde"
 
-#: modules/core.py:3265
+#: modules/core.py:3263
 msgid "Edit Anchor"
 msgstr "Anker wijzigen"
 
-#: modules/core.py:3268
+#: modules/core.py:3266
 msgid "Insert Anchor"
 msgstr "Anker invoegen"
 
-#: modules/core.py:3277
+#: modules/core.py:3275
 msgid "The Anchor Name is Mandatory!"
 msgstr "De ankernaam is verplicht"
 
-#: modules/core.py:3312
+#: modules/core.py:3310
 msgid "Not Any H1, H2 or H3 Formatting Found"
 msgstr "Geen enkel H1, H2 of H3 opmaak gevonden"
 
-#: modules/core.py:3386
+#: modules/core.py:3384
 msgid ""
 "Automatic Syntax Highlighting Must be Disabled in order to Use This Feature"
 msgstr ""
 "Automatische syntax markering moet uitgeschakeld zijn om deze functie te "
 "gebruiken"
 
-#: modules/core.py:3393 modules/core.py:4375
+#: modules/core.py:3391 modules/core.py:4373
 msgid "No Node is Selected"
 msgstr "Geen knooppunt geselecteerd"
 
-#: modules/core.py:3400
+#: modules/core.py:3398
 msgid "The Tree is Empty!"
 msgstr "De boom is leeg!"
 
-#: modules/core.py:3421 modules/cons.py:636
+#: modules/core.py:3419 modules/cons.py:636
 msgid "Tree Summary Information"
 msgstr "Boom informatie overzicht"
 
-#: modules/core.py:3429
+#: modules/core.py:3427
 msgid "Number of Text Nodes"
 msgstr "Aantal tekst knooppunten"
 
-#: modules/core.py:3432
+#: modules/core.py:3430
 msgid "Number of Code Nodes"
 msgstr "Aantal code knooppunten"
 
-#: modules/core.py:3435
+#: modules/core.py:3433
 msgid "Number of Images"
 msgstr "Aantal afbeeldingen"
 
-#: modules/core.py:3438
+#: modules/core.py:3436
 msgid "Number of Tables"
 msgstr "Aantal tabellen"
 
-#: modules/core.py:3441
+#: modules/core.py:3439
 msgid "Number of CodeBoxes"
 msgstr "Aantal codevakken"
 
-#: modules/core.py:3566
+#: modules/core.py:3564
 msgid "PNG Image"
 msgstr "PNG afbeelding"
 
-#: modules/core.py:3572
+#: modules/core.py:3570
 #, python-format
 msgid "Write to %s Failed"
 msgstr "Schrijven naar %s mislukt"
 
-#: modules/core.py:3804
+#: modules/core.py:3802
 msgid "No Previous Text Format Was Performed During This Session"
 msgstr "Geen vorige tekstopmaak uitgevoerd tijdens deze sessie"
 
-#: modules/core.py:3858
+#: modules/core.py:3856
 msgid "The Cursor is Not into a Paragraph"
-msgstr "De cursor bevindt zich niet in een paragraaf"
+msgstr "De cursor bevindt zich niet in een alinea"
 
-#: modules/core.py:3868
+#: modules/core.py:3866
 msgid "Insert/Edit a Link"
-msgstr "Een koppeling invoegen/wijzigen"
+msgstr "Koppeling invoegen/wijzigen"
 
-#: modules/core.py:3897
+#: modules/core.py:3895
 msgid "Pick a Color"
 msgstr "Kies een kleur"
 
-#: modules/core.py:4059
+#: modules/core.py:4057
 #, python-format
 msgid "The File Link '%s' is Not Valid"
 msgstr "Het bestandskoppeling '%s' is ongeldig"
 
-#: modules/core.py:4074
+#: modules/core.py:4072
 #, python-format
 msgid "The Folder Link '%s' is Not Valid"
 msgstr "De mapkoppeling ´%s' is ongeldig"
 
-#: modules/core.py:4097
+#: modules/core.py:4095
 #, python-format
 msgid "No anchor named '%s' found"
 msgstr "Geen anker met naam '%s' gevonden"
 
-#: modules/core.py:4167
+#: modules/core.py:4165
 msgid "There are No Anchors in the Selected Node"
 msgstr "Er zijn geen ankers in het geselecteerde knooppunt"
 
-#: modules/core.py:4172
+#: modules/core.py:4170
 msgid "Choose Existing Anchor"
 msgstr "Kies bestaand anker"
 
-#: modules/core.py:4185
+#: modules/core.py:4183
 msgid "Anchor Name"
 msgstr "Ankernaam"
 
@@ -626,7 +732,7 @@ msgstr "_Help"
 
 #: modules/cons.py:502
 msgid "New _Instance"
-msgstr "Nieuw _Omgeving"
+msgstr "Nieuwe _omgeving"
 
 #: modules/cons.py:502
 msgid "Start a New Instance of CherryTree"
@@ -728,7 +834,7 @@ msgstr "CherryTree afsluiten"
 msgid "_Preferences"
 msgstr "_Instellingen"
 
-#: modules/cons.py:515 glade/cherrytree.glade.h:72
+#: modules/cons.py:515 glade/cherrytree.glade.h:31
 msgid "Preferences"
 msgstr "Instellingen"
 
@@ -754,7 +860,7 @@ msgstr "In/Uitschakelen _Opsommingslijst"
 
 #: modules/cons.py:518 modules/cons.py:722
 msgid "Set/Unset the Current Paragraph/Selection as a Bulleted List"
-msgstr "In/Uitschakelen de huidige paragraaf/selectie als opsommingslijst"
+msgstr "De huidige alinea/selectie als opsommingslijst in/uitschakelen"
 
 #: modules/cons.py:519 modules/cons.py:723
 msgid "Set/Unset _Numbered List"
@@ -762,7 +868,7 @@ msgstr "In/Uitschakelen genummerde lijst"
 
 #: modules/cons.py:519 modules/cons.py:723
 msgid "Set/Unset the Current Paragraph/Selection as a Numbered List"
-msgstr "In/Uitschakelen de huidige paragraaf/selectie als genummerde lijst"
+msgstr "De huidige alinea/selectie als genummerde lijst in/uitschakelen"
 
 #: modules/cons.py:520 modules/cons.py:724
 msgid "Set/Unset _To-Do List"
@@ -770,11 +876,11 @@ msgstr "In/Uitschakelen _Te-Doen lijst"
 
 #: modules/cons.py:520 modules/cons.py:724
 msgid "Set/Unset the Current Paragraph/Selection as a To-Do List"
-msgstr "In/Uitschakelen de huidige paragraaf/selectie als  Te-Doen lijst"
+msgstr "De huidige alinea/selectie als Te-Doen lijst in/uitschakelen"
 
 #: modules/cons.py:521 modules/cons.py:731
 msgid "Insert/Edit _Link"
-msgstr "Invoegen/wijzigen _koppeling"
+msgstr "_Koppeling invoegen/wijzigen"
 
 #: modules/cons.py:521 modules/cons.py:731
 msgid "Insert a Link/Edit the Underlying Link"
@@ -1006,7 +1112,7 @@ msgstr ""
 
 #: modules/cons.py:550 modules/cons.py:699
 msgid "Format _Latest"
-msgstr "Nieuwste opmaken"
+msgstr "_Laatst gebruikte opmaak toepassen"
 
 #: modules/cons.py:550 modules/cons.py:699
 msgid "Memory of Latest Text Format Type"
@@ -1022,629 +1128,626 @@ msgstr "Als platte tekst plakken, Rich Text opmaak negeren"
 
 #: modules/cons.py:552 modules/cons.py:700
 msgid "_Remove Formatting"
-msgstr "Opmaak verwijderen"
+msgstr "_Opmaak verwijderen"
 
 #: modules/cons.py:552 modules/cons.py:700
 msgid "Remove the Formatting from the Selected Text"
-msgstr ""
+msgstr "Opmaak van geselecteerde tekst verwijderen"
 
 #: modules/cons.py:553 modules/cons.py:702
 msgid "Text _Color Foreground"
-msgstr ""
+msgstr "Tekst voorgrondkleur"
 
 #: modules/cons.py:553 modules/cons.py:702
 msgid "Change the Color of the Selected Text Foreground"
-msgstr ""
+msgstr "Voorgrondkleur van tekst wijzigen"
 
 #: modules/cons.py:554 modules/cons.py:703
 msgid "Text C_olor Background"
-msgstr ""
+msgstr "Tekst achtergrondkleur"
 
 #: modules/cons.py:554 modules/cons.py:703
 msgid "Change the Color of the Selected Text Background"
-msgstr ""
+msgstr "Achtergrondkleur van geselecteerde tekst wijzigen"
 
 #: modules/cons.py:555 modules/cons.py:704
 msgid "Toggle _Bold Property"
-msgstr ""
+msgstr "Tekststijl vet wisselen"
 
 #: modules/cons.py:555 modules/cons.py:704
 msgid "Toggle Bold Property of the Selected Text"
-msgstr ""
+msgstr "Tekststijl vet van geselecteerde tekst wisselen"
 
 #: modules/cons.py:556 modules/cons.py:705
 msgid "Toggle _Italic Property"
-msgstr ""
+msgstr "Tekststijl cursief wisselen"
 
 #: modules/cons.py:556 modules/cons.py:705
 msgid "Toggle Italic Property of the Selected Text"
-msgstr ""
+msgstr "Tekststijl cursief van geselecteerde tekst wisselen"
 
 #: modules/cons.py:557 modules/cons.py:706
 msgid "Toggle _Underline Property"
-msgstr ""
+msgstr "Tekststijl onderstrepen wisselen"
 
 #: modules/cons.py:557 modules/cons.py:706
 msgid "Toggle Underline Property of the Selected Text"
-msgstr ""
+msgstr "Tekststijl onderstrepen van geselecteerde tekst wisselen"
 
 #: modules/cons.py:558 modules/cons.py:707
 msgid "Toggle Stri_kethrough Property"
-msgstr ""
+msgstr "Tekststijl doorhalen wisselen"
 
 #: modules/cons.py:558 modules/cons.py:707
 msgid "Toggle Strikethrough Property of the Selected Text"
-msgstr ""
+msgstr "Tekststijl doorhalen van geselecteerde tekst wisselen"
 
 #: modules/cons.py:559 modules/cons.py:708
 msgid "Toggle h_1 Property"
-msgstr ""
+msgstr "Tekststijl h_1 wisselen"
 
 #: modules/cons.py:559 modules/cons.py:708
 msgid "Toggle h1 Property of the Selected Text"
-msgstr ""
+msgstr "Tekststijl h1 van geselecteerde tekst wisselen"
 
 #: modules/cons.py:560 modules/cons.py:709
 msgid "Toggle h_2 Property"
-msgstr ""
+msgstr "Tekststijl h_2 wisselen"
 
 #: modules/cons.py:560 modules/cons.py:709
 msgid "Toggle h2 Property of the Selected Text"
-msgstr ""
+msgstr "Tekststijl h2 van geselecteerde tekst wisselen"
 
 #: modules/cons.py:561 modules/cons.py:710
 msgid "Toggle h_3 Property"
-msgstr ""
+msgstr "Tekststijl h_3 wisselen"
 
 #: modules/cons.py:561 modules/cons.py:710
 msgid "Toggle h3 Property of the Selected Text"
-msgstr ""
+msgstr "Tekststijl h3 van geselecteerde tekst wisselen"
 
 #: modules/cons.py:562 modules/cons.py:711
 msgid "Toggle _Small Property"
-msgstr ""
+msgstr "Tekststijl _klein wisselen"
 
 #: modules/cons.py:562 modules/cons.py:711
 msgid "Toggle Small Property of the Selected Text"
-msgstr ""
+msgstr "Tekststijl klein van geselecteerde tekst wisselen"
 
 #: modules/cons.py:563 modules/cons.py:712
 msgid "Toggle Su_perscript Property"
-msgstr ""
+msgstr "Tekststijl superscript wisselen"
 
 #: modules/cons.py:563 modules/cons.py:712
 msgid "Toggle Superscript Property of the Selected Text"
-msgstr ""
+msgstr "Tekststijl superscript van geselecteerde tekst wisselen"
 
 #: modules/cons.py:564 modules/cons.py:713
 msgid "Toggle Su_bscript Property"
-msgstr ""
+msgstr "Tekststijl subscript wisselen"
 
 #: modules/cons.py:564 modules/cons.py:713
 msgid "Toggle Subscript Property of the Selected Text"
-msgstr ""
+msgstr "Tekststijl subscript van geselecteerde tekst wisselen"
 
 #: modules/cons.py:565 modules/cons.py:714
 msgid "Toggle _Monospace Property"
-msgstr ""
+msgstr "Tekststijl monospace wisselen"
 
 #: modules/cons.py:565 modules/cons.py:714
 msgid "Toggle Monospace Property of the Selected Text"
-msgstr ""
+msgstr "Tekststijl doorhalen van geselecteerde tekst wisselen"
 
 #: modules/cons.py:566 modules/cons.py:717
 msgid "Justify _Left"
-msgstr ""
+msgstr "Links uitlijnen"
 
 #: modules/cons.py:566 modules/cons.py:717
 msgid "Justify Left the Current Paragraph"
-msgstr ""
+msgstr "Tekststijl doorhalen van geselecteerde tekst wisselen"
 
 #: modules/cons.py:567 modules/cons.py:718
 msgid "Justify _Center"
-msgstr ""
+msgstr "Centreren"
 
 #: modules/cons.py:567 modules/cons.py:718
 msgid "Justify Center the Current Paragraph"
-msgstr ""
+msgstr "Tekststijl doorhalen van geselecteerde tekst wisselen"
 
 #: modules/cons.py:568 modules/cons.py:719
 msgid "Justify _Right"
-msgstr ""
+msgstr "Rechts uitlijnen"
 
 #: modules/cons.py:568 modules/cons.py:719
 msgid "Justify Right the Current Paragraph"
-msgstr ""
+msgstr "Huidige alinea rechts uitlijnen"
 
 #: modules/cons.py:569 modules/cons.py:752 modules/cons.py:791
 msgid "_Find in Node"
-msgstr ""
+msgstr "_Zoek in knooppunt"
 
 #: modules/cons.py:569 modules/cons.py:752 modules/cons.py:791
 msgid "Find into the Selected Node"
-msgstr ""
+msgstr "In het geselecteerde knooppunt zoeken"
 
 #: modules/cons.py:570 modules/cons.py:753 modules/cons.py:792
 msgid "Find in Node_s"
-msgstr ""
+msgstr "In knooppunten zoeken"
 
 #: modules/cons.py:570 modules/cons.py:753 modules/cons.py:792
 msgid "Find into all the Tree Nodes"
-msgstr ""
+msgstr "In alle knooppunten zoeken"
 
 #: modules/cons.py:571 modules/cons.py:652 modules/cons.py:754
 #: modules/cons.py:793
 msgid "Find a _Node"
-msgstr ""
+msgstr "Knooppunt zoeken"
 
 #: modules/cons.py:571 modules/cons.py:652 modules/cons.py:754
 #: modules/cons.py:793
 msgid "Find a Node from its Name"
-msgstr ""
+msgstr "Een knooppunt op naam zoeken"
 
 #: modules/cons.py:572 modules/cons.py:755 modules/cons.py:794
 msgid "Find _Again"
-msgstr ""
+msgstr "Opnieuw zoeken"
 
 #: modules/cons.py:572 modules/cons.py:755 modules/cons.py:794
-#: glade/cherrytree.glade.h:67
 msgid "Iterate the Last Find Operation"
-msgstr ""
+msgstr "Laatste zoekopdracht herhalen"
 
 #: modules/cons.py:573 modules/cons.py:756 modules/cons.py:795
 msgid "Find _Back"
-msgstr ""
+msgstr "Terug zoeken"
 
 #: modules/cons.py:573 modules/cons.py:756 modules/cons.py:795
-#: glade/cherrytree.glade.h:65
 msgid "Iterate the Last Find Operation in Opposite Direction"
-msgstr ""
+msgstr "Laatste zoekopdracht  in omgekeerde richting herhalen"
 
 #: modules/cons.py:574 modules/cons.py:759 modules/cons.py:798
 msgid "_Replace in Node"
-msgstr ""
+msgstr "In knooppunt vervangen"
 
 #: modules/cons.py:574 modules/cons.py:759 modules/cons.py:798
 msgid "Replace into the Selected Node"
-msgstr ""
+msgstr "In geselecteerde knooppunt vervangen"
 
 #: modules/cons.py:575 modules/cons.py:760 modules/cons.py:799
 msgid "Replace in Node_s"
-msgstr ""
+msgstr "In knooppunt vervangen"
 
 #: modules/cons.py:575 modules/cons.py:760 modules/cons.py:799
 msgid "Replace into all the Tree Nodes"
-msgstr ""
+msgstr "In alle knooppunten vervangen"
 
 #: modules/cons.py:576 modules/cons.py:653 modules/cons.py:761
 #: modules/cons.py:800
 msgid "Replace in Nodes _Names"
-msgstr ""
+msgstr "In knooppunt _namen vervangen"
 
 #: modules/cons.py:576 modules/cons.py:653 modules/cons.py:761
 #: modules/cons.py:800
 msgid "Replace in Nodes Names"
-msgstr ""
+msgstr "In knooppunt namen vervangen"
 
 #: modules/cons.py:577 modules/cons.py:762 modules/cons.py:801
 msgid "Replace _Again"
-msgstr ""
+msgstr "Opnieuw vervangen"
 
 #: modules/cons.py:577 modules/cons.py:762 modules/cons.py:801
 msgid "Iterate the Last Replace Operation"
-msgstr ""
+msgstr "Laatste vervangopdracht herhalen"
 
 #: modules/cons.py:578
 msgid "Show/Hide Node Name _Header"
-msgstr ""
+msgstr "Knooppunt naam koptekst weergeven/verbergen"
 
 #: modules/cons.py:578
 msgid "Toggle Show/Hide Node Name Header"
-msgstr ""
+msgstr "Knooppunt naam koptekst weergeven/verbergen wisselen"
 
 #: modules/cons.py:579
 msgid "Show/Hide _Tree"
-msgstr ""
+msgstr "Boom weergeven/verbergen"
 
 #: modules/cons.py:579
 msgid "Toggle Show/Hide Tree"
-msgstr ""
+msgstr "Boom weergeven/verbergen wisselen"
 
 #: modules/cons.py:580
 msgid "Show/Hide _CherryTree"
-msgstr ""
+msgstr "_CherryTree weergeven/verbergen"
 
 #: modules/cons.py:580
 msgid "Toggle Show/Hide CherryTree"
-msgstr ""
+msgstr "CherryTree weergeven/verbergen wisselen"
 
 #: modules/cons.py:581
 msgid "Show/Hide Tool_bar"
-msgstr ""
+msgstr "Knoppenbalk weergeven/verbergen"
 
 #: modules/cons.py:581
 msgid "Toggle Show/Hide Toolbar"
-msgstr ""
+msgstr "Knoppenbalk weergeven/verbergen wisselen"
 
 #: modules/cons.py:582
 msgid "Show _All Matches Dialog"
-msgstr ""
+msgstr "Alle overeenkomsten dialoogvenster weergeven"
 
 #: modules/cons.py:582
 msgid "Show Search All Matches Dialog"
-msgstr ""
+msgstr "Alle overeenkomsten dialoogvenster weergeven"
 
 #: modules/cons.py:583
 msgid "_Increase Toolbar Icons Size"
-msgstr ""
+msgstr "Knoppenbalk pictogrammen afmeting vergroten"
 
 #: modules/cons.py:583
 msgid "Increase the Size of the Toolbar Icons"
-msgstr ""
+msgstr "Knoppenbalk pictogrammen afmeting vergroten"
 
 #: modules/cons.py:584
 msgid "_Decrease Toolbar Icons Size"
-msgstr ""
+msgstr "Knoppenbalk pictogrammen afmeting verkleinen"
 
 #: modules/cons.py:584
 msgid "Decrease the Size of the Toolbar Icons"
-msgstr ""
+msgstr "Knoppenbalk pictogrammen afmeting verkleinen"
 
 #: modules/cons.py:585
 msgid "Toggle _Focus Tree/Text"
-msgstr ""
+msgstr "Boom/tekst focus wisselen"
 
 #: modules/cons.py:585
 msgid "Toggle Focus Between Tree and Text"
-msgstr ""
+msgstr "Tussen boom en tekst focus wisselen"
 
 #: modules/cons.py:586
 msgid "Toggle Node _Expanded/Collapsed"
-msgstr ""
+msgstr "Knooppunt _Uitklappen/inklappen wisselen"
 
 #: modules/cons.py:586
 msgid "Toggle Expanded/Collapsed Status of the Selected Node"
-msgstr ""
+msgstr "Uitklappen/inklappen status van geselecteerde knooppunt wisselen"
 
 #: modules/cons.py:587
 msgid "E_xpand All Nodes"
-msgstr ""
+msgstr "Alle knooppunten uitklappen"
 
 #: modules/cons.py:587
 msgid "Expand All the Tree Nodes"
-msgstr ""
+msgstr "Alle boom knooppunten uitklappen"
 
 #: modules/cons.py:588
 msgid "_Collapse All Nodes"
-msgstr ""
+msgstr "Alle knoppunten inklappen"
 
 #: modules/cons.py:588
 msgid "Collapse All the Tree Nodes"
-msgstr ""
+msgstr "Alle boom knooppunten inklappen"
 
 #: modules/cons.py:589
 msgid "_Full Screen On/Off"
-msgstr ""
+msgstr "Volledig scherm aan/uit"
 
 #: modules/cons.py:589
 msgid "Toggle Full Screen On/Off"
-msgstr ""
+msgstr "Volledigscherm aan/uit wisselen"
 
 #: modules/cons.py:590 modules/cons.py:656
 msgid "From _CherryTree File"
-msgstr ""
+msgstr "Uit CherryTree bestand"
 
 #: modules/cons.py:590 modules/cons.py:656
 msgid "Add Nodes of a CherryTree File to the Current Tree"
 msgstr ""
+"Knooppunten uit een CherryTree tekst bestand aan de huidige boom toevoegen"
 
 #: modules/cons.py:591 modules/cons.py:657
 msgid "From _Plain Text File"
-msgstr ""
+msgstr "Uit _Platte tekst bestand"
 
 #: modules/cons.py:591 modules/cons.py:657
 msgid "Add Node from a Plain Text File to the Current Tree"
-msgstr ""
+msgstr "Knooppunten uit een platte tekst bestand aan de huidige boom toevoegen"
 
 #: modules/cons.py:592 modules/cons.py:658
 msgid "From _Folder of Plain Text Files"
-msgstr ""
+msgstr "Uit _Map met platte tekst bestanden"
 
 #: modules/cons.py:592 modules/cons.py:658
 msgid "Add Nodes from a Folder of Plain Text Files to the Current Tree"
 msgstr ""
+"Knooppunten uit een map met platte tekst bestanden aan de huidige boom "
+"toevoegen"
 
 #: modules/cons.py:593 modules/cons.py:659
 msgid "From _Basket Folder"
-msgstr ""
+msgstr "Uit _Basket map"
 
 #: modules/cons.py:593 modules/cons.py:659
 msgid "Add Nodes of a Basket Folder to the Current Tree"
-msgstr ""
+msgstr "Knooppunten uit een Basket map aan de huidige boom toevoegen"
 
 #: modules/cons.py:594 modules/cons.py:660
 msgid "From _Gnote Folder"
-msgstr ""
+msgstr "Uit _Gnote map"
 
 #: modules/cons.py:594 modules/cons.py:660
 msgid "Add Nodes of a Gnote Folder to the Current Tree"
-msgstr ""
+msgstr "Knooppunten uit een Gnote map aan de huidige boom toevoegen"
 
 #: modules/cons.py:595 modules/cons.py:661
 msgid "From _KeepNote Folder"
-msgstr ""
+msgstr "Uit _KeepNote map"
 
 #: modules/cons.py:595 modules/cons.py:661
 msgid "Add Nodes of a KeepNote Folder to the Current Tree"
-msgstr ""
+msgstr "Knooppunten uit een KoopNote map aan de huidige boom toevoegen"
 
 #: modules/cons.py:596 modules/cons.py:662
 msgid "From K_eyNote File"
-msgstr ""
+msgstr "Uit K_eyNote bestand"
 
 #: modules/cons.py:596 modules/cons.py:662
 msgid "Add Nodes of a KeyNote File to the Current Tree"
-msgstr ""
+msgstr "Knooppunten uit een KeyNote bestand aan de huidige boom toevoegen"
 
 #: modules/cons.py:597 modules/cons.py:663
 msgid "From K_nowit File"
-msgstr ""
+msgstr "Uit K_nowit bestand"
 
 #: modules/cons.py:597 modules/cons.py:663
 msgid "Add Nodes of a Knowit File to the Current Tree"
-msgstr ""
+msgstr "Knooppunten uit een Knowit bestand aan de huidige boom toevoegen"
 
 #: modules/cons.py:598 modules/cons.py:664
 msgid "From _Leo File"
-msgstr ""
+msgstr "Uit _Leo bestand"
 
 #: modules/cons.py:598 modules/cons.py:664
 msgid "Add Nodes of a Leo File to the Current Tree"
-msgstr ""
+msgstr "Knooppunten uit een Leo bestand aan de huidige boom toevoegen"
 
 #: modules/cons.py:599 modules/cons.py:665
 msgid "From _Mempad File"
-msgstr ""
+msgstr "Uit _Mempad bestand"
 
 #: modules/cons.py:599 modules/cons.py:665
 msgid "Add Nodes of a Mempad File to the Current Tree"
-msgstr ""
+msgstr "Knooppunten uit een Mempad bestand aan de huidige boom toevoegen"
 
 #: modules/cons.py:600 modules/cons.py:666
 msgid "From _NoteCase File"
-msgstr ""
+msgstr "Uit _NoteCase bestand"
 
 #: modules/cons.py:600 modules/cons.py:666
 msgid "Add Nodes of a NoteCase File to the Current Tree"
-msgstr ""
+msgstr "Knooppunten uit een NoteCase bestand aan de huidige boom toevoegen"
 
 #: modules/cons.py:601 modules/cons.py:667
 msgid "From T_omboy Folder"
-msgstr ""
+msgstr "Uit T_omboy map"
 
 #: modules/cons.py:601 modules/cons.py:667
 msgid "Add Nodes of a Tomboy Folder to the Current Tree"
-msgstr ""
+msgstr "Knooppunten uit een Tomboy map aan de huidige boom toevoegen"
 
 #: modules/cons.py:602 modules/cons.py:668
 msgid "From T_reepad Lite File"
-msgstr ""
+msgstr "Uit T_reepad Lite bestand"
 
 #: modules/cons.py:602 modules/cons.py:668
 msgid "Add Nodes of a Treepad Lite File to the Current Tree"
-msgstr ""
+msgstr "Knooppunten uit een Treepad Lite bestand aan de huidige boom toevoegen"
 
 #: modules/cons.py:603 modules/cons.py:669
 msgid "From _TuxCards File"
-msgstr ""
+msgstr "Uit _TuxCards bestand"
 
 #: modules/cons.py:603 modules/cons.py:669
 msgid "Add Nodes of a TuxCards File to the Current Tree"
-msgstr ""
+msgstr "Knooppunten uit een TuxCards bestand aan de huidige boom toevoegen"
 
 #: modules/cons.py:604 modules/cons.py:670
 msgid "From _Zim Folder"
-msgstr ""
+msgstr "Uit _Zim map"
 
 #: modules/cons.py:604 modules/cons.py:670
 msgid "Add Nodes of a Zim Folder to the Current Tree"
-msgstr ""
+msgstr "Knooppunten uit een Zim map aan de huidige boom toevoegen"
 
 #: modules/cons.py:605
 msgid "Online _Manual"
-msgstr ""
+msgstr "Online _Handleiding"
 
 #: modules/cons.py:605
 msgid "Application's Online Manual"
-msgstr ""
+msgstr "Online handleiding van de applicatie"
 
 #: modules/cons.py:606
 msgid "_Check Newer Version"
-msgstr ""
+msgstr "Op nieuwe versies controleren"
 
 #: modules/cons.py:606
 msgid "Check for a Newer Version"
-msgstr ""
+msgstr "Op nieuwe versies controleren"
 
 #: modules/cons.py:607
 msgid "_About"
-msgstr ""
-
-#: modules/cons.py:607 glade/cherrytree.glade.h:1
-msgid "About CherryTree"
-msgstr ""
+msgstr "_Over"
 
 #: modules/cons.py:608
 msgid "_Edit Table Properties"
-msgstr ""
+msgstr "Tabel eigenschappen wijzigen"
 
 #: modules/cons.py:608
 msgid "Edit the Table Properties"
-msgstr ""
+msgstr "Wijzigt de tabel eigenschappen"
 
 #: modules/cons.py:609
 msgid "_Add Row"
-msgstr ""
+msgstr "Rij toevoegen"
 
 #: modules/cons.py:609
 msgid "Add a Table Row"
-msgstr ""
+msgstr "Tabel rij toevoegen"
 
 #: modules/cons.py:610
 msgid "Cut a Table Row"
-msgstr ""
+msgstr "Tabel rij knippen"
 
 #: modules/cons.py:611
 msgid "Copy a Table Row"
-msgstr ""
+msgstr "Tabel rij kopiëren"
 
 #: modules/cons.py:612
 msgid "_Paste Row"
-msgstr ""
+msgstr "Rij plakken"
 
 #: modules/cons.py:612
 msgid "Paste a Table Row"
-msgstr ""
+msgstr "Tabel rij plakken"
 
 #: modules/cons.py:613
 msgid "Delete the Selected Table Row"
-msgstr ""
+msgstr "Geselecteerde tabel rij verwijderen"
 
 #: modules/cons.py:614
 msgid "Move Row _Up"
-msgstr ""
+msgstr "Rij _omhoog verplaatsen"
 
 #: modules/cons.py:614
 msgid "Move the Selected Row Up"
-msgstr ""
+msgstr "Verplaatst de geselecteerde rij omhoog"
 
 #: modules/cons.py:615
 msgid "Move Row _Down"
-msgstr ""
+msgstr "Rij omlaag verplaatsen"
 
 #: modules/cons.py:615
 msgid "Move the Selected Row Down"
-msgstr ""
+msgstr "Verplaatst de geselecteerde rij omlaag"
 
 #: modules/cons.py:616
 msgid "Sort Rows De_scending"
-msgstr ""
+msgstr "Rijen aflopend sorteren"
 
 #: modules/cons.py:616
 msgid "Sort all the Rows Descending"
-msgstr ""
+msgstr "Sorteert alle rijen aflopend"
 
 #: modules/cons.py:617
 msgid "Sort Rows As_cending"
-msgstr ""
+msgstr "Rijen oplopend sorteren"
 
 #: modules/cons.py:617
 msgid "Sort all the Rows Ascending"
-msgstr ""
+msgstr "Sorteert alle rijen oplopend"
 
 #: modules/cons.py:618
 msgid "_Table Export"
-msgstr ""
+msgstr "_Tabel exporteren"
 
 #: modules/cons.py:618
 msgid "Export Table as CSV File"
-msgstr ""
+msgstr "Tabel als CSV bestand exporteren"
 
 #: modules/cons.py:619
 msgid "_Bookmark This Node"
-msgstr ""
+msgstr "Bladwijzer van dit knooppunt maken"
 
 #: modules/cons.py:619
 msgid "Add the Current Node to the Bookmarks List"
-msgstr ""
+msgstr "Voegt dit knooppunt toe aan de bladwijzerlijst"
 
 #: modules/cons.py:620
 msgid "_Handle Bookmarks"
-msgstr ""
+msgstr "Bladwijzers bewerken"
 
 #: modules/cons.py:621 modules/cons.py:632
 msgid "Add _Node"
-msgstr ""
+msgstr "Knooppunt toevoegen"
 
 #: modules/cons.py:621 modules/cons.py:632
 msgid "Add a Node having the same Father of the Selected Node"
-msgstr ""
+msgstr "Knooppunt toevoegen met zelfde vader als geselecteerde knooppunt"
 
 #: modules/cons.py:622 modules/cons.py:633
 msgid "Add _SubNode"
-msgstr ""
+msgstr "Sub-knooppunt toevoegen"
 
 #: modules/cons.py:622 modules/cons.py:633
 msgid "Add a Child Node to the Selected Node"
-msgstr ""
+msgstr "Voegt een kooppunt toe onder het geselecteerde knooppunt"
 
 #: modules/cons.py:635
 msgid "Change Node _Properties"
-msgstr ""
+msgstr "Knooppunt eigenschappen wijzigen"
 
 #: modules/cons.py:635
 msgid "Edit the Properties of the Selected Node"
-msgstr ""
+msgstr "Wijzigt de eigenschappen van het geselecteerde knooppunt"
 
 #: modules/cons.py:636
 msgid "Tree _Info"
-msgstr ""
+msgstr "Boom informatie"
 
 #: modules/cons.py:639
 msgid "Node _Up"
-msgstr ""
+msgstr "Knooppunt omhoog"
 
 #: modules/cons.py:639
 msgid "Move the Selected Node Up"
-msgstr ""
+msgstr "Verplaatst het geselecteerde kooppunt omhoog"
 
 #: modules/cons.py:640
 msgid "Node _Down"
-msgstr ""
+msgstr "Knooppunt omlaag"
 
 #: modules/cons.py:640
 msgid "Move the Selected Node Down"
-msgstr ""
+msgstr "Verplaatst het geselecteerde knooppunt omlaag"
 
 #: modules/cons.py:641
 msgid "Node _Left"
-msgstr ""
+msgstr "Knooppunt links"
 
 #: modules/cons.py:641
 msgid "Move the Selected Node Left"
-msgstr ""
+msgstr "Verplaatst het geselecteerde knooppunt naar links"
 
 #: modules/cons.py:642
 msgid "Node Change _Father"
-msgstr ""
+msgstr "Vader van knooppunt wijzigen"
 
 #: modules/cons.py:642
 msgid "Change the Selected Node's Father"
-msgstr ""
+msgstr "Wijzigt de vader van de geselecteerde knooppunten"
 
 #: modules/cons.py:645
 msgid "Nodes _Sort"
-msgstr ""
+msgstr "Sorteer knooppunten"
 
 #: modules/cons.py:646
 msgid "Sort Tree _Ascending"
-msgstr ""
+msgstr "Sorteer boom oplopend"
 
 #: modules/cons.py:646
 msgid "Sort the Tree Ascending"
-msgstr ""
+msgstr "Sorteert de boom oplopend"
 
 #: modules/cons.py:647
 msgid "Sort Tree _Descending"
-msgstr ""
+msgstr "Sorteer boom aflopend"
 
 #: modules/cons.py:647
 msgid "Sort the Tree Descending"
-msgstr ""
+msgstr "Sorteert de boom aflopend"
 
 #: modules/cons.py:648
 msgid "Sort Siblings A_scending"
-msgstr ""
+msgstr " "
 
 #: modules/cons.py:648
 msgid "Sort all the Siblings of the Selected Node Ascending"
@@ -1660,604 +1763,534 @@ msgstr ""
 
 #: modules/cons.py:682
 msgid "De_lete Node"
-msgstr ""
+msgstr "Kooppunt verwijderen"
 
 #: modules/cons.py:682
 msgid "Delete the Selected Node"
-msgstr ""
+msgstr "Verwijdert het geselecteerde kooppunt"
 
 #: modules/cons.py:716
 msgid "_Justify"
-msgstr ""
+msgstr "_Uitgevuld"
 
 #: modules/cons.py:721
 msgid "_List"
-msgstr ""
+msgstr "_Lijst"
 
 #: modules/cons.py:727
 msgid "_Insert"
-msgstr ""
+msgstr "_Invoegen"
 
 #: modules/cons.py:742 modules/cons.py:781
 msgid "_Row"
-msgstr ""
+msgstr "_Rij"
 
 #: modules/cons.py:744 modules/cons.py:783
 msgid "C_opy Row"
-msgstr ""
+msgstr "Rij kopiëren"
 
 #: modules/cons.py:775
 msgid "Stri_p Trailing Spaces"
-msgstr ""
+msgstr "Naloopspaties trimmen"
 
 #: modules/cons.py:775
 msgid "Strip Trailing Spaces"
-msgstr ""
+msgstr "Naloopspaties trimmen"
 
 #: modules/cons.py:813
 msgid "C_ut CodeBox"
-msgstr ""
+msgstr "Codevak knippen"
 
 #: modules/cons.py:813
 msgid "Cut the Selected CodeBox"
-msgstr ""
+msgstr "Knipt het geselecteerde codevak"
 
 #: modules/cons.py:814
 msgid "_Copy CodeBox"
-msgstr ""
+msgstr "Codevak kopiëren"
 
 #: modules/cons.py:814
 msgid "Copy the Selected CodeBox"
-msgstr ""
+msgstr "Kopieert het geselecteerde codevak"
 
 #: modules/cons.py:815
 msgid "_Delete CodeBox"
-msgstr ""
+msgstr "Codevak verwijderen"
 
 #: modules/cons.py:815
 msgid "Delete the Selected CodeBox"
-msgstr ""
+msgstr "Verwijdert het geselecteerde codevak"
 
 #: modules/cons.py:817
 msgid "Change CodeBox _Properties"
-msgstr ""
+msgstr "Codevak eigenschappen wijzigen"
 
 #: modules/cons.py:817
 msgid "Edit the Properties of the CodeBox"
-msgstr ""
+msgstr "Wijzigt de codevak eigenschappen"
 
 #: modules/cons.py:819
 msgid "Increase CodeBox Width"
-msgstr ""
+msgstr "Codevak breedte vergroten"
 
 #: modules/cons.py:819
 msgid "Increase the Width of the CodeBox"
-msgstr ""
+msgstr "Vergroot de codevak breedte"
 
 #: modules/cons.py:820
 msgid "Decrease CodeBox Width"
-msgstr ""
+msgstr "Codevak breedte verkleinen"
 
 #: modules/cons.py:820
 msgid "Decrease the Width of the CodeBox"
-msgstr ""
+msgstr "Verkleint de codevak breedte"
 
 #: modules/cons.py:821
 msgid "Increase CodeBox Height"
-msgstr ""
+msgstr "Codevak hoogte vergroten"
 
 #: modules/cons.py:821
 msgid "Increase the Height of the CodeBox"
-msgstr ""
+msgstr "Vergroot de codevak hoogte"
 
 #: modules/cons.py:822
 msgid "Decrease CodeBox Height"
-msgstr ""
+msgstr "Codevak hoogte verkleinen"
 
 #: modules/cons.py:822
 msgid "Decrease the Height of the CodeBox"
-msgstr ""
+msgstr "Verkleint de codevak hoogte"
 
 #: modules/imports.py:1885
 msgid "Downloading"
-msgstr ""
+msgstr "Ophalen"
 
 #: modules/pgsc_spellcheck.py:68
 msgid "Unknown"
-msgstr ""
+msgstr "Onbekend"
 
 #: modules/pgsc_spellcheck.py:423
 msgid "(no suggestions)"
-msgstr ""
+msgstr "(geen suggesties)"
 
 #: modules/pgsc_spellcheck.py:439
 msgid "Add \"{}\" to Dictionary"
-msgstr ""
+msgstr "\"{}\" aan bibliotheek toevoegen"
 
 #: modules/pgsc_spellcheck.py:442
 msgid "Ignore All"
-msgstr ""
+msgstr "Alles negeren"
 
 #: modules/pgsc_spellcheck.py:453
 msgid "Languages"
-msgstr ""
+msgstr "Talen"
 
 #: modules/pgsc_spellcheck.py:464
 msgid "Suggestions"
-msgstr ""
+msgstr "Suggesties"
+
+#: glade/cherrytree.glade.h:1
+msgid "Cancel"
+msgstr "Annuleren"
 
 #: glade/cherrytree.glade.h:2
-msgid ""
-"Copyright © 2009-2013\n"
-"Giuseppe Penone <giuspen@gmail.com>"
-msgstr ""
+msgid "OK"
+msgstr "OK"
 
 #: glade/cherrytree.glade.h:4
-msgid ""
-"A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
-"Highlighting"
-msgstr ""
+msgid "To WebSite"
+msgstr "Naar WebSite"
 
 #: glade/cherrytree.glade.h:5
-msgid "http://www.giuspen.com/cherrytree/"
-msgstr ""
+msgid "To Node"
+msgstr "Naar knooppunt"
 
 #: glade/cherrytree.glade.h:6
-msgid ""
-"\n"
-"This program is free software; you can redistribute it and/or modify\n"
-"it under the terms of the GNU General Public License as published by\n"
-"the Free Software Foundation; either version 3 of the License, or\n"
-"(at your option) any later version.\n"
-"  \n"
-"This program is distributed in the hope that it will be useful,\n"
-"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-"GNU General Public License for more details.\n"
-"  \n"
-"You should have received a copy of the GNU General Public License\n"
-"along with this program; if not, write to the Free Software\n"
-"Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,\n"
-"MA 02110-1301, USA.\n"
-msgstr ""
+msgid "To File"
+msgstr "Naar bestand"
+
+#: glade/cherrytree.glade.h:7
+msgid "To Folder"
+msgstr "Naar map"
+
+#: glade/cherrytree.glade.h:8
+msgid "<b>Type</b>"
+msgstr "<b>Type</b>"
+
+#: glade/cherrytree.glade.h:9
+msgid "<b>WebSite URL</b>"
+msgstr "<b>WebSite URL</b>"
+
+#: glade/cherrytree.glade.h:10
+msgid "Browse for a File to link to"
+msgstr "Naar het te koppelen bestand bladeren"
+
+#: glade/cherrytree.glade.h:11
+msgid "<b>File/Folder Path</b>"
+msgstr "<b>Bestand/Map locatie</b>"
+
+#: glade/cherrytree.glade.h:12
+msgid "<b>Node</b>"
+msgstr "<b>Knooppunt</b>"
+
+#: glade/cherrytree.glade.h:13
+msgid "<b>Anchor Name (optional)</b>"
+msgstr "<b>Ankernaam (optioneel)</b>"
+
+#: glade/cherrytree.glade.h:14
+msgid "<b>Automatic Syntax Highlighting</b>"
+msgstr "<b>Automatische Syntax Markering</b>"
+
+#: glade/cherrytree.glade.h:15
+msgid "Width"
+msgstr "Breedte"
+
+#: glade/cherrytree.glade.h:16
+msgid "pixels"
+msgstr "pixels"
+
+#: glade/cherrytree.glade.h:18
+msgid "%"
+msgstr "%"
+
+#: glade/cherrytree.glade.h:19
+msgid "Height"
+msgstr "Hoogte"
+
+#: glade/cherrytree.glade.h:20
+msgid "<b>Size</b>"
+msgstr "<b>Afmeting</b>"
+
+#: glade/cherrytree.glade.h:21
+msgid "Show Line Numbers"
+msgstr "Regelnummers weergeven"
 
 #: glade/cherrytree.glade.h:22
-msgid ""
-"Chinese Simplified (zh_CN) Channing Wong <mamimoluo@gmail.com>\n"
-"Czech (cs) Pavel Fric <fripohled@blogspot.com>\n"
-"Dutch (nl) Patrick Vijgeboom <pj.vijgeboom@gmail.com>\n"
-"French (fr) Benoît D'Angelo <benoit.dangelo@gmx.fr> (former Ludovic Troisi)\n"
-"German (de) Frank Brungräber <calexu@arcor.de> (former Sven Neubauer)\n"
-"Italian (it) Giuseppe Penone <giuspen@gmail.com>\n"
-"Polish (pl) Marcin Swierczynski <orneo1212@gmail.com>\n"
-"Portuguese Brazil (pt_BR) Vinicius Schmidt <viniciussm@rocketmail.com>\n"
-"Russian (ru) Andriy Kovtun <kovtunos@yandex.ru>\n"
-"Spanish (es) Daniel MC <i.e.betel@gmail.com>\n"
-"Ukrainian (uk) Andriy Kovtun <kovtunos@yandex.ru>"
-msgstr ""
-
-#: glade/cherrytree.glade.h:33
-msgid "Hide (Restore with Ctrl+Shift+A)"
-msgstr ""
-
-#: glade/cherrytree.glade.h:34
-msgid "Cancel"
-msgstr ""
-
-#: glade/cherrytree.glade.h:35
-msgid "OK"
-msgstr ""
-
-#: glade/cherrytree.glade.h:37
-msgid "To WebSite"
-msgstr ""
-
-#: glade/cherrytree.glade.h:38
-msgid "To Node"
-msgstr ""
-
-#: glade/cherrytree.glade.h:39
-msgid "To File"
-msgstr ""
-
-#: glade/cherrytree.glade.h:40
-msgid "To Folder"
-msgstr ""
-
-#: glade/cherrytree.glade.h:41
-msgid "<b>Type</b>"
-msgstr ""
-
-#: glade/cherrytree.glade.h:42
-msgid "<b>WebSite URL</b>"
-msgstr ""
-
-#: glade/cherrytree.glade.h:43
-msgid "Browse for a File to link to"
-msgstr ""
-
-#: glade/cherrytree.glade.h:44
-msgid "<b>File/Folder Path</b>"
-msgstr ""
-
-#: glade/cherrytree.glade.h:45
-msgid "<b>Node</b>"
-msgstr ""
-
-#: glade/cherrytree.glade.h:46
-msgid "<b>Anchor Name (optional)</b>"
-msgstr ""
-
-#: glade/cherrytree.glade.h:47
-msgid "<b>Automatic Syntax Highlighting</b>"
-msgstr ""
-
-#: glade/cherrytree.glade.h:48
-msgid "Width"
-msgstr ""
-
-#: glade/cherrytree.glade.h:49
-msgid "pixels"
-msgstr ""
-
-#: glade/cherrytree.glade.h:51
-msgid "%"
-msgstr ""
-
-#: glade/cherrytree.glade.h:52
-msgid "Height"
-msgstr ""
-
-#: glade/cherrytree.glade.h:53
-msgid "<b>Size</b>"
-msgstr ""
-
-#: glade/cherrytree.glade.h:54
-msgid "Show Line Numbers"
-msgstr ""
-
-#: glade/cherrytree.glade.h:55
 msgid "Highlight Matching Brackets"
-msgstr ""
+msgstr "Gelijke haken markeren"
 
-#: glade/cherrytree.glade.h:56
+#: glade/cherrytree.glade.h:23
 msgid "<b>Options</b>"
-msgstr ""
+msgstr "<b>Opties</b>"
 
-#: glade/cherrytree.glade.h:58
+#: glade/cherrytree.glade.h:25
 msgid "No"
-msgstr ""
+msgstr "Nee"
 
-#: glade/cherrytree.glade.h:59
+#: glade/cherrytree.glade.h:26
 msgid "Yes"
-msgstr ""
+msgstr "Ja"
 
-#: glade/cherrytree.glade.h:60
+#: glade/cherrytree.glade.h:27
 msgid ""
 "<b>The current document was updated</b>,\n"
 "do you want to save the changes?"
 msgstr ""
+"<b>Het huidige document is bijgewerkt</b>,\n"
+"wilt u de wijzigingen opslaan?"
 
-#: glade/cherrytree.glade.h:62
+#: glade/cherrytree.glade.h:29
 msgid "Image Properties"
-msgstr ""
+msgstr "Afbeelding eigenschappen"
 
-#: glade/cherrytree.glade.h:63
-msgid "Iterate Latest Find/Replace"
-msgstr ""
-
-#: glade/cherrytree.glade.h:64
-msgid "Close"
-msgstr ""
-
-#: glade/cherrytree.glade.h:66
-msgid "Find"
-msgstr ""
-
-#: glade/cherrytree.glade.h:68
-msgid "Replace"
-msgstr ""
-
-#: glade/cherrytree.glade.h:69
-msgid "Undo the Latest Replace"
-msgstr ""
-
-#: glade/cherrytree.glade.h:70
-msgid "Undo"
-msgstr ""
-
-#: glade/cherrytree.glade.h:71
+#: glade/cherrytree.glade.h:30
 msgid "Are you sure to Delete the node?"
-msgstr ""
+msgstr "Weet u zeker dat u het knooppunt wilt verwijderen?"
 
-#: glade/cherrytree.glade.h:73
+#: glade/cherrytree.glade.h:32
 msgid "Tab Width  "
-msgstr ""
+msgstr "Tab breedte"
 
-#: glade/cherrytree.glade.h:74
+#: glade/cherrytree.glade.h:33
 msgid "Insert Spaces Instead of Tabs"
-msgstr ""
+msgstr "Spaties invoegen in plaats van Tabs"
 
-#: glade/cherrytree.glade.h:75
+#: glade/cherrytree.glade.h:34
 msgid "Use Line Wrapping"
-msgstr ""
+msgstr "Regelterugloop gebruiken"
 
-#: glade/cherrytree.glade.h:76
+#: glade/cherrytree.glade.h:35
 msgid "Enable Automatic Indentation"
-msgstr ""
+msgstr "Automatisch inspringen activeren"
 
-#: glade/cherrytree.glade.h:77
+#: glade/cherrytree.glade.h:36
 msgid "<b>Text Editor</b>"
-msgstr ""
+msgstr "<b>Tektbewerker</b>"
 
-#: glade/cherrytree.glade.h:78
+#: glade/cherrytree.glade.h:37
 msgid "Timestamp Format"
-msgstr ""
+msgstr "Tijdstempel opmaak"
 
-#: glade/cherrytree.glade.h:79
+#: glade/cherrytree.glade.h:38
 msgid "Horizontal Rule"
-msgstr ""
+msgstr "Horizontale lijn"
 
-#: glade/cherrytree.glade.h:80
+#: glade/cherrytree.glade.h:39
 msgid "Special Characters"
-msgstr ""
+msgstr "Speciale tekens"
 
-#: glade/cherrytree.glade.h:81
+#: glade/cherrytree.glade.h:40
 msgid "<b>Miscellaneous</b>"
-msgstr ""
+msgstr "<b>Diversen</b>"
 
-#: glade/cherrytree.glade.h:82
+#: glade/cherrytree.glade.h:41
 msgid "All Nodes"
-msgstr ""
+msgstr "Alle kooppunten"
 
-#: glade/cherrytree.glade.h:83
+#: glade/cherrytree.glade.h:42
 msgid "Enable Spell Check"
-msgstr ""
+msgstr "Spellingcontrole activeren"
 
-#: glade/cherrytree.glade.h:84
+#: glade/cherrytree.glade.h:43
 msgid "Spell Check Language"
-msgstr ""
+msgstr "spellingcontrole taal"
 
-#: glade/cherrytree.glade.h:85
+#: glade/cherrytree.glade.h:44
 msgid "<b>Spell Check</b>"
-msgstr ""
+msgstr "<b>Spellingcontrole</b>"
 
-#: glade/cherrytree.glade.h:86
+#: glade/cherrytree.glade.h:45
 msgid "Light Background, Dark Text"
-msgstr ""
+msgstr "Lichte achtergrond, Donkere tekst"
 
-#: glade/cherrytree.glade.h:87
+#: glade/cherrytree.glade.h:46
 msgid "Dark Background, Light Text"
-msgstr ""
+msgstr "Donkere achtergrond, Lichte tekst"
 
-#: glade/cherrytree.glade.h:88
+#: glade/cherrytree.glade.h:47
 msgid "Custom Background"
-msgstr ""
+msgstr "Aangepaste achtergrond"
 
-#: glade/cherrytree.glade.h:89
+#: glade/cherrytree.glade.h:48
 msgid "and Text"
-msgstr ""
+msgstr "en tekst"
 
-#: glade/cherrytree.glade.h:90
+#: glade/cherrytree.glade.h:49
 msgid "<b>Theme</b>"
-msgstr ""
+msgstr "<b>Thema</b>"
 
-#: glade/cherrytree.glade.h:91
+#: glade/cherrytree.glade.h:50
 msgid "Limit of Undoable Steps Per Node"
 msgstr ""
 
-#: glade/cherrytree.glade.h:92
+#: glade/cherrytree.glade.h:51
 msgid "Text Nodes"
-msgstr ""
+msgstr "Tekstknooppunt"
 
-#: glade/cherrytree.glade.h:93
+#: glade/cherrytree.glade.h:52
 msgid "Style Scheme"
-msgstr ""
+msgstr "Stijlschema"
 
-#: glade/cherrytree.glade.h:94
+#: glade/cherrytree.glade.h:53
 msgid "Show White Spaces"
-msgstr ""
+msgstr "Witruimte weergeven"
 
-#: glade/cherrytree.glade.h:95
+#: glade/cherrytree.glade.h:54
 msgid "Highlight Current Line"
-msgstr ""
+msgstr "Huidige regel markeren"
 
-#: glade/cherrytree.glade.h:96
+#: glade/cherrytree.glade.h:55
 msgid "Code Nodes"
 msgstr ""
 
-#: glade/cherrytree.glade.h:97
+#: glade/cherrytree.glade.h:56
 msgid "Use Cherries as Nodes Icons"
-msgstr ""
+msgstr "Gebruik kersen als knoopunt pictogrammen"
 
-#: glade/cherrytree.glade.h:98
+#: glade/cherrytree.glade.h:57
 msgid "Use Bullets as Nodes Icons"
-msgstr ""
+msgstr "Gebruik opsommingstekens als kooppunt pictogrammen"
 
-#: glade/cherrytree.glade.h:99
+#: glade/cherrytree.glade.h:58
 msgid "Do Not Display Nodes Icons"
-msgstr ""
+msgstr "Knooppunt pictogrammen niet weergeven"
 
-#: glade/cherrytree.glade.h:100
+#: glade/cherrytree.glade.h:59
 msgid "<b>Nodes Icons</b>"
-msgstr ""
+msgstr "<b>Knooppunt pictogrammen</b>"
 
-#: glade/cherrytree.glade.h:101
+#: glade/cherrytree.glade.h:60
 msgid "Restore Expanded/Collapsed Status"
-msgstr ""
+msgstr "Inklappen/uitklappen status herstellen"
 
-#: glade/cherrytree.glade.h:102
+#: glade/cherrytree.glade.h:61
 msgid "Expand all Nodes"
-msgstr ""
+msgstr "Alle knoopunten uitklappen"
 
-#: glade/cherrytree.glade.h:103
+#: glade/cherrytree.glade.h:62
 msgid "Collapse all Nodes"
-msgstr ""
+msgstr "Alle knoopunten inklappen"
 
-#: glade/cherrytree.glade.h:104
+#: glade/cherrytree.glade.h:63
 msgid "<b>Nodes Status at Startup</b>"
-msgstr ""
+msgstr "<b>Knooppunt status bij opstarten</b>"
 
-#: glade/cherrytree.glade.h:105
+#: glade/cherrytree.glade.h:64
 msgid "Tree Nodes Names Wrapping Width"
 msgstr ""
 
-#: glade/cherrytree.glade.h:106
+#: glade/cherrytree.glade.h:65
 msgid "Display Tree on the Right Side"
 msgstr ""
 
-#: glade/cherrytree.glade.h:107
+#: glade/cherrytree.glade.h:66
 msgid "Tree"
-msgstr ""
+msgstr "Boom"
 
-#: glade/cherrytree.glade.h:108
+#: glade/cherrytree.glade.h:67
 msgid "Text Font"
-msgstr ""
+msgstr "Tekst lettertypen"
 
-#: glade/cherrytree.glade.h:109
+#: glade/cherrytree.glade.h:68
 msgid "Code Font"
-msgstr ""
+msgstr "Code lettertypen"
 
-#: glade/cherrytree.glade.h:110
+#: glade/cherrytree.glade.h:69
 msgid "Tree Font"
-msgstr ""
+msgstr "Boom lettertypen"
 
-#: glade/cherrytree.glade.h:111
+#: glade/cherrytree.glade.h:70
 msgid "<b>Fonts</b>"
-msgstr ""
+msgstr "<b>Lettertypen</b>"
 
-#: glade/cherrytree.glade.h:112
+#: glade/cherrytree.glade.h:71
 msgid "Fonts"
-msgstr ""
+msgstr "Lettertypen"
 
-#: glade/cherrytree.glade.h:113
+#: glade/cherrytree.glade.h:72
 msgid "Enable Custom Web Link Clicked Action"
 msgstr ""
 
-#: glade/cherrytree.glade.h:114
+#: glade/cherrytree.glade.h:73
 msgid "Enable Custom File Link Clicked Action"
 msgstr ""
 
-#: glade/cherrytree.glade.h:115
+#: glade/cherrytree.glade.h:74
 msgid "Enable Custom Folder Link Clicked Action"
 msgstr ""
 
-#: glade/cherrytree.glade.h:116
+#: glade/cherrytree.glade.h:75
 msgid "Anchor Size"
-msgstr ""
+msgstr "Anker afmeting"
 
-#: glade/cherrytree.glade.h:117
+#: glade/cherrytree.glade.h:76
 msgid "<b>Links</b>"
-msgstr ""
+msgstr "<b>Koppelingen</b>"
 
-#: glade/cherrytree.glade.h:118
+#: glade/cherrytree.glade.h:77
 msgid "Links"
-msgstr ""
+msgstr "Koppelingen"
 
-#: glade/cherrytree.glade.h:119
+#: glade/cherrytree.glade.h:78
 msgid "Enable System Tray Docking"
 msgstr ""
 
-#: glade/cherrytree.glade.h:120
+#: glade/cherrytree.glade.h:79
 msgid "Start Minimized in the System Tray"
 msgstr ""
 
-#: glade/cherrytree.glade.h:121
+#: glade/cherrytree.glade.h:80
 msgid "Use AppIndicator for Docking"
 msgstr ""
 
-#: glade/cherrytree.glade.h:122
+#: glade/cherrytree.glade.h:81
 msgid "<b>System Tray</b>"
 msgstr ""
 
-#: glade/cherrytree.glade.h:123
+#: glade/cherrytree.glade.h:82
 msgid "Autosave Every"
-msgstr ""
+msgstr "Automatisch opslaan"
 
-#: glade/cherrytree.glade.h:124
+#: glade/cherrytree.glade.h:83
 msgid "Minutes"
-msgstr ""
+msgstr "Minuten"
 
-#: glade/cherrytree.glade.h:125
+#: glade/cherrytree.glade.h:84
 msgid "Autosave on Quit"
-msgstr ""
+msgstr "Automatisch opslaan bij afsluiten"
 
-#: glade/cherrytree.glade.h:126
+#: glade/cherrytree.glade.h:85
 msgid "Create a Backup Copy Before Saving"
-msgstr ""
+msgstr "Reservekopie maken voor opslaan"
 
-#: glade/cherrytree.glade.h:127
+#: glade/cherrytree.glade.h:86
 msgid "<b>Saving</b>"
-msgstr ""
+msgstr "<b>Opslaan</b>"
 
-#: glade/cherrytree.glade.h:128
+#: glade/cherrytree.glade.h:87
 msgid "Automatically Check for Newer Version"
-msgstr ""
+msgstr "Automatisch op nieuwe versies controleren"
 
-#: glade/cherrytree.glade.h:129
+#: glade/cherrytree.glade.h:88
 msgid "Reload Document From Last Session"
-msgstr ""
+msgstr "Document laden uit laatste sessie"
 
-#: glade/cherrytree.glade.h:130
+#: glade/cherrytree.glade.h:89
 msgid "Reload After External Update to CT* File"
-msgstr ""
+msgstr "Opnieuw laden na extern bijwerken naar CT* bestand"
 
-#: glade/cherrytree.glade.h:131
+#: glade/cherrytree.glade.h:90
 msgid "<b>Language</b>"
-msgstr ""
+msgstr "<b>Taal</b>"
 
-#: glade/cherrytree.glade.h:132
+#: glade/cherrytree.glade.h:91
 msgid "Miscellaneous"
 msgstr "Diversen"
 
-#: glade/cherrytree.glade.h:133
+#: glade/cherrytree.glade.h:92
 msgid "Rows  "
 msgstr "Rijen"
 
-#: glade/cherrytree.glade.h:134
+#: glade/cherrytree.glade.h:93
 msgid "     Columns  "
 msgstr "     Kolommen"
 
-#: glade/cherrytree.glade.h:135
+#: glade/cherrytree.glade.h:94
 msgid "<b>Table size</b>"
 msgstr "<b>Tabel grootte</b>"
 
-#: glade/cherrytree.glade.h:136
+#: glade/cherrytree.glade.h:95
 msgid "Min Width"
 msgstr "Min Breedte"
 
-#: glade/cherrytree.glade.h:137
+#: glade/cherrytree.glade.h:96
 msgid "   Max Width"
 msgstr "   Max Breedte"
 
-#: glade/cherrytree.glade.h:138
+#: glade/cherrytree.glade.h:97
 msgid "<b>Columns Properties</b>"
 msgstr "<b> Kolom Eigenschappen</b>"
 
-#: glade/cherrytree.glade.h:139
+#: glade/cherrytree.glade.h:98
 msgid "Import from CSV File"
 msgstr "Importeren van CSV bestand"
 
-#: glade/cherrytree.glade.h:140
+#: glade/cherrytree.glade.h:99
 msgid "Rename Column"
 msgstr "Kolom hernoemen"
 
-#: glade/cherrytree.glade.h:141
+#: glade/cherrytree.glade.h:100
 msgid "Delete Column"
 msgstr "Kolom verwijderen"
 
-#: glade/cherrytree.glade.h:142
+#: glade/cherrytree.glade.h:101
 msgid "Add Column"
 msgstr "Kolom toevoegen"
 
-#: glade/cherrytree.glade.h:143
+#: glade/cherrytree.glade.h:102
 msgid "Move Column Left"
 msgstr "Kolom naar links verplaatsen"
 
-#: glade/cherrytree.glade.h:144
+#: glade/cherrytree.glade.h:103
 msgid "Move Column Right"
 msgstr "Kolom naar rechts verplaatsen"
 
-#: glade/cherrytree.glade.h:145
+#: glade/cherrytree.glade.h:104
 msgid "CherryTree"
 msgstr "CherryTree"
+
+#~ msgid "http://www.giuspen.com/cherrytree/"
+#~ msgstr "http://www.giuspen.com/cherrytree/"
+
+#~ msgid "Undo the Latest Replace"
+#~ msgstr "Laatste vervanging ongedaan maken"
