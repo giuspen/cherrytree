@@ -1115,6 +1115,8 @@ class CherryTree:
     def treeview_refresh(self, change_icon=False):
         """Refresh the Treeview"""
         if self.curr_buffer:
+            cell_area = self.treeview.get_cell_area(self.treestore.get_path(self.curr_tree_iter),
+                                                    self.treeview.get_columns()[0])
             config.get_tree_expanded_collapsed_string(self)
             self.treeview.set_model(None)
             if change_icon:
@@ -1125,6 +1127,7 @@ class CherryTree:
             self.treeview.set_model(self.treestore)
             if self.user_active: config.set_tree_expanded_collapsed_string(self)
             self.treeview.set_cursor(self.treestore.get_path(self.curr_tree_iter))
+            self.treeview.scroll_to_point(cell_area.width/2, cell_area.height/2)
 
     def change_icon_iter(self, tree_iter):
         """Changing all icons type - iter"""
