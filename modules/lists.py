@@ -253,14 +253,16 @@ class ListsHandler:
     def get_paragraph_list_info(self, iter_start):
         """Returns [Number, Whether multiple line, List Start Iter Offset]
            Number == 0 if bulleted list, >=1 if numbered list or None if not a list"""
-        if iter_start.get_char() == cons.CHAR_NEWLINE: iter_start.backward_char() # if we are exactly on the paragraph end
-        # let's search for the paragraph start
         buffer_start = False
-        while iter_start:
-            if iter_start.get_char() == cons.CHAR_NEWLINE: break # we got the previous paragraph start
-            elif not iter_start.backward_char():
-                buffer_start = True
-                break # we reached the buffer start
+        # let's search for the paragraph start
+        if iter_start.get_char() == cons.CHAR_NEWLINE:
+            if not iter_start.backward_char(): buffer_start = True # if we are exactly on the paragraph end
+        if not buffer_start:
+            while iter_start:
+                if iter_start.get_char() == cons.CHAR_NEWLINE: break # we got the previous paragraph start
+                elif not iter_start.backward_char():
+                    buffer_start = True
+                    break # we reached the buffer start
         if not buffer_start: iter_start.forward_char()
         # get the number of the paragraph starting with iter_start
         number = self.list_get_number(iter_start)
