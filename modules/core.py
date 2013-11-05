@@ -2582,6 +2582,7 @@ class CherryTree:
         warning_label = _("Are you sure to <b>Delete the node '%s'?</b>") % self.treestore[self.curr_tree_iter][1]
         if self.treestore.iter_children(self.curr_tree_iter) != None:
             warning_label += cons.CHAR_NEWLINE*2+_("The node <b>has Children, they will be Deleted too!</b>")
+            self.nodes_rows_count = 0
             warning_label += self.get_node_children_list(self.curr_tree_iter, 0)
         response = support.dialog_node_delete(self.window, warning_label)
         if response != 1: return # the user did not confirm
@@ -2635,6 +2636,8 @@ class CherryTree:
     def get_node_children_list(self, father_tree_iter, level):
         """Return a string listing the node children"""
         node_children_list = ""
+        self.nodes_rows_count += 1
+        if self.nodes_rows_count > 30: return "..."
         node_children_list += cons.CHAR_NEWLINE + level*3*cons.CHAR_SPACE + cons.CHAR_LISTBUL + \
                               cons.CHAR_SPACE +self.treestore[father_tree_iter][1]
         tree_iter = self.treestore.iter_children(father_tree_iter)
