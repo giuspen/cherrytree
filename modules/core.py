@@ -172,7 +172,6 @@ class CherryTree:
         self.glade.choosenodedialog.connect('key_press_event', self.on_key_press_choosenodedialog)
         self.glade.tablehandledialog.connect('key_press_event', self.tables_handler.on_key_press_tablehandledialog)
         self.glade.codeboxhandledialog.connect('key_press_event', self.codeboxes_handler.on_key_press_codeboxhandledialog)
-        self.glade.exitdialog.connect('key_press_event', self.on_key_press_exitdialog)
         self.sourcestyleschememanager = gtksourceview2.StyleSchemeManager()
         self.sourceview = gtksourceview2.View()
         self.sourceview.set_sensitive(False)
@@ -3224,21 +3223,11 @@ class CherryTree:
         """Before close the current document, check for possible Unsaved"""
         if self.curr_tree_iter != None and (self.curr_buffer.get_modified() == True or self.file_update == True):
             if self.autosave_on_quit: response = 2
-            else:
-                response = self.glade.exitdialog.run()
-                self.glade.exitdialog.hide()
+            else: response = support.dialog_exit_save(self.window)
             if response == 2: self.file_save() # button YES pressed or autosave ON
         else: response = 0 # no need to save
         if response == 6: return False # button CANCEL
         else: return True
-
-    def on_key_press_exitdialog(self, widget, event):
-        """Catches Exit Dialog key presses"""
-        keyname = gtk.gdk.keyval_name(event.keyval)
-        if keyname == "Return": self.glade.button_exitdialog_yes.clicked()
-        elif keyname == "Escape": self.glade.button_exitdialog_canc.clicked()
-        else: print keyname
-        return True
 
     def dialog_about(self, *args):
         """Show the About Dialog and hide it when a button is pressed"""
