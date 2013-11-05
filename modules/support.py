@@ -320,6 +320,7 @@ def dialog_node_delete(father_win, warning_label):
         button.set_image(gtk.image_new_from_stock(gtk.STOCK_CANCEL, gtk.ICON_SIZE_BUTTON))
         button = dialog.get_widget_for_response(1)
         button.set_image(gtk.image_new_from_stock(gtk.STOCK_CLEAR, gtk.ICON_SIZE_BUTTON))
+        button.grab_focus()
     except: pass
     image = gtk.Image()
     image.set_from_stock(gtk.STOCK_DIALOG_WARNING, gtk.ICON_SIZE_DIALOG)
@@ -360,6 +361,7 @@ def dialog_exit_save(father_win):
         button.set_image(gtk.image_new_from_stock(gtk.STOCK_CLEAR, gtk.ICON_SIZE_BUTTON))
         button = dialog.get_widget_for_response(2)
         button.set_image(gtk.image_new_from_stock(gtk.STOCK_SAVE, gtk.ICON_SIZE_BUTTON))
+        button.grab_focus()
     except: pass
     image = gtk.Image()
     image.set_from_stock(gtk.STOCK_DIALOG_WARNING, gtk.ICON_SIZE_DIALOG)
