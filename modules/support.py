@@ -306,6 +306,43 @@ Ukrainian (uk) Andriy Kovtun <kovtunos@yandex.ru>"""))
     dialog.run()
     dialog.hide()
 
+def dialog_node_delete(father_win, warning_label):
+    """Confirmation before Node Remove"""
+    dialog = gtk.Dialog(title=_("Warning"),
+        parent=father_win,
+        flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
+        buttons=(_("Cancel"), 2,
+                 _("OK"), 1) )
+    dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+    dialog.set_default_size(350, 150)
+    try:
+        button = dialog.get_widget_for_response(2)
+        button.set_image(gtk.image_new_from_stock(gtk.STOCK_CANCEL, gtk.ICON_SIZE_BUTTON))
+        button = dialog.get_widget_for_response(1)
+        button.set_image(gtk.image_new_from_stock(gtk.STOCK_CLEAR, gtk.ICON_SIZE_BUTTON))
+    except: pass
+    image = gtk.Image()
+    image.set_from_stock(gtk.STOCK_DIALOG_WARNING, gtk.ICON_SIZE_DIALOG)
+    label = gtk.Label(warning_label)
+    label.set_use_markup(True)
+    hbox = gtk.HBox()
+    hbox.pack_start(image)
+    hbox.pack_start(label)
+    hbox.set_spacing(5)
+    content_area = dialog.get_content_area()
+    content_area.pack_start(hbox)
+    def on_key_press_nodedeletedialog(widget, event):
+        keyname = gtk.gdk.keyval_name(event.keyval)
+        if keyname == "Return":
+            try: dialog.get_widget_for_response(1).clicked()
+            except: print cons.STR_PYGTK_222_REQUIRED
+        return True
+    dialog.connect('key_press_event', on_key_press_nodedeletedialog)
+    content_area.show_all()
+    response = dialog.run()
+    dialog.hide()
+    return response
+
 def dialog_exit_save(father_win):
     """Save before Exit Dialog"""
     dialog = gtk.Dialog(title=_("Warning"),
@@ -315,6 +352,7 @@ def dialog_exit_save(father_win):
                  _("No"), 4,
                  _("Yes"), 2) )
     dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+    dialog.set_default_size(350, 150)
     try:
         button = dialog.get_widget_for_response(6)
         button.set_image(gtk.image_new_from_stock(gtk.STOCK_CANCEL, gtk.ICON_SIZE_BUTTON))
@@ -331,6 +369,7 @@ do you want to save the changes?"""))
     hbox = gtk.HBox()
     hbox.pack_start(image)
     hbox.pack_start(label)
+    hbox.set_spacing(5)
     content_area = dialog.get_content_area()
     content_area.pack_start(hbox)
     def on_key_press_exitdialog(widget, event):

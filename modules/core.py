@@ -2583,10 +2583,7 @@ class CherryTree:
         if self.treestore.iter_children(self.curr_tree_iter) != None:
             warning_label += cons.CHAR_NEWLINE*2+_("The node <b>has Children, they will be Deleted too!</b>")
             warning_label += self.get_node_children_list(self.curr_tree_iter, 0)
-        self.glade.label_node_delete.set_text(warning_label)
-        self.glade.label_node_delete.set_use_markup(True)
-        response = self.glade.nodedeletedialog.run()
-        self.glade.nodedeletedialog.hide()
+        response = support.dialog_node_delete(self.window, warning_label)
         if response != 1: return # the user did not confirm
         # next selected node will be previous sibling or next sibling or father or None
         new_iter = self.get_tree_iter_prev_sibling(self.treestore, self.curr_tree_iter)
