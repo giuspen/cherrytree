@@ -306,6 +306,49 @@ Ukrainian (uk) Andriy Kovtun <kovtunos@yandex.ru>"""))
     dialog.run()
     dialog.hide()
 
+def dialog_exit_save(father_win):
+    """Save before Exit Dialog"""
+    dialog = gtk.Dialog(title=_("Warning"),
+        parent=father_win,
+        flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
+        buttons=(_("Cancel"), 6,
+                 _("No"), 4,
+                 _("Yes"), 2) )
+    dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+    try:
+        button = dialog.get_widget_for_response(6)
+        button.set_image(gtk.image_new_from_stock(gtk.STOCK_CANCEL, gtk.ICON_SIZE_BUTTON))
+        button = dialog.get_widget_for_response(4)
+        button.set_image(gtk.image_new_from_stock(gtk.STOCK_CLEAR, gtk.ICON_SIZE_BUTTON))
+        button = dialog.get_widget_for_response(2)
+        button.set_image(gtk.image_new_from_stock(gtk.STOCK_SAVE, gtk.ICON_SIZE_BUTTON))
+    except: pass
+    image = gtk.Image()
+    image.set_from_stock(gtk.STOCK_DIALOG_WARNING, gtk.ICON_SIZE_DIALOG)
+    label = gtk.Label(_("""<b>The current document was updated</b>,
+do you want to save the changes?"""))
+    label.set_use_markup(True)
+    hbox = gtk.HBox()
+    hbox.pack_start(image)
+    hbox.pack_start(label)
+    content_area = dialog.get_content_area()
+    content_area.pack_start(hbox)
+    def on_key_press_exitdialog(widget, event):
+        keyname = gtk.gdk.keyval_name(event.keyval)
+        if keyname == "Return":
+            try: dialog.get_widget_for_response(2).clicked()
+            except: print cons.STR_PYGTK_222_REQUIRED
+        elif keyname == "Escape":
+            try: dialog.get_widget_for_response(6).clicked()
+            except: print cons.STR_PYGTK_222_REQUIRED
+        else: print keyname
+        return True
+    dialog.connect('key_press_event', on_key_press_exitdialog)
+    content_area.show_all()
+    response = dialog.run()
+    dialog.hide()
+    return response
+
 def dialog_selnode_selnodeandsub_alltree(father_win, also_selection, also_node_name=False):
     """Dialog to select between the Selected Node/Selected Node + Subnodes/All Tree"""
     dialog = gtk.Dialog(title=_("Involved Nodes"),
