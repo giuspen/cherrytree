@@ -3075,7 +3075,9 @@ class CherryTree:
         response = dialog.run()
         dialog.hide()
         if response == gtk.RESPONSE_ACCEPT:
-            self.search_replace_dict['find'] = unicode(search_entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE)
+            find_content = unicode(search_entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE)
+            if not find_content: return None
+            self.search_replace_dict['find'] = find_content
             if replace_on:
                 self.search_replace_dict['replace'] = unicode(replace_entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE)
             self.search_replace_dict['match_case'] = match_case_checkbutton.get_active()
