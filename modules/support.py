@@ -319,7 +319,7 @@ def dialog_anchors_list(father_win, title, anchors_list):
         buttons=(_("Cancel"), 2,
                  _("OK"), 1) )
     dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-    dialog.set_default_size(350, 150)
+    dialog.set_default_size(300, -1)
     try:
         button = dialog.get_widget_for_response(2)
         button.set_image(gtk.image_new_from_stock(gtk.STOCK_CANCEL, gtk.ICON_SIZE_BUTTON))
@@ -355,6 +355,7 @@ def dialog_anchors_list(father_win, title, anchors_list):
         return True
     dialog.connect('key_press_event', on_key_press_anchorslistdialog)
     anchors_treeview.connect('button-press-event', on_mouse_button_clicked_anchors_list)
+    anchors_treeview.grab_focus()
     content_area.show_all()
     response = dialog.run()
     dialog.hide()
@@ -370,6 +371,7 @@ def dialog_anchor_handle(father_win, title, anchor_name):
         buttons=(_("Cancel"), 2,
                  _("OK"), 1) )
     dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+    dialog.set_default_size(300, -1)
     try:
         button = dialog.get_widget_for_response(2)
         button.set_image(gtk.image_new_from_stock(gtk.STOCK_CANCEL, gtk.ICON_SIZE_BUTTON))
@@ -378,11 +380,11 @@ def dialog_anchor_handle(father_win, title, anchor_name):
         button.grab_focus()
     except: pass
     image = gtk.Image()
-    image.set_from_stock("anchor", gtk.ICON_SIZE_DIALOG)
+    image.set_from_stock("anchor", gtk.ICON_SIZE_BUTTON)
     entry = gtk.Entry()
     entry.set_text(anchor_name)
     hbox = gtk.HBox()
-    hbox.pack_start(image)
+    hbox.pack_start(image, expand=False)
     hbox.pack_start(entry)
     hbox.set_spacing(5)
     content_area = dialog.get_content_area()
@@ -392,7 +394,7 @@ def dialog_anchor_handle(father_win, title, anchor_name):
         if keyname == "Return":
             try: dialog.get_widget_for_response(1).clicked()
             except: print cons.STR_PYGTK_222_REQUIRED
-        return True
+        return False
     dialog.connect('key_press_event', on_key_press_anchoreditdialog)
     content_area.show_all()
     entry.grab_focus()
