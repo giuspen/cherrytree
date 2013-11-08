@@ -142,7 +142,7 @@ class CodeBoxesHandler:
             self.codebox_change_width_height(self.curr_codebox_anchor.frame_width + CB_WIDTH_HEIGHT_STEP_PERC, 0)
 
     def codebox_decrease_width(self, *args):
-        """Increase CodeBox Width"""
+        """Decrease CodeBox Width"""
         if self.curr_codebox_anchor.width_in_pixels:
             if self.curr_codebox_anchor.frame_width - CB_WIDTH_HEIGHT_STEP_PIX >= CB_WIDTH_LIMIT_MIN:
                 self.codebox_change_width_height(self.curr_codebox_anchor.frame_width - CB_WIDTH_HEIGHT_STEP_PIX, 0)
@@ -151,11 +151,11 @@ class CodeBoxesHandler:
                 self.codebox_change_width_height(self.curr_codebox_anchor.frame_width - CB_WIDTH_HEIGHT_STEP_PERC, 0)
 
     def codebox_increase_height(self, *args):
-        """Increase CodeBox Width"""
+        """Increase CodeBox Height"""
         self.codebox_change_width_height(0, self.curr_codebox_anchor.frame_height + CB_WIDTH_HEIGHT_STEP_PIX)
 
     def codebox_decrease_height(self, *args):
-        """Increase CodeBox Width"""
+        """Decrease CodeBox Height"""
         if self.curr_codebox_anchor.frame_height - CB_WIDTH_HEIGHT_STEP_PIX >= CB_HEIGHT_LIMIT_MIN:
             self.codebox_change_width_height(0, self.curr_codebox_anchor.frame_height - CB_WIDTH_HEIGHT_STEP_PIX)
 
