@@ -62,27 +62,32 @@ def get_node_hierarchical_name(dad, tree_iter, separator="--"):
 
 def strip_trailing_spaces(text_buffer):
     """Remove trailing spaces/tabs"""
-    curr_iter = text_buffer.get_start_iter()
-    curr_state = 0
-    start_offset = 0
-    while curr_iter:
-        curr_char = curr_iter.get_char()
-        if curr_state == 0:
-            if curr_char in [cons.CHAR_SPACE, cons.CHAR_TAB]:
-                start_offset = curr_iter.get_offset()
-                curr_state = 1
-        elif curr_state == 1:
-            if curr_char == cons.CHAR_NEWLINE:
-                iter_offset = curr_iter.get_offset()
-                text_buffer.delete(text_buffer.get_iter_at_offset(start_offset), curr_iter)
-                curr_iter = text_buffer.get_iter_at_offset(iter_offset)
-                curr_state = 0
-            elif not curr_char in [cons.CHAR_SPACE, cons.CHAR_TAB]:
-                curr_state = 0
-        if not curr_iter.forward_char():
-            if curr_state == 1:
-                text_buffer.delete(text_buffer.get_iter_at_offset(start_offset), curr_iter)
-            break
+    cleaned_lines = 0
+    removed_something = True
+    while removed_something:
+        removed_something = False
+        curr_iter = text_buffer.get_start_iter()
+        curr_state = 0
+        start_offset = 0
+        while curr_iter:
+            curr_char = curr_iter.get_char()
+            if curr_state == 0:
+                if curr_char in [cons.CHAR_SPACE, cons.CHAR_TAB]:
+                    start_offset = curr_iter.get_offset()
+                    curr_state = 1
+            elif curr_state == 1:
+                if curr_char == cons.CHAR_NEWLINE:
+                    text_buffer.delete(text_buffer.get_iter_at_offset(start_offset), curr_iter)
+                    removed_something = True
+                    cleaned_lines += 1
+                    break
+                elif not curr_char in [cons.CHAR_SPACE, cons.CHAR_TAB]:
+                    curr_state = 0
+            if not curr_iter.forward_char():
+                if curr_state == 1:
+                    text_buffer.delete(text_buffer.get_iter_at_offset(start_offset), curr_iter)
+                break
+    return cleaned_lines
 
 def get_next_chars_from_iter_are(iter_start, num, chars):
     """Returns True if the Given Chars are the next 'num' after iter"""
