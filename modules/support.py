@@ -311,6 +311,95 @@ Ukrainian (uk) Andriy Kovtun <kovtunos@yandex.ru>"""))
     dialog.run()
     dialog.hide()
 
+def dialog_anchors_list(father_win, title, anchors_list):
+    """List Anchors in a Node"""
+    dialog = gtk.Dialog(title=title,
+        parent=father_win,
+        flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
+        buttons=(_("Cancel"), 2,
+                 _("OK"), 1) )
+    dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+    dialog.set_default_size(350, 150)
+    try:
+        button = dialog.get_widget_for_response(2)
+        button.set_image(gtk.image_new_from_stock(gtk.STOCK_CANCEL, gtk.ICON_SIZE_BUTTON))
+        button = dialog.get_widget_for_response(1)
+        button.set_image(gtk.image_new_from_stock(gtk.STOCK_APPLY, gtk.ICON_SIZE_BUTTON))
+        button.grab_focus()
+    except: pass
+    scrolledwindow = gtk.ScrolledWindow()
+    scrolledwindow.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+    anchors_liststore = gtk.ListStore(str)
+    anchors_treeview = gtk.TreeView(anchors_liststore)
+    anchors_renderer_text = gtk.CellRendererText()
+    anchors_column = gtk.TreeViewColumn(_("Anchor Name"), anchors_renderer_text, text=0)
+    anchors_treeview.append_column(anchors_column)
+    anchors_treeviewselection = anchors_treeview.get_selection()
+    for anchor_element in anchors_list:
+        anchors_liststore.append(anchor_element)
+    scrolledwindow.add(anchors_treeview)
+    anchor_first_iter = anchors_liststore.get_iter_first()
+    anchors_treeview.set_cursor(anchors_liststore.get_path(anchor_first_iter))
+    content_area = dialog.get_content_area()
+    content_area.pack_start(scrolledwindow)
+    def on_mouse_button_clicked_anchors_list(widget, event):
+        if event.button != 1: return
+        if event.type == gtk.gdk._2BUTTON_PRESS:
+            try: dialog.get_widget_for_response(1).clicked()
+            except: print cons.STR_PYGTK_222_REQUIRED
+    def on_key_press_anchorslistdialog(widget, event):
+        keyname = gtk.gdk.keyval_name(event.keyval)
+        if keyname == "Return":
+            try: dialog.get_widget_for_response(1).clicked()
+            except: print cons.STR_PYGTK_222_REQUIRED
+        return True
+    dialog.connect('key_press_event', on_key_press_anchorslistdialog)
+    anchors_treeview.connect('button-press-event', on_mouse_button_clicked_anchors_list)
+    content_area.show_all()
+    response = dialog.run()
+    dialog.hide()
+    if response != 1: return ""
+    listmodel, listiter = anchors_treeviewselection.get_selected()
+    return unicode(anchors_liststore[listiter][0], cons.STR_UTF8, cons.STR_IGNORE)
+
+def dialog_anchor_handle(father_win, title, anchor_name):
+    """Insert/Edit Anchor Name"""
+    dialog = gtk.Dialog(title=title,
+        parent=father_win,
+        flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
+        buttons=(_("Cancel"), 2,
+                 _("OK"), 1) )
+    dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+    try:
+        button = dialog.get_widget_for_response(2)
+        button.set_image(gtk.image_new_from_stock(gtk.STOCK_CANCEL, gtk.ICON_SIZE_BUTTON))
+        button = dialog.get_widget_for_response(1)
+        button.set_image(gtk.image_new_from_stock(gtk.STOCK_APPLY, gtk.ICON_SIZE_BUTTON))
+        button.grab_focus()
+    except: pass
+    image = gtk.Image()
+    image.set_from_stock("anchor", gtk.ICON_SIZE_DIALOG)
+    entry = gtk.Entry()
+    entry.set_text(anchor_name)
+    hbox = gtk.HBox()
+    hbox.pack_start(image)
+    hbox.pack_start(entry)
+    hbox.set_spacing(5)
+    content_area = dialog.get_content_area()
+    content_area.pack_start(hbox)
+    def on_key_press_anchoreditdialog(widget, event):
+        keyname = gtk.gdk.keyval_name(event.keyval)
+        if keyname == "Return":
+            try: dialog.get_widget_for_response(1).clicked()
+            except: print cons.STR_PYGTK_222_REQUIRED
+        return True
+    dialog.connect('key_press_event', on_key_press_anchoreditdialog)
+    content_area.show_all()
+    entry.grab_focus()
+    response = dialog.run()
+    dialog.hide()
+    return unicode(entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE).strip() if response == 1 else ""
+
 def dialog_node_delete(father_win, warning_label):
     """Confirmation before Node Remove"""
     dialog = gtk.Dialog(title=_("Warning"),
