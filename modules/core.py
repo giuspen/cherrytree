@@ -168,7 +168,6 @@ class CherryTree:
         self.window.connect('key_press_event', self.on_key_press_window)
         self.window.connect("destroy", self.boss.on_window_destroy_event)
         self.scrolledwindow_tree.connect("size-allocate", self.on_window_n_tree_size_allocate_event)
-        self.glade.anchorhandledialog.connect('key_press_event', self.on_key_press_anchorhandledialog)
         self.glade.choosenodedialog.connect('key_press_event', self.on_key_press_choosenodedialog)
         self.glade.tablehandledialog.connect('key_press_event', self.tables_handler.on_key_press_tablehandledialog)
         self.glade.codeboxhandledialog.connect('key_press_event', self.codeboxes_handler.on_key_press_codeboxhandledialog)
@@ -580,13 +579,6 @@ class CherryTree:
         keyname = gtk.gdk.keyval_name(event.keyval)
         if keyname == "Return":
             try: self.glade.choosenodedialog.get_widget_for_response(1).clicked()
-            except: print cons.STR_PYGTK_222_REQUIRED
-
-    def on_key_press_anchorhandledialog(self, widget, event):
-        """Catches AnchorHandle Dialog key presses"""
-        keyname = gtk.gdk.keyval_name(event.keyval)
-        if keyname == "Return":
-            try: self.glade.anchorhandledialog.get_widget_for_response(1).clicked()
             except: print cons.STR_PYGTK_222_REQUIRED
 
     def nodes_add_from_cherrytree_file(self, action):
@@ -3253,22 +3245,14 @@ class CherryTree:
     def anchor_edit_dialog(self, pixbuf, iter_insert, iter_bound=None):
         """Anchor Edit Dialog"""
         if "anchor" in dir (pixbuf):
-            self.glade.anchor_insert_edit_entry.set_text(pixbuf.anchor)
-            self.glade.anchorhandledialog.set_title(_("Edit Anchor"))
+            anchor_curr_name = pixbuf.anchor
+            dialog_title = _("Edit Anchor")
         else:
-            self.glade.anchor_insert_edit_entry.set_text("")
-            self.glade.anchorhandledialog.set_title(_("Insert Anchor"))
-        self.glade.anchor_insert_edit_entry.grab_focus()
-        self.glade.anchor_enter_name_hbox.show()
-        self.glade.scrolledwindow_anchors_list.hide()
-        response = self.glade.anchorhandledialog.run()
-        self.glade.anchorhandledialog.hide()
-        if response != 1: return # the user aborted the operation
-        anchor = self.glade.anchor_insert_edit_entry.get_text().strip()
-        if anchor == "":
-            support.dialog_error(_("The Anchor Name is Mandatory!"), self.window)
-            return
-        pixbuf.anchor = anchor
+            anchor_curr_name = ""
+            dialog_title = _("Insert Anchor")
+        ret_anchor_name = support.dialog_anchor_handle(self.window, dialog_title, anchor_curr_name)
+        if not ret_anchor_name: return
+        pixbuf.anchor = ret_anchor_name
         if iter_bound != None: # only in case of modify
             image_justification = self.state_machine.get_iter_alignment(iter_insert)
             image_offset = iter_insert.get_offset()
@@ -4145,47 +4129,21 @@ class CherryTree:
 
     def on_browse_anchors_button_clicked(self, *args):
         """Browse for Existing Anchors on the Selected Node"""
-        self.anchors_liststore_exist_or_create()
-        self.anchors_liststore.clear()
         model, tree_iter = self.treeviewselection_2.get_selected()
+        anchors_list = []
         curr_iter = self.treestore[tree_iter][2].get_start_iter()
         while 1:
             anchor = curr_iter.get_child_anchor()
             if anchor != None:
                 if "pixbuf" in dir(anchor) and "anchor" in dir(anchor.pixbuf):
-                    self.anchors_liststore.append([anchor.pixbuf.anchor])
+                    anchors_list.append([anchor.pixbuf.anchor])
             if not curr_iter.forward_char(): break
-        anchor_first_iter = self.anchors_liststore.get_iter_first()
-        if anchor_first_iter == None:
+        if not anchors_list:
             support.dialog_info(_("There are No Anchors in the Selected Node"), self.window)
             return
-        else: self.anchors_treeview.set_cursor(self.anchors_liststore.get_path(anchor_first_iter))
-        self.glade.anchor_enter_name_hbox.hide()
-        self.glade.scrolledwindow_anchors_list.show()
-        self.glade.anchorhandledialog.set_title(_("Choose Existing Anchor"))
-        response = self.glade.anchorhandledialog.run()
-        self.glade.anchorhandledialog.hide()
-        if response != 1: return # the user aborted the operation
-        listmodel, listiter = self.anchors_treeviewselection.get_selected()
-        self.glade.link_anchor_entry.set_text(self.anchors_liststore[listiter][0])
-
-    def anchors_liststore_exist_or_create(self):
-        """If Does Not Exist => Create Anchors Browser Liststore"""
-        if not "anchors_liststore" in dir(self):
-            self.anchors_liststore = gtk.ListStore(str)
-            self.anchors_treeview = gtk.TreeView(self.anchors_liststore)
-            self.anchors_renderer_text = gtk.CellRendererText()
-            self.anchors_column = gtk.TreeViewColumn(_("Anchor Name"), self.anchors_renderer_text, text=0)
-            self.anchors_treeview.append_column(self.anchors_column)
-            self.anchors_treeviewselection = self.anchors_treeview.get_selection()
-            self.anchors_treeview.connect('button-press-event', self.on_mouse_button_clicked_anchors_list)
-            self.glade.scrolledwindow_anchors_list.add(self.anchors_treeview)
-            self.glade.scrolledwindow_anchors_list.show_all()
-
-    def on_mouse_button_clicked_anchors_list(self, widget, event):
-        """Catches mouse buttons clicks"""
-        if event.button != 1: return
-        if event.type == gtk.gdk._2BUTTON_PRESS: self.glade.anchorhandledialog_button_ok.clicked()
+        ret_anchor_name = support.dialog_anchors_list(self.window, _("Choose Existing Anchor"), anchors_list)
+        if not ret_anchor_name: return
+        self.glade.link_anchor_entry.set_text(ret_anchor_name)
 
     def sourceview_cursor_and_tooltips_handler(self, x, y):
         """Looks at all tags covering the position (x, y) in the text view,
