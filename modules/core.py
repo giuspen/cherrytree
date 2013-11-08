@@ -3675,7 +3675,8 @@ class CherryTree:
 
     def strip_trailing_spaces(self, *args):
         """Remove trailing spaces/tabs"""
-        support.strip_trailing_spaces(self.curr_buffer)
+        cleaned_lines = support.strip_trailing_spaces(self.curr_buffer)
+        support.dialog_info("%s " % cleaned_lines + _("Lines Stripped"), self.window)
 
     def apply_tag_foreground(self, *args):
         """The Foreground Color Chooser Button was Pressed"""
