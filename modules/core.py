@@ -503,11 +503,11 @@ class CherryTree:
             elif keyname == "Right":
                 child_iter = self.treestore.iter_children(self.curr_tree_iter)
                 if child_iter: self.treeview_safe_set_cursor(child_iter)
-            elif keyname == "Return": self.toggle_tree_node_expanded_collapsed()
+            elif keyname == cons.STR_RETURN: self.toggle_tree_node_expanded_collapsed()
             elif keyname == "Delete": self.node_delete()
             elif keyname == "Menu":
                 self.menu_tree.popup(None, None, None, 0, event.time)
-        widget.stop_emission("key_press_event")
+        return True
 
     def fullscreen_toggle(self, *args):
         """Toggle Fullscreen State"""
@@ -577,9 +577,11 @@ class CherryTree:
     def on_key_press_choosenodedialog(self, widget, event):
         """Catches ChooseNode Dialog key presses"""
         keyname = gtk.gdk.keyval_name(event.keyval)
-        if keyname == "Return":
+        if keyname == cons.STR_RETURN:
             try: self.glade.choosenodedialog.get_widget_for_response(1).clicked()
             except: print cons.STR_PYGTK_222_REQUIRED
+            return True
+        return False
 
     def nodes_add_from_cherrytree_file(self, action):
         """Appends Nodes at the Bottom of the Current Ones, Importing from a CherryTree File"""
@@ -1407,10 +1409,11 @@ class CherryTree:
                 entry_passw_1.grab_focus()
             else: passw_frame.set_sensitive(False)
         def on_key_press_edit_data_storage_type_dialog(widget, event):
-            if gtk.gdk.keyval_name(event.keyval) == "Return":
+            if gtk.gdk.keyval_name(event.keyval) == cons.STR_RETURN:
                 try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
                 except: print cons.STR_PYGTK_222_REQUIRED
                 return True
+            return False
         radiobutton_sqlite_not_protected.connect("toggled", on_radiobutton_savetype_toggled)
         radiobutton_sqlite_pass_protected.connect("toggled", on_radiobutton_savetype_toggled)
         radiobutton_xml_not_protected.connect("toggled", on_radiobutton_savetype_toggled)
@@ -1470,10 +1473,11 @@ class CherryTree:
         content_area = dialog.get_content_area()
         content_area.pack_start(entry)
         def on_key_press_enter_password_dialog(widget, event):
-            if gtk.gdk.keyval_name(event.keyval) == "Return":
+            if gtk.gdk.keyval_name(event.keyval) == cons.STR_RETURN:
                 try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
                 except: print cons.STR_PYGTK_222_REQUIRED
                 return True
+            return False
         dialog.connect("key_press_event", on_key_press_enter_password_dialog)
         dialog.show_all()
         if not cons.IS_WIN_OS:
@@ -3060,9 +3064,11 @@ class CherryTree:
         search_entry.grab_focus()
         def on_key_press_searchdialog(widget, event):
             keyname = gtk.gdk.keyval_name(event.keyval)
-            if keyname == "Return":
+            if keyname == cons.STR_RETURN:
                 try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
                 except: print cons.STR_PYGTK_222_REQUIRED
+                return True
+            return False
         dialog.connect('key_press_event', on_key_press_searchdialog)
         response = dialog.run()
         dialog.hide()
@@ -3137,9 +3143,11 @@ class CherryTree:
         name_entry.grab_focus()
         def on_key_press_nodepropdialog(widget, event):
             keyname = gtk.gdk.keyval_name(event.keyval)
-            if keyname == "Return":
+            if keyname == cons.STR_RETURN:
                 try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
                 except: print cons.STR_PYGTK_222_REQUIRED
+                return True
+            return False
         def on_radiobutton_rich_text_toggled(radiobutton):
             combobox_prog_lang.set_sensitive(not radiobutton.get_active())
         radiobutton_rich_text.connect("toggled", on_radiobutton_rich_text_toggled)
@@ -3483,25 +3491,15 @@ class CherryTree:
 
     def image_edit_dialog(self, pixbuf, insert_iter, iter_bound=None):
         """Insert/Edit Image Dialog"""
-        self.original_pixbuf = pixbuf
-        self.temp_image_width = pixbuf.get_width()
-        self.temp_image_height = pixbuf.get_height()
-        self.image_w_h_ration = float(self.temp_image_width)/self.temp_image_height
-        self.image_load_into_dialog()
-        response = self.glade.imageeditdialog.run()
-        self.glade.imageeditdialog.hide()
-        if response != 1: return # cancel was pressed
+        ret_pixbuf = support.dialog_image_handle(self.window, _("Image Properties"), pixbuf)
+        if not ret_pixbuf: return
         if iter_bound != None: # only in case of modify
             image_justification = self.state_machine.get_iter_alignment(insert_iter)
             image_offset = insert_iter.get_offset()
             self.curr_buffer.delete(insert_iter, iter_bound)
             insert_iter = self.curr_buffer.get_iter_at_offset(image_offset)
         else: image_justification = None
-        self.image_insert(insert_iter,
-                          self.original_pixbuf.scale_simple(int(self.temp_image_width),
-                                                            int(self.temp_image_height),
-                                                            gtk.gdk.INTERP_BILINEAR),
-                          image_justification)
+        self.image_insert(insert_iter, ret_pixbuf, image_justification)
 
     def image_insert(self, iter_insert, pixbuf, image_justification=None, text_buffer=None):
         if not pixbuf: return
@@ -3592,65 +3590,6 @@ class CherryTree:
             self.ui.get_widget("/AnchorMenu").popup(None, None, None, event.button, event.time)
         elif event.type == gtk.gdk._2BUTTON_PRESS: self.anchor_edit()
         return True # do not propagate the event
-
-    def image_load_into_dialog(self):
-        """Load/Reload the Image Under Editing"""
-        if self.user_active:
-            self.user_active = False
-            user_active_restore = True
-        else: user_active_restore = False
-        self.glade.spinbutton_image_width.set_value(self.temp_image_width)
-        self.glade.spinbutton_image_height.set_value(self.temp_image_height)
-        if self.temp_image_width <= 900 and self.temp_image_height <= 600:
-            # original size into the dialog
-            pixbuf = self.original_pixbuf.scale_simple(int(self.temp_image_width),
-                                                       int(self.temp_image_height),
-                                                       gtk.gdk.INTERP_BILINEAR)
-        else:
-            # reduced size visible into the dialog
-            if self.temp_image_width > 900:
-                temp_image_width = 900
-                temp_image_height = temp_image_width / self.image_w_h_ration
-            else:
-                temp_image_height = 600
-                temp_image_width = temp_image_height * self.image_w_h_ration
-            pixbuf = self.original_pixbuf.scale_simple(int(temp_image_width),
-                                                       int(temp_image_height),
-                                                       gtk.gdk.INTERP_BILINEAR)
-        self.glade.image_under_editing.set_from_pixbuf(pixbuf)
-        if user_active_restore: self.user_active = True
-
-    def on_button_rotate_90_cw_clicked(self, *args):
-        """Image Edit - Rotate 90 ClockWise"""
-        self.original_pixbuf = self.original_pixbuf.rotate_simple(270)
-        self.image_w_h_ration = 1/self.image_w_h_ration
-        new_width = self.temp_image_height # new width is the former height and vice versa
-        self.temp_image_height = self.temp_image_width
-        self.temp_image_width = new_width
-        self.image_load_into_dialog()
-
-    def on_button_rotate_90_ccw_clicked(self, *args):
-        """Image Edit - Rotate 90 CounterClockWise"""
-        self.original_pixbuf = self.original_pixbuf.rotate_simple(90)
-        self.image_w_h_ration = 1/self.image_w_h_ration
-        new_width = self.temp_image_height # new width is the former height and vice versa
-        self.temp_image_height = self.temp_image_width
-        self.temp_image_width = new_width
-        self.image_load_into_dialog()
-
-    def on_spinbutton_image_width_value_changed(self, spinbutton):
-        """Image Edit - Width Change Handling"""
-        if self.user_active:
-            self.temp_image_width = self.glade.spinbutton_image_width.get_value()
-            self.temp_image_height = self.temp_image_width / self.image_w_h_ration
-            self.image_load_into_dialog()
-
-    def on_spinbutton_image_height_value_changed(self, spinbutton):
-        """Image Edit - Height Change Handling"""
-        if self.user_active:
-            self.temp_image_height = self.glade.spinbutton_image_height.get_value()
-            self.temp_image_width = self.temp_image_height * self.image_w_h_ration
-            self.image_load_into_dialog()
 
     def on_spinbutton_anchor_size_value_changed(self, spinbutton):
         """Anchor Size Handling"""
@@ -4231,9 +4170,9 @@ class CherryTree:
         elif event.type == gtk.gdk.KEY_PRESS:
             keyname = gtk.gdk.keyval_name(event.keyval)
             if (event.state & gtk.gdk.SHIFT_MASK): # Shift held down
-                if keyname == "Return":
+                if keyname == cons.STR_RETURN:
                     self.curr_buffer.insert(self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert()), 3*cons.CHAR_SPACE)
-            elif keyname == "Return":
+            elif keyname == cons.STR_RETURN:
                 iter_insert = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
                 if iter_insert == None:
                     return False

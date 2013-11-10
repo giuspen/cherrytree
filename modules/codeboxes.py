@@ -56,7 +56,10 @@ class CodeBoxesHandler:
     def on_key_press_codeboxhandledialog(self, widget, event):
         """Catches CodeBoxHandle Dialog key presses"""
         keyname = gtk.gdk.keyval_name(event.keyval)
-        if keyname == "Return": self.dad.glade.codeboxhandledialog_button_ok.clicked()
+        if keyname == cons.STR_RETURN:
+            self.dad.glade.codeboxhandledialog_button_ok.clicked()
+            return True
+        return False
 
     def codebox_handle(self):
         """Insert Code Box"""

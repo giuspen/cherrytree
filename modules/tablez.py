@@ -50,7 +50,10 @@ class TablesHandler:
     def on_key_press_tablehandledialog(self, widget, event):
         """Catches TableHandle Dialog key presses"""
         keyname = gtk.gdk.keyval_name(event.keyval)
-        if keyname == "Return": self.dad.glade.tablehandledialog_button_ok.clicked()
+        if keyname == cons.STR_RETURN:
+            self.dad.glade.tablehandledialog_button_ok.clicked()
+            return True
+        return False
 
     def table_export(self, action):
         """Table Export as CSV File"""
@@ -208,7 +211,7 @@ class TablesHandler:
                 widget.insert_text(cons.CHAR_NEWLINE, cursor_pos)
                 widget.set_position(cursor_pos+1)
         else:
-            if keyname in ["Return", "Up", "Down"]:
+            if keyname in [cons.STR_RETURN, "Up", "Down"]:
                 if model[path][col_num] != widget.get_text():
                     model[path][col_num] = widget.get_text()
                     self.dad.update_window_save_needed("nbuf", True)

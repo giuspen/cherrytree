@@ -349,10 +349,11 @@ def dialog_anchors_list(father_win, title, anchors_list):
             except: print cons.STR_PYGTK_222_REQUIRED
     def on_key_press_anchorslistdialog(widget, event):
         keyname = gtk.gdk.keyval_name(event.keyval)
-        if keyname == "Return":
+        if keyname == cons.STR_RETURN:
             try: dialog.get_widget_for_response(1).clicked()
             except: print cons.STR_PYGTK_222_REQUIRED
-        return True
+            return True
+        return False
     dialog.connect('key_press_event', on_key_press_anchorslistdialog)
     anchors_treeview.connect('button-press-event', on_mouse_button_clicked_anchors_list)
     anchors_treeview.grab_focus()
@@ -391,9 +392,10 @@ def dialog_anchor_handle(father_win, title, anchor_name):
     content_area.pack_start(hbox)
     def on_key_press_anchoreditdialog(widget, event):
         keyname = gtk.gdk.keyval_name(event.keyval)
-        if keyname == "Return":
+        if keyname == cons.STR_RETURN:
             try: dialog.get_widget_for_response(1).clicked()
             except: print cons.STR_PYGTK_222_REQUIRED
+            return True
         return False
     dialog.connect('key_press_event', on_key_press_anchoreditdialog)
     content_area.show_all()
@@ -401,6 +403,112 @@ def dialog_anchor_handle(father_win, title, anchor_name):
     response = dialog.run()
     dialog.hide()
     return unicode(entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE).strip() if response == 1 else ""
+
+def dialog_image_handle(father_win, title, original_pixbuf):
+    """Insert/Edit Image"""
+    width = original_pixbuf.get_width()
+    height = original_pixbuf.get_height()
+    image_w_h_ration = float(width)/height
+    dialog = gtk.Dialog(title=title,
+        parent=father_win,
+        flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
+        buttons=(_("Cancel"), 2,
+                 _("OK"), 1) )
+    dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+    dialog.set_default_size(600, 600)
+    try:
+        button = dialog.get_widget_for_response(2)
+        button.set_image(gtk.image_new_from_stock(gtk.STOCK_CANCEL, gtk.ICON_SIZE_BUTTON))
+        button = dialog.get_widget_for_response(1)
+        button.set_image(gtk.image_new_from_stock(gtk.STOCK_APPLY, gtk.ICON_SIZE_BUTTON))
+        button.grab_focus()
+    except: pass
+    button_rotate_90_ccw = gtk.Button()
+    button_rotate_90_ccw.set_image(gtk.image_new_from_stock("object-rotate-left", gtk.ICON_SIZE_BUTTON))
+    button_rotate_90_cw = gtk.Button()
+    button_rotate_90_cw.set_image(gtk.image_new_from_stock("object-rotate-right", gtk.ICON_SIZE_BUTTON))
+    scrolledwindow = gtk.ScrolledWindow()
+    scrolledwindow.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+    viewport = gtk.Viewport()
+    image = gtk.image_new_from_pixbuf(original_pixbuf)
+    scrolledwindow.add(viewport)
+    viewport.add(image)
+    hbox_1 = gtk.HBox()
+    hbox_1.pack_start(button_rotate_90_ccw, expand=False)
+    hbox_1.pack_start(scrolledwindow)
+    hbox_1.pack_start(button_rotate_90_cw, expand=False)
+    hbox_1.set_spacing(2)
+    label_width = gtk.Label(_("Width"))
+    adj_width = gtk.Adjustment(value=width, lower=1, upper=10000, step_incr=1)
+    spinbutton_width = gtk.SpinButton(adj_width)
+    label_height = gtk.Label(_("Height"))
+    adj_height = gtk.Adjustment(value=height, lower=1, upper=10000, step_incr=1)
+    spinbutton_height = gtk.SpinButton(adj_height)
+    hbox_2 = gtk.HBox()
+    hbox_2.pack_start(label_width)
+    hbox_2.pack_start(spinbutton_width)
+    hbox_2.pack_start(label_height)
+    hbox_2.pack_start(spinbutton_height)
+    content_area = dialog.get_content_area()
+    content_area.pack_start(hbox_1)
+    content_area.pack_start(hbox_2, expand=False)
+    content_area.set_spacing(6)
+    def image_load_into_dialog(width, height):
+        spinbutton_width.set_value(width)
+        spinbutton_height.set_value(height)
+        if width <= 900 and height <= 600:
+            # original size into the dialog
+            pixbuf = original_pixbuf.scale_simple(int(width), int(height), gtk.gdk.INTERP_BILINEAR)
+        else:
+            # reduced size visible into the dialog
+            if width > 900:
+                width = 900
+                height = width / image_w_h_ration
+            else:
+                height = 600
+                width = height * image_w_h_ration
+            pixbuf = original_pixbuf.scale_simple(int(width), int(height), gtk.gdk.INTERP_BILINEAR)
+        image.set_from_pixbuf(pixbuf)
+    def on_button_rotate_90_cw_clicked(*args):
+        original_pixbuf = original_pixbuf.rotate_simple(270)
+        image_w_h_ration = 1/image_w_h_ration
+        new_width = height # new width is the former height and vice versa
+        height = width
+        width = new_width
+        image_load_into_dialog(width, height)
+    def on_button_rotate_90_ccw_clicked(*args):
+        original_pixbuf = original_pixbuf.rotate_simple(90)
+        image_w_h_ration = 1/image_w_h_ration
+        new_width = height # new width is the former height and vice versa
+        height = width
+        width = new_width
+        image_load_into_dialog(width, height)
+    def on_spinbutton_image_width_value_changed(spinbutton):
+        width = spinbutton_width.get_value()
+        height = width/image_w_h_ration
+        image_load_into_dialog(width, height)
+    def on_spinbutton_image_height_value_changed(spinbutton):
+        height = spinbutton_height.get_value()
+        width = height*image_w_h_ration
+        image_load_into_dialog(width, height)
+    def on_key_press_imagehandledialog(widget, event):
+        keyname = gtk.gdk.keyval_name(event.keyval)
+        if keyname == cons.STR_RETURN:
+            try: dialog.get_widget_for_response(1).clicked()
+            except: print cons.STR_PYGTK_222_REQUIRED
+            return True
+        return False
+    button_rotate_90_ccw.connect('clicked', on_button_rotate_90_ccw_clicked)
+    button_rotate_90_cw.connect('clicked', on_button_rotate_90_cw_clicked)
+    spinbutton_width.connect('value-changed', on_spinbutton_image_width_value_changed)
+    spinbutton_height.connect('value-changed', on_spinbutton_image_height_value_changed)
+    dialog.connect('key_press_event', on_key_press_imagehandledialog)
+    image_load_into_dialog(width, height)
+    content_area.show_all()
+    response = dialog.run()
+    dialog.hide()
+    if response != 1: return None
+    return original_pixbuf.scale_simple(int(width), int(height), gtk.gdk.INTERP_BILINEAR)
 
 def dialog_node_delete(father_win, warning_label):
     """Confirmation before Node Remove"""
@@ -430,10 +538,11 @@ def dialog_node_delete(father_win, warning_label):
     content_area.pack_start(hbox)
     def on_key_press_nodedeletedialog(widget, event):
         keyname = gtk.gdk.keyval_name(event.keyval)
-        if keyname == "Return":
+        if keyname == cons.STR_RETURN:
             try: dialog.get_widget_for_response(1).clicked()
             except: print cons.STR_PYGTK_222_REQUIRED
-        return True
+            return True
+        return False
     dialog.connect('key_press_event', on_key_press_nodedeletedialog)
     content_area.show_all()
     response = dialog.run()
@@ -472,14 +581,15 @@ do you want to save the changes?"""))
     content_area.pack_start(hbox)
     def on_key_press_exitdialog(widget, event):
         keyname = gtk.gdk.keyval_name(event.keyval)
-        if keyname == "Return":
+        if keyname == cons.STR_RETURN:
             try: dialog.get_widget_for_response(2).clicked()
             except: print cons.STR_PYGTK_222_REQUIRED
+            return True
         elif keyname == "Escape":
             try: dialog.get_widget_for_response(6).clicked()
             except: print cons.STR_PYGTK_222_REQUIRED
-        else: print keyname
-        return True
+            return True
+        return False
     dialog.connect('key_press_event', on_key_press_exitdialog)
     content_area.show_all()
     response = dialog.run()
@@ -514,10 +624,11 @@ def dialog_selnode_selnodeandsub_alltree(father_win, also_selection, also_node_n
         content_area.pack_start(separator_item)
         content_area.pack_start(checkbutton_node_name)
     def on_key_press_enter_dialog(widget, event):
-        if gtk.gdk.keyval_name(event.keyval) == "Return":
+        if gtk.gdk.keyval_name(event.keyval) == cons.STR_RETURN:
             try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
             except: print cons.STR_PYGTK_222_REQUIRED
             return True
+        return False
     dialog.connect("key_press_event", on_key_press_enter_dialog)
     content_area.show_all()
     response = dialog.run()
