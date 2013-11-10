@@ -406,9 +406,13 @@ def dialog_anchor_handle(father_win, title, anchor_name):
 
 def dialog_image_handle(father_win, title, original_pixbuf):
     """Insert/Edit Image"""
-    width = original_pixbuf.get_width()
-    height = original_pixbuf.get_height()
-    image_w_h_ration = float(width)/height
+    class ImgParms:
+        def __init__(self, original_pixbuf):
+            self.original_pixbuf = original_pixbuf
+            self.width = original_pixbuf.get_width()
+            self.height = original_pixbuf.get_height()
+            self.image_w_h_ration = float(self.width)/self.height
+    img_parms = ImgParms(original_pixbuf)
     dialog = gtk.Dialog(title=title,
         parent=father_win,
         flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
@@ -424,9 +428,9 @@ def dialog_image_handle(father_win, title, original_pixbuf):
         button.grab_focus()
     except: pass
     button_rotate_90_ccw = gtk.Button()
-    button_rotate_90_ccw.set_image(gtk.image_new_from_stock("object-rotate-left", gtk.ICON_SIZE_BUTTON))
+    button_rotate_90_ccw.set_image(gtk.image_new_from_stock("object-rotate-left", gtk.ICON_SIZE_DND))
     button_rotate_90_cw = gtk.Button()
-    button_rotate_90_cw.set_image(gtk.image_new_from_stock("object-rotate-right", gtk.ICON_SIZE_BUTTON))
+    button_rotate_90_cw.set_image(gtk.image_new_from_stock("object-rotate-right", gtk.ICON_SIZE_DND))
     scrolledwindow = gtk.ScrolledWindow()
     scrolledwindow.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
     viewport = gtk.Viewport()
@@ -439,10 +443,10 @@ def dialog_image_handle(father_win, title, original_pixbuf):
     hbox_1.pack_start(button_rotate_90_cw, expand=False)
     hbox_1.set_spacing(2)
     label_width = gtk.Label(_("Width"))
-    adj_width = gtk.Adjustment(value=width, lower=1, upper=10000, step_incr=1)
+    adj_width = gtk.Adjustment(value=img_parms.width, lower=1, upper=10000, step_incr=1)
     spinbutton_width = gtk.SpinButton(adj_width)
     label_height = gtk.Label(_("Height"))
-    adj_height = gtk.Adjustment(value=height, lower=1, upper=10000, step_incr=1)
+    adj_height = gtk.Adjustment(value=img_parms.height, lower=1, upper=10000, step_incr=1)
     spinbutton_height = gtk.SpinButton(adj_height)
     hbox_2 = gtk.HBox()
     hbox_2.pack_start(label_width)
@@ -453,44 +457,44 @@ def dialog_image_handle(father_win, title, original_pixbuf):
     content_area.pack_start(hbox_1)
     content_area.pack_start(hbox_2, expand=False)
     content_area.set_spacing(6)
-    def image_load_into_dialog(width, height):
-        spinbutton_width.set_value(width)
-        spinbutton_height.set_value(height)
-        if width <= 900 and height <= 600:
+    def image_load_into_dialog():
+        spinbutton_width.set_value(img_parms.width)
+        spinbutton_height.set_value(img_parms.height)
+        if img_parms.width <= 900 and img_parms.height <= 600:
             # original size into the dialog
-            pixbuf = original_pixbuf.scale_simple(int(width), int(height), gtk.gdk.INTERP_BILINEAR)
+            pixbuf = img_parms.original_pixbuf.scale_simple(int(img_parms.width), int(img_parms.height), gtk.gdk.INTERP_BILINEAR)
         else:
             # reduced size visible into the dialog
-            if width > 900:
-                width = 900
-                height = width / image_w_h_ration
+            if img_parms.width > 900:
+                img_parms.width = 900
+                img_parms.height = img_parms.width / img_parms.image_w_h_ration
             else:
-                height = 600
-                width = height * image_w_h_ration
-            pixbuf = original_pixbuf.scale_simple(int(width), int(height), gtk.gdk.INTERP_BILINEAR)
+                img_parms.height = 600
+                img_parms.width = img_parms.height * img_parms.image_w_h_ration
+            pixbuf = img_parms.original_pixbuf.scale_simple(int(img_parms.width), int(img_parms.height), gtk.gdk.INTERP_BILINEAR)
         image.set_from_pixbuf(pixbuf)
     def on_button_rotate_90_cw_clicked(*args):
-        original_pixbuf = original_pixbuf.rotate_simple(270)
-        image_w_h_ration = 1/image_w_h_ration
-        new_width = height # new width is the former height and vice versa
-        height = width
-        width = new_width
-        image_load_into_dialog(width, height)
+        img_parms.original_pixbuf = img_parms.original_pixbuf.rotate_simple(270)
+        img_parms.image_w_h_ration = 1/img_parms.image_w_h_ration
+        new_width = img_parms.height # new width is the former height and vice versa
+        img_parms.height = img_parms.width
+        img_parms.width = new_width
+        image_load_into_dialog()
     def on_button_rotate_90_ccw_clicked(*args):
-        original_pixbuf = original_pixbuf.rotate_simple(90)
-        image_w_h_ration = 1/image_w_h_ration
-        new_width = height # new width is the former height and vice versa
-        height = width
-        width = new_width
-        image_load_into_dialog(width, height)
+        img_parms.original_pixbuf = img_parms.original_pixbuf.rotate_simple(90)
+        img_parms.image_w_h_ration = 1/img_parms.image_w_h_ration
+        new_width = img_parms.height # new width is the former height and vice versa
+        img_parms.height = img_parms.width
+        img_parms.width = new_width
+        image_load_into_dialog()
     def on_spinbutton_image_width_value_changed(spinbutton):
-        width = spinbutton_width.get_value()
-        height = width/image_w_h_ration
-        image_load_into_dialog(width, height)
+        img_parms.width = spinbutton_width.get_value()
+        img_parms.height = img_parms.width/img_parms.image_w_h_ration
+        image_load_into_dialog()
     def on_spinbutton_image_height_value_changed(spinbutton):
-        height = spinbutton_height.get_value()
-        width = height*image_w_h_ration
-        image_load_into_dialog(width, height)
+        img_parms.height = spinbutton_height.get_value()
+        img_parms.width = img_parms.height*img_parms.image_w_h_ration
+        image_load_into_dialog()
     def on_key_press_imagehandledialog(widget, event):
         keyname = gtk.gdk.keyval_name(event.keyval)
         if keyname == cons.STR_RETURN:
@@ -503,12 +507,12 @@ def dialog_image_handle(father_win, title, original_pixbuf):
     spinbutton_width.connect('value-changed', on_spinbutton_image_width_value_changed)
     spinbutton_height.connect('value-changed', on_spinbutton_image_height_value_changed)
     dialog.connect('key_press_event', on_key_press_imagehandledialog)
-    image_load_into_dialog(width, height)
+    image_load_into_dialog()
     content_area.show_all()
     response = dialog.run()
     dialog.hide()
     if response != 1: return None
-    return original_pixbuf.scale_simple(int(width), int(height), gtk.gdk.INTERP_BILINEAR)
+    return img_parms.original_pixbuf.scale_simple(int(img_parms.width), int(img_parms.height), gtk.gdk.INTERP_BILINEAR)
 
 def dialog_node_delete(father_win, warning_label):
     """Confirmation before Node Remove"""
