@@ -1340,8 +1340,16 @@ class CherryTree:
                                               filter_name=_("CherryTree Document"),
                                               curr_folder=self.file_dir,
                                               parent=self.window)
-        if filepath == None: return
-        self.filepath_open(filepath)
+        if not filepath: return
+        self.filepath_boss_open(filepath, "")
+
+    def filepath_boss_open(self, filepath, nodename):
+        """Daddy, please, open a document for me"""
+        self.boss.semaphore.acquire()
+        self.boss.msg_server_to_core['p'] = filepath
+        self.boss.msg_server_to_core['n'] = nodename
+        self.boss.msg_server_to_core['f'] = 1
+        self.boss.semaphore.release()
 
     def filepath_open(self, filepath, force_reset=False):
         """Opens an existing filepath"""
@@ -1604,7 +1612,7 @@ class CherryTree:
 
     def file_new(self, *args):
         """Starts a new unsaved instance"""
-        if self.reset(): self.node_add()
+        self.filepath_boss_open("", "")
 
     def reset(self, force_reset=False):
         """Reset the Application"""
