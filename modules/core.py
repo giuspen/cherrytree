@@ -170,7 +170,6 @@ class CherryTree:
         self.scrolledwindow_tree.connect("size-allocate", self.on_window_n_tree_size_allocate_event)
         self.glade.choosenodedialog.connect('key_press_event', self.on_key_press_choosenodedialog)
         self.glade.tablehandledialog.connect('key_press_event', self.tables_handler.on_key_press_tablehandledialog)
-        self.glade.codeboxhandledialog.connect('key_press_event', self.codeboxes_handler.on_key_press_codeboxhandledialog)
         self.sourcestyleschememanager = gtksourceview2.StyleSchemeManager()
         self.sourceview = gtksourceview2.View()
         self.sourceview.set_sensitive(False)
@@ -2411,14 +2410,6 @@ class CherryTree:
         if "def" in self.available_languages: self.available_languages.remove("def")
         for language_id in sorted(self.available_languages):
             self.prog_lang_liststore.append([self.language_manager.get_language(language_id).get_name(), language_id])
-        combobox = self.glade.combobox_prog_lang_codebox
-        combobox.set_model(self.prog_lang_liststore)
-        cell = gtk.CellRendererText()
-        combobox.pack_start(cell, True)
-        combobox.add_attribute(cell, 'text', 0)
-        if self.syntax_highlighting:
-            combobox.set_active_iter(self.get_combobox_iter_from_value(self.prog_lang_liststore, 1, self.syntax_highlighting))
-        else: combobox.set_active(0)
 
     def on_combobox_country_language_changed(self, combobox):
         """New Country Language Choosed"""
@@ -3102,7 +3093,7 @@ class CherryTree:
                             parent=self.window,
                             flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
                             buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
-                            gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
+                            gtk.STOCK_OK, gtk.RESPONSE_ACCEPT))
         dialog.set_default_size(300, -1)
         dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
         name_entry = gtk.Entry()
@@ -3364,13 +3355,6 @@ class CherryTree:
         if not self.user_active or not radiobutton.get_active(): return
         self.glade.colorbutton_tree_fg.set_sensitive(True)
         self.glade.colorbutton_tree_bg.set_sensitive(True)
-
-    def on_radiobutton_codebox_pixels_toggled(self, radiobutton):
-        """Radiobutton CodeBox Pixels/Percent Toggled"""
-        if not self.user_active: return
-        if radiobutton.get_active():
-            self.glade.spinbutton_codebox_width.set_value(700)
-        else: self.glade.spinbutton_codebox_width.set_value(100)
 
     def is_curr_node_not_syntax_highlighting_or_error(self):
         """Returns True if ok (no syntax highlighting) or False and prompts error dialog"""

@@ -118,14 +118,12 @@ def config_file_load(inst):
         
         section = "codebox"
         if config.has_option(section, "codebox_width"):
-            inst.glade.spinbutton_codebox_width.set_value(config.getfloat(section, "codebox_width"))
-        else: inst.glade.spinbutton_codebox_width.set_value(700)
+            inst.codebox_width = config.getfloat(section, "codebox_width")
+        else: inst.codebox_width = 700
         if config.has_option(section, "codebox_height"):
-            inst.glade.spinbutton_codebox_height.set_value(config.getfloat(section, "codebox_height"))
-        else: inst.glade.spinbutton_codebox_height.set_value(100)
-        if config.has_option(section, "codebox_width_pixels"):
-            inst.glade.radiobutton_codebox_pixels.set_active(config.getboolean(section, "codebox_width_pixels"))
-            inst.glade.radiobutton_codebox_percent.set_active(not config.getboolean(section, "codebox_width_pixels"))
+            inst.codebox_height = config.getfloat(section, "codebox_height")
+        else: inst.codebox_height = 100
+        inst.codebox_width_pixels = config.getboolean(section, "codebox_width_pixels") if config.has_option(section, "codebox_width_pixels") else True
         
         section = "table"
         inst.table_rows = config.getint(section, "table_rows") if config.has_option(section, "table_rows") else 3
@@ -208,8 +206,9 @@ def config_file_load(inst):
         inst.filelink_custom_action = [False, LINK_CUSTOM_ACTION_DEFAULT_FILE]
         inst.folderlink_custom_action = [False, LINK_CUSTOM_ACTION_DEFAULT_FILE]
         inst.timestamp_format = "%Y/%m/%d - %H:%M"
-        inst.glade.spinbutton_codebox_width.set_value(700)
-        inst.glade.spinbutton_codebox_height.set_value(100)
+        inst.codebox_width = 700
+        inst.codebox_width_pixels = True
+        inst.codebox_height = 100
         inst.check_version = False
         inst.reload_doc_last = True
         inst.enable_mod_time_sentinel = True
@@ -407,9 +406,9 @@ def config_file_save(inst):
     
     section = "codebox"
     config.add_section(section)
-    config.set(section, "codebox_width", inst.glade.spinbutton_codebox_width.get_value())
-    config.set(section, "codebox_height", inst.glade.spinbutton_codebox_height.get_value())
-    config.set(section, "codebox_width_pixels", inst.glade.radiobutton_codebox_pixels.get_active())
+    config.set(section, "codebox_width", inst.codebox_width)
+    config.set(section, "codebox_height", inst.codebox_height)
+    config.set(section, "codebox_width_pixels", inst.codebox_width_pixels)
     
     section = "table"
     config.add_section(section)
