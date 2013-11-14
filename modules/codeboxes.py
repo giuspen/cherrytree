@@ -53,13 +53,106 @@ class CodeBoxesHandler:
         self.dad.curr_buffer.delete_selection(True, self.dad.sourceview.get_editable())
         self.dad.sourceview.grab_focus()
 
-    def on_key_press_codeboxhandledialog(self, widget, event):
-        """Catches CodeBoxHandle Dialog key presses"""
-        keyname = gtk.gdk.keyval_name(event.keyval)
-        if keyname == cons.STR_RETURN:
-            self.dad.glade.codeboxhandledialog_button_ok.clicked()
-            return True
-        return False
+    def dialog_codeboxhandle(self, title, syntax_highl, line_num, match_bra):
+        """Opens the CodeBox Handle Dialog"""
+        dialog = gtk.Dialog(title=title,
+                            parent=self.dad.window,
+                            flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
+                            buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
+                            gtk.STOCK_OK, gtk.RESPONSE_ACCEPT))
+        dialog.set_default_size(300, -1)
+        dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+        
+        combobox_prog_lang = gtk.ComboBox(model=self.dad.prog_lang_liststore)
+        cell = gtk.CellRendererText()
+        combobox_prog_lang.pack_start(cell, True)
+        combobox_prog_lang.add_attribute(cell, 'text', 0)
+        combobox_prog_lang.set_active_iter(self.dad.get_combobox_iter_from_value(self.dad.prog_lang_liststore, 1, syntax_highl))
+        
+        type_frame = gtk.Frame(label="<b>"+_("Automatic Syntax Highlighting")+"</b>")
+        type_frame.get_label_widget().set_use_markup(True)
+        type_frame.set_shadow_type(gtk.SHADOW_NONE)
+        type_frame.add(combobox_prog_lang)
+        
+        label_width = gtk.Label(_("Width"))
+        adj_width = gtk.Adjustment(value=self.dad.codebox_width, lower=1, upper=10000, step_incr=1)
+        spinbutton_width = gtk.SpinButton(adj_width)
+        spinbutton_width.set_value(self.dad.codebox_width)
+        label_height = gtk.Label(_("Height"))
+        adj_height = gtk.Adjustment(value=self.dad.codebox_height, lower=1, upper=10000, step_incr=1)
+        spinbutton_height = gtk.SpinButton(adj_height)
+        spinbutton_height.set_value(self.dad.codebox_height)
+        
+        radiobutton_codebox_pixels = gtk.RadioButton(label=_("pixels"))
+        radiobutton_codebox_percent = gtk.RadioButton(label="%")
+        radiobutton_codebox_percent.set_group(radiobutton_codebox_pixels)
+        radiobutton_codebox_pixels.set_active(self.dad.codebox_width_pixels)
+        radiobutton_codebox_percent.set_active(not self.dad.codebox_width_pixels)
+        
+        vbox_pix_perc = gtk.VBox()
+        vbox_pix_perc.pack_start(radiobutton_codebox_pixels)
+        vbox_pix_perc.pack_start(radiobutton_codebox_percent)
+        hbox_width = gtk.HBox()
+        hbox_width.pack_start(label_width, expand=False)
+        hbox_width.pack_start(spinbutton_width, expand=False)
+        hbox_width.pack_start(vbox_pix_perc)
+        hbox_width.set_spacing(5)
+        hbox_height = gtk.HBox()
+        hbox_height.pack_start(label_height, expand=False)
+        hbox_height.pack_start(spinbutton_height, expand=False)
+        hbox_height.set_spacing(5)
+        vbox_size = gtk.VBox()
+        vbox_size.pack_start(hbox_width)
+        vbox_size.pack_start(hbox_height)
+        
+        size_frame = gtk.Frame(label="<b>"+_("Size")+"</b>")
+        size_frame.get_label_widget().set_use_markup(True)
+        size_frame.set_shadow_type(gtk.SHADOW_NONE)
+        size_frame.add(vbox_size)
+        
+        checkbutton_codebox_linenumbers = gtk.CheckButton(label=_("Show Line Numbers"))
+        checkbutton_codebox_linenumbers.set_active(line_num)
+        checkbutton_codebox_matchbrackets = gtk.CheckButton(label=_("Highlight Matching Brackets"))
+        checkbutton_codebox_matchbrackets.set_active(match_bra)
+        vbox_options = gtk.VBox()
+        vbox_options.pack_start(checkbutton_codebox_linenumbers)
+        vbox_options.pack_start(checkbutton_codebox_matchbrackets)
+        
+        options_frame = gtk.Frame(label="<b>"+_("Options")+"</b>")
+        options_frame.get_label_widget().set_use_markup(True)
+        options_frame.set_shadow_type(gtk.SHADOW_NONE)
+        options_frame.add(vbox_options)
+        
+        content_area = dialog.get_content_area()
+        content_area.set_spacing(5)
+        content_area.pack_start(type_frame)
+        content_area.pack_start(size_frame)
+        content_area.pack_start(options_frame)
+        content_area.show_all()
+        def on_key_press_codeboxhandle(widget, event):
+            keyname = gtk.gdk.keyval_name(event.keyval)
+            if keyname == cons.STR_RETURN:
+                try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
+                except: print cons.STR_PYGTK_222_REQUIRED
+                return True
+            return False
+        def on_radiobutton_codebox_pixels_toggled(radiobutton):
+            if radiobutton.get_active():
+                spinbutton_width.set_value(700)
+            else: spinbutton_width.set_value(90)
+        dialog.connect('key_press_event', on_key_press_codeboxhandle)
+        radiobutton_codebox_pixels.connect('toggled', on_radiobutton_codebox_pixels_toggled)
+        response = dialog.run()
+        dialog.hide()
+        if response == gtk.RESPONSE_ACCEPT:
+            ret_syntax = self.dad.prog_lang_liststore[combobox_prog_lang.get_active_iter()][1]
+            self.dad.codebox_width = spinbutton_width.get_value()
+            self.dad.codebox_width_pixels = radiobutton_codebox_pixels.get_active()
+            self.dad.codebox_height = spinbutton_height.get_value()
+            ret_line_num = checkbutton_codebox_linenumbers.get_active()
+            ret_match_bra = checkbutton_codebox_matchbrackets.get_active()
+            return [ret_syntax, ret_line_num, ret_match_bra]
+        return [None, None, None]
 
     def codebox_handle(self):
         """Insert Code Box"""
@@ -67,17 +160,15 @@ class CodeBoxesHandler:
             iter_sel_start, iter_sel_end = self.dad.curr_buffer.get_selection_bounds()
             fill_text = unicode(self.dad.curr_buffer.get_text(iter_sel_start, iter_sel_end), cons.STR_UTF8, cons.STR_IGNORE)
         else: fill_text = None
-        self.dad.glade.codeboxhandledialog.set_title(_("Insert a CodeBox"))
-        response = self.dad.glade.codeboxhandledialog.run()
-        self.dad.glade.codeboxhandledialog.hide()
-        if response != 1: return # the user aborted the operation
+        ret_syntax, ret_line_num, ret_match_bra = self.dialog_codeboxhandle(_("Insert a CodeBox"), "sh", False, True)
+        if not ret_syntax: return
         codebox_dict = {
-           'frame_width': int(self.dad.glade.spinbutton_codebox_width.get_value()),
-           'frame_height': int(self.dad.glade.spinbutton_codebox_height.get_value()),
-           'width_in_pixels': self.dad.glade.radiobutton_codebox_pixels.get_active(),
-           'syntax_highlighting': self.dad.prog_lang_liststore[self.dad.glade.combobox_prog_lang_codebox.get_active_iter()][1],
-           'highlight_brackets': self.dad.glade.checkbutton_codebox_matchbrackets.get_active(),
-           'show_line_numbers': self.dad.glade.checkbutton_codebox_linenumbers.get_active(),
+           'frame_width': int(self.dad.codebox_width),
+           'frame_height': int(self.dad.codebox_height),
+           'width_in_pixels': self.dad.codebox_width_pixels,
+           'syntax_highlighting': ret_syntax,
+           'highlight_brackets': ret_match_bra,
+           'show_line_numbers': ret_line_num,
            'fill_text': fill_text
         }
         if fill_text: self.dad.curr_buffer.delete(iter_sel_start, iter_sel_end)
@@ -189,30 +280,19 @@ class CodeBoxesHandler:
 
     def codebox_change_properties(self, action):
         """Change CodeBox Properties"""
-        if self.dad.user_active:
-            self.dad.user_active = False
-            user_active_restore = True
-        else: user_active_restore = False
-        self.dad.glade.spinbutton_codebox_width.set_value(self.curr_codebox_anchor.frame_width)
-        self.dad.glade.spinbutton_codebox_height.set_value(self.curr_codebox_anchor.frame_height)
-        self.dad.glade.radiobutton_codebox_pixels.set_active(self.curr_codebox_anchor.width_in_pixels)
-        self.dad.glade.radiobutton_codebox_percent.set_active(not self.curr_codebox_anchor.width_in_pixels)
-        self.dad.glade.checkbutton_codebox_matchbrackets.set_active(self.curr_codebox_anchor.highlight_brackets)
-        self.dad.glade.checkbutton_codebox_linenumbers.set_active(self.curr_codebox_anchor.show_line_numbers)
-        self.dad.glade.combobox_prog_lang_codebox.set_active_iter(self.dad.get_combobox_iter_from_value(self.dad.prog_lang_liststore, 1, self.curr_codebox_anchor.syntax_highlighting))
-        self.dad.glade.codeboxhandledialog.set_title(_("Edit CodeBox"))
-        if user_active_restore: self.dad.user_active = True
-        response = self.dad.glade.codeboxhandledialog.run()
-        self.dad.glade.codeboxhandledialog.hide()
-        if response != 1: return # the user aborted the operation
-        self.curr_codebox_anchor.syntax_highlighting = self.dad.prog_lang_liststore[self.dad.glade.combobox_prog_lang_codebox.get_active_iter()][1]
+        self.dad.codebox_width = self.curr_codebox_anchor.frame_width
+        self.dad.codebox_width_pixels = self.curr_codebox_anchor.width_in_pixels
+        self.dad.codebox_height = self.curr_codebox_anchor.frame_height
+        ret_syntax, ret_line_num, ret_match_bra = self.dialog_codeboxhandle(_("Edit CodeBox"), self.curr_codebox_anchor.syntax_highlighting, self.curr_codebox_anchor.show_line_numbers, self.curr_codebox_anchor.highlight_brackets)
+        if not ret_syntax: return
+        self.curr_codebox_anchor.syntax_highlighting = ret_syntax
         self.dad.set_sourcebuffer_syntax_highlight(self.curr_codebox_anchor.sourcebuffer, self.curr_codebox_anchor.syntax_highlighting)
-        self.curr_codebox_anchor.frame_width = int(self.dad.glade.spinbutton_codebox_width.get_value())
-        self.curr_codebox_anchor.frame_height = int(self.dad.glade.spinbutton_codebox_height.get_value())
-        self.curr_codebox_anchor.width_in_pixels = self.dad.glade.radiobutton_codebox_pixels.get_active()
-        self.curr_codebox_anchor.highlight_brackets = self.dad.glade.checkbutton_codebox_matchbrackets.get_active()
+        self.curr_codebox_anchor.frame_width = int(self.dad.codebox_width)
+        self.curr_codebox_anchor.frame_height = int(self.dad.codebox_height)
+        self.curr_codebox_anchor.width_in_pixels = self.dad.codebox_width_pixels
+        self.curr_codebox_anchor.highlight_brackets = ret_match_bra
         self.curr_codebox_anchor.sourcebuffer.set_highlight_matching_brackets(self.curr_codebox_anchor.highlight_brackets)
-        self.curr_codebox_anchor.show_line_numbers = self.dad.glade.checkbutton_codebox_linenumbers.get_active()
+        self.curr_codebox_anchor.show_line_numbers = ret_line_num
         self.curr_codebox_anchor.sourceview.set_show_line_numbers(self.curr_codebox_anchor.show_line_numbers)
         self.codebox_apply_width_height(self.curr_codebox_anchor)
         self.dad.update_window_save_needed("nbuf", True)
