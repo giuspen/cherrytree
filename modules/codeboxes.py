@@ -68,11 +68,14 @@ class CodeBoxesHandler:
         combobox_prog_lang.pack_start(cell, True)
         combobox_prog_lang.add_attribute(cell, 'text', 0)
         combobox_prog_lang.set_active_iter(self.dad.get_combobox_iter_from_value(self.dad.prog_lang_liststore, 1, syntax_highl))
+        type_vbox = gtk.VBox()
+        type_vbox.pack_start(combobox_prog_lang)
+        type_vbox.set_border_width(6)
         
         type_frame = gtk.Frame(label="<b>"+_("Automatic Syntax Highlighting")+"</b>")
         type_frame.get_label_widget().set_use_markup(True)
         type_frame.set_shadow_type(gtk.SHADOW_NONE)
-        type_frame.add(combobox_prog_lang)
+        type_frame.add(type_vbox)
         
         label_width = gtk.Label(_("Width"))
         adj_width = gtk.Adjustment(value=self.dad.codebox_width, lower=1, upper=10000, step_incr=1)
@@ -104,11 +107,14 @@ class CodeBoxesHandler:
         vbox_size = gtk.VBox()
         vbox_size.pack_start(hbox_width)
         vbox_size.pack_start(hbox_height)
+        size_align = gtk.Alignment()
+        size_align.set_padding(0, 6, 6, 6)
+        size_align.add(vbox_size)
         
         size_frame = gtk.Frame(label="<b>"+_("Size")+"</b>")
         size_frame.get_label_widget().set_use_markup(True)
         size_frame.set_shadow_type(gtk.SHADOW_NONE)
-        size_frame.add(vbox_size)
+        size_frame.add(size_align)
         
         checkbutton_codebox_linenumbers = gtk.CheckButton(label=_("Show Line Numbers"))
         checkbutton_codebox_linenumbers.set_active(line_num)
@@ -117,11 +123,14 @@ class CodeBoxesHandler:
         vbox_options = gtk.VBox()
         vbox_options.pack_start(checkbutton_codebox_linenumbers)
         vbox_options.pack_start(checkbutton_codebox_matchbrackets)
+        opt_align = gtk.Alignment()
+        opt_align.set_padding(6, 6, 6, 6)
+        opt_align.add(vbox_options)
         
         options_frame = gtk.Frame(label="<b>"+_("Options")+"</b>")
         options_frame.get_label_widget().set_use_markup(True)
         options_frame.set_shadow_type(gtk.SHADOW_NONE)
-        options_frame.add(vbox_options)
+        options_frame.add(opt_align)
         
         content_area = dialog.get_content_area()
         content_area.set_spacing(5)
