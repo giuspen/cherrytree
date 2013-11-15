@@ -47,13 +47,205 @@ class TablesHandler:
         self.dad.curr_buffer.delete_selection(True, self.dad.sourceview.get_editable())
         self.dad.sourceview.grab_focus()
 
-    def on_key_press_tablehandledialog(self, widget, event):
-        """Catches TableHandle Dialog key presses"""
-        keyname = gtk.gdk.keyval_name(event.keyval)
-        if keyname == cons.STR_RETURN:
-            self.dad.glade.tablehandledialog_button_ok.clicked()
-            return True
-        return False
+    def dialog_tablecolhandle(self, title, rename_text):
+        """Opens the Table Column Handle Dialog"""
+        dialog = gtk.Dialog(title=title,
+                            parent=self.dad.window,
+                            flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
+                            buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
+                            gtk.STOCK_OK, gtk.RESPONSE_ACCEPT))
+        dialog.set_default_size(300, -1)
+        dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+        
+        table_column_rename_entry = gtk.Entry()
+        table_column_rename_entry.set_text(rename_text)
+        table_column_rename_entry.set_sensitive(self.dad.table_column_mode == 'rename')
+        
+        hbox_column_rename = gtk.HBox()
+        image_column_rename = gtk.Image()
+        image_column_rename.set_from_stock(gtk.STOCK_EDIT, gtk.ICON_SIZE_BUTTON)
+        table_column_rename_radiobutton = gtk.RadioButton(label=_("Rename Column"))
+        hbox_column_rename.pack_start(image_column_rename, expand=False)
+        hbox_column_rename.pack_start(table_column_rename_radiobutton)
+        
+        hbox_column_delete = gtk.HBox()
+        image_column_delete = gtk.Image()
+        image_column_delete.set_from_stock(gtk.STOCK_CLEAR, gtk.ICON_SIZE_BUTTON)
+        table_column_delete_radiobutton = gtk.RadioButton(label=_("Delete Column"))
+        table_column_delete_radiobutton.set_group(table_column_rename_radiobutton)
+        hbox_column_delete.pack_start(image_column_delete, expand=False)
+        hbox_column_delete.pack_start(table_column_delete_radiobutton)
+        
+        hbox_column_add = gtk.HBox()
+        image_column_add = gtk.Image()
+        image_column_add.set_from_stock(gtk.STOCK_ADD, gtk.ICON_SIZE_BUTTON)
+        table_column_add_radiobutton = gtk.RadioButton(label=_("Add Column"))
+        table_column_add_radiobutton.set_group(table_column_rename_radiobutton)
+        table_column_new_entry = gtk.Entry()
+        hbox_column_add.pack_start(image_column_add, expand=False)
+        hbox_column_add.pack_start(table_column_add_radiobutton)
+        hbox_column_add.pack_start(table_column_new_entry)
+        table_column_new_entry.set_sensitive(self.dad.table_column_mode == 'add')
+        
+        hbox_column_left = gtk.HBox()
+        image_column_left = gtk.Image()
+        image_column_left.set_from_stock(gtk.STOCK_GO_BACK, gtk.ICON_SIZE_BUTTON)
+        table_column_left_radiobutton = gtk.RadioButton(label=_("Move Column Left"))
+        table_column_left_radiobutton.set_group(table_column_rename_radiobutton)
+        hbox_column_left.pack_start(image_column_left, expand=False)
+        hbox_column_left.pack_start(table_column_left_radiobutton)
+        
+        hbox_column_right = gtk.HBox()
+        image_column_right = gtk.Image()
+        image_column_right.set_from_stock(gtk.STOCK_GO_FORWARD, gtk.ICON_SIZE_BUTTON)
+        table_column_right_radiobutton = gtk.RadioButton(label=_("Move Column Right"))
+        table_column_right_radiobutton.set_group(table_column_rename_radiobutton)
+        hbox_column_right.pack_start(image_column_right, expand=False)
+        hbox_column_right.pack_start(table_column_right_radiobutton)
+        
+        table_column_rename_radiobutton.set_active(self.dad.table_column_mode == "rename")
+        table_column_delete_radiobutton.set_active(self.dad.table_column_mode == "delete")
+        table_column_add_radiobutton.set_active(self.dad.table_column_mode == "add")
+        table_column_left_radiobutton.set_active(self.dad.table_column_mode == cons.TAG_PROP_LEFT)
+        table_column_right_radiobutton.set_active(self.dad.table_column_mode == cons.TAG_PROP_RIGHT)
+        
+        tablehandle_vbox_col = gtk.VBox()
+        tablehandle_vbox_col.pack_start(table_column_rename_entry)
+        tablehandle_vbox_col.pack_start(hbox_column_rename)
+        tablehandle_vbox_col.pack_start(hbox_column_delete)
+        tablehandle_vbox_col.pack_start(hbox_column_add)
+        tablehandle_vbox_col.pack_start(hbox_column_left)
+        tablehandle_vbox_col.pack_start(hbox_column_right)
+        
+        content_area = dialog.get_content_area()
+        content_area.set_spacing(5)
+        content_area.pack_start(tablehandle_vbox_col)
+        content_area.show_all()
+        def on_key_press_tablecolhandle(widget, event):
+            keyname = gtk.gdk.keyval_name(event.keyval)
+            if keyname == cons.STR_RETURN:
+                try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
+                except: print cons.STR_PYGTK_222_REQUIRED
+                return True
+            return False
+        def on_table_column_rename_radiobutton_toggled(radiobutton):
+            if radiobutton.get_active():
+                table_column_rename_entry.set_sensitive(True)
+                self.dad.table_column_mode = "rename"
+            else: table_column_rename_entry.set_sensitive(False)
+        def on_table_column_delete_radiobutton_toggled(radiobutton):
+            if radiobutton.get_active(): self.dad.table_column_mode = "delete"
+        def on_table_column_add_radiobutton_toggled(radiobutton):
+            if radiobutton.get_active():
+                table_column_new_entry.set_sensitive(True)
+                self.dad.table_column_mode = "add"
+            else: table_column_new_entry.set_sensitive(False)
+        def on_table_column_left_radiobutton_toggled(radiobutton):
+            if radiobutton.get_active(): self.dad.table_column_mode = cons.TAG_PROP_LEFT
+        def on_table_column_right_radiobutton_toggled(radiobutton):
+            if radiobutton.get_active(): self.dad.table_column_mode = cons.TAG_PROP_RIGHT
+        dialog.connect('key_press_event', on_key_press_tablecolhandle)
+        table_column_rename_radiobutton.connect('toggled', on_table_column_rename_radiobutton_toggled)
+        table_column_delete_radiobutton.connect('toggled', on_table_column_delete_radiobutton_toggled)
+        table_column_add_radiobutton.connect('toggled', on_table_column_add_radiobutton_toggled)
+        table_column_left_radiobutton.connect('toggled', on_table_column_left_radiobutton_toggled)
+        table_column_right_radiobutton.connect('toggled', on_table_column_right_radiobutton_toggled)
+        response = dialog.run()
+        dialog.hide()
+        if response == gtk.RESPONSE_ACCEPT:
+            ret_rename = unicode(table_column_rename_entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE)
+            ret_add = unicode(table_column_new_entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE)
+            return [True, ret_rename, ret_add]
+        return [False, None, None]
+
+    def dialog_tablehandle(self, title, is_insert):
+        """Opens the Table Handle Dialog"""
+        dialog = gtk.Dialog(title=title,
+                            parent=self.dad.window,
+                            flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
+                            buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
+                            gtk.STOCK_OK, gtk.RESPONSE_ACCEPT))
+        dialog.set_default_size(300, -1)
+        dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+        
+        label_rows = gtk.Label(_("Rows"))
+        adj_rows = gtk.Adjustment(value=self.dad.table_rows, lower=1, upper=10000, step_incr=1)
+        spinbutton_rows = gtk.SpinButton(adj_rows)
+        spinbutton_rows.set_value(self.dad.table_rows)
+        label_columns = gtk.Label(_("Columns"))
+        adj_columns = gtk.Adjustment(value=self.dad.table_columns, lower=1, upper=10000, step_incr=1)
+        spinbutton_columns = gtk.SpinButton(adj_columns)
+        spinbutton_columns.set_value(self.dad.table_columns)
+        
+        hbox_rows_cols = gtk.HBox()
+        hbox_rows_cols.pack_start(label_rows, expand=False)
+        hbox_rows_cols.pack_start(spinbutton_rows, expand=False)
+        hbox_rows_cols.pack_start(label_columns, expand=False)
+        hbox_rows_cols.pack_start(spinbutton_columns, expand=False)
+        hbox_rows_cols.set_spacing(5)
+        size_align = gtk.Alignment()
+        size_align.set_padding(6, 6, 6, 6)
+        size_align.add(hbox_rows_cols)
+        
+        size_frame = gtk.Frame(label="<b>"+_("Table Size")+"</b>")
+        size_frame.get_label_widget().set_use_markup(True)
+        size_frame.set_shadow_type(gtk.SHADOW_NONE)
+        size_frame.add(size_align)
+        
+        label_col_min = gtk.Label(_("Min Width"))
+        adj_col_min = gtk.Adjustment(value=self.dad.table_col_min, lower=1, upper=10000, step_incr=1)
+        spinbutton_col_min = gtk.SpinButton(adj_col_min)
+        spinbutton_col_min.set_value(self.dad.table_col_min)
+        label_col_max = gtk.Label(_("Max Width"))
+        adj_col_max = gtk.Adjustment(value=self.dad.table_col_max, lower=1, upper=10000, step_incr=1)
+        spinbutton_col_max = gtk.SpinButton(adj_col_max)
+        spinbutton_col_max.set_value(self.dad.table_col_max)
+        
+        hbox_col_min_max = gtk.HBox()
+        hbox_col_min_max.pack_start(label_col_min, expand=False)
+        hbox_col_min_max.pack_start(spinbutton_col_min, expand=False)
+        hbox_col_min_max.pack_start(label_col_max, expand=False)
+        hbox_col_min_max.pack_start(spinbutton_col_max, expand=False)
+        hbox_col_min_max.set_spacing(5)
+        col_min_max_align = gtk.Alignment()
+        col_min_max_align.set_padding(6, 6, 6, 6)
+        col_min_max_align.add(hbox_col_min_max)
+        
+        col_min_max_frame = gtk.Frame(label="<b>"+_("Column Properties")+"</b>")
+        col_min_max_frame.get_label_widget().set_use_markup(True)
+        col_min_max_frame.set_shadow_type(gtk.SHADOW_NONE)
+        col_min_max_frame.add(col_min_max_align)
+        
+        checkbutton_table_ins_from_file = gtk.CheckButton(label=_("Import from CSV File"))
+        
+        content_area = dialog.get_content_area()
+        content_area.set_spacing(5)
+        if is_insert: content_area.pack_start(size_frame)
+        content_area.pack_start(col_min_max_frame)
+        if is_insert: content_area.pack_start(checkbutton_table_ins_from_file)
+        content_area.show_all()
+        def on_key_press_tablehandle(widget, event):
+            keyname = gtk.gdk.keyval_name(event.keyval)
+            if keyname == cons.STR_RETURN:
+                try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
+                except: print cons.STR_PYGTK_222_REQUIRED
+                return True
+            return False
+        def on_checkbutton_table_ins_from_file_toggled(checkbutton):
+            size_frame.set_sensitive(not checkbutton.get_active())
+            col_min_max_frame.set_sensitive(not checkbutton.get_active())
+        dialog.connect('key_press_event', on_key_press_tablehandle)
+        checkbutton_table_ins_from_file.connect('toggled', on_checkbutton_table_ins_from_file_toggled)
+        response = dialog.run()
+        dialog.hide()
+        if response == gtk.RESPONSE_ACCEPT:
+            self.dad.table_rows = int(spinbutton_rows.get_value())
+            self.dad.table_columns = int(spinbutton_columns.get_value())
+            self.dad.table_col_min = int(spinbutton_col_min.get_value())
+            self.dad.table_col_max = int(spinbutton_col_max.get_value())
+            ret_csv = checkbutton_table_ins_from_file.get_active()
+            return [True, ret_csv]
+        return [False, None]
 
     def table_export(self, action):
         """Table Export as CSV File"""
@@ -75,20 +267,9 @@ class TablesHandler:
     def table_handle(self):
         """Insert Table"""
         iter_insert = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
-        self.dad.glade.tablehandledialog.set_title(_("Insert Table"))
-        self.dad.glade.tablehandle_frame_table.show()
-        self.dad.glade.tablehandle_frame_col.show()
-        self.dad.glade.checkbutton_table_ins_from_file.set_active(False)
-        self.dad.glade.checkbutton_table_ins_from_file.show()
-        self.dad.glade.tablehandle_vbox_col.hide()
-        response = self.dad.glade.tablehandledialog.run()
-        self.dad.glade.tablehandledialog.hide()
-        if response != 1: return
-        if not self.dad.glade.checkbutton_table_ins_from_file.get_active():
-            self.table_rows = int(self.dad.glade.spinbutton_table_rows.get_value())
-            self.table_columns = int(self.dad.glade.spinbutton_table_columns.get_value())
-            self.table_col_min = int(self.dad.glade.spinbutton_table_col_min.get_value())
-            self.table_col_max = int(self.dad.glade.spinbutton_table_col_max.get_value())
+        ret_ok, ret_csv = self.dialog_tablehandle(_("Insert Table"), True)
+        if not ret_ok: return
+        if not ret_csv:
             self.table_insert(iter_insert)
         else:
             filepath = support.dialog_file_select(filter_pattern=["*.csv"],
@@ -115,19 +296,19 @@ class TablesHandler:
         """Insert a Table at the Given Iter"""
         if not text_buffer: text_buffer = self.dad.curr_buffer
         if table != None:
-            self.table_columns = len(table['matrix'][0])
-            self.table_rows = len(table['matrix']) - 1
+            self.dad.table_columns = len(table['matrix'][0])
+            self.dad.table_rows = len(table['matrix']) - 1
             headers = table['matrix'][-1]
             table_col_min = table['col_min']
             table_col_max = table['col_max']
         else:
-            headers = [_("click me")]*self.table_columns
-            table_col_min = self.table_col_min
-            table_col_max = self.table_col_max
+            headers = [_("click me")]*self.dad.table_columns
+            table_col_min = self.dad.table_col_min
+            table_col_max = self.dad.table_col_max
         anchor = text_buffer.create_child_anchor(iter_insert)
-        anchor.liststore = gtk.ListStore(*(str,)*self.table_columns)
+        anchor.liststore = gtk.ListStore(*(str,)*self.dad.table_columns)
         anchor.treeview = gtk.TreeView(anchor.liststore)
-        for element in range(self.table_columns):
+        for element in range(self.dad.table_columns):
             label = gtk.Label('<b>' + headers[element] + '</b>')
             label.set_use_markup(True)
             label.set_tooltip_text(_("Click to Edit the Column Settings"))
@@ -158,10 +339,10 @@ class TablesHandler:
         anchor.eventbox.add(anchor.frame)
         self.dad.sourceview.add_child_at_anchor(anchor.eventbox, anchor)
         anchor.eventbox.show_all()
-        for row in range(self.table_rows):
-            row_iter = anchor.liststore.append([""]*self.table_columns)
+        for row in range(self.dad.table_rows):
+            row_iter = anchor.liststore.append([""]*self.dad.table_columns)
             if table != None:
-                for column in range(self.table_columns):
+                for column in range(self.dad.table_columns):
                     try: anchor.liststore[row_iter][column] = table['matrix'][row][column]
                     except: pass # there are cases when some rows have less columns
         if table_justification:
@@ -173,24 +354,13 @@ class TablesHandler:
 
     def table_edit_properties(self, *args):
         """Edit Table Properties"""
-        self.table_col_min = self.curr_table_anchor.table_col_min
-        self.table_col_max = self.curr_table_anchor.table_col_max
-        self.dad.glade.spinbutton_table_col_min.set_value(self.curr_table_anchor.table_col_min)
-        self.dad.glade.spinbutton_table_col_max.set_value(self.curr_table_anchor.table_col_max)
-        self.dad.glade.tablehandledialog.set_title(_("Edit Table Properties"))
-        self.dad.glade.tablehandle_frame_table.hide()
-        self.dad.glade.tablehandle_frame_col.show()
-        self.dad.glade.tablehandle_vbox_col.hide()
-        self.dad.glade.checkbutton_table_ins_from_file.hide()
-        self.dad.glade.tablehandle_frame_col.set_sensitive(True)
-        response = self.dad.glade.tablehandledialog.run()
-        self.dad.glade.tablehandledialog.hide()
-        if response != 1: return
-        self.table_col_min = int(self.dad.glade.spinbutton_table_col_min.get_value())
+        self.dad.table_col_min = self.curr_table_anchor.table_col_min
+        self.dad.table_col_max = self.curr_table_anchor.table_col_max
+        ret_ok, ret_csv = self.dialog_tablehandle(_("Edit Table Properties"), False)
+        if not ret_ok: return
         table = self.dad.state_machine.table_to_dict(self.curr_table_anchor)
-        self.table_col_max = int(self.dad.glade.spinbutton_table_col_max.get_value())
-        table['col_min'] = self.table_col_min
-        table['col_max'] = self.table_col_max
+        table['col_min'] = self.dad.table_col_min
+        table['col_max'] = self.dad.table_col_max
         iter_insert = self.dad.curr_buffer.get_iter_at_child_anchor(self.curr_table_anchor)
         table_justification = self.dad.state_machine.get_iter_alignment(iter_insert)
         iter_bound = iter_insert.copy()
@@ -230,9 +400,9 @@ class TablesHandler:
                         #next_iter = model.iter_next(model.get_iter(path))
                         if not next_iter: return
                         next_path = model.get_path(next_iter)
-                        next_col_num = self.table_columns-1
+                        next_col_num = self.dad.table_columns-1
                 else:
-                    if col_num < self.table_columns-1:
+                    if col_num < self.dad.table_columns-1:
                         next_col_num = col_num + 1
                         next_path = path
                     else:
@@ -261,19 +431,9 @@ class TablesHandler:
 
     def table_column_clicked(self, column, anchor, col_num):
         """The Column Header was Clicked"""
-        self.dad.glade.tablehandledialog.set_title(_("Table Column Action"))
-        self.dad.glade.tablehandle_frame_table.hide()
-        self.dad.glade.tablehandle_frame_col.hide()
-        self.dad.glade.checkbutton_table_ins_from_file.hide()
-        self.dad.glade.tablehandle_vbox_col.show()
         col_label = column.get_widget()
-        self.dad.glade.table_column_rename_entry.set_text(col_label.get_text())
-        self.dad.glade.table_column_rename_entry.grab_focus()
-        self.dad.glade.table_column_new_entry.set_sensitive(self.dad.table_column_mode == 'add')
-        self.dad.glade.table_column_rename_entry.set_sensitive(self.dad.table_column_mode == 'rename')
-        response = self.dad.glade.tablehandledialog.run()
-        self.dad.glade.tablehandledialog.hide()
-        if response != 1: return
+        ret_ok, ret_rename, ret_add = self.dialog_tablecolhandle(_("Table Column Action"), col_label.get_text())
+        if not ret_ok: return
         table = self.dad.state_machine.table_to_dict(anchor)
         headers = table['matrix'].pop()
         if (self.dad.table_column_mode == 'right' and col_num == len(headers)-1)\
@@ -285,12 +445,12 @@ class TablesHandler:
         iter_bound.forward_char()
         self.dad.curr_buffer.delete(iter_insert, iter_bound)
         if self.dad.table_column_mode == 'rename':
-            new_label = unicode(self.dad.glade.table_column_rename_entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE)
+            new_label = ret_rename
             col_label.set_text("<b>" + new_label + "</b>")
             col_label.set_use_markup(True)
             headers[col_num] = new_label
         elif self.dad.table_column_mode == 'add':
-            headers.insert(col_num + 1, unicode(self.dad.glade.table_column_new_entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE))
+            headers.insert(col_num + 1, ret_add)
             for row in table['matrix']: row.insert(col_num + 1, "")
         elif self.dad.table_column_mode == 'delete':
             headers.pop(col_num)

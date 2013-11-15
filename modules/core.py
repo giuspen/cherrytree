@@ -169,7 +169,6 @@ class CherryTree:
         self.window.connect("destroy", self.boss.on_window_destroy_event)
         self.scrolledwindow_tree.connect("size-allocate", self.on_window_n_tree_size_allocate_event)
         self.glade.choosenodedialog.connect('key_press_event', self.on_key_press_choosenodedialog)
-        self.glade.tablehandledialog.connect('key_press_event', self.tables_handler.on_key_press_tablehandledialog)
         self.sourcestyleschememanager = gtksourceview2.StyleSchemeManager()
         self.sourceview = gtksourceview2.View()
         self.sourceview.set_sensitive(False)
@@ -2082,32 +2081,6 @@ class CherryTree:
         tree_path = self.treestore.get_path(tree_iter)
         self.treeview.set_cursor(tree_path)
 
-    def on_table_column_rename_radiobutton_toggled(self, radiobutton):
-        """Table Column Rename Toggled"""
-        if radiobutton.get_active():
-            self.glade.table_column_rename_entry.set_sensitive(True)
-            self.table_column_mode = "rename"
-        else: self.glade.table_column_rename_entry.set_sensitive(False)
-
-    def on_table_column_delete_radiobutton_toggled(self, radiobutton):
-        """Table Column Delete Toggled"""
-        if radiobutton.get_active(): self.table_column_mode = "delete"
-
-    def on_table_column_add_radiobutton_toggled(self, radiobutton):
-        """Table Column Delete Toggled"""
-        if radiobutton.get_active():
-            self.glade.table_column_new_entry.set_sensitive(True)
-            self.table_column_mode = "add"
-        else: self.glade.table_column_new_entry.set_sensitive(False)
-
-    def on_table_column_left_radiobutton_toggled(self, radiobutton):
-        """Table Column Left Toggled"""
-        if radiobutton.get_active(): self.table_column_mode = cons.TAG_PROP_LEFT
-
-    def on_table_column_right_radiobutton_toggled(self, radiobutton):
-        """Table Column Right Toggled"""
-        if radiobutton.get_active(): self.table_column_mode = cons.TAG_PROP_RIGHT
-
     def on_help_menu_item_activated(self, menuitem, data=None):
         """Show the Online Manual"""
         webbrowser.open("http://giuspen.com/cherrytreemanual/Introduction.html")
@@ -2325,11 +2298,6 @@ class CherryTree:
             self.hpaned.add1(self.scrolledwindow_tree)
             self.hpaned.add2(self.vbox_text)
             self.hpaned.set_property('position', tree_width)
-
-    def on_checkbutton_table_ins_from_file_toggled(self, checkbutton):
-        """Import Table from CSV File Toggled"""
-        self.glade.tablehandle_frame_table.set_sensitive(not checkbutton.get_active())
-        self.glade.tablehandle_frame_col.set_sensitive(not checkbutton.get_active())
 
     def on_radiobutton_link_website_toggled(self, radiobutton):
         """Show/Hide Relative Frames"""
