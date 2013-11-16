@@ -57,16 +57,16 @@ class TablesHandler:
         dialog.set_default_size(300, -1)
         dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
         
-        table_column_rename_entry = gtk.Entry()
-        table_column_rename_entry.set_text(rename_text)
-        table_column_rename_entry.set_sensitive(self.dad.table_column_mode == 'rename')
-        
         hbox_column_rename = gtk.HBox()
         image_column_rename = gtk.Image()
         image_column_rename.set_from_stock(gtk.STOCK_EDIT, gtk.ICON_SIZE_BUTTON)
         table_column_rename_radiobutton = gtk.RadioButton(label=_("Rename Column"))
+        table_column_rename_entry = gtk.Entry()
+        table_column_rename_entry.set_text(rename_text)
+        table_column_rename_entry.set_sensitive(self.dad.table_column_mode == 'rename')
         hbox_column_rename.pack_start(image_column_rename, expand=False)
         hbox_column_rename.pack_start(table_column_rename_radiobutton)
+        hbox_column_rename.pack_start(table_column_rename_entry)
         
         hbox_column_delete = gtk.HBox()
         image_column_delete = gtk.Image()
@@ -110,7 +110,6 @@ class TablesHandler:
         table_column_right_radiobutton.set_active(self.dad.table_column_mode == cons.TAG_PROP_RIGHT)
         
         tablehandle_vbox_col = gtk.VBox()
-        tablehandle_vbox_col.pack_start(table_column_rename_entry)
         tablehandle_vbox_col.pack_start(hbox_column_rename)
         tablehandle_vbox_col.pack_start(hbox_column_delete)
         tablehandle_vbox_col.pack_start(hbox_column_add)
