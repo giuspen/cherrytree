@@ -168,7 +168,6 @@ class CherryTree:
         self.window.connect('key_press_event', self.on_key_press_window)
         self.window.connect("destroy", self.boss.on_window_destroy_event)
         self.scrolledwindow_tree.connect("size-allocate", self.on_window_n_tree_size_allocate_event)
-        self.glade.choosenodedialog.connect('key_press_event', self.on_key_press_choosenodedialog)
         self.sourcestyleschememanager = gtksourceview2.StyleSchemeManager()
         self.sourceview = gtksourceview2.View()
         self.sourceview.set_sensitive(False)
@@ -571,15 +570,6 @@ class CherryTree:
         self.drag_iter = tree_iter
         selection_data.set("UTF8_STRING", 8, "fake") # without this, the drag_data_recv will not be called
         return True
-
-    def on_key_press_choosenodedialog(self, widget, event):
-        """Catches ChooseNode Dialog key presses"""
-        keyname = gtk.gdk.keyval_name(event.keyval)
-        if keyname == cons.STR_RETURN:
-            try: self.glade.choosenodedialog.get_widget_for_response(1).clicked()
-            except: print cons.STR_PYGTK_222_REQUIRED
-            return True
-        return False
 
     def nodes_add_from_cherrytree_file(self, action):
         """Appends Nodes at the Bottom of the Current Ones, Importing from a CherryTree File"""
@@ -1973,15 +1963,8 @@ class CherryTree:
         old_father_iter = self.treestore.iter_parent(self.curr_tree_iter)
         if old_father_iter != None: old_father_node_id = self.treestore[old_father_iter][3]
         else: old_father_node_id = None
-        self.node_choose_view_exist_or_create()
-        self.glade.link_dialog_top_vbox.hide()
-        self.glade.frame_link_anchor.hide()
-        self.glade.choosenodedialog.set_title(_("Select the New Father"))
-        self.glade.hbox_link_node_anchor.set_sensitive(True)
-        response = self.glade.choosenodedialog.run()
-        self.glade.choosenodedialog.hide()
-        if response != 1: return # the user aborted the operation
-        model, father_iter = self.treeviewselection_2.get_selected()
+        father_iter = support.dialog_choose_node(self.window, _("Select the New Father"), self.treestore, self.curr_tree_iter)
+        if not father_iter: return
         new_father_node_id = self.treestore[father_iter][3]
         if curr_node_id == new_father_node_id:
             support.dialog_error(_("The new father can't be the very node to move!"), self.window)

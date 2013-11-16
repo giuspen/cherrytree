@@ -600,13 +600,58 @@ do you want to save the changes?"""))
     dialog.hide()
     return response
 
+def dialog_choose_node(father_win, title, treestore, sel_tree_iter):
+    """Dialog to Select a Node"""
+    dialog = gtk.Dialog(title=title,
+                        parent=father_win,
+                        flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
+                        buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
+                        gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
+    dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+    dialog.set_default_size(400, 300)
+    treeview_2 = gtk.TreeView(treestore)
+    treeview_2.set_headers_visible(False)
+    renderer_pixbuf_2 = gtk.CellRendererPixbuf()
+    renderer_text_2 = gtk.CellRendererText()
+    column_2 = gtk.TreeViewColumn()
+    column_2.pack_start(renderer_pixbuf_2, False)
+    column_2.pack_start(renderer_text_2, True)
+    column_2.set_attributes(renderer_pixbuf_2, stock_id=0)
+    column_2.set_attributes(renderer_text_2, text=1)
+    treeview_2.append_column(column_2)
+    treeviewselection_2 = treeview_2.get_selection()
+    scrolledwindow = gtk.ScrolledWindow()
+    scrolledwindow.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+    scrolledwindow.add(treeview_2)
+    treeview_2.set_cursor(treestore.get_path(sel_tree_iter))
+    content_area = dialog.get_content_area()
+    content_area.pack_start(scrolledwindow)
+    def on_key_press_choose_node_dialog(widget, event):
+        if gtk.gdk.keyval_name(event.keyval) == cons.STR_RETURN:
+            try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
+            except: print cons.STR_PYGTK_222_REQUIRED
+            return True
+        return False
+    def on_mouse_button_clicked_treeview_2(widget, event):
+        if event.button != 1: return
+        if event.type == gtk.gdk._2BUTTON_PRESS:
+            try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
+            except: print cons.STR_PYGTK_222_REQUIRED
+    dialog.connect("key_press_event", on_key_press_choose_node_dialog)
+    treeview_2.connect('button-press-event', on_mouse_button_clicked_treeview_2)
+    content_area.show_all()
+    response = dialog.run()
+    model, sel_iter = treeviewselection_2.get_selected()
+    dialog.hide()
+    return None if response != gtk.RESPONSE_ACCEPT else sel_iter
+
 def dialog_selnode_selnodeandsub_alltree(father_win, also_selection, also_node_name=False):
     """Dialog to select between the Selected Node/Selected Node + Subnodes/All Tree"""
     dialog = gtk.Dialog(title=_("Involved Nodes"),
-                                parent=father_win,
-                                flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
-                                buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
-                                gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
+                        parent=father_win,
+                        flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
+                        buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
+                        gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
     dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
     if also_selection: radiobutton_selection = gtk.RadioButton(label=_("Selected Text Only"))
     radiobutton_selnode = gtk.RadioButton(label=_("Selected Node Only"))
