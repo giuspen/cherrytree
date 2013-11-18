@@ -600,6 +600,115 @@ do you want to save the changes?"""))
     dialog.hide()
     return response
 
+def dialog_link_handle(father_win, title, curr_webs, curr_file, curr_folder, treestore, sel_tree_iter):
+    """Dialog to Insert/Edit Links"""
+    dialog = gtk.Dialog(title=title,
+                        parent=father_win,
+                        flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
+                        buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
+                        gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
+    dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+    dialog.set_default_size(400, 400)
+    
+    hbox_webs = gtk.HBox()
+    image_webs = gtk.Image()
+    image_webs.set_from_stock("link_website", gtk.ICON_SIZE_BUTTON)
+    radiobutton_webs = gtk.RadioButton(label=_("To WebSite"))
+    entry_webs = gtk.Entry()
+    entry_webs.set_text(curr_webs)
+    hbox_webs.pack_start(image_webs, expand=False)
+    hbox_webs.pack_start(radiobutton_webs)
+    hbox_webs.pack_start(entry_webs)
+    
+    hbox_file = gtk.HBox()
+    image_file = gtk.Image()
+    image_file.set_from_stock(gtk.STOCK_FILE, gtk.ICON_SIZE_BUTTON)
+    radiobutton_file = gtk.RadioButton(label=_("To File"))
+    radiobutton_file.set_group(radiobutton_webs)
+    entry_file = gtk.Entry()
+    entry_file.set_text(curr_file)
+    button_browse_file = gtk.Button()
+    button_browse_file.set_from_stock("find", gtk.ICON_SIZE_BUTTON)
+    hbox_webs.pack_start(image_file, expand=False)
+    hbox_webs.pack_start(radiobutton_file)
+    hbox_webs.pack_start(entry_file)
+    hbox_webs.pack_start(button_browse_file, expand=False)
+    
+    hbox_folder = gtk.HBox()
+    image_folder = gtk.Image()
+    image_folder.set_from_stock(gtk.STOCK_DIRECTORY, gtk.ICON_SIZE_BUTTON)
+    radiobutton_folder = gtk.RadioButton(label=_("To Folder"))
+    radiobutton_folder.set_group(radiobutton_webs)
+    entry_folder = gtk.Entry()
+    entry_folder.set_text(curr_folder)
+    button_browse_folder = gtk.Button()
+    button_browse_folder.set_from_stock("find", gtk.ICON_SIZE_BUTTON)
+    hbox_folder.pack_start(image_folder, expand=False)
+    hbox_folder.pack_start(radiobutton_folder)
+    hbox_folder.pack_start(entry_folder)
+    hbox_folder.pack_start(button_browse_folder, expand=False)
+    
+    hbox_node = gtk.HBox()
+    image_node = gtk.Image()
+    image_node.set_from_stock("cherrytree", gtk.ICON_SIZE_BUTTON)
+    radiobutton_node = gtk.RadioButton(label=_("To Node"))
+    radiobutton_node.set_group(radiobutton_webs)
+    hbox_node.pack_start(image_node, expand=False)
+    hbox_node.pack_start(radiobutton_node)
+    
+    hbox_detail = gtk.HBox()
+    
+    treeview_2 = gtk.TreeView(treestore)
+    treeview_2.set_headers_visible(False)
+    renderer_pixbuf_2 = gtk.CellRendererPixbuf()
+    renderer_text_2 = gtk.CellRendererText()
+    column_2 = gtk.TreeViewColumn()
+    column_2.pack_start(renderer_pixbuf_2, False)
+    column_2.pack_start(renderer_text_2, True)
+    column_2.set_attributes(renderer_pixbuf_2, stock_id=0)
+    column_2.set_attributes(renderer_text_2, text=1)
+    treeview_2.append_column(column_2)
+    treeviewselection_2 = treeview_2.get_selection()
+    scrolledwindow = gtk.ScrolledWindow()
+    scrolledwindow.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+    scrolledwindow.add(treeview_2)
+    treeview_2.set_cursor(treestore.get_path(sel_tree_iter))
+    
+    vbox_anchor = gtk.VBox()
+    label_over = gtk.Label()
+    label_below = gtk.Label()
+    
+    hbox_anchor = gtk.HBox()
+    entry_anchor = gtk.Entry()
+    button_browse_anchor = gtk.Button()
+    button_browse_anchor.set_from_stock("anchor", gtk.ICON_SIZE_BUTTON)
+    
+    frame_anchor = gtk.Frame(label="<b>"+_("Anchor Name (optional)")+"</b>")
+    frame_anchor.get_label_widget().set_use_markup(True)
+    frame_anchor.set_shadow_type(gtk.SHADOW_NONE)
+    frame_anchor.add(hbox_anchor)
+    
+    vbox_anchor.pack_start(label_over)
+    vbox_anchor.pack_start(frame_anchor)
+    vbox_anchor.pack_start(label_below)
+    
+    hbox_detail.pack_start(scrolledwindow)
+    hbox_detail.pack_start(vbox_anchor)
+    
+    content_area = dialog.get_content_area()
+    content_area.pack_start(hbox_webs)
+    content_area.pack_start(hbox_file)
+    content_area.pack_start(hbox_folder)
+    content_area.pack_start(hbox_node)
+    content_area.pack_start(hbox_detail)
+    content_area.set_spacing(5)
+    
+    content_area.show_all()
+    response = dialog.run()
+    model, sel_iter = treeviewselection_2.get_selected()
+    dialog.hide()
+    
+
 def dialog_choose_node(father_win, title, treestore, sel_tree_iter):
     """Dialog to Select a Node"""
     dialog = gtk.Dialog(title=title,
