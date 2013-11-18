@@ -1981,29 +1981,6 @@ class CherryTree:
         self.node_move_after(self.curr_tree_iter, father_iter)
         if self.nodes_icons == "c": self.treeview_refresh(change_icon=True)
 
-    def node_choose_view_exist_or_create(self, node_sel_id=None):
-        """If The View Was Never Used, this will Create It"""
-        if "treeview_2" not in dir(self):
-            self.treeview_2 = gtk.TreeView(self.treestore)
-            self.treeview_2.set_headers_visible(False)
-            self.renderer_pixbuf_2 = gtk.CellRendererPixbuf()
-            self.renderer_text_2 = gtk.CellRendererText()
-            self.column_2 = gtk.TreeViewColumn()
-            self.column_2.pack_start(self.renderer_pixbuf_2, False)
-            self.column_2.pack_start(self.renderer_text_2, True)
-            self.column_2.set_attributes(self.renderer_pixbuf_2, stock_id=0)
-            self.column_2.set_attributes(self.renderer_text_2, text=1)
-            self.treeview_2.append_column(self.column_2)
-            self.treeviewselection_2 = self.treeview_2.get_selection()
-            self.treeview_2.connect('button-press-event', self.on_mouse_button_clicked_treeview_2)
-            self.glade.scrolledwindow_choosenode.add(self.treeview_2)
-            self.glade.scrolledwindow_choosenode.show_all()
-        if node_sel_id == None:
-            self.treeview_2.set_cursor(self.treestore.get_path(self.curr_tree_iter))
-        else:
-            tree_iter_sel = self.get_tree_iter_from_node_id(node_sel_id)
-            if tree_iter_sel != None: self.treeview_2.set_cursor(self.treestore.get_path(tree_iter_sel))
-
     def on_mouse_button_clicked_treeview_2(self, widget, event):
         """Catches mouse buttons clicks"""
         if event.button != 1: return
@@ -3723,10 +3700,14 @@ class CherryTree:
                 or support.get_next_chars_from_iter_are(iter_sel_start, 4, "www."):
                     self.link_type = cons.LINK_TYPE_WEBS
                     self.glade.link_website_entry.set_text(text_buffer.get_text(iter_sel_start, iter_sel_end))
-                self.node_choose_view_exist_or_create(link_node_id)
-                self.glade.choosenodedialog.set_title(_("Insert/Edit a Link"))
-                self.glade.link_dialog_top_vbox.show()
-                self.glade.frame_link_anchor.show()
+                if link_node_id:
+                    title = _("Edit a Link")
+                    sel_tree_iter = self.get_tree_iter_from_node_id(link_node_id)
+                else:
+                    title = _("Insert a Link")
+                    sel_tree_iter = None
+                
+                
                 self.link_type_changed_on_dialog(False)
                 response = self.glade.choosenodedialog.run()
                 self.glade.choosenodedialog.hide()
