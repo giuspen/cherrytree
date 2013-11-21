@@ -3990,24 +3990,6 @@ class CherryTree:
         if self.curr_tree_iter:
             self.update_node_name_header()
 
-    def on_browse_anchors_button_clicked(self, *args):
-        """Browse for Existing Anchors on the Selected Node"""
-        model, tree_iter = self.treeviewselection_2.get_selected()
-        anchors_list = []
-        curr_iter = self.treestore[tree_iter][2].get_start_iter()
-        while 1:
-            anchor = curr_iter.get_child_anchor()
-            if anchor != None:
-                if "pixbuf" in dir(anchor) and "anchor" in dir(anchor.pixbuf):
-                    anchors_list.append([anchor.pixbuf.anchor])
-            if not curr_iter.forward_char(): break
-        if not anchors_list:
-            support.dialog_info(_("There are No Anchors in the Selected Node"), self.window)
-            return
-        ret_anchor_name = support.dialog_anchors_list(self.window, _("Choose Existing Anchor"), anchors_list)
-        if not ret_anchor_name: return
-        self.glade.link_anchor_entry.set_text(ret_anchor_name)
-
     def sourceview_cursor_and_tooltips_handler(self, x, y):
         """Looks at all tags covering the position (x, y) in the text view,
            and if one of them is a link, change the cursor to the HAND2 cursor"""
