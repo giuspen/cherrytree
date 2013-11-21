@@ -703,6 +703,23 @@ def dialog_link_handle(father_win, title, curr_webs, curr_file, curr_folder, tre
     content_area.pack_start(hbox_detail)
     content_area.set_spacing(5)
     
+    def on_browse_anchors_button_clicked(*args):
+        model, tree_iter = treeviewselection_2.get_selected()
+        anchors_list = []
+        curr_iter = treestore[tree_iter][2].get_start_iter()
+        while 1:
+            anchor = curr_iter.get_child_anchor()
+            if anchor != None:
+                if "pixbuf" in dir(anchor) and "anchor" in dir(anchor.pixbuf):
+                    anchors_list.append([anchor.pixbuf.anchor])
+            if not curr_iter.forward_char(): break
+        if not anchors_list:
+            support.dialog_info(_("There are No Anchors in the Selected Node"), dialog)
+            return
+        ret_anchor_name = support.dialog_anchors_list(dialog, _("Choose Existing Anchor"), anchors_list)
+        if ret_anchor_name: entry_anchor.set_text(ret_anchor_name)
+    button_browse_anchor.connect('clicked', on_browse_anchors_button_clicked)
+    
     content_area.show_all()
     response = dialog.run()
     model, sel_iter = treeviewselection_2.get_selected()

@@ -531,7 +531,6 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
-                                    <signal name="clicked" handler="on_browse_anchors_button_clicked" swapped="no"/>
                                     <child>
                                       <object class="GtkImage" id="image49">
                                         <property name="visible">True</property>
