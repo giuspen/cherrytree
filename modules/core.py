@@ -196,7 +196,7 @@ class CherryTree:
         self.curr_buffer = None
         self.nodes_cursor_pos = {}
         self.search_replace_dict = {'find':"", 'replace':"", 'match_case':False, 'reg_exp':False, 'whole_word':False, 'start_word':False, 'fw':True, 'a_ff_fa':0, 'idialog':True}
-        self.links_entries = {'webs':'', 'file':'', 'fold':'', 'anch':''}
+        self.links_entries = {'webs':'', 'file':'', 'fold':'', 'anch':'', 'node':None}
         self.latest_tag = ["", ""] # [latest tag property, latest tag value]
         self.file_update = False
         self.autosave_timer_id = None
@@ -3687,7 +3687,7 @@ class CherryTree:
                         property_value = self.link_type + cons.CHAR_SPACE + link_uri
                     else: property_value = ""
                 elif self.link_type == cons.LINK_TYPE_NODE:
-                    model, tree_iter = self.treeviewselection_2.get_selected()
+                    tree_iter = self.links_entries['node']
                     if tree_iter:
                         link_anchor = self.links_entries['anch']
                         property_value = cons.LINK_TYPE_NODE + cons.CHAR_SPACE + str(self.treestore[tree_iter][3])
