@@ -185,7 +185,6 @@
                                 <property name="receives_default">False</property>
                                 <property name="active">True</property>
                                 <property name="draw_indicator">True</property>
-                                <signal name="toggled" handler="on_radiobutton_link_website_toggled" swapped="no"/>
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -200,7 +199,6 @@
                                 <property name="receives_default">False</property>
                                 <property name="draw_indicator">True</property>
                                 <property name="group">radiobutton_link_website</property>
-                                <signal name="toggled" handler="on_radiobutton_link_node_anchor_toggled" swapped="no"/>
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -217,7 +215,6 @@
                                 <property name="receives_default">False</property>
                                 <property name="draw_indicator">True</property>
                                 <property name="group">radiobutton_link_website</property>
-                                <signal name="toggled" handler="on_radiobutton_link_file_toggled" swapped="no"/>
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -234,7 +231,6 @@
                                 <property name="receives_default">False</property>
                                 <property name="draw_indicator">True</property>
                                 <property name="group">radiobutton_link_website</property>
-                                <signal name="toggled" handler="on_radiobutton_link_folder_toggled" swapped="no"/>
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -395,7 +391,6 @@
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
                                 <property name="tooltip_text" translatable="yes">Browse for a File to link to</property>
-                                <signal name="clicked" handler="on_button_browse_for_file_to_link_to_clicked" swapped="no"/>
                                 <child>
                                   <object class="GtkImage" id="image55">
                                     <property name="visible">True</property>
