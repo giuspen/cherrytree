@@ -801,6 +801,10 @@ def dialog_link_handle(dad, title, sel_tree_iter):
 
 def dialog_choose_node(father_win, title, treestore, sel_tree_iter):
     """Dialog to Select a Node"""
+    class NodeParms:
+        def __init__(self):
+            self.sel_iter = sel_tree_iter
+    node_parms = NodeParms()
     dialog = gtk.Dialog(title=title,
                         parent=father_win,
                         flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
@@ -822,7 +826,7 @@ def dialog_choose_node(father_win, title, treestore, sel_tree_iter):
     scrolledwindow = gtk.ScrolledWindow()
     scrolledwindow.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
     scrolledwindow.add(treeview_2)
-    if sel_tree_iter: treeview_2.set_cursor(treestore.get_path(sel_tree_iter))
+    if node_parms.sel_iter: treeview_2.set_cursor(treestore.get_path(node_parms.sel_iter))
     content_area = dialog.get_content_area()
     content_area.pack_start(scrolledwindow)
     def on_key_press_choose_node_dialog(widget, event):
@@ -836,13 +840,16 @@ def dialog_choose_node(father_win, title, treestore, sel_tree_iter):
         if event.type == gtk.gdk._2BUTTON_PRESS:
             try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
             except: print cons.STR_PYGTK_222_REQUIRED
+    def on_treeview_event_after(treeview, event):
+        if event.type not in [gtk.gdk.BUTTON_PRESS, gtk.gdk.KEY_PRESS]: return
+        model, node_parms.sel_iter = treeviewselection_2.get_selected()
     dialog.connect("key_press_event", on_key_press_choose_node_dialog)
     treeview_2.connect('button-press-event', on_mouse_button_clicked_treeview_2)
+    treeview_2.connect('event-after', on_treeview_event_after)
     content_area.show_all()
     response = dialog.run()
-    model, sel_iter = treeviewselection_2.get_selected()
     dialog.hide()
-    return None if response != gtk.RESPONSE_ACCEPT else sel_iter
+    return None if response != gtk.RESPONSE_ACCEPT else node_parms.sel_iter
 
 def dialog_selnode_selnodeandsub_alltree(father_win, also_selection, also_node_name=False):
     """Dialog to select between the Selected Node/Selected Node + Subnodes/All Tree"""
