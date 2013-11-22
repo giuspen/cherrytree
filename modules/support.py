@@ -620,7 +620,7 @@ def dialog_link_handle(dad, title, sel_tree_iter):
                         buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
                         gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
     dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-    dialog.set_default_size(400, 400)
+    dialog.set_default_size(500, 400)
     
     hbox_webs = gtk.HBox()
     image_webs = gtk.Image()
@@ -629,7 +629,7 @@ def dialog_link_handle(dad, title, sel_tree_iter):
     entry_webs = gtk.Entry()
     entry_webs.set_text(dad.links_entries['webs'])
     hbox_webs.pack_start(image_webs, expand=False)
-    hbox_webs.pack_start(radiobutton_webs)
+    hbox_webs.pack_start(radiobutton_webs, expand=False)
     hbox_webs.pack_start(entry_webs)
     
     hbox_file = gtk.HBox()
@@ -642,7 +642,7 @@ def dialog_link_handle(dad, title, sel_tree_iter):
     button_browse_file = gtk.Button()
     button_browse_file.set_image(gtk.image_new_from_stock("find", gtk.ICON_SIZE_BUTTON))
     hbox_file.pack_start(image_file, expand=False)
-    hbox_file.pack_start(radiobutton_file)
+    hbox_file.pack_start(radiobutton_file, expand=False)
     hbox_file.pack_start(entry_file)
     hbox_file.pack_start(button_browse_file, expand=False)
     
@@ -656,7 +656,7 @@ def dialog_link_handle(dad, title, sel_tree_iter):
     button_browse_folder = gtk.Button()
     button_browse_folder.set_image(gtk.image_new_from_stock("find", gtk.ICON_SIZE_BUTTON))
     hbox_folder.pack_start(image_folder, expand=False)
-    hbox_folder.pack_start(radiobutton_folder)
+    hbox_folder.pack_start(radiobutton_folder, expand=False)
     hbox_folder.pack_start(entry_folder)
     hbox_folder.pack_start(button_browse_folder, expand=False)
     
@@ -711,7 +711,7 @@ def dialog_link_handle(dad, title, sel_tree_iter):
     vbox_anchor.pack_start(label_below)
     
     hbox_detail.pack_start(scrolledwindow)
-    hbox_detail.pack_start(vbox_anchor)
+    hbox_detail.pack_start(vbox_anchor, expand=False)
     
     content_area = dialog.get_content_area()
     content_area.pack_start(hbox_webs, expand=False)
