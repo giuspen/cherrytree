@@ -1982,11 +1982,6 @@ class CherryTree:
         self.node_move_after(self.curr_tree_iter, father_iter)
         if self.nodes_icons == "c": self.treeview_refresh(change_icon=True)
 
-    def on_mouse_button_clicked_treeview_2(self, widget, event):
-        """Catches mouse buttons clicks"""
-        if event.button != 1: return
-        if event.type == gtk.gdk._2BUTTON_PRESS: self.glade.choosenodedialog_button_ok.clicked()
-
     def get_tree_iter_from_node_id(self, node_id):
         """Given a Node Id, Returns the TreeIter or None"""
         tree_iter = self.treestore.get_iter_first()
