@@ -749,9 +749,9 @@ def dialog_link_handle(dad, title, sel_tree_iter):
                     anchors_list.append([anchor.pixbuf.anchor])
             if not curr_iter.forward_char(): break
         if not anchors_list:
-            support.dialog_info(_("There are No Anchors in the Selected Node"), dialog)
+            dialog_info(_("There are No Anchors in the Selected Node"), dialog)
             return
-        ret_anchor_name = support.dialog_anchors_list(dialog, _("Choose Existing Anchor"), anchors_list)
+        ret_anchor_name = dialog_anchors_list(dialog, _("Choose Existing Anchor"), anchors_list)
         if ret_anchor_name: entry_anchor.set_text(ret_anchor_name)
     def on_key_press_links_handle_dialog(widget, event):
         if gtk.gdk.keyval_name(event.keyval) == cons.STR_RETURN:
@@ -778,6 +778,7 @@ def dialog_link_handle(dad, title, sel_tree_iter):
     dad.links_entries['file'] = unicode(entry_file.get_text(), cons.STR_UTF8, cons.STR_IGNORE).strip()
     dad.links_entries['fold'] = unicode(entry_folder.get_text(), cons.STR_UTF8, cons.STR_IGNORE).strip()
     dad.links_entries['anch'] = unicode(entry_anchor.get_text(), cons.STR_UTF8, cons.STR_IGNORE).strip()
+    dad.links_entries['node'] = sel_iter
     return True
 
 def dialog_choose_node(father_win, title, treestore, sel_tree_iter):
