@@ -628,11 +628,11 @@ def dialog_link_handle(dad, title, sel_tree_iter):
     entry_file = gtk.Entry()
     entry_file.set_text(dad.links_entries['file'])
     button_browse_file = gtk.Button()
-    button_browse_file.set_from_stock("find", gtk.ICON_SIZE_BUTTON)
-    hbox_webs.pack_start(image_file, expand=False)
-    hbox_webs.pack_start(radiobutton_file)
-    hbox_webs.pack_start(entry_file)
-    hbox_webs.pack_start(button_browse_file, expand=False)
+    button_browse_file.set_image(gtk.image_new_from_stock("find", gtk.ICON_SIZE_BUTTON))
+    hbox_file.pack_start(image_file, expand=False)
+    hbox_file.pack_start(radiobutton_file)
+    hbox_file.pack_start(entry_file)
+    hbox_file.pack_start(button_browse_file, expand=False)
     
     hbox_folder = gtk.HBox()
     image_folder = gtk.Image()
@@ -642,7 +642,7 @@ def dialog_link_handle(dad, title, sel_tree_iter):
     entry_folder = gtk.Entry()
     entry_folder.set_text(dad.links_entries['fold'])
     button_browse_folder = gtk.Button()
-    button_browse_folder.set_from_stock("find", gtk.ICON_SIZE_BUTTON)
+    button_browse_folder.set_image(gtk.image_new_from_stock("find", gtk.ICON_SIZE_BUTTON))
     hbox_folder.pack_start(image_folder, expand=False)
     hbox_folder.pack_start(radiobutton_folder)
     hbox_folder.pack_start(entry_folder)
@@ -672,7 +672,7 @@ def dialog_link_handle(dad, title, sel_tree_iter):
     scrolledwindow = gtk.ScrolledWindow()
     scrolledwindow.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
     scrolledwindow.add(treeview_2)
-    treeview_2.set_cursor(dad.treestore.get_path(sel_tree_iter))
+    if sel_tree_iter: treeview_2.set_cursor(dad.treestore.get_path(sel_tree_iter))
     
     vbox_anchor = gtk.VBox()
     label_over = gtk.Label()
@@ -682,7 +682,9 @@ def dialog_link_handle(dad, title, sel_tree_iter):
     entry_anchor = gtk.Entry()
     entry_anchor.set_text(dad.links_entries['anch'])
     button_browse_anchor = gtk.Button()
-    button_browse_anchor.set_from_stock("anchor", gtk.ICON_SIZE_BUTTON)
+    button_browse_anchor.set_image(gtk.image_new_from_stock("anchor", gtk.ICON_SIZE_BUTTON))
+    hbox_anchor.pack_start(entry_anchor)
+    hbox_anchor.pack_start(button_browse_anchor, expand=False)
     
     frame_anchor = gtk.Frame(label="<b>"+_("Anchor Name (optional)")+"</b>")
     frame_anchor.get_label_widget().set_use_markup(True)
@@ -690,17 +692,17 @@ def dialog_link_handle(dad, title, sel_tree_iter):
     frame_anchor.add(hbox_anchor)
     
     vbox_anchor.pack_start(label_over)
-    vbox_anchor.pack_start(frame_anchor)
+    vbox_anchor.pack_start(frame_anchor, expand=False)
     vbox_anchor.pack_start(label_below)
     
     hbox_detail.pack_start(scrolledwindow)
     hbox_detail.pack_start(vbox_anchor)
     
     content_area = dialog.get_content_area()
-    content_area.pack_start(hbox_webs)
-    content_area.pack_start(hbox_file)
-    content_area.pack_start(hbox_folder)
-    content_area.pack_start(hbox_node)
+    content_area.pack_start(hbox_webs, expand=False)
+    content_area.pack_start(hbox_file, expand=False)
+    content_area.pack_start(hbox_folder, expand=False)
+    content_area.pack_start(hbox_node, expand=False)
     content_area.pack_start(hbox_detail)
     content_area.set_spacing(5)
     
@@ -711,7 +713,7 @@ def dialog_link_handle(dad, title, sel_tree_iter):
     
     def link_type_changed_on_dialog():
         entry_webs.set_sensitive(dad.link_type == cons.LINK_TYPE_WEBS)
-        self.glade.hbox_link_node_anchor.set_sensitive(dad.link_type == cons.LINK_TYPE_NODE)
+        hbox_detail.set_sensitive(dad.link_type == cons.LINK_TYPE_NODE)
         entry_file.set_sensitive(dad.link_type == cons.LINK_TYPE_FILE)
         entry_folder.set_sensitive(dad.link_type == cons.LINK_TYPE_FOLD)
     def on_radiobutton_link_website_toggled(radiobutton):
@@ -727,12 +729,12 @@ def dialog_link_handle(dad, title, sel_tree_iter):
         if radiobutton.get_active(): dad.link_type = cons.LINK_TYPE_FOLD
         link_type_changed_on_dialog()
     def on_button_browse_for_file_to_link_to_clicked(self, *args):
-        filepath = support.dialog_file_select(curr_folder=dad.pick_dir, parent=dialog)
+        filepath = dialog_file_select(curr_folder=dad.pick_dir, parent=dialog)
         if not filepath: return
         dad.pick_dir = os.path.dirname(filepath)
         entry_file.set_text(filepath)
     def on_button_browse_for_folder_to_link_to_clicked(self, *args):
-        filepath = support.dialog_folder_select(curr_folder=dad.pick_dir, parent=dialog)
+        filepath = dialog_folder_select(curr_folder=dad.pick_dir, parent=dialog)
         if not filepath: return
         dad.pick_dir = filepath
         entry_folder.set_text(filepath)
@@ -751,6 +753,12 @@ def dialog_link_handle(dad, title, sel_tree_iter):
             return
         ret_anchor_name = support.dialog_anchors_list(dialog, _("Choose Existing Anchor"), anchors_list)
         if ret_anchor_name: entry_anchor.set_text(ret_anchor_name)
+    def on_key_press_links_handle_dialog(widget, event):
+        if gtk.gdk.keyval_name(event.keyval) == cons.STR_RETURN:
+            try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
+            except: print cons.STR_PYGTK_222_REQUIRED
+            return True
+        return False
     radiobutton_webs.connect("toggled", on_radiobutton_link_website_toggled)
     radiobutton_node.connect("toggled", on_radiobutton_link_node_anchor_toggled)
     radiobutton_file.connect("toggled", on_radiobutton_link_file_toggled)
@@ -758,17 +766,19 @@ def dialog_link_handle(dad, title, sel_tree_iter):
     button_browse_file.connect('clicked', on_button_browse_for_file_to_link_to_clicked)
     button_browse_folder.connect('clicked', on_button_browse_for_folder_to_link_to_clicked)
     button_browse_anchor.connect('clicked', on_browse_anchors_button_clicked)
+    dialog.connect("key_press_event", on_key_press_links_handle_dialog)
     
     link_type_changed_on_dialog()
     content_area.show_all()
     response = dialog.run()
     model, sel_iter = treeviewselection_2.get_selected()
     dialog.hide()
-    if response != gtk.RESPONSE_ACCEPT: return
-    self.links_entries['webs'] = unicode(entry_webs.get_text(), cons.STR_UTF8, cons.STR_IGNORE).strip()
-    self.links_entries['file'] = unicode(entry_file.get_text(), cons.STR_UTF8, cons.STR_IGNORE).strip()
-    self.links_entries['fold'] = unicode(entry_folder.get_text(), cons.STR_UTF8, cons.STR_IGNORE).strip()
-    self.links_entries['anch'] = unicode(entry_anchor.get_text(), cons.STR_UTF8, cons.STR_IGNORE).strip()
+    if response != gtk.RESPONSE_ACCEPT: return False
+    dad.links_entries['webs'] = unicode(entry_webs.get_text(), cons.STR_UTF8, cons.STR_IGNORE).strip()
+    dad.links_entries['file'] = unicode(entry_file.get_text(), cons.STR_UTF8, cons.STR_IGNORE).strip()
+    dad.links_entries['fold'] = unicode(entry_folder.get_text(), cons.STR_UTF8, cons.STR_IGNORE).strip()
+    dad.links_entries['anch'] = unicode(entry_anchor.get_text(), cons.STR_UTF8, cons.STR_IGNORE).strip()
+    return True
 
 def dialog_choose_node(father_win, title, treestore, sel_tree_iter):
     """Dialog to Select a Node"""
@@ -793,7 +803,7 @@ def dialog_choose_node(father_win, title, treestore, sel_tree_iter):
     scrolledwindow = gtk.ScrolledWindow()
     scrolledwindow.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
     scrolledwindow.add(treeview_2)
-    treeview_2.set_cursor(treestore.get_path(sel_tree_iter))
+    if sel_tree_iter: treeview_2.set_cursor(treestore.get_path(sel_tree_iter))
     content_area = dialog.get_content_area()
     content_area.pack_start(scrolledwindow)
     def on_key_press_choose_node_dialog(widget, event):

@@ -3671,12 +3671,7 @@ class CherryTree:
                 else:
                     title = _("Insert a Link")
                     sel_tree_iter = None
-                
-                
-                self.link_type_changed_on_dialog(False)
-                response = self.glade.choosenodedialog.run()
-                self.glade.choosenodedialog.hide()
-                if response != 1: return # the user aborted the operation
+                if not support.dialog_link_handle(self, title, sel_tree_iter): return
                 if self.link_type == cons.LINK_TYPE_WEBS:
                     link_url = self.links_entries['webs']
                     if link_url:
