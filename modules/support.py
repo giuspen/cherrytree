@@ -631,6 +631,7 @@ def dialog_link_handle(dad, title, sel_tree_iter):
     hbox_webs.pack_start(image_webs, expand=False)
     hbox_webs.pack_start(radiobutton_webs, expand=False)
     hbox_webs.pack_start(entry_webs)
+    hbox_webs.set_spacing(5)
     
     hbox_file = gtk.HBox()
     image_file = gtk.Image()
@@ -645,6 +646,7 @@ def dialog_link_handle(dad, title, sel_tree_iter):
     hbox_file.pack_start(radiobutton_file, expand=False)
     hbox_file.pack_start(entry_file)
     hbox_file.pack_start(button_browse_file, expand=False)
+    hbox_file.set_spacing(5)
     
     hbox_folder = gtk.HBox()
     image_folder = gtk.Image()
@@ -659,6 +661,7 @@ def dialog_link_handle(dad, title, sel_tree_iter):
     hbox_folder.pack_start(radiobutton_folder, expand=False)
     hbox_folder.pack_start(entry_folder)
     hbox_folder.pack_start(button_browse_folder, expand=False)
+    hbox_folder.set_spacing(5)
     
     hbox_node = gtk.HBox()
     image_node = gtk.Image()
@@ -667,6 +670,7 @@ def dialog_link_handle(dad, title, sel_tree_iter):
     radiobutton_node.set_group(radiobutton_webs)
     hbox_node.pack_start(image_node, expand=False)
     hbox_node.pack_start(radiobutton_node)
+    hbox_node.set_spacing(5)
     
     hbox_detail = gtk.HBox()
     
@@ -688,6 +692,7 @@ def dialog_link_handle(dad, title, sel_tree_iter):
         sel_path = dad.treestore.get_path(links_parms.sel_iter)
         treeview_2.expand_to_path(sel_path)
         treeview_2.set_cursor(sel_path)
+        treeview_2.scroll_to_cell(sel_path)
     
     vbox_anchor = gtk.VBox()
     label_over = gtk.Label()
@@ -833,6 +838,7 @@ def dialog_choose_node(father_win, title, treestore, sel_tree_iter):
         sel_path = treestore.get_path(node_parms.sel_iter)
         treeview_2.expand_to_path(sel_path)
         treeview_2.set_cursor(sel_path)
+        treeview_2.scroll_to_cell(sel_path)
     content_area = dialog.get_content_area()
     content_area.pack_start(scrolledwindow)
     def on_key_press_choose_node_dialog(widget, event):
