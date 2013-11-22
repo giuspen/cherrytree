@@ -313,13 +313,17 @@ Ukrainian (uk) Andriy Kovtun <kovtunos@yandex.ru>"""))
 
 def dialog_anchors_list(father_win, title, anchors_list):
     """List Anchors in a Node"""
+    class AnchorParms:
+        def __init__(self):
+            self.sel_iter = None
+    anchor_parms = AnchorParms()
     dialog = gtk.Dialog(title=title,
         parent=father_win,
         flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
         buttons=(_("Cancel"), 2,
                  _("OK"), 1) )
     dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-    dialog.set_default_size(300, -1)
+    dialog.set_default_size(300, 200)
     try:
         button = dialog.get_widget_for_response(2)
         button.set_image(gtk.image_new_from_stock(gtk.STOCK_CANCEL, gtk.ICON_SIZE_BUTTON))
@@ -338,8 +342,9 @@ def dialog_anchors_list(father_win, title, anchors_list):
     for anchor_element in anchors_list:
         anchors_liststore.append(anchor_element)
     scrolledwindow.add(anchors_treeview)
-    anchor_first_iter = anchors_liststore.get_iter_first()
-    anchors_treeview.set_cursor(anchors_liststore.get_path(anchor_first_iter))
+    anchor_parms.sel_iter = anchors_liststore.get_iter_first()
+    if anchor_parms.sel_iter:
+        anchors_treeview.set_cursor(anchors_liststore.get_path(anchor_parms.sel_iter))
     content_area = dialog.get_content_area()
     content_area.pack_start(scrolledwindow)
     def on_mouse_button_clicked_anchors_list(widget, event):
@@ -347,6 +352,9 @@ def dialog_anchors_list(father_win, title, anchors_list):
         if event.type == gtk.gdk._2BUTTON_PRESS:
             try: dialog.get_widget_for_response(1).clicked()
             except: print cons.STR_PYGTK_222_REQUIRED
+    def on_treeview_event_after(treeview, event):
+        if event.type not in [gtk.gdk.BUTTON_PRESS, gtk.gdk.KEY_PRESS]: return
+        model, anchor_parms.sel_iter = anchors_treeviewselection.get_selected()
     def on_key_press_anchorslistdialog(widget, event):
         keyname = gtk.gdk.keyval_name(event.keyval)
         if keyname == cons.STR_RETURN:
@@ -354,15 +362,15 @@ def dialog_anchors_list(father_win, title, anchors_list):
             except: print cons.STR_PYGTK_222_REQUIRED
             return True
         return False
+    anchors_treeview.connect('event-after', on_treeview_event_after)
     dialog.connect('key_press_event', on_key_press_anchorslistdialog)
     anchors_treeview.connect('button-press-event', on_mouse_button_clicked_anchors_list)
     anchors_treeview.grab_focus()
     content_area.show_all()
     response = dialog.run()
     dialog.hide()
-    if response != 1: return ""
-    listmodel, listiter = anchors_treeviewselection.get_selected()
-    return unicode(anchors_liststore[listiter][0], cons.STR_UTF8, cons.STR_IGNORE)
+    if response != 1 or not anchor_parms.sel_iter: return ""
+    return unicode(anchors_liststore[anchor_parms.sel_iter][0], cons.STR_UTF8, cons.STR_IGNORE)
 
 def dialog_anchor_handle(father_win, title, anchor_name):
     """Insert/Edit Anchor Name"""
@@ -602,6 +610,10 @@ do you want to save the changes?"""))
 
 def dialog_link_handle(dad, title, sel_tree_iter):
     """Dialog to Insert/Edit Links"""
+    class LinksParms:
+        def __init__(self):
+            self.sel_iter = sel_tree_iter
+    links_parms = LinksParms()
     dialog = gtk.Dialog(title=title,
                         parent=dad.window,
                         flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
@@ -739,9 +751,12 @@ def dialog_link_handle(dad, title, sel_tree_iter):
         dad.pick_dir = filepath
         entry_folder.set_text(filepath)
     def on_browse_anchors_button_clicked(*args):
-        model, tree_iter = treeviewselection_2.get_selected()
+        if not links_parms.sel_iter:
+            dialog_warning(_("No Node is Selected"), dialog)
+            return
         anchors_list = []
-        curr_iter = dad.treestore[tree_iter][2].get_start_iter()
+        text_buffer = dad.get_textbuffer_from_tree_iter(links_parms.sel_iter)
+        curr_iter = text_buffer.get_start_iter()
         while 1:
             anchor = curr_iter.get_child_anchor()
             if anchor != None:
@@ -753,6 +768,9 @@ def dialog_link_handle(dad, title, sel_tree_iter):
             return
         ret_anchor_name = dialog_anchors_list(dialog, _("Choose Existing Anchor"), anchors_list)
         if ret_anchor_name: entry_anchor.set_text(ret_anchor_name)
+    def on_treeview_event_after(treeview, event):
+        if event.type not in [gtk.gdk.BUTTON_PRESS, gtk.gdk.KEY_PRESS]: return
+        model, links_parms.sel_iter = treeviewselection_2.get_selected()
     def on_key_press_links_handle_dialog(widget, event):
         if gtk.gdk.keyval_name(event.keyval) == cons.STR_RETURN:
             try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
@@ -766,19 +784,19 @@ def dialog_link_handle(dad, title, sel_tree_iter):
     button_browse_file.connect('clicked', on_button_browse_for_file_to_link_to_clicked)
     button_browse_folder.connect('clicked', on_button_browse_for_folder_to_link_to_clicked)
     button_browse_anchor.connect('clicked', on_browse_anchors_button_clicked)
+    treeview_2.connect('event-after', on_treeview_event_after)
     dialog.connect("key_press_event", on_key_press_links_handle_dialog)
     
     link_type_changed_on_dialog()
     content_area.show_all()
     response = dialog.run()
-    model, sel_iter = treeviewselection_2.get_selected()
     dialog.hide()
     if response != gtk.RESPONSE_ACCEPT: return False
     dad.links_entries['webs'] = unicode(entry_webs.get_text(), cons.STR_UTF8, cons.STR_IGNORE).strip()
     dad.links_entries['file'] = unicode(entry_file.get_text(), cons.STR_UTF8, cons.STR_IGNORE).strip()
     dad.links_entries['fold'] = unicode(entry_folder.get_text(), cons.STR_UTF8, cons.STR_IGNORE).strip()
     dad.links_entries['anch'] = unicode(entry_anchor.get_text(), cons.STR_UTF8, cons.STR_IGNORE).strip()
-    dad.links_entries['node'] = sel_iter
+    dad.links_entries['node'] = links_parms.sel_iter
     return True
 
 def dialog_choose_node(father_win, title, treestore, sel_tree_iter):
