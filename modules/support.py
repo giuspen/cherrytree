@@ -684,7 +684,10 @@ def dialog_link_handle(dad, title, sel_tree_iter):
     scrolledwindow = gtk.ScrolledWindow()
     scrolledwindow.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
     scrolledwindow.add(treeview_2)
-    if sel_tree_iter: treeview_2.set_cursor(dad.treestore.get_path(sel_tree_iter))
+    if links_parms.sel_iter:
+        sel_path = dad.treestore.get_path(links_parms.sel_iter)
+        treeview_2.expand_to_path(sel_path)
+        treeview_2.set_cursor(sel_path)
     
     vbox_anchor = gtk.VBox()
     label_over = gtk.Label()
@@ -826,7 +829,10 @@ def dialog_choose_node(father_win, title, treestore, sel_tree_iter):
     scrolledwindow = gtk.ScrolledWindow()
     scrolledwindow.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
     scrolledwindow.add(treeview_2)
-    if node_parms.sel_iter: treeview_2.set_cursor(treestore.get_path(node_parms.sel_iter))
+    if node_parms.sel_iter:
+        sel_path = treestore.get_path(node_parms.sel_iter)
+        treeview_2.expand_to_path(sel_path)
+        treeview_2.set_cursor(sel_path)
     content_area = dialog.get_content_area()
     content_area.pack_start(scrolledwindow)
     def on_key_press_choose_node_dialog(widget, event):
