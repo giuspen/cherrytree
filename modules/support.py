@@ -771,6 +771,14 @@ def dialog_link_handle(dad, title, sel_tree_iter):
                 if "pixbuf" in dir(anchor) and "anchor" in dir(anchor.pixbuf):
                     anchors_list.append([anchor.pixbuf.anchor])
             if not curr_iter.forward_char(): break
+        iter_insert = dad.curr_buffer.get_iter_at_mark(dad.curr_buffer.get_insert())
+        iter_bound = dad.curr_buffer.get_iter_at_mark(dad.curr_buffer.get_selection_bound())
+        insert_offset = iter_insert.get_offset()
+        bound_offset = iter_bound.get_offset()
+        dad.objects_buffer_refresh()
+        dad.curr_buffer.move_mark(dad.curr_buffer.get_insert(), dad.curr_buffer.get_iter_at_offset(insert_offset))
+        dad.curr_buffer.move_mark(dad.curr_buffer.get_selection_bound(), dad.curr_buffer.get_iter_at_offset(bound_offset))
+        dad.sourceview.scroll_to_mark(dad.curr_buffer.get_insert(), 0.3)
         if not anchors_list:
             dialog_info(_("There are No Anchors in the Selected Node"), dialog)
             return
