@@ -339,11 +339,14 @@ class FindReplace:
             if all_matches:
                 if self.newline_trick: newline_trick_offset = 1
                 else: newline_trick_offset = 0
-                self.liststore.append([self.dad.treestore[self.dad.curr_tree_iter][3],
-                                       match_offsets[0] + num_objs - newline_trick_offset,
-                                       match_offsets[1] + num_objs - newline_trick_offset,
-                                       self.dad.treestore[self.dad.curr_tree_iter][1],
-                                       self.get_line_content(iter_insert) if obj_match_offsets[0] == None else obj_match_offsets[2]])
+                node_id = self.dad.treestore[self.dad.curr_tree_iter][3]
+                start_offset = match_offsets[0] + num_objs - newline_trick_offset
+                end_offset = match_offsets[1] + num_objs - newline_trick_offset
+                node_name = self.dad.treestore[self.dad.curr_tree_iter][1]
+                line_content = self.get_line_content(iter_insert) if obj_match_offsets[0] == None else obj_match_offsets[2]
+                line_num = self.dad.curr_buffer.get_iter_at_offset(start_offset).get_line()
+                if not self.newline_trick: line_num += 1
+                self.liststore.append([node_id, start_offset, end_offset, node_name, line_content, line_num])
             if self.replace_active:
                 replacer_text = self.dad.search_replace_dict['replace']
                 self.dad.curr_buffer.delete_selection(interactive=False, default_editable=True)
@@ -479,11 +482,10 @@ class FindReplace:
             match = pattern.search(text_tags)
         if match:
             if all_matches:
-                self.liststore.append([self.dad.treestore[node_iter][3],
-                                       0,
-                                       0,
-                                       self.dad.treestore[node_iter][1],
-                                       self.get_first_line_content(self.dad.get_textbuffer_from_tree_iter(node_iter))])
+                node_id = self.dad.treestore[node_iter][3]
+                node_name = self.dad.treestore[node_iter][1]
+                line_content = self.get_first_line_content(self.dad.get_textbuffer_from_tree_iter(node_iter))
+                self.liststore.append([node_id, 0, 0, node_name, line_content, 1])
             if self.replace_active:
                 replacer_text = self.dad.search_replace_dict['replace']
                 text_name = text_name.replace(self.curr_find[1], replacer_text)
@@ -577,15 +579,18 @@ class FindReplace:
             button = self.allmatchesdialog.get_widget_for_response(gtk.RESPONSE_CLOSE)
             button.set_image(gtk.image_new_from_stock(gtk.STOCK_CLOSE, gtk.ICON_SIZE_BUTTON))
         except: pass
-        # ROW: 0-node_id, 1-start_offset, 2-end_offset, 3-node_name, 4-line_content
-        self.liststore = gtk.ListStore(long, long, long, str, str)
+        # ROW: 0-node_id, 1-start_offset, 2-end_offset, 3-node_name, 4-line_content, 5-line_num
+        self.liststore = gtk.ListStore(long, long, long, str, str, int)
         self.treeview = gtk.TreeView(self.liststore)
         self.renderer_text_node = gtk.CellRendererText()
-        self.renderer_text_line = gtk.CellRendererText()
+        self.renderer_text_linenum = gtk.CellRendererText()
+        self.renderer_text_linecontent = gtk.CellRendererText()
         self.node_column = gtk.TreeViewColumn(_("Node Name"), self.renderer_text_node, text=3)
         self.treeview.append_column(self.node_column)
-        self.line_column = gtk.TreeViewColumn(_("Line Content"), self.renderer_text_line, text=4)
-        self.treeview.append_column(self.line_column)
+        self.linenum_column = gtk.TreeViewColumn(_("Line"), self.renderer_text_linenum, text=5)
+        self.treeview.append_column(self.linenum_column)
+        self.linecontent_column = gtk.TreeViewColumn(_("Line Content"), self.renderer_text_linecontent, text=4)
+        self.treeview.append_column(self.linecontent_column)
         self.treeviewselection = self.treeview.get_selection()
         self.treeview.connect('event-after', self.on_treeview_event_after)
         scrolledwindow_allmatches = gtk.ScrolledWindow()

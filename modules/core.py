@@ -4141,8 +4141,11 @@ class CherryTree:
 
     def on_sourceview_motion_notify_event(self, text_view, event):
         """Update the cursor image if the pointer moved"""
-        if not self.sourceview.get_cursor_visible(): self.sourceview.set_cursor_visible(True)
-        if self.syntax_highlighting != cons.CUSTOM_COLORS_ID: return
+        if not self.sourceview.get_cursor_visible():
+            self.sourceview.set_cursor_visible(True)
+        if self.syntax_highlighting != cons.CUSTOM_COLORS_ID:
+            self.sourceview.get_window(gtk.TEXT_WINDOW_TEXT).set_cursor(None)
+            return
         x, y = self.sourceview.window_to_buffer_coords(gtk.TEXT_WINDOW_TEXT, int(event.x), int(event.y))
         self.sourceview_cursor_and_tooltips_handler(x, y)
         return False
@@ -4162,7 +4165,9 @@ class CherryTree:
 
     def on_sourceview_visibility_notify_event(self, text_view, event):
         """Update the cursor image if the window becomes visible (e.g. when a window covering it got iconified)"""
-        if self.syntax_highlighting != cons.CUSTOM_COLORS_ID: return
+        if self.syntax_highlighting != cons.CUSTOM_COLORS_ID:
+            self.sourceview.get_window(gtk.TEXT_WINDOW_TEXT).set_cursor(None)
+            return
         wx, wy, mod = self.sourceview.window.get_pointer()
         bx, by = self.sourceview.window_to_buffer_coords(gtk.TEXT_WINDOW_TEXT, wx, wy)
         self.sourceview_cursor_and_tooltips_handler(bx, by)
