@@ -3728,7 +3728,7 @@ class CherryTree:
                 else: print "ERROR bad tag_property"
                 response = dialog.run()
                 dialog.hide()
-                if response != gtk.RESPONSE_OK: return # cancel was clicked
+                if response != gtk.RESPONSE_ACCEPT: return # cancel was clicked
                 self.curr_colors[tag_property[0]] = colorselection.get_current_color()
                 property_value = self.curr_colors[tag_property[0]].to_string()
                 color_str_hex8 = "#" + self.html_handler.rgb_to_24(property_value[1:])
