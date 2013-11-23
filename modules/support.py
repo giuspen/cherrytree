@@ -365,7 +365,7 @@ def dialog_anchors_list(father_win, title, anchors_list):
     if response != gtk.RESPONSE_ACCEPT or not anchor_parms.sel_iter: return ""
     return unicode(anchors_liststore[anchor_parms.sel_iter][0], cons.STR_UTF8, cons.STR_IGNORE)
 
-def dialog_anchor_handle(father_win, title, anchor_name):
+def dialog_img_n_entry(father_win, title, entry_content, img_stock):
     """Insert/Edit Anchor Name"""
     dialog = gtk.Dialog(title=title,
         parent=father_win,
@@ -375,9 +375,9 @@ def dialog_anchor_handle(father_win, title, anchor_name):
     dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
     dialog.set_default_size(300, -1)
     image = gtk.Image()
-    image.set_from_stock("anchor", gtk.ICON_SIZE_BUTTON)
+    image.set_from_stock(img_stock, gtk.ICON_SIZE_BUTTON)
     entry = gtk.Entry()
-    entry.set_text(anchor_name)
+    entry.set_text(entry_content)
     hbox = gtk.HBox()
     hbox.pack_start(image, expand=False)
     hbox.pack_start(entry)
