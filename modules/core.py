@@ -3608,6 +3608,27 @@ class CherryTree:
         if self.latest_tag[0] == "": support.dialog_warning(_("No Previous Text Format Was Performed During This Session"), self.window)
         else: self.apply_tag(*self.latest_tag)
 
+    def link_cut(self, *args):
+        """Cut Link"""
+        if self.link_check_around_cursor():
+            self.sourceview.emit("cut-clipboard")
+
+    def link_copy(self, *args):
+        """Copy Link"""
+        if self.link_check_around_cursor():
+            self.sourceview.emit("copy-clipboard")
+
+    def link_dismiss(self, *args):
+        """Dismiss Link"""
+        if self.link_check_around_cursor():
+            self.remove_text_formatting()
+
+    def link_delete(self, *args):
+        """Delete Link"""
+        if self.link_check_around_cursor():
+            self.curr_buffer.delete_selection(True, self.sourceview.get_editable())
+            self.sourceview.grab_focus()
+
     def apply_tag(self, tag_property, property_value=None, iter_sel_start=None, iter_sel_end=None, text_buffer=None):
         """Apply a tag"""
         if self.user_active and not self.is_curr_node_not_syntax_highlighting_or_error(): return
