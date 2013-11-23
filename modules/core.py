@@ -62,8 +62,10 @@ class CherryTree:
         self.filetype = ""
         self.user_active = True
         # glade
-        self.glade = GladeWidgetsWrapper(cons.GLADE_PATH + 'cherrytree.glade', self) # glade widgets access
-        self.window = self.glade.window
+        self.window = gtk.Window()
+        self.window.set_title("CherryTree")
+        self.window.set_default_size(963, 630)
+        self.window.set_icon_from_file(os.path.join(cons.GLADE_PATH, "cherrytree.png"))
         # instantiate external handlers
         self.clipboard_handler = clipboard.ClipboardHandler(self)
         self.lists_handler = lists.ListsHandler(self)
@@ -163,6 +165,7 @@ class CherryTree:
         self.scrolledwindow_tree.add(self.treeview)
         self.orphan_accel_group = gtk.AccelGroup()
         self.menu_tree_create()
+        self.window.connect('delete-event', self.on_window_delete_event)
         self.window.connect('window-state-event', self.on_window_state_event)
         self.window.connect("size-allocate", self.on_window_n_tree_size_allocate_event)
         self.window.connect('key_press_event', self.on_key_press_window)
@@ -207,8 +210,6 @@ class CherryTree:
         self.window.show_all() # this before the config_file_apply that could hide something
         self.window.present()
         config.config_file_apply(self)
-        self.combobox_country_lang_init()
-        self.combobox_style_scheme_init()
         self.combobox_prog_lang_init()
         if self.systray:
             if not self.boss.systray_active:
@@ -963,6 +964,8 @@ class CherryTree:
 
     def dialog_preferences(self, *args):
         """Opens the Preferences Dialog"""
+        self.glade = GladeWidgetsWrapper(cons.GLADE_PATH + 'cherrytree.glade', self)
+        config.config_dialog_prepare_settings(self)
         self.glade.prefdialog.run()
         self.glade.prefdialog.hide()
         # special characters
@@ -978,6 +981,8 @@ class CherryTree:
         if self.autosave[0] and self.autosave_timer_id == None: self.autosave_timer_start()
         # update config file (for people that do not close the app but just logout/shutdown)
         config.config_file_save(self)
+        self.glade.prefdialog.destroy()
+        del self.glade
 
     def autosave_timer_start(self):
         """Start Autosave Timer"""
@@ -1766,9 +1771,9 @@ class CherryTree:
         """Print Page Setup Operations"""
         if self.print_handler.settings is None:
             self.print_handler.settings = gtk.PrintSettings()
-        self.print_handler.page_setup = gtk.print_run_page_setup_dialog(self.glade.window,
-                                                                        self.print_handler.page_setup,
-                                                                        self.print_handler.settings)
+        self.print_handler.page_setup = gtk.print_run_page_setup_dialog(self.window,
+                                            self.print_handler.page_setup,
+                                            self.print_handler.settings)
 
     def export_to_pdf(self, action):
         """Start Export to PDF Operations"""
@@ -2318,19 +2323,6 @@ class CherryTree:
             lang_file_descriptor.write(new_lang)
             lang_file_descriptor.close()
 
-    def combobox_country_lang_init(self):
-        """Init The Country Language ComboBox"""
-        combobox = self.glade.combobox_country_language
-        self.country_lang_liststore = gtk.ListStore(str)
-        combobox.set_model(self.country_lang_liststore)
-        cell = gtk.CellRendererText()
-        combobox.pack_start(cell, True)
-        combobox.add_attribute(cell, 'text', 0)
-        for country_lang in cons.AVAILABLE_LANGS:
-            self.country_lang_liststore.append([country_lang])
-        combobox.set_active_iter(self.get_combobox_iter_from_value(self.country_lang_liststore, 0, self.country_lang))
-        combobox.connect('changed', self.on_combobox_country_language_changed)
-    
     def on_combobox_style_scheme_changed(self, combobox):
         """New Style Scheme Choosed"""
         new_iter = self.glade.combobox_style_scheme.get_active_iter()
@@ -2338,45 +2330,64 @@ class CherryTree:
         if new_style != self.style_scheme:
             self.style_scheme = new_style
             support.dialog_info_after_restart(self.window)
-    
-    def combobox_style_scheme_init(self):
-        """Init The Style Scheme ComboBox"""
-        combobox = self.glade.combobox_style_scheme
-        self.style_scheme_liststore = gtk.ListStore(str)
-        combobox.set_model(self.style_scheme_liststore)
-        cell = gtk.CellRendererText()
-        combobox.pack_start(cell, True)
-        combobox.add_attribute(cell, 'text', 0)
-        style_schemes_list = []
-        for style_scheme in sorted(self.sourcestyleschememanager.get_scheme_ids()):
-            self.style_scheme_liststore.append([style_scheme])
-            style_schemes_list.append(style_scheme)
-        if not self.style_scheme in style_schemes_list: self.style_scheme = style_schemes_list[0]
-        combobox.set_active_iter(self.get_combobox_iter_from_value(self.style_scheme_liststore, 0, self.style_scheme))
-        combobox.connect('changed', self.on_combobox_style_scheme_changed)
-    
+
     def on_combobox_spell_check_lang_changed(self, combobox):
         """New Spell Check Language Choosed"""
         if not self.user_active: return
         new_iter = self.glade.combobox_spell_check_lang.get_active_iter()
         new_lang_code = self.spell_check_lang_liststore[new_iter][0]
         if new_lang_code != self.spell_check_lang: self.spell_check_set_new_lang(new_lang_code)
+
+    def combobox_country_lang_init(self):
+        """Init The Country Language ComboBox"""
+        if not "country_lang_liststore" in dir(self):
+            self.country_lang_liststore = gtk.ListStore(str)
+            for country_lang in cons.AVAILABLE_LANGS:
+                self.country_lang_liststore.append([country_lang])
+        if "glade" in dir(self):
+            combobox = self.glade.combobox_country_language
+            combobox.set_model(self.country_lang_liststore)
+            cell = gtk.CellRendererText()
+            combobox.pack_start(cell, True)
+            combobox.add_attribute(cell, 'text', 0)
+            combobox.set_active_iter(self.get_combobox_iter_from_value(self.country_lang_liststore, 0, self.country_lang))
+            combobox.connect('changed', self.on_combobox_country_language_changed)
+    
+    def combobox_style_scheme_init(self):
+        """Init The Style Scheme ComboBox"""
+        if not "style_scheme_liststore" in dir(self):
+            self.style_scheme_liststore = gtk.ListStore(str)
+            style_schemes_list = []
+            for style_scheme in sorted(self.sourcestyleschememanager.get_scheme_ids()):
+                self.style_scheme_liststore.append([style_scheme])
+                style_schemes_list.append(style_scheme)
+            if not self.style_scheme in style_schemes_list: self.style_scheme = style_schemes_list[0]
+        if "glade" in dir(self):
+            combobox = self.glade.combobox_style_scheme
+            combobox.set_model(self.style_scheme_liststore)
+            cell = gtk.CellRendererText()
+            combobox.pack_start(cell, True)
+            combobox.add_attribute(cell, 'text', 0)
+            combobox.set_active_iter(self.get_combobox_iter_from_value(self.style_scheme_liststore, 0, self.style_scheme))
+            combobox.connect('changed', self.on_combobox_style_scheme_changed)
     
     def combobox_spell_check_lang_init(self):
         """Init The Spell Check Language ComboBox"""
-        combobox = self.glade.combobox_spell_check_lang
-        self.spell_check_lang_liststore = gtk.ListStore(str)
-        combobox.set_model(self.spell_check_lang_liststore)
-        cell = gtk.CellRendererText()
-        combobox.pack_start(cell, True)
-        combobox.add_attribute(cell, 'text', 0)
-        code_lang_list = []
-        for code_lang in sorted(self.spell_check_get_languages()):
-            self.spell_check_lang_liststore.append([code_lang])
-            code_lang_list.append(code_lang)
-        if not self.spell_check_lang in code_lang_list: self.spell_check_lang = code_lang_list[0]
-        combobox.set_active_iter(self.get_combobox_iter_from_value(self.spell_check_lang_liststore, 0, self.spell_check_lang))
-        combobox.connect('changed', self.on_combobox_spell_check_lang_changed)
+        if not "spell_check_lang_liststore" in dir(self):
+            self.spell_check_lang_liststore = gtk.ListStore(str)
+            code_lang_list = []
+            for code_lang in sorted(self.spell_check_get_languages()):
+                self.spell_check_lang_liststore.append([code_lang])
+                code_lang_list.append(code_lang)
+            if not self.spell_check_lang in code_lang_list: self.spell_check_lang = code_lang_list[0]
+        if "glade" in dir(self):
+            combobox = self.glade.combobox_spell_check_lang
+            combobox.set_model(self.spell_check_lang_liststore)
+            cell = gtk.CellRendererText()
+            combobox.pack_start(cell, True)
+            combobox.add_attribute(cell, 'text', 0)
+            combobox.set_active_iter(self.get_combobox_iter_from_value(self.spell_check_lang_liststore, 0, self.spell_check_lang))
+            combobox.connect('changed', self.on_combobox_spell_check_lang_changed)
     
     def get_combobox_iter_from_value(self, liststore, column_num, value):
         """Returns the Liststore iter Given the First Column Value"""
