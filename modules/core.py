@@ -885,7 +885,9 @@ class CherryTree:
                     if menuitem.get_image().get_property("stock") == "gtk-paste":
                         menuitem.set_sensitive(True)
                 except: pass
-            self.menu_populate_popup(menu, cons.get_popup_menu_entries_text(self))
+            if self.hovering_over_link:
+                self.menu_populate_popup(menu, cons.get_popup_menu_entries_link(self))
+            else: self.menu_populate_popup(menu, cons.get_popup_menu_entries_text(self))
         else: self.menu_populate_popup(menu, cons.get_popup_menu_entries_code(self))
 
     def menu_populate_popup(self, menu, entries, accel_group=None):

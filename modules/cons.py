@@ -803,6 +803,17 @@ def get_popup_menu_entries_code(inst):
     ("submenu-end", None, None, None, None),
     ]
 
+def get_popup_menu_entries_link(inst):
+    """Returns the Menu Entries Given the Class Instance"""
+    # stock id, label, accelerator, tooltip, callback |
+    # "separator", None, None, None, None |
+    # "submenu-start", label, stock id, None, None |
+    # "submenu-end", None, None, None, None
+    return [
+    ("separator", None, None, None, None),
+    ("link_handle", _("Edit _Link"), None, _("Edit the Underlying Link"), inst.apply_tag_link),
+    ]
+
 def get_popup_menu_entries_codebox(inst):
     """Returns the Menu Entries Given the Class Instance"""
     # stock id, label, accelerator, tooltip, callback |
