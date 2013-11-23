@@ -3153,7 +3153,7 @@ class CherryTree:
         else:
             anchor_curr_name = ""
             dialog_title = _("Insert Anchor")
-        ret_anchor_name = support.dialog_anchor_handle(self.window, dialog_title, anchor_curr_name)
+        ret_anchor_name = support.dialog_img_n_entry(self.window, dialog_title, anchor_curr_name, "anchor")
         if not ret_anchor_name: return
         pixbuf.anchor = ret_anchor_name
         if iter_bound != None: # only in case of modify
@@ -3646,8 +3646,10 @@ class CherryTree:
                         tag_property_value = self.link_check_around_cursor()
                         if tag_property_value == "":
                             if not self.apply_tag_try_automatic_bounds():
-                                support.dialog_warning(_("No Text is Selected"), self.window)
-                                return
+                                link_name = support.dialog_img_n_entry(self.window, _("Link Name"), "", "link_handle")
+                                if not link_name: return
+                                text_buffer.insert_at_cursor(link_name)
+                                if not self.apply_tag_try_automatic_bounds(): return
                             self.links_entries['webs'] = ""
                             self.links_entries['file'] = ""
                             self.links_entries['fold'] = ""
