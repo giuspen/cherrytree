@@ -49,6 +49,13 @@ CONFIG_PATH = os.path.join(CONFIG_DIR, 'config.cfg')
 LANG_PATH = os.path.join(CONFIG_DIR, 'lang')
 IMG_PATH = os.path.join(CONFIG_DIR, 'img_tmp.png')
 
+try:
+    import appindicator
+    HAS_APPINDICATOR = True
+except: HAS_APPINDICATOR = False
+XDG_CURRENT_DESKTOP = 'XDG_CURRENT_DESKTOP'
+HAS_SYSTRAY = not (XDG_CURRENT_DESKTOP in os.environ and os.environ[XDG_CURRENT_DESKTOP] == "Unity")
+
 AVAILABLE_LANGS = ['default', 'cs', 'de', 'en', 'es', 'fr', 'it', 'nl', 'pl', 'pt_BR', 'ru', 'uk', 'zh_CN']
 COLOR_48_YELLOW = "#bbbbbbbb0000"
 COLOR_48_WHITE = "#ffffffffffff"
