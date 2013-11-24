@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-28 22:15+0100\n"
+"POT-Creation-Date: 2013-11-24 12:01+0100\n"
 "PO-Revision-Date: 2013-08-26 23:10+0100\n"
 "Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -20,39 +20,39 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.5.4\n"
 
-#: modules/support.py:123
+#: modules/support.py:128
 msgid "Save File as"
 msgstr "Uložit soubor jako"
 
-#: modules/support.py:154
+#: modules/support.py:159
 msgid "Select File"
 msgstr "Vybrat soubor"
 
-#: modules/support.py:185
+#: modules/support.py:190
 msgid "Select Folder"
 msgstr "Vybrat složku"
 
-#: modules/support.py:214
+#: modules/support.py:219
 msgid "Question"
 msgstr "Otázka"
 
-#: modules/support.py:230
+#: modules/support.py:235
 msgid "Info"
 msgstr "Informace"
 
-#: modules/support.py:236
+#: modules/support.py:241
 msgid "This Change will have Effect Only After Restarting CherryTree"
 msgstr "Tato změna se projeví až po novém spuštění CherryTree"
 
-#: modules/support.py:246 glade/cherrytree.glade.h:24
+#: modules/support.py:251 modules/support.py:508 modules/support.py:542
 msgid "Warning"
 msgstr "Varování"
 
-#: modules/support.py:258
+#: modules/support.py:263
 msgid "Error"
 msgstr "Chyba"
 
-#: modules/support.py:267
+#: modules/support.py:272
 msgid ""
 "Copyright © 2009-2013\n"
 "Giuseppe Penone <giuspen@gmail.com>"
@@ -60,7 +60,7 @@ msgstr ""
 "Autorské právo © 2009-2013\n"
 "Giuseppe Penone <giuspen@gmail.com>"
 
-#: modules/support.py:269
+#: modules/support.py:274
 msgid ""
 "A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
 "Highlighting"
@@ -68,7 +68,7 @@ msgstr ""
 "Program k hierarchickému vedení poznámek, s vlastnostmi, jaké má formátovaný "
 "text (RTF), a zvýrazňování skladby"
 
-#: modules/support.py:270
+#: modules/support.py:275
 msgid ""
 "\n"
 "This program is free software; you can redistribute it and/or modify\n"
@@ -100,7 +100,7 @@ msgstr ""
 "a pokud ne, napište Free Software Foundation, Inc., 51 Franklin St, Fifth "
 "Floor, Boston, MA 02110-1301, USA.\n"
 
-#: modules/support.py:290
+#: modules/support.py:295
 #, fuzzy
 msgid ""
 "Chinese Simplified (zh_CN) Channing Wong <mamimoluo@gmail.com>\n"
@@ -128,64 +128,129 @@ msgstr ""
 "Španělský překlad (es) Daniel MC <i.e.betel@gmail.com>\n"
 "Ukrajinský překlad (uk) Andriy Kovtun <kovtunos@yandex.ru>"
 
-#: modules/support.py:302 modules/cons.py:607
+#: modules/support.py:307 modules/cons.py:608
 msgid "About CherryTree"
 msgstr "O CherryTree"
 
-#: modules/support.py:311
+#: modules/support.py:332
+msgid "Anchor Name"
+msgstr "Název kotvy"
+
+#: modules/support.py:432 modules/codeboxes.py:80
+msgid "Width"
+msgstr "Šířka"
+
+#: modules/support.py:435 modules/codeboxes.py:84
+msgid "Height"
+msgstr "Výška"
+
+#: modules/support.py:545
+msgid "Cancel"
+msgstr "Zrušit"
+
+#: modules/support.py:546
+msgid "No"
+msgstr "Ne"
+
+#: modules/support.py:547
+msgid "Yes"
+msgstr "Ano"
+
+#: modules/support.py:561
+msgid ""
+"<b>The current document was updated</b>,\n"
+"do you want to save the changes?"
+msgstr ""
+"<b>nynější dokument byl upraven.</b>\n"
+"Chcete uložit změny?"
+
+#: modules/support.py:604
+msgid "To WebSite"
+msgstr "Pro internetovou stránku"
+
+#: modules/support.py:615
+msgid "To File"
+msgstr "Pro soubor"
+
+#: modules/support.py:630
+msgid "To Folder"
+msgstr "Pro složku"
+
+#: modules/support.py:645
+msgid "To Node"
+msgstr "Pro uzel"
+
+#: modules/support.py:685
+#, fuzzy
+msgid "Anchor Name (optional)"
+msgstr "<b> Název kotvy (volitelný)</b>"
+
+#: modules/support.py:739 modules/core.py:3276 modules/core.py:4156
+msgid "No Node is Selected"
+msgstr "Není vybrán žádný uzel"
+
+#: modules/support.py:759
+msgid "There are No Anchors in the Selected Node"
+msgstr "Ve vybraném uzlu nejsou žádné kotvy"
+
+#: modules/support.py:761
+msgid "Choose Existing Anchor"
+msgstr "Vybrat stávající kotvu"
+
+#: modules/support.py:852
 msgid "Involved Nodes"
 msgstr "Související uzly"
 
-#: modules/support.py:317
+#: modules/support.py:858
 msgid "Selected Text Only"
 msgstr "Pouze vybraný text"
 
-#: modules/support.py:318
+#: modules/support.py:859
 msgid "Selected Node Only"
 msgstr "Pouze vybraný uzel"
 
-#: modules/support.py:319
+#: modules/support.py:860
 msgid "Selected Node and Subnodes"
 msgstr "Vybraný uzel a podřízené uzly"
 
-#: modules/support.py:320
+#: modules/support.py:861
 msgid "All the Tree"
 msgstr "Celý strom"
 
-#: modules/support.py:325
+#: modules/support.py:866
 msgid "Include Node Name"
 msgstr "Zahrnout název uzlu"
 
-#: modules/support.py:390 modules/core.py:949
+#: modules/support.py:932 modules/core.py:934
 msgid "Insert _Special Character"
 msgstr "Vložit _zvláštní znak"
 
-#: modules/support.py:392 modules/core.py:951
+#: modules/support.py:934 modules/core.py:936
 msgid "Insert a Special Character"
 msgstr "Vložit zvláštní znak"
 
-#: modules/support.py:423
+#: modules/support.py:965
 msgid "_Recent Documents"
 msgstr "_Nedávné dokumenty"
 
-#: modules/support.py:425 modules/support.py:431
+#: modules/support.py:967 modules/support.py:973
 msgid "Open a Recent CherryTree Document"
 msgstr "Otevřít nedávný dokument CherryTree"
 
-#: modules/support.py:430 modules/cons.py:503
+#: modules/support.py:972 modules/cons.py:504
 msgid "Open a CherryTree Document"
 msgstr "Otevřít dokument CherryTree"
 
-#: modules/support.py:453
+#: modules/support.py:996
 #, python-format
 msgid "The Document %s was Not Found"
 msgstr "Dokument %s nebyl nalezen"
 
-#: modules/support.py:465 modules/cons.py:620
+#: modules/support.py:1008 modules/cons.py:621
 msgid "Handle the Bookmarks List"
 msgstr "Pracovat se seznamem záložek"
 
-#: modules/support.py:479
+#: modules/support.py:1022
 msgid "Sort with Drag and Drop, Delete with the Delete Key"
 msgstr "Třídit pomocí \"táhni a pusť\", smazat pomocí klávesy Delete"
 
@@ -209,153 +274,157 @@ msgstr "Nahradit"
 msgid "Undo"
 msgstr "Zpět"
 
-#: modules/findreplace.py:106
+#: modules/findreplace.py:107
 msgid "Replace in Current Node..."
 msgstr "Nahradit ve vybraném uzlu..."
 
-#: modules/findreplace.py:107
+#: modules/findreplace.py:108
 msgid "Search in Current Node..."
 msgstr "Hledat ve vybraném uzlu..."
 
-#: modules/findreplace.py:135 modules/findreplace.py:210
-#: modules/findreplace.py:281
+#: modules/findreplace.py:136 modules/findreplace.py:211
+#: modules/findreplace.py:282
 #, python-format
 msgid "The pattern '%s' was not found"
 msgstr "Hledaný pojem '%s' nenalezen"
 
-#: modules/findreplace.py:137 modules/findreplace.py:213
-#: modules/findreplace.py:283
+#: modules/findreplace.py:138 modules/findreplace.py:214
+#: modules/findreplace.py:284
 msgid "Matches"
 msgstr "Shody"
 
-#: modules/findreplace.py:152
+#: modules/findreplace.py:153
 msgid "Replace in All Nodes..."
 msgstr "Nahradit ve všech uzlech..."
 
-#: modules/findreplace.py:153
+#: modules/findreplace.py:154
 msgid "Search in All Nodes..."
 msgstr "Hledat ve všech uzlech..."
 
-#: modules/findreplace.py:226
+#: modules/findreplace.py:227
 msgid "Replace in Node Names..."
 msgstr "Nahradit v názvech uzlů..."
 
-#: modules/findreplace.py:227
+#: modules/findreplace.py:228
 msgid "Search For a Node Name..."
 msgstr "Hledat název uzlu..."
 
-#: modules/findreplace.py:532
+#: modules/findreplace.py:535
 msgid "No Previous Search Was Performed During This Session"
 msgstr "Během tohoto sezení nebylo ještě provedeno žádné hledání"
 
-#: modules/findreplace.py:572
+#: modules/findreplace.py:575
 msgid "Hide (Restore with Ctrl+Shift+A)"
 msgstr "Skrýt (Obnovit Ctrl+Shift+A)"
 
-#: modules/findreplace.py:584 modules/core.py:3100
+#: modules/findreplace.py:588 modules/core.py:3008
 msgid "Node Name"
 msgstr "Název uzlu"
 
-#: modules/findreplace.py:586
+#: modules/findreplace.py:590
+msgid "Line"
+msgstr ""
+
+#: modules/findreplace.py:592
 msgid "Line Content"
 msgstr "Obsah řádku"
 
-#: modules/findreplace.py:603 modules/core.py:4085
+#: modules/findreplace.py:609 modules/core.py:3918
 #, python-format
 msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
 msgstr "Odkaz odkazuje na uzel, který už neexistuje (ID = %s)"
 
-#: modules/core.py:228
+#: modules/core.py:225
 msgid "Checking for Newer Version..."
 msgstr "Vyhledat novou verzi..."
 
-#: modules/core.py:234
+#: modules/core.py:231
 msgid "A Newer Version Is Available!"
 msgstr "Je dostupná novější verze"
 
-#: modules/core.py:239
+#: modules/core.py:236
 msgid "This is the Latest Version Available"
 msgstr "Toto je nejnovější dostupná verze"
 
-#: modules/core.py:242
+#: modules/core.py:239
 msgid "Failed to Retrieve Latest Version Information - Try Again Later"
 msgstr ""
 "Nepodařilo se dostat informace o nejnovější verzi - Zkuste to později znovu"
 
-#: modules/core.py:259 modules/core.py:3406 modules/core.py:3816
-#: modules/core.py:3822 modules/core.py:4419
+#: modules/core.py:256 modules/core.py:3291 modules/core.py:3654
+#: modules/core.py:4204
 msgid "No Text is Selected"
 msgstr "Není vybrán žádný text"
 
-#: modules/core.py:559 modules/core.py:1991
+#: modules/core.py:556 modules/core.py:1986
 msgid "The new father can't be one of his sons!"
 msgstr ""
 "Nový nadřízený uzel nemůže být jedním z podřízených uzlů nynějšího uzlu!"
 
-#: modules/core.py:596 modules/core.py:1194 modules/core.py:1344
+#: modules/core.py:579 modules/core.py:1186 modules/core.py:1336
 msgid "CherryTree Document"
 msgstr "Dokument CherryTree"
 
-#: modules/core.py:619 modules/core.py:1604
+#: modules/core.py:602 modules/core.py:1606
 #, python-format
 msgid "\"%s\" is Not a CherryTree Document"
 msgstr "\"%s\" není dokumentem CherryTree"
 
-#: modules/core.py:625
+#: modules/core.py:608
 msgid "NoteCase Document"
 msgstr "Dokument NoteCase"
 
-#: modules/core.py:711
+#: modules/core.py:694
 #, fuzzy
 msgid "Plain Text Document"
 msgstr "Dokument Knowit"
 
-#: modules/core.py:729
+#: modules/core.py:712
 msgid "Treepad Document"
 msgstr "Dokument Treepad"
 
-#: modules/core.py:747
+#: modules/core.py:730
 msgid "KeyNote Document"
 msgstr "Dokument KeyNote"
 
-#: modules/core.py:765
+#: modules/core.py:748
 msgid "Mempad Document"
 msgstr "Dokument Mempad"
 
-#: modules/core.py:783
+#: modules/core.py:766
 msgid "Knowit Document"
 msgstr "Dokument Knowit"
 
-#: modules/core.py:801
+#: modules/core.py:784
 msgid "Leo Document"
 msgstr "Dokument Leo"
 
-#: modules/core.py:832
+#: modules/core.py:815
 msgid "Who is the Father?"
 msgstr "Který je nadřízený uzel"
 
-#: modules/core.py:839
+#: modules/core.py:822
 msgid "The Tree Root"
 msgstr "Kořen stromu"
 
-#: modules/core.py:840
+#: modules/core.py:823
 msgid "The Selected Node"
 msgstr "Vybraný uzel"
 
-#: modules/core.py:1035
+#: modules/core.py:1024
 msgid "The Document was Reloaded After External Update to CT* File"
 msgstr "Dokument byl nahrán znovu po vnější aktualizaci na soubor CT*"
 
-#: modules/core.py:1062
+#: modules/core.py:1051
 msgid "CherryTree Hierarchical Note Taking"
 msgstr "Hierarchická tvorba poznámek v CherryTree"
 
-#: modules/core.py:1311
+#: modules/core.py:1303
 #, python-format
 msgid "You Have No Write Access to %s"
 msgstr "Nemáte oprávnění pro zápis do %s"
 
-#: modules/core.py:1326
+#: modules/core.py:1318
 msgid "Writing to Disk..."
 msgstr "Zapisuje se na disk..."
 
@@ -380,20 +449,20 @@ msgstr ""
 msgid "Enter the New Password Twice"
 msgstr "Zadejte nové heslo dvakrát"
 
-#: modules/core.py:1435
+#: modules/core.py:1436
 msgid "The Password Fields Must be Filled"
 msgstr "Pole pro hesla musí být vyplněna"
 
-#: modules/core.py:1438
+#: modules/core.py:1439
 msgid "The Two Inserted Passwords Do Not Match"
 msgstr "Ta dvě vložená hesla se neshodují"
 
-#: modules/core.py:1443
+#: modules/core.py:1444
 #, python-format
 msgid "The Characters  %s  are Not Allowed"
 msgstr "Znaky %s nejsou dovoleny"
 
-#: modules/core.py:1461
+#: modules/core.py:1462
 msgid ""
 "Binary Executable '7za' Not Found, Check The Package 'p7zip-full' to be "
 "Installed Properly"
@@ -401,53 +470,53 @@ msgstr ""
 "Binární spustitelný soubor '7za' nebyl nalezen. Prověřte, zda je balíček "
 "'7za' nainstalován správně"
 
-#: modules/core.py:1467
+#: modules/core.py:1468
 #, python-format
 msgid "Enter Password for %s"
 msgstr "Zadejte heslo pro %s"
 
-#: modules/core.py:1528
+#: modules/core.py:1530
 msgid "Wrong Password"
 msgstr "Chybné heslo"
 
-#: modules/core.py:1975 glade/cherrytree.glade.h:3
+#: modules/core.py:1974
 msgid "Select the New Father"
 msgstr "Vybrat nový nadřízený uzel"
 
-#: modules/core.py:1983
+#: modules/core.py:1978
 msgid "The new father can't be the very node to move!"
 msgstr "Nový nadřízený uzel nemůže být vlastní uzel k přesunu!"
 
-#: modules/core.py:1986
+#: modules/core.py:1981
 msgid "The new choosed father is again the old father!"
 msgstr "Nový vybraný nadřízený uzel je opět ten starý nadřízený uzel!"
 
-#: modules/core.py:2423
+#: modules/core.py:2321
 msgid "The New Language will be Available Only After Restarting CherryTree"
 msgstr "Nový jazyk bude dostupný až po novém spuštění CherryTree"
 
-#: modules/core.py:2534
+#: modules/core.py:2438
 msgid "New Node Properties"
 msgstr "Vlastnosti nového uzlu"
 
-#: modules/core.py:2561
+#: modules/core.py:2465
 msgid "New Child Node Properties"
 msgstr "Vlastnosti nového podřízeného uzlu"
 
-#: modules/core.py:2580
+#: modules/core.py:2484
 #, python-format
 msgid "Are you sure to <b>Delete the node '%s'?</b>"
 msgstr "Opravdu chcete <b>smazat uzel '%s'?</b>"
 
-#: modules/core.py:2582
+#: modules/core.py:2486
 msgid "The node <b>has Children, they will be Deleted too!</b>"
 msgstr "Uzel má <b>podřízené uzly, které budou rovněž smazány!</b>"
 
-#: modules/core.py:2604
+#: modules/core.py:2506
 msgid "Node Properties"
 msgstr "Vlastnosti uzlu"
 
-#: modules/core.py:2612
+#: modules/core.py:2514
 msgid ""
 "Entering the Automatic Syntax Highlighting you will Lose all Custom Colors "
 "for This Node, Do you want to Continue?"
@@ -455,1424 +524,1535 @@ msgstr ""
 "Automatické zvýraznění skladby povede k zahození všech ručně stanovených "
 "vlastních barev v tomto uzlu. Chcete pokračovat?"
 
-#: modules/core.py:2993
+#: modules/core.py:2897
 #, fuzzy
 msgid "Search for"
 msgstr "<b>Hledání</b>"
 
-#: modules/core.py:3000
+#: modules/core.py:2904
 #, fuzzy
 msgid "Replace with"
 msgstr "<b>Nahrazení</b>"
 
-#: modules/core.py:3015
+#: modules/core.py:2919
 msgid "Match Case"
 msgstr "Rozlišovat velká a malá písmena"
 
-#: modules/core.py:3017
+#: modules/core.py:2921
 msgid "Regular Expression"
 msgstr "Regulární výraz"
 
-#: modules/core.py:3019
+#: modules/core.py:2923
 msgid "Whole Word"
 msgstr "Celé slovo"
 
-#: modules/core.py:3021
+#: modules/core.py:2925
 msgid "Start Word"
 msgstr "Začátek slova"
 
-#: modules/core.py:3023
+#: modules/core.py:2927
 msgid "Forward"
 msgstr "Vpřed"
 
-#: modules/core.py:3025
+#: modules/core.py:2929
 msgid "Backward"
 msgstr "Zpět"
 
-#: modules/core.py:3028
+#: modules/core.py:2932
 msgid "All, List Matches"
 msgstr "Sestavit seznam všech shod"
 
-#: modules/core.py:3030
+#: modules/core.py:2934
 msgid "First From Selection"
 msgstr "První ve výběru"
 
-#: modules/core.py:3033
+#: modules/core.py:2937
 msgid "First in All Range"
 msgstr "První v celém dokumentu"
 
-#: modules/core.py:3036
+#: modules/core.py:2940
 msgid "Show Iterated Find/Replace Dialog"
 msgstr "Ukázat dialog pro zopakování hledání/nahrazení"
 
-#: modules/core.py:3056
+#: modules/core.py:2960
 #, fuzzy
 msgid "Search options"
 msgstr "<b>Volby pro hledání</b>"
 
-#: modules/core.py:3104 modules/core.py:4375
+#: modules/core.py:3012 modules/core.py:4158
 msgid "Rich Text"
 msgstr "Formátovaný text"
 
-#: modules/core.py:3105
+#: modules/core.py:3013 modules/codeboxes.py:75
 msgid "Automatic Syntax Highlighting"
 msgstr "Automatické zvýrazňování skladby"
 
-#: modules/core.py:3122
+#: modules/core.py:3030
 #, fuzzy
 msgid "Node Type"
 msgstr "<b>Typ uzlu</b>"
 
-#: modules/core.py:3128
+#: modules/core.py:3036
 #, fuzzy
 msgid "Tags for Searching"
 msgstr "<b>Značky pro hledání</b>"
 
-#: modules/core.py:3132 modules/core.py:4377
+#: modules/core.py:3040 modules/core.py:4160
 msgid "Read Only"
 msgstr "Pouze pro čtení"
 
-#: modules/core.py:3164
+#: modules/core.py:3074
 msgid "The Size of the Toolbar Icons is already at the Maximum Value"
 msgstr "Ikony v nástrojovém pruhu jsou již tak velké, jak jen je to možné"
 
-#: modules/core.py:3172
+#: modules/core.py:3082
 msgid "The Size of the Toolbar Icons is already at the Minimum Value"
 msgstr "Ikony v nástrojovém pruhu jsou již tak malé, jak jen je to možné"
 
-#: modules/core.py:3263
+#: modules/core.py:3163
 msgid "Edit Anchor"
 msgstr "Upravit kotvu..."
 
-#: modules/core.py:3266
+#: modules/core.py:3166
 msgid "Insert Anchor"
 msgstr "Vložit kotvu..."
 
-#: modules/core.py:3275
-msgid "The Anchor Name is Mandatory!"
-msgstr "Název kotvy je povinný!"
-
-#: modules/core.py:3310
+#: modules/core.py:3202
 msgid "Not Any H1, H2 or H3 Formatting Found"
 msgstr "Nebylo nalezeno žádné formátování nadpisů (H1, H2 nebo H3)"
 
-#: modules/core.py:3384
+#: modules/core.py:3269
 msgid ""
 "Automatic Syntax Highlighting Must be Disabled in order to Use This Feature"
 msgstr ""
 "Automatické zvýrazňování skladby nesmí být v činnosti, aby bylo možno "
 "používat tuto funkci"
 
-#: modules/core.py:3391 modules/core.py:4373
-msgid "No Node is Selected"
-msgstr "Není vybrán žádný uzel"
-
-#: modules/core.py:3398
+#: modules/core.py:3283
 msgid "The Tree is Empty!"
 msgstr "Strom je prázdný!"
 
-#: modules/core.py:3419 modules/cons.py:636
+#: modules/core.py:3304 modules/cons.py:637
 msgid "Tree Summary Information"
 msgstr "Přehled o stavbě stromu"
 
-#: modules/core.py:3427
+#: modules/core.py:3312
 msgid "Number of Text Nodes"
 msgstr "Počet uzlů textu"
 
-#: modules/core.py:3430
+#: modules/core.py:3315
 msgid "Number of Code Nodes"
 msgstr "Počet uzlů zdrojového kódu"
 
-#: modules/core.py:3433
+#: modules/core.py:3318
 msgid "Number of Images"
 msgstr "Počet obrázků"
 
-#: modules/core.py:3436
+#: modules/core.py:3321
 msgid "Number of Tables"
 msgstr "Počet tabulek"
 
-#: modules/core.py:3439
+#: modules/core.py:3324
 msgid "Number of CodeBoxes"
 msgstr "Počet obdélníků se zdrojovým kódem"
 
-#: modules/core.py:3564
+#: modules/core.py:3393
+msgid "Image Properties"
+msgstr "Vlastnosti obrázku"
+
+#: modules/core.py:3439
 msgid "PNG Image"
 msgstr "Obrázek PNG"
 
-#: modules/core.py:3570
+#: modules/core.py:3445
 #, python-format
 msgid "Write to %s Failed"
 msgstr "Nepodařilo se zapsat %s"
 
-#: modules/core.py:3802
+#: modules/core.py:3501
+msgid "Lines Stripped"
+msgstr ""
+
+#: modules/core.py:3619
 msgid "No Previous Text Format Was Performed During This Session"
 msgstr "Během tohoto sezení nebylo ještě provedeno žádné formátování textu"
 
-#: modules/core.py:3856
+#: modules/core.py:3660
+#, fuzzy
+msgid "Link Name"
+msgstr "Název kotvy"
+
+#: modules/core.py:3690
 msgid "The Cursor is Not into a Paragraph"
 msgstr "Ukazovátko se nenachází v odstavci"
 
-#: modules/core.py:3866
-msgid "Insert/Edit a Link"
+#: modules/core.py:3700
+#, fuzzy
+msgid "Edit a Link"
 msgstr "Vložit/Upravit odkaz..."
 
-#: modules/core.py:3895
+#: modules/core.py:3703
+#, fuzzy
+msgid "Insert a Link"
+msgstr "Vložit/Upravit odkaz..."
+
+#: modules/core.py:3728
 msgid "Pick a Color"
 msgstr "Vybrat barvu"
 
-#: modules/core.py:4057
+#: modules/core.py:3890
 #, python-format
 msgid "The File Link '%s' is Not Valid"
 msgstr "Cesta k souboru '%s' není platná"
 
-#: modules/core.py:4072
+#: modules/core.py:3905
 #, python-format
 msgid "The Folder Link '%s' is Not Valid"
 msgstr "Odkaz na složku '%s' není platný"
 
-#: modules/core.py:4095
+#: modules/core.py:3928
 #, python-format
 msgid "No anchor named '%s' found"
 msgstr "Nebyla nalezena žádná kotva s názvem '%s'"
 
-#: modules/core.py:4165
-msgid "There are No Anchors in the Selected Node"
-msgstr "Ve vybraném uzlu nejsou žádné kotvy"
+#: modules/tablez.py:63
+msgid "Rename Column"
+msgstr "Přejmenovat sloupec"
 
-#: modules/core.py:4170
-msgid "Choose Existing Anchor"
-msgstr "Vybrat stávající kotvu"
+#: modules/tablez.py:74
+msgid "Delete Column"
+msgstr "Smazat sloupec"
 
-#: modules/core.py:4183
-msgid "Anchor Name"
-msgstr "Název kotvy"
+#: modules/tablez.py:82
+msgid "Add Column"
+msgstr "Přidat sloupec"
 
-#: modules/tablez.py:59 modules/tablez.py:92
+#: modules/tablez.py:93
+msgid "Move Column Left"
+msgstr "Posunout sloupec vlevo"
+
+#: modules/tablez.py:101
+msgid "Move Column Right"
+msgstr "Posunout sloupec vpravo"
+
+#: modules/tablez.py:170
+#, fuzzy
+msgid "Rows"
+msgstr "Řádky "
+
+#: modules/tablez.py:174
+#, fuzzy
+msgid "Columns"
+msgstr "Přidat sloupec"
+
+#: modules/tablez.py:189
+#, fuzzy
+msgid "Table Size"
+msgstr "<b>Velikost tabulky</b>"
+
+#: modules/tablez.py:194
+msgid "Min Width"
+msgstr "Nejmenší šířka"
+
+#: modules/tablez.py:198
+#, fuzzy
+msgid "Max Width"
+msgstr " Největší šířka"
+
+#: modules/tablez.py:213
+#, fuzzy
+msgid "Column Properties"
+msgstr "<b>Vlastnosti sloupců</b>"
+
+#: modules/tablez.py:218
+msgid "Import from CSV File"
+msgstr "Zavést ze souboru CSV"
+
+#: modules/tablez.py:253 modules/tablez.py:275
 msgid "CSV File"
 msgstr "Soubor CSV"
 
-#: modules/tablez.py:75
+#: modules/tablez.py:269
 msgid "Insert Table"
 msgstr "Vložit tabulku"
 
-#: modules/tablez.py:121 modules/imports.py:1971
+#: modules/tablez.py:304 modules/imports.py:1971
 msgid "click me"
 msgstr "Klepni mě"
 
-#: modules/tablez.py:130
+#: modules/tablez.py:313
 msgid "Click to Edit the Column Settings"
 msgstr "Klepněte pro úpravu nastavení sloupce"
 
-#: modules/tablez.py:177
+#: modules/tablez.py:358
 msgid "Edit Table Properties"
 msgstr "Upravit vlastnosti tabulky..."
 
-#: modules/tablez.py:261
+#: modules/tablez.py:434
 msgid "Table Column Action"
 msgstr "Upravit sloupec v tabulce"
 
-#: modules/codeboxes.py:67 modules/cons.py:535 modules/cons.py:730
+#: modules/codeboxes.py:89
+msgid "pixels"
+msgstr "pixely"
+
+#: modules/codeboxes.py:114
+msgid "Size"
+msgstr ""
+
+#: modules/codeboxes.py:119 glade/cherrytree.glade.h:6
+msgid "Show Line Numbers"
+msgstr "Ukázat čísla řádků"
+
+#: modules/codeboxes.py:121
+msgid "Highlight Matching Brackets"
+msgstr "Zvýraznit odpovídající si závorky"
+
+#: modules/codeboxes.py:130
+#, fuzzy
+msgid "Options"
+msgstr "<b>Volby</b>"
+
+#: modules/codeboxes.py:172 modules/cons.py:536 modules/cons.py:731
 msgid "Insert a CodeBox"
 msgstr "Vložit CodeBox"
 
-#: modules/codeboxes.py:200
+#: modules/codeboxes.py:295
 msgid "Edit CodeBox"
 msgstr "Upravit CodeBox"
 
-#: modules/cons.py:486
+#: modules/cons.py:487
 msgid "_File"
 msgstr "_Soubor"
 
-#: modules/cons.py:487
+#: modules/cons.py:488
 msgid "_Edit"
 msgstr "_Úpravy"
 
-#: modules/cons.py:488 modules/cons.py:698
+#: modules/cons.py:489 modules/cons.py:699
 msgid "For_matting"
 msgstr "_Formát"
 
-#: modules/cons.py:489
+#: modules/cons.py:490
 msgid "_Tree"
 msgstr "S_trom"
 
-#: modules/cons.py:490 modules/cons.py:638
+#: modules/cons.py:491 modules/cons.py:639
 msgid "Node _Move"
 msgstr "_Posunutí uzlu"
 
-#: modules/cons.py:491 modules/cons.py:655
+#: modules/cons.py:492 modules/cons.py:656
 msgid "Nodes _Import"
 msgstr "_Zavedení uzlů"
 
-#: modules/cons.py:492 modules/cons.py:672
+#: modules/cons.py:493 modules/cons.py:673
 msgid "Nodes E_xport"
 msgstr "_Vyvedení uzlů"
 
-#: modules/cons.py:493 modules/cons.py:737 modules/cons.py:776
+#: modules/cons.py:494 modules/cons.py:738 modules/cons.py:777
 msgid "C_hange Case"
 msgstr "Z_měnit velikost písmen"
 
-#: modules/cons.py:494 modules/cons.py:751 modules/cons.py:790
+#: modules/cons.py:495 modules/cons.py:752 modules/cons.py:791
 msgid "_Search"
 msgstr "_Hledání"
 
-#: modules/cons.py:495 modules/cons.py:758 modules/cons.py:797
+#: modules/cons.py:496 modules/cons.py:759 modules/cons.py:798
 msgid "_Replace"
 msgstr "_Nahrazení"
 
-#: modules/cons.py:496
+#: modules/cons.py:497
 msgid "_View"
 msgstr "_Pohled"
 
-#: modules/cons.py:497
+#: modules/cons.py:498
 msgid "_Bookmarks"
 msgstr "_Záložky"
 
-#: modules/cons.py:498
+#: modules/cons.py:499
 msgid "_Import"
 msgstr "_Zavedení"
 
-#: modules/cons.py:499
+#: modules/cons.py:500
 msgid "E_xport"
 msgstr "_Vyvedení"
 
-#: modules/cons.py:500
+#: modules/cons.py:501
 msgid "_Help"
 msgstr "_Nápověda"
 
-#: modules/cons.py:502
+#: modules/cons.py:503
 msgid "New _Instance"
 msgstr "_Nová stromová stavba..."
 
-#: modules/cons.py:502
+#: modules/cons.py:503
 msgid "Start a New Instance of CherryTree"
 msgstr "Založit novou stromovou stavbu"
 
-#: modules/cons.py:503
+#: modules/cons.py:504
 msgid "_Open File"
 msgstr "_Otevřít soubor"
 
-#: modules/cons.py:504
+#: modules/cons.py:505
 msgid "_Save"
 msgstr "_Uložit"
 
-#: modules/cons.py:504
+#: modules/cons.py:505
 msgid "Save File"
 msgstr "Uložit soubor"
 
-#: modules/cons.py:505
+#: modules/cons.py:506
 msgid "Save _As"
 msgstr "Uloži_t jako"
 
-#: modules/cons.py:505
+#: modules/cons.py:506
 msgid "Save File As"
 msgstr "Uložit soubor jako"
 
-#: modules/cons.py:506 modules/cons.py:673
+#: modules/cons.py:507 modules/cons.py:674
 #, fuzzy
 msgid "Export To _PDF"
 msgstr "Vyvést _jako HTML"
 
-#: modules/cons.py:506 modules/cons.py:673
+#: modules/cons.py:507 modules/cons.py:674
 #, fuzzy
 msgid "Export To PDF"
 msgstr "Tisknout/Vyvést jako PDF"
 
-#: modules/cons.py:507 modules/cons.py:676
+#: modules/cons.py:508 modules/cons.py:677
 msgid "Export To _HTML"
 msgstr "Vyvést _jako HTML"
 
-#: modules/cons.py:507 modules/cons.py:676
+#: modules/cons.py:508 modules/cons.py:677
 msgid "Export To HTML"
 msgstr "Vyvést jako HTML"
 
-#: modules/cons.py:508 modules/cons.py:674
+#: modules/cons.py:509 modules/cons.py:675
 msgid "Export to Multiple Plain _Text Files"
 msgstr "Vyvést jako více souborů prostého _textu"
 
-#: modules/cons.py:508 modules/cons.py:674
+#: modules/cons.py:509 modules/cons.py:675
 msgid "Export to Multiple Plain Text Files"
 msgstr "Vyvést jako více souborů prostého textu"
 
-#: modules/cons.py:509 modules/cons.py:675
+#: modules/cons.py:510 modules/cons.py:676
 msgid "Export to _Single Plain Text File"
 msgstr "Vyvést jako jeden soubor prostého _textu"
 
-#: modules/cons.py:509 modules/cons.py:675
+#: modules/cons.py:510 modules/cons.py:676
 msgid "Export to Single Plain Text File"
 msgstr "Vyvést jako jeden soubor prostého textu"
 
-#: modules/cons.py:510 modules/cons.py:677
+#: modules/cons.py:511 modules/cons.py:678
 msgid "_Export To CherryTree Document"
 msgstr "_Vyvést jako dokument CherryTree"
 
-#: modules/cons.py:510 modules/cons.py:677
+#: modules/cons.py:511 modules/cons.py:678
 msgid "Export To CherryTree Document"
 msgstr "Vyvést jako dokument CherryTree"
 
-#: modules/cons.py:511
+#: modules/cons.py:512
 msgid "Pa_ge Setup"
 msgstr "Nastavení strany"
 
-#: modules/cons.py:511
+#: modules/cons.py:512
 msgid "Set up the Page for Printing"
 msgstr "Nastavit stranu pro tisk"
 
-#: modules/cons.py:512
+#: modules/cons.py:513
 msgid "_Print"
 msgstr ""
 
-#: modules/cons.py:512
+#: modules/cons.py:513
 msgid "Print"
 msgstr ""
 
-#: modules/cons.py:513
+#: modules/cons.py:514
 msgid "_Quit"
 msgstr "_Ukončit"
 
-#: modules/cons.py:513
+#: modules/cons.py:514
 msgid "Quit the Application"
 msgstr "Ukončit program"
 
-#: modules/cons.py:514
+#: modules/cons.py:515
 msgid "_Exit CherryTree"
 msgstr "_Ukončit CherryTree"
 
-#: modules/cons.py:514
+#: modules/cons.py:515
 msgid "Exit from CherryTree"
 msgstr "Ukončit CherryTree"
 
-#: modules/cons.py:515
+#: modules/cons.py:516
 msgid "_Preferences"
 msgstr "_Nastavení"
 
-#: modules/cons.py:515 glade/cherrytree.glade.h:31
+#: modules/cons.py:516 glade/cherrytree.glade.h:1
 msgid "Preferences"
 msgstr "Nastavení"
 
-#: modules/cons.py:516 modules/cons.py:735
+#: modules/cons.py:517 modules/cons.py:736
 msgid "Insert _Horizontal Rule"
 msgstr "Vložit _oddělovací čáru"
 
-#: modules/cons.py:516 modules/cons.py:735
+#: modules/cons.py:517 modules/cons.py:736
 msgid "Insert Horizontal Rule"
 msgstr "Vložit oddělovací čáru"
 
-#: modules/cons.py:517 modules/cons.py:734 modules/cons.py:774
+#: modules/cons.py:518 modules/cons.py:735 modules/cons.py:775
 msgid "Insert Ti_mestamp"
 msgstr "Vložit časo_vé razítko"
 
-#: modules/cons.py:517 modules/cons.py:734 modules/cons.py:774
+#: modules/cons.py:518 modules/cons.py:735 modules/cons.py:775
 msgid "Insert Timestamp"
 msgstr "Vložit časové razítko"
 
-#: modules/cons.py:518 modules/cons.py:722
+#: modules/cons.py:519 modules/cons.py:723
 msgid "Set/Unset _Bulleted List"
 msgstr "Zapnout/Vypnout _seznam s odrážkami"
 
-#: modules/cons.py:518 modules/cons.py:722
+#: modules/cons.py:519 modules/cons.py:723
 msgid "Set/Unset the Current Paragraph/Selection as a Bulleted List"
 msgstr ""
 "Zapnout/Vypnout nynější odstavec/výběr jako položku seznamu s odrážkami"
 
-#: modules/cons.py:519 modules/cons.py:723
+#: modules/cons.py:520 modules/cons.py:724
 msgid "Set/Unset _Numbered List"
 msgstr "Zapnout/Vypnout čís_lovaný seznam"
 
-#: modules/cons.py:519 modules/cons.py:723
+#: modules/cons.py:520 modules/cons.py:724
 msgid "Set/Unset the Current Paragraph/Selection as a Numbered List"
 msgstr ""
 "Zapnout/Vypnout nynější odstavec/výběr jako položku číslovaného seznamu"
 
-#: modules/cons.py:520 modules/cons.py:724
+#: modules/cons.py:521 modules/cons.py:725
 msgid "Set/Unset _To-Do List"
 msgstr "Zapnout/Vypnout _seznam pracovních úkolů"
 
-#: modules/cons.py:520 modules/cons.py:724
+#: modules/cons.py:521 modules/cons.py:725
 msgid "Set/Unset the Current Paragraph/Selection as a To-Do List"
 msgstr ""
 "Zapnout/Vypnout nynější odstavec/výběr jako položku seznamu pracovních úkolů"
 
-#: modules/cons.py:521 modules/cons.py:731
+#: modules/cons.py:522 modules/cons.py:732
 msgid "Insert/Edit _Link"
 msgstr "Vložit/Upravit _odkaz"
 
-#: modules/cons.py:521 modules/cons.py:731
+#: modules/cons.py:522 modules/cons.py:732
 msgid "Insert a Link/Edit the Underlying Link"
 msgstr "Vložit odkaz/Upravit označený odkaz"
 
-#: modules/cons.py:522 modules/cons.py:733
+#: modules/cons.py:523 modules/cons.py:734
 msgid "Insert T_OC"
 msgstr "Vložit _obsah"
 
-#: modules/cons.py:522 modules/cons.py:733
+#: modules/cons.py:523 modules/cons.py:734
 msgid "Insert Table of Contents"
 msgstr "Vložit seznam s obsahem"
 
-#: modules/cons.py:523 modules/cons.py:732
+#: modules/cons.py:524 modules/cons.py:733
 msgid "Insert _Anchor"
 msgstr "Vložit _kotvu"
 
-#: modules/cons.py:523 modules/cons.py:732
+#: modules/cons.py:524 modules/cons.py:733
 msgid "Insert an Anchor"
 msgstr "Vložit jednu kotvu"
 
-#: modules/cons.py:524
+#: modules/cons.py:525
 msgid "Edit _Anchor"
 msgstr "Upravit _kotvu"
 
-#: modules/cons.py:524
+#: modules/cons.py:525
 msgid "Edit the Underlying Anchor"
 msgstr "Upravit označenou kotvu"
 
-#: modules/cons.py:525 modules/cons.py:728
+#: modules/cons.py:526 modules/cons.py:729
 msgid "Insert I_mage"
 msgstr "Vložit _obrázek"
 
-#: modules/cons.py:525 modules/cons.py:728
+#: modules/cons.py:526 modules/cons.py:729
 msgid "Insert an Image"
 msgstr "Vložit jeden obrázek"
 
-#: modules/cons.py:526
+#: modules/cons.py:527
 msgid "_Save Image as PNG"
 msgstr "_Uložit obrázek jako PNG"
 
-#: modules/cons.py:526
+#: modules/cons.py:527
 msgid "Save the Selected Image as a PNG file"
 msgstr "Uložit vybraný obrázek jako PNG"
 
-#: modules/cons.py:527
+#: modules/cons.py:528
 msgid "_Edit Image"
 msgstr "_Upravit obrázek"
 
-#: modules/cons.py:527
+#: modules/cons.py:528
 msgid "Edit the Selected Image"
 msgstr "Upravit vybraný obrázek"
 
-#: modules/cons.py:528
+#: modules/cons.py:529
 msgid "C_ut Image"
 msgstr "Vy_jmout obrázek"
 
-#: modules/cons.py:528
+#: modules/cons.py:529
 msgid "Cut the Selected Image"
 msgstr "Vyjmout vybraný obrázek"
 
-#: modules/cons.py:529
+#: modules/cons.py:530
 msgid "_Copy Image"
 msgstr "_Kopírovat obrázek"
 
-#: modules/cons.py:529
+#: modules/cons.py:530
 msgid "Copy the Selected Image"
 msgstr "Kopírovat vybraný obrázek"
 
-#: modules/cons.py:530
+#: modules/cons.py:531
 msgid "_Delete Image"
 msgstr "_Smazat obrázek"
 
-#: modules/cons.py:530
+#: modules/cons.py:531
 msgid "Delete the Selected Image"
 msgstr "Smazat vybraný obrázek"
 
-#: modules/cons.py:531
+#: modules/cons.py:532
 msgid "C_ut Table"
 msgstr "Vyj_mout tabulku"
 
-#: modules/cons.py:531
+#: modules/cons.py:532
 msgid "Cut the Selected Table"
 msgstr "Vyjmout vybranou tabulku"
 
-#: modules/cons.py:532
+#: modules/cons.py:533
 msgid "_Copy Table"
 msgstr "_Kopírovat tabulku"
 
-#: modules/cons.py:532
+#: modules/cons.py:533
 msgid "Copy the Selected Table"
 msgstr "Kopírovat vybranou tabulku"
 
-#: modules/cons.py:533
+#: modules/cons.py:534
 msgid "_Delete Table"
 msgstr "_Smazat tabulku"
 
-#: modules/cons.py:533
+#: modules/cons.py:534
 msgid "Delete the Selected Table"
 msgstr "Smazat vybranou tabulku"
 
-#: modules/cons.py:534 modules/cons.py:729
+#: modules/cons.py:535 modules/cons.py:730
 msgid "Insert _Table"
 msgstr "Vložit _tabulku"
 
-#: modules/cons.py:534 modules/cons.py:729
+#: modules/cons.py:535 modules/cons.py:730
 msgid "Insert a Table"
 msgstr "Vložit jednu tabulku"
 
-#: modules/cons.py:535 modules/cons.py:730
+#: modules/cons.py:536 modules/cons.py:731
 msgid "Insert _CodeBox"
 msgstr "Vložit _CodeBox"
 
-#: modules/cons.py:536 modules/cons.py:738 modules/cons.py:777
+#: modules/cons.py:537 modules/cons.py:739 modules/cons.py:778
 msgid "_Lower Case of Selection/Word"
 msgstr "_Malá písmena výběru/slova"
 
-#: modules/cons.py:536 modules/cons.py:738 modules/cons.py:777
+#: modules/cons.py:537 modules/cons.py:739 modules/cons.py:778
 msgid "Lower the Case of the Selection/the Underlying Word"
 msgstr "Zmenšit velikost písmen výběru/spodního slova"
 
-#: modules/cons.py:537 modules/cons.py:739 modules/cons.py:778
+#: modules/cons.py:538 modules/cons.py:740 modules/cons.py:779
 msgid "_Upper Case of Selection/Word"
 msgstr "_Velká písmena výběru/slova"
 
-#: modules/cons.py:537 modules/cons.py:739 modules/cons.py:778
+#: modules/cons.py:538 modules/cons.py:740 modules/cons.py:779
 msgid "Upper the Case of the Selection/the Underlying Word"
 msgstr "Zvětšit velikost písmen výběru/spodního slova"
 
-#: modules/cons.py:538 modules/cons.py:740 modules/cons.py:779
+#: modules/cons.py:539 modules/cons.py:741 modules/cons.py:780
 msgid "_Toggle Case of Selection/Word"
 msgstr "_Přepnout velikost písmen výběru/slova"
 
-#: modules/cons.py:538 modules/cons.py:740 modules/cons.py:779
+#: modules/cons.py:539 modules/cons.py:741 modules/cons.py:780
 msgid "Toggle the Case of the Selection/the Underlying Word"
 msgstr "Přepnout velikost písmen výběru/spodního slova"
 
-#: modules/cons.py:539 modules/cons.py:746 modules/cons.py:785
+#: modules/cons.py:540 modules/cons.py:747 modules/cons.py:786
 msgid "_Duplicate Row"
 msgstr "_Zdvojit řádek"
 
-#: modules/cons.py:539 modules/cons.py:746 modules/cons.py:785
+#: modules/cons.py:540 modules/cons.py:747 modules/cons.py:786
 msgid "Duplicate the Current Row/Selection"
 msgstr "Zdvojit nynější řádek/výběr"
 
-#: modules/cons.py:540 modules/cons.py:747 modules/cons.py:786
+#: modules/cons.py:541 modules/cons.py:748 modules/cons.py:787
 msgid "Move _Up Row"
 msgstr "Posunout řádek _nahoru"
 
-#: modules/cons.py:540 modules/cons.py:747 modules/cons.py:786
+#: modules/cons.py:541 modules/cons.py:748 modules/cons.py:787
 msgid "Move Up the Current Row/Selected Rows"
 msgstr "Posunout nynější řádek/vybrané řádky nahoru"
 
-#: modules/cons.py:541 modules/cons.py:748 modules/cons.py:787
+#: modules/cons.py:542 modules/cons.py:749 modules/cons.py:788
 msgid "Move _Down Row"
 msgstr "Posunout řádek _dolů"
 
-#: modules/cons.py:541 modules/cons.py:748 modules/cons.py:787
+#: modules/cons.py:542 modules/cons.py:749 modules/cons.py:788
 msgid "Move Down the Current Row/Selected Rows"
 msgstr "Posunout nynější řádek/vybrané řádky dolů"
 
-#: modules/cons.py:542 modules/cons.py:613 modules/cons.py:745
-#: modules/cons.py:784
+#: modules/cons.py:543 modules/cons.py:614 modules/cons.py:746
+#: modules/cons.py:785
 msgid "De_lete Row"
 msgstr "Smazat řá_dek"
 
-#: modules/cons.py:542 modules/cons.py:745 modules/cons.py:784
+#: modules/cons.py:543 modules/cons.py:746 modules/cons.py:785
 msgid "Delete the Current Row/Selected Rows"
 msgstr "Smazat nynější řádek/vybrané řádky"
 
-#: modules/cons.py:543 modules/cons.py:610 modules/cons.py:743
-#: modules/cons.py:782
+#: modules/cons.py:544 modules/cons.py:611 modules/cons.py:744
+#: modules/cons.py:783
 msgid "Cu_t Row"
 msgstr "Vyjmou_t řádek"
 
-#: modules/cons.py:543 modules/cons.py:743 modules/cons.py:782
+#: modules/cons.py:544 modules/cons.py:744 modules/cons.py:783
 msgid "Cut the Current Row/Selected Rows"
 msgstr "Vyjmout nynější řádek/vybrané řádky"
 
-#: modules/cons.py:544 modules/cons.py:611
+#: modules/cons.py:545 modules/cons.py:612
 msgid "_Copy Row"
 msgstr "_Kopírovat řádek"
 
-#: modules/cons.py:544 modules/cons.py:744 modules/cons.py:783
+#: modules/cons.py:545 modules/cons.py:745 modules/cons.py:784
 msgid "Copy the Current Row/Selected Rows"
 msgstr "Kopírovat nynější řádek/vybrané řádky"
 
-#: modules/cons.py:545 modules/cons.py:684
+#: modules/cons.py:546 modules/cons.py:685
 msgid "Go _Back"
 msgstr "Jít _zpět"
 
-#: modules/cons.py:545 modules/cons.py:684
+#: modules/cons.py:546 modules/cons.py:685
 msgid "Go to the Previous Visited Node"
 msgstr "Jít na předchozí navštívený uzel"
 
-#: modules/cons.py:546 modules/cons.py:685
+#: modules/cons.py:547 modules/cons.py:686
 msgid "Go _Forward"
 msgstr "Jít _před"
 
-#: modules/cons.py:546 modules/cons.py:685
+#: modules/cons.py:547 modules/cons.py:686
 msgid "Go to the Next Visited Node"
 msgstr "Jít na další navštívený uzel"
 
-#: modules/cons.py:547
+#: modules/cons.py:548
 msgid "_Undo"
 msgstr "_Zpět"
 
-#: modules/cons.py:547
+#: modules/cons.py:548
 msgid "Undo Last Operation"
 msgstr "Vrátit poslední změny"
 
-#: modules/cons.py:548
+#: modules/cons.py:549
 msgid "_Redo"
 msgstr "Z_novu"
 
-#: modules/cons.py:548
+#: modules/cons.py:549
 msgid "Redo Previously Discarded Operation"
 msgstr "Obnovit poslední odvolanou změnu"
 
-#: modules/cons.py:549 modules/cons.py:680
+#: modules/cons.py:550 modules/cons.py:681
 msgid "_Inherit Syntax"
 msgstr "Předat _skladbu"
 
-#: modules/cons.py:549 modules/cons.py:680
+#: modules/cons.py:550 modules/cons.py:681
 msgid ""
 "Change the Selected Node's Children Syntax Highlighting to the Father's "
 "Syntax Highlighting"
 msgstr "Předá vybrané zvýraznění skladby všem podřízeným uzlům"
 
-#: modules/cons.py:550 modules/cons.py:699
+#: modules/cons.py:551 modules/cons.py:700
 msgid "Format _Latest"
 msgstr "Zopakovat _formátování"
 
-#: modules/cons.py:550 modules/cons.py:699
+#: modules/cons.py:551 modules/cons.py:700
 msgid "Memory of Latest Text Format Type"
 msgstr "Zopakovat poslední způsob formátování textu"
 
-#: modules/cons.py:551 modules/cons.py:696
+#: modules/cons.py:552 modules/cons.py:697
 msgid "_Paste as Plain Text"
 msgstr "_Vložit jako prostý text"
 
-#: modules/cons.py:551 modules/cons.py:696
+#: modules/cons.py:552 modules/cons.py:697
 msgid "Paste as Plain Text, Discard the Rich Text Formatting"
 msgstr "Vložit jako prostý text, odložit formátování formátovaného textu (RTF)"
 
-#: modules/cons.py:552 modules/cons.py:700
+#: modules/cons.py:553 modules/cons.py:701
 msgid "_Remove Formatting"
 msgstr "Odstranit f_ormátování"
 
-#: modules/cons.py:552 modules/cons.py:700
+#: modules/cons.py:553 modules/cons.py:701
 msgid "Remove the Formatting from the Selected Text"
 msgstr "Odstranit formátování z vybraného textu"
 
-#: modules/cons.py:553 modules/cons.py:702
+#: modules/cons.py:554 modules/cons.py:703
 msgid "Text _Color Foreground"
 msgstr "_Barva písma"
 
-#: modules/cons.py:553 modules/cons.py:702
+#: modules/cons.py:554 modules/cons.py:703
 msgid "Change the Color of the Selected Text Foreground"
 msgstr "Změnit barvu písma u vybraného textu"
 
-#: modules/cons.py:554 modules/cons.py:703
+#: modules/cons.py:555 modules/cons.py:704
 msgid "Text C_olor Background"
 msgstr "B_arva pozadí"
 
-#: modules/cons.py:554 modules/cons.py:703
+#: modules/cons.py:555 modules/cons.py:704
 msgid "Change the Color of the Selected Text Background"
 msgstr "Změnit barvu pozadí u vybraného textu"
 
-#: modules/cons.py:555 modules/cons.py:704
+#: modules/cons.py:556 modules/cons.py:705
 msgid "Toggle _Bold Property"
 msgstr "_Tučné"
 
-#: modules/cons.py:555 modules/cons.py:704
+#: modules/cons.py:556 modules/cons.py:705
 msgid "Toggle Bold Property of the Selected Text"
 msgstr "Formátovat vybraný text tučně"
 
-#: modules/cons.py:556 modules/cons.py:705
+#: modules/cons.py:557 modules/cons.py:706
 msgid "Toggle _Italic Property"
 msgstr "_Kurzíva"
 
-#: modules/cons.py:556 modules/cons.py:705
+#: modules/cons.py:557 modules/cons.py:706
 msgid "Toggle Italic Property of the Selected Text"
 msgstr "Formátovat vybraný text kurzívně"
 
-#: modules/cons.py:557 modules/cons.py:706
+#: modules/cons.py:558 modules/cons.py:707
 msgid "Toggle _Underline Property"
 msgstr "_Podtržení"
 
-#: modules/cons.py:557 modules/cons.py:706
+#: modules/cons.py:558 modules/cons.py:707
 msgid "Toggle Underline Property of the Selected Text"
 msgstr "Formátovat vybraný text podtržením"
 
-#: modules/cons.py:558 modules/cons.py:707
+#: modules/cons.py:559 modules/cons.py:708
 msgid "Toggle Stri_kethrough Property"
 msgstr "_Přeškrtnutí"
 
-#: modules/cons.py:558 modules/cons.py:707
+#: modules/cons.py:559 modules/cons.py:708
 msgid "Toggle Strikethrough Property of the Selected Text"
 msgstr "Formátovat vybraný text přeškrtnutím"
 
-#: modules/cons.py:559 modules/cons.py:708
+#: modules/cons.py:560 modules/cons.py:709
 msgid "Toggle h_1 Property"
 msgstr "Nadpis _1"
 
-#: modules/cons.py:559 modules/cons.py:708
+#: modules/cons.py:560 modules/cons.py:709
 msgid "Toggle h1 Property of the Selected Text"
 msgstr "Formátovat vybraný text jako nadpis 1"
 
-#: modules/cons.py:560 modules/cons.py:709
+#: modules/cons.py:561 modules/cons.py:710
 msgid "Toggle h_2 Property"
 msgstr "Nadpis _2"
 
-#: modules/cons.py:560 modules/cons.py:709
+#: modules/cons.py:561 modules/cons.py:710
 msgid "Toggle h2 Property of the Selected Text"
 msgstr "Formátovat vybraný text jako nadpis 2"
 
-#: modules/cons.py:561 modules/cons.py:710
+#: modules/cons.py:562 modules/cons.py:711
 msgid "Toggle h_3 Property"
 msgstr "Nadpis _3"
 
-#: modules/cons.py:561 modules/cons.py:710
+#: modules/cons.py:562 modules/cons.py:711
 msgid "Toggle h3 Property of the Selected Text"
 msgstr "Formátovat vybraný text jako nadpis 3"
 
-#: modules/cons.py:562 modules/cons.py:711
+#: modules/cons.py:563 modules/cons.py:712
 msgid "Toggle _Small Property"
 msgstr "_Malý"
 
-#: modules/cons.py:562 modules/cons.py:711
+#: modules/cons.py:563 modules/cons.py:712
 msgid "Toggle Small Property of the Selected Text"
 msgstr "Formátovat vybraný text jako malý"
 
-#: modules/cons.py:563 modules/cons.py:712
+#: modules/cons.py:564 modules/cons.py:713
 msgid "Toggle Su_perscript Property"
 msgstr "Horní index"
 
-#: modules/cons.py:563 modules/cons.py:712
+#: modules/cons.py:564 modules/cons.py:713
 msgid "Toggle Superscript Property of the Selected Text"
 msgstr "Formátovat vybraný text jako horní index"
 
-#: modules/cons.py:564 modules/cons.py:713
+#: modules/cons.py:565 modules/cons.py:714
 msgid "Toggle Su_bscript Property"
 msgstr "Dolní index"
 
-#: modules/cons.py:564 modules/cons.py:713
+#: modules/cons.py:565 modules/cons.py:714
 msgid "Toggle Subscript Property of the Selected Text"
 msgstr "Formátovat vybraný text jako dolní index"
 
-#: modules/cons.py:565 modules/cons.py:714
+#: modules/cons.py:566 modules/cons.py:715
 msgid "Toggle _Monospace Property"
 msgstr "Neproporcionální písmo"
 
-#: modules/cons.py:565 modules/cons.py:714
+#: modules/cons.py:566 modules/cons.py:715
 msgid "Toggle Monospace Property of the Selected Text"
 msgstr "Formátovat vybraný text jako neproporcionální"
 
-#: modules/cons.py:566 modules/cons.py:717
+#: modules/cons.py:567 modules/cons.py:718
 msgid "Justify _Left"
 msgstr "Zarovnat _vlevo"
 
-#: modules/cons.py:566 modules/cons.py:717
+#: modules/cons.py:567 modules/cons.py:718
 msgid "Justify Left the Current Paragraph"
 msgstr "Zarovnat současný odstavec vlevo"
 
-#: modules/cons.py:567 modules/cons.py:718
+#: modules/cons.py:568 modules/cons.py:719
 msgid "Justify _Center"
 msgstr "Zarovnat _na střed"
 
-#: modules/cons.py:567 modules/cons.py:718
+#: modules/cons.py:568 modules/cons.py:719
 msgid "Justify Center the Current Paragraph"
 msgstr "Zarovnat současný odstavec na střed"
 
-#: modules/cons.py:568 modules/cons.py:719
+#: modules/cons.py:569 modules/cons.py:720
 msgid "Justify _Right"
 msgstr "Zarovnat v_pravo"
 
-#: modules/cons.py:568 modules/cons.py:719
+#: modules/cons.py:569 modules/cons.py:720
 msgid "Justify Right the Current Paragraph"
 msgstr "Zarovnat současný odstavec vpravo"
 
-#: modules/cons.py:569 modules/cons.py:752 modules/cons.py:791
+#: modules/cons.py:570 modules/cons.py:753 modules/cons.py:792
 msgid "_Find in Node"
 msgstr "Hledat v _nynějším uzlu"
 
-#: modules/cons.py:569 modules/cons.py:752 modules/cons.py:791
+#: modules/cons.py:570 modules/cons.py:753 modules/cons.py:792
 msgid "Find into the Selected Node"
 msgstr "Hledat v nyní vybraném uzlu"
 
-#: modules/cons.py:570 modules/cons.py:753 modules/cons.py:792
+#: modules/cons.py:571 modules/cons.py:754 modules/cons.py:793
 msgid "Find in Node_s"
 msgstr "Hledat ve všech uzlech"
 
-#: modules/cons.py:570 modules/cons.py:753 modules/cons.py:792
+#: modules/cons.py:571 modules/cons.py:754 modules/cons.py:793
 msgid "Find into all the Tree Nodes"
 msgstr "Hledat ve všech uzlech stavby stromu"
 
-#: modules/cons.py:571 modules/cons.py:652 modules/cons.py:754
-#: modules/cons.py:793
+#: modules/cons.py:572 modules/cons.py:653 modules/cons.py:755
+#: modules/cons.py:794
 msgid "Find a _Node"
 msgstr "Hledat _uzel"
 
-#: modules/cons.py:571 modules/cons.py:652 modules/cons.py:754
-#: modules/cons.py:793
+#: modules/cons.py:572 modules/cons.py:653 modules/cons.py:755
+#: modules/cons.py:794
 msgid "Find a Node from its Name"
 msgstr "Hledat název uzlu na základě jeho názvu"
 
-#: modules/cons.py:572 modules/cons.py:755 modules/cons.py:794
+#: modules/cons.py:573 modules/cons.py:756 modules/cons.py:795
 msgid "Find _Again"
 msgstr "_Hledat dál"
 
-#: modules/cons.py:572 modules/cons.py:755 modules/cons.py:794
+#: modules/cons.py:573 modules/cons.py:756 modules/cons.py:795
 msgid "Iterate the Last Find Operation"
 msgstr "Pokračovat v hledání"
 
-#: modules/cons.py:573 modules/cons.py:756 modules/cons.py:795
+#: modules/cons.py:574 modules/cons.py:757 modules/cons.py:796
 msgid "Find _Back"
 msgstr "Hledat _pozpátku"
 
-#: modules/cons.py:573 modules/cons.py:756 modules/cons.py:795
+#: modules/cons.py:574 modules/cons.py:757 modules/cons.py:796
 msgid "Iterate the Last Find Operation in Opposite Direction"
 msgstr "Zopakovat poslední hledání v opačném směru"
 
-#: modules/cons.py:574 modules/cons.py:759 modules/cons.py:798
+#: modules/cons.py:575 modules/cons.py:760 modules/cons.py:799
 msgid "_Replace in Node"
 msgstr "Nahradit v n_ynějším uzlu"
 
-#: modules/cons.py:574 modules/cons.py:759 modules/cons.py:798
+#: modules/cons.py:575 modules/cons.py:760 modules/cons.py:799
 msgid "Replace into the Selected Node"
 msgstr "Nahradit v nyní vybraném uzlu"
 
-#: modules/cons.py:575 modules/cons.py:760 modules/cons.py:799
+#: modules/cons.py:576 modules/cons.py:761 modules/cons.py:800
 msgid "Replace in Node_s"
 msgstr "Nahradit ve všech uzlech"
 
-#: modules/cons.py:575 modules/cons.py:760 modules/cons.py:799
+#: modules/cons.py:576 modules/cons.py:761 modules/cons.py:800
 msgid "Replace into all the Tree Nodes"
 msgstr "Nahradit ve všech uzlech stavby stromu"
 
-#: modules/cons.py:576 modules/cons.py:653 modules/cons.py:761
-#: modules/cons.py:800
+#: modules/cons.py:577 modules/cons.py:654 modules/cons.py:762
+#: modules/cons.py:801
 msgid "Replace in Nodes _Names"
 msgstr "Nahradit v _názvech uzlů"
 
-#: modules/cons.py:576 modules/cons.py:653 modules/cons.py:761
-#: modules/cons.py:800
+#: modules/cons.py:577 modules/cons.py:654 modules/cons.py:762
+#: modules/cons.py:801
 msgid "Replace in Nodes Names"
 msgstr "Nahradit v názvech uzlů"
 
-#: modules/cons.py:577 modules/cons.py:762 modules/cons.py:801
+#: modules/cons.py:578 modules/cons.py:763 modules/cons.py:802
 msgid "Replace _Again"
 msgstr "Nahrazovat _dál"
 
-#: modules/cons.py:577 modules/cons.py:762 modules/cons.py:801
+#: modules/cons.py:578 modules/cons.py:763 modules/cons.py:802
 msgid "Iterate the Last Replace Operation"
 msgstr "Zopakovat poslední nahrazení"
 
-#: modules/cons.py:578
+#: modules/cons.py:579
 msgid "Show/Hide Node Name _Header"
 msgstr "Ukázat/Skrýt název uzlu v záhlaví"
 
-#: modules/cons.py:578
+#: modules/cons.py:579
 msgid "Toggle Show/Hide Node Name Header"
 msgstr "Ukázat/Skrýt název uzlu"
 
-#: modules/cons.py:579
+#: modules/cons.py:580
 msgid "Show/Hide _Tree"
 msgstr "Ukázat/Skrýt stavbu _stromu"
 
-#: modules/cons.py:579
+#: modules/cons.py:580
 msgid "Toggle Show/Hide Tree"
 msgstr "Ukázat/Skrýt strom"
 
-#: modules/cons.py:580
+#: modules/cons.py:581
 msgid "Show/Hide _CherryTree"
 msgstr "Ukázat/Skrýt _CherryTree"
 
-#: modules/cons.py:580
+#: modules/cons.py:581
 msgid "Toggle Show/Hide CherryTree"
 msgstr "Ukázat/Skrýt CherryTree"
 
-#: modules/cons.py:581
+#: modules/cons.py:582
 msgid "Show/Hide Tool_bar"
 msgstr "Ukázat/Skrýt nástrojový _pruh"
 
-#: modules/cons.py:581
+#: modules/cons.py:582
 msgid "Toggle Show/Hide Toolbar"
 msgstr "Ukázat/Skrýt nástrojový pruh"
 
-#: modules/cons.py:582
+#: modules/cons.py:583
 msgid "Show _All Matches Dialog"
 msgstr "Ukázat dialog _všechny shody"
 
-#: modules/cons.py:582
+#: modules/cons.py:583
 msgid "Show Search All Matches Dialog"
 msgstr "Ukázat dialog pro vyhledání všech shod"
 
-#: modules/cons.py:583
+#: modules/cons.py:584
 msgid "_Increase Toolbar Icons Size"
 msgstr "Z_většit velikost ikon v nástrojovém pruhu"
 
-#: modules/cons.py:583
+#: modules/cons.py:584
 msgid "Increase the Size of the Toolbar Icons"
 msgstr "Zvětšit velikost ikon v nástrojovém pruhu"
 
-#: modules/cons.py:584
+#: modules/cons.py:585
 msgid "_Decrease Toolbar Icons Size"
 msgstr "Z_menšit velikost ikon v nástrojovém pruhu"
 
-#: modules/cons.py:584
+#: modules/cons.py:585
 msgid "Decrease the Size of the Toolbar Icons"
 msgstr "Zmenšit velikost ikon v nástrojovém pruhu"
 
-#: modules/cons.py:585
+#: modules/cons.py:586
 msgid "Toggle _Focus Tree/Text"
 msgstr "Přepnout _zaměření strom/text"
 
-#: modules/cons.py:585
+#: modules/cons.py:586
 msgid "Toggle Focus Between Tree and Text"
 msgstr "Přepnout zaměření mezi stromem a textem"
 
-#: modules/cons.py:586
+#: modules/cons.py:587
 msgid "Toggle Node _Expanded/Collapsed"
 msgstr "Přepnout uzel rozbaleno/sbaleno"
 
-#: modules/cons.py:586
+#: modules/cons.py:587
 msgid "Toggle Expanded/Collapsed Status of the Selected Node"
 msgstr "Přepnout stav rozbaleno/sbaleno vybraného uzlu"
 
-#: modules/cons.py:587
+#: modules/cons.py:588
 msgid "E_xpand All Nodes"
 msgstr "Roz_balit všechny uzly"
 
-#: modules/cons.py:587
+#: modules/cons.py:588
 msgid "Expand All the Tree Nodes"
 msgstr "Rozbalit všechny uzly stromové stavby"
 
-#: modules/cons.py:588
+#: modules/cons.py:589
 msgid "_Collapse All Nodes"
 msgstr "S_ložit všechny uzly"
 
-#: modules/cons.py:588
+#: modules/cons.py:589
 msgid "Collapse All the Tree Nodes"
 msgstr "Složit všechny uzly stromové stavby"
 
-#: modules/cons.py:589
+#: modules/cons.py:590
 msgid "_Full Screen On/Off"
 msgstr "_Zobrazení na celou obrazovku zapnuto/vypnuto"
 
-#: modules/cons.py:589
+#: modules/cons.py:590
 msgid "Toggle Full Screen On/Off"
 msgstr "Přepnout zobrazení na celou obrazovku Zapnuto/Vypnuto"
 
-#: modules/cons.py:590 modules/cons.py:656
+#: modules/cons.py:591 modules/cons.py:657
 msgid "From _CherryTree File"
 msgstr "Ze souboru _CherryTree"
 
-#: modules/cons.py:590 modules/cons.py:656
+#: modules/cons.py:591 modules/cons.py:657
 msgid "Add Nodes of a CherryTree File to the Current Tree"
 msgstr "Přidat uzly ze souboru CherryTree do současné stromové stavby"
 
-#: modules/cons.py:591 modules/cons.py:657
+#: modules/cons.py:592 modules/cons.py:658
 #, fuzzy
 msgid "From _Plain Text File"
 msgstr "Vyvést jako jeden soubor prostého _textu"
 
-#: modules/cons.py:591 modules/cons.py:657
+#: modules/cons.py:592 modules/cons.py:658
 #, fuzzy
 msgid "Add Node from a Plain Text File to the Current Tree"
 msgstr "Přidat uzly ze souboru Leo do současné stromové stavby"
 
-#: modules/cons.py:592 modules/cons.py:658
+#: modules/cons.py:593 modules/cons.py:659
 #, fuzzy
 msgid "From _Folder of Plain Text Files"
 msgstr "Vyvést jako jeden soubor prostého _textu"
 
-#: modules/cons.py:592 modules/cons.py:658
+#: modules/cons.py:593 modules/cons.py:659
 #, fuzzy
 msgid "Add Nodes from a Folder of Plain Text Files to the Current Tree"
 msgstr "Přidat uzly ze souboru NoteCase do současné stromové stavby"
 
-#: modules/cons.py:593 modules/cons.py:659
+#: modules/cons.py:594 modules/cons.py:660
 msgid "From _Basket Folder"
 msgstr "Ze složky _Basket"
 
-#: modules/cons.py:593 modules/cons.py:659
+#: modules/cons.py:594 modules/cons.py:660
 msgid "Add Nodes of a Basket Folder to the Current Tree"
 msgstr "Přidat uzly ze složky Basket (koš) do současné stromové stavby"
 
-#: modules/cons.py:594 modules/cons.py:660
+#: modules/cons.py:595 modules/cons.py:661
 msgid "From _Gnote Folder"
 msgstr "Ze složky _Gnote"
 
-#: modules/cons.py:594 modules/cons.py:660
+#: modules/cons.py:595 modules/cons.py:661
 msgid "Add Nodes of a Gnote Folder to the Current Tree"
 msgstr "Přidat uzly ze složky Gnote do současné stromové stavby"
 
-#: modules/cons.py:595 modules/cons.py:661
+#: modules/cons.py:596 modules/cons.py:662
 msgid "From _KeepNote Folder"
 msgstr "Ze složky _KeepNote"
 
-#: modules/cons.py:595 modules/cons.py:661
+#: modules/cons.py:596 modules/cons.py:662
 msgid "Add Nodes of a KeepNote Folder to the Current Tree"
 msgstr "Přidat uzly ze složky KeepNote do současné stromové stavby"
 
-#: modules/cons.py:596 modules/cons.py:662
+#: modules/cons.py:597 modules/cons.py:663
 msgid "From K_eyNote File"
 msgstr "Ze souboru K_eyNote"
 
-#: modules/cons.py:596 modules/cons.py:662
+#: modules/cons.py:597 modules/cons.py:663
 msgid "Add Nodes of a KeyNote File to the Current Tree"
 msgstr "Přidat uzly ze souboru KeyNote do současné stromové stavby"
 
-#: modules/cons.py:597 modules/cons.py:663
+#: modules/cons.py:598 modules/cons.py:664
 msgid "From K_nowit File"
 msgstr "Ze souboru K_nowit"
 
-#: modules/cons.py:597 modules/cons.py:663
+#: modules/cons.py:598 modules/cons.py:664
 msgid "Add Nodes of a Knowit File to the Current Tree"
 msgstr "Přidat uzly ze souboru Knowit do současné stromové stavby"
 
-#: modules/cons.py:598 modules/cons.py:664
+#: modules/cons.py:599 modules/cons.py:665
 msgid "From _Leo File"
 msgstr "Ze souboru _Leo"
 
-#: modules/cons.py:598 modules/cons.py:664
+#: modules/cons.py:599 modules/cons.py:665
 msgid "Add Nodes of a Leo File to the Current Tree"
 msgstr "Přidat uzly ze souboru Leo do současné stromové stavby"
 
-#: modules/cons.py:599 modules/cons.py:665
+#: modules/cons.py:600 modules/cons.py:666
 msgid "From _Mempad File"
 msgstr "Ze souboru _Mempad"
 
-#: modules/cons.py:599 modules/cons.py:665
+#: modules/cons.py:600 modules/cons.py:666
 msgid "Add Nodes of a Mempad File to the Current Tree"
 msgstr "Přidat uzly ze souboru Mempad do současné stromové stavby"
 
-#: modules/cons.py:600 modules/cons.py:666
+#: modules/cons.py:601 modules/cons.py:667
 msgid "From _NoteCase File"
 msgstr "Ze souboru _NoteCase"
 
-#: modules/cons.py:600 modules/cons.py:666
+#: modules/cons.py:601 modules/cons.py:667
 msgid "Add Nodes of a NoteCase File to the Current Tree"
 msgstr "Přidat uzly ze souboru NoteCase do současné stromové stavby"
 
-#: modules/cons.py:601 modules/cons.py:667
+#: modules/cons.py:602 modules/cons.py:668
 msgid "From T_omboy Folder"
 msgstr "Ze složky T_omboy"
 
-#: modules/cons.py:601 modules/cons.py:667
+#: modules/cons.py:602 modules/cons.py:668
 msgid "Add Nodes of a Tomboy Folder to the Current Tree"
 msgstr "Přidat uzly ze složky Tomboy do současné stromové stavby"
 
-#: modules/cons.py:602 modules/cons.py:668
+#: modules/cons.py:603 modules/cons.py:669
 msgid "From T_reepad Lite File"
 msgstr "Soubor z T_reepad Lite"
 
-#: modules/cons.py:602 modules/cons.py:668
+#: modules/cons.py:603 modules/cons.py:669
 msgid "Add Nodes of a Treepad Lite File to the Current Tree"
 msgstr "Přidat uzly ze souboru Treepad Lite do současné stromové stavby"
 
-#: modules/cons.py:603 modules/cons.py:669
+#: modules/cons.py:604 modules/cons.py:670
 msgid "From _TuxCards File"
 msgstr "Ze souboru _TuxCards"
 
-#: modules/cons.py:603 modules/cons.py:669
+#: modules/cons.py:604 modules/cons.py:670
 msgid "Add Nodes of a TuxCards File to the Current Tree"
 msgstr "Přidat uzly ze souboru TuxCards do současné stromové stavby"
 
-#: modules/cons.py:604 modules/cons.py:670
+#: modules/cons.py:605 modules/cons.py:671
 msgid "From _Zim Folder"
 msgstr "Ze složky __Zim"
 
-#: modules/cons.py:604 modules/cons.py:670
+#: modules/cons.py:605 modules/cons.py:671
 msgid "Add Nodes of a Zim Folder to the Current Tree"
 msgstr "Přidat uzly ze složky Zim do současné stromové stavby"
 
-#: modules/cons.py:605
+#: modules/cons.py:606
 msgid "Online _Manual"
 msgstr "_Příručka na internetu"
 
-#: modules/cons.py:605
+#: modules/cons.py:606
 msgid "Application's Online Manual"
 msgstr "_Příručka programu na internetu"
 
-#: modules/cons.py:606
+#: modules/cons.py:607
 msgid "_Check Newer Version"
 msgstr "_Vyhledat novou verzi"
 
-#: modules/cons.py:606
+#: modules/cons.py:607
 msgid "Check for a Newer Version"
 msgstr "Vyhledat novou verzi"
 
-#: modules/cons.py:607
+#: modules/cons.py:608
 msgid "_About"
 msgstr "_O programu"
 
-#: modules/cons.py:608
+#: modules/cons.py:609
 msgid "_Edit Table Properties"
 msgstr "_Upravit vlastnosti tabulky"
 
-#: modules/cons.py:608
+#: modules/cons.py:609
 msgid "Edit the Table Properties"
 msgstr "Upravit vlastnosti tabulky"
 
-#: modules/cons.py:609
+#: modules/cons.py:610
 msgid "_Add Row"
 msgstr "__Přidat řádek"
 
-#: modules/cons.py:609
+#: modules/cons.py:610
 msgid "Add a Table Row"
 msgstr "Přidat řádek v tabulce"
 
-#: modules/cons.py:610
+#: modules/cons.py:611
 msgid "Cut a Table Row"
 msgstr "Vyjmout řádek v tabulce"
 
-#: modules/cons.py:611
+#: modules/cons.py:612
 msgid "Copy a Table Row"
 msgstr "Kopírovat řádek v tabulce"
 
-#: modules/cons.py:612
+#: modules/cons.py:613
 msgid "_Paste Row"
 msgstr "_Vložit řádek"
 
-#: modules/cons.py:612
+#: modules/cons.py:613
 msgid "Paste a Table Row"
 msgstr "Vložit řádek v tabulce"
 
-#: modules/cons.py:613
+#: modules/cons.py:614
 msgid "Delete the Selected Table Row"
 msgstr "Smazat vybraný řádek v tabulce"
 
-#: modules/cons.py:614
+#: modules/cons.py:615
 msgid "Move Row _Up"
 msgstr "Posunout řádek _nahoru"
 
-#: modules/cons.py:614
+#: modules/cons.py:615
 msgid "Move the Selected Row Up"
 msgstr "Posunout vybraný řádek nahoru"
 
-#: modules/cons.py:615
+#: modules/cons.py:616
 msgid "Move Row _Down"
 msgstr "Posunout řádek _dolů"
 
-#: modules/cons.py:615
+#: modules/cons.py:616
 msgid "Move the Selected Row Down"
 msgstr "Posunout vybraný řádek dolů"
 
-#: modules/cons.py:616
+#: modules/cons.py:617
 msgid "Sort Rows De_scending"
 msgstr "Třídit řádky ses_tupně"
 
-#: modules/cons.py:616
+#: modules/cons.py:617
 msgid "Sort all the Rows Descending"
 msgstr "Třídit všechny řádky sestupně"
 
-#: modules/cons.py:617
+#: modules/cons.py:618
 msgid "Sort Rows As_cending"
 msgstr "Třídit řádky vzest_upně"
 
-#: modules/cons.py:617
+#: modules/cons.py:618
 msgid "Sort all the Rows Ascending"
 msgstr "Třídit všechny řádky vzestupně"
 
-#: modules/cons.py:618
+#: modules/cons.py:619
 msgid "_Table Export"
 msgstr "Vyvést _tabulku"
 
-#: modules/cons.py:618
+#: modules/cons.py:619
 msgid "Export Table as CSV File"
 msgstr "Vyvést tabulku jako soubor CSV"
 
-#: modules/cons.py:619
+#: modules/cons.py:620
 msgid "_Bookmark This Node"
 msgstr "_Opatřit tento uzel záložkou"
 
-#: modules/cons.py:619
+#: modules/cons.py:620
 msgid "Add the Current Node to the Bookmarks List"
 msgstr "Přidat současný uzel do seznamu záložek"
 
-#: modules/cons.py:620
+#: modules/cons.py:621
 msgid "_Handle Bookmarks"
 msgstr "_Pracovat se záložkami"
 
-#: modules/cons.py:621 modules/cons.py:632
+#: modules/cons.py:622 modules/cons.py:633
 msgid "Add _Node"
 msgstr "Přidat _uzel"
 
-#: modules/cons.py:621 modules/cons.py:632
+#: modules/cons.py:622 modules/cons.py:633
 msgid "Add a Node having the same Father of the Selected Node"
 msgstr "Přidat uzel se stejným nadřízeným uzlem, jaký má vybraný uzel"
 
-#: modules/cons.py:622 modules/cons.py:633
+#: modules/cons.py:623 modules/cons.py:634
 msgid "Add _SubNode"
 msgstr "Přidat _podřízený uzel"
 
-#: modules/cons.py:622 modules/cons.py:633
+#: modules/cons.py:623 modules/cons.py:634
 msgid "Add a Child Node to the Selected Node"
 msgstr "Přidat uzel podřízený vybranému uzlu"
 
-#: modules/cons.py:635
+#: modules/cons.py:636
 msgid "Change Node _Properties"
 msgstr "Změnit _vlastnosti uzlu"
 
-#: modules/cons.py:635
+#: modules/cons.py:636
 msgid "Edit the Properties of the Selected Node"
 msgstr "Upravit vlastnosti vybraného uzlu"
 
-#: modules/cons.py:636
+#: modules/cons.py:637
 msgid "Tree _Info"
 msgstr "_Informace o stromu"
 
-#: modules/cons.py:639
+#: modules/cons.py:640
 msgid "Node _Up"
 msgstr "Posunout uzel nahor_u"
 
-#: modules/cons.py:639
+#: modules/cons.py:640
 msgid "Move the Selected Node Up"
 msgstr "Posunout vybraný uzel nahoru"
 
-#: modules/cons.py:640
+#: modules/cons.py:641
 msgid "Node _Down"
 msgstr "Posunout uzel _dolů"
 
-#: modules/cons.py:640
+#: modules/cons.py:641
 msgid "Move the Selected Node Down"
 msgstr "Posunout vybraný uzel dolů"
 
-#: modules/cons.py:641
+#: modules/cons.py:642
 msgid "Node _Left"
 msgstr "Zme_nšit odsazení"
 
-#: modules/cons.py:641
+#: modules/cons.py:642
 msgid "Move the Selected Node Left"
 msgstr "Zmenšit odsazení uzlu"
 
-#: modules/cons.py:642
+#: modules/cons.py:643
 msgid "Node Change _Father"
 msgstr "Změnit nadřízený uzel"
 
-#: modules/cons.py:642
+#: modules/cons.py:643
 msgid "Change the Selected Node's Father"
 msgstr "Změnit nadřízený uzel vybraného uzlu"
 
-#: modules/cons.py:645
+#: modules/cons.py:646
 msgid "Nodes _Sort"
 msgstr "_Třídění uzlů"
 
-#: modules/cons.py:646
+#: modules/cons.py:647
 msgid "Sort Tree _Ascending"
 msgstr "Třídit strom vzest_upně"
 
-#: modules/cons.py:646
+#: modules/cons.py:647
 msgid "Sort the Tree Ascending"
 msgstr "Třídit strom vzestupně"
 
-#: modules/cons.py:647
+#: modules/cons.py:648
 msgid "Sort Tree _Descending"
 msgstr "Třídit strom ses_tupně"
 
-#: modules/cons.py:647
+#: modules/cons.py:648
 msgid "Sort the Tree Descending"
 msgstr "Třídit strom sestupně"
 
-#: modules/cons.py:648
+#: modules/cons.py:649
 msgid "Sort Siblings A_scending"
 msgstr "Třídit sourozence _vzestupně"
 
-#: modules/cons.py:648
+#: modules/cons.py:649
 msgid "Sort all the Siblings of the Selected Node Ascending"
 msgstr "Třídit všechny uzly na této úrovni vzestupně"
 
-#: modules/cons.py:649
+#: modules/cons.py:650
 msgid "Sort Siblings D_escending"
 msgstr "Třídit sourozence s_estupně"
 
-#: modules/cons.py:649
+#: modules/cons.py:650
 msgid "Sort all the Siblings of the Selected Node Descending"
 msgstr "Třídit všechny uzly na této úrovni sestupně"
 
-#: modules/cons.py:682
+#: modules/cons.py:683
 msgid "De_lete Node"
 msgstr "Smazat u_zel"
 
-#: modules/cons.py:682
+#: modules/cons.py:683
 msgid "Delete the Selected Node"
 msgstr "Smazat vybraný uzel"
 
-#: modules/cons.py:716
+#: modules/cons.py:717
 msgid "_Justify"
 msgstr "_Zarovnat"
 
-#: modules/cons.py:721
+#: modules/cons.py:722
 msgid "_List"
 msgstr "_Vypsat"
 
-#: modules/cons.py:727
+#: modules/cons.py:728
 msgid "_Insert"
 msgstr "_Vložit"
 
-#: modules/cons.py:742 modules/cons.py:781
+#: modules/cons.py:743 modules/cons.py:782
 msgid "_Row"
 msgstr "Řá_dek"
 
-#: modules/cons.py:744 modules/cons.py:783
+#: modules/cons.py:745 modules/cons.py:784
 msgid "C_opy Row"
 msgstr "K_opírovat řádek"
 
-#: modules/cons.py:775
+#: modules/cons.py:776
 msgid "Stri_p Trailing Spaces"
 msgstr ""
 
-#: modules/cons.py:775
+#: modules/cons.py:776
 msgid "Strip Trailing Spaces"
 msgstr ""
 
-#: modules/cons.py:813
-msgid "C_ut CodeBox"
-msgstr "V_yjmout CodeBox"
+#: modules/cons.py:814
+#, fuzzy
+msgid "Edit _Link"
+msgstr "Vložit/Upravit _odkaz"
 
-#: modules/cons.py:813
+#: modules/cons.py:814
+#, fuzzy
+msgid "Edit the Underlying Link"
+msgstr "Upravit označenou kotvu"
+
+#: modules/cons.py:816
+msgid "C_ut Link"
+msgstr ""
+
+#: modules/cons.py:816 modules/cons.py:832
 msgid "Cut the Selected CodeBox"
 msgstr "Vyjmout vybraný CodeBox"
 
-#: modules/cons.py:814
-msgid "_Copy CodeBox"
-msgstr "_Kopírovat CodeBox"
+#: modules/cons.py:817
+#, fuzzy
+msgid "_Copy Link"
+msgstr "_Kopírovat řádek"
 
-#: modules/cons.py:814
+#: modules/cons.py:817 modules/cons.py:833
 msgid "Copy the Selected CodeBox"
 msgstr "Kopírovat vybraný CodeBox"
 
-#: modules/cons.py:815
-msgid "_Delete CodeBox"
-msgstr "S_mazat CodeBox"
+#: modules/cons.py:818
+msgid "D_ismiss Link"
+msgstr ""
 
-#: modules/cons.py:815
-msgid "Delete the Selected CodeBox"
-msgstr "Smazat vybraný CodeBox"
+#: modules/cons.py:818
+#, fuzzy
+msgid "Dismiss the Selected Link"
+msgstr "Upravit vybraný obrázek"
 
-#: modules/cons.py:817
+#: modules/cons.py:819
+#, fuzzy
+msgid "_Delete Link"
+msgstr "_Smazat obrázek"
+
+#: modules/cons.py:819
+#, fuzzy
+msgid "Delete the Selected Link"
+msgstr "Smazat vybraný uzel"
+
+#: modules/cons.py:830
 msgid "Change CodeBox _Properties"
 msgstr "Změnit _vlastnosti CodeBox"
 
-#: modules/cons.py:817
+#: modules/cons.py:830
 msgid "Edit the Properties of the CodeBox"
 msgstr "Upravit vlastnosti CodeBox"
 
-#: modules/cons.py:819
+#: modules/cons.py:832
+msgid "C_ut CodeBox"
+msgstr "V_yjmout CodeBox"
+
+#: modules/cons.py:833
+msgid "_Copy CodeBox"
+msgstr "_Kopírovat CodeBox"
+
+#: modules/cons.py:834
+msgid "_Delete CodeBox"
+msgstr "S_mazat CodeBox"
+
+#: modules/cons.py:834
+msgid "Delete the Selected CodeBox"
+msgstr "Smazat vybraný CodeBox"
+
+#: modules/cons.py:836
 msgid "Increase CodeBox Width"
 msgstr "Rozšířit CodeBox"
 
-#: modules/cons.py:819
+#: modules/cons.py:836
 msgid "Increase the Width of the CodeBox"
 msgstr "Zvětšit šířku CodeBox"
 
-#: modules/cons.py:820
+#: modules/cons.py:837
 msgid "Decrease CodeBox Width"
 msgstr "Zúžit CodeBox"
 
-#: modules/cons.py:820
+#: modules/cons.py:837
 msgid "Decrease the Width of the CodeBox"
 msgstr "Zmenšit šířku CodeBox"
 
-#: modules/cons.py:821
+#: modules/cons.py:838
 msgid "Increase CodeBox Height"
 msgstr "Prodloužit CodeBox"
 
-#: modules/cons.py:821
+#: modules/cons.py:838
 msgid "Increase the Height of the CodeBox"
 msgstr "Zvětšit výšku CodeBox"
 
-#: modules/cons.py:822
+#: modules/cons.py:839
 msgid "Decrease CodeBox Height"
 msgstr "Zkrátit CodeBox"
 
-#: modules/cons.py:822
+#: modules/cons.py:839
 msgid "Decrease the Height of the CodeBox"
 msgstr "Zmenšit výšku CodeBox"
 
@@ -1904,405 +2084,285 @@ msgstr "Jazyky"
 msgid "Suggestions"
 msgstr "Návrhy"
 
-#: glade/cherrytree.glade.h:1
-msgid "Cancel"
-msgstr "Zrušit"
-
 #: glade/cherrytree.glade.h:2
-msgid "OK"
-msgstr "OK"
-
-#: glade/cherrytree.glade.h:4
-msgid "To WebSite"
-msgstr "Pro internetovou stránku"
-
-#: glade/cherrytree.glade.h:5
-msgid "To Node"
-msgstr "Pro uzel"
-
-#: glade/cherrytree.glade.h:6
-msgid "To File"
-msgstr "Pro soubor"
-
-#: glade/cherrytree.glade.h:7
-msgid "To Folder"
-msgstr "Pro složku"
-
-#: glade/cherrytree.glade.h:8
-msgid "<b>Type</b>"
-msgstr "<b>Typ</b>"
-
-#: glade/cherrytree.glade.h:9
-msgid "<b>WebSite URL</b>"
-msgstr "<b>Adresa stránek (URL)</b>"
-
-#: glade/cherrytree.glade.h:10
-msgid "Browse for a File to link to"
-msgstr "Prohledat na soubor k odkázání"
-
-#: glade/cherrytree.glade.h:11
-msgid "<b>File/Folder Path</b>"
-msgstr "<b>Cesta k souboru/složce</b>"
-
-#: glade/cherrytree.glade.h:12
-msgid "<b>Node</b>"
-msgstr "<b>Uzly</b>"
-
-#: glade/cherrytree.glade.h:13
-msgid "<b>Anchor Name (optional)</b>"
-msgstr "<b> Název kotvy (volitelný)</b>"
-
-#: glade/cherrytree.glade.h:14
-msgid "<b>Automatic Syntax Highlighting</b>"
-msgstr "<b>Automatické zvýrazňování skladby</b>"
-
-#: glade/cherrytree.glade.h:15
-msgid "Width"
-msgstr "Šířka"
-
-#: glade/cherrytree.glade.h:16
-msgid "pixels"
-msgstr "pixely"
-
-#: glade/cherrytree.glade.h:18
-msgid "%"
-msgstr "%"
-
-#: glade/cherrytree.glade.h:19
-msgid "Height"
-msgstr "Výška"
-
-#: glade/cherrytree.glade.h:20
-msgid "<b>Size</b>"
-msgstr "<b>Velikost</b>"
-
-#: glade/cherrytree.glade.h:21
-msgid "Show Line Numbers"
-msgstr "Ukázat čísla řádků"
-
-#: glade/cherrytree.glade.h:22
-msgid "Highlight Matching Brackets"
-msgstr "Zvýraznit odpovídající si závorky"
-
-#: glade/cherrytree.glade.h:23
-msgid "<b>Options</b>"
-msgstr "<b>Volby</b>"
-
-#: glade/cherrytree.glade.h:25
-msgid "No"
-msgstr "Ne"
-
-#: glade/cherrytree.glade.h:26
-msgid "Yes"
-msgstr "Ano"
-
-#: glade/cherrytree.glade.h:27
-msgid ""
-"<b>The current document was updated</b>,\n"
-"do you want to save the changes?"
-msgstr ""
-"<b>nynější dokument byl upraven.</b>\n"
-"Chcete uložit změny?"
-
-#: glade/cherrytree.glade.h:29
-msgid "Image Properties"
-msgstr "Vlastnosti obrázku"
-
-#: glade/cherrytree.glade.h:30
-msgid "Are you sure to Delete the node?"
-msgstr "Opravdu chcete smazat uzel?"
-
-#: glade/cherrytree.glade.h:32
 msgid "Tab Width  "
 msgstr "Šířka zarážky  "
 
-#: glade/cherrytree.glade.h:33
+#: glade/cherrytree.glade.h:3
 msgid "Insert Spaces Instead of Tabs"
 msgstr "Vložit mezery místo zarážek"
 
-#: glade/cherrytree.glade.h:34
+#: glade/cherrytree.glade.h:4
 msgid "Use Line Wrapping"
 msgstr "Použít zalamování řádků"
 
-#: glade/cherrytree.glade.h:35
+#: glade/cherrytree.glade.h:5
 msgid "Enable Automatic Indentation"
 msgstr "Povolit automatické odsazení"
 
-#: glade/cherrytree.glade.h:36
+#: glade/cherrytree.glade.h:7
 msgid "<b>Text Editor</b>"
 msgstr "<b>Textový editor</b>"
 
-#: glade/cherrytree.glade.h:37
+#: glade/cherrytree.glade.h:8
 msgid "Timestamp Format"
 msgstr "Formát časového razítka"
 
-#: glade/cherrytree.glade.h:38
+#: glade/cherrytree.glade.h:9
 msgid "Horizontal Rule"
 msgstr "Oddělovací čára"
 
-#: glade/cherrytree.glade.h:39
+#: glade/cherrytree.glade.h:10
 msgid "Special Characters"
 msgstr "Zvláštní znaky"
 
-#: glade/cherrytree.glade.h:40
+#: glade/cherrytree.glade.h:11
 msgid "<b>Miscellaneous</b>"
 msgstr "<b>Různé</b>"
 
-#: glade/cherrytree.glade.h:41
+#: glade/cherrytree.glade.h:12
 msgid "All Nodes"
 msgstr "Všechny uzly"
 
-#: glade/cherrytree.glade.h:42
+#: glade/cherrytree.glade.h:13
 msgid "Enable Spell Check"
 msgstr "Povolit ověřování pravopisu"
 
-#: glade/cherrytree.glade.h:43
+#: glade/cherrytree.glade.h:14
 msgid "Spell Check Language"
 msgstr "Jazyk ověřování pravopisu"
 
-#: glade/cherrytree.glade.h:44
+#: glade/cherrytree.glade.h:15
 msgid "<b>Spell Check</b>"
 msgstr "<b>Ověření správného psaní</b>"
 
-#: glade/cherrytree.glade.h:45
+#: glade/cherrytree.glade.h:16
 msgid "Light Background, Dark Text"
 msgstr "Světlé pozadí, tmavý text"
 
-#: glade/cherrytree.glade.h:46
+#: glade/cherrytree.glade.h:17
 msgid "Dark Background, Light Text"
 msgstr "Tmavé pozadí, světlý text"
 
-#: glade/cherrytree.glade.h:47
+#: glade/cherrytree.glade.h:18
 msgid "Custom Background"
 msgstr "Vlastní pozadí"
 
-#: glade/cherrytree.glade.h:48
+#: glade/cherrytree.glade.h:19
 msgid "and Text"
 msgstr "a text"
 
-#: glade/cherrytree.glade.h:49
+#: glade/cherrytree.glade.h:20
 msgid "<b>Theme</b>"
 msgstr "<b>Motiv</b>"
 
-#: glade/cherrytree.glade.h:50
+#: glade/cherrytree.glade.h:21
 msgid "Limit of Undoable Steps Per Node"
 msgstr "Počet kroků zpět na uzel"
 
-#: glade/cherrytree.glade.h:51
+#: glade/cherrytree.glade.h:22
 msgid "Text Nodes"
 msgstr "Uzly s textem"
 
-#: glade/cherrytree.glade.h:52
+#: glade/cherrytree.glade.h:23
 msgid "Style Scheme"
 msgstr "Nákres stylu"
 
-#: glade/cherrytree.glade.h:53
+#: glade/cherrytree.glade.h:24
 msgid "Show White Spaces"
 msgstr "Ukázat prázdná místa"
 
-#: glade/cherrytree.glade.h:54
+#: glade/cherrytree.glade.h:25
 msgid "Highlight Current Line"
 msgstr "Zvýraznit nynější řádek"
 
-#: glade/cherrytree.glade.h:55
+#: glade/cherrytree.glade.h:26
+msgid "<b>Automatic Syntax Highlighting</b>"
+msgstr "<b>Automatické zvýrazňování skladby</b>"
+
+#: glade/cherrytree.glade.h:27
 msgid "Code Nodes"
 msgstr "Uzly s kódem"
 
-#: glade/cherrytree.glade.h:56
+#: glade/cherrytree.glade.h:28
 msgid "Use Cherries as Nodes Icons"
 msgstr "Použít třešně jako ikony uzlů"
 
-#: glade/cherrytree.glade.h:57
+#: glade/cherrytree.glade.h:29
 msgid "Use Bullets as Nodes Icons"
 msgstr "Použít odrážky jako ikony uzlů"
 
-#: glade/cherrytree.glade.h:58
+#: glade/cherrytree.glade.h:30
 msgid "Do Not Display Nodes Icons"
 msgstr "Nezobrazovat ikony k uzlům"
 
-#: glade/cherrytree.glade.h:59
+#: glade/cherrytree.glade.h:31
 msgid "<b>Nodes Icons</b>"
 msgstr "<b>Ikony uzlů</b>"
 
-#: glade/cherrytree.glade.h:60
+#: glade/cherrytree.glade.h:32
 msgid "Restore Expanded/Collapsed Status"
 msgstr "Obnovit stav rozbaleno/sbaleno"
 
-#: glade/cherrytree.glade.h:61
+#: glade/cherrytree.glade.h:33
 msgid "Expand all Nodes"
 msgstr "Rozbalit všechny uzly"
 
-#: glade/cherrytree.glade.h:62
+#: glade/cherrytree.glade.h:34
 msgid "Collapse all Nodes"
 msgstr "Složit všechny uzly"
 
-#: glade/cherrytree.glade.h:63
+#: glade/cherrytree.glade.h:35
 msgid "<b>Nodes Status at Startup</b>"
 msgstr "<b>Stav uzlů při spuštění</b>"
 
-#: glade/cherrytree.glade.h:64
+#: glade/cherrytree.glade.h:36
 msgid "Tree Nodes Names Wrapping Width"
 msgstr "Největší šířka názvu uzlu před zalomením"
 
-#: glade/cherrytree.glade.h:65
+#: glade/cherrytree.glade.h:37
 msgid "Display Tree on the Right Side"
 msgstr "Zobrazit strom na pravé straně"
 
-#: glade/cherrytree.glade.h:66
+#: glade/cherrytree.glade.h:38
 msgid "Tree"
 msgstr "Strom"
 
-#: glade/cherrytree.glade.h:67
+#: glade/cherrytree.glade.h:39
 msgid "Text Font"
 msgstr "Písmo textu   "
 
-#: glade/cherrytree.glade.h:68
+#: glade/cherrytree.glade.h:40
 msgid "Code Font"
 msgstr "Písmo kódu  "
 
-#: glade/cherrytree.glade.h:69
+#: glade/cherrytree.glade.h:41
 msgid "Tree Font"
 msgstr "Písmo ve stromu"
 
-#: glade/cherrytree.glade.h:70
+#: glade/cherrytree.glade.h:42
 msgid "<b>Fonts</b>"
 msgstr "<b>Písma</b>"
 
-#: glade/cherrytree.glade.h:71
+#: glade/cherrytree.glade.h:43
 msgid "Fonts"
 msgstr "Písma"
 
-#: glade/cherrytree.glade.h:72
+#: glade/cherrytree.glade.h:44
 msgid "Enable Custom Web Link Clicked Action"
 msgstr "Povolit vlastní činnost při klepnutí na internetový odkaz"
 
-#: glade/cherrytree.glade.h:73
+#: glade/cherrytree.glade.h:45
 msgid "Enable Custom File Link Clicked Action"
 msgstr "Povolit vlastní činnost při klepnutí na odkaz souboru"
 
-#: glade/cherrytree.glade.h:74
+#: glade/cherrytree.glade.h:46
 msgid "Enable Custom Folder Link Clicked Action"
 msgstr "Povolit vlastní činnost při klepnutí na odkaz složky"
 
-#: glade/cherrytree.glade.h:75
+#: glade/cherrytree.glade.h:47
 msgid "Anchor Size"
 msgstr "Velikost kotvy"
 
-#: glade/cherrytree.glade.h:76
+#: glade/cherrytree.glade.h:48
 msgid "<b>Links</b>"
 msgstr "<b>Odkazy</b>"
 
-#: glade/cherrytree.glade.h:77
+#: glade/cherrytree.glade.h:49
 msgid "Links"
 msgstr "Odkazy"
 
-#: glade/cherrytree.glade.h:78
+#: glade/cherrytree.glade.h:50
 msgid "Enable System Tray Docking"
 msgstr "Povolit ikonu v oznamovací oblasti panelu"
 
-#: glade/cherrytree.glade.h:79
+#: glade/cherrytree.glade.h:51
 msgid "Start Minimized in the System Tray"
 msgstr "Spustit zmenšeno v oznamovací oblasti panelu"
 
-#: glade/cherrytree.glade.h:80
+#: glade/cherrytree.glade.h:52
 msgid "Use AppIndicator for Docking"
 msgstr "Použít ukazatele programů pro ukotvení v panelu"
 
-#: glade/cherrytree.glade.h:81
+#: glade/cherrytree.glade.h:53
 msgid "<b>System Tray</b>"
 msgstr "<b>Oznamovací oblast panelu</b>"
 
-#: glade/cherrytree.glade.h:82
+#: glade/cherrytree.glade.h:54
 msgid "Autosave Every"
 msgstr "Automaticky uložit každých"
 
-#: glade/cherrytree.glade.h:83
+#: glade/cherrytree.glade.h:55
 msgid "Minutes"
 msgstr "minut"
 
-#: glade/cherrytree.glade.h:84
+#: glade/cherrytree.glade.h:56
 msgid "Autosave on Quit"
 msgstr "Automaticky uložit při ukončení"
 
-#: glade/cherrytree.glade.h:85
+#: glade/cherrytree.glade.h:57
 msgid "Create a Backup Copy Before Saving"
 msgstr "Před uložením vytvořit záložní kopii"
 
-#: glade/cherrytree.glade.h:86
+#: glade/cherrytree.glade.h:58
 msgid "<b>Saving</b>"
 msgstr "<b>Ukládání</b>"
 
-#: glade/cherrytree.glade.h:87
+#: glade/cherrytree.glade.h:59
 msgid "Automatically Check for Newer Version"
 msgstr "Automaticky vyhledat novou verzi"
 
-#: glade/cherrytree.glade.h:88
+#: glade/cherrytree.glade.h:60
 msgid "Reload Document From Last Session"
 msgstr "Nahrát dokument z posledního sezení znovu"
 
-#: glade/cherrytree.glade.h:89
+#: glade/cherrytree.glade.h:61
 msgid "Reload After External Update to CT* File"
 msgstr "Nahrát znovu po vnější aktualizaci na soubor CT*"
 
-#: glade/cherrytree.glade.h:90
+#: glade/cherrytree.glade.h:62
 msgid "<b>Language</b>"
 msgstr "<b>Jazyk</b>"
 
-#: glade/cherrytree.glade.h:91
+#: glade/cherrytree.glade.h:63
 msgid "Miscellaneous"
 msgstr "Různé"
 
-#: glade/cherrytree.glade.h:92
-msgid "Rows  "
-msgstr "Řádky "
+#~ msgid "The Anchor Name is Mandatory!"
+#~ msgstr "Název kotvy je povinný!"
 
-#: glade/cherrytree.glade.h:93
-msgid "     Columns  "
-msgstr "     Sloupce  "
+#~ msgid "OK"
+#~ msgstr "OK"
 
-#: glade/cherrytree.glade.h:94
-msgid "<b>Table size</b>"
-msgstr "<b>Velikost tabulky</b>"
+#~ msgid "<b>Type</b>"
+#~ msgstr "<b>Typ</b>"
 
-#: glade/cherrytree.glade.h:95
-msgid "Min Width"
-msgstr "Nejmenší šířka"
+#~ msgid "<b>WebSite URL</b>"
+#~ msgstr "<b>Adresa stránek (URL)</b>"
 
-#: glade/cherrytree.glade.h:96
-msgid "   Max Width"
-msgstr " Největší šířka"
+#~ msgid "Browse for a File to link to"
+#~ msgstr "Prohledat na soubor k odkázání"
 
-#: glade/cherrytree.glade.h:97
-msgid "<b>Columns Properties</b>"
-msgstr "<b>Vlastnosti sloupců</b>"
+#~ msgid "<b>File/Folder Path</b>"
+#~ msgstr "<b>Cesta k souboru/složce</b>"
 
-#: glade/cherrytree.glade.h:98
-msgid "Import from CSV File"
-msgstr "Zavést ze souboru CSV"
+#~ msgid "<b>Node</b>"
+#~ msgstr "<b>Uzly</b>"
 
-#: glade/cherrytree.glade.h:99
-msgid "Rename Column"
-msgstr "Přejmenovat sloupec"
+#~ msgid "%"
+#~ msgstr "%"
 
-#: glade/cherrytree.glade.h:100
-msgid "Delete Column"
-msgstr "Smazat sloupec"
+#~ msgid "<b>Size</b>"
+#~ msgstr "<b>Velikost</b>"
 
-#: glade/cherrytree.glade.h:101
-msgid "Add Column"
-msgstr "Přidat sloupec"
+#~ msgid "Are you sure to Delete the node?"
+#~ msgstr "Opravdu chcete smazat uzel?"
 
-#: glade/cherrytree.glade.h:102
-msgid "Move Column Left"
-msgstr "Posunout sloupec vlevo"
+#~ msgid "     Columns  "
+#~ msgstr "     Sloupce  "
 
-#: glade/cherrytree.glade.h:103
-msgid "Move Column Right"
-msgstr "Posunout sloupec vpravo"
-
-#: glade/cherrytree.glade.h:104
-msgid "CherryTree"
-msgstr "CherryTree"
+#~ msgid "CherryTree"
+#~ msgstr "CherryTree"
 
 #~ msgid "http://www.giuspen.com/cherrytree/"
 #~ msgstr "http://www.giuspen.com/cherrytree/"
