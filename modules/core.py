@@ -3641,7 +3641,12 @@ class CherryTree:
         if iter_sel_start == None and iter_sel_end == None:
             if tag_property != cons.TAG_JUSTIFICATION:
                 if not self.is_there_selected_node_or_error(): return
-                if tag_property == cons.TAG_LINK: link_node_id = None
+                if tag_property == cons.TAG_LINK:
+                    link_node_id = None
+                    self.links_entries['webs'] = ""
+                    self.links_entries['file'] = ""
+                    self.links_entries['fold'] = ""
+                    self.links_entries['anch'] = ""
                 if not text_buffer.get_has_selection():
                     if tag_property != cons.TAG_LINK:
                         if not self.apply_tag_try_automatic_bounds():
@@ -3655,10 +3660,6 @@ class CherryTree:
                                 if not link_name: return
                                 text_buffer.insert_at_cursor(link_name)
                                 if not self.apply_tag_try_automatic_bounds(): return
-                            self.links_entries['webs'] = ""
-                            self.links_entries['file'] = ""
-                            self.links_entries['fold'] = ""
-                            self.links_entries['anch'] = ""
                             self.link_type = cons.LINK_TYPE_WEBS # default value
                         else:
                             vector = tag_property_value.split()
