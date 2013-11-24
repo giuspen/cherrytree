@@ -21,14 +21,8 @@
 
 import gtk, pango, gtksourceview2, gobject
 import sys, os, re, glob, subprocess, webbrowser, base64, cgi, urllib2, shutil, time, locale, pgsc_spellcheck
-try:
-    import appindicator
-    HAS_APPINDICATOR = True
-except: HAS_APPINDICATOR = False
-XDG_CURRENT_DESKTOP = 'XDG_CURRENT_DESKTOP'
-HAS_SYSTRAY = not (XDG_CURRENT_DESKTOP in os.environ and os.environ[XDG_CURRENT_DESKTOP] == "Unity")
 import cons, support, config, machines, clipboard, imports, exports, printing, tablez, lists, findreplace, codeboxes, ctdb
-
+if cons.HAS_APPINDICATOR: import appindicator
 
 class GladeWidgetsWrapper:
     """Handles the retrieval of glade widgets"""
@@ -97,9 +91,8 @@ class CherryTree:
         self.window.add(vbox_main)
         self.country_lang = lang_str
         config.config_file_load(self)
-        if not HAS_APPINDICATOR: self.use_appind = False
-        elif not HAS_SYSTRAY: self.use_appind = True
-        if not HAS_APPINDICATOR or not HAS_SYSTRAY: self.glade.checkbutton_use_appind.set_sensitive(False)
+        if not cons.HAS_APPINDICATOR: self.use_appind = False
+        elif not cons.HAS_SYSTRAY: self.use_appind = True
         # ui manager
         actions = gtk.ActionGroup("Actions")
         actions.add_actions(cons.get_entries(self))

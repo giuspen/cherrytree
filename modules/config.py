@@ -232,6 +232,7 @@ def config_dialog_prepare_settings(inst):
     inst.combobox_country_lang_init()
     inst.combobox_style_scheme_init()
     if "spellchecker" in dir(inst): inst.combobox_spell_check_lang_init()
+    if not cons.HAS_APPINDICATOR or not cons.HAS_SYSTRAY: inst.glade.checkbutton_use_appind.set_sensitive(False)
     inst.glade.prefdialog.set_transient_for(inst.window)
     inst.glade.fontbutton_tree.set_font_name(inst.tree_font)
     inst.glade.fontbutton_text.set_font_name(inst.text_font)
