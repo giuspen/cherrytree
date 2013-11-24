@@ -3578,7 +3578,8 @@ class CherryTree:
             if not match: break # we got it
             elif not iter_end.forward_char(): break # we reached the buffer end
             end_moved = True
-        if not end_moved: iter_start.backward_char() # we could be at the end of a word
+        if not end_moved:
+            if not iter_start.backward_char(): return False # we could be at the end of a word
         while iter_start != None:
             char = iter_start.get_char()
             match = re.match('[^\s^$]', char, re.UNICODE)
