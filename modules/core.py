@@ -3850,19 +3850,37 @@ class CherryTree:
         """Get Installed Dictionaries for Spell Check"""
         return [code for code, name in self.spellchecker.languages]
 
-    def link_check_around_cursor(self):
-        """Check if the cursor is on a link, in this case select the link and return the tag_property_value"""
-        iter = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
-        tags = iter.get_tags()
+    def link_check_around_cursor_iter(self, text_iter):
+        """Check if the text iter is on a link"""
+        tags = text_iter.get_tags()
         for tag in tags:
             tag_name = tag.get_property("name")
-            if tag_name and tag_name[0:4] == cons.TAG_LINK: break
-        else: return ""
-        iter_end = iter.copy()
-        if not iter_end.forward_to_tag_toggle(tag): return ""
-        if not iter.backward_to_tag_toggle(tag): return ""
+            if tag_name and tag_name[0:4] == cons.TAG_LINK: return tag_name
+        return ""
+
+    def link_check_around_cursor(self):
+        """Check if the cursor is on a link, in this case select the link and return the tag_property_value"""
+        text_iter = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
+        tag_name = self.link_check_around_cursor_iter(text_iter)
+        if not tag_name:
+            if text_iter.get_char() == cons.CHAR_SPACE\
+            and text_iter.backward_char():
+                tag_name = self.link_check_around_cursor_iter(text_iter)
+                if not tag_name: return ""
+            else: return ""
+        iter_end = text_iter.copy()
+        while iter_end.forward_char():
+            ret_tag_name = self.link_check_around_cursor_iter(iter_end)
+            if ret_tag_name != tag_name:
+                break
+        while text_iter.backward_char():
+            ret_tag_name = self.link_check_around_cursor_iter(text_iter)
+            if ret_tag_name != tag_name:
+                text_iter.forward_char()
+                break
+        if text_iter.equal(iter_end): return ""
         self.curr_buffer.move_mark(self.curr_buffer.get_insert(), iter_end)
-        self.curr_buffer.move_mark(self.curr_buffer.get_selection_bound(), iter)
+        self.curr_buffer.move_mark(self.curr_buffer.get_selection_bound(), text_iter)
         return tag_name[5:]
 
     def link_clicked(self, tag_property_value):
