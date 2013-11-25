@@ -3695,7 +3695,11 @@ class CherryTree:
                     self.links_entries['webs'] = text_buffer.get_text(iter_sel_start, iter_sel_end)
                 if link_node_id: sel_tree_iter = self.get_tree_iter_from_node_id(link_node_id)
                 else: sel_tree_iter = None
+                insert_offset = iter_sel_start.get_offset()
+                bound_offset = iter_sel_end.get_offset()
                 if not support.dialog_link_handle(self, _("Insert/Edit Link"), sel_tree_iter): return
+                iter_sel_start = text_buffer.get_iter_at_offset(insert_offset)
+                iter_sel_end = text_buffer.get_iter_at_offset(bound_offset)
                 if self.link_type == cons.LINK_TYPE_WEBS:
                     link_url = self.links_entries['webs']
                     if link_url:
