@@ -404,6 +404,7 @@ class ZimHandler():
         """Machine boot"""
         self.folderpath = folderpath
         self.xml_handler = machines.XMLHandler(self)
+        self.in_block = False
 
     def rich_text_serialize(self, text_data):
         """Appends a new part to the XML rich text"""
@@ -485,7 +486,7 @@ class ZimHandler():
                     if self.curr_attributes[cons.TAG_STYLE]: self.curr_attributes[cons.TAG_STYLE] = ""
                     else: self.curr_attributes[cons.TAG_STYLE] = cons.TAG_PROP_ITALIC
                     curr_pos += 1
-                elif curr_char == cons.CHAR_USCORE and next_char == cons.CHAR_USCORE:
+                elif curr_char == cons.CHAR_USCORE and next_char == cons.CHAR_USCORE and not self.in_block:
                     if wiki_slot:
                         self.rich_text_serialize(wiki_slot)
                         wiki_slot = ""
@@ -505,7 +506,10 @@ class ZimHandler():
                         wiki_slot = ""
                     if self.curr_attributes[cons.TAG_FAMILY]: self.curr_attributes[cons.TAG_FAMILY] = ""
                     else: self.curr_attributes[cons.TAG_FAMILY] = "monospace"
-                    curr_pos += 1
+                    if third_char == cons.CHAR_SQUOTE:
+                        curr_pos += 2
+                        self.in_block = True if self.curr_attributes[cons.TAG_FAMILY] else False
+                    else: curr_pos += 1
                 elif curr_char == cons.CHAR_EQUAL and next_char == cons.CHAR_EQUAL:
                     if wiki_slot:
                         self.rich_text_serialize(wiki_slot)
