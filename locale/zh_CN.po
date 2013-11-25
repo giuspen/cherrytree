@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: cherrytree 0.26\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-11-24 13:59+0100\n"
-"PO-Revision-Date: 2013-08-26 23:22+0100\n"
-"Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
+"PO-Revision-Date: 2013-11-25 21:54+0800\n"
+"Last-Translator: Channing Wong <mamimoluo@gmail.com>\n"
 "Language-Team: Chinese (simplified)\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.5.7\n"
 
 #: modules/support.py:128
 msgid "Save File as"
@@ -96,7 +96,6 @@ msgstr ""
 "MA 02110-1301, USA.\n"
 
 #: modules/support.py:295
-#, fuzzy
 msgid ""
 "Chinese Simplified (zh_CN) Channing Wong <mamimoluo@gmail.com>\n"
 "Czech (cs) Pavel Fric <fripohled@blogspot.com>\n"
@@ -112,6 +111,7 @@ msgid ""
 msgstr ""
 "简体中文 (zh_CN) Channing Wong <mamimoluo@gmail.com>\n"
 "捷克语 (cs) Pavel Fric <fripohled@blogspot.com>\n"
+"荷兰语 (nl) Patrick Vijgeboom <pj.vijgeboom@gmail.com>\n"
 "法语 (fr) Benoît D'Angelo <benoit.dangelo@gmx.fr> (former Ludovic Troisi)\n"
 "德语 (de) Frank Brungräber <calexu@arcor.de> (former Sven Neubauer)\n"
 "意大利语 (it) Giuseppe Penone <giuspen@gmail.com>\n"
@@ -174,9 +174,8 @@ msgid "To Node"
 msgstr "连接到节点"
 
 #: modules/support.py:685
-#, fuzzy
 msgid "Anchor Name (optional)"
-msgstr "<b>锚点名称(可选)</b>"
+msgstr "锚点名称(可选)"
 
 #: modules/support.py:739 modules/core.py:3269 modules/core.py:4149
 msgid "No Node is Selected"
@@ -316,7 +315,7 @@ msgstr "节点名称"
 
 #: modules/findreplace.py:590
 msgid "Line"
-msgstr ""
+msgstr "行"
 
 #: modules/findreplace.py:592
 msgid "Line Content"
@@ -366,9 +365,8 @@ msgid "NoteCase Document"
 msgstr "NoteCase 文档"
 
 #: modules/core.py:687
-#, fuzzy
 msgid "Plain Text Document"
-msgstr "Knowit 文档"
+msgstr "纯文本文档"
 
 #: modules/core.py:705
 msgid "Treepad Document"
@@ -420,9 +418,8 @@ msgid "Writing to Disk..."
 msgstr "正在写入到磁盘..."
 
 #: modules/core.py:1356
-#, fuzzy
 msgid "Choose Storage Type"
-msgstr "选择存储类型和保护机制"
+msgstr "选择存储类型"
 
 #: modules/core.py:1363 modules/core.py:1366
 msgid "Not Protected"
@@ -434,7 +431,7 @@ msgstr "密码保护"
 
 #: modules/core.py:1375
 msgid "Storage Type"
-msgstr ""
+msgstr "存储类型"
 
 #: modules/core.py:1386
 msgid "Enter the New Password Twice"
@@ -512,14 +509,12 @@ msgid ""
 msgstr "自动语法高亮会覆盖当前节点的所有自定义颜色，继续吗？"
 
 #: modules/core.py:2890
-#, fuzzy
 msgid "Search for"
-msgstr "<b>查找</b>"
+msgstr "查找"
 
 #: modules/core.py:2897
-#, fuzzy
 msgid "Replace with"
-msgstr "<b>替换为</b>"
+msgstr "替换为"
 
 #: modules/core.py:2912
 msgid "Match Case"
@@ -562,9 +557,8 @@ msgid "Show Iterated Find/Replace Dialog"
 msgstr "显示循环搜索/替换对话框"
 
 #: modules/core.py:2953
-#, fuzzy
 msgid "Search options"
-msgstr "<b>搜索选项</b>"
+msgstr "搜索选项"
 
 #: modules/core.py:3005 modules/core.py:4151
 msgid "Rich Text"
@@ -575,14 +569,12 @@ msgid "Automatic Syntax Highlighting"
 msgstr "自动语法高亮"
 
 #: modules/core.py:3023
-#, fuzzy
 msgid "Node Type"
-msgstr "<b>节点类型</b>"
+msgstr "节点类型"
 
 #: modules/core.py:3029
-#, fuzzy
 msgid "Tags for Searching"
-msgstr "<b>搜索标签</b>"
+msgstr "搜索标签"
 
 #: modules/core.py:3033 modules/core.py:4153
 msgid "Read Only"
@@ -656,25 +648,23 @@ msgstr "写入到 %s 失败"
 
 #: modules/core.py:3494
 msgid "Lines Stripped"
-msgstr ""
+msgstr "已删除行尾空格的行"
 
 #: modules/core.py:3612
 msgid "No Previous Text Format Was Performed During This Session"
 msgstr "当前会话没有格式化操作历史"
 
 #: modules/core.py:3653
-#, fuzzy
 msgid "Link Name"
-msgstr "锚点名称"
+msgstr "链接名称"
 
 #: modules/core.py:3683
 msgid "The Cursor is Not into a Paragraph"
 msgstr "光标未进入一个段落"
 
 #: modules/core.py:3696
-#, fuzzy
 msgid "Insert/Edit Link"
-msgstr "插入/编辑链接(_L)"
+msgstr "插入/编辑链接"
 
 #: modules/core.py:3721
 msgid "Pick a Color"
@@ -716,33 +706,28 @@ msgid "Move Column Right"
 msgstr "右移列"
 
 #: modules/tablez.py:170
-#, fuzzy
 msgid "Rows"
-msgstr "行  "
+msgstr "行"
 
 #: modules/tablez.py:174
-#, fuzzy
 msgid "Columns"
-msgstr "添加列"
+msgstr "列"
 
 #: modules/tablez.py:189
-#, fuzzy
 msgid "Table Size"
-msgstr "<b>表格属性</b>"
+msgstr "表格尺寸"
 
 #: modules/tablez.py:194
 msgid "Min Width"
 msgstr "最小宽度"
 
 #: modules/tablez.py:198
-#, fuzzy
 msgid "Max Width"
-msgstr "   最大宽度"
+msgstr "最大宽度"
 
 #: modules/tablez.py:213
-#, fuzzy
 msgid "Column Properties"
-msgstr "<b>列属性</b>"
+msgstr "列属性"
 
 #: modules/tablez.py:218
 msgid "Import from CSV File"
@@ -778,7 +763,7 @@ msgstr "像素"
 
 #: modules/codeboxes.py:114
 msgid "Size"
-msgstr ""
+msgstr "尺寸"
 
 #: modules/codeboxes.py:119 glade/cherrytree.glade.h:6
 msgid "Show Line Numbers"
@@ -789,9 +774,8 @@ msgid "Highlight Matching Brackets"
 msgstr "高亮括号匹配"
 
 #: modules/codeboxes.py:130
-#, fuzzy
 msgid "Options"
-msgstr "<b>选项</b>"
+msgstr "选项"
 
 #: modules/codeboxes.py:172 modules/cons.py:543 modules/cons.py:738
 msgid "Insert a CodeBox"
@@ -890,14 +874,12 @@ msgid "Save File As"
 msgstr "另存文件为"
 
 #: modules/cons.py:514 modules/cons.py:681
-#, fuzzy
 msgid "Export To _PDF"
-msgstr "导出到HTML(_H)"
+msgstr "导出到PDF(_P)"
 
 #: modules/cons.py:514 modules/cons.py:681
-#, fuzzy
 msgid "Export To PDF"
-msgstr "打印/导出到PDF"
+msgstr "导出到PDF"
 
 #: modules/cons.py:515 modules/cons.py:684
 msgid "Export To _HTML"
@@ -941,11 +923,11 @@ msgstr "设置打印页面"
 
 #: modules/cons.py:520
 msgid "_Print"
-msgstr ""
+msgstr "打印(_P)"
 
 #: modules/cons.py:520
 msgid "Print"
-msgstr ""
+msgstr "打印"
 
 #: modules/cons.py:521
 msgid "_Quit"
@@ -1576,24 +1558,20 @@ msgid "Add Nodes of a CherryTree File to the Current Tree"
 msgstr "从CherryTree文件添加节点到当前树"
 
 #: modules/cons.py:599 modules/cons.py:665
-#, fuzzy
 msgid "From _Plain Text File"
-msgstr "导出到独个文本文件(_S)"
+msgstr "从纯文本文件(_P)"
 
 #: modules/cons.py:599 modules/cons.py:665
-#, fuzzy
 msgid "Add Node from a Plain Text File to the Current Tree"
-msgstr "从Leo文件添加节点到当前树"
+msgstr "从纯文本文件添加节点到当前树"
 
 #: modules/cons.py:600 modules/cons.py:666
-#, fuzzy
 msgid "From _Folder of Plain Text Files"
-msgstr "导出到独个文本文件(_S)"
+msgstr "从纯文本文件夹(_F)"
 
 #: modules/cons.py:600 modules/cons.py:666
-#, fuzzy
 msgid "Add Nodes from a Folder of Plain Text Files to the Current Tree"
-msgstr "从NoteCase文件添加节点到当前树"
+msgstr "从纯文本文件夹添加节点到当前树"
 
 #: modules/cons.py:601 modules/cons.py:667
 msgid "From _Basket Folder"
@@ -1925,34 +1903,31 @@ msgstr "复制行(_O)"
 
 #: modules/cons.py:783
 msgid "Stri_p Trailing Spaces"
-msgstr ""
+msgstr "删除行尾空格(_p)"
 
 #: modules/cons.py:783
 msgid "Strip Trailing Spaces"
-msgstr ""
+msgstr "删除行尾空格"
 
 #: modules/cons.py:821
-#, fuzzy
 msgid "Edit _Link"
-msgstr "插入/编辑链接(_L)"
+msgstr "编辑链接(_L)"
 
 #: modules/cons.py:821
-#, fuzzy
 msgid "Edit the Underlying Link"
-msgstr "编辑锚点"
+msgstr "编辑相关链接"
 
 #: modules/cons.py:823
 msgid "C_ut Link"
-msgstr ""
+msgstr "剪切链接(_u)"
 
 #: modules/cons.py:823 modules/cons.py:839
 msgid "Cut the Selected CodeBox"
 msgstr "剪切当前所选的代码框"
 
 #: modules/cons.py:824
-#, fuzzy
 msgid "_Copy Link"
-msgstr "复制行(_C)"
+msgstr "复制链接(_C)"
 
 #: modules/cons.py:824 modules/cons.py:840
 msgid "Copy the Selected CodeBox"
@@ -1960,22 +1935,19 @@ msgstr "复制当前所选的代码框"
 
 #: modules/cons.py:825
 msgid "D_ismiss Link"
-msgstr ""
+msgstr "取消链接(_D)"
 
 #: modules/cons.py:825
-#, fuzzy
 msgid "Dismiss the Selected Link"
-msgstr "编辑选中图片"
+msgstr "取消选中链接"
 
 #: modules/cons.py:826
-#, fuzzy
 msgid "_Delete Link"
-msgstr "删除图片(_D)"
+msgstr "删除链接(_D)"
 
 #: modules/cons.py:826
-#, fuzzy
 msgid "Delete the Selected Link"
-msgstr "删除已选择节点"
+msgstr "删除已选择链接"
 
 #: modules/cons.py:837
 msgid "Change CodeBox _Properties"
@@ -2019,7 +1991,7 @@ msgstr "减少代码框的宽度"
 
 #: modules/cons.py:845
 msgid "Increase CodeBox Height"
-msgstr "在家代码框高度"
+msgstr "增加代码框高度"
 
 #: modules/cons.py:845
 msgid "Increase the Height of the CodeBox"
