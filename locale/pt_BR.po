@@ -2,13 +2,13 @@
 # Copyright (C) 2013 THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Vinicius Schmidt <viniciussm@rocketmail.com>, 2013.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: CherryTree 0.30.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-11-24 13:59+0100\n"
-"PO-Revision-Date: 2013-08-26 23:24+0100\n"
+"PO-Revision-Date: 2013-11-25 19:10-0300\n"
 "Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
 "Language-Team: Brazilian Portuguese\n"
 "Language: pt_BR\n"
@@ -28,7 +28,7 @@ msgstr "Selecione o arquivo"
 
 #: modules/support.py:190
 msgid "Select Folder"
-msgstr "Selecionar pasta"
+msgstr "Selecione uma pasta"
 
 #: modules/support.py:219
 msgid "Question"
@@ -63,7 +63,7 @@ msgid ""
 "A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
 "Highlighting"
 msgstr ""
-"Um gerenciador de notas hierárquicas, com recursos de Texto Rico e Realce de "
+"Um organizador de notas hierárquicas, com recursos de Texto Rico e Realce de "
 "Sintaxe"
 
 #: modules/support.py:275
@@ -101,7 +101,6 @@ msgstr ""
 "MA 02110-1301, USA.\n"
 
 #: modules/support.py:295
-#, fuzzy
 msgid ""
 "Chinese Simplified (zh_CN) Channing Wong <mamimoluo@gmail.com>\n"
 "Czech (cs) Pavel Fric <fripohled@blogspot.com>\n"
@@ -115,16 +114,17 @@ msgid ""
 "Spanish (es) Daniel MC <i.e.betel@gmail.com>\n"
 "Ukrainian (uk) Andriy Kovtun <kovtunos@yandex.ru>"
 msgstr ""
+"Alemão (de) Frank Brungräber <calexu@arcor.de> (former Sven Neubauer)\n"
 "Chinês Simplificado (zh_CN) Channing Wong <mamimoluo@gmail.com>\n"
-"Tcheco (cs) Pavel Fric <fripohled@blogspot.com>\n"
+"Espanhol (es) Daniel MC <i.e.betel@gmail.com>\n"
 "Francês (fr) Benoît D'Angelo <benoit.dangelo@gmx.fr> (former Ludovic "
 "Troisi)\n"
-"Alemão (de) Frank Brungräber <calexu@arcor.de> (former Sven Neubauer)\n"
+"Holandês (nl) Patrick Vijgeboom <pj.vijgeboom@gmail.com>\n"
 "Italiano (it) Giuseppe Penone <giuspen@gmail.com>\n"
 "Polonês (pl) Marcin Swierczynski <orneo1212@gmail.com>\n"
 "Português Brasileiro (pt_BR) Vinicius Schmidt <viniciussm@rocketmail.com>\n"
 "Russo (ru) Andriy Kovtun <kovtunos@yandex.ru>\n"
-"Espanhol (es) Daniel MC <i.e.betel@gmail.com>\n"
+"Tcheco (cs) Pavel Fric <fripohled@blogspot.com>\n"
 "Ucraniano (uk) Andriy Kovtun <kovtunos@yandex.ru>"
 
 #: modules/support.py:307 modules/cons.py:615
@@ -180,9 +180,8 @@ msgid "To Node"
 msgstr "Para Nó"
 
 #: modules/support.py:685
-#, fuzzy
 msgid "Anchor Name (optional)"
-msgstr "<b>Nome da âncora (opcional)</b>"
+msgstr "Nome da âncora (opcional)"
 
 #: modules/support.py:739 modules/core.py:3269 modules/core.py:4149
 msgid "No Node is Selected"
@@ -247,7 +246,7 @@ msgstr "O documento %s não foi encontrado"
 
 #: modules/support.py:1008 modules/cons.py:628
 msgid "Handle the Bookmarks List"
-msgstr "Administrar a lista de favoritos"
+msgstr "Gerenciar a lista de favoritos"
 
 #: modules/support.py:1022
 msgid "Sort with Drag and Drop, Delete with the Delete Key"
@@ -322,7 +321,7 @@ msgstr "Nome do nó"
 
 #: modules/findreplace.py:590
 msgid "Line"
-msgstr ""
+msgstr "Linha"
 
 #: modules/findreplace.py:592
 msgid "Line Content"
@@ -374,9 +373,8 @@ msgid "NoteCase Document"
 msgstr "Documento NoteCase"
 
 #: modules/core.py:687
-#, fuzzy
 msgid "Plain Text Document"
-msgstr "Documento Knowit"
+msgstr "Documento Texto Puro"
 
 #: modules/core.py:705
 msgid "Treepad Document"
@@ -429,9 +427,8 @@ msgid "Writing to Disk..."
 msgstr "Escrevendo no disco..."
 
 #: modules/core.py:1356
-#, fuzzy
 msgid "Choose Storage Type"
-msgstr "Escolha o tipo de arquivo e proteção"
+msgstr "Escolha o tipo de armazenamento"
 
 #: modules/core.py:1363 modules/core.py:1366
 msgid "Not Protected"
@@ -443,11 +440,11 @@ msgstr "protegido por senha"
 
 #: modules/core.py:1375
 msgid "Storage Type"
-msgstr ""
+msgstr "Tipo de Armazenamento"
 
 #: modules/core.py:1386
 msgid "Enter the New Password Twice"
-msgstr "Digite a nova senha duas vezes"
+msgstr "Digite duas vezes a nova senha do arquivo"
 
 #: modules/core.py:1429
 msgid "The Password Fields Must be Filled"
@@ -525,14 +522,12 @@ msgstr ""
 "personalizadas "
 
 #: modules/core.py:2890
-#, fuzzy
 msgid "Search for"
-msgstr "<b>Procurar por</b>"
+msgstr "Procurar por"
 
 #: modules/core.py:2897
-#, fuzzy
 msgid "Replace with"
-msgstr "<b>Substituir por</b>"
+msgstr "Substituir com"
 
 #: modules/core.py:2912
 msgid "Match Case"
@@ -575,9 +570,8 @@ msgid "Show Iterated Find/Replace Dialog"
 msgstr "Exibir Janela de Encontrar/Substituir Iterado"
 
 #: modules/core.py:2953
-#, fuzzy
 msgid "Search options"
-msgstr "<b>Opções de pesquisa</b>"
+msgstr "Opções de pesquisa"
 
 #: modules/core.py:3005 modules/core.py:4151
 msgid "Rich Text"
@@ -588,14 +582,12 @@ msgid "Automatic Syntax Highlighting"
 msgstr "Realce Automático de Sintaxe"
 
 #: modules/core.py:3023
-#, fuzzy
 msgid "Node Type"
-msgstr "<b>Tipo do nó</b>"
+msgstr "Tipo do nó"
 
 #: modules/core.py:3029
-#, fuzzy
 msgid "Tags for Searching"
-msgstr "<b>Etiquetas para pesquisa</b>"
+msgstr "Etiquetas para pesquisa"
 
 #: modules/core.py:3033 modules/core.py:4153
 msgid "Read Only"
@@ -671,25 +663,23 @@ msgstr "Escrever para %s falhou"
 
 #: modules/core.py:3494
 msgid "Lines Stripped"
-msgstr ""
+msgstr "Linhas Retiradas"
 
 #: modules/core.py:3612
 msgid "No Previous Text Format Was Performed During This Session"
 msgstr "Nenhuma formatação de texto foi feita previamente nesta sessão"
 
 #: modules/core.py:3653
-#, fuzzy
 msgid "Link Name"
-msgstr "Nome da âncora"
+msgstr "Nome do link"
 
 #: modules/core.py:3683
 msgid "The Cursor is Not into a Paragraph"
 msgstr "O cursor não está em um parágrafo"
 
 #: modules/core.py:3696
-#, fuzzy
 msgid "Insert/Edit Link"
-msgstr "Inserir/Editar _Link"
+msgstr "Inserir/Editar Link"
 
 #: modules/core.py:3721
 msgid "Pick a Color"
@@ -731,33 +721,28 @@ msgid "Move Column Right"
 msgstr "Mover coluna para a direita"
 
 #: modules/tablez.py:170
-#, fuzzy
 msgid "Rows"
-msgstr "Linhas  "
+msgstr "Linhas"
 
 #: modules/tablez.py:174
-#, fuzzy
 msgid "Columns"
-msgstr "Adicionar coluna"
+msgstr "Colunas"
 
 #: modules/tablez.py:189
-#, fuzzy
 msgid "Table Size"
-msgstr "<b>Tamanho da tabela</b>"
+msgstr "Tamanho da tabela"
 
 #: modules/tablez.py:194
 msgid "Min Width"
 msgstr "Largura mínima"
 
 #: modules/tablez.py:198
-#, fuzzy
 msgid "Max Width"
-msgstr "   Largura máxima"
+msgstr "Largura máxima"
 
 #: modules/tablez.py:213
-#, fuzzy
 msgid "Column Properties"
-msgstr "<b>Propriedades da coluna</b>"
+msgstr "Propriedades da coluna"
 
 #: modules/tablez.py:218
 msgid "Import from CSV File"
@@ -793,7 +778,7 @@ msgstr "pixels"
 
 #: modules/codeboxes.py:114
 msgid "Size"
-msgstr ""
+msgstr "Tamanho"
 
 #: modules/codeboxes.py:119 glade/cherrytree.glade.h:6
 msgid "Show Line Numbers"
@@ -804,9 +789,8 @@ msgid "Highlight Matching Brackets"
 msgstr "Destacar parênteses correspondentes"
 
 #: modules/codeboxes.py:130
-#, fuzzy
 msgid "Options"
-msgstr "<b>Opções</b>"
+msgstr "Opções"
 
 #: modules/codeboxes.py:172 modules/cons.py:543 modules/cons.py:738
 msgid "Insert a CodeBox"
@@ -905,14 +889,12 @@ msgid "Save File As"
 msgstr "Salvar arquivo como"
 
 #: modules/cons.py:514 modules/cons.py:681
-#, fuzzy
 msgid "Export To _PDF"
-msgstr "Exportar para _HTML"
+msgstr "Exportar para _PDF"
 
 #: modules/cons.py:514 modules/cons.py:681
-#, fuzzy
 msgid "Export To PDF"
-msgstr "Imprimir / Exportar para PDF"
+msgstr "Exportar para PDF"
 
 #: modules/cons.py:515 modules/cons.py:684
 msgid "Export To _HTML"
@@ -956,11 +938,11 @@ msgstr "Configurar a página para impressão"
 
 #: modules/cons.py:520
 msgid "_Print"
-msgstr ""
+msgstr "_Imprimir"
 
 #: modules/cons.py:520
 msgid "Print"
-msgstr ""
+msgstr "Imprimir"
 
 #: modules/cons.py:521
 msgid "_Quit"
@@ -1144,7 +1126,7 @@ msgstr "Inserir _Caixa de Código"
 
 #: modules/cons.py:544 modules/cons.py:746 modules/cons.py:785
 msgid "_Lower Case of Selection/Word"
-msgstr "_Tornar Minúsculo Seleção/Palavra"
+msgstr "_Tornar Minúscula Seleção/Palavra"
 
 #: modules/cons.py:544 modules/cons.py:746 modules/cons.py:785
 msgid "Lower the Case of the Selection/the Underlying Word"
@@ -1152,7 +1134,7 @@ msgstr "Torna minúscula a região selecionada"
 
 #: modules/cons.py:545 modules/cons.py:747 modules/cons.py:786
 msgid "_Upper Case of Selection/Word"
-msgstr "_Tornar Maiúsculo Seleção/Palavra"
+msgstr "_Tornar Maiúscula Seleção/Palavra"
 
 #: modules/cons.py:545 modules/cons.py:747 modules/cons.py:786
 msgid "Upper the Case of the Selection/the Underlying Word"
@@ -1256,7 +1238,9 @@ msgstr "_Herdar sintaxe"
 msgid ""
 "Change the Selected Node's Children Syntax Highlighting to the Father's "
 "Syntax Highlighting"
-msgstr "Alterar o realce automático de sintaxe do nó filho para o do pai"
+msgstr ""
+"Alterar o realce automático de sintaxe dos filhos do nó selecionado para o "
+"do pai"
 
 #: modules/cons.py:558 modules/cons.py:707
 msgid "Format _Latest"
@@ -1591,24 +1575,20 @@ msgid "Add Nodes of a CherryTree File to the Current Tree"
 msgstr "Adicionar nós de um arquivo CherryTree para a árvore atual"
 
 #: modules/cons.py:599 modules/cons.py:665
-#, fuzzy
 msgid "From _Plain Text File"
-msgstr "Exportar para um _único arquivo texto"
+msgstr "De Arquivo Texto _Puro"
 
 #: modules/cons.py:599 modules/cons.py:665
-#, fuzzy
 msgid "Add Node from a Plain Text File to the Current Tree"
-msgstr "Adicionar nós de um arquivo Leo para a árvore atual"
+msgstr "Adicionar nó de um arquivo de texto puro à arvore atual"
 
 #: modules/cons.py:600 modules/cons.py:666
-#, fuzzy
 msgid "From _Folder of Plain Text Files"
-msgstr "Exportar para um _único arquivo texto"
+msgstr "De uma _pasta de arquivos texto puro"
 
 #: modules/cons.py:600 modules/cons.py:666
-#, fuzzy
 msgid "Add Nodes from a Folder of Plain Text Files to the Current Tree"
-msgstr "Adicionar nós de um arquivo NoteCase para a árvore atual"
+msgstr "Adicionar nós de uma pasta de arquivos texto puro à árvore atual"
 
 #: modules/cons.py:601 modules/cons.py:667
 msgid "From _Basket Folder"
@@ -1812,7 +1792,7 @@ msgstr "Adicionar o nó atual para a lista de favoritos"
 
 #: modules/cons.py:628
 msgid "_Handle Bookmarks"
-msgstr "_Administrar favoritos"
+msgstr "_Gerenciar favoritos"
 
 #: modules/cons.py:629 modules/cons.py:640
 msgid "Add _Node"
@@ -1940,34 +1920,31 @@ msgstr "C_opiar linha"
 
 #: modules/cons.py:783
 msgid "Stri_p Trailing Spaces"
-msgstr ""
+msgstr "Retira_r Espaços à Direita"
 
 #: modules/cons.py:783
 msgid "Strip Trailing Spaces"
-msgstr ""
+msgstr "Retirar Espaços à Direita"
 
 #: modules/cons.py:821
-#, fuzzy
 msgid "Edit _Link"
-msgstr "Inserir/Editar _Link"
+msgstr "Editar _Link"
 
 #: modules/cons.py:821
-#, fuzzy
 msgid "Edit the Underlying Link"
-msgstr "Editar a âncora selecionada"
+msgstr "Editar o link selecionado"
 
 #: modules/cons.py:823
 msgid "C_ut Link"
-msgstr ""
+msgstr "C_ortar Link"
 
 #: modules/cons.py:823 modules/cons.py:839
 msgid "Cut the Selected CodeBox"
 msgstr "Recortar a caixa de código selecionada"
 
 #: modules/cons.py:824
-#, fuzzy
 msgid "_Copy Link"
-msgstr "_Copiar linha"
+msgstr "_Copiar link"
 
 #: modules/cons.py:824 modules/cons.py:840
 msgid "Copy the Selected CodeBox"
@@ -1975,22 +1952,19 @@ msgstr "Copiar a caixa de código selecionada"
 
 #: modules/cons.py:825
 msgid "D_ismiss Link"
-msgstr ""
+msgstr "R_emover link"
 
 #: modules/cons.py:825
-#, fuzzy
 msgid "Dismiss the Selected Link"
-msgstr "Editar a imagem selecionada"
+msgstr "Remove o link selecionado"
 
 #: modules/cons.py:826
-#, fuzzy
 msgid "_Delete Link"
-msgstr "_Deletar imagem"
+msgstr "_Apagar link"
 
 #: modules/cons.py:826
-#, fuzzy
 msgid "Delete the Selected Link"
-msgstr "Deletar o nó selecionado"
+msgstr "Apagar o link selecionado"
 
 #: modules/cons.py:837
 msgid "Change CodeBox _Properties"
@@ -2082,7 +2056,7 @@ msgstr "Largura da tabulação "
 
 #: glade/cherrytree.glade.h:3
 msgid "Insert Spaces Instead of Tabs"
-msgstr "Inserir espaçoes em vez de tabulações"
+msgstr "Inserir espaços ao invés de tabulações"
 
 #: glade/cherrytree.glade.h:4
 msgid "Use Line Wrapping"
@@ -2118,7 +2092,7 @@ msgstr "Todos os nós"
 
 #: glade/cherrytree.glade.h:13
 msgid "Enable Spell Check"
-msgstr "Habilitar correção ortográfica"
+msgstr "Habilitar verificação ortográfica"
 
 #: glade/cherrytree.glade.h:14
 msgid "Spell Check Language"
@@ -2210,7 +2184,7 @@ msgstr "<b>Estado dos Nós na Inicialização</b>"
 
 #: glade/cherrytree.glade.h:36
 msgid "Tree Nodes Names Wrapping Width"
-msgstr "Tamanho do nome do nó para quebra de linha"
+msgstr "Largura máxima do nome dos nós antes de quebrar linha"
 
 #: glade/cherrytree.glade.h:37
 msgid "Display Tree on the Right Side"
