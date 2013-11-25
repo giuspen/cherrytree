@@ -3658,8 +3658,10 @@ class CherryTree:
                             if not self.apply_tag_try_automatic_bounds():
                                 link_name = support.dialog_img_n_entry(self.window, _("Link Name"), "", "link_handle")
                                 if not link_name: return
+                                start_offset = text_buffer.get_iter_at_mark(text_buffer.get_insert()).get_offset()
                                 text_buffer.insert_at_cursor(link_name)
-                                if not self.apply_tag_try_automatic_bounds(): return
+                                end_offset = text_buffer.get_iter_at_mark(text_buffer.get_insert()).get_offset()
+                                text_buffer.select_range(text_buffer.get_iter_at_offset(start_offset), text_buffer.get_iter_at_offset(end_offset))
                             self.link_type = cons.LINK_TYPE_WEBS # default value
                         else:
                             vector = tag_property_value.split()
