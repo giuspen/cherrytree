@@ -176,7 +176,7 @@ if "py2exe" in sys.argv:
        data_files = data_files,
     )
     import shutil
-    shutil.copytree("C:\gtksourceview\share\gtksourceview-2.0", "dist\share\gtksourceview-2.0")
+    shutil.copytree("C:\gtk2\share\gtksourceview-2.0", "dist\share\gtksourceview-2.0")
     print "remember to copy 7za.exe to the dist folder"
 else:
     setup(
