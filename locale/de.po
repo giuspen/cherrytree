@@ -2,14 +2,15 @@
 # Copyright (C) 2010 THE svn_cherrytree'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the svn_cherrytree package.
 # Giuseppe Penone <giuspen@gmail.com>, 2010.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-11-24 13:59+0100\n"
 "PO-Revision-Date: 2013-08-26 23:10+0100\n"
-"Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
+"Last-Translator: Sven Neubauer <me@dampfklon.de>, Frank Brungräber "
+"<calexu@arcor.de>\n"
 "Language-Team: German\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -104,7 +105,6 @@ msgstr ""
 "51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.\n"
 
 #: modules/support.py:295
-#, fuzzy
 msgid ""
 "Chinese Simplified (zh_CN) Channing Wong <mamimoluo@gmail.com>\n"
 "Czech (cs) Pavel Fric <fripohled@blogspot.com>\n"
@@ -118,17 +118,18 @@ msgid ""
 "Spanish (es) Daniel MC <i.e.betel@gmail.com>\n"
 "Ukrainian (uk) Andriy Kovtun <kovtunos@yandex.ru>"
 msgstr ""
-"Chinesisch Vereinfacht (zh_CN) Channing Wong <mamimoluo@gmail.com>\n"
-"Czech (cs) Pavel Fric <fripohled@blogspot.com>\n"
-"French (fr) Benoît D'Angelo <benoit.dangelo@gmx.fr> (bis 0.28.2 Ludovic "
+"Chinesisch (vereinfacht) (zh_CN) Channing Wong <mamimoluo@gmail.com>\n"
+"Tschechisch (cs) Pavel Fric <fripohled@blogspot.com>\n"
+"Französisch (fr) Benoît D'Angelo <benoit.dangelo@gmx.fr> (bis 0.28.2 Ludovic "
 "Troisi)\n"
-"German (de) Frank Brungräber <calexu@arcor.de> (bis 0.21.2: Sven Neubauer)\n"
-"Italian (it) Giuseppe Penone <giuspen@gmail.com>\n"
-"Polish (pl) Marcin Swierczynski <orneo1212@gmail.com>\n"
-"Portuguese Brazil (pt_BR) Vinicius Schmidt <viniciussm@rocketmail.com>\n"
-"Russian (ru) Andriy Kovtun <kovtunos@yandex.ru>\n"
-"Spanish (es) Daniel MC <i.e.betel@gmail.com>\n"
-"Ukrainian (uk) Andriy Kovtun <kovtunos@yandex.ru>"
+"Deutsch (de) Frank Brungräber <calexu@arcor.de> (bis 0.21.2: Sven Neubauer)\n"
+"Italienisch (it) Giuseppe Penone <giuspen@gmail.com>\n"
+"Polnisch (pl) Marcin Swierczynski <orneo1212@gmail.com>\n"
+"Portugiesisch (Brasilien) (pt_BR) Vinicius Schmidt <viniciussm@rocketmail."
+"com>\n"
+"Russisch (ru) Andriy Kovtun <kovtunos@yandex.ru>\n"
+"Spanisch (es) Daniel MC <i.e.betel@gmail.com>\n"
+"Ukrainisch (uk) Andriy Kovtun <kovtunos@yandex.ru>"
 
 #: modules/support.py:307 modules/cons.py:615
 msgid "About CherryTree"
@@ -183,9 +184,8 @@ msgid "To Node"
 msgstr "zum Knoten"
 
 #: modules/support.py:685
-#, fuzzy
 msgid "Anchor Name (optional)"
-msgstr "<b>Anker Name (optional)</b>"
+msgstr "<b>Ankername (optional)</b>"
 
 #: modules/support.py:739 modules/core.py:3269 modules/core.py:4149
 msgid "No Node is Selected"
@@ -225,7 +225,7 @@ msgstr "Knotennamen einschließen"
 
 #: modules/support.py:932 modules/core.py:927
 msgid "Insert _Special Character"
-msgstr "Sonderzeichen einfügen"
+msgstr "S_onderzeichen einfügen"
 
 #: modules/support.py:934 modules/core.py:929
 msgid "Insert a Special Character"
@@ -325,7 +325,7 @@ msgstr "Knotenname"
 
 #: modules/findreplace.py:590
 msgid "Line"
-msgstr ""
+msgstr "Zeile"
 
 #: modules/findreplace.py:592
 msgid "Line Content"
@@ -370,16 +370,15 @@ msgstr "CherryTree-Datei"
 #: modules/core.py:595 modules/core.py:1599
 #, python-format
 msgid "\"%s\" is Not a CherryTree Document"
-msgstr "\"%s\" ist kein CherryTree-Dokument"
+msgstr "\"%s\" ist keine CherryTree-Datei"
 
 #: modules/core.py:601
 msgid "NoteCase Document"
 msgstr "NoteCase-Datei"
 
 #: modules/core.py:687
-#, fuzzy
 msgid "Plain Text Document"
-msgstr "Knowit-Datei"
+msgstr "Textdatei"
 
 #: modules/core.py:705
 msgid "Treepad Document"
@@ -403,7 +402,7 @@ msgstr "Leo-Datei"
 
 #: modules/core.py:808
 msgid "Who is the Father?"
-msgstr "Welcher ist der übergeordnete Knoten?"
+msgstr "Welcher Knoten ist übergeordnet?"
 
 #: modules/core.py:815
 msgid "The Tree Root"
@@ -420,7 +419,7 @@ msgstr "Die CT*-Datei wurde nach einer externen Aktualisierung neu geladen"
 
 #: modules/core.py:1044
 msgid "CherryTree Hierarchical Note Taking"
-msgstr "CherryTree - Ein hierarchisches Notizprogramm"
+msgstr "CherryTree – Ein hierarchisches Notizprogramm"
 
 #: modules/core.py:1296
 #, python-format
@@ -432,9 +431,8 @@ msgid "Writing to Disk..."
 msgstr "Schreibe auf Festplatte..."
 
 #: modules/core.py:1356
-#, fuzzy
 msgid "Choose Storage Type"
-msgstr "Speichertyp und Schutz auswählen"
+msgstr "Speichertyp auswählen"
 
 #: modules/core.py:1363 modules/core.py:1366
 msgid "Not Protected"
@@ -446,7 +444,7 @@ msgstr "passwortgeschützt"
 
 #: modules/core.py:1375
 msgid "Storage Type"
-msgstr ""
+msgstr "Speichertyp"
 
 #: modules/core.py:1386
 msgid "Enter the New Password Twice"
@@ -529,14 +527,12 @@ msgstr ""
 "in diesem Knoten. Weiter?"
 
 #: modules/core.py:2890
-#, fuzzy
 msgid "Search for"
-msgstr "<b>Suchen</b>"
+msgstr "<b>Suchen nach</b>"
 
 #: modules/core.py:2897
-#, fuzzy
 msgid "Replace with"
-msgstr "<b>Ersetzen mit</b>"
+msgstr "<b>Ersetzen durch</b>"
 
 #: modules/core.py:2912
 msgid "Match Case"
@@ -579,7 +575,6 @@ msgid "Show Iterated Find/Replace Dialog"
 msgstr "Dialog für mehrfaches Suchen/Ersetzen anzeigen"
 
 #: modules/core.py:2953
-#, fuzzy
 msgid "Search options"
 msgstr "<b>Suchoptionen</b>"
 
@@ -592,12 +587,10 @@ msgid "Automatic Syntax Highlighting"
 msgstr "<b>Automatische Syntaxhervorhebung</b>"
 
 #: modules/core.py:3023
-#, fuzzy
 msgid "Node Type"
 msgstr "<b>Knotentyp</b>"
 
 #: modules/core.py:3029
-#, fuzzy
 msgid "Tags for Searching"
 msgstr "<b>Suchtags</b>"
 
@@ -675,25 +668,23 @@ msgstr "Konnte %s nicht schreiben"
 
 #: modules/core.py:3494
 msgid "Lines Stripped"
-msgstr ""
+msgstr "Zeilen entfernt"
 
 #: modules/core.py:3612
 msgid "No Previous Text Format Was Performed During This Session"
 msgstr "Es wurde in dieser Sitzung noch keine Formatierung durchgeführt"
 
 #: modules/core.py:3653
-#, fuzzy
 msgid "Link Name"
-msgstr "Anker Name"
+msgstr "Linkname"
 
 #: modules/core.py:3683
 msgid "The Cursor is Not into a Paragraph"
 msgstr "Der Cursor befindet sich nicht in einem Absatz"
 
 #: modules/core.py:3696
-#, fuzzy
 msgid "Insert/Edit Link"
-msgstr "_Link einfügen/bearbeiten..."
+msgstr "Link einfügen/bearbeiten..."
 
 #: modules/core.py:3721
 msgid "Pick a Color"
@@ -735,17 +726,14 @@ msgid "Move Column Right"
 msgstr "Spalte nach rechts verschieben"
 
 #: modules/tablez.py:170
-#, fuzzy
 msgid "Rows"
 msgstr "Zeilen"
 
 #: modules/tablez.py:174
-#, fuzzy
 msgid "Columns"
-msgstr "Spalte einfügen"
+msgstr "Spalten"
 
 #: modules/tablez.py:189
-#, fuzzy
 msgid "Table Size"
 msgstr "<b>Tabellengröße</b>"
 
@@ -754,14 +742,12 @@ msgid "Min Width"
 msgstr "Min. Breite"
 
 #: modules/tablez.py:198
-#, fuzzy
 msgid "Max Width"
 msgstr " Max. Breite"
 
 #: modules/tablez.py:213
-#, fuzzy
 msgid "Column Properties"
-msgstr "<b>Spalten Eigenschaften</b>"
+msgstr "<b>Spalteneigenschaften</b>"
 
 #: modules/tablez.py:218
 msgid "Import from CSV File"
@@ -797,7 +783,7 @@ msgstr "Pixel"
 
 #: modules/codeboxes.py:114
 msgid "Size"
-msgstr ""
+msgstr "Größe"
 
 #: modules/codeboxes.py:119 glade/cherrytree.glade.h:6
 msgid "Show Line Numbers"
@@ -808,9 +794,8 @@ msgid "Highlight Matching Brackets"
 msgstr "Zusammengehörende Klammern markieren"
 
 #: modules/codeboxes.py:130
-#, fuzzy
 msgid "Options"
-msgstr "<b>Extras</b>"
+msgstr "<b>Optionen</b>"
 
 #: modules/codeboxes.py:172 modules/cons.py:543 modules/cons.py:738
 msgid "Insert a CodeBox"
@@ -909,14 +894,12 @@ msgid "Save File As"
 msgstr "Datei speichern unter..."
 
 #: modules/cons.py:514 modules/cons.py:681
-#, fuzzy
 msgid "Export To _PDF"
-msgstr "_HTML"
+msgstr "_PDF"
 
 #: modules/cons.py:514 modules/cons.py:681
-#, fuzzy
 msgid "Export To PDF"
-msgstr "PDF / Drucken"
+msgstr "PDF"
 
 #: modules/cons.py:515 modules/cons.py:684
 msgid "Export To _HTML"
@@ -928,19 +911,19 @@ msgstr "HTML"
 
 #: modules/cons.py:516 modules/cons.py:682
 msgid "Export to Multiple Plain _Text Files"
-msgstr "in mehrere Textdateien exportieren"
+msgstr "in _mehrere Textdateien"
 
 #: modules/cons.py:516 modules/cons.py:682
 msgid "Export to Multiple Plain Text Files"
-msgstr "in mehrere Textdateien exportieren"
+msgstr "in mehrere Textdateien"
 
 #: modules/cons.py:517 modules/cons.py:683
 msgid "Export to _Single Plain Text File"
-msgstr "in einzelne Textdatei exportieren"
+msgstr "in _einzelne Textdatei"
 
 #: modules/cons.py:517 modules/cons.py:683
 msgid "Export to Single Plain Text File"
-msgstr "in einzelne Textdateien exportieren"
+msgstr "in einzelne Textdatei"
 
 #: modules/cons.py:518 modules/cons.py:685
 msgid "_Export To CherryTree Document"
@@ -960,11 +943,11 @@ msgstr "Seite einrichten"
 
 #: modules/cons.py:520
 msgid "_Print"
-msgstr ""
+msgstr "_Drucken"
 
 #: modules/cons.py:520
 msgid "Print"
-msgstr ""
+msgstr "Drucken"
 
 #: modules/cons.py:521
 msgid "_Quit"
@@ -1524,7 +1507,7 @@ msgstr "Symbolleiste anzeigen/ausblenden"
 
 #: modules/cons.py:590
 msgid "Show _All Matches Dialog"
-msgstr "Dialog für mehrfaches Suchen/Ersetzen anzeigen"
+msgstr "Dialog für _mehrfaches Suchen/Ersetzen anzeigen"
 
 #: modules/cons.py:590
 msgid "Show Search All Matches Dialog"
@@ -1548,7 +1531,7 @@ msgstr "Die Icons in der Symbolleiste verkleinern"
 
 #: modules/cons.py:593
 msgid "Toggle _Focus Tree/Text"
-msgstr "Fokus zwischen Baumstruktur und Text umschalten"
+msgstr "_Fokus zwischen Baumstruktur und Text umschalten"
 
 #: modules/cons.py:593
 msgid "Toggle Focus Between Tree and Text"
@@ -1556,7 +1539,7 @@ msgstr "Fokus zwischen Baumstruktur und Text umschalten"
 
 #: modules/cons.py:594
 msgid "Toggle Node _Expanded/Collapsed"
-msgstr "Knoten ein-/ausklappen"
+msgstr "Kn_oten ein-/ausklappen"
 
 #: modules/cons.py:594
 msgid "Toggle Expanded/Collapsed Status of the Selected Node"
@@ -1596,24 +1579,20 @@ msgstr ""
 "Knoten aus einer CherryTree-Datei zur aktuellen Baumstruktur hinzufügen"
 
 #: modules/cons.py:599 modules/cons.py:665
-#, fuzzy
 msgid "From _Plain Text File"
-msgstr "in einzelne Textdatei exportieren"
+msgstr "T_extdatei"
 
 #: modules/cons.py:599 modules/cons.py:665
-#, fuzzy
 msgid "Add Node from a Plain Text File to the Current Tree"
-msgstr "Knoten aus einer Leo-Datei einfügen"
+msgstr "Knoten aus einer Textdatei einfügen"
 
 #: modules/cons.py:600 modules/cons.py:666
-#, fuzzy
 msgid "From _Folder of Plain Text Files"
-msgstr "in einzelne Textdatei exportieren"
+msgstr "_Verzeichnis mit Textdateien"
 
 #: modules/cons.py:600 modules/cons.py:666
-#, fuzzy
 msgid "Add Nodes from a Folder of Plain Text Files to the Current Tree"
-msgstr "Knoten aus einer NoteCase-Datei einfügen"
+msgstr "Knoten aus einem Verzeichnis mit Textdateien einfügen"
 
 #: modules/cons.py:601 modules/cons.py:667
 msgid "From _Basket Folder"
@@ -1642,7 +1621,7 @@ msgstr "Knoten aus einem KeepNote-Verzeichnis einfügen"
 
 #: modules/cons.py:604 modules/cons.py:670
 msgid "From K_eyNote File"
-msgstr "KeyNote-Datei..."
+msgstr "Ke_yNote-Datei..."
 
 #: modules/cons.py:604 modules/cons.py:670
 msgid "Add Nodes of a KeyNote File to the Current Tree"
@@ -1830,7 +1809,7 @@ msgstr "gleichrangigen Knoten einfügen"
 
 #: modules/cons.py:630 modules/cons.py:641
 msgid "Add _SubNode"
-msgstr "unterge_ordneten Knoten einfügen"
+msgstr "_untergeordneten Knoten einfügen"
 
 #: modules/cons.py:630 modules/cons.py:641
 msgid "Add a Child Node to the Selected Node"
@@ -1886,7 +1865,7 @@ msgstr "Knoten _sortieren"
 
 #: modules/cons.py:654
 msgid "Sort Tree _Ascending"
-msgstr "Baum aufsteigend sortieren"
+msgstr "_Baum aufsteigend sortieren"
 
 #: modules/cons.py:654
 msgid "Sort the Tree Ascending"
@@ -1894,7 +1873,7 @@ msgstr "Baum aufsteigend sortieren"
 
 #: modules/cons.py:655
 msgid "Sort Tree _Descending"
-msgstr "Baum absteigend sortierten"
+msgstr "B_aum absteigend sortierten"
 
 #: modules/cons.py:655
 msgid "Sort the Tree Descending"
@@ -1902,7 +1881,7 @@ msgstr "Baum absteigend sortieren"
 
 #: modules/cons.py:656
 msgid "Sort Siblings A_scending"
-msgstr "Kinderknoten _aufsteigend sortieren"
+msgstr "_Kinderknoten aufsteigend sortieren"
 
 #: modules/cons.py:656
 msgid "Sort all the Siblings of the Selected Node Ascending"
@@ -1910,7 +1889,7 @@ msgstr "Kinderknoten des markierten Knotens aufsteigend sortieren"
 
 #: modules/cons.py:657
 msgid "Sort Siblings D_escending"
-msgstr "Kinderknoten _absteigend sortieren"
+msgstr "K_inderknoten absteigend sortieren"
 
 #: modules/cons.py:657
 msgid "Sort all the Siblings of the Selected Node Descending"
@@ -1946,34 +1925,31 @@ msgstr "Zeile _kopieren"
 
 #: modules/cons.py:783
 msgid "Stri_p Trailing Spaces"
-msgstr ""
+msgstr "Leer_zeichen am Zeilenende löschen"
 
 #: modules/cons.py:783
 msgid "Strip Trailing Spaces"
-msgstr ""
+msgstr "Leerzeichen am Zeilenende löschen"
 
 #: modules/cons.py:821
-#, fuzzy
 msgid "Edit _Link"
-msgstr "_Link einfügen/bearbeiten..."
+msgstr "_Link bearbeiten..."
 
 #: modules/cons.py:821
-#, fuzzy
 msgid "Edit the Underlying Link"
-msgstr "Anker bearbeiten"
+msgstr "Hyperlink bearbeiten"
 
 #: modules/cons.py:823
 msgid "C_ut Link"
-msgstr ""
+msgstr "Hyperlink _ausschneiden"
 
 #: modules/cons.py:823 modules/cons.py:839
 msgid "Cut the Selected CodeBox"
 msgstr "CodeBox ausschneiden"
 
 #: modules/cons.py:824
-#, fuzzy
 msgid "_Copy Link"
-msgstr "Zeile k_opieren"
+msgstr "Hyperlink ko_pieren"
 
 #: modules/cons.py:824 modules/cons.py:840
 msgid "Copy the Selected CodeBox"
@@ -1981,22 +1957,19 @@ msgstr "CodeBox kopieren"
 
 #: modules/cons.py:825
 msgid "D_ismiss Link"
-msgstr ""
+msgstr "Hyperlink entfernen"
 
 #: modules/cons.py:825
-#, fuzzy
 msgid "Dismiss the Selected Link"
-msgstr "Bild bearbeiten"
+msgstr "Hyperlink entfernen"
 
 #: modules/cons.py:826
-#, fuzzy
 msgid "_Delete Link"
-msgstr "Bild löschen"
+msgstr "Hyperlink löschen"
 
 #: modules/cons.py:826
-#, fuzzy
 msgid "Delete the Selected Link"
-msgstr "Knoten löschen"
+msgstr "Hyperlink löschen"
 
 #: modules/cons.py:837
 msgid "Change CodeBox _Properties"
@@ -2327,17 +2300,14 @@ msgstr "<b>Sprache</b>"
 msgid "Miscellaneous"
 msgstr "Sonstiges"
 
-#, fuzzy
 #~ msgid "Insert/Edit a Link"
-#~ msgstr "_Link einfügen/bearbeiten..."
+#~ msgstr "_Link einfügen/bearbeiten"
 
-#, fuzzy
 #~ msgid "Edit a Link"
-#~ msgstr "Link einfügen/bearbeiten..."
+#~ msgstr "Link bearbeiten"
 
-#, fuzzy
 #~ msgid "Insert a Link"
-#~ msgstr "Link einfügen/bearbeiten..."
+#~ msgstr "Link einfügen"
 
 #~ msgid "The Anchor Name is Mandatory!"
 #~ msgstr "Der Ankername fehlt!"
@@ -2352,7 +2322,7 @@ msgstr "Sonstiges"
 #~ msgstr "<b>URL der Webseite</b>"
 
 #~ msgid "Browse for a File to link to"
-#~ msgstr "Nach einer Datei zum verlinken suchen"
+#~ msgstr "Nach einer Datei zum Verlinken suchen"
 
 #~ msgid "<b>File/Folder Path</b>"
 #~ msgstr "<b>Datei/Verzeichnispfad</b>"
