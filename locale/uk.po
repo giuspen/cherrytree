@@ -2,7 +2,7 @@
 # Copyright (C) 2010 THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # maul <giuspen@gmail.com>, 2010.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: CherryTree\n"
@@ -109,7 +109,6 @@ msgstr ""
 "675 Mass Ave, Cambridge, MA 02139, USA.\n"
 
 #: modules/support.py:295
-#, fuzzy
 msgid ""
 "Chinese Simplified (zh_CN) Channing Wong <mamimoluo@gmail.com>\n"
 "Czech (cs) Pavel Fric <fripohled@blogspot.com>\n"
@@ -125,6 +124,7 @@ msgid ""
 msgstr ""
 "Китайський Спрощений (zh_CN) Channing Wong <mamimoluo@gmail.com>\n"
 "Чеський (cs) Pavel Fric <fripohled@blogspot.com>\n"
+"Голландський (nl) Patrick Vijgeboom <pj.vijgeboom@gmail.com>\n"
 "Французький (fr) Benoît D'Angelo <benoit.dangelo@gmx.fr> (former Ludovic "
 "Troisi)\n"
 "Німецький (de) Frank Brungräber <calexu@arcor.de> (former Sven Neubauer)\n"
@@ -188,9 +188,8 @@ msgid "To Node"
 msgstr "Гілка"
 
 #: modules/support.py:685
-#, fuzzy
 msgid "Anchor Name (optional)"
-msgstr "<b>Назва якоря (по бажанню)</b>"
+msgstr "Назва якоря (по бажанню)"
 
 #: modules/support.py:739 modules/core.py:3269 modules/core.py:4149
 msgid "No Node is Selected"
@@ -330,7 +329,7 @@ msgstr "Назва гілки"
 
 #: modules/findreplace.py:590
 msgid "Line"
-msgstr ""
+msgstr "Рядок"
 
 #: modules/findreplace.py:592
 msgid "Line Content"
@@ -380,9 +379,8 @@ msgid "NoteCase Document"
 msgstr "Документ NoteCase"
 
 #: modules/core.py:687
-#, fuzzy
 msgid "Plain Text Document"
-msgstr "Документ Knowit"
+msgstr "Текстовий документ"
 
 #: modules/core.py:705
 msgid "Treepad Document"
@@ -434,9 +432,8 @@ msgid "Writing to Disk..."
 msgstr "Запис на диск..."
 
 #: modules/core.py:1356
-#, fuzzy
 msgid "Choose Storage Type"
-msgstr "Виберіть тип даних і захист"
+msgstr "Виберіть тип сховища"
 
 #: modules/core.py:1363 modules/core.py:1366
 msgid "Not Protected"
@@ -448,7 +445,7 @@ msgstr "Захищено паролем"
 
 #: modules/core.py:1375
 msgid "Storage Type"
-msgstr ""
+msgstr "Тип сховища"
 
 #: modules/core.py:1386
 msgid "Enter the New Password Twice"
@@ -528,14 +525,12 @@ msgstr ""
 "користувацьких кольорів для цієї гілки, продовжити?"
 
 #: modules/core.py:2890
-#, fuzzy
 msgid "Search for"
-msgstr "<b>Шукати</b>"
+msgstr "Шукати"
 
 #: modules/core.py:2897
-#, fuzzy
 msgid "Replace with"
-msgstr "<b>Замінити</b>"
+msgstr "Замінити"
 
 #: modules/core.py:2912
 msgid "Match Case"
@@ -578,9 +573,8 @@ msgid "Show Iterated Find/Replace Dialog"
 msgstr "Показати діалог останніх замін"
 
 #: modules/core.py:2953
-#, fuzzy
 msgid "Search options"
-msgstr "<b>Налаштування пошуку</b>"
+msgstr "Налаштування пошуку"
 
 #: modules/core.py:3005 modules/core.py:4151
 msgid "Rich Text"
@@ -591,14 +585,12 @@ msgid "Automatic Syntax Highlighting"
 msgstr "Автоматичне підсвічування синтаксису"
 
 #: modules/core.py:3023
-#, fuzzy
 msgid "Node Type"
-msgstr "<b>Тип гілки</b>"
+msgstr "Тип гілки"
 
 #: modules/core.py:3029
-#, fuzzy
 msgid "Tags for Searching"
-msgstr "<b>Теги для пошуку</b>"
+msgstr "Теги для пошуку"
 
 #: modules/core.py:3033 modules/core.py:4153
 msgid "Read Only"
@@ -672,25 +664,23 @@ msgstr "Записати в %s не вдалося"
 
 #: modules/core.py:3494
 msgid "Lines Stripped"
-msgstr ""
+msgstr "Очищені рядки"
 
 #: modules/core.py:3612
 msgid "No Previous Text Format Was Performed During This Session"
 msgstr "В цій сесії не було операцій форматування тексту"
 
 #: modules/core.py:3653
-#, fuzzy
 msgid "Link Name"
-msgstr "Назва якора"
+msgstr "Назва посилання"
 
 #: modules/core.py:3683
 msgid "The Cursor is Not into a Paragraph"
 msgstr "Курсор за межами абзацу"
 
 #: modules/core.py:3696
-#, fuzzy
 msgid "Insert/Edit Link"
-msgstr "Вставити / Редагувати гіперпосилання"
+msgstr "Вставити / Редагувати посилання"
 
 #: modules/core.py:3721
 msgid "Pick a Color"
@@ -732,33 +722,28 @@ msgid "Move Column Right"
 msgstr "Стовпець праворуч"
 
 #: modules/tablez.py:170
-#, fuzzy
 msgid "Rows"
 msgstr "Рядки"
 
 #: modules/tablez.py:174
-#, fuzzy
 msgid "Columns"
-msgstr "Додати стовпець"
+msgstr "Стовпці"
 
 #: modules/tablez.py:189
-#, fuzzy
 msgid "Table Size"
-msgstr "<b>Розмір таблиці</b>"
+msgstr "Розмір таблиці"
 
 #: modules/tablez.py:194
 msgid "Min Width"
 msgstr "Мінімальна ширина"
 
 #: modules/tablez.py:198
-#, fuzzy
 msgid "Max Width"
-msgstr "   Максимальна ширина"
+msgstr "Максимальна ширина"
 
 #: modules/tablez.py:213
-#, fuzzy
 msgid "Column Properties"
-msgstr "<b>Параметри стовпців</b>"
+msgstr "Параметри стовпців"
 
 #: modules/tablez.py:218
 msgid "Import from CSV File"
@@ -794,7 +779,7 @@ msgstr "пікселів"
 
 #: modules/codeboxes.py:114
 msgid "Size"
-msgstr ""
+msgstr "Розмір"
 
 #: modules/codeboxes.py:119 glade/cherrytree.glade.h:6
 msgid "Show Line Numbers"
@@ -805,9 +790,8 @@ msgid "Highlight Matching Brackets"
 msgstr "Підсвічування відповідних дужок"
 
 #: modules/codeboxes.py:130
-#, fuzzy
 msgid "Options"
-msgstr "<b>Налаштування</b>"
+msgstr "Налаштування"
 
 #: modules/codeboxes.py:172 modules/cons.py:543 modules/cons.py:738
 msgid "Insert a CodeBox"
@@ -906,14 +890,12 @@ msgid "Save File As"
 msgstr "Зберегти файл як"
 
 #: modules/cons.py:514 modules/cons.py:681
-#, fuzzy
 msgid "Export To _PDF"
-msgstr "Експорт до HTML"
+msgstr "Експорт до _PDF"
 
 #: modules/cons.py:514 modules/cons.py:681
-#, fuzzy
 msgid "Export To PDF"
-msgstr "Друк / Експорт до PDF"
+msgstr "Експорт до PDF"
 
 #: modules/cons.py:515 modules/cons.py:684
 msgid "Export To _HTML"
@@ -957,11 +939,11 @@ msgstr "Налаштування сторінки для друку"
 
 #: modules/cons.py:520
 msgid "_Print"
-msgstr ""
+msgstr "_Друк"
 
 #: modules/cons.py:520
 msgid "Print"
-msgstr ""
+msgstr "Друк"
 
 #: modules/cons.py:521
 msgid "_Quit"
@@ -1029,11 +1011,11 @@ msgstr "Увімкнути / Вимкнути список To-Do"
 
 #: modules/cons.py:529 modules/cons.py:739
 msgid "Insert/Edit _Link"
-msgstr "Вставити / Редагувати гіперпосилання"
+msgstr "Вставити / Редагувати посилання"
 
 #: modules/cons.py:529 modules/cons.py:739
 msgid "Insert a Link/Edit the Underlying Link"
-msgstr "Вставити / Редагувати гіперпосилання"
+msgstr "Вставити / Редагувати посилання"
 
 #: modules/cons.py:530 modules/cons.py:741
 msgid "Insert T_OC"
@@ -1592,24 +1574,20 @@ msgid "Add Nodes of a CherryTree File to the Current Tree"
 msgstr "Імпортувати з файлу CherryTree в існуюче дерево"
 
 #: modules/cons.py:599 modules/cons.py:665
-#, fuzzy
 msgid "From _Plain Text File"
-msgstr "Експорт в текстовий файл"
+msgstr "З текстового файлу"
 
 #: modules/cons.py:599 modules/cons.py:665
-#, fuzzy
 msgid "Add Node from a Plain Text File to the Current Tree"
-msgstr "Імпортувати з файлу Leo в існуюче дерево"
+msgstr "Імпортувати з текстового файлу в існуюче дерево"
 
 #: modules/cons.py:600 modules/cons.py:666
-#, fuzzy
 msgid "From _Folder of Plain Text Files"
-msgstr "Експорт в текстовий файл"
+msgstr "З папки з текстовими файлами"
 
 #: modules/cons.py:600 modules/cons.py:666
-#, fuzzy
 msgid "Add Nodes from a Folder of Plain Text Files to the Current Tree"
-msgstr "Імпортувати з файлу NoteCase в існуюче дерево"
+msgstr "Імпортувати з папки з текстовими файлами в існуюче дерево"
 
 #: modules/cons.py:601 modules/cons.py:667
 msgid "From _Basket Folder"
@@ -1941,34 +1919,31 @@ msgstr "Копіювати рядок"
 
 #: modules/cons.py:783
 msgid "Stri_p Trailing Spaces"
-msgstr ""
+msgstr "Очистити пробіли в кінці рядка"
 
 #: modules/cons.py:783
 msgid "Strip Trailing Spaces"
-msgstr ""
+msgstr "Очистити пробіли в кінці рядка"
 
 #: modules/cons.py:821
-#, fuzzy
 msgid "Edit _Link"
-msgstr "Вставити / Редагувати гіперпосилання"
+msgstr "Редагувати посилання"
 
 #: modules/cons.py:821
-#, fuzzy
 msgid "Edit the Underlying Link"
-msgstr "Редагувати якір"
+msgstr "Редагувати посилання"
 
 #: modules/cons.py:823
 msgid "C_ut Link"
-msgstr ""
+msgstr "Вирізати посилання"
 
 #: modules/cons.py:823 modules/cons.py:839
 msgid "Cut the Selected CodeBox"
 msgstr "Вирізати виділений блок коду"
 
 #: modules/cons.py:824
-#, fuzzy
 msgid "_Copy Link"
-msgstr "Копіювати рядок"
+msgstr "Копіювати посилання"
 
 #: modules/cons.py:824 modules/cons.py:840
 msgid "Copy the Selected CodeBox"
@@ -1976,22 +1951,19 @@ msgstr "Копіювати виділений блок коду"
 
 #: modules/cons.py:825
 msgid "D_ismiss Link"
-msgstr ""
+msgstr "Забути посилання"
 
 #: modules/cons.py:825
-#, fuzzy
 msgid "Dismiss the Selected Link"
-msgstr "Редагувати виділене зображення"
+msgstr "Забути виділене посилання"
 
 #: modules/cons.py:826
-#, fuzzy
 msgid "_Delete Link"
-msgstr "Видалити зображення"
+msgstr "Видалити посилання"
 
 #: modules/cons.py:826
-#, fuzzy
 msgid "Delete the Selected Link"
-msgstr "Видалити гілку"
+msgstr "Видалити виділене посилання"
 
 #: modules/cons.py:837
 msgid "Change CodeBox _Properties"
@@ -2259,7 +2231,7 @@ msgstr "Розмір якора"
 
 #: glade/cherrytree.glade.h:48
 msgid "<b>Links</b>"
-msgstr "<b>Гіперпосилання</b>"
+msgstr "<b>Посилання</b>"
 
 #: glade/cherrytree.glade.h:49
 msgid "Links"
@@ -2321,15 +2293,12 @@ msgstr "<b>Мова</b>"
 msgid "Miscellaneous"
 msgstr "Різне"
 
-#, fuzzy
 #~ msgid "Insert/Edit a Link"
 #~ msgstr "Вставити / Редагувати гіперпосилання"
 
-#, fuzzy
 #~ msgid "Edit a Link"
 #~ msgstr "Вставити / редагувати гіперпосилання"
 
-#, fuzzy
 #~ msgid "Insert a Link"
 #~ msgstr "Вставити / редагувати гіперпосилання"
 
