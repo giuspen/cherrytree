@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # giuspen <giuspen@gmail.com>, 2013.
 # Patrick Vijgeboom <pj.vijgeboom@gmail.com>, 2013.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: cherrytree 0.30.5\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-11-24 13:59+0100\n"
-"PO-Revision-Date: 2013-10-28 19:39+0100\n"
+"PO-Revision-Date: 2013-11-27 18:56+0100\n"
 "Last-Translator: Patrick Vijgeboom <pj.vijgeboom@gmail.com>\n"
 "Language-Team: Nederlands <>\n"
 "Language: nl\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Gtranslator 2.91.6\n"
+"X-Generator: Poedit 1.5.7\n"
 
 #: modules/support.py:128
 msgid "Save File as"
@@ -103,7 +103,6 @@ msgstr ""
 "MA 02110-1301, USA.\n"
 
 #: modules/support.py:295
-#, fuzzy
 msgid ""
 "Chinese Simplified (zh_CN) Channing Wong <mamimoluo@gmail.com>\n"
 "Czech (cs) Pavel Fric <fripohled@blogspot.com>\n"
@@ -119,6 +118,7 @@ msgid ""
 msgstr ""
 "Chinese Simplified (zh_CN) Channing Wong <mamimoluo@gmail.com>\n"
 "Czech (cs) Pavel Fric <fripohled@blogspot.com>\n"
+"Dutch (nl) Patrick Vijgeboom <pj.vijgeboom@gmail.com>\n"
 "French (fr) Benoît D'Angelo <benoit.dangelo@gmx.fr> (former Ludovic Troisi)\n"
 "German (de) Frank Brungräber <calexu@arcor.de> (former Sven Neubauer)\n"
 "Italian (it) Giuseppe Penone <giuspen@gmail.com>\n"
@@ -181,9 +181,8 @@ msgid "To Node"
 msgstr "Naar knooppunt"
 
 #: modules/support.py:685
-#, fuzzy
 msgid "Anchor Name (optional)"
-msgstr "<b>Ankernaam (optioneel)</b>"
+msgstr "Ankernaam (optioneel)"
 
 #: modules/support.py:739 modules/core.py:3269 modules/core.py:4149
 msgid "No Node is Selected"
@@ -323,7 +322,7 @@ msgstr "Knooppunt naam"
 
 #: modules/findreplace.py:590
 msgid "Line"
-msgstr ""
+msgstr "Lijn"
 
 #: modules/findreplace.py:592
 msgid "Line Content"
@@ -402,7 +401,7 @@ msgstr "Wie is de vader?"
 
 #: modules/core.py:815
 msgid "The Tree Root"
-msgstr "De boomwortel"
+msgstr "De stam"
 
 #: modules/core.py:816
 msgid "The Selected Node"
@@ -530,7 +529,7 @@ msgstr "Vervangen met"
 
 #: modules/core.py:2912
 msgid "Match Case"
-msgstr ""
+msgstr "Hoofdlettergebruik gelijkmaken"
 
 #: modules/core.py:2914
 msgid "Regular Expression"
@@ -578,7 +577,7 @@ msgstr "Rich Text"
 
 #: modules/core.py:3006 modules/codeboxes.py:75
 msgid "Automatic Syntax Highlighting"
-msgstr "Automatic Syntax Highlighting"
+msgstr "Automaticsche Syntax Markering"
 
 #: modules/core.py:3023
 msgid "Node Type"
@@ -662,25 +661,23 @@ msgstr "Schrijven naar %s mislukt"
 
 #: modules/core.py:3494
 msgid "Lines Stripped"
-msgstr ""
+msgstr "Gestippelde tijn"
 
 #: modules/core.py:3612
 msgid "No Previous Text Format Was Performed During This Session"
 msgstr "Geen vorige tekstopmaak uitgevoerd tijdens deze sessie"
 
 #: modules/core.py:3653
-#, fuzzy
 msgid "Link Name"
-msgstr "Ankernaam"
+msgstr "Koppelingnaam"
 
 #: modules/core.py:3683
 msgid "The Cursor is Not into a Paragraph"
 msgstr "De cursor bevindt zich niet in een alinea"
 
 #: modules/core.py:3696
-#, fuzzy
 msgid "Insert/Edit Link"
-msgstr "_Koppeling invoegen/wijzigen"
+msgstr "Koppeling invoegen/wijzigen"
 
 #: modules/core.py:3721
 msgid "Pick a Color"
@@ -722,33 +719,28 @@ msgid "Move Column Right"
 msgstr "Kolom naar rechts verplaatsen"
 
 #: modules/tablez.py:170
-#, fuzzy
 msgid "Rows"
 msgstr "Rijen"
 
 #: modules/tablez.py:174
-#, fuzzy
 msgid "Columns"
-msgstr "Kolom toevoegen"
+msgstr "Kolommen"
 
 #: modules/tablez.py:189
-#, fuzzy
 msgid "Table Size"
-msgstr "<b>Tabel grootte</b>"
+msgstr "Tabel grootte"
 
 #: modules/tablez.py:194
 msgid "Min Width"
 msgstr "Min Breedte"
 
 #: modules/tablez.py:198
-#, fuzzy
 msgid "Max Width"
-msgstr "   Max Breedte"
+msgstr "Maximum Breedte"
 
 #: modules/tablez.py:213
-#, fuzzy
 msgid "Column Properties"
-msgstr "<b> Kolom Eigenschappen</b>"
+msgstr "Kolom eigenschappen"
 
 #: modules/tablez.py:218
 msgid "Import from CSV File"
@@ -784,7 +776,7 @@ msgstr "pixels"
 
 #: modules/codeboxes.py:114
 msgid "Size"
-msgstr ""
+msgstr "Grootte"
 
 #: modules/codeboxes.py:119 glade/cherrytree.glade.h:6
 msgid "Show Line Numbers"
@@ -795,9 +787,8 @@ msgid "Highlight Matching Brackets"
 msgstr "Gelijke haken markeren"
 
 #: modules/codeboxes.py:130
-#, fuzzy
 msgid "Options"
-msgstr "<b>Opties</b>"
+msgstr "Opties"
 
 #: modules/codeboxes.py:172 modules/cons.py:543 modules/cons.py:738
 msgid "Insert a CodeBox"
@@ -1149,11 +1140,11 @@ msgstr "Selectie/onderliggende woord omzetten in hoofdletters"
 
 #: modules/cons.py:546 modules/cons.py:748 modules/cons.py:787
 msgid "_Toggle Case of Selection/Word"
-msgstr ""
+msgstr "Hoofdlettergebruik van selectie/woord wisselen"
 
 #: modules/cons.py:546 modules/cons.py:748 modules/cons.py:787
 msgid "Toggle the Case of the Selection/the Underlying Word"
-msgstr ""
+msgstr "Hoofdlettergebruik van selectie/onderliggende woord wisselen"
 
 #: modules/cons.py:547 modules/cons.py:754 modules/cons.py:793
 msgid "_Duplicate Row"
@@ -1246,6 +1237,8 @@ msgid ""
 "Change the Selected Node's Children Syntax Highlighting to the Father's "
 "Syntax Highlighting"
 msgstr ""
+"De geselecteerde onderliggende knooppunten syntax markering wijzigen naar de "
+"bovenliggende syntax  "
 
 #: modules/cons.py:558 modules/cons.py:707
 msgid "Format _Latest"
@@ -1889,14 +1882,18 @@ msgstr " "
 #: modules/cons.py:656
 msgid "Sort all the Siblings of the Selected Node Ascending"
 msgstr ""
+"Alle onderliggende knooppunten van het geselecteerde knooppunt oplopend "
+"sorteren"
 
 #: modules/cons.py:657
 msgid "Sort Siblings D_escending"
-msgstr ""
+msgstr "Onderliggende aflopend sorteren"
 
 #: modules/cons.py:657
 msgid "Sort all the Siblings of the Selected Node Descending"
 msgstr ""
+"Alle onderliggende knooppunten van het geselecteerde knooppunt aflopend "
+"sorteren"
 
 #: modules/cons.py:690
 msgid "De_lete Node"
@@ -1935,27 +1932,24 @@ msgid "Strip Trailing Spaces"
 msgstr "Naloopspaties trimmen"
 
 #: modules/cons.py:821
-#, fuzzy
 msgid "Edit _Link"
-msgstr "_Koppeling invoegen/wijzigen"
+msgstr "Koppeling wijzigen"
 
 #: modules/cons.py:821
-#, fuzzy
 msgid "Edit the Underlying Link"
-msgstr "Onderliggende anker wijzigen"
+msgstr "Onderliggende koppeling wijzigen"
 
 #: modules/cons.py:823
 msgid "C_ut Link"
-msgstr ""
+msgstr "Koppeling knippen"
 
 #: modules/cons.py:823 modules/cons.py:839
 msgid "Cut the Selected CodeBox"
 msgstr "Knipt het geselecteerde codevak"
 
 #: modules/cons.py:824
-#, fuzzy
 msgid "_Copy Link"
-msgstr "Rij kopiëren"
+msgstr "Koppeling kopiëren"
 
 #: modules/cons.py:824 modules/cons.py:840
 msgid "Copy the Selected CodeBox"
@@ -1963,22 +1957,19 @@ msgstr "Kopieert het geselecteerde codevak"
 
 #: modules/cons.py:825
 msgid "D_ismiss Link"
-msgstr ""
+msgstr "Koppeling afwijzen"
 
 #: modules/cons.py:825
-#, fuzzy
 msgid "Dismiss the Selected Link"
-msgstr "Geselecteerde afbeelding wijzigen"
+msgstr "Geselecteerde afbeelding afwijzen"
 
 #: modules/cons.py:826
-#, fuzzy
 msgid "_Delete Link"
-msgstr "_Afbeelding verwijderen"
+msgstr "Koppeling verwijderen"
 
 #: modules/cons.py:826
-#, fuzzy
 msgid "Delete the Selected Link"
-msgstr "Verwijdert het geselecteerde kooppunt"
+msgstr "Geselecteerde koppeling verwijderen"
 
 #: modules/cons.py:837
 msgid "Change CodeBox _Properties"
@@ -2138,7 +2129,7 @@ msgstr "<b>Thema</b>"
 
 #: glade/cherrytree.glade.h:21
 msgid "Limit of Undoable Steps Per Node"
-msgstr ""
+msgstr "Maximum uitvoerbare stappen per knooppunt"
 
 #: glade/cherrytree.glade.h:22
 msgid "Text Nodes"
@@ -2162,7 +2153,7 @@ msgstr "<b>Automatische Syntax Markering</b>"
 
 #: glade/cherrytree.glade.h:27
 msgid "Code Nodes"
-msgstr ""
+msgstr "Code knooppunt"
 
 #: glade/cherrytree.glade.h:28
 msgid "Use Cherries as Nodes Icons"
@@ -2198,11 +2189,11 @@ msgstr "<b>Knooppunt status bij opstarten</b>"
 
 #: glade/cherrytree.glade.h:36
 msgid "Tree Nodes Names Wrapping Width"
-msgstr ""
+msgstr "Stam Knooppuntnamen regelterugloop breedte"
 
 #: glade/cherrytree.glade.h:37
 msgid "Display Tree on the Right Side"
-msgstr ""
+msgstr "Boom aan de rechterzijde weergeven"
 
 #: glade/cherrytree.glade.h:38
 msgid "Tree"
@@ -2230,7 +2221,7 @@ msgstr "Lettertypen"
 
 #: glade/cherrytree.glade.h:44
 msgid "Enable Custom Web Link Clicked Action"
-msgstr ""
+msgstr "Aangepaste webkoppeling "
 
 #: glade/cherrytree.glade.h:45
 msgid "Enable Custom File Link Clicked Action"
@@ -2254,19 +2245,19 @@ msgstr "Koppelingen"
 
 #: glade/cherrytree.glade.h:50
 msgid "Enable System Tray Docking"
-msgstr ""
+msgstr "Systeemvak verbergen activeren"
 
 #: glade/cherrytree.glade.h:51
 msgid "Start Minimized in the System Tray"
-msgstr ""
+msgstr "Geminimaliseerd in systeemvak starten"
 
 #: glade/cherrytree.glade.h:52
 msgid "Use AppIndicator for Docking"
-msgstr ""
+msgstr "Gebruik AppIndicator voor verbergen"
 
 #: glade/cherrytree.glade.h:53
 msgid "<b>System Tray</b>"
-msgstr ""
+msgstr "<b>Systeembalk</b>"
 
 #: glade/cherrytree.glade.h:54
 msgid "Autosave Every"
