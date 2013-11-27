@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: cherrytree 0.30.5\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-11-24 13:59+0100\n"
-"PO-Revision-Date: 2013-11-27 18:56+0100\n"
+"PO-Revision-Date: 2013-11-27 22:35+0100\n"
 "Last-Translator: Patrick Vijgeboom <pj.vijgeboom@gmail.com>\n"
 "Language-Team: Nederlands <>\n"
 "Language: nl\n"
@@ -1697,7 +1697,7 @@ msgstr "Online handleiding van de applicatie"
 
 #: modules/cons.py:614
 msgid "_Check Newer Version"
-msgstr "Op nieuwe versies controleren"
+msgstr "Op nieuwe versie controleren"
 
 #: modules/cons.py:614
 msgid "Check for a Newer Version"
@@ -2069,7 +2069,7 @@ msgstr "Regelterugloop gebruiken"
 
 #: glade/cherrytree.glade.h:5
 msgid "Enable Automatic Indentation"
-msgstr "Automatisch inspringen activeren"
+msgstr "Automatisch inspringen inschakelen"
 
 #: glade/cherrytree.glade.h:7
 msgid "<b>Text Editor</b>"
@@ -2097,7 +2097,7 @@ msgstr "Alle kooppunten"
 
 #: glade/cherrytree.glade.h:13
 msgid "Enable Spell Check"
-msgstr "Spellingcontrole activeren"
+msgstr "Spellingcontrole inschakelen"
 
 #: glade/cherrytree.glade.h:14
 msgid "Spell Check Language"
@@ -2221,19 +2221,19 @@ msgstr "Lettertypen"
 
 #: glade/cherrytree.glade.h:44
 msgid "Enable Custom Web Link Clicked Action"
-msgstr "Aangepaste webkoppeling "
+msgstr "Aangepaste webkoppeling klik-actie inschakelen "
 
 #: glade/cherrytree.glade.h:45
 msgid "Enable Custom File Link Clicked Action"
-msgstr ""
+msgstr "Aangepaste bestandskoppeling klik-actie activeren inschakelen"
 
 #: glade/cherrytree.glade.h:46
 msgid "Enable Custom Folder Link Clicked Action"
-msgstr ""
+msgstr "Aangepaste map koppeling klik-actie activeren inschakelen"
 
 #: glade/cherrytree.glade.h:47
 msgid "Anchor Size"
-msgstr "Anker afmeting"
+msgstr "Anker grootte"
 
 #: glade/cherrytree.glade.h:48
 msgid "<b>Links</b>"
@@ -2245,7 +2245,7 @@ msgstr "Koppelingen"
 
 #: glade/cherrytree.glade.h:50
 msgid "Enable System Tray Docking"
-msgstr "Systeemvak verbergen activeren"
+msgstr "In systeemvak verbergen inschakelen"
 
 #: glade/cherrytree.glade.h:51
 msgid "Start Minimized in the System Tray"
