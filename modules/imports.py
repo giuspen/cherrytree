@@ -1826,7 +1826,7 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
                         if attribute:
                             self.curr_attributes[cons.TAG_FOREGROUND] = attribute
                             self.latest_font = cons.TAG_FOREGROUND
-            elif tag in [cons.TAG_PROP_H1, cons.TAG_PROP_H2, cons.TAG_PROP_H3]:
+            elif tag in [cons.TAG_PROP_H1, cons.TAG_PROP_H2, cons.TAG_PROP_H3, cons.TAG_PROP_H4, cons.TAG_PROP_H5, cons.TAG_PROP_H6]:
                 self.rich_text_serialize(cons.CHAR_NEWLINE)
                 if tag == cons.TAG_PROP_H1: self.curr_attributes[cons.TAG_SCALE] = cons.TAG_PROP_H1
                 elif tag == cons.TAG_PROP_H2: self.curr_attributes[cons.TAG_SCALE] = cons.TAG_PROP_H2
@@ -1916,7 +1916,7 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
                 self.latest_span = []
             elif tag == "font":
                 if self.latest_font == cons.TAG_FOREGROUND: self.curr_attributes[cons.TAG_FOREGROUND] = ""
-            elif tag in [cons.TAG_PROP_H1, cons.TAG_PROP_H2, cons.TAG_PROP_H3]:
+            elif tag in [cons.TAG_PROP_H1, cons.TAG_PROP_H2, cons.TAG_PROP_H3, cons.TAG_PROP_H4, cons.TAG_PROP_H5, cons.TAG_PROP_H6]:
                 self.curr_attributes[cons.TAG_SCALE] = ""
                 self.curr_attributes[cons.TAG_JUSTIFICATION] = ""
                 self.rich_text_serialize(cons.CHAR_NEWLINE)
