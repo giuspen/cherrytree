@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+   <mime-type type="application/cherrytree-ctd">
+      <comment>CherryTree XML Document</comment>
+      <glob pattern="*.ctd"/>
+   </mime-type>
+   <mime-type type="application/cherrytree-ctz">
+      <comment>CherryTree XML Zipped</comment>
+      <glob pattern="*.ctz"/>
+   </mime-type>
+   <mime-type type="application/cherrytree-ctb">
+      <comment>CherryTree SQLite Document</comment>
+      <glob pattern="*.ctb"/>
+   </mime-type>
+   <mime-type type="application/cherrytree-ctx">
+      <comment>CherryTree SQLite Zipped</comment>
+      <glob pattern="*.ctx"/>
+   </mime-type>
+</mime-info>

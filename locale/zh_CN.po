@@ -1,0 +1,2343 @@
+# Chinese translations for cherrytree package.
+# Copyright (C) 2012 THE cherrytree'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the cherrytree package.
+#  <mamimoluo@gmail.com>, 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cherrytree 0.26\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-10-28 22:15+0100\n"
+"PO-Revision-Date: 2013-08-26 23:22+0100\n"
+"Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
+"Language-Team: Chinese (simplified)\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+
+#: modules/support.py:123
+msgid "Save File as"
+msgstr "文件另存为"
+
+#: modules/support.py:154
+msgid "Select File"
+msgstr "选择文件"
+
+#: modules/support.py:185
+msgid "Select Folder"
+msgstr "选择文件夹"
+
+#: modules/support.py:214
+msgid "Question"
+msgstr "询问"
+
+#: modules/support.py:230
+msgid "Info"
+msgstr "消息"
+
+#: modules/support.py:236
+msgid "This Change will have Effect Only After Restarting CherryTree"
+msgstr "改变仅在CherryTree下次启动时生效"
+
+#: modules/support.py:246 glade/cherrytree.glade.h:24
+msgid "Warning"
+msgstr "警告"
+
+#: modules/support.py:258
+msgid "Error"
+msgstr "错误"
+
+#: modules/support.py:267
+msgid ""
+"Copyright © 2009-2013\n"
+"Giuseppe Penone <giuspen@gmail.com>"
+msgstr ""
+"版权所有 © 2009-2013\n"
+"Giuseppe Penone <giuspen@gmail.com>"
+
+#: modules/support.py:269
+msgid ""
+"A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
+"Highlighting"
+msgstr "一个层级式笔记记录程序，具有富文本和代码高亮的功能"
+
+#: modules/support.py:270
+msgid ""
+"\n"
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 3 of the License, or\n"
+"(at your option) any later version.\n"
+"  \n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"  \n"
+"You should have received a copy of the GNU General Public License\n"
+"along with this program; if not, write to the Free Software\n"
+"Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,\n"
+"MA 02110-1301, USA.\n"
+msgstr ""
+"\n"
+"此软件为自由软件，您可以在自由软件基金会发布的GNU通用许可证的条款下进行修改或"
+"再发布；\n"
+"许可协议可以是第三版，或之后的任何新版本。\n"
+"  \n"
+"发布本程序是希望给您带来便利，但不做任何担保，甚至没有适销性或特定目的而隐含"
+"的担保。\n"
+"有关详细信息，请参阅GNU通用许可证。\n"
+"  \n"
+"您应该随本程序收到了一份GNU通用许可证；如果没有，可写一份信向自由软件基金会索"
+"取。\n"
+"Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,\n"
+"MA 02110-1301, USA.\n"
+
+#: modules/support.py:290
+#, fuzzy
+msgid ""
+"Chinese Simplified (zh_CN) Channing Wong <mamimoluo@gmail.com>\n"
+"Czech (cs) Pavel Fric <fripohled@blogspot.com>\n"
+"Dutch (nl) Patrick Vijgeboom <pj.vijgeboom@gmail.com>\n"
+"French (fr) Benoît D'Angelo <benoit.dangelo@gmx.fr> (former Ludovic Troisi)\n"
+"German (de) Frank Brungräber <calexu@arcor.de> (former Sven Neubauer)\n"
+"Italian (it) Giuseppe Penone <giuspen@gmail.com>\n"
+"Polish (pl) Marcin Swierczynski <orneo1212@gmail.com>\n"
+"Portuguese Brazil (pt_BR) Vinicius Schmidt <viniciussm@rocketmail.com>\n"
+"Russian (ru) Andriy Kovtun <kovtunos@yandex.ru>\n"
+"Spanish (es) Daniel MC <i.e.betel@gmail.com>\n"
+"Ukrainian (uk) Andriy Kovtun <kovtunos@yandex.ru>"
+msgstr ""
+"简体中文 (zh_CN) Channing Wong <mamimoluo@gmail.com>\n"
+"捷克语 (cs) Pavel Fric <fripohled@blogspot.com>\n"
+"法语 (fr) Benoît D'Angelo <benoit.dangelo@gmx.fr> (former Ludovic Troisi)\n"
+"德语 (de) Frank Brungräber <calexu@arcor.de> (former Sven Neubauer)\n"
+"意大利语 (it) Giuseppe Penone <giuspen@gmail.com>\n"
+"波兰语 (pl) Marcin Swierczynski <orneo1212@gmail.com>\n"
+"巴西葡萄牙语 (pt_BR) Vinicius Schmidt <viniciussm@rocketmail.com>\n"
+"俄语 (ru) Andriy Kovtun <kovtunos@yandex.ru>\n"
+"西班牙语 (es) Daniel MC <i.e.betel@gmail.com>\n"
+"乌克兰语 (uk) Andriy Kovtun <kovtunos@yandex.ru>"
+
+#: modules/support.py:302 modules/cons.py:607
+msgid "About CherryTree"
+msgstr "关于CherryTree"
+
+#: modules/support.py:311
+msgid "Involved Nodes"
+msgstr "涉及到的节点"
+
+#: modules/support.py:317
+msgid "Selected Text Only"
+msgstr "已选择的文本"
+
+#: modules/support.py:318
+msgid "Selected Node Only"
+msgstr "已选择的节点"
+
+#: modules/support.py:319
+msgid "Selected Node and Subnodes"
+msgstr "已选择的节点和子节点"
+
+#: modules/support.py:320
+msgid "All the Tree"
+msgstr "所有的树"
+
+#: modules/support.py:325
+msgid "Include Node Name"
+msgstr "包含节点名称"
+
+#: modules/support.py:390 modules/core.py:949
+msgid "Insert _Special Character"
+msgstr "插入特殊字符(_Special)"
+
+#: modules/support.py:392 modules/core.py:951
+msgid "Insert a Special Character"
+msgstr "插入一个特殊字符"
+
+#: modules/support.py:423
+msgid "_Recent Documents"
+msgstr "最近文档(_R)"
+
+#: modules/support.py:425 modules/support.py:431
+msgid "Open a Recent CherryTree Document"
+msgstr "最近打开的ChrerryTree文档"
+
+#: modules/support.py:430 modules/cons.py:503
+msgid "Open a CherryTree Document"
+msgstr "打开一个CherryTree文档"
+
+#: modules/support.py:453
+#, python-format
+msgid "The Document %s was Not Found"
+msgstr "文档 %s 未找到"
+
+#: modules/support.py:465 modules/cons.py:620
+msgid "Handle the Bookmarks List"
+msgstr "处理书签列表"
+
+#: modules/support.py:479
+msgid "Sort with Drag and Drop, Delete with the Delete Key"
+msgstr "拖拽排序，按Delete键可删除"
+
+#: modules/findreplace.py:45
+msgid "Iterate Latest Find/Replace"
+msgstr "重复上次搜索/替换"
+
+#: modules/findreplace.py:48
+msgid "Close"
+msgstr "关闭"
+
+#: modules/findreplace.py:49 modules/findreplace.py:50
+msgid "Find"
+msgstr "搜索"
+
+#: modules/findreplace.py:51
+msgid "Replace"
+msgstr "替换"
+
+#: modules/findreplace.py:52
+msgid "Undo"
+msgstr "撤销"
+
+#: modules/findreplace.py:106
+msgid "Replace in Current Node..."
+msgstr "在当前节点中替换..."
+
+#: modules/findreplace.py:107
+msgid "Search in Current Node..."
+msgstr "在当前节点中搜索..."
+
+#: modules/findreplace.py:135 modules/findreplace.py:210
+#: modules/findreplace.py:281
+#, python-format
+msgid "The pattern '%s' was not found"
+msgstr "匹配模式 '%s' 未找到"
+
+#: modules/findreplace.py:137 modules/findreplace.py:213
+#: modules/findreplace.py:283
+msgid "Matches"
+msgstr "已匹配"
+
+#: modules/findreplace.py:152
+msgid "Replace in All Nodes..."
+msgstr "在所有节点中替换..."
+
+#: modules/findreplace.py:153
+msgid "Search in All Nodes..."
+msgstr "在所有节点中搜索..."
+
+#: modules/findreplace.py:226
+msgid "Replace in Node Names..."
+msgstr "替换节点名称..."
+
+#: modules/findreplace.py:227
+msgid "Search For a Node Name..."
+msgstr "搜索节点名称..."
+
+#: modules/findreplace.py:532
+msgid "No Previous Search Was Performed During This Session"
+msgstr "当前会话没有历史搜索"
+
+#: modules/findreplace.py:572
+msgid "Hide (Restore with Ctrl+Shift+A)"
+msgstr "隐藏 (可用 Ctrl+Shift+A 组合键恢复)"
+
+#: modules/findreplace.py:584 modules/core.py:3100
+msgid "Node Name"
+msgstr "节点名称"
+
+#: modules/findreplace.py:586
+msgid "Line Content"
+msgstr "首行内容"
+
+#: modules/findreplace.py:603 modules/core.py:4085
+#, python-format
+msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
+msgstr "链接所指向的节点不存在 (Id = %s)"
+
+#: modules/core.py:228
+msgid "Checking for Newer Version..."
+msgstr "查找新版本..."
+
+#: modules/core.py:234
+msgid "A Newer Version Is Available!"
+msgstr "有新版本可用！"
+
+#: modules/core.py:239
+msgid "This is the Latest Version Available"
+msgstr "这已是最新版本"
+
+#: modules/core.py:242
+msgid "Failed to Retrieve Latest Version Information - Try Again Later"
+msgstr "获取最新版本信息失败，稍候再试"
+
+#: modules/core.py:259 modules/core.py:3406 modules/core.py:3816
+#: modules/core.py:3822 modules/core.py:4419
+msgid "No Text is Selected"
+msgstr "没有文字被选择"
+
+#: modules/core.py:559 modules/core.py:1991
+msgid "The new father can't be one of his sons!"
+msgstr "父节点不能成为其自身的子节点"
+
+#: modules/core.py:596 modules/core.py:1194 modules/core.py:1344
+msgid "CherryTree Document"
+msgstr "CherryTree文档"
+
+#: modules/core.py:619 modules/core.py:1604
+#, python-format
+msgid "\"%s\" is Not a CherryTree Document"
+msgstr "\"%s\" 不是一个CherryTree文档"
+
+#: modules/core.py:625
+msgid "NoteCase Document"
+msgstr "NoteCase 文档"
+
+#: modules/core.py:711
+#, fuzzy
+msgid "Plain Text Document"
+msgstr "Knowit 文档"
+
+#: modules/core.py:729
+msgid "Treepad Document"
+msgstr "Treepad 文档"
+
+#: modules/core.py:747
+msgid "KeyNote Document"
+msgstr "KeyNote 文档"
+
+#: modules/core.py:765
+msgid "Mempad Document"
+msgstr "Mempad 文档"
+
+#: modules/core.py:783
+msgid "Knowit Document"
+msgstr "Knowit 文档"
+
+#: modules/core.py:801
+msgid "Leo Document"
+msgstr "Leo 文档"
+
+#: modules/core.py:832
+msgid "Who is the Father?"
+msgstr "哪个是父节点？"
+
+#: modules/core.py:839
+msgid "The Tree Root"
+msgstr "树根"
+
+#: modules/core.py:840
+msgid "The Selected Node"
+msgstr "已选择的节点"
+
+#: modules/core.py:1035
+msgid "The Document was Reloaded After External Update to CT* File"
+msgstr "因CT*文件在外部被修改，文档已重载"
+
+#: modules/core.py:1062
+msgid "CherryTree Hierarchical Note Taking"
+msgstr "CherryTree层级笔记记录"
+
+#: modules/core.py:1311
+#, python-format
+msgid "You Have No Write Access to %s"
+msgstr "您没有%s文件的写入权限"
+
+#: modules/core.py:1326
+msgid "Writing to Disk..."
+msgstr "正在写入到磁盘..."
+
+#: modules/core.py:1363
+#, fuzzy
+msgid "Choose Storage Type"
+msgstr "选择存储类型和保护机制"
+
+#: modules/core.py:1370 modules/core.py:1373
+msgid "Not Protected"
+msgstr "不保护"
+
+#: modules/core.py:1371 modules/core.py:1375
+msgid "Password Protected"
+msgstr "密码保护"
+
+#: modules/core.py:1382
+msgid "Storage Type"
+msgstr ""
+
+#: modules/core.py:1393
+msgid "Enter the New Password Twice"
+msgstr "输入两次密码"
+
+#: modules/core.py:1435
+msgid "The Password Fields Must be Filled"
+msgstr "密码必填"
+
+#: modules/core.py:1438
+msgid "The Two Inserted Passwords Do Not Match"
+msgstr "两次输入密码不匹配"
+
+#: modules/core.py:1443
+#, python-format
+msgid "The Characters  %s  are Not Allowed"
+msgstr "%s 字符被禁用"
+
+#: modules/core.py:1461
+msgid ""
+"Binary Executable '7za' Not Found, Check The Package 'p7zip-full' to be "
+"Installed Properly"
+msgstr "二进制可执行文件'7za'未找到请检查'p7zip-full'是否已被正确安装"
+
+#: modules/core.py:1467
+#, python-format
+msgid "Enter Password for %s"
+msgstr "请输入 %s 的密码"
+
+#: modules/core.py:1528
+msgid "Wrong Password"
+msgstr "密码错误"
+
+#: modules/core.py:1975 glade/cherrytree.glade.h:3
+msgid "Select the New Father"
+msgstr "选择新的父节点"
+
+#: modules/core.py:1983
+msgid "The new father can't be the very node to move!"
+msgstr "新的父节点不能是其自身！"
+
+#: modules/core.py:1986
+msgid "The new choosed father is again the old father!"
+msgstr "新的父节点和原先一样！"
+
+#: modules/core.py:2423
+msgid "The New Language will be Available Only After Restarting CherryTree"
+msgstr "新语言仅在CherryTree下次启动时生效"
+
+#: modules/core.py:2534
+msgid "New Node Properties"
+msgstr "新的节点属性"
+
+#: modules/core.py:2561
+msgid "New Child Node Properties"
+msgstr "新的子节点属性"
+
+#: modules/core.py:2580
+#, python-format
+msgid "Are you sure to <b>Delete the node '%s'?</b>"
+msgstr "确认<b>删除</b> '%s' 节点吗？"
+
+#: modules/core.py:2582
+msgid "The node <b>has Children, they will be Deleted too!</b>"
+msgstr "此节点所包含的子节点将一并被删除！"
+
+#: modules/core.py:2604
+msgid "Node Properties"
+msgstr "节点属性"
+
+#: modules/core.py:2612
+msgid ""
+"Entering the Automatic Syntax Highlighting you will Lose all Custom Colors "
+"for This Node, Do you want to Continue?"
+msgstr "自动语法高亮会覆盖当前节点的所有自定义颜色，继续吗？"
+
+#: modules/core.py:2993
+#, fuzzy
+msgid "Search for"
+msgstr "<b>查找</b>"
+
+#: modules/core.py:3000
+#, fuzzy
+msgid "Replace with"
+msgstr "<b>替换为</b>"
+
+#: modules/core.py:3015
+msgid "Match Case"
+msgstr "匹配大小写"
+
+#: modules/core.py:3017
+msgid "Regular Expression"
+msgstr "正则表达式"
+
+#: modules/core.py:3019
+msgid "Whole Word"
+msgstr "完整单词"
+
+#: modules/core.py:3021
+msgid "Start Word"
+msgstr "单词开始部分"
+
+#: modules/core.py:3023
+msgid "Forward"
+msgstr "向前"
+
+#: modules/core.py:3025
+msgid "Backward"
+msgstr "向后"
+
+#: modules/core.py:3028
+msgid "All, List Matches"
+msgstr "所有，并列出匹配"
+
+#: modules/core.py:3030
+msgid "First From Selection"
+msgstr "在所选中搜索"
+
+#: modules/core.py:3033
+msgid "First in All Range"
+msgstr "在当前页搜索"
+
+#: modules/core.py:3036
+msgid "Show Iterated Find/Replace Dialog"
+msgstr "显示循环搜索/替换对话框"
+
+#: modules/core.py:3056
+#, fuzzy
+msgid "Search options"
+msgstr "<b>搜索选项</b>"
+
+#: modules/core.py:3104 modules/core.py:4375
+msgid "Rich Text"
+msgstr "富文本"
+
+#: modules/core.py:3105
+msgid "Automatic Syntax Highlighting"
+msgstr "自动语法高亮"
+
+#: modules/core.py:3122
+#, fuzzy
+msgid "Node Type"
+msgstr "<b>节点类型</b>"
+
+#: modules/core.py:3128
+#, fuzzy
+msgid "Tags for Searching"
+msgstr "<b>搜索标签</b>"
+
+#: modules/core.py:3132 modules/core.py:4377
+msgid "Read Only"
+msgstr "只读"
+
+#: modules/core.py:3164
+msgid "The Size of the Toolbar Icons is already at the Maximum Value"
+msgstr "工具栏图标已经最大"
+
+#: modules/core.py:3172
+msgid "The Size of the Toolbar Icons is already at the Minimum Value"
+msgstr "工具栏图标已经最小"
+
+#: modules/core.py:3263
+msgid "Edit Anchor"
+msgstr "编辑锚点"
+
+#: modules/core.py:3266
+msgid "Insert Anchor"
+msgstr "插入锚点"
+
+#: modules/core.py:3275
+msgid "The Anchor Name is Mandatory!"
+msgstr "锚点名称必填！"
+
+#: modules/core.py:3310
+msgid "Not Any H1, H2 or H3 Formatting Found"
+msgstr "未找到任何H1，H2或H3格式"
+
+#: modules/core.py:3384
+msgid ""
+"Automatic Syntax Highlighting Must be Disabled in order to Use This Feature"
+msgstr "自动语法高亮必须被禁止才能使用此功能"
+
+#: modules/core.py:3391 modules/core.py:4373
+msgid "No Node is Selected"
+msgstr "没有节点被选中"
+
+#: modules/core.py:3398
+msgid "The Tree is Empty!"
+msgstr "树为空！"
+
+#: modules/core.py:3419 modules/cons.py:636
+msgid "Tree Summary Information"
+msgstr "树摘要信息"
+
+#: modules/core.py:3427
+msgid "Number of Text Nodes"
+msgstr "文字节点个数"
+
+#: modules/core.py:3430
+msgid "Number of Code Nodes"
+msgstr "代码节点个数"
+
+#: modules/core.py:3433
+msgid "Number of Images"
+msgstr "图片节点个数"
+
+#: modules/core.py:3436
+msgid "Number of Tables"
+msgstr "表格个数"
+
+#: modules/core.py:3439
+msgid "Number of CodeBoxes"
+msgstr "代码框个数"
+
+#: modules/core.py:3564
+msgid "PNG Image"
+msgstr "PNG图片"
+
+#: modules/core.py:3570
+#, python-format
+msgid "Write to %s Failed"
+msgstr "写入到 %s 失败"
+
+#: modules/core.py:3802
+msgid "No Previous Text Format Was Performed During This Session"
+msgstr "当前会话没有格式化操作历史"
+
+#: modules/core.py:3856
+msgid "The Cursor is Not into a Paragraph"
+msgstr "光标未进入一个段落"
+
+#: modules/core.py:3866
+msgid "Insert/Edit a Link"
+msgstr "插入/编辑一个链接"
+
+#: modules/core.py:3895
+msgid "Pick a Color"
+msgstr "选择颜色"
+
+#: modules/core.py:4057
+#, python-format
+msgid "The File Link '%s' is Not Valid"
+msgstr "文件链接'%s'无效"
+
+#: modules/core.py:4072
+#, python-format
+msgid "The Folder Link '%s' is Not Valid"
+msgstr "文件夹链接'%s'无效"
+
+#: modules/core.py:4095
+#, python-format
+msgid "No anchor named '%s' found"
+msgstr "未找到锚点 '%s'"
+
+#: modules/core.py:4165
+msgid "There are No Anchors in the Selected Node"
+msgstr "在已选中的节点中没有锚点"
+
+#: modules/core.py:4170
+msgid "Choose Existing Anchor"
+msgstr "选择现有的锚点"
+
+#: modules/core.py:4183
+msgid "Anchor Name"
+msgstr "锚点名称"
+
+#: modules/tablez.py:59 modules/tablez.py:92
+msgid "CSV File"
+msgstr "CSV 文件"
+
+#: modules/tablez.py:75
+msgid "Insert Table"
+msgstr "插入表格"
+
+#: modules/tablez.py:121 modules/imports.py:1971
+msgid "click me"
+msgstr "点击这里"
+
+#: modules/tablez.py:130
+msgid "Click to Edit the Column Settings"
+msgstr "点击设置表格列"
+
+#: modules/tablez.py:177
+msgid "Edit Table Properties"
+msgstr "编辑表格属性"
+
+#: modules/tablez.py:261
+msgid "Table Column Action"
+msgstr "表格列操作"
+
+#: modules/codeboxes.py:67 modules/cons.py:535 modules/cons.py:730
+msgid "Insert a CodeBox"
+msgstr "插入一个代码框"
+
+#: modules/codeboxes.py:200
+msgid "Edit CodeBox"
+msgstr "编辑代码框"
+
+#: modules/cons.py:486
+msgid "_File"
+msgstr "文件(_F)"
+
+#: modules/cons.py:487
+msgid "_Edit"
+msgstr "编辑(_E)"
+
+#: modules/cons.py:488 modules/cons.py:698
+msgid "For_matting"
+msgstr "格式化(_M)"
+
+#: modules/cons.py:489
+msgid "_Tree"
+msgstr "树(_T)"
+
+#: modules/cons.py:490 modules/cons.py:638
+msgid "Node _Move"
+msgstr "移动节点(_M)"
+
+#: modules/cons.py:491 modules/cons.py:655
+msgid "Nodes _Import"
+msgstr "导入节点(_I)"
+
+#: modules/cons.py:492 modules/cons.py:672
+msgid "Nodes E_xport"
+msgstr "导出节点(_X)"
+
+#: modules/cons.py:493 modules/cons.py:737 modules/cons.py:776
+msgid "C_hange Case"
+msgstr "改变大小写(_H)"
+
+#: modules/cons.py:494 modules/cons.py:751 modules/cons.py:790
+msgid "_Search"
+msgstr "搜索(_S)"
+
+#: modules/cons.py:495 modules/cons.py:758 modules/cons.py:797
+msgid "_Replace"
+msgstr "替换(_R)"
+
+#: modules/cons.py:496
+msgid "_View"
+msgstr "视图(_V)"
+
+#: modules/cons.py:497
+msgid "_Bookmarks"
+msgstr "书签(_B)"
+
+#: modules/cons.py:498
+msgid "_Import"
+msgstr "导入(_I)"
+
+#: modules/cons.py:499
+msgid "E_xport"
+msgstr "导出(_X)"
+
+#: modules/cons.py:500
+msgid "_Help"
+msgstr "帮助(_H)"
+
+#: modules/cons.py:502
+msgid "New _Instance"
+msgstr "新建实例(_I)"
+
+#: modules/cons.py:502
+msgid "Start a New Instance of CherryTree"
+msgstr "开始一个新的CherryTree实例"
+
+#: modules/cons.py:503
+msgid "_Open File"
+msgstr "打开文件(_O)"
+
+#: modules/cons.py:504
+msgid "_Save"
+msgstr "保存(_S)"
+
+#: modules/cons.py:504
+msgid "Save File"
+msgstr "保存文件"
+
+#: modules/cons.py:505
+msgid "Save _As"
+msgstr "另存为(_A)"
+
+#: modules/cons.py:505
+msgid "Save File As"
+msgstr "另存文件为"
+
+#: modules/cons.py:506 modules/cons.py:673
+#, fuzzy
+msgid "Export To _PDF"
+msgstr "导出到HTML(_H)"
+
+#: modules/cons.py:506 modules/cons.py:673
+#, fuzzy
+msgid "Export To PDF"
+msgstr "打印/导出到PDF"
+
+#: modules/cons.py:507 modules/cons.py:676
+msgid "Export To _HTML"
+msgstr "导出到HTML(_H)"
+
+#: modules/cons.py:507 modules/cons.py:676
+msgid "Export To HTML"
+msgstr "导出到HTML"
+
+#: modules/cons.py:508 modules/cons.py:674
+msgid "Export to Multiple Plain _Text Files"
+msgstr "导出到多个文本文件(_T)"
+
+#: modules/cons.py:508 modules/cons.py:674
+msgid "Export to Multiple Plain Text Files"
+msgstr "导出到多个文本文件"
+
+#: modules/cons.py:509 modules/cons.py:675
+msgid "Export to _Single Plain Text File"
+msgstr "导出到独个文本文件(_S)"
+
+#: modules/cons.py:509 modules/cons.py:675
+msgid "Export to Single Plain Text File"
+msgstr "导出到独个文本文件"
+
+#: modules/cons.py:510 modules/cons.py:677
+msgid "_Export To CherryTree Document"
+msgstr "导出到ChrerryTree文档(_E)"
+
+#: modules/cons.py:510 modules/cons.py:677
+msgid "Export To CherryTree Document"
+msgstr "导出到ChrerryTree文档"
+
+#: modules/cons.py:511
+msgid "Pa_ge Setup"
+msgstr "页面设置(_G)"
+
+#: modules/cons.py:511
+msgid "Set up the Page for Printing"
+msgstr "设置打印页面"
+
+#: modules/cons.py:512
+msgid "_Print"
+msgstr ""
+
+#: modules/cons.py:512
+msgid "Print"
+msgstr ""
+
+#: modules/cons.py:513
+msgid "_Quit"
+msgstr "退出(_Q)"
+
+#: modules/cons.py:513
+msgid "Quit the Application"
+msgstr "退出程序"
+
+#: modules/cons.py:514
+msgid "_Exit CherryTree"
+msgstr "退出ChreeTree(_E)"
+
+#: modules/cons.py:514
+msgid "Exit from CherryTree"
+msgstr "从ChrerrTree中退出"
+
+#: modules/cons.py:515
+msgid "_Preferences"
+msgstr "设置(_P)"
+
+#: modules/cons.py:515 glade/cherrytree.glade.h:31
+msgid "Preferences"
+msgstr "设置"
+
+#: modules/cons.py:516 modules/cons.py:735
+msgid "Insert _Horizontal Rule"
+msgstr "插入分割线(_H)"
+
+#: modules/cons.py:516 modules/cons.py:735
+msgid "Insert Horizontal Rule"
+msgstr "插入分割线"
+
+#: modules/cons.py:517 modules/cons.py:734 modules/cons.py:774
+msgid "Insert Ti_mestamp"
+msgstr "插入时间戳(_M)"
+
+#: modules/cons.py:517 modules/cons.py:734 modules/cons.py:774
+msgid "Insert Timestamp"
+msgstr "插入时间戳"
+
+#: modules/cons.py:518 modules/cons.py:722
+msgid "Set/Unset _Bulleted List"
+msgstr "设置/取消符号列表(_B)"
+
+#: modules/cons.py:518 modules/cons.py:722
+msgid "Set/Unset the Current Paragraph/Selection as a Bulleted List"
+msgstr "设置/取消符号列表"
+
+#: modules/cons.py:519 modules/cons.py:723
+msgid "Set/Unset _Numbered List"
+msgstr "设置/取消数字列表(_N)"
+
+#: modules/cons.py:519 modules/cons.py:723
+msgid "Set/Unset the Current Paragraph/Selection as a Numbered List"
+msgstr "设置/取消符号列表"
+
+#: modules/cons.py:520 modules/cons.py:724
+msgid "Set/Unset _To-Do List"
+msgstr "设置/取消To-Do列表(_T)"
+
+#: modules/cons.py:520 modules/cons.py:724
+msgid "Set/Unset the Current Paragraph/Selection as a To-Do List"
+msgstr "设置/取消符号列表"
+
+#: modules/cons.py:521 modules/cons.py:731
+msgid "Insert/Edit _Link"
+msgstr "插入/编辑链接(_L)"
+
+#: modules/cons.py:521 modules/cons.py:731
+msgid "Insert a Link/Edit the Underlying Link"
+msgstr "插入/编辑链接"
+
+#: modules/cons.py:522 modules/cons.py:733
+msgid "Insert T_OC"
+msgstr "插入文档目录(_O)"
+
+#: modules/cons.py:522 modules/cons.py:733
+msgid "Insert Table of Contents"
+msgstr "插入文档目录"
+
+#: modules/cons.py:523 modules/cons.py:732
+msgid "Insert _Anchor"
+msgstr "插入锚点(_A)"
+
+#: modules/cons.py:523 modules/cons.py:732
+msgid "Insert an Anchor"
+msgstr "插入一个锚点"
+
+#: modules/cons.py:524
+msgid "Edit _Anchor"
+msgstr "编辑锚点(_A)"
+
+#: modules/cons.py:524
+msgid "Edit the Underlying Anchor"
+msgstr "编辑锚点"
+
+#: modules/cons.py:525 modules/cons.py:728
+msgid "Insert I_mage"
+msgstr "插入图片(_I)"
+
+#: modules/cons.py:525 modules/cons.py:728
+msgid "Insert an Image"
+msgstr "插入一张图片"
+
+#: modules/cons.py:526
+msgid "_Save Image as PNG"
+msgstr "图片另存为PNG(_S)"
+
+#: modules/cons.py:526
+msgid "Save the Selected Image as a PNG file"
+msgstr "将选中图片另存为PNG文件"
+
+#: modules/cons.py:527
+msgid "_Edit Image"
+msgstr "编辑图片(_E)"
+
+#: modules/cons.py:527
+msgid "Edit the Selected Image"
+msgstr "编辑选中图片"
+
+#: modules/cons.py:528
+msgid "C_ut Image"
+msgstr "剪切图片(_X)"
+
+#: modules/cons.py:528
+msgid "Cut the Selected Image"
+msgstr "剪切已选中图片"
+
+#: modules/cons.py:529
+msgid "_Copy Image"
+msgstr "复制图片(_C)"
+
+#: modules/cons.py:529
+msgid "Copy the Selected Image"
+msgstr "复制已选中图片"
+
+#: modules/cons.py:530
+msgid "_Delete Image"
+msgstr "删除图片(_D)"
+
+#: modules/cons.py:530
+msgid "Delete the Selected Image"
+msgstr "删除已选中图片"
+
+#: modules/cons.py:531
+msgid "C_ut Table"
+msgstr "剪切表格(_X)"
+
+#: modules/cons.py:531
+msgid "Cut the Selected Table"
+msgstr "剪切已选中表格"
+
+#: modules/cons.py:532
+msgid "_Copy Table"
+msgstr "复制表格(_C)"
+
+#: modules/cons.py:532
+msgid "Copy the Selected Table"
+msgstr "复制已选中表格"
+
+#: modules/cons.py:533
+msgid "_Delete Table"
+msgstr "删除表格(_D)"
+
+#: modules/cons.py:533
+msgid "Delete the Selected Table"
+msgstr "删除已选中表格"
+
+#: modules/cons.py:534 modules/cons.py:729
+msgid "Insert _Table"
+msgstr "插入表格(_T)"
+
+#: modules/cons.py:534 modules/cons.py:729
+msgid "Insert a Table"
+msgstr "插入一个表格"
+
+#: modules/cons.py:535 modules/cons.py:730
+msgid "Insert _CodeBox"
+msgstr "插入代码框(_C)"
+
+#: modules/cons.py:536 modules/cons.py:738 modules/cons.py:777
+msgid "_Lower Case of Selection/Word"
+msgstr "选中文字转换为小写(_L)"
+
+#: modules/cons.py:536 modules/cons.py:738 modules/cons.py:777
+msgid "Lower the Case of the Selection/the Underlying Word"
+msgstr "选中文字转换为小写"
+
+#: modules/cons.py:537 modules/cons.py:739 modules/cons.py:778
+msgid "_Upper Case of Selection/Word"
+msgstr "选中文字转换为大写(_U)"
+
+#: modules/cons.py:537 modules/cons.py:739 modules/cons.py:778
+msgid "Upper the Case of the Selection/the Underlying Word"
+msgstr "选中文字转换为大写"
+
+#: modules/cons.py:538 modules/cons.py:740 modules/cons.py:779
+msgid "_Toggle Case of Selection/Word"
+msgstr "切换已选中文字的大小写(_T)"
+
+#: modules/cons.py:538 modules/cons.py:740 modules/cons.py:779
+msgid "Toggle the Case of the Selection/the Underlying Word"
+msgstr "切换已选中文字的大小写"
+
+#: modules/cons.py:539 modules/cons.py:746 modules/cons.py:785
+msgid "_Duplicate Row"
+msgstr "克隆行(_D)"
+
+#: modules/cons.py:539 modules/cons.py:746 modules/cons.py:785
+msgid "Duplicate the Current Row/Selection"
+msgstr "克隆当前/已选中行"
+
+#: modules/cons.py:540 modules/cons.py:747 modules/cons.py:786
+msgid "Move _Up Row"
+msgstr "上移(_U)"
+
+#: modules/cons.py:540 modules/cons.py:747 modules/cons.py:786
+msgid "Move Up the Current Row/Selected Rows"
+msgstr "上移当前/已选中行"
+
+#: modules/cons.py:541 modules/cons.py:748 modules/cons.py:787
+msgid "Move _Down Row"
+msgstr "下移(_D)"
+
+#: modules/cons.py:541 modules/cons.py:748 modules/cons.py:787
+msgid "Move Down the Current Row/Selected Rows"
+msgstr "下移当前/已选中行"
+
+#: modules/cons.py:542 modules/cons.py:613 modules/cons.py:745
+#: modules/cons.py:784
+msgid "De_lete Row"
+msgstr "删除行(_L)"
+
+#: modules/cons.py:542 modules/cons.py:745 modules/cons.py:784
+msgid "Delete the Current Row/Selected Rows"
+msgstr "删除当前/已选中行"
+
+#: modules/cons.py:543 modules/cons.py:610 modules/cons.py:743
+#: modules/cons.py:782
+msgid "Cu_t Row"
+msgstr "剪切行(_X)"
+
+#: modules/cons.py:543 modules/cons.py:743 modules/cons.py:782
+msgid "Cut the Current Row/Selected Rows"
+msgstr "剪切当前/已选中行"
+
+#: modules/cons.py:544 modules/cons.py:611
+msgid "_Copy Row"
+msgstr "复制行(_C)"
+
+#: modules/cons.py:544 modules/cons.py:744 modules/cons.py:783
+msgid "Copy the Current Row/Selected Rows"
+msgstr "复制当前/已选中行"
+
+#: modules/cons.py:545 modules/cons.py:684
+msgid "Go _Back"
+msgstr "后退(_B)"
+
+#: modules/cons.py:545 modules/cons.py:684
+msgid "Go to the Previous Visited Node"
+msgstr "回到上一个已访问过的节点"
+
+#: modules/cons.py:546 modules/cons.py:685
+msgid "Go _Forward"
+msgstr "前进(_F)"
+
+#: modules/cons.py:546 modules/cons.py:685
+msgid "Go to the Next Visited Node"
+msgstr "回到下一个已访问过的节点"
+
+#: modules/cons.py:547
+msgid "_Undo"
+msgstr "撤销(_U)"
+
+#: modules/cons.py:547
+msgid "Undo Last Operation"
+msgstr "撤销上次操作"
+
+#: modules/cons.py:548
+msgid "_Redo"
+msgstr "重做(_R)"
+
+#: modules/cons.py:548
+msgid "Redo Previously Discarded Operation"
+msgstr "重复上次已撤销的操作"
+
+#: modules/cons.py:549 modules/cons.py:680
+msgid "_Inherit Syntax"
+msgstr "继承语法高亮(_I)"
+
+#: modules/cons.py:549 modules/cons.py:680
+msgid ""
+"Change the Selected Node's Children Syntax Highlighting to the Father's "
+"Syntax Highlighting"
+msgstr "使当前所选节点的子节点与其有相同的语法高亮"
+
+#: modules/cons.py:550 modules/cons.py:699
+msgid "Format _Latest"
+msgstr "上次格式(_L)"
+
+#: modules/cons.py:550 modules/cons.py:699
+msgid "Memory of Latest Text Format Type"
+msgstr "上次所操作的文字格式类型"
+
+#: modules/cons.py:551 modules/cons.py:696
+msgid "_Paste as Plain Text"
+msgstr "粘贴为纯文本(_P)"
+
+#: modules/cons.py:551 modules/cons.py:696
+msgid "Paste as Plain Text, Discard the Rich Text Formatting"
+msgstr "粘贴为纯文本，去除富文本的格式"
+
+#: modules/cons.py:552 modules/cons.py:700
+msgid "_Remove Formatting"
+msgstr "移除格式化(_R)"
+
+#: modules/cons.py:552 modules/cons.py:700
+msgid "Remove the Formatting from the Selected Text"
+msgstr "移除已选择文字格式化"
+
+#: modules/cons.py:553 modules/cons.py:702
+msgid "Text _Color Foreground"
+msgstr "文字前景色(_C)"
+
+#: modules/cons.py:553 modules/cons.py:702
+msgid "Change the Color of the Selected Text Foreground"
+msgstr "修改已选文字的前景色"
+
+#: modules/cons.py:554 modules/cons.py:703
+msgid "Text C_olor Background"
+msgstr "文字背景色(_O)"
+
+#: modules/cons.py:554 modules/cons.py:703
+msgid "Change the Color of the Selected Text Background"
+msgstr "修改已选文字的背景色"
+
+#: modules/cons.py:555 modules/cons.py:704
+msgid "Toggle _Bold Property"
+msgstr "切换粗体(_B)"
+
+#: modules/cons.py:555 modules/cons.py:704
+msgid "Toggle Bold Property of the Selected Text"
+msgstr "切换已选文字的粗体属性"
+
+#: modules/cons.py:556 modules/cons.py:705
+msgid "Toggle _Italic Property"
+msgstr "切换斜体(_I)"
+
+#: modules/cons.py:556 modules/cons.py:705
+msgid "Toggle Italic Property of the Selected Text"
+msgstr "切换已选文字的斜体属性"
+
+#: modules/cons.py:557 modules/cons.py:706
+msgid "Toggle _Underline Property"
+msgstr "切换下划线(_U)"
+
+#: modules/cons.py:557 modules/cons.py:706
+msgid "Toggle Underline Property of the Selected Text"
+msgstr "切换已选文字的下划线属性"
+
+#: modules/cons.py:558 modules/cons.py:707
+msgid "Toggle Stri_kethrough Property"
+msgstr "切换删除线(_K)"
+
+#: modules/cons.py:558 modules/cons.py:707
+msgid "Toggle Strikethrough Property of the Selected Text"
+msgstr "切换已选文字的删除线属性"
+
+#: modules/cons.py:559 modules/cons.py:708
+msgid "Toggle h_1 Property"
+msgstr "切换h1(_1)"
+
+#: modules/cons.py:559 modules/cons.py:708
+msgid "Toggle h1 Property of the Selected Text"
+msgstr "切换已选文字的h1属性"
+
+#: modules/cons.py:560 modules/cons.py:709
+msgid "Toggle h_2 Property"
+msgstr "切换h2(_2)"
+
+#: modules/cons.py:560 modules/cons.py:709
+msgid "Toggle h2 Property of the Selected Text"
+msgstr "切换已选文字的h2属性"
+
+#: modules/cons.py:561 modules/cons.py:710
+msgid "Toggle h_3 Property"
+msgstr "切换h3(_3)"
+
+#: modules/cons.py:561 modules/cons.py:710
+msgid "Toggle h3 Property of the Selected Text"
+msgstr "切换已选文字的h3属性"
+
+#: modules/cons.py:562 modules/cons.py:711
+msgid "Toggle _Small Property"
+msgstr "切换小字(_S)"
+
+#: modules/cons.py:562 modules/cons.py:711
+msgid "Toggle Small Property of the Selected Text"
+msgstr "切换已选文字的小字属性"
+
+#: modules/cons.py:563 modules/cons.py:712
+msgid "Toggle Su_perscript Property"
+msgstr "切换上标(_P)"
+
+#: modules/cons.py:563 modules/cons.py:712
+msgid "Toggle Superscript Property of the Selected Text"
+msgstr "切换已选文字的上标属性"
+
+#: modules/cons.py:564 modules/cons.py:713
+msgid "Toggle Su_bscript Property"
+msgstr "切换下标(_B)"
+
+#: modules/cons.py:564 modules/cons.py:713
+msgid "Toggle Subscript Property of the Selected Text"
+msgstr "切换已选文字的下标属性"
+
+#: modules/cons.py:565 modules/cons.py:714
+msgid "Toggle _Monospace Property"
+msgstr "切换等宽(_M)"
+
+#: modules/cons.py:565 modules/cons.py:714
+msgid "Toggle Monospace Property of the Selected Text"
+msgstr "切换已选文字的等宽属性"
+
+#: modules/cons.py:566 modules/cons.py:717
+msgid "Justify _Left"
+msgstr "左对齐(_L)"
+
+#: modules/cons.py:566 modules/cons.py:717
+msgid "Justify Left the Current Paragraph"
+msgstr "前端段落左对齐"
+
+#: modules/cons.py:567 modules/cons.py:718
+msgid "Justify _Center"
+msgstr "居中对其(_C)"
+
+#: modules/cons.py:567 modules/cons.py:718
+msgid "Justify Center the Current Paragraph"
+msgstr "当前段落居中对其"
+
+#: modules/cons.py:568 modules/cons.py:719
+msgid "Justify _Right"
+msgstr "右对齐(_R)"
+
+#: modules/cons.py:568 modules/cons.py:719
+msgid "Justify Right the Current Paragraph"
+msgstr "当前段落右对齐"
+
+#: modules/cons.py:569 modules/cons.py:752 modules/cons.py:791
+msgid "_Find in Node"
+msgstr "在当前节点中搜索(_F)"
+
+#: modules/cons.py:569 modules/cons.py:752 modules/cons.py:791
+msgid "Find into the Selected Node"
+msgstr "在当前已选节点中搜索"
+
+#: modules/cons.py:570 modules/cons.py:753 modules/cons.py:792
+msgid "Find in Node_s"
+msgstr "在所有节点中搜索(_S)"
+
+#: modules/cons.py:570 modules/cons.py:753 modules/cons.py:792
+msgid "Find into all the Tree Nodes"
+msgstr "在所有节点中搜索"
+
+#: modules/cons.py:571 modules/cons.py:652 modules/cons.py:754
+#: modules/cons.py:793
+msgid "Find a _Node"
+msgstr "搜索节点名称"
+
+#: modules/cons.py:571 modules/cons.py:652 modules/cons.py:754
+#: modules/cons.py:793
+msgid "Find a Node from its Name"
+msgstr "根据节点名搜索"
+
+#: modules/cons.py:572 modules/cons.py:755 modules/cons.py:794
+msgid "Find _Again"
+msgstr "重复搜索(_A)"
+
+#: modules/cons.py:572 modules/cons.py:755 modules/cons.py:794
+msgid "Iterate the Last Find Operation"
+msgstr "重复上次的搜索操作"
+
+#: modules/cons.py:573 modules/cons.py:756 modules/cons.py:795
+msgid "Find _Back"
+msgstr "反向搜索(_B)"
+
+#: modules/cons.py:573 modules/cons.py:756 modules/cons.py:795
+msgid "Iterate the Last Find Operation in Opposite Direction"
+msgstr "反方向重复上次搜索"
+
+#: modules/cons.py:574 modules/cons.py:759 modules/cons.py:798
+msgid "_Replace in Node"
+msgstr "在当前节点中替换(_R)"
+
+#: modules/cons.py:574 modules/cons.py:759 modules/cons.py:798
+msgid "Replace into the Selected Node"
+msgstr "在当前已选节点中替换"
+
+#: modules/cons.py:575 modules/cons.py:760 modules/cons.py:799
+msgid "Replace in Node_s"
+msgstr "在所有节点中替换(_S)"
+
+#: modules/cons.py:575 modules/cons.py:760 modules/cons.py:799
+msgid "Replace into all the Tree Nodes"
+msgstr "在所有节点中替换"
+
+#: modules/cons.py:576 modules/cons.py:653 modules/cons.py:761
+#: modules/cons.py:800
+msgid "Replace in Nodes _Names"
+msgstr "替换节点名称(_N)"
+
+#: modules/cons.py:576 modules/cons.py:653 modules/cons.py:761
+#: modules/cons.py:800
+msgid "Replace in Nodes Names"
+msgstr "替换节点名称"
+
+#: modules/cons.py:577 modules/cons.py:762 modules/cons.py:801
+msgid "Replace _Again"
+msgstr "重复上次替换(_A)"
+
+#: modules/cons.py:577 modules/cons.py:762 modules/cons.py:801
+msgid "Iterate the Last Replace Operation"
+msgstr "重复上次替换操作"
+
+#: modules/cons.py:578
+msgid "Show/Hide Node Name _Header"
+msgstr "显示/隐藏节点标题头(_H)"
+
+#: modules/cons.py:578
+msgid "Toggle Show/Hide Node Name Header"
+msgstr "切换节点标题头的显示"
+
+#: modules/cons.py:579
+msgid "Show/Hide _Tree"
+msgstr "显示/隐藏树(_T)"
+
+#: modules/cons.py:579
+msgid "Toggle Show/Hide Tree"
+msgstr "切换树的显示"
+
+#: modules/cons.py:580
+msgid "Show/Hide _CherryTree"
+msgstr "显示/隐藏CherryTree(_C)"
+
+#: modules/cons.py:580
+msgid "Toggle Show/Hide CherryTree"
+msgstr "切换CherryTree的显示"
+
+#: modules/cons.py:581
+msgid "Show/Hide Tool_bar"
+msgstr "显示/隐藏工具栏(_B)"
+
+#: modules/cons.py:581
+msgid "Toggle Show/Hide Toolbar"
+msgstr "切换工具栏的显示"
+
+#: modules/cons.py:582
+msgid "Show _All Matches Dialog"
+msgstr "显示所有已匹配的对话框"
+
+#: modules/cons.py:582
+msgid "Show Search All Matches Dialog"
+msgstr "显示所有已匹配的搜索对话框"
+
+#: modules/cons.py:583
+msgid "_Increase Toolbar Icons Size"
+msgstr "增加工具栏图标大小(_I)"
+
+#: modules/cons.py:583
+msgid "Increase the Size of the Toolbar Icons"
+msgstr "增加工具栏图标大小"
+
+#: modules/cons.py:584
+msgid "_Decrease Toolbar Icons Size"
+msgstr "减少工具栏图标大小(_D)"
+
+#: modules/cons.py:584
+msgid "Decrease the Size of the Toolbar Icons"
+msgstr "减少工具栏图标大小"
+
+#: modules/cons.py:585
+msgid "Toggle _Focus Tree/Text"
+msgstr "切换树/文本焦点"
+
+#: modules/cons.py:585
+msgid "Toggle Focus Between Tree and Text"
+msgstr "在树和文本件切换焦点"
+
+#: modules/cons.py:586
+msgid "Toggle Node _Expanded/Collapsed"
+msgstr "切换节点的展开/收起状态(_E)"
+
+#: modules/cons.py:586
+msgid "Toggle Expanded/Collapsed Status of the Selected Node"
+msgstr "切换已选中节点的展开/收起状态"
+
+#: modules/cons.py:587
+msgid "E_xpand All Nodes"
+msgstr "展开所有节点(_X)"
+
+#: modules/cons.py:587
+msgid "Expand All the Tree Nodes"
+msgstr "展开所有树节点"
+
+#: modules/cons.py:588
+msgid "_Collapse All Nodes"
+msgstr "收缩所有节点(_C)"
+
+#: modules/cons.py:588
+msgid "Collapse All the Tree Nodes"
+msgstr "收缩所有树节点"
+
+#: modules/cons.py:589
+msgid "_Full Screen On/Off"
+msgstr "切换全屏(_F)"
+
+#: modules/cons.py:589
+msgid "Toggle Full Screen On/Off"
+msgstr "切换全屏"
+
+#: modules/cons.py:590 modules/cons.py:656
+msgid "From _CherryTree File"
+msgstr "从CherryTree文件(_C)"
+
+#: modules/cons.py:590 modules/cons.py:656
+msgid "Add Nodes of a CherryTree File to the Current Tree"
+msgstr "从CherryTree文件添加节点到当前树"
+
+#: modules/cons.py:591 modules/cons.py:657
+#, fuzzy
+msgid "From _Plain Text File"
+msgstr "导出到独个文本文件(_S)"
+
+#: modules/cons.py:591 modules/cons.py:657
+#, fuzzy
+msgid "Add Node from a Plain Text File to the Current Tree"
+msgstr "从Leo文件添加节点到当前树"
+
+#: modules/cons.py:592 modules/cons.py:658
+#, fuzzy
+msgid "From _Folder of Plain Text Files"
+msgstr "导出到独个文本文件(_S)"
+
+#: modules/cons.py:592 modules/cons.py:658
+#, fuzzy
+msgid "Add Nodes from a Folder of Plain Text Files to the Current Tree"
+msgstr "从NoteCase文件添加节点到当前树"
+
+#: modules/cons.py:593 modules/cons.py:659
+msgid "From _Basket Folder"
+msgstr "从Basket文件夹(_B)"
+
+#: modules/cons.py:593 modules/cons.py:659
+msgid "Add Nodes of a Basket Folder to the Current Tree"
+msgstr "从Basket文件夹添加节点到当前树"
+
+#: modules/cons.py:594 modules/cons.py:660
+msgid "From _Gnote Folder"
+msgstr "从Gnote文件夹(_G)"
+
+#: modules/cons.py:594 modules/cons.py:660
+msgid "Add Nodes of a Gnote Folder to the Current Tree"
+msgstr "从Gnote文件夹添加节点到当前树"
+
+#: modules/cons.py:595 modules/cons.py:661
+msgid "From _KeepNote Folder"
+msgstr "从KeepNote文件夹(_K)"
+
+#: modules/cons.py:595 modules/cons.py:661
+msgid "Add Nodes of a KeepNote Folder to the Current Tree"
+msgstr "从KeepNote文件夹添加节点到当前树"
+
+#: modules/cons.py:596 modules/cons.py:662
+msgid "From K_eyNote File"
+msgstr "从KeyNote文件(_e)"
+
+#: modules/cons.py:596 modules/cons.py:662
+msgid "Add Nodes of a KeyNote File to the Current Tree"
+msgstr "从KeyNote文件添加节点到当前树"
+
+#: modules/cons.py:597 modules/cons.py:663
+msgid "From K_nowit File"
+msgstr "从Knowit文件(_N)"
+
+#: modules/cons.py:597 modules/cons.py:663
+msgid "Add Nodes of a Knowit File to the Current Tree"
+msgstr "从Knowit文件添加节点到当前树"
+
+#: modules/cons.py:598 modules/cons.py:664
+msgid "From _Leo File"
+msgstr "从Leo文件(_L)"
+
+#: modules/cons.py:598 modules/cons.py:664
+msgid "Add Nodes of a Leo File to the Current Tree"
+msgstr "从Leo文件添加节点到当前树"
+
+#: modules/cons.py:599 modules/cons.py:665
+msgid "From _Mempad File"
+msgstr "从Mempad文件(_M)"
+
+#: modules/cons.py:599 modules/cons.py:665
+msgid "Add Nodes of a Mempad File to the Current Tree"
+msgstr "从Mempad文件添加节点到当前树"
+
+#: modules/cons.py:600 modules/cons.py:666
+msgid "From _NoteCase File"
+msgstr "从NoteCase文件(_N)"
+
+#: modules/cons.py:600 modules/cons.py:666
+msgid "Add Nodes of a NoteCase File to the Current Tree"
+msgstr "从NoteCase文件添加节点到当前树"
+
+#: modules/cons.py:601 modules/cons.py:667
+msgid "From T_omboy Folder"
+msgstr "从Tomboy文件夹(_O)"
+
+#: modules/cons.py:601 modules/cons.py:667
+msgid "Add Nodes of a Tomboy Folder to the Current Tree"
+msgstr "从Tomboy文件夹添加节点到当前树"
+
+#: modules/cons.py:602 modules/cons.py:668
+msgid "From T_reepad Lite File"
+msgstr "从Treepad文件(_R)"
+
+#: modules/cons.py:602 modules/cons.py:668
+msgid "Add Nodes of a Treepad Lite File to the Current Tree"
+msgstr "从Treepad文件添加节点到当前树"
+
+#: modules/cons.py:603 modules/cons.py:669
+msgid "From _TuxCards File"
+msgstr "从TuxCards文件(_T)"
+
+#: modules/cons.py:603 modules/cons.py:669
+msgid "Add Nodes of a TuxCards File to the Current Tree"
+msgstr "从TuxCards文件添加节点到当前树"
+
+#: modules/cons.py:604 modules/cons.py:670
+msgid "From _Zim Folder"
+msgstr "从Zim文件夹(_Z)"
+
+#: modules/cons.py:604 modules/cons.py:670
+msgid "Add Nodes of a Zim Folder to the Current Tree"
+msgstr "从Zim文件夹添加节点到当前树"
+
+#: modules/cons.py:605
+msgid "Online _Manual"
+msgstr "在线手册(_M)"
+
+#: modules/cons.py:605
+msgid "Application's Online Manual"
+msgstr "程序的在线手册"
+
+#: modules/cons.py:606
+msgid "_Check Newer Version"
+msgstr "检查新版本(_C)"
+
+#: modules/cons.py:606
+msgid "Check for a Newer Version"
+msgstr "检查新的版本"
+
+#: modules/cons.py:607
+msgid "_About"
+msgstr "关于(_A)"
+
+#: modules/cons.py:608
+msgid "_Edit Table Properties"
+msgstr "编辑表格属性(_E)"
+
+#: modules/cons.py:608
+msgid "Edit the Table Properties"
+msgstr "编辑表格的属性"
+
+#: modules/cons.py:609
+msgid "_Add Row"
+msgstr "添加行(_A)"
+
+#: modules/cons.py:609
+msgid "Add a Table Row"
+msgstr "添加一行"
+
+#: modules/cons.py:610
+msgid "Cut a Table Row"
+msgstr "剪切一行"
+
+#: modules/cons.py:611
+msgid "Copy a Table Row"
+msgstr "复制一行"
+
+#: modules/cons.py:612
+msgid "_Paste Row"
+msgstr "粘贴行(_P)"
+
+#: modules/cons.py:612
+msgid "Paste a Table Row"
+msgstr "粘贴一行"
+
+#: modules/cons.py:613
+msgid "Delete the Selected Table Row"
+msgstr "删除当前所选行"
+
+#: modules/cons.py:614
+msgid "Move Row _Up"
+msgstr "上移行(_U)"
+
+#: modules/cons.py:614
+msgid "Move the Selected Row Up"
+msgstr "将当前所选行向上移动"
+
+#: modules/cons.py:615
+msgid "Move Row _Down"
+msgstr "下移行(_D)"
+
+#: modules/cons.py:615
+msgid "Move the Selected Row Down"
+msgstr "将当前所选行向下移动"
+
+#: modules/cons.py:616
+msgid "Sort Rows De_scending"
+msgstr "降序排序行(_S)"
+
+#: modules/cons.py:616
+msgid "Sort all the Rows Descending"
+msgstr "降序排序所有行"
+
+#: modules/cons.py:617
+msgid "Sort Rows As_cending"
+msgstr "升序排序行(_C)"
+
+#: modules/cons.py:617
+msgid "Sort all the Rows Ascending"
+msgstr "升序排序所有行"
+
+#: modules/cons.py:618
+msgid "_Table Export"
+msgstr "导出表格(_T)"
+
+#: modules/cons.py:618
+msgid "Export Table as CSV File"
+msgstr "导出表格为CSV文件"
+
+#: modules/cons.py:619
+msgid "_Bookmark This Node"
+msgstr "标记此节点(_B)"
+
+#: modules/cons.py:619
+msgid "Add the Current Node to the Bookmarks List"
+msgstr "添加当前节点到书签列表"
+
+#: modules/cons.py:620
+msgid "_Handle Bookmarks"
+msgstr "处理书签(_H)"
+
+#: modules/cons.py:621 modules/cons.py:632
+msgid "Add _Node"
+msgstr "添加节点(_N)"
+
+#: modules/cons.py:621 modules/cons.py:632
+msgid "Add a Node having the same Father of the Selected Node"
+msgstr "添加一个与当前同级的节点"
+
+#: modules/cons.py:622 modules/cons.py:633
+msgid "Add _SubNode"
+msgstr "添加子节点(_S)"
+
+#: modules/cons.py:622 modules/cons.py:633
+msgid "Add a Child Node to the Selected Node"
+msgstr "为当前所选节点添加一个子节点"
+
+#: modules/cons.py:635
+msgid "Change Node _Properties"
+msgstr "修改节点属性(_P)"
+
+#: modules/cons.py:635
+msgid "Edit the Properties of the Selected Node"
+msgstr "编辑当前所选节点的属性"
+
+#: modules/cons.py:636
+msgid "Tree _Info"
+msgstr "树信息(_I)"
+
+#: modules/cons.py:639
+msgid "Node _Up"
+msgstr "上移节点(_U)"
+
+#: modules/cons.py:639
+msgid "Move the Selected Node Up"
+msgstr "将当前所选节点向上移动"
+
+#: modules/cons.py:640
+msgid "Node _Down"
+msgstr "下移节点(_D)"
+
+#: modules/cons.py:640
+msgid "Move the Selected Node Down"
+msgstr "将当前所选节点向下移动"
+
+#: modules/cons.py:641
+msgid "Node _Left"
+msgstr "左移节点"
+
+#: modules/cons.py:641
+msgid "Move the Selected Node Left"
+msgstr "将当前所选节点想左移动"
+
+#: modules/cons.py:642
+msgid "Node Change _Father"
+msgstr "改变父节点(_F)"
+
+#: modules/cons.py:642
+msgid "Change the Selected Node's Father"
+msgstr "改变当前所选节点的父节点"
+
+#: modules/cons.py:645
+msgid "Nodes _Sort"
+msgstr "节点排序(_S)"
+
+#: modules/cons.py:646
+msgid "Sort Tree _Ascending"
+msgstr "升序排序树(_A)"
+
+#: modules/cons.py:646
+msgid "Sort the Tree Ascending"
+msgstr "升序排序所有树"
+
+#: modules/cons.py:647
+msgid "Sort Tree _Descending"
+msgstr "降序排序树(_D)"
+
+#: modules/cons.py:647
+msgid "Sort the Tree Descending"
+msgstr "降序排序所有树"
+
+#: modules/cons.py:648
+msgid "Sort Siblings A_scending"
+msgstr "升序排序同级(_S)"
+
+#: modules/cons.py:648
+msgid "Sort all the Siblings of the Selected Node Ascending"
+msgstr "升序排序所有与当前所选同级的节点"
+
+#: modules/cons.py:649
+msgid "Sort Siblings D_escending"
+msgstr "降序排序同级(_E)"
+
+#: modules/cons.py:649
+msgid "Sort all the Siblings of the Selected Node Descending"
+msgstr "降序排序所有与当前所选同级的节点"
+
+#: modules/cons.py:682
+msgid "De_lete Node"
+msgstr "删除节点(_L)"
+
+#: modules/cons.py:682
+msgid "Delete the Selected Node"
+msgstr "删除已选择节点"
+
+#: modules/cons.py:716
+msgid "_Justify"
+msgstr "对齐(_J)"
+
+#: modules/cons.py:721
+msgid "_List"
+msgstr "列表(_L)"
+
+#: modules/cons.py:727
+msgid "_Insert"
+msgstr "插入(_I)"
+
+#: modules/cons.py:742 modules/cons.py:781
+msgid "_Row"
+msgstr "行(_R)"
+
+#: modules/cons.py:744 modules/cons.py:783
+msgid "C_opy Row"
+msgstr "复制行(_O)"
+
+#: modules/cons.py:775
+msgid "Stri_p Trailing Spaces"
+msgstr ""
+
+#: modules/cons.py:775
+msgid "Strip Trailing Spaces"
+msgstr ""
+
+#: modules/cons.py:813
+msgid "C_ut CodeBox"
+msgstr "剪切代码框(_U)"
+
+#: modules/cons.py:813
+msgid "Cut the Selected CodeBox"
+msgstr "剪切当前所选的代码框"
+
+#: modules/cons.py:814
+msgid "_Copy CodeBox"
+msgstr "复制代码框(_C)"
+
+#: modules/cons.py:814
+msgid "Copy the Selected CodeBox"
+msgstr "复制当前所选的代码框"
+
+#: modules/cons.py:815
+msgid "_Delete CodeBox"
+msgstr "删除代码框(_D)"
+
+#: modules/cons.py:815
+msgid "Delete the Selected CodeBox"
+msgstr "删除当前所选的代码框"
+
+#: modules/cons.py:817
+msgid "Change CodeBox _Properties"
+msgstr "修改代码框属性(_P)"
+
+#: modules/cons.py:817
+msgid "Edit the Properties of the CodeBox"
+msgstr "编辑代码框的属性"
+
+#: modules/cons.py:819
+msgid "Increase CodeBox Width"
+msgstr "增加代码框宽度"
+
+#: modules/cons.py:819
+msgid "Increase the Width of the CodeBox"
+msgstr "增加代码框的宽度"
+
+#: modules/cons.py:820
+msgid "Decrease CodeBox Width"
+msgstr "减少代码框宽度"
+
+#: modules/cons.py:820
+msgid "Decrease the Width of the CodeBox"
+msgstr "减少代码框的宽度"
+
+#: modules/cons.py:821
+msgid "Increase CodeBox Height"
+msgstr "在家代码框高度"
+
+#: modules/cons.py:821
+msgid "Increase the Height of the CodeBox"
+msgstr "增加代码框的高度"
+
+#: modules/cons.py:822
+msgid "Decrease CodeBox Height"
+msgstr "减少代码框高度"
+
+#: modules/cons.py:822
+msgid "Decrease the Height of the CodeBox"
+msgstr "减少代码框的高度"
+
+#: modules/imports.py:1885
+msgid "Downloading"
+msgstr "正在下载"
+
+#: modules/pgsc_spellcheck.py:68
+msgid "Unknown"
+msgstr "未知"
+
+#: modules/pgsc_spellcheck.py:423
+msgid "(no suggestions)"
+msgstr "(无建议)"
+
+#: modules/pgsc_spellcheck.py:439
+msgid "Add \"{}\" to Dictionary"
+msgstr "把 \"{}\" 加入到字典"
+
+#: modules/pgsc_spellcheck.py:442
+msgid "Ignore All"
+msgstr "全部忽略"
+
+#: modules/pgsc_spellcheck.py:453
+msgid "Languages"
+msgstr "语言"
+
+#: modules/pgsc_spellcheck.py:464
+msgid "Suggestions"
+msgstr "建议"
+
+#: glade/cherrytree.glade.h:1
+msgid "Cancel"
+msgstr "取消"
+
+#: glade/cherrytree.glade.h:2
+msgid "OK"
+msgstr "确定"
+
+#: glade/cherrytree.glade.h:4
+msgid "To WebSite"
+msgstr "连接到网址"
+
+#: glade/cherrytree.glade.h:5
+msgid "To Node"
+msgstr "连接到节点"
+
+#: glade/cherrytree.glade.h:6
+msgid "To File"
+msgstr "连接到文件"
+
+#: glade/cherrytree.glade.h:7
+msgid "To Folder"
+msgstr "连接到文件夹"
+
+#: glade/cherrytree.glade.h:8
+msgid "<b>Type</b>"
+msgstr "<b>类型</b>"
+
+#: glade/cherrytree.glade.h:9
+msgid "<b>WebSite URL</b>"
+msgstr "<b>网址</b>"
+
+#: glade/cherrytree.glade.h:10
+msgid "Browse for a File to link to"
+msgstr "查找一个文件/文件夹作为链接地址"
+
+#: glade/cherrytree.glade.h:11
+msgid "<b>File/Folder Path</b>"
+msgstr "<b>文件/文件夹路径</b>"
+
+#: glade/cherrytree.glade.h:12
+msgid "<b>Node</b>"
+msgstr "<b>节点</b>"
+
+#: glade/cherrytree.glade.h:13
+msgid "<b>Anchor Name (optional)</b>"
+msgstr "<b>锚点名称(可选)</b>"
+
+#: glade/cherrytree.glade.h:14
+msgid "<b>Automatic Syntax Highlighting</b>"
+msgstr "<b>自动语法高亮</b>"
+
+#: glade/cherrytree.glade.h:15
+msgid "Width"
+msgstr "宽"
+
+#: glade/cherrytree.glade.h:16
+msgid "pixels"
+msgstr "像素"
+
+#: glade/cherrytree.glade.h:18
+msgid "%"
+msgstr "%"
+
+#: glade/cherrytree.glade.h:19
+msgid "Height"
+msgstr "高"
+
+#: glade/cherrytree.glade.h:20
+msgid "<b>Size</b>"
+msgstr "<b>尺寸</b>"
+
+#: glade/cherrytree.glade.h:21
+msgid "Show Line Numbers"
+msgstr "显示行号"
+
+#: glade/cherrytree.glade.h:22
+msgid "Highlight Matching Brackets"
+msgstr "高亮括号匹配"
+
+#: glade/cherrytree.glade.h:23
+msgid "<b>Options</b>"
+msgstr "<b>选项</b>"
+
+#: glade/cherrytree.glade.h:25
+msgid "No"
+msgstr "否"
+
+#: glade/cherrytree.glade.h:26
+msgid "Yes"
+msgstr "是"
+
+#: glade/cherrytree.glade.h:27
+msgid ""
+"<b>The current document was updated</b>,\n"
+"do you want to save the changes?"
+msgstr ""
+"<b>当前文档已被更改</b>,\n"
+"要保存这些更改吗？"
+
+#: glade/cherrytree.glade.h:29
+msgid "Image Properties"
+msgstr "图片属性"
+
+#: glade/cherrytree.glade.h:30
+msgid "Are you sure to Delete the node?"
+msgstr "确定删除此节点吗？"
+
+#: glade/cherrytree.glade.h:32
+msgid "Tab Width  "
+msgstr "Tab宽度  "
+
+#: glade/cherrytree.glade.h:33
+msgid "Insert Spaces Instead of Tabs"
+msgstr "用空格代替Tab"
+
+#: glade/cherrytree.glade.h:34
+msgid "Use Line Wrapping"
+msgstr "启用换行显示"
+
+#: glade/cherrytree.glade.h:35
+msgid "Enable Automatic Indentation"
+msgstr "启用自动缩进"
+
+#: glade/cherrytree.glade.h:36
+msgid "<b>Text Editor</b>"
+msgstr "<b>文字编辑</b>"
+
+#: glade/cherrytree.glade.h:37
+msgid "Timestamp Format"
+msgstr "时间戳格式"
+
+#: glade/cherrytree.glade.h:38
+msgid "Horizontal Rule"
+msgstr "定义分割线"
+
+#: glade/cherrytree.glade.h:39
+msgid "Special Characters"
+msgstr "特殊字符"
+
+#: glade/cherrytree.glade.h:40
+msgid "<b>Miscellaneous</b>"
+msgstr "<b>杂项</b>"
+
+#: glade/cherrytree.glade.h:41
+msgid "All Nodes"
+msgstr "所有节点"
+
+#: glade/cherrytree.glade.h:42
+msgid "Enable Spell Check"
+msgstr "启用拼写检查"
+
+#: glade/cherrytree.glade.h:43
+msgid "Spell Check Language"
+msgstr "语言拼写检查"
+
+#: glade/cherrytree.glade.h:44
+msgid "<b>Spell Check</b>"
+msgstr "<b>拼写检查</b>"
+
+#: glade/cherrytree.glade.h:45
+msgid "Light Background, Dark Text"
+msgstr "浅色背景，深色文字"
+
+#: glade/cherrytree.glade.h:46
+msgid "Dark Background, Light Text"
+msgstr "深色背景，浅色文字"
+
+#: glade/cherrytree.glade.h:47
+msgid "Custom Background"
+msgstr "自定义背景"
+
+#: glade/cherrytree.glade.h:48
+msgid "and Text"
+msgstr "和文字"
+
+#: glade/cherrytree.glade.h:49
+msgid "<b>Theme</b>"
+msgstr "<b>主题</b>"
+
+#: glade/cherrytree.glade.h:50
+msgid "Limit of Undoable Steps Per Node"
+msgstr "每个节点撤销步数限制"
+
+#: glade/cherrytree.glade.h:51
+msgid "Text Nodes"
+msgstr "文本节点"
+
+#: glade/cherrytree.glade.h:52
+msgid "Style Scheme"
+msgstr "主题"
+
+#: glade/cherrytree.glade.h:53
+msgid "Show White Spaces"
+msgstr "显示空白字符"
+
+#: glade/cherrytree.glade.h:54
+msgid "Highlight Current Line"
+msgstr "高亮当前行"
+
+#: glade/cherrytree.glade.h:55
+msgid "Code Nodes"
+msgstr "代码节点"
+
+#: glade/cherrytree.glade.h:56
+msgid "Use Cherries as Nodes Icons"
+msgstr "使用樱桃作为节点图标"
+
+#: glade/cherrytree.glade.h:57
+msgid "Use Bullets as Nodes Icons"
+msgstr "使用圆点作为节点图标"
+
+#: glade/cherrytree.glade.h:58
+msgid "Do Not Display Nodes Icons"
+msgstr "不显示节点图标"
+
+#: glade/cherrytree.glade.h:59
+msgid "<b>Nodes Icons</b>"
+msgstr "<b>节点图标</b>"
+
+#: glade/cherrytree.glade.h:60
+msgid "Restore Expanded/Collapsed Status"
+msgstr "还原展开/收起状态"
+
+#: glade/cherrytree.glade.h:61
+msgid "Expand all Nodes"
+msgstr "展开所有节点"
+
+#: glade/cherrytree.glade.h:62
+msgid "Collapse all Nodes"
+msgstr "收缩所有节点"
+
+#: glade/cherrytree.glade.h:63
+msgid "<b>Nodes Status at Startup</b>"
+msgstr "<b>启动时节点状态</b>"
+
+#: glade/cherrytree.glade.h:64
+msgid "Tree Nodes Names Wrapping Width"
+msgstr "节点名称换行显示时的宽度"
+
+#: glade/cherrytree.glade.h:65
+msgid "Display Tree on the Right Side"
+msgstr "节点树显示在右侧"
+
+#: glade/cherrytree.glade.h:66
+msgid "Tree"
+msgstr "树"
+
+#: glade/cherrytree.glade.h:67
+msgid "Text Font"
+msgstr "文本字体"
+
+#: glade/cherrytree.glade.h:68
+msgid "Code Font"
+msgstr "代码字体"
+
+#: glade/cherrytree.glade.h:69
+msgid "Tree Font"
+msgstr "树字体"
+
+#: glade/cherrytree.glade.h:70
+msgid "<b>Fonts</b>"
+msgstr "<b>字体</b>"
+
+#: glade/cherrytree.glade.h:71
+msgid "Fonts"
+msgstr "字体"
+
+#: glade/cherrytree.glade.h:72
+msgid "Enable Custom Web Link Clicked Action"
+msgstr "启用并定义Web链接点击动作"
+
+#: glade/cherrytree.glade.h:73
+msgid "Enable Custom File Link Clicked Action"
+msgstr "启用并定义文件链接点击动作"
+
+#: glade/cherrytree.glade.h:74
+msgid "Enable Custom Folder Link Clicked Action"
+msgstr "启用并定义文件夹链接点击动作"
+
+#: glade/cherrytree.glade.h:75
+msgid "Anchor Size"
+msgstr "锚点大小"
+
+#: glade/cherrytree.glade.h:76
+msgid "<b>Links</b>"
+msgstr "<b>链接</b>"
+
+#: glade/cherrytree.glade.h:77
+msgid "Links"
+msgstr "链接"
+
+#: glade/cherrytree.glade.h:78
+msgid "Enable System Tray Docking"
+msgstr "启用系统托盘"
+
+#: glade/cherrytree.glade.h:79
+msgid "Start Minimized in the System Tray"
+msgstr "程序启动后最小化到托盘"
+
+#: glade/cherrytree.glade.h:80
+msgid "Use AppIndicator for Docking"
+msgstr "采用窗口停靠模式"
+
+#: glade/cherrytree.glade.h:81
+msgid "<b>System Tray</b>"
+msgstr "<b>系统托盘</b>"
+
+#: glade/cherrytree.glade.h:82
+msgid "Autosave Every"
+msgstr "自动保存每隔"
+
+#: glade/cherrytree.glade.h:83
+msgid "Minutes"
+msgstr "分钟"
+
+#: glade/cherrytree.glade.h:84
+msgid "Autosave on Quit"
+msgstr "退出前自动保存"
+
+#: glade/cherrytree.glade.h:85
+msgid "Create a Backup Copy Before Saving"
+msgstr "保存前创建备份"
+
+#: glade/cherrytree.glade.h:86
+msgid "<b>Saving</b>"
+msgstr "<b>保存</b>"
+
+#: glade/cherrytree.glade.h:87
+msgid "Automatically Check for Newer Version"
+msgstr "自动检查新版本"
+
+#: glade/cherrytree.glade.h:88
+msgid "Reload Document From Last Session"
+msgstr "重载上一次会话中的文档"
+
+#: glade/cherrytree.glade.h:89
+msgid "Reload After External Update to CT* File"
+msgstr "将重载，因CT*文件在外部被修改"
+
+#: glade/cherrytree.glade.h:90
+msgid "<b>Language</b>"
+msgstr "<b>界面语言</b>"
+
+#: glade/cherrytree.glade.h:91
+msgid "Miscellaneous"
+msgstr "杂项"
+
+#: glade/cherrytree.glade.h:92
+msgid "Rows  "
+msgstr "行  "
+
+#: glade/cherrytree.glade.h:93
+msgid "     Columns  "
+msgstr "     列  "
+
+#: glade/cherrytree.glade.h:94
+msgid "<b>Table size</b>"
+msgstr "<b>表格属性</b>"
+
+#: glade/cherrytree.glade.h:95
+msgid "Min Width"
+msgstr "最小宽度"
+
+#: glade/cherrytree.glade.h:96
+msgid "   Max Width"
+msgstr "   最大宽度"
+
+#: glade/cherrytree.glade.h:97
+msgid "<b>Columns Properties</b>"
+msgstr "<b>列属性</b>"
+
+#: glade/cherrytree.glade.h:98
+msgid "Import from CSV File"
+msgstr "从CSV文件导入"
+
+#: glade/cherrytree.glade.h:99
+msgid "Rename Column"
+msgstr "重命名列"
+
+#: glade/cherrytree.glade.h:100
+msgid "Delete Column"
+msgstr "删除列"
+
+#: glade/cherrytree.glade.h:101
+msgid "Add Column"
+msgstr "添加列"
+
+#: glade/cherrytree.glade.h:102
+msgid "Move Column Left"
+msgstr "左移列"
+
+#: glade/cherrytree.glade.h:103
+msgid "Move Column Right"
+msgstr "右移列"
+
+#: glade/cherrytree.glade.h:104
+msgid "CherryTree"
+msgstr "CherryTree"
+
+#~ msgid "http://www.giuspen.com/cherrytree/"
+#~ msgstr "http://www.giuspen.com/cherrytree/"
+
+#~ msgid "Undo the Latest Replace"
+#~ msgstr "撤销上次替换"
+
+#~ msgid ""
+#~ "The Contemporary Presence of Single and Double Quotes in the File Path "
+#~ "Prevents 7za.exe to Work, Please Change the File Name"
+#~ msgstr "当前文件路径中的单引号和双引号阻止了7za.exe的工作，请更换文件名"
+
+#~ msgid "_Print / Export To PDF"
+#~ msgstr "打印/导出到PDF(_P)"
+
+#~ msgid "<b>Node Name</b>"
+#~ msgstr "<b>节点名</b>"
+
+#~ msgid "Insert the New Node Name..."
+#~ msgstr "输入新节点名称..."
+
+#~ msgid "Insert the New Child Node Name..."
+#~ msgstr "输入子节点名称..."
+
+#~ msgid "Insert the New Name for the Node..."
+#~ msgstr "输入新的节点名称..."
+
+#~ msgid "Input Dialog"
+#~ msgstr "输入对话框"
+
+#~ msgid "Expand All Nodes When Loading the Tree"
+#~ msgstr "加载树时展开全部节点"
+
+#~ msgid "<b>Rich Text</b>"
+#~ msgstr "<b>富文本</b>"
+
+#~ msgid "Detail of Available Format Codes"
+#~ msgstr "时间格式化代码说明"
+
+#~ msgid "No Node is Selected!"
+#~ msgstr "没有节点被选中！"
+
+#~ msgid "Browse for Existing Anchors on the Selected Node"
+#~ msgstr "在当前所选节点查找已存在的锚点"
+
+#~ msgid "Width "
+#~ msgstr "宽 "
+
+#~ msgid "      Height "
+#~ msgstr "      高 "
+
+#~ msgid "Default Text Color"
+#~ msgstr "默认文字颜色"
+
+#~ msgid "Default Background Color"
+#~ msgstr "默认背景颜色"
