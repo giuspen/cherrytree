@@ -21,14 +21,8 @@
 
 import gtk, pango, gtksourceview2, gobject
 import sys, os, re, glob, subprocess, webbrowser, base64, cgi, urllib2, shutil, time, locale, pgsc_spellcheck
-try:
-    import appindicator
-    HAS_APPINDICATOR = True
-except: HAS_APPINDICATOR = False
-XDG_CURRENT_DESKTOP = 'XDG_CURRENT_DESKTOP'
-HAS_SYSTRAY = not (XDG_CURRENT_DESKTOP in os.environ and os.environ[XDG_CURRENT_DESKTOP] == "Unity")
 import cons, support, config, machines, clipboard, imports, exports, printing, tablez, lists, findreplace, codeboxes, ctdb
-
+if cons.HAS_APPINDICATOR: import appindicator
 
 class GladeWidgetsWrapper:
     """Handles the retrieval of glade widgets"""
@@ -62,8 +56,10 @@ class CherryTree:
         self.filetype = ""
         self.user_active = True
         # glade
-        self.glade = GladeWidgetsWrapper(cons.GLADE_PATH + 'cherrytree.glade', self) # glade widgets access
-        self.window = self.glade.window
+        self.window = gtk.Window()
+        self.window.set_title("CherryTree")
+        self.window.set_default_size(963, 630)
+        self.window.set_icon_from_file(os.path.join(cons.GLADE_PATH, "cherrytree.png"))
         # instantiate external handlers
         self.clipboard_handler = clipboard.ClipboardHandler(self)
         self.lists_handler = lists.ListsHandler(self)
@@ -95,9 +91,8 @@ class CherryTree:
         self.window.add(vbox_main)
         self.country_lang = lang_str
         config.config_file_load(self)
-        if not HAS_APPINDICATOR: self.use_appind = False
-        elif not HAS_SYSTRAY: self.use_appind = True
-        if not HAS_APPINDICATOR or not HAS_SYSTRAY: self.glade.checkbutton_use_appind.set_sensitive(False)
+        if not cons.HAS_APPINDICATOR: self.use_appind = False
+        elif not cons.HAS_SYSTRAY: self.use_appind = True
         # ui manager
         actions = gtk.ActionGroup("Actions")
         actions.add_actions(cons.get_entries(self))
@@ -163,6 +158,7 @@ class CherryTree:
         self.scrolledwindow_tree.add(self.treeview)
         self.orphan_accel_group = gtk.AccelGroup()
         self.menu_tree_create()
+        self.window.connect('delete-event', self.on_window_delete_event)
         self.window.connect('window-state-event', self.on_window_state_event)
         self.window.connect("size-allocate", self.on_window_n_tree_size_allocate_event)
         self.window.connect('key_press_event', self.on_key_press_window)
@@ -207,8 +203,6 @@ class CherryTree:
         self.window.show_all() # this before the config_file_apply that could hide something
         self.window.present()
         config.config_file_apply(self)
-        self.combobox_country_lang_init()
-        self.combobox_style_scheme_init()
         self.combobox_prog_lang_init()
         if self.systray:
             if not self.boss.systray_active:
@@ -885,7 +879,9 @@ class CherryTree:
                     if menuitem.get_image().get_property("stock") == "gtk-paste":
                         menuitem.set_sensitive(True)
                 except: pass
-            self.menu_populate_popup(menu, cons.get_popup_menu_entries_text(self))
+            if self.hovering_over_link:
+                self.menu_populate_popup(menu, cons.get_popup_menu_entries_link(self))
+            else: self.menu_populate_popup(menu, cons.get_popup_menu_entries_text(self))
         else: self.menu_populate_popup(menu, cons.get_popup_menu_entries_code(self))
 
     def menu_populate_popup(self, menu, entries, accel_group=None):
@@ -961,6 +957,8 @@ class CherryTree:
 
     def dialog_preferences(self, *args):
         """Opens the Preferences Dialog"""
+        self.glade = GladeWidgetsWrapper(cons.GLADE_PATH + 'cherrytree.glade', self)
+        config.config_dialog_prepare_settings(self)
         self.glade.prefdialog.run()
         self.glade.prefdialog.hide()
         # special characters
@@ -976,6 +974,8 @@ class CherryTree:
         if self.autosave[0] and self.autosave_timer_id == None: self.autosave_timer_start()
         # update config file (for people that do not close the app but just logout/shutdown)
         config.config_file_save(self)
+        self.glade.prefdialog.destroy()
+        del self.glade
 
     def autosave_timer_start(self):
         """Start Autosave Timer"""
@@ -1764,9 +1764,9 @@ class CherryTree:
         """Print Page Setup Operations"""
         if self.print_handler.settings is None:
             self.print_handler.settings = gtk.PrintSettings()
-        self.print_handler.page_setup = gtk.print_run_page_setup_dialog(self.glade.window,
-                                                                        self.print_handler.page_setup,
-                                                                        self.print_handler.settings)
+        self.print_handler.page_setup = gtk.print_run_page_setup_dialog(self.window,
+                                            self.print_handler.page_setup,
+                                            self.print_handler.settings)
 
     def export_to_pdf(self, action):
         """Start Export to PDF Operations"""
@@ -2316,19 +2316,6 @@ class CherryTree:
             lang_file_descriptor.write(new_lang)
             lang_file_descriptor.close()
 
-    def combobox_country_lang_init(self):
-        """Init The Country Language ComboBox"""
-        combobox = self.glade.combobox_country_language
-        self.country_lang_liststore = gtk.ListStore(str)
-        combobox.set_model(self.country_lang_liststore)
-        cell = gtk.CellRendererText()
-        combobox.pack_start(cell, True)
-        combobox.add_attribute(cell, 'text', 0)
-        for country_lang in cons.AVAILABLE_LANGS:
-            self.country_lang_liststore.append([country_lang])
-        combobox.set_active_iter(self.get_combobox_iter_from_value(self.country_lang_liststore, 0, self.country_lang))
-        combobox.connect('changed', self.on_combobox_country_language_changed)
-    
     def on_combobox_style_scheme_changed(self, combobox):
         """New Style Scheme Choosed"""
         new_iter = self.glade.combobox_style_scheme.get_active_iter()
@@ -2336,45 +2323,64 @@ class CherryTree:
         if new_style != self.style_scheme:
             self.style_scheme = new_style
             support.dialog_info_after_restart(self.window)
-    
-    def combobox_style_scheme_init(self):
-        """Init The Style Scheme ComboBox"""
-        combobox = self.glade.combobox_style_scheme
-        self.style_scheme_liststore = gtk.ListStore(str)
-        combobox.set_model(self.style_scheme_liststore)
-        cell = gtk.CellRendererText()
-        combobox.pack_start(cell, True)
-        combobox.add_attribute(cell, 'text', 0)
-        style_schemes_list = []
-        for style_scheme in sorted(self.sourcestyleschememanager.get_scheme_ids()):
-            self.style_scheme_liststore.append([style_scheme])
-            style_schemes_list.append(style_scheme)
-        if not self.style_scheme in style_schemes_list: self.style_scheme = style_schemes_list[0]
-        combobox.set_active_iter(self.get_combobox_iter_from_value(self.style_scheme_liststore, 0, self.style_scheme))
-        combobox.connect('changed', self.on_combobox_style_scheme_changed)
-    
+
     def on_combobox_spell_check_lang_changed(self, combobox):
         """New Spell Check Language Choosed"""
         if not self.user_active: return
         new_iter = self.glade.combobox_spell_check_lang.get_active_iter()
         new_lang_code = self.spell_check_lang_liststore[new_iter][0]
         if new_lang_code != self.spell_check_lang: self.spell_check_set_new_lang(new_lang_code)
+
+    def combobox_country_lang_init(self):
+        """Init The Country Language ComboBox"""
+        if not "country_lang_liststore" in dir(self):
+            self.country_lang_liststore = gtk.ListStore(str)
+            for country_lang in cons.AVAILABLE_LANGS:
+                self.country_lang_liststore.append([country_lang])
+        if "glade" in dir(self):
+            combobox = self.glade.combobox_country_language
+            combobox.set_model(self.country_lang_liststore)
+            cell = gtk.CellRendererText()
+            combobox.pack_start(cell, True)
+            combobox.add_attribute(cell, 'text', 0)
+            combobox.set_active_iter(self.get_combobox_iter_from_value(self.country_lang_liststore, 0, self.country_lang))
+            combobox.connect('changed', self.on_combobox_country_language_changed)
+    
+    def combobox_style_scheme_init(self):
+        """Init The Style Scheme ComboBox"""
+        if not "style_scheme_liststore" in dir(self):
+            self.style_scheme_liststore = gtk.ListStore(str)
+            style_schemes_list = []
+            for style_scheme in sorted(self.sourcestyleschememanager.get_scheme_ids()):
+                self.style_scheme_liststore.append([style_scheme])
+                style_schemes_list.append(style_scheme)
+            if not self.style_scheme in style_schemes_list: self.style_scheme = style_schemes_list[0]
+        if "glade" in dir(self):
+            combobox = self.glade.combobox_style_scheme
+            combobox.set_model(self.style_scheme_liststore)
+            cell = gtk.CellRendererText()
+            combobox.pack_start(cell, True)
+            combobox.add_attribute(cell, 'text', 0)
+            combobox.set_active_iter(self.get_combobox_iter_from_value(self.style_scheme_liststore, 0, self.style_scheme))
+            combobox.connect('changed', self.on_combobox_style_scheme_changed)
     
     def combobox_spell_check_lang_init(self):
         """Init The Spell Check Language ComboBox"""
-        combobox = self.glade.combobox_spell_check_lang
-        self.spell_check_lang_liststore = gtk.ListStore(str)
-        combobox.set_model(self.spell_check_lang_liststore)
-        cell = gtk.CellRendererText()
-        combobox.pack_start(cell, True)
-        combobox.add_attribute(cell, 'text', 0)
-        code_lang_list = []
-        for code_lang in sorted(self.spell_check_get_languages()):
-            self.spell_check_lang_liststore.append([code_lang])
-            code_lang_list.append(code_lang)
-        if not self.spell_check_lang in code_lang_list: self.spell_check_lang = code_lang_list[0]
-        combobox.set_active_iter(self.get_combobox_iter_from_value(self.spell_check_lang_liststore, 0, self.spell_check_lang))
-        combobox.connect('changed', self.on_combobox_spell_check_lang_changed)
+        if not "spell_check_lang_liststore" in dir(self):
+            self.spell_check_lang_liststore = gtk.ListStore(str)
+            code_lang_list = []
+            for code_lang in sorted(self.spell_check_get_languages()):
+                self.spell_check_lang_liststore.append([code_lang])
+                code_lang_list.append(code_lang)
+            if not self.spell_check_lang in code_lang_list: self.spell_check_lang = code_lang_list[0]
+        if "glade" in dir(self):
+            combobox = self.glade.combobox_spell_check_lang
+            combobox.set_model(self.spell_check_lang_liststore)
+            cell = gtk.CellRendererText()
+            combobox.pack_start(cell, True)
+            combobox.add_attribute(cell, 'text', 0)
+            combobox.set_active_iter(self.get_combobox_iter_from_value(self.spell_check_lang_liststore, 0, self.spell_check_lang))
+            combobox.connect('changed', self.on_combobox_spell_check_lang_changed)
     
     def get_combobox_iter_from_value(self, liststore, column_num, value):
         """Returns the Liststore iter Given the First Column Value"""
@@ -3151,7 +3157,7 @@ class CherryTree:
         else:
             anchor_curr_name = ""
             dialog_title = _("Insert Anchor")
-        ret_anchor_name = support.dialog_anchor_handle(self.window, dialog_title, anchor_curr_name)
+        ret_anchor_name = support.dialog_img_n_entry(self.window, dialog_title, anchor_curr_name, "anchor")
         if not ret_anchor_name: return
         pixbuf.anchor = ret_anchor_name
         if iter_bound != None: # only in case of modify
@@ -3572,7 +3578,8 @@ class CherryTree:
             if not match: break # we got it
             elif not iter_end.forward_char(): break # we reached the buffer end
             end_moved = True
-        if not end_moved: iter_start.backward_char() # we could be at the end of a word
+        if not end_moved:
+            if not iter_start.backward_char(): return False # we could be at the end of a word
         while iter_start != None:
             char = iter_start.get_char()
             match = re.match('[^\s^$]', char, re.UNICODE)
@@ -3606,6 +3613,27 @@ class CherryTree:
         if self.latest_tag[0] == "": support.dialog_warning(_("No Previous Text Format Was Performed During This Session"), self.window)
         else: self.apply_tag(*self.latest_tag)
 
+    def link_cut(self, *args):
+        """Cut Link"""
+        if self.link_check_around_cursor():
+            self.sourceview.emit("cut-clipboard")
+
+    def link_copy(self, *args):
+        """Copy Link"""
+        if self.link_check_around_cursor():
+            self.sourceview.emit("copy-clipboard")
+
+    def link_dismiss(self, *args):
+        """Dismiss Link"""
+        if self.link_check_around_cursor():
+            self.remove_text_formatting()
+
+    def link_delete(self, *args):
+        """Delete Link"""
+        if self.link_check_around_cursor():
+            self.curr_buffer.delete_selection(True, self.sourceview.get_editable())
+            self.sourceview.grab_focus()
+
     def apply_tag(self, tag_property, property_value=None, iter_sel_start=None, iter_sel_end=None, text_buffer=None):
         """Apply a tag"""
         if self.user_active and not self.is_curr_node_not_syntax_highlighting_or_error(): return
@@ -3613,7 +3641,12 @@ class CherryTree:
         if iter_sel_start == None and iter_sel_end == None:
             if tag_property != cons.TAG_JUSTIFICATION:
                 if not self.is_there_selected_node_or_error(): return
-                if tag_property == cons.TAG_LINK: link_node_id = None
+                if tag_property == cons.TAG_LINK:
+                    link_node_id = None
+                    self.links_entries['webs'] = ""
+                    self.links_entries['file'] = ""
+                    self.links_entries['fold'] = ""
+                    self.links_entries['anch'] = ""
                 if not text_buffer.get_has_selection():
                     if tag_property != cons.TAG_LINK:
                         if not self.apply_tag_try_automatic_bounds():
@@ -3623,12 +3656,12 @@ class CherryTree:
                         tag_property_value = self.link_check_around_cursor()
                         if tag_property_value == "":
                             if not self.apply_tag_try_automatic_bounds():
-                                support.dialog_warning(_("No Text is Selected"), self.window)
-                                return
-                            self.links_entries['webs'] = ""
-                            self.links_entries['file'] = ""
-                            self.links_entries['fold'] = ""
-                            self.links_entries['anch'] = ""
+                                link_name = support.dialog_img_n_entry(self.window, _("Link Name"), "", "link_handle")
+                                if not link_name: return
+                                start_offset = text_buffer.get_iter_at_mark(text_buffer.get_insert()).get_offset()
+                                text_buffer.insert_at_cursor(link_name)
+                                end_offset = text_buffer.get_iter_at_mark(text_buffer.get_insert()).get_offset()
+                                text_buffer.select_range(text_buffer.get_iter_at_offset(start_offset), text_buffer.get_iter_at_offset(end_offset))
                             self.link_type = cons.LINK_TYPE_WEBS # default value
                         else:
                             vector = tag_property_value.split()
@@ -3660,13 +3693,13 @@ class CherryTree:
                 or support.get_next_chars_from_iter_are(iter_sel_start, 4, "www."):
                     self.link_type = cons.LINK_TYPE_WEBS
                     self.links_entries['webs'] = text_buffer.get_text(iter_sel_start, iter_sel_end)
-                if link_node_id:
-                    title = _("Edit a Link")
-                    sel_tree_iter = self.get_tree_iter_from_node_id(link_node_id)
-                else:
-                    title = _("Insert a Link")
-                    sel_tree_iter = None
-                if not support.dialog_link_handle(self, title, sel_tree_iter): return
+                if link_node_id: sel_tree_iter = self.get_tree_iter_from_node_id(link_node_id)
+                else: sel_tree_iter = None
+                insert_offset = iter_sel_start.get_offset()
+                bound_offset = iter_sel_end.get_offset()
+                if not support.dialog_link_handle(self, _("Insert/Edit Link"), sel_tree_iter): return
+                iter_sel_start = text_buffer.get_iter_at_offset(insert_offset)
+                iter_sel_end = text_buffer.get_iter_at_offset(bound_offset)
                 if self.link_type == cons.LINK_TYPE_WEBS:
                     link_url = self.links_entries['webs']
                     if link_url:
@@ -3705,7 +3738,7 @@ class CherryTree:
                 else: print "ERROR bad tag_property"
                 response = dialog.run()
                 dialog.hide()
-                if response != gtk.RESPONSE_OK: return # cancel was clicked
+                if response != gtk.RESPONSE_ACCEPT: return # cancel was clicked
                 self.curr_colors[tag_property[0]] = colorselection.get_current_color()
                 property_value = self.curr_colors[tag_property[0]].to_string()
                 color_str_hex8 = "#" + self.html_handler.rgb_to_24(property_value[1:])
@@ -3823,19 +3856,37 @@ class CherryTree:
         """Get Installed Dictionaries for Spell Check"""
         return [code for code, name in self.spellchecker.languages]
 
-    def link_check_around_cursor(self):
-        """Check if the cursor is on a link, in this case select the link and return the tag_property_value"""
-        iter = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
-        tags = iter.get_tags()
+    def link_check_around_cursor_iter(self, text_iter):
+        """Check if the text iter is on a link"""
+        tags = text_iter.get_tags()
         for tag in tags:
             tag_name = tag.get_property("name")
-            if tag_name and tag_name[0:4] == cons.TAG_LINK: break
-        else: return ""
-        iter_end = iter.copy()
-        if not iter_end.forward_to_tag_toggle(tag): return ""
-        if not iter.backward_to_tag_toggle(tag): return ""
+            if tag_name and tag_name[0:4] == cons.TAG_LINK: return tag_name
+        return ""
+
+    def link_check_around_cursor(self):
+        """Check if the cursor is on a link, in this case select the link and return the tag_property_value"""
+        text_iter = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
+        tag_name = self.link_check_around_cursor_iter(text_iter)
+        if not tag_name:
+            if text_iter.get_char() == cons.CHAR_SPACE\
+            and text_iter.backward_char():
+                tag_name = self.link_check_around_cursor_iter(text_iter)
+                if not tag_name: return ""
+            else: return ""
+        iter_end = text_iter.copy()
+        while iter_end.forward_char():
+            ret_tag_name = self.link_check_around_cursor_iter(iter_end)
+            if ret_tag_name != tag_name:
+                break
+        while text_iter.backward_char():
+            ret_tag_name = self.link_check_around_cursor_iter(text_iter)
+            if ret_tag_name != tag_name:
+                text_iter.forward_char()
+                break
+        if text_iter.equal(iter_end): return ""
         self.curr_buffer.move_mark(self.curr_buffer.get_insert(), iter_end)
-        self.curr_buffer.move_mark(self.curr_buffer.get_selection_bound(), iter)
+        self.curr_buffer.move_mark(self.curr_buffer.get_selection_bound(), text_iter)
         return tag_name[5:]
 
     def link_clicked(self, tag_property_value):
@@ -4105,8 +4156,11 @@ class CherryTree:
 
     def on_sourceview_motion_notify_event(self, text_view, event):
         """Update the cursor image if the pointer moved"""
-        if not self.sourceview.get_cursor_visible(): self.sourceview.set_cursor_visible(True)
-        if self.syntax_highlighting != cons.CUSTOM_COLORS_ID: return
+        if not self.sourceview.get_cursor_visible():
+            self.sourceview.set_cursor_visible(True)
+        if self.syntax_highlighting != cons.CUSTOM_COLORS_ID:
+            self.sourceview.get_window(gtk.TEXT_WINDOW_TEXT).set_cursor(None)
+            return
         x, y = self.sourceview.window_to_buffer_coords(gtk.TEXT_WINDOW_TEXT, int(event.x), int(event.y))
         self.sourceview_cursor_and_tooltips_handler(x, y)
         return False
@@ -4126,7 +4180,9 @@ class CherryTree:
 
     def on_sourceview_visibility_notify_event(self, text_view, event):
         """Update the cursor image if the window becomes visible (e.g. when a window covering it got iconified)"""
-        if self.syntax_highlighting != cons.CUSTOM_COLORS_ID: return
+        if self.syntax_highlighting != cons.CUSTOM_COLORS_ID:
+            self.sourceview.get_window(gtk.TEXT_WINDOW_TEXT).set_cursor(None)
+            return
         wx, wy, mod = self.sourceview.window.get_pointer()
         bx, by = self.sourceview.window_to_buffer_coords(gtk.TEXT_WINDOW_TEXT, wx, wy)
         self.sourceview_cursor_and_tooltips_handler(bx, by)

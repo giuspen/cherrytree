@@ -223,18 +223,18 @@ def config_file_load(inst):
         inst.recent_docs = []
         inst.toolbar_visible = True
 
-def config_file_apply(inst):
-    """Apply the Preferences from Config File"""
+def config_dialog_prepare_settings(inst):
+    """Prepare Preferences Dialog"""
     if inst.user_active:
         inst.user_active = False
         user_active_restore = True
     else: user_active_restore = False
-    # treeview
-    inst.hpaned.set_property('position', inst.hpaned_pos)
-    inst.header_node_name_label.set_property(cons.STR_VISIBLE, inst.show_node_name_label)
-    inst.set_treeview_font()
+    inst.combobox_country_lang_init()
+    inst.combobox_style_scheme_init()
+    if "spellchecker" in dir(inst): inst.combobox_spell_check_lang_init()
+    if not cons.HAS_APPINDICATOR or not cons.HAS_SYSTRAY: inst.glade.checkbutton_use_appind.set_sensitive(False)
+    inst.glade.prefdialog.set_transient_for(inst.window)
     inst.glade.fontbutton_tree.set_font_name(inst.tree_font)
-    # sourceview
     inst.glade.fontbutton_text.set_font_name(inst.text_font)
     inst.glade.fontbutton_code.set_font_name(inst.code_font)
     inst.glade.colorbutton_text_fg.set_color(gtk.gdk.color_parse(inst.rt_def_fg))
@@ -259,28 +259,17 @@ def config_file_apply(inst):
         inst.glade.colorbutton_tree_fg.set_sensitive(False)
         inst.glade.colorbutton_tree_bg.set_sensitive(False)
     else: inst.glade.radiobutton_tt_col_custom.set_active(True)
-    inst.treeview.modify_base(gtk.STATE_NORMAL, gtk.gdk.color_parse(inst.tt_def_bg))
-    inst.treeview.modify_text(gtk.STATE_NORMAL, gtk.gdk.color_parse(inst.tt_def_fg))
     inst.glade.entry_horizontal_rule.set_text(inst.h_rule)
     inst.glade.textbuffer_special_chars.set_text(inst.special_chars)
     inst.glade.textbuffer_special_chars.set_modified(False)
     if not pgsc_spellcheck.HAS_PYENCHANT:
-        inst.enable_spell_check = False
         inst.glade.checkbutton_spell_check.set_sensitive(False)
-    inst.glade.checkbutton_spell_check.set_active(inst.enable_spell_check)
-    if inst.enable_spell_check:
-        inst.spell_check_set_on()
-    else:
         inst.glade.combobox_spell_check_lang.set_sensitive(False)
-    inst.sourceview.set_show_line_numbers(inst.show_line_numbers)
+    inst.glade.checkbutton_spell_check.set_active(inst.enable_spell_check)
     inst.glade.checkbutton_line_nums.set_active(inst.show_line_numbers)
-    inst.sourceview.set_insert_spaces_instead_of_tabs(inst.spaces_instead_tabs)
     inst.glade.checkbutton_spaces_tabs.set_active(inst.spaces_instead_tabs)
-    inst.sourceview.set_tab_width(inst.tabs_width)
     inst.glade.spinbutton_tab_width.set_value(inst.tabs_width)
     inst.glade.spinbutton_anchor_size.set_value(inst.anchor_size)
-    if inst.line_wrapping: inst.sourceview.set_wrap_mode(gtk.WRAP_WORD)
-    else: inst.sourceview.set_wrap_mode(gtk.WRAP_NONE)
     inst.glade.checkbutton_line_wrap.set_active(inst.line_wrapping)
     inst.glade.checkbutton_auto_indent.set_active(inst.auto_indent)
     inst.glade.checkbutton_systray.set_active(inst.systray)
@@ -301,7 +290,6 @@ def config_file_apply(inst):
     inst.glade.checkbutton_highlight_current_line.set_active(inst.highl_curr_line)
     inst.glade.checkbutton_start_on_systray.set_active(inst.start_on_systray)
     inst.glade.checkbutton_start_on_systray.set_sensitive(inst.systray)
-    # custom link clicked actions
     inst.glade.checkbutton_custom_weblink_cmd.set_active(inst.weblink_custom_action[0])
     inst.glade.entry_custom_weblink_cmd.set_sensitive(inst.weblink_custom_action[0])
     inst.glade.entry_custom_weblink_cmd.set_text(inst.weblink_custom_action[1])
@@ -312,18 +300,34 @@ def config_file_apply(inst):
     inst.glade.entry_custom_folderlink_cmd.set_sensitive(inst.folderlink_custom_action[0])
     inst.glade.entry_custom_folderlink_cmd.set_text(inst.folderlink_custom_action[1])
     inst.glade.entry_timestamp_format.set_text(inst.timestamp_format)
-    #
     inst.glade.radiobutton_node_icon_cherry.set_active(inst.nodes_icons == "c")
     inst.glade.radiobutton_node_icon_bullet.set_active(inst.nodes_icons == "b")
     inst.glade.radiobutton_node_icon_none.set_active(inst.nodes_icons == "n")
     inst.glade.spinbutton_limit_undoable_steps.set_value(inst.limit_undoable_steps)
     inst.glade.spinbutton_tree_nodes_names_width.set_value(inst.cherry_wrap_width)
+    if user_active_restore: inst.user_active = True
+
+def config_file_apply(inst):
+    """Apply the Preferences from Config File"""
+    inst.hpaned.set_property('position', inst.hpaned_pos)
+    inst.header_node_name_label.set_property(cons.STR_VISIBLE, inst.show_node_name_label)
+    inst.set_treeview_font()
+    inst.treeview.modify_base(gtk.STATE_NORMAL, gtk.gdk.color_parse(inst.tt_def_bg))
+    inst.treeview.modify_text(gtk.STATE_NORMAL, gtk.gdk.color_parse(inst.tt_def_fg))
+    if not pgsc_spellcheck.HAS_PYENCHANT:
+        inst.enable_spell_check = False
+    if inst.enable_spell_check:
+        inst.spell_check_set_on()
+    inst.sourceview.set_show_line_numbers(inst.show_line_numbers)
+    inst.sourceview.set_insert_spaces_instead_of_tabs(inst.spaces_instead_tabs)
+    inst.sourceview.set_tab_width(inst.tabs_width)
+    if inst.line_wrapping: inst.sourceview.set_wrap_mode(gtk.WRAP_WORD)
+    else: inst.sourceview.set_wrap_mode(gtk.WRAP_NONE)
     inst.renderer_text.set_property('wrap-width', inst.cherry_wrap_width)
     inst.ui.get_widget("/ToolBar").set_property(cons.STR_VISIBLE, inst.toolbar_visible)
     inst.ui.get_widget("/ToolBar").set_style(gtk.TOOLBAR_ICONS)
     inst.ui.get_widget("/ToolBar").set_property("icon-size", ICONS_SIZE[inst.toolbar_icon_size])
     if inst.autosave[0]: inst.autosave_timer_start()
-    if user_active_restore: inst.user_active = True
 
 def config_file_save(inst):
     """Save the Preferences to Config File"""
