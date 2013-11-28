@@ -455,6 +455,8 @@ class ZimHandler():
         """Parse the node wiki content"""
         for tag_property in cons.TAG_PROPERTIES: self.curr_attributes[tag_property] = ""
         self.in_block = False
+        self.in_link = False
+        self.in_plain_link = False
         curr_pos = 0
         wiki_string = wiki_string.replace(cons.CHAR_CR, "")
         wiki_string = wiki_string.replace(cons.CHAR_NEWLINE+cons.CHAR_STAR+cons.CHAR_SPACE, cons.CHAR_NEWLINE+cons.CHAR_LISTBUL+cons.CHAR_SPACE)
@@ -480,6 +482,53 @@ class ZimHandler():
                         self.curr_attributes[cons.TAG_FAMILY] = ""
                         curr_pos += 2
                         self.in_block = False
+                    else: self.wiki_slot += curr_char
+                elif self.in_plain_link:
+                    self.wiki_slot += curr_char
+                    if curr_char == cons.CHAR_NEWLINE: self.in_plain_link = False
+                elif self.in_link:
+                    if curr_char == cons.CHAR_BR_CLOSE and next_char == cons.CHAR_BR_CLOSE:
+                        valid_image = False
+                        if cons.CHAR_QUESTION in self.wiki_slot:
+                            splitted_wiki_slot = self.wiki_slot.split(cons.CHAR_QUESTION)
+                            self.wiki_slot = splitted_wiki_slot[0]
+                        if self.wiki_slot.startswith("./"): self.wiki_slot = os.path.join(curr_folder, node_name, self.wiki_slot[2:])
+                        if os.path.isfile(self.wiki_slot):
+                            try:
+                                pixbuf = gtk.gdk.pixbuf_new_from_file(self.wiki_slot)
+                                self.pixbuf_vector.append([self.chars_counter, pixbuf, cons.TAG_PROP_LEFT])
+                                self.chars_counter += 1
+                                valid_image = True
+                            except: pass
+                        if not valid_image: print "! error: '%s' is not a valid image" % self.wiki_slot
+                        self.wiki_slot = ""
+                        curr_pos += 1
+                        self.in_link = False
+                    elif curr_char == cons.CHAR_SQ_BR_CLOSE and next_char == cons.CHAR_SQ_BR_CLOSE:
+                        if cons.CHAR_PIPE in self.wiki_slot:
+                            target_n_label = self.wiki_slot.split(cons.CHAR_PIPE)
+                        else:
+                            target_n_label = [self.wiki_slot, self.wiki_slot]
+                        exp_filepath = target_n_label[0]
+                        if exp_filepath.startswith("./"): exp_filepath = os.path.join(curr_folder, node_name, exp_filepath[2:])
+                        if exp_filepath.startswith("http") or exp_filepath.startswith("ftp") or exp_filepath.startswith("www.")\
+                        and not cons.CHAR_SPACE in exp_filepath:
+                            self.curr_attributes[cons.TAG_LINK] = "webs %s" % exp_filepath
+                            self.rich_text_serialize(target_n_label[1])
+                            self.curr_attributes[cons.TAG_LINK] = ""
+                        elif cons.CHAR_SLASH in exp_filepath:
+                            self.curr_attributes[cons.TAG_LINK] = "file %s" % base64.b64encode(exp_filepath)
+                            self.rich_text_serialize(target_n_label[1])
+                            self.curr_attributes[cons.TAG_LINK] = ""
+                        else:
+                            self.links_to_node_list.append({'name_dest': target_n_label[0],
+                                                            'node_source': node_name,
+                                                            'char_start': self.chars_counter,
+                                                            'char_end': self.chars_counter+len(target_n_label[1])})
+                            self.rich_text_serialize(target_n_label[1])
+                        self.wiki_slot = ""
+                        curr_pos += 1
+                        self.in_link = False
                     else: self.wiki_slot += curr_char
                 elif curr_char == cons.CHAR_STAR and next_char == cons.CHAR_STAR:
                     wiki_slot_flush()
@@ -551,46 +600,7 @@ class ZimHandler():
                   or curr_char == cons.CHAR_SQ_BR_OPEN and next_char == cons.CHAR_SQ_BR_OPEN:
                     wiki_slot_flush()
                     curr_pos += 1
-                elif curr_char == cons.CHAR_BR_CLOSE and next_char == cons.CHAR_BR_CLOSE:
-                    valid_image = False
-                    if cons.CHAR_QUESTION in self.wiki_slot:
-                        splitted_wiki_slot = self.wiki_slot.split(cons.CHAR_QUESTION)
-                        self.wiki_slot = splitted_wiki_slot[0]
-                    if self.wiki_slot.startswith("./"): self.wiki_slot = os.path.join(curr_folder, node_name, self.wiki_slot[2:])
-                    if os.path.isfile(self.wiki_slot):
-                        try:
-                            pixbuf = gtk.gdk.pixbuf_new_from_file(self.wiki_slot)
-                            self.pixbuf_vector.append([self.chars_counter, pixbuf, cons.TAG_PROP_LEFT])
-                            self.chars_counter += 1
-                            valid_image = True
-                        except: pass
-                    if not valid_image: print "! error: '%s' is not a valid image" % self.wiki_slot
-                    self.wiki_slot = ""
-                    curr_pos += 1
-                elif curr_char == cons.CHAR_SQ_BR_CLOSE and next_char == cons.CHAR_SQ_BR_CLOSE:
-                    if cons.CHAR_PIPE in self.wiki_slot:
-                        target_n_label = self.wiki_slot.split(cons.CHAR_PIPE)
-                    else:
-                        target_n_label = [self.wiki_slot, self.wiki_slot]
-                    exp_filepath = target_n_label[0]
-                    if exp_filepath.startswith("./"): exp_filepath = os.path.join(curr_folder, node_name, exp_filepath[2:])
-                    if exp_filepath.startswith("http") or exp_filepath.startswith("ftp") or exp_filepath.startswith("www")\
-                    and not cons.CHAR_SPACE in exp_filepath:
-                        self.curr_attributes[cons.TAG_LINK] = "webs %s" % exp_filepath
-                        self.rich_text_serialize(target_n_label[1])
-                        self.curr_attributes[cons.TAG_LINK] = ""
-                    elif cons.CHAR_SLASH in exp_filepath:
-                        self.curr_attributes[cons.TAG_LINK] = "file %s" % base64.b64encode(exp_filepath)
-                        self.rich_text_serialize(target_n_label[1])
-                        self.curr_attributes[cons.TAG_LINK] = ""
-                    else:
-                        self.links_to_node_list.append({'name_dest': target_n_label[0],
-                                                        'node_source': node_name,
-                                                        'char_start': self.chars_counter,
-                                                        'char_end': self.chars_counter+len(target_n_label[1])})
-                        self.rich_text_serialize(target_n_label[1])
-                    self.wiki_slot = ""
-                    curr_pos += 1
+                    self.in_link = True
                 elif curr_char == cons.CHAR_SQ_BR_OPEN\
                 and next_char in [cons.CHAR_SPACE, cons.CHAR_STAR, 'x']\
                 and third_char == cons.CHAR_SQ_BR_CLOSE:
