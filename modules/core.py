@@ -198,6 +198,7 @@ class CherryTree:
         self.autosave_timer_id = None
         self.mod_time_sentinel_id = None
         self.mod_time_val = 0
+        self.prefpage = 0
         support.set_menu_items_recent_documents(self)
         support.set_menu_items_special_chars(self)
         self.window.show_all() # this before the config_file_apply that could hide something
@@ -959,7 +960,10 @@ class CherryTree:
         """Opens the Preferences Dialog"""
         self.glade = GladeWidgetsWrapper(cons.GLADE_PATH + 'cherrytree.glade', self)
         config.config_dialog_prepare_settings(self)
+        self.glade.prefnotebook.set_current_page(self.prefpage)
+        self.glade.prefdialog.show_all()
         self.glade.prefdialog.run()
+        self.prefpage = self.glade.prefnotebook.get_current_page()
         self.glade.prefdialog.hide()
         # special characters
         if self.glade.textbuffer_special_chars.get_modified():
