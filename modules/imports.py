@@ -404,7 +404,6 @@ class ZimHandler():
         """Machine boot"""
         self.folderpath = folderpath
         self.xml_handler = machines.XMLHandler(self)
-        self.in_block = False
 
     def rich_text_serialize(self, text_data):
         """Appends a new part to the XML rich text"""
@@ -454,8 +453,12 @@ class ZimHandler():
 
     def node_wiki_parse(self, wiki_string, node_name, curr_folder):
         """Parse the node wiki content"""
+        for tag_property in cons.TAG_PROPERTIES: self.curr_attributes[tag_property] = ""
+        self.in_block = False
         curr_pos = 0
-        wiki_string = wiki_string.replace(cons.CHAR_NEWLINE+cons.CHAR_STAR+cons.CHAR_SPACE, cons.CHAR_NEWLINE+cons.CHAR_LISTBUL+cons.CHAR_SPACE).replace(cons.CHAR_CR, "")
+        wiki_string = wiki_string.replace(cons.CHAR_CR, "")
+        wiki_string = wiki_string.replace(cons.CHAR_NEWLINE+cons.CHAR_STAR+cons.CHAR_SPACE, cons.CHAR_NEWLINE+cons.CHAR_LISTBUL+cons.CHAR_SPACE)
+        wiki_string = wiki_string.replace(cons.CHAR_TAB+cons.CHAR_STAR+cons.CHAR_SPACE, cons.CHAR_TAB+cons.CHAR_LISTBUL+cons.CHAR_SPACE)
         max_pos = len(wiki_string)
         newline_count = 0
         self.wiki_slot = ""
@@ -571,7 +574,12 @@ class ZimHandler():
                         target_n_label = [self.wiki_slot, self.wiki_slot]
                     exp_filepath = target_n_label[0]
                     if exp_filepath.startswith("./"): exp_filepath = os.path.join(curr_folder, node_name, exp_filepath[2:])
-                    if cons.CHAR_SLASH in exp_filepath:
+                    if exp_filepath.startswith("http") or exp_filepath.startswith("ftp") or exp_filepath.startswith("www")\
+                    and not cons.CHAR_SPACE in exp_filepath:
+                        self.curr_attributes[cons.TAG_LINK] = "webs %s" % exp_filepath
+                        self.rich_text_serialize(target_n_label[1])
+                        self.curr_attributes[cons.TAG_LINK] = ""
+                    elif cons.CHAR_SLASH in exp_filepath:
                         self.curr_attributes[cons.TAG_LINK] = "file %s" % base64.b64encode(exp_filepath)
                         self.rich_text_serialize(target_n_label[1])
                         self.curr_attributes[cons.TAG_LINK] = ""
