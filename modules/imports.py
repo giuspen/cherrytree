@@ -473,6 +473,7 @@ class ZimHandler():
             curr_char = wiki_string[curr_pos:curr_pos+1]
             next_char = wiki_string[curr_pos+1:curr_pos+2] if curr_pos+1 < max_pos else cons.CHAR_SPACE
             third_char = wiki_string[curr_pos+2:curr_pos+3] if curr_pos+2 < max_pos else cons.CHAR_SPACE
+            fourth_char = wiki_string[curr_pos+3:curr_pos+4] if curr_pos+3 < max_pos else cons.CHAR_SPACE
             if newline_count < 4:
                 if curr_char == cons.CHAR_NEWLINE: newline_count += 1
             else:
@@ -484,8 +485,12 @@ class ZimHandler():
                         self.in_block = False
                     else: self.wiki_slot += curr_char
                 elif self.in_plain_link:
+                    if curr_char in [cons.CHAR_SPACE, cons.CHAR_NEWLINE]:
+                        self.curr_attributes[cons.TAG_LINK] = "webs %s" % self.wiki_slot
+                        wiki_slot_flush()
+                        self.curr_attributes[cons.TAG_LINK] = ""
+                        self.in_plain_link = False
                     self.wiki_slot += curr_char
-                    if curr_char == cons.CHAR_NEWLINE: self.in_plain_link = False
                 elif self.in_link:
                     if curr_char == cons.CHAR_BR_CLOSE and next_char == cons.CHAR_BR_CLOSE:
                         valid_image = False
@@ -563,6 +568,10 @@ class ZimHandler():
                         curr_pos += 2
                         self.in_block = True if self.curr_attributes[cons.TAG_FAMILY] else False
                     else: curr_pos += 1
+                elif curr_char == 'h' and next_char == 't' and third_char == 't' and fourth_char == 'p':
+                    wiki_slot_flush()
+                    self.wiki_slot += curr_char
+                    self.in_plain_link = True
                 elif curr_char == cons.CHAR_EQUAL and next_char == cons.CHAR_EQUAL:
                     wiki_slot_flush()
                     if curr_pos+5 < max_pos and wiki_string[curr_pos+2:curr_pos+6] == cons.CHAR_EQUAL*4:
