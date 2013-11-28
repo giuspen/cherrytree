@@ -49,6 +49,13 @@ CONFIG_PATH = os.path.join(CONFIG_DIR, 'config.cfg')
 LANG_PATH = os.path.join(CONFIG_DIR, 'lang')
 IMG_PATH = os.path.join(CONFIG_DIR, 'img_tmp.png')
 
+try:
+    import appindicator
+    HAS_APPINDICATOR = True
+except: HAS_APPINDICATOR = False
+XDG_CURRENT_DESKTOP = 'XDG_CURRENT_DESKTOP'
+HAS_SYSTRAY = not (XDG_CURRENT_DESKTOP in os.environ and os.environ[XDG_CURRENT_DESKTOP] == "Unity")
+
 AVAILABLE_LANGS = ['default', 'cs', 'de', 'en', 'es', 'fr', 'it', 'nl', 'pl', 'pt_BR', 'ru', 'uk', 'zh_CN']
 COLOR_48_YELLOW = "#bbbbbbbb0000"
 COLOR_48_WHITE = "#ffffffffffff"
@@ -806,6 +813,22 @@ def get_popup_menu_entries_code(inst):
     ("submenu-end", None, None, None, None),
     ]
 
+def get_popup_menu_entries_link(inst):
+    """Returns the Menu Entries Given the Class Instance"""
+    # stock id, label, accelerator, tooltip, callback |
+    # "separator", None, None, None, None |
+    # "submenu-start", label, stock id, None, None |
+    # "submenu-end", None, None, None, None
+    return [
+    ("separator", None, None, None, None),
+    ("link_handle", _("Edit _Link"), None, _("Edit the Underlying Link"), inst.apply_tag_link),
+    ("separator", None, None, None, None),
+    ("edit-cut", _("C_ut Link"), None, _("Cut the Selected CodeBox"), inst.link_cut),
+    ("edit-copy", _("_Copy Link"), None, _("Copy the Selected CodeBox"), inst.link_copy),
+    ("gtk-clear", _("D_ismiss Link"), None, _("Dismiss the Selected Link"), inst.link_dismiss),
+    ("edit-delete", _("_Delete Link"), None, _("Delete the Selected Link"), inst.link_delete),
+    ]
+
 def get_popup_menu_entries_codebox(inst):
     """Returns the Menu Entries Given the Class Instance"""
     # stock id, label, accelerator, tooltip, callback |
@@ -814,11 +837,11 @@ def get_popup_menu_entries_codebox(inst):
     # "submenu-end", None, None, None, None
     return [
     ("separator", None, None, None, None),
+    ("codebox_edit", _("Change CodeBox _Properties"), None, _("Edit the Properties of the CodeBox"), inst.codebox_change_properties),
+    ("separator", None, None, None, None),
     ("edit-cut", _("C_ut CodeBox"), None, _("Cut the Selected CodeBox"), inst.codebox_cut),
     ("edit-copy", _("_Copy CodeBox"), None, _("Copy the Selected CodeBox"), inst.codebox_copy),
     ("edit-delete", _("_Delete CodeBox"), None, _("Delete the Selected CodeBox"), inst.codebox_delete),
-    ("separator", None, None, None, None),
-    ("codebox_edit", _("Change CodeBox _Properties"), None, _("Edit the Properties of the CodeBox"), inst.codebox_change_properties),
     ("separator", None, None, None, None),
     ("gtk-go-forward", _("Increase CodeBox Width"), "<control>period", _("Increase the Width of the CodeBox"), inst.codebox_increase_width),
     ("gtk-go-back", _("Decrease CodeBox Width"), "<control><alt>period", _("Decrease the Width of the CodeBox"), inst.codebox_decrease_width),

@@ -404,6 +404,7 @@ class ZimHandler():
         """Machine boot"""
         self.folderpath = folderpath
         self.xml_handler = machines.XMLHandler(self)
+        self.in_block = False
 
     def rich_text_serialize(self, text_data):
         """Appends a new part to the XML rich text"""
@@ -457,7 +458,11 @@ class ZimHandler():
         wiki_string = wiki_string.replace(cons.CHAR_NEWLINE+cons.CHAR_STAR+cons.CHAR_SPACE, cons.CHAR_NEWLINE+cons.CHAR_LISTBUL+cons.CHAR_SPACE).replace(cons.CHAR_CR, "")
         max_pos = len(wiki_string)
         newline_count = 0
-        wiki_slot = ""
+        self.wiki_slot = ""
+        def wiki_slot_flush():
+            if self.wiki_slot:
+                self.rich_text_serialize(self.wiki_slot)
+                self.wiki_slot = ""
         probably_url = False
         while curr_pos < max_pos:
             curr_char = wiki_string[curr_pos:curr_pos+1]
@@ -466,50 +471,48 @@ class ZimHandler():
             if newline_count < 4:
                 if curr_char == cons.CHAR_NEWLINE: newline_count += 1
             else:
-                if curr_char == cons.CHAR_STAR and next_char == cons.CHAR_STAR:
-                    if wiki_slot:
-                        self.rich_text_serialize(wiki_slot)
-                        wiki_slot = ""
+                if self.in_block:
+                    if curr_char == cons.CHAR_SQUOTE and next_char == cons.CHAR_SQUOTE and third_char == cons.CHAR_SQUOTE:
+                        wiki_slot_flush()
+                        self.curr_attributes[cons.TAG_FAMILY] = ""
+                        curr_pos += 2
+                        self.in_block = False
+                    else: self.wiki_slot += curr_char
+                elif curr_char == cons.CHAR_STAR and next_char == cons.CHAR_STAR:
+                    wiki_slot_flush()
                     if self.curr_attributes[cons.TAG_WEIGHT]: self.curr_attributes[cons.TAG_WEIGHT] = ""
                     else: self.curr_attributes[cons.TAG_WEIGHT] = cons.TAG_PROP_HEAVY
                     curr_pos += 1
                 elif curr_char == cons.CHAR_SLASH and next_char == cons.CHAR_SLASH:
                     if probably_url:
-                        wiki_slot += curr_char
+                        self.wiki_slot += curr_char
                         probably_url = False
                         curr_pos += 1
                         continue
-                    if wiki_slot:
-                        self.rich_text_serialize(wiki_slot)
-                        wiki_slot = ""
+                    wiki_slot_flush()
                     if self.curr_attributes[cons.TAG_STYLE]: self.curr_attributes[cons.TAG_STYLE] = ""
                     else: self.curr_attributes[cons.TAG_STYLE] = cons.TAG_PROP_ITALIC
                     curr_pos += 1
                 elif curr_char == cons.CHAR_USCORE and next_char == cons.CHAR_USCORE:
-                    if wiki_slot:
-                        self.rich_text_serialize(wiki_slot)
-                        wiki_slot = ""
+                    wiki_slot_flush()
                     if self.curr_attributes[cons.TAG_BACKGROUND]: self.curr_attributes[cons.TAG_BACKGROUND] = ""
                     else: self.curr_attributes[cons.TAG_BACKGROUND] = cons.COLOR_48_YELLOW
                     curr_pos += 1
                 elif curr_char == cons.CHAR_TILDE and next_char == cons.CHAR_TILDE:
-                    if wiki_slot:
-                        self.rich_text_serialize(wiki_slot)
-                        wiki_slot = ""
+                    wiki_slot_flush()
                     if self.curr_attributes[cons.TAG_STRIKETHROUGH]: self.curr_attributes[cons.TAG_STRIKETHROUGH] = ""
                     else: self.curr_attributes[cons.TAG_STRIKETHROUGH] = cons.TAG_PROP_TRUE
                     curr_pos += 1
                 elif curr_char == cons.CHAR_SQUOTE and next_char == cons.CHAR_SQUOTE:
-                    if wiki_slot:
-                        self.rich_text_serialize(wiki_slot)
-                        wiki_slot = ""
+                    wiki_slot_flush()
                     if self.curr_attributes[cons.TAG_FAMILY]: self.curr_attributes[cons.TAG_FAMILY] = ""
                     else: self.curr_attributes[cons.TAG_FAMILY] = "monospace"
-                    curr_pos += 1
+                    if third_char == cons.CHAR_SQUOTE:
+                        curr_pos += 2
+                        self.in_block = True if self.curr_attributes[cons.TAG_FAMILY] else False
+                    else: curr_pos += 1
                 elif curr_char == cons.CHAR_EQUAL and next_char == cons.CHAR_EQUAL:
-                    if wiki_slot:
-                        self.rich_text_serialize(wiki_slot)
-                        wiki_slot = ""
+                    wiki_slot_flush()
                     if curr_pos+5 < max_pos and wiki_string[curr_pos+2:curr_pos+6] == cons.CHAR_EQUAL*4:
                         if self.curr_attributes[cons.TAG_SCALE]: self.curr_attributes[cons.TAG_SCALE] = ""
                         else: self.curr_attributes[cons.TAG_SCALE] = cons.TAG_PROP_H1
@@ -531,49 +534,41 @@ class ZimHandler():
                         else: self.curr_attributes[cons.TAG_SCALE] = cons.TAG_PROP_H3
                         curr_pos += 1
                 elif curr_char == cons.CHAR_CARET and next_char == cons.CHAR_BR_OPEN:
-                    if wiki_slot:
-                        self.rich_text_serialize(wiki_slot)
-                        wiki_slot = ""
+                    wiki_slot_flush()
                     self.curr_attributes[cons.TAG_SCALE] = "sup"
                     curr_pos += 1
                 elif curr_char == cons.CHAR_USCORE and next_char == cons.CHAR_BR_OPEN:
-                    if wiki_slot:
-                        self.rich_text_serialize(wiki_slot)
-                        wiki_slot = ""
+                    wiki_slot_flush()
                     self.curr_attributes[cons.TAG_SCALE] = "sub"
                     curr_pos += 1
                 elif curr_char == cons.CHAR_BR_CLOSE and self.curr_attributes[cons.TAG_SCALE] in ["sup", "sub"]:
-                    if wiki_slot:
-                        self.rich_text_serialize(wiki_slot)
-                        wiki_slot = ""
+                    wiki_slot_flush()
                     self.curr_attributes[cons.TAG_SCALE] = ""
                 elif curr_char == cons.CHAR_BR_OPEN and next_char == cons.CHAR_BR_OPEN \
                   or curr_char == cons.CHAR_SQ_BR_OPEN and next_char == cons.CHAR_SQ_BR_OPEN:
-                    if wiki_slot:
-                        self.rich_text_serialize(wiki_slot)
-                        wiki_slot = ""
+                    wiki_slot_flush()
                     curr_pos += 1
                 elif curr_char == cons.CHAR_BR_CLOSE and next_char == cons.CHAR_BR_CLOSE:
                     valid_image = False
-                    if cons.CHAR_QUESTION in wiki_slot:
-                        splitted_wiki_slot = wiki_slot.split(cons.CHAR_QUESTION)
-                        wiki_slot = splitted_wiki_slot[0]
-                    if wiki_slot.startswith("./"): wiki_slot = os.path.join(curr_folder, node_name, wiki_slot[2:])
-                    if os.path.isfile(wiki_slot):
+                    if cons.CHAR_QUESTION in self.wiki_slot:
+                        splitted_wiki_slot = self.wiki_slot.split(cons.CHAR_QUESTION)
+                        self.wiki_slot = splitted_wiki_slot[0]
+                    if self.wiki_slot.startswith("./"): self.wiki_slot = os.path.join(curr_folder, node_name, self.wiki_slot[2:])
+                    if os.path.isfile(self.wiki_slot):
                         try:
-                            pixbuf = gtk.gdk.pixbuf_new_from_file(wiki_slot)
+                            pixbuf = gtk.gdk.pixbuf_new_from_file(self.wiki_slot)
                             self.pixbuf_vector.append([self.chars_counter, pixbuf, cons.TAG_PROP_LEFT])
                             self.chars_counter += 1
                             valid_image = True
                         except: pass
-                    if not valid_image: print "! error: '%s' is not a valid image" % wiki_slot
-                    wiki_slot = ""
+                    if not valid_image: print "! error: '%s' is not a valid image" % self.wiki_slot
+                    self.wiki_slot = ""
                     curr_pos += 1
                 elif curr_char == cons.CHAR_SQ_BR_CLOSE and next_char == cons.CHAR_SQ_BR_CLOSE:
-                    if cons.CHAR_PIPE in wiki_slot:
-                        target_n_label = wiki_slot.split(cons.CHAR_PIPE)
+                    if cons.CHAR_PIPE in self.wiki_slot:
+                        target_n_label = self.wiki_slot.split(cons.CHAR_PIPE)
                     else:
-                        target_n_label = [wiki_slot, wiki_slot]
+                        target_n_label = [self.wiki_slot, self.wiki_slot]
                     exp_filepath = target_n_label[0]
                     if exp_filepath.startswith("./"): exp_filepath = os.path.join(curr_folder, node_name, exp_filepath[2:])
                     if cons.CHAR_SLASH in exp_filepath:
@@ -586,22 +581,22 @@ class ZimHandler():
                                                         'char_start': self.chars_counter,
                                                         'char_end': self.chars_counter+len(target_n_label[1])})
                         self.rich_text_serialize(target_n_label[1])
-                    wiki_slot = ""
+                    self.wiki_slot = ""
                     curr_pos += 1
                 elif curr_char == cons.CHAR_SQ_BR_OPEN\
                 and next_char in [cons.CHAR_SPACE, cons.CHAR_STAR, 'x']\
                 and third_char == cons.CHAR_SQ_BR_CLOSE:
-                    if next_char == cons.CHAR_SPACE: wiki_slot += cons.CHAR_LISTTODO
-                    elif next_char == cons.CHAR_STAR: wiki_slot += cons.CHAR_LISTDONEOK
-                    else: wiki_slot += cons.CHAR_LISTDONEFAIL
-                    wiki_slot += cons.CHAR_SPACE
+                    if next_char == cons.CHAR_SPACE: self.wiki_slot += cons.CHAR_LISTTODO
+                    elif next_char == cons.CHAR_STAR: self.wiki_slot += cons.CHAR_LISTDONEOK
+                    else: self.wiki_slot += cons.CHAR_LISTDONEFAIL
+                    self.wiki_slot += cons.CHAR_SPACE
                     curr_pos += 2
                 else:
-                    wiki_slot += curr_char
+                    self.wiki_slot += curr_char
                     if curr_char == ":" and next_char == cons.CHAR_SLASH:
                         probably_url = True
             curr_pos += 1
-        if wiki_slot: self.rich_text_serialize(wiki_slot)
+        wiki_slot_flush()
 
     def get_cherrytree_xml(self):
         """Returns a CherryTree string Containing the Zim Nodes"""
