@@ -175,9 +175,7 @@ if "py2exe" in sys.argv:
                 },
        data_files = data_files,
     )
-    import shutil
-    shutil.copytree("C:\gtk2\share\gtksourceview-2.0", "dist\share\gtksourceview-2.0")
-    print "remember to copy 7za.exe to the dist folder"
+    print "remember to copy 7za.exe to the dist folder and relocate lib/enchant and share/enchant"
 else:
     setup(
        name = "CherryTree",
