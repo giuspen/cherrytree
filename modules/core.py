@@ -2484,7 +2484,7 @@ class CherryTree:
             self.nodes_rows_count = 0
             warning_label += self.get_node_children_list(self.curr_tree_iter, 0)
         response = support.dialog_node_delete(self.window, warning_label)
-        if response != 1: return # the user did not confirm
+        if response != gtk.RESPONSE_ACCEPT: return # the user did not confirm
         # next selected node will be previous sibling or next sibling or father or None
         new_iter = self.get_tree_iter_prev_sibling(self.treestore, self.curr_tree_iter)
         if new_iter == None:
