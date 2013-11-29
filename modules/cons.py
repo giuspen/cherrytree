@@ -407,8 +407,6 @@ UI_INFO = """
     </menubar>
 
     <toolbar name='ToolBar'>
-        <toolitem action='ShowHideTree'/>
-        <separator/>
         <toolitem action='TreeAddNode'/>
         <toolitem action='TreeAddSubNode'/>
         <separator/>
@@ -446,7 +444,6 @@ UI_INFO = """
         <toolitem action='Superscript'/>
         <toolitem action='Subscript'/>
         <toolitem action='Monospace'/>
-        <toolitem action='FormatLatest'/>
     </toolbar>
 
     <popup name='SysTrayMenu'>
