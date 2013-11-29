@@ -2304,6 +2304,10 @@ class CherryTree:
         """Init The Programming Languages Syntax Highlighting ComboBox"""
         self.prog_lang_liststore = gtk.ListStore(str, str)
         self.language_manager = gtksourceview2.LanguageManager()
+        search_path = self.language_manager.get_search_path()
+        search_path.append(cons.SPECS_PATH)
+        self.language_manager.set_search_path(search_path)
+        #print self.language_manager.get_search_path()
         self.available_languages = self.language_manager.get_language_ids()
         if "def" in self.available_languages: self.available_languages.remove("def")
         for language_id in sorted(self.available_languages):
