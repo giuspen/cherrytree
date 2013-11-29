@@ -415,8 +415,8 @@ UI_INFO = """
         <toolitem action='GoBack'/>
         <toolitem action='GoForward'/>
         <separator/>
-        <toolitem action='NewInstance'/>
         <toolitem action='Save'/>
+        <toolitem action='Export2PDF'/>
         <separator/>
         <toolitem action='Undo'/>
         <toolitem action='Redo'/>
