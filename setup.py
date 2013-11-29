@@ -147,7 +147,7 @@ class InstallData(install_data):
 
 
 if "py2exe" in sys.argv:
-    data_files = [("glade", glob.glob("glade/*.*") )]
+    data_files = [("glade", glob.glob("glade/*.*") ), ("language-specs", glob.glob("language-specs/*.lang") )]
     import enchant
     data_files.extend(enchant.utils.win32_data_files())
     for lang in cons.AVAILABLE_LANGS:
@@ -191,6 +191,7 @@ else:
        data_files = [
                       ("share/icons/hicolor/scalable/apps", ["glade/svg/cherrytree.svg"] ),
                       ("share/cherrytree/glade", glob.glob("glade/*.*") ),
+                      ("share/cherrytree/language-specs", glob.glob("language-specs/*.lang") ),
                       ("share/cherrytree/modules", glob.glob("modules/*.py") ),
                       ("share/mime/packages", ["linux/cherrytree.xml"]),
                       ("share/mime-info", ["linux/cherrytree.mime", "linux/cherrytree.keys"]),

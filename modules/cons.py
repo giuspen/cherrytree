@@ -34,6 +34,7 @@ if sys.platform[0:3] == "win":
     else: EXE_DIR = os.getcwd()
     TMP_FOLDER = os.path.join(os.environ['TEMP'], 'ct_tmp/')
     GLADE_PATH = os.path.join(EXE_DIR, 'glade/')
+    SPECS_PATH = os.path.join(EXE_DIR, 'language-specs/')
     LOCALE_PATH = os.path.join(EXE_DIR, 'locale/')
 else:
     IS_WIN_OS = False
@@ -41,9 +42,11 @@ else:
     TMP_FOLDER = '/tmp/ct_tmp/'
     if not SHARE_PATH:
         GLADE_PATH = os.path.join(os.getcwd(), "glade/")
-        LOCALE_PATH = 'locale/'
+        SPECS_PATH = os.path.join(os.getcwd(), 'language-specs/')
+        LOCALE_PATH = os.path.join(os.getcwd(), 'locale/')
     else:
         GLADE_PATH = os.path.join(SHARE_PATH, 'cherrytree/glade/')
+        SPECS_PATH = os.path.join(SHARE_PATH, 'cherrytree/language-specs')
         LOCALE_PATH = os.path.join(SHARE_PATH, 'locale')
 CONFIG_PATH = os.path.join(CONFIG_DIR, 'config.cfg')
 LANG_PATH = os.path.join(CONFIG_DIR, 'lang')
