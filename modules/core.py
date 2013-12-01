@@ -2053,11 +2053,6 @@ class CherryTree:
         else: page_lang = ""
         webbrowser.open("http://man.cx/strftime%283%29/" + page_lang)
 
-    def on_spinbutton_tab_width_value_changed(self, spinbutton):
-        """Tabs Width (in chars) Change Handling"""
-        self.tabs_width = int(spinbutton.get_value())
-        self.sourceview.set_tab_width(self.tabs_width)
-
     def on_spinbutton_limit_undoable_steps_value_changed(self, spinbutton):
         """Limit Undoable Steps Change Handling"""
         self.limit_undoable_steps = int(spinbutton.get_value())

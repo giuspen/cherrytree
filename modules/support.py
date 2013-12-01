@@ -365,15 +365,34 @@ def dialog_anchors_list(father_win, title, anchors_list):
     if response != gtk.RESPONSE_ACCEPT or not anchor_parms.sel_iter: return ""
     return unicode(anchors_liststore[anchor_parms.sel_iter][0], cons.STR_UTF8, cons.STR_IGNORE)
 
-def dialog_preferences(father_win):
+def dialog_preferences(dad):
     """Preferences Dialog"""
     dialog = gtk.Dialog(title=_("Preferences"),
-        parent=father_win,
+        parent=dad.window,
         flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
         buttons=gtk.STOCK_CLOSE)
     
     vbox_all_nodes = gtk.VBox()
     label_all_nodes = gtk.Label(_("All Nodes"))
+    
+    label_tab_width = gtk.Label(_("Tab Width"))
+    adj_tab_width = gtk.Adjustment(value=dad.tabs_width, lower=1, upper=10000, step_incr=1)
+    spinbutton_tab_width = gtk.SpinButton(adj_tab_width)
+    hbox_tab_width = gtk.HBox()
+    hbox_tab_width.pack_start(label_tab_width)
+    hbox_tab_width.pack_start(spinbutton_tab_width)
+    
+    vbox_text_editor = gtk.VBox()
+    vbox_text_editor.pack_start(hbox_tab_width)
+    frame_text_editor = gtk.Frame(label="<b>"+_("Text Editor")+"</b>")
+    frame_text_editor.get_label_widget().set_use_markup(True)
+    frame_text_editor.set_shadow_type(gtk.SHADOW_NONE)
+    frame_text_editor.add(vbox_text_editor)
+    
+    def on_spinbutton_tab_width_value_changed(spinbutton):
+        dad.tabs_width = int(spinbutton.get_value())
+        dad.sourceview.set_tab_width(dad.tabs_width)
+    spinbutton_tab_width.connect('value-changed', on_spinbutton_tab_width_value_changed)
     
     vbox_text_nodes = gtk.VBox()
     label_text_nodes = gtk.Label(_("Text Nodes"))

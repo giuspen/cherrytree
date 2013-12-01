@@ -268,7 +268,6 @@ def config_dialog_prepare_settings(inst):
     inst.glade.checkbutton_spell_check.set_active(inst.enable_spell_check)
     inst.glade.checkbutton_line_nums.set_active(inst.show_line_numbers)
     inst.glade.checkbutton_spaces_tabs.set_active(inst.spaces_instead_tabs)
-    inst.glade.spinbutton_tab_width.set_value(inst.tabs_width)
     inst.glade.spinbutton_anchor_size.set_value(inst.anchor_size)
     inst.glade.checkbutton_line_wrap.set_active(inst.line_wrapping)
     inst.glade.checkbutton_auto_indent.set_active(inst.auto_indent)
