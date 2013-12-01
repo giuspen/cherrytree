@@ -365,6 +365,49 @@ def dialog_anchors_list(father_win, title, anchors_list):
     if response != gtk.RESPONSE_ACCEPT or not anchor_parms.sel_iter: return ""
     return unicode(anchors_liststore[anchor_parms.sel_iter][0], cons.STR_UTF8, cons.STR_IGNORE)
 
+def dialog_preferences(father_win):
+    """Preferences Dialog"""
+    dialog = gtk.Dialog(title=_("Preferences"),
+        parent=father_win,
+        flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
+        buttons=gtk.STOCK_CLOSE)
+    
+    vbox_all_nodes = gtk.VBox()
+    label_all_nodes = gtk.Label(_("All Nodes"))
+    
+    vbox_text_nodes = gtk.VBox()
+    label_text_nodes = gtk.Label(_("Text Nodes"))
+    
+    vbox_code_nodes = gtk.VBox()
+    label_code_nodes = gtk.Label(_("Code Nodes"))
+    
+    vbox_tree = gtk.VBox()
+    label_tree = gtk.Label(_("Tree"))
+    
+    vbox_fonts = gtk.VBox()
+    label_fonts = gtk.Label(_("Fonts"))
+    
+    vbox_links = gtk.VBox()
+    label_links = gtk.Label(_("Links"))
+    
+    vbox_misc = gtk.VBox()
+    label_misc = gtk.Label(_("Miscellaneous"))
+    
+    notebook = gtk.Notebook()
+    notebook.set_tab_pos(gtk.POS_LEFT)
+    notebook.append_page(vbox_all_nodes, label_all_nodes)
+    notebook.append_page(vbox_text_nodes, label_text_nodes)
+    notebook.append_page(vbox_code_nodes, label_code_nodes)
+    notebook.append_page(vbox_tree, label_tree)
+    notebook.append_page(vbox_fonts, label_fonts)
+    notebook.append_page(vbox_links, label_links)
+    notebook.append_page(vbox_misc, label_misc)
+    content_area = dialog.get_content_area()
+    content_area.pack_start(notebook)
+    content_area.show_all()
+    dialog.run()
+    dialog.hide()
+
 def dialog_img_n_entry(father_win, title, entry_content, img_stock):
     """Insert/Edit Anchor Name"""
     dialog = gtk.Dialog(title=title,
