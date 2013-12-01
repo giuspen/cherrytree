@@ -1,4 +1,18 @@
 
+0.31.0 (December 1st, 2013)
+• added import from one plain text file or a folder of plain text files
+• added direct export to pdf without going through the print dialog, working also in windows without need of installing software that creates pdf
+• improved the todo lists using different chars (automatic conversion) and three states like zim-wiki (not done, done ok and done fail); work from Scott Linder
+• added function to strip trailing spaces in code nodes (from right click menu)
+• Ctrl+Shift+E to expand all nodes, Ctrl+Shift+L to collapse all nodes
+• when opening new file or starting a new empty file will do it on a new window if the current is not empty
+• right click on a link lets you choose to edit/cut/copy/dismiss/delete the underlying link
+• it is now possible to insert a link if no text is selected, the link name will be asked in this case
+• added line num column in search all matches list dialog
+• added Dutch language (welcome Patrick Vijgeboom)
+• added syntax highlighting for PowerShell (work from haven200)
+• fixed bugs
+
 0.30.5 (September 1st, 2013)
 • fixed critical bug that caused loss of unsaved data after import of nodes from a cherrytree document of type sqlite unprotected to sqlite protected;
 • bugfix: node position in the tree after imports
