@@ -213,16 +213,14 @@ def dialog_question(message, parent=None):
     dialog = gtk.MessageDialog(parent=parent,
                                flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
                                type=gtk.MESSAGE_QUESTION,
-                               buttons=gtk.BUTTONS_OK_CANCEL,
                                message_format=message)
     dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
     dialog.set_title(_("Question"))
-    if dialog.run() == gtk.RESPONSE_ACCEPT:
-        dialog.destroy()
-        return True
-    else:
-        dialog.destroy()
-        return False
+    dialog.add_button(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT)
+    dialog.add_button(gtk.STOCK_OK, gtk.RESPONSE_ACCEPT)
+    response = dialog.run()
+    dialog.hide()
+    return True if response == gtk.RESPONSE_ACCEPT else False
 
 def dialog_info(message, parent):
     """The Info dialog"""
