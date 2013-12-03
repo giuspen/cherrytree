@@ -543,7 +543,6 @@ class ZimHandler():
                 elif curr_char == cons.CHAR_SLASH and next_char == cons.CHAR_SLASH:
                     if probably_url:
                         self.wiki_slot += curr_char
-                        probably_url = False
                         curr_pos += 1
                         continue
                     wiki_slot_flush()
@@ -622,6 +621,8 @@ class ZimHandler():
                     self.wiki_slot += curr_char
                     if curr_char == ":" and next_char == cons.CHAR_SLASH:
                         probably_url = True
+                    elif curr_char in [cons.CHAR_SPACE, cons.CHAR_NEWLINE]:
+                        probably_url = False
             curr_pos += 1
         wiki_slot_flush()
 
