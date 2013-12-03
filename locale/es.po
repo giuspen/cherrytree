@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 0.9.3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-11-24 13:59+0100\n"
-"PO-Revision-Date: 2013-08-26 23:11+0100\n"
+"PO-Revision-Date: 2013-12-03 14:55+0100\n"
 "Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
 "Language-Team: Spanish <>\n"
 "Language: es\n"
@@ -100,7 +100,6 @@ msgstr ""
 "MA 02110-1301, USA.\n"
 
 #: modules/support.py:295
-#, fuzzy
 msgid ""
 "Chinese Simplified (zh_CN) Channing Wong <mamimoluo@gmail.com>\n"
 "Czech (cs) Pavel Fric <fripohled@blogspot.com>\n"
@@ -179,9 +178,8 @@ msgid "To Node"
 msgstr "Enlace a nodo"
 
 #: modules/support.py:685
-#, fuzzy
 msgid "Anchor Name (optional)"
-msgstr "<b>Nombre del ancla (opcional)</b>"
+msgstr "Nombre del ancla (opcional)"
 
 #: modules/support.py:739 modules/core.py:3269 modules/core.py:4149
 msgid "No Node is Selected"
@@ -321,7 +319,7 @@ msgstr "Nombre del nodo"
 
 #: modules/findreplace.py:590
 msgid "Line"
-msgstr ""
+msgstr "Línea"
 
 #: modules/findreplace.py:592
 msgid "Line Content"
@@ -371,9 +369,8 @@ msgid "NoteCase Document"
 msgstr "Documento de NoteCase"
 
 #: modules/core.py:687
-#, fuzzy
 msgid "Plain Text Document"
-msgstr "Documento de Knowit"
+msgstr "Documento de texto plano"
 
 #: modules/core.py:705
 msgid "Treepad Document"
@@ -427,9 +424,8 @@ msgid "Writing to Disk..."
 msgstr "Guardando en disco..."
 
 #: modules/core.py:1356
-#, fuzzy
 msgid "Choose Storage Type"
-msgstr "Elige tipo de almacenamiento y protección"
+msgstr "Elige tipo de almacenamiento"
 
 #: modules/core.py:1363 modules/core.py:1366
 msgid "Not Protected"
@@ -441,7 +437,7 @@ msgstr "Protegido con password"
 
 #: modules/core.py:1375
 msgid "Storage Type"
-msgstr ""
+msgstr "Tipo de almacenamiento"
 
 #: modules/core.py:1386
 msgid "Enter the New Password Twice"
@@ -523,14 +519,12 @@ msgstr ""
 "colores personalizados para este nodo ¿quieres continuar?"
 
 #: modules/core.py:2890
-#, fuzzy
 msgid "Search for"
-msgstr "<b>Buscar</b>"
+msgstr "Buscar"
 
 #: modules/core.py:2897
-#, fuzzy
 msgid "Replace with"
-msgstr "<b>Reemplazar con</b>"
+msgstr "Reemplazar con"
 
 #: modules/core.py:2912
 msgid "Match Case"
@@ -573,9 +567,8 @@ msgid "Show Iterated Find/Replace Dialog"
 msgstr "Mostrar diálogo de reemplazar"
 
 #: modules/core.py:2953
-#, fuzzy
 msgid "Search options"
-msgstr "<b>Opciones de búsqueda</b>"
+msgstr "Opciones de búsqueda"
 
 #: modules/core.py:3005 modules/core.py:4151
 msgid "Rich Text"
@@ -586,14 +579,12 @@ msgid "Automatic Syntax Highlighting"
 msgstr "Resaltado automático de sintaxis"
 
 #: modules/core.py:3023
-#, fuzzy
 msgid "Node Type"
-msgstr "<b>Tipo de nodo</b>"
+msgstr "Tipo de nodo"
 
 #: modules/core.py:3029
-#, fuzzy
 msgid "Tags for Searching"
-msgstr "<b>Etiquetas de búsqueda</b>"
+msgstr "Etiquetas de búsqueda"
 
 #: modules/core.py:3033 modules/core.py:4153
 msgid "Read Only"
@@ -669,25 +660,23 @@ msgstr "La escritura en %s ha fallado"
 
 #: modules/core.py:3494
 msgid "Lines Stripped"
-msgstr ""
+msgstr "Líneas rayadas"
 
 #: modules/core.py:3612
 msgid "No Previous Text Format Was Performed During This Session"
 msgstr "No se ha realizado ninguna acción de formato de texto en esta sesión"
 
 #: modules/core.py:3653
-#, fuzzy
 msgid "Link Name"
-msgstr "Nombre de ancla"
+msgstr "Nombre del enlace"
 
 #: modules/core.py:3683
 msgid "The Cursor is Not into a Paragraph"
 msgstr "El cursor del ratón no está en un párrafo"
 
 #: modules/core.py:3696
-#, fuzzy
 msgid "Insert/Edit Link"
-msgstr "Insertar/Editar _enlace"
+msgstr "Insertar/Editar enlace"
 
 #: modules/core.py:3721
 msgid "Pick a Color"
@@ -729,33 +718,28 @@ msgid "Move Column Right"
 msgstr "Mover columna a la derecha"
 
 #: modules/tablez.py:170
-#, fuzzy
 msgid "Rows"
 msgstr "Filas"
 
 #: modules/tablez.py:174
-#, fuzzy
 msgid "Columns"
-msgstr "Añadir columna"
+msgstr "Columnas"
 
 #: modules/tablez.py:189
-#, fuzzy
 msgid "Table Size"
-msgstr "<b>Tamaño de la tabla</b>"
+msgstr "Tamaño de la tabla"
 
 #: modules/tablez.py:194
 msgid "Min Width"
 msgstr "Ancho mínimo"
 
 #: modules/tablez.py:198
-#, fuzzy
 msgid "Max Width"
-msgstr "   Ancho máximo"
+msgstr "Ancho máximo"
 
 #: modules/tablez.py:213
-#, fuzzy
 msgid "Column Properties"
-msgstr "<b>Propiedades de las columnas</b>"
+msgstr "Propiedades de columnas"
 
 #: modules/tablez.py:218
 msgid "Import from CSV File"
@@ -791,7 +775,7 @@ msgstr "pixels"
 
 #: modules/codeboxes.py:114
 msgid "Size"
-msgstr ""
+msgstr "Tamaño"
 
 #: modules/codeboxes.py:119 glade/cherrytree.glade.h:6
 msgid "Show Line Numbers"
@@ -802,9 +786,8 @@ msgid "Highlight Matching Brackets"
 msgstr "Resaltar pareja de llaves"
 
 #: modules/codeboxes.py:130
-#, fuzzy
 msgid "Options"
-msgstr "<b>Opciones</b>"
+msgstr "Opciones"
 
 #: modules/codeboxes.py:172 modules/cons.py:543 modules/cons.py:738
 msgid "Insert a CodeBox"
@@ -903,14 +886,12 @@ msgid "Save File As"
 msgstr "Guardar archivo como"
 
 #: modules/cons.py:514 modules/cons.py:681
-#, fuzzy
 msgid "Export To _PDF"
-msgstr "Exportar a _HTML"
+msgstr "Ex_portar a PDF"
 
 #: modules/cons.py:514 modules/cons.py:681
-#, fuzzy
 msgid "Export To PDF"
-msgstr "Imprimir / Exportar a PDF"
+msgstr "Exportar a PDF"
 
 #: modules/cons.py:515 modules/cons.py:684
 msgid "Export To _HTML"
@@ -954,11 +935,11 @@ msgstr "Configurar página para impresión"
 
 #: modules/cons.py:520
 msgid "_Print"
-msgstr ""
+msgstr "Im_primir"
 
 #: modules/cons.py:520
 msgid "Print"
-msgstr ""
+msgstr "Imprimir"
 
 #: modules/cons.py:521
 msgid "_Quit"
@@ -1596,24 +1577,21 @@ msgid "Add Nodes of a CherryTree File to the Current Tree"
 msgstr "Añadir nodos de un archivo de CherryTree al árbol actual"
 
 #: modules/cons.py:599 modules/cons.py:665
-#, fuzzy
 msgid "From _Plain Text File"
-msgstr "Exportar a un único archivo de _texto"
+msgstr "Desde archivo de texto _plano"
 
 #: modules/cons.py:599 modules/cons.py:665
-#, fuzzy
 msgid "Add Node from a Plain Text File to the Current Tree"
-msgstr "Añadir nodos de un archivo de Leo al árbol actual"
+msgstr "Añadir nodos de un archivo de texto plano al árbol actual"
 
 #: modules/cons.py:600 modules/cons.py:666
-#, fuzzy
 msgid "From _Folder of Plain Text Files"
-msgstr "Exportar a un único archivo de _texto"
+msgstr "Desde una carpe_ta archivos de texto plano"
 
 #: modules/cons.py:600 modules/cons.py:666
-#, fuzzy
 msgid "Add Nodes from a Folder of Plain Text Files to the Current Tree"
-msgstr "Añadir nodos de un archivo de NoteCase al árbol actual"
+msgstr ""
+"Añadir nodos desde una carpeta de archivos de texto plano al árbol actual"
 
 #: modules/cons.py:601 modules/cons.py:667
 msgid "From _Basket Folder"
@@ -1945,34 +1923,31 @@ msgstr "C_opiar fila"
 
 #: modules/cons.py:783
 msgid "Stri_p Trailing Spaces"
-msgstr ""
+msgstr "Eliminar es_pacios finales"
 
 #: modules/cons.py:783
 msgid "Strip Trailing Spaces"
-msgstr ""
+msgstr "Eliminar espacios finales"
 
 #: modules/cons.py:821
-#, fuzzy
 msgid "Edit _Link"
-msgstr "Insertar/Editar _enlace"
+msgstr "Editar en_lace"
 
 #: modules/cons.py:821
-#, fuzzy
 msgid "Edit the Underlying Link"
-msgstr "Editar ancla subyacente"
+msgstr "Editar enlace subyacente"
 
 #: modules/cons.py:823
 msgid "C_ut Link"
-msgstr ""
+msgstr "Cortar enlace"
 
 #: modules/cons.py:823 modules/cons.py:839
 msgid "Cut the Selected CodeBox"
 msgstr "Cortar la Caja de Código seleccionada"
 
 #: modules/cons.py:824
-#, fuzzy
 msgid "_Copy Link"
-msgstr "_Copiar fila"
+msgstr "_Copiar enlace"
 
 #: modules/cons.py:824 modules/cons.py:840
 msgid "Copy the Selected CodeBox"
@@ -1980,22 +1955,19 @@ msgstr "Copiar la Caja de Código seleccionada"
 
 #: modules/cons.py:825
 msgid "D_ismiss Link"
-msgstr ""
+msgstr "Descartar enlace"
 
 #: modules/cons.py:825
-#, fuzzy
 msgid "Dismiss the Selected Link"
-msgstr "Editar la imagen seleccionada"
+msgstr "Descartar el enlace seleccionad0"
 
 #: modules/cons.py:826
-#, fuzzy
 msgid "_Delete Link"
-msgstr "E_liminar imagen"
+msgstr "E_liminar enlace"
 
 #: modules/cons.py:826
-#, fuzzy
 msgid "Delete the Selected Link"
-msgstr "Eliminar nodo seleccionado"
+msgstr "Eliminar el enlace seleccionado"
 
 #: modules/cons.py:837
 msgid "Change CodeBox _Properties"
