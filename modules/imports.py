@@ -412,11 +412,6 @@ class ZimHandler():
             if self.curr_attributes[tag_property] != "":
                 dom_iter.setAttribute(tag_property, self.curr_attributes[tag_property])
         self.nodes_list[-1].appendChild(dom_iter)
-        if self.curr_attributes[cons.TAG_SCALE] in [cons.TAG_PROP_H1, cons.TAG_PROP_H2, cons.TAG_PROP_H3]:
-            try: text_data = text_data[1:-1]
-            except: pass
-        #print "text_data = '%s'" % text_data
-        #print "chars_counter", self.chars_counter, "->", self.chars_counter + len(text_data)
         self.chars_counter += len(text_data)
         text_iter = self.dom.createTextNode(text_data)
         dom_iter.appendChild(text_iter)
@@ -466,9 +461,11 @@ class ZimHandler():
         self.wiki_slot = ""
         def wiki_slot_flush():
             if self.wiki_slot:
+                #print self.wiki_slot
                 self.rich_text_serialize(self.wiki_slot)
                 self.wiki_slot = ""
         probably_url = False
+        in_hN = [False, False, False, False, False]
         while curr_pos < max_pos:
             curr_char = wiki_string[curr_pos:curr_pos+1]
             next_char = wiki_string[curr_pos+1:curr_pos+2] if curr_pos+1 < max_pos else cons.CHAR_SPACE
@@ -571,28 +568,72 @@ class ZimHandler():
                     wiki_slot_flush()
                     self.wiki_slot += curr_char
                     self.in_plain_link = True
-                elif curr_char == cons.CHAR_EQUAL and next_char == cons.CHAR_EQUAL:
+                # ==
+                elif not in_hN[4] and curr_char == cons.CHAR_EQUAL and next_char == cons.CHAR_EQUAL and third_char == cons.CHAR_SPACE:
                     wiki_slot_flush()
-                    if curr_pos+5 < max_pos and wiki_string[curr_pos+2:curr_pos+6] == cons.CHAR_EQUAL*4:
-                        if self.curr_attributes[cons.TAG_SCALE]: self.curr_attributes[cons.TAG_SCALE] = ""
-                        else: self.curr_attributes[cons.TAG_SCALE] = cons.TAG_PROP_H1
-                        curr_pos += 5
-                    elif curr_pos+4 < max_pos and wiki_string[curr_pos+2:curr_pos+5] == cons.CHAR_EQUAL*3:
-                        if self.curr_attributes[cons.TAG_SCALE]: self.curr_attributes[cons.TAG_SCALE] = ""
-                        else: self.curr_attributes[cons.TAG_SCALE] = cons.TAG_PROP_H2
-                        curr_pos += 4
-                    elif curr_pos+3 < max_pos and wiki_string[curr_pos+2:curr_pos+4] == cons.CHAR_EQUAL*2:
-                        if self.curr_attributes[cons.TAG_SCALE]: self.curr_attributes[cons.TAG_SCALE] = ""
-                        else: self.curr_attributes[cons.TAG_SCALE] = cons.TAG_PROP_H3
-                        curr_pos += 3
-                    elif curr_pos+2 < max_pos and wiki_string[curr_pos+2:curr_pos+3] == cons.CHAR_EQUAL:
-                        if self.curr_attributes[cons.TAG_SCALE]: self.curr_attributes[cons.TAG_SCALE] = ""
-                        else: self.curr_attributes[cons.TAG_SCALE] = cons.TAG_PROP_H3
-                        curr_pos += 2
-                    else:
-                        if self.curr_attributes[cons.TAG_SCALE]: self.curr_attributes[cons.TAG_SCALE] = ""
-                        else: self.curr_attributes[cons.TAG_SCALE] = cons.TAG_PROP_H3
-                        curr_pos += 1
+                    self.curr_attributes[cons.TAG_SCALE] = cons.TAG_PROP_H3
+                    curr_pos += 2
+                    in_hN[4] = True
+                    #print "H5sta"
+                elif in_hN[4] and curr_char == cons.CHAR_SPACE and next_char == cons.CHAR_EQUAL and third_char == cons.CHAR_EQUAL:
+                    wiki_slot_flush()
+                    self.curr_attributes[cons.TAG_SCALE] = ""
+                    curr_pos += 2
+                    in_hN[4] = False
+                    #print "H5end"
+                ## ===
+                elif not in_hN[3] and curr_char == cons.CHAR_EQUAL and next_char == cons.CHAR_EQUAL and third_char == cons.CHAR_EQUAL and fourth_char == cons.CHAR_SPACE:
+                    wiki_slot_flush()
+                    self.curr_attributes[cons.TAG_SCALE] = cons.TAG_PROP_H3
+                    curr_pos += 3
+                    in_hN[3] = True
+                    #print "H4sta"
+                elif in_hN[3] and curr_char == cons.CHAR_SPACE and next_char == cons.CHAR_EQUAL and third_char == cons.CHAR_EQUAL and fourth_char == cons.CHAR_EQUAL:
+                    wiki_slot_flush()
+                    self.curr_attributes[cons.TAG_SCALE] = ""
+                    curr_pos += 3
+                    in_hN[3] = False
+                    #print "H4end"
+                ## ====
+                elif not in_hN[2] and curr_pos+4 < max_pos and curr_char == cons.CHAR_EQUAL and next_char == cons.CHAR_EQUAL and third_char == cons.CHAR_EQUAL and fourth_char == cons.CHAR_EQUAL and wiki_string[curr_pos+4:curr_pos+5] == cons.CHAR_SPACE:
+                    wiki_slot_flush()
+                    self.curr_attributes[cons.TAG_SCALE] = cons.TAG_PROP_H3
+                    curr_pos += 4
+                    in_hN[2] = True
+                    #print "H3sta"
+                elif curr_pos+4 < max_pos and in_hN[2] and curr_char == cons.CHAR_SPACE and next_char == cons.CHAR_EQUAL and third_char == cons.CHAR_EQUAL and fourth_char == cons.CHAR_EQUAL and wiki_string[curr_pos+4:curr_pos+5] == cons.CHAR_EQUAL:
+                    wiki_slot_flush()
+                    self.curr_attributes[cons.TAG_SCALE] = ""
+                    curr_pos += 4
+                    in_hN[2] = False
+                    #print "H3end"
+                ## =====
+                elif not in_hN[1] and curr_pos+5 < max_pos and curr_char == cons.CHAR_EQUAL and next_char == cons.CHAR_EQUAL and third_char == cons.CHAR_EQUAL and fourth_char == cons.CHAR_EQUAL and wiki_string[curr_pos+4:curr_pos+6] == (cons.CHAR_EQUAL+cons.CHAR_SPACE):
+                    wiki_slot_flush()
+                    self.curr_attributes[cons.TAG_SCALE] = cons.TAG_PROP_H2
+                    curr_pos += 5
+                    in_hN[1] = True
+                    #print "H2sta"
+                elif curr_pos+5 < max_pos and in_hN[1] and curr_char == cons.CHAR_SPACE and next_char == cons.CHAR_EQUAL and third_char == cons.CHAR_EQUAL and fourth_char == cons.CHAR_EQUAL and wiki_string[curr_pos+4:curr_pos+6] == 2*cons.CHAR_EQUAL:
+                    wiki_slot_flush()
+                    self.curr_attributes[cons.TAG_SCALE] = ""
+                    curr_pos += 5
+                    in_hN[1] = False
+                    #print "H2end"
+                # ======
+                elif not in_hN[0] and curr_pos+6 < max_pos and curr_char == cons.CHAR_EQUAL and next_char == cons.CHAR_EQUAL and third_char == cons.CHAR_EQUAL and fourth_char == cons.CHAR_EQUAL and wiki_string[curr_pos+4:curr_pos+7] == (2*cons.CHAR_EQUAL+cons.CHAR_SPACE):
+                    wiki_slot_flush()
+                    self.curr_attributes[cons.TAG_SCALE] = cons.TAG_PROP_H1
+                    curr_pos += 6
+                    in_hN[0] = True
+                    #print "H1sta"
+                elif curr_pos+6 < max_pos and in_hN[0] and curr_char == cons.CHAR_SPACE and next_char == cons.CHAR_EQUAL and third_char == cons.CHAR_EQUAL and fourth_char == cons.CHAR_EQUAL and wiki_string[curr_pos+4:curr_pos+7] == 3*cons.CHAR_EQUAL:
+                    wiki_slot_flush()
+                    self.curr_attributes[cons.TAG_SCALE] = ""
+                    curr_pos += 6
+                    in_hN[0] = False
+                    #print "H1end"
+                #
                 elif curr_char == cons.CHAR_CARET and next_char == cons.CHAR_BR_OPEN:
                     wiki_slot_flush()
                     self.curr_attributes[cons.TAG_SCALE] = "sup"
@@ -619,6 +660,7 @@ class ZimHandler():
                     curr_pos += 2
                 else:
                     self.wiki_slot += curr_char
+                    #print self.wiki_slot
                     if curr_char == ":" and next_char == cons.CHAR_SLASH:
                         probably_url = True
                     elif curr_char in [cons.CHAR_SPACE, cons.CHAR_NEWLINE]:
