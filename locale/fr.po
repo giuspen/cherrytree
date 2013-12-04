@@ -2,14 +2,14 @@
 # Copyright (C) 2010 THE svn_cherrytree'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the svn_cherrytree package.
 # giuspen <giuspen@gmail.com>, 2010.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: svn_cherrytree 0.14\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-11-24 13:59+0100\n"
-"PO-Revision-Date: 2013-08-26 23:12+0100\n"
-"Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
+"PO-Revision-Date: 2013-12-04 17:46+0100\n"
+"Last-Translator: Benoît <benoit.dangelo@gmx.fr>\n"
 "Language-Team: French\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -325,7 +325,7 @@ msgstr "Nom du Nœud"
 
 #: modules/findreplace.py:590
 msgid "Line"
-msgstr ""
+msgstr "Ligne"
 
 #: modules/findreplace.py:592
 msgid "Line Content"
@@ -446,7 +446,7 @@ msgstr "Protégé par Mot de Passe"
 
 #: modules/core.py:1375
 msgid "Storage Type"
-msgstr ""
+msgstr "Type de stockage"
 
 #: modules/core.py:1386
 msgid "Enter the New Password Twice"
@@ -675,7 +675,7 @@ msgstr "Enregistrement vers %s Échoué"
 
 #: modules/core.py:3494
 msgid "Lines Stripped"
-msgstr ""
+msgstr "Retrait espaces de fin (ligne(s))"
 
 #: modules/core.py:3612
 msgid "No Previous Text Format Was Performed During This Session"
@@ -799,7 +799,7 @@ msgstr "pixels"
 
 #: modules/codeboxes.py:114
 msgid "Size"
-msgstr ""
+msgstr "Taille"
 
 #: modules/codeboxes.py:119 glade/cherrytree.glade.h:6
 msgid "Show Line Numbers"
@@ -962,11 +962,11 @@ msgstr "Mettre en page pour Impression"
 
 #: modules/cons.py:520
 msgid "_Print"
-msgstr ""
+msgstr "_Impression"
 
 #: modules/cons.py:520
 msgid "Print"
-msgstr ""
+msgstr "Impression"
 
 #: modules/cons.py:521
 msgid "_Quit"
@@ -1949,11 +1949,11 @@ msgstr "C_opier la Ligne"
 
 #: modules/cons.py:783
 msgid "Stri_p Trailing Spaces"
-msgstr ""
+msgstr "R_etrait des espaces de fin"
 
 #: modules/cons.py:783
 msgid "Strip Trailing Spaces"
-msgstr ""
+msgstr "Retrait des espaces de fin"
 
 #: modules/cons.py:821
 #, fuzzy
@@ -1967,7 +1967,7 @@ msgstr "Éditer l'Ancre soulignée"
 
 #: modules/cons.py:823
 msgid "C_ut Link"
-msgstr ""
+msgstr "C_ouper le lien"
 
 #: modules/cons.py:823 modules/cons.py:839
 msgid "Cut the Selected CodeBox"
@@ -1984,7 +1984,7 @@ msgstr "Copier la CodeBox Sélectionnée"
 
 #: modules/cons.py:825
 msgid "D_ismiss Link"
-msgstr ""
+msgstr "R_ejeter le lien"
 
 #: modules/cons.py:825
 #, fuzzy
