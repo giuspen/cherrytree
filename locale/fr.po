@@ -2141,7 +2141,7 @@ msgstr "Éditer le Lien Soulignée"
 
 #: modules/cons.py:823
 msgid "C_ut Link"
-msgstr "C_ouper le lien"
+msgstr "C_ouper le Lien"
 
 #: modules/cons.py:823
 #: modules/cons.py:839
@@ -2150,7 +2150,7 @@ msgstr "Couper la CodeBox Sélectionnée"
 
 #: modules/cons.py:824
 msgid "_Copy Link"
-msgstr "_Copier Lien"
+msgstr "_Copier le Lien"
 
 #: modules/cons.py:824
 #: modules/cons.py:840
