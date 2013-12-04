@@ -2137,7 +2137,7 @@ msgstr "Éditer _Lien"
 
 #: modules/cons.py:821
 msgid "Edit the Underlying Link"
-msgstr "Rejeter le Lien Soulignée"
+msgstr "Éditer le Lien Soulignée"
 
 #: modules/cons.py:823
 msgid "C_ut Link"
@@ -2159,15 +2159,15 @@ msgstr "Copier la CodeBox Sélectionnée"
 
 #: modules/cons.py:825
 msgid "D_ismiss Link"
-msgstr "R_ejeter le lien"
+msgstr "R_ejeter le Lien"
 
 #: modules/cons.py:825
 msgid "Dismiss the Selected Link"
-msgstr "Éditer le Lien Sélectionnée"
+msgstr "Rejeter le Lien Sélectionnée"
 
 #: modules/cons.py:826
 msgid "_Delete Link"
-msgstr "_Supprimer Lien"
+msgstr "_Supprimer le Lien"
 
 #: modules/cons.py:826
 msgid "Delete the Selected Link"
