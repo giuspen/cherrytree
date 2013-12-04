@@ -50,7 +50,7 @@ class GladeWidgetsWrapper:
 class CherryTree:
     """Application's GUI"""
 
-    def __init__(self, lang_str, open_with_file, node_name, boss):
+    def __init__(self, lang_str, open_with_file, node_name, boss, is_startup):
         """GUI Startup"""
         self.boss = boss
         self.filetype = ""
@@ -210,7 +210,9 @@ class CherryTree:
                 self.status_icon_enable()
             if self.start_on_systray: self.window.hide()
         else: self.ui.get_widget("/MenuBar/FileMenu/ExitApp").set_property(cons.STR_VISIBLE, False)
-        if self.reload_doc_last: self.file_startup_load(open_with_file, node_name)
+        if not is_startup or self.reload_doc_last:
+            self.file_startup_load(open_with_file, node_name)
+        else: self.file_name = ""
         if self.check_version: self.check_for_newer_version()
 
     def check_for_newer_version(self, *args):
