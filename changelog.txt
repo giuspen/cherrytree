@@ -1,4 +1,7 @@
 
+0.31.2 (December 4th, 2013)
+• bugfix: cannot open document if option to reload latest document at startup is disabled
+
 0.31.1 (December 4th, 2013)
 • updated Spanish language
 • bugfix: cannot change node type from rich text to automatic syntax highlighting
