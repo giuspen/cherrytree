@@ -1,4 +1,9 @@
 
+0.31.1 (December 4th, 2013)
+• updated Spanish language
+• bugfix: cannot change node type from rich text to automatic syntax highlighting
+• bugfix: import from zim errors
+
 0.31.0 (December 1st, 2013)
 • added import from one plain text file or a folder of plain text files
 • added direct export to pdf without going through the print dialog, working also in windows without need of installing software that creates pdf
