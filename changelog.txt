@@ -1,4 +1,9 @@
 
+0.31.4 (December 5th, 2013)
+• bugfix: cannot change foreground and background color
+• bugfix: row wrongly recognized as a list row after pressing enter
+• updated PowerShell syntax highlighting file from haven200
+
 0.31.3 (December 4th, 2013)
 • updated French language
 
