@@ -240,15 +240,16 @@ class ListsHandler:
         """Returns a Number or None (0 fot the bulleted list)"""
         iter_start = iter_first_paragraph.copy()
         char = iter_start.get_char()
-        if char == cons.CHAR_LISTBUL: return 0
-        if char in [cons.CHAR_LISTTODO, cons.CHAR_LISTDONEOK, cons.CHAR_LISTDONEFAIL]: return -1
+        if char == cons.CHAR_LISTBUL:
+            return 0 if iter_start.forward_char() and iter_start.get_char() == cons.CHAR_SPACE else None
+        if char in [cons.CHAR_LISTTODO, cons.CHAR_LISTDONEOK, cons.CHAR_LISTDONEFAIL]:
+            return -1 if iter_start.forward_char() and iter_start.get_char() == cons.CHAR_SPACE else None
         match = re.match('[1-9]', char)
         if not match: return None
         number_str = char
         while iter_start.forward_char() and re.match('[0-9]', iter_start.get_char()):
             number_str += iter_start.get_char()
-        if iter_start.get_char() == ".": return int(number_str)
-        else: return None
+        return int(number_str) if iter_start.get_char() == "." and iter_start.forward_char() and iter_start.get_char() == cons.CHAR_SPACE else None
 
     def get_paragraph_list_info(self, iter_start):
         """Returns [Number, Whether multiple line, List Start Iter Offset]
