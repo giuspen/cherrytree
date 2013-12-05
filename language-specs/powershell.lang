@@ -35,13 +35,13 @@
     <style id="string" _name="String" map-to="def:string"/>
     <style id="char" _name="Character" map-to="def:special-char"/>
     <style id="keyword" _name="Keyword" map-to="def:keyword"/>
-    <style id="parameter-attribute" _name="Parameter Attribute" map-to="def:statement"/>
+    <style id="function-param" _name="Parameter Attribute" map-to="def:statement"/>
     <style id="operator" _name="Operator" map-to="def:keyword"/>
     <style id="symbol" _name="Symbol" map-to="def:identifier"/>
     <style id="variable" _name="Variable" map-to="def:shebang"/>
     <style id="builtin-function" _name="Builtin Function" map-to="def:builtin"/>
     <style id="user-function" _name="User Function" map-to="def:constant"/>
-    <style id="cmdlet-parameters" _name="CmdLet Parameters" map-to="def:preprocessor"/>
+    <style id="builtin-parameters" _name="CmdLet Parameters" map-to="def:preprocessor"/>
     <style id="datatype" _name="Data Type" map-to="def:type"/>
     <style id="number" _name="Number" map-to="def:special-char"/>
   </styles>
@@ -108,7 +108,7 @@
       <keyword>While</keyword>
     </context>
 
-    <context id="Parameter-attribute" style-ref="parameter-attribute">
+    <context id="Function-Param" style-ref="function-param">
         <keyword>DefaultParameterSetName</keyword>
         <keyword>ConfirmImpact</keyword>
         <keyword>SupportsShouldProcess</keyword>
@@ -129,7 +129,7 @@
         <keyword>ValidateRange</keyword>
         <keyword>ValidateScript</keyword>
         <keyword>ValidateNotNull</keyword>
-        <keyword>ValidateNotNull</keyword>
+        <keyword>ValidateNotNullOrEmpty</keyword>
     </context>
 
     <define-regex id="operator" extended="true">
@@ -158,14 +158,16 @@
       <match>\%{symbol}</match>
     </context>
 
-    <!--FIXME example: az$true, $?-->
-    <context id="Variable" style-ref="variable" end-at-line-end="true">
-        <start extended="true">\$
-                               ([scriptglobacve]{5,7}:)?   #script:, global:, local:, private:
-                               [a-z0-9_]+
-                               \b
-        </start>
-        <end>\%{$@start}</end>
+    <define-regex id="variable" extended="true">
+        \$
+        ([scriptglobacve]{5,7}:)?   #script:, global:, local:, private:
+        [a-z0-9_]+
+        \b
+    </define-regex>
+
+    <!-- FixMe $? isn't correct displayed -->
+    <context id="Variable" style-ref="variable">
+        <match>\%{variable}</match>
     </context>
 
     <context id="BuiltIn-Function" style-ref="builtin-function">
@@ -546,7 +548,7 @@
         <keyword>write</keyword>
     </context>
 
-    <context id="cmdlet-Parameters" style-ref="cmdlet-parameters">
+    <context id="BuiltIn-Parameters" style-ref="builtin-parameters">
         <prefix>\-</prefix>
         <!--in common use-->
         <keyword>ErrorAction</keyword>
@@ -576,16 +578,12 @@
         <keyword>PassThru</keyword>
     </context>
 
-    <!--FIXME i don't know the meaning of \%{..@start} -->
-    <context id="Function" style-ref="user-function">
-        <start>\b[a-z0-9_-]+\-[a-z0-9_]+\b</start>
-        <end>\%{[a-z0-9_]@start}</end>
+    <context id="User-Function" style-ref="user-function">
+        <match>\b[a-z0-9_-]+\-[a-z0-9_]+\b</match>
     </context>
 
-    <!--FIXME i don't know the meaning of \%{..@start} -->
     <context id="Number" style-ref="number">
-        <start>\b(0x[0-9a-f]+[L]?|[0-9]+(\.[0-9]+)?[d]?)\b</start>
-        <end>\%{2@start}</end>
+        <match>\b(0x[0-9a-f]+[L]?|[0-9]+(\.[0-9]+)?[d]?)\b</match>
     </context>
 
     <context id="DataTypes" style-ref="datatype">
@@ -612,14 +610,14 @@
         <context ref="string"/>
         <context ref="char"/>
         <context ref="keywords"/>
-        <context ref="Parameter-attribute"/>
+        <context ref="Function-Param"/>
         <context ref="Variable"/>
         <context ref="BuiltIn-Function"/>
         <context ref="BuiltIn-Alias"/>
-        <context ref="Function"/>
+        <context ref="BuiltIn-Parameters"/>
+        <context ref="User-Function"/>
         <context ref="DataTypes"/>
         <context ref="operator"/>
-        <context ref="cmdlet-Parameters"/>
         <context ref="Number"/>
         <context ref="symbol"/>
       </include>
