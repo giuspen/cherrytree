@@ -252,6 +252,9 @@ class ClipboardHandler:
     def to_plain_text(self, clipboard, selectiondata, data):
         """From Clipboard to Plain Text"""
         plain_text = selectiondata.get_text()
+        if not plain_text:
+            print "? no clipboard plain text"
+            return
         iter_insert = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
         start_offset = iter_insert.get_offset()
         self.dad.curr_buffer.insert(iter_insert, plain_text)
@@ -283,7 +286,11 @@ class ClipboardHandler:
 
     def to_rich_text(self, clipboard, selectiondata, data):
         """From Clipboard to Rich Text"""
-        self.from_xml_string_to_buffer(selectiondata.get_text())
+        rich_text = selectiondata.get_text()
+        if not rich_text:
+            print "? no clipboard rich text"
+            return
+        self.from_xml_string_to_buffer(rich_text)
 
     def from_xml_string_to_buffer(self, xml_string):
         """From XML String to Text Buffer"""
@@ -348,7 +355,11 @@ class ClipboardHandler:
 
     def to_codebox(self, clipboard, selectiondata, data):
         """From Clipboard to CodeBox"""
-        dom = xml.dom.minidom.parseString(selectiondata.get_text())
+        xml_text = selectiondata.get_text()
+        if not xml_text:
+            print "? no clipboard xml text"
+            return
+        dom = xml.dom.minidom.parseString(xml_text)
         dom_node = dom.firstChild
         if dom_node.nodeName != "codebox":
             print "codebox from clipboard error"
@@ -374,7 +385,11 @@ class ClipboardHandler:
 
     def to_table(self, clipboard, selectiondata, table_model_n_iter):
         """From Clipboard to Table"""
-        dom = xml.dom.minidom.parseString(selectiondata.get_text())
+        xml_text = selectiondata.get_text()
+        if not xml_text:
+            print "? no clipboard xml text"
+            return
+        dom = xml.dom.minidom.parseString(xml_text)
         dom_node = dom.firstChild
         if dom_node.nodeName != "table":
             print "table from clipboard error"
