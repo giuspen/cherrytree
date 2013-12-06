@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: cherrytree 0.30.5\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-11-24 13:59+0100\n"
-"PO-Revision-Date: 2013-11-27 22:35+0100\n"
+"PO-Revision-Date: 2013-12-06 13:39+0100\n"
 "Last-Translator: Patrick Vijgeboom <pj.vijgeboom@gmail.com>\n"
 "Language-Team: Nederlands <>\n"
 "Language: nl\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.5.7\n"
+"X-Generator: Poedit 1.6.1\n"
 
 #: modules/support.py:128
 msgid "Save File as"
@@ -516,7 +516,7 @@ msgid ""
 "Entering the Automatic Syntax Highlighting you will Lose all Custom Colors "
 "for This Node, Do you want to Continue?"
 msgstr ""
-"Activeren van Automatische Syntax Markering zal alle aangepaste kleuren in "
+"Inschakelen van Automatische Syntax Markering zal alle aangepaste kleuren in "
 "dit knooppunt verwijderen, wilt u doorgaan?"
 
 #: modules/core.py:2890
@@ -2225,11 +2225,11 @@ msgstr "Aangepaste webkoppeling klik-actie inschakelen "
 
 #: glade/cherrytree.glade.h:45
 msgid "Enable Custom File Link Clicked Action"
-msgstr "Aangepaste bestandskoppeling klik-actie activeren inschakelen"
+msgstr "Aangepaste bestandskoppeling klik-actie inschakelen"
 
 #: glade/cherrytree.glade.h:46
 msgid "Enable Custom Folder Link Clicked Action"
-msgstr "Aangepaste map koppeling klik-actie activeren inschakelen"
+msgstr "Aangepaste map koppeling klik-actie inschakelen"
 
 #: glade/cherrytree.glade.h:47
 msgid "Anchor Size"
