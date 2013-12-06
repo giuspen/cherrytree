@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-11-24 13:59+0100\n"
-"PO-Revision-Date: 2013-11-25 20:44+0100\n"
+"PO-Revision-Date: 2013-12-07 00:31+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -1211,7 +1211,7 @@ msgstr "Jít na předchozí navštívený uzel"
 
 #: modules/cons.py:554 modules/cons.py:693
 msgid "Go _Forward"
-msgstr "Jít _před"
+msgstr "Jít _vpřed"
 
 #: modules/cons.py:554 modules/cons.py:693
 msgid "Go to the Next Visited Node"
