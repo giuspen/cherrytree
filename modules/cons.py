@@ -22,10 +22,10 @@
 import os, sys
 
 
-VERSION = "0.31.4"
+VERSION = "0.31.5"
 APP_NAME = "cherrytree"
 NEWER_VERSION_URL = "http://www.giuspen.com/software/version_cherrytree"
-if sys.platform[0:3] == "win":
+if sys.platform.startswith("win"):
     IS_WIN_OS = True
     CONFIG_DIR = os.path.join(os.environ['APPDATA'], APP_NAME)
     if SHARE_PATH:

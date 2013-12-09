@@ -586,7 +586,7 @@ def dialog_link_handle(dad, title, sel_tree_iter):
     """Dialog to Insert/Edit Links"""
     class LinksParms:
         def __init__(self):
-            self.sel_iter = sel_tree_iter
+            self.sel_iter = sel_tree_iter if sel_tree_iter else dad.links_entries['node']
     links_parms = LinksParms()
     dialog = gtk.Dialog(title=title,
         parent=dad.window,
