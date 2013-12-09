@@ -1,4 +1,10 @@
 
+0.31.5 (December 9th, 2013)
+• updated languages Dutch and Czech
+• fixed bug in pasting data from clipboard
+• opening a new file from menu it done again in current instance (restored old behavior)
+• bugfix: in links dialog the latest selected node was not selected by default anymore
+
 0.31.4 (December 5th, 2013)
 • bugfix: cannot change foreground and background color
 • bugfix: row wrongly recognized as a list row after pressing enter
