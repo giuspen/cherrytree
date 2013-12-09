@@ -227,7 +227,7 @@ class CherryTree:
                 self.update_selected_node_statusbar_info()
             else:
                 self.statusbar.pop(self.statusbar_context_id)
-                self.statusbar.push(self.statusbar_context_id, _("This is the Latest Version Available") + " (%s)" % latest_version)
+                self.statusbar.push(self.statusbar_context_id, _("You Are Using the Latest Version Available") + " (%s)" % latest_version)
         except:
             self.statusbar.pop(self.statusbar_context_id)
             self.statusbar.push(self.statusbar_context_id, _("Failed to Retrieve Latest Version Information - Try Again Later"))
