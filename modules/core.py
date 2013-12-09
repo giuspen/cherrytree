@@ -1336,7 +1336,8 @@ class CherryTree:
                                               curr_folder=self.file_dir,
                                               parent=self.window)
         if not filepath: return
-        self.filepath_boss_open(filepath, "")
+        #self.filepath_boss_open(filepath, "")
+        self.filepath_open(filepath)
 
     def filepath_boss_open(self, filepath, nodename):
         """Daddy, please, open a document for me"""
@@ -1607,6 +1608,7 @@ class CherryTree:
 
     def file_new(self, *args):
         """Starts a new unsaved instance"""
+        #if self.reset(): self.node_add()
         self.filepath_boss_open("", "")
 
     def reset(self, force_reset=False):
