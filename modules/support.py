@@ -385,11 +385,17 @@ def dialog_preferences(dad):
     checkbutton_spaces_tabs.set_active(dad.spaces_instead_tabs)
     checkbutton_line_wrap = gtk.CheckButton(label=_("Use Line Wrapping"))
     checkbutton_line_wrap.set_active(dad.line_wrapping)
+    checkbutton_auto_indent = gtk.CheckButton(label=_("Enable Automatic Indentation"))
+    checkbutton_auto_indent.set_active(dad.auto_indent)
+    checkbutton_line_nums = gtk.CheckButton(label=_("Show Line Numbers"))
+    checkbutton_line_nums.set_active(dad.show_line_numbers)
     
     vbox_text_editor = gtk.VBox()
     vbox_text_editor.pack_start(hbox_tab_width, expand=False)
     vbox_text_editor.pack_start(checkbutton_spaces_tabs, expand=False)
     vbox_text_editor.pack_start(checkbutton_line_wrap, expand=False)
+    vbox_text_editor.pack_start(checkbutton_auto_indent, expand=False)
+    vbox_text_editor.pack_start(checkbutton_line_nums, expand=False)
     frame_text_editor = gtk.Frame(label="<b>"+_("Text Editor")+"</b>")
     frame_text_editor.get_label_widget().set_use_markup(True)
     frame_text_editor.set_shadow_type(gtk.SHADOW_NONE)
@@ -406,7 +412,14 @@ def dialog_preferences(dad):
     def on_checkbutton_line_wrap_toggled(checkbutton):
         dad.line_wrapping = checkbutton.get_active()
         dad.sourceview.set_wrap_mode(gtk.WRAP_WORD if dad.line_wrapping else gtk.WRAP_NONE)
-     checkbutton_line_wrap.connect('toggled', on_checkbutton_line_wrap_toggled)
+    checkbutton_line_wrap.connect('toggled', on_checkbutton_line_wrap_toggled)
+    def on_checkbutton_auto_indent_toggled(checkbutton):
+        dad.auto_indent = checkbutton.get_active()
+    checkbutton_auto_indent.connect('toggled', on_checkbutton_auto_indent_toggled)
+    def on_checkbutton_line_nums_toggled(checkbutton):
+        dad.show_line_numbers = checkbutton.get_active()
+        dad.sourceview.set_show_line_numbers(dad.show_line_numbers)
+    checkbutton_line_nums.connect('toggled', on_checkbutton_line_nums_toggled)
     
     vbox_text_nodes = gtk.VBox()
     label_text_nodes = gtk.Label(_("Text Nodes"))

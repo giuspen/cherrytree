@@ -2175,15 +2175,6 @@ class CherryTree:
             if self.mod_time_sentinel_id != None:
                 self.modification_time_sentinel_stop()
 
-    def on_checkbutton_auto_indent_toggled(self, checkbutton):
-        """Automatic Indentation Toggled Handling"""
-        self.auto_indent = self.glade.checkbutton_auto_indent.get_active()
-
-    def on_checkbutton_line_nums_toggled(self, checkbutton):
-        """Show Line Num Toggled Handling"""
-        self.show_line_numbers = checkbutton.get_active()
-        self.sourceview.set_show_line_numbers(self.show_line_numbers)
-
     def on_radiobutton_nodes_startup_restore_toggled(self, checkbutton):
         """Restore Tree When Loaded Toggled"""
         if checkbutton.get_active(): self.rest_exp_coll = 0
