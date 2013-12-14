@@ -20,7 +20,7 @@
 #       MA 02110-1301, USA.
 
 import gtk, pango, gtksourceview2, gobject
-import sys, os, re, glob, subprocess, webbrowser, base64, cgi, urllib2, shutil, time, locale, pgsc_spellcheck
+import sys, os, re, glob, subprocess, webbrowser, base64, cgi, urllib2, shutil, time, pgsc_spellcheck
 import cons, support, config, machines, clipboard, imports, exports, printing, tablez, lists, findreplace, codeboxes, ctdb
 if cons.HAS_APPINDICATOR: import appindicator
 
@@ -2084,11 +2084,6 @@ class CherryTree:
     def on_entry_custom_folderlink_cmd_changed(self, entry):
         """Custom Folder Link Clicked Action Edited"""
         self.folderlink_custom_action[1] = entry.get_text()
-
-    def on_entry_horizontal_rule_changed(self, entry):
-        """Horizontal Rule Edited"""
-        if not self.user_active: return
-        self.h_rule = entry.get_text()
 
     def on_checkbutton_systray_toggled(self, checkbutton):
         """SysTray Toggled Handling"""

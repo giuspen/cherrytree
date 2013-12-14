@@ -19,7 +19,7 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
-import gtk, os
+import gtk, os, locale, webbrowser
 import cons
 
 
@@ -411,9 +411,16 @@ def dialog_preferences(dad):
     hbox_timestamp.pack_start(label_timestamp, expand=False)
     hbox_timestamp.pack_start(entry_timestamp_format)
     hbox_timestamp.pack_start(button_strftime_help, expand=False)
+    hbox_horizontal_rule = gtk.HBox()
+    label_horizontal_rule = gtk.Label(_("Horizontal Rule"))
+    entry_horizontal_rule = gtk.Entry()
+    entry_horizontal_rule.set_text(dad.h_rule)
+    hbox_horizontal_rule.pack_start(label_horizontal_rule, expand=False)
+    hbox_horizontal_rule.pack_start(entry_horizontal_rule)
     
     vbox_miscellaneous = gtk.VBox()
     vbox_miscellaneous.pack_start(hbox_timestamp)
+    vbox_miscellaneous.pack_start(hbox_horizontal_rule)
     
     frame_miscellaneous = gtk.Frame(label="<b>"+_("Miscellaneous")+"</b>")
     frame_miscellaneous.get_label_widget().set_use_markup(True)
@@ -451,6 +458,9 @@ def dialog_preferences(dad):
         else: page_lang = ""
         webbrowser.open("http://man.cx/strftime(3)/" + page_lang)
     button_strftime_help.connect('clicked', on_button_strftime_help_clicked)
+    def on_entry_horizontal_rule_changed(entry):
+        dad.h_rule = entry.get_text()
+    entry_horizontal_rule.connect('changed', on_entry_horizontal_rule_changed)
     
     ###
     vbox_text_nodes = gtk.VBox()
