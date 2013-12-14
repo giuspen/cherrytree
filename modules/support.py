@@ -372,6 +372,7 @@ def dialog_preferences(dad):
         flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
         buttons=gtk.STOCK_CLOSE)
     
+    ###
     vbox_all_nodes = gtk.VBox()
     label_all_nodes = gtk.Label(_("All Nodes"))
     
@@ -401,6 +402,26 @@ def dialog_preferences(dad):
     frame_text_editor.set_shadow_type(gtk.SHADOW_NONE)
     frame_text_editor.add(vbox_text_editor)
     
+    hbox_timestamp = gtk.HBox()
+    label_timestamp = gtk.Label(_("Timestamp Format"))
+    entry_timestamp_format = gtk.Entry()
+    entry_timestamp_format.set_text(dad.timestamp_format)
+    button_strftime_help = gtk.Button()
+    button_strftime_help.set_image(gtk.image_new_from_stock("gtk-help", gtk.ICON_SIZE_BUTTON))
+    hbox_timestamp.pack_start(label_timestamp, expand=False)
+    hbox_timestamp.pack_start(entry_timestamp_format)
+    hbox_timestamp.pack_start(button_strftime_help, expand=False)
+    
+    vbox_miscellaneous = gtk.VBox()
+    vbox_miscellaneous.pack_start(hbox_timestamp)
+    
+    frame_miscellaneous = gtk.Frame(label="<b>"+_("Miscellaneous")+"</b>")
+    frame_miscellaneous.get_label_widget().set_use_markup(True)
+    frame_miscellaneous.set_shadow_type(gtk.SHADOW_NONE)
+    frame_miscellaneous.add(vbox_miscellaneous)
+    
+    vbox_all_nodes.pack_start(frame_text_editor)
+    vbox_all_nodes.pack_start(frame_miscellaneous)
     def on_spinbutton_tab_width_value_changed(spinbutton):
         dad.tabs_width = int(spinbutton.get_value())
         dad.sourceview.set_tab_width(dad.tabs_width)
@@ -420,22 +441,38 @@ def dialog_preferences(dad):
         dad.show_line_numbers = checkbutton.get_active()
         dad.sourceview.set_show_line_numbers(dad.show_line_numbers)
     checkbutton_line_nums.connect('toggled', on_checkbutton_line_nums_toggled)
+    def on_entry_timestamp_format_changed(entry):
+        dad.timestamp_format = entry.get_text()
+    entry_timestamp_format.connect('changed', on_entry_timestamp_format_changed)
+    def on_button_strftime_help_clicked(menuitem, data=None):
+        lang_code = locale.getdefaultlocale()[0]
+        if lang_code:
+            page_lang = lang_code[0:2] if lang_code[0:2] in ["de", "es", "fr"] else ""
+        else: page_lang = ""
+        webbrowser.open("http://man.cx/strftime(3)/" + page_lang)
+    button_strftime_help.connect('clicked', on_button_strftime_help_clicked)
     
+    ###
     vbox_text_nodes = gtk.VBox()
     label_text_nodes = gtk.Label(_("Text Nodes"))
     
+    ###
     vbox_code_nodes = gtk.VBox()
     label_code_nodes = gtk.Label(_("Code Nodes"))
     
+    ###
     vbox_tree = gtk.VBox()
     label_tree = gtk.Label(_("Tree"))
     
+    ###
     vbox_fonts = gtk.VBox()
     label_fonts = gtk.Label(_("Fonts"))
     
+    ###
     vbox_links = gtk.VBox()
     label_links = gtk.Label(_("Links"))
     
+    ###
     vbox_misc = gtk.VBox()
     label_misc = gtk.Label(_("Miscellaneous"))
     

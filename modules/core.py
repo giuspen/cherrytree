@@ -2045,14 +2045,6 @@ class CherryTree:
         """Show the Online Manual"""
         webbrowser.open("http://giuspen.com/cherrytreemanual/Introduction.html")
 
-    def on_button_strftime_help_clicked(self, menuitem, data=None):
-        """Show the strftime Manual Page"""
-        lang_code = locale.getdefaultlocale()[0]
-        if lang_code:
-            page_lang = lang_code[0:2] if lang_code[0:2] in ["de", "es", "fr"] else ""
-        else: page_lang = ""
-        webbrowser.open("http://man.cx/strftime%283%29/" + page_lang)
-
     def on_spinbutton_limit_undoable_steps_value_changed(self, spinbutton):
         """Limit Undoable Steps Change Handling"""
         self.limit_undoable_steps = int(spinbutton.get_value())
@@ -2092,10 +2084,6 @@ class CherryTree:
     def on_entry_custom_folderlink_cmd_changed(self, entry):
         """Custom Folder Link Clicked Action Edited"""
         self.folderlink_custom_action[1] = entry.get_text()
-
-    def on_entry_timestamp_format_changed(self, entry):
-        """Timestamp Format Edited"""
-        self.timestamp_format = entry.get_text()
 
     def on_entry_horizontal_rule_changed(self, entry):
         """Horizontal Rule Edited"""
