@@ -2175,17 +2175,6 @@ class CherryTree:
             if self.mod_time_sentinel_id != None:
                 self.modification_time_sentinel_stop()
 
-    def on_checkbutton_line_wrap_toggled(self, checkbutton):
-        """Lines Wrapping Toggled Handling"""
-        self.line_wrapping = checkbutton.get_active()
-        if self.line_wrapping: self.sourceview.set_wrap_mode(gtk.WRAP_WORD)
-        else: self.sourceview.set_wrap_mode(gtk.WRAP_NONE)
-
-    def on_checkbutton_spaces_tabs_toggled(self, checkbutton):
-        """Insert Spaces Instead of Tabs Toggled Handling"""
-        self.spaces_instead_tabs = checkbutton.get_active()
-        self.sourceview.set_insert_spaces_instead_of_tabs(self.spaces_instead_tabs)
-
     def on_checkbutton_auto_indent_toggled(self, checkbutton):
         """Automatic Indentation Toggled Handling"""
         self.auto_indent = self.glade.checkbutton_auto_indent.get_active()
