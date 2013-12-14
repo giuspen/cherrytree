@@ -294,7 +294,6 @@ def config_dialog_prepare_settings(inst):
     inst.glade.checkbutton_custom_folderlink_cmd.set_active(inst.folderlink_custom_action[0])
     inst.glade.entry_custom_folderlink_cmd.set_sensitive(inst.folderlink_custom_action[0])
     inst.glade.entry_custom_folderlink_cmd.set_text(inst.folderlink_custom_action[1])
-    inst.glade.entry_timestamp_format.set_text(inst.timestamp_format)
     inst.glade.radiobutton_node_icon_cherry.set_active(inst.nodes_icons == "c")
     inst.glade.radiobutton_node_icon_bullet.set_active(inst.nodes_icons == "b")
     inst.glade.radiobutton_node_icon_none.set_active(inst.nodes_icons == "n")
