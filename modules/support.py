@@ -372,7 +372,7 @@ def dialog_preferences(dad):
         flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
         buttons=gtk.STOCK_CLOSE)
     
-    ###
+    ### ALL NODES
     vbox_all_nodes = gtk.VBox()
     label_all_nodes = gtk.Label(_("All Nodes"))
     
@@ -478,10 +478,11 @@ def dialog_preferences(dad):
         dad.h_rule = entry.get_text()
     entry_horizontal_rule.connect('changed', on_entry_horizontal_rule_changed)
     
-    ###
+    ### TEXT NODES
     vbox_text_nodes = gtk.VBox()
     label_text_nodes = gtk.Label(_("Text Nodes"))
     
+    vbox_spell_check = gtk.VBox()
     checkbutton_spell_check = gtk.CheckButton(label=_("Enable Spell Check"))
     checkbutton_spell_check.set_active(dad.enable_spell_check)
     hbox_spell_check_lang = gtk.HBox()
@@ -493,7 +494,6 @@ def dialog_preferences(dad):
     combobox_spell_check_lang.set_active_iter(dad.get_combobox_iter_from_value(dad.spell_check_lang_liststore, 0, dad.spell_check_lang))
     hbox_spell_check_lang.pack_start(label_spell_check_lang, expand=False)
     hbox_spell_check_lang.pack_start(combobox_spell_check_lang)
-    vbox_spell_check = gtk.VBox()
     vbox_spell_check.pack_start(checkbutton_spell_check, expand=False)
     vbox_spell_check.pack_start(hbox_lang_spell_check, expand=False)
     frame_spell_check = gtk.Frame(label="<b>"+_("Spell Check")+"</b>")
@@ -501,7 +501,42 @@ def dialog_preferences(dad):
     frame_spell_check.set_shadow_type(gtk.SHADOW_NONE)
     frame_spell_check.add(vbox_spell_check)
     
+    vbox_theme = gtk.VBox()
+    
+    radiobutton_rt_col_light = gtk.RadioButton(label=_("Light Background, Dark Text"))
+    radiobutton_rt_col_dark = gtk.RadioButton(label=_("Dark Background, Light Text"))
+    radiobutton_rt_col_dark.set_group(radiobutton_rt_col_light)
+    radiobutton_rt_col_custom = gtk.RadioButton(label=_("Custom Background"))
+    radiobutton_rt_col_custom.set_group(radiobutton_rt_col_light)
+    hbox_rt_col_custom = gtk.HBox()
+    colorbutton_text_bg = gtk.ColorButton(color=gtk.gdk.color_parse(dad.rt_def_bg))
+    label_rt_col_custom = gtk.Label(_("and Text"))
+    colorbutton_text_fg = gtk.ColorButton(color=gtk.gdk.color_parse(dad.rt_def_fg))
+    hbox_rt_col_custom.pack_start(radiobutton_rt_col_custom, expand=False)
+    hbox_rt_col_custom.pack_start(colorbutton_text_bg, expand=False)
+    hbox_rt_col_custom.pack_start(label_rt_col_custom, expand=False)
+    hbox_rt_col_custom.pack_start(colorbutton_text_fg, expand=False)
+    
+    vbox_theme.pack_start(radiobutton_rt_col_light, expand=False)
+    vbox_theme.pack_start(radiobutton_rt_col_dark, expand=False)
+    vbox_theme.pack_start(hbox_rt_col_custom, expand=False)
+    frame_theme = gtk.Frame(label="<b>"+_("Theme")+"</b>")
+    frame_theme.get_label_widget().set_use_markup(True)
+    frame_theme.set_shadow_type(gtk.SHADOW_NONE)
+    frame_theme.add(vbox_theme)
+    
+    if dad.rt_def_fg == cons.RICH_TEXT_DARK_FG and dad.rt_def_bg == cons.RICH_TEXT_DARK_BG:
+        radiobutton_rt_col_dark.set_active(True)
+        colorbutton_text_fg.set_sensitive(False)
+        colorbutton_text_bg.set_sensitive(False)
+    elif dad.rt_def_fg == cons.RICH_TEXT_LIGHT_FG and dad.rt_def_bg == cons.RICH_TEXT_LIGHT_BG:
+        radiobutton_rt_col_light.set_active(True)
+        colorbutton_text_fg.set_sensitive(False)
+        colorbutton_text_bg.set_sensitive(False)
+    else: radiobutton_rt_col_custom.set_active(True)
+    
     vbox_text_nodes.pack_start(frame_spell_check)
+    vbox_text_nodes.pack_start(frame_theme)
     def on_checkbutton_spell_check_toggled(checkbutton):
         dad.enable_spell_check = checkbutton.get_active()
         if dad.enable_spell_check: dad.spell_check_set_on()
@@ -513,11 +548,45 @@ def dialog_preferences(dad):
         new_lang_code = dad.spell_check_lang_liststore[new_iter][0]
         if new_lang_code != dad.spell_check_lang: dad.spell_check_set_new_lang(new_lang_code)
     combobox_spell_check_lang.connect('changed', on_combobox_spell_check_lang_changed)
+    def on_colorbutton_text_fg_color_set(colorbutton):
+        dad.rt_def_fg = "#" + dad.html_handler.rgb_to_24(colorbutton.get_color().to_string()[1:])
+        if dad.curr_tree_iter and dad.syntax_highlighting == cons.CUSTOM_COLORS_ID:
+            dad.sourceview.modify_text(gtk.STATE_NORMAL, gtk.gdk.color_parse(dad.rt_def_fg))
+    colorbutton_text_fg.connect('color-set', on_colorbutton_text_fg_color_set)
+    def on_colorbutton_text_bg_color_set(colorbutton):
+        dad.rt_def_bg = "#" + dad.html_handler.rgb_to_24(colorbutton.get_color().to_string()[1:])
+        if dad.curr_tree_iter and dad.syntax_highlighting == cons.CUSTOM_COLORS_ID:
+            dad.sourceview.modify_base(gtk.STATE_NORMAL, gtk.gdk.color_parse(dad.rt_def_bg))
+    colorbutton_text_bg.connect('color-set', on_colorbutton_text_bg_color_set)
+    def on_radiobutton_rt_col_light_toggled(radiobutton):
+        if not radiobutton.get_active(): return
+        colorbutton_text_fg.set_color(gtk.gdk.color_parse(cons.RICH_TEXT_LIGHT_FG))
+        colorbutton_text_bg.set_color(gtk.gdk.color_parse(cons.RICH_TEXT_LIGHT_BG))
+        colorbutton_text_fg.set_sensitive(False)
+        colorbutton_text_bg.set_sensitive(False)
+        on_colorbutton_text_fg_color_set(colorbutton_text_fg)
+        on_colorbutton_text_bg_color_set(colorbutton_text_bg)
+    radiobutton_rt_col_light.connect('toggled', on_radiobutton_rt_col_light_toggled)
+    def on_radiobutton_rt_col_dark_toggled(radiobutton):
+        if not radiobutton.get_active(): return
+        colorbutton_text_fg.set_color(gtk.gdk.color_parse(cons.RICH_TEXT_DARK_FG))
+        colorbutton_text_bg.set_color(gtk.gdk.color_parse(cons.RICH_TEXT_DARK_BG))
+        colorbutton_text_fg.set_sensitive(False)
+        colorbutton_text_bg.set_sensitive(False)
+        on_colorbutton_text_fg_color_set(colorbutton_text_fg)
+        on_colorbutton_text_bg_color_set(colorbutton_text_bg)
+    radiobutton_rt_col_dark.connect('toggled', on_radiobutton_rt_col_dark_toggled)
+    def on_radiobutton_rt_col_custom_toggled(radiobutton):
+        if not radiobutton.get_active(): return
+        colorbutton_text_fg.set_sensitive(True)
+        colorbutton_text_bg.set_sensitive(True)
+    radiobutton_rt_col_custom.connect('toggled', on_radiobutton_rt_col_custom_toggled)
     
     if not pgsc_spellcheck.HAS_PYENCHANT:
         checkbutton_spell_check.set_sensitive(False)
         combobox_spell_check_lang.set_sensitive(False)
-    ###
+    
+    ### CODE NODES
     vbox_code_nodes = gtk.VBox()
     label_code_nodes = gtk.Label(_("Code Nodes"))
     
