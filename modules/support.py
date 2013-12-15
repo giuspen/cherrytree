@@ -417,10 +417,26 @@ def dialog_preferences(dad):
     entry_horizontal_rule.set_text(dad.h_rule)
     hbox_horizontal_rule.pack_start(label_horizontal_rule, expand=False)
     hbox_horizontal_rule.pack_start(entry_horizontal_rule)
+    hbox_special_chars = gtk.HBox()
+    label_special_chars = gtk.Label(_("Special Characters"))
+    frame_special_chars = gtk.Frame()
+    frame_special_chars.set_size_request(-1, 80)
+    frame_special_chars.set_shadow_type(gtk.SHADOW_IN)
+    scrolledwindow_special_chars = gtk.ScrolledWindow()
+    scrolledwindow_special_chars.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+    frame_special_chars.add(scrolledwindow_special_chars)
+    textbuffer_special_chars = gtk.TextBuffer()
+    textbuffer_special_chars.set_text(dad.special_chars)
+    textview_special_chars = gtk.TextView(buffer=textbuffer_special_chars)
+    textview_special_chars.set_wrap_mode(gtk.WRAP_CHAR)
+    scrolledwindow_special_chars.add(textview_special_chars)
+    hbox_special_chars.pack_start(label_special_chars, expand=False)
+    hbox_special_chars.pack_start(frame_special_chars)
     
     vbox_miscellaneous = gtk.VBox()
     vbox_miscellaneous.pack_start(hbox_timestamp)
     vbox_miscellaneous.pack_start(hbox_horizontal_rule)
+    vbox_miscellaneous.pack_start(hbox_special_chars)
     
     frame_miscellaneous = gtk.Frame(label="<b>"+_("Miscellaneous")+"</b>")
     frame_miscellaneous.get_label_widget().set_use_markup(True)
@@ -500,6 +516,12 @@ def dialog_preferences(dad):
     content_area.show_all()
     dialog.run()
     dialog.hide()
+    
+    # special characters
+    new_special_chars = unicode(textbuffer_special_chars.get_text(*textbuffer_special_chars.get_bounds()).replace(cons.CHAR_NEWLINE, ""), cons.STR_UTF8, cons.STR_IGNORE)
+    if dad.special_chars != new_special_chars:
+        dad.special_chars = new_special_chars
+        support.set_menu_items_special_chars(dad)
 
 def dialog_img_n_entry(father_win, title, entry_content, img_stock):
     """Insert/Edit Anchor Name"""

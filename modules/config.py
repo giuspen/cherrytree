@@ -259,8 +259,6 @@ def config_dialog_prepare_settings(inst):
         inst.glade.colorbutton_tree_fg.set_sensitive(False)
         inst.glade.colorbutton_tree_bg.set_sensitive(False)
     else: inst.glade.radiobutton_tt_col_custom.set_active(True)
-    inst.glade.textbuffer_special_chars.set_text(inst.special_chars)
-    inst.glade.textbuffer_special_chars.set_modified(False)
     if not pgsc_spellcheck.HAS_PYENCHANT:
         inst.glade.checkbutton_spell_check.set_sensitive(False)
         inst.glade.combobox_spell_check_lang.set_sensitive(False)
