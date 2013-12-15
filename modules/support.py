@@ -20,7 +20,7 @@
 #       MA 02110-1301, USA.
 
 import gtk, os, locale, webbrowser
-import cons
+import cons, pgsc_spellcheck
 
 
 def text_file_rm_emptylines(filepath):
@@ -376,10 +376,10 @@ def dialog_preferences(dad):
     vbox_all_nodes = gtk.VBox()
     label_all_nodes = gtk.Label(_("All Nodes"))
     
+    hbox_tab_width = gtk.HBox()
     label_tab_width = gtk.Label(_("Tab Width"))
     adj_tab_width = gtk.Adjustment(value=dad.tabs_width, lower=1, upper=10000, step_incr=1)
     spinbutton_tab_width = gtk.SpinButton(adj_tab_width)
-    hbox_tab_width = gtk.HBox()
     hbox_tab_width.pack_start(label_tab_width, expand=False)
     hbox_tab_width.pack_start(spinbutton_tab_width, expand=False)
     checkbutton_spaces_tabs = gtk.CheckButton(label=_("Insert Spaces Instead of Tabs"))
@@ -482,6 +482,41 @@ def dialog_preferences(dad):
     vbox_text_nodes = gtk.VBox()
     label_text_nodes = gtk.Label(_("Text Nodes"))
     
+    checkbutton_spell_check = gtk.CheckButton(label=_("Enable Spell Check"))
+    checkbutton_spell_check.set_active(dad.enable_spell_check)
+    hbox_spell_check_lang = gtk.HBox()
+    label_spell_check_lang = gtk.Label(_("Spell Check Language"))
+    combobox_spell_check_lang = gtk.ComboBox(model=dad.spell_check_lang_liststore)
+    cell = gtk.CellRendererText()
+    combobox_spell_check_lang.pack_start(cell, True)
+    combobox_spell_check_lang.add_attribute(cell, 'text', 0)
+    combobox_spell_check_lang.set_active_iter(dad.get_combobox_iter_from_value(dad.spell_check_lang_liststore, 0, dad.spell_check_lang))
+    hbox_spell_check_lang.pack_start(label_spell_check_lang, expand=False)
+    hbox_spell_check_lang.pack_start(combobox_spell_check_lang)
+    vbox_spell_check = gtk.VBox()
+    vbox_spell_check.pack_start(checkbutton_spell_check, expand=False)
+    vbox_spell_check.pack_start(hbox_lang_spell_check, expand=False)
+    frame_spell_check = gtk.Frame(label="<b>"+_("Spell Check")+"</b>")
+    frame_spell_check.get_label_widget().set_use_markup(True)
+    frame_spell_check.set_shadow_type(gtk.SHADOW_NONE)
+    frame_spell_check.add(vbox_spell_check)
+    
+    vbox_text_nodes.pack_start(frame_spell_check)
+    def on_checkbutton_spell_check_toggled(checkbutton):
+        dad.enable_spell_check = checkbutton.get_active()
+        if dad.enable_spell_check: dad.spell_check_set_on()
+        else: dad.spell_check_set_off()
+        combobox_spell_check_lang.set_sensitive(dad.enable_spell_check)
+    checkbutton_spell_check.connect('toggled', on_checkbutton_spell_check_toggled)
+    def on_combobox_spell_check_lang_changed(combobox):
+        new_iter = combobox.get_active_iter()
+        new_lang_code = dad.spell_check_lang_liststore[new_iter][0]
+        if new_lang_code != dad.spell_check_lang: dad.spell_check_set_new_lang(new_lang_code)
+    combobox_spell_check_lang.connect('changed', on_combobox_spell_check_lang_changed)
+    
+    if not pgsc_spellcheck.HAS_PYENCHANT:
+        checkbutton_spell_check.set_sensitive(False)
+        combobox_spell_check_lang.set_sensitive(False)
     ###
     vbox_code_nodes = gtk.VBox()
     label_code_nodes = gtk.Label(_("Code Nodes"))

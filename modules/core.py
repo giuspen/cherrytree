@@ -2177,14 +2177,6 @@ class CherryTree:
         """Autosave on Quit Toggled"""
         self.autosave_on_quit = checkbutton.get_active()
 
-    def on_checkbutton_spell_check_toggled(self, checkbutton):
-        """Enable Spell Check Toggled"""
-        if not self.user_active: return
-        self.enable_spell_check = checkbutton.get_active()
-        if self.enable_spell_check: self.spell_check_set_on()
-        else: self.spell_check_set_off()
-        self.glade.combobox_spell_check_lang.set_sensitive(self.enable_spell_check)
-
     def on_checkbutton_highlight_current_line_toggled(self, checkbutton):
         """Show White Spaces Toggled"""
         self.highl_curr_line = checkbutton.get_active()
@@ -2285,13 +2277,6 @@ class CherryTree:
             self.style_scheme = new_style
             support.dialog_info_after_restart(self.window)
 
-    def on_combobox_spell_check_lang_changed(self, combobox):
-        """New Spell Check Language Choosed"""
-        if not self.user_active: return
-        new_iter = self.glade.combobox_spell_check_lang.get_active_iter()
-        new_lang_code = self.spell_check_lang_liststore[new_iter][0]
-        if new_lang_code != self.spell_check_lang: self.spell_check_set_new_lang(new_lang_code)
-
     def combobox_country_lang_init(self):
         """Init The Country Language ComboBox"""
         if not "country_lang_liststore" in dir(self):
@@ -2334,14 +2319,6 @@ class CherryTree:
                 self.spell_check_lang_liststore.append([code_lang])
                 code_lang_list.append(code_lang)
             if not self.spell_check_lang in code_lang_list: self.spell_check_lang = code_lang_list[0]
-        if "glade" in dir(self):
-            combobox = self.glade.combobox_spell_check_lang
-            combobox.set_model(self.spell_check_lang_liststore)
-            cell = gtk.CellRendererText()
-            combobox.pack_start(cell, True)
-            combobox.add_attribute(cell, 'text', 0)
-            combobox.set_active_iter(self.get_combobox_iter_from_value(self.spell_check_lang_liststore, 0, self.spell_check_lang))
-            combobox.connect('changed', self.on_combobox_spell_check_lang_changed)
     
     def get_combobox_iter_from_value(self, liststore, column_num, value):
         """Returns the Liststore iter Given the First Column Value"""
@@ -3792,9 +3769,6 @@ class CherryTree:
     def spell_check_notify_new_lang(self, new_lang):
         """Receive New Lang from PyGtkSpellCheck"""
         self.spell_check_lang = new_lang
-        self.user_active = False
-        self.glade.combobox_spell_check_lang.set_active_iter(self.get_combobox_iter_from_value(self.spell_check_lang_liststore, 0, self.spell_check_lang))
-        self.user_active = True
 
     def spell_check_set_on(self):
         """Enable Spell Check"""
