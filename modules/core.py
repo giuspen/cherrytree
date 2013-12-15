@@ -965,11 +965,6 @@ class CherryTree:
         self.glade.prefdialog.run()
         self.prefpage = self.glade.prefnotebook.get_current_page()
         self.glade.prefdialog.hide()
-        # special characters
-        if self.glade.textbuffer_special_chars.get_modified():
-            self.special_chars = unicode(self.glade.textbuffer_special_chars.get_text(*self.glade.textbuffer_special_chars.get_bounds()).replace(cons.CHAR_NEWLINE, ""), cons.STR_UTF8, cons.STR_IGNORE)
-            self.glade.textbuffer_special_chars.set_modified(False)
-            support.set_menu_items_special_chars(self)
         # timer activate/modify handling
         new_autosave_value = int(self.glade.spinbutton_autosave.get_value())
         if self.autosave[1] != new_autosave_value:
