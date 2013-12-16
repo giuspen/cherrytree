@@ -433,18 +433,17 @@ def dialog_preferences(dad):
     hbox_special_chars.pack_start(label_special_chars, expand=False)
     hbox_special_chars.pack_start(frame_special_chars)
     
-    vbox_miscellaneous = gtk.VBox()
-    vbox_miscellaneous.pack_start(hbox_timestamp)
-    vbox_miscellaneous.pack_start(hbox_horizontal_rule)
-    vbox_miscellaneous.pack_start(hbox_special_chars)
-    
-    frame_miscellaneous = gtk.Frame(label="<b>"+_("Miscellaneous")+"</b>")
-    frame_miscellaneous.get_label_widget().set_use_markup(True)
-    frame_miscellaneous.set_shadow_type(gtk.SHADOW_NONE)
-    frame_miscellaneous.add(vbox_miscellaneous)
+    vbox_misc_all = gtk.VBox()
+    vbox_misc_all.pack_start(hbox_timestamp)
+    vbox_misc_all.pack_start(hbox_horizontal_rule)
+    vbox_misc_all.pack_start(hbox_special_chars)
+    frame_misc_all = gtk.Frame(label="<b>"+_("Miscellaneous")+"</b>")
+    frame_misc_all.get_label_widget().set_use_markup(True)
+    frame_misc_all.set_shadow_type(gtk.SHADOW_NONE)
+    frame_misc_all.add(vbox_misc_all)
     
     vbox_all_nodes.pack_start(frame_text_editor)
-    vbox_all_nodes.pack_start(frame_miscellaneous)
+    vbox_all_nodes.pack_start(frame_misc_all)
     def on_spinbutton_tab_width_value_changed(spinbutton):
         dad.tabs_width = int(spinbutton.get_value())
         dad.sourceview.set_tab_width(dad.tabs_width)
@@ -535,8 +534,23 @@ def dialog_preferences(dad):
         colorbutton_text_bg.set_sensitive(False)
     else: radiobutton_rt_col_custom.set_active(True)
     
+    hbox_misc_text = gtk.HBox()
+    label_limit_undoable_steps = gtk.Label(_("Limit of Undoable Steps Per Node"))
+    adj_limit_undoable_steps = gtk.Adjustment(value=dad.limit_undoable_steps, lower=1, upper=10000, step_incr=1)
+    spinbutton_limit_undoable_steps = gtk.SpinButton(adj_limit_undoable_steps)
+    hbox_misc_text.pack_start(label_limit_undoable_steps, expand=False)
+    hbox_misc_text.pack_start(spinbutton_limit_undoable_steps)
+    
+    vbox_misc_text = gtk.VBox()
+    vbox_misc_text.pack_start(hbox_misc_text)
+    frame_misc_text = gtk.Frame(label="<b>"+_("Miscellaneous")+"</b>")
+    frame_misc_text.get_label_widget().set_use_markup(True)
+    frame_misc_text.set_shadow_type(gtk.SHADOW_NONE)
+    frame_misc_text.add(vbox_misc_text)
+    
     vbox_text_nodes.pack_start(frame_spell_check)
     vbox_text_nodes.pack_start(frame_theme)
+    vbox_text_nodes.pack_start(frame_misc_text)
     def on_checkbutton_spell_check_toggled(checkbutton):
         dad.enable_spell_check = checkbutton.get_active()
         if dad.enable_spell_check: dad.spell_check_set_on()
@@ -581,6 +595,9 @@ def dialog_preferences(dad):
         colorbutton_text_fg.set_sensitive(True)
         colorbutton_text_bg.set_sensitive(True)
     radiobutton_rt_col_custom.connect('toggled', on_radiobutton_rt_col_custom_toggled)
+    def on_spinbutton_limit_undoable_steps_value_changed(spinbutton):
+        dad.limit_undoable_steps = int(spinbutton.get_value())
+    spinbutton_limit_undoable_steps.connect('value-changed', on_spinbutton_limit_undoable_steps_value_changed)
     
     if not pgsc_spellcheck.HAS_PYENCHANT:
         checkbutton_spell_check.set_sensitive(False)

@@ -279,7 +279,6 @@ def config_dialog_prepare_settings(inst):
     inst.glade.radiobutton_node_icon_cherry.set_active(inst.nodes_icons == "c")
     inst.glade.radiobutton_node_icon_bullet.set_active(inst.nodes_icons == "b")
     inst.glade.radiobutton_node_icon_none.set_active(inst.nodes_icons == "n")
-    inst.glade.spinbutton_limit_undoable_steps.set_value(inst.limit_undoable_steps)
     inst.glade.spinbutton_tree_nodes_names_width.set_value(inst.cherry_wrap_width)
     if user_active_restore: inst.user_active = True
 
