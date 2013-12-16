@@ -2040,10 +2040,6 @@ class CherryTree:
         """Show the Online Manual"""
         webbrowser.open("http://giuspen.com/cherrytreemanual/Introduction.html")
 
-    def on_spinbutton_limit_undoable_steps_value_changed(self, spinbutton):
-        """Limit Undoable Steps Change Handling"""
-        self.limit_undoable_steps = int(spinbutton.get_value())
-
     def on_spinbutton_tree_nodes_names_width_value_changed(self, spinbutton):
         """Cherry Wrap Width Change Handling"""
         self.cherry_wrap_width = int(spinbutton.get_value())
