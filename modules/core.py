@@ -1071,23 +1071,6 @@ class CherryTree:
             new_node_id += 1
         return new_node_id
 
-    def on_fontbutton_text_font_set(self, picker):
-        """A New Font For the Text was Chosen"""
-        self.text_font = picker.get_font_name()
-        if self.curr_tree_iter and self.syntax_highlighting == cons.CUSTOM_COLORS_ID:
-            self.sourceview.modify_font(pango.FontDescription(self.text_font))
-
-    def on_fontbutton_code_font_set(self, picker):
-        """A New Font For the Text was Chosen"""
-        self.code_font = picker.get_font_name()
-        if self.curr_tree_iter and self.syntax_highlighting != cons.CUSTOM_COLORS_ID:
-            self.sourceview.modify_font(pango.FontDescription(self.code_font))
-
-    def on_fontbutton_tree_font_set(self, picker):
-        """A New Font For the Tree was Chosen"""
-        self.tree_font = picker.get_font_name()
-        self.set_treeview_font()
-
     def set_treeview_font(self):
         """Update the TreeView Font"""
         self.renderer_text.set_property('font-desc', pango.FontDescription(self.tree_font))

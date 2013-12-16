@@ -374,7 +374,6 @@ def dialog_preferences(dad):
     
     ### ALL NODES
     vbox_all_nodes = gtk.VBox()
-    label_all_nodes = gtk.Label(_("All Nodes"))
     
     hbox_tab_width = gtk.HBox()
     label_tab_width = gtk.Label(_("Tab Width"))
@@ -479,7 +478,6 @@ def dialog_preferences(dad):
     
     ### TEXT NODES
     vbox_text_nodes = gtk.VBox()
-    label_text_nodes = gtk.Label(_("Text Nodes"))
     
     vbox_spell_check = gtk.VBox()
     checkbutton_spell_check = gtk.CheckButton(label=_("Enable Spell Check"))
@@ -605,7 +603,6 @@ def dialog_preferences(dad):
     
     ### CODE NODES
     vbox_code_nodes = gtk.VBox()
-    label_code_nodes = gtk.Label(_("Code Nodes"))
     
     vbox_syntax = gtk.VBox()
     hbox_style_scheme = gtk.HBox()
@@ -648,31 +645,72 @@ def dialog_preferences(dad):
         support.dialog_info_after_restart(dad.window)
     checkbutton_highlight_current_line.connect('toggled', on_checkbutton_highlight_current_line_toggled)
     
-    ###
+    ### TREE
     vbox_tree = gtk.VBox()
-    label_tree = gtk.Label(_("Tree"))
     
-    ###
+    ### FONTS
     vbox_fonts = gtk.VBox()
-    label_fonts = gtk.Label(_("Fonts"))
     
-    ###
+    image_text = gtk.Image()
+    image_text.set_from_stock(gtk.STOCK_SELECT_FONT, gtk.ICON_SIZE_MENU)
+    image_code = gtk.Image()
+    image_code.set_from_stock(gtk.STOCK_SELECT_FONT, gtk.ICON_SIZE_MENU)
+    image_tree = gtk.Image()
+    image_tree.set_from_stock('cherries', gtk.ICON_SIZE_MENU)
+    label_text = gtk.Label(_("Text Font"))
+    label_code = gtk.Label(_("Code Font"))
+    label_tree = gtk.Label(_("Tree Font"))
+    fontbutton_text = gtk.FontButton(fontname=dad.text_font)
+    fontbutton_code = gtk.FontButton(fontname=dad.code_font)
+    fontbutton_tree = gtk.FontButton(fontname=dad.tree_font)
+    table_fonts = gtk.Table(3, 3)
+    table_fonts.set_row_spacings(2)
+    table_fonts.attach(image_text, 0, 1, 0, 1, 0, 0)
+    table_fonts.attach(image_code, 0, 1, 1, 2, 0, 0)
+    table_fonts.attach(image_tree, 0, 1, 2, 3, 0, 0)
+    table_fonts.attach(label_text, 1, 2, 0, 1, 0, 0)
+    table_fonts.attach(label_code, 1, 2, 1, 2, 0, 0)
+    table_fonts.attach(label_tree, 1, 2, 2, 3, 0, 0)
+    table_fonts.attach(fontbutton_text, 2, 3, 0, 1)
+    table_fonts.attach(fontbutton_code, 2, 3, 1, 2)
+    table_fonts.attach(fontbutton_tree, 2, 3, 2, 3)
+    
+    frame_fonts = gtk.Frame(label="<b>"+_("Fonts")+"</b>")
+    frame_fonts.get_label_widget().set_use_markup(True)
+    frame_fonts.set_shadow_type(gtk.SHADOW_NONE)
+    frame_fonts.add(table_fonts)
+    
+    vbox_fonts.pack_start(frame_fonts)
+    def on_fontbutton_text_font_set(picker):
+        dad.text_font = picker.get_font_name()
+        if dad.curr_tree_iter and dad.syntax_highlighting == cons.CUSTOM_COLORS_ID:
+            dad.sourceview.modify_font(pango.FontDescription(dad.text_font))
+    fontbutton_text.connect('font-set', on_fontbutton_text_font_set)
+    def on_fontbutton_code_font_set(picker):
+        dad.code_font = picker.get_font_name()
+        if dad.curr_tree_iter and dad.syntax_highlighting != cons.CUSTOM_COLORS_ID:
+            dad.sourceview.modify_font(pango.FontDescription(dad.code_font))
+    fontbutton_code.connect('font-set', on_fontbutton_code_font_set)
+    def on_fontbutton_tree_font_set(picker):
+        dad.tree_font = picker.get_font_name()
+        dad.set_treeview_font()
+    fontbutton_tree.connect('font-set', on_fontbutton_tree_font_set)
+    
+    ### LINKS
     vbox_links = gtk.VBox()
-    label_links = gtk.Label(_("Links"))
     
-    ###
+    ### MISCELLANEOUS
     vbox_misc = gtk.VBox()
-    label_misc = gtk.Label(_("Miscellaneous"))
     
     notebook = gtk.Notebook()
     notebook.set_tab_pos(gtk.POS_LEFT)
-    notebook.append_page(vbox_all_nodes, label_all_nodes)
-    notebook.append_page(vbox_text_nodes, label_text_nodes)
-    notebook.append_page(vbox_code_nodes, label_code_nodes)
-    notebook.append_page(vbox_tree, label_tree)
-    notebook.append_page(vbox_fonts, label_fonts)
-    notebook.append_page(vbox_links, label_links)
-    notebook.append_page(vbox_misc, label_misc)
+    notebook.append_page(vbox_all_nodes, gtk.Label(_("All Nodes")))
+    notebook.append_page(vbox_text_nodes, gtk.Label(_("Text Nodes")))
+    notebook.append_page(vbox_code_nodes, gtk.Label(_("Code Nodes")))
+    notebook.append_page(vbox_tree, gtk.Label(_("Tree")))
+    notebook.append_page(vbox_fonts, gtk.Label(_("Fonts")))
+    notebook.append_page(vbox_links, gtk.Label(_("Links")))
+    notebook.append_page(vbox_misc, gtk.Label(_("Miscellaneous")))
     content_area = dialog.get_content_area()
     content_area.pack_start(notebook)
     content_area.show_all()
