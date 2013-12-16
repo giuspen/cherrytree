@@ -263,8 +263,6 @@ def config_dialog_prepare_settings(inst):
     inst.glade.checkbutton_backup_before_saving.set_active(inst.backup_copy)
     inst.glade.checkbutton_autosave_on_quit.set_active(inst.autosave_on_quit)
     inst.glade.checkbutton_tree_right_side.set_active(inst.tree_right_side)
-    inst.glade.checkbutton_show_white_spaces.set_active(inst.show_white_spaces)
-    inst.glade.checkbutton_highlight_current_line.set_active(inst.highl_curr_line)
     inst.glade.checkbutton_start_on_systray.set_active(inst.start_on_systray)
     inst.glade.checkbutton_start_on_systray.set_sensitive(inst.systray)
     inst.glade.checkbutton_custom_weblink_cmd.set_active(inst.weblink_custom_action[0])

@@ -2173,16 +2173,6 @@ class CherryTree:
         """Autosave on Quit Toggled"""
         self.autosave_on_quit = checkbutton.get_active()
 
-    def on_checkbutton_highlight_current_line_toggled(self, checkbutton):
-        """Show White Spaces Toggled"""
-        self.highl_curr_line = checkbutton.get_active()
-        if self.user_active: support.dialog_info_after_restart(self.window)
-
-    def on_checkbutton_show_white_spaces_toggled(self, checkbutton):
-        """Show White Spaces Toggled"""
-        self.show_white_spaces = checkbutton.get_active()
-        if self.user_active: support.dialog_info_after_restart(self.window)
-
     def on_checkbutton_tree_right_side_toggled(self, checkbutton):
         """Display Tree on the Right Side Toggled"""
         if not self.user_active: return
@@ -2265,14 +2255,6 @@ class CherryTree:
             lang_file_descriptor.write(new_lang)
             lang_file_descriptor.close()
 
-    def on_combobox_style_scheme_changed(self, combobox):
-        """New Style Scheme Choosed"""
-        new_iter = self.glade.combobox_style_scheme.get_active_iter()
-        new_style = self.style_scheme_liststore[new_iter][0]
-        if new_style != self.style_scheme:
-            self.style_scheme = new_style
-            support.dialog_info_after_restart(self.window)
-
     def combobox_country_lang_init(self):
         """Init The Country Language ComboBox"""
         if not "country_lang_liststore" in dir(self):
@@ -2297,14 +2279,6 @@ class CherryTree:
                 self.style_scheme_liststore.append([style_scheme])
                 style_schemes_list.append(style_scheme)
             if not self.style_scheme in style_schemes_list: self.style_scheme = style_schemes_list[0]
-        if "glade" in dir(self):
-            combobox = self.glade.combobox_style_scheme
-            combobox.set_model(self.style_scheme_liststore)
-            cell = gtk.CellRendererText()
-            combobox.pack_start(cell, True)
-            combobox.add_attribute(cell, 'text', 0)
-            combobox.set_active_iter(self.get_combobox_iter_from_value(self.style_scheme_liststore, 0, self.style_scheme))
-            combobox.connect('changed', self.on_combobox_style_scheme_changed)
     
     def combobox_spell_check_lang_init(self):
         """Init The Spell Check Language ComboBox"""
