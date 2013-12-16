@@ -607,6 +607,47 @@ def dialog_preferences(dad):
     vbox_code_nodes = gtk.VBox()
     label_code_nodes = gtk.Label(_("Code Nodes"))
     
+    vbox_syntax = gtk.VBox()
+    hbox_style_scheme = gtk.HBox()
+    label_style_scheme = gtk.Label(_("Style Scheme"))
+    combobox_style_scheme = gtk.ComboBox(model=dad.style_scheme_liststore)
+    cell = gtk.CellRendererText()
+    combobox_style_scheme.pack_start(cell, True)
+    combobox_style_scheme.add_attribute(cell, 'text', 0)
+    combobox_style_scheme.set_active_iter(dad.get_combobox_iter_from_value(dad.style_scheme_liststore, 0, dad.style_scheme))
+    hbox_style_scheme.pack_start(label_style_scheme, expand=False)
+    hbox_style_scheme.pack_start(combobox_style_scheme)
+    checkbutton_show_white_spaces = gtk.CheckButton(_("Show White Spaces"))
+    checkbutton_show_white_spaces.set_active(dad.show_white_spaces)
+    checkbutton_highlight_current_line = gtk.CheckButton(_("Highlight Current Line"))
+    checkbutton_highlight_current_line.set_active(dad.highl_curr_line)
+    
+    vbox_syntax.pack_start(hbox_style_scheme, expand=False)
+    vbox_syntax.pack_start(checkbutton_show_white_spaces, expand=False)
+    vbox_syntax.pack_start(checkbutton_highlight_current_line, expand=False)
+    
+    frame_syntax = gtk.Frame(label="<b>"+_("Automatic Syntax Highlighting")+"</b>")
+    frame_syntax.get_label_widget().set_use_markup(True)
+    frame_syntax.set_shadow_type(gtk.SHADOW_NONE)
+    frame_syntax.add(vbox_syntax)
+    
+    vbox_code_nodes.pack_start(frame_syntax)
+    def on_combobox_style_scheme_changed(combobox):
+        new_iter = combobox_style_scheme.get_active_iter()
+        new_style = dad.style_scheme_liststore[new_iter][0]
+        if new_style != dad.style_scheme:
+            dad.style_scheme = new_style
+            support.dialog_info_after_restart(dad.window)
+    combobox_style_scheme.connect('changed', on_combobox_style_scheme_changed)
+    def on_checkbutton_show_white_spaces_toggled(checkbutton):
+        dad.show_white_spaces = checkbutton.get_active()
+        support.dialog_info_after_restart(dad.window)
+    checkbutton_show_white_spaces.connect('toggled', on_checkbutton_show_white_spaces_toggled)
+    def on_checkbutton_highlight_current_line_toggled(checkbutton):
+        dad.highl_curr_line = checkbutton.get_active()
+        support.dialog_info_after_restart(dad.window)
+    checkbutton_highlight_current_line.connect('toggled', on_checkbutton_highlight_current_line_toggled)
+    
     ###
     vbox_tree = gtk.VBox()
     label_tree = gtk.Label(_("Tree"))
