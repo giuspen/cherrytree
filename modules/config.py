@@ -234,9 +234,6 @@ def config_dialog_prepare_settings(inst):
     if "spellchecker" in dir(inst): inst.combobox_spell_check_lang_init()
     if not cons.HAS_APPINDICATOR or not cons.HAS_SYSTRAY: inst.glade.checkbutton_use_appind.set_sensitive(False)
     inst.glade.prefdialog.set_transient_for(inst.window)
-    inst.glade.fontbutton_tree.set_font_name(inst.tree_font)
-    inst.glade.fontbutton_text.set_font_name(inst.text_font)
-    inst.glade.fontbutton_code.set_font_name(inst.code_font)
     inst.glade.colorbutton_tree_fg.set_color(gtk.gdk.color_parse(inst.tt_def_fg))
     inst.glade.colorbutton_tree_bg.set_color(gtk.gdk.color_parse(inst.tt_def_bg))
     if inst.tt_def_fg == cons.TREE_TEXT_DARK_FG and inst.tt_def_bg == cons.TREE_TEXT_DARK_BG:
