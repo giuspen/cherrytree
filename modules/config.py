@@ -260,9 +260,6 @@ def config_dialog_prepare_settings(inst):
     inst.glade.checkbutton_custom_folderlink_cmd.set_active(inst.folderlink_custom_action[0])
     inst.glade.entry_custom_folderlink_cmd.set_sensitive(inst.folderlink_custom_action[0])
     inst.glade.entry_custom_folderlink_cmd.set_text(inst.folderlink_custom_action[1])
-    inst.glade.radiobutton_node_icon_cherry.set_active(inst.nodes_icons == "c")
-    inst.glade.radiobutton_node_icon_bullet.set_active(inst.nodes_icons == "b")
-    inst.glade.radiobutton_node_icon_none.set_active(inst.nodes_icons == "n")
     inst.glade.spinbutton_tree_nodes_names_width.set_value(inst.cherry_wrap_width)
     if user_active_restore: inst.user_active = True
 

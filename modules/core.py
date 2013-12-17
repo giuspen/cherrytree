@@ -2173,24 +2173,6 @@ class CherryTree:
             self.hpaned.add2(self.vbox_text)
             self.hpaned.set_property('position', tree_width)
 
-    def on_radiobutton_node_icon_cherry_toggled(self, radiobutton):
-        """Change Variable Value Accordingly"""
-        if radiobutton.get_active():
-            self.nodes_icons = "c"
-            if self.user_active: self.treeview_refresh(change_icon=True)
-
-    def on_radiobutton_node_icon_bullet_toggled(self, radiobutton):
-        """Change Variable Value Accordingly"""
-        if radiobutton.get_active():
-            self.nodes_icons = "b"
-            if self.user_active: self.treeview_refresh(change_icon=True)
-
-    def on_radiobutton_node_icon_none_toggled(self, radiobutton):
-        """Change Variable Value Accordingly"""
-        if radiobutton.get_active():
-            self.nodes_icons = "n"
-            if self.user_active: self.treeview_refresh(change_icon=True)
-
     def on_mouse_button_clicked_tree(self, widget, event):
         """Catches mouse buttons clicks"""
         if event.button == 3:
