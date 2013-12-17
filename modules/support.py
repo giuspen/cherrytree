@@ -706,8 +706,29 @@ def dialog_preferences(dad):
     radiobutton_node_icon_bullet.set_active(dad.nodes_icons == "b")
     radiobutton_node_icon_none.set_active(dad.nodes_icons == "n")
     
+    vbox_nodes_startup = gtk.VBox()
+    
+    radiobutton_nodes_startup_restore = gtk.RadioButton(label=_("Restore Expanded/Collapsed Status"))
+    radiobutton_nodes_startup_expand = gtk.RadioButton(label=_("Expand all Nodes"))
+    radiobutton_nodes_startup_expand.set_group(radiobutton_nodes_startup_restore)
+    radiobutton_nodes_startup_collapse = gtk.RadioButton(label=_("Collapse all Nodes"))
+    radiobutton_nodes_startup_collapse.set_group(radiobutton_nodes_startup_restore)
+    
+    vbox_nodes_startup.pack_start(radiobutton_nodes_startup_restore, expand=False)
+    vbox_nodes_startup.pack_start(radiobutton_nodes_startup_expand, expand=False)
+    vbox_nodes_startup.pack_start(radiobutton_nodes_startup_collapse, expand=False)
+    frame_nodes_startup = gtk.Frame(label="<b>"+_("Nodes Status at Startup")+"</b>")
+    frame_nodes_startup.get_label_widget().set_use_markup(True)
+    frame_nodes_startup.set_shadow_type(gtk.SHADOW_NONE)
+    frame_nodes_startup.add(vbox_nodes_startup)
+    
+    radiobutton_nodes_startup_restore.set_active(dad.rest_exp_coll == 0)
+    radiobutton_nodes_startup_expand.set_active(dad.rest_exp_coll == 1)
+    radiobutton_nodes_startup_collapse.set_active(dad.rest_exp_coll == 2)
+    
     vbox_tree.pack_start(frame_tt_theme)
     vbox_tree.pack_start(frame_nodes_icons)
+    vbox_tree.pack_start(frame_nodes_startup)
     def on_colorbutton_tree_fg_color_set(self, colorbutton):
         dad.tt_def_fg = "#" + dad.html_handler.rgb_to_24(colorbutton.get_color().to_string()[1:])
         dad.treeview.modify_text(gtk.STATE_NORMAL, gtk.gdk.color_parse(dad.tt_def_fg))
@@ -742,20 +763,29 @@ def dialog_preferences(dad):
         colorbutton_tree_bg.set_sensitive(True)
     radiobutton_tt_col_custom.connect('toggled', on_radiobutton_tt_col_custom_toggled)
     def on_radiobutton_node_icon_cherry_toggled(radiobutton):
-        if radiobutton.get_active():
-            dad.nodes_icons = "c"
-            dad.treeview_refresh(change_icon=True)
+        if not radiobutton.get_active(): return
+        dad.nodes_icons = "c"
+        dad.treeview_refresh(change_icon=True)
     radiobutton_node_icon_cherry.connect('toggled', on_radiobutton_node_icon_cherry_toggled)
     def on_radiobutton_node_icon_bullet_toggled(radiobutton):
-        if radiobutton.get_active():
-            dad.nodes_icons = "b"
-            dad.treeview_refresh(change_icon=True)
+        if not radiobutton.get_active(): return
+        dad.nodes_icons = "b"
+        dad.treeview_refresh(change_icon=True)
     radiobutton_node_icon_bullet.connect('toggled', on_radiobutton_node_icon_bullet_toggled)
     def on_radiobutton_node_icon_none_toggled(radiobutton):
-        if radiobutton.get_active():
-            dad.nodes_icons = "n"
-            dad.treeview_refresh(change_icon=True)
+        if not radiobutton.get_active(): return
+        dad.nodes_icons = "n"
+        dad.treeview_refresh(change_icon=True)
     radiobutton_node_icon_none.connect('toggled', on_radiobutton_node_icon_none_toggled)
+    def on_radiobutton_nodes_startup_restore_toggled(checkbutton):
+        if checkbutton.get_active(): dad.rest_exp_coll = 0
+    radiobutton_nodes_startup_restore.connect('toggled', on_radiobutton_nodes_startup_restore_toggled)
+    def on_radiobutton_nodes_startup_expand_toggled(checkbutton):
+        if checkbutton.get_active(): dad.rest_exp_coll = 1
+    radiobutton_nodes_startup_expand.connect('toggled', on_radiobutton_nodes_startup_expand_toggled)
+    def on_radiobutton_nodes_startup_collapse_toggled(checkbutton):
+        if checkbutton.get_active(): dad.rest_exp_coll = 2
+    radiobutton_nodes_startup_collapse.connect('toggled', on_radiobutton_nodes_startup_collapse_toggled)
     
     ### FONTS
     vbox_fonts = gtk.VBox()
