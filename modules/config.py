@@ -234,17 +234,6 @@ def config_dialog_prepare_settings(inst):
     if "spellchecker" in dir(inst): inst.combobox_spell_check_lang_init()
     if not cons.HAS_APPINDICATOR or not cons.HAS_SYSTRAY: inst.glade.checkbutton_use_appind.set_sensitive(False)
     inst.glade.prefdialog.set_transient_for(inst.window)
-    inst.glade.colorbutton_tree_fg.set_color(gtk.gdk.color_parse(inst.tt_def_fg))
-    inst.glade.colorbutton_tree_bg.set_color(gtk.gdk.color_parse(inst.tt_def_bg))
-    if inst.tt_def_fg == cons.TREE_TEXT_DARK_FG and inst.tt_def_bg == cons.TREE_TEXT_DARK_BG:
-        inst.glade.radiobutton_tt_col_dark.set_active(True)
-        inst.glade.colorbutton_tree_fg.set_sensitive(False)
-        inst.glade.colorbutton_tree_bg.set_sensitive(False)
-    elif inst.tt_def_fg == cons.TREE_TEXT_LIGHT_FG and inst.tt_def_bg == cons.TREE_TEXT_LIGHT_BG:
-        inst.glade.radiobutton_tt_col_light.set_active(True)
-        inst.glade.colorbutton_tree_fg.set_sensitive(False)
-        inst.glade.colorbutton_tree_bg.set_sensitive(False)
-    else: inst.glade.radiobutton_tt_col_custom.set_active(True)
     inst.glade.spinbutton_anchor_size.set_value(inst.anchor_size)
     inst.glade.checkbutton_systray.set_active(inst.systray)
     inst.glade.checkbutton_use_appind.set_active(inst.use_appind)

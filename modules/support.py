@@ -498,7 +498,7 @@ def dialog_preferences(dad):
     frame_spell_check.set_shadow_type(gtk.SHADOW_NONE)
     frame_spell_check.add(vbox_spell_check)
     
-    vbox_theme = gtk.VBox()
+    vbox_rt_theme = gtk.VBox()
     
     radiobutton_rt_col_light = gtk.RadioButton(label=_("Light Background, Dark Text"))
     radiobutton_rt_col_dark = gtk.RadioButton(label=_("Dark Background, Light Text"))
@@ -514,13 +514,13 @@ def dialog_preferences(dad):
     hbox_rt_col_custom.pack_start(label_rt_col_custom, expand=False)
     hbox_rt_col_custom.pack_start(colorbutton_text_fg, expand=False)
     
-    vbox_theme.pack_start(radiobutton_rt_col_light, expand=False)
-    vbox_theme.pack_start(radiobutton_rt_col_dark, expand=False)
-    vbox_theme.pack_start(hbox_rt_col_custom, expand=False)
-    frame_theme = gtk.Frame(label="<b>"+_("Theme")+"</b>")
-    frame_theme.get_label_widget().set_use_markup(True)
-    frame_theme.set_shadow_type(gtk.SHADOW_NONE)
-    frame_theme.add(vbox_theme)
+    vbox_rt_theme.pack_start(radiobutton_rt_col_light, expand=False)
+    vbox_rt_theme.pack_start(radiobutton_rt_col_dark, expand=False)
+    vbox_rt_theme.pack_start(hbox_rt_col_custom, expand=False)
+    frame_rt_theme = gtk.Frame(label="<b>"+_("Theme")+"</b>")
+    frame_rt_theme.get_label_widget().set_use_markup(True)
+    frame_rt_theme.set_shadow_type(gtk.SHADOW_NONE)
+    frame_rt_theme.add(vbox_rt_theme)
     
     if dad.rt_def_fg == cons.RICH_TEXT_DARK_FG and dad.rt_def_bg == cons.RICH_TEXT_DARK_BG:
         radiobutton_rt_col_dark.set_active(True)
@@ -547,7 +547,7 @@ def dialog_preferences(dad):
     frame_misc_text.add(vbox_misc_text)
     
     vbox_text_nodes.pack_start(frame_spell_check)
-    vbox_text_nodes.pack_start(frame_theme)
+    vbox_text_nodes.pack_start(frame_rt_theme)
     vbox_text_nodes.pack_start(frame_misc_text)
     def on_checkbutton_spell_check_toggled(checkbutton):
         dad.enable_spell_check = checkbutton.get_active()
@@ -647,6 +647,75 @@ def dialog_preferences(dad):
     
     ### TREE
     vbox_tree = gtk.VBox()
+    
+    vbox_tt_theme = gtk.VBox()
+    
+    radiobutton_tt_col_light = gtk.RadioButton(label=_("Light Background, Dark Text"))
+    radiobutton_tt_col_dark = gtk.RadioButton(label=_("Dark Background, Light Text"))
+    radiobutton_tt_col_dark.set_group(radiobutton_tt_col_light)
+    radiobutton_tt_col_custom = gtk.RadioButton(label=_("Custom Background"))
+    radiobutton_tt_col_custom.set_group(radiobutton_tt_col_light)
+    hbox_tt_col_custom = gtk.HBox()
+    colorbutton_tree_bg = gtk.ColorButton(color=gtk.gdk.color_parse(dad.tt_def_bg))
+    label_tt_col_custom = gtk.Label(_("and Text"))
+    colorbutton_tree_fg = gtk.ColorButton(color=gtk.gdk.color_parse(dad.tt_def_fg))
+    hbox_tt_col_custom.pack_start(radiobutton_tt_col_custom, expand=False)
+    hbox_tt_col_custom.pack_start(colorbutton_tree_bg, expand=False)
+    hbox_tt_col_custom.pack_start(label_tt_col_custom, expand=False)
+    hbox_tt_col_custom.pack_start(colorbutton_tree_fg, expand=False)
+    
+    vbox_tt_theme.pack_start(radiobutton_tt_col_light, expand=False)
+    vbox_tt_theme.pack_start(radiobutton_tt_col_dark, expand=False)
+    vbox_tt_theme.pack_start(hbox_tt_col_custom, expand=False)
+    frame_tt_theme = gtk.Frame(label="<b>"+_("Theme")+"</b>")
+    frame_tt_theme.get_label_widget().set_use_markup(True)
+    frame_tt_theme.set_shadow_type(gtk.SHADOW_NONE)
+    frame_tt_theme.add(vbox_tt_theme)
+    
+    if dad.tt_def_fg == cons.TREE_TEXT_DARK_FG and dad.tt_def_bg == cons.TREE_TEXT_DARK_BG:
+        radiobutton_tt_col_dark.set_active(True)
+        colorbutton_tree_fg.set_sensitive(False)
+        colorbutton_tree_bg.set_sensitive(False)
+    elif dad.tt_def_fg == cons.TREE_TEXT_LIGHT_FG and dad.tt_def_bg == cons.TREE_TEXT_LIGHT_BG:
+        radiobutton_tt_col_light.set_active(True)
+        colorbutton_tree_fg.set_sensitive(False)
+        colorbutton_tree_bg.set_sensitive(False)
+    else: radiobutton_tt_col_custom.set_active(True)
+    
+    vbox_tree.pack_start(frame_tt_theme)
+    def on_colorbutton_tree_fg_color_set(self, colorbutton):
+        dad.tt_def_fg = "#" + dad.html_handler.rgb_to_24(colorbutton.get_color().to_string()[1:])
+        dad.treeview.modify_text(gtk.STATE_NORMAL, gtk.gdk.color_parse(dad.tt_def_fg))
+        if dad.curr_tree_iter: dad.update_node_name_header()
+    colorbutton_tree_fg.connect('color-set', on_colorbutton_tree_fg_color_set)
+    def on_colorbutton_tree_bg_color_set(dad, colorbutton):
+        dad.tt_def_bg = "#" + dad.html_handler.rgb_to_24(colorbutton.get_color().to_string()[1:])
+        dad.treeview.modify_base(gtk.STATE_NORMAL, gtk.gdk.color_parse(dad.tt_def_bg))
+        if dad.curr_tree_iter: dad.update_node_name_header()
+    colorbutton_tree_bg.connect('color-set', on_colorbutton_tree_bg_color_set)
+    def on_radiobutton_tt_col_light_toggled(radiobutton):
+        if not radiobutton.get_active(): return
+        colorbutton_tree_fg.set_color(gtk.gdk.color_parse(cons.TREE_TEXT_LIGHT_FG))
+        colorbutton_tree_bg.set_color(gtk.gdk.color_parse(cons.TREE_TEXT_LIGHT_BG))
+        colorbutton_tree_fg.set_sensitive(False)
+        colorbutton_tree_bg.set_sensitive(False)
+        on_colorbutton_tree_fg_color_set(colorbutton_tree_fg)
+        on_colorbutton_tree_bg_color_set(colorbutton_tree_bg)
+    radiobutton_tt_col_light.connect('toggled', on_radiobutton_tt_col_light_toggled)
+    def on_radiobutton_tt_col_dark_toggled(radiobutton):
+        if not radiobutton.get_active(): return
+        colorbutton_tree_fg.set_color(gtk.gdk.color_parse(cons.TREE_TEXT_DARK_FG))
+        colorbutton_tree_bg.set_color(gtk.gdk.color_parse(cons.TREE_TEXT_DARK_BG))
+        colorbutton_tree_fg.set_sensitive(False)
+        colorbutton_tree_bg.set_sensitive(False)
+        on_colorbutton_tree_fg_color_set(colorbutton_tree_fg)
+        on_colorbutton_tree_bg_color_set(colorbutton_tree_bg)
+    radiobutton_tt_col_dark.connect('toggled', on_radiobutton_tt_col_dark_toggled)
+    def on_radiobutton_tt_col_custom_toggled(radiobutton):
+        if not radiobutton.get_active(): return
+        colorbutton_tree_fg.set_sensitive(True)
+        colorbutton_tree_bg.set_sensitive(True)
+    radiobutton_tt_col_custom.connect('toggled', on_radiobutton_tt_col_custom_toggled)
     
     ### FONTS
     vbox_fonts = gtk.VBox()

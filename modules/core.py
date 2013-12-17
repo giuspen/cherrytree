@@ -3095,32 +3095,6 @@ class CherryTree:
         if not self.node_sel_and_rich_text(): return
         self.codeboxes_handler.codebox_handle()
 
-    def on_radiobutton_tt_col_light_toggled(self, radiobutton):
-        """Radiobutton Tree Text Color Light Toggled"""
-        if not self.user_active or not radiobutton.get_active(): return
-        self.glade.colorbutton_tree_fg.set_color(gtk.gdk.color_parse(cons.TREE_TEXT_LIGHT_FG))
-        self.glade.colorbutton_tree_bg.set_color(gtk.gdk.color_parse(cons.TREE_TEXT_LIGHT_BG))
-        self.glade.colorbutton_tree_fg.set_sensitive(False)
-        self.glade.colorbutton_tree_bg.set_sensitive(False)
-        self.on_colorbutton_tree_fg_color_set(self.glade.colorbutton_tree_fg)
-        self.on_colorbutton_tree_bg_color_set(self.glade.colorbutton_tree_bg)
-
-    def on_radiobutton_tt_col_dark_toggled(self, radiobutton):
-        """Radiobutton Tree Text Color Dark Toggled"""
-        if not self.user_active or not radiobutton.get_active(): return
-        self.glade.colorbutton_tree_fg.set_color(gtk.gdk.color_parse(cons.TREE_TEXT_DARK_FG))
-        self.glade.colorbutton_tree_bg.set_color(gtk.gdk.color_parse(cons.TREE_TEXT_DARK_BG))
-        self.glade.colorbutton_tree_fg.set_sensitive(False)
-        self.glade.colorbutton_tree_bg.set_sensitive(False)
-        self.on_colorbutton_tree_fg_color_set(self.glade.colorbutton_tree_fg)
-        self.on_colorbutton_tree_bg_color_set(self.glade.colorbutton_tree_bg)
-
-    def on_radiobutton_tt_col_custom_toggled(self, radiobutton):
-        """Radiobutton Tree Text Color Custom Toggled"""
-        if not self.user_active or not radiobutton.get_active(): return
-        self.glade.colorbutton_tree_fg.set_sensitive(True)
-        self.glade.colorbutton_tree_bg.set_sensitive(True)
-
     def is_curr_node_not_syntax_highlighting_or_error(self):
         """Returns True if ok (no syntax highlighting) or False and prompts error dialog"""
         if self.syntax_highlighting != cons.CUSTOM_COLORS_ID:
@@ -3818,22 +3792,6 @@ class CherryTree:
                     return curr_iter
             if not curr_iter.forward_char(): break
         return None
-
-    def on_colorbutton_tree_fg_color_set(self, colorbutton):
-        """ColorButton Rich Text FG Set"""
-        if not self.user_active: return
-        self.tt_def_fg = "#" + self.html_handler.rgb_to_24(colorbutton.get_color().to_string()[1:])
-        self.treeview.modify_text(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.tt_def_fg))
-        if self.curr_tree_iter:
-            self.update_node_name_header()
-
-    def on_colorbutton_tree_bg_color_set(self, colorbutton):
-        """ColorButton Rich Text FG Set"""
-        if not self.user_active: return
-        self.tt_def_bg = "#" + self.html_handler.rgb_to_24(colorbutton.get_color().to_string()[1:])
-        self.treeview.modify_base(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.tt_def_bg))
-        if self.curr_tree_iter:
-            self.update_node_name_header()
 
     def sourceview_cursor_and_tooltips_handler(self, x, y):
         """Looks at all tags covering the position (x, y) in the text view,
