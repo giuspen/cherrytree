@@ -374,6 +374,7 @@ def dialog_preferences(dad):
     
     ### ALL NODES
     vbox_all_nodes = gtk.VBox()
+    vbox_all_nodes.set_spacing(3)
     
     hbox_tab_width = gtk.HBox()
     label_tab_width = gtk.Label(_("Tab Width"))
@@ -478,6 +479,7 @@ def dialog_preferences(dad):
     
     ### TEXT NODES
     vbox_text_nodes = gtk.VBox()
+    vbox_text_nodes.set_spacing(3)
     
     vbox_spell_check = gtk.VBox()
     checkbutton_spell_check = gtk.CheckButton(label=_("Enable Spell Check"))
@@ -603,6 +605,7 @@ def dialog_preferences(dad):
     
     ### CODE NODES
     vbox_code_nodes = gtk.VBox()
+    vbox_code_nodes.set_spacing(3)
     
     vbox_syntax = gtk.VBox()
     hbox_style_scheme = gtk.HBox()
@@ -647,6 +650,7 @@ def dialog_preferences(dad):
     
     ### TREE
     vbox_tree = gtk.VBox()
+    vbox_tree.set_spacing(3)
     
     vbox_tt_theme = gtk.VBox()
     
@@ -682,7 +686,28 @@ def dialog_preferences(dad):
         colorbutton_tree_bg.set_sensitive(False)
     else: radiobutton_tt_col_custom.set_active(True)
     
+    vbox_nodes_icons = gtk.VBox()
+    
+    radiobutton_node_icon_cherry = gtk.RadioButton(label=_("Use Cherries as Nodes Icons"))
+    radiobutton_node_icon_bullet = gtk.RadioButton(label=_("Use Bullets as Nodes Icons"))
+    radiobutton_node_icon_bullet.set_group(radiobutton_node_icon_cherry)
+    radiobutton_node_icon_none = gtk.RadioButton(label=_("Do Not Display Nodes Icons"))
+    radiobutton_node_icon_none.set_group(radiobutton_node_icon_cherry)
+    
+    vbox_nodes_icons.pack_start(radiobutton_node_icon_cherry, expand=False)
+    vbox_nodes_icons.pack_start(radiobutton_node_icon_bullet, expand=False)
+    vbox_nodes_icons.pack_start(radiobutton_node_icon_none, expand=False)
+    frame_nodes_icons = gtk.Frame(label="<b>"+_("Nodes Icons")+"</b>")
+    frame_nodes_icons.get_label_widget().set_use_markup(True)
+    frame_nodes_icons.set_shadow_type(gtk.SHADOW_NONE)
+    frame_nodes_icons.add(vbox_nodes_icons)
+    
+    radiobutton_node_icon_cherry.set_active(dad.nodes_icons == "c")
+    radiobutton_node_icon_bullet.set_active(dad.nodes_icons == "b")
+    radiobutton_node_icon_none.set_active(dad.nodes_icons == "n")
+    
     vbox_tree.pack_start(frame_tt_theme)
+    vbox_tree.pack_start(frame_nodes_icons)
     def on_colorbutton_tree_fg_color_set(self, colorbutton):
         dad.tt_def_fg = "#" + dad.html_handler.rgb_to_24(colorbutton.get_color().to_string()[1:])
         dad.treeview.modify_text(gtk.STATE_NORMAL, gtk.gdk.color_parse(dad.tt_def_fg))
@@ -716,9 +741,25 @@ def dialog_preferences(dad):
         colorbutton_tree_fg.set_sensitive(True)
         colorbutton_tree_bg.set_sensitive(True)
     radiobutton_tt_col_custom.connect('toggled', on_radiobutton_tt_col_custom_toggled)
+    def on_radiobutton_node_icon_cherry_toggled(radiobutton):
+        if radiobutton.get_active():
+            dad.nodes_icons = "c"
+            dad.treeview_refresh(change_icon=True)
+    radiobutton_node_icon_cherry.connect('toggled', on_radiobutton_node_icon_cherry_toggled)
+    def on_radiobutton_node_icon_bullet_toggled(radiobutton):
+        if radiobutton.get_active():
+            dad.nodes_icons = "b"
+            dad.treeview_refresh(change_icon=True)
+    radiobutton_node_icon_bullet.connect('toggled', on_radiobutton_node_icon_bullet_toggled)
+    def on_radiobutton_node_icon_none_toggled(radiobutton):
+        if radiobutton.get_active():
+            dad.nodes_icons = "n"
+            dad.treeview_refresh(change_icon=True)
+    radiobutton_node_icon_none.connect('toggled', on_radiobutton_node_icon_none_toggled)
     
     ### FONTS
     vbox_fonts = gtk.VBox()
+    vbox_fonts.set_spacing(3)
     
     image_text = gtk.Image()
     image_text.set_from_stock(gtk.STOCK_SELECT_FONT, gtk.ICON_SIZE_MENU)
@@ -767,9 +808,11 @@ def dialog_preferences(dad):
     
     ### LINKS
     vbox_links = gtk.VBox()
+    vbox_links.set_spacing(3)
     
     ### MISCELLANEOUS
     vbox_misc = gtk.VBox()
+    vbox_misc.set_spacing(3)
     
     notebook = gtk.Notebook()
     notebook.set_tab_pos(gtk.POS_LEFT)
