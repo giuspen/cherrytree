@@ -2132,18 +2132,6 @@ class CherryTree:
             if self.mod_time_sentinel_id != None:
                 self.modification_time_sentinel_stop()
 
-    def on_radiobutton_nodes_startup_restore_toggled(self, checkbutton):
-        """Restore Tree When Loaded Toggled"""
-        if checkbutton.get_active(): self.rest_exp_coll = 0
-
-    def on_radiobutton_nodes_startup_expand_toggled(self, checkbutton):
-        """Expand Tree When Loaded Toggled"""
-        if checkbutton.get_active(): self.rest_exp_coll = 1
-
-    def on_radiobutton_nodes_startup_collapse_toggled(self, checkbutton):
-        """Collapse Tree When Loaded Toggled"""
-        if checkbutton.get_active(): self.rest_exp_coll = 2
-
     def on_checkbutton_newer_version_toggled(self, checkbutton):
         """Automatically Check for Newer Version Toggled"""
         self.check_version = checkbutton.get_active()
