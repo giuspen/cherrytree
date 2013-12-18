@@ -153,7 +153,6 @@ class CherryTree:
         self.sourceview.connect("paste-clipboard", self.clipboard_handler.paste)
         self.sourceview.set_left_margin(7)
         self.sourceview.set_right_margin(7)
-        self.sourceview.set_indent(-14)
         self.hovering_over_link = False
         self.tag_table = gtk.TextTagTable()
         self.scrolledwindow_text.add(self.sourceview)
