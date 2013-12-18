@@ -29,7 +29,7 @@ except:
     ARGPARSE_OK = False
 
 def f_main(args):
-    if os.path.isfile('glade/cherrytree.glade'):
+    if os.path.isfile('glade/cherrytree.png'):
         SHARE_PATH = ''
         MODULES_PATH = 'modules'
     else:
