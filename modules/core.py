@@ -3239,11 +3239,6 @@ class CherryTree:
         elif event.type == gtk.gdk._2BUTTON_PRESS: self.anchor_edit()
         return True # do not propagate the event
 
-    def on_spinbutton_anchor_size_value_changed(self, spinbutton):
-        """Anchor Size Handling"""
-        if not self.user_active: return
-        self.anchor_size = int(self.glade.spinbutton_anchor_size.get_value())
-
     def strip_trailing_spaces(self, *args):
         """Remove trailing spaces/tabs"""
         cleaned_lines = support.strip_trailing_spaces(self.curr_buffer)

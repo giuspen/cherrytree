@@ -913,6 +913,14 @@ def dialog_preferences(dad):
     frame_colors.add(vbox_links_colors)
     
     vbox_links_misc = gtk.VBox()
+    hbox_anchor_size = gtk.HBox()
+    label_anchor_size = gtk.Label(_("Anchor Size"))
+    adj_anchor_size = gtk.Adjustment(value=dad.anchor_size, lower=1, upper=1000, step_incr=1)
+    spinbutton_anchor_size = gtk.SpinButton(adj_anchor_size)
+    hbox_anchor_size.pack_start(label_anchor_size, expand=False)
+    hbox_anchor_size.pack_start(spinbutton_anchor_size, expand=False)
+    vbox_links_misc.pack_start(hbox_anchor_size, expand=False)
+    
     frame_links_misc = gtk.Frame(label="<b>"+_("Miscellaneous")+"</b>")
     frame_links_misc.get_label_widget().set_use_markup(True)
     frame_links_misc.set_shadow_type(gtk.SHADOW_NONE)
@@ -942,6 +950,9 @@ def dialog_preferences(dad):
     def on_entry_custom_folderlink_cmd_changed(entry):
         dad.folderlink_custom_action[1] = entry.get_text()
     entry_custom_folderlink_cmd.connect('changed', on_entry_custom_folderlink_cmd_changed)
+    def on_spinbutton_anchor_size_value_changed(spinbutton):
+        dad.anchor_size = int(spinbutton_anchor_size.get_value())
+    spinbutton_anchor_size.connect('value-changed', on_spinbutton_anchor_size_value_changed)
     
     ### MISCELLANEOUS
     vbox_misc = gtk.VBox()
