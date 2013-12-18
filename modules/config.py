@@ -247,15 +247,6 @@ def config_dialog_prepare_settings(inst):
     inst.glade.checkbutton_autosave_on_quit.set_active(inst.autosave_on_quit)
     inst.glade.checkbutton_start_on_systray.set_active(inst.start_on_systray)
     inst.glade.checkbutton_start_on_systray.set_sensitive(inst.systray)
-    inst.glade.checkbutton_custom_weblink_cmd.set_active(inst.weblink_custom_action[0])
-    inst.glade.entry_custom_weblink_cmd.set_sensitive(inst.weblink_custom_action[0])
-    inst.glade.entry_custom_weblink_cmd.set_text(inst.weblink_custom_action[1])
-    inst.glade.checkbutton_custom_filelink_cmd.set_active(inst.filelink_custom_action[0])
-    inst.glade.entry_custom_filelink_cmd.set_sensitive(inst.filelink_custom_action[0])
-    inst.glade.entry_custom_filelink_cmd.set_text(inst.filelink_custom_action[1])
-    inst.glade.checkbutton_custom_folderlink_cmd.set_active(inst.folderlink_custom_action[0])
-    inst.glade.entry_custom_folderlink_cmd.set_sensitive(inst.folderlink_custom_action[0])
-    inst.glade.entry_custom_folderlink_cmd.set_text(inst.folderlink_custom_action[1])
     if user_active_restore: inst.user_active = True
 
 def config_file_apply(inst):

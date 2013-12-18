@@ -877,6 +877,72 @@ def dialog_preferences(dad):
     vbox_links = gtk.VBox()
     vbox_links.set_spacing(3)
     
+    vbox_links_actions = gtk.VBox()
+    checkbutton_custom_weblink_cmd = CheckButton(_("Enable Custom Web Link Clicked Action"))
+    entry_custom_weblink_cmd = gtk.Entry()
+    checkbutton_custom_filelink_cmd = CheckButton(_("Enable Custom File Link Clicked Action"))
+    entry_custom_filelink_cmd = gtk.Entry()
+    checkbutton_custom_folderlink_cmd = CheckButton(_("Enable Custom Folder Link Clicked Action"))
+    entry_custom_folderlink_cmd = gtk.Entry()
+    vbox_links_actions.pack_start(checkbutton_custom_weblink_cmd, expand=False)
+    vbox_links_actions.pack_start(entry_custom_weblink_cmd, expand=False)
+    vbox_links_actions.pack_start(checkbutton_custom_filelink_cmd, expand=False)
+    vbox_links_actions.pack_start(entry_custom_filelink_cmd, expand=False)
+    vbox_links_actions.pack_start(checkbutton_custom_folderlink_cmd, expand=False)
+    vbox_links_actions.pack_start(entry_custom_folderlink_cmd, expand=False)
+    
+    frame_links_actions = gtk.Frame(label="<b>"+_("Custom Actions")+"</b>")
+    frame_links_actions.get_label_widget().set_use_markup(True)
+    frame_links_actions.set_shadow_type(gtk.SHADOW_NONE)
+    frame_links_actions.add(vbox_links_actions)
+    
+    checkbutton_custom_weblink_cmd.set_active(dad.weblink_custom_action[0])
+    entry_custom_weblink_cmd.set_sensitive(dad.weblink_custom_action[0])
+    entry_custom_weblink_cmd.set_text(dad.weblink_custom_action[1])
+    checkbutton_custom_filelink_cmd.set_active(dad.filelink_custom_action[0])
+    entry_custom_filelink_cmd.set_sensitive(dad.filelink_custom_action[0])
+    entry_custom_filelink_cmd.set_text(dad.filelink_custom_action[1])
+    checkbutton_custom_folderlink_cmd.set_active(dad.folderlink_custom_action[0])
+    entry_custom_folderlink_cmd.set_sensitive(dad.folderlink_custom_action[0])
+    entry_custom_folderlink_cmd.set_text(dad.folderlink_custom_action[1])
+    
+    vbox_links_colors = gtk.VBox()
+    frame_links_colors = gtk.Frame(label="<b>"+_("Colors")+"</b>")
+    frame_links_colors.get_label_widget().set_use_markup(True)
+    frame_links_colors.set_shadow_type(gtk.SHADOW_NONE)
+    frame_colors.add(vbox_links_colors)
+    
+    vbox_links_misc = gtk.VBox()
+    frame_links_misc = gtk.Frame(label="<b>"+_("Miscellaneous")+"</b>")
+    frame_links_misc.get_label_widget().set_use_markup(True)
+    frame_links_misc.set_shadow_type(gtk.SHADOW_NONE)
+    frame_links_misc.add(vbox_links_misc)
+    
+    vbox_links.pack_start(frame_links_actions, expand=False)
+    vbox_links.pack_start(frame_links_colors, expand=False)
+    vbox_links.pack_start(frame_links_misc, expand=False)
+    def on_checkbutton_custom_weblink_cmd_toggled(checkbutton):
+        dad.weblink_custom_action[0] = checkbutton.get_active()
+        entry_custom_weblink_cmd.set_sensitive(dad.weblink_custom_action[0])
+    checkbutton_custom_weblink_cmd.connect('toggled', on_checkbutton_custom_weblink_cmd_toggled)
+    def on_entry_custom_weblink_cmd_changed(entry):
+        dad.weblink_custom_action[1] = entry.get_text()
+    entry_custom_weblink_cmd.connect('changed', on_entry_custom_weblink_cmd_changed)
+    def on_checkbutton_custom_filelink_cmd_toggled(checkbutton):
+        dad.filelink_custom_action[0] = checkbutton.get_active()
+        entry_custom_filelink_cmd.set_sensitive(dad.filelink_custom_action[0])
+    checkbutton_custom_filelink_cmd.connect('toggled', on_checkbutton_custom_filelink_cmd_toggled)
+    def on_entry_custom_filelink_cmd_changed(entry):
+        dad.filelink_custom_action[1] = entry.get_text()
+    entry_custom_filelink_cmd.connect('changed', on_entry_custom_filelink_cmd_changed)
+    def on_checkbutton_custom_folderlink_cmd_toggled(checkbutton):
+        dad.folderlink_custom_action[0] = checkbutton.get_active()
+        entry_custom_folderlink_cmd.set_sensitive(dad.folderlink_custom_action[0])
+    checkbutton_custom_folderlink_cmd.connect('toggled', on_checkbutton_custom_folderlink_cmd_toggled)
+    def on_entry_custom_folderlink_cmd_changed(entry):
+        dad.folderlink_custom_action[1] = entry.get_text()
+    entry_custom_folderlink_cmd.connect('changed', on_entry_custom_folderlink_cmd_changed)
+    
     ### MISCELLANEOUS
     vbox_misc = gtk.VBox()
     vbox_misc.set_spacing(3)
