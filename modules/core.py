@@ -941,7 +941,7 @@ class CherryTree:
         self.combobox_country_lang_init()
         self.combobox_style_scheme_init()
         if self.spell_check_init: self.combobox_spell_check_lang_init()
-        support.dialog_preferences(self)
+        config.dialog_preferences(self)
         config.config_file_save(self)
 
     def autosave_timer_start(self):
