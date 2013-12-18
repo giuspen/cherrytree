@@ -403,6 +403,7 @@ def dialog_preferences(dad):
     frame_text_editor.add(vbox_text_editor)
     
     hbox_timestamp = gtk.HBox()
+    hbox_timestamp.set_spacing(4)
     label_timestamp = gtk.Label(_("Timestamp Format"))
     entry_timestamp_format = gtk.Entry()
     entry_timestamp_format.set_text(dad.timestamp_format)
@@ -412,12 +413,14 @@ def dialog_preferences(dad):
     hbox_timestamp.pack_start(entry_timestamp_format)
     hbox_timestamp.pack_start(button_strftime_help, expand=False)
     hbox_horizontal_rule = gtk.HBox()
+    hbox_horizontal_rule.set_spacing(4)
     label_horizontal_rule = gtk.Label(_("Horizontal Rule"))
     entry_horizontal_rule = gtk.Entry()
     entry_horizontal_rule.set_text(dad.h_rule)
     hbox_horizontal_rule.pack_start(label_horizontal_rule, expand=False)
     hbox_horizontal_rule.pack_start(entry_horizontal_rule)
     hbox_special_chars = gtk.HBox()
+    hbox_special_chars.set_spacing(4)
     label_special_chars = gtk.Label(_("Special Characters"))
     frame_special_chars = gtk.Frame()
     frame_special_chars.set_size_request(-1, 80)
@@ -434,6 +437,7 @@ def dialog_preferences(dad):
     hbox_special_chars.pack_start(frame_special_chars)
     
     vbox_misc_all = gtk.VBox()
+    vbox_misc_all.set_spacing(2)
     vbox_misc_all.pack_start(hbox_timestamp)
     vbox_misc_all.pack_start(hbox_horizontal_rule)
     vbox_misc_all.pack_start(hbox_special_chars)
@@ -491,9 +495,10 @@ def dialog_preferences(dad):
     cell = gtk.CellRendererText()
     combobox_spell_check_lang.pack_start(cell, True)
     combobox_spell_check_lang.add_attribute(cell, 'text', 0)
-    if dad.spell_check_init:
+    def set_checkbutton_spell_check_model():
         combobox_spell_check_lang.set_model(dad.spell_check_lang_liststore)
         combobox_spell_check_lang.set_active_iter(dad.get_combobox_iter_from_value(dad.spell_check_lang_liststore, 0, dad.spell_check_lang))
+    if dad.spell_check_init: set_checkbutton_spell_check_model()
     hbox_spell_check_lang.pack_start(label_spell_check_lang, expand=False)
     hbox_spell_check_lang.pack_start(combobox_spell_check_lang)
     vbox_spell_check.pack_start(checkbutton_spell_check, expand=False)
@@ -559,7 +564,9 @@ def dialog_preferences(dad):
     vbox_text_nodes.pack_start(frame_misc_text, expand=False)
     def on_checkbutton_spell_check_toggled(checkbutton):
         dad.enable_spell_check = checkbutton.get_active()
-        if dad.enable_spell_check: dad.spell_check_set_on()
+        if dad.enable_spell_check:
+            dad.spell_check_set_on()
+            set_checkbutton_spell_check_model()
         else: dad.spell_check_set_off()
         combobox_spell_check_lang.set_sensitive(dad.enable_spell_check)
     checkbutton_spell_check.connect('toggled', on_checkbutton_spell_check_toggled)
@@ -736,12 +743,13 @@ def dialog_preferences(dad):
     
     vbox_misc_tree = gtk.VBox()
     hbox_tree_nodes_names_width = gtk.HBox()
+    hbox_tree_nodes_names_width.set_spacing(4)
     label_tree_nodes_names_width = gtk.Label(_("Tree Nodes Names Wrapping Width"))
     adj_tree_nodes_names_width = gtk.Adjustment(value=dad.cherry_wrap_width, lower=10, upper=10000, step_incr=1)
     spinbutton_tree_nodes_names_width = gtk.SpinButton(adj_tree_nodes_names_width)
     spinbutton_tree_nodes_names_width.set_value(dad.cherry_wrap_width)
     hbox_tree_nodes_names_width.pack_start(label_tree_nodes_names_width, expand=False)
-    hbox_tree_nodes_names_width.pack_start(spinbutton_tree_nodes_names_width)
+    hbox_tree_nodes_names_width.pack_start(spinbutton_tree_nodes_names_width, expand=False)
     checkbutton_tree_right_side = gtk.CheckButton(_("Display Tree on the Right Side"))
     checkbutton_tree_right_side.set_active(dad.tree_right_side)
     
@@ -755,6 +763,7 @@ def dialog_preferences(dad):
     vbox_tree.pack_start(frame_tt_theme, expand=False)
     vbox_tree.pack_start(frame_nodes_icons, expand=False)
     vbox_tree.pack_start(frame_nodes_startup, expand=False)
+    vbox_tree.pack_start(frame_misc_tree, expand=False)
     def on_colorbutton_tree_fg_color_set(colorbutton):
         dad.tt_def_fg = "#" + dad.html_handler.rgb_to_24(colorbutton.get_color().to_string()[1:])
         dad.treeview.modify_text(gtk.STATE_NORMAL, gtk.gdk.color_parse(dad.tt_def_fg))
