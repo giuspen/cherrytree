@@ -97,6 +97,7 @@ def config_file_load(inst):
         inst.tabs_width = config.getint(section, "tabs_width") if config.has_option(section, "tabs_width") else 4
         inst.anchor_size = config.getint(section, "anchor_size") if config.has_option(section, "anchor_size") else 16
         inst.line_wrapping = config.getboolean(section, "line_wrapping") if config.has_option(section, "line_wrapping") else True
+        inst.wrapping_indent = config.getint(section, "wrapping_indent") if config.has_option(section, "wrapping_indent") else -14
         inst.auto_indent = config.getboolean(section, "auto_indent") if config.has_option(section, "auto_indent") else True
         inst.show_white_spaces = config.getboolean(section, "show_white_spaces") if config.has_option(section, "show_white_spaces") else True
         inst.highl_curr_line = config.getboolean(section, "highl_curr_line") if config.has_option(section, "highl_curr_line") else True
@@ -183,6 +184,7 @@ def config_file_load(inst):
         inst.tabs_width = 4
         inst.anchor_size = 16
         inst.line_wrapping = True
+        inst.wrapping_indent = -14
         inst.auto_indent = True
         inst.systray = False
         inst.win_position = [10, 10]
@@ -237,6 +239,7 @@ def config_file_apply(inst):
     inst.sourceview.set_show_line_numbers(inst.show_line_numbers)
     inst.sourceview.set_insert_spaces_instead_of_tabs(inst.spaces_instead_tabs)
     inst.sourceview.set_tab_width(inst.tabs_width)
+    inst.sourceview.set_indent(inst.wrapping_indent)
     if inst.line_wrapping: inst.sourceview.set_wrap_mode(gtk.WRAP_WORD)
     else: inst.sourceview.set_wrap_mode(gtk.WRAP_NONE)
     inst.renderer_text.set_property('wrap-width', inst.cherry_wrap_width)
@@ -305,6 +308,7 @@ def config_file_save(inst):
     config.set(section, "tabs_width", inst.tabs_width)
     config.set(section, "anchor_size", inst.anchor_size)
     config.set(section, "line_wrapping", inst.line_wrapping)
+    config.set(section, "wrapping_indent", inst.wrapping_indent)
     config.set(section, "auto_indent", inst.auto_indent)
     config.set(section, "show_white_spaces", inst.show_white_spaces)
     config.set(section, "highl_curr_line", inst.highl_curr_line)
@@ -427,6 +431,14 @@ def dialog_preferences(dad):
     checkbutton_spaces_tabs.set_active(dad.spaces_instead_tabs)
     checkbutton_line_wrap = gtk.CheckButton(label=_("Use Line Wrapping"))
     checkbutton_line_wrap.set_active(dad.line_wrapping)
+    hbox_wrapping_indent = gtk.HBox()
+    hbox_wrapping_indent.set_spacing(4)
+    label_wrapping_indent = gtk.Label(_("Line Wrapping Indentation"))
+    adj_wrapping_indent = gtk.Adjustment(value=dad.wrapping_indent, lower=-10000, upper=10000, step_incr=1)
+    spinbutton_wrapping_indent = gtk.SpinButton(adj_wrapping_indent)
+    spinbutton_wrapping_indent.set_value(dad.wrapping_indent)
+    hbox_wrapping_indent.pack_start(label_wrapping_indent, expand=False)
+    hbox_wrapping_indent.pack_start(spinbutton_wrapping_indent, expand=False)
     checkbutton_auto_indent = gtk.CheckButton(label=_("Enable Automatic Indentation"))
     checkbutton_auto_indent.set_active(dad.auto_indent)
     checkbutton_line_nums = gtk.CheckButton(label=_("Show Line Numbers"))
@@ -436,6 +448,7 @@ def dialog_preferences(dad):
     vbox_text_editor.pack_start(hbox_tab_width, expand=False)
     vbox_text_editor.pack_start(checkbutton_spaces_tabs, expand=False)
     vbox_text_editor.pack_start(checkbutton_line_wrap, expand=False)
+    vbox_text_editor.pack_start(hbox_wrapping_indent, expand=False)
     vbox_text_editor.pack_start(checkbutton_auto_indent, expand=False)
     vbox_text_editor.pack_start(checkbutton_line_nums, expand=False)
     frame_text_editor = gtk.Frame(label="<b>"+_("Text Editor")+"</b>")
@@ -499,6 +512,10 @@ def dialog_preferences(dad):
         dad.tabs_width = int(spinbutton.get_value())
         dad.sourceview.set_tab_width(dad.tabs_width)
     spinbutton_tab_width.connect('value-changed', on_spinbutton_tab_width_value_changed)
+    def on_spinbutton_wrapping_indent_value_changed(spinbutton):
+        dad.wrapping_indent = int(spinbutton.get_value())
+        dad.sourceview.set_indent(dad.wrapping_indent)
+    spinbutton_wrapping_indent.connect('value-changed', on_spinbutton_wrapping_indent_value_changed)
     def on_checkbutton_spaces_tabs_toggled(checkbutton):
         dad.spaces_instead_tabs = checkbutton.get_active()
         dad.sourceview.set_insert_spaces_instead_of_tabs(dad.spaces_instead_tabs)
