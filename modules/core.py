@@ -24,29 +24,6 @@ import sys, os, re, glob, subprocess, webbrowser, base64, cgi, urllib2, shutil, 
 import cons, support, config, machines, clipboard, imports, exports, printing, tablez, lists, findreplace, codeboxes, ctdb
 if cons.HAS_APPINDICATOR: import appindicator
 
-class GladeWidgetsWrapper:
-    """Handles the retrieval of glade widgets"""
-
-    def __init__(self, glade_file_path, gui_instance):
-        try:
-            self.glade_widgets = gtk.Builder()
-            self.glade_widgets.set_translation_domain(cons.APP_NAME)
-            self.glade_widgets.add_from_file(glade_file_path)
-            self.glade_widgets.connect_signals(gui_instance)
-        except: print "Failed to load the glade file"
-
-    def __getitem__(self, key):
-        """Gives us the ability to do: wrapper['widget_name'].action()"""
-        return self.glade_widgets.get_object(key)
-
-    def __getattr__(self, attr):
-        """Gives us the ability to do: wrapper.widget_name.action()"""
-        new_widget = self.glade_widgets.get_object(attr)
-        if new_widget is None: raise AttributeError, 'Widget %r not found' % attr
-        setattr(self, attr, new_widget)
-        return new_widget
-
-
 class CherryTree:
     """Application's GUI"""
 
@@ -55,7 +32,6 @@ class CherryTree:
         self.boss = boss
         self.filetype = ""
         self.user_active = True
-        # glade
         self.window = gtk.Window()
         self.window.set_title("CherryTree")
         self.window.set_default_size(963, 630)
@@ -958,23 +934,11 @@ class CherryTree:
 
     def dialog_preferences(self, *args):
         """Opens the Preferences Dialog"""
-        self.glade = GladeWidgetsWrapper(cons.GLADE_PATH + 'cherrytree.glade', self)
-        config.config_dialog_prepare_settings(self)
-        self.glade.prefnotebook.set_current_page(self.prefpage)
-        self.glade.prefdialog.show_all()
-        self.glade.prefdialog.run()
-        self.prefpage = self.glade.prefnotebook.get_current_page()
-        self.glade.prefdialog.hide()
-        # timer activate/modify handling
-        new_autosave_value = int(self.glade.spinbutton_autosave.get_value())
-        if self.autosave[1] != new_autosave_value:
-            self.autosave[1] = new_autosave_value
-            if self.autosave_timer_id != None: self.autosave_timer_stop()
-        if self.autosave[0] and self.autosave_timer_id == None: self.autosave_timer_start()
-        # update config file (for people that do not close the app but just logout/shutdown)
+        self.combobox_country_lang_init()
+        self.combobox_style_scheme_init()
+        if "spellchecker" in dir(self): self.combobox_spell_check_lang_init()
+        support.dialog_preferences(self)
         config.config_file_save(self)
-        self.glade.prefdialog.destroy()
-        del self.glade
 
     def autosave_timer_start(self):
         """Start Autosave Timer"""
