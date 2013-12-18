@@ -172,6 +172,7 @@ class CherryTree:
         self.latest_tag = ["", ""] # [latest tag property, latest tag value]
         self.file_update = False
         self.autosave_timer_id = None
+        self.spell_check_init = False
         self.mod_time_sentinel_id = None
         self.mod_time_val = 0
         self.prefpage = 0
@@ -936,7 +937,7 @@ class CherryTree:
         """Opens the Preferences Dialog"""
         self.combobox_country_lang_init()
         self.combobox_style_scheme_init()
-        if "spellchecker" in dir(self): self.combobox_spell_check_lang_init()
+        if self.spell_check_init: self.combobox_spell_check_lang_init()
         support.dialog_preferences(self)
         config.config_file_save(self)
 
@@ -3445,7 +3446,8 @@ class CherryTree:
 
     def spell_check_set_on(self):
         """Enable Spell Check"""
-        if not "spellchecker" in dir(self):
+        if not self.spell_check_init:
+            self.spell_check_init = True
             self.spellchecker = pgsc_spellcheck.SpellChecker(self.sourceview, self, self.spell_check_lang)
             self.combobox_spell_check_lang_init()
         else:
