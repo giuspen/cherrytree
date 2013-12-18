@@ -370,7 +370,7 @@ def dialog_preferences(dad):
     dialog = gtk.Dialog(title=_("Preferences"),
         parent=dad.window,
         flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
-        buttons=gtk.STOCK_CLOSE)
+        buttons=(gtk.STOCK_CLOSE, gtk.RESPONSE_ACCEPT))
     
     ### ALL NODES
     vbox_all_nodes = gtk.VBox()
@@ -1126,7 +1126,16 @@ def dialog_preferences(dad):
     content_area = dialog.get_content_area()
     content_area.pack_start(notebook)
     content_area.show_all()
+    notebook.set_current_page(dad.prefpage)
     dialog.run()
+    # latest tab page
+    dad.prefpage = notebook.get_current_page()
+    # timer activate/modify handling
+    new_autosave_value = int(spinbutton_autosave.get_value())
+    if dad.autosave[1] != new_autosave_value:
+        dad.autosave[1] = new_autosave_value
+        if dad.autosave_timer_id != None: dad.autosave_timer_stop()
+    if dad.autosave[0] and dad.autosave_timer_id == None: dad.autosave_timer_start()
     dialog.hide()
     
     # special characters

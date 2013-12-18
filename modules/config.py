@@ -223,12 +223,6 @@ def config_file_load(inst):
         inst.recent_docs = []
         inst.toolbar_visible = True
 
-def config_dialog_prepare_settings(inst):
-    """Prepare Preferences Dialog"""
-    inst.combobox_country_lang_init()
-    inst.combobox_style_scheme_init()
-    if "spellchecker" in dir(inst): inst.combobox_spell_check_lang_init()
-
 def config_file_apply(inst):
     """Apply the Preferences from Config File"""
     inst.hpaned.set_property('position', inst.hpaned_pos)
