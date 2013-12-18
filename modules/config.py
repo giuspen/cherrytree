@@ -234,7 +234,6 @@ def config_dialog_prepare_settings(inst):
     if "spellchecker" in dir(inst): inst.combobox_spell_check_lang_init()
     if not cons.HAS_APPINDICATOR or not cons.HAS_SYSTRAY: inst.glade.checkbutton_use_appind.set_sensitive(False)
     inst.glade.prefdialog.set_transient_for(inst.window)
-    inst.glade.spinbutton_anchor_size.set_value(inst.anchor_size)
     inst.glade.checkbutton_systray.set_active(inst.systray)
     inst.glade.checkbutton_use_appind.set_active(inst.use_appind)
     inst.glade.spinbutton_autosave.set_value(inst.autosave[1])
