@@ -11,5 +11,7 @@ lists.pyc
 machines.pyc
 main.pyc
 printing.pyc
+pgsc_locales.pyc
+pgsc_spellcheck.pyc
 support.pyc
 tablez.pyc
