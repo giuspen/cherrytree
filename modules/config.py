@@ -245,7 +245,6 @@ def config_dialog_prepare_settings(inst):
     inst.glade.checkbutton_mod_time_sentinel.set_active(inst.enable_mod_time_sentinel)
     inst.glade.checkbutton_backup_before_saving.set_active(inst.backup_copy)
     inst.glade.checkbutton_autosave_on_quit.set_active(inst.autosave_on_quit)
-    inst.glade.checkbutton_tree_right_side.set_active(inst.tree_right_side)
     inst.glade.checkbutton_start_on_systray.set_active(inst.start_on_systray)
     inst.glade.checkbutton_start_on_systray.set_sensitive(inst.systray)
     inst.glade.checkbutton_custom_weblink_cmd.set_active(inst.weblink_custom_action[0])
@@ -257,7 +256,6 @@ def config_dialog_prepare_settings(inst):
     inst.glade.checkbutton_custom_folderlink_cmd.set_active(inst.folderlink_custom_action[0])
     inst.glade.entry_custom_folderlink_cmd.set_sensitive(inst.folderlink_custom_action[0])
     inst.glade.entry_custom_folderlink_cmd.set_text(inst.folderlink_custom_action[1])
-    inst.glade.spinbutton_tree_nodes_names_width.set_value(inst.cherry_wrap_width)
     if user_active_restore: inst.user_active = True
 
 def config_file_apply(inst):
