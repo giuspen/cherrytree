@@ -2023,12 +2023,6 @@ class CherryTree:
         """Show the Online Manual"""
         webbrowser.open("http://giuspen.com/cherrytreemanual/Introduction.html")
 
-    def on_checkbutton_autosave_toggled(self, checkbutton):
-        """Autosave Toggled Handling"""
-        self.autosave[0] = checkbutton.get_active()
-        if not self.autosave[0] and self.autosave_timer_id != None: self.autosave_timer_stop()
-        self.glade.spinbutton_autosave.set_sensitive(self.autosave[0])
-
     def on_checkbutton_reload_doc_last_toggled(self, checkbutton):
         """Reload Doc Last Toggled Handling"""
         self.reload_doc_last = checkbutton.get_active()
@@ -2046,14 +2040,6 @@ class CherryTree:
     def on_checkbutton_newer_version_toggled(self, checkbutton):
         """Automatically Check for Newer Version Toggled"""
         self.check_version = checkbutton.get_active()
-
-    def on_checkbutton_backup_before_saving_toggled(self, checkbutton):
-        """Backup Before Save Toggled"""
-        self.backup_copy = checkbutton.get_active()
-
-    def on_checkbutton_autosave_on_quit_toggled(self, checkbutton):
-        """Autosave on Quit Toggled"""
-        self.autosave_on_quit = checkbutton.get_active()
 
     def on_mouse_button_clicked_tree(self, widget, event):
         """Catches mouse buttons clicks"""

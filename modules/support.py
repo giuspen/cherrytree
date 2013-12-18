@@ -969,7 +969,7 @@ def dialog_preferences(dad):
     frame_system_tray = gtk.Frame(label="<b>"+_("System Tray")+"</b>")
     frame_system_tray.get_label_widget().set_use_markup(True)
     frame_system_tray.set_shadow_type(gtk.SHADOW_NONE)
-    frame_system_tray Tray.add(vbox_system_tray)
+    frame_system_tray.add(vbox_system_tray)
     
     checkbutton_systray.set_active(dad.systray)
     checkbutton_start_on_systray.set_active(dad.start_on_systray)
@@ -977,7 +977,35 @@ def dialog_preferences(dad):
     checkbutton_use_appind.set_active(dad.use_appind)
     if not cons.HAS_APPINDICATOR or not cons.HAS_SYSTRAY: checkbutton_use_appind.set_sensitive(False)
     
+    vbox_saving = gtk.VBox()
+    hbox_autosave = gtk.HBox()
+    hbox_autosave.set_spacing(2)
+    checkbutton_autosave = CheckButton(_("Autosave Every"))
+    adjustment_autosave = gtk.Adjustment(value=img_parms.height, lower=1, upper=1000, step_incr=1)
+    spinbutton_autosave = gtk.SpinButton(adjustment_autosave)
+    label_autosave = gtk.Label(_("Minutes"))
+    hbox_autosave.pack_start(checkbutton_autosave, expand=False)
+    hbox_autosave.pack_start(spinbutton_autosave, expand=False)
+    hbox_autosave.pack_start(label_autosave)
+    checkbutton_autosave_on_quit = CheckButton(_("Autosave on Quit"))
+    checkbutton_backup_before_saving = CheckButton(_("Create a Backup Copy Before Saving"))
+    vbox_saving.pack_start(hbox_autosave, expand=False)
+    vbox_saving.pack_start(checkbutton_autosave_on_quit, expand=False)
+    vbox_saving.pack_start(checkbutton_backup_before_saving, expand=False)
+    
+    checkbutton_autosave.set_active(dad.autosave[0])
+    spinbutton_autosave.set_value(dad.autosave[1])
+    spinbutton_autosave.set_sensitive(dad.autosave[0])
+    checkbutton_autosave_on_quit.set_active(dad.autosave_on_quit)
+    checkbutton_backup_before_saving.set_active(dad.backup_copy)
+    
+    frame_saving = gtk.Frame(label="<b>"+_("Saving")+"</b>")
+    frame_saving.get_label_widget().set_use_markup(True)
+    frame_saving.set_shadow_type(gtk.SHADOW_NONE)
+    frame_saving.add(vbox_saving)
+    
     vbox_misc.pack_start(frame_system_tray)
+    vbox_misc.pack_start(frame_saving)
     def on_checkbutton_systray_toggled(checkbutton):
         dad.systray = checkbutton.get_active()
         if dad.systray:
@@ -1018,6 +1046,17 @@ def dialog_preferences(dad):
                 if runn_win.window == dad.window: continue
                 runn_win.use_appind = dad.use_appind
     checkbutton_use_appind.connect('toggled', on_checkbutton_use_appind_toggled)
+    def on_checkbutton_autosave_toggled(checkbutton):
+        dad.autosave[0] = checkbutton.get_active()
+        if not dad.autosave[0] and dad.autosave_timer_id != None: dad.autosave_timer_stop()
+        spinbutton_autosave.set_sensitive(dad.autosave[0])
+    checkbutton_autosave.connect('toggled', on_checkbutton_autosave_toggled)
+    def on_checkbutton_backup_before_saving_toggled(checkbutton):
+        dad.backup_copy = checkbutton.get_active()
+    checkbutton_backup_before_saving.connect('toggled', on_checkbutton_backup_before_saving_toggled)
+    def on_checkbutton_autosave_on_quit_toggled(checkbutton):
+        dad.autosave_on_quit = checkbutton.get_active()
+    checkbutton_autosave_on_quit.connect('toggled', on_checkbutton_autosave_on_quit_toggled)
     
     notebook = gtk.Notebook()
     notebook.set_tab_pos(gtk.POS_LEFT)

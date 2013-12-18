@@ -228,14 +228,9 @@ def config_dialog_prepare_settings(inst):
     inst.combobox_country_lang_init()
     inst.combobox_style_scheme_init()
     if "spellchecker" in dir(inst): inst.combobox_spell_check_lang_init()
-    inst.glade.spinbutton_autosave.set_value(inst.autosave[1])
-    inst.glade.spinbutton_autosave.set_sensitive(inst.autosave[0])
-    inst.glade.checkbutton_autosave.set_active(inst.autosave[0])
     inst.glade.checkbutton_newer_version.set_active(inst.check_version)
     inst.glade.checkbutton_reload_doc_last.set_active(inst.reload_doc_last)
     inst.glade.checkbutton_mod_time_sentinel.set_active(inst.enable_mod_time_sentinel)
-    inst.glade.checkbutton_backup_before_saving.set_active(inst.backup_copy)
-    inst.glade.checkbutton_autosave_on_quit.set_active(inst.autosave_on_quit)
 
 def config_file_apply(inst):
     """Apply the Preferences from Config File"""
