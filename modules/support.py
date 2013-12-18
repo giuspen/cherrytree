@@ -1021,9 +1021,22 @@ def dialog_preferences(dad):
     frame_misc_misc.set_shadow_type(gtk.SHADOW_NONE)
     frame_misc_misc.add(vbox_misc_misc)
     
+    vbox_language = gtk.VBox()
+    combobox_country_language = gtk.ComboBox(model=dad.country_lang_liststore)
+    cell = gtk.CellRendererText()
+    combobox_country_language.pack_start(cell, True)
+    combobox_country_language.add_attribute(cell, 'text', 0)
+    combobox_country_language.set_active_iter(dad.get_combobox_iter_from_value(dad.country_lang_liststore, 0, dad.country_lang))
+    
+    frame_language = gtk.Frame(label="<b>"+_("Language")+"</b>")
+    frame_language.get_label_widget().set_use_markup(True)
+    frame_language.set_shadow_type(gtk.SHADOW_NONE)
+    frame_language.add(vbox_language)
+    
     vbox_misc.pack_start(frame_system_tray)
     vbox_misc.pack_start(frame_saving)
     vbox_misc.pack_start(frame_misc_misc)
+    vbox_misc.pack_start(frame_language)
     def on_checkbutton_systray_toggled(checkbutton):
         dad.systray = checkbutton.get_active()
         if dad.systray:
@@ -1090,6 +1103,16 @@ def dialog_preferences(dad):
     def on_checkbutton_newer_version_toggled(checkbutton):
         dad.check_version = checkbutton.get_active()
     checkbutton_newer_version.connect('toggled', on_checkbutton_newer_version_toggled)
+    def on_combobox_country_language_changed(combobox):
+        new_iter = combobox_country_language.get_active_iter()
+        new_lang = dad.country_lang_liststore[new_iter][0]
+        if new_lang != dad.country_lang:
+            dad.country_lang = new_lang
+            support.dialog_info(_("The New Language will be Available Only After Restarting CherryTree"), dad.window)
+            lang_file_descriptor = file(cons.LANG_PATH, 'w')
+            lang_file_descriptor.write(new_lang)
+            lang_file_descriptor.close()
+    combobox_country_language.connect('changed', on_combobox_country_language_changed)
     
     notebook = gtk.Notebook()
     notebook.set_tab_pos(gtk.POS_LEFT)

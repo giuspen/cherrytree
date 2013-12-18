@@ -2059,31 +2059,12 @@ class CherryTree:
         for language_id in sorted(self.available_languages):
             self.prog_lang_liststore.append([self.language_manager.get_language(language_id).get_name(), language_id])
 
-    def on_combobox_country_language_changed(self, combobox):
-        """New Country Language Choosed"""
-        new_iter = self.glade.combobox_country_language.get_active_iter()
-        new_lang = self.country_lang_liststore[new_iter][0]
-        if new_lang != self.country_lang:
-            self.country_lang = new_lang
-            support.dialog_info(_("The New Language will be Available Only After Restarting CherryTree"), self.window)
-            lang_file_descriptor = file(cons.LANG_PATH, 'w')
-            lang_file_descriptor.write(new_lang)
-            lang_file_descriptor.close()
-
     def combobox_country_lang_init(self):
         """Init The Country Language ComboBox"""
         if not "country_lang_liststore" in dir(self):
             self.country_lang_liststore = gtk.ListStore(str)
             for country_lang in cons.AVAILABLE_LANGS:
                 self.country_lang_liststore.append([country_lang])
-        if "glade" in dir(self):
-            combobox = self.glade.combobox_country_language
-            combobox.set_model(self.country_lang_liststore)
-            cell = gtk.CellRendererText()
-            combobox.pack_start(cell, True)
-            combobox.add_attribute(cell, 'text', 0)
-            combobox.set_active_iter(self.get_combobox_iter_from_value(self.country_lang_liststore, 0, self.country_lang))
-            combobox.connect('changed', self.on_combobox_country_language_changed)
     
     def combobox_style_scheme_init(self):
         """Init The Style Scheme ComboBox"""
