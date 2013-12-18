@@ -19,8 +19,8 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
-import os, sys, ConfigParser, gtk, pango, locale, subprocess, base64
-import cons, pgsc_spellcheck
+import os, sys, ConfigParser, gtk, pango, locale, subprocess, base64, webbrowser
+import cons, support, pgsc_spellcheck
 
 ICONS_SIZE = {1: gtk.ICON_SIZE_MENU, 2: gtk.ICON_SIZE_SMALL_TOOLBAR, 3: gtk.ICON_SIZE_LARGE_TOOLBAR,
               4: gtk.ICON_SIZE_DND, 5: gtk.ICON_SIZE_DIALOG}
@@ -403,3 +403,860 @@ def set_tree_expanded_collapsed_string_iter(tree_iter, expanded_collapsed_dict, 
     while tree_iter != None:
         set_tree_expanded_collapsed_string_iter(tree_iter, expanded_collapsed_dict, inst)
         tree_iter = inst.treestore.iter_next(tree_iter)
+
+def dialog_preferences(dad):
+    """Preferences Dialog"""
+    dialog = gtk.Dialog(title=_("Preferences"),
+        parent=dad.window,
+        flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
+        buttons=(gtk.STOCK_CLOSE, gtk.RESPONSE_ACCEPT))
+    
+    ### ALL NODES
+    vbox_all_nodes = gtk.VBox()
+    vbox_all_nodes.set_spacing(3)
+    
+    hbox_tab_width = gtk.HBox()
+    hbox_tab_width.set_spacing(4)
+    label_tab_width = gtk.Label(_("Tab Width"))
+    adj_tab_width = gtk.Adjustment(value=dad.tabs_width, lower=1, upper=10000, step_incr=1)
+    spinbutton_tab_width = gtk.SpinButton(adj_tab_width)
+    spinbutton_tab_width.set_value(dad.tabs_width)
+    hbox_tab_width.pack_start(label_tab_width, expand=False)
+    hbox_tab_width.pack_start(spinbutton_tab_width, expand=False)
+    checkbutton_spaces_tabs = gtk.CheckButton(label=_("Insert Spaces Instead of Tabs"))
+    checkbutton_spaces_tabs.set_active(dad.spaces_instead_tabs)
+    checkbutton_line_wrap = gtk.CheckButton(label=_("Use Line Wrapping"))
+    checkbutton_line_wrap.set_active(dad.line_wrapping)
+    checkbutton_auto_indent = gtk.CheckButton(label=_("Enable Automatic Indentation"))
+    checkbutton_auto_indent.set_active(dad.auto_indent)
+    checkbutton_line_nums = gtk.CheckButton(label=_("Show Line Numbers"))
+    checkbutton_line_nums.set_active(dad.show_line_numbers)
+    
+    vbox_text_editor = gtk.VBox()
+    vbox_text_editor.pack_start(hbox_tab_width, expand=False)
+    vbox_text_editor.pack_start(checkbutton_spaces_tabs, expand=False)
+    vbox_text_editor.pack_start(checkbutton_line_wrap, expand=False)
+    vbox_text_editor.pack_start(checkbutton_auto_indent, expand=False)
+    vbox_text_editor.pack_start(checkbutton_line_nums, expand=False)
+    frame_text_editor = gtk.Frame(label="<b>"+_("Text Editor")+"</b>")
+    frame_text_editor.get_label_widget().set_use_markup(True)
+    frame_text_editor.set_shadow_type(gtk.SHADOW_NONE)
+    align_text_editor = gtk.Alignment()
+    align_text_editor.set_padding(0, 6, 6, 6)
+    align_text_editor.add(vbox_text_editor)
+    frame_text_editor.add(align_text_editor)
+    
+    hbox_timestamp = gtk.HBox()
+    hbox_timestamp.set_spacing(4)
+    label_timestamp = gtk.Label(_("Timestamp Format"))
+    entry_timestamp_format = gtk.Entry()
+    entry_timestamp_format.set_text(dad.timestamp_format)
+    button_strftime_help = gtk.Button()
+    button_strftime_help.set_image(gtk.image_new_from_stock("gtk-help", gtk.ICON_SIZE_BUTTON))
+    hbox_timestamp.pack_start(label_timestamp, expand=False)
+    hbox_timestamp.pack_start(entry_timestamp_format)
+    hbox_timestamp.pack_start(button_strftime_help, expand=False)
+    hbox_horizontal_rule = gtk.HBox()
+    hbox_horizontal_rule.set_spacing(4)
+    label_horizontal_rule = gtk.Label(_("Horizontal Rule"))
+    entry_horizontal_rule = gtk.Entry()
+    entry_horizontal_rule.set_text(dad.h_rule)
+    hbox_horizontal_rule.pack_start(label_horizontal_rule, expand=False)
+    hbox_horizontal_rule.pack_start(entry_horizontal_rule)
+    hbox_special_chars = gtk.HBox()
+    hbox_special_chars.set_spacing(4)
+    label_special_chars = gtk.Label(_("Special Characters"))
+    frame_special_chars = gtk.Frame()
+    frame_special_chars.set_size_request(-1, 80)
+    frame_special_chars.set_shadow_type(gtk.SHADOW_IN)
+    scrolledwindow_special_chars = gtk.ScrolledWindow()
+    scrolledwindow_special_chars.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+    frame_special_chars.add(scrolledwindow_special_chars)
+    textbuffer_special_chars = gtk.TextBuffer()
+    textbuffer_special_chars.set_text(dad.special_chars)
+    textview_special_chars = gtk.TextView(buffer=textbuffer_special_chars)
+    textview_special_chars.set_wrap_mode(gtk.WRAP_CHAR)
+    scrolledwindow_special_chars.add(textview_special_chars)
+    hbox_special_chars.pack_start(label_special_chars, expand=False)
+    hbox_special_chars.pack_start(frame_special_chars)
+    
+    vbox_misc_all = gtk.VBox()
+    vbox_misc_all.set_spacing(2)
+    vbox_misc_all.pack_start(hbox_timestamp)
+    vbox_misc_all.pack_start(hbox_horizontal_rule)
+    vbox_misc_all.pack_start(hbox_special_chars)
+    frame_misc_all = gtk.Frame(label="<b>"+_("Miscellaneous")+"</b>")
+    frame_misc_all.get_label_widget().set_use_markup(True)
+    frame_misc_all.set_shadow_type(gtk.SHADOW_NONE)
+    align_misc_all = gtk.Alignment()
+    align_misc_all.set_padding(0, 6, 6, 6)
+    align_misc_all.add(vbox_misc_all)
+    frame_misc_all.add(align_misc_all)
+    
+    vbox_all_nodes.pack_start(frame_text_editor, expand=False)
+    vbox_all_nodes.pack_start(frame_misc_all, expand=False)
+    def on_spinbutton_tab_width_value_changed(spinbutton):
+        dad.tabs_width = int(spinbutton.get_value())
+        dad.sourceview.set_tab_width(dad.tabs_width)
+    spinbutton_tab_width.connect('value-changed', on_spinbutton_tab_width_value_changed)
+    def on_checkbutton_spaces_tabs_toggled(checkbutton):
+        dad.spaces_instead_tabs = checkbutton.get_active()
+        dad.sourceview.set_insert_spaces_instead_of_tabs(dad.spaces_instead_tabs)
+    checkbutton_spaces_tabs.connect('toggled', on_checkbutton_spaces_tabs_toggled)
+    def on_checkbutton_line_wrap_toggled(checkbutton):
+        dad.line_wrapping = checkbutton.get_active()
+        dad.sourceview.set_wrap_mode(gtk.WRAP_WORD if dad.line_wrapping else gtk.WRAP_NONE)
+    checkbutton_line_wrap.connect('toggled', on_checkbutton_line_wrap_toggled)
+    def on_checkbutton_auto_indent_toggled(checkbutton):
+        dad.auto_indent = checkbutton.get_active()
+    checkbutton_auto_indent.connect('toggled', on_checkbutton_auto_indent_toggled)
+    def on_checkbutton_line_nums_toggled(checkbutton):
+        dad.show_line_numbers = checkbutton.get_active()
+        dad.sourceview.set_show_line_numbers(dad.show_line_numbers)
+    checkbutton_line_nums.connect('toggled', on_checkbutton_line_nums_toggled)
+    def on_entry_timestamp_format_changed(entry):
+        dad.timestamp_format = entry.get_text()
+    entry_timestamp_format.connect('changed', on_entry_timestamp_format_changed)
+    def on_button_strftime_help_clicked(menuitem, data=None):
+        lang_code = locale.getdefaultlocale()[0]
+        if lang_code:
+            page_lang = lang_code[0:2] if lang_code[0:2] in ["de", "es", "fr"] else ""
+        else: page_lang = ""
+        webbrowser.open("http://man.cx/strftime(3)/" + page_lang)
+    button_strftime_help.connect('clicked', on_button_strftime_help_clicked)
+    def on_entry_horizontal_rule_changed(entry):
+        dad.h_rule = entry.get_text()
+    entry_horizontal_rule.connect('changed', on_entry_horizontal_rule_changed)
+    
+    ### TEXT NODES
+    vbox_text_nodes = gtk.VBox()
+    vbox_text_nodes.set_spacing(3)
+    
+    vbox_spell_check = gtk.VBox()
+    checkbutton_spell_check = gtk.CheckButton(label=_("Enable Spell Check"))
+    checkbutton_spell_check.set_active(dad.enable_spell_check)
+    hbox_spell_check_lang = gtk.HBox()
+    hbox_spell_check_lang.set_spacing(4)
+    label_spell_check_lang = gtk.Label(_("Spell Check Language"))
+    combobox_spell_check_lang = gtk.ComboBox()
+    cell = gtk.CellRendererText()
+    combobox_spell_check_lang.pack_start(cell, True)
+    combobox_spell_check_lang.add_attribute(cell, 'text', 0)
+    def set_checkbutton_spell_check_model():
+        combobox_spell_check_lang.set_model(dad.spell_check_lang_liststore)
+        combobox_spell_check_lang.set_active_iter(dad.get_combobox_iter_from_value(dad.spell_check_lang_liststore, 0, dad.spell_check_lang))
+    if dad.spell_check_init: set_checkbutton_spell_check_model()
+    hbox_spell_check_lang.pack_start(label_spell_check_lang, expand=False)
+    hbox_spell_check_lang.pack_start(combobox_spell_check_lang)
+    vbox_spell_check.pack_start(checkbutton_spell_check, expand=False)
+    vbox_spell_check.pack_start(hbox_spell_check_lang, expand=False)
+    frame_spell_check = gtk.Frame(label="<b>"+_("Spell Check")+"</b>")
+    frame_spell_check.get_label_widget().set_use_markup(True)
+    frame_spell_check.set_shadow_type(gtk.SHADOW_NONE)
+    align_spell_check = gtk.Alignment()
+    align_spell_check.set_padding(0, 6, 6, 6)
+    align_spell_check.add(vbox_spell_check)
+    frame_spell_check.add(align_spell_check)
+    
+    vbox_rt_theme = gtk.VBox()
+    
+    radiobutton_rt_col_light = gtk.RadioButton(label=_("Light Background, Dark Text"))
+    radiobutton_rt_col_dark = gtk.RadioButton(label=_("Dark Background, Light Text"))
+    radiobutton_rt_col_dark.set_group(radiobutton_rt_col_light)
+    radiobutton_rt_col_custom = gtk.RadioButton(label=_("Custom Background"))
+    radiobutton_rt_col_custom.set_group(radiobutton_rt_col_light)
+    hbox_rt_col_custom = gtk.HBox()
+    hbox_rt_col_custom.set_spacing(4)
+    colorbutton_text_bg = gtk.ColorButton(color=gtk.gdk.color_parse(dad.rt_def_bg))
+    label_rt_col_custom = gtk.Label(_("and Text"))
+    colorbutton_text_fg = gtk.ColorButton(color=gtk.gdk.color_parse(dad.rt_def_fg))
+    hbox_rt_col_custom.pack_start(radiobutton_rt_col_custom, expand=False)
+    hbox_rt_col_custom.pack_start(colorbutton_text_bg, expand=False)
+    hbox_rt_col_custom.pack_start(label_rt_col_custom, expand=False)
+    hbox_rt_col_custom.pack_start(colorbutton_text_fg, expand=False)
+    
+    vbox_rt_theme.pack_start(radiobutton_rt_col_light, expand=False)
+    vbox_rt_theme.pack_start(radiobutton_rt_col_dark, expand=False)
+    vbox_rt_theme.pack_start(hbox_rt_col_custom, expand=False)
+    frame_rt_theme = gtk.Frame(label="<b>"+_("Theme")+"</b>")
+    frame_rt_theme.get_label_widget().set_use_markup(True)
+    frame_rt_theme.set_shadow_type(gtk.SHADOW_NONE)
+    align_rt_theme = gtk.Alignment()
+    align_rt_theme.set_padding(0, 6, 6, 6)
+    align_rt_theme.add(vbox_rt_theme)
+    frame_rt_theme.add(align_rt_theme)
+    
+    if dad.rt_def_fg == cons.RICH_TEXT_DARK_FG and dad.rt_def_bg == cons.RICH_TEXT_DARK_BG:
+        radiobutton_rt_col_dark.set_active(True)
+        colorbutton_text_fg.set_sensitive(False)
+        colorbutton_text_bg.set_sensitive(False)
+    elif dad.rt_def_fg == cons.RICH_TEXT_LIGHT_FG and dad.rt_def_bg == cons.RICH_TEXT_LIGHT_BG:
+        radiobutton_rt_col_light.set_active(True)
+        colorbutton_text_fg.set_sensitive(False)
+        colorbutton_text_bg.set_sensitive(False)
+    else: radiobutton_rt_col_custom.set_active(True)
+    
+    hbox_misc_text = gtk.HBox()
+    hbox_misc_text.set_spacing(4)
+    label_limit_undoable_steps = gtk.Label(_("Limit of Undoable Steps Per Node"))
+    adj_limit_undoable_steps = gtk.Adjustment(value=dad.limit_undoable_steps, lower=1, upper=10000, step_incr=1)
+    spinbutton_limit_undoable_steps = gtk.SpinButton(adj_limit_undoable_steps)
+    spinbutton_limit_undoable_steps.set_value(dad.limit_undoable_steps)
+    hbox_misc_text.pack_start(label_limit_undoable_steps, expand=False)
+    hbox_misc_text.pack_start(spinbutton_limit_undoable_steps, expand=False)
+    
+    vbox_misc_text = gtk.VBox()
+    vbox_misc_text.pack_start(hbox_misc_text, expand=False)
+    frame_misc_text = gtk.Frame(label="<b>"+_("Miscellaneous")+"</b>")
+    frame_misc_text.get_label_widget().set_use_markup(True)
+    frame_misc_text.set_shadow_type(gtk.SHADOW_NONE)
+    align_misc_text = gtk.Alignment()
+    align_misc_text.set_padding(0, 6, 6, 6)
+    align_misc_text.add(vbox_misc_text)
+    frame_misc_text.add(align_misc_text)
+    
+    vbox_text_nodes.pack_start(frame_spell_check, expand=False)
+    vbox_text_nodes.pack_start(frame_rt_theme, expand=False)
+    vbox_text_nodes.pack_start(frame_misc_text, expand=False)
+    def on_checkbutton_spell_check_toggled(checkbutton):
+        dad.enable_spell_check = checkbutton.get_active()
+        if dad.enable_spell_check:
+            dad.spell_check_set_on()
+            set_checkbutton_spell_check_model()
+        else: dad.spell_check_set_off()
+        combobox_spell_check_lang.set_sensitive(dad.enable_spell_check)
+    checkbutton_spell_check.connect('toggled', on_checkbutton_spell_check_toggled)
+    def on_combobox_spell_check_lang_changed(combobox):
+        new_iter = combobox.get_active_iter()
+        new_lang_code = dad.spell_check_lang_liststore[new_iter][0]
+        if new_lang_code != dad.spell_check_lang: dad.spell_check_set_new_lang(new_lang_code)
+    combobox_spell_check_lang.connect('changed', on_combobox_spell_check_lang_changed)
+    def on_colorbutton_text_fg_color_set(colorbutton):
+        dad.rt_def_fg = "#" + dad.html_handler.rgb_to_24(colorbutton.get_color().to_string()[1:])
+        if dad.curr_tree_iter and dad.syntax_highlighting == cons.CUSTOM_COLORS_ID:
+            dad.sourceview.modify_text(gtk.STATE_NORMAL, gtk.gdk.color_parse(dad.rt_def_fg))
+    colorbutton_text_fg.connect('color-set', on_colorbutton_text_fg_color_set)
+    def on_colorbutton_text_bg_color_set(colorbutton):
+        dad.rt_def_bg = "#" + dad.html_handler.rgb_to_24(colorbutton.get_color().to_string()[1:])
+        if dad.curr_tree_iter and dad.syntax_highlighting == cons.CUSTOM_COLORS_ID:
+            dad.sourceview.modify_base(gtk.STATE_NORMAL, gtk.gdk.color_parse(dad.rt_def_bg))
+    colorbutton_text_bg.connect('color-set', on_colorbutton_text_bg_color_set)
+    def on_radiobutton_rt_col_light_toggled(radiobutton):
+        if not radiobutton.get_active(): return
+        colorbutton_text_fg.set_color(gtk.gdk.color_parse(cons.RICH_TEXT_LIGHT_FG))
+        colorbutton_text_bg.set_color(gtk.gdk.color_parse(cons.RICH_TEXT_LIGHT_BG))
+        colorbutton_text_fg.set_sensitive(False)
+        colorbutton_text_bg.set_sensitive(False)
+        on_colorbutton_text_fg_color_set(colorbutton_text_fg)
+        on_colorbutton_text_bg_color_set(colorbutton_text_bg)
+    radiobutton_rt_col_light.connect('toggled', on_radiobutton_rt_col_light_toggled)
+    def on_radiobutton_rt_col_dark_toggled(radiobutton):
+        if not radiobutton.get_active(): return
+        colorbutton_text_fg.set_color(gtk.gdk.color_parse(cons.RICH_TEXT_DARK_FG))
+        colorbutton_text_bg.set_color(gtk.gdk.color_parse(cons.RICH_TEXT_DARK_BG))
+        colorbutton_text_fg.set_sensitive(False)
+        colorbutton_text_bg.set_sensitive(False)
+        on_colorbutton_text_fg_color_set(colorbutton_text_fg)
+        on_colorbutton_text_bg_color_set(colorbutton_text_bg)
+    radiobutton_rt_col_dark.connect('toggled', on_radiobutton_rt_col_dark_toggled)
+    def on_radiobutton_rt_col_custom_toggled(radiobutton):
+        if not radiobutton.get_active(): return
+        colorbutton_text_fg.set_sensitive(True)
+        colorbutton_text_bg.set_sensitive(True)
+    radiobutton_rt_col_custom.connect('toggled', on_radiobutton_rt_col_custom_toggled)
+    def on_spinbutton_limit_undoable_steps_value_changed(spinbutton):
+        dad.limit_undoable_steps = int(spinbutton.get_value())
+    spinbutton_limit_undoable_steps.connect('value-changed', on_spinbutton_limit_undoable_steps_value_changed)
+    
+    if not pgsc_spellcheck.HAS_PYENCHANT:
+        checkbutton_spell_check.set_sensitive(False)
+        combobox_spell_check_lang.set_sensitive(False)
+    
+    ### CODE NODES
+    vbox_code_nodes = gtk.VBox()
+    vbox_code_nodes.set_spacing(3)
+    
+    vbox_syntax = gtk.VBox()
+    hbox_style_scheme = gtk.HBox()
+    hbox_style_scheme.set_spacing(4)
+    label_style_scheme = gtk.Label(_("Style Scheme"))
+    combobox_style_scheme = gtk.ComboBox(model=dad.style_scheme_liststore)
+    cell = gtk.CellRendererText()
+    combobox_style_scheme.pack_start(cell, True)
+    combobox_style_scheme.add_attribute(cell, 'text', 0)
+    combobox_style_scheme.set_active_iter(dad.get_combobox_iter_from_value(dad.style_scheme_liststore, 0, dad.style_scheme))
+    hbox_style_scheme.pack_start(label_style_scheme, expand=False)
+    hbox_style_scheme.pack_start(combobox_style_scheme)
+    checkbutton_show_white_spaces = gtk.CheckButton(_("Show White Spaces"))
+    checkbutton_show_white_spaces.set_active(dad.show_white_spaces)
+    checkbutton_highlight_current_line = gtk.CheckButton(_("Highlight Current Line"))
+    checkbutton_highlight_current_line.set_active(dad.highl_curr_line)
+    
+    vbox_syntax.pack_start(hbox_style_scheme, expand=False)
+    vbox_syntax.pack_start(checkbutton_show_white_spaces, expand=False)
+    vbox_syntax.pack_start(checkbutton_highlight_current_line, expand=False)
+    
+    frame_syntax = gtk.Frame(label="<b>"+_("Automatic Syntax Highlighting")+"</b>")
+    frame_syntax.get_label_widget().set_use_markup(True)
+    frame_syntax.set_shadow_type(gtk.SHADOW_NONE)
+    align_syntax = gtk.Alignment()
+    align_syntax.set_padding(0, 6, 6, 6)
+    align_syntax.add(vbox_syntax)
+    frame_syntax.add(align_syntax)
+    
+    vbox_code_nodes.pack_start(frame_syntax, expand=False)
+    def on_combobox_style_scheme_changed(combobox):
+        new_iter = combobox_style_scheme.get_active_iter()
+        new_style = dad.style_scheme_liststore[new_iter][0]
+        if new_style != dad.style_scheme:
+            dad.style_scheme = new_style
+            support.dialog_info_after_restart(dad.window)
+    combobox_style_scheme.connect('changed', on_combobox_style_scheme_changed)
+    def on_checkbutton_show_white_spaces_toggled(checkbutton):
+        dad.show_white_spaces = checkbutton.get_active()
+        support.dialog_info_after_restart(dad.window)
+    checkbutton_show_white_spaces.connect('toggled', on_checkbutton_show_white_spaces_toggled)
+    def on_checkbutton_highlight_current_line_toggled(checkbutton):
+        dad.highl_curr_line = checkbutton.get_active()
+        support.dialog_info_after_restart(dad.window)
+    checkbutton_highlight_current_line.connect('toggled', on_checkbutton_highlight_current_line_toggled)
+    
+    ### TREE
+    vbox_tree = gtk.VBox()
+    vbox_tree.set_spacing(3)
+    
+    vbox_tt_theme = gtk.VBox()
+    
+    radiobutton_tt_col_light = gtk.RadioButton(label=_("Light Background, Dark Text"))
+    radiobutton_tt_col_dark = gtk.RadioButton(label=_("Dark Background, Light Text"))
+    radiobutton_tt_col_dark.set_group(radiobutton_tt_col_light)
+    radiobutton_tt_col_custom = gtk.RadioButton(label=_("Custom Background"))
+    radiobutton_tt_col_custom.set_group(radiobutton_tt_col_light)
+    hbox_tt_col_custom = gtk.HBox()
+    hbox_tt_col_custom.set_spacing(4)
+    colorbutton_tree_bg = gtk.ColorButton(color=gtk.gdk.color_parse(dad.tt_def_bg))
+    label_tt_col_custom = gtk.Label(_("and Text"))
+    colorbutton_tree_fg = gtk.ColorButton(color=gtk.gdk.color_parse(dad.tt_def_fg))
+    hbox_tt_col_custom.pack_start(radiobutton_tt_col_custom, expand=False)
+    hbox_tt_col_custom.pack_start(colorbutton_tree_bg, expand=False)
+    hbox_tt_col_custom.pack_start(label_tt_col_custom, expand=False)
+    hbox_tt_col_custom.pack_start(colorbutton_tree_fg, expand=False)
+    
+    vbox_tt_theme.pack_start(radiobutton_tt_col_light, expand=False)
+    vbox_tt_theme.pack_start(radiobutton_tt_col_dark, expand=False)
+    vbox_tt_theme.pack_start(hbox_tt_col_custom, expand=False)
+    frame_tt_theme = gtk.Frame(label="<b>"+_("Theme")+"</b>")
+    frame_tt_theme.get_label_widget().set_use_markup(True)
+    frame_tt_theme.set_shadow_type(gtk.SHADOW_NONE)
+    align_tt_theme = gtk.Alignment()
+    align_tt_theme.set_padding(0, 6, 6, 6)
+    align_tt_theme.add(vbox_tt_theme)
+    frame_tt_theme.add(align_tt_theme)
+    
+    if dad.tt_def_fg == cons.TREE_TEXT_DARK_FG and dad.tt_def_bg == cons.TREE_TEXT_DARK_BG:
+        radiobutton_tt_col_dark.set_active(True)
+        colorbutton_tree_fg.set_sensitive(False)
+        colorbutton_tree_bg.set_sensitive(False)
+    elif dad.tt_def_fg == cons.TREE_TEXT_LIGHT_FG and dad.tt_def_bg == cons.TREE_TEXT_LIGHT_BG:
+        radiobutton_tt_col_light.set_active(True)
+        colorbutton_tree_fg.set_sensitive(False)
+        colorbutton_tree_bg.set_sensitive(False)
+    else: radiobutton_tt_col_custom.set_active(True)
+    
+    vbox_nodes_icons = gtk.VBox()
+    
+    radiobutton_node_icon_cherry = gtk.RadioButton(label=_("Use Cherries as Nodes Icons"))
+    radiobutton_node_icon_bullet = gtk.RadioButton(label=_("Use Bullets as Nodes Icons"))
+    radiobutton_node_icon_bullet.set_group(radiobutton_node_icon_cherry)
+    radiobutton_node_icon_none = gtk.RadioButton(label=_("Do Not Display Nodes Icons"))
+    radiobutton_node_icon_none.set_group(radiobutton_node_icon_cherry)
+    
+    vbox_nodes_icons.pack_start(radiobutton_node_icon_cherry, expand=False)
+    vbox_nodes_icons.pack_start(radiobutton_node_icon_bullet, expand=False)
+    vbox_nodes_icons.pack_start(radiobutton_node_icon_none, expand=False)
+    frame_nodes_icons = gtk.Frame(label="<b>"+_("Nodes Icons")+"</b>")
+    frame_nodes_icons.get_label_widget().set_use_markup(True)
+    frame_nodes_icons.set_shadow_type(gtk.SHADOW_NONE)
+    align_nodes_icons = gtk.Alignment()
+    align_nodes_icons.set_padding(0, 6, 6, 6)
+    align_nodes_icons.add(vbox_nodes_icons)
+    frame_nodes_icons.add(align_nodes_icons)
+    
+    radiobutton_node_icon_cherry.set_active(dad.nodes_icons == "c")
+    radiobutton_node_icon_bullet.set_active(dad.nodes_icons == "b")
+    radiobutton_node_icon_none.set_active(dad.nodes_icons == "n")
+    
+    vbox_nodes_startup = gtk.VBox()
+    
+    radiobutton_nodes_startup_restore = gtk.RadioButton(label=_("Restore Expanded/Collapsed Status"))
+    radiobutton_nodes_startup_expand = gtk.RadioButton(label=_("Expand all Nodes"))
+    radiobutton_nodes_startup_expand.set_group(radiobutton_nodes_startup_restore)
+    radiobutton_nodes_startup_collapse = gtk.RadioButton(label=_("Collapse all Nodes"))
+    radiobutton_nodes_startup_collapse.set_group(radiobutton_nodes_startup_restore)
+    
+    vbox_nodes_startup.pack_start(radiobutton_nodes_startup_restore, expand=False)
+    vbox_nodes_startup.pack_start(radiobutton_nodes_startup_expand, expand=False)
+    vbox_nodes_startup.pack_start(radiobutton_nodes_startup_collapse, expand=False)
+    frame_nodes_startup = gtk.Frame(label="<b>"+_("Nodes Status at Startup")+"</b>")
+    frame_nodes_startup.get_label_widget().set_use_markup(True)
+    frame_nodes_startup.set_shadow_type(gtk.SHADOW_NONE)
+    align_nodes_startup = gtk.Alignment()
+    align_nodes_startup.set_padding(0, 6, 6, 6)
+    align_nodes_startup.add(vbox_nodes_startup)
+    frame_nodes_startup.add(align_nodes_startup)
+    
+    radiobutton_nodes_startup_restore.set_active(dad.rest_exp_coll == 0)
+    radiobutton_nodes_startup_expand.set_active(dad.rest_exp_coll == 1)
+    radiobutton_nodes_startup_collapse.set_active(dad.rest_exp_coll == 2)
+    
+    vbox_misc_tree = gtk.VBox()
+    hbox_tree_nodes_names_width = gtk.HBox()
+    hbox_tree_nodes_names_width.set_spacing(4)
+    label_tree_nodes_names_width = gtk.Label(_("Tree Nodes Names Wrapping Width"))
+    adj_tree_nodes_names_width = gtk.Adjustment(value=dad.cherry_wrap_width, lower=10, upper=10000, step_incr=1)
+    spinbutton_tree_nodes_names_width = gtk.SpinButton(adj_tree_nodes_names_width)
+    spinbutton_tree_nodes_names_width.set_value(dad.cherry_wrap_width)
+    hbox_tree_nodes_names_width.pack_start(label_tree_nodes_names_width, expand=False)
+    hbox_tree_nodes_names_width.pack_start(spinbutton_tree_nodes_names_width, expand=False)
+    checkbutton_tree_right_side = gtk.CheckButton(_("Display Tree on the Right Side"))
+    checkbutton_tree_right_side.set_active(dad.tree_right_side)
+    
+    vbox_misc_tree.pack_start(hbox_tree_nodes_names_width, expand=False)
+    vbox_misc_tree.pack_start(checkbutton_tree_right_side, expand=False)
+    frame_misc_tree = gtk.Frame(label="<b>"+_("Miscellaneous")+"</b>")
+    frame_misc_tree.get_label_widget().set_use_markup(True)
+    frame_misc_tree.set_shadow_type(gtk.SHADOW_NONE)
+    align_misc_tree = gtk.Alignment()
+    align_misc_tree.set_padding(0, 6, 6, 6)
+    align_misc_tree.add(vbox_misc_tree)
+    frame_misc_tree.add(align_misc_tree)
+    
+    vbox_tree.pack_start(frame_tt_theme, expand=False)
+    vbox_tree.pack_start(frame_nodes_icons, expand=False)
+    vbox_tree.pack_start(frame_nodes_startup, expand=False)
+    vbox_tree.pack_start(frame_misc_tree, expand=False)
+    def on_colorbutton_tree_fg_color_set(colorbutton):
+        dad.tt_def_fg = "#" + dad.html_handler.rgb_to_24(colorbutton.get_color().to_string()[1:])
+        dad.treeview.modify_text(gtk.STATE_NORMAL, gtk.gdk.color_parse(dad.tt_def_fg))
+        if dad.curr_tree_iter: dad.update_node_name_header()
+    colorbutton_tree_fg.connect('color-set', on_colorbutton_tree_fg_color_set)
+    def on_colorbutton_tree_bg_color_set(colorbutton):
+        dad.tt_def_bg = "#" + dad.html_handler.rgb_to_24(colorbutton.get_color().to_string()[1:])
+        dad.treeview.modify_base(gtk.STATE_NORMAL, gtk.gdk.color_parse(dad.tt_def_bg))
+        if dad.curr_tree_iter: dad.update_node_name_header()
+    colorbutton_tree_bg.connect('color-set', on_colorbutton_tree_bg_color_set)
+    def on_radiobutton_tt_col_light_toggled(radiobutton):
+        if not radiobutton.get_active(): return
+        colorbutton_tree_fg.set_color(gtk.gdk.color_parse(cons.TREE_TEXT_LIGHT_FG))
+        colorbutton_tree_bg.set_color(gtk.gdk.color_parse(cons.TREE_TEXT_LIGHT_BG))
+        colorbutton_tree_fg.set_sensitive(False)
+        colorbutton_tree_bg.set_sensitive(False)
+        on_colorbutton_tree_fg_color_set(colorbutton_tree_fg)
+        on_colorbutton_tree_bg_color_set(colorbutton_tree_bg)
+    radiobutton_tt_col_light.connect('toggled', on_radiobutton_tt_col_light_toggled)
+    def on_radiobutton_tt_col_dark_toggled(radiobutton):
+        if not radiobutton.get_active(): return
+        colorbutton_tree_fg.set_color(gtk.gdk.color_parse(cons.TREE_TEXT_DARK_FG))
+        colorbutton_tree_bg.set_color(gtk.gdk.color_parse(cons.TREE_TEXT_DARK_BG))
+        colorbutton_tree_fg.set_sensitive(False)
+        colorbutton_tree_bg.set_sensitive(False)
+        on_colorbutton_tree_fg_color_set(colorbutton_tree_fg)
+        on_colorbutton_tree_bg_color_set(colorbutton_tree_bg)
+    radiobutton_tt_col_dark.connect('toggled', on_radiobutton_tt_col_dark_toggled)
+    def on_radiobutton_tt_col_custom_toggled(radiobutton):
+        if not radiobutton.get_active(): return
+        colorbutton_tree_fg.set_sensitive(True)
+        colorbutton_tree_bg.set_sensitive(True)
+    radiobutton_tt_col_custom.connect('toggled', on_radiobutton_tt_col_custom_toggled)
+    def on_radiobutton_node_icon_cherry_toggled(radiobutton):
+        if not radiobutton.get_active(): return
+        dad.nodes_icons = "c"
+        dad.treeview_refresh(change_icon=True)
+    radiobutton_node_icon_cherry.connect('toggled', on_radiobutton_node_icon_cherry_toggled)
+    def on_radiobutton_node_icon_bullet_toggled(radiobutton):
+        if not radiobutton.get_active(): return
+        dad.nodes_icons = "b"
+        dad.treeview_refresh(change_icon=True)
+    radiobutton_node_icon_bullet.connect('toggled', on_radiobutton_node_icon_bullet_toggled)
+    def on_radiobutton_node_icon_none_toggled(radiobutton):
+        if not radiobutton.get_active(): return
+        dad.nodes_icons = "n"
+        dad.treeview_refresh(change_icon=True)
+    radiobutton_node_icon_none.connect('toggled', on_radiobutton_node_icon_none_toggled)
+    def on_radiobutton_nodes_startup_restore_toggled(checkbutton):
+        if checkbutton.get_active(): dad.rest_exp_coll = 0
+    radiobutton_nodes_startup_restore.connect('toggled', on_radiobutton_nodes_startup_restore_toggled)
+    def on_radiobutton_nodes_startup_expand_toggled(checkbutton):
+        if checkbutton.get_active(): dad.rest_exp_coll = 1
+    radiobutton_nodes_startup_expand.connect('toggled', on_radiobutton_nodes_startup_expand_toggled)
+    def on_radiobutton_nodes_startup_collapse_toggled(checkbutton):
+        if checkbutton.get_active(): dad.rest_exp_coll = 2
+    radiobutton_nodes_startup_collapse.connect('toggled', on_radiobutton_nodes_startup_collapse_toggled)
+    def on_spinbutton_tree_nodes_names_width_value_changed(spinbutton):
+        dad.cherry_wrap_width = int(spinbutton.get_value())
+        dad.renderer_text.set_property('wrap-width', dad.cherry_wrap_width)
+        dad.treeview_refresh()
+    spinbutton_tree_nodes_names_width.connect('value-changed', on_spinbutton_tree_nodes_names_width_value_changed)
+    def on_checkbutton_tree_right_side_toggled(checkbutton):
+        dad.tree_right_side = checkbutton.get_active()
+        tree_width = dad.scrolledwindow_tree.get_allocation().width
+        text_width = dad.vbox_text.get_allocation().width
+        dad.hpaned.remove(dad.scrolledwindow_tree)
+        dad.hpaned.remove(dad.vbox_text)
+        if dad.tree_right_side:
+            dad.hpaned.add1(dad.vbox_text)
+            dad.hpaned.add2(dad.scrolledwindow_tree)
+            dad.hpaned.set_property('position', text_width)
+        else:
+            dad.hpaned.add1(dad.scrolledwindow_tree)
+            dad.hpaned.add2(dad.vbox_text)
+            dad.hpaned.set_property('position', tree_width)
+    checkbutton_tree_right_side.connect('toggled', on_checkbutton_tree_right_side_toggled)
+    
+    ### FONTS
+    vbox_fonts = gtk.VBox()
+    vbox_fonts.set_spacing(3)
+    
+    image_text = gtk.Image()
+    image_text.set_from_stock(gtk.STOCK_SELECT_FONT, gtk.ICON_SIZE_MENU)
+    image_code = gtk.Image()
+    image_code.set_from_stock(gtk.STOCK_SELECT_FONT, gtk.ICON_SIZE_MENU)
+    image_tree = gtk.Image()
+    image_tree.set_from_stock('cherries', gtk.ICON_SIZE_MENU)
+    label_text = gtk.Label(_("Text Font"))
+    label_code = gtk.Label(_("Code Font"))
+    label_tree = gtk.Label(_("Tree Font"))
+    fontbutton_text = gtk.FontButton(fontname=dad.text_font)
+    fontbutton_code = gtk.FontButton(fontname=dad.code_font)
+    fontbutton_tree = gtk.FontButton(fontname=dad.tree_font)
+    table_fonts = gtk.Table(3, 3)
+    table_fonts.set_row_spacings(2)
+    table_fonts.set_col_spacings(4)
+    table_fonts.attach(image_text, 0, 1, 0, 1, 0, 0)
+    table_fonts.attach(image_code, 0, 1, 1, 2, 0, 0)
+    table_fonts.attach(image_tree, 0, 1, 2, 3, 0, 0)
+    table_fonts.attach(label_text, 1, 2, 0, 1, 0, 0)
+    table_fonts.attach(label_code, 1, 2, 1, 2, 0, 0)
+    table_fonts.attach(label_tree, 1, 2, 2, 3, 0, 0)
+    table_fonts.attach(fontbutton_text, 2, 3, 0, 1, yoptions=0)
+    table_fonts.attach(fontbutton_code, 2, 3, 1, 2, yoptions=0)
+    table_fonts.attach(fontbutton_tree, 2, 3, 2, 3, yoptions=0)
+    
+    frame_fonts = gtk.Frame(label="<b>"+_("Fonts")+"</b>")
+    frame_fonts.get_label_widget().set_use_markup(True)
+    frame_fonts.set_shadow_type(gtk.SHADOW_NONE)
+    align_fonts = gtk.Alignment()
+    align_fonts.set_padding(0, 6, 6, 6)
+    align_fonts.add(table_fonts)
+    frame_fonts.add(align_fonts)
+    
+    vbox_fonts.pack_start(frame_fonts, expand=False)
+    def on_fontbutton_text_font_set(picker):
+        dad.text_font = picker.get_font_name()
+        if dad.curr_tree_iter and dad.syntax_highlighting == cons.CUSTOM_COLORS_ID:
+            dad.sourceview.modify_font(pango.FontDescription(dad.text_font))
+    fontbutton_text.connect('font-set', on_fontbutton_text_font_set)
+    def on_fontbutton_code_font_set(picker):
+        dad.code_font = picker.get_font_name()
+        if dad.curr_tree_iter and dad.syntax_highlighting != cons.CUSTOM_COLORS_ID:
+            dad.sourceview.modify_font(pango.FontDescription(dad.code_font))
+    fontbutton_code.connect('font-set', on_fontbutton_code_font_set)
+    def on_fontbutton_tree_font_set(picker):
+        dad.tree_font = picker.get_font_name()
+        dad.set_treeview_font()
+    fontbutton_tree.connect('font-set', on_fontbutton_tree_font_set)
+    
+    ### LINKS
+    vbox_links = gtk.VBox()
+    vbox_links.set_spacing(3)
+    
+    vbox_links_actions = gtk.VBox()
+    checkbutton_custom_weblink_cmd = gtk.CheckButton(_("Enable Custom Web Link Clicked Action"))
+    entry_custom_weblink_cmd = gtk.Entry()
+    checkbutton_custom_filelink_cmd = gtk.CheckButton(_("Enable Custom File Link Clicked Action"))
+    entry_custom_filelink_cmd = gtk.Entry()
+    checkbutton_custom_folderlink_cmd = gtk.CheckButton(_("Enable Custom Folder Link Clicked Action"))
+    entry_custom_folderlink_cmd = gtk.Entry()
+    vbox_links_actions.pack_start(checkbutton_custom_weblink_cmd, expand=False)
+    vbox_links_actions.pack_start(entry_custom_weblink_cmd, expand=False)
+    vbox_links_actions.pack_start(checkbutton_custom_filelink_cmd, expand=False)
+    vbox_links_actions.pack_start(entry_custom_filelink_cmd, expand=False)
+    vbox_links_actions.pack_start(checkbutton_custom_folderlink_cmd, expand=False)
+    vbox_links_actions.pack_start(entry_custom_folderlink_cmd, expand=False)
+    
+    frame_links_actions = gtk.Frame(label="<b>"+_("Custom Actions")+"</b>")
+    frame_links_actions.get_label_widget().set_use_markup(True)
+    frame_links_actions.set_shadow_type(gtk.SHADOW_NONE)
+    align_links_actions = gtk.Alignment()
+    align_links_actions.set_padding(0, 6, 6, 6)
+    align_links_actions.add(vbox_links_actions)
+    frame_links_actions.add(align_links_actions)
+    
+    checkbutton_custom_weblink_cmd.set_active(dad.weblink_custom_action[0])
+    entry_custom_weblink_cmd.set_sensitive(dad.weblink_custom_action[0])
+    entry_custom_weblink_cmd.set_text(dad.weblink_custom_action[1])
+    checkbutton_custom_filelink_cmd.set_active(dad.filelink_custom_action[0])
+    entry_custom_filelink_cmd.set_sensitive(dad.filelink_custom_action[0])
+    entry_custom_filelink_cmd.set_text(dad.filelink_custom_action[1])
+    checkbutton_custom_folderlink_cmd.set_active(dad.folderlink_custom_action[0])
+    entry_custom_folderlink_cmd.set_sensitive(dad.folderlink_custom_action[0])
+    entry_custom_folderlink_cmd.set_text(dad.folderlink_custom_action[1])
+    
+    vbox_links_colors = gtk.VBox()
+    frame_links_colors = gtk.Frame(label="<b>"+_("Colors")+"</b>")
+    frame_links_colors.get_label_widget().set_use_markup(True)
+    frame_links_colors.set_shadow_type(gtk.SHADOW_NONE)
+    align_links_colors = gtk.Alignment()
+    align_links_colors.set_padding(0, 6, 6, 6)
+    align_links_colors.add(vbox_links_colors)
+    frame_links_colors.add(align_links_colors)
+    
+    vbox_links_misc = gtk.VBox()
+    hbox_anchor_size = gtk.HBox()
+    hbox_anchor_size.set_spacing(4)
+    label_anchor_size = gtk.Label(_("Anchor Size"))
+    adj_anchor_size = gtk.Adjustment(value=dad.anchor_size, lower=1, upper=1000, step_incr=1)
+    spinbutton_anchor_size = gtk.SpinButton(adj_anchor_size)
+    spinbutton_anchor_size.set_value(dad.anchor_size)
+    hbox_anchor_size.pack_start(label_anchor_size, expand=False)
+    hbox_anchor_size.pack_start(spinbutton_anchor_size, expand=False)
+    vbox_links_misc.pack_start(hbox_anchor_size, expand=False)
+    
+    frame_links_misc = gtk.Frame(label="<b>"+_("Miscellaneous")+"</b>")
+    frame_links_misc.get_label_widget().set_use_markup(True)
+    frame_links_misc.set_shadow_type(gtk.SHADOW_NONE)
+    align_links_misc = gtk.Alignment()
+    align_links_misc.set_padding(0, 6, 6, 6)
+    align_links_misc.add(vbox_links_misc)
+    frame_links_misc.add(align_links_misc)
+    
+    vbox_links.pack_start(frame_links_actions, expand=False)
+    vbox_links.pack_start(frame_links_colors, expand=False)
+    vbox_links.pack_start(frame_links_misc, expand=False)
+    def on_checkbutton_custom_weblink_cmd_toggled(checkbutton):
+        dad.weblink_custom_action[0] = checkbutton.get_active()
+        entry_custom_weblink_cmd.set_sensitive(dad.weblink_custom_action[0])
+    checkbutton_custom_weblink_cmd.connect('toggled', on_checkbutton_custom_weblink_cmd_toggled)
+    def on_entry_custom_weblink_cmd_changed(entry):
+        dad.weblink_custom_action[1] = entry.get_text()
+    entry_custom_weblink_cmd.connect('changed', on_entry_custom_weblink_cmd_changed)
+    def on_checkbutton_custom_filelink_cmd_toggled(checkbutton):
+        dad.filelink_custom_action[0] = checkbutton.get_active()
+        entry_custom_filelink_cmd.set_sensitive(dad.filelink_custom_action[0])
+    checkbutton_custom_filelink_cmd.connect('toggled', on_checkbutton_custom_filelink_cmd_toggled)
+    def on_entry_custom_filelink_cmd_changed(entry):
+        dad.filelink_custom_action[1] = entry.get_text()
+    entry_custom_filelink_cmd.connect('changed', on_entry_custom_filelink_cmd_changed)
+    def on_checkbutton_custom_folderlink_cmd_toggled(checkbutton):
+        dad.folderlink_custom_action[0] = checkbutton.get_active()
+        entry_custom_folderlink_cmd.set_sensitive(dad.folderlink_custom_action[0])
+    checkbutton_custom_folderlink_cmd.connect('toggled', on_checkbutton_custom_folderlink_cmd_toggled)
+    def on_entry_custom_folderlink_cmd_changed(entry):
+        dad.folderlink_custom_action[1] = entry.get_text()
+    entry_custom_folderlink_cmd.connect('changed', on_entry_custom_folderlink_cmd_changed)
+    def on_spinbutton_anchor_size_value_changed(spinbutton):
+        dad.anchor_size = int(spinbutton_anchor_size.get_value())
+    spinbutton_anchor_size.connect('value-changed', on_spinbutton_anchor_size_value_changed)
+    
+    ### MISCELLANEOUS
+    vbox_misc = gtk.VBox()
+    vbox_misc.set_spacing(3)
+    
+    vbox_system_tray = gtk.VBox()
+    checkbutton_systray = gtk.CheckButton(_("Enable System Tray Docking"))
+    checkbutton_start_on_systray = gtk.CheckButton(_("Start Minimized in the System Tray"))
+    checkbutton_use_appind = gtk.CheckButton(_("Use AppIndicator for Docking"))
+    vbox_system_tray.pack_start(checkbutton_systray, expand=False)
+    vbox_system_tray.pack_start(checkbutton_start_on_systray, expand=False)
+    vbox_system_tray.pack_start(checkbutton_use_appind, expand=False)
+    
+    frame_system_tray = gtk.Frame(label="<b>"+_("System Tray")+"</b>")
+    frame_system_tray.get_label_widget().set_use_markup(True)
+    frame_system_tray.set_shadow_type(gtk.SHADOW_NONE)
+    align_system_tray = gtk.Alignment()
+    align_system_tray.set_padding(0, 6, 6, 6)
+    align_system_tray.add(vbox_system_tray)
+    frame_system_tray.add(align_system_tray)
+    
+    checkbutton_systray.set_active(dad.systray)
+    checkbutton_start_on_systray.set_active(dad.start_on_systray)
+    checkbutton_start_on_systray.set_sensitive(dad.systray)
+    checkbutton_use_appind.set_active(dad.use_appind)
+    if not cons.HAS_APPINDICATOR or not cons.HAS_SYSTRAY: checkbutton_use_appind.set_sensitive(False)
+    
+    vbox_saving = gtk.VBox()
+    hbox_autosave = gtk.HBox()
+    hbox_autosave.set_spacing(4)
+    checkbutton_autosave = gtk.CheckButton(_("Autosave Every"))
+    adjustment_autosave = gtk.Adjustment(value=dad.autosave[1], lower=1, upper=1000, step_incr=1)
+    spinbutton_autosave = gtk.SpinButton(adjustment_autosave)
+    label_autosave = gtk.Label(_("Minutes"))
+    hbox_autosave.pack_start(checkbutton_autosave, expand=False)
+    hbox_autosave.pack_start(spinbutton_autosave, expand=False)
+    hbox_autosave.pack_start(label_autosave, expand=False)
+    checkbutton_autosave_on_quit = gtk.CheckButton(_("Autosave on Quit"))
+    checkbutton_backup_before_saving = gtk.CheckButton(_("Create a Backup Copy Before Saving"))
+    vbox_saving.pack_start(hbox_autosave, expand=False)
+    vbox_saving.pack_start(checkbutton_autosave_on_quit, expand=False)
+    vbox_saving.pack_start(checkbutton_backup_before_saving, expand=False)
+    
+    checkbutton_autosave.set_active(dad.autosave[0])
+    spinbutton_autosave.set_value(dad.autosave[1])
+    spinbutton_autosave.set_sensitive(dad.autosave[0])
+    checkbutton_autosave_on_quit.set_active(dad.autosave_on_quit)
+    checkbutton_backup_before_saving.set_active(dad.backup_copy)
+    
+    frame_saving = gtk.Frame(label="<b>"+_("Saving")+"</b>")
+    frame_saving.get_label_widget().set_use_markup(True)
+    frame_saving.set_shadow_type(gtk.SHADOW_NONE)
+    align_saving = gtk.Alignment()
+    align_saving.set_padding(0, 6, 6, 6)
+    align_saving.add(vbox_saving)
+    frame_saving.add(align_saving)
+    
+    vbox_misc_misc = gtk.VBox()
+    checkbutton_newer_version = gtk.CheckButton(_("Automatically Check for Newer Version"))
+    checkbutton_reload_doc_last = gtk.CheckButton(_("Reload Document From Last Session"))
+    checkbutton_mod_time_sentinel = gtk.CheckButton(_("Reload After External Update to CT* File"))
+    vbox_misc_misc.pack_start(checkbutton_newer_version, expand=False)
+    vbox_misc_misc.pack_start(checkbutton_reload_doc_last, expand=False)
+    vbox_misc_misc.pack_start(checkbutton_mod_time_sentinel, expand=False)
+    
+    checkbutton_newer_version.set_active(dad.check_version)
+    checkbutton_reload_doc_last.set_active(dad.reload_doc_last)
+    checkbutton_mod_time_sentinel.set_active(dad.enable_mod_time_sentinel)
+    
+    frame_misc_misc = gtk.Frame(label="<b>"+_("Miscellaneous")+"</b>")
+    frame_misc_misc.get_label_widget().set_use_markup(True)
+    frame_misc_misc.set_shadow_type(gtk.SHADOW_NONE)
+    align_misc_misc = gtk.Alignment()
+    align_misc_misc.set_padding(0, 6, 6, 6)
+    align_misc_misc.add(vbox_misc_misc)
+    frame_misc_misc.add(align_misc_misc)
+    
+    vbox_language = gtk.VBox()
+    combobox_country_language = gtk.ComboBox(model=dad.country_lang_liststore)
+    vbox_language.pack_start(combobox_country_language)
+    cell = gtk.CellRendererText()
+    combobox_country_language.pack_start(cell, True)
+    combobox_country_language.add_attribute(cell, 'text', 0)
+    combobox_country_language.set_active_iter(dad.get_combobox_iter_from_value(dad.country_lang_liststore, 0, dad.country_lang))
+    
+    frame_language = gtk.Frame(label="<b>"+_("Language")+"</b>")
+    frame_language.get_label_widget().set_use_markup(True)
+    frame_language.set_shadow_type(gtk.SHADOW_NONE)
+    align_language = gtk.Alignment()
+    align_language.set_padding(0, 6, 6, 6)
+    align_language.add(vbox_language)
+    frame_language.add(align_language)
+    
+    vbox_misc.pack_start(frame_system_tray, expand=False)
+    vbox_misc.pack_start(frame_saving, expand=False)
+    vbox_misc.pack_start(frame_misc_misc, expand=False)
+    vbox_misc.pack_start(frame_language, expand=False)
+    def on_checkbutton_systray_toggled(checkbutton):
+        dad.systray = checkbutton.get_active()
+        if dad.systray:
+            dad.ui.get_widget("/MenuBar/FileMenu/ExitApp").set_property(cons.STR_VISIBLE, True)
+            checkbutton_start_on_systray.set_sensitive(True)
+        else:
+            dad.ui.get_widget("/MenuBar/FileMenu/ExitApp").set_property(cons.STR_VISIBLE, False)
+            checkbutton_start_on_systray.set_sensitive(False)
+        if dad.systray:
+            if not dad.use_appind:
+                if "status_icon" in dir(dad.boss): dad.boss.status_icon.set_property(cons.STR_VISIBLE, True)
+                else: dad.status_icon_enable()
+            else:
+                if "ind" in dir(dad.boss): dad.boss.ind.set_status(appindicator.STATUS_ACTIVE)
+                else: dad.status_icon_enable()
+        else:
+            if not dad.use_appind: dad.boss.status_icon.set_property(cons.STR_VISIBLE, False)
+            else: dad.boss.ind.set_status(appindicator.STATUS_PASSIVE)
+        dad.boss.systray_active = dad.systray
+        if len(dad.boss.running_windows) > 1:
+            for runn_win in dad.boss.running_windows:
+                if runn_win.window == dad.window: continue
+                runn_win.systray = dad.boss.systray_active
+    checkbutton_systray.connect('toggled', on_checkbutton_systray_toggled)
+    def on_checkbutton_start_on_systray_toggled(checkbutton):
+        dad.start_on_systray = checkbutton.get_active()
+    checkbutton_start_on_systray.connect('toggled', on_checkbutton_start_on_systray_toggled)
+    def on_checkbutton_use_appind_toggled(checkbutton):
+        if checkbutton_systray.get_active():
+            former_active = True
+            checkbutton_systray.set_active(False)
+        else: former_active = False
+        if checkbutton.get_active(): dad.use_appind = True
+        else: dad.use_appind = False
+        if former_active: checkbutton_systray.set_active(True)
+        if len(dad.boss.running_windows) > 1:
+            for runn_win in dad.boss.running_windows:
+                if runn_win.window == dad.window: continue
+                runn_win.use_appind = dad.use_appind
+    checkbutton_use_appind.connect('toggled', on_checkbutton_use_appind_toggled)
+    def on_checkbutton_autosave_toggled(checkbutton):
+        dad.autosave[0] = checkbutton.get_active()
+        if not dad.autosave[0] and dad.autosave_timer_id != None: dad.autosave_timer_stop()
+        spinbutton_autosave.set_sensitive(dad.autosave[0])
+    checkbutton_autosave.connect('toggled', on_checkbutton_autosave_toggled)
+    def on_checkbutton_backup_before_saving_toggled(checkbutton):
+        dad.backup_copy = checkbutton.get_active()
+    checkbutton_backup_before_saving.connect('toggled', on_checkbutton_backup_before_saving_toggled)
+    def on_checkbutton_autosave_on_quit_toggled(checkbutton):
+        dad.autosave_on_quit = checkbutton.get_active()
+    checkbutton_autosave_on_quit.connect('toggled', on_checkbutton_autosave_on_quit_toggled)
+    def on_checkbutton_reload_doc_last_toggled(checkbutton):
+        dad.reload_doc_last = checkbutton.get_active()
+    checkbutton_reload_doc_last.connect('toggled', on_checkbutton_reload_doc_last_toggled)
+    def on_checkbutton_mod_time_sentinel_toggled(checkbutton):
+        dad.enable_mod_time_sentinel = checkbutton.get_active()
+        if dad.enable_mod_time_sentinel:
+            if dad.mod_time_sentinel_id == None:
+                dad.modification_time_sentinel_start()
+        else:
+            if dad.mod_time_sentinel_id != None:
+                dad.modification_time_sentinel_stop()
+    checkbutton_mod_time_sentinel.connect('toggled', on_checkbutton_mod_time_sentinel_toggled)
+    def on_checkbutton_newer_version_toggled(checkbutton):
+        dad.check_version = checkbutton.get_active()
+    checkbutton_newer_version.connect('toggled', on_checkbutton_newer_version_toggled)
+    def on_combobox_country_language_changed(combobox):
+        new_iter = combobox_country_language.get_active_iter()
+        new_lang = dad.country_lang_liststore[new_iter][0]
+        if new_lang != dad.country_lang:
+            dad.country_lang = new_lang
+            support.dialog_info(_("The New Language will be Available Only After Restarting CherryTree"), dad.window)
+            lang_file_descriptor = file(cons.LANG_PATH, 'w')
+            lang_file_descriptor.write(new_lang)
+            lang_file_descriptor.close()
+    combobox_country_language.connect('changed', on_combobox_country_language_changed)
+    
+    notebook = gtk.Notebook()
+    notebook.set_tab_pos(gtk.POS_LEFT)
+    notebook.append_page(vbox_all_nodes, gtk.Label(_("All Nodes")))
+    notebook.append_page(vbox_text_nodes, gtk.Label(_("Text Nodes")))
+    notebook.append_page(vbox_code_nodes, gtk.Label(_("Code Nodes")))
+    notebook.append_page(vbox_tree, gtk.Label(_("Tree")))
+    notebook.append_page(vbox_fonts, gtk.Label(_("Fonts")))
+    notebook.append_page(vbox_links, gtk.Label(_("Links")))
+    notebook.append_page(vbox_misc, gtk.Label(_("Miscellaneous")))
+    content_area = dialog.get_content_area()
+    content_area.pack_start(notebook)
+    content_area.show_all()
+    notebook.set_current_page(dad.prefpage)
+    dialog.run()
+    # latest tab page
+    dad.prefpage = notebook.get_current_page()
+    # timer activate/modify handling
+    new_autosave_value = int(spinbutton_autosave.get_value())
+    if dad.autosave[1] != new_autosave_value:
+        dad.autosave[1] = new_autosave_value
+        if dad.autosave_timer_id != None: dad.autosave_timer_stop()
+    if dad.autosave[0] and dad.autosave_timer_id == None: dad.autosave_timer_start()
+    dialog.hide()
+    
+    # special characters
+    new_special_chars = unicode(textbuffer_special_chars.get_text(*textbuffer_special_chars.get_bounds()).replace(cons.CHAR_NEWLINE, ""), cons.STR_UTF8, cons.STR_IGNORE)
+    if dad.special_chars != new_special_chars:
+        dad.special_chars = new_special_chars
+        support.set_menu_items_special_chars(dad)
