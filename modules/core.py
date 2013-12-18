@@ -20,32 +20,9 @@
 #       MA 02110-1301, USA.
 
 import gtk, pango, gtksourceview2, gobject
-import sys, os, re, glob, subprocess, webbrowser, base64, cgi, urllib2, shutil, time, locale, pgsc_spellcheck
+import sys, os, re, glob, subprocess, webbrowser, base64, cgi, urllib2, shutil, time, pgsc_spellcheck
 import cons, support, config, machines, clipboard, imports, exports, printing, tablez, lists, findreplace, codeboxes, ctdb
 if cons.HAS_APPINDICATOR: import appindicator
-
-class GladeWidgetsWrapper:
-    """Handles the retrieval of glade widgets"""
-
-    def __init__(self, glade_file_path, gui_instance):
-        try:
-            self.glade_widgets = gtk.Builder()
-            self.glade_widgets.set_translation_domain(cons.APP_NAME)
-            self.glade_widgets.add_from_file(glade_file_path)
-            self.glade_widgets.connect_signals(gui_instance)
-        except: print "Failed to load the glade file"
-
-    def __getitem__(self, key):
-        """Gives us the ability to do: wrapper['widget_name'].action()"""
-        return self.glade_widgets.get_object(key)
-
-    def __getattr__(self, attr):
-        """Gives us the ability to do: wrapper.widget_name.action()"""
-        new_widget = self.glade_widgets.get_object(attr)
-        if new_widget is None: raise AttributeError, 'Widget %r not found' % attr
-        setattr(self, attr, new_widget)
-        return new_widget
-
 
 class CherryTree:
     """Application's GUI"""
@@ -55,7 +32,6 @@ class CherryTree:
         self.boss = boss
         self.filetype = ""
         self.user_active = True
-        # glade
         self.window = gtk.Window()
         self.window.set_title("CherryTree")
         self.window.set_default_size(963, 630)
@@ -197,6 +173,7 @@ class CherryTree:
         self.latest_tag = ["", ""] # [latest tag property, latest tag value]
         self.file_update = False
         self.autosave_timer_id = None
+        self.spell_check_init = False
         self.mod_time_sentinel_id = None
         self.mod_time_val = 0
         self.prefpage = 0
@@ -230,7 +207,7 @@ class CherryTree:
                 self.update_selected_node_statusbar_info()
             else:
                 self.statusbar.pop(self.statusbar_context_id)
-                self.statusbar.push(self.statusbar_context_id, _("This is the Latest Version Available") + " (%s)" % latest_version)
+                self.statusbar.push(self.statusbar_context_id, _("You Are Using the Latest Version Available") + " (%s)" % latest_version)
         except:
             self.statusbar.pop(self.statusbar_context_id)
             self.statusbar.push(self.statusbar_context_id, _("Failed to Retrieve Latest Version Information - Try Again Later"))
@@ -961,28 +938,11 @@ class CherryTree:
 
     def dialog_preferences(self, *args):
         """Opens the Preferences Dialog"""
-        self.glade = GladeWidgetsWrapper(cons.GLADE_PATH + 'cherrytree.glade', self)
-        config.config_dialog_prepare_settings(self)
-        self.glade.prefnotebook.set_current_page(self.prefpage)
-        self.glade.prefdialog.show_all()
-        self.glade.prefdialog.run()
-        self.prefpage = self.glade.prefnotebook.get_current_page()
-        self.glade.prefdialog.hide()
-        # special characters
-        if self.glade.textbuffer_special_chars.get_modified():
-            self.special_chars = unicode(self.glade.textbuffer_special_chars.get_text(*self.glade.textbuffer_special_chars.get_bounds()).replace(cons.CHAR_NEWLINE, ""), cons.STR_UTF8, cons.STR_IGNORE)
-            self.glade.textbuffer_special_chars.set_modified(False)
-            support.set_menu_items_special_chars(self)
-        # timer activate/modify handling
-        new_autosave_value = int(self.glade.spinbutton_autosave.get_value())
-        if self.autosave[1] != new_autosave_value:
-            self.autosave[1] = new_autosave_value
-            if self.autosave_timer_id != None: self.autosave_timer_stop()
-        if self.autosave[0] and self.autosave_timer_id == None: self.autosave_timer_start()
-        # update config file (for people that do not close the app but just logout/shutdown)
+        self.combobox_country_lang_init()
+        self.combobox_style_scheme_init()
+        if self.spell_check_init: self.combobox_spell_check_lang_init()
+        support.dialog_preferences(self)
         config.config_file_save(self)
-        self.glade.prefdialog.destroy()
-        del self.glade
 
     def autosave_timer_start(self):
         """Start Autosave Timer"""
@@ -1078,23 +1038,6 @@ class CherryTree:
         while self.get_tree_iter_from_node_id(new_node_id) or new_node_id in self.ctdb_handler.nodes_to_rm_set:
             new_node_id += 1
         return new_node_id
-
-    def on_fontbutton_text_font_set(self, picker):
-        """A New Font For the Text was Chosen"""
-        self.text_font = picker.get_font_name()
-        if self.curr_tree_iter and self.syntax_highlighting == cons.CUSTOM_COLORS_ID:
-            self.sourceview.modify_font(pango.FontDescription(self.text_font))
-
-    def on_fontbutton_code_font_set(self, picker):
-        """A New Font For the Text was Chosen"""
-        self.code_font = picker.get_font_name()
-        if self.curr_tree_iter and self.syntax_highlighting != cons.CUSTOM_COLORS_ID:
-            self.sourceview.modify_font(pango.FontDescription(self.code_font))
-
-    def on_fontbutton_tree_font_set(self, picker):
-        """A New Font For the Tree was Chosen"""
-        self.tree_font = picker.get_font_name()
-        self.set_treeview_font()
 
     def set_treeview_font(self):
         """Update the TreeView Font"""
@@ -2050,238 +1993,6 @@ class CherryTree:
         """Show the Online Manual"""
         webbrowser.open("http://giuspen.com/cherrytreemanual/Introduction.html")
 
-    def on_button_strftime_help_clicked(self, menuitem, data=None):
-        """Show the strftime Manual Page"""
-        lang_code = locale.getdefaultlocale()[0]
-        if lang_code:
-            page_lang = lang_code[0:2] if lang_code[0:2] in ["de", "es", "fr"] else ""
-        else: page_lang = ""
-        webbrowser.open("http://man.cx/strftime%283%29/" + page_lang)
-
-    def on_spinbutton_tab_width_value_changed(self, spinbutton):
-        """Tabs Width (in chars) Change Handling"""
-        self.tabs_width = int(spinbutton.get_value())
-        self.sourceview.set_tab_width(self.tabs_width)
-
-    def on_spinbutton_limit_undoable_steps_value_changed(self, spinbutton):
-        """Limit Undoable Steps Change Handling"""
-        self.limit_undoable_steps = int(spinbutton.get_value())
-
-    def on_spinbutton_tree_nodes_names_width_value_changed(self, spinbutton):
-        """Cherry Wrap Width Change Handling"""
-        self.cherry_wrap_width = int(spinbutton.get_value())
-        self.renderer_text.set_property('wrap-width', self.cherry_wrap_width)
-        self.treeview_refresh()
-
-    def on_checkbutton_custom_weblink_cmd_toggled(self, checkbutton):
-        """Custom Web Link Clicked Action Toggled Handling"""
-        if checkbutton.get_active(): self.weblink_custom_action[0] = True
-        else: self.weblink_custom_action[0] = False
-        self.glade.entry_custom_weblink_cmd.set_sensitive(self.weblink_custom_action[0])
-
-    def on_entry_custom_weblink_cmd_changed(self, entry):
-        """Custom Web Link Clicked Action Edited"""
-        self.weblink_custom_action[1] = entry.get_text()
-
-    def on_checkbutton_custom_filelink_cmd_toggled(self, checkbutton):
-        """Custom File Link Clicked Action Toggled Handling"""
-        if checkbutton.get_active(): self.filelink_custom_action[0] = True
-        else: self.filelink_custom_action[0] = False
-        self.glade.entry_custom_filelink_cmd.set_sensitive(self.filelink_custom_action[0])
-
-    def on_entry_custom_filelink_cmd_changed(self, entry):
-        """Custom File Link Clicked Action Edited"""
-        self.filelink_custom_action[1] = entry.get_text()
-
-    def on_checkbutton_custom_folderlink_cmd_toggled(self, checkbutton):
-        """Custom Folder Link Clicked Action Toggled Handling"""
-        if checkbutton.get_active(): self.folderlink_custom_action[0] = True
-        else: self.folderlink_custom_action[0] = False
-        self.glade.entry_custom_folderlink_cmd.set_sensitive(self.folderlink_custom_action[0])
-
-    def on_entry_custom_folderlink_cmd_changed(self, entry):
-        """Custom Folder Link Clicked Action Edited"""
-        self.folderlink_custom_action[1] = entry.get_text()
-
-    def on_entry_timestamp_format_changed(self, entry):
-        """Timestamp Format Edited"""
-        self.timestamp_format = entry.get_text()
-
-    def on_entry_horizontal_rule_changed(self, entry):
-        """Horizontal Rule Edited"""
-        if not self.user_active: return
-        self.h_rule = entry.get_text()
-
-    def on_checkbutton_systray_toggled(self, checkbutton):
-        """SysTray Toggled Handling"""
-        self.systray = checkbutton.get_active()
-        if self.systray:
-            self.ui.get_widget("/MenuBar/FileMenu/ExitApp").set_property(cons.STR_VISIBLE, True)
-            self.glade.checkbutton_start_on_systray.set_sensitive(True)
-        else:
-            self.ui.get_widget("/MenuBar/FileMenu/ExitApp").set_property(cons.STR_VISIBLE, False)
-            self.glade.checkbutton_start_on_systray.set_sensitive(False)
-        if not self.user_active: return
-        if self.systray:
-            if not self.use_appind:
-                if "status_icon" in dir(self.boss): self.boss.status_icon.set_property(cons.STR_VISIBLE, True)
-                else: self.status_icon_enable()
-            else:
-                if "ind" in dir(self.boss): self.boss.ind.set_status(appindicator.STATUS_ACTIVE)
-                else: self.status_icon_enable()
-        else:
-            if not self.use_appind: self.boss.status_icon.set_property(cons.STR_VISIBLE, False)
-            else: self.boss.ind.set_status(appindicator.STATUS_PASSIVE)
-        self.boss.systray_active = self.systray
-        if len(self.boss.running_windows) > 1:
-            for runn_win in self.boss.running_windows:
-                if runn_win.window == self.window: continue
-                runn_win.user_active = False
-                runn_win.systray = self.boss.systray_active
-                runn_win.glade.checkbutton_systray.set_active(self.boss.systray_active)
-                runn_win.user_active = True
-
-    def on_checkbutton_start_on_systray_toggled(self, checkbutton):
-        """Start Minimized on SysTray Toggled Handling"""
-        if checkbutton.get_active(): self.start_on_systray = True
-        else: self.start_on_systray = False
-
-    def on_checkbutton_use_appind_toggled(self, checkbutton):
-        """Use AppIndicator Toggled Handling"""
-        if not self.user_active: return
-        if self.glade.checkbutton_systray.get_active():
-            former_active = True
-            self.glade.checkbutton_systray.set_active(False)
-        else: former_active = False
-        if checkbutton.get_active(): self.use_appind = True
-        else: self.use_appind = False
-        if former_active:
-            self.glade.checkbutton_systray.set_active(True)
-        if len(self.boss.running_windows) > 1:
-            for runn_win in self.boss.running_windows:
-                if runn_win.window == self.window: continue
-                runn_win.user_active = False
-                runn_win.use_appind = self.use_appind
-                runn_win.glade.checkbutton_use_appind.set_active(self.use_appind)
-                runn_win.user_active = True
-
-    def on_checkbutton_autosave_toggled(self, checkbutton):
-        """Autosave Toggled Handling"""
-        self.autosave[0] = checkbutton.get_active()
-        if not self.autosave[0] and self.autosave_timer_id != None: self.autosave_timer_stop()
-        self.glade.spinbutton_autosave.set_sensitive(self.autosave[0])
-
-    def on_checkbutton_reload_doc_last_toggled(self, checkbutton):
-        """Reload Doc Last Toggled Handling"""
-        self.reload_doc_last = checkbutton.get_active()
-
-    def on_checkbutton_mod_time_sentinel_toggled(self, checkbutton):
-        """Modification Time Sentinel Toggled Handling"""
-        self.enable_mod_time_sentinel = checkbutton.get_active()
-        if self.enable_mod_time_sentinel:
-            if self.mod_time_sentinel_id == None:
-                self.modification_time_sentinel_start()
-        else:
-            if self.mod_time_sentinel_id != None:
-                self.modification_time_sentinel_stop()
-
-    def on_checkbutton_line_wrap_toggled(self, checkbutton):
-        """Lines Wrapping Toggled Handling"""
-        self.line_wrapping = checkbutton.get_active()
-        if self.line_wrapping: self.sourceview.set_wrap_mode(gtk.WRAP_WORD)
-        else: self.sourceview.set_wrap_mode(gtk.WRAP_NONE)
-
-    def on_checkbutton_spaces_tabs_toggled(self, checkbutton):
-        """Insert Spaces Instead of Tabs Toggled Handling"""
-        self.spaces_instead_tabs = checkbutton.get_active()
-        self.sourceview.set_insert_spaces_instead_of_tabs(self.spaces_instead_tabs)
-
-    def on_checkbutton_auto_indent_toggled(self, checkbutton):
-        """Automatic Indentation Toggled Handling"""
-        self.auto_indent = self.glade.checkbutton_auto_indent.get_active()
-
-    def on_checkbutton_line_nums_toggled(self, checkbutton):
-        """Show Line Num Toggled Handling"""
-        self.show_line_numbers = checkbutton.get_active()
-        self.sourceview.set_show_line_numbers(self.show_line_numbers)
-
-    def on_radiobutton_nodes_startup_restore_toggled(self, checkbutton):
-        """Restore Tree When Loaded Toggled"""
-        if checkbutton.get_active(): self.rest_exp_coll = 0
-
-    def on_radiobutton_nodes_startup_expand_toggled(self, checkbutton):
-        """Expand Tree When Loaded Toggled"""
-        if checkbutton.get_active(): self.rest_exp_coll = 1
-
-    def on_radiobutton_nodes_startup_collapse_toggled(self, checkbutton):
-        """Collapse Tree When Loaded Toggled"""
-        if checkbutton.get_active(): self.rest_exp_coll = 2
-
-    def on_checkbutton_newer_version_toggled(self, checkbutton):
-        """Automatically Check for Newer Version Toggled"""
-        self.check_version = checkbutton.get_active()
-
-    def on_checkbutton_backup_before_saving_toggled(self, checkbutton):
-        """Backup Before Save Toggled"""
-        self.backup_copy = checkbutton.get_active()
-
-    def on_checkbutton_autosave_on_quit_toggled(self, checkbutton):
-        """Autosave on Quit Toggled"""
-        self.autosave_on_quit = checkbutton.get_active()
-
-    def on_checkbutton_spell_check_toggled(self, checkbutton):
-        """Enable Spell Check Toggled"""
-        if not self.user_active: return
-        self.enable_spell_check = checkbutton.get_active()
-        if self.enable_spell_check: self.spell_check_set_on()
-        else: self.spell_check_set_off()
-        self.glade.combobox_spell_check_lang.set_sensitive(self.enable_spell_check)
-
-    def on_checkbutton_highlight_current_line_toggled(self, checkbutton):
-        """Show White Spaces Toggled"""
-        self.highl_curr_line = checkbutton.get_active()
-        if self.user_active: support.dialog_info_after_restart(self.window)
-
-    def on_checkbutton_show_white_spaces_toggled(self, checkbutton):
-        """Show White Spaces Toggled"""
-        self.show_white_spaces = checkbutton.get_active()
-        if self.user_active: support.dialog_info_after_restart(self.window)
-
-    def on_checkbutton_tree_right_side_toggled(self, checkbutton):
-        """Display Tree on the Right Side Toggled"""
-        if not self.user_active: return
-        self.tree_right_side = checkbutton.get_active()
-        tree_width = self.scrolledwindow_tree.get_allocation().width
-        text_width = self.vbox_text.get_allocation().width
-        self.hpaned.remove(self.scrolledwindow_tree)
-        self.hpaned.remove(self.vbox_text)
-        if self.tree_right_side:
-            self.hpaned.add1(self.vbox_text)
-            self.hpaned.add2(self.scrolledwindow_tree)
-            self.hpaned.set_property('position', text_width)
-        else:
-            self.hpaned.add1(self.scrolledwindow_tree)
-            self.hpaned.add2(self.vbox_text)
-            self.hpaned.set_property('position', tree_width)
-
-    def on_radiobutton_node_icon_cherry_toggled(self, radiobutton):
-        """Change Variable Value Accordingly"""
-        if radiobutton.get_active():
-            self.nodes_icons = "c"
-            if self.user_active: self.treeview_refresh(change_icon=True)
-
-    def on_radiobutton_node_icon_bullet_toggled(self, radiobutton):
-        """Change Variable Value Accordingly"""
-        if radiobutton.get_active():
-            self.nodes_icons = "b"
-            if self.user_active: self.treeview_refresh(change_icon=True)
-
-    def on_radiobutton_node_icon_none_toggled(self, radiobutton):
-        """Change Variable Value Accordingly"""
-        if radiobutton.get_active():
-            self.nodes_icons = "n"
-            if self.user_active: self.treeview_refresh(change_icon=True)
-
     def on_mouse_button_clicked_tree(self, widget, event):
         """Catches mouse buttons clicks"""
         if event.button == 3:
@@ -2318,46 +2029,12 @@ class CherryTree:
         for language_id in sorted(self.available_languages):
             self.prog_lang_liststore.append([self.language_manager.get_language(language_id).get_name(), language_id])
 
-    def on_combobox_country_language_changed(self, combobox):
-        """New Country Language Choosed"""
-        new_iter = self.glade.combobox_country_language.get_active_iter()
-        new_lang = self.country_lang_liststore[new_iter][0]
-        if new_lang != self.country_lang:
-            self.country_lang = new_lang
-            support.dialog_info(_("The New Language will be Available Only After Restarting CherryTree"), self.window)
-            lang_file_descriptor = file(cons.LANG_PATH, 'w')
-            lang_file_descriptor.write(new_lang)
-            lang_file_descriptor.close()
-
-    def on_combobox_style_scheme_changed(self, combobox):
-        """New Style Scheme Choosed"""
-        new_iter = self.glade.combobox_style_scheme.get_active_iter()
-        new_style = self.style_scheme_liststore[new_iter][0]
-        if new_style != self.style_scheme:
-            self.style_scheme = new_style
-            support.dialog_info_after_restart(self.window)
-
-    def on_combobox_spell_check_lang_changed(self, combobox):
-        """New Spell Check Language Choosed"""
-        if not self.user_active: return
-        new_iter = self.glade.combobox_spell_check_lang.get_active_iter()
-        new_lang_code = self.spell_check_lang_liststore[new_iter][0]
-        if new_lang_code != self.spell_check_lang: self.spell_check_set_new_lang(new_lang_code)
-
     def combobox_country_lang_init(self):
         """Init The Country Language ComboBox"""
         if not "country_lang_liststore" in dir(self):
             self.country_lang_liststore = gtk.ListStore(str)
             for country_lang in cons.AVAILABLE_LANGS:
                 self.country_lang_liststore.append([country_lang])
-        if "glade" in dir(self):
-            combobox = self.glade.combobox_country_language
-            combobox.set_model(self.country_lang_liststore)
-            cell = gtk.CellRendererText()
-            combobox.pack_start(cell, True)
-            combobox.add_attribute(cell, 'text', 0)
-            combobox.set_active_iter(self.get_combobox_iter_from_value(self.country_lang_liststore, 0, self.country_lang))
-            combobox.connect('changed', self.on_combobox_country_language_changed)
     
     def combobox_style_scheme_init(self):
         """Init The Style Scheme ComboBox"""
@@ -2368,14 +2045,6 @@ class CherryTree:
                 self.style_scheme_liststore.append([style_scheme])
                 style_schemes_list.append(style_scheme)
             if not self.style_scheme in style_schemes_list: self.style_scheme = style_schemes_list[0]
-        if "glade" in dir(self):
-            combobox = self.glade.combobox_style_scheme
-            combobox.set_model(self.style_scheme_liststore)
-            cell = gtk.CellRendererText()
-            combobox.pack_start(cell, True)
-            combobox.add_attribute(cell, 'text', 0)
-            combobox.set_active_iter(self.get_combobox_iter_from_value(self.style_scheme_liststore, 0, self.style_scheme))
-            combobox.connect('changed', self.on_combobox_style_scheme_changed)
     
     def combobox_spell_check_lang_init(self):
         """Init The Spell Check Language ComboBox"""
@@ -2386,14 +2055,6 @@ class CherryTree:
                 self.spell_check_lang_liststore.append([code_lang])
                 code_lang_list.append(code_lang)
             if not self.spell_check_lang in code_lang_list: self.spell_check_lang = code_lang_list[0]
-        if "glade" in dir(self):
-            combobox = self.glade.combobox_spell_check_lang
-            combobox.set_model(self.spell_check_lang_liststore)
-            cell = gtk.CellRendererText()
-            combobox.pack_start(cell, True)
-            combobox.add_attribute(cell, 'text', 0)
-            combobox.set_active_iter(self.get_combobox_iter_from_value(self.spell_check_lang_liststore, 0, self.spell_check_lang))
-            combobox.connect('changed', self.on_combobox_spell_check_lang_changed)
     
     def get_combobox_iter_from_value(self, liststore, column_num, value):
         """Returns the Liststore iter Given the First Column Value"""
@@ -3217,58 +2878,6 @@ class CherryTree:
         if not self.node_sel_and_rich_text(): return
         self.codeboxes_handler.codebox_handle()
 
-    def on_radiobutton_rt_col_light_toggled(self, radiobutton):
-        """Radiobutton Rich Text Color Light Toggled"""
-        if not self.user_active or not radiobutton.get_active(): return
-        self.glade.colorbutton_text_fg.set_color(gtk.gdk.color_parse(cons.RICH_TEXT_LIGHT_FG))
-        self.glade.colorbutton_text_bg.set_color(gtk.gdk.color_parse(cons.RICH_TEXT_LIGHT_BG))
-        self.glade.colorbutton_text_fg.set_sensitive(False)
-        self.glade.colorbutton_text_bg.set_sensitive(False)
-        self.on_colorbutton_text_fg_color_set(self.glade.colorbutton_text_fg)
-        self.on_colorbutton_text_bg_color_set(self.glade.colorbutton_text_bg)
-
-    def on_radiobutton_rt_col_dark_toggled(self, radiobutton):
-        """Radiobutton Rich Text Color Dark Toggled"""
-        if not self.user_active or not radiobutton.get_active(): return
-        self.glade.colorbutton_text_fg.set_color(gtk.gdk.color_parse(cons.RICH_TEXT_DARK_FG))
-        self.glade.colorbutton_text_bg.set_color(gtk.gdk.color_parse(cons.RICH_TEXT_DARK_BG))
-        self.glade.colorbutton_text_fg.set_sensitive(False)
-        self.glade.colorbutton_text_bg.set_sensitive(False)
-        self.on_colorbutton_text_fg_color_set(self.glade.colorbutton_text_fg)
-        self.on_colorbutton_text_bg_color_set(self.glade.colorbutton_text_bg)
-
-    def on_radiobutton_rt_col_custom_toggled(self, radiobutton):
-        """Radiobutton Rich Text Color Custom Toggled"""
-        if not self.user_active or not radiobutton.get_active(): return
-        self.glade.colorbutton_text_fg.set_sensitive(True)
-        self.glade.colorbutton_text_bg.set_sensitive(True)
-
-    def on_radiobutton_tt_col_light_toggled(self, radiobutton):
-        """Radiobutton Tree Text Color Light Toggled"""
-        if not self.user_active or not radiobutton.get_active(): return
-        self.glade.colorbutton_tree_fg.set_color(gtk.gdk.color_parse(cons.TREE_TEXT_LIGHT_FG))
-        self.glade.colorbutton_tree_bg.set_color(gtk.gdk.color_parse(cons.TREE_TEXT_LIGHT_BG))
-        self.glade.colorbutton_tree_fg.set_sensitive(False)
-        self.glade.colorbutton_tree_bg.set_sensitive(False)
-        self.on_colorbutton_tree_fg_color_set(self.glade.colorbutton_tree_fg)
-        self.on_colorbutton_tree_bg_color_set(self.glade.colorbutton_tree_bg)
-
-    def on_radiobutton_tt_col_dark_toggled(self, radiobutton):
-        """Radiobutton Tree Text Color Dark Toggled"""
-        if not self.user_active or not radiobutton.get_active(): return
-        self.glade.colorbutton_tree_fg.set_color(gtk.gdk.color_parse(cons.TREE_TEXT_DARK_FG))
-        self.glade.colorbutton_tree_bg.set_color(gtk.gdk.color_parse(cons.TREE_TEXT_DARK_BG))
-        self.glade.colorbutton_tree_fg.set_sensitive(False)
-        self.glade.colorbutton_tree_bg.set_sensitive(False)
-        self.on_colorbutton_tree_fg_color_set(self.glade.colorbutton_tree_fg)
-        self.on_colorbutton_tree_bg_color_set(self.glade.colorbutton_tree_bg)
-
-    def on_radiobutton_tt_col_custom_toggled(self, radiobutton):
-        """Radiobutton Tree Text Color Custom Toggled"""
-        if not self.user_active or not radiobutton.get_active(): return
-        self.glade.colorbutton_tree_fg.set_sensitive(True)
-        self.glade.colorbutton_tree_bg.set_sensitive(True)
-
     def is_curr_node_not_syntax_highlighting_or_error(self):
         """Returns True if ok (no syntax highlighting) or False and prompts error dialog"""
         if self.syntax_highlighting != cons.CUSTOM_COLORS_ID:
@@ -3495,11 +3104,6 @@ class CherryTree:
             self.ui.get_widget("/AnchorMenu").popup(None, None, None, event.button, event.time)
         elif event.type == gtk.gdk._2BUTTON_PRESS: self.anchor_edit()
         return True # do not propagate the event
-
-    def on_spinbutton_anchor_size_value_changed(self, spinbutton):
-        """Anchor Size Handling"""
-        if not self.user_active: return
-        self.anchor_size = int(self.glade.spinbutton_anchor_size.get_value())
 
     def strip_trailing_spaces(self, *args):
         """Remove trailing spaces/tabs"""
@@ -3844,13 +3448,11 @@ class CherryTree:
     def spell_check_notify_new_lang(self, new_lang):
         """Receive New Lang from PyGtkSpellCheck"""
         self.spell_check_lang = new_lang
-        self.user_active = False
-        self.glade.combobox_spell_check_lang.set_active_iter(self.get_combobox_iter_from_value(self.spell_check_lang_liststore, 0, self.spell_check_lang))
-        self.user_active = True
 
     def spell_check_set_on(self):
         """Enable Spell Check"""
-        if not "spellchecker" in dir(self):
+        if not self.spell_check_init:
+            self.spell_check_init = True
             self.spellchecker = pgsc_spellcheck.SpellChecker(self.sourceview, self, self.spell_check_lang)
             self.combobox_spell_check_lang_init()
         else:
@@ -3969,36 +3571,6 @@ class CherryTree:
                     return curr_iter
             if not curr_iter.forward_char(): break
         return None
-
-    def on_colorbutton_text_fg_color_set(self, colorbutton):
-        """ColorButton Rich Text FG Set"""
-        if not self.user_active: return
-        self.rt_def_fg = "#" + self.html_handler.rgb_to_24(colorbutton.get_color().to_string()[1:])
-        if self.curr_tree_iter and self.syntax_highlighting == cons.CUSTOM_COLORS_ID:
-            self.sourceview.modify_text(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.rt_def_fg))
-
-    def on_colorbutton_text_bg_color_set(self, colorbutton):
-        """ColorButton Rich Text BG Set"""
-        if not self.user_active: return
-        self.rt_def_bg = "#" + self.html_handler.rgb_to_24(colorbutton.get_color().to_string()[1:])
-        if self.curr_tree_iter and self.syntax_highlighting == cons.CUSTOM_COLORS_ID:
-            self.sourceview.modify_base(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.rt_def_bg))
-
-    def on_colorbutton_tree_fg_color_set(self, colorbutton):
-        """ColorButton Rich Text FG Set"""
-        if not self.user_active: return
-        self.tt_def_fg = "#" + self.html_handler.rgb_to_24(colorbutton.get_color().to_string()[1:])
-        self.treeview.modify_text(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.tt_def_fg))
-        if self.curr_tree_iter:
-            self.update_node_name_header()
-
-    def on_colorbutton_tree_bg_color_set(self, colorbutton):
-        """ColorButton Rich Text FG Set"""
-        if not self.user_active: return
-        self.tt_def_bg = "#" + self.html_handler.rgb_to_24(colorbutton.get_color().to_string()[1:])
-        self.treeview.modify_base(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.tt_def_bg))
-        if self.curr_tree_iter:
-            self.update_node_name_header()
 
     def sourceview_cursor_and_tooltips_handler(self, x, y):
         """Looks at all tags covering the position (x, y) in the text view,
