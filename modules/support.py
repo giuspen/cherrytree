@@ -1004,8 +1004,26 @@ def dialog_preferences(dad):
     frame_saving.set_shadow_type(gtk.SHADOW_NONE)
     frame_saving.add(vbox_saving)
     
+    vbox_misc_misc = gtk.VBox()
+    checkbutton_newer_version = gtk.CheckButton(_("Automatically Check for Newer Version"))
+    checkbutton_reload_doc_last = gtk.CheckButton(_("Reload Document From Last Session"))
+    checkbutton_mod_time_sentinel = gtk.CheckButton(_("Reload After External Update to CT* File"))
+    vbox_misc_misc.pack_start(checkbutton_newer_version, expand=False)
+    vbox_misc_misc.pack_start(checkbutton_reload_doc_last, expand=False)
+    vbox_misc_misc.pack_start(checkbutton_mod_time_sentinel, expand=False)
+    
+    checkbutton_newer_version.set_active(dad.check_version)
+    checkbutton_reload_doc_last.set_active(dad.reload_doc_last)
+    checkbutton_mod_time_sentinel.set_active(dad.enable_mod_time_sentinel)
+    
+    frame_misc_misc = gtk.Frame(label="<b>"+_("Miscellaneous")+"</b>")
+    frame_misc_misc.get_label_widget().set_use_markup(True)
+    frame_misc_misc.set_shadow_type(gtk.SHADOW_NONE)
+    frame_misc_misc.add(vbox_misc_misc)
+    
     vbox_misc.pack_start(frame_system_tray)
     vbox_misc.pack_start(frame_saving)
+    vbox_misc.pack_start(frame_misc_misc)
     def on_checkbutton_systray_toggled(checkbutton):
         dad.systray = checkbutton.get_active()
         if dad.systray:
@@ -1057,6 +1075,21 @@ def dialog_preferences(dad):
     def on_checkbutton_autosave_on_quit_toggled(checkbutton):
         dad.autosave_on_quit = checkbutton.get_active()
     checkbutton_autosave_on_quit.connect('toggled', on_checkbutton_autosave_on_quit_toggled)
+    def on_checkbutton_reload_doc_last_toggled(checkbutton):
+        dad.reload_doc_last = checkbutton.get_active()
+    checkbutton_reload_doc_last.connect('toggled', on_checkbutton_reload_doc_last_toggled)
+    def on_checkbutton_mod_time_sentinel_toggled(checkbutton):
+        dad.enable_mod_time_sentinel = checkbutton.get_active()
+        if dad.enable_mod_time_sentinel:
+            if dad.mod_time_sentinel_id == None:
+                dad.modification_time_sentinel_start()
+        else:
+            if dad.mod_time_sentinel_id != None:
+                dad.modification_time_sentinel_stop()
+    checkbutton_mod_time_sentinel.connect('toggled', on_checkbutton_mod_time_sentinel_toggled)
+    def on_checkbutton_newer_version_toggled(checkbutton):
+        dad.check_version = checkbutton.get_active()
+    checkbutton_newer_version.connect('toggled', on_checkbutton_newer_version_toggled)
     
     notebook = gtk.Notebook()
     notebook.set_tab_pos(gtk.POS_LEFT)
