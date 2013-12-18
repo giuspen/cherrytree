@@ -542,7 +542,7 @@ def dialog_preferences(dad):
     hbox_misc_text.pack_start(spinbutton_limit_undoable_steps)
     
     vbox_misc_text = gtk.VBox()
-    vbox_misc_text.pack_start(hbox_misc_text)
+    vbox_misc_text.pack_start(hbox_misc_text, expand=False)
     frame_misc_text = gtk.Frame(label="<b>"+_("Miscellaneous")+"</b>")
     frame_misc_text.get_label_widget().set_use_markup(True)
     frame_misc_text.set_shadow_type(gtk.SHADOW_NONE)
@@ -726,15 +726,32 @@ def dialog_preferences(dad):
     radiobutton_nodes_startup_expand.set_active(dad.rest_exp_coll == 1)
     radiobutton_nodes_startup_collapse.set_active(dad.rest_exp_coll == 2)
     
+    vbox_misc_tree = gtk.VBox()
+    hbox_tree_nodes_names_width = gtk.HBox()
+    label_tree_nodes_names_width = gtk.Label(_("Tree Nodes Names Wrapping Width"))
+    adj_tree_nodes_names_width = gtk.Adjustment(value=dad.cherry_wrap_width, lower=10, upper=10000, step_incr=1)
+    spinbutton_tree_nodes_names_width = gtk.SpinButton(adj_tree_nodes_names_width)
+    hbox_tree_nodes_names_width.pack_start(label_tree_nodes_names_width, expand=False)
+    hbox_tree_nodes_names_width.pack_start(spinbutton_tree_nodes_names_width)
+    checkbutton_tree_right_side = gtk.CheckButton(_("Display Tree on the Right Side"))
+    checkbutton_tree_right_side.set_active(dad.tree_right_side)
+    
+    vbox_misc_tree.pack_start(hbox_tree_nodes_names_width, expand=False)
+    vbox_misc_tree.pack_start(checkbutton_tree_right_side, expand=False)
+    frame_misc_tree = gtk.Frame(label="<b>"+_("Miscellaneous")+"</b>")
+    frame_misc_tree.get_label_widget().set_use_markup(True)
+    frame_misc_tree.set_shadow_type(gtk.SHADOW_NONE)
+    frame_misc_tree.add(vbox_misc_tree)
+    
     vbox_tree.pack_start(frame_tt_theme)
     vbox_tree.pack_start(frame_nodes_icons)
     vbox_tree.pack_start(frame_nodes_startup)
-    def on_colorbutton_tree_fg_color_set(self, colorbutton):
+    def on_colorbutton_tree_fg_color_set(colorbutton):
         dad.tt_def_fg = "#" + dad.html_handler.rgb_to_24(colorbutton.get_color().to_string()[1:])
         dad.treeview.modify_text(gtk.STATE_NORMAL, gtk.gdk.color_parse(dad.tt_def_fg))
         if dad.curr_tree_iter: dad.update_node_name_header()
     colorbutton_tree_fg.connect('color-set', on_colorbutton_tree_fg_color_set)
-    def on_colorbutton_tree_bg_color_set(dad, colorbutton):
+    def on_colorbutton_tree_bg_color_set(colorbutton):
         dad.tt_def_bg = "#" + dad.html_handler.rgb_to_24(colorbutton.get_color().to_string()[1:])
         dad.treeview.modify_base(gtk.STATE_NORMAL, gtk.gdk.color_parse(dad.tt_def_bg))
         if dad.curr_tree_iter: dad.update_node_name_header()
@@ -786,6 +803,26 @@ def dialog_preferences(dad):
     def on_radiobutton_nodes_startup_collapse_toggled(checkbutton):
         if checkbutton.get_active(): dad.rest_exp_coll = 2
     radiobutton_nodes_startup_collapse.connect('toggled', on_radiobutton_nodes_startup_collapse_toggled)
+    def on_spinbutton_tree_nodes_names_width_value_changed(spinbutton):
+        dad.cherry_wrap_width = int(spinbutton.get_value())
+        dad.renderer_text.set_property('wrap-width', dad.cherry_wrap_width)
+        dad.treeview_refresh()
+    spinbutton_tree_nodes_names_width.connect('value-changed', on_spinbutton_tree_nodes_names_width_value_changed)
+    def on_checkbutton_tree_right_side_toggled(checkbutton):
+        dad.tree_right_side = checkbutton.get_active()
+        tree_width = dad.scrolledwindow_tree.get_allocation().width
+        text_width = dad.vbox_text.get_allocation().width
+        dad.hpaned.remove(dad.scrolledwindow_tree)
+        dad.hpaned.remove(dad.vbox_text)
+        if dad.tree_right_side:
+            dad.hpaned.add1(dad.vbox_text)
+            dad.hpaned.add2(dad.scrolledwindow_tree)
+            dad.hpaned.set_property('position', text_width)
+        else:
+            dad.hpaned.add1(dad.scrolledwindow_tree)
+            dad.hpaned.add2(dad.vbox_text)
+            dad.hpaned.set_property('position', tree_width)
+    checkbutton_tree_right_side.connect('toggled', on_checkbutton_tree_right_side_toggled)
     
     ### FONTS
     vbox_fonts = gtk.VBox()

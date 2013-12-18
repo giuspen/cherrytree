@@ -2023,12 +2023,6 @@ class CherryTree:
         """Show the Online Manual"""
         webbrowser.open("http://giuspen.com/cherrytreemanual/Introduction.html")
 
-    def on_spinbutton_tree_nodes_names_width_value_changed(self, spinbutton):
-        """Cherry Wrap Width Change Handling"""
-        self.cherry_wrap_width = int(spinbutton.get_value())
-        self.renderer_text.set_property('wrap-width', self.cherry_wrap_width)
-        self.treeview_refresh()
-
     def on_checkbutton_custom_weblink_cmd_toggled(self, checkbutton):
         """Custom Web Link Clicked Action Toggled Handling"""
         if checkbutton.get_active(): self.weblink_custom_action[0] = True
@@ -2143,23 +2137,6 @@ class CherryTree:
     def on_checkbutton_autosave_on_quit_toggled(self, checkbutton):
         """Autosave on Quit Toggled"""
         self.autosave_on_quit = checkbutton.get_active()
-
-    def on_checkbutton_tree_right_side_toggled(self, checkbutton):
-        """Display Tree on the Right Side Toggled"""
-        if not self.user_active: return
-        self.tree_right_side = checkbutton.get_active()
-        tree_width = self.scrolledwindow_tree.get_allocation().width
-        text_width = self.vbox_text.get_allocation().width
-        self.hpaned.remove(self.scrolledwindow_tree)
-        self.hpaned.remove(self.vbox_text)
-        if self.tree_right_side:
-            self.hpaned.add1(self.vbox_text)
-            self.hpaned.add2(self.scrolledwindow_tree)
-            self.hpaned.set_property('position', text_width)
-        else:
-            self.hpaned.add1(self.scrolledwindow_tree)
-            self.hpaned.add2(self.vbox_text)
-            self.hpaned.set_property('position', tree_width)
 
     def on_mouse_button_clicked_tree(self, widget, event):
         """Catches mouse buttons clicks"""
