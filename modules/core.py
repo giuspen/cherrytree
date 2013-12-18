@@ -2023,24 +2023,6 @@ class CherryTree:
         """Show the Online Manual"""
         webbrowser.open("http://giuspen.com/cherrytreemanual/Introduction.html")
 
-    def on_checkbutton_reload_doc_last_toggled(self, checkbutton):
-        """Reload Doc Last Toggled Handling"""
-        self.reload_doc_last = checkbutton.get_active()
-
-    def on_checkbutton_mod_time_sentinel_toggled(self, checkbutton):
-        """Modification Time Sentinel Toggled Handling"""
-        self.enable_mod_time_sentinel = checkbutton.get_active()
-        if self.enable_mod_time_sentinel:
-            if self.mod_time_sentinel_id == None:
-                self.modification_time_sentinel_start()
-        else:
-            if self.mod_time_sentinel_id != None:
-                self.modification_time_sentinel_stop()
-
-    def on_checkbutton_newer_version_toggled(self, checkbutton):
-        """Automatically Check for Newer Version Toggled"""
-        self.check_version = checkbutton.get_active()
-
     def on_mouse_button_clicked_tree(self, widget, event):
         """Catches mouse buttons clicks"""
         if event.button == 3:
