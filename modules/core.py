@@ -2023,59 +2023,6 @@ class CherryTree:
         """Show the Online Manual"""
         webbrowser.open("http://giuspen.com/cherrytreemanual/Introduction.html")
 
-    def on_checkbutton_systray_toggled(self, checkbutton):
-        """SysTray Toggled Handling"""
-        self.systray = checkbutton.get_active()
-        if self.systray:
-            self.ui.get_widget("/MenuBar/FileMenu/ExitApp").set_property(cons.STR_VISIBLE, True)
-            self.glade.checkbutton_start_on_systray.set_sensitive(True)
-        else:
-            self.ui.get_widget("/MenuBar/FileMenu/ExitApp").set_property(cons.STR_VISIBLE, False)
-            self.glade.checkbutton_start_on_systray.set_sensitive(False)
-        if not self.user_active: return
-        if self.systray:
-            if not self.use_appind:
-                if "status_icon" in dir(self.boss): self.boss.status_icon.set_property(cons.STR_VISIBLE, True)
-                else: self.status_icon_enable()
-            else:
-                if "ind" in dir(self.boss): self.boss.ind.set_status(appindicator.STATUS_ACTIVE)
-                else: self.status_icon_enable()
-        else:
-            if not self.use_appind: self.boss.status_icon.set_property(cons.STR_VISIBLE, False)
-            else: self.boss.ind.set_status(appindicator.STATUS_PASSIVE)
-        self.boss.systray_active = self.systray
-        if len(self.boss.running_windows) > 1:
-            for runn_win in self.boss.running_windows:
-                if runn_win.window == self.window: continue
-                runn_win.user_active = False
-                runn_win.systray = self.boss.systray_active
-                runn_win.glade.checkbutton_systray.set_active(self.boss.systray_active)
-                runn_win.user_active = True
-
-    def on_checkbutton_start_on_systray_toggled(self, checkbutton):
-        """Start Minimized on SysTray Toggled Handling"""
-        if checkbutton.get_active(): self.start_on_systray = True
-        else: self.start_on_systray = False
-
-    def on_checkbutton_use_appind_toggled(self, checkbutton):
-        """Use AppIndicator Toggled Handling"""
-        if not self.user_active: return
-        if self.glade.checkbutton_systray.get_active():
-            former_active = True
-            self.glade.checkbutton_systray.set_active(False)
-        else: former_active = False
-        if checkbutton.get_active(): self.use_appind = True
-        else: self.use_appind = False
-        if former_active:
-            self.glade.checkbutton_systray.set_active(True)
-        if len(self.boss.running_windows) > 1:
-            for runn_win in self.boss.running_windows:
-                if runn_win.window == self.window: continue
-                runn_win.user_active = False
-                runn_win.use_appind = self.use_appind
-                runn_win.glade.checkbutton_use_appind.set_active(self.use_appind)
-                runn_win.user_active = True
-
     def on_checkbutton_autosave_toggled(self, checkbutton):
         """Autosave Toggled Handling"""
         self.autosave[0] = checkbutton.get_active()

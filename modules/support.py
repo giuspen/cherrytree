@@ -958,6 +958,67 @@ def dialog_preferences(dad):
     vbox_misc = gtk.VBox()
     vbox_misc.set_spacing(3)
     
+    vbox_links_actions = gtk.VBox()
+    checkbutton_systray = CheckButton(_("Enable System Tray Docking"))
+    checkbutton_start_on_systray = CheckButton(_("Start Minimized in the System Tray"))
+    checkbutton_use_appind = CheckButton(_("Use AppIndicator for Docking"))
+    vbox_system_tray.pack_start(checkbutton_systray, expand=False)
+    vbox_system_tray.pack_start(checkbutton_start_on_systray, expand=False)
+    vbox_system_tray.pack_start(checkbutton_use_appind, expand=False)
+    
+    frame_system_tray = gtk.Frame(label="<b>"+_("System Tray")+"</b>")
+    frame_system_tray.get_label_widget().set_use_markup(True)
+    frame_system_tray.set_shadow_type(gtk.SHADOW_NONE)
+    frame_system_tray Tray.add(vbox_system_tray)
+    
+    checkbutton_systray.set_active(dad.systray)
+    checkbutton_start_on_systray.set_active(dad.start_on_systray)
+    checkbutton_start_on_systray.set_sensitive(dad.systray)
+    checkbutton_use_appind.set_active(dad.use_appind)
+    if not cons.HAS_APPINDICATOR or not cons.HAS_SYSTRAY: checkbutton_use_appind.set_sensitive(False)
+    
+    vbox_misc.pack_start(frame_system_tray)
+    def on_checkbutton_systray_toggled(checkbutton):
+        dad.systray = checkbutton.get_active()
+        if dad.systray:
+            dad.ui.get_widget("/MenuBar/FileMenu/ExitApp").set_property(cons.STR_VISIBLE, True)
+            checkbutton_start_on_systray.set_sensitive(True)
+        else:
+            dad.ui.get_widget("/MenuBar/FileMenu/ExitApp").set_property(cons.STR_VISIBLE, False)
+            checkbutton_start_on_systray.set_sensitive(False)
+        if dad.systray:
+            if not dad.use_appind:
+                if "status_icon" in dir(dad.boss): dad.boss.status_icon.set_property(cons.STR_VISIBLE, True)
+                else: dad.status_icon_enable()
+            else:
+                if "ind" in dir(dad.boss): dad.boss.ind.set_status(appindicator.STATUS_ACTIVE)
+                else: dad.status_icon_enable()
+        else:
+            if not dad.use_appind: dad.boss.status_icon.set_property(cons.STR_VISIBLE, False)
+            else: dad.boss.ind.set_status(appindicator.STATUS_PASSIVE)
+        dad.boss.systray_active = dad.systray
+        if len(dad.boss.running_windows) > 1:
+            for runn_win in dad.boss.running_windows:
+                if runn_win.window == dad.window: continue
+                runn_win.systray = dad.boss.systray_active
+    checkbutton_systray.connect('toggled', on_checkbutton_systray_toggled)
+    def on_checkbutton_start_on_systray_toggled(checkbutton):
+        dad.start_on_systray = checkbutton.get_active()
+    checkbutton_start_on_systray.connect('toggled', on_checkbutton_start_on_systray_toggled)
+    def on_checkbutton_use_appind_toggled(checkbutton):
+        if checkbutton_systray.get_active():
+            former_active = True
+            checkbutton_systray.set_active(False)
+        else: former_active = False
+        if checkbutton.get_active(): dad.use_appind = True
+        else: dad.use_appind = False
+        if former_active: checkbutton_systray.set_active(True)
+        if len(dad.boss.running_windows) > 1:
+            for runn_win in dad.boss.running_windows:
+                if runn_win.window == dad.window: continue
+                runn_win.use_appind = dad.use_appind
+    checkbutton_use_appind.connect('toggled', on_checkbutton_use_appind_toggled)
+    
     notebook = gtk.Notebook()
     notebook.set_tab_pos(gtk.POS_LEFT)
     notebook.append_page(vbox_all_nodes, gtk.Label(_("All Nodes")))
