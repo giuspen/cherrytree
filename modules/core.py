@@ -2023,36 +2023,6 @@ class CherryTree:
         """Show the Online Manual"""
         webbrowser.open("http://giuspen.com/cherrytreemanual/Introduction.html")
 
-    def on_checkbutton_custom_weblink_cmd_toggled(self, checkbutton):
-        """Custom Web Link Clicked Action Toggled Handling"""
-        if checkbutton.get_active(): self.weblink_custom_action[0] = True
-        else: self.weblink_custom_action[0] = False
-        self.glade.entry_custom_weblink_cmd.set_sensitive(self.weblink_custom_action[0])
-
-    def on_entry_custom_weblink_cmd_changed(self, entry):
-        """Custom Web Link Clicked Action Edited"""
-        self.weblink_custom_action[1] = entry.get_text()
-
-    def on_checkbutton_custom_filelink_cmd_toggled(self, checkbutton):
-        """Custom File Link Clicked Action Toggled Handling"""
-        if checkbutton.get_active(): self.filelink_custom_action[0] = True
-        else: self.filelink_custom_action[0] = False
-        self.glade.entry_custom_filelink_cmd.set_sensitive(self.filelink_custom_action[0])
-
-    def on_entry_custom_filelink_cmd_changed(self, entry):
-        """Custom File Link Clicked Action Edited"""
-        self.filelink_custom_action[1] = entry.get_text()
-
-    def on_checkbutton_custom_folderlink_cmd_toggled(self, checkbutton):
-        """Custom Folder Link Clicked Action Toggled Handling"""
-        if checkbutton.get_active(): self.folderlink_custom_action[0] = True
-        else: self.folderlink_custom_action[0] = False
-        self.glade.entry_custom_folderlink_cmd.set_sensitive(self.folderlink_custom_action[0])
-
-    def on_entry_custom_folderlink_cmd_changed(self, entry):
-        """Custom Folder Link Clicked Action Edited"""
-        self.folderlink_custom_action[1] = entry.get_text()
-
     def on_checkbutton_systray_toggled(self, checkbutton):
         """SysTray Toggled Handling"""
         self.systray = checkbutton.get_active()
