@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-24 13:59+0100\n"
+"POT-Creation-Date: 2013-12-19 11:12+0100\n"
 "PO-Revision-Date: 2013-12-07 00:31+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -20,39 +20,1530 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 1.5\n"
 
-#: modules/support.py:128
+#: /home/qsduser/Templates/hg_cherrytree/modules/codeboxes.py:75
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:728
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2679
+msgid "Automatic Syntax Highlighting"
+msgstr "Automatické zvýrazňování skladby"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/codeboxes.py:80
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:430
+msgid "Width"
+msgstr "Šířka"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/codeboxes.py:84
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:433
+msgid "Height"
+msgstr "Výška"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/codeboxes.py:89
+msgid "pixels"
+msgstr "px (obrazové body)"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/codeboxes.py:114
+msgid "Size"
+msgstr "Velikost"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/codeboxes.py:119
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:456
+msgid "Show Line Numbers"
+msgstr "Ukázat čísla řádků"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/codeboxes.py:121
+msgid "Highlight Matching Brackets"
+msgstr "Zvýraznit odpovídající si závorky"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/codeboxes.py:130
+msgid "Options"
+msgstr "Volby"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/codeboxes.py:172
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:550
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:745
+msgid "Insert a CodeBox"
+msgstr "Vložit CodeBox"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/codeboxes.py:295
+msgid "Edit CodeBox"
+msgstr "Upravit CodeBox"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:501
+msgid "_File"
+msgstr "_Soubor"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:502
+msgid "_Edit"
+msgstr "_Úpravy"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:503
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:713
+msgid "For_matting"
+msgstr "_Formát"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:504
+msgid "_Tree"
+msgstr "S_trom"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:505
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:653
+msgid "Node _Move"
+msgstr "_Posunutí uzlu"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:506
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:670
+msgid "Nodes _Import"
+msgstr "_Zavedení uzlů"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:507
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:687
+msgid "Nodes E_xport"
+msgstr "_Vyvedení uzlů"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:508
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:752
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:791
+msgid "C_hange Case"
+msgstr "Z_měnit velikost písmen"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:509
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:766
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:805
+msgid "_Search"
+msgstr "_Hledání"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:510
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:773
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:812
+msgid "_Replace"
+msgstr "_Nahrazení"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:511
+msgid "_View"
+msgstr "_Pohled"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:512
+msgid "_Bookmarks"
+msgstr "_Záložky"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:513
+msgid "_Import"
+msgstr "_Zavedení"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:514
+msgid "E_xport"
+msgstr "_Vyvedení"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:515
+msgid "_Help"
+msgstr "_Nápověda"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:517
+msgid "New _Instance"
+msgstr "_Nová stromová stavba..."
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:517
+msgid "Start a New Instance of CherryTree"
+msgstr "Založit novou stromovou stavbu"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:518
+msgid "_Open File"
+msgstr "_Otevřít soubor"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:518
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:970
+msgid "Open a CherryTree Document"
+msgstr "Otevřít dokument CherryTree"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:519
+msgid "_Save"
+msgstr "_Uložit"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:519
+msgid "Save File"
+msgstr "Uložit soubor"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:520
+msgid "Save _As"
+msgstr "Uloži_t jako"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:520
+msgid "Save File As"
+msgstr "Uložit soubor jako"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:521
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:688
+msgid "Export To _PDF"
+msgstr "Vyvést jako _PDF"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:521
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:688
+msgid "Export To PDF"
+msgstr "Vyvést jako PDF"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:522
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:691
+msgid "Export To _HTML"
+msgstr "Vyvést _jako HTML"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:522
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:691
+msgid "Export To HTML"
+msgstr "Vyvést jako HTML"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:523
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:689
+msgid "Export to Multiple Plain _Text Files"
+msgstr "Vyvést jako více souborů prostého _textu"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:523
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:689
+msgid "Export to Multiple Plain Text Files"
+msgstr "Vyvést jako více souborů prostého textu"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:524
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:690
+msgid "Export to _Single Plain Text File"
+msgstr "Vyvést jako jeden soubor prostého _textu"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:524
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:690
+msgid "Export to Single Plain Text File"
+msgstr "Vyvést jako jeden soubor prostého textu"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:525
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:692
+msgid "_Export To CherryTree Document"
+msgstr "_Vyvést jako dokument CherryTree"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:525
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:692
+msgid "Export To CherryTree Document"
+msgstr "Vyvést jako dokument CherryTree"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:526
+msgid "Pa_ge Setup"
+msgstr "Nastavení strany"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:526
+msgid "Set up the Page for Printing"
+msgstr "Nastavit stranu pro tisk"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:527
+msgid "_Print"
+msgstr "_Tisk"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:527
+msgid "Print"
+msgstr "Tisk"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:528
+msgid "_Quit"
+msgstr "_Ukončit"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:528
+msgid "Quit the Application"
+msgstr "Ukončit program"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:529
+msgid "_Exit CherryTree"
+msgstr "_Ukončit CherryTree"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:529
+msgid "Exit from CherryTree"
+msgstr "Ukončit CherryTree"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:530
+msgid "_Preferences"
+msgstr "_Nastavení"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:530
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:425
+msgid "Preferences"
+msgstr "Nastavení"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:531
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:750
+msgid "Insert _Horizontal Rule"
+msgstr "Vložit _oddělovací čáru"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:531
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:750
+msgid "Insert Horizontal Rule"
+msgstr "Vložit oddělovací čáru"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:532
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:749
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:789
+msgid "Insert Ti_mestamp"
+msgstr "Vložit časo_vé razítko"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:532
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:749
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:789
+msgid "Insert Timestamp"
+msgstr "Vložit časové razítko"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:533
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:737
+msgid "Set/Unset _Bulleted List"
+msgstr "Zapnout/Vypnout _seznam s odrážkami"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:533
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:737
+msgid "Set/Unset the Current Paragraph/Selection as a Bulleted List"
+msgstr ""
+"Zapnout/Vypnout nynější odstavec/výběr jako položku seznamu s odrážkami"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:534
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:738
+msgid "Set/Unset _Numbered List"
+msgstr "Zapnout/Vypnout čís_lovaný seznam"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:534
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:738
+msgid "Set/Unset the Current Paragraph/Selection as a Numbered List"
+msgstr ""
+"Zapnout/Vypnout nynější odstavec/výběr jako položku číslovaného seznamu"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:535
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:739
+msgid "Set/Unset _To-Do List"
+msgstr "Zapnout/Vypnout _seznam pracovních úkolů"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:535
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:739
+msgid "Set/Unset the Current Paragraph/Selection as a To-Do List"
+msgstr ""
+"Zapnout/Vypnout nynější odstavec/výběr jako položku seznamu pracovních úkolů"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:536
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:746
+msgid "Insert/Edit _Link"
+msgstr "Vložit/Upravit _odkaz"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:536
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:746
+msgid "Insert a Link/Edit the Underlying Link"
+msgstr "Vložit odkaz/Upravit označený odkaz"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:537
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:748
+msgid "Insert T_OC"
+msgstr "Vložit _obsah"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:537
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:748
+msgid "Insert Table of Contents"
+msgstr "Vložit seznam s obsahem"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:538
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:747
+msgid "Insert _Anchor"
+msgstr "Vložit _kotvu"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:538
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:747
+msgid "Insert an Anchor"
+msgstr "Vložit jednu kotvu"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:539
+msgid "Edit _Anchor"
+msgstr "Upravit _kotvu"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:539
+msgid "Edit the Underlying Anchor"
+msgstr "Upravit označenou kotvu"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:540
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:743
+msgid "Insert I_mage"
+msgstr "Vložit _obrázek"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:540
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:743
+msgid "Insert an Image"
+msgstr "Vložit jeden obrázek"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:541
+msgid "_Save Image as PNG"
+msgstr "_Uložit obrázek jako PNG"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:541
+msgid "Save the Selected Image as a PNG file"
+msgstr "Uložit vybraný obrázek jako PNG"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:542
+msgid "_Edit Image"
+msgstr "_Upravit obrázek"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:542
+msgid "Edit the Selected Image"
+msgstr "Upravit vybraný obrázek"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:543
+msgid "C_ut Image"
+msgstr "Vy_jmout obrázek"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:543
+msgid "Cut the Selected Image"
+msgstr "Vyjmout vybraný obrázek"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:544
+msgid "_Copy Image"
+msgstr "_Kopírovat obrázek"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:544
+msgid "Copy the Selected Image"
+msgstr "Kopírovat vybraný obrázek"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:545
+msgid "_Delete Image"
+msgstr "_Smazat obrázek"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:545
+msgid "Delete the Selected Image"
+msgstr "Smazat vybraný obrázek"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:546
+msgid "C_ut Table"
+msgstr "Vyj_mout tabulku"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:546
+msgid "Cut the Selected Table"
+msgstr "Vyjmout vybranou tabulku"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:547
+msgid "_Copy Table"
+msgstr "_Kopírovat tabulku"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:547
+msgid "Copy the Selected Table"
+msgstr "Kopírovat vybranou tabulku"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:548
+msgid "_Delete Table"
+msgstr "_Smazat tabulku"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:548
+msgid "Delete the Selected Table"
+msgstr "Smazat vybranou tabulku"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:549
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:744
+msgid "Insert _Table"
+msgstr "Vložit _tabulku"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:549
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:744
+msgid "Insert a Table"
+msgstr "Vložit jednu tabulku"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:550
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:745
+msgid "Insert _CodeBox"
+msgstr "Vložit _CodeBox"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:551
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:753
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:792
+msgid "_Lower Case of Selection/Word"
+msgstr "_Malá písmena výběru/slova"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:551
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:753
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:792
+msgid "Lower the Case of the Selection/the Underlying Word"
+msgstr "Zmenšit velikost písmen výběru/spodního slova"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:552
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:754
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:793
+msgid "_Upper Case of Selection/Word"
+msgstr "_Velká písmena výběru/slova"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:552
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:754
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:793
+msgid "Upper the Case of the Selection/the Underlying Word"
+msgstr "Zvětšit velikost písmen výběru/spodního slova"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:553
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:755
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:794
+msgid "_Toggle Case of Selection/Word"
+msgstr "_Přepnout velikost písmen výběru/slova"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:553
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:755
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:794
+msgid "Toggle the Case of the Selection/the Underlying Word"
+msgstr "Přepnout velikost písmen výběru/spodního slova"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:554
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:761
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:800
+msgid "_Duplicate Row"
+msgstr "_Zdvojit řádek"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:554
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:761
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:800
+msgid "Duplicate the Current Row/Selection"
+msgstr "Zdvojit nynější řádek/výběr"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:555
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:762
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:801
+msgid "Move _Up Row"
+msgstr "Posunout řádek _nahoru"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:555
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:762
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:801
+msgid "Move Up the Current Row/Selected Rows"
+msgstr "Posunout nynější řádek/vybrané řádky nahoru"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:556
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:763
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:802
+msgid "Move _Down Row"
+msgstr "Posunout řádek _dolů"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:556
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:763
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:802
+msgid "Move Down the Current Row/Selected Rows"
+msgstr "Posunout nynější řádek/vybrané řádky dolů"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:557
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:628
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:760
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:799
+msgid "De_lete Row"
+msgstr "Smazat řá_dek"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:557
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:760
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:799
+msgid "Delete the Current Row/Selected Rows"
+msgstr "Smazat nynější řádek/vybrané řádky"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:558
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:625
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:758
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:797
+msgid "Cu_t Row"
+msgstr "Vyjmou_t řádek"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:558
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:758
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:797
+msgid "Cut the Current Row/Selected Rows"
+msgstr "Vyjmout nynější řádek/vybrané řádky"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:559
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:626
+msgid "_Copy Row"
+msgstr "_Kopírovat řádek"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:559
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:759
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:798
+msgid "Copy the Current Row/Selected Rows"
+msgstr "Kopírovat nynější řádek/vybrané řádky"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:560
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:699
+msgid "Go _Back"
+msgstr "Jít _zpět"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:560
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:699
+msgid "Go to the Previous Visited Node"
+msgstr "Jít na předchozí navštívený uzel"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:561
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:700
+msgid "Go _Forward"
+msgstr "Jít _vpřed"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:561
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:700
+msgid "Go to the Next Visited Node"
+msgstr "Jít na další navštívený uzel"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:562
+msgid "_Undo"
+msgstr "_Zpět"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:562
+msgid "Undo Last Operation"
+msgstr "Vrátit poslední změny"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:563
+msgid "_Redo"
+msgstr "Z_novu"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:563
+msgid "Redo Previously Discarded Operation"
+msgstr "Obnovit poslední odvolanou změnu"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:564
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:695
+msgid "_Inherit Syntax"
+msgstr "Předat _skladbu"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:564
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:695
+msgid ""
+"Change the Selected Node's Children Syntax Highlighting to the Father's "
+"Syntax Highlighting"
+msgstr "Předá vybrané zvýraznění skladby všem podřízeným uzlům"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:565
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:714
+msgid "Format _Latest"
+msgstr "Zopakovat _formátování"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:565
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:714
+msgid "Memory of Latest Text Format Type"
+msgstr "Zopakovat poslední způsob formátování textu"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:566
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:711
+msgid "_Paste as Plain Text"
+msgstr "_Vložit jako prostý text"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:566
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:711
+msgid "Paste as Plain Text, Discard the Rich Text Formatting"
+msgstr "Vložit jako prostý text, odložit formátování formátovaného textu (RTF)"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:567
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:715
+msgid "_Remove Formatting"
+msgstr "Odstranit f_ormátování"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:567
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:715
+msgid "Remove the Formatting from the Selected Text"
+msgstr "Odstranit formátování z vybraného textu"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:568
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:717
+msgid "Text _Color Foreground"
+msgstr "_Barva písma"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:568
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:717
+msgid "Change the Color of the Selected Text Foreground"
+msgstr "Změnit barvu písma u vybraného textu"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:569
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:718
+msgid "Text C_olor Background"
+msgstr "B_arva pozadí"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:569
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:718
+msgid "Change the Color of the Selected Text Background"
+msgstr "Změnit barvu pozadí u vybraného textu"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:570
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:719
+msgid "Toggle _Bold Property"
+msgstr "_Tučné"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:570
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:719
+msgid "Toggle Bold Property of the Selected Text"
+msgstr "Formátovat vybraný text tučně"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:571
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:720
+msgid "Toggle _Italic Property"
+msgstr "_Kurzíva"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:571
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:720
+msgid "Toggle Italic Property of the Selected Text"
+msgstr "Formátovat vybraný text kurzívně"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:572
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:721
+msgid "Toggle _Underline Property"
+msgstr "_Podtržení"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:572
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:721
+msgid "Toggle Underline Property of the Selected Text"
+msgstr "Formátovat vybraný text podtržením"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:573
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:722
+msgid "Toggle Stri_kethrough Property"
+msgstr "_Přeškrtnutí"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:573
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:722
+msgid "Toggle Strikethrough Property of the Selected Text"
+msgstr "Formátovat vybraný text přeškrtnutím"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:574
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:723
+msgid "Toggle h_1 Property"
+msgstr "Nadpis _1"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:574
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:723
+msgid "Toggle h1 Property of the Selected Text"
+msgstr "Formátovat vybraný text jako nadpis 1"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:575
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:724
+msgid "Toggle h_2 Property"
+msgstr "Nadpis _2"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:575
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:724
+msgid "Toggle h2 Property of the Selected Text"
+msgstr "Formátovat vybraný text jako nadpis 2"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:576
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:725
+msgid "Toggle h_3 Property"
+msgstr "Nadpis _3"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:576
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:725
+msgid "Toggle h3 Property of the Selected Text"
+msgstr "Formátovat vybraný text jako nadpis 3"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:577
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:726
+msgid "Toggle _Small Property"
+msgstr "_Malý"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:577
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:726
+msgid "Toggle Small Property of the Selected Text"
+msgstr "Formátovat vybraný text jako malý"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:578
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:727
+msgid "Toggle Su_perscript Property"
+msgstr "Horní index"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:578
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:727
+msgid "Toggle Superscript Property of the Selected Text"
+msgstr "Formátovat vybraný text jako horní index"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:579
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:728
+msgid "Toggle Su_bscript Property"
+msgstr "Dolní index"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:579
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:728
+msgid "Toggle Subscript Property of the Selected Text"
+msgstr "Formátovat vybraný text jako dolní index"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:580
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:729
+msgid "Toggle _Monospace Property"
+msgstr "Neproporcionální písmo"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:580
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:729
+msgid "Toggle Monospace Property of the Selected Text"
+msgstr "Formátovat vybraný text jako neproporcionální"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:581
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:732
+msgid "Justify _Left"
+msgstr "Zarovnat _vlevo"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:581
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:732
+msgid "Justify Left the Current Paragraph"
+msgstr "Zarovnat současný odstavec vlevo"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:582
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:733
+msgid "Justify _Center"
+msgstr "Zarovnat _na střed"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:582
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:733
+msgid "Justify Center the Current Paragraph"
+msgstr "Zarovnat současný odstavec na střed"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:583
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:734
+msgid "Justify _Right"
+msgstr "Zarovnat v_pravo"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:583
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:734
+msgid "Justify Right the Current Paragraph"
+msgstr "Zarovnat současný odstavec vpravo"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:584
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:767
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:806
+msgid "_Find in Node"
+msgstr "Hledat v _nynějším uzlu"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:584
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:767
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:806
+msgid "Find into the Selected Node"
+msgstr "Hledat v nyní vybraném uzlu"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:585
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:768
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:807
+msgid "Find in Node_s"
+msgstr "Hledat ve všech uzlech"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:585
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:768
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:807
+msgid "Find into all the Tree Nodes"
+msgstr "Hledat ve všech uzlech stavby stromu"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:586
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:667
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:769
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:808
+msgid "Find a _Node"
+msgstr "Hledat _uzel"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:586
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:667
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:769
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:808
+msgid "Find a Node from its Name"
+msgstr "Hledat název uzlu na základě jeho názvu"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:587
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:770
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:809
+msgid "Find _Again"
+msgstr "_Hledat dál"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:587
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:770
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:809
+msgid "Iterate the Last Find Operation"
+msgstr "Pokračovat v hledání"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:588
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:771
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:810
+msgid "Find _Back"
+msgstr "Hledat _pozpátku"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:588
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:771
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:810
+msgid "Iterate the Last Find Operation in Opposite Direction"
+msgstr "Zopakovat poslední hledání v opačném směru"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:589
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:774
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:813
+msgid "_Replace in Node"
+msgstr "Nahradit v n_ynějším uzlu"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:589
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:774
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:813
+msgid "Replace into the Selected Node"
+msgstr "Nahradit v nyní vybraném uzlu"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:590
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:775
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:814
+msgid "Replace in Node_s"
+msgstr "Nahradit ve všech uzlech"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:590
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:775
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:814
+msgid "Replace into all the Tree Nodes"
+msgstr "Nahradit ve všech uzlech stavby stromu"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:591
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:668
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:776
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:815
+msgid "Replace in Nodes _Names"
+msgstr "Nahradit v _názvech uzlů"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:591
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:668
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:776
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:815
+msgid "Replace in Nodes Names"
+msgstr "Nahradit v názvech uzlů"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:592
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:777
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:816
+msgid "Replace _Again"
+msgstr "Nahrazovat _dál"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:592
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:777
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:816
+msgid "Iterate the Last Replace Operation"
+msgstr "Zopakovat poslední nahrazení"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:593
+msgid "Show/Hide Node Name _Header"
+msgstr "Ukázat/Skrýt název uzlu v záhlaví"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:593
+msgid "Toggle Show/Hide Node Name Header"
+msgstr "Ukázat/Skrýt název uzlu"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:594
+msgid "Show/Hide _Tree"
+msgstr "Ukázat/Skrýt stavbu _stromu"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:594
+msgid "Toggle Show/Hide Tree"
+msgstr "Ukázat/Skrýt strom"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:595
+msgid "Show/Hide _CherryTree"
+msgstr "Ukázat/Skrýt _CherryTree"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:595
+msgid "Toggle Show/Hide CherryTree"
+msgstr "Ukázat/Skrýt CherryTree"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:596
+msgid "Show/Hide Tool_bar"
+msgstr "Ukázat/Skrýt nástrojový _pruh"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:596
+msgid "Toggle Show/Hide Toolbar"
+msgstr "Ukázat/Skrýt nástrojový pruh"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:597
+msgid "Show _All Matches Dialog"
+msgstr "Ukázat dialog _všechny shody"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:597
+msgid "Show Search All Matches Dialog"
+msgstr "Ukázat dialog pro vyhledání všech shod"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:598
+msgid "_Increase Toolbar Icons Size"
+msgstr "Z_většit velikost ikon v nástrojovém pruhu"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:598
+msgid "Increase the Size of the Toolbar Icons"
+msgstr "Zvětšit velikost ikon v nástrojovém pruhu"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:599
+msgid "_Decrease Toolbar Icons Size"
+msgstr "Z_menšit velikost ikon v nástrojovém pruhu"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:599
+msgid "Decrease the Size of the Toolbar Icons"
+msgstr "Zmenšit velikost ikon v nástrojovém pruhu"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:600
+msgid "Toggle _Focus Tree/Text"
+msgstr "Přepnout _zaměření strom/text"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:600
+msgid "Toggle Focus Between Tree and Text"
+msgstr "Přepnout zaměření mezi stromem a textem"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:601
+msgid "Toggle Node _Expanded/Collapsed"
+msgstr "Přepnout uzel rozbaleno/sbaleno"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:601
+msgid "Toggle Expanded/Collapsed Status of the Selected Node"
+msgstr "Přepnout stav rozbaleno/sbaleno vybraného uzlu"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:602
+msgid "E_xpand All Nodes"
+msgstr "Roz_balit všechny uzly"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:602
+msgid "Expand All the Tree Nodes"
+msgstr "Rozbalit všechny uzly stromové stavby"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:603
+msgid "_Collapse All Nodes"
+msgstr "S_ložit všechny uzly"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:603
+msgid "Collapse All the Tree Nodes"
+msgstr "Složit všechny uzly stromové stavby"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:604
+msgid "_Full Screen On/Off"
+msgstr "_Zobrazení na celou obrazovku zapnuto/vypnuto"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:604
+msgid "Toggle Full Screen On/Off"
+msgstr "Přepnout zobrazení na celou obrazovku Zapnuto/Vypnuto"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:605
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:671
+msgid "From _CherryTree File"
+msgstr "Ze souboru _CherryTree"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:605
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:671
+msgid "Add Nodes of a CherryTree File to the Current Tree"
+msgstr "Přidat uzly ze souboru CherryTree do současné stromové stavby"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:606
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:672
+msgid "From _Plain Text File"
+msgstr "Ze souboru _prostého textu"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:606
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:672
+msgid "Add Node from a Plain Text File to the Current Tree"
+msgstr "Přidat uzel ze souboru s prostým textem do současné stromové stavby"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:607
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:673
+msgid "From _Folder of Plain Text Files"
+msgstr "Ze _složky se soubory s prostým textem"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:607
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:673
+msgid "Add Nodes from a Folder of Plain Text Files to the Current Tree"
+msgstr ""
+"Přidat uzly  ze složky se soubory s prostým textem do současné stromové "
+"stavby"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:608
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:674
+msgid "From _Basket Folder"
+msgstr "Ze složky _Basket"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:608
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:674
+msgid "Add Nodes of a Basket Folder to the Current Tree"
+msgstr "Přidat uzly ze složky Basket (koš) do současné stromové stavby"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:609
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:675
+msgid "From _Gnote Folder"
+msgstr "Ze složky _Gnote"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:609
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:675
+msgid "Add Nodes of a Gnote Folder to the Current Tree"
+msgstr "Přidat uzly ze složky Gnote do současné stromové stavby"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:610
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:676
+msgid "From _KeepNote Folder"
+msgstr "Ze složky _KeepNote"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:610
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:676
+msgid "Add Nodes of a KeepNote Folder to the Current Tree"
+msgstr "Přidat uzly ze složky KeepNote do současné stromové stavby"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:611
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:677
+msgid "From K_eyNote File"
+msgstr "Ze souboru K_eyNote"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:611
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:677
+msgid "Add Nodes of a KeyNote File to the Current Tree"
+msgstr "Přidat uzly ze souboru KeyNote do současné stromové stavby"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:612
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:678
+msgid "From K_nowit File"
+msgstr "Ze souboru K_nowit"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:612
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:678
+msgid "Add Nodes of a Knowit File to the Current Tree"
+msgstr "Přidat uzly ze souboru Knowit do současné stromové stavby"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:613
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:679
+msgid "From _Leo File"
+msgstr "Ze souboru _Leo"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:613
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:679
+msgid "Add Nodes of a Leo File to the Current Tree"
+msgstr "Přidat uzly ze souboru Leo do současné stromové stavby"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:614
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:680
+msgid "From _Mempad File"
+msgstr "Ze souboru _Mempad"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:614
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:680
+msgid "Add Nodes of a Mempad File to the Current Tree"
+msgstr "Přidat uzly ze souboru Mempad do současné stromové stavby"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:615
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:681
+msgid "From _NoteCase File"
+msgstr "Ze souboru _NoteCase"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:615
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:681
+msgid "Add Nodes of a NoteCase File to the Current Tree"
+msgstr "Přidat uzly ze souboru NoteCase do současné stromové stavby"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:616
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:682
+msgid "From T_omboy Folder"
+msgstr "Ze složky T_omboy"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:616
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:682
+msgid "Add Nodes of a Tomboy Folder to the Current Tree"
+msgstr "Přidat uzly ze složky Tomboy do současné stromové stavby"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:617
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:683
+msgid "From T_reepad Lite File"
+msgstr "Soubor z T_reepad Lite"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:617
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:683
+msgid "Add Nodes of a Treepad Lite File to the Current Tree"
+msgstr "Přidat uzly ze souboru Treepad Lite do současné stromové stavby"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:618
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:684
+msgid "From _TuxCards File"
+msgstr "Ze souboru _TuxCards"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:618
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:684
+msgid "Add Nodes of a TuxCards File to the Current Tree"
+msgstr "Přidat uzly ze souboru TuxCards do současné stromové stavby"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:619
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:685
+msgid "From _Zim Folder"
+msgstr "Ze složky __Zim"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:619
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:685
+msgid "Add Nodes of a Zim Folder to the Current Tree"
+msgstr "Přidat uzly ze složky Zim do současné stromové stavby"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:620
+msgid "Online _Manual"
+msgstr "_Příručka na internetu"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:620
+msgid "Application's Online Manual"
+msgstr "_Příručka programu na internetu"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:621
+msgid "_Check Newer Version"
+msgstr "_Vyhledat novou verzi"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:621
+msgid "Check for a Newer Version"
+msgstr "Vyhledat novou verzi"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:622
+msgid "_About"
+msgstr "_O programu"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:622
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:305
+msgid "About CherryTree"
+msgstr "O CherryTree"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:623
+msgid "_Edit Table Properties"
+msgstr "_Upravit vlastnosti tabulky"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:623
+msgid "Edit the Table Properties"
+msgstr "Upravit vlastnosti tabulky"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:624
+msgid "_Add Row"
+msgstr "__Přidat řádek"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:624
+msgid "Add a Table Row"
+msgstr "Přidat řádek v tabulce"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:625
+msgid "Cut a Table Row"
+msgstr "Vyjmout řádek v tabulce"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:626
+msgid "Copy a Table Row"
+msgstr "Kopírovat řádek v tabulce"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:627
+msgid "_Paste Row"
+msgstr "_Vložit řádek"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:627
+msgid "Paste a Table Row"
+msgstr "Vložit řádek v tabulce"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:628
+msgid "Delete the Selected Table Row"
+msgstr "Smazat vybraný řádek v tabulce"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:629
+msgid "Move Row _Up"
+msgstr "Posunout řádek _nahoru"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:629
+msgid "Move the Selected Row Up"
+msgstr "Posunout vybraný řádek nahoru"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:630
+msgid "Move Row _Down"
+msgstr "Posunout řádek _dolů"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:630
+msgid "Move the Selected Row Down"
+msgstr "Posunout vybraný řádek dolů"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:631
+msgid "Sort Rows De_scending"
+msgstr "Třídit řádky ses_tupně"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:631
+msgid "Sort all the Rows Descending"
+msgstr "Třídit všechny řádky sestupně"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:632
+msgid "Sort Rows As_cending"
+msgstr "Třídit řádky vzest_upně"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:632
+msgid "Sort all the Rows Ascending"
+msgstr "Třídit všechny řádky vzestupně"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:633
+msgid "_Table Export"
+msgstr "Vyvést _tabulku"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:633
+msgid "Export Table as CSV File"
+msgstr "Vyvést tabulku jako soubor CSV"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:634
+msgid "_Bookmark This Node"
+msgstr "_Opatřit tento uzel záložkou"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:634
+msgid "Add the Current Node to the Bookmarks List"
+msgstr "Přidat současný uzel do seznamu záložek"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:635
+msgid "_Handle Bookmarks"
+msgstr "_Pracovat se záložkami"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:635
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:1007
+msgid "Handle the Bookmarks List"
+msgstr "Pracovat se seznamem záložek"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:636
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:647
+msgid "Add _Node"
+msgstr "Přidat _uzel"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:636
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:647
+msgid "Add a Node having the same Father of the Selected Node"
+msgstr "Přidat uzel se stejným nadřízeným uzlem, jaký má vybraný uzel"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:637
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:648
+msgid "Add _SubNode"
+msgstr "Přidat _podřízený uzel"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:637
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:648
+msgid "Add a Child Node to the Selected Node"
+msgstr "Přidat uzel podřízený vybranému uzlu"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:650
+msgid "Change Node _Properties"
+msgstr "Změnit _vlastnosti uzlu"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:650
+msgid "Edit the Properties of the Selected Node"
+msgstr "Upravit vlastnosti vybraného uzlu"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:651
+msgid "Tree _Info"
+msgstr "_Informace o stromu"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:651
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2918
+msgid "Tree Summary Information"
+msgstr "Přehled o stavbě stromu"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:654
+msgid "Node _Up"
+msgstr "Posunout uzel nahor_u"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:654
+msgid "Move the Selected Node Up"
+msgstr "Posunout vybraný uzel nahoru"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:655
+msgid "Node _Down"
+msgstr "Posunout uzel _dolů"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:655
+msgid "Move the Selected Node Down"
+msgstr "Posunout vybraný uzel dolů"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:656
+msgid "Node _Left"
+msgstr "Zme_nšit odsazení"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:656
+msgid "Move the Selected Node Left"
+msgstr "Zmenšit odsazení uzlu"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:657
+msgid "Node Change _Father"
+msgstr "Změnit nadřízený uzel"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:657
+msgid "Change the Selected Node's Father"
+msgstr "Změnit nadřízený uzel vybraného uzlu"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:660
+msgid "Nodes _Sort"
+msgstr "_Třídění uzlů"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:661
+msgid "Sort Tree _Ascending"
+msgstr "Třídit strom vzest_upně"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:661
+msgid "Sort the Tree Ascending"
+msgstr "Třídit strom vzestupně"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:662
+msgid "Sort Tree _Descending"
+msgstr "Třídit strom ses_tupně"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:662
+msgid "Sort the Tree Descending"
+msgstr "Třídit strom sestupně"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:663
+msgid "Sort Siblings A_scending"
+msgstr "Třídit sourozence _vzestupně"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:663
+msgid "Sort all the Siblings of the Selected Node Ascending"
+msgstr "Třídit všechny uzly na této úrovni vzestupně"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:664
+msgid "Sort Siblings D_escending"
+msgstr "Třídit sourozence s_estupně"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:664
+msgid "Sort all the Siblings of the Selected Node Descending"
+msgstr "Třídit všechny uzly na této úrovni sestupně"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:697
+msgid "De_lete Node"
+msgstr "Smazat u_zel"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:697
+msgid "Delete the Selected Node"
+msgstr "Smazat vybraný uzel"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:731
+msgid "_Justify"
+msgstr "_Zarovnat"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:736
+msgid "_List"
+msgstr "_Vypsat"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:742
+msgid "_Insert"
+msgstr "_Vložit"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:757
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:796
+msgid "_Row"
+msgstr "Řá_dek"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:759
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:798
+msgid "C_opy Row"
+msgstr "K_opírovat řádek"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:790
+msgid "Stri_p Trailing Spaces"
+msgstr "Z_bavit mezer na konci"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:790
+msgid "Strip Trailing Spaces"
+msgstr "Zbavit mezer na konci"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:828
+msgid "Edit _Link"
+msgstr "Upravit _odkaz"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:828
+msgid "Edit the Underlying Link"
+msgstr "Upravit označený odkaz"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:830
+msgid "C_ut Link"
+msgstr "V_yjmout odkaz"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:830
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:846
+msgid "Cut the Selected CodeBox"
+msgstr "Vyjmout vybraný CodeBox"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:831
+msgid "_Copy Link"
+msgstr "_Kopírovat odkaz"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:831
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:847
+msgid "Copy the Selected CodeBox"
+msgstr "Kopírovat vybraný CodeBox"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:832
+msgid "D_ismiss Link"
+msgstr "_Odmítnout odkaz"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:832
+msgid "Dismiss the Selected Link"
+msgstr "Odmítnout vybraný odkaz"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:833
+msgid "_Delete Link"
+msgstr "_Smazat odkaz"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:833
+msgid "Delete the Selected Link"
+msgstr "Smazat vybraný odkaz"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:844
+msgid "Change CodeBox _Properties"
+msgstr "Změnit _vlastnosti CodeBox"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:844
+msgid "Edit the Properties of the CodeBox"
+msgstr "Upravit vlastnosti CodeBox"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:846
+msgid "C_ut CodeBox"
+msgstr "V_yjmout CodeBox"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:847
+msgid "_Copy CodeBox"
+msgstr "_Kopírovat CodeBox"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:848
+msgid "_Delete CodeBox"
+msgstr "S_mazat CodeBox"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:848
+msgid "Delete the Selected CodeBox"
+msgstr "Smazat vybraný CodeBox"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:850
+msgid "Increase CodeBox Width"
+msgstr "Rozšířit CodeBox"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:850
+msgid "Increase the Width of the CodeBox"
+msgstr "Zvětšit šířku CodeBox"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:851
+msgid "Decrease CodeBox Width"
+msgstr "Zúžit CodeBox"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:851
+msgid "Decrease the Width of the CodeBox"
+msgstr "Zmenšit šířku CodeBox"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:852
+msgid "Increase CodeBox Height"
+msgstr "Prodloužit CodeBox"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:852
+msgid "Increase the Height of the CodeBox"
+msgstr "Zvětšit výšku CodeBox"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:853
+msgid "Decrease CodeBox Height"
+msgstr "Zkrátit CodeBox"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:853
+msgid "Decrease the Height of the CodeBox"
+msgstr "Zmenšit výšku CodeBox"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:128
 msgid "Save File as"
 msgstr "Uložit soubor jako"
 
-#: modules/support.py:159
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:159
 msgid "Select File"
 msgstr "Vybrat soubor"
 
-#: modules/support.py:190
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:190
 msgid "Select Folder"
 msgstr "Vybrat složku"
 
-#: modules/support.py:219
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:218
 msgid "Question"
 msgstr "Otázka"
 
-#: modules/support.py:235
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:233
 msgid "Info"
 msgstr "Informace"
 
-#: modules/support.py:241
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:239
 msgid "This Change will have Effect Only After Restarting CherryTree"
 msgstr "Tato změna se projeví až po novém spuštění CherryTree"
 
-#: modules/support.py:251 modules/support.py:508 modules/support.py:542
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:249
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:506
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:540
 msgid "Warning"
 msgstr "Varování"
 
-#: modules/support.py:263
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:261
 msgid "Error"
 msgstr "Chyba"
 
-#: modules/support.py:272
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:270
 msgid ""
 "Copyright © 2009-2013\n"
 "Giuseppe Penone <giuspen@gmail.com>"
@@ -60,7 +1551,7 @@ msgstr ""
 "Autorské právo © 2009-2013\n"
 "Giuseppe Penone <giuspen@gmail.com>"
 
-#: modules/support.py:274
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:272
 msgid ""
 "A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
 "Highlighting"
@@ -68,7 +1559,7 @@ msgstr ""
 "Program k hierarchickému vedení poznámek, s vlastnostmi, jaké má formátovaný "
 "text (RTF), a zvýrazňování skladby"
 
-#: modules/support.py:275
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:273
 msgid ""
 "\n"
 "This program is free software; you can redistribute it and/or modify\n"
@@ -100,7 +1591,7 @@ msgstr ""
 "a pokud ne, napište Free Software Foundation, Inc., 51 Franklin St, Fifth "
 "Floor, Boston, MA 02110-1301, USA.\n"
 
-#: modules/support.py:295
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:293
 msgid ""
 "Chinese Simplified (zh_CN) Channing Wong <mamimoluo@gmail.com>\n"
 "Czech (cs) Pavel Fric <fripohled@blogspot.com>\n"
@@ -128,35 +1619,23 @@ msgstr ""
 "Španělský překlad (es) Daniel MC <i.e.betel@gmail.com>\n"
 "Ukrajinský překlad (uk) Andriy Kovtun <kovtunos@yandex.ru>"
 
-#: modules/support.py:307 modules/cons.py:615
-msgid "About CherryTree"
-msgstr "O CherryTree"
-
-#: modules/support.py:332
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:330
 msgid "Anchor Name"
 msgstr "Název kotvy"
 
-#: modules/support.py:432 modules/codeboxes.py:80
-msgid "Width"
-msgstr "Šířka"
-
-#: modules/support.py:435 modules/codeboxes.py:84
-msgid "Height"
-msgstr "Výška"
-
-#: modules/support.py:545
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:543
 msgid "Cancel"
 msgstr "Zrušit"
 
-#: modules/support.py:546
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:544
 msgid "No"
 msgstr "Ne"
 
-#: modules/support.py:547
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:545
 msgid "Yes"
 msgstr "Ano"
 
-#: modules/support.py:561
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:559
 msgid ""
 "<b>The current document was updated</b>,\n"
 "do you want to save the changes?"
@@ -164,302 +1643,691 @@ msgstr ""
 "<b>nynější dokument byl upraven.</b>\n"
 "Chcete uložit změny?"
 
-#: modules/support.py:604
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:602
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1041
 msgid "To WebSite"
 msgstr "Pro internetovou stránku"
 
-#: modules/support.py:615
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:613
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1055
 msgid "To File"
 msgstr "Pro soubor"
 
-#: modules/support.py:630
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:628
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1062
 msgid "To Folder"
 msgstr "Pro složku"
 
-#: modules/support.py:645
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:643
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1048
 msgid "To Node"
 msgstr "Pro uzel"
 
-#: modules/support.py:685
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:683
 msgid "Anchor Name (optional)"
 msgstr "Název kotvy (volitelný)"
 
-#: modules/support.py:739 modules/core.py:3269 modules/core.py:4149
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:737
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2890
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3755
 msgid "No Node is Selected"
 msgstr "Není vybrán žádný uzel"
 
-#: modules/support.py:759
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:757
 msgid "There are No Anchors in the Selected Node"
 msgstr "Ve vybraném uzlu nejsou žádné kotvy"
 
-#: modules/support.py:761
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:759
 msgid "Choose Existing Anchor"
 msgstr "Vybrat stávající kotvu"
 
-#: modules/support.py:852
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:850
 msgid "Involved Nodes"
 msgstr "Související uzly"
 
-#: modules/support.py:858
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:856
 msgid "Selected Text Only"
 msgstr "Pouze vybraný text"
 
-#: modules/support.py:859
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:857
 msgid "Selected Node Only"
 msgstr "Pouze vybraný uzel"
 
-#: modules/support.py:860
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:858
 msgid "Selected Node and Subnodes"
 msgstr "Vybraný uzel a podřízené uzly"
 
-#: modules/support.py:861
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:859
 msgid "All the Tree"
 msgstr "Celý strom"
 
-#: modules/support.py:866
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:864
 msgid "Include Node Name"
 msgstr "Zahrnout název uzlu"
 
-#: modules/support.py:932 modules/core.py:927
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:930
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:907
 msgid "Insert _Special Character"
 msgstr "Vložit _zvláštní znak"
 
-#: modules/support.py:934 modules/core.py:929
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:932
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:909
 msgid "Insert a Special Character"
 msgstr "Vložit zvláštní znak"
 
-#: modules/support.py:965
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:963
 msgid "_Recent Documents"
 msgstr "_Nedávné dokumenty"
 
-#: modules/support.py:967 modules/support.py:973
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:965
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:971
 msgid "Open a Recent CherryTree Document"
 msgstr "Otevřít nedávný dokument CherryTree"
 
-#: modules/support.py:972 modules/cons.py:511
-msgid "Open a CherryTree Document"
-msgstr "Otevřít dokument CherryTree"
-
-#: modules/support.py:996
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:995
 #, python-format
 msgid "The Document %s was Not Found"
 msgstr "Dokument %s nebyl nalezen"
 
-#: modules/support.py:1008 modules/cons.py:628
-msgid "Handle the Bookmarks List"
-msgstr "Pracovat se seznamem záložek"
-
-#: modules/support.py:1022
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:1021
 msgid "Sort with Drag and Drop, Delete with the Delete Key"
 msgstr "Třídit pomocí \"táhni a pusť\", smazat pomocí klávesy Delete"
 
-#: modules/findreplace.py:45
+#: /home/qsduser/Templates/hg_cherrytree/modules/pgsc_spellcheck.py:68
+msgid "Unknown"
+msgstr "Neznámý"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/pgsc_spellcheck.py:423
+msgid "(no suggestions)"
+msgstr "(žádné návrhy)"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/pgsc_spellcheck.py:439
+msgid "Add \"{}\" to Dictionary"
+msgstr "Přidat \"{}\" do slovníku"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/pgsc_spellcheck.py:442
+msgid "Ignore All"
+msgstr "Přehlížet vše"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/pgsc_spellcheck.py:453
+msgid "Languages"
+msgstr "Jazyky"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/pgsc_spellcheck.py:464
+msgid "Suggestions"
+msgstr "Návrhy"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/imports.py:1950
+msgid "Downloading"
+msgstr "Stažení"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/imports.py:2036
+#: /home/qsduser/Templates/hg_cherrytree/modules/tablez.py:304
+msgid "click me"
+msgstr "Klepni mě"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/findreplace.py:45
 msgid "Iterate Latest Find/Replace"
 msgstr "Zopakovat poslední hledání/nahrazení"
 
-#: modules/findreplace.py:48
+#: /home/qsduser/Templates/hg_cherrytree/modules/findreplace.py:48
 msgid "Close"
 msgstr "Zavřít"
 
-#: modules/findreplace.py:49 modules/findreplace.py:50
+#: /home/qsduser/Templates/hg_cherrytree/modules/findreplace.py:49
+#: /home/qsduser/Templates/hg_cherrytree/modules/findreplace.py:50
 msgid "Find"
 msgstr "Najít"
 
-#: modules/findreplace.py:51
+#: /home/qsduser/Templates/hg_cherrytree/modules/findreplace.py:51
 msgid "Replace"
 msgstr "Nahradit"
 
-#: modules/findreplace.py:52
+#: /home/qsduser/Templates/hg_cherrytree/modules/findreplace.py:52
 msgid "Undo"
 msgstr "Zpět"
 
-#: modules/findreplace.py:107
+#: /home/qsduser/Templates/hg_cherrytree/modules/findreplace.py:107
 msgid "Replace in Current Node..."
 msgstr "Nahradit ve vybraném uzlu..."
 
-#: modules/findreplace.py:108
+#: /home/qsduser/Templates/hg_cherrytree/modules/findreplace.py:108
 msgid "Search in Current Node..."
 msgstr "Hledat ve vybraném uzlu..."
 
-#: modules/findreplace.py:136 modules/findreplace.py:211
-#: modules/findreplace.py:282
+#: /home/qsduser/Templates/hg_cherrytree/modules/findreplace.py:136
+#: /home/qsduser/Templates/hg_cherrytree/modules/findreplace.py:211
+#: /home/qsduser/Templates/hg_cherrytree/modules/findreplace.py:282
 #, python-format
 msgid "The pattern '%s' was not found"
 msgstr "Hledaný pojem '%s' nenalezen"
 
-#: modules/findreplace.py:138 modules/findreplace.py:214
-#: modules/findreplace.py:284
+#: /home/qsduser/Templates/hg_cherrytree/modules/findreplace.py:138
+#: /home/qsduser/Templates/hg_cherrytree/modules/findreplace.py:214
+#: /home/qsduser/Templates/hg_cherrytree/modules/findreplace.py:284
 msgid "Matches"
 msgstr "Shody"
 
-#: modules/findreplace.py:153
+#: /home/qsduser/Templates/hg_cherrytree/modules/findreplace.py:153
 msgid "Replace in All Nodes..."
 msgstr "Nahradit ve všech uzlech..."
 
-#: modules/findreplace.py:154
+#: /home/qsduser/Templates/hg_cherrytree/modules/findreplace.py:154
 msgid "Search in All Nodes..."
 msgstr "Hledat ve všech uzlech..."
 
-#: modules/findreplace.py:227
+#: /home/qsduser/Templates/hg_cherrytree/modules/findreplace.py:227
 msgid "Replace in Node Names..."
 msgstr "Nahradit v názvech uzlů..."
 
-#: modules/findreplace.py:228
+#: /home/qsduser/Templates/hg_cherrytree/modules/findreplace.py:228
 msgid "Search For a Node Name..."
 msgstr "Hledat název uzlu..."
 
-#: modules/findreplace.py:535
+#: /home/qsduser/Templates/hg_cherrytree/modules/findreplace.py:535
 msgid "No Previous Search Was Performed During This Session"
 msgstr "Během tohoto sezení nebylo ještě provedeno žádné hledání"
 
-#: modules/findreplace.py:575
+#: /home/qsduser/Templates/hg_cherrytree/modules/findreplace.py:575
 msgid "Hide (Restore with Ctrl+Shift+A)"
 msgstr "Skrýt (Obnovit Ctrl+Shift+A)"
 
-#: modules/findreplace.py:588 modules/core.py:3001
+#: /home/qsduser/Templates/hg_cherrytree/modules/findreplace.py:588
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2674
 msgid "Node Name"
 msgstr "Název uzlu"
 
-#: modules/findreplace.py:590
+#: /home/qsduser/Templates/hg_cherrytree/modules/findreplace.py:590
 msgid "Line"
 msgstr "Řádek"
 
-#: modules/findreplace.py:592
+#: /home/qsduser/Templates/hg_cherrytree/modules/findreplace.py:592
 msgid "Line Content"
 msgstr "Obsah řádku"
 
-#: modules/findreplace.py:609 modules/core.py:3911
+#: /home/qsduser/Templates/hg_cherrytree/modules/findreplace.py:609
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3547
 #, python-format
 msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
 msgstr "Odkaz odkazuje na uzel, který už neexistuje (ID = %s)"
 
-#: modules/core.py:218
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:436
+#, fuzzy
+msgid "Tab Width"
+msgstr "Šířka zarážky  "
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:442
+msgid "Insert Spaces Instead of Tabs"
+msgstr "Vložit mezery místo zarážek"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:444
+msgid "Use Line Wrapping"
+msgstr "Použít zalamování řádků"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:448
+#, fuzzy
+msgid "Line Wrapping Indentation"
+msgstr "Povolit automatické odsazení"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:454
+msgid "Enable Automatic Indentation"
+msgstr "Povolit automatické odsazení"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:466
+#, fuzzy
+msgid "Text Editor"
+msgstr "<b>Textový editor</b>"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:476
+msgid "Timestamp Format"
+msgstr "Formát časového razítka"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:486
+msgid "Horizontal Rule"
+msgstr "Oddělovací čára"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:493
+msgid "Special Characters"
+msgstr "Zvláštní znaky"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:513
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:639
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:855
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1091
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1211
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1324
+msgid "Miscellaneous"
+msgstr "Různé"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:565
+msgid "Enable Spell Check"
+msgstr "Povolit ověřování pravopisu"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:569
+msgid "Spell Check Language"
+msgstr "Jazyk ověřování pravopisu"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:582
+#, fuzzy
+msgid "Spell Check"
+msgstr "Povolit ověřování pravopisu"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:592
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:759
+msgid "Light Background, Dark Text"
+msgstr "Světlé pozadí, tmavý text"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:593
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:760
+msgid "Dark Background, Light Text"
+msgstr "Tmavé pozadí, světlý text"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:595
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:762
+msgid "Custom Background"
+msgstr "Vlastní pozadí"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:600
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:767
+msgid "and Text"
+msgstr "a text"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:610
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:777
+msgid "Theme"
+msgstr ""
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:630
+msgid "Limit of Undoable Steps Per Node"
+msgstr "Počet kroků zpět na uzel"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:711
+msgid "Style Scheme"
+msgstr "Nákres stylu"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:719
+msgid "Show White Spaces"
+msgstr "Ukázat prázdná místa"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:721
+msgid "Highlight Current Line"
+msgstr "Zvýraznit nynější řádek"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:797
+msgid "Use Cherries as Nodes Icons"
+msgstr "Použít třešně jako ikony uzlů"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:798
+msgid "Use Bullets as Nodes Icons"
+msgstr "Použít odrážky jako ikony uzlů"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:800
+msgid "Do Not Display Nodes Icons"
+msgstr "Nezobrazovat ikony k uzlům"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:806
+#, fuzzy
+msgid "Nodes Icons"
+msgstr "<b>Ikony uzlů</b>"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:820
+msgid "Restore Expanded/Collapsed Status"
+msgstr "Obnovit stav rozbaleno/sbaleno"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:821
+msgid "Expand all Nodes"
+msgstr "Rozbalit všechny uzly"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:823
+msgid "Collapse all Nodes"
+msgstr "Složit všechny uzly"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:829
+#, fuzzy
+msgid "Nodes Status at Startup"
+msgstr "<b>Stav uzlů při spuštění</b>"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:844
+msgid "Tree Nodes Names Wrapping Width"
+msgstr "Největší šířka názvu uzlu před zalomením"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:850
+msgid "Display Tree on the Right Side"
+msgstr "Zobrazit strom na pravé straně"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:955
+msgid "Text Font"
+msgstr "Písmo textu   "
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:956
+msgid "Code Font"
+msgstr "Písmo kódu  "
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:957
+msgid "Tree Font"
+msgstr "Písmo ve stromu"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:974
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1322
+msgid "Fonts"
+msgstr "Písma"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1003
+msgid "Enable Custom Web Link Clicked Action"
+msgstr "Povolit vlastní činnost při klepnutí na internetový odkaz"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1005
+msgid "Enable Custom File Link Clicked Action"
+msgstr "Povolit vlastní činnost při klepnutí na odkaz souboru"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1007
+msgid "Enable Custom Folder Link Clicked Action"
+msgstr "Povolit vlastní činnost při klepnutí na odkaz složky"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1016
+#, fuzzy
+msgid "Custom Actions"
+msgstr "Vlastní pozadí"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1072
+msgid "Colors"
+msgstr ""
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1083
+msgid "Anchor Size"
+msgstr "Velikost kotvy"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1148
+msgid "Enable System Tray Docking"
+msgstr "Povolit ikonu v oznamovací oblasti panelu"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1149
+msgid "Start Minimized in the System Tray"
+msgstr "Spustit zmenšeno v oznamovací oblasti panelu"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1150
+msgid "Use AppIndicator for Docking"
+msgstr "Použít ukazatele programů pro ukotvení v panelu"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1155
+#, fuzzy
+msgid "System Tray"
+msgstr "<b>Oznamovací oblast panelu</b>"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1172
+msgid "Autosave Every"
+msgstr "Automaticky uložit každých"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1175
+msgid "Minutes"
+msgstr "minut"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1179
+msgid "Autosave on Quit"
+msgstr "Automaticky uložit při ukončení"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1180
+msgid "Create a Backup Copy Before Saving"
+msgstr "Před uložením vytvořit záložní kopii"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1191
+#, fuzzy
+msgid "Saving"
+msgstr "<b>Ukládání</b>"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1200
+msgid "Automatically Check for Newer Version"
+msgstr "Automaticky vyhledat novou verzi"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1201
+msgid "Reload Document From Last Session"
+msgstr "Nahrát dokument z posledního sezení znovu"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1202
+msgid "Reload After External Update to CT* File"
+msgstr "Nahrát znovu po vnější aktualizaci na soubor CT*"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1227
+#, fuzzy
+msgid "Language"
+msgstr "Jazyky"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1310
+msgid "The New Language will be Available Only After Restarting CherryTree"
+msgstr "Nový jazyk bude dostupný až po novém spuštění CherryTree"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1318
+msgid "All Nodes"
+msgstr "Všechny uzly"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1319
+msgid "Text Nodes"
+msgstr "Uzly s textem"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1320
+msgid "Code Nodes"
+msgstr "Uzly s kódem"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1321
+msgid "Tree"
+msgstr "Strom"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1323
+msgid "Links"
+msgstr "Odkazy"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/exports.py:38
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:552
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1128
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1278
+msgid "CherryTree Document"
+msgstr "Dokument CherryTree"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/exports.py:99
+#, fuzzy
+msgid "PDF File"
+msgstr "Pro soubor"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/exports.py:180
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:667
+msgid "Plain Text Document"
+msgstr "Dokument prostý text"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/tablez.py:63
+msgid "Rename Column"
+msgstr "Přejmenovat sloupec"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/tablez.py:74
+msgid "Delete Column"
+msgstr "Smazat sloupec"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/tablez.py:82
+msgid "Add Column"
+msgstr "Přidat sloupec"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/tablez.py:93
+msgid "Move Column Left"
+msgstr "Posunout sloupec vlevo"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/tablez.py:101
+msgid "Move Column Right"
+msgstr "Posunout sloupec vpravo"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/tablez.py:170
+msgid "Rows"
+msgstr "Řádky "
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/tablez.py:174
+msgid "Columns"
+msgstr "Sloupce"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/tablez.py:189
+msgid "Table Size"
+msgstr "Velikost tabulky"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/tablez.py:194
+msgid "Min Width"
+msgstr "Nejmenší šířka"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/tablez.py:198
+msgid "Max Width"
+msgstr "Největší šířka"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/tablez.py:213
+msgid "Column Properties"
+msgstr "Vlastnosti sloupců"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/tablez.py:218
+msgid "Import from CSV File"
+msgstr "Zavést ze souboru CSV"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/tablez.py:253
+#: /home/qsduser/Templates/hg_cherrytree/modules/tablez.py:275
+msgid "CSV File"
+msgstr "Soubor CSV"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/tablez.py:269
+msgid "Insert Table"
+msgstr "Vložit tabulku"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/tablez.py:313
+msgid "Click to Edit the Column Settings"
+msgstr "Klepněte pro úpravu nastavení sloupce"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/tablez.py:358
+msgid "Edit Table Properties"
+msgstr "Upravit vlastnosti tabulky..."
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/tablez.py:434
+msgid "Table Column Action"
+msgstr "Upravit sloupec v tabulce"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:198
 msgid "Checking for Newer Version..."
 msgstr "Vyhledat novou verzi..."
 
-#: modules/core.py:224
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:204
 msgid "A Newer Version Is Available!"
 msgstr "Je dostupná novější verze"
 
-#: modules/core.py:229
-msgid "This is the Latest Version Available"
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:209
+#, fuzzy
+msgid "You Are Using the Latest Version Available"
 msgstr "Toto je nejnovější dostupná verze"
 
-#: modules/core.py:232
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:212
 msgid "Failed to Retrieve Latest Version Information - Try Again Later"
 msgstr ""
 "Nepodařilo se dostat informace o nejnovější verzi - Zkuste to později znovu"
 
-#: modules/core.py:249 modules/core.py:3284 modules/core.py:3647
-#: modules/core.py:4197
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:229
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2905
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3269
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3803
 msgid "No Text is Selected"
 msgstr "Není vybrán žádný text"
 
-#: modules/core.py:549 modules/core.py:1979
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:529
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1930
 msgid "The new father can't be one of his sons!"
 msgstr ""
 "Nový nadřízený uzel nemůže být jedním z podřízených uzlů nynějšího uzlu!"
 
-#: modules/core.py:572 modules/core.py:1179 modules/core.py:1329
-msgid "CherryTree Document"
-msgstr "Dokument CherryTree"
-
-#: modules/core.py:595 modules/core.py:1599
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:575
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1549
 #, python-format
 msgid "\"%s\" is Not a CherryTree Document"
 msgstr "\"%s\" není dokumentem CherryTree"
 
-#: modules/core.py:601
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:581
 msgid "NoteCase Document"
 msgstr "Dokument NoteCase"
 
-#: modules/core.py:687
-msgid "Plain Text Document"
-msgstr "Dokument prostý text"
-
-#: modules/core.py:705
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:685
 msgid "Treepad Document"
 msgstr "Dokument Treepad"
 
-#: modules/core.py:723
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:703
 msgid "KeyNote Document"
 msgstr "Dokument KeyNote"
 
-#: modules/core.py:741
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:721
 msgid "Mempad Document"
 msgstr "Dokument Mempad"
 
-#: modules/core.py:759
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:739
 msgid "Knowit Document"
 msgstr "Dokument Knowit"
 
-#: modules/core.py:777
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:757
 msgid "Leo Document"
 msgstr "Dokument Leo"
 
-#: modules/core.py:808
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:788
 msgid "Who is the Father?"
 msgstr "Který je nadřízený uzel"
 
-#: modules/core.py:815
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:795
 msgid "The Tree Root"
 msgstr "Kořen stromu"
 
-#: modules/core.py:816
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:796
 msgid "The Selected Node"
 msgstr "Vybraný uzel"
 
-#: modules/core.py:1017
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:983
 msgid "The Document was Reloaded After External Update to CT* File"
 msgstr "Dokument byl nahrán znovu po vnější aktualizaci na soubor CT*"
 
-#: modules/core.py:1044
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1010
 msgid "CherryTree Hierarchical Note Taking"
 msgstr "Hierarchická tvorba poznámek v CherryTree"
 
-#: modules/core.py:1296
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1245
 #, python-format
 msgid "You Have No Write Access to %s"
 msgstr "Nemáte oprávnění pro zápis do %s"
 
-#: modules/core.py:1311
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1260
 msgid "Writing to Disk..."
 msgstr "Zapisuje se na disk..."
 
-#: modules/core.py:1356
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1306
 msgid "Choose Storage Type"
 msgstr "Vyberte typ úložiště"
 
-#: modules/core.py:1363 modules/core.py:1366
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1313
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1316
 msgid "Not Protected"
 msgstr "Nechráněn"
 
-#: modules/core.py:1364 modules/core.py:1368
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1314
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1318
 msgid "Password Protected"
 msgstr "Heslo chráněno"
 
-#: modules/core.py:1375
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1325
 msgid "Storage Type"
 msgstr "Typ úložiště"
 
-#: modules/core.py:1386
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1336
 msgid "Enter the New Password Twice"
 msgstr "Zadejte nové heslo dvakrát"
 
-#: modules/core.py:1429
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1379
 msgid "The Password Fields Must be Filled"
 msgstr "Pole pro hesla musí být vyplněna"
 
-#: modules/core.py:1432
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1382
 msgid "The Two Inserted Passwords Do Not Match"
 msgstr "Ta dvě vložená hesla se neshodují"
 
-#: modules/core.py:1437
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1387
 #, python-format
 msgid "The Characters  %s  are Not Allowed"
 msgstr "Znaky %s nejsou dovoleny"
 
-#: modules/core.py:1455
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1405
 msgid ""
 "Binary Executable '7za' Not Found, Check The Package 'p7zip-full' to be "
 "Installed Properly"
@@ -467,53 +2335,49 @@ msgstr ""
 "Binární spustitelný soubor '7za' nebyl nalezen. Prověřte, zda je balíček "
 "'7za' nainstalován správně"
 
-#: modules/core.py:1461
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1411
 #, python-format
 msgid "Enter Password for %s"
 msgstr "Zadejte heslo pro %s"
 
-#: modules/core.py:1523
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1473
 msgid "Wrong Password"
 msgstr "Chybné heslo"
 
-#: modules/core.py:1967
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1918
 msgid "Select the New Father"
 msgstr "Vybrat nový nadřízený uzel"
 
-#: modules/core.py:1971
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1922
 msgid "The new father can't be the very node to move!"
 msgstr "Nový nadřízený uzel nemůže být vlastní uzel k přesunu!"
 
-#: modules/core.py:1974
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1925
 msgid "The new choosed father is again the old father!"
 msgstr "Nový vybraný nadřízený uzel je opět ten starý nadřízený uzel!"
 
-#: modules/core.py:2314
-msgid "The New Language will be Available Only After Restarting CherryTree"
-msgstr "Nový jazyk bude dostupný až po novém spuštění CherryTree"
-
-#: modules/core.py:2431
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2104
 msgid "New Node Properties"
 msgstr "Vlastnosti nového uzlu"
 
-#: modules/core.py:2458
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2131
 msgid "New Child Node Properties"
 msgstr "Vlastnosti nového podřízeného uzlu"
 
-#: modules/core.py:2477
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2150
 #, python-format
 msgid "Are you sure to <b>Delete the node '%s'?</b>"
 msgstr "Opravdu chcete <b>smazat uzel '%s'?</b>"
 
-#: modules/core.py:2479
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2152
 msgid "The node <b>has Children, they will be Deleted too!</b>"
 msgstr "Uzel má <b>podřízené uzly, které budou rovněž smazány!</b>"
 
-#: modules/core.py:2499
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2172
 msgid "Node Properties"
 msgstr "Vlastnosti uzlu"
 
-#: modules/core.py:2507
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2180
 msgid ""
 "Entering the Automatic Syntax Highlighting you will Lose all Custom Colors "
 "for This Node, Do you want to Continue?"
@@ -521,1780 +2385,199 @@ msgstr ""
 "Automatické zvýraznění skladby povede k zahození všech ručně stanovených "
 "vlastních barev v tomto uzlu. Chcete pokračovat?"
 
-#: modules/core.py:2890
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2563
 msgid "Search for"
 msgstr "Hledat"
 
-#: modules/core.py:2897
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2570
 msgid "Replace with"
 msgstr "Nahradit"
 
-#: modules/core.py:2912
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2585
 msgid "Match Case"
 msgstr "Rozlišovat velká a malá písmena"
 
-#: modules/core.py:2914
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2587
 msgid "Regular Expression"
 msgstr "Regulární výraz"
 
-#: modules/core.py:2916
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2589
 msgid "Whole Word"
 msgstr "Celé slovo"
 
-#: modules/core.py:2918
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2591
 msgid "Start Word"
 msgstr "Začátek slova"
 
-#: modules/core.py:2920
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2593
 msgid "Forward"
 msgstr "Vpřed"
 
-#: modules/core.py:2922
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2595
 msgid "Backward"
 msgstr "Zpět"
 
-#: modules/core.py:2925
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2598
 msgid "All, List Matches"
 msgstr "Sestavit seznam všech shod"
 
-#: modules/core.py:2927
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2600
 msgid "First From Selection"
 msgstr "První ve výběru"
 
-#: modules/core.py:2930
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2603
 msgid "First in All Range"
 msgstr "První v celém dokumentu"
 
-#: modules/core.py:2933
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2606
 msgid "Show Iterated Find/Replace Dialog"
 msgstr "Ukázat dialog pro zopakování hledání/nahrazení"
 
-#: modules/core.py:2953
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2626
 msgid "Search options"
 msgstr "Volby pro hledání"
 
-#: modules/core.py:3005 modules/core.py:4151
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2678
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3757
 msgid "Rich Text"
 msgstr "Formátovaný text"
 
-#: modules/core.py:3006 modules/codeboxes.py:75
-msgid "Automatic Syntax Highlighting"
-msgstr "Automatické zvýrazňování skladby"
-
-#: modules/core.py:3023
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2696
 msgid "Node Type"
 msgstr "Typ uzlu"
 
-#: modules/core.py:3029
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2702
 msgid "Tags for Searching"
 msgstr "Značky pro hledání"
 
-#: modules/core.py:3033 modules/core.py:4153
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2706
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3759
 msgid "Read Only"
 msgstr "Pouze pro čtení"
 
-#: modules/core.py:3067
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2740
 msgid "The Size of the Toolbar Icons is already at the Maximum Value"
 msgstr "Ikony v nástrojovém pruhu jsou již tak velké, jak jen je to možné"
 
-#: modules/core.py:3075
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2748
 msgid "The Size of the Toolbar Icons is already at the Minimum Value"
 msgstr "Ikony v nástrojovém pruhu jsou již tak malé, jak jen je to možné"
 
-#: modules/core.py:3156
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2829
 msgid "Edit Anchor"
 msgstr "Upravit kotvu..."
 
-#: modules/core.py:3159
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2832
 msgid "Insert Anchor"
 msgstr "Vložit kotvu..."
 
-#: modules/core.py:3195
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2868
 msgid "Not Any H1, H2 or H3 Formatting Found"
 msgstr "Nebylo nalezeno žádné formátování nadpisů (H1, H2 nebo H3)"
 
-#: modules/core.py:3262
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2883
 msgid ""
 "Automatic Syntax Highlighting Must be Disabled in order to Use This Feature"
 msgstr ""
 "Automatické zvýrazňování skladby nesmí být v činnosti, aby bylo možno "
 "používat tuto funkci"
 
-#: modules/core.py:3276
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2897
 msgid "The Tree is Empty!"
 msgstr "Strom je prázdný!"
 
-#: modules/core.py:3297 modules/cons.py:644
-msgid "Tree Summary Information"
-msgstr "Přehled o stavbě stromu"
-
-#: modules/core.py:3305
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2926
 msgid "Number of Text Nodes"
 msgstr "Počet uzlů textu"
 
-#: modules/core.py:3308
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2929
 msgid "Number of Code Nodes"
 msgstr "Počet uzlů zdrojového kódu"
 
-#: modules/core.py:3311
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2932
 msgid "Number of Images"
 msgstr "Počet obrázků"
 
-#: modules/core.py:3314
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2935
 msgid "Number of Tables"
 msgstr "Počet tabulek"
 
-#: modules/core.py:3317
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2938
 msgid "Number of CodeBoxes"
 msgstr "Počet obdélníků se zdrojovým kódem"
 
-#: modules/core.py:3386
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3007
 msgid "Image Properties"
 msgstr "Vlastnosti obrázku"
 
-#: modules/core.py:3432
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3053
 msgid "PNG Image"
 msgstr "Obrázek PNG"
 
-#: modules/core.py:3438
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3059
 #, python-format
 msgid "Write to %s Failed"
 msgstr "Nepodařilo se zapsat %s"
 
-#: modules/core.py:3494
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3110
 msgid "Lines Stripped"
 msgstr "Řádky zbaveny"
 
-#: modules/core.py:3612
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3229
 msgid "No Previous Text Format Was Performed During This Session"
 msgstr "Během tohoto sezení nebylo ještě provedeno žádné formátování textu"
 
-#: modules/core.py:3653
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3275
 msgid "Link Name"
 msgstr "Název odkazu"
 
-#: modules/core.py:3683
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3303
 msgid "The Cursor is Not into a Paragraph"
 msgstr "Ukazatel se nenachází v odstavci"
 
-#: modules/core.py:3696
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3316
 msgid "Insert/Edit Link"
 msgstr "Vložit/Upravit odkaz"
 
-#: modules/core.py:3721
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3341
 msgid "Pick a Color"
 msgstr "Vybrat barvu"
 
-#: modules/core.py:3883
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3519
 #, python-format
 msgid "The File Link '%s' is Not Valid"
 msgstr "Cesta k souboru '%s' není platná"
 
-#: modules/core.py:3898
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3534
 #, python-format
 msgid "The Folder Link '%s' is Not Valid"
 msgstr "Odkaz na složku '%s' není platný"
 
-#: modules/core.py:3921
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3557
 #, python-format
 msgid "No anchor named '%s' found"
 msgstr "Nebyla nalezena žádná kotva s názvem '%s'"
 
-#: modules/tablez.py:63
-msgid "Rename Column"
-msgstr "Přejmenovat sloupec"
+#~ msgid "<b>Miscellaneous</b>"
+#~ msgstr "<b>Různé</b>"
 
-#: modules/tablez.py:74
-msgid "Delete Column"
-msgstr "Smazat sloupec"
+#~ msgid "<b>Spell Check</b>"
+#~ msgstr "<b>Ověření správného psaní</b>"
 
-#: modules/tablez.py:82
-msgid "Add Column"
-msgstr "Přidat sloupec"
+#~ msgid "<b>Theme</b>"
+#~ msgstr "<b>Motiv</b>"
 
-#: modules/tablez.py:93
-msgid "Move Column Left"
-msgstr "Posunout sloupec vlevo"
+#~ msgid "<b>Automatic Syntax Highlighting</b>"
+#~ msgstr "<b>Automatické zvýrazňování skladby</b>"
 
-#: modules/tablez.py:101
-msgid "Move Column Right"
-msgstr "Posunout sloupec vpravo"
+#~ msgid "<b>Fonts</b>"
+#~ msgstr "<b>Písma</b>"
 
-#: modules/tablez.py:170
-msgid "Rows"
-msgstr "Řádky "
+#~ msgid "<b>Links</b>"
+#~ msgstr "<b>Odkazy</b>"
 
-#: modules/tablez.py:174
-msgid "Columns"
-msgstr "Sloupce"
-
-#: modules/tablez.py:189
-msgid "Table Size"
-msgstr "Velikost tabulky"
-
-#: modules/tablez.py:194
-msgid "Min Width"
-msgstr "Nejmenší šířka"
-
-#: modules/tablez.py:198
-msgid "Max Width"
-msgstr "Největší šířka"
-
-#: modules/tablez.py:213
-msgid "Column Properties"
-msgstr "Vlastnosti sloupců"
-
-#: modules/tablez.py:218
-msgid "Import from CSV File"
-msgstr "Zavést ze souboru CSV"
-
-#: modules/tablez.py:253 modules/tablez.py:275
-msgid "CSV File"
-msgstr "Soubor CSV"
-
-#: modules/tablez.py:269
-msgid "Insert Table"
-msgstr "Vložit tabulku"
-
-#: modules/tablez.py:304 modules/imports.py:1971
-msgid "click me"
-msgstr "Klepni mě"
-
-#: modules/tablez.py:313
-msgid "Click to Edit the Column Settings"
-msgstr "Klepněte pro úpravu nastavení sloupce"
-
-#: modules/tablez.py:358
-msgid "Edit Table Properties"
-msgstr "Upravit vlastnosti tabulky..."
-
-#: modules/tablez.py:434
-msgid "Table Column Action"
-msgstr "Upravit sloupec v tabulce"
-
-#: modules/codeboxes.py:89
-msgid "pixels"
-msgstr "px (obrazové body)"
-
-#: modules/codeboxes.py:114
-msgid "Size"
-msgstr "Velikost"
-
-#: modules/codeboxes.py:119 glade/cherrytree.glade.h:6
-msgid "Show Line Numbers"
-msgstr "Ukázat čísla řádků"
-
-#: modules/codeboxes.py:121
-msgid "Highlight Matching Brackets"
-msgstr "Zvýraznit odpovídající si závorky"
-
-#: modules/codeboxes.py:130
-msgid "Options"
-msgstr "Volby"
-
-#: modules/codeboxes.py:172 modules/cons.py:543 modules/cons.py:738
-msgid "Insert a CodeBox"
-msgstr "Vložit CodeBox"
-
-#: modules/codeboxes.py:295
-msgid "Edit CodeBox"
-msgstr "Upravit CodeBox"
-
-#: modules/cons.py:494
-msgid "_File"
-msgstr "_Soubor"
-
-#: modules/cons.py:495
-msgid "_Edit"
-msgstr "_Úpravy"
-
-#: modules/cons.py:496 modules/cons.py:706
-msgid "For_matting"
-msgstr "_Formát"
-
-#: modules/cons.py:497
-msgid "_Tree"
-msgstr "S_trom"
-
-#: modules/cons.py:498 modules/cons.py:646
-msgid "Node _Move"
-msgstr "_Posunutí uzlu"
-
-#: modules/cons.py:499 modules/cons.py:663
-msgid "Nodes _Import"
-msgstr "_Zavedení uzlů"
-
-#: modules/cons.py:500 modules/cons.py:680
-msgid "Nodes E_xport"
-msgstr "_Vyvedení uzlů"
-
-#: modules/cons.py:501 modules/cons.py:745 modules/cons.py:784
-msgid "C_hange Case"
-msgstr "Z_měnit velikost písmen"
-
-#: modules/cons.py:502 modules/cons.py:759 modules/cons.py:798
-msgid "_Search"
-msgstr "_Hledání"
-
-#: modules/cons.py:503 modules/cons.py:766 modules/cons.py:805
-msgid "_Replace"
-msgstr "_Nahrazení"
-
-#: modules/cons.py:504
-msgid "_View"
-msgstr "_Pohled"
-
-#: modules/cons.py:505
-msgid "_Bookmarks"
-msgstr "_Záložky"
-
-#: modules/cons.py:506
-msgid "_Import"
-msgstr "_Zavedení"
-
-#: modules/cons.py:507
-msgid "E_xport"
-msgstr "_Vyvedení"
-
-#: modules/cons.py:508
-msgid "_Help"
-msgstr "_Nápověda"
-
-#: modules/cons.py:510
-msgid "New _Instance"
-msgstr "_Nová stromová stavba..."
-
-#: modules/cons.py:510
-msgid "Start a New Instance of CherryTree"
-msgstr "Založit novou stromovou stavbu"
-
-#: modules/cons.py:511
-msgid "_Open File"
-msgstr "_Otevřít soubor"
-
-#: modules/cons.py:512
-msgid "_Save"
-msgstr "_Uložit"
-
-#: modules/cons.py:512
-msgid "Save File"
-msgstr "Uložit soubor"
-
-#: modules/cons.py:513
-msgid "Save _As"
-msgstr "Uloži_t jako"
-
-#: modules/cons.py:513
-msgid "Save File As"
-msgstr "Uložit soubor jako"
-
-#: modules/cons.py:514 modules/cons.py:681
-msgid "Export To _PDF"
-msgstr "Vyvést jako _PDF"
-
-#: modules/cons.py:514 modules/cons.py:681
-msgid "Export To PDF"
-msgstr "Vyvést jako PDF"
-
-#: modules/cons.py:515 modules/cons.py:684
-msgid "Export To _HTML"
-msgstr "Vyvést _jako HTML"
-
-#: modules/cons.py:515 modules/cons.py:684
-msgid "Export To HTML"
-msgstr "Vyvést jako HTML"
-
-#: modules/cons.py:516 modules/cons.py:682
-msgid "Export to Multiple Plain _Text Files"
-msgstr "Vyvést jako více souborů prostého _textu"
-
-#: modules/cons.py:516 modules/cons.py:682
-msgid "Export to Multiple Plain Text Files"
-msgstr "Vyvést jako více souborů prostého textu"
-
-#: modules/cons.py:517 modules/cons.py:683
-msgid "Export to _Single Plain Text File"
-msgstr "Vyvést jako jeden soubor prostého _textu"
-
-#: modules/cons.py:517 modules/cons.py:683
-msgid "Export to Single Plain Text File"
-msgstr "Vyvést jako jeden soubor prostého textu"
-
-#: modules/cons.py:518 modules/cons.py:685
-msgid "_Export To CherryTree Document"
-msgstr "_Vyvést jako dokument CherryTree"
-
-#: modules/cons.py:518 modules/cons.py:685
-msgid "Export To CherryTree Document"
-msgstr "Vyvést jako dokument CherryTree"
-
-#: modules/cons.py:519
-msgid "Pa_ge Setup"
-msgstr "Nastavení strany"
-
-#: modules/cons.py:519
-msgid "Set up the Page for Printing"
-msgstr "Nastavit stranu pro tisk"
-
-#: modules/cons.py:520
-msgid "_Print"
-msgstr "_Tisk"
-
-#: modules/cons.py:520
-msgid "Print"
-msgstr "Tisk"
-
-#: modules/cons.py:521
-msgid "_Quit"
-msgstr "_Ukončit"
-
-#: modules/cons.py:521
-msgid "Quit the Application"
-msgstr "Ukončit program"
-
-#: modules/cons.py:522
-msgid "_Exit CherryTree"
-msgstr "_Ukončit CherryTree"
-
-#: modules/cons.py:522
-msgid "Exit from CherryTree"
-msgstr "Ukončit CherryTree"
-
-#: modules/cons.py:523
-msgid "_Preferences"
-msgstr "_Nastavení"
-
-#: modules/cons.py:523 glade/cherrytree.glade.h:1
-msgid "Preferences"
-msgstr "Nastavení"
-
-#: modules/cons.py:524 modules/cons.py:743
-msgid "Insert _Horizontal Rule"
-msgstr "Vložit _oddělovací čáru"
-
-#: modules/cons.py:524 modules/cons.py:743
-msgid "Insert Horizontal Rule"
-msgstr "Vložit oddělovací čáru"
-
-#: modules/cons.py:525 modules/cons.py:742 modules/cons.py:782
-msgid "Insert Ti_mestamp"
-msgstr "Vložit časo_vé razítko"
-
-#: modules/cons.py:525 modules/cons.py:742 modules/cons.py:782
-msgid "Insert Timestamp"
-msgstr "Vložit časové razítko"
-
-#: modules/cons.py:526 modules/cons.py:730
-msgid "Set/Unset _Bulleted List"
-msgstr "Zapnout/Vypnout _seznam s odrážkami"
-
-#: modules/cons.py:526 modules/cons.py:730
-msgid "Set/Unset the Current Paragraph/Selection as a Bulleted List"
-msgstr ""
-"Zapnout/Vypnout nynější odstavec/výběr jako položku seznamu s odrážkami"
-
-#: modules/cons.py:527 modules/cons.py:731
-msgid "Set/Unset _Numbered List"
-msgstr "Zapnout/Vypnout čís_lovaný seznam"
-
-#: modules/cons.py:527 modules/cons.py:731
-msgid "Set/Unset the Current Paragraph/Selection as a Numbered List"
-msgstr ""
-"Zapnout/Vypnout nynější odstavec/výběr jako položku číslovaného seznamu"
-
-#: modules/cons.py:528 modules/cons.py:732
-msgid "Set/Unset _To-Do List"
-msgstr "Zapnout/Vypnout _seznam pracovních úkolů"
-
-#: modules/cons.py:528 modules/cons.py:732
-msgid "Set/Unset the Current Paragraph/Selection as a To-Do List"
-msgstr ""
-"Zapnout/Vypnout nynější odstavec/výběr jako položku seznamu pracovních úkolů"
-
-#: modules/cons.py:529 modules/cons.py:739
-msgid "Insert/Edit _Link"
-msgstr "Vložit/Upravit _odkaz"
-
-#: modules/cons.py:529 modules/cons.py:739
-msgid "Insert a Link/Edit the Underlying Link"
-msgstr "Vložit odkaz/Upravit označený odkaz"
-
-#: modules/cons.py:530 modules/cons.py:741
-msgid "Insert T_OC"
-msgstr "Vložit _obsah"
-
-#: modules/cons.py:530 modules/cons.py:741
-msgid "Insert Table of Contents"
-msgstr "Vložit seznam s obsahem"
-
-#: modules/cons.py:531 modules/cons.py:740
-msgid "Insert _Anchor"
-msgstr "Vložit _kotvu"
-
-#: modules/cons.py:531 modules/cons.py:740
-msgid "Insert an Anchor"
-msgstr "Vložit jednu kotvu"
-
-#: modules/cons.py:532
-msgid "Edit _Anchor"
-msgstr "Upravit _kotvu"
-
-#: modules/cons.py:532
-msgid "Edit the Underlying Anchor"
-msgstr "Upravit označenou kotvu"
-
-#: modules/cons.py:533 modules/cons.py:736
-msgid "Insert I_mage"
-msgstr "Vložit _obrázek"
-
-#: modules/cons.py:533 modules/cons.py:736
-msgid "Insert an Image"
-msgstr "Vložit jeden obrázek"
-
-#: modules/cons.py:534
-msgid "_Save Image as PNG"
-msgstr "_Uložit obrázek jako PNG"
-
-#: modules/cons.py:534
-msgid "Save the Selected Image as a PNG file"
-msgstr "Uložit vybraný obrázek jako PNG"
-
-#: modules/cons.py:535
-msgid "_Edit Image"
-msgstr "_Upravit obrázek"
-
-#: modules/cons.py:535
-msgid "Edit the Selected Image"
-msgstr "Upravit vybraný obrázek"
-
-#: modules/cons.py:536
-msgid "C_ut Image"
-msgstr "Vy_jmout obrázek"
-
-#: modules/cons.py:536
-msgid "Cut the Selected Image"
-msgstr "Vyjmout vybraný obrázek"
-
-#: modules/cons.py:537
-msgid "_Copy Image"
-msgstr "_Kopírovat obrázek"
-
-#: modules/cons.py:537
-msgid "Copy the Selected Image"
-msgstr "Kopírovat vybraný obrázek"
-
-#: modules/cons.py:538
-msgid "_Delete Image"
-msgstr "_Smazat obrázek"
-
-#: modules/cons.py:538
-msgid "Delete the Selected Image"
-msgstr "Smazat vybraný obrázek"
-
-#: modules/cons.py:539
-msgid "C_ut Table"
-msgstr "Vyj_mout tabulku"
-
-#: modules/cons.py:539
-msgid "Cut the Selected Table"
-msgstr "Vyjmout vybranou tabulku"
-
-#: modules/cons.py:540
-msgid "_Copy Table"
-msgstr "_Kopírovat tabulku"
-
-#: modules/cons.py:540
-msgid "Copy the Selected Table"
-msgstr "Kopírovat vybranou tabulku"
-
-#: modules/cons.py:541
-msgid "_Delete Table"
-msgstr "_Smazat tabulku"
-
-#: modules/cons.py:541
-msgid "Delete the Selected Table"
-msgstr "Smazat vybranou tabulku"
-
-#: modules/cons.py:542 modules/cons.py:737
-msgid "Insert _Table"
-msgstr "Vložit _tabulku"
-
-#: modules/cons.py:542 modules/cons.py:737
-msgid "Insert a Table"
-msgstr "Vložit jednu tabulku"
-
-#: modules/cons.py:543 modules/cons.py:738
-msgid "Insert _CodeBox"
-msgstr "Vložit _CodeBox"
-
-#: modules/cons.py:544 modules/cons.py:746 modules/cons.py:785
-msgid "_Lower Case of Selection/Word"
-msgstr "_Malá písmena výběru/slova"
-
-#: modules/cons.py:544 modules/cons.py:746 modules/cons.py:785
-msgid "Lower the Case of the Selection/the Underlying Word"
-msgstr "Zmenšit velikost písmen výběru/spodního slova"
-
-#: modules/cons.py:545 modules/cons.py:747 modules/cons.py:786
-msgid "_Upper Case of Selection/Word"
-msgstr "_Velká písmena výběru/slova"
-
-#: modules/cons.py:545 modules/cons.py:747 modules/cons.py:786
-msgid "Upper the Case of the Selection/the Underlying Word"
-msgstr "Zvětšit velikost písmen výběru/spodního slova"
-
-#: modules/cons.py:546 modules/cons.py:748 modules/cons.py:787
-msgid "_Toggle Case of Selection/Word"
-msgstr "_Přepnout velikost písmen výběru/slova"
-
-#: modules/cons.py:546 modules/cons.py:748 modules/cons.py:787
-msgid "Toggle the Case of the Selection/the Underlying Word"
-msgstr "Přepnout velikost písmen výběru/spodního slova"
-
-#: modules/cons.py:547 modules/cons.py:754 modules/cons.py:793
-msgid "_Duplicate Row"
-msgstr "_Zdvojit řádek"
-
-#: modules/cons.py:547 modules/cons.py:754 modules/cons.py:793
-msgid "Duplicate the Current Row/Selection"
-msgstr "Zdvojit nynější řádek/výběr"
-
-#: modules/cons.py:548 modules/cons.py:755 modules/cons.py:794
-msgid "Move _Up Row"
-msgstr "Posunout řádek _nahoru"
-
-#: modules/cons.py:548 modules/cons.py:755 modules/cons.py:794
-msgid "Move Up the Current Row/Selected Rows"
-msgstr "Posunout nynější řádek/vybrané řádky nahoru"
-
-#: modules/cons.py:549 modules/cons.py:756 modules/cons.py:795
-msgid "Move _Down Row"
-msgstr "Posunout řádek _dolů"
-
-#: modules/cons.py:549 modules/cons.py:756 modules/cons.py:795
-msgid "Move Down the Current Row/Selected Rows"
-msgstr "Posunout nynější řádek/vybrané řádky dolů"
-
-#: modules/cons.py:550 modules/cons.py:621 modules/cons.py:753
-#: modules/cons.py:792
-msgid "De_lete Row"
-msgstr "Smazat řá_dek"
-
-#: modules/cons.py:550 modules/cons.py:753 modules/cons.py:792
-msgid "Delete the Current Row/Selected Rows"
-msgstr "Smazat nynější řádek/vybrané řádky"
-
-#: modules/cons.py:551 modules/cons.py:618 modules/cons.py:751
-#: modules/cons.py:790
-msgid "Cu_t Row"
-msgstr "Vyjmou_t řádek"
-
-#: modules/cons.py:551 modules/cons.py:751 modules/cons.py:790
-msgid "Cut the Current Row/Selected Rows"
-msgstr "Vyjmout nynější řádek/vybrané řádky"
-
-#: modules/cons.py:552 modules/cons.py:619
-msgid "_Copy Row"
-msgstr "_Kopírovat řádek"
-
-#: modules/cons.py:552 modules/cons.py:752 modules/cons.py:791
-msgid "Copy the Current Row/Selected Rows"
-msgstr "Kopírovat nynější řádek/vybrané řádky"
-
-#: modules/cons.py:553 modules/cons.py:692
-msgid "Go _Back"
-msgstr "Jít _zpět"
-
-#: modules/cons.py:553 modules/cons.py:692
-msgid "Go to the Previous Visited Node"
-msgstr "Jít na předchozí navštívený uzel"
-
-#: modules/cons.py:554 modules/cons.py:693
-msgid "Go _Forward"
-msgstr "Jít _vpřed"
-
-#: modules/cons.py:554 modules/cons.py:693
-msgid "Go to the Next Visited Node"
-msgstr "Jít na další navštívený uzel"
-
-#: modules/cons.py:555
-msgid "_Undo"
-msgstr "_Zpět"
-
-#: modules/cons.py:555
-msgid "Undo Last Operation"
-msgstr "Vrátit poslední změny"
-
-#: modules/cons.py:556
-msgid "_Redo"
-msgstr "Z_novu"
-
-#: modules/cons.py:556
-msgid "Redo Previously Discarded Operation"
-msgstr "Obnovit poslední odvolanou změnu"
-
-#: modules/cons.py:557 modules/cons.py:688
-msgid "_Inherit Syntax"
-msgstr "Předat _skladbu"
-
-#: modules/cons.py:557 modules/cons.py:688
-msgid ""
-"Change the Selected Node's Children Syntax Highlighting to the Father's "
-"Syntax Highlighting"
-msgstr "Předá vybrané zvýraznění skladby všem podřízeným uzlům"
-
-#: modules/cons.py:558 modules/cons.py:707
-msgid "Format _Latest"
-msgstr "Zopakovat _formátování"
-
-#: modules/cons.py:558 modules/cons.py:707
-msgid "Memory of Latest Text Format Type"
-msgstr "Zopakovat poslední způsob formátování textu"
-
-#: modules/cons.py:559 modules/cons.py:704
-msgid "_Paste as Plain Text"
-msgstr "_Vložit jako prostý text"
-
-#: modules/cons.py:559 modules/cons.py:704
-msgid "Paste as Plain Text, Discard the Rich Text Formatting"
-msgstr "Vložit jako prostý text, odložit formátování formátovaného textu (RTF)"
-
-#: modules/cons.py:560 modules/cons.py:708
-msgid "_Remove Formatting"
-msgstr "Odstranit f_ormátování"
-
-#: modules/cons.py:560 modules/cons.py:708
-msgid "Remove the Formatting from the Selected Text"
-msgstr "Odstranit formátování z vybraného textu"
-
-#: modules/cons.py:561 modules/cons.py:710
-msgid "Text _Color Foreground"
-msgstr "_Barva písma"
-
-#: modules/cons.py:561 modules/cons.py:710
-msgid "Change the Color of the Selected Text Foreground"
-msgstr "Změnit barvu písma u vybraného textu"
-
-#: modules/cons.py:562 modules/cons.py:711
-msgid "Text C_olor Background"
-msgstr "B_arva pozadí"
-
-#: modules/cons.py:562 modules/cons.py:711
-msgid "Change the Color of the Selected Text Background"
-msgstr "Změnit barvu pozadí u vybraného textu"
-
-#: modules/cons.py:563 modules/cons.py:712
-msgid "Toggle _Bold Property"
-msgstr "_Tučné"
-
-#: modules/cons.py:563 modules/cons.py:712
-msgid "Toggle Bold Property of the Selected Text"
-msgstr "Formátovat vybraný text tučně"
-
-#: modules/cons.py:564 modules/cons.py:713
-msgid "Toggle _Italic Property"
-msgstr "_Kurzíva"
-
-#: modules/cons.py:564 modules/cons.py:713
-msgid "Toggle Italic Property of the Selected Text"
-msgstr "Formátovat vybraný text kurzívně"
-
-#: modules/cons.py:565 modules/cons.py:714
-msgid "Toggle _Underline Property"
-msgstr "_Podtržení"
-
-#: modules/cons.py:565 modules/cons.py:714
-msgid "Toggle Underline Property of the Selected Text"
-msgstr "Formátovat vybraný text podtržením"
-
-#: modules/cons.py:566 modules/cons.py:715
-msgid "Toggle Stri_kethrough Property"
-msgstr "_Přeškrtnutí"
-
-#: modules/cons.py:566 modules/cons.py:715
-msgid "Toggle Strikethrough Property of the Selected Text"
-msgstr "Formátovat vybraný text přeškrtnutím"
-
-#: modules/cons.py:567 modules/cons.py:716
-msgid "Toggle h_1 Property"
-msgstr "Nadpis _1"
-
-#: modules/cons.py:567 modules/cons.py:716
-msgid "Toggle h1 Property of the Selected Text"
-msgstr "Formátovat vybraný text jako nadpis 1"
-
-#: modules/cons.py:568 modules/cons.py:717
-msgid "Toggle h_2 Property"
-msgstr "Nadpis _2"
-
-#: modules/cons.py:568 modules/cons.py:717
-msgid "Toggle h2 Property of the Selected Text"
-msgstr "Formátovat vybraný text jako nadpis 2"
-
-#: modules/cons.py:569 modules/cons.py:718
-msgid "Toggle h_3 Property"
-msgstr "Nadpis _3"
-
-#: modules/cons.py:569 modules/cons.py:718
-msgid "Toggle h3 Property of the Selected Text"
-msgstr "Formátovat vybraný text jako nadpis 3"
-
-#: modules/cons.py:570 modules/cons.py:719
-msgid "Toggle _Small Property"
-msgstr "_Malý"
-
-#: modules/cons.py:570 modules/cons.py:719
-msgid "Toggle Small Property of the Selected Text"
-msgstr "Formátovat vybraný text jako malý"
-
-#: modules/cons.py:571 modules/cons.py:720
-msgid "Toggle Su_perscript Property"
-msgstr "Horní index"
-
-#: modules/cons.py:571 modules/cons.py:720
-msgid "Toggle Superscript Property of the Selected Text"
-msgstr "Formátovat vybraný text jako horní index"
-
-#: modules/cons.py:572 modules/cons.py:721
-msgid "Toggle Su_bscript Property"
-msgstr "Dolní index"
-
-#: modules/cons.py:572 modules/cons.py:721
-msgid "Toggle Subscript Property of the Selected Text"
-msgstr "Formátovat vybraný text jako dolní index"
-
-#: modules/cons.py:573 modules/cons.py:722
-msgid "Toggle _Monospace Property"
-msgstr "Neproporcionální písmo"
-
-#: modules/cons.py:573 modules/cons.py:722
-msgid "Toggle Monospace Property of the Selected Text"
-msgstr "Formátovat vybraný text jako neproporcionální"
-
-#: modules/cons.py:574 modules/cons.py:725
-msgid "Justify _Left"
-msgstr "Zarovnat _vlevo"
-
-#: modules/cons.py:574 modules/cons.py:725
-msgid "Justify Left the Current Paragraph"
-msgstr "Zarovnat současný odstavec vlevo"
-
-#: modules/cons.py:575 modules/cons.py:726
-msgid "Justify _Center"
-msgstr "Zarovnat _na střed"
-
-#: modules/cons.py:575 modules/cons.py:726
-msgid "Justify Center the Current Paragraph"
-msgstr "Zarovnat současný odstavec na střed"
-
-#: modules/cons.py:576 modules/cons.py:727
-msgid "Justify _Right"
-msgstr "Zarovnat v_pravo"
-
-#: modules/cons.py:576 modules/cons.py:727
-msgid "Justify Right the Current Paragraph"
-msgstr "Zarovnat současný odstavec vpravo"
-
-#: modules/cons.py:577 modules/cons.py:760 modules/cons.py:799
-msgid "_Find in Node"
-msgstr "Hledat v _nynějším uzlu"
-
-#: modules/cons.py:577 modules/cons.py:760 modules/cons.py:799
-msgid "Find into the Selected Node"
-msgstr "Hledat v nyní vybraném uzlu"
-
-#: modules/cons.py:578 modules/cons.py:761 modules/cons.py:800
-msgid "Find in Node_s"
-msgstr "Hledat ve všech uzlech"
-
-#: modules/cons.py:578 modules/cons.py:761 modules/cons.py:800
-msgid "Find into all the Tree Nodes"
-msgstr "Hledat ve všech uzlech stavby stromu"
-
-#: modules/cons.py:579 modules/cons.py:660 modules/cons.py:762
-#: modules/cons.py:801
-msgid "Find a _Node"
-msgstr "Hledat _uzel"
-
-#: modules/cons.py:579 modules/cons.py:660 modules/cons.py:762
-#: modules/cons.py:801
-msgid "Find a Node from its Name"
-msgstr "Hledat název uzlu na základě jeho názvu"
-
-#: modules/cons.py:580 modules/cons.py:763 modules/cons.py:802
-msgid "Find _Again"
-msgstr "_Hledat dál"
-
-#: modules/cons.py:580 modules/cons.py:763 modules/cons.py:802
-msgid "Iterate the Last Find Operation"
-msgstr "Pokračovat v hledání"
-
-#: modules/cons.py:581 modules/cons.py:764 modules/cons.py:803
-msgid "Find _Back"
-msgstr "Hledat _pozpátku"
-
-#: modules/cons.py:581 modules/cons.py:764 modules/cons.py:803
-msgid "Iterate the Last Find Operation in Opposite Direction"
-msgstr "Zopakovat poslední hledání v opačném směru"
-
-#: modules/cons.py:582 modules/cons.py:767 modules/cons.py:806
-msgid "_Replace in Node"
-msgstr "Nahradit v n_ynějším uzlu"
-
-#: modules/cons.py:582 modules/cons.py:767 modules/cons.py:806
-msgid "Replace into the Selected Node"
-msgstr "Nahradit v nyní vybraném uzlu"
-
-#: modules/cons.py:583 modules/cons.py:768 modules/cons.py:807
-msgid "Replace in Node_s"
-msgstr "Nahradit ve všech uzlech"
-
-#: modules/cons.py:583 modules/cons.py:768 modules/cons.py:807
-msgid "Replace into all the Tree Nodes"
-msgstr "Nahradit ve všech uzlech stavby stromu"
-
-#: modules/cons.py:584 modules/cons.py:661 modules/cons.py:769
-#: modules/cons.py:808
-msgid "Replace in Nodes _Names"
-msgstr "Nahradit v _názvech uzlů"
-
-#: modules/cons.py:584 modules/cons.py:661 modules/cons.py:769
-#: modules/cons.py:808
-msgid "Replace in Nodes Names"
-msgstr "Nahradit v názvech uzlů"
-
-#: modules/cons.py:585 modules/cons.py:770 modules/cons.py:809
-msgid "Replace _Again"
-msgstr "Nahrazovat _dál"
-
-#: modules/cons.py:585 modules/cons.py:770 modules/cons.py:809
-msgid "Iterate the Last Replace Operation"
-msgstr "Zopakovat poslední nahrazení"
-
-#: modules/cons.py:586
-msgid "Show/Hide Node Name _Header"
-msgstr "Ukázat/Skrýt název uzlu v záhlaví"
-
-#: modules/cons.py:586
-msgid "Toggle Show/Hide Node Name Header"
-msgstr "Ukázat/Skrýt název uzlu"
-
-#: modules/cons.py:587
-msgid "Show/Hide _Tree"
-msgstr "Ukázat/Skrýt stavbu _stromu"
-
-#: modules/cons.py:587
-msgid "Toggle Show/Hide Tree"
-msgstr "Ukázat/Skrýt strom"
-
-#: modules/cons.py:588
-msgid "Show/Hide _CherryTree"
-msgstr "Ukázat/Skrýt _CherryTree"
-
-#: modules/cons.py:588
-msgid "Toggle Show/Hide CherryTree"
-msgstr "Ukázat/Skrýt CherryTree"
-
-#: modules/cons.py:589
-msgid "Show/Hide Tool_bar"
-msgstr "Ukázat/Skrýt nástrojový _pruh"
-
-#: modules/cons.py:589
-msgid "Toggle Show/Hide Toolbar"
-msgstr "Ukázat/Skrýt nástrojový pruh"
-
-#: modules/cons.py:590
-msgid "Show _All Matches Dialog"
-msgstr "Ukázat dialog _všechny shody"
-
-#: modules/cons.py:590
-msgid "Show Search All Matches Dialog"
-msgstr "Ukázat dialog pro vyhledání všech shod"
-
-#: modules/cons.py:591
-msgid "_Increase Toolbar Icons Size"
-msgstr "Z_většit velikost ikon v nástrojovém pruhu"
-
-#: modules/cons.py:591
-msgid "Increase the Size of the Toolbar Icons"
-msgstr "Zvětšit velikost ikon v nástrojovém pruhu"
-
-#: modules/cons.py:592
-msgid "_Decrease Toolbar Icons Size"
-msgstr "Z_menšit velikost ikon v nástrojovém pruhu"
-
-#: modules/cons.py:592
-msgid "Decrease the Size of the Toolbar Icons"
-msgstr "Zmenšit velikost ikon v nástrojovém pruhu"
-
-#: modules/cons.py:593
-msgid "Toggle _Focus Tree/Text"
-msgstr "Přepnout _zaměření strom/text"
-
-#: modules/cons.py:593
-msgid "Toggle Focus Between Tree and Text"
-msgstr "Přepnout zaměření mezi stromem a textem"
-
-#: modules/cons.py:594
-msgid "Toggle Node _Expanded/Collapsed"
-msgstr "Přepnout uzel rozbaleno/sbaleno"
-
-#: modules/cons.py:594
-msgid "Toggle Expanded/Collapsed Status of the Selected Node"
-msgstr "Přepnout stav rozbaleno/sbaleno vybraného uzlu"
-
-#: modules/cons.py:595
-msgid "E_xpand All Nodes"
-msgstr "Roz_balit všechny uzly"
-
-#: modules/cons.py:595
-msgid "Expand All the Tree Nodes"
-msgstr "Rozbalit všechny uzly stromové stavby"
-
-#: modules/cons.py:596
-msgid "_Collapse All Nodes"
-msgstr "S_ložit všechny uzly"
-
-#: modules/cons.py:596
-msgid "Collapse All the Tree Nodes"
-msgstr "Složit všechny uzly stromové stavby"
-
-#: modules/cons.py:597
-msgid "_Full Screen On/Off"
-msgstr "_Zobrazení na celou obrazovku zapnuto/vypnuto"
-
-#: modules/cons.py:597
-msgid "Toggle Full Screen On/Off"
-msgstr "Přepnout zobrazení na celou obrazovku Zapnuto/Vypnuto"
-
-#: modules/cons.py:598 modules/cons.py:664
-msgid "From _CherryTree File"
-msgstr "Ze souboru _CherryTree"
-
-#: modules/cons.py:598 modules/cons.py:664
-msgid "Add Nodes of a CherryTree File to the Current Tree"
-msgstr "Přidat uzly ze souboru CherryTree do současné stromové stavby"
-
-#: modules/cons.py:599 modules/cons.py:665
-msgid "From _Plain Text File"
-msgstr "Ze souboru _prostého textu"
-
-#: modules/cons.py:599 modules/cons.py:665
-msgid "Add Node from a Plain Text File to the Current Tree"
-msgstr "Přidat uzel ze souboru s prostým textem do současné stromové stavby"
-
-#: modules/cons.py:600 modules/cons.py:666
-msgid "From _Folder of Plain Text Files"
-msgstr "Ze _složky se soubory s prostým textem"
-
-#: modules/cons.py:600 modules/cons.py:666
-msgid "Add Nodes from a Folder of Plain Text Files to the Current Tree"
-msgstr ""
-"Přidat uzly  ze složky se soubory s prostým textem do současné stromové stavby"
-
-#: modules/cons.py:601 modules/cons.py:667
-msgid "From _Basket Folder"
-msgstr "Ze složky _Basket"
-
-#: modules/cons.py:601 modules/cons.py:667
-msgid "Add Nodes of a Basket Folder to the Current Tree"
-msgstr "Přidat uzly ze složky Basket (koš) do současné stromové stavby"
-
-#: modules/cons.py:602 modules/cons.py:668
-msgid "From _Gnote Folder"
-msgstr "Ze složky _Gnote"
-
-#: modules/cons.py:602 modules/cons.py:668
-msgid "Add Nodes of a Gnote Folder to the Current Tree"
-msgstr "Přidat uzly ze složky Gnote do současné stromové stavby"
-
-#: modules/cons.py:603 modules/cons.py:669
-msgid "From _KeepNote Folder"
-msgstr "Ze složky _KeepNote"
-
-#: modules/cons.py:603 modules/cons.py:669
-msgid "Add Nodes of a KeepNote Folder to the Current Tree"
-msgstr "Přidat uzly ze složky KeepNote do současné stromové stavby"
-
-#: modules/cons.py:604 modules/cons.py:670
-msgid "From K_eyNote File"
-msgstr "Ze souboru K_eyNote"
-
-#: modules/cons.py:604 modules/cons.py:670
-msgid "Add Nodes of a KeyNote File to the Current Tree"
-msgstr "Přidat uzly ze souboru KeyNote do současné stromové stavby"
-
-#: modules/cons.py:605 modules/cons.py:671
-msgid "From K_nowit File"
-msgstr "Ze souboru K_nowit"
-
-#: modules/cons.py:605 modules/cons.py:671
-msgid "Add Nodes of a Knowit File to the Current Tree"
-msgstr "Přidat uzly ze souboru Knowit do současné stromové stavby"
-
-#: modules/cons.py:606 modules/cons.py:672
-msgid "From _Leo File"
-msgstr "Ze souboru _Leo"
-
-#: modules/cons.py:606 modules/cons.py:672
-msgid "Add Nodes of a Leo File to the Current Tree"
-msgstr "Přidat uzly ze souboru Leo do současné stromové stavby"
-
-#: modules/cons.py:607 modules/cons.py:673
-msgid "From _Mempad File"
-msgstr "Ze souboru _Mempad"
-
-#: modules/cons.py:607 modules/cons.py:673
-msgid "Add Nodes of a Mempad File to the Current Tree"
-msgstr "Přidat uzly ze souboru Mempad do současné stromové stavby"
-
-#: modules/cons.py:608 modules/cons.py:674
-msgid "From _NoteCase File"
-msgstr "Ze souboru _NoteCase"
-
-#: modules/cons.py:608 modules/cons.py:674
-msgid "Add Nodes of a NoteCase File to the Current Tree"
-msgstr "Přidat uzly ze souboru NoteCase do současné stromové stavby"
-
-#: modules/cons.py:609 modules/cons.py:675
-msgid "From T_omboy Folder"
-msgstr "Ze složky T_omboy"
-
-#: modules/cons.py:609 modules/cons.py:675
-msgid "Add Nodes of a Tomboy Folder to the Current Tree"
-msgstr "Přidat uzly ze složky Tomboy do současné stromové stavby"
-
-#: modules/cons.py:610 modules/cons.py:676
-msgid "From T_reepad Lite File"
-msgstr "Soubor z T_reepad Lite"
-
-#: modules/cons.py:610 modules/cons.py:676
-msgid "Add Nodes of a Treepad Lite File to the Current Tree"
-msgstr "Přidat uzly ze souboru Treepad Lite do současné stromové stavby"
-
-#: modules/cons.py:611 modules/cons.py:677
-msgid "From _TuxCards File"
-msgstr "Ze souboru _TuxCards"
-
-#: modules/cons.py:611 modules/cons.py:677
-msgid "Add Nodes of a TuxCards File to the Current Tree"
-msgstr "Přidat uzly ze souboru TuxCards do současné stromové stavby"
-
-#: modules/cons.py:612 modules/cons.py:678
-msgid "From _Zim Folder"
-msgstr "Ze složky __Zim"
-
-#: modules/cons.py:612 modules/cons.py:678
-msgid "Add Nodes of a Zim Folder to the Current Tree"
-msgstr "Přidat uzly ze složky Zim do současné stromové stavby"
-
-#: modules/cons.py:613
-msgid "Online _Manual"
-msgstr "_Příručka na internetu"
-
-#: modules/cons.py:613
-msgid "Application's Online Manual"
-msgstr "_Příručka programu na internetu"
-
-#: modules/cons.py:614
-msgid "_Check Newer Version"
-msgstr "_Vyhledat novou verzi"
-
-#: modules/cons.py:614
-msgid "Check for a Newer Version"
-msgstr "Vyhledat novou verzi"
-
-#: modules/cons.py:615
-msgid "_About"
-msgstr "_O programu"
-
-#: modules/cons.py:616
-msgid "_Edit Table Properties"
-msgstr "_Upravit vlastnosti tabulky"
-
-#: modules/cons.py:616
-msgid "Edit the Table Properties"
-msgstr "Upravit vlastnosti tabulky"
-
-#: modules/cons.py:617
-msgid "_Add Row"
-msgstr "__Přidat řádek"
-
-#: modules/cons.py:617
-msgid "Add a Table Row"
-msgstr "Přidat řádek v tabulce"
-
-#: modules/cons.py:618
-msgid "Cut a Table Row"
-msgstr "Vyjmout řádek v tabulce"
-
-#: modules/cons.py:619
-msgid "Copy a Table Row"
-msgstr "Kopírovat řádek v tabulce"
-
-#: modules/cons.py:620
-msgid "_Paste Row"
-msgstr "_Vložit řádek"
-
-#: modules/cons.py:620
-msgid "Paste a Table Row"
-msgstr "Vložit řádek v tabulce"
-
-#: modules/cons.py:621
-msgid "Delete the Selected Table Row"
-msgstr "Smazat vybraný řádek v tabulce"
-
-#: modules/cons.py:622
-msgid "Move Row _Up"
-msgstr "Posunout řádek _nahoru"
-
-#: modules/cons.py:622
-msgid "Move the Selected Row Up"
-msgstr "Posunout vybraný řádek nahoru"
-
-#: modules/cons.py:623
-msgid "Move Row _Down"
-msgstr "Posunout řádek _dolů"
-
-#: modules/cons.py:623
-msgid "Move the Selected Row Down"
-msgstr "Posunout vybraný řádek dolů"
-
-#: modules/cons.py:624
-msgid "Sort Rows De_scending"
-msgstr "Třídit řádky ses_tupně"
-
-#: modules/cons.py:624
-msgid "Sort all the Rows Descending"
-msgstr "Třídit všechny řádky sestupně"
-
-#: modules/cons.py:625
-msgid "Sort Rows As_cending"
-msgstr "Třídit řádky vzest_upně"
-
-#: modules/cons.py:625
-msgid "Sort all the Rows Ascending"
-msgstr "Třídit všechny řádky vzestupně"
-
-#: modules/cons.py:626
-msgid "_Table Export"
-msgstr "Vyvést _tabulku"
-
-#: modules/cons.py:626
-msgid "Export Table as CSV File"
-msgstr "Vyvést tabulku jako soubor CSV"
-
-#: modules/cons.py:627
-msgid "_Bookmark This Node"
-msgstr "_Opatřit tento uzel záložkou"
-
-#: modules/cons.py:627
-msgid "Add the Current Node to the Bookmarks List"
-msgstr "Přidat současný uzel do seznamu záložek"
-
-#: modules/cons.py:628
-msgid "_Handle Bookmarks"
-msgstr "_Pracovat se záložkami"
-
-#: modules/cons.py:629 modules/cons.py:640
-msgid "Add _Node"
-msgstr "Přidat _uzel"
-
-#: modules/cons.py:629 modules/cons.py:640
-msgid "Add a Node having the same Father of the Selected Node"
-msgstr "Přidat uzel se stejným nadřízeným uzlem, jaký má vybraný uzel"
-
-#: modules/cons.py:630 modules/cons.py:641
-msgid "Add _SubNode"
-msgstr "Přidat _podřízený uzel"
-
-#: modules/cons.py:630 modules/cons.py:641
-msgid "Add a Child Node to the Selected Node"
-msgstr "Přidat uzel podřízený vybranému uzlu"
-
-#: modules/cons.py:643
-msgid "Change Node _Properties"
-msgstr "Změnit _vlastnosti uzlu"
-
-#: modules/cons.py:643
-msgid "Edit the Properties of the Selected Node"
-msgstr "Upravit vlastnosti vybraného uzlu"
-
-#: modules/cons.py:644
-msgid "Tree _Info"
-msgstr "_Informace o stromu"
-
-#: modules/cons.py:647
-msgid "Node _Up"
-msgstr "Posunout uzel nahor_u"
-
-#: modules/cons.py:647
-msgid "Move the Selected Node Up"
-msgstr "Posunout vybraný uzel nahoru"
-
-#: modules/cons.py:648
-msgid "Node _Down"
-msgstr "Posunout uzel _dolů"
-
-#: modules/cons.py:648
-msgid "Move the Selected Node Down"
-msgstr "Posunout vybraný uzel dolů"
-
-#: modules/cons.py:649
-msgid "Node _Left"
-msgstr "Zme_nšit odsazení"
-
-#: modules/cons.py:649
-msgid "Move the Selected Node Left"
-msgstr "Zmenšit odsazení uzlu"
-
-#: modules/cons.py:650
-msgid "Node Change _Father"
-msgstr "Změnit nadřízený uzel"
-
-#: modules/cons.py:650
-msgid "Change the Selected Node's Father"
-msgstr "Změnit nadřízený uzel vybraného uzlu"
-
-#: modules/cons.py:653
-msgid "Nodes _Sort"
-msgstr "_Třídění uzlů"
-
-#: modules/cons.py:654
-msgid "Sort Tree _Ascending"
-msgstr "Třídit strom vzest_upně"
-
-#: modules/cons.py:654
-msgid "Sort the Tree Ascending"
-msgstr "Třídit strom vzestupně"
-
-#: modules/cons.py:655
-msgid "Sort Tree _Descending"
-msgstr "Třídit strom ses_tupně"
-
-#: modules/cons.py:655
-msgid "Sort the Tree Descending"
-msgstr "Třídit strom sestupně"
-
-#: modules/cons.py:656
-msgid "Sort Siblings A_scending"
-msgstr "Třídit sourozence _vzestupně"
-
-#: modules/cons.py:656
-msgid "Sort all the Siblings of the Selected Node Ascending"
-msgstr "Třídit všechny uzly na této úrovni vzestupně"
-
-#: modules/cons.py:657
-msgid "Sort Siblings D_escending"
-msgstr "Třídit sourozence s_estupně"
-
-#: modules/cons.py:657
-msgid "Sort all the Siblings of the Selected Node Descending"
-msgstr "Třídit všechny uzly na této úrovni sestupně"
-
-#: modules/cons.py:690
-msgid "De_lete Node"
-msgstr "Smazat u_zel"
-
-#: modules/cons.py:690
-msgid "Delete the Selected Node"
-msgstr "Smazat vybraný uzel"
-
-#: modules/cons.py:724
-msgid "_Justify"
-msgstr "_Zarovnat"
-
-#: modules/cons.py:729
-msgid "_List"
-msgstr "_Vypsat"
-
-#: modules/cons.py:735
-msgid "_Insert"
-msgstr "_Vložit"
-
-#: modules/cons.py:750 modules/cons.py:789
-msgid "_Row"
-msgstr "Řá_dek"
-
-#: modules/cons.py:752 modules/cons.py:791
-msgid "C_opy Row"
-msgstr "K_opírovat řádek"
-
-#: modules/cons.py:783
-msgid "Stri_p Trailing Spaces"
-msgstr "Z_bavit mezer na konci"
-
-#: modules/cons.py:783
-msgid "Strip Trailing Spaces"
-msgstr "Zbavit mezer na konci"
-
-#: modules/cons.py:821
-msgid "Edit _Link"
-msgstr "Upravit _odkaz"
-
-#: modules/cons.py:821
-msgid "Edit the Underlying Link"
-msgstr "Upravit označený odkaz"
-
-#: modules/cons.py:823
-msgid "C_ut Link"
-msgstr "V_yjmout odkaz"
-
-#: modules/cons.py:823 modules/cons.py:839
-msgid "Cut the Selected CodeBox"
-msgstr "Vyjmout vybraný CodeBox"
-
-#: modules/cons.py:824
-msgid "_Copy Link"
-msgstr "_Kopírovat odkaz"
-
-#: modules/cons.py:824 modules/cons.py:840
-msgid "Copy the Selected CodeBox"
-msgstr "Kopírovat vybraný CodeBox"
-
-#: modules/cons.py:825
-msgid "D_ismiss Link"
-msgstr "_Odmítnout odkaz"
-
-#: modules/cons.py:825
-msgid "Dismiss the Selected Link"
-msgstr "Odmítnout vybraný odkaz"
-
-#: modules/cons.py:826
-msgid "_Delete Link"
-msgstr "_Smazat odkaz"
-
-#: modules/cons.py:826
-msgid "Delete the Selected Link"
-msgstr "Smazat vybraný odkaz"
-
-#: modules/cons.py:837
-msgid "Change CodeBox _Properties"
-msgstr "Změnit _vlastnosti CodeBox"
-
-#: modules/cons.py:837
-msgid "Edit the Properties of the CodeBox"
-msgstr "Upravit vlastnosti CodeBox"
-
-#: modules/cons.py:839
-msgid "C_ut CodeBox"
-msgstr "V_yjmout CodeBox"
-
-#: modules/cons.py:840
-msgid "_Copy CodeBox"
-msgstr "_Kopírovat CodeBox"
-
-#: modules/cons.py:841
-msgid "_Delete CodeBox"
-msgstr "S_mazat CodeBox"
-
-#: modules/cons.py:841
-msgid "Delete the Selected CodeBox"
-msgstr "Smazat vybraný CodeBox"
-
-#: modules/cons.py:843
-msgid "Increase CodeBox Width"
-msgstr "Rozšířit CodeBox"
-
-#: modules/cons.py:843
-msgid "Increase the Width of the CodeBox"
-msgstr "Zvětšit šířku CodeBox"
-
-#: modules/cons.py:844
-msgid "Decrease CodeBox Width"
-msgstr "Zúžit CodeBox"
-
-#: modules/cons.py:844
-msgid "Decrease the Width of the CodeBox"
-msgstr "Zmenšit šířku CodeBox"
-
-#: modules/cons.py:845
-msgid "Increase CodeBox Height"
-msgstr "Prodloužit CodeBox"
-
-#: modules/cons.py:845
-msgid "Increase the Height of the CodeBox"
-msgstr "Zvětšit výšku CodeBox"
-
-#: modules/cons.py:846
-msgid "Decrease CodeBox Height"
-msgstr "Zkrátit CodeBox"
-
-#: modules/cons.py:846
-msgid "Decrease the Height of the CodeBox"
-msgstr "Zmenšit výšku CodeBox"
-
-#: modules/imports.py:1885
-msgid "Downloading"
-msgstr "Stažení"
-
-#: modules/pgsc_spellcheck.py:68
-msgid "Unknown"
-msgstr "Neznámý"
-
-#: modules/pgsc_spellcheck.py:423
-msgid "(no suggestions)"
-msgstr "(žádné návrhy)"
-
-#: modules/pgsc_spellcheck.py:439
-msgid "Add \"{}\" to Dictionary"
-msgstr "Přidat \"{}\" do slovníku"
-
-#: modules/pgsc_spellcheck.py:442
-msgid "Ignore All"
-msgstr "Přehlížet vše"
-
-#: modules/pgsc_spellcheck.py:453
-msgid "Languages"
-msgstr "Jazyky"
-
-#: modules/pgsc_spellcheck.py:464
-msgid "Suggestions"
-msgstr "Návrhy"
-
-#: glade/cherrytree.glade.h:2
-msgid "Tab Width  "
-msgstr "Šířka zarážky  "
-
-#: glade/cherrytree.glade.h:3
-msgid "Insert Spaces Instead of Tabs"
-msgstr "Vložit mezery místo zarážek"
-
-#: glade/cherrytree.glade.h:4
-msgid "Use Line Wrapping"
-msgstr "Použít zalamování řádků"
-
-#: glade/cherrytree.glade.h:5
-msgid "Enable Automatic Indentation"
-msgstr "Povolit automatické odsazení"
-
-#: glade/cherrytree.glade.h:7
-msgid "<b>Text Editor</b>"
-msgstr "<b>Textový editor</b>"
-
-#: glade/cherrytree.glade.h:8
-msgid "Timestamp Format"
-msgstr "Formát časového razítka"
-
-#: glade/cherrytree.glade.h:9
-msgid "Horizontal Rule"
-msgstr "Oddělovací čára"
-
-#: glade/cherrytree.glade.h:10
-msgid "Special Characters"
-msgstr "Zvláštní znaky"
-
-#: glade/cherrytree.glade.h:11
-msgid "<b>Miscellaneous</b>"
-msgstr "<b>Různé</b>"
-
-#: glade/cherrytree.glade.h:12
-msgid "All Nodes"
-msgstr "Všechny uzly"
-
-#: glade/cherrytree.glade.h:13
-msgid "Enable Spell Check"
-msgstr "Povolit ověřování pravopisu"
-
-#: glade/cherrytree.glade.h:14
-msgid "Spell Check Language"
-msgstr "Jazyk ověřování pravopisu"
-
-#: glade/cherrytree.glade.h:15
-msgid "<b>Spell Check</b>"
-msgstr "<b>Ověření správného psaní</b>"
-
-#: glade/cherrytree.glade.h:16
-msgid "Light Background, Dark Text"
-msgstr "Světlé pozadí, tmavý text"
-
-#: glade/cherrytree.glade.h:17
-msgid "Dark Background, Light Text"
-msgstr "Tmavé pozadí, světlý text"
-
-#: glade/cherrytree.glade.h:18
-msgid "Custom Background"
-msgstr "Vlastní pozadí"
-
-#: glade/cherrytree.glade.h:19
-msgid "and Text"
-msgstr "a text"
-
-#: glade/cherrytree.glade.h:20
-msgid "<b>Theme</b>"
-msgstr "<b>Motiv</b>"
-
-#: glade/cherrytree.glade.h:21
-msgid "Limit of Undoable Steps Per Node"
-msgstr "Počet kroků zpět na uzel"
-
-#: glade/cherrytree.glade.h:22
-msgid "Text Nodes"
-msgstr "Uzly s textem"
-
-#: glade/cherrytree.glade.h:23
-msgid "Style Scheme"
-msgstr "Nákres stylu"
-
-#: glade/cherrytree.glade.h:24
-msgid "Show White Spaces"
-msgstr "Ukázat prázdná místa"
-
-#: glade/cherrytree.glade.h:25
-msgid "Highlight Current Line"
-msgstr "Zvýraznit nynější řádek"
-
-#: glade/cherrytree.glade.h:26
-msgid "<b>Automatic Syntax Highlighting</b>"
-msgstr "<b>Automatické zvýrazňování skladby</b>"
-
-#: glade/cherrytree.glade.h:27
-msgid "Code Nodes"
-msgstr "Uzly s kódem"
-
-#: glade/cherrytree.glade.h:28
-msgid "Use Cherries as Nodes Icons"
-msgstr "Použít třešně jako ikony uzlů"
-
-#: glade/cherrytree.glade.h:29
-msgid "Use Bullets as Nodes Icons"
-msgstr "Použít odrážky jako ikony uzlů"
-
-#: glade/cherrytree.glade.h:30
-msgid "Do Not Display Nodes Icons"
-msgstr "Nezobrazovat ikony k uzlům"
-
-#: glade/cherrytree.glade.h:31
-msgid "<b>Nodes Icons</b>"
-msgstr "<b>Ikony uzlů</b>"
-
-#: glade/cherrytree.glade.h:32
-msgid "Restore Expanded/Collapsed Status"
-msgstr "Obnovit stav rozbaleno/sbaleno"
-
-#: glade/cherrytree.glade.h:33
-msgid "Expand all Nodes"
-msgstr "Rozbalit všechny uzly"
-
-#: glade/cherrytree.glade.h:34
-msgid "Collapse all Nodes"
-msgstr "Složit všechny uzly"
-
-#: glade/cherrytree.glade.h:35
-msgid "<b>Nodes Status at Startup</b>"
-msgstr "<b>Stav uzlů při spuštění</b>"
-
-#: glade/cherrytree.glade.h:36
-msgid "Tree Nodes Names Wrapping Width"
-msgstr "Největší šířka názvu uzlu před zalomením"
-
-#: glade/cherrytree.glade.h:37
-msgid "Display Tree on the Right Side"
-msgstr "Zobrazit strom na pravé straně"
-
-#: glade/cherrytree.glade.h:38
-msgid "Tree"
-msgstr "Strom"
-
-#: glade/cherrytree.glade.h:39
-msgid "Text Font"
-msgstr "Písmo textu   "
-
-#: glade/cherrytree.glade.h:40
-msgid "Code Font"
-msgstr "Písmo kódu  "
-
-#: glade/cherrytree.glade.h:41
-msgid "Tree Font"
-msgstr "Písmo ve stromu"
-
-#: glade/cherrytree.glade.h:42
-msgid "<b>Fonts</b>"
-msgstr "<b>Písma</b>"
-
-#: glade/cherrytree.glade.h:43
-msgid "Fonts"
-msgstr "Písma"
-
-#: glade/cherrytree.glade.h:44
-msgid "Enable Custom Web Link Clicked Action"
-msgstr "Povolit vlastní činnost při klepnutí na internetový odkaz"
-
-#: glade/cherrytree.glade.h:45
-msgid "Enable Custom File Link Clicked Action"
-msgstr "Povolit vlastní činnost při klepnutí na odkaz souboru"
-
-#: glade/cherrytree.glade.h:46
-msgid "Enable Custom Folder Link Clicked Action"
-msgstr "Povolit vlastní činnost při klepnutí na odkaz složky"
-
-#: glade/cherrytree.glade.h:47
-msgid "Anchor Size"
-msgstr "Velikost kotvy"
-
-#: glade/cherrytree.glade.h:48
-msgid "<b>Links</b>"
-msgstr "<b>Odkazy</b>"
-
-#: glade/cherrytree.glade.h:49
-msgid "Links"
-msgstr "Odkazy"
-
-#: glade/cherrytree.glade.h:50
-msgid "Enable System Tray Docking"
-msgstr "Povolit ikonu v oznamovací oblasti panelu"
-
-#: glade/cherrytree.glade.h:51
-msgid "Start Minimized in the System Tray"
-msgstr "Spustit zmenšeno v oznamovací oblasti panelu"
-
-#: glade/cherrytree.glade.h:52
-msgid "Use AppIndicator for Docking"
-msgstr "Použít ukazatele programů pro ukotvení v panelu"
-
-#: glade/cherrytree.glade.h:53
-msgid "<b>System Tray</b>"
-msgstr "<b>Oznamovací oblast panelu</b>"
-
-#: glade/cherrytree.glade.h:54
-msgid "Autosave Every"
-msgstr "Automaticky uložit každých"
-
-#: glade/cherrytree.glade.h:55
-msgid "Minutes"
-msgstr "minut"
-
-#: glade/cherrytree.glade.h:56
-msgid "Autosave on Quit"
-msgstr "Automaticky uložit při ukončení"
-
-#: glade/cherrytree.glade.h:57
-msgid "Create a Backup Copy Before Saving"
-msgstr "Před uložením vytvořit záložní kopii"
-
-#: glade/cherrytree.glade.h:58
-msgid "<b>Saving</b>"
-msgstr "<b>Ukládání</b>"
-
-#: glade/cherrytree.glade.h:59
-msgid "Automatically Check for Newer Version"
-msgstr "Automaticky vyhledat novou verzi"
-
-#: glade/cherrytree.glade.h:60
-msgid "Reload Document From Last Session"
-msgstr "Nahrát dokument z posledního sezení znovu"
-
-#: glade/cherrytree.glade.h:61
-msgid "Reload After External Update to CT* File"
-msgstr "Nahrát znovu po vnější aktualizaci na soubor CT*"
-
-#: glade/cherrytree.glade.h:62
-msgid "<b>Language</b>"
-msgstr "<b>Jazyk</b>"
-
-#: glade/cherrytree.glade.h:63
-msgid "Miscellaneous"
-msgstr "Různé"
+#~ msgid "<b>Language</b>"
+#~ msgstr "<b>Jazyk</b>"
 
 #, fuzzy
 #~ msgid "Insert/Edit a Link"
