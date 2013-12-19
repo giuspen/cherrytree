@@ -146,6 +146,10 @@ def config_file_load(inst):
         if config.has_option(section, "palette_list"):
             inst.palette_list = config.get(section, "palette_list").split(":")
         else: inst.palette_list = COLOR_PALETTE_DEFAULT
+        inst.col_link_webs = config.get(section, "col_link_webs") if config.has_option(section, "col_link_webs") else cons.COLOR_48_LINK_WEBS
+        inst.col_link_node = config.get(section, "col_link_node") if config.has_option(section, "col_link_node") else cons.COLOR_48_LINK_NODE
+        inst.col_link_file = config.get(section, "col_link_file") if config.has_option(section, "col_link_file") else cons.COLOR_48_LINK_FILE
+        inst.col_link_fold = config.get(section, "col_link_fold") if config.has_option(section, "col_link_fold") else cons.COLOR_48_LINK_FOLD
         
         section = "misc"
         inst.systray = config.getboolean(section, "systray") if config.has_option(section, "systray") else False
@@ -175,6 +179,10 @@ def config_file_load(inst):
         inst.tt_def_fg = cons.TREE_TEXT_LIGHT_FG
         inst.tt_def_bg = cons.TREE_TEXT_LIGHT_BG
         inst.palette_list = COLOR_PALETTE_DEFAULT
+        inst.col_link_webs = cons.COLOR_48_LINK_WEBS
+        inst.col_link_node = cons.COLOR_48_LINK_NODE
+        inst.col_link_file = cons.COLOR_48_LINK_FILE
+        inst.col_link_fold = cons.COLOR_48_LINK_FOLD
         inst.h_rule = HORIZONTAL_RULE
         inst.special_chars = unicode(SPECIAL_CHARS_DEFAULT, cons.STR_UTF8, cons.STR_IGNORE)
         inst.enable_spell_check = False
@@ -346,6 +354,10 @@ def config_file_save(inst):
     config.set(section, "tt_def_fg", inst.tt_def_fg)
     config.set(section, "tt_def_bg", inst.tt_def_bg)
     config.set(section, "palette_list", ":".join(inst.palette_list))
+    config.set(section, "col_link_webs", inst.col_link_webs)
+    config.set(section, "col_link_node", inst.col_link_node)
+    config.set(section, "col_link_file", inst.col_link_file)
+    config.set(section, "col_link_fold", inst.col_link_fold)
     
     section = "misc"
     config.add_section(section)
@@ -1019,13 +1031,50 @@ def dialog_preferences(dad):
     entry_custom_folderlink_cmd.set_sensitive(dad.folderlink_custom_action[0])
     entry_custom_folderlink_cmd.set_text(dad.folderlink_custom_action[1])
     
-    vbox_links_colors = gtk.VBox()
+    table_links_colors = gtk.Table(2, 2)
+    table_links_colors.set_row_spacings(2)
+    table_links_colors.set_col_spacings(4)
+    table_links_colors.set_homogeneous(True)
+    
+    hbox_col_link_webs = gtk.HBox()
+    hbox_col_link_webs.set_spacing(4)
+    label_col_link_webs = gtk.Label(_("To WebSite"))
+    colorbutton_col_link_webs = gtk.ColorButton(color=gtk.gdk.color_parse(dad.col_link_webs))
+    hbox_col_link_webs.pack_start(label_col_link_webs, expand=False)
+    hbox_col_link_webs.pack_start(colorbutton_col_link_webs, expand=False)
+    
+    hbox_col_link_node = gtk.HBox()
+    hbox_col_link_node.set_spacing(4)
+    label_col_link_node = gtk.Label(_("To Node"))
+    colorbutton_col_link_node = gtk.ColorButton(color=gtk.gdk.color_parse(dad.col_link_node))
+    hbox_col_link_node.pack_start(label_col_link_node, expand=False)
+    hbox_col_link_node.pack_start(colorbutton_col_link_node, expand=False)
+    
+    hbox_col_link_file = gtk.HBox()
+    hbox_col_link_file.set_spacing(4)
+    label_col_link_file = gtk.Label(_("To File"))
+    colorbutton_col_link_file = gtk.ColorButton(color=gtk.gdk.color_parse(dad.col_link_file))
+    hbox_col_link_file.pack_start(label_col_link_file, expand=False)
+    hbox_col_link_file.pack_start(colorbutton_col_link_file, expand=False)
+    
+    hbox_col_link_fold = gtk.HBox()
+    hbox_col_link_fold.set_spacing(4)
+    label_col_link_fold = gtk.Label(_("To Folder"))
+    colorbutton_col_link_fold = gtk.ColorButton(color=gtk.gdk.color_parse(dad.col_link_fold))
+    hbox_col_link_fold.pack_start(label_col_link_fold, expand=False)
+    hbox_col_link_fold.pack_start(colorbutton_col_link_fold, expand=False)
+    
+    table_links_colors.attach(hbox_col_link_webs, 0, 1, 0, 1, 0, 0)
+    table_links_colors.attach(hbox_col_link_node, 0, 1, 1, 2, 0, 0)
+    table_links_colors.attach(hbox_col_link_file, 1, 2, 0, 1, 0, 0)
+    table_links_colors.attach(hbox_col_link_fold, 1, 2, 1, 2, 0, 0)
+    
     frame_links_colors = gtk.Frame(label="<b>"+_("Colors")+"</b>")
     frame_links_colors.get_label_widget().set_use_markup(True)
     frame_links_colors.set_shadow_type(gtk.SHADOW_NONE)
     align_links_colors = gtk.Alignment()
     align_links_colors.set_padding(0, 6, 6, 6)
-    align_links_colors.add(vbox_links_colors)
+    align_links_colors.add(table_links_colors)
     frame_links_colors.add(align_links_colors)
     
     vbox_links_misc = gtk.VBox()
@@ -1074,6 +1123,22 @@ def dialog_preferences(dad):
     def on_spinbutton_anchor_size_value_changed(spinbutton):
         dad.anchor_size = int(spinbutton_anchor_size.get_value())
     spinbutton_anchor_size.connect('value-changed', on_spinbutton_anchor_size_value_changed)
+    def on_colorbutton_col_link_webs_color_set(colorbutton):
+        dad.col_link_webs = "#" + colorbutton.get_color().to_string()[1:]
+        support.dialog_info_after_restart(dad.window)
+    colorbutton_col_link_webs.connect('color-set', on_colorbutton_col_link_webs_color_set)
+    def on_colorbutton_col_link_node_color_set(colorbutton):
+        dad.col_link_node = "#" + colorbutton.get_color().to_string()[1:]
+        support.dialog_info_after_restart(dad.window)
+    colorbutton_col_link_node.connect('color-set', on_colorbutton_col_link_node_color_set)
+    def on_colorbutton_col_link_file_color_set(colorbutton):
+        dad.col_link_file = "#" + colorbutton.get_color().to_string()[1:]
+        support.dialog_info_after_restart(dad.window)
+    colorbutton_col_link_file.connect('color-set', on_colorbutton_col_link_file_color_set)
+    def on_colorbutton_col_link_fold_color_set(colorbutton):
+        dad.col_link_fold = "#" + colorbutton.get_color().to_string()[1:]
+        support.dialog_info_after_restart(dad.window)
+    colorbutton_col_link_fold.connect('color-set', on_colorbutton_col_link_fold_color_set)
     
     ### MISCELLANEOUS
     vbox_misc = gtk.VBox()
