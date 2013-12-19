@@ -467,7 +467,7 @@ def dialog_preferences(dad):
     frame_text_editor.get_label_widget().set_use_markup(True)
     frame_text_editor.set_shadow_type(gtk.SHADOW_NONE)
     align_text_editor = gtk.Alignment()
-    align_text_editor.set_padding(0, 6, 6, 6)
+    align_text_editor.set_padding(3, 6, 6, 6)
     align_text_editor.add(vbox_text_editor)
     frame_text_editor.add(align_text_editor)
     
@@ -514,7 +514,7 @@ def dialog_preferences(dad):
     frame_misc_all.get_label_widget().set_use_markup(True)
     frame_misc_all.set_shadow_type(gtk.SHADOW_NONE)
     align_misc_all = gtk.Alignment()
-    align_misc_all.set_padding(0, 6, 6, 6)
+    align_misc_all.set_padding(3, 6, 6, 6)
     align_misc_all.add(vbox_misc_all)
     frame_misc_all.add(align_misc_all)
     
@@ -583,7 +583,7 @@ def dialog_preferences(dad):
     frame_spell_check.get_label_widget().set_use_markup(True)
     frame_spell_check.set_shadow_type(gtk.SHADOW_NONE)
     align_spell_check = gtk.Alignment()
-    align_spell_check.set_padding(0, 6, 6, 6)
+    align_spell_check.set_padding(3, 6, 6, 6)
     align_spell_check.add(vbox_spell_check)
     frame_spell_check.add(align_spell_check)
     
@@ -611,7 +611,7 @@ def dialog_preferences(dad):
     frame_rt_theme.get_label_widget().set_use_markup(True)
     frame_rt_theme.set_shadow_type(gtk.SHADOW_NONE)
     align_rt_theme = gtk.Alignment()
-    align_rt_theme.set_padding(0, 6, 6, 6)
+    align_rt_theme.set_padding(3, 6, 6, 6)
     align_rt_theme.add(vbox_rt_theme)
     frame_rt_theme.add(align_rt_theme)
     
@@ -640,7 +640,7 @@ def dialog_preferences(dad):
     frame_misc_text.get_label_widget().set_use_markup(True)
     frame_misc_text.set_shadow_type(gtk.SHADOW_NONE)
     align_misc_text = gtk.Alignment()
-    align_misc_text.set_padding(0, 6, 6, 6)
+    align_misc_text.set_padding(3, 6, 6, 6)
     align_misc_text.add(vbox_misc_text)
     frame_misc_text.add(align_misc_text)
     
@@ -729,7 +729,7 @@ def dialog_preferences(dad):
     frame_syntax.get_label_widget().set_use_markup(True)
     frame_syntax.set_shadow_type(gtk.SHADOW_NONE)
     align_syntax = gtk.Alignment()
-    align_syntax.set_padding(0, 6, 6, 6)
+    align_syntax.set_padding(3, 6, 6, 6)
     align_syntax.add(vbox_syntax)
     frame_syntax.add(align_syntax)
     
@@ -778,7 +778,7 @@ def dialog_preferences(dad):
     frame_tt_theme.get_label_widget().set_use_markup(True)
     frame_tt_theme.set_shadow_type(gtk.SHADOW_NONE)
     align_tt_theme = gtk.Alignment()
-    align_tt_theme.set_padding(0, 6, 6, 6)
+    align_tt_theme.set_padding(3, 6, 6, 6)
     align_tt_theme.add(vbox_tt_theme)
     frame_tt_theme.add(align_tt_theme)
     
@@ -807,7 +807,7 @@ def dialog_preferences(dad):
     frame_nodes_icons.get_label_widget().set_use_markup(True)
     frame_nodes_icons.set_shadow_type(gtk.SHADOW_NONE)
     align_nodes_icons = gtk.Alignment()
-    align_nodes_icons.set_padding(0, 6, 6, 6)
+    align_nodes_icons.set_padding(3, 6, 6, 6)
     align_nodes_icons.add(vbox_nodes_icons)
     frame_nodes_icons.add(align_nodes_icons)
     
@@ -830,7 +830,7 @@ def dialog_preferences(dad):
     frame_nodes_startup.get_label_widget().set_use_markup(True)
     frame_nodes_startup.set_shadow_type(gtk.SHADOW_NONE)
     align_nodes_startup = gtk.Alignment()
-    align_nodes_startup.set_padding(0, 6, 6, 6)
+    align_nodes_startup.set_padding(3, 6, 6, 6)
     align_nodes_startup.add(vbox_nodes_startup)
     frame_nodes_startup.add(align_nodes_startup)
     
@@ -856,7 +856,7 @@ def dialog_preferences(dad):
     frame_misc_tree.get_label_widget().set_use_markup(True)
     frame_misc_tree.set_shadow_type(gtk.SHADOW_NONE)
     align_misc_tree = gtk.Alignment()
-    align_misc_tree.set_padding(0, 6, 6, 6)
+    align_misc_tree.set_padding(3, 6, 6, 6)
     align_misc_tree.add(vbox_misc_tree)
     frame_misc_tree.add(align_misc_tree)
     
@@ -975,7 +975,7 @@ def dialog_preferences(dad):
     frame_fonts.get_label_widget().set_use_markup(True)
     frame_fonts.set_shadow_type(gtk.SHADOW_NONE)
     align_fonts = gtk.Alignment()
-    align_fonts.set_padding(0, 6, 6, 6)
+    align_fonts.set_padding(3, 6, 6, 6)
     align_fonts.add(table_fonts)
     frame_fonts.add(align_fonts)
     
@@ -1017,7 +1017,7 @@ def dialog_preferences(dad):
     frame_links_actions.get_label_widget().set_use_markup(True)
     frame_links_actions.set_shadow_type(gtk.SHADOW_NONE)
     align_links_actions = gtk.Alignment()
-    align_links_actions.set_padding(0, 6, 6, 6)
+    align_links_actions.set_padding(3, 6, 6, 6)
     align_links_actions.add(vbox_links_actions)
     frame_links_actions.add(align_links_actions)
     
@@ -1073,7 +1073,7 @@ def dialog_preferences(dad):
     frame_links_colors.get_label_widget().set_use_markup(True)
     frame_links_colors.set_shadow_type(gtk.SHADOW_NONE)
     align_links_colors = gtk.Alignment()
-    align_links_colors.set_padding(0, 6, 6, 6)
+    align_links_colors.set_padding(3, 6, 6, 6)
     align_links_colors.add(table_links_colors)
     frame_links_colors.add(align_links_colors)
     
@@ -1092,7 +1092,7 @@ def dialog_preferences(dad):
     frame_links_misc.get_label_widget().set_use_markup(True)
     frame_links_misc.set_shadow_type(gtk.SHADOW_NONE)
     align_links_misc = gtk.Alignment()
-    align_links_misc.set_padding(0, 6, 6, 6)
+    align_links_misc.set_padding(3, 6, 6, 6)
     align_links_misc.add(vbox_links_misc)
     frame_links_misc.add(align_links_misc)
     
@@ -1156,7 +1156,7 @@ def dialog_preferences(dad):
     frame_system_tray.get_label_widget().set_use_markup(True)
     frame_system_tray.set_shadow_type(gtk.SHADOW_NONE)
     align_system_tray = gtk.Alignment()
-    align_system_tray.set_padding(0, 6, 6, 6)
+    align_system_tray.set_padding(3, 6, 6, 6)
     align_system_tray.add(vbox_system_tray)
     frame_system_tray.add(align_system_tray)
     
@@ -1192,7 +1192,7 @@ def dialog_preferences(dad):
     frame_saving.get_label_widget().set_use_markup(True)
     frame_saving.set_shadow_type(gtk.SHADOW_NONE)
     align_saving = gtk.Alignment()
-    align_saving.set_padding(0, 6, 6, 6)
+    align_saving.set_padding(3, 6, 6, 6)
     align_saving.add(vbox_saving)
     frame_saving.add(align_saving)
     
@@ -1212,7 +1212,7 @@ def dialog_preferences(dad):
     frame_misc_misc.get_label_widget().set_use_markup(True)
     frame_misc_misc.set_shadow_type(gtk.SHADOW_NONE)
     align_misc_misc = gtk.Alignment()
-    align_misc_misc.set_padding(0, 6, 6, 6)
+    align_misc_misc.set_padding(3, 6, 6, 6)
     align_misc_misc.add(vbox_misc_misc)
     frame_misc_misc.add(align_misc_misc)
     
@@ -1228,7 +1228,7 @@ def dialog_preferences(dad):
     frame_language.get_label_widget().set_use_markup(True)
     frame_language.set_shadow_type(gtk.SHADOW_NONE)
     align_language = gtk.Alignment()
-    align_language.set_padding(0, 6, 6, 6)
+    align_language.set_padding(3, 6, 6, 6)
     align_language.add(vbox_language)
     frame_language.add(align_language)
     
