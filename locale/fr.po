@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: svn_cherrytree 0.14\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-24 13:59+0100\n"
+"POT-Creation-Date: 2013-12-19 11:12+0100\n"
 "PO-Revision-Date: 2013-12-04 17:46+0100\n"
 "Last-Translator: Benoît <benoit.dangelo@gmx.fr>\n"
 "Language-Team: French\n"
@@ -18,41 +18,1528 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 1.5.4\n"
 
-#: modules/support.py:128
+#: /home/qsduser/Templates/hg_cherrytree/modules/codeboxes.py:75
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:728
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2679
+msgid "Automatic Syntax Highlighting"
+msgstr "Marquage Automatique de la Syntaxe"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/codeboxes.py:80
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:430
+msgid "Width"
+msgstr "Largeur"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/codeboxes.py:84
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:433
+msgid "Height"
+msgstr "Hauteur"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/codeboxes.py:89
+msgid "pixels"
+msgstr "pixels"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/codeboxes.py:114
+msgid "Size"
+msgstr "Taille"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/codeboxes.py:119
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:456
+msgid "Show Line Numbers"
+msgstr "Montrer les Numéros de Lignes"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/codeboxes.py:121
+msgid "Highlight Matching Brackets"
+msgstr "Surligner les parenthèses assorties"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/codeboxes.py:130
+msgid "Options"
+msgstr "Options"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/codeboxes.py:172
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:550
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:745
+msgid "Insert a CodeBox"
+msgstr "Insérer une CodeBox"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/codeboxes.py:295
+msgid "Edit CodeBox"
+msgstr "Éditer une CodeBox"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:501
+msgid "_File"
+msgstr "_Fichier"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:502
+msgid "_Edit"
+msgstr "_Edition"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:503
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:713
+msgid "For_matting"
+msgstr "For_mat"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:504
+msgid "_Tree"
+msgstr "_Arborescence"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:505
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:653
+msgid "Node _Move"
+msgstr "_Déplacer le Nœud"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:506
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:670
+msgid "Nodes _Import"
+msgstr "_Importer les Nœuds"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:507
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:687
+msgid "Nodes E_xport"
+msgstr "E_xporter les Nœuds"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:508
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:752
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:791
+msgid "C_hange Case"
+msgstr "C_hanger la Casse"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:509
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:766
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:805
+msgid "_Search"
+msgstr "_Rechercher"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:510
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:773
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:812
+msgid "_Replace"
+msgstr "Rem_placer"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:511
+msgid "_View"
+msgstr "A_ffichage"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:512
+msgid "_Bookmarks"
+msgstr "_Favoris"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:513
+msgid "_Import"
+msgstr "_Importer"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:514
+msgid "E_xport"
+msgstr "E_xporter"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:515
+msgid "_Help"
+msgstr "A_ide"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:517
+msgid "New _Instance"
+msgstr "Nouvelle I_nstance"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:517
+msgid "Start a New Instance of CherryTree"
+msgstr "Démarrer une Nouvelle Instance de CherryTree"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:518
+msgid "_Open File"
+msgstr "_Ouvrir"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:518
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:970
+msgid "Open a CherryTree Document"
+msgstr "Ouvrir un Document CherryTree"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:519
+msgid "_Save"
+msgstr "_Enregistrer"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:519
+msgid "Save File"
+msgstr "Enregistrer le fichier"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:520
+msgid "Save _As"
+msgstr "Enregistrer S_ous"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:520
+msgid "Save File As"
+msgstr "Enregistrer le Fichier sous"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:521
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:688
+msgid "Export To _PDF"
+msgstr "Exporter en _PDF"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:521
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:688
+msgid "Export To PDF"
+msgstr "Exporter en PDF"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:522
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:691
+msgid "Export To _HTML"
+msgstr "Exporter en _HTML"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:522
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:691
+msgid "Export To HTML"
+msgstr "Exporter en HTML"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:523
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:689
+msgid "Export to Multiple Plain _Text Files"
+msgstr "Exporter en Texte _Brut (fichiers multiples)"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:523
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:689
+msgid "Export to Multiple Plain Text Files"
+msgstr "Exporter en Texte Brut (fichiers multiples)"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:524
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:690
+msgid "Export to _Single Plain Text File"
+msgstr "Exporter en Texte Brut (fichier unique)"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:524
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:690
+msgid "Export to Single Plain Text File"
+msgstr "Exporter en Texte Brut (fichier unique)"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:525
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:692
+msgid "_Export To CherryTree Document"
+msgstr "_Exporter en Document CherryTree"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:525
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:692
+msgid "Export To CherryTree Document"
+msgstr "Exporter en Document CherryTree"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:526
+msgid "Pa_ge Setup"
+msgstr "_Mise en Page"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:526
+msgid "Set up the Page for Printing"
+msgstr "Mettre en page pour Impression"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:527
+msgid "_Print"
+msgstr "_Impression"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:527
+msgid "Print"
+msgstr "Impression"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:528
+msgid "_Quit"
+msgstr "_Quitter"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:528
+msgid "Quit the Application"
+msgstr "Quitter l'Application"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:529
+msgid "_Exit CherryTree"
+msgstr "_Fermer CherryTree"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:529
+msgid "Exit from CherryTree"
+msgstr "Fermer CherryTree"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:530
+msgid "_Preferences"
+msgstr "_Préférences"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:530
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:425
+msgid "Preferences"
+msgstr "Préférences"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:531
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:750
+msgid "Insert _Horizontal Rule"
+msgstr "Insérer une Ligne _Horizontale"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:531
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:750
+msgid "Insert Horizontal Rule"
+msgstr "Insérer une Ligne Horizontale"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:532
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:749
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:789
+msgid "Insert Ti_mestamp"
+msgstr "Insérer un Ho_rodatage"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:532
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:749
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:789
+msgid "Insert Timestamp"
+msgstr "Insérer un Horodatage"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:533
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:737
+msgid "Set/Unset _Bulleted List"
+msgstr "(Dés)Activer la Liste à Puces"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:533
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:737
+msgid "Set/Unset the Current Paragraph/Selection as a Bulleted List"
+msgstr "(Dés)Afficher le Paragraphe/Selection actuelle en Liste à Puces"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:534
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:738
+msgid "Set/Unset _Numbered List"
+msgstr "(Dés)Activer la Liste Numérotée"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:534
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:738
+msgid "Set/Unset the Current Paragraph/Selection as a Numbered List"
+msgstr "(Dés)Afficher le Paragraphe/Selection actuelle en Liste numérotée"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:535
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:739
+msgid "Set/Unset _To-Do List"
+msgstr "(Dés)Activer la Liste de _choses à faire"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:535
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:739
+msgid "Set/Unset the Current Paragraph/Selection as a To-Do List"
+msgstr ""
+"(Dés)Afficher le Paragraphe/Selection actuelle en Liste de choses à faire"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:536
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:746
+msgid "Insert/Edit _Link"
+msgstr "Insérer/Éditer un _Lien"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:536
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:746
+msgid "Insert a Link/Edit the Underlying Link"
+msgstr "Insérer un Lien/Éditer un Lien souligné"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:537
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:748
+msgid "Insert T_OC"
+msgstr "Insérer une Table des _Matières"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:537
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:748
+msgid "Insert Table of Contents"
+msgstr "Insérer une Table des Matières"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:538
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:747
+msgid "Insert _Anchor"
+msgstr "Insérer une _Ancre"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:538
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:747
+msgid "Insert an Anchor"
+msgstr "Insérer une Ancre"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:539
+msgid "Edit _Anchor"
+msgstr "Éditer l'A_ncre"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:539
+msgid "Edit the Underlying Anchor"
+msgstr "Éditer l'Ancre soulignée"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:540
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:743
+msgid "Insert I_mage"
+msgstr "Insérer une I_mage"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:540
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:743
+msgid "Insert an Image"
+msgstr "Insérer une Image"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:541
+msgid "_Save Image as PNG"
+msgstr "_Enregistrer l'Image en PNG"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:541
+msgid "Save the Selected Image as a PNG file"
+msgstr "Enregistrer l'Image Sélectionnée en fichier PNG"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:542
+msgid "_Edit Image"
+msgstr "Éditer l'_Image"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:542
+msgid "Edit the Selected Image"
+msgstr "Éditer l'Image Sélectionnée"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:543
+msgid "C_ut Image"
+msgstr "Co_uper l'Image"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:543
+msgid "Cut the Selected Image"
+msgstr "Couper l'Image Sélectionnée"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:544
+msgid "_Copy Image"
+msgstr "_Copier l'Image"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:544
+msgid "Copy the Selected Image"
+msgstr "Copier l'Image Sélectionnée"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:545
+msgid "_Delete Image"
+msgstr "_Supprimer l'Image"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:545
+msgid "Delete the Selected Image"
+msgstr "Supprimer l'Image Sélectionnée"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:546
+msgid "C_ut Table"
+msgstr "Co_uper le Tableau"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:546
+msgid "Cut the Selected Table"
+msgstr "Couper le Tableau Sélectionné"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:547
+msgid "_Copy Table"
+msgstr "_Copier le Tableau"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:547
+msgid "Copy the Selected Table"
+msgstr "Copier le Tableau Sélectionné"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:548
+msgid "_Delete Table"
+msgstr "_Supprimer le Tableau"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:548
+msgid "Delete the Selected Table"
+msgstr "Supprimer le Tableau Sélectionné"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:549
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:744
+msgid "Insert _Table"
+msgstr "Insérer un _Tableau"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:549
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:744
+msgid "Insert a Table"
+msgstr "Insérer un Tableau"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:550
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:745
+msgid "Insert _CodeBox"
+msgstr "Insérer une _CodeBox"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:551
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:753
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:792
+msgid "_Lower Case of Selection/Word"
+msgstr "_Minuscules (Sélection/Mot)"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:551
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:753
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:792
+msgid "Lower the Case of the Selection/the Underlying Word"
+msgstr "Change les lettres de la sélection en minuscules"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:552
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:754
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:793
+msgid "_Upper Case of Selection/Word"
+msgstr "Ma_juscules (Sélection/Mot)"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:552
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:754
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:793
+msgid "Upper the Case of the Selection/the Underlying Word"
+msgstr "Change les lettres de la sélection en majuscules"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:553
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:755
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:794
+msgid "_Toggle Case of Selection/Word"
+msgstr "_Intervertir la Casse (Sélection/Mot)"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:553
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:755
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:794
+msgid "Toggle the Case of the Selection/the Underlying Word"
+msgstr "(Dés)Activer les Majuscules/Minuscules de la sélection"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:554
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:761
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:800
+msgid "_Duplicate Row"
+msgstr "_Dupliquer la Ligne"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:554
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:761
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:800
+msgid "Duplicate the Current Row/Selection"
+msgstr "Dupliquer la Ligne/Sélection actuelle"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:555
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:762
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:801
+msgid "Move _Up Row"
+msgstr "Déplacer la Ligne vers le _Haut"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:555
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:762
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:801
+msgid "Move Up the Current Row/Selected Rows"
+msgstr "Déplacer la Ligne actuelle/sélectionnée vers le Haut"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:556
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:763
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:802
+msgid "Move _Down Row"
+msgstr "Déplacer la Ligne vers le _Bas"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:556
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:763
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:802
+msgid "Move Down the Current Row/Selected Rows"
+msgstr "Déplacer la Ligne actuelle/sélectionnée vers le Bas"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:557
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:628
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:760
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:799
+msgid "De_lete Row"
+msgstr "_Supprimer la Ligne"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:557
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:760
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:799
+msgid "Delete the Current Row/Selected Rows"
+msgstr "Supprimer la Ligne actuelle/sélectionnée"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:558
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:625
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:758
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:797
+msgid "Cu_t Row"
+msgstr "Co_uper la Ligne"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:558
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:758
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:797
+msgid "Cut the Current Row/Selected Rows"
+msgstr "Couper la Ligne actuelle/sélectionnée"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:559
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:626
+msgid "_Copy Row"
+msgstr "_Copier la Ligne"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:559
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:759
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:798
+msgid "Copy the Current Row/Selected Rows"
+msgstr "Copier la Ligne actuelle/sélectionnée"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:560
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:699
+msgid "Go _Back"
+msgstr "Retour _Arrière"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:560
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:699
+msgid "Go to the Previous Visited Node"
+msgstr "Aller au précédent Nœud visité"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:561
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:700
+msgid "Go _Forward"
+msgstr "Vers l'A_vant"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:561
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:700
+msgid "Go to the Next Visited Node"
+msgstr "Aller au prochain Nœud visité"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:562
+msgid "_Undo"
+msgstr "A_nnuler"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:562
+msgid "Undo Last Operation"
+msgstr "Annuler la dernière action"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:563
+msgid "_Redo"
+msgstr "_Rétablir"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:563
+msgid "Redo Previously Discarded Operation"
+msgstr "Refaire la dernière action annulée"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:564
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:695
+msgid "_Inherit Syntax"
+msgstr "_Héritage de la Syntaxe"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:564
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:695
+msgid ""
+"Change the Selected Node's Children Syntax Highlighting to the Father's "
+"Syntax Highlighting"
+msgstr ""
+"Transformer le Marquage de Syntaxe de l'Enfant du Nœud sélectionné vers le "
+"Marquage de syntaxe de son Parent"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:565
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:714
+msgid "Format _Latest"
+msgstr "Dernière _Mise en forme"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:565
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:714
+msgid "Memory of Latest Text Format Type"
+msgstr "Réitérer la dernière action de Mise en forme du Texte"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:566
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:711
+msgid "_Paste as Plain Text"
+msgstr "_Coller comme Texte Brut"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:566
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:711
+msgid "Paste as Plain Text, Discard the Rich Text Formatting"
+msgstr "Coller comme Texte Brut, Supprimer le formattage en Texte Riche"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:567
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:715
+msgid "_Remove Formatting"
+msgstr "En_lever la Mise en forme"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:567
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:715
+msgid "Remove the Formatting from the Selected Text"
+msgstr "Enlever la Mise en forme du Texte Sélectionné"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:568
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:717
+msgid "Text _Color Foreground"
+msgstr "_Couleur de Premier Plan du Texte"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:568
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:717
+msgid "Change the Color of the Selected Text Foreground"
+msgstr "Changer la Couleur de Premier Plan du Texte Sélectionné"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:569
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:718
+msgid "Text C_olor Background"
+msgstr "C_ouleur d'Arrière Plan du Texte"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:569
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:718
+msgid "Change the Color of the Selected Text Background"
+msgstr "Changer la Couleur d'Arrière Plan plan du Texte Sélectionné"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:570
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:719
+msgid "Toggle _Bold Property"
+msgstr "Activer la Fonction _Gras"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:570
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:719
+msgid "Toggle Bold Property of the Selected Text"
+msgstr "Mettre le texte sélectionné en Gras"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:571
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:720
+msgid "Toggle _Italic Property"
+msgstr "Activer la Fonction _Italique"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:571
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:720
+msgid "Toggle Italic Property of the Selected Text"
+msgstr "Mettre le texte sélectionné en Italique"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:572
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:721
+msgid "Toggle _Underline Property"
+msgstr "Activer la Fonction _Souligné"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:572
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:721
+msgid "Toggle Underline Property of the Selected Text"
+msgstr "Souligner le texte sélectionné"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:573
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:722
+msgid "Toggle Stri_kethrough Property"
+msgstr "Activer la Fonction _Barré"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:573
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:722
+msgid "Toggle Strikethrough Property of the Selected Text"
+msgstr "Barrer le texte sélectionné"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:574
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:723
+msgid "Toggle h_1 Property"
+msgstr "Activer la Taille du Texte en h1"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:574
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:723
+msgid "Toggle h1 Property of the Selected Text"
+msgstr "Augmenter la Taille du Texte (grande taille)"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:575
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:724
+msgid "Toggle h_2 Property"
+msgstr "Activer la Taille du Texte en h2"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:575
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:724
+msgid "Toggle h2 Property of the Selected Text"
+msgstr "Augmenter la taille du Texte (taille moyenne)"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:576
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:725
+msgid "Toggle h_3 Property"
+msgstr "Activer la fonction h_3"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:576
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:725
+msgid "Toggle h3 Property of the Selected Text"
+msgstr "Activer la fonction h3 pour le texte sélectionné"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:577
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:726
+msgid "Toggle _Small Property"
+msgstr "_Diminuer la Taille du Texte"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:577
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:726
+msgid "Toggle Small Property of the Selected Text"
+msgstr "Diminuer la Taille du Texte (petite taille)"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:578
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:727
+msgid "Toggle Su_perscript Property"
+msgstr "Activer la fonction E_xposant"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:578
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:727
+msgid "Toggle Superscript Property of the Selected Text"
+msgstr "Activer la fonction Exposant pour le texte sélectionné"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:579
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:728
+msgid "Toggle Su_bscript Property"
+msgstr "Activer la fonction In_dice"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:579
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:728
+msgid "Toggle Subscript Property of the Selected Text"
+msgstr "Activer la fonction Indice pour le texte sélectionné"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:580
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:729
+msgid "Toggle _Monospace Property"
+msgstr "Activer la fonction _Monospace"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:580
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:729
+msgid "Toggle Monospace Property of the Selected Text"
+msgstr "Activer la fonction _Monospace pour le texte sélectionné"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:581
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:732
+msgid "Justify _Left"
+msgstr "Aligner à _Gauche"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:581
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:732
+msgid "Justify Left the Current Paragraph"
+msgstr "Aligner le Paragraphe à Gauche"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:582
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:733
+msgid "Justify _Center"
+msgstr "Paragraphe _Centré"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:582
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:733
+msgid "Justify Center the Current Paragraph"
+msgstr "Centrer le Paragraphe"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:583
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:734
+msgid "Justify _Right"
+msgstr "Aligner à D_roite"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:583
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:734
+msgid "Justify Right the Current Paragraph"
+msgstr "Aligner le Paragraphe à Droite"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:584
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:767
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:806
+msgid "_Find in Node"
+msgstr "_Trouver dans le Nœud"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:584
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:767
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:806
+msgid "Find into the Selected Node"
+msgstr "Chercher dans le Nœud Sélectionné"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:585
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:768
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:807
+msgid "Find in Node_s"
+msgstr "Trouver dans les Nœud_s"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:585
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:768
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:807
+msgid "Find into all the Tree Nodes"
+msgstr "Chercher dans tous les Nœuds"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:586
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:667
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:769
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:808
+msgid "Find a _Node"
+msgstr "Trouver un _Nœud"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:586
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:667
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:769
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:808
+msgid "Find a Node from its Name"
+msgstr "Localiser un Nœud par son Nom"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:587
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:770
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:809
+msgid "Find _Again"
+msgstr "Chercher le Suivant"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:587
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:770
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:809
+msgid "Iterate the Last Find Operation"
+msgstr "Réitérer la dernière action de recherche"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:588
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:771
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:810
+msgid "Find _Back"
+msgstr "Chercher le _Précédent"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:588
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:771
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:810
+msgid "Iterate the Last Find Operation in Opposite Direction"
+msgstr "Réitérer la dernière action de recherche dans le Sens Opposé"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:589
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:774
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:813
+msgid "_Replace in Node"
+msgstr "_Remplacer dans le Nœud"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:589
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:774
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:813
+msgid "Replace into the Selected Node"
+msgstr "Remplacer dans le Nœud Sélectionné"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:590
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:775
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:814
+msgid "Replace in Node_s"
+msgstr "Remplacer dans les Nœud_s"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:590
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:775
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:814
+msgid "Replace into all the Tree Nodes"
+msgstr "Remplacer dans tous les Nœuds"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:591
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:668
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:776
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:815
+msgid "Replace in Nodes _Names"
+msgstr "Remplacer les _Noms des Nœuds"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:591
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:668
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:776
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:815
+msgid "Replace in Nodes Names"
+msgstr "Remplacer les Noms des Nœuds"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:592
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:777
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:816
+msgid "Replace _Again"
+msgstr "Remplacer _encore"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:592
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:777
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:816
+msgid "Iterate the Last Replace Operation"
+msgstr "Réitérer la dernière action de Remplacement"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:593
+msgid "Show/Hide Node Name _Header"
+msgstr "Afficher/_Cacher le Nom du Nœud"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:593
+msgid "Toggle Show/Hide Node Name Header"
+msgstr "Activer/Désactiver le Nom du Nœud en Titre de Page"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:594
+msgid "Show/Hide _Tree"
+msgstr "Afficher/Cacher l'_Arborescence"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:594
+msgid "Toggle Show/Hide Tree"
+msgstr "Activer/Désactiver l'Arborescence du projet"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:595
+msgid "Show/Hide _CherryTree"
+msgstr "Afficher/Cacher _CherryTree"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:595
+msgid "Toggle Show/Hide CherryTree"
+msgstr "(Dés)Activer Afficher/Cacher CherryTree"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:596
+msgid "Show/Hide Tool_bar"
+msgstr "Afficher/Cacher la Barre d'_Outils"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:596
+msgid "Toggle Show/Hide Toolbar"
+msgstr "Activer/Désactiver la Barre d'Outils"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:597
+msgid "Show _All Matches Dialog"
+msgstr "Montrer la fenêtre des occurrences"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:597
+msgid "Show Search All Matches Dialog"
+msgstr "Montrer la fenêtre de recherche de toutes les occurrences"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:598
+msgid "_Increase Toolbar Icons Size"
+msgstr "_Augmenter la taille des icônes"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:598
+msgid "Increase the Size of the Toolbar Icons"
+msgstr "Augmenter la taille des icônes de la Barre d'Outils"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:599
+msgid "_Decrease Toolbar Icons Size"
+msgstr "_Diminuer la taille des icônes"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:599
+msgid "Decrease the Size of the Toolbar Icons"
+msgstr "Diminuer la taille des icônes de la Barre d'Outils"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:600
+msgid "Toggle _Focus Tree/Text"
+msgstr "Bascule zone active : Arborescence/Zone de texte"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:600
+msgid "Toggle Focus Between Tree and Text"
+msgstr "Basculer la zone active entre l'arborescence et la zone de texte"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:601
+msgid "Toggle Node _Expanded/Collapsed"
+msgstr "Bascule nœud déroulé/nœud replié"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:601
+msgid "Toggle Expanded/Collapsed Status of the Selected Node"
+msgstr "État du nœud sélectionné (déroulé/replié)"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:602
+msgid "E_xpand All Nodes"
+msgstr "Dé_rouler tous les Nœuds"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:602
+msgid "Expand All the Tree Nodes"
+msgstr "Dérouler tous les Nœuds"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:603
+msgid "_Collapse All Nodes"
+msgstr "C_acher tous les Nœuds"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:603
+msgid "Collapse All the Tree Nodes"
+msgstr "Cacher tous les Nœuds"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:604
+msgid "_Full Screen On/Off"
+msgstr "_Plein-Écran On/Off"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:604
+msgid "Toggle Full Screen On/Off"
+msgstr "(Dés)Active le Plein-Écran"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:605
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:671
+msgid "From _CherryTree File"
+msgstr "À partir d'un Fichier _CherryTree"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:605
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:671
+msgid "Add Nodes of a CherryTree File to the Current Tree"
+msgstr "Ajouter les Nœuds d'un Fichier CherryTree à l'Arborescence actuelle"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:606
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:672
+msgid "From _Plain Text File"
+msgstr "À partir d'un Fichier Texte Brut"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:606
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:672
+msgid "Add Node from a Plain Text File to the Current Tree"
+msgstr "Ajouter les Nœuds d'un Fichier Texte Brut à l'Arborescence actuelle"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:607
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:673
+msgid "From _Folder of Plain Text Files"
+msgstr "À partir d'un Répertoire Texte _Brut"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:607
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:673
+msgid "Add Nodes from a Folder of Plain Text Files to the Current Tree"
+msgstr "Ajouter les Nœuds d'un Répertoire Texte Brut à l'Arborescence actuelle"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:608
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:674
+msgid "From _Basket Folder"
+msgstr "À partir d'un Répertoire _Basket"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:608
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:674
+msgid "Add Nodes of a Basket Folder to the Current Tree"
+msgstr "Ajouter les Nœuds d'un Répertoire Basket à l'Arborescence actuelle"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:609
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:675
+msgid "From _Gnote Folder"
+msgstr "À partir d'un Répertoire _Gnote"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:609
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:675
+msgid "Add Nodes of a Gnote Folder to the Current Tree"
+msgstr "Ajouter les Nœuds d'un Répertoire Gnote à l'Arborescence actuelle"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:610
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:676
+msgid "From _KeepNote Folder"
+msgstr "À partir d'un Répertoire _KeepNote"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:610
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:676
+msgid "Add Nodes of a KeepNote Folder to the Current Tree"
+msgstr "Ajouter les Nœuds d'un Répertoire KeepNote à l'Arborescence actuelle"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:611
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:677
+msgid "From K_eyNote File"
+msgstr "À partir d'un Fichier K_eyNote"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:611
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:677
+msgid "Add Nodes of a KeyNote File to the Current Tree"
+msgstr "Ajouter les Nœuds d'un Fichier KeyNote à l'Arborescence actuelle"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:612
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:678
+msgid "From K_nowit File"
+msgstr "À partir d'un Fichier K_nowit"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:612
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:678
+msgid "Add Nodes of a Knowit File to the Current Tree"
+msgstr "Ajouter les Nœuds d'un Fichier Knowit à l'Arborescence actuelle"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:613
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:679
+msgid "From _Leo File"
+msgstr "À partir d'un Fichier _Leo"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:613
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:679
+msgid "Add Nodes of a Leo File to the Current Tree"
+msgstr "Ajouter les Nœuds d'un Fichier Leo à l'Arborescence actuelle"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:614
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:680
+msgid "From _Mempad File"
+msgstr "À partir d'un Fichier _Mempad"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:614
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:680
+msgid "Add Nodes of a Mempad File to the Current Tree"
+msgstr "Ajouter les Nœuds d'un Fichier Mempad à l'Arborescence actuelle"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:615
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:681
+msgid "From _NoteCase File"
+msgstr "À partir d'un Fichier _NoteCase"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:615
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:681
+msgid "Add Nodes of a NoteCase File to the Current Tree"
+msgstr "Ajouter les Nœuds d'un Fichier NoteCase à l'Arborescence actuelle"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:616
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:682
+msgid "From T_omboy Folder"
+msgstr "À partir d'un Répertoire T_omboy"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:616
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:682
+msgid "Add Nodes of a Tomboy Folder to the Current Tree"
+msgstr "Ajouter les Nœuds d'un Dossier Tomboy à l'Arborescence actuelle"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:617
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:683
+msgid "From T_reepad Lite File"
+msgstr "À partir d'un fichier T_reepad Lite"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:617
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:683
+msgid "Add Nodes of a Treepad Lite File to the Current Tree"
+msgstr "Ajouter les Nœuds d'un Fichier Treepad Lite à l'Arborescence actuelle"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:618
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:684
+msgid "From _TuxCards File"
+msgstr "À partir d'un Fichier _TuxCards"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:618
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:684
+msgid "Add Nodes of a TuxCards File to the Current Tree"
+msgstr "Ajouter les Nœuds d'un Fichier Tuxcards à l'Arborescence actuelle"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:619
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:685
+msgid "From _Zim Folder"
+msgstr "À partir d'un Répertoire _Zim"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:619
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:685
+msgid "Add Nodes of a Zim Folder to the Current Tree"
+msgstr "Ajouter les Nœuds d'un Dossier Zim à l'Arborescence actuelle"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:620
+msgid "Online _Manual"
+msgstr "_Manuel d'utilisation en ligne"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:620
+msgid "Application's Online Manual"
+msgstr "Manuel en ligne de l'Application"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:621
+msgid "_Check Newer Version"
+msgstr "_Vérifier les mises-à-jour"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:621
+msgid "Check for a Newer Version"
+msgstr "Vérifier l'existence d'une nouvelle version'"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:622
+msgid "_About"
+msgstr "_A propos"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:622
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:305
+msgid "About CherryTree"
+msgstr "À propos de CherryTree"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:623
+msgid "_Edit Table Properties"
+msgstr "É_diter les Propriétés du Tableau"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:623
+msgid "Edit the Table Properties"
+msgstr "Éditer les Propriétés du Tableau"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:624
+msgid "_Add Row"
+msgstr "_Ajouter une Ligne"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:624
+msgid "Add a Table Row"
+msgstr "Ajouter une Ligne au Tableau"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:625
+msgid "Cut a Table Row"
+msgstr "Couper une ligne du Tableau"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:626
+msgid "Copy a Table Row"
+msgstr "Copier une ligne du Tableau"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:627
+msgid "_Paste Row"
+msgstr "_Coller la Ligne"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:627
+msgid "Paste a Table Row"
+msgstr "Coller une ligne du Tableau"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:628
+msgid "Delete the Selected Table Row"
+msgstr "Supprimer la Ligne du Tableau"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:629
+msgid "Move Row _Up"
+msgstr "Déplacer Ligne vers le _Haut"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:629
+msgid "Move the Selected Row Up"
+msgstr "Déplacer la Ligne vers le Haut"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:630
+msgid "Move Row _Down"
+msgstr "Déplacer Ligne vers le _Bas"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:630
+msgid "Move the Selected Row Down"
+msgstr "Déplacer la Ligne vers le Bas"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:631
+msgid "Sort Rows De_scending"
+msgstr "Trier par ordre _Croissant"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:631
+msgid "Sort all the Rows Descending"
+msgstr "Trier les Lignes par ordre alphabétique Décroissant"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:632
+msgid "Sort Rows As_cending"
+msgstr "Trier par ordre _Décroissant"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:632
+msgid "Sort all the Rows Ascending"
+msgstr "Trier les Lignes par ordre alphabétique Croissant"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:633
+msgid "_Table Export"
+msgstr "Exporter le _Tableau"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:633
+msgid "Export Table as CSV File"
+msgstr "Exporter le Tableau en Fichier CVS"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:634
+msgid "_Bookmark This Node"
+msgstr "Mettre ce Nœud en _Favori"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:634
+msgid "Add the Current Node to the Bookmarks List"
+msgstr "Ajouter le Nœud actuel à la liste des Favoris"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:635
+msgid "_Handle Bookmarks"
+msgstr "_Manipuler les favoris"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:635
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:1007
+msgid "Handle the Bookmarks List"
+msgstr "Editer la liste des Favoris"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:636
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:647
+msgid "Add _Node"
+msgstr "Ajouter un _Nœud"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:636
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:647
+msgid "Add a Node having the same Father of the Selected Node"
+msgstr "Ajouter un Nœud ayant le même Parent que le Nœud sélectionné"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:637
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:648
+msgid "Add _SubNode"
+msgstr "Ajouter un _Sous-Nœud"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:637
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:648
+msgid "Add a Child Node to the Selected Node"
+msgstr "Ajouter un Nœud Enfant au Nœud sélectionné"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:650
+msgid "Change Node _Properties"
+msgstr "Changer les _Propriétés du Nœud"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:650
+msgid "Edit the Properties of the Selected Node"
+msgstr "Éditer les Propriétés du Nœud sélectionné"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:651
+msgid "Tree _Info"
+msgstr "_Informations Arborescence"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:651
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2918
+msgid "Tree Summary Information"
+msgstr "Récapitulatif des Informations"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:654
+msgid "Node _Up"
+msgstr "Nœud vers le Haut"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:654
+msgid "Move the Selected Node Up"
+msgstr "Déplacer le Nœud vers le Haut"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:655
+msgid "Node _Down"
+msgstr "Nœud vers le Bas"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:655
+msgid "Move the Selected Node Down"
+msgstr "Déplacer le Nœud vers le Bas"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:656
+msgid "Node _Left"
+msgstr "Nœud vers la Gauche"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:656
+msgid "Move the Selected Node Left"
+msgstr "Déplacer le Nœud vers la Gauche"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:657
+msgid "Node Change _Father"
+msgstr "Changer le parent du Nœud"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:657
+msgid "Change the Selected Node's Father"
+msgstr "Changer le Parent du Nœud sélectionné"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:660
+msgid "Nodes _Sort"
+msgstr "_Trier les Nœuds"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:661
+msgid "Sort Tree _Ascending"
+msgstr "Trier Arborescence par ordre _Croissant"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:661
+msgid "Sort the Tree Ascending"
+msgstr "Trier l'Arborescence par ordre Croissant"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:662
+msgid "Sort Tree _Descending"
+msgstr "Trier Arborescence par ordre _Décroissant"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:662
+msgid "Sort the Tree Descending"
+msgstr "Trier Arborescence par ordre _Décroissant"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:663
+msgid "Sort Siblings A_scending"
+msgstr "Trier Sous-Nœuds par ordre _Croissant"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:663
+msgid "Sort all the Siblings of the Selected Node Ascending"
+msgstr "Trier les Sous-Nœuds par ordre alphabétique croissant"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:664
+msgid "Sort Siblings D_escending"
+msgstr "Trier Sous-Nœuds par ordre _Décroissant"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:664
+msgid "Sort all the Siblings of the Selected Node Descending"
+msgstr "Trier les Sous-Nœuds par ordre alphabétique décroissant"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:697
+msgid "De_lete Node"
+msgstr "S_upprimer le Nœud"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:697
+msgid "Delete the Selected Node"
+msgstr "Supprimer le Nœud Sélectionné"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:731
+msgid "_Justify"
+msgstr "_Justifier"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:736
+msgid "_List"
+msgstr "_Lister"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:742
+msgid "_Insert"
+msgstr "_Insérer"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:757
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:796
+msgid "_Row"
+msgstr "_Ligne"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:759
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:798
+msgid "C_opy Row"
+msgstr "C_opier la Ligne"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:790
+msgid "Stri_p Trailing Spaces"
+msgstr "R_etrait des espaces de fin"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:790
+msgid "Strip Trailing Spaces"
+msgstr "Retrait des espaces de fin"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:828
+msgid "Edit _Link"
+msgstr "Éditer _Lien"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:828
+msgid "Edit the Underlying Link"
+msgstr "Éditer le Lien Soulignée"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:830
+msgid "C_ut Link"
+msgstr "C_ouper le Lien"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:830
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:846
+msgid "Cut the Selected CodeBox"
+msgstr "Couper la CodeBox Sélectionnée"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:831
+msgid "_Copy Link"
+msgstr "_Copier le Lien"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:831
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:847
+msgid "Copy the Selected CodeBox"
+msgstr "Copier la CodeBox Sélectionnée"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:832
+msgid "D_ismiss Link"
+msgstr "R_ejeter le Lien"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:832
+msgid "Dismiss the Selected Link"
+msgstr "Rejeter le Lien Sélectionnée"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:833
+msgid "_Delete Link"
+msgstr "_Supprimer le Lien"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:833
+msgid "Delete the Selected Link"
+msgstr "Supprimer le Lien Sélectionné"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:844
+msgid "Change CodeBox _Properties"
+msgstr "Changer les _Propriétés de la CodeBox"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:844
+msgid "Edit the Properties of the CodeBox"
+msgstr "Éditer les Propriétés de la CodeBox"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:846
+msgid "C_ut CodeBox"
+msgstr "C_ouper la CodeBox"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:847
+msgid "_Copy CodeBox"
+msgstr "_Copier la CodeBox"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:848
+msgid "_Delete CodeBox"
+msgstr "S_upprimer la CodeBox "
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:848
+msgid "Delete the Selected CodeBox"
+msgstr "Supprimer la CodeBox Sélectionnée"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:850
+msgid "Increase CodeBox Width"
+msgstr "Augmenter la Largeur de la CodeBox"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:850
+msgid "Increase the Width of the CodeBox"
+msgstr "Augmenter la Largeur de la CodeBox"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:851
+msgid "Decrease CodeBox Width"
+msgstr "Diminuer la Largeur de la CodeBox"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:851
+msgid "Decrease the Width of the CodeBox"
+msgstr "Diminuer la Largeur de la CodeBox"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:852
+msgid "Increase CodeBox Height"
+msgstr "Augmenter la Hauteur de la CodeBox"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:852
+msgid "Increase the Height of the CodeBox"
+msgstr "Augmenter la Hauteur de la CodeBox"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:853
+msgid "Decrease CodeBox Height"
+msgstr "Diminuer la Hauteur de la CodeBox"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:853
+msgid "Decrease the Height of the CodeBox"
+msgstr "Diminuer la Hauteur de la CodeBox"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:128
 msgid "Save File as"
 msgstr "Enregistrer le Fichier sous"
 
-#: modules/support.py:159
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:159
 msgid "Select File"
 msgstr "Choisir un Fichier"
 
-#: modules/support.py:190
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:190
 msgid "Select Folder"
 msgstr "Choisir un Répertoire"
 
-#: modules/support.py:219
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:218
 msgid "Question"
 msgstr "Question"
 
-#: modules/support.py:235
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:233
 msgid "Info"
 msgstr "Info"
 
-#: modules/support.py:241
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:239
 msgid "This Change will have Effect Only After Restarting CherryTree"
 msgstr "Ce changement prendra effet uniquement après avoir relancé CherryTree"
 
-#: modules/support.py:251
-#: modules/support.py:508
-#: modules/support.py:542
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:249
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:506
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:540
 msgid "Warning"
 msgstr "Avertissement"
 
-#: modules/support.py:263
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:261
 msgid "Error"
 msgstr "Erreur"
 
-#: modules/support.py:272
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:270
 msgid ""
 "Copyright © 2009-2013\n"
 "Giuseppe Penone <giuspen@gmail.com>"
@@ -60,11 +1547,15 @@ msgstr ""
 "Copyright © 2009-2013\n"
 "Giuseppe Penone <giuspen@gmail.com>"
 
-#: modules/support.py:274
-msgid "A Hierarchical Note Taking Application, featuring Rich Text and Syntax Highlighting"
-msgstr "Une Application de Prise de Notes Hiérarchisées, combinant Texte Enrichi et Marquage Automatique de Syntaxe"
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:272
+msgid ""
+"A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
+"Highlighting"
+msgstr ""
+"Une Application de Prise de Notes Hiérarchisées, combinant Texte Enrichi et "
+"Marquage Automatique de Syntaxe"
 
-#: modules/support.py:275
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:273
 msgid ""
 "\n"
 "This program is free software; you can redistribute it and/or modify\n"
@@ -83,8 +1574,10 @@ msgid ""
 "MA 02110-1301, USA.\n"
 msgstr ""
 "\n"
-"Ce programme est sous licence libre; vous pouvez le redistribuer et/ou le modifier\n"
-"sous les termes de la GNU General Public License telle qu'elle est publiée par\n"
+"Ce programme est sous licence libre; vous pouvez le redistribuer et/ou le "
+"modifier\n"
+"sous les termes de la GNU General Public License telle qu'elle est publiée "
+"par\n"
 "la Free Software Foundation; que ce soit dans sa version 3 ou\n"
 "(selon vos préférences) dans une version plus récente.\n"
 "  \n"
@@ -97,7 +1590,7 @@ msgstr ""
 "Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,\n"
 "MA 02110-1301, USA.\n"
 
-#: modules/support.py:295
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:293
 msgid ""
 "Chinese Simplified (zh_CN) Channing Wong <mamimoluo@gmail.com>\n"
 "Czech (cs) Pavel Fric <fripohled@blogspot.com>\n"
@@ -114,7 +1607,8 @@ msgstr ""
 "Chinois Simplifié (zh_CN) Channing Wong <mamimoluo@gmail.com>\n"
 "Tchèque (cs) Pavel Fric <fripohled@blogspot.com>\n"
 "Néerlandais (nl) Patrick Vijgeboom <pj.vijgeboom@gmail.com>\n"
-"Français (fr) Benoît D'Angelo <benoit.dangelo@gmx.fr> (former Ludovic Troisi)\n"
+"Français (fr) Benoît D'Angelo <benoit.dangelo@gmx.fr> (former Ludovic "
+"Troisi)\n"
 "Allemand (de) Frank Brungräber <calexu@arcor.de> (former Sven Neubauer)\n"
 "Italien (it) Giuseppe Penone <giuspen@gmail.com>\n"
 "Polonais (pl) Marcin Swierczynski <orneo1212@gmail.com>\n"
@@ -123,38 +1617,23 @@ msgstr ""
 "Espagnol (es) Daniel MC <i.e.betel@gmail.com>\n"
 "Ukrainien (uk) Andriy Kovtun <kovtunos@yandex.ru>"
 
-#: modules/support.py:307
-#: modules/cons.py:615
-msgid "About CherryTree"
-msgstr "À propos de CherryTree"
-
-#: modules/support.py:332
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:330
 msgid "Anchor Name"
 msgstr "Nom de l'Ancre"
 
-#: modules/support.py:432
-#: modules/codeboxes.py:80
-msgid "Width"
-msgstr "Largeur"
-
-#: modules/support.py:435
-#: modules/codeboxes.py:84
-msgid "Height"
-msgstr "Hauteur"
-
-#: modules/support.py:545
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:543
 msgid "Cancel"
 msgstr "Annuler"
 
-#: modules/support.py:546
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:544
 msgid "No"
 msgstr "Non"
 
-#: modules/support.py:547
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:545
 msgid "Yes"
 msgstr "Oui"
 
-#: modules/support.py:561
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:559
 msgid ""
 "<b>The current document was updated</b>,\n"
 "do you want to save the changes?"
@@ -162,2344 +1641,947 @@ msgstr ""
 "<b>Le document actuel a été mis à jour</b>,\n"
 "voulez-vous enregistrer les changements ?"
 
-#: modules/support.py:604
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:602
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1041
 msgid "To WebSite"
 msgstr "Vers un Site Web"
 
-#: modules/support.py:615
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:613
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1055
 msgid "To File"
 msgstr "Vers un Fichier"
 
-#: modules/support.py:630
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:628
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1062
 msgid "To Folder"
 msgstr "Vers un Répertoire"
 
-#: modules/support.py:645
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:643
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1048
 msgid "To Node"
 msgstr "Vers un Nœud"
 
-#: modules/support.py:685
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:683
 msgid "Anchor Name (optional)"
 msgstr "Nom de l'Ancre (optionnel)"
 
-#: modules/support.py:739
-#: modules/core.py:3269
-#: modules/core.py:4149
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:737
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2890
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3755
 msgid "No Node is Selected"
 msgstr "Aucun Nœud n'est sélectionné"
 
-#: modules/support.py:759
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:757
 msgid "There are No Anchors in the Selected Node"
 msgstr "Il n'y a pas d'Ancres dans le Nœud sélectionné"
 
-#: modules/support.py:761
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:759
 msgid "Choose Existing Anchor"
 msgstr "Choisir une Ancre existante"
 
-#: modules/support.py:852
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:850
 msgid "Involved Nodes"
 msgstr "Nœuds impliqués"
 
-#: modules/support.py:858
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:856
 msgid "Selected Text Only"
 msgstr "Texte sélectionné uniquement"
 
-#: modules/support.py:859
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:857
 msgid "Selected Node Only"
 msgstr "Nœud sélectionné uniquement"
 
-#: modules/support.py:860
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:858
 msgid "Selected Node and Subnodes"
 msgstr "Nœud sélectionné et ses Sous-Nœuds"
 
-#: modules/support.py:861
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:859
 msgid "All the Tree"
 msgstr "Toute l'arborescence"
 
-#: modules/support.py:866
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:864
 msgid "Include Node Name"
 msgstr "Inclure le nom des Nœuds"
 
-#: modules/support.py:932
-#: modules/core.py:927
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:930
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:907
 msgid "Insert _Special Character"
 msgstr "Insertion_Caractères spéciaux"
 
-#: modules/support.py:934
-#: modules/core.py:929
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:932
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:909
 msgid "Insert a Special Character"
 msgstr "Insérer un caractère spécial"
 
-#: modules/support.py:965
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:963
 msgid "_Recent Documents"
 msgstr "Documents _Récents"
 
-#: modules/support.py:967
-#: modules/support.py:973
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:965
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:971
 msgid "Open a Recent CherryTree Document"
 msgstr "Ouvrir un Document CherryTree récent"
 
-#: modules/support.py:972
-#: modules/cons.py:511
-msgid "Open a CherryTree Document"
-msgstr "Ouvrir un Document CherryTree"
-
-#: modules/support.py:996
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:995
 #, python-format
 msgid "The Document %s was Not Found"
 msgstr "Le Document %s est introuvable"
 
-#: modules/support.py:1008
-#: modules/cons.py:628
-msgid "Handle the Bookmarks List"
-msgstr "Editer la liste des Favoris"
-
-#: modules/support.py:1022
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:1021
 msgid "Sort with Drag and Drop, Delete with the Delete Key"
-msgstr "Trier en déplaçant à la souris, Supprimer avec la touche de Suppression"
+msgstr ""
+"Trier en déplaçant à la souris, Supprimer avec la touche de Suppression"
 
-#: modules/findreplace.py:45
+#: /home/qsduser/Templates/hg_cherrytree/modules/pgsc_spellcheck.py:68
+msgid "Unknown"
+msgstr "Inconnu"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/pgsc_spellcheck.py:423
+msgid "(no suggestions)"
+msgstr "(pas de suggestions)"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/pgsc_spellcheck.py:439
+msgid "Add \"{}\" to Dictionary"
+msgstr "Ajouter  \"{}\"  au dictionnaire"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/pgsc_spellcheck.py:442
+msgid "Ignore All"
+msgstr "Ignorer tout"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/pgsc_spellcheck.py:453
+msgid "Languages"
+msgstr "<b>Langues</b>"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/pgsc_spellcheck.py:464
+msgid "Suggestions"
+msgstr "Suggestions"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/imports.py:1950
+msgid "Downloading"
+msgstr "Téléchargement"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/imports.py:2036
+#: /home/qsduser/Templates/hg_cherrytree/modules/tablez.py:304
+msgid "click me"
+msgstr "Cliquez-moi"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/findreplace.py:45
 msgid "Iterate Latest Find/Replace"
 msgstr "Réitérer la dernière action de Recherche/Remplacement"
 
-#: modules/findreplace.py:48
+#: /home/qsduser/Templates/hg_cherrytree/modules/findreplace.py:48
 msgid "Close"
 msgstr "Fermer"
 
-#: modules/findreplace.py:49
-#: modules/findreplace.py:50
+#: /home/qsduser/Templates/hg_cherrytree/modules/findreplace.py:49
+#: /home/qsduser/Templates/hg_cherrytree/modules/findreplace.py:50
 msgid "Find"
 msgstr "Trouver"
 
-#: modules/findreplace.py:51
+#: /home/qsduser/Templates/hg_cherrytree/modules/findreplace.py:51
 msgid "Replace"
 msgstr "Remplacer"
 
-#: modules/findreplace.py:52
+#: /home/qsduser/Templates/hg_cherrytree/modules/findreplace.py:52
 msgid "Undo"
 msgstr "Annuler"
 
-#: modules/findreplace.py:107
+#: /home/qsduser/Templates/hg_cherrytree/modules/findreplace.py:107
 msgid "Replace in Current Node..."
 msgstr "Remplacer dans le Nœud actuel..."
 
-#: modules/findreplace.py:108
+#: /home/qsduser/Templates/hg_cherrytree/modules/findreplace.py:108
 msgid "Search in Current Node..."
 msgstr "Chercher dans le Nœud actuel..."
 
-#: modules/findreplace.py:136
-#: modules/findreplace.py:211
-#: modules/findreplace.py:282
+#: /home/qsduser/Templates/hg_cherrytree/modules/findreplace.py:136
+#: /home/qsduser/Templates/hg_cherrytree/modules/findreplace.py:211
+#: /home/qsduser/Templates/hg_cherrytree/modules/findreplace.py:282
 #, python-format
 msgid "The pattern '%s' was not found"
 msgstr "Le Terme '%s' est introuvable"
 
-#: modules/findreplace.py:138
-#: modules/findreplace.py:214
-#: modules/findreplace.py:284
+#: /home/qsduser/Templates/hg_cherrytree/modules/findreplace.py:138
+#: /home/qsduser/Templates/hg_cherrytree/modules/findreplace.py:214
+#: /home/qsduser/Templates/hg_cherrytree/modules/findreplace.py:284
 msgid "Matches"
 msgstr "Correspondances"
 
-#: modules/findreplace.py:153
+#: /home/qsduser/Templates/hg_cherrytree/modules/findreplace.py:153
 msgid "Replace in All Nodes..."
 msgstr "Remplacer dans tous les Nœuds..."
 
-#: modules/findreplace.py:154
+#: /home/qsduser/Templates/hg_cherrytree/modules/findreplace.py:154
 msgid "Search in All Nodes..."
 msgstr "Chercher dans tous les Nœuds..."
 
-#: modules/findreplace.py:227
+#: /home/qsduser/Templates/hg_cherrytree/modules/findreplace.py:227
 msgid "Replace in Node Names..."
 msgstr "Remplacer le Nom d'un Nœud..."
 
-#: modules/findreplace.py:228
+#: /home/qsduser/Templates/hg_cherrytree/modules/findreplace.py:228
 msgid "Search For a Node Name..."
 msgstr "Chercher le Nom d'un Nœud..."
 
-#: modules/findreplace.py:535
+#: /home/qsduser/Templates/hg_cherrytree/modules/findreplace.py:535
 msgid "No Previous Search Was Performed During This Session"
-msgstr "Aucune Recherche précédente n'a été effectuée durant cette session de travail"
+msgstr ""
+"Aucune Recherche précédente n'a été effectuée durant cette session de travail"
 
-#: modules/findreplace.py:575
+#: /home/qsduser/Templates/hg_cherrytree/modules/findreplace.py:575
 msgid "Hide (Restore with Ctrl+Shift+A)"
 msgstr "Cacher (Restaurer avec Ctrl+Shift+A)"
 
-#: modules/findreplace.py:588
-#: modules/core.py:3001
+#: /home/qsduser/Templates/hg_cherrytree/modules/findreplace.py:588
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2674
 msgid "Node Name"
 msgstr "Nom du Nœud"
 
-#: modules/findreplace.py:590
+#: /home/qsduser/Templates/hg_cherrytree/modules/findreplace.py:590
 msgid "Line"
 msgstr "Ligne"
 
-#: modules/findreplace.py:592
+#: /home/qsduser/Templates/hg_cherrytree/modules/findreplace.py:592
 msgid "Line Content"
 msgstr "Contenu de la ligne"
 
-#: modules/findreplace.py:609
-#: modules/core.py:3911
+#: /home/qsduser/Templates/hg_cherrytree/modules/findreplace.py:609
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3547
 #, python-format
 msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
 msgstr "Le Lien pointe vers un Nœud qui n'existe plus (Id = %s)"
 
-#: modules/core.py:218
-msgid "Checking for Newer Version..."
-msgstr "Vérifications des mises-à-jour..."
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:436
+#, fuzzy
+msgid "Tab Width"
+msgstr "Largeur des Tabulations"
 
-#: modules/core.py:224
-msgid "A Newer Version Is Available!"
-msgstr "Une nouvelle version est disponible !"
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:442
+msgid "Insert Spaces Instead of Tabs"
+msgstr "Insérer des Espaces au lieu de Tabulations"
 
-#: modules/core.py:229
-msgid "This is the Latest Version Available"
-msgstr "Vous disposez de la dernière version en date !"
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:444
+msgid "Use Line Wrapping"
+msgstr "Utiliser le Retour à la Ligne"
 
-#: modules/core.py:232
-msgid "Failed to Retrieve Latest Version Information - Try Again Later"
-msgstr "Impossible de récupérer les informations de la dernière version en date - Essayez ultérieurement"
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:448
+#, fuzzy
+msgid "Line Wrapping Indentation"
+msgstr "Activer l'Indentation Automatique"
 
-#: modules/core.py:249
-#: modules/core.py:3284
-#: modules/core.py:3647
-#: modules/core.py:4197
-msgid "No Text is Selected"
-msgstr "Aucun Texte n'est sélectionné"
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:454
+msgid "Enable Automatic Indentation"
+msgstr "Activer l'Indentation Automatique"
 
-#: modules/core.py:549
-#: modules/core.py:1979
-msgid "The new father can't be one of his sons!"
-msgstr "Le nouveau Parent ne peut être l'un de ses enfants !"
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:466
+#, fuzzy
+msgid "Text Editor"
+msgstr "<b>Editeur de Texte</b>"
 
-#: modules/core.py:572
-#: modules/core.py:1179
-#: modules/core.py:1329
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:476
+msgid "Timestamp Format"
+msgstr "Format de l'Horodatage"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:486
+msgid "Horizontal Rule"
+msgstr "Ligne Horizontale"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:493
+msgid "Special Characters"
+msgstr "Caractères spéciaux"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:513
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:639
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:855
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1091
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1211
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1324
+msgid "Miscellaneous"
+msgstr "Autres"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:565
+msgid "Enable Spell Check"
+msgstr "Activer la vérification orthographique"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:569
+msgid "Spell Check Language"
+msgstr "Langue de vérification orthographique"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:582
+#, fuzzy
+msgid "Spell Check"
+msgstr "Activer la vérification orthographique"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:592
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:759
+msgid "Light Background, Dark Text"
+msgstr "Arrière plan clair, texte sombre"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:593
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:760
+msgid "Dark Background, Light Text"
+msgstr "Arrière plan sombre, texte clair"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:595
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:762
+msgid "Custom Background"
+msgstr "Personnalisation de l'arrière plan"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:600
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:767
+msgid "and Text"
+msgstr "du texte"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:610
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:777
+msgid "Theme"
+msgstr ""
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:630
+msgid "Limit of Undoable Steps Per Node"
+msgstr "Limite d'annulations par Nœud"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:711
+msgid "Style Scheme"
+msgstr "Plan du Style"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:719
+msgid "Show White Spaces"
+msgstr "Afficher les espaces vides"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:721
+msgid "Highlight Current Line"
+msgstr "Surligner la Ligne actuelle"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:797
+msgid "Use Cherries as Nodes Icons"
+msgstr "Utiliser des Cerises comme icônes des Nœuds"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:798
+msgid "Use Bullets as Nodes Icons"
+msgstr "Utiliser des Puces comme icônes des Nœuds"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:800
+msgid "Do Not Display Nodes Icons"
+msgstr "Ne pas afficher les icônes des Nœuds"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:806
+#, fuzzy
+msgid "Nodes Icons"
+msgstr "<b>Icônes des Nœuds</b>"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:820
+msgid "Restore Expanded/Collapsed Status"
+msgstr "Restaurer l'état déroulé/replié"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:821
+msgid "Expand all Nodes"
+msgstr "Dérouler tous les Nœuds"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:823
+msgid "Collapse all Nodes"
+msgstr "Replier tous les Nœuds"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:829
+#, fuzzy
+msgid "Nodes Status at Startup"
+msgstr "<b>État des nœuds au démarrage</b>"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:844
+msgid "Tree Nodes Names Wrapping Width"
+msgstr "Largeur de Retour à la Ligne des Nœuds"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:850
+msgid "Display Tree on the Right Side"
+msgstr "Afficher l'Arborescence à Droite"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:955
+msgid "Text Font"
+msgstr "  Police du Texte"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:956
+msgid "Code Font"
+msgstr "Police du Code"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:957
+msgid "Tree Font"
+msgstr "Police de l'Arborescence"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:974
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1322
+msgid "Fonts"
+msgstr "Polices"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1003
+msgid "Enable Custom Web Link Clicked Action"
+msgstr "Personnaliser l'Ouverture des Liens de Dossiers"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1005
+msgid "Enable Custom File Link Clicked Action"
+msgstr "Personnaliser l'Ouverture des Liens Internet"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1007
+msgid "Enable Custom Folder Link Clicked Action"
+msgstr "Personnaliser l'Ouverture des Liens de Fichiers"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1016
+#, fuzzy
+msgid "Custom Actions"
+msgstr "Personnalisation de l'arrière plan"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1072
+msgid "Colors"
+msgstr ""
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1083
+msgid "Anchor Size"
+msgstr "Taille de l'Ancre"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1148
+msgid "Enable System Tray Docking"
+msgstr "Activer dans Zone de Notification"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1149
+msgid "Start Minimized in the System Tray"
+msgstr "Démarrage rapide"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1150
+msgid "Use AppIndicator for Docking"
+msgstr "Utiliser l'indicateur d'application"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1155
+#, fuzzy
+msgid "System Tray"
+msgstr "<b>Zone de notification</b>"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1172
+msgid "Autosave Every"
+msgstr "Enregistrer automatiquement toutes les"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1175
+msgid "Minutes"
+msgstr "Minutes"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1179
+msgid "Autosave on Quit"
+msgstr "Sauvegarde automatique à la fermeture"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1180
+msgid "Create a Backup Copy Before Saving"
+msgstr "Créer une copie de sauvegarde avant d'enregistrer"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1191
+#, fuzzy
+msgid "Saving"
+msgstr "<b>Enregistrer</b>"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1200
+msgid "Automatically Check for Newer Version"
+msgstr "Vérifier les mises-à-jour automatiquement"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1201
+msgid "Reload Document From Last Session"
+msgstr "Recharger le document à partir de la session précédente"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1202
+msgid "Reload After External Update to CT* File"
+msgstr "Recharger après mise à jour extérieure du fichier CT*"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1227
+#, fuzzy
+msgid "Language"
+msgstr "<b>Langues</b>"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1310
+msgid "The New Language will be Available Only After Restarting CherryTree"
+msgstr ""
+"La nouvelle langue sera activée uniquement après avoir relancé CherryTree"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1318
+msgid "All Nodes"
+msgstr "Tous les nœuds"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1319
+msgid "Text Nodes"
+msgstr "Nœud de texte"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1320
+msgid "Code Nodes"
+msgstr "Nœud de code"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1321
+msgid "Tree"
+msgstr "Arborescence"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1323
+msgid "Links"
+msgstr "Liens"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/exports.py:38
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:552
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1128
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1278
 msgid "CherryTree Document"
 msgstr "Document CherryTree"
 
-#: modules/core.py:595
-#: modules/core.py:1599
+#: /home/qsduser/Templates/hg_cherrytree/modules/exports.py:99
+#, fuzzy
+msgid "PDF File"
+msgstr "Vers un Fichier"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/exports.py:180
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:667
+msgid "Plain Text Document"
+msgstr "Document Texte Brut"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/tablez.py:63
+msgid "Rename Column"
+msgstr "Renommer la Colonne"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/tablez.py:74
+msgid "Delete Column"
+msgstr "Supprimer la Colonne"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/tablez.py:82
+msgid "Add Column"
+msgstr "Ajouter une Colonne"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/tablez.py:93
+msgid "Move Column Left"
+msgstr "Déplacer Colonne à Gauche"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/tablez.py:101
+msgid "Move Column Right"
+msgstr "Déplacer Colonne à Droite"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/tablez.py:170
+msgid "Rows"
+msgstr "Lignes"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/tablez.py:174
+msgid "Columns"
+msgstr "Colonnes"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/tablez.py:189
+msgid "Table Size"
+msgstr "Taille du Tableau"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/tablez.py:194
+msgid "Min Width"
+msgstr "Largeur Min"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/tablez.py:198
+msgid "Max Width"
+msgstr "Largeur Max"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/tablez.py:213
+msgid "Column Properties"
+msgstr "Propriétés des Colonnes"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/tablez.py:218
+msgid "Import from CSV File"
+msgstr "Importer d'un Fichier CSV"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/tablez.py:253
+#: /home/qsduser/Templates/hg_cherrytree/modules/tablez.py:275
+msgid "CSV File"
+msgstr "Fichier CSV"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/tablez.py:269
+msgid "Insert Table"
+msgstr "Insérer un Tableau"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/tablez.py:313
+msgid "Click to Edit the Column Settings"
+msgstr "Cliquer pour Éditer les Paramètres de la Colonne"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/tablez.py:358
+msgid "Edit Table Properties"
+msgstr "Éditer les Propriétés du Tableau"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/tablez.py:434
+msgid "Table Column Action"
+msgstr "Actions de la Colonne du Tableau"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:198
+msgid "Checking for Newer Version..."
+msgstr "Vérifications des mises-à-jour..."
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:204
+msgid "A Newer Version Is Available!"
+msgstr "Une nouvelle version est disponible !"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:209
+#, fuzzy
+msgid "You Are Using the Latest Version Available"
+msgstr "Vous disposez de la dernière version en date !"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:212
+msgid "Failed to Retrieve Latest Version Information - Try Again Later"
+msgstr ""
+"Impossible de récupérer les informations de la dernière version en date - "
+"Essayez ultérieurement"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:229
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2905
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3269
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3803
+msgid "No Text is Selected"
+msgstr "Aucun Texte n'est sélectionné"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:529
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1930
+msgid "The new father can't be one of his sons!"
+msgstr "Le nouveau Parent ne peut être l'un de ses enfants !"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:575
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1549
 #, python-format
 msgid "\"%s\" is Not a CherryTree Document"
 msgstr "\"%s\" n'est pas un document CherryTree"
 
-#: modules/core.py:601
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:581
 msgid "NoteCase Document"
 msgstr "NoteCase Document"
 
-#: modules/core.py:687
-msgid "Plain Text Document"
-msgstr "Document Texte Brut"
-
-#: modules/core.py:705
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:685
 msgid "Treepad Document"
 msgstr "Document Treepad"
 
-#: modules/core.py:723
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:703
 msgid "KeyNote Document"
 msgstr "Document KeyNote"
 
-#: modules/core.py:741
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:721
 msgid "Mempad Document"
 msgstr "Document Mempad"
 
-#: modules/core.py:759
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:739
 msgid "Knowit Document"
 msgstr "Document Knowit"
 
-#: modules/core.py:777
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:757
 msgid "Leo Document"
 msgstr "Document Leo"
 
-#: modules/core.py:808
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:788
 msgid "Who is the Father?"
 msgstr "Quel est le parent ?"
 
-#: modules/core.py:815
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:795
 msgid "The Tree Root"
 msgstr "La Racine de l'arboresence !"
 
-#: modules/core.py:816
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:796
 msgid "The Selected Node"
 msgstr "Le Nœud Sélectionné"
 
-#: modules/core.py:1017
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:983
 msgid "The Document was Reloaded After External Update to CT* File"
-msgstr "Le document a été rechargé après modification extérieure du fichier CT*"
+msgstr ""
+"Le document a été rechargé après modification extérieure du fichier CT*"
 
-#: modules/core.py:1044
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1010
 msgid "CherryTree Hierarchical Note Taking"
 msgstr "CherryTree Hierarchical Note Taking"
 
-#: modules/core.py:1296
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1245
 #, python-format
 msgid "You Have No Write Access to %s"
 msgstr "Vous n'avez pas d'accès en écriture sur %s"
 
-#: modules/core.py:1311
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1260
 msgid "Writing to Disk..."
 msgstr "Écriture vers le Disque en cours ..."
 
-#: modules/core.py:1356
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1306
 msgid "Choose Storage Type"
 msgstr "Choisir un Mode de Stockage"
 
-#: modules/core.py:1363
-#: modules/core.py:1366
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1313
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1316
 msgid "Not Protected"
 msgstr "Non protégé"
 
-#: modules/core.py:1364
-#: modules/core.py:1368
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1314
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1318
 msgid "Password Protected"
 msgstr "Protégé par Mot de Passe"
 
-#: modules/core.py:1375
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1325
 msgid "Storage Type"
 msgstr "Type de stockage"
 
-#: modules/core.py:1386
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1336
 msgid "Enter the New Password Twice"
 msgstr "Entrez le nouveau Mot de Passe deux fois"
 
-#: modules/core.py:1429
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1379
 msgid "The Password Fields Must be Filled"
 msgstr "Veuillez remplir tous les champs de saisie"
 
-#: modules/core.py:1432
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1382
 msgid "The Two Inserted Passwords Do Not Match"
 msgstr "Les deux Mots de Passe renseignés ne correspondent pas"
 
-#: modules/core.py:1437
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1387
 #, python-format
 msgid "The Characters  %s  are Not Allowed"
 msgstr "Les caractères %s ne sont pas autorisés"
 
-#: modules/core.py:1455
-msgid "Binary Executable '7za' Not Found, Check The Package 'p7zip-full' to be Installed Properly"
-msgstr "Le fichier binaire '7za' est introuvable. Vérifiez que le paquet 'p7zip-full' est correctement installé"
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1405
+msgid ""
+"Binary Executable '7za' Not Found, Check The Package 'p7zip-full' to be "
+"Installed Properly"
+msgstr ""
+"Le fichier binaire '7za' est introuvable. Vérifiez que le paquet 'p7zip-"
+"full' est correctement installé"
 
-#: modules/core.py:1461
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1411
 #, python-format
 msgid "Enter Password for %s"
 msgstr "Entrer un Mot de Passe pour %s"
 
-#: modules/core.py:1523
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1473
 msgid "Wrong Password"
 msgstr "Mauvais Mot de Passe"
 
-#: modules/core.py:1967
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1918
 msgid "Select the New Father"
 msgstr "Choisir un nouveau Parent"
 
-#: modules/core.py:1971
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1922
 msgid "The new father can't be the very node to move!"
 msgstr "Le nouveau Parent ne peut être le nœud à déplacer !"
 
-#: modules/core.py:1974
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1925
 msgid "The new choosed father is again the old father!"
 msgstr "Le nouveau Parent est encore l'ancien Parent !"
 
-#: modules/core.py:2314
-msgid "The New Language will be Available Only After Restarting CherryTree"
-msgstr "La nouvelle langue sera activée uniquement après avoir relancé CherryTree"
-
-#: modules/core.py:2431
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2104
 msgid "New Node Properties"
 msgstr "Nouvelles propriétés du nœud"
 
-#: modules/core.py:2458
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2131
 msgid "New Child Node Properties"
 msgstr "Nouvelles propriétés du nœud fil"
 
-#: modules/core.py:2477
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2150
 #, python-format
 msgid "Are you sure to <b>Delete the node '%s'?</b>"
 msgstr "Êtes-vous sûr de vouloir <b>Supprimer le nœud '%s'?</b>"
 
-#: modules/core.py:2479
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2152
 msgid "The node <b>has Children, they will be Deleted too!</b>"
 msgstr "Le nœud <b>a des Enfants, ils seront supprimés également !</b>"
 
-#: modules/core.py:2499
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2172
 msgid "Node Properties"
 msgstr "Propriétés du nœud"
 
-#: modules/core.py:2507
-msgid "Entering the Automatic Syntax Highlighting you will Lose all Custom Colors for This Node, Do you want to Continue?"
-msgstr "En choisissant le Marquage Automatique de la Syntaxe vous perdrez toutes vos Couleurs Personnelles liées à ce Nœud. Voulez-vous tout de même continuer ?"
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2180
+msgid ""
+"Entering the Automatic Syntax Highlighting you will Lose all Custom Colors "
+"for This Node, Do you want to Continue?"
+msgstr ""
+"En choisissant le Marquage Automatique de la Syntaxe vous perdrez toutes vos "
+"Couleurs Personnelles liées à ce Nœud. Voulez-vous tout de même continuer ?"
 
-#: modules/core.py:2890
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2563
 msgid "Search for"
 msgstr "Rechercher"
 
-#: modules/core.py:2897
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2570
 msgid "Replace with"
 msgstr "Remplacer par"
 
-#: modules/core.py:2912
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2585
 msgid "Match Case"
 msgstr "Respecter la Casse"
 
-#: modules/core.py:2914
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2587
 msgid "Regular Expression"
 msgstr "Expression Régulière"
 
-#: modules/core.py:2916
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2589
 msgid "Whole Word"
 msgstr "Mot Entier"
 
-#: modules/core.py:2918
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2591
 msgid "Start Word"
 msgstr "Commencer au mot"
 
-#: modules/core.py:2920
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2593
 msgid "Forward"
 msgstr "Vers l'Avant"
 
-#: modules/core.py:2922
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2595
 msgid "Backward"
 msgstr "Vers l'Arrière"
 
-#: modules/core.py:2925
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2598
 msgid "All, List Matches"
 msgstr "Tout (lister les résultats)"
 
-#: modules/core.py:2927
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2600
 msgid "First From Selection"
 msgstr "À partir de la Sélection"
 
-#: modules/core.py:2930
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2603
 msgid "First in All Range"
 msgstr "Toute la zone de texte"
 
-#: modules/core.py:2933
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2606
 msgid "Show Iterated Find/Replace Dialog"
 msgstr "Montrer la fenêtre de réitération de Recherche/Remplacement"
 
-#: modules/core.py:2953
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2626
 msgid "Search options"
 msgstr "Options de Recherche"
 
-#: modules/core.py:3005
-#: modules/core.py:4151
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2678
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3757
 msgid "Rich Text"
 msgstr "Texte Enrichi"
 
-#: modules/core.py:3006
-#: modules/codeboxes.py:75
-msgid "Automatic Syntax Highlighting"
-msgstr "Marquage Automatique de la Syntaxe"
-
-#: modules/core.py:3023
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2696
 msgid "Node Type"
 msgstr "Type de Nœud"
 
-#: modules/core.py:3029
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2702
 msgid "Tags for Searching"
 msgstr "Mots-Clés de Recherche"
 
-#: modules/core.py:3033
-#: modules/core.py:4153
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2706
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3759
 msgid "Read Only"
 msgstr "Lecture seule"
 
-#: modules/core.py:3067
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2740
 msgid "The Size of the Toolbar Icons is already at the Maximum Value"
 msgstr "La taille des icônes a déjà atteint son niveau maximum"
 
-#: modules/core.py:3075
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2748
 msgid "The Size of the Toolbar Icons is already at the Minimum Value"
 msgstr "La taille des icônes a déjà atteint son niveau minimum"
 
-#: modules/core.py:3156
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2829
 msgid "Edit Anchor"
 msgstr "Éditer l'Ancre"
 
-#: modules/core.py:3159
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2832
 msgid "Insert Anchor"
 msgstr "Insérer une Ancre"
 
-#: modules/core.py:3195
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2868
 msgid "Not Any H1, H2 or H3 Formatting Found"
 msgstr "Aucune mise en forme H1, H2 ou H3 n'a été trouvée'"
 
-#: modules/core.py:3262
-msgid "Automatic Syntax Highlighting Must be Disabled in order to Use This Feature"
-msgstr "Le Marquage Automatique de la Syntaxe doit être désactivé pour utiliser cette fonction"
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2883
+msgid ""
+"Automatic Syntax Highlighting Must be Disabled in order to Use This Feature"
+msgstr ""
+"Le Marquage Automatique de la Syntaxe doit être désactivé pour utiliser "
+"cette fonction"
 
-#: modules/core.py:3276
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2897
 msgid "The Tree is Empty!"
 msgstr "L'Arborescence est vide !"
 
-#: modules/core.py:3297
-#: modules/cons.py:644
-msgid "Tree Summary Information"
-msgstr "Récapitulatif des Informations"
-
-#: modules/core.py:3305
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2926
 msgid "Number of Text Nodes"
 msgstr "Nombre de Nœuds de Texte"
 
-#: modules/core.py:3308
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2929
 msgid "Number of Code Nodes"
 msgstr "Nombre de Nœuds de Code"
 
-#: modules/core.py:3311
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2932
 msgid "Number of Images"
 msgstr "Nombre d'Images"
 
-#: modules/core.py:3314
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2935
 msgid "Number of Tables"
 msgstr "Nombre de Tableaux"
 
-#: modules/core.py:3317
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2938
 msgid "Number of CodeBoxes"
 msgstr "Nombre de CodeBoxes"
 
-#: modules/core.py:3386
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3007
 msgid "Image Properties"
 msgstr "Propriétés de l'Image"
 
-#: modules/core.py:3432
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3053
 msgid "PNG Image"
 msgstr "Image PNG"
 
-#: modules/core.py:3438
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3059
 #, python-format
 msgid "Write to %s Failed"
 msgstr "Enregistrement vers %s Échoué"
 
-#: modules/core.py:3494
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3110
 msgid "Lines Stripped"
 msgstr "Retrait espaces de fin (ligne(s))"
 
-#: modules/core.py:3612
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3229
 msgid "No Previous Text Format Was Performed During This Session"
-msgstr "Aucune Mise en forme précédente n'a été effectuée durant cette session de travail"
+msgstr ""
+"Aucune Mise en forme précédente n'a été effectuée durant cette session de "
+"travail"
 
-#: modules/core.py:3653
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3275
 msgid "Link Name"
 msgstr "Nom de Lien"
 
-#: modules/core.py:3683
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3303
 msgid "The Cursor is Not into a Paragraph"
 msgstr "Le Curseur ne se trouve sur aucun Paragraphe"
 
-#: modules/core.py:3696
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3316
 msgid "Insert/Edit Link"
 msgstr "Insérer/Éditer un Lien"
 
-#: modules/core.py:3721
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3341
 msgid "Pick a Color"
 msgstr "Choisir une Couleur"
 
-#: modules/core.py:3883
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3519
 #, python-format
 msgid "The File Link '%s' is Not Valid"
 msgstr "Le Lien de Fichier '%s' n'est pas valide"
 
-#: modules/core.py:3898
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3534
 #, python-format
 msgid "The Folder Link '%s' is Not Valid"
 msgstr "Le Lien du Répertoire '%s' n'est pas valide"
 
-#: modules/core.py:3921
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3557
 #, python-format
 msgid "No anchor named '%s' found"
 msgstr "Aucune Ancre nommée '%s' n'a été trouvée"
 
-#: modules/tablez.py:63
-msgid "Rename Column"
-msgstr "Renommer la Colonne"
+#~ msgid "<b>Miscellaneous</b>"
+#~ msgstr "<b>Autres</b>"
 
-#: modules/tablez.py:74
-msgid "Delete Column"
-msgstr "Supprimer la Colonne"
+#~ msgid "<b>Spell Check</b>"
+#~ msgstr "<b>Vérification orthographique</b>"
 
-#: modules/tablez.py:82
-msgid "Add Column"
-msgstr "Ajouter une Colonne"
+#~ msgid "<b>Theme</b>"
+#~ msgstr "<b>Thème</b>"
 
-#: modules/tablez.py:93
-msgid "Move Column Left"
-msgstr "Déplacer Colonne à Gauche"
+#~ msgid "<b>Automatic Syntax Highlighting</b>"
+#~ msgstr "<b>Marquage Automatique de la Syntaxe</b>"
 
-#: modules/tablez.py:101
-msgid "Move Column Right"
-msgstr "Déplacer Colonne à Droite"
+#~ msgid "<b>Fonts</b>"
+#~ msgstr "<b>Polices</b>"
 
-#: modules/tablez.py:170
-msgid "Rows"
-msgstr "Lignes"
+#~ msgid "<b>Links</b>"
+#~ msgstr "<b>Liens</b>"
 
-#: modules/tablez.py:174
-msgid "Columns"
-msgstr "Colonnes"
-
-#: modules/tablez.py:189
-msgid "Table Size"
-msgstr "Taille du Tableau"
-
-#: modules/tablez.py:194
-msgid "Min Width"
-msgstr "Largeur Min"
-
-#: modules/tablez.py:198
-msgid "Max Width"
-msgstr "Largeur Max"
-
-#: modules/tablez.py:213
-msgid "Column Properties"
-msgstr "Propriétés des Colonnes"
-
-#: modules/tablez.py:218
-msgid "Import from CSV File"
-msgstr "Importer d'un Fichier CSV"
-
-#: modules/tablez.py:253
-#: modules/tablez.py:275
-msgid "CSV File"
-msgstr "Fichier CSV"
-
-#: modules/tablez.py:269
-msgid "Insert Table"
-msgstr "Insérer un Tableau"
-
-#: modules/tablez.py:304
-#: modules/imports.py:1971
-msgid "click me"
-msgstr "Cliquez-moi"
-
-#: modules/tablez.py:313
-msgid "Click to Edit the Column Settings"
-msgstr "Cliquer pour Éditer les Paramètres de la Colonne"
-
-#: modules/tablez.py:358
-msgid "Edit Table Properties"
-msgstr "Éditer les Propriétés du Tableau"
-
-#: modules/tablez.py:434
-msgid "Table Column Action"
-msgstr "Actions de la Colonne du Tableau"
-
-#: modules/codeboxes.py:89
-msgid "pixels"
-msgstr "pixels"
-
-#: modules/codeboxes.py:114
-msgid "Size"
-msgstr "Taille"
-
-#: modules/codeboxes.py:119
-#: glade/cherrytree.glade.h:6
-msgid "Show Line Numbers"
-msgstr "Montrer les Numéros de Lignes"
-
-#: modules/codeboxes.py:121
-msgid "Highlight Matching Brackets"
-msgstr "Surligner les parenthèses assorties"
-
-#: modules/codeboxes.py:130
-msgid "Options"
-msgstr "Options"
-
-#: modules/codeboxes.py:172
-#: modules/cons.py:543
-#: modules/cons.py:738
-msgid "Insert a CodeBox"
-msgstr "Insérer une CodeBox"
-
-#: modules/codeboxes.py:295
-msgid "Edit CodeBox"
-msgstr "Éditer une CodeBox"
-
-#: modules/cons.py:494
-msgid "_File"
-msgstr "_Fichier"
-
-#: modules/cons.py:495
-msgid "_Edit"
-msgstr "_Edition"
-
-#: modules/cons.py:496
-#: modules/cons.py:706
-msgid "For_matting"
-msgstr "For_mat"
-
-#: modules/cons.py:497
-msgid "_Tree"
-msgstr "_Arborescence"
-
-#: modules/cons.py:498
-#: modules/cons.py:646
-msgid "Node _Move"
-msgstr "_Déplacer le Nœud"
-
-#: modules/cons.py:499
-#: modules/cons.py:663
-msgid "Nodes _Import"
-msgstr "_Importer les Nœuds"
-
-#: modules/cons.py:500
-#: modules/cons.py:680
-msgid "Nodes E_xport"
-msgstr "E_xporter les Nœuds"
-
-#: modules/cons.py:501
-#: modules/cons.py:745
-#: modules/cons.py:784
-msgid "C_hange Case"
-msgstr "C_hanger la Casse"
-
-#: modules/cons.py:502
-#: modules/cons.py:759
-#: modules/cons.py:798
-msgid "_Search"
-msgstr "_Rechercher"
-
-#: modules/cons.py:503
-#: modules/cons.py:766
-#: modules/cons.py:805
-msgid "_Replace"
-msgstr "Rem_placer"
-
-#: modules/cons.py:504
-msgid "_View"
-msgstr "A_ffichage"
-
-#: modules/cons.py:505
-msgid "_Bookmarks"
-msgstr "_Favoris"
-
-#: modules/cons.py:506
-msgid "_Import"
-msgstr "_Importer"
-
-#: modules/cons.py:507
-msgid "E_xport"
-msgstr "E_xporter"
-
-#: modules/cons.py:508
-msgid "_Help"
-msgstr "A_ide"
-
-#: modules/cons.py:510
-msgid "New _Instance"
-msgstr "Nouvelle I_nstance"
-
-#: modules/cons.py:510
-msgid "Start a New Instance of CherryTree"
-msgstr "Démarrer une Nouvelle Instance de CherryTree"
-
-#: modules/cons.py:511
-msgid "_Open File"
-msgstr "_Ouvrir"
-
-#: modules/cons.py:512
-msgid "_Save"
-msgstr "_Enregistrer"
-
-#: modules/cons.py:512
-msgid "Save File"
-msgstr "Enregistrer le fichier"
-
-#: modules/cons.py:513
-msgid "Save _As"
-msgstr "Enregistrer S_ous"
-
-#: modules/cons.py:513
-msgid "Save File As"
-msgstr "Enregistrer le Fichier sous"
-
-#: modules/cons.py:514
-#: modules/cons.py:681
-msgid "Export To _PDF"
-msgstr "Exporter en _PDF"
-
-#: modules/cons.py:514
-#: modules/cons.py:681
-msgid "Export To PDF"
-msgstr "Exporter en PDF"
-
-#: modules/cons.py:515
-#: modules/cons.py:684
-msgid "Export To _HTML"
-msgstr "Exporter en _HTML"
-
-#: modules/cons.py:515
-#: modules/cons.py:684
-msgid "Export To HTML"
-msgstr "Exporter en HTML"
-
-#: modules/cons.py:516
-#: modules/cons.py:682
-msgid "Export to Multiple Plain _Text Files"
-msgstr "Exporter en Texte _Brut (fichiers multiples)"
-
-#: modules/cons.py:516
-#: modules/cons.py:682
-msgid "Export to Multiple Plain Text Files"
-msgstr "Exporter en Texte Brut (fichiers multiples)"
-
-#: modules/cons.py:517
-#: modules/cons.py:683
-msgid "Export to _Single Plain Text File"
-msgstr "Exporter en Texte Brut (fichier unique)"
-
-#: modules/cons.py:517
-#: modules/cons.py:683
-msgid "Export to Single Plain Text File"
-msgstr "Exporter en Texte Brut (fichier unique)"
-
-#: modules/cons.py:518
-#: modules/cons.py:685
-msgid "_Export To CherryTree Document"
-msgstr "_Exporter en Document CherryTree"
-
-#: modules/cons.py:518
-#: modules/cons.py:685
-msgid "Export To CherryTree Document"
-msgstr "Exporter en Document CherryTree"
-
-#: modules/cons.py:519
-msgid "Pa_ge Setup"
-msgstr "_Mise en Page"
-
-#: modules/cons.py:519
-msgid "Set up the Page for Printing"
-msgstr "Mettre en page pour Impression"
-
-#: modules/cons.py:520
-msgid "_Print"
-msgstr "_Impression"
-
-#: modules/cons.py:520
-msgid "Print"
-msgstr "Impression"
-
-#: modules/cons.py:521
-msgid "_Quit"
-msgstr "_Quitter"
-
-#: modules/cons.py:521
-msgid "Quit the Application"
-msgstr "Quitter l'Application"
-
-#: modules/cons.py:522
-msgid "_Exit CherryTree"
-msgstr "_Fermer CherryTree"
-
-#: modules/cons.py:522
-msgid "Exit from CherryTree"
-msgstr "Fermer CherryTree"
-
-#: modules/cons.py:523
-msgid "_Preferences"
-msgstr "_Préférences"
-
-#: modules/cons.py:523
-#: glade/cherrytree.glade.h:1
-msgid "Preferences"
-msgstr "Préférences"
-
-#: modules/cons.py:524
-#: modules/cons.py:743
-msgid "Insert _Horizontal Rule"
-msgstr "Insérer une Ligne _Horizontale"
-
-#: modules/cons.py:524
-#: modules/cons.py:743
-msgid "Insert Horizontal Rule"
-msgstr "Insérer une Ligne Horizontale"
-
-#: modules/cons.py:525
-#: modules/cons.py:742
-#: modules/cons.py:782
-msgid "Insert Ti_mestamp"
-msgstr "Insérer un Ho_rodatage"
-
-#: modules/cons.py:525
-#: modules/cons.py:742
-#: modules/cons.py:782
-msgid "Insert Timestamp"
-msgstr "Insérer un Horodatage"
-
-#: modules/cons.py:526
-#: modules/cons.py:730
-msgid "Set/Unset _Bulleted List"
-msgstr "(Dés)Activer la Liste à Puces"
-
-#: modules/cons.py:526
-#: modules/cons.py:730
-msgid "Set/Unset the Current Paragraph/Selection as a Bulleted List"
-msgstr "(Dés)Afficher le Paragraphe/Selection actuelle en Liste à Puces"
-
-#: modules/cons.py:527
-#: modules/cons.py:731
-msgid "Set/Unset _Numbered List"
-msgstr "(Dés)Activer la Liste Numérotée"
-
-#: modules/cons.py:527
-#: modules/cons.py:731
-msgid "Set/Unset the Current Paragraph/Selection as a Numbered List"
-msgstr "(Dés)Afficher le Paragraphe/Selection actuelle en Liste numérotée"
-
-#: modules/cons.py:528
-#: modules/cons.py:732
-msgid "Set/Unset _To-Do List"
-msgstr "(Dés)Activer la Liste de _choses à faire"
-
-#: modules/cons.py:528
-#: modules/cons.py:732
-msgid "Set/Unset the Current Paragraph/Selection as a To-Do List"
-msgstr "(Dés)Afficher le Paragraphe/Selection actuelle en Liste de choses à faire"
-
-#: modules/cons.py:529
-#: modules/cons.py:739
-msgid "Insert/Edit _Link"
-msgstr "Insérer/Éditer un _Lien"
-
-#: modules/cons.py:529
-#: modules/cons.py:739
-msgid "Insert a Link/Edit the Underlying Link"
-msgstr "Insérer un Lien/Éditer un Lien souligné"
-
-#: modules/cons.py:530
-#: modules/cons.py:741
-msgid "Insert T_OC"
-msgstr "Insérer une Table des _Matières"
-
-#: modules/cons.py:530
-#: modules/cons.py:741
-msgid "Insert Table of Contents"
-msgstr "Insérer une Table des Matières"
-
-#: modules/cons.py:531
-#: modules/cons.py:740
-msgid "Insert _Anchor"
-msgstr "Insérer une _Ancre"
-
-#: modules/cons.py:531
-#: modules/cons.py:740
-msgid "Insert an Anchor"
-msgstr "Insérer une Ancre"
-
-#: modules/cons.py:532
-msgid "Edit _Anchor"
-msgstr "Éditer l'A_ncre"
-
-#: modules/cons.py:532
-msgid "Edit the Underlying Anchor"
-msgstr "Éditer l'Ancre soulignée"
-
-#: modules/cons.py:533
-#: modules/cons.py:736
-msgid "Insert I_mage"
-msgstr "Insérer une I_mage"
-
-#: modules/cons.py:533
-#: modules/cons.py:736
-msgid "Insert an Image"
-msgstr "Insérer une Image"
-
-#: modules/cons.py:534
-msgid "_Save Image as PNG"
-msgstr "_Enregistrer l'Image en PNG"
-
-#: modules/cons.py:534
-msgid "Save the Selected Image as a PNG file"
-msgstr "Enregistrer l'Image Sélectionnée en fichier PNG"
-
-#: modules/cons.py:535
-msgid "_Edit Image"
-msgstr "Éditer l'_Image"
-
-#: modules/cons.py:535
-msgid "Edit the Selected Image"
-msgstr "Éditer l'Image Sélectionnée"
-
-#: modules/cons.py:536
-msgid "C_ut Image"
-msgstr "Co_uper l'Image"
-
-#: modules/cons.py:536
-msgid "Cut the Selected Image"
-msgstr "Couper l'Image Sélectionnée"
-
-#: modules/cons.py:537
-msgid "_Copy Image"
-msgstr "_Copier l'Image"
-
-#: modules/cons.py:537
-msgid "Copy the Selected Image"
-msgstr "Copier l'Image Sélectionnée"
-
-#: modules/cons.py:538
-msgid "_Delete Image"
-msgstr "_Supprimer l'Image"
-
-#: modules/cons.py:538
-msgid "Delete the Selected Image"
-msgstr "Supprimer l'Image Sélectionnée"
-
-#: modules/cons.py:539
-msgid "C_ut Table"
-msgstr "Co_uper le Tableau"
-
-#: modules/cons.py:539
-msgid "Cut the Selected Table"
-msgstr "Couper le Tableau Sélectionné"
-
-#: modules/cons.py:540
-msgid "_Copy Table"
-msgstr "_Copier le Tableau"
-
-#: modules/cons.py:540
-msgid "Copy the Selected Table"
-msgstr "Copier le Tableau Sélectionné"
-
-#: modules/cons.py:541
-msgid "_Delete Table"
-msgstr "_Supprimer le Tableau"
-
-#: modules/cons.py:541
-msgid "Delete the Selected Table"
-msgstr "Supprimer le Tableau Sélectionné"
-
-#: modules/cons.py:542
-#: modules/cons.py:737
-msgid "Insert _Table"
-msgstr "Insérer un _Tableau"
-
-#: modules/cons.py:542
-#: modules/cons.py:737
-msgid "Insert a Table"
-msgstr "Insérer un Tableau"
-
-#: modules/cons.py:543
-#: modules/cons.py:738
-msgid "Insert _CodeBox"
-msgstr "Insérer une _CodeBox"
-
-#: modules/cons.py:544
-#: modules/cons.py:746
-#: modules/cons.py:785
-msgid "_Lower Case of Selection/Word"
-msgstr "_Minuscules (Sélection/Mot)"
-
-#: modules/cons.py:544
-#: modules/cons.py:746
-#: modules/cons.py:785
-msgid "Lower the Case of the Selection/the Underlying Word"
-msgstr "Change les lettres de la sélection en minuscules"
-
-#: modules/cons.py:545
-#: modules/cons.py:747
-#: modules/cons.py:786
-msgid "_Upper Case of Selection/Word"
-msgstr "Ma_juscules (Sélection/Mot)"
-
-#: modules/cons.py:545
-#: modules/cons.py:747
-#: modules/cons.py:786
-msgid "Upper the Case of the Selection/the Underlying Word"
-msgstr "Change les lettres de la sélection en majuscules"
-
-#: modules/cons.py:546
-#: modules/cons.py:748
-#: modules/cons.py:787
-msgid "_Toggle Case of Selection/Word"
-msgstr "_Intervertir la Casse (Sélection/Mot)"
-
-#: modules/cons.py:546
-#: modules/cons.py:748
-#: modules/cons.py:787
-msgid "Toggle the Case of the Selection/the Underlying Word"
-msgstr "(Dés)Activer les Majuscules/Minuscules de la sélection"
-
-#: modules/cons.py:547
-#: modules/cons.py:754
-#: modules/cons.py:793
-msgid "_Duplicate Row"
-msgstr "_Dupliquer la Ligne"
-
-#: modules/cons.py:547
-#: modules/cons.py:754
-#: modules/cons.py:793
-msgid "Duplicate the Current Row/Selection"
-msgstr "Dupliquer la Ligne/Sélection actuelle"
-
-#: modules/cons.py:548
-#: modules/cons.py:755
-#: modules/cons.py:794
-msgid "Move _Up Row"
-msgstr "Déplacer la Ligne vers le _Haut"
-
-#: modules/cons.py:548
-#: modules/cons.py:755
-#: modules/cons.py:794
-msgid "Move Up the Current Row/Selected Rows"
-msgstr "Déplacer la Ligne actuelle/sélectionnée vers le Haut"
-
-#: modules/cons.py:549
-#: modules/cons.py:756
-#: modules/cons.py:795
-msgid "Move _Down Row"
-msgstr "Déplacer la Ligne vers le _Bas"
-
-#: modules/cons.py:549
-#: modules/cons.py:756
-#: modules/cons.py:795
-msgid "Move Down the Current Row/Selected Rows"
-msgstr "Déplacer la Ligne actuelle/sélectionnée vers le Bas"
-
-#: modules/cons.py:550
-#: modules/cons.py:621
-#: modules/cons.py:753
-#: modules/cons.py:792
-msgid "De_lete Row"
-msgstr "_Supprimer la Ligne"
-
-#: modules/cons.py:550
-#: modules/cons.py:753
-#: modules/cons.py:792
-msgid "Delete the Current Row/Selected Rows"
-msgstr "Supprimer la Ligne actuelle/sélectionnée"
-
-#: modules/cons.py:551
-#: modules/cons.py:618
-#: modules/cons.py:751
-#: modules/cons.py:790
-msgid "Cu_t Row"
-msgstr "Co_uper la Ligne"
-
-#: modules/cons.py:551
-#: modules/cons.py:751
-#: modules/cons.py:790
-msgid "Cut the Current Row/Selected Rows"
-msgstr "Couper la Ligne actuelle/sélectionnée"
-
-#: modules/cons.py:552
-#: modules/cons.py:619
-msgid "_Copy Row"
-msgstr "_Copier la Ligne"
-
-#: modules/cons.py:552
-#: modules/cons.py:752
-#: modules/cons.py:791
-msgid "Copy the Current Row/Selected Rows"
-msgstr "Copier la Ligne actuelle/sélectionnée"
-
-#: modules/cons.py:553
-#: modules/cons.py:692
-msgid "Go _Back"
-msgstr "Retour _Arrière"
-
-#: modules/cons.py:553
-#: modules/cons.py:692
-msgid "Go to the Previous Visited Node"
-msgstr "Aller au précédent Nœud visité"
-
-#: modules/cons.py:554
-#: modules/cons.py:693
-msgid "Go _Forward"
-msgstr "Vers l'A_vant"
-
-#: modules/cons.py:554
-#: modules/cons.py:693
-msgid "Go to the Next Visited Node"
-msgstr "Aller au prochain Nœud visité"
-
-#: modules/cons.py:555
-msgid "_Undo"
-msgstr "A_nnuler"
-
-#: modules/cons.py:555
-msgid "Undo Last Operation"
-msgstr "Annuler la dernière action"
-
-#: modules/cons.py:556
-msgid "_Redo"
-msgstr "_Rétablir"
-
-#: modules/cons.py:556
-msgid "Redo Previously Discarded Operation"
-msgstr "Refaire la dernière action annulée"
-
-#: modules/cons.py:557
-#: modules/cons.py:688
-msgid "_Inherit Syntax"
-msgstr "_Héritage de la Syntaxe"
-
-#: modules/cons.py:557
-#: modules/cons.py:688
-msgid "Change the Selected Node's Children Syntax Highlighting to the Father's Syntax Highlighting"
-msgstr "Transformer le Marquage de Syntaxe de l'Enfant du Nœud sélectionné vers le Marquage de syntaxe de son Parent"
-
-#: modules/cons.py:558
-#: modules/cons.py:707
-msgid "Format _Latest"
-msgstr "Dernière _Mise en forme"
-
-#: modules/cons.py:558
-#: modules/cons.py:707
-msgid "Memory of Latest Text Format Type"
-msgstr "Réitérer la dernière action de Mise en forme du Texte"
-
-#: modules/cons.py:559
-#: modules/cons.py:704
-msgid "_Paste as Plain Text"
-msgstr "_Coller comme Texte Brut"
-
-#: modules/cons.py:559
-#: modules/cons.py:704
-msgid "Paste as Plain Text, Discard the Rich Text Formatting"
-msgstr "Coller comme Texte Brut, Supprimer le formattage en Texte Riche"
-
-#: modules/cons.py:560
-#: modules/cons.py:708
-msgid "_Remove Formatting"
-msgstr "En_lever la Mise en forme"
-
-#: modules/cons.py:560
-#: modules/cons.py:708
-msgid "Remove the Formatting from the Selected Text"
-msgstr "Enlever la Mise en forme du Texte Sélectionné"
-
-#: modules/cons.py:561
-#: modules/cons.py:710
-msgid "Text _Color Foreground"
-msgstr "_Couleur de Premier Plan du Texte"
-
-#: modules/cons.py:561
-#: modules/cons.py:710
-msgid "Change the Color of the Selected Text Foreground"
-msgstr "Changer la Couleur de Premier Plan du Texte Sélectionné"
-
-#: modules/cons.py:562
-#: modules/cons.py:711
-msgid "Text C_olor Background"
-msgstr "C_ouleur d'Arrière Plan du Texte"
-
-#: modules/cons.py:562
-#: modules/cons.py:711
-msgid "Change the Color of the Selected Text Background"
-msgstr "Changer la Couleur d'Arrière Plan plan du Texte Sélectionné"
-
-#: modules/cons.py:563
-#: modules/cons.py:712
-msgid "Toggle _Bold Property"
-msgstr "Activer la Fonction _Gras"
-
-#: modules/cons.py:563
-#: modules/cons.py:712
-msgid "Toggle Bold Property of the Selected Text"
-msgstr "Mettre le texte sélectionné en Gras"
-
-#: modules/cons.py:564
-#: modules/cons.py:713
-msgid "Toggle _Italic Property"
-msgstr "Activer la Fonction _Italique"
-
-#: modules/cons.py:564
-#: modules/cons.py:713
-msgid "Toggle Italic Property of the Selected Text"
-msgstr "Mettre le texte sélectionné en Italique"
-
-#: modules/cons.py:565
-#: modules/cons.py:714
-msgid "Toggle _Underline Property"
-msgstr "Activer la Fonction _Souligné"
-
-#: modules/cons.py:565
-#: modules/cons.py:714
-msgid "Toggle Underline Property of the Selected Text"
-msgstr "Souligner le texte sélectionné"
-
-#: modules/cons.py:566
-#: modules/cons.py:715
-msgid "Toggle Stri_kethrough Property"
-msgstr "Activer la Fonction _Barré"
-
-#: modules/cons.py:566
-#: modules/cons.py:715
-msgid "Toggle Strikethrough Property of the Selected Text"
-msgstr "Barrer le texte sélectionné"
-
-#: modules/cons.py:567
-#: modules/cons.py:716
-msgid "Toggle h_1 Property"
-msgstr "Activer la Taille du Texte en h1"
-
-#: modules/cons.py:567
-#: modules/cons.py:716
-msgid "Toggle h1 Property of the Selected Text"
-msgstr "Augmenter la Taille du Texte (grande taille)"
-
-#: modules/cons.py:568
-#: modules/cons.py:717
-msgid "Toggle h_2 Property"
-msgstr "Activer la Taille du Texte en h2"
-
-#: modules/cons.py:568
-#: modules/cons.py:717
-msgid "Toggle h2 Property of the Selected Text"
-msgstr "Augmenter la taille du Texte (taille moyenne)"
-
-#: modules/cons.py:569
-#: modules/cons.py:718
-msgid "Toggle h_3 Property"
-msgstr "Activer la fonction h_3"
-
-#: modules/cons.py:569
-#: modules/cons.py:718
-msgid "Toggle h3 Property of the Selected Text"
-msgstr "Activer la fonction h3 pour le texte sélectionné"
-
-#: modules/cons.py:570
-#: modules/cons.py:719
-msgid "Toggle _Small Property"
-msgstr "_Diminuer la Taille du Texte"
-
-#: modules/cons.py:570
-#: modules/cons.py:719
-msgid "Toggle Small Property of the Selected Text"
-msgstr "Diminuer la Taille du Texte (petite taille)"
-
-#: modules/cons.py:571
-#: modules/cons.py:720
-msgid "Toggle Su_perscript Property"
-msgstr "Activer la fonction E_xposant"
-
-#: modules/cons.py:571
-#: modules/cons.py:720
-msgid "Toggle Superscript Property of the Selected Text"
-msgstr "Activer la fonction Exposant pour le texte sélectionné"
-
-#: modules/cons.py:572
-#: modules/cons.py:721
-msgid "Toggle Su_bscript Property"
-msgstr "Activer la fonction In_dice"
-
-#: modules/cons.py:572
-#: modules/cons.py:721
-msgid "Toggle Subscript Property of the Selected Text"
-msgstr "Activer la fonction Indice pour le texte sélectionné"
-
-#: modules/cons.py:573
-#: modules/cons.py:722
-msgid "Toggle _Monospace Property"
-msgstr "Activer la fonction _Monospace"
-
-#: modules/cons.py:573
-#: modules/cons.py:722
-msgid "Toggle Monospace Property of the Selected Text"
-msgstr "Activer la fonction _Monospace pour le texte sélectionné"
-
-#: modules/cons.py:574
-#: modules/cons.py:725
-msgid "Justify _Left"
-msgstr "Aligner à _Gauche"
-
-#: modules/cons.py:574
-#: modules/cons.py:725
-msgid "Justify Left the Current Paragraph"
-msgstr "Aligner le Paragraphe à Gauche"
-
-#: modules/cons.py:575
-#: modules/cons.py:726
-msgid "Justify _Center"
-msgstr "Paragraphe _Centré"
-
-#: modules/cons.py:575
-#: modules/cons.py:726
-msgid "Justify Center the Current Paragraph"
-msgstr "Centrer le Paragraphe"
-
-#: modules/cons.py:576
-#: modules/cons.py:727
-msgid "Justify _Right"
-msgstr "Aligner à D_roite"
-
-#: modules/cons.py:576
-#: modules/cons.py:727
-msgid "Justify Right the Current Paragraph"
-msgstr "Aligner le Paragraphe à Droite"
-
-#: modules/cons.py:577
-#: modules/cons.py:760
-#: modules/cons.py:799
-msgid "_Find in Node"
-msgstr "_Trouver dans le Nœud"
-
-#: modules/cons.py:577
-#: modules/cons.py:760
-#: modules/cons.py:799
-msgid "Find into the Selected Node"
-msgstr "Chercher dans le Nœud Sélectionné"
-
-#: modules/cons.py:578
-#: modules/cons.py:761
-#: modules/cons.py:800
-msgid "Find in Node_s"
-msgstr "Trouver dans les Nœud_s"
-
-#: modules/cons.py:578
-#: modules/cons.py:761
-#: modules/cons.py:800
-msgid "Find into all the Tree Nodes"
-msgstr "Chercher dans tous les Nœuds"
-
-#: modules/cons.py:579
-#: modules/cons.py:660
-#: modules/cons.py:762
-#: modules/cons.py:801
-msgid "Find a _Node"
-msgstr "Trouver un _Nœud"
-
-#: modules/cons.py:579
-#: modules/cons.py:660
-#: modules/cons.py:762
-#: modules/cons.py:801
-msgid "Find a Node from its Name"
-msgstr "Localiser un Nœud par son Nom"
-
-#: modules/cons.py:580
-#: modules/cons.py:763
-#: modules/cons.py:802
-msgid "Find _Again"
-msgstr "Chercher le Suivant"
-
-#: modules/cons.py:580
-#: modules/cons.py:763
-#: modules/cons.py:802
-msgid "Iterate the Last Find Operation"
-msgstr "Réitérer la dernière action de recherche"
-
-#: modules/cons.py:581
-#: modules/cons.py:764
-#: modules/cons.py:803
-msgid "Find _Back"
-msgstr "Chercher le _Précédent"
-
-#: modules/cons.py:581
-#: modules/cons.py:764
-#: modules/cons.py:803
-msgid "Iterate the Last Find Operation in Opposite Direction"
-msgstr "Réitérer la dernière action de recherche dans le Sens Opposé"
-
-#: modules/cons.py:582
-#: modules/cons.py:767
-#: modules/cons.py:806
-msgid "_Replace in Node"
-msgstr "_Remplacer dans le Nœud"
-
-#: modules/cons.py:582
-#: modules/cons.py:767
-#: modules/cons.py:806
-msgid "Replace into the Selected Node"
-msgstr "Remplacer dans le Nœud Sélectionné"
-
-#: modules/cons.py:583
-#: modules/cons.py:768
-#: modules/cons.py:807
-msgid "Replace in Node_s"
-msgstr "Remplacer dans les Nœud_s"
-
-#: modules/cons.py:583
-#: modules/cons.py:768
-#: modules/cons.py:807
-msgid "Replace into all the Tree Nodes"
-msgstr "Remplacer dans tous les Nœuds"
-
-#: modules/cons.py:584
-#: modules/cons.py:661
-#: modules/cons.py:769
-#: modules/cons.py:808
-msgid "Replace in Nodes _Names"
-msgstr "Remplacer les _Noms des Nœuds"
-
-#: modules/cons.py:584
-#: modules/cons.py:661
-#: modules/cons.py:769
-#: modules/cons.py:808
-msgid "Replace in Nodes Names"
-msgstr "Remplacer les Noms des Nœuds"
-
-#: modules/cons.py:585
-#: modules/cons.py:770
-#: modules/cons.py:809
-msgid "Replace _Again"
-msgstr "Remplacer _encore"
-
-#: modules/cons.py:585
-#: modules/cons.py:770
-#: modules/cons.py:809
-msgid "Iterate the Last Replace Operation"
-msgstr "Réitérer la dernière action de Remplacement"
-
-#: modules/cons.py:586
-msgid "Show/Hide Node Name _Header"
-msgstr "Afficher/_Cacher le Nom du Nœud"
-
-#: modules/cons.py:586
-msgid "Toggle Show/Hide Node Name Header"
-msgstr "Activer/Désactiver le Nom du Nœud en Titre de Page"
-
-#: modules/cons.py:587
-msgid "Show/Hide _Tree"
-msgstr "Afficher/Cacher l'_Arborescence"
-
-#: modules/cons.py:587
-msgid "Toggle Show/Hide Tree"
-msgstr "Activer/Désactiver l'Arborescence du projet"
-
-#: modules/cons.py:588
-msgid "Show/Hide _CherryTree"
-msgstr "Afficher/Cacher _CherryTree"
-
-#: modules/cons.py:588
-msgid "Toggle Show/Hide CherryTree"
-msgstr "(Dés)Activer Afficher/Cacher CherryTree"
-
-#: modules/cons.py:589
-msgid "Show/Hide Tool_bar"
-msgstr "Afficher/Cacher la Barre d'_Outils"
-
-#: modules/cons.py:589
-msgid "Toggle Show/Hide Toolbar"
-msgstr "Activer/Désactiver la Barre d'Outils"
-
-#: modules/cons.py:590
-msgid "Show _All Matches Dialog"
-msgstr "Montrer la fenêtre des occurrences"
-
-#: modules/cons.py:590
-msgid "Show Search All Matches Dialog"
-msgstr "Montrer la fenêtre de recherche de toutes les occurrences"
-
-#: modules/cons.py:591
-msgid "_Increase Toolbar Icons Size"
-msgstr "_Augmenter la taille des icônes"
-
-#: modules/cons.py:591
-msgid "Increase the Size of the Toolbar Icons"
-msgstr "Augmenter la taille des icônes de la Barre d'Outils"
-
-#: modules/cons.py:592
-msgid "_Decrease Toolbar Icons Size"
-msgstr "_Diminuer la taille des icônes"
-
-#: modules/cons.py:592
-msgid "Decrease the Size of the Toolbar Icons"
-msgstr "Diminuer la taille des icônes de la Barre d'Outils"
-
-#: modules/cons.py:593
-msgid "Toggle _Focus Tree/Text"
-msgstr "Bascule zone active : Arborescence/Zone de texte"
-
-#: modules/cons.py:593
-msgid "Toggle Focus Between Tree and Text"
-msgstr "Basculer la zone active entre l'arborescence et la zone de texte"
-
-#: modules/cons.py:594
-msgid "Toggle Node _Expanded/Collapsed"
-msgstr "Bascule nœud déroulé/nœud replié"
-
-#: modules/cons.py:594
-msgid "Toggle Expanded/Collapsed Status of the Selected Node"
-msgstr "État du nœud sélectionné (déroulé/replié)"
-
-#: modules/cons.py:595
-msgid "E_xpand All Nodes"
-msgstr "Dé_rouler tous les Nœuds"
-
-#: modules/cons.py:595
-msgid "Expand All the Tree Nodes"
-msgstr "Dérouler tous les Nœuds"
-
-#: modules/cons.py:596
-msgid "_Collapse All Nodes"
-msgstr "C_acher tous les Nœuds"
-
-#: modules/cons.py:596
-msgid "Collapse All the Tree Nodes"
-msgstr "Cacher tous les Nœuds"
-
-#: modules/cons.py:597
-msgid "_Full Screen On/Off"
-msgstr "_Plein-Écran On/Off"
-
-#: modules/cons.py:597
-msgid "Toggle Full Screen On/Off"
-msgstr "(Dés)Active le Plein-Écran"
-
-#: modules/cons.py:598
-#: modules/cons.py:664
-msgid "From _CherryTree File"
-msgstr "À partir d'un Fichier _CherryTree"
-
-#: modules/cons.py:598
-#: modules/cons.py:664
-msgid "Add Nodes of a CherryTree File to the Current Tree"
-msgstr "Ajouter les Nœuds d'un Fichier CherryTree à l'Arborescence actuelle"
-
-#: modules/cons.py:599
-#: modules/cons.py:665
-msgid "From _Plain Text File"
-msgstr "À partir d'un Fichier Texte Brut"
-
-#: modules/cons.py:599
-#: modules/cons.py:665
-msgid "Add Node from a Plain Text File to the Current Tree"
-msgstr "Ajouter les Nœuds d'un Fichier Texte Brut à l'Arborescence actuelle"
-
-#: modules/cons.py:600
-#: modules/cons.py:666
-msgid "From _Folder of Plain Text Files"
-msgstr "À partir d'un Répertoire Texte _Brut"
-
-#: modules/cons.py:600
-#: modules/cons.py:666
-msgid "Add Nodes from a Folder of Plain Text Files to the Current Tree"
-msgstr "Ajouter les Nœuds d'un Répertoire Texte Brut à l'Arborescence actuelle"
-
-#: modules/cons.py:601
-#: modules/cons.py:667
-msgid "From _Basket Folder"
-msgstr "À partir d'un Répertoire _Basket"
-
-#: modules/cons.py:601
-#: modules/cons.py:667
-msgid "Add Nodes of a Basket Folder to the Current Tree"
-msgstr "Ajouter les Nœuds d'un Répertoire Basket à l'Arborescence actuelle"
-
-#: modules/cons.py:602
-#: modules/cons.py:668
-msgid "From _Gnote Folder"
-msgstr "À partir d'un Répertoire _Gnote"
-
-#: modules/cons.py:602
-#: modules/cons.py:668
-msgid "Add Nodes of a Gnote Folder to the Current Tree"
-msgstr "Ajouter les Nœuds d'un Répertoire Gnote à l'Arborescence actuelle"
-
-#: modules/cons.py:603
-#: modules/cons.py:669
-msgid "From _KeepNote Folder"
-msgstr "À partir d'un Répertoire _KeepNote"
-
-#: modules/cons.py:603
-#: modules/cons.py:669
-msgid "Add Nodes of a KeepNote Folder to the Current Tree"
-msgstr "Ajouter les Nœuds d'un Répertoire KeepNote à l'Arborescence actuelle"
-
-#: modules/cons.py:604
-#: modules/cons.py:670
-msgid "From K_eyNote File"
-msgstr "À partir d'un Fichier K_eyNote"
-
-#: modules/cons.py:604
-#: modules/cons.py:670
-msgid "Add Nodes of a KeyNote File to the Current Tree"
-msgstr "Ajouter les Nœuds d'un Fichier KeyNote à l'Arborescence actuelle"
-
-#: modules/cons.py:605
-#: modules/cons.py:671
-msgid "From K_nowit File"
-msgstr "À partir d'un Fichier K_nowit"
-
-#: modules/cons.py:605
-#: modules/cons.py:671
-msgid "Add Nodes of a Knowit File to the Current Tree"
-msgstr "Ajouter les Nœuds d'un Fichier Knowit à l'Arborescence actuelle"
-
-#: modules/cons.py:606
-#: modules/cons.py:672
-msgid "From _Leo File"
-msgstr "À partir d'un Fichier _Leo"
-
-#: modules/cons.py:606
-#: modules/cons.py:672
-msgid "Add Nodes of a Leo File to the Current Tree"
-msgstr "Ajouter les Nœuds d'un Fichier Leo à l'Arborescence actuelle"
-
-#: modules/cons.py:607
-#: modules/cons.py:673
-msgid "From _Mempad File"
-msgstr "À partir d'un Fichier _Mempad"
-
-#: modules/cons.py:607
-#: modules/cons.py:673
-msgid "Add Nodes of a Mempad File to the Current Tree"
-msgstr "Ajouter les Nœuds d'un Fichier Mempad à l'Arborescence actuelle"
-
-#: modules/cons.py:608
-#: modules/cons.py:674
-msgid "From _NoteCase File"
-msgstr "À partir d'un Fichier _NoteCase"
-
-#: modules/cons.py:608
-#: modules/cons.py:674
-msgid "Add Nodes of a NoteCase File to the Current Tree"
-msgstr "Ajouter les Nœuds d'un Fichier NoteCase à l'Arborescence actuelle"
-
-#: modules/cons.py:609
-#: modules/cons.py:675
-msgid "From T_omboy Folder"
-msgstr "À partir d'un Répertoire T_omboy"
-
-#: modules/cons.py:609
-#: modules/cons.py:675
-msgid "Add Nodes of a Tomboy Folder to the Current Tree"
-msgstr "Ajouter les Nœuds d'un Dossier Tomboy à l'Arborescence actuelle"
-
-#: modules/cons.py:610
-#: modules/cons.py:676
-msgid "From T_reepad Lite File"
-msgstr "À partir d'un fichier T_reepad Lite"
-
-#: modules/cons.py:610
-#: modules/cons.py:676
-msgid "Add Nodes of a Treepad Lite File to the Current Tree"
-msgstr "Ajouter les Nœuds d'un Fichier Treepad Lite à l'Arborescence actuelle"
-
-#: modules/cons.py:611
-#: modules/cons.py:677
-msgid "From _TuxCards File"
-msgstr "À partir d'un Fichier _TuxCards"
-
-#: modules/cons.py:611
-#: modules/cons.py:677
-msgid "Add Nodes of a TuxCards File to the Current Tree"
-msgstr "Ajouter les Nœuds d'un Fichier Tuxcards à l'Arborescence actuelle"
-
-#: modules/cons.py:612
-#: modules/cons.py:678
-msgid "From _Zim Folder"
-msgstr "À partir d'un Répertoire _Zim"
-
-#: modules/cons.py:612
-#: modules/cons.py:678
-msgid "Add Nodes of a Zim Folder to the Current Tree"
-msgstr "Ajouter les Nœuds d'un Dossier Zim à l'Arborescence actuelle"
-
-#: modules/cons.py:613
-msgid "Online _Manual"
-msgstr "_Manuel d'utilisation en ligne"
-
-#: modules/cons.py:613
-msgid "Application's Online Manual"
-msgstr "Manuel en ligne de l'Application"
-
-#: modules/cons.py:614
-msgid "_Check Newer Version"
-msgstr "_Vérifier les mises-à-jour"
-
-#: modules/cons.py:614
-msgid "Check for a Newer Version"
-msgstr "Vérifier l'existence d'une nouvelle version'"
-
-#: modules/cons.py:615
-msgid "_About"
-msgstr "_A propos"
-
-#: modules/cons.py:616
-msgid "_Edit Table Properties"
-msgstr "É_diter les Propriétés du Tableau"
-
-#: modules/cons.py:616
-msgid "Edit the Table Properties"
-msgstr "Éditer les Propriétés du Tableau"
-
-#: modules/cons.py:617
-msgid "_Add Row"
-msgstr "_Ajouter une Ligne"
-
-#: modules/cons.py:617
-msgid "Add a Table Row"
-msgstr "Ajouter une Ligne au Tableau"
-
-#: modules/cons.py:618
-msgid "Cut a Table Row"
-msgstr "Couper une ligne du Tableau"
-
-#: modules/cons.py:619
-msgid "Copy a Table Row"
-msgstr "Copier une ligne du Tableau"
-
-#: modules/cons.py:620
-msgid "_Paste Row"
-msgstr "_Coller la Ligne"
-
-#: modules/cons.py:620
-msgid "Paste a Table Row"
-msgstr "Coller une ligne du Tableau"
-
-#: modules/cons.py:621
-msgid "Delete the Selected Table Row"
-msgstr "Supprimer la Ligne du Tableau"
-
-#: modules/cons.py:622
-msgid "Move Row _Up"
-msgstr "Déplacer Ligne vers le _Haut"
-
-#: modules/cons.py:622
-msgid "Move the Selected Row Up"
-msgstr "Déplacer la Ligne vers le Haut"
-
-#: modules/cons.py:623
-msgid "Move Row _Down"
-msgstr "Déplacer Ligne vers le _Bas"
-
-#: modules/cons.py:623
-msgid "Move the Selected Row Down"
-msgstr "Déplacer la Ligne vers le Bas"
-
-#: modules/cons.py:624
-msgid "Sort Rows De_scending"
-msgstr "Trier par ordre _Croissant"
-
-#: modules/cons.py:624
-msgid "Sort all the Rows Descending"
-msgstr "Trier les Lignes par ordre alphabétique Décroissant"
-
-#: modules/cons.py:625
-msgid "Sort Rows As_cending"
-msgstr "Trier par ordre _Décroissant"
-
-#: modules/cons.py:625
-msgid "Sort all the Rows Ascending"
-msgstr "Trier les Lignes par ordre alphabétique Croissant"
-
-#: modules/cons.py:626
-msgid "_Table Export"
-msgstr "Exporter le _Tableau"
-
-#: modules/cons.py:626
-msgid "Export Table as CSV File"
-msgstr "Exporter le Tableau en Fichier CVS"
-
-#: modules/cons.py:627
-msgid "_Bookmark This Node"
-msgstr "Mettre ce Nœud en _Favori"
-
-#: modules/cons.py:627
-msgid "Add the Current Node to the Bookmarks List"
-msgstr "Ajouter le Nœud actuel à la liste des Favoris"
-
-#: modules/cons.py:628
-msgid "_Handle Bookmarks"
-msgstr "_Manipuler les favoris"
-
-#: modules/cons.py:629
-#: modules/cons.py:640
-msgid "Add _Node"
-msgstr "Ajouter un _Nœud"
-
-#: modules/cons.py:629
-#: modules/cons.py:640
-msgid "Add a Node having the same Father of the Selected Node"
-msgstr "Ajouter un Nœud ayant le même Parent que le Nœud sélectionné"
-
-#: modules/cons.py:630
-#: modules/cons.py:641
-msgid "Add _SubNode"
-msgstr "Ajouter un _Sous-Nœud"
-
-#: modules/cons.py:630
-#: modules/cons.py:641
-msgid "Add a Child Node to the Selected Node"
-msgstr "Ajouter un Nœud Enfant au Nœud sélectionné"
-
-#: modules/cons.py:643
-msgid "Change Node _Properties"
-msgstr "Changer les _Propriétés du Nœud"
-
-#: modules/cons.py:643
-msgid "Edit the Properties of the Selected Node"
-msgstr "Éditer les Propriétés du Nœud sélectionné"
-
-#: modules/cons.py:644
-msgid "Tree _Info"
-msgstr "_Informations Arborescence"
-
-#: modules/cons.py:647
-msgid "Node _Up"
-msgstr "Nœud vers le Haut"
-
-#: modules/cons.py:647
-msgid "Move the Selected Node Up"
-msgstr "Déplacer le Nœud vers le Haut"
-
-#: modules/cons.py:648
-msgid "Node _Down"
-msgstr "Nœud vers le Bas"
-
-#: modules/cons.py:648
-msgid "Move the Selected Node Down"
-msgstr "Déplacer le Nœud vers le Bas"
-
-#: modules/cons.py:649
-msgid "Node _Left"
-msgstr "Nœud vers la Gauche"
-
-#: modules/cons.py:649
-msgid "Move the Selected Node Left"
-msgstr "Déplacer le Nœud vers la Gauche"
-
-#: modules/cons.py:650
-msgid "Node Change _Father"
-msgstr "Changer le parent du Nœud"
-
-#: modules/cons.py:650
-msgid "Change the Selected Node's Father"
-msgstr "Changer le Parent du Nœud sélectionné"
-
-#: modules/cons.py:653
-msgid "Nodes _Sort"
-msgstr "_Trier les Nœuds"
-
-#: modules/cons.py:654
-msgid "Sort Tree _Ascending"
-msgstr "Trier Arborescence par ordre _Croissant"
-
-#: modules/cons.py:654
-msgid "Sort the Tree Ascending"
-msgstr "Trier l'Arborescence par ordre Croissant"
-
-#: modules/cons.py:655
-msgid "Sort Tree _Descending"
-msgstr "Trier Arborescence par ordre _Décroissant"
-
-#: modules/cons.py:655
-msgid "Sort the Tree Descending"
-msgstr "Trier Arborescence par ordre _Décroissant"
-
-#: modules/cons.py:656
-msgid "Sort Siblings A_scending"
-msgstr "Trier Sous-Nœuds par ordre _Croissant"
-
-#: modules/cons.py:656
-msgid "Sort all the Siblings of the Selected Node Ascending"
-msgstr "Trier les Sous-Nœuds par ordre alphabétique croissant"
-
-#: modules/cons.py:657
-msgid "Sort Siblings D_escending"
-msgstr "Trier Sous-Nœuds par ordre _Décroissant"
-
-#: modules/cons.py:657
-msgid "Sort all the Siblings of the Selected Node Descending"
-msgstr "Trier les Sous-Nœuds par ordre alphabétique décroissant"
-
-#: modules/cons.py:690
-msgid "De_lete Node"
-msgstr "S_upprimer le Nœud"
-
-#: modules/cons.py:690
-msgid "Delete the Selected Node"
-msgstr "Supprimer le Nœud Sélectionné"
-
-#: modules/cons.py:724
-msgid "_Justify"
-msgstr "_Justifier"
-
-#: modules/cons.py:729
-msgid "_List"
-msgstr "_Lister"
-
-#: modules/cons.py:735
-msgid "_Insert"
-msgstr "_Insérer"
-
-#: modules/cons.py:750
-#: modules/cons.py:789
-msgid "_Row"
-msgstr "_Ligne"
-
-#: modules/cons.py:752
-#: modules/cons.py:791
-msgid "C_opy Row"
-msgstr "C_opier la Ligne"
-
-#: modules/cons.py:783
-msgid "Stri_p Trailing Spaces"
-msgstr "R_etrait des espaces de fin"
-
-#: modules/cons.py:783
-msgid "Strip Trailing Spaces"
-msgstr "Retrait des espaces de fin"
-
-#: modules/cons.py:821
-msgid "Edit _Link"
-msgstr "Éditer _Lien"
-
-#: modules/cons.py:821
-msgid "Edit the Underlying Link"
-msgstr "Éditer le Lien Soulignée"
-
-#: modules/cons.py:823
-msgid "C_ut Link"
-msgstr "C_ouper le Lien"
-
-#: modules/cons.py:823
-#: modules/cons.py:839
-msgid "Cut the Selected CodeBox"
-msgstr "Couper la CodeBox Sélectionnée"
-
-#: modules/cons.py:824
-msgid "_Copy Link"
-msgstr "_Copier le Lien"
-
-#: modules/cons.py:824
-#: modules/cons.py:840
-msgid "Copy the Selected CodeBox"
-msgstr "Copier la CodeBox Sélectionnée"
-
-#: modules/cons.py:825
-msgid "D_ismiss Link"
-msgstr "R_ejeter le Lien"
-
-#: modules/cons.py:825
-msgid "Dismiss the Selected Link"
-msgstr "Rejeter le Lien Sélectionnée"
-
-#: modules/cons.py:826
-msgid "_Delete Link"
-msgstr "_Supprimer le Lien"
-
-#: modules/cons.py:826
-msgid "Delete the Selected Link"
-msgstr "Supprimer le Lien Sélectionné"
-
-#: modules/cons.py:837
-msgid "Change CodeBox _Properties"
-msgstr "Changer les _Propriétés de la CodeBox"
-
-#: modules/cons.py:837
-msgid "Edit the Properties of the CodeBox"
-msgstr "Éditer les Propriétés de la CodeBox"
-
-#: modules/cons.py:839
-msgid "C_ut CodeBox"
-msgstr "C_ouper la CodeBox"
-
-#: modules/cons.py:840
-msgid "_Copy CodeBox"
-msgstr "_Copier la CodeBox"
-
-#: modules/cons.py:841
-msgid "_Delete CodeBox"
-msgstr "S_upprimer la CodeBox "
-
-#: modules/cons.py:841
-msgid "Delete the Selected CodeBox"
-msgstr "Supprimer la CodeBox Sélectionnée"
-
-#: modules/cons.py:843
-msgid "Increase CodeBox Width"
-msgstr "Augmenter la Largeur de la CodeBox"
-
-#: modules/cons.py:843
-msgid "Increase the Width of the CodeBox"
-msgstr "Augmenter la Largeur de la CodeBox"
-
-#: modules/cons.py:844
-msgid "Decrease CodeBox Width"
-msgstr "Diminuer la Largeur de la CodeBox"
-
-#: modules/cons.py:844
-msgid "Decrease the Width of the CodeBox"
-msgstr "Diminuer la Largeur de la CodeBox"
-
-#: modules/cons.py:845
-msgid "Increase CodeBox Height"
-msgstr "Augmenter la Hauteur de la CodeBox"
-
-#: modules/cons.py:845
-msgid "Increase the Height of the CodeBox"
-msgstr "Augmenter la Hauteur de la CodeBox"
-
-#: modules/cons.py:846
-msgid "Decrease CodeBox Height"
-msgstr "Diminuer la Hauteur de la CodeBox"
-
-#: modules/cons.py:846
-msgid "Decrease the Height of the CodeBox"
-msgstr "Diminuer la Hauteur de la CodeBox"
-
-#: modules/imports.py:1885
-msgid "Downloading"
-msgstr "Téléchargement"
-
-#: modules/pgsc_spellcheck.py:68
-msgid "Unknown"
-msgstr "Inconnu"
-
-#: modules/pgsc_spellcheck.py:423
-msgid "(no suggestions)"
-msgstr "(pas de suggestions)"
-
-#: modules/pgsc_spellcheck.py:439
-msgid "Add \"{}\" to Dictionary"
-msgstr "Ajouter  \"{}\"  au dictionnaire"
-
-#: modules/pgsc_spellcheck.py:442
-msgid "Ignore All"
-msgstr "Ignorer tout"
-
-#: modules/pgsc_spellcheck.py:453
-msgid "Languages"
-msgstr "<b>Langues</b>"
-
-#: modules/pgsc_spellcheck.py:464
-msgid "Suggestions"
-msgstr "Suggestions"
-
-#: glade/cherrytree.glade.h:2
-msgid "Tab Width  "
-msgstr "Largeur des Tabulations"
-
-#: glade/cherrytree.glade.h:3
-msgid "Insert Spaces Instead of Tabs"
-msgstr "Insérer des Espaces au lieu de Tabulations"
-
-#: glade/cherrytree.glade.h:4
-msgid "Use Line Wrapping"
-msgstr "Utiliser le Retour à la Ligne"
-
-#: glade/cherrytree.glade.h:5
-msgid "Enable Automatic Indentation"
-msgstr "Activer l'Indentation Automatique"
-
-#: glade/cherrytree.glade.h:7
-msgid "<b>Text Editor</b>"
-msgstr "<b>Editeur de Texte</b>"
-
-#: glade/cherrytree.glade.h:8
-msgid "Timestamp Format"
-msgstr "Format de l'Horodatage"
-
-#: glade/cherrytree.glade.h:9
-msgid "Horizontal Rule"
-msgstr "Ligne Horizontale"
-
-#: glade/cherrytree.glade.h:10
-msgid "Special Characters"
-msgstr "Caractères spéciaux"
-
-#: glade/cherrytree.glade.h:11
-msgid "<b>Miscellaneous</b>"
-msgstr "<b>Autres</b>"
-
-#: glade/cherrytree.glade.h:12
-msgid "All Nodes"
-msgstr "Tous les nœuds"
-
-#: glade/cherrytree.glade.h:13
-msgid "Enable Spell Check"
-msgstr "Activer la vérification orthographique"
-
-#: glade/cherrytree.glade.h:14
-msgid "Spell Check Language"
-msgstr "Langue de vérification orthographique"
-
-#: glade/cherrytree.glade.h:15
-msgid "<b>Spell Check</b>"
-msgstr "<b>Vérification orthographique</b>"
-
-#: glade/cherrytree.glade.h:16
-msgid "Light Background, Dark Text"
-msgstr "Arrière plan clair, texte sombre"
-
-#: glade/cherrytree.glade.h:17
-msgid "Dark Background, Light Text"
-msgstr "Arrière plan sombre, texte clair"
-
-#: glade/cherrytree.glade.h:18
-msgid "Custom Background"
-msgstr "Personnalisation de l'arrière plan"
-
-#: glade/cherrytree.glade.h:19
-msgid "and Text"
-msgstr "du texte"
-
-#: glade/cherrytree.glade.h:20
-msgid "<b>Theme</b>"
-msgstr "<b>Thème</b>"
-
-#: glade/cherrytree.glade.h:21
-msgid "Limit of Undoable Steps Per Node"
-msgstr "Limite d'annulations par Nœud"
-
-#: glade/cherrytree.glade.h:22
-msgid "Text Nodes"
-msgstr "Nœud de texte"
-
-#: glade/cherrytree.glade.h:23
-msgid "Style Scheme"
-msgstr "Plan du Style"
-
-#: glade/cherrytree.glade.h:24
-msgid "Show White Spaces"
-msgstr "Afficher les espaces vides"
-
-#: glade/cherrytree.glade.h:25
-msgid "Highlight Current Line"
-msgstr "Surligner la Ligne actuelle"
-
-#: glade/cherrytree.glade.h:26
-msgid "<b>Automatic Syntax Highlighting</b>"
-msgstr "<b>Marquage Automatique de la Syntaxe</b>"
-
-#: glade/cherrytree.glade.h:27
-msgid "Code Nodes"
-msgstr "Nœud de code"
-
-#: glade/cherrytree.glade.h:28
-msgid "Use Cherries as Nodes Icons"
-msgstr "Utiliser des Cerises comme icônes des Nœuds"
-
-#: glade/cherrytree.glade.h:29
-msgid "Use Bullets as Nodes Icons"
-msgstr "Utiliser des Puces comme icônes des Nœuds"
-
-#: glade/cherrytree.glade.h:30
-msgid "Do Not Display Nodes Icons"
-msgstr "Ne pas afficher les icônes des Nœuds"
-
-#: glade/cherrytree.glade.h:31
-msgid "<b>Nodes Icons</b>"
-msgstr "<b>Icônes des Nœuds</b>"
-
-#: glade/cherrytree.glade.h:32
-msgid "Restore Expanded/Collapsed Status"
-msgstr "Restaurer l'état déroulé/replié"
-
-#: glade/cherrytree.glade.h:33
-msgid "Expand all Nodes"
-msgstr "Dérouler tous les Nœuds"
-
-#: glade/cherrytree.glade.h:34
-msgid "Collapse all Nodes"
-msgstr "Replier tous les Nœuds"
-
-#: glade/cherrytree.glade.h:35
-msgid "<b>Nodes Status at Startup</b>"
-msgstr "<b>État des nœuds au démarrage</b>"
-
-#: glade/cherrytree.glade.h:36
-msgid "Tree Nodes Names Wrapping Width"
-msgstr "Largeur de Retour à la Ligne des Nœuds"
-
-#: glade/cherrytree.glade.h:37
-msgid "Display Tree on the Right Side"
-msgstr "Afficher l'Arborescence à Droite"
-
-#: glade/cherrytree.glade.h:38
-msgid "Tree"
-msgstr "Arborescence"
-
-#: glade/cherrytree.glade.h:39
-msgid "Text Font"
-msgstr "  Police du Texte"
-
-#: glade/cherrytree.glade.h:40
-msgid "Code Font"
-msgstr "Police du Code"
-
-#: glade/cherrytree.glade.h:41
-msgid "Tree Font"
-msgstr "Police de l'Arborescence"
-
-#: glade/cherrytree.glade.h:42
-msgid "<b>Fonts</b>"
-msgstr "<b>Polices</b>"
-
-#: glade/cherrytree.glade.h:43
-msgid "Fonts"
-msgstr "Polices"
-
-#: glade/cherrytree.glade.h:44
-msgid "Enable Custom Web Link Clicked Action"
-msgstr "Personnaliser l'Ouverture des Liens de Dossiers"
-
-#: glade/cherrytree.glade.h:45
-msgid "Enable Custom File Link Clicked Action"
-msgstr "Personnaliser l'Ouverture des Liens Internet"
-
-#: glade/cherrytree.glade.h:46
-msgid "Enable Custom Folder Link Clicked Action"
-msgstr "Personnaliser l'Ouverture des Liens de Fichiers"
-
-#: glade/cherrytree.glade.h:47
-msgid "Anchor Size"
-msgstr "Taille de l'Ancre"
-
-#: glade/cherrytree.glade.h:48
-msgid "<b>Links</b>"
-msgstr "<b>Liens</b>"
-
-#: glade/cherrytree.glade.h:49
-msgid "Links"
-msgstr "Liens"
-
-#: glade/cherrytree.glade.h:50
-msgid "Enable System Tray Docking"
-msgstr "Activer dans Zone de Notification"
-
-#: glade/cherrytree.glade.h:51
-msgid "Start Minimized in the System Tray"
-msgstr "Démarrage rapide"
-
-#: glade/cherrytree.glade.h:52
-msgid "Use AppIndicator for Docking"
-msgstr "Utiliser l'indicateur d'application"
-
-#: glade/cherrytree.glade.h:53
-msgid "<b>System Tray</b>"
-msgstr "<b>Zone de notification</b>"
-
-#: glade/cherrytree.glade.h:54
-msgid "Autosave Every"
-msgstr "Enregistrer automatiquement toutes les"
-
-#: glade/cherrytree.glade.h:55
-msgid "Minutes"
-msgstr "Minutes"
-
-#: glade/cherrytree.glade.h:56
-msgid "Autosave on Quit"
-msgstr "Sauvegarde automatique à la fermeture"
-
-#: glade/cherrytree.glade.h:57
-msgid "Create a Backup Copy Before Saving"
-msgstr "Créer une copie de sauvegarde avant d'enregistrer"
-
-#: glade/cherrytree.glade.h:58
-msgid "<b>Saving</b>"
-msgstr "<b>Enregistrer</b>"
-
-#: glade/cherrytree.glade.h:59
-msgid "Automatically Check for Newer Version"
-msgstr "Vérifier les mises-à-jour automatiquement"
-
-#: glade/cherrytree.glade.h:60
-msgid "Reload Document From Last Session"
-msgstr "Recharger le document à partir de la session précédente"
-
-#: glade/cherrytree.glade.h:61
-msgid "Reload After External Update to CT* File"
-msgstr "Recharger après mise à jour extérieure du fichier CT*"
-
-#: glade/cherrytree.glade.h:62
-msgid "<b>Language</b>"
-msgstr "<b>Langue</b>"
-
-#: glade/cherrytree.glade.h:63
-msgid "Miscellaneous"
-msgstr "Autres"
+#~ msgid "<b>Language</b>"
+#~ msgstr "<b>Langue</b>"
 
 #, fuzzy
 #~ msgid "Insert/Edit a Link"
