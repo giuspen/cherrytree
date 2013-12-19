@@ -3422,16 +3422,16 @@ class CherryTree:
                 tag.set_property("rise", rise)
             elif property_value[0:4] == cons.LINK_TYPE_WEBS:
                 tag.set_property(cons.TAG_UNDERLINE, pango.UNDERLINE_SINGLE)
-                tag.set_property(cons.TAG_FOREGROUND, "#00004444ffff")
+                tag.set_property(cons.TAG_FOREGROUND, self.col_link_webs)
             elif property_value[0:4] == cons.LINK_TYPE_NODE:
                 tag.set_property(cons.TAG_UNDERLINE, pango.UNDERLINE_SINGLE)
-                tag.set_property(cons.TAG_FOREGROUND, "#071c838e071c")
+                tag.set_property(cons.TAG_FOREGROUND, self.col_link_node)
             elif property_value[0:4] == cons.LINK_TYPE_FILE:
                 tag.set_property(cons.TAG_UNDERLINE, pango.UNDERLINE_SINGLE)
-                tag.set_property(cons.TAG_FOREGROUND, "#8b8b69691414")
+                tag.set_property(cons.TAG_FOREGROUND, self.col_link_file)
             elif property_value[0:4] == cons.LINK_TYPE_FOLD:
                 tag.set_property(cons.TAG_UNDERLINE, pango.UNDERLINE_SINGLE)
-                tag.set_property(cons.TAG_FOREGROUND, "#7f7f7f7f7f7f")
+                tag.set_property(cons.TAG_FOREGROUND, self.col_link_fold)
             else: tag.set_property(tag_property, property_value)
             self.tag_table.add(tag)
         return str(tag_name)
