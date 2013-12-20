@@ -2201,6 +2201,10 @@ class CherryTree:
         self.update_window_save_needed("npro")
         self.sourceview.grab_focus()
 
+    def node_date(self, *args):
+        """Insert Date Node in Tree"""
+        pass
+
     def get_node_children_list(self, father_tree_iter, level):
         """Return a string listing the node children"""
         node_children_list = ""
