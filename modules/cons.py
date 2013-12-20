@@ -200,7 +200,7 @@ STOCKS_N_FILES = [
 'from_cherrytree.png', 'from_txt.png', 'cherrytree.png', 'quit-app.png',
 'new-instance.png', 'toolbar.png', 'cherries.png', 'tree-node-add.png',
 'tree-subnode-add.png', 'help-contents.png', 'index.png', 'timestamp.png',
-'horizontal_rule.png']
+'calendar.png', 'horizontal_rule.png']
 
 NODES_STOCKS = ['node_bullet', 'node_no_icon', 'cherry_black',
                 'cherry_blue', 'cherry_cyan', 'cherry_green',
@@ -648,6 +648,7 @@ def get_popup_menu_tree(inst):
     ("tree-subnode-add", _("Add _SubNode"), "<control><shift>N", _("Add a Child Node to the Selected Node"), inst.node_child_add),
     ("separator", None, None, None, None),
     ("cherry_edit", _("Change Node _Properties"), "F2", _("Edit the Properties of the Selected Node"), inst.node_edit),
+    ("calendar", _("Insert Date Node"), "F8", _("Insert a Date Node"), inst.node_date),
     ("gtk-info", _("Tree _Info"), None, _("Tree Summary Information"), inst.tree_info),
     ("separator", None, None, None, None),
     ("submenu-start", _("Node _Move"), "gtk-jump-to", None, None),
