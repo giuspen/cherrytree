@@ -2125,21 +2125,35 @@ class CherryTree:
         self.treeview.set_cursor(new_node_path)
         self.sourceview.grab_focus()
 
+    def node_child_exist_or_create(self, father_iter, node_name):
+        """Create Child Node or Select Just Select It if Existing"""
+        curr_iter = self.treestore.iter_children(father_iter) if father_iter else self.treestore.get_iter_first()
+        while curr_iter:
+            if self.treestore[curr_iter][1] == node_name:
+                self.treeview_safe_set_cursor(curr_iter)
+                return
+            curr_iter = self.treestore.iter_next(curr_iter)
+        self.node_child_add_with_data(father_iter, node_name, cons.CUSTOM_COLORS_ID, "", False)
+
     def node_child_add(self, *args):
         """Add a node having as father the selected node"""
         if not self.is_there_selected_node_or_error(): return
         ret_name, ret_syntax, ret_tags, ret_ro = self.dialog_nodeprop(_("New Child Node Properties"), syntax_highl=self.syntax_highlighting)
         if not ret_name: return
+        self.node_child_add_with_data(self.curr_tree_iter, ret_name, ret_syntax, ret_tags, ret_ro)
+
+    def node_child_add_with_data(self, father_iter, ret_name, ret_syntax, ret_tags, ret_ro):
+        """Add a node having as father the given node"""
         self.update_window_save_needed()
         self.syntax_highlighting = ret_syntax
-        node_level = self.treestore.iter_depth(self.curr_tree_iter)+1 if self.curr_tree_iter else 0
+        node_level = self.treestore.iter_depth(father_iter)+1 if father_iter else 0
         cherry = self.get_node_icon(node_level, self.syntax_highlighting)
         new_node_id = self.node_id_get()
-        new_node_iter = self.treestore.append(self.curr_tree_iter,
+        new_node_iter = self.treestore.append(father_iter,
             [cherry, ret_name, self.buffer_create(self.syntax_highlighting),
              new_node_id, self.syntax_highlighting, 0, ret_tags, ret_ro])
         self.ctdb_handler.pending_new_db_node(new_node_id)
-        self.nodes_sequences_fix(self.curr_tree_iter, False)
+        self.nodes_sequences_fix(father_iter, False)
         self.nodes_names_dict[new_node_id] = ret_name
         self.treeview_safe_set_cursor(new_node_iter)
         self.sourceview.grab_focus()
@@ -2203,7 +2217,23 @@ class CherryTree:
 
     def node_date(self, *args):
         """Insert Date Node in Tree"""
-        pass
+        now_year, now_month, now_day = time.strftime("%Y:%m:%d").split(":")
+        print now_year, now_month, now_day
+        if self.curr_tree_iter:
+            curr_depth = self.treestore.iter_depth(self.curr_tree_iter)
+            if curr_depth == 0:
+                if self.treestore[self.curr_tree_iter][1] == now_year:
+                    self.node_child_exist_or_create(self.curr_tree_iter, now_month)
+                    return
+            else:
+                if self.treestore[self.curr_tree_iter][1] == now_month\
+                and self.treestore[self.treestore.iter_parent(self.curr_tree_iter)][1] == now_year:
+                    self.node_child_exist_or_create(self.curr_tree_iter, now_day)
+                    return
+                if self.treestore[self.curr_tree_iter][1] == now_year:
+                    self.node_child_exist_or_create(self.curr_tree_iter, now_month)
+                    return
+        self.node_child_exist_or_create(None, now_year)
 
     def get_node_children_list(self, father_tree_iter, level):
         """Return a string listing the node children"""
