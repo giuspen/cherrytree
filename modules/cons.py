@@ -617,7 +617,7 @@ def get_entries(inst):
     ( "FromTreepad", STR_STOCK_CT_IMP, _("From T_reepad Lite File"), None, _("Add Nodes of a Treepad Lite File to the Current Tree"), inst.nodes_add_from_treepad_file),
     ( "FromTuxCards", STR_STOCK_CT_IMP, _("From _TuxCards File"), None, _("Add Nodes of a TuxCards File to the Current Tree"), inst.nodes_add_from_tuxcards_file),
     ( "FromZim", STR_STOCK_CT_IMP, _("From _Zim Folder"), None, _("Add Nodes of a Zim Folder to the Current Tree"), inst.nodes_add_from_zim_folder),
-    ( "Help", "help-contents", _("Online _Manual"), None, _("Application's Online Manual"), inst.on_help_menu_item_activated),
+    ( "Help", "help-contents", _("Online _Manual"), "F1", _("Application's Online Manual"), inst.on_help_menu_item_activated),
     ( "CheckNewer", "gtk-network", _("_Check Newer Version"), None, _("Check for a Newer Version"), inst.check_for_newer_version),
     ( "About", "gtk-about", _("_About"), None, _("About CherryTree"), inst.dialog_about),
     ( "TableEditProp", "table_edit", _("_Edit Table Properties"), None, _("Edit the Table Properties"), inst.tables_handler.table_edit_properties),
