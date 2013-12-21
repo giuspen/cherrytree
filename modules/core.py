@@ -163,6 +163,8 @@ class CherryTree:
         self.nodes_names_dict = {}
         self.password = None
         self.export_single = False
+        self.last_include_node_name = True
+        self.last_pdf_new_node_page = False
         self.curr_tree_iter = None
         self.curr_window_n_tree_width = None
         self.curr_buffer = None
@@ -1582,8 +1584,7 @@ class CherryTree:
     def export_to_ctd(self, action):
         """Export the Selected Node and its Subnodes"""
         if not self.is_there_selected_node_or_error(): return
-        export_type = support.dialog_selnode_selnodeandsub_alltree(self.window,
-                                                                   also_selection=True)[0]
+        export_type = support.dialog_selnode_selnodeandsub_alltree(self, also_selection=True)
         if export_type == 0: return
         ctd_handler = exports.Export2CTD(self)
         restore_passw = self.password
@@ -1637,8 +1638,7 @@ class CherryTree:
     def export_to_txt_multiple(self, *args):
         """Export To Plain Text Multiple Files"""
         if not self.is_there_selected_node_or_error(): return
-        export_type, include_node_name = support.dialog_selnode_selnodeandsub_alltree(self.window,
-                                                            also_selection=True, also_node_name=True)
+        export_type = support.dialog_selnode_selnodeandsub_alltree(self, also_selection=True, also_node_name=True)
         if export_type == 0: return
         txt_handler = exports.Export2Txt(self)
         if export_type == 1:
@@ -1646,27 +1646,27 @@ class CherryTree:
             proposed_name = support.get_node_hierarchical_name(self, self.curr_tree_iter)
             txt_filepath = txt_handler.get_single_txt_filepath(proposed_name)
             if txt_filepath:
-                tree_iter_for_node_name = self.curr_tree_iter if include_node_name else None
+                tree_iter_for_node_name = self.curr_tree_iter if self.last_include_node_name else None
                 txt_handler.node_export_to_txt(self.curr_buffer, txt_filepath, tree_iter_for_node_name=tree_iter_for_node_name)
         elif export_type == 2:
             # selected node and subnodes
             if self.export_single:
                 txt_filepath = txt_handler.get_single_txt_filepath(self.file_name)
                 if txt_filepath:
-                    txt_handler.nodes_all_export_to_txt(top_tree_iter=self.curr_tree_iter, single_txt_filepath=txt_filepath, include_node_name=include_node_name)
+                    txt_handler.nodes_all_export_to_txt(top_tree_iter=self.curr_tree_iter, single_txt_filepath=txt_filepath, include_node_name=self.last_include_node_name)
             else:
                 folder_name = support.get_node_hierarchical_name(self, self.curr_tree_iter)
                 if txt_handler.prepare_txt_folder(folder_name):
-                    txt_handler.nodes_all_export_to_txt(self.curr_tree_iter, include_node_name=include_node_name)
+                    txt_handler.nodes_all_export_to_txt(self.curr_tree_iter, include_node_name=self.last_include_node_name)
         elif export_type == 3:
             # all nodes
             if self.export_single:
                 txt_filepath = txt_handler.get_single_txt_filepath(self.file_name)
                 if txt_filepath:
-                    txt_handler.nodes_all_export_to_txt(single_txt_filepath=txt_filepath, include_node_name=include_node_name)
+                    txt_handler.nodes_all_export_to_txt(single_txt_filepath=txt_filepath, include_node_name=self.last_include_node_name)
             else:
                 if txt_handler.prepare_txt_folder(self.file_name):
-                    txt_handler.nodes_all_export_to_txt(include_node_name=include_node_name)
+                    txt_handler.nodes_all_export_to_txt(include_node_name=self.last_include_node_name)
         else:
             # only selection
             if self.is_there_text_selection_or_error():
@@ -1675,14 +1675,13 @@ class CherryTree:
                 txt_filepath = txt_handler.get_single_txt_filepath(proposed_name)
                 if txt_filepath:
                     sel_range = [iter_start.get_offset(), iter_end.get_offset()]
-                    tree_iter_for_node_name = self.curr_tree_iter if include_node_name else None
+                    tree_iter_for_node_name = self.curr_tree_iter if self.last_include_node_name else None
                     txt_handler.node_export_to_txt(self.curr_buffer, txt_filepath, sel_range, tree_iter_for_node_name=tree_iter_for_node_name)
 
     def export_to_html(self, *args):
         """Export to HTML"""
         if not self.is_there_selected_node_or_error(): return
-        export_type = support.dialog_selnode_selnodeandsub_alltree(self.window,
-                                                                   also_selection=True)[0]
+        export_type = support.dialog_selnode_selnodeandsub_alltree(self, also_selection=True)
         if export_type == 0: return
         if export_type == 1:
             # only selected node
@@ -1728,8 +1727,7 @@ class CherryTree:
     def export_print(self, action):
         """Start Print Operations"""
         if not self.is_there_selected_node_or_error(): return
-        export_type, include_node_name = support.dialog_selnode_selnodeandsub_alltree(self.window,
-                                                          also_selection=True, also_node_name=True)
+        export_type = support.dialog_selnode_selnodeandsub_alltree(self, also_selection=True, also_node_name=True)
         if export_type == 0: return
         pdf_handler = exports.ExportPrint(self)
         if export_type == 1:
@@ -1739,21 +1737,21 @@ class CherryTree:
                 pdf_filepath = pdf_handler.get_pdf_filepath(proposed_name)
                 if not pdf_filepath: return
                 self.print_handler.pdf_filepath = pdf_filepath
-            pdf_handler.node_export_print(self.curr_tree_iter, include_node_name)
+            pdf_handler.node_export_print(self.curr_tree_iter, self.last_include_node_name)
         elif export_type == 2:
             # selected node and subnodes
             if self.print_handler.pdf_filepath == cons.CHAR_TILDE:
                 pdf_filepath = pdf_handler.get_pdf_filepath(self.file_name)
                 if not pdf_filepath: return
                 self.print_handler.pdf_filepath = pdf_filepath
-            pdf_handler.nodes_all_export_print(self.curr_tree_iter, include_node_name)
+            pdf_handler.nodes_all_export_print(self.curr_tree_iter, self.last_include_node_name)
         elif export_type == 3:
             # all nodes
             if self.print_handler.pdf_filepath == cons.CHAR_TILDE:
                 pdf_filepath = pdf_handler.get_pdf_filepath(self.file_name)
                 if not pdf_filepath: return
                 self.print_handler.pdf_filepath = pdf_filepath
-            pdf_handler.nodes_all_export_print(None, include_node_name)
+            pdf_handler.nodes_all_export_print(None, self.last_include_node_name)
         else:
             # only selection
             if self.is_there_text_selection_or_error():
@@ -1764,7 +1762,7 @@ class CherryTree:
                     if not pdf_filepath: return
                     self.print_handler.pdf_filepath = pdf_filepath
                 pdf_handler.node_export_print(self.curr_tree_iter,
-                                              include_node_name,
+                                              self.last_include_node_name,
                                               sel_range=[iter_start.get_offset(), iter_end.get_offset()])
 
     def tree_sort_level_and_sublevels(self, model, father_iter, ascending):
@@ -2879,8 +2877,7 @@ class CherryTree:
         """Insert Table Of Contents"""
         if not self.is_there_selected_node_or_error(): return
         if not self.node_sel_and_rich_text(): return
-        toc_type = support.dialog_selnode_selnodeandsub_alltree(self.window,
-                                                                also_selection=False)[0]
+        toc_type = support.dialog_selnode_selnodeandsub_alltree(self, also_selection=False)
         if toc_type == 0: return
         if self.user_active:
             self.user_active = False
