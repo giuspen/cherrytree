@@ -845,10 +845,10 @@ def dialog_choose_node(father_win, title, treestore, sel_tree_iter):
     dialog.hide()
     return None if response != gtk.RESPONSE_ACCEPT else node_parms.sel_iter
 
-def dialog_selnode_selnodeandsub_alltree(father_win, also_selection, also_node_name=False):
+def dialog_selnode_selnodeandsub_alltree(dad, also_selection, also_node_name=False):
     """Dialog to select between the Selected Node/Selected Node + Subnodes/All Tree"""
     dialog = gtk.Dialog(title=_("Involved Nodes"),
-        parent=father_win,
+        parent=dad.window,
         flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
         buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
         gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
@@ -862,7 +862,7 @@ def dialog_selnode_selnodeandsub_alltree(father_win, also_selection, also_node_n
     if also_node_name:
         separator_item = gtk.HSeparator()
         checkbutton_node_name = gtk.CheckButton(label=_("Include Node Name"))
-        checkbutton_node_name.set_active(True)
+        checkbutton_node_name.set_active(dad.last_include_node_name)
     if also_selection: radiobutton_selection.set_group(radiobutton_selnode)
     content_area = dialog.get_content_area()
     if also_selection: content_area.pack_start(radiobutton_selection)
@@ -885,11 +885,11 @@ def dialog_selnode_selnodeandsub_alltree(father_win, also_selection, also_node_n
     elif radiobutton_selnodeandsub.get_active(): ret_val = 2
     elif radiobutton_alltree.get_active(): ret_val = 3
     else: ret_val = 4
-    if also_node_name and checkbutton_node_name.get_active(): ret_node_name = True
-    else: ret_node_name = False
+    if also_node_name:
+        dad.last_include_node_name = checkbutton_node_name.get_active()
     dialog.destroy()
     if response != gtk.RESPONSE_ACCEPT: ret_val = 0
-    return [ret_val, ret_node_name]
+    return ret_val
 
 def set_bookmarks_menu_items(inst):
     """Set Bookmarks Menu Items"""
