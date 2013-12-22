@@ -123,7 +123,9 @@ class PrintHandler:
                 #print "layout", i
                 # text
                 if print_data.forced_page_break[i] and curr_y > 0:
-                    print "forced_page_break"
+                    #print "forced_page_break"
+                    print_data.page_breaks.append(inline_starter)
+                    curr_y = 0;
                 layout_line_idx = 0
                 while layout_line_idx < print_data.layout_num_lines[i]:
                     #print "layout_line_idx", layout_line_idx
