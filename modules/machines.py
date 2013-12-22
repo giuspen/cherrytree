@@ -470,12 +470,8 @@ class XMLHandler:
             tag_name = tag.get_property("name")
             if tag_name and tag_name != cons.GTKSPELLCHECK_TAG_NAME:
                 if tag_name.startswith("weight_"): curr_attributes[cons.TAG_WEIGHT] = tag_name[7:]
-                elif tag_name.startswith("foreground_"):
-                    new_foreground = tag_name[11:]
-                    if new_foreground != cons.COLOR_48_BLACK: curr_attributes[cons.TAG_FOREGROUND] = new_foreground
-                elif tag_name.startswith("background_"):
-                    new_background = tag_name[11:]
-                    if new_background != cons.COLOR_48_WHITE: curr_attributes[cons.TAG_BACKGROUND] = new_background
+                elif tag_name.startswith("foreground_"): curr_attributes[cons.TAG_FOREGROUND] = tag_name[11:]
+                elif tag_name.startswith("background_"): curr_attributes[cons.TAG_BACKGROUND] = tag_name[11:]
                 elif tag_name.startswith("scale_"): curr_attributes[cons.TAG_SCALE] = tag_name[6:]
                 elif tag_name.startswith("justification_"): curr_attributes[cons.TAG_JUSTIFICATION] = tag_name[14:]
                 elif tag_name.startswith("style_"): curr_attributes[cons.TAG_STYLE] = tag_name[6:]
