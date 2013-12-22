@@ -649,7 +649,7 @@ def get_popup_menu_tree(inst):
     ("tree-subnode-add", _("Add _SubNode"), "<control><shift>N", _("Add a Child Node to the Selected Node"), inst.node_child_add),
     ("separator", None, None, None, None),
     ("cherry_edit", _("Change Node _Properties"), "F2", _("Edit the Properties of the Selected Node"), inst.node_edit),
-    ("calendar", _("Insert Date Node"), "F8", _("Insert a Date Node"), inst.node_date),
+    ("calendar", _("Insert Today's Node"), "F8", _("Insert a Node with Hierarchy Year/Month/Day"), inst.node_date),
     ("gtk-info", _("Tree _Info"), None, _("Tree Summary Information"), inst.tree_info),
     ("separator", None, None, None, None),
     ("submenu-start", _("Node _Move"), "gtk-jump-to", None, None),
