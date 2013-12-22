@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CherryTree\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-19 11:12+0100\n"
+"POT-Creation-Date: 2013-12-23 00:23+0100\n"
 "PO-Revision-Date: 2013-08-26 23:19+0100\n"
 "Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
 "Language-Team: Russian <kovtunos@yandex.ru>\n"
@@ -24,7 +24,7 @@ msgstr ""
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/codeboxes.py:75
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:728
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2679
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2716
 msgid "Automatic Syntax Highlighting"
 msgstr "Автоматичне підсвічування синтаксису"
 
@@ -60,8 +60,8 @@ msgid "Options"
 msgstr "Налаштування"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/codeboxes.py:172
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:550
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:745
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:551
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:747
 msgid "Insert a CodeBox"
 msgstr "Вставити блок коду"
 
@@ -69,1440 +69,1449 @@ msgstr "Вставити блок коду"
 msgid "Edit CodeBox"
 msgstr "Редагувати блок коду"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:501
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:502
 msgid "_File"
 msgstr "Файл"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:502
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:503
 msgid "_Edit"
 msgstr "Редагування"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:503
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:713
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:504
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:715
 msgid "For_matting"
 msgstr "Форматування"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:504
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:505
 msgid "_Tree"
 msgstr "Дерево"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:505
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:653
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:506
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:655
 msgid "Node _Move"
 msgstr "Пересунути гілку"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:506
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:670
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:507
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:672
 msgid "Nodes _Import"
 msgstr "Імпорт гілок"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:507
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:687
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:508
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:689
 msgid "Nodes E_xport"
 msgstr "Експорт гілок"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:508
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:752
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:791
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:509
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:754
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:793
 msgid "C_hange Case"
 msgstr "Змінити регістр символів"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:509
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:766
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:805
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:510
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:768
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:807
 msgid "_Search"
 msgstr "Пошук"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:510
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:773
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:812
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:511
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:775
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:814
 msgid "_Replace"
 msgstr "Заміна"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:511
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:512
 msgid "_View"
 msgstr "Вид"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:512
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:513
 msgid "_Bookmarks"
 msgstr "Закладки"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:513
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:514
 msgid "_Import"
 msgstr "Імпорт"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:514
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:515
 msgid "E_xport"
 msgstr "Експорт"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:515
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:516
 msgid "_Help"
 msgstr "Допомога"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:517
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:518
 msgid "New _Instance"
 msgstr "Нове вікно"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:517
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:518
 msgid "Start a New Instance of CherryTree"
 msgstr "Відкрити нове вікно CherryTree"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:518
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:519
 msgid "_Open File"
 msgstr "Відкрити файл"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:518
-#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:970
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:519
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:975
 msgid "Open a CherryTree Document"
 msgstr "Відкрийте документ CherryTree"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:519
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:520
 msgid "_Save"
 msgstr "Зберегти"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:519
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:520
 msgid "Save File"
 msgstr "Зберегти файл"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:520
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:521
 msgid "Save _As"
 msgstr "Зберегти як"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:520
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:521
 msgid "Save File As"
 msgstr "Зберегти файл як"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:521
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:688
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:522
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:690
 msgid "Export To _PDF"
 msgstr "Експорт до _PDF"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:521
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:688
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:522
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:690
 msgid "Export To PDF"
 msgstr "Експорт до PDF"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:522
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:691
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:523
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:693
 msgid "Export To _HTML"
 msgstr "Експорт до HTML"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:522
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:691
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:523
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:693
 msgid "Export To HTML"
 msgstr "Експорт до HTML"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:523
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:689
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:524
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:691
 msgid "Export to Multiple Plain _Text Files"
 msgstr "Експорт в декілька текстових файлів"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:523
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:689
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:524
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:691
 msgid "Export to Multiple Plain Text Files"
 msgstr "Експорт в декілька текстових файлів"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:524
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:690
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:525
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:692
 msgid "Export to _Single Plain Text File"
 msgstr "Експорт в текстовий файл"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:524
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:690
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:525
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:692
 msgid "Export to Single Plain Text File"
 msgstr "Експорт в текстовий файл"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:525
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:692
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:526
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:694
 msgid "_Export To CherryTree Document"
 msgstr "Експорт в документ CherryTree"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:525
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:692
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:526
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:694
 msgid "Export To CherryTree Document"
 msgstr "Експорт в документ CherryTree"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:526
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:527
 msgid "Pa_ge Setup"
 msgstr "Налаштування сторінки"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:526
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:527
 msgid "Set up the Page for Printing"
 msgstr "Налаштування сторінки для друку"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:527
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:528
 msgid "_Print"
 msgstr "_Друк"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:527
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:528
 msgid "Print"
 msgstr "Друк"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:528
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:529
 msgid "_Quit"
 msgstr "Вийти"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:528
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:529
 msgid "Quit the Application"
 msgstr "Вийти з програми"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:529
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:530
 msgid "_Exit CherryTree"
 msgstr "Вийти з CherryTree"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:529
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:530
 msgid "Exit from CherryTree"
 msgstr "Вийти з CherryTree"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:530
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:531
 msgid "_Preferences"
 msgstr "Параметри"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:530
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:531
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:425
 msgid "Preferences"
 msgstr "Параметри"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:531
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:750
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:532
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:752
 msgid "Insert _Horizontal Rule"
 msgstr "Bставити горизонтальну лінію"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:531
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:750
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:532
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:752
 msgid "Insert Horizontal Rule"
 msgstr "Bставити горизонтальну лінію"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:532
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:749
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:789
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:533
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:751
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:791
 msgid "Insert Ti_mestamp"
 msgstr "Вставити дату"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:532
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:749
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:789
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:533
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:751
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:791
 msgid "Insert Timestamp"
 msgstr "Вставити дату"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:533
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:737
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:534
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:739
 msgid "Set/Unset _Bulleted List"
 msgstr "Маркований список"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:533
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:737
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:534
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:739
 msgid "Set/Unset the Current Paragraph/Selection as a Bulleted List"
 msgstr "Увімкнути / Вимкнути маркований список"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:534
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:738
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:535
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:740
 msgid "Set/Unset _Numbered List"
 msgstr "Нумерований список"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:534
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:738
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:535
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:740
 msgid "Set/Unset the Current Paragraph/Selection as a Numbered List"
 msgstr "Увімкнути / Вимкнути нумерований список"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:535
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:739
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:536
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:741
 msgid "Set/Unset _To-Do List"
 msgstr "Список To-Do"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:535
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:739
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:536
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:741
 msgid "Set/Unset the Current Paragraph/Selection as a To-Do List"
 msgstr "Увімкнути / Вимкнути список To-Do"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:536
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:746
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:537
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:748
 msgid "Insert/Edit _Link"
 msgstr "Вставити / Редагувати посилання"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:536
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:746
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:537
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:748
 msgid "Insert a Link/Edit the Underlying Link"
 msgstr "Вставити / Редагувати посилання"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:537
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:748
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:538
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:750
 msgid "Insert T_OC"
 msgstr "Вставити таблицю змісту"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:537
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:748
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:538
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:750
 msgid "Insert Table of Contents"
 msgstr "Вставити таблицю змісту"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:538
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:747
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:539
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:749
 msgid "Insert _Anchor"
 msgstr "Вставити якір"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:538
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:747
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:539
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:749
 msgid "Insert an Anchor"
 msgstr "Вставити якір"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:539
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:540
 msgid "Edit _Anchor"
 msgstr "Редагувати якір"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:539
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:540
 msgid "Edit the Underlying Anchor"
 msgstr "Редагувати якір"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:540
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:743
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:541
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:745
 msgid "Insert I_mage"
 msgstr "Вставити зображення"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:540
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:743
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:541
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:745
 msgid "Insert an Image"
 msgstr "Вставити зображення"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:541
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:542
 msgid "_Save Image as PNG"
 msgstr "Зберегти зображення в формат PNG"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:541
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:542
 msgid "Save the Selected Image as a PNG file"
 msgstr "Зберегти виділене зображення в формат PNG"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:542
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:543
 msgid "_Edit Image"
 msgstr "Редагувати зображення"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:542
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:543
 msgid "Edit the Selected Image"
 msgstr "Редагувати виділене зображення"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:543
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:544
 msgid "C_ut Image"
 msgstr "Вирізати зображення"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:543
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:544
 msgid "Cut the Selected Image"
 msgstr "Вирізати виділене зображення"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:544
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:545
 msgid "_Copy Image"
 msgstr "Копіювати зображення"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:544
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:545
 msgid "Copy the Selected Image"
 msgstr "Копіювати виділене зображення"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:545
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:546
 msgid "_Delete Image"
 msgstr "Видалити зображення"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:545
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:546
 msgid "Delete the Selected Image"
 msgstr "Видалити виділене зображення"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:546
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:547
 msgid "C_ut Table"
 msgstr "Вирізати таблицю"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:546
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:547
 msgid "Cut the Selected Table"
 msgstr "Вирізати виділену таблицю"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:547
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:548
 msgid "_Copy Table"
 msgstr "_Скопіювати таблицю"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:547
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:548
 msgid "Copy the Selected Table"
 msgstr "Копіювати виділену таблицю"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:548
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:549
 msgid "_Delete Table"
 msgstr "Видалити таблицю"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:548
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:549
 msgid "Delete the Selected Table"
 msgstr "Видалити виділену таблицю"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:549
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:744
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:550
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:746
 msgid "Insert _Table"
 msgstr "Вставити таблицю"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:549
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:744
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:550
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:746
 msgid "Insert a Table"
 msgstr "Вставити таблицю"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:550
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:745
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:551
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:747
 msgid "Insert _CodeBox"
 msgstr "Вставити блок коду"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:551
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:753
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:792
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:552
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:755
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:794
 msgid "_Lower Case of Selection/Word"
 msgstr "Нижній регістр"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:551
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:753
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:792
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:552
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:755
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:794
 msgid "Lower the Case of the Selection/the Underlying Word"
 msgstr "Нижній регістр виділеного тексту"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:552
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:754
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:793
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:553
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:756
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:795
 msgid "_Upper Case of Selection/Word"
 msgstr "Верхній регістр"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:552
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:754
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:793
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:553
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:756
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:795
 msgid "Upper the Case of the Selection/the Underlying Word"
 msgstr "Верхній регістр виділеного тексту"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:553
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:755
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:794
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:554
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:757
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:796
 msgid "_Toggle Case of Selection/Word"
 msgstr "Перемкнути регістр символів"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:553
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:755
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:794
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:554
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:757
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:796
 msgid "Toggle the Case of the Selection/the Underlying Word"
 msgstr "Перемкнути регістр символів виділеного тексту"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:554
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:761
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:800
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:555
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:763
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:802
 msgid "_Duplicate Row"
 msgstr "Продублювати рядок"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:554
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:761
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:800
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:555
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:763
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:802
 msgid "Duplicate the Current Row/Selection"
 msgstr "Продублювати поточний рядок / виділення"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:555
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:762
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:801
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:556
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:764
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:803
 msgid "Move _Up Row"
 msgstr "Пересунути рядок вгору"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:555
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:762
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:801
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:556
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:764
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:803
 msgid "Move Up the Current Row/Selected Rows"
 msgstr "Пересунути вгору виділений рядок / рядки"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:556
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:763
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:802
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:557
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:765
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:804
 msgid "Move _Down Row"
 msgstr "Пересунути рядок вниз"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:556
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:763
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:802
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:557
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:765
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:804
 msgid "Move Down the Current Row/Selected Rows"
 msgstr "Пересунути вниз виділений рядок / рядки"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:557
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:628
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:760
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:799
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:558
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:629
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:762
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:801
 msgid "De_lete Row"
 msgstr "Видалити рядок"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:557
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:760
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:799
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:558
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:762
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:801
 msgid "Delete the Current Row/Selected Rows"
 msgstr "Видалити виділений рядок / рядки"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:558
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:625
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:758
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:797
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:559
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:626
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:760
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:799
 msgid "Cu_t Row"
 msgstr "Вирізати рядок"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:558
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:758
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:797
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:559
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:760
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:799
 msgid "Cut the Current Row/Selected Rows"
 msgstr "Вирізати виділений рядок / рядки"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:559
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:626
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:560
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:627
 msgid "_Copy Row"
 msgstr "Копіювати рядок"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:559
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:759
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:798
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:560
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:761
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:800
 msgid "Copy the Current Row/Selected Rows"
 msgstr "Копіювати виділений рядок / рядки"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:560
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:699
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:561
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:701
 msgid "Go _Back"
 msgstr "Назад"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:560
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:699
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:561
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:701
 msgid "Go to the Previous Visited Node"
 msgstr "Перейти до попередньої гілки"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:561
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:700
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:562
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:702
 msgid "Go _Forward"
 msgstr "Вперед"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:561
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:700
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:562
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:702
 msgid "Go to the Next Visited Node"
 msgstr "Перейти до наступної гілки"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:562
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:563
 msgid "_Undo"
 msgstr "Скасувати"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:562
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:563
 msgid "Undo Last Operation"
 msgstr "Скасувати останню операцію"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:563
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:564
 msgid "_Redo"
 msgstr "Повернути"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:563
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:564
 msgid "Redo Previously Discarded Operation"
 msgstr "Повернути останню операцію"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:564
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:695
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:565
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:697
 msgid "_Inherit Syntax"
 msgstr "Наслідувати синтаксис"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:564
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:695
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:565
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:697
 msgid ""
 "Change the Selected Node's Children Syntax Highlighting to the Father's "
 "Syntax Highlighting"
 msgstr "Синхронізувати тип підсвічування синтаксису з батьківською гілкою"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:565
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:714
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:566
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:716
 msgid "Format _Latest"
 msgstr "Останнє форматування"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:565
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:714
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:566
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:716
 msgid "Memory of Latest Text Format Type"
 msgstr "Запам'ятовування останнього форматування тексту"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:566
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:711
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:567
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:713
 msgid "_Paste as Plain Text"
 msgstr "Вставити як звичайний текст"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:566
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:711
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:567
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:713
 msgid "Paste as Plain Text, Discard the Rich Text Formatting"
 msgstr "Вставити як текст, ігноруючи форматування"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:567
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:715
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:568
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:717
 msgid "_Remove Formatting"
 msgstr "Прибрати форматування"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:567
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:715
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:568
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:717
 msgid "Remove the Formatting from the Selected Text"
 msgstr "Прибрати форматування тексту"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:568
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:717
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:569
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:719
 msgid "Text _Color Foreground"
 msgstr "Колір тексту"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:568
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:717
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:569
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:719
 msgid "Change the Color of the Selected Text Foreground"
 msgstr "Змінити колір тексту"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:569
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:718
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:570
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:720
 msgid "Text C_olor Background"
 msgstr "Колір фону"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:569
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:718
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:570
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:720
 msgid "Change the Color of the Selected Text Background"
 msgstr "Змінити колір фону тексту"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:570
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:719
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:571
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:721
 msgid "Toggle _Bold Property"
 msgstr "Напівтовсте написання"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:570
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:719
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:571
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:721
 msgid "Toggle Bold Property of the Selected Text"
 msgstr "Застосувати напівтовсте написання до тексту"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:571
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:720
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:572
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:722
 msgid "Toggle _Italic Property"
 msgstr "Курсивне написання"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:571
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:720
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:572
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:722
 msgid "Toggle Italic Property of the Selected Text"
 msgstr "Застосувати курсивне написання до тексту"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:572
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:721
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:573
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:723
 msgid "Toggle _Underline Property"
 msgstr "Підкреслений текст"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:572
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:721
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:573
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:723
 msgid "Toggle Underline Property of the Selected Text"
 msgstr "Застосувати підкреслений текст"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:573
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:722
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:574
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:724
 msgid "Toggle Stri_kethrough Property"
 msgstr "Закреслений текст"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:573
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:722
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:574
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:724
 msgid "Toggle Strikethrough Property of the Selected Text"
 msgstr "Застосувати закреслений текст"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:574
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:723
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:575
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:725
 msgid "Toggle h_1 Property"
 msgstr "Заголовок h1"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:574
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:723
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:575
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:725
 msgid "Toggle h1 Property of the Selected Text"
 msgstr "Застосувати заголовок h1 до тексту"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:575
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:724
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:576
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:726
 msgid "Toggle h_2 Property"
 msgstr "Заголовок h2"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:575
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:724
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:576
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:726
 msgid "Toggle h2 Property of the Selected Text"
 msgstr "Застосувати заголовок h2 до тексту"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:576
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:725
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:577
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:727
 msgid "Toggle h_3 Property"
 msgstr "Заголовок h3"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:576
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:725
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:577
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:727
 msgid "Toggle h3 Property of the Selected Text"
 msgstr "Застосувати заголовок h3 до тексту"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:577
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:726
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:578
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:728
 msgid "Toggle _Small Property"
 msgstr "Зменшений шрифт"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:577
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:726
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:578
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:728
 msgid "Toggle Small Property of the Selected Text"
 msgstr "Застосувати зменшений шрифт до тексту"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:578
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:727
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:579
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:729
 msgid "Toggle Su_perscript Property"
 msgstr "Верхній індекс"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:578
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:727
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:579
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:729
 msgid "Toggle Superscript Property of the Selected Text"
 msgstr "Застосувати верхній індекс до тексту"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:579
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:728
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:580
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:730
 msgid "Toggle Su_bscript Property"
 msgstr "Нижній індекс"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:579
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:728
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:580
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:730
 msgid "Toggle Subscript Property of the Selected Text"
 msgstr "Застосувати нижній індекс до тексту"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:580
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:729
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:581
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:731
 msgid "Toggle _Monospace Property"
 msgstr "Моноширинний шрифт"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:580
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:729
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:581
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:731
 msgid "Toggle Monospace Property of the Selected Text"
 msgstr "Застосувати моноширинний шрифт до тексту"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:581
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:732
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:582
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:734
 msgid "Justify _Left"
 msgstr "Вирівняти по лівому краю"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:581
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:732
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:582
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:734
 msgid "Justify Left the Current Paragraph"
 msgstr "Вирівняти поточний абзац по лівому краю"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:582
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:733
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:583
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:735
 msgid "Justify _Center"
 msgstr "Вирівняти по центру"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:582
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:733
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:583
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:735
 msgid "Justify Center the Current Paragraph"
 msgstr "Вирівняти поточний абзац по центру"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:583
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:734
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:584
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:736
 msgid "Justify _Right"
 msgstr "Вирівняти по правому краю"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:583
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:734
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:584
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:736
 msgid "Justify Right the Current Paragraph"
 msgstr "Вирівняти поточний абзац по правому краю"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:584
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:767
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:806
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:585
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:769
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:808
 msgid "_Find in Node"
 msgstr "Пошук в гілці"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:584
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:767
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:806
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:585
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:769
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:808
 msgid "Find into the Selected Node"
 msgstr "Пошук в виділеній гілці"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:585
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:768
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:807
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:586
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:770
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:809
 msgid "Find in Node_s"
 msgstr "Пошук по всіх гілках"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:585
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:768
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:807
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:586
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:770
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:809
 msgid "Find into all the Tree Nodes"
 msgstr "Пошук серед усіх гілок"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:586
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:667
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:769
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:808
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:587
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:669
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:771
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:810
 msgid "Find a _Node"
 msgstr "Пошук гілки"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:586
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:667
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:769
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:808
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:587
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:669
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:771
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:810
 msgid "Find a Node from its Name"
 msgstr "Пошук гілки по назві"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:587
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:770
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:809
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:588
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:772
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:811
 msgid "Find _Again"
 msgstr "Повторити пошук"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:587
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:770
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:809
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:588
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:772
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:811
 msgid "Iterate the Last Find Operation"
 msgstr "Повторити останній пошук"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:588
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:771
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:810
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:589
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:773
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:812
 msgid "Find _Back"
 msgstr "Повторити пошук у зворотньому напрямку"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:588
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:771
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:810
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:589
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:773
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:812
 msgid "Iterate the Last Find Operation in Opposite Direction"
 msgstr "Повторити останній пошук у зворотньому напрямку"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:589
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:774
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:813
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:590
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:776
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:815
 msgid "_Replace in Node"
 msgstr "Замінити в гілці"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:589
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:774
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:813
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:590
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:776
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:815
 msgid "Replace into the Selected Node"
 msgstr "Замінити у виділеній гілці"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:590
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:775
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:814
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:591
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:777
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:816
 msgid "Replace in Node_s"
 msgstr "Замінити в гілках"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:590
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:775
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:814
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:591
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:777
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:816
 msgid "Replace into all the Tree Nodes"
 msgstr "Замінити в усіх гілках"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:591
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:668
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:776
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:815
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:592
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:670
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:778
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:817
 msgid "Replace in Nodes _Names"
 msgstr "Замінити в назвах гілок"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:591
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:668
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:776
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:815
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:592
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:670
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:778
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:817
 msgid "Replace in Nodes Names"
 msgstr "Замінити в назвах гілок"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:592
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:777
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:816
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:593
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:779
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:818
 msgid "Replace _Again"
 msgstr "Повторити заміну"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:592
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:777
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:816
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:593
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:779
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:818
 msgid "Iterate the Last Replace Operation"
 msgstr "Повторити останню заміну"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:593
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:594
 msgid "Show/Hide Node Name _Header"
 msgstr "Показати / Сховати заголовок"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:593
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:594
 msgid "Toggle Show/Hide Node Name Header"
 msgstr "Показати / Сховати заголовок гілки"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:594
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:595
 msgid "Show/Hide _Tree"
 msgstr "Показати / Сховати дерево"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:594
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:595
 msgid "Toggle Show/Hide Tree"
 msgstr "Показати / Сховати дерево"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:595
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:596
 msgid "Show/Hide _CherryTree"
 msgstr "Показати / Сховати _CherryTree"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:595
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:596
 msgid "Toggle Show/Hide CherryTree"
 msgstr "Показати / Сховати CherryTree"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:596
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:597
 msgid "Show/Hide Tool_bar"
 msgstr "Показати / Сховати дерево панель інструментів"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:596
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:597
 msgid "Toggle Show/Hide Toolbar"
 msgstr "Показати / Сховати дерево панель інструментів"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:597
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:598
 msgid "Show _All Matches Dialog"
 msgstr "Показати останні співпадання"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:597
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:598
 msgid "Show Search All Matches Dialog"
 msgstr "Показати діалог останніх співпадань"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:598
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:599
 msgid "_Increase Toolbar Icons Size"
 msgstr "Збільшити іконки панелі інструментів"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:598
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:599
 msgid "Increase the Size of the Toolbar Icons"
 msgstr "Збільшити іконки панелі інструментів"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:599
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:600
 msgid "_Decrease Toolbar Icons Size"
 msgstr "Зменшити іконки панелі інструментів"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:599
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:600
 msgid "Decrease the Size of the Toolbar Icons"
 msgstr "Зменшити іконки панелі інструментів"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:600
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:601
 msgid "Toggle _Focus Tree/Text"
 msgstr "Переключити фокус Дерево/Текст"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:600
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:601
 msgid "Toggle Focus Between Tree and Text"
 msgstr "Переключити фокус між Деревом та Текстом"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:601
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:602
 msgid "Toggle Node _Expanded/Collapsed"
 msgstr "Розвернути/Звернути гілку"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:601
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:602
 msgid "Toggle Expanded/Collapsed Status of the Selected Node"
 msgstr "Переключитись між розвернутим/звернутим відображенням гілки"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:602
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:603
 msgid "E_xpand All Nodes"
 msgstr "Розгорнути гілки"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:602
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:603
 msgid "Expand All the Tree Nodes"
 msgstr "Розгорнути гілки дерева"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:603
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:604
 msgid "_Collapse All Nodes"
 msgstr "Згорнути гілки"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:603
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:604
 msgid "Collapse All the Tree Nodes"
 msgstr "Згорнути гілки дерева"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:604
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:605
 msgid "_Full Screen On/Off"
 msgstr "Повноекранний режим"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:604
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:605
 msgid "Toggle Full Screen On/Off"
 msgstr "Повноекранний режим"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:605
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:671
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:606
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:673
 msgid "From _CherryTree File"
 msgstr "З CherryTree"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:605
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:671
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:606
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:673
 msgid "Add Nodes of a CherryTree File to the Current Tree"
 msgstr "Імпортувати з файлу CherryTree в існуюче дерево"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:606
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:672
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:607
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:674
 msgid "From _Plain Text File"
 msgstr "З текстового файлу"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:606
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:672
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:607
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:674
 msgid "Add Node from a Plain Text File to the Current Tree"
 msgstr "Імпортувати з текстового файлу в існуюче дерево"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:607
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:673
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:608
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:675
 msgid "From _Folder of Plain Text Files"
 msgstr "З папки з текстовими файлами"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:607
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:673
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:608
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:675
 msgid "Add Nodes from a Folder of Plain Text Files to the Current Tree"
 msgstr "Імпортувати з папки з текстовими файлами в існуюче дерево"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:608
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:674
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:609
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:676
 msgid "From _Basket Folder"
 msgstr "З Basket"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:608
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:674
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:609
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:676
 msgid "Add Nodes of a Basket Folder to the Current Tree"
 msgstr "Імпортувати з каталогу Basket в існуюче дерево"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:609
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:675
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:610
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:677
 msgid "From _Gnote Folder"
 msgstr "З Gnote"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:609
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:675
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:610
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:677
 msgid "Add Nodes of a Gnote Folder to the Current Tree"
 msgstr "Імпортувати з каталогу Gnote в існуюче дерево"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:610
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:676
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:611
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:678
 msgid "From _KeepNote Folder"
 msgstr "З KeepNote"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:610
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:676
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:611
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:678
 msgid "Add Nodes of a KeepNote Folder to the Current Tree"
 msgstr "Імпортувати з каталогу KeepNote в існуюче дерево"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:611
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:677
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:612
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:679
 msgid "From K_eyNote File"
 msgstr "З KeyNote"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:611
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:677
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:612
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:679
 msgid "Add Nodes of a KeyNote File to the Current Tree"
 msgstr "Імпортувати з файлу KeyNote в існуюче дерево"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:612
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:678
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:613
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:680
 msgid "From K_nowit File"
 msgstr "З K_nowit"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:612
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:678
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:613
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:680
 msgid "Add Nodes of a Knowit File to the Current Tree"
 msgstr "Імпортувати з файлу Knowit в існуюче дерево"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:613
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:679
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:614
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:681
 msgid "From _Leo File"
 msgstr "З Leo"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:613
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:679
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:614
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:681
 msgid "Add Nodes of a Leo File to the Current Tree"
 msgstr "Імпортувати з файлу Leo в існуюче дерево"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:614
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:680
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:615
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:682
 msgid "From _Mempad File"
 msgstr "З Mempad"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:614
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:680
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:615
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:682
 msgid "Add Nodes of a Mempad File to the Current Tree"
 msgstr "Імпортувати з файлу Mempad в існуюче дерево"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:615
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:681
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:616
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:683
 msgid "From _NoteCase File"
 msgstr "З NoteCase"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:615
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:681
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:616
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:683
 msgid "Add Nodes of a NoteCase File to the Current Tree"
 msgstr "Імпортувати з файлу NoteCase в існуюче дерево"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:616
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:682
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:617
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:684
 msgid "From T_omboy Folder"
 msgstr "З T_omboy"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:616
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:682
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:617
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:684
 msgid "Add Nodes of a Tomboy Folder to the Current Tree"
 msgstr "Додати гілки з каталогу Tomboy в існуюче дерево"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:617
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:683
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:618
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:685
 msgid "From T_reepad Lite File"
 msgstr "З T_reepad"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:617
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:683
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:618
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:685
 msgid "Add Nodes of a Treepad Lite File to the Current Tree"
 msgstr "Імпортувати з файлу Treepad в існуюче дерево"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:618
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:684
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:619
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:686
 msgid "From _TuxCards File"
 msgstr "З TuxCards"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:618
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:684
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:619
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:686
 msgid "Add Nodes of a TuxCards File to the Current Tree"
 msgstr "Імпортувати з файлу TuxCards в існуюче дерево"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:619
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:685
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:620
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:687
 msgid "From _Zim Folder"
 msgstr "З Zim"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:619
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:685
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:620
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:687
 msgid "Add Nodes of a Zim Folder to the Current Tree"
 msgstr "Додати гілки з каталогу Zim в існуюче дерево"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:620
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:621
 msgid "Online _Manual"
 msgstr "Посібник онлайн"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:620
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:621
 msgid "Application's Online Manual"
 msgstr "Посібник онлайн"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:621
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:622
 msgid "_Check Newer Version"
 msgstr "Перевірити оновлення"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:621
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:622
 msgid "Check for a Newer Version"
 msgstr "Перевірити оновлення"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:622
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:623
 msgid "_About"
 msgstr "Про програму"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:622
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:623
 #: /home/qsduser/Templates/hg_cherrytree/modules/support.py:305
 msgid "About CherryTree"
 msgstr "Про програму CherryTree"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:623
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:624
 msgid "_Edit Table Properties"
 msgstr "Редагувати властивості таблиці"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:623
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:624
 msgid "Edit the Table Properties"
 msgstr "Редагувати властивості таблиці"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:624
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:625
 msgid "_Add Row"
 msgstr "Додати рядок"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:624
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:625
 msgid "Add a Table Row"
 msgstr "Додати рядок таблиці"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:625
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:626
 msgid "Cut a Table Row"
 msgstr "Вирізати рядок"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:626
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:627
 msgid "Copy a Table Row"
 msgstr "Копіювати рядок"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:627
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:628
 msgid "_Paste Row"
 msgstr "Вставити рядок"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:627
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:628
 msgid "Paste a Table Row"
 msgstr "Вставити рядок"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:628
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:629
 msgid "Delete the Selected Table Row"
 msgstr "Видалити рядок"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:629
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:630
 msgid "Move Row _Up"
 msgstr "Пересунути рядок вгору"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:629
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:630
 msgid "Move the Selected Row Up"
 msgstr "Пересунути рядок вгору"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:630
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:631
 msgid "Move Row _Down"
 msgstr "Пересунути рядок вниз"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:630
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:631
 msgid "Move the Selected Row Down"
 msgstr "Пересунути рядок вниз"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:631
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:632
 msgid "Sort Rows De_scending"
 msgstr "Сортувати рядки в порядку спадання"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:631
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:632
 msgid "Sort all the Rows Descending"
 msgstr "Сортувати рядки в порядку спадання"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:632
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:633
 msgid "Sort Rows As_cending"
 msgstr "Сортувати рядки в порядку зростання"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:632
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:633
 msgid "Sort all the Rows Ascending"
 msgstr "Сортувати рядки в порядку зростання"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:633
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:634
 msgid "_Table Export"
 msgstr "Експорт таблиці"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:633
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:634
 msgid "Export Table as CSV File"
 msgstr "Експорт таблиці в файл CSV"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:634
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:635
 msgid "_Bookmark This Node"
 msgstr "Добавити в закладки"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:634
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:635
 msgid "Add the Current Node to the Bookmarks List"
 msgstr "Добавити поточну гілку в закладки"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:635
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:636
 msgid "_Handle Bookmarks"
 msgstr "Керування закладками"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:635
-#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:1007
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:636
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:1012
 msgid "Handle the Bookmarks List"
 msgstr "Керування списком закладок"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:636
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:647
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:637
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:648
 msgid "Add _Node"
 msgstr "Додати гілку"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:636
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:647
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:637
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:648
 msgid "Add a Node having the same Father of the Selected Node"
 msgstr "Додати гілку"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:637
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:648
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:638
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:649
 msgid "Add _SubNode"
 msgstr "Додати дочірню гілку"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:637
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:648
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:638
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:649
 msgid "Add a Child Node to the Selected Node"
 msgstr "Додати дочірню гілку"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:650
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:651
 msgid "Change Node _Properties"
 msgstr "Змінити параметри гілки"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:650
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:651
 msgid "Edit the Properties of the Selected Node"
 msgstr "Редагувати параметри виділеної гілки"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:651
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:652
+#, fuzzy
+msgid "Insert Today's Node"
+msgstr "Вставити блок коду"
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:652
+msgid "Insert a Node with Hierarchy Year/Month/Day"
+msgstr ""
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:653
 msgid "Tree _Info"
 msgstr "Інформація про дерево"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:651
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2918
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:653
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2954
 msgid "Tree Summary Information"
 msgstr "Сумарна інформація про дерево"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:654
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:656
 msgid "Node _Up"
 msgstr "Пересунути гілку вгору"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:654
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:656
 msgid "Move the Selected Node Up"
 msgstr "Пересунути гілку вгору"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:655
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:657
 msgid "Node _Down"
 msgstr "Пересунути гілку вниз"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:655
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:657
 msgid "Move the Selected Node Down"
 msgstr "Пересунути гілку вниз"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:656
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:658
 msgid "Node _Left"
 msgstr "Пересунути гілку ліворуч"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:656
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:658
 msgid "Move the Selected Node Left"
 msgstr "Пересунути гілку ліворуч"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:657
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:659
 msgid "Node Change _Father"
 msgstr "Змінити батьківську гілку"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:657
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:659
 msgid "Change the Selected Node's Father"
 msgstr "Змінити батьківську гілку"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:660
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:662
 msgid "Nodes _Sort"
 msgstr "Сортування"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:661
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:663
 msgid "Sort Tree _Ascending"
 msgstr "Рядки в порядку зростання"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:661
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:663
 msgid "Sort the Tree Ascending"
 msgstr "Рядки в порядку зростання"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:662
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:664
 msgid "Sort Tree _Descending"
 msgstr "Рядки в порядку спадання"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:662
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:664
 msgid "Sort the Tree Descending"
 msgstr "Рядки в порядку спадання"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:663
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:665
 msgid "Sort Siblings A_scending"
 msgstr "Елементи в порядку зростання"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:663
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:665
 msgid "Sort all the Siblings of the Selected Node Ascending"
 msgstr "Сортувати елементи в порядку зростання"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:664
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:666
 msgid "Sort Siblings D_escending"
 msgstr "Елементи в порядку спадання"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:664
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:666
 msgid "Sort all the Siblings of the Selected Node Descending"
 msgstr "Сортувати елементи в порядку спадання"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:697
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:699
 msgid "De_lete Node"
 msgstr "Видалити гілку"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:697
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:699
 msgid "Delete the Selected Node"
 msgstr "Видалити гілку"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:731
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:733
 msgid "_Justify"
 msgstr "Вирівнювання"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:736
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:738
 msgid "_List"
 msgstr "Список"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:742
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:744
 msgid "_Insert"
 msgstr "Вставити"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:757
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:796
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:759
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:798
 msgid "_Row"
 msgstr "Рядок"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:759
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:798
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:761
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:800
 msgid "C_opy Row"
 msgstr "Копіювати рядок"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:790
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:792
 msgid "Stri_p Trailing Spaces"
 msgstr "Очистити пробіли в кінці рядка"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:790
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:792
 msgid "Strip Trailing Spaces"
 msgstr "Очистити пробіли в кінці рядка"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:828
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:830
 msgid "Edit _Link"
 msgstr "Редагувати посилання"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:828
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:830
 msgid "Edit the Underlying Link"
 msgstr "Редагувати посилання"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:830
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:832
 msgid "C_ut Link"
 msgstr "Вирізати посилання"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:830
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:846
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:832
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:848
 msgid "Cut the Selected CodeBox"
 msgstr "Вирізати виділений блок коду"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:831
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:833
 msgid "_Copy Link"
 msgstr "Копіювати посилання"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:831
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:847
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:833
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:849
 msgid "Copy the Selected CodeBox"
 msgstr "Копіювати виділений блок коду"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:832
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:834
 msgid "D_ismiss Link"
 msgstr "Забути посилання"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:832
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:834
 msgid "Dismiss the Selected Link"
 msgstr "Забути виділене посилання"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:833
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:835
 msgid "_Delete Link"
 msgstr "Видалити посилання"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:833
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:835
 msgid "Delete the Selected Link"
 msgstr "Видалити виділене посилання"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:844
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:846
 msgid "Change CodeBox _Properties"
 msgstr "Змінити параметри блока коду"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:844
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:846
 msgid "Edit the Properties of the CodeBox"
 msgstr "Редагувати параметри блока коду"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:846
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:848
 msgid "C_ut CodeBox"
 msgstr "Вирізати блок коду"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:847
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:849
 msgid "_Copy CodeBox"
 msgstr "Копіювати блок коду"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:848
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:850
 msgid "_Delete CodeBox"
 msgstr "Видалити блок коду"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:848
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:850
 msgid "Delete the Selected CodeBox"
 msgstr "Видалити виділений блок коду"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:850
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:852
 msgid "Increase CodeBox Width"
 msgstr "Збільшити ширину блока коду"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:850
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:852
 msgid "Increase the Width of the CodeBox"
 msgstr "Збільшити ширину блока коду"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:851
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:853
 msgid "Decrease CodeBox Width"
 msgstr "Зменшити ширину блока коду"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:851
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:853
 msgid "Decrease the Width of the CodeBox"
 msgstr "Зменшити ширину блока коду"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:852
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:854
 msgid "Increase CodeBox Height"
 msgstr "Збільшити висоту блока коду"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:852
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:854
 msgid "Increase the Height of the CodeBox"
 msgstr "Збільшити висоту блока коду"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:853
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:855
 msgid "Decrease CodeBox Height"
 msgstr "Зменшити висоту блока коду"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:853
+#: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:855
 msgid "Decrease the Height of the CodeBox"
 msgstr "Зменшити висоту блока коду"
 
@@ -1670,8 +1679,8 @@ msgid "Anchor Name (optional)"
 msgstr "Назва якоря (по бажанню)"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/support.py:737
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2890
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3755
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2926
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3791
 msgid "No Node is Selected"
 msgstr "Гілку не виділено"
 
@@ -1703,35 +1712,39 @@ msgstr "Виділена гілка з дочірніми гілками"
 msgid "All the Tree"
 msgstr "Усе дерево"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:864
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:870
 msgid "Include Node Name"
 msgstr "Друкувати назву гілки"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:930
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:907
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:875
+msgid "New Node in New Page"
+msgstr ""
+
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:935
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:909
 msgid "Insert _Special Character"
 msgstr "Вставити символ"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:932
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:909
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:937
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:911
 msgid "Insert a Special Character"
 msgstr "Вставити спеціальний символ"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:963
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:968
 msgid "_Recent Documents"
 msgstr "Недавні документи"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:965
-#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:971
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:970
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:976
 msgid "Open a Recent CherryTree Document"
 msgstr "Відкрити недавній документ CherryTree"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:995
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:1000
 #, python-format
 msgid "The Document %s was Not Found"
 msgstr "Документ '%s' не знайдено"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:1021
+#: /home/qsduser/Templates/hg_cherrytree/modules/support.py:1026
 msgid "Sort with Drag and Drop, Delete with the Delete Key"
 msgstr "Сортувати за допомогою Drag and Drop, видаляти клавішею Delete"
 
@@ -1835,7 +1848,7 @@ msgid "Hide (Restore with Ctrl+Shift+A)"
 msgstr "Заховати (Для відкриття натисніть Ctrl+Shift+A)"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/findreplace.py:588
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2674
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2711
 msgid "Node Name"
 msgstr "Назва гілки"
 
@@ -1848,7 +1861,7 @@ msgid "Line Content"
 msgstr "Зміст рядка"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/findreplace.py:609
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3547
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3583
 #, python-format
 msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
 msgstr "Посилання на неіснуючу гілку (Id = %s)"
@@ -2119,9 +2132,9 @@ msgid "Links"
 msgstr "Посилання"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/exports.py:38
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:552
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1128
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1278
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:554
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1130
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1280
 msgid "CherryTree Document"
 msgstr "Документ CherryTree"
 
@@ -2130,8 +2143,8 @@ msgstr "Документ CherryTree"
 msgid "PDF File"
 msgstr "Файл"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/exports.py:180
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:667
+#: /home/qsduser/Templates/hg_cherrytree/modules/exports.py:185
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:669
 msgid "Plain Text Document"
 msgstr "Текстовий документ"
 
@@ -2204,178 +2217,178 @@ msgstr "Редагувати параметри таблиці"
 msgid "Table Column Action"
 msgstr "Дії над стовпцями таблиці"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:198
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:200
 msgid "Checking for Newer Version..."
 msgstr "Перевірка наявності нових версій..."
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:204
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:206
 msgid "A Newer Version Is Available!"
 msgstr "Доступна нова версія програми!"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:209
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:211
 #, fuzzy
 msgid "You Are Using the Latest Version Available"
 msgstr "Доступна нова версія програми"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:212
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:214
 msgid "Failed to Retrieve Latest Version Information - Try Again Later"
 msgstr "Неможливо перевірити наявність нової версії. Спробуйте пізніше"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:229
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2905
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3269
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3803
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:231
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2941
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3305
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3839
 msgid "No Text is Selected"
 msgstr "Текст не виділено"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:529
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1930
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:531
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1928
 msgid "The new father can't be one of his sons!"
 msgstr "Нова батьківська гілка не може бути дочірньою!"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:575
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1549
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:577
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1551
 #, python-format
 msgid "\"%s\" is Not a CherryTree Document"
 msgstr "\"%s\" не є документом CherryTree"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:581
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:583
 msgid "NoteCase Document"
 msgstr "Документ NoteCase"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:685
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:687
 msgid "Treepad Document"
 msgstr "Документ Treepad"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:703
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:705
 msgid "KeyNote Document"
 msgstr "Документ KeyNote"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:721
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:723
 msgid "Mempad Document"
 msgstr "Документ Mempad"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:739
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:741
 msgid "Knowit Document"
 msgstr "Документ Knowit"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:757
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:759
 msgid "Leo Document"
 msgstr "Документ Leo"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:788
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:790
 msgid "Who is the Father?"
 msgstr "Вкажіть батьківську гілку"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:795
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:797
 msgid "The Tree Root"
 msgstr "Дерево"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:796
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:798
 msgid "The Selected Node"
 msgstr "Виділена гілка"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:983
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:985
 msgid "The Document was Reloaded After External Update to CT* File"
 msgstr "Документ було перезавантажено після оновлення файла іншою програмою"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1010
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1012
 msgid "CherryTree Hierarchical Note Taking"
 msgstr "Записник CherryTree"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1245
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1247
 #, python-format
 msgid "You Have No Write Access to %s"
 msgstr "Недоступний запис у файл %s"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1260
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1262
 msgid "Writing to Disk..."
 msgstr "Запис на диск..."
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1306
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1308
 msgid "Choose Storage Type"
 msgstr "Виберіть тип сховища"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1313
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1316
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1315
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1318
 msgid "Not Protected"
 msgstr "Не захищено"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1314
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1318
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1316
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1320
 msgid "Password Protected"
 msgstr "Захищено паролем"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1325
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1327
 msgid "Storage Type"
 msgstr "Тип сховища"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1336
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1338
 msgid "Enter the New Password Twice"
 msgstr "Введіть пароль двічі"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1379
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1381
 msgid "The Password Fields Must be Filled"
 msgstr "Пароль повинен бути уведений"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1382
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1384
 msgid "The Two Inserted Passwords Do Not Match"
 msgstr "Уведені паролі не співпадають"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1387
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1389
 #, python-format
 msgid "The Characters  %s  are Not Allowed"
 msgstr "Символи  %s  не дозволяються"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1405
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1407
 msgid ""
 "Binary Executable '7za' Not Found, Check The Package 'p7zip-full' to be "
 "Installed Properly"
 msgstr "Файл '7za' не знайдений. Перевірте, чи встановлений пакет 'p7zip-full'"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1411
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1413
 #, python-format
 msgid "Enter Password for %s"
 msgstr "Введіть пароль для %s"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1473
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1475
 msgid "Wrong Password"
 msgstr "Невірний пароль"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1918
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1916
 msgid "Select the New Father"
 msgstr "Виділіть нову батьківську гілку"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1922
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1920
 msgid "The new father can't be the very node to move!"
 msgstr "Нову батьківську гілку неможливо пересунути!"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1925
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1923
 msgid "The new choosed father is again the old father!"
 msgstr "Вибрана нова батьківська гілка є старою!"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2104
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2102
 msgid "New Node Properties"
 msgstr "Нові параметри гілки"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2131
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2139
 msgid "New Child Node Properties"
 msgstr "Нові параметри дочірньої гілки"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2150
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2162
 #, python-format
 msgid "Are you sure to <b>Delete the node '%s'?</b>"
 msgstr "Ви впевнені, що хочете <b>видалити гілку '%s'?</b>"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2152
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2164
 msgid "The node <b>has Children, they will be Deleted too!</b>"
 msgstr "Гілка <b>має дочірні гілки, які теж будуть видалені!</b>"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2172
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2184
 msgid "Node Properties"
 msgstr "Параметри гілки"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2180
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2192
 msgid ""
 "Entering the Automatic Syntax Highlighting you will Lose all Custom Colors "
 "for This Node, Do you want to Continue?"
@@ -2383,176 +2396,180 @@ msgstr ""
 "При включенні автоматичного підсвічування, буде втрачено налаштування "
 "користувацьких кольорів для цієї гілки, продовжити?"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2563
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2600
 msgid "Search for"
 msgstr "Шукати"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2570
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2607
 msgid "Replace with"
 msgstr "Замінити"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2585
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2622
 msgid "Match Case"
 msgstr "Враховувати регістр"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2587
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2624
 msgid "Regular Expression"
 msgstr "Регулярний вираз"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2589
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2626
 msgid "Whole Word"
 msgstr "Ціле слово"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2591
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2628
 msgid "Start Word"
 msgstr "Слово"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2593
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2630
 msgid "Forward"
 msgstr "Вперед"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2595
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2632
 msgid "Backward"
 msgstr "Назад"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2598
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2635
 msgid "All, List Matches"
 msgstr "Весь список співпадань"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2600
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2637
 msgid "First From Selection"
 msgstr "Перше від виділення"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2603
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2640
 msgid "First in All Range"
 msgstr "Перше по всьому діапазону"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2606
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2643
 msgid "Show Iterated Find/Replace Dialog"
 msgstr "Показати діалог останніх замін"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2626
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2663
 msgid "Search options"
 msgstr "Налаштування пошуку"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2678
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3757
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2715
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3793
 msgid "Rich Text"
 msgstr "Форматований текст"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2696
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2733
 msgid "Node Type"
 msgstr "Тип гілки"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2702
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2739
 msgid "Tags for Searching"
 msgstr "Теги для пошуку"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2706
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3759
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2743
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3795
 msgid "Read Only"
 msgstr "Тільки читання"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2740
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2777
 msgid "The Size of the Toolbar Icons is already at the Maximum Value"
 msgstr "Розмір іконок панелі інструментів максимальний"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2748
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2785
 msgid "The Size of the Toolbar Icons is already at the Minimum Value"
 msgstr "Розмір іконок панелі інструментів мінімальний"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2829
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2866
 msgid "Edit Anchor"
 msgstr "Редагувати якір"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2832
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2869
 msgid "Insert Anchor"
 msgstr "Вставити якір"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2868
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2904
 msgid "Not Any H1, H2 or H3 Formatting Found"
 msgstr "jНе знайдені заголовки H1, H2, H3"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2883
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2919
 msgid ""
 "Automatic Syntax Highlighting Must be Disabled in order to Use This Feature"
 msgstr "Щоб використати цю функцію, відключить підсвічування синтаксису"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2897
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2933
 msgid "The Tree is Empty!"
 msgstr "Дерево пусте!"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2926
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2962
 msgid "Number of Text Nodes"
 msgstr "Кількість гілок з текстом"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2929
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2965
 msgid "Number of Code Nodes"
 msgstr "Кількість гілок з кодом"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2932
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2968
 msgid "Number of Images"
 msgstr "Кількість зображень"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2935
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2971
 msgid "Number of Tables"
 msgstr "Кількість таблиць"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2938
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2974
 msgid "Number of CodeBoxes"
 msgstr "Кількість блоків коду"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3007
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3043
 msgid "Image Properties"
 msgstr "Параметри зображення"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3053
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3089
 msgid "PNG Image"
 msgstr "Зображення PNG"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3059
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3095
 #, python-format
 msgid "Write to %s Failed"
 msgstr "Записати в %s не вдалося"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3110
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3146
 msgid "Lines Stripped"
 msgstr "Очищені рядки"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3229
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3265
 msgid "No Previous Text Format Was Performed During This Session"
 msgstr "В цій сесії не було операцій форматування тексту"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3275
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3311
 msgid "Link Name"
 msgstr "Назва посилання"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3303
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3339
 msgid "The Cursor is Not into a Paragraph"
 msgstr "Курсор за межами абзацу"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3316
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3352
 msgid "Insert/Edit Link"
 msgstr "Вставити / Редагувати посилання"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3341
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3377
 msgid "Pick a Color"
 msgstr "Вибор кольору"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3519
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3555
 #, python-format
 msgid "The File Link '%s' is Not Valid"
 msgstr "Посилання на файл '%s' некоректне"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3534
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3570
 #, python-format
 msgid "The Folder Link '%s' is Not Valid"
 msgstr "Посилання на каталог '%s' некоректне"
 
-#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3557
+#: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3593
 #, python-format
 msgid "No anchor named '%s' found"
 msgstr "Якір з назвою '%s' знайдено"
+
+#, fuzzy
+#~ msgid "Insert a Date Node"
+#~ msgstr "Вставити блок коду"
 
 #~ msgid "<b>Miscellaneous</b>"
 #~ msgstr "<b>Різне</b>"
