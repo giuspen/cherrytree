@@ -164,7 +164,7 @@ class CherryTree:
         self.password = None
         self.export_single = False
         self.last_include_node_name = True
-        self.last_pdf_new_node_page = False
+        self.last_new_node_page = False
         self.curr_tree_iter = None
         self.curr_window_n_tree_width = None
         self.curr_buffer = None
@@ -1638,7 +1638,7 @@ class CherryTree:
     def export_to_txt_multiple(self, *args):
         """Export To Plain Text Multiple Files"""
         if not self.is_there_selected_node_or_error(): return
-        export_type = support.dialog_selnode_selnodeandsub_alltree(self, also_selection=True, also_node_name=True)
+        export_type = support.dialog_selnode_selnodeandsub_alltree(self, also_selection=True, also_include_node_name=True)
         if export_type == 0: return
         txt_handler = exports.Export2Txt(self)
         if export_type == 1:
@@ -1727,7 +1727,7 @@ class CherryTree:
     def export_print(self, action):
         """Start Print Operations"""
         if not self.is_there_selected_node_or_error(): return
-        export_type = support.dialog_selnode_selnodeandsub_alltree(self, also_selection=True, also_node_name=True)
+        export_type = support.dialog_selnode_selnodeandsub_alltree(self, also_selection=True, also_include_node_name=True, also_new_node_page=True)
         if export_type == 0: return
         pdf_handler = exports.ExportPrint(self)
         if export_type == 1:
@@ -1744,14 +1744,14 @@ class CherryTree:
                 pdf_filepath = pdf_handler.get_pdf_filepath(self.file_name)
                 if not pdf_filepath: return
                 self.print_handler.pdf_filepath = pdf_filepath
-            pdf_handler.nodes_all_export_print(self.curr_tree_iter, self.last_include_node_name)
+            pdf_handler.nodes_all_export_print(self.curr_tree_iter, self.last_include_node_name, self.last_new_node_page)
         elif export_type == 3:
             # all nodes
             if self.print_handler.pdf_filepath == cons.CHAR_TILDE:
                 pdf_filepath = pdf_handler.get_pdf_filepath(self.file_name)
                 if not pdf_filepath: return
                 self.print_handler.pdf_filepath = pdf_filepath
-            pdf_handler.nodes_all_export_print(None, self.last_include_node_name)
+            pdf_handler.nodes_all_export_print(None, self.last_include_node_name, self.last_new_node_page)
         else:
             # only selection
             if self.is_there_text_selection_or_error():

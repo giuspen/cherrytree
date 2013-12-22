@@ -104,7 +104,7 @@ class ExportPrint:
             self.dad.pick_dir = os.path.dirname(ret_filepath)
         return ret_filepath
 
-    def nodes_all_export_print(self, top_tree_iter, include_node_name):
+    def nodes_all_export_print(self, top_tree_iter, include_node_name, new_node_in_new_page):
         """Export Print All Nodes"""
         self.pango_text = []
         self.pixbuf_table_codebox_vector = []
@@ -112,13 +112,13 @@ class ExportPrint:
         if not top_tree_iter: tree_iter = self.dad.treestore.get_iter_first()
         else: tree_iter = top_tree_iter.copy()
         while tree_iter:
-            self.nodes_all_export_print_iter(tree_iter, include_node_name)
+            self.nodes_all_export_print_iter(tree_iter, include_node_name, new_node_in_new_page)
             if top_tree_iter: break
             tree_iter = self.dad.treestore.iter_next(tree_iter)
         self.dad.objects_buffer_refresh()
         self.run_print()
 
-    def nodes_all_export_print_iter(self, tree_iter, include_node_name):
+    def nodes_all_export_print_iter(self, tree_iter, include_node_name, new_node_in_new_page):
         """Export Print All Nodes - Iter"""
         self.dad.get_textbuffer_from_tree_iter(tree_iter)
         if self.dad.treestore[tree_iter][4] == cons.CUSTOM_COLORS_ID:
@@ -130,12 +130,17 @@ class ExportPrint:
         if include_node_name: self.pango_text_add_node_name(tree_iter, pango_text)
         if not self.pango_text: self.pango_text = pango_text
         else:
-            self.pango_text[-1] += cons.CHAR_NEWLINE*3 + pango_text[0]
-            if len(pango_text) > 1: self.pango_text += pango_text[1:]
+            if new_node_in_new_page:
+                pango_text[0] = 2*cons.CHAR_NEWPAGE + pango_text[0]
+                self.pango_text += pango_text
+                pixbuf_table_codebox_vector.insert(0, ["", [0, None, ""]])
+            else:
+                self.pango_text[-1] += cons.CHAR_NEWLINE*3 + pango_text[0]
+                if len(pango_text) > 1: self.pango_text += pango_text[1:]
         self.pixbuf_table_codebox_vector += pixbuf_table_codebox_vector
         child_tree_iter = self.dad.treestore.iter_children(tree_iter)
         while child_tree_iter:
-            self.nodes_all_export_print_iter(child_tree_iter, include_node_name)
+            self.nodes_all_export_print_iter(child_tree_iter, include_node_name, new_node_in_new_page)
             child_tree_iter = self.dad.treestore.iter_next(child_tree_iter)
 
     def pango_text_add_node_name(self, tree_iter, pango_text):

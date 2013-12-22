@@ -845,7 +845,7 @@ def dialog_choose_node(father_win, title, treestore, sel_tree_iter):
     dialog.hide()
     return None if response != gtk.RESPONSE_ACCEPT else node_parms.sel_iter
 
-def dialog_selnode_selnodeandsub_alltree(dad, also_selection, also_node_name=False):
+def dialog_selnode_selnodeandsub_alltree(dad, also_selection, also_include_node_name=False, also_new_node_page=False):
     """Dialog to select between the Selected Node/Selected Node + Subnodes/All Tree"""
     dialog = gtk.Dialog(title=_("Involved Nodes"),
         parent=dad.window,
@@ -859,19 +859,22 @@ def dialog_selnode_selnodeandsub_alltree(dad, also_selection, also_node_name=Fal
     radiobutton_alltree = gtk.RadioButton(label=_("All the Tree"))
     radiobutton_selnodeandsub.set_group(radiobutton_selnode)
     radiobutton_alltree.set_group(radiobutton_selnode)
-    if also_node_name:
-        separator_item = gtk.HSeparator()
-        checkbutton_node_name = gtk.CheckButton(label=_("Include Node Name"))
-        checkbutton_node_name.set_active(dad.last_include_node_name)
     if also_selection: radiobutton_selection.set_group(radiobutton_selnode)
     content_area = dialog.get_content_area()
     if also_selection: content_area.pack_start(radiobutton_selection)
     content_area.pack_start(radiobutton_selnode)
     content_area.pack_start(radiobutton_selnodeandsub)
     content_area.pack_start(radiobutton_alltree)
-    if also_node_name:
+    if also_include_node_name:
+        separator_item = gtk.HSeparator()
+        checkbutton_node_name = gtk.CheckButton(label=_("Include Node Name"))
+        checkbutton_node_name.set_active(dad.last_include_node_name)
         content_area.pack_start(separator_item)
         content_area.pack_start(checkbutton_node_name)
+    if also_new_node_page:
+        checkbutton_new_node_page = gtk.CheckButton(label=_("New Node in New Page"))
+        checkbutton_new_node_page.set_active(dad.last_new_node_page)
+        content_area.pack_start(checkbutton_new_node_page)
     def on_key_press_enter_dialog(widget, event):
         if gtk.gdk.keyval_name(event.keyval) == cons.STR_RETURN:
             try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
@@ -885,8 +888,10 @@ def dialog_selnode_selnodeandsub_alltree(dad, also_selection, also_node_name=Fal
     elif radiobutton_selnodeandsub.get_active(): ret_val = 2
     elif radiobutton_alltree.get_active(): ret_val = 3
     else: ret_val = 4
-    if also_node_name:
+    if also_include_node_name:
         dad.last_include_node_name = checkbutton_node_name.get_active()
+    if also_new_node_page:
+        dad.last_new_node_page = checkbutton_new_node_page.get_active()
     dialog.destroy()
     if response != gtk.RESPONSE_ACCEPT: ret_val = 0
     return ret_val
