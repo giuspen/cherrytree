@@ -98,6 +98,7 @@ class PrintHandler:
         while 1:
             exit_ok = True
             print_data.layout = []
+            print_data.forced_page_break = []
             print_data.layout_is_new_line = []
             print_data.layout_num_lines = []
             print_data.all_lines_y = []
@@ -106,7 +107,9 @@ class PrintHandler:
                 print_data.layout.append(context.create_pango_layout())
                 print_data.layout[-1].set_font_description(self.pango_font)
                 print_data.layout[-1].set_width(int(self.page_width*pango.SCALE))
-                print_data.layout[-1].set_markup(text_slot)
+                is_forced_page_break = text_slot.startswith(2*cons.CHAR_NEWPAGE)
+                print_data.forced_page_break.append(is_forced_page_break)
+                print_data.layout[-1].set_markup(text_slot if not is_forced_page_break else text_slot[2:])
                 if text_slot == cons.CHAR_NEWLINE:
                     print_data.layout_is_new_line.append(True) # in other case we detect the newline from a following line
                 else: print_data.layout_is_new_line.append(False) # but here we have a single layout line
@@ -119,6 +122,8 @@ class PrintHandler:
             for i, layout in enumerate(print_data.layout):
                 #print "layout", i
                 # text
+                if print_data.forced_page_break[i] and curr_y > 0:
+                    print "forced_page_break"
                 layout_line_idx = 0
                 while layout_line_idx < print_data.layout_num_lines[i]:
                     #print "layout_line_idx", layout_line_idx
