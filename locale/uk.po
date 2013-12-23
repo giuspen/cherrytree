@@ -1294,13 +1294,12 @@ msgid "Edit the Properties of the Selected Node"
 msgstr "Редагувати параметри виділеної гілки"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:652
-#, fuzzy
 msgid "Insert Today's Node"
-msgstr "Вставити блок коду"
+msgstr "Вставити сьогоднішню гілку"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:652
 msgid "Insert a Node with Hierarchy Year/Month/Day"
-msgstr ""
+msgstr "Вставити гілку з ієрархією Рік/Місяць/День"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:653
 msgid "Tree _Info"
@@ -1718,7 +1717,7 @@ msgstr "Друкувати назву гілки"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/support.py:875
 msgid "New Node in New Page"
-msgstr ""
+msgstr "Новугілку з нової сторінки"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/support.py:935
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:909
@@ -1867,7 +1866,6 @@ msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
 msgstr "Посилання на неіснуючу гілку (Id = %s)"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:436
-#, fuzzy
 msgid "Tab Width"
 msgstr "Ширина табуляції"
 
@@ -1880,18 +1878,16 @@ msgid "Use Line Wrapping"
 msgstr "Вімкнути режим перенесення тексту"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:448
-#, fuzzy
 msgid "Line Wrapping Indentation"
-msgstr "Вімкнути автоматичний відступ"
+msgstr "Відступ для перенесення тексту"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:454
 msgid "Enable Automatic Indentation"
 msgstr "Вімкнути автоматичний відступ"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:466
-#, fuzzy
 msgid "Text Editor"
-msgstr "<b>Текстовий редактор</b>"
+msgstr "Текстовий редактор"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:476
 msgid "Timestamp Format"
@@ -1923,9 +1919,8 @@ msgid "Spell Check Language"
 msgstr "Мова перевірки орфографії"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:582
-#, fuzzy
 msgid "Spell Check"
-msgstr "Включити перевірку орфографії"
+msgstr "Перевірка орфографії"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:592
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:759
@@ -1950,7 +1945,7 @@ msgstr "і текст"
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:610
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:777
 msgid "Theme"
-msgstr ""
+msgstr "Тема"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:630
 msgid "Limit of Undoable Steps Per Node"
@@ -1981,9 +1976,8 @@ msgid "Do Not Display Nodes Icons"
 msgstr "Не відображувати значки гілок"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:806
-#, fuzzy
 msgid "Nodes Icons"
-msgstr "<b>Значки гілок</b>"
+msgstr "Значки гілок"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:820
 msgid "Restore Expanded/Collapsed Status"
@@ -1998,9 +1992,8 @@ msgid "Collapse all Nodes"
 msgstr "Згорнути гілки"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:829
-#, fuzzy
 msgid "Nodes Status at Startup"
-msgstr "<b>Статус гілок після запуску</b>"
+msgstr "Статус гілок після запуску"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:844
 msgid "Tree Nodes Names Wrapping Width"
@@ -2040,13 +2033,12 @@ msgid "Enable Custom Folder Link Clicked Action"
 msgstr "Відкривати каталоги"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1016
-#, fuzzy
 msgid "Custom Actions"
-msgstr "Інший колір фону"
+msgstr "Інші дії"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1072
 msgid "Colors"
-msgstr ""
+msgstr "Кольори"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1083
 msgid "Anchor Size"
@@ -2065,9 +2057,8 @@ msgid "Use AppIndicator for Docking"
 msgstr "Використовувати AppIndicator"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1155
-#, fuzzy
 msgid "System Tray"
-msgstr "<b>Системний лоток</b>"
+msgstr "Системний лоток"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1172
 msgid "Autosave Every"
@@ -2086,9 +2077,8 @@ msgid "Create a Backup Copy Before Saving"
 msgstr "Створити резервну копію перед збереженням"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1191
-#, fuzzy
 msgid "Saving"
-msgstr "<b>Збереження</b>"
+msgstr "Збереження"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1200
 msgid "Automatically Check for Newer Version"
@@ -2103,9 +2093,8 @@ msgid "Reload After External Update to CT* File"
 msgstr "Перезавантажити документ після оновлення файлу іншою програмою"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1227
-#, fuzzy
 msgid "Language"
-msgstr "Варіанти"
+msgstr "Мова"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1310
 msgid "The New Language will be Available Only After Restarting CherryTree"
@@ -2139,9 +2128,8 @@ msgid "CherryTree Document"
 msgstr "Документ CherryTree"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/exports.py:99
-#, fuzzy
 msgid "PDF File"
-msgstr "Файл"
+msgstr "Файл PDF"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/exports.py:185
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:669
@@ -2226,9 +2214,8 @@ msgid "A Newer Version Is Available!"
 msgstr "Доступна нова версія програми!"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:211
-#, fuzzy
 msgid "You Are Using the Latest Version Available"
-msgstr "Доступна нова версія програми"
+msgstr "Встановлена остання версія програми"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:214
 msgid "Failed to Retrieve Latest Version Information - Try Again Later"
@@ -2567,7 +2554,6 @@ msgstr "Посилання на каталог '%s' некоректне"
 msgid "No anchor named '%s' found"
 msgstr "Якір з назвою '%s' знайдено"
 
-#, fuzzy
 #~ msgid "Insert a Date Node"
 #~ msgstr "Вставити блок коду"
 
