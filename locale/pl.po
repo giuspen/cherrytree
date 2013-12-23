@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 0.30.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-12-23 00:23+0100\n"
-"PO-Revision-Date: 2013-11-26 11:09+0100\n"
+"PO-Revision-Date: 2013-12-24 00:45+0100\n"
 "Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
 "Language-Team: Polish\n"
 "Language: \n"
@@ -22,7 +22,7 @@ msgstr ""
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:728
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2716
 msgid "Automatic Syntax Highlighting"
-msgstr "<b>Automatyczne kolorowanie składni</b>"
+msgstr "Automatyczne kolorowanie składni"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/codeboxes.py:80
 #: /home/qsduser/Templates/hg_cherrytree/modules/support.py:430
@@ -1290,13 +1290,12 @@ msgid "Edit the Properties of the Selected Node"
 msgstr "Zmień właściwości zaznaczonej gałęzi"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:652
-#, fuzzy
 msgid "Insert Today's Node"
-msgstr "Dodaj pole kodu"
+msgstr "Dodaj dzisiejszą gałęź"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:652
 msgid "Insert a Node with Hierarchy Year/Month/Day"
-msgstr ""
+msgstr "Wstaw gałęź z datą Rok/Miesiąc/Dzień"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:653
 msgid "Tree _Info"
@@ -1710,7 +1709,7 @@ msgstr "Dołącz nazwę gałęzi"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/support.py:875
 msgid "New Node in New Page"
-msgstr ""
+msgstr "Nowa gałęź w nowej stronie"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/support.py:935
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:909
@@ -1860,9 +1859,8 @@ msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
 msgstr "Link prowadzi do gałęzi która już nie istnieje (Id = %s)"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:436
-#, fuzzy
 msgid "Tab Width"
-msgstr "Rozmiar Tabulatora  "
+msgstr "Rozmiar Tabulatora"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:442
 msgid "Insert Spaces Instead of Tabs"
@@ -1873,18 +1871,16 @@ msgid "Use Line Wrapping"
 msgstr "Użyj załamywania lini"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:448
-#, fuzzy
 msgid "Line Wrapping Indentation"
-msgstr "Włącz automatyczne wcięcia"
+msgstr "Wcięcia lini"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:454
 msgid "Enable Automatic Indentation"
 msgstr "Włącz automatyczne wcięcia"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:466
-#, fuzzy
 msgid "Text Editor"
-msgstr "<b>Edytor tekstu</b>"
+msgstr "Edytor tekstu"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:476
 msgid "Timestamp Format"
@@ -1916,9 +1912,8 @@ msgid "Spell Check Language"
 msgstr "Język sprawdzania pisowni"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:582
-#, fuzzy
 msgid "Spell Check"
-msgstr "Włącz sprawdzanie pisowni"
+msgstr "Sprawdzanie pisowni"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:592
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:759
@@ -1943,7 +1938,7 @@ msgstr "i tekst"
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:610
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:777
 msgid "Theme"
-msgstr ""
+msgstr "Motyw"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:630
 msgid "Limit of Undoable Steps Per Node"
@@ -1974,9 +1969,8 @@ msgid "Do Not Display Nodes Icons"
 msgstr "Nie wyświetlaj ikon gałęźi"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:806
-#, fuzzy
 msgid "Nodes Icons"
-msgstr "<b>Ikony gałęzi</b>"
+msgstr "Ikony gałęzi"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:820
 msgid "Restore Expanded/Collapsed Status"
@@ -1991,9 +1985,8 @@ msgid "Collapse all Nodes"
 msgstr "Zwiń wszystkie gałęzie"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:829
-#, fuzzy
 msgid "Nodes Status at Startup"
-msgstr "<b>Stan gałęzi przy starcie</b>"
+msgstr "Stan gałęzi przy starcie"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:844
 msgid "Tree Nodes Names Wrapping Width"
@@ -2033,13 +2026,12 @@ msgid "Enable Custom Folder Link Clicked Action"
 msgstr "Włącz własne akcje dla linków do pliku"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1016
-#, fuzzy
 msgid "Custom Actions"
-msgstr "Własne tło"
+msgstr "Własne akcje"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1072
 msgid "Colors"
-msgstr ""
+msgstr "Kolory"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1083
 msgid "Anchor Size"
@@ -2058,9 +2050,8 @@ msgid "Use AppIndicator for Docking"
 msgstr "Użyj AppIndicator do dokowania"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1155
-#, fuzzy
 msgid "System Tray"
-msgstr "<b>Zasobnik systemowy</b>"
+msgstr "Zasobnik systemowy"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1172
 msgid "Autosave Every"
@@ -2079,9 +2070,8 @@ msgid "Create a Backup Copy Before Saving"
 msgstr "Stwórz kopie zapasową przed zapisem"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1191
-#, fuzzy
 msgid "Saving"
-msgstr "<b>Zapisywanie</b>"
+msgstr "Zapisywanie"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1200
 msgid "Automatically Check for Newer Version"
@@ -2096,7 +2086,6 @@ msgid "Reload After External Update to CT* File"
 msgstr "Przeładuj zewnętrzne zmiany w pliku CT"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1227
-#, fuzzy
 msgid "Language"
 msgstr "Język"
 
@@ -2132,9 +2121,8 @@ msgid "CherryTree Document"
 msgstr "Dokument CherryTree"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/exports.py:99
-#, fuzzy
 msgid "PDF File"
-msgstr "Do pliku "
+msgstr "Plik PDF"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/exports.py:185
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:669
@@ -2219,7 +2207,6 @@ msgid "A Newer Version Is Available!"
 msgstr "Nowa wersja jest dostępna"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:211
-#, fuzzy
 msgid "You Are Using the Latest Version Available"
 msgstr "To jest aktualna dostępna wersja"
 
