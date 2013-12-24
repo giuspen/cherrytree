@@ -196,7 +196,8 @@ STOCKS_N_FILES = [
 'color_foreground.png', 'format-text-large.png', 'format-text-large2.png', 'format-text-large3.png',
 'format-text-small.png', 'format-text-subscript.png', 'format-text-superscript.png', 'format-text-monospace.png',
 'format-text-strikethrough.png', 'format-text-underline.png', 'format-text-bold.png', 'format-text-italic.png',
-'format_text_latest.png', 'format_text.png', 'object-rotate-left.png', 'object-rotate-right.png',
+'format_text_latest.png', 'format_text_clear.png', 'format_text.png',
+'object-rotate-left.png', 'object-rotate-right.png',
 'to_pdf.png', 'to_txt.png', 'to_html.png', 'to_cherrytree.png', 'export_from_cherrytree.png', STR_STOCK_CT_IMP + '.png',
 'from_cherrytree.png', 'from_txt.png', 'cherrytree.png', 'quit-app.png',
 'new-instance.png', 'toolbar.png', 'cherries.png', 'tree-node-add.png',
@@ -424,9 +425,6 @@ UI_INFO = """
         <toolitem action='Save'/>
         <toolitem action='Export2PDF'/>
         <separator/>
-        <toolitem action='Undo'/>
-        <toolitem action='Redo'/>
-        <separator/>
         <toolitem action='FindInNodes'/>
         <separator/>
         <toolitem action='BulletedList'/>
@@ -439,6 +437,7 @@ UI_INFO = """
         <toolitem action='HandleLink'/>
         <toolitem action='HandleAnchor'/>
         <separator/>
+        <toolitem action='RemoveFormatting'/>
         <toolitem action='ColorForeground'/>
         <toolitem action='ColorBackground'/>
         <toolitem action='Bold'/>
@@ -565,7 +564,7 @@ def get_entries(inst):
     ( "InheritSyntax", "gtk-execute", _("_Inherit Syntax"), None, _("Change the Selected Node's Children Syntax Highlighting to the Father's Syntax Highlighting"), inst.node_inherit_syntax),
     ( "FormatLatest", "format_text_latest", _("Format _Latest"), "F7", _("Memory of Latest Text Format Type"), inst.apply_tag_latest),
     ( "PastePlainText", "edit-paste", _("_Paste as Plain Text"), "<control><shift>V", _("Paste as Plain Text, Discard the Rich Text Formatting"), inst.paste_as_plain_text),
-    ( "RemoveFormatting", "gtk-clear", _("_Remove Formatting"), "<control><shift>R", _("Remove the Formatting from the Selected Text"), inst.remove_text_formatting),
+    ( "RemoveFormatting", "format_text_clear", _("_Remove Formatting"), "<control><shift>R", _("Remove the Formatting from the Selected Text"), inst.remove_text_formatting),
     ( "ColorForeground", "color_foreground", _("Text _Color Foreground"), None, _("Change the Color of the Selected Text Foreground"), inst.apply_tag_foreground),
     ( "ColorBackground", "color_background", _("Text C_olor Background"), None, _("Change the Color of the Selected Text Background"), inst.apply_tag_background),
     ( "Bold", "format-text-bold", _("Toggle _Bold Property"), "<control>B", _("Toggle Bold Property of the Selected Text"), inst.apply_tag_bold),
@@ -714,7 +713,7 @@ def get_popup_menu_entries_text(inst):
     ("separator", None, None, None, None),
     ("submenu-start", _("For_matting") , "format_text", None, None),
     ("format_text_latest", _("Format _Latest"), "F7", _("Memory of Latest Text Format Type"), inst.apply_tag_latest),
-    ("gtk-clear", _("_Remove Formatting"), "<control><shift>R", _("Remove the Formatting from the Selected Text"), inst.remove_text_formatting),
+    ("format_text_clear", _("_Remove Formatting"), "<control><shift>R", _("Remove the Formatting from the Selected Text"), inst.remove_text_formatting),
     ("separator", None, None, None, None),
     ("color_foreground", _("Text _Color Foreground"), None, _("Change the Color of the Selected Text Foreground"), inst.apply_tag_foreground),
     ("color_background", _("Text C_olor Background"), None, _("Change the Color of the Selected Text Background"), inst.apply_tag_background),
