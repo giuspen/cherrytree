@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: cherrytree 0.26\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-12-23 00:23+0100\n"
-"PO-Revision-Date: 2013-11-25 21:54+0800\n"
+"PO-Revision-Date: 2013-12-24 19:04+0800\n"
 "Last-Translator: Channing Wong <mamimoluo@gmail.com>\n"
 "Language-Team: Chinese (simplified)\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.7\n"
+"X-Generator: Poedit 1.6.1\n"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/codeboxes.py:75
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:728
@@ -1289,13 +1289,12 @@ msgid "Edit the Properties of the Selected Node"
 msgstr "编辑当前所选节点的属性"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:652
-#, fuzzy
 msgid "Insert Today's Node"
-msgstr "插入一个代码框"
+msgstr "插入今日节点"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:652
 msgid "Insert a Node with Hierarchy Year/Month/Day"
-msgstr ""
+msgstr "插入一个 年/月/日 层级节点"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:653
 msgid "Tree _Info"
@@ -1704,7 +1703,7 @@ msgstr "包含节点名称"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/support.py:875
 msgid "New Node in New Page"
-msgstr ""
+msgstr "在新页面建立新节点"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/support.py:935
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:909
@@ -1853,7 +1852,6 @@ msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
 msgstr "链接所指向的节点不存在 (Id = %s)"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:436
-#, fuzzy
 msgid "Tab Width"
 msgstr "Tab宽度  "
 
@@ -1866,18 +1864,16 @@ msgid "Use Line Wrapping"
 msgstr "启用换行显示"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:448
-#, fuzzy
 msgid "Line Wrapping Indentation"
-msgstr "启用自动缩进"
+msgstr "换行缩进"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:454
 msgid "Enable Automatic Indentation"
 msgstr "启用自动缩进"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:466
-#, fuzzy
 msgid "Text Editor"
-msgstr "<b>文字编辑</b>"
+msgstr "文本编辑器"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:476
 msgid "Timestamp Format"
@@ -1909,9 +1905,8 @@ msgid "Spell Check Language"
 msgstr "语言拼写检查"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:582
-#, fuzzy
 msgid "Spell Check"
-msgstr "启用拼写检查"
+msgstr "拼写检查"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:592
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:759
@@ -1936,7 +1931,7 @@ msgstr "和文字"
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:610
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:777
 msgid "Theme"
-msgstr ""
+msgstr "主题"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:630
 msgid "Limit of Undoable Steps Per Node"
@@ -1967,9 +1962,8 @@ msgid "Do Not Display Nodes Icons"
 msgstr "不显示节点图标"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:806
-#, fuzzy
 msgid "Nodes Icons"
-msgstr "<b>节点图标</b>"
+msgstr "节点图标"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:820
 msgid "Restore Expanded/Collapsed Status"
@@ -1984,9 +1978,8 @@ msgid "Collapse all Nodes"
 msgstr "收缩所有节点"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:829
-#, fuzzy
 msgid "Nodes Status at Startup"
-msgstr "<b>启动时节点状态</b>"
+msgstr "启动时节点状态"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:844
 msgid "Tree Nodes Names Wrapping Width"
@@ -2026,13 +2019,12 @@ msgid "Enable Custom Folder Link Clicked Action"
 msgstr "启用并定义文件夹链接点击动作"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1016
-#, fuzzy
 msgid "Custom Actions"
-msgstr "自定义背景"
+msgstr "自定义动作"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1072
 msgid "Colors"
-msgstr ""
+msgstr "颜色"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1083
 msgid "Anchor Size"
@@ -2051,9 +2043,8 @@ msgid "Use AppIndicator for Docking"
 msgstr "采用窗口停靠模式"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1155
-#, fuzzy
 msgid "System Tray"
-msgstr "<b>系统托盘</b>"
+msgstr "系统托盘"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1172
 msgid "Autosave Every"
@@ -2072,9 +2063,8 @@ msgid "Create a Backup Copy Before Saving"
 msgstr "保存前创建备份"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1191
-#, fuzzy
 msgid "Saving"
-msgstr "<b>保存</b>"
+msgstr "保存中"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1200
 msgid "Automatically Check for Newer Version"
@@ -2089,7 +2079,6 @@ msgid "Reload After External Update to CT* File"
 msgstr "将重载，因CT*文件在外部被修改"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1227
-#, fuzzy
 msgid "Language"
 msgstr "语言"
 
@@ -2125,9 +2114,8 @@ msgid "CherryTree Document"
 msgstr "CherryTree文档"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/exports.py:99
-#, fuzzy
 msgid "PDF File"
-msgstr "连接到文件"
+msgstr "PDF文件"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/exports.py:185
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:669
@@ -2212,9 +2200,8 @@ msgid "A Newer Version Is Available!"
 msgstr "有新版本可用！"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:211
-#, fuzzy
 msgid "You Are Using the Latest Version Available"
-msgstr "这已是最新版本"
+msgstr "您使用的是最新版本"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:214
 msgid "Failed to Retrieve Latest Version Information - Try Again Later"
@@ -2550,132 +2537,3 @@ msgstr "文件夹链接'%s'无效"
 #, python-format
 msgid "No anchor named '%s' found"
 msgstr "未找到锚点 '%s'"
-
-#, fuzzy
-#~ msgid "Insert a Date Node"
-#~ msgstr "插入一个代码框"
-
-#~ msgid "<b>Miscellaneous</b>"
-#~ msgstr "<b>杂项</b>"
-
-#~ msgid "<b>Spell Check</b>"
-#~ msgstr "<b>拼写检查</b>"
-
-#~ msgid "<b>Theme</b>"
-#~ msgstr "<b>主题</b>"
-
-#~ msgid "<b>Automatic Syntax Highlighting</b>"
-#~ msgstr "<b>自动语法高亮</b>"
-
-#~ msgid "<b>Fonts</b>"
-#~ msgstr "<b>字体</b>"
-
-#~ msgid "<b>Links</b>"
-#~ msgstr "<b>链接</b>"
-
-#~ msgid "<b>Language</b>"
-#~ msgstr "<b>界面语言</b>"
-
-#, fuzzy
-#~ msgid "Insert/Edit a Link"
-#~ msgstr "插入/编辑链接(_L)"
-
-#, fuzzy
-#~ msgid "Edit a Link"
-#~ msgstr "插入/编辑一个链接"
-
-#, fuzzy
-#~ msgid "Insert a Link"
-#~ msgstr "插入/编辑一个链接"
-
-#~ msgid "The Anchor Name is Mandatory!"
-#~ msgstr "锚点名称必填！"
-
-#~ msgid "OK"
-#~ msgstr "确定"
-
-#~ msgid "<b>Type</b>"
-#~ msgstr "<b>类型</b>"
-
-#~ msgid "<b>WebSite URL</b>"
-#~ msgstr "<b>网址</b>"
-
-#~ msgid "Browse for a File to link to"
-#~ msgstr "查找一个文件/文件夹作为链接地址"
-
-#~ msgid "<b>File/Folder Path</b>"
-#~ msgstr "<b>文件/文件夹路径</b>"
-
-#~ msgid "<b>Node</b>"
-#~ msgstr "<b>节点</b>"
-
-#~ msgid "%"
-#~ msgstr "%"
-
-#~ msgid "<b>Size</b>"
-#~ msgstr "<b>尺寸</b>"
-
-#~ msgid "Are you sure to Delete the node?"
-#~ msgstr "确定删除此节点吗？"
-
-#~ msgid "     Columns  "
-#~ msgstr "     列  "
-
-#~ msgid "CherryTree"
-#~ msgstr "CherryTree"
-
-#~ msgid "http://www.giuspen.com/cherrytree/"
-#~ msgstr "http://www.giuspen.com/cherrytree/"
-
-#~ msgid "Undo the Latest Replace"
-#~ msgstr "撤销上次替换"
-
-#~ msgid ""
-#~ "The Contemporary Presence of Single and Double Quotes in the File Path "
-#~ "Prevents 7za.exe to Work, Please Change the File Name"
-#~ msgstr "当前文件路径中的单引号和双引号阻止了7za.exe的工作，请更换文件名"
-
-#~ msgid "_Print / Export To PDF"
-#~ msgstr "打印/导出到PDF(_P)"
-
-#~ msgid "<b>Node Name</b>"
-#~ msgstr "<b>节点名</b>"
-
-#~ msgid "Insert the New Node Name..."
-#~ msgstr "输入新节点名称..."
-
-#~ msgid "Insert the New Child Node Name..."
-#~ msgstr "输入子节点名称..."
-
-#~ msgid "Insert the New Name for the Node..."
-#~ msgstr "输入新的节点名称..."
-
-#~ msgid "Input Dialog"
-#~ msgstr "输入对话框"
-
-#~ msgid "Expand All Nodes When Loading the Tree"
-#~ msgstr "加载树时展开全部节点"
-
-#~ msgid "<b>Rich Text</b>"
-#~ msgstr "<b>富文本</b>"
-
-#~ msgid "Detail of Available Format Codes"
-#~ msgstr "时间格式化代码说明"
-
-#~ msgid "No Node is Selected!"
-#~ msgstr "没有节点被选中！"
-
-#~ msgid "Browse for Existing Anchors on the Selected Node"
-#~ msgstr "在当前所选节点查找已存在的锚点"
-
-#~ msgid "Width "
-#~ msgstr "宽 "
-
-#~ msgid "      Height "
-#~ msgstr "      高 "
-
-#~ msgid "Default Text Color"
-#~ msgstr "默认文字颜色"
-
-#~ msgid "Default Background Color"
-#~ msgstr "默认背景颜色"
