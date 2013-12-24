@@ -1672,7 +1672,7 @@ msgstr "zum Knoten"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/support.py:683
 msgid "Anchor Name (optional)"
-msgstr "<b>Ankername (optional)</b>"
+msgstr "Ankername (optional)"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/support.py:737
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2926
@@ -1884,7 +1884,7 @@ msgstr "Automatisches Einrücken aktivieren"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:466
 msgid "Text Editor"
-msgstr "<b>Texteditor</b>"
+msgstr "Texteditor"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:476
 msgid "Timestamp Format"
@@ -2055,7 +2055,7 @@ msgstr "in Benachrichtigungsanzeige integrieren"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1155
 msgid "System Tray"
-msgstr "<b>Tray</b>"
+msgstr "Tray"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1172
 msgid "Autosave Every"
@@ -2164,7 +2164,7 @@ msgstr "Spalten"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/tablez.py:189
 msgid "Table Size"
-msgstr "<b>Tabellengröße</b>"
+msgstr "Tabellengröße"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/tablez.py:194
 msgid "Min Width"
@@ -2176,7 +2176,7 @@ msgstr " Max. Breite"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/tablez.py:213
 msgid "Column Properties"
-msgstr "<b>Spalteneigenschaften</b>"
+msgstr "Spalteneigenschaften"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/tablez.py:218
 msgid "Import from CSV File"
@@ -2389,11 +2389,11 @@ msgstr ""
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2600
 msgid "Search for"
-msgstr "<b>Suchen nach</b>"
+msgstr "Suchen nach"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2607
 msgid "Replace with"
-msgstr "<b>Ersetzen durch</b>"
+msgstr "Ersetzen durch"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2622
 msgid "Match Case"
@@ -2437,7 +2437,7 @@ msgstr "Dialog für mehrfaches Suchen/Ersetzen anzeigen"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2663
 msgid "Search options"
-msgstr "<b>Suchoptionen</b>"
+msgstr "Suchoptionen"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2715
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3793
@@ -2446,11 +2446,11 @@ msgstr "Textformatierung"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2733
 msgid "Node Type"
-msgstr "<b>Knotentyp</b>"
+msgstr "Knotentyp"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2739
 msgid "Tags for Searching"
-msgstr "<b>Suchtags</b>"
+msgstr "Suchtags"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2743
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3795
@@ -2559,113 +2559,3 @@ msgstr "Die Adresse des Verzeichnisses '%s' ist ungültig"
 #, python-format
 msgid "No anchor named '%s' found"
 msgstr "Kein Anker mit den Namen '%s' gefunden"
-
-#~ msgid "Insert a Date Node"
-#~ msgstr "Datumsknoten einfügen"
-
-#~ msgid "<b>Miscellaneous</b>"
-#~ msgstr "<b>Verschiedenes</b>"
-
-#~ msgid "<b>Spell Check</b>"
-#~ msgstr "<b>Rechtschreibprüfung</b>"
-
-#~ msgid "<b>Theme</b>"
-#~ msgstr "<b>Thema</b>"
-
-#~ msgid "<b>Automatic Syntax Highlighting</b>"
-#~ msgstr "<b>Automatische Syntaxhervorhebung</b>"
-
-#~ msgid "<b>Fonts</b>"
-#~ msgstr "<b>Schriftart</b>"
-
-#~ msgid "<b>Links</b>"
-#~ msgstr "<b>Links</b>"
-
-#~ msgid "<b>Language</b>"
-#~ msgstr "<b>Sprache</b>"
-
-#~ msgid "Insert/Edit a Link"
-#~ msgstr "_Link einfügen/bearbeiten"
-
-#~ msgid "Edit a Link"
-#~ msgstr "Link bearbeiten"
-
-#~ msgid "Insert a Link"
-#~ msgstr "Link einfügen"
-
-#~ msgid "The Anchor Name is Mandatory!"
-#~ msgstr "Der Ankername fehlt!"
-
-#~ msgid "OK"
-#~ msgstr "OK"
-
-#~ msgid "<b>Type</b>"
-#~ msgstr "<b>Typ</b>"
-
-#~ msgid "<b>WebSite URL</b>"
-#~ msgstr "<b>URL der Webseite</b>"
-
-#~ msgid "Browse for a File to link to"
-#~ msgstr "Nach einer Datei zum Verlinken suchen"
-
-#~ msgid "<b>File/Folder Path</b>"
-#~ msgstr "<b>Datei/Verzeichnispfad</b>"
-
-#~ msgid "<b>Node</b>"
-#~ msgstr "<b>Knoten</b>"
-
-#~ msgid "%"
-#~ msgstr "%"
-
-#~ msgid "<b>Size</b>"
-#~ msgstr "<b>Größe</b>"
-
-#~ msgid "Are you sure to Delete the node?"
-#~ msgstr "Wollen Sie den Knoten wirklich löschen?"
-
-#~ msgid "     Columns  "
-#~ msgstr "     Spalten  "
-
-#~ msgid "CherryTree"
-#~ msgstr "CherryTree"
-
-#~ msgid "http://www.giuspen.com/cherrytree/"
-#~ msgstr "http://www.giuspen.com/cherrytree/"
-
-#~ msgid "Undo the Latest Replace"
-#~ msgstr "Letzte Ersetzung wiederherstellen"
-
-#~ msgid ""
-#~ "The Contemporary Presence of Single and Double Quotes in the File Path "
-#~ "Prevents 7za.exe to Work, Please Change the File Name"
-#~ msgstr ""
-#~ "Das gleichzeitige Vorkommen von einfachen und doppelten Anführungszeichen "
-#~ "im Dateipfad verhindert die Ausführung von 7za. Bitte den Dateinamen "
-#~ "ändern."
-
-#~ msgid "_Print / Export To PDF"
-#~ msgstr "PDF / _Drucken"
-
-#~ msgid "<b>Node Name</b>"
-#~ msgstr "<b>Knotenname</b>"
-
-#~ msgid "Insert the New Node Name..."
-#~ msgstr "Neuen Knotennamen eingeben..."
-
-#~ msgid "Insert the New Child Node Name..."
-#~ msgstr "Neuen untergeordneten Knotennamen eingeben..."
-
-#~ msgid "Insert the New Name for the Node..."
-#~ msgstr "Neuen Namen für den Knoten eingeben..."
-
-#~ msgid "Input Dialog"
-#~ msgstr "Eingabedialog"
-
-#~ msgid "Expand All Nodes When Loading the Tree"
-#~ msgstr "Baumstruktur beim Laden expandieren"
-
-#~ msgid "<b>Rich Text</b>"
-#~ msgstr "Rich Text"
-
-#~ msgid "Detail of Available Format Codes"
-#~ msgstr "Codes für die Formatierung von Zeitangaben"
