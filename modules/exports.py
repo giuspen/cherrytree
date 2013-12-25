@@ -822,7 +822,7 @@ class Export2Html:
                     vector = property_value.split()
                     if vector[0] == cons.LINK_TYPE_WEBS: href = vector[1]
                     elif vector[0] == cons.LINK_TYPE_FILE:
-                        href = "file://" + base64.b64decode(vector[1])
+                        href = "file://" + unicode(base64.b64decode(vector[1]), cons.STR_UTF8, cons.STR_IGNORE)
                     elif vector[0] == cons.LINK_TYPE_NODE:
                         dest_tree_iter = self.dad.get_tree_iter_from_node_id(long(vector[1]))
                         if not dest_tree_iter: continue

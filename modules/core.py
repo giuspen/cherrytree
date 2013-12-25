@@ -3340,9 +3340,9 @@ class CherryTree:
                             if self.link_type == cons.LINK_TYPE_WEBS:
                                 self.links_entries['webs'] = vector[1]
                             elif self.link_type == cons.LINK_TYPE_FILE:
-                                self.links_entries['file'] = base64.b64decode(vector[1])
+                                self.links_entries['file'] = unicode(base64.b64decode(vector[1]), cons.STR_UTF8, cons.STR_IGNORE)
                             elif self.link_type == cons.LINK_TYPE_FOLD:
-                                self.links_entries['fold'] = base64.b64decode(vector[1])
+                                self.links_entries['fold'] = unicode(base64.b64decode(vector[1]), cons.STR_UTF8, cons.STR_IGNORE)
                             elif self.link_type == cons.LINK_TYPE_NODE:
                                 link_node_id = long(vector[1])
                                 if len(vector) >= 3:
@@ -3569,7 +3569,7 @@ class CherryTree:
             else: webbrowser.open(clean_weblink)
         elif vector[0] == cons.LINK_TYPE_FILE:
             # link to file
-            filepath = base64.b64decode(vector[1])
+            filepath = unicode(base64.b64decode(vector[1]), cons.STR_UTF8, cons.STR_IGNORE)
             if not os.path.isfile(filepath):
                 support.dialog_error(_("The File Link '%s' is Not Valid") % filepath, self.window)
                 return
@@ -3584,7 +3584,7 @@ class CherryTree:
                 else: subprocess.call(config.LINK_CUSTOM_ACTION_DEFAULT_FILE % re.escape(filepath), shell=True)
         elif vector[0] == cons.LINK_TYPE_FOLD:
             # link to folder
-            filepath = base64.b64decode(vector[1])
+            filepath = unicode(base64.b64decode(vector[1]), cons.STR_UTF8, cons.STR_IGNORE)
             if not os.path.isdir(filepath):
                 support.dialog_error(_("The Folder Link '%s' is Not Valid") % filepath, self.window)
                 return
@@ -3643,7 +3643,7 @@ class CherryTree:
                 hovering_link = True
                 vector = tag_name[5:].split()
                 if vector[0] in [cons.LINK_TYPE_FILE, cons.LINK_TYPE_FOLD]:
-                    tooltip = base64.b64decode(vector[1])
+                    tooltip = unicode(base64.b64decode(vector[1]), cons.STR_UTF8, cons.STR_IGNORE)
                 else:
                     if vector[0] == cons.LINK_TYPE_NODE and long(vector[1]) in self.nodes_names_dict: tooltip = self.nodes_names_dict[long(vector[1])]
                     else: tooltip = vector[1].replace("amp;", "")
