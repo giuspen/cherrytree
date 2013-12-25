@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: cherrytree 0.30.5\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-12-23 00:23+0100\n"
-"PO-Revision-Date: 2013-12-06 13:39+0100\n"
+"PO-Revision-Date: 2013-12-25 09:22+0100\n"
 "Last-Translator: Patrick Vijgeboom <pj.vijgeboom@gmail.com>\n"
 "Language-Team: Nederlands <>\n"
 "Language: nl\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.6.1\n"
+"X-Generator: Poedit 1.6.3\n"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/codeboxes.py:75
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:728
@@ -1296,13 +1296,12 @@ msgid "Edit the Properties of the Selected Node"
 msgstr "Wijzigt de eigenschappen van het geselecteerde knooppunt"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:652
-#, fuzzy
 msgid "Insert Today's Node"
-msgstr "Codevak invoegen"
+msgstr "Vandaag knooppunt invoegen"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:652
 msgid "Insert a Node with Hierarchy Year/Month/Day"
-msgstr ""
+msgstr "Knooppunt met hiërarchie Jaar/Maan/Dag toevoegen"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:653
 msgid "Tree _Info"
@@ -1720,7 +1719,7 @@ msgstr "Inclusief knooppunt naam"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/support.py:875
 msgid "New Node in New Page"
-msgstr ""
+msgstr "Nieuw knooppunt in nieuwe pagina"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/support.py:935
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:909
@@ -1756,7 +1755,7 @@ msgstr "Onbekend"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/pgsc_spellcheck.py:423
 msgid "(no suggestions)"
-msgstr "(geen suggesties)"
+msgstr "(geen voorstellen)"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/pgsc_spellcheck.py:439
 msgid "Add \"{}\" to Dictionary"
@@ -1869,7 +1868,6 @@ msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
 msgstr "The koppeling wijst naar een knooppunt die niet meer bestaat (Id = %s)"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:436
-#, fuzzy
 msgid "Tab Width"
 msgstr "Tab breedte"
 
@@ -1882,18 +1880,16 @@ msgid "Use Line Wrapping"
 msgstr "Regelterugloop gebruiken"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:448
-#, fuzzy
 msgid "Line Wrapping Indentation"
-msgstr "Automatisch inspringen inschakelen"
+msgstr "Regelterugloop inspringen"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:454
 msgid "Enable Automatic Indentation"
 msgstr "Automatisch inspringen inschakelen"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:466
-#, fuzzy
 msgid "Text Editor"
-msgstr "<b>Tektbewerker</b>"
+msgstr "Tektbewerker"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:476
 msgid "Timestamp Format"
@@ -1925,9 +1921,8 @@ msgid "Spell Check Language"
 msgstr "spellingcontrole taal"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:582
-#, fuzzy
 msgid "Spell Check"
-msgstr "Spellingcontrole inschakelen"
+msgstr "Spellingscontrole"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:592
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:759
@@ -1952,7 +1947,7 @@ msgstr "en tekst"
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:610
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:777
 msgid "Theme"
-msgstr ""
+msgstr "Thema"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:630
 msgid "Limit of Undoable Steps Per Node"
@@ -1983,9 +1978,8 @@ msgid "Do Not Display Nodes Icons"
 msgstr "Knooppunt pictogrammen niet weergeven"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:806
-#, fuzzy
 msgid "Nodes Icons"
-msgstr "<b>Knooppunt pictogrammen</b>"
+msgstr "Knooppunt pictogrammen"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:820
 msgid "Restore Expanded/Collapsed Status"
@@ -2000,9 +1994,8 @@ msgid "Collapse all Nodes"
 msgstr "Alle knoopunten inklappen"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:829
-#, fuzzy
 msgid "Nodes Status at Startup"
-msgstr "<b>Knooppunt status bij opstarten</b>"
+msgstr "Knooppunt status bij opstarten"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:844
 msgid "Tree Nodes Names Wrapping Width"
@@ -2042,13 +2035,12 @@ msgid "Enable Custom Folder Link Clicked Action"
 msgstr "Aangepaste map koppeling klik-actie inschakelen"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1016
-#, fuzzy
 msgid "Custom Actions"
-msgstr "Aangepaste achtergrond"
+msgstr "Aangepaste acties"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1072
 msgid "Colors"
-msgstr ""
+msgstr "Kleuren"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1083
 msgid "Anchor Size"
@@ -2067,9 +2059,8 @@ msgid "Use AppIndicator for Docking"
 msgstr "Gebruik AppIndicator voor verbergen"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1155
-#, fuzzy
 msgid "System Tray"
-msgstr "<b>Systeembalk</b>"
+msgstr "Systeembalk"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1172
 msgid "Autosave Every"
@@ -2088,9 +2079,8 @@ msgid "Create a Backup Copy Before Saving"
 msgstr "Reservekopie maken voor opslaan"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1191
-#, fuzzy
 msgid "Saving"
-msgstr "<b>Opslaan</b>"
+msgstr "Opslaan"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1200
 msgid "Automatically Check for Newer Version"
@@ -2105,9 +2095,8 @@ msgid "Reload After External Update to CT* File"
 msgstr "Opnieuw laden na extern bijwerken naar CT* bestand"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1227
-#, fuzzy
 msgid "Language"
-msgstr "Talen"
+msgstr "Taal"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1310
 msgid "The New Language will be Available Only After Restarting CherryTree"
@@ -2141,9 +2130,8 @@ msgid "CherryTree Document"
 msgstr "CherryTree document"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/exports.py:99
-#, fuzzy
 msgid "PDF File"
-msgstr "Naar bestand"
+msgstr "PDF bestand"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/exports.py:185
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:669
@@ -2228,9 +2216,8 @@ msgid "A Newer Version Is Available!"
 msgstr "Een nieuwe versie is beschikbaar!"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:211
-#, fuzzy
 msgid "You Are Using the Latest Version Available"
-msgstr "Dit is de nieuwste  versie beschikbaar"
+msgstr "U gebruikt de laatst beschikbare versie"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:214
 msgid "Failed to Retrieve Latest Version Information - Try Again Later"
@@ -2572,82 +2559,3 @@ msgstr "De mapkoppeling ´%s' is ongeldig"
 #, python-format
 msgid "No anchor named '%s' found"
 msgstr "Geen anker met naam '%s' gevonden"
-
-#, fuzzy
-#~ msgid "Insert a Date Node"
-#~ msgstr "Codevak invoegen"
-
-#~ msgid "<b>Miscellaneous</b>"
-#~ msgstr "<b>Diversen</b>"
-
-#~ msgid "<b>Spell Check</b>"
-#~ msgstr "<b>Spellingcontrole</b>"
-
-#~ msgid "<b>Theme</b>"
-#~ msgstr "<b>Thema</b>"
-
-#~ msgid "<b>Automatic Syntax Highlighting</b>"
-#~ msgstr "<b>Automatische Syntax Markering</b>"
-
-#~ msgid "<b>Fonts</b>"
-#~ msgstr "<b>Lettertypen</b>"
-
-#~ msgid "<b>Links</b>"
-#~ msgstr "<b>Koppelingen</b>"
-
-#~ msgid "<b>Language</b>"
-#~ msgstr "<b>Taal</b>"
-
-#, fuzzy
-#~ msgid "Insert/Edit a Link"
-#~ msgstr "_Koppeling invoegen/wijzigen"
-
-#, fuzzy
-#~ msgid "Edit a Link"
-#~ msgstr "Koppeling invoegen/wijzigen"
-
-#, fuzzy
-#~ msgid "Insert a Link"
-#~ msgstr "Koppeling invoegen/wijzigen"
-
-#~ msgid "The Anchor Name is Mandatory!"
-#~ msgstr "De ankernaam is verplicht"
-
-#~ msgid "OK"
-#~ msgstr "OK"
-
-#~ msgid "<b>Type</b>"
-#~ msgstr "<b>Type</b>"
-
-#~ msgid "<b>WebSite URL</b>"
-#~ msgstr "<b>WebSite URL</b>"
-
-#~ msgid "Browse for a File to link to"
-#~ msgstr "Naar het te koppelen bestand bladeren"
-
-#~ msgid "<b>File/Folder Path</b>"
-#~ msgstr "<b>Bestand/Map locatie</b>"
-
-#~ msgid "<b>Node</b>"
-#~ msgstr "<b>Knooppunt</b>"
-
-#~ msgid "%"
-#~ msgstr "%"
-
-#~ msgid "<b>Size</b>"
-#~ msgstr "<b>Afmeting</b>"
-
-#~ msgid "Are you sure to Delete the node?"
-#~ msgstr "Weet u zeker dat u het knooppunt wilt verwijderen?"
-
-#~ msgid "     Columns  "
-#~ msgstr "     Kolommen"
-
-#~ msgid "CherryTree"
-#~ msgstr "CherryTree"
-
-#~ msgid "http://www.giuspen.com/cherrytree/"
-#~ msgstr "http://www.giuspen.com/cherrytree/"
-
-#~ msgid "Undo the Latest Replace"
-#~ msgstr "Laatste vervanging ongedaan maken"
