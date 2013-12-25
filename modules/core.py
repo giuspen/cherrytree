@@ -2748,6 +2748,13 @@ class CherryTree:
         type_frame.add(type_vbox)
         tags_entry = gtk.Entry()
         tags_entry.set_text(tags)
+        completion = gtk.EntryCompletion()
+        liststore = gtk.ListStore(str)
+        for tag in self.tags_set:
+            liststore.append([tag])
+        completion.set_model(liststore)
+        tags_entry.set_completion(completion)
+        completion.set_text_column(0)
         tags_frame = gtk.Frame(label="<b>"+_("Tags for Searching")+"</b>")
         tags_frame.get_label_widget().set_use_markup(True)
         tags_frame.set_shadow_type(gtk.SHADOW_NONE)
