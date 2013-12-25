@@ -516,6 +516,7 @@ class CTDBHandler:
             unique_id = node_row['node_id']
         else: unique_id = self.dad.node_id_get()
         node_tags = node_row['tags']
+        if node_tags: self.dad.tags_add_from_node(node_tags)
         readonly = node_row['is_ro']
         syntax_highlighting = node_row['syntax']
         if syntax_highlighting != cons.CUSTOM_COLORS_ID and syntax_highlighting not in self.dad.available_languages:
