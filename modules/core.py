@@ -172,6 +172,7 @@ class CherryTree:
         self.search_replace_dict = {'find':"", 'replace':"", 'match_case':False, 'reg_exp':False, 'whole_word':False, 'start_word':False, 'fw':True, 'a_ff_fa':0, 'idialog':True}
         self.links_entries = {'webs':'', 'file':'', 'fold':'', 'anch':'', 'node':None}
         self.latest_tag = ["", ""] # [latest tag property, latest tag value]
+        self.tags_set = set()
         self.file_update = False
         self.autosave_timer_id = None
         self.spell_check_init = False
@@ -1556,6 +1557,14 @@ class CherryTree:
         #if self.reset(): self.node_add()
         self.filepath_boss_open("", "")
 
+    def tags_add_from_node(self, tags_str):
+        """Populate Tags Set from String"""
+        for single_tag in tags_str.split(cons.CHAR_SPACE):
+            single_tag_stripped = single_tag.strip()
+            if single_tag_stripped:
+                self.tags_set.add(single_tag_stripped)
+                print "tags_set +=", single_tag_stripped
+
     def reset(self, force_reset=False):
         """Reset the Application"""
         if not force_reset and not self.tree_is_empty() and not self.check_unsaved(): return False
@@ -1570,6 +1579,7 @@ class CherryTree:
             self.update_node_name_header()
             self.update_selected_node_statusbar_info()
         self.treestore.clear()
+        self.tags_set.clear()
         self.file_name = ""
         self.password = None
         self.update_window_save_not_needed()
@@ -2116,6 +2126,7 @@ class CherryTree:
             new_node_iter = self.treestore.append(father_iter,
                 [cherry, ret_name, self.buffer_create(self.syntax_highlighting),
                  new_node_id, self.syntax_highlighting, 0, ret_tags, ret_ro])
+        if ret_tags: self.tags_add_from_node(ret_tags)
         self.ctdb_handler.pending_new_db_node(new_node_id)
         self.nodes_sequences_fix(father_iter, False)
         self.nodes_names_dict[new_node_id] = ret_name
@@ -2202,6 +2213,7 @@ class CherryTree:
         self.treestore[self.curr_tree_iter][1] = ret_name
         self.treestore[self.curr_tree_iter][4] = self.syntax_highlighting
         self.treestore[self.curr_tree_iter][6] = ret_tags
+        if ret_tags: self.tags_add_from_node(ret_tags)
         self.treestore[self.curr_tree_iter][7] = ret_ro
         self.treestore[self.curr_tree_iter][0] = self.get_node_icon(self.treestore.iter_depth(self.curr_tree_iter),
                                                                     self.syntax_highlighting)

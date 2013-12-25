@@ -122,6 +122,7 @@ class XMLHandler:
         else: unique_id = self.dad.node_id_get()
         if dom_iter.hasAttribute('tags'): node_tags = dom_iter.attributes['tags'].value
         else: node_tags = ""
+        if node_tags: self.dad.tags_add_from_node(node_tags)
         if dom_iter.hasAttribute('readonly'): readonly = (dom_iter.attributes['readonly'].value == "True")
         else: readonly = False
         syntax_highlighting = dom_iter.attributes['prog_lang'].value
