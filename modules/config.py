@@ -514,13 +514,13 @@ def preferences_tab_all_nodes(dad, vbox_all_nodes):
     vbox_all_nodes.pack_start(frame_text_editor, expand=False)
     vbox_all_nodes.pack_start(frame_misc_all, expand=False)
     
-    def on_vbox_all_nodes_delete_event(widget, event):
-        new_special_chars = unicode(textbuffer_special_chars.get_text(*textbuffer_special_chars.get_bounds()).replace(cons.CHAR_NEWLINE, ""), cons.STR_UTF8, cons.STR_IGNORE)
+    def on_textbuffer_special_chars_changed(textbuffer, *args):
+        new_special_chars = unicode(textbuffer.get_text(*textbuffer.get_bounds()).replace(cons.CHAR_NEWLINE, ""), cons.STR_UTF8, cons.STR_IGNORE)
         if dad.special_chars != new_special_chars:
             dad.special_chars = new_special_chars
             support.set_menu_items_special_chars(dad)
         return False
-    vbox_all_nodes.connect('delete-event', on_vbox_all_nodes_delete_event)
+    textbuffer_special_chars.connect('changed', on_textbuffer_special_chars_changed)
     def on_spinbutton_tab_width_value_changed(spinbutton):
         dad.tabs_width = int(spinbutton.get_value())
         dad.sourceview.set_tab_width(dad.tabs_width)
