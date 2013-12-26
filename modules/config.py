@@ -1344,13 +1344,21 @@ def dialog_preferences(dad):
     notebook.append_page(tabs_vbox_vec[5], gtk.Label(_("Links")))
     notebook.append_page(tabs_vbox_vec[6], gtk.Label(_("Miscellaneous")))
 
-    preferences_tab_all_nodes(dad, tabs_vbox_vec[0])
-    preferences_tab_text_nodes(dad, tabs_vbox_vec[1])
-    preferences_tab_code_nodes(dad, tabs_vbox_vec[2])
-    preferences_tab_tree(dad, tabs_vbox_vec[3])
-    preferences_tab_fonts(dad, tabs_vbox_vec[4])
-    preferences_tab_links(dad, tabs_vbox_vec[5])
-    preferences_tab_misc(dad, tabs_vbox_vec[6])
+    tab_constructor = {
+        0: preferences_tab_all_nodes,
+        1: preferences_tab_text_nodes,
+        2: preferences_tab_code_nodes,
+        3: preferences_tab_tree,
+        4: preferences_tab_fonts,
+        5: preferences_tab_links,
+        6: preferences_tab_misc,
+        }
+
+    def on_notebook_switch_page(notebook, page, page_num):
+        #print "new page", page_num
+        tab_constructor[page_num](dad, tabs_vbox_vec[page_num])
+        tabs_vbox_vec[page_num].show_all()
+    notebook.connect('switch-page', on_notebook_switch_page)
 
     content_area = dialog.get_content_area()
     content_area.pack_start(notebook)
