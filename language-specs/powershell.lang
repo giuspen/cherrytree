@@ -106,6 +106,8 @@
       <keyword>Try</keyword>
       <keyword>Until</keyword>
       <keyword>While</keyword>
+      <keyword>Workflow</keyword>
+      <keyword>Parallel</keyword>
     </context>
 
     <context id="Function-Param" style-ref="function-param">
@@ -136,8 +138,9 @@
     \-
     (   b?and | b?not | b?or | b?xor | (I|C)?eq | (I|C)?ge | (I|C)?gt |
         (I|C)?le | (I|C)?lt | (I|C)?ne |
-        (I|C)?(not)?contains | (I|C)?(not)?like | (I|C)?(not)?match | (I|C)?replace
-        shr | shl | (not)?in        # add in powershell 3.0
+        (I|C)?(not)?contains | (I|C)?(not)?like | (I|C)?(not)?match | (I|C)?replace |
+        shr | shl | (not)?in |      # add in powershell 3.0
+        (not)?is | as
     )
     \b
     </define-regex>
@@ -609,13 +612,13 @@
         <context ref="multiline-comment"/>
         <context ref="string"/>
         <context ref="char"/>
-        <context ref="keywords"/>
-        <context ref="Function-Param"/>
-        <context ref="Variable"/>
         <context ref="BuiltIn-Function"/>
         <context ref="BuiltIn-Alias"/>
+        <context ref="keywords"/>
         <context ref="BuiltIn-Parameters"/>
+        <context ref="Function-Param"/>
         <context ref="User-Function"/>
+        <context ref="Variable"/>
         <context ref="DataTypes"/>
         <context ref="operator"/>
         <context ref="Number"/>
