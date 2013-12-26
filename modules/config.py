@@ -41,7 +41,7 @@ def config_file_load(inst):
     if os.path.isfile(cons.CONFIG_PATH):
         config = ConfigParser.RawConfigParser()
         config.read(cons.CONFIG_PATH)
-        
+
         section = "state"
         inst.file_dir = unicode(config.get(section, "file_dir"), cons.STR_UTF8, cons.STR_IGNORE) if config.has_option(section, "file_dir") else ""
         inst.file_name = unicode(config.get(section, "file_name"), cons.STR_UTF8, cons.STR_IGNORE) if config.has_option(section, "file_name") else ""
@@ -79,14 +79,14 @@ def config_file_load(inst):
         else: inst.toolbar_icon_size = 1
         inst.curr_colors = {'f':gtk.gdk.color_parse(config.get(section, "fg")) if config.has_option(section, "fg") else None,
                             'b':gtk.gdk.color_parse(config.get(section, "bg")) if config.has_option(section, "bg") else None}
-        
+
         section = "tree"
         inst.rest_exp_coll = config.getint(section, "rest_exp_coll") if config.has_option(section, "rest_exp_coll") else 0
         inst.expanded_collapsed_string = config.get(section, "expanded_collapsed_string") if config.has_option(section, "expanded_collapsed_string") else ""
         inst.nodes_icons = config.get(section, "nodes_icons") if config.has_option(section, "nodes_icons") else "c"
         inst.tree_right_side = config.getboolean(section, "tree_right_side") if config.has_option(section, "tree_right_side") else False
         inst.cherry_wrap_width = config.getint(section, "cherry_wrap_width") if config.has_option(section, "cherry_wrap_width") else 130
-        
+
         section = "editor"
         inst.syntax_highlighting = config.get(section, "syntax_highlighting") if config.has_option(section, "syntax_highlighting") else cons.CUSTOM_COLORS_ID
         inst.style_scheme = config.get(section, "style_scheme") if config.has_option(section, "style_scheme") else cons.STYLE_SCHEME_DEFAULT
@@ -116,7 +116,7 @@ def config_file_load(inst):
             temp_str = config.get(section, "folderlink_custom_action")
             inst.folderlink_custom_action = [True, temp_str[4:]] if temp_str[:4] == "True" else [False, temp_str[5:]]
         else: inst.folderlink_custom_action = [False, LINK_CUSTOM_ACTION_DEFAULT_FILE]
-        
+
         section = "codebox"
         if config.has_option(section, "codebox_width"):
             inst.codebox_width = config.getfloat(section, "codebox_width")
@@ -125,19 +125,19 @@ def config_file_load(inst):
             inst.codebox_height = config.getfloat(section, "codebox_height")
         else: inst.codebox_height = 100
         inst.codebox_width_pixels = config.getboolean(section, "codebox_width_pixels") if config.has_option(section, "codebox_width_pixels") else True
-        
+
         section = "table"
         inst.table_rows = config.getint(section, "table_rows") if config.has_option(section, "table_rows") else 3
         inst.table_columns = config.getint(section, "table_columns") if config.has_option(section, "table_columns") else 3
         inst.table_column_mode = config.get(section, "table_column_mode") if config.has_option(section, "table_column_mode") else "rename"
         inst.table_col_min = config.getint(section, "table_col_min") if config.has_option(section, "table_col_min") else 40
         inst.table_col_max = config.getint(section, "table_col_max") if config.has_option(section, "table_col_max") else 60
-        
+
         section = "fonts"
         inst.text_font = config.get(section, "text_font") if config.has_option(section, "text_font") else "Sans 9" # default text font
         inst.tree_font = config.get(section, "tree_font") if config.has_option(section, "tree_font") else "Sans 8" # default tree font
         inst.code_font = config.get(section, "code_font") if config.has_option(section, "code_font") else "Monospace 9" # default code font
-        
+
         section = "colors"
         inst.rt_def_fg = config.get(section, "rt_def_fg") if config.has_option(section, "rt_def_fg") else cons.RICH_TEXT_DARK_FG
         inst.rt_def_bg = config.get(section, "rt_def_bg") if config.has_option(section, "rt_def_bg") else cons.RICH_TEXT_DARK_BG
@@ -150,7 +150,7 @@ def config_file_load(inst):
         inst.col_link_node = config.get(section, "col_link_node") if config.has_option(section, "col_link_node") else cons.COLOR_48_LINK_NODE
         inst.col_link_file = config.get(section, "col_link_file") if config.has_option(section, "col_link_file") else cons.COLOR_48_LINK_FILE
         inst.col_link_fold = config.get(section, "col_link_fold") if config.has_option(section, "col_link_fold") else cons.COLOR_48_LINK_FOLD
-        
+
         section = "misc"
         inst.systray = config.getboolean(section, "systray") if config.has_option(section, "systray") else False
         inst.start_on_systray = config.getboolean(section, "start_on_systray") if config.has_option(section, "start_on_systray") else False
@@ -259,7 +259,7 @@ def config_file_apply(inst):
 def config_file_save(inst):
     """Save the Preferences to Config File"""
     config = ConfigParser.RawConfigParser()
-    
+
     section = "state"
     config.add_section(section)
     config.set(section, "file_dir", inst.file_dir)
@@ -294,7 +294,7 @@ def config_file_save(inst):
     config.set(section, "toolbar_icon_size", inst.toolbar_icon_size)
     if inst.curr_colors['f']: config.set(section, "fg", inst.curr_colors['f'].to_string())
     if inst.curr_colors['b']: config.set(section, "bg", inst.curr_colors['b'].to_string())
-    
+
     section = "tree"
     config.add_section(section)
     config.set(section, "rest_exp_coll", inst.rest_exp_coll)
@@ -304,7 +304,7 @@ def config_file_save(inst):
     config.set(section, "nodes_icons", inst.nodes_icons)
     config.set(section, "tree_right_side", inst.tree_right_side)
     config.set(section, "cherry_wrap_width", inst.cherry_wrap_width)
-    
+
     section = "editor"
     config.add_section(section)
     config.set(section, "syntax_highlighting", inst.syntax_highlighting)
@@ -326,13 +326,13 @@ def config_file_save(inst):
     config.set(section, "weblink_custom_action", str(inst.weblink_custom_action[0])+inst.weblink_custom_action[1])
     config.set(section, "filelink_custom_action", str(inst.filelink_custom_action[0])+inst.filelink_custom_action[1])
     config.set(section, "folderlink_custom_action", str(inst.folderlink_custom_action[0])+inst.folderlink_custom_action[1])
-    
+
     section = "codebox"
     config.add_section(section)
     config.set(section, "codebox_width", inst.codebox_width)
     config.set(section, "codebox_height", inst.codebox_height)
     config.set(section, "codebox_width_pixels", inst.codebox_width_pixels)
-    
+
     section = "table"
     config.add_section(section)
     config.set(section, "table_rows", inst.table_rows)
@@ -340,13 +340,13 @@ def config_file_save(inst):
     config.set(section, "table_column_mode", inst.table_column_mode)
     config.set(section, "table_col_min", inst.table_col_min)
     config.set(section, "table_col_max", inst.table_col_max)
-    
+
     section = "fonts"
     config.add_section(section)
     config.set(section, "text_font", inst.text_font)
     config.set(section, "tree_font", inst.tree_font)
     config.set(section, "code_font", inst.code_font)
-    
+
     section = "colors"
     config.add_section(section)
     config.set(section, "rt_def_fg", inst.rt_def_fg)
@@ -358,7 +358,7 @@ def config_file_save(inst):
     config.set(section, "col_link_node", inst.col_link_node)
     config.set(section, "col_link_file", inst.col_link_file)
     config.set(section, "col_link_fold", inst.col_link_fold)
-    
+
     section = "misc"
     config.add_section(section)
     config.set(section, "systray", inst.systray)
@@ -372,7 +372,7 @@ def config_file_save(inst):
     config.set(section, "backup_copy", inst.backup_copy)
     config.set(section, "autosave_on_quit", inst.autosave_on_quit)
     config.set(section, "limit_undoable_steps", inst.limit_undoable_steps)
-    
+
     with open(cons.CONFIG_PATH, 'wb') as configfile:
         config.write(configfile)
 
@@ -420,17 +420,10 @@ def set_tree_expanded_collapsed_string_iter(tree_iter, expanded_collapsed_dict, 
         set_tree_expanded_collapsed_string_iter(tree_iter, expanded_collapsed_dict, inst)
         tree_iter = inst.treestore.iter_next(tree_iter)
 
-def dialog_preferences(dad):
-    """Preferences Dialog"""
-    dialog = gtk.Dialog(title=_("Preferences"),
-        parent=dad.window,
-        flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
-        buttons=(gtk.STOCK_CLOSE, gtk.RESPONSE_ACCEPT))
-    
-    ### ALL NODES
-    vbox_all_nodes = gtk.VBox()
-    vbox_all_nodes.set_spacing(3)
-    
+def preferences_tab_all_nodes(dad, vbox_all_nodes):
+    """Preferences Dialog, All Nodes Tab"""
+    for child in vbox_all_nodes.get_children(): child.destroy()
+
     hbox_tab_width = gtk.HBox()
     hbox_tab_width.set_spacing(4)
     label_tab_width = gtk.Label(_("Tab Width"))
@@ -455,7 +448,7 @@ def dialog_preferences(dad):
     checkbutton_auto_indent.set_active(dad.auto_indent)
     checkbutton_line_nums = gtk.CheckButton(label=_("Show Line Numbers"))
     checkbutton_line_nums.set_active(dad.show_line_numbers)
-    
+
     vbox_text_editor = gtk.VBox()
     vbox_text_editor.pack_start(hbox_tab_width, expand=False)
     vbox_text_editor.pack_start(checkbutton_spaces_tabs, expand=False)
@@ -470,7 +463,7 @@ def dialog_preferences(dad):
     align_text_editor.set_padding(3, 6, 6, 6)
     align_text_editor.add(vbox_text_editor)
     frame_text_editor.add(align_text_editor)
-    
+
     hbox_timestamp = gtk.HBox()
     hbox_timestamp.set_spacing(4)
     label_timestamp = gtk.Label(_("Timestamp Format"))
@@ -504,7 +497,7 @@ def dialog_preferences(dad):
     scrolledwindow_special_chars.add(textview_special_chars)
     hbox_special_chars.pack_start(label_special_chars, expand=False)
     hbox_special_chars.pack_start(frame_special_chars)
-    
+
     vbox_misc_all = gtk.VBox()
     vbox_misc_all.set_spacing(2)
     vbox_misc_all.pack_start(hbox_timestamp)
@@ -517,9 +510,17 @@ def dialog_preferences(dad):
     align_misc_all.set_padding(3, 6, 6, 6)
     align_misc_all.add(vbox_misc_all)
     frame_misc_all.add(align_misc_all)
-    
+
     vbox_all_nodes.pack_start(frame_text_editor, expand=False)
     vbox_all_nodes.pack_start(frame_misc_all, expand=False)
+    
+    def on_vbox_all_nodes_delete_event(widget, event):
+        new_special_chars = unicode(textbuffer_special_chars.get_text(*textbuffer_special_chars.get_bounds()).replace(cons.CHAR_NEWLINE, ""), cons.STR_UTF8, cons.STR_IGNORE)
+        if dad.special_chars != new_special_chars:
+            dad.special_chars = new_special_chars
+            support.set_menu_items_special_chars(dad)
+        return False
+    vbox_all_nodes.connect('delete-event', on_vbox_all_nodes_delete_event)
     def on_spinbutton_tab_width_value_changed(spinbutton):
         dad.tabs_width = int(spinbutton.get_value())
         dad.sourceview.set_tab_width(dad.tabs_width)
@@ -556,11 +557,11 @@ def dialog_preferences(dad):
     def on_entry_horizontal_rule_changed(entry):
         dad.h_rule = entry.get_text()
     entry_horizontal_rule.connect('changed', on_entry_horizontal_rule_changed)
-    
-    ### TEXT NODES
-    vbox_text_nodes = gtk.VBox()
-    vbox_text_nodes.set_spacing(3)
-    
+
+def preferences_tab_text_nodes(dad, vbox_text_nodes):
+    """Preferences Dialog, Text Nodes Tab"""
+    for child in vbox_text_nodes.get_children(): child.destroy()
+
     vbox_spell_check = gtk.VBox()
     checkbutton_spell_check = gtk.CheckButton(label=_("Enable Spell Check"))
     checkbutton_spell_check.set_active(dad.enable_spell_check)
@@ -586,9 +587,9 @@ def dialog_preferences(dad):
     align_spell_check.set_padding(3, 6, 6, 6)
     align_spell_check.add(vbox_spell_check)
     frame_spell_check.add(align_spell_check)
-    
+
     vbox_rt_theme = gtk.VBox()
-    
+
     radiobutton_rt_col_light = gtk.RadioButton(label=_("Light Background, Dark Text"))
     radiobutton_rt_col_dark = gtk.RadioButton(label=_("Dark Background, Light Text"))
     radiobutton_rt_col_dark.set_group(radiobutton_rt_col_light)
@@ -603,7 +604,7 @@ def dialog_preferences(dad):
     hbox_rt_col_custom.pack_start(colorbutton_text_bg, expand=False)
     hbox_rt_col_custom.pack_start(label_rt_col_custom, expand=False)
     hbox_rt_col_custom.pack_start(colorbutton_text_fg, expand=False)
-    
+
     vbox_rt_theme.pack_start(radiobutton_rt_col_light, expand=False)
     vbox_rt_theme.pack_start(radiobutton_rt_col_dark, expand=False)
     vbox_rt_theme.pack_start(hbox_rt_col_custom, expand=False)
@@ -614,7 +615,7 @@ def dialog_preferences(dad):
     align_rt_theme.set_padding(3, 6, 6, 6)
     align_rt_theme.add(vbox_rt_theme)
     frame_rt_theme.add(align_rt_theme)
-    
+
     if dad.rt_def_fg == cons.RICH_TEXT_DARK_FG and dad.rt_def_bg == cons.RICH_TEXT_DARK_BG:
         radiobutton_rt_col_dark.set_active(True)
         colorbutton_text_fg.set_sensitive(False)
@@ -624,7 +625,7 @@ def dialog_preferences(dad):
         colorbutton_text_fg.set_sensitive(False)
         colorbutton_text_bg.set_sensitive(False)
     else: radiobutton_rt_col_custom.set_active(True)
-    
+
     hbox_misc_text = gtk.HBox()
     hbox_misc_text.set_spacing(4)
     label_limit_undoable_steps = gtk.Label(_("Limit of Undoable Steps Per Node"))
@@ -633,7 +634,7 @@ def dialog_preferences(dad):
     spinbutton_limit_undoable_steps.set_value(dad.limit_undoable_steps)
     hbox_misc_text.pack_start(label_limit_undoable_steps, expand=False)
     hbox_misc_text.pack_start(spinbutton_limit_undoable_steps, expand=False)
-    
+
     vbox_misc_text = gtk.VBox()
     vbox_misc_text.pack_start(hbox_misc_text, expand=False)
     frame_misc_text = gtk.Frame(label="<b>"+_("Miscellaneous")+"</b>")
@@ -643,7 +644,7 @@ def dialog_preferences(dad):
     align_misc_text.set_padding(3, 6, 6, 6)
     align_misc_text.add(vbox_misc_text)
     frame_misc_text.add(align_misc_text)
-    
+
     vbox_text_nodes.pack_start(frame_spell_check, expand=False)
     vbox_text_nodes.pack_start(frame_rt_theme, expand=False)
     vbox_text_nodes.pack_start(frame_misc_text, expand=False)
@@ -696,15 +697,15 @@ def dialog_preferences(dad):
     def on_spinbutton_limit_undoable_steps_value_changed(spinbutton):
         dad.limit_undoable_steps = int(spinbutton.get_value())
     spinbutton_limit_undoable_steps.connect('value-changed', on_spinbutton_limit_undoable_steps_value_changed)
-    
+
     if not pgsc_spellcheck.HAS_PYENCHANT:
         checkbutton_spell_check.set_sensitive(False)
         combobox_spell_check_lang.set_sensitive(False)
-    
-    ### CODE NODES
-    vbox_code_nodes = gtk.VBox()
-    vbox_code_nodes.set_spacing(3)
-    
+
+def preferences_tab_code_nodes(dad, vbox_code_nodes):
+    """Preferences Dialog, Code Nodes Tab"""
+    for child in vbox_code_nodes.get_children(): child.destroy()
+
     vbox_syntax = gtk.VBox()
     hbox_style_scheme = gtk.HBox()
     hbox_style_scheme.set_spacing(4)
@@ -720,11 +721,11 @@ def dialog_preferences(dad):
     checkbutton_show_white_spaces.set_active(dad.show_white_spaces)
     checkbutton_highlight_current_line = gtk.CheckButton(_("Highlight Current Line"))
     checkbutton_highlight_current_line.set_active(dad.highl_curr_line)
-    
+
     vbox_syntax.pack_start(hbox_style_scheme, expand=False)
     vbox_syntax.pack_start(checkbutton_show_white_spaces, expand=False)
     vbox_syntax.pack_start(checkbutton_highlight_current_line, expand=False)
-    
+
     frame_syntax = gtk.Frame(label="<b>"+_("Automatic Syntax Highlighting")+"</b>")
     frame_syntax.get_label_widget().set_use_markup(True)
     frame_syntax.set_shadow_type(gtk.SHADOW_NONE)
@@ -732,7 +733,7 @@ def dialog_preferences(dad):
     align_syntax.set_padding(3, 6, 6, 6)
     align_syntax.add(vbox_syntax)
     frame_syntax.add(align_syntax)
-    
+
     vbox_code_nodes.pack_start(frame_syntax, expand=False)
     def on_combobox_style_scheme_changed(combobox):
         new_iter = combobox_style_scheme.get_active_iter()
@@ -749,13 +750,13 @@ def dialog_preferences(dad):
         dad.highl_curr_line = checkbutton.get_active()
         support.dialog_info_after_restart(dad.window)
     checkbutton_highlight_current_line.connect('toggled', on_checkbutton_highlight_current_line_toggled)
-    
-    ### TREE
-    vbox_tree = gtk.VBox()
-    vbox_tree.set_spacing(3)
-    
+
+def preferences_tab_tree(dad, vbox_tree):
+    """Preferences Dialog, Tree Tab"""
+    for child in vbox_tree.get_children(): child.destroy()
+
     vbox_tt_theme = gtk.VBox()
-    
+
     radiobutton_tt_col_light = gtk.RadioButton(label=_("Light Background, Dark Text"))
     radiobutton_tt_col_dark = gtk.RadioButton(label=_("Dark Background, Light Text"))
     radiobutton_tt_col_dark.set_group(radiobutton_tt_col_light)
@@ -770,7 +771,7 @@ def dialog_preferences(dad):
     hbox_tt_col_custom.pack_start(colorbutton_tree_bg, expand=False)
     hbox_tt_col_custom.pack_start(label_tt_col_custom, expand=False)
     hbox_tt_col_custom.pack_start(colorbutton_tree_fg, expand=False)
-    
+
     vbox_tt_theme.pack_start(radiobutton_tt_col_light, expand=False)
     vbox_tt_theme.pack_start(radiobutton_tt_col_dark, expand=False)
     vbox_tt_theme.pack_start(hbox_tt_col_custom, expand=False)
@@ -781,7 +782,7 @@ def dialog_preferences(dad):
     align_tt_theme.set_padding(3, 6, 6, 6)
     align_tt_theme.add(vbox_tt_theme)
     frame_tt_theme.add(align_tt_theme)
-    
+
     if dad.tt_def_fg == cons.TREE_TEXT_DARK_FG and dad.tt_def_bg == cons.TREE_TEXT_DARK_BG:
         radiobutton_tt_col_dark.set_active(True)
         colorbutton_tree_fg.set_sensitive(False)
@@ -791,15 +792,15 @@ def dialog_preferences(dad):
         colorbutton_tree_fg.set_sensitive(False)
         colorbutton_tree_bg.set_sensitive(False)
     else: radiobutton_tt_col_custom.set_active(True)
-    
+
     vbox_nodes_icons = gtk.VBox()
-    
+
     radiobutton_node_icon_cherry = gtk.RadioButton(label=_("Use Cherries as Nodes Icons"))
     radiobutton_node_icon_bullet = gtk.RadioButton(label=_("Use Bullets as Nodes Icons"))
     radiobutton_node_icon_bullet.set_group(radiobutton_node_icon_cherry)
     radiobutton_node_icon_none = gtk.RadioButton(label=_("Do Not Display Nodes Icons"))
     radiobutton_node_icon_none.set_group(radiobutton_node_icon_cherry)
-    
+
     vbox_nodes_icons.pack_start(radiobutton_node_icon_cherry, expand=False)
     vbox_nodes_icons.pack_start(radiobutton_node_icon_bullet, expand=False)
     vbox_nodes_icons.pack_start(radiobutton_node_icon_none, expand=False)
@@ -810,19 +811,19 @@ def dialog_preferences(dad):
     align_nodes_icons.set_padding(3, 6, 6, 6)
     align_nodes_icons.add(vbox_nodes_icons)
     frame_nodes_icons.add(align_nodes_icons)
-    
+
     radiobutton_node_icon_cherry.set_active(dad.nodes_icons == "c")
     radiobutton_node_icon_bullet.set_active(dad.nodes_icons == "b")
     radiobutton_node_icon_none.set_active(dad.nodes_icons == "n")
-    
+
     vbox_nodes_startup = gtk.VBox()
-    
+
     radiobutton_nodes_startup_restore = gtk.RadioButton(label=_("Restore Expanded/Collapsed Status"))
     radiobutton_nodes_startup_expand = gtk.RadioButton(label=_("Expand all Nodes"))
     radiobutton_nodes_startup_expand.set_group(radiobutton_nodes_startup_restore)
     radiobutton_nodes_startup_collapse = gtk.RadioButton(label=_("Collapse all Nodes"))
     radiobutton_nodes_startup_collapse.set_group(radiobutton_nodes_startup_restore)
-    
+
     vbox_nodes_startup.pack_start(radiobutton_nodes_startup_restore, expand=False)
     vbox_nodes_startup.pack_start(radiobutton_nodes_startup_expand, expand=False)
     vbox_nodes_startup.pack_start(radiobutton_nodes_startup_collapse, expand=False)
@@ -833,11 +834,11 @@ def dialog_preferences(dad):
     align_nodes_startup.set_padding(3, 6, 6, 6)
     align_nodes_startup.add(vbox_nodes_startup)
     frame_nodes_startup.add(align_nodes_startup)
-    
+
     radiobutton_nodes_startup_restore.set_active(dad.rest_exp_coll == 0)
     radiobutton_nodes_startup_expand.set_active(dad.rest_exp_coll == 1)
     radiobutton_nodes_startup_collapse.set_active(dad.rest_exp_coll == 2)
-    
+
     vbox_misc_tree = gtk.VBox()
     hbox_tree_nodes_names_width = gtk.HBox()
     hbox_tree_nodes_names_width.set_spacing(4)
@@ -849,7 +850,7 @@ def dialog_preferences(dad):
     hbox_tree_nodes_names_width.pack_start(spinbutton_tree_nodes_names_width, expand=False)
     checkbutton_tree_right_side = gtk.CheckButton(_("Display Tree on the Right Side"))
     checkbutton_tree_right_side.set_active(dad.tree_right_side)
-    
+
     vbox_misc_tree.pack_start(hbox_tree_nodes_names_width, expand=False)
     vbox_misc_tree.pack_start(checkbutton_tree_right_side, expand=False)
     frame_misc_tree = gtk.Frame(label="<b>"+_("Miscellaneous")+"</b>")
@@ -859,7 +860,7 @@ def dialog_preferences(dad):
     align_misc_tree.set_padding(3, 6, 6, 6)
     align_misc_tree.add(vbox_misc_tree)
     frame_misc_tree.add(align_misc_tree)
-    
+
     vbox_tree.pack_start(frame_tt_theme, expand=False)
     vbox_tree.pack_start(frame_nodes_icons, expand=False)
     vbox_tree.pack_start(frame_nodes_startup, expand=False)
@@ -941,11 +942,11 @@ def dialog_preferences(dad):
             dad.hpaned.add2(dad.vbox_text)
             dad.hpaned.set_property('position', tree_width)
     checkbutton_tree_right_side.connect('toggled', on_checkbutton_tree_right_side_toggled)
-    
-    ### FONTS
-    vbox_fonts = gtk.VBox()
-    vbox_fonts.set_spacing(3)
-    
+
+def preferences_tab_fonts(dad, vbox_fonts):
+    """Preferences Dialog, Fonts Tab"""
+    for child in vbox_fonts.get_children(): child.destroy()
+
     image_text = gtk.Image()
     image_text.set_from_stock(gtk.STOCK_SELECT_FONT, gtk.ICON_SIZE_MENU)
     image_code = gtk.Image()
@@ -970,7 +971,7 @@ def dialog_preferences(dad):
     table_fonts.attach(fontbutton_text, 2, 3, 0, 1, yoptions=0)
     table_fonts.attach(fontbutton_code, 2, 3, 1, 2, yoptions=0)
     table_fonts.attach(fontbutton_tree, 2, 3, 2, 3, yoptions=0)
-    
+
     frame_fonts = gtk.Frame(label="<b>"+_("Fonts")+"</b>")
     frame_fonts.get_label_widget().set_use_markup(True)
     frame_fonts.set_shadow_type(gtk.SHADOW_NONE)
@@ -978,7 +979,7 @@ def dialog_preferences(dad):
     align_fonts.set_padding(3, 6, 6, 6)
     align_fonts.add(table_fonts)
     frame_fonts.add(align_fonts)
-    
+
     vbox_fonts.pack_start(frame_fonts, expand=False)
     def on_fontbutton_text_font_set(picker):
         dad.text_font = picker.get_font_name()
@@ -994,11 +995,11 @@ def dialog_preferences(dad):
         dad.tree_font = picker.get_font_name()
         dad.set_treeview_font()
     fontbutton_tree.connect('font-set', on_fontbutton_tree_font_set)
-    
-    ### LINKS
-    vbox_links = gtk.VBox()
-    vbox_links.set_spacing(3)
-    
+
+def preferences_tab_links(dad, vbox_links):
+    """Preferences Dialog, Links Tab"""
+    for child in vbox_links.get_children(): child.destroy()
+
     vbox_links_actions = gtk.VBox()
     checkbutton_custom_weblink_cmd = gtk.CheckButton(_("Enable Custom Web Link Clicked Action"))
     entry_custom_weblink_cmd = gtk.Entry()
@@ -1012,7 +1013,7 @@ def dialog_preferences(dad):
     vbox_links_actions.pack_start(entry_custom_filelink_cmd, expand=False)
     vbox_links_actions.pack_start(checkbutton_custom_folderlink_cmd, expand=False)
     vbox_links_actions.pack_start(entry_custom_folderlink_cmd, expand=False)
-    
+
     frame_links_actions = gtk.Frame(label="<b>"+_("Custom Actions")+"</b>")
     frame_links_actions.get_label_widget().set_use_markup(True)
     frame_links_actions.set_shadow_type(gtk.SHADOW_NONE)
@@ -1020,7 +1021,7 @@ def dialog_preferences(dad):
     align_links_actions.set_padding(3, 6, 6, 6)
     align_links_actions.add(vbox_links_actions)
     frame_links_actions.add(align_links_actions)
-    
+
     checkbutton_custom_weblink_cmd.set_active(dad.weblink_custom_action[0])
     entry_custom_weblink_cmd.set_sensitive(dad.weblink_custom_action[0])
     entry_custom_weblink_cmd.set_text(dad.weblink_custom_action[1])
@@ -1030,45 +1031,45 @@ def dialog_preferences(dad):
     checkbutton_custom_folderlink_cmd.set_active(dad.folderlink_custom_action[0])
     entry_custom_folderlink_cmd.set_sensitive(dad.folderlink_custom_action[0])
     entry_custom_folderlink_cmd.set_text(dad.folderlink_custom_action[1])
-    
+
     table_links_colors = gtk.Table(2, 2)
     table_links_colors.set_row_spacings(2)
     table_links_colors.set_col_spacings(4)
     table_links_colors.set_homogeneous(True)
-    
+
     hbox_col_link_webs = gtk.HBox()
     hbox_col_link_webs.set_spacing(4)
     label_col_link_webs = gtk.Label(_("To WebSite"))
     colorbutton_col_link_webs = gtk.ColorButton(color=gtk.gdk.color_parse(dad.col_link_webs))
     hbox_col_link_webs.pack_start(label_col_link_webs, expand=False)
     hbox_col_link_webs.pack_start(colorbutton_col_link_webs, expand=False)
-    
+
     hbox_col_link_node = gtk.HBox()
     hbox_col_link_node.set_spacing(4)
     label_col_link_node = gtk.Label(_("To Node"))
     colorbutton_col_link_node = gtk.ColorButton(color=gtk.gdk.color_parse(dad.col_link_node))
     hbox_col_link_node.pack_start(label_col_link_node, expand=False)
     hbox_col_link_node.pack_start(colorbutton_col_link_node, expand=False)
-    
+
     hbox_col_link_file = gtk.HBox()
     hbox_col_link_file.set_spacing(4)
     label_col_link_file = gtk.Label(_("To File"))
     colorbutton_col_link_file = gtk.ColorButton(color=gtk.gdk.color_parse(dad.col_link_file))
     hbox_col_link_file.pack_start(label_col_link_file, expand=False)
     hbox_col_link_file.pack_start(colorbutton_col_link_file, expand=False)
-    
+
     hbox_col_link_fold = gtk.HBox()
     hbox_col_link_fold.set_spacing(4)
     label_col_link_fold = gtk.Label(_("To Folder"))
     colorbutton_col_link_fold = gtk.ColorButton(color=gtk.gdk.color_parse(dad.col_link_fold))
     hbox_col_link_fold.pack_start(label_col_link_fold, expand=False)
     hbox_col_link_fold.pack_start(colorbutton_col_link_fold, expand=False)
-    
+
     table_links_colors.attach(hbox_col_link_webs, 0, 1, 0, 1, 0, 0)
     table_links_colors.attach(hbox_col_link_node, 0, 1, 1, 2, 0, 0)
     table_links_colors.attach(hbox_col_link_file, 1, 2, 0, 1, 0, 0)
     table_links_colors.attach(hbox_col_link_fold, 1, 2, 1, 2, 0, 0)
-    
+
     frame_links_colors = gtk.Frame(label="<b>"+_("Colors")+"</b>")
     frame_links_colors.get_label_widget().set_use_markup(True)
     frame_links_colors.set_shadow_type(gtk.SHADOW_NONE)
@@ -1076,7 +1077,7 @@ def dialog_preferences(dad):
     align_links_colors.set_padding(3, 6, 6, 6)
     align_links_colors.add(table_links_colors)
     frame_links_colors.add(align_links_colors)
-    
+
     vbox_links_misc = gtk.VBox()
     hbox_anchor_size = gtk.HBox()
     hbox_anchor_size.set_spacing(4)
@@ -1087,7 +1088,7 @@ def dialog_preferences(dad):
     hbox_anchor_size.pack_start(label_anchor_size, expand=False)
     hbox_anchor_size.pack_start(spinbutton_anchor_size, expand=False)
     vbox_links_misc.pack_start(hbox_anchor_size, expand=False)
-    
+
     frame_links_misc = gtk.Frame(label="<b>"+_("Miscellaneous")+"</b>")
     frame_links_misc.get_label_widget().set_use_markup(True)
     frame_links_misc.set_shadow_type(gtk.SHADOW_NONE)
@@ -1095,7 +1096,7 @@ def dialog_preferences(dad):
     align_links_misc.set_padding(3, 6, 6, 6)
     align_links_misc.add(vbox_links_misc)
     frame_links_misc.add(align_links_misc)
-    
+
     vbox_links.pack_start(frame_links_actions, expand=False)
     vbox_links.pack_start(frame_links_colors, expand=False)
     vbox_links.pack_start(frame_links_misc, expand=False)
@@ -1139,11 +1140,11 @@ def dialog_preferences(dad):
         dad.col_link_fold = "#" + colorbutton.get_color().to_string()[1:]
         support.dialog_info_after_restart(dad.window)
     colorbutton_col_link_fold.connect('color-set', on_colorbutton_col_link_fold_color_set)
-    
-    ### MISCELLANEOUS
-    vbox_misc = gtk.VBox()
-    vbox_misc.set_spacing(3)
-    
+
+def preferences_tab_misc(dad, vbox_misc):
+    """Preferences Dialog, Misc Tab"""
+    for child in vbox_misc.get_children(): child.destroy()
+
     vbox_system_tray = gtk.VBox()
     checkbutton_systray = gtk.CheckButton(_("Enable System Tray Docking"))
     checkbutton_start_on_systray = gtk.CheckButton(_("Start Minimized in the System Tray"))
@@ -1151,7 +1152,7 @@ def dialog_preferences(dad):
     vbox_system_tray.pack_start(checkbutton_systray, expand=False)
     vbox_system_tray.pack_start(checkbutton_start_on_systray, expand=False)
     vbox_system_tray.pack_start(checkbutton_use_appind, expand=False)
-    
+
     frame_system_tray = gtk.Frame(label="<b>"+_("System Tray")+"</b>")
     frame_system_tray.get_label_widget().set_use_markup(True)
     frame_system_tray.set_shadow_type(gtk.SHADOW_NONE)
@@ -1159,13 +1160,13 @@ def dialog_preferences(dad):
     align_system_tray.set_padding(3, 6, 6, 6)
     align_system_tray.add(vbox_system_tray)
     frame_system_tray.add(align_system_tray)
-    
+
     checkbutton_systray.set_active(dad.systray)
     checkbutton_start_on_systray.set_active(dad.start_on_systray)
     checkbutton_start_on_systray.set_sensitive(dad.systray)
     checkbutton_use_appind.set_active(dad.use_appind)
     if not cons.HAS_APPINDICATOR or not cons.HAS_SYSTRAY: checkbutton_use_appind.set_sensitive(False)
-    
+
     vbox_saving = gtk.VBox()
     hbox_autosave = gtk.HBox()
     hbox_autosave.set_spacing(4)
@@ -1181,13 +1182,13 @@ def dialog_preferences(dad):
     vbox_saving.pack_start(hbox_autosave, expand=False)
     vbox_saving.pack_start(checkbutton_autosave_on_quit, expand=False)
     vbox_saving.pack_start(checkbutton_backup_before_saving, expand=False)
-    
+
     checkbutton_autosave.set_active(dad.autosave[0])
     spinbutton_autosave.set_value(dad.autosave[1])
     spinbutton_autosave.set_sensitive(dad.autosave[0])
     checkbutton_autosave_on_quit.set_active(dad.autosave_on_quit)
     checkbutton_backup_before_saving.set_active(dad.backup_copy)
-    
+
     frame_saving = gtk.Frame(label="<b>"+_("Saving")+"</b>")
     frame_saving.get_label_widget().set_use_markup(True)
     frame_saving.set_shadow_type(gtk.SHADOW_NONE)
@@ -1195,7 +1196,7 @@ def dialog_preferences(dad):
     align_saving.set_padding(3, 6, 6, 6)
     align_saving.add(vbox_saving)
     frame_saving.add(align_saving)
-    
+
     vbox_misc_misc = gtk.VBox()
     checkbutton_newer_version = gtk.CheckButton(_("Automatically Check for Newer Version"))
     checkbutton_reload_doc_last = gtk.CheckButton(_("Reload Document From Last Session"))
@@ -1203,11 +1204,11 @@ def dialog_preferences(dad):
     vbox_misc_misc.pack_start(checkbutton_newer_version, expand=False)
     vbox_misc_misc.pack_start(checkbutton_reload_doc_last, expand=False)
     vbox_misc_misc.pack_start(checkbutton_mod_time_sentinel, expand=False)
-    
+
     checkbutton_newer_version.set_active(dad.check_version)
     checkbutton_reload_doc_last.set_active(dad.reload_doc_last)
     checkbutton_mod_time_sentinel.set_active(dad.enable_mod_time_sentinel)
-    
+
     frame_misc_misc = gtk.Frame(label="<b>"+_("Miscellaneous")+"</b>")
     frame_misc_misc.get_label_widget().set_use_markup(True)
     frame_misc_misc.set_shadow_type(gtk.SHADOW_NONE)
@@ -1215,7 +1216,7 @@ def dialog_preferences(dad):
     align_misc_misc.set_padding(3, 6, 6, 6)
     align_misc_misc.add(vbox_misc_misc)
     frame_misc_misc.add(align_misc_misc)
-    
+
     vbox_language = gtk.VBox()
     combobox_country_language = gtk.ComboBox(model=dad.country_lang_liststore)
     vbox_language.pack_start(combobox_country_language)
@@ -1223,7 +1224,7 @@ def dialog_preferences(dad):
     combobox_country_language.pack_start(cell, True)
     combobox_country_language.add_attribute(cell, 'text', 0)
     combobox_country_language.set_active_iter(dad.get_combobox_iter_from_value(dad.country_lang_liststore, 0, dad.country_lang))
-    
+
     frame_language = gtk.Frame(label="<b>"+_("Language")+"</b>")
     frame_language.get_label_widget().set_use_markup(True)
     frame_language.set_shadow_type(gtk.SHADOW_NONE)
@@ -1231,7 +1232,7 @@ def dialog_preferences(dad):
     align_language.set_padding(3, 6, 6, 6)
     align_language.add(vbox_language)
     frame_language.add(align_language)
-    
+
     vbox_misc.pack_start(frame_system_tray, expand=False)
     vbox_misc.pack_start(frame_saving, expand=False)
     vbox_misc.pack_start(frame_misc_misc, expand=False)
@@ -1281,6 +1282,14 @@ def dialog_preferences(dad):
         if not dad.autosave[0] and dad.autosave_timer_id != None: dad.autosave_timer_stop()
         spinbutton_autosave.set_sensitive(dad.autosave[0])
     checkbutton_autosave.connect('toggled', on_checkbutton_autosave_toggled)
+    def on_spinbutton_autosave_delete_event(spinbutton, event):
+        new_autosave_value = int(spinbutton.get_value())
+        if dad.autosave[1] != new_autosave_value:
+            dad.autosave[1] = new_autosave_value
+            if dad.autosave_timer_id != None: dad.autosave_timer_stop()
+        if dad.autosave[0] and dad.autosave_timer_id == None: dad.autosave_timer_start()
+        return False
+    spinbutton_autosave.connect('delete-event', on_spinbutton_autosave_delete_event)
     def on_checkbutton_backup_before_saving_toggled(checkbutton):
         dad.backup_copy = checkbutton.get_active()
     checkbutton_backup_before_saving.connect('toggled', on_checkbutton_backup_before_saving_toggled)
@@ -1312,33 +1321,41 @@ def dialog_preferences(dad):
             lang_file_descriptor.write(new_lang)
             lang_file_descriptor.close()
     combobox_country_language.connect('changed', on_combobox_country_language_changed)
-    
+
+def dialog_preferences(dad):
+    """Preferences Dialog"""
+    dialog = gtk.Dialog(title=_("Preferences"),
+        parent=dad.window,
+        flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
+        buttons=(gtk.STOCK_CLOSE, gtk.RESPONSE_ACCEPT))
+
+    tabs_vbox_vec = []
+    for tabs_idx in range(7):
+        tabs_vbox_vec.append(gtk.VBox())
+        tabs_vbox_vec[-1].set_spacing(3)
+
     notebook = gtk.Notebook()
     notebook.set_tab_pos(gtk.POS_LEFT)
-    notebook.append_page(vbox_all_nodes, gtk.Label(_("All Nodes")))
-    notebook.append_page(vbox_text_nodes, gtk.Label(_("Text Nodes")))
-    notebook.append_page(vbox_code_nodes, gtk.Label(_("Code Nodes")))
-    notebook.append_page(vbox_tree, gtk.Label(_("Tree")))
-    notebook.append_page(vbox_fonts, gtk.Label(_("Fonts")))
-    notebook.append_page(vbox_links, gtk.Label(_("Links")))
-    notebook.append_page(vbox_misc, gtk.Label(_("Miscellaneous")))
+    notebook.append_page(tabs_vbox_vec[0], gtk.Label(_("All Nodes")))
+    notebook.append_page(tabs_vbox_vec[1], gtk.Label(_("Text Nodes")))
+    notebook.append_page(tabs_vbox_vec[2], gtk.Label(_("Code Nodes")))
+    notebook.append_page(tabs_vbox_vec[3], gtk.Label(_("Tree")))
+    notebook.append_page(tabs_vbox_vec[4], gtk.Label(_("Fonts")))
+    notebook.append_page(tabs_vbox_vec[5], gtk.Label(_("Links")))
+    notebook.append_page(tabs_vbox_vec[6], gtk.Label(_("Miscellaneous")))
+
+    preferences_tab_all_nodes(dad, tabs_vbox_vec[0])
+    preferences_tab_text_nodes(dad, tabs_vbox_vec[1])
+    preferences_tab_code_nodes(dad, tabs_vbox_vec[2])
+    preferences_tab_tree(dad, tabs_vbox_vec[3])
+    preferences_tab_fonts(dad, tabs_vbox_vec[4])
+    preferences_tab_links(dad, tabs_vbox_vec[5])
+    preferences_tab_misc(dad, tabs_vbox_vec[6])
+
     content_area = dialog.get_content_area()
     content_area.pack_start(notebook)
     content_area.show_all()
     notebook.set_current_page(dad.prefpage)
     dialog.run()
-    # latest tab page
     dad.prefpage = notebook.get_current_page()
-    # timer activate/modify handling
-    new_autosave_value = int(spinbutton_autosave.get_value())
-    if dad.autosave[1] != new_autosave_value:
-        dad.autosave[1] = new_autosave_value
-        if dad.autosave_timer_id != None: dad.autosave_timer_stop()
-    if dad.autosave[0] and dad.autosave_timer_id == None: dad.autosave_timer_start()
     dialog.hide()
-    
-    # special characters
-    new_special_chars = unicode(textbuffer_special_chars.get_text(*textbuffer_special_chars.get_bounds()).replace(cons.CHAR_NEWLINE, ""), cons.STR_UTF8, cons.STR_IGNORE)
-    if dad.special_chars != new_special_chars:
-        dad.special_chars = new_special_chars
-        support.set_menu_items_special_chars(dad)

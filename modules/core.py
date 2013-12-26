@@ -1563,7 +1563,7 @@ class CherryTree:
             single_tag_stripped = single_tag.strip()
             if single_tag_stripped:
                 self.tags_set.add(single_tag_stripped)
-                print "tags_set +=", single_tag_stripped
+                #print "tags_set +=", single_tag_stripped
 
     def reset(self, force_reset=False):
         """Reset the Application"""
