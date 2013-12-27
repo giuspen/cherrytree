@@ -2227,9 +2227,9 @@ class CherryTree:
 
     def node_date(self, *args):
         """Insert Date Node in Tree"""
-        now_year = time.strftime("%Y")
-        now_month = time.strftime("%B")
-        now_day = time.strftime("%d %a")
+        now_year = unicode(time.strftime("%Y"), cons.STR_UTF8, cons.STR_IGNORE)
+        now_month = unicode(time.strftime("%B"), cons.STR_UTF8, cons.STR_IGNORE)
+        now_day = unicode(time.strftime("%d %a"), cons.STR_UTF8, cons.STR_IGNORE)
         #print now_year, now_month, now_day
         if self.curr_tree_iter:
             curr_depth = self.treestore.iter_depth(self.curr_tree_iter)
