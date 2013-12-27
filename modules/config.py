@@ -519,7 +519,6 @@ def preferences_tab_all_nodes(dad, vbox_all_nodes):
         if dad.special_chars != new_special_chars:
             dad.special_chars = new_special_chars
             support.set_menu_items_special_chars(dad)
-        return False
     textbuffer_special_chars.connect('changed', on_textbuffer_special_chars_changed)
     def on_spinbutton_tab_width_value_changed(spinbutton):
         dad.tabs_width = int(spinbutton.get_value())
@@ -1279,17 +1278,18 @@ def preferences_tab_misc(dad, vbox_misc):
     checkbutton_use_appind.connect('toggled', on_checkbutton_use_appind_toggled)
     def on_checkbutton_autosave_toggled(checkbutton):
         dad.autosave[0] = checkbutton.get_active()
-        if not dad.autosave[0] and dad.autosave_timer_id != None: dad.autosave_timer_stop()
+        if dad.autosave[0]:
+            if dad.autosave_timer_id == None: dad.autosave_timer_start()
+        else:
+            if dad.autosave_timer_id != None: dad.autosave_timer_stop()
         spinbutton_autosave.set_sensitive(dad.autosave[0])
     checkbutton_autosave.connect('toggled', on_checkbutton_autosave_toggled)
-    def on_spinbutton_autosave_delete_event(spinbutton, event):
-        new_autosave_value = int(spinbutton.get_value())
-        if dad.autosave[1] != new_autosave_value:
-            dad.autosave[1] = new_autosave_value
-            if dad.autosave_timer_id != None: dad.autosave_timer_stop()
+    def on_spinbutton_autosave_value_changed(spinbutton):
+        dad.autosave[1] = int(spinbutton.get_value())
+        #print "new_autosave_value", dad.autosave[1]
+        if dad.autosave_timer_id != None: dad.autosave_timer_stop()
         if dad.autosave[0] and dad.autosave_timer_id == None: dad.autosave_timer_start()
-        return False
-    spinbutton_autosave.connect('delete-event', on_spinbutton_autosave_delete_event)
+    spinbutton_autosave.connect('value-changed', on_spinbutton_autosave_value_changed)
     def on_checkbutton_backup_before_saving_toggled(checkbutton):
         dad.backup_copy = checkbutton.get_active()
     checkbutton_backup_before_saving.connect('toggled', on_checkbutton_backup_before_saving_toggled)
