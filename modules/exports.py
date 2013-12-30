@@ -623,6 +623,7 @@ class Export2Html:
         for j, row in enumerate(table[1]['matrix']):
             table_html += "<tr>"
             for cell in row:
+                cell = cgi.escape(cell)
                 if j == 0: table_html += "<th>" + cell + "</th>"
                 else: table_html += "<td>" + cell + "</td>"
             table_html += "</tr>"
