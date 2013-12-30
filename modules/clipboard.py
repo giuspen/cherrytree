@@ -231,13 +231,26 @@ class ClipboardHandler:
 
     def to_html(self, clipboard, selectiondata, data):
         """From Clipboard to HTML Text"""
-        if ord(selectiondata.data[0]) == 0xff \
-        and ord(selectiondata.data[1]) in [0xfe, 0xff]:
+        if not cons.IS_WIN_OS and ord(selectiondata.data[0]) == 0xff and ord(selectiondata.data[1]) in [0xfe, 0xff]:
             selection_data = selectiondata.data.decode(cons.STR_UTF16, cons.STR_IGNORE)
         else:
             match = re.match('.*\x00\w\x00\w\x00\w.*', selectiondata.data, re.UNICODE) # \w is alphanumeric char
             if match: selection_data = selectiondata.data.decode(cons.STR_UTF16, cons.STR_IGNORE)
-            else: selection_data = selectiondata.data
+            else:
+                utf8_OK = False
+                utf16_OK = False
+                selection_data = ""
+                try:
+                    selection_data = selectiondata.data.decode(cons.STR_UTF16)
+                    utf16_OK = True
+                except: pass
+                try:
+                    selection_data = selectiondata.data.decode(cons.STR_UTF8)
+                    utf8_OK = True
+                except: pass
+                if utf16_OK == utf8_OK:
+                    if cons.IS_WIN_OS: selection_data = selectiondata.data.decode(cons.STR_UTF16, cons.STR_IGNORE)
+                    else: selection_data = selectiondata.data
         #print "###########################"
         #print selectiondata.data
         #print "###########################"
