@@ -192,7 +192,7 @@ class Export2Txt:
 
     def prepare_txt_folder(self, new_folder):
         """Prepare the website folder"""
-        dir_place = support.dialog_folder_select(curr_folder=self.dad.file_dir, parent=self.dad.window)
+        dir_place = support.dialog_folder_select(curr_folder=self.dad.pick_dir, parent=self.dad.window)
         if dir_place == None: return False
         new_folder = support.clean_from_chars_not_for_filename(new_folder) + "_TXT"
         while os.path.exists(os.path.join(dir_place, new_folder)):
@@ -443,7 +443,7 @@ class Export2Html:
 
     def prepare_html_folder(self, new_folder):
         """Prepare the website folder"""
-        dir_place = support.dialog_folder_select(curr_folder=self.dad.file_dir, parent=self.dad.window)
+        dir_place = support.dialog_folder_select(curr_folder=self.dad.pick_dir, parent=self.dad.window)
         if dir_place == None: return False
         new_folder = support.clean_from_chars_not_for_filename(new_folder) + "_HTML"
         while os.path.exists(os.path.join(dir_place, new_folder)):

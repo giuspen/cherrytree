@@ -20,7 +20,7 @@
 #       MA 02110-1301, USA.
 
 import gtk, gobject, pango, cairo
-import copy
+import copy, cgi
 import support, cons
 
 BOX_OFFSET = 4
@@ -315,6 +315,7 @@ class PrintHandler:
             for j, cell_text in enumerate(table_row):
                 layout = context.create_pango_layout()
                 layout.set_font_description(self.pango_font)
+                cell_text = cgi.escape(cell_text)
                 if i == 0: cell_text = "<b>" + cell_text + "</b>"
                 layout.set_width(int(table['col_max']*pango.SCALE))
                 layout.set_wrap(pango.WRAP_WORD_CHAR)
