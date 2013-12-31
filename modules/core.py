@@ -2781,7 +2781,7 @@ class CherryTree:
             combobox_prog_lang.set_sensitive(not radiobutton.get_active())
         def on_browse_tags_button_clicked(*args):
             ret_tag_name = support.dialog_choose_element_in_list(dialog,
-                _("Choose Existing Tag"), [[element] for element in self.tags_set], _("Tag Name"))
+                _("Choose Existing Tag"), [[element] for element in sorted(self.tags_set)], _("Tag Name"))
             if ret_tag_name:
                 curr_text = tags_entry.get_text()
                 print curr_text, ret_tag_name
