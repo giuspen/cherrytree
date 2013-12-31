@@ -2748,19 +2748,18 @@ class CherryTree:
         type_frame.get_label_widget().set_use_markup(True)
         type_frame.set_shadow_type(gtk.SHADOW_NONE)
         type_frame.add(type_vbox)
+        tags_hbox = gtk.HBox()
         tags_entry = gtk.Entry()
         tags_entry.set_text(tags)
-        completion = gtk.EntryCompletion()
-        liststore = gtk.ListStore(str)
-        for tag in self.tags_set:
-            liststore.append([tag])
-        completion.set_model(liststore)
-        tags_entry.set_completion(completion)
-        completion.set_text_column(0)
+        button_browse_tags = gtk.Button()
+        button_browse_tags.set_image(gtk.image_new_from_stock("find", gtk.ICON_SIZE_BUTTON))
+        if not self.tags_set: button_browse_tags.set_sensitive(False)
+        tags_hbox.pack_start(tags_entry)
+        tags_hbox.pack_start(button_browse_tags, expand=False)
         tags_frame = gtk.Frame(label="<b>"+_("Tags for Searching")+"</b>")
         tags_frame.get_label_widget().set_use_markup(True)
         tags_frame.set_shadow_type(gtk.SHADOW_NONE)
-        tags_frame.add(tags_entry)
+        tags_frame.add(tags_hbox)
         ro_checkbutton = gtk.CheckButton(label=_("Read Only"))
         ro_checkbutton.set_active(ro)
         content_area = dialog.get_content_area()
@@ -2780,7 +2779,17 @@ class CherryTree:
             return False
         def on_radiobutton_rich_text_toggled(radiobutton):
             combobox_prog_lang.set_sensitive(not radiobutton.get_active())
+        def on_browse_tags_button_clicked(*args):
+            ret_tag_name = support.dialog_choose_element_in_list(dialog,
+                _("Choose Existing Tag"), [[element] for element in self.tags_set], _("Tag Name"))
+            if ret_tag_name:
+                curr_text = tags_entry.get_text()
+                print curr_text, ret_tag_name
+                if not curr_text: tags_entry.set_text(ret_tag_name)
+                elif curr_text.endswith(cons.CHAR_SPACE): tags_entry.set_text(curr_text+ret_tag_name)
+                else: tags_entry.set_text(curr_text+cons.CHAR_SPACE+ret_tag_name)
         radiobutton_rich_text.connect("toggled", on_radiobutton_rich_text_toggled)
+        button_browse_tags.connect('clicked', on_browse_tags_button_clicked)
         dialog.connect('key_press_event', on_key_press_nodepropdialog)
         response = dialog.run()
         dialog.hide()
