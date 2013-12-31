@@ -27,7 +27,7 @@ TARGET_CTD_PLAIN_TEXT = 'UTF8_STRING'
 TARGET_CTD_RICH_TEXT = 'CTD_RICH'
 TARGET_CTD_TABLE = 'CTD_TABLE'
 TARGET_CTD_CODEBOX = 'CTD_CODEBOX'
-TARGET_HTML = 'text/html'
+TARGETS_HTML = ('text/html', 'HTML Format')
 TARGET_URI_LIST = 'text/uri-list'
 TARGETS_PLAIN_TEXT = ("UTF8_STRING", "COMPOUND_TEXT", "STRING", "TEXT")
 TARGETS_IMAGES = ('image/png', 'image/jpeg', 'image/bmp', 'image/tiff', 'image/x-MS-bmp', 'image/x-bmp')
@@ -61,7 +61,7 @@ class ClipboardHandler:
     def table_row_to_clipboard(self, table_dict):
         """Put the Selected Table Row to the Clipboard"""
         html_text = self.dad.html_handler.table_export_to_html(table_dict)
-        self.clipboard.set_with_data([(t, 0, 0) for t in (TARGET_CTD_TABLE, TARGET_HTML)],
+        self.clipboard.set_with_data([(t, 0, 0) for t in (TARGET_CTD_TABLE, TARGETS_HTML[0])],
                                      self.get_func,
                                      self.clear_func,
                                      (table_dict, None, html_text))
@@ -92,7 +92,7 @@ class ClipboardHandler:
                 elif "liststore" in anchor_dir:
                     table_dict = self.dad.state_machine.table_to_dict(anchor)
                     html_text = self.dad.html_handler.table_export_to_html(table_dict)
-                    self.clipboard.set_with_data([(t, 0, 0) for t in (TARGET_CTD_TABLE, TARGET_HTML)],
+                    self.clipboard.set_with_data([(t, 0, 0) for t in (TARGET_CTD_TABLE, TARGETS_HTML[0])],
                                                  self.get_func,
                                                  self.clear_func,
                                                  (table_dict, None, html_text))
@@ -101,7 +101,7 @@ class ClipboardHandler:
                     codebox_dict = self.dad.state_machine.codebox_to_dict(anchor, for_print=0)
                     codebox_dict_html = self.dad.state_machine.codebox_to_dict(anchor, for_print=2)
                     html_text = self.dad.html_handler.codebox_export_to_html(codebox_dict_html)
-                    self.clipboard.set_with_data([(t, 0, 0) for t in (TARGET_CTD_CODEBOX, TARGET_HTML)],
+                    self.clipboard.set_with_data([(t, 0, 0) for t in (TARGET_CTD_CODEBOX, TARGETS_HTML[0])],
                                                  self.get_func,
                                                  self.clear_func,
                                                  (codebox_dict, None, html_text))
@@ -111,13 +111,13 @@ class ClipboardHandler:
         if self.dad.syntax_highlighting == cons.CUSTOM_COLORS_ID:
             plain_text = text_buffer.get_text(iter_sel_start, iter_sel_end)
             rich_text = self.rich_text_get_from_text_buffer_selection(text_buffer, iter_sel_start, iter_sel_end)
-            self.clipboard.set_with_data([(t, 0, 0) for t in (TARGET_CTD_PLAIN_TEXT, TARGET_CTD_RICH_TEXT, TARGET_HTML)],
+            self.clipboard.set_with_data([(t, 0, 0) for t in (TARGET_CTD_PLAIN_TEXT, TARGET_CTD_RICH_TEXT, TARGETS_HTML[0])],
                                          self.get_func,
                                          self.clear_func,
                                          (plain_text, rich_text, html_text))
         else:
             plain_text = text_buffer.get_text(iter_sel_start, iter_sel_end)
-            self.clipboard.set_with_data([(t, 0, 0) for t in (TARGET_CTD_PLAIN_TEXT, TARGET_HTML)],
+            self.clipboard.set_with_data([(t, 0, 0) for t in (TARGET_CTD_PLAIN_TEXT, TARGETS_HTML[0])],
                                          self.get_func,
                                          self.clear_func,
                                          (plain_text, None, html_text))
@@ -127,7 +127,7 @@ class ClipboardHandler:
         target = selectiondata.get_target()
         if target == TARGET_CTD_PLAIN_TEXT: selectiondata.set('UTF8_STRING', 8, data[0])
         elif target == TARGET_CTD_RICH_TEXT: selectiondata.set('UTF8_STRING', 8, data[1])
-        elif target == TARGET_HTML: selectiondata.set('UTF8_STRING', 8, data[2])
+        elif target == TARGETS_HTML[0]: selectiondata.set('UTF8_STRING', 8, data[2])
         elif target == TARGET_CTD_CODEBOX:
             dom = xml.dom.minidom.Document()
             self.dad.xml_handler.codebox_element_to_xml([0, data[0], cons.TAG_PROP_LEFT], dom)
@@ -166,9 +166,10 @@ class ClipboardHandler:
         if TARGET_CTD_TABLE in targets and self.dad.syntax_highlighting == cons.CUSTOM_COLORS_ID:
             self.clipboard.request_contents(TARGET_CTD_TABLE, self.to_table, None)
             return
-        if TARGET_HTML in targets and self.dad.syntax_highlighting == cons.CUSTOM_COLORS_ID:
-            self.clipboard.request_contents(TARGET_HTML, self.to_html)
-            return
+        for target in TARGETS_HTML:
+            if target in targets and self.dad.syntax_highlighting == cons.CUSTOM_COLORS_ID:
+                self.clipboard.request_contents(target, self.to_html)
+                return
         if TARGET_URI_LIST in targets:
             self.clipboard.request_contents(TARGET_URI_LIST, self.to_uri_list)
             return
@@ -236,6 +237,7 @@ class ClipboardHandler:
         else:
             match = re.match('.*\x00\w\x00\w\x00\w.*', selectiondata.data, re.UNICODE) # \w is alphanumeric char
             if match: selection_data = selectiondata.data.decode(cons.STR_UTF16, cons.STR_IGNORE)
+            elif "HTML" in selectiondata.data: selection_data = selectiondata.data.decode(cons.STR_UTF8, cons.STR_IGNORE)
             else:
                 utf8_OK = False
                 utf16_OK = False
