@@ -2,7 +2,7 @@
 #
 #       core.py
 #
-#       Copyright 2009-2013 Giuseppe Penone <giuspen@gmail.com>
+#       Copyright 2009-2014 Giuseppe Penone <giuspen@gmail.com>
 #
 #       This program is free software; you can redistribute it and/or modify
 #       it under the terms of the GNU General Public License as published by
@@ -2749,6 +2749,7 @@ class CherryTree:
         type_frame.set_shadow_type(gtk.SHADOW_NONE)
         type_frame.add(type_vbox)
         tags_hbox = gtk.HBox()
+        tags_hbox.set_spacing(2)
         tags_entry = gtk.Entry()
         tags_entry.set_text(tags)
         button_browse_tags = gtk.Button()
