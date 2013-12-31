@@ -1075,6 +1075,7 @@ class CherryTree:
     def file_startup_load(self, open_with_file, node_name):
         """Try to load a file if there are the conditions"""
         if open_with_file:
+            open_with_file = unicode(open_with_file, cons.STR_UTF8, cons.STR_IGNORE)
             self.file_name = os.path.basename(open_with_file)
             self.file_dir = os.path.dirname(open_with_file)
         elif self.boss.running_windows:
@@ -1087,6 +1088,7 @@ class CherryTree:
             elif self.rest_exp_coll == 0: config.set_tree_expanded_collapsed_string(self)
             # is there a node name to focus?
             if node_name:
+                node_name = unicode(node_name, cons.STR_UTF8, cons.STR_IGNORE)
                 node_name_iter = self.get_tree_iter_from_node_name(node_name, use_content=False)
                 if node_name_iter:
                     self.node_path = self.treestore.get_path(node_name_iter)
