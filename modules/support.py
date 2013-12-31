@@ -309,12 +309,12 @@ Ukrainian (uk) Andriy Kovtun <kovtunos@yandex.ru>"""))
     dialog.run()
     dialog.hide()
 
-def dialog_anchors_list(father_win, title, anchors_list):
-    """List Anchors in a Node"""
-    class AnchorParms:
+def dialog_choose_element_in_list(father_win, title, elements_list, column_title):
+    """Choose Between Elements in List"""
+    class ListParms:
         def __init__(self):
             self.sel_iter = None
-    anchor_parms = AnchorParms()
+    list_parms = ListParms()
     dialog = gtk.Dialog(title=title,
         parent=father_win,
         flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
@@ -324,44 +324,44 @@ def dialog_anchors_list(father_win, title, anchors_list):
     dialog.set_default_size(300, 200)
     scrolledwindow = gtk.ScrolledWindow()
     scrolledwindow.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-    anchors_liststore = gtk.ListStore(str)
-    anchors_treeview = gtk.TreeView(anchors_liststore)
-    anchors_renderer_text = gtk.CellRendererText()
-    anchors_column = gtk.TreeViewColumn(_("Anchor Name"), anchors_renderer_text, text=0)
-    anchors_treeview.append_column(anchors_column)
-    anchors_treeviewselection = anchors_treeview.get_selection()
-    for anchor_element in anchors_list:
-        anchors_liststore.append(anchor_element)
-    scrolledwindow.add(anchors_treeview)
-    anchor_parms.sel_iter = anchors_liststore.get_iter_first()
-    if anchor_parms.sel_iter:
-        anchors_treeview.set_cursor(anchors_liststore.get_path(anchor_parms.sel_iter))
+    elements_liststore = gtk.ListStore(str)
+    elements_treeview = gtk.TreeView(elements_liststore)
+    elements_renderer_text = gtk.CellRendererText()
+    elements_column = gtk.TreeViewColumn(column_title, elements_renderer_text, text=0)
+    elements_treeview.append_column(elements_column)
+    elements_treeviewselection = elements_treeview.get_selection()
+    for element_name in elements_list:
+        elements_liststore.append(element_name)
+    scrolledwindow.add(elements_treeview)
+    list_parms.sel_iter = elements_liststore.get_iter_first()
+    if list_parms.sel_iter:
+        elements_treeview.set_cursor(elements_liststore.get_path(list_parms.sel_iter))
     content_area = dialog.get_content_area()
     content_area.pack_start(scrolledwindow)
-    def on_mouse_button_clicked_anchors_list(widget, event):
+    def on_mouse_button_clicked_elements_list(widget, event):
         if event.button != 1: return
         if event.type == gtk.gdk._2BUTTON_PRESS:
             try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
             except: print cons.STR_PYGTK_222_REQUIRED
     def on_treeview_event_after(treeview, event):
         if event.type not in [gtk.gdk.BUTTON_PRESS, gtk.gdk.KEY_PRESS]: return
-        model, anchor_parms.sel_iter = anchors_treeviewselection.get_selected()
-    def on_key_press_anchorslistdialog(widget, event):
+        model, list_parms.sel_iter = elements_treeviewselection.get_selected()
+    def on_key_press_elementslistdialog(widget, event):
         keyname = gtk.gdk.keyval_name(event.keyval)
         if keyname == cons.STR_RETURN:
             try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
             except: print cons.STR_PYGTK_222_REQUIRED
             return True
         return False
-    anchors_treeview.connect('event-after', on_treeview_event_after)
-    dialog.connect('key_press_event', on_key_press_anchorslistdialog)
-    anchors_treeview.connect('button-press-event', on_mouse_button_clicked_anchors_list)
+    elements_treeview.connect('event-after', on_treeview_event_after)
+    dialog.connect('key_press_event', on_key_press_elementslistdialog)
+    elements_treeview.connect('button-press-event', on_mouse_button_clicked_elements_list)
     content_area.show_all()
-    anchors_treeview.grab_focus()
+    elements_treeview.grab_focus()
     response = dialog.run()
     dialog.hide()
-    if response != gtk.RESPONSE_ACCEPT or not anchor_parms.sel_iter: return ""
-    return unicode(anchors_liststore[anchor_parms.sel_iter][0], cons.STR_UTF8, cons.STR_IGNORE)
+    if response != gtk.RESPONSE_ACCEPT or not list_parms.sel_iter: return ""
+    return unicode(elements_liststore[list_parms.sel_iter][0], cons.STR_UTF8, cons.STR_IGNORE)
 
 def dialog_img_n_entry(father_win, title, entry_content, img_stock):
     """Insert/Edit Anchor Name"""
@@ -756,7 +756,7 @@ def dialog_link_handle(dad, title, sel_tree_iter):
         if not anchors_list:
             dialog_info(_("There are No Anchors in the Selected Node"), dialog)
             return
-        ret_anchor_name = dialog_anchors_list(dialog, _("Choose Existing Anchor"), anchors_list)
+        ret_anchor_name = dialog_choose_element_in_list(dialog, _("Choose Existing Anchor"), anchors_list, _("Anchor Name"))
         if ret_anchor_name: entry_anchor.set_text(ret_anchor_name)
     def on_treeview_event_after(treeview, event):
         if event.type not in [gtk.gdk.BUTTON_PRESS, gtk.gdk.KEY_PRESS]: return
