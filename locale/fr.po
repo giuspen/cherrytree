@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: svn_cherrytree 0.14\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-12-31 19:38+0200\n"
-"PO-Revision-Date: 2013-12-04 17:46+0100\n"
-"Last-Translator: Benoît <benoit.dangelo@gmx.fr>\n"
+"PO-Revision-Date: 2014-01-01 14:17+0300\n"
+"Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
 "Language-Team: French\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -309,8 +309,7 @@ msgstr "(Dés)Activer la Liste de _choses à faire"
 #: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:535
 #: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:740
 msgid "Set/Unset the Current Paragraph/Selection as a To-Do List"
-msgstr ""
-"(Dés)Afficher le Paragraphe/Selection actuelle en Liste de choses à faire"
+msgstr "(Dés)Afficher le Paragraphe/Selection actuelle en Liste de choses à faire"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:536
 #: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:747
@@ -591,12 +590,8 @@ msgstr "_Héritage de la Syntaxe"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:564
 #: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:696
-msgid ""
-"Change the Selected Node's Children Syntax Highlighting to the Father's "
-"Syntax Highlighting"
-msgstr ""
-"Transformer le Marquage de Syntaxe de l'Enfant du Nœud sélectionné vers le "
-"Marquage de syntaxe de son Parent"
+msgid "Change the Selected Node's Children Syntax Highlighting to the Father's Syntax Highlighting"
+msgstr "Transformer le Marquage de Syntaxe de l'Enfant du Nœud sélectionné vers le Marquage de syntaxe de son Parent"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:565
 #: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:715
@@ -1293,13 +1288,12 @@ msgid "Edit the Properties of the Selected Node"
 msgstr "Éditer les Propriétés du Nœud sélectionné"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:651
-#, fuzzy
 msgid "Insert Today's Node"
-msgstr "Insérer une CodeBox"
+msgstr "Insérer le noeud du jour"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:651
 msgid "Insert a Node with Hierarchy Year/Month/Day"
-msgstr ""
+msgstr "Insérer un noeud avec une hiérarchie Année/Mois/Jour"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:652
 msgid "Tree _Info"
@@ -1549,21 +1543,16 @@ msgid "Error"
 msgstr "Erreur"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/support.py:270
-#, fuzzy
 msgid ""
 "Copyright © 2009-2014\n"
 "Giuseppe Penone <giuspen@gmail.com>"
 msgstr ""
-"Copyright © 2009-2013\n"
+"Copyright © 2009-2014\n"
 "Giuseppe Penone <giuspen@gmail.com>"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/support.py:272
-msgid ""
-"A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
-"Highlighting"
-msgstr ""
-"Une Application de Prise de Notes Hiérarchisées, combinant Texte Enrichi et "
-"Marquage Automatique de Syntaxe"
+msgid "A Hierarchical Note Taking Application, featuring Rich Text and Syntax Highlighting"
+msgstr "Une Application de Prise de Notes Hiérarchisées, combinant Texte Enrichi et Marquage Automatique de Syntaxe"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/support.py:273
 msgid ""
@@ -1584,10 +1573,8 @@ msgid ""
 "MA 02110-1301, USA.\n"
 msgstr ""
 "\n"
-"Ce programme est sous licence libre; vous pouvez le redistribuer et/ou le "
-"modifier\n"
-"sous les termes de la GNU General Public License telle qu'elle est publiée "
-"par\n"
+"Ce programme est sous licence libre; vous pouvez le redistribuer et/ou le modifier\n"
+"sous les termes de la GNU General Public License telle qu'elle est publiée par\n"
 "la Free Software Foundation; que ce soit dans sa version 3 ou\n"
 "(selon vos préférences) dans une version plus récente.\n"
 "  \n"
@@ -1617,8 +1604,7 @@ msgstr ""
 "Chinois Simplifié (zh_CN) Channing Wong <mamimoluo@gmail.com>\n"
 "Tchèque (cs) Pavel Fric <fripohled@blogspot.com>\n"
 "Néerlandais (nl) Patrick Vijgeboom <pj.vijgeboom@gmail.com>\n"
-"Français (fr) Benoît D'Angelo <benoit.dangelo@gmx.fr> (former Ludovic "
-"Troisi)\n"
+"Français (fr) Benoît D'Angelo <benoit.dangelo@gmx.fr> (former Ludovic Troisi)\n"
 "Allemand (de) Frank Brungräber <calexu@arcor.de> (former Sven Neubauer)\n"
 "Italien (it) Giuseppe Penone <giuspen@gmail.com>\n"
 "Polonais (pl) Marcin Swierczynski <orneo1212@gmail.com>\n"
@@ -1715,7 +1701,7 @@ msgstr "Inclure le nom des Nœuds"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/support.py:875
 msgid "New Node in New Page"
-msgstr ""
+msgstr "Nouveau noeud dans une nouvelle page"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/support.py:935
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:910
@@ -1743,8 +1729,7 @@ msgstr "Le Document %s est introuvable"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/support.py:1026
 msgid "Sort with Drag and Drop, Delete with the Delete Key"
-msgstr ""
-"Trier en déplaçant à la souris, Supprimer avec la touche de Suppression"
+msgstr "Trier en déplaçant à la souris, Supprimer avec la touche de Suppression"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/pgsc_spellcheck.py:68
 msgid "Unknown"
@@ -1764,7 +1749,7 @@ msgstr "Ignorer tout"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/pgsc_spellcheck.py:453
 msgid "Languages"
-msgstr "<b>Langues</b>"
+msgstr "Langues"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/pgsc_spellcheck.py:464
 msgid "Suggestions"
@@ -1839,8 +1824,7 @@ msgstr "Chercher le Nom d'un Nœud..."
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/findreplace.py:535
 msgid "No Previous Search Was Performed During This Session"
-msgstr ""
-"Aucune Recherche précédente n'a été effectuée durant cette session de travail"
+msgstr "Aucune Recherche précédente n'a été effectuée durant cette session de travail"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/findreplace.py:575
 msgid "Hide (Restore with Ctrl+Shift+A)"
@@ -1866,7 +1850,6 @@ msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
 msgstr "Le Lien pointe vers un Nœud qui n'existe plus (Id = %s)"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:429
-#, fuzzy
 msgid "Tab Width"
 msgstr "Largeur des Tabulations"
 
@@ -1879,18 +1862,16 @@ msgid "Use Line Wrapping"
 msgstr "Utiliser le Retour à la Ligne"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:441
-#, fuzzy
 msgid "Line Wrapping Indentation"
-msgstr "Activer l'Indentation Automatique"
+msgstr "Indentation des lignes"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:447
 msgid "Enable Automatic Indentation"
 msgstr "Activer l'Indentation Automatique"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:459
-#, fuzzy
 msgid "Text Editor"
-msgstr "<b>Editeur de Texte</b>"
+msgstr "Editeur de Texte"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:469
 msgid "Timestamp Format"
@@ -1922,9 +1903,8 @@ msgid "Spell Check Language"
 msgstr "Langue de vérification orthographique"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:582
-#, fuzzy
 msgid "Spell Check"
-msgstr "Activer la vérification orthographique"
+msgstr "vérification orthographique"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:592
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:759
@@ -1949,7 +1929,7 @@ msgstr "du texte"
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:610
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:777
 msgid "Theme"
-msgstr ""
+msgstr "Thème"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:630
 msgid "Limit of Undoable Steps Per Node"
@@ -1980,9 +1960,8 @@ msgid "Do Not Display Nodes Icons"
 msgstr "Ne pas afficher les icônes des Nœuds"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:806
-#, fuzzy
 msgid "Nodes Icons"
-msgstr "<b>Icônes des Nœuds</b>"
+msgstr "Icônes des Nœuds"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:820
 msgid "Restore Expanded/Collapsed Status"
@@ -1997,9 +1976,8 @@ msgid "Collapse all Nodes"
 msgstr "Replier tous les Nœuds"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:829
-#, fuzzy
 msgid "Nodes Status at Startup"
-msgstr "<b>État des nœuds au démarrage</b>"
+msgstr "État des nœuds au démarrage"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:844
 msgid "Tree Nodes Names Wrapping Width"
@@ -2039,13 +2017,12 @@ msgid "Enable Custom Folder Link Clicked Action"
 msgstr "Personnaliser l'Ouverture des Liens de Fichiers"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1016
-#, fuzzy
 msgid "Custom Actions"
-msgstr "Personnalisation de l'arrière plan"
+msgstr "Actions personnalisées"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1072
 msgid "Colors"
-msgstr ""
+msgstr "Couleurs"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1083
 msgid "Anchor Size"
@@ -2064,9 +2041,8 @@ msgid "Use AppIndicator for Docking"
 msgstr "Utiliser l'indicateur d'application"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1155
-#, fuzzy
 msgid "System Tray"
-msgstr "<b>Zone de notification</b>"
+msgstr "Zone de notification"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1172
 msgid "Autosave Every"
@@ -2085,9 +2061,8 @@ msgid "Create a Backup Copy Before Saving"
 msgstr "Créer une copie de sauvegarde avant d'enregistrer"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1191
-#, fuzzy
 msgid "Saving"
-msgstr "<b>Enregistrer</b>"
+msgstr "Enregistrer"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1200
 msgid "Automatically Check for Newer Version"
@@ -2102,14 +2077,12 @@ msgid "Reload After External Update to CT* File"
 msgstr "Recharger après mise à jour extérieure du fichier CT*"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1227
-#, fuzzy
 msgid "Language"
-msgstr "<b>Langues</b>"
+msgstr "Langue"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1319
 msgid "The New Language will be Available Only After Restarting CherryTree"
-msgstr ""
-"La nouvelle langue sera activée uniquement après avoir relancé CherryTree"
+msgstr "La nouvelle langue sera activée uniquement après avoir relancé CherryTree"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1339
 msgid "All Nodes"
@@ -2139,9 +2112,8 @@ msgid "CherryTree Document"
 msgstr "Document CherryTree"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/exports.py:99
-#, fuzzy
 msgid "PDF File"
-msgstr "Vers un Fichier"
+msgstr "Fichier pdf"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/exports.py:185
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:670
@@ -2226,15 +2198,12 @@ msgid "A Newer Version Is Available!"
 msgstr "Une nouvelle version est disponible !"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:212
-#, fuzzy
 msgid "You Are Using the Latest Version Available"
 msgstr "Vous disposez de la dernière version en date !"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:215
 msgid "Failed to Retrieve Latest Version Information - Try Again Later"
-msgstr ""
-"Impossible de récupérer les informations de la dernière version en date - "
-"Essayez ultérieurement"
+msgstr "Impossible de récupérer les informations de la dernière version en date - Essayez ultérieurement"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:232
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2972
@@ -2292,8 +2261,7 @@ msgstr "Le Nœud Sélectionné"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:986
 msgid "The Document was Reloaded After External Update to CT* File"
-msgstr ""
-"Le document a été rechargé après modification extérieure du fichier CT*"
+msgstr "Le document a été rechargé après modification extérieure du fichier CT*"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1013
 msgid "CherryTree Hierarchical Note Taking"
@@ -2344,12 +2312,8 @@ msgid "The Characters  %s  are Not Allowed"
 msgstr "Les caractères %s ne sont pas autorisés"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1410
-msgid ""
-"Binary Executable '7za' Not Found, Check The Package 'p7zip-full' to be "
-"Installed Properly"
-msgstr ""
-"Le fichier binaire '7za' est introuvable. Vérifiez que le paquet 'p7zip-"
-"full' est correctement installé"
+msgid "Binary Executable '7za' Not Found, Check The Package 'p7zip-full' to be Installed Properly"
+msgstr "Le fichier binaire '7za' est introuvable. Vérifiez que le paquet 'p7zip-full' est correctement installé"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1416
 #, python-format
@@ -2394,12 +2358,8 @@ msgid "Node Properties"
 msgstr "Propriétés du nœud"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2205
-msgid ""
-"Entering the Automatic Syntax Highlighting you will Lose all Custom Colors "
-"for This Node, Do you want to Continue?"
-msgstr ""
-"En choisissant le Marquage Automatique de la Syntaxe vous perdrez toutes vos "
-"Couleurs Personnelles liées à ce Nœud. Voulez-vous tout de même continuer ?"
+msgid "Entering the Automatic Syntax Highlighting you will Lose all Custom Colors for This Node, Do you want to Continue?"
+msgstr "En choisissant le Marquage Automatique de la Syntaxe vous perdrez toutes vos Couleurs Personnelles liées à ce Nœud. Voulez-vous tout de même continuer ?"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2614
 msgid "Search for"
@@ -2472,13 +2432,12 @@ msgid "Read Only"
 msgstr "Lecture seule"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2785
-#, fuzzy
 msgid "Choose Existing Tag"
-msgstr "Choisir une Ancre existante"
+msgstr "Choisir un tag existant"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2785
 msgid "Tag Name"
-msgstr ""
+msgstr "Nom du tag"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2808
 msgid "The Size of the Toolbar Icons is already at the Maximum Value"
@@ -2501,11 +2460,8 @@ msgid "Not Any H1, H2 or H3 Formatting Found"
 msgstr "Aucune mise en forme H1, H2 ou H3 n'a été trouvée'"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2950
-msgid ""
-"Automatic Syntax Highlighting Must be Disabled in order to Use This Feature"
-msgstr ""
-"Le Marquage Automatique de la Syntaxe doit être désactivé pour utiliser "
-"cette fonction"
+msgid "Automatic Syntax Highlighting Must be Disabled in order to Use This Feature"
+msgstr "Le Marquage Automatique de la Syntaxe doit être désactivé pour utiliser cette fonction"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2964
 msgid "The Tree is Empty!"
@@ -2550,9 +2506,7 @@ msgstr "Retrait espaces de fin (ligne(s))"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3296
 msgid "No Previous Text Format Was Performed During This Session"
-msgstr ""
-"Aucune Mise en forme précédente n'a été effectuée durant cette session de "
-"travail"
+msgstr "Aucune Mise en forme précédente n'a été effectuée durant cette session de travail"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:3342
 msgid "Link Name"
@@ -2584,135 +2538,3 @@ msgstr "Le Lien du Répertoire '%s' n'est pas valide"
 #, python-format
 msgid "No anchor named '%s' found"
 msgstr "Aucune Ancre nommée '%s' n'a été trouvée"
-
-#, fuzzy
-#~ msgid "Insert a Date Node"
-#~ msgstr "Insérer une CodeBox"
-
-#~ msgid "<b>Miscellaneous</b>"
-#~ msgstr "<b>Autres</b>"
-
-#~ msgid "<b>Spell Check</b>"
-#~ msgstr "<b>Vérification orthographique</b>"
-
-#~ msgid "<b>Theme</b>"
-#~ msgstr "<b>Thème</b>"
-
-#~ msgid "<b>Automatic Syntax Highlighting</b>"
-#~ msgstr "<b>Marquage Automatique de la Syntaxe</b>"
-
-#~ msgid "<b>Fonts</b>"
-#~ msgstr "<b>Polices</b>"
-
-#~ msgid "<b>Links</b>"
-#~ msgstr "<b>Liens</b>"
-
-#~ msgid "<b>Language</b>"
-#~ msgstr "<b>Langue</b>"
-
-#, fuzzy
-#~ msgid "Insert/Edit a Link"
-#~ msgstr "Insérer/Éditer un _Lien"
-
-#, fuzzy
-#~ msgid "Edit a Link"
-#~ msgstr "Insérer/Éditer un Lien"
-
-#, fuzzy
-#~ msgid "Insert a Link"
-#~ msgstr "Insérer/Éditer un Lien"
-
-#~ msgid "The Anchor Name is Mandatory!"
-#~ msgstr "Le Nom de l'Ancre est Obligatoire !"
-
-#~ msgid "OK"
-#~ msgstr "OK"
-
-#~ msgid "<b>Type</b>"
-#~ msgstr "<b>Type</b>"
-
-#~ msgid "<b>WebSite URL</b>"
-#~ msgstr "<b>Adresse du Site Web</b>"
-
-#~ msgid "Browse for a File to link to"
-#~ msgstr "Parcourir un Fichier à lier"
-
-#~ msgid "<b>File/Folder Path</b>"
-#~ msgstr "Chemin du Dossier/Fichier"
-
-#~ msgid "<b>Node</b>"
-#~ msgstr "<b>Nœud</b>"
-
-#~ msgid "%"
-#~ msgstr "%"
-
-#~ msgid "<b>Size</b>"
-#~ msgstr "<b>Taille</b>"
-
-#~ msgid "Are you sure to Delete the node?"
-#~ msgstr "Êtes-vous sûr de vouloir Supprimer le Nœud ?"
-
-#~ msgid "     Columns  "
-#~ msgstr "     Colonnes  "
-
-#~ msgid "CherryTree"
-#~ msgstr "CherryTree"
-
-#~ msgid "http://www.giuspen.com/cherrytree/"
-#~ msgstr "http://www.giuspen.com/cherrytree/"
-
-#~ msgid "Undo the Latest Replace"
-#~ msgstr "Annuler le dernier Remplacement"
-
-#~ msgid ""
-#~ "The Contemporary Presence of Single and Double Quotes in the File Path "
-#~ "Prevents 7za.exe to Work, Please Change the File Name"
-#~ msgstr ""
-#~ "La présence simultanée de guillemets simples et doubles dans le chemin du "
-#~ "fichier empêche 7za.exe de fonctionner. Veuillez modifier le nom du "
-#~ "fichier"
-
-#~ msgid "_Print / Export To PDF"
-#~ msgstr "_Imprimer / Exporter en PDF"
-
-#~ msgid "<b>Node Name</b>"
-#~ msgstr "<b>Nom du nœud</b>"
-
-#~ msgid "Insert the New Node Name..."
-#~ msgstr "Insérer le Nom du Nouveau Nœud..."
-
-#~ msgid "Insert the New Child Node Name..."
-#~ msgstr "Insérer le Nom du Nouveau Nœud Enfant..."
-
-#~ msgid "Insert the New Name for the Node..."
-#~ msgstr "Insérer le Nouveau Nom de ce Nœud..."
-
-#~ msgid "Input Dialog"
-#~ msgstr "Entrer un Dialogue"
-
-#~ msgid "Expand All Nodes When Loading the Tree"
-#~ msgstr "Dérouler tous les Nœuds au chargement"
-
-#~ msgid "<b>Rich Text</b>"
-#~ msgstr "<b>Texte Enrichi</b>"
-
-#~ msgid "Detail of Available Format Codes"
-#~ msgstr "Détail des Codes de formattage disponibles"
-
-#~ msgid "No Node is Selected!"
-#~ msgstr "Aucun nœud n'est sélectionné"
-
-#~ msgid "Browse for Existing Anchors on the Selected Node"
-#~ msgstr "Parcourir les Ancres existant sur le Nœud sélectionné"
-
-#~ msgid "Width "
-#~ msgstr "Largeur "
-
-#~ msgid "      Height "
-#~ msgstr "      Hauteur "
-
-#~ msgid "Default Text Color"
-#~ msgstr "Couleur par défaut du texte"
-
-#~ msgid "Default Background Color"
-#~ msgstr "Couleur d'arrière-plan par défaut"
