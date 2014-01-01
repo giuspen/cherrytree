@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-12-31 19:38+0200\n"
-"PO-Revision-Date: 2013-12-23 10:01+0100\n"
+"PO-Revision-Date: 2013-12-31 18:58+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -1552,12 +1552,11 @@ msgid "Error"
 msgstr "Chyba"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/support.py:270
-#, fuzzy
 msgid ""
 "Copyright © 2009-2014\n"
 "Giuseppe Penone <giuspen@gmail.com>"
 msgstr ""
-"Autorské právo © 2009-2013\n"
+"Autorské právo © 2009-2014\n"
 "Giuseppe Penone <giuspen@gmail.com>"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/support.py:272
@@ -2457,13 +2456,12 @@ msgid "Read Only"
 msgstr "Pouze pro čtení"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2785
-#, fuzzy
 msgid "Choose Existing Tag"
-msgstr "Vybrat stávající kotvu"
+msgstr "Vybrat stávající značku"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2785
 msgid "Tag Name"
-msgstr ""
+msgstr "Název značky"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2808
 msgid "The Size of the Toolbar Icons is already at the Maximum Value"
@@ -2567,3 +2565,4 @@ msgstr "Odkaz na složku '%s' není platný"
 #, python-format
 msgid "No anchor named '%s' found"
 msgstr "Nebyla nalezena žádná kotva s názvem '%s'"
+
