@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: cherrytree 0.26\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-12-31 19:38+0200\n"
-"PO-Revision-Date: 2013-12-24 19:04+0800\n"
-"Last-Translator: Channing Wong <mamimoluo@gmail.com>\n"
+"PO-Revision-Date: 2014-01-01 14:19+0300\n"
+"Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
 "Language-Team: Chinese (simplified)\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
@@ -589,9 +589,7 @@ msgstr "继承语法高亮(_I)"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:564
 #: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:696
-msgid ""
-"Change the Selected Node's Children Syntax Highlighting to the Father's "
-"Syntax Highlighting"
+msgid "Change the Selected Node's Children Syntax Highlighting to the Father's Syntax Highlighting"
 msgstr "使当前所选节点的子节点与其有相同的语法高亮"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:565
@@ -1544,18 +1542,15 @@ msgid "Error"
 msgstr "错误"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/support.py:270
-#, fuzzy
 msgid ""
 "Copyright © 2009-2014\n"
 "Giuseppe Penone <giuspen@gmail.com>"
 msgstr ""
-"版权所有 © 2009-2013\n"
+"版权所有 © 2009-2014\n"
 "Giuseppe Penone <giuspen@gmail.com>"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/support.py:272
-msgid ""
-"A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
-"Highlighting"
+msgid "A Hierarchical Note Taking Application, featuring Rich Text and Syntax Highlighting"
 msgstr "一个层级式笔记记录程序，具有富文本和代码高亮的功能"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/support.py:273
@@ -1577,16 +1572,13 @@ msgid ""
 "MA 02110-1301, USA.\n"
 msgstr ""
 "\n"
-"此软件为自由软件，您可以在自由软件基金会发布的GNU通用许可证的条款下进行修改或"
-"再发布；\n"
+"此软件为自由软件，您可以在自由软件基金会发布的GNU通用许可证的条款下进行修改或再发布；\n"
 "许可协议可以是第三版，或之后的任何新版本。\n"
 "  \n"
-"发布本程序是希望给您带来便利，但不做任何担保，甚至没有适销性或特定目的而隐含"
-"的担保。\n"
+"发布本程序是希望给您带来便利，但不做任何担保，甚至没有适销性或特定目的而隐含的担保。\n"
 "有关详细信息，请参阅GNU通用许可证。\n"
 "  \n"
-"您应该随本程序收到了一份GNU通用许可证；如果没有，可写一份信向自由软件基金会索"
-"取。\n"
+"您应该随本程序收到了一份GNU通用许可证；如果没有，可写一份信向自由软件基金会索取。\n"
 "Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,\n"
 "MA 02110-1301, USA.\n"
 
@@ -2315,9 +2307,7 @@ msgid "The Characters  %s  are Not Allowed"
 msgstr "%s 字符被禁用"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1410
-msgid ""
-"Binary Executable '7za' Not Found, Check The Package 'p7zip-full' to be "
-"Installed Properly"
+msgid "Binary Executable '7za' Not Found, Check The Package 'p7zip-full' to be Installed Properly"
 msgstr "二进制可执行文件'7za'未找到请检查'p7zip-full'是否已被正确安装"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1416
@@ -2363,9 +2353,7 @@ msgid "Node Properties"
 msgstr "节点属性"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2205
-msgid ""
-"Entering the Automatic Syntax Highlighting you will Lose all Custom Colors "
-"for This Node, Do you want to Continue?"
+msgid "Entering the Automatic Syntax Highlighting you will Lose all Custom Colors for This Node, Do you want to Continue?"
 msgstr "自动语法高亮会覆盖当前节点的所有自定义颜色，继续吗？"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2614
@@ -2439,13 +2427,12 @@ msgid "Read Only"
 msgstr "只读"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2785
-#, fuzzy
 msgid "Choose Existing Tag"
-msgstr "选择现有的锚点"
+msgstr "选择现有的标签"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2785
 msgid "Tag Name"
-msgstr ""
+msgstr "变量名称"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2808
 msgid "The Size of the Toolbar Icons is already at the Maximum Value"
@@ -2468,8 +2455,7 @@ msgid "Not Any H1, H2 or H3 Formatting Found"
 msgstr "未找到任何H1，H2或H3格式"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2950
-msgid ""
-"Automatic Syntax Highlighting Must be Disabled in order to Use This Feature"
+msgid "Automatic Syntax Highlighting Must be Disabled in order to Use This Feature"
 msgstr "自动语法高亮必须被禁止才能使用此功能"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2964
@@ -2547,3 +2533,4 @@ msgstr "文件夹链接'%s'无效"
 #, python-format
 msgid "No anchor named '%s' found"
 msgstr "未找到锚点 '%s'"
+
