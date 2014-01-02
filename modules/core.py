@@ -3801,9 +3801,9 @@ class CherryTree:
             if not match: iter_start.forward_char()
             self.curr_buffer.move_mark(self.curr_buffer.get_insert(), iter_start)
             self.curr_buffer.move_mark(self.curr_buffer.get_selection_bound(), iter_end)
-        elif self.syntax_highlighting != cons.CUSTOM_COLORS_ID: return False
         if event.type in [gtk.gdk.BUTTON_PRESS, gtk.gdk.KEY_PRESS]:
-            if self.curr_tree_iter and not self.curr_buffer.get_modified():
+            if self.syntax_highlighting == cons.CUSTOM_COLORS_ID\
+            and self.curr_tree_iter and not self.curr_buffer.get_modified():
                 self.state_machine.update_curr_state_cursor_pos(self.treestore[self.curr_tree_iter][3])
             if event.type == gtk.gdk.BUTTON_PRESS:
                 return self.on_sourceview_event_after_button_press(text_view, event)
