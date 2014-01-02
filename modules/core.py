@@ -3683,6 +3683,105 @@ class CherryTree:
             self.sourceview.get_window(gtk.TEXT_WINDOW_TEXT).set_cursor(None)
             self.sourceview.set_tooltip_text(None)
 
+    def on_sourceview_event_after_button_press(self, text_view, event):
+        """Called after every gtk.gdk.BUTTON_PRESS on the SourceView"""
+        if event.button == 1:
+            x, y = text_view.window_to_buffer_coords(gtk.TEXT_WINDOW_TEXT, int(event.x), int(event.y))
+            text_iter = self.sourceview.get_iter_at_location(x, y)
+            tags = text_iter.get_tags()
+            # check whether we are hovering a link
+            if tags:
+                for tag in tags:
+                    tag_name = tag.get_property("name")
+                    if tag_name and tag_name[0:4] == cons.TAG_LINK:
+                        self.link_clicked(tag_name[5:])
+                        return False
+            if self.lists_handler.is_list_todo_beginning(text_iter):
+                self.lists_handler.todo_list_rotate_status(text_iter)
+        elif event.button == 3 and not self.curr_buffer.get_has_selection():
+            x, y = text_view.window_to_buffer_coords(gtk.TEXT_WINDOW_TEXT, int(event.x), int(event.y))
+            text_iter = self.sourceview.get_iter_at_location(x, y)
+            self.curr_buffer.place_cursor(text_iter)
+        return False
+
+    def on_sourceview_event_after_key_press(self, text_view, event):
+        """Called after every gtk.gdk.KEY_PRESS on the SourceView"""
+        keyname = gtk.gdk.keyval_name(event.keyval)
+        if (event.state & gtk.gdk.SHIFT_MASK): # Shift held down
+            if keyname == cons.STR_RETURN:
+                self.curr_buffer.insert(self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert()), 3*cons.CHAR_SPACE)
+        elif keyname == cons.STR_RETURN:
+            iter_insert = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
+            if iter_insert == None:
+                return False
+            iter_start = iter_insert.copy()
+            if iter_start.backward_chars(2) and iter_start.get_char() == cons.CHAR_NEWLINE:
+                return False # former was an empty row
+            list_info = self.lists_handler.get_paragraph_list_info(iter_start)
+            if list_info[0] == None:
+                if self.auto_indent:
+                    iter_start = iter_insert.copy()
+                    former_line_indent = support.get_former_line_indentation(iter_start)
+                    if former_line_indent: self.curr_buffer.insert_at_cursor(former_line_indent)
+                return False # former was not a list
+            # possible list quit
+            iter_list_quit = iter_insert.copy()
+            if (list_info[0] == 0 and iter_list_quit.backward_chars(3) and iter_list_quit.get_char() == cons.CHAR_LISTBUL):
+                self.curr_buffer.delete(iter_list_quit, iter_insert)
+                return False # former was an empty paragraph => list quit
+            elif (list_info[0] == -1 and iter_list_quit.backward_chars(3) and iter_list_quit.get_char() in [cons.CHAR_LISTTODO, cons.CHAR_LISTDONEOK, cons.CHAR_LISTDONEFAIL]):
+                self.curr_buffer.delete(iter_list_quit, iter_insert)
+                return False # former was an empty paragraph => list quit
+            elif (list_info[0] > 0 and iter_list_quit.backward_chars(2) and iter_list_quit.get_char() == cons.CHAR_SPACE\
+            and iter_list_quit.backward_char() and iter_list_quit.get_char() == '.'):
+                iter_list_quit.backward_chars(len(str(list_info[0])))
+                self.curr_buffer.delete(iter_list_quit, iter_insert)
+                return False # former was an empty paragraph => list quit
+            if list_info[0] == 0: self.curr_buffer.insert(iter_insert, cons.CHAR_LISTBUL + cons.CHAR_SPACE)
+            elif list_info[0] == -1: self.curr_buffer.insert(iter_insert, cons.CHAR_LISTTODO + cons.CHAR_SPACE)
+            else:
+                curr_num = list_info[0] + 1
+                self.curr_buffer.insert(iter_insert, '%s. ' % curr_num)
+                self.lists_handler.list_adjust_ahead(curr_num, iter_insert.get_offset(), "num2num")
+        elif keyname == "space":
+            iter_insert = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
+            if iter_insert == None: return False
+            iter_start = iter_insert.copy()
+            if iter_start.backward_chars(2):
+                if iter_start.get_char() == cons.CHAR_GREATER and iter_start.backward_char()\
+                and iter_start.get_char() == cons.CHAR_MINUS and iter_start.backward_char():
+                    if iter_start.get_char() == cons.CHAR_LESSER:
+                        self.special_char_replace(cons.SPECIAL_CHAR_ARROW_DOUBLE, iter_start, iter_insert)
+                    elif iter_start.get_char() == cons.CHAR_MINUS:
+                        self.special_char_replace(cons.SPECIAL_CHAR_ARROW_RIGHT, iter_start, iter_insert)
+                elif iter_start.get_char() == cons.CHAR_MINUS and iter_start.backward_char()\
+                and iter_start.get_char() == cons.CHAR_MINUS and iter_start.backward_char()\
+                and iter_start.get_char() == cons.CHAR_LESSER:
+                    self.special_char_replace(cons.SPECIAL_CHAR_ARROW_LEFT, iter_start, iter_insert)
+                elif iter_start.get_char() == cons.CHAR_PARENTH_CLOSE and iter_start.backward_char():
+                    if iter_start.get_char().lower() == "c" and iter_start.backward_char()\
+                    and iter_start.get_char() == cons.CHAR_PARENTH_OPEN:
+                        self.special_char_replace(cons.SPECIAL_CHAR_COPYRIGHT, iter_start, iter_insert)
+                    elif iter_start.get_char().lower() == "r" and iter_start.backward_char()\
+                    and iter_start.get_char() == cons.CHAR_PARENTH_OPEN:
+                        self.special_char_replace(cons.SPECIAL_CHAR_REGISTERED_TRADEMARK, iter_start, iter_insert)
+                    elif iter_start.get_char().lower() == "m" and iter_start.backward_char()\
+                    and iter_start.get_char() == "t" and iter_start.backward_char()\
+                    and iter_start.get_char() == cons.CHAR_PARENTH_OPEN:
+                        self.special_char_replace(cons.SPECIAL_CHAR_UNREGISTERED_TRADEMARK, iter_start, iter_insert)
+                # Start bulleted list on "* " at line start
+                elif iter_start.get_char() == cons.CHAR_STAR and iter_start.get_line_offset() == 0:
+                    self.curr_buffer.delete(iter_start, iter_insert)
+                    self.lists_handler.list_bulleted_handler()
+                # Start todo list on "[ ]" at line start
+                elif iter_start.get_char() == cons.CHAR_SQ_BR_CLOSE and iter_start.backward_char()\
+                and iter_start.get_char() == cons.CHAR_SPACE and iter_start.backward_char()\
+                and iter_start.get_char() == cons.CHAR_SQ_BR_OPEN\
+                and iter_start.get_line_offset() == 0:
+                    self.curr_buffer.delete(iter_start, iter_insert)
+                    self.lists_handler.list_todo_handler()
+        return False
+
     def on_sourceview_event_after(self, text_view, event):
         """Called after every event on the SourceView"""
         if event.type == gtk.gdk._2BUTTON_PRESS and event.button == 1:
@@ -3690,7 +3789,7 @@ class CherryTree:
             iter_end = text_view.get_iter_at_location(x, y)
             iter_start = iter_end.copy()
             match = re.match('\w', iter_end.get_char(), re.UNICODE) # alphanumeric char
-            if not match: return # double-click was not upon alphanumeric
+            if not match: return False # double-click was not upon alphanumeric
             while match:
                 if not iter_end.forward_char(): break # end of buffer
                 match = re.match('\w', iter_end.get_char(), re.UNICODE) # alphanumeric char
@@ -3702,100 +3801,14 @@ class CherryTree:
             if not match: iter_start.forward_char()
             self.curr_buffer.move_mark(self.curr_buffer.get_insert(), iter_start)
             self.curr_buffer.move_mark(self.curr_buffer.get_selection_bound(), iter_end)
-        elif self.syntax_highlighting != cons.CUSTOM_COLORS_ID: return
-        if event.type == gtk.gdk.BUTTON_PRESS:
-            if event.button == 1:
-                x, y = text_view.window_to_buffer_coords(gtk.TEXT_WINDOW_TEXT, int(event.x), int(event.y))
-                text_iter = self.sourceview.get_iter_at_location(x, y)
-                tags = text_iter.get_tags()
-                # check whether we are hovering a link
-                if tags:
-                    for tag in tags:
-                        tag_name = tag.get_property("name")
-                        if tag_name and tag_name[0:4] == cons.TAG_LINK:
-                            self.link_clicked(tag_name[5:])
-                            return False
-                if self.lists_handler.is_list_todo_beginning(text_iter):
-                    self.lists_handler.todo_list_rotate_status(text_iter)
-            elif event.button == 3 and not self.curr_buffer.get_has_selection():
-                x, y = text_view.window_to_buffer_coords(gtk.TEXT_WINDOW_TEXT, int(event.x), int(event.y))
-                text_iter = self.sourceview.get_iter_at_location(x, y)
-                self.curr_buffer.place_cursor(text_iter)
-        elif event.type == gtk.gdk.KEY_PRESS:
-            keyname = gtk.gdk.keyval_name(event.keyval)
-            if (event.state & gtk.gdk.SHIFT_MASK): # Shift held down
-                if keyname == cons.STR_RETURN:
-                    self.curr_buffer.insert(self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert()), 3*cons.CHAR_SPACE)
-            elif keyname == cons.STR_RETURN:
-                iter_insert = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
-                if iter_insert == None:
-                    return False
-                iter_start = iter_insert.copy()
-                if iter_start.backward_chars(2) and iter_start.get_char() == cons.CHAR_NEWLINE:
-                    return False # former was an empty row
-                list_info = self.lists_handler.get_paragraph_list_info(iter_start)
-                if list_info[0] == None:
-                    if self.auto_indent:
-                        iter_start = iter_insert.copy()
-                        former_line_indent = support.get_former_line_indentation(iter_start)
-                        if former_line_indent: self.curr_buffer.insert_at_cursor(former_line_indent)
-                    return False # former was not a list
-                # possible list quit
-                iter_list_quit = iter_insert.copy()
-                if (list_info[0] == 0 and iter_list_quit.backward_chars(3) and iter_list_quit.get_char() == cons.CHAR_LISTBUL):
-                    self.curr_buffer.delete(iter_list_quit, iter_insert)
-                    return False # former was an empty paragraph => list quit
-                elif (list_info[0] == -1 and iter_list_quit.backward_chars(3) and iter_list_quit.get_char() in [cons.CHAR_LISTTODO, cons.CHAR_LISTDONEOK, cons.CHAR_LISTDONEFAIL]):
-                    self.curr_buffer.delete(iter_list_quit, iter_insert)
-                    return False # former was an empty paragraph => list quit
-                elif (list_info[0] > 0 and iter_list_quit.backward_chars(2) and iter_list_quit.get_char() == cons.CHAR_SPACE\
-                and iter_list_quit.backward_char() and iter_list_quit.get_char() == '.'):
-                    iter_list_quit.backward_chars(len(str(list_info[0])))
-                    self.curr_buffer.delete(iter_list_quit, iter_insert)
-                    return False # former was an empty paragraph => list quit
-                if list_info[0] == 0: self.curr_buffer.insert(iter_insert, cons.CHAR_LISTBUL + cons.CHAR_SPACE)
-                elif list_info[0] == -1: self.curr_buffer.insert(iter_insert, cons.CHAR_LISTTODO + cons.CHAR_SPACE)
-                else:
-                    curr_num = list_info[0] + 1
-                    self.curr_buffer.insert(iter_insert, '%s. ' % curr_num)
-                    self.lists_handler.list_adjust_ahead(curr_num, iter_insert.get_offset(), "num2num")
-            elif keyname == "space":
-                iter_insert = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
-                if iter_insert == None: return False
-                iter_start = iter_insert.copy()
-                if iter_start.backward_chars(2):
-                    if iter_start.get_char() == cons.CHAR_GREATER and iter_start.backward_char()\
-                    and iter_start.get_char() == cons.CHAR_MINUS and iter_start.backward_char():
-                        if iter_start.get_char() == cons.CHAR_LESSER:
-                            self.special_char_replace(cons.SPECIAL_CHAR_ARROW_DOUBLE, iter_start, iter_insert)
-                        elif iter_start.get_char() == cons.CHAR_MINUS:
-                            self.special_char_replace(cons.SPECIAL_CHAR_ARROW_RIGHT, iter_start, iter_insert)
-                    elif iter_start.get_char() == cons.CHAR_MINUS and iter_start.backward_char()\
-                    and iter_start.get_char() == cons.CHAR_MINUS and iter_start.backward_char()\
-                    and iter_start.get_char() == cons.CHAR_LESSER:
-                        self.special_char_replace(cons.SPECIAL_CHAR_ARROW_LEFT, iter_start, iter_insert)
-                    elif iter_start.get_char() == cons.CHAR_PARENTH_CLOSE and iter_start.backward_char():
-                        if iter_start.get_char().lower() == "c" and iter_start.backward_char()\
-                        and iter_start.get_char() == cons.CHAR_PARENTH_OPEN:
-                            self.special_char_replace(cons.SPECIAL_CHAR_COPYRIGHT, iter_start, iter_insert)
-                        elif iter_start.get_char().lower() == "r" and iter_start.backward_char()\
-                        and iter_start.get_char() == cons.CHAR_PARENTH_OPEN:
-                            self.special_char_replace(cons.SPECIAL_CHAR_REGISTERED_TRADEMARK, iter_start, iter_insert)
-                        elif iter_start.get_char().lower() == "m" and iter_start.backward_char()\
-                        and iter_start.get_char() == "t" and iter_start.backward_char()\
-                        and iter_start.get_char() == cons.CHAR_PARENTH_OPEN:
-                            self.special_char_replace(cons.SPECIAL_CHAR_UNREGISTERED_TRADEMARK, iter_start, iter_insert)
-                    # Start bulleted list on "* " at line start
-                    elif iter_start.get_char() == cons.CHAR_STAR and iter_start.get_line_offset() == 0:
-                        self.curr_buffer.delete(iter_start, iter_insert)
-                        self.lists_handler.list_bulleted_handler()
-                    # Start todo list on "[ ]" at line start
-                    elif iter_start.get_char() == cons.CHAR_SQ_BR_CLOSE and iter_start.backward_char()\
-                    and iter_start.get_char() == cons.CHAR_SPACE and iter_start.backward_char()\
-                    and iter_start.get_char() == cons.CHAR_SQ_BR_OPEN\
-                    and iter_start.get_line_offset() == 0:
-                        self.curr_buffer.delete(iter_start, iter_insert)
-                        self.lists_handler.list_todo_handler()
+        elif self.syntax_highlighting != cons.CUSTOM_COLORS_ID: return False
+        if event.type in [gtk.gdk.BUTTON_PRESS, gtk.gdk.KEY_PRESS]:
+            if self.curr_tree_iter and not self.curr_buffer.get_modified():
+                self.state_machine.update_cursor_pos_if_on_first_state(self.treestore[self.curr_tree_iter][3])
+            if event.type == gtk.gdk.BUTTON_PRESS:
+                return self.on_sourceview_event_after_button_press(text_view, event)
+            if event.type == gtk.gdk.KEY_PRESS:
+                return self.on_sourceview_event_after_key_press(text_view, event)
         return False
 
     def special_char_replace(self, special_char, iter_start, iter_insert):
