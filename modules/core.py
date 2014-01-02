@@ -188,7 +188,7 @@ class CherryTree:
         if self.systray:
             if not self.boss.systray_active:
                 self.status_icon_enable()
-            if self.start_on_systray: self.window.unmap()
+            if self.start_on_systray: self.window.hide()
         else: self.ui.get_widget("/MenuBar/FileMenu/ExitApp").set_property(cons.STR_VISIBLE, False)
         if not is_startup or self.reload_doc_last:
             self.file_startup_load(open_with_file, node_name)
@@ -1020,14 +1020,14 @@ class CherryTree:
                 break
         for runn_win in self.boss.running_windows:
             if do_show:
-                runn_win.window.map()
+                runn_win.window.show()
                 runn_win.window.deiconify()
                 runn_win.window.present()
                 runn_win.window.move(runn_win.win_position[0], runn_win.win_position[1])
                 #print "restored position", runn_win.win_position[0], runn_win.win_position[1]
             else:
                 runn_win.win_position = runn_win.window.get_position()
-                runn_win.window.unmap()
+                runn_win.window.hide()
 
     def on_mouse_button_clicked_systray(self, widget, event):
         """Catches mouse buttons clicks upon the system tray icon"""
@@ -2839,7 +2839,7 @@ class CherryTree:
         """Just Hide or Quit the gtk main loop"""
         if self.systray:
             self.win_position = self.window.get_position()
-            self.window.unmap()
+            self.window.hide()
         else: self.quit_application_totally()
 
     def quit_application_totally(self, *args):
