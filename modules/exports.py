@@ -688,6 +688,7 @@ class Export2Html:
 
     def html_get_from_treestore_node(self, node_iter, sel_range=None):
         """Given a treestore iter returns the HTML rich text"""
+        #print "to html node", self.dad.treestore[node_iter][1]
         curr_buffer = self.dad.treestore[node_iter][2]
         pixbuf_table_codebox_vector = self.dad.state_machine.get_embedded_pixbufs_tables_codeboxes(curr_buffer,
                                                                                                    for_print=2,
@@ -850,12 +851,15 @@ class Export2Html:
 
     def rgb_to_24(self, rgb_in):
         """Convert RRRRGGGGBBBB to RRGGBB if needed"""
+        if len(rgb_in) == 12:
+            r = int(rgb_in[:4], 16)
+            g = int(rgb_in[4:8], 16)
+            b = int(rgb_in[8:], 16)
+            r >>= 8
+            g >>= 8
+            b >>= 8
+            return "%.2x%.2x%.2x" % (r, g, b)
         if len(rgb_in) == 6: return rgb_in
-        # I expect len(rgb_in) == 12
-        r = int(rgb_in[:4], 16)
-        g = int(rgb_in[4:8], 16)
-        b = int(rgb_in[8:], 16)
-        r >>= 8
-        g >>= 8
-        b >>= 8
-        return "%.2x%.2x%.2x" % (r, g, b)
+        if len(rgb_in) == 3: return 2*rgb_in[0]+2*rgb_in[1]+2*rgb_in[2]
+        print "! rgb_to_24(%s)" % rgb_in
+        return rgb_in
