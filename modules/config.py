@@ -21,6 +21,7 @@
 
 import os, sys, ConfigParser, gtk, pango, locale, subprocess, base64, webbrowser
 import cons, support, pgsc_spellcheck
+if cons.HAS_APPINDICATOR: import appindicator
 
 ICONS_SIZE = {1: gtk.ICON_SIZE_MENU, 2: gtk.ICON_SIZE_SMALL_TOOLBAR, 3: gtk.ICON_SIZE_LARGE_TOOLBAR,
               4: gtk.ICON_SIZE_DND, 5: gtk.ICON_SIZE_DIALOG}
