@@ -2,7 +2,7 @@
 # Copyright (C) 2010 THE svn_cherrytree'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the svn_cherrytree package.
 # Giuseppe Penone <giuspen@gmail.com>, 2010.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
@@ -1547,12 +1547,11 @@ msgid "Error"
 msgstr "Fehler"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/support.py:270
-#, fuzzy
 msgid ""
 "Copyright © 2009-2014\n"
 "Giuseppe Penone <giuspen@gmail.com>"
 msgstr ""
-"Copyright © 2009-2013\n"
+"Copyright © 2009-2014\n"
 "Giuseppe Penone <giuspen@gmail.com>"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/support.py:272
@@ -2459,13 +2458,12 @@ msgid "Read Only"
 msgstr "Schreibgeschützt"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2785
-#, fuzzy
 msgid "Choose Existing Tag"
-msgstr "Vorhandenen Anker wählen"
+msgstr "Vorhandenen Tag wählen"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2785
 msgid "Tag Name"
-msgstr ""
+msgstr "Tag Name"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2808
 msgid "The Size of the Toolbar Icons is already at the Maximum Value"
