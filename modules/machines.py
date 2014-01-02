@@ -862,7 +862,7 @@ class StateMachine:
         self.nodes_indicators[node_id] = 0 # the current buffer state is saved
 
     def update_curr_state_cursor_pos(self, node_id):
-        """If the buffer is still not modified and there's only one state set, update cursor pos"""
+        """If the buffer is still not modified update cursor pos"""
         if not node_id in self.nodes_indexes: return
         curr_index = self.nodes_indexes[node_id]
         cursor_pos = self.dad.curr_buffer.get_property(cons.STR_CURSOR_POSITION)
