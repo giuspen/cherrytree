@@ -148,7 +148,9 @@ class CodeBoxesHandler:
         def on_radiobutton_codebox_pixels_toggled(radiobutton):
             if radiobutton.get_active():
                 spinbutton_width.set_value(700)
-            else: spinbutton_width.set_value(90)
+            else:
+                if spinbutton_width.get_value() > 100:
+                    spinbutton_width.set_value(90)
         dialog.connect('key_press_event', on_key_press_codeboxhandle)
         radiobutton_codebox_pixels.connect('toggled', on_radiobutton_codebox_pixels_toggled)
         response = dialog.run()
