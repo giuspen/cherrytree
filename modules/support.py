@@ -411,7 +411,7 @@ def dialog_image_handle(father_win, title, original_pixbuf):
         buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
                  gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
     dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-    dialog.set_default_size(600, 600)
+    dialog.set_default_size(600, 500)
     button_rotate_90_ccw = gtk.Button()
     button_rotate_90_ccw.set_image(gtk.image_new_from_stock("object-rotate-left", gtk.ICON_SIZE_DND))
     button_rotate_90_cw = gtk.Button()
@@ -594,7 +594,7 @@ def dialog_link_handle(dad, title, sel_tree_iter):
         buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
         gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
     dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-    dialog.set_default_size(500, 400)
+    dialog.set_default_size(600, 500)
     
     hbox_webs = gtk.HBox()
     image_webs = gtk.Image()
@@ -801,7 +801,7 @@ def dialog_choose_node(father_win, title, treestore, sel_tree_iter):
         buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
         gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
     dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-    dialog.set_default_size(400, 300)
+    dialog.set_default_size(600, 500)
     treeview_2 = gtk.TreeView(treestore)
     treeview_2.set_headers_visible(False)
     renderer_pixbuf_2 = gtk.CellRendererPixbuf()
