@@ -848,15 +848,22 @@ class StateMachine:
         """Update the state for the given node_id"""
         curr_index = self.nodes_indexes[node_id]
         last_index = len(self.nodes_vectors[node_id]) - 1
-        if curr_index != last_index: del self.nodes_vectors[node_id][curr_index+1:last_index+1]
+        if curr_index != last_index:
+            del self.nodes_vectors[node_id][curr_index+1:]
         xml_content = self.dad.xml_handler.treestore_node_to_dom(self.dad.curr_tree_iter)
         pixbuf_table_codebox_vector = self.get_embedded_pixbufs_tables_codeboxes(self.dad.curr_buffer)
         cursor_pos = self.dad.curr_buffer.get_property(cons.STR_CURSOR_POSITION)
         self.nodes_vectors[node_id].append([xml_content, pixbuf_table_codebox_vector, cursor_pos])
         num_saved_states = len(self.nodes_vectors[node_id])
-        if num_saved_states == 2: self.nodes_vectors[node_id][0][2] = cursor_pos
         while num_saved_states > self.dad.limit_undoable_steps:
             self.nodes_vectors[node_id].pop(0)
             num_saved_states -= 1
         self.nodes_indexes[node_id] = num_saved_states - 1
         self.nodes_indicators[node_id] = 0 # the current buffer state is saved
+
+    def update_cursor_pos_if_on_first_state(self, node_id):
+        """If the buffer is still not modified and there's only one state set, update cursor pos"""
+        if len(self.nodes_vectors[node_id]) == 1:
+            cursor_pos = self.dad.curr_buffer.get_property(cons.STR_CURSOR_POSITION)
+            self.nodes_vectors[node_id][0][2] = cursor_pos
+            #print "SM UPD cursor_pos", cursor_pos
