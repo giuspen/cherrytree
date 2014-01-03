@@ -3520,7 +3520,7 @@ class CherryTree:
         """Enable Spell Check"""
         if not self.spell_check_init:
             self.spell_check_init = True
-            self.spellchecker = pgsc_spellcheck.SpellChecker(self.sourceview, self, self.spell_check_lang)
+            self.spellchecker = pgsc_spellcheck.SpellChecker(self.sourceview, self, self.syntax_highlighting == cons.CUSTOM_COLORS_ID, self.spell_check_lang)
             self.combobox_spell_check_lang_init()
         else:
             self.spellchecker.enable()
