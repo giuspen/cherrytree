@@ -2402,14 +2402,15 @@ class CherryTree:
                 if anchor != None and "sourcebuffer" in dir(anchor): anchor.sourcebuffer.set_modified(False)
                 if not curr_iter.forward_char(): break
 
+    def window_title_str_get(self):
+        """Get Title string"""
+        if self.file_name: return self.file_name + " - " + self.file_dir + " - CherryTree %s" % cons.VERSION
+        return "CherryTree %s" % cons.VERSION
+
     def window_title_update(self, save_needed):
         """Update window title"""
-        if save_needed:
-            if self.file_name != "": self.window.set_title("*" + self.file_name + " - CherryTree %s" % cons.VERSION)
-            else: self.window.set_title("*CherryTree")
-        else:
-            if self.file_name != "": self.window.set_title(self.file_name + " - CherryTree %s" % cons.VERSION)
-            else: self.window.set_title("CherryTree %s" % cons.VERSION)
+        if save_needed: self.window.set_title("*" + self.window_title_str_get())
+        else: self.window.set_title(self.window_title_str_get())
 
     def replace_again(self, *args):
         """Continue the previous replace (a_node/in_selected_node/in_all_nodes)"""

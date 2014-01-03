@@ -1,4 +1,14 @@
 
+0.32.0 (January 3rd, 2014)
+• when selecting print/export to pdf there’s now an option to start new nodes in new pages
+• the links colors are now configurable
+• the wrapped lines indentation is now configurable
+• added menu item and shortcut (F8) to insert a node with the date of today in hierarchy year/month/day
+• in node properties dialog added the opportunity to insert tags choosing between the existing tags
+• F1 is now shortcut for the online manual
+• updated PowerShell syntax highlighting definition file by haven200
+• fixed several bugs
+
 0.31.5 (December 9th, 2013)
 • updated languages Dutch and Czech
 • fixed bug in pasting data from clipboard
