@@ -3523,7 +3523,8 @@ class CherryTree:
             self.combobox_spell_check_lang_init()
         else:
             self.spellchecker.enable()
-            self.spell_check_reload_on_buffer()
+            if self.syntax_highlighting == cons.CUSTOM_COLORS_ID:
+                self.spell_check_reload_on_buffer()
 
     def spell_check_set_off(self):
         """Disable Spell Check"""
