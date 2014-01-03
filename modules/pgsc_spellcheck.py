@@ -176,7 +176,7 @@ class SpellChecker(object):
                              self._filters[SpellChecker.FILTER_TEXT]),
                                                                re.MULTILINE)}
         self._enabled = True
-        self.buffer_initialize()
+        #self.buffer_initialize()
 
     @property
     def language(self):
