@@ -141,7 +141,7 @@ class SpellChecker(object):
         def move(self, location):
             self._buffer.move_mark(self._mark, location)
 
-    def __init__(self, view, cherrytree_instance, language='en', prefix='gtkspellchecker',
+    def __init__(self, view, cherrytree_instance, on_rt_node, language='en', prefix='gtkspellchecker',
                  collapse=True, params={}):
         self._view = view
         self._cherrytree_instance = cherrytree_instance
@@ -176,7 +176,7 @@ class SpellChecker(object):
                              self._filters[SpellChecker.FILTER_TEXT]),
                                                                re.MULTILINE)}
         self._enabled = True
-        #self.buffer_initialize()
+        if on_rt_node: self.buffer_initialize()
 
     @property
     def language(self):
