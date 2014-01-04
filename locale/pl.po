@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 0.30.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-12-31 19:38+0200\n"
-"PO-Revision-Date: 2013-12-24 00:45+0100\n"
+"PO-Revision-Date: 2014-01-04 23:08+0300\n"
 "Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
 "Language-Team: Polish\n"
 "Language: \n"
@@ -590,9 +590,7 @@ msgstr "Składnia dziedziczona"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:564
 #: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:696
-msgid ""
-"Change the Selected Node's Children Syntax Highlighting to the Father's "
-"Syntax Highlighting"
+msgid "Change the Selected Node's Children Syntax Highlighting to the Father's Syntax Highlighting"
 msgstr "Odziedzicz kolorowanie składni od nadrzędnej gałęzi"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:565
@@ -1545,18 +1543,15 @@ msgid "Error"
 msgstr "Błąd"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/support.py:270
-#, fuzzy
 msgid ""
 "Copyright © 2009-2014\n"
 "Giuseppe Penone <giuspen@gmail.com>"
 msgstr ""
-"Copyright © 2009-2013\n"
+"Copyright © 2009-2014\n"
 "Giuseppe Penone <giuspen@gmail.com>"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/support.py:272
-msgid ""
-"A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
-"Highlighting"
+msgid "A Hierarchical Note Taking Application, featuring Rich Text and Syntax Highlighting"
 msgstr "Strukturalny Notes. Cechy: WYSIWYG edytor oraz kolorowanie składni"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/support.py:273
@@ -1578,10 +1573,8 @@ msgid ""
 "MA 02110-1301, USA.\n"
 msgstr ""
 "\n"
-"Ten program jest wolnym oprogramowaniem; możesz go rozprowadzać dalej i / "
-"lub modyfikować \n"
-"zgodnie z warunkami licencji GNU General Public License opublikowanej "
-"przez \n"
+"Ten program jest wolnym oprogramowaniem; możesz go rozprowadzać dalej i / lub modyfikować \n"
+"zgodnie z warunkami licencji GNU General Public License opublikowanej przez \n"
 "Free Software Foundation w wersji 3 licencji lub \n"
 "(do wyboru) którejś z późniejszych wersji. \n"
 "\n"
@@ -1612,8 +1605,7 @@ msgstr ""
 "Chiński Uproszczony (zh_CN) Channing Wong <mamimoluo@gmail.com>\n"
 "Czeski (cs) Pavel Fric <fripohled@blogspot.com>\n"
 "Holenderski (nl) Patrick Vijgeboom <pj.vijgeboom@gmail.com>\n"
-"Francuski (fr) Benoît D'Angelo <benoit.dangelo@gmx.fr> (former Ludovic "
-"Troisi)\n"
+"Francuski (fr) Benoît D'Angelo <benoit.dangelo@gmx.fr> (former Ludovic Troisi)\n"
 "Niemiecki (de) Frank Brungräber <calexu@arcor.de> (former Sven Neubauer)\n"
 "Włoski (it) Giuseppe Penone <giuspen@gmail.com>\n"
 "Polski (pl) Marcin Świerczyński <orneo1212@gmail.com>\n"
@@ -1738,8 +1730,7 @@ msgstr "Dokument '%s' nie został znaleziony"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/support.py:1026
 msgid "Sort with Drag and Drop, Delete with the Delete Key"
-msgstr ""
-"Sortuj za pomocą Przytrzymaj i upuść, Usuwaj za pomocą przycisku Delete"
+msgstr "Sortuj za pomocą Przytrzymaj i upuść, Usuwaj za pomocą przycisku Delete"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/pgsc_spellcheck.py:68
 msgid "Unknown"
@@ -2213,8 +2204,7 @@ msgstr "To jest aktualna dostępna wersja"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:215
 msgid "Failed to Retrieve Latest Version Information - Try Again Later"
-msgstr ""
-"Nie udało się pobrać informacji o nowej wersji - Proszę spróbować pózniej"
+msgstr "Nie udało się pobrać informacji o nowej wersji - Proszę spróbować pózniej"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:232
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2972
@@ -2323,9 +2313,7 @@ msgid "The Characters  %s  are Not Allowed"
 msgstr "Znak %s jest niedozwolony"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1410
-msgid ""
-"Binary Executable '7za' Not Found, Check The Package 'p7zip-full' to be "
-"Installed Properly"
+msgid "Binary Executable '7za' Not Found, Check The Package 'p7zip-full' to be Installed Properly"
 msgstr "Program '7za' nie został znaleziony, Zainstaluj pakiet 'p7zip-full'"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:1416
@@ -2371,12 +2359,8 @@ msgid "Node Properties"
 msgstr "Właściwości gałęzi"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2205
-msgid ""
-"Entering the Automatic Syntax Highlighting you will Lose all Custom Colors "
-"for This Node, Do you want to Continue?"
-msgstr ""
-"Ustawienie automatycznego kolorowania składni, usunie własne formatowaniedla "
-"tej gałęzi, Czy chcesz kontynułować?"
+msgid "Entering the Automatic Syntax Highlighting you will Lose all Custom Colors for This Node, Do you want to Continue?"
+msgstr "Ustawienie automatycznego kolorowania składni, usunie własne formatowaniedla tej gałęzi, Czy chcesz kontynułować?"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2614
 msgid "Search for"
@@ -2449,13 +2433,12 @@ msgid "Read Only"
 msgstr "Tylko do odczytu"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2785
-#, fuzzy
 msgid "Choose Existing Tag"
-msgstr "Wybierz istniejącą kotwice"
+msgstr "Wybierz istniejącego znacznika"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2785
 msgid "Tag Name"
-msgstr ""
+msgstr "Nazwa tagu"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2808
 msgid "The Size of the Toolbar Icons is already at the Maximum Value"
@@ -2478,10 +2461,8 @@ msgid "Not Any H1, H2 or H3 Formatting Found"
 msgstr "Nie znaleziono żadnego H1, H2 lub H3"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2950
-msgid ""
-"Automatic Syntax Highlighting Must be Disabled in order to Use This Feature"
-msgstr ""
-"Automatyczne kolorowanie składni musi być wyłączony, aby uzyć tej funkcji"
+msgid "Automatic Syntax Highlighting Must be Disabled in order to Use This Feature"
+msgstr "Automatyczne kolorowanie składni musi być wyłączony, aby uzyć tej funkcji"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2964
 msgid "The Tree is Empty!"
@@ -2558,3 +2539,4 @@ msgstr "Link do folderu '%s' nie jest prawidłowy"
 #, python-format
 msgid "No anchor named '%s' found"
 msgstr "Brak kotwicy o nazwie '%s' "
+

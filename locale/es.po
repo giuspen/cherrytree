@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 0.9.3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-12-31 19:38+0200\n"
-"PO-Revision-Date: 2013-12-03 14:55+0100\n"
+"PO-Revision-Date: 2014-01-04 11:03+0100\n"
 "Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
 "Language-Team: Spanish <>\n"
 "Language: es\n"
@@ -1298,13 +1298,12 @@ msgid "Edit the Properties of the Selected Node"
 msgstr "Editar las propiedades del nodo seleccionado"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:651
-#, fuzzy
 msgid "Insert Today's Node"
-msgstr "Inserta Caja de Código"
+msgstr "Insertar un nodo 'Hoy'"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:651
 msgid "Insert a Node with Hierarchy Year/Month/Day"
-msgstr ""
+msgstr "Insertar un nodo con jerarquia Año/Mes/Día"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/cons.py:652
 msgid "Tree _Info"
@@ -1554,12 +1553,11 @@ msgid "Error"
 msgstr "Error"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/support.py:270
-#, fuzzy
 msgid ""
 "Copyright © 2009-2014\n"
 "Giuseppe Penone <giuspen@gmail.com>"
 msgstr ""
-"Copyright © 2009-2013\n"
+"Copyright © 2009-2014\n"
 "Giuseppe Penone <giuspen@gmail.com>"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/support.py:272
@@ -1717,7 +1715,7 @@ msgstr "Incluie nombre del nodo"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/support.py:875
 msgid "New Node in New Page"
-msgstr ""
+msgstr "Nodo nuevo en página nueva"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/support.py:935
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:910
@@ -1765,7 +1763,7 @@ msgstr "Ignorar todos"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/pgsc_spellcheck.py:453
 msgid "Languages"
-msgstr "<b>Idiomas</b>"
+msgstr "Idiomas"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/pgsc_spellcheck.py:464
 msgid "Suggestions"
@@ -1866,9 +1864,8 @@ msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
 msgstr "El enlace hace referencia a un nodo que ya no existe (Id = %s)"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:429
-#, fuzzy
 msgid "Tab Width"
-msgstr "Ancho de tabulador"
+msgstr "Ancho de pestaña"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:435
 msgid "Insert Spaces Instead of Tabs"
@@ -1879,18 +1876,16 @@ msgid "Use Line Wrapping"
 msgstr "Ajuste de línea"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:441
-#, fuzzy
 msgid "Line Wrapping Indentation"
-msgstr "Habilitar sangrado automático"
+msgstr "Indentación de ajuste de línea"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:447
 msgid "Enable Automatic Indentation"
 msgstr "Habilitar sangrado automático"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:459
-#, fuzzy
 msgid "Text Editor"
-msgstr "<b>Editor de texto</b>"
+msgstr "Editor de texto"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:469
 msgid "Timestamp Format"
@@ -1922,9 +1917,8 @@ msgid "Spell Check Language"
 msgstr "Comprobar ortografía del lenguaje"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:582
-#, fuzzy
 msgid "Spell Check"
-msgstr "Activar corrector ortográfico"
+msgstr "Corrector ortográfico"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:592
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:759
@@ -1949,7 +1943,7 @@ msgstr "y texto"
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:610
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:777
 msgid "Theme"
-msgstr ""
+msgstr "Tema"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:630
 msgid "Limit of Undoable Steps Per Node"
@@ -1980,9 +1974,8 @@ msgid "Do Not Display Nodes Icons"
 msgstr "No mostrar iconos de los nodos"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:806
-#, fuzzy
 msgid "Nodes Icons"
-msgstr "<b>Iconos de nodos</b>"
+msgstr "Iconos de nodos"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:820
 msgid "Restore Expanded/Collapsed Status"
@@ -1997,9 +1990,8 @@ msgid "Collapse all Nodes"
 msgstr "Contraer todos los nodos"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:829
-#, fuzzy
 msgid "Nodes Status at Startup"
-msgstr "<b>Estado de nodos al inicio</b>"
+msgstr "Estado de nodos al inicio"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:844
 msgid "Tree Nodes Names Wrapping Width"
@@ -2039,13 +2031,12 @@ msgid "Enable Custom Folder Link Clicked Action"
 msgstr "Acción personalizada al pinchar enlace a carpeta"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1016
-#, fuzzy
 msgid "Custom Actions"
-msgstr "Fondo personalizado"
+msgstr "Acciones personalizadas"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1072
 msgid "Colors"
-msgstr ""
+msgstr "Colores"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1083
 msgid "Anchor Size"
@@ -2064,9 +2055,8 @@ msgid "Use AppIndicator for Docking"
 msgstr "Usar AppIndictor para docking"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1155
-#, fuzzy
 msgid "System Tray"
-msgstr "<b>Bandeja de sistema</b>"
+msgstr "Bandeja de sistema"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1172
 msgid "Autosave Every"
@@ -2085,9 +2075,8 @@ msgid "Create a Backup Copy Before Saving"
 msgstr "Hacer una copia de seguridad antes de guardar"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1191
-#, fuzzy
 msgid "Saving"
-msgstr "<b>Guardar</b>"
+msgstr "Guardando"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1200
 msgid "Automatically Check for Newer Version"
@@ -2102,9 +2091,8 @@ msgid "Reload After External Update to CT* File"
 msgstr "Recargar después de actualización externa al archivo CT*"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1227
-#, fuzzy
 msgid "Language"
-msgstr "<b>Idiomas</b>"
+msgstr "Idioma"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/config.py:1319
 msgid "The New Language will be Available Only After Restarting CherryTree"
@@ -2138,9 +2126,8 @@ msgid "CherryTree Document"
 msgstr "Documento de CherryTree"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/exports.py:99
-#, fuzzy
 msgid "PDF File"
-msgstr "Enlace a un archivo"
+msgstr "Archivo PDF"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/exports.py:185
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:670
@@ -2225,7 +2212,6 @@ msgid "A Newer Version Is Available!"
 msgstr "¡Hay una nueva versión disponible!"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:212
-#, fuzzy
 msgid "You Are Using the Latest Version Available"
 msgstr "Esta es la última versión disponible"
 
@@ -2470,13 +2456,12 @@ msgid "Read Only"
 msgstr "Solo lectura"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2785
-#, fuzzy
 msgid "Choose Existing Tag"
-msgstr "Escoge un ancla existente"
+msgstr "Escoge una etiqueta existente"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2785
 msgid "Tag Name"
-msgstr ""
+msgstr "Nombre de etiqueta"
 
 #: /home/qsduser/Templates/hg_cherrytree/modules/core.py:2808
 msgid "The Size of the Toolbar Icons is already at the Maximum Value"
@@ -2580,134 +2565,3 @@ msgstr "El enlace a la carpeta '%s' no es válido"
 #, python-format
 msgid "No anchor named '%s' found"
 msgstr "No se ha encontrado un ancla llamada '%s'"
-
-#, fuzzy
-#~ msgid "Insert a Date Node"
-#~ msgstr "Inserta Caja de Código"
-
-#~ msgid "<b>Miscellaneous</b>"
-#~ msgstr "<b>Otras opciones</b>"
-
-#~ msgid "<b>Spell Check</b>"
-#~ msgstr "<b>Corrector</b>"
-
-#~ msgid "<b>Theme</b>"
-#~ msgstr "<b>Tema</b>"
-
-#~ msgid "<b>Automatic Syntax Highlighting</b>"
-#~ msgstr "<b>Resaltado automático de sintaxis</b>"
-
-#~ msgid "<b>Fonts</b>"
-#~ msgstr "<b>Fuentes</b>"
-
-#~ msgid "<b>Links</b>"
-#~ msgstr "<b>Enlaces</b>"
-
-#~ msgid "<b>Language</b>"
-#~ msgstr "<b>Idioma</b>"
-
-#, fuzzy
-#~ msgid "Insert/Edit a Link"
-#~ msgstr "Insertar/Editar _enlace"
-
-#, fuzzy
-#~ msgid "Edit a Link"
-#~ msgstr "Insertar/Editar enlace"
-
-#, fuzzy
-#~ msgid "Insert a Link"
-#~ msgstr "Insertar/Editar enlace"
-
-#~ msgid "The Anchor Name is Mandatory!"
-#~ msgstr "¡El nombre para el ancla es obligatorio!"
-
-#~ msgid "OK"
-#~ msgstr "OK"
-
-#~ msgid "<b>Type</b>"
-#~ msgstr "<b>Tipo</b>"
-
-#~ msgid "<b>WebSite URL</b>"
-#~ msgstr "<b>URL de la web</b>"
-
-#~ msgid "Browse for a File to link to"
-#~ msgstr "Buscar archivo al que enlazar"
-
-#~ msgid "<b>File/Folder Path</b>"
-#~ msgstr "<b>Ruta del archivo</b>"
-
-#~ msgid "<b>Node</b>"
-#~ msgstr "<b>Nodo</b>"
-
-#~ msgid "%"
-#~ msgstr "%"
-
-#~ msgid "<b>Size</b>"
-#~ msgstr "<b>Tamaño</b>"
-
-#~ msgid "Are you sure to Delete the node?"
-#~ msgstr "¿Seguro que quieres eliminar el nodo?"
-
-#~ msgid "     Columns  "
-#~ msgstr "     Columnas"
-
-#~ msgid "CherryTree"
-#~ msgstr "CherryTree"
-
-#~ msgid "http://www.giuspen.com/cherrytree/"
-#~ msgstr "http://www.giuspen.com/cherrytree/"
-
-#~ msgid "Undo the Latest Replace"
-#~ msgstr "Deshacer el último reemplazo"
-
-#~ msgid ""
-#~ "The Contemporary Presence of Single and Double Quotes in the File Path "
-#~ "Prevents 7za.exe to Work, Please Change the File Name"
-#~ msgstr ""
-#~ "La presencia de comillas simples o dobles en la ruta del archivo impide "
-#~ "que 7za.exe funcione.  Por favor corrige el nombre"
-
-#~ msgid "_Print / Export To PDF"
-#~ msgstr "Im_primir / Exportar a PDF"
-
-#~ msgid "<b>Node Name</b>"
-#~ msgstr "<b>Nombre del nodo</b>"
-
-#~ msgid "Insert the New Node Name..."
-#~ msgstr "Poner nombre al nuevo nodo..."
-
-#~ msgid "Insert the New Child Node Name..."
-#~ msgstr "Poner nombre al nuevo nodo hijo..."
-
-#~ msgid "Insert the New Name for the Node..."
-#~ msgstr "Escribir el nuevo nombre para el nodo..."
-
-#~ msgid "Input Dialog"
-#~ msgstr "Diálogo de entrada"
-
-#~ msgid "Expand All Nodes When Loading the Tree"
-#~ msgstr "Expandir todos los nodos al cargar el árbol"
-
-#~ msgid "<b>Rich Text</b>"
-#~ msgstr "<b>Texto enriquecido</b>"
-
-#~ msgid "Detail of Available Format Codes"
-#~ msgstr "Detalle de los códigos de formato disponibles"
-
-#~ msgid "No Node is Selected!"
-#~ msgstr "¡No hay ningún nodo seleccionado!"
-
-#~ msgid "Browse for Existing Anchors on the Selected Node"
-#~ msgstr "Explorar nodo seleccionado en busca de anclas existentes"
-
-#~ msgid "Width "
-#~ msgstr "Ancho"
-
-#~ msgid "      Height "
-#~ msgstr "      Altura"
-
-#~ msgid "Default Text Color"
-#~ msgstr "Color del texto por defecto"
-
-#~ msgid "Default Background Color"
-#~ msgstr "Color de fondo por defecto"
