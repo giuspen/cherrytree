@@ -20,7 +20,7 @@
 #       MA 02110-1301, USA.
 
 import os, sys, ConfigParser, gtk, pango, locale, subprocess, base64, webbrowser
-import cons, support, pgsc_spellcheck
+import cons, support, codeboxes, pgsc_spellcheck
 if cons.HAS_APPINDICATOR: import appindicator
 
 ICONS_SIZE = {1: gtk.ICON_SIZE_MENU, 2: gtk.ICON_SIZE_SMALL_TOOLBAR, 3: gtk.ICON_SIZE_LARGE_TOOLBAR,
@@ -703,7 +703,8 @@ def preferences_tab_text_nodes(dad, vbox_text_nodes):
     radiobutton_rt_col_custom.connect('toggled', on_radiobutton_rt_col_custom_toggled)
     def on_checkbutton_rt_show_white_spaces_toggled(checkbutton):
         dad.rt_show_white_spaces = checkbutton.get_active()
-        support.dialog_info_after_restart(dad.window)
+        if dad.syntax_highlighting == cons.CUSTOM_COLORS_ID:
+            dad.sourceview.set_draw_spaces(codeboxes.DRAW_SPACES_FLAGS if dad.rt_show_white_spaces else 0)
     checkbutton_rt_show_white_spaces.connect('toggled', on_checkbutton_rt_show_white_spaces_toggled)
     def on_spinbutton_limit_undoable_steps_value_changed(spinbutton):
         dad.limit_undoable_steps = int(spinbutton.get_value())
@@ -755,11 +756,13 @@ def preferences_tab_code_nodes(dad, vbox_code_nodes):
     combobox_style_scheme.connect('changed', on_combobox_style_scheme_changed)
     def on_checkbutton_show_white_spaces_toggled(checkbutton):
         dad.show_white_spaces = checkbutton.get_active()
-        support.dialog_info_after_restart(dad.window)
+        if dad.syntax_highlighting != cons.CUSTOM_COLORS_ID:
+            dad.sourceview.set_draw_spaces(codeboxes.DRAW_SPACES_FLAGS if dad.show_white_spaces else 0)
     checkbutton_show_white_spaces.connect('toggled', on_checkbutton_show_white_spaces_toggled)
     def on_checkbutton_highlight_current_line_toggled(checkbutton):
         dad.highl_curr_line = checkbutton.get_active()
-        support.dialog_info_after_restart(dad.window)
+        if dad.syntax_highlighting != cons.CUSTOM_COLORS_ID:
+            dad.sourceview.set_highlight_current_line(dad.highl_curr_line)
     checkbutton_highlight_current_line.connect('toggled', on_checkbutton_highlight_current_line_toggled)
 
 def preferences_tab_tree(dad, vbox_tree):
