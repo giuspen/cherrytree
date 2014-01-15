@@ -2274,12 +2274,12 @@ class CherryTree:
             self.sourceview.modify_font(pango.FontDescription(self.text_font))
             self.sourceview.modify_base(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.rt_def_bg))
             self.sourceview.modify_text(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.rt_def_fg))
-            self.sourceview.set_draw_spaces(0)
+            self.sourceview.set_draw_spaces(codeboxes.DRAW_SPACES_FLAGS if self.rt_show_white_spaces else 0)
             self.sourceview.set_highlight_current_line(False)
             if self.enable_spell_check: self.spell_check_reload_on_buffer()
         else:
             self.sourceview.modify_font(pango.FontDescription(self.code_font))
-            if self.show_white_spaces: self.sourceview.set_draw_spaces(codeboxes.DRAW_SPACES_FLAGS)
+            self.sourceview.set_draw_spaces(codeboxes.DRAW_SPACES_FLAGS if self.show_white_spaces else 0)
             if self.highl_curr_line: self.sourceview.set_highlight_current_line(True)
 
     def switch_buffer_text_source(self, text_buffer, tree_iter, new_syntax_highl):

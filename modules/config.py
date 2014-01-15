@@ -100,6 +100,7 @@ def config_file_load(inst):
         inst.line_wrapping = config.getboolean(section, "line_wrapping") if config.has_option(section, "line_wrapping") else True
         inst.wrapping_indent = config.getint(section, "wrapping_indent") if config.has_option(section, "wrapping_indent") else -14
         inst.auto_indent = config.getboolean(section, "auto_indent") if config.has_option(section, "auto_indent") else True
+        inst.rt_show_white_spaces = config.getboolean(section, "rt_show_white_spaces") if config.has_option(section, "rt_show_white_spaces") else False
         inst.show_white_spaces = config.getboolean(section, "show_white_spaces") if config.has_option(section, "show_white_spaces") else True
         inst.highl_curr_line = config.getboolean(section, "highl_curr_line") if config.has_option(section, "highl_curr_line") else True
         inst.h_rule = config.get(section, "h_rule") if config.has_option(section, "h_rule") else HORIZONTAL_RULE
@@ -226,6 +227,7 @@ def config_file_load(inst):
         inst.backup_copy = True
         inst.autosave_on_quit = False
         inst.tree_right_side = False
+        inst.rt_show_white_spaces = False
         inst.show_white_spaces = True
         inst.highl_curr_line = True
         inst.hpaned_pos = 170
@@ -320,6 +322,7 @@ def config_file_save(inst):
     config.set(section, "line_wrapping", inst.line_wrapping)
     config.set(section, "wrapping_indent", inst.wrapping_indent)
     config.set(section, "auto_indent", inst.auto_indent)
+    config.set(section, "rt_show_white_spaces", inst.rt_show_white_spaces)
     config.set(section, "show_white_spaces", inst.show_white_spaces)
     config.set(section, "highl_curr_line", inst.highl_curr_line)
     config.set(section, "h_rule", inst.h_rule)
@@ -629,6 +632,8 @@ def preferences_tab_text_nodes(dad, vbox_text_nodes):
 
     hbox_misc_text = gtk.HBox()
     hbox_misc_text.set_spacing(4)
+    checkbutton_rt_show_white_spaces = gtk.CheckButton(_("Show White Spaces"))
+    checkbutton_rt_show_white_spaces.set_active(dad.rt_show_white_spaces)
     label_limit_undoable_steps = gtk.Label(_("Limit of Undoable Steps Per Node"))
     adj_limit_undoable_steps = gtk.Adjustment(value=dad.limit_undoable_steps, lower=1, upper=10000, step_incr=1)
     spinbutton_limit_undoable_steps = gtk.SpinButton(adj_limit_undoable_steps)
@@ -637,6 +642,7 @@ def preferences_tab_text_nodes(dad, vbox_text_nodes):
     hbox_misc_text.pack_start(spinbutton_limit_undoable_steps, expand=False)
 
     vbox_misc_text = gtk.VBox()
+    vbox_misc_text.pack_start(checkbutton_rt_show_white_spaces, expand=False)
     vbox_misc_text.pack_start(hbox_misc_text, expand=False)
     frame_misc_text = gtk.Frame(label="<b>"+_("Miscellaneous")+"</b>")
     frame_misc_text.get_label_widget().set_use_markup(True)
@@ -695,6 +701,10 @@ def preferences_tab_text_nodes(dad, vbox_text_nodes):
         colorbutton_text_fg.set_sensitive(True)
         colorbutton_text_bg.set_sensitive(True)
     radiobutton_rt_col_custom.connect('toggled', on_radiobutton_rt_col_custom_toggled)
+    def on_checkbutton_rt_show_white_spaces_toggled(checkbutton):
+        dad.rt_show_white_spaces = checkbutton.get_active()
+        support.dialog_info_after_restart(dad.window)
+    checkbutton_rt_show_white_spaces.connect('toggled', on_checkbutton_rt_show_white_spaces_toggled)
     def on_spinbutton_limit_undoable_steps_value_changed(spinbutton):
         dad.limit_undoable_steps = int(spinbutton.get_value())
     spinbutton_limit_undoable_steps.connect('value-changed', on_spinbutton_limit_undoable_steps_value_changed)
@@ -727,7 +737,7 @@ def preferences_tab_code_nodes(dad, vbox_code_nodes):
     vbox_syntax.pack_start(checkbutton_show_white_spaces, expand=False)
     vbox_syntax.pack_start(checkbutton_highlight_current_line, expand=False)
 
-    frame_syntax = gtk.Frame(label="<b>"+_("Automatic Syntax Highlighting")+"</b>")
+    frame_syntax = gtk.Frame(label="<b>"+_("Code Nodes")+"</b>")
     frame_syntax.get_label_widget().set_use_markup(True)
     frame_syntax.set_shadow_type(gtk.SHADOW_NONE)
     align_syntax = gtk.Alignment()
