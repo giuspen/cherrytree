@@ -224,7 +224,7 @@ class XMLHandler:
         else: justification = cons.TAG_PROP_LEFT
         if dom_node.hasAttribute("anchor"):
             pixbuf = gtk.gdk.pixbuf_new_from_file(cons.ANCHOR_CHAR)
-            pixbuf = pixbuf.scale_simple(self.dad.anchor_size, self.dad.anchor_size, gtk.gdk.INTERP_BILINEAR)
+            pixbuf = pixbuf.scale_simple(self.dad.anchor_size, self.dad.anchor_size, gtk.gdk.INTERP_HYPER)
             pixbuf.anchor = dom_node.attributes["anchor"].value
         else:
             if version == 2: pixbuf = get_pixbuf_from_encoded_buffer(dom_node.firstChild.data)
@@ -632,7 +632,7 @@ class XMLHandler:
                 end_offset -= 1
                 start_iter = text_buffer.get_iter_at_offset(start_offset)
         pixbuf = gtk.gdk.pixbuf_new_from_file(cons.ANCHOR_CHAR)
-        pixbuf = pixbuf.scale_simple(self.dad.anchor_size, self.dad.anchor_size, gtk.gdk.INTERP_BILINEAR)
+        pixbuf = pixbuf.scale_simple(self.dad.anchor_size, self.dad.anchor_size, gtk.gdk.INTERP_HYPER)
         pixbuf.anchor = self.toc_list[-1][0]
         self.dad.image_insert(start_iter, pixbuf)
         self.dad.ctdb_handler.pending_edit_db_node_buff(node_id, force_user_active=True)
