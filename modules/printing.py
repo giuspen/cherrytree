@@ -162,17 +162,13 @@ class PrintHandler:
                             image_w_h_ration = float(pixbuf_width)/pixbuf_height
                             image_width = self.page_width
                             image_height = image_width / image_w_h_ration
-                            pixbuf = pixbuf.scale_simple(int(image_width),
-                                                         int(image_height),
-                                                         gtk.gdk.INTERP_BILINEAR)
+                            pixbuf = pixbuf.scale_simple(int(image_width), int(image_height), gtk.gdk.INTERP_HYPER)
                             pixbuf_was_resized = True
                         if pixbuf_height > self.page_height:
                             image_w_h_ration = float(pixbuf_width)/pixbuf_height
                             image_height = self.page_height
                             image_width = image_height * image_w_h_ration
-                            pixbuf = pixbuf.scale_simple(int(image_width),
-                                                         int(image_height),
-                                                         gtk.gdk.INTERP_BILINEAR)
+                            pixbuf = pixbuf.scale_simple(int(image_width), int(image_height), gtk.gdk.INTERP_HYPER)
                             pixbuf_was_resized = True
                         if pixbuf_was_resized:
                             self.pixbuf_table_codebox_vector[i][1][1] = pixbuf

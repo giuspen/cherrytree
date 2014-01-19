@@ -2881,7 +2881,7 @@ class CherryTree:
         if not self.node_sel_and_rich_text(): return
         iter_insert = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
         pixbuf = gtk.gdk.pixbuf_new_from_file(cons.ANCHOR_CHAR)
-        pixbuf = pixbuf.scale_simple(self.anchor_size, self.anchor_size, gtk.gdk.INTERP_BILINEAR)
+        pixbuf = pixbuf.scale_simple(self.anchor_size, self.anchor_size, gtk.gdk.INTERP_HYPER)
         self.anchor_edit_dialog(pixbuf, iter_insert)
 
     def anchor_edit(self, *args):
