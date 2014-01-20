@@ -39,8 +39,9 @@ class PrintData:
 class PrintHandler:
     """Handler for the CherryTree Prints"""
 
-    def __init__(self):
+    def __init__(self, dad):
         """Instantiate Variables"""
+        self.dad = dad
         self.active_prints = []
         self.settings = None
         self.page_setup = None
@@ -95,6 +96,7 @@ class PrintHandler:
         """Here we Compute the Lines Positions, the Number of Pages Needed and the Page Breaks"""
         self.page_width = context.get_width()
         self.page_height = context.get_height() * 1.02 # tolerance at bottom of the page
+        any_image_resized = False
         while 1:
             exit_ok = True
             print_data.layout = []
@@ -171,6 +173,7 @@ class PrintHandler:
                             pixbuf = pixbuf.scale_simple(int(image_width), int(image_height), gtk.gdk.INTERP_HYPER)
                             pixbuf_was_resized = True
                         if pixbuf_was_resized:
+                            any_image_resized = True
                             self.pixbuf_table_codebox_vector[i][1][1] = pixbuf
                         pixbuf_height = pixbuf.get_height() + cons.WHITE_SPACE_BETW_PIXB_AND_TEXT
                         if inline_pending_height < pixbuf_height: inline_pending_height = pixbuf_height
@@ -188,6 +191,9 @@ class PrintHandler:
                         if inline_pending_height < codebox_height+BOX_OFFSET: inline_pending_height = codebox_height+BOX_OFFSET
             if exit_ok: break
         operation.set_n_pages(len(print_data.page_breaks) + 1)
+        if any_image_resized:
+            self.dad.statusbar.pop(self.dad.statusbar_context_id)
+            self.dad.statusbar.push(self.dad.statusbar_context_id, _("Warning: One or More Images Were Resized to Fit %sx%s") % (int(self.page_width), int(self.page_height)))
 
     def on_draw_page_text(self, operation, context, page_nr, print_data):
         """This Function is Called For Each Page Set in on_begin_print_text"""

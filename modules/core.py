@@ -46,7 +46,7 @@ class CherryTree:
         self.html_handler = exports.Export2Html(self)
         self.find_handler = findreplace.FindReplace(self)
         self.ctdb_handler = ctdb.CTDBHandler(self)
-        self.print_handler = printing.PrintHandler()
+        self.print_handler = printing.PrintHandler(self)
         # icon factory
         factory = gtk.IconFactory()
         for filename in cons.STOCKS_N_FILES:
