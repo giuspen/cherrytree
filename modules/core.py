@@ -1187,9 +1187,9 @@ class CherryTree:
             else:
                 if first_write:
                     if not exporting:
-                        if "db" in dir(self): self.db_old = self.db
+                        if "db" in dir(self) and self.db: self.db_old = self.db
                         self.db = self.ctdb_handler.new_db(filepath_tmp)
-                        if "db_old" in dir(self):
+                        if "db_old" in dir(self) and self.db_old:
                             self.db_old.close()
                             del self.db_old
                     elif exporting in ["a", "s", "n"]:
@@ -1202,9 +1202,9 @@ class CherryTree:
             else:
                 if first_write:
                     if not exporting:
-                        if "db" in dir(self): self.db_old = self.db
+                        if "db" in dir(self) and self.db: self.db_old = self.db
                         self.db = self.ctdb_handler.new_db(filepath)
-                        if "db_old" in dir(self):
+                        if "db_old" in dir(self) and self.db_old:
                             self.db_old.close()
                             del self.db_old
                     elif exporting in ["a", "s", "n"]:
@@ -1449,7 +1449,11 @@ class CherryTree:
         if filepath[-1] in ["z", "x"]:
             password_protected = True
             password_str = self.dialog_insert_password(os.path.basename(filepath))
-            if not password_str: return None
+            if not password_str:
+                if self.tree_is_empty():
+                    self.file_name = ""
+                    self.password = None
+                return None
             if main_file: self.password = password_str
             if not self.is_7za_available(): return None
             if cons.IS_WIN_OS:
