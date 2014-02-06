@@ -200,7 +200,8 @@ class TuxCardsHandler(HTMLParser.HTMLParser):
                 if len(link_url) > 7:
                     self.curr_attributes[cons.TAG_LINK] = get_internal_link_from_http_url(link_url)
             elif tag == "img" and len(attrs) > 0:
-                img_path = attrs[0][1]
+                dic_attrs = dict(a for a in attrs)
+                img_path = dic_attrs.get('src', "")
                 if os.path.isfile(img_path):
                     pixbuf = gtk.gdk.pixbuf_new_from_file(img_path)
                     self.pixbuf_vector.append([self.chars_counter, pixbuf, cons.TAG_PROP_LEFT])
@@ -1915,7 +1916,8 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
                     self.rich_text_serialize("%s. " % self.curr_list_type[1])
                     self.curr_list_type[1] += 1
             elif tag == "img" and len(attrs) > 0:
-                img_path = attrs[0][1]
+                dic_attrs = dict(a for a in attrs)
+                img_path = dic_attrs.get('src', "")
                 self.insert_image(img_path)
             elif tag == "pre": self.pre_tag = "p"
         elif self.curr_state == 2:
@@ -1933,7 +1935,8 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
                         break
                 if tag == "th": self.curr_table_header = True
             elif tag == "img" and len(attrs) > 0:
-                img_path = attrs[0][1]
+                dic_attrs = dict(a for a in attrs)
+                img_path = dic_attrs.get('src', "")
                 self.insert_image(img_path, cons.CHAR_NEWLINE*2)
             elif tag == "br": self.curr_cell += cons.CHAR_NEWLINE
             elif tag == "ol": self.curr_list_type = ["o", 1]
