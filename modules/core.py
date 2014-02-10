@@ -670,7 +670,7 @@ class CherryTree:
             filter_name=_("HTML Document"),
             curr_folder=self.file_dir, parent=self.window)
         if not filepath: return
-        html = imports.HTMLHandler()
+        html = imports.HTMLHandler(self)
         cherrytree_string = html.get_cherrytree_xml(filepath=filepath)
         self.nodes_add_from_cherrytree_data(cherrytree_string)
 
@@ -678,7 +678,7 @@ class CherryTree:
         """Add Nodes from HTML File(s) in Selected Folder"""
         folderpath = support.dialog_folder_select(curr_folder=self.file_dir, parent=self.window)
         if not folderpath: return
-        html = imports.HTMLHandler()
+        html = imports.HTMLHandler(self)
         cherrytree_string = html.get_cherrytree_xml(folderpath=folderpath)
         self.nodes_add_from_cherrytree_data(cherrytree_string)
 
