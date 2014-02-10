@@ -1828,7 +1828,7 @@ class HTMLHandler(HTMLParser.HTMLParser):
         for tag_property in cons.TAG_PROPERTIES:
             if self.curr_attributes[tag_property] != "":
                 dom_iter.setAttribute(tag_property, self.curr_attributes[tag_property])
-        self.curr_dom_slot.appendChild(dom_iter)
+        self.nodes_list[-1].appendChild(dom_iter)
         text_iter = self.dom.createTextNode(text_data)
         dom_iter.appendChild(text_iter)
 
@@ -1960,7 +1960,7 @@ class HTMLHandler(HTMLParser.HTMLParser):
             pixbuf_loader.write(image_file)
             pixbuf_loader.close()
             pixbuf = pixbuf_loader.get_pixbuf()
-            self.dad.xml_handler.pixbuf_element_to_xml([0, pixbuf, cons.TAG_PROP_LEFT], self.curr_dom_slot, self.dom)
+            self.dad.xml_handler.pixbuf_element_to_xml([0, pixbuf, cons.TAG_PROP_LEFT], self.nodes_list[-1], self.dom)
             self.dad.statusbar.pop(self.dad.statusbar_context_id)
             if trailing_chars: self.rich_text_serialize(trailing_chars)
         except:
@@ -2034,7 +2034,7 @@ class HTMLHandler(HTMLParser.HTMLParser):
                         'show_line_numbers': False,
                         'fill_text': text_inside_codebox
                         }
-                        self.dad.xml_handler.codebox_element_to_xml([0, codebox_dict, cons.TAG_PROP_LEFT], self.curr_dom_slot)
+                        self.dad.xml_handler.codebox_element_to_xml([0, codebox_dict, cons.TAG_PROP_LEFT], self.nodes_list[-1])
                     else: print "empty codebox skip"
                 else:
                     # it's a table
@@ -2043,7 +2043,7 @@ class HTMLHandler(HTMLParser.HTMLParser):
                     table_dict = {'col_min': cons.TABLE_DEFAULT_COL_MIN,
                                   'col_max': cons.TABLE_DEFAULT_COL_MAX,
                                   'matrix': self.curr_table}
-                    self.dad.xml_handler.table_element_to_xml([0, table_dict, cons.TAG_PROP_LEFT], self.curr_dom_slot)
+                    self.dad.xml_handler.table_element_to_xml([0, table_dict, cons.TAG_PROP_LEFT], self.nodes_list[-1])
                 self.rich_text_serialize(cons.CHAR_NEWLINE)
             elif tag in ["p", "li"]: self.curr_cell += cons.CHAR_NEWLINE
 
@@ -2071,10 +2071,15 @@ class HTMLHandler(HTMLParser.HTMLParser):
     def get_clipboard_selection_xml(self, input_string):
         """Parses the Given HTML String feeding the XML dom"""
         self.dom = xml.dom.minidom.Document()
-        root = self.dom.createElement("root")
-        self.dom.appendChild(root)
-        self.curr_dom_slot = self.dom.createElement("slot")
-        root.appendChild(self.curr_dom_slot)
+        self.nodes_list = [self.dom.createElement("root")]
+        self.dom.appendChild(self.nodes_list[0])
+        self.nodes_list.append(self.dom.createElement("slot"))
+        self.nodes_list[0].appendChild(self.nodes_list[-1])
+        self.boot_n_feed(input_string)
+        return self.dom.toxml()
+
+    def boot_n_feed(self, input_string):
+        """Init variables and start feed"""
         self.curr_state = 0
         self.curr_attributes = {}
         for tag_property in cons.TAG_PROPERTIES: self.curr_attributes[tag_property] = ""
@@ -2094,7 +2099,6 @@ class HTMLHandler(HTMLParser.HTMLParser):
         #print input_string
         #print "###############"
         self.feed(input_string)
-        return self.dom.toxml()
 
     def add_folder(self, folderpath):
         """Add nodes from plain text files in a Folder"""
