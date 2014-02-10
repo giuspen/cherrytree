@@ -670,20 +670,17 @@ class CherryTree:
             filter_name=_("HTML Document"),
             curr_folder=self.file_dir, parent=self.window)
         if not filepath: return
-        try:
-            file_descriptor = open(filepath, 'r')
-            html_string = file_descriptor.read()
-            file_descriptor.close()
-        except:
-            support.dialog_error("Error importing the file %s" % filepath, self.window)
-            raise
-        html_import = imports.HTMLFromClipboardHandler(self)
-        xml_string = html_import.get_clipboard_selection_xml(html_string)
-        self.clipboard_handler.from_xml_string_to_buffer(xml_string)
+        html = imports.HTMLHandler()
+        cherrytree_string = html.get_cherrytree_xml(filepath=filepath)
+        self.nodes_add_from_cherrytree_data(cherrytree_string)
 
     def nodes_add_from_html_folder(self, action):
         """Add Nodes from HTML File(s) in Selected Folder"""
-        pass
+        folderpath = support.dialog_folder_select(curr_folder=self.file_dir, parent=self.window)
+        if not folderpath: return
+        html = imports.HTMLHandler()
+        cherrytree_string = html.get_cherrytree_xml(folderpath=folderpath)
+        self.nodes_add_from_cherrytree_data(cherrytree_string)
 
     def nodes_add_from_plain_text_file(self, action):
         """Add Nodes from Selected Plain Text File"""

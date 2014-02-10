@@ -1545,7 +1545,7 @@ class PlainTextHandler:
         self.rich_text_serialize(file_content)
 
     def get_cherrytree_xml(self, filepath="", folderpath=""):
-        """Returns a CherryTree string Containing the Mempad Nodes"""
+        """Returns a CherryTree string Containing the Plain Text Nodes"""
         self.dom = xml.dom.minidom.Document()
         self.nodes_list = [self.dom.createElement(cons.APP_NAME)]
         self.dom.appendChild(self.nodes_list[0])
@@ -1813,7 +1813,7 @@ class NotecaseHandler(HTMLParser.HTMLParser):
         return self.dom.toxml()
 
 
-class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
+class HTMLHandler(HTMLParser.HTMLParser):
     """The Handler of the HTML received from clipboard"""
 
     def __init__(self, dad):
@@ -2094,6 +2094,57 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
         #print input_string
         #print "###############"
         self.feed(input_string)
+        return self.dom.toxml()
+
+    def add_folder(self, folderpath):
+        """Add nodes from plain text files in a Folder"""
+        for element in sorted(os.listdir(folderpath)):
+            full_element = os.path.join(folderpath, element)
+            if os.path.isfile(full_element):
+                gio_file = gio.File(full_element)
+                gio_file_info = gio_file.query_info("*")
+                if not cons.IS_WIN_OS:
+                    mime_types = str(gio_file_info.get_icon())
+                    if "text-" in mime_types:
+                        self.add_file(full_element)
+                else:
+                    mime_type = gio_file_info.get_content_type()
+                    if mime_type in [".txt", ".TXT"]:
+                        self.add_file(full_element)
+            elif os.path.isdir(full_element):
+                self.add_node_with_content(full_element, "")
+                self.add_folder(full_element)
+                self.nodes_list.pop()
+
+    def add_file(self, filepath):
+        """Add node from one plain text File"""
+        file_content = ""
+        try:
+            file_descriptor = open(filepath, 'r')
+            file_content = file_descriptor.read()
+            file_descriptor.close()
+            file_content = unicode(file_content, cons.STR_UTF8, cons.STR_IGNORE)
+        except:
+            print "skip import of", filepath
+            return
+        self.add_node_with_content(filepath, file_content)
+        self.nodes_list.pop()
+
+    def add_node_with_content(self, filepath, file_content=""):
+        """Append Node and Fill Content"""
+        self.nodes_list.append(self.dom.createElement("node"))
+        self.nodes_list[-1].setAttribute("name", os.path.basename(filepath))
+        self.nodes_list[-1].setAttribute("prog_lang", cons.CUSTOM_COLORS_ID)
+        self.nodes_list[-2].appendChild(self.nodes_list[-1])
+        if file_content: self.rich_text_serialize(file_content)
+
+    def get_cherrytree_xml(self, filepath="", folderpath=""):
+        """Returns a CherryTree string Containing the Plain Text Nodes"""
+        self.dom = xml.dom.minidom.Document()
+        self.nodes_list = [self.dom.createElement(cons.APP_NAME)]
+        self.dom.appendChild(self.nodes_list[0])
+        if filepath: self.add_file(filepath)
+        else: self.add_folder(folderpath)
         return self.dom.toxml()
 
 
