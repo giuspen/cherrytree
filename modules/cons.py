@@ -384,6 +384,8 @@ UI_INFO = """
             <menuitem action='FromCherryTree'/>
             <menuitem action='FromTxtFile'/>
             <menuitem action='FromTxtFolder'/>
+            <menuitem action='FromHtmlFile'/>
+            <menuitem action='FromHtmlFolder'/>
             <menuitem action='FromBasket'/>
             <menuitem action='FromGnote'/>
             <menuitem action='FromKeepNote'/>
@@ -605,6 +607,8 @@ def get_entries(inst):
     ( "FromCherryTree", "from_cherrytree", _("From _CherryTree File"), None, _("Add Nodes of a CherryTree File to the Current Tree"), inst.nodes_add_from_cherrytree_file),
     ( "FromTxtFile", "from_txt", _("From _Plain Text File"), None, _("Add Node from a Plain Text File to the Current Tree"), inst.nodes_add_from_plain_text_file),
     ( "FromTxtFolder", "from_txt", _("From _Folder of Plain Text Files"), None, _("Add Nodes from a Folder of Plain Text Files to the Current Tree"), inst.nodes_add_from_plain_text_folder),
+    ( "FromHtmlFile", "from_html", _("From _HTML File"), None, _("Add Node from an HTML File to the Current Tree"), inst.nodes_add_from_html_file),
+    ( "FromHtmlFolder", "from_html", _("From _Folder of HTML Files"), None, _("Add Nodes from a Folder of HTML Files to the Current Tree"), inst.nodes_add_from_html_folder),
     ( "FromBasket", STR_STOCK_CT_IMP, _("From _Basket Folder"), None, _("Add Nodes of a Basket Folder to the Current Tree"), inst.nodes_add_from_basket_folder),
     ( "FromGnote", STR_STOCK_CT_IMP, _("From _Gnote Folder"), None, _("Add Nodes of a Gnote Folder to the Current Tree"), inst.nodes_add_from_gnote_folder),
     ( "FromKeepNote", STR_STOCK_CT_IMP, _("From _KeepNote Folder"), None, _("Add Nodes of a KeepNote Folder to the Current Tree"), inst.nodes_add_from_keepnote_folder),
@@ -672,6 +676,8 @@ def get_popup_menu_tree(inst):
     ("from_cherrytree", _("From _CherryTree File"), None, _("Add Nodes of a CherryTree File to the Current Tree"), inst.nodes_add_from_cherrytree_file),
     ("from_txt", _("From _Plain Text File"), None, _("Add Node from a Plain Text File to the Current Tree"), inst.nodes_add_from_plain_text_file),
     ("from_txt", _("From _Folder of Plain Text Files"), None, _("Add Nodes from a Folder of Plain Text Files to the Current Tree"), inst.nodes_add_from_plain_text_folder),
+    ("from_html", _("From _HTML File"), None, _("Add Node from an HTML File to the Current Tree"), inst.nodes_add_from_html_file),
+    ("from_html", _("From _Folder of HTML Files"), None, _("Add Nodes from a Folder of HTML Files to the Current Tree"), inst.nodes_add_from_html_folder),
     (STR_STOCK_CT_IMP, _("From _Basket Folder"), None, _("Add Nodes of a Basket Folder to the Current Tree"), inst.nodes_add_from_basket_folder),
     (STR_STOCK_CT_IMP, _("From _Gnote Folder"), None, _("Add Nodes of a Gnote Folder to the Current Tree"), inst.nodes_add_from_gnote_folder),
     (STR_STOCK_CT_IMP, _("From _KeepNote Folder"), None, _("Add Nodes of a KeepNote Folder to the Current Tree"), inst.nodes_add_from_keepnote_folder),

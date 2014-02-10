@@ -321,7 +321,7 @@ def dialog_choose_element_in_list(father_win, title, elements_list, column_title
         buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
                  gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
     dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-    dialog.set_default_size(400, 200)
+    dialog.set_default_size(400, 300)
     scrolledwindow = gtk.ScrolledWindow()
     scrolledwindow.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
     elements_liststore = gtk.ListStore(str)

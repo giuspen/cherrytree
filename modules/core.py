@@ -663,13 +663,35 @@ class CherryTree:
             self.nodes_add_from_cherrytree_data(cherrytree_string)
         else: support.dialog_error("%s is not a basket folder" % folderpath, self.window)
 
+    def nodes_add_from_html_file(self, action):
+        """Add Nodes from Selected HTML File"""
+        filepath = support.dialog_file_select(filter_pattern=["*.html", "*.HTML", "*.htm", "*.HTM"] if cons.IS_WIN_OS else [],
+            filter_mime=["text/html"] if not cons.IS_WIN_OS else [],
+            filter_name=_("HTML Document"),
+            curr_folder=self.file_dir, parent=self.window)
+        if not filepath: return
+        try:
+            file_descriptor = open(filepath, 'r')
+            html_string = file_descriptor.read()
+            file_descriptor.close()
+        except:
+            support.dialog_error("Error importing the file %s" % filepath, self.window)
+            raise
+        html_import = imports.HTMLFromClipboardHandler(self)
+        xml_string = html_import.get_clipboard_selection_xml(html_string)
+        self.clipboard_handler.from_xml_string_to_buffer(xml_string)
+
+    def nodes_add_from_html_folder(self, action):
+        """Add Nodes from HTML File(s) in Selected Folder"""
+        pass
+
     def nodes_add_from_plain_text_file(self, action):
-        """Add Nodes from Selected Plain Text File(s)"""
+        """Add Nodes from Selected Plain Text File"""
         filepath = support.dialog_file_select(filter_pattern=["*.txt", "*.TXT"] if cons.IS_WIN_OS else [],
-                                              filter_mime=["text/*"] if not cons.IS_WIN_OS else [],
-                                              filter_name=_("Plain Text Document"),
-                                              curr_folder=self.file_dir, parent=self.window)
-        if filepath == None: return
+            filter_mime=["text/*"] if not cons.IS_WIN_OS else [],
+            filter_name=_("Plain Text Document"),
+            curr_folder=self.file_dir, parent=self.window)
+        if not filepath: return
         plain = imports.PlainTextHandler()
         cherrytree_string = plain.get_cherrytree_xml(filepath=filepath)
         self.nodes_add_from_cherrytree_data(cherrytree_string)
@@ -677,7 +699,7 @@ class CherryTree:
     def nodes_add_from_plain_text_folder(self, action):
         """Add Nodes from Plain Text File(s) in Selected Folder"""
         folderpath = support.dialog_folder_select(curr_folder=self.file_dir, parent=self.window)
-        if folderpath == None: return
+        if not folderpath: return
         plain = imports.PlainTextHandler()
         cherrytree_string = plain.get_cherrytree_xml(folderpath=folderpath)
         self.nodes_add_from_cherrytree_data(cherrytree_string)
