@@ -199,7 +199,7 @@ STOCKS_N_FILES = [
 'format_text_latest.png', 'format_text_clear.png', 'format_text.png',
 'object-rotate-left.png', 'object-rotate-right.png',
 'to_pdf.png', 'to_txt.png', 'to_html.png', 'to_cherrytree.png', 'export_from_cherrytree.png', STR_STOCK_CT_IMP + '.png',
-'from_cherrytree.png', 'from_txt.png', 'cherrytree.png', 'quit-app.png',
+'from_cherrytree.png', 'from_txt.png', 'from_html.png', 'cherrytree.png', 'quit-app.png',
 'new-instance.png', 'toolbar.png', 'cherries.png', 'tree-node-add.png',
 'tree-subnode-add.png', 'help-contents.png', 'index.png', 'timestamp.png',
 'calendar.png', 'horizontal_rule.png']
