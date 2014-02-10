@@ -2108,12 +2108,12 @@ class HTMLHandler(HTMLParser.HTMLParser):
                 gio_file = gio.File(full_element)
                 gio_file_info = gio_file.query_info("*")
                 if not cons.IS_WIN_OS:
-                    mime_types = str(gio_file_info.get_icon())
-                    if "text-" in mime_types:
+                    mime_types = str(gio_file_info.get_icon()).lower()
+                    if "html" in mime_types:
                         self.add_file(full_element)
                 else:
                     mime_type = gio_file_info.get_content_type()
-                    if mime_type in [".txt", ".TXT"]:
+                    if mime_type in [".html", ".HTML", ".htm", ".HTM"]:
                         self.add_file(full_element)
             elif os.path.isdir(full_element):
                 self.add_node_with_content(full_element, "")
@@ -2131,10 +2131,11 @@ class HTMLHandler(HTMLParser.HTMLParser):
         except:
             print "skip import of", filepath
             return
-        self.add_node_with_content(filepath, file_content)
+        self.add_node_with_content(filepath, "")
+        self.boot_n_feed(file_content)
         self.nodes_list.pop()
 
-    def add_node_with_content(self, filepath, file_content=""):
+    def add_node_with_content(self, filepath, file_content):
         """Append Node and Fill Content"""
         self.nodes_list.append(self.dom.createElement("node"))
         self.nodes_list[-1].setAttribute("name", os.path.basename(filepath))
