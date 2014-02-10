@@ -260,7 +260,7 @@ class ClipboardHandler:
         #print "###########################"
         #for char in selection_data: print ord(char)
         selection_data = re.sub(cons.BAD_CHARS, "", selection_data)
-        html_import = imports.HTMLFromClipboardHandler(self.dad)
+        html_import = imports.HTMLHandler(self.dad)
         xml_string = html_import.get_clipboard_selection_xml(selection_data)
         self.from_xml_string_to_buffer(xml_string)
 
