@@ -1866,23 +1866,25 @@ class HTMLFromClipboardHandler(HTMLParser.HTMLParser):
                         for attribute in attributes:
                             #print "attribute", attribute
                             match = re.match("(?<=^)(.+):(.+)(?=$)", attribute)
-                            if match != None:
-                                if match.group(1) == "color":
-                                    attribute = self.get_rgb_gtk_attribute(match.group(2).strip())
+                            if match is not None:
+                                attr_name = match.group(1).strip().lower()
+                                attr_value = match.group(2).strip().lower()
+                                if attr_name == "color":
+                                    attribute = self.get_rgb_gtk_attribute(attr_value)
                                     if attribute:
                                         self.curr_attributes[cons.TAG_FOREGROUND] = attribute
                                         self.latest_span.append(cons.TAG_FOREGROUND)
-                                elif match.group(1) in [cons.TAG_BACKGROUND, "background-color"]:
-                                    attribute = self.get_rgb_gtk_attribute(match.group(2).strip())
+                                elif attr_name in [cons.TAG_BACKGROUND, "background-color"]:
+                                    attribute = self.get_rgb_gtk_attribute(attr_value)
                                     if attribute:
                                         self.curr_attributes[cons.TAG_BACKGROUND] = attribute
                                         self.latest_span.append(cons.TAG_BACKGROUND)
-                                elif match.group(1) == "text-decoration":
-                                    if match.group(2).strip() in [cons.TAG_UNDERLINE, "underline;"]:
+                                elif attr_name == "text-decoration":
+                                    if attr_value in [cons.TAG_UNDERLINE, "underline;"]:
                                         self.curr_attributes[cons.TAG_UNDERLINE] = cons.TAG_PROP_SINGLE
                                         self.latest_span.append(cons.TAG_UNDERLINE)
-                                elif match.group(1) == "font-weight":
-                                    if match.group(2).strip() in ["bolder", "700"]:
+                                elif attr_name == "font-weight":
+                                    if attr_value in ["bold", "bolder", "700"]:
                                         self.curr_attributes[cons.TAG_WEIGHT] = cons.TAG_PROP_HEAVY
                                         self.latest_span.append(cons.TAG_WEIGHT)
             elif tag == "font":
