@@ -1964,7 +1964,10 @@ class HTMLHandler(HTMLParser.HTMLParser):
             self.dad.statusbar.pop(self.dad.statusbar_context_id)
             if trailing_chars: self.rich_text_serialize(trailing_chars)
         except:
-            print "failed download of", img_path
+            if os.path.isfile(os.path.join(self.local_dir, img_path)):
+                pixbuf = gtk.gdk.pixbuf_new_from_file(os.path.join(self.local_dir, img_path))
+                self.dad.xml_handler.pixbuf_element_to_xml([0, pixbuf, cons.TAG_PROP_LEFT], self.nodes_list[-1], self.dom)
+            else: print "failed download of", img_path
             self.dad.statusbar.pop(self.dad.statusbar_context_id)
 
     def handle_endtag(self, tag):
@@ -2075,12 +2078,13 @@ class HTMLHandler(HTMLParser.HTMLParser):
         self.dom.appendChild(self.nodes_list[0])
         self.nodes_list.append(self.dom.createElement("slot"))
         self.nodes_list[0].appendChild(self.nodes_list[-1])
-        self.boot_n_feed(input_string)
+        self.boot_n_feed(input_string, "")
         return self.dom.toxml()
 
-    def boot_n_feed(self, input_string):
+    def boot_n_feed(self, input_string, local_dir):
         """Init variables and start feed"""
         self.curr_state = 0
+        self.local_dir = local_dir
         self.curr_attributes = {}
         for tag_property in cons.TAG_PROPERTIES: self.curr_attributes[tag_property] = ""
         self.latest_span = []
@@ -2132,7 +2136,7 @@ class HTMLHandler(HTMLParser.HTMLParser):
             print "skip import of", filepath
             return
         self.add_node_with_content(filepath, "")
-        self.boot_n_feed(file_content)
+        self.boot_n_feed(file_content, os.path.dirname(filepath))
         self.nodes_list.pop()
 
     def add_node_with_content(self, filepath, file_content):
