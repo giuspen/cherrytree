@@ -2167,14 +2167,12 @@ class HTMLCheck(HTMLParser.HTMLParser):
     def handle_starttag(self, tag, attrs):
         """Encountered the beginning of a tag"""
         if tag == "html" and self.steps == 0: self.steps = 1
-        elif tag == "head" and self.steps == 1: self.steps = 2
-        elif tag == "title" and self.steps == 2: self.steps = 3
+        elif tag == "head" and self.steps == 1: self.steps = 4
         elif tag == "body" and self.steps == 5: self.steps = 6
 
     def handle_endtag(self, tag):
         """Encountered the end of a tag"""
-        if tag == "title" and self.steps == 3: self.steps = 4
-        elif tag == "head" and self.steps == 4: self.steps = 5
+        if tag == "head" and self.steps == 4: self.steps = 5
         elif tag == "body" and self.steps == 6: self.steps = 7
         if tag == "html" and self.steps == 7: self.steps = 8
 
