@@ -1316,10 +1316,46 @@ class CherryTree:
 
     def filepath_open(self, filepath, force_reset=False):
         """Opens an existing filepath"""
+        config.get_tree_expanded_collapsed_string(self)
+        old_file_name = self.file_name
+        old_exp_coll_str = self.expanded_collapsed_string
         if not self.reset(force_reset): return
+        new_file_name = os.path.basename(filepath)
+        if new_file_name != old_file_name:
+            if new_file_name == self.expcollnam1:
+                self.expanded_collapsed_string = self.expcollstr1
+                self.expcollnam1 = old_file_name
+                self.expcollstr1 = old_exp_coll_str
+            elif new_file_name == self.expcollnam2:
+                self.expanded_collapsed_string = self.expcollstr2
+                self.expcollnam2 = old_file_name
+                self.expcollstr2 = old_exp_coll_str
+            elif new_file_name == self.expcollnam3:
+                self.expanded_collapsed_string = self.expcollstr3
+                self.expcollnam3 = old_file_name
+                self.expcollstr3 = old_exp_coll_str
+            else:
+                self.expanded_collapsed_string = ""
+                if not self.expcollnam1 or self.expcollnam1 == old_file_name:
+                    self.expcollnam1 = old_file_name
+                    self.expcollstr1 = old_exp_coll_str
+                elif not self.expcollnam2 or self.expcollnam2 == old_file_name:
+                    self.expcollnam2 = old_file_name
+                    self.expcollstr2 = old_exp_coll_str
+                elif not self.expcollnam3 or self.expcollnam3 == old_file_name:
+                    self.expcollnam3 = old_file_name
+                    self.expcollstr3 = old_exp_coll_str
+                else:
+                    self.expcollnam3 = self.expcollnam2
+                    self.expcollstr3 = self.expcollstr2
+                    self.expcollnam2 = self.expcollnam1
+                    self.expcollstr2 = self.expcollstr1
+                    self.expcollnam1 = old_file_name
+                    self.expcollstr1 = old_exp_coll_str
         self.file_load(filepath)
         self.modification_time_update_value(True)
         if self.rest_exp_coll == 1: self.treeview.expand_all()
+        elif self.rest_exp_coll == 0: config.set_tree_expanded_collapsed_string(self)
         first_node_iter = self.treestore.get_iter_first()
         if first_node_iter != None:
             self.treeview.set_cursor(self.treestore.get_path(first_node_iter))
