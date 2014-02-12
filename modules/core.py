@@ -1336,22 +1336,7 @@ class CherryTree:
                 self.expcollstr3 = old_exp_coll_str
             else:
                 self.expanded_collapsed_string = ""
-                if not self.expcollnam1 or self.expcollnam1 == old_file_name:
-                    self.expcollnam1 = old_file_name
-                    self.expcollstr1 = old_exp_coll_str
-                elif not self.expcollnam2 or self.expcollnam2 == old_file_name:
-                    self.expcollnam2 = old_file_name
-                    self.expcollstr2 = old_exp_coll_str
-                elif not self.expcollnam3 or self.expcollnam3 == old_file_name:
-                    self.expcollnam3 = old_file_name
-                    self.expcollstr3 = old_exp_coll_str
-                else:
-                    self.expcollnam3 = self.expcollnam2
-                    self.expcollstr3 = self.expcollstr2
-                    self.expcollnam2 = self.expcollnam1
-                    self.expcollstr2 = self.expcollstr1
-                    self.expcollnam1 = old_file_name
-                    self.expcollstr1 = old_exp_coll_str
+                self.memory_save_old_file_props(old_file_name, old_exp_coll_str)
         self.file_load(filepath)
         self.modification_time_update_value(True)
         if self.rest_exp_coll == 1: self.treeview.expand_all()
@@ -1360,6 +1345,25 @@ class CherryTree:
         if first_node_iter != None:
             self.treeview.set_cursor(self.treestore.get_path(first_node_iter))
             self.sourceview.grab_focus()
+
+    def memory_save_old_file_props(self, old_file_name, old_exp_coll_str):
+        """Store properties of file that was just closed"""
+        if not self.expcollnam1 or self.expcollnam1 == old_file_name:
+            self.expcollnam1 = old_file_name
+            self.expcollstr1 = old_exp_coll_str
+        elif not self.expcollnam2 or self.expcollnam2 == old_file_name:
+            self.expcollnam2 = old_file_name
+            self.expcollstr2 = old_exp_coll_str
+        elif not self.expcollnam3 or self.expcollnam3 == old_file_name:
+            self.expcollnam3 = old_file_name
+            self.expcollstr3 = old_exp_coll_str
+        else:
+            self.expcollnam3 = self.expcollnam2
+            self.expcollstr3 = self.expcollstr2
+            self.expcollnam2 = self.expcollnam1
+            self.expcollstr2 = self.expcollstr1
+            self.expcollnam1 = old_file_name
+            self.expcollstr1 = old_exp_coll_str
 
     def dialog_choose_data_storage(self, *args):
         """Choose the CherryTree data storage type (xml or db) and protection"""
@@ -1506,6 +1510,7 @@ class CherryTree:
             password_str = self.dialog_insert_password(os.path.basename(filepath))
             if not password_str:
                 if self.tree_is_empty():
+                    self.memory_save_old_file_props(self.file_name, self.expanded_collapsed_string)
                     self.file_name = ""
                     self.password = None
                 return None
