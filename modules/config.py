@@ -84,6 +84,12 @@ def config_file_load(inst):
         section = "tree"
         inst.rest_exp_coll = config.getint(section, "rest_exp_coll") if config.has_option(section, "rest_exp_coll") else 0
         inst.expanded_collapsed_string = config.get(section, "expanded_collapsed_string") if config.has_option(section, "expanded_collapsed_string") else ""
+        inst.expcollnam1 = config.get(section, "expcollnam1") if config.has_option(section, "expcollnam1") else ""
+        inst.expcollstr1 = config.get(section, "expcollstr1") if config.has_option(section, "expcollstr1") else ""
+        inst.expcollnam2 = config.get(section, "expcollnam2") if config.has_option(section, "expcollnam2") else ""
+        inst.expcollstr2 = config.get(section, "expcollstr2") if config.has_option(section, "expcollstr2") else ""
+        inst.expcollnam3 = config.get(section, "expcollnam3") if config.has_option(section, "expcollnam3") else ""
+        inst.expcollstr3 = config.get(section, "expcollstr3") if config.has_option(section, "expcollstr3") else ""
         inst.nodes_icons = config.get(section, "nodes_icons") if config.has_option(section, "nodes_icons") else "c"
         inst.tree_right_side = config.getboolean(section, "tree_right_side") if config.has_option(section, "tree_right_side") else False
         inst.cherry_wrap_width = config.getint(section, "cherry_wrap_width") if config.has_option(section, "cherry_wrap_width") else 130
@@ -202,6 +208,12 @@ def config_file_load(inst):
         inst.win_is_maximized = False
         inst.rest_exp_coll = 0
         inst.expanded_collapsed_string = ""
+        inst.expcollnam1 = ""
+        inst.expcollstr1 = ""
+        inst.expcollnam2 = ""
+        inst.expcollstr2 = ""
+        inst.expcollnam3 = ""
+        inst.expcollstr3 = ""
         inst.pick_dir = ""
         inst.link_type = cons.LINK_TYPE_WEBS
         inst.toolbar_icon_size = 1
@@ -305,6 +317,15 @@ def config_file_save(inst):
     if inst.rest_exp_coll == 0:
         get_tree_expanded_collapsed_string(inst)
         config.set(section, "expanded_collapsed_string", inst.expanded_collapsed_string)
+    if inst.expcollnam1 and inst.expcollnam1 != inst.file_name:
+        config.set(section, "expcollnam1", inst.expcollnam1)
+        config.set(section, "expcollstr1", inst.expcollstr1)
+    if inst.expcollnam2 and inst.expcollnam2 != inst.file_name:
+        config.set(section, "expcollnam2", inst.expcollnam2)
+        config.set(section, "expcollstr2", inst.expcollstr2)
+    if inst.expcollnam3 and inst.expcollnam3 != inst.file_name:
+        config.set(section, "expcollnam3", inst.expcollnam3)
+        config.set(section, "expcollstr3", inst.expcollstr3)
     config.set(section, "nodes_icons", inst.nodes_icons)
     config.set(section, "tree_right_side", inst.tree_right_side)
     config.set(section, "cherry_wrap_width", inst.cherry_wrap_width)
@@ -404,7 +425,7 @@ def get_tree_expanded_collapsed_string_iter(tree_iter, inst):
 def set_tree_expanded_collapsed_string(inst):
     """Parses the String Containing the Info about Expanded and Collapsed Nodes"""
     inst.treeview.collapse_all()
-    if inst.expanded_collapsed_string == "": return
+    if not inst.expanded_collapsed_string: return
     expanded_collapsed_dict = {}
     expanded_collapsed_vector = inst.expanded_collapsed_string.split('_')
     for element in expanded_collapsed_vector:
