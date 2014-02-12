@@ -37,6 +37,17 @@ SPECIAL_CHARS_DEFAULT = "“”„•☐☑☒…‰€©®™°↓↑→←↔�
 
 SPELL_CHECK_LANG_DEFAULT = locale.getdefaultlocale()[0]
 
+def get_node_path_from_str(str_path_list_of_str):
+    path_list_of_str = str_path_list_of_str.split()
+    path_list_of_int = [int(element) for element in path_list_of_str]
+    return tuple(path_list_of_int)
+
+def get_node_path_str_from_path(tree_path):
+    path_list_of_str = []
+    for element in tree_path:
+        path_list_of_str.append( str(element) )
+    return " ".join(path_list_of_str)
+
 def config_file_load(inst):
     """Load the Preferences from Config File"""
     if os.path.isfile(cons.CONFIG_PATH):
@@ -59,11 +70,8 @@ def config_file_load(inst):
             inst.window.resize(win_size[0], win_size[1])
         inst.hpaned_pos = config.getint(section, "hpaned_pos") if config.has_option(section, "hpaned_pos") else 170
         if config.has_option(section, "node_path"):
-            # restor the selected node
-            str_path_list_of_str = config.get(section, "node_path")
-            path_list_of_str = str_path_list_of_str.split()
-            path_list_of_int = [int(element) for element in path_list_of_str]
-            inst.node_path = tuple(path_list_of_int)
+            # restore the selected node
+            inst.node_path = get_node_path_from_str(config.get(section, "node_path"))
             inst.cursor_position = config.getint(section, "cursor_position") if config.has_option(section, "cursor_position") else 0
         else: inst.node_path = None
         inst.recent_docs = []
@@ -86,10 +94,16 @@ def config_file_load(inst):
         inst.expanded_collapsed_string = config.get(section, "expanded_collapsed_string") if config.has_option(section, "expanded_collapsed_string") else ""
         inst.expcollnam1 = config.get(section, "expcollnam1") if config.has_option(section, "expcollnam1") else ""
         inst.expcollstr1 = config.get(section, "expcollstr1") if config.has_option(section, "expcollstr1") else ""
+        inst.expcollsel1 = config.get(section, "expcollsel1") if config.has_option(section, "expcollsel1") else ""
+        inst.expcollcur1 = config.getint(section, "expcollcur1") if config.has_option(section, "expcollcur1") else 0
         inst.expcollnam2 = config.get(section, "expcollnam2") if config.has_option(section, "expcollnam2") else ""
         inst.expcollstr2 = config.get(section, "expcollstr2") if config.has_option(section, "expcollstr2") else ""
+        inst.expcollsel2 = config.get(section, "expcollsel2") if config.has_option(section, "expcollsel2") else ""
+        inst.expcollcur2 = config.getint(section, "expcollcur2") if config.has_option(section, "expcollcur2") else 0
         inst.expcollnam3 = config.get(section, "expcollnam3") if config.has_option(section, "expcollnam3") else ""
         inst.expcollstr3 = config.get(section, "expcollstr3") if config.has_option(section, "expcollstr3") else ""
+        inst.expcollsel3 = config.get(section, "expcollsel3") if config.has_option(section, "expcollsel3") else ""
+        inst.expcollcur3 = config.getint(section, "expcollcur3") if config.has_option(section, "expcollcur3") else 0
         inst.nodes_icons = config.get(section, "nodes_icons") if config.has_option(section, "nodes_icons") else "c"
         inst.tree_right_side = config.getboolean(section, "tree_right_side") if config.has_option(section, "tree_right_side") else False
         inst.cherry_wrap_width = config.getint(section, "cherry_wrap_width") if config.has_option(section, "cherry_wrap_width") else 130
@@ -209,11 +223,8 @@ def config_file_load(inst):
         inst.rest_exp_coll = 0
         inst.expanded_collapsed_string = ""
         inst.expcollnam1 = ""
-        inst.expcollstr1 = ""
         inst.expcollnam2 = ""
-        inst.expcollstr2 = ""
         inst.expcollnam3 = ""
-        inst.expcollstr3 = ""
         inst.pick_dir = ""
         inst.link_type = cons.LINK_TYPE_WEBS
         inst.toolbar_icon_size = 1
@@ -291,10 +302,7 @@ def config_file_save(inst):
         config.set(section, "win_size_h", win_size[1])
     config.set(section, "hpaned_pos", inst.hpaned.get_property('position'))
     if inst.curr_tree_iter:
-        path_list_of_str = []
-        for element in inst.treestore.get_path(inst.curr_tree_iter):
-            path_list_of_str.append( str(element) )
-        config.set(section, "node_path", " ".join(path_list_of_str))
+        config.set(section, "node_path", get_node_path_str_from_path(inst.treestore.get_path(inst.curr_tree_iter)))
         config.set(section, "cursor_position", inst.curr_buffer.get_property(cons.STR_CURSOR_POSITION))
     if inst.recent_docs:
         temp_recent_docs = []
@@ -320,12 +328,18 @@ def config_file_save(inst):
     if inst.expcollnam1 and inst.expcollnam1 != inst.file_name:
         config.set(section, "expcollnam1", inst.expcollnam1)
         config.set(section, "expcollstr1", inst.expcollstr1)
+        config.set(section, "expcollsel1", inst.expcollsel1)
+        config.set(section, "expcollcur1", inst.expcollcur1)
     if inst.expcollnam2 and inst.expcollnam2 != inst.file_name:
         config.set(section, "expcollnam2", inst.expcollnam2)
         config.set(section, "expcollstr2", inst.expcollstr2)
+        config.set(section, "expcollsel2", inst.expcollsel2)
+        config.set(section, "expcollcur2", inst.expcollcur2)
     if inst.expcollnam3 and inst.expcollnam3 != inst.file_name:
         config.set(section, "expcollnam3", inst.expcollnam3)
         config.set(section, "expcollstr3", inst.expcollstr3)
+        config.set(section, "expcollsel3", inst.expcollsel3)
+        config.set(section, "expcollcur3", inst.expcollcur3)
     config.set(section, "nodes_icons", inst.nodes_icons)
     config.set(section, "tree_right_side", inst.tree_right_side)
     config.set(section, "cherry_wrap_width", inst.cherry_wrap_width)
