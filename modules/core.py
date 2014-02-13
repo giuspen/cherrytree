@@ -1118,20 +1118,7 @@ class CherryTree:
                         self.node_path = self.treestore.get_path(node_name_iter)
                         self.cursor_position = 0
             # we try to restore the focused node
-            if self.node_path != None:
-                try: node_iter_to_focus = self.treestore.get_iter(self.node_path)
-                except: node_iter_to_focus = None
-                if node_iter_to_focus:
-                    self.treeview_safe_set_cursor(node_iter_to_focus)
-                    self.sourceview.grab_focus()
-                    self.curr_buffer.place_cursor(self.curr_buffer.get_iter_at_offset(self.cursor_position))
-                    self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), 0.3)
-            else: node_iter_to_focus = None
-            if not node_iter_to_focus:
-                node_iter_to_focus = self.treestore.get_iter_first()
-                if node_iter_to_focus:
-                    self.treeview.set_cursor(self.treestore.get_path(node_iter_to_focus))
-                    self.sourceview.grab_focus()
+            config.set_tree_path_and_cursor_pos(self)
         else:
             self.file_name = ""
             self.update_window_save_not_needed()
@@ -1319,51 +1306,79 @@ class CherryTree:
         config.get_tree_expanded_collapsed_string(self)
         old_file_name = self.file_name
         old_exp_coll_str = self.expanded_collapsed_string
+        if self.curr_tree_iter:
+            old_node_path_str = config.get_node_path_str_from_path(self.treestore.get_path(self.curr_tree_iter))
+            old_cursor_pos = self.curr_buffer.get_property(cons.STR_CURSOR_POSITION)
+        else:
+            old_node_path_str = ""
+            old_cursor_pos = 0
         if not self.reset(force_reset): return
         new_file_name = os.path.basename(filepath)
         if new_file_name != old_file_name:
             if new_file_name == self.expcollnam1:
                 self.expanded_collapsed_string = self.expcollstr1
+                self.node_path = config.get_node_path_from_str(self.expcollsel1)
+                self.cursor_position = self.expcollcur1
                 self.expcollnam1 = old_file_name
                 self.expcollstr1 = old_exp_coll_str
+                self.expcollsel1 = old_node_path_str
+                self.expcollcur1 = old_cursor_pos
             elif new_file_name == self.expcollnam2:
                 self.expanded_collapsed_string = self.expcollstr2
+                self.node_path = config.get_node_path_from_str(self.expcollsel2)
+                self.cursor_position = self.expcollcur2
                 self.expcollnam2 = old_file_name
                 self.expcollstr2 = old_exp_coll_str
+                self.expcollsel2 = old_node_path_str
+                self.expcollcur2 = old_cursor_pos
             elif new_file_name == self.expcollnam3:
                 self.expanded_collapsed_string = self.expcollstr3
+                self.node_path = config.get_node_path_from_str(self.expcollsel3)
+                self.cursor_position = self.expcollcur3
                 self.expcollnam3 = old_file_name
                 self.expcollstr3 = old_exp_coll_str
+                self.expcollsel3 = old_node_path_str
+                self.expcollcur3 = old_cursor_pos
             else:
                 self.expanded_collapsed_string = ""
-                self.memory_save_old_file_props(old_file_name, old_exp_coll_str)
+                self.node_path = None
+                self.memory_save_old_file_props(old_file_name, old_exp_coll_str, old_node_path_str, old_cursor_pos)
         self.file_load(filepath)
         self.modification_time_update_value(True)
         if self.rest_exp_coll == 1: self.treeview.expand_all()
         elif self.rest_exp_coll == 0: config.set_tree_expanded_collapsed_string(self)
-        first_node_iter = self.treestore.get_iter_first()
-        if first_node_iter != None:
-            self.treeview.set_cursor(self.treestore.get_path(first_node_iter))
-            self.sourceview.grab_focus()
+        config.set_tree_path_and_cursor_pos(self)
 
-    def memory_save_old_file_props(self, old_file_name, old_exp_coll_str):
+    def memory_save_old_file_props(self, old_file_name, old_exp_coll_str, old_node_path_str, old_cursor_pos):
         """Store properties of file that was just closed"""
         if not self.expcollnam1 or self.expcollnam1 == old_file_name:
             self.expcollnam1 = old_file_name
             self.expcollstr1 = old_exp_coll_str
+            self.expcollsel1 = old_node_path_str
+            self.expcollcur1 = old_cursor_pos
         elif not self.expcollnam2 or self.expcollnam2 == old_file_name:
             self.expcollnam2 = old_file_name
             self.expcollstr2 = old_exp_coll_str
+            self.expcollsel2 = old_node_path_str
+            self.expcollcur2 = old_cursor_pos
         elif not self.expcollnam3 or self.expcollnam3 == old_file_name:
             self.expcollnam3 = old_file_name
             self.expcollstr3 = old_exp_coll_str
+            self.expcollsel3 = old_node_path_str
+            self.expcollcur3 = old_cursor_pos
         else:
             self.expcollnam3 = self.expcollnam2
             self.expcollstr3 = self.expcollstr2
+            self.expcollsel3 = self.expcollsel2
+            self.expcollcur3 = self.expcollcur2
             self.expcollnam2 = self.expcollnam1
             self.expcollstr2 = self.expcollstr1
+            self.expcollsel2 = self.expcollsel1
+            self.expcollcur2 = self.expcollcur1
             self.expcollnam1 = old_file_name
             self.expcollstr1 = old_exp_coll_str
+            self.expcollsel1 = old_node_path_str
+            self.expcollcur1 = old_cursor_pos
 
     def dialog_choose_data_storage(self, *args):
         """Choose the CherryTree data storage type (xml or db) and protection"""
@@ -1510,7 +1525,7 @@ class CherryTree:
             password_str = self.dialog_insert_password(os.path.basename(filepath))
             if not password_str:
                 if self.tree_is_empty():
-                    self.memory_save_old_file_props(self.file_name, self.expanded_collapsed_string)
+                    self.memory_save_old_file_props(self.file_name, self.expanded_collapsed_string, self.node_path or "", self.cursor_position)
                     self.file_name = ""
                     self.password = None
                 return None

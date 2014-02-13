@@ -460,6 +460,23 @@ def set_tree_expanded_collapsed_string_iter(tree_iter, expanded_collapsed_dict, 
         set_tree_expanded_collapsed_string_iter(tree_iter, expanded_collapsed_dict, inst)
         tree_iter = inst.treestore.iter_next(tree_iter)
 
+def set_tree_path_and_cursor_pos(inst):
+    """Try to set node path and cursor pos"""
+    if inst.node_path:
+        try: node_iter_to_focus = inst.treestore.get_iter(inst.node_path)
+        except: node_iter_to_focus = None
+        if node_iter_to_focus:
+            inst.treeview_safe_set_cursor(node_iter_to_focus)
+            inst.sourceview.grab_focus()
+            inst.curr_buffer.place_cursor(inst.curr_buffer.get_iter_at_offset(inst.cursor_position))
+            inst.sourceview.scroll_to_mark(inst.curr_buffer.get_insert(), 0.3)
+    else: node_iter_to_focus = None
+    if not node_iter_to_focus:
+        node_iter_to_focus = inst.treestore.get_iter_first()
+        if node_iter_to_focus:
+            inst.treeview.set_cursor(inst.treestore.get_path(node_iter_to_focus))
+            inst.sourceview.grab_focus()
+
 def preferences_tab_all_nodes(dad, vbox_all_nodes):
     """Preferences Dialog, All Nodes Tab"""
     for child in vbox_all_nodes.get_children(): child.destroy()
