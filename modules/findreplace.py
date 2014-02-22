@@ -307,22 +307,13 @@ class FindReplace:
         else:
             match = None
             for temp_match in pattern.finditer(text, 0, start_offset): match = temp_match
-        if match:
-            if self.replace_active: obj_match_offsets = (None, None)
-            else: obj_match_offsets = self.check_pattern_in_object_between(pattern,
-                                                                           start_iter.get_offset(),
-                                                                           match.start(),
-                                                                           forward)
-            if obj_match_offsets[0] != None: match_offsets = (obj_match_offsets[0], obj_match_offsets[1])
-            else: match_offsets = (match.start(), match.end())
-        else:
-            if self.replace_active: obj_match_offsets = (None, None)
-            else: obj_match_offsets = self.check_pattern_in_object_between(pattern,
-                                                                           start_iter.get_offset(),
-                                                                           -1,
-                                                                           forward)
-            if obj_match_offsets[0] != None: match_offsets = (obj_match_offsets[0], obj_match_offsets[1])
-            else: match_offsets = (None, None)
+        if self.replace_active: obj_match_offsets = (None, None)
+        else: obj_match_offsets = self.check_pattern_in_object_between(pattern,
+                                                                       start_iter.get_offset(),
+                                                                       match.start() if match else -1,
+                                                                       forward)
+        if obj_match_offsets[0] != None: match_offsets = (obj_match_offsets[0], obj_match_offsets[1])
+        else: match_offsets = (match.start(), match.end()) if match else (None, None)
         if match_offsets[0] != None:
             if obj_match_offsets[0] == None: num_objs = self.get_num_objs_before_offset(match_offsets[0])
             else: num_objs = 0
@@ -395,7 +386,7 @@ class FindReplace:
         num_objs = 0
         local_limit_offset = max_offset
         curr_iter = self.dad.curr_buffer.get_start_iter()
-        while curr_iter.get_offset() < local_limit_offset:
+        while curr_iter.get_offset() <= local_limit_offset:
             anchor = curr_iter.get_child_anchor()
             if anchor:
                 num_objs += 1
