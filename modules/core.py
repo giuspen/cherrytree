@@ -710,13 +710,17 @@ class CherryTree:
         if filepath == None: return
         try:
             file_descriptor = open(filepath, 'r')
-            treepad = imports.TreepadHandler()
-            cherrytree_string = treepad.get_cherrytree_xml(file_descriptor)
+            treepad_string = file_descriptor.read()
             file_descriptor.close()
         except:
             support.dialog_error("Error importing the file %s" % filepath, self.window)
             raise
             return
+        treepad = imports.TreepadHandler()
+        try: treepad_string = treepad_string.decode('iso-8859-1')
+        except: treepad_string = unicode(treepad_string, cons.STR_UTF8, cons.STR_IGNORE)
+        cherrytree_string = treepad.get_cherrytree_xml(treepad_string)
+        file_descriptor.close()
         self.nodes_add_from_cherrytree_data(cherrytree_string)
 
     def nodes_add_from_keynote_file(self, action):

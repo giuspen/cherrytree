@@ -1441,7 +1441,7 @@ class TreepadHandler:
         text_iter = self.dom.createTextNode(text_data)
         dom_iter.appendChild(text_iter)
 
-    def parse_string_lines(self, file_descriptor):
+    def parse_string_lines(self, treepad_string):
         """Parse the string line by line"""
         self.curr_state = 0
         self.curr_node_name = ""
@@ -1452,13 +1452,12 @@ class TreepadHandler:
         # 1: waiting for node name
         # 2: waiting for node level
         # 3: gathering node content
-        for text_line in file_descriptor:
-            text_line = text_line.decode(cons.STR_UTF8, cons.STR_IGNORE)
+        for text_line in treepad_string.split(cons.CHAR_CR+cons.CHAR_NEWLINE):
             if self.curr_state == 0:
                 if len(text_line) > 5 and text_line[:6] == "<node>": self.curr_state = 1
             elif self.curr_state == 1:
                 #print "node name", text_line
-                self.curr_node_name = text_line.replace(cons.CHAR_CR, "").replace(cons.CHAR_NEWLINE, "")
+                self.curr_node_name = text_line
                 self.curr_state = 2
             elif self.curr_state == 2:
                 #print "node level", text_line
@@ -1476,12 +1475,12 @@ class TreepadHandler:
                     self.nodes_list[-1].setAttribute("name", self.curr_node_name)
                     self.nodes_list[-1].setAttribute("prog_lang", cons.CUSTOM_COLORS_ID)
                     self.nodes_list[-2].appendChild(self.nodes_list[-1])
-                else: self.curr_node_name += text_line.replace(cons.CHAR_CR, "").replace(cons.CHAR_NEWLINE, "") + cons.CHAR_SPACE
+                else: self.curr_node_name += text_line + cons.CHAR_SPACE
             elif self.curr_state == 3:
                 if len(text_line) > 9 and text_line[:10] == "<end node>":
                     self.curr_state = 0
                     self.rich_text_serialize(self.curr_node_content)
-                else: self.curr_node_content += text_line.replace(cons.CHAR_CR, "").replace(cons.CHAR_NEWLINE, "") + cons.CHAR_NEWLINE
+                else: self.curr_node_content += text_line + cons.CHAR_NEWLINE
 
     def get_cherrytree_xml(self, file_descriptor):
         """Returns a CherryTree string Containing the Treepad Nodes"""
