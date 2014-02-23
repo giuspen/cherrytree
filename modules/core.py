@@ -610,7 +610,7 @@ class CherryTree:
             support.dialog_error("Error importing the file %s" % filepath, self.window)
             raise
             return
-        tuxcards = imports.TuxCardsHandler()
+        tuxcards = imports.TuxCardsHandler(self)
         cherrytree_string = tuxcards.get_cherrytree_xml(tuxcards_string)
         self.nodes_add_from_cherrytree_data(cherrytree_string)
 
@@ -618,7 +618,7 @@ class CherryTree:
         """Add Nodes Parsing a KeepNote Folder"""
         folderpath = support.dialog_folder_select(curr_folder=self.file_dir, parent=self.window)
         if folderpath == None: return
-        keepnote = imports.KeepnoteHandler(folderpath)
+        keepnote = imports.KeepnoteHandler(self, folderpath)
         cherrytree_string = keepnote.get_cherrytree_xml()
         self.nodes_add_from_cherrytree_data(cherrytree_string)
 
