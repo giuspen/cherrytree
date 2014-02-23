@@ -128,9 +128,10 @@ class LeoHandler:
 class TuxCardsHandler(HTMLParser.HTMLParser):
     """The Handler of the TuxCards File Parsing"""
 
-    def __init__(self):
+    def __init__(self, dad):
         """Machine boot"""
         HTMLParser.HTMLParser.__init__(self)
+        self.dad = dad
         self.xml_handler = machines.XMLHandler(self)
 
     def rich_text_serialize(self, text_data):
@@ -213,8 +214,8 @@ class TuxCardsHandler(HTMLParser.HTMLParser):
                 self.chars_counter += 1
             elif tag == "hr":
                 # this is a data block composed only by an horizontal rule
-                self.rich_text_serialize(cons.CHAR_NEWLINE+self.h_rule+cons.CHAR_NEWLINE)
-                self.chars_counter += len(self.h_rule)+2
+                self.rich_text_serialize(cons.CHAR_NEWLINE+self.dad.h_rule+cons.CHAR_NEWLINE)
+                self.chars_counter += len(self.dad.h_rule)+2
             elif tag == "li":
                 self.rich_text_serialize(cons.CHAR_NEWLINE+cons.CHAR_LISTBUL+cons.CHAR_SPACE)
                 self.chars_counter += 3
@@ -263,9 +264,10 @@ class TuxCardsHandler(HTMLParser.HTMLParser):
 class KeepnoteHandler(HTMLParser.HTMLParser):
     """The Handler of the KeepNote Folder Parsing"""
 
-    def __init__(self, folderpath):
+    def __init__(self, dad, folderpath):
         """Machine boot"""
         HTMLParser.HTMLParser.__init__(self)
+        self.dad = dad
         self.folderpath = folderpath
         self.xml_handler = machines.XMLHandler(self)
 
@@ -353,8 +355,8 @@ class KeepnoteHandler(HTMLParser.HTMLParser):
                 self.chars_counter += 1
             elif tag == "hr":
                 # this is a data block composed only by an horizontal rule
-                self.rich_text_serialize(cons.CHAR_NEWLINE+self.h_rule+cons.CHAR_NEWLINE)
-                self.chars_counter += len(self.h_rule)+2
+                self.rich_text_serialize(cons.CHAR_NEWLINE+self.dad.h_rule+cons.CHAR_NEWLINE)
+                self.chars_counter += len(self.dad.h_rule)+2
             elif tag == "li":
                 self.rich_text_serialize(cons.CHAR_NEWLINE+cons.CHAR_LISTBUL+cons.CHAR_SPACE)
                 self.chars_counter += 3
