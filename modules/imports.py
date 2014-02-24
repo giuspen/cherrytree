@@ -307,6 +307,8 @@ class KeepnoteHandler(HTMLParser.HTMLParser):
         self.curr_state = 0
         # curr_state 0: standby, taking no data
         # curr_state 1: waiting for node content, take many data
+        for tag_property in cons.TAG_PROPERTIES: self.curr_attributes[tag_property] = ""
+        self.latest_span = ""
         self.pixbuf_vector = []
         self.curr_folder = node_folder
         self.chars_counter = 0
@@ -394,8 +396,6 @@ class KeepnoteHandler(HTMLParser.HTMLParser):
         self.nodes_list = [self.dom.createElement(cons.APP_NAME)]
         self.dom.appendChild(self.nodes_list[0])
         self.curr_attributes = {}
-        for tag_property in cons.TAG_PROPERTIES: self.curr_attributes[tag_property] = ""
-        self.latest_span = ""
         self.start_parsing()
         return self.dom.toxml()
 
