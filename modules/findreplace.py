@@ -595,6 +595,7 @@ class FindReplace:
         """Catches mouse buttons clicks"""
         if event.type not in [gtk.gdk.BUTTON_PRESS, gtk.gdk.KEY_PRESS]: return
         model, list_iter = self.treeviewselection.get_selected()
+        if not list_iter: return
         tree_iter = self.dad.get_tree_iter_from_node_id(model[list_iter][0])
         if not tree_iter:
             support.dialog_error(_("The Link Refers to a Node that Does Not Exist Anymore (Id = %s)") % model[list_iter][0], self.dad.window)
