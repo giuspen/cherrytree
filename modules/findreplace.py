@@ -142,7 +142,7 @@ class FindReplace:
             self.iterated_find_dialog()
         if user_active_restore: self.dad.user_active = True
 
-    def find_in_all_nodes(self):
+    def find_in_all_nodes(self, father_tree_iter):
         """Search for a pattern in all the Tree Nodes"""
         if not self.from_find_iterated:
             iter_insert = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
@@ -150,8 +150,12 @@ class FindReplace:
             entry_predefined_text = self.dad.curr_buffer.get_text(iter_insert, iter_bound)
             if entry_predefined_text:
                 self.dad.search_replace_dict['find'] = entry_predefined_text
-            if self.replace_active: title = _("Replace in All Nodes...")
-            else: title = _("Search in All Nodes...")
+            if self.replace_active:
+                if father_tree_iter: title = _("Replace in Selected Node and Subnodes")
+                else: title = _("Replace in All Nodes")
+            else:
+                if father_tree_iter: title = _("Search in Selected Node and Subnodes")
+                else: title = _("Search in All Nodes")
             pattern = self.dad.dialog_search(title, self.replace_active)
             if entry_predefined_text != "":
                 self.dad.curr_buffer.move_mark(self.dad.curr_buffer.get_insert(), iter_insert)
@@ -167,7 +171,7 @@ class FindReplace:
             self.from_find_back = False
         first_fromsel = self.dad.search_replace_dict['a_ff_fa'] == 1
         all_matches = self.dad.search_replace_dict['a_ff_fa'] == 0
-        if first_fromsel:
+        if first_fromsel or father_tree_iter:
             self.first_useful_node = False # no one node content was parsed yet
             node_iter = self.dad.curr_tree_iter.copy()
         else:
@@ -188,6 +192,7 @@ class FindReplace:
                 self.matches_num += 1
                 if not all_matches: break
             if self.matches_num == 1 and not all_matches: break
+            if father_tree_iter: break
             last_top_node_iter = node_iter.copy() # we need this if we start from a node that is not in top level
             if forward: node_iter = self.dad.treestore.iter_next(node_iter)
             else: node_iter = self.dad.get_tree_iter_prev_sibling(self.dad.treestore, node_iter)
@@ -508,10 +513,10 @@ class FindReplace:
         self.find_in_selected_node()
         self.replace_active = False
 
-    def replace_in_all_nodes(self):
+    def replace_in_all_nodes(self, father_tree_iter):
         """Replace the pattern in all the Tree Nodes"""
         self.replace_active = True
-        self.find_in_all_nodes()
+        self.find_in_all_nodes(father_tree_iter)
         self.replace_active = False
 
     def replace_in_nodes_names(self):
