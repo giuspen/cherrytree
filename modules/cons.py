@@ -304,6 +304,8 @@ UI_INFO = """
                 <menuitem action='ToggleCase'/>
             </menu>
             <separator/>
+            <menuitem action='EnaDisSpellCheck'/>
+            <separator/>
             <menuitem action='PastePlainText'/>
             <separator/>
             <menuitem action='CutRow'/>
@@ -594,6 +596,7 @@ def get_entries(inst):
     ( "ReplaceInNodesNames", "find_replace", _("Replace in Nodes _Names"), "<control><shift>T", _("Replace in Nodes Names"), inst.replace_in_nodes_names),
     ( "ReplaceAgain", "find_replace", _("Replace _Again"), "F6", _("Iterate the Last Replace Operation"), inst.replace_again),
     ( "ShowHideNodeNameHeader", "node_name_header", _("Show/Hide Node Name _Header"), None, _("Toggle Show/Hide Node Name Header"), inst.toggle_show_hide_node_name_header),
+    ( "EnaDisSpellCheck", "gtk-spell-check", _("Enable/Disable _Spell Check"), "<control><alt>S", _("Toggle Enable/Disable Spell Check"), inst.toggle_ena_dis_spellcheck),
     ( "ShowHideTree", "cherries", _("Show/Hide _Tree"), "F9", _("Toggle Show/Hide Tree"), inst.toggle_show_hide_tree),
     ( "ShowHideMainWin", APP_NAME, _("Show/Hide _CherryTree"), None, _("Toggle Show/Hide CherryTree"), inst.toggle_show_hide_main_window),
     ( "ShowHideToolbar", "toolbar", _("Show/Hide Tool_bar"), None, _("Toggle Show/Hide Toolbar"), inst.toggle_show_hide_toolbar),
