@@ -3615,10 +3615,12 @@ class CherryTree:
             self.spellchecker.enable()
             if self.syntax_highlighting == cons.CUSTOM_COLORS_ID:
                 self.spell_check_reload_on_buffer()
+        self.update_selected_node_statusbar_info()
 
     def spell_check_set_off(self):
         """Disable Spell Check"""
         self.spellchecker.disable()
+        self.update_selected_node_statusbar_info()
 
     def spell_check_reload_on_buffer(self):
         """Reload Spell Checker on curr Buffer"""
@@ -3925,10 +3927,12 @@ class CherryTree:
         if not self.curr_tree_iter:
             tooltip_text = _("No Node is Selected")
         else:
-            if self.treestore[self.curr_tree_iter][4] == cons.CUSTOM_COLORS_ID: tooltip_text = _("Rich Text")
-            else: tooltip_text = self.treestore[self.curr_tree_iter][4]
+            tooltip_text = _("Node Type") + ": "
+            if self.treestore[self.curr_tree_iter][4] == cons.CUSTOM_COLORS_ID: tooltip_text += _("Rich Text")
+            else: tooltip_text += self.treestore[self.curr_tree_iter][4]
             if self.treestore[self.curr_tree_iter][7]: tooltip_text += "  -  " + _("Read Only")
-            if self.treestore[self.curr_tree_iter][6]: tooltip_text += "  -  " + self.treestore[self.curr_tree_iter][6]
+            if self.treestore[self.curr_tree_iter][6]: tooltip_text += "  -  " + _("Tags") + ": " + self.treestore[self.curr_tree_iter][6]
+            if self.enable_spell_check: tooltip_text += "  -  " + _("Spell Check") + ": " + self.spell_check_lang
             print "sel node id=%s, seq=%s" % (self.treestore[self.curr_tree_iter][3], self.treestore[self.curr_tree_iter][5])
         self.statusbar.pop(self.statusbar_context_id)
         self.statusbar.push(self.statusbar_context_id, tooltip_text)
