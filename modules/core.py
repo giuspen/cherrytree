@@ -499,6 +499,12 @@ class CherryTree:
         else:
             self.treeview.expand_row(self.treestore.get_path(self.curr_tree_iter), open_all=False)
 
+    def toggle_ena_dis_spellcheck(self, *args):
+        """Toggle Enable/Disable Spell Check"""
+        self.enable_spell_check = not self.enable_spell_check
+        if self.enable_spell_check: self.spell_check_set_on()
+        else: self.spell_check_set_off()
+
     def toggle_tree_text(self, *args):
         """Toggle Focus Between Tree and Text"""
         if self.treeview.is_focus():
