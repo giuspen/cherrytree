@@ -2528,12 +2528,22 @@ class CherryTree:
     def replace_in_all_nodes(self, *args):
         """Replace the pattern in all the Tree Nodes"""
         if not self.is_tree_not_empty_or_error(): return
-        self.find_handler.replace_in_all_nodes()
+        self.find_handler.replace_in_all_nodes(None)
 
     def find_in_all_nodes(self, *args):
         """Search for a pattern in all the Tree Nodes"""
         if not self.is_tree_not_empty_or_error(): return
-        self.find_handler.find_in_all_nodes()
+        self.find_handler.find_in_all_nodes(None)
+
+    def replace_in_sel_node_and_subnodes(self, *args):
+        """Replace the pattern Selected Node and SubNodes"""
+        if not self.is_there_selected_node_or_error(): return
+        self.find_handler.replace_in_all_nodes(self.curr_tree_iter)
+
+    def find_in_sel_node_and_subnodes(self, *args):
+        """Search for a pattern in Selected Node and SubNodes"""
+        if not self.is_there_selected_node_or_error(): return
+        self.find_handler.find_in_all_nodes(self.curr_tree_iter)
 
     def replace_in_nodes_names(self, *args):
         """Replace the pattern between all the Node's Names"""
@@ -2697,7 +2707,7 @@ class CherryTree:
                             flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
                             buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
                             gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
-        dialog.set_default_size(300, -1)
+        dialog.set_default_size(400, -1)
         dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
         search_entry = gtk.Entry()
         search_entry.set_text(self.search_replace_dict['find'])

@@ -349,6 +349,7 @@ UI_INFO = """
         <menu action='SearchMenu'>
             <menuitem action='FindInNode'/>
             <menuitem action='FindInNodes'/>
+            <menuitem action='FindInSelNSub'/>
             <menuitem action='FindNode'/>
             <menuitem action='FindAgain'/>
             <menuitem action='FindBack'/>
@@ -357,6 +358,7 @@ UI_INFO = """
         <menu action='ReplaceMenu'>
             <menuitem action='ReplaceInNode'/>
             <menuitem action='ReplaceInNodes'/>
+            <menuitem action='ReplaceInSelNSub'/>
             <menuitem action='ReplaceInNodesNames'/>
             <menuitem action='ReplaceAgain'/>
         </menu>
@@ -587,12 +589,14 @@ def get_entries(inst):
     ( "JustifyCenter", "gtk-justify-center", _("Justify _Center"), None, _("Justify Center the Current Paragraph"), inst.apply_tag_justify_center),
     ( "JustifyRight", "gtk-justify-right", _("Justify _Right"), None, _("Justify Right the Current Paragraph"), inst.apply_tag_justify_right),
     ( "FindInNode", "find", _("_Find in Node"), "<control>F", _("Find into the Selected Node"), inst.find_in_selected_node),
-    ( "FindInNodes", "find", _("Find in Node_s"), "<control><shift>F", _("Find into all the Tree Nodes"), inst.find_in_all_nodes),
+    ( "FindInNodes", "find", _("Find in _All Nodes"), "<control><shift>F", _("Find into all the Tree Nodes"), inst.find_in_all_nodes),
+    ( "FindInSelNSub", "find", _("Find in _Selected Node and Subnodes"), "<control><alt>F", _("Find into the Selected Node and Subnodes"), inst.find_in_sel_node_and_subnodes),
     ( "FindNode", "find", _("Find a _Node"), "<control>T", _("Find a Node from its Name"), inst.find_a_node),
     ( "FindAgain", "find_again", _("Find _Again"), "F3", _("Iterate the Last Find Operation"), inst.find_again),
     ( "FindBack", "find_back", _("Find _Back"), "F4", _("Iterate the Last Find Operation in Opposite Direction"), inst.find_back),
     ( "ReplaceInNode", "find_replace", _("_Replace in Node"), "<control>H", _("Replace into the Selected Node"), inst.replace_in_selected_node),
-    ( "ReplaceInNodes", "find_replace", _("Replace in Node_s"), "<control><shift>H", _("Replace into all the Tree Nodes"), inst.replace_in_all_nodes),
+    ( "ReplaceInNodes", "find_replace", _("Replace in _All Nodes"), "<control><shift>H", _("Replace into all the Tree Nodes"), inst.replace_in_all_nodes),
+    ( "ReplaceInSelNSub", "find_replace", _("Replace in _Selected Node and Subnodes"), "<control><alt>H", _("Replace into the Selected Node and Subnodes"), inst.replace_in_sel_node_and_subnodes),
     ( "ReplaceInNodesNames", "find_replace", _("Replace in Nodes _Names"), "<control><shift>T", _("Replace in Nodes Names"), inst.replace_in_nodes_names),
     ( "ReplaceAgain", "find_replace", _("Replace _Again"), "F6", _("Iterate the Last Replace Operation"), inst.replace_again),
     ( "ShowHideNodeNameHeader", "node_name_header", _("Show/Hide Node Name _Header"), None, _("Toggle Show/Hide Node Name Header"), inst.toggle_show_hide_node_name_header),
