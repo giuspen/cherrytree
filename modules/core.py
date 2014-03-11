@@ -3600,10 +3600,12 @@ class CherryTree:
         self.spellchecker.recheck()
         self.spell_check_reload_on_buffer()
         self.spell_check_lang = new_lang
+        self.update_selected_node_statusbar_info()
 
     def spell_check_notify_new_lang(self, new_lang):
         """Receive New Lang from PyGtkSpellCheck"""
         self.spell_check_lang = new_lang
+        self.update_selected_node_statusbar_info()
 
     def spell_check_set_on(self):
         """Enable Spell Check"""
