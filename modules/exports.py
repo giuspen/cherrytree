@@ -522,7 +522,7 @@ class Export2Html:
             sel_range = [iter_start.get_offset(), iter_end.get_offset()]
         else: sel_range = None
         html_text = cons.HTML_HEADER % self.dad.treestore[tree_iter][1]
-        if self.tree_links_text:
+        if self.tree_links_text and self.dad.last_index_in_page:
             html_text += r'<table width="100%"><tr>'
             td_tree = r'<td valign="top" align=cons.TAG_PROP_LEFT width=20%>'
             td_page = r'<td valign="top" align=cons.TAG_PROP_LEFT width=80%>'
@@ -542,7 +542,7 @@ class Export2Html:
                     elif curr_object[0] == "codebox": html_text += self.get_codebox_html(curr_object[1])
         else: html_text += self.html_get_from_code_buffer(self.dad.treestore[tree_iter][2], sel_range)
         html_text += "</span>"
-        if self.tree_links_text:
+        if self.tree_links_text and self.dad.last_index_in_page:
             html_text += '</td></tr></table>'
         html_text += cons.HTML_FOOTER
         node_html_filepath = os.path.join(self.new_path, self.get_html_filename(tree_iter))

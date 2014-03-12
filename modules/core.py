@@ -164,6 +164,7 @@ class CherryTree:
         self.password = None
         self.export_single = False
         self.last_include_node_name = True
+        self.last_index_in_page = True
         self.last_new_node_page = False
         self.curr_tree_iter = None
         self.curr_window_n_tree_width = None
@@ -1782,7 +1783,7 @@ class CherryTree:
     def export_to_html(self, *args):
         """Export to HTML"""
         if not self.is_there_selected_node_or_error(): return
-        export_type = support.dialog_selnode_selnodeandsub_alltree(self, also_selection=True)
+        export_type = support.dialog_selnode_selnodeandsub_alltree(self, also_selection=True, also_index_in_page=True)
         if export_type == 0: return
         if export_type == 1:
             # only selected node
