@@ -460,6 +460,7 @@ class Export2Html:
         self.tree_links_nums = ["1"]
         for image_stock_id in cons.NODES_STOCKS:
             shutil.copy(cons.GLADE_PATH + image_stock_id + ".png", self.images_dir)
+        shutil.copy(cons.GLADE_PATH + "home.png", self.images_dir)
         pango_font = pango.FontDescription(self.dad.tree_font)
         self.tree_links_text = '<table style="text-align:left; font-family: %s; font-size:%spt">' % (pango_font.get_family(), pango_font.get_size()/pango.SCALE)
         if not top_tree_iter: tree_iter = self.dad.treestore.get_iter_first()
@@ -541,6 +542,8 @@ class Export2Html:
                     elif curr_object[0] == "table": html_text += self.get_table_html(curr_object[1])
                     elif curr_object[0] == "codebox": html_text += self.get_codebox_html(curr_object[1])
         else: html_text += self.html_get_from_code_buffer(self.dad.treestore[tree_iter][2], sel_range)
+        if self.tree_links_text and not self.dad.last_index_in_page:
+            html_text += '<p align="center">' + '<img src="%s" height="22" width="22">' % os.path.join(self.images_dir, "home.png") + 2*cons.CHAR_SPACE + '<a href="index.html">' + _("Index") + '</a></p>'
         html_text += "</span>"
         if self.tree_links_text and self.dad.last_index_in_page:
             html_text += '</td></tr></table>'
