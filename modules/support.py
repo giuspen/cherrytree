@@ -845,7 +845,7 @@ def dialog_choose_node(father_win, title, treestore, sel_tree_iter):
     dialog.hide()
     return None if response != gtk.RESPONSE_ACCEPT else node_parms.sel_iter
 
-def dialog_selnode_selnodeandsub_alltree(dad, also_selection, also_include_node_name=False, also_new_node_page=False):
+def dialog_selnode_selnodeandsub_alltree(dad, also_selection, also_include_node_name=False, also_new_node_page=False, also_index_in_page=False):
     """Dialog to select between the Selected Node/Selected Node + Subnodes/All Tree"""
     dialog = gtk.Dialog(title=_("Involved Nodes"),
         parent=dad.window,
@@ -871,6 +871,12 @@ def dialog_selnode_selnodeandsub_alltree(dad, also_selection, also_include_node_
         checkbutton_node_name.set_active(dad.last_include_node_name)
         content_area.pack_start(separator_item)
         content_area.pack_start(checkbutton_node_name)
+    if also_index_in_page:
+        separator_item = gtk.HSeparator()
+        checkbutton_index_in_page = gtk.CheckButton(label=_("Links Tree in Every Page"))
+        checkbutton_index_in_page.set_active(dad.last_index_in_page)
+        content_area.pack_start(separator_item)
+        content_area.pack_start(checkbutton_index_in_page)
     if also_new_node_page:
         checkbutton_new_node_page = gtk.CheckButton(label=_("New Node in New Page"))
         checkbutton_new_node_page.set_active(dad.last_new_node_page)
@@ -890,6 +896,8 @@ def dialog_selnode_selnodeandsub_alltree(dad, also_selection, also_include_node_
     else: ret_val = 4
     if also_include_node_name:
         dad.last_include_node_name = checkbutton_node_name.get_active()
+    if also_index_in_page:
+        dad.last_index_in_page = checkbutton_index_in_page.get_active()
     if also_new_node_page:
         dad.last_new_node_page = checkbutton_new_node_page.get_active()
     dialog.destroy()
