@@ -1134,13 +1134,14 @@ class KnowitHandler(HTMLParser.HTMLParser):
         self.curr_node_content = ""
         self.curr_node_level = 0
         self.former_node_level = -1
+        self.links_list = []
         # 0: waiting for \NewEntry or \CurrentEntry
         # 1: gathering node content
         for text_line in file_descriptor:
             text_line = text_line.decode(cons.STR_UTF8, cons.STR_IGNORE)
             if self.curr_xml_state == 0:
-                if (len(text_line) > 10 and text_line[:10] == "\NewEntry ")\
-                or (len(text_line) > 14 and text_line[:14] == "\CurrentEntry "):
+                if text_line.startswith("\NewEntry ")\
+                or text_line.startswith("\CurrentEntry "):
                     if text_line[1] == "N": text_to_parse = text_line[10:-1]
                     else: text_to_parse = text_line[14:-1]
                     match = re.match("(\d+) (.*)$", text_to_parse)
@@ -1161,11 +1162,31 @@ class KnowitHandler(HTMLParser.HTMLParser):
                     self.nodes_list[-2].appendChild(self.nodes_list[-1])
                 else: self.curr_node_name += text_line.replace(cons.CHAR_CR, "").replace(cons.CHAR_NEWLINE, "") + cons.CHAR_SPACE
             elif self.curr_xml_state == 1:
-                if len(text_line) > 14 and text_line[:14] == "</body></html>":
+                if text_line.startswith("\Link "):
+                    link_uri = text_line[6:-1]
+                    self.links_list.append([link_uri, ""])
+                elif text_line.startswith("\Descr "):
+                    link_desc = text_line[7:-1]
+                    self.links_list[-1][1] = link_desc
+                elif text_line.endswith("</body></html>"+cons.CHAR_NEWLINE):
                     # node content end
                     self.curr_xml_state = 0
                     self.curr_html_state = 0
                     self.feed(self.curr_node_content.decode(cons.STR_UTF8, cons.STR_IGNORE))
+                    if self.links_list:
+                        self.rich_text_serialize(cons.CHAR_NEWLINE)
+                        for link_element in self.links_list:
+                            if link_element[0][:4] in ["http", "file"]:
+                                if link_element[0][:4] == "http":
+                                    self.curr_attributes[cons.TAG_LINK] = "webs %s" % link_element[0]
+                                elif link_element[0][:4] == "file":
+                                    self.curr_attributes[cons.TAG_LINK] = "file %s" % base64.b64encode(link_element[0][7:])
+                                self.rich_text_serialize(link_element[1])
+                                self.curr_attributes[cons.TAG_LINK] = ""
+                            elif link_element[0].startswith("knowit://"):
+                                print "TODO link to node", link_element[0][9:]
+                            self.rich_text_serialize(cons.CHAR_NEWLINE)
+                        self.links_list = []
                 elif self.curr_node_content == "" and text_line == cons.CHAR_NEWLINE:
                     # empty node
                     self.curr_xml_state = 0
