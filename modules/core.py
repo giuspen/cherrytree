@@ -773,9 +773,9 @@ class CherryTree:
                                               curr_folder=self.file_dir,
                                               parent=self.window)
         if filepath == None: return
+        knowit = imports.KnowitHandler()
         try:
             file_descriptor = open(filepath, 'r')
-            knowit = imports.KnowitHandler()
             cherrytree_string = knowit.get_cherrytree_xml(file_descriptor)
             file_descriptor.close()
         except:
@@ -783,6 +783,7 @@ class CherryTree:
             raise
             return
         self.nodes_add_from_cherrytree_data(cherrytree_string)
+        knowit.set_links_to_nodes(self)
 
     def nodes_add_from_leo_file(self, action):
         """Add Nodes Parsing a Leo File"""

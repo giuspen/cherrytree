@@ -1183,9 +1183,12 @@ class KnowitHandler(HTMLParser.HTMLParser):
                                     self.curr_attributes[cons.TAG_LINK] = "file %s" % base64.b64encode(link_element[0][7:])
                                 self.rich_text_serialize(link_element[1])
                                 self.curr_attributes[cons.TAG_LINK] = ""
+                                self.rich_text_serialize(cons.CHAR_NEWLINE)
                             elif link_element[0].startswith("knowit://"):
-                                print "TODO link to node", link_element[0][9:]
-                            self.rich_text_serialize(cons.CHAR_NEWLINE)
+                                name_dest = link_element[0][9:]
+                                self.links_to_node_list.append({'name_dest':name_dest,
+                                    'name_source':self.curr_node_name,
+                                    'node_desc':link_element[1]})
                         self.links_list = []
                 elif self.curr_node_content == "" and text_line == cons.CHAR_NEWLINE:
                     # empty node
@@ -1236,6 +1239,27 @@ class KnowitHandler(HTMLParser.HTMLParser):
             unicode_char = unichr(htmlentitydefs.name2codepoint[name])
             self.rich_text_serialize(unicode_char)
 
+    def set_links_to_nodes(self, dad):
+        """After the node import, set the links to nodes on the new tree"""
+        for link_to_node in self.links_to_node_list:
+            node_dest = dad.get_tree_iter_from_node_name(link_to_node['name_dest'])
+            node_source = dad.get_tree_iter_from_node_name(link_to_node['name_source'])
+            if not node_dest:
+                #print "node_dest not found"
+                continue
+            if not node_source:
+                #print "node_source not found"
+                continue
+            source_buffer = dad.get_textbuffer_from_tree_iter(node_source)
+            property_value = cons.LINK_TYPE_NODE + cons.CHAR_SPACE + str(dad.treestore[node_dest][3])
+            node_desc = link_to_node['node_desc']
+            char_start = source_buffer.get_end_iter().get_offset()
+            char_end = char_start + len(node_desc)
+            source_buffer.insert(source_buffer.get_end_iter(), node_desc)
+            source_buffer.apply_tag_by_name(dad.apply_tag_exist_or_create(cons.TAG_LINK, property_value),
+                                            source_buffer.get_iter_at_offset(char_start),
+                                            source_buffer.get_iter_at_offset(char_end))
+
     def get_cherrytree_xml(self, file_descriptor):
         """Returns a CherryTree string Containing the Knowit Nodes"""
         self.dom = xml.dom.minidom.Document()
@@ -1244,6 +1268,7 @@ class KnowitHandler(HTMLParser.HTMLParser):
         self.curr_attributes = {}
         for tag_property in cons.TAG_PROPERTIES: self.curr_attributes[tag_property] = ""
         self.latest_span = ""
+        self.links_to_node_list = []
         self.parse_string_lines(file_descriptor)
         return self.dom.toxml()
 
