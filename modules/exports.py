@@ -121,7 +121,7 @@ class ExportPrint:
     def nodes_all_export_print_iter(self, tree_iter, include_node_name, new_node_in_new_page):
         """Export Print All Nodes - Iter"""
         self.dad.get_textbuffer_from_tree_iter(tree_iter)
-        if self.dad.treestore[tree_iter][4] == cons.CUSTOM_COLORS_ID:
+        if self.dad.treestore[tree_iter][4] == cons.RICH_TEXT_ID:
             pango_text, pixbuf_table_codebox_vector = self.pango_handler.pango_get_from_treestore_node(tree_iter)
             self.text_font = self.dad.text_font # text font for all (also eventual code nodes)
         else:
@@ -151,7 +151,7 @@ class ExportPrint:
 
     def node_export_print(self, tree_iter, include_node_name, sel_range=None):
         """Export Print the Selected Node"""
-        if self.dad.treestore[tree_iter][4] == cons.CUSTOM_COLORS_ID:
+        if self.dad.treestore[tree_iter][4] == cons.RICH_TEXT_ID:
             self.pango_text, self.pixbuf_table_codebox_vector = self.pango_handler.pango_get_from_treestore_node(tree_iter, sel_range)
             self.text_font = self.dad.text_font
         else:
@@ -528,10 +528,10 @@ class Export2Html:
             td_tree = r'<td valign="top" align=cons.TAG_PROP_LEFT width=20%>'
             td_page = r'<td valign="top" align=cons.TAG_PROP_LEFT width=80%>'
             html_text += td_tree + self.tree_links_text + td_page
-        pango_font = pango.FontDescription(self.dad.text_font if self.dad.treestore[tree_iter][4] == cons.CUSTOM_COLORS_ID else self.dad.code_font)
+        pango_font = pango.FontDescription(self.dad.text_font if self.dad.treestore[tree_iter][4] == cons.RICH_TEXT_ID else self.dad.code_font)
         html_text += '<span style="font-family: %s; font-size:%spt">' % (pango_font.get_family(), pango_font.get_size()/pango.SCALE)
         self.dad.get_textbuffer_from_tree_iter(tree_iter)
-        if self.dad.treestore[tree_iter][4] == cons.CUSTOM_COLORS_ID:
+        if self.dad.treestore[tree_iter][4] == cons.RICH_TEXT_ID:
             text_n_objects = self.html_get_from_treestore_node(tree_iter, sel_range)
             self.images_count = 0
             for i, html_slot in enumerate(text_n_objects[0]):
@@ -557,7 +557,7 @@ class Export2Html:
     def selection_export_to_html(self, text_buffer, start_iter, end_iter, syntax_highlighting):
         """Returns the HTML given the text buffer and iter bounds"""
         html_text = cons.HTML_HEADER % ""
-        if syntax_highlighting == cons.CUSTOM_COLORS_ID:
+        if syntax_highlighting == cons.RICH_TEXT_ID:
             text_n_objects = self.html_get_from_rich_text_selection(text_buffer, start_iter, end_iter)
             self.images_count = 0
             for i, html_slot in enumerate(text_n_objects[0]):

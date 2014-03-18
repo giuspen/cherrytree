@@ -243,7 +243,7 @@ class CTDBHandler:
         syntax = self.dad.treestore[tree_iter][4]
         tags = self.dad.treestore[tree_iter][6].decode(cons.STR_UTF8)
         is_ro = 1 if self.dad.treestore[tree_iter][7] else 0
-        is_richtxt = 1 if syntax == cons.CUSTOM_COLORS_ID else 0
+        is_richtxt = 1 if syntax == cons.RICH_TEXT_ID else 0
         if write_dict['buff']:
             if not self.dad.treestore[tree_iter][2]:
                 # we are using db storage and the buffer was not created yet
@@ -442,7 +442,7 @@ class CTDBHandler:
         self.dad.treestore[tree_iter][2] = self.dad.buffer_create(syntax_highlighting)
         curr_buffer = self.dad.treestore[tree_iter][2]
         node_row = db.execute('SELECT txt, has_codebox, has_table, has_image FROM node WHERE node_id=?', (node_id,)).fetchone()
-        if syntax_highlighting != cons.CUSTOM_COLORS_ID:
+        if syntax_highlighting != cons.RICH_TEXT_ID:
             curr_buffer.begin_not_undoable_action()
             curr_buffer.set_text(node_row['txt'])
             curr_buffer.end_not_undoable_action()
@@ -519,10 +519,10 @@ class CTDBHandler:
         if node_tags: self.dad.tags_add_from_node(node_tags)
         readonly = node_row['is_ro']
         syntax_highlighting = node_row['syntax']
-        if syntax_highlighting != cons.CUSTOM_COLORS_ID and syntax_highlighting not in self.dad.available_languages:
+        if syntax_highlighting != cons.RICH_TEXT_ID and syntax_highlighting not in self.dad.available_languages:
             syntax_highlighting = syntax_highlighting.lower().replace("C++", "cpp")
             if syntax_highlighting not in self.dad.available_languages:
-                syntax_highlighting = cons.CUSTOM_COLORS_ID
+                syntax_highlighting = cons.RICH_TEXT_ID
         node_level = self.dad.treestore.iter_depth(tree_father)+1 if tree_father else 0
         cherry = self.dad.get_node_icon(node_level, syntax_highlighting)
         #print "added node with unique_id", unique_id

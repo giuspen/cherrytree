@@ -109,7 +109,7 @@ class LeoHandler:
             if child_dom_iter.nodeName == "vh":
                 if child_dom_iter.firstChild: node_name = child_dom_iter.firstChild.data
                 self.nodes_list[-1].setAttribute("name", node_name)
-                self.nodes_list[-1].setAttribute("prog_lang", cons.CUSTOM_COLORS_ID)
+                self.nodes_list[-1].setAttribute("prog_lang", cons.RICH_TEXT_ID)
                 self.nodes_list[-2].appendChild(self.nodes_list[-1])
                 self.rich_text_serialize(self.tnodes_dict[vnode_dom_iter.attributes['t'].value])
             elif child_dom_iter.nodeName == "v": self.append_leo_node(child_dom_iter)
@@ -166,7 +166,7 @@ class TuxCardsHandler(HTMLParser.HTMLParser):
                 if child_dom_iter.firstChild: node_name = child_dom_iter.firstChild.data
                 else: node_name = ""
                 self.nodes_list[-1].setAttribute("name", node_name)
-                self.nodes_list[-1].setAttribute("prog_lang", cons.CUSTOM_COLORS_ID)
+                self.nodes_list[-1].setAttribute("prog_lang", cons.RICH_TEXT_ID)
                 self.nodes_list[-2].appendChild(self.nodes_list[-1])
             elif child_dom_iter.nodeName == "Information":
                 if child_dom_iter.firstChild: node_string = child_dom_iter.firstChild.data
@@ -292,7 +292,7 @@ class KeepnoteHandler(HTMLParser.HTMLParser):
         """Add a Node"""
         self.nodes_list.append(self.dom.createElement("node"))
         self.nodes_list[-1].setAttribute("name", os.path.basename(node_folder))
-        self.nodes_list[-1].setAttribute("prog_lang", cons.CUSTOM_COLORS_ID)
+        self.nodes_list[-1].setAttribute("prog_lang", cons.RICH_TEXT_ID)
         self.nodes_list[-2].appendChild(self.nodes_list[-1])
         filepath = os.path.join(node_folder, "page.html")
         if os.path.isfile(filepath):
@@ -440,7 +440,7 @@ class ZimHandler():
         """Add a node"""
         self.nodes_list.append(self.dom.createElement("node"))
         self.nodes_list[-1].setAttribute("name", node_name)
-        self.nodes_list[-1].setAttribute("prog_lang", cons.CUSTOM_COLORS_ID)
+        self.nodes_list[-1].setAttribute("prog_lang", cons.RICH_TEXT_ID)
         self.nodes_list[-2].appendChild(self.nodes_list[-1])
         #
         self.pixbuf_vector = []
@@ -770,7 +770,7 @@ class TomboyHandler():
         """Add a Node"""
         self.dest_dom_new = self.dom.createElement("node")
         self.dest_dom_new.setAttribute("name", self.node_title)
-        self.dest_dom_new.setAttribute("prog_lang", cons.CUSTOM_COLORS_ID)
+        self.dest_dom_new.setAttribute("prog_lang", cons.RICH_TEXT_ID)
         dest_dom_father.appendChild(self.dest_dom_new)
         for tag_property in cons.TAG_PROPERTIES: self.curr_attributes[tag_property] = ""
         self.chars_counter = 0
@@ -846,7 +846,7 @@ class TomboyHandler():
         if not notebook_title in self.dest_notebooks_dom_nodes:
             self.dest_notebooks_dom_nodes[notebook_title] = self.dom.createElement("node")
             self.dest_notebooks_dom_nodes[notebook_title].setAttribute("name", notebook_title)
-            self.dest_notebooks_dom_nodes[notebook_title].setAttribute("prog_lang", cons.CUSTOM_COLORS_ID)
+            self.dest_notebooks_dom_nodes[notebook_title].setAttribute("prog_lang", cons.RICH_TEXT_ID)
             self.dest_top_dom.appendChild(self.dest_notebooks_dom_nodes[notebook_title])
         return self.dest_notebooks_dom_nodes[notebook_title]
 
@@ -862,7 +862,7 @@ class TomboyHandler():
         # orphans node
         self.dest_orphans_dom_node = self.dom.createElement("node")
         self.dest_orphans_dom_node.setAttribute("name", "ORPHANS")
-        self.dest_orphans_dom_node.setAttribute("prog_lang", cons.CUSTOM_COLORS_ID)
+        self.dest_orphans_dom_node.setAttribute("prog_lang", cons.RICH_TEXT_ID)
         self.dest_top_dom.appendChild(self.dest_orphans_dom_node)
         # notebooks nodes
         self.dest_notebooks_dom_nodes = {}
@@ -962,7 +962,7 @@ class BasketHandler(HTMLParser.HTMLParser):
             if child_dom_iter.nodeName == "properties":
                 self.nodes_list.append(self.dom.createElement("node"))
                 self.nodes_list[-1].setAttribute("name", node_name)
-                self.nodes_list[-1].setAttribute("prog_lang", cons.CUSTOM_COLORS_ID)
+                self.nodes_list[-1].setAttribute("prog_lang", cons.RICH_TEXT_ID)
                 self.nodes_list[-2].appendChild(self.nodes_list[-1])
             elif child_dom_iter.nodeName == "notes":
                 self.notes_parse(child_dom_iter)
@@ -1158,7 +1158,7 @@ class KnowitHandler(HTMLParser.HTMLParser):
                     self.curr_xml_state = 1
                     self.nodes_list.append(self.dom.createElement("node"))
                     self.nodes_list[-1].setAttribute("name", self.curr_node_name)
-                    self.nodes_list[-1].setAttribute("prog_lang", cons.CUSTOM_COLORS_ID)
+                    self.nodes_list[-1].setAttribute("prog_lang", cons.RICH_TEXT_ID)
                     self.nodes_list[-2].appendChild(self.nodes_list[-1])
                 else: self.curr_node_name += text_line.replace(cons.CHAR_CR, "").replace(cons.CHAR_NEWLINE, "") + cons.CHAR_SPACE
             elif self.curr_xml_state == 1:
@@ -1325,7 +1325,7 @@ class KeynoteHandler:
                     self.curr_node_content = ""
                     self.nodes_list.append(self.dom.createElement("node"))
                     self.nodes_list[-1].setAttribute("name", self.curr_node_name)
-                    self.nodes_list[-1].setAttribute("prog_lang", cons.CUSTOM_COLORS_ID)
+                    self.nodes_list[-1].setAttribute("prog_lang", cons.RICH_TEXT_ID)
                     self.nodes_list[-2].appendChild(self.nodes_list[-1])
                     self.node_br_ok = False
             elif self.curr_state == 3:
@@ -1521,7 +1521,7 @@ class TreepadHandler:
                     self.curr_state = 3
                     self.nodes_list.append(self.dom.createElement("node"))
                     self.nodes_list[-1].setAttribute("name", self.curr_node_name)
-                    self.nodes_list[-1].setAttribute("prog_lang", cons.CUSTOM_COLORS_ID)
+                    self.nodes_list[-1].setAttribute("prog_lang", cons.RICH_TEXT_ID)
                     self.nodes_list[-2].appendChild(self.nodes_list[-1])
                 else: self.curr_node_name += text_line + cons.CHAR_SPACE
             elif self.curr_state == 3:
@@ -1587,7 +1587,7 @@ class PlainTextHandler:
         """Append Node and Fill Content"""
         self.nodes_list.append(self.dom.createElement("node"))
         self.nodes_list[-1].setAttribute("name", os.path.basename(filepath))
-        self.nodes_list[-1].setAttribute("prog_lang", cons.CUSTOM_COLORS_ID)
+        self.nodes_list[-1].setAttribute("prog_lang", cons.RICH_TEXT_ID)
         self.nodes_list[-2].appendChild(self.nodes_list[-1])
         self.rich_text_serialize(file_content)
 
@@ -1644,7 +1644,7 @@ class MempadHandler:
                     self.former_node_level = self.curr_node_level
                     self.nodes_list.append(self.dom.createElement("node"))
                     self.nodes_list[-1].setAttribute("name", self.curr_node_name)
-                    self.nodes_list[-1].setAttribute("prog_lang", cons.CUSTOM_COLORS_ID)
+                    self.nodes_list[-1].setAttribute("prog_lang", cons.RICH_TEXT_ID)
                     self.nodes_list[-2].appendChild(self.nodes_list[-1])
                 else: self.curr_node_name += element
             elif self.curr_state == 2:
@@ -1768,7 +1768,7 @@ class NotecaseHandler(HTMLParser.HTMLParser):
                 # title reception complete
                 self.nodes_list.append(self.dom.createElement("node"))
                 self.nodes_list[-1].setAttribute("name", self.curr_title)
-                self.nodes_list[-1].setAttribute("prog_lang", cons.CUSTOM_COLORS_ID)
+                self.nodes_list[-1].setAttribute("prog_lang", cons.RICH_TEXT_ID)
                 self.nodes_list[-2].appendChild(self.nodes_list[-1])
                 self.curr_title = ""
                 # waiting for data
@@ -2079,7 +2079,7 @@ class HTMLHandler(HTMLParser.HTMLParser):
                         'frame_width': 300,
                         'frame_height': 150,
                         'width_in_pixels': True,
-                        'syntax_highlighting': cons.CUSTOM_COLORS_ID,
+                        'syntax_highlighting': cons.RICH_TEXT_ID,
                         'highlight_brackets': False,
                         'show_line_numbers': False,
                         'fill_text': text_inside_codebox
@@ -2190,7 +2190,7 @@ class HTMLHandler(HTMLParser.HTMLParser):
         """Append Node and Fill Content"""
         self.nodes_list.append(self.dom.createElement("node"))
         self.nodes_list[-1].setAttribute("name", os.path.basename(filepath))
-        self.nodes_list[-1].setAttribute("prog_lang", cons.CUSTOM_COLORS_ID)
+        self.nodes_list[-1].setAttribute("prog_lang", cons.RICH_TEXT_ID)
         self.nodes_list[-2].appendChild(self.nodes_list[-1])
         if file_content: self.rich_text_serialize(file_content)
 

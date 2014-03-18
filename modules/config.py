@@ -112,7 +112,7 @@ def config_file_load(inst):
         inst.cherry_wrap_width = config.getint(section, "cherry_wrap_width") if config.has_option(section, "cherry_wrap_width") else 130
 
         section = "editor"
-        inst.syntax_highlighting = config.get(section, "syntax_highlighting") if config.has_option(section, "syntax_highlighting") else cons.CUSTOM_COLORS_ID
+        inst.syntax_highlighting = config.get(section, "syntax_highlighting") if config.has_option(section, "syntax_highlighting") else cons.RICH_TEXT_ID
         inst.style_scheme = config.get(section, "style_scheme") if config.has_option(section, "style_scheme") else cons.STYLE_SCHEME_DEFAULT
         inst.enable_spell_check = config.getboolean(section, "enable_spell_check") if config.has_option(section, "enable_spell_check") else False
         inst.spell_check_lang = config.get(section, "spell_check_lang") if config.has_option(section, "spell_check_lang") else SPELL_CHECK_LANG_DEFAULT
@@ -194,7 +194,7 @@ def config_file_load(inst):
         inst.file_name = ""
         inst.node_path = None
         inst.curr_colors = {'f':None, 'b':None}
-        inst.syntax_highlighting = cons.CUSTOM_COLORS_ID
+        inst.syntax_highlighting = cons.RICH_TEXT_ID
         inst.style_scheme = cons.STYLE_SCHEME_DEFAULT
         inst.tree_font = "Sans 8" # default tree font
         inst.text_font = "Sans 9" # default text font
@@ -725,12 +725,12 @@ def preferences_tab_text_nodes(dad, vbox_text_nodes):
     combobox_spell_check_lang.connect('changed', on_combobox_spell_check_lang_changed)
     def on_colorbutton_text_fg_color_set(colorbutton):
         dad.rt_def_fg = "#" + dad.html_handler.rgb_to_24(colorbutton.get_color().to_string()[1:])
-        if dad.curr_tree_iter and dad.syntax_highlighting == cons.CUSTOM_COLORS_ID:
+        if dad.curr_tree_iter and dad.syntax_highlighting == cons.RICH_TEXT_ID:
             dad.sourceview.modify_text(gtk.STATE_NORMAL, gtk.gdk.color_parse(dad.rt_def_fg))
     colorbutton_text_fg.connect('color-set', on_colorbutton_text_fg_color_set)
     def on_colorbutton_text_bg_color_set(colorbutton):
         dad.rt_def_bg = "#" + dad.html_handler.rgb_to_24(colorbutton.get_color().to_string()[1:])
-        if dad.curr_tree_iter and dad.syntax_highlighting == cons.CUSTOM_COLORS_ID:
+        if dad.curr_tree_iter and dad.syntax_highlighting == cons.RICH_TEXT_ID:
             dad.sourceview.modify_base(gtk.STATE_NORMAL, gtk.gdk.color_parse(dad.rt_def_bg))
     colorbutton_text_bg.connect('color-set', on_colorbutton_text_bg_color_set)
     def on_radiobutton_rt_col_light_toggled(radiobutton):
@@ -758,7 +758,7 @@ def preferences_tab_text_nodes(dad, vbox_text_nodes):
     radiobutton_rt_col_custom.connect('toggled', on_radiobutton_rt_col_custom_toggled)
     def on_checkbutton_rt_show_white_spaces_toggled(checkbutton):
         dad.rt_show_white_spaces = checkbutton.get_active()
-        if dad.syntax_highlighting == cons.CUSTOM_COLORS_ID:
+        if dad.syntax_highlighting == cons.RICH_TEXT_ID:
             dad.sourceview.set_draw_spaces(codeboxes.DRAW_SPACES_FLAGS if dad.rt_show_white_spaces else 0)
     checkbutton_rt_show_white_spaces.connect('toggled', on_checkbutton_rt_show_white_spaces_toggled)
     def on_spinbutton_limit_undoable_steps_value_changed(spinbutton):
@@ -811,12 +811,12 @@ def preferences_tab_code_nodes(dad, vbox_code_nodes):
     combobox_style_scheme.connect('changed', on_combobox_style_scheme_changed)
     def on_checkbutton_show_white_spaces_toggled(checkbutton):
         dad.show_white_spaces = checkbutton.get_active()
-        if dad.syntax_highlighting != cons.CUSTOM_COLORS_ID:
+        if dad.syntax_highlighting != cons.RICH_TEXT_ID:
             dad.sourceview.set_draw_spaces(codeboxes.DRAW_SPACES_FLAGS if dad.show_white_spaces else 0)
     checkbutton_show_white_spaces.connect('toggled', on_checkbutton_show_white_spaces_toggled)
     def on_checkbutton_highlight_current_line_toggled(checkbutton):
         dad.highl_curr_line = checkbutton.get_active()
-        if dad.syntax_highlighting != cons.CUSTOM_COLORS_ID:
+        if dad.syntax_highlighting != cons.RICH_TEXT_ID:
             dad.sourceview.set_highlight_current_line(dad.highl_curr_line)
     checkbutton_highlight_current_line.connect('toggled', on_checkbutton_highlight_current_line_toggled)
 
@@ -1052,12 +1052,12 @@ def preferences_tab_fonts(dad, vbox_fonts):
     vbox_fonts.pack_start(frame_fonts, expand=False)
     def on_fontbutton_text_font_set(picker):
         dad.text_font = picker.get_font_name()
-        if dad.curr_tree_iter and dad.syntax_highlighting == cons.CUSTOM_COLORS_ID:
+        if dad.curr_tree_iter and dad.syntax_highlighting == cons.RICH_TEXT_ID:
             dad.sourceview.modify_font(pango.FontDescription(dad.text_font))
     fontbutton_text.connect('font-set', on_fontbutton_text_font_set)
     def on_fontbutton_code_font_set(picker):
         dad.code_font = picker.get_font_name()
-        if dad.curr_tree_iter and dad.syntax_highlighting != cons.CUSTOM_COLORS_ID:
+        if dad.curr_tree_iter and dad.syntax_highlighting != cons.RICH_TEXT_ID:
             dad.sourceview.modify_font(pango.FontDescription(dad.code_font))
     fontbutton_code.connect('font-set', on_fontbutton_code_font_set)
     def on_fontbutton_tree_font_set(picker):

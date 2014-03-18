@@ -108,7 +108,7 @@ class ClipboardHandler:
                     return
         if not os.path.isdir(cons.TMP_FOLDER): os.mkdir(cons.TMP_FOLDER)
         html_text = self.dad.html_handler.selection_export_to_html(text_buffer, iter_sel_start, iter_sel_end, self.dad.syntax_highlighting)
-        if self.dad.syntax_highlighting == cons.CUSTOM_COLORS_ID:
+        if self.dad.syntax_highlighting == cons.RICH_TEXT_ID:
             plain_text = text_buffer.get_text(iter_sel_start, iter_sel_end)
             rich_text = self.rich_text_get_from_text_buffer_selection(text_buffer, iter_sel_start, iter_sel_end)
             self.clipboard.set_with_data([(t, 0, 0) for t in (TARGET_CTD_PLAIN_TEXT, TARGET_CTD_RICH_TEXT, TARGETS_HTML[0])],
@@ -157,24 +157,24 @@ class ClipboardHandler:
                     self.clipboard.request_contents(target, self.to_plain_text)
                     return
         #print targets
-        if TARGET_CTD_RICH_TEXT in targets and self.dad.syntax_highlighting == cons.CUSTOM_COLORS_ID:
+        if TARGET_CTD_RICH_TEXT in targets and self.dad.syntax_highlighting == cons.RICH_TEXT_ID:
             self.clipboard.request_contents(TARGET_CTD_RICH_TEXT, self.to_rich_text)
             return
-        if TARGET_CTD_CODEBOX in targets and self.dad.syntax_highlighting == cons.CUSTOM_COLORS_ID:
+        if TARGET_CTD_CODEBOX in targets and self.dad.syntax_highlighting == cons.RICH_TEXT_ID:
             self.clipboard.request_contents(TARGET_CTD_CODEBOX, self.to_codebox)
             return
-        if TARGET_CTD_TABLE in targets and self.dad.syntax_highlighting == cons.CUSTOM_COLORS_ID:
+        if TARGET_CTD_TABLE in targets and self.dad.syntax_highlighting == cons.RICH_TEXT_ID:
             self.clipboard.request_contents(TARGET_CTD_TABLE, self.to_table, None)
             return
         for target in TARGETS_HTML:
-            if target in targets and self.dad.syntax_highlighting == cons.CUSTOM_COLORS_ID:
+            if target in targets and self.dad.syntax_highlighting == cons.RICH_TEXT_ID:
                 self.clipboard.request_contents(target, self.to_html)
                 return
         if TARGET_URI_LIST in targets:
             self.clipboard.request_contents(TARGET_URI_LIST, self.to_uri_list)
             return
         for target in TARGETS_IMAGES:
-            if target in targets and self.dad.syntax_highlighting == cons.CUSTOM_COLORS_ID:
+            if target in targets and self.dad.syntax_highlighting == cons.RICH_TEXT_ID:
                 self.clipboard.request_contents(target, self.to_image)
                 return
         for target in TARGETS_PLAIN_TEXT:
@@ -189,7 +189,7 @@ class ClipboardHandler:
     def to_uri_list(self, clipboard, selectiondata, data):
         """From Clipboard to URI list"""
         selection_data = re.sub(cons.BAD_CHARS, "", selectiondata.data)
-        if self.dad.syntax_highlighting != cons.CUSTOM_COLORS_ID:
+        if self.dad.syntax_highlighting != cons.RICH_TEXT_ID:
             iter_insert = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
             self.dad.curr_buffer.insert(iter_insert, selection_data)
             return
@@ -273,7 +273,7 @@ class ClipboardHandler:
         iter_insert = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
         start_offset = iter_insert.get_offset()
         self.dad.curr_buffer.insert(iter_insert, plain_text)
-        if self.dad.syntax_highlighting == cons.CUSTOM_COLORS_ID:
+        if self.dad.syntax_highlighting == cons.RICH_TEXT_ID:
             web_links_offsets = imports.get_web_links_offsets_from_plain_text(plain_text)
             if web_links_offsets:
                 for offsets in web_links_offsets:
