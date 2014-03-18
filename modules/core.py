@@ -218,7 +218,7 @@ class CherryTree:
     def get_node_icon(self, node_level, node_code):
         """Returns the Stock Id given the Node Level"""
         if self.nodes_icons == "c":
-            if node_code == cons.CUSTOM_COLORS_ID:
+            if node_code == cons.RICH_TEXT_ID:
                 if node_level in cons.NODES_ICONS: return cons.NODES_ICONS[node_level]
                 else: return cons.NODES_ICONS[6]
             else:
@@ -233,7 +233,7 @@ class CherryTree:
             support.dialog_warning(_("No Text is Selected"), self.window)
             return
         iter_start, iter_end = self.curr_buffer.get_selection_bounds()
-        if self.syntax_highlighting != cons.CUSTOM_COLORS_ID:
+        if self.syntax_highlighting != cons.RICH_TEXT_ID:
             text_to_change_case = self.curr_buffer.get_text(iter_start, iter_end)
             if change_type == "l": text_to_change_case = text_to_change_case.lower()
             elif change_type == "u": text_to_change_case = text_to_change_case.upper()
@@ -247,7 +247,7 @@ class CherryTree:
         end_offset = iter_end.get_offset()
         self.curr_buffer.delete(iter_start, iter_end)
         iter_insert = self.curr_buffer.get_iter_at_offset(start_offset)
-        if self.syntax_highlighting != cons.CUSTOM_COLORS_ID:
+        if self.syntax_highlighting != cons.RICH_TEXT_ID:
             self.curr_buffer.insert(iter_insert, text_to_change_case)
         else:
             self.curr_buffer.move_mark(self.curr_buffer.get_insert(), iter_insert)
@@ -273,7 +273,7 @@ class CherryTree:
             iter_start, iter_end = self.curr_buffer.get_selection_bounds() # there's a selection
             sel_start_offset = iter_start.get_offset()
             sel_end_offset = iter_end.get_offset()
-            if self.syntax_highlighting != cons.CUSTOM_COLORS_ID:
+            if self.syntax_highlighting != cons.RICH_TEXT_ID:
                 text_to_duplicate = self.curr_buffer.get_text(iter_start, iter_end)
                 if cons.CHAR_NEWLINE in text_to_duplicate:
                     text_to_duplicate = cons.CHAR_NEWLINE + text_to_duplicate
@@ -295,7 +295,7 @@ class CherryTree:
                 iter_start = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
                 self.curr_buffer.insert(iter_start, cons.CHAR_NEWLINE)
             else:
-                if self.syntax_highlighting != cons.CUSTOM_COLORS_ID:
+                if self.syntax_highlighting != cons.RICH_TEXT_ID:
                     text_to_duplicate = self.curr_buffer.get_text(iter_start, iter_end)
                     self.curr_buffer.insert(iter_end, cons.CHAR_NEWLINE + text_to_duplicate)
                 else:
@@ -332,7 +332,7 @@ class CherryTree:
         #print "iter_start", iter_start.get_offset(), ord(iter_start.get_char()), iter_start.get_char()
         #print "iter_end", iter_end.get_offset(), ord(iter_end.get_char()), iter_end.get_char()
         #print "destination_iter", destination_iter.get_offset(), ord(destination_iter.get_char()), destination_iter.get_char()
-        if self.syntax_highlighting != cons.CUSTOM_COLORS_ID:
+        if self.syntax_highlighting != cons.RICH_TEXT_ID:
             text_to_move = self.curr_buffer.get_text(iter_start, iter_end)
             self.curr_buffer.delete(iter_start, iter_end)
             destination_iter = self.curr_buffer.get_iter_at_offset(destination_offset)
@@ -377,7 +377,7 @@ class CherryTree:
         #print "iter_start", iter_start.get_offset(), ord(iter_start.get_char()), iter_start.get_char()
         #print "iter_end", iter_end.get_offset(), ord(iter_end.get_char()), iter_end.get_char()
         #print "destination_iter", destination_iter.get_offset(), ord(destination_iter.get_char()), destination_iter.get_char()
-        if self.syntax_highlighting != cons.CUSTOM_COLORS_ID:
+        if self.syntax_highlighting != cons.RICH_TEXT_ID:
             text_to_move = self.curr_buffer.get_text(iter_start, iter_end)
             self.curr_buffer.delete(iter_start, iter_end)
             destination_offset -= len(text_to_move)
@@ -861,7 +861,7 @@ class CherryTree:
                 self.sourceview.set_buffer(self.curr_buffer)
                 self.syntax_highlighting = self.treestore[self.curr_tree_iter][4]
                 self.curr_buffer.connect('modified-changed', self.on_modified_changed)
-                if self.syntax_highlighting == cons.CUSTOM_COLORS_ID:
+                if self.syntax_highlighting == cons.RICH_TEXT_ID:
                     self.curr_buffer.connect('insert-text', self.on_text_insertion)
                     self.curr_buffer.connect('delete-range', self.on_text_removal)
                     self.sourceview.modify_font(pango.FontDescription(self.text_font))
@@ -887,7 +887,7 @@ class CherryTree:
 
     def on_sourceview_populate_popup(self, textview, menu):
         """Extend the Default Right-Click Menu"""
-        if self.syntax_highlighting == cons.CUSTOM_COLORS_ID:
+        if self.syntax_highlighting == cons.RICH_TEXT_ID:
             for menuitem in menu.get_children():
                 try:
                     if menuitem.get_image().get_property("stock") == "gtk-paste":
@@ -1940,7 +1940,7 @@ class CherryTree:
                 self.switch_buffer_text_source(self.treestore[iter_child][2],
                                                iter_child,
                                                self.treestore[iter_child][4])
-                if self.treestore[iter_child][4] != cons.CUSTOM_COLORS_ID:
+                if self.treestore[iter_child][4] != cons.RICH_TEXT_ID:
                     self.set_sourcebuffer_syntax_highlight(self.treestore[iter_child][2],
                                                            self.treestore[iter_child][4])
                 self.ctdb_handler.pending_edit_db_node_prop(self.treestore[iter_child][3])
@@ -2108,7 +2108,7 @@ class CherryTree:
 
     def buffer_create(self, syntax_highlighting):
         """Returns a New Instantiated SourceBuffer"""
-        if syntax_highlighting != cons.CUSTOM_COLORS_ID:
+        if syntax_highlighting != cons.RICH_TEXT_ID:
             sourcebuffer = gtksourceview2.Buffer()
             sourcebuffer.set_style_scheme(self.sourcestyleschememanager.get_scheme(self.style_scheme))
             self.set_sourcebuffer_syntax_highlight(sourcebuffer, syntax_highlighting)
@@ -2235,7 +2235,7 @@ class CherryTree:
                 self.treeview_safe_set_cursor(curr_iter)
                 return
             curr_iter = self.treestore.iter_next(curr_iter)
-        self.node_child_add_with_data(father_iter, node_name, cons.CUSTOM_COLORS_ID, "", False)
+        self.node_child_add_with_data(father_iter, node_name, cons.RICH_TEXT_ID, "", False)
 
     def node_child_add(self, *args):
         """Add a node having as father the selected node"""
@@ -2292,14 +2292,14 @@ class CherryTree:
             ro=self.treestore[self.curr_tree_iter][7])
         if not ret_name: return
         self.syntax_highlighting = ret_syntax
-        if self.treestore[self.curr_tree_iter][4] == cons.CUSTOM_COLORS_ID and self.syntax_highlighting != cons.CUSTOM_COLORS_ID:
+        if self.treestore[self.curr_tree_iter][4] == cons.RICH_TEXT_ID and self.syntax_highlighting != cons.RICH_TEXT_ID:
             if not support.dialog_question(_("Entering the Automatic Syntax Highlighting you will Lose all Custom Colors for This Node, Do you want to Continue?"), self.window):
-                self.syntax_highlighting = cons.CUSTOM_COLORS_ID # STEP BACK (we stay in CUSTOM COLORS)
+                self.syntax_highlighting = cons.RICH_TEXT_ID # STEP BACK (we stay in CUSTOM COLORS)
                 return
             # SWITCH TextBuffer -> SourceBuffer
             self.switch_buffer_text_source(self.curr_buffer, self.curr_tree_iter, self.syntax_highlighting)
             self.curr_buffer = self.treestore[self.curr_tree_iter][2]
-        elif self.treestore[self.curr_tree_iter][4] != cons.CUSTOM_COLORS_ID and self.syntax_highlighting == cons.CUSTOM_COLORS_ID:
+        elif self.treestore[self.curr_tree_iter][4] != cons.RICH_TEXT_ID and self.syntax_highlighting == cons.RICH_TEXT_ID:
             # SWITCH SourceBuffer -> TextBuffer
             self.switch_buffer_text_source(self.curr_buffer, self.curr_tree_iter, self.syntax_highlighting)
             self.curr_buffer = self.treestore[self.curr_tree_iter][2]
@@ -2310,7 +2310,7 @@ class CherryTree:
         self.treestore[self.curr_tree_iter][7] = ret_ro
         self.treestore[self.curr_tree_iter][0] = self.get_node_icon(self.treestore.iter_depth(self.curr_tree_iter),
                                                                     self.syntax_highlighting)
-        if self.syntax_highlighting != cons.CUSTOM_COLORS_ID:
+        if self.syntax_highlighting != cons.RICH_TEXT_ID:
             self.set_sourcebuffer_syntax_highlight(self.curr_buffer, self.syntax_highlighting)
         self.sourceview.set_editable(not self.treestore[self.curr_tree_iter][7])
         self.update_selected_node_statusbar_info()
@@ -2358,7 +2358,7 @@ class CherryTree:
 
     def sourceview_set_properties(self, tree_iter, syntax_highl):
         """Set sourceview properties according to current node"""
-        if syntax_highl == cons.CUSTOM_COLORS_ID:
+        if syntax_highl == cons.RICH_TEXT_ID:
             self.treestore[tree_iter][2].connect('insert-text', self.on_text_insertion)
             self.treestore[tree_iter][2].connect('delete-range', self.on_text_removal)
             self.treestore[tree_iter][2].connect('mark-set', self.on_textbuffer_mark_set)
@@ -2426,7 +2426,7 @@ class CherryTree:
                 #print "cursor_pos %s restore for node %s" % (cursor_pos, model[new_iter][3])
                 self.curr_buffer.place_cursor(cursor_iter)
                 self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), 0.3)
-            if self.syntax_highlighting == cons.CUSTOM_COLORS_ID:
+            if self.syntax_highlighting == cons.RICH_TEXT_ID:
                 if self.enable_spell_check: self.spell_check_set_on()
                 if not already_visited: self.lists_handler.todo_lists_old_to_new_conversion(self.curr_buffer)
 
@@ -2609,7 +2609,7 @@ class CherryTree:
     def requested_step_back(self, *args):
         """Step Back for the Current Node, if Possible"""
         if self.curr_tree_iter == None: return
-        if self.syntax_highlighting == cons.CUSTOM_COLORS_ID:
+        if self.syntax_highlighting == cons.RICH_TEXT_ID:
             # TEXT BUFFER STATE MACHINE
             step_back = self.state_machine.requested_previous_state(self.treestore[self.curr_tree_iter][3])
             # step_back is [ [rich_text, pixbuf_table_vector, cursor_position],... ]
@@ -2639,7 +2639,7 @@ class CherryTree:
     def requested_step_ahead(self, *args):
         """Step Ahead for the Current Node, if Possible"""
         if self.curr_tree_iter == None: return
-        if self.syntax_highlighting == cons.CUSTOM_COLORS_ID:
+        if self.syntax_highlighting == cons.RICH_TEXT_ID:
             # TEXT BUFFER STATE MACHINE
             step_ahead = self.state_machine.requested_subsequent_state(self.treestore[self.curr_tree_iter][3])
             # step_ahead is [ [rich_text, pixbuf_table_vector, cursor_position],... ]
@@ -2813,7 +2813,7 @@ class CherryTree:
             return self.search_replace_dict['find']
         return None
 
-    def dialog_nodeprop(self, title, name="", syntax_highl=cons.CUSTOM_COLORS_ID, tags="", ro=False):
+    def dialog_nodeprop(self, title, name="", syntax_highl=cons.RICH_TEXT_ID, tags="", ro=False):
         """Opens the Node Properties Dialog"""
         dialog = gtk.Dialog(title=title,
                             parent=self.window,
@@ -2836,7 +2836,7 @@ class CherryTree:
         combobox_prog_lang.pack_start(cell, True)
         combobox_prog_lang.add_attribute(cell, 'text', 0)
         combobox_prog_lang.set_active_iter(self.get_combobox_iter_from_value(self.prog_lang_liststore, 1, syntax_highl))
-        if syntax_highl == cons.CUSTOM_COLORS_ID:
+        if syntax_highl == cons.RICH_TEXT_ID:
             radiobutton_rich_text.set_active(True)
             combobox_prog_lang.set_sensitive(False)
         else:
@@ -2898,7 +2898,7 @@ class CherryTree:
         dialog.hide()
         if response == gtk.RESPONSE_ACCEPT:
             ret_name = unicode(name_entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE)
-            ret_syntax = cons.CUSTOM_COLORS_ID if radiobutton_rich_text.get_active() else self.prog_lang_liststore[combobox_prog_lang.get_active_iter()][1]
+            ret_syntax = cons.RICH_TEXT_ID if radiobutton_rich_text.get_active() else self.prog_lang_liststore[combobox_prog_lang.get_active_iter()][1]
             ret_tags = unicode(tags_entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE)
             ret_ro = ro_checkbutton.get_active()
             return [ret_name, ret_syntax, ret_tags, ret_ro]
@@ -3048,7 +3048,7 @@ class CherryTree:
 
     def is_curr_node_not_syntax_highlighting_or_error(self):
         """Returns True if ok (no syntax highlighting) or False and prompts error dialog"""
-        if self.syntax_highlighting != cons.CUSTOM_COLORS_ID:
+        if self.syntax_highlighting != cons.RICH_TEXT_ID:
             support.dialog_warning(_("Automatic Syntax Highlighting Must be Disabled in order to Use This Feature"), self.window)
             return False
         return True
@@ -3133,7 +3133,7 @@ class CherryTree:
         dialog.get_action_area().set_layout(gtk.BUTTONBOX_SPREAD)
         dialog.run()
         dialog.destroy()
-        if self.enable_spell_check and self.syntax_highlighting == cons.CUSTOM_COLORS_ID:
+        if self.enable_spell_check and self.syntax_highlighting == cons.RICH_TEXT_ID:
             self.spell_check_set_on()
 
     def tree_info_iter(self, tree_iter):
@@ -3141,7 +3141,7 @@ class CherryTree:
         curr_buffer = self.get_textbuffer_from_tree_iter(tree_iter)
         pixbuf_table_vector = self.state_machine.get_embedded_pixbufs_tables_codeboxes(curr_buffer)
         # pixbuf_table_vector is [ [ "pixbuf"/"table", [offset, pixbuf, alignment] ],... ]
-        if self.treestore[tree_iter][4] == cons.CUSTOM_COLORS_ID: self.summary_nodes_text_num += 1
+        if self.treestore[tree_iter][4] == cons.RICH_TEXT_ID: self.summary_nodes_text_num += 1
         else: self.summary_nodes_code_num += 1
         curr_node_images = 0
         curr_node_tables = 0
@@ -3623,11 +3623,11 @@ class CherryTree:
         """Enable Spell Check"""
         if not self.spell_check_init:
             self.spell_check_init = True
-            self.spellchecker = pgsc_spellcheck.SpellChecker(self.sourceview, self, self.syntax_highlighting == cons.CUSTOM_COLORS_ID, self.spell_check_lang)
+            self.spellchecker = pgsc_spellcheck.SpellChecker(self.sourceview, self, self.syntax_highlighting == cons.RICH_TEXT_ID, self.spell_check_lang)
             self.combobox_spell_check_lang_init()
         else:
             self.spellchecker.enable()
-            if self.syntax_highlighting == cons.CUSTOM_COLORS_ID:
+            if self.syntax_highlighting == cons.RICH_TEXT_ID:
                 self.spell_check_reload_on_buffer()
         self.update_selected_node_statusbar_info()
 
@@ -3909,7 +3909,7 @@ class CherryTree:
             self.curr_buffer.move_mark(self.curr_buffer.get_insert(), iter_start)
             self.curr_buffer.move_mark(self.curr_buffer.get_selection_bound(), iter_end)
         if event.type in [gtk.gdk.BUTTON_PRESS, gtk.gdk.KEY_PRESS]:
-            if self.syntax_highlighting == cons.CUSTOM_COLORS_ID\
+            if self.syntax_highlighting == cons.RICH_TEXT_ID\
             and self.curr_tree_iter and not self.curr_buffer.get_modified():
                 self.state_machine.update_curr_state_cursor_pos(self.treestore[self.curr_tree_iter][3])
             if event.type == gtk.gdk.BUTTON_PRESS:
@@ -3929,7 +3929,7 @@ class CherryTree:
         """Update the cursor image if the pointer moved"""
         if not self.sourceview.get_cursor_visible():
             self.sourceview.set_cursor_visible(True)
-        if self.syntax_highlighting != cons.CUSTOM_COLORS_ID:
+        if self.syntax_highlighting != cons.RICH_TEXT_ID:
             self.sourceview.get_window(gtk.TEXT_WINDOW_TEXT).set_cursor(None)
             return
         x, y = self.sourceview.window_to_buffer_coords(gtk.TEXT_WINDOW_TEXT, int(event.x), int(event.y))
@@ -3942,7 +3942,7 @@ class CherryTree:
             tooltip_text = _("No Node is Selected")
         else:
             tooltip_text = _("Node Type") + ": "
-            if self.treestore[self.curr_tree_iter][4] == cons.CUSTOM_COLORS_ID: tooltip_text += _("Rich Text")
+            if self.treestore[self.curr_tree_iter][4] == cons.RICH_TEXT_ID: tooltip_text += _("Rich Text")
             else: tooltip_text += self.treestore[self.curr_tree_iter][4]
             if self.treestore[self.curr_tree_iter][7]: tooltip_text += "  -  " + _("Read Only")
             if self.treestore[self.curr_tree_iter][6]: tooltip_text += "  -  " + _("Tags") + ": " + self.treestore[self.curr_tree_iter][6]
@@ -3953,7 +3953,7 @@ class CherryTree:
 
     def on_sourceview_visibility_notify_event(self, text_view, event):
         """Update the cursor image if the window becomes visible (e.g. when a window covering it got iconified)"""
-        if self.syntax_highlighting != cons.CUSTOM_COLORS_ID:
+        if self.syntax_highlighting != cons.RICH_TEXT_ID:
             self.sourceview.get_window(gtk.TEXT_WINDOW_TEXT).set_cursor(None)
             return
         wx, wy, mod = self.sourceview.window.get_pointer()

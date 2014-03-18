@@ -126,14 +126,14 @@ class XMLHandler:
         if dom_iter.hasAttribute('readonly'): readonly = (dom_iter.attributes['readonly'].value == "True")
         else: readonly = False
         syntax_highlighting = dom_iter.attributes['prog_lang'].value
-        if syntax_highlighting != cons.CUSTOM_COLORS_ID and syntax_highlighting not in self.dad.available_languages:
+        if syntax_highlighting != cons.RICH_TEXT_ID and syntax_highlighting not in self.dad.available_languages:
             syntax_highlighting = syntax_highlighting.lower().replace("C++", "cpp")
             if syntax_highlighting not in self.dad.available_languages:
-                syntax_highlighting = cons.CUSTOM_COLORS_ID
+                syntax_highlighting = cons.RICH_TEXT_ID
         node_depth = 0 if not tree_father else self.dad.treestore.iter_depth(tree_father)+1
         cherry = self.dad.get_node_icon(node_depth, syntax_highlighting)
         curr_buffer = self.dad.buffer_create(syntax_highlighting)
-        if syntax_highlighting != cons.CUSTOM_COLORS_ID: curr_buffer.begin_not_undoable_action()
+        if syntax_highlighting != cons.RICH_TEXT_ID: curr_buffer.begin_not_undoable_action()
         # loop into rich text, write into the buffer
         child_dom_iter = dom_iter.firstChild
         while child_dom_iter != None:
@@ -145,7 +145,7 @@ class XMLHandler:
             elif child_dom_iter.nodeName == "encoded_image": self.image_deserialize(curr_buffer, child_dom_iter, 1)
             elif child_dom_iter.nodeName == "node": break
             child_dom_iter = child_dom_iter.nextSibling
-        if syntax_highlighting != cons.CUSTOM_COLORS_ID: curr_buffer.end_not_undoable_action()
+        if syntax_highlighting != cons.RICH_TEXT_ID: curr_buffer.end_not_undoable_action()
         curr_buffer.set_modified(False)
         #print unique_id
         # insert the node containing the buffer into the tree
@@ -315,7 +315,7 @@ class XMLHandler:
         else:
             start_iter = curr_buffer.get_iter_at_offset(sel_range[0])
             end_iter = curr_buffer.get_iter_at_offset(sel_range[1])
-        if programming_language == cons.CUSTOM_COLORS_ID:
+        if programming_language == cons.RICH_TEXT_ID:
             # rich text insert
             curr_iter = start_iter.copy()
             self.rich_text_attributes_update(curr_iter, self.curr_attributes)
