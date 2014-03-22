@@ -2204,6 +2204,7 @@ class CherryTree:
         """Add a node having common father with the selected node's"""
         ret_name, ret_syntax, ret_tags, ret_ro = self.dialog_nodeprop(_("New Node Properties"), syntax_highl=self.syntax_highlighting)
         if not ret_name: return
+        if ret_syntax != cons.RICH_TEXT_ID: self.auto_syn_highl = ret_syntax
         self.update_window_save_needed()
         self.syntax_highlighting = ret_syntax
         father_iter = self.treestore.iter_parent(self.curr_tree_iter) if self.curr_tree_iter else None
@@ -2242,6 +2243,7 @@ class CherryTree:
         if not self.is_there_selected_node_or_error(): return
         ret_name, ret_syntax, ret_tags, ret_ro = self.dialog_nodeprop(_("New Child Node Properties"), syntax_highl=self.syntax_highlighting)
         if not ret_name: return
+        if ret_syntax != cons.RICH_TEXT_ID: self.auto_syn_highl = ret_syntax
         self.node_child_add_with_data(self.curr_tree_iter, ret_name, ret_syntax, ret_tags, ret_ro)
 
     def node_child_add_with_data(self, father_iter, ret_name, ret_syntax, ret_tags, ret_ro):
@@ -2291,6 +2293,7 @@ class CherryTree:
             tags=self.treestore[self.curr_tree_iter][6],
             ro=self.treestore[self.curr_tree_iter][7])
         if not ret_name: return
+        if ret_syntax != cons.RICH_TEXT_ID: self.auto_syn_highl = ret_syntax
         self.syntax_highlighting = ret_syntax
         if self.treestore[self.curr_tree_iter][4] == cons.RICH_TEXT_ID and self.syntax_highlighting != cons.RICH_TEXT_ID:
             if not support.dialog_question(_("Entering the Automatic Syntax Highlighting you will Lose all Custom Colors for This Node, Do you want to Continue?"), self.window):
@@ -2835,13 +2838,12 @@ class CherryTree:
         cell = gtk.CellRendererText()
         combobox_prog_lang.pack_start(cell, True)
         combobox_prog_lang.add_attribute(cell, 'text', 0)
-        combobox_prog_lang.set_active_iter(self.get_combobox_iter_from_value(self.prog_lang_liststore, 1, syntax_highl))
+        combobox_prog_lang.set_active_iter(self.get_combobox_iter_from_value(self.prog_lang_liststore, 1, self.auto_syn_highl))
         if syntax_highl == cons.RICH_TEXT_ID:
             radiobutton_rich_text.set_active(True)
             combobox_prog_lang.set_sensitive(False)
         else:
             radiobutton_auto_syntax_highl.set_active(True)
-            combobox_prog_lang.set_active_iter(self.get_combobox_iter_from_value(self.prog_lang_liststore, 1, syntax_highl))
         type_vbox = gtk.VBox()
         type_vbox.pack_start(radiobutton_rich_text)
         type_vbox.pack_start(radiobutton_auto_syntax_highl)
