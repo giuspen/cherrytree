@@ -53,7 +53,7 @@ class CodeBoxesHandler:
         self.dad.curr_buffer.delete_selection(True, self.dad.sourceview.get_editable())
         self.dad.sourceview.grab_focus()
 
-    def dialog_codeboxhandle(self, title, syntax_highl, line_num, match_bra):
+    def dialog_codeboxhandle(self, title, line_num, match_bra):
         """Opens the CodeBox Handle Dialog"""
         dialog = gtk.Dialog(title=title,
                             parent=self.dad.window,
@@ -67,7 +67,7 @@ class CodeBoxesHandler:
         cell = gtk.CellRendererText()
         combobox_prog_lang.pack_start(cell, True)
         combobox_prog_lang.add_attribute(cell, 'text', 0)
-        combobox_prog_lang.set_active_iter(self.dad.get_combobox_iter_from_value(self.dad.prog_lang_liststore, 1, syntax_highl))
+        combobox_prog_lang.set_active_iter(self.dad.get_combobox_iter_from_value(self.dad.prog_lang_liststore, 1, self.dad.auto_syn_highl))
         type_vbox = gtk.VBox()
         type_vbox.pack_start(combobox_prog_lang)
         type_vbox.set_border_width(6)
@@ -156,14 +156,14 @@ class CodeBoxesHandler:
         response = dialog.run()
         dialog.hide()
         if response == gtk.RESPONSE_ACCEPT:
-            ret_syntax = self.dad.prog_lang_liststore[combobox_prog_lang.get_active_iter()][1]
+            self.dad.auto_syn_highl = self.dad.prog_lang_liststore[combobox_prog_lang.get_active_iter()][1]
             self.dad.codebox_width = spinbutton_width.get_value()
             self.dad.codebox_width_pixels = radiobutton_codebox_pixels.get_active()
             self.dad.codebox_height = spinbutton_height.get_value()
             ret_line_num = checkbutton_codebox_linenumbers.get_active()
             ret_match_bra = checkbutton_codebox_matchbrackets.get_active()
-            return [ret_syntax, ret_line_num, ret_match_bra]
-        return [None, None, None]
+            return [ret_line_num, ret_match_bra]
+        return [None, None]
 
     def codebox_handle(self):
         """Insert Code Box"""
@@ -171,13 +171,13 @@ class CodeBoxesHandler:
             iter_sel_start, iter_sel_end = self.dad.curr_buffer.get_selection_bounds()
             fill_text = unicode(self.dad.curr_buffer.get_text(iter_sel_start, iter_sel_end), cons.STR_UTF8, cons.STR_IGNORE)
         else: fill_text = None
-        ret_syntax, ret_line_num, ret_match_bra = self.dialog_codeboxhandle(_("Insert a CodeBox"), "sh", False, True)
-        if not ret_syntax: return
+        ret_line_num, ret_match_bra = self.dialog_codeboxhandle(_("Insert a CodeBox"), False, True)
+        if ret_line_num == None: return
         codebox_dict = {
            'frame_width': int(self.dad.codebox_width),
            'frame_height': int(self.dad.codebox_height),
            'width_in_pixels': self.dad.codebox_width_pixels,
-           'syntax_highlighting': ret_syntax,
+           'syntax_highlighting': self.dad.auto_syn_highl,
            'highlight_brackets': ret_match_bra,
            'show_line_numbers': ret_line_num,
            'fill_text': fill_text
@@ -291,12 +291,13 @@ class CodeBoxesHandler:
 
     def codebox_change_properties(self, action):
         """Change CodeBox Properties"""
+        self.dad.auto_syn_highl = self.curr_codebox_anchor.syntax_highlighting
         self.dad.codebox_width = self.curr_codebox_anchor.frame_width
         self.dad.codebox_width_pixels = self.curr_codebox_anchor.width_in_pixels
         self.dad.codebox_height = self.curr_codebox_anchor.frame_height
-        ret_syntax, ret_line_num, ret_match_bra = self.dialog_codeboxhandle(_("Edit CodeBox"), self.curr_codebox_anchor.syntax_highlighting, self.curr_codebox_anchor.show_line_numbers, self.curr_codebox_anchor.highlight_brackets)
-        if not ret_syntax: return
-        self.curr_codebox_anchor.syntax_highlighting = ret_syntax
+        ret_line_num, ret_match_bra = self.dialog_codeboxhandle(_("Edit CodeBox"), self.curr_codebox_anchor.show_line_numbers, self.curr_codebox_anchor.highlight_brackets)
+        if ret_line_num == None: return
+        self.curr_codebox_anchor.syntax_highlighting = self.dad.auto_syn_highl
         self.dad.set_sourcebuffer_syntax_highlight(self.curr_codebox_anchor.sourcebuffer, self.curr_codebox_anchor.syntax_highlighting)
         self.curr_codebox_anchor.frame_width = int(self.dad.codebox_width)
         self.curr_codebox_anchor.frame_height = int(self.dad.codebox_height)
