@@ -2838,7 +2838,7 @@ class CherryTree:
         cell = gtk.CellRendererText()
         combobox_prog_lang.pack_start(cell, True)
         combobox_prog_lang.add_attribute(cell, 'text', 0)
-        combobox_prog_lang.set_active_iter(self.get_combobox_iter_from_value(self.prog_lang_liststore, 1, self.auto_syn_highl))
+        combobox_prog_lang.set_active_iter(self.get_combobox_iter_from_value(self.prog_lang_liststore, 1, self.auto_syn_highl if syntax_highl == cons.RICH_TEXT_ID else syntax_highl))
         if syntax_highl == cons.RICH_TEXT_ID:
             radiobutton_rich_text.set_active(True)
             combobox_prog_lang.set_sensitive(False)
