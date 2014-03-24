@@ -186,14 +186,14 @@ class CherryTree:
         self.window.present()
         config.config_file_apply(self)
         self.combobox_prog_lang_init()
+        if not is_startup or self.reload_doc_last:
+            self.file_startup_load(open_with_file, node_name)
+        else: self.file_name = ""
         if self.systray:
             if not self.boss.systray_active:
                 self.status_icon_enable()
             if self.start_on_systray: self.window.hide_all()
         else: self.ui.get_widget("/MenuBar/FileMenu/ExitApp").set_property(cons.STR_VISIBLE, False)
-        if not is_startup or self.reload_doc_last:
-            self.file_startup_load(open_with_file, node_name)
-        else: self.file_name = ""
         if self.check_version: self.check_for_newer_version()
 
     def check_for_newer_version(self, *args):
