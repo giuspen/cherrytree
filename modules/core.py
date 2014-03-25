@@ -1105,14 +1105,16 @@ class CherryTree:
 
     def file_startup_load(self, open_with_file, node_name):
         """Try to load a file if there are the conditions"""
+        print "file_startup_load '%s' ('%s', '%s')" % (open_with_file, self.file_name, self.file_dir)
         if open_with_file:
             open_with_file = unicode(open_with_file, cons.STR_UTF8, cons.STR_IGNORE)
             self.file_name = os.path.basename(open_with_file)
             self.file_dir = os.path.dirname(open_with_file)
+            print "open_with_file -> file_name '%s', file_dir '%s'" % (self.file_name, self.file_dir)
         elif self.boss.running_windows:
             self.file_name = ""
             return
-        if self.file_dir and self.file_name and os.path.isfile(os.path.join(self.file_dir, self.file_name)):
+        if self.file_name and os.path.isfile(os.path.join(self.file_dir, self.file_name)):
             self.file_load(os.path.join(self.file_dir, self.file_name))
             self.modification_time_update_value(True)
             if self.rest_exp_coll == 1: self.treeview.expand_all()
@@ -1132,7 +1134,9 @@ class CherryTree:
             # we try to restore the focused node
             config.set_tree_path_and_cursor_pos(self)
         else:
-            self.file_name = ""
+            if self.file_name:
+                print "? not is_file '%s'" % (os.path.join(self.file_dir, self.file_name))
+                self.file_name = ""
             self.update_window_save_not_needed()
         self.file_update = False
 
