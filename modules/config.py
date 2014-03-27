@@ -190,6 +190,7 @@ def config_file_load(inst):
         inst.backup_copy = config.getboolean(section, "backup_copy") if config.has_option(section, "backup_copy") else True
         inst.autosave_on_quit = config.getboolean(section, "autosave_on_quit") if config.has_option(section, "autosave_on_quit") else False
         inst.limit_undoable_steps = config.getint(section, "limit_undoable_steps") if config.has_option(section, "limit_undoable_steps") else 20
+        print "read", cons.CONFIG_PATH, "('%s', '%s')" % (inst.file_name, inst.file_dir)
     else:
         inst.file_dir = ""
         inst.file_name = ""
@@ -263,6 +264,7 @@ def config_file_load(inst):
         inst.nodes_icons = "c"
         inst.recent_docs = []
         inst.toolbar_visible = True
+        print "missing", cons.CONFIG_PATH
 
 def config_file_apply(inst):
     """Apply the Preferences from Config File"""
@@ -421,6 +423,7 @@ def config_file_save(inst):
 
     with open(cons.CONFIG_PATH, 'wb') as configfile:
         config.write(configfile)
+        print "saved", cons.CONFIG_PATH, "('%s', '%s')" % (inst.file_name, inst.file_dir)
 
 def get_tree_expanded_collapsed_string(inst):
     """Returns a String Containing the Info about Expanded and Collapsed Nodes"""
