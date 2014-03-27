@@ -1005,7 +1005,7 @@ class CherryTree:
 
     def modification_time_sentinel_iter(self):
         """Iteration of the Modification Time Sentinel"""
-        if self.file_dir and self.file_name and self.mod_time_val:
+        if self.file_name and self.mod_time_val:
             file_path = os.path.join(self.file_dir, self.file_name)
             if os.path.isfile(file_path):
                 read_mod_time = os.path.getmtime(file_path)
@@ -1181,7 +1181,7 @@ class CherryTree:
 
     def file_save(self, *args):
         """Save the file"""
-        if self.file_dir != "" and self.file_name != "":
+        if self.file_name:
             if self.file_update or (self.curr_tree_iter != None and self.curr_buffer.get_modified() == True):
                 self.modification_time_update_value(False)
                 if self.is_tree_not_empty_or_error() \
