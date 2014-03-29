@@ -95,10 +95,10 @@ class ExportPrint:
     def get_pdf_filepath(self, proposed_name):
         """Dialog to select dest PDF"""
         ret_filepath = support.dialog_file_save_as(proposed_name + ".pdf",
-                                                   filter_pattern="*.pdf",
-                                                   filter_name=_("PDF File"),
-                                                   curr_folder=self.dad.pick_dir,
-                                                   parent=self.dad.window)
+            filter_pattern="*.pdf",
+            filter_name=_("PDF File"),
+            curr_folder=self.dad.pick_dir,
+            parent=self.dad.window)
         if ret_filepath:
             if not ret_filepath.endswith(".pdf"): ret_filepath += ".pdf"
             self.dad.pick_dir = os.path.dirname(ret_filepath)
@@ -164,11 +164,11 @@ class ExportPrint:
     def run_print(self):
         """Finally Run the Print"""
         self.dad.print_handler.print_text(self.dad.window,
-                                          self.pango_text,
-                                          self.text_font,
-                                          self.dad.code_font,
-                                          self.pixbuf_table_codebox_vector,
-                                          self.dad.get_text_window_width())
+            self.pango_text,
+            self.text_font,
+            self.dad.code_font,
+            self.pixbuf_table_codebox_vector,
+            self.dad.get_text_window_width())
 
 
 class Export2Txt:
@@ -349,8 +349,8 @@ class Export2Pango:
         """Given a treestore iter returns the Pango rich text"""
         curr_buffer = self.dad.treestore[node_iter][2]
         pixbuf_table_codebox_vector = self.dad.state_machine.get_embedded_pixbufs_tables_codeboxes(curr_buffer,
-                                                                                                   for_print=1,
-                                                                                                   sel_range=sel_range)
+            for_print=1,
+            sel_range=sel_range)
         # pixbuf_table_codebox_vector is [ [ "pixbuf"/"table"/"codebox", [offset, pixbuf, alignment] ],... ]
         self.curr_pango_slots = []
         start_offset = 0 if not sel_range else sel_range[0]
