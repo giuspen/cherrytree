@@ -97,6 +97,11 @@ class PrintHandler:
         self.page_width = context.get_width()
         self.page_height = context.get_height() * 1.02 # tolerance at bottom of the page
         any_image_resized = False
+        layout_newline = context.create_pango_layout()
+        layout_newline.set_font_description(self.pango_font)
+        layout_newline.set_width(int(self.page_width*pango.SCALE))
+        layout_newline.set_markup(cons.CHAR_NEWLINE)
+        line_width, self.layout_newline_height = self.layout_line_get_width_height(layout_newline.get_line(0))
         while 1:
             exit_ok = True
             print_data.layout = []
@@ -113,8 +118,11 @@ class PrintHandler:
                 print_data.forced_page_break.append(is_forced_page_break)
                 print_data.layout[-1].set_markup(text_slot if not is_forced_page_break else text_slot[2:])
                 if text_slot == cons.CHAR_NEWLINE:
-                    print_data.layout_is_new_line.append(True) # in other case we detect the newline from a following line
-                else: print_data.layout_is_new_line.append(False) # but here we have a single layout line
+                    # in other cases we detect the newline from a following line
+                    # but here we have a single layout line
+                    print_data.layout_is_new_line.append(True)
+                else:
+                    print_data.layout_is_new_line.append(False)
                 print_data.layout_num_lines.append(print_data.layout[-1].get_line_count())
             self.y_idx = 0
             print_data.page_breaks = []
@@ -433,7 +441,7 @@ class PrintHandler:
             codebox_dict_jolly['fill_text'] = partial_pango
             codebox_layout = self.get_codebox_layout(context, codebox_dict_jolly)
             codebox_height = self.get_height_from_layout(codebox_layout)
-            if codebox_height < self.page_height:
+            if codebox_height < (self.page_height-self.layout_newline_height):
                 # this slot is done
                 partial_pango_vec.append(partial_pango)
                 # let's get ready for the next slot
@@ -443,7 +451,7 @@ class PrintHandler:
                 codebox_dict_jolly['fill_text'] = partial_pango
                 codebox_layout = self.get_codebox_layout(context, codebox_dict_jolly)
                 codebox_height = self.get_height_from_layout(codebox_layout)
-                if codebox_height < self.page_height:
+                if codebox_height < (self.page_height-self.layout_newline_height):
                     # this is the last piece
                     partial_pango_vec.append(partial_pango)
                     break
