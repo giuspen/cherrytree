@@ -432,29 +432,25 @@ class PrintHandler:
         """Split Long CodeBoxes"""
         codebox_dict = self.pixbuf_table_codebox_vector[idx][1][1]
         original_splitted_pango = codebox_dict['fill_text'].split(cons.CHAR_NEWLINE)
-        splitted_pango = copy.deepcopy(original_splitted_pango)
+        splitted_pango = []
         codebox_dict_jolly = copy.deepcopy(codebox_dict)
         partial_pango_vec = []
-        while len(splitted_pango) > 1:
-            splitted_pango = splitted_pango[:-1]
+        partial_pango = ""
+        partial_pango_old = ""
+        while len(splitted_pango) < len(original_splitted_pango):
+            splitted_pango.append(original_splitted_pango[len(splitted_pango)])
+            if partial_pango: partial_pango_old = partial_pango
             partial_pango = cons.CHAR_NEWLINE.join(splitted_pango)
             codebox_dict_jolly['fill_text'] = partial_pango
             codebox_layout = self.get_codebox_layout(context, codebox_dict_jolly)
             codebox_height = self.get_height_from_layout(codebox_layout)
-            if codebox_height < (self.page_height-self.layout_newline_height):
+            if codebox_height > (self.page_height-self.layout_newline_height):
                 # this slot is done
-                partial_pango_vec.append(partial_pango)
-                # let's get ready for the next slot
-                splitted_pango = original_splitted_pango[len(splitted_pango):]
-                original_splitted_pango = splitted_pango
-                partial_pango = cons.CHAR_NEWLINE.join(splitted_pango)
-                codebox_dict_jolly['fill_text'] = partial_pango
-                codebox_layout = self.get_codebox_layout(context, codebox_dict_jolly)
-                codebox_height = self.get_height_from_layout(codebox_layout)
-                if codebox_height < (self.page_height-self.layout_newline_height):
-                    # this is the last piece
-                    partial_pango_vec.append(partial_pango)
-                    break
+                partial_pango_vec.append(partial_pango_old)
+                original_splitted_pango = original_splitted_pango[len(splitted_pango)-1:]
+                splitted_pango = []
+        # this is the last piece
+        partial_pango_vec.append(partial_pango)
         for i, element in enumerate(partial_pango_vec):
             if i == 0: codebox_dict['fill_text'] = element
             else:
