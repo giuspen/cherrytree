@@ -154,6 +154,11 @@ class PrintHandler:
                                     self.codebox_long_split(i-1, context, print_data)
                                     exit_ok = False
                                     break # go to a new main loop
+                                elif self.pixbuf_table_codebox_vector[i-1][0] == "table"\
+                                and table_height > self.page_height:
+                                    self.table_long_split(i-1, context, print_data)
+                                    exit_ok = False
+                                    break # go to a new main loop
                         curr_y += inline_pending_height
                         print_data.all_lines_y.append(curr_y)
                         #print "added line y <%s> (%s, %s)" % (curr_y, i, layout_line_idx)
@@ -428,6 +433,40 @@ class PrintHandler:
             y += line_height
             cairo_context.show_layout_line(layout_line)
 
+    def table_long_split(self, idx, context, print_data):
+        """Split Long Tables"""
+        table_dict = self.pixbuf_table_codebox_vector[idx][1][1]
+        table_dict_jolly = copy.deepcopy(table_dict)
+        partial_table_matrix_vec = []
+        partial_table_matrix = [copy.deepcopy(table_dict['matrix'][0])]
+        while len(partial_table_matrix) < len(table_dict['matrix']):
+            partial_table_matrix.append(copy.deepcopy(table_dict['matrix'][len(partial_table_matrix)]))
+            table_dict_jolly['matrix'] = partial_table_matrix
+            table_layouts = self.get_table_layouts(context, table_dict_jolly)
+            table_grid = self.get_table_grid(table_layouts, table_dict_jolly['col_min'])
+            table_height = self.get_table_height_from_grid(table_grid)
+            if table_height+BOX_OFFSET > (self.page_height-self.layout_newline_height):
+                # this slot is done
+                partial_table_matrix.pop()
+                partial_table_matrix_vec.append(partial_table_matrix)
+                table_dict['matrix'] = table_dict['matrix'][len(partial_table_matrix):]
+                table_dict['matrix'].insert(0, copy.deepcopy(partial_table_matrix[0]))
+                partial_table_matrix = [copy.deepcopy(table_dict['matrix'][0])]
+        # this is the last piece
+        partial_table_matrix_vec.append(partial_table_matrix)
+        for i, element in enumerate(partial_table_matrix_vec):
+            #print i, element
+            if i == 0: table_dict['matrix'] = element[1:] + [element[0]]
+            else:
+                index = idx+i
+                # add a newline
+                print_data.text.insert(index, cons.CHAR_NEWLINE)
+                # add a codebox
+                new_table_dict = copy.deepcopy(table_dict)
+                new_table_dict['matrix'] = element[1:] + [element[0]]
+                pixbuf_table_codebox_element = ["table", [None, new_table_dict, None]]
+                self.pixbuf_table_codebox_vector.insert(index, pixbuf_table_codebox_element)
+
     def codebox_long_split(self, idx, context, print_data):
         """Split Long CodeBoxes"""
         codebox_dict = self.pixbuf_table_codebox_vector[idx][1][1]
@@ -444,7 +483,7 @@ class PrintHandler:
             codebox_dict_jolly['fill_text'] = partial_pango
             codebox_layout = self.get_codebox_layout(context, codebox_dict_jolly)
             codebox_height = self.get_height_from_layout(codebox_layout)
-            if codebox_height > (self.page_height-self.layout_newline_height):
+            if codebox_height+BOX_OFFSET > (self.page_height-self.layout_newline_height):
                 # this slot is done
                 partial_pango_vec.append(partial_pango_old)
                 original_splitted_pango = original_splitted_pango[len(splitted_pango)-1:]
