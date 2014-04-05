@@ -1938,12 +1938,14 @@ class CherryTree:
         while iter_child != None:
             if self.treestore[iter_child][4] != self.treestore[iter_father][4]:
                 self.get_textbuffer_from_tree_iter(iter_child)
+                old_syntax_highl = self.treestore[iter_child][4]
                 self.treestore[iter_child][4] = self.treestore[iter_father][4]
                 self.treestore[iter_child][0] = self.get_node_icon(self.treestore.iter_depth(iter_child),
                                                                    self.treestore[iter_child][4])
                 self.switch_buffer_text_source(self.treestore[iter_child][2],
                                                iter_child,
-                                               self.treestore[iter_child][4])
+                                               self.treestore[iter_child][4],
+                                               old_syntax_highl)
                 if self.treestore[iter_child][4] != cons.RICH_TEXT_ID:
                     self.set_sourcebuffer_syntax_highlight(self.treestore[iter_child][2],
                                                            self.treestore[iter_child][4])
@@ -2300,15 +2302,15 @@ class CherryTree:
         if ret_syntax != cons.RICH_TEXT_ID: self.auto_syn_highl = ret_syntax
         self.syntax_highlighting = ret_syntax
         if self.treestore[self.curr_tree_iter][4] == cons.RICH_TEXT_ID and self.syntax_highlighting != cons.RICH_TEXT_ID:
-            if not support.dialog_question(_("Entering the Automatic Syntax Highlighting you will Lose all Custom Colors for This Node, Do you want to Continue?"), self.window):
+            if not support.dialog_question(_("Leaving the Node Type Rich Text you will Lose all Formatting for This Node, Do you want to Continue?"), self.window):
                 self.syntax_highlighting = cons.RICH_TEXT_ID # STEP BACK (we stay in CUSTOM COLORS)
                 return
             # SWITCH TextBuffer -> SourceBuffer
-            self.switch_buffer_text_source(self.curr_buffer, self.curr_tree_iter, self.syntax_highlighting)
+            self.switch_buffer_text_source(self.curr_buffer, self.curr_tree_iter, self.syntax_highlighting, self.treestore[self.curr_tree_iter][4])
             self.curr_buffer = self.treestore[self.curr_tree_iter][2]
         elif self.treestore[self.curr_tree_iter][4] != cons.RICH_TEXT_ID and self.syntax_highlighting == cons.RICH_TEXT_ID:
             # SWITCH SourceBuffer -> TextBuffer
-            self.switch_buffer_text_source(self.curr_buffer, self.curr_tree_iter, self.syntax_highlighting)
+            self.switch_buffer_text_source(self.curr_buffer, self.curr_tree_iter, self.syntax_highlighting, self.treestore[self.curr_tree_iter][4])
             self.curr_buffer = self.treestore[self.curr_tree_iter][2]
         self.treestore[self.curr_tree_iter][1] = ret_name
         self.treestore[self.curr_tree_iter][4] = self.syntax_highlighting
@@ -2380,13 +2382,17 @@ class CherryTree:
             self.sourceview.set_draw_spaces(codeboxes.DRAW_SPACES_FLAGS if self.show_white_spaces else 0)
             if self.highl_curr_line: self.sourceview.set_highlight_current_line(True)
 
-    def switch_buffer_text_source(self, text_buffer, tree_iter, new_syntax_highl):
+    def switch_buffer_text_source(self, text_buffer, tree_iter, new_syntax_highl, old_syntax_highl):
         """Switch TextBuffer -> SourceBuffer or SourceBuffer -> TextBuffer"""
         if self.user_active:
             self.user_active = False
             user_active_restore = True
         else: user_active_restore = False
-        node_text = text_buffer.get_text(*text_buffer.get_bounds())
+        if old_syntax_highl == cons.RICH_TEXT_ID and new_syntax_highl != cons.RICH_TEXT_ID:
+            txt_handler = exports.Export2Txt(self)
+            node_text = txt_handler.node_export_to_txt(text_buffer, "")
+        else:
+            node_text = text_buffer.get_text(*text_buffer.get_bounds())
         self.treestore[tree_iter][2] = self.buffer_create(new_syntax_highl)
         self.treestore[tree_iter][2].set_text(node_text)
         self.sourceview.set_buffer(self.treestore[tree_iter][2])

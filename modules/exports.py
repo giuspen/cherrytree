@@ -287,9 +287,11 @@ class Export2Txt:
                 elif curr_object[0] == "codebox": plain_text += self.get_codebox_plain(curr_object[1])
         if tree_iter_for_node_name:
             plain_text = self.plain_text_get_node_name(tree_iter_for_node_name) + plain_text
-        file_descriptor = open(filepath, 'a')
-        file_descriptor.write(plain_text + 2*cons.CHAR_NEWLINE)
-        file_descriptor.close()
+        if filepath:
+            file_descriptor = open(filepath, 'a')
+            file_descriptor.write(plain_text + 2*cons.CHAR_NEWLINE)
+            file_descriptor.close()
+        return plain_text
     
     def plain_text_get_node_name(self, tree_iter):
         """Get Node Name in Plain Text"""
