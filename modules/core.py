@@ -1929,6 +1929,7 @@ class CherryTree:
     def node_inherit_syntax(self, *args):
         """Change the Selected Node's Children Syntax Highlighting to the Father's Syntax Highlighting"""
         if not self.is_there_selected_node_or_error(): return
+        self.sourceview.set_buffer(None)
         self.node_inherit_syntax_iter(self.curr_tree_iter)
         self.sourceview.set_buffer(self.treestore[self.curr_tree_iter][2])
 
