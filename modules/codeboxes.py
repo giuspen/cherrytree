@@ -62,7 +62,7 @@ class CodeBoxesHandler:
                             gtk.STOCK_OK, gtk.RESPONSE_ACCEPT))
         dialog.set_default_size(300, -1)
         dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-        
+
         combobox_prog_lang = gtk.ComboBox(model=self.dad.prog_lang_liststore)
         cell = gtk.CellRendererText()
         combobox_prog_lang.pack_start(cell, True)
@@ -70,11 +70,19 @@ class CodeBoxesHandler:
         combobox_value = syntax_highl if syntax_highl != cons.PLAIN_TEXT_ID else self.dad.auto_syn_highl
         combobox_iter = self.dad.get_combobox_iter_from_value(self.dad.prog_lang_liststore, 1, combobox_value)
         combobox_prog_lang.set_active_iter(combobox_iter)
+        radiobutton_plain_text = gtk.RadioButton(label=_("Plain Text"))
+        radiobutton_auto_syntax_highl = gtk.RadioButton(label=_("Automatic Syntax Highlighting"))
+        radiobutton_auto_syntax_highl.set_group(radiobutton_plain_text)
+        if syntax_highl == cons.PLAIN_TEXT_ID:
+            radiobutton_plain_text.set_active(True)
+            combobox_prog_lang.set_sensitive(False)
+        else:
+            radiobutton_auto_syntax_highl.set_active(True)
         type_vbox = gtk.VBox()
+        type_vbox.pack_start(radiobutton_plain_text)
+        type_vbox.pack_start(radiobutton_auto_syntax_highl)
         type_vbox.pack_start(combobox_prog_lang)
-        type_vbox.set_border_width(6)
-        
-        type_frame = gtk.Frame(label="<b>"+_("Automatic Syntax Highlighting")+"</b>")
+        type_frame = gtk.Frame(label="<b>"+_("Type")+"</b>")
         type_frame.get_label_widget().set_use_markup(True)
         type_frame.set_shadow_type(gtk.SHADOW_NONE)
         type_frame.add(type_vbox)
@@ -140,6 +148,8 @@ class CodeBoxesHandler:
         content_area.pack_start(size_frame)
         content_area.pack_start(options_frame)
         content_area.show_all()
+        def on_radiobutton_auto_syntax_highl_toggled(radiobutton):
+            combobox_prog_lang.set_sensitive(radiobutton.get_active())
         def on_key_press_codeboxhandle(widget, event):
             keyname = gtk.gdk.keyval_name(event.keyval)
             if keyname == cons.STR_RETURN:
@@ -153,6 +163,7 @@ class CodeBoxesHandler:
             else:
                 if spinbutton_width.get_value() > 100:
                     spinbutton_width.set_value(90)
+        radiobutton_auto_syntax_highl.connect("toggled", on_radiobutton_auto_syntax_highl_toggled)
         dialog.connect('key_press_event', on_key_press_codeboxhandle)
         radiobutton_codebox_pixels.connect('toggled', on_radiobutton_codebox_pixels_toggled)
         response = dialog.run()
@@ -163,9 +174,13 @@ class CodeBoxesHandler:
             self.dad.codebox_height = spinbutton_height.get_value()
             ret_line_num = checkbutton_codebox_linenumbers.get_active()
             ret_match_bra = checkbutton_codebox_matchbrackets.get_active()
-            ret_syn_highl = self.dad.prog_lang_liststore[combobox_prog_lang.get_active_iter()][1]
-            return [ret_line_num, ret_match_bra, ret_syn_highl]
-        return [None, None]
+            if radiobutton_plain_text.get_active():
+                ret_syntax = cons.PLAIN_TEXT_ID
+            else:
+                ret_syntax = self.dad.prog_lang_liststore[combobox_prog_lang.get_active_iter()][1]
+                self.dad.auto_syn_highl = ret_syntax
+            return [ret_line_num, ret_match_bra, ret_syntax]
+        return [None, None, None]
 
     def codebox_handle(self):
         """Insert Code Box"""

@@ -2212,7 +2212,6 @@ class CherryTree:
         """Add a node having common father with the selected node's"""
         ret_name, ret_syntax, ret_tags, ret_ro = self.dialog_nodeprop(_("New Node Properties"), syntax_highl=self.syntax_highlighting)
         if not ret_name: return
-        if ret_syntax not in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID]: self.auto_syn_highl = ret_syntax
         self.update_window_save_needed()
         self.syntax_highlighting = ret_syntax
         father_iter = self.treestore.iter_parent(self.curr_tree_iter) if self.curr_tree_iter else None
@@ -2251,7 +2250,6 @@ class CherryTree:
         if not self.is_there_selected_node_or_error(): return
         ret_name, ret_syntax, ret_tags, ret_ro = self.dialog_nodeprop(_("New Child Node Properties"), syntax_highl=self.syntax_highlighting)
         if not ret_name: return
-        if ret_syntax not in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID]: self.auto_syn_highl = ret_syntax
         self.node_child_add_with_data(self.curr_tree_iter, ret_name, ret_syntax, ret_tags, ret_ro)
 
     def node_child_add_with_data(self, father_iter, ret_name, ret_syntax, ret_tags, ret_ro):
@@ -2301,7 +2299,6 @@ class CherryTree:
             tags=self.treestore[self.curr_tree_iter][6],
             ro=self.treestore[self.curr_tree_iter][7])
         if not ret_name: return
-        if ret_syntax not in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID]: self.auto_syn_highl = ret_syntax
         self.syntax_highlighting = ret_syntax
         if self.treestore[self.curr_tree_iter][4] == cons.RICH_TEXT_ID and self.syntax_highlighting != cons.RICH_TEXT_ID:
             if not support.dialog_question(_("Leaving the Node Type Rich Text you will Lose all Formatting for This Node, Do you want to Continue?"), self.window):
@@ -2922,7 +2919,9 @@ class CherryTree:
             ret_name = unicode(name_entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE)
             if radiobutton_rich_text.get_active(): ret_syntax = cons.RICH_TEXT_ID
             elif radiobutton_plain_text.get_active(): ret_syntax = cons.PLAIN_TEXT_ID
-            else: ret_syntax = self.prog_lang_liststore[combobox_prog_lang.get_active_iter()][1]
+            else:
+                ret_syntax = self.prog_lang_liststore[combobox_prog_lang.get_active_iter()][1]
+                self.auto_syn_highl = ret_syntax
             ret_tags = unicode(tags_entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE)
             ret_ro = ro_checkbutton.get_active()
             return [ret_name, ret_syntax, ret_tags, ret_ro]
@@ -3070,12 +3069,16 @@ class CherryTree:
         if not self.node_sel_and_rich_text(): return
         self.codeboxes_handler.codebox_handle()
 
-    def is_curr_node_not_syntax_highlighting_or_error(self):
+    def is_curr_node_not_syntax_highlighting_or_error(self, plain_text_ok=False):
         """Returns True if ok (no syntax highlighting) or False and prompts error dialog"""
-        if self.syntax_highlighting != cons.RICH_TEXT_ID:
-            support.dialog_warning(_("Automatic Syntax Highlighting Must be Disabled in order to Use This Feature"), self.window)
-            return False
-        return True
+        if self.syntax_highlighting == cons.RICH_TEXT_ID\
+        or (plain_text_ok and self.syntax_highlighting == cons.PLAIN_TEXT_ID):
+            return True
+        if not plain_text_ok:
+            support.dialog_warning(_("This Feature is Available Only in Rich Text Nodes"), self.window)
+        else:
+            support.dialog_warning(_("This Feature is Not Available in Automatic Syntax Highlighting Nodes"), self.window)
+        return False
 
     def is_there_selected_node_or_error(self):
         """Returns True if ok (there's a selected node) or False and prompts error dialog"""
@@ -3404,17 +3407,17 @@ class CherryTree:
 
     def list_bulleted_handler(self, *args):
         """Handler of the Bulleted List"""
-        if self.is_curr_node_not_syntax_highlighting_or_error():
+        if self.is_curr_node_not_syntax_highlighting_or_error(plain_text_ok=True):
             self.lists_handler.list_bulleted_handler()
 
     def list_numbered_handler(self, *args):
         """Handler of the Numbered List"""
-        if self.is_curr_node_not_syntax_highlighting_or_error():
+        if self.is_curr_node_not_syntax_highlighting_or_error(plain_text_ok=True):
             self.lists_handler.list_numbered_handler()
 
     def list_todo_handler(self, *args):
         """Handler of the ToDo List"""
-        if self.is_curr_node_not_syntax_highlighting_or_error():
+        if self.is_curr_node_not_syntax_highlighting_or_error(plain_text_ok=True):
             self.lists_handler.list_todo_handler()
 
     def apply_tag_latest(self, *args):
@@ -3967,6 +3970,7 @@ class CherryTree:
         else:
             tooltip_text = _("Node Type") + ": "
             if self.treestore[self.curr_tree_iter][4] == cons.RICH_TEXT_ID: tooltip_text += _("Rich Text")
+            elif self.treestore[self.curr_tree_iter][4] == cons.PLAIN_TEXT_ID: tooltip_text += _("Plain Text")
             else: tooltip_text += self.treestore[self.curr_tree_iter][4]
             if self.treestore[self.curr_tree_iter][7]: tooltip_text += "  -  " + _("Read Only")
             if self.treestore[self.curr_tree_iter][6]: tooltip_text += "  -  " + _("Tags") + ": " + self.treestore[self.curr_tree_iter][6]
