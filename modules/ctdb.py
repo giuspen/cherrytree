@@ -519,7 +519,8 @@ class CTDBHandler:
         if node_tags: self.dad.tags_add_from_node(node_tags)
         readonly = node_row['is_ro']
         syntax_highlighting = node_row['syntax']
-        if syntax_highlighting != cons.RICH_TEXT_ID and syntax_highlighting not in self.dad.available_languages:
+        if syntax_highlighting not in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID]\
+        and syntax_highlighting not in self.dad.available_languages:
             syntax_highlighting = syntax_highlighting.lower().replace("C++", "cpp")
             if syntax_highlighting not in self.dad.available_languages:
                 syntax_highlighting = cons.RICH_TEXT_ID

@@ -126,7 +126,8 @@ class XMLHandler:
         if dom_iter.hasAttribute('readonly'): readonly = (dom_iter.attributes['readonly'].value == "True")
         else: readonly = False
         syntax_highlighting = dom_iter.attributes['prog_lang'].value
-        if syntax_highlighting != cons.RICH_TEXT_ID and syntax_highlighting not in self.dad.available_languages:
+        if syntax_highlighting not in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID]\
+        and syntax_highlighting not in self.dad.available_languages:
             syntax_highlighting = syntax_highlighting.lower().replace("C++", "cpp")
             if syntax_highlighting not in self.dad.available_languages:
                 syntax_highlighting = cons.RICH_TEXT_ID
