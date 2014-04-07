@@ -157,7 +157,7 @@ class ExportPrint:
         else:
             self.pango_text = [self.pango_handler.pango_get_from_code_buffer(self.dad.treestore[tree_iter][2], sel_range)]
             self.pixbuf_table_codebox_vector = []
-            self.text_font = self.dad.code_font
+            self.text_font = self.dad.code_font if self.dad.treestore[tree_iter][4] != cons.PLAIN_TEXT_ID else self.dad.text_font
         if include_node_name: self.pango_text_add_node_name(tree_iter, self.pango_text)
         self.run_print()
 
@@ -530,7 +530,7 @@ class Export2Html:
             td_tree = r'<td valign="top" align=cons.TAG_PROP_LEFT width=20%>'
             td_page = r'<td valign="top" align=cons.TAG_PROP_LEFT width=80%>'
             html_text += td_tree + self.tree_links_text + td_page
-        pango_font = pango.FontDescription(self.dad.text_font if self.dad.treestore[tree_iter][4] == cons.RICH_TEXT_ID else self.dad.code_font)
+        pango_font = pango.FontDescription(self.dad.text_font if self.dad.treestore[tree_iter][4] in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID] else self.dad.code_font)
         html_text += '<span style="font-family: %s; font-size:%spt">' % (pango_font.get_family(), pango_font.get_size()/pango.SCALE)
         self.dad.get_textbuffer_from_tree_iter(tree_iter)
         if self.dad.treestore[tree_iter][4] == cons.RICH_TEXT_ID:

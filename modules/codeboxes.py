@@ -229,7 +229,10 @@ class CodeBoxesHandler:
         anchor.sourceview.set_smart_home_end(gtksourceview2.SMART_HOME_END_BEFORE)
         if self.dad.highl_curr_line: anchor.sourceview.set_highlight_current_line(True)
         if self.dad.show_white_spaces: anchor.sourceview.set_draw_spaces(DRAW_SPACES_FLAGS)
-        anchor.sourceview.modify_font(pango.FontDescription(self.dad.code_font))
+        if anchor.syntax_highlighting == cons.PLAIN_TEXT_ID:
+            anchor.sourceview.modify_font(pango.FontDescription(self.dad.text_font))
+        else:
+            anchor.sourceview.modify_font(pango.FontDescription(self.dad.code_font))
         anchor.sourceview.set_show_line_numbers(anchor.show_line_numbers)
         anchor.sourceview.set_insert_spaces_instead_of_tabs(self.dad.spaces_instead_tabs)
         anchor.sourceview.set_tab_width(self.dad.tabs_width)
@@ -316,6 +319,10 @@ class CodeBoxesHandler:
         if ret_line_num == None: return
         self.curr_codebox_anchor.syntax_highlighting = ret_syn_highl
         self.dad.set_sourcebuffer_syntax_highlight(self.curr_codebox_anchor.sourcebuffer, self.curr_codebox_anchor.syntax_highlighting)
+        if self.curr_codebox_anchor.syntax_highlighting == cons.PLAIN_TEXT_ID:
+            self.curr_codebox_anchor.sourceview.modify_font(pango.FontDescription(self.dad.text_font))
+        else:
+            self.curr_codebox_anchor.sourceview.modify_font(pango.FontDescription(self.dad.code_font))
         self.curr_codebox_anchor.frame_width = int(self.dad.codebox_width)
         self.curr_codebox_anchor.frame_height = int(self.dad.codebox_height)
         self.curr_codebox_anchor.width_in_pixels = self.dad.codebox_width_pixels
