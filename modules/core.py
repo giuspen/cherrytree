@@ -1947,7 +1947,7 @@ class CherryTree:
                                                iter_child,
                                                self.treestore[iter_child][4],
                                                old_syntax_highl)
-                if self.treestore[iter_child][4] != cons.RICH_TEXT_ID:
+                if self.treestore[iter_child][4] not in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID]:
                     self.set_sourcebuffer_syntax_highlight(self.treestore[iter_child][2],
                                                            self.treestore[iter_child][4])
                 self.ctdb_handler.pending_edit_db_node_prop(self.treestore[iter_child][3])
@@ -2118,7 +2118,8 @@ class CherryTree:
         if syntax_highlighting != cons.RICH_TEXT_ID:
             sourcebuffer = gtksourceview2.Buffer()
             sourcebuffer.set_style_scheme(self.sourcestyleschememanager.get_scheme(self.style_scheme))
-            self.set_sourcebuffer_syntax_highlight(sourcebuffer, syntax_highlighting)
+            if syntax_highlighting != cons.PLAIN_TEXT_ID:
+                self.set_sourcebuffer_syntax_highlight(sourcebuffer, syntax_highlighting)
             sourcebuffer.set_highlight_matching_brackets(True)
             return sourcebuffer
         else: return gtk.TextBuffer(self.tag_table)
@@ -2211,7 +2212,6 @@ class CherryTree:
         """Add a node having common father with the selected node's"""
         ret_name, ret_syntax, ret_tags, ret_ro = self.dialog_nodeprop(_("New Node Properties"), syntax_highl=self.syntax_highlighting)
         if not ret_name: return
-        if ret_syntax != cons.RICH_TEXT_ID: self.auto_syn_highl = ret_syntax
         self.update_window_save_needed()
         self.syntax_highlighting = ret_syntax
         father_iter = self.treestore.iter_parent(self.curr_tree_iter) if self.curr_tree_iter else None
@@ -2250,7 +2250,6 @@ class CherryTree:
         if not self.is_there_selected_node_or_error(): return
         ret_name, ret_syntax, ret_tags, ret_ro = self.dialog_nodeprop(_("New Child Node Properties"), syntax_highl=self.syntax_highlighting)
         if not ret_name: return
-        if ret_syntax != cons.RICH_TEXT_ID: self.auto_syn_highl = ret_syntax
         self.node_child_add_with_data(self.curr_tree_iter, ret_name, ret_syntax, ret_tags, ret_ro)
 
     def node_child_add_with_data(self, father_iter, ret_name, ret_syntax, ret_tags, ret_ro):
@@ -2300,7 +2299,6 @@ class CherryTree:
             tags=self.treestore[self.curr_tree_iter][6],
             ro=self.treestore[self.curr_tree_iter][7])
         if not ret_name: return
-        if ret_syntax != cons.RICH_TEXT_ID: self.auto_syn_highl = ret_syntax
         self.syntax_highlighting = ret_syntax
         if self.treestore[self.curr_tree_iter][4] == cons.RICH_TEXT_ID and self.syntax_highlighting != cons.RICH_TEXT_ID:
             if not support.dialog_question(_("Leaving the Node Type Rich Text you will Lose all Formatting for This Node, Do you want to Continue?"), self.window):
@@ -2320,7 +2318,7 @@ class CherryTree:
         self.treestore[self.curr_tree_iter][7] = ret_ro
         self.treestore[self.curr_tree_iter][0] = self.get_node_icon(self.treestore.iter_depth(self.curr_tree_iter),
                                                                     self.syntax_highlighting)
-        if self.syntax_highlighting != cons.RICH_TEXT_ID:
+        if self.syntax_highlighting not in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID]:
             self.set_sourcebuffer_syntax_highlight(self.curr_buffer, self.syntax_highlighting)
         self.sourceview.set_editable(not self.treestore[self.curr_tree_iter][7])
         self.update_selected_node_statusbar_info()
@@ -2843,20 +2841,28 @@ class CherryTree:
         name_frame.set_shadow_type(gtk.SHADOW_NONE)
         name_frame.add(name_entry)
         radiobutton_rich_text = gtk.RadioButton(label=_("Rich Text"))
+        radiobutton_plain_text = gtk.RadioButton(label=_("Plain Text"))
+        radiobutton_plain_text.set_group(radiobutton_rich_text)
         radiobutton_auto_syntax_highl = gtk.RadioButton(label=_("Automatic Syntax Highlighting"))
         radiobutton_auto_syntax_highl.set_group(radiobutton_rich_text)
         combobox_prog_lang = gtk.ComboBox(model=self.prog_lang_liststore)
         cell = gtk.CellRendererText()
         combobox_prog_lang.pack_start(cell, True)
         combobox_prog_lang.add_attribute(cell, 'text', 0)
-        combobox_prog_lang.set_active_iter(self.get_combobox_iter_from_value(self.prog_lang_liststore, 1, self.auto_syn_highl if syntax_highl == cons.RICH_TEXT_ID else syntax_highl))
+        combobox_value = syntax_highl if syntax_highl not in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID] else self.auto_syn_highl
+        combobox_iter = self.get_combobox_iter_from_value(self.prog_lang_liststore, 1, combobox_value)
+        combobox_prog_lang.set_active_iter(combobox_iter)
         if syntax_highl == cons.RICH_TEXT_ID:
             radiobutton_rich_text.set_active(True)
+            combobox_prog_lang.set_sensitive(False)
+        elif syntax_highl == cons.PLAIN_TEXT_ID:
+            radiobutton_plain_text.set_active(True)
             combobox_prog_lang.set_sensitive(False)
         else:
             radiobutton_auto_syntax_highl.set_active(True)
         type_vbox = gtk.VBox()
         type_vbox.pack_start(radiobutton_rich_text)
+        type_vbox.pack_start(radiobutton_plain_text)
         type_vbox.pack_start(radiobutton_auto_syntax_highl)
         type_vbox.pack_start(combobox_prog_lang)
         type_frame = gtk.Frame(label="<b>"+_("Node Type")+"</b>")
@@ -2893,8 +2899,8 @@ class CherryTree:
                 except: print cons.STR_PYGTK_222_REQUIRED
                 return True
             return False
-        def on_radiobutton_rich_text_toggled(radiobutton):
-            combobox_prog_lang.set_sensitive(not radiobutton.get_active())
+        def on_radiobutton_auto_syntax_highl_toggled(radiobutton):
+            combobox_prog_lang.set_sensitive(radiobutton.get_active())
         def on_browse_tags_button_clicked(*args):
             ret_tag_name = support.dialog_choose_element_in_list(dialog,
                 _("Choose Existing Tag"), [[element] for element in sorted(self.tags_set)], _("Tag Name"))
@@ -2904,14 +2910,18 @@ class CherryTree:
                 if not curr_text: tags_entry.set_text(ret_tag_name)
                 elif curr_text.endswith(cons.CHAR_SPACE): tags_entry.set_text(curr_text+ret_tag_name)
                 else: tags_entry.set_text(curr_text+cons.CHAR_SPACE+ret_tag_name)
-        radiobutton_rich_text.connect("toggled", on_radiobutton_rich_text_toggled)
+        radiobutton_auto_syntax_highl.connect("toggled", on_radiobutton_auto_syntax_highl_toggled)
         button_browse_tags.connect('clicked', on_browse_tags_button_clicked)
         dialog.connect('key_press_event', on_key_press_nodepropdialog)
         response = dialog.run()
         dialog.hide()
         if response == gtk.RESPONSE_ACCEPT:
             ret_name = unicode(name_entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE)
-            ret_syntax = cons.RICH_TEXT_ID if radiobutton_rich_text.get_active() else self.prog_lang_liststore[combobox_prog_lang.get_active_iter()][1]
+            if radiobutton_rich_text.get_active(): ret_syntax = cons.RICH_TEXT_ID
+            elif radiobutton_plain_text.get_active(): ret_syntax = cons.PLAIN_TEXT_ID
+            else:
+                ret_syntax = self.prog_lang_liststore[combobox_prog_lang.get_active_iter()][1]
+                self.auto_syn_highl = ret_syntax
             ret_tags = unicode(tags_entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE)
             ret_ro = ro_checkbutton.get_active()
             return [ret_name, ret_syntax, ret_tags, ret_ro]
@@ -3059,12 +3069,16 @@ class CherryTree:
         if not self.node_sel_and_rich_text(): return
         self.codeboxes_handler.codebox_handle()
 
-    def is_curr_node_not_syntax_highlighting_or_error(self):
+    def is_curr_node_not_syntax_highlighting_or_error(self, plain_text_ok=False):
         """Returns True if ok (no syntax highlighting) or False and prompts error dialog"""
-        if self.syntax_highlighting != cons.RICH_TEXT_ID:
-            support.dialog_warning(_("Automatic Syntax Highlighting Must be Disabled in order to Use This Feature"), self.window)
-            return False
-        return True
+        if self.syntax_highlighting == cons.RICH_TEXT_ID\
+        or (plain_text_ok and self.syntax_highlighting == cons.PLAIN_TEXT_ID):
+            return True
+        if not plain_text_ok:
+            support.dialog_warning(_("This Feature is Available Only in Rich Text Nodes"), self.window)
+        else:
+            support.dialog_warning(_("This Feature is Not Available in Automatic Syntax Highlighting Nodes"), self.window)
+        return False
 
     def is_there_selected_node_or_error(self):
         """Returns True if ok (there's a selected node) or False and prompts error dialog"""
@@ -3393,17 +3407,17 @@ class CherryTree:
 
     def list_bulleted_handler(self, *args):
         """Handler of the Bulleted List"""
-        if self.is_curr_node_not_syntax_highlighting_or_error():
+        if self.is_curr_node_not_syntax_highlighting_or_error(plain_text_ok=True):
             self.lists_handler.list_bulleted_handler()
 
     def list_numbered_handler(self, *args):
         """Handler of the Numbered List"""
-        if self.is_curr_node_not_syntax_highlighting_or_error():
+        if self.is_curr_node_not_syntax_highlighting_or_error(plain_text_ok=True):
             self.lists_handler.list_numbered_handler()
 
     def list_todo_handler(self, *args):
         """Handler of the ToDo List"""
-        if self.is_curr_node_not_syntax_highlighting_or_error():
+        if self.is_curr_node_not_syntax_highlighting_or_error(plain_text_ok=True):
             self.lists_handler.list_todo_handler()
 
     def apply_tag_latest(self, *args):
@@ -3942,7 +3956,7 @@ class CherryTree:
         """Update the cursor image if the pointer moved"""
         if not self.sourceview.get_cursor_visible():
             self.sourceview.set_cursor_visible(True)
-        if self.syntax_highlighting != cons.RICH_TEXT_ID:
+        if self.syntax_highlighting not in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID]:
             self.sourceview.get_window(gtk.TEXT_WINDOW_TEXT).set_cursor(None)
             return
         x, y = self.sourceview.window_to_buffer_coords(gtk.TEXT_WINDOW_TEXT, int(event.x), int(event.y))
@@ -3956,6 +3970,7 @@ class CherryTree:
         else:
             tooltip_text = _("Node Type") + ": "
             if self.treestore[self.curr_tree_iter][4] == cons.RICH_TEXT_ID: tooltip_text += _("Rich Text")
+            elif self.treestore[self.curr_tree_iter][4] == cons.PLAIN_TEXT_ID: tooltip_text += _("Plain Text")
             else: tooltip_text += self.treestore[self.curr_tree_iter][4]
             if self.treestore[self.curr_tree_iter][7]: tooltip_text += "  -  " + _("Read Only")
             if self.treestore[self.curr_tree_iter][6]: tooltip_text += "  -  " + _("Tags") + ": " + self.treestore[self.curr_tree_iter][6]
@@ -3966,7 +3981,7 @@ class CherryTree:
 
     def on_sourceview_visibility_notify_event(self, text_view, event):
         """Update the cursor image if the window becomes visible (e.g. when a window covering it got iconified)"""
-        if self.syntax_highlighting != cons.RICH_TEXT_ID:
+        if self.syntax_highlighting not in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID]:
             self.sourceview.get_window(gtk.TEXT_WINDOW_TEXT).set_cursor(None)
             return
         wx, wy, mod = self.sourceview.window.get_pointer()
