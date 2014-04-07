@@ -623,7 +623,7 @@ def preferences_tab_all_nodes(dad, vbox_all_nodes):
         dad.h_rule = entry.get_text()
     entry_horizontal_rule.connect('changed', on_entry_horizontal_rule_changed)
 
-def preferences_tab_text_nodes(dad, vbox_text_nodes):
+def preferences_tab_rich_text_nodes(dad, vbox_text_nodes):
     """Preferences Dialog, Text Nodes Tab"""
     for child in vbox_text_nodes.get_children(): child.destroy()
 
@@ -775,7 +775,7 @@ def preferences_tab_text_nodes(dad, vbox_text_nodes):
         checkbutton_spell_check.set_sensitive(False)
         combobox_spell_check_lang.set_sensitive(False)
 
-def preferences_tab_code_nodes(dad, vbox_code_nodes):
+def preferences_tab_plain_text_n_code_nodes(dad, vbox_code_nodes):
     """Preferences Dialog, Code Nodes Tab"""
     for child in vbox_code_nodes.get_children(): child.destroy()
 
@@ -1413,8 +1413,8 @@ def dialog_preferences(dad):
     notebook = gtk.Notebook()
     notebook.set_tab_pos(gtk.POS_LEFT)
     notebook.append_page(tabs_vbox_vec[0], gtk.Label(_("All Nodes")))
-    notebook.append_page(tabs_vbox_vec[1], gtk.Label(_("Text Nodes")))
-    notebook.append_page(tabs_vbox_vec[2], gtk.Label(_("Code Nodes")))
+    notebook.append_page(tabs_vbox_vec[1], gtk.Label(_("Rich Text")))
+    notebook.append_page(tabs_vbox_vec[2], gtk.Label(_("Plain Text and Code")))
     notebook.append_page(tabs_vbox_vec[3], gtk.Label(_("Tree")))
     notebook.append_page(tabs_vbox_vec[4], gtk.Label(_("Fonts")))
     notebook.append_page(tabs_vbox_vec[5], gtk.Label(_("Links")))
@@ -1422,8 +1422,8 @@ def dialog_preferences(dad):
 
     tab_constructor = {
         0: preferences_tab_all_nodes,
-        1: preferences_tab_text_nodes,
-        2: preferences_tab_code_nodes,
+        1: preferences_tab_rich_text_nodes,
+        2: preferences_tab_plain_text_n_code_nodes,
         3: preferences_tab_tree,
         4: preferences_tab_fonts,
         5: preferences_tab_links,

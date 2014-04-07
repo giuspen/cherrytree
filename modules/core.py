@@ -865,7 +865,10 @@ class CherryTree:
                     self.curr_buffer.connect('insert-text', self.on_text_insertion)
                     self.curr_buffer.connect('delete-range', self.on_text_removal)
                     self.sourceview.modify_font(pango.FontDescription(self.text_font))
-                else: self.sourceview.modify_font(pango.FontDescription(self.code_font))
+                elif self.syntax_highlighting == cons.PLAIN_TEXT_ID:
+                    self.sourceview.modify_font(pango.FontDescription(self.text_font))
+                else:
+                    self.sourceview.modify_font(pango.FontDescription(self.code_font))
                 self.sourceview.set_sensitive(True)
                 self.update_node_name_header()
                 self.state_machine.node_selected_changed(self.treestore[self.curr_tree_iter][3])
@@ -2377,7 +2380,10 @@ class CherryTree:
             self.sourceview.set_highlight_current_line(False)
             if self.enable_spell_check: self.spell_check_reload_on_buffer()
         else:
-            self.sourceview.modify_font(pango.FontDescription(self.code_font))
+            if syntax_highl == cons.PLAIN_TEXT_ID:
+                self.sourceview.modify_font(pango.FontDescription(self.text_font))
+            else:
+                self.sourceview.modify_font(pango.FontDescription(self.code_font))
             self.sourceview.set_draw_spaces(codeboxes.DRAW_SPACES_FLAGS if self.show_white_spaces else 0)
             if self.highl_curr_line: self.sourceview.set_highlight_current_line(True)
 
