@@ -53,7 +53,7 @@ class CodeBoxesHandler:
         self.dad.curr_buffer.delete_selection(True, self.dad.sourceview.get_editable())
         self.dad.sourceview.grab_focus()
 
-    def dialog_codeboxhandle(self, title, line_num, match_bra):
+    def dialog_codeboxhandle(self, title, line_num, match_bra, syntax_highl=cons.PLAIN_TEXT_ID):
         """Opens the CodeBox Handle Dialog"""
         dialog = gtk.Dialog(title=title,
                             parent=self.dad.window,
@@ -62,17 +62,27 @@ class CodeBoxesHandler:
                             gtk.STOCK_OK, gtk.RESPONSE_ACCEPT))
         dialog.set_default_size(300, -1)
         dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-        
+
         combobox_prog_lang = gtk.ComboBox(model=self.dad.prog_lang_liststore)
         cell = gtk.CellRendererText()
         combobox_prog_lang.pack_start(cell, True)
         combobox_prog_lang.add_attribute(cell, 'text', 0)
-        combobox_prog_lang.set_active_iter(self.dad.get_combobox_iter_from_value(self.dad.prog_lang_liststore, 1, self.dad.auto_syn_highl))
+        combobox_value = syntax_highl if syntax_highl != cons.PLAIN_TEXT_ID else self.dad.auto_syn_highl
+        combobox_iter = self.dad.get_combobox_iter_from_value(self.dad.prog_lang_liststore, 1, combobox_value)
+        combobox_prog_lang.set_active_iter(combobox_iter)
+        radiobutton_plain_text = gtk.RadioButton(label=_("Plain Text"))
+        radiobutton_auto_syntax_highl = gtk.RadioButton(label=_("Automatic Syntax Highlighting"))
+        radiobutton_auto_syntax_highl.set_group(radiobutton_plain_text)
+        if syntax_highl == cons.PLAIN_TEXT_ID:
+            radiobutton_plain_text.set_active(True)
+            combobox_prog_lang.set_sensitive(False)
+        else:
+            radiobutton_auto_syntax_highl.set_active(True)
         type_vbox = gtk.VBox()
+        type_vbox.pack_start(radiobutton_plain_text)
+        type_vbox.pack_start(radiobutton_auto_syntax_highl)
         type_vbox.pack_start(combobox_prog_lang)
-        type_vbox.set_border_width(6)
-        
-        type_frame = gtk.Frame(label="<b>"+_("Automatic Syntax Highlighting")+"</b>")
+        type_frame = gtk.Frame(label="<b>"+_("Type")+"</b>")
         type_frame.get_label_widget().set_use_markup(True)
         type_frame.set_shadow_type(gtk.SHADOW_NONE)
         type_frame.add(type_vbox)
@@ -138,6 +148,8 @@ class CodeBoxesHandler:
         content_area.pack_start(size_frame)
         content_area.pack_start(options_frame)
         content_area.show_all()
+        def on_radiobutton_auto_syntax_highl_toggled(radiobutton):
+            combobox_prog_lang.set_sensitive(radiobutton.get_active())
         def on_key_press_codeboxhandle(widget, event):
             keyname = gtk.gdk.keyval_name(event.keyval)
             if keyname == cons.STR_RETURN:
@@ -151,19 +163,24 @@ class CodeBoxesHandler:
             else:
                 if spinbutton_width.get_value() > 100:
                     spinbutton_width.set_value(90)
+        radiobutton_auto_syntax_highl.connect("toggled", on_radiobutton_auto_syntax_highl_toggled)
         dialog.connect('key_press_event', on_key_press_codeboxhandle)
         radiobutton_codebox_pixels.connect('toggled', on_radiobutton_codebox_pixels_toggled)
         response = dialog.run()
         dialog.hide()
         if response == gtk.RESPONSE_ACCEPT:
-            self.dad.auto_syn_highl = self.dad.prog_lang_liststore[combobox_prog_lang.get_active_iter()][1]
             self.dad.codebox_width = spinbutton_width.get_value()
             self.dad.codebox_width_pixels = radiobutton_codebox_pixels.get_active()
             self.dad.codebox_height = spinbutton_height.get_value()
             ret_line_num = checkbutton_codebox_linenumbers.get_active()
             ret_match_bra = checkbutton_codebox_matchbrackets.get_active()
-            return [ret_line_num, ret_match_bra]
-        return [None, None]
+            if radiobutton_plain_text.get_active():
+                ret_syntax = cons.PLAIN_TEXT_ID
+            else:
+                ret_syntax = self.dad.prog_lang_liststore[combobox_prog_lang.get_active_iter()][1]
+                self.dad.auto_syn_highl = ret_syntax
+            return [ret_line_num, ret_match_bra, ret_syntax]
+        return [None, None, None]
 
     def codebox_handle(self):
         """Insert Code Box"""
@@ -171,13 +188,13 @@ class CodeBoxesHandler:
             iter_sel_start, iter_sel_end = self.dad.curr_buffer.get_selection_bounds()
             fill_text = unicode(self.dad.curr_buffer.get_text(iter_sel_start, iter_sel_end), cons.STR_UTF8, cons.STR_IGNORE)
         else: fill_text = None
-        ret_line_num, ret_match_bra = self.dialog_codeboxhandle(_("Insert a CodeBox"), False, True)
+        ret_line_num, ret_match_bra, ret_syn_highl = self.dialog_codeboxhandle(_("Insert a CodeBox"), False, True)
         if ret_line_num == None: return
         codebox_dict = {
            'frame_width': int(self.dad.codebox_width),
            'frame_height': int(self.dad.codebox_height),
            'width_in_pixels': self.dad.codebox_width_pixels,
-           'syntax_highlighting': self.dad.auto_syn_highl,
+           'syntax_highlighting': ret_syn_highl,
            'highlight_brackets': ret_match_bra,
            'show_line_numbers': ret_line_num,
            'fill_text': fill_text
@@ -199,7 +216,8 @@ class CodeBoxesHandler:
         anchor.show_line_numbers = codebox_dict['show_line_numbers']
         anchor.sourcebuffer = gtksourceview2.Buffer()
         anchor.sourcebuffer.set_style_scheme(self.dad.sourcestyleschememanager.get_scheme(self.dad.style_scheme))
-        self.dad.set_sourcebuffer_syntax_highlight(anchor.sourcebuffer, anchor.syntax_highlighting)
+        if anchor.syntax_highlighting != cons.PLAIN_TEXT_ID:
+            self.dad.set_sourcebuffer_syntax_highlight(anchor.sourcebuffer, anchor.syntax_highlighting)
         anchor.sourcebuffer.set_highlight_matching_brackets(anchor.highlight_brackets)
         anchor.sourcebuffer.connect('insert-text', self.dad.on_text_insertion)
         anchor.sourcebuffer.connect('delete-range', self.dad.on_text_removal)
@@ -291,13 +309,12 @@ class CodeBoxesHandler:
 
     def codebox_change_properties(self, action):
         """Change CodeBox Properties"""
-        self.dad.auto_syn_highl = self.curr_codebox_anchor.syntax_highlighting
         self.dad.codebox_width = self.curr_codebox_anchor.frame_width
         self.dad.codebox_width_pixels = self.curr_codebox_anchor.width_in_pixels
         self.dad.codebox_height = self.curr_codebox_anchor.frame_height
-        ret_line_num, ret_match_bra = self.dialog_codeboxhandle(_("Edit CodeBox"), self.curr_codebox_anchor.show_line_numbers, self.curr_codebox_anchor.highlight_brackets)
+        ret_line_num, ret_match_bra, ret_syn_highl = self.dialog_codeboxhandle(_("Edit CodeBox"), self.curr_codebox_anchor.show_line_numbers, self.curr_codebox_anchor.highlight_brackets, self.curr_codebox_anchor.syntax_highlighting)
         if ret_line_num == None: return
-        self.curr_codebox_anchor.syntax_highlighting = self.dad.auto_syn_highl
+        self.curr_codebox_anchor.syntax_highlighting = ret_syn_highl
         self.dad.set_sourcebuffer_syntax_highlight(self.curr_codebox_anchor.sourcebuffer, self.curr_codebox_anchor.syntax_highlighting)
         self.curr_codebox_anchor.frame_width = int(self.dad.codebox_width)
         self.curr_codebox_anchor.frame_height = int(self.dad.codebox_height)
