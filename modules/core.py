@@ -3956,7 +3956,7 @@ class CherryTree:
         """Update the cursor image if the pointer moved"""
         if not self.sourceview.get_cursor_visible():
             self.sourceview.set_cursor_visible(True)
-        if self.syntax_highlighting != cons.RICH_TEXT_ID:
+        if self.syntax_highlighting not in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID]:
             self.sourceview.get_window(gtk.TEXT_WINDOW_TEXT).set_cursor(None)
             return
         x, y = self.sourceview.window_to_buffer_coords(gtk.TEXT_WINDOW_TEXT, int(event.x), int(event.y))
@@ -3981,7 +3981,7 @@ class CherryTree:
 
     def on_sourceview_visibility_notify_event(self, text_view, event):
         """Update the cursor image if the window becomes visible (e.g. when a window covering it got iconified)"""
-        if self.syntax_highlighting != cons.RICH_TEXT_ID:
+        if self.syntax_highlighting not in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID]:
             self.sourceview.get_window(gtk.TEXT_WINDOW_TEXT).set_cursor(None)
             return
         wx, wy, mod = self.sourceview.window.get_pointer()

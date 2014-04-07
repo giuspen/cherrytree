@@ -315,8 +315,7 @@ class CodeBoxesHandler:
         ret_line_num, ret_match_bra, ret_syn_highl = self.dialog_codeboxhandle(_("Edit CodeBox"), self.curr_codebox_anchor.show_line_numbers, self.curr_codebox_anchor.highlight_brackets, self.curr_codebox_anchor.syntax_highlighting)
         if ret_line_num == None: return
         self.curr_codebox_anchor.syntax_highlighting = ret_syn_highl
-        if self.curr_codebox_anchor.syntax_highlighting != cons.PLAIN_TEXT_ID:
-            self.dad.set_sourcebuffer_syntax_highlight(self.curr_codebox_anchor.sourcebuffer, self.curr_codebox_anchor.syntax_highlighting)
+        self.dad.set_sourcebuffer_syntax_highlight(self.curr_codebox_anchor.sourcebuffer, self.curr_codebox_anchor.syntax_highlighting)
         self.curr_codebox_anchor.frame_width = int(self.dad.codebox_width)
         self.curr_codebox_anchor.frame_height = int(self.dad.codebox_height)
         self.curr_codebox_anchor.width_in_pixels = self.dad.codebox_width_pixels
