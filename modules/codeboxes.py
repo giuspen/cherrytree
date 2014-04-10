@@ -310,6 +310,23 @@ class CodeBoxesHandler:
         #self.curr_codebox_anchor.sourcebuffer.place_cursor(self.curr_codebox_anchor.sourcebuffer.get_iter_at_offset(cursor_pos_restore))
         #self.curr_codebox_anchor.sourceview.scroll_to_mark(self.curr_codebox_anchor.sourcebuffer.get_insert(), 0.3)
 
+    def codebox_load_from_file(self, action):
+        """Load the CodeBox Content From a Text File"""
+        filepath = support.dialog_file_select(curr_folder=self.dad.pick_dir, parent=self.dad.window)
+        if not filepath: return
+        self.dad.pick_dir = os.path.dirname(filepath)
+        with open(filepath, 'r') as fd:
+            self.curr_codebox_anchor.sourcebuffer.set_text(fd.read())
+
+    def codebox_save_to_file(self, action):
+        """Save the CodeBox Content To a Text File"""
+        filepath = support.dialog_file_save_as(curr_folder=self.dad.pick_dir,
+                                               parent=self.dad.window)
+        if not filepath: return
+        self.dad.pick_dir = os.path.dirname(filepath)
+        with open(filepath, 'w') as fd:
+            fd.write(self.curr_codebox_anchor.sourcebuffer.get_text(*self.curr_codebox_anchor.sourcebuffer.get_bounds()))
+
     def codebox_change_properties(self, action):
         """Change CodeBox Properties"""
         self.dad.codebox_width = self.curr_codebox_anchor.frame_width

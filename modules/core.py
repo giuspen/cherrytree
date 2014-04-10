@@ -559,9 +559,9 @@ class CherryTree:
     def nodes_add_from_cherrytree_file(self, action):
         """Appends Nodes at the Bottom of the Current Ones, Importing from a CherryTree File"""
         filepath = support.dialog_file_select(filter_pattern=["*.ct*"],
-                                              filter_name=_("CherryTree Document"),
-                                              curr_folder=self.file_dir,
-                                              parent=self.window)
+            filter_name=_("CherryTree Document"),
+            curr_folder=self.file_dir,
+            parent=self.window)
         if not filepath: return
         document_loaded_ok = False
         if filepath[-1] in ["d", "z"]:
@@ -588,10 +588,10 @@ class CherryTree:
     def nodes_add_from_notecase_file(self, action):
         """Add Nodes Parsing a NoteCase File"""
         filepath = support.dialog_file_select(filter_pattern=["*.ncd"],
-                                              filter_name=_("NoteCase Document"),
-                                              curr_folder=self.file_dir,
-                                              parent=self.window)
-        if filepath == None: return
+            filter_name=_("NoteCase Document"),
+            curr_folder=self.file_dir,
+            parent=self.window)
+        if not filepath: return
         try:
             file_descriptor = open(filepath, 'r')
             notecase_string = file_descriptor.read()
@@ -608,7 +608,7 @@ class CherryTree:
         """Add Nodes Parsing a TuxCards File"""
         filepath = support.dialog_file_select(curr_folder=self.file_dir,
                                               parent=self.window)
-        if filepath == None: return
+        if not filepath: return
         try:
             file_descriptor = open(filepath, 'r')
             tuxcards_string = file_descriptor.read()
@@ -711,10 +711,10 @@ class CherryTree:
     def nodes_add_from_treepad_file(self, action):
         """Add Nodes Parsing a Treepad File"""
         filepath = support.dialog_file_select(filter_pattern=["*.hjt"],
-                                              filter_name=_("Treepad Document"),
-                                              curr_folder=self.file_dir,
-                                              parent=self.window)
-        if filepath == None: return
+            filter_name=_("Treepad Document"),
+            curr_folder=self.file_dir,
+            parent=self.window)
+        if not filepath: return
         try:
             file_descriptor = open(filepath, 'r')
             treepad_string = file_descriptor.read()
@@ -733,10 +733,10 @@ class CherryTree:
     def nodes_add_from_keynote_file(self, action):
         """Add Nodes Parsing a Keynote File"""
         filepath = support.dialog_file_select(filter_pattern=["*.knt"],
-                                              filter_name=_("KeyNote Document"),
-                                              curr_folder=self.file_dir,
-                                              parent=self.window)
-        if filepath == None: return
+            filter_name=_("KeyNote Document"),
+            curr_folder=self.file_dir,
+            parent=self.window)
+        if not filepath: return
         try:
             file_descriptor = open(filepath, 'r')
             keynote = imports.KeynoteHandler()
@@ -751,10 +751,10 @@ class CherryTree:
     def nodes_add_from_mempad_file(self, action):
         """Add Nodes Parsing a Mempad File"""
         filepath = support.dialog_file_select(filter_pattern=["*.lst"],
-                                              filter_name=_("Mempad Document"),
-                                              curr_folder=self.file_dir,
-                                              parent=self.window)
-        if filepath == None: return
+            filter_name=_("Mempad Document"),
+            curr_folder=self.file_dir,
+            parent=self.window)
+        if not filepath: return
         try:
             file_descriptor = open(filepath, 'r')
             mempad = imports.MempadHandler()
@@ -769,10 +769,10 @@ class CherryTree:
     def nodes_add_from_knowit_file(self, action):
         """Add Nodes Parsing a Knowit File"""
         filepath = support.dialog_file_select(filter_pattern=["*.kno"],
-                                              filter_name=_("Knowit Document"),
-                                              curr_folder=self.file_dir,
-                                              parent=self.window)
-        if filepath == None: return
+            filter_name=_("Knowit Document"),
+            curr_folder=self.file_dir,
+            parent=self.window)
+        if not filepath: return
         knowit = imports.KnowitHandler()
         try:
             file_descriptor = open(filepath, 'r')
@@ -788,10 +788,10 @@ class CherryTree:
     def nodes_add_from_leo_file(self, action):
         """Add Nodes Parsing a Leo File"""
         filepath = support.dialog_file_select(filter_pattern=["*.leo"],
-                                              filter_name=_("Leo Document"),
-                                              curr_folder=self.file_dir,
-                                              parent=self.window)
-        if filepath == None: return
+            filter_name=_("Leo Document"),
+            curr_folder=self.file_dir,
+            parent=self.window)
+        if not filepath: return
         try:
             file_descriptor = open(filepath, 'r')
             leo_string = file_descriptor.read()
@@ -1305,9 +1305,9 @@ class CherryTree:
     def file_open(self, *args):
         """Opens a dialog to browse for a cherrytree filepath"""
         filepath = support.dialog_file_select(filter_pattern=["*.ct*"],
-                                              filter_name=_("CherryTree Document"),
-                                              curr_folder=self.file_dir,
-                                              parent=self.window)
+            filter_name=_("CherryTree Document"),
+            curr_folder=self.file_dir,
+            parent=self.window)
         if not filepath: return
         #self.filepath_boss_open(filepath, "")
         self.filepath_open(filepath)
@@ -3199,7 +3199,7 @@ class CherryTree:
         if not self.node_sel_and_rich_text(): return
         iter_insert = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
         filename = support.dialog_file_select(curr_folder=self.pick_dir, parent=self.window)
-        if filename == None: return
+        if not filename: return
         self.pick_dir = os.path.dirname(filename)
         pixbuf = gtk.gdk.pixbuf_new_from_file(filename)
         self.image_edit_dialog(pixbuf, self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert()))
@@ -3254,7 +3254,7 @@ class CherryTree:
                                                filter_pattern="*.png",
                                                filter_name=_("PNG Image"),
                                                parent=self.window)
-        if filename == None: return
+        if not filename: return
         if len(filename) < 4 or filename[-4:] != ".png": filename += ".png"
         self.pick_dir = os.path.dirname(filename)
         try: self.curr_image_anchor.pixbuf.save(filename, "png")

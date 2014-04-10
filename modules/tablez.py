@@ -252,7 +252,7 @@ class TablesHandler:
                                                filter_pattern="*.csv",
                                                filter_name=_("CSV File"),
                                                parent=self.dad.window)
-        if filename == None: return
+        if not filename: return
         if len(filename) < 4 or filename[-4:] != ".csv": filename += ".csv"
         self.dad.pick_dir = os.path.dirname(filename)
         table_dict = self.dad.state_machine.table_to_dict(self.curr_table_anchor)
