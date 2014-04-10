@@ -858,6 +858,8 @@ def get_popup_menu_entries_codebox(inst):
     return [
     ("separator", None, None, None, None),
     ("codebox_edit", _("Change CodeBox _Properties"), None, _("Edit the Properties of the CodeBox"), inst.codebox_change_properties),
+    ("gtk-open", _("CodeBox _Load From Text File"), None, _("Load the CodeBox Content From a Text File"), inst.codebox_load_from_file),
+    ("gtk-save-as", _("CodeBox _Save To Text File"), None, _("Save the CodeBox Content To a Text File"), inst.codebox_save_to_file),
     ("separator", None, None, None, None),
     ("edit-cut", _("C_ut CodeBox"), None, _("Cut the Selected CodeBox"), inst.codebox_cut),
     ("edit-copy", _("_Copy CodeBox"), None, _("Copy the Selected CodeBox"), inst.codebox_copy),
