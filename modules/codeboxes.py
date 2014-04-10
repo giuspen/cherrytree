@@ -47,6 +47,14 @@ class CodeBoxesHandler:
         self.dad.object_set_selection(self.curr_codebox_anchor)
         self.dad.sourceview.emit("copy-clipboard")
 
+    def codebox_delete_keeping_text(self, *args):
+        """Delete CodeBox but keep the Text"""
+        content = self.curr_codebox_anchor.sourcebuffer.get_text(*self.curr_codebox_anchor.sourcebuffer.get_bounds())
+        self.dad.object_set_selection(self.curr_codebox_anchor)
+        self.dad.curr_buffer.delete_selection(True, self.dad.sourceview.get_editable())
+        self.dad.sourceview.grab_focus()
+        self.dad.curr_buffer.insert_at_cursor(content)
+
     def codebox_delete(self, *args):
         """Delete CodeBox"""
         self.dad.object_set_selection(self.curr_codebox_anchor)
