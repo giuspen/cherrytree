@@ -272,9 +272,9 @@ class TablesHandler:
             self.table_insert(iter_insert)
         else:
             filepath = support.dialog_file_select(filter_pattern=["*.csv"],
-                                                  filter_name=_("CSV File"),
-                                                  curr_folder=self.dad.pick_dir,
-                                                  parent=self.dad.window)
+                filter_name=_("CSV File"),
+                curr_folder=self.dad.pick_dir,
+                parent=self.dad.window)
             if filepath != None:
                 self.dad.pick_dir = os.path.dirname(filepath)
                 support.text_file_rm_emptylines(filepath)
