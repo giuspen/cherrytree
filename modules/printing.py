@@ -206,7 +206,7 @@ class PrintHandler:
         operation.set_n_pages(len(print_data.page_breaks) + 1)
         if any_image_resized:
             self.dad.statusbar.pop(self.dad.statusbar_context_id)
-            self.dad.statusbar.push(self.dad.statusbar_context_id, _("Warning: One or More Images Were Resized to Fit %sx%s") % (int(self.page_width), int(self.page_height)))
+            self.dad.statusbar.push(self.dad.statusbar_context_id, _("Warning: One or More Images Were Reduced to Enter the Page")+" (%sx%s)" % (int(self.page_width), int(self.page_height)))
 
     def on_draw_page_text(self, operation, context, page_nr, print_data):
         """This Function is Called For Each Page Set in on_begin_print_text"""
