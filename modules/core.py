@@ -1108,12 +1108,12 @@ class CherryTree:
 
     def file_startup_load(self, open_with_file, node_name):
         """Try to load a file if there are the conditions"""
-        print "file_startup_load '%s' ('%s', '%s')" % (open_with_file, self.file_name, self.file_dir)
+        #print "file_startup_load '%s' ('%s', '%s')" % (open_with_file, self.file_name, self.file_dir)
         if open_with_file:
             open_with_file = unicode(open_with_file, cons.STR_UTF8, cons.STR_IGNORE)
             self.file_name = os.path.basename(open_with_file)
             self.file_dir = os.path.dirname(open_with_file)
-            print "open_with_file -> file_name '%s', file_dir '%s'" % (self.file_name, self.file_dir)
+            #print "open_with_file -> file_name '%s', file_dir '%s'" % (self.file_name, self.file_dir)
         elif self.boss.running_windows:
             self.file_name = ""
             return
