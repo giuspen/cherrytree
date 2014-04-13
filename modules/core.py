@@ -218,7 +218,7 @@ class CherryTree:
     def get_node_icon(self, node_level, node_code):
         """Returns the Stock Id given the Node Level"""
         if self.nodes_icons == "c":
-            if node_code == cons.RICH_TEXT_ID:
+            if node_code in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID]:
                 if node_level in cons.NODES_ICONS: return cons.NODES_ICONS[node_level]
                 else: return cons.NODES_ICONS[6]
             else:
