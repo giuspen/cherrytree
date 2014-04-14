@@ -2497,7 +2497,7 @@ msgid ""
 "Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
 "Do you want to Continue?"
 msgstr ""
-"Wenn Rich Text beibehalten wird, verlieren Sie alle Formatierungen in diesem "
+"Wenn Sie zu Reintext wechseln, verlieren Sie alle Formatierungen in diesem "
 "Knoten. Weiter?"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2734
