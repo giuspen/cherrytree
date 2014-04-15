@@ -320,40 +320,43 @@ class FindReplace:
             forward)
         if obj_match_offsets[0] != None: match_offsets = (obj_match_offsets[0], obj_match_offsets[1])
         else: match_offsets = (match.start(), match.end()) if match else (None, None)
-        if match_offsets[0] != None:
-            if obj_match_offsets[0] == None: num_objs = self.get_num_objs_before_offset(text_buffer, match_offsets[0])
-            else: num_objs = 0
-            final_start_offset = match_offsets[0] + num_objs
-            final_delta_offset = match_offsets[1] - match_offsets[0]
-            #print "IN", final_start_offset, final_delta_offset, self.dad.treestore[tree_iter][1]
-            #for count in range(final_delta_offset):
-            #    print count, text_buffer.get_iter_at_offset(final_start_offset+count).get_char()
-            self.dad.set_selection_at_offset_n_delta(final_start_offset, final_delta_offset)
-            #print "OUT"
-            mark_insert = text_buffer.get_insert()
-            iter_insert = text_buffer.get_iter_at_mark(mark_insert)
-            self.dad.sourceview.scroll_to_mark(mark_insert, 0.25)
-            if all_matches:
-                if self.newline_trick: newline_trick_offset = 1
-                else: newline_trick_offset = 0
-                node_id = self.dad.treestore[tree_iter][3]
-                start_offset = match_offsets[0] + num_objs - newline_trick_offset
-                end_offset = match_offsets[1] + num_objs - newline_trick_offset
-                node_name = self.dad.treestore[tree_iter][1]
-                line_content = self.get_line_content(text_buffer, iter_insert) if obj_match_offsets[0] == None else obj_match_offsets[2]
-                line_num = text_buffer.get_iter_at_offset(start_offset).get_line()
-                if not self.newline_trick: line_num += 1
-                self.liststore.append([node_id, start_offset, end_offset, node_name, line_content, line_num])
-            if self.replace_active:
-                replacer_text = self.dad.search_replace_dict['replace']
-                text_buffer.delete_selection(interactive=False, default_editable=True)
-                text_buffer.insert_at_cursor(replacer_text)
-                if not all_matches:
-                    self.dad.set_selection_at_offset_n_delta(match_offsets[0] + num_objs, len(replacer_text))
-                self.dad.state_machine.update_state(self.dad.treestore[tree_iter][3])
-                self.dad.ctdb_handler.pending_edit_db_node_buff(self.dad.treestore[tree_iter][3], force_user_active=True)
-            return True
-        return False
+        if match_offsets[0] == None: return False
+        # match found!
+        if obj_match_offsets[0] == None: num_objs = self.get_num_objs_before_offset(text_buffer, match_offsets[0])
+        else: num_objs = 0
+        final_start_offset = match_offsets[0] + num_objs
+        final_delta_offset = match_offsets[1] - match_offsets[0]
+        #print "IN", final_start_offset, final_delta_offset, self.dad.treestore[tree_iter][1]
+        #for count in range(final_delta_offset):
+        #    print count, text_buffer.get_iter_at_offset(final_start_offset+count).get_char()
+        if not self.dad.curr_tree_iter\
+        or self.dad.treestore[tree_iter][3] != self.dad.treestore[self.dad.curr_tree_iter][3]:
+            self.dad.treeview_safe_set_cursor(tree_iter)
+        self.dad.set_selection_at_offset_n_delta(final_start_offset, final_delta_offset)
+        #print "OUT"
+        mark_insert = text_buffer.get_insert()
+        iter_insert = text_buffer.get_iter_at_mark(mark_insert)
+        self.dad.sourceview.scroll_to_mark(mark_insert, 0.25)
+        if all_matches:
+            if self.newline_trick: newline_trick_offset = 1
+            else: newline_trick_offset = 0
+            node_id = self.dad.treestore[tree_iter][3]
+            start_offset = match_offsets[0] + num_objs - newline_trick_offset
+            end_offset = match_offsets[1] + num_objs - newline_trick_offset
+            node_name = self.dad.treestore[tree_iter][1]
+            line_content = self.get_line_content(text_buffer, iter_insert) if obj_match_offsets[0] == None else obj_match_offsets[2]
+            line_num = text_buffer.get_iter_at_offset(start_offset).get_line()
+            if not self.newline_trick: line_num += 1
+            self.liststore.append([node_id, start_offset, end_offset, node_name, line_content, line_num])
+        if self.replace_active:
+            replacer_text = self.dad.search_replace_dict['replace']
+            text_buffer.delete_selection(interactive=False, default_editable=True)
+            text_buffer.insert_at_cursor(replacer_text)
+            if not all_matches:
+                self.dad.set_selection_at_offset_n_delta(match_offsets[0] + num_objs, len(replacer_text))
+            self.dad.state_machine.update_state(self.dad.treestore[tree_iter][3])
+            self.dad.ctdb_handler.pending_edit_db_node_buff(self.dad.treestore[tree_iter][3], force_user_active=True)
+        return True
     
     def check_pattern_in_object(self, pattern, obj):
         """Search for the pattern in the given object"""
@@ -445,18 +448,17 @@ class FindReplace:
 
     def parse_given_node_content(self, node_iter, pattern, forward, first_fromsel, all_matches):
         """Returns True if pattern was found, False otherwise"""
-        node_path = self.dad.treestore.get_path(node_iter)
+        text_buffer = self.dad.get_textbuffer_from_tree_iter(node_iter)
         if not self.first_useful_node:
             # first_fromsel plus first_node not already parsed
-            if self.dad.curr_tree_iter == None or node_path == self.dad.treestore.get_path(self.dad.curr_tree_iter):
+            if not self.dad.curr_tree_iter\
+            or self.dad.treestore[node_iter][3] == self.dad.treestore[self.dad.curr_tree_iter][3]:
                 self.first_useful_node = True # a first_node was parsed
-                self.dad.treeview_safe_set_cursor(node_iter)
-                if self.parse_node_content_iter(self.dad.curr_tree_iter, self.dad.curr_buffer, pattern, forward, first_fromsel, all_matches, True):
+                if self.parse_node_content_iter(node_iter, text_buffer, pattern, forward, first_fromsel, all_matches, True):
                     return True # first_node node, first_fromsel
         else:
             # not first_fromsel or first_fromsel with first_node already parsed
-            self.dad.treeview_safe_set_cursor(node_iter)
-            if self.parse_node_content_iter(self.dad.curr_tree_iter, self.dad.curr_buffer, pattern, forward, first_fromsel, all_matches, False):
+            if self.parse_node_content_iter(node_iter, text_buffer, pattern, forward, first_fromsel, all_matches, False):
                 return True # not first_node node
         node_iter = self.dad.treestore.iter_children(node_iter) # check for children
         if node_iter != None and not forward: node_iter = self.dad.get_tree_iter_last_sibling(node_iter)
