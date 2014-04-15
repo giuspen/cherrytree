@@ -128,9 +128,9 @@ class FindReplace:
         if all_matches:
             self.liststore.clear()
             self.all_matches_first_in_node = True
-            while self.parse_current_node_content(pattern, forward, first_fromsel, all_matches, True):
+            while self.parse_node_content_iter(self.dad.curr_tree_iter, self.dad.curr_buffer, pattern, forward, first_fromsel, all_matches, True):
                 self.matches_num += 1
-        elif self.parse_current_node_content(pattern, forward, first_fromsel, all_matches, True):
+        elif self.parse_node_content_iter(self.dad.curr_tree_iter, self.dad.curr_buffer, pattern, forward, first_fromsel, all_matches, True):
             self.matches_num = 1
         if self.matches_num == 0:
             support.dialog_info(_("The pattern '%s' was not found") % pattern, self.dad.window)
@@ -293,9 +293,9 @@ class FindReplace:
             self.iterated_find_dialog()
         if self.matches_num and self.replace_active: self.dad.update_window_save_needed()
 
-    def find_pattern(self, pattern, start_iter, forward, all_matches):
+    def find_pattern(self, tree_iter, text_buffer, pattern, start_iter, forward, all_matches):
         """Returns (start_iter, end_iter) or (None, None)"""
-        text = unicode(self.dad.curr_buffer.get_text(*self.dad.curr_buffer.get_bounds()), cons.STR_UTF8, cons.STR_IGNORE)
+        text = unicode(text_buffer.get_text(*text_buffer.get_bounds()), cons.STR_UTF8, cons.STR_IGNORE)
         if not self.dad.search_replace_dict['reg_exp']: # NOT REGULAR EXPRESSION
             pattern = re.escape(pattern) # backslashes all non alphanum chars => to not spoil re
             if self.dad.search_replace_dict['whole_word']: # WHOLE WORD
@@ -306,52 +306,52 @@ class FindReplace:
             pattern = re.compile(pattern, re.UNICODE|re.MULTILINE)
         else: pattern = re.compile(pattern, re.IGNORECASE|re.UNICODE|re.MULTILINE)
         start_offset = start_iter.get_offset()
-        start_offset -= self.get_num_objs_before_offset(start_offset)
+        start_offset -= self.get_num_objs_before_offset(text_buffer, start_offset)
         if forward:
             match = pattern.search(text, start_offset)
         else:
             match = None
             for temp_match in pattern.finditer(text, 0, start_offset): match = temp_match
         if self.replace_active: obj_match_offsets = (None, None)
-        else: obj_match_offsets = self.check_pattern_in_object_between(pattern,
-                                                                       start_iter.get_offset(),
-                                                                       match.start() if match else -1,
-                                                                       forward)
+        else: obj_match_offsets = self.check_pattern_in_object_between(text_buffer,
+            pattern,
+            start_iter.get_offset(),
+            match.start() if match else -1,
+            forward)
         if obj_match_offsets[0] != None: match_offsets = (obj_match_offsets[0], obj_match_offsets[1])
         else: match_offsets = (match.start(), match.end()) if match else (None, None)
         if match_offsets[0] != None:
-            if obj_match_offsets[0] == None: num_objs = self.get_num_objs_before_offset(match_offsets[0])
+            if obj_match_offsets[0] == None: num_objs = self.get_num_objs_before_offset(text_buffer, match_offsets[0])
             else: num_objs = 0
             final_start_offset = match_offsets[0] + num_objs
             final_delta_offset = match_offsets[1] - match_offsets[0]
-            #print "IN", final_start_offset, final_delta_offset, self.dad.treestore[self.dad.curr_tree_iter][1]
+            #print "IN", final_start_offset, final_delta_offset, self.dad.treestore[tree_iter][1]
             #for count in range(final_delta_offset):
-            #    print count, self.dad.curr_buffer.get_iter_at_offset(final_start_offset+count).get_char()
+            #    print count, text_buffer.get_iter_at_offset(final_start_offset+count).get_char()
             self.dad.set_selection_at_offset_n_delta(final_start_offset, final_delta_offset)
             #print "OUT"
-            mark_insert = self.dad.curr_buffer.get_insert()
-            iter_insert = self.dad.curr_buffer.get_iter_at_mark(mark_insert)
+            mark_insert = text_buffer.get_insert()
+            iter_insert = text_buffer.get_iter_at_mark(mark_insert)
             self.dad.sourceview.scroll_to_mark(mark_insert, 0.25)
             if all_matches:
                 if self.newline_trick: newline_trick_offset = 1
                 else: newline_trick_offset = 0
-                node_id = self.dad.treestore[self.dad.curr_tree_iter][3]
+                node_id = self.dad.treestore[tree_iter][3]
                 start_offset = match_offsets[0] + num_objs - newline_trick_offset
                 end_offset = match_offsets[1] + num_objs - newline_trick_offset
-                node_name = self.dad.treestore[self.dad.curr_tree_iter][1]
-                line_content = self.get_line_content(iter_insert) if obj_match_offsets[0] == None else obj_match_offsets[2]
-                line_num = self.dad.curr_buffer.get_iter_at_offset(start_offset).get_line()
+                node_name = self.dad.treestore[tree_iter][1]
+                line_content = self.get_line_content(text_buffer, iter_insert) if obj_match_offsets[0] == None else obj_match_offsets[2]
+                line_num = text_buffer.get_iter_at_offset(start_offset).get_line()
                 if not self.newline_trick: line_num += 1
                 self.liststore.append([node_id, start_offset, end_offset, node_name, line_content, line_num])
             if self.replace_active:
                 replacer_text = self.dad.search_replace_dict['replace']
-                self.dad.curr_buffer.delete_selection(interactive=False, default_editable=True)
-                self.dad.curr_buffer.insert_at_cursor(replacer_text)
+                text_buffer.delete_selection(interactive=False, default_editable=True)
+                text_buffer.insert_at_cursor(replacer_text)
                 if not all_matches:
-                    self.dad.set_selection_at_offset_n_delta(match_offsets[0] + num_objs,
-                                                             len(replacer_text))
-                self.dad.state_machine.update_state(self.dad.treestore[self.dad.curr_tree_iter][3])
-                self.dad.ctdb_handler.pending_edit_db_node_buff(self.dad.treestore[self.dad.curr_tree_iter][3], force_user_active=True)
+                    self.dad.set_selection_at_offset_n_delta(match_offsets[0] + num_objs, len(replacer_text))
+                self.dad.state_machine.update_state(self.dad.treestore[tree_iter][3])
+                self.dad.ctdb_handler.pending_edit_db_node_buff(self.dad.treestore[tree_iter][3], force_user_active=True)
             return True
         return False
     
@@ -365,14 +365,13 @@ class FindReplace:
             if pattern.search(obj[1][1]['fill_text']): return (True, "<codebox>")
         return (False, "")
 
-    def check_pattern_in_object_between(self, pattern, start_offset, end_offset, forward):
+    def check_pattern_in_object_between(self, text_buffer, pattern, start_offset, end_offset, forward):
         """Search for the pattern in the given slice and direction"""
         if not forward: start_offset -= 1
         if end_offset < 0:
-            end_offset = self.dad.curr_buffer.get_end_iter().get_offset() if forward else 0
+            end_offset = text_buffer.get_end_iter().get_offset() if forward else 0
         sel_range = (start_offset, end_offset) if forward else (end_offset, start_offset)
-        obj_vec = self.dad.state_machine.get_embedded_pixbufs_tables_codeboxes(self.dad.curr_buffer,
-                                                                               sel_range=sel_range)
+        obj_vec = self.dad.state_machine.get_embedded_pixbufs_tables_codeboxes(text_buffer, sel_range=sel_range)
         if not obj_vec: return (None, None)
         if forward:
             for element in obj_vec:
@@ -386,11 +385,11 @@ class FindReplace:
                     return (element[1][0], element[1][0]+1, patt_in_obj[1])
         return (None, None)
 
-    def get_num_objs_before_offset(self, max_offset):
+    def get_num_objs_before_offset(self, text_buffer, max_offset):
         """Returns the num of objects from buffer start to the given offset"""
         num_objs = 0
         local_limit_offset = max_offset
-        curr_iter = self.dad.curr_buffer.get_start_iter()
+        curr_iter = text_buffer.get_start_iter()
         while curr_iter.get_offset() <= local_limit_offset:
             anchor = curr_iter.get_child_anchor()
             if anchor:
@@ -399,21 +398,21 @@ class FindReplace:
             if not curr_iter.forward_char(): break
         return num_objs
 
-    def parse_current_node_content(self, pattern, forward, first_fromsel, all_matches, first_node):
+    def parse_node_content_iter(self, tree_iter, text_buffer, pattern, forward, first_fromsel, all_matches, first_node):
         """Returns True if pattern was find, False otherwise"""
-        buff_start_iter = self.dad.curr_buffer.get_start_iter()
+        buff_start_iter = text_buffer.get_start_iter()
         if buff_start_iter.get_char() != cons.CHAR_NEWLINE:
             self.newline_trick = True
-            if not self.dad.curr_buffer.get_modified(): restore_modified = True
+            if not text_buffer.get_modified(): restore_modified = True
             else: restore_modified = False
-            self.dad.curr_buffer.insert(buff_start_iter, cons.CHAR_NEWLINE)
+            text_buffer.insert(buff_start_iter, cons.CHAR_NEWLINE)
         else:
             self.newline_trick = False
             restore_modified = False
         if (first_fromsel and first_node)\
         or (all_matches and not self.all_matches_first_in_node):
-            iter_insert = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
-            iter_bound = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_selection_bound())
+            iter_insert = text_buffer.get_iter_at_mark(text_buffer.get_insert())
+            iter_bound = text_buffer.get_iter_at_mark(text_buffer.get_selection_bound())
             if not self.replace_active or self.replace_subsequent:
                 # it's a find or subsequent replace, so we want, given a selected word, to find for the subsequent one
                 if forward:
@@ -431,17 +430,17 @@ class FindReplace:
                     if iter_bound != None and iter_insert.compare(iter_bound) < 0: start_iter = iter_bound
                     else: start_iter = iter_insert
         else:
-            if forward: start_iter = self.dad.curr_buffer.get_start_iter()
-            else: start_iter = self.dad.curr_buffer.get_end_iter()
+            if forward: start_iter = text_buffer.get_start_iter()
+            else: start_iter = text_buffer.get_end_iter()
             if all_matches: self.all_matches_first_in_node = False
-        pattern_found = self.find_pattern(pattern, start_iter, forward, all_matches)
+        pattern_found = self.find_pattern(tree_iter, text_buffer, pattern, start_iter, forward, all_matches)
         if self.newline_trick:
-            buff_start_iter = self.dad.curr_buffer.get_start_iter()
+            buff_start_iter = text_buffer.get_start_iter()
             buff_step_iter = buff_start_iter.copy()
-            if buff_step_iter.forward_char(): self.dad.curr_buffer.delete(buff_start_iter, buff_step_iter)
-            if restore_modified: self.dad.curr_buffer.set_modified(False)
+            if buff_step_iter.forward_char(): text_buffer.delete(buff_start_iter, buff_step_iter)
+            if restore_modified: text_buffer.set_modified(False)
         if self.replace_active and pattern_found:
-            self.dad.update_window_save_needed("nbuf")
+            self.dad.update_window_save_needed("nbuf", given_tree_iter=tree_iter)
         return pattern_found
 
     def parse_given_node_content(self, node_iter, pattern, forward, first_fromsel, all_matches):
@@ -452,11 +451,13 @@ class FindReplace:
             if self.dad.curr_tree_iter == None or node_path == self.dad.treestore.get_path(self.dad.curr_tree_iter):
                 self.first_useful_node = True # a first_node was parsed
                 self.dad.treeview_safe_set_cursor(node_iter)
-                if self.parse_current_node_content(pattern, forward, first_fromsel, all_matches, True): return True # first_node node, first_fromsel
+                if self.parse_node_content_iter(self.dad.curr_tree_iter, self.dad.curr_buffer, pattern, forward, first_fromsel, all_matches, True):
+                    return True # first_node node, first_fromsel
         else:
             # not first_fromsel or first_fromsel with first_node already parsed
             self.dad.treeview_safe_set_cursor(node_iter)
-            if self.parse_current_node_content(pattern, forward, first_fromsel, all_matches, False): return True # not first_node node
+            if self.parse_node_content_iter(self.dad.curr_tree_iter, self.dad.curr_buffer, pattern, forward, first_fromsel, all_matches, False):
+                return True # not first_node node
         node_iter = self.dad.treestore.iter_children(node_iter) # check for children
         if node_iter != None and not forward: node_iter = self.dad.get_tree_iter_last_sibling(node_iter)
         while node_iter != None:
@@ -542,7 +543,7 @@ class FindReplace:
         self.replace_active = False
         self.replace_subsequent = False
 
-    def get_line_content(self, text_iter):
+    def get_line_content(self, text_buffer, text_iter):
         """Returns the Line Content Given the Text Iter"""
         line_start = text_iter.copy()
         line_end = text_iter.copy()
@@ -552,7 +553,7 @@ class FindReplace:
         else: line_start.forward_char()
         while line_end.get_char() != cons.CHAR_NEWLINE:
             if not line_end.forward_char(): break
-        return self.dad.curr_buffer.get_text(line_start, line_end)
+        return text_buffer.get_text(line_start, line_end)
 
     def get_first_line_content(self, text_buffer):
         """Returns the First Not Empty Line Content Given the Text Buffer"""
