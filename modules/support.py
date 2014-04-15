@@ -451,12 +451,12 @@ def dialog_image_handle(father_win, title, original_pixbuf):
         else:
             # reduced size visible into the dialog
             if img_parms.width > 900:
-                img_parms.width = 900
-                img_parms.height = img_parms.width / img_parms.image_w_h_ration
+                img_parms_width = 900
+                img_parms_height = img_parms_width / img_parms.image_w_h_ration
             else:
-                img_parms.height = 600
-                img_parms.width = img_parms.height * img_parms.image_w_h_ration
-            pixbuf = img_parms.original_pixbuf.scale_simple(int(img_parms.width), int(img_parms.height), gtk.gdk.INTERP_HYPER)
+                img_parms_height = 600
+                img_parms_width = img_parms_height * img_parms.image_w_h_ration
+            pixbuf = img_parms.original_pixbuf.scale_simple(int(img_parms_width), int(img_parms_height), gtk.gdk.INTERP_HYPER)
         image.set_from_pixbuf(pixbuf)
     def on_button_rotate_90_cw_clicked(*args):
         img_parms.original_pixbuf = img_parms.original_pixbuf.rotate_simple(270)
