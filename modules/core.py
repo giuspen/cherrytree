@@ -464,8 +464,8 @@ class CherryTree:
             elif keyname == "Right": self.node_change_father()
         elif event.state & gtk.gdk.MOD1_MASK:
             pass
-        elif event.state & gtk.gdk.CONTROL_MASK:
-            pass
+        elif (event.state & gtk.gdk.CONTROL_MASK):
+            if keyname == "Tab": self.toggle_tree_text()
         else:
             if keyname == "Up":
                 prev_iter = self.get_tree_iter_prev_sibling(self.treestore, self.curr_tree_iter)
@@ -483,6 +483,7 @@ class CherryTree:
             elif keyname == "Delete": self.node_delete()
             elif keyname == "Menu":
                 self.menu_tree.popup(None, None, None, 0, event.time)
+            elif keyname == "Tab": self.toggle_tree_text()
         return True
 
     def fullscreen_toggle(self, *args):
@@ -3848,9 +3849,11 @@ class CherryTree:
     def on_sourceview_event_after_key_press(self, text_view, event):
         """Called after every gtk.gdk.KEY_PRESS on the SourceView"""
         keyname = gtk.gdk.keyval_name(event.keyval)
-        if (event.state & gtk.gdk.SHIFT_MASK): # Shift held down
+        if (event.state & gtk.gdk.SHIFT_MASK):
             if keyname == cons.STR_RETURN:
                 self.curr_buffer.insert(self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert()), 3*cons.CHAR_SPACE)
+        elif (event.state & gtk.gdk.CONTROL_MASK):
+            if keyname == "Tab": self.toggle_tree_text()
         elif keyname == cons.STR_RETURN:
             iter_insert = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
             if iter_insert == None:

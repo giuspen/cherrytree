@@ -608,7 +608,7 @@ def get_entries(inst):
     ( "ShowAllMatchesDialog", "find", _("Show _All Matches Dialog"), "<control><shift>A", _("Show Search All Matches Dialog"), inst.find_allmatchesdialog_restore),
     ( "IncreaseToolbarIconsSize", "gtk-add", _("_Increase Toolbar Icons Size"), None, _("Increase the Size of the Toolbar Icons"), inst.toolbar_icons_size_increase),
     ( "DecreaseToolbarIconsSize", "gtk-remove", _("_Decrease Toolbar Icons Size"), None, _("Decrease the Size of the Toolbar Icons"), inst.toolbar_icons_size_decrease),
-    ( "ToggleTreeText", "gtk-jump-to", _("Toggle _Focus Tree/Text"), "<control>J", _("Toggle Focus Between Tree and Text"), inst.toggle_tree_text),
+    ( "ToggleTreeText", "gtk-jump-to", _("Toggle _Focus Tree/Text"), "<control>Tab", _("Toggle Focus Between Tree and Text"), inst.toggle_tree_text),
     ( "ToggleNodeExpColl", "gtk-zoom-in", _("Toggle Node _Expanded/Collapsed"), "<control><shift>J", _("Toggle Expanded/Collapsed Status of the Selected Node"), inst.toggle_tree_node_expanded_collapsed),
     ( "NodesExpAll", "gtk-zoom-in", _("E_xpand All Nodes"), "<control><shift>E", _("Expand All the Tree Nodes"), inst.nodes_expand_all),
     ( "NodesCollAll", "gtk-zoom-out", _("_Collapse All Nodes"), "<control><shift>L", _("Collapse All the Tree Nodes"), inst.nodes_collapse_all),
