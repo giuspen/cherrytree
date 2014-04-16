@@ -334,20 +334,22 @@ class CherryTree:
         #print "iter_start", iter_start.get_offset(), ord(iter_start.get_char()), iter_start.get_char()
         #print "iter_end", iter_end.get_offset(), ord(iter_end.get_char()), iter_end.get_char()
         #print "destination_iter", destination_iter.get_offset(), ord(destination_iter.get_char()), destination_iter.get_char()
+        text_to_move = self.curr_buffer.get_text(iter_start, iter_end)
+        diff_offsets = iter_end.get_offset() - iter_start.get_offset()
         if self.syntax_highlighting != cons.RICH_TEXT_ID:
-            text_to_move = self.curr_buffer.get_text(iter_start, iter_end)
             self.curr_buffer.delete(iter_start, iter_end)
             destination_iter = self.curr_buffer.get_iter_at_offset(destination_offset)
-            if not text_to_move or text_to_move[-1] != cons.CHAR_NEWLINE: text_to_move += cons.CHAR_NEWLINE
+            if not text_to_move or text_to_move[-1] != cons.CHAR_NEWLINE:
+                diff_offsets += 1
+                text_to_move += cons.CHAR_NEWLINE
+            self.curr_buffer.move_mark(self.curr_buffer.get_insert(), destination_iter)
             self.curr_buffer.insert(destination_iter, text_to_move)
-            self.set_selection_at_offset_n_delta(destination_offset, len(text_to_move)-1)
+            self.set_selection_at_offset_n_delta(destination_offset, diff_offsets-1)
         else:
-            text_to_move = self.curr_buffer.get_text(iter_start, iter_end)
-            diff_offsets = iter_end.get_offset() - iter_start.get_offset()
             rich_text = self.clipboard_handler.rich_text_get_from_text_buffer_selection(self.curr_buffer,
-                                                                                        iter_start,
-                                                                                        iter_end,
-                                                                                        exclude_iter_sel_end=True)
+                iter_start,
+                iter_end,
+                exclude_iter_sel_end=True)
             self.curr_buffer.delete(iter_start, iter_end)
             destination_iter = self.curr_buffer.get_iter_at_offset(destination_offset)
             if not text_to_move or text_to_move[-1] != cons.CHAR_NEWLINE:
@@ -379,25 +381,28 @@ class CherryTree:
         #print "iter_start", iter_start.get_offset(), ord(iter_start.get_char()), iter_start.get_char()
         #print "iter_end", iter_end.get_offset(), ord(iter_end.get_char()), iter_end.get_char()
         #print "destination_iter", destination_iter.get_offset(), ord(destination_iter.get_char()), destination_iter.get_char()
+        text_to_move = self.curr_buffer.get_text(iter_start, iter_end)
+        diff_offsets = iter_end.get_offset() - iter_start.get_offset()
         if self.syntax_highlighting != cons.RICH_TEXT_ID:
-            text_to_move = self.curr_buffer.get_text(iter_start, iter_end)
             self.curr_buffer.delete(iter_start, iter_end)
-            destination_offset -= len(text_to_move)
+            destination_offset -= diff_offsets
             destination_iter = self.curr_buffer.get_iter_at_offset(destination_offset)
-            if not text_to_move or text_to_move[-1] != cons.CHAR_NEWLINE: text_to_move += cons.CHAR_NEWLINE
-            if missing_leading_newline: text_to_move = cons.CHAR_NEWLINE + text_to_move
+            if not text_to_move or text_to_move[-1] != cons.CHAR_NEWLINE:
+                diff_offsets += 1
+                text_to_move += cons.CHAR_NEWLINE
+            if missing_leading_newline:
+                diff_offsets += 1
+                text_to_move = cons.CHAR_NEWLINE + text_to_move
             self.curr_buffer.insert(destination_iter, text_to_move)
             if not missing_leading_newline:
-                self.set_selection_at_offset_n_delta(destination_offset, len(text_to_move)-1)
+                self.set_selection_at_offset_n_delta(destination_offset, diff_offsets-1)
             else:
-                self.set_selection_at_offset_n_delta(destination_offset+1, len(text_to_move)-2)
+                self.set_selection_at_offset_n_delta(destination_offset+1, diff_offsets-2)
         else:
-            text_to_move = self.curr_buffer.get_text(iter_start, iter_end)
-            diff_offsets = iter_end.get_offset() - iter_start.get_offset()
             rich_text = self.clipboard_handler.rich_text_get_from_text_buffer_selection(self.curr_buffer,
-                                                                                        iter_start,
-                                                                                        iter_end,
-                                                                                        exclude_iter_sel_end=True)
+                iter_start,
+                iter_end,
+                exclude_iter_sel_end=True)
             self.curr_buffer.delete(iter_start, iter_end)
             destination_offset -= diff_offsets
             destination_iter = self.curr_buffer.get_iter_at_offset(destination_offset)
