@@ -70,12 +70,12 @@ class CherryTreeHandler():
         self.lang_str = lang_str
         self.running_windows = []
         self.systray_active = False
-        self.window_open_new(filepath_fix(args.filepath), args.node, True)
+        self.window_open_new(filepath_fix(args.filepath), args.node, True, True if args.filepath else False)
         self.server_check_timer_id = gobject.timeout_add(1000, self.server_periodic_check) # 1 sec
 
-    def window_open_new(self, filepath, node_name, is_startup):
+    def window_open_new(self, filepath, node_name, is_startup, is_arg):
         """Open a new top level Window"""
-        window = core.CherryTree(self.lang_str, filepath, node_name, self, is_startup)
+        window = core.CherryTree(self.lang_str, filepath, node_name, self, is_startup, is_arg)
         self.running_windows.append(window)
 
     def on_window_destroy_event(self, widget):
@@ -136,7 +136,7 @@ class CherryTreeHandler():
                     if just_run_new_win:
                         # 4) run new window
                         print "4 run '%s'" % self.msg_server_to_core['p']
-                        self.window_open_new(self.msg_server_to_core['p'], self.msg_server_to_core['n'], False)
+                        self.window_open_new(self.msg_server_to_core['p'], self.msg_server_to_core['n'], False, False)
         self.semaphore.release()
         return True # this way we keep the timer alive
 
