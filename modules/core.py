@@ -27,7 +27,7 @@ if cons.HAS_APPINDICATOR: import appindicator
 class CherryTree:
     """Application's GUI"""
 
-    def __init__(self, lang_str, open_with_file, node_name, boss, is_startup):
+    def __init__(self, lang_str, open_with_file, node_name, boss, is_startup, is_arg):
         """GUI Startup"""
         self.boss = boss
         self.filetype = ""
@@ -186,7 +186,7 @@ class CherryTree:
         self.window.present()
         config.config_file_apply(self)
         self.combobox_prog_lang_init()
-        if not is_startup or self.reload_doc_last:
+        if is_arg or not is_startup or self.reload_doc_last:
             self.file_startup_load(open_with_file, node_name)
         else: self.file_name = ""
         if self.systray:
