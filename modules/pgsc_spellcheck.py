@@ -262,7 +262,6 @@ class SpellChecker(object):
         Enable spellchecking.
         """
         self._enabled = True
-        self.recheck()
 
     def append_filter(self, regex, filter_type):
         """
