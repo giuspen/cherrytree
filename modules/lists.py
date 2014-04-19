@@ -383,4 +383,3 @@ class ListsHandler:
                             else: break
                 else: fw_needed = False
             if fw_needed and not self.char_iter_forward_to_newline(curr_iter): break
-        if self.dad.enable_spell_check: self.dad.spell_check_set_on()

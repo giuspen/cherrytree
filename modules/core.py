@@ -2386,7 +2386,6 @@ class CherryTree:
             self.sourceview.modify_text(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.rt_def_fg))
             self.sourceview.set_draw_spaces(codeboxes.DRAW_SPACES_FLAGS if self.rt_show_white_spaces else 0)
             self.sourceview.set_highlight_current_line(False)
-            if self.enable_spell_check: self.spell_check_reload_on_buffer()
         else:
             if syntax_highl == cons.PLAIN_TEXT_ID:
                 self.sourceview.modify_font(pango.FontDescription(self.text_font))
@@ -2420,6 +2419,8 @@ class CherryTree:
         if new_iter == None: return # no node selected
         elif self.curr_tree_iter != None and model[new_iter][3] == model[self.curr_tree_iter][3]:
             return # if i click on an already selected node
+        if self.enable_spell_check and self.user_active and self.syntax_highlighting == cons.RICH_TEXT_ID:
+            self.spellchecker.disable()
         if self.curr_tree_iter:
             if self.user_active:
                 self.nodes_cursor_pos[model[self.curr_tree_iter][3]] = self.curr_buffer.get_property(cons.STR_CURSOR_POSITION)
@@ -2453,8 +2454,8 @@ class CherryTree:
                 self.curr_buffer.place_cursor(cursor_iter)
                 self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), 0.3)
             if self.syntax_highlighting == cons.RICH_TEXT_ID:
-                if self.enable_spell_check: self.spell_check_set_on()
                 if not already_visited: self.lists_handler.todo_lists_old_to_new_conversion(self.curr_buffer)
+                if self.enable_spell_check: self.spell_check_set_on()
 
     def update_node_name_header(self):
         """Update Node Name Header"""
