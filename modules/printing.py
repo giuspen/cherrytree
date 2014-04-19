@@ -178,12 +178,16 @@ class PrintHandler:
                             image_width = self.page_width
                             image_height = image_width / image_w_h_ration
                             pixbuf = pixbuf.scale_simple(int(image_width), int(image_height), gtk.gdk.INTERP_HYPER)
+                            pixbuf_width = pixbuf.get_width()
+                            pixbuf_height = pixbuf.get_height()
                             pixbuf_was_resized = True
-                        if pixbuf_height > self.page_height:
+                        if pixbuf_height > (self.page_height-self.layout_newline_height-cons.WHITE_SPACE_BETW_PIXB_AND_TEXT):
                             image_w_h_ration = float(pixbuf_width)/pixbuf_height
-                            image_height = self.page_height
+                            image_height = self.page_height-self.layout_newline_height-cons.WHITE_SPACE_BETW_PIXB_AND_TEXT
                             image_width = image_height * image_w_h_ration
                             pixbuf = pixbuf.scale_simple(int(image_width), int(image_height), gtk.gdk.INTERP_HYPER)
+                            pixbuf_width = pixbuf.get_width()
+                            pixbuf_height = pixbuf.get_height()
                             pixbuf_was_resized = True
                         if pixbuf_was_resized:
                             any_image_resized = True
