@@ -512,7 +512,7 @@ class CherryTree:
         """Toggle Enable/Disable Spell Check"""
         self.enable_spell_check = not self.enable_spell_check
         if self.enable_spell_check: self.spell_check_set_on()
-        else: self.spell_check_set_off()
+        else: self.spell_check_set_off(True)
 
     def toggle_tree_text(self, *args):
         """Toggle Focus Between Tree and Text"""
@@ -2420,7 +2420,7 @@ class CherryTree:
         elif self.curr_tree_iter != None and model[new_iter][3] == model[self.curr_tree_iter][3]:
             return # if i click on an already selected node
         if self.enable_spell_check and self.user_active and self.syntax_highlighting == cons.RICH_TEXT_ID:
-            self.spellchecker.disable()
+            self.spell_check_set_off()
         if self.curr_tree_iter:
             if self.user_active:
                 self.nodes_cursor_pos[model[self.curr_tree_iter][3]] = self.curr_buffer.get_property(cons.STR_CURSOR_POSITION)
@@ -3674,10 +3674,10 @@ class CherryTree:
                 self.spell_check_reload_on_buffer()
         self.update_selected_node_statusbar_info()
 
-    def spell_check_set_off(self):
+    def spell_check_set_off(self, update_statusbar=False):
         """Disable Spell Check"""
         self.spellchecker.disable()
-        self.update_selected_node_statusbar_info()
+        if update_statusbar: self.update_selected_node_statusbar_info()
 
     def spell_check_reload_on_buffer(self):
         """Reload Spell Checker on curr Buffer"""

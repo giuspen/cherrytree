@@ -721,7 +721,7 @@ def preferences_tab_rich_text_nodes(dad, vbox_text_nodes):
         if dad.enable_spell_check:
             dad.spell_check_set_on()
             set_checkbutton_spell_check_model()
-        else: dad.spell_check_set_off()
+        else: dad.spell_check_set_off(True)
         combobox_spell_check_lang.set_sensitive(dad.enable_spell_check)
     checkbutton_spell_check.connect('toggled', on_checkbutton_spell_check_toggled)
     def on_combobox_spell_check_lang_changed(combobox):
