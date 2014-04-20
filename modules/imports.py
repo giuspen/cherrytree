@@ -200,7 +200,7 @@ class TuxCardsHandler(HTMLParser.HTMLParser):
                 link_url = attrs[0][1]
                 if len(link_url) > 7:
                     self.curr_attributes[cons.TAG_LINK] = get_internal_link_from_http_url(link_url)
-            elif tag == "img" and len(attrs) > 0:
+            elif tag in ["img", "v:imagedata"] and len(attrs) > 0:
                 dic_attrs = dict(a for a in attrs)
                 img_path = dic_attrs.get('src', "")
                 if os.path.isfile(img_path):
@@ -343,7 +343,7 @@ class KeepnoteHandler(HTMLParser.HTMLParser):
                 link_url = attrs[0][1]
                 if len(link_url) > 7:
                     self.curr_attributes[cons.TAG_LINK] = get_internal_link_from_http_url(link_url)
-            elif tag == "img" and len(attrs) > 0:
+            elif tag in ["img", "v:imagedata"] and len(attrs) > 0:
                 img_name = attrs[0][1]
                 img_path = os.path.join(self.curr_folder, img_name)
                 if os.path.isfile(img_path):
@@ -1735,7 +1735,7 @@ class NotecaseHandler(HTMLParser.HTMLParser):
             elif tag == "li":
                 self.rich_text_serialize(cons.CHAR_NEWLINE+cons.CHAR_LISTBUL+cons.CHAR_SPACE)
                 self.chars_counter += 3
-            elif tag == "img" and len(attrs) > 0:
+            elif tag in ["img", "v:imagedata"] and len(attrs) > 0:
                 for attribute in attrs:
                     if attribute[0] == "src":
                         if attribute[1][:23] == "data:image/jpeg;base64,":
@@ -1964,7 +1964,7 @@ class HTMLHandler(HTMLParser.HTMLParser):
                 else:
                     self.rich_text_serialize("%s. " % self.curr_list_type[1])
                     self.curr_list_type[1] += 1
-            elif tag == "img" and len(attrs) > 0:
+            elif tag in ["img", "v:imagedata"] and len(attrs) > 0:
                 dic_attrs = dict(a for a in attrs)
                 img_path = dic_attrs.get('src', "")
                 self.insert_image(img_path)
@@ -1983,7 +1983,7 @@ class HTMLHandler(HTMLParser.HTMLParser):
                         self.curr_rowspan = int(attr[1])
                         break
                 if tag == "th": self.curr_table_header = True
-            elif tag == "img" and len(attrs) > 0:
+            elif tag in ["img", "v:imagedata"] and len(attrs) > 0:
                 dic_attrs = dict(a for a in attrs)
                 img_path = dic_attrs.get('src', "")
                 self.insert_image(img_path, cons.CHAR_NEWLINE*2)
