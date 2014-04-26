@@ -1,4 +1,19 @@
 
+0.33.0 (April 22nd, 2014)
+• added import from html file and folder of html files
+• added memory of selected node and expanded/collapsed nodes status for more cherrytree documents, not only the latest used
+• added find and replace in selected node and subnodes
+• added option in export to html to do not have the links tree in every page but just add a link to the index page at the bottom of every page
+• improved export to pdf of documents with large images (automatically re-sized), large codeboxes and large tables (automatically splitted)
+• when switching node type from rich text to non rich text, tables and codeboxes are not just dropped but converted to plain text
+• added plain text type to nodes and codeboxes; plain text nodes do not have any automatic syntax highlighting, they share the same font with rich text nodes and support all the lists types
+• added right click menu to load codebox content from text file and save codebox content to text file
+• added right click menu to delete codebox keeping the contained text
+• added keyboard shortcut Ctrl+Alt+S to enable/disable spell check
+• added preferences option to display white spaces also for rich text nodes
+• Ctrl+Tab replaces Ctrl+J for toggling focus between Tree and Text, when the focus is on the Tree also just Tab moves focus to Text
+• fixed many bugs and improved functionality
+
 0.32.0 (January 4th, 2014)
 • when selecting print/export to pdf there’s now an option to start new nodes in new pages
 • the links colors are now configurable
