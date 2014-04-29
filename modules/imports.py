@@ -1878,6 +1878,7 @@ class HTMLHandler(HTMLParser.HTMLParser):
         self.nodes_list[-1].appendChild(dom_iter)
         text_iter = self.dom.createTextNode(text_data)
         dom_iter.appendChild(text_iter)
+        self.chars_counter += len(text_data)
 
     def get_rgb_gtk_attribute(self, html_attribute):
         """Get RGB GTK attribute from HTML attribute"""
@@ -2007,13 +2008,15 @@ class HTMLHandler(HTMLParser.HTMLParser):
             pixbuf_loader.write(image_file)
             pixbuf_loader.close()
             pixbuf = pixbuf_loader.get_pixbuf()
-            self.dad.xml_handler.pixbuf_element_to_xml([0, pixbuf, cons.TAG_PROP_LEFT], self.nodes_list[-1], self.dom)
+            self.dad.xml_handler.pixbuf_element_to_xml([self.chars_counter, pixbuf, cons.TAG_PROP_LEFT], self.nodes_list[-1], self.dom)
+            self.chars_counter += 1
             self.dad.statusbar.pop(self.dad.statusbar_context_id)
             if trailing_chars: self.rich_text_serialize(trailing_chars)
         except:
             if os.path.isfile(os.path.join(self.local_dir, img_path)):
                 pixbuf = gtk.gdk.pixbuf_new_from_file(os.path.join(self.local_dir, img_path))
-                self.dad.xml_handler.pixbuf_element_to_xml([0, pixbuf, cons.TAG_PROP_LEFT], self.nodes_list[-1], self.dom)
+                self.dad.xml_handler.pixbuf_element_to_xml([self.chars_counter, pixbuf, cons.TAG_PROP_LEFT], self.nodes_list[-1], self.dom)
+                self.chars_counter += 1
             else: print "failed download of", img_path
             self.dad.statusbar.pop(self.dad.statusbar_context_id)
 
@@ -2084,7 +2087,8 @@ class HTMLHandler(HTMLParser.HTMLParser):
                         'show_line_numbers': False,
                         'fill_text': text_inside_codebox
                         }
-                        self.dad.xml_handler.codebox_element_to_xml([0, codebox_dict, cons.TAG_PROP_LEFT], self.nodes_list[-1])
+                        self.dad.xml_handler.codebox_element_to_xml([self.chars_counter, codebox_dict, cons.TAG_PROP_LEFT], self.nodes_list[-1])
+                        self.chars_counter += 1
                     else: print "empty codebox skip"
                 else:
                     # it's a table
@@ -2093,7 +2097,8 @@ class HTMLHandler(HTMLParser.HTMLParser):
                     table_dict = {'col_min': cons.TABLE_DEFAULT_COL_MIN,
                                   'col_max': cons.TABLE_DEFAULT_COL_MAX,
                                   'matrix': self.curr_table}
-                    self.dad.xml_handler.table_element_to_xml([0, table_dict, cons.TAG_PROP_LEFT], self.nodes_list[-1])
+                    self.dad.xml_handler.table_element_to_xml([self.chars_counter, table_dict, cons.TAG_PROP_LEFT], self.nodes_list[-1])
+                    self.chars_counter += 1
                 self.rich_text_serialize(cons.CHAR_NEWLINE)
             elif tag in ["p", "li"]: self.curr_cell += cons.CHAR_NEWLINE
 
@@ -2138,6 +2143,7 @@ class HTMLHandler(HTMLParser.HTMLParser):
         self.latest_font = ""
         self.curr_cell = ""
         self.in_a_tag = 0
+        self.chars_counter = 0
         self.curr_list_type = ["u", 0]
         self.pre_tag = ""
         # curr_state 0: standby, taking no data
