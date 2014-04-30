@@ -493,6 +493,16 @@ class Export2Html:
             self.nodes_all_export_to_html_iter(child_tree_iter)
             child_tree_iter = self.dad.treestore.iter_next(child_tree_iter)
 
+    def clean_text_to_utf8(self, in_text):
+        """Clean from utf8 decode errors"""
+        clean_text = in_text
+        while clean_text:
+            try:
+                clean_text = unicode(clean_text, cons.STR_UTF8, cons.STR_IGNORE)
+                break
+            except: clean_text = clean_text[1:]
+        return clean_text
+
     def tree_links_text_iter(self, tree_iter):
         """Creating the Tree Links Text - iter"""
         href = self.get_html_filename(tree_iter)
@@ -500,7 +510,8 @@ class Export2Html:
         self.tree_links_text += "&nbsp;&nbsp;&nbsp;" * len(self.tree_links_nums)
         icon_rel_path = os.path.join("images", self.dad.treestore[tree_iter][0] + ".png")
         self.tree_links_text += '<img src="%s" alt="%s" height="22" width="22"/>' % (icon_rel_path, icon_rel_path)
-        self.tree_links_text += '<a href="' + href + '">' + ".".join(self.tree_links_nums) + " " + self.dad.treestore[tree_iter][1] + "</a></td></tr>"
+        node_name = self.clean_text_to_utf8(self.dad.treestore[tree_iter][1])
+        self.tree_links_text += '<a href="' + href + '">' + ".".join(self.tree_links_nums) + " " + node_name + "</a></td></tr>"
         child_tree_iter = self.dad.treestore.iter_children(tree_iter)
         self.tree_links_nums.append("1")
         while child_tree_iter:
@@ -643,10 +654,10 @@ class Export2Html:
 
     def get_html_filename(self, tree_iter):
         """Get the HTML page filename given the tree iter"""
-        file_name = self.dad.treestore[tree_iter][1].strip()
+        file_name = self.clean_text_to_utf8(self.dad.treestore[tree_iter][1]).strip()
         father_iter = self.dad.treestore.iter_parent(tree_iter)
         while father_iter:
-            file_name = self.dad.treestore[father_iter][1].strip() + "--" + file_name
+            file_name = self.clean_text_to_utf8(self.dad.treestore[father_iter][1]).strip() + "--" + file_name
             father_iter = self.dad.treestore.iter_parent(father_iter)
         file_name = support.clean_from_chars_not_for_filename(file_name) + ".html"
         if len(file_name) > cons.MAX_FILE_NAME_LEN:
