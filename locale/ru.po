@@ -1897,7 +1897,7 @@ msgstr "Печатать название ветки"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:876
 msgid "Links Tree in Every Page"
-msgstr "Дерево ссылок на каждой страницы"
+msgstr "Дерево ссылок на каждой страницe"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:881
 msgid "New Node in New Page"
