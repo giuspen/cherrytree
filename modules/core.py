@@ -1277,6 +1277,20 @@ class CherryTree:
                 self.db = self.ctdb_handler.get_connected_db_from_dbpath(filepath_tmp)
                 self.ctdb_handler.remove_at_quit_set.add(filepath_tmp)
 
+    def backups_handling(self, filepath_orig):
+        """Handler of backup before save"""
+        filepath = filepath_orig + 2*cons.CHAR_TILDE
+        while True:
+            if os.path.isfile(filepath):
+                if filepath.endswith(cons.CHAR_TILDE):
+                    try: shutil.move(filepath, filepath + cons.CHAR_TILDE)
+                    except: subprocess.call("mv %s %s~" % (re.escape(filepath), re.escape(filepath)), shell=True)
+                else:
+                    try: shutil.copy(filepath, filepath + cons.CHAR_TILDE)
+                    except: subprocess.call("cp %s %s~" % (re.escape(filepath), re.escape(filepath)), shell=True)
+            if filepath.endswith(cons.CHAR_TILDE): filepath = filepath[:-1]
+            else: break
+
     def file_write(self, filepath, first_write):
         """File Write"""
         if not cons.IS_WIN_OS and not os.access(os.path.dirname(filepath), os.W_OK):
@@ -1290,9 +1304,7 @@ class CherryTree:
                 return False
         else: xml_string = ""
         # backup before save new version
-        if self.backup_copy and os.path.isfile(filepath):
-            try: shutil.copy(filepath, filepath + cons.CHAR_TILDE)
-            except: subprocess.call("cp %s %s~" % (re.escape(filepath), re.escape(filepath)), shell=True)
+        if self.backup_copy: self.backups_handling(filepath)
         # if the filename is protected, we use unprotected type before compress and protect
         try:
             self.statusbar.push(self.statusbar_context_id, _("Writing to Disk..."))
