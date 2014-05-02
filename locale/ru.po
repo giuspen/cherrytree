@@ -1783,57 +1783,56 @@ msgstr ""
 "675 Mass Ave, Cambridge, MA 02139, USA.\n"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:293
-msgid "Armenian (hy) Seda Stamboltsyan <sedastam@yandex.com>"
-msgstr "Армянский (hy) Seda Stamboltsyan <sedastam@yandex.com>"
+msgid "Armenian"
+msgstr "Армянский"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:294
-msgid "Chinese Simplified (zh_CN) Channing Wong <mamimoluo@gmail.com>"
-msgstr "Китайский Упрощенный (zh_CN) Channing Wong <mamimoluo@gmail.com>"
+msgid "Chinese Simplified"
+msgstr "Китайский Упрощенный"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:295
-msgid "Czech (cs) Pavel Fric <fripohled@blogspot.com>"
-msgstr "Чешский (cs) Pavel Fric <fripohled@blogspot.com>"
+msgid "Czech"
+msgstr "Чешский"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:296
-msgid "Dutch (nl) Patrick Vijgeboom <pj.vijgeboom@gmail.com>"
-msgstr "Голландский (nl) Patrick Vijgeboom <pj.vijgeboom@gmail.com>"
+msgid "Dutch"
+msgstr "Голландский"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:297
 msgid ""
-"French (fr) Benoît D'Angelo <benoit.dangelo@gmx.fr> (former Ludovic Troisi)"
+"French"
 msgstr ""
-"Французский (fr) Benoît D'Angelo <benoit.dangelo@gmx.fr> (former Ludovic "
-"Troisi)"
+"Французский"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:298
-msgid "German (de) Frank Brungräber <calexu@arcor.de> (former Sven Neubauer)"
+msgid "German"
 msgstr ""
-"Немецкий (de) Frank Brungräber <calexu@arcor.de> (former Sven Neubauer)"
+"Немецкий"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:299
-msgid "Italian (it) Giuseppe Penone <giuspen@gmail.com>"
-msgstr "Итальянский (it) Giuseppe Penone <giuspen@gmail.com>"
+msgid "Italian"
+msgstr "Итальянский"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:300
-msgid "Polish (pl) Marcin Swierczynski <orneo1212@gmail.com>"
-msgstr "Польский (pl) Marcin Swierczynski <orneo1212@gmail.com>"
+msgid "Polish"
+msgstr "Польский"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:301
-msgid "Portuguese Brazil (pt_BR) Vinicius Schmidt <viniciussm@rocketmail.com>"
+msgid "Portuguese Brazil"
 msgstr ""
-"Португальский Бразилий (pt_BR) Vinicius Schmidt <viniciussm@rocketmail.com>"
+"Португальский Бразилий"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:302
-msgid "Russian (ru) Andriy Kovtun <kovtunos@yandex.ru>"
-msgstr "Русский (ru) Andriy Kovtun <kovtunos@yandex.ru>"
+msgid "Russian"
+msgstr "Русский"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:303
-msgid "Spanish (es) Daniel MC <i.e.betel@gmail.com>"
-msgstr "Испанский (es) Daniel MC <i.e.betel@gmail.com>"
+msgid "Spanish"
+msgstr "Испанский"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:304
-msgid "Ukrainian (uk) Andriy Kovtun <kovtunos@yandex.ru>"
-msgstr "Украинский (uk) Andriy Kovtun <kovtunos@yandex.ru>"
+msgid "Ukrainian"
+msgstr "Украинский"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:544
 msgid "Cancel"
@@ -2705,11 +2704,3 @@ msgstr "Тэги"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/imports.py:2003
 msgid "Downloading"
 msgstr "Скачивание"
-
-#~ msgid "Text Nodes"
-#~ msgstr "Текстовые ветки"
-
-#~ msgid ""
-#~ "Automatic Syntax Highlighting Must be Disabled in order to Use This "
-#~ "Feature"
-#~ msgstr "Чтобы использовать эту функцию, отключите подсветку синтаксиса"
