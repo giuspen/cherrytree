@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: svn_cherrytree 0.14\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-02 22:27+0200\n"
+"POT-Creation-Date: 2014-05-02 23:16+0200\n"
 "PO-Revision-Date: 2014-04-13 10:44+0100\n"
 "Last-Translator: Benoît <benoit.dangelo@gmx.fr>\n"
 "Language-Team: French\n"
@@ -1799,15 +1799,12 @@ msgid "Dutch"
 msgstr "Néerlandais"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:297
-msgid ""
-"French"
-msgstr ""
-"Français"
+msgid "French"
+msgstr "Français"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:298
 msgid "German"
-msgstr ""
-"Allemand"
+msgstr "Allemand"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:299
 msgid "Italian"
@@ -1819,8 +1816,7 @@ msgstr "Polonais"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:301
 msgid "Portuguese Brazil"
-msgstr ""
-"Portugais du Brésil"
+msgstr "Portugais du Brésil"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:302
 msgid "Russian"
@@ -2707,6 +2703,12 @@ msgstr "Le Lien du Répertoire '%s' n'est pas valide"
 #, python-format
 msgid "No anchor named '%s' found"
 msgstr "Aucune Ancre nommée '%s' n'a été trouvée"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4003
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4008
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4009
+msgid ": "
+msgstr ": "
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4008
 msgid "Tags"

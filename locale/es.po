@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.9.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-02 22:27+0200\n"
+"POT-Creation-Date: 2014-05-02 23:16+0200\n"
 "PO-Revision-Date: 2014-04-12 00:31+0100\n"
 "Last-Translator: Daniel MC <i.e.betel@gmail.com>\n"
 "Language-Team: Spanish <>\n"
@@ -1798,10 +1798,8 @@ msgid "Dutch"
 msgstr "Olandese"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:297
-msgid ""
-"French"
-msgstr ""
-"Francés"
+msgid "French"
+msgstr "Francés"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:298
 msgid "German"
@@ -2700,6 +2698,12 @@ msgstr "El enlace a la carpeta '%s' no es válido"
 #, python-format
 msgid "No anchor named '%s' found"
 msgstr "No se ha encontrado un ancla llamada '%s'"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4003
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4008
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4009
+msgid ": "
+msgstr ": "
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4008
 msgid "Tags"

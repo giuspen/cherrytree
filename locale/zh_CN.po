@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cherrytree 0.26\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-02 22:27+0200\n"
+"POT-Creation-Date: 2014-05-02 23:16+0200\n"
 "PO-Revision-Date: 2014-04-17 18:53+0800\n"
 "Last-Translator: Channing Wong <mamimoluo@gmail.com>\n"
 "Language-Team: Chinese (simplified)\n"
@@ -1786,10 +1786,8 @@ msgid "Dutch"
 msgstr "荷兰语"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:297
-msgid ""
-"French"
-msgstr ""
-"法语"
+msgid "French"
+msgstr "法语"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:298
 msgid "German"
@@ -2679,6 +2677,12 @@ msgstr "文件夹链接'%s'无效"
 #, python-format
 msgid "No anchor named '%s' found"
 msgstr "未找到锚点 '%s'"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4003
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4008
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4009
+msgid ": "
+msgstr ": "
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4008
 msgid "Tags"

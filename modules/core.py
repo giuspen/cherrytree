@@ -4000,13 +4000,13 @@ class CherryTree:
         if not self.curr_tree_iter:
             tooltip_text = _("No Node is Selected")
         else:
-            tooltip_text = _("Node Type") + ": "
+            tooltip_text = _("Node Type") + _(": ")
             if self.treestore[self.curr_tree_iter][4] == cons.RICH_TEXT_ID: tooltip_text += _("Rich Text")
             elif self.treestore[self.curr_tree_iter][4] == cons.PLAIN_TEXT_ID: tooltip_text += _("Plain Text")
             else: tooltip_text += self.treestore[self.curr_tree_iter][4]
             if self.treestore[self.curr_tree_iter][7]: tooltip_text += "  -  " + _("Read Only")
-            if self.treestore[self.curr_tree_iter][6]: tooltip_text += "  -  " + _("Tags") + ": " + self.treestore[self.curr_tree_iter][6]
-            if self.enable_spell_check: tooltip_text += "  -  " + _("Spell Check") + ": " + self.spell_check_lang
+            if self.treestore[self.curr_tree_iter][6]: tooltip_text += "  -  " + _("Tags") + _(": ") + self.treestore[self.curr_tree_iter][6]
+            if self.enable_spell_check: tooltip_text += "  -  " + _("Spell Check") + _(": ") + self.spell_check_lang
             print "sel node id=%s, seq=%s" % (self.treestore[self.curr_tree_iter][3], self.treestore[self.curr_tree_iter][5])
         self.statusbar.pop(self.statusbar_context_id)
         self.statusbar.push(self.statusbar_context_id, tooltip_text)

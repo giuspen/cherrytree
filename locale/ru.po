@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CherryTree\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-02 22:27+0200\n"
+"POT-Creation-Date: 2014-05-02 23:16+0200\n"
 "PO-Revision-Date: 2014-05-02 21:09+0100\n"
 "Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
 "Language-Team: Russian <kovtunos@yandex.ru>\n"
@@ -1799,15 +1799,12 @@ msgid "Dutch"
 msgstr "Голландский"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:297
-msgid ""
-"French"
-msgstr ""
-"Французский"
+msgid "French"
+msgstr "Французский"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:298
 msgid "German"
-msgstr ""
-"Немецкий"
+msgstr "Немецкий"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:299
 msgid "Italian"
@@ -1819,8 +1816,7 @@ msgstr "Польский"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:301
 msgid "Portuguese Brazil"
-msgstr ""
-"Португальский Бразилий"
+msgstr "Португальский Бразилий"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:302
 msgid "Russian"
@@ -2696,6 +2692,12 @@ msgstr "Ссылка на каталог '%s' некорректна"
 #, python-format
 msgid "No anchor named '%s' found"
 msgstr "Не найдено якоря с названием '%s'"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4003
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4008
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4009
+msgid ": "
+msgstr ": "
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4008
 msgid "Tags"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cherrytree 0.30.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-02 23:03+0200\n"
+"POT-Creation-Date: 2014-05-02 23:16+0200\n"
 "PO-Revision-Date: 2014-01-01 12:05+0100\n"
 "Last-Translator: Patrick Vijgeboom <pj.vijgeboom@gmail.com>\n"
 "Language-Team: Nederlands <>\n"
@@ -2723,6 +2723,12 @@ msgstr "De mapkoppeling ´%s' is ongeldig"
 #, python-format
 msgid "No anchor named '%s' found"
 msgstr "Geen anker met naam '%s' gevonden"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4003
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4008
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4009
+msgid ": "
+msgstr ": "
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4008
 msgid "Tags"
