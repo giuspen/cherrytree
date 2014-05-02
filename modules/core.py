@@ -1702,6 +1702,8 @@ class CherryTree:
         self.tags_set.clear()
         self.file_name = ""
         self.password = None
+        self.xml_handler.reset_nodes_names()
+        self.bookmarks = []
         self.update_window_save_not_needed()
         self.state_machine.reset()
         self.sourceview.set_sensitive(False)

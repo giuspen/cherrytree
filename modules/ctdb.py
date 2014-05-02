@@ -556,9 +556,6 @@ class CTDBHandler:
     
     def read_db_full(self, db, discard_ids, tree_father=None):
         """Read the whole DB"""
-        if not discard_ids:
-            self.dad.xml_handler.reset_nodes_names()
-            self.dad.bookmarks = []
         # tree nodes
         node_sequence = 0
         children_rows = self.get_children_rows_from_father_id(db, 0)
