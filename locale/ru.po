@@ -2,13 +2,13 @@
 # Copyright (C) 2010 THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # maul <giuspen@gmail.com>, 2010.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: CherryTree\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-02 18:13+0200\n"
-"PO-Revision-Date: 2013-08-26 23:20+0100\n"
+"POT-Creation-Date: 2014-05-02 21:25+0200\n"
+"PO-Revision-Date: 2014-05-02 21:09+0100\n"
 "Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
 "Language-Team: Russian <kovtunos@yandex.ru>\n"
 "Language: ru\n"
@@ -2518,7 +2518,7 @@ msgstr "Целое слово"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2786
 msgid "Start Word"
-msgstr "Слово"
+msgstr "Початок слова"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2788
 msgid "Forward"
