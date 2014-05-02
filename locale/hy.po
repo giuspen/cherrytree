@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-02 18:13+0200\n"
+"POT-Creation-Date: 2014-05-02 23:16+0200\n"
 "PO-Revision-Date: 2014-05-02 19:24+0400\n"
 "Last-Translator: Seda Stamboltsyan <sedastam@yandex.com>\n"
 "Language-Team: Armenian\n"
@@ -1767,9 +1767,11 @@ msgstr ""
 "  \n"
 "Ծրագիրը տարածվում է օգտակար լինելու ակնկալիքով, \n"
 "սակայն ԱՌԱՆՑ ՈՐԵՎԷ ԵՐԱՇԽԻՔԻ կամ ՈՐԵՎԷ ՀԱՏՈՒԿ ՆՊԱՏԱԿԻ ԾԱՌԱՅԵՑՄԱՆ։\n"
-"Ավելի մանրամասն տեղեկությունների համար տեսեք GNU-ի  հանրային ընդհանուր արտոնագիրը։\n"
+"Ավելի մանրամասն տեղեկությունների համար տեսեք GNU-ի  հանրային ընդհանուր "
+"արտոնագիրը։\n"
 "  \n"
-"Այս ծրագրի հետ Դուք պետք է որ ստացած լինեք նաև GNU-ի հանրային ընդհանուր արտոնագրի պատճենը։\n"
+"Այս ծրագրի հետ Դուք պետք է որ ստացած լինեք նաև GNU-ի հանրային ընդհանուր "
+"արտոնագրի պատճենը։\n"
 "Եթե ոչ, գրավոր դիմեք Ազատ ծրագրային ապահովման հիմնադրամին հետևյալ հասցեով՝\n"
 "Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,\n"
 "MA 02110-1301, USA.\n"
@@ -1791,15 +1793,12 @@ msgid "Dutch"
 msgstr "Հոլանդերեն"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:297
-msgid ""
-"French"
-msgstr ""
-"Ֆրանսերեն"
+msgid "French"
+msgstr "Ֆրանսերեն"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:298
 msgid "German"
-msgstr ""
-"Գերմաներեն"
+msgstr "Գերմաներեն"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:299
 msgid "Italian"
@@ -1811,8 +1810,7 @@ msgstr "Լեհերեն"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:301
 msgid "Portuguese Brazil"
-msgstr ""
-"Բրազիլական պորտուգալերեն"
+msgstr "Բրազիլական պորտուգալերեն"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:302
 msgid "Russian"
@@ -2692,6 +2690,12 @@ msgstr "'%s' պանակին հղումը ճիշտ չէ"
 #, python-format
 msgid "No anchor named '%s' found"
 msgstr "'%s' անվանումով խարիսխ չգտնվեց"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4003
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4008
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4009
+msgid ": "
+msgstr "՝ "
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4008
 msgid "Tags"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-02 22:27+0200\n"
+"POT-Creation-Date: 2014-05-02 23:16+0200\n"
 "PO-Revision-Date: 2014-05-02 21:02+0100\n"
 "Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
 "Language-Team: German\n"
@@ -1798,15 +1798,12 @@ msgid "Dutch"
 msgstr "Holländisch"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:297
-msgid ""
-"French"
-msgstr ""
-"Französisch"
+msgid "French"
+msgstr "Französisch"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:298
 msgid "German"
-msgstr ""
-"Deutsch"
+msgstr "Deutsch"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:299
 msgid "Italian"
@@ -1818,8 +1815,7 @@ msgstr "Polnisch"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:301
 msgid "Portuguese Brazil"
-msgstr ""
-"Portugiesisch (Brasilien)"
+msgstr "Portugiesisch (Brasilien)"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:302
 msgid "Russian"
@@ -2704,6 +2700,12 @@ msgstr "Die Adresse des Verzeichnisses '%s' ist ungültig"
 #, python-format
 msgid "No anchor named '%s' found"
 msgstr "Kein Anker mit den Namen '%s' gefunden"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4003
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4008
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4009
+msgid ": "
+msgstr ": "
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4008
 msgid "Tags"

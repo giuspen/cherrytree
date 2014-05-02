@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CherryTree 0.30.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-02 22:27+0200\n"
+"POT-Creation-Date: 2014-05-02 23:16+0200\n"
 "PO-Revision-Date: 2014-04-13 00:38-0300\n"
 "Last-Translator: Vinicius Schmidt <viniciussm@rocketmail.com>\n"
 "Language-Team: Brazilian Portuguese\n"
@@ -1793,10 +1793,8 @@ msgid "Dutch"
 msgstr "Holandês"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:297
-msgid ""
-"French"
-msgstr ""
-"Francês"
+msgid "French"
+msgstr "Francês"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:298
 msgid "German"
@@ -1812,8 +1810,7 @@ msgstr "Polonês"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:301
 msgid "Portuguese Brazil"
-msgstr ""
-"Português Brasileiro"
+msgstr "Português Brasileiro"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:302
 msgid "Russian"
@@ -2695,6 +2692,12 @@ msgstr "O link para a pasta '%s' é inválido"
 #, python-format
 msgid "No anchor named '%s' found"
 msgstr "Nenhuma âncora de nome '%s' encontrada"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4003
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4008
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4009
+msgid ": "
+msgstr ": "
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4008
 msgid "Tags"
