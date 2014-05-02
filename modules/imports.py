@@ -1274,7 +1274,7 @@ class KnowitHandler(HTMLParser.HTMLParser):
 
 
 class KeynoteHandler:
-    """The Handler of the Treepad File Parsing"""
+    """The Handler of the Keynote File Parsing"""
 
     def __init__(self):
         """Machine boot"""

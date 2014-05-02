@@ -913,14 +913,18 @@ def set_bookmarks_menu_items(inst):
     menu_item.show()
     bookmarks_menu.append(menu_item)
     inst.bookmarks_menu_items = [menu_item]
+    bookmarks_to_rm = []
     for node_id_str in inst.bookmarks:
-        if not long(node_id_str) in inst.nodes_names_dict: continue
+        if not long(node_id_str) in inst.nodes_names_dict:
+            bookmarks_to_rm.append(node_id_str)
+            continue
         menu_item = gtk.ImageMenuItem(inst.nodes_names_dict[long(node_id_str)])
-        menu_item.set_image(gtk.image_new_from_stock("Red Cherry", gtk.ICON_SIZE_MENU))
+        menu_item.set_image(gtk.image_new_from_stock("cherry_red", gtk.ICON_SIZE_MENU))
         menu_item.connect("activate", select_bookmark_node, node_id_str, inst)
         menu_item.show()
         bookmarks_menu.append(menu_item)
         inst.bookmarks_menu_items.append(menu_item)
+    for element in bookmarks_to_rm: inst.bookmarks.remove(element)
 
 def set_menu_items_special_chars(inst):
     """Set Special Chars menu items"""
@@ -1027,7 +1031,7 @@ def bookmarks_handle(dad):
     liststore = gtk.ListStore(str, str, str)
     for node_id_str in dad.bookmarks:
         # icon, node name, node id string
-        liststore.append(["Red Cherry", dad.nodes_names_dict[long(node_id_str)], node_id_str])
+        liststore.append(["cherry_red", dad.nodes_names_dict[long(node_id_str)], node_id_str])
     treeview = gtk.TreeView(liststore)
     treeview.set_headers_visible(False)
     treeview.set_reorderable(True)
