@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.9.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-02 18:13+0200\n"
+"POT-Creation-Date: 2014-05-02 22:27+0200\n"
 "PO-Revision-Date: 2014-04-12 00:31+0100\n"
 "Last-Translator: Daniel MC <i.e.betel@gmail.com>\n"
 "Language-Team: Spanish <>\n"
@@ -1782,32 +1782,54 @@ msgstr ""
 "MA 02110-1301, USA.\n"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:293
+msgid "Armenian (hy) Seda Stamboltsyan <sedastam@yandex.com>"
+msgstr "Armenio (hy) Seda Stamboltsyan <sedastam@yandex.com>"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:294
+msgid "Chinese Simplified (zh_CN) Channing Wong <mamimoluo@gmail.com>"
+msgstr "Chino Simplificado (zh_CN) Channing Wong <mamimoluo@gmail.com>"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:295
+msgid "Czech (cs) Pavel Fric <fripohled@blogspot.com>"
+msgstr "Checo (cs) Pavel Fric <fripohled@blogspot.com>"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:296
+msgid "Dutch (nl) Patrick Vijgeboom <pj.vijgeboom@gmail.com>"
+msgstr "Olandese (nl) Patrick Vijgeboom <pj.vijgeboom@gmail.com>"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:297
 msgid ""
-"Armenian (hy) Seda Stamboltsyan <sedastam@yandex.com>\n"
-"Chinese Simplified (zh_CN) Channing Wong <mamimoluo@gmail.com>\n"
-"Czech (cs) Pavel Fric <fripohled@blogspot.com>\n"
-"Dutch (nl) Patrick Vijgeboom <pj.vijgeboom@gmail.com>\n"
-"French (fr) Benoît D'Angelo <benoit.dangelo@gmx.fr> (former Ludovic Troisi)\n"
-"German (de) Frank Brungräber <calexu@arcor.de> (former Sven Neubauer)\n"
-"Italian (it) Giuseppe Penone <giuspen@gmail.com>\n"
-"Polish (pl) Marcin Swierczynski <orneo1212@gmail.com>\n"
-"Portuguese Brazil (pt_BR) Vinicius Schmidt <viniciussm@rocketmail.com>\n"
-"Russian (ru) Andriy Kovtun <kovtunos@yandex.ru>\n"
-"Spanish (es) Daniel MC <i.e.betel@gmail.com>\n"
-"Ukrainian (uk) Andriy Kovtun <kovtunos@yandex.ru>"
+"French (fr) Benoît D'Angelo <benoit.dangelo@gmx.fr> (former Ludovic Troisi)"
 msgstr ""
-"Armenio (hy) Seda Stamboltsyan <sedastam@yandex.com>\n"
-"Chino Simplificado (zh_CN) Channing Wong <mamimoluo@gmail.com>\n"
-"Checo (cs) Pavel Fric <fripohled@blogspot.com>\n"
-"Francés (fr) Benoît D'Angelo <benoit.dangelo@gmx.fr> (former Ludovic "
-"Troisi)\n"
-"Alemán (de) Frank Brungräber <calexu@arcor.de> (former Sven Neubauer)\n"
-"Italiano (it) Giuseppe Penone <giuspen@gmail.com>\n"
-"Polaco (pl) Marcin Swierczynski <orneo1212@gmail.com>\n"
-"Portugués Brasil (pt_BR) Vinicius Schmidt <viniciussm@rocketmail.com>\n"
-"Ruso (ru) Andriy Kovtun <kovtunos@yandex.ru>\n"
-"Español (es) Daniel MC <i.e.betel@gmail.com>\n"
-"Ucrania (uk) Andriy Kovtun <kovtunos@yandex.ru>"
+"Francés (fr) Benoît D'Angelo <benoit.dangelo@gmx.fr> (former Ludovic Troisi)"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:298
+msgid "German (de) Frank Brungräber <calexu@arcor.de> (former Sven Neubauer)"
+msgstr "Alemán (de) Frank Brungräber <calexu@arcor.de> (former Sven Neubauer)"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:299
+msgid "Italian (it) Giuseppe Penone <giuspen@gmail.com>"
+msgstr "Italiano (it) Giuseppe Penone <giuspen@gmail.com>"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:300
+msgid "Polish (pl) Marcin Swierczynski <orneo1212@gmail.com>"
+msgstr "Polaco (pl) Marcin Swierczynski <orneo1212@gmail.com>"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:301
+msgid "Portuguese Brazil (pt_BR) Vinicius Schmidt <viniciussm@rocketmail.com>"
+msgstr "Portugués Brasil (pt_BR) Vinicius Schmidt <viniciussm@rocketmail.com>"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:302
+msgid "Russian (ru) Andriy Kovtun <kovtunos@yandex.ru>"
+msgstr "Ruso (ru) Andriy Kovtun <kovtunos@yandex.ru>"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:303
+msgid "Spanish (es) Daniel MC <i.e.betel@gmail.com>"
+msgstr "Español (es) Daniel MC <i.e.betel@gmail.com>"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:304
+msgid "Ukrainian (uk) Andriy Kovtun <kovtunos@yandex.ru>"
+msgstr "Ucrania (uk) Andriy Kovtun <kovtunos@yandex.ru>"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:544
 msgid "Cancel"
