@@ -1271,7 +1271,9 @@ class CherryTree:
             #print bash_str
             if not xml_string and not exporting: self.db.close()
             ret_code = subprocess.call(bash_str, shell=True)
-            #print ret_code
+            if ret_code != 0:
+                print "7za FAIL!!!"
+                raise
             if xml_string: os.remove(filepath_tmp)
             elif not exporting:
                 self.db = self.ctdb_handler.get_connected_db_from_dbpath(filepath_tmp)
