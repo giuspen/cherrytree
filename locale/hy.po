@@ -5,7 +5,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: cherrytree 0.33.0\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-05-02 18:13+0200\n"
 "PO-Revision-Date: 2014-05-02 19:24+0400\n"
@@ -15,7 +15,6 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.4\n"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/codeboxes.py:81
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2874
@@ -648,12 +647,12 @@ msgstr "Փոխել ընտրված տեքստի գույնը"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:579
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:736
 msgid "Text C_olor Background"
-msgstr "Տեքստի հենքի գույն"
+msgstr "Տեքստի խորքի գույն"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:579
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:736
 msgid "Change the Color of the Selected Text Background"
-msgstr "Փոխել ընտրված տեքստի հենքի գույնը"
+msgstr "Փոխել ընտրված տեքստի խորքի գույնը"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:580
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:737
@@ -1713,7 +1712,7 @@ msgstr "Տեղեկանք"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:239
 msgid "This Change will have Effect Only After Restarting CherryTree"
-msgstr "Փոփոխությունը կկատարվի CherryTree-ի վերագործարկումից հետո"
+msgstr "Փոփոխությունը կկատարվի CherryTree-ի վերագործարկումից հետո։"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:249
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:507
@@ -1761,19 +1760,16 @@ msgid ""
 msgstr ""
 "\n"
 "Սա ազատ ծրագրակազմ է, որը կարող եք տարածել և/կամ ձևափոխել\n"
-"GNU-ի հանրային ընդհանուր արտոնագրի (GNU GPL) պայմանների պահպանմամբ, ինչպես "
-"այն հրապարակվել է \n"
-"Ազատ ծրագրային ապահովման հիմնադրամի (FSF) կողմից՝ կամ արտոնագրի 3-րդ "
-"տարբերակով, կամ\n"
-"(ըստ Ձեր հայեցողության) ավելի նոր որևէ տարբերակով։\n"
+"GNU-ի հանրային ընդհանուր արտոնագրի (GNU GPL) պայմանների պահպանմամբ,\n"
+"ինչպես այն հրապարակվել է Ազատ ծրագրային ապահովման հիմնադրամի (FSF) կողմից՝\n"
+"կամ արտոնագրի 3-րդ տարբերակով, կամ (ըստ Ձեր հայեցողության)\n"
+"ավելի նոր որևէ տարբերակով։\n"
 "  \n"
 "Ծրագիրը տարածվում է օգտակար լինելու ակնկալիքով, \n"
 "սակայն ԱՌԱՆՑ ՈՐԵՎԷ ԵՐԱՇԽԻՔԻ կամ ՈՐԵՎԷ ՀԱՏՈՒԿ ՆՊԱՏԱԿԻ ԾԱՌԱՅԵՑՄԱՆ։\n"
-"Ավելի մանրամասն տեղեկությունների համար տեսեք GNU-ի  հանրային ընդհանուր "
-"արտոնագիրը։\n"
+"Ավելի մանրամասն տեղեկությունների համար տեսեք GNU-ի  հանրային ընդհանուր արտոնագիրը։\n"
 "  \n"
-"Այս ծրագրի հետ Դուք պետք է որ ստացած լինեք նաև GNU-ի հանրային ընդհանուր "
-"արտոնագրի պատճենը։\n"
+"Այս ծրագրի հետ Դուք պետք է որ ստացած լինեք նաև GNU-ի հանրային ընդհանուր արտոնագրի պատճենը։\n"
 "Եթե ոչ, գրավոր դիմեք Ազատ ծրագրային ապահովման հիմնադրամին հետևյալ հասցեով՝\n"
 "Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,\n"
 "MA 02110-1301, USA.\n"
@@ -1802,8 +1798,7 @@ msgstr ""
 "Գերմաներեն (de) Frank Brungräber <calexu@arcor.de> (former Sven Neubauer)\n"
 "Իտալերեն (it) Giuseppe Penone <giuspen@gmail.com>\n"
 "Լեհերեն (pl) Marcin Swierczynski <orneo1212@gmail.com>\n"
-"Բրազիլական պորտուգալերեն (pt_BR) Vinicius Schmidt <viniciussm@rocketmail."
-"com>\n"
+"Բրազիլական պորտուգալերեն (pt_BR) Vinicius Schmidt <viniciussm@rocketmail.com>\n"
 "Ռուսերեն (ru) Andriy Kovtun <kovtunos@yandex.ru>\n"
 "Իսպաներեն (es) Daniel MC <i.e.betel@gmail.com>\n"
 "Ուկրաիներեն (uk) Andriy Kovtun <kovtunos@yandex.ru>"
@@ -2035,22 +2030,22 @@ msgstr "Ուղղագրության ստուգում"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:658
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:835
 msgid "Light Background, Dark Text"
-msgstr "Բաց գույնի հենք, մուգ տառեր"
+msgstr "Բաց գույնի խորք, մուգ տեքստ"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:659
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:836
 msgid "Dark Background, Light Text"
-msgstr "Մուգ հենք, բաց գույնի տառեր"
+msgstr "Մուգ խորք, բաց գույնի տեքստ"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:661
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:838
 msgid "Custom Background"
-msgstr "Այլ գույնի հենք"
+msgstr "Այլ գույնի խորք"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:666
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:843
 msgid "and Text"
-msgstr "և տառեր"
+msgstr "և տեքստ"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:676
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:853
@@ -2213,7 +2208,7 @@ msgstr "Ծրագրի լեզուն"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1395
 msgid "The New Language will be Available Only After Restarting CherryTree"
-msgstr "Նոր լեզուն կգործածվի CherryTree-ի վերագործարկումից հետո"
+msgstr "Նոր լեզուն կգործածվի CherryTree-ի վերագործարկումից հետո։"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1415
 msgid "All Nodes"
@@ -2321,7 +2316,7 @@ msgstr "Առկա է նոր տարբերակ։"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:213
 msgid "You Are Using the Latest Version Available"
-msgstr "Դուք գործածում եք առկա վերջին տարբերակը։"
+msgstr "Դուք գործածում եք առկա վերջին տարբերակը"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:216
 msgid "Failed to Retrieve Latest Version Information - Try Again Later"
@@ -2416,7 +2411,7 @@ msgstr "Պաշտպանված չէ"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1432
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1436
 msgid "Password Protected"
-msgstr "Պաշտպանված է գաղտնագրով"
+msgstr "Պաշտպանված է գաղտնաբառով"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1443
 msgid "Storage Type"
@@ -2424,15 +2419,15 @@ msgstr "Պահեստարանի տեսակ"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1454
 msgid "Enter the New Password Twice"
-msgstr "Նոր գաղտնագիրը կրկին մուտքագրեք"
+msgstr "Նոր գաղտնաբառը կրկին մուտքագրեք"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1497
 msgid "The Password Fields Must be Filled"
-msgstr "Գաղտնագրի դաշտերը պիտի լրացվեն"
+msgstr "Գաղտնաբառի դաշտերը պիտի լրացվեն"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1500
 msgid "The Two Inserted Passwords Do Not Match"
-msgstr "Մուտքագրված երկու գաղտնագրերը չեն համընկնում"
+msgstr "Մուտքագրված երկու գաղտնաբառերը չեն համընկնում"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1505
 #, python-format
@@ -2518,7 +2513,7 @@ msgstr "Միայն ամբողջական բառ"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2786
 msgid "Start Word"
-msgstr "Բառ"
+msgstr "Բառի սկիզբ"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2788
 msgid "Forward"
