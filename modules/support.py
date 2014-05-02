@@ -290,18 +290,18 @@ MA 02110-1301, USA.
     dialog.set_authors(["Giuseppe Penone <giuspen@gmail.com>"])
     dialog.set_documenters(["Robert Boudreau <RobtTheB@gmail.com>"])
     dialog.set_artists(["OCAL <http://www.openclipart.org/>", "Zeltak <zeltak@gmail.com>", "Angelo Penone <angelo.penone@gmail.com>"])
-    dialog.set_translator_credits(_("""Armenian (hy) Seda Stamboltsyan <sedastam@yandex.com>
-Chinese Simplified (zh_CN) Channing Wong <mamimoluo@gmail.com>
-Czech (cs) Pavel Fric <fripohled@blogspot.com>
-Dutch (nl) Patrick Vijgeboom <pj.vijgeboom@gmail.com>
-French (fr) Benoît D'Angelo <benoit.dangelo@gmx.fr> (former Ludovic Troisi)
-German (de) Frank Brungräber <calexu@arcor.de> (former Sven Neubauer)
-Italian (it) Giuseppe Penone <giuspen@gmail.com>
-Polish (pl) Marcin Swierczynski <orneo1212@gmail.com>
-Portuguese Brazil (pt_BR) Vinicius Schmidt <viniciussm@rocketmail.com>
-Russian (ru) Andriy Kovtun <kovtunos@yandex.ru>
-Spanish (es) Daniel MC <i.e.betel@gmail.com>
-Ukrainian (uk) Andriy Kovtun <kovtunos@yandex.ru>"""))
+    dialog.set_translator_credits(_("Armenian (hy) Seda Stamboltsyan <sedastam@yandex.com>")+cons.CHAR_NEWLINE+
+_("Chinese Simplified (zh_CN) Channing Wong <mamimoluo@gmail.com>")+cons.CHAR_NEWLINE+
+_("Czech (cs) Pavel Fric <fripohled@blogspot.com>")+cons.CHAR_NEWLINE+
+_("Dutch (nl) Patrick Vijgeboom <pj.vijgeboom@gmail.com>")+cons.CHAR_NEWLINE+
+_("French (fr) Benoît D'Angelo <benoit.dangelo@gmx.fr> (former Ludovic Troisi)")+cons.CHAR_NEWLINE+
+_("German (de) Frank Brungräber <calexu@arcor.de> (former Sven Neubauer)")+cons.CHAR_NEWLINE+
+_("Italian (it) Giuseppe Penone <giuspen@gmail.com>")+cons.CHAR_NEWLINE+
+_("Polish (pl) Marcin Swierczynski <orneo1212@gmail.com>")+cons.CHAR_NEWLINE+
+_("Portuguese Brazil (pt_BR) Vinicius Schmidt <viniciussm@rocketmail.com>")+cons.CHAR_NEWLINE+
+_("Russian (ru) Andriy Kovtun <kovtunos@yandex.ru>")+cons.CHAR_NEWLINE+
+_("Spanish (es) Daniel MC <i.e.betel@gmail.com>")+cons.CHAR_NEWLINE+
+_("Ukrainian (uk) Andriy Kovtun <kovtunos@yandex.ru>"))
     dialog.set_logo(gtk.gdk.pixbuf_new_from_file(os.path.join(cons.GLADE_PATH, "cherrytree.png")))
     dialog.set_title(_("About CherryTree"))
     dialog.set_transient_for(dad.window)
