@@ -2,7 +2,7 @@
 # Copyright (C) 2013 THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Vinicius Schmidt <viniciussm@rocketmail.com>, 2013.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: CherryTree 0.30.1\n"

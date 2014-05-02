@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cherrytree 0.30.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-02 18:13+0200\n"
+"POT-Creation-Date: 2014-05-02 21:25+0200\n"
 "PO-Revision-Date: 2014-01-01 12:05+0100\n"
 "Last-Translator: Patrick Vijgeboom <pj.vijgeboom@gmail.com>\n"
 "Language-Team: Nederlands <>\n"
@@ -1808,6 +1808,7 @@ msgstr ""
 "MA 02110-1301, USA.\n"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:293
+#, fuzzy
 msgid ""
 "Armenian (hy) Seda Stamboltsyan <sedastam@yandex.com>\n"
 "Chinese Simplified (zh_CN) Channing Wong <mamimoluo@gmail.com>\n"
