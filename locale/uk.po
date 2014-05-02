@@ -1531,7 +1531,7 @@ msgstr "Завантажити в блок коду з текстового фа
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:861
 msgid "Load the CodeBox Content From a Text File"
-msgstr "Вивантажити зміст блоку коду в текстовий файл"
+msgstr "Завантажити в блок коду з текстового файлу"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:862
 msgid "CodeBox _Save To Text File"
