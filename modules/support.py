@@ -290,7 +290,8 @@ MA 02110-1301, USA.
     dialog.set_authors(["Giuseppe Penone <giuspen@gmail.com>"])
     dialog.set_documenters(["Robert Boudreau <RobtTheB@gmail.com>"])
     dialog.set_artists(["OCAL <http://www.openclipart.org/>", "Zeltak <zeltak@gmail.com>", "Angelo Penone <angelo.penone@gmail.com>"])
-    dialog.set_translator_credits(_("""Chinese Simplified (zh_CN) Channing Wong <mamimoluo@gmail.com>
+    dialog.set_translator_credits(_("""Armenian (hy) Seda Stamboltsyan <sedastam@yandex.com>
+Chinese Simplified (zh_CN) Channing Wong <mamimoluo@gmail.com>
 Czech (cs) Pavel Fric <fripohled@blogspot.com>
 Dutch (nl) Patrick Vijgeboom <pj.vijgeboom@gmail.com>
 French (fr) Benoît D'Angelo <benoit.dangelo@gmx.fr> (former Ludovic Troisi)
