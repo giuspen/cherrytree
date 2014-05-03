@@ -209,6 +209,7 @@ class FindReplace:
         config.set_tree_expanded_collapsed_string(self.dad)
         if not self.matches_num or all_matches:
             self.dad.treeview_safe_set_cursor(starting_tree_iter)
+            self.dad.objects_buffer_refresh()
             self.dad.sourceview.grab_focus()
             self.dad.curr_buffer.place_cursor(self.dad.curr_buffer.get_iter_at_offset(current_cursor_pos))
             self.dad.sourceview.scroll_to_mark(self.dad.curr_buffer.get_insert(), 0.3)
@@ -221,6 +222,7 @@ class FindReplace:
                 self.allmatchesdialog.hide()
             else:
                 self.dad.treeview_safe_set_cursor(self.dad.curr_tree_iter)
+                self.dad.objects_buffer_refresh()
                 self.dad.sourceview.grab_focus()
                 self.dad.sourceview.scroll_to_mark(self.dad.curr_buffer.get_insert(), 0.3)
                 if self.dad.search_replace_dict['idialog']:
