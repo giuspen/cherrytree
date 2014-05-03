@@ -66,7 +66,7 @@ msgstr "Ընտրանքներ"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:560
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:763
 msgid "Insert a CodeBox"
-msgstr "Ներմուծել այլագրի վանդակ"
+msgstr "Դնել այլագրի վանդակ"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/codeboxes.py:343
 msgid "Edit CodeBox"
@@ -829,7 +829,7 @@ msgstr "Գտնել ընտրված ճյուղում ու ենթաճյուղերո
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:787
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:826
 msgid "Find a _Node"
-msgstr "Գտնել ճյուղ"
+msgstr "Գտնել ճյուղ կամ պիտակ"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:597
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:683
@@ -1016,11 +1016,11 @@ msgstr "Ամփոփել ծառի բոլոր ճյուղերը"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:617
 msgid "_Full Screen On/Off"
-msgstr "Ամբողջական էկրանով"
+msgstr "Ամբողջ էկրանով"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:617
 msgid "Toggle Full Screen On/Off"
-msgstr "Միացնել/անջատել ամբողջական էկրանով ցուցադրումը"
+msgstr "Միացնել/անջատել ամբողջ էկրանով ցուցադրումը"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:618
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:687
@@ -2427,12 +2427,12 @@ msgstr "Ընտրեք պահեստարանի տեսակը"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1431
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1434
 msgid "Not Protected"
-msgstr "Պաշտպանված չէ"
+msgstr "պաշտպանված չէ"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1432
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1436
 msgid "Password Protected"
-msgstr "Պաշտպանված է գաղտնաբառով"
+msgstr "պաշտպանված է գաղտնաբառով"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1443
 msgid "Storage Type"
@@ -2440,7 +2440,7 @@ msgstr "Պահեստարանի տեսակ"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1454
 msgid "Enter the New Password Twice"
-msgstr "Նոր գաղտնաբառը կրկին մուտքագրեք"
+msgstr "Նոր գաղտնաբառը մուտքագրեք երկիցս"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1497
 msgid "The Password Fields Must be Filled"
@@ -2473,7 +2473,7 @@ msgstr "Սխալ գաղտնաբառ"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2051
 msgid "Select the New Father"
-msgstr "Ընտրել նոր ծնողին"
+msgstr "Ընտրել նոր ծնող"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2055
 msgid "The new father can't be the very node to move!"
