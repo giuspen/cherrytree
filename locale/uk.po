@@ -2537,7 +2537,7 @@ msgstr "Ціле слово"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2786
 msgid "Start Word"
-msgstr "Начало слова"
+msgstr "Початок слова"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2788
 msgid "Forward"
