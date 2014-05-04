@@ -459,6 +459,11 @@ class CherryTree:
         if event.state & gtk.gdk.MOD1_MASK:
             if keyname == "Left": self.go_back()
             elif keyname == "Right": self.go_forward()
+        elif (event.state & gtk.gdk.CONTROL_MASK):
+            if keyname == "Tab":
+                self.toggle_tree_text()
+                return True
+        return False
 
     def on_key_press_cherrytree(self, widget, event):
         """Catches Tree key presses"""
@@ -472,7 +477,34 @@ class CherryTree:
         elif event.state & gtk.gdk.MOD1_MASK:
             pass
         elif (event.state & gtk.gdk.CONTROL_MASK):
-            if keyname == "Tab": self.toggle_tree_text()
+            if keyname == "Up":
+                prev_iter = self.get_tree_iter_prev_sibling(self.treestore, self.curr_tree_iter)
+                if prev_iter:
+                    while prev_iter:
+                        move_iter = prev_iter
+                        prev_iter = self.get_tree_iter_prev_sibling(self.treestore, prev_iter)
+                    self.treeview_safe_set_cursor(move_iter)
+            elif keyname == "Down":
+                next_iter = self.treestore.iter_next(self.curr_tree_iter)
+                if next_iter:
+                    while next_iter:
+                        move_iter = next_iter
+                        next_iter = self.treestore.iter_next(next_iter)
+                    self.treeview_safe_set_cursor(move_iter)
+            elif keyname == "Left":
+                father_iter = self.treestore.iter_parent(self.curr_tree_iter)
+                if father_iter:
+                    while father_iter:
+                        move_iter = father_iter
+                        father_iter = self.treestore.iter_parent(father_iter)
+                    self.treeview_safe_set_cursor(move_iter)
+            elif keyname == "Right":
+                child_iter = self.treestore.iter_children(self.curr_tree_iter)
+                if child_iter:
+                    while child_iter:
+                        move_iter = child_iter
+                        child_iter = self.treestore.iter_children(child_iter)
+                    self.treeview_safe_set_cursor(move_iter)
         else:
             if keyname == "Up":
                 prev_iter = self.get_tree_iter_prev_sibling(self.treestore, self.curr_tree_iter)
@@ -3876,8 +3908,6 @@ class CherryTree:
         if (event.state & gtk.gdk.SHIFT_MASK):
             if keyname == cons.STR_RETURN:
                 self.curr_buffer.insert(self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert()), 3*cons.CHAR_SPACE)
-        elif (event.state & gtk.gdk.CONTROL_MASK):
-            if keyname == "Tab": self.toggle_tree_text()
         elif keyname == cons.STR_RETURN:
             iter_insert = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
             if iter_insert == None:
