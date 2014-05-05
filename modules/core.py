@@ -124,6 +124,7 @@ class CherryTree:
         self.column.set_attributes(self.renderer_pixbuf, stock_id=0)
         self.column.set_attributes(self.renderer_text, text=1)
         self.treeview.append_column(self.column)
+        self.treeview.set_search_column(1)
         self.treeviewselection = self.treeview.get_selection()
         self.treeview.connect('cursor-changed', self.on_node_changed)
         self.treeview.connect('button-press-event', self.on_mouse_button_clicked_tree)
@@ -467,13 +468,21 @@ class CherryTree:
 
     def on_key_press_cherrytree(self, widget, event):
         """Catches Tree key presses"""
-        if not self.curr_tree_iter: return
+        if not self.curr_tree_iter: return False
         keyname = gtk.gdk.keyval_name(event.keyval)
         if event.state & gtk.gdk.SHIFT_MASK:
-            if keyname == "Up": self.node_up()
-            elif keyname == "Down": self.node_down()
-            elif keyname == "Left": self.node_left()
-            elif keyname == "Right": self.node_change_father()
+            if keyname == "Up":
+                self.node_up()
+                return True
+            elif keyname == "Down":
+                self.node_down()
+                return True
+            elif keyname == "Left":
+                self.node_left()
+                return True
+            elif keyname == "Right":
+                self.node_change_father()
+                return True
         elif event.state & gtk.gdk.MOD1_MASK:
             pass
         elif (event.state & gtk.gdk.CONTROL_MASK):
@@ -484,6 +493,7 @@ class CherryTree:
                         move_iter = prev_iter
                         prev_iter = self.get_tree_iter_prev_sibling(self.treestore, prev_iter)
                     self.treeview_safe_set_cursor(move_iter)
+                return True
             elif keyname == "Down":
                 next_iter = self.treestore.iter_next(self.curr_tree_iter)
                 if next_iter:
@@ -491,6 +501,7 @@ class CherryTree:
                         move_iter = next_iter
                         next_iter = self.treestore.iter_next(next_iter)
                     self.treeview_safe_set_cursor(move_iter)
+                return True
             elif keyname == "Left":
                 father_iter = self.treestore.iter_parent(self.curr_tree_iter)
                 if father_iter:
@@ -498,6 +509,7 @@ class CherryTree:
                         move_iter = father_iter
                         father_iter = self.treestore.iter_parent(father_iter)
                     self.treeview_safe_set_cursor(move_iter)
+                return True
             elif keyname == "Right":
                 child_iter = self.treestore.iter_children(self.curr_tree_iter)
                 if child_iter:
@@ -505,25 +517,37 @@ class CherryTree:
                         move_iter = child_iter
                         child_iter = self.treestore.iter_children(child_iter)
                     self.treeview_safe_set_cursor(move_iter)
+                return True
         else:
             if keyname == "Up":
                 prev_iter = self.get_tree_iter_prev_sibling(self.treestore, self.curr_tree_iter)
                 if prev_iter: self.treeview_safe_set_cursor(prev_iter)
+                return True
             elif keyname == "Down":
                 next_iter = self.treestore.iter_next(self.curr_tree_iter)
                 if next_iter: self.treeview_safe_set_cursor(next_iter)
+                return True
             elif keyname == "Left":
                 father_iter = self.treestore.iter_parent(self.curr_tree_iter)
                 if father_iter: self.treeview_safe_set_cursor(father_iter)
+                return True
             elif keyname == "Right":
                 child_iter = self.treestore.iter_children(self.curr_tree_iter)
                 if child_iter: self.treeview_safe_set_cursor(child_iter)
-            elif keyname == cons.STR_RETURN: self.toggle_tree_node_expanded_collapsed()
-            elif keyname == "Delete": self.node_delete()
+                return True
+            elif keyname == cons.STR_RETURN:
+                self.toggle_tree_node_expanded_collapsed()
+                return True
+            elif keyname == "Delete":
+                self.node_delete()
+                return True
             elif keyname == "Menu":
                 self.menu_tree.popup(None, None, None, 0, event.time)
-            elif keyname == "Tab": self.toggle_tree_text()
-        return True
+                return True
+            elif keyname == "Tab":
+                self.toggle_tree_text()
+                return True
+        return False
 
     def fullscreen_toggle(self, *args):
         """Toggle Fullscreen State"""
