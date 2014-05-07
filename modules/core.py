@@ -1174,7 +1174,8 @@ class CherryTree:
         """Try to load a file if there are the conditions"""
         #print "file_startup_load '%s' ('%s', '%s')" % (open_with_file, self.file_name, self.file_dir)
         if open_with_file:
-            open_with_file = unicode(open_with_file, cons.STR_UTF8, cons.STR_IGNORE)
+            try: open_with_file = unicode(open_with_file, cons.STR_UTF8, cons.STR_IGNORE)
+            except: pass
             self.file_name = os.path.basename(open_with_file)
             self.file_dir = os.path.dirname(open_with_file)
             #print "open_with_file -> file_name '%s', file_dir '%s'" % (self.file_name, self.file_dir)
