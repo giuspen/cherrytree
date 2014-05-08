@@ -30,9 +30,9 @@ import cons, core
 msg_server_to_core = {'f':0, 'p':""}
 
 
-class SomeObject(dbus.service.Object):
+class CherryTreeObject(dbus.service.Object):
 
-    @dbus.service.method("com.example.SampleInterface",
+    @dbus.service.method("com.giuspen.CherryTreeInterface",
                          in_signature='s', out_signature='s')
     def Send(self, in_message):
         if len(in_message) < 4 or in_message[:4] != "ct*=":
@@ -188,7 +188,7 @@ def main(args):
     session_bus = dbus.SessionBus()
     try:
         # client
-        remote_object = session_bus.get_object("com.example.SampleService", "/SomeObject")
+        remote_object = session_bus.get_object("com.giuspen.CherryTreeService", "/CherryTreeObject")
         if not args.node: ret_val = remote_object.Send("ct*=%s" % args.filepath)
         else: ret_val = remote_object.Send("ct*=%s\x03%s" % (args.filepath, args.node))
         if ret_val != "okz": raise
@@ -196,7 +196,7 @@ def main(args):
         #raise
         # server + core
         lang_str = initializations()
-        name = dbus.service.BusName("com.example.SampleService", session_bus)
-        object = SomeObject(session_bus, '/SomeObject')
+        name = dbus.service.BusName("com.giuspen.CherryTreeService", session_bus)
+        object = CherryTreeObject(session_bus, '/CherryTreeObject')
         CherryTreeHandler(args, lang_str)
         gtk.main() # start the gtk main loop
