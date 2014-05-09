@@ -127,10 +127,10 @@ def initializations():
     """Initializations"""
     if not os.path.isdir(os.path.dirname(cons.CONFIG_DIR)): os.mkdir(os.path.dirname(cons.CONFIG_DIR))
     if not os.path.isdir(cons.CONFIG_DIR): os.mkdir(cons.CONFIG_DIR)
-    if cons.IS_WIN_OS:
+    if hasattr(sys, 'frozen'):
         import warnings
         warnings.filterwarnings(cons.STR_IGNORE)
-    else:
+    if not cons.IS_WIN_OS:
         try:
             # change process name
             import ctypes, ctypes.util
@@ -151,13 +151,13 @@ def initializations():
             libintl.bindtextdomain(cons.APP_NAME, cons.LOCALE_PATH)
             libintl.bind_textdomain_codeset(cons.APP_NAME, cons.STR_UTF8)
         except:
-            print "ctypes.cdll.intl.bindtextdomain not available, the glade i18n will not work properly"
+            pass
         try:
             from ctypes import windll
             lcid = windll.kernel32.GetUserDefaultUILanguage()
             os.environ["LANGUAGE"] = cons.MICROSOFT_WINDOWS_LCID_to_ISO_LANG[lcid]
         except:
-            print "ctypes.windll.kernel32.GetUserDefaultUILanguage, the i18n may not work properly"
+            pass
     # language installation
     if os.path.isfile(cons.LANG_PATH):
         lang_file_descriptor = file(cons.LANG_PATH, 'r')

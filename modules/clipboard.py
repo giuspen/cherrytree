@@ -109,7 +109,8 @@ class ClipboardHandler:
         if not os.path.isdir(cons.TMP_FOLDER): os.mkdir(cons.TMP_FOLDER)
         html_text = self.dad.html_handler.selection_export_to_html(text_buffer, iter_sel_start, iter_sel_end, self.dad.syntax_highlighting)
         if self.dad.syntax_highlighting == cons.RICH_TEXT_ID:
-            plain_text = text_buffer.get_text(iter_sel_start, iter_sel_end)
+            txt_handler = exports.Export2Txt(self.dad)
+            plain_text = txt_handler.node_export_to_txt(text_buffer, "", sel_range=[iter_sel_start.get_offset(), iter_sel_end.get_offset()])
             rich_text = self.rich_text_get_from_text_buffer_selection(text_buffer, iter_sel_start, iter_sel_end)
             self.clipboard.set_with_data([(t, 0, 0) for t in (TARGET_CTD_PLAIN_TEXT, TARGET_CTD_RICH_TEXT, TARGETS_HTML[0])],
                                          self.get_func,
