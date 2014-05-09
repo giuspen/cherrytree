@@ -258,9 +258,7 @@ class Export2Txt:
 
     def plain_get_from_treestore_node(self, curr_buffer, sel_range=None):
         """Given a treestore iter returns the HTML rich text"""
-        pixbuf_table_codebox_vector = self.dad.state_machine.get_embedded_pixbufs_tables_codeboxes(curr_buffer,
-                                                                                                   for_print=2,
-                                                                                                   sel_range=sel_range)
+        pixbuf_table_codebox_vector = self.dad.state_machine.get_embedded_pixbufs_tables_codeboxes(curr_buffer, sel_range=sel_range)
         # pixbuf_table_codebox_vector is [ [ "pixbuf"/"table"/"codebox", [offset, pixbuf, alignment] ],... ]
         self.curr_plain_slots = []
         start_offset = 0 if not sel_range else sel_range[0]
