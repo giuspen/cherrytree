@@ -226,6 +226,10 @@ class TablesHandler:
         def on_key_press_tablehandle(widget, event):
             keyname = gtk.gdk.keyval_name(event.keyval)
             if keyname == cons.STR_RETURN:
+                spinbutton_rows.update()
+                spinbutton_columns.update()
+                spinbutton_col_min.update()
+                spinbutton_col_max.update()
                 try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
                 except: print cons.STR_PYGTK_222_REQUIRED
                 return True

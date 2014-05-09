@@ -161,6 +161,8 @@ class CodeBoxesHandler:
         def on_key_press_codeboxhandle(widget, event):
             keyname = gtk.gdk.keyval_name(event.keyval)
             if keyname == cons.STR_RETURN:
+                spinbutton_width.update()
+                spinbutton_height.update()
                 try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
                 except: print cons.STR_PYGTK_222_REQUIRED
                 return True
