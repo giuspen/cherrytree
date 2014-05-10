@@ -27,6 +27,7 @@ APP_NAME = "cherrytree"
 NEWER_VERSION_URL = "http://www.giuspen.com/software/version_cherrytree"
 if sys.platform.startswith("win"):
     IS_WIN_OS = True
+    SZA_PATH = os.path.join(SHARE_PATH, "7za.exe")
     CONFIG_DIR = os.path.join(os.environ['APPDATA'], APP_NAME)
     if SHARE_PATH:
         EXE_DIR = SHARE_PATH
@@ -38,6 +39,7 @@ if sys.platform.startswith("win"):
     LOCALE_PATH = os.path.join(EXE_DIR, 'locale/')
 else:
     IS_WIN_OS = False
+    SZA_PATH = "7za"
     CONFIG_DIR = os.path.join(os.path.expanduser('~'), '.config/cherrytree')
     TMP_FOLDER = '/tmp/ct_tmp/'
     if not SHARE_PATH:

@@ -1320,11 +1320,12 @@ class CherryTree:
                 esc_filepath_tmp = re.escape(filepath_tmp)
             if os.path.isfile(filepath):
                 # clean older archive content
-                subprocess.call("7za d %s" % esc_filepath, shell=True)
-            bash_str = '7za a -p%s -w%s -bd -y %s %s' % (self.password,
-                                                         esc_tmp_folder,
-                                                         esc_filepath,
-                                                         esc_filepath_tmp)
+                subprocess.call("%s d %s" % (cons.SZA_PATH, esc_filepath), shell=True)
+            bash_str = '%s a -p%s -w%s -bd -y %s %s' % (cons.SZA_PATH,
+                self.password,
+                esc_tmp_folder,
+                esc_filepath,
+                esc_filepath_tmp)
             #print bash_str
             if not xml_string and not exporting: self.db.close()
             ret_code = subprocess.call(bash_str, shell=True)
@@ -1577,7 +1578,7 @@ class CherryTree:
 
     def is_7za_available(self):
         """Check 7za binary executable to be available"""
-        ret_code = subprocess.call("7za", shell=True)
+        ret_code = subprocess.call("%s" % cons.SZA_PATH, shell=True)
         if ret_code:
             support.dialog_error(_("Binary Executable '7za' Not Found, Check The Package 'p7zip-full' to be Installed Properly"), self.window)
             return False
@@ -1645,10 +1646,11 @@ class CherryTree:
             else:
                 esc_tmp_folder = re.escape(tree_tmp_folder)
                 esc_filepath = re.escape(filepath)
-            bash_str = '7za e -p%s -w%s -bd -y -o%s %s' % (password_str,
-                                                           esc_tmp_folder,
-                                                           esc_tmp_folder,
-                                                           esc_filepath)
+            bash_str = '%s e -p%s -w%s -bd -y -o%s %s' % (cons.SZA_PATH,
+                password_str,
+                esc_tmp_folder,
+                esc_tmp_folder,
+                esc_filepath)
             #print bash_str
             ret_code = subprocess.call(bash_str, shell=True)
             if ret_code != 0:
