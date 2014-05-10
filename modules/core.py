@@ -1349,8 +1349,9 @@ class CherryTree:
             else:
                 print "7za FAIL!!!"
                 # spoiled file is worse than no file, this way the backups will not be spoiled
-                try: os.remove(filepath)
-                except: subprocess.call("rm %s" % esc_filepath, shell=True)
+                if os.path.isfile(filepath):
+                    try: os.remove(filepath)
+                    except: subprocess.call("rm %s" % esc_filepath, shell=True)
                 if dot_tmp_existing and os.path.isfile(filepath+".tmp"):
                     # restore file version from temporary safety file
                     try: shutil.move(filepath+".tmp", filepath)
