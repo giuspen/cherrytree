@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-05-02 23:16+0200\n"
-"PO-Revision-Date: 2014-05-02 19:24+0400\n"
+"PO-Revision-Date: 2014-05-05 02:49+0400\n"
 "Last-Translator: Seda Stamboltsyan <sedastam@yandex.com>\n"
 "Language-Team: Armenian\n"
 "Language: hy\n"
@@ -74,20 +74,20 @@ msgstr "Խմբագրել այլագրի վանդակը"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:511
 msgid "_File"
-msgstr "Նիշք"
+msgstr "_Նիշք"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:512
 msgid "_Edit"
-msgstr "Խմբագրում"
+msgstr "_Խմբագրում"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:513
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:731
 msgid "For_matting"
-msgstr "Ձևավորում"
+msgstr "_Ձևավորում"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:514
 msgid "_Tree"
-msgstr "Ծառ"
+msgstr "_Ծառ"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:515
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:669
@@ -114,33 +114,33 @@ msgstr "Փոխել տառաշարը"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:784
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:823
 msgid "_Search"
-msgstr "Որոնում"
+msgstr "_Որոնում"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:520
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:791
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:830
 msgid "_Replace"
-msgstr "Փոխարինում"
+msgstr "_Փոխարինում"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:521
 msgid "_View"
-msgstr "Տեսք"
+msgstr "_Տեսք"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:522
 msgid "_Bookmarks"
-msgstr "Էջանիշներ"
+msgstr "_Էջանիշներ"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:523
 msgid "_Import"
-msgstr "Ներմուծում"
+msgstr "Ներ_մուծում"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:524
 msgid "E_xport"
-msgstr "Արտահանում"
+msgstr "_Արտահանում"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:525
 msgid "_Help"
-msgstr "Օգնություն"
+msgstr "_Օգնություն"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:527
 msgid "New _Instance"
@@ -597,12 +597,8 @@ msgstr "Ժառանգել շարահյուսությունը"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:574
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:713
-msgid ""
-"Change the Selected Node's Children Syntax Highlighting to the Father's "
-"Syntax Highlighting"
-msgstr ""
-"Ճյուղի շարահյուսական գունանշումը փոխարինել ծնողական ճյուղի շարահյուսական "
-"գունանշմամբ"
+msgid "Change the Selected Node's Children Syntax Highlighting to the Father's Syntax Highlighting"
+msgstr "Ճյուղի շարահյուսական գունանշումը փոխարինել ծնողական ճյուղի շարահյուսական գունանշմամբ"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:575
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:732
@@ -1733,12 +1729,8 @@ msgstr ""
 "Giuseppe Penone <giuspen@gmail.com>"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:272
-msgid ""
-"A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
-"Highlighting"
-msgstr ""
-"Նվիրապետական կառուցվածքով նշատետր-ծրագիր՝ ձևավորման և շարահյուսական "
-"գունանշման հնարավորություններով"
+msgid "A Hierarchical Note Taking Application, featuring Rich Text and Syntax Highlighting"
+msgstr "Նվիրապետական կառուցվածքով նշատետր-ծրագիր՝ ձևավորման և շարահյուսական գունանշման հնարավորություններով"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:273
 msgid ""
@@ -1767,11 +1759,9 @@ msgstr ""
 "  \n"
 "Ծրագիրը տարածվում է օգտակար լինելու ակնկալիքով, \n"
 "սակայն ԱՌԱՆՑ ՈՐԵՎԷ ԵՐԱՇԽԻՔԻ կամ ՈՐԵՎԷ ՀԱՏՈՒԿ ՆՊԱՏԱԿԻ ԾԱՌԱՅԵՑՄԱՆ։\n"
-"Ավելի մանրամասն տեղեկությունների համար տեսեք GNU-ի  հանրային ընդհանուր "
-"արտոնագիրը։\n"
+"Ավելի մանրամասն տեղեկությունների համար տեսեք GNU-ի  հանրային ընդհանուր արտոնագիրը։\n"
 "  \n"
-"Այս ծրագրի հետ Դուք պետք է որ ստացած լինեք նաև GNU-ի հանրային ընդհանուր "
-"արտոնագրի պատճենը։\n"
+"Այս ծրագրի հետ Դուք պետք է որ ստացած լինեք նաև GNU-ի հանրային ընդհանուր արտոնագրի պատճենը։\n"
 "Եթե ոչ, գրավոր դիմեք Ազատ ծրագրային ապահովման հիմնադրամին հետևյալ հասցեով՝\n"
 "Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,\n"
 "MA 02110-1301, USA.\n"
@@ -2341,9 +2331,7 @@ msgstr "Դուք գործածում եք առկա վերջին տարբերակ�
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:216
 msgid "Failed to Retrieve Latest Version Information - Try Again Later"
-msgstr ""
-"Վերջին տարբերակի մասին տեղեկություն ձեռք բերել չհաջողվեց։ Ավելի ուշ նորի՛ց "
-"փորձեք։"
+msgstr "Վերջին տարբերակի մասին տեղեկություն ձեռք բերել չհաջողվեց։ Ավելի ուշ նորի՛ց փորձեք։"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:233
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3131
@@ -2456,11 +2444,8 @@ msgid "The Characters  %s  are Not Allowed"
 msgstr "%s  գրանշանները չեն թույլատրվում"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1523
-msgid ""
-"Binary Executable '7za' Not Found, Check The Package 'p7zip-full' to be "
-"Installed Properly"
-msgstr ""
-" '7za' նիշքը չի գտնվել։ Համոզվեք, որ 'p7zip-full' փաթեթը ճիշտ է տեղակայված"
+msgid "Binary Executable '7za' Not Found, Check The Package 'p7zip-full' to be Installed Properly"
+msgstr " '7za' նիշքը չի գտնվել։ Համոզվեք, որ 'p7zip-full' փաթեթը ճիշտ է տեղակայված"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1529
 #, python-format
@@ -2494,7 +2479,7 @@ msgstr "Նոր ենթաճյուղի հատկություններ"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2299
 #, python-format
 msgid "Are you sure to <b>Delete the node '%s'?</b>"
-msgstr "<b>Ջնջե՞լ  '%s' ճյուղը</b>"
+msgstr "<b>Ջնջե՞լ  «%s» ճյուղը</b>"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2301
 msgid "The node <b>has Children, they will be Deleted too!</b>"
@@ -2505,12 +2490,8 @@ msgid "Node Properties"
 msgstr "Ճյուղի հատկություններ"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2329
-msgid ""
-"Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
-"Do you want to Continue?"
-msgstr ""
-"Ձևավորված տեքստից հրաժարվելու դեպքում կկորցնեք այս ճյուղի ամբողջ ձևավորումը։ "
-"Շարունակե՞լ։"
+msgid "Leaving the Node Type Rich Text you will Lose all Formatting for This Node, Do you want to Continue?"
+msgstr "Ձևավորված տեքստից հրաժարվելու դեպքում կկորցնեք այս ճյուղի ամբողջ ձևավորումը։ Շարունակե՞լ։"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2758
 msgid "Search for"
@@ -2612,8 +2593,7 @@ msgstr "Այս հատկությունը հասանելի է միայն ձևավ�
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3110
 msgid "This Feature is Not Available in Automatic Syntax Highlighting Nodes"
-msgstr ""
-"Այս հատկությունը հասանելի չէ շարահյուսական ինքնաշխատ գունանշմամբ ճյուղերում"
+msgstr "Այս հատկությունը հասանելի չէ շարահյուսական ինքնաշխատ գունանշմամբ ճյուղերում"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3123
 msgid "The Tree is Empty!"
@@ -2679,17 +2659,17 @@ msgstr "Ընտրել գույն"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3750
 #, python-format
 msgid "The File Link '%s' is Not Valid"
-msgstr "'%s' նիշքին հղումը ճիշտ չէ"
+msgstr "Նիշքի '%s' հղումը ճիշտ չէ"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3765
 #, python-format
 msgid "The Folder Link '%s' is Not Valid"
-msgstr "'%s' պանակին հղումը ճիշտ չէ"
+msgstr "Պանակի '%s' հղումը ճիշտ չէ"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3788
 #, python-format
 msgid "No anchor named '%s' found"
-msgstr "'%s' անվանումով խարիսխ չգտնվեց"
+msgstr "«%s» անվանումով խարիսխ չգտնվեց"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4003
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4008
@@ -2704,3 +2684,4 @@ msgstr "Պիտակներ"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/imports.py:2003
 msgid "Downloading"
 msgstr "Բեռնում"
+
