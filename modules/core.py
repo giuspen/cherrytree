@@ -1318,9 +1318,16 @@ class CherryTree:
                 esc_tmp_folder = re.escape(tree_tmp_folder)
                 esc_filepath = re.escape(filepath)
                 esc_filepath_tmp = re.escape(filepath_tmp)
+            dot_tmp_existing = False
             if os.path.isfile(filepath):
-                # clean older archive content
-                subprocess.call("%s d %s" % (cons.SZA_PATH, esc_filepath), shell=True)
+                # old archive
+                try:
+                    shutil.move(filepath, filepath + ".tmp")
+                    dot_tmp_existing = True
+                except:
+                    if not subprocess.call("mv %s %s.tmp" % (esc_filepath, esc_filepath), shell=True):
+                        dot_tmp_existing = True
+                    else: subprocess.call("%s d %s" % (cons.SZA_PATH, esc_filepath), shell=True)
             bash_str = '%s a -p%s -w%s -bd -y %s %s' % (cons.SZA_PATH,
                 self.password,
                 esc_tmp_folder,
@@ -1329,13 +1336,26 @@ class CherryTree:
             #print bash_str
             if not xml_string and not exporting: self.db.close()
             ret_code = subprocess.call(bash_str, shell=True)
-            if ret_code != 0:
-                print "7za FAIL!!!"
-                raise
             if xml_string: os.remove(filepath_tmp)
             elif not exporting:
                 self.db = self.ctdb_handler.get_connected_db_from_dbpath(filepath_tmp)
                 self.ctdb_handler.remove_at_quit_set.add(filepath_tmp)
+            if not ret_code:
+                # everything OK
+                if dot_tmp_existing and os.path.isfile(filepath+".tmp"):
+                    # remove temporary safety file
+                    try: os.remove(filepath+".tmp")
+                    except: subprocess.call("rm %s.tmp" % esc_filepath, shell=True)
+            else:
+                print "7za FAIL!!!"
+                # spoiled file is worse than no file, this way the backups will not be spoiled
+                try: os.remove(filepath)
+                except: subprocess.call("rm %s" % esc_filepath, shell=True)
+                if dot_tmp_existing and os.path.isfile(filepath+".tmp"):
+                    # restore file version from temporary safety file
+                    try: shutil.move(filepath+".tmp", filepath)
+                    except: subprocess.call("mv %s.tmp %s" % (esc_filepath, esc_filepath), shell=True)
+                raise
 
     def backups_handling(self, filepath_orig):
         """Handler of backup before save"""
