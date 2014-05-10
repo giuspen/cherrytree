@@ -38,6 +38,7 @@ SPECIAL_CHARS_DEFAULT = "“”„•☐☑☒…‰€©®™°↓↑→←↔�
 SPELL_CHECK_LANG_DEFAULT = locale.getdefaultlocale()[0]
 
 def get_node_path_from_str(str_path_list_of_str):
+    str_path_list_of_str = str(str_path_list_of_str)
     if str_path_list_of_str.startswith(cons.CHAR_PARENTH_OPEN)\
     and str_path_list_of_str.endswith(cons.CHAR_PARENTH_CLOSE):
         str_path_list_of_str = str_path_list_of_str[1:-1].replace(cons.CHAR_COMMA, "")
