@@ -147,6 +147,7 @@ class CherryTree:
         self.sourceview.set_smart_home_end(gtksourceview2.SMART_HOME_END_BEFORE)
         self.sourceview.connect('populate-popup', self.on_sourceview_populate_popup)
         self.sourceview.connect("motion-notify-event", self.on_sourceview_motion_notify_event)
+        self.sourceview.connect("event", self.on_sourceview_event)
         self.sourceview.connect("event-after", self.on_sourceview_event_after)
         self.sourceview.connect("visibility-notify-event", self.on_sourceview_visibility_notify_event)
         self.sourceview.connect("copy-clipboard", self.clipboard_handler.copy)
@@ -176,6 +177,7 @@ class CherryTree:
         self.latest_tag = ["", ""] # [latest tag property, latest tag value]
         self.tags_set = set()
         self.file_update = False
+        self.cursor_key_press = None
         self.autosave_timer_id = None
         self.spell_check_init = False
         self.mod_time_sentinel_id = None
@@ -3958,7 +3960,12 @@ class CherryTree:
                 self.curr_buffer.insert(self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert()), 3*cons.CHAR_SPACE)
         elif keyname == cons.STR_RETURN:
             iter_insert = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
-            if iter_insert == None:
+            if not iter_insert:
+                return False
+            cursor_key_press = iter_insert.get_offset()
+            #print "cursor_key_press", cursor_key_press
+            if cursor_key_press == self.cursor_key_press:
+                # problem of event-after called twice, once before really executing
                 return False
             iter_start = iter_insert.copy()
             if not iter_start.backward_char(): return False
@@ -4029,6 +4036,14 @@ class CherryTree:
                     self.curr_buffer.delete(iter_start, iter_insert)
                     self.lists_handler.list_todo_handler()
         return False
+
+    def on_sourceview_event(self, text_view, event):
+        """Called at every event on the SourceView"""
+        if event.type == gtk.gdk.KEY_PRESS and gtk.gdk.keyval_name(event.keyval) == cons.STR_RETURN:
+            iter_insert = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
+            if iter_insert: self.cursor_key_press = iter_insert.get_offset()
+            else: self.cursor_key_press = None
+            #print "self.cursor_key_press", self.cursor_key_press
 
     def on_sourceview_event_after(self, text_view, event):
         """Called after every event on the SourceView"""
