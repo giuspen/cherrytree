@@ -3961,7 +3961,9 @@ class CherryTree:
             if iter_insert == None:
                 return False
             iter_start = iter_insert.copy()
-            if iter_start.backward_chars(2) and iter_start.get_char() == cons.CHAR_NEWLINE:
+            if not iter_start.backward_char(): return False
+            if iter_start.get_char() != cons.CHAR_NEWLINE: return False
+            if iter_start.backward_char() and iter_start.get_char() == cons.CHAR_NEWLINE:
                 return False # former was an empty row
             list_info = self.lists_handler.get_paragraph_list_info(iter_start)
             if list_info[0] == None:
