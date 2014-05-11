@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-05-02 23:16+0200\n"
-"PO-Revision-Date: 2014-05-05 02:49+0400\n"
+"PO-Revision-Date: 2014-05-11 19:50+0400\n"
 "Last-Translator: Seda Stamboltsyan <sedastam@yandex.com>\n"
 "Language-Team: Armenian\n"
 "Language: hy\n"
@@ -152,7 +152,7 @@ msgstr "Բացել CherryTree-ի նոր նիշք"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:528
 msgid "_Open File"
-msgstr "Բացել նիշք"
+msgstr "_Բացել նիշք"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:528
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:988
@@ -169,7 +169,7 @@ msgstr "Պահպանել նիշքը"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:530
 msgid "Save _As"
-msgstr "Պահպանել որպես"
+msgstr "Պահպանել _որպես"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:530
 msgid "Save File As"
@@ -218,7 +218,7 @@ msgstr "Արտահանել որպես մեկ հասարակ տեքստային �
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:535
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:710
 msgid "_Export To CherryTree Document"
-msgstr "Արտահանել որպես CherryTree փաստաթուղթ"
+msgstr "Արտա_հանել որպես CherryTree փաստաթուղթ"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:535
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:710
@@ -227,7 +227,7 @@ msgstr "Արտահանել որպես CherryTree փաստաթուղթ"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:536
 msgid "Pa_ge Setup"
-msgstr "Էջի կարգավորում"
+msgstr "Է_ջի կարգավորում"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:536
 msgid "Set up the Page for Printing"
@@ -235,7 +235,7 @@ msgstr "Էջը կարգավորել տպելու համար"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:537
 msgid "_Print"
-msgstr "Տպել"
+msgstr "_Տպել"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:537
 msgid "Print"
@@ -243,7 +243,7 @@ msgstr "Տպել"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:538
 msgid "_Quit"
-msgstr "Դուրս գալ"
+msgstr "_Դուրս գալ"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:538
 msgid "Quit the Application"
@@ -251,7 +251,7 @@ msgstr "Ծրագրից դուրս գալ"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:539
 msgid "_Exit CherryTree"
-msgstr "Փակել CherryTree-ն"
+msgstr "_Փակել CherryTree-ն"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:539
 msgid "Exit from CherryTree"
@@ -259,7 +259,7 @@ msgstr "Փակել CherryTree-ն"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:540
 msgid "_Preferences"
-msgstr "Նախընտրանքներ"
+msgstr "_Նախընտրանքներ"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:540
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1403
@@ -269,7 +269,7 @@ msgstr "Նախընտրանքներ"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:541
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:768
 msgid "Insert _Horizontal Rule"
-msgstr "Դնել հորիզոնական գիծ"
+msgstr "Դնել _հորիզոնական գիծ"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:541
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:768
@@ -280,7 +280,7 @@ msgstr "Դնել հորիզոնական գիծ"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:767
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:807
 msgid "Insert Ti_mestamp"
-msgstr "Դնել ամսաթվի կնիք"
+msgstr "Դնել ամսաթվի _կնիք"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:542
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:767
@@ -291,7 +291,7 @@ msgstr "Դնել ամսաթվի կնիք"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:543
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:755
 msgid "Set/Unset _Bulleted List"
-msgstr "Նշանակալված ցանկ"
+msgstr "Ն_շանակալված ցանկ"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:543
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:755
@@ -301,7 +301,7 @@ msgstr "Պարբերությունը/ընտրված մասը վերածել նշ
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:544
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:756
 msgid "Set/Unset _Numbered List"
-msgstr "Համարակալված ցանկ"
+msgstr "Հա_մարակալված ցանկ"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:544
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:756
@@ -311,7 +311,7 @@ msgstr "Պարբերությունը/ընտրված մասը վերածել հա
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:545
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:757
 msgid "Set/Unset _To-Do List"
-msgstr "Անելիքի ցանկ"
+msgstr "_Անելիքի ցանկ"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:545
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:757
@@ -321,7 +321,7 @@ msgstr "Պարբերությունը/ընտրված մասը վերածել ան
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:546
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:764
 msgid "Insert/Edit _Link"
-msgstr "Դնել/խմբագրել հղում"
+msgstr "Դնել/խմբագրել հ_ղում"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:546
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:764
@@ -331,7 +331,7 @@ msgstr "Դնել/խմբագրել հղում"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:547
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:766
 msgid "Insert T_OC"
-msgstr "Դնել բովանդակության ցանկ"
+msgstr "Դնել _բովանդակության ցանկ"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:547
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:766
@@ -341,7 +341,7 @@ msgstr "Դնել բովանդակության ցանկ"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:548
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:765
 msgid "Insert _Anchor"
-msgstr "Դնել խարիսխ"
+msgstr "Դնել _խարիսխ"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:548
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:765
@@ -350,7 +350,7 @@ msgstr "Դնել խարիսխ"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:549
 msgid "Edit _Anchor"
-msgstr "Խմբագրել խարիսխը"
+msgstr "Խմբագրել _խարիսխը"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:549
 msgid "Edit the Underlying Anchor"
@@ -359,7 +359,7 @@ msgstr "Խմբագրել խարիսխը"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:550
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:761
 msgid "Insert I_mage"
-msgstr "Ներմուծել նկար"
+msgstr "Ներմու_ծել նկար"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:550
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:761
@@ -368,7 +368,7 @@ msgstr "Ներմուծել նկար"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:551
 msgid "_Save Image as PNG"
-msgstr "Նկարը պահպանել որպես PNG"
+msgstr "Նկարը պահպանել որ_պես PNG"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:551
 msgid "Save the Selected Image as a PNG file"
@@ -384,7 +384,7 @@ msgstr "Ընտրված նկարը խմբագրել"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:553
 msgid "C_ut Image"
-msgstr "Կտրել նկարը"
+msgstr "Կ_տրել նկարը"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:553
 msgid "Cut the Selected Image"
@@ -392,7 +392,7 @@ msgstr "Ընտրված նկարը կտրել"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:554
 msgid "_Copy Image"
-msgstr "Պատճենել նկարը"
+msgstr "Պատ_ճենել նկարը"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:554
 msgid "Copy the Selected Image"
@@ -400,7 +400,7 @@ msgstr "Ընտրված նկարը պատճենել"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:555
 msgid "_Delete Image"
-msgstr "Ջնջել նկարը"
+msgstr "_Ջնջել նկարը"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:555
 msgid "Delete the Selected Image"
@@ -408,7 +408,7 @@ msgstr "Ընտրված նկարը ջնջել"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:556
 msgid "C_ut Table"
-msgstr "Կտրել աղյուսակը"
+msgstr "Կ_տրել աղյուսակը"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:556
 msgid "Cut the Selected Table"
@@ -416,7 +416,7 @@ msgstr "Ընտրված աղյուսակը կտրել"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:557
 msgid "_Copy Table"
-msgstr "Պատճենել աղյուսակը"
+msgstr "Պատ_ճենել աղյուսակը"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:557
 msgid "Copy the Selected Table"
@@ -424,7 +424,7 @@ msgstr "Ընտրված աղյուսակը պատճենել"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:558
 msgid "_Delete Table"
-msgstr "Ջնջել աղյուսակը"
+msgstr "_Ջնջել աղյուսակը"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:558
 msgid "Delete the Selected Table"
@@ -433,7 +433,7 @@ msgstr "Ընտրված աղյուսակը ջնջել"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:559
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:762
 msgid "Insert _Table"
-msgstr "Դնել աղյուսակ"
+msgstr "Դնել աղյու_սակ"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:559
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:762
@@ -443,13 +443,13 @@ msgstr "Դնել աղյուսակ"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:560
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:763
 msgid "Insert _CodeBox"
-msgstr "Դնել այլագրի վանդակ"
+msgstr "Դնել այլա_գրի վանդակ"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:561
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:771
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:810
 msgid "_Lower Case of Selection/Word"
-msgstr "Ընտրված մասը/բառը՝ փոքրատառ"
+msgstr "Ընտրված մասը/բառը՝ _փոքրատառ"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:561
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:771
@@ -461,7 +461,7 @@ msgstr "Ընտրված մասը/բառը փոքրատառ դարձնել"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:772
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:811
 msgid "_Upper Case of Selection/Word"
-msgstr "Ընտրված մասը/բառը՝ մեծատառ"
+msgstr "Ընտրված մասը/բառը՝ _մեծատառ"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:562
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:772
@@ -485,7 +485,7 @@ msgstr "Փոխել ընտրված մասի/բառի տառաշարը"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:779
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:818
 msgid "_Duplicate Row"
-msgstr "Կրկնօրինակել տողը"
+msgstr "Կրկն_օրինակել տողը"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:564
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:779
@@ -497,7 +497,7 @@ msgstr "Կրկնօրինակել տողը/ընտրված մասը"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:780
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:819
 msgid "Move _Up Row"
-msgstr "Տողը վերև տանել"
+msgstr "Տողը _վերև տանել"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:565
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:780
@@ -509,7 +509,7 @@ msgstr "Տողը/ընտրված տողերը վերև տանել"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:781
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:820
 msgid "Move _Down Row"
-msgstr "Տողը ներքև տանել"
+msgstr "Տողը _ներքև տանել"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:566
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:781
@@ -522,7 +522,7 @@ msgstr "Տողը/ընտրված տողերը ներքև տանել"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:778
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:817
 msgid "De_lete Row"
-msgstr "Ջնջել տողը"
+msgstr "_Ջնջել տողը"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:567
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:778
@@ -535,7 +535,7 @@ msgstr "Ջնջել տողը/ընտրված տողերը"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:776
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:815
 msgid "Cu_t Row"
-msgstr "Կտրել տողը"
+msgstr "Կ_տրել տողը"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:568
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:776
@@ -546,7 +546,7 @@ msgstr "Կտրել տողը/ընտրված տողերը"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:569
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:641
 msgid "_Copy Row"
-msgstr "Պատճենել տողը"
+msgstr "Պատ_ճենել տողը"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:569
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:777
@@ -557,7 +557,7 @@ msgstr "Պատճենել տողը/ընտրված տողերը"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:570
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:717
 msgid "Go _Back"
-msgstr "Հետ գնալ"
+msgstr "_Հետ գնալ"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:570
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:717
@@ -567,7 +567,7 @@ msgstr "Անցնել նախորդ ճյուղին"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:571
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:718
 msgid "Go _Forward"
-msgstr "Առաջ գնալ"
+msgstr "_Առաջ գնալ"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:571
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:718
@@ -593,7 +593,7 @@ msgstr "Կրկնել չեղարկված գործողությունը"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:574
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:713
 msgid "_Inherit Syntax"
-msgstr "Ժառանգել շարահյուսությունը"
+msgstr "Ժառանգել _շարահյուսությունը"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:574
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:713
@@ -603,7 +603,7 @@ msgstr "Ճյուղի շարահյուսական գունանշումը փոխա�
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:575
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:732
 msgid "Format _Latest"
-msgstr "Գործածել վերջին ձևավորումը"
+msgstr "Գործածել վերջին _ձևավորումը"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:575
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:732
@@ -613,7 +613,7 @@ msgstr "Հիշել վերջին ձևավորումը"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:576
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:729
 msgid "_Paste as Plain Text"
-msgstr "Փակցնել որպես հասարակ տեքստ"
+msgstr "Փակցնել որպես հասարակ տե_քստ"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:576
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:729
@@ -633,7 +633,7 @@ msgstr "Վերացնել ընտրված մասի ձևավորումը"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:578
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:735
 msgid "Text _Color Foreground"
-msgstr "Տեքստի գույն"
+msgstr "_Տեքստի գույն"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:578
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:735
@@ -643,7 +643,7 @@ msgstr "Փոխել ընտրված տեքստի գույնը"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:579
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:736
 msgid "Text C_olor Background"
-msgstr "Տեքստի խորքի գույն"
+msgstr "Տեքստի _խորքի գույն"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:579
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:736
@@ -763,7 +763,7 @@ msgstr "Ընտրված տեքստում նույնալայնք տառատեսա�
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:591
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:750
 msgid "Justify _Left"
-msgstr "Ուղղել ձախից"
+msgstr "Ուղղել _ձախից"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:591
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:750
@@ -773,7 +773,7 @@ msgstr "Պարբերությունն ուղղել ձախից"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:592
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:751
 msgid "Justify _Center"
-msgstr "Ուղղել կենտրոնով"
+msgstr "Ուղղել _կենտրոնով"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:592
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:751
@@ -783,7 +783,7 @@ msgstr "Պարբերությունն ուղղել կենտրոնով"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:593
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:752
 msgid "Justify _Right"
-msgstr "Ուղղել աջից"
+msgstr "Ուղղել ա_ջից"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:593
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:752
@@ -825,7 +825,7 @@ msgstr "Գտնել ընտրված ճյուղում ու ենթաճյուղերո
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:787
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:826
 msgid "Find a _Node"
-msgstr "Գտնել ճյուղ կամ պիտակ"
+msgstr "Գտնել ճյուղ կամ _պիտակ"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:597
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:683
@@ -850,7 +850,7 @@ msgstr "Կրկնել որոնման վերջին գործողությունը"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:789
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:828
 msgid "Find _Back"
-msgstr "Փնտրել հակառակ ուղղությամբ"
+msgstr "Փնտրել _հակառակ ուղղությամբ"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:599
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:789
@@ -916,7 +916,7 @@ msgstr "Կրկնել փոխարինման վերջին գործողությու�
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:605
 msgid "Show/Hide Node Name _Header"
-msgstr "Ցուցադրել/թաքցնել ճյուղի վերնագիրը"
+msgstr "Ցուցադրել/թաքցնել ճյուղի _վերնագիրը"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:605
 msgid "Toggle Show/Hide Node Name Header"
@@ -932,7 +932,7 @@ msgstr "Ստուգել ուղղագրությունը"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:607
 msgid "Show/Hide _Tree"
-msgstr "Ցուցադրել/թաքցնել ծառը"
+msgstr "Ցուցադրել/թաքցնել _ծառը"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:607
 msgid "Toggle Show/Hide Tree"
@@ -948,7 +948,7 @@ msgstr "Ցուցադրել/թաքցնել CherryTree-ն"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:609
 msgid "Show/Hide Tool_bar"
-msgstr "Ցուցադրել/թաքցնել գործիքների վահանակը"
+msgstr "Ցուցադրել/թաքցնել _գործիքների վահանակը"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:609
 msgid "Toggle Show/Hide Toolbar"
@@ -964,7 +964,7 @@ msgstr "Ցուցադրել համընկումներ փնտրելու երկխո�
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:611
 msgid "_Increase Toolbar Icons Size"
-msgstr "Մեծացնել գործիքների վահանակի պատկերակները"
+msgstr "_Մեծացնել գործիքների վահանակի պատկերակները"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:611
 msgid "Increase the Size of the Toolbar Icons"
@@ -972,7 +972,7 @@ msgstr "Մեծացնել գործիքների վահանակի պատկերակ�
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:612
 msgid "_Decrease Toolbar Icons Size"
-msgstr "Փոքրացնել գործիքների վահանակի պատկերակները"
+msgstr "_Փոքրացնել գործիքների վահանակի պատկերակները"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:612
 msgid "Decrease the Size of the Toolbar Icons"
@@ -988,7 +988,7 @@ msgstr "Շարժագիծը տեղափոխել ծառից դեպի տեքստ կ�
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:614
 msgid "Toggle Node _Expanded/Collapsed"
-msgstr "Ճյուղն ընդարձակել/ամփոփել"
+msgstr "_Ճյուղն ընդարձակել/ամփոփել"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:614
 msgid "Toggle Expanded/Collapsed Status of the Selected Node"
@@ -996,7 +996,7 @@ msgstr "Ընտրված ճյուղն ընդարձակել/ամփոփել"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:615
 msgid "E_xpand All Nodes"
-msgstr "Ընդարձակել բոլոր ճյուղերը"
+msgstr "_Ընդարձակել բոլոր ճյուղերը"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:615
 msgid "Expand All the Tree Nodes"
@@ -1004,7 +1004,7 @@ msgstr "Ընդարձակել ծառի բոլոր ճյուղերը"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:616
 msgid "_Collapse All Nodes"
-msgstr "Ամփոփել բոլոր ճյուղերը"
+msgstr "_Ամփոփել բոլոր ճյուղերը"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:616
 msgid "Collapse All the Tree Nodes"
@@ -1012,7 +1012,7 @@ msgstr "Ամփոփել ծառի բոլոր ճյուղերը"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:617
 msgid "_Full Screen On/Off"
-msgstr "Ամբողջ էկրանով"
+msgstr "Ամբ_ողջ էկրանով"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:617
 msgid "Toggle Full Screen On/Off"
@@ -1215,7 +1215,7 @@ msgstr "CherryTree-ի մասին"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:638
 msgid "_Edit Table Properties"
-msgstr "Աղյուսակի հատկությունների խմբագրում"
+msgstr "Ա_ղյուսակի հատկությունների խմբագրում"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:638
 msgid "Edit the Table Properties"
@@ -1223,7 +1223,7 @@ msgstr "Խմբագրել աղյուսակի հատկությունները"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:639
 msgid "_Add Row"
-msgstr "Ավելացնել տող"
+msgstr "Ավելացնել _տող"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:639
 msgid "Add a Table Row"
@@ -1251,7 +1251,7 @@ msgstr "Ջնջել աղյուսակի ընտրված տողը"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:644
 msgid "Move Row _Up"
-msgstr "Տողը վերև տանել"
+msgstr "Տողը _վերև տանել"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:644
 msgid "Move the Selected Row Up"
@@ -1259,7 +1259,7 @@ msgstr "Ընտրված տողը վերև տանել"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:645
 msgid "Move Row _Down"
-msgstr "Տողը ներքև տանել"
+msgstr "Տողը _ներքև տանել"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:645
 msgid "Move the Selected Row Down"
@@ -1267,7 +1267,7 @@ msgstr "Ընտրված տողը ներքև տանել"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:646
 msgid "Sort Rows De_scending"
-msgstr "Տողերը դասավորել ըստ նվազման կարգի"
+msgstr "Տողերը դասավորել ըստ նվա_զման կարգի"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:646
 msgid "Sort all the Rows Descending"
@@ -1275,7 +1275,7 @@ msgstr "Բոլոր տողերը դասավորել ըստ նվազման կար�
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:647
 msgid "Sort Rows As_cending"
-msgstr "Տողերը դասավորել ըստ աճման կարգի"
+msgstr "Տողերը դասավորել ըստ ա_ճման կարգի"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:647
 msgid "Sort all the Rows Ascending"
@@ -1283,7 +1283,7 @@ msgstr "Բոլոր տողերը դասավորել ըստ աճման կարգի"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:648
 msgid "_Table Export"
-msgstr "Աղյուսակի արտահանում"
+msgstr "Աղյուսակի արտա_հանում"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:648
 msgid "Export Table as CSV File"
@@ -1291,7 +1291,7 @@ msgstr "Աղյուսակն արտահանել որպես CSV նիշք"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:649
 msgid "_Bookmark This Node"
-msgstr "Էջանշել ճյուղը"
+msgstr "_Էջանշել ճյուղը"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:649
 msgid "Add the Current Node to the Bookmarks List"
@@ -1299,7 +1299,7 @@ msgstr "Ընթացիկ ճյուղն ավելացնել էջանիշների ցա
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:650
 msgid "_Handle Bookmarks"
-msgstr "Կարգավորել էջանիշները"
+msgstr "_Կարգավորել էջանիշները"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:650
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:1025
@@ -1309,7 +1309,7 @@ msgstr "Կարգավորել էջանիշների ցանկը"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:651
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:662
 msgid "Add _Node"
-msgstr "Ավելացնել ճյուղ"
+msgstr "Ավելացնել _ճյուղ"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:651
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:662
@@ -1319,7 +1319,7 @@ msgstr "Ավելացնել ընտրված ճյուղին համահայր ճյո
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:652
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:663
 msgid "Add _SubNode"
-msgstr "Ավելացնել ենթաճյուղ"
+msgstr "Ավելացնել _ենթաճյուղ"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:652
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:663
@@ -1328,7 +1328,7 @@ msgstr "Ընտրված ճյուղին ավելացնել դուստր ճյուղ
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:665
 msgid "Change Node _Properties"
-msgstr "Փոխել ճյուղի հատկությունները"
+msgstr "Փոխել ճյուղի _հատկությունները"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:665
 msgid "Edit the Properties of the Selected Node"
@@ -1353,7 +1353,7 @@ msgstr "Ծառի մասին ընդհանուր տեղեկանք"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:670
 msgid "Node _Up"
-msgstr "Ճյուղը վերև տանել"
+msgstr "Ճյուղը _վերև տանել"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:670
 msgid "Move the Selected Node Up"
@@ -1361,7 +1361,7 @@ msgstr "Ընտրված ճյուղը վերև տանել"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:671
 msgid "Node _Down"
-msgstr "Ճյուղը ներքև տանել"
+msgstr "Ճյուղը _ներքև տանել"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:671
 msgid "Move the Selected Node Down"
@@ -1369,7 +1369,7 @@ msgstr "Ընտրված ճյուղը ներքև տանել"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:672
 msgid "Node _Left"
-msgstr "Ճյուղը ձախ տանել"
+msgstr "Ճյուղը _ձախ տանել"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:672
 msgid "Move the Selected Node Left"
@@ -1377,7 +1377,7 @@ msgstr "Ընտրված ճյուղը ձախ տանել"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:673
 msgid "Node Change _Father"
-msgstr "Փոխել ճյուղի ծնողին"
+msgstr "Փոխել ճյուղի _ծնողին"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:673
 msgid "Change the Selected Node's Father"
@@ -1385,11 +1385,11 @@ msgstr "Փոխել ընտրված ճյուղի ծնողին"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:676
 msgid "Nodes _Sort"
-msgstr "Ճյուղերի դասավորում"
+msgstr "Ճյուղերի _դասավորում"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:677
 msgid "Sort Tree _Ascending"
-msgstr "Դասավորել ծառն ըստ աճման կարգի"
+msgstr "Դասավորել ծառն ըստ _աճման կարգի"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:677
 msgid "Sort the Tree Ascending"
@@ -1397,7 +1397,7 @@ msgstr "Դասավորել ծառն ըստ աճման կարգի"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:678
 msgid "Sort Tree _Descending"
-msgstr "Դասավորել ծառն ըստ նվազման կարգի"
+msgstr "Դասավորել ծառն ըստ _նվազման կարգի"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:678
 msgid "Sort the Tree Descending"
@@ -1405,7 +1405,7 @@ msgstr "Դասավորել ծառն ըստ նվազման կարգի"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:679
 msgid "Sort Siblings A_scending"
-msgstr "Դասավորել ենթաճյուղերն ըստ աճման կարգի"
+msgstr "Դասավորել ենթաճյուղերն ըստ ա_ճման կարգի"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:679
 msgid "Sort all the Siblings of the Selected Node Ascending"
@@ -1413,7 +1413,7 @@ msgstr "Դասավորել ընտրված ճյուղի ենթաճյուղերն 
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:680
 msgid "Sort Siblings D_escending"
-msgstr "Դասավորել ենթաճյուղերն ըստ նվազման կարգի"
+msgstr "Դասավորել ենթաճյուղերն ըստ ն_վազման կարգի"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:680
 msgid "Sort all the Siblings of the Selected Node Descending"
@@ -1429,25 +1429,25 @@ msgstr "Ջնջել ընտրված ճյուղը"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:749
 msgid "_Justify"
-msgstr "Ուղղել տողերը"
+msgstr "Ու_ղղել տողերը"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:754
 msgid "_List"
-msgstr "Ցանկ"
+msgstr "_Ցանկ"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:760
 msgid "_Insert"
-msgstr "Ներմուծել"
+msgstr "Ներ_մուծել"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:775
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:814
 msgid "_Row"
-msgstr "Տող"
+msgstr "_Տող"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:777
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:816
 msgid "C_opy Row"
-msgstr "Պատճենել տողը"
+msgstr "_Պատճենել տողը"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:786
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:825
@@ -1461,7 +1461,7 @@ msgstr "Փոխարինել ճյուղերում"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:808
 msgid "Stri_p Trailing Spaces"
-msgstr "Վերացնել տողավերջի բացակները"
+msgstr "Վերացնել տողավեր_ջի բացակները"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:808
 msgid "Strip Trailing Spaces"
@@ -1469,7 +1469,7 @@ msgstr "Վերացնել տողավերջի բացակները"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:846
 msgid "Edit _Link"
-msgstr "Խմբագրել հղումը"
+msgstr "Խմբագրել հ_ղումը"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:846
 msgid "Edit the Underlying Link"
@@ -1477,7 +1477,7 @@ msgstr "Խմբագրել հղումը"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:848
 msgid "C_ut Link"
-msgstr "Կտրել հղումը"
+msgstr "Կ_տրել հղումը"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:848
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:866
@@ -1486,7 +1486,7 @@ msgstr "Կտրել այլագրի վանդակը"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:849
 msgid "_Copy Link"
-msgstr "Պատճենել հղումը"
+msgstr "_Պատճենել հղումը"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:849
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:867
@@ -1495,7 +1495,7 @@ msgstr "Պատճենել այլագրի վանդակը"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:850
 msgid "D_ismiss Link"
-msgstr "Հանել հղման ընդգծումը"
+msgstr "Հանել հղման _ընդգծումը"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:850
 msgid "Dismiss the Selected Link"
@@ -1519,7 +1519,7 @@ msgstr "Խմբագրել այլագրի վանդակի հատկությունն�
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:863
 msgid "CodeBox _Load From Text File"
-msgstr "Այլագրի վանդակի պարունակությունը՝ տեքստային նիշքից"
+msgstr "Այլագրի վանդակի պարունակությունը՝ _տեքստային նիշքից"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:863
 msgid "Load the CodeBox Content From a Text File"
@@ -1527,7 +1527,7 @@ msgstr "Այլագրի վանդակի պարունակությունը ներմ�
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:864
 msgid "CodeBox _Save To Text File"
-msgstr "Այլագրի վանդակի պարունակությունը՝ որպես տեքստային նիշք"
+msgstr "Այլագրի վանդակի պարունակությունը՝ որպես տե_քստային նիշք"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:864
 msgid "Save the CodeBox Content To a Text File"
@@ -1535,11 +1535,11 @@ msgstr "Այլագրի վանդակի պարունակությունը պահպ�
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:866
 msgid "C_ut CodeBox"
-msgstr "Կտրել այլագրի վանդակը"
+msgstr "_Կտրել այլագրի վանդակը"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:867
 msgid "_Copy CodeBox"
-msgstr "Պատճենել այլագրի վանդակը"
+msgstr "Պատ_ճենել այլագրի վանդակը"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:868
 msgid "_Delete CodeBox"
@@ -1551,7 +1551,7 @@ msgstr "Ջնջել այլագրի վանդակը"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:869
 msgid "Delete CodeBox _Keep Content"
-msgstr "Այլագրի վանդակը ջնջել, պարունակությունը պահել"
+msgstr "Այլագրի վանդակը ջնջել, _պարունակությունը պահել"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:869
 msgid "Delete the Selected CodeBox But Keep Its Content"
@@ -1925,7 +1925,7 @@ msgstr "Վերջին փաստաթղթեր"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:983
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:989
 msgid "Open a Recent CherryTree Document"
-msgstr "Բացել CherryTree վերջին փաստաթղթերից մեկը"
+msgstr "Բացել վերջին CherryTree փաստաթղթերից մեկը"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:1013
 #, python-format
