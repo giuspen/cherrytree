@@ -1,4 +1,14 @@
 
+0.33.1 (May 12th, 2014)
+• the number of backups changes from 1 to 3, in next versions this will be configurable
+• fixed critical bug in windows version and password protected documents causing in some cases the loss of all data
+• replaced old TCP client/server multiple instances control with new one using DBus client/server for security reason
+• added Armenian language from Seda Stamboltsyan
+• several other minor bugfixes
+• tree navigation: key Ctrl+(up, down, left, right) causing maximum focus movement walking towards (up, down, left, right) direction
+• tree navigation: it is possible to select the tree and start typing a node name to change the selected node to the first non hidden node starting with the typed chars
+• added keyboard shortcuts: Ctrl+M to monospace, Ctrl+Alt+M to insert timestamp, Ctrl+Alt+I to insert image, Ctrl+Alt+T to insert table, Ctrl+Alt+C to insert codebox
+
 0.33.0 (April 22nd, 2014)
 • added import from html file and folder of html files
 • added memory of selected node and expanded/collapsed nodes status for more cherrytree documents, not only the latest used
