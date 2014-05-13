@@ -554,7 +554,7 @@ class Export2Html:
                     elif curr_object[0] == "codebox": html_text += self.get_codebox_html(curr_object[1])
         else: html_text += self.html_get_from_code_buffer(self.dad.treestore[tree_iter][2], sel_range)
         if self.tree_links_text and not self.dad.last_index_in_page:
-            html_text += '<p align="center">' + '<img src="%s" height="22" width="22">' % os.path.join(self.images_dir, "home.png") + 2*cons.CHAR_SPACE + '<a href="index.html">' + _("Index") + '</a></p>'
+            html_text += '<p align="center">' + '<img src="%s" height="22" width="22">' % os.path.join("images", "home.png") + 2*cons.CHAR_SPACE + '<a href="index.html">' + _("Index") + '</a></p>'
         html_text += "</span>"
         if self.tree_links_text and self.dad.last_index_in_page:
             html_text += '</td></tr></table>'
