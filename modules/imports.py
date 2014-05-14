@@ -1297,8 +1297,6 @@ class KeynoteHandler:
         self.curr_node_content = ""
         self.curr_node_level = 0
         self.former_node_level = -1
-        self.in_picture = False
-        self.in_object = False
         # 0: waiting for LV=
         # 1: waiting for ND=
         # 2: waiting for %:
@@ -1329,6 +1327,10 @@ class KeynoteHandler:
                     self.nodes_list[-1].setAttribute("prog_lang", cons.RICH_TEXT_ID)
                     self.nodes_list[-2].appendChild(self.nodes_list[-1])
                     self.node_br_ok = False
+                    self.in_picture = False
+                    self.in_object = False
+                    self.in_br_num = 0
+                    self.in_br_read_data = False
             elif self.curr_state == 3:
                 if text_line.startswith("%-") or text_line.startswith("%%"):
                     self.curr_state = 0
@@ -1347,21 +1349,21 @@ class KeynoteHandler:
         #if text_line.endswith("}"): return
         curr_state = 0
         dummy_loop = 0
-        in_br_num = 0
-        in_br_read_data = False
         for i, curr_char in enumerate(text_line):
             if dummy_loop > 0:
                 dummy_loop -= 1
                 continue
             if self.in_picture or self.in_object:
-                if curr_char == cons.CHAR_BR_CLOSE and in_br_num == 1:
-                    if self.in_picture: print "in_picture OFF"
-                    else: print "in_object OFF"
-                    self.in_picture = False
-                    self.in_object = False
+                if curr_char == cons.CHAR_BR_CLOSE:
+                    if self.in_br_num == 1:
+                        if self.in_picture: print "in_picture OFF"
+                        else: print "in_object OFF"
+                        self.in_picture = False
+                        self.in_object = False
+                    else: "in pict or obj, br close, self.in_br_num", self.in_br_num
                 else: continue
             if curr_char == cons.CHAR_BSLASH:
-                if (in_br_num == 0 or in_br_read_data) and text_line[i+1:].startswith(cons.CHAR_SQUOTE):
+                if (self.in_br_num == 0 or self.in_br_read_data) and text_line[i+1:].startswith(cons.CHAR_SQUOTE):
                     self.curr_node_content += unichr(int(text_line[i+2:i+4], 16))
                     dummy_loop = 3
                     curr_state = 0
@@ -1387,11 +1389,11 @@ class KeynoteHandler:
                     fN = text_line[i+8:i+10]
                     if fN == "f0":
                         curr_state = 1
-                        in_br_read_data = True
+                        self.in_br_read_data = True
                     elif fN == "f1":
                         dummy_loop = 10
                         curr_state = 0
-                        in_br_read_data = True
+                        self.in_br_read_data = True
                     else:
                         dummy_loop = 9
                         self.curr_node_content += cons.CHAR_LISTBUL + cons.CHAR_SPACE
@@ -1463,18 +1465,18 @@ class KeynoteHandler:
                     curr_state = 1
             elif curr_char == cons.CHAR_BR_OPEN:
                 if self.node_br_ok:
-                    in_br_num += 1
-                    print "in_br_num", in_br_num
+                    self.in_br_num += 1
+                    print "self.in_br_num", self.in_br_num
                 else: self.node_br_ok = True
             elif curr_char == cons.CHAR_BR_CLOSE:
-                in_br_num -= 1
-                print "in_br_num", in_br_num
+                self.in_br_num -= 1
+                print "self.in_br_num", self.in_br_num
                 curr_state = 0
-                in_br_read_data = False
-            elif in_br_read_data and curr_char == cons.CHAR_PARENTH_CLOSE:
+                self.in_br_read_data = False
+            elif self.in_br_read_data and curr_char == cons.CHAR_PARENTH_CLOSE:
                 self.curr_node_content += "." + cons.CHAR_SPACE
             else:
-                if in_br_num == 0 or in_br_read_data:
+                if self.in_br_num == 0 or self.in_br_read_data:
                     if curr_state == 0:
                         self.curr_node_content += curr_char
                     elif curr_state == 1:
