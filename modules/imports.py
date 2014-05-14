@@ -1298,6 +1298,7 @@ class KeynoteHandler:
         self.curr_node_level = 0
         self.former_node_level = -1
         self.in_picture = False
+        self.in_object = False
         # 0: waiting for LV=
         # 1: waiting for ND=
         # 2: waiting for %:
@@ -1352,8 +1353,12 @@ class KeynoteHandler:
             if dummy_loop > 0:
                 dummy_loop -= 1
                 continue
-            if self.in_picture:
-                if curr_char == cons.CHAR_BR_CLOSE: self.in_picture = False
+            if self.in_picture or self.in_object:
+                if curr_char == cons.CHAR_BR_CLOSE and in_br_num == 1:
+                    if self.in_picture: print "in_picture OFF"
+                    else: print "in_object OFF"
+                    self.in_picture = False
+                    self.in_object = False
                 else: continue
             if curr_char == cons.CHAR_BSLASH:
                 if (in_br_num == 0 or in_br_read_data) and text_line[i+1:].startswith(cons.CHAR_SQUOTE):
@@ -1444,14 +1449,26 @@ class KeynoteHandler:
                     curr_state = 0
                 elif text_line[i+1:].startswith("pict"):
                     self.in_picture = True
+                    print "in_picture ON"
                     curr_state = 1
+                elif text_line[i+1:].startswith("object"):
+                    self.in_object = True
+                    print "in_object ON"
+                    curr_state = 1
+                elif text_line[i+1:].startswith("result"):
+                    print "result"
+                    dummy_loop = 6
+                    curr_state = 0
                 else:
                     curr_state = 1
             elif curr_char == cons.CHAR_BR_OPEN:
-                if self.node_br_ok: in_br_num += 1
+                if self.node_br_ok:
+                    in_br_num += 1
+                    print "in_br_num", in_br_num
                 else: self.node_br_ok = True
             elif curr_char == cons.CHAR_BR_CLOSE:
                 in_br_num -= 1
+                print "in_br_num", in_br_num
                 curr_state = 0
                 in_br_read_data = False
             elif in_br_read_data and curr_char == cons.CHAR_PARENTH_CLOSE:
