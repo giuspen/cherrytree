@@ -20,7 +20,7 @@
 #       MA 02110-1301, USA.
 
 import HTMLParser, htmlentitydefs
-import gtk, gio, os, xml.dom.minidom, re, base64, urllib2
+import gtk, gio, os, xml.dom.minidom, re, base64, urllib2, binascii
 import cons, machines
 
 
@@ -1297,6 +1297,8 @@ class KeynoteHandler:
         self.curr_node_content = ""
         self.curr_node_level = 0
         self.former_node_level = -1
+        if not os.path.isdir(cons.TMP_FOLDER): os.mkdir(cons.TMP_FOLDER)
+        self.img_tmp_path = os.path.join(cons.TMP_FOLDER, "img_tmp")
         # 0: waiting for LV=
         # 1: waiting for ND=
         # 2: waiting for %:
@@ -1346,22 +1348,29 @@ class KeynoteHandler:
     def write_line_text(self, text_line):
         """Write Stripped Line Content"""
         #print "'%s'" % text_line
-        #if text_line.endswith("}"): return
         curr_state = 0
         dummy_loop = 0
+        if self.in_picture or self.in_object:
+            if text_line[0] == cons.CHAR_BR_CLOSE:
+                if self.in_br_num == 1:
+                    if self.in_picture:
+                        print "in_picture OFF"
+                        self.img_fd.close()
+                        #pixbuf = gtk.gdk.pixbuf_new_from_file(self.img_tmp_path)
+                    else: print "in_object OFF"
+                    self.in_picture = False
+                    self.in_object = False
+                else: print "in pict or obj, br close, self.in_br_num", self.in_br_num
+                self.in_br_num -= 1
+                dummy_loop += 1
+            else:
+                if self.in_picture:
+                    self.img_fd.write(binascii.a2b_hex(text_line))
+                return
         for i, curr_char in enumerate(text_line):
             if dummy_loop > 0:
                 dummy_loop -= 1
                 continue
-            if self.in_picture or self.in_object:
-                if curr_char == cons.CHAR_BR_CLOSE:
-                    if self.in_br_num == 1:
-                        if self.in_picture: print "in_picture OFF"
-                        else: print "in_object OFF"
-                        self.in_picture = False
-                        self.in_object = False
-                    else: "in pict or obj, br close, self.in_br_num", self.in_br_num
-                else: continue
             if curr_char == cons.CHAR_BSLASH:
                 if (self.in_br_num == 0 or self.in_br_read_data) and text_line[i+1:].startswith(cons.CHAR_SQUOTE):
                     self.curr_node_content += unichr(int(text_line[i+2:i+4], 16))
@@ -1453,6 +1462,7 @@ class KeynoteHandler:
                     self.in_picture = True
                     print "in_picture ON"
                     curr_state = 1
+                    self.img_fd = open(self.img_tmp_path, "wb")
                 elif text_line[i+1:].startswith("object"):
                     self.in_object = True
                     print "in_object ON"
