@@ -571,6 +571,11 @@ class TablesHandler:
                     self.table_row_delete()
                 else: self.table_row_add()
                 return True
+            if keyname == "period":
+                if event.state & gtk.gdk.MOD1_MASK:
+                    self.table_row_up()
+                else: self.table_row_down()
+                return True
         elif keyname == "Menu":
             self.curr_table_anchor = anchor
             self.dad.object_set_selection(self.curr_table_anchor)
