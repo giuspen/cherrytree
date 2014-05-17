@@ -24,10 +24,10 @@ import dbus
 import dbus.service
 import dbus.mainloop.glib
 import sys, os, gettext
-import cons, core
-
-
+import __builtin__
 msg_server_to_core = {'f':0, 'p':""}
+__builtin__.msg_server_to_core = msg_server_to_core
+import cons, core
 
 
 class CherryTreeObject(dbus.service.Object):
