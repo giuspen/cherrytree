@@ -1417,11 +1417,9 @@ class CherryTree:
 
     def filepath_boss_open(self, filepath, nodename):
         """Daddy, please, open a document for me"""
-        self.boss.semaphore.acquire()
-        self.boss.msg_server_to_core['p'] = filepath
-        self.boss.msg_server_to_core['n'] = nodename
-        self.boss.msg_server_to_core['f'] = 1
-        self.boss.semaphore.release()
+        msg_server_to_core['p'] = filepath
+        msg_server_to_core['n'] = nodename
+        msg_server_to_core['f'] = 1
 
     def filepath_open(self, filepath, force_reset=False):
         """Opens an existing filepath"""
