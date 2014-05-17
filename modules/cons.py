@@ -483,26 +483,6 @@ UI_INFO = """
     <popup name='AnchorMenu'>
         <menuitem action='EditAnchor'/>
     </popup>
-
-    <popup name='TableMenu'>
-        <menuitem action='CutTable'/>
-        <menuitem action='CopyTable'/>
-        <menuitem action='DeleteTable'/>
-        <separator/>
-        <menuitem action='TableRowAdd'/>
-        <menuitem action='TableRowCut'/>
-        <menuitem action='TableRowCopy'/>
-        <menuitem action='TableRowPaste'/>
-        <menuitem action='TableRowDelete'/>
-        <separator/>
-        <menuitem action='TableRowUp'/>
-        <menuitem action='TableRowDown'/>
-        <menuitem action='TableSortRowsDesc'/>
-        <menuitem action='TableSortRowsAsc'/>
-        <separator/>
-        <menuitem action='TableEditProp'/>
-        <menuitem action='TableExport'/>
-    </popup>
 </ui>
 """
 
@@ -555,9 +535,6 @@ def get_entries(inst):
     ( "CutImage", "edit-cut", _("C_ut Image"), None, _("Cut the Selected Image"), inst.image_cut),
     ( "CopyImage", "edit-copy", _("_Copy Image"), None, _("Copy the Selected Image"), inst.image_copy),
     ( "DeleteImage", "edit-delete", _("_Delete Image"), None, _("Delete the Selected Image"), inst.image_delete),
-    ( "CutTable", "edit-cut", _("C_ut Table"), None, _("Cut the Selected Table"), inst.tables_handler.table_cut),
-    ( "CopyTable", "edit-copy", _("_Copy Table"), None, _("Copy the Selected Table"), inst.tables_handler.table_copy),
-    ( "DeleteTable", "edit-delete", _("_Delete Table"), None, _("Delete the Selected Table"), inst.tables_handler.table_delete),
     ( "HandleTable", "table_insert", _("Insert _Table"), "<control><alt>T", _("Insert a Table"), inst.table_handle),
     ( "HandleCodeBox", "codebox_insert", _("Insert _CodeBox"), "<control><alt>C", _("Insert a CodeBox"), inst.codebox_handle),
     ( "DownCase", "case_lower", _("_Lower Case of Selection/Word"), "<control>W", _("Lower the Case of the Selection/the Underlying Word"), inst.text_selection_lower_case),
@@ -637,21 +614,36 @@ def get_entries(inst):
     ( "Help", "help-contents", _("Online _Manual"), "F1", _("Application's Online Manual"), inst.on_help_menu_item_activated),
     ( "CheckNewer", "gtk-network", _("_Check Newer Version"), None, _("Check for a Newer Version"), inst.check_for_newer_version),
     ( "About", "gtk-about", _("_About"), None, _("About CherryTree"), inst.dialog_about),
-    ( "TableEditProp", "table_edit", _("_Edit Table Properties"), None, _("Edit the Table Properties"), inst.tables_handler.table_edit_properties),
-    ( "TableRowAdd", "gtk-add", _("_Add Row"), None, _("Add a Table Row"), inst.tables_handler.table_row_add),
-    ( "TableRowCut", "edit-cut", _("Cu_t Row"), None, _("Cut a Table Row"), inst.tables_handler.table_row_cut),
-    ( "TableRowCopy", "edit-copy", _("_Copy Row"), None, _("Copy a Table Row"), inst.tables_handler.table_row_copy),
-    ( "TableRowPaste", "edit-paste", _("_Paste Row"), None, _("Paste a Table Row"), inst.tables_handler.table_row_paste),
-    ( "TableRowDelete", "edit-delete", _("De_lete Row"), None, _("Delete the Selected Table Row"), inst.tables_handler.table_row_delete),
-    ( "TableRowUp", "gtk-go-up", _("Move Row _Up"), None, _("Move the Selected Row Up"), inst.tables_handler.table_row_up),
-    ( "TableRowDown", "gtk-go-down", _("Move Row _Down"), None, _("Move the Selected Row Down"), inst.tables_handler.table_row_down),
-    ( "TableSortRowsDesc", "gtk-sort-descending", _("Sort Rows De_scending"), None, _("Sort all the Rows Descending"), inst.tables_handler.table_rows_sort_descending),
-    ( "TableSortRowsAsc", "gtk-sort-ascending", _("Sort Rows As_cending"), None, _("Sort all the Rows Ascending"), inst.tables_handler.table_rows_sort_ascending),
-    ( "TableExport", "table_save", _("_Table Export"), None, _("Export Table as CSV File"), inst.tables_handler.table_export),
     ( "BookmarkThisNode", "gtk-add", _("_Bookmark This Node"), None, _("Add the Current Node to the Bookmarks List"), inst.bookmark_curr_node),
     ( "BookmarksHandle", "gtk-edit", _("_Handle Bookmarks"), None, _("Handle the Bookmarks List"), inst.bookmarks_handle),
     ( "TreeAddNode", "tree-node-add", _("Add _Node"), "<control>N", _("Add a Node having the same Father of the Selected Node"), inst.node_add),
     ( "TreeAddSubNode", "tree-subnode-add", _("Add _SubNode"), "<control><shift>N", _("Add a Child Node to the Selected Node"), inst.node_child_add),
+    ]
+
+def get_popup_menu_table(inst):
+    """Returns the Menu Entries Given the Class Instance"""
+    # stock id, label, accelerator, tooltip, callback |
+    # "separator", None, None, None, None |
+    # "submenu-start", label, stock id, None, None |
+    # "submenu-end", None, None, None, None
+    return [
+    ("edit-cut", _("C_ut Table"), None, _("Cut the Selected Table"), inst.tables_handler.table_cut),
+    ("edit-copy", _("_Copy Table"), None, _("Copy the Selected Table"), inst.tables_handler.table_copy),
+    ("edit-delete", _("_Delete Table"), None, _("Delete the Selected Table"), inst.tables_handler.table_delete),
+    ("separator", None, None, None, None),
+    ("gtk-add", _("_Add Row"), "<control>comma", _("Add a Table Row"), inst.tables_handler.table_row_add),
+    ("edit-cut", _("Cu_t Row"), None, _("Cut a Table Row"), inst.tables_handler.table_row_cut),
+    ("edit-copy", _("_Copy Row"), None, _("Copy a Table Row"), inst.tables_handler.table_row_copy),
+    ("edit-paste", _("_Paste Row"), None, _("Paste a Table Row"), inst.tables_handler.table_row_paste),
+    ("edit-delete", _("De_lete Row"), "<control><alt>comma", _("Delete the Selected Table Row"), inst.tables_handler.table_row_delete),
+    ("separator", None, None, None, None),
+    ("gtk-go-up", _("Move Row _Up"), None, _("Move the Selected Row Up"), inst.tables_handler.table_row_up),
+    ("gtk-go-down", _("Move Row _Down"), None, _("Move the Selected Row Down"), inst.tables_handler.table_row_down),
+    ("gtk-sort-descending", _("Sort Rows De_scending"), None, _("Sort all the Rows Descending"), inst.tables_handler.table_rows_sort_descending),
+    ("gtk-sort-ascending", _("Sort Rows As_cending"), None, _("Sort all the Rows Ascending"), inst.tables_handler.table_rows_sort_ascending),
+    ("separator", None, None, None, None),
+    ("table_edit", _("_Edit Table Properties"), None, _("Edit the Table Properties"), inst.tables_handler.table_edit_properties),
+    ("table_save", _("_Table Export"), None, _("Export Table as CSV File"), inst.tables_handler.table_export),
     ]
 
 def get_popup_menu_tree(inst):
