@@ -334,7 +334,8 @@ class TablesHandler:
         anchor.table_col_min = table_col_min
         anchor.table_col_max = table_col_max
         anchor.treeview.set_grid_lines(gtk.TREE_VIEW_GRID_LINES_BOTH)
-        anchor.treeview.connect('button-press-event', self.on_mouse_button_clicked_table, anchor)
+        anchor.treeview.connect('button-press-event', self.on_mouse_button_clicked_treeview_table, anchor)
+        anchor.treeview.connect('key_press_event', self.on_key_press_treeview_table, anchor)
         anchor.frame = gtk.Frame()
         anchor.frame.add(anchor.treeview)
         anchor.frame.set_shadow_type(gtk.SHADOW_NONE)
@@ -477,6 +478,12 @@ class TablesHandler:
         """All Rows Actions"""
         treeviewselection = self.curr_table_anchor.treeview.get_selection()
         model, iter = treeviewselection.get_selected()
+        if not iter:
+            curr_iter = model.get_iter_first()
+            if not curr_iter: return
+            while curr_iter:
+                iter = curr_iter
+                curr_iter = model.iter_next(curr_iter)
         if action == "delete": model.remove(iter)
         elif action == "add": model.insert_after(iter, [""]*len(self.curr_table_anchor.headers))
         elif action == "move_up":
@@ -553,12 +560,34 @@ class TablesHandler:
         """Sort all the Rows Ascending"""
         self.table_row_action("sort_asc")
 
-    def on_mouse_button_clicked_table(self, widget, event, anchor):
+    def on_key_press_treeview_table(self, widget, event, anchor):
+        """Catches Table key presses"""
+        keyname = gtk.gdk.keyval_name(event.keyval)
+        if event.state & gtk.gdk.CONTROL_MASK:
+            self.curr_table_anchor = anchor
+            self.dad.object_set_selection(self.curr_table_anchor)
+            if keyname == "comma":
+                if event.state & gtk.gdk.MOD1_MASK:
+                    self.table_row_delete()
+                else: self.table_row_add()
+                return True
+        elif keyname == "Menu":
+            self.curr_table_anchor = anchor
+            self.dad.object_set_selection(self.curr_table_anchor)
+            menu_table = gtk.Menu()
+            self.dad.menu_populate_popup(menu_table, cons.get_popup_menu_table(self.dad))
+            menu_table.popup(None, None, None, 3, event.time)
+            return True
+        return False
+
+    def on_mouse_button_clicked_treeview_table(self, widget, event, anchor):
         """Catches mouse buttons clicks"""
         self.curr_table_anchor = anchor
         self.dad.object_set_selection(self.curr_table_anchor)
         if event.button == 3:
-            self.dad.ui.get_widget("/TableMenu").popup(None, None, None, event.button, event.time)
+            menu_table = gtk.Menu()
+            self.dad.menu_populate_popup(menu_table, cons.get_popup_menu_table(self.dad))
+            menu_table.popup(None, None, None, event.button, event.time)
 
 
 class UTF8Recoder:
