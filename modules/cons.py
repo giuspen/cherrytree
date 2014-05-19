@@ -50,7 +50,7 @@ else:
         GLADE_PATH = os.path.join(SHARE_PATH, 'cherrytree/glade/')
         SPECS_PATH = os.path.join(SHARE_PATH, 'cherrytree/language-specs')
         LOCALE_PATH = os.path.join(SHARE_PATH, 'locale')
-CONFIG_PATH = os.path.join(CONFIG_DIR, 'config.cfg')
+CONFIG_PATH = os.path.join(CONFIG_DIR, 'config.cfg') if not os.path.isfile(os.path.join(EXE_DIR, 'config.cfg')) else os.path.join(EXE_DIR, 'config.cfg')
 LANG_PATH = os.path.join(CONFIG_DIR, 'lang')
 IMG_PATH = os.path.join(CONFIG_DIR, 'img_tmp.png')
 
