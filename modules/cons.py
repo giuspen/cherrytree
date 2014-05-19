@@ -28,7 +28,6 @@ NEWER_VERSION_URL = "http://www.giuspen.com/software/version_cherrytree"
 if sys.platform.startswith("win"):
     IS_WIN_OS = True
     SZA_PATH = os.path.join(SHARE_PATH, "7za.exe")
-    CONFIG_DIR = os.path.join(os.environ['APPDATA'], APP_NAME)
     if SHARE_PATH:
         EXE_DIR = SHARE_PATH
         os.chdir(EXE_DIR)
@@ -37,6 +36,9 @@ if sys.platform.startswith("win"):
     GLADE_PATH = os.path.join(EXE_DIR, 'glade/')
     SPECS_PATH = os.path.join(EXE_DIR, 'language-specs/')
     LOCALE_PATH = os.path.join(EXE_DIR, 'locale/')
+    if not os.path.isfile(os.path.join(EXE_DIR, 'config.cfg')):
+        CONFIG_DIR = os.path.join(os.environ['APPDATA'], APP_NAME)
+    else: CONFIG_DIR = EXE_DIR
 else:
     IS_WIN_OS = False
     SZA_PATH = "7za"
@@ -50,7 +52,7 @@ else:
         GLADE_PATH = os.path.join(SHARE_PATH, 'cherrytree/glade/')
         SPECS_PATH = os.path.join(SHARE_PATH, 'cherrytree/language-specs')
         LOCALE_PATH = os.path.join(SHARE_PATH, 'locale')
-CONFIG_PATH = os.path.join(CONFIG_DIR, 'config.cfg') if not os.path.isfile(os.path.join(EXE_DIR, 'config.cfg')) else os.path.join(EXE_DIR, 'config.cfg')
+CONFIG_PATH = os.path.join(CONFIG_DIR, 'config.cfg')
 LANG_PATH = os.path.join(CONFIG_DIR, 'lang')
 IMG_PATH = os.path.join(CONFIG_DIR, 'img_tmp.png')
 
