@@ -1,4 +1,12 @@
 
+0.33.2 (May 20th, 2014)
+• bugfix: "File--New Instance" not working after adopting DBus for multiple instances control in place of TCP
+• bugfix in export to HTML
+• the Menu key pops up now the proper right click menu for Tree, Text, CodeBox, Table, Image and Anchor
+• tables: added shortcuts Ctrl+comma to Add Row, Ctrl+Alt+comma to Delete Row
+• tables: added shortcuts Ctrl+period to Move Row Down, Ctrl+Alt+period to Move Row Up
+• windows portable version: if a file "config.cfg" is found in the same directory of "cherrytree.exe", all settings will become portable, just create an empty file "config.cfg" (or copy an existing one) and start cherrytree
+
 0.33.1 (May 12th, 2014)
 • the number of backups changes from 1 to 3, in next versions this will be configurable
 • fixed critical bug in windows version and password protected documents causing in some cases the loss of all data

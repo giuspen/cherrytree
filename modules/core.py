@@ -3368,10 +3368,10 @@ class CherryTree:
 
     def object_set_selection(self, anchor):
         """Put Selection Upon the Image"""
-        iter_image = self.curr_buffer.get_iter_at_child_anchor(anchor)
-        iter_bound = iter_image.copy()
+        iter_object = self.curr_buffer.get_iter_at_child_anchor(anchor)
+        iter_bound = iter_object.copy()
         iter_bound.forward_char()
-        self.curr_buffer.select_range(iter_image, iter_bound)
+        self.curr_buffer.select_range(iter_object, iter_bound)
 
     def paste_as_plain_text(self, *args):
         """Paste as Plain Text"""
@@ -4037,11 +4037,30 @@ class CherryTree:
 
     def on_sourceview_event(self, text_view, event):
         """Called at every event on the SourceView"""
-        if event.type == gtk.gdk.KEY_PRESS and gtk.gdk.keyval_name(event.keyval) == cons.STR_RETURN:
-            iter_insert = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
-            if iter_insert: self.cursor_key_press = iter_insert.get_offset()
-            else: self.cursor_key_press = None
-            #print "self.cursor_key_press", self.cursor_key_press
+        if event.type == gtk.gdk.KEY_PRESS:
+            keyname = gtk.gdk.keyval_name(event.keyval)
+            if keyname == cons.STR_RETURN:
+                iter_insert = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
+                if iter_insert: self.cursor_key_press = iter_insert.get_offset()
+                else: self.cursor_key_press = None
+                #print "self.cursor_key_press", self.cursor_key_press
+            elif self.syntax_highlighting == cons.RICH_TEXT_ID and keyname == "Menu":
+                if not self.curr_buffer.get_has_selection(): return False
+                iter_sel_start, iter_sel_end = self.curr_buffer.get_selection_bounds()
+                num_chars = iter_sel_end.get_offset() - iter_sel_start.get_offset()
+                if num_chars != 1: return False
+                anchor = iter_sel_start.get_child_anchor()
+                if not anchor: return False
+                if not "pixbuf" in dir(anchor): return False
+                if "anchor" in dir(anchor.pixbuf):
+                    self.curr_anchor_anchor = anchor
+                    self.object_set_selection(self.curr_anchor_anchor)
+                    self.ui.get_widget("/AnchorMenu").popup(None, None, None, 3, event.time)
+                else:
+                    self.curr_image_anchor = anchor
+                    self.object_set_selection(self.curr_image_anchor)
+                    self.ui.get_widget("/ImageMenu").popup(None, None, None, 3, event.time)
+                return True
 
     def on_sourceview_event_after(self, text_view, event):
         """Called after every event on the SourceView"""
