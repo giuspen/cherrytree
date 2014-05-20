@@ -3371,7 +3371,7 @@ class CherryTree:
         iter_object = self.curr_buffer.get_iter_at_child_anchor(anchor)
         iter_bound = iter_object.copy()
         iter_bound.forward_char()
-        self.sourceview.grab_focus()
+        if "pixbuf" in dir(anchor): self.sourceview.grab_focus()
         self.curr_buffer.select_range(iter_object, iter_bound)
 
     def paste_as_plain_text(self, *args):
