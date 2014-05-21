@@ -1,4 +1,7 @@
 
+0.33.3 (May 22nd, 2014)
+• bugfix: write character in codebox, do not save, go to other node, go back and the character in codebox is gone
+
 0.33.2 (May 20th, 2014)
 • bugfix: "File--New Instance" not working after adopting DBus for multiple instances control in place of TCP
 • bugfix in export to HTML
