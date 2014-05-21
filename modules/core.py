@@ -2588,21 +2588,22 @@ class CherryTree:
     def update_window_save_needed(self, update_type=None, new_state_machine=False, given_tree_iter=None):
         """Window title preceeded by an asterix"""
         tree_iter = self.curr_tree_iter if not given_tree_iter else given_tree_iter
+        if tree_iter: self.treestore[tree_iter][2].set_modified(True)
         if not self.file_update:
             self.window_title_update(True)
             self.file_update = True
         if update_type:
             if update_type == "nbuf":
-                if self.curr_tree_iter:
+                if tree_iter:
                     self.ctdb_handler.pending_edit_db_node_buff(self.treestore[tree_iter][3])
             elif update_type == "npro":
-                if self.curr_tree_iter:
+                if tree_iter:
                     self.ctdb_handler.pending_edit_db_node_prop(self.treestore[tree_iter][3])
             elif update_type == "ndel":
-                if self.curr_tree_iter:
+                if tree_iter:
                     self.ctdb_handler.pending_rm_db_node(self.treestore[tree_iter][3])
             elif update_type == "book": self.ctdb_handler.pending_edit_db_bookmarks()
-        if new_state_machine and self.curr_tree_iter:
+        if new_state_machine and tree_iter:
             self.state_machine.update_state(self.treestore[tree_iter][3])
 
     def update_window_save_not_needed(self):
