@@ -160,7 +160,9 @@ class FindReplace:
             if entry_predefined_text != "":
                 self.dad.curr_buffer.move_mark(self.dad.curr_buffer.get_insert(), iter_insert)
                 self.dad.curr_buffer.move_mark(self.dad.curr_buffer.get_selection_bound(), iter_bound)
-            if pattern != None: self.curr_find = ["in_all_nodes", pattern]
+            if pattern != None:
+                if not father_tree_iter: self.curr_find = ["in_all_nodes", pattern]
+                else: self.curr_find = ["in_sel_nod_n_sub", pattern]
             else: return
         else: pattern = self.curr_find[1]
         starting_tree_iter = self.dad.curr_tree_iter.copy()
@@ -228,7 +230,7 @@ class FindReplace:
                 if self.dad.search_replace_dict['idialog']:
                     self.iterated_find_dialog()
 
-    def find_a_node(self, *args):
+    def find_a_node(self):
         """Search for a pattern between all the Node's Names"""
         if not self.from_find_iterated:
             if self.replace_active: title = _("Replace in Node Names...")
@@ -535,7 +537,8 @@ class FindReplace:
         self.from_find_iterated = True
         if self.curr_find[0] == None: support.dialog_warning(_("No Previous Search Was Performed During This Session"), self.dad.window)
         elif self.curr_find[0] == "in_selected_node": self.find_in_selected_node()
-        elif self.curr_find[0] == "in_all_nodes": self.find_in_all_nodes()
+        elif self.curr_find[0] == "in_all_nodes": self.find_in_all_nodes(None)
+        elif self.curr_find[0] == "in_sel_nod_n_sub": self.find_in_all_nodes(self.dad.curr_tree_iter)
         elif self.curr_find[0] == "a_node": self.find_a_node()
         self.from_find_iterated = False
 
