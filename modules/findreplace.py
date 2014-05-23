@@ -224,9 +224,6 @@ class FindReplace:
                 self.allmatchesdialog.hide()
             else:
                 self.dad.treeview_safe_set_cursor(self.dad.curr_tree_iter)
-                self.dad.objects_buffer_refresh()
-                self.dad.sourceview.grab_focus()
-                self.dad.sourceview.scroll_to_mark(self.dad.curr_buffer.get_insert(), 0.3)
                 if self.dad.search_replace_dict['idialog']:
                     self.iterated_find_dialog()
 
