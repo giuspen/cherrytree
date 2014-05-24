@@ -1993,11 +1993,15 @@ class CherryTree:
 
     def tree_sort_ascending(self, *args):
         """Sorts the Tree Ascending"""
-        if self.tree_sort_level_and_sublevels(self.treestore, None, True): self.update_window_save_needed()
+        if self.tree_sort_level_and_sublevels(self.treestore, None, True):
+            self.nodes_sequences_fix(None, True)
+            self.update_window_save_needed()
 
     def tree_sort_descending(self, *args):
         """Sorts the Tree Descending"""
-        if self.tree_sort_level_and_sublevels(self.treestore, None, False): self.update_window_save_needed()
+        if self.tree_sort_level_and_sublevels(self.treestore, None, False):
+            self.nodes_sequences_fix(None, True)
+            self.update_window_save_needed()
 
     def node_siblings_sort_ascending(self, *args):
         """Sorts all the Siblings of the Selected Node Ascending"""
@@ -2006,7 +2010,9 @@ class CherryTree:
         movements = False
         while self.node_siblings_sort_iteration(self.treestore, father_iter, True, 1):
             movements = True
-        if movements: self.update_window_save_needed()
+        if movements:
+            self.nodes_sequences_fix(father_iter, False)
+            self.update_window_save_needed()
 
     def node_siblings_sort_descending(self, *args):
         """Sorts all the Siblings of the Selected Node Descending"""
@@ -2015,7 +2021,9 @@ class CherryTree:
         movements = False
         while self.node_siblings_sort_iteration(self.treestore, father_iter, False, 1):
             movements = True
-        if movements: self.update_window_save_needed()
+        if movements:
+            self.nodes_sequences_fix(father_iter, False)
+            self.update_window_save_needed()
 
     def node_siblings_sort_iteration(self, model, father_iter, ascending, column):
         """Runs One Sorting Iteration, Returns True if Any Swap was Necessary"""
