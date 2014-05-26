@@ -194,10 +194,11 @@ class FindReplace:
                 self.matches_num += 1
                 if not all_matches: break
             if self.matches_num == 1 and not all_matches: break
-            if father_tree_iter: break
+            if father_tree_iter and not self.from_find_iterated: break
             last_top_node_iter = node_iter.copy() # we need this if we start from a node that is not in top level
             if forward: node_iter = self.dad.treestore.iter_next(node_iter)
             else: node_iter = self.dad.get_tree_iter_prev_sibling(self.dad.treestore, node_iter)
+            if not node_iter and father_tree_iter: break
             # code that, in case we start from a node that is not top level, climbs towards the top
             while not node_iter:
                 node_iter = self.dad.treestore.iter_parent(last_top_node_iter)
