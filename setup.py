@@ -194,6 +194,7 @@ else:
                       ("share/mime/packages", ["linux/cherrytree.xml"]),
                       ("share/mime-info", ["linux/cherrytree.mime", "linux/cherrytree.keys"]),
                       ("share/application-registry", ["linux/cherrytree.applications"]),
+                      ("share/appdata", ["linux/cherrytree.appdata.xml"]),
                       ("share/man/man1", ["linux/cherrytree.1.gz"])
                    ],
        cmdclass={
