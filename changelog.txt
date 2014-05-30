@@ -1,5 +1,5 @@
 
-0.33.4 (May 31th, 2014)
+0.33.4 (May 31st, 2014)
 • fixed bugs in iterated searching
 • fixed bug in sorting of nodes and sqlite documents
 • added appdata specification file
@@ -159,13 +159,13 @@
 0.28.4 (November 12th, 2012)
 • fixed internationalization/localization bugs and other minor bugs
 
-0.28.3 (October 31th, 2012)
+0.28.3 (October 31st, 2012)
 • updated French language: welcome to Benoît
 
-0.28.2 (October 31th, 2012)
+0.28.2 (October 31st, 2012)
 • fixed bugs: cannot save file as in 0.28.1
 
-0.28.1 (October 31th, 2012)
+0.28.1 (October 31st, 2012)
 • fixed several bugs
 • ctrl+period inserts a newline in a table cell
 
@@ -545,7 +545,7 @@ text in case a text formatting was requested with no text selected (thanks Ray, 
 - created microsoft windows 32bit binary archive, which requires the gtk+ runtime libraries installed
 - couple of gui changes
 
-0.2 (october 31th, 2009)
+0.2 (october 31st, 2009)
 - the undo buffer has been improved handling for rich text formatting
 - now using gtksourceview2 instead of gtksourceview
 - I value feedback, please report any problems or suggestions!
