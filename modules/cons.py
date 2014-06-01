@@ -259,6 +259,8 @@ node_id INTEGER,
 offset INTEGER,
 justification TEXT,
 anchor TEXT,
+filename TEXT,
+link TEXT,
 png BLOB
 )"""
 

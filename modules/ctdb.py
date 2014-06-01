@@ -419,10 +419,15 @@ class CTDBHandler:
         """Add Image to Text Buffer"""
         iter_insert = text_buffer.get_iter_at_offset(image_row['offset'])
         if image_row['anchor']:
-            pixbuf = gtk.gdk.pixbuf_new_from_file(cons.ANCHOR_CHAR)
-            pixbuf = pixbuf.scale_simple(self.dad.anchor_size, self.dad.anchor_size, gtk.gdk.INTERP_HYPER)
+            pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(cons.ANCHOR_CHAR, self.dad.anchor_size, self.dad.anchor_size)
             pixbuf.anchor = image_row['anchor']
-        else: pixbuf = machines.get_pixbuf_from_png_blob_buffer(image_row['png'])
+        elif 'filename' in image_row and image_row['filename']:
+            pixbuf = gtk.image_new_from_stock(gtk.STOCK_FILE, gtk.ICON_SIZE_DIALOG)
+            pixbuf.filename = image_row['filename']
+            pixbuf.embfile = image_row['png']
+        else:
+            pixbuf = machines.get_pixbuf_from_png_blob_buffer(image_row['png'])
+            pixbuf.link = image_row['link'] if 'link' in image_row else ""
         if pixbuf:
             self.dad.image_insert(iter_insert,
                                   pixbuf,
