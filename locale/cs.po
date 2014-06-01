@@ -1,0 +1,2711 @@
+# German translations for svn_cherrytree package.
+# Copyright (C) 2010 THE svn_cherrytree'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the svn_cherrytree package.
+#
+# maul <giuspen@gmail.com>, 2010.
+# Pavel Fric <pavelfric@seznam.cz>, 2010, 2011.
+# Pavel Fric <pavelfric@seznam.cz>, 2011, 2012, 2013, 2014.
+msgid ""
+msgstr ""
+"Project-Id-Version: svn_cherrytree 0.12\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-05-02 23:16+0200\n"
+"PO-Revision-Date: 2014-04-12 10:00+0200\n"
+"Last-Translator: Pavel <pavelfric@seznam.cz>\n"
+"Language-Team: Czech <kde-i18n-doc@kde.org>\n"
+"Language: cs\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 1.5\n"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/codeboxes.py:81
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2874
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4005
+msgid "Plain Text"
+msgstr "Prostý text"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/codeboxes.py:82
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2876
+msgid "Automatic Syntax Highlighting"
+msgstr "Automatické zvýrazňování skladby"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/codeboxes.py:93
+msgid "Type"
+msgstr "Typ"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/codeboxes.py:98
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:431
+msgid "Width"
+msgstr "Šířka"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/codeboxes.py:102
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:434
+msgid "Height"
+msgstr "Výška"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/codeboxes.py:107
+msgid "pixels"
+msgstr "px (obrazové body)"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/codeboxes.py:132
+msgid "Size"
+msgstr "Velikost"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/codeboxes.py:137
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:515
+msgid "Show Line Numbers"
+msgstr "Ukázat čísla řádků"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/codeboxes.py:139
+msgid "Highlight Matching Brackets"
+msgstr "Zvýraznit odpovídající si závorky"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/codeboxes.py:148
+msgid "Options"
+msgstr "Volby"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/codeboxes.py:199
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:560
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:763
+msgid "Insert a CodeBox"
+msgstr "Vložit CodeBox"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/codeboxes.py:343
+msgid "Edit CodeBox"
+msgstr "Upravit CodeBox"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:511
+msgid "_File"
+msgstr "_Soubor"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:512
+msgid "_Edit"
+msgstr "_Úpravy"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:513
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:731
+msgid "For_matting"
+msgstr "_Formát"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:514
+msgid "_Tree"
+msgstr "S_trom"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:515
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:669
+msgid "Node _Move"
+msgstr "_Posunutí uzlu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:516
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:686
+msgid "Nodes _Import"
+msgstr "_Zavedení uzlů"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:517
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:705
+msgid "Nodes E_xport"
+msgstr "_Vyvedení uzlů"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:518
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:770
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:809
+msgid "C_hange Case"
+msgstr "Z_měnit velikost písmen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:519
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:784
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:823
+msgid "_Search"
+msgstr "_Hledání"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:520
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:791
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:830
+msgid "_Replace"
+msgstr "_Nahrazení"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:521
+msgid "_View"
+msgstr "_Pohled"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:522
+msgid "_Bookmarks"
+msgstr "_Záložky"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:523
+msgid "_Import"
+msgstr "_Zavedení"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:524
+msgid "E_xport"
+msgstr "_Vyvedení"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:525
+msgid "_Help"
+msgstr "_Nápověda"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:527
+msgid "New _Instance"
+msgstr "_Nová stromová stavba..."
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:527
+msgid "Start a New Instance of CherryTree"
+msgstr "Založit novou stromovou stavbu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:528
+msgid "_Open File"
+msgstr "_Otevřít soubor"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:528
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:988
+msgid "Open a CherryTree Document"
+msgstr "Otevřít dokument CherryTree"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:529
+msgid "_Save"
+msgstr "_Uložit"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:529
+msgid "Save File"
+msgstr "Uložit soubor"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:530
+msgid "Save _As"
+msgstr "Uloži_t jako"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:530
+msgid "Save File As"
+msgstr "Uložit soubor jako"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:531
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:706
+msgid "Export To _PDF"
+msgstr "Vyvést jako _PDF"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:531
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:706
+msgid "Export To PDF"
+msgstr "Vyvést jako PDF"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:532
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:709
+msgid "Export To _HTML"
+msgstr "Vyvést _jako HTML"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:532
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:709
+msgid "Export To HTML"
+msgstr "Vyvést jako HTML"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:533
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:707
+msgid "Export to Multiple Plain _Text Files"
+msgstr "Vyvést jako více souborů prostého _textu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:533
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:707
+msgid "Export to Multiple Plain Text Files"
+msgstr "Vyvést jako více souborů prostého textu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:534
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:708
+msgid "Export to _Single Plain Text File"
+msgstr "Vyvést jako jeden soubor prostého _textu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:534
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:708
+msgid "Export to Single Plain Text File"
+msgstr "Vyvést jako jeden soubor prostého textu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:535
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:710
+msgid "_Export To CherryTree Document"
+msgstr "_Vyvést jako dokument CherryTree"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:535
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:710
+msgid "Export To CherryTree Document"
+msgstr "Vyvést jako dokument CherryTree"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:536
+msgid "Pa_ge Setup"
+msgstr "Nastavení strany"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:536
+msgid "Set up the Page for Printing"
+msgstr "Nastavit stranu pro tisk"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:537
+msgid "_Print"
+msgstr "_Tisk"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:537
+msgid "Print"
+msgstr "Tisk"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:538
+msgid "_Quit"
+msgstr "_Ukončit"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:538
+msgid "Quit the Application"
+msgstr "Ukončit program"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:539
+msgid "_Exit CherryTree"
+msgstr "_Ukončit CherryTree"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:539
+msgid "Exit from CherryTree"
+msgstr "Ukončit CherryTree"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:540
+msgid "_Preferences"
+msgstr "_Nastavení"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:540
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1403
+msgid "Preferences"
+msgstr "Nastavení"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:541
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:768
+msgid "Insert _Horizontal Rule"
+msgstr "Vložit _oddělovací čáru"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:541
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:768
+msgid "Insert Horizontal Rule"
+msgstr "Vložit oddělovací čáru"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:542
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:767
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:807
+msgid "Insert Ti_mestamp"
+msgstr "Vložit časo_vé razítko"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:542
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:767
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:807
+msgid "Insert Timestamp"
+msgstr "Vložit časové razítko"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:543
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:755
+msgid "Set/Unset _Bulleted List"
+msgstr "Zapnout/Vypnout _seznam s odrážkami"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:543
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:755
+msgid "Set/Unset the Current Paragraph/Selection as a Bulleted List"
+msgstr ""
+"Zapnout/Vypnout nynější odstavec/výběr jako položku seznamu s odrážkami"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:544
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:756
+msgid "Set/Unset _Numbered List"
+msgstr "Zapnout/Vypnout čís_lovaný seznam"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:544
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:756
+msgid "Set/Unset the Current Paragraph/Selection as a Numbered List"
+msgstr ""
+"Zapnout/Vypnout nynější odstavec/výběr jako položku číslovaného seznamu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:545
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:757
+msgid "Set/Unset _To-Do List"
+msgstr "Zapnout/Vypnout _seznam pracovních úkolů"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:545
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:757
+msgid "Set/Unset the Current Paragraph/Selection as a To-Do List"
+msgstr ""
+"Zapnout/Vypnout nynější odstavec/výběr jako položku seznamu pracovních úkolů"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:546
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:764
+msgid "Insert/Edit _Link"
+msgstr "Vložit/Upravit _odkaz"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:546
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:764
+msgid "Insert a Link/Edit the Underlying Link"
+msgstr "Vložit odkaz/Upravit označený odkaz"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:547
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:766
+msgid "Insert T_OC"
+msgstr "Vložit _obsah"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:547
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:766
+msgid "Insert Table of Contents"
+msgstr "Vložit seznam s obsahem"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:548
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:765
+msgid "Insert _Anchor"
+msgstr "Vložit _kotvu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:548
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:765
+msgid "Insert an Anchor"
+msgstr "Vložit jednu kotvu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:549
+msgid "Edit _Anchor"
+msgstr "Upravit _kotvu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:549
+msgid "Edit the Underlying Anchor"
+msgstr "Upravit označenou kotvu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:550
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:761
+msgid "Insert I_mage"
+msgstr "Vložit _obrázek"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:550
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:761
+msgid "Insert an Image"
+msgstr "Vložit jeden obrázek"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:551
+msgid "_Save Image as PNG"
+msgstr "_Uložit obrázek jako PNG"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:551
+msgid "Save the Selected Image as a PNG file"
+msgstr "Uložit vybraný obrázek jako PNG"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:552
+msgid "_Edit Image"
+msgstr "_Upravit obrázek"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:552
+msgid "Edit the Selected Image"
+msgstr "Upravit vybraný obrázek"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:553
+msgid "C_ut Image"
+msgstr "Vy_jmout obrázek"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:553
+msgid "Cut the Selected Image"
+msgstr "Vyjmout vybraný obrázek"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:554
+msgid "_Copy Image"
+msgstr "_Kopírovat obrázek"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:554
+msgid "Copy the Selected Image"
+msgstr "Kopírovat vybraný obrázek"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:555
+msgid "_Delete Image"
+msgstr "_Smazat obrázek"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:555
+msgid "Delete the Selected Image"
+msgstr "Smazat vybraný obrázek"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:556
+msgid "C_ut Table"
+msgstr "Vyj_mout tabulku"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:556
+msgid "Cut the Selected Table"
+msgstr "Vyjmout vybranou tabulku"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:557
+msgid "_Copy Table"
+msgstr "_Kopírovat tabulku"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:557
+msgid "Copy the Selected Table"
+msgstr "Kopírovat vybranou tabulku"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:558
+msgid "_Delete Table"
+msgstr "_Smazat tabulku"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:558
+msgid "Delete the Selected Table"
+msgstr "Smazat vybranou tabulku"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:559
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:762
+msgid "Insert _Table"
+msgstr "Vložit _tabulku"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:559
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:762
+msgid "Insert a Table"
+msgstr "Vložit jednu tabulku"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:560
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:763
+msgid "Insert _CodeBox"
+msgstr "Vložit _CodeBox"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:561
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:771
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:810
+msgid "_Lower Case of Selection/Word"
+msgstr "_Malá písmena výběru/slova"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:561
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:771
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:810
+msgid "Lower the Case of the Selection/the Underlying Word"
+msgstr "Zmenšit velikost písmen výběru/spodního slova"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:562
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:772
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:811
+msgid "_Upper Case of Selection/Word"
+msgstr "_Velká písmena výběru/slova"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:562
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:772
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:811
+msgid "Upper the Case of the Selection/the Underlying Word"
+msgstr "Zvětšit velikost písmen výběru/spodního slova"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:563
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:773
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:812
+msgid "_Toggle Case of Selection/Word"
+msgstr "_Přepnout velikost písmen výběru/slova"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:563
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:773
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:812
+msgid "Toggle the Case of the Selection/the Underlying Word"
+msgstr "Přepnout velikost písmen výběru/spodního slova"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:564
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:779
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:818
+msgid "_Duplicate Row"
+msgstr "_Zdvojit řádek"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:564
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:779
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:818
+msgid "Duplicate the Current Row/Selection"
+msgstr "Zdvojit nynější řádek/výběr"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:565
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:780
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:819
+msgid "Move _Up Row"
+msgstr "Posunout řádek _nahoru"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:565
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:780
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:819
+msgid "Move Up the Current Row/Selected Rows"
+msgstr "Posunout nynější řádek/vybrané řádky nahoru"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:566
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:781
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:820
+msgid "Move _Down Row"
+msgstr "Posunout řádek _dolů"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:566
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:781
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:820
+msgid "Move Down the Current Row/Selected Rows"
+msgstr "Posunout nynější řádek/vybrané řádky dolů"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:567
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:643
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:778
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:817
+msgid "De_lete Row"
+msgstr "Smazat řá_dek"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:567
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:778
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:817
+msgid "Delete the Current Row/Selected Rows"
+msgstr "Smazat nynější řádek/vybrané řádky"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:568
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:640
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:776
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:815
+msgid "Cu_t Row"
+msgstr "Vyjmou_t řádek"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:568
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:776
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:815
+msgid "Cut the Current Row/Selected Rows"
+msgstr "Vyjmout nynější řádek/vybrané řádky"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:569
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:641
+msgid "_Copy Row"
+msgstr "_Kopírovat řádek"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:569
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:777
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:816
+msgid "Copy the Current Row/Selected Rows"
+msgstr "Kopírovat nynější řádek/vybrané řádky"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:570
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:717
+msgid "Go _Back"
+msgstr "Jít _zpět"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:570
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:717
+msgid "Go to the Previous Visited Node"
+msgstr "Jít na předchozí navštívený uzel"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:571
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:718
+msgid "Go _Forward"
+msgstr "Jít _vpřed"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:571
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:718
+msgid "Go to the Next Visited Node"
+msgstr "Jít na další navštívený uzel"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:572
+msgid "_Undo"
+msgstr "_Zpět"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:572
+msgid "Undo Last Operation"
+msgstr "Vrátit poslední změny"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:573
+msgid "_Redo"
+msgstr "Z_novu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:573
+msgid "Redo Previously Discarded Operation"
+msgstr "Obnovit poslední odvolanou změnu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:574
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:713
+msgid "_Inherit Syntax"
+msgstr "Předat _skladbu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:574
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:713
+msgid ""
+"Change the Selected Node's Children Syntax Highlighting to the Father's "
+"Syntax Highlighting"
+msgstr "Předá vybrané zvýraznění skladby všem podřízeným uzlům"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:575
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:732
+msgid "Format _Latest"
+msgstr "Zopakovat _formátování"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:575
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:732
+msgid "Memory of Latest Text Format Type"
+msgstr "Zopakovat poslední způsob formátování textu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:576
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:729
+msgid "_Paste as Plain Text"
+msgstr "_Vložit jako prostý text"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:576
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:729
+msgid "Paste as Plain Text, Discard the Rich Text Formatting"
+msgstr "Vložit jako prostý text, odložit formátování formátovaného textu (RTF)"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:577
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:733
+msgid "_Remove Formatting"
+msgstr "Odstranit f_ormátování"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:577
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:733
+msgid "Remove the Formatting from the Selected Text"
+msgstr "Odstranit formátování z vybraného textu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:578
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:735
+msgid "Text _Color Foreground"
+msgstr "_Barva písma"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:578
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:735
+msgid "Change the Color of the Selected Text Foreground"
+msgstr "Změnit barvu písma u vybraného textu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:579
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:736
+msgid "Text C_olor Background"
+msgstr "B_arva pozadí"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:579
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:736
+msgid "Change the Color of the Selected Text Background"
+msgstr "Změnit barvu pozadí u vybraného textu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:580
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:737
+msgid "Toggle _Bold Property"
+msgstr "_Tučné"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:580
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:737
+msgid "Toggle Bold Property of the Selected Text"
+msgstr "Formátovat vybraný text tučně"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:581
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:738
+msgid "Toggle _Italic Property"
+msgstr "_Kurzíva"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:581
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:738
+msgid "Toggle Italic Property of the Selected Text"
+msgstr "Formátovat vybraný text kurzívně"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:582
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:739
+msgid "Toggle _Underline Property"
+msgstr "_Podtržení"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:582
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:739
+msgid "Toggle Underline Property of the Selected Text"
+msgstr "Formátovat vybraný text podtržením"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:583
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:740
+msgid "Toggle Stri_kethrough Property"
+msgstr "_Přeškrtnutí"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:583
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:740
+msgid "Toggle Strikethrough Property of the Selected Text"
+msgstr "Formátovat vybraný text přeškrtnutím"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:584
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:741
+msgid "Toggle h_1 Property"
+msgstr "Nadpis _1"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:584
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:741
+msgid "Toggle h1 Property of the Selected Text"
+msgstr "Formátovat vybraný text jako nadpis 1"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:585
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:742
+msgid "Toggle h_2 Property"
+msgstr "Nadpis _2"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:585
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:742
+msgid "Toggle h2 Property of the Selected Text"
+msgstr "Formátovat vybraný text jako nadpis 2"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:586
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:743
+msgid "Toggle h_3 Property"
+msgstr "Nadpis _3"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:586
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:743
+msgid "Toggle h3 Property of the Selected Text"
+msgstr "Formátovat vybraný text jako nadpis 3"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:587
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:744
+msgid "Toggle _Small Property"
+msgstr "_Malý"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:587
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:744
+msgid "Toggle Small Property of the Selected Text"
+msgstr "Formátovat vybraný text jako malý"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:588
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:745
+msgid "Toggle Su_perscript Property"
+msgstr "Horní index"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:588
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:745
+msgid "Toggle Superscript Property of the Selected Text"
+msgstr "Formátovat vybraný text jako horní index"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:589
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:746
+msgid "Toggle Su_bscript Property"
+msgstr "Dolní index"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:589
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:746
+msgid "Toggle Subscript Property of the Selected Text"
+msgstr "Formátovat vybraný text jako dolní index"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:590
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:747
+msgid "Toggle _Monospace Property"
+msgstr "Neproporcionální písmo"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:590
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:747
+msgid "Toggle Monospace Property of the Selected Text"
+msgstr "Formátovat vybraný text jako neproporcionální"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:591
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:750
+msgid "Justify _Left"
+msgstr "Zarovnat _vlevo"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:591
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:750
+msgid "Justify Left the Current Paragraph"
+msgstr "Zarovnat současný odstavec vlevo"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:592
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:751
+msgid "Justify _Center"
+msgstr "Zarovnat _na střed"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:592
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:751
+msgid "Justify Center the Current Paragraph"
+msgstr "Zarovnat současný odstavec na střed"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:593
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:752
+msgid "Justify _Right"
+msgstr "Zarovnat v_pravo"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:593
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:752
+msgid "Justify Right the Current Paragraph"
+msgstr "Zarovnat současný odstavec vpravo"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:594
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:785
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:824
+msgid "_Find in Node"
+msgstr "Hledat v _nynějším uzlu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:594
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:785
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:824
+msgid "Find into the Selected Node"
+msgstr "Hledat v nyní vybraném uzlu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:595
+msgid "Find in _All Nodes"
+msgstr "Hledat ve _všech uzlech"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:595
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:786
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:825
+msgid "Find into all the Tree Nodes"
+msgstr "Hledat ve všech uzlech stavby stromu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:596
+msgid "Find in _Selected Node and Subnodes"
+msgstr "Hledat ve vy_braném uzlu a v podřízených uzlech"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:596
+msgid "Find into the Selected Node and Subnodes"
+msgstr "Hledat ve vybraném uzlu a v podřízených uzlech"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:597
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:683
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:787
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:826
+msgid "Find a _Node"
+msgstr "Hledat _uzel"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:597
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:683
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:787
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:826
+msgid "Find a Node from its Name"
+msgstr "Hledat název uzlu na základě jeho názvu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:598
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:788
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:827
+msgid "Find _Again"
+msgstr "_Hledat dál"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:598
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:788
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:827
+msgid "Iterate the Last Find Operation"
+msgstr "Pokračovat v hledání"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:599
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:789
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:828
+msgid "Find _Back"
+msgstr "Hledat _pozpátku"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:599
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:789
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:828
+msgid "Iterate the Last Find Operation in Opposite Direction"
+msgstr "Zopakovat poslední hledání v opačném směru"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:600
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:792
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:831
+msgid "_Replace in Node"
+msgstr "Nahradit v n_ynějším uzlu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:600
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:792
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:831
+msgid "Replace into the Selected Node"
+msgstr "Nahradit v nyní vybraném uzlu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:601
+msgid "Replace in _All Nodes"
+msgstr "Nahradit ve _všech uzlech"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:601
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:793
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:832
+msgid "Replace into all the Tree Nodes"
+msgstr "Nahradit ve všech uzlech stavby stromu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:602
+msgid "Replace in _Selected Node and Subnodes"
+msgstr "Nahradit ve vy_braném uzlu a v podřízených uzlech"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:602
+msgid "Replace into the Selected Node and Subnodes"
+msgstr "Nahradit ve vybraném uzlu a v podřízených uzlech"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:603
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:684
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:794
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:833
+msgid "Replace in Nodes _Names"
+msgstr "Nahradit v _názvech uzlů"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:603
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:684
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:794
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:833
+msgid "Replace in Nodes Names"
+msgstr "Nahradit v názvech uzlů"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:604
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:795
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:834
+msgid "Replace _Again"
+msgstr "Nahrazovat _dál"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:604
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:795
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:834
+msgid "Iterate the Last Replace Operation"
+msgstr "Zopakovat poslední nahrazení"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:605
+msgid "Show/Hide Node Name _Header"
+msgstr "Ukázat/Skrýt název uzlu v záhlaví"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:605
+msgid "Toggle Show/Hide Node Name Header"
+msgstr "Ukázat/Skrýt název uzlu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:606
+msgid "Enable/Disable _Spell Check"
+msgstr "Povolit/Zakázat ověřování pravopisu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:606
+msgid "Toggle Enable/Disable Spell Check"
+msgstr "Přepnout Povolit/Zakázat ověřování pravopisu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:607
+msgid "Show/Hide _Tree"
+msgstr "Ukázat/Skrýt stavbu _stromu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:607
+msgid "Toggle Show/Hide Tree"
+msgstr "Ukázat/Skrýt strom"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:608
+msgid "Show/Hide _CherryTree"
+msgstr "Ukázat/Skrýt _CherryTree"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:608
+msgid "Toggle Show/Hide CherryTree"
+msgstr "Ukázat/Skrýt CherryTree"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:609
+msgid "Show/Hide Tool_bar"
+msgstr "Ukázat/Skrýt nástrojový _pruh"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:609
+msgid "Toggle Show/Hide Toolbar"
+msgstr "Ukázat/Skrýt nástrojový pruh"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:610
+msgid "Show _All Matches Dialog"
+msgstr "Ukázat dialog _všechny shody"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:610
+msgid "Show Search All Matches Dialog"
+msgstr "Ukázat dialog pro vyhledání všech shod"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:611
+msgid "_Increase Toolbar Icons Size"
+msgstr "Z_většit velikost ikon v nástrojovém pruhu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:611
+msgid "Increase the Size of the Toolbar Icons"
+msgstr "Zvětšit velikost ikon v nástrojovém pruhu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:612
+msgid "_Decrease Toolbar Icons Size"
+msgstr "Z_menšit velikost ikon v nástrojovém pruhu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:612
+msgid "Decrease the Size of the Toolbar Icons"
+msgstr "Zmenšit velikost ikon v nástrojovém pruhu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:613
+msgid "Toggle _Focus Tree/Text"
+msgstr "Přepnout _zaměření strom/text"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:613
+msgid "Toggle Focus Between Tree and Text"
+msgstr "Přepnout zaměření mezi stromem a textem"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:614
+msgid "Toggle Node _Expanded/Collapsed"
+msgstr "Přepnout uzel rozbaleno/sbaleno"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:614
+msgid "Toggle Expanded/Collapsed Status of the Selected Node"
+msgstr "Přepnout stav rozbaleno/sbaleno vybraného uzlu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:615
+msgid "E_xpand All Nodes"
+msgstr "Roz_balit všechny uzly"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:615
+msgid "Expand All the Tree Nodes"
+msgstr "Rozbalit všechny uzly stromové stavby"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:616
+msgid "_Collapse All Nodes"
+msgstr "S_ložit všechny uzly"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:616
+msgid "Collapse All the Tree Nodes"
+msgstr "Složit všechny uzly stromové stavby"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:617
+msgid "_Full Screen On/Off"
+msgstr "_Zobrazení na celou obrazovku zapnuto/vypnuto"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:617
+msgid "Toggle Full Screen On/Off"
+msgstr "Přepnout zobrazení na celou obrazovku Zapnuto/Vypnuto"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:618
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:687
+msgid "From _CherryTree File"
+msgstr "Ze souboru _CherryTree"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:618
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:687
+msgid "Add Nodes of a CherryTree File to the Current Tree"
+msgstr "Přidat uzly ze souboru CherryTree do současné stromové stavby"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:619
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:688
+msgid "From _Plain Text File"
+msgstr "Ze souboru _prostého textu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:619
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:688
+msgid "Add Node from a Plain Text File to the Current Tree"
+msgstr "Přidat uzel ze souboru s prostým textem do současné stromové stavby"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:620
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:689
+msgid "From _Folder of Plain Text Files"
+msgstr "Ze _složky se soubory s prostým textem"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:620
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:689
+msgid "Add Nodes from a Folder of Plain Text Files to the Current Tree"
+msgstr ""
+"Přidat uzly  ze složky se soubory s prostým textem do současné stromové "
+"stavby"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:621
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:690
+msgid "From _HTML File"
+msgstr "Ze souboru _HTML"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:621
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:690
+msgid "Add Node from an HTML File to the Current Tree"
+msgstr "Přidat uzel ze souboru HTML do současné stromové stavby"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:622
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:691
+msgid "From _Folder of HTML Files"
+msgstr "Ze _složky se soubory HTML"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:622
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:691
+msgid "Add Nodes from a Folder of HTML Files to the Current Tree"
+msgstr "Přidat uzly  ze složky se soubory HTML do současné stromové stavby"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:623
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:692
+msgid "From _Basket Folder"
+msgstr "Ze složky _Basket"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:623
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:692
+msgid "Add Nodes of a Basket Folder to the Current Tree"
+msgstr "Přidat uzly ze složky Basket (koš) do současné stromové stavby"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:624
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:693
+msgid "From _Gnote Folder"
+msgstr "Ze složky _Gnote"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:624
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:693
+msgid "Add Nodes of a Gnote Folder to the Current Tree"
+msgstr "Přidat uzly ze složky Gnote do současné stromové stavby"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:625
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:694
+msgid "From _KeepNote Folder"
+msgstr "Ze složky _KeepNote"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:625
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:694
+msgid "Add Nodes of a KeepNote Folder to the Current Tree"
+msgstr "Přidat uzly ze složky KeepNote do současné stromové stavby"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:626
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:695
+msgid "From K_eyNote File"
+msgstr "Ze souboru K_eyNote"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:626
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:695
+msgid "Add Nodes of a KeyNote File to the Current Tree"
+msgstr "Přidat uzly ze souboru KeyNote do současné stromové stavby"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:627
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:696
+msgid "From K_nowit File"
+msgstr "Ze souboru K_nowit"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:627
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:696
+msgid "Add Nodes of a Knowit File to the Current Tree"
+msgstr "Přidat uzly ze souboru Knowit do současné stromové stavby"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:628
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:697
+msgid "From _Leo File"
+msgstr "Ze souboru _Leo"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:628
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:697
+msgid "Add Nodes of a Leo File to the Current Tree"
+msgstr "Přidat uzly ze souboru Leo do současné stromové stavby"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:629
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:698
+msgid "From _Mempad File"
+msgstr "Ze souboru _Mempad"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:629
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:698
+msgid "Add Nodes of a Mempad File to the Current Tree"
+msgstr "Přidat uzly ze souboru Mempad do současné stromové stavby"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:630
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:699
+msgid "From _NoteCase File"
+msgstr "Ze souboru _NoteCase"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:630
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:699
+msgid "Add Nodes of a NoteCase File to the Current Tree"
+msgstr "Přidat uzly ze souboru NoteCase do současné stromové stavby"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:631
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:700
+msgid "From T_omboy Folder"
+msgstr "Ze složky T_omboy"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:631
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:700
+msgid "Add Nodes of a Tomboy Folder to the Current Tree"
+msgstr "Přidat uzly ze složky Tomboy do současné stromové stavby"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:632
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:701
+msgid "From T_reepad Lite File"
+msgstr "Soubor z T_reepad Lite"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:632
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:701
+msgid "Add Nodes of a Treepad Lite File to the Current Tree"
+msgstr "Přidat uzly ze souboru Treepad Lite do současné stromové stavby"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:633
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:702
+msgid "From _TuxCards File"
+msgstr "Ze souboru _TuxCards"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:633
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:702
+msgid "Add Nodes of a TuxCards File to the Current Tree"
+msgstr "Přidat uzly ze souboru TuxCards do současné stromové stavby"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:634
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:703
+msgid "From _Zim Folder"
+msgstr "Ze složky __Zim"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:634
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:703
+msgid "Add Nodes of a Zim Folder to the Current Tree"
+msgstr "Přidat uzly ze složky Zim do současné stromové stavby"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:635
+msgid "Online _Manual"
+msgstr "_Příručka na internetu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:635
+msgid "Application's Online Manual"
+msgstr "_Příručka programu na internetu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:636
+msgid "_Check Newer Version"
+msgstr "_Vyhledat novou verzi"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:636
+msgid "Check for a Newer Version"
+msgstr "Vyhledat novou verzi"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:637
+msgid "_About"
+msgstr "_O programu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:637
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:306
+msgid "About CherryTree"
+msgstr "O CherryTree"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:638
+msgid "_Edit Table Properties"
+msgstr "_Upravit vlastnosti tabulky"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:638
+msgid "Edit the Table Properties"
+msgstr "Upravit vlastnosti tabulky"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:639
+msgid "_Add Row"
+msgstr "__Přidat řádek"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:639
+msgid "Add a Table Row"
+msgstr "Přidat řádek v tabulce"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:640
+msgid "Cut a Table Row"
+msgstr "Vyjmout řádek v tabulce"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:641
+msgid "Copy a Table Row"
+msgstr "Kopírovat řádek v tabulce"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:642
+msgid "_Paste Row"
+msgstr "_Vložit řádek"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:642
+msgid "Paste a Table Row"
+msgstr "Vložit řádek v tabulce"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:643
+msgid "Delete the Selected Table Row"
+msgstr "Smazat vybraný řádek v tabulce"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:644
+msgid "Move Row _Up"
+msgstr "Posunout řádek _nahoru"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:644
+msgid "Move the Selected Row Up"
+msgstr "Posunout vybraný řádek nahoru"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:645
+msgid "Move Row _Down"
+msgstr "Posunout řádek _dolů"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:645
+msgid "Move the Selected Row Down"
+msgstr "Posunout vybraný řádek dolů"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:646
+msgid "Sort Rows De_scending"
+msgstr "Třídit řádky ses_tupně"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:646
+msgid "Sort all the Rows Descending"
+msgstr "Třídit všechny řádky sestupně"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:647
+msgid "Sort Rows As_cending"
+msgstr "Třídit řádky vzest_upně"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:647
+msgid "Sort all the Rows Ascending"
+msgstr "Třídit všechny řádky vzestupně"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:648
+msgid "_Table Export"
+msgstr "Vyvést _tabulku"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:648
+msgid "Export Table as CSV File"
+msgstr "Vyvést tabulku jako soubor CSV"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:649
+msgid "_Bookmark This Node"
+msgstr "_Opatřit tento uzel záložkou"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:649
+msgid "Add the Current Node to the Bookmarks List"
+msgstr "Přidat současný uzel do seznamu záložek"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:650
+msgid "_Handle Bookmarks"
+msgstr "_Pracovat se záložkami"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:650
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:1025
+msgid "Handle the Bookmarks List"
+msgstr "Pracovat se seznamem záložek"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:651
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:662
+msgid "Add _Node"
+msgstr "Přidat _uzel"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:651
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:662
+msgid "Add a Node having the same Father of the Selected Node"
+msgstr "Přidat uzel se stejným nadřízeným uzlem, jaký má vybraný uzel"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:652
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:663
+msgid "Add _SubNode"
+msgstr "Přidat _podřízený uzel"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:652
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:663
+msgid "Add a Child Node to the Selected Node"
+msgstr "Přidat uzel podřízený vybranému uzlu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:665
+msgid "Change Node _Properties"
+msgstr "Změnit _vlastnosti uzlu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:665
+msgid "Edit the Properties of the Selected Node"
+msgstr "Upravit vlastnosti vybraného uzlu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:666
+msgid "Insert Today's Node"
+msgstr "Vložit uzel s dnešním datem"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:666
+msgid "Insert a Node with Hierarchy Year/Month/Day"
+msgstr "Vložit uzel s uspořádáním rok/měsíc/den"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:667
+msgid "Tree _Info"
+msgstr "_Informace o stromu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:667
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3144
+msgid "Tree Summary Information"
+msgstr "Přehled o stavbě stromu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:670
+msgid "Node _Up"
+msgstr "Posunout uzel nahor_u"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:670
+msgid "Move the Selected Node Up"
+msgstr "Posunout vybraný uzel nahoru"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:671
+msgid "Node _Down"
+msgstr "Posunout uzel _dolů"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:671
+msgid "Move the Selected Node Down"
+msgstr "Posunout vybraný uzel dolů"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:672
+msgid "Node _Left"
+msgstr "Zme_nšit odsazení"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:672
+msgid "Move the Selected Node Left"
+msgstr "Zmenšit odsazení uzlu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:673
+msgid "Node Change _Father"
+msgstr "Změnit nadřízený uzel"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:673
+msgid "Change the Selected Node's Father"
+msgstr "Změnit nadřízený uzel vybraného uzlu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:676
+msgid "Nodes _Sort"
+msgstr "_Třídění uzlů"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:677
+msgid "Sort Tree _Ascending"
+msgstr "Třídit strom vzest_upně"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:677
+msgid "Sort the Tree Ascending"
+msgstr "Třídit strom vzestupně"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:678
+msgid "Sort Tree _Descending"
+msgstr "Třídit strom ses_tupně"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:678
+msgid "Sort the Tree Descending"
+msgstr "Třídit strom sestupně"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:679
+msgid "Sort Siblings A_scending"
+msgstr "Třídit sourozence _vzestupně"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:679
+msgid "Sort all the Siblings of the Selected Node Ascending"
+msgstr "Třídit všechny uzly na této úrovni vzestupně"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:680
+msgid "Sort Siblings D_escending"
+msgstr "Třídit sourozence s_estupně"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:680
+msgid "Sort all the Siblings of the Selected Node Descending"
+msgstr "Třídit všechny uzly na této úrovni sestupně"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:715
+msgid "De_lete Node"
+msgstr "Smazat u_zel"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:715
+msgid "Delete the Selected Node"
+msgstr "Smazat vybraný uzel"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:749
+msgid "_Justify"
+msgstr "_Zarovnat"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:754
+msgid "_List"
+msgstr "_Vypsat"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:760
+msgid "_Insert"
+msgstr "_Vložit"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:775
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:814
+msgid "_Row"
+msgstr "Řá_dek"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:777
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:816
+msgid "C_opy Row"
+msgstr "K_opírovat řádek"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:786
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:825
+msgid "Find in Node_s"
+msgstr "Hledat ve všech uzlech"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:793
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:832
+msgid "Replace in Node_s"
+msgstr "Nahradit ve všech uzlech"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:808
+msgid "Stri_p Trailing Spaces"
+msgstr "Z_bavit mezer na konci"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:808
+msgid "Strip Trailing Spaces"
+msgstr "Zbavit mezer na konci"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:846
+msgid "Edit _Link"
+msgstr "Upravit _odkaz"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:846
+msgid "Edit the Underlying Link"
+msgstr "Upravit označený odkaz"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:848
+msgid "C_ut Link"
+msgstr "V_yjmout odkaz"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:848
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:866
+msgid "Cut the Selected CodeBox"
+msgstr "Vyjmout vybraný CodeBox"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:849
+msgid "_Copy Link"
+msgstr "_Kopírovat odkaz"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:849
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:867
+msgid "Copy the Selected CodeBox"
+msgstr "Kopírovat vybraný CodeBox"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:850
+msgid "D_ismiss Link"
+msgstr "_Odmítnout odkaz"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:850
+msgid "Dismiss the Selected Link"
+msgstr "Odmítnout vybraný odkaz"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:851
+msgid "_Delete Link"
+msgstr "_Smazat odkaz"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:851
+msgid "Delete the Selected Link"
+msgstr "Smazat vybraný odkaz"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:862
+msgid "Change CodeBox _Properties"
+msgstr "Změnit _vlastnosti CodeBox"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:862
+msgid "Edit the Properties of the CodeBox"
+msgstr "Upravit vlastnosti CodeBox"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:863
+msgid "CodeBox _Load From Text File"
+msgstr "_Nahrát CodeBox z textového souboru"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:863
+msgid "Load the CodeBox Content From a Text File"
+msgstr "Nahrát obsah CodeBox z textového souboru"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:864
+msgid "CodeBox _Save To Text File"
+msgstr "_Uložit CodeBox do textového souboru"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:864
+msgid "Save the CodeBox Content To a Text File"
+msgstr "Uložit obsah CodeBox do textového souboru"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:866
+msgid "C_ut CodeBox"
+msgstr "V_yjmout CodeBox"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:867
+msgid "_Copy CodeBox"
+msgstr "_Kopírovat CodeBox"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:868
+msgid "_Delete CodeBox"
+msgstr "S_mazat CodeBox"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:868
+msgid "Delete the Selected CodeBox"
+msgstr "Smazat vybraný CodeBox"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:869
+msgid "Delete CodeBox _Keep Content"
+msgstr "Smazat CodeBox při zachování jeho obsahu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:869
+msgid "Delete the Selected CodeBox But Keep Its Content"
+msgstr "Smazat vybraný CodeBox, ale zachovat jeho obsah"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:871
+msgid "Increase CodeBox Width"
+msgstr "Rozšířit CodeBox"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:871
+msgid "Increase the Width of the CodeBox"
+msgstr "Zvětšit šířku CodeBox"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:872
+msgid "Decrease CodeBox Width"
+msgstr "Zúžit CodeBox"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:872
+msgid "Decrease the Width of the CodeBox"
+msgstr "Zmenšit šířku CodeBox"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:873
+msgid "Increase CodeBox Height"
+msgstr "Prodloužit CodeBox"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:873
+msgid "Increase the Height of the CodeBox"
+msgstr "Zvětšit výšku CodeBox"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:874
+msgid "Decrease CodeBox Height"
+msgstr "Zkrátit CodeBox"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:874
+msgid "Decrease the Height of the CodeBox"
+msgstr "Zmenšit výšku CodeBox"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:45
+msgid "Iterate Latest Find/Replace"
+msgstr "Zopakovat poslední hledání/nahrazení"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:48
+msgid "Close"
+msgstr "Zavřít"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:49
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:50
+msgid "Find"
+msgstr "Najít"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:51
+msgid "Replace"
+msgstr "Nahradit"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:52
+msgid "Undo"
+msgstr "Zpět"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:107
+msgid "Replace in Current Node..."
+msgstr "Nahradit ve vybraném uzlu..."
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:108
+msgid "Search in Current Node..."
+msgstr "Hledat ve vybraném uzlu..."
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:136
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:216
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:287
+#, python-format
+msgid "The pattern '%s' was not found"
+msgstr "Hledaný pojem '%s' nenalezen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:138
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:219
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:289
+msgid "Matches"
+msgstr "Shody"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:154
+msgid "Replace in Selected Node and Subnodes"
+msgstr "Nahradit ve vybraném uzlu a v podřízených uzlech"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:155
+msgid "Replace in All Nodes"
+msgstr "Nahradit ve všech uzlech"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:157
+msgid "Search in Selected Node and Subnodes"
+msgstr "Hledat ve vybraném uzlu a v podřízených uzlech"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:158
+msgid "Search in All Nodes"
+msgstr "Hledat ve všech uzlech"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:232
+msgid "Replace in Node Names..."
+msgstr "Nahradit v názvech uzlů..."
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:233
+msgid "Search For a Node Name..."
+msgstr "Hledat název uzlu..."
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:534
+msgid "No Previous Search Was Performed During This Session"
+msgstr "Během tohoto sezení nebylo ještě provedeno žádné hledání"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:574
+msgid "Hide (Restore with Ctrl+Shift+A)"
+msgstr "Skrýt (Obnovit Ctrl+Shift+A)"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:587
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2869
+msgid "Node Name"
+msgstr "Název uzlu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:589
+msgid "Line"
+msgstr "Řádek"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:591
+msgid "Line Content"
+msgstr "Obsah řádku"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:609
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3778
+#, python-format
+msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
+msgstr "Odkaz odkazuje na uzel, který už neexistuje (ID = %s)"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/printing.py:213
+msgid "Warning: One or More Images Were Reduced to Enter the Page"
+msgstr ""
+"Varování: Kvůli vstupu na stránku byl zmenšen jeden nebo bylo zmenšeno více "
+"obrázků"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:128
+msgid "Save File as"
+msgstr "Uložit soubor jako"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:159
+msgid "Select File"
+msgstr "Vybrat soubor"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:190
+msgid "Select Folder"
+msgstr "Vybrat složku"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:218
+msgid "Question"
+msgstr "Otázka"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:233
+msgid "Info"
+msgstr "Informace"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:239
+msgid "This Change will have Effect Only After Restarting CherryTree"
+msgstr "Tato změna se projeví až po novém spuštění CherryTree"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:249
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:507
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:541
+msgid "Warning"
+msgstr "Varování"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:261
+msgid "Error"
+msgstr "Chyba"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:270
+msgid ""
+"Copyright © 2009-2014\n"
+"Giuseppe Penone <giuspen@gmail.com>"
+msgstr ""
+"Autorské právo © 2009-2014\n"
+"Giuseppe Penone <giuspen@gmail.com>"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:272
+msgid ""
+"A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
+"Highlighting"
+msgstr ""
+"Program k hierarchickému vedení poznámek, s vlastnostmi, jaké má formátovaný "
+"text (RTF), a zvýrazňování skladby"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:273
+msgid ""
+"\n"
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 3 of the License, or\n"
+"(at your option) any later version.\n"
+"  \n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"  \n"
+"You should have received a copy of the GNU General Public License\n"
+"along with this program; if not, write to the Free Software\n"
+"Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,\n"
+"MA 02110-1301, USA.\n"
+msgstr ""
+"\n"
+"Tento program je svobodným softwarem; můžete jej rozdávat a/nebo upravovat "
+"za podmínek GNU General Public License (GPL), jak jsou zveřejněny Free "
+"Software Foundation; buď ve verzi 3 licence, nebo (podle své volby) v "
+"kterékoli pozdější verzi.\n"
+"\n"
+"Tento program je šířen v naději, že bude užitečný, ale BEZ JAKÉKOLI ZÁRUKY; "
+"také bez předpokládané záruky PRODEJNOSTI nebo POUŽITELNOSTI PRO NĚJAKÝ "
+"URČITÝ ÚČEL: Více podrobností naleznete v GNU General Public License.\n"
+"\n"
+"Kopii GNU General Public License byste měl obdržet společně s tímto balíkem; "
+"a pokud ne, napište Free Software Foundation, Inc., 51 Franklin St, Fifth "
+"Floor, Boston, MA 02110-1301, USA.\n"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:293
+msgid "Armenian"
+msgstr "Arménský"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:294
+msgid "Chinese Simplified"
+msgstr "Zjednodušená Čínština"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:295
+msgid "Czech"
+msgstr "Český překlad"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:296
+msgid "Dutch"
+msgstr "Holandský překlad"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:297
+msgid "French"
+msgstr "Francouzský překlad"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:298
+msgid "German"
+msgstr "Německý překlad"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:299
+msgid "Italian"
+msgstr "Italský překlad"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:300
+msgid "Polish"
+msgstr "Polský překlad"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:301
+msgid "Portuguese Brazil"
+msgstr "Portugalština Brazílie"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:302
+msgid "Russian"
+msgstr "Ruský překlad"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:303
+msgid "Spanish"
+msgstr "Španělský překlad"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:304
+msgid "Ukrainian"
+msgstr "Ukrajinský překlad"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:544
+msgid "Cancel"
+msgstr "Zrušit"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:545
+msgid "No"
+msgstr "Ne"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:546
+msgid "Yes"
+msgstr "Ano"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:560
+msgid ""
+"<b>The current document was updated</b>,\n"
+"do you want to save the changes?"
+msgstr ""
+"<b>nynější dokument byl upraven.</b>\n"
+"Chcete uložit změny?"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:603
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1117
+msgid "To WebSite"
+msgstr "Pro internetovou stránku"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:614
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1131
+msgid "To File"
+msgstr "Pro soubor"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:629
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1138
+msgid "To Folder"
+msgstr "Pro složku"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:644
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1124
+msgid "To Node"
+msgstr "Pro uzel"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:684
+msgid "Anchor Name (optional)"
+msgstr "Název kotvy (volitelný)"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:738
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3116
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4001
+msgid "No Node is Selected"
+msgstr "Není vybrán žádný uzel"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:758
+msgid "There are No Anchors in the Selected Node"
+msgstr "Ve vybraném uzlu nejsou žádné kotvy"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:760
+msgid "Choose Existing Anchor"
+msgstr "Vybrat stávající kotvu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:760
+msgid "Anchor Name"
+msgstr "Název kotvy"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:851
+msgid "Involved Nodes"
+msgstr "Související uzly"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:857
+msgid "Selected Text Only"
+msgstr "Pouze vybraný text"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:858
+msgid "Selected Node Only"
+msgstr "Pouze vybraný uzel"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:859
+msgid "Selected Node and Subnodes"
+msgstr "Vybraný uzel a podřízené uzly"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:860
+msgid "All the Tree"
+msgstr "Celý strom"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:871
+msgid "Include Node Name"
+msgstr "Zahrnout název uzlu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:877
+msgid "Links Tree in Every Page"
+msgstr "Strom s odkazy na každé straně"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:882
+msgid "New Node in New Page"
+msgstr "Nový uzel na nové straně"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:948
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:952
+msgid "Insert _Special Character"
+msgstr "Vložit _zvláštní znak"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:950
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:954
+msgid "Insert a Special Character"
+msgstr "Vložit zvláštní znak"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:981
+msgid "_Recent Documents"
+msgstr "_Nedávné dokumenty"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:983
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:989
+msgid "Open a Recent CherryTree Document"
+msgstr "Otevřít nedávný dokument CherryTree"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:1013
+#, python-format
+msgid "The Document %s was Not Found"
+msgstr "Dokument %s nebyl nalezen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:1039
+msgid "Sort with Drag and Drop, Delete with the Delete Key"
+msgstr "Třídit pomocí \"táhni a pusť\", smazat pomocí klávesy Delete"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/pgsc_spellcheck.py:68
+msgid "Unknown"
+msgstr "Neznámý"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/pgsc_spellcheck.py:422
+msgid "(no suggestions)"
+msgstr "(žádné návrhy)"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/pgsc_spellcheck.py:438
+msgid "Add \"{}\" to Dictionary"
+msgstr "Přidat \"{}\" do slovníku"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/pgsc_spellcheck.py:441
+msgid "Ignore All"
+msgstr "Přehlížet vše"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/pgsc_spellcheck.py:452
+msgid "Languages"
+msgstr "Jazyky"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/pgsc_spellcheck.py:463
+msgid "Suggestions"
+msgstr "Návrhy"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/exports.py:38
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:570
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1166
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1328
+msgid "CherryTree Document"
+msgstr "Dokument CherryTree"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/exports.py:99
+msgid "PDF File"
+msgstr "Soubor PDF"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/exports.py:185
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:704
+msgid "Plain Text Document"
+msgstr "Dokument prostý text"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/exports.py:559
+msgid "Index"
+msgstr "Rejstřík"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:495
+msgid "Tab Width"
+msgstr "Šířka zarážky"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:501
+msgid "Insert Spaces Instead of Tabs"
+msgstr "Vložit mezery místo zarážek"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:503
+msgid "Use Line Wrapping"
+msgstr "Použít zalamování řádků"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:507
+msgid "Line Wrapping Indentation"
+msgstr "Odsazení zalamování řádků"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:513
+msgid "Enable Automatic Indentation"
+msgstr "Povolit automatické odsazení"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:525
+msgid "Text Editor"
+msgstr "Textový editor"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:535
+msgid "Timestamp Format"
+msgstr "Formát časového razítka"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:545
+msgid "Horizontal Rule"
+msgstr "Oddělovací čára"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:552
+msgid "Special Characters"
+msgstr "Zvláštní znaky"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:572
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:708
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:931
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1167
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1287
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1421
+msgid "Miscellaneous"
+msgstr "Různé"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:631
+msgid "Enable Spell Check"
+msgstr "Povolit ověřování pravopisu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:635
+msgid "Spell Check Language"
+msgstr "Jazyk ověřování pravopisu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:648
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4009
+msgid "Spell Check"
+msgstr "Ověření správného psaní"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:658
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:835
+msgid "Light Background, Dark Text"
+msgstr "Světlé pozadí, tmavý text"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:659
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:836
+msgid "Dark Background, Light Text"
+msgstr "Tmavé pozadí, světlý text"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:661
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:838
+msgid "Custom Background"
+msgstr "Vlastní pozadí"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:666
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:843
+msgid "and Text"
+msgstr "a text"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:676
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:853
+msgid "Theme"
+msgstr "Vzhled"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:696
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:793
+msgid "Show White Spaces"
+msgstr "Ukázat prázdná místa"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:698
+msgid "Limit of Undoable Steps Per Node"
+msgstr "Počet kroků zpět na uzel"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:785
+msgid "Style Scheme"
+msgstr "Nákres stylu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:795
+msgid "Highlight Current Line"
+msgstr "Zvýraznit nynější řádek"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:802
+msgid "Code Nodes"
+msgstr "Uzly s kódem"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:873
+msgid "Use Cherries as Nodes Icons"
+msgstr "Použít třešně jako ikony uzlů"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:874
+msgid "Use Bullets as Nodes Icons"
+msgstr "Použít odrážky jako ikony uzlů"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:876
+msgid "Do Not Display Nodes Icons"
+msgstr "Nezobrazovat ikony k uzlům"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:882
+msgid "Nodes Icons"
+msgstr "Ikony uzlů"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:896
+msgid "Restore Expanded/Collapsed Status"
+msgstr "Obnovit stav rozbaleno/sbaleno"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:897
+msgid "Expand all Nodes"
+msgstr "Rozbalit všechny uzly"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:899
+msgid "Collapse all Nodes"
+msgstr "Složit všechny uzly"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:905
+msgid "Nodes Status at Startup"
+msgstr "Stav uzlů při spuštění"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:920
+msgid "Tree Nodes Names Wrapping Width"
+msgstr "Největší šířka názvu uzlu před zalomením"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:926
+msgid "Display Tree on the Right Side"
+msgstr "Zobrazit strom na pravé straně"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1031
+msgid "Text Font"
+msgstr "Písmo textu   "
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1032
+msgid "Code Font"
+msgstr "Písmo kódu  "
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1033
+msgid "Tree Font"
+msgstr "Písmo ve stromu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1050
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1419
+msgid "Fonts"
+msgstr "Písma"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1079
+msgid "Enable Custom Web Link Clicked Action"
+msgstr "Povolit vlastní činnost při klepnutí na internetový odkaz"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1081
+msgid "Enable Custom File Link Clicked Action"
+msgstr "Povolit vlastní činnost při klepnutí na odkaz souboru"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1083
+msgid "Enable Custom Folder Link Clicked Action"
+msgstr "Povolit vlastní činnost při klepnutí na odkaz složky"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1092
+msgid "Custom Actions"
+msgstr "Vlastní činnosti"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1148
+msgid "Colors"
+msgstr "Barvy"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1159
+msgid "Anchor Size"
+msgstr "Velikost kotvy"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1224
+msgid "Enable System Tray Docking"
+msgstr "Povolit ikonu v oznamovací oblasti panelu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1225
+msgid "Start Minimized in the System Tray"
+msgstr "Spustit zmenšeno v oznamovací oblasti panelu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1226
+msgid "Use AppIndicator for Docking"
+msgstr "Použít ukazatele programů pro ukotvení v panelu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1231
+msgid "System Tray"
+msgstr "Oznamovací oblast panelu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1248
+msgid "Autosave Every"
+msgstr "Automaticky uložit každých"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1251
+msgid "Minutes"
+msgstr "minut"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1255
+msgid "Autosave on Quit"
+msgstr "Automaticky uložit při ukončení"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1256
+msgid "Create a Backup Copy Before Saving"
+msgstr "Před uložením vytvořit záložní kopii"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1267
+msgid "Saving"
+msgstr "Ukládání"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1276
+msgid "Automatically Check for Newer Version"
+msgstr "Automaticky vyhledat novou verzi"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1277
+msgid "Reload Document From Last Session"
+msgstr "Nahrát dokument z posledního sezení znovu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1278
+msgid "Reload After External Update to CT* File"
+msgstr "Nahrát znovu po vnější aktualizaci na soubor CT*"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1303
+msgid "Language"
+msgstr "Jazyk"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1395
+msgid "The New Language will be Available Only After Restarting CherryTree"
+msgstr "Nový jazyk bude dostupný až po novém spuštění CherryTree"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1415
+msgid "All Nodes"
+msgstr "Všechny uzly"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1416
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2873
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4004
+msgid "Rich Text"
+msgstr "Formátovaný text"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1417
+msgid "Plain Text and Code"
+msgstr "Prostý text a kód"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1418
+msgid "Tree"
+msgstr "Strom"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1420
+msgid "Links"
+msgstr "Odkazy"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/tablez.py:63
+msgid "Rename Column"
+msgstr "Přejmenovat sloupec"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/tablez.py:74
+msgid "Delete Column"
+msgstr "Smazat sloupec"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/tablez.py:82
+msgid "Add Column"
+msgstr "Přidat sloupec"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/tablez.py:93
+msgid "Move Column Left"
+msgstr "Posunout sloupec vlevo"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/tablez.py:101
+msgid "Move Column Right"
+msgstr "Posunout sloupec vpravo"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/tablez.py:170
+msgid "Rows"
+msgstr "Řádky "
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/tablez.py:174
+msgid "Columns"
+msgstr "Sloupce"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/tablez.py:189
+msgid "Table Size"
+msgstr "Velikost tabulky"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/tablez.py:194
+msgid "Min Width"
+msgstr "Nejmenší šířka"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/tablez.py:198
+msgid "Max Width"
+msgstr "Největší šířka"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/tablez.py:213
+msgid "Column Properties"
+msgstr "Vlastnosti sloupců"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/tablez.py:218
+msgid "Import from CSV File"
+msgstr "Zavést ze souboru CSV"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/tablez.py:253
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/tablez.py:275
+msgid "CSV File"
+msgstr "Soubor CSV"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/tablez.py:269
+msgid "Insert Table"
+msgstr "Vložit tabulku"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/tablez.py:304
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/imports.py:2095
+msgid "click me"
+msgstr "Klepni mě"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/tablez.py:313
+msgid "Click to Edit the Column Settings"
+msgstr "Klepněte pro úpravu nastavení sloupce"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/tablez.py:358
+msgid "Edit Table Properties"
+msgstr "Upravit vlastnosti tabulky..."
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/tablez.py:434
+msgid "Table Column Action"
+msgstr "Upravit sloupec v tabulce"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:202
+msgid "Checking for Newer Version..."
+msgstr "Vyhledat novou verzi..."
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:208
+msgid "A Newer Version Is Available!"
+msgstr "Je dostupná novější verze"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:213
+msgid "You Are Using the Latest Version Available"
+msgstr "Používáte nejnovější dostupnou verzi"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:216
+msgid "Failed to Retrieve Latest Version Information - Try Again Later"
+msgstr ""
+"Nepodařilo se dostat informace o nejnovější verzi - Zkuste to později znovu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:233
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3131
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3495
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4052
+msgid "No Text is Selected"
+msgstr "Není vybrán žádný text"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:547
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2063
+msgid "The new father can't be one of his sons!"
+msgstr ""
+"Nový nadřízený uzel nemůže být jedním z podřízených uzlů nynějšího uzlu!"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:593
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1672
+#, python-format
+msgid "\"%s\" is Not a CherryTree Document"
+msgstr "\"%s\" není dokumentem CherryTree"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:599
+msgid "NoteCase Document"
+msgstr "Dokument NoteCase"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:685
+msgid "HTML Document"
+msgstr "Dokument HTML"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:722
+msgid "Treepad Document"
+msgstr "Dokument Treepad"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:744
+msgid "KeyNote Document"
+msgstr "Dokument KeyNote"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:762
+msgid "Mempad Document"
+msgstr "Dokument Mempad"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:780
+msgid "Knowit Document"
+msgstr "Dokument Knowit"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:799
+msgid "Leo Document"
+msgstr "Dokument Leo"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:830
+msgid "Who is the Father?"
+msgstr "Který je nadřízený uzel"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:837
+msgid "The Tree Root"
+msgstr "Kořen stromu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:838
+msgid "The Selected Node"
+msgstr "Vybraný uzel"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1028
+msgid "The Document was Reloaded After External Update to CT* File"
+msgstr "Dokument byl nahrán znovu po vnější aktualizaci na soubor CT*"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1055
+msgid "CherryTree Hierarchical Note Taking"
+msgstr "Hierarchická tvorba poznámek v CherryTree"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1297
+#, python-format
+msgid "You Have No Write Access to %s"
+msgstr "Nemáte oprávnění pro zápis do %s"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1310
+msgid "Writing to Disk..."
+msgstr "Zapisuje se na disk..."
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1424
+msgid "Choose Storage Type"
+msgstr "Vyberte typ úložiště"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1431
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1434
+msgid "Not Protected"
+msgstr "Nechráněn"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1432
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1436
+msgid "Password Protected"
+msgstr "Heslo chráněno"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1443
+msgid "Storage Type"
+msgstr "Typ úložiště"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1454
+msgid "Enter the New Password Twice"
+msgstr "Zadejte nové heslo dvakrát"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1497
+msgid "The Password Fields Must be Filled"
+msgstr "Pole pro hesla musí být vyplněna"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1500
+msgid "The Two Inserted Passwords Do Not Match"
+msgstr "Ta dvě vložená hesla se neshodují"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1505
+#, python-format
+msgid "The Characters  %s  are Not Allowed"
+msgstr "Znaky %s nejsou dovoleny"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1523
+msgid ""
+"Binary Executable '7za' Not Found, Check The Package 'p7zip-full' to be "
+"Installed Properly"
+msgstr ""
+"Binární spustitelný soubor '7za' nebyl nalezen. Prověřte, zda je balíček "
+"'7za' nainstalován správně"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1529
+#, python-format
+msgid "Enter Password for %s"
+msgstr "Zadejte heslo pro %s"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1596
+msgid "Wrong Password"
+msgstr "Chybné heslo"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2051
+msgid "Select the New Father"
+msgstr "Vybrat nový nadřízený uzel"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2055
+msgid "The new father can't be the very node to move!"
+msgstr "Nový nadřízený uzel nemůže být vlastní uzel k přesunu!"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2058
+msgid "The new choosed father is again the old father!"
+msgstr "Nový vybraný nadřízený uzel je opět ten starý nadřízený uzel!"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2238
+msgid "New Node Properties"
+msgstr "Vlastnosti nového uzlu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2276
+msgid "New Child Node Properties"
+msgstr "Vlastnosti nového podřízeného uzlu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2299
+#, python-format
+msgid "Are you sure to <b>Delete the node '%s'?</b>"
+msgstr "Opravdu chcete <b>smazat uzel '%s'?</b>"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2301
+msgid "The node <b>has Children, they will be Deleted too!</b>"
+msgstr "Uzel má <b>podřízené uzly, které budou rovněž smazány!</b>"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2321
+msgid "Node Properties"
+msgstr "Vlastnosti uzlu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2329
+msgid ""
+"Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
+"Do you want to Continue?"
+msgstr ""
+"Opuštěním typu uzlu Formátovaný text ztratíte veškeré formátování pro tento "
+"uzel. Chcete pokračovat?"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2758
+msgid "Search for"
+msgstr "Hledat"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2765
+msgid "Replace with"
+msgstr "Nahradit"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2780
+msgid "Match Case"
+msgstr "Rozlišovat velká a malá písmena"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2782
+msgid "Regular Expression"
+msgstr "Regulární výraz"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2784
+msgid "Whole Word"
+msgstr "Celé slovo"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2786
+msgid "Start Word"
+msgstr "Začátek slova"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2788
+msgid "Forward"
+msgstr "Vpřed"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2790
+msgid "Backward"
+msgstr "Zpět"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2793
+msgid "All, List Matches"
+msgstr "Sestavit seznam všech shod"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2795
+msgid "First From Selection"
+msgstr "První ve výběru"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2798
+msgid "First in All Range"
+msgstr "První v celém dokumentu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2801
+msgid "Show Iterated Find/Replace Dialog"
+msgstr "Ukázat dialog pro zopakování hledání/nahrazení"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2821
+msgid "Search options"
+msgstr "Volby pro hledání"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2898
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4003
+msgid "Node Type"
+msgstr "Typ uzlu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2911
+msgid "Tags for Searching"
+msgstr "Značky pro hledání"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2915
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4007
+msgid "Read Only"
+msgstr "Pouze pro čtení"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2936
+msgid "Choose Existing Tag"
+msgstr "Vybrat stávající značku"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2936
+msgid "Tag Name"
+msgstr "Název značky"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2963
+msgid "The Size of the Toolbar Icons is already at the Maximum Value"
+msgstr "Ikony v nástrojovém pruhu jsou již tak velké, jak jen je to možné"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2971
+msgid "The Size of the Toolbar Icons is already at the Minimum Value"
+msgstr "Ikony v nástrojovém pruhu jsou již tak malé, jak jen je to možné"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3052
+msgid "Edit Anchor"
+msgstr "Upravit kotvu..."
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3055
+msgid "Insert Anchor"
+msgstr "Vložit kotvu..."
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3090
+msgid "Not Any H1, H2 or H3 Formatting Found"
+msgstr "Nebylo nalezeno žádné formátování nadpisů (H1, H2 nebo H3)"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3108
+msgid "This Feature is Available Only in Rich Text Nodes"
+msgstr "Tato funkce je dostupná jen u uzlů s formátovaným textem"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3110
+msgid "This Feature is Not Available in Automatic Syntax Highlighting Nodes"
+msgstr "Tato funkce není dostupná u uzlů s automatickým zvýrazňováním skladby"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3123
+msgid "The Tree is Empty!"
+msgstr "Strom je prázdný!"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3152
+msgid "Number of Text Nodes"
+msgstr "Počet uzlů textu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3155
+msgid "Number of Code Nodes"
+msgstr "Počet uzlů zdrojového kódu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3158
+msgid "Number of Images"
+msgstr "Počet obrázků"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3161
+msgid "Number of Tables"
+msgstr "Počet tabulek"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3164
+msgid "Number of CodeBoxes"
+msgstr "Počet obdélníků se zdrojovým kódem"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3233
+msgid "Image Properties"
+msgstr "Vlastnosti obrázku"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3279
+msgid "PNG Image"
+msgstr "Obrázek PNG"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3285
+#, python-format
+msgid "Write to %s Failed"
+msgstr "Nepodařilo se zapsat %s"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3336
+msgid "Lines Stripped"
+msgstr "Řádky zbaveny"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3455
+msgid "No Previous Text Format Was Performed During This Session"
+msgstr "Během tohoto sezení nebylo ještě provedeno žádné formátování textu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3501
+msgid "Link Name"
+msgstr "Název odkazu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3529
+msgid "The Cursor is Not into a Paragraph"
+msgstr "Ukazatel se nenachází v odstavci"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3542
+msgid "Insert/Edit Link"
+msgstr "Vložit/Upravit odkaz"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3567
+msgid "Pick a Color"
+msgstr "Vybrat barvu"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3750
+#, python-format
+msgid "The File Link '%s' is Not Valid"
+msgstr "Cesta k souboru '%s' není platná"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3765
+#, python-format
+msgid "The Folder Link '%s' is Not Valid"
+msgstr "Odkaz na složku '%s' není platný"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3788
+#, python-format
+msgid "No anchor named '%s' found"
+msgstr "Nebyla nalezena žádná kotva s názvem '%s'"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4003
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4008
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4009
+msgid ": "
+msgstr ": "
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4008
+msgid "Tags"
+msgstr "Značky"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/imports.py:2003
+msgid "Downloading"
+msgstr "Stažení"

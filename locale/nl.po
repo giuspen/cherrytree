@@ -1,0 +1,2739 @@
+# Dutch translations for PACKAGE package.
+# Copyright (C) 2013 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# giuspen <giuspen@gmail.com>, 2013.
+# Patrick Vijgeboom <pj.vijgeboom@gmail.com>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cherrytree 0.30.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-05-02 23:16+0200\n"
+"PO-Revision-Date: 2014-01-01 12:05+0100\n"
+"Last-Translator: Patrick Vijgeboom <pj.vijgeboom@gmail.com>\n"
+"Language-Team: Nederlands <>\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.6.3\n"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/codeboxes.py:81
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2874
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4005
+#, fuzzy
+msgid "Plain Text"
+msgstr "en tekst"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/codeboxes.py:82
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2876
+msgid "Automatic Syntax Highlighting"
+msgstr "Automaticsche Syntax Markering"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/codeboxes.py:93
+#, fuzzy
+msgid "Type"
+msgstr "Knooppunt type"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/codeboxes.py:98
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:431
+msgid "Width"
+msgstr "Breedte"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/codeboxes.py:102
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:434
+msgid "Height"
+msgstr "Hoogte"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/codeboxes.py:107
+msgid "pixels"
+msgstr "pixels"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/codeboxes.py:132
+msgid "Size"
+msgstr "Grootte"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/codeboxes.py:137
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:515
+msgid "Show Line Numbers"
+msgstr "Regelnummers weergeven"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/codeboxes.py:139
+msgid "Highlight Matching Brackets"
+msgstr "Gelijke haken markeren"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/codeboxes.py:148
+msgid "Options"
+msgstr "Opties"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/codeboxes.py:199
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:560
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:763
+msgid "Insert a CodeBox"
+msgstr "Codevak invoegen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/codeboxes.py:343
+msgid "Edit CodeBox"
+msgstr "Codevak wijzigen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:511
+msgid "_File"
+msgstr "_Bestand"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:512
+msgid "_Edit"
+msgstr "_Wijzigen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:513
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:731
+msgid "For_matting"
+msgstr "Op_maak"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:514
+msgid "_Tree"
+msgstr "_Boom"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:515
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:669
+msgid "Node _Move"
+msgstr "Knooppunt _verplaatsen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:516
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:686
+msgid "Nodes _Import"
+msgstr "Knooppunt _Importeren"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:517
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:705
+msgid "Nodes E_xport"
+msgstr "Knooppunt E_xporteren"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:518
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:770
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:809
+msgid "C_hange Case"
+msgstr "Hoofdletter"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:519
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:784
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:823
+msgid "_Search"
+msgstr "_Zoeken"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:520
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:791
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:830
+msgid "_Replace"
+msgstr "_Vervangen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:521
+msgid "_View"
+msgstr "_Weergeven"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:522
+msgid "_Bookmarks"
+msgstr "_Bladwijzers"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:523
+msgid "_Import"
+msgstr "_Importeren"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:524
+msgid "E_xport"
+msgstr "E_xporteren"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:525
+msgid "_Help"
+msgstr "_Help"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:527
+msgid "New _Instance"
+msgstr "Nieuwe _omgeving"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:527
+msgid "Start a New Instance of CherryTree"
+msgstr "Start een nieuwe CherryTree omgeving"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:528
+msgid "_Open File"
+msgstr "_Bestand openen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:528
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:988
+msgid "Open a CherryTree Document"
+msgstr "Een CherryTree document openen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:529
+msgid "_Save"
+msgstr "_Opslaan"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:529
+msgid "Save File"
+msgstr "Bestand opslaan"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:530
+msgid "Save _As"
+msgstr "Opslaan _als"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:530
+msgid "Save File As"
+msgstr "Bestand opslaan als"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:531
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:706
+msgid "Export To _PDF"
+msgstr "Exporteer naar _PDF"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:531
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:706
+msgid "Export To PDF"
+msgstr "Exporteer naar PDF"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:532
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:709
+msgid "Export To _HTML"
+msgstr "Exporteer naar _HTML"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:532
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:709
+msgid "Export To HTML"
+msgstr "Exporteer naar HTML"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:533
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:707
+msgid "Export to Multiple Plain _Text Files"
+msgstr "Exporteer naar meerdere platte _tekst bestanden"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:533
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:707
+msgid "Export to Multiple Plain Text Files"
+msgstr "Exporteer naar meerdere platte tekst bestanden"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:534
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:708
+msgid "Export to _Single Plain Text File"
+msgstr "Exporteer naar _enkel platte tekst bestand"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:534
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:708
+msgid "Export to Single Plain Text File"
+msgstr "Exporteer naar enkel platte tekst bestand"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:535
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:710
+msgid "_Export To CherryTree Document"
+msgstr "_Exporteer naar CherryTree document"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:535
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:710
+msgid "Export To CherryTree Document"
+msgstr "Exporteer naar CherryTree document"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:536
+msgid "Pa_ge Setup"
+msgstr "Pa_gina opmaak"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:536
+msgid "Set up the Page for Printing"
+msgstr "Pagina opmaken voor afdrukken"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:537
+msgid "_Print"
+msgstr "_Afdrukken"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:537
+msgid "Print"
+msgstr "Afdrukken"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:538
+msgid "_Quit"
+msgstr "_Sluiten"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:538
+msgid "Quit the Application"
+msgstr "Applicatie afsluiten"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:539
+msgid "_Exit CherryTree"
+msgstr "_CherryTree afsluiten"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:539
+msgid "Exit from CherryTree"
+msgstr "CherryTree afsluiten"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:540
+msgid "_Preferences"
+msgstr "_Instellingen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:540
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1403
+msgid "Preferences"
+msgstr "Instellingen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:541
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:768
+msgid "Insert _Horizontal Rule"
+msgstr "_Horizontale lijn invoegen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:541
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:768
+msgid "Insert Horizontal Rule"
+msgstr "Horizontale lijn invoegen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:542
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:767
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:807
+msgid "Insert Ti_mestamp"
+msgstr "Tijdste_mpel invoegen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:542
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:767
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:807
+msgid "Insert Timestamp"
+msgstr "Tijdstempel invoegen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:543
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:755
+msgid "Set/Unset _Bulleted List"
+msgstr "In/Uitschakelen _Opsommingslijst"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:543
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:755
+msgid "Set/Unset the Current Paragraph/Selection as a Bulleted List"
+msgstr "De huidige alinea/selectie als opsommingslijst in/uitschakelen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:544
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:756
+msgid "Set/Unset _Numbered List"
+msgstr "In/Uitschakelen genummerde lijst"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:544
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:756
+msgid "Set/Unset the Current Paragraph/Selection as a Numbered List"
+msgstr "De huidige alinea/selectie als genummerde lijst in/uitschakelen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:545
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:757
+msgid "Set/Unset _To-Do List"
+msgstr "In/Uitschakelen _Te-Doen lijst"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:545
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:757
+msgid "Set/Unset the Current Paragraph/Selection as a To-Do List"
+msgstr "De huidige alinea/selectie als Te-Doen lijst in/uitschakelen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:546
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:764
+msgid "Insert/Edit _Link"
+msgstr "_Koppeling invoegen/wijzigen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:546
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:764
+msgid "Insert a Link/Edit the Underlying Link"
+msgstr "Invoegen/wijzigen onderliggende koppeling"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:547
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:766
+msgid "Insert T_OC"
+msgstr "T_OC invoegen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:547
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:766
+msgid "Insert Table of Contents"
+msgstr "Inhoudsopgave invoegen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:548
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:765
+msgid "Insert _Anchor"
+msgstr "_Anker invoegen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:548
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:765
+msgid "Insert an Anchor"
+msgstr "Een anker invoegen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:549
+msgid "Edit _Anchor"
+msgstr "_Anker wijzigen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:549
+msgid "Edit the Underlying Anchor"
+msgstr "Onderliggende anker wijzigen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:550
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:761
+msgid "Insert I_mage"
+msgstr "Afb_eelding invoegen "
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:550
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:761
+msgid "Insert an Image"
+msgstr "Een afbeelding invoegen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:551
+msgid "_Save Image as PNG"
+msgstr "Afbeelding op_slaan als PNG"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:551
+msgid "Save the Selected Image as a PNG file"
+msgstr "Geselecteerde afbeelding opslaan als PNG bestand"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:552
+msgid "_Edit Image"
+msgstr "_Afbeelding wijzigen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:552
+msgid "Edit the Selected Image"
+msgstr "Geselecteerde afbeelding wijzigen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:553
+msgid "C_ut Image"
+msgstr "_Afbeelding knippen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:553
+msgid "Cut the Selected Image"
+msgstr "Geselecteerde afbeelding knippen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:554
+msgid "_Copy Image"
+msgstr "_Afbeelding kopiëren"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:554
+msgid "Copy the Selected Image"
+msgstr "Geselecteerde afbeelding kopiëren"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:555
+msgid "_Delete Image"
+msgstr "_Afbeelding verwijderen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:555
+msgid "Delete the Selected Image"
+msgstr "Geselecteerde afbeelding verwijderen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:556
+msgid "C_ut Table"
+msgstr "Tabel knippen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:556
+msgid "Cut the Selected Table"
+msgstr "Geselecteerde tabel knippen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:557
+msgid "_Copy Table"
+msgstr "Tabel kopiëren"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:557
+msgid "Copy the Selected Table"
+msgstr "Geselecteerde tabel kopiëren"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:558
+msgid "_Delete Table"
+msgstr "Tabel verwijderen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:558
+msgid "Delete the Selected Table"
+msgstr "Geselecteerde tabel verwijderen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:559
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:762
+msgid "Insert _Table"
+msgstr "Tabel invoegen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:559
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:762
+msgid "Insert a Table"
+msgstr "Een tabel invoegen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:560
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:763
+msgid "Insert _CodeBox"
+msgstr "Codevak invoegen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:561
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:771
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:810
+msgid "_Lower Case of Selection/Word"
+msgstr "Selectie/onderliggende woord omzetten in kleine letters"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:561
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:771
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:810
+msgid "Lower the Case of the Selection/the Underlying Word"
+msgstr "Selectie/onderliggende woord omzetten in kleine letters"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:562
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:772
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:811
+msgid "_Upper Case of Selection/Word"
+msgstr "Hoofdletters"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:562
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:772
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:811
+msgid "Upper the Case of the Selection/the Underlying Word"
+msgstr "Selectie/onderliggende woord omzetten in hoofdletters"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:563
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:773
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:812
+msgid "_Toggle Case of Selection/Word"
+msgstr "Hoofdlettergebruik van selectie/woord wisselen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:563
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:773
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:812
+msgid "Toggle the Case of the Selection/the Underlying Word"
+msgstr "Hoofdlettergebruik van selectie/onderliggende woord wisselen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:564
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:779
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:818
+msgid "_Duplicate Row"
+msgstr "Rij dupliceren"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:564
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:779
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:818
+msgid "Duplicate the Current Row/Selection"
+msgstr "Huidige rij/selectie dupliceren"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:565
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:780
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:819
+msgid "Move _Up Row"
+msgstr "Rij omhoog verplaatsen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:565
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:780
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:819
+msgid "Move Up the Current Row/Selected Rows"
+msgstr "Huidige rij/geselecteerde rijen omhoog verplaatsen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:566
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:781
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:820
+msgid "Move _Down Row"
+msgstr "Rij omlaag verplaatsen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:566
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:781
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:820
+msgid "Move Down the Current Row/Selected Rows"
+msgstr "Huidige rij/geselecteerde rijen omlaag verplaatsen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:567
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:643
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:778
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:817
+msgid "De_lete Row"
+msgstr "Rij verwijderen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:567
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:778
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:817
+msgid "Delete the Current Row/Selected Rows"
+msgstr "huidige rij/geselecteerde rijen verwijderen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:568
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:640
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:776
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:815
+msgid "Cu_t Row"
+msgstr "Rij knippen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:568
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:776
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:815
+msgid "Cut the Current Row/Selected Rows"
+msgstr "Huidige rij/geselecteerde rijen knippen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:569
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:641
+msgid "_Copy Row"
+msgstr "Rij kopiëren"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:569
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:777
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:816
+msgid "Copy the Current Row/Selected Rows"
+msgstr "Huidige rij/geselecteerde rijen kopiëren"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:570
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:717
+msgid "Go _Back"
+msgstr "Naar vorige"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:570
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:717
+msgid "Go to the Previous Visited Node"
+msgstr "Naar vorige knooppunt gaan"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:571
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:718
+msgid "Go _Forward"
+msgstr "Naar volgende"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:571
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:718
+msgid "Go to the Next Visited Node"
+msgstr "Naar volgende knooppunt gaan"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:572
+msgid "_Undo"
+msgstr "_Ongedaan maken"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:572
+msgid "Undo Last Operation"
+msgstr "Laatste handeling ongedaan maken"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:573
+msgid "_Redo"
+msgstr "Opnieuw"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:573
+msgid "Redo Previously Discarded Operation"
+msgstr "Laatste handeling opnieuw uitvoeren"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:574
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:713
+msgid "_Inherit Syntax"
+msgstr "Syntax doorerven"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:574
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:713
+msgid ""
+"Change the Selected Node's Children Syntax Highlighting to the Father's "
+"Syntax Highlighting"
+msgstr ""
+"De geselecteerde onderliggende knooppunten syntax markering wijzigen naar de "
+"bovenliggende syntax  "
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:575
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:732
+msgid "Format _Latest"
+msgstr "_Laatst gebruikte opmaak toepassen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:575
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:732
+msgid "Memory of Latest Text Format Type"
+msgstr "Geheugen van laatste tekst opmaaktype"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:576
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:729
+msgid "_Paste as Plain Text"
+msgstr "Als platte tekst plakken"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:576
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:729
+msgid "Paste as Plain Text, Discard the Rich Text Formatting"
+msgstr "Als platte tekst plakken, Rich Text opmaak negeren"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:577
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:733
+msgid "_Remove Formatting"
+msgstr "_Opmaak verwijderen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:577
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:733
+msgid "Remove the Formatting from the Selected Text"
+msgstr "Opmaak van geselecteerde tekst verwijderen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:578
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:735
+msgid "Text _Color Foreground"
+msgstr "Tekst voorgrondkleur"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:578
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:735
+msgid "Change the Color of the Selected Text Foreground"
+msgstr "Voorgrondkleur van tekst wijzigen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:579
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:736
+msgid "Text C_olor Background"
+msgstr "Tekst achtergrondkleur"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:579
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:736
+msgid "Change the Color of the Selected Text Background"
+msgstr "Achtergrondkleur van geselecteerde tekst wijzigen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:580
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:737
+msgid "Toggle _Bold Property"
+msgstr "Tekststijl vet wisselen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:580
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:737
+msgid "Toggle Bold Property of the Selected Text"
+msgstr "Tekststijl vet van geselecteerde tekst wisselen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:581
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:738
+msgid "Toggle _Italic Property"
+msgstr "Tekststijl cursief wisselen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:581
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:738
+msgid "Toggle Italic Property of the Selected Text"
+msgstr "Tekststijl cursief van geselecteerde tekst wisselen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:582
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:739
+msgid "Toggle _Underline Property"
+msgstr "Tekststijl onderstrepen wisselen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:582
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:739
+msgid "Toggle Underline Property of the Selected Text"
+msgstr "Tekststijl onderstrepen van geselecteerde tekst wisselen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:583
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:740
+msgid "Toggle Stri_kethrough Property"
+msgstr "Tekststijl doorhalen wisselen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:583
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:740
+msgid "Toggle Strikethrough Property of the Selected Text"
+msgstr "Tekststijl doorhalen van geselecteerde tekst wisselen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:584
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:741
+msgid "Toggle h_1 Property"
+msgstr "Tekststijl h_1 wisselen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:584
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:741
+msgid "Toggle h1 Property of the Selected Text"
+msgstr "Tekststijl h1 van geselecteerde tekst wisselen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:585
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:742
+msgid "Toggle h_2 Property"
+msgstr "Tekststijl h_2 wisselen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:585
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:742
+msgid "Toggle h2 Property of the Selected Text"
+msgstr "Tekststijl h2 van geselecteerde tekst wisselen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:586
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:743
+msgid "Toggle h_3 Property"
+msgstr "Tekststijl h_3 wisselen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:586
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:743
+msgid "Toggle h3 Property of the Selected Text"
+msgstr "Tekststijl h3 van geselecteerde tekst wisselen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:587
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:744
+msgid "Toggle _Small Property"
+msgstr "Tekststijl _klein wisselen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:587
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:744
+msgid "Toggle Small Property of the Selected Text"
+msgstr "Tekststijl klein van geselecteerde tekst wisselen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:588
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:745
+msgid "Toggle Su_perscript Property"
+msgstr "Tekststijl superscript wisselen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:588
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:745
+msgid "Toggle Superscript Property of the Selected Text"
+msgstr "Tekststijl superscript van geselecteerde tekst wisselen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:589
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:746
+msgid "Toggle Su_bscript Property"
+msgstr "Tekststijl subscript wisselen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:589
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:746
+msgid "Toggle Subscript Property of the Selected Text"
+msgstr "Tekststijl subscript van geselecteerde tekst wisselen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:590
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:747
+msgid "Toggle _Monospace Property"
+msgstr "Tekststijl monospace wisselen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:590
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:747
+msgid "Toggle Monospace Property of the Selected Text"
+msgstr "Tekststijl doorhalen van geselecteerde tekst wisselen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:591
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:750
+msgid "Justify _Left"
+msgstr "Links uitlijnen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:591
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:750
+msgid "Justify Left the Current Paragraph"
+msgstr "Tekststijl doorhalen van geselecteerde tekst wisselen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:592
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:751
+msgid "Justify _Center"
+msgstr "Centreren"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:592
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:751
+msgid "Justify Center the Current Paragraph"
+msgstr "Tekststijl doorhalen van geselecteerde tekst wisselen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:593
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:752
+msgid "Justify _Right"
+msgstr "Rechts uitlijnen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:593
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:752
+msgid "Justify Right the Current Paragraph"
+msgstr "Huidige alinea rechts uitlijnen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:594
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:785
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:824
+msgid "_Find in Node"
+msgstr "_Zoek in knooppunt"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:594
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:785
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:824
+msgid "Find into the Selected Node"
+msgstr "In het geselecteerde knooppunt zoeken"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:595
+#, fuzzy
+msgid "Find in _All Nodes"
+msgstr "In knooppunten zoeken"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:595
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:786
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:825
+msgid "Find into all the Tree Nodes"
+msgstr "In alle knooppunten zoeken"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:596
+#, fuzzy
+msgid "Find in _Selected Node and Subnodes"
+msgstr "Geselecteerde knooppunten en subknooppunten"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:596
+#, fuzzy
+msgid "Find into the Selected Node and Subnodes"
+msgstr "In het geselecteerde knooppunt zoeken"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:597
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:683
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:787
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:826
+msgid "Find a _Node"
+msgstr "Knooppunt zoeken"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:597
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:683
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:787
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:826
+msgid "Find a Node from its Name"
+msgstr "Een knooppunt op naam zoeken"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:598
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:788
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:827
+msgid "Find _Again"
+msgstr "Opnieuw zoeken"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:598
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:788
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:827
+msgid "Iterate the Last Find Operation"
+msgstr "Laatste zoekopdracht herhalen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:599
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:789
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:828
+msgid "Find _Back"
+msgstr "Terug zoeken"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:599
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:789
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:828
+msgid "Iterate the Last Find Operation in Opposite Direction"
+msgstr "Laatste zoekopdracht  in omgekeerde richting herhalen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:600
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:792
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:831
+msgid "_Replace in Node"
+msgstr "In knooppunt vervangen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:600
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:792
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:831
+msgid "Replace into the Selected Node"
+msgstr "In geselecteerde knooppunt vervangen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:601
+#, fuzzy
+msgid "Replace in _All Nodes"
+msgstr "Vervang in alle knooppunten..."
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:601
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:793
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:832
+msgid "Replace into all the Tree Nodes"
+msgstr "In alle knooppunten vervangen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:602
+#, fuzzy
+msgid "Replace in _Selected Node and Subnodes"
+msgstr "Geselecteerde knooppunten en subknooppunten"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:602
+#, fuzzy
+msgid "Replace into the Selected Node and Subnodes"
+msgstr "In geselecteerde knooppunt vervangen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:603
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:684
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:794
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:833
+msgid "Replace in Nodes _Names"
+msgstr "In knooppunt _namen vervangen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:603
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:684
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:794
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:833
+msgid "Replace in Nodes Names"
+msgstr "In knooppunt namen vervangen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:604
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:795
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:834
+msgid "Replace _Again"
+msgstr "Opnieuw vervangen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:604
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:795
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:834
+msgid "Iterate the Last Replace Operation"
+msgstr "Laatste vervangopdracht herhalen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:605
+msgid "Show/Hide Node Name _Header"
+msgstr "Knooppunt naam koptekst weergeven/verbergen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:605
+msgid "Toggle Show/Hide Node Name Header"
+msgstr "Knooppunt naam koptekst weergeven/verbergen wisselen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:606
+#, fuzzy
+msgid "Enable/Disable _Spell Check"
+msgstr "Spellingcontrole inschakelen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:606
+#, fuzzy
+msgid "Toggle Enable/Disable Spell Check"
+msgstr "Spellingcontrole inschakelen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:607
+msgid "Show/Hide _Tree"
+msgstr "Boom weergeven/verbergen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:607
+msgid "Toggle Show/Hide Tree"
+msgstr "Boom weergeven/verbergen wisselen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:608
+msgid "Show/Hide _CherryTree"
+msgstr "_CherryTree weergeven/verbergen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:608
+msgid "Toggle Show/Hide CherryTree"
+msgstr "CherryTree weergeven/verbergen wisselen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:609
+msgid "Show/Hide Tool_bar"
+msgstr "Knoppenbalk weergeven/verbergen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:609
+msgid "Toggle Show/Hide Toolbar"
+msgstr "Knoppenbalk weergeven/verbergen wisselen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:610
+msgid "Show _All Matches Dialog"
+msgstr "Alle overeenkomsten dialoogvenster weergeven"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:610
+msgid "Show Search All Matches Dialog"
+msgstr "Alle overeenkomsten dialoogvenster weergeven"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:611
+msgid "_Increase Toolbar Icons Size"
+msgstr "Knoppenbalk pictogrammen afmeting vergroten"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:611
+msgid "Increase the Size of the Toolbar Icons"
+msgstr "Knoppenbalk pictogrammen afmeting vergroten"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:612
+msgid "_Decrease Toolbar Icons Size"
+msgstr "Knoppenbalk pictogrammen afmeting verkleinen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:612
+msgid "Decrease the Size of the Toolbar Icons"
+msgstr "Knoppenbalk pictogrammen afmeting verkleinen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:613
+msgid "Toggle _Focus Tree/Text"
+msgstr "Boom/tekst focus wisselen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:613
+msgid "Toggle Focus Between Tree and Text"
+msgstr "Tussen boom en tekst focus wisselen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:614
+msgid "Toggle Node _Expanded/Collapsed"
+msgstr "Knooppunt _Uitklappen/inklappen wisselen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:614
+msgid "Toggle Expanded/Collapsed Status of the Selected Node"
+msgstr "Uitklappen/inklappen status van geselecteerde knooppunt wisselen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:615
+msgid "E_xpand All Nodes"
+msgstr "Alle knooppunten uitklappen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:615
+msgid "Expand All the Tree Nodes"
+msgstr "Alle boom knooppunten uitklappen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:616
+msgid "_Collapse All Nodes"
+msgstr "Alle knoppunten inklappen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:616
+msgid "Collapse All the Tree Nodes"
+msgstr "Alle boom knooppunten inklappen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:617
+msgid "_Full Screen On/Off"
+msgstr "Volledig scherm aan/uit"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:617
+msgid "Toggle Full Screen On/Off"
+msgstr "Volledigscherm aan/uit wisselen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:618
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:687
+msgid "From _CherryTree File"
+msgstr "Uit CherryTree bestand"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:618
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:687
+msgid "Add Nodes of a CherryTree File to the Current Tree"
+msgstr ""
+"Knooppunten uit een CherryTree tekst bestand aan de huidige boom toevoegen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:619
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:688
+msgid "From _Plain Text File"
+msgstr "Uit _Platte tekst bestand"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:619
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:688
+msgid "Add Node from a Plain Text File to the Current Tree"
+msgstr "Knooppunten uit een platte tekst bestand aan de huidige boom toevoegen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:620
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:689
+msgid "From _Folder of Plain Text Files"
+msgstr "Uit _Map met platte tekst bestanden"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:620
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:689
+msgid "Add Nodes from a Folder of Plain Text Files to the Current Tree"
+msgstr ""
+"Knooppunten uit een map met platte tekst bestanden aan de huidige boom "
+"toevoegen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:621
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:690
+#, fuzzy
+msgid "From _HTML File"
+msgstr "Uit _Leo bestand"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:621
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:690
+#, fuzzy
+msgid "Add Node from an HTML File to the Current Tree"
+msgstr "Knooppunten uit een platte tekst bestand aan de huidige boom toevoegen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:622
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:691
+#, fuzzy
+msgid "From _Folder of HTML Files"
+msgstr "Uit _Map met platte tekst bestanden"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:622
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:691
+#, fuzzy
+msgid "Add Nodes from a Folder of HTML Files to the Current Tree"
+msgstr ""
+"Knooppunten uit een map met platte tekst bestanden aan de huidige boom "
+"toevoegen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:623
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:692
+msgid "From _Basket Folder"
+msgstr "Uit _Basket map"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:623
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:692
+msgid "Add Nodes of a Basket Folder to the Current Tree"
+msgstr "Knooppunten uit een Basket map aan de huidige boom toevoegen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:624
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:693
+msgid "From _Gnote Folder"
+msgstr "Uit _Gnote map"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:624
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:693
+msgid "Add Nodes of a Gnote Folder to the Current Tree"
+msgstr "Knooppunten uit een Gnote map aan de huidige boom toevoegen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:625
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:694
+msgid "From _KeepNote Folder"
+msgstr "Uit _KeepNote map"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:625
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:694
+msgid "Add Nodes of a KeepNote Folder to the Current Tree"
+msgstr "Knooppunten uit een KoopNote map aan de huidige boom toevoegen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:626
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:695
+msgid "From K_eyNote File"
+msgstr "Uit K_eyNote bestand"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:626
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:695
+msgid "Add Nodes of a KeyNote File to the Current Tree"
+msgstr "Knooppunten uit een KeyNote bestand aan de huidige boom toevoegen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:627
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:696
+msgid "From K_nowit File"
+msgstr "Uit K_nowit bestand"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:627
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:696
+msgid "Add Nodes of a Knowit File to the Current Tree"
+msgstr "Knooppunten uit een Knowit bestand aan de huidige boom toevoegen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:628
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:697
+msgid "From _Leo File"
+msgstr "Uit _Leo bestand"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:628
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:697
+msgid "Add Nodes of a Leo File to the Current Tree"
+msgstr "Knooppunten uit een Leo bestand aan de huidige boom toevoegen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:629
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:698
+msgid "From _Mempad File"
+msgstr "Uit _Mempad bestand"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:629
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:698
+msgid "Add Nodes of a Mempad File to the Current Tree"
+msgstr "Knooppunten uit een Mempad bestand aan de huidige boom toevoegen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:630
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:699
+msgid "From _NoteCase File"
+msgstr "Uit _NoteCase bestand"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:630
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:699
+msgid "Add Nodes of a NoteCase File to the Current Tree"
+msgstr "Knooppunten uit een NoteCase bestand aan de huidige boom toevoegen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:631
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:700
+msgid "From T_omboy Folder"
+msgstr "Uit T_omboy map"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:631
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:700
+msgid "Add Nodes of a Tomboy Folder to the Current Tree"
+msgstr "Knooppunten uit een Tomboy map aan de huidige boom toevoegen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:632
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:701
+msgid "From T_reepad Lite File"
+msgstr "Uit T_reepad Lite bestand"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:632
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:701
+msgid "Add Nodes of a Treepad Lite File to the Current Tree"
+msgstr "Knooppunten uit een Treepad Lite bestand aan de huidige boom toevoegen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:633
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:702
+msgid "From _TuxCards File"
+msgstr "Uit _TuxCards bestand"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:633
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:702
+msgid "Add Nodes of a TuxCards File to the Current Tree"
+msgstr "Knooppunten uit een TuxCards bestand aan de huidige boom toevoegen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:634
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:703
+msgid "From _Zim Folder"
+msgstr "Uit _Zim map"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:634
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:703
+msgid "Add Nodes of a Zim Folder to the Current Tree"
+msgstr "Knooppunten uit een Zim map aan de huidige boom toevoegen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:635
+msgid "Online _Manual"
+msgstr "Online _Handleiding"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:635
+msgid "Application's Online Manual"
+msgstr "Online handleiding van de applicatie"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:636
+msgid "_Check Newer Version"
+msgstr "Op nieuwe versie controleren"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:636
+msgid "Check for a Newer Version"
+msgstr "Op nieuwe versies controleren"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:637
+msgid "_About"
+msgstr "_Over"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:637
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:306
+msgid "About CherryTree"
+msgstr "Over CherryTree"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:638
+msgid "_Edit Table Properties"
+msgstr "Tabel eigenschappen wijzigen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:638
+msgid "Edit the Table Properties"
+msgstr "Wijzigt de tabel eigenschappen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:639
+msgid "_Add Row"
+msgstr "Rij toevoegen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:639
+msgid "Add a Table Row"
+msgstr "Tabel rij toevoegen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:640
+msgid "Cut a Table Row"
+msgstr "Tabel rij knippen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:641
+msgid "Copy a Table Row"
+msgstr "Tabel rij kopiëren"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:642
+msgid "_Paste Row"
+msgstr "Rij plakken"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:642
+msgid "Paste a Table Row"
+msgstr "Tabel rij plakken"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:643
+msgid "Delete the Selected Table Row"
+msgstr "Geselecteerde tabel rij verwijderen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:644
+msgid "Move Row _Up"
+msgstr "Rij _omhoog verplaatsen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:644
+msgid "Move the Selected Row Up"
+msgstr "Verplaatst de geselecteerde rij omhoog"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:645
+msgid "Move Row _Down"
+msgstr "Rij omlaag verplaatsen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:645
+msgid "Move the Selected Row Down"
+msgstr "Verplaatst de geselecteerde rij omlaag"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:646
+msgid "Sort Rows De_scending"
+msgstr "Rijen aflopend sorteren"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:646
+msgid "Sort all the Rows Descending"
+msgstr "Sorteert alle rijen aflopend"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:647
+msgid "Sort Rows As_cending"
+msgstr "Rijen oplopend sorteren"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:647
+msgid "Sort all the Rows Ascending"
+msgstr "Sorteert alle rijen oplopend"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:648
+msgid "_Table Export"
+msgstr "_Tabel exporteren"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:648
+msgid "Export Table as CSV File"
+msgstr "Tabel als CSV bestand exporteren"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:649
+msgid "_Bookmark This Node"
+msgstr "Bladwijzer van dit knooppunt maken"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:649
+msgid "Add the Current Node to the Bookmarks List"
+msgstr "Voegt dit knooppunt toe aan de bladwijzerlijst"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:650
+msgid "_Handle Bookmarks"
+msgstr "Bladwijzers bewerken"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:650
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:1025
+msgid "Handle the Bookmarks List"
+msgstr "Bewerk de bladwijzerlijst"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:651
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:662
+msgid "Add _Node"
+msgstr "Knooppunt toevoegen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:651
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:662
+msgid "Add a Node having the same Father of the Selected Node"
+msgstr "Knooppunt toevoegen met zelfde vader als geselecteerde knooppunt"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:652
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:663
+msgid "Add _SubNode"
+msgstr "Sub-knooppunt toevoegen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:652
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:663
+msgid "Add a Child Node to the Selected Node"
+msgstr "Voegt een kooppunt toe onder het geselecteerde knooppunt"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:665
+msgid "Change Node _Properties"
+msgstr "Knooppunt eigenschappen wijzigen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:665
+msgid "Edit the Properties of the Selected Node"
+msgstr "Wijzigt de eigenschappen van het geselecteerde knooppunt"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:666
+msgid "Insert Today's Node"
+msgstr "Vandaag knooppunt invoegen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:666
+msgid "Insert a Node with Hierarchy Year/Month/Day"
+msgstr "Knooppunt met hiërarchie Jaar/Maan/Dag toevoegen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:667
+msgid "Tree _Info"
+msgstr "Boom informatie"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:667
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3144
+msgid "Tree Summary Information"
+msgstr "Boom informatie overzicht"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:670
+msgid "Node _Up"
+msgstr "Knooppunt omhoog"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:670
+msgid "Move the Selected Node Up"
+msgstr "Verplaatst het geselecteerde kooppunt omhoog"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:671
+msgid "Node _Down"
+msgstr "Knooppunt omlaag"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:671
+msgid "Move the Selected Node Down"
+msgstr "Verplaatst het geselecteerde knooppunt omlaag"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:672
+msgid "Node _Left"
+msgstr "Knooppunt links"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:672
+msgid "Move the Selected Node Left"
+msgstr "Verplaatst het geselecteerde knooppunt naar links"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:673
+msgid "Node Change _Father"
+msgstr "Vader van knooppunt wijzigen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:673
+msgid "Change the Selected Node's Father"
+msgstr "Wijzigt de vader van de geselecteerde knooppunten"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:676
+msgid "Nodes _Sort"
+msgstr "Sorteer knooppunten"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:677
+msgid "Sort Tree _Ascending"
+msgstr "Sorteer boom oplopend"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:677
+msgid "Sort the Tree Ascending"
+msgstr "Sorteert de boom oplopend"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:678
+msgid "Sort Tree _Descending"
+msgstr "Sorteer boom aflopend"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:678
+msgid "Sort the Tree Descending"
+msgstr "Sorteert de boom aflopend"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:679
+msgid "Sort Siblings A_scending"
+msgstr " Sorteer onderliggende oplopend"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:679
+msgid "Sort all the Siblings of the Selected Node Ascending"
+msgstr ""
+"Alle onderliggende knooppunten van het geselecteerde knooppunt oplopend "
+"sorteren"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:680
+msgid "Sort Siblings D_escending"
+msgstr "Onderliggende aflopend sorteren"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:680
+msgid "Sort all the Siblings of the Selected Node Descending"
+msgstr ""
+"Alle onderliggende knooppunten van het geselecteerde knooppunt aflopend "
+"sorteren"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:715
+msgid "De_lete Node"
+msgstr "Kooppunt verwijderen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:715
+msgid "Delete the Selected Node"
+msgstr "Verwijdert het geselecteerde kooppunt"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:749
+msgid "_Justify"
+msgstr "_Uitgevuld"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:754
+msgid "_List"
+msgstr "_Lijst"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:760
+msgid "_Insert"
+msgstr "_Invoegen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:775
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:814
+msgid "_Row"
+msgstr "_Rij"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:777
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:816
+msgid "C_opy Row"
+msgstr "Rij kopiëren"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:786
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:825
+msgid "Find in Node_s"
+msgstr "In knooppunten zoeken"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:793
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:832
+msgid "Replace in Node_s"
+msgstr "In knooppunt vervangen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:808
+msgid "Stri_p Trailing Spaces"
+msgstr "Naloopspaties trimmen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:808
+msgid "Strip Trailing Spaces"
+msgstr "Naloopspaties trimmen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:846
+msgid "Edit _Link"
+msgstr "Koppeling wijzigen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:846
+msgid "Edit the Underlying Link"
+msgstr "Onderliggende koppeling wijzigen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:848
+msgid "C_ut Link"
+msgstr "Koppeling knippen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:848
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:866
+msgid "Cut the Selected CodeBox"
+msgstr "Knipt het geselecteerde codevak"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:849
+msgid "_Copy Link"
+msgstr "Koppeling kopiëren"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:849
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:867
+msgid "Copy the Selected CodeBox"
+msgstr "Kopieert het geselecteerde codevak"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:850
+msgid "D_ismiss Link"
+msgstr "Koppeling afwijzen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:850
+msgid "Dismiss the Selected Link"
+msgstr "Geselecteerde afbeelding afwijzen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:851
+msgid "_Delete Link"
+msgstr "Koppeling verwijderen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:851
+msgid "Delete the Selected Link"
+msgstr "Geselecteerde koppeling verwijderen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:862
+msgid "Change CodeBox _Properties"
+msgstr "Codevak eigenschappen wijzigen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:862
+msgid "Edit the Properties of the CodeBox"
+msgstr "Wijzigt de codevak eigenschappen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:863
+msgid "CodeBox _Load From Text File"
+msgstr ""
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:863
+msgid "Load the CodeBox Content From a Text File"
+msgstr ""
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:864
+msgid "CodeBox _Save To Text File"
+msgstr ""
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:864
+msgid "Save the CodeBox Content To a Text File"
+msgstr ""
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:866
+msgid "C_ut CodeBox"
+msgstr "Codevak knippen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:867
+msgid "_Copy CodeBox"
+msgstr "Codevak kopiëren"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:868
+msgid "_Delete CodeBox"
+msgstr "Codevak verwijderen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:868
+msgid "Delete the Selected CodeBox"
+msgstr "Verwijdert het geselecteerde codevak"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:869
+#, fuzzy
+msgid "Delete CodeBox _Keep Content"
+msgstr "Codevak verwijderen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:869
+#, fuzzy
+msgid "Delete the Selected CodeBox But Keep Its Content"
+msgstr "Verwijdert het geselecteerde codevak"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:871
+msgid "Increase CodeBox Width"
+msgstr "Codevak breedte vergroten"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:871
+msgid "Increase the Width of the CodeBox"
+msgstr "Vergroot de codevak breedte"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:872
+msgid "Decrease CodeBox Width"
+msgstr "Codevak breedte verkleinen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:872
+msgid "Decrease the Width of the CodeBox"
+msgstr "Verkleint de codevak breedte"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:873
+msgid "Increase CodeBox Height"
+msgstr "Codevak hoogte vergroten"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:873
+msgid "Increase the Height of the CodeBox"
+msgstr "Vergroot de codevak hoogte"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:874
+msgid "Decrease CodeBox Height"
+msgstr "Codevak hoogte verkleinen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:874
+msgid "Decrease the Height of the CodeBox"
+msgstr "Verkleint de codevak hoogte"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:45
+msgid "Iterate Latest Find/Replace"
+msgstr "Laatste Zoek/Vervang herhalen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:48
+msgid "Close"
+msgstr "Sluiten"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:49
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:50
+msgid "Find"
+msgstr "Zoek"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:51
+msgid "Replace"
+msgstr "Vervang"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:52
+msgid "Undo"
+msgstr "Ongedaan maken"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:107
+msgid "Replace in Current Node..."
+msgstr "Vervang in huidige knooppunt..."
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:108
+msgid "Search in Current Node..."
+msgstr "Zoek in huidige knooppunt..."
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:136
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:216
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:287
+#, python-format
+msgid "The pattern '%s' was not found"
+msgstr "Het patroon '%s' is niet gevonden"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:138
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:219
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:289
+msgid "Matches"
+msgstr "Gelijke"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:154
+#, fuzzy
+msgid "Replace in Selected Node and Subnodes"
+msgstr "Geselecteerde knooppunten en subknooppunten"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:155
+#, fuzzy
+msgid "Replace in All Nodes"
+msgstr "Vervang in alle knooppunten..."
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:157
+#, fuzzy
+msgid "Search in Selected Node and Subnodes"
+msgstr "Geselecteerde knooppunten en subknooppunten"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:158
+#, fuzzy
+msgid "Search in All Nodes"
+msgstr "Zoek in alle knooppunten..."
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:232
+msgid "Replace in Node Names..."
+msgstr "Vervang in knooppunt namen..."
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:233
+msgid "Search For a Node Name..."
+msgstr "Zoek naar knooppunt naam..."
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:534
+msgid "No Previous Search Was Performed During This Session"
+msgstr "Geen vorige zoekopdracht is uitgevoerd tijdens deze sessie"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:574
+msgid "Hide (Restore with Ctrl+Shift+A)"
+msgstr "Verbergen (Herstellen door Ctrl+Shift+A)"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:587
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2869
+msgid "Node Name"
+msgstr "Knooppunt naam"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:589
+msgid "Line"
+msgstr "Lijn"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:591
+msgid "Line Content"
+msgstr "Regelinhoud"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:609
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3778
+#, python-format
+msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
+msgstr "The koppeling wijst naar een knooppunt die niet meer bestaat (Id = %s)"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/printing.py:213
+msgid "Warning: One or More Images Were Reduced to Enter the Page"
+msgstr ""
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:128
+msgid "Save File as"
+msgstr "Bestand opslaan als"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:159
+msgid "Select File"
+msgstr "Selecteer bestand"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:190
+msgid "Select Folder"
+msgstr "Selecteer map"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:218
+msgid "Question"
+msgstr "Vraag"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:233
+msgid "Info"
+msgstr "Info"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:239
+msgid "This Change will have Effect Only After Restarting CherryTree"
+msgstr "Om de verandering toe te passen moet CherryTree opnieuw worden gestart"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:249
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:507
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:541
+msgid "Warning"
+msgstr "Waarschuwing"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:261
+msgid "Error"
+msgstr "Fout"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:270
+msgid ""
+"Copyright © 2009-2014\n"
+"Giuseppe Penone <giuspen@gmail.com>"
+msgstr ""
+"Copyright © 2009-2014\n"
+"Giuseppe Penone <giuspen@gmail.com>"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:272
+msgid ""
+"A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
+"Highlighting"
+msgstr ""
+"CherryTree hiërarchische notitie programma, gekenmerkt door Rich Text en "
+"Syntax markering"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:273
+msgid ""
+"\n"
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 3 of the License, or\n"
+"(at your option) any later version.\n"
+"  \n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"  \n"
+"You should have received a copy of the GNU General Public License\n"
+"along with this program; if not, write to the Free Software\n"
+"Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,\n"
+"MA 02110-1301, USA.\n"
+msgstr ""
+"\n"
+"Dit programma is vrije software; u kunt het verspreiden en / of wijzigen\n"
+"onder de voorwaarden van de GNU General Public License zoals gepubliceerd "
+"door\n"
+"de Free Software Foundation; ofwel versie 3 van de Licentie, of\n"
+"(naar uw keuze) enige latere versie.\n"
+"  \n"
+"Dit programma wordt verspreid in de hoop dat het nuttig zal zijn,\n"
+"maar ZONDER ENIGE GARANTIE; zelfs zonder de impliciete garantie van\n"
+"Verkoopbaarheid of geschiktheid voor een bepaald doel. Zie het\n"
+"GNU General Public License voor meer details.\n"
+"  \n"
+"U moet een kopie van de GNU General Public License hebben ontvangen\n"
+"samen met dit programma, zo niet, schrijf naar de Free Software\n"
+"Foundation, Inc, 51 Franklin Street, Fifth Floor, Boston,\n"
+"MA 02110-1301, USA.\n"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:293
+msgid "Armenian"
+msgstr ""
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:294
+#, fuzzy
+msgid "Chinese Simplified"
+msgstr "Gestippelde tijn"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:295
+msgid "Czech"
+msgstr ""
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:296
+msgid "Dutch"
+msgstr ""
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:297
+msgid "French"
+msgstr ""
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:298
+msgid "German"
+msgstr ""
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:299
+msgid "Italian"
+msgstr ""
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:300
+msgid "Polish"
+msgstr ""
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:301
+msgid "Portuguese Brazil"
+msgstr ""
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:302
+msgid "Russian"
+msgstr ""
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:303
+msgid "Spanish"
+msgstr ""
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:304
+msgid "Ukrainian"
+msgstr ""
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:544
+msgid "Cancel"
+msgstr "Annuleren"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:545
+msgid "No"
+msgstr "Nee"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:546
+msgid "Yes"
+msgstr "Ja"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:560
+msgid ""
+"<b>The current document was updated</b>,\n"
+"do you want to save the changes?"
+msgstr ""
+"<b>Het huidige document is bijgewerkt</b>,\n"
+"wilt u de wijzigingen opslaan?"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:603
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1117
+msgid "To WebSite"
+msgstr "Naar WebSite"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:614
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1131
+msgid "To File"
+msgstr "Naar bestand"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:629
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1138
+msgid "To Folder"
+msgstr "Naar map"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:644
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1124
+msgid "To Node"
+msgstr "Naar knooppunt"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:684
+msgid "Anchor Name (optional)"
+msgstr "Ankernaam (optioneel)"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:738
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3116
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4001
+msgid "No Node is Selected"
+msgstr "Geen knooppunt geselecteerd"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:758
+msgid "There are No Anchors in the Selected Node"
+msgstr "Er zijn geen ankers in het geselecteerde knooppunt"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:760
+msgid "Choose Existing Anchor"
+msgstr "Kies bestaand anker"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:760
+msgid "Anchor Name"
+msgstr "Ankernaam"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:851
+msgid "Involved Nodes"
+msgstr "Betrokken knooppunten"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:857
+msgid "Selected Text Only"
+msgstr "Alleen geselecteerde tekst"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:858
+msgid "Selected Node Only"
+msgstr "Alleen geselecteerde knooppunten"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:859
+msgid "Selected Node and Subnodes"
+msgstr "Geselecteerde knooppunten en subknooppunten"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:860
+msgid "All the Tree"
+msgstr "De hele boom"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:871
+msgid "Include Node Name"
+msgstr "Inclusief knooppunt naam"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:877
+msgid "Links Tree in Every Page"
+msgstr ""
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:882
+msgid "New Node in New Page"
+msgstr "Nieuw knooppunt in nieuwe pagina"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:948
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:952
+msgid "Insert _Special Character"
+msgstr "_Speciaal teken invoegen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:950
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:954
+msgid "Insert a Special Character"
+msgstr "Een speciaal teken invoegen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:981
+msgid "_Recent Documents"
+msgstr "_Recente documenten"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:983
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:989
+msgid "Open a Recent CherryTree Document"
+msgstr "Een recent CherryTree document openen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:1013
+#, python-format
+msgid "The Document %s was Not Found"
+msgstr "Het document %s is niet gevonden"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:1039
+msgid "Sort with Drag and Drop, Delete with the Delete Key"
+msgstr "Sorteer door slepen en loslaten, verwijderen met de Delete toets"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/pgsc_spellcheck.py:68
+msgid "Unknown"
+msgstr "Onbekend"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/pgsc_spellcheck.py:422
+msgid "(no suggestions)"
+msgstr "(geen voorstellen)"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/pgsc_spellcheck.py:438
+msgid "Add \"{}\" to Dictionary"
+msgstr "\"{}\" aan bibliotheek toevoegen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/pgsc_spellcheck.py:441
+msgid "Ignore All"
+msgstr "Alles negeren"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/pgsc_spellcheck.py:452
+msgid "Languages"
+msgstr "Talen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/pgsc_spellcheck.py:463
+msgid "Suggestions"
+msgstr "Suggesties"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/exports.py:38
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:570
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1166
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1328
+msgid "CherryTree Document"
+msgstr "CherryTree document"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/exports.py:99
+msgid "PDF File"
+msgstr "PDF bestand"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/exports.py:185
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:704
+msgid "Plain Text Document"
+msgstr "Platte tekst document"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/exports.py:559
+msgid "Index"
+msgstr ""
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:495
+msgid "Tab Width"
+msgstr "Tab breedte"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:501
+msgid "Insert Spaces Instead of Tabs"
+msgstr "Spaties invoegen in plaats van Tabs"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:503
+msgid "Use Line Wrapping"
+msgstr "Regelterugloop gebruiken"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:507
+msgid "Line Wrapping Indentation"
+msgstr "Regelterugloop inspringen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:513
+msgid "Enable Automatic Indentation"
+msgstr "Automatisch inspringen inschakelen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:525
+msgid "Text Editor"
+msgstr "Tektbewerker"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:535
+msgid "Timestamp Format"
+msgstr "Tijdstempel opmaak"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:545
+msgid "Horizontal Rule"
+msgstr "Horizontale lijn"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:552
+msgid "Special Characters"
+msgstr "Speciale tekens"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:572
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:708
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:931
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1167
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1287
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1421
+msgid "Miscellaneous"
+msgstr "Diversen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:631
+msgid "Enable Spell Check"
+msgstr "Spellingcontrole inschakelen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:635
+msgid "Spell Check Language"
+msgstr "spellingcontrole taal"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:648
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4009
+msgid "Spell Check"
+msgstr "Spellingscontrole"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:658
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:835
+msgid "Light Background, Dark Text"
+msgstr "Lichte achtergrond, Donkere tekst"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:659
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:836
+msgid "Dark Background, Light Text"
+msgstr "Donkere achtergrond, Lichte tekst"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:661
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:838
+msgid "Custom Background"
+msgstr "Aangepaste achtergrond"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:666
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:843
+msgid "and Text"
+msgstr "en tekst"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:676
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:853
+msgid "Theme"
+msgstr "Thema"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:696
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:793
+msgid "Show White Spaces"
+msgstr "Witruimte weergeven"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:698
+msgid "Limit of Undoable Steps Per Node"
+msgstr "Maximum uitvoerbare stappen per knooppunt"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:785
+msgid "Style Scheme"
+msgstr "Stijlschema"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:795
+msgid "Highlight Current Line"
+msgstr "Huidige regel markeren"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:802
+msgid "Code Nodes"
+msgstr "Code knooppunt"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:873
+msgid "Use Cherries as Nodes Icons"
+msgstr "Gebruik kersen als knoopunt pictogrammen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:874
+msgid "Use Bullets as Nodes Icons"
+msgstr "Gebruik opsommingstekens als kooppunt pictogrammen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:876
+msgid "Do Not Display Nodes Icons"
+msgstr "Knooppunt pictogrammen niet weergeven"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:882
+msgid "Nodes Icons"
+msgstr "Knooppunt pictogrammen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:896
+msgid "Restore Expanded/Collapsed Status"
+msgstr "Inklappen/uitklappen status herstellen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:897
+msgid "Expand all Nodes"
+msgstr "Alle knoopunten uitklappen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:899
+msgid "Collapse all Nodes"
+msgstr "Alle knoopunten inklappen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:905
+msgid "Nodes Status at Startup"
+msgstr "Knooppunt status bij opstarten"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:920
+msgid "Tree Nodes Names Wrapping Width"
+msgstr "Stam Knooppuntnamen regelterugloop breedte"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:926
+msgid "Display Tree on the Right Side"
+msgstr "Boom aan de rechterzijde weergeven"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1031
+msgid "Text Font"
+msgstr "Tekst lettertypen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1032
+msgid "Code Font"
+msgstr "Code lettertypen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1033
+msgid "Tree Font"
+msgstr "Boom lettertypen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1050
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1419
+msgid "Fonts"
+msgstr "Lettertypen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1079
+msgid "Enable Custom Web Link Clicked Action"
+msgstr "Aangepaste webkoppeling klik-actie inschakelen "
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1081
+msgid "Enable Custom File Link Clicked Action"
+msgstr "Aangepaste bestandskoppeling klik-actie inschakelen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1083
+msgid "Enable Custom Folder Link Clicked Action"
+msgstr "Aangepaste map koppeling klik-actie inschakelen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1092
+msgid "Custom Actions"
+msgstr "Aangepaste acties"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1148
+msgid "Colors"
+msgstr "Kleuren"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1159
+msgid "Anchor Size"
+msgstr "Anker grootte"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1224
+msgid "Enable System Tray Docking"
+msgstr "In systeemvak verbergen inschakelen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1225
+msgid "Start Minimized in the System Tray"
+msgstr "Geminimaliseerd in systeemvak starten"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1226
+msgid "Use AppIndicator for Docking"
+msgstr "Gebruik AppIndicator voor verbergen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1231
+msgid "System Tray"
+msgstr "Systeembalk"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1248
+msgid "Autosave Every"
+msgstr "Automatisch opslaan"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1251
+msgid "Minutes"
+msgstr "Minuten"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1255
+msgid "Autosave on Quit"
+msgstr "Automatisch opslaan bij afsluiten"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1256
+msgid "Create a Backup Copy Before Saving"
+msgstr "Reservekopie maken voor opslaan"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1267
+msgid "Saving"
+msgstr "Opslaan"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1276
+msgid "Automatically Check for Newer Version"
+msgstr "Automatisch op nieuwe versies controleren"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1277
+msgid "Reload Document From Last Session"
+msgstr "Document laden uit laatste sessie"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1278
+msgid "Reload After External Update to CT* File"
+msgstr "Opnieuw laden na extern bijwerken naar CT* bestand"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1303
+msgid "Language"
+msgstr "Taal"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1395
+msgid "The New Language will be Available Only After Restarting CherryTree"
+msgstr "De nieuwe taal is beschikbaar nadat CherryTree opnieuw is opgestart"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1415
+msgid "All Nodes"
+msgstr "Alle kooppunten"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1416
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2873
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4004
+msgid "Rich Text"
+msgstr "Rich Text"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1417
+#, fuzzy
+msgid "Plain Text and Code"
+msgstr "Platte tekst document"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1418
+msgid "Tree"
+msgstr "Boom"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1420
+msgid "Links"
+msgstr "Koppelingen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/tablez.py:63
+msgid "Rename Column"
+msgstr "Kolom hernoemen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/tablez.py:74
+msgid "Delete Column"
+msgstr "Kolom verwijderen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/tablez.py:82
+msgid "Add Column"
+msgstr "Kolom toevoegen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/tablez.py:93
+msgid "Move Column Left"
+msgstr "Kolom naar links verplaatsen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/tablez.py:101
+msgid "Move Column Right"
+msgstr "Kolom naar rechts verplaatsen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/tablez.py:170
+msgid "Rows"
+msgstr "Rijen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/tablez.py:174
+msgid "Columns"
+msgstr "Kolommen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/tablez.py:189
+msgid "Table Size"
+msgstr "Tabel grootte"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/tablez.py:194
+msgid "Min Width"
+msgstr "Min Breedte"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/tablez.py:198
+msgid "Max Width"
+msgstr "Maximum Breedte"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/tablez.py:213
+msgid "Column Properties"
+msgstr "Kolom eigenschappen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/tablez.py:218
+msgid "Import from CSV File"
+msgstr "Importeren van CSV bestand"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/tablez.py:253
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/tablez.py:275
+msgid "CSV File"
+msgstr "CSV bestand"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/tablez.py:269
+msgid "Insert Table"
+msgstr "Tabel invoegen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/tablez.py:304
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/imports.py:2095
+msgid "click me"
+msgstr "Klik hier"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/tablez.py:313
+msgid "Click to Edit the Column Settings"
+msgstr "Klik kolom instellingen te wijzigen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/tablez.py:358
+msgid "Edit Table Properties"
+msgstr "Wijzig tabeleigenschappen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/tablez.py:434
+msgid "Table Column Action"
+msgstr "Tabel kolom actie"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:202
+msgid "Checking for Newer Version..."
+msgstr "Controleren op nieuwe versie..."
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:208
+msgid "A Newer Version Is Available!"
+msgstr "Een nieuwe versie is beschikbaar!"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:213
+msgid "You Are Using the Latest Version Available"
+msgstr "U gebruikt de laatst beschikbare versie"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:216
+msgid "Failed to Retrieve Latest Version Information - Try Again Later"
+msgstr "Ophalen nieuwe versie informatie mislukt - Probeer het later nog eens"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:233
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3131
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3495
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4052
+msgid "No Text is Selected"
+msgstr "Geen tekst geselecteerd"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:547
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2063
+msgid "The new father can't be one of his sons!"
+msgstr "De nieuwe vader kan niet een van zijn zonen zijn!"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:593
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1672
+#, python-format
+msgid "\"%s\" is Not a CherryTree Document"
+msgstr "\"%s\" is geen CherryTree document"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:599
+msgid "NoteCase Document"
+msgstr "Notecase document"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:685
+#, fuzzy
+msgid "HTML Document"
+msgstr "Leo document"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:722
+msgid "Treepad Document"
+msgstr "Treepad document"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:744
+msgid "KeyNote Document"
+msgstr "KeyNote document"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:762
+msgid "Mempad Document"
+msgstr "Mempad document"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:780
+msgid "Knowit Document"
+msgstr "Knowit document"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:799
+msgid "Leo Document"
+msgstr "Leo document"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:830
+msgid "Who is the Father?"
+msgstr "Wie is de vader?"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:837
+msgid "The Tree Root"
+msgstr "De stam"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:838
+msgid "The Selected Node"
+msgstr "Het geselecteerde knooppunt"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1028
+msgid "The Document was Reloaded After External Update to CT* File"
+msgstr "Dit document is geladen na een externe update naar CT* bestand"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1055
+msgid "CherryTree Hierarchical Note Taking"
+msgstr "CherryTree hiërarchische notitie programma"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1297
+#, python-format
+msgid "You Have No Write Access to %s"
+msgstr "U heeft geen schrijfrechten op %s"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1310
+msgid "Writing to Disk..."
+msgstr "Schrijven naar schijf"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1424
+msgid "Choose Storage Type"
+msgstr "Kies opslagtype"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1431
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1434
+msgid "Not Protected"
+msgstr "Niet beveiligd"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1432
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1436
+msgid "Password Protected"
+msgstr "Wachtwoord beveiligd"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1443
+msgid "Storage Type"
+msgstr "Opslagtype"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1454
+msgid "Enter the New Password Twice"
+msgstr "Geef twee maal het nieuwe wachtwoord in"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1497
+msgid "The Password Fields Must be Filled"
+msgstr "De wachtwoord velden moeten zijn ingevuld"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1500
+msgid "The Two Inserted Passwords Do Not Match"
+msgstr "De ingegeven wachtwoorden komen niet overeen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1505
+#, python-format
+msgid "The Characters  %s  are Not Allowed"
+msgstr "De tekens %s zijn niet toegestaan"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1523
+msgid ""
+"Binary Executable '7za' Not Found, Check The Package 'p7zip-full' to be "
+"Installed Properly"
+msgstr ""
+"Uitvoerprogramma '7za' niet gevonden. Controleer of het pakket 'p7zip-full' "
+"geïnstalleerd is."
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1529
+#, python-format
+msgid "Enter Password for %s"
+msgstr "Geef wachtwoord voor %s"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1596
+msgid "Wrong Password"
+msgstr "Verkeerd wachtwoord"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2051
+msgid "Select the New Father"
+msgstr "Selecteer de nieuwe vader"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2055
+msgid "The new father can't be the very node to move!"
+msgstr "De nieuwe vader kan niet het knooppunt zijn om te verplaatsen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2058
+msgid "The new choosed father is again the old father!"
+msgstr "De nieuw gekozen vader is weer de oude vader!"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2238
+msgid "New Node Properties"
+msgstr "Nieuw knooppunt eigenschappen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2276
+msgid "New Child Node Properties"
+msgstr "Nieuw kind knooppunt eigenschappen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2299
+#, python-format
+msgid "Are you sure to <b>Delete the node '%s'?</b>"
+msgstr "Weet u zeker dat u <b>het knooppunt '%s' wilt verwijderen?</b>"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2301
+msgid "The node <b>has Children, they will be Deleted too!</b>"
+msgstr "Dit knooppunt <b>heeft kinderen, en worden ook verwijderd!</b>"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2321
+msgid "Node Properties"
+msgstr "Knooppunt eigenschappen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2329
+#, fuzzy
+msgid ""
+"Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
+"Do you want to Continue?"
+msgstr ""
+"Inschakelen van Automatische Syntax Markering zal alle aangepaste kleuren in "
+"dit knooppunt verwijderen, wilt u doorgaan?"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2758
+msgid "Search for"
+msgstr "Zoeken naar"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2765
+msgid "Replace with"
+msgstr "Vervangen met"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2780
+msgid "Match Case"
+msgstr "Hoofdlettergebruik gelijkmaken"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2782
+msgid "Regular Expression"
+msgstr "Reguliere expressie"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2784
+msgid "Whole Word"
+msgstr "Hele woord"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2786
+msgid "Start Word"
+msgstr "Begin woord"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2788
+msgid "Forward"
+msgstr "Volgende"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2790
+msgid "Backward"
+msgstr "Vorige"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2793
+msgid "All, List Matches"
+msgstr "Alle, lijst overeenkomsten"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2795
+msgid "First From Selection"
+msgstr "Eerste van selectie"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2798
+msgid "First in All Range"
+msgstr "Eerste in hele bereik"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2801
+msgid "Show Iterated Find/Replace Dialog"
+msgstr "Herhaaldelijk Zoek/Vervang dialoogvenster weergeven"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2821
+msgid "Search options"
+msgstr "Zoek opties"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2898
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4003
+msgid "Node Type"
+msgstr "Knooppunt type"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2911
+msgid "Tags for Searching"
+msgstr "Tags voor zoeken"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2915
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4007
+msgid "Read Only"
+msgstr "Alleen lezen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2936
+msgid "Choose Existing Tag"
+msgstr "Kies bestaand label"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2936
+msgid "Tag Name"
+msgstr "Labelnaam"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2963
+msgid "The Size of the Toolbar Icons is already at the Maximum Value"
+msgstr "De grootte van de knoppenbalk is al op de maximale waarde"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2971
+msgid "The Size of the Toolbar Icons is already at the Minimum Value"
+msgstr "De grootte van de knoppenbalk is al op de minimale waarde"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3052
+msgid "Edit Anchor"
+msgstr "Anker wijzigen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3055
+msgid "Insert Anchor"
+msgstr "Anker invoegen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3090
+msgid "Not Any H1, H2 or H3 Formatting Found"
+msgstr "Geen enkel H1, H2 of H3 opmaak gevonden"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3108
+msgid "This Feature is Available Only in Rich Text Nodes"
+msgstr ""
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3110
+msgid "This Feature is Not Available in Automatic Syntax Highlighting Nodes"
+msgstr ""
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3123
+msgid "The Tree is Empty!"
+msgstr "De boom is leeg!"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3152
+msgid "Number of Text Nodes"
+msgstr "Aantal tekst knooppunten"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3155
+msgid "Number of Code Nodes"
+msgstr "Aantal code knooppunten"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3158
+msgid "Number of Images"
+msgstr "Aantal afbeeldingen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3161
+msgid "Number of Tables"
+msgstr "Aantal tabellen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3164
+msgid "Number of CodeBoxes"
+msgstr "Aantal codevakken"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3233
+msgid "Image Properties"
+msgstr "Afbeelding eigenschappen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3279
+msgid "PNG Image"
+msgstr "PNG afbeelding"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3285
+#, python-format
+msgid "Write to %s Failed"
+msgstr "Schrijven naar %s mislukt"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3336
+msgid "Lines Stripped"
+msgstr "Gestippelde tijn"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3455
+msgid "No Previous Text Format Was Performed During This Session"
+msgstr "Geen vorige tekstopmaak uitgevoerd tijdens deze sessie"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3501
+msgid "Link Name"
+msgstr "Koppelingnaam"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3529
+msgid "The Cursor is Not into a Paragraph"
+msgstr "De cursor bevindt zich niet in een alinea"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3542
+msgid "Insert/Edit Link"
+msgstr "Koppeling invoegen/wijzigen"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3567
+msgid "Pick a Color"
+msgstr "Kies een kleur"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3750
+#, python-format
+msgid "The File Link '%s' is Not Valid"
+msgstr "Het bestandskoppeling '%s' is ongeldig"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3765
+#, python-format
+msgid "The Folder Link '%s' is Not Valid"
+msgstr "De mapkoppeling ´%s' is ongeldig"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3788
+#, python-format
+msgid "No anchor named '%s' found"
+msgstr "Geen anker met naam '%s' gevonden"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4003
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4008
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4009
+msgid ": "
+msgstr ": "
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4008
+msgid "Tags"
+msgstr ""
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/imports.py:2003
+msgid "Downloading"
+msgstr "Ophalen"

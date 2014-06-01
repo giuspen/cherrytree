@@ -1,0 +1,5 @@
+syntax: glob
+*.pyc
+*.mo
+linux/cherrytree.1.gz
+debian/debhelper.log
