@@ -221,16 +221,21 @@ class XMLHandler:
         if dom_node.hasAttribute(cons.TAG_JUSTIFICATION): justification = dom_node.attributes[cons.TAG_JUSTIFICATION].value
         else: justification = cons.TAG_PROP_LEFT
         if dom_node.hasAttribute("anchor"):
-            pixbuf = gtk.gdk.pixbuf_new_from_file(cons.ANCHOR_CHAR)
-            pixbuf = pixbuf.scale_simple(self.dad.anchor_size, self.dad.anchor_size, gtk.gdk.INTERP_HYPER)
+            pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(cons.ANCHOR_CHAR, self.dad.anchor_size, self.dad.anchor_size)
             pixbuf.anchor = dom_node.attributes["anchor"].value
+        elif dom_node.hasAttribute("filename"):
+            pixbuf = gtk.image_new_from_stock(gtk.STOCK_FILE, gtk.ICON_SIZE_DIALOG)
+            pixbuf.filename = dom_node.attributes["filename"].value
+            pixbuf.embfile = base64.b64decode(dom_node.firstChild.data)
         else:
             if version == 2: pixbuf = get_pixbuf_from_encoded_buffer(dom_node.firstChild.data)
             else: pixbuf = get_pixbuf_from_png_encoded_string(dom_node.firstChild.data)
-        if pixbuf: self.dad.image_insert(curr_buffer.get_iter_at_offset(char_offset),
-                                         pixbuf,
-                                         image_justification=justification,
-                                         text_buffer=curr_buffer)
+        if pixbuf:
+            pixbuf.link = dom_node.attributes["link"].value if dom_node.hasAttribute("link") else ""
+            self.dad.image_insert(curr_buffer.get_iter_at_offset(char_offset),
+                pixbuf,
+                image_justification=justification,
+                text_buffer=curr_buffer)
 
     def rich_text_deserialize(self, curr_buffer, dom_node):
         """From the XML rich text to the SourceBuffer"""
