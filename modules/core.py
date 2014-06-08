@@ -3125,8 +3125,7 @@ class CherryTree:
         """Insert an Anchor"""
         if not self.node_sel_and_rich_text(): return
         iter_insert = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
-        pixbuf = gtk.gdk.pixbuf_new_from_file(cons.ANCHOR_CHAR)
-        pixbuf = pixbuf.scale_simple(self.anchor_size, self.anchor_size, gtk.gdk.INTERP_HYPER)
+        pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(cons.ANCHOR_CHAR, self.anchor_size, self.anchor_size)
         self.anchor_edit_dialog(pixbuf, iter_insert)
 
     def anchor_edit(self, *args):
@@ -3154,6 +3153,19 @@ class CherryTree:
             iter_insert = self.curr_buffer.get_iter_at_offset(image_offset)
         else: image_justification = None
         self.image_insert(iter_insert, pixbuf, image_justification)
+
+    def embfile_insert(self, *args):
+        """Embedded File Insert"""
+        if not self.node_sel_and_rich_text(): return
+        iter_insert = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
+        filepath = support.dialog_file_select(curr_folder=self.pick_dir, parent=self.window)
+        if not filepath: return
+        with open(filepath, 'r') as fd:
+            self.pick_dir = os.path.dirname(filepath)
+            pixbuf = gtk.gdk.pixbuf_new_from_file(cons.FILE_CHAR)
+            pixbuf.filename = os.path.basename(filepath)
+            pixbuf.embfile = fd.read()
+            self.image_insert(iter_insert, pixbuf, image_justification=None)
 
     def embfile_save(self, *args):
         """Embedded File Save Dialog"""

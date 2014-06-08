@@ -422,7 +422,7 @@ class CTDBHandler:
             pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(cons.ANCHOR_CHAR, self.dad.anchor_size, self.dad.anchor_size)
             pixbuf.anchor = image_row['anchor']
         elif 'filename' in image_row and image_row['filename']:
-            pixbuf = gtk.image_new_from_stock(gtk.STOCK_FILE, gtk.ICON_SIZE_DIALOG)
+            pixbuf = gtk.gdk.pixbuf_new_from_file(cons.FILE_CHAR)
             pixbuf.filename = image_row['filename']
             pixbuf.embfile = image_row['png']
         else:
