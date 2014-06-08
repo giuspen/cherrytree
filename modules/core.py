@@ -3155,6 +3155,19 @@ class CherryTree:
         else: image_justification = None
         self.image_insert(iter_insert, pixbuf, image_justification)
 
+    def embfile_save(self, *args):
+        """Embedded File Save Dialog"""
+        iter_insert = self.curr_buffer.get_iter_at_child_anchor(self.curr_file_anchor)
+        iter_bound = iter_insert.copy()
+        iter_bound.forward_char()
+        filepath = support.dialog_file_save_as(filename=self.curr_file_anchor.pixbuf.filename,
+            curr_folder=self.pick_dir,
+            parent=self.window)
+        if not filepath: return
+        self.pick_dir = os.path.dirname(filepath)
+        with open(filepath, 'w') as fd:
+            fd.write(self.curr_file_anchor.pixbuf.embfile)
+
     def toc_insert(self, *args):
         """Insert Table Of Contents"""
         if not self.is_there_selected_node_or_error(): return
@@ -3339,9 +3352,13 @@ class CherryTree:
         anchor.pixbuf = pixbuf
         anchor.eventbox = gtk.EventBox()
         anchor.eventbox.set_visible_window(False)
-        if "anchor" in dir(pixbuf):
+        pixbuf_attrs = dir(pixbuf)
+        if "anchor" in pixbuf_attrs:
             anchor.eventbox.connect("button-press-event", self.on_mouse_button_clicked_anchor, anchor)
             anchor.eventbox.set_tooltip_text(pixbuf.anchor)
+        elif "filename" in pixbuf_attrs:
+            anchor.eventbox.connect("button-press-event", self.on_mouse_button_clicked_file, anchor)
+            anchor.eventbox.set_tooltip_text(pixbuf.filename)
         else:
             anchor.eventbox.connect("button-press-event", self.on_mouse_button_clicked_image, anchor)
         anchor.image = gtk.Image()
@@ -3413,8 +3430,17 @@ class CherryTree:
         elif event.type == gtk.gdk._2BUTTON_PRESS: self.image_edit()
         return True # do not propagate the event
 
+    def on_mouse_button_clicked_file(self, widget, event, anchor):
+        """Catches mouse buttons clicks upon file images"""
+        self.curr_file_anchor = anchor
+        self.object_set_selection(self.curr_file_anchor)
+        if event.button == 3:
+            self.ui.get_widget("/EmbFileMenu").popup(None, None, None, event.button, event.time)
+        elif event.type == gtk.gdk._2BUTTON_PRESS: self.embfile_save()
+        return True # do not propagate the event
+
     def on_mouse_button_clicked_anchor(self, widget, event, anchor):
-        """Catches mouse buttons clicks upon images"""
+        """Catches mouse buttons clicks upon anchor images"""
         self.curr_anchor_anchor = anchor
         self.object_set_selection(self.curr_anchor_anchor)
         if event.button == 3:
