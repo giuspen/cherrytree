@@ -122,6 +122,7 @@ RICH_TEXT_ID = "custom-colors"
 PLAIN_TEXT_ID = "plain-text"
 STYLE_SCHEME_DEFAULT = "cobalt"
 ANCHOR_CHAR = GLADE_PATH + 'anchor.png'
+FILE_CHAR = GLADE_PATH + 'file_icon.png'
 NODES_ICONS = {0:'cherry_red', 1:'cherry_blue', 2:'cherry_orange', 3:'cherry_cyan',
                4:'cherry_orange_dark', 5:'cherry_sherbert', 6:'cherry_yellow'}
 CODE_ICONS = {"python": 'cherry_green', "sh":'cherry_purple',
@@ -210,7 +211,7 @@ STOCKS_N_FILES = [
 'from_cherrytree.png', 'from_txt.png', 'from_html.png', 'cherrytree.png', 'quit-app.png',
 'new-instance.png', 'toolbar.png', 'cherries.png', 'tree-node-add.png',
 'tree-subnode-add.png', 'help-contents.png', 'index.png', 'timestamp.png',
-'calendar.png', 'horizontal_rule.png']
+'calendar.png', 'horizontal_rule.png', 'file_icon.png']
 
 NODES_STOCKS = ['node_bullet', 'node_no_icon', 'cherry_black',
                 'cherry_blue', 'cherry_cyan', 'cherry_green',
@@ -450,6 +451,7 @@ UI_INFO = """
         <toolitem action='HandleImage'/>
         <toolitem action='HandleTable'/>
         <toolitem action='HandleCodeBox'/>
+        <toolitem action='EmbFileInsert'/>
         <toolitem action='HandleLink'/>
         <toolitem action='HandleAnchor'/>
         <separator/>
@@ -530,12 +532,13 @@ def get_entries(inst):
     ( "Preferences", "gtk-preferences", _("_Preferences"), "<control><alt>P", _("Preferences"), inst.dialog_preferences),
     ( "HorizontalRule", "horizontal_rule", _("Insert _Horizontal Rule"), "<control>R", _("Insert Horizontal Rule"), inst.horizontal_rule_insert),
     ( "Timestamp", "timestamp", _("Insert Ti_mestamp"), "<control><alt>M", _("Insert Timestamp"), inst.timestamp_insert),
+    ( "EmbFileInsert", "file_icon", _("Insert _File"), "<control><alt>E", _("Insert File"), inst.embfile_insert),
     ( "BulletedList", "list_bulleted", _("Set/Unset _Bulleted List"), None, _("Set/Unset the Current Paragraph/Selection as a Bulleted List"), inst.list_bulleted_handler),
     ( "NumberedList", "list_numbered", _("Set/Unset _Numbered List"), None, _("Set/Unset the Current Paragraph/Selection as a Numbered List"), inst.list_numbered_handler),
     ( "ToDoList", "list_todo", _("Set/Unset _To-Do List"), None, _("Set/Unset the Current Paragraph/Selection as a To-Do List"), inst.list_todo_handler),
     ( "HandleLink", "link_handle", _("Insert/Edit _Link"), "<control>L", _("Insert a Link/Edit the Underlying Link"), inst.apply_tag_link),
     ( "InsertTOC", "index", _("Insert T_OC"), None, _("Insert Table of Contents"), inst.toc_insert),
-    ( "HandleAnchor", "anchor_insert", _("Insert _Anchor"), None, _("Insert an Anchor"), inst.anchor_handle),
+    ( "HandleAnchor", "anchor_insert", _("Insert _Anchor"), "<control><alt>A", _("Insert an Anchor"), inst.anchor_handle),
     ( "EditAnchor", "anchor_edit", _("Edit _Anchor"), None, _("Edit the Underlying Anchor"), inst.anchor_edit),
     ( "EmbFileSave", "gtk-save-as", _("Save _As"), None, _("Save File As"), inst.embfile_save),
     ( "HandleImage", "image_insert", _("Insert I_mage"), "<control><alt>I", _("Insert an Image"), inst.image_handle),
@@ -764,6 +767,7 @@ def get_popup_menu_entries_text(inst):
     ("image_insert", _("Insert I_mage"), None, _("Insert an Image"), inst.image_handle),
     ("table_insert", _("Insert _Table"), None, _("Insert a Table"), inst.table_handle),
     ("codebox_insert", _("Insert _CodeBox"), None, _("Insert a CodeBox"), inst.codebox_handle),
+    ("file_icon", _("Insert _File"), "<control><alt>E", _("Insert File"), inst.embfile_insert),
     ("link_handle", _("Insert/Edit _Link"), "<control>L", _("Insert a Link/Edit the Underlying Link"), inst.apply_tag_link),
     ("anchor_insert", _("Insert _Anchor"), None, _("Insert an Anchor"), inst.anchor_handle),
     ("index", _("Insert T_OC"), None, _("Insert Table of Contents"), inst.toc_insert),
