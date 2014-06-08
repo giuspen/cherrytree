@@ -72,13 +72,23 @@ class CTDBHandler:
         offset = image_element[0]
         pixbuf = image_element[1]
         justification = image_element[2]
-        if not "anchor" in dir(pixbuf):
-            anchor = ""
-            png_blob = machines.get_blob_buffer_from_pixbuf(pixbuf)
-        else:
+        pixbuf_attrs = dir(pixbuf)
+        if "anchor" in pixbuf_attrs:
+            filename = ""
+            link = ""
             anchor = (pixbuf.anchor).decode(cons.STR_UTF8)
             png_blob = None
-        return (node_id, offset, justification, anchor, png_blob)
+        elif "filename" in pixbuf_attrs:
+            filename = (pixbuf.filename).decode(cons.STR_UTF8)
+            link = ""
+            anchor = ""
+            png_blob = pixbuf.embfile
+        else:
+            filename = ""
+            link = (pixbuf.link).decode(cons.STR_UTF8)
+            anchor = ""
+            png_blob = machines.get_blob_buffer_from_pixbuf(pixbuf)
+        return (node_id, offset, justification, anchor, filename, link, png_blob)
     
     def get_table_db_tuple(self, table_element, node_id):
         """From table element to db tuple"""
@@ -304,7 +314,7 @@ class CTDBHandler:
                 else: has_table = 0
                 if images_tuples:
                     has_image = 1
-                    db.executemany('INSERT INTO image VALUES(?,?,?,?,?)', images_tuples)
+                    db.executemany('INSERT INTO image VALUES(?,?,?,?,?,?,?)', images_tuples)
                 else: has_image = 0
                 # retrieve xml text
                 txt = (self.dom.toxml()).decode(cons.STR_UTF8)
@@ -430,9 +440,9 @@ class CTDBHandler:
             pixbuf.link = image_row['link'] if 'link' in image_row else ""
         if pixbuf:
             self.dad.image_insert(iter_insert,
-                                  pixbuf,
-                                  image_justification=image_row['justification'],
-                                  text_buffer=text_buffer)
+                pixbuf,
+                image_justification=image_row['justification'],
+                text_buffer=text_buffer)
     
     def read_db_node_content(self, tree_iter, db, original_id=None):
         """Read a node content from DB"""
