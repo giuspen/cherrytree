@@ -392,13 +392,19 @@ class XMLHandler:
         dom_iter = dom.createElement("encoded_png")
         dom_iter.setAttribute("char_offset", str(element[0]))
         if element[2] != cons.TAG_PROP_LEFT: dom_iter.setAttribute(cons.TAG_JUSTIFICATION, element[2])
-        if "anchor" in dir(element[1]):
+        pixbuf_attrs = dir(element[1])
+        if "anchor" in pixbuf_attrs:
             dom_iter.setAttribute("anchor", element[1].anchor)
-            is_anchor_image = True
-        else: is_anchor_image = False
-        dom_node.appendChild(dom_iter)
-        if not is_anchor_image: text_iter = dom.createTextNode(get_encoded_buffer_from_pixbuf(element[1]))
-        else: text_iter = dom.createTextNode("anchor")
+            dom_node.appendChild(dom_iter)
+            text_iter = dom.createTextNode("anchor")
+        elif "filename" in pixbuf_attrs:
+            dom_iter.setAttribute("filename", element[1].filename)
+            dom_node.appendChild(dom_iter)
+            text_iter = dom.createTextNode(base64.base64_encode(element[1].embfile))
+        else:
+            if element[1].link: dom_iter.setAttribute("link", element[1].link)
+            dom_node.appendChild(dom_iter)
+            text_iter = dom.createTextNode(get_encoded_buffer_from_pixbuf(element[1]))
         dom_iter.appendChild(text_iter)
 
     def rich_txt_serialize(self, dom_node, start_iter, end_iter, curr_attributes, change_case="n", dom=None):
@@ -634,8 +640,7 @@ class XMLHandler:
                 start_offset -= 1
                 end_offset -= 1
                 start_iter = text_buffer.get_iter_at_offset(start_offset)
-        pixbuf = gtk.gdk.pixbuf_new_from_file(cons.ANCHOR_CHAR)
-        pixbuf = pixbuf.scale_simple(self.dad.anchor_size, self.dad.anchor_size, gtk.gdk.INTERP_HYPER)
+        pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(cons.ANCHOR_CHAR, self.dad.anchor_size, self.dad.anchor_size)
         pixbuf.anchor = self.toc_list[-1][0]
         self.dad.image_insert(start_iter, pixbuf)
         self.dad.ctdb_handler.pending_edit_db_node_buff(node_id, force_user_active=True)
