@@ -487,6 +487,10 @@ UI_INFO = """
     <popup name='AnchorMenu'>
         <menuitem action='EditAnchor'/>
     </popup>
+
+    <popup name='EmbFileMenu'>
+        <menuitem action='EmbFileSave'/>
+    </popup>
 </ui>
 """
 
@@ -533,6 +537,7 @@ def get_entries(inst):
     ( "InsertTOC", "index", _("Insert T_OC"), None, _("Insert Table of Contents"), inst.toc_insert),
     ( "HandleAnchor", "anchor_insert", _("Insert _Anchor"), None, _("Insert an Anchor"), inst.anchor_handle),
     ( "EditAnchor", "anchor_edit", _("Edit _Anchor"), None, _("Edit the Underlying Anchor"), inst.anchor_edit),
+    ( "EmbFileSave", "gtk-save-as", _("Save _As"), None, _("Save File As"), inst.embfile_save),
     ( "HandleImage", "image_insert", _("Insert I_mage"), "<control><alt>I", _("Insert an Image"), inst.image_handle),
     ( "SaveImage", "image_save", _("_Save Image as PNG"), None, _("Save the Selected Image as a PNG file"), inst.image_save),
     ( "EditImage", "image_edit", _("_Edit Image"), None, _("Edit the Selected Image"), inst.image_edit),
