@@ -260,9 +260,9 @@ node_id INTEGER,
 offset INTEGER,
 justification TEXT,
 anchor TEXT,
+png BLOB,
 filename TEXT,
-link TEXT,
-png BLOB
+link TEXT
 )"""
 
 TABLE_CHILDREN_CREATE = """CREATE TABLE children (

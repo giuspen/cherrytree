@@ -88,7 +88,7 @@ class CTDBHandler:
             link = (pixbuf.link).decode(cons.STR_UTF8)
             anchor = ""
             png_blob = machines.get_blob_buffer_from_pixbuf(pixbuf)
-        return (node_id, offset, justification, anchor, filename, link, png_blob)
+        return (node_id, offset, justification, anchor, png_blob, filename, link)
     
     def get_table_db_tuple(self, table_element, node_id):
         """From table element to db tuple"""
@@ -314,6 +314,9 @@ class CTDBHandler:
                 else: has_table = 0
                 if images_tuples:
                     has_image = 1
+                    if len(db.execute('PRAGMA table_info(image)').fetchall()) == 5:
+                        db.execute('ALTER TABLE image ADD COLUMN filename TEXT')
+                        db.execute('ALTER TABLE image ADD COLUMN link TEXT')
                     db.executemany('INSERT INTO image VALUES(?,?,?,?,?,?,?)', images_tuples)
                 else: has_image = 0
                 # retrieve xml text
