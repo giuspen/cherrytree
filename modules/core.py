@@ -3347,6 +3347,7 @@ class CherryTree:
     def image_edit_dialog(self, pixbuf, insert_iter, iter_bound=None):
         """Insert/Edit Image Dialog"""
         ret_pixbuf = support.dialog_image_handle(self.window, _("Image Properties"), pixbuf)
+        ret_pixbuf.link = ""
         if not ret_pixbuf: return
         if iter_bound != None: # only in case of modify
             image_justification = self.state_machine.get_iter_alignment(insert_iter)
