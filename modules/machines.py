@@ -400,7 +400,7 @@ class XMLHandler:
         elif "filename" in pixbuf_attrs:
             dom_iter.setAttribute("filename", element[1].filename)
             dom_node.appendChild(dom_iter)
-            text_iter = dom.createTextNode(base64.base64_encode(element[1].embfile))
+            text_iter = dom.createTextNode(base64.b64encode(element[1].embfile))
         else:
             if element[1].link: dom_iter.setAttribute("link", element[1].link)
             dom_node.appendChild(dom_iter)

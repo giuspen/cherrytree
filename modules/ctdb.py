@@ -82,7 +82,7 @@ class CTDBHandler:
             filename = (pixbuf.filename).decode(cons.STR_UTF8)
             link = ""
             anchor = ""
-            png_blob = pixbuf.embfile
+            png_blob = buffer(pixbuf.embfile)
         else:
             filename = ""
             link = (pixbuf.link).decode(cons.STR_UTF8)
@@ -434,7 +434,7 @@ class CTDBHandler:
         if image_row['anchor']:
             pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(cons.ANCHOR_CHAR, self.dad.anchor_size, self.dad.anchor_size)
             pixbuf.anchor = image_row['anchor']
-        elif 'filename' in image_row and image_row['filename']:
+        elif 'filename' in image_row.keys() and image_row['filename']:
             pixbuf = gtk.gdk.pixbuf_new_from_file(cons.FILE_CHAR)
             pixbuf.filename = image_row['filename']
             pixbuf.embfile = image_row['png']
