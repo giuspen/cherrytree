@@ -302,6 +302,7 @@ UI_INFO = """
             <menuitem action='HandleImage'/>
             <menuitem action='HandleTable'/>
             <menuitem action='HandleCodeBox'/>
+            <menuitem action='EmbFileInsert'/>
             <menuitem action='HandleLink'/>
             <menuitem action='HandleAnchor'/>
             <menuitem action='InsertTOC'/>
@@ -750,7 +751,7 @@ def get_popup_menu_entries_text(inst):
     ("format-text-small", _("Toggle _Small Property"), "<control>0", _("Toggle Small Property of the Selected Text"), inst.apply_tag_small),
     ("format-text-superscript", _("Toggle Su_perscript Property"), None, _("Toggle Superscript Property of the Selected Text"), inst.apply_tag_superscript),
     ("format-text-subscript", _("Toggle Su_bscript Property"), None, _("Toggle Subscript Property of the Selected Text"), inst.apply_tag_subscript),
-    ("format-text-monospace", _("Toggle _Monospace Property"), None, _("Toggle Monospace Property of the Selected Text"), inst.apply_tag_monospace),
+    ("format-text-monospace", _("Toggle _Monospace Property"), "<control>M", _("Toggle Monospace Property of the Selected Text"), inst.apply_tag_monospace),
     ("submenu-end", None, None, None, None),
     ("submenu-start", _("_Justify") , "gtk-justify-center", None, None),
     ("gtk-justify-left", _("Justify _Left"), None, _("Justify Left the Current Paragraph"), inst.apply_tag_justify_left),
@@ -764,14 +765,14 @@ def get_popup_menu_entries_text(inst):
     ("submenu-end", None, None, None, None),
     ("separator", None, None, None, None),
     ("submenu-start", _("_Insert") , "insert", None, None),
-    ("image_insert", _("Insert I_mage"), None, _("Insert an Image"), inst.image_handle),
-    ("table_insert", _("Insert _Table"), None, _("Insert a Table"), inst.table_handle),
-    ("codebox_insert", _("Insert _CodeBox"), None, _("Insert a CodeBox"), inst.codebox_handle),
+    ("image_insert", _("Insert I_mage"), "<control><alt>I", _("Insert an Image"), inst.image_handle),
+    ("table_insert", _("Insert _Table"), "<control><alt>T", _("Insert a Table"), inst.table_handle),
+    ("codebox_insert", _("Insert _CodeBox"), "<control><alt>C", _("Insert a CodeBox"), inst.codebox_handle),
     ("file_icon", _("Insert _File"), "<control><alt>E", _("Insert File"), inst.embfile_insert),
     ("link_handle", _("Insert/Edit _Link"), "<control>L", _("Insert a Link/Edit the Underlying Link"), inst.apply_tag_link),
-    ("anchor_insert", _("Insert _Anchor"), None, _("Insert an Anchor"), inst.anchor_handle),
+    ("anchor_insert", _("Insert _Anchor"), "<control><alt>A", _("Insert an Anchor"), inst.anchor_handle),
     ("index", _("Insert T_OC"), None, _("Insert Table of Contents"), inst.toc_insert),
-    ("timestamp", _("Insert Ti_mestamp"), "<control>M", _("Insert Timestamp"), inst.timestamp_insert),
+    ("timestamp", _("Insert Ti_mestamp"), "<control><alt>M", _("Insert Timestamp"), inst.timestamp_insert),
     ("horizontal_rule", _("Insert _Horizontal Rule"), "<control>R", _("Insert Horizontal Rule"), inst.horizontal_rule_insert),
     ("submenu-end", None, None, None, None),
     ("submenu-start", _("C_hange Case") , "case_toggle", None, None),
@@ -811,7 +812,7 @@ def get_popup_menu_entries_code(inst):
     # "submenu-end", None, None, None, None
     return [
     ("separator", None, None, None, None),
-    ("timestamp", _("Insert Ti_mestamp"), "<control>M", _("Insert Timestamp"), inst.timestamp_insert),
+    ("timestamp", _("Insert Ti_mestamp"), "<control><alt>M", _("Insert Timestamp"), inst.timestamp_insert),
     ("gtk-clear", _("Stri_p Trailing Spaces"), None, _("Strip Trailing Spaces"), inst.strip_trailing_spaces),
     ("submenu-start", _("C_hange Case") , "case_toggle", None, None),
     ("case_lower", _("_Lower Case of Selection/Word"), "<control>W", _("Lower the Case of the Selection/the Underlying Word"), inst.text_selection_lower_case),
