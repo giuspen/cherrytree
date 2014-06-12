@@ -3439,6 +3439,8 @@ class CherryTree:
         self.curr_image_anchor = anchor
         self.object_set_selection(self.curr_image_anchor)
         if event.button == 3:
+            if self.curr_image_anchor.pixbuf.link: self.ui.get_widget("/ImageMenu/DismissImageLink").show()
+            else: self.ui.get_widget("/ImageMenu/DismissImageLink").hide()
             self.ui.get_widget("/ImageMenu").popup(None, None, None, event.button, event.time)
         elif event.type == gtk.gdk._2BUTTON_PRESS: self.image_edit()
         return True # do not propagate the event
@@ -3606,6 +3608,14 @@ class CherryTree:
         if self.link_check_around_cursor():
             self.curr_buffer.delete_selection(True, self.sourceview.get_editable())
             self.sourceview.grab_focus()
+
+    def image_link_edit(self, *args):
+        """Edit the Link Associated to the Image"""
+        pass
+
+    def image_link_dismiss(self, *args):
+        """Dismiss the Link Associated to the Image"""
+        self.curr_image_anchor.pixbuf.link = ""
 
     def apply_tag(self, tag_property, property_value=None, iter_sel_start=None, iter_sel_end=None, text_buffer=None):
         """Apply a tag"""
@@ -4108,6 +4118,8 @@ class CherryTree:
                 else:
                     self.curr_image_anchor = anchor
                     self.object_set_selection(self.curr_image_anchor)
+                    if self.curr_image_anchor.pixbuf.link: self.ui.get_widget("/ImageMenu/DismissImageLink").show()
+                    else: self.ui.get_widget("/ImageMenu/DismissImageLink").hide()
                     self.ui.get_widget("/ImageMenu").popup(None, None, None, 3, event.time)
                 return True
 

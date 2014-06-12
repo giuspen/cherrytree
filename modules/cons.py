@@ -485,6 +485,9 @@ UI_INFO = """
         <separator/>
         <menuitem action='EditImage'/>
         <menuitem action='SaveImage'/>
+        <separator/>
+        <menuitem action='EditImageLink'/>
+        <menuitem action='DismissImageLink'/>
     </popup>
 
     <popup name='AnchorMenu'>
@@ -548,6 +551,8 @@ def get_entries(inst):
     ( "CutImage", "edit-cut", _("C_ut Image"), None, _("Cut the Selected Image"), inst.image_cut),
     ( "CopyImage", "edit-copy", _("_Copy Image"), None, _("Copy the Selected Image"), inst.image_copy),
     ( "DeleteImage", "edit-delete", _("_Delete Image"), None, _("Delete the Selected Image"), inst.image_delete),
+    ( "EditImageLink", "link_handle", _("Edit _Link"), None, _("Edit the Link Associated to the Image"), inst.image_link_edit),
+    ( "DismissImageLink", "gtk-clear", _("D_ismiss Link"), None, _("Dismiss the Link Associated to the Image"), inst.image_link_dismiss),
     ( "HandleTable", "table_insert", _("Insert _Table"), "<control><alt>T", _("Insert a Table"), inst.table_handle),
     ( "HandleCodeBox", "codebox_insert", _("Insert _CodeBox"), "<control><alt>C", _("Insert a CodeBox"), inst.codebox_handle),
     ( "DownCase", "case_lower", _("_Lower Case of Selection/Word"), "<control>W", _("Lower the Case of the Selection/the Underlying Word"), inst.text_selection_lower_case),
