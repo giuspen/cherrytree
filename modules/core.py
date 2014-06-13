@@ -3609,9 +3609,42 @@ class CherryTree:
             self.curr_buffer.delete_selection(True, self.sourceview.get_editable())
             self.sourceview.grab_focus()
 
+    def links_entries_reset(self):
+        """Reset Global Links Variables"""
+        self.link_node_id = None
+        self.links_entries['webs'] = ""
+        self.links_entries['file'] = ""
+        self.links_entries['fold'] = ""
+        self.links_entries['anch'] = ""
+    
+    def links_entries_pre_dialog(self, curr_link):
+        """Prepare Global Links Variables for Dialog"""
+        vector = curr_link.split()
+        self.link_type = vector[0]
+        if self.link_type == cons.LINK_TYPE_WEBS:
+            self.links_entries['webs'] = vector[1]
+        elif self.link_type == cons.LINK_TYPE_FILE:
+            self.links_entries['file'] = unicode(base64.b64decode(vector[1]), cons.STR_UTF8, cons.STR_IGNORE)
+        elif self.link_type == cons.LINK_TYPE_FOLD:
+            self.links_entries['fold'] = unicode(base64.b64decode(vector[1]), cons.STR_UTF8, cons.STR_IGNORE)
+        elif self.link_type == cons.LINK_TYPE_NODE:
+            self.link_node_id = long(vector[1])
+            if len(vector) >= 3:
+                if len(vector) == 3: anchor_name = vector[2]
+                else: anchor_name = tag_property_value[len(vector[0]) + len(vector[1]) + 2:]
+                self.links_entries['anch'] = anchor_name
+        else:
+            support.dialog_error("Tag Name Not Recognized! (%s)" % self.link_type, self.window)
+            self.link_type = cons.LINK_TYPE_WEBS
+            return False
+        return True
+
     def image_link_edit(self, *args):
         """Edit the Link Associated to the Image"""
-        pass
+        self.links_entries_reset()
+        if not self.links_entries_pre_dialog(self.curr_image_anchor.pixbuf.link):
+            return
+        
 
     def image_link_dismiss(self, *args):
         """Dismiss the Link Associated to the Image"""
@@ -3625,11 +3658,7 @@ class CherryTree:
             if tag_property != cons.TAG_JUSTIFICATION:
                 if not self.is_there_selected_node_or_error(): return
                 if tag_property == cons.TAG_LINK:
-                    link_node_id = None
-                    self.links_entries['webs'] = ""
-                    self.links_entries['file'] = ""
-                    self.links_entries['fold'] = ""
-                    self.links_entries['anch'] = ""
+                    self.links_entries_reset()
                 if not text_buffer.get_has_selection():
                     if tag_property != cons.TAG_LINK:
                         if not self.apply_tag_try_automatic_bounds():
@@ -3647,23 +3676,7 @@ class CherryTree:
                                 text_buffer.select_range(text_buffer.get_iter_at_offset(start_offset), text_buffer.get_iter_at_offset(end_offset))
                             self.link_type = cons.LINK_TYPE_WEBS # default value
                         else:
-                            vector = tag_property_value.split()
-                            self.link_type = vector[0]
-                            if self.link_type == cons.LINK_TYPE_WEBS:
-                                self.links_entries['webs'] = vector[1]
-                            elif self.link_type == cons.LINK_TYPE_FILE:
-                                self.links_entries['file'] = unicode(base64.b64decode(vector[1]), cons.STR_UTF8, cons.STR_IGNORE)
-                            elif self.link_type == cons.LINK_TYPE_FOLD:
-                                self.links_entries['fold'] = unicode(base64.b64decode(vector[1]), cons.STR_UTF8, cons.STR_IGNORE)
-                            elif self.link_type == cons.LINK_TYPE_NODE:
-                                link_node_id = long(vector[1])
-                                if len(vector) >= 3:
-                                    if len(vector) == 3: anchor_name = vector[2]
-                                    else: anchor_name = tag_property_value[len(vector[0]) + len(vector[1]) + 2:]
-                                    self.links_entries['anch'] = anchor_name
-                            else:
-                                support.dialog_error("Tag Name Not Recognized! (%s)" % self.link_type, self.window)
-                                self.link_type = cons.LINK_TYPE_WEBS
+                            if not self.links_entries_pre_dialog(tag_property_value):
                                 return
                 iter_sel_start, iter_sel_end = text_buffer.get_selection_bounds()
             else:
@@ -3676,7 +3689,7 @@ class CherryTree:
                 or support.get_next_chars_from_iter_are(iter_sel_start, 4, "www."):
                     self.link_type = cons.LINK_TYPE_WEBS
                     self.links_entries['webs'] = text_buffer.get_text(iter_sel_start, iter_sel_end)
-                if link_node_id: sel_tree_iter = self.get_tree_iter_from_node_id(link_node_id)
+                if self.link_node_id: sel_tree_iter = self.get_tree_iter_from_node_id(self.link_node_id)
                 else: sel_tree_iter = None
                 insert_offset = iter_sel_start.get_offset()
                 bound_offset = iter_sel_end.get_offset()
