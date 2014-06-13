@@ -448,7 +448,7 @@ def dialog_image_handle(father_win, title, original_pixbuf):
         spinbutton_height.set_value(img_parms.height)
         if img_parms.width <= 900 and img_parms.height <= 600:
             # original size into the dialog
-            pixbuf = img_parms.original_pixbuf.scale_simple(int(img_parms.width), int(img_parms.height), gtk.gdk.INTERP_HYPER)
+            pixbuf = img_parms.original_pixbuf.scale_simple(int(img_parms.width), int(img_parms.height), gtk.gdk.INTERP_BILINEAR)
         else:
             # reduced size visible into the dialog
             if img_parms.width > 900:
@@ -457,7 +457,7 @@ def dialog_image_handle(father_win, title, original_pixbuf):
             else:
                 img_parms_height = 600
                 img_parms_width = img_parms_height * img_parms.image_w_h_ration
-            pixbuf = img_parms.original_pixbuf.scale_simple(int(img_parms_width), int(img_parms_height), gtk.gdk.INTERP_HYPER)
+            pixbuf = img_parms.original_pixbuf.scale_simple(int(img_parms_width), int(img_parms_height), gtk.gdk.INTERP_BILINEAR)
         image.set_from_pixbuf(pixbuf)
     def on_button_rotate_90_cw_clicked(*args):
         img_parms.original_pixbuf = img_parms.original_pixbuf.rotate_simple(270)
@@ -502,7 +502,7 @@ def dialog_image_handle(father_win, title, original_pixbuf):
     response = dialog.run()
     dialog.hide()
     if response != gtk.RESPONSE_ACCEPT: return None
-    return img_parms.original_pixbuf.scale_simple(int(img_parms.width), int(img_parms.height), gtk.gdk.INTERP_HYPER)
+    return img_parms.original_pixbuf.scale_simple(int(img_parms.width), int(img_parms.height), gtk.gdk.INTERP_BILINEAR)
 
 def dialog_node_delete(father_win, warning_label):
     """Confirmation before Node Remove"""
