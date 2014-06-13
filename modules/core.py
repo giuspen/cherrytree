@@ -3639,16 +3639,48 @@ class CherryTree:
             return False
         return True
 
+    def links_entries_post_dialog(self):
+        """Read Global Links Variables from Dialog"""
+        property_value = ""
+        if self.link_type == cons.LINK_TYPE_WEBS:
+            link_url = self.links_entries['webs']
+            if link_url:
+                if len(link_url) < 8\
+                or (link_url[0:7] != "http://" and link_url[0:8] != "https://"):
+                    link_url = "http://" + link_url
+                property_value = cons.LINK_TYPE_WEBS + cons.CHAR_SPACE + link_url
+        elif self.link_type in [cons.LINK_TYPE_FILE, cons.LINK_TYPE_FOLD]:
+            link_uri = self.links_entries['file'] if self.link_type == cons.LINK_TYPE_FILE else self.links_entries['fold']
+            if link_uri:
+                link_uri = base64.b64encode(link_uri)
+                property_value = self.link_type + cons.CHAR_SPACE + link_uri
+        elif self.link_type == cons.LINK_TYPE_NODE:
+            tree_iter = self.links_entries['node']
+            if tree_iter:
+                link_anchor = self.links_entries['anch']
+                property_value = cons.LINK_TYPE_NODE + cons.CHAR_SPACE + str(self.treestore[tree_iter][3])
+                if link_anchor: property_value += cons.CHAR_SPACE + link_anchor
+        return property_value
+
     def image_link_edit(self, *args):
         """Edit the Link Associated to the Image"""
         self.links_entries_reset()
-        if not self.links_entries_pre_dialog(self.curr_image_anchor.pixbuf.link):
+        if not self.curr_image_anchor.pixbuf.link:
+            self.link_type = cons.LINK_TYPE_WEBS # default value
+        elif not self.links_entries_pre_dialog(self.curr_image_anchor.pixbuf.link):
             return
-        
+        sel_tree_iter = self.get_tree_iter_from_node_id(self.link_node_id) if self.link_node_id else None
+        if not support.dialog_link_handle(self, _("Insert/Edit Link"), sel_tree_iter):
+            return
+        property_value = self.links_entries_post_dialog()
+        if property_value:
+            self.curr_image_anchor.pixbuf.link = property_value
+            self.update_window_save_needed("nbuf", True)
 
     def image_link_dismiss(self, *args):
         """Dismiss the Link Associated to the Image"""
         self.curr_image_anchor.pixbuf.link = ""
+        self.update_window_save_needed("nbuf", True)
 
     def apply_tag(self, tag_property, property_value=None, iter_sel_start=None, iter_sel_end=None, text_buffer=None):
         """Apply a tag"""
@@ -3689,34 +3721,13 @@ class CherryTree:
                 or support.get_next_chars_from_iter_are(iter_sel_start, 4, "www."):
                     self.link_type = cons.LINK_TYPE_WEBS
                     self.links_entries['webs'] = text_buffer.get_text(iter_sel_start, iter_sel_end)
-                if self.link_node_id: sel_tree_iter = self.get_tree_iter_from_node_id(self.link_node_id)
-                else: sel_tree_iter = None
                 insert_offset = iter_sel_start.get_offset()
                 bound_offset = iter_sel_end.get_offset()
+                sel_tree_iter = self.get_tree_iter_from_node_id(self.link_node_id) if self.link_node_id else None
                 if not support.dialog_link_handle(self, _("Insert/Edit Link"), sel_tree_iter): return
                 iter_sel_start = text_buffer.get_iter_at_offset(insert_offset)
                 iter_sel_end = text_buffer.get_iter_at_offset(bound_offset)
-                if self.link_type == cons.LINK_TYPE_WEBS:
-                    link_url = self.links_entries['webs']
-                    if link_url:
-                        if len(link_url) < 8\
-                        or (link_url[0:7] != "http://" and link_url[0:8] != "https://"):
-                            link_url = "http://" + link_url
-                        property_value = cons.LINK_TYPE_WEBS + cons.CHAR_SPACE + link_url
-                    else: property_value = ""
-                elif self.link_type in [cons.LINK_TYPE_FILE, cons.LINK_TYPE_FOLD]:
-                    link_uri = self.links_entries['file'] if self.link_type == cons.LINK_TYPE_FILE else self.links_entries['fold']
-                    if link_uri:
-                        link_uri = base64.b64encode(link_uri)
-                        property_value = self.link_type + cons.CHAR_SPACE + link_uri
-                    else: property_value = ""
-                elif self.link_type == cons.LINK_TYPE_NODE:
-                    tree_iter = self.links_entries['node']
-                    if tree_iter:
-                        link_anchor = self.links_entries['anch']
-                        property_value = cons.LINK_TYPE_NODE + cons.CHAR_SPACE + str(self.treestore[tree_iter][3])
-                        if link_anchor: property_value += cons.CHAR_SPACE + link_anchor
-                    else: property_value = ""
+                property_value = self.links_entries_post_dialog()
             else:
                 dialog = gtk.ColorSelectionDialog(_("Pick a Color"))
                 dialog.set_transient_for(self.window)
