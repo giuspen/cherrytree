@@ -440,7 +440,7 @@ class CTDBHandler:
             pixbuf.embfile = image_row['png']
         else:
             pixbuf = machines.get_pixbuf_from_png_blob_buffer(image_row['png'])
-            pixbuf.link = image_row['link'] if 'link' in image_row else ""
+            pixbuf.link = image_row['link'] if 'link' in image_row.keys() else ""
         if pixbuf:
             self.dad.image_insert(iter_insert,
                 pixbuf,
