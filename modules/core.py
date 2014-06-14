@@ -3967,11 +3967,25 @@ class CherryTree:
             if not curr_iter.forward_char(): break
         return None
 
+    def sourceview_hovering_link_get_tooltip(self, link):
+        """Get the tooltip for the underlying link"""
+        tooltip = ""
+        vector = link.split()
+        if vector[0] in [cons.LINK_TYPE_FILE, cons.LINK_TYPE_FOLD]:
+            tooltip = unicode(base64.b64decode(vector[1]), cons.STR_UTF8, cons.STR_IGNORE)
+        else:
+            if vector[0] == cons.LINK_TYPE_NODE and long(vector[1]) in self.nodes_names_dict: tooltip = self.nodes_names_dict[long(vector[1])]
+            else: tooltip = vector[1].replace("amp;", "")
+            if len(vector) >= 3:
+                if len(vector) == 3: anchor_name = vector[2]
+                else: anchor_name = tag_name[5 + len(vector[0]) + len(vector[1]) + 2:]
+                tooltip += "#" + anchor_name
+        return tooltip
+
     def sourceview_cursor_and_tooltips_handler(self, x, y):
         """Looks at all tags covering the position (x, y) in the text view,
            and if one of them is a link, change the cursor to the HAND2 cursor"""
         hovering_link = False
-        hovering_anchor = False
         text_iter = self.sourceview.get_iter_at_location(x, y)
         if self.lists_handler.is_list_todo_beginning(text_iter):
             self.sourceview.get_window(gtk.TEXT_WINDOW_TEXT).set_cursor(gtk.gdk.Cursor(gtk.gdk.X_CURSOR))
@@ -3982,29 +3996,22 @@ class CherryTree:
             tag_name = tag.get_property("name")
             if tag_name and tag_name[0:4] == cons.TAG_LINK:
                 hovering_link = True
-                vector = tag_name[5:].split()
-                if vector[0] in [cons.LINK_TYPE_FILE, cons.LINK_TYPE_FOLD]:
-                    tooltip = unicode(base64.b64decode(vector[1]), cons.STR_UTF8, cons.STR_IGNORE)
-                else:
-                    if vector[0] == cons.LINK_TYPE_NODE and long(vector[1]) in self.nodes_names_dict: tooltip = self.nodes_names_dict[long(vector[1])]
-                    else: tooltip = vector[1].replace("amp;", "")
-                    if len(vector) >= 3:
-                        if len(vector) == 3: anchor_name = vector[2]
-                        else: anchor_name = tag_name[5 + len(vector[0]) + len(vector[1]) + 2:]
-                        tooltip += "#" + anchor_name
+                tooltip = self.sourceview_hovering_link_get_tooltip(tag_name[5:])
                 break
         else:
             iter_anchor = text_iter.copy()
-            pixbuf = iter_anchor.get_pixbuf()
-            if pixbuf != None and "anchor" in dir(pixbuf): hovering_anchor = True
-            else:
-                iter_anchor.backward_char()
-                pixbuf = iter_anchor.get_pixbuf()
-                if pixbuf != None and "anchor" in dir(pixbuf): hovering_anchor = True
-        if hovering_link != self.hovering_over_link: self.hovering_over_link = hovering_link
-        if hovering_anchor:
-            self.sourceview.set_tooltip_text(pixbuf.anchor)
-            return
+            for i in [0, 1]:
+                if i == 1: iter_anchor.backward_char()
+                anchor = iter_anchor.get_child_anchor()
+                if anchor and "pixbuf" in dir(anchor):
+                    pixbuf_attrs = dir(anchor.pixbuf)
+                    if "link" in pixbuf_attrs and anchor.pixbuf.link:
+                        hovering_link = True
+                        tooltip = self.sourceview_hovering_link_get_tooltip(anchor.pixbuf.link)
+                        break
+        if hovering_link != self.hovering_over_link:
+            self.hovering_over_link = hovering_link
+            #print "link", self.hovering_over_link
         if self.hovering_over_link:
             self.sourceview.get_window(gtk.TEXT_WINDOW_TEXT).set_cursor(gtk.gdk.Cursor(gtk.gdk.HAND2))
             self.sourceview.set_tooltip_text(tooltip)

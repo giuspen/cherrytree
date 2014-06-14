@@ -669,7 +669,7 @@ class StateMachine:
         else: curr_iter = text_buffer.get_start_iter()
         while 1:
             anchor = curr_iter.get_child_anchor()
-            if anchor != None:
+            if anchor:
                 anchor_dir = dir(anchor)
                 if "pixbuf" in anchor_dir:
                     if for_print != 1 or not "anchor" in dir(anchor.pixbuf):
