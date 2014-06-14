@@ -3438,11 +3438,15 @@ class CherryTree:
         """Catches mouse buttons clicks upon images"""
         self.curr_image_anchor = anchor
         self.object_set_selection(self.curr_image_anchor)
-        if event.button == 3:
+        if event.button == 1:
+            if event.type == gtk.gdk._2BUTTON_PRESS:
+                self.image_edit()
+            elif self.curr_image_anchor.pixbuf.link:
+                self.link_clicked(self.curr_image_anchor.pixbuf.link)
+        elif event.button == 3:
             if self.curr_image_anchor.pixbuf.link: self.ui.get_widget("/ImageMenu/DismissImageLink").show()
             else: self.ui.get_widget("/ImageMenu/DismissImageLink").hide()
             self.ui.get_widget("/ImageMenu").popup(None, None, None, event.button, event.time)
-        elif event.type == gtk.gdk._2BUTTON_PRESS: self.image_edit()
         return True # do not propagate the event
 
     def on_mouse_button_clicked_file(self, widget, event, anchor):
@@ -3992,6 +3996,7 @@ class CherryTree:
             self.sourceview.set_tooltip_text(None)
             return
         tags = text_iter.get_tags()
+        if not tags: tags = []
         for tag in tags:
             tag_name = tag.get_property("name")
             if tag_name and tag_name[0:4] == cons.TAG_LINK:
@@ -4026,12 +4031,12 @@ class CherryTree:
             text_iter = self.sourceview.get_iter_at_location(x, y)
             tags = text_iter.get_tags()
             # check whether we are hovering a link
-            if tags:
-                for tag in tags:
-                    tag_name = tag.get_property("name")
-                    if tag_name and tag_name[0:4] == cons.TAG_LINK:
-                        self.link_clicked(tag_name[5:])
-                        return False
+            if not tags: tags = []
+            for tag in tags:
+                tag_name = tag.get_property("name")
+                if tag_name and tag_name[0:4] == cons.TAG_LINK:
+                    self.link_clicked(tag_name[5:])
+                    return False
             if self.lists_handler.is_list_todo_beginning(text_iter):
                 self.lists_handler.todo_list_rotate_status(text_iter)
         elif event.button == 3 and not self.curr_buffer.get_has_selection():
