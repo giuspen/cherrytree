@@ -362,7 +362,13 @@ class FindReplace:
     
     def check_pattern_in_object(self, pattern, obj):
         """Search for the pattern in the given object"""
-        if obj[0] == "table":
+        if obj[0] == "pixbuf":
+            pixbuf_attrs = dir(obj[1][1])
+            if "filename" in pixbuf_attrs:
+                if pattern.search(obj[1][1].filename): return (True, obj[1][1].filename)
+            elif "anchor" in pixbuf_attrs:
+                if pattern.search(obj[1][1].anchor): return (True, obj[1][1].anchor)
+        elif obj[0] == "table":
             for row in obj[1][1]['matrix']:
                 for col in row:
                     if pattern.search(col): return (True, "<table>")
