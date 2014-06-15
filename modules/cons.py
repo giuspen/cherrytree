@@ -864,6 +864,17 @@ def get_popup_menu_entries_link(inst):
     ("edit-delete", _("_Delete Link"), None, _("Delete the Selected Link"), inst.link_delete),
     ]
 
+def get_popup_menu_entries_table_cell(inst):
+    """Returns the Menu Entries Given the Class Instance"""
+    # stock id, label, accelerator, tooltip, callback |
+    # "separator", None, None, None, None |
+    # "submenu-start", label, stock id, None, None |
+    # "submenu-end", None, None, None, None
+    return [
+    ("separator", None, None, None, None),
+    ("insert", _("Insert _NewLine"), "<control>period", _("Insert NewLine Char"), inst.curr_table_cell_insert_newline),
+    ]
+
 def get_popup_menu_entries_codebox(inst):
     """Returns the Menu Entries Given the Class Instance"""
     # stock id, label, accelerator, tooltip, callback |

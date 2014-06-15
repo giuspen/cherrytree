@@ -372,7 +372,17 @@ class TablesHandler:
         self.dad.curr_buffer.delete(iter_insert, iter_bound)
         self.table_insert(iter_insert, table, table_justification)
 
-    def on_key_press_table_cell(self, widget, event, path, model, col_num):
+    def on_table_cell_populate_popup(self, entry, menu):
+        """Table Cell Populate Popup"""
+        self.curr_table_cell = entry
+        self.dad.menu_populate_popup(menu, cons.get_popup_menu_entries_table_cell(self))
+
+    def curr_table_cell_insert_newline(self, *args):
+        cursor_pos = self.curr_table_cell.get_position()
+        self.curr_table_cell.insert_text(cons.CHAR_NEWLINE, cursor_pos)
+        self.curr_table_cell.set_position(cursor_pos+1)
+
+    def on_table_cell_key_press(self, widget, event, path, model, col_num):
         """Catches Table Cell key presses"""
         keyname = gtk.gdk.keyval_name(event.keyval)
         if event.state & gtk.gdk.SHIFT_MASK:
@@ -381,9 +391,10 @@ class TablesHandler:
             pass
         elif event.state & gtk.gdk.CONTROL_MASK:
             if keyname == "period":
-                cursor_pos = widget.get_position()
-                widget.insert_text(cons.CHAR_NEWLINE, cursor_pos)
-                widget.set_position(cursor_pos+1)
+                self.curr_table_cell = widget
+                self.curr_table_cell_insert_newline()
+                return True
+            elif keyname == "comma":
                 return True
         else:
             if keyname in [cons.STR_RETURN, "Up", "Down"]:
@@ -427,7 +438,8 @@ class TablesHandler:
     def on_table_cell_editing_started(self, cell, editable, path, model, col_num):
         """A Table Cell is going to be Edited"""
         if isinstance(editable, gtk.Entry):
-            editable.connect('key_press_event', self.on_key_press_table_cell, path, model, col_num)
+            editable.connect('key_press_event', self.on_table_cell_key_press, path, model, col_num)
+            editable.connect('populate-popup', self.on_table_cell_populate_popup)
 
     def on_table_cell_edited(self, cell, path, new_text, model, col_num):
         """A Table Cell has been Edited"""
