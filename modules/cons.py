@@ -403,6 +403,7 @@ UI_INFO = """
             <menuitem action='FromHtmlFile'/>
             <menuitem action='FromHtmlFolder'/>
             <menuitem action='FromBasket'/>
+            <menuitem action='FromEPIMHTML'/>
             <menuitem action='FromGnote'/>
             <menuitem action='FromKeepNote'/>
             <menuitem action='FromKeyNote'/>
@@ -618,6 +619,7 @@ def get_entries(inst):
     ( "FromHtmlFile", "from_html", _("From _HTML File"), None, _("Add Node from an HTML File to the Current Tree"), inst.nodes_add_from_html_file),
     ( "FromHtmlFolder", "from_html", _("From _Folder of HTML Files"), None, _("Add Nodes from a Folder of HTML Files to the Current Tree"), inst.nodes_add_from_html_folder),
     ( "FromBasket", STR_STOCK_CT_IMP, _("From _Basket Folder"), None, _("Add Nodes of a Basket Folder to the Current Tree"), inst.nodes_add_from_basket_folder),
+    ( "FromEPIMHTML", STR_STOCK_CT_IMP, _("From _EssentialPIM HTML File"), None, _("Add Node from an EssentialPIM HTML File to the Current Tree"), inst.nodes_add_from_epim_html_file),
     ( "FromGnote", STR_STOCK_CT_IMP, _("From _Gnote Folder"), None, _("Add Nodes of a Gnote Folder to the Current Tree"), inst.nodes_add_from_gnote_folder),
     ( "FromKeepNote", STR_STOCK_CT_IMP, _("From _KeepNote Folder"), None, _("Add Nodes of a KeepNote Folder to the Current Tree"), inst.nodes_add_from_keepnote_folder),
     ( "FromKeyNote", STR_STOCK_CT_IMP, _("From K_eyNote File"), None, _("Add Nodes of a KeyNote File to the Current Tree"), inst.nodes_add_from_keynote_file),
@@ -703,6 +705,7 @@ def get_popup_menu_tree(inst):
     ("from_html", _("From _Folder of HTML Files"), None, _("Add Nodes from a Folder of HTML Files to the Current Tree"), inst.nodes_add_from_html_folder),
     (STR_STOCK_CT_IMP, _("From _Basket Folder"), None, _("Add Nodes of a Basket Folder to the Current Tree"), inst.nodes_add_from_basket_folder),
     (STR_STOCK_CT_IMP, _("From _Gnote Folder"), None, _("Add Nodes of a Gnote Folder to the Current Tree"), inst.nodes_add_from_gnote_folder),
+    (STR_STOCK_CT_IMP, _("From _EssentialPIM HTML File"), None, _("Add Node from an EssentialPIM HTML File to the Current Tree"), inst.nodes_add_from_epim_html_file),
     (STR_STOCK_CT_IMP, _("From _KeepNote Folder"), None, _("Add Nodes of a KeepNote Folder to the Current Tree"), inst.nodes_add_from_keepnote_folder),
     (STR_STOCK_CT_IMP, _("From K_eyNote File"), None, _("Add Nodes of a KeyNote File to the Current Tree"), inst.nodes_add_from_keynote_file),
     (STR_STOCK_CT_IMP, _("From K_nowit File"), None, _("Add Nodes of a Knowit File to the Current Tree"), inst.nodes_add_from_knowit_file),
