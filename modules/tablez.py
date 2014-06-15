@@ -384,6 +384,7 @@ class TablesHandler:
                 cursor_pos = widget.get_position()
                 widget.insert_text(cons.CHAR_NEWLINE, cursor_pos)
                 widget.set_position(cursor_pos+1)
+                return True
         else:
             if keyname in [cons.STR_RETURN, "Up", "Down"]:
                 if model[path][col_num] != widget.get_text():
@@ -402,7 +403,7 @@ class TablesHandler:
                             next_path = tuple(node_path_list)
                             next_iter = model.get_iter(next_path)
                         #next_iter = model.iter_next(model.get_iter(path))
-                        if not next_iter: return
+                        if not next_iter: return False
                         next_path = model.get_path(next_iter)
                         next_col_num = self.dad.table_columns-1
                 else:
@@ -411,16 +412,17 @@ class TablesHandler:
                         next_path = path
                     else:
                         next_iter = model.iter_next(model.get_iter(path))
-                        if not next_iter: return
+                        if not next_iter: return False
                         next_path = model.get_path(next_iter)
                         next_col_num = 0
                 #print "(path, col_num) = (%s, %s)" % (path, col_num)
                 #print "(next_path, next_col_num) = (%s, %s)" % (next_path, next_col_num)
                 next_column = self.curr_table_anchor.treeview.get_columns()[next_col_num]
                 self.curr_table_anchor.treeview.set_cursor_on_cell(next_path,
-                                                                   focus_column=next_column,
-                                                                   focus_cell=next_column.get_cell_renderers()[0],
-                                                                   start_editing=True)
+                    focus_column=next_column,
+                    focus_cell=next_column.get_cell_renderers()[0],
+                    start_editing=True)
+        return False
 
     def on_table_cell_editing_started(self, cell, editable, path, model, col_num):
         """A Table Cell is going to be Edited"""
