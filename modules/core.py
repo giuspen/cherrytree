@@ -736,6 +736,10 @@ class CherryTree:
             self.nodes_add_from_cherrytree_data(cherrytree_string)
         else: support.dialog_error("%s is not a basket folder" % folderpath, self.window)
 
+    def nodes_add_from_epim_html_file(self, action):
+        """Add Nodes from Selected EPIM HTML File"""
+        self.nodes_add_from_html_file(action)
+
     def nodes_add_from_html_file(self, action):
         """Add Nodes from Selected HTML File"""
         filepath = support.dialog_file_select(filter_pattern=["*.html", "*.HTML", "*.htm", "*.HTM"] if cons.IS_WIN_OS else [],

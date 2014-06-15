@@ -402,7 +402,8 @@ class XMLHandler:
             dom_node.appendChild(dom_iter)
             text_iter = dom.createTextNode(base64.b64encode(element[1].embfile))
         else:
-            if element[1].link: dom_iter.setAttribute("link", element[1].link)
+            if "link" in dir(element[1]) and element[1].link:
+                dom_iter.setAttribute("link", element[1].link)
             dom_node.appendChild(dom_iter)
             text_iter = dom.createTextNode(get_encoded_buffer_from_pixbuf(element[1]))
         dom_iter.appendChild(text_iter)
