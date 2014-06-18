@@ -185,18 +185,28 @@ def filepath_fix(filepath):
 def main(args):
     """Everything Starts from Here"""
     dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
-    session_bus = dbus.SessionBus()
     try:
-        # client
-        remote_object = session_bus.get_object("com.giuspen.CherryTreeService", "/CherryTreeObject")
-        if not args.node: ret_val = remote_object.Send("ct*=%s" % args.filepath)
-        else: ret_val = remote_object.Send("ct*=%s\x03%s" % (args.filepath, args.node))
-        if ret_val != "okz": raise
+        session_bus = dbus.SessionBus()
+        DBUS_OK = True
     except:
-        #raise
-        # server + core
+        DBUS_OK = False
+    if DBUS_OK:
+        try:
+            # client
+            remote_object = session_bus.get_object("com.giuspen.CherryTreeService", "/CherryTreeObject")
+            if not args.node: ret_val = remote_object.Send("ct*=%s" % args.filepath)
+            else: ret_val = remote_object.Send("ct*=%s\x03%s" % (args.filepath, args.node))
+            if ret_val != "okz": raise
+        except:
+            #raise
+            # server + core
+            lang_str = initializations()
+            name = dbus.service.BusName("com.giuspen.CherryTreeService", session_bus)
+            object = CherryTreeObject(session_bus, '/CherryTreeObject')
+            CherryTreeHandler(args, lang_str)
+            gtk.main()
+    else:
+        print "dbus fail, maybe a firewall problem, centralized instances disabled"
         lang_str = initializations()
-        name = dbus.service.BusName("com.giuspen.CherryTreeService", session_bus)
-        object = CherryTreeObject(session_bus, '/CherryTreeObject')
         CherryTreeHandler(args, lang_str)
-        gtk.main() # start the gtk main loop
+        gtk.main()
