@@ -1684,9 +1684,12 @@ class CherryTree:
             if not os.path.isfile(filepath_tmp):
                 print "? the compressed file was renamed"
                 files_list = glob.glob(os.path.join(tree_tmp_folder, "*"+filepath_tmp[-4:]))
-                if len(files_list) == 1:
-                    old_filepath_tmp = files_list[0]
-                    os.rename(old_filepath_tmp, filepath_tmp)
+                #print files_list
+                old_filepath_tmp = files_list[0]
+                for file_path in files_list:
+                    if os.path.getmtime(file_path) > os.path.getmtime(old_filepath_tmp):
+                        old_filepath_tmp = file_path
+                os.rename(old_filepath_tmp, filepath_tmp)
         elif filepath[-1] not in ["d", "b"]:
             print "bad filepath[-1]", filepath[-1]
             return False
