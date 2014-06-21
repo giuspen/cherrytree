@@ -3167,11 +3167,11 @@ class CherryTree:
         iter_insert = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
         filepath = support.dialog_file_select(curr_folder=self.pick_dir, parent=self.window)
         if not filepath: return
-        with open(filepath, 'r') as fd:
+        with open(filepath, 'rb') as fd:
             self.pick_dir = os.path.dirname(filepath)
             pixbuf = gtk.gdk.pixbuf_new_from_file(cons.FILE_CHAR)
             pixbuf.filename = os.path.basename(filepath)
-            pixbuf.embfile = bytearray(fd.read())
+            pixbuf.embfile = fd.read()
             self.image_insert(iter_insert, pixbuf, image_justification=None)
 
     def embfile_save(self, *args):
@@ -3184,7 +3184,7 @@ class CherryTree:
             parent=self.window)
         if not filepath: return
         self.pick_dir = os.path.dirname(filepath)
-        with open(filepath, 'w') as fd:
+        with open(filepath, 'wb') as fd:
             fd.write(self.curr_file_anchor.pixbuf.embfile)
 
     def toc_insert(self, *args):
