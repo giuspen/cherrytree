@@ -364,7 +364,7 @@ class ClipboardHandler:
         elif dom_node.hasAttribute("filename"):
             pixbuf = gtk.gdk.pixbuf_new_from_file(cons.FILE_CHAR)
             pixbuf.filename = dom_node.attributes["filename"].value
-            pixbuf.embfile = base64.b64decode(dom_node.firstChild.data)
+            pixbuf.embfile = bytearray(base64.b64decode(dom_node.firstChild.data))
         else: pixbuf = machines.get_pixbuf_from_encoded_buffer(dom_node.firstChild.data)
         if pixbuf:
             pixbuf.link = dom_node.attributes["link"].value if dom_node.hasAttribute("link") else ""
