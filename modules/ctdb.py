@@ -437,7 +437,7 @@ class CTDBHandler:
         elif 'filename' in image_row.keys() and image_row['filename']:
             pixbuf = gtk.gdk.pixbuf_new_from_file(cons.FILE_CHAR)
             pixbuf.filename = image_row['filename']
-            pixbuf.embfile = image_row['png']
+            pixbuf.embfile = bytearray(image_row['png'])
         else:
             pixbuf = machines.get_pixbuf_from_png_blob_buffer(image_row['png'])
             pixbuf.link = image_row['link'] if 'link' in image_row.keys() else ""

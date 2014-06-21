@@ -226,7 +226,7 @@ class XMLHandler:
         elif dom_node.hasAttribute("filename"):
             pixbuf = gtk.gdk.pixbuf_new_from_file(cons.FILE_CHAR)
             pixbuf.filename = dom_node.attributes["filename"].value
-            pixbuf.embfile = base64.b64decode(dom_node.firstChild.data)
+            pixbuf.embfile = bytearray(base64.b64decode(dom_node.firstChild.data))
         else:
             if version == 2: pixbuf = get_pixbuf_from_encoded_buffer(dom_node.firstChild.data)
             else: pixbuf = get_pixbuf_from_png_encoded_string(dom_node.firstChild.data)

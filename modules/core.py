@@ -3171,7 +3171,7 @@ class CherryTree:
             self.pick_dir = os.path.dirname(filepath)
             pixbuf = gtk.gdk.pixbuf_new_from_file(cons.FILE_CHAR)
             pixbuf.filename = os.path.basename(filepath)
-            pixbuf.embfile = fd.read()
+            pixbuf.embfile = bytearray(fd.read())
             self.image_insert(iter_insert, pixbuf, image_justification=None)
 
     def embfile_save(self, *args):
