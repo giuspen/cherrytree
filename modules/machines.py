@@ -224,7 +224,7 @@ class XMLHandler:
             pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(cons.ANCHOR_CHAR, self.dad.anchor_size, self.dad.anchor_size)
             pixbuf.anchor = dom_node.attributes["anchor"].value
         elif dom_node.hasAttribute("filename"):
-            pixbuf = gtk.gdk.pixbuf_new_from_file(cons.FILE_CHAR)
+            pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(cons.FILE_CHAR, self.dad.embfile_size, self.dad.embfile_size)
             pixbuf.filename = dom_node.attributes["filename"].value
             pixbuf.embfile = base64.b64decode(dom_node.firstChild.data)
         else:
