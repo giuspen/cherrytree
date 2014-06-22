@@ -3170,7 +3170,7 @@ class CherryTree:
         if not filepath: return
         with open(filepath, 'rb') as fd:
             self.pick_dir = os.path.dirname(filepath)
-            pixbuf = gtk.gdk.pixbuf_new_from_file(cons.FILE_CHAR)
+            pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(cons.FILE_CHAR, self.embfile_size, self.embfile_size)
             pixbuf.filename = os.path.basename(filepath)
             pixbuf.embfile = fd.read()
             self.image_insert(iter_insert, pixbuf, image_justification=None)
