@@ -3271,43 +3271,61 @@ class CherryTree:
                             buttons=(gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
         dialog.set_default_size(400, 300)
         dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-        table = gtk.Table(5, 2)
+        table = gtk.Table(8, 2)
         label = gtk.Label()
-        label.set_markup("<b>" + _("Number of Text Nodes") + "</b>")
+        label.set_markup("<b>" + _("Number of Rich Text Nodes") + "</b>")
         table.attach(label, 0, 1, 0, 1)
         label = gtk.Label()
-        label.set_markup("<b>" + _("Number of Code Nodes") + "</b>")
+        label.set_markup("<b>" + _("Number of Plain Text Nodes") + "</b>")
         table.attach(label, 0, 1, 1, 2)
         label = gtk.Label()
-        label.set_markup("<b>" + _("Number of Images") + "</b>")
+        label.set_markup("<b>" + _("Number of Code Nodes") + "</b>")
         table.attach(label, 0, 1, 2, 3)
         label = gtk.Label()
-        label.set_markup("<b>" + _("Number of Tables") + "</b>")
+        label.set_markup("<b>" + _("Number of Images") + "</b>")
         table.attach(label, 0, 1, 3, 4)
         label = gtk.Label()
-        label.set_markup("<b>" + _("Number of CodeBoxes") + "</b>")
+        label.set_markup("<b>" + _("Number of Embedded Files") + "</b>")
         table.attach(label, 0, 1, 4, 5)
-        self.summary_nodes_text_num = 0
+        label = gtk.Label()
+        label.set_markup("<b>" + _("Number of Tables") + "</b>")
+        table.attach(label, 0, 1, 5, 6)
+        label = gtk.Label()
+        label.set_markup("<b>" + _("Number of CodeBoxes") + "</b>")
+        table.attach(label, 0, 1, 6, 7)
+        label = gtk.Label()
+        label.set_markup("<b>" + _("Number of Anchors") + "</b>")
+        table.attach(label, 0, 1, 7, 8)
+        self.summary_nodes_rich_text_num = 0
+        self.summary_nodes_plain_text_num = 0
         self.summary_nodes_code_num = 0
         self.summary_images_num = 0
+        self.summary_embfile_num = 0
         self.summary_tables_num = 0
         self.summary_codeboxes_num = 0
+        self.summary_anchors_num = 0
         # full tree parsing
         tree_iter = self.treestore.get_iter_first()
         while tree_iter != None:
             self.tree_info_iter(tree_iter)
             tree_iter = self.treestore.iter_next(tree_iter)
         self.objects_buffer_refresh()
-        label = gtk.Label("%s" % self.summary_nodes_text_num)
+        label = gtk.Label("%s" % self.summary_nodes_rich_text_num)
         table.attach(label, 1, 2, 0, 1)
-        label = gtk.Label("%s" % self.summary_nodes_code_num)
+        label = gtk.Label("%s" % self.summary_nodes_plain_text_num)
         table.attach(label, 1, 2, 1, 2)
-        label = gtk.Label("%s" % self.summary_images_num)
+        label = gtk.Label("%s" % self.summary_nodes_code_num)
         table.attach(label, 1, 2, 2, 3)
-        label = gtk.Label("%s" % self.summary_tables_num)
+        label = gtk.Label("%s" % self.summary_images_num)
         table.attach(label, 1, 2, 3, 4)
-        label = gtk.Label("%s" % self.summary_codeboxes_num)
+        label = gtk.Label("%s" % self.summary_embfile_num)
         table.attach(label, 1, 2, 4, 5)
+        label = gtk.Label("%s" % self.summary_tables_num)
+        table.attach(label, 1, 2, 5, 6)
+        label = gtk.Label("%s" % self.summary_codeboxes_num)
+        table.attach(label, 1, 2, 6, 7)
+        label = gtk.Label("%s" % self.summary_anchors_num)
+        table.attach(label, 1, 2, 7, 8)
         content_area = dialog.get_content_area()
         content_area.pack_start(table)
         content_area.show_all()
@@ -3322,20 +3340,29 @@ class CherryTree:
         curr_buffer = self.get_textbuffer_from_tree_iter(tree_iter)
         pixbuf_table_vector = self.state_machine.get_embedded_pixbufs_tables_codeboxes(curr_buffer)
         # pixbuf_table_vector is [ [ "pixbuf"/"table", [offset, pixbuf, alignment] ],... ]
-        if self.treestore[tree_iter][4] == cons.RICH_TEXT_ID: self.summary_nodes_text_num += 1
+        if self.treestore[tree_iter][4] == cons.RICH_TEXT_ID: self.summary_nodes_rich_text_num += 1
+        elif self.treestore[tree_iter][4] == cons.PLAIN_TEXT_ID: self.summary_nodes_plain_text_num += 1
         else: self.summary_nodes_code_num += 1
         curr_node_images = 0
+        curr_node_embfiles = 0
         curr_node_tables = 0
         curr_node_codeboxes = 0
+        curr_node_anchors = 0
         for element in pixbuf_table_vector:
-            if element[0] == "pixbuf" and not "anchor" in dir(element[1][1]): curr_node_images += 1
+            if element[0] == "pixbuf":
+                pixbuf_attrs = dir(element[1][1])
+                if "anchor" in pixbuf_attrs: curr_node_anchors += 1
+                elif "embfile" in pixbuf_attrs: curr_node_embfiles += 1
+                else: curr_node_images += 1
             elif element[0] == "table": curr_node_tables += 1
             elif element[0] == "codebox": curr_node_codeboxes += 1
-        if curr_node_images or curr_node_tables or curr_node_codeboxes:
+        if curr_node_images or curr_node_embfiles or curr_node_tables or curr_node_codeboxes or curr_node_anchors:
             print "node with object(s):", self.treestore[tree_iter][1]
             self.summary_images_num += curr_node_images
+            self.summary_embfile_num += curr_node_embfiles
             self.summary_tables_num += curr_node_tables
             self.summary_codeboxes_num += curr_node_codeboxes
+            self.summary_anchors_num += curr_node_anchors
         # iterate children
         tree_iter = self.treestore.iter_children(tree_iter)
         while tree_iter != None:
