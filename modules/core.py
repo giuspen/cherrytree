@@ -3422,6 +3422,7 @@ class CherryTree:
             anchor.frame.set_label_widget(anchor_label)
         else:
             anchor.eventbox.connect("button-press-event", self.on_mouse_button_clicked_image, anchor)
+            anchor.eventbox.connect("visibility-notify-event", self.on_image_visibility_notify_event)
             if anchor.pixbuf.link:
                 anchor.frame.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.image_frame_get_link_color(anchor.pixbuf.link)))
                 anchor.frame.set_shadow_type(gtk.SHADOW_IN)
@@ -4276,6 +4277,10 @@ class CherryTree:
             print "sel node id=%s, seq=%s" % (self.treestore[self.curr_tree_iter][3], self.treestore[self.curr_tree_iter][5])
         self.statusbar.pop(self.statusbar_context_id)
         self.statusbar.push(self.statusbar_context_id, tooltip_text)
+
+    def on_image_visibility_notify_event(self, widget, event):
+        """Problem of image colored frame disappearing"""
+        widget.queue_draw()
 
     def on_sourceview_visibility_notify_event(self, text_view, event):
         """Update the cursor image if the window becomes visible (e.g. when a window covering it got iconified)"""
