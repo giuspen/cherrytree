@@ -3376,8 +3376,11 @@ class CherryTree:
         filename = support.dialog_file_select(curr_folder=self.pick_dir, parent=self.window)
         if not filename: return
         self.pick_dir = os.path.dirname(filename)
-        pixbuf = gtk.gdk.pixbuf_new_from_file(filename)
-        self.image_edit_dialog(pixbuf, self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert()))
+        try:
+            pixbuf = gtk.gdk.pixbuf_new_from_file(filename)
+            self.image_edit_dialog(pixbuf, self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert()))
+        except:
+            support.dialog_error(_("Image Format Not Recognized"), self.window)
 
     def image_edit_dialog(self, pixbuf, insert_iter, iter_bound=None):
         """Insert/Edit Image Dialog"""
