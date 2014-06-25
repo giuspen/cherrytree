@@ -3392,6 +3392,13 @@ class CherryTree:
         else: image_justification = None
         self.image_insert(insert_iter, ret_pixbuf, image_justification)
 
+    def image_frame_get_link_color(self, link):
+        """From Image Link to Color"""
+        if link.startswith("webs"): return self.col_link_webs
+        if link.startswith("node"): return self.col_link_node
+        if link.startswith("file"): return self.col_link_file
+        return self.col_link_fold
+
     def image_insert(self, iter_insert, pixbuf, image_justification=None, text_buffer=None):
         if not pixbuf: return
         if not text_buffer: text_buffer = self.curr_buffer
@@ -3415,6 +3422,9 @@ class CherryTree:
             anchor.frame.set_label_widget(anchor_label)
         else:
             anchor.eventbox.connect("button-press-event", self.on_mouse_button_clicked_image, anchor)
+            if anchor.pixbuf.link:
+                anchor.frame.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.image_frame_get_link_color(anchor.pixbuf.link)))
+                anchor.frame.set_shadow_type(gtk.SHADOW_IN)
         anchor.image = gtk.Image()
         anchor.frame.add(anchor.image)
         anchor.eventbox.add(anchor.frame)
@@ -3721,11 +3731,14 @@ class CherryTree:
         property_value = self.links_entries_post_dialog()
         if property_value:
             self.curr_image_anchor.pixbuf.link = property_value
+            self.curr_image_anchor.frame.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.image_frame_get_link_color(self.curr_image_anchor.pixbuf.link)))
+            self.curr_image_anchor.frame.set_shadow_type(gtk.SHADOW_IN)
             self.update_window_save_needed("nbuf", True)
 
     def image_link_dismiss(self, *args):
         """Dismiss the Link Associated to the Image"""
         self.curr_image_anchor.pixbuf.link = ""
+        self.curr_image_anchor.frame.set_shadow_type(gtk.SHADOW_NONE)
         self.update_window_save_needed("nbuf", True)
 
     def apply_tag(self, tag_property, property_value=None, iter_sel_start=None, iter_sel_end=None, text_buffer=None):
