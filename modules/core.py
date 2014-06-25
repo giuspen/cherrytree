@@ -3400,6 +3400,8 @@ class CherryTree:
         anchor.pixbuf = pixbuf
         anchor.eventbox = gtk.EventBox()
         anchor.eventbox.set_visible_window(False)
+        anchor.frame = gtk.Frame()
+        anchor.frame.set_shadow_type(gtk.SHADOW_NONE)
         pixbuf_attrs = dir(pixbuf)
         if "anchor" in pixbuf_attrs:
             anchor.eventbox.connect("button-press-event", self.on_mouse_button_clicked_anchor, anchor)
@@ -3407,10 +3409,15 @@ class CherryTree:
         elif "filename" in pixbuf_attrs:
             anchor.eventbox.connect("button-press-event", self.on_mouse_button_clicked_file, anchor)
             anchor.eventbox.set_tooltip_text(pixbuf.filename)
+            anchor_label = gtk.Label()
+            anchor_label.set_markup("<b><small>"+pixbuf.filename+"</small></b>")
+            anchor_label.modify_fg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.rt_def_fg))
+            anchor.frame.set_label_widget(anchor_label)
         else:
             anchor.eventbox.connect("button-press-event", self.on_mouse_button_clicked_image, anchor)
         anchor.image = gtk.Image()
-        anchor.eventbox.add(anchor.image)
+        anchor.frame.add(anchor.image)
+        anchor.eventbox.add(anchor.frame)
         anchor.image.set_from_pixbuf(anchor.pixbuf)
         self.sourceview.add_child_at_anchor(anchor.eventbox, anchor)
         anchor.eventbox.show_all()
