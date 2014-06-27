@@ -1276,9 +1276,10 @@ class KnowitHandler(HTMLParser.HTMLParser):
 class KeynoteHandler:
     """The Handler of the Keynote File Parsing"""
 
-    def __init__(self):
+    def __init__(self, dad):
         """Machine boot"""
         self.xml_handler = machines.XMLHandler(self)
+        self.dad = dad
 
     def rich_text_serialize(self, text_data):
         """Appends a new part to the XML rich text"""
@@ -1289,6 +1290,7 @@ class KeynoteHandler:
         self.nodes_list[-1].appendChild(dom_iter)
         text_iter = self.dom.createTextNode(text_data)
         dom_iter.appendChild(text_iter)
+        self.chars_counter += len(text_data)
 
     def parse_string_lines(self, file_descriptor):
         """Parse the string line by line"""
@@ -1331,12 +1333,18 @@ class KeynoteHandler:
                     self.node_br_ok = False
                     self.in_picture = False
                     self.in_object = False
+                    self.pixbuf_vector = []
+                    self.chars_counter = 0
                     self.in_br_num = 0
                     self.in_br_read_data = False
             elif self.curr_state == 3:
                 if text_line.startswith("%-") or text_line.startswith("%%"):
                     self.curr_state = 0
                     self.rich_text_serialize(self.curr_node_content)
+                    for pixbuf_element in self.pixbuf_vector:
+                        self.xml_handler.pixbuf_element_to_xml(pixbuf_element, self.nodes_list[-1], self.dom)
+                    self.pixbuf_vector = []
+                    self.chars_counter = 0
                 else: self.write_line_text(text_line.replace(cons.CHAR_CR, "").replace(cons.CHAR_NEWLINE, ""))
 
     def check_pending_text_to_tag(self):
@@ -1356,7 +1364,12 @@ class KeynoteHandler:
                     if self.in_picture:
                         print "in_picture OFF"
                         self.img_fd.close()
-                        #pixbuf = gtk.gdk.pixbuf_new_from_file(self.img_tmp_path)
+                        with open(self.img_tmp_path, 'rb') as fd:
+                            pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(cons.FILE_CHAR, self.dad.embfile_size, self.dad.embfile_size)
+                            pixbuf.filename = "image.wmf"
+                            pixbuf.embfile = fd.read()
+                        self.pixbuf_vector.append([self.chars_counter, pixbuf, cons.TAG_PROP_LEFT])
+                        self.chars_counter += 1
                     else: print "in_object OFF"
                     self.in_picture = False
                     self.in_object = False

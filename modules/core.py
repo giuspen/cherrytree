@@ -810,7 +810,7 @@ class CherryTree:
         if not filepath: return
         try:
             file_descriptor = open(filepath, 'r')
-            keynote = imports.KeynoteHandler()
+            keynote = imports.KeynoteHandler(self)
             cherrytree_string = keynote.get_cherrytree_xml(file_descriptor)
             file_descriptor.close()
         except:
