@@ -1360,24 +1360,21 @@ class KeynoteHandler:
         dummy_loop = 0
         if self.in_picture or self.in_object:
             if text_line[0] == cons.CHAR_BR_CLOSE:
-                if self.in_br_num == 1:
-                    if self.in_picture:
-                        print "in_picture OFF"
-                        self.img_fd.close()
-                        with open(self.img_tmp_path, 'rb') as fd:
-                            pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(cons.FILE_CHAR, self.dad.embfile_size, self.dad.embfile_size)
-                            pixbuf.filename = "image.wmf"
-                            pixbuf.embfile = fd.read()
-                        self.pixbuf_vector.append([self.chars_counter, pixbuf, cons.TAG_PROP_LEFT])
-                        self.chars_counter += 1
-                    else: print "in_object OFF"
-                    self.in_picture = False
-                    self.in_object = False
-                else: print "in pict or obj, br close, self.in_br_num", self.in_br_num
+                self.img_fd.close()
+                if self.in_picture: print "in_picture OFF"
+                else: print "in_object OFF"
+                with open(self.img_tmp_path, 'rb') as fd:
+                    pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(cons.FILE_CHAR, self.dad.embfile_size, self.dad.embfile_size)
+                    pixbuf.filename = "image.wmf" if self.in_picture else "???"
+                    pixbuf.embfile = fd.read()
+                self.pixbuf_vector.append([self.chars_counter, pixbuf, cons.TAG_PROP_LEFT])
+                self.chars_counter += 1
+                self.in_picture = False
+                self.in_object = False
                 self.in_br_num -= 1
                 dummy_loop += 1
             else:
-                if self.in_picture:
+                if self.in_picture or self.in_object:
                     self.img_fd.write(binascii.a2b_hex(text_line))
                 return
         for i, curr_char in enumerate(text_line):
@@ -1480,6 +1477,7 @@ class KeynoteHandler:
                     self.in_object = True
                     print "in_object ON"
                     curr_state = 1
+                    self.img_fd = open(self.img_tmp_path, "wb")
                 elif text_line[i+1:].startswith("result"):
                     print "result"
                     dummy_loop = 6
