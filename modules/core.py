@@ -1070,7 +1070,7 @@ class CherryTree:
 
     def modification_time_sentinel_start(self):
         """Start Timer that checks for modification time"""
-        self.mod_time_sentinel_id = gobject.timeout_add(20*1000, self.modification_time_sentinel_iter) # 20 sec
+        self.mod_time_sentinel_id = gobject.timeout_add(5*1000, self.modification_time_sentinel_iter) # 5 sec
 
     def modification_time_sentinel_stop(self):
         """Stop Timer that checks for modification time"""

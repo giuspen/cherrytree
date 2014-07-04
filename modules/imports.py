@@ -1365,7 +1365,7 @@ class KeynoteHandler:
                 else: print "in_object OFF"
                 with open(self.img_tmp_path, 'rb') as fd:
                     pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(cons.FILE_CHAR, self.dad.embfile_size, self.dad.embfile_size)
-                    pixbuf.filename = "image.wmf" if self.in_picture else "???"
+                    pixbuf.filename = "image.wmf" if self.in_picture else "file"
                     pixbuf.embfile = fd.read()
                 self.pixbuf_vector.append([self.chars_counter, pixbuf, cons.TAG_PROP_LEFT])
                 self.chars_counter += 1
@@ -1377,6 +1377,21 @@ class KeynoteHandler:
                 if self.in_picture or self.in_object:
                     self.img_fd.write(binascii.a2b_hex(text_line))
                 return
+        elif "HYPERLINK" in text_line:
+            hyp_idx_1 = text_line.find("HYPERLINK")
+            hyp_idx_2 = text_line.find("}}}")
+            text_line = text_line[hyp_idx_1+11:hyp_idx_2]
+            #print text_line
+            hyp_idx_1 = text_line.find(cons.CHAR_DQUOTE)
+            text_target = text_line[:hyp_idx_1]
+            text_line = text_line[hyp_idx_1:]
+            hyp_idx_2 = text_line.find(cons.CHAR_SPACE)
+            text_label = text_line[hyp_idx_2+1:]
+            text_target = text_target.replace(4*cons.CHAR_BSLASH, cons.CHAR_BSLASH)
+            text_label = text_label.replace(2*cons.CHAR_BSLASH, cons.CHAR_BSLASH)
+            print text_target
+            print text_label
+            return
         for i, curr_char in enumerate(text_line):
             if dummy_loop > 0:
                 dummy_loop -= 1
