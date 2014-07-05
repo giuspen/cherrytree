@@ -3429,8 +3429,7 @@ class CherryTree:
             anchor.eventbox.connect("visibility-notify-event", self.on_image_visibility_notify_event)
             if not hasattr(anchor.pixbuf, "link"): anchor.pixbuf.link = ""
             elif anchor.pixbuf.link:
-                anchor.frame.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.image_frame_get_link_color(anchor.pixbuf.link)))
-                anchor.frame.set_shadow_type(gtk.SHADOW_IN)
+                self.image_link_apply_frame_label(anchor)
         anchor.image = gtk.Image()
         anchor.frame.add(anchor.image)
         anchor.eventbox.add(anchor.frame)
@@ -3743,14 +3742,24 @@ class CherryTree:
         property_value = self.links_entries_post_dialog()
         if property_value:
             self.curr_image_anchor.pixbuf.link = property_value
-            self.curr_image_anchor.frame.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.image_frame_get_link_color(self.curr_image_anchor.pixbuf.link)))
-            self.curr_image_anchor.frame.set_shadow_type(gtk.SHADOW_IN)
+            self.image_link_apply_frame_label(self.curr_image_anchor)
             self.update_window_save_needed("nbuf", True)
+
+    def image_link_apply_frame_label(self, anchor):
+        """Image Link Apply Frame Label"""
+        old_widget = anchor.frame.get_label_widget()
+        if old_widget: old_widget.destroy()
+        if anchor.pixbuf.link:
+            anchor_label = gtk.Label()
+            anchor_label.set_markup("<b><small>▲</small></b>")
+            anchor_label.modify_fg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.image_frame_get_link_color(anchor.pixbuf.link)))
+            anchor.frame.set_label_widget(anchor_label)
+            anchor_label.show()
 
     def image_link_dismiss(self, *args):
         """Dismiss the Link Associated to the Image"""
         self.curr_image_anchor.pixbuf.link = ""
-        self.curr_image_anchor.frame.set_shadow_type(gtk.SHADOW_NONE)
+        self.image_link_apply_frame_label(self.curr_image_anchor)
         self.update_window_save_needed("nbuf", True)
 
     def apply_tag(self, tag_property, property_value=None, iter_sel_start=None, iter_sel_end=None, text_buffer=None):
