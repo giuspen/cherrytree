@@ -3427,7 +3427,8 @@ class CherryTree:
         else:
             anchor.eventbox.connect("button-press-event", self.on_mouse_button_clicked_image, anchor)
             anchor.eventbox.connect("visibility-notify-event", self.on_image_visibility_notify_event)
-            if anchor.pixbuf.link:
+            if not hasattr(anchor.pixbuf, "link"): anchor.pixbuf.link = ""
+            elif anchor.pixbuf.link:
                 anchor.frame.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.image_frame_get_link_color(anchor.pixbuf.link)))
                 anchor.frame.set_shadow_type(gtk.SHADOW_IN)
         anchor.image = gtk.Image()

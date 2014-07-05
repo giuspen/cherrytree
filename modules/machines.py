@@ -584,6 +584,7 @@ class XMLHandler:
             if offsets:
                 start_iter = text_buffer.get_iter_at_offset(offsets[0])
                 curr_iter = text_buffer.get_iter_at_offset(offsets[1])
+                end_iter = text_buffer.get_end_iter()
             if curr_iter.compare(end_iter) == 0: break
             else:
                 self.rich_text_attributes_update(curr_iter, self.curr_attributes)
