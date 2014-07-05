@@ -3576,31 +3576,37 @@ class CherryTree:
     def apply_tag_h1(self, *args):
         """The H1 Button was Pressed"""
         iter_start, iter_end = self.lists_handler.get_paragraph_iters()
+        if not iter_start: return
         self.apply_tag(cons.TAG_SCALE, cons.TAG_PROP_H1, iter_sel_start=iter_start, iter_sel_end=iter_end)
 
     def apply_tag_h2(self, *args):
         """The H2 Button was Pressed"""
         iter_start, iter_end = self.lists_handler.get_paragraph_iters()
+        if not iter_start: return
         self.apply_tag(cons.TAG_SCALE, cons.TAG_PROP_H2, iter_sel_start=iter_start, iter_sel_end=iter_end)
 
     def apply_tag_h3(self, *args):
         """The H3 Button was Pressed"""
         iter_start, iter_end = self.lists_handler.get_paragraph_iters()
+        if not iter_start: return
         self.apply_tag(cons.TAG_SCALE, cons.TAG_PROP_H3, iter_sel_start=iter_start, iter_sel_end=iter_end)
 
     def apply_tag_justify_right(self, *args):
         """The Justify Right Button was Pressed"""
         iter_start, iter_end = self.lists_handler.get_paragraph_iters()
+        if not iter_start: return
         self.apply_tag(cons.TAG_JUSTIFICATION, cons.TAG_PROP_RIGHT, iter_sel_start=iter_start, iter_sel_end=iter_end)
 
     def apply_tag_justify_left(self, *args):
         """The Justify Left Button was Pressed"""
         iter_start, iter_end = self.lists_handler.get_paragraph_iters()
+        if not iter_start: return
         self.apply_tag(cons.TAG_JUSTIFICATION, cons.TAG_PROP_LEFT, iter_sel_start=iter_start, iter_sel_end=iter_end)
 
     def apply_tag_justify_center(self, *args):
         """The Justify Center Button was Pressed"""
         iter_start, iter_end = self.lists_handler.get_paragraph_iters()
+        if not iter_start: return
         self.apply_tag(cons.TAG_JUSTIFICATION, cons.TAG_PROP_CENTER, iter_sel_start=iter_start, iter_sel_end=iter_end)
 
     def apply_tag_try_automatic_bounds(self):
