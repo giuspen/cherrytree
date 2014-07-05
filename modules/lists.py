@@ -69,6 +69,7 @@ class ListsHandler:
             while first_iteration or new_par_offset < end_offset:
                 first_iteration = False
                 iter_start, iter_end = self.get_paragraph_iters(iter_start)
+                if not iter_start: break
                 if self.is_list_indented_continuation(iter_start):
                     new_par_offset = iter_end.get_offset() + 1
                 else:
@@ -118,6 +119,7 @@ class ListsHandler:
             while first_iteration or new_par_offset < end_offset:
                 first_iteration = False
                 iter_start, iter_end = self.get_paragraph_iters(iter_start)
+                if not iter_start: break
                 if self.is_list_indented_continuation(iter_start):
                     new_par_offset = iter_end.get_offset() + 1
                 else:
@@ -177,6 +179,7 @@ class ListsHandler:
             while first_iteration or new_par_offset < end_offset:
                 first_iteration = False
                 iter_start, iter_end = self.get_paragraph_iters(iter_start)
+                if not iter_start: break
                 leading_str = "%s. " % list_info[0]
                 if self.is_list_indented_continuation(iter_start):
                     new_par_offset = iter_end.get_offset() + 1
