@@ -818,6 +818,7 @@ class CherryTree:
             raise
             return
         self.nodes_add_from_cherrytree_data(cherrytree_string)
+        keynote.set_links_to_nodes(self)
 
     def nodes_add_from_mempad_file(self, action):
         """Add Nodes Parsing a Mempad File"""

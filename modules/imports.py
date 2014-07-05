@@ -1391,6 +1391,20 @@ class KeynoteHandler:
             text_label = text_label.replace(2*cons.CHAR_BSLASH, cons.CHAR_BSLASH)
             print text_target
             print text_label
+            self.check_pending_text_to_tag()
+            if text_target.startswith("http"):
+                self.curr_attributes[cons.TAG_LINK] = "webs %s" % text_target
+            elif text_target.startswith("file"):
+                if text_target[8:9] != cons.CHAR_STAR:
+                    self.curr_attributes[cons.TAG_LINK] = "file %s" % base64.b64encode(text_target[8:])
+                else:
+                    self.links_to_node_list.append({'name_dest':text_label,
+                        'name_source':self.curr_node_name,
+                        'node_desc':text_label,
+                        'char_start':self.chars_counter,
+                        'char_end':self.chars_counter+len(text_label)})
+            self.rich_text_serialize(text_label)
+            self.curr_attributes[cons.TAG_LINK] = ""
             return
         for i, curr_char in enumerate(text_line):
             if dummy_loop > 0:
@@ -1519,6 +1533,25 @@ class KeynoteHandler:
                         if curr_char == cons.CHAR_SPACE:
                             curr_state = 0
 
+    def set_links_to_nodes(self, dad):
+        """After the node import, set the links to nodes on the new tree"""
+        for link_to_node in self.links_to_node_list:
+            node_dest = dad.get_tree_iter_from_node_name(link_to_node['name_dest'])
+            node_source = dad.get_tree_iter_from_node_name(link_to_node['name_source'])
+            if not node_dest:
+                #print "node_dest not found"
+                continue
+            if not node_source:
+                #print "node_source not found"
+                continue
+            source_buffer = dad.get_textbuffer_from_tree_iter(node_source)
+            if source_buffer.get_char_count() < link_to_node['char_end']:
+                continue
+            property_value = cons.LINK_TYPE_NODE + cons.CHAR_SPACE + str(dad.treestore[node_dest][3])
+            source_buffer.apply_tag_by_name(dad.apply_tag_exist_or_create(cons.TAG_LINK, property_value),
+                                            source_buffer.get_iter_at_offset(link_to_node['char_start']),
+                                            source_buffer.get_iter_at_offset(link_to_node['char_end']))
+
     def get_cherrytree_xml(self, file_descriptor):
         """Returns a CherryTree string Containing the Treepad Nodes"""
         self.dom = xml.dom.minidom.Document()
@@ -1526,6 +1559,7 @@ class KeynoteHandler:
         self.dom.appendChild(self.nodes_list[0])
         self.curr_attributes = {}
         for tag_property in cons.TAG_PROPERTIES: self.curr_attributes[tag_property] = ""
+        self.links_to_node_list = []
         self.parse_string_lines(file_descriptor)
         return self.dom.toxml()
 
