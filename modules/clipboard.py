@@ -352,6 +352,7 @@ class ClipboardHandler:
     def to_image(self, clipboard, selectiondata, data):
         """From Clipboard to Image"""
         pixbuf = selectiondata.get_pixbuf()
+        pixbuf.link = ""
         self.dad.image_insert(self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert()), pixbuf)
 
     def dom_node_to_image(self, dom_node):
