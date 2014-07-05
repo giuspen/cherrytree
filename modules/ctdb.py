@@ -85,7 +85,8 @@ class CTDBHandler:
             png_blob = buffer(pixbuf.embfile)
         else:
             filename = ""
-            link = (pixbuf.link).decode(cons.STR_UTF8)
+            try: link = (pixbuf.link).decode(cons.STR_UTF8)
+            except: link = ""
             anchor = ""
             png_blob = machines.get_blob_buffer_from_pixbuf(pixbuf)
         return (node_id, offset, justification, anchor, png_blob, filename, link)
