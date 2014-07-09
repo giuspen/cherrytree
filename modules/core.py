@@ -2819,6 +2819,10 @@ class CherryTree:
                 self.user_active = False
                 user_active_restore = True
             else: user_active_restore = False
+            iter_insert = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
+            iter_bound = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_selection_bound())
+            insert_offset = iter_insert.get_offset()
+            bound_offset = iter_bound.get_offset()
             self.curr_buffer.set_text("")
             self.xml_handler.dom_to_buffer(self.curr_buffer, refresh[0])
             for element in pixbuf_table_vector:
@@ -2826,6 +2830,9 @@ class CherryTree:
                 elif element[0] == "table": self.state_machine.load_embedded_table_element(self.curr_buffer, element[1])
                 elif element[0] == "codebox": self.state_machine.load_embedded_codebox_element(self.curr_buffer, element[1])
             self.curr_buffer.set_modified(False)
+            self.curr_buffer.move_mark(self.curr_buffer.get_insert(), self.curr_buffer.get_iter_at_offset(insert_offset))
+            self.curr_buffer.move_mark(self.curr_buffer.get_selection_bound(), self.curr_buffer.get_iter_at_offset(bound_offset))
+            self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), 0.3)
             if user_active_restore: self.user_active = True
 
     def on_text_insertion(self, sourcebuffer, text_iter, text_inserted, length):
@@ -3743,6 +3750,7 @@ class CherryTree:
         if property_value:
             self.curr_image_anchor.pixbuf.link = property_value
             self.image_link_apply_frame_label(self.curr_image_anchor)
+            self.objects_buffer_refresh()
             self.update_window_save_needed("nbuf", True)
 
     def image_link_apply_frame_label(self, anchor):
