@@ -178,6 +178,8 @@ class CherryTree:
         self.latest_tag = ["", ""] # [latest tag property, latest tag value]
         self.tags_set = set()
         self.file_update = False
+        self.anchor_size_mod = False
+        self.embfile_size_mod = False
         self.cursor_key_press = None
         self.autosave_timer_id = None
         self.spell_check_init = False
