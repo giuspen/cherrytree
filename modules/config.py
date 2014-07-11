@@ -490,7 +490,7 @@ def set_tree_path_and_cursor_pos(inst):
             inst.treeview.set_cursor(inst.treestore.get_path(node_iter_to_focus))
             inst.sourceview.grab_focus()
 
-def preferences_tab_all_nodes(dad, vbox_all_nodes):
+def preferences_tab_all_nodes(dad, vbox_all_nodes, pref_dialog):
     """Preferences Dialog, All Nodes Tab"""
     for child in vbox_all_nodes.get_children(): child.destroy()
 
@@ -627,7 +627,7 @@ def preferences_tab_all_nodes(dad, vbox_all_nodes):
         dad.h_rule = entry.get_text()
     entry_horizontal_rule.connect('changed', on_entry_horizontal_rule_changed)
 
-def preferences_tab_rich_text_nodes(dad, vbox_text_nodes):
+def preferences_tab_rich_text_nodes(dad, vbox_text_nodes, pref_dialog):
     """Preferences Dialog, Text Nodes Tab"""
     for child in vbox_text_nodes.get_children(): child.destroy()
 
@@ -782,6 +782,9 @@ def preferences_tab_rich_text_nodes(dad, vbox_text_nodes):
     checkbutton_rt_show_white_spaces.connect('toggled', on_checkbutton_rt_show_white_spaces_toggled)
     def on_spinbutton_embfile_size_value_changed(spinbutton):
         dad.embfile_size = int(spinbutton_embfile_size.get_value())
+        if not dad.embfile_size_mod:
+            dad.embfile_size_mod = True
+            support.dialog_info_after_restart(pref_dialog)
     spinbutton_embfile_size.connect('value-changed', on_spinbutton_embfile_size_value_changed)
     def on_spinbutton_limit_undoable_steps_value_changed(spinbutton):
         dad.limit_undoable_steps = int(spinbutton.get_value())
@@ -791,7 +794,7 @@ def preferences_tab_rich_text_nodes(dad, vbox_text_nodes):
         checkbutton_spell_check.set_sensitive(False)
         combobox_spell_check_lang.set_sensitive(False)
 
-def preferences_tab_plain_text_n_code_nodes(dad, vbox_code_nodes):
+def preferences_tab_plain_text_n_code_nodes(dad, vbox_code_nodes, pref_dialog):
     """Preferences Dialog, Code Nodes Tab"""
     for child in vbox_code_nodes.get_children(): child.destroy()
 
@@ -829,7 +832,7 @@ def preferences_tab_plain_text_n_code_nodes(dad, vbox_code_nodes):
         new_style = dad.style_scheme_liststore[new_iter][0]
         if new_style != dad.style_scheme:
             dad.style_scheme = new_style
-            support.dialog_info_after_restart(dad.window)
+            support.dialog_info_after_restart(pref_dialog)
     combobox_style_scheme.connect('changed', on_combobox_style_scheme_changed)
     def on_checkbutton_show_white_spaces_toggled(checkbutton):
         dad.show_white_spaces = checkbutton.get_active()
@@ -842,7 +845,7 @@ def preferences_tab_plain_text_n_code_nodes(dad, vbox_code_nodes):
             dad.sourceview.set_highlight_current_line(dad.highl_curr_line)
     checkbutton_highlight_current_line.connect('toggled', on_checkbutton_highlight_current_line_toggled)
 
-def preferences_tab_tree(dad, vbox_tree):
+def preferences_tab_tree(dad, vbox_tree, pref_dialog):
     """Preferences Dialog, Tree Tab"""
     for child in vbox_tree.get_children(): child.destroy()
 
@@ -1034,7 +1037,7 @@ def preferences_tab_tree(dad, vbox_tree):
             dad.hpaned.set_property('position', tree_width)
     checkbutton_tree_right_side.connect('toggled', on_checkbutton_tree_right_side_toggled)
 
-def preferences_tab_fonts(dad, vbox_fonts):
+def preferences_tab_fonts(dad, vbox_fonts, pref_dialog):
     """Preferences Dialog, Fonts Tab"""
     for child in vbox_fonts.get_children(): child.destroy()
 
@@ -1087,7 +1090,7 @@ def preferences_tab_fonts(dad, vbox_fonts):
         dad.set_treeview_font()
     fontbutton_tree.connect('font-set', on_fontbutton_tree_font_set)
 
-def preferences_tab_links(dad, vbox_links):
+def preferences_tab_links(dad, vbox_links, pref_dialog):
     """Preferences Dialog, Links Tab"""
     for child in vbox_links.get_children(): child.destroy()
 
@@ -1214,25 +1217,28 @@ def preferences_tab_links(dad, vbox_links):
     entry_custom_folderlink_cmd.connect('changed', on_entry_custom_folderlink_cmd_changed)
     def on_spinbutton_anchor_size_value_changed(spinbutton):
         dad.anchor_size = int(spinbutton_anchor_size.get_value())
+        if not dad.anchor_size_mod:
+            dad.anchor_size_mod = True
+            support.dialog_info_after_restart(pref_dialog)
     spinbutton_anchor_size.connect('value-changed', on_spinbutton_anchor_size_value_changed)
     def on_colorbutton_col_link_webs_color_set(colorbutton):
         dad.col_link_webs = "#" + colorbutton.get_color().to_string()[1:]
-        support.dialog_info_after_restart(dad.window)
+        support.dialog_info_after_restart(pref_dialog)
     colorbutton_col_link_webs.connect('color-set', on_colorbutton_col_link_webs_color_set)
     def on_colorbutton_col_link_node_color_set(colorbutton):
         dad.col_link_node = "#" + colorbutton.get_color().to_string()[1:]
-        support.dialog_info_after_restart(dad.window)
+        support.dialog_info_after_restart(pref_dialog)
     colorbutton_col_link_node.connect('color-set', on_colorbutton_col_link_node_color_set)
     def on_colorbutton_col_link_file_color_set(colorbutton):
         dad.col_link_file = "#" + colorbutton.get_color().to_string()[1:]
-        support.dialog_info_after_restart(dad.window)
+        support.dialog_info_after_restart(pref_dialog)
     colorbutton_col_link_file.connect('color-set', on_colorbutton_col_link_file_color_set)
     def on_colorbutton_col_link_fold_color_set(colorbutton):
         dad.col_link_fold = "#" + colorbutton.get_color().to_string()[1:]
-        support.dialog_info_after_restart(dad.window)
+        support.dialog_info_after_restart(pref_dialog)
     colorbutton_col_link_fold.connect('color-set', on_colorbutton_col_link_fold_color_set)
 
-def preferences_tab_misc(dad, vbox_misc):
+def preferences_tab_misc(dad, vbox_misc, pref_dialog):
     """Preferences Dialog, Misc Tab"""
     for child in vbox_misc.get_children(): child.destroy()
 
@@ -1448,7 +1454,7 @@ def dialog_preferences(dad):
 
     def on_notebook_switch_page(notebook, page, page_num):
         #print "new page", page_num
-        tab_constructor[page_num](dad, tabs_vbox_vec[page_num])
+        tab_constructor[page_num](dad, tabs_vbox_vec[page_num], dialog)
         tabs_vbox_vec[page_num].show_all()
     notebook.connect('switch-page', on_notebook_switch_page)
 
