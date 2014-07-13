@@ -741,7 +741,16 @@ class CherryTree:
 
     def nodes_add_from_epim_html_file(self, action):
         """Add Nodes from Selected EPIM HTML File"""
-        self.nodes_add_from_html_file(action)
+        filepath = support.dialog_file_select(filter_pattern=["*.html", "*.HTML", "*.htm", "*.HTM"] if cons.IS_WIN_OS else [],
+            filter_mime=["text/html"] if not cons.IS_WIN_OS else [],
+            filter_name=_("EPIM HTML Document"),
+            curr_folder=self.file_dir, parent=self.window)
+        if not filepath: return
+        html_folder = imports.epim_html_file_to_hier_files(filepath)
+        if not html_folder: return
+        html = imports.HTMLHandler(self)
+        cherrytree_string = html.get_cherrytree_xml(folderpath=html_folder)
+        self.nodes_add_from_cherrytree_data(cherrytree_string)
 
     def nodes_add_from_html_file(self, action):
         """Add Nodes from Selected HTML File"""

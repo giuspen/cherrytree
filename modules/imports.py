@@ -20,7 +20,7 @@
 #       MA 02110-1301, USA.
 
 import HTMLParser, htmlentitydefs
-import gtk, gio, os, xml.dom.minidom, re, base64, urllib2, binascii
+import gtk, gio, os, xml.dom.minidom, re, base64, urllib2, binascii, shutil
 import cons, machines
 
 
@@ -56,6 +56,26 @@ def get_web_links_offsets_from_plain_text(plain_text):
             start_offset = end_offset + 1
         else: start_offset += 1
     return web_links
+
+def epim_html_file_to_hier_files(filepath):
+    """From EPIM HTML File to Folder of HTML Files"""
+    epim_dir = os.path.join(cons.TMP_FOLDER, "EPIM")
+    if os.path.isdir(epim_dir): shutil.rmtree(epim_dir)
+    os.makedirs(epim_dir)
+    curr_state = 0
+    nodes_levels = []
+    with open(filepath) as fd:
+        for html_row in fd:
+            if curr_state == 0:
+                if "<body>" in html_row: curr_state = 1
+            elif curr_state == 1:
+                if not "href" in html_row:
+                    print len(nodes_levels), nodes_levels
+                    curr_state = 2
+                    continue
+                nodes_levels.append(html_row.count("&nbsp; &nbsp;"))
+            else: break
+    return ""
 
 
 class LeoHandler:
