@@ -64,17 +64,36 @@ def epim_html_file_to_hier_files(filepath):
     os.makedirs(epim_dir)
     curr_state = 0
     nodes_levels = []
+    nodes_names = []
+    nodes_content = []
+    curr_node_idx = 0
+    html_prefix = ""
     with open(filepath) as fd:
         for html_row in fd:
             if curr_state == 0:
+                html_prefix += html_row
                 if "<body>" in html_row: curr_state = 1
             elif curr_state == 1:
                 if not "href" in html_row:
-                    print len(nodes_levels), nodes_levels
                     curr_state = 2
                     continue
                 nodes_levels.append(html_row.count("&nbsp; &nbsp;"))
+            elif curr_state == 2:
+                if html_row.startswith("<span class=rvts1>"):
+                    nodes_names.append(html_row[18:-14])
+                    nodes_content.append("")
+                    curr_state = 3
+            elif curr_state == 3:
+                if html_row.startswith("<ul class=list0>"):
+                    curr_node_idx += 1
+                    curr_state = 2
+                elif html_row.startswith("</body></html>"):
+                    curr_node_idx += 1
+                    curr_state = 4
+                else: nodes_content[curr_node_idx] += html_row
             else: break
+    print len(nodes_levels), nodes_levels
+    print len(nodes_names), nodes_names
     return ""
 
 
