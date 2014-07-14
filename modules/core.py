@@ -629,9 +629,10 @@ class CherryTree:
         """Appends Nodes at the Bottom of the Current Ones, Importing from a CherryTree File"""
         filepath = support.dialog_file_select(filter_pattern=["*.ct*"],
             filter_name=_("CherryTree Document"),
-            curr_folder=self.file_dir,
+            curr_folder=self.pick_dir,
             parent=self.window)
         if not filepath: return
+        self.pick_dir = os.path.dirname(filepath)
         document_loaded_ok = False
         if filepath[-1] in ["d", "z"]:
             # xml
@@ -658,9 +659,10 @@ class CherryTree:
         """Add Nodes Parsing a NoteCase File"""
         filepath = support.dialog_file_select(filter_pattern=["*.ncd"],
             filter_name=_("NoteCase Document"),
-            curr_folder=self.file_dir,
+            curr_folder=self.pick_dir,
             parent=self.window)
         if not filepath: return
+        self.pick_dir = os.path.dirname(filepath)
         try:
             file_descriptor = open(filepath, 'r')
             notecase_string = file_descriptor.read()
@@ -675,9 +677,9 @@ class CherryTree:
 
     def nodes_add_from_tuxcards_file(self, action):
         """Add Nodes Parsing a TuxCards File"""
-        filepath = support.dialog_file_select(curr_folder=self.file_dir,
-                                              parent=self.window)
+        filepath = support.dialog_file_select(curr_folder=self.pick_dir, parent=self.window)
         if not filepath: return
+        self.pick_dir = os.path.dirname(filepath)
         try:
             file_descriptor = open(filepath, 'r')
             tuxcards_string = file_descriptor.read()
@@ -692,8 +694,9 @@ class CherryTree:
 
     def nodes_add_from_keepnote_folder(self, action):
         """Add Nodes Parsing a KeepNote Folder"""
-        folderpath = support.dialog_folder_select(curr_folder=self.file_dir, parent=self.window)
-        if folderpath == None: return
+        folderpath = support.dialog_folder_select(curr_folder=self.pick_dir, parent=self.window)
+        if not folderpath: return
+        self.pick_dir = os.path.dirname(folderpath)
         keepnote = imports.KeepnoteHandler(self, folderpath)
         cherrytree_string = keepnote.get_cherrytree_xml()
         self.nodes_add_from_cherrytree_data(cherrytree_string)
@@ -702,7 +705,7 @@ class CherryTree:
         """Add Nodes Parsing a Zim Folder"""
         start_folder = os.path.join(os.path.expanduser('~'), "Notebooks/Notes")
         folderpath = support.dialog_folder_select(curr_folder=start_folder, parent=self.window)
-        if folderpath == None: return
+        if not folderpath: return
         zim = imports.ZimHandler(folderpath)
         cherrytree_string = zim.get_cherrytree_xml()
         self.nodes_add_from_cherrytree_data(cherrytree_string)
@@ -712,7 +715,7 @@ class CherryTree:
         """Add Nodes Parsing a Gnote Folder"""
         start_folder = os.path.join(os.path.expanduser('~'), ".local/share/gnote")
         folderpath = support.dialog_folder_select(curr_folder=start_folder, parent=self.window)
-        if folderpath == None: return
+        if not folderpath: return
         gnote = imports.TomboyHandler(folderpath)
         cherrytree_string = gnote.get_cherrytree_xml()
         self.nodes_add_from_cherrytree_data(cherrytree_string)
@@ -722,7 +725,7 @@ class CherryTree:
         """Add Nodes Parsing a Tomboy Folder"""
         start_folder = os.path.join(os.path.expanduser('~'), ".local/share/tomboy")
         folderpath = support.dialog_folder_select(curr_folder=start_folder, parent=self.window)
-        if folderpath == None: return
+        if not folderpath: return
         tomboy = imports.TomboyHandler(folderpath)
         cherrytree_string = tomboy.get_cherrytree_xml()
         self.nodes_add_from_cherrytree_data(cherrytree_string)
@@ -732,7 +735,7 @@ class CherryTree:
         """Add Nodes Parsing a Basket Folder"""
         start_folder = os.path.join(os.path.expanduser('~'), ".kde/share/apps/basket/baskets")
         folderpath = support.dialog_folder_select(curr_folder=start_folder, parent=self.window)
-        if folderpath == None: return
+        if not folderpath: return
         basket = imports.BasketHandler(self, folderpath)
         if basket.check_basket_structure():
             cherrytree_string = basket.get_cherrytree_xml()
@@ -744,8 +747,9 @@ class CherryTree:
         filepath = support.dialog_file_select(filter_pattern=["*.html", "*.HTML", "*.htm", "*.HTM"] if cons.IS_WIN_OS else [],
             filter_mime=["text/html"] if not cons.IS_WIN_OS else [],
             filter_name=_("EPIM HTML Document"),
-            curr_folder=self.file_dir, parent=self.window)
+            curr_folder=self.pick_dir, parent=self.window)
         if not filepath: return
+        self.pick_dir = os.path.dirname(filepath)
         html_folder = imports.epim_html_file_to_hier_files(filepath)
         if not html_folder: return
         html = imports.HTMLHandler(self)
@@ -757,16 +761,18 @@ class CherryTree:
         filepath = support.dialog_file_select(filter_pattern=["*.html", "*.HTML", "*.htm", "*.HTM"] if cons.IS_WIN_OS else [],
             filter_mime=["text/html"] if not cons.IS_WIN_OS else [],
             filter_name=_("HTML Document"),
-            curr_folder=self.file_dir, parent=self.window)
+            curr_folder=self.pick_dir, parent=self.window)
         if not filepath: return
+        self.pick_dir = os.path.dirname(filepath)
         html = imports.HTMLHandler(self)
         cherrytree_string = html.get_cherrytree_xml(filepath=filepath)
         self.nodes_add_from_cherrytree_data(cherrytree_string)
 
     def nodes_add_from_html_folder(self, action):
         """Add Nodes from HTML File(s) in Selected Folder"""
-        folderpath = support.dialog_folder_select(curr_folder=self.file_dir, parent=self.window)
+        folderpath = support.dialog_folder_select(curr_folder=self.pick_dir, parent=self.window)
         if not folderpath: return
+        self.pick_dir = os.path.dirname(folderpath)
         html = imports.HTMLHandler(self)
         cherrytree_string = html.get_cherrytree_xml(folderpath=folderpath)
         self.nodes_add_from_cherrytree_data(cherrytree_string)
@@ -776,16 +782,18 @@ class CherryTree:
         filepath = support.dialog_file_select(filter_pattern=["*.txt", "*.TXT"] if cons.IS_WIN_OS else [],
             filter_mime=["text/*"] if not cons.IS_WIN_OS else [],
             filter_name=_("Plain Text Document"),
-            curr_folder=self.file_dir, parent=self.window)
+            curr_folder=self.pick_dir, parent=self.window)
         if not filepath: return
+        self.pick_dir = os.path.dirname(filepath)
         plain = imports.PlainTextHandler()
         cherrytree_string = plain.get_cherrytree_xml(filepath=filepath)
         self.nodes_add_from_cherrytree_data(cherrytree_string)
 
     def nodes_add_from_plain_text_folder(self, action):
         """Add Nodes from Plain Text File(s) in Selected Folder"""
-        folderpath = support.dialog_folder_select(curr_folder=self.file_dir, parent=self.window)
+        folderpath = support.dialog_folder_select(curr_folder=self.pick_dir, parent=self.window)
         if not folderpath: return
+        self.pick_dir = os.path.dirname(folderpath)
         plain = imports.PlainTextHandler()
         cherrytree_string = plain.get_cherrytree_xml(folderpath=folderpath)
         self.nodes_add_from_cherrytree_data(cherrytree_string)
@@ -794,9 +802,10 @@ class CherryTree:
         """Add Nodes Parsing a Treepad File"""
         filepath = support.dialog_file_select(filter_pattern=["*.hjt"],
             filter_name=_("Treepad Document"),
-            curr_folder=self.file_dir,
+            curr_folder=self.pick_dir,
             parent=self.window)
         if not filepath: return
+        self.pick_dir = os.path.dirname(filepath)
         try:
             file_descriptor = open(filepath, 'r')
             treepad_string = file_descriptor.read()
@@ -816,9 +825,10 @@ class CherryTree:
         """Add Nodes Parsing a Keynote File"""
         filepath = support.dialog_file_select(filter_pattern=["*.knt"],
             filter_name=_("KeyNote Document"),
-            curr_folder=self.file_dir,
+            curr_folder=self.pick_dir,
             parent=self.window)
         if not filepath: return
+        self.pick_dir = os.path.dirname(filepath)
         try:
             file_descriptor = open(filepath, 'r')
             keynote = imports.KeynoteHandler(self)
@@ -835,9 +845,10 @@ class CherryTree:
         """Add Nodes Parsing a Mempad File"""
         filepath = support.dialog_file_select(filter_pattern=["*.lst"],
             filter_name=_("Mempad Document"),
-            curr_folder=self.file_dir,
+            curr_folder=self.pick_dir,
             parent=self.window)
         if not filepath: return
+        self.pick_dir = os.path.dirname(filepath)
         try:
             file_descriptor = open(filepath, 'r')
             mempad = imports.MempadHandler()
@@ -853,9 +864,10 @@ class CherryTree:
         """Add Nodes Parsing a Knowit File"""
         filepath = support.dialog_file_select(filter_pattern=["*.kno"],
             filter_name=_("Knowit Document"),
-            curr_folder=self.file_dir,
+            curr_folder=self.pick_dir,
             parent=self.window)
         if not filepath: return
+        self.pick_dir = os.path.dirname(filepath)
         knowit = imports.KnowitHandler()
         try:
             file_descriptor = open(filepath, 'r')
@@ -872,9 +884,10 @@ class CherryTree:
         """Add Nodes Parsing a Leo File"""
         filepath = support.dialog_file_select(filter_pattern=["*.leo"],
             filter_name=_("Leo Document"),
-            curr_folder=self.file_dir,
+            curr_folder=self.pick_dir,
             parent=self.window)
         if not filepath: return
+        self.pick_dir = os.path.dirname(filepath)
         try:
             file_descriptor = open(filepath, 'r')
             leo_string = file_descriptor.read()
@@ -1243,7 +1256,7 @@ class CherryTree:
                                                curr_folder=self.file_dir,
                                                parent=self.window)
         restore_filetype = False
-        if filepath == None: restore_filetype = True
+        if not filepath: restore_filetype = True
         self.modification_time_update_value(False)
         if not restore_filetype:
             filepath = self.filepath_extension_fix(filepath)
@@ -3475,8 +3488,8 @@ class CherryTree:
                                                filter_name=_("PNG Image"),
                                                parent=self.window)
         if not filename: return
-        if len(filename) < 4 or filename[-4:] != ".png": filename += ".png"
         self.pick_dir = os.path.dirname(filename)
+        if len(filename) < 4 or filename[-4:] != ".png": filename += ".png"
         try: self.curr_image_anchor.pixbuf.save(filename, "png")
         except: support.dialog_error(_("Write to %s Failed") % filename, self.window)
 

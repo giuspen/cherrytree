@@ -20,8 +20,8 @@
 #       MA 02110-1301, USA.
 
 import HTMLParser, htmlentitydefs
-import gtk, gio, os, xml.dom.minidom, re, base64, urllib2, binascii, shutil
-import cons, machines
+import gtk, gio, os, xml.dom.minidom, re, base64, urllib2, binascii, shutil, glob
+import cons, machines, support
 
 
 def get_internal_link_from_http_url(link_url):
@@ -68,7 +68,7 @@ def epim_html_file_to_hier_files(filepath):
     nodes_content = []
     curr_node_idx = 0
     html_prefix = ""
-    with open(filepath) as fd:
+    with open(filepath, 'r') as fd:
         for html_row in fd:
             if curr_state == 0:
                 html_prefix += html_row
@@ -94,7 +94,15 @@ def epim_html_file_to_hier_files(filepath):
             else: break
     print len(nodes_levels), nodes_levels
     print len(nodes_names), nodes_names
-    return ""
+    filedir, filename = os.path.split(filepath)
+    for filepath_to_cpy in glob.glob(os.path.join(filedir, "*")):
+        if filepath_to_cpy == filepath: continue
+        shutil.copy(filepath_to_cpy, epim_dir)
+    for i,node_name in enumerate(nodes_names):
+        dest_filepath = os.path.join(epim_dir, support.clean_from_chars_not_for_filename(node_name)+".htm")
+        with open(dest_filepath, 'w') as fd:
+            fd.write(html_prefix+nodes_content[i]+"</body></html>")
+    return epim_dir
 
 
 class LeoHandler:
