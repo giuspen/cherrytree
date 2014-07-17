@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.30.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-02 23:16+0200\n"
+"POT-Creation-Date: 2014-07-17 21:05+0200\n"
 "PO-Revision-Date: 2014-05-02 21:08+0100\n"
 "Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
 "Language-Team: Polish\n"
@@ -19,13 +19,13 @@ msgstr ""
 "X-Generator: Poedit 1.5.4\n"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/codeboxes.py:81
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2874
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4005
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3005
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4324
 msgid "Plain Text"
 msgstr "Zwykły tekst"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/codeboxes.py:82
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2876
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3007
 msgid "Automatic Syntax Highlighting"
 msgstr "Automatyczne kolorowanie składni"
 
@@ -52,7 +52,7 @@ msgid "Size"
 msgstr "Rozmiar"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/codeboxes.py:137
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:515
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:519
 msgid "Show Line Numbers"
 msgstr "Wyświetl numery lini"
 
@@ -64,1532 +64,1579 @@ msgstr "Zaznacz pasujące nawiasy"
 msgid "Options"
 msgstr "Opcje"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/codeboxes.py:199
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:560
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:763
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/codeboxes.py:201
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:558
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:778
 msgid "Insert a CodeBox"
 msgstr "Dodaj pole kodu"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/codeboxes.py:343
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/codeboxes.py:345
 msgid "Edit CodeBox"
 msgstr "Zmień pole kodu"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:511
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:508
 msgid "_File"
 msgstr "_Plik"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:512
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:509
 msgid "_Edit"
 msgstr "_Edycja"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:513
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:731
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:510
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:746
 msgid "For_matting"
 msgstr "F_ormatowanie"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:514
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:511
 msgid "_Tree"
 msgstr "_Drzewo"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:515
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:669
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:512
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:683
 msgid "Node _Move"
 msgstr "Przenieś gałąź"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:516
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:686
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:513
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:700
 msgid "Nodes _Import"
 msgstr "_Importuj gałęzię"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:517
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:705
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:514
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:720
 msgid "Nodes E_xport"
 msgstr "Eksportuj gałęzi"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:518
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:770
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:809
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:515
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:786
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:825
 msgid "C_hange Case"
 msgstr "_Zmień wielkość znaków"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:519
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:784
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:823
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:516
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:800
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:839
 msgid "_Search"
 msgstr "_Szukaj"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:520
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:791
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:830
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:517
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:807
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:846
 msgid "_Replace"
 msgstr "_Zamień"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:521
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:518
 msgid "_View"
 msgstr "_Widok"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:522
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:519
 msgid "_Bookmarks"
 msgstr "_Zakładki"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:523
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:520
 msgid "_Import"
 msgstr "_Import"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:524
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:521
 msgid "E_xport"
 msgstr "Eksport"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:525
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:522
 msgid "_Help"
 msgstr "_Pomoc"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:527
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:524
 msgid "New _Instance"
 msgstr "Nowa _Instancja"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:527
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:524
 msgid "Start a New Instance of CherryTree"
 msgstr "Uruchom nową okno programu"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:528
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:525
 msgid "_Open File"
 msgstr "_Otwórz plik"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:528
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:988
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:525
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:983
 msgid "Open a CherryTree Document"
 msgstr "Otwórz Dokument CherryTree"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:529
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:526
 msgid "_Save"
 msgstr "Zapi_sz"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:529
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:526
 msgid "Save File"
 msgstr "Zapisz plik"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:530
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:527
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:548
 msgid "Save _As"
 msgstr "Zapisz _Jako"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:530
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:527
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:548
 msgid "Save File As"
 msgstr "Zapisz plik jako"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:531
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:706
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:528
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:721
 msgid "Export To _PDF"
 msgstr "Eksportuj do PDF"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:531
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:706
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:528
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:721
 msgid "Export To PDF"
 msgstr "Eksportuj do PDF"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:532
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:709
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:529
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:724
 msgid "Export To _HTML"
 msgstr "Eksportuj do HTML"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:532
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:709
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:529
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:724
 msgid "Export To HTML"
 msgstr "Eksportuj do HTML"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:533
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:707
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:530
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:722
 msgid "Export to Multiple Plain _Text Files"
 msgstr "Eksportuj do wielu plików _tekstowych"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:533
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:707
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:530
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:722
 msgid "Export to Multiple Plain Text Files"
 msgstr "Eksportuj do wielu plików tekstowych"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:534
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:708
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:531
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:723
 msgid "Export to _Single Plain Text File"
 msgstr "Eksportuj jako pojedyńczy plik tekstowy"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:534
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:708
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:531
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:723
 msgid "Export to Single Plain Text File"
 msgstr "Eksportuj jako pojedyńczy plik tekstowy"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:535
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:710
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:532
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:725
 msgid "_Export To CherryTree Document"
 msgstr "_Eksportuj do dokumentu CherryTree"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:535
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:710
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:532
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:725
 msgid "Export To CherryTree Document"
 msgstr "Eksportuj do dokumentu CherryTree"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:536
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:533
 msgid "Pa_ge Setup"
 msgstr "_Ustawienia strony"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:536
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:533
 msgid "Set up the Page for Printing"
 msgstr "Ustaw stronę do druku"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:537
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:534
 msgid "_Print"
 msgstr "_Drukuj"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:537
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:534
 msgid "Print"
 msgstr "Drukuj"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:538
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:535
 msgid "_Quit"
 msgstr "_Zakończ"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:538
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:535
 msgid "Quit the Application"
 msgstr "Zamknij aplikacje"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:539
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:536
 msgid "_Exit CherryTree"
 msgstr "Zakończ Ch_erryTree"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:539
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:536
 msgid "Exit from CherryTree"
 msgstr "Zakończ CherryTree"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:540
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:537
 msgid "_Preferences"
 msgstr "Ustawienia"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:540
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1403
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:537
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1425
 msgid "Preferences"
 msgstr "Ustawienia"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:541
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:768
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:538
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:784
 msgid "Insert _Horizontal Rule"
 msgstr "Dodaj p_oziomą linię"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:541
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:768
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:538
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:784
 msgid "Insert Horizontal Rule"
 msgstr "Dodaj poziomą linię"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:542
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:767
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:807
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:539
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:783
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:823
 msgid "Insert Ti_mestamp"
 msgstr "Dodaj date/godzine"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:542
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:767
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:807
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:539
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:783
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:823
 msgid "Insert Timestamp"
 msgstr "Dodaj date/godzine"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:543
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:755
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:540
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:779
+#, fuzzy
+msgid "Insert _File"
+msgstr "Dodaj ta_bele"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:540
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:779
+#, fuzzy
+msgid "Insert File"
+msgstr "Dodaj ta_bele"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:541
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:770
 msgid "Set/Unset _Bulleted List"
 msgstr "Przełącz wypunktowaną listę"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:543
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:755
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:541
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:770
 msgid "Set/Unset the Current Paragraph/Selection as a Bulleted List"
 msgstr "Przełącz aktualny paragraf/zaznaczenie jako lista wypunktowana"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:544
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:756
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:542
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:771
 msgid "Set/Unset _Numbered List"
 msgstr "Przełącz numerowaną listę"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:544
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:756
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:542
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:771
 msgid "Set/Unset the Current Paragraph/Selection as a Numbered List"
 msgstr "Przełącz aktualny paragraf/zaznaczenie jako lista numerowaną"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:545
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:757
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:543
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:772
 msgid "Set/Unset _To-Do List"
 msgstr "Przełącz listę do-zrobienia"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:545
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:757
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:543
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:772
 msgid "Set/Unset the Current Paragraph/Selection as a To-Do List"
 msgstr "Przełącz aktualny paragraf/zaznaczenie jako liste do-zrobienia"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:546
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:764
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:544
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:780
 msgid "Insert/Edit _Link"
 msgstr "Dodaj/Zmień _Link"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:546
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:764
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:544
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:780
 msgid "Insert a Link/Edit the Underlying Link"
 msgstr "Dodaj/Zmien Link "
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:547
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:766
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:545
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:782
 msgid "Insert T_OC"
 msgstr "Dodaj spis treści"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:547
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:766
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:545
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:782
 msgid "Insert Table of Contents"
 msgstr "Dodaj spis treści"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:548
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:765
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:546
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:781
 msgid "Insert _Anchor"
 msgstr "Dod_aj Kotwice"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:548
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:765
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:546
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:781
 msgid "Insert an Anchor"
 msgstr "Dodaj kotwice"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:549
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:547
 msgid "Edit _Anchor"
 msgstr "Zmień Kotwice"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:549
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:547
 msgid "Edit the Underlying Anchor"
 msgstr "Zmień kotwice"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:550
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:761
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:549
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:776
 msgid "Insert I_mage"
 msgstr "Dodaj obrazek"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:550
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:761
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:549
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:776
 msgid "Insert an Image"
 msgstr "Dodaj obrazek"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:551
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:550
 msgid "_Save Image as PNG"
 msgstr "Zapi_sz jako PNG"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:551
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:550
 msgid "Save the Selected Image as a PNG file"
 msgstr "Zapisz zaznaczony obrazek jako PNG"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:552
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:551
 msgid "_Edit Image"
 msgstr "Zmień Obrazek"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:552
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:551
 msgid "Edit the Selected Image"
 msgstr "Zmień zaznaczony obrazek"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:553
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:552
 msgid "C_ut Image"
 msgstr "Wytnij obrazek"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:553
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:552
 msgid "Cut the Selected Image"
 msgstr "Wytnij zaznaczony obrazek"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:554
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:553
 msgid "_Copy Image"
 msgstr "_Kopiuj obrazek"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:554
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:553
 msgid "Copy the Selected Image"
 msgstr "Kopiuj zaznaczony obrazek"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:555
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:554
 msgid "_Delete Image"
 msgstr "_Usuń obrazek"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:555
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:554
 msgid "Delete the Selected Image"
 msgstr "Usuń zaznaczony obrazek"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:556
-msgid "C_ut Table"
-msgstr "Dodaj ta_bele"
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:555
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:862
+msgid "Edit _Link"
+msgstr "Zmień _Link"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:555
+#, fuzzy
+msgid "Edit the Link Associated to the Image"
+msgstr "Zmień zaznaczony obrazek"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:556
-msgid "Cut the Selected Table"
-msgstr "Usuń zaznaczony wiersz w tabeli"
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:866
+msgid "D_ismiss Link"
+msgstr "Odrzuć link"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:556
+msgid "Dismiss the Link Associated to the Image"
+msgstr ""
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:557
-msgid "_Copy Table"
-msgstr "_Kopiuj tabele"
-
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:557
-msgid "Copy the Selected Table"
-msgstr "Kopiuj zaznaczoną tabele"
-
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:558
-msgid "_Delete Table"
-msgstr "_Usuń tabele"
-
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:558
-msgid "Delete the Selected Table"
-msgstr "Usuń zaznaczoną tabele"
-
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:559
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:762
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:777
 msgid "Insert _Table"
 msgstr "Dodaj ta_bele"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:559
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:762
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:557
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:777
 msgid "Insert a Table"
 msgstr "Dodaj tabele"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:560
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:763
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:558
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:778
 msgid "Insert _CodeBox"
 msgstr "Dodaj pole kodu"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:561
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:771
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:810
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:559
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:787
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:826
 msgid "_Lower Case of Selection/Word"
 msgstr "Małe znaki zaznaczenia/słowa"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:561
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:771
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:810
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:559
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:787
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:826
 msgid "Lower the Case of the Selection/the Underlying Word"
 msgstr "Zmień zaznaczenie/słowo na małe znaki"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:562
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:772
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:811
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:560
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:788
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:827
 msgid "_Upper Case of Selection/Word"
 msgstr "Duże znaki zaznaczenia/słowa"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:562
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:772
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:811
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:560
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:788
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:827
 msgid "Upper the Case of the Selection/the Underlying Word"
 msgstr "Zmień zaznaczenie/słowo na duże znaki"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:563
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:773
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:812
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:561
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:789
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:828
 msgid "_Toggle Case of Selection/Word"
 msgstr "Przełącz wielkość zaznaczenia/słowa"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:563
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:773
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:812
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:561
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:789
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:828
 msgid "Toggle the Case of the Selection/the Underlying Word"
 msgstr "Przełącz wielkość zaznaczenia/słowa"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:564
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:779
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:818
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:562
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:795
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:834
 msgid "_Duplicate Row"
 msgstr "_Duplikuj Wiersz"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:564
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:779
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:818
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:562
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:795
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:834
 msgid "Duplicate the Current Row/Selection"
 msgstr "Duplikuj cały wiersz/Zaznaczenie"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:565
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:780
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:819
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:563
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:796
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:835
 msgid "Move _Up Row"
 msgstr "Przenieś wiersz wyżej"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:565
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:780
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:819
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:563
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:796
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:835
 msgid "Move Up the Current Row/Selected Rows"
 msgstr "Przenieś zaznaczony wiersz (wiersze) wyżej"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:566
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:781
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:820
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:564
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:797
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:836
 msgid "Move _Down Row"
 msgstr "Przenieś wiersz w dół"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:566
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:781
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:820
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:564
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:797
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:836
 msgid "Move Down the Current Row/Selected Rows"
 msgstr "Przenieś zaznaczony wiersz (wiersze) niżej"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:567
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:643
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:778
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:817
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:565
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:658
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:794
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:833
 msgid "De_lete Row"
 msgstr "Usuń wiersz"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:567
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:778
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:817
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:565
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:794
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:833
 msgid "Delete the Current Row/Selected Rows"
 msgstr "Usuń zaznaczony wiersz (wiersze)"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:568
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:640
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:776
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:815
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:566
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:655
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:792
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:831
 msgid "Cu_t Row"
 msgstr "Wytnij wiersz"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:568
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:776
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:815
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:566
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:792
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:831
 msgid "Cut the Current Row/Selected Rows"
 msgstr "Wytnij zaznaczony wiersz (wiersze)"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:569
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:641
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:567
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:656
 msgid "_Copy Row"
 msgstr "Kopiuj wiersz"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:569
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:777
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:816
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:567
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:793
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:832
 msgid "Copy the Current Row/Selected Rows"
 msgstr "Kopiuj zaznaczony wiersz (wiersze)"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:570
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:717
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:568
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:732
 msgid "Go _Back"
 msgstr "Wstecz"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:570
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:717
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:568
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:732
 msgid "Go to the Previous Visited Node"
 msgstr "Idź do poprzednio odwiedzonej gałęzi"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:571
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:718
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:569
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:733
 msgid "Go _Forward"
 msgstr "Naprzód"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:571
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:718
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:569
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:733
 msgid "Go to the Next Visited Node"
 msgstr "Idź do następnej odwiedzonej gałęzi"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:572
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:570
 msgid "_Undo"
 msgstr "Cofnij"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:572
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:570
 msgid "Undo Last Operation"
 msgstr "Cofnij ostatnią operacje"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:573
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:571
 msgid "_Redo"
 msgstr "Ponów"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:573
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:571
 msgid "Redo Previously Discarded Operation"
 msgstr "Ponów poprzednio odrzucone operacje"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:574
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:713
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:572
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:728
 msgid "_Inherit Syntax"
 msgstr "Składnia dziedziczona"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:574
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:713
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:572
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:728
 msgid ""
 "Change the Selected Node's Children Syntax Highlighting to the Father's "
 "Syntax Highlighting"
 msgstr "Odziedzicz kolorowanie składni od nadrzędnej gałęzi"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:575
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:732
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:573
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:747
 msgid "Format _Latest"
 msgstr "Ostatnie formatowanie"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:575
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:732
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:573
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:747
 msgid "Memory of Latest Text Format Type"
 msgstr "Typ pamięci ostatniego formatowania"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:576
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:729
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:574
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:744
 msgid "_Paste as Plain Text"
 msgstr "Wklej jako surowy tekst"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:576
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:729
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:574
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:744
 msgid "Paste as Plain Text, Discard the Rich Text Formatting"
 msgstr "Wklej jako surowy, odrzucając formatowanie"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:577
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:733
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:575
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:748
 msgid "_Remove Formatting"
 msgstr "Usuń formatowanie"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:577
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:733
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:575
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:748
 msgid "Remove the Formatting from the Selected Text"
 msgstr "Usuń formatowanie z zaznaczonego tekstu"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:578
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:735
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:576
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:750
 msgid "Text _Color Foreground"
 msgstr "Kolor tekstu"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:578
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:735
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:576
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:750
 msgid "Change the Color of the Selected Text Foreground"
 msgstr "Zmień kolor zaznaczonego tekstu"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:579
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:736
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:577
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:751
 msgid "Text C_olor Background"
 msgstr "Kolor tła"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:579
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:736
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:577
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:751
 msgid "Change the Color of the Selected Text Background"
 msgstr "Zmień kolor tła zaznaczonego tekstu"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:580
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:737
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:578
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:752
 msgid "Toggle _Bold Property"
 msgstr "Przełącz pogrubienie"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:580
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:737
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:578
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:752
 msgid "Toggle Bold Property of the Selected Text"
 msgstr "Przełącz pogrubienie dla zaznaczonego tekstu"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:581
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:738
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:579
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:753
 msgid "Toggle _Italic Property"
 msgstr "Przełącz pochylenie"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:581
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:738
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:579
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:753
 msgid "Toggle Italic Property of the Selected Text"
 msgstr "Przełącz pochylenie dla zaznaczonego tekstu"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:582
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:739
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:580
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:754
 msgid "Toggle _Underline Property"
 msgstr "Przełącz podkreślenie"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:582
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:739
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:580
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:754
 msgid "Toggle Underline Property of the Selected Text"
 msgstr "Przełącz podkreślenie dla zaznaczonego tekstu"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:583
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:740
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:581
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:755
 msgid "Toggle Stri_kethrough Property"
 msgstr "Przełącz przekreślenie"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:583
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:740
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:581
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:755
 msgid "Toggle Strikethrough Property of the Selected Text"
 msgstr "Przełącz przekreślenie zaznaczonego tekstu"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:584
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:741
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:582
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:756
 msgid "Toggle h_1 Property"
 msgstr "Przełącz H1"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:584
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:741
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:582
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:756
 msgid "Toggle h1 Property of the Selected Text"
 msgstr "Przełącz H_1 fla zaznaczonego tekstu"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:585
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:742
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:583
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:757
 msgid "Toggle h_2 Property"
 msgstr "Przełącz H_2"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:585
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:742
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:583
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:757
 msgid "Toggle h2 Property of the Selected Text"
 msgstr "Przełącz H2 dla zaznaczonego tekstu"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:586
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:743
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:584
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:758
 msgid "Toggle h_3 Property"
 msgstr "Przełącz nagłówek H_3"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:586
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:743
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:584
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:758
 msgid "Toggle h3 Property of the Selected Text"
 msgstr "Przełącz nagłówek H3 dla zaznaczonego tekstu"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:587
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:744
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:585
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:759
 msgid "Toggle _Small Property"
 msgstr "Przełącz indeks"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:587
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:744
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:585
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:759
 msgid "Toggle Small Property of the Selected Text"
 msgstr "Przełącz indeks dla zaznaczonego tekstu"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:588
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:745
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:586
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:760
 msgid "Toggle Su_perscript Property"
 msgstr "Przełącz superskrypt"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:588
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:745
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:586
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:760
 msgid "Toggle Superscript Property of the Selected Text"
 msgstr "Przełącz superskrypt dla zaznaczonego tekstu"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:589
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:746
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:587
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:761
 msgid "Toggle Su_bscript Property"
 msgstr "Przełącz subskrypt"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:589
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:746
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:587
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:761
 msgid "Toggle Subscript Property of the Selected Text"
 msgstr "Przełącz subskrypt dla zaznaczonego tekstu"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:590
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:747
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:588
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:762
 msgid "Toggle _Monospace Property"
 msgstr "Przełącz _Monospace"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:590
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:747
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:588
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:762
 msgid "Toggle Monospace Property of the Selected Text"
 msgstr "Przełącz Monospace dla zaznaczonego tekstu"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:591
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:750
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:589
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:765
 msgid "Justify _Left"
 msgstr "Wyjustuj do lewej"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:591
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:750
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:589
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:765
 msgid "Justify Left the Current Paragraph"
 msgstr "Wyjustuj do lewej aktualny paragraf"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:592
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:751
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:590
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:766
 msgid "Justify _Center"
 msgstr "Wyjustuj do środka"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:592
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:751
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:590
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:766
 msgid "Justify Center the Current Paragraph"
 msgstr "Wyjustuj do środka aktualny paragraf"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:593
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:752
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:591
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:767
 msgid "Justify _Right"
 msgstr "Wyjustuj do prawej"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:593
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:752
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:591
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:767
 msgid "Justify Right the Current Paragraph"
 msgstr "Wyjustuj do prawej aktualny paragraf"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:594
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:785
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:824
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:592
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:801
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:840
 msgid "_Find in Node"
 msgstr "Znajdź w gałęzi"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:594
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:785
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:824
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:592
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:801
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:840
 msgid "Find into the Selected Node"
 msgstr "Znajdź w zaznaczonej gałęzi"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:595
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:593
 msgid "Find in _All Nodes"
 msgstr "Znajdź we wszystkich gałęziach"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:595
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:786
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:825
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:593
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:802
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:841
 msgid "Find into all the Tree Nodes"
 msgstr "Znajdź we wszystkich gałęziach"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:596
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:594
 msgid "Find in _Selected Node and Subnodes"
 msgstr "Znajdź w zaznaczonych gałąziach i podgałęziach"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:596
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:594
 msgid "Find into the Selected Node and Subnodes"
 msgstr "Znajdź wewnątrz zaznaczonej gałęzi"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:597
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:683
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:787
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:826
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:595
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:697
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:803
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:842
 msgid "Find a _Node"
 msgstr "Znajdź gałąź"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:597
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:683
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:787
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:826
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:595
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:697
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:803
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:842
 msgid "Find a Node from its Name"
 msgstr "Znajdź gałąź po nazwie"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:598
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:788
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:827
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:596
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:804
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:843
 msgid "Find _Again"
 msgstr "Zn_ajdź ponownie"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:598
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:788
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:827
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:596
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:804
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:843
 msgid "Iterate the Last Find Operation"
 msgstr "Powtórz ostatnie szukanie"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:599
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:789
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:828
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:597
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:805
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:844
 msgid "Find _Back"
 msgstr "Znajdź wstecz"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:599
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:789
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:828
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:597
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:805
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:844
 msgid "Iterate the Last Find Operation in Opposite Direction"
 msgstr "Powtórz ostatnią operacje w odwrotnym kierunku"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:600
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:792
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:831
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:598
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:808
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:847
 msgid "_Replace in Node"
 msgstr "Zamień w gałęzi"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:600
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:792
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:831
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:598
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:808
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:847
 msgid "Replace into the Selected Node"
 msgstr "Zamień w zaznaczonej gałęzi"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:601
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:599
 msgid "Replace in _All Nodes"
 msgstr "Zamień we wszystkich gałęziach"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:601
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:793
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:832
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:599
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:809
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:848
 msgid "Replace into all the Tree Nodes"
 msgstr "Zamień we wszystkich gałęziach"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:602
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:600
 msgid "Replace in _Selected Node and Subnodes"
 msgstr "Zamień w zaznaczonej gałęzi i podgałęziach"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:602
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:600
 msgid "Replace into the Selected Node and Subnodes"
 msgstr "Zamień wewnatrz zaznaczonej gałęzi"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:603
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:684
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:794
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:833
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:601
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:698
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:810
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:849
 msgid "Replace in Nodes _Names"
 msgstr "Zamień w nazwach gałęzi"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:603
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:684
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:794
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:833
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:601
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:698
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:810
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:849
 msgid "Replace in Nodes Names"
 msgstr "Zamień w nazwach gałęzi"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:604
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:795
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:834
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:602
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:811
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:850
 msgid "Replace _Again"
 msgstr "Z_amień ponownie"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:604
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:795
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:834
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:602
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:811
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:850
 msgid "Iterate the Last Replace Operation"
 msgstr "Powtórz ostatnią zamianę"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:605
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:603
 msgid "Show/Hide Node Name _Header"
 msgstr "Wyświetl/Ukryj nagłówek nazwy gałęzi"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:605
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:603
 msgid "Toggle Show/Hide Node Name Header"
 msgstr "Przełącz wyświetlanie nagłówka nazwy gałęzi"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:606
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:604
 msgid "Enable/Disable _Spell Check"
 msgstr "Włącz/Wyłącz sprawdzanie pisowni"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:606
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:604
 msgid "Toggle Enable/Disable Spell Check"
 msgstr "Przełącz sprawdzanie pisowni"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:607
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:605
 msgid "Show/Hide _Tree"
 msgstr "Wyświetl/Ukryj Drzewo"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:607
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:605
 msgid "Toggle Show/Hide Tree"
 msgstr "Przełącz wyświetlanie Drzewa"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:608
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:606
 msgid "Show/Hide _CherryTree"
 msgstr "Wyświetl/Ukryj _CherryTree"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:608
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:606
 msgid "Toggle Show/Hide CherryTree"
 msgstr "Przełącz wyświetlanie CherryTree"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:609
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:607
 msgid "Show/Hide Tool_bar"
 msgstr "Wyświetl/Ukryj pasek narzędziowy"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:609
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:607
 msgid "Toggle Show/Hide Toolbar"
 msgstr "Przełącz wyświetlanie paska narzędziowego"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:610
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:608
 msgid "Show _All Matches Dialog"
 msgstr "Pokarz okno wszystkich pasujących"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:610
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:608
 msgid "Show Search All Matches Dialog"
 msgstr "Pokarz okno Znajdź wszystkie pasujące"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:611
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:609
 msgid "_Increase Toolbar Icons Size"
 msgstr "Zwiększ rozmiar ikon na pasku narzędziowym"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:611
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:609
 msgid "Increase the Size of the Toolbar Icons"
 msgstr "Zwiększ rozmiar ikon na pasku narzędziowym"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:612
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:610
 msgid "_Decrease Toolbar Icons Size"
 msgstr "Zmniejsz rozmiar ikon na pasku narzędziowym"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:612
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:610
 msgid "Decrease the Size of the Toolbar Icons"
 msgstr "Zmniejsz rozmiar ikon na pasku narzędziowym"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:613
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:611
 msgid "Toggle _Focus Tree/Text"
 msgstr "Przełącz aktywność drzewa/tekstu"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:613
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:611
 msgid "Toggle Focus Between Tree and Text"
 msgstr "Przełącz aktywnosc pomiędzy drzewem a tekstem"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:614
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:612
 msgid "Toggle Node _Expanded/Collapsed"
 msgstr "Przełącz stan Zwiniętych/Rozwiniętych gałęzi"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:614
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:612
 msgid "Toggle Expanded/Collapsed Status of the Selected Node"
 msgstr "Przełącz stan Zwiniętych/Rozwiniętych gałęzi w zaznaczonej gałęzi"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:615
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:613
 msgid "E_xpand All Nodes"
 msgstr "_Rozwiń wszystkie gałęzie"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:615
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:613
 msgid "Expand All the Tree Nodes"
 msgstr "Rozwiń wszystkie gałęzie"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:616
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:614
 msgid "_Collapse All Nodes"
 msgstr "_Zwiń wszystkie gałęzie"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:616
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:614
 msgid "Collapse All the Tree Nodes"
 msgstr "Zwiń wszystkie gałęzie"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:617
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:615
 msgid "_Full Screen On/Off"
 msgstr "Pełny ekran Włącz/Wyłącz"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:617
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:615
 msgid "Toggle Full Screen On/Off"
 msgstr "Przełącz pełny ekran"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:618
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:687
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:616
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:701
 msgid "From _CherryTree File"
 msgstr "Z pliku _CherryTree"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:618
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:687
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:616
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:701
 msgid "Add Nodes of a CherryTree File to the Current Tree"
 msgstr "Dodaj gałąź z pliku CherryTree do aktualnego drzewa"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:619
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:688
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:617
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:702
 msgid "From _Plain Text File"
 msgstr "z pojedyńczego pliku tekstowewgo"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:619
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:688
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:617
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:702
 msgid "Add Node from a Plain Text File to the Current Tree"
 msgstr "Dodaj gałąź z pliku tekstowego do aktualnego drzewa"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:620
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:689
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:618
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:703
 msgid "From _Folder of Plain Text Files"
 msgstr "Z _folderu z plikami tekstowymi"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:620
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:689
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:618
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:703
 msgid "Add Nodes from a Folder of Plain Text Files to the Current Tree"
 msgstr "Dodaj gałązi z folderu z plikami tekstowymi do aktualnego drzewa"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:621
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:690
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:619
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:704
 msgid "From _HTML File"
 msgstr "Z pliku _HTML"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:621
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:690
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:619
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:704
 msgid "Add Node from an HTML File to the Current Tree"
 msgstr "Dodaj gałąź z pliku HTML do aktualnego drzewa"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:622
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:691
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:620
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:705
 msgid "From _Folder of HTML Files"
 msgstr "Z _folderu z plikami HTML"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:622
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:691
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:620
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:705
 msgid "Add Nodes from a Folder of HTML Files to the Current Tree"
 msgstr "Dodaj gałązi z folderu z plikami HTML do aktualnego drzewa"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:623
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:692
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:621
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:706
 msgid "From _Basket Folder"
 msgstr "Z folderu Basket"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:623
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:692
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:621
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:706
 msgid "Add Nodes of a Basket Folder to the Current Tree"
 msgstr "Dodaj gałąź z folderu Basket do aktualnego drzewa"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:624
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:693
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:622
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:708
+#, fuzzy
+msgid "From _EssentialPIM HTML File"
+msgstr "Z pliku _HTML"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:622
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:708
+#, fuzzy
+msgid "Add Node from an EssentialPIM HTML File to the Current Tree"
+msgstr "Dodaj gałąź z pliku HTML do aktualnego drzewa"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:623
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:707
 msgid "From _Gnote Folder"
 msgstr "Z folderu _Gnote"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:624
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:693
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:623
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:707
 msgid "Add Nodes of a Gnote Folder to the Current Tree"
 msgstr "Dodaj gałązi z folderu Gnote do aktualnego drzewa"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:625
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:694
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:624
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:709
 msgid "From _KeepNote Folder"
 msgstr "Z folderu _KeepNote"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:625
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:694
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:624
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:709
 msgid "Add Nodes of a KeepNote Folder to the Current Tree"
 msgstr "Dodaj gałąź z folderu KeepNote do aktualnego drzewa"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:626
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:695
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:625
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:710
 msgid "From K_eyNote File"
 msgstr "Z pliku K_eyNote"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:626
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:695
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:625
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:710
 msgid "Add Nodes of a KeyNote File to the Current Tree"
 msgstr "Dodaj gałązi z pliku KeyNote do aktualnego drzewa"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:627
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:696
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:626
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:711
 msgid "From K_nowit File"
 msgstr "Z pliku K_nowit"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:627
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:696
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:626
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:711
 msgid "Add Nodes of a Knowit File to the Current Tree"
 msgstr "Dodaj gałąź z pliku Knowit do aktualnego drzewa"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:628
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:697
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:627
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:712
 msgid "From _Leo File"
 msgstr "Z pliku _Leo"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:628
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:697
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:627
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:712
 msgid "Add Nodes of a Leo File to the Current Tree"
 msgstr "Dodaj gałąź z pliku Leo do aktualnego drzewa"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:629
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:698
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:628
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:713
 msgid "From _Mempad File"
 msgstr "Z pliku _Mempad"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:629
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:698
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:628
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:713
 msgid "Add Nodes of a Mempad File to the Current Tree"
 msgstr "Dodaj gałąź z pliku Mempad do aktualnego drzewa"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:630
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:699
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:629
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:714
 msgid "From _NoteCase File"
 msgstr "Z pliku _NoteCase"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:630
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:699
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:629
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:714
 msgid "Add Nodes of a NoteCase File to the Current Tree"
 msgstr "Dodaj gałąź z pliku NoteCase do aktualnego drzewa"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:631
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:700
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:630
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:715
 msgid "From T_omboy Folder"
 msgstr "Z folderu T_omboy"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:631
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:700
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:630
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:715
 msgid "Add Nodes of a Tomboy Folder to the Current Tree"
 msgstr "Dodaj gałęzie z folderu Tomboy do aktualnego drzewa"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:632
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:701
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:631
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:716
 msgid "From T_reepad Lite File"
 msgstr "Z pliku T_reepad"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:632
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:701
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:631
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:716
 msgid "Add Nodes of a Treepad Lite File to the Current Tree"
 msgstr "Dodaj gałązi z pliku Treepad Lite do aktualnego drzewa"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:633
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:702
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:632
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:717
 msgid "From _TuxCards File"
 msgstr "Z pliku _TuxCards"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:633
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:702
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:632
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:717
 msgid "Add Nodes of a TuxCards File to the Current Tree"
 msgstr "Dodaj gałąź z pliku TuxCards do aktualnego drzewa"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:634
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:703
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:633
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:718
 msgid "From _Zim Folder"
 msgstr "Z folderu _Zim"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:634
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:703
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:633
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:718
 msgid "Add Nodes of a Zim Folder to the Current Tree"
 msgstr "Dodaj gałęzie z folderu Zim do aktualnego drzewa"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:635
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:634
 msgid "Online _Manual"
 msgstr "Poradnik online"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:635
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:634
 msgid "Application's Online Manual"
 msgstr "Poradnik aplikacji online"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:636
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:635
 msgid "_Check Newer Version"
 msgstr "Sprawdź aktualizację"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:636
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:635
 msgid "Check for a Newer Version"
 msgstr "Sprawdź czy jest nowa wersja programu"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:637
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:636
 msgid "_About"
 msgstr "_Informacje"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:637
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:636
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:306
 msgid "About CherryTree"
 msgstr "Informacje o CherryTree"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:638
-msgid "_Edit Table Properties"
-msgstr "Edytuj wlaściwości tabeli"
-
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:638
-msgid "Edit the Table Properties"
-msgstr "Edytuj wlaściwości tabeli"
-
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:639
-msgid "_Add Row"
-msgstr "Dodaj wiersz"
-
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:639
-msgid "Add a Table Row"
-msgstr "Dodaj wiersz tabeli"
-
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:640
-msgid "Cut a Table Row"
-msgstr "Wytnij wiersz tabeli"
-
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:641
-msgid "Copy a Table Row"
-msgstr "Kopiuj wiersz tabeli"
-
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:642
-msgid "_Paste Row"
-msgstr "Wklej wiersz"
-
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:642
-msgid "Paste a Table Row"
-msgstr "Wklej wiersz tabeli"
-
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:643
-msgid "Delete the Selected Table Row"
-msgstr "Usuń zaznaczony wiersz w tabeli"
-
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:644
-msgid "Move Row _Up"
-msgstr "Przenieś wiersz wyżej"
-
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:644
-msgid "Move the Selected Row Up"
-msgstr "Przenieś zaznaczony wiersz wyżej"
-
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:645
-msgid "Move Row _Down"
-msgstr "Przenieś wiersz w dół"
-
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:645
-msgid "Move the Selected Row Down"
-msgstr "Przenieś zaznaczony wiersz niżej"
-
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:646
-msgid "Sort Rows De_scending"
-msgstr "Posortuj wiersze malejąco"
-
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:646
-msgid "Sort all the Rows Descending"
-msgstr "Posortuj wszystkie wiersze malejąco"
-
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:647
-msgid "Sort Rows As_cending"
-msgstr "Posortuj wszystkie wiersze rosnąco"
-
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:647
-msgid "Sort all the Rows Ascending"
-msgstr "Posortuj wszystkie wiersze rosnąco"
-
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:648
-msgid "_Table Export"
-msgstr "Eksport tabeli"
-
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:648
-msgid "Export Table as CSV File"
-msgstr "Eksportuj tabele jako plik CSV"
-
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:649
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:637
 msgid "_Bookmark This Node"
 msgstr "Dodaj zakładkę"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:649
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:637
 msgid "Add the Current Node to the Bookmarks List"
 msgstr "Dodaj zakładkę do aktualnej gałęzi"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:650
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:638
 msgid "_Handle Bookmarks"
 msgstr "Zakładki"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:650
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:1025
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:638
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:1020
 msgid "Handle the Bookmarks List"
 msgstr "Obsłuż liste zakładek"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:651
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:662
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:639
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:676
 msgid "Add _Node"
 msgstr "Dodaj gałąź"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:651
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:662
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:639
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:676
 msgid "Add a Node having the same Father of the Selected Node"
 msgstr "Dodaj gałąź mającą tą samą nadrzędną gałąź"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:652
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:663
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:640
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:677
 msgid "Add _SubNode"
 msgstr "Dodaj podgałąź"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:652
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:663
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:640
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:677
 msgid "Add a Child Node to the Selected Node"
 msgstr "Dodaj podgałąź do zaznaczonej gałęzi"
 
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:650
+msgid "C_ut Table"
+msgstr "Dodaj ta_bele"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:650
+msgid "Cut the Selected Table"
+msgstr "Usuń zaznaczony wiersz w tabeli"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:651
+msgid "_Copy Table"
+msgstr "_Kopiuj tabele"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:651
+msgid "Copy the Selected Table"
+msgstr "Kopiuj zaznaczoną tabele"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:652
+msgid "_Delete Table"
+msgstr "_Usuń tabele"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:652
+msgid "Delete the Selected Table"
+msgstr "Usuń zaznaczoną tabele"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:654
+msgid "_Add Row"
+msgstr "Dodaj wiersz"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:654
+msgid "Add a Table Row"
+msgstr "Dodaj wiersz tabeli"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:655
+msgid "Cut a Table Row"
+msgstr "Wytnij wiersz tabeli"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:656
+msgid "Copy a Table Row"
+msgstr "Kopiuj wiersz tabeli"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:657
+msgid "_Paste Row"
+msgstr "Wklej wiersz"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:657
+msgid "Paste a Table Row"
+msgstr "Wklej wiersz tabeli"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:658
+msgid "Delete the Selected Table Row"
+msgstr "Usuń zaznaczony wiersz w tabeli"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:660
+msgid "Move Row _Up"
+msgstr "Przenieś wiersz wyżej"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:660
+msgid "Move the Selected Row Up"
+msgstr "Przenieś zaznaczony wiersz wyżej"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:661
+msgid "Move Row _Down"
+msgstr "Przenieś wiersz w dół"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:661
+msgid "Move the Selected Row Down"
+msgstr "Przenieś zaznaczony wiersz niżej"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:662
+msgid "Sort Rows De_scending"
+msgstr "Posortuj wiersze malejąco"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:662
+msgid "Sort all the Rows Descending"
+msgstr "Posortuj wszystkie wiersze malejąco"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:663
+msgid "Sort Rows As_cending"
+msgstr "Posortuj wszystkie wiersze rosnąco"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:663
+msgid "Sort all the Rows Ascending"
+msgstr "Posortuj wszystkie wiersze rosnąco"
+
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:665
+msgid "_Edit Table Properties"
+msgstr "Edytuj wlaściwości tabeli"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:665
+msgid "Edit the Table Properties"
+msgstr "Edytuj wlaściwości tabeli"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:666
+msgid "_Table Export"
+msgstr "Eksport tabeli"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:666
+msgid "Export Table as CSV File"
+msgstr "Eksportuj tabele jako plik CSV"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:679
 msgid "Change Node _Properties"
 msgstr "Zmień właściwości gałęzi"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:665
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:679
 msgid "Edit the Properties of the Selected Node"
 msgstr "Zmień właściwości zaznaczonej gałęzi"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:666
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:680
 msgid "Insert Today's Node"
 msgstr "Dodaj dzisiejszą gałęź"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:666
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:680
 msgid "Insert a Node with Hierarchy Year/Month/Day"
 msgstr "Wstaw gałęź z datą Rok/Miesiąc/Dzień"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:667
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:681
 msgid "Tree _Info"
 msgstr "Informacje o drzewie"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:667
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3144
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:681
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3300
 msgid "Tree Summary Information"
 msgstr "Skrócone informacje o drzewie"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:670
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:684
 msgid "Node _Up"
 msgstr "gałąź do góry"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:670
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:684
 msgid "Move the Selected Node Up"
 msgstr "Przenieś gałąź wyżej"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:671
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:685
 msgid "Node _Down"
 msgstr "gałąź w dół"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:671
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:685
 msgid "Move the Selected Node Down"
 msgstr "Przenieś gałąź niżej"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:672
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:686
 msgid "Node _Left"
 msgstr "gałąź w lewo"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:672
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:686
 msgid "Move the Selected Node Left"
 msgstr "Przenieś gałąź w lewo"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:673
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:687
 msgid "Node Change _Father"
 msgstr "Zmień gałąź nadrzędną gałęzi"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:673
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:687
 msgid "Change the Selected Node's Father"
 msgstr "Zmień gałąź nadrzędną gałęzi"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:676
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:690
 msgid "Nodes _Sort"
 msgstr "_Sortowanie gałęzi"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:677
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:691
 msgid "Sort Tree _Ascending"
 msgstr "Posortuj drzewo rosnąco"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:677
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:691
 msgid "Sort the Tree Ascending"
 msgstr "Posortuj drzewo rosnąco"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:678
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:692
 msgid "Sort Tree _Descending"
 msgstr "Posortuj drzewo malejąco"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:678
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:692
 msgid "Sort the Tree Descending"
 msgstr "Posortuj drzewo malejąco"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:679
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:693
 msgid "Sort Siblings A_scending"
 msgstr "Posortuj gałęzi potomne rosnąco"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:679
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:693
 msgid "Sort all the Siblings of the Selected Node Ascending"
 msgstr "Posortuj wszystkie potomne gałęzi rosnąco"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:680
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:694
 msgid "Sort Siblings D_escending"
 msgstr "Posortuj gałęzi potomne malejąco"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:680
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:694
 msgid "Sort all the Siblings of the Selected Node Descending"
 msgstr "Posortuj wszystkie potomne gałęzi malejąco"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:715
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:730
 msgid "De_lete Node"
 msgstr "_Usuń Gałąź"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:715
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:730
 msgid "Delete the Selected Node"
 msgstr "Usuń zaznaczoną gałąź"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:749
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:764
 msgid "_Justify"
 msgstr "Wyjustuj"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:754
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:769
 msgid "_List"
 msgstr "_Lista"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:760
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:775
 msgid "_Insert"
 msgstr "Dodaj"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:775
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:814
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:791
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:830
 msgid "_Row"
 msgstr "Wiersz"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:777
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:816
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:793
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:832
 msgid "C_opy Row"
 msgstr "Kopiuj wiersz"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:786
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:825
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:802
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:841
 msgid "Find in Node_s"
 msgstr "Znajdź w gałęziach"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:793
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:832
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:809
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:848
 msgid "Replace in Node_s"
 msgstr "Zamień w gałęzi"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:808
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:824
 msgid "Stri_p Trailing Spaces"
 msgstr "Usuń _nadmierne spacje"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:808
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:824
 msgid "Strip Trailing Spaces"
 msgstr "Usuń nadmierne spacje"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:846
-msgid "Edit _Link"
-msgstr "Zmień _Link"
-
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:846
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:862
 msgid "Edit the Underlying Link"
 msgstr "Zmień link"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:848
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:864
 msgid "C_ut Link"
 msgstr "Wytnij link"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:848
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:866
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:864
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:893
 msgid "Cut the Selected CodeBox"
 msgstr "Wytnij zaznaczone pole kodu"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:849
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:865
 msgid "_Copy Link"
 msgstr "Kopiuj link"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:849
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:867
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:865
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:894
 msgid "Copy the Selected CodeBox"
 msgstr "Kopiuj zaznaczone pole kodu"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:850
-msgid "D_ismiss Link"
-msgstr "Odrzuć link"
-
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:850
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:866
 msgid "Dismiss the Selected Link"
 msgstr "Odrzuć zaznaczony link"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:851
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:867
 msgid "_Delete Link"
 msgstr "_Usuń link"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:851
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:867
 msgid "Delete the Selected Link"
 msgstr "Usuń zaznaczony link"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:862
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:878
+#, fuzzy
+msgid "Insert _NewLine"
+msgstr "Dodaj/Zmień _Link"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:878
+#, fuzzy
+msgid "Insert NewLine Char"
+msgstr "Wstaw znak _specjalny"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:889
 msgid "Change CodeBox _Properties"
 msgstr "Zmień właściwości pola kodu"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:862
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:889
 msgid "Edit the Properties of the CodeBox"
 msgstr "Zmień właściwości pola kodu"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:863
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:890
 msgid "CodeBox _Load From Text File"
 msgstr "Pole kodu - Załaduj z pliku tekstowego"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:863
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:890
 msgid "Load the CodeBox Content From a Text File"
 msgstr "Załaduj treść pola kodu z pliku tekstowego"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:864
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:891
 msgid "CodeBox _Save To Text File"
 msgstr "Pole kodu - Zapisz do pliku tekstowego"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:864
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:891
 msgid "Save the CodeBox Content To a Text File"
 msgstr "Zapisz treść pola kodu do pliku tekstowego"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:866
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:893
 msgid "C_ut CodeBox"
 msgstr "_Wytnij pole kodu"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:867
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:894
 msgid "_Copy CodeBox"
 msgstr "Kopiuj pole kodu"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:868
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:895
 msgid "_Delete CodeBox"
 msgstr "_Usuń pole kodu"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:868
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:895
 msgid "Delete the Selected CodeBox"
 msgstr "Usuń zaznaczone pole kodu"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:869
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:896
 msgid "Delete CodeBox _Keep Content"
 msgstr "_Usuń pole kodu, zachowaj zawartość"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:869
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:896
 msgid "Delete the Selected CodeBox But Keep Its Content"
 msgstr "Usuń zaznaczone pole kodu, ale zachowaj zawartość"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:871
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:898
 msgid "Increase CodeBox Width"
 msgstr "Zwiększ pole kodu"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:871
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:898
 msgid "Increase the Width of the CodeBox"
 msgstr "Zwiększ szerokość pola kodu"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:872
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:899
 msgid "Decrease CodeBox Width"
 msgstr "Zmniejsz szerokość pola kodu"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:872
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:899
 msgid "Decrease the Width of the CodeBox"
 msgstr "Zmniejsz szerokość pola kodu"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:873
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:900
 msgid "Increase CodeBox Height"
 msgstr "Zwiększ wysokość pola kodu"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:873
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:900
 msgid "Increase the Height of the CodeBox"
 msgstr "Zwiększ wysokość pola kodu"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:874
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:901
 msgid "Decrease CodeBox Height"
 msgstr "Zmniejsz wysokość pola kodu"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:874
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:901
 msgid "Decrease the Height of the CodeBox"
 msgstr "Zmniejsz wysokość pola kodu"
 
@@ -1623,15 +1670,15 @@ msgid "Search in Current Node..."
 msgstr "Szukaj w aktualnej gałęzi..."
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:136
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:216
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:287
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:220
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:289
 #, python-format
 msgid "The pattern '%s' was not found"
 msgstr "Wyrażenie '%s' nie zostało znalezione"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:138
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:219
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:289
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:223
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:291
 msgid "Matches"
 msgstr "Pasujące"
 
@@ -1651,37 +1698,37 @@ msgstr "Szukaj w zaznaczonej gałązi i podgałęziach"
 msgid "Search in All Nodes"
 msgstr "Szukaj we wszystkich gałęziach"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:232
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:234
 msgid "Replace in Node Names..."
 msgstr "Zamień w nazwach gałęzi..."
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:233
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:235
 msgid "Search For a Node Name..."
 msgstr "Szukaj po nazwie gałęzi..."
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:534
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:542
 msgid "No Previous Search Was Performed During This Session"
 msgstr "Nie wykonano szukania w tej sesji"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:574
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:583
 msgid "Hide (Restore with Ctrl+Shift+A)"
 msgstr "Ukryj (przywróć przez Ctrl+Shift+A)"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:587
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2869
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:596
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3000
 msgid "Node Name"
 msgstr "Nazwa gałęzi"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:589
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:598
 msgid "Line"
 msgstr "Linia"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:591
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:600
 msgid "Line Content"
 msgstr "Zawartość lini"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:609
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3778
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:618
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4055
 #, python-format
 msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
 msgstr "Link prowadzi do gałęzi która już nie istnieje (Id = %s)"
@@ -1716,8 +1763,8 @@ msgid "This Change will have Effect Only After Restarting CherryTree"
 msgstr "Ta zmiana zostanie zatwierdzona po ponowynym uruchomieniu CherryTree"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:249
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:507
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:541
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:509
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:543
 msgid "Warning"
 msgstr "Ostrzeżenie"
 
@@ -1823,19 +1870,19 @@ msgstr "Hiszpański"
 msgid "Ukrainian"
 msgstr "Ukraiński"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:544
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:546
 msgid "Cancel"
 msgstr "Anuluj"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:545
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:547
 msgid "No"
 msgstr "Nie"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:546
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:548
 msgid "Yes"
 msgstr "Tak"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:560
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:562
 msgid ""
 "<b>The current document was updated</b>,\n"
 "do you want to save the changes?"
@@ -1843,105 +1890,105 @@ msgstr ""
 "<b>Dokument został zaktualizowany</b>,\n"
 "Czy chcesz go zapisać?"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:603
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1117
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:605
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1136
 msgid "To WebSite"
 msgstr "Do strony internetowej"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:614
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1131
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:616
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1150
 msgid "To File"
 msgstr "Do pliku "
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:629
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1138
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:631
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1157
 msgid "To Folder"
 msgstr "Do folderu"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:644
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1124
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:646
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1143
 msgid "To Node"
 msgstr "Do gałęzi"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:684
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:686
 msgid "Anchor Name (optional)"
 msgstr "Nazwa Kotwicy (opcjonalnie)"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:738
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3116
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4001
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:740
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3272
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4320
 msgid "No Node is Selected"
 msgstr "Nie zaznaczono gałęzi"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:758
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:753
 msgid "There are No Anchors in the Selected Node"
 msgstr "Brak kotwic w aktualnej gałęzi"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:760
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:755
 msgid "Choose Existing Anchor"
 msgstr "Wybierz istniejącą kotwice"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:760
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:755
 msgid "Anchor Name"
 msgstr "Nazwa kotwicy"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:851
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:846
 msgid "Involved Nodes"
 msgstr "Wplątane gałęzie"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:857
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:852
 msgid "Selected Text Only"
 msgstr "Tylko zaznaczony tekst"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:858
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:853
 msgid "Selected Node Only"
 msgstr "Tylko zaznaczoną gałąź"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:859
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:854
 msgid "Selected Node and Subnodes"
 msgstr "Zaznaczoną gałąź i podgałęzie"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:860
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:855
 msgid "All the Tree"
 msgstr "Całe drzewo"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:871
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:866
 msgid "Include Node Name"
 msgstr "Dołącz nazwę gałęzi"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:877
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:872
 msgid "Links Tree in Every Page"
 msgstr "Łącz drzewo na każdej stronie"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:882
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:877
 msgid "New Node in New Page"
 msgstr "Nowa gałęź w nowej stronie"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:948
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:952
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:943
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1040
 msgid "Insert _Special Character"
 msgstr "Wstaw znak _specjalny"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:950
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:954
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:945
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1042
 msgid "Insert a Special Character"
 msgstr "Dodaj znak specjalny"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:981
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:976
 msgid "_Recent Documents"
 msgstr "_Ostatnie dokumenty"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:983
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:989
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:978
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:984
 msgid "Open a Recent CherryTree Document"
 msgstr "Otwórz ostatni dokument CherryTree"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:1013
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:1008
 #, python-format
 msgid "The Document %s was Not Found"
 msgstr "Dokument '%s' nie został znaleziony"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:1039
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:1034
 msgid "Sort with Drag and Drop, Delete with the Delete Key"
 msgstr ""
 "Sortuj za pomocą Przytrzymaj i upuść, Usuwaj za pomocą przycisku Delete"
@@ -1971,9 +2018,9 @@ msgid "Suggestions"
 msgstr "Sugestie"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/exports.py:38
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:570
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1166
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1328
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:631
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1255
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1441
 msgid "CherryTree Document"
 msgstr "Dokument CherryTree"
 
@@ -1982,274 +2029,278 @@ msgid "PDF File"
 msgstr "Plik PDF"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/exports.py:185
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:704
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:784
 msgid "Plain Text Document"
 msgstr "Dokument tekstowy"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/exports.py:559
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/exports.py:557
 msgid "Index"
 msgstr "Index"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:495
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:499
 msgid "Tab Width"
 msgstr "Rozmiar Tabulatora"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:501
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:505
 msgid "Insert Spaces Instead of Tabs"
 msgstr "Wstaw spacje zamiast tabulatorów"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:503
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:507
 msgid "Use Line Wrapping"
 msgstr "Użyj załamywania lini"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:507
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:511
 msgid "Line Wrapping Indentation"
 msgstr "Wcięcia lini"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:513
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:517
 msgid "Enable Automatic Indentation"
 msgstr "Włącz automatyczne wcięcia"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:525
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:529
 msgid "Text Editor"
 msgstr "Edytor tekstu"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:535
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:539
 msgid "Timestamp Format"
 msgstr "Format czasu"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:545
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:549
 msgid "Horizontal Rule"
 msgstr "Dodaj poziomą linijkę"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:552
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:556
 msgid "Special Characters"
 msgstr "Znaki specjalne"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:572
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:708
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:931
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1167
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1287
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1421
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:576
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:721
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:950
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1186
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1309
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1443
 msgid "Miscellaneous"
 msgstr "Inne"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:631
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:635
 msgid "Enable Spell Check"
 msgstr "Włącz sprawdzanie pisowni"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:635
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:639
 msgid "Spell Check Language"
 msgstr "Język sprawdzania pisowni"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:648
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4009
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:652
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4328
 msgid "Spell Check"
 msgstr "Sprawdzanie pisowni"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:658
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:835
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:662
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:854
 msgid "Light Background, Dark Text"
 msgstr "Jasne tło, Ciemny tekst"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:659
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:836
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:663
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:855
 msgid "Dark Background, Light Text"
 msgstr "Ciemne tło, Jasny tekst"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:661
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:838
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:665
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:857
 msgid "Custom Background"
 msgstr "Własne tło"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:666
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:843
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:670
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:862
 msgid "and Text"
 msgstr "i tekst"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:676
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:853
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:680
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:872
 msgid "Theme"
 msgstr "Motyw"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:696
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:793
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:700
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:812
 msgid "Show White Spaces"
 msgstr "Pokazuj białe znaki"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:698
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:704
+msgid "Embedded File Icon Size"
+msgstr ""
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:710
 msgid "Limit of Undoable Steps Per Node"
 msgstr "Ilość cofnięć dla każdej gałęzi"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:785
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:804
 msgid "Style Scheme"
 msgstr "Schemat stylu"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:795
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:814
 msgid "Highlight Current Line"
 msgstr "Podświetlaj aktualną linię"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:802
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:821
 msgid "Code Nodes"
 msgstr "Gałęzi kodu"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:873
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:892
 msgid "Use Cherries as Nodes Icons"
 msgstr "Użyj wisienek jako ikony gałęźi"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:874
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:893
 msgid "Use Bullets as Nodes Icons"
 msgstr "Użyj kropek jako ikony gałęźi"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:876
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:895
 msgid "Do Not Display Nodes Icons"
 msgstr "Nie wyświetlaj ikon gałęźi"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:882
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:901
 msgid "Nodes Icons"
 msgstr "Ikony gałęzi"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:896
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:915
 msgid "Restore Expanded/Collapsed Status"
 msgstr "Przywróć stan Zwiniętych/Rozwiniętych"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:897
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:916
 msgid "Expand all Nodes"
 msgstr "Rozwiń wszystkie gałęzie"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:899
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:918
 msgid "Collapse all Nodes"
 msgstr "Zwiń wszystkie gałęzie"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:905
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:924
 msgid "Nodes Status at Startup"
 msgstr "Stan gałęzi przy starcie"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:920
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:939
 msgid "Tree Nodes Names Wrapping Width"
 msgstr "Szerokość załamywania nazwy gałęzi"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:926
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:945
 msgid "Display Tree on the Right Side"
 msgstr "Wyświetlaj drzewo po prawej stronie"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1031
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1050
 msgid "Text Font"
 msgstr "Czcionka tekstu"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1032
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1051
 msgid "Code Font"
 msgstr "  Czcionka kodu  "
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1033
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1052
 msgid "Tree Font"
 msgstr "Czcionka drzewa"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1050
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1419
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1069
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1441
 msgid "Fonts"
 msgstr "Czcionki"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1079
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1098
 msgid "Enable Custom Web Link Clicked Action"
 msgstr "Włącz własne akcje dla linków internetowych"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1081
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1100
 msgid "Enable Custom File Link Clicked Action"
 msgstr "Włącz własną akcje dla linków do pliku"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1083
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1102
 msgid "Enable Custom Folder Link Clicked Action"
 msgstr "Włącz własne akcje dla linków do pliku"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1092
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1111
 msgid "Custom Actions"
 msgstr "Własne akcje"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1148
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1167
 msgid "Colors"
 msgstr "Kolory"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1159
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1178
 msgid "Anchor Size"
 msgstr "Rozmiar kotwicy"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1224
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1246
 msgid "Enable System Tray Docking"
 msgstr "Włącz dokowanie w ikonie"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1225
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1247
 msgid "Start Minimized in the System Tray"
 msgstr "Na starcie uruchom w zasobniku."
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1226
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1248
 msgid "Use AppIndicator for Docking"
 msgstr "Użyj AppIndicator do dokowania"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1231
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1253
 msgid "System Tray"
 msgstr "Zasobnik systemowy"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1248
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1270
 msgid "Autosave Every"
 msgstr "Autozapis co "
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1251
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1273
 msgid "Minutes"
 msgstr "Minut"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1255
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1277
 msgid "Autosave on Quit"
 msgstr "Autozapis przy wyjściu"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1256
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1278
 msgid "Create a Backup Copy Before Saving"
 msgstr "Stwórz kopie zapasową przed zapisem"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1267
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1289
 msgid "Saving"
 msgstr "Zapisywanie"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1276
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1298
 msgid "Automatically Check for Newer Version"
 msgstr "Automatycznie sprawdź wersję"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1277
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1299
 msgid "Reload Document From Last Session"
 msgstr "Wczytaj dokument z poprzedniej sesji"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1278
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1300
 msgid "Reload After External Update to CT* File"
 msgstr "Przeładuj zewnętrzne zmiany w pliku CT"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1303
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1325
 msgid "Language"
 msgstr "Język"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1395
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1417
 msgid "The New Language will be Available Only After Restarting CherryTree"
 msgstr "Nowy język będzie dostępny po zrestartowaniu CherryTree"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1415
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1437
 msgid "All Nodes"
 msgstr "Wszystkie gałęzie"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1416
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2873
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4004
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1438
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3004
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4323
 msgid "Rich Text"
 msgstr "Formatowanie"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1417
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1439
 msgid "Plain Text and Code"
 msgstr "Zwykły dokument tekstowy i kod"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1418
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1440
 msgid "Tree"
 msgstr "Drzewo"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1420
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1442
 msgid "Links"
 msgstr "Linki"
 
@@ -2301,208 +2352,213 @@ msgstr "Właściwości kolumn"
 msgid "Import from CSV File"
 msgstr "Importuj z pliku CSV"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/tablez.py:253
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/tablez.py:275
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/tablez.py:257
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/tablez.py:279
 msgid "CSV File"
 msgstr "Plik CSV"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/tablez.py:269
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/tablez.py:273
 msgid "Insert Table"
 msgstr "Dodaj ta_bele"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/tablez.py:304
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/imports.py:2095
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/tablez.py:308
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/imports.py:2231
 msgid "click me"
 msgstr "Wciśnij mnie"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/tablez.py:313
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/tablez.py:317
 msgid "Click to Edit the Column Settings"
 msgstr "Kliknij aby zmienić ustawienia kolumn"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/tablez.py:358
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/tablez.py:363
 msgid "Edit Table Properties"
 msgstr "Edytuj wlaściwości tabeli"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/tablez.py:434
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/tablez.py:453
 msgid "Table Column Action"
 msgstr "Akcja kolumny tabli"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:202
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:208
 msgid "Checking for Newer Version..."
 msgstr "Sprawdzanie czy jest nowa wersja"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:208
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:214
 msgid "A Newer Version Is Available!"
 msgstr "Nowa wersja jest dostępna"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:213
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:219
 msgid "You Are Using the Latest Version Available"
 msgstr "To jest aktualna dostępna wersja"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:216
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:222
 msgid "Failed to Retrieve Latest Version Information - Try Again Later"
 msgstr ""
 "Nie udało się pobrać informacji o nowej wersji - Proszę spróbować pózniej"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:233
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3131
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3495
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4052
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:239
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3287
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3809
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4375
 msgid "No Text is Selected"
 msgstr "Żaden tekst nie jest zaznaczony"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:547
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2063
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:608
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2186
 msgid "The new father can't be one of his sons!"
 msgstr "Nowa gałąź nadrzędna nie może być jedna z jej gałęzi podrzędnych!"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:593
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1672
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:655
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1787
 #, python-format
 msgid "\"%s\" is Not a CherryTree Document"
 msgstr "\"%s\" nie jest dokumentem CherryTree"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:599
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:661
 msgid "NoteCase Document"
 msgstr "Dokument NoteCase"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:685
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:749
+#, fuzzy
+msgid "EPIM HTML Document"
+msgstr "Dokument HTML"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:763
 msgid "HTML Document"
 msgstr "Dokument HTML"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:722
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:804
 msgid "Treepad Document"
 msgstr "Dokument Treepad"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:744
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:827
 msgid "KeyNote Document"
 msgstr "Dokument KeyNote"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:762
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:847
 msgid "Mempad Document"
 msgstr "Dokument Mempad"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:780
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:866
 msgid "Knowit Document"
 msgstr "Dokument Knowit"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:799
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:886
 msgid "Leo Document"
 msgstr "Dokument Leo"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:830
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:918
 msgid "Who is the Father?"
 msgstr "Która gałąź ma być nadrzędną"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:837
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:925
 msgid "The Tree Root"
 msgstr "Główna gałąź drzewa"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:838
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:926
 msgid "The Selected Node"
 msgstr "Zaznaczona gałąź"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1028
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1116
 msgid "The Document was Reloaded After External Update to CT* File"
 msgstr "Dokument został przeładowany po zewnętrznej zmiane pliku CT*"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1055
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1143
 msgid "CherryTree Hierarchical Note Taking"
 msgstr "CherryTree Strukturalny Notes"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1297
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1410
 #, python-format
 msgid "You Have No Write Access to %s"
 msgstr "Nie masz uprawnień do zapisu dla %s"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1310
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1423
 msgid "Writing to Disk..."
 msgstr "Zapisywanie na dysk..."
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1424
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1535
 msgid "Choose Storage Type"
 msgstr "Wybierz typ magazynu"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1431
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1434
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1542
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1545
 msgid "Not Protected"
 msgstr "Bez ochrony"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1432
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1436
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1543
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1547
 msgid "Password Protected"
 msgstr "Chroniony hasłem"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1443
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1554
 msgid "Storage Type"
 msgstr "Typ magazynu"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1454
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1565
 msgid "Enter the New Password Twice"
 msgstr "Wprowadź nowe hasło dwa razy"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1497
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1608
 msgid "The Password Fields Must be Filled"
 msgstr "Pole haseł muszą być wypełnione"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1500
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1611
 msgid "The Two Inserted Passwords Do Not Match"
 msgstr "Dwa wprowadzone hasła nie są jednakowe"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1505
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1616
 #, python-format
 msgid "The Characters  %s  are Not Allowed"
 msgstr "Znak %s jest niedozwolony"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1523
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1634
 msgid ""
 "Binary Executable '7za' Not Found, Check The Package 'p7zip-full' to be "
 "Installed Properly"
 msgstr "Program '7za' nie został znaleziony, Zainstaluj pakiet 'p7zip-full'"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1529
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1640
 #, python-format
 msgid "Enter Password for %s"
 msgstr "Wprowadź hasło dla %s"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1596
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1708
 msgid "Wrong Password"
 msgstr "Złe hasło"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2051
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2174
 msgid "Select the New Father"
 msgstr "Zaznacz nową gałąź nadrzędną"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2055
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2178
 msgid "The new father can't be the very node to move!"
 msgstr "Il Nuovo Padre Non Puo' Essere lo Stesso Nodo da Spostare!"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2058
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2181
 msgid "The new choosed father is again the old father!"
 msgstr "Wybrana gałąź jest poprzednią nadrzędną gałęzią!"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2238
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2361
 msgid "New Node Properties"
 msgstr "Właściwości nowej gałęzi"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2276
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2399
 msgid "New Child Node Properties"
 msgstr "Zmień właściwości nowej podrzędnej gałęzi"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2299
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2422
 #, python-format
 msgid "Are you sure to <b>Delete the node '%s'?</b>"
 msgstr "Jesteś pewien aby <b>Usunąć gałąź '%s'?</b>"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2301
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2424
 msgid "The node <b>has Children, they will be Deleted too!</b>"
 msgstr "Gałąź <b>posiada gałęzi podrzędne, one także zostaną usunięte!</b>"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2321
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2444
 msgid "Node Properties"
 msgstr "Właściwości gałęzi"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2329
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2452
 msgid ""
 "Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
 "Do you want to Continue?"
@@ -2510,194 +2566,215 @@ msgstr ""
 "Zmiana typu gałęzi spowoduje utrate formatowania tej gałęzi, Czy chcesz "
 "kontynułować?"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2758
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2889
 msgid "Search for"
 msgstr "Szukaj"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2765
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2896
 msgid "Replace with"
 msgstr "Zamień z"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2780
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2911
 msgid "Match Case"
 msgstr "Pasująca wielkość"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2782
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2913
 msgid "Regular Expression"
 msgstr "Wyrażenie regularne"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2784
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2915
 msgid "Whole Word"
 msgstr "Całe słowo"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2786
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2917
 msgid "Start Word"
 msgstr "Początkowe słowo"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2788
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2919
 msgid "Forward"
 msgstr "Naprzód"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2790
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2921
 msgid "Backward"
 msgstr "Wstecz"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2793
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2924
 msgid "All, List Matches"
 msgstr "Wszystko, spis pasujących"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2795
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2926
 msgid "First From Selection"
 msgstr "Pierwszy z zaznaczenia"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2798
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2929
 msgid "First in All Range"
 msgstr "Pierwszy w zasięgu"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2801
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2932
 msgid "Show Iterated Find/Replace Dialog"
 msgstr "Pokarz okno Znajdź/Zamien"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2821
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2952
 msgid "Search options"
 msgstr "Opcje szukania"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2898
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4003
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3029
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4322
 msgid "Node Type"
 msgstr "Typ gałązi"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2911
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3042
 msgid "Tags for Searching"
 msgstr "Tagi do szukania"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2915
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4007
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3046
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4326
 msgid "Read Only"
 msgstr "Tylko do odczytu"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2936
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3067
 msgid "Choose Existing Tag"
 msgstr "Wybierz istniejącego znacznika"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2936
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3067
 msgid "Tag Name"
 msgstr "Nazwa tagu"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2963
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3094
 msgid "The Size of the Toolbar Icons is already at the Maximum Value"
 msgstr "Rozmiar paska narzędziowego jest już największy"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2971
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3102
 msgid "The Size of the Toolbar Icons is already at the Minimum Value"
 msgstr "Rozmiar paska narzędziowego jest już najmniejszy"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3052
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3182
 msgid "Edit Anchor"
 msgstr "Zmień Kotwice"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3055
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3185
 msgid "Insert Anchor"
 msgstr "Dod_aj Kotwice"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3090
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3246
 msgid "Not Any H1, H2 or H3 Formatting Found"
 msgstr "Nie znaleziono żadnego H1, H2 lub H3"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3108
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3264
 msgid "This Feature is Available Only in Rich Text Nodes"
 msgstr "Ta funkcja nie jest dostępna w gałęzi z formatowaniem"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3110
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3266
 msgid "This Feature is Not Available in Automatic Syntax Highlighting Nodes"
 msgstr "Ta funkcja nie jest dostępna w gałęzi z kolorowaniem składni"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3123
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3279
 msgid "The Tree is Empty!"
 msgstr "Drzewo jest puste!"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3152
-msgid "Number of Text Nodes"
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3308
+#, fuzzy
+msgid "Number of Rich Text Nodes"
 msgstr "Ilość tekstowych gałęzi"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3155
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3311
+#, fuzzy
+msgid "Number of Plain Text Nodes"
+msgstr "Ilość tekstowych gałęzi"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3314
 msgid "Number of Code Nodes"
 msgstr "Ilość gałęzi z kodem"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3158
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3317
 msgid "Number of Images"
 msgstr "Ilość obrazków"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3161
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3320
+#, fuzzy
+msgid "Number of Embedded Files"
+msgstr "Ilość tabel"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3323
 msgid "Number of Tables"
 msgstr "Ilość tabel"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3164
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3326
 msgid "Number of CodeBoxes"
 msgstr "Ilość gałęzi z polem kodu"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3233
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3329
+#, fuzzy
+msgid "Number of Anchors"
+msgstr "Ilość obrazków"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3415
+msgid "Image Format Not Recognized"
+msgstr ""
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3419
 msgid "Image Properties"
 msgstr "Właściwości obrazka"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3279
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3488
 msgid "PNG Image"
 msgstr "Obrazek PNG"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3285
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3494
 #, python-format
 msgid "Write to %s Failed"
 msgstr "Zapis do %s Nie powiódł się"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3336
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3561
 msgid "Lines Stripped"
 msgstr "Linie przekreślone"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3455
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3686
 msgid "No Previous Text Format Was Performed During This Session"
 msgstr "Nie wykonano żadnego formatowania w tej sesji"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3501
-msgid "Link Name"
-msgstr "Nazwa linku"
-
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3529
-msgid "The Cursor is Not into a Paragraph"
-msgstr "Kursor nie jest w paragrafie"
-
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3542
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3771
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3839
 msgid "Insert/Edit Link"
 msgstr "Dodaj/Zmień Link"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3567
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3815
+msgid "Link Name"
+msgstr "Nazwa linku"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3827
+msgid "The Cursor is Not into a Paragraph"
+msgstr "Kursor nie jest w paragrafie"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3844
 msgid "Pick a Color"
 msgstr "Wybierz kolor"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3750
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4027
 #, python-format
 msgid "The File Link '%s' is Not Valid"
 msgstr "Link do pliku '%s' nie jest prawidłowy"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3765
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4042
 #, python-format
 msgid "The Folder Link '%s' is Not Valid"
 msgstr "Link do folderu '%s' nie jest prawidłowy"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3788
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4065
 #, python-format
 msgid "No anchor named '%s' found"
 msgstr "Brak kotwicy o nazwie '%s' "
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4003
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4008
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4009
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4322
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4327
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4328
 msgid ": "
 msgstr ": "
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4008
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4327
 msgid "Tags"
 msgstr "Tagi"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/imports.py:2003
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/imports.py:2139
 msgid "Downloading"
 msgstr "Ściąganie"

@@ -701,7 +701,7 @@ def preferences_tab_rich_text_nodes(dad, vbox_text_nodes, pref_dialog):
     checkbutton_rt_show_white_spaces.set_active(dad.rt_show_white_spaces)
     hbox_embfile_size = gtk.HBox()
     hbox_embfile_size.set_spacing(4)
-    label_embfile_size = gtk.Label(_("Embedde File Icon Size"))
+    label_embfile_size = gtk.Label(_("Embedded File Icon Size"))
     adj_embfile_size = gtk.Adjustment(value=dad.embfile_size, lower=1, upper=1000, step_incr=1)
     spinbutton_embfile_size = gtk.SpinButton(adj_embfile_size)
     spinbutton_embfile_size.set_value(dad.embfile_size)
