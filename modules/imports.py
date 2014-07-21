@@ -101,7 +101,8 @@ def epim_html_file_to_hier_files(filepath):
                 dest_folder.append(os.path.join(dest_folder[-1], nodes_names[i-1]))
                 print dest_folder[-1]
             elif nodes_levels[i] < nodes_levels[i-1]:
-                dest_folder.pop()
+                for back_jumps in range(nodes_levels[i-1] - nodes_levels[i]):
+                    dest_folder.pop()
         if not os.path.isdir(dest_folder[-1]):
             os.makedirs(dest_folder[-1])
             for filepath_to_cpy in glob.glob(os.path.join(filedir, "*")):
