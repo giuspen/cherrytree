@@ -61,7 +61,6 @@ def epim_html_file_to_hier_files(filepath):
     """From EPIM HTML File to Folder of HTML Files"""
     epim_dir = os.path.join(cons.TMP_FOLDER, "EPIM")
     if os.path.isdir(epim_dir): shutil.rmtree(epim_dir)
-    os.makedirs(epim_dir)
     curr_state = 0
     nodes_levels = []
     nodes_names = []
@@ -95,11 +94,20 @@ def epim_html_file_to_hier_files(filepath):
     print len(nodes_levels), nodes_levels
     print len(nodes_names), nodes_names
     filedir, filename = os.path.split(filepath)
-    for filepath_to_cpy in glob.glob(os.path.join(filedir, "*")):
-        if filepath_to_cpy == filepath: continue
-        shutil.copy(filepath_to_cpy, epim_dir)
+    dest_folder = [epim_dir]
     for i,node_name in enumerate(nodes_names):
-        dest_filepath = os.path.join(epim_dir, support.clean_from_chars_not_for_filename(node_name)+".htm")
+        if i>0:
+            if nodes_levels[i] > nodes_levels[i-1]:
+                dest_folder.append(os.path.join(dest_folder[-1], nodes_names[i-1]))
+                print dest_folder[-1]
+            elif nodes_levels[i] < nodes_levels[i-1]:
+                dest_folder.pop()
+        if not os.path.isdir(dest_folder[-1]):
+            os.makedirs(dest_folder[-1])
+            for filepath_to_cpy in glob.glob(os.path.join(filedir, "*")):
+                if filepath_to_cpy == filepath: continue
+                shutil.copy(filepath_to_cpy, dest_folder[-1])
+        dest_filepath = os.path.join(dest_folder[-1], support.clean_from_chars_not_for_filename(node_name)+".htm")
         with open(dest_filepath, 'w') as fd:
             fd.write(html_prefix+nodes_content[i]+"</body></html>")
     return epim_dir
