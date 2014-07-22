@@ -190,6 +190,7 @@ def config_file_load(inst):
         inst.reload_doc_last = config.getboolean(section, "reload_doc_last") if config.has_option(section, "reload_doc_last") else True
         inst.enable_mod_time_sentinel = config.getboolean(section, "mod_time_sent") if config.has_option(section, "mod_time_sent") else True
         inst.backup_copy = config.getboolean(section, "backup_copy") if config.has_option(section, "backup_copy") else True
+        inst.backup_num = config.getint(section, "backup_num") if config.has_option(section, "backup_num") else 3
         inst.autosave_on_quit = config.getboolean(section, "autosave_on_quit") if config.has_option(section, "autosave_on_quit") else False
         inst.limit_undoable_steps = config.getint(section, "limit_undoable_steps") if config.has_option(section, "limit_undoable_steps") else 20
         #print "read", cons.CONFIG_PATH, "('%s', '%s')" % (inst.file_name, inst.file_dir)
@@ -257,6 +258,7 @@ def config_file_load(inst):
         inst.reload_doc_last = True
         inst.enable_mod_time_sentinel = True
         inst.backup_copy = True
+        inst.backup_num = 3
         inst.autosave_on_quit = False
         inst.tree_right_side = False
         inst.rt_show_white_spaces = False
@@ -422,6 +424,7 @@ def config_file_save(inst):
     config.set(section, "reload_doc_last", inst.reload_doc_last)
     config.set(section, "mod_time_sent", inst.enable_mod_time_sentinel)
     config.set(section, "backup_copy", inst.backup_copy)
+    config.set(section, "backup_num", inst.backup_num)
     config.set(section, "autosave_on_quit", inst.autosave_on_quit)
     config.set(section, "limit_undoable_steps", inst.limit_undoable_steps)
 
@@ -1276,10 +1279,19 @@ def preferences_tab_misc(dad, vbox_misc, pref_dialog):
     hbox_autosave.pack_start(label_autosave, expand=False)
     checkbutton_autosave_on_quit = gtk.CheckButton(_("Autosave on Quit"))
     checkbutton_backup_before_saving = gtk.CheckButton(_("Create a Backup Copy Before Saving"))
+    hbox_num_backups = gtk.HBox()
+    hbox_num_backups.set_spacing(4)
+    label_num_backups = gtk.Label(_("Number of Backups to Keep"))
+    adjustment_num_backups = gtk.Adjustment(value=dad.backup_num, lower=1, upper=100, step_incr=1)
+    spinbutton_num_backups = gtk.SpinButton(adjustment_num_backups)
+    spinbutton_num_backups.set_sensitive(dad.backup_copy)
+    hbox_num_backups.pack_start(label_num_backups, expand=False)
+    hbox_num_backups.pack_start(spinbutton_num_backups, expand=False)
     vbox_saving.pack_start(hbox_autosave, expand=False)
     vbox_saving.pack_start(checkbutton_autosave_on_quit, expand=False)
     vbox_saving.pack_start(checkbutton_backup_before_saving, expand=False)
-
+    vbox_saving.pack_start(hbox_num_backups, expand=False)
+    
     checkbutton_autosave.set_active(dad.autosave[0])
     spinbutton_autosave.set_value(dad.autosave[1])
     spinbutton_autosave.set_sensitive(dad.autosave[0])
@@ -1390,7 +1402,11 @@ def preferences_tab_misc(dad, vbox_misc, pref_dialog):
     spinbutton_autosave.connect('value-changed', on_spinbutton_autosave_value_changed)
     def on_checkbutton_backup_before_saving_toggled(checkbutton):
         dad.backup_copy = checkbutton.get_active()
+        spinbutton_num_backups.set_sensitive(dad.backup_copy)
     checkbutton_backup_before_saving.connect('toggled', on_checkbutton_backup_before_saving_toggled)
+    def on_spinbutton_num_backups_value_changed(spinbutton):
+        dad.backup_num = int(spinbutton.get_value())
+    spinbutton_num_backups.connect('value-changed', on_spinbutton_num_backups_value_changed)
     def on_checkbutton_autosave_on_quit_toggled(checkbutton):
         dad.autosave_on_quit = checkbutton.get_active()
     checkbutton_autosave_on_quit.connect('toggled', on_checkbutton_autosave_on_quit_toggled)

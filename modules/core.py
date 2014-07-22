@@ -1392,7 +1392,7 @@ class CherryTree:
 
     def backups_handling(self, filepath_orig):
         """Handler of backup before save"""
-        filepath = filepath_orig + 2*cons.CHAR_TILDE
+        filepath = filepath_orig + (self.backup_num-1)*cons.CHAR_TILDE
         while True:
             if os.path.isfile(filepath):
                 if filepath.endswith(cons.CHAR_TILDE):
