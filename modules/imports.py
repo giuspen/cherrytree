@@ -2040,7 +2040,9 @@ class HTMLHandler(HTMLParser.HTMLParser):
         """Encountered the beginning of a tag"""
         if tag in self.monitored_tags: self.in_a_tag += 1
         if self.curr_state == 0:
-            if tag == "body": self.curr_state = 1
+            if tag == "body":
+                self.num_bodies -= 1
+                if self.num_bodies == 0: self.curr_state = 1
         elif self.curr_state == 1:
             if tag == "table":
                 self.curr_state = 2
@@ -2299,7 +2301,10 @@ class HTMLHandler(HTMLParser.HTMLParser):
             input_string = cons.HTML_HEADER % "" + input_string + cons.HTML_FOOTER
         #print "###############"
         #print input_string
+        #with open("clipboard.log", 'w') as fd:
+            #fd.write(input_string)
         #print "###############"
+        self.num_bodies = input_string.count("<body>")
         self.feed(input_string)
 
     def add_folder(self, folderpath):
