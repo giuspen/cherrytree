@@ -3153,6 +3153,7 @@ class CherryTree:
             if self.autosave_on_quit: response = 2
             else: response = support.dialog_exit_save(self.window)
             if response == 2: self.file_save() # button YES pressed or autosave ON
+            elif response < 0: response = 6
         else: response = 0 # no need to save
         if response == 6: return False # button CANCEL
         else: return True
