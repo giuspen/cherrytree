@@ -79,7 +79,7 @@ def epim_html_file_to_hier_files(filepath):
                 nodes_levels.append(html_row.count("&nbsp; &nbsp;"))
             elif curr_state == 2:
                 if html_row.startswith("<span class=rvts1>"):
-                    nodes_names.append(html_row[18:-14])
+                    nodes_names.append(support.clean_from_chars_not_for_filename(html_row[18:-14]))
                     nodes_content.append("")
                     curr_state = 3
             elif curr_state == 3:
@@ -1731,7 +1731,9 @@ class PlainTextHandler:
     def add_node_with_content(self, filepath, file_content):
         """Append Node and Fill Content"""
         self.nodes_list.append(self.dom.createElement("node"))
-        self.nodes_list[-1].setAttribute("name", os.path.basename(filepath))
+        node_name = os.path.basename(filepath)
+        if node_name.lower().endswith(".txt"): node_name = node_name[:-4]
+        self.nodes_list[-1].setAttribute("name", node_name)
         self.nodes_list[-1].setAttribute("prog_lang", cons.RICH_TEXT_ID)
         self.nodes_list[-2].appendChild(self.nodes_list[-1])
         self.rich_text_serialize(file_content)
@@ -2345,7 +2347,10 @@ class HTMLHandler(HTMLParser.HTMLParser):
     def add_node_with_content(self, filepath, file_content):
         """Append Node and Fill Content"""
         self.nodes_list.append(self.dom.createElement("node"))
-        self.nodes_list[-1].setAttribute("name", os.path.basename(filepath))
+        node_name = os.path.basename(filepath)
+        if node_name.lower().endswith(".htm"): node_name = node_name[:-4]
+        elif node_name.lower().endswith(".html"): node_name = node_name[:-5]
+        self.nodes_list[-1].setAttribute("name", node_name)
         self.nodes_list[-1].setAttribute("prog_lang", cons.RICH_TEXT_ID)
         self.nodes_list[-2].appendChild(self.nodes_list[-1])
         if file_content: self.rich_text_serialize(file_content)
