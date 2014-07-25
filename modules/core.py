@@ -4087,11 +4087,12 @@ class CherryTree:
         if vector[0] in [cons.LINK_TYPE_FILE, cons.LINK_TYPE_FOLD]:
             tooltip = unicode(base64.b64decode(vector[1]), cons.STR_UTF8, cons.STR_IGNORE)
         else:
-            if vector[0] == cons.LINK_TYPE_NODE and long(vector[1]) in self.nodes_names_dict: tooltip = self.nodes_names_dict[long(vector[1])]
+            if vector[0] == cons.LINK_TYPE_NODE and long(vector[1]) in self.nodes_names_dict:
+                tooltip = self.nodes_names_dict[long(vector[1])]
             else: tooltip = vector[1].replace("amp;", "")
             if len(vector) >= 3:
                 if len(vector) == 3: anchor_name = vector[2]
-                else: anchor_name = tag_name[5 + len(vector[0]) + len(vector[1]) + 2:]
+                else: anchor_name = link[5 + len(vector[0]) + len(vector[1]) + 2:]
                 tooltip += "#" + anchor_name
         return tooltip
 

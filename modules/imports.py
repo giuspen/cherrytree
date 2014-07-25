@@ -2311,7 +2311,11 @@ class HTMLHandler(HTMLParser.HTMLParser):
 
     def add_folder(self, folderpath):
         """Add nodes from plain text files in a Folder"""
+        folder_file_same_name = ""
         for element in sorted(os.listdir(folderpath)):
+            if folder_file_same_name and folder_file_same_name == element:
+                folder_file_same_name = ""
+                continue
             full_element = os.path.join(folderpath, element)
             if os.path.isfile(full_element):
                 gio_file = gio.File(full_element)
@@ -2325,11 +2329,14 @@ class HTMLHandler(HTMLParser.HTMLParser):
                     if mime_type in [".html", ".HTML", ".htm", ".HTM"]:
                         self.add_file(full_element)
             elif os.path.isdir(full_element):
-                self.add_node_with_content(full_element, "")
+                if os.path.isfile(full_element+".htm"):
+                    folder_file_same_name = element+".htm"
+                    self.add_file(full_element+".htm", do_pop=False)
+                else: self.add_node_with_content(full_element, "")
                 self.add_folder(full_element)
                 self.nodes_list.pop()
 
-    def add_file(self, filepath):
+    def add_file(self, filepath, do_pop=True):
         """Add node from one plain text File"""
         file_content = ""
         try:
@@ -2342,7 +2349,7 @@ class HTMLHandler(HTMLParser.HTMLParser):
             return
         self.add_node_with_content(filepath, "")
         self.boot_n_feed(file_content, os.path.dirname(filepath))
-        self.nodes_list.pop()
+        if do_pop: self.nodes_list.pop()
 
     def add_node_with_content(self, filepath, file_content):
         """Append Node and Fill Content"""
@@ -2350,6 +2357,7 @@ class HTMLHandler(HTMLParser.HTMLParser):
         node_name = os.path.basename(filepath)
         if node_name.lower().endswith(".htm"): node_name = node_name[:-4]
         elif node_name.lower().endswith(".html"): node_name = node_name[:-5]
+        #print node_name, len(self.nodes_list)
         self.nodes_list[-1].setAttribute("name", node_name)
         self.nodes_list[-1].setAttribute("prog_lang", cons.RICH_TEXT_ID)
         self.nodes_list[-2].appendChild(self.nodes_list[-1])
