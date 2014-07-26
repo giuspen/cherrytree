@@ -1893,6 +1893,7 @@ class CherryTree:
             proposed_name = support.get_node_hierarchical_name(self, self.curr_tree_iter)
             txt_filepath = txt_handler.get_single_txt_filepath(proposed_name)
             if txt_filepath:
+                if os.path.isfile(txt_filepath): os.remove(txt_filepath)
                 tree_iter_for_node_name = self.curr_tree_iter if self.last_include_node_name else None
                 txt_handler.node_export_to_txt(self.curr_buffer, txt_filepath, tree_iter_for_node_name=tree_iter_for_node_name)
         elif export_type == 2:
@@ -1900,6 +1901,7 @@ class CherryTree:
             if self.export_single:
                 txt_filepath = txt_handler.get_single_txt_filepath(self.file_name)
                 if txt_filepath:
+                    if os.path.isfile(txt_filepath): os.remove(txt_filepath)
                     txt_handler.nodes_all_export_to_txt(top_tree_iter=self.curr_tree_iter, single_txt_filepath=txt_filepath, include_node_name=self.last_include_node_name)
             else:
                 folder_name = support.get_node_hierarchical_name(self, self.curr_tree_iter)
@@ -1910,6 +1912,7 @@ class CherryTree:
             if self.export_single:
                 txt_filepath = txt_handler.get_single_txt_filepath(self.file_name)
                 if txt_filepath:
+                    if os.path.isfile(txt_filepath): os.remove(txt_filepath)
                     txt_handler.nodes_all_export_to_txt(single_txt_filepath=txt_filepath, include_node_name=self.last_include_node_name)
             else:
                 if txt_handler.prepare_txt_folder(self.file_name):
@@ -1921,6 +1924,7 @@ class CherryTree:
                 proposed_name = support.get_node_hierarchical_name(self, self.curr_tree_iter)
                 txt_filepath = txt_handler.get_single_txt_filepath(proposed_name)
                 if txt_filepath:
+                    if os.path.isfile(txt_filepath): os.remove(txt_filepath)
                     sel_range = [iter_start.get_offset(), iter_end.get_offset()]
                     tree_iter_for_node_name = self.curr_tree_iter if self.last_include_node_name else None
                     txt_handler.node_export_to_txt(self.curr_buffer, txt_filepath, sel_range, tree_iter_for_node_name=tree_iter_for_node_name)
