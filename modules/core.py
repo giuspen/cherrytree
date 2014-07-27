@@ -3734,7 +3734,7 @@ class CherryTree:
             self.link_node_id = long(vector[1])
             if len(vector) >= 3:
                 if len(vector) == 3: anchor_name = vector[2]
-                else: anchor_name = tag_property_value[len(vector[0]) + len(vector[1]) + 2:]
+                else: anchor_name = curr_link[len(vector[0]) + len(vector[1]) + 2:]
                 self.links_entries['anch'] = anchor_name
         else:
             support.dialog_error("Tag Name Not Recognized! (%s)" % self.link_type, self.window)
