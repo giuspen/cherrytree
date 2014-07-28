@@ -2653,6 +2653,7 @@ class CherryTree:
             elif update_type == "ndel":
                 if tree_iter:
                     self.ctdb_handler.pending_rm_db_node(self.treestore[tree_iter][3])
+                    self.state_machine.delete_states(self.treestore[tree_iter][3])
             elif update_type == "book": self.ctdb_handler.pending_edit_db_bookmarks()
         if new_state_machine and tree_iter:
             self.state_machine.update_state(self.treestore[tree_iter][3])

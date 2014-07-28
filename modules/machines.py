@@ -854,6 +854,15 @@ class StateMachine:
                 return self.nodes_vectors[node_id][self.nodes_indexes[node_id]]
         else: return None
 
+    def delete_states(self, node_id):
+        """Delete the states for the given node_id"""
+        del self.nodes_indexes[node_id]
+        del self.nodes_vectors[node_id]
+        del self.nodes_indicators[node_id]
+        if node_id in self.visited_nodes_list:
+            self.visited_nodes_list.remove(node_id)
+            self.visited_nodes_idx = len(self.visited_nodes_list)-1
+
     def update_state(self, node_id):
         """Update the state for the given node_id"""
         curr_index = self.nodes_indexes[node_id]
