@@ -219,9 +219,9 @@ class CTDBHandler:
                 while tree_iter_children:
                     self.pending_rm_just_added_node_children(tree_iter_children)
                     tree_iter_children = self.dad.treestore.iter_next(tree_iter_children)
-                # no need to rm the node, we just do not add it
-                return
+                # no need to rm the node, we just do not add it... but write to set to not use this id again
         self.nodes_to_rm_set.add(node_id)
+        #print self.nodes_to_rm_set
     
     def pending_rm_just_added_node_children(self, tree_iter):
         """Handle situation of nodes children just added and immediately removed"""
