@@ -195,6 +195,7 @@ class CherryTree:
         if is_arg or not is_startup or self.reload_doc_last:
             self.file_startup_load(open_with_file, node_name)
         else: self.file_name = ""
+        if self.tree_is_empty(): self.update_node_name_header()
         if self.systray:
             if not self.boss.systray_active:
                 self.status_icon_enable()
@@ -2441,6 +2442,11 @@ class CherryTree:
         if new_iter != None:
             self.treeview.set_cursor(self.treestore.get_path(new_iter))
             self.sourceview.grab_focus()
+        else:
+            self.curr_buffer.set_text("")
+            self.update_node_name_header()
+            self.update_selected_node_statusbar_info()
+            self.sourceview.set_sensitive(False)
 
     def node_edit(self, *args):
         """Edit the Properties of the Selected Node"""
