@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cherrytree 0.26\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-17 21:05+0200\n"
+"POT-Creation-Date: 2014-07-30 23:10+0200\n"
 "PO-Revision-Date: 2014-04-17 18:53+0800\n"
 "Last-Translator: Channing Wong <mamimoluo@gmail.com>\n"
 "Language-Team: Chinese (simplified)\n"
@@ -18,13 +18,13 @@ msgstr ""
 "X-Generator: Poedit 1.6.4\n"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/codeboxes.py:81
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3005
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4324
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3081
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4402
 msgid "Plain Text"
 msgstr "纯文本"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/codeboxes.py:82
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3007
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3083
 msgid "Automatic Syntax Highlighting"
 msgstr "自动语法高亮"
 
@@ -51,7 +51,7 @@ msgid "Size"
 msgstr "尺寸"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/codeboxes.py:137
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:519
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:522
 msgid "Show Line Numbers"
 msgstr "显示行号"
 
@@ -265,7 +265,7 @@ msgid "_Preferences"
 msgstr "设置(_P)"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:537
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1425
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1441
 msgid "Preferences"
 msgstr "设置"
 
@@ -1395,7 +1395,7 @@ msgid "Tree _Info"
 msgstr "树信息(_I)"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:681
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3300
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3377
 msgid "Tree Summary Information"
 msgstr "树摘要信息"
 
@@ -1705,29 +1705,29 @@ msgstr "替换节点名称..."
 msgid "Search For a Node Name..."
 msgstr "搜索节点名称..."
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:542
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:553
 msgid "No Previous Search Was Performed During This Session"
 msgstr "当前会话没有历史搜索"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:583
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:594
 msgid "Hide (Restore with Ctrl+Shift+A)"
 msgstr "隐藏 (可用 Ctrl+Shift+A 组合键恢复)"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:596
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3000
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:607
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3076
 msgid "Node Name"
 msgstr "节点名称"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:598
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:609
 msgid "Line"
 msgstr "行"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:600
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:611
 msgid "Line Content"
 msgstr "首行内容"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:618
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4055
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:629
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4132
 #, python-format
 msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
 msgstr "链接所指向的节点不存在 (Id = %s)"
@@ -1885,22 +1885,22 @@ msgstr ""
 "要保存这些更改吗？"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:605
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1136
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1139
 msgid "To WebSite"
 msgstr "连接到网址"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:616
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1150
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1153
 msgid "To File"
 msgstr "连接到文件"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:631
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1157
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1160
 msgid "To Folder"
 msgstr "连接到文件夹"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:646
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1143
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1146
 msgid "To Node"
 msgstr "连接到节点"
 
@@ -1909,8 +1909,8 @@ msgid "Anchor Name (optional)"
 msgstr "锚点名称(可选)"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:740
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3272
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4320
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3349
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4398
 msgid "No Node is Selected"
 msgstr "没有节点被选中"
 
@@ -1959,12 +1959,12 @@ msgid "New Node in New Page"
 msgstr "在新页面建立新节点"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:943
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1040
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1106
 msgid "Insert _Special Character"
 msgstr "插入特殊字符(_Special)"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:945
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1042
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1108
 msgid "Insert a Special Character"
 msgstr "插入一个特殊字符"
 
@@ -2011,9 +2011,9 @@ msgid "Suggestions"
 msgstr "建议"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/exports.py:38
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:631
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1255
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1441
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:697
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1321
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1507
 msgid "CherryTree Document"
 msgstr "CherryTree文档"
 
@@ -2022,7 +2022,7 @@ msgid "PDF File"
 msgstr "PDF文件"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/exports.py:185
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:784
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:850
 msgid "Plain Text Document"
 msgstr "纯文本文档"
 
@@ -2030,270 +2030,275 @@ msgstr "纯文本文档"
 msgid "Index"
 msgstr "索引"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:499
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:502
 msgid "Tab Width"
 msgstr "Tab宽度  "
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:505
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:508
 msgid "Insert Spaces Instead of Tabs"
 msgstr "用空格代替Tab"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:507
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:510
 msgid "Use Line Wrapping"
 msgstr "启用换行显示"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:511
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:514
 msgid "Line Wrapping Indentation"
 msgstr "换行缩进"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:517
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:520
 msgid "Enable Automatic Indentation"
 msgstr "启用自动缩进"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:529
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:532
 msgid "Text Editor"
 msgstr "文本编辑器"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:539
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:542
 msgid "Timestamp Format"
 msgstr "时间戳格式"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:549
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:552
 msgid "Horizontal Rule"
 msgstr "定义分割线"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:556
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:559
 msgid "Special Characters"
 msgstr "特殊字符"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:576
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:721
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:950
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1186
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1309
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1443
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:579
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:724
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:953
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1189
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1321
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1459
 msgid "Miscellaneous"
 msgstr "杂项"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:635
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:638
 msgid "Enable Spell Check"
 msgstr "启用拼写检查"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:639
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:642
 msgid "Spell Check Language"
 msgstr "语言拼写检查"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:652
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4328
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:655
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4406
 msgid "Spell Check"
 msgstr "拼写检查"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:662
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:854
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:665
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:857
 msgid "Light Background, Dark Text"
 msgstr "浅色背景，深色文字"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:663
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:855
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:666
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:858
 msgid "Dark Background, Light Text"
 msgstr "深色背景，浅色文字"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:665
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:857
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:668
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:860
 msgid "Custom Background"
 msgstr "自定义背景"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:670
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:862
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:673
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:865
 msgid "and Text"
 msgstr "和文字"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:680
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:872
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:683
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:875
 msgid "Theme"
 msgstr "主题"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:700
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:812
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:703
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:815
 msgid "Show White Spaces"
 msgstr "显示空白字符"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:704
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:707
 msgid "Embedded File Icon Size"
 msgstr ""
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:710
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:713
 msgid "Limit of Undoable Steps Per Node"
 msgstr "每个节点撤销步数限制"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:804
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:807
 msgid "Style Scheme"
 msgstr "主题"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:814
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:817
 msgid "Highlight Current Line"
 msgstr "高亮当前行"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:821
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:824
 msgid "Code Nodes"
 msgstr "代码节点"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:892
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:895
 msgid "Use Cherries as Nodes Icons"
 msgstr "使用樱桃作为节点图标"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:893
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:896
 msgid "Use Bullets as Nodes Icons"
 msgstr "使用圆点作为节点图标"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:895
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:898
 msgid "Do Not Display Nodes Icons"
 msgstr "不显示节点图标"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:901
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:904
 msgid "Nodes Icons"
 msgstr "节点图标"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:915
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:918
 msgid "Restore Expanded/Collapsed Status"
 msgstr "还原展开/收起状态"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:916
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:919
 msgid "Expand all Nodes"
 msgstr "展开所有节点"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:918
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:921
 msgid "Collapse all Nodes"
 msgstr "收缩所有节点"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:924
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:927
 msgid "Nodes Status at Startup"
 msgstr "启动时节点状态"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:939
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:942
 msgid "Tree Nodes Names Wrapping Width"
 msgstr "节点名称换行显示时的宽度"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:945
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:948
 msgid "Display Tree on the Right Side"
 msgstr "节点树显示在右侧"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1050
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1053
 msgid "Text Font"
 msgstr "文本字体"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1051
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1054
 msgid "Code Font"
 msgstr "代码字体"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1052
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1055
 msgid "Tree Font"
 msgstr "树字体"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1069
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1441
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1072
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1457
 msgid "Fonts"
 msgstr "字体"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1098
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1101
 msgid "Enable Custom Web Link Clicked Action"
 msgstr "启用并定义Web链接点击动作"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1100
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1103
 msgid "Enable Custom File Link Clicked Action"
 msgstr "启用并定义文件链接点击动作"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1102
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1105
 msgid "Enable Custom Folder Link Clicked Action"
 msgstr "启用并定义文件夹链接点击动作"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1111
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1114
 msgid "Custom Actions"
 msgstr "自定义动作"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1167
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1170
 msgid "Colors"
 msgstr "颜色"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1178
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1181
 msgid "Anchor Size"
 msgstr "锚点大小"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1246
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1249
 msgid "Enable System Tray Docking"
 msgstr "启用系统托盘"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1247
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1250
 msgid "Start Minimized in the System Tray"
 msgstr "程序启动后最小化到托盘"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1248
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1251
 msgid "Use AppIndicator for Docking"
 msgstr "采用窗口停靠模式"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1253
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1256
 msgid "System Tray"
 msgstr "系统托盘"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1270
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1273
 msgid "Autosave Every"
 msgstr "自动保存每隔"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1273
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1276
 msgid "Minutes"
 msgstr "分钟"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1277
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1280
 msgid "Autosave on Quit"
 msgstr "退出前自动保存"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1278
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1281
 msgid "Create a Backup Copy Before Saving"
 msgstr "保存前创建备份"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1289
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1284
+#, fuzzy
+msgid "Number of Backups to Keep"
+msgstr "文字节点个数"
+
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1301
 msgid "Saving"
 msgstr "保存中"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1298
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1310
 msgid "Automatically Check for Newer Version"
 msgstr "自动检查新版本"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1299
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1311
 msgid "Reload Document From Last Session"
 msgstr "重载上一次会话中的文档"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1300
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1312
 msgid "Reload After External Update to CT* File"
 msgstr "将重载，因CT*文件在外部被修改"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1325
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1337
 msgid "Language"
 msgstr "语言"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1417
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1433
 msgid "The New Language will be Available Only After Restarting CherryTree"
 msgstr "新语言仅在CherryTree下次启动时生效"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1437
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1453
 msgid "All Nodes"
 msgstr "所有节点"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1438
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3004
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4323
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1454
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3080
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4401
 msgid "Rich Text"
 msgstr "富文本"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1439
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1455
 msgid "Plain Text and Code"
 msgstr "纯文本和代码"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1440
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1456
 msgid "Tree"
 msgstr "树"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1442
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1458
 msgid "Links"
 msgstr "链接"
 
@@ -2355,7 +2360,7 @@ msgid "Insert Table"
 msgstr "插入表格"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/tablez.py:308
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/imports.py:2231
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/imports.py:2244
 msgid "click me"
 msgstr "点击这里"
 
@@ -2371,400 +2376,400 @@ msgstr "编辑表格属性"
 msgid "Table Column Action"
 msgstr "表格列操作"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:208
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:209
 msgid "Checking for Newer Version..."
 msgstr "查找新版本..."
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:214
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:215
 msgid "A Newer Version Is Available!"
 msgstr "有新版本可用！"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:219
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:220
 msgid "You Are Using the Latest Version Available"
 msgstr "您使用的是最新版本"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:222
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:223
 msgid "Failed to Retrieve Latest Version Information - Try Again Later"
 msgstr "获取最新版本信息失败，稍候再试"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:239
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3287
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3809
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4375
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:240
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3364
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3886
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4453
 msgid "No Text is Selected"
 msgstr "没有文字被选择"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:608
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2186
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:674
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2256
 msgid "The new father can't be one of his sons!"
 msgstr "父节点不能成为其自身的子节点"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:655
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1787
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:721
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1853
 #, python-format
 msgid "\"%s\" is Not a CherryTree Document"
 msgstr "\"%s\" 不是一个CherryTree文档"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:661
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:727
 msgid "NoteCase Document"
 msgstr "NoteCase 文档"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:749
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:815
 #, fuzzy
 msgid "EPIM HTML Document"
 msgstr "HTML 文档"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:763
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:829
 msgid "HTML Document"
 msgstr "HTML 文档"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:804
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:870
 msgid "Treepad Document"
 msgstr "Treepad 文档"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:827
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:893
 msgid "KeyNote Document"
 msgstr "KeyNote 文档"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:847
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:913
 msgid "Mempad Document"
 msgstr "Mempad 文档"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:866
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:932
 msgid "Knowit Document"
 msgstr "Knowit 文档"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:886
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:952
 msgid "Leo Document"
 msgstr "Leo 文档"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:918
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:984
 msgid "Who is the Father?"
 msgstr "哪个是父节点？"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:925
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:991
 msgid "The Tree Root"
 msgstr "树根"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:926
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:992
 msgid "The Selected Node"
 msgstr "已选择的节点"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1116
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1182
 msgid "The Document was Reloaded After External Update to CT* File"
 msgstr "因CT*文件在外部被修改，文档已重载"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1143
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1209
 msgid "CherryTree Hierarchical Note Taking"
 msgstr "CherryTree层级笔记记录"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1410
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1476
 #, python-format
 msgid "You Have No Write Access to %s"
 msgstr "您没有%s文件的写入权限"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1423
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1489
 msgid "Writing to Disk..."
 msgstr "正在写入到磁盘..."
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1535
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1601
 msgid "Choose Storage Type"
 msgstr "选择存储类型"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1542
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1545
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1608
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1611
 msgid "Not Protected"
 msgstr "不保护"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1543
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1547
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1609
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1613
 msgid "Password Protected"
 msgstr "密码保护"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1554
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1620
 msgid "Storage Type"
 msgstr "存储类型"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1565
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1631
 msgid "Enter the New Password Twice"
 msgstr "输入两次密码"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1608
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1674
 msgid "The Password Fields Must be Filled"
 msgstr "密码必填"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1611
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1677
 msgid "The Two Inserted Passwords Do Not Match"
 msgstr "两次输入密码不匹配"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1616
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1682
 #, python-format
 msgid "The Characters  %s  are Not Allowed"
 msgstr "%s 字符被禁用"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1634
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1700
 msgid ""
 "Binary Executable '7za' Not Found, Check The Package 'p7zip-full' to be "
 "Installed Properly"
 msgstr "二进制可执行文件'7za'未找到请检查'p7zip-full'是否已被正确安装"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1640
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1706
 #, python-format
 msgid "Enter Password for %s"
 msgstr "请输入 %s 的密码"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1708
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1774
 msgid "Wrong Password"
 msgstr "密码错误"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2174
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2244
 msgid "Select the New Father"
 msgstr "选择新的父节点"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2178
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2248
 msgid "The new father can't be the very node to move!"
 msgstr "新的父节点不能是其自身！"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2181
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2251
 msgid "The new choosed father is again the old father!"
 msgstr "新的父节点和原先一样！"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2361
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2431
 msgid "New Node Properties"
 msgstr "新的节点属性"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2399
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2469
 msgid "New Child Node Properties"
 msgstr "新的子节点属性"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2422
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2492
 #, python-format
 msgid "Are you sure to <b>Delete the node '%s'?</b>"
 msgstr "确认<b>删除</b> '%s' 节点吗？"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2424
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2494
 msgid "The node <b>has Children, they will be Deleted too!</b>"
 msgstr "此节点所包含的子节点将一并被删除！"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2444
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2519
 msgid "Node Properties"
 msgstr "节点属性"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2452
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2527
 msgid ""
 "Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
 "Do you want to Continue?"
 msgstr "脱离富文本将丢失此节点的所有格式，继续吗？"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2889
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2965
 msgid "Search for"
 msgstr "查找"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2896
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2972
 msgid "Replace with"
 msgstr "替换为"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2911
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2987
 msgid "Match Case"
 msgstr "匹配大小写"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2913
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2989
 msgid "Regular Expression"
 msgstr "正则表达式"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2915
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2991
 msgid "Whole Word"
 msgstr "完整单词"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2917
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2993
 msgid "Start Word"
 msgstr "单词开始部分"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2919
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2995
 msgid "Forward"
 msgstr "向前"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2921
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2997
 msgid "Backward"
 msgstr "向后"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2924
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3000
 msgid "All, List Matches"
 msgstr "所有，并列出匹配"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2926
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3002
 msgid "First From Selection"
 msgstr "在所选中搜索"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2929
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3005
 msgid "First in All Range"
 msgstr "在当前页搜索"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2932
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3008
 msgid "Show Iterated Find/Replace Dialog"
 msgstr "显示循环搜索/替换对话框"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2952
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3028
 msgid "Search options"
 msgstr "搜索选项"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3029
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4322
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3105
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4400
 msgid "Node Type"
 msgstr "节点类型"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3042
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3118
 msgid "Tags for Searching"
 msgstr "搜索标签"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3046
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4326
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3122
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4404
 msgid "Read Only"
 msgstr "只读"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3067
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3143
 msgid "Choose Existing Tag"
 msgstr "选择现有的标签"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3067
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3143
 msgid "Tag Name"
 msgstr "变量名称"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3094
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3170
 msgid "The Size of the Toolbar Icons is already at the Maximum Value"
 msgstr "工具栏图标已经最大"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3102
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3178
 msgid "The Size of the Toolbar Icons is already at the Minimum Value"
 msgstr "工具栏图标已经最小"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3182
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3259
 msgid "Edit Anchor"
 msgstr "编辑锚点"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3185
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3262
 msgid "Insert Anchor"
 msgstr "插入锚点"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3246
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3323
 msgid "Not Any H1, H2 or H3 Formatting Found"
 msgstr "未找到任何H1，H2或H3格式"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3264
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3341
 msgid "This Feature is Available Only in Rich Text Nodes"
 msgstr "此功能仅在富文本节点中有效"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3266
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3343
 msgid "This Feature is Not Available in Automatic Syntax Highlighting Nodes"
 msgstr "此功能在代码自动高亮的节点中无效"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3279
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3356
 msgid "The Tree is Empty!"
 msgstr "树为空！"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3308
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3385
 #, fuzzy
 msgid "Number of Rich Text Nodes"
 msgstr "文字节点个数"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3311
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3388
 #, fuzzy
 msgid "Number of Plain Text Nodes"
 msgstr "文字节点个数"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3314
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3391
 msgid "Number of Code Nodes"
 msgstr "代码节点个数"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3317
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3394
 msgid "Number of Images"
 msgstr "图片节点个数"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3320
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3397
 #, fuzzy
 msgid "Number of Embedded Files"
 msgstr "表格个数"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3323
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3400
 msgid "Number of Tables"
 msgstr "表格个数"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3326
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3403
 msgid "Number of CodeBoxes"
 msgstr "代码框个数"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3329
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3406
 #, fuzzy
 msgid "Number of Anchors"
 msgstr "图片节点个数"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3415
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3492
 msgid "Image Format Not Recognized"
 msgstr ""
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3419
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3496
 msgid "Image Properties"
 msgstr "图片属性"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3488
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3565
 msgid "PNG Image"
 msgstr "PNG图片"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3494
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3571
 #, python-format
 msgid "Write to %s Failed"
 msgstr "写入到 %s 失败"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3561
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3638
 msgid "Lines Stripped"
 msgstr "已删除行尾空格的行"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3686
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3763
 msgid "No Previous Text Format Was Performed During This Session"
 msgstr "当前会话没有格式化操作历史"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3771
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3839
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3848
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3916
 msgid "Insert/Edit Link"
 msgstr "插入/编辑链接"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3815
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3892
 msgid "Link Name"
 msgstr "链接名称"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3827
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3904
 msgid "The Cursor is Not into a Paragraph"
 msgstr "光标未进入一个段落"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3844
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3921
 msgid "Pick a Color"
 msgstr "选择颜色"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4027
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4104
 #, python-format
 msgid "The File Link '%s' is Not Valid"
 msgstr "文件链接'%s'无效"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4042
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4119
 #, python-format
 msgid "The Folder Link '%s' is Not Valid"
 msgstr "文件夹链接'%s'无效"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4065
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4142
 #, python-format
 msgid "No anchor named '%s' found"
 msgstr "未找到锚点 '%s'"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4322
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4327
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4328
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4400
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4405
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4406
 msgid ": "
 msgstr ": "
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4327
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4405
 msgid "Tags"
 msgstr "标签"
 
-#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/imports.py:2139
+#: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/imports.py:2152
 msgid "Downloading"
 msgstr "正在下载"
