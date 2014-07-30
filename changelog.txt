@@ -1,4 +1,16 @@
 
+0.34.0 (???)
+• implemented the possibility to embed files of any type in the cherrytree documents: a clip icon image is inserted in the rich text and right clicking on it the file can be saved to a disk location. the clip icon size is configurable in the preferences dialog
+• implemented the possibility to associate links to the images through right click menu item. when the image has a link associated, a colored arrow is visible over the image
+• added right click menu item to insert newline in table cell and restored functionality of the shortcut Ctrl+period
+• added shortcuts for text Foreground and Background color Shift+Alt+F and Shift+Alt+B
+• added shortcuts Ctrl+Alt+1, Ctrl+Alt+2 and Ctrl+Alt+3 for lists bulleted, numbered and todo
+• added shortcuts Ctrl+Plus and Ctrl+Minus to increase/decrease the font of tree and text
+• the number of backups to keep is now configurable
+• added import from EssentialPIM HTML file
+• fixed several bugs
+• handling of cases when dbus is not working properly causing cherrytree not to start, this happens so far only on windows in some cases and may be a firewall related problem. in these cases the centralized instances control is disabled and cherrytree still works
+
 0.33.4 (May 31st, 2014)
 • fixed bugs in iterated searching
 • fixed bug in sorting of nodes and sqlite documents
