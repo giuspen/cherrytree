@@ -470,6 +470,14 @@ class CherryTree:
             if keyname == "Tab":
                 self.toggle_tree_text()
                 return True
+            elif keyname == "plus":
+                if self.treeview.is_focus(): self.zoom_tree_p()
+                else: self.zoom_text_p()
+                return True
+            elif keyname == "minus":
+                if self.treeview.is_focus(): self.zoom_tree_m()
+                else: self.zoom_text_m()
+                return True
         return False
 
     def on_key_press_cherrytree(self, widget, event):
@@ -524,6 +532,12 @@ class CherryTree:
                         child_iter = self.treestore.iter_children(child_iter)
                     self.treeview_safe_set_cursor(move_iter)
                 return True
+            elif keyname == "plus":
+                self.zoom_tree_p()
+                return True
+            elif keyname == "minus":
+                self.zoom_tree_m()
+                return True
         else:
             if keyname == "Up":
                 prev_iter = self.get_tree_iter_prev_sibling(self.treestore, self.curr_tree_iter)
@@ -554,6 +568,57 @@ class CherryTree:
                 self.toggle_tree_text()
                 return True
         return False
+
+    def zoom_tree_p(self):
+        """Increase Tree Font"""
+        font_vec = self.tree_font.split(cons.CHAR_SPACE)
+        font_num = int(font_vec[-1])
+        font_vec[-1] = str(font_num+1)
+        self.tree_font = cons.CHAR_SPACE.join(font_vec)
+        self.set_treeview_font()
+
+    def zoom_tree_m(self):
+        """Decrease Tree Font"""
+        font_vec = self.tree_font.split(cons.CHAR_SPACE)
+        font_num = int(font_vec[-1])
+        if font_num > 6:
+            font_vec[-1] = str(font_num-1)
+            self.tree_font = cons.CHAR_SPACE.join(font_vec)
+            self.set_treeview_font()
+
+    def zoom_text_p(self):
+        """Increase Text Font"""
+        if not self.is_there_selected_node_or_error(): return
+        if self.syntax_highlighting == cons.RICH_TEXT_ID:
+            font_vec = self.text_font.split(cons.CHAR_SPACE)
+            font_num = int(font_vec[-1])
+            font_vec[-1] = str(font_num+1)
+            self.text_font = cons.CHAR_SPACE.join(font_vec)
+            self.sourceview.modify_font(pango.FontDescription(self.text_font))
+        else:
+            font_vec = self.code_font.split(cons.CHAR_SPACE)
+            font_num = int(font_vec[-1])
+            font_vec[-1] = str(font_num+1)
+            self.code_font = cons.CHAR_SPACE.join(font_vec)
+            self.sourceview.modify_font(pango.FontDescription(self.code_font))
+
+    def zoom_text_m(self):
+        """Decrease Text Font"""
+        if not self.is_there_selected_node_or_error(): return
+        if self.syntax_highlighting == cons.RICH_TEXT_ID:
+            font_vec = self.text_font.split(cons.CHAR_SPACE)
+            font_num = int(font_vec[-1])
+            if font_num > 6:
+                font_vec[-1] = str(font_num-1)
+                self.text_font = cons.CHAR_SPACE.join(font_vec)
+                self.sourceview.modify_font(pango.FontDescription(self.text_font))
+        else:
+            font_vec = self.code_font.split(cons.CHAR_SPACE)
+            font_num = int(font_vec[-1])
+            if font_num > 6:
+                font_vec[-1] = str(font_num-1)
+                self.code_font = cons.CHAR_SPACE.join(font_vec)
+                self.sourceview.modify_font(pango.FontDescription(self.code_font))
 
     def fullscreen_toggle(self, *args):
         """Toggle Fullscreen State"""
