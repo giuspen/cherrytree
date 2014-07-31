@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: cherrytree 0.30.5\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-07-30 23:10+0200\n"
-"PO-Revision-Date: 2014-07-20 08:55+0100\n"
+"PO-Revision-Date: 2014-07-31 18:15+0100\n"
 "Last-Translator: Patrick Vijgeboom <pj.vijgeboom@gmail.com>\n"
 "Language-Team: Nederlands <>\n"
 "Language: nl\n"
@@ -2255,9 +2255,8 @@ msgid "Create a Backup Copy Before Saving"
 msgstr "Reservekopie maken voor opslaan"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1284
-#, fuzzy
 msgid "Number of Backups to Keep"
-msgstr "Aantal Rich Text nodes"
+msgstr "Aantal bewaarde backups"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1301
 msgid "Saving"
