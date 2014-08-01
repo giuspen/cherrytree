@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 0.9.3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-07-30 23:10+0200\n"
-"PO-Revision-Date: 2014-04-12 00:31+0100\n"
+"PO-Revision-Date: 2014-08-01 23:11+0100\n"
 "Last-Translator: Daniel MC <i.e.betel@gmail.com>\n"
 "Language-Team: Spanish <>\n"
 "Language: es\n"
@@ -294,15 +294,13 @@ msgstr "Insertar  Timestamp"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:540
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:779
-#, fuzzy
 msgid "Insert _File"
-msgstr "Insertar _tabla"
+msgstr "Insertar _archivo"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:540
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:779
-#, fuzzy
 msgid "Insert File"
-msgstr "Insertar tabla"
+msgstr "Insertar archivo"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:541
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:770
@@ -428,9 +426,8 @@ msgid "Edit _Link"
 msgstr "Editar en_lace"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:555
-#, fuzzy
 msgid "Edit the Link Associated to the Image"
-msgstr "Editar la imagen seleccionada"
+msgstr "Editar enlace asociado a la imagen"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:556
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:866
@@ -439,7 +436,7 @@ msgstr "Descartar enlace"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:556
 msgid "Dismiss the Link Associated to the Image"
-msgstr ""
+msgstr "Descartar el enlace asociado a la imagen"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:557
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:777
@@ -1101,15 +1098,13 @@ msgstr "Añadir nodos de un archivo de Basket al árbol actual"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:622
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:708
-#, fuzzy
 msgid "From _EssentialPIM HTML File"
-msgstr "Desde archivo de _HTML"
+msgstr "Desde archivo  _EssentialPIM HTML"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:622
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:708
-#, fuzzy
 msgid "Add Node from an EssentialPIM HTML File to the Current Tree"
-msgstr "Añadir nodo de un archivo HTML al árbol actual"
+msgstr "Añadir nodo de un archivo EssentialPIM HTML al árbol actual"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:623
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:707
@@ -1559,14 +1554,12 @@ msgid "Delete the Selected Link"
 msgstr "Eliminar el enlace seleccionado"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:878
-#, fuzzy
 msgid "Insert _NewLine"
-msgstr "Insertar/Editar _enlace"
+msgstr "Insertar _nueva linea"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:878
-#, fuzzy
 msgid "Insert NewLine Char"
-msgstr "Insertar carácter e_special"
+msgstr "Insertar carácter de nueva linea"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:889
 msgid "Change CodeBox _Properties"
@@ -2132,7 +2125,7 @@ msgstr "Mostrar espacios"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:707
 msgid "Embedded File Icon Size"
-msgstr ""
+msgstr "Archivo incrustado tamaño icono"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:713
 msgid "Limit of Undoable Steps Per Node"
@@ -2264,9 +2257,8 @@ msgid "Create a Backup Copy Before Saving"
 msgstr "Hacer una copia de seguridad antes de guardar"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1284
-#, fuzzy
 msgid "Number of Backups to Keep"
-msgstr "Cantidad de nodos de texto "
+msgstr "Cantidad de backups a guardar"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1301
 msgid "Saving"
@@ -2427,9 +2419,8 @@ msgid "NoteCase Document"
 msgstr "Documento de NoteCase"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:815
-#, fuzzy
 msgid "EPIM HTML Document"
-msgstr "Documento HTML"
+msgstr "Documento EPIM HTML"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:829
 msgid "HTML Document"
@@ -2689,14 +2680,12 @@ msgid "The Tree is Empty!"
 msgstr "¡El árbol está vacío!"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3385
-#, fuzzy
 msgid "Number of Rich Text Nodes"
-msgstr "Cantidad de nodos de texto "
+msgstr "Cantidad de nodos de texto enriquecido"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3388
-#, fuzzy
 msgid "Number of Plain Text Nodes"
-msgstr "Cantidad de nodos de texto "
+msgstr "Cantidad de nodos de texto plano"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3391
 msgid "Number of Code Nodes"
@@ -2707,9 +2696,8 @@ msgid "Number of Images"
 msgstr "Cantidad de imágenes"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3397
-#, fuzzy
 msgid "Number of Embedded Files"
-msgstr "Cantidad de tablas"
+msgstr "Cantidad de archivos incrustados"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3400
 msgid "Number of Tables"
@@ -2720,13 +2708,12 @@ msgid "Number of CodeBoxes"
 msgstr "Cantidad de cajas de código"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3406
-#, fuzzy
 msgid "Number of Anchors"
-msgstr "Cantidad de imágenes"
+msgstr "Cantidad de anclas"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3492
 msgid "Image Format Not Recognized"
-msgstr ""
+msgstr "Formato de imagen no reconocido"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3496
 msgid "Image Properties"
