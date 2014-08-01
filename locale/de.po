@@ -2,7 +2,7 @@
 # Copyright (C) 2010 THE svn_cherrytree'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the svn_cherrytree package.
 # Giuseppe Penone <giuspen@gmail.com>, 2010.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
@@ -294,15 +294,13 @@ msgstr "Zeitstempel einfügen"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:540
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:779
-#, fuzzy
 msgid "Insert _File"
-msgstr "_Tabelle einfügen..."
+msgstr "_Datei einfügen..."
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:540
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:779
-#, fuzzy
 msgid "Insert File"
-msgstr "Tabelle einfügen/bearbeiten..."
+msgstr "Datei einfügen"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:541
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:770
@@ -428,9 +426,8 @@ msgid "Edit _Link"
 msgstr "_Link bearbeiten..."
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:555
-#, fuzzy
 msgid "Edit the Link Associated to the Image"
-msgstr "Bild bearbeiten"
+msgstr "Link zum Bild bearbeiten"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:556
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:866
@@ -439,7 +436,7 @@ msgstr "Hyperlink entfernen"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:556
 msgid "Dismiss the Link Associated to the Image"
-msgstr ""
+msgstr "Link zum Bild entfernen"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:557
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:777
@@ -1034,7 +1031,7 @@ msgstr "Vollbild an/aus"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:616
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:701
 msgid "From _CherryTree File"
-msgstr "_CherryTree-Datei..."
+msgstr "_CherryTree-Datei"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:616
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:701
@@ -1085,7 +1082,7 @@ msgstr "Knoten aus einem Verzeichnis mit HTML-Dateien einfügen"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:621
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:706
 msgid "From _Basket Folder"
-msgstr "_Basket-Verzeichnis..."
+msgstr "_Basket-Verzeichnis"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:621
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:706
@@ -1095,20 +1092,18 @@ msgstr ""
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:622
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:708
-#, fuzzy
 msgid "From _EssentialPIM HTML File"
-msgstr "_HTML"
+msgstr "_EssentialPIM"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:622
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:708
-#, fuzzy
 msgid "Add Node from an EssentialPIM HTML File to the Current Tree"
 msgstr "Knoten aus einer HTML-Datei einfügen"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:623
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:707
 msgid "From _Gnote Folder"
-msgstr "_Gnote-Verzeichnis..."
+msgstr "_Gnote-Verzeichnis"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:623
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:707
@@ -1118,7 +1113,7 @@ msgstr "Knoten aus einem Gnote-Verzeichnis einfügen"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:624
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:709
 msgid "From _KeepNote Folder"
-msgstr "_KeepNote-Verzeichnis..."
+msgstr "_KeepNote-Verzeichnis"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:624
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:709
@@ -1128,7 +1123,7 @@ msgstr "Knoten aus einem KeepNote-Verzeichnis einfügen"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:625
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:710
 msgid "From K_eyNote File"
-msgstr "Ke_yNote-Datei..."
+msgstr "Ke_yNote-Datei"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:625
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:710
@@ -1138,7 +1133,7 @@ msgstr "Knoten aus einer KeyNote-Datei einfügen"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:626
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:711
 msgid "From K_nowit File"
-msgstr "Kno_wit-Datei..."
+msgstr "Kno_wit-Datei"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:626
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:711
@@ -1148,7 +1143,7 @@ msgstr "Knoten aus einer Knowit-Datei einfügen"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:627
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:712
 msgid "From _Leo File"
-msgstr "_Leo-Datei..."
+msgstr "_Leo-Datei"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:627
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:712
@@ -1158,7 +1153,7 @@ msgstr "Knoten aus einer Leo-Datei einfügen"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:628
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:713
 msgid "From _Mempad File"
-msgstr "_Mempad-Datei..."
+msgstr "_Mempad-Datei"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:628
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:713
@@ -1168,7 +1163,7 @@ msgstr "Knoten aus einer Mempad-Datei einfügen"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:629
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:714
 msgid "From _NoteCase File"
-msgstr "_NoteCase-Datei..."
+msgstr "_NoteCase-Datei"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:629
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:714
@@ -1178,7 +1173,7 @@ msgstr "Knoten aus einer NoteCase-Datei einfügen"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:630
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:715
 msgid "From T_omboy Folder"
-msgstr "T_omboy-Verzeichnis.."
+msgstr "T_omboy-Verzeichnis"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:630
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:715
@@ -1188,7 +1183,7 @@ msgstr "Knoten aus einem Tomboy-Verzeichnis einfügen"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:631
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:716
 msgid "From T_reepad Lite File"
-msgstr "_Treepad Lite-Datei..."
+msgstr "_Treepad Lite-Datei"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:631
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:716
@@ -1198,7 +1193,7 @@ msgstr "Knoten aus einer Treepad Lite-Datei einfügen"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:632
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:717
 msgid "From _TuxCards File"
-msgstr "Tu_xCards-Datei..."
+msgstr "Tu_xCards-Datei"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:632
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:717
@@ -1208,7 +1203,7 @@ msgstr "Knoten aus einer TuxCards-Datei einfügen"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:633
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:718
 msgid "From _Zim Folder"
-msgstr "_Zim-Verzeichnis.."
+msgstr "_Zim-Verzeichnis"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:633
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:718
@@ -1553,14 +1548,12 @@ msgid "Delete the Selected Link"
 msgstr "Hyperlink löschen"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:878
-#, fuzzy
 msgid "Insert _NewLine"
-msgstr "_Link einfügen/bearbeiten..."
+msgstr "_Zeile einfügen"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:878
-#, fuzzy
 msgid "Insert NewLine Char"
-msgstr "S_onderzeichen einfügen"
+msgstr "Zeilenumbruch einfügen"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:889
 msgid "Change CodeBox _Properties"
@@ -2132,7 +2125,7 @@ msgstr "Leerzeichen anzeigen"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:707
 msgid "Embedded File Icon Size"
-msgstr ""
+msgstr "Symbolgröße für eingebettete Datei"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:713
 msgid "Limit of Undoable Steps Per Node"
@@ -2264,9 +2257,8 @@ msgid "Create a Backup Copy Before Saving"
 msgstr "Vor dem Speichern Sicherungskopie anlegen"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1284
-#, fuzzy
 msgid "Number of Backups to Keep"
-msgstr "Anzahl der Textknoten"
+msgstr "Anzahl der zu speichernden Backups"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1301
 msgid "Saving"
@@ -2430,9 +2422,8 @@ msgid "NoteCase Document"
 msgstr "NoteCase-Datei"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:815
-#, fuzzy
 msgid "EPIM HTML Document"
-msgstr "HTML-Datei"
+msgstr "EPIM HTML-Datei"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:829
 msgid "HTML Document"
@@ -2691,12 +2682,10 @@ msgid "The Tree is Empty!"
 msgstr "Die Baumstruktur ist leer!"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3385
-#, fuzzy
 msgid "Number of Rich Text Nodes"
-msgstr "Anzahl der Textknoten"
+msgstr "Anzahl der Richtext-Knoten"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3388
-#, fuzzy
 msgid "Number of Plain Text Nodes"
 msgstr "Anzahl der Textknoten"
 
@@ -2709,9 +2698,8 @@ msgid "Number of Images"
 msgstr "Anzahl der Bilder"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3397
-#, fuzzy
 msgid "Number of Embedded Files"
-msgstr "Anzahl der Tabellen"
+msgstr "Anzahl der eingebetteten Dateien"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3400
 msgid "Number of Tables"
@@ -2722,13 +2710,12 @@ msgid "Number of CodeBoxes"
 msgstr "Anzahl der CodeBoxen"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3406
-#, fuzzy
 msgid "Number of Anchors"
-msgstr "Anzahl der Bilder"
+msgstr "Anzahl der Anker"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3492
 msgid "Image Format Not Recognized"
-msgstr ""
+msgstr "Bildformat nicht erkannt"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3496
 msgid "Image Properties"
@@ -2754,7 +2741,7 @@ msgstr "Es wurde in dieser Sitzung noch keine Formatierung durchgeführt"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3848
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3916
 msgid "Insert/Edit Link"
-msgstr "Link einfügen/bearbeiten..."
+msgstr "Link einfügen/bearbeiten"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3892
 msgid "Link Name"
