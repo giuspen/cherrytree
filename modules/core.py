@@ -470,11 +470,11 @@ class CherryTree:
             if keyname == "Tab":
                 self.toggle_tree_text()
                 return True
-            elif keyname == "plus":
+            elif keyname in ["plus", "KP_Add"]:
                 if self.treeview.is_focus(): self.zoom_tree_p()
                 else: self.zoom_text_p()
                 return True
-            elif keyname == "minus":
+            elif keyname in ["minus", "KP_Subtract"]:
                 if self.treeview.is_focus(): self.zoom_tree_m()
                 else: self.zoom_text_m()
                 return True
@@ -532,10 +532,10 @@ class CherryTree:
                         child_iter = self.treestore.iter_children(child_iter)
                     self.treeview_safe_set_cursor(move_iter)
                 return True
-            elif keyname == "plus":
+            elif keyname in ["plus", "KP_Add"]:
                 self.zoom_tree_p()
                 return True
-            elif keyname == "minus":
+            elif keyname in ["minus", "KP_Subtract"]:
                 self.zoom_tree_m()
                 return True
         else:
