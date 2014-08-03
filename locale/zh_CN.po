@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: cherrytree 0.26\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-07-30 23:10+0200\n"
-"PO-Revision-Date: 2014-04-17 18:53+0800\n"
+"PO-Revision-Date: 2014-08-03 19:42+0800\n"
 "Last-Translator: Channing Wong <mamimoluo@gmail.com>\n"
 "Language-Team: Chinese (simplified)\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.4\n"
+"X-Generator: Poedit 1.6.7\n"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/codeboxes.py:81
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3081
@@ -293,15 +293,13 @@ msgstr "插入时间戳"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:540
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:779
-#, fuzzy
 msgid "Insert _File"
-msgstr "插入表格(_T)"
+msgstr "插入文件(_F)"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:540
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:779
-#, fuzzy
 msgid "Insert File"
-msgstr "插入表格"
+msgstr "插入文件"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:541
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:770
@@ -427,9 +425,8 @@ msgid "Edit _Link"
 msgstr "编辑链接(_L)"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:555
-#, fuzzy
 msgid "Edit the Link Associated to the Image"
-msgstr "编辑选中图片"
+msgstr "编辑图片所关联的链接"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:556
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:866
@@ -438,7 +435,7 @@ msgstr "取消链接(_D)"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:556
 msgid "Dismiss the Link Associated to the Image"
-msgstr ""
+msgstr "忽略图片所关联的链接"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:557
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:777
@@ -1092,15 +1089,13 @@ msgstr "从Basket文件夹添加节点到当前树"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:622
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:708
-#, fuzzy
 msgid "From _EssentialPIM HTML File"
-msgstr "从HTML文件(_H)"
+msgstr "从EPIM HTML文件(_E)"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:622
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:708
-#, fuzzy
 msgid "Add Node from an EssentialPIM HTML File to the Current Tree"
-msgstr "从HTML文件添加节点到当前树"
+msgstr "从EPIM HTML文件添加节点到当前树"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:623
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:707
@@ -1550,14 +1545,12 @@ msgid "Delete the Selected Link"
 msgstr "删除已选择链接"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:878
-#, fuzzy
 msgid "Insert _NewLine"
-msgstr "插入/编辑链接(_L)"
+msgstr "插入新行(_N)"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:878
-#, fuzzy
 msgid "Insert NewLine Char"
-msgstr "插入特殊字符(_Special)"
+msgstr "插入换行字符"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:889
 msgid "Change CodeBox _Properties"
@@ -1961,7 +1954,7 @@ msgstr "在新页面建立新节点"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:943
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1106
 msgid "Insert _Special Character"
-msgstr "插入特殊字符(_Special)"
+msgstr "插入特殊字符(_S)"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:945
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1108
@@ -2120,7 +2113,7 @@ msgstr "显示空白字符"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:707
 msgid "Embedded File Icon Size"
-msgstr ""
+msgstr "嵌入文件的图标大小"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:713
 msgid "Limit of Undoable Steps Per Node"
@@ -2252,9 +2245,8 @@ msgid "Create a Backup Copy Before Saving"
 msgstr "保存前创建备份"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1284
-#, fuzzy
 msgid "Number of Backups to Keep"
-msgstr "文字节点个数"
+msgstr "欲保留的备份数"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1301
 msgid "Saving"
@@ -2415,9 +2407,8 @@ msgid "NoteCase Document"
 msgstr "NoteCase 文档"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:815
-#, fuzzy
 msgid "EPIM HTML Document"
-msgstr "HTML 文档"
+msgstr "EPIM HTML 文档"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:829
 msgid "HTML Document"
@@ -2668,14 +2659,12 @@ msgid "The Tree is Empty!"
 msgstr "树为空！"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3385
-#, fuzzy
 msgid "Number of Rich Text Nodes"
-msgstr "文字节点个数"
+msgstr "富文本节点个数"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3388
-#, fuzzy
 msgid "Number of Plain Text Nodes"
-msgstr "文字节点个数"
+msgstr "纯文本节点个数"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3391
 msgid "Number of Code Nodes"
@@ -2686,9 +2675,8 @@ msgid "Number of Images"
 msgstr "图片节点个数"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3397
-#, fuzzy
 msgid "Number of Embedded Files"
-msgstr "表格个数"
+msgstr "嵌入文件个数"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3400
 msgid "Number of Tables"
@@ -2699,13 +2687,12 @@ msgid "Number of CodeBoxes"
 msgstr "代码框个数"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3406
-#, fuzzy
 msgid "Number of Anchors"
-msgstr "图片节点个数"
+msgstr "锚点个数"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3492
 msgid "Image Format Not Recognized"
-msgstr ""
+msgstr "图片格式未能识别"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3496
 msgid "Image Properties"
