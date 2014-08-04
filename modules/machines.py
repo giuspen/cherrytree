@@ -344,8 +344,8 @@ class XMLHandler:
                 for element in pixbuf_table_codebox_vector:
                     if sel_range: element[1][0] -= sel_range[0]
                     if element[0] == "pixbuf": self.pixbuf_element_to_xml(element[1], dom_iter, self.dom)
-                    elif element[0] == "table": self.table_element_to_xml(element[1], dom_iter)
-                    elif element[0] == "codebox": self.codebox_element_to_xml(element[1], dom_iter)
+                    elif element[0] == "table": self.table_element_to_xml(element[1], dom_iter, self.dom)
+                    elif element[0] == "codebox": self.codebox_element_to_xml(element[1], dom_iter, self.dom)
         else:
             # plain text insert
             self.rich_txt_serialize(dom_iter, start_iter, end_iter, self.curr_attributes)
@@ -355,9 +355,9 @@ class XMLHandler:
                 self.append_dom_node(tree_iter, dom_iter, to_disk)
                 tree_iter = self.dad.treestore.iter_next(tree_iter)
 
-    def codebox_element_to_xml(self, element, dom_node):
+    def codebox_element_to_xml(self, element, dom_node, dom):
         """From element [char_offset, codebox, justification] to dom node"""
-        dom_iter = self.dom.createElement("codebox")
+        dom_iter = dom.createElement("codebox")
         dom_iter.setAttribute("char_offset", str(element[0]))
         if element[2] != cons.TAG_PROP_LEFT: dom_iter.setAttribute(cons.TAG_JUSTIFICATION, element[2])
         dom_iter.setAttribute("frame_width", str(element[1]['frame_width']))
@@ -367,24 +367,24 @@ class XMLHandler:
         dom_iter.setAttribute("highlight_brackets", str(element[1]['highlight_brackets']))
         dom_iter.setAttribute("show_line_numbers", str(element[1]['show_line_numbers']))
         dom_node.appendChild(dom_iter)
-        text_iter = self.dom.createTextNode(element[1]['fill_text'])
+        text_iter = dom.createTextNode(element[1]['fill_text'])
         dom_iter.appendChild(text_iter)
 
-    def table_element_to_xml(self, element, dom_node):
+    def table_element_to_xml(self, element, dom_node, dom):
         """From element [char_offset, table, justification] to dom node"""
-        dom_iter = self.dom.createElement("table")
+        dom_iter = dom.createElement("table")
         dom_iter.setAttribute("char_offset", str(element[0]))
         if element[2] != cons.TAG_PROP_LEFT: dom_iter.setAttribute(cons.TAG_JUSTIFICATION, element[2])
         dom_iter.setAttribute("col_min", str(element[1]['col_min']))
         dom_iter.setAttribute("col_max", str(element[1]['col_max']))
         dom_node.appendChild(dom_iter)
         for row in element[1]['matrix']:
-            dom_row = self.dom.createElement("row")
+            dom_row = dom.createElement("row")
             dom_iter.appendChild(dom_row)
             for cell in row:
-                dom_cell = self.dom.createElement("cell")
+                dom_cell = dom.createElement("cell")
                 dom_row.appendChild(dom_cell)
-                text_iter = self.dom.createTextNode(cell)
+                text_iter = dom.createTextNode(cell)
                 dom_cell.appendChild(text_iter)
 
     def pixbuf_element_to_xml(self, element, dom_node, dom):

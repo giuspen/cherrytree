@@ -2236,7 +2236,8 @@ class HTMLHandler(HTMLParser.HTMLParser):
                         'show_line_numbers': False,
                         'fill_text': text_inside_codebox
                         }
-                        self.dad.xml_handler.codebox_element_to_xml([self.chars_counter, codebox_dict, cons.TAG_PROP_LEFT], self.nodes_list[-1])
+                        self.dad.xml_handler.codebox_element_to_xml([self.chars_counter, codebox_dict, cons.TAG_PROP_LEFT],
+                            self.nodes_list[-1], self.dom)
                         self.chars_counter += 1
                     else: print "empty codebox skip"
                 else:
@@ -2246,7 +2247,8 @@ class HTMLHandler(HTMLParser.HTMLParser):
                     table_dict = {'col_min': cons.TABLE_DEFAULT_COL_MIN,
                                   'col_max': cons.TABLE_DEFAULT_COL_MAX,
                                   'matrix': self.curr_table}
-                    self.dad.xml_handler.table_element_to_xml([self.chars_counter, table_dict, cons.TAG_PROP_LEFT], self.nodes_list[-1])
+                    self.dad.xml_handler.table_element_to_xml([self.chars_counter, table_dict, cons.TAG_PROP_LEFT],
+                        self.nodes_list[-1], self.dom)
                     self.chars_counter += 1
                 self.rich_text_serialize(cons.CHAR_NEWLINE)
             elif tag in ["p", "li"]: self.curr_cell += cons.CHAR_NEWLINE
