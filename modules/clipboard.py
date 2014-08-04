@@ -131,11 +131,11 @@ class ClipboardHandler:
         elif target == TARGETS_HTML[0]: selectiondata.set('UTF8_STRING', 8, data[2])
         elif target == TARGET_CTD_CODEBOX:
             dom = xml.dom.minidom.Document()
-            self.dad.xml_handler.codebox_element_to_xml([0, data[0], cons.TAG_PROP_LEFT], dom)
+            self.dad.xml_handler.codebox_element_to_xml([0, data[0], cons.TAG_PROP_LEFT], dom, dom)
             selectiondata.set('UTF8_STRING', 8, dom.toxml())
         elif target == TARGET_CTD_TABLE:
             dom = xml.dom.minidom.Document()
-            self.dad.xml_handler.table_element_to_xml([0, data[0], cons.TAG_PROP_LEFT], dom)
+            self.dad.xml_handler.table_element_to_xml([0, data[0], cons.TAG_PROP_LEFT], dom, dom)
             selectiondata.set('UTF8_STRING', 8, dom.toxml())
         elif target in TARGETS_IMAGES: selectiondata.set_pixbuf(data)
 
@@ -506,5 +506,5 @@ class ClipboardHandler:
                                                     change_case=change_case, dom=dom)
         if obj_element:
             if obj_element[0] == "pixbuf": self.dad.xml_handler.pixbuf_element_to_xml(obj_element[1], dom_iter, dom)
-            elif obj_element[0] == "table": self.dad.xml_handler.table_element_to_xml(obj_element[1], dom_iter)
-            elif obj_element[0] == "codebox": self.dad.xml_handler.codebox_element_to_xml(obj_element[1], dom_iter)
+            elif obj_element[0] == "table": self.dad.xml_handler.table_element_to_xml(obj_element[1], dom_iter, dom)
+            elif obj_element[0] == "codebox": self.dad.xml_handler.codebox_element_to_xml(obj_element[1], dom_iter, dom)
