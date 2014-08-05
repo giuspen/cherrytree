@@ -1,5 +1,5 @@
 
-0.34.0 (???)
+0.34.0 (August 5th, 2014)
 • implemented the possibility to embed files of any type in the cherrytree documents: a clip icon image is inserted in the rich text and right clicking on it the file can be saved to a disk location. the clip icon size is configurable in the preferences dialog
 • implemented the possibility to associate links to the images through right click menu item. when the image has a link associated, a colored arrow is visible over the image
 • added right click menu item to insert newline in table cell and restored functionality of the shortcut Ctrl+period
