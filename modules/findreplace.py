@@ -612,12 +612,22 @@ class FindReplace:
         self.treeview.append_column(self.linecontent_column)
         self.treeviewselection = self.treeview.get_selection()
         self.treeview.connect('event-after', self.on_treeview_event_after)
+        self.allmatchesdialog.connect("key_press_event", self.on_key_press_allmatches_dialog)
         scrolledwindow_allmatches = gtk.ScrolledWindow()
         scrolledwindow_allmatches.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
         scrolledwindow_allmatches.add(self.treeview)
         content_area = self.allmatchesdialog.get_content_area()
         content_area.pack_start(scrolledwindow_allmatches)
         content_area.show_all()
+
+    def on_key_press_allmatches_dialog(self, widget, event):
+        if event.state & gtk.gdk.CONTROL_MASK\
+        and event.state & gtk.gdk.SHIFT_MASK\
+        and gtk.gdk.keyval_name(event.keyval) in ["a","A"]:
+            try: self.allmatchesdialog.get_widget_for_response(gtk.RESPONSE_CLOSE).clicked()
+            except: print cons.STR_PYGTK_222_REQUIRED
+            return True
+        return False
 
     def on_treeview_event_after(self, treeview, event):
         """Catches mouse buttons clicks"""
