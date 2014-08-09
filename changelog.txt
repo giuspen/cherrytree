@@ -1,0 +1,567 @@
+
+0.34.0 (August 5th, 2014)
+• implemented the possibility to embed files of any type in the cherrytree documents: a clip icon image is inserted in the rich text and right clicking on it the file can be saved to a disk location. the clip icon size is configurable in the preferences dialog
+• implemented the possibility to associate links to the images through right click menu item. when the image has a link associated, a colored arrow is visible over the image
+• added right click menu item to insert newline in table cell and restored functionality of the shortcut Ctrl+period
+• added shortcuts for text Foreground and Background color Shift+Alt+F and Shift+Alt+B
+• added shortcuts Ctrl+Alt+1, Ctrl+Alt+2 and Ctrl+Alt+3 for lists bulleted, numbered and todo
+• added shortcuts Ctrl+Plus and Ctrl+Minus to increase/decrease the font of tree and text
+• the number of backups to keep is now configurable
+• added import from EssentialPIM HTML file
+• fixed several bugs
+• handling of cases when dbus is not working properly causing cherrytree not to start, this happens so far only on windows in some cases and may be a firewall related problem. in these cases the centralized instances control is disabled and cherrytree still works
+
+0.33.4 (May 31st, 2014)
+• fixed bugs in iterated searching
+• fixed bug in sorting of nodes and sqlite documents
+• added appdata specification file
+
+0.33.3 (May 22nd, 2014)
+• bugfix: write character in codebox, do not save, go to other node, go back and the character in codebox is gone
+
+0.33.2 (May 20th, 2014)
+• bugfix: "File--New Instance" not working after adopting DBus for multiple instances control in place of TCP
+• bugfix in export to HTML
+• the Menu key pops up now the proper right click menu for Tree, Text, CodeBox, Table, Image and Anchor
+• tables: added shortcuts Ctrl+comma to Add Row, Ctrl+Alt+comma to Delete Row
+• tables: added shortcuts Ctrl+period to Move Row Down, Ctrl+Alt+period to Move Row Up
+• windows portable version: if a file "config.cfg" is found in the same directory of "cherrytree.exe", all settings will become portable, just create an empty file "config.cfg" (or copy an existing one) and start cherrytree
+
+0.33.1 (May 12th, 2014)
+• the number of backups changes from 1 to 3, in next versions this will be configurable
+• fixed critical bug in windows version and password protected documents causing in some cases the loss of all data
+• replaced old TCP client/server multiple instances control with new one using DBus client/server for security reason
+• added Armenian language from Seda Stamboltsyan
+• several other minor bugfixes
+• tree navigation: key Ctrl+(up, down, left, right) causing maximum focus movement walking towards (up, down, left, right) direction
+• tree navigation: it is possible to select the tree and start typing a node name to change the selected node to the first non hidden node starting with the typed chars
+• added keyboard shortcuts: Ctrl+M to monospace, Ctrl+Alt+M to insert timestamp, Ctrl+Alt+I to insert image, Ctrl+Alt+T to insert table, Ctrl+Alt+C to insert codebox
+
+0.33.0 (April 22nd, 2014)
+• added import from html file and folder of html files
+• added memory of selected node and expanded/collapsed nodes status for more cherrytree documents, not only the latest used
+• added find and replace in selected node and subnodes
+• added option in export to html to do not have the links tree in every page but just add a link to the index page at the bottom of every page
+• improved export to pdf of documents with large images (automatically re-sized), large codeboxes and large tables (automatically splitted)
+• when switching node type from rich text to non rich text, tables and codeboxes are not just dropped but converted to plain text
+• added plain text type to nodes and codeboxes; plain text nodes do not have any automatic syntax highlighting, they share the same font with rich text nodes and support all the lists types
+• added right click menu to load codebox content from text file and save codebox content to text file
+• added right click menu to delete codebox keeping the contained text
+• added keyboard shortcut Ctrl+Alt+S to enable/disable spell check
+• added preferences option to display white spaces also for rich text nodes
+• Ctrl+Tab replaces Ctrl+J for toggling focus between Tree and Text, when the focus is on the Tree also just Tab moves focus to Text
+• fixed many bugs and improved functionality
+
+0.32.0 (January 4th, 2014)
+• when selecting print/export to pdf there’s now an option to start new nodes in new pages
+• the links colors are now configurable
+• the wrapped lines indentation is now configurable
+• added menu item and shortcut (F8) to insert a node with the date of today in hierarchy year/month/day
+• in node properties dialog added the opportunity to insert tags choosing between the existing tags
+• F1 is now shortcut for the online manual
+• updated PowerShell syntax highlighting definition file by haven200
+• fixed several bugs
+
+0.31.5 (December 9th, 2013)
+• updated languages Dutch and Czech
+• fixed bug in pasting data from clipboard
+• opening a new file from menu it done again in current instance (restored old behavior)
+• bugfix: in links dialog the latest selected node was not selected by default anymore
+
+0.31.4 (December 5th, 2013)
+• bugfix: cannot change foreground and background color
+• bugfix: row wrongly recognized as a list row after pressing enter
+• updated PowerShell syntax highlighting file from haven200
+
+0.31.3 (December 4th, 2013)
+• updated French language
+
+0.31.2 (December 4th, 2013)
+• bugfix: cannot open document if option to reload latest document at startup is disabled
+
+0.31.1 (December 4th, 2013)
+• updated Spanish language
+• bugfix: cannot change node type from rich text to automatic syntax highlighting
+• bugfix: import from zim errors
+
+0.31.0 (December 1st, 2013)
+• added import from one plain text file or a folder of plain text files
+• added direct export to pdf without going through the print dialog, working also in windows without need of installing software that creates pdf
+• improved the todo lists using different chars (automatic conversion) and three states like zim-wiki (not done, done ok and done fail); work from Scott Linder
+• added function to strip trailing spaces in code nodes (from right click menu)
+• Ctrl+Shift+E to expand all nodes, Ctrl+Shift+L to collapse all nodes
+• when opening new file or starting a new empty file will do it on a new window if the current is not empty
+• right click on a link lets you choose to edit/cut/copy/dismiss/delete the underlying link
+• it is now possible to insert a link if no text is selected, the link name will be asked in this case
+• added line num column in search all matches list dialog
+• added Dutch language (welcome Patrick Vijgeboom)
+• added syntax highlighting for PowerShell (work from haven200)
+• fixed bugs
+
+0.30.5 (September 1st, 2013)
+• fixed critical bug that caused loss of unsaved data after import of nodes from a cherrytree document of type sqlite unprotected to sqlite protected;
+• bugfix: node position in the tree after imports
+• bugfix: TOC generation for selected node and subnodes
+
+0.30.4 (August 30th, 2013)
+• fixed critical bug causing loss of data in cherrytree when using sqlite as data storage type;
+• fixed bug: middle (or wheel) click on tree node to expand/collapse;
+• improved paste of data from web page selection.
+
+0.30.2 (August 27th, 2013)
+• cherrytree can now work also without python-enchant installed, in this case it is not possible to activate spell check in the preferences dialog;
+• a new language was added: Brazilian Portuguese (work from Vinicius Schmidt);
+• double click on a node or enter key press on a node now toggles expanded/collapsed state (before entered node properties dialog).
+
+0.30.1 (August 24th, 2013)
+• License upgrade from GPLv2+ to GPLv3+ needed to bundle pygtkspellcheck;
+• Bugfix: error dialog when autosave and empty tree.
+
+0.30.0 (August 21st, 2013)
+• Added spell check using the library pygtkspellcheck (which uses pyenchant). In windows version the dictionaries of all languages supported by translators except Chinese are included in the installer;
+• Added opportunity to insert special characters in text using top menu or right click menu. It is possible to edit the default list of characters in the preferences dialog;
+• Added export to single plain text file;
+• Improved TOC of the whole tree including links to all existing nodes of the tree, not only those with tags h1, h2 and h3;
+• Added menu item and shortcut (Ctrl+Shift+J) to expand/collapse the selected tree node;
+• Added shortcut to remove formatting from selected rich text (Ctrl+Shift+R);
+• Added basic import from keynote (.knt);
+• Added configurable option to enable/disable the option to reload the document from the last session at application start (before it was always enabled);
+• Fixed bug in shortcut to paste to rich text node as plain text, discarding formatting (Ctrl+Shift+V);
+• Fixed several bugs in export to HTML and PDF;
+• Fixed bugs in import from Zim, Tomboy and Gnote;
+• Fixed several other bugs.
+
+0.29.4 (March 21st, 2013)
+• the color chooser palette keeps now memory of the latest 20 colors used
+• in the export to plain text of the rich text nodes, codeboxes and tables are also included
+• fixed a couple of minor bugs
+
+0.29.3 (March 13th, 2013)
+• bugfix: problem of file paths with non ascii characters
+• bugfix: unwanted expanding of nodes when adding child node
+• bugfix: window position not restored in xfce window manager after hide() and show()
+• bugfixes in print to pdf
+• bugfixes in pasting tables from web pages to rich text nodes
+• several icons were changed adding a border to make them visible in dark themes
+• the latest palette for foreground and background is restored in new sessions
+• there’s a known unresolved problem for windows os only and password protection: file paths including non ascii characters may cause errors on opening and saving, this is due to 7za.exe (command line) by Igor Pavlov that does not work good with non ascii characters, I will probably have to find another cross platform way for password protection
+
+0.29.2 (January 25th, 2013)
+• bugfix: scrollbar position not restored when going back to an already visited node
+• bugfix: on windows os error when using filenames including non latin characters
+• added back support for pygtk versions < 2.22 (broken in 0.29 and 0.29.1)
+
+0.29.1 (January 18th, 2013)
+• updated Chinese, Spanish and German languages
+• added limit of recent documents to 10
+• added back support for python versions < 2.7 (broken in 0.29)
+
+0.29 (January 10th, 2013)
+• several bugs fixed
+• when running cherrytree from command line it is possible to indicate a node name to focus as argument (cherrytree filepath -n nodename)
+• added shortcut to toggle focus between tree and text (Ctrl+J)
+• updated several icons related to text formatting to have an unique style/theme for all of them
+• added the preferences option to collapse all nodes when loading the tree (now there are the options to expand all, collapse all or restore from latest session)
+• added import from zim
+
+0.28.5 (November 20th, 2012)
+• fixed several bugs
+• export to html: the font of tree and text is now set to the one in use in cherrytree at export time
+
+0.28.4 (November 12th, 2012)
+• fixed internationalization/localization bugs and other minor bugs
+
+0.28.3 (October 31st, 2012)
+• updated French language: welcome to Benoît
+
+0.28.2 (October 31st, 2012)
+• fixed bugs: cannot save file as in 0.28.1
+
+0.28.1 (October 31st, 2012)
+• fixed several bugs
+• ctrl+period inserts a newline in a table cell
+
+0.28 (October 10th, 2012)
+• reduced the size of the preferences dialog adopting tabs
+• some special symbols are automatically inserted after typing the characters that compose them followed by spacebar; ctrl+z undoes the replacement ( --> to → , <-- to ← , <-> to ↔ , (c) to © , (tm) to ™ , (r) to ® )
+• added import from Mempad
+• fixed several bugs
+
+0.27.1 (September 23rd, 2012)
+• fixed bug: print / save as pdf of the whole tree not working in 0.27
+
+0.27 (September 18th, 2012)
+• added preference option to enable the periodic check of the cherrytree document file for external updates
+• added preference option to choose between appindicator and systray for panel docking
+• added opportunity to restore the latest search all matches dialog with shortcut (Ctrl+Shift+A)
+• added preference options for text and tree to choose between dark theme, light theme or custom colors
+• added the opportunity to print / save as pdf / export of the selected text only
+• added the opportunity to include the node name in print / save as pdf
+• added import from Gnote (code from Rahul Sundaram)
+• shortcut for paste as plain text in rich text node (Ctrl+Shift+V)
+• adopted python ConfigParser for saving preferences, old preferences will be lost
+• fixed several bugs
+• a new French language maintainer is needed, thanks Ludovic for the great job you made
+
+0.26.3 (July 4th, 2012)
+• fixed bugs
+
+0.26.2 (June 11th, 2012)
+• fixed bugs
+
+0.26.1 (June 6th, 2012 )
+• added language Chinese Simplified (great job from Channing Wong)
+• fixed minor bug
+
+0.26 (May 16th, 2012)
+• added text formatting superscript, subscript, monospace and h3
+• h1, h2 and h3 formatting is now automatically applied to the whole row
+• the switch between rich text and automatic syntax highlighting for the nodes is now simpler
+• the dialog to choose the file storage type is now file extension oriented
+• it is now possible to configure the default rich text foreground and background, so is for the tree
+• the horizontal rule inserted characters are now configurable
+• the TOC now includes h3 and can be created also for the whole tree
+• the links anchors size is now configurable
+• fixed several bugs
+• we have now a complete manual of the application linked at help–manual (great job from Robert)
+• WARNING: documents edited with a version >= 0.26 cannot be edited again with a version < 0.26
+
+0.25.4 (February 24th, 2012)
+• fixed bugs
+
+0.25.3 (February 3rd, 2012)
+• fixed bugs
+
+0.25.2 (January 24th, 2012)
+• fixed bugs
+
+0.25.1 (January 21st, 2012)
+• fixed bugs
+• mouse middle-click (or wheel-click) on a tree node expands/collapses it
+
+0.25 (January 14th, 2012)
+• on linux, cherrytree can now be installed on any “prefix”, but the “exec-prefix” is not to be set different than “prefix”
+• the minimum required gtk version is now 2.16
+• the single (but very big) new feature is a new data storage type, a sqlite 3 database (which is anyway a single file). Storing the old way (a single xml file) will be still available but probably not much used since the new storage type offers faster reading, faster saving and less memory usage. To the two old file extensions “ctd” and “ctz” (xml and xml 7zipped+password protected) were added “ctb” and “ctx” (sqlite and sqlite 7zipped+password protected)
+• since really a lot of code changed I ask everybody to backup the data and report possible bugs. To try the new storage type just click file–save as
+
+0.24 (December 28th, 2011)
+• automatic syntax highlighting: it is now possible to choose between several style schemes (a couple of them with dark background), the same style scheme is used for tree nodes and codeboxes
+• automatic syntax highlighting: added the options to show white spaces and highlight the current line
+• added menu items and keyboard shortcuts to move the current row/selected rows up and down the document
+• added support for appindicator where the system tray is not supported (ubuntu unity)
+• fixed several bugs and bad behaviours
+
+0.23.1 (September 16th, 2011)
+• fixed bugs
+
+0.23 (September 4th, 2011)
+• the limit of undoable steps per node is now configurable (lower the limit to save ram)
+• implemented a dialog to iterate graphical way the find/replace (before it was possible only through keyboard shortcuts)
+• implemented the insertion of timestamps. the timestamp format is configurable through preferences dialog
+• fixed some bugs/bad behaviors related to system tray, nodes drag n drop, links to files dialog and others
+
+0.22.2 (July 10th, 2011)
+• fixed bugs
+
+0.22.1 (June 23rd, 2011)
+• bugs fixed
+
+0.22 (June 7th, 2011)
+• fixed bugs
+• added the right click option ‘paste as plain text’ to the rich text nodes
+• added imports from tomboy and knowit
+• all the exports (pdf/html/txt/ctd) now offer the options: only current node / current node and subnodes / all the tree
+• implemented simple clickable to-do lists
+
+0.21.3 (May 3rd, 2011)
+• updated German language
+• fixed minor bugs
+
+0.21.2 (April 29th, 2011)
+• fixed minor bugs
+
+0.21.1 (April 26th, 2011)
+• fixed critical bug (involving first cherrytree installation only, not upgrades and not 0.21 windows version)
+
+0.21 (April 23rd, 2011)
+• fixed bugs
+• added links to folders
+• added custom action for clicked link to files and folders
+• added some customizable properties to the codeboxes
+• added fullscreen mode
+• implemented the cut/copy/paste of a table row
+• tables: pressing arrows up/down switches to former/next cell to edit, pressing return also switches to the next cell to edit
+• now multiple instances are allowed and handled
+• added the opportunity to sort the whole tree (before it was possible to sort only the siblings of the selected node)
+• the find utility now will signal that a pattern exist in a table/codebox moving the focus on the table/codebox but not on the text
+
+0.20.1 (March 7th, 2011)
+• fixed critical bugs
+• using the keyboard arrows it is now possible to move the selection between all the tree nodes (including parent/children), holding shift while using the arrows moves the selected node
+
+0.20 (February 28th, 2011)
+• fixed several bugs
+• preferences dialog: added the option to create a backup copy of the document before saving the new version (before the backup was automatic and mandatory)
+• preferences dialog: added the option to autosave on quit (before this option came with the autosave every N minutes)
+• implemented the recently opened documents memory and the option to quickly open one of those documents
+• added the option for a node to be read only
+• implemented the import from leo outliner
+• implemented the utilities to copy/cut the whole underlying row
+• implemented the visited nodes history with option to go back/forward
+• implemented the bookmarks handling
+• when exporting tree to html an index.html file is also generated
+• the latest picked color for either foreground and background is now remembered (before there was only one memory for both of them)
+• removed Galician language support due to translator runaway (many thanks Dario for wasting my time)
+• some keyboard shortcuts were changed (trying to be the more standard possible); the keyboard shortcuts are indicated on all menu items
+
+0.19.3 (January 17th, 2011)
+• fixed tree nodes drag and drop bugs
+• assigned the shortcut ctrl+K to the deletion of a text row being it already used from other text editors such as geany and nano
+• when opening the anchor insert dialog now the cursor is always in the entry text
+
+0.19.2 (January 14th, 2011)
+• fixed bugs in pasting text from firefox web browser
+• fixed bugs in tree nodes drag and drop
+• improved the text duplication functionality (ctrl+D); now the rich text duplication is also supported
+
+0.19.1 (January 10th, 2011)
+• fixed bugs
+• implemented the tree nodes drag and drop
+• updated French, all languages but German are now up to date
+
+0.19 (January 3rd, 2011)
+• before saving a new version of the file “file.ctd”, the former version is now backupped as “file.ctd~”
+• introduced a new file format “.ctz” which is the “.ctd” compressed and password protected using 7zip (the binary executable 7za). to switch between .ctd and .ctz click the menu item “file–set document protection”.
+• implemented the utility to change the case of the selected text/underlying word
+
+0.18 (December 27th, 2010)
+• fixed bugs
+• added Galician language
+• added the option to specify tags for a node to use when searching for a node; a keyboard shortcut was added to popup the node searching dialog (ctrl+T)
+• implemented the export to plain text document (menu export — save node as plain text)
+• implemented the import from treepad lite (menu import — from treepad lite file)
+• the tree menu functionality was improved introducing submenus
+• added the preferences dialog option to display the tree on the right side rather than on the left side (default)
+• the cross application copy/paste of a selection now works also for images: try selecting text and images together in your web browser, copy and paste in cherrytree or to select rich text plus images in cherrytree, copy and paste in openoffice
+• warning: documents edited with 0.18 cannot be opened anymore with former cherrytree versions
+
+0.17.1 (December 18th, 2010)
+• fixed copy/paste bugs
+
+0.17 (December 15th, 2010)
+• fixed bugs (thanks Bernard)
+• the copy/paste now works intra application with single images, single codeboxes, single tables (added right click menu items) and a selection of rich text, images, codeboxes and tables
+• the copy/paste functionality works also cross application (tested cherrytree exchange with openoffice and gmail) with single images, single codeboxes, single tables and a selection of rich text, codeboxes and tables (images not supported yet in a selection)
+• copying a list of files from the file manager and pasting in cherrytree will create a list of links, images are recognized and inserted in the text
+• copy/paste a single image from/to the clipboard works fine
+• added Czech language (thanks Pavel)
+• nodes import: it is now possible to specify where to attach them (thanks Bernard*2)
+• tree nodes sorting is now case insensitive (thanks Bernard*3)
+
+0.16 (November 25th, 2010)
+• implemented the export to html of a single node / the whole tree
+• added in the preferences dialog the opportunity to use bullets as tree nodes icons or to do not use tree icons at all
+• implemented the automatic generation of a table of contents for a node based on h1 and h2
+• fixed bug in codeboxes print/save as pdf: the code that was not focused was printed without syntax highlighting
+
+0.15 (October 15th, 2010)
+• improved the find/replace utility adding the 'all matches' option which allows to find/replace all matches at once and list the results
+• fixed find/replace bugs
+• added the menu item (help--check newer version) and preferences dialog option to automatically check for newer version (thanks Andriy)
+• fixed bugs in the import from basket (thanks Christopher)
+• fixed bug in the printing of codeboxes bigger than the A4 size (thanks Francesco)
+• fixed bug in bulleted and numbered lists
+• added the find/replace menu items to right click menus, reorganized some menu items
+• when inserting a codebox, if some text is highlighted it will be automatically moved into the codebox (thanks Devon)
+• fixed bug crashing the app when closing from top right cross and then selecting cancel (thanks Sven)
+
+0.14.2 (September 19th, 2010)
+• the process name (that was “python”) is now “cherrytree” (thanks M A R)
+• fixed bugs in codebox print/save as pdf (thanks Francesco)
+• fixed bugs in import from basket (thanks Theophile)
+• rearranged the messy rich text right click menu (Thanks Tsu)
+
+0.14.1 (September 10th, 2010)
+• added Ukrainian and French languages (thanks Andriy and Ludovic)
+
+0.14 (August 24th, 2010)
+• implemented the codebox (opportunity to insert boxes of automatically highlighted text into normal rich text); the print/save as pdf was also updated to support the codeboxes as well
+• implemented a right click menu for the images and for the links anchors; furthermore double clicking upon an image or an anchor opens the image or anchor edit dialog
+• changed some menus and menu icons
+• fixed bugs
+• thanks to everybody contributed with their feedback to this (from ukrainian ground) release
+
+0.13 (August 17th, 2010)
+• added german language (thanks Sven)
+• fixed bugs (thanks Tharsice, Sven*2)
+• added menu items to expand and collapse all nodes (thanks Marcin, Tharsice*2)
+• added the import/export of a table as a csv file (thanks Tharsice*3)
+• added a keyboard shortcut for the enable/disable system tray docking (thanks Andriy)
+• improved the bulleted and numbered lists handling introducing actions on multiple lines when multiple lines are selected (thanks Marcin*2)
+
+0.12 (July 19th, 2010)
+• fixed bug in the link to node: the link did not work if the destination node was hidden/his father was not expanded
+• print/save as pdf now supports also the tables
+• improved the right click menu for rich text and implemented an automatic selection of
+text in case a text formatting was requested with no text selected (thanks Ray, Francesco)
+• added the support for images in the import from notecase (thanks Romain)
+
+0.11 (July 5th, 2010)
+• implemented the memory of expanded/collapsed nodes, which is active when the preference option “expand all nodes when loading the tree” is not flagged (thanks Allan)
+• implemented the imports from tuxcards and basket, fixed bug in the import from keepnote (thanks Tharsice, Andriy)
+• implemented the opportunity to export the selected node and its subnodes as a cherrytree file (thanks Marcin)
+• added the Polish language (thanks Marcin*2)
+
+0.10 (June 6th, 2010)
+• print/save as pdf: implemented the support for images. the tables are not supported yet.
+• fixed bug: the cursor and scrollbar were not restored properly after undo/redo (thanks J.W.)
+• fixed many other bugs
+• from now on, if the periodic autosave is on, the application is also automatically saved on close (thanks Marcin)
+• added menu item and shortcut to insert a horizontal rule (thanks Zeltak)
+• double clicking upon a tree node now opens the node properties dialog (thanks Zeltak*2)
+
+0.9.6 (April 23th, 2010)
+• improved the image serialization/deserialization, after the first save it will be faster to load and save documents containing images. cherrytree documents edited with 0.9.6 cannot be opened with former cherrytree versions (thanks Tadej)
+• added in the preferences dialog the option to change the cherrytree language selecting from the available languages
+• fixed node print bugs
+• added the "import from keepnote" feature (thanks Zeltak)
+
+0.9.5 (April 6th, 2010)
+• added the spanish language (thanks Daniel)
+
+0.9.4 (April 1th, 2010)
+• many bugs fixed (thanks Tomás, Leonid, Narmo)
+• import from notecase: since now also the links to webpages and files are recognized (thanks Scheck)
+• node print and node save as pdf file: first issue with support for rich text and code; images and tables are not considered in the printing yet, the paragraph justification is also not supported yet
+• added a menu item "tree--tree info" displaying a summary information about the tree (thanks Andriy)
+
+0.9.3 (March 19th, 2010)
+• fixed a bug involving the automatic syntax highlightings. for some programming languages you will have to set again the syntax highlighting mode (sorry)
+• changed the menus/toolbar structure adopting the powerful gtk ui manager, since now the keyboard shortcuts should be independent from the keyboard layout
+• added an option to customize the action at weblink click
+• a lot of delicate code was changed, so please backup your documents before using version 0.9.3 and report any bug
+
+0.9.2 (March 6th, 2010)
+• sorted alphabetically the list of available highlighting modes (thanks Taras)
+• added the option "start minimized on the system tray" to allow the users who want cherrytree to start at boot time to just add the application to system--administration--startup applications
+• fixed bug involving the nodes names (thanks Jérôme)
+• internationalized the application and added the first languages: italian and russian; spanish, portuguese and croatian will come soon (thanks Andriy)
+
+0.9.1 (february 15th, 2010)
+• fixed bug involving the "single instance check" (thanks Taras)
+• added a menu item "edit--inherit syntax" that changes the selected node's children syntax highlighting to the father's syntax highlighting (thanks Taras)
+
+0.9 (february 14th, 2010)
+• implemented a basic tables handling (cells with wrapped plain text)
+• added more cherry colors to cover more tree levels, introduced a couple of cherry colors to identify the main programming languages (thanks Zeltak and Daniel)
+• it's now possible to change the tree nodes names simply clicking upon them
+• the tree nodes names are now wrapped if the node name is too long, the wrapping length is customizable through preferences window (thanks Daniel*2)
+• added an option for large text formatting: now there are the options h1 and h2 (thanks Paco)
+• changed the behavior of the double-click upon text: now this will widen the selection to alphanumeric characters (not only contiguous letters but numbers and underscores too)
+• when creating a link, if the selected text is a weblink it is recognized and the form proposes automatically the web address and the correct link type (thanks Paco*2)
+• introduced the single instance check to avoid opening cherrytree many times for mistake. this doesn't work on windows by now. if anyone feels the need to use more instances of cherrytree simultaneously let me know (thanks Paco*3)
+• fixed many bugs
+• thanks to everybody helping me with the feedback/bugs report. The current TODO list is published on the application's homepage.
+
+0.8.3
+• fixed bug "the keyboard shortcuts are case sensitive and do not work with the caps lock on" (thanks Corey)
+• fixed bugs involving the import from notecase file (Thanks Salvador)
+• added the menu items "Edit--Duplicate Row/Selection (Ctrl+D)" and "Edit--Delete Row (Ctrl+Shift+D)"
+• changed the coloring of the cherries: the cherry colors now identify the node level (thanks Daniel)
+• fixed bugs involving the bulleted/numbered lists (thanks Tomas)
+• now the menu item "File--Exit" is shown only when the checkbox "Enable System Tray Docking on Quit" is flagged (thanks Tomas*2)
+• now after applying a formatting over selected text, the text does not lose the selection (thanks Tomas*3)
+• thanks to everybody helping me with the feedback, I try (during my free time) to implement all the suggestions, starting with the most requested. The current TODO list is published on the application's homepage.
+
+0.8.2
+• fixed bug "after closing the cherrytree window to system tray, at the re-opening through left-click upon the system tray icon it is not possible to expand/collapse the nodes anymore using the gtk tree arrows". it was necessary to modify the behave: now the system tray icon is always visible when this feature is enabled (thanks Corey)
+• changed the cherry icons (thanks Zeltak)
+• implemented the bulleted and numbered lists handling. note that it is also possible to switch between the two list types and a list element can last more rows. use Shift+Enter to start a new line when you don't want to change list element (or otherwise indent 3 spaces the subsequent rows of a list element)
+• enabled the control of the toolbar icons size through menu item "view"
+• the saving of configuration settings was totally changed, now these info are stored in an xml file and no more in a pickle file
+• thanks to everybody helping me with the feedback, I try (during my free time) to implement all the suggestions, starting with the most requested. The current TODO list is published on the application's homepage.
+
+0.8.1
+- implemented the links to files (thanks Gary)
+- improved the links to nodes, adding the opportunity to browse for the selected node anchors (thanks Chris)
+- introduced the opportunity to create a link right clicking upon selected text (thanks Chris)
+- thanks to everybody helping me with the feedback, I try (during my free time) to implement all the suggestions, starting with the most requested. The current TODO list is published on the application's homepage.
+
+0.8
+- implemented the hyperlinks (links to webpages & links to nodes/nodes + anchors)
+- added a menu item to show/hide the node name also at the top of the notes; added a little margin on the right and left of the notes (thanks Daniel)
+- thanks to everybody helping me with the feedback, I try (during my free time) to implement all the suggestions, starting with the most requested
+
+0.7.1
+- bug fixed in "import from notecase" (thanks Salvador)
+- thanks to everybody helping me with the feedback, I try (during my free time) to implement all the suggestions, starting with the most requested
+
+0.7
+- added hotkeys for the text formatting (thanks Corey)
+- fixed bad bugs: if you use version before 0.7 do not use the "node left" menu item!
+- added the feature "import from notecase file" which currently imports only the rich text (no images, attachments, links...)
+- added the feature "import from cherrytree file"
+- replaced the tree nodes drag n drop with the addition of the right click menu item "node change father" that, together with node up/down/left menu items completes the mobility of the node in the tree
+- a little revolution was made in the code, please backup your files and report any bug!
+- thanks to everybody helping me with the feedback, I try (during my free time) to implement all the suggestions, starting with the most requested
+
+0.6.3
+- added menu items to sort the siblings of the selected tree node descending/ascending (thanks Capsized)
+- improved the "enable system tray docking on quit" (thanks Mircea)
+- fixed bug in the cherrytree-libglade version (thanks Sinisa)
+- fixed bug: in some cases the type of an inserted node did not match the one indicated in the insert dialog
+- thanks to everybody helping me with the feedback, I try (during my free time) to implement all the suggestions
+
+0.6.2
+- fixed a bug involving the "enable system tray docking on quit" (thanks Mircea)
+- added a package for users running old distributions, like ubuntu 8.04 LTS (thanks Sinisa)
+- thanks to everybody helping me with the feedback, I try to implement all the suggestions
+
+0.6.1
+- removed the dependence from the old libglade, the new gtkbuilder is now used
+- implemented the justification/alignment of text and images
+- added a menu item to allow the removal of all formatting from the selected text
+- thanks to everybody helping me with the feedback, I try to implement all the suggestions
+
+0.6
+- implemented the image handling: insertion in the text, edit (resize/rotate), save as png file
+- bugs fixed
+- thanks to everybody helping me with the feedback, I try to implement all the suggestions
+
+0.5.1
+- the system tray behave was modified. now, if the system tray is enabled, the application quit will not shut down the app but just hide it and open the tray icon. the tray icon will not be visible when the cherrytree window is visible. to shut down totally cherrytree right click upon the tray icon and select quit
+- improved the memory of the latest window position and size with a better handling of the maximization/unmaximization
+- introduced the memory of the scrollbar position when going back to an already visited node during a cherrytree session
+- introduced in the preferences dialog the option to expand all tree nodes or not at tree load time
+- thanks to everybody helping me with the feedback, I try to implement all the suggestions
+
+0.5
+- fixed bugs
+- implemented the docking with status icon (aka system tray icon) and the opportunity to enable/disable it through preferences dialog
+- from now on it is possible to set two different fonts for the custom formatted text and the automatic colored text (red and green cherries)
+- if i open a file double clicking upon it and if it was the latest processed file before closing cherrytree, the application will restore the focused node and the cursor position into the text (before this worked only if you opened cherrytree from menu)
+- implemented the periodic autosave, which is possible to enable/disable through preferences dialog
+- thanks to everybody helped me with the feedback, I will try to implement all your suggestions
+
+0.4
+- introduced new text formatting options (italic, underline, strikethrough, small, large)
+  note that documents edited with cherrytree 0.4 cannot be opened with former cherrytree versions
+- introduced the opportunity to iterate the latest applied text formatting
+- replaced some icons
+- thanks to who helped me with the feedback, I will continue to implement your suggestions
+
+0.3
+- added menu items and keyboard shortcuts helping to change the position of the tree nodes
+  (formerly the drag n drop was the only reordering utility)
+- created microsoft windows 32bit binary archive, which requires the gtk+ runtime libraries installed
+- couple of gui changes
+
+0.2 (october 31st, 2009)
+- the undo buffer has been improved handling for rich text formatting
+- now using gtksourceview2 instead of gtksourceview
+- I value feedback, please report any problems or suggestions!
+
+0.1 (october 7th, 2009)
+It's a hierarchical note taking application, featuring rich text and syntax highlighting.
+
