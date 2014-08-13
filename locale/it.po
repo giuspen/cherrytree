@@ -9,9 +9,8 @@ msgstr ""
 "Project-Id-Version: cherrytree 0.27\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-07-30 23:10+0200\n"
-"PO-Revision-Date: 2014-08-09 11:16+0200\n"
+"PO-Revision-Date: 2014-08-13 09:32+0200\n"
 "Last-Translator: Vincenzo Reale <smart2128@baslug.org>\n"
-"Language-Team: Italian <it@bureau-cornavin.com>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -69,11 +68,11 @@ msgstr "Opzioni"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:558
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:778
 msgid "Insert a CodeBox"
-msgstr "Inserisci una CodeBox"
+msgstr "Inserisci un blocco di codice"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/codeboxes.py:345
 msgid "Edit CodeBox"
-msgstr "Modifica CodeBox"
+msgstr "Modifica blocco di codice"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:508
 msgid "_File"
@@ -452,7 +451,7 @@ msgstr "Inserisci una tabella"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:558
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:778
 msgid "Insert _CodeBox"
-msgstr "Inserisci _CodeBox"
+msgstr "Inserisci blo_cco di codice"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:559
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:787
@@ -1526,7 +1525,7 @@ msgstr "_Taglia collegamento"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:864
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:893
 msgid "Cut the Selected CodeBox"
-msgstr "Taglia il CodeBox selezionato"
+msgstr "Taglia il blocco di codice selezionato"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:865
 msgid "_Copy Link"
@@ -1535,7 +1534,7 @@ msgstr "_Copia collegamento"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:865
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:894
 msgid "Copy the Selected CodeBox"
-msgstr "Copia il CodeBox selezionato"
+msgstr "Copia il blocco di codice selezionato"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:866
 msgid "Dismiss the Selected Link"
@@ -1559,83 +1558,84 @@ msgstr "Inserisci carattere di interruzione di riga"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:889
 msgid "Change CodeBox _Properties"
-msgstr "Cambia _proprietà CodeBox"
+msgstr "Cambia _proprietà blocco di codice"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:889
 msgid "Edit the Properties of the CodeBox"
-msgstr "Modifica le proprietà della CodeBox"
+msgstr "Modifica le proprietà del blocco di codice"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:890
 msgid "CodeBox _Load From Text File"
-msgstr "_Carica CodeBox da file di testo"
+msgstr "_Carica blocco di codice da file di testo"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:890
 msgid "Load the CodeBox Content From a Text File"
-msgstr "Carica il contenuto della CodeBox da file di testo"
+msgstr "Carica il contenuto del blocco di codice da file di testo"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:891
 msgid "CodeBox _Save To Text File"
-msgstr "_Salva CodeBox in file di testo"
+msgstr "_Salva blocco di codice in file di testo"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:891
 msgid "Save the CodeBox Content To a Text File"
-msgstr "Salva il contenuto della CodeBox in file di testo"
+msgstr "Salva il contenuto del blocco di codice in file di testo"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:893
 msgid "C_ut CodeBox"
-msgstr "_Taglia CodeBox"
+msgstr "_Taglia blocco di codice"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:894
 msgid "_Copy CodeBox"
-msgstr "_Copia CodeBox"
+msgstr "_Copia blocco di codice"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:895
 msgid "_Delete CodeBox"
-msgstr "_Elimina CodeBox"
+msgstr "_Elimina blocco di codice"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:895
 msgid "Delete the Selected CodeBox"
-msgstr "Elimina il CodeBox selezionato"
+msgstr "Elimina il blocco di codice selezionato"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:896
 msgid "Delete CodeBox _Keep Content"
-msgstr "Eli_mina CodeBox conservando il contenuto"
+msgstr "Eli_mina blocco di codice conservando il contenuto"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:896
 msgid "Delete the Selected CodeBox But Keep Its Content"
-msgstr "Elimina il CodeBox selezionato, ma conservando il suo contenuto"
+msgstr ""
+"Elimina il blocco di codice selezionato, ma conservando il suo contenuto"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:898
 msgid "Increase CodeBox Width"
-msgstr "Aumenta larghezza CodeBox"
+msgstr "Aumenta larghezza blocco di codice"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:898
 msgid "Increase the Width of the CodeBox"
-msgstr "Aumenta la larghezza della CodeBox"
+msgstr "Aumenta la larghezza del blocco di codice"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:899
 msgid "Decrease CodeBox Width"
-msgstr "Riduci larghezza CodeBox"
+msgstr "Riduci larghezza blocco di codice"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:899
 msgid "Decrease the Width of the CodeBox"
-msgstr "Riduci la larghezza della Codebox"
+msgstr "Riduci la larghezza del blocco di codice"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:900
 msgid "Increase CodeBox Height"
-msgstr "Aumenta altezza CodeBox"
+msgstr "Aumenta altezza blocco di codice"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:900
 msgid "Increase the Height of the CodeBox"
-msgstr "Aumenta l'altezza della CodeBox"
+msgstr "Aumenta l'altezza del blocco di codice"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:901
 msgid "Decrease CodeBox Height"
-msgstr "Riduci altezza CodeBox"
+msgstr "Riduci altezza blocco di codice"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:901
 msgid "Decrease the Height of the CodeBox"
-msgstr "Riduci l'altezza della CodeBox"
+msgstr "Riduci l'altezza del blocco di codice"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:45
 msgid "Iterate Latest Find/Replace"
@@ -2044,11 +2044,11 @@ msgstr "Inserisci spazi invece delle tabulazioni"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:510
 msgid "Use Line Wrapping"
-msgstr "Usa avvolgimento riga"
+msgstr "Usa a capo automatico"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:514
 msgid "Line Wrapping Indentation"
-msgstr "Rientro interruzione di riga"
+msgstr "Rientro a capo automatico"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:520
 msgid "Enable Automatic Indentation"
@@ -2246,7 +2246,7 @@ msgstr "Salva automaticamente ogni"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1276
 msgid "Minutes"
-msgstr "Minuti"
+msgstr "minuti"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1280
 msgid "Autosave on Quit"
@@ -2703,7 +2703,7 @@ msgstr "Numero di tabelle"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3403
 msgid "Number of CodeBoxes"
-msgstr "Numero di CodeBox"
+msgstr "Numero di blocchi di codice"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3406
 msgid "Number of Anchors"
@@ -2781,4 +2781,5 @@ msgstr "Etichette"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/imports.py:2152
 msgid "Downloading"
 msgstr "Scaricamento"
+
 
