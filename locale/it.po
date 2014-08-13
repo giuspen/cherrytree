@@ -9,8 +9,9 @@ msgstr ""
 "Project-Id-Version: cherrytree 0.27\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-07-30 23:10+0200\n"
-"PO-Revision-Date: 2014-08-13 09:32+0200\n"
+"PO-Revision-Date: 2014-08-13 11:08+0200\n"
 "Last-Translator: Vincenzo Reale <smart2128@baslug.org>\n"
+"Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1024,7 +1025,7 @@ msgstr "Comprimi tutti i nodi dell'albero"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:615
 msgid "_Full Screen On/Off"
-msgstr "Attivia/Disattiva _schermo Intero"
+msgstr "Attiva/Disattiva _schermo intero"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:615
 msgid "Toggle Full Screen On/Off"
