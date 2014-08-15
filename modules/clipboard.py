@@ -196,40 +196,43 @@ class ClipboardHandler:
             return
         uri_list = selection_data.split(cons.CHAR_NEWLINE)
         for element in uri_list:
-            if len(element) > 7:
-                iter_insert = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
-                if (element[0:4] == "http" or element[0:3] == "ftp"): property_value = "webs " + element
-                elif element[0:7] == "file://":
-                    file_path = element[7:].replace("%20", cons.CHAR_SPACE)
-                    mimetype = mimetypes.guess_type(file_path)[0]
-                    if mimetype and len(mimetype) > 5 and mimetype[0:6] == "image/" and os.path.isfile(file_path):
-                        self.dad.image_insert(iter_insert, gtk.gdk.pixbuf_new_from_file(file_path))
-                        iter_insert = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
-                        self.dad.curr_buffer.insert(iter_insert, 3*cons.CHAR_SPACE)
-                        continue
-                    else:
-                        if os.path.isdir(file_path):
-                            property_value = "fold %s" % base64.b64encode(file_path)
-                        elif os.path.isfile(file_path):
-                            property_value = "file %s" % base64.b64encode(file_path)
-                        else:
-                            property_value = None
-                            print "ERROR: discarded file uri '%s'" % file_path
+            if not element: continue
+            iter_insert = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
+            if (element.startswith("http") or element.startswith("ftp")):
+                property_value = "webs " + element
+            elif element.startswith("file://"):
+                file_path = element[7:].replace("%20", cons.CHAR_SPACE)
+                mimetype = mimetypes.guess_type(file_path)[0]
+                if mimetype and mimetype.startswith("image/") and os.path.isfile(file_path):
+                    try: pixbuf = gtk.gdk.pixbuf_new_from_file(file_path)
+                    except: continue
+                    self.dad.image_insert(iter_insert, pixbuf)
+                    iter_insert = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
+                    self.dad.curr_buffer.insert(iter_insert, 3*cons.CHAR_SPACE)
+                    continue
                 else:
-                    if os.path.isdir(element):
-                        property_value = "fold %s" % base64.b64encode(element)
-                    elif os.path.isfile(element):
-                        property_value = "file %s" % base64.b64encode(element)
+                    if os.path.isdir(file_path):
+                        property_value = "fold %s" % base64.b64encode(file_path)
+                    elif os.path.isfile(file_path):
+                        property_value = "file %s" % base64.b64encode(file_path)
                     else:
                         property_value = None
-                        print "ERROR: discarded ? uri '%s'" % element
-                start_offset = iter_insert.get_offset()
-                self.dad.curr_buffer.insert(iter_insert, element + cons.CHAR_NEWLINE)
-                if property_value:
-                    iter_sel_start = self.dad.curr_buffer.get_iter_at_offset(start_offset)
-                    iter_sel_end = self.dad.curr_buffer.get_iter_at_offset(start_offset + len(element))
-                    self.dad.curr_buffer.apply_tag_by_name(self.dad.apply_tag_exist_or_create("link", property_value),
-                                                           iter_sel_start, iter_sel_end)
+                        print "ERROR: discarded file uri '%s'" % file_path
+            else:
+                if os.path.isdir(element):
+                    property_value = "fold %s" % base64.b64encode(element)
+                elif os.path.isfile(element):
+                    property_value = "file %s" % base64.b64encode(element)
+                else:
+                    property_value = None
+                    print "ERROR: discarded ? uri '%s'" % element
+            start_offset = iter_insert.get_offset()
+            self.dad.curr_buffer.insert(iter_insert, element + cons.CHAR_NEWLINE)
+            if property_value:
+                iter_sel_start = self.dad.curr_buffer.get_iter_at_offset(start_offset)
+                iter_sel_end = self.dad.curr_buffer.get_iter_at_offset(start_offset + len(element))
+                self.dad.curr_buffer.apply_tag_by_name(self.dad.apply_tag_exist_or_create("link", property_value),
+                                                       iter_sel_start, iter_sel_end)
 
     def to_html(self, clipboard, selectiondata, data):
         """From Clipboard to HTML Text"""
