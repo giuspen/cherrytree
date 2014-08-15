@@ -204,20 +204,20 @@ class ClipboardHandler:
                 file_path = element[7:].replace("%20", cons.CHAR_SPACE)
                 mimetype = mimetypes.guess_type(file_path)[0]
                 if mimetype and mimetype.startswith("image/") and os.path.isfile(file_path):
-                    try: pixbuf = gtk.gdk.pixbuf_new_from_file(file_path)
-                    except: continue
-                    self.dad.image_insert(iter_insert, pixbuf)
-                    iter_insert = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
-                    self.dad.curr_buffer.insert(iter_insert, 3*cons.CHAR_SPACE)
-                    continue
+                    try:
+                        pixbuf = gtk.gdk.pixbuf_new_from_file(file_path)
+                        self.dad.image_insert(iter_insert, pixbuf)
+                        iter_insert = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
+                        self.dad.curr_buffer.insert(iter_insert, 3*cons.CHAR_SPACE)
+                        continue
+                    except: pass
+                if os.path.isdir(file_path):
+                    property_value = "fold %s" % base64.b64encode(file_path)
+                elif os.path.isfile(file_path):
+                    property_value = "file %s" % base64.b64encode(file_path)
                 else:
-                    if os.path.isdir(file_path):
-                        property_value = "fold %s" % base64.b64encode(file_path)
-                    elif os.path.isfile(file_path):
-                        property_value = "file %s" % base64.b64encode(file_path)
-                    else:
-                        property_value = None
-                        print "ERROR: discarded file uri '%s'" % file_path
+                    property_value = None
+                    print "ERROR: discarded file uri '%s'" % file_path
             else:
                 if os.path.isdir(element):
                     property_value = "fold %s" % base64.b64encode(element)
