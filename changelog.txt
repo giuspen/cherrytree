@@ -1,9 +1,10 @@
 
 0.34.1 (August 16th, 2014)
-• fixed some minor bugs
-• updated Polish language from Marcin Swierczynski
+• fixed bug introduced in 0.34.0 in search and/or replace, all matches
+• fixed bug in handling of image format not recognized when pasting uri from clipboard
+• updated the Polish language from Marcin Swierczynski
 • updated the Italian language from new maintainer Vincenzo Reale
-• Ctrl+Shift+A not only to show Find All Matches dialog but also hide it
+• Ctrl+Shift+A not only to show the "Find All Matches" dialog but also hide it
 
 0.34.0 (August 5th, 2014)
 • implemented the possibility to embed files of any type in the cherrytree documents: a clip icon image is inserted in the rich text and right clicking on it the file can be saved to a disk location. the clip icon size is configurable in the preferences dialog
