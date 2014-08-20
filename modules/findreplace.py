@@ -618,7 +618,7 @@ class FindReplace:
     def on_key_press_allmatches_dialog(self, widget, event):
         if event.state & gtk.gdk.CONTROL_MASK\
         and event.state & gtk.gdk.SHIFT_MASK\
-        and gtk.gdk.keyval_name(event.keyval) in ["a","A"]:
+        and event.hardware_keycode == 38: # 'A' case and keyboard layout independent
             try: self.allmatchesdialog.get_widget_for_response(gtk.RESPONSE_CLOSE).clicked()
             except: print cons.STR_PYGTK_222_REQUIRED
             return True
