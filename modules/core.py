@@ -466,6 +466,7 @@ class CherryTree:
         if event.state & gtk.gdk.MOD1_MASK:
             if keyname == "Left": self.go_back()
             elif keyname == "Right": self.go_forward()
+            return True
         elif (event.state & gtk.gdk.CONTROL_MASK):
             if keyname == "Tab":
                 self.toggle_tree_text()
