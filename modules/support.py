@@ -19,7 +19,7 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
-import gtk, os
+import gtk, os, webbrowser
 import cons
 
 
@@ -307,6 +307,9 @@ _("Ukrainian")+" (uk) Andriy Kovtun <kovtunos@yandex.ru>")
     dialog.set_transient_for(dad.window)
     dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
     dialog.set_modal(True)
+    def f_url_hook(dialog, link, user_data):
+        webbrowser.open(link)
+    gtk.about_dialog_set_url_hook(f_url_hook, None)
     dialog.run()
     dialog.hide()
 
