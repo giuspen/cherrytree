@@ -160,7 +160,7 @@ class CherryTree:
         self.scrolledwindow_text.add(self.sourceview)
         self.go_bk_fw_click = False
         self.highlighted_obj = None
-        self.embfiles_opened = []
+        self.embfiles_opened = {}
         self.embfiles_sentinel_id = None
         self.bookmarks = []
         self.bookmarks_menu_items = []
@@ -3215,6 +3215,7 @@ class CherryTree:
         config.config_file_save(self)
         if "db" in dir(self) and self.db: self.db.close()
         for filepath_tmp in self.ctdb_handler.remove_at_quit_set: os.remove(filepath_tmp)
+        for filepath_tmp in self.embfiles_opened.keys(): os.remove(filepath_tmp)
         self.window.destroy()
         if not self.boss.running_windows:
             if not self.use_appind and "status_icon" in dir(self.boss): self.boss.status_icon.set_property(cons.STR_VISIBLE, False)
@@ -3296,7 +3297,7 @@ class CherryTree:
             fd.write(self.curr_file_anchor.pixbuf.embfile)
         print "embopen", filepath
         self.external_filepath_open(filepath, False)
-        self.embfiles_opened.append([filepath, os.path.getmtime(filepath)])
+        self.embfiles_opened[filepath] = os.path.getmtime(filepath)
         if not self.embfiles_sentinel_id: self.embfiles_sentinel_start()
 
     def embfile_save(self, *args):
@@ -3321,21 +3322,16 @@ class CherryTree:
         gobject.source_remove(self.embfiles_sentinel_id)
         self.embfiles_sentinel_id = None
 
-    def filepath_is_externally_opened(self, filepath):
-        """Check if a filepath is Opened from External App"""
-        return True
-
     def embfiles_sentinel_iter(self):
         """Iteration of the Modification Time Sentinel"""
-        for i, embfile_elem in enumerate(self.embfiles_opened):
-            if not os.path.isfile(embfile_elem[0]) or not self.filepath_is_externally_opened(embfile_elem[0]):
-                if os.path.isfile(embfile_elem[0]): os.remove(embfile_elem[0])
-                print "embdrop", embfile_elem[0]
-                del self.embfiles_opened[i]
+        for filepath in self.embfiles_opened.keys():
+            if not os.path.isfile(filepath):
+                print "embdrop", filepath
+                del self.embfiles_opened[filepath]
                 break
-            if embfile_elem[1] != os.path.getmtime(embfile_elem[0]):
-                embfile_elem[1] = os.path.getmtime(embfile_elem[0])
-                print "embreload", embfile_elem[0]
+            if self.embfiles_opened[filepath] != os.path.getmtime(filepath):
+                self.embfiles_opened[filepath] = os.path.getmtime(filepath)
+                print "embreload", filepath
         return True # this way we keep the timer alive
 
     def toc_insert(self, *args):
