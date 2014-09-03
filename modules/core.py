@@ -160,6 +160,8 @@ class CherryTree:
         self.scrolledwindow_text.add(self.sourceview)
         self.go_bk_fw_click = False
         self.highlighted_obj = None
+        self.embfiles_opened = []
+        self.embfiles_sentinel_id = None
         self.bookmarks = []
         self.bookmarks_menu_items = []
         self.nodes_names_dict = {}
@@ -3285,6 +3287,18 @@ class CherryTree:
             pixbuf.embfile = fd.read()
             self.image_insert(iter_insert, pixbuf, image_justification=None)
 
+    def embfile_open(self, *args):
+        """Embedded File Open"""
+        filename = str(self.treestore[self.curr_tree_iter][3])+cons.CHAR_MINUS+self.curr_file_anchor.pixbuf.filename
+        filepath = os.path.join(cons.TMP_FOLDER, filename)
+        if not os.path.isdir(cons.TMP_FOLDER): os.makedirs(cons.TMP_FOLDER)
+        with open(filepath, 'wb') as fd:
+            fd.write(self.curr_file_anchor.pixbuf.embfile)
+        print "embopen", filepath
+        self.external_filepath_open(filepath, False)
+        self.embfiles_opened.append([filepath, os.path.getmtime(filepath)])
+        if not self.embfiles_sentinel_id: self.embfiles_sentinel_start()
+
     def embfile_save(self, *args):
         """Embedded File Save Dialog"""
         iter_insert = self.curr_buffer.get_iter_at_child_anchor(self.curr_file_anchor)
@@ -3297,6 +3311,32 @@ class CherryTree:
         self.pick_dir = os.path.dirname(filepath)
         with open(filepath, 'wb') as fd:
             fd.write(self.curr_file_anchor.pixbuf.embfile)
+
+    def embfiles_sentinel_start(self):
+        """Start Timer that checks for modification time"""
+        self.embfiles_sentinel_id = gobject.timeout_add(500, self.embfiles_sentinel_iter) # 1/2 sec
+
+    def embfiles_sentinel_stop(self):
+        """Stop Timer that checks for modification time"""
+        gobject.source_remove(self.embfiles_sentinel_id)
+        self.embfiles_sentinel_id = None
+
+    def filepath_is_externally_opened(self, filepath):
+        """Check if a filepath is Opened from External App"""
+        return True
+
+    def embfiles_sentinel_iter(self):
+        """Iteration of the Modification Time Sentinel"""
+        for i, embfile_elem in enumerate(self.embfiles_opened):
+            if not os.path.isfile(embfile_elem[0]) or not self.filepath_is_externally_opened(embfile_elem[0]):
+                if os.path.isfile(embfile_elem[0]): os.remove(embfile_elem[0])
+                print "embdrop", embfile_elem[0]
+                del self.embfiles_opened[i]
+                break
+            if embfile_elem[1] != os.path.getmtime(embfile_elem[0]):
+                embfile_elem[1] = os.path.getmtime(embfile_elem[0])
+                print "embreload", embfile_elem[0]
+        return True # this way we keep the timer alive
 
     def toc_insert(self, *args):
         """Insert Table Of Contents"""
@@ -3621,7 +3661,7 @@ class CherryTree:
         self.object_set_selection(self.curr_file_anchor)
         if event.button == 3:
             self.ui.get_widget("/EmbFileMenu").popup(None, None, None, event.button, event.time)
-        elif event.type == gtk.gdk._2BUTTON_PRESS: self.embfile_save()
+        elif event.type == gtk.gdk._2BUTTON_PRESS: self.embfile_open()
         return True # do not propagate the event
 
     def on_mouse_button_clicked_anchor(self, widget, event, anchor):
@@ -4089,6 +4129,19 @@ class CherryTree:
         self.curr_buffer.move_mark(self.curr_buffer.get_selection_bound(), text_iter)
         return tag_name[5:]
 
+    def external_filepath_open(self, filepath, open_fold_if_miss):
+        """Open Filepath with External App"""
+        if self.filelink_custom_action[0]:
+            if cons.IS_WIN_OS: filepath = cons.CHAR_DQUOTE + filepath + cons.CHAR_DQUOTE
+            else: filepath = re.escape(filepath)
+            subprocess.call(self.filelink_custom_action[1] % filepath, shell=True)
+        else:
+            if cons.IS_WIN_OS:
+                try: os.startfile(filepath)
+                except:
+                    if open_fold_if_miss: os.startfile(os.path.dirname(filepath))
+            else: subprocess.call(config.LINK_CUSTOM_ACTION_DEFAULT_FILE % re.escape(filepath), shell=True)
+
     def link_clicked(self, tag_property_value):
         """Function Called at Every Link Click"""
         vector = tag_property_value.split()
@@ -4104,15 +4157,7 @@ class CherryTree:
             if not os.path.isfile(filepath):
                 support.dialog_error(_("The File Link '%s' is Not Valid") % filepath, self.window)
                 return
-            if self.filelink_custom_action[0]:
-                if cons.IS_WIN_OS: filepath = cons.CHAR_DQUOTE + filepath + cons.CHAR_DQUOTE
-                else: filepath = re.escape(filepath)
-                subprocess.call(self.filelink_custom_action[1] % filepath, shell=True)
-            else:
-                if cons.IS_WIN_OS:
-                    try: os.startfile(filepath)
-                    except: os.startfile(os.path.dirname(filepath))
-                else: subprocess.call(config.LINK_CUSTOM_ACTION_DEFAULT_FILE % re.escape(filepath), shell=True)
+            self.external_filepath_open(filepath, True)
         elif vector[0] == cons.LINK_TYPE_FOLD:
             # link to folder
             filepath = unicode(base64.b64decode(vector[1]), cons.STR_UTF8, cons.STR_IGNORE)
