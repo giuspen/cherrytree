@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2014 Giuseppe Penone <giuspen@gmail.com> -->
+<application>
+ <id type="desktop">cherrytree.desktop</id>
+ <metadata_license>CC0-1.0</metadata_license>
+ <project_license>GPL-3.0+</project_license>
+ <description>
+  <p>
+   A hierarchical note taking application, featuring rich text and syntax highlighting, storing data in a single xml or sqlite file.
+   Cherrytree is not just about having a place to write notes and to-do items and keeping them organized, it's also a place you can store links, pictures, tables, even entire documents. It can be your one program for all the miscellaneous information you have and want to keep. All those little bits of information you have scattered around your hard drive can be conveniently placed into a Cherrytree document where you can easily find it.
+  </p>
+  <p>The Main Features:</p>
+  <ul>
+   <li>Rich Text supporting Images, Tables, Code Boxes, Hyperlinks and Anchors, Spell Check, Lists</li>
+   <li>Syntax Highlighting supporting many programming languages</li>
+   <li>Password Protection, Powerful Find and Replace utilities, TOC generator</li>
+   <li>Print, Save as PDF, Export to HTML, Export to Plain Text</li>
+   <li>Import from Several other Note Taking Applications</li>
+  </ul>
+ </description>
+ <screenshots>
+  <screenshot type="default">http://www.giuspen.com/images/cherrytree-main_window_text.png</screenshot>
+  <screenshot>http://www.giuspen.com/images/cherrytree-main_window_code.png</screenshot>
+ </screenshots>
+ <url type="homepage">http://www.giuspen.com/cherrytree</url>
+ <updatecontact>giuspen@gmail.com</updatecontact>
+</application>

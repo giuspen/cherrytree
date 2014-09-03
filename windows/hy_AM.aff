@@ -1,0 +1,1008 @@
+SET UTF-8
+TRY անմիողտեըցկչյԱՆՄԻՈՂՏԵԸՑԿՉՅ
+FLAG long
+NEEDAFFIX 00
+WORDCHARS '՛՜՞
+IGNORE ՛՜՞
+FORBIDDENWORD XX
+
+PFX GU Y 2
+PFX GU	0	կը+/PR	[^աեէոօիը]
+PFX GU   0     կ'/PR    [աեէոօիը]   
+
+
+PFX CH Y 1
+PFX CH   0     չ/PR           .
+
+SFX DE Y 9
+SFX DE   0       ս          [^յ]
+SFX DE   0       դ          [^յ] .
+SFX DE 	0	ը	[^յ]
+SFX DE	0	ը	[^ո]ւ	          
+SFX DE 	0	ը	[^աեէիոօւ]
+SFX DE   0      ն           .
+SFX DE  յ	ն	.
+SFX DE  յ	ս	.
+SFX DE  յ	դ	.
+
+# հայը
+SFX DY Y 4
+SFX DY յ	յն	.
+SFX DY յ	յս	.
+SFX DY յ	յդ	.
+SFX DY յ	յը	.
+
+# polysyllabics
+SFX PP Y 1
+SFX PP   0     ներ/DEABGEINLO [^յ]
+
+
+#vowelreduction plurals
+SFX PX Y 54
+SFX PX	իկ	կեր/DEABGEINLO  .
+SFX PX  ուկ     կներ/DEABGEINLO  .
+SFX PX  ումբ	մբեր/DEABGEINLO .
+SFX PX  ունդ	նդեր/DEABGEINLO .
+SFX PX  ուզ	զեր/DEABGEINLO .
+SFX PX  ուրդ	րդեր/DEABGEINLO .
+SFX PX  իզբ	զբներ/DEABGEINLO .
+SFX PX   ուն     ներ/DEABGEINLO .
+SFX PX   իթ     թեր/DEABGEINLO .
+SFX PX  ուղթ	ղթեր/DEABGEINLO .
+SFX PX իծ	ծեր/DEABGEINLO .
+SFX PX ուծ	ծեր/DEABGEINLO .
+SFX PX ուխ	խեր/DEABGEINLO .
+SFX PX ունկ	նկեր/DEABGEINLO .
+SFX PX ունձ	նձեր/DEABGEINLO .
+SFX PX ուրձ	րձեր/DEABGEINLO .
+SFX PX ինձ	նձեր/DEABGEINLO .
+SFX PX իղ	ղեր/DEABGEINLO .
+SFX PX իճ	ճեր/DEABGEINLO .
+SFX PX ին	ներ/DEABGEINLO .
+SFX PX ուն	ներ/DEABGEINLO .
+SFX PX իշ		շեր/DEABGEINLO .
+SFX PX ուշ		շեր/DEABGEINLO .
+SFX PX ինչ		նչեր/DEABGEINLO .
+SFX PX ունչ		նչեր/DEABGEINLO .
+SFX PX ինջ		նջեր/DEABGEINLO .
+SFX PX ունջ		նջեր/DEABGEINLO .
+SFX PX իսպ		սպեր/DEABGEINLO .
+SFX PX իս		սեր/DEABGEINLO .
+SFX PX ուրջ		րջեր/DEABGEINLO  .
+SFX PX իչ		չեր/DEABGEINLO .
+SFX PX իջ		ջեր/DEABGEINLO .
+SFX PX իռ		ռեր/DEABGEINLO .
+SFX PX ուռ		ռեր/DEABGEINLO .
+SFX PX իտ		տեր/DEABGEINLO .
+SFX PX ուտ		տեր/DEABGEINLO .
+SFX PX իւ		ուեր/DEABGEINLO .
+SFX PX իր		րեր/DEABGEINLO .
+SFX PX ուր		րեր/DEABGEINLO .
+SFX PX իշտ		շտեր/DEABGEINLO .
+SFX PX իշտ		սhttp://start.ubuntu.com/9.04/տեր/DEABGEINLO .
+SFX PX ուշտ		շտեր/DEABGEINLO .
+SFX PX իրտ		րտեր/DEABGEINLO .
+SFX PX ուրտ		րտեր/DEABGEINLO .
+SFX PX ից		ցեր/DEABGEINLO .
+SFX PX ուց		ցեր/DEABGEINLO .
+SFX PX իտք		տքեր/DEABGEINLO .
+SFX PX ուտք		տքեր/DEABGEINLO .
+SFX PX իրք		րքեր/DEABGEINLO .
+SFX PX ինք		նքեր/DEABGEINLO .
+SFX PX ինդ		նդեր/DEABGEINLO .
+SFX PX ուփ		փեր/DEABGEINLO .
+SFX PX ուք		քեր/DEABGEINLO . 
+SFX PX դուռ		դռներ/DEABGEINLO . 
+
+# polysyllabics յ
+SFX PH Y 1
+SFX PH   յ     ներ/DEABGEINLO	.
+
+# monosyllabic
+SFX PM Y 1
+SFX PM   0     եր/DEABGEINLO          .
+
+# collectives
+SFX PZ Y 6
+SFX PZ 0	ենք/DE .
+SFX PZ 0	ենց/DE .
+SFX PZ ա	այենք/DE .
+SFX PZ ա	այենց/DE .
+SFX PZ օ	ոյենք/DE .
+SFX PZ օ	ոյենց/DE .
+
+  # ablative 
+SFX AB Y 5
+SFX AB 	0	ից	.
+SFX AB 	0	իցս	.
+SFX AB 	0	իցդ	.
+SFX AB 	0	իցը	.
+SFX AB	0	իցն	.
+
+# ablative  իկ-կից
+SFX AX Y 55
+SFX AX  իկ	կից/DE .
+SFX AX  ուկ	կից/DE .
+SFX AX  ումբ	մբից/DE .
+SFX AX  ունդ	նդից/DE .
+SFX AX  ուրդ	րդից/DE .
+SFX AX  իզբ	զբից/DE .
+SFX AX  իթ		թից/DE .
+SFX AX  ուզ	զից/DE  .
+SFX AX  ուղթ	ղթից/DE  .
+SFX AX իժ		ժից/DE  .
+SFX AX իծ		ծից/DE .
+SFX AX ուծ		ծից/DE .
+SFX AX ուխ		խից/DE  .
+SFX AX ունկ		նկից/DE . 
+SFX AX ունձ		նձից/DE .
+SFX AX ուրձ		րձից/DE .
+SFX AX ինձ		նձից/DE .
+SFX AX իղ		ղից/DE .
+SFX AX իճ		ճից/DE .
+SFX AX ին		նից/DE .
+SFX AX ուն		նից/DE .
+SFX AX իշ		շից/DE .
+SFX AX ուշ		շից/DE .
+SFX AX ինչ		նչից/DE .
+SFX AX ունչ		նչից/DE .
+SFX AX ինջ		նջից/DE .
+SFX AX ունջ		նջից/DE .
+SFX AX իսպ		սպից/DE .
+SFX AX իս		սից/DE .
+SFX AX ուրջ		րջից/DE  .
+SFX AX իչ		չից/DE .
+SFX AX իջ		ջից/DE .
+SFX AX իռ		ռից/DE .
+SFX AX ուռ		ռից/DE .
+SFX AX իտ		տից/DE .
+SFX AX ուտ		տից/DE .
+SFX AX իւ		ուից/DE .
+SFX AX իր		րից/DE .
+SFX AX ուր		րից/DE .
+SFX AX իշտ		շտից/DE .
+SFX AX իստ		ստից/DE .
+SFX AX ուշտ		շտից/DE .
+SFX AX իրտ		րտից/DE .
+SFX AX ուրտ		րտից/DE .
+SFX AX ից		ցից/DE .
+SFX AX ուց		ցից/DE .
+SFX AX իտք		տքից/DE .
+SFX AX ուտք		տքից/DE .
+SFX AX իրք		րքից/DE .
+SFX AX ինք		նքից/DE .
+SFX AX ինդ		նդից/DE .
+SFX AX ուփ		փից/DE .
+SFX AX ուք		քից/DE . 
+SFX AX էջ		իջից/DE .
+SFX AX դուռ		դռնից/DE .
+
+
+# ablative ուանից
+SFX AA Y 5
+SFX AA 	0	ուանից	.
+SFX AA 	0	ուանիցս	.
+SFX AA 	0	ուանիցդ	.
+SFX AA 	0	ուանիցը	.
+SFX AA	0	ուանիցն	.
+
+# ablative  շաբթի
+#SFX AC Y 5
+#SFX AC 	ի	ուանից	.
+#SFX AC 	ի	ուանիցս	.
+#SFX AC 	ի	ուանիցդ	.
+#SFX AC 	ի	ուանիցը	.
+#SFX AC		ի	ուանիցն	.
+
+# ablative  ուց  ձիուց  եկեղեցուց
+SFX A2 Y 6
+SFX A2 	0	ուց	.
+SFX A2 	ի	ուց/DE	.
+SFX A2 	0	ուցս	.
+SFX A2 	0	ուցդ	.
+SFX A2 	0	ուցն	.
+SFX A2 	0	ուցը	.
+
+# ayi, oyi
+SFX A4 Y 3
+SFX A4  ա	այից/DE	.
+SFX A4  օ	ոյից/DE	.
+SFX A4  ո	ոյից/DE	.
+
+
+# genitive
+SFX GE Y 5
+SFX GE	0	ի	.
+SFX GE	0	իս	.
+SFX GE 	0	իդ	.
+SFX GE 	0	ին       .
+SFX GE  իկ	կի/DE	.
+
+# ձիու
+SFX G2 Y 5
+SFX G2	0	ու	.
+SFX G2	0	ուս	.
+SFX G2	0	ուդ	.
+SFX G2	0	ուն	.
+SFX G2	ի	ու/DE	.
+
+# միութեան, արեան
+SFX G1 Y 2
+SFX G1   իւն	եան/DE           .
+SFX G1	0	եան/DE		.
+
+# ayi, oyi
+SFX G4 Y 3
+SFX G4  ա	այի/DE	.
+SFX G4  օ	ոյի/DE	.
+SFX G4  ո	ոյի/DE	.
+
+# օր
+SFX G7 Y 3
+SFX G7   այր	օր/DEABINLO           .
+SFX G7   էր	օր/DEABINLO           .
+SFX G7 	ուստր	ստեր/DE   .
+
+
+# ոջ
+SFX G8 	Y 5
+SFX G8  0	ոջ/DEABINLO	.
+SFX G8 ոյր	րոջ/DEABINLO	.
+SFX G8	էր	իրոջ/DEABINLO	.
+SFX G8	ին	նոջ/DEABINLO	.
+SFX G8  ուր	րոջ/DEABINLO .
+
+# ման
+SFX G9 	Y 1
+SFX G9  ում	ման/DE	.	
+
+# ուայ
+SFX GA Y 4
+SFX GA	0	ուայ	.
+SFX GA	0	ուաս	.
+SFX GA	0	ուադ	.
+SFX GA	0	ուան/ABINLO	.
+
+# ուայ  շաբթի
+SFX GC Y 4
+SFX GC	ի	ուայ	.
+SFX GC	ի	ուաս	.
+SFX GC	ի	ուադ	.
+SFX GC	ի	ուան/ABINLO	.
+
+# ան  լեռան
+SFX GD Y 3
+SFX GD	0	ան/DE	.
+SFX GD	ուն	ան/DE	.
+SFX GD	ուկ	կան/DE	.
+
+#Gen.sg. vowel reductions
+SFX GX  Y   55 
+SFX GX  իկ	կի/DE
+SFX GX  ուկ	կի/DE
+SFX GX  ումբ	մբի/DE
+SFX GX  ունդ	նդի/DE
+SFX GX  ուրդ	րդի/DE
+SFX GX  իզբ	զբի/DE
+SFX GX  իթ		թի/DE
+SFX GX  ուզ	զի/DE  .
+SFX GX  ուղթ	ղթի/DE  .
+SFX GX իժ		ժի/DE  .
+SFX GX իծ		ծի/DE .
+SFX GX ուծ		ծի/DE .
+SFX GX ուխ		խի/DE  .
+SFX GX ունկ		նկի/DE . 
+SFX GX ունձ		նձի/DE .
+SFX GX ուրձ		րձի/DE .
+SFX GX ինձ		նձի/DE .
+SFX GX իղ		ղի/DE .
+SFX GX իճ		ճի/DE .
+SFX GX ին		նի/DE .
+SFX GX ուն		նի/DE .
+SFX GX իշ		շի/DE .
+SFX GX ուշ		շի/DE .
+SFX GX ինչ		նչի/DE .
+SFX GX ունչ		նչի/DE .
+SFX GX ինջ		նջի/DE .
+SFX GX ունջ		նջի/DE .
+SFX GX իսպ		սպի/DE .
+SFX GX իս		սի/DE .
+SFX GX ուրջ		րջի/DE  .
+SFX GX իչ		չի/DE .
+SFX GX իջ		ջի/DE .
+SFX GX իռ		ռի/DE .
+SFX GX ուռ		ռի/DE .
+SFX GX իտ		տի/DE .
+SFX GX ուտ		տի/DE .
+SFX GX իւ		ուի/DE .
+SFX GX իր		րի/DE .
+SFX GX ուր		րի/DE .
+SFX GX իշտ		շտի/DE .
+SFX GX իստ		ստի/DE .
+SFX GX ուշտ		շտի/DE .
+SFX GX իրտ		րտի/DE .
+SFX GX ուրտ		րտի/DE .
+SFX GX ից		ցի/DE .
+SFX GX ուց		ցի/DE .
+SFX GX իտք		տքի/DE .
+SFX GX ուտք		տքի/DE .
+SFX GX իրք		րքի/DE .
+SFX GX ինք		նքի/DE .
+SFX GX ինդ		նդի/DE .
+SFX GX ուփ		փի/DE .
+SFX GX ուք		քի/DE . 
+SFX GX էջ		իջի/DE . 
+SFX GX դուռ		դռան/DE .
+
+
+# instrumental
+SFX IN Y 5
+SFX IN   0     ով/DE          .
+SFX IN   0     ովս          .
+SFX IN   0     ովդ          .
+SFX IN   0     ովն          .
+SFX IN   0     ովը          .
+
+# instrumental իկ-կով
+SFX Ik Y 1
+SFX Ik	իկ	կով/DE	.
+
+# միութեամբ, արեամբ
+SFX I1 Y 1
+SFX I1   իւն	եամբ/DE          .
+
+# լուծմամբ
+SFX I3 Y 1
+SFX I3	ում	մամբ/DE	.
+
+# եկեղեցով
+SFX I2 Y 1
+SFX I2	ի	ով/DE	.
+
+# ayi, oyi
+SFX I4 Y 3
+SFX I4  ա	այով/DE	.
+SFX I4  օ	ոյով/DE	.
+SFX I4  ո	ոյով/DE	.
+
+
+# instrumental with vowel reduction
+SFX IX Y 55
+SFX IX  իկ	կով/DE .
+SFX IX  ուկ	կով/DE .
+SFX IX  ումբ	մբով/DE .
+SFX IX  ունդ	նդով/DE .
+SFX IX  ուրդ	րդով/DE .
+SFX IX  իզբ	զբով/DE .
+SFX IX  իթ		թով/DE .
+SFX IX  ուզ	զով/DE  .
+SFX IX  ուղթ	ղթով/DE  .
+SFX IX իժ		ժով/DE  .
+SFX IX իծ		ծով/DE .
+SFX IX ուծ		ծով/DE .
+SFX IX ուխ		խով/DE  .
+SFX IX ունկ		նկով/DE . 
+SFX IX ունձ		նձով/DE .
+SFX IX ուրձ		րձով/DE .
+SFX IX ինձ		նձով/DE .
+SFX IX իղ		ղով/DE .
+SFX IX իճ		ճով/DE .
+SFX IX ին		նով/DE .
+SFX IX ուն		նով/DE .
+SFX IX իշ		շով/DE .
+SFX IX ուշ		շով/DE .
+SFX IX ինչ		նչով/DE .
+SFX IX ունչ		նչով/DE .
+SFX IX ինջ		նջով/DE .
+SFX IX ունջ		նջով/DE .
+SFX IX իսպ		սպով/DE .
+SFX IX իս		սով/DE .
+SFX IX ուրջ		րջով/DE  .
+SFX IX իչ		չով/DE .
+SFX IX իջ		ջով/DE .
+SFX IX իռ		ռով/DE .
+SFX IX ուռ		ռով/DE .
+SFX IX իտ		տով/DE .
+SFX IX ուտ		տով/DE .
+SFX IX իւ		ուով/DE .
+SFX IX իր		րով/DE .
+SFX IX ուր		րով/DE .
+SFX IX իշտ		շտով/DE .
+SFX IX իստ		ստով/DE .
+SFX IX ուշտ		շտով/DE .
+SFX IX իրտ		րտով/DE .
+SFX IX ուրտ		րտով/DE .
+SFX IX ից		ցով/DE .
+SFX IX ուց		ցով/DE .
+SFX IX իտք		տքով/DE .
+SFX IX ուտք		տքով/DE .
+SFX IX իրք		րքով/DE .
+SFX IX ինք		նքով/DE .
+SFX IX ինդ		նդով/DE .
+SFX IX ուփ		փով/DE .
+SFX IX ուք		քով/DE .
+SFX IX էջ		իջով/DE .
+SFX IX դուռ		դռնով/DE  . 
+
+ 
+# locative
+SFX LO Y 5
+SFX LO 	0	ում/DE	.
+SFX LO 	0	ումս	.
+SFX LO 	0	ումդ	.
+SFX LO 	0	ումն	.
+SFX LO 	0	ումը	.
+
+# locative  եկեղեցում
+SFX L2 Y 1
+SFX L2 	ի	ում/DE	.
+
+# locative  with vowel reduction
+SFX LX Y 55
+SFX LX  իկ	կում/DE .
+SFX LX  ուկ	կում/DE .
+SFX LX  ումբ	մբում/DE .
+SFX LX  ունդ	նդում/DE .
+SFX LX  ուրդ	րդում/DE .
+SFX LX  իզբ	զբում/DE .
+SFX LX  իթ		թում/DE .
+SFX LX  ուզ	զում/DE  .
+SFX LX  ուղթ	ղթում/DE  .
+SFX LX իժ		ժում/DE  .
+SFX LX իծ		ծում/DE .
+SFX LX ուծ		ծում/DE .
+SFX LX ուխ		խում/DE  .
+SFX LX ունկ		նկում/DE . 
+SFX LX ունձ		նձում/DE .
+SFX LX ուրձ		րձում/DE .
+SFX LX ինձ		նձում/DE .
+SFX LX իղ		ղում/DE .
+SFX LX իճ		ճում/DE .
+SFX LX ին		նում/DE .
+SFX LX ուն		նում/DE .
+SFX LX իշ		շում/DE .
+SFX LX ուշ		շում/DE .
+SFX LX ինչ		նչում/DE .
+SFX LX ունչ		նչում/DE .
+SFX LX ինջ		նջում/DE .
+SFX LX ունջ		նջում/DE .
+SFX LX իսպ		սպում/DE .
+SFX LX իս		սում/DE .
+SFX LX ուրջ		րջում/DE  .
+SFX LX իչ		չում/DE .
+SFX LX իջ		ջում/DE .
+SFX LX իռ		ռում/DE .
+SFX LX ուռ		ռում/DE .
+SFX LX իտ		տում/DE .
+SFX LX ուտ		տում/DE .
+SFX LX իւ		ւում/DE .
+SFX LX իր		րում/DE .
+SFX LX ուր		րում/DE .
+SFX LX իշտ		շտում/DE .
+SFX LX իշտ		ստում/DE .
+SFX LX ուշտ		շտում/DE .
+SFX LX իրտ		րտում/DE .
+SFX LX ուրտ		րտում/DE .
+SFX LX ից		ցում/DE .
+SFX LX ուց		ցում/DE .
+SFX LX իտք		տքում/DE .
+SFX LX ուտք		տքում/DE .
+SFX LX իրք		րքում/DE .
+SFX LX ինք		նքում/DE .
+SFX LX ինդ		նդում/DE .
+SFX LX ուփ		փում/DE .
+SFX LX ուք		քում/DE .
+SFX LX էջ		իջում/DE . 
+SFX LX դուռ		դռնում/DE  .
+
+# ayi, oyi
+SFX L4 Y 3
+SFX L4  ա	այում/DE	.
+SFX L4  օ	ոյում/DE	.
+SFX L4  ո	ոյում/DE
+
+#present
+SFX	VA	Y 25
+SFX	VA	լ	մ/CHGU	.
+SFX	VA	լ	ս/CHGU	.
+SFX	VA	ել	ի/CHGU	.
+SFX	VA	ալ	այ/CHGU	.
+SFX	VA	լ	նք/CHGU	.
+SFX	VA	ալ	աք/CHGU	.
+SFX	VA	ել	էք/CHGU	.
+SFX	VA	լ	ն/CHGU	.
+SFX	VA	ել	էի/CHGU	.
+SFX	VA	ել	էիր/CHGU	.
+SFX	VA	ել	էր/CHGU	.
+SFX	VA	ել	էինք/CHGU	.
+SFX	VA	ել	էիք/CHGU	.
+SFX	VA	ել	էին/CHGU	.
+SFX	VA	ալ	այի/CHGU	.
+SFX	VA	ալ	այիր/CHGU	.
+SFX	VA	ալ	ար/CHGU	.
+SFX	VA	ալ	այինք/CHGU	.
+SFX	VA	ալ	այիք/CHGU	.
+SFX	VA	ալ	ային/CHGU	.
+SFX	VA	լ	լիս	.
+SFX	VA	լ	լիք/CHDEGEABINLOPP	.
+SFX	VA	լ	լի/CHDEGEABINLOPP	.
+SFX	VA	ել	ում	.
+SFX	VA	ալ	ում	.
+
+# ալ - ել  verb class specific
+SFX	VB	Y 	117
+SFX	VB	ել	ող/CHDEPPABGEINLO .
+SFX	VB	ալ	ացող/CHDEPPABGEINLO .
+SFX	VB	ել	ողներ/CHDEABGEINLO .
+SFX	VB	ալ	ացողներ/CHDEABGEINLO .
+SFX	VB	ել	ած/CHDEPPABGEINLO .
+SFX	VB	ել	ածներ/CHDEABGEINLO .
+SFX	VB	ալ	ացած/CHDEPPABGEINLO .
+SFX	VB	ալ	ացածներ/CHDEABGEINLO .
+SFX	VB	ել	ուող/CHDEPPABGEINLO .
+SFX	VB	լ	ցուող/CHDEPPABGEINLO .
+SFX	VB	ել	ուողներ/CHDEABGEINLO .
+SFX	VB	լ	ցուողներ/CHDEABGEINLO .
+SFX	VB	ել	ուած/CHDEPPABGEINLO .
+SFX	VB	ել	ուածներ/CHDEABGEINLO .
+SFX	VB	լ	ցուած/CHDEPPABGEINLO .
+SFX	VB	լ	ցուածներ/CHDEABGEINLO .
+SFX	VB	լ	ցնող/CHDEPPABGEINLO .
+SFX	VB	լ	ցնողներ/CHDEABGEINLO .
+SFX	VB	լ	ցրած/CHDEPPABGEINLO .
+SFX	VB	լ	ցրածներ/CHDEABGEINLO .	
+SFX	VB	ալ	ացել .
+SFX	VB	ել	եցուել/CHG2A2INLODE .
+SFX	VB	ալ	ացուել/CHG2A2INLODE .	
+SFX	VB	ել	եցրել .	
+SFX	VB	ալ	ացրել .
+SFX	VB	ել	իր .	
+SFX	VB	ալ	ա .
+SFX	VB	ել	եցէք .	
+SFX	VB	ալ	ացէք .
+SFX	VB	ել	ուիր .	
+SFX	VB	լ	ցուիր .
+SFX	VB	ել	ուեցէք .	
+SFX	VB	ալ	ացուեցէք .
+SFX	VB	ալ	ացրէք .
+SFX	VB	ել	եցրու .	
+SFX	VB	ալ	ացրու .
+SFX	VB	ել	եցրէք .	
+SFX	VB	ալ	ացրեցէք .
+SFX	VB	ալ	ացրէք .
+SFX	VB	լ	ցնել/CHG2A2INLODE	.
+SFX	VB	լ	ցներ	.
+SFX	VB	լ	ցնեմ/CHGU	.
+SFX	VB	լ	ցնես/CHGU	.
+SFX	VB	լ	ցնի/CHGU	.
+SFX	VB	լ	ցնենք/CHGU	.
+SFX	VB	լ	ցնէք/CHGU	.
+SFX	VB	լ	ցնեն/CHGU	.
+SFX	VB	լ	ցնէի/CHGU	.
+SFX	VB	լ	ցնէիր/CHGU	.
+SFX	VB	լ	ցնէր/CHGU	.
+SFX	VB	լ	ցնէինք/CHGU	.
+SFX	VB	լ	ցնէիք/CHGU	.
+SFX	VB	լ	ցնէին/CHGU	.
+SFX	VB	լ	ցրեցի/CHGU	.
+SFX	VB	լ	ցրեցիր/CHGU	.
+SFX	VB	լ	ցրեց/CHGU	.
+SFX	VB	լ	ցրեցինք/CHGU	.
+SFX	VB	լ	ցրեցիք/CHGU	.
+SFX	VB	լ	ցրեցին/CHGU	.
+SFX	VB	լ	ցրի/CHGU	.
+SFX	VB	լ	ցրիր/CHGU	.
+SFX	VB	լ	ցրինք/CHGU	.
+SFX	VB	լ	ցրիք/CHGU	.
+SFX	VB	լ	ցրին/CHGU	.
+SFX	VB	լ	ցնելիս	.
+SFX	VB	ել	ուելիս	.
+SFX	VB	լ	ցուելիս	.
+SFX	VB	լ	լիս	.
+SFX	VB	լ	ցւում	.
+SFX	VB	ել	ւում	.
+SFX	VB	լ	ցնում	.
+SFX	VB	լ	ր	.
+SFX	VB	ել	ուել/CHG2A2INLODE	.
+SFX	VB	ել	ուեմ/CHGU	.
+SFX	VB	ել	ուես/CHGU	.
+SFX	VB	ել	ուի/CHGU	.
+SFX	VB	ել	ուենք/CHGU	.
+SFX	VB	ել	ուէք/CHGU	.
+SFX	VB	ել	ուեն/CHGU	.
+SFX	VB	լ	ցուեր .
+SFX	VB	լ	ցուել/CHG2A2INLODE	.
+SFX	VB	լ	ցուեմ/CHGU	.
+SFX	VB	լ	ցուես/CHGU	.
+SFX	VB	լ	ցուի/CHGU	.
+SFX	VB	լ	ցուենք/CHGU	.
+SFX	VB	լ	ցուէք/CHGU	.
+SFX	VB	լ	ցուեն/CHGU	.
+SFX	VB	ել	ուէի/CHG2A2INLODE	.
+SFX	VB	ել	ուէիր/CHGU	.
+SFX	VB	ել	ուէր/CHGU	.
+SFX	VB	ել	ուէինք/CHGU	.
+SFX	VB	ել	ուէիք/CHGU	.
+SFX	VB	ել	ուէին/CHGU	.
+SFX	VB	լ	ցուէի/CHGU	.
+SFX	VB	լ	ցուէիր/CHGU	.
+SFX	VB	լ	ցուէր/CHGU	.
+SFX	VB	լ	ցուէինք/CHGU	.
+SFX	VB	լ	ցուէիք/CHGU	.
+SFX	VB	լ	ցուէին/CHGU	.
+SFX	VB	լ	ցի/CH	.
+SFX	VB	լ	ցիր/CH	.
+SFX	VB	լ	ց/CH .
+SFX	VB	լ	ցինք/CH .
+SFX	VB	լ	ցիք/CH .
+SFX	VB	լ	ցին/CH .
+SFX	VB	ել	ուեցի/CH	.
+SFX	VB	ել	ուեցիր/CH	.
+SFX	VB	ել	ուեց/CH .
+SFX	VB	ել	ուեցինք/CH .
+SFX	VB	ել	ուեցիք/CH .
+SFX	VB	ել	ուեցին/CH .
+SFX	VB	լ	ցուեցի/CH	.
+SFX	VB	լ	ցուեցիր/CH	.
+SFX	VB	լ	ցուեց/CH .
+SFX	VB	լ	ցուեցինք/CH .
+SFX	VB	լ	ցուեցիք/CH .
+SFX	VB	լ	ցուեցին/CH .
+
+
+#nal ուշացայ մօտեցայ
+SFX	VC	Y	86
+SFX	VC	նալ	ցայ/CH	.
+SFX	VC	նալ	ցար/CH	.
+SFX	VC	նալ	ցաւ/CH .
+SFX	VC	նալ	ցանք/CH .
+SFX	VC	նալ	ցաք/CH .
+SFX	VC	նալ	ցան/CH .
+SFX	VC	նալ	ցուել/CH	.
+SFX	VC	նալ	ցուեմ/CHGU	.
+SFX	VC	նալ	ցուես/CHGU	.
+SFX	VC	նալ	ցուի/CHGU	.
+SFX	VC	նալ	ցուենք/CHGU	.
+SFX	VC	նալ	ցուէք/CHGU	.
+SFX	VC	նալ	ցուեն/CHGU	.
+SFX	VC	նալ	ցող/CHDEPPABGEINLO .
+SFX	VC	նալ	ցողներ/CHDEABGEINLO .
+SFX	VC	նալ	ցած/CHDEPPABGEINLO .
+SFX	VC	նալ	ցածներ/CHDEABGEINLO .
+SFX	VC	նալ	ցուող/CHDEPPABGEINLO .
+SFX	VC	նալ	ցուողներ/CHDEABGEINLO .
+SFX	VC	նալ	ցուած/CHDEPPABGEINLO .
+SFX	VC	նալ	ցուածներ/CHDEABGEINLO .
+SFX	VC	նալ	ցնող/CHDEPPABGEINLO .
+SFX	VC	նալ	ցնողներ/CHDEABGEINLO .
+SFX	VC	նալ	ցրած/CHDEPPABGEINLO .
+SFX	VC	նալ	ցրածներ/CHDEABGEINLO .	
+SFX	VC	նալ	ցել .
+SFX	VC	նալ	ցուել/CHG2A2INLODE .	
+SFX	VC	նալ	ցրել .
+SFX	VC	նալ	ցիր .	
+SFX	VC	նալ	նա .	
+SFX	VC	նալ	նար .
+SFX	VC	նալ	ցէք .	
+SFX	VC	նալ	ցուիր .	
+SFX	VC	նալ	ցուեցէք .
+SFX	VC	նալ	ցրէք .
+SFX	VC	նալ	ցրու .
+SFX	VC	նալ	ցրեցէք .
+SFX	VC	նալ	ցնել/CHG2A2INLODE	.
+SFX	VC	նալ	ցներ	.
+SFX	VC	նալ	ցնեմ/CHGU	.
+SFX	VC	նալ	ցնես/CHGU	.
+SFX	VC	նալ	ցնի/CHGU	.
+SFX	VC	նալ	ցնենք/CHGU	.
+SFX	VC	նալ	ցնէք/CHGU	.
+SFX	VC	նալ	ցնեն/CHGU	.
+SFX	VC	նալ	ցնէի/CHGU	.
+SFX	VC	նալ	ցնէիր/CHGU	.
+SFX	VC	նալ	ցնէր/CHGU	.
+SFX	VC	նալ	ցնէինք/CHGU	.
+SFX	VC	նալ	ցնէիք/CHGU	.
+SFX	VC	նալ	ցնէին/CHGU	.
+SFX	VC	նալ	ցրեցի/CHGU	.
+SFX	VC	նալ	ցրեցիր/CHGU	.
+SFX	VC	նալ	ցրեց/CHGU	.
+SFX	VC	նալ	ցրեցինք/CHGU	.
+SFX	VC	նալ	ցրեցիք/CHGU	.
+SFX	VC	նալ	ցրեցին/CHGU	.
+SFX	VC	նալ	ցրի/CHGU	.
+SFX	VC	նալ	ցրիր/CHGU	.
+SFX	VC	նալ	ցրինք/CHGU	.
+SFX	VC	նալ	ցրիք/CHGU	.
+SFX	VC	նալ	ցրին/CHGU	.
+SFX	VC	նալ	ցնելիս	.
+SFX	VC	նալ	ցուելիս	.
+SFX	VC	նալ	ցւում	.
+SFX	VC	նալ	ցնում	.
+SFX	VC	նալ	ցուեր .
+SFX	VC	նալ	ցուել/CHG2A2INLODE	.
+SFX	VC	նալ	ցուեմ/CHGU	.
+SFX	VC	նալ	ցուես/CHGU	.
+SFX	VC	նալ	ցուի/CHGU	.
+SFX	VC	նալ	ցուենք/CHGU	.
+SFX	VC	նալ	ցուէք/CHGU	.
+SFX	VC	նալ	ցուեն/CHGU	.
+SFX	VC	նալ	ցուէի/CHGU	.
+SFX	VC	նալ	ցուէիր/CHGU	.
+SFX	VC	նալ	ցուէր/CHGU	.
+SFX	VC	նալ	ցուէինք/CHGU	.
+SFX	VC	նալ	ցուէիք/CHGU	.
+SFX	VC	նալ	ցուէին/CHGU	.
+SFX	VC	նալ	ցուեցի/CH	.
+SFX	VC	նալ	ցուեցիր/CH	.
+SFX	VC	նալ	ցուեց/CH .
+SFX	VC	նալ	ցուեցինք/CH .
+SFX	VC	նալ	ցուեցիք/CH .
+SFX	VC	նալ	ցուեցին/CH .
+
+
+#nel qel
+SFX	VD	Y	165
+SFX	VD	նել	այ/CH	.
+SFX	VD	նել	ար/CH	.
+SFX	VD	նել	աւ/CH .
+SFX	VD	նել	անք/CH .
+SFX	VD	նել	աք/CH .
+SFX	VD	նել	ան/CH .
+SFX	VD	նել	ած/CHABGEINLODEPP .
+SFX	VD	նել	ածներ/CHABGEINLODE .
+SFX	VD	չել	այ/CH	.
+SFX	VD	չել	ար/CH	.
+SFX	VD	չել	աւ/CH .
+SFX	VD	չել	անք/CH .
+SFX	VD	չել	աք/CH .
+SFX	VD	չել	ան/CH .
+SFX	VD	չել	ած/CHABGEINLODEPP .
+SFX	VD	չել	ածներ/CHABGEINLODE .
+SFX	VD	ել	ող/CHABGEINLODEPP .
+SFX	VD	ել	ողներ/CHABGEINLODE .
+SFX	VD	նել	ցուող/CHABGEINLODEPP .	
+SFX	VD	նել	ցուողներ/CHABGEINLODE .
+SFX	VD	չել	ցուող/CHABGEINLODEPP .	
+SFX	VD	չել	ցուողներ/CHABGEINLODE .
+SFX	VD	չել	ցուած/CHABGEINLODEPP .
+SFX	VD	չել	ցուածներ/CHABGEINLODE .
+SFX	VD	նել	ցուած/CHABGEINLODEPP .
+SFX	VD	նել	ցուածներ/CHABGEINLODE .
+SFX	VD	չել	ցրած/CHABGEINLODEPP .
+SFX	VD	չել	ցրածներ/CHABGEINLODE .
+SFX	VD	նել	ցրած/CHABGEINLODEPP .
+SFX	VD	նել	ցրածներ/CHABGEINLODE .
+SFX	VD	նել	ել .	
+SFX	VD	չել	ել .
+SFX	VD	նել	ցուել/CHG2A2INLODE .	
+SFX	VD	չել	ցուել/CHG2A2INLODE .
+SFX	VD	նել	ցրել .	
+SFX	VD	չել	ցրել .
+SFX	VD	նել	իր .	
+SFX	VD	չել	իր .
+SFX	VD	նել	էք .	
+SFX	VD	չել	էք .
+SFX	VD	ել	ուել/CHG2A2INLODE	.
+SFX	VD	ել	ուեմ/CHGU	.
+SFX	VD	ել	ուես/CHGU	.
+SFX	VD	ել	ուի/CHGU	.
+SFX	VD	ել	ուենք/CHGU	.
+SFX	VD	ել	ուէք/CHGU	.
+SFX	VD	ել	ուեն/CHGU	.
+SFX	VD	նել	ցնող/CHDEPPABGEINLO .
+SFX	VD	նել	ցնողներ/CHDEABGEINLO .
+SFX	VD	նել	ցրած/CHDEPPABGEINLO .
+SFX	VD	նել	ցրածներ/CHDEABGEINLO .	
+SFX	VD	նել	ցուել/CHG2A2INLODE .	
+SFX	VD	նել	ցուիր .	
+SFX	VD	նել	ցուեցէք .
+SFX	VD	նել	ցրէք .
+SFX	VD	նել	ցրու .
+SFX	VD	նել	ցրեցէք .
+SFX	VD	նել	ցնել/CHG2A2INLODE	.
+SFX	VD	նել	ցներ	.
+SFX	VD	նել	ցնեմ/CHGU	.
+SFX	VD	նել	ցնես/CHGU	.
+SFX	VD	նել	ցնի/CHGU	.
+SFX	VD	նել	ցնենք/CHGU	.
+SFX	VD	նել	ցնէք/CHGU	.
+SFX	VD	նել	ցնեն/CHGU	.
+SFX	VD	նել	ցնէի/CHGU	.
+SFX	VD	նել	ցնէիր/CHGU	.
+SFX	VD	նել	ցնէր/CHGU	.
+SFX	VD	նել	ցնէինք/CHGU	.
+SFX	VD	նել	ցնէիք/CHGU	.
+SFX	VD	նել	ցնէին/CHGU	.
+SFX	VD	նել	ցրեցի/CHGU	.
+SFX	VD	նել	ցրեցիր/CHGU	.
+SFX	VD	նել	ցրեց/CHGU	.
+SFX	VD	նել	ցրեցինք/CHGU	.
+SFX	VD	նել	ցրեցիք/CHGU	.
+SFX	VD	նել	ցրեցին/CHGU	.
+SFX	VD	նել	ցրի/CHGU	.
+SFX	VD	նել	ցրիր/CHGU	.
+SFX	VD	նել	ցրինք/CHGU	.
+SFX	VD	նել	ցրիք/CHGU	.
+SFX	VD	նել	ցրին/CHGU	.
+SFX	VD	նել	ցնելիս	.
+SFX	VD	նել	ցուելիս	.
+SFX	VD	նել	ցւում	.
+SFX	VD	նել	ցնում	.
+SFX	VD	նել	ցուեր .
+SFX	VD	նել	ցուել/CHG2A2INLODE	.
+SFX	VD	նել	ցուեմ/CHGU	.
+SFX	VD	նել	ցուես/CHGU	.
+SFX	VD	նել	ցուի/CHGU	.
+SFX	VD	նել	ցուենք/CHGU	.
+SFX	VD	նել	ցուէք/CHGU	.
+SFX	VD	նել	ցուեն/CHGU	.
+SFX	VD	նել	ցուէի/CHGU	.
+SFX	VD	նել	ցուէիր/CHGU	.
+SFX	VD	նել	ցուէր/CHGU	.
+SFX	VD	նել	ցուէինք/CHGU	.
+SFX	VD	նել	ցուէիք/CHGU	.
+SFX	VD	նել	ցուէին/CHGU	.
+SFX	VD	նել	ցուեցի/CH	.
+SFX	VD	նել	ցուեցիր/CH	.
+SFX	VD	նել	ցուեց/CH .
+SFX	VD	նել	ցուեցինք/CH .
+SFX	VD	նել	ցուեցիք/CH .
+SFX	VD	նել	ցուեցին/CH .
+SFX	VD	չել	ցնող/CHDEPPABGEINLO .
+SFX	VD	չել	ցնողներ/CHDEABGEINLO .
+SFX	VD	չել	ցրած/CHDEPPABGEINLO .
+SFX	VD	չել	ցրածներ/CHDEABGEINLO .	
+SFX	VD	չել	ցուել/CHG2A2INLODE .	
+SFX	VD	չել	ցուիր .	
+SFX	VD	չել	ցուեցէք .
+SFX	VD	չել	ցրէք .
+SFX	VD	չել	ցրու .
+SFX	VD	չել	ցրեցէք .
+SFX	VD	չել	ցնել/CHG2A2INLODE	.
+SFX	VD	չել	ցներ	.
+SFX	VD	չել	ցնեմ/CHGU	.
+SFX	VD	չել	ցնես/CHGU	.
+SFX	VD	չել	ցնի/CHGU	.
+SFX	VD	չել	ցնենք/CHGU	.
+SFX	VD	չել	ցնէք/CHGU	.
+SFX	VD	չել	ցնեն/CHGU	.
+SFX	VD	չել	ցնէի/CHGU	.
+SFX	VD	չել	ցնէիր/CHGU	.
+SFX	VD	չել	ցնէր/CHGU	.
+SFX	VD	չել	ցնէինք/CHGU	.
+SFX	VD	չել	ցնէիք/CHGU	.
+SFX	VD	չել	ցնէին/CHGU	.
+SFX	VD	չել	ցրեցի/CHGU	.
+SFX	VD	չել	ցրեցիր/CHGU	.
+SFX	VD	չել	ցրեց/CHGU	.
+SFX	VD	չել	ցրեցինք/CHGU	.
+SFX	VD	չել	ցրեցիք/CHGU	.
+SFX	VD	չել	ցրեցին/CHGU	.
+SFX	VD	չել	ցրի/CHGU	.
+SFX	VD	չել	ցրիր/CHGU	.
+SFX	VD	չել	ցրինք/CHGU	.
+SFX	VD	չել	ցրիք/CHGU	.
+SFX	VD	չել	ցրին/CHGU	.
+SFX	VD	չել	ցնելիս	.
+SFX	VD	չել	ցուելիս	.
+SFX	VD	չել	ցւում	.
+SFX	VD	չել	ցնում	.
+SFX	VD	չել	ցուեր .
+SFX	VD	չել	ցուել/CHG2A2INLODE	.
+SFX	VD	չել	ցուեմ/CHGU	.
+SFX	VD	չել	ցուես/CHGU	.
+SFX	VD	չել	ցուի/CHGU	.
+SFX	VD	չել	ցուենք/CHGU	.
+SFX	VD	չել	ցուէք/CHGU	.
+SFX	VD	չել	ցուեն/CHGU	.
+SFX	VD	չել	ցուէի/CHGU	.
+SFX	VD	չել	ցուէիր/CHGU	.
+SFX	VD	չել	ցուէր/CHGU	.
+SFX	VD	չել	ցուէինք/CHGU	.
+SFX	VD	չել	ցուէիք/CHGU	.
+SFX	VD	չել	ցուէին/CHGU	.
+SFX	VD	չել	ցուեցի/CH	.
+SFX	VD	չել	ցուեցիր/CH	.
+SFX	VD	չել	ցուեց/CH .
+SFX	VD	չել	ցուեցինք/CH .
+SFX	VD	չել	ցուեցիք/CH .
+SFX	VD	չել	ցուեցին/CH .
+
+
+
+#tsnel վերցնել
+SFX	VE	Y	54
+SFX	VE	նել	րի/CH	.
+SFX	VE	նել	րիր/CH	.
+SFX	VE	նել	րեց/CH .
+SFX	VE	նել	րինք/CH .
+SFX	VE	նել	րիք/CH .
+SFX	VE	նել	րին/CH .
+SFX	VE	նել	րեցի/CH	.
+SFX	VE	նել	րեցիր/CH	.
+SFX	VE	նել	րեցինք/CH .
+SFX	VE	նել	րեցիք/CH .
+SFX	VE	նել	րեցին/CH .
+SFX	VE	նել	ուել/CH	.
+SFX	VE	նել	ուեմ/CHGU	.
+SFX	VE	նել	ուես/CHGU	.
+SFX	VE	նել	ուի/CHGU	.
+SFX	VE	նել	ուենք/CHGU	.
+SFX	VE	նել	ուէք/CHGU	.
+SFX	VE	նել	ուեն/CHGU	.
+SFX	VE	նել	ուել/CHG2A2INLODE	.
+SFX	VE	նել	ուէի/CHGU	.
+SFX	VE	նել	ուէիր/CHGU	.
+SFX	VE	նել	ուէր/CHGU	.
+SFX	VE	նել	ուէինք/CHGU	.
+SFX	VE	նել	ուէիք/CHGU	.
+SFX	VE	նել	ուէին/CHGU	.
+SFX	VE	նել	ուէի/CHGU	.
+SFX	VE	նել	ուէիր/CHGU	.
+SFX	VE	նել	ուէր/CHGU	.
+SFX	VE	նել	ուէինք/CHGU	.
+SFX	VE	նել	ուէիք/CHGU	.
+SFX	VE	նել	ուէին/CHGU	.
+SFX	VE	նել	ուեցի/CHGU	.
+SFX	VE	նել	ուեցիր/CHGU	.
+SFX	VE	նել	ուեց/CHGU	.
+SFX	VE	նել	ուեցինք/CHGU	.
+SFX	VE	նել	ուեցիք/CHGU	.
+SFX	VE	նել	ուեցին/CHGU	.
+SFX	VE	ել	ող/CHDEPPABGEINLO .
+SFX	VE	ել	ողներ/CHDEABGEINLO .
+SFX	VE	նել	րած/CHDEPPABGEINLO .
+SFX	VE	նել	րածներ/CHDEABGEINLO .
+SFX	VE	նել	ուող/CHDEPPABGEINLO .
+SFX	VE	նել	ուողներ/CHDEABGEINLO .
+SFX	VE	նել	ուած/CHDEPPABGEINLO .
+SFX	VE	նել	ուածներ/CHDEABGEINLO .	
+SFX	VE	նել	րել .
+SFX	VE	նել	րու .	
+SFX	VE	ել	իր .	
+SFX	VE	նել	րէք .	
+SFX	VE	նել	ուիր .	
+SFX	VE	նել	ուեցէք .
+SFX	VE	նել	ուելիս	.
+SFX	VE	նել	ւում	.
+SFX	VE	նել	ուեր .
+
+
+	
+REP 35
+REP	ե	է
+REP 	է	ե
+REP	կ	կ'
+REP	կ	կը_
+REP	կ'	կը_
+REP	ո	օ
+REP	օ	ո
+REP	հ	յ
+REP	յ	հ
+REP	եք	էք
+REP	յու	իւ
+REP	ույ	ոյ
+REP	եի	էի
+REP	յո	եօ
+REP	յա	եա
+REP	վ	ու
+REP	վ	ւ
+REP	ա	այ
+REP	ո	ոյ
+REP	ր	ռ
+REP	ռ	ր
+REP	եու	էու
+REP	եա	էա
+REP	եր ներ
+REP	ներ եր
+REP	նդեր	ունդներ
+REP	մբեր ումբներ
+REP	նդներ ունդներ
+REP	հրդեր հուրդներ
+REP	նկեր ունկեր
+REP	բերէ բեր
+REP	ռեր իռներ
+REP	իծներ ծեր
+REP	վտեր վիտներ
+REP	պտեր պիտներ
+
