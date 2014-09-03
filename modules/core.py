@@ -3290,7 +3290,10 @@ class CherryTree:
 
     def embfile_open(self, *args):
         """Embedded File Open"""
-        filename = str(self.treestore[self.curr_tree_iter][3])+cons.CHAR_MINUS+self.curr_file_anchor.pixbuf.filename
+        if not hasattr(self.curr_file_anchor.pixbuf, "id"):
+            self.boss.embfiles_id += 1
+            self.curr_file_anchor.pixbuf.id = self.boss.embfiles_id
+        filename = str(self.treestore[self.curr_tree_iter][3])+cons.CHAR_MINUS+str(self.curr_file_anchor.pixbuf.id)+cons.CHAR_MINUS+str(os.getpid())+cons.CHAR_MINUS+self.curr_file_anchor.pixbuf.filename
         filepath = os.path.join(cons.TMP_FOLDER, filename)
         if not os.path.isdir(cons.TMP_FOLDER): os.makedirs(cons.TMP_FOLDER)
         with open(filepath, 'wb') as fd:
@@ -3332,6 +3335,21 @@ class CherryTree:
             if self.embfiles_opened[filepath] != os.path.getmtime(filepath):
                 self.embfiles_opened[filepath] = os.path.getmtime(filepath)
                 print "embreload", filepath
+                data_vec = os.path.basename(filepath).split(cons.CHAR_MINUS)
+                node_id = int(data_vec[0])
+                embfile_id = int(data_vec[1])
+                tree_iter = self.get_tree_iter_from_node_id(node_id)
+                if not tree_iter: continue
+                self.treeview_safe_set_cursor(tree_iter)
+                start_iter = self.curr_buffer.get_start_iter()
+                keep_going = True
+                while keep_going:
+                    anchor = start_iter.get_child_anchor()
+                    if anchor and "pixbuf" in dir(anchor) and "id" in dir(anchor.pixbuf) and anchor.pixbuf.id == embfile_id:
+                        with open(filepath, 'rb') as fd:
+                            anchor.pixbuf.embfile = fd.read()
+                        self.update_window_save_needed("nbuf")
+                    keep_going = start_iter.forward_char()
         return True # this way we keep the timer alive
 
     def toc_insert(self, *args):
