@@ -51,6 +51,7 @@ class CherryTreeHandler():
     def __init__(self, args, lang_str):
         self.lang_str = lang_str
         self.running_windows = []
+        self.embfiles_id = 0
         self.systray_active = False
         self.window_open_new(filepath_fix(args.filepath), args.node, True, True if args.filepath else False)
         self.server_check_timer_id = gobject.timeout_add(1000, self.server_periodic_check) # 1 sec
