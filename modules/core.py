@@ -1260,7 +1260,7 @@ class CherryTree:
             self.treeview.set_model(self.treestore)
             if self.user_active: config.set_tree_expanded_collapsed_string(self)
             self.treeview.set_cursor(self.treestore.get_path(self.curr_tree_iter))
-            self.treeview.scroll_to_point(cell_area.width/2, cell_area.height/2)
+            self.treeview.scroll_to_point(0, cell_area.height/2)
 
     def change_icon_iter(self, tree_iter):
         """Changing all icons type - iter"""
