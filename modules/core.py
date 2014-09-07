@@ -185,6 +185,7 @@ class CherryTree:
         self.cursor_key_press = None
         self.autosave_timer_id = None
         self.spell_check_init = False
+        self.writing_to_disk = False
         self.mod_time_sentinel_id = None
         self.mod_time_val = 0
         self.prefpage = 0
@@ -1175,7 +1176,7 @@ class CherryTree:
         """Iteration of the Modification Time Sentinel"""
         if self.file_name and self.mod_time_val:
             file_path = os.path.join(self.file_dir, self.file_name)
-            if os.path.isfile(file_path):
+            if os.path.isfile(file_path) and not self.writing_to_disk:
                 read_mod_time = os.path.getmtime(file_path)
                 #print "former modified: %s (%s)" % (time.ctime(self.mod_time_val), self.mod_time_val)
                 #print "last modified: %s (%s)" % (time.ctime(read_mod_time), read_mod_time)
@@ -1489,10 +1490,12 @@ class CherryTree:
         if self.backup_copy: self.backups_handling(filepath)
         # if the filename is protected, we use unprotected type before compress and protect
         try:
+            self.writing_to_disk = True
             self.statusbar.push(self.statusbar_context_id, _("Writing to Disk..."))
             while gtk.events_pending(): gtk.main_iteration()
             self.file_write_low_level(filepath, xml_string, first_write)
             self.statusbar.pop(self.statusbar_context_id)
+            self.writing_to_disk = False
             return True
         except:
             if not os.path.isfile(filepath) and os.path.isfile(filepath + cons.CHAR_TILDE):
@@ -1502,6 +1505,7 @@ class CherryTree:
                     subprocess.call("mv %s~ %s" % (re.escape(filepath), re.escape(filepath)), shell=True)
             support.dialog_error("%s write failed - writing to disk" % filepath, self.window)
             raise
+            self.writing_to_disk = False
             return False
 
     def file_open(self, *args):
