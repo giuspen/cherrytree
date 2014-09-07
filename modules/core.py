@@ -467,9 +467,12 @@ class CherryTree:
         if not self.curr_tree_iter: return
         keyname = gtk.gdk.keyval_name(event.keyval)
         if event.state & gtk.gdk.MOD1_MASK:
-            if keyname == "Left": self.go_back()
-            elif keyname == "Right": self.go_forward()
-            return True
+            if keyname == "Left":
+                self.go_back()
+                return True
+            elif keyname == "Right":
+                self.go_forward()
+                return True
         elif (event.state & gtk.gdk.CONTROL_MASK):
             if keyname == "Tab":
                 self.toggle_tree_text()
@@ -1180,10 +1183,13 @@ class CherryTree:
                 read_mod_time = os.path.getmtime(file_path)
                 #print "former modified: %s (%s)" % (time.ctime(self.mod_time_val), self.mod_time_val)
                 #print "last modified: %s (%s)" % (time.ctime(read_mod_time), read_mod_time)
-                if read_mod_time != self.mod_time_val:
-                    self.filepath_open(file_path, force_reset=True)
-                    self.statusbar.pop(self.statusbar_context_id)
-                    self.statusbar.push(self.statusbar_context_id, _("The Document was Reloaded After External Update to CT* File"))
+                if read_mod_time > self.mod_time_val:
+                    curr_sys_time = time.time()
+                    print curr_sys_time, read_mod_time, curr_sys_time-read_mod_time
+                    if curr_sys_time - read_mod_time > 2:
+                        self.filepath_open(file_path, force_reset=True)
+                        self.statusbar.pop(self.statusbar_context_id)
+                        self.statusbar.push(self.statusbar_context_id, _("The Document was Reloaded After External Update to CT* File"))
         return True # this way we keep the timer alive
 
     def modification_time_update_value(self, mtime):
