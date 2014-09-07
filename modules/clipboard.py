@@ -79,16 +79,13 @@ class ClipboardHandler:
         """Write the Selected Content to the Clipboard"""
         iter_sel_start, iter_sel_end = text_buffer.get_selection_bounds()
         num_chars = iter_sel_end.get_offset() - iter_sel_start.get_offset()
+        pixbuf_target = None
         if num_chars == 1:
             anchor = iter_sel_start.get_child_anchor()
             if anchor:
                 anchor_dir = dir(anchor)
                 if "pixbuf" in anchor_dir:
-                    self.clipboard.set_with_data([(t, 0, 0) for t in TARGETS_IMAGES],
-                                                 self.get_func,
-                                                 self.clear_func,
-                                                 anchor.pixbuf)
-                    return
+                    pixbuf_target = anchor.pixbuf
                 elif "liststore" in anchor_dir:
                     table_dict = self.dad.state_machine.table_to_dict(anchor)
                     html_text = self.dad.html_handler.table_export_to_html(table_dict)
@@ -112,10 +109,12 @@ class ClipboardHandler:
             txt_handler = exports.Export2Txt(self.dad)
             plain_text = txt_handler.node_export_to_txt(text_buffer, "", sel_range=[iter_sel_start.get_offset(), iter_sel_end.get_offset()])
             rich_text = self.rich_text_get_from_text_buffer_selection(text_buffer, iter_sel_start, iter_sel_end)
-            self.clipboard.set_with_data([(t, 0, 0) for t in (TARGET_CTD_PLAIN_TEXT, TARGET_CTD_RICH_TEXT, TARGETS_HTML[0])],
-                                         self.get_func,
-                                         self.clear_func,
-                                         (plain_text, rich_text, html_text))
+            targets_vector = [TARGET_CTD_PLAIN_TEXT, TARGET_CTD_RICH_TEXT, TARGETS_HTML[0]]
+            if pixbuf_target: targets_vector.append(TARGETS_IMAGES[0])
+            self.clipboard.set_with_data([(t, 0, 0) for t in targets_vector],
+                self.get_func,
+                self.clear_func,
+                (plain_text, rich_text, html_text, pixbuf_target))
         else:
             plain_text = text_buffer.get_text(iter_sel_start, iter_sel_end)
             self.clipboard.set_with_data([(t, 0, 0) for t in (TARGET_CTD_PLAIN_TEXT, TARGETS_HTML[0])],
@@ -137,7 +136,7 @@ class ClipboardHandler:
             dom = xml.dom.minidom.Document()
             self.dad.xml_handler.table_element_to_xml([0, data[0], cons.TAG_PROP_LEFT], dom, dom)
             selectiondata.set('UTF8_STRING', 8, dom.toxml())
-        elif target in TARGETS_IMAGES: selectiondata.set_pixbuf(data)
+        elif target == TARGETS_IMAGES[0]: selectiondata.set_pixbuf(data[3])
 
     def clear_func(self, clipboard, data):
         """Connected with clipboard.set_with_data"""
