@@ -3683,6 +3683,22 @@ class CherryTree:
         self.curr_buffer.delete_selection(True, self.sourceview.get_editable())
         self.sourceview.grab_focus()
 
+    def anchor_cut(self, *args):
+        """Cut Anchor"""
+        self.object_set_selection(self.curr_anchor_anchor)
+        self.sourceview.emit("cut-clipboard")
+
+    def anchor_copy(self, *args):
+        """Copy Anchor"""
+        self.object_set_selection(self.curr_anchor_anchor)
+        self.sourceview.emit("copy-clipboard")
+
+    def anchor_delete(self, *args):
+        """Delete Anchor"""
+        self.object_set_selection(self.curr_anchor_anchor)
+        self.curr_buffer.delete_selection(True, self.sourceview.get_editable())
+        self.sourceview.grab_focus()
+
     def on_mouse_button_clicked_image(self, widget, event, anchor):
         """Catches mouse buttons clicks upon images"""
         self.curr_image_anchor = anchor
