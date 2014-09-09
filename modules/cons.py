@@ -496,6 +496,10 @@ UI_INFO = """
     </popup>
 
     <popup name='EmbFileMenu'>
+        <menuitem action='CutEmbFile'/>
+        <menuitem action='CopyEmbFile'/>
+        <menuitem action='DeleteEmbFile'/>
+        <separator/>
         <menuitem action='EmbFileOpen'/>
         <menuitem action='EmbFileSave'/>
     </popup>
@@ -546,6 +550,9 @@ def get_entries(inst):
     ( "InsertTOC", "index", _("Insert T_OC"), None, _("Insert Table of Contents"), inst.toc_insert),
     ( "HandleAnchor", "anchor_insert", _("Insert _Anchor"), "<control><alt>A", _("Insert an Anchor"), inst.anchor_handle),
     ( "EditAnchor", "anchor_edit", _("Edit _Anchor"), None, _("Edit the Underlying Anchor"), inst.anchor_edit),
+    ( "CutEmbFile", "edit-cut", _("C_ut Embedded File"), None, _("Cut the Selected Embedded File"), inst.embfile_cut),
+    ( "CopyEmbFile", "edit-copy", _("_Copy Embedded File"), None, _("Copy the Selected Embedded File"), inst.embfile_copy),
+    ( "DeleteEmbFile", "edit-delete", _("_Delete Embedded File"), None, _("Delete the Selected Embedded File"), inst.embfile_delete),
     ( "EmbFileSave", "gtk-save-as", _("Save _As"), None, _("Save File As"), inst.embfile_save),
     ( "EmbFileOpen", "gtk-open", _("_Open File"), None, _("Open Embedded File"), inst.embfile_open),
     ( "HandleImage", "image_insert", _("Insert I_mage"), "<control><alt>I", _("Insert an Image"), inst.image_handle),
