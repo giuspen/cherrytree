@@ -492,6 +492,10 @@ UI_INFO = """
     </popup>
 
     <popup name='AnchorMenu'>
+        <menuitem action='CutAnchor'/>
+        <menuitem action='CopyAnchor'/>
+        <menuitem action='DeleteAnchor'/>
+        <separator/>
         <menuitem action='EditAnchor'/>
     </popup>
 
@@ -549,6 +553,9 @@ def get_entries(inst):
     ( "HandleLink", "link_handle", _("Insert/Edit _Link"), "<control>L", _("Insert a Link/Edit the Underlying Link"), inst.apply_tag_link),
     ( "InsertTOC", "index", _("Insert T_OC"), None, _("Insert Table of Contents"), inst.toc_insert),
     ( "HandleAnchor", "anchor_insert", _("Insert _Anchor"), "<control><alt>A", _("Insert an Anchor"), inst.anchor_handle),
+    ( "CutAnchor", "edit-cut", _("C_ut Anchor"), None, _("Cut the Selected Anchor"), inst.anchor_cut),
+    ( "CopyAnchor", "edit-copy", _("_Copy Anchor"), None, _("Copy the Selected Anchor"), inst.anchor_copy),
+    ( "DeleteAnchor", "edit-delete", _("_Delete Anchor"), None, _("Delete the Selected Anchor"), inst.anchor_delete),
     ( "EditAnchor", "anchor_edit", _("Edit _Anchor"), None, _("Edit the Underlying Anchor"), inst.anchor_edit),
     ( "CutEmbFile", "edit-cut", _("C_ut Embedded File"), None, _("Cut the Selected Embedded File"), inst.embfile_cut),
     ( "CopyEmbFile", "edit-copy", _("_Copy Embedded File"), None, _("Copy the Selected Embedded File"), inst.embfile_copy),
