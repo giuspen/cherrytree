@@ -3219,6 +3219,9 @@ class CherryTree:
 
     def quit_application_totally(self, *args):
         """The process is Shut Down"""
+        if self.embfiles_opened and not support.dialog_exit_del_temp_files(self):
+            self.really_quit = False # user pressed cancel
+            return
         if not self.check_unsaved():
             self.really_quit = False # user pressed cancel
             return
