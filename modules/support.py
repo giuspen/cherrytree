@@ -541,6 +541,49 @@ def dialog_node_delete(father_win, warning_label):
     dialog.hide()
     return response
 
+def dialog_exit_del_temp_files(dad):
+    """Temporary Files will be deleted, close applications using them"""
+    dialog = gtk.Dialog(title=_("Warning"),
+        parent=dad.window,
+        flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
+        buttons=(_("Cancel"), 2,
+                 _("Yes"), 1) )
+    dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+    dialog.set_default_size(350, 150)
+    try:
+        button = dialog.get_widget_for_response(2)
+        button.set_image(gtk.image_new_from_stock(gtk.STOCK_CANCEL, gtk.ICON_SIZE_BUTTON))
+        button = dialog.get_widget_for_response(1)
+        button.set_image(gtk.image_new_from_stock(gtk.STOCK_DIALOG_WARNING, gtk.ICON_SIZE_BUTTON))
+        button.grab_focus()
+    except: pass
+    image = gtk.Image()
+    image.set_from_stock(gtk.STOCK_DIALOG_WARNING, gtk.ICON_SIZE_DIALOG)
+    label = gtk.Label("<b>"+_("Temporary files were created and opened with external applications.")+"</b>"+2*cons.CHAR_NEWLINE+"<b>"+_("Quit the external applications before quit CherryTree.")+"</b>"+2*cons.CHAR_NEWLINE+"<b>"+_("Did you quit the external applications?")+"</b>")
+    label.set_use_markup(True)
+    hbox = gtk.HBox()
+    hbox.pack_start(image)
+    hbox.pack_start(label)
+    hbox.set_spacing(5)
+    content_area = dialog.get_content_area()
+    content_area.pack_start(hbox)
+    def on_key_press_exitdialog(widget, event):
+        keyname = gtk.gdk.keyval_name(event.keyval)
+        if keyname == cons.STR_RETURN:
+            try: dialog.get_widget_for_response(1).clicked()
+            except: print cons.STR_PYGTK_222_REQUIRED
+            return True
+        elif keyname == "Escape":
+            try: dialog.get_widget_for_response(2).clicked()
+            except: print cons.STR_PYGTK_222_REQUIRED
+            return True
+        return False
+    dialog.connect('key_press_event', on_key_press_exitdialog)
+    content_area.show_all()
+    response = dialog.run()
+    dialog.hide()
+    return False if response != 1 else True
+
 def dialog_exit_save(father_win):
     """Save before Exit Dialog"""
     dialog = gtk.Dialog(title=_("Warning"),
@@ -562,8 +605,7 @@ def dialog_exit_save(father_win):
     except: pass
     image = gtk.Image()
     image.set_from_stock(gtk.STOCK_DIALOG_WARNING, gtk.ICON_SIZE_DIALOG)
-    label = gtk.Label(_("""<b>The current document was updated</b>,
-do you want to save the changes?"""))
+    label = gtk.Label("<b>"+_("The current document was updated.")+"</b>"+2*cons.CHAR_NEWLINE+"<b>"+_("Do you want to save the changes?")+"</b>")
     label.set_use_markup(True)
     hbox = gtk.HBox()
     hbox.pack_start(image)
