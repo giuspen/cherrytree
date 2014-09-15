@@ -3295,6 +3295,9 @@ class CherryTree:
         filepath = support.dialog_file_select(curr_folder=self.pick_dir, parent=self.window)
         if not filepath: return
         with open(filepath, 'rb') as fd:
+            if os.path.getsize(filepath) > 10*1024*1024:
+                support.dialog_error(_("The Maximum Size for Embedded Files is 10 MB"), self.window)
+                return
             self.pick_dir = os.path.dirname(filepath)
             pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(cons.FILE_CHAR, self.embfile_size, self.embfile_size)
             pixbuf.filename = os.path.basename(filepath)
@@ -3595,7 +3598,7 @@ class CherryTree:
             anchor.eventbox.set_tooltip_text(pixbuf.anchor)
         elif "filename" in pixbuf_attrs:
             anchor.eventbox.connect("button-press-event", self.on_mouse_button_clicked_file, anchor)
-            anchor.eventbox.set_tooltip_text(pixbuf.filename)
+            anchor.eventbox.set_tooltip_text(pixbuf.filename + " - %s B" % len(pixbuf.embfile))
             anchor_label = gtk.Label()
             anchor_label.set_markup("<b><small>"+pixbuf.filename+"</small></b>")
             anchor_label.modify_fg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.rt_def_fg))
@@ -4238,7 +4241,7 @@ class CherryTree:
                 return
             self.treeview_safe_set_cursor(tree_iter)
             self.sourceview.grab_focus()
-            self.sourceview.get_window(gtk.TEXT_WINDOW_TEXT).set_cursor(None)
+            self.sourceview.get_window(gtk.TEXT_WINDOW_TEXT).set_cursor(gtk.gdk.Cursor(gtk.gdk.XTERM))
             self.sourceview.set_tooltip_text(None)
             if len(vector) >= 3:
                 if len(vector) == 3: anchor_name = vector[2]
@@ -4312,7 +4315,7 @@ class CherryTree:
             self.sourceview.get_window(gtk.TEXT_WINDOW_TEXT).set_cursor(gtk.gdk.Cursor(gtk.gdk.HAND2))
             self.sourceview.set_tooltip_text(tooltip)
         else:
-            self.sourceview.get_window(gtk.TEXT_WINDOW_TEXT).set_cursor(None)
+            self.sourceview.get_window(gtk.TEXT_WINDOW_TEXT).set_cursor(gtk.gdk.Cursor(gtk.gdk.XTERM))
             self.sourceview.set_tooltip_text(None)
 
     def on_sourceview_event_after_button_press(self, text_view, event):
@@ -4491,7 +4494,7 @@ class CherryTree:
         if not self.sourceview.get_cursor_visible():
             self.sourceview.set_cursor_visible(True)
         if self.syntax_highlighting not in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID]:
-            self.sourceview.get_window(gtk.TEXT_WINDOW_TEXT).set_cursor(None)
+            self.sourceview.get_window(gtk.TEXT_WINDOW_TEXT).set_cursor(gtk.gdk.Cursor(gtk.gdk.XTERM))
             return
         x, y = self.sourceview.window_to_buffer_coords(gtk.TEXT_WINDOW_TEXT, int(event.x), int(event.y))
         self.sourceview_cursor_and_tooltips_handler(x, y)
@@ -4520,7 +4523,7 @@ class CherryTree:
     def on_sourceview_visibility_notify_event(self, text_view, event):
         """Update the cursor image if the window becomes visible (e.g. when a window covering it got iconified)"""
         if self.syntax_highlighting not in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID]:
-            self.sourceview.get_window(gtk.TEXT_WINDOW_TEXT).set_cursor(None)
+            self.sourceview.get_window(gtk.TEXT_WINDOW_TEXT).set_cursor(gtk.gdk.Cursor(gtk.gdk.XTERM))
             return
         wx, wy, mod = self.sourceview.window.get_pointer()
         bx, by = self.sourceview.window_to_buffer_coords(gtk.TEXT_WINDOW_TEXT, wx, wy)
