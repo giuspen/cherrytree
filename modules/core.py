@@ -2528,6 +2528,15 @@ class CherryTree:
             self.update_selected_node_statusbar_info()
             self.sourceview.set_sensitive(False)
 
+    def node_toggle_read_only(self, *args):
+        """Toggle the Read Only Property of the Selected Node"""
+        if not self.is_there_selected_node_or_error(): return
+        self.treestore[self.curr_tree_iter][7] = not self.treestore[self.curr_tree_iter][7]
+        self.sourceview.set_editable(not self.treestore[self.curr_tree_iter][7])
+        self.update_selected_node_statusbar_info()
+        self.update_window_save_needed("npro")
+        self.sourceview.grab_focus()
+
     def node_edit(self, *args):
         """Edit the Properties of the Selected Node"""
         if not self.is_there_selected_node_or_error(): return
