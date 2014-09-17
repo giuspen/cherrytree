@@ -1239,6 +1239,7 @@ class CherryTree:
         """Catches mouse buttons clicks upon the system tray icon"""
         if event.button == 1: self.toggle_show_hide_main_window()
         elif event.button == 3: self.ui.get_widget("/SysTrayMenu").popup(None, None, None, event.button, event.time)
+        return False
 
     def node_id_get(self):
         """Returns the node_ids, all Different Each Other"""
@@ -2343,6 +2344,7 @@ class CherryTree:
                 else: self.treeview.expand_row(path_at_click[0], False)
         elif event.button == 1 and event.type == gtk.gdk._2BUTTON_PRESS:
             self.toggle_tree_node_expanded_collapsed()
+        return False
 
     def buffer_create(self, syntax_highlighting):
         """Returns a New Instantiated SourceBuffer"""
@@ -4452,6 +4454,7 @@ class CherryTree:
                     else: self.ui.get_widget("/ImageMenu/DismissImageLink").hide()
                     self.ui.get_widget("/ImageMenu").popup(None, None, None, 3, event.time)
                 return True
+        return False
 
     def on_sourceview_event_after(self, text_view, event):
         """Called after every event on the SourceView"""
@@ -4495,7 +4498,7 @@ class CherryTree:
             self.sourceview.set_cursor_visible(True)
         if self.syntax_highlighting not in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID]:
             self.sourceview.get_window(gtk.TEXT_WINDOW_TEXT).set_cursor(gtk.gdk.Cursor(gtk.gdk.XTERM))
-            return
+            return False
         x, y = self.sourceview.window_to_buffer_coords(gtk.TEXT_WINDOW_TEXT, int(event.x), int(event.y))
         self.sourceview_cursor_and_tooltips_handler(x, y)
         return False
@@ -4524,7 +4527,7 @@ class CherryTree:
         """Update the cursor image if the window becomes visible (e.g. when a window covering it got iconified)"""
         if self.syntax_highlighting not in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID]:
             self.sourceview.get_window(gtk.TEXT_WINDOW_TEXT).set_cursor(gtk.gdk.Cursor(gtk.gdk.XTERM))
-            return
+            return False
         wx, wy, mod = self.sourceview.window.get_pointer()
         bx, by = self.sourceview.window_to_buffer_coords(gtk.TEXT_WINDOW_TEXT, wx, wy)
         self.sourceview_cursor_and_tooltips_handler(bx, by)

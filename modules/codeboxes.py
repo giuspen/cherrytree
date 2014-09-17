@@ -373,12 +373,14 @@ class CodeBoxesHandler:
                 if event.state & gtk.gdk.MOD1_MASK:
                     self.codebox_decrease_height()
                 else: self.codebox_increase_height()
+        return False
 
     def on_mouse_button_clicked_codebox(self, widget, event, anchor):
         """Catches mouse buttons clicks"""
         self.curr_codebox_anchor = anchor
         if event.button != 3:
             self.dad.object_set_selection(self.curr_codebox_anchor)
+        return False
 
     def on_sourceview_populate_popup_codebox(self, textview, menu, anchor):
         """Extend the Default Right-Click Menu of the CodeBox"""
