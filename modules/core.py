@@ -4475,26 +4475,7 @@ class CherryTree:
     def on_sourceview_event_after(self, text_view, event):
         """Called after every event on the SourceView"""
         if event.type == gtk.gdk._2BUTTON_PRESS and event.button == 1:
-            x, y = text_view.window_to_buffer_coords(gtk.TEXT_WINDOW_TEXT, int(event.x), int(event.y))
-            iter_end = text_view.get_iter_at_location(x, y)
-            iter_start = iter_end.copy()
-            curr_char = iter_end.get_char()
-            match = re.match('\w', curr_char, re.UNICODE) # alphanumeric char
-            if not match and not curr_char in self.selword_chars: return False # double-click was not upon alphanumeric
-            while match or curr_char in self.selword_chars:
-                if not iter_end.forward_char(): break # end of buffer
-                curr_char = iter_end.get_char()
-                match = re.match('\w', curr_char, re.UNICODE) # alphanumeric char
-            iter_start.backward_char()
-            curr_char = iter_start.get_char()
-            match = re.match('\w', curr_char, re.UNICODE) # alphanumeric char
-            while match or curr_char in self.selword_chars:
-                if not iter_start.backward_char(): break # start of buffer
-                curr_char = iter_start.get_char()
-                match = re.match('\w', curr_char, re.UNICODE) # alphanumeric char
-            if not match and not curr_char in self.selword_chars: iter_start.forward_char()
-            self.curr_buffer.move_mark(self.curr_buffer.get_insert(), iter_start)
-            self.curr_buffer.move_mark(self.curr_buffer.get_selection_bound(), iter_end)
+            support.on_sourceview_event_after_double_click_button1(self, text_view, event)
         elif event.type in [gtk.gdk.BUTTON_PRESS, gtk.gdk.KEY_PRESS]:
             if self.syntax_highlighting == cons.RICH_TEXT_ID\
             and self.curr_tree_iter and not self.curr_buffer.get_modified():
