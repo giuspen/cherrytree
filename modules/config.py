@@ -34,6 +34,7 @@ COLOR_PALETTE_DEFAULT = ["#000000", "#ffffff", "#7f7f7f", "#ff0000", "#a020f0",
                          "#e6e6fa", "#a52a2a", "#8b6914", "#1e90ff", "#ffc0cb",
                          "#90ee90", "#1a1a1a", "#4d4d4d", "#bfbfbf", "#e5e5e5"]
 SPECIAL_CHARS_DEFAULT = "“”„•☐☑☒…‰€©®™°↓↑→←↔↵⇓⇑⇒⇐⇔»«▼▲►◄≤≥≠±¹²³½¼⅛×÷∞ø∑√∫ΔδΠπΣΦΩωαβγεηλμ☺☻☼♥♀♂♪♫"
+SELWORD_CHARS_DEFAULT = ".-@"
 
 SPELL_CHECK_LANG_DEFAULT = locale.getdefaultlocale()[0]
 
@@ -131,6 +132,7 @@ def config_file_load(inst):
         inst.highl_curr_line = config.getboolean(section, "highl_curr_line") if config.has_option(section, "highl_curr_line") else True
         inst.h_rule = config.get(section, "h_rule") if config.has_option(section, "h_rule") else HORIZONTAL_RULE
         inst.special_chars = unicode(config.get(section, "special_chars") if config.has_option(section, "special_chars") else SPECIAL_CHARS_DEFAULT, cons.STR_UTF8, cons.STR_IGNORE)
+        inst.selword_chars = unicode(config.get(section, "selword_chars") if config.has_option(section, "selword_chars") else SELWORD_CHARS_DEFAULT, cons.STR_UTF8, cons.STR_IGNORE)
         inst.timestamp_format = config.get(section, "timestamp_format") if config.has_option(section, "timestamp_format") else "%Y/%m/%d - %H:%M"
         if config.has_option(section, "weblink_custom_action"):
             temp_str = config.get(section, "weblink_custom_action")
@@ -216,6 +218,7 @@ def config_file_load(inst):
         inst.col_link_fold = cons.COLOR_48_LINK_FOLD
         inst.h_rule = HORIZONTAL_RULE
         inst.special_chars = unicode(SPECIAL_CHARS_DEFAULT, cons.STR_UTF8, cons.STR_IGNORE)
+        inst.selword_chars = unicode(SELWORD_CHARS_DEFAULT, cons.STR_UTF8, cons.STR_IGNORE)
         inst.enable_spell_check = False
         inst.spell_check_lang = SPELL_CHECK_LANG_DEFAULT
         inst.show_line_numbers = False
@@ -376,6 +379,7 @@ def config_file_save(inst):
     config.set(section, "highl_curr_line", inst.highl_curr_line)
     config.set(section, "h_rule", inst.h_rule)
     config.set(section, "special_chars", inst.special_chars)
+    config.set(section, "selword_chars", inst.selword_chars)
     config.set(section, "timestamp_format", inst.timestamp_format)
     config.set(section, "weblink_custom_action", str(inst.weblink_custom_action[0])+inst.weblink_custom_action[1])
     config.set(section, "filelink_custom_action", str(inst.filelink_custom_action[0])+inst.filelink_custom_action[1])
@@ -570,12 +574,20 @@ def preferences_tab_all_nodes(dad, vbox_all_nodes, pref_dialog):
     scrolledwindow_special_chars.add(textview_special_chars)
     hbox_special_chars.pack_start(label_special_chars, expand=False)
     hbox_special_chars.pack_start(frame_special_chars)
+    hbox_selword_chars = gtk.HBox()
+    hbox_selword_chars.set_spacing(4)
+    label_selword_chars = gtk.Label(_("Chars to Select at Double Click"))
+    entry_selword_chars = gtk.Entry()
+    entry_selword_chars.set_text(dad.selword_chars)
+    hbox_selword_chars.pack_start(label_selword_chars, expand=False)
+    hbox_selword_chars.pack_start(entry_selword_chars)
 
     vbox_misc_all = gtk.VBox()
     vbox_misc_all.set_spacing(2)
     vbox_misc_all.pack_start(hbox_timestamp)
     vbox_misc_all.pack_start(hbox_horizontal_rule)
     vbox_misc_all.pack_start(hbox_special_chars)
+    vbox_misc_all.pack_start(hbox_selword_chars)
     frame_misc_all = gtk.Frame(label="<b>"+_("Miscellaneous")+"</b>")
     frame_misc_all.get_label_widget().set_use_markup(True)
     frame_misc_all.set_shadow_type(gtk.SHADOW_NONE)
@@ -629,6 +641,9 @@ def preferences_tab_all_nodes(dad, vbox_all_nodes, pref_dialog):
     def on_entry_horizontal_rule_changed(entry):
         dad.h_rule = entry.get_text()
     entry_horizontal_rule.connect('changed', on_entry_horizontal_rule_changed)
+    def on_entry_selword_chars_changed(entry):
+        dad.selword_chars = entry.get_text()
+    entry_selword_chars.connect('changed', on_entry_selword_chars_changed)
 
 def preferences_tab_rich_text_nodes(dad, vbox_text_nodes, pref_dialog):
     """Preferences Dialog, Text Nodes Tab"""

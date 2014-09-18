@@ -3325,6 +3325,8 @@ class CherryTree:
         if not os.path.isdir(cons.TMP_FOLDER): os.makedirs(cons.TMP_FOLDER)
         with open(filepath, 'wb') as fd:
             fd.write(self.curr_file_anchor.pixbuf.embfile)
+        #if self.treestore[self.curr_tree_iter][7]:
+        #    os.chmod(filepath, os.stat(filepath).st_mode & ~stat.S_IWUSR & ~stat.S_IWGRP & ~stat.S_IWOTH)
         print "embopen", filepath
         self.external_filepath_open(filepath, False)
         self.embfiles_opened[filepath] = os.path.getmtime(filepath)
@@ -3361,12 +3363,15 @@ class CherryTree:
                 break
             if self.embfiles_opened[filepath] != os.path.getmtime(filepath):
                 self.embfiles_opened[filepath] = os.path.getmtime(filepath)
-                print "embreload", filepath
                 data_vec = os.path.basename(filepath).split(cons.CHAR_MINUS)
                 node_id = int(data_vec[0])
                 embfile_id = int(data_vec[1])
                 tree_iter = self.get_tree_iter_from_node_id(node_id)
                 if not tree_iter: continue
+                is_ro = self.treestore[tree_iter][7]
+                if is_ro:
+                    support.dialog_warning(_("Cannot Edit Embedded File in Read Only Node"), self.window)
+                    continue
                 self.treeview_safe_set_cursor(tree_iter)
                 start_iter = self.curr_buffer.get_start_iter()
                 keep_going = True
@@ -3376,6 +3381,8 @@ class CherryTree:
                         with open(filepath, 'rb') as fd:
                             anchor.pixbuf.embfile = fd.read()
                         self.update_window_save_needed("nbuf")
+                        self.statusbar.pop(self.statusbar_context_id)
+                        self.statusbar.push(self.statusbar_context_id, _("Updated Embedded File") + cons.CHAR_SPACE + anchor.pixbuf.filename)
                     keep_going = start_iter.forward_char()
         return True # this way we keep the timer alive
 
@@ -4471,20 +4478,24 @@ class CherryTree:
             x, y = text_view.window_to_buffer_coords(gtk.TEXT_WINDOW_TEXT, int(event.x), int(event.y))
             iter_end = text_view.get_iter_at_location(x, y)
             iter_start = iter_end.copy()
-            match = re.match('\w', iter_end.get_char(), re.UNICODE) # alphanumeric char
-            if not match: return False # double-click was not upon alphanumeric
-            while match:
+            curr_char = iter_end.get_char()
+            match = re.match('\w', curr_char, re.UNICODE) # alphanumeric char
+            if not match and not curr_char in self.selword_chars: return False # double-click was not upon alphanumeric
+            while match or curr_char in self.selword_chars:
                 if not iter_end.forward_char(): break # end of buffer
-                match = re.match('\w', iter_end.get_char(), re.UNICODE) # alphanumeric char
+                curr_char = iter_end.get_char()
+                match = re.match('\w', curr_char, re.UNICODE) # alphanumeric char
             iter_start.backward_char()
-            match = re.match('\w', iter_start.get_char(), re.UNICODE) # alphanumeric char
-            while match:
+            curr_char = iter_start.get_char()
+            match = re.match('\w', curr_char, re.UNICODE) # alphanumeric char
+            while match or curr_char in self.selword_chars:
                 if not iter_start.backward_char(): break # start of buffer
-                match = re.match('\w', iter_start.get_char(), re.UNICODE) # alphanumeric char
-            if not match: iter_start.forward_char()
+                curr_char = iter_start.get_char()
+                match = re.match('\w', curr_char, re.UNICODE) # alphanumeric char
+            if not match and not curr_char in self.selword_chars: iter_start.forward_char()
             self.curr_buffer.move_mark(self.curr_buffer.get_insert(), iter_start)
             self.curr_buffer.move_mark(self.curr_buffer.get_selection_bound(), iter_end)
-        if event.type in [gtk.gdk.BUTTON_PRESS, gtk.gdk.KEY_PRESS]:
+        elif event.type in [gtk.gdk.BUTTON_PRESS, gtk.gdk.KEY_PRESS]:
             if self.syntax_highlighting == cons.RICH_TEXT_ID\
             and self.curr_tree_iter and not self.curr_buffer.get_modified():
                 self.state_machine.update_curr_state_cursor_pos(self.treestore[self.curr_tree_iter][3])
