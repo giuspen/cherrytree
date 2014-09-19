@@ -114,6 +114,7 @@ TAG_PROP_CENTER = "center"
 TAG_PROP_RIGHT = "right"
 TAG_PROPERTIES = [TAG_WEIGHT, TAG_FOREGROUND, TAG_BACKGROUND, TAG_STYLE, TAG_UNDERLINE,
                   TAG_STRIKETHROUGH, TAG_SCALE, TAG_FAMILY, TAG_JUSTIFICATION, TAG_LINK]
+TAG_SEPARATOR = "separator"
 LINK_TYPE_WEBS = "webs"
 LINK_TYPE_FILE = "file"
 LINK_TYPE_FOLD = "fold"
@@ -434,45 +435,6 @@ UI_INFO = """
         </menu>
     </menubar>
 
-    <toolbar name='ToolBar'>
-        <toolitem action='TreeAddNode'/>
-        <toolitem action='TreeAddSubNode'/>
-        <separator/>
-        <toolitem action='GoBack'/>
-        <toolitem action='GoForward'/>
-        <separator/>
-        <toolitem action='Save'/>
-        <toolitem action='Export2PDF'/>
-        <separator/>
-        <toolitem action='FindInNodes'/>
-        <separator/>
-        <toolitem action='BulletedList'/>
-        <toolitem action='NumberedList'/>
-        <toolitem action='ToDoList'/>
-        <separator/>
-        <toolitem action='HandleImage'/>
-        <toolitem action='HandleTable'/>
-        <toolitem action='HandleCodeBox'/>
-        <toolitem action='EmbFileInsert'/>
-        <toolitem action='HandleLink'/>
-        <toolitem action='HandleAnchor'/>
-        <separator/>
-        <toolitem action='RemoveFormatting'/>
-        <toolitem action='ColorForeground'/>
-        <toolitem action='ColorBackground'/>
-        <toolitem action='Bold'/>
-        <toolitem action='Italic'/>
-        <toolitem action='Underline'/>
-        <toolitem action='Strikethrough'/>
-        <toolitem action='H1'/>
-        <toolitem action='H2'/>
-        <toolitem action='H3'/>
-        <toolitem action='Small'/>
-        <toolitem action='Superscript'/>
-        <toolitem action='Subscript'/>
-        <toolitem action='Monospace'/>
-    </toolbar>
-
     <popup name='SysTrayMenu'>
         <menuitem action='ShowHideMainWin'/>
         <separator/>
@@ -666,18 +628,18 @@ def get_popup_menu_table(inst):
     ("edit-cut", _("C_ut Table"), None, _("Cut the Selected Table"), inst.tables_handler.table_cut),
     ("edit-copy", _("_Copy Table"), None, _("Copy the Selected Table"), inst.tables_handler.table_copy),
     ("edit-delete", _("_Delete Table"), None, _("Delete the Selected Table"), inst.tables_handler.table_delete),
-    ("separator", None, None, None, None),
+    (TAG_SEPARATOR, None, None, None, None),
     ("gtk-add", _("_Add Row"), "<control>comma", _("Add a Table Row"), inst.tables_handler.table_row_add),
     ("edit-cut", _("Cu_t Row"), None, _("Cut a Table Row"), inst.tables_handler.table_row_cut),
     ("edit-copy", _("_Copy Row"), None, _("Copy a Table Row"), inst.tables_handler.table_row_copy),
     ("edit-paste", _("_Paste Row"), None, _("Paste a Table Row"), inst.tables_handler.table_row_paste),
     ("edit-delete", _("De_lete Row"), "<control><alt>comma", _("Delete the Selected Table Row"), inst.tables_handler.table_row_delete),
-    ("separator", None, None, None, None),
+    (TAG_SEPARATOR, None, None, None, None),
     ("gtk-go-up", _("Move Row _Up"), "<control><alt>period", _("Move the Selected Row Up"), inst.tables_handler.table_row_up),
     ("gtk-go-down", _("Move Row _Down"), "<control>period", _("Move the Selected Row Down"), inst.tables_handler.table_row_down),
     ("gtk-sort-descending", _("Sort Rows De_scending"), None, _("Sort all the Rows Descending"), inst.tables_handler.table_rows_sort_descending),
     ("gtk-sort-ascending", _("Sort Rows As_cending"), None, _("Sort all the Rows Ascending"), inst.tables_handler.table_rows_sort_ascending),
-    ("separator", None, None, None, None),
+    (TAG_SEPARATOR, None, None, None, None),
     ("table_edit", _("_Edit Table Properties"), None, _("Edit the Table Properties"), inst.tables_handler.table_edit_properties),
     ("table_save", _("_Table Export"), None, _("Export Table as CSV File"), inst.tables_handler.table_export),
     ]
@@ -691,29 +653,29 @@ def get_popup_menu_tree(inst):
     return [
     ("tree-node-add", _("Add _Node"), "<control>N", _("Add a Node having the same Father of the Selected Node"), inst.node_add),
     ("tree-subnode-add", _("Add _SubNode"), "<control><shift>N", _("Add a Child Node to the Selected Node"), inst.node_child_add),
-    ("separator", None, None, None, None),
+    (TAG_SEPARATOR, None, None, None, None),
     ("cherry_edit", _("Change Node _Properties"), "F2", _("Edit the Properties of the Selected Node"), inst.node_edit),
     ("cherry_edit", _("Toggle _Read Only"), "<Ctrl><Alt>R", _("Toggle the Read Only Property of the Selected Node"), inst.node_toggle_read_only),
     ("calendar", _("Insert Today's Node"), "F8", _("Insert a Node with Hierarchy Year/Month/Day"), inst.node_date),
     ("gtk-info", _("Tree _Info"), None, _("Tree Summary Information"), inst.tree_info),
-    ("separator", None, None, None, None),
+    (TAG_SEPARATOR, None, None, None, None),
     ("submenu-start", _("Node _Move"), "gtk-jump-to", None, None),
     ("gtk-go-up", _("Node _Up"), "<shift>Up", _("Move the Selected Node Up"), inst.node_up),
     ("gtk-go-down", _("Node _Down"), "<shift>Down", _("Move the Selected Node Down"), inst.node_down),
     ("gtk-go-back", _("Node _Left"), "<shift>Left", _("Move the Selected Node Left"), inst.node_left),
     ("gtk-jump-to", _("Node Change _Father"), "<shift>Right", _("Change the Selected Node's Father"), inst.node_change_father),
     ("submenu-end", None, None, None, None),
-    ("separator", None, None, None, None),
+    (TAG_SEPARATOR, None, None, None, None),
     ("submenu-start", _("Nodes _Sort"), "gtk-sort-ascending", None, None),
     ("gtk-sort-ascending", _("Sort Tree _Ascending"), None, _("Sort the Tree Ascending"), inst.tree_sort_ascending),
     ("gtk-sort-descending", _("Sort Tree _Descending"), None, _("Sort the Tree Descending"), inst.tree_sort_descending),
     ("gtk-sort-ascending", _("Sort Siblings A_scending"), None, _("Sort all the Siblings of the Selected Node Ascending"), inst.node_siblings_sort_ascending),
     ("gtk-sort-descending", _("Sort Siblings D_escending"), None, _("Sort all the Siblings of the Selected Node Descending"), inst.node_siblings_sort_descending),
     ("submenu-end", None, None, None, None),
-    ("separator", None, None, None, None),
+    (TAG_SEPARATOR, None, None, None, None),
     ("find", _("Find in _Nodes Names and Tags"), "<control>T", _("Find in Nodes Names and Tags"), inst.find_a_node),
     ("find_replace", _("Replace in Nodes _Names"), "<control><shift>T", _("Replace in Nodes Names"), inst.replace_in_nodes_names),
-    ("separator", None, None, None, None),
+    (TAG_SEPARATOR, None, None, None, None),
     ("submenu-start", _("Nodes _Import"), STR_STOCK_CT_IMP, None, None),
     ("from_cherrytree", _("From _CherryTree File"), None, _("Add Nodes of a CherryTree File to the Current Tree"), inst.nodes_add_from_cherrytree_file),
     ("from_txt", _("From _Plain Text File"), None, _("Add Node from a Plain Text File to the Current Tree"), inst.nodes_add_from_plain_text_file),
@@ -741,11 +703,11 @@ def get_popup_menu_tree(inst):
     ("to_html", _("Export To _HTML"), None, _("Export To HTML"), inst.export_to_html),
     ("to_cherrytree", _("_Export To CherryTree Document"), None, _("Export To CherryTree Document"), inst.export_to_ctd),
     ("submenu-end", None, None, None, None),
-    ("separator", None, None, None, None),
+    (TAG_SEPARATOR, None, None, None, None),
     ("gtk-execute", _("_Inherit Syntax"), None, _("Change the Selected Node's Children Syntax Highlighting to the Father's Syntax Highlighting"), inst.node_inherit_syntax),
-    ("separator", None, None, None, None),
+    (TAG_SEPARATOR, None, None, None, None),
     ("edit-delete", _("De_lete Node"), "Delete", _("Delete the Selected Node"), inst.node_delete),
-    ("separator", None, None, None, None),
+    (TAG_SEPARATOR, None, None, None, None),
     ("gtk-go-back", _("Go _Back"), "<alt>Left", _("Go to the Previous Visited Node"), inst.go_back),
     ("gtk-go-forward", _("Go _Forward"), "<alt>Right", _("Go to the Next Visited Node"), inst.go_forward),
     ]
@@ -757,13 +719,13 @@ def get_popup_menu_entries_text(inst):
     # "submenu-start", label, stock id, None, None |
     # "submenu-end", None, None, None, None
     return [
-    ("separator", None, None, None, None),
+    (TAG_SEPARATOR, None, None, None, None),
     ("edit-paste", _("_Paste as Plain Text"), "<control><shift>V", _("Paste as Plain Text, Discard the Rich Text Formatting"), inst.paste_as_plain_text),
-    ("separator", None, None, None, None),
+    (TAG_SEPARATOR, None, None, None, None),
     ("submenu-start", _("For_matting") , "format_text", None, None),
     ("format_text_latest", _("Format _Latest"), "F7", _("Memory of Latest Text Format Type"), inst.apply_tag_latest),
     ("format_text_clear", _("_Remove Formatting"), "<control><shift>R", _("Remove the Formatting from the Selected Text"), inst.remove_text_formatting),
-    ("separator", None, None, None, None),
+    (TAG_SEPARATOR, None, None, None, None),
     ("color_foreground", _("Text _Color Foreground"), None, _("Change the Color of the Selected Text Foreground"), inst.apply_tag_foreground),
     ("color_background", _("Text C_olor Background"), None, _("Change the Color of the Selected Text Background"), inst.apply_tag_background),
     ("format-text-bold", _("Toggle _Bold Property"), "<control>B", _("Toggle Bold Property of the Selected Text"), inst.apply_tag_bold),
@@ -788,7 +750,7 @@ def get_popup_menu_entries_text(inst):
     ("list_numbered", _("Set/Unset _Numbered List"), None, _("Set/Unset the Current Paragraph/Selection as a Numbered List"), inst.list_numbered_handler),
     ("list_todo", _("Set/Unset _To-Do List"), None, _("Set/Unset the Current Paragraph/Selection as a To-Do List"), inst.list_todo_handler),
     ("submenu-end", None, None, None, None),
-    ("separator", None, None, None, None),
+    (TAG_SEPARATOR, None, None, None, None),
     ("submenu-start", _("_Insert") , "insert", None, None),
     ("image_insert", _("Insert I_mage"), "<control><alt>I", _("Insert an Image"), inst.image_handle),
     ("table_insert", _("Insert _Table"), "<control><alt>T", _("Insert a Table"), inst.table_handle),
@@ -813,7 +775,7 @@ def get_popup_menu_entries_text(inst):
     ("gtk-go-up", _("Move _Up Row"), "<alt>Up", _("Move Up the Current Row/Selected Rows"), inst.text_row_up),
     ("gtk-go-down", _("Move _Down Row"), "<alt>Down", _("Move Down the Current Row/Selected Rows"), inst.text_row_down),
     ("submenu-end", None, None, None, None),
-    ("separator", None, None, None, None),
+    (TAG_SEPARATOR, None, None, None, None),
     ("submenu-start", _("_Search") , "find", None, None),
     ("find", _("_Find in Node"), "<control>F", _("Find into the Selected Node"), inst.find_in_selected_node),
     ("find", _("Find in Node_s"), "<control><shift>F", _("Find into all the Tree Nodes"), inst.find_in_all_nodes),
@@ -836,7 +798,7 @@ def get_popup_menu_entries_code(inst):
     # "submenu-start", label, stock id, None, None |
     # "submenu-end", None, None, None, None
     return [
-    ("separator", None, None, None, None),
+    (TAG_SEPARATOR, None, None, None, None),
     ("submenu-start", _("_Insert") , "insert", None, None),
     ("timestamp", _("Insert Ti_mestamp"), "<control><alt>M", _("Insert Timestamp"), inst.timestamp_insert),
     ("horizontal_rule", _("Insert _Horizontal Rule"), "<control>R", _("Insert Horizontal Rule"), inst.horizontal_rule_insert),
@@ -855,7 +817,7 @@ def get_popup_menu_entries_code(inst):
     ("gtk-go-up", _("Move _Up Row"), "<alt>Up", _("Move Up the Current Row/Selected Rows"), inst.text_row_up),
     ("gtk-go-down", _("Move _Down Row"), "<alt>Down", _("Move Down the Current Row/Selected Rows"), inst.text_row_down),
     ("submenu-end", None, None, None, None),
-    ("separator", None, None, None, None),
+    (TAG_SEPARATOR, None, None, None, None),
     ("submenu-start", _("_Search") , "find", None, None),
     ("find", _("_Find in Node"), "<control>F", _("Find into the Selected Node"), inst.find_in_selected_node),
     ("find", _("Find in Node_s"), "<control><shift>F", _("Find into all the Tree Nodes"), inst.find_in_all_nodes),
@@ -878,9 +840,9 @@ def get_popup_menu_entries_link(inst):
     # "submenu-start", label, stock id, None, None |
     # "submenu-end", None, None, None, None
     return [
-    ("separator", None, None, None, None),
+    (TAG_SEPARATOR, None, None, None, None),
     ("link_handle", _("Edit _Link"), None, _("Edit the Underlying Link"), inst.apply_tag_link),
-    ("separator", None, None, None, None),
+    (TAG_SEPARATOR, None, None, None, None),
     ("edit-cut", _("C_ut Link"), None, _("Cut the Selected CodeBox"), inst.link_cut),
     ("edit-copy", _("_Copy Link"), None, _("Copy the Selected CodeBox"), inst.link_copy),
     ("gtk-clear", _("D_ismiss Link"), None, _("Dismiss the Selected Link"), inst.link_dismiss),
@@ -894,7 +856,7 @@ def get_popup_menu_entries_table_cell(inst):
     # "submenu-start", label, stock id, None, None |
     # "submenu-end", None, None, None, None
     return [
-    ("separator", None, None, None, None),
+    (TAG_SEPARATOR, None, None, None, None),
     ("insert", _("Insert _NewLine"), "<control>period", _("Insert NewLine Char"), inst.curr_table_cell_insert_newline),
     ]
 
@@ -905,16 +867,16 @@ def get_popup_menu_entries_codebox(inst):
     # "submenu-start", label, stock id, None, None |
     # "submenu-end", None, None, None, None
     return [
-    ("separator", None, None, None, None),
+    (TAG_SEPARATOR, None, None, None, None),
     ("codebox_edit", _("Change CodeBox _Properties"), None, _("Edit the Properties of the CodeBox"), inst.codebox_change_properties),
     ("from_txt", _("CodeBox _Load From Text File"), None, _("Load the CodeBox Content From a Text File"), inst.codebox_load_from_file),
     ("to_txt", _("CodeBox _Save To Text File"), None, _("Save the CodeBox Content To a Text File"), inst.codebox_save_to_file),
-    ("separator", None, None, None, None),
+    (TAG_SEPARATOR, None, None, None, None),
     ("edit-cut", _("C_ut CodeBox"), None, _("Cut the Selected CodeBox"), inst.codebox_cut),
     ("edit-copy", _("_Copy CodeBox"), None, _("Copy the Selected CodeBox"), inst.codebox_copy),
     ("edit-delete", _("_Delete CodeBox"), None, _("Delete the Selected CodeBox"), inst.codebox_delete),
     ("edit-delete", _("Delete CodeBox _Keep Content"), None, _("Delete the Selected CodeBox But Keep Its Content"), inst.codebox_delete_keeping_text),
-    ("separator", None, None, None, None),
+    (TAG_SEPARATOR, None, None, None, None),
     ("gtk-go-forward", _("Increase CodeBox Width"), "<control>period", _("Increase the Width of the CodeBox"), inst.codebox_increase_width),
     ("gtk-go-back", _("Decrease CodeBox Width"), "<control><alt>period", _("Decrease the Width of the CodeBox"), inst.codebox_decrease_width),
     ("gtk-go-down", _("Increase CodeBox Height"), "<control>comma", _("Increase the Height of the CodeBox"), inst.codebox_increase_height),
