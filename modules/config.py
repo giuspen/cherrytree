@@ -35,8 +35,17 @@ COLOR_PALETTE_DEFAULT = ["#000000", "#ffffff", "#7f7f7f", "#ff0000", "#a020f0",
                          "#90ee90", "#1a1a1a", "#4d4d4d", "#bfbfbf", "#e5e5e5"]
 SPECIAL_CHARS_DEFAULT = "“”„•☐☑☒…‰€©®™°↓↑→←↔↵⇓⇑⇒⇐⇔»«▼▲►◄≤≥≠±¹²³½¼⅛×÷∞ø∑√∫ΔδΠπΣΦΩωαβγεηλμ☺☻☼♥♀♂♪♫"
 SELWORD_CHARS_DEFAULT = ".-@"
+TOOLBAR_VEC_DEFAULT = ["TreeAddNode", "TreeAddSubNode", cons.TAG_SEPARATOR, "GoBack", "GoForward", cons.TAG_SEPARATOR, "Save", "Export2PDF", cons.TAG_SEPARATOR, "FindInNodes", cons.TAG_SEPARATOR, "BulletedList", "NumberedList", "ToDoList", cons.TAG_SEPARATOR, "HandleImage", "HandleTable", "HandleCodeBox", "EmbFileInsert", "HandleLink", "HandleAnchor", cons.TAG_SEPARATOR, "RemoveFormatting", "ColorForeground", "ColorBackground", "Bold", "Italic", "Underline", "Strikethrough", "H1", "H2", "H3", "Small", "Superscript", "Subscript", "Monospace"]
+
 
 SPELL_CHECK_LANG_DEFAULT = locale.getdefaultlocale()[0]
+
+def get_toolbar_ui_str(dad):
+    toolbar_ui_str = "<ui><toolbar name='ToolBar'>"
+    for toolbar_element in dad.toolbar_ui_vec:
+        if toolbar_element == cons.TAG_SEPARATOR: toolbar_ui_str += "<separator/>"
+        else: toolbar_ui_str += "<toolitem action='%s'/>" % toolbar_element
+    return toolbar_ui_str + "</toolbar></ui>"
 
 def get_node_path_from_str(str_path_list_of_str):
     str_path_list_of_str = str(str_path_list_of_str)
@@ -182,6 +191,7 @@ def config_file_load(inst):
         inst.col_link_fold = config.get(section, "col_link_fold") if config.has_option(section, "col_link_fold") else cons.COLOR_48_LINK_FOLD
 
         section = "misc"
+        inst.toolbar_ui_vec = config.get(section, "toolbar_ui_vec").split(cons.CHAR_COMMA) if config.has_option(section, "toolbar_ui_vec") else TOOLBAR_VEC_DEFAULT
         inst.systray = config.getboolean(section, "systray") if config.has_option(section, "systray") else False
         inst.start_on_systray = config.getboolean(section, "start_on_systray") if config.has_option(section, "start_on_systray") else False
         inst.use_appind = config.getboolean(section, "use_appind") if config.has_option(section, "use_appind") else False
@@ -229,6 +239,7 @@ def config_file_load(inst):
         inst.line_wrapping = True
         inst.wrapping_indent = -14
         inst.auto_indent = True
+        inst.toolbar_ui_vec = TOOLBAR_VEC_DEFAULT
         inst.systray = False
         inst.win_position = [10, 10]
         inst.autosave = [False, 5]
@@ -419,6 +430,7 @@ def config_file_save(inst):
 
     section = "misc"
     config.add_section(section)
+    config.set(section, "toolbar_ui_vec", cons.CHAR_COMMA.join(inst.toolbar_ui_vec))
     config.set(section, "systray", inst.systray)
     config.set(section, "start_on_systray", inst.start_on_systray)
     config.set(section, "use_appind", inst.use_appind)
