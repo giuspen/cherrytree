@@ -1580,6 +1580,10 @@ class CherryTree:
         elif self.rest_exp_coll == 0: config.set_tree_expanded_collapsed_string(self)
         config.set_tree_path_and_cursor_pos(self)
 
+    def folder_cfg_open(self, *args):
+        """Open the Directory with Preferences Files"""
+        self.external_folderpath_open(cons.CONFIG_DIR)
+
     def memory_save_old_file_props(self, old_file_name, old_exp_coll_str, old_node_path_str, old_cursor_pos):
         """Store properties of file that was just closed"""
         if not self.expcollnam1 or self.expcollnam1 == old_file_name:
@@ -4210,6 +4214,16 @@ class CherryTree:
         self.curr_buffer.move_mark(self.curr_buffer.get_selection_bound(), text_iter)
         return tag_name[5:]
 
+    def external_folderpath_open(self, filepath):
+        """Open Folderpath with External App"""
+        if self.folderlink_custom_action[0]:
+            if cons.IS_WIN_OS: filepath = cons.CHAR_DQUOTE + filepath + cons.CHAR_DQUOTE
+            else: filepath = re.escape(filepath)
+            subprocess.call(self.folderlink_custom_action[1] % filepath, shell=True)
+        else:
+            if cons.IS_WIN_OS: os.startfile(filepath)
+            else: subprocess.call(config.LINK_CUSTOM_ACTION_DEFAULT_FILE % re.escape(filepath), shell=True)
+
     def external_filepath_open(self, filepath, open_fold_if_miss):
         """Open Filepath with External App"""
         if self.filelink_custom_action[0]:
@@ -4245,13 +4259,7 @@ class CherryTree:
             if not os.path.isdir(filepath):
                 support.dialog_error(_("The Folder Link '%s' is Not Valid") % filepath, self.window)
                 return
-            if self.folderlink_custom_action[0]:
-                if cons.IS_WIN_OS: filepath = cons.CHAR_DQUOTE + filepath + cons.CHAR_DQUOTE
-                else: filepath = re.escape(filepath)
-                subprocess.call(self.folderlink_custom_action[1] % filepath, shell=True)
-            else:
-                if cons.IS_WIN_OS: os.startfile(filepath)
-                else: subprocess.call(config.LINK_CUSTOM_ACTION_DEFAULT_FILE % re.escape(filepath), shell=True)
+            self.external_folderpath_open(filepath)
         elif vector[0] == cons.LINK_TYPE_NODE:
             # link to a tree node
             tree_iter = self.get_tree_iter_from_node_id(long(vector[1]))
