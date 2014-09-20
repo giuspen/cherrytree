@@ -287,6 +287,8 @@ UI_INFO = """
             <menuitem action='Save'/>
             <menuitem action='SaveAs'/>
             <separator/>
+            <menuitem action='OpenCfgFolder'/>
+            <separator/>
             <menuitem action='PageSetup'/>
             <menuitem action='NodePrint'/>
             <separator/>
@@ -494,6 +496,7 @@ def get_entries(inst):
     # name, stock id, label, accelerator, tooltip, callback
     ( "NewInstance", "new-instance", _("New _Instance"), None, _("Start a New Instance of CherryTree"), inst.file_new),
     ( "OpenFile", "gtk-open", _("_Open File"), "<control>O", _("Open a CherryTree Document"), inst.file_open),
+    ( "OpenCfgFolder", "gtk-directory", _("Open Preferences _Directory"), None, _("Open the Directory with Preferences Files"), inst.folder_cfg_open),
     ( "Save", "gtk-save", _("_Save"), "<control>S", _("Save File"), inst.file_save),
     ( "SaveAs", "gtk-save-as", _("Save _As"), "<control><shift>S", _("Save File As"), inst.file_save_as),
     ( "Export2PDF", "to_pdf", _("Export To _PDF"), None, _("Export To PDF"), inst.export_to_pdf),

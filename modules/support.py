@@ -1046,7 +1046,7 @@ def set_menu_items_recent_documents(inst):
         recent_menuitem.set_image(gtk.image_new_from_stock("gtk-open", gtk.ICON_SIZE_MENU))
         recent_menuitem.set_tooltip_text(_("Open a Recent CherryTree Document"))
         recent_menuitem.set_submenu(inst.recent_menu_1)
-        inst.ui.get_widget("/MenuBar/FileMenu").get_submenu().insert(recent_menuitem, 9)
+        inst.ui.get_widget("/MenuBar/FileMenu").get_submenu().insert(recent_menuitem, 3)
         # toolbar
         menu_toolbutton = gtk.MenuToolButton("gtk-open")
         menu_toolbutton.set_tooltip_text(_("Open a CherryTree Document"))
