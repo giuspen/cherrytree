@@ -1274,6 +1274,39 @@ def preferences_tab_toolbar(dad, vbox_tool, pref_dialog):
     """Preferences Dialog, Toolbar Tab"""
     for child in vbox_tool.get_children(): child.destroy()
 
+    treestore = gtk.TreeStore(str, str, str)
+    treeview = gtk.TreeView(treestore)
+    treeview.set_headers_visible(False)
+    renderer_pixbuf = gtk.CellRendererPixbuf()
+    renderer_text = gtk.CellRendererText()
+    column = gtk.TreeViewColumn()
+    column.pack_start(renderer_pixbuf, False)
+    column.pack_start(renderer_text, True)
+    column.set_attributes(renderer_pixbuf, stock_id=1)
+    column.set_attributes(renderer_text, text=2)
+    treeview.append_column(column)
+    treeviewselection = treeview.get_selection()
+    scrolledwindow = gtk.ScrolledWindow()
+    scrolledwindow.add(treeview)
+
+    button_add = gtk.Button()
+    button_add.set_image(gtk.image_new_from_stock("gtk-add", gtk.ICON_SIZE_BUTTON))
+    button_remove = gtk.Button()
+    button_remove.set_image(gtk.image_new_from_stock("gtk-remove", gtk.ICON_SIZE_BUTTON))
+
+    hbox = gtk.HBox()
+    vbox = gtk.VBox()
+    vbox.pack_start(button_add, expand=False)
+    vbox.pack_start(button_remove, expand=False)
+    hbox.pack_start(scrolledwindow, expand=True)
+    hbox.pack_start(vbox, expand=False)
+
+    vbox_tool.add(hbox)
+
+    for element in cons.get_entries(dad):
+        if len(element) == 3: continue
+        treestore.append(None, [element[0], element[1], element[4]])
+
 def preferences_tab_misc(dad, vbox_misc, pref_dialog):
     """Preferences Dialog, Misc Tab"""
     for child in vbox_misc.get_children(): child.destroy()
