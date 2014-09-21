@@ -1048,12 +1048,13 @@ def set_menu_items_recent_documents(inst):
         recent_menuitem.set_submenu(inst.recent_menu_1)
         inst.ui.get_widget("/MenuBar/FileMenu").get_submenu().insert(recent_menuitem, 3)
         # toolbar
-        menu_toolbutton = gtk.MenuToolButton("gtk-open")
-        menu_toolbutton.set_tooltip_text(_("Open a CherryTree Document"))
-        menu_toolbutton.set_arrow_tooltip_text(_("Open a Recent CherryTree Document"))
-        menu_toolbutton.set_menu(inst.recent_menu_2)
-        menu_toolbutton.connect("clicked", inst.file_open)
-        inst.ui.get_widget("/ToolBar").insert(menu_toolbutton, 8)
+        if inst.toolbar_open_n_recent >= 0:
+            menu_toolbutton = gtk.MenuToolButton("gtk-open")
+            menu_toolbutton.set_tooltip_text(_("Open a CherryTree Document"))
+            menu_toolbutton.set_arrow_tooltip_text(_("Open a Recent CherryTree Document"))
+            menu_toolbutton.set_menu(inst.recent_menu_2)
+            menu_toolbutton.connect("clicked", inst.file_open)
+            inst.ui.get_widget("/ToolBar").insert(menu_toolbutton, inst.toolbar_open_n_recent)
 
 def add_recent_document(inst, filepath):
     """Add a Recent Document if Needed"""

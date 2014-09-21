@@ -35,15 +35,17 @@ COLOR_PALETTE_DEFAULT = ["#000000", "#ffffff", "#7f7f7f", "#ff0000", "#a020f0",
                          "#90ee90", "#1a1a1a", "#4d4d4d", "#bfbfbf", "#e5e5e5"]
 SPECIAL_CHARS_DEFAULT = "“”„•☐☑☒…‰€©®™°↓↑→←↔↵⇓⇑⇒⇐⇔»«▼▲►◄≤≥≠±¹²³½¼⅛×÷∞ø∑√∫ΔδΠπΣΦΩωαβγεηλμ☺☻☼♥♀♂♪♫"
 SELWORD_CHARS_DEFAULT = ".-@"
-TOOLBAR_VEC_DEFAULT = ["TreeAddNode", "TreeAddSubNode", cons.TAG_SEPARATOR, "GoBack", "GoForward", cons.TAG_SEPARATOR, "Save", "Export2PDF", cons.TAG_SEPARATOR, "FindInNodes", cons.TAG_SEPARATOR, "BulletedList", "NumberedList", "ToDoList", cons.TAG_SEPARATOR, "HandleImage", "HandleTable", "HandleCodeBox", "EmbFileInsert", "HandleLink", "HandleAnchor", cons.TAG_SEPARATOR, "RemoveFormatting", "ColorForeground", "ColorBackground", "Bold", "Italic", "Underline", "Strikethrough", "H1", "H2", "H3", "Small", "Superscript", "Subscript", "Monospace"]
+TOOLBAR_VEC_DEFAULT = ["TreeAddNode", "TreeAddSubNode", cons.TAG_SEPARATOR, "GoBack", "GoForward", cons.TAG_SEPARATOR, cons.CHAR_STAR, "Save", "Export2PDF", cons.TAG_SEPARATOR, "FindInNodes", cons.TAG_SEPARATOR, "BulletedList", "NumberedList", "ToDoList", cons.TAG_SEPARATOR, "HandleImage", "HandleTable", "HandleCodeBox", "EmbFileInsert", "HandleLink", "HandleAnchor", cons.TAG_SEPARATOR, "RemoveFormatting", "ColorForeground", "ColorBackground", "Bold", "Italic", "Underline", "Strikethrough", "H1", "H2", "H3", "Small", "Superscript", "Subscript", "Monospace"]
 
 
 SPELL_CHECK_LANG_DEFAULT = locale.getdefaultlocale()[0]
 
 def get_toolbar_ui_str(dad):
+    dad.toolbar_open_n_recent = -1
     toolbar_ui_str = "<ui><toolbar name='ToolBar'>"
-    for toolbar_element in dad.toolbar_ui_vec:
-        if toolbar_element == cons.TAG_SEPARATOR: toolbar_ui_str += "<separator/>"
+    for i, toolbar_element in enumerate(dad.toolbar_ui_vec):
+        if toolbar_element == cons.CHAR_STAR: dad.toolbar_open_n_recent = i
+        elif toolbar_element == cons.TAG_SEPARATOR: toolbar_ui_str += "<separator/>"
         else: toolbar_ui_str += "<toolitem action='%s'/>" % toolbar_element
     return toolbar_ui_str + "</toolbar></ui>"
 
