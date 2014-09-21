@@ -1270,6 +1270,10 @@ def preferences_tab_links(dad, vbox_links, pref_dialog):
         support.dialog_info_after_restart(pref_dialog)
     colorbutton_col_link_fold.connect('color-set', on_colorbutton_col_link_fold_color_set)
 
+def preferences_tab_toolbar(dad, vbox_tool, pref_dialog):
+    """Preferences Dialog, Toolbar Tab"""
+    for child in vbox_tool.get_children(): child.destroy()
+
 def preferences_tab_misc(dad, vbox_misc, pref_dialog):
     """Preferences Dialog, Misc Tab"""
     for child in vbox_misc.get_children(): child.destroy()
@@ -1473,7 +1477,7 @@ def dialog_preferences(dad):
         buttons=(gtk.STOCK_CLOSE, gtk.RESPONSE_ACCEPT))
 
     tabs_vbox_vec = []
-    for tabs_idx in range(7):
+    for tabs_idx in range(8):
         tabs_vbox_vec.append(gtk.VBox())
         tabs_vbox_vec[-1].set_spacing(3)
 
@@ -1485,7 +1489,8 @@ def dialog_preferences(dad):
     notebook.append_page(tabs_vbox_vec[3], gtk.Label(_("Tree")))
     notebook.append_page(tabs_vbox_vec[4], gtk.Label(_("Fonts")))
     notebook.append_page(tabs_vbox_vec[5], gtk.Label(_("Links")))
-    notebook.append_page(tabs_vbox_vec[6], gtk.Label(_("Miscellaneous")))
+    notebook.append_page(tabs_vbox_vec[6], gtk.Label(_("Toolbar")))
+    notebook.append_page(tabs_vbox_vec[7], gtk.Label(_("Miscellaneous")))
 
     tab_constructor = {
         0: preferences_tab_all_nodes,
@@ -1494,7 +1499,8 @@ def dialog_preferences(dad):
         3: preferences_tab_tree,
         4: preferences_tab_fonts,
         5: preferences_tab_links,
-        6: preferences_tab_misc,
+        6: preferences_tab_toolbar,
+        7: preferences_tab_misc,
         }
 
     def on_notebook_switch_page(notebook, page, page_num):
