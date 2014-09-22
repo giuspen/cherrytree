@@ -40,6 +40,14 @@ TOOLBAR_VEC_DEFAULT = ["TreeAddNode", "TreeAddSubNode", cons.TAG_SEPARATOR, "GoB
 
 SPELL_CHECK_LANG_DEFAULT = locale.getdefaultlocale()[0]
 
+def get_toolbar_entry_columns_from_key(dad, key):
+    if key == cons.TAG_SEPARATOR: return [key, "", _("Separator")]
+    if key == cons.CHAR_STAR: return [key, "gtk-open", _("Open a CherryTree Document")]
+    for element in cons.get_entries(dad):
+        if len(element) == 3: continue
+        if key == element[0]: return [element[0], element[1], element[4]]
+    return ["", "", ""]
+
 def get_toolbar_ui_str(dad):
     dad.toolbar_open_n_recent = -1
     toolbar_ui_str = "<ui><toolbar name='ToolBar'>"
@@ -1303,9 +1311,12 @@ def preferences_tab_toolbar(dad, vbox_tool, pref_dialog):
 
     vbox_tool.add(hbox)
 
-    for element in cons.get_entries(dad):
-        if len(element) == 3: continue
-        treestore.append(None, [element[0], element[1], element[4]])
+    for element in dad.toolbar_ui_vec:
+        treestore.append(None, get_toolbar_entry_columns_from_key(dad, element))
+
+    #for element in cons.get_entries(dad):
+        #if len(element) == 3: continue
+        #treestore.append(None, [element[0], element[1], element[4]])
 
 def preferences_tab_misc(dad, vbox_misc, pref_dialog):
     """Preferences Dialog, Misc Tab"""
