@@ -36,6 +36,8 @@ class CodeBoxesHandler:
     def __init__(self, dad):
         """Lists Handler boot"""
         self.dad = dad
+        self.curr_v = 0
+        self.curr_h = 0
 
     def codebox_cut(self, *args):
         """Cut CodeBox"""
@@ -213,7 +215,7 @@ class CodeBoxesHandler:
         iter_insert = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
         self.codebox_insert(iter_insert, codebox_dict)
 
-    def codebox_insert(self, iter_insert, codebox_dict, codebox_justification=None, text_buffer=None):
+    def codebox_insert(self, iter_insert, codebox_dict, codebox_justification=None, text_buffer=None, cursor_pos=0):
         """Insert Code Box"""
         if not text_buffer: text_buffer = self.dad.curr_buffer
         anchor = text_buffer.create_child_anchor(iter_insert)
@@ -234,6 +236,7 @@ class CodeBoxesHandler:
         anchor.sourcebuffer.connect('modified-changed', self.dad.on_modified_changed)
         if codebox_dict['fill_text']:
             anchor.sourcebuffer.set_text(codebox_dict['fill_text'])
+            anchor.sourcebuffer.place_cursor(anchor.sourcebuffer.get_iter_at_offset(cursor_pos))
             anchor.sourcebuffer.set_modified(False)
         anchor.sourceview = gtksourceview2.View(anchor.sourcebuffer)
         anchor.sourceview.set_smart_home_end(gtksourceview2.SMART_HOME_END_BEFORE)
@@ -253,12 +256,14 @@ class CodeBoxesHandler:
         anchor.sourceview.connect("event-after", self.on_sourceview_event_after_codebox, anchor)
         if self.dad.line_wrapping: anchor.sourceview.set_wrap_mode(gtk.WRAP_WORD)
         else: anchor.sourceview.set_wrap_mode(gtk.WRAP_NONE)
-        scrolledwindow = gtk.ScrolledWindow()
-        scrolledwindow.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-        scrolledwindow.add(anchor.sourceview)
+        anchor.scrolledwindow = gtk.ScrolledWindow()
+        anchor.scrolledwindow.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+        anchor.scrolledwindow.add(anchor.sourceview)
+        anchor.scrolledwindow.get_vscrollbar().connect('event-after', self.on_vscrollbar_event_after, anchor)
+        anchor.scrolledwindow.get_hscrollbar().connect('event-after', self.on_hscrollbar_event_after, anchor)
         anchor.frame = gtk.Frame()
         self.codebox_apply_width_height(anchor)
-        anchor.frame.add(scrolledwindow)
+        anchor.frame.add(anchor.scrolledwindow)
         self.dad.sourceview.add_child_at_anchor(anchor.frame, anchor)
         for win in [gtk.TEXT_WINDOW_LEFT, gtk.TEXT_WINDOW_RIGHT, gtk.TEXT_WINDOW_TOP, gtk.TEXT_WINDOW_BOTTOM]:
             anchor.sourceview.set_border_window_size(win, 1)
@@ -308,18 +313,15 @@ class CodeBoxesHandler:
         """Replace CodeBox changing Width and Height"""
         codebox_iter = self.dad.curr_buffer.get_iter_at_child_anchor(self.curr_codebox_anchor)
         codebox_element = [codebox_iter.get_offset(),
-                           self.dad.state_machine.codebox_to_dict(self.curr_codebox_anchor,
-                                                                  for_print=0),
+                           self.dad.state_machine.codebox_to_dict(self.curr_codebox_anchor, for_print=0),
                            self.dad.state_machine.get_iter_alignment(codebox_iter)]
         if new_width: codebox_element[1]['frame_width'] = new_width
         if new_height: codebox_element[1]['frame_height'] = new_height
-        #cursor_pos_restore = self.curr_codebox_anchor.sourcebuffer.get_property(cons.STR_CURSOR_POSITION)
+        cursor_pos = self.curr_codebox_anchor.sourcebuffer.get_property(cons.STR_CURSOR_POSITION)
         self.codebox_delete()
         iter_insert = self.dad.curr_buffer.get_iter_at_offset(codebox_element[0])
-        self.codebox_insert(iter_insert, codebox_element[1], codebox_element[2])
+        self.codebox_insert(iter_insert, codebox_element[1], codebox_element[2], cursor_pos=cursor_pos)
         self.curr_codebox_anchor.sourceview.grab_focus()
-        #self.curr_codebox_anchor.sourcebuffer.place_cursor(self.curr_codebox_anchor.sourcebuffer.get_iter_at_offset(cursor_pos_restore))
-        #self.curr_codebox_anchor.sourceview.scroll_to_mark(self.curr_codebox_anchor.sourcebuffer.get_insert(), 0.3)
 
     def codebox_load_from_file(self, action):
         """Load the CodeBox Content From a Text File"""
@@ -365,6 +367,26 @@ class CodeBoxesHandler:
         """Called after every event on the SourceView"""
         if event.type == gtk.gdk._2BUTTON_PRESS and event.button == 1:
             support.on_sourceview_event_after_double_click_button1(self.dad, text_view, event)
+        return False
+
+    def on_vscrollbar_event_after(self, vscrollbar, event, anchor):
+        """Catches CodeBox Vertical Scrollbar Movements"""
+        if self.curr_codebox_anchor != anchor: return False
+        if self.dad.codebox_auto_resize and event.type == gtk.gdk.EXPOSE:
+            curr_v = vscrollbar.get_value()
+            if curr_v:
+                self.curr_v = curr_v
+                if not self.dad.codebox_sentinel_id: self.dad.codebox_sentinel_start()
+        return False
+
+    def on_hscrollbar_event_after(self, hscrollbar, event, anchor):
+        """Catches CodeBox Horizontal Scrollbar Movements"""
+        if self.curr_codebox_anchor != anchor: return False
+        if self.dad.codebox_auto_resize and event.type == gtk.gdk.EXPOSE:
+            curr_h = hscrollbar.get_value()
+            if curr_h:
+                self.curr_h = curr_h
+                if not self.dad.codebox_sentinel_id: self.dad.codebox_sentinel_start()
         return False
 
     def on_key_press_sourceview_codebox(self, widget, event, anchor):

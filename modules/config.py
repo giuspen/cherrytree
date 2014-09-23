@@ -36,17 +36,28 @@ COLOR_PALETTE_DEFAULT = ["#000000", "#ffffff", "#7f7f7f", "#ff0000", "#a020f0",
 SPECIAL_CHARS_DEFAULT = "“”„•☐☑☒…‰€©®™°↓↑→←↔↵⇓⇑⇒⇐⇔»«▼▲►◄≤≥≠±¹²³½¼⅛×÷∞ø∑√∫ΔδΠπΣΦΩωαβγεηλμ☺☻☼♥♀♂♪♫"
 SELWORD_CHARS_DEFAULT = ".-@"
 TOOLBAR_VEC_DEFAULT = ["TreeAddNode", "TreeAddSubNode", cons.TAG_SEPARATOR, "GoBack", "GoForward", cons.TAG_SEPARATOR, cons.CHAR_STAR, "Save", "Export2PDF", cons.TAG_SEPARATOR, "FindInNodes", cons.TAG_SEPARATOR, "BulletedList", "NumberedList", "ToDoList", cons.TAG_SEPARATOR, "HandleImage", "HandleTable", "HandleCodeBox", "EmbFileInsert", "HandleLink", "HandleAnchor", cons.TAG_SEPARATOR, "RemoveFormatting", "ColorForeground", "ColorBackground", "Bold", "Italic", "Underline", "Strikethrough", "H1", "H2", "H3", "Small", "Superscript", "Subscript", "Monospace"]
-
+TOOLBAR_VEC_BLACKLIST = ["CutAnchor", "CopyAnchor", "DeleteAnchor", "EditAnchor", "CutEmbFile", "CopyEmbFile", "DeleteEmbFile", "EmbFileSave", "EmbFileOpen", "SaveImage", "EditImage", "CutImage", "CopyImage", "DeleteImage", "EditImageLink", "DismissImageLink", "ShowHideMainWin"]
+SEPARATOR_ASCII_REPR = "---------"
 
 SPELL_CHECK_LANG_DEFAULT = locale.getdefaultlocale()[0]
 
 def get_toolbar_entry_columns_from_key(dad, key):
-    if key == cons.TAG_SEPARATOR: return [key, "", _("Separator")]
+    if key == cons.TAG_SEPARATOR: return [key, "", SEPARATOR_ASCII_REPR]
     if key == cons.CHAR_STAR: return [key, "gtk-open", _("Open a CherryTree Document")]
     for element in cons.get_entries(dad):
         if len(element) == 3: continue
         if key == element[0]: return [element[0], element[1], element[4]]
     return ["", "", ""]
+
+def get_toolbar_icon_n_label_list(dad):
+    icon_n_label_list = [[cons.TAG_SEPARATOR, "", SEPARATOR_ASCII_REPR]]
+    for element in cons.get_entries(dad):
+        if len(element) == 3: continue
+        if element[0] in dad.toolbar_ui_vec: continue
+        if element[0] in TOOLBAR_VEC_BLACKLIST: continue
+        if element[0] == "OpenFile" and cons.CHAR_STAR in dad.toolbar_ui_vec: continue
+        icon_n_label_list.append([element[0], element[1], element[4]])
+    return icon_n_label_list
 
 def get_toolbar_ui_str(dad):
     dad.toolbar_open_n_recent = -1
@@ -174,6 +185,7 @@ def config_file_load(inst):
             inst.codebox_height = config.getfloat(section, "codebox_height")
         else: inst.codebox_height = 100
         inst.codebox_width_pixels = config.getboolean(section, "codebox_width_pixels") if config.has_option(section, "codebox_width_pixels") else True
+        inst.codebox_auto_resize = config.getboolean(section, "codebox_auto_resize") if config.has_option(section, "codebox_auto_resize") else True
 
         section = "table"
         inst.table_rows = config.getint(section, "table_rows") if config.has_option(section, "table_rows") else 3
@@ -277,6 +289,7 @@ def config_file_load(inst):
         inst.timestamp_format = "%Y/%m/%d - %H:%M"
         inst.codebox_width = 700
         inst.codebox_width_pixels = True
+        inst.codebox_auto_resize = True
         inst.codebox_height = 100
         inst.check_version = False
         inst.reload_doc_last = True
@@ -411,6 +424,7 @@ def config_file_save(inst):
     config.set(section, "codebox_width", inst.codebox_width)
     config.set(section, "codebox_height", inst.codebox_height)
     config.set(section, "codebox_width_pixels", inst.codebox_width_pixels)
+    config.set(section, "codebox_auto_resize", inst.codebox_auto_resize)
 
     section = "table"
     config.add_section(section)
@@ -739,6 +753,8 @@ def preferences_tab_rich_text_nodes(dad, vbox_text_nodes, pref_dialog):
     hbox_misc_text.set_spacing(4)
     checkbutton_rt_show_white_spaces = gtk.CheckButton(_("Show White Spaces"))
     checkbutton_rt_show_white_spaces.set_active(dad.rt_show_white_spaces)
+    checkbutton_codebox_auto_resize = gtk.CheckButton(_("Auto Resize CodeBoxes"))
+    checkbutton_codebox_auto_resize.set_active(dad.codebox_auto_resize)
     hbox_embfile_size = gtk.HBox()
     hbox_embfile_size.set_spacing(4)
     label_embfile_size = gtk.Label(_("Embedded File Icon Size"))
@@ -756,6 +772,7 @@ def preferences_tab_rich_text_nodes(dad, vbox_text_nodes, pref_dialog):
 
     vbox_misc_text = gtk.VBox()
     vbox_misc_text.pack_start(checkbutton_rt_show_white_spaces, expand=False)
+    vbox_misc_text.pack_start(checkbutton_codebox_auto_resize, expand=False)
     vbox_misc_text.pack_start(hbox_embfile_size, expand=False)
     vbox_misc_text.pack_start(hbox_misc_text, expand=False)
     frame_misc_text = gtk.Frame(label="<b>"+_("Miscellaneous")+"</b>")
@@ -820,6 +837,9 @@ def preferences_tab_rich_text_nodes(dad, vbox_text_nodes, pref_dialog):
         if dad.syntax_highlighting == cons.RICH_TEXT_ID:
             dad.sourceview.set_draw_spaces(codeboxes.DRAW_SPACES_FLAGS if dad.rt_show_white_spaces else 0)
     checkbutton_rt_show_white_spaces.connect('toggled', on_checkbutton_rt_show_white_spaces_toggled)
+    def on_checkbutton_codebox_auto_resize_toggled(checkbutton):
+        dad.codebox_auto_resize = checkbutton.get_active()
+    checkbutton_codebox_auto_resize.connect('toggled', on_checkbutton_codebox_auto_resize_toggled)
     def on_spinbutton_embfile_size_value_changed(spinbutton):
         dad.embfile_size = int(spinbutton_embfile_size.get_value())
         if not dad.embfile_size_mod:
@@ -1282,9 +1302,11 @@ def preferences_tab_toolbar(dad, vbox_tool, pref_dialog):
     """Preferences Dialog, Toolbar Tab"""
     for child in vbox_tool.get_children(): child.destroy()
 
-    treestore = gtk.TreeStore(str, str, str)
-    treeview = gtk.TreeView(treestore)
+    liststore = gtk.ListStore(str, str, str)
+    treeview = gtk.TreeView(liststore)
     treeview.set_headers_visible(False)
+    treeview.set_reorderable(True)
+    treeview.set_size_request(300, 300)
     renderer_pixbuf = gtk.CellRendererPixbuf()
     renderer_text = gtk.CellRendererText()
     column = gtk.TreeViewColumn()
@@ -1312,11 +1334,41 @@ def preferences_tab_toolbar(dad, vbox_tool, pref_dialog):
     vbox_tool.add(hbox)
 
     for element in dad.toolbar_ui_vec:
-        treestore.append(None, get_toolbar_entry_columns_from_key(dad, element))
+        liststore.append(get_toolbar_entry_columns_from_key(dad, element))
 
-    #for element in cons.get_entries(dad):
-        #if len(element) == 3: continue
-        #treestore.append(None, [element[0], element[1], element[4]])
+    pref_dialog.disp_dialog_after_restart = False
+    def update_toolbar_ui_vec():
+        dad.toolbar_ui_vec = []
+        tree_iter = liststore.get_iter_first()
+        while tree_iter != None:
+            dad.toolbar_ui_vec.append(liststore[tree_iter][0])
+            tree_iter = liststore.iter_next(tree_iter)
+        if not pref_dialog.disp_dialog_after_restart:
+            pref_dialog.disp_dialog_after_restart = True
+            support.dialog_info_after_restart(pref_dialog)
+    def on_button_add_clicked(*args):
+        icon_n_label_list = get_toolbar_icon_n_label_list(dad)
+        sel_key = support.dialog_choose_element_in_list(pref_dialog, _("Select Element to Add"), [], "", icon_n_label_list)
+        if sel_key:
+            if sel_key == "OpenFile": sel_key = cons.CHAR_STAR
+            model, tree_iter = treeviewselection.get_selected()
+            if tree_iter: liststore.insert_after(tree_iter, get_toolbar_entry_columns_from_key(dad, sel_key))
+            else: liststore.append(get_toolbar_entry_columns_from_key(dad, sel_key))
+            update_toolbar_ui_vec()
+    button_add.connect('clicked', on_button_add_clicked)
+    def on_button_remove_clicked(*args):
+        model, tree_iter = treeviewselection.get_selected()
+        if tree_iter:
+            model.remove(tree_iter)
+            update_toolbar_ui_vec()
+    button_remove.connect('clicked', on_button_remove_clicked)
+    def on_key_press_liststore(widget, event):
+        keyname = gtk.gdk.keyval_name(event.keyval)
+        if keyname == "Delete": on_button_remove_clicked()
+    treeview.connect('key_press_event', on_key_press_liststore)
+    def on_treeview_drag_end(*args):
+        update_toolbar_ui_vec()
+    treeview.connect('drag-end', on_treeview_drag_end)
 
 def preferences_tab_misc(dad, vbox_misc, pref_dialog):
     """Preferences Dialog, Misc Tab"""

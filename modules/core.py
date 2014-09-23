@@ -87,6 +87,7 @@ class CherryTree:
         self.scrolledwindow_tree.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
         self.scrolledwindow_text = gtk.ScrolledWindow()
         self.scrolledwindow_text.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+        self.scrolledwindow_text.get_hscrollbar().connect('value-changed', self.on_hscrollbar_text_value_changed)
         self.vbox_text = gtk.VBox()
         self.header_node_name_label = gtk.Label()
         self.header_node_name_label.set_padding(10, 0)
@@ -163,6 +164,7 @@ class CherryTree:
         self.highlighted_obj = None
         self.embfiles_opened = {}
         self.embfiles_sentinel_id = None
+        self.codebox_sentinel_id = None
         self.bookmarks = []
         self.bookmarks_menu_items = []
         self.nodes_names_dict = {}
@@ -462,6 +464,13 @@ class CherryTree:
         if not iter_end.forward_char() and not iter_start.backward_char(): return
         self.curr_buffer.select_range(iter_start, iter_end)
         self.sourceview.emit("copy-clipboard")
+
+    def on_hscrollbar_text_value_changed(self, hscrollbar):
+        """Catches Text Horizontal Scrollbar Movements"""
+        curr_val = hscrollbar.get_value()
+        #print curr_val
+        if curr_val == 7:
+            hscrollbar.set_value(0)
 
     def on_key_press_window(self, widget, event):
         """Catches Window key presses"""
@@ -2940,6 +2949,10 @@ class CherryTree:
     def objects_buffer_refresh(self):
         """Buffer Refresh (Needed for Objects)"""
         if not self.curr_tree_iter: return
+        if self.curr_buffer.get_modified():
+            self.file_update = True
+            self.curr_buffer.set_modified(False)
+            self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
         refresh = self.state_machine.requested_current_state(self.treestore[self.curr_tree_iter][3])
         # refresh is [ [rich_text, pixbuf_table_vector, cursor_position],... ]
         pixbuf_table_vector = refresh[1]
@@ -3389,6 +3402,27 @@ class CherryTree:
                         self.statusbar.pop(self.statusbar_context_id)
                         self.statusbar.push(self.statusbar_context_id, _("Updated Embedded File") + cons.CHAR_SPACE + anchor.pixbuf.filename)
                     keep_going = start_iter.forward_char()
+        return True # this way we keep the timer alive
+
+    def codebox_sentinel_start(self):
+        """Start Timer that monitors CodeBox"""
+        self.codebox_sentinel_id = gobject.timeout_add(250, self.codebox_sentinel_iter) # 1/4 sec
+
+    def codebox_sentinel_stop(self):
+        """Stop Timer that monitors CodeBox"""
+        gobject.source_remove(self.codebox_sentinel_id)
+        self.codebox_sentinel_id = None
+
+    def codebox_sentinel_iter(self):
+        """Iteration of the CodeBox Sentinel"""
+        if self.codeboxes_handler.curr_v > 0:
+            #print "codebox_v", self.codeboxes_handler.curr_v
+            self.codeboxes_handler.codebox_increase_height()
+            self.codeboxes_handler.curr_v = 0
+        if self.codeboxes_handler.curr_h > 0:
+            #print "codebox_h", self.codeboxes_handler.curr_h
+            self.codeboxes_handler.codebox_increase_width()
+            self.codeboxes_handler.curr_h = 0
         return True # this way we keep the timer alive
 
     def toc_insert(self, *args):
