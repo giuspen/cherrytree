@@ -337,7 +337,7 @@ _("Ukrainian")+" (uk) Andriy Kovtun <kovtunos@yandex.ru>")
     dialog.run()
     dialog.hide()
 
-def dialog_choose_element_in_list(father_win, title, elements_list, column_title):
+def dialog_choose_element_in_list(father_win, title, elements_list, column_title, icon_n_label_list=None):
     """Choose Between Elements in List"""
     class ListParms:
         def __init__(self):
@@ -352,14 +352,29 @@ def dialog_choose_element_in_list(father_win, title, elements_list, column_title
     dialog.set_default_size(400, 300)
     scrolledwindow = gtk.ScrolledWindow()
     scrolledwindow.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-    elements_liststore = gtk.ListStore(str)
+    if not icon_n_label_list: elements_liststore = gtk.ListStore(str)
+    else: elements_liststore = gtk.ListStore(str,str,str)
     elements_treeview = gtk.TreeView(elements_liststore)
     elements_renderer_text = gtk.CellRendererText()
-    elements_column = gtk.TreeViewColumn(column_title, elements_renderer_text, text=0)
+    if not icon_n_label_list:
+        elements_column = gtk.TreeViewColumn(column_title, elements_renderer_text, text=0)
+    else:
+        elements_treeview.set_headers_visible(False)
+        renderer_pixbuf = gtk.CellRendererPixbuf()
+        renderer_text = gtk.CellRendererText()
+        elements_column = gtk.TreeViewColumn()
+        elements_column.pack_start(renderer_pixbuf, False)
+        elements_column.pack_start(renderer_text, True)
+        elements_column.set_attributes(renderer_pixbuf, stock_id=1)
+        elements_column.set_attributes(renderer_text, text=2)
     elements_treeview.append_column(elements_column)
     elements_treeviewselection = elements_treeview.get_selection()
-    for element_name in elements_list:
-        elements_liststore.append(element_name)
+    if not icon_n_label_list:
+        for element_name in elements_list:
+            elements_liststore.append(element_name)
+    else:
+        for element in icon_n_label_list:
+            elements_liststore.append([element[0], element[1], element[2]])
     scrolledwindow.add(elements_treeview)
     list_parms.sel_iter = elements_liststore.get_iter_first()
     if list_parms.sel_iter:
