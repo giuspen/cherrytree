@@ -282,46 +282,44 @@ class CherryTree:
 
     def text_row_selection_duplicate(self, *args):
         """Duplicates the Whole Row or a Selection"""
-        if self.curr_buffer.get_has_selection():
-            iter_start, iter_end = self.curr_buffer.get_selection_bounds() # there's a selection
+        text_view, text_buffer, from_codebox = self.get_text_view_n_buffer_codebox_proof()
+        if not text_buffer: return
+        if text_buffer.get_has_selection():
+            iter_start, iter_end = text_buffer.get_selection_bounds() # there's a selection
             sel_start_offset = iter_start.get_offset()
             sel_end_offset = iter_end.get_offset()
-            if self.syntax_highlighting != cons.RICH_TEXT_ID:
-                text_to_duplicate = self.curr_buffer.get_text(iter_start, iter_end)
+            if from_codebox or self.syntax_highlighting != cons.RICH_TEXT_ID:
+                text_to_duplicate = text_buffer.get_text(iter_start, iter_end)
                 if cons.CHAR_NEWLINE in text_to_duplicate:
                     text_to_duplicate = cons.CHAR_NEWLINE + text_to_duplicate
-                self.curr_buffer.insert(iter_end, text_to_duplicate)
+                text_buffer.insert(iter_end, text_to_duplicate)
             else:
-                rich_text = self.clipboard_handler.rich_text_get_from_text_buffer_selection(self.curr_buffer,
-                                                                                            iter_start,
-                                                                                            iter_end)
+                rich_text = self.clipboard_handler.rich_text_get_from_text_buffer_selection(text_buffer, iter_start, iter_end)
                 if cons.CHAR_NEWLINE in rich_text:
-                    self.curr_buffer.insert(iter_end, cons.CHAR_NEWLINE)
-                    iter_end = self.curr_buffer.get_iter_at_offset(sel_end_offset+1)
-                    self.curr_buffer.move_mark(self.curr_buffer.get_insert(), iter_end)
+                    text_buffer.insert(iter_end, cons.CHAR_NEWLINE)
+                    iter_end = text_buffer.get_iter_at_offset(sel_end_offset+1)
+                    text_buffer.move_mark(text_buffer.get_insert(), iter_end)
                 self.clipboard_handler.from_xml_string_to_buffer(rich_text)
-            self.curr_buffer.select_range(self.curr_buffer.get_iter_at_offset(sel_start_offset),
-                                          self.curr_buffer.get_iter_at_offset(sel_end_offset))
+            text_buffer.select_range(text_buffer.get_iter_at_offset(sel_start_offset),
+                                     text_buffer.get_iter_at_offset(sel_end_offset))
         else:
-            cursor_offset = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert()).get_offset()
-            iter_start, iter_end = self.lists_handler.get_paragraph_iters()
+            cursor_offset = text_buffer.get_iter_at_mark(text_buffer.get_insert()).get_offset()
+            iter_start, iter_end = self.lists_handler.get_paragraph_iters(text_buffer=text_buffer)
             if iter_start == None:
-                iter_start = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
-                self.curr_buffer.insert(iter_start, cons.CHAR_NEWLINE)
+                iter_start = text_buffer.get_iter_at_mark(text_buffer.get_insert())
+                text_buffer.insert(iter_start, cons.CHAR_NEWLINE)
             else:
-                if self.syntax_highlighting != cons.RICH_TEXT_ID:
-                    text_to_duplicate = self.curr_buffer.get_text(iter_start, iter_end)
-                    self.curr_buffer.insert(iter_end, cons.CHAR_NEWLINE + text_to_duplicate)
+                if from_codebox or self.syntax_highlighting != cons.RICH_TEXT_ID:
+                    text_to_duplicate = text_buffer.get_text(iter_start, iter_end)
+                    text_buffer.insert(iter_end, cons.CHAR_NEWLINE + text_to_duplicate)
                 else:
-                    rich_text = self.clipboard_handler.rich_text_get_from_text_buffer_selection(self.curr_buffer,
-                        iter_start,
-                        iter_end)
+                    rich_text = self.clipboard_handler.rich_text_get_from_text_buffer_selection(text_buffer, iter_start, iter_end)
                     sel_end_offset = iter_end.get_offset()
-                    self.curr_buffer.insert(iter_end, cons.CHAR_NEWLINE)
-                    iter_end = self.curr_buffer.get_iter_at_offset(sel_end_offset+1)
-                    self.curr_buffer.move_mark(self.curr_buffer.get_insert(), iter_end)
+                    text_buffer.insert(iter_end, cons.CHAR_NEWLINE)
+                    iter_end = text_buffer.get_iter_at_offset(sel_end_offset+1)
+                    text_buffer.move_mark(text_buffer.get_insert(), iter_end)
                     self.clipboard_handler.from_xml_string_to_buffer(rich_text)
-                    self.curr_buffer.place_cursor(self.curr_buffer.get_iter_at_offset(cursor_offset))
+                    text_buffer.place_cursor(text_buffer.get_iter_at_offset(cursor_offset))
         self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
 
     def text_row_up(self, *args):
@@ -435,15 +433,22 @@ class CherryTree:
                 self.set_selection_at_offset_n_delta(destination_offset+1, diff_offsets-2)
         self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
 
-    def text_row_delete(self, *args):
-        """Deletes the Whole Row"""
+    def get_text_view_n_buffer_codebox_proof(self):
+        """Returns Tuple TextView, TextBuffer, Boolean checking if CodeBox in Use"""
         text_view = self.codeboxes_handler.codebox_in_use()
         if text_view:
             text_buffer = text_view.get_buffer()
+            from_codebox = True
         else:
             text_buffer = self.curr_buffer
             text_view = self.sourceview
-            if not text_buffer: return
+            from_codebox = False
+        return text_view, text_buffer, from_codebox
+
+    def text_row_delete(self, *args):
+        """Deletes the Whole Row"""
+        text_view, text_buffer, from_codebox = self.get_text_view_n_buffer_codebox_proof()
+        if not text_buffer: return
         iter_start, iter_end = self.lists_handler.get_paragraph_iters(text_buffer=text_buffer)
         if iter_start == None:
             iter_start = text_buffer.get_iter_at_mark(text_buffer.get_insert())
@@ -454,13 +459,8 @@ class CherryTree:
 
     def text_row_cut(self, *args):
         """Cut a Whole Row"""
-        text_view = self.codeboxes_handler.codebox_in_use()
-        if text_view:
-            text_buffer = text_view.get_buffer()
-        else:
-            text_buffer = self.curr_buffer
-            text_view = self.sourceview
-            if not text_buffer: return
+        text_view, text_buffer, from_codebox = self.get_text_view_n_buffer_codebox_proof()
+        if not text_buffer: return
         iter_start, iter_end = self.lists_handler.get_paragraph_iters(text_buffer=text_buffer)
         if iter_start == None:
             iter_start = text_buffer.get_iter_at_mark(text_buffer.get_insert())
@@ -471,13 +471,8 @@ class CherryTree:
 
     def text_row_copy(self, *args):
         """Copy a Whole Row"""
-        text_view = self.codeboxes_handler.codebox_in_use()
-        if text_view:
-            text_buffer = text_view.get_buffer()
-        else:
-            text_buffer = self.curr_buffer
-            text_view = self.sourceview
-            if not text_buffer: return
+        text_view, text_buffer, from_codebox = self.get_text_view_n_buffer_codebox_proof()
+        if not text_buffer: return
         iter_start, iter_end = self.lists_handler.get_paragraph_iters(text_buffer=text_buffer)
         if iter_start == None:
             iter_start = text_buffer.get_iter_at_mark(text_buffer.get_insert())
