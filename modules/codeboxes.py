@@ -44,10 +44,7 @@ class CodeBoxesHandler:
         """Returns a CodeBox SourceView if Currently in Use or None"""
         if not self.curr_codebox_anchor: return None
         if not self.dad.curr_buffer: return None
-        if not self.dad.curr_buffer.get_has_selection(): return None
-        iter_sel_start, iter_sel_end = self.dad.curr_buffer.get_selection_bounds()
-        num_chars = iter_sel_end.get_offset() - iter_sel_start.get_offset()
-        if num_chars != 1: return None
+        iter_sel_start = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
         anchor = iter_sel_start.get_child_anchor()
         if not anchor: return None
         if "sourcebuffer" in dir(anchor): return anchor.sourceview
