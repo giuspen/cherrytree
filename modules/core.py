@@ -437,12 +437,16 @@ class CherryTree:
 
     def text_row_delete(self, *args):
         """Deletes the Whole Row"""
-        iter_start, iter_end = self.lists_handler.get_paragraph_iters()
+        text_buffer = self.codeboxes_handler.codebox_in_use()
+        if not text_buffer:
+            text_buffer = self.curr_buffer
+            if not text_buffer: return
+        iter_start, iter_end = self.lists_handler.get_paragraph_iters(text_buffer=text_buffer)
         if iter_start == None:
-            iter_start = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
+            iter_start = text_buffer.get_iter_at_mark(text_buffer.get_insert())
             iter_end = iter_start.copy()
         if not iter_end.forward_char() and not iter_start.backward_char(): return
-        self.curr_buffer.delete(iter_start, iter_end)
+        text_buffer.delete(iter_start, iter_end)
         self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
 
     def text_row_cut(self, *args):

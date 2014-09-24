@@ -36,8 +36,22 @@ class CodeBoxesHandler:
     def __init__(self, dad):
         """Lists Handler boot"""
         self.dad = dad
+        self.curr_codebox_anchor = None
         self.curr_v = 0
         self.curr_h = 0
+
+    def codebox_in_use(self):
+        """Returns a CodeBox SourceBuffer if Currently in Use or None"""
+        if not self.curr_codebox_anchor: return None
+        if not self.dad.curr_buffer: return None
+        if not self.dad.curr_buffer.get_has_selection(): return None
+        iter_sel_start, iter_sel_end = self.dad.curr_buffer.get_selection_bounds()
+        num_chars = iter_sel_end.get_offset() - iter_sel_start.get_offset()
+        if num_chars != 1: return None
+        anchor = iter_sel_start.get_child_anchor()
+        if not anchor: return None
+        if "sourcebuffer" in dir(anchor): return anchor.sourcebuffer
+        return None
 
     def codebox_cut(self, *args):
         """Cut CodeBox"""
