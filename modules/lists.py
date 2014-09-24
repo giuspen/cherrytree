@@ -46,7 +46,7 @@ class ListsHandler:
             first_iteration = True
             while first_iteration or new_par_offset < end_offset:
                 first_iteration = False
-                iter_start, iter_end = self.get_paragraph_iters(iter_start)
+                iter_start, iter_end = self.get_paragraph_iters(force_iter=iter_start)
                 if not iter_start:
                     # it's an empty paragraph
                     iter_start = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
@@ -68,7 +68,7 @@ class ListsHandler:
             first_iteration = True
             while first_iteration or new_par_offset < end_offset:
                 first_iteration = False
-                iter_start, iter_end = self.get_paragraph_iters(iter_start)
+                iter_start, iter_end = self.get_paragraph_iters(force_iter=iter_start)
                 if not iter_start: break
                 if self.is_list_indented_continuation(iter_start):
                     new_par_offset = iter_end.get_offset() + 1
@@ -99,7 +99,7 @@ class ListsHandler:
             first_iteration = True
             while first_iteration or new_par_offset < end_offset:
                 first_iteration = False
-                iter_start, iter_end = self.get_paragraph_iters(iter_start)
+                iter_start, iter_end = self.get_paragraph_iters(force_iter=iter_start)
                 if not iter_start:
                     # it's an empty paragraph
                     iter_start = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
@@ -118,7 +118,7 @@ class ListsHandler:
             first_iteration = True
             while first_iteration or new_par_offset < end_offset:
                 first_iteration = False
-                iter_start, iter_end = self.get_paragraph_iters(iter_start)
+                iter_start, iter_end = self.get_paragraph_iters(force_iter=iter_start)
                 if not iter_start: break
                 if self.is_list_indented_continuation(iter_start):
                     new_par_offset = iter_end.get_offset() + 1
@@ -152,7 +152,7 @@ class ListsHandler:
             leading_num_count = 0
             while leading_num_count == 0 or new_par_offset < end_offset:
                 leading_num_count += 1
-                iter_start, iter_end = self.get_paragraph_iters(iter_start)
+                iter_start, iter_end = self.get_paragraph_iters(force_iter=iter_start)
                 if not iter_start:
                     # it's an empty paragraph
                     iter_start = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
@@ -178,7 +178,7 @@ class ListsHandler:
             first_iteration = True
             while first_iteration or new_par_offset < end_offset:
                 first_iteration = False
-                iter_start, iter_end = self.get_paragraph_iters(iter_start)
+                iter_start, iter_end = self.get_paragraph_iters(force_iter=iter_start)
                 if not iter_start: break
                 leading_str = "%s. " % list_info[0]
                 if self.is_list_indented_continuation(iter_start):
@@ -280,13 +280,14 @@ class ListsHandler:
                 return [list_info[0], True, list_info[2]] # multiple line = True
         return [None, None, None] # this paragraph is not a list
 
-    def get_paragraph_iters(self, force_iter=None):
+    def get_paragraph_iters(self, text_buffer=None, force_iter=None):
         """Generates and Returns two iters indicating the paragraph bounds"""
-        if not force_iter and self.dad.curr_buffer.get_has_selection():
-            iter_start, iter_end = self.dad.curr_buffer.get_selection_bounds() # there's a selection
+        if not text_buffer: text_buffer = self.dad.curr_buffer
+        if not force_iter and text_buffer.get_has_selection():
+            iter_start, iter_end = text_buffer.get_selection_bounds() # there's a selection
         else:
             # There's not a selection/iter forced
-            if not force_iter: iter_start = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
+            if not force_iter: iter_start = text_buffer.get_iter_at_mark(text_buffer.get_insert())
             else: iter_start = force_iter.copy()
             iter_end = iter_start.copy()
             if iter_start.get_char() == cons.CHAR_NEWLINE:
