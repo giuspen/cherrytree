@@ -30,22 +30,35 @@ def on_sourceview_event_after_double_click_button1(dad, text_view, event):
     iter_end = text_view.get_iter_at_location(x, y)
     iter_start = iter_end.copy()
     curr_char = iter_end.get_char()
-    match = re.match('\w', curr_char, re.UNICODE) # alphanumeric char
-    if not match and not curr_char in dad.selword_chars: return False # double-click was not upon alphanumeric
+    # 1) select alphanumeric + special
+    match = re.match('\w', curr_char, re.UNICODE)
+    if not match and not curr_char in dad.selword_chars: return False
     while match or curr_char in dad.selword_chars:
         if not iter_end.forward_char(): break # end of buffer
         curr_char = iter_end.get_char()
-        match = re.match('\w', curr_char, re.UNICODE) # alphanumeric char
+        match = re.match('\w', curr_char, re.UNICODE)
     iter_start.backward_char()
     curr_char = iter_start.get_char()
-    match = re.match('\w', curr_char, re.UNICODE) # alphanumeric char
+    match = re.match('\w', curr_char, re.UNICODE)
     while match or curr_char in dad.selword_chars:
         if not iter_start.backward_char(): break # start of buffer
         curr_char = iter_start.get_char()
-        match = re.match('\w', curr_char, re.UNICODE) # alphanumeric char
+        match = re.match('\w', curr_char, re.UNICODE)
     if not match and not curr_char in dad.selword_chars: iter_start.forward_char()
-    text_buffer.move_mark(text_buffer.get_insert(), iter_start)
-    text_buffer.move_mark(text_buffer.get_selection_bound(), iter_end)
+    # 2) remove non alphanumeric from borders
+    iter_end.backward_char()
+    curr_char = iter_end.get_char()
+    while curr_char in dad.selword_chars:
+        if not iter_end.backward_char(): break # start of buffer
+        curr_char = iter_end.get_char()
+    iter_end.forward_char()
+    curr_char = iter_start.get_char()
+    while curr_char in dad.selword_chars:
+        if not iter_start.forward_char(): break # end of buffer
+        curr_char = iter_start.get_char()
+    if iter_end.compare(iter_start) > 0:
+        text_buffer.move_mark(text_buffer.get_insert(), iter_start)
+        text_buffer.move_mark(text_buffer.get_selection_bound(), iter_end)
 
 def text_file_rm_emptylines(filepath):
     """Remove empty lines in a text file"""
