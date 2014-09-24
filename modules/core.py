@@ -437,9 +437,12 @@ class CherryTree:
 
     def text_row_delete(self, *args):
         """Deletes the Whole Row"""
-        text_buffer = self.codeboxes_handler.codebox_in_use()
-        if not text_buffer:
+        text_view = self.codeboxes_handler.codebox_in_use()
+        if text_view:
+            text_buffer = text_view.get_buffer()
+        else:
             text_buffer = self.curr_buffer
+            text_view = self.sourceview
             if not text_buffer: return
         iter_start, iter_end = self.lists_handler.get_paragraph_iters(text_buffer=text_buffer)
         if iter_start == None:
@@ -451,23 +454,37 @@ class CherryTree:
 
     def text_row_cut(self, *args):
         """Cut a Whole Row"""
-        iter_start, iter_end = self.lists_handler.get_paragraph_iters()
+        text_view = self.codeboxes_handler.codebox_in_use()
+        if text_view:
+            text_buffer = text_view.get_buffer()
+        else:
+            text_buffer = self.curr_buffer
+            text_view = self.sourceview
+            if not text_buffer: return
+        iter_start, iter_end = self.lists_handler.get_paragraph_iters(text_buffer=text_buffer)
         if iter_start == None:
-            iter_start = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
+            iter_start = text_buffer.get_iter_at_mark(text_buffer.get_insert())
             iter_end = iter_start.copy()
         if not iter_end.forward_char() and not iter_start.backward_char(): return
-        self.curr_buffer.select_range(iter_start, iter_end)
-        self.sourceview.emit("cut-clipboard")
+        text_buffer.select_range(iter_start, iter_end)
+        text_view.emit("cut-clipboard")
 
     def text_row_copy(self, *args):
         """Copy a Whole Row"""
-        iter_start, iter_end = self.lists_handler.get_paragraph_iters()
+        text_view = self.codeboxes_handler.codebox_in_use()
+        if text_view:
+            text_buffer = text_view.get_buffer()
+        else:
+            text_buffer = self.curr_buffer
+            text_view = self.sourceview
+            if not text_buffer: return
+        iter_start, iter_end = self.lists_handler.get_paragraph_iters(text_buffer=text_buffer)
         if iter_start == None:
-            iter_start = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
+            iter_start = text_buffer.get_iter_at_mark(text_buffer.get_insert())
             iter_end = iter_start.copy()
         if not iter_end.forward_char() and not iter_start.backward_char(): return
-        self.curr_buffer.select_range(iter_start, iter_end)
-        self.sourceview.emit("copy-clipboard")
+        text_buffer.select_range(iter_start, iter_end)
+        text_view.emit("copy-clipboard")
 
     def on_hscrollbar_text_value_changed(self, hscrollbar):
         """Catches Text Horizontal Scrollbar Movements"""
