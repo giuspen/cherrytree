@@ -368,6 +368,7 @@ class ClipboardHandler:
             pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(cons.FILE_CHAR, self.dad.embfile_size, self.dad.embfile_size)
             pixbuf.filename = dom_node.attributes["filename"].value
             pixbuf.embfile = base64.b64decode(dom_node.firstChild.data)
+            pixbuf.time = float(dom_node.attributes["time"].value) if dom_node.hasAttribute("time") else 0
         else: pixbuf = machines.get_pixbuf_from_encoded_buffer(dom_node.firstChild.data)
         if pixbuf:
             pixbuf.link = dom_node.attributes["link"].value if dom_node.hasAttribute("link") else ""

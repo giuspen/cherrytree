@@ -264,7 +264,8 @@ justification TEXT,
 anchor TEXT,
 png BLOB,
 filename TEXT,
-link TEXT
+link TEXT,
+time INTEGER
 )"""
 
 TABLE_CHILDREN_CREATE = """CREATE TABLE children (
