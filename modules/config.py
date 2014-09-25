@@ -164,6 +164,7 @@ def config_file_load(inst):
         inst.special_chars = unicode(config.get(section, "special_chars") if config.has_option(section, "special_chars") else SPECIAL_CHARS_DEFAULT, cons.STR_UTF8, cons.STR_IGNORE)
         inst.selword_chars = unicode(config.get(section, "selword_chars") if config.has_option(section, "selword_chars") else SELWORD_CHARS_DEFAULT, cons.STR_UTF8, cons.STR_IGNORE)
         inst.timestamp_format = config.get(section, "timestamp_format") if config.has_option(section, "timestamp_format") else "%Y/%m/%d - %H:%M"
+        inst.links_relative = config.getboolean(section, "links_relative") if config.has_option(section, "links_relative") else False
         if config.has_option(section, "weblink_custom_action"):
             temp_str = config.get(section, "weblink_custom_action")
             inst.weblink_custom_action = [True, temp_str[4:]] if temp_str[:4] == "True" else [False, temp_str[5:]]
@@ -283,6 +284,7 @@ def config_file_load(inst):
         inst.cherry_wrap_width = 130
         inst.start_on_systray = False
         inst.use_appind = False
+        inst.links_relative = False
         inst.weblink_custom_action = [False, LINK_CUSTOM_ACTION_DEFAULT_WEB]
         inst.filelink_custom_action = [False, LINK_CUSTOM_ACTION_DEFAULT_FILE]
         inst.folderlink_custom_action = [False, LINK_CUSTOM_ACTION_DEFAULT_FILE]
@@ -415,6 +417,7 @@ def config_file_save(inst):
     config.set(section, "special_chars", inst.special_chars)
     config.set(section, "selword_chars", inst.selword_chars)
     config.set(section, "timestamp_format", inst.timestamp_format)
+    config.set(section, "links_relative", inst.links_relative)
     config.set(section, "weblink_custom_action", str(inst.weblink_custom_action[0])+inst.weblink_custom_action[1])
     config.set(section, "filelink_custom_action", str(inst.filelink_custom_action[0])+inst.filelink_custom_action[1])
     config.set(section, "folderlink_custom_action", str(inst.folderlink_custom_action[0])+inst.folderlink_custom_action[1])
@@ -1233,6 +1236,8 @@ def preferences_tab_links(dad, vbox_links, pref_dialog):
     frame_links_colors.add(align_links_colors)
 
     vbox_links_misc = gtk.VBox()
+    checkbutton_links_relative = gtk.CheckButton(_("Use Relative Links for Files And Folders"))
+    checkbutton_links_relative.set_active(dad.links_relative)
     hbox_anchor_size = gtk.HBox()
     hbox_anchor_size.set_spacing(4)
     label_anchor_size = gtk.Label(_("Anchor Size"))
@@ -1241,6 +1246,7 @@ def preferences_tab_links(dad, vbox_links, pref_dialog):
     spinbutton_anchor_size.set_value(dad.anchor_size)
     hbox_anchor_size.pack_start(label_anchor_size, expand=False)
     hbox_anchor_size.pack_start(spinbutton_anchor_size, expand=False)
+    vbox_links_misc.pack_start(checkbutton_links_relative, expand=False)
     vbox_links_misc.pack_start(hbox_anchor_size, expand=False)
 
     frame_links_misc = gtk.Frame(label="<b>"+_("Miscellaneous")+"</b>")
@@ -1275,6 +1281,9 @@ def preferences_tab_links(dad, vbox_links, pref_dialog):
     def on_entry_custom_folderlink_cmd_changed(entry):
         dad.folderlink_custom_action[1] = entry.get_text()
     entry_custom_folderlink_cmd.connect('changed', on_entry_custom_folderlink_cmd_changed)
+    def on_checkbutton_links_relative_toggled(checkbutton):
+        dad.links_relative = checkbutton.get_active()
+    checkbutton_links_relative.connect('toggled', on_checkbutton_links_relative_toggled)
     def on_spinbutton_anchor_size_value_changed(spinbutton):
         dad.anchor_size = int(spinbutton_anchor_size.get_value())
         if not dad.anchor_size_mod:
