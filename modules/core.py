@@ -150,7 +150,7 @@ class CherryTree:
         self.sourceview.connect('populate-popup', self.on_sourceview_populate_popup)
         self.sourceview.connect("event", self.on_sourceview_event)
         self.sourceview.connect("motion-notify-event", self.on_sourceview_motion_notify_event)
-        self.sourceview.connect("visibility-notify-event", self.on_sourceview_visibility_notify_event)
+        #self.sourceview.connect("visibility-notify-event", self.on_sourceview_visibility_notify_event)
         self.sourceview.connect("event-after", self.on_sourceview_event_after)
         self.sourceview.connect("copy-clipboard", self.clipboard_handler.copy)
         self.sourceview.connect("cut-clipboard", self.clipboard_handler.cut)
