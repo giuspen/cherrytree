@@ -980,11 +980,13 @@ def dialog_link_handle(dad, title, sel_tree_iter):
         filepath = dialog_file_select(curr_folder=dad.pick_dir, parent=dialog)
         if not filepath: return
         dad.pick_dir = os.path.dirname(filepath)
+        if dad.links_relative: filepath = os.path.relpath(filepath, os.getcwd())
         entry_file.set_text(filepath)
     def on_button_browse_for_folder_to_link_to_clicked(self, *args):
         filepath = dialog_folder_select(curr_folder=dad.pick_dir, parent=dialog)
         if not filepath: return
         dad.pick_dir = filepath
+        if dad.links_relative: filepath = os.path.relpath(filepath, os.getcwd())
         entry_folder.set_text(filepath)
     def on_browse_anchors_button_clicked(*args):
         if not links_parms.sel_iter:
