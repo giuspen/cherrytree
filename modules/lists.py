@@ -31,14 +31,15 @@ class ListsHandler:
         """Lists Handler boot"""
         self.dad = dad
 
-    def list_todo_handler(self):
+    def list_todo_handler(self, text_buffer=None):
         """Handler of the ToDo List"""
-        if self.dad.curr_buffer.get_has_selection():
-            iter_start, sel_end = self.dad.curr_buffer.get_selection_bounds()
+        if not text_buffer: text_buffer = self.dad.curr_buffer
+        if text_buffer.get_has_selection():
+            iter_start, sel_end = text_buffer.get_selection_bounds()
             end_offset = sel_end.get_offset() - 1
         else:
             end_offset = 0
-            iter_start = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
+            iter_start = text_buffer.get_iter_at_mark(text_buffer.get_insert())
         # get info about the paragraph starting with iter_start ([Number, Whether multiple line, List Start Iter Offset])
         list_info = self.get_paragraph_list_info(iter_start)
         if list_info[0] == None:
@@ -46,29 +47,29 @@ class ListsHandler:
             first_iteration = True
             while first_iteration or new_par_offset < end_offset:
                 first_iteration = False
-                iter_start, iter_end = self.get_paragraph_iters(force_iter=iter_start)
+                iter_start, iter_end = self.get_paragraph_iters(text_buffer=text_buffer, force_iter=iter_start)
                 if not iter_start:
                     # it's an empty paragraph
-                    iter_start = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
-                    self.dad.curr_buffer.insert(iter_start, cons.CHAR_LISTTODO + cons.CHAR_SPACE)
+                    iter_start = text_buffer.get_iter_at_mark(text_buffer.get_insert())
+                    text_buffer.insert(iter_start, cons.CHAR_LISTTODO + cons.CHAR_SPACE)
                     break
                 elif self.is_list_indented_continuation(iter_start):
                     new_par_offset = iter_end.get_offset() + 1
                 else:
                     new_par_offset = iter_end.get_offset() + 2 + 1
-                    self.dad.curr_buffer.insert(iter_start, cons.CHAR_LISTTODO + cons.CHAR_SPACE)
+                    text_buffer.insert(iter_start, cons.CHAR_LISTTODO + cons.CHAR_SPACE)
                     end_offset += 2
-                iter_start = self.dad.curr_buffer.get_iter_at_offset(new_par_offset)
+                iter_start = text_buffer.get_iter_at_offset(new_par_offset)
                 if not iter_start: break
         elif list_info[0] == 0:
             # this is a bulleted list paragraph and we turn it into todo list
-            self.list_adjust_ahead(None, list_info[2]-1, "bul2tod")
+            self.list_adjust_ahead(None, list_info[2]-1, "bul2tod", text_buffer)
         elif list_info[0] == -1:
             # this is a todo list and we turn it into normal text
             first_iteration = True
             while first_iteration or new_par_offset < end_offset:
                 first_iteration = False
-                iter_start, iter_end = self.get_paragraph_iters(force_iter=iter_start)
+                iter_start, iter_end = self.get_paragraph_iters(text_buffer=text_buffer, force_iter=iter_start)
                 if not iter_start: break
                 if self.is_list_indented_continuation(iter_start):
                     new_par_offset = iter_end.get_offset() + 1
@@ -76,22 +77,23 @@ class ListsHandler:
                     new_par_offset = iter_end.get_offset() - 2 + 1
                     iter_end_deletion = iter_start.copy()
                     iter_end_deletion.forward_chars(2)
-                    self.dad.curr_buffer.delete(iter_start, iter_end_deletion)
+                    text_buffer.delete(iter_start, iter_end_deletion)
                     end_offset -= 2
-                iter_start = self.dad.curr_buffer.get_iter_at_offset(new_par_offset)
+                iter_start = text_buffer.get_iter_at_offset(new_par_offset)
                 if not iter_start: break
         else:
             # this is a numbered list and we turn it into todo list
-            self.list_adjust_ahead(None, list_info[2]-1, "num2tod")
+            self.list_adjust_ahead(None, list_info[2]-1, "num2tod", text_buffer)
 
-    def list_bulleted_handler(self):
+    def list_bulleted_handler(self, text_buffer=None):
         """Handler of the Bulleted List"""
-        if self.dad.curr_buffer.get_has_selection():
-            iter_start, sel_end = self.dad.curr_buffer.get_selection_bounds()
+        if not text_buffer: text_buffer = self.dad.curr_buffer
+        if text_buffer.get_has_selection():
+            iter_start, sel_end = text_buffer.get_selection_bounds()
             end_offset = sel_end.get_offset() - 1
         else:
             end_offset = 0
-            iter_start = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
+            iter_start = text_buffer.get_iter_at_mark(text_buffer.get_insert())
         # get info about the paragraph starting with iter_start ([Number, Whether multiple line, List Start Iter Offset])
         list_info = self.get_paragraph_list_info(iter_start)
         if list_info[0] == None:
@@ -99,26 +101,26 @@ class ListsHandler:
             first_iteration = True
             while first_iteration or new_par_offset < end_offset:
                 first_iteration = False
-                iter_start, iter_end = self.get_paragraph_iters(force_iter=iter_start)
+                iter_start, iter_end = self.get_paragraph_iters(text_buffer=text_buffer, force_iter=iter_start)
                 if not iter_start:
                     # it's an empty paragraph
-                    iter_start = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
-                    self.dad.curr_buffer.insert(iter_start, cons.CHAR_LISTBUL + cons.CHAR_SPACE)
+                    iter_start = text_buffer.get_iter_at_mark(text_buffer.get_insert())
+                    text_buffer.insert(iter_start, cons.CHAR_LISTBUL + cons.CHAR_SPACE)
                     break
                 elif self.is_list_indented_continuation(iter_start):
                     new_par_offset = iter_end.get_offset() + 1
                 else:
                     new_par_offset = iter_end.get_offset() + 2 + 1
-                    self.dad.curr_buffer.insert(iter_start, cons.CHAR_LISTBUL + cons.CHAR_SPACE)
+                    text_buffer.insert(iter_start, cons.CHAR_LISTBUL + cons.CHAR_SPACE)
                     end_offset += 2
-                iter_start = self.dad.curr_buffer.get_iter_at_offset(new_par_offset)
+                iter_start = text_buffer.get_iter_at_offset(new_par_offset)
                 if not iter_start: break
         elif list_info[0] == 0:
             # this is a bulleted list paragraph and we turn it into normal text
             first_iteration = True
             while first_iteration or new_par_offset < end_offset:
                 first_iteration = False
-                iter_start, iter_end = self.get_paragraph_iters(force_iter=iter_start)
+                iter_start, iter_end = self.get_paragraph_iters(text_buffer=text_buffer, force_iter=iter_start)
                 if not iter_start: break
                 if self.is_list_indented_continuation(iter_start):
                     new_par_offset = iter_end.get_offset() + 1
@@ -126,25 +128,26 @@ class ListsHandler:
                     new_par_offset = iter_end.get_offset() -2 + 1
                     iter_end_deletion = iter_start.copy()
                     iter_end_deletion.forward_chars(2)
-                    self.dad.curr_buffer.delete(iter_start, iter_end_deletion)
+                    text_buffer.delete(iter_start, iter_end_deletion)
                     end_offset -= 2
-                iter_start = self.dad.curr_buffer.get_iter_at_offset(new_par_offset)
+                iter_start = text_buffer.get_iter_at_offset(new_par_offset)
                 if not iter_start: break
         elif list_info[0] == -1:
             # this is a todo list and we turn it into bulleted list
-            self.list_adjust_ahead(None, list_info[2]-1, "tod2bul")
+            self.list_adjust_ahead(None, list_info[2]-1, "tod2bul", text_buffer)
         else:
             # this is a numbered list and we turn it into bulleted list
-            self.list_adjust_ahead(None, list_info[2]-1, "num2bul")
+            self.list_adjust_ahead(None, list_info[2]-1, "num2bul", text_buffer)
 
-    def list_numbered_handler(self):
+    def list_numbered_handler(self, text_buffer=None):
         """Handler of the Numbered List"""
-        if self.dad.curr_buffer.get_has_selection():
-            iter_start, sel_end = self.dad.curr_buffer.get_selection_bounds()
+        if not text_buffer: text_buffer = self.dad.curr_buffer
+        if text_buffer.get_has_selection():
+            iter_start, sel_end = text_buffer.get_selection_bounds()
             end_offset = sel_end.get_offset() - 1
         else:
             end_offset = 0
-            iter_start = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
+            iter_start = text_buffer.get_iter_at_mark(text_buffer.get_insert())
         # get info about the paragraph starting with iter_start ([Number, Whether multiple line, List Start Iter Offset])
         list_info = self.get_paragraph_list_info(iter_start)
         if list_info[0] == None:
@@ -152,33 +155,33 @@ class ListsHandler:
             leading_num_count = 0
             while leading_num_count == 0 or new_par_offset < end_offset:
                 leading_num_count += 1
-                iter_start, iter_end = self.get_paragraph_iters(force_iter=iter_start)
+                iter_start, iter_end = self.get_paragraph_iters(text_buffer=text_buffer, force_iter=iter_start)
                 if not iter_start:
                     # it's an empty paragraph
-                    iter_start = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
-                    self.dad.curr_buffer.insert(iter_start, "1. ")
+                    iter_start = text_buffer.get_iter_at_mark(text_buffer.get_insert())
+                    text_buffer.insert(iter_start, "1. ")
                     break
                 elif self.is_list_indented_continuation(iter_start):
                     new_par_offset = iter_end.get_offset() + 1
                 else:
                     leading_str = "%s. " % leading_num_count
                     new_par_offset = iter_end.get_offset() + len(leading_str) + 1
-                    self.dad.curr_buffer.insert(iter_start, leading_str)
+                    text_buffer.insert(iter_start, leading_str)
                     end_offset += len(leading_str)
-                iter_start = self.dad.curr_buffer.get_iter_at_offset(new_par_offset)
+                iter_start = text_buffer.get_iter_at_offset(new_par_offset)
                 if not iter_start: break
         elif list_info[0] == 0:
             # this is a bulleted list and we turn it into numbered list
-            self.list_adjust_ahead(0, list_info[2]-1, "bul2num")
+            self.list_adjust_ahead(0, list_info[2]-1, "bul2num", text_buffer)
         elif list_info[0] == -1:
             # this is a todo list and we turn it into numbered list
-            self.list_adjust_ahead(0, list_info[2]-1, "tod2num")
+            self.list_adjust_ahead(0, list_info[2]-1, "tod2num", text_buffer)
         else:
             # this is a numbered list paragraph and we turn it into normal text
             first_iteration = True
             while first_iteration or new_par_offset < end_offset:
                 first_iteration = False
-                iter_start, iter_end = self.get_paragraph_iters(force_iter=iter_start)
+                iter_start, iter_end = self.get_paragraph_iters(text_buffer=text_buffer, force_iter=iter_start)
                 if not iter_start: break
                 leading_str = "%s. " % list_info[0]
                 if self.is_list_indented_continuation(iter_start):
@@ -187,24 +190,24 @@ class ListsHandler:
                     new_par_offset = iter_end.get_offset() -len(leading_str) + 1
                     iter_end_deletion = iter_start.copy()
                     iter_end_deletion.forward_chars(len(leading_str))
-                    self.dad.curr_buffer.delete(iter_start, iter_end_deletion)
+                    text_buffer.delete(iter_start, iter_end_deletion)
                     end_offset -= len(leading_str)
-                iter_start = self.dad.curr_buffer.get_iter_at_offset(new_par_offset)
+                iter_start = text_buffer.get_iter_at_offset(new_par_offset)
                 if not iter_start: break
 
-    def list_adjust_ahead(self, curr_num, offset_start, adj_type):
+    def list_adjust_ahead(self, curr_num, offset_start, adj_type, text_buffer):
         """Adjust the Following Numbering"""
         if offset_start >= 0:
-            iter_start = self.dad.curr_buffer.get_iter_at_offset(offset_start)
+            iter_start = text_buffer.get_iter_at_offset(offset_start)
             while iter_start.get_char() != cons.CHAR_NEWLINE:
                 if not iter_start.forward_char(): return # end of buffer
             if not iter_start.forward_char(): return
-        else: iter_start = self.dad.curr_buffer.get_iter_at_offset(0)
+        else: iter_start = text_buffer.get_iter_at_offset(0)
         # we're at the beginning of a list item or subsequent indented line of a list item
         if iter_start.get_char() == cons.CHAR_SPACE:
             if iter_start.forward_char() and iter_start.get_char() == cons.CHAR_SPACE\
             and iter_start.forward_char() and iter_start.get_char() == cons.CHAR_SPACE:
-                self.list_adjust_ahead(curr_num, iter_start.get_offset(), adj_type) # go on searching
+                self.list_adjust_ahead(curr_num, iter_start.get_offset(), adj_type, text_buffer) # go on searching
             else: return # not an indentation
         elif adj_type[0:3] == "num":
             match = re.match('[1-9]', iter_start.get_char())
@@ -212,31 +215,31 @@ class ListsHandler:
             iter_end = iter_start.copy()
             while iter_end.forward_char() and re.match('[0-9]', iter_end.get_char()): pass
             if iter_end.get_char() != ".": return # something's wrong
-            self.list_adjust_ahead_write_in(iter_start, iter_end, curr_num, adj_type)
+            self.list_adjust_ahead_write_in(iter_start, iter_end, curr_num, adj_type, text_buffer)
         elif adj_type[0:3] == "bul":
             if iter_start.get_char() != cons.CHAR_LISTBUL: return
             iter_end = iter_start.copy()
-            self.list_adjust_ahead_write_in(iter_start, iter_end, curr_num, adj_type)
+            self.list_adjust_ahead_write_in(iter_start, iter_end, curr_num, adj_type, text_buffer)
         elif adj_type[0:3] == "tod":
             if not iter_start.get_char() in [cons.CHAR_LISTTODO, cons.CHAR_LISTDONEOK, cons.CHAR_LISTDONEFAIL]: return
             iter_end = iter_start.copy()
-            self.list_adjust_ahead_write_in(iter_start, iter_end, curr_num, adj_type)
+            self.list_adjust_ahead_write_in(iter_start, iter_end, curr_num, adj_type, text_buffer)
         else: print "bad adj_type", adj_type
 
-    def list_adjust_ahead_write_in(self, iter_start, iter_end, curr_num, adj_type):
+    def list_adjust_ahead_write_in(self, iter_start, iter_end, curr_num, adj_type, text_buffer):
         """Write a Replacement of List Point"""
         iter_end.forward_char()
-        self.dad.curr_buffer.delete(iter_start, iter_end)
+        text_buffer.delete(iter_start, iter_end)
         if adj_type[-3:] == "num":
             curr_num += 1
-            self.dad.curr_buffer.insert(iter_start, '%s.' % curr_num)
-            self.list_adjust_ahead(curr_num, iter_start.get_offset(), adj_type)
+            text_buffer.insert(iter_start, '%s.' % curr_num)
+            self.list_adjust_ahead(curr_num, iter_start.get_offset(), adj_type, text_buffer)
         elif adj_type[-3:] == "bul":
-            self.dad.curr_buffer.insert(iter_start, cons.CHAR_LISTBUL)
-            self.list_adjust_ahead(None, iter_start.get_offset(), adj_type)
+            text_buffer.insert(iter_start, cons.CHAR_LISTBUL)
+            self.list_adjust_ahead(None, iter_start.get_offset(), adj_type, text_buffer)
         elif adj_type[-3:] == "tod":
-            self.dad.curr_buffer.insert(iter_start, cons.CHAR_LISTTODO)
-            self.list_adjust_ahead(None, iter_start.get_offset(), adj_type)
+            text_buffer.insert(iter_start, cons.CHAR_LISTTODO)
+            self.list_adjust_ahead(None, iter_start.get_offset(), adj_type, text_buffer)
         else: print "bad adj_type", adj_type
 
     def list_get_number(self, iter_first_paragraph):
@@ -326,18 +329,18 @@ class ListsHandler:
             return True
         return False
 
-    def todo_list_rotate_status(self, todo_char_iter):
+    def todo_list_rotate_status(self, todo_char_iter, text_buffer):
         """Rotate status between ☐ and ☑ and ☒"""
         iter_offset = todo_char_iter.get_offset()
         if todo_char_iter.get_char() == cons.CHAR_LISTTODO:
-            self.dad.curr_buffer.delete(todo_char_iter, self.dad.curr_buffer.get_iter_at_offset(iter_offset+1))
-            self.dad.curr_buffer.insert(self.dad.curr_buffer.get_iter_at_offset(iter_offset), cons.CHAR_LISTDONEOK)
+            text_buffer.delete(todo_char_iter, text_buffer.get_iter_at_offset(iter_offset+1))
+            text_buffer.insert(text_buffer.get_iter_at_offset(iter_offset), cons.CHAR_LISTDONEOK)
         elif todo_char_iter.get_char() == cons.CHAR_LISTDONEOK:
-            self.dad.curr_buffer.delete(todo_char_iter, self.dad.curr_buffer.get_iter_at_offset(iter_offset+1))
-            self.dad.curr_buffer.insert(self.dad.curr_buffer.get_iter_at_offset(iter_offset), cons.CHAR_LISTDONEFAIL)
+            text_buffer.delete(todo_char_iter, text_buffer.get_iter_at_offset(iter_offset+1))
+            text_buffer.insert(text_buffer.get_iter_at_offset(iter_offset), cons.CHAR_LISTDONEFAIL)
         elif todo_char_iter.get_char() == cons.CHAR_LISTDONEFAIL:
-            self.dad.curr_buffer.delete(todo_char_iter, self.dad.curr_buffer.get_iter_at_offset(iter_offset+1))
-            self.dad.curr_buffer.insert(self.dad.curr_buffer.get_iter_at_offset(iter_offset), cons.CHAR_LISTTODO)
+            text_buffer.delete(todo_char_iter, text_buffer.get_iter_at_offset(iter_offset+1))
+            text_buffer.insert(text_buffer.get_iter_at_offset(iter_offset), cons.CHAR_LISTTODO)
 
     def char_iter_forward_to_newline(self, char_iter):
         """Forwards char iter to line end"""

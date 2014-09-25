@@ -265,6 +265,8 @@ class CodeBoxesHandler:
         anchor.sourceview.connect('key_press_event', self.on_key_press_sourceview_codebox, anchor)
         anchor.sourceview.connect('button-press-event', self.on_mouse_button_clicked_codebox, anchor)
         anchor.sourceview.connect("event-after", self.on_sourceview_event_after_codebox, anchor)
+        anchor.sourceview.connect("motion-notify-event", self.on_sourceview_motion_notify_event_codebox)
+        anchor.sourceview.connect("visibility-notify-event", self.on_sourceview_visibility_notify_event_codebox)
         if self.dad.line_wrapping: anchor.sourceview.set_wrap_mode(gtk.WRAP_WORD)
         else: anchor.sourceview.set_wrap_mode(gtk.WRAP_NONE)
         anchor.scrolledwindow = gtk.ScrolledWindow()
@@ -378,6 +380,10 @@ class CodeBoxesHandler:
         """Called after every event on the SourceView"""
         if event.type == gtk.gdk._2BUTTON_PRESS and event.button == 1:
             support.on_sourceview_event_after_double_click_button1(self.dad, text_view, event)
+        elif event.type == gtk.gdk.BUTTON_PRESS:
+            return support.on_sourceview_event_after_button_press(self.dad, text_view, event)
+        elif event.type == gtk.gdk.KEY_PRESS:
+            return support.on_sourceview_event_after_key_press(self.dad, text_view, event)
         return False
 
     def on_vscrollbar_event_after(self, vscrollbar, event, anchor):
@@ -425,3 +431,16 @@ class CodeBoxesHandler:
     def on_sourceview_populate_popup_codebox(self, textview, menu, anchor):
         """Extend the Default Right-Click Menu of the CodeBox"""
         self.dad.menu_populate_popup(menu, cons.get_popup_menu_entries_codebox(self), self.dad.orphan_accel_group)
+
+    def on_sourceview_motion_notify_event_codebox(self, text_view, event):
+        """Update the cursor image if the pointer moved"""
+        x, y = text_view.window_to_buffer_coords(gtk.TEXT_WINDOW_TEXT, int(event.x), int(event.y))
+        support.sourceview_cursor_and_tooltips_handler(self.dad, text_view, x, y)
+        return False
+
+    def on_sourceview_visibility_notify_event_codebox(self, text_view, event):
+        """Update the cursor image if the window becomes visible (e.g. when a window covering it got iconified)"""
+        wx, wy, mod = text_view.window.get_pointer()
+        bx, by = text_view.window_to_buffer_coords(gtk.TEXT_WINDOW_TEXT, wx, wy)
+        support.sourceview_cursor_and_tooltips_handler(self.dad, text_view, bx, by)
+        return False

@@ -68,6 +68,152 @@ def on_sourceview_event_after_double_click_button1(dad, text_view, event):
     iter_start = text_view.get_iter_at_location(x, y)
     apply_tag_try_automatic_bounds(dad, text_buffer=text_buffer, iter_start=iter_start)
 
+def on_sourceview_event_after_button_press(dad, text_view, event):
+    """Called after every gtk.gdk.BUTTON_PRESS on the SourceView"""
+    text_buffer = text_view.get_buffer()
+    if event.button == 1:
+        x, y = text_view.window_to_buffer_coords(gtk.TEXT_WINDOW_TEXT, int(event.x), int(event.y))
+        text_iter = text_view.get_iter_at_location(x, y)
+        tags = text_iter.get_tags()
+        # check whether we are hovering a link
+        if not tags: tags = []
+        for tag in tags:
+            tag_name = tag.get_property("name")
+            if tag_name and tag_name[0:4] == cons.TAG_LINK:
+                dad.link_clicked(tag_name[5:])
+                return False
+        if dad.lists_handler.is_list_todo_beginning(text_iter):
+            dad.lists_handler.todo_list_rotate_status(text_iter, text_buffer)
+    elif event.button == 3 and not text_buffer.get_has_selection():
+        x, y = text_view.window_to_buffer_coords(gtk.TEXT_WINDOW_TEXT, int(event.x), int(event.y))
+        text_iter = text_view.get_iter_at_location(x, y)
+        text_buffer.place_cursor(text_iter)
+    return False
+
+def on_sourceview_event_after_key_press(dad, text_view, event):
+    """Called after every gtk.gdk.KEY_PRESS on the SourceView"""
+    text_buffer = text_view.get_buffer()
+    keyname = gtk.gdk.keyval_name(event.keyval)
+    if (event.state & gtk.gdk.SHIFT_MASK):
+        if keyname == cons.STR_RETURN:
+            text_buffer.insert(text_buffer.get_iter_at_mark(text_buffer.get_insert()), 3*cons.CHAR_SPACE)
+    elif keyname == cons.STR_RETURN:
+        iter_insert = text_buffer.get_iter_at_mark(text_buffer.get_insert())
+        if not iter_insert:
+            return False
+        cursor_key_press = iter_insert.get_offset()
+        #print "cursor_key_press", cursor_key_press
+        if cursor_key_press == dad.cursor_key_press:
+            # problem of event-after called twice, once before really executing
+            return False
+        iter_start = iter_insert.copy()
+        if not iter_start.backward_char(): return False
+        if iter_start.get_char() != cons.CHAR_NEWLINE: return False
+        if iter_start.backward_char() and iter_start.get_char() == cons.CHAR_NEWLINE:
+            return False # former was an empty row
+        list_info = dad.lists_handler.get_paragraph_list_info(iter_start)
+        if list_info[0] == None:
+            if dad.auto_indent:
+                iter_start = iter_insert.copy()
+                former_line_indent = get_former_line_indentation(iter_start)
+                if former_line_indent: text_buffer.insert_at_cursor(former_line_indent)
+            return False # former was not a list
+        # possible list quit
+        iter_list_quit = iter_insert.copy()
+        if (list_info[0] == 0 and iter_list_quit.backward_chars(3) and iter_list_quit.get_char() == cons.CHAR_LISTBUL):
+            text_buffer.delete(iter_list_quit, iter_insert)
+            return False # former was an empty paragraph => list quit
+        elif (list_info[0] == -1 and iter_list_quit.backward_chars(3) and iter_list_quit.get_char() in [cons.CHAR_LISTTODO, cons.CHAR_LISTDONEOK, cons.CHAR_LISTDONEFAIL]):
+            text_buffer.delete(iter_list_quit, iter_insert)
+            return False # former was an empty paragraph => list quit
+        elif (list_info[0] > 0 and iter_list_quit.backward_chars(2) and iter_list_quit.get_char() == cons.CHAR_SPACE\
+        and iter_list_quit.backward_char() and iter_list_quit.get_char() == '.'):
+            iter_list_quit.backward_chars(len(str(list_info[0])))
+            text_buffer.delete(iter_list_quit, iter_insert)
+            return False # former was an empty paragraph => list quit
+        if list_info[0] == 0: text_buffer.insert(iter_insert, cons.CHAR_LISTBUL + cons.CHAR_SPACE)
+        elif list_info[0] == -1: text_buffer.insert(iter_insert, cons.CHAR_LISTTODO + cons.CHAR_SPACE)
+        else:
+            curr_num = list_info[0] + 1
+            text_buffer.insert(iter_insert, '%s. ' % curr_num)
+            dad.lists_handler.list_adjust_ahead(curr_num, iter_insert.get_offset(), "num2num", text_buffer)
+    elif keyname == "space":
+        iter_insert = text_buffer.get_iter_at_mark(text_buffer.get_insert())
+        if iter_insert == None: return False
+        iter_start = iter_insert.copy()
+        if iter_start.backward_chars(2):
+            if iter_start.get_char() == cons.CHAR_GREATER and iter_start.backward_char()\
+            and iter_start.get_char() == cons.CHAR_MINUS and iter_start.backward_char():
+                if iter_start.get_char() == cons.CHAR_LESSER:
+                    dad.special_char_replace(cons.SPECIAL_CHAR_ARROW_DOUBLE, iter_start, iter_insert, text_buffer)
+                elif iter_start.get_char() == cons.CHAR_MINUS:
+                    dad.special_char_replace(cons.SPECIAL_CHAR_ARROW_RIGHT, iter_start, iter_insert, text_buffer)
+            elif iter_start.get_char() == cons.CHAR_MINUS and iter_start.backward_char()\
+            and iter_start.get_char() == cons.CHAR_MINUS and iter_start.backward_char()\
+            and iter_start.get_char() == cons.CHAR_LESSER:
+                dad.special_char_replace(cons.SPECIAL_CHAR_ARROW_LEFT, iter_start, iter_insert, text_buffer)
+            elif iter_start.get_char() == cons.CHAR_PARENTH_CLOSE and iter_start.backward_char():
+                if iter_start.get_char().lower() == "c" and iter_start.backward_char()\
+                and iter_start.get_char() == cons.CHAR_PARENTH_OPEN:
+                    dad.special_char_replace(cons.SPECIAL_CHAR_COPYRIGHT, iter_start, iter_insert, text_buffer)
+                elif iter_start.get_char().lower() == "r" and iter_start.backward_char()\
+                and iter_start.get_char() == cons.CHAR_PARENTH_OPEN:
+                    dad.special_char_replace(cons.SPECIAL_CHAR_REGISTERED_TRADEMARK, iter_start, iter_insert, text_buffer)
+                elif iter_start.get_char().lower() == "m" and iter_start.backward_char()\
+                and iter_start.get_char() == "t" and iter_start.backward_char()\
+                and iter_start.get_char() == cons.CHAR_PARENTH_OPEN:
+                    dad.special_char_replace(cons.SPECIAL_CHAR_UNREGISTERED_TRADEMARK, iter_start, iter_insert, text_buffer)
+            # Start bulleted list on "* " at line start
+            elif iter_start.get_char() == cons.CHAR_STAR and iter_start.get_line_offset() == 0:
+                text_buffer.delete(iter_start, iter_insert)
+                dad.lists_handler.list_bulleted_handler(text_buffer=text_buffer)
+            # Start todo list on "[ ]" at line start
+            elif iter_start.get_char() == cons.CHAR_SQ_BR_CLOSE and iter_start.backward_char()\
+            and iter_start.get_char() == cons.CHAR_SPACE and iter_start.backward_char()\
+            and iter_start.get_char() == cons.CHAR_SQ_BR_OPEN\
+            and iter_start.get_line_offset() == 0:
+                text_buffer.delete(iter_start, iter_insert)
+                dad.lists_handler.list_todo_handler(text_buffer=text_buffer)
+    return False
+
+def sourceview_cursor_and_tooltips_handler(dad, text_view, x, y):
+    """Looks at all tags covering the position (x, y) in the text view,
+       and if one of them is a link, change the cursor to the HAND2 cursor"""
+    hovering_link = False
+    text_iter = text_view.get_iter_at_location(x, y)
+    if dad.lists_handler.is_list_todo_beginning(text_iter):
+        text_view.get_window(gtk.TEXT_WINDOW_TEXT).set_cursor(gtk.gdk.Cursor(gtk.gdk.X_CURSOR))
+        text_view.set_tooltip_text(None)
+        return
+    tags = text_iter.get_tags()
+    if not tags: tags = []
+    for tag in tags:
+        tag_name = tag.get_property("name")
+        if tag_name and tag_name[0:4] == cons.TAG_LINK:
+            hovering_link = True
+            tooltip = text_view_hovering_link_get_tooltip(tag_name[5:])
+            break
+    else:
+        iter_anchor = text_iter.copy()
+        for i in [0, 1]:
+            if i == 1: iter_anchor.backward_char()
+            anchor = iter_anchor.get_child_anchor()
+            if anchor and "pixbuf" in dir(anchor):
+                pixbuf_attrs = dir(anchor.pixbuf)
+                if "link" in pixbuf_attrs and anchor.pixbuf.link:
+                    hovering_link = True
+                    tooltip = text_view_hovering_link_get_tooltip(anchor.pixbuf.link)
+                    break
+    if hovering_link != dad.hovering_over_link:
+        dad.hovering_over_link = hovering_link
+        #print "link", dad.hovering_over_link
+    if dad.hovering_over_link:
+        text_view.get_window(gtk.TEXT_WINDOW_TEXT).set_cursor(gtk.gdk.Cursor(gtk.gdk.HAND2))
+        text_view.set_tooltip_text(tooltip)
+    else:
+        text_view.get_window(gtk.TEXT_WINDOW_TEXT).set_cursor(gtk.gdk.Cursor(gtk.gdk.XTERM))
+        text_view.set_tooltip_text(None)
+
 def text_file_rm_emptylines(filepath):
     """Remove empty lines in a text file"""
     overwrite_needed = False

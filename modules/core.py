@@ -148,10 +148,10 @@ class CherryTree:
         self.sourceview.set_sensitive(False)
         self.sourceview.set_smart_home_end(gtksourceview2.SMART_HOME_END_BEFORE)
         self.sourceview.connect('populate-popup', self.on_sourceview_populate_popup)
-        self.sourceview.connect("motion-notify-event", self.on_sourceview_motion_notify_event)
         self.sourceview.connect("event", self.on_sourceview_event)
-        self.sourceview.connect("event-after", self.on_sourceview_event_after)
+        self.sourceview.connect("motion-notify-event", self.on_sourceview_motion_notify_event)
         self.sourceview.connect("visibility-notify-event", self.on_sourceview_visibility_notify_event)
+        self.sourceview.connect("event-after", self.on_sourceview_event_after)
         self.sourceview.connect("copy-clipboard", self.clipboard_handler.copy)
         self.sourceview.connect("cut-clipboard", self.clipboard_handler.cut)
         self.sourceview.connect("paste-clipboard", self.clipboard_handler.paste)
@@ -3306,6 +3306,7 @@ iter_end, exclude_iter_sel_end=True)
     def anchor_handle(self, action):
         """Insert an Anchor"""
         if not self.node_sel_and_rich_text(): return
+        if not self.is_curr_node_not_read_only_or_error(): return
         iter_insert = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
         pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(cons.ANCHOR_CHAR, self.anchor_size, self.anchor_size)
         self.anchor_edit_dialog(pixbuf, iter_insert)
@@ -3339,6 +3340,7 @@ iter_end, exclude_iter_sel_end=True)
     def embfile_insert(self, *args):
         """Embedded File Insert"""
         if not self.node_sel_and_rich_text(): return
+        if not self.is_curr_node_not_read_only_or_error(): return
         iter_insert = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
         filepath = support.dialog_file_select(curr_folder=self.pick_dir, parent=self.window)
         if not filepath: return
@@ -3472,11 +3474,13 @@ iter_end, exclude_iter_sel_end=True)
     def table_handle(self, *args):
         """Insert Table"""
         if not self.node_sel_and_rich_text(): return
+        if not self.is_curr_node_not_read_only_or_error(): return
         self.tables_handler.table_handle()
 
     def codebox_handle(self, *args):
         """Insert Code Box"""
         if not self.node_sel_and_rich_text(): return
+        if not self.is_curr_node_not_read_only_or_error(): return
         self.codeboxes_handler.codebox_handle()
 
     def is_curr_node_not_syntax_highlighting_or_error(self, plain_text_ok=False):
@@ -3509,6 +3513,13 @@ iter_end, exclude_iter_sel_end=True)
         if not self.is_there_selected_node_or_error(): return False
         if not self.curr_buffer.get_has_selection():
             support.dialog_error(_("No Text is Selected"), self.window)
+            return False
+        return True
+
+    def is_curr_node_not_read_only_or_error(self):
+        """Returns False if the Current Selected Node is Read Only and prompts error dialog"""
+        if self.curr_tree_iter and self.treestore[self.curr_tree_iter][7]:
+            support.dialog_error(_("The Selected Node is Read Only"), self.window)
             return False
         return True
 
@@ -3628,6 +3639,7 @@ iter_end, exclude_iter_sel_end=True)
     def image_handle(self, *args):
         """Insert/Edit Image"""
         if not self.node_sel_and_rich_text(): return
+        if not self.is_curr_node_not_read_only_or_error(): return
         iter_insert = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
         filename = support.dialog_file_select(curr_folder=self.pick_dir, parent=self.window)
         if not filename: return
@@ -3818,102 +3830,130 @@ iter_end, exclude_iter_sel_end=True)
 
     def apply_tag_foreground(self, *args):
         """The Foreground Color Chooser Button was Pressed"""
+        if not self.is_curr_node_not_read_only_or_error(): return
         self.apply_tag(cons.TAG_FOREGROUND)
 
     def apply_tag_background(self, *args):
         """The Background Color Chooser Button was Pressed"""
+        if not self.is_curr_node_not_read_only_or_error(): return
         self.apply_tag(cons.TAG_BACKGROUND)
 
     def apply_tag_link(self, *args):
         """The Link Insert Button was Pressed"""
+        if not self.is_curr_node_not_read_only_or_error(): return
         self.apply_tag(cons.TAG_LINK)
 
     def apply_tag_bold(self, *args):
         """The Bold Button was Pressed"""
+        if not self.is_curr_node_not_read_only_or_error(): return
         self.apply_tag(cons.TAG_WEIGHT, cons.TAG_PROP_HEAVY)
 
     def apply_tag_italic(self, *args):
         """The Italic Button was Pressed"""
+        if not self.is_curr_node_not_read_only_or_error(): return
         self.apply_tag(cons.TAG_STYLE, cons.TAG_PROP_ITALIC)
 
     def apply_tag_underline(self, *args):
         """The Underline Button was Pressed"""
+        if not self.is_curr_node_not_read_only_or_error(): return
         self.apply_tag(cons.TAG_UNDERLINE, cons.TAG_PROP_SINGLE)
 
     def apply_tag_strikethrough(self, *args):
         """The Strikethrough Button was Pressed"""
+        if not self.is_curr_node_not_read_only_or_error(): return
         self.apply_tag(cons.TAG_STRIKETHROUGH, cons.TAG_PROP_TRUE)
 
     def apply_tag_small(self, *args):
         """The Small Button was Pressed"""
-        self.apply_tag(cons.TAG_SCALE, "small")
+        if not self.is_curr_node_not_read_only_or_error(): return
+        self.apply_tag(cons.TAG_SCALE, cons.TAG_PROP_SMALL)
 
     def apply_tag_subscript(self, *args):
         """The Subscript Button was Pressed"""
-        self.apply_tag(cons.TAG_SCALE, "sub")
+        if not self.is_curr_node_not_read_only_or_error(): return
+        self.apply_tag(cons.TAG_SCALE, cons.TAG_PROP_SUB)
 
     def apply_tag_superscript(self, *args):
         """The Superscript Button was Pressed"""
-        self.apply_tag(cons.TAG_SCALE, "sup")
+        if not self.is_curr_node_not_read_only_or_error(): return
+        self.apply_tag(cons.TAG_SCALE, cons.TAG_PROP_SUP)
 
     def apply_tag_monospace(self, *args):
         """The Monospace Button was Pressed"""
-        self.apply_tag(cons.TAG_FAMILY, "monospace")
+        if not self.is_curr_node_not_read_only_or_error(): return
+        self.apply_tag(cons.TAG_FAMILY, cons.TAG_PROP_MONOSPACE)
 
     def apply_tag_h1(self, *args):
         """The H1 Button was Pressed"""
+        if not self.is_curr_node_not_read_only_or_error(): return
         iter_start, iter_end = self.lists_handler.get_paragraph_iters()
         if not iter_start: return
         self.apply_tag(cons.TAG_SCALE, cons.TAG_PROP_H1, iter_sel_start=iter_start, iter_sel_end=iter_end)
 
     def apply_tag_h2(self, *args):
         """The H2 Button was Pressed"""
+        if not self.is_curr_node_not_read_only_or_error(): return
         iter_start, iter_end = self.lists_handler.get_paragraph_iters()
         if not iter_start: return
         self.apply_tag(cons.TAG_SCALE, cons.TAG_PROP_H2, iter_sel_start=iter_start, iter_sel_end=iter_end)
 
     def apply_tag_h3(self, *args):
         """The H3 Button was Pressed"""
+        if not self.is_curr_node_not_read_only_or_error(): return
         iter_start, iter_end = self.lists_handler.get_paragraph_iters()
         if not iter_start: return
         self.apply_tag(cons.TAG_SCALE, cons.TAG_PROP_H3, iter_sel_start=iter_start, iter_sel_end=iter_end)
 
     def apply_tag_justify_right(self, *args):
         """The Justify Right Button was Pressed"""
+        if not self.is_curr_node_not_read_only_or_error(): return
         iter_start, iter_end = self.lists_handler.get_paragraph_iters()
         if not iter_start: return
         self.apply_tag(cons.TAG_JUSTIFICATION, cons.TAG_PROP_RIGHT, iter_sel_start=iter_start, iter_sel_end=iter_end)
 
     def apply_tag_justify_left(self, *args):
         """The Justify Left Button was Pressed"""
+        if not self.is_curr_node_not_read_only_or_error(): return
         iter_start, iter_end = self.lists_handler.get_paragraph_iters()
         if not iter_start: return
         self.apply_tag(cons.TAG_JUSTIFICATION, cons.TAG_PROP_LEFT, iter_sel_start=iter_start, iter_sel_end=iter_end)
 
     def apply_tag_justify_center(self, *args):
         """The Justify Center Button was Pressed"""
+        if not self.is_curr_node_not_read_only_or_error(): return
         iter_start, iter_end = self.lists_handler.get_paragraph_iters()
         if not iter_start: return
         self.apply_tag(cons.TAG_JUSTIFICATION, cons.TAG_PROP_CENTER, iter_sel_start=iter_start, iter_sel_end=iter_end)
 
     def list_bulleted_handler(self, *args):
         """Handler of the Bulleted List"""
-        if self.is_curr_node_not_syntax_highlighting_or_error(plain_text_ok=True):
-            self.lists_handler.list_bulleted_handler()
+        if not self.is_curr_node_not_read_only_or_error(): return
+        text_view, text_buffer, from_codebox = self.get_text_view_n_buffer_codebox_proof()
+        if not text_buffer: return
+        if from_codebox or self.is_curr_node_not_syntax_highlighting_or_error(plain_text_ok=True):
+            self.lists_handler.list_bulleted_handler(text_buffer=text_buffer)
 
     def list_numbered_handler(self, *args):
         """Handler of the Numbered List"""
-        if self.is_curr_node_not_syntax_highlighting_or_error(plain_text_ok=True):
-            self.lists_handler.list_numbered_handler()
+        if not self.is_curr_node_not_read_only_or_error(): return
+        text_view, text_buffer, from_codebox = self.get_text_view_n_buffer_codebox_proof()
+        if not text_buffer: return
+        if from_codebox or self.is_curr_node_not_syntax_highlighting_or_error(plain_text_ok=True):
+            self.lists_handler.list_numbered_handler(text_buffer=text_buffer)
 
     def list_todo_handler(self, *args):
         """Handler of the ToDo List"""
-        if self.is_curr_node_not_syntax_highlighting_or_error(plain_text_ok=True):
-            self.lists_handler.list_todo_handler()
+        if not self.is_curr_node_not_read_only_or_error(): return
+        text_view, text_buffer, from_codebox = self.get_text_view_n_buffer_codebox_proof()
+        if not text_buffer: return
+        if from_codebox or self.is_curr_node_not_syntax_highlighting_or_error(plain_text_ok=True):
+            self.lists_handler.list_todo_handler(text_buffer=text_buffer)
 
     def apply_tag_latest(self, *args):
         """The Iterate Tagging Button was Pressed"""
-        if self.latest_tag[0] == "": support.dialog_warning(_("No Previous Text Format Was Performed During This Session"), self.window)
+        if not self.is_curr_node_not_read_only_or_error(): return
+        if self.latest_tag[0] == "":
+            support.dialog_warning(_("No Previous Text Format Was Performed During This Session"), self.window)
         else: self.apply_tag(*self.latest_tag)
 
     def link_cut(self, *args):
@@ -4135,7 +4175,7 @@ iter_end, exclude_iter_sel_end=True)
         if tag == None:
             tag = gtk.TextTag(str(tag_name))
             if property_value == cons.TAG_PROP_HEAVY: tag.set_property(tag_property, pango.WEIGHT_HEAVY)
-            elif property_value == "small": tag.set_property(tag_property, pango.SCALE_X_SMALL)
+            elif property_value == cons.TAG_PROP_SMALL: tag.set_property(tag_property, pango.SCALE_X_SMALL)
             elif property_value == cons.TAG_PROP_H1: tag.set_property(tag_property, pango.SCALE_XX_LARGE)
             elif property_value == cons.TAG_PROP_H2: tag.set_property(tag_property, pango.SCALE_X_LARGE)
             elif property_value == cons.TAG_PROP_H3: tag.set_property(tag_property, pango.SCALE_LARGE)
@@ -4145,11 +4185,11 @@ iter_end, exclude_iter_sel_end=True)
             elif property_value == cons.TAG_PROP_LEFT: tag.set_property(tag_property, gtk.JUSTIFY_LEFT)
             elif property_value == cons.TAG_PROP_RIGHT: tag.set_property(tag_property, gtk.JUSTIFY_RIGHT)
             elif property_value == cons.TAG_PROP_CENTER: tag.set_property(tag_property, gtk.JUSTIFY_CENTER)
-            elif property_value == "sub":
+            elif property_value == cons.TAG_PROP_SUB:
                 tag.set_property(cons.TAG_SCALE, pango.SCALE_X_SMALL)
                 rise = pango.FontDescription(self.text_font).get_size() / -4
                 tag.set_property("rise", rise)
-            elif property_value == "sup":
+            elif property_value == cons.TAG_PROP_SUP:
                 tag.set_property(cons.TAG_SCALE, pango.SCALE_X_SMALL)
                 rise = pango.FontDescription(self.text_font).get_size() / 2
                 tag.set_property("rise", rise)
@@ -4334,150 +4374,6 @@ iter_end, exclude_iter_sel_end=True)
                 tooltip += "#" + anchor_name
         return tooltip
 
-    def sourceview_cursor_and_tooltips_handler(self, x, y):
-        """Looks at all tags covering the position (x, y) in the text view,
-           and if one of them is a link, change the cursor to the HAND2 cursor"""
-        hovering_link = False
-        text_iter = self.sourceview.get_iter_at_location(x, y)
-        if self.lists_handler.is_list_todo_beginning(text_iter):
-            self.sourceview.get_window(gtk.TEXT_WINDOW_TEXT).set_cursor(gtk.gdk.Cursor(gtk.gdk.X_CURSOR))
-            self.sourceview.set_tooltip_text(None)
-            return
-        tags = text_iter.get_tags()
-        if not tags: tags = []
-        for tag in tags:
-            tag_name = tag.get_property("name")
-            if tag_name and tag_name[0:4] == cons.TAG_LINK:
-                hovering_link = True
-                tooltip = self.sourceview_hovering_link_get_tooltip(tag_name[5:])
-                break
-        else:
-            iter_anchor = text_iter.copy()
-            for i in [0, 1]:
-                if i == 1: iter_anchor.backward_char()
-                anchor = iter_anchor.get_child_anchor()
-                if anchor and "pixbuf" in dir(anchor):
-                    pixbuf_attrs = dir(anchor.pixbuf)
-                    if "link" in pixbuf_attrs and anchor.pixbuf.link:
-                        hovering_link = True
-                        tooltip = self.sourceview_hovering_link_get_tooltip(anchor.pixbuf.link)
-                        break
-        if hovering_link != self.hovering_over_link:
-            self.hovering_over_link = hovering_link
-            #print "link", self.hovering_over_link
-        if self.hovering_over_link:
-            self.sourceview.get_window(gtk.TEXT_WINDOW_TEXT).set_cursor(gtk.gdk.Cursor(gtk.gdk.HAND2))
-            self.sourceview.set_tooltip_text(tooltip)
-        else:
-            self.sourceview.get_window(gtk.TEXT_WINDOW_TEXT).set_cursor(gtk.gdk.Cursor(gtk.gdk.XTERM))
-            self.sourceview.set_tooltip_text(None)
-
-    def on_sourceview_event_after_button_press(self, text_view, event):
-        """Called after every gtk.gdk.BUTTON_PRESS on the SourceView"""
-        if event.button == 1:
-            x, y = text_view.window_to_buffer_coords(gtk.TEXT_WINDOW_TEXT, int(event.x), int(event.y))
-            text_iter = self.sourceview.get_iter_at_location(x, y)
-            tags = text_iter.get_tags()
-            # check whether we are hovering a link
-            if not tags: tags = []
-            for tag in tags:
-                tag_name = tag.get_property("name")
-                if tag_name and tag_name[0:4] == cons.TAG_LINK:
-                    self.link_clicked(tag_name[5:])
-                    return False
-            if self.lists_handler.is_list_todo_beginning(text_iter):
-                self.lists_handler.todo_list_rotate_status(text_iter)
-        elif event.button == 3 and not self.curr_buffer.get_has_selection():
-            x, y = text_view.window_to_buffer_coords(gtk.TEXT_WINDOW_TEXT, int(event.x), int(event.y))
-            text_iter = self.sourceview.get_iter_at_location(x, y)
-            self.curr_buffer.place_cursor(text_iter)
-        return False
-
-    def on_sourceview_event_after_key_press(self, text_view, event):
-        """Called after every gtk.gdk.KEY_PRESS on the SourceView"""
-        keyname = gtk.gdk.keyval_name(event.keyval)
-        if (event.state & gtk.gdk.SHIFT_MASK):
-            if keyname == cons.STR_RETURN:
-                self.curr_buffer.insert(self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert()), 3*cons.CHAR_SPACE)
-        elif keyname == cons.STR_RETURN:
-            iter_insert = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
-            if not iter_insert:
-                return False
-            cursor_key_press = iter_insert.get_offset()
-            #print "cursor_key_press", cursor_key_press
-            if cursor_key_press == self.cursor_key_press:
-                # problem of event-after called twice, once before really executing
-                return False
-            iter_start = iter_insert.copy()
-            if not iter_start.backward_char(): return False
-            if iter_start.get_char() != cons.CHAR_NEWLINE: return False
-            if iter_start.backward_char() and iter_start.get_char() == cons.CHAR_NEWLINE:
-                return False # former was an empty row
-            list_info = self.lists_handler.get_paragraph_list_info(iter_start)
-            if list_info[0] == None:
-                if self.auto_indent:
-                    iter_start = iter_insert.copy()
-                    former_line_indent = support.get_former_line_indentation(iter_start)
-                    if former_line_indent: self.curr_buffer.insert_at_cursor(former_line_indent)
-                return False # former was not a list
-            # possible list quit
-            iter_list_quit = iter_insert.copy()
-            if (list_info[0] == 0 and iter_list_quit.backward_chars(3) and iter_list_quit.get_char() == cons.CHAR_LISTBUL):
-                self.curr_buffer.delete(iter_list_quit, iter_insert)
-                return False # former was an empty paragraph => list quit
-            elif (list_info[0] == -1 and iter_list_quit.backward_chars(3) and iter_list_quit.get_char() in [cons.CHAR_LISTTODO, cons.CHAR_LISTDONEOK, cons.CHAR_LISTDONEFAIL]):
-                self.curr_buffer.delete(iter_list_quit, iter_insert)
-                return False # former was an empty paragraph => list quit
-            elif (list_info[0] > 0 and iter_list_quit.backward_chars(2) and iter_list_quit.get_char() == cons.CHAR_SPACE\
-            and iter_list_quit.backward_char() and iter_list_quit.get_char() == '.'):
-                iter_list_quit.backward_chars(len(str(list_info[0])))
-                self.curr_buffer.delete(iter_list_quit, iter_insert)
-                return False # former was an empty paragraph => list quit
-            if list_info[0] == 0: self.curr_buffer.insert(iter_insert, cons.CHAR_LISTBUL + cons.CHAR_SPACE)
-            elif list_info[0] == -1: self.curr_buffer.insert(iter_insert, cons.CHAR_LISTTODO + cons.CHAR_SPACE)
-            else:
-                curr_num = list_info[0] + 1
-                self.curr_buffer.insert(iter_insert, '%s. ' % curr_num)
-                self.lists_handler.list_adjust_ahead(curr_num, iter_insert.get_offset(), "num2num")
-        elif keyname == "space":
-            iter_insert = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
-            if iter_insert == None: return False
-            iter_start = iter_insert.copy()
-            if iter_start.backward_chars(2):
-                if iter_start.get_char() == cons.CHAR_GREATER and iter_start.backward_char()\
-                and iter_start.get_char() == cons.CHAR_MINUS and iter_start.backward_char():
-                    if iter_start.get_char() == cons.CHAR_LESSER:
-                        self.special_char_replace(cons.SPECIAL_CHAR_ARROW_DOUBLE, iter_start, iter_insert)
-                    elif iter_start.get_char() == cons.CHAR_MINUS:
-                        self.special_char_replace(cons.SPECIAL_CHAR_ARROW_RIGHT, iter_start, iter_insert)
-                elif iter_start.get_char() == cons.CHAR_MINUS and iter_start.backward_char()\
-                and iter_start.get_char() == cons.CHAR_MINUS and iter_start.backward_char()\
-                and iter_start.get_char() == cons.CHAR_LESSER:
-                    self.special_char_replace(cons.SPECIAL_CHAR_ARROW_LEFT, iter_start, iter_insert)
-                elif iter_start.get_char() == cons.CHAR_PARENTH_CLOSE and iter_start.backward_char():
-                    if iter_start.get_char().lower() == "c" and iter_start.backward_char()\
-                    and iter_start.get_char() == cons.CHAR_PARENTH_OPEN:
-                        self.special_char_replace(cons.SPECIAL_CHAR_COPYRIGHT, iter_start, iter_insert)
-                    elif iter_start.get_char().lower() == "r" and iter_start.backward_char()\
-                    and iter_start.get_char() == cons.CHAR_PARENTH_OPEN:
-                        self.special_char_replace(cons.SPECIAL_CHAR_REGISTERED_TRADEMARK, iter_start, iter_insert)
-                    elif iter_start.get_char().lower() == "m" and iter_start.backward_char()\
-                    and iter_start.get_char() == "t" and iter_start.backward_char()\
-                    and iter_start.get_char() == cons.CHAR_PARENTH_OPEN:
-                        self.special_char_replace(cons.SPECIAL_CHAR_UNREGISTERED_TRADEMARK, iter_start, iter_insert)
-                # Start bulleted list on "* " at line start
-                elif iter_start.get_char() == cons.CHAR_STAR and iter_start.get_line_offset() == 0:
-                    self.curr_buffer.delete(iter_start, iter_insert)
-                    self.lists_handler.list_bulleted_handler()
-                # Start todo list on "[ ]" at line start
-                elif iter_start.get_char() == cons.CHAR_SQ_BR_CLOSE and iter_start.backward_char()\
-                and iter_start.get_char() == cons.CHAR_SPACE and iter_start.backward_char()\
-                and iter_start.get_char() == cons.CHAR_SQ_BR_OPEN\
-                and iter_start.get_line_offset() == 0:
-                    self.curr_buffer.delete(iter_start, iter_insert)
-                    self.lists_handler.list_todo_handler()
-        return False
-
     def on_sourceview_event(self, text_view, event):
         """Called at every event on the SourceView"""
         if event.type == gtk.gdk.KEY_PRESS:
@@ -4517,17 +4413,17 @@ iter_end, exclude_iter_sel_end=True)
             and self.curr_tree_iter and not self.curr_buffer.get_modified():
                 self.state_machine.update_curr_state_cursor_pos(self.treestore[self.curr_tree_iter][3])
             if event.type == gtk.gdk.BUTTON_PRESS:
-                return self.on_sourceview_event_after_button_press(text_view, event)
+                return support.on_sourceview_event_after_button_press(self, text_view, event)
             if event.type == gtk.gdk.KEY_PRESS:
-                return self.on_sourceview_event_after_key_press(text_view, event)
+                return support.on_sourceview_event_after_key_press(self, text_view, event)
         return False
 
-    def special_char_replace(self, special_char, iter_start, iter_insert):
+    def special_char_replace(self, special_char, iter_start, iter_insert, text_buffer):
         """A special char replacement is triggered"""
         self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
-        self.curr_buffer.delete(iter_start, iter_insert)
-        iter_insert = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
-        self.curr_buffer.insert(iter_insert, special_char + cons.CHAR_SPACE)
+        text_buffer.delete(iter_start, iter_insert)
+        iter_insert = text_buffer.get_iter_at_mark(text_buffer.get_insert())
+        text_buffer.insert(iter_insert, special_char + cons.CHAR_SPACE)
 
     def on_sourceview_motion_notify_event(self, text_view, event):
         """Update the cursor image if the pointer moved"""
@@ -4537,7 +4433,7 @@ iter_end, exclude_iter_sel_end=True)
             self.sourceview.get_window(gtk.TEXT_WINDOW_TEXT).set_cursor(gtk.gdk.Cursor(gtk.gdk.XTERM))
             return False
         x, y = self.sourceview.window_to_buffer_coords(gtk.TEXT_WINDOW_TEXT, int(event.x), int(event.y))
-        self.sourceview_cursor_and_tooltips_handler(x, y)
+        support.sourceview_cursor_and_tooltips_handler(self, text_view, x, y)
         return False
 
     def update_selected_node_statusbar_info(self):
@@ -4565,9 +4461,9 @@ iter_end, exclude_iter_sel_end=True)
         if self.syntax_highlighting not in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID]:
             self.sourceview.get_window(gtk.TEXT_WINDOW_TEXT).set_cursor(gtk.gdk.Cursor(gtk.gdk.XTERM))
             return False
-        wx, wy, mod = self.sourceview.window.get_pointer()
-        bx, by = self.sourceview.window_to_buffer_coords(gtk.TEXT_WINDOW_TEXT, wx, wy)
-        self.sourceview_cursor_and_tooltips_handler(bx, by)
+        wx, wy, mod = text_view.window.get_pointer()
+        bx, by = text_view.window_to_buffer_coords(gtk.TEXT_WINDOW_TEXT, wx, wy)
+        support.sourceview_cursor_and_tooltips_handler(self, text_view, bx, by)
         return False
 
     def on_window_n_tree_size_allocate_event(self, widget, allocation):
