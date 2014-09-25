@@ -3421,6 +3421,7 @@ iter_end, exclude_iter_sel_end=True)
                         with open(filepath, 'rb') as fd:
                             anchor.pixbuf.embfile = fd.read()
                             anchor.pixbuf.time = time.time()
+                        anchor.eventbox.set_tooltip_text("%s\n%s B\n%s" % (anchor.pixbuf.filename, len(anchor.pixbuf.embfile), time.strftime(self.timestamp_format, time.localtime(anchor.pixbuf.time))))
                         self.update_window_save_needed("nbuf")
                         self.statusbar.pop(self.statusbar_context_id)
                         self.statusbar.push(self.statusbar_context_id, _("Updated Embedded File") + cons.CHAR_SPACE + anchor.pixbuf.filename)
