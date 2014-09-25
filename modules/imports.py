@@ -695,13 +695,13 @@ class ZimHandler():
                 #
                 elif curr_char == cons.CHAR_CARET and next_char == cons.CHAR_BR_OPEN:
                     wiki_slot_flush()
-                    self.curr_attributes[cons.TAG_SCALE] = "sup"
+                    self.curr_attributes[cons.TAG_SCALE] = cons.TAG_PROP_SUP
                     curr_pos += 1
                 elif curr_char == cons.CHAR_USCORE and next_char == cons.CHAR_BR_OPEN:
                     wiki_slot_flush()
-                    self.curr_attributes[cons.TAG_SCALE] = "sub"
+                    self.curr_attributes[cons.TAG_SCALE] = cons.TAG_PROP_SUB
                     curr_pos += 1
-                elif curr_char == cons.CHAR_BR_CLOSE and self.curr_attributes[cons.TAG_SCALE] in ["sup", "sub"]:
+                elif curr_char == cons.CHAR_BR_CLOSE and self.curr_attributes[cons.TAG_SCALE] in [cons.TAG_PROP_SUP, cons.TAG_PROP_SUB]:
                     wiki_slot_flush()
                     self.curr_attributes[cons.TAG_SCALE] = ""
                 elif curr_char == cons.CHAR_BR_OPEN and next_char == cons.CHAR_BR_OPEN \
@@ -869,7 +869,7 @@ class TomboyHandler():
                 self.node_add_iter(dom_iter.firstChild)
                 self.curr_attributes[cons.TAG_FAMILY] = ""
             elif dom_iter.nodeName == "size:small":
-                self.curr_attributes[cons.TAG_SCALE] = "small"
+                self.curr_attributes[cons.TAG_SCALE] = cons.TAG_PROP_SMALL
                 self.node_add_iter(dom_iter.firstChild)
                 self.curr_attributes[cons.TAG_SCALE] = ""
             elif dom_iter.nodeName == "size:large":

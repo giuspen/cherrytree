@@ -409,15 +409,15 @@ class Export2Pango:
                 property_value = self.curr_attributes[tag_property]
                 # tag names fix
                 if tag_property == cons.TAG_SCALE:
-                    if property_value == "sup":
+                    if property_value == cons.TAG_PROP_SUP:
                         superscript_active = True
                         continue
-                    elif property_value == "sub":
+                    elif property_value == cons.TAG_PROP_SUB:
                         subscript_active = True
                         continue
                     else: tag_property = "size"
                     # tag properties fix
-                    if property_value == "small": property_value = 'x-small'
+                    if property_value == cons.TAG_PROP_SMALL: property_value = 'x-small'
                     elif property_value == cons.TAG_PROP_H1: property_value = 'xx-large'
                     elif property_value == cons.TAG_PROP_H2: property_value = 'x-large'
                     elif property_value == cons.TAG_PROP_H3: property_value = 'large'
@@ -813,16 +813,16 @@ class Export2Html:
                     tag_property = "text-decoration"
                     property_value = "line-through"
                 elif tag_property == cons.TAG_SCALE:
-                    if property_value == "sup":
+                    if property_value == cons.TAG_PROP_SUP:
                         superscript_active = True
                         continue
-                    elif property_value == "sub":
+                    elif property_value == cons.TAG_PROP_SUB:
                         subscript_active = True
                         continue
                     else:
                         # font-size:xx-large/x-large/x-small
                         tag_property = "font-size"
-                        if property_value == "small": property_value = "x-small"
+                        if property_value == cons.TAG_PROP_SMALL: property_value = "x-small"
                         elif property_value == cons.TAG_PROP_H1: property_value = "xx-large"
                         elif property_value == cons.TAG_PROP_H2: property_value = "x-large"
                         elif property_value == cons.TAG_PROP_H3: property_value = "large"
