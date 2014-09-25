@@ -3352,6 +3352,7 @@ iter_end, exclude_iter_sel_end=True)
             pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(cons.FILE_CHAR, self.embfile_size, self.embfile_size)
             pixbuf.filename = os.path.basename(filepath)
             pixbuf.embfile = fd.read()
+            pixbuf.time = time.time()
             self.image_insert(iter_insert, pixbuf, image_justification=None)
 
     def embfile_open(self, *args):
@@ -3419,6 +3420,7 @@ iter_end, exclude_iter_sel_end=True)
                     if anchor and "pixbuf" in dir(anchor) and "id" in dir(anchor.pixbuf) and anchor.pixbuf.id == embfile_id:
                         with open(filepath, 'rb') as fd:
                             anchor.pixbuf.embfile = fd.read()
+                            anchor.pixbuf.time = time.time()
                         self.update_window_save_needed("nbuf")
                         self.statusbar.pop(self.statusbar_context_id)
                         self.statusbar.push(self.statusbar_context_id, _("Updated Embedded File") + cons.CHAR_SPACE + anchor.pixbuf.filename)
@@ -3686,7 +3688,7 @@ iter_end, exclude_iter_sel_end=True)
             anchor.eventbox.set_tooltip_text(pixbuf.anchor)
         elif "filename" in pixbuf_attrs:
             anchor.eventbox.connect("button-press-event", self.on_mouse_button_clicked_file, anchor)
-            anchor.eventbox.set_tooltip_text(pixbuf.filename + " - %s B" % len(pixbuf.embfile))
+            anchor.eventbox.set_tooltip_text("%s\n%s B\n%s" % (pixbuf.filename, len(pixbuf.embfile), time.strftime(self.timestamp_format, time.localtime(pixbuf.time))))
             anchor_label = gtk.Label()
             anchor_label.set_markup("<b><small>"+pixbuf.filename+"</small></b>")
             anchor_label.modify_fg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.rt_def_fg))

@@ -78,18 +78,21 @@ class CTDBHandler:
             link = ""
             anchor = (pixbuf.anchor).decode(cons.STR_UTF8)
             png_blob = None
+            time = 0
         elif "filename" in pixbuf_attrs:
             filename = (pixbuf.filename).decode(cons.STR_UTF8)
             link = ""
             anchor = ""
             png_blob = buffer(pixbuf.embfile)
+            time = pixbuf.time
         else:
             filename = ""
             try: link = (pixbuf.link).decode(cons.STR_UTF8)
             except: link = ""
             anchor = ""
             png_blob = machines.get_blob_buffer_from_pixbuf(pixbuf)
-        return (node_id, offset, justification, anchor, png_blob, filename, link)
+            time = 0
+        return (node_id, offset, justification, anchor, png_blob, filename, link, time)
     
     def get_table_db_tuple(self, table_element, node_id):
         """From table element to db tuple"""
@@ -315,10 +318,14 @@ class CTDBHandler:
                 else: has_table = 0
                 if images_tuples:
                     has_image = 1
-                    if len(db.execute('PRAGMA table_info(image)').fetchall()) == 5:
+                    curr_num_cols = len(db.execute('PRAGMA table_info(image)').fetchall())
+                    if curr_num_cols == 5:
                         db.execute('ALTER TABLE image ADD COLUMN filename TEXT')
                         db.execute('ALTER TABLE image ADD COLUMN link TEXT')
-                    db.executemany('INSERT INTO image VALUES(?,?,?,?,?,?,?)', images_tuples)
+                        db.execute('ALTER TABLE image ADD COLUMN time INTEGER')
+                    elif curr_num_cols == 7:
+                        db.execute('ALTER TABLE image ADD COLUMN time INTEGER')
+                    db.executemany('INSERT INTO image VALUES(?,?,?,?,?,?,?,?)', images_tuples)
                 else: has_image = 0
                 # retrieve xml text
                 txt = (self.dom.toxml()).decode(cons.STR_UTF8)
@@ -439,6 +446,7 @@ class CTDBHandler:
             pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(cons.FILE_CHAR, self.dad.embfile_size, self.dad.embfile_size)
             pixbuf.filename = image_row['filename']
             pixbuf.embfile = image_row['png']
+            pixbuf.time = image_row['time'] if 'time' in image_row.keys() else 0
         else:
             pixbuf = machines.get_pixbuf_from_png_blob_buffer(image_row['png'])
             pixbuf.link = image_row['link'] if 'link' in image_row.keys() else ""

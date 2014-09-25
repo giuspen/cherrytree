@@ -1236,7 +1236,7 @@ def preferences_tab_links(dad, vbox_links, pref_dialog):
     frame_links_colors.add(align_links_colors)
 
     vbox_links_misc = gtk.VBox()
-    checkbutton_links_relative = gtk.CheckButton(_("Use Relative Links for Files And Folders"))
+    checkbutton_links_relative = gtk.CheckButton(_("Use Relative Paths for Files And Folders"))
     checkbutton_links_relative.set_active(dad.links_relative)
     hbox_anchor_size = gtk.HBox()
     hbox_anchor_size.set_spacing(4)

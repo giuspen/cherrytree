@@ -20,7 +20,7 @@
 #       MA 02110-1301, USA.
 
 import HTMLParser, htmlentitydefs
-import gtk, gio, os, xml.dom.minidom, re, base64, urllib2, binascii, shutil, glob
+import gtk, gio, os, xml.dom.minidom, re, base64, urllib2, binascii, shutil, glob, time
 import cons, machines, support
 
 
@@ -1423,6 +1423,7 @@ class KeynoteHandler:
                     pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(cons.FILE_CHAR, self.dad.embfile_size, self.dad.embfile_size)
                     pixbuf.filename = "image.wmf" if self.in_picture else "file"
                     pixbuf.embfile = fd.read()
+                    pixbuf.time = time.time()
                 self.pixbuf_vector.append([self.chars_counter, pixbuf, cons.TAG_PROP_LEFT])
                 self.chars_counter += 1
                 self.in_picture = False
