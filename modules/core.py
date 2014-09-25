@@ -242,31 +242,33 @@ class CherryTree:
 
     def text_selection_change_case(self, change_type):
         """Change the Case of the Selected Text/the Underlying Word"""
-        if not self.curr_buffer.get_has_selection() and not self.apply_tag_try_automatic_bounds():
+        text_view, text_buffer, from_codebox = self.get_text_view_n_buffer_codebox_proof()
+        if not text_buffer: return
+        if not text_buffer.get_has_selection() and not support.apply_tag_try_automatic_bounds(self, text_buffer=text_buffer):
             support.dialog_warning(_("No Text is Selected"), self.window)
             return
-        iter_start, iter_end = self.curr_buffer.get_selection_bounds()
-        if self.syntax_highlighting != cons.RICH_TEXT_ID:
-            text_to_change_case = self.curr_buffer.get_text(iter_start, iter_end)
+        iter_start, iter_end = text_buffer.get_selection_bounds()
+        if from_codebox or self.syntax_highlighting != cons.RICH_TEXT_ID:
+            text_to_change_case = text_buffer.get_text(iter_start, iter_end)
             if change_type == "l": text_to_change_case = text_to_change_case.lower()
             elif change_type == "u": text_to_change_case = text_to_change_case.upper()
             elif change_type == "t": text_to_change_case = text_to_change_case.swapcase()
         else:
-            rich_text = self.clipboard_handler.rich_text_get_from_text_buffer_selection(self.curr_buffer,
-                                                                                        iter_start,
-                                                                                        iter_end,
-                                                                                        change_case=change_type)
+            rich_text = self.clipboard_handler.rich_text_get_from_text_buffer_selection(text_buffer,
+                iter_start,
+                iter_end,
+                change_case=change_type)
         start_offset = iter_start.get_offset()
         end_offset = iter_end.get_offset()
-        self.curr_buffer.delete(iter_start, iter_end)
-        iter_insert = self.curr_buffer.get_iter_at_offset(start_offset)
-        if self.syntax_highlighting != cons.RICH_TEXT_ID:
-            self.curr_buffer.insert(iter_insert, text_to_change_case)
+        text_buffer.delete(iter_start, iter_end)
+        iter_insert = text_buffer.get_iter_at_offset(start_offset)
+        if from_codebox or self.syntax_highlighting != cons.RICH_TEXT_ID:
+            text_buffer.insert(iter_insert, text_to_change_case)
         else:
-            self.curr_buffer.move_mark(self.curr_buffer.get_insert(), iter_insert)
+            text_buffer.move_mark(text_buffer.get_insert(), iter_insert)
             self.clipboard_handler.from_xml_string_to_buffer(rich_text)
-        self.curr_buffer.select_range(self.curr_buffer.get_iter_at_offset(start_offset),
-                                      self.curr_buffer.get_iter_at_offset(end_offset))
+        text_buffer.select_range(text_buffer.get_iter_at_offset(start_offset),
+                                 text_buffer.get_iter_at_offset(end_offset))
 
     def text_selection_toggle_case(self, *args):
         """Toggles the Case of the Selected Text/the Underlying Word"""
@@ -3893,32 +3895,6 @@ iter_end, exclude_iter_sel_end=True)
         if not iter_start: return
         self.apply_tag(cons.TAG_JUSTIFICATION, cons.TAG_PROP_CENTER, iter_sel_start=iter_start, iter_sel_end=iter_end)
 
-    def apply_tag_try_automatic_bounds(self):
-        """Try to Select a Word Forward/Backward the Cursor"""
-        iter_start = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
-        iter_end = iter_start.copy()
-        end_moved = False
-        while iter_end != None:
-            char = iter_end.get_char()
-            match = re.match('[^\s^$]', char, re.UNICODE)
-            if not match: break # we got it
-            elif not iter_end.forward_char(): break # we reached the buffer end
-            end_moved = True
-        if not end_moved:
-            if not iter_start.backward_char(): return False # we could be at the end of a word
-        while iter_start != None:
-            char = iter_start.get_char()
-            match = re.match('[^\s^$]', char, re.UNICODE)
-            if not match: # we got it
-                iter_start.forward_char() # step forward to the beginning of the word
-                break
-            elif not iter_start.backward_char(): break # we reached the buffer start
-        if iter_start.equal(iter_end): return False
-        else:
-            self.curr_buffer.move_mark(self.curr_buffer.get_insert(), iter_end)
-            self.curr_buffer.move_mark(self.curr_buffer.get_selection_bound(), iter_start)
-            return True
-
     def list_bulleted_handler(self, *args):
         """Handler of the Bulleted List"""
         if self.is_curr_node_not_syntax_highlighting_or_error(plain_text_ok=True):
@@ -4058,13 +4034,13 @@ iter_end, exclude_iter_sel_end=True)
                     self.links_entries_reset()
                 if not text_buffer.get_has_selection():
                     if tag_property != cons.TAG_LINK:
-                        if not self.apply_tag_try_automatic_bounds():
+                        if not support.apply_tag_try_automatic_bounds(self):
                             support.dialog_warning(_("No Text is Selected"), self.window)
                             return
                     else:
                         tag_property_value = self.link_check_around_cursor()
                         if tag_property_value == "":
-                            if not self.apply_tag_try_automatic_bounds():
+                            if not support.apply_tag_try_automatic_bounds(self):
                                 link_name = support.dialog_img_n_entry(self.window, _("Link Name"), "", "link_handle")
                                 if not link_name: return
                                 start_offset = text_buffer.get_iter_at_mark(text_buffer.get_insert()).get_offset()
@@ -4620,7 +4596,7 @@ iter_end, exclude_iter_sel_end=True)
     def remove_text_formatting(self, *args):
         """Cleans the Selected Text from All Formatting Tags"""
         if not self.node_sel_and_rich_text(): return
-        if not self.curr_buffer.get_has_selection() and not self.apply_tag_try_automatic_bounds():
+        if not self.curr_buffer.get_has_selection() and not support.apply_tag_try_automatic_bounds(self):
             support.dialog_warning(_("No Text is Selected"), self.window)
             return
         iter_sel_start, iter_sel_end = self.curr_buffer.get_selection_bounds()

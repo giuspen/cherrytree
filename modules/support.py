@@ -23,12 +23,11 @@ import gtk, os, webbrowser, re
 import cons
 
 
-def on_sourceview_event_after_double_click_button1(dad, text_view, event):
-    """Called after every Double Click with button 1"""
-    text_buffer = text_view.get_buffer()
-    x, y = text_view.window_to_buffer_coords(gtk.TEXT_WINDOW_TEXT, int(event.x), int(event.y))
-    iter_end = text_view.get_iter_at_location(x, y)
-    iter_start = iter_end.copy()
+def apply_tag_try_automatic_bounds(dad, text_buffer=None, iter_start=None):
+    """Try to Select a Word Forward/Backward the Cursor"""
+    if not text_buffer: text_buffer = dad.curr_buffer
+    if not iter_start: iter_start = text_buffer.get_iter_at_mark(text_buffer.get_insert())
+    iter_end = iter_start.copy()
     curr_char = iter_end.get_char()
     # 1) select alphanumeric + special
     match = re.match('\w', curr_char, re.UNICODE)
@@ -59,6 +58,15 @@ def on_sourceview_event_after_double_click_button1(dad, text_view, event):
     if iter_end.compare(iter_start) > 0:
         text_buffer.move_mark(text_buffer.get_insert(), iter_start)
         text_buffer.move_mark(text_buffer.get_selection_bound(), iter_end)
+        return True
+    return False
+
+def on_sourceview_event_after_double_click_button1(dad, text_view, event):
+    """Called after every Double Click with button 1"""
+    text_buffer = text_view.get_buffer()
+    x, y = text_view.window_to_buffer_coords(gtk.TEXT_WINDOW_TEXT, int(event.x), int(event.y))
+    iter_start = text_view.get_iter_at_location(x, y)
+    apply_tag_try_automatic_bounds(dad, text_buffer=text_buffer, iter_start=iter_start)
 
 def text_file_rm_emptylines(filepath):
     """Remove empty lines in a text file"""
