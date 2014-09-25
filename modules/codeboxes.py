@@ -266,7 +266,7 @@ class CodeBoxesHandler:
         anchor.sourceview.connect('button-press-event', self.on_mouse_button_clicked_codebox, anchor)
         anchor.sourceview.connect("event-after", self.on_sourceview_event_after_codebox, anchor)
         anchor.sourceview.connect("motion-notify-event", self.on_sourceview_motion_notify_event_codebox)
-        anchor.sourceview.connect("visibility-notify-event", self.on_sourceview_visibility_notify_event_codebox)
+        #anchor.sourceview.connect("visibility-notify-event", self.on_sourceview_visibility_notify_event_codebox)
         if self.dad.line_wrapping: anchor.sourceview.set_wrap_mode(gtk.WRAP_WORD)
         else: anchor.sourceview.set_wrap_mode(gtk.WRAP_NONE)
         anchor.scrolledwindow = gtk.ScrolledWindow()

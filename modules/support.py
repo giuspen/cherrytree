@@ -191,7 +191,7 @@ def sourceview_cursor_and_tooltips_handler(dad, text_view, x, y):
         tag_name = tag.get_property("name")
         if tag_name and tag_name[0:4] == cons.TAG_LINK:
             hovering_link = True
-            tooltip = text_view_hovering_link_get_tooltip(tag_name[5:])
+            tooltip = dad.sourceview_hovering_link_get_tooltip(tag_name[5:])
             break
     else:
         iter_anchor = text_iter.copy()
@@ -202,7 +202,7 @@ def sourceview_cursor_and_tooltips_handler(dad, text_view, x, y):
                 pixbuf_attrs = dir(anchor.pixbuf)
                 if "link" in pixbuf_attrs and anchor.pixbuf.link:
                     hovering_link = True
-                    tooltip = text_view_hovering_link_get_tooltip(anchor.pixbuf.link)
+                    tooltip = dad.sourceview_hovering_link_get_tooltip(anchor.pixbuf.link)
                     break
     if hovering_link != dad.hovering_over_link:
         dad.hovering_over_link = hovering_link
