@@ -3008,8 +3008,9 @@ iter_end, exclude_iter_sel_end=True)
 
     def horizontal_rule_insert(self, action):
         """Insert a Horizontal Line"""
-        if not self.is_there_selected_node_or_error(): return
-        self.curr_buffer.insert_at_cursor(cons.CHAR_NEWLINE+self.h_rule+cons.CHAR_NEWLINE)
+        text_view, text_buffer, from_codebox = self.get_text_view_n_buffer_codebox_proof()
+        if not text_buffer: return
+        text_buffer.insert_at_cursor(cons.CHAR_NEWLINE+self.h_rule+cons.CHAR_NEWLINE)
 
     def dialog_search(self, title, replace_on):
         """Opens the Search Dialog"""
@@ -4617,12 +4618,13 @@ iter_end, exclude_iter_sel_end=True)
         """Handle the Bookmarks List"""
         if support.bookmarks_handle(self):
             self.update_window_save_needed("book")
-    
+
     def timestamp_insert(self, *args):
         """Insert Timestamp"""
-        if not self.is_there_selected_node_or_error(): return
-        self.curr_buffer.insert_at_cursor(time.strftime(self.timestamp_format))
-    
+        text_view, text_buffer, from_codebox = self.get_text_view_n_buffer_codebox_proof()
+        if not text_buffer: return
+        text_buffer.insert_at_cursor(time.strftime(self.timestamp_format))
+
     def set_selection_at_offset_n_delta(self, offset, delta, text_buffer=None):
         """Set the Selection from given offset to offset+delta"""
         if not text_buffer: text_buffer = self.curr_buffer
@@ -4635,7 +4637,7 @@ iter_end, exclude_iter_sel_end=True)
             text_buffer.move_mark(text_buffer.get_selection_bound(), target)
             return
         print "! bad offset=%s, delta=%s on node %s" % (offset, delta, self.treestore[self.curr_tree_iter][1])
-    
+
     def tree_is_empty(self):
         """Return True if the treestore is empty"""
         return (self.treestore.get_iter_first() == None)
