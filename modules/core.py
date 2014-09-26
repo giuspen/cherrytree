@@ -2967,7 +2967,7 @@ iter_end, exclude_iter_sel_end=True)
     def objects_buffer_refresh(self):
         """Buffer Refresh (Needed for Objects)"""
         if not self.curr_tree_iter: return
-        if self.curr_buffer.get_modified():
+        if self.user_active and self.curr_buffer.get_modified():
             self.file_update = True
             self.curr_buffer.set_modified(False)
             self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
