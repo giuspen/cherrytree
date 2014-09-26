@@ -230,6 +230,22 @@ def text_file_rm_emptylines(filepath):
         fd.writelines(file_lines)
         fd.close()
 
+def get_proper_platform_filepath(filepath_in, is_file):
+    """From Slash to Backslash when needed"""
+    filepath_out = ""
+    if cons.IS_WIN_OS:
+        if cons.CHAR_SLASH in filepath_in:
+            filepath_out = filepath_in.replace(cons.CHAR_SLASH, cons.CHAR_BSLASH)
+    else:
+        if cons.CHAR_BSLASH in filepath_in:
+            filepath_out = filepath_in.replace(cons.CHAR_BSLASH, cons.CHAR_SLASH)
+    if filepath_out:
+        if is_file:
+            if os.path.isfile(filepath_out): return filepath_out
+        else:
+            if os.path.isdir(filepath_out): return filepath_out
+    return filepath_in
+
 def clean_from_chars_not_for_filename(filename_in):
     """Clean a string from chars not good for filename"""
     filename_out = filename_in.replace(cons.CHAR_SLASH, cons.CHAR_MINUS).replace(cons.CHAR_BSLASH, cons.CHAR_MINUS)

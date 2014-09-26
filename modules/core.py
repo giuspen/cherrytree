@@ -4294,7 +4294,7 @@ iter_end, exclude_iter_sel_end=True)
             if cons.IS_WIN_OS: os.startfile(filepath)
             else: subprocess.call(config.LINK_CUSTOM_ACTION_DEFAULT_FILE % re.escape(filepath), shell=True)
 
-    def external_filepath_open(self, filepath, open_fold_if_miss):
+    def external_filepath_open(self, filepath, open_fold_if_no_app_error):
         """Open Filepath with External App"""
         if self.filelink_custom_action[0]:
             if cons.IS_WIN_OS: filepath = cons.CHAR_DQUOTE + filepath + cons.CHAR_DQUOTE
@@ -4304,7 +4304,7 @@ iter_end, exclude_iter_sel_end=True)
             if cons.IS_WIN_OS:
                 try: os.startfile(filepath)
                 except:
-                    if open_fold_if_miss: os.startfile(os.path.dirname(filepath))
+                    if open_fold_if_no_app_error: os.startfile(os.path.dirname(filepath))
             else: subprocess.call(config.LINK_CUSTOM_ACTION_DEFAULT_FILE % re.escape(filepath), shell=True)
 
     def link_clicked(self, tag_property_value):
@@ -4318,14 +4318,16 @@ iter_end, exclude_iter_sel_end=True)
             else: webbrowser.open(clean_weblink)
         elif vector[0] == cons.LINK_TYPE_FILE:
             # link to file
-            filepath = unicode(base64.b64decode(vector[1]), cons.STR_UTF8, cons.STR_IGNORE)
+            filepath_orig = unicode(base64.b64decode(vector[1]), cons.STR_UTF8, cons.STR_IGNORE)
+            filepath = support.get_proper_platform_filepath(filepath_orig, True)
             if not os.path.isfile(filepath):
                 support.dialog_error(_("The File Link '%s' is Not Valid") % filepath, self.window)
                 return
             self.external_filepath_open(filepath, True)
         elif vector[0] == cons.LINK_TYPE_FOLD:
             # link to folder
-            filepath = unicode(base64.b64decode(vector[1]), cons.STR_UTF8, cons.STR_IGNORE)
+            filepath_orig = unicode(base64.b64decode(vector[1]), cons.STR_UTF8, cons.STR_IGNORE)
+            filepath = support.get_proper_platform_filepath(filepath_orig, False)
             if not os.path.isdir(filepath):
                 support.dialog_error(_("The Folder Link '%s' is Not Valid") % filepath, self.window)
                 return
