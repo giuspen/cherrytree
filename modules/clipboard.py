@@ -43,22 +43,30 @@ class ClipboardHandler:
         self.clipboard = gtk.clipboard_get()
         self.force_plain_text = False
 
-    def copy(self, sourceview):
+    def copy(self, text_view, from_codebox):
         """Copy to Clipboard"""
-        if self.dad.syntax_highlighting != cons.RICH_TEXT_ID: return
-        sourceview.stop_emission("copy-clipboard")
-        if not self.dad.curr_buffer.get_has_selection(): return
-        self.selection_to_clipboard(self.dad.curr_buffer, sourceview)
+        text_buffer = text_view.get_buffer()
+        if not text_buffer.get_has_selection(): return
+        iter_sel_start, iter_sel_end = text_buffer.get_selection_bounds()
+        num_chars = iter_sel_end.get_offset() - iter_sel_start.get_offset()
+        if from_codebox or self.dad.syntax_highlighting != cons.RICH_TEXT_ID:
+            if num_chars > 30000: return
+        text_view.stop_emission("copy-clipboard")
+        self.selection_to_clipboard(text_buffer, text_view, iter_sel_start, iter_sel_end, num_chars, from_codebox)
 
-    def cut(self, sourceview):
+    def cut(self, text_view, from_codebox):
         """Cut to Clipboard"""
-        if self.dad.syntax_highlighting != cons.RICH_TEXT_ID: return
-        sourceview.stop_emission("cut-clipboard")
-        if not self.dad.curr_buffer.get_has_selection(): return
-        self.selection_to_clipboard(self.dad.curr_buffer, sourceview)
-        if not self.dad.treestore[self.dad.curr_tree_iter][7]:
-            self.dad.curr_buffer.delete_selection(True, sourceview.get_editable())
-            self.dad.sourceview.grab_focus()
+        text_buffer = text_view.get_buffer()
+        if not text_buffer.get_has_selection(): return
+        iter_sel_start, iter_sel_end = text_buffer.get_selection_bounds()
+        num_chars = iter_sel_end.get_offset() - iter_sel_start.get_offset()
+        if from_codebox or self.dad.syntax_highlighting != cons.RICH_TEXT_ID:
+            if num_chars > 30000: return
+        text_view.stop_emission("cut-clipboard")
+        self.selection_to_clipboard(text_buffer, text_view, iter_sel_start, iter_sel_end, num_chars, from_codebox)
+        if self.dad.is_curr_node_not_read_only_or_error():
+            text_buffer.delete_selection(True, text_view.get_editable())
+            text_view.grab_focus()
 
     def table_row_to_clipboard(self, table_dict):
         """Put the Selected Table Row to the Clipboard"""
@@ -77,12 +85,10 @@ class ClipboardHandler:
             return True
         return False
 
-    def selection_to_clipboard(self, text_buffer, sourceview):
+    def selection_to_clipboard(self, text_buffer, sourceview, iter_sel_start, iter_sel_end, num_chars, from_codebox):
         """Write the Selected Content to the Clipboard"""
-        iter_sel_start, iter_sel_end = text_buffer.get_selection_bounds()
-        num_chars = iter_sel_end.get_offset() - iter_sel_start.get_offset()
         pixbuf_target = None
-        if num_chars == 1:
+        if not from_codebox and self.dad.syntax_highlighting == cons.RICH_TEXT_ID and num_chars == 1:
             anchor = iter_sel_start.get_child_anchor()
             if anchor:
                 anchor_dir = dir(anchor)
@@ -106,8 +112,9 @@ class ClipboardHandler:
                                                  (codebox_dict, None, html_text))
                     return
         if not os.path.isdir(cons.TMP_FOLDER): os.mkdir(cons.TMP_FOLDER)
-        html_text = self.dad.html_handler.selection_export_to_html(text_buffer, iter_sel_start, iter_sel_end, self.dad.syntax_highlighting)
-        if self.dad.syntax_highlighting == cons.RICH_TEXT_ID:
+        html_text = self.dad.html_handler.selection_export_to_html(text_buffer, iter_sel_start, iter_sel_end,
+            self.dad.syntax_highlighting if not from_codebox else cons.PLAIN_TEXT_ID)
+        if not from_codebox and self.dad.syntax_highlighting == cons.RICH_TEXT_ID:
             txt_handler = exports.Export2Txt(self.dad)
             plain_text = txt_handler.node_export_to_txt(text_buffer, "", sel_range=[iter_sel_start.get_offset(), iter_sel_end.get_offset()])
             rich_text = self.rich_text_get_from_text_buffer_selection(text_buffer, iter_sel_start, iter_sel_end)
