@@ -285,6 +285,7 @@ class FindReplace:
                     if forward: node_iter = self.dad.treestore.iter_next(node_iter)
                     else: node_iter = self.dad.get_tree_iter_prev_sibling(self.dad.treestore, node_iter)
                 else: break
+        self.dad.objects_buffer_refresh()
         if self.matches_num == 0:
             support.dialog_info(_("The pattern '%s' was not found") % pattern_clean, self.dad.window)
         elif all_matches:
@@ -344,7 +345,8 @@ class FindReplace:
             node_id = self.dad.treestore[tree_iter][3]
             start_offset = match_offsets[0] + num_objs - newline_trick_offset
             end_offset = match_offsets[1] + num_objs - newline_trick_offset
-            node_name = self.dad.treestore[tree_iter][1]
+            #node_name = self.dad.treestore[tree_iter][1]
+            node_name = support.get_node_hierarchical_name(self.dad, tree_iter)
             line_content = self.get_line_content(text_buffer, iter_insert) if obj_match_offsets[0] == None else obj_match_offsets[2]
             line_num = text_buffer.get_iter_at_offset(start_offset).get_line()
             if not self.newline_trick: line_num += 1
@@ -496,7 +498,8 @@ class FindReplace:
         if match:
             if all_matches:
                 node_id = self.dad.treestore[node_iter][3]
-                node_name = self.dad.treestore[node_iter][1]
+                #node_name = self.dad.treestore[node_iter][1]
+                node_name = support.get_node_hierarchical_name(self.dad, node_iter)
                 line_content = self.get_first_line_content(self.dad.get_textbuffer_from_tree_iter(node_iter))
                 self.liststore.append([node_id, 0, 0, node_name, line_content, 1])
             if self.replace_active:
