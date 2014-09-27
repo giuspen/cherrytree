@@ -2269,7 +2269,9 @@ class HTMLHandler(HTMLParser.HTMLParser):
     def handle_entityref(self, name):
         """Found Entity Reference like &name;"""
         if self.curr_state == 0: return
-        if name in htmlentitydefs.name2codepoint:
+        if name == "nbsp":
+            unicode_char = cons.CHAR_SPACE
+        elif name in htmlentitydefs.name2codepoint:
             unicode_char = unichr(htmlentitydefs.name2codepoint[name])
         else: return
         if self.curr_state == 1: self.rich_text_serialize(unicode_char)
