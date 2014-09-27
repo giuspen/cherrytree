@@ -45,12 +45,14 @@ class ClipboardHandler:
 
     def copy(self, sourceview):
         """Copy to Clipboard"""
+        if self.dad.syntax_highlighting != cons.RICH_TEXT_ID: return
         sourceview.stop_emission("copy-clipboard")
         if not self.dad.curr_buffer.get_has_selection(): return
         self.selection_to_clipboard(self.dad.curr_buffer, sourceview)
 
     def cut(self, sourceview):
         """Cut to Clipboard"""
+        if self.dad.syntax_highlighting != cons.RICH_TEXT_ID: return
         sourceview.stop_emission("cut-clipboard")
         if not self.dad.curr_buffer.get_has_selection(): return
         self.selection_to_clipboard(self.dad.curr_buffer, sourceview)
