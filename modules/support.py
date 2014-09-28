@@ -781,7 +781,7 @@ def dialog_exit_del_temp_files(dad):
     except: pass
     image = gtk.Image()
     image.set_from_stock(gtk.STOCK_DIALOG_WARNING, gtk.ICON_SIZE_DIALOG)
-    label = gtk.Label("<b>"+_("Temporary files were created and opened with external applications.")+"</b>"+2*cons.CHAR_NEWLINE+"<b>"+_("Quit the external applications before quit CherryTree.")+"</b>"+2*cons.CHAR_NEWLINE+"<b>"+_("Did you quit the external applications?")+"</b>")
+    label = gtk.Label("<b>"+_("Temporary Files were Created and Opened with External Applications.")+"</b>"+2*cons.CHAR_NEWLINE+"<b>"+_("Quit the External Applications Before Quit CherryTree.")+"</b>"+2*cons.CHAR_NEWLINE+"<b>"+_("Did you Quit the External Applications?")+"</b>")
     label.set_use_markup(True)
     hbox = gtk.HBox()
     hbox.pack_start(image)
@@ -827,7 +827,7 @@ def dialog_exit_save(father_win):
     except: pass
     image = gtk.Image()
     image.set_from_stock(gtk.STOCK_DIALOG_WARNING, gtk.ICON_SIZE_DIALOG)
-    label = gtk.Label("<b>"+_("The current document was updated.")+"</b>"+2*cons.CHAR_NEWLINE+"<b>"+_("Do you want to save the changes?")+"</b>")
+    label = gtk.Label("<b>"+_("The Current Document was Updated.")+"</b>"+2*cons.CHAR_NEWLINE+"<b>"+_("Do you want to Save the Changes?")+"</b>")
     label.set_use_markup(True)
     hbox = gtk.HBox()
     hbox.pack_start(image)
