@@ -756,7 +756,7 @@ def preferences_tab_rich_text_nodes(dad, vbox_text_nodes, pref_dialog):
     hbox_misc_text.set_spacing(4)
     checkbutton_rt_show_white_spaces = gtk.CheckButton(_("Show White Spaces"))
     checkbutton_rt_show_white_spaces.set_active(dad.rt_show_white_spaces)
-    checkbutton_codebox_auto_resize = gtk.CheckButton(_("Auto Resize CodeBoxes"))
+    checkbutton_codebox_auto_resize = gtk.CheckButton(_("Expand CodeBoxes Automatically"))
     checkbutton_codebox_auto_resize.set_active(dad.codebox_auto_resize)
     hbox_embfile_size = gtk.HBox()
     hbox_embfile_size.set_spacing(4)

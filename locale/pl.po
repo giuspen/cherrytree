@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.30.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-28 23:36+0200\n"
+"POT-Creation-Date: 2014-09-29 00:14+0200\n"
 "PO-Revision-Date: 2014-05-02 21:08+0100\n"
 "Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
 "Language-Team: Polish\n"
@@ -2289,7 +2289,7 @@ msgstr "Pokazuj białe znaki"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:759
 #, fuzzy
-msgid "Auto Resize CodeBoxes"
+msgid "Expand CodeBoxes Automatically"
 msgstr "_Wytnij pole kodu"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:763
