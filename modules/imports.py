@@ -2277,6 +2277,18 @@ class HTMLHandler(HTMLParser.HTMLParser):
         if self.curr_state == 1: self.rich_text_serialize(unicode_char)
         elif self.curr_state == 2: self.curr_cell += unicode_char
 
+    def handle_charref(self, name):
+        """decimal and hexadecimal numeric character references of the form &#NNN; and &#xNNN;"""
+        if self.curr_state == 0: return
+        if name[0] in ['x', 'X']:
+            unicode_num = int(name[1:], 16)
+        else: unicode_num = int(name)
+        if unicode_num == 160: # nbsp
+            unicode_num = 32 # space
+        unicode_char = unichr(unicode_num)
+        if self.curr_state == 1: self.rich_text_serialize(unicode_char)
+        elif self.curr_state == 2: self.curr_cell += unicode_char
+
     def get_clipboard_selection_xml(self, input_string):
         """Parses the Given HTML String feeding the XML dom"""
         self.dom = xml.dom.minidom.Document()
