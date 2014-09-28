@@ -693,7 +693,7 @@ class Export2Html:
                 span_opened = False
                 former_tag_str = cons.COLOR_48_BLACK
                 html_text += "</span>"
-            html_text += cgi.escape(curr_iter.get_char()).replace(" ", "&nbsp;")
+            html_text += cgi.escape(curr_iter.get_char()).replace(cons.CHAR_SPACE, "&nbsp;")
             if not curr_iter.forward_char() or (sel_range and curr_iter.get_offset() > sel_range[1]):
                 if span_opened: html_text += "</span>"
                 break
