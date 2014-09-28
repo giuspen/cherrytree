@@ -345,12 +345,12 @@ class FindReplace:
             node_id = self.dad.treestore[tree_iter][3]
             start_offset = match_offsets[0] + num_objs - newline_trick_offset
             end_offset = match_offsets[1] + num_objs - newline_trick_offset
-            #node_name = self.dad.treestore[tree_iter][1]
-            node_name = support.get_node_hierarchical_name(self.dad, tree_iter)
+            node_name = self.dad.treestore[tree_iter][1]
+            node_hier_name = support.get_node_hierarchical_name(self.dad, tree_iter)
             line_content = self.get_line_content(text_buffer, iter_insert) if obj_match_offsets[0] == None else obj_match_offsets[2]
             line_num = text_buffer.get_iter_at_offset(start_offset).get_line()
             if not self.newline_trick: line_num += 1
-            self.liststore.append([node_id, start_offset, end_offset, node_name, line_content, line_num])
+            self.liststore.append([node_id, start_offset, end_offset, node_name, line_content, line_num, node_hier_name])
             #print line_num, self.matches_num
         else: self.dad.sourceview.scroll_to_mark(mark_insert, 0.25)
         if self.replace_active:
@@ -498,10 +498,10 @@ class FindReplace:
         if match:
             if all_matches:
                 node_id = self.dad.treestore[node_iter][3]
-                #node_name = self.dad.treestore[node_iter][1]
-                node_name = support.get_node_hierarchical_name(self.dad, node_iter)
+                node_name = self.dad.treestore[node_iter][1]
+                node_hier_name = support.get_node_hierarchical_name(self.dad, node_iter)
                 line_content = self.get_first_line_content(self.dad.get_textbuffer_from_tree_iter(node_iter))
-                self.liststore.append([node_id, 0, 0, node_name, line_content, 1])
+                self.liststore.append([node_id, 0, 0, node_name, line_content, 1, node_hier_name])
             if self.replace_active:
                 replacer_text = self.dad.search_replace_dict['replace']
                 text_name = text_name.replace(self.curr_find[1], replacer_text)
@@ -596,8 +596,8 @@ class FindReplace:
             button = self.allmatchesdialog.get_widget_for_response(gtk.RESPONSE_CLOSE)
             button.set_image(gtk.image_new_from_stock(gtk.STOCK_CLOSE, gtk.ICON_SIZE_BUTTON))
         except: pass
-        # ROW: 0-node_id, 1-start_offset, 2-end_offset, 3-node_name, 4-line_content, 5-line_num
-        self.liststore = gtk.ListStore(long, long, long, str, str, int)
+        # ROW: 0-node_id, 1-start_offset, 2-end_offset, 3-node_name, 4-line_content, 5-line_num 6-node_hier_name
+        self.liststore = gtk.ListStore(long, long, long, str, str, int, str)
         self.treeview = gtk.TreeView(self.liststore)
         self.renderer_text_node = gtk.CellRendererText()
         self.renderer_text_linenum = gtk.CellRendererText()
@@ -608,6 +608,7 @@ class FindReplace:
         self.treeview.append_column(self.linenum_column)
         self.linecontent_column = gtk.TreeViewColumn(_("Line Content"), self.renderer_text_linecontent, text=4)
         self.treeview.append_column(self.linecontent_column)
+        self.treeview.set_tooltip_column(6)
         self.treeviewselection = self.treeview.get_selection()
         self.treeview.connect('event-after', self.on_treeview_event_after)
         self.allmatchesdialog.connect("key_press_event", self.on_key_press_allmatches_dialog)
