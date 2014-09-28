@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CherryTree 0.30.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-28 23:36+0200\n"
+"POT-Creation-Date: 2014-09-29 00:14+0200\n"
 "PO-Revision-Date: 2014-07-31 14:58-0300\n"
 "Last-Translator: Vinicius Schmidt <viniciussm@rocketmail.com>\n"
 "Language-Team: Brazilian Portuguese\n"
@@ -2289,7 +2289,7 @@ msgstr "Exibir espaços"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:759
 #, fuzzy
-msgid "Auto Resize CodeBoxes"
+msgid "Expand CodeBoxes Automatically"
 msgstr "Re_cortar caixa de código"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:763

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: svn_cherrytree 0.14\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-28 23:36+0200\n"
+"POT-Creation-Date: 2014-09-29 00:14+0200\n"
 "PO-Revision-Date: 2014-04-13 10:44+0100\n"
 "Last-Translator: Benoît <benoit.dangelo@gmx.fr>\n"
 "Language-Team: French\n"
@@ -2303,7 +2303,7 @@ msgstr "Afficher les espaces vides"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:759
 #, fuzzy
-msgid "Auto Resize CodeBoxes"
+msgid "Expand CodeBoxes Automatically"
 msgstr "C_ouper la CodeBox"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:763

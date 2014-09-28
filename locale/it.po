@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cherrytree 0.27\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-28 23:36+0200\n"
+"POT-Creation-Date: 2014-09-29 00:14+0200\n"
 "PO-Revision-Date: 2014-08-13 11:08+0200\n"
 "Last-Translator: Vincenzo Reale <smart2128@baslug.org>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -2294,7 +2294,7 @@ msgstr "Mostra spazi bianchi"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:759
 #, fuzzy
-msgid "Auto Resize CodeBoxes"
+msgid "Expand CodeBoxes Automatically"
 msgstr "_Taglia blocco di codice"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:763
