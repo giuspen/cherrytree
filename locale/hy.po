@@ -153,7 +153,7 @@ msgstr "Բացել CherryTree-ի նոր նիշք"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:501
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:629
 msgid "_Open File"
-msgstr "_Բացել նիշք"
+msgstr "_Բացել նիշքը"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:501
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:1257
@@ -678,7 +678,7 @@ msgstr "Ավելացնել _ճյուղ"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:553
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:673
 msgid "Add a Node having the same Father of the Selected Node"
-msgstr "Ավելացնել ընտրված ճյուղին համահայր ճյուղ"
+msgstr "Ընտրված ճյուղին ավելացնել համահայր ճյուղ"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:554
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:674
@@ -869,11 +869,11 @@ msgstr "Գտնել ծառի բոլոր ճյուղերի պարունակությ
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:573
 msgid "Find in _Selected Node and Subnodes Contents"
-msgstr "Գտնել _ընտրված ճյուղի ու ենթաճյուղի պարունակության մեջ"
+msgstr "Գտնել _ընտրված ճյուղի և ենթաճյուղերի պարունակության մեջ"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:573
 msgid "Find into the Selected Node and Subnodes Contents"
-msgstr "Գտնել ընտրված ճյուղի ու ենթաճյուղերի պարունակության մեջ"
+msgstr "Գտնել ընտրված ճյուղի և ենթաճյուղերի պարունակության մեջ"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:574
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:695
@@ -973,11 +973,11 @@ msgstr "Ցուցադրել/թաքցնել ծառը"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:583
 msgid "Show/Hide Tool_bar"
-msgstr "Ցուցադրել/թաքցնել _գործիքների վահանակը"
+msgstr "Ցուցադրել/թաքցնել _գործիքավահանակը"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:583
 msgid "Toggle Show/Hide Toolbar"
-msgstr "Ցուցադրել/թաքցնել գործիքների վահանակը"
+msgstr "Ցուցադրել/թաքցնել գործիքավահանակը"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:584
 msgid "Show/Hide Node Name _Header"
@@ -1029,19 +1029,19 @@ msgstr "Ամփոփել ծառի բոլոր ճյուղերը"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:590
 msgid "_Increase Toolbar Icons Size"
-msgstr "_Մեծացնել գործիքների վահանակի պատկերակները"
+msgstr "_Մեծացնել գործիքավահանակի պատկերակները"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:590
 msgid "Increase the Size of the Toolbar Icons"
-msgstr "Մեծացնել գործիքների վահանակի պատկերակները"
+msgstr "Մեծացնել գործիքավահանակի պատկերակները"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:591
 msgid "_Decrease Toolbar Icons Size"
-msgstr "_Փոքրացնել գործիքների վահանակի պատկերակները"
+msgstr "_Փոքրացնել գործիքավահանակի պատկերակները"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:591
 msgid "Decrease the Size of the Toolbar Icons"
-msgstr "Փոքրացնել գործիքների վահանակի պատկերակները"
+msgstr "Փոքրացնել գործիքավահանակի պատկերակները"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:592
 msgid "_Full Screen On/Off"
@@ -1300,11 +1300,11 @@ msgstr "Արտահանել որպես CherryTree փաստաթուղթ"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:618
 msgid "_Check Newer Version"
-msgstr "Ստուգիր ծրագրի թարմացումները"
+msgstr "Ստուգել ծրագրի թարմացումները"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:618
 msgid "Check for a Newer Version"
-msgstr "Ստուգիր ծրագրի թարմացումները"
+msgstr "Ստուգել ծրագրի թարմացումները"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:619
 msgid "Online _Manual"
@@ -2355,7 +2355,7 @@ msgstr "Խարիսխի չափ"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1360
 msgid "Select Element to Add"
-msgstr "Ավելացնելու համար ընտրել տարր"
+msgstr "Ընտրեք ցանկից՝ ավելացնելու համար'"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1387
 msgid "Enable System Tray Docking"
@@ -2773,11 +2773,11 @@ msgstr "Պիտակի անվանում"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3231
 msgid "The Size of the Toolbar Icons is already at the Maximum Value"
-msgstr "Գործիքների վահանակի պատկերակներն արդեն իսկ առավելագույն չափն ունեն"
+msgstr "Գործիքավահանակի պատկերակներն արդեն իսկ առավելագույն չափն ունեն"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3239
 msgid "The Size of the Toolbar Icons is already at the Minimum Value"
-msgstr "Գործիքների վահանակի պատկերակներն արդեն իսկ նվազագույն չափն ունեն"
+msgstr "Գործիքավահանակի պատկերակներն արդեն իսկ նվազագույն չափն ունեն"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3325
 msgid "Edit Anchor"
