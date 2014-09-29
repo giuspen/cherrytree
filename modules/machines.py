@@ -825,6 +825,9 @@ class StateMachine:
 
     def text_variation(self, node_id, varied_text):
         """Insertion or Removal of text in the given node_id"""
+        if cons.CHAR_NEWLINE in varied_text:
+            self.update_state(node_id)
+            return
         alphanum = re.search("\w", varied_text, re.UNICODE) # we search for an alphanumeric character
         if self.nodes_indicators[node_id] < 2:
             if alphanum != None: self.nodes_indicators[node_id] = 2 # alphanumeric transition
@@ -877,6 +880,10 @@ class StateMachine:
         cursor_pos = self.dad.curr_buffer.get_property(cons.STR_CURSOR_POSITION)
         self.nodes_vectors[node_id].append([xml_content, pixbuf_table_codebox_vector, cursor_pos])
         num_saved_states = len(self.nodes_vectors[node_id])
+        if num_saved_states > 1 and self.nodes_vectors[node_id][-1] == self.nodes_vectors[node_id][-2]:
+            #print "duplicated state!"
+            del self.nodes_vectors[node_id][-1]
+            num_saved_states -= 1
         while num_saved_states > self.dad.limit_undoable_steps:
             self.nodes_vectors[node_id].pop(0)
             num_saved_states -= 1
