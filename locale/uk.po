@@ -15,8 +15,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Language: uk_UA\n"
 "X-Source-Language: C\n"
@@ -187,11 +186,11 @@ msgstr "Зберегти файл як"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:504
 msgid "Open Preferences _Directory"
-msgstr ""
+msgstr "Відкрити каталог налаштувань"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:504
 msgid "Open the Directory with Preferences Files"
-msgstr ""
+msgstr "Відкрити каталог з файлами налаштувань"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:505
 msgid "Pa_ge Setup"
@@ -708,15 +707,13 @@ msgstr "Редагувати параметри виділеної гілки"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:556
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:677
-#, fuzzy
 msgid "Toggle _Read Only"
 msgstr "Тільки читання"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:556
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:677
-#, fuzzy
 msgid "Toggle the Read Only Property of the Selected Node"
-msgstr "Застосувати курсивне написання до тексту"
+msgstr "Режим тільки читання для гілки"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:557
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:678
@@ -862,32 +859,26 @@ msgid "Go to the Next Visited Node"
 msgstr "Перейти до наступної гілки"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:571
-#, fuzzy
 msgid "_Find in Node Content"
 msgstr "Пошук в гілці"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:571
-#, fuzzy
 msgid "Find into the Selected Node Content"
 msgstr "Пошук в виділеній гілці"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:572
-#, fuzzy
 msgid "Find in _All Nodes Contents"
-msgstr "Пошук по всіх гілках"
+msgstr "Пошук в серед усіх гілок"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:572
-#, fuzzy
 msgid "Find into All the Tree Nodes Contents"
-msgstr "Пошук серед усіх гілок"
+msgstr "Пошук в серед усіх гілок"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:573
-#, fuzzy
 msgid "Find in _Selected Node and Subnodes Contents"
 msgstr "Пошук в виділеній гілці з дочірніми гілками"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:573
-#, fuzzy
 msgid "Find into the Selected Node and Subnodes Contents"
 msgstr "Пошук в виділеній гілці з дочірніми гілками"
 
@@ -895,17 +886,15 @@ msgstr "Пошук в виділеній гілці з дочірніми гіл
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:695
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:801
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:843
-#, fuzzy
 msgid "Find in _Nodes Names and Tags"
-msgstr "Пошук по всіх гілках"
+msgstr "Пошук по всіх гілках та тегах"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:574
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:695
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:801
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:843
-#, fuzzy
 msgid "Find in Nodes Names and Tags"
-msgstr "Пошук по всіх гілках"
+msgstr "Пошук по всіх гілках та тегах"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:575
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:802
@@ -932,32 +921,26 @@ msgid "Iterate the Last Find Operation in Opposite Direction"
 msgstr "Повторити останній пошук у зворотньому напрямку"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:577
-#, fuzzy
 msgid "_Replace in Node Content"
 msgstr "Замінити в гілці"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:577
-#, fuzzy
 msgid "Replace into the Selected Node Content"
 msgstr "Замінити у виділеній гілці"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:578
-#, fuzzy
 msgid "Replace in _All Nodes Contents"
 msgstr "Заміна в усіх гілках"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:578
-#, fuzzy
 msgid "Replace into All the Tree Nodes Contents"
 msgstr "Замінити в усіх гілках"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:579
-#, fuzzy
 msgid "Replace in _Selected Node and Subnodes Contents"
 msgstr "Замінити у виділеній гілці з дочірніми гілками"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:579
-#, fuzzy
 msgid "Replace into the Selected Node and Subnodes Contents"
 msgstr "Замінити у виділеній гілці з дочірніми гілками"
 
@@ -1348,34 +1331,28 @@ msgid "About CherryTree"
 msgstr "Про програму CherryTree"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:621
-#, fuzzy
 msgid "C_ut Anchor"
-msgstr "Редагувати якір"
+msgstr "Вирізати якір"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:621
-#, fuzzy
 msgid "Cut the Selected Anchor"
-msgstr "Вирізати виділений блок коду"
+msgstr "Вирізати виділений якір"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:622
-#, fuzzy
 msgid "_Copy Anchor"
-msgstr "Копіювати рядок"
+msgstr "Копіювати якір"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:622
-#, fuzzy
 msgid "Copy the Selected Anchor"
-msgstr "Копіювати виділений блок коду"
+msgstr "Копіювати виділений якір"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:623
-#, fuzzy
 msgid "_Delete Anchor"
-msgstr "Видалити посилання"
+msgstr "Видалити якір"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:623
-#, fuzzy
 msgid "Delete the Selected Anchor"
-msgstr "Видалити гілку"
+msgstr "Видалити виділений якір"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:624
 msgid "Edit _Anchor"
@@ -1386,39 +1363,32 @@ msgid "Edit the Underlying Anchor"
 msgstr "Редагувати якір"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:625
-#, fuzzy
 msgid "C_ut Embedded File"
-msgstr "Кількість вставлених файлів"
+msgstr "Вирізати файл"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:625
-#, fuzzy
 msgid "Cut the Selected Embedded File"
-msgstr "Вирізати виділену таблицю"
+msgstr "Вирізати виділений файл"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:626
-#, fuzzy
 msgid "_Copy Embedded File"
-msgstr "Кількість вставлених файлів"
+msgstr "Копіювати файл"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:626
-#, fuzzy
 msgid "Copy the Selected Embedded File"
-msgstr "Копіювати виділену таблицю"
+msgstr "Копіювати виділений файл"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:627
-#, fuzzy
 msgid "_Delete Embedded File"
-msgstr "Кількість вставлених файлів"
+msgstr "Видалити файл"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:627
-#, fuzzy
 msgid "Delete the Selected Embedded File"
-msgstr "Видалити виділену таблицю"
+msgstr "Видалити виділений файл"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:629
-#, fuzzy
 msgid "Open Embedded File"
-msgstr "Кількість вставлених файлів"
+msgstr "Відкрити файл"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:630
 msgid "_Save Image as PNG"
@@ -2029,31 +1999,27 @@ msgstr "Так"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:784
 msgid "Temporary Files were Created and Opened with External Applications."
-msgstr ""
+msgstr "Тимчасові файли були створені чи відкриті зовнішньою програмою"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:784
 msgid "Quit the External Applications Before Quit CherryTree."
-msgstr ""
+msgstr "Завершити зовнішню програму перед виходом з CherryTree"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:784
-#, fuzzy
 msgid "Did you Quit the External Applications?"
-msgstr "Вийти з програми"
+msgstr "Ви завершили зовнішню програму?"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:815
 msgid "No"
 msgstr "Ні"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:830
-#, fuzzy
 msgid "The Current Document was Updated."
-msgstr ""
-"<b>Поточний документ було оновлено</b>,\n"
-"Ви хочете зберегти зміни?"
+msgstr "Поточний документ було оновлено"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:830
 msgid "Do you want to Save the Changes?"
-msgstr ""
+msgstr "Ви хочете зберегти зміни?"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:872
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1199
@@ -2239,7 +2205,7 @@ msgstr "Спеціальні символи"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:618
 msgid "Chars to Select at Double Click"
-msgstr ""
+msgstr "Символи для виділення подвійним нажаттям"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:630
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:781
@@ -2294,9 +2260,8 @@ msgid "Show White Spaces"
 msgstr "Відображувати пробільні символи"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:759
-#, fuzzy
 msgid "Expand CodeBoxes Automatically"
-msgstr "Вирізати блок коду"
+msgstr "Автоматично розтягувати блоки коду"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:763
 msgid "Embedded File Icon Size"
@@ -2397,7 +2362,7 @@ msgstr "Кольори"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1239
 msgid "Use Relative Paths for Files And Folders"
-msgstr ""
+msgstr "Використовувати відносні шляхи до файлів та каталогів"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1243
 msgid "Anchor Size"
@@ -2405,7 +2370,7 @@ msgstr "Розмір якора"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1360
 msgid "Select Element to Add"
-msgstr ""
+msgstr "Виберіть елемент для додання"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1387
 msgid "Enable System Tray Docking"
@@ -2491,7 +2456,7 @@ msgstr "Посилання"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1597
 msgid "Toolbar"
-msgstr ""
+msgstr "Панель інструментів"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/tablez.py:63
 msgid "Rename Column"
@@ -2845,15 +2810,15 @@ msgstr "Вставити якір"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3349
 msgid "The Maximum Size for Embedded Files is 10 MB"
-msgstr ""
+msgstr "Максимальний розмір файлів 10Мб"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3413
 msgid "Cannot Edit Embedded File in Read Only Node"
-msgstr ""
+msgstr "Неможливо редагувати файли в гілках тільки для читання"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3427
 msgid "Embedded File Automatically Updated:"
-msgstr ""
+msgstr "Файл автоматично оновлено:"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3475
 msgid "Not Any H1, H2 or H3 Formatting Found"
@@ -2872,9 +2837,8 @@ msgid "The Tree is Empty!"
 msgstr "Дерево пусте!"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3525
-#, fuzzy
 msgid "The Selected Node is Read Only"
-msgstr "Тільки виділена гілка"
+msgstr "Виділена гілка в режимі тільки для читання"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3546
 msgid "Number of Rich Text Nodes"
@@ -2979,7 +2943,6 @@ msgstr "Теги"
 msgid "Downloading"
 msgstr "Завантаження"
 
-#, fuzzy
 #~ msgid "Updated Embedded File"
 #~ msgstr "Кількість вставлених файлів"
 

@@ -2730,8 +2730,8 @@ iter_end, exclude_iter_sel_end=True)
         node_hier_name = self.treestore[self.curr_tree_iter][1] if self.curr_tree_iter else ""
         self.header_node_name_eventbox.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.tt_def_bg))
         self.header_node_name_label.set_text(
-            "<b><i><span foreground=\"" + self.tt_def_fg + "\" size=\"xx-large\">"+\
-            cgi.escape(node_hier_name) + "</span></i></b>")
+            "<b><span foreground=\"" + self.tt_def_fg + "\" size=\"xx-large\">"+\
+            cgi.escape(node_hier_name) + "</span></b>")
         self.header_node_name_label.set_use_markup(True)
 
     def get_textbuffer_from_tree_iter(self, tree_iter):
