@@ -837,15 +837,11 @@ class StateMachine:
 
     def requested_previous_state(self, node_id):
         """A Previous State, if Existing, is Requested"""
-        if self.nodes_indicators[node_id] == 0:
-            if self.nodes_indexes[node_id] == 0: return None
-            else:
-                self.nodes_indexes[node_id] -= 1
-                return self.nodes_vectors[node_id][self.nodes_indexes[node_id]]
-        else:
+        if self.curr_index_is_last_index(node_id):
             self.update_state(node_id)
+        if self.nodes_indexes[node_id] > 0:
             self.nodes_indexes[node_id] -= 1
-            return self.nodes_vectors[node_id][self.nodes_indexes[node_id]]
+        return self.nodes_vectors[node_id][self.nodes_indexes[node_id]]
 
     def requested_current_state(self, node_id):
         """The current state is requested"""
@@ -853,12 +849,9 @@ class StateMachine:
 
     def requested_subsequent_state(self, node_id):
         """A Subsequent State, if Existing, is Requested"""
-        if self.nodes_indicators[node_id] == 0:
-            if self.nodes_indexes[node_id] == len(self.nodes_vectors[node_id]) - 1: return None
-            else:
-                self.nodes_indexes[node_id] += 1
-                return self.nodes_vectors[node_id][self.nodes_indexes[node_id]]
-        else: return None
+        if self.nodes_indexes[node_id] < (len(self.nodes_vectors[node_id])-1):
+            self.nodes_indexes[node_id] += 1
+        return self.nodes_vectors[node_id][self.nodes_indexes[node_id]]
 
     def delete_states(self, node_id):
         """Delete the states for the given node_id"""
@@ -869,21 +862,26 @@ class StateMachine:
             self.visited_nodes_list.remove(node_id)
             self.visited_nodes_idx = len(self.visited_nodes_list)-1
 
-    def update_state(self, node_id):
-        """Update the state for the given node_id"""
+    def curr_index_is_last_index(self, node_id):
+        """Are we in the last state?"""
         curr_index = self.nodes_indexes[node_id]
         last_index = len(self.nodes_vectors[node_id]) - 1
-        if curr_index != last_index:
-            del self.nodes_vectors[node_id][curr_index+1:]
+        return curr_index == last_index
+
+    def update_state(self, node_id, just_navigating=False):
+        """Update the state for the given node_id"""
+        if not self.curr_index_is_last_index(node_id):
+            del self.nodes_vectors[node_id][self.nodes_indexes[node_id]+1:]
         xml_content = self.dad.xml_handler.treestore_node_to_dom(self.dad.curr_tree_iter)
         pixbuf_table_codebox_vector = self.get_embedded_pixbufs_tables_codeboxes(self.dad.curr_buffer)
         cursor_pos = self.dad.curr_buffer.get_property(cons.STR_CURSOR_POSITION)
-        self.nodes_vectors[node_id].append([xml_content, pixbuf_table_codebox_vector, cursor_pos])
+        new_state = [xml_content, pixbuf_table_codebox_vector, cursor_pos]
+        if len(self.nodes_vectors[node_id]) > 0:
+            if new_state == self.nodes_vectors[node_id][-1]:
+                print "update_state not needed"
+                return
+        self.nodes_vectors[node_id].append(new_state)
         num_saved_states = len(self.nodes_vectors[node_id])
-        if num_saved_states > 1 and self.nodes_vectors[node_id][-1] == self.nodes_vectors[node_id][-2]:
-            #print "duplicated state!"
-            del self.nodes_vectors[node_id][-1]
-            num_saved_states -= 1
         while num_saved_states > self.dad.limit_undoable_steps:
             self.nodes_vectors[node_id].pop(0)
             num_saved_states -= 1
