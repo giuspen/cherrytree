@@ -74,7 +74,7 @@ class ClipboardHandler:
         self.clipboard.set_with_data([(t, 0, 0) for t in (TARGET_CTD_TABLE, TARGETS_HTML[0])],
                                      self.get_func,
                                      self.clear_func,
-                                     (table_dict, None, html_text))
+                                     (table_dict, None, html_text, None))
 
     def table_row_paste(self, model_n_iter):
         """Paste Table Row from the Clipboard"""
@@ -100,7 +100,7 @@ class ClipboardHandler:
                     self.clipboard.set_with_data([(t, 0, 0) for t in (TARGET_CTD_TABLE, TARGETS_HTML[0])],
                                                  self.get_func,
                                                  self.clear_func,
-                                                 (table_dict, None, html_text))
+                                                 (table_dict, None, html_text, None))
                     return
                 elif "sourcebuffer" in anchor_dir:
                     codebox_dict = self.dad.state_machine.codebox_to_dict(anchor, for_print=0)
@@ -109,7 +109,7 @@ class ClipboardHandler:
                     self.clipboard.set_with_data([(t, 0, 0) for t in (TARGET_CTD_CODEBOX, TARGETS_HTML[0])],
                                                  self.get_func,
                                                  self.clear_func,
-                                                 (codebox_dict, None, html_text))
+                                                 (codebox_dict, None, html_text, None))
                     return
         if not os.path.isdir(cons.TMP_FOLDER): os.mkdir(cons.TMP_FOLDER)
         html_text = self.dad.html_handler.selection_export_to_html(text_buffer, iter_sel_start, iter_sel_end,
@@ -129,7 +129,7 @@ class ClipboardHandler:
             self.clipboard.set_with_data([(t, 0, 0) for t in (TARGET_CTD_PLAIN_TEXT, TARGETS_HTML[0])],
                                          self.get_func,
                                          self.clear_func,
-                                         (plain_text, None, html_text))
+                                         (plain_text, None, html_text, pixbuf_target))
 
     def get_func(self, clipboard, selectiondata, info, data):
         """Connected with clipboard.set_with_data"""

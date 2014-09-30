@@ -868,7 +868,7 @@ class StateMachine:
         last_index = len(self.nodes_vectors[node_id]) - 1
         return curr_index == last_index
 
-    def update_state(self, node_id, just_navigating=False):
+    def update_state(self, node_id):
         """Update the state for the given node_id"""
         if not self.curr_index_is_last_index(node_id):
             del self.nodes_vectors[node_id][self.nodes_indexes[node_id]+1:]
