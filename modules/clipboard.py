@@ -265,7 +265,7 @@ class ClipboardHandler:
                 except: pass
                 if utf16_OK == utf8_OK:
                     if cons.IS_WIN_OS: selection_data = selectiondata.data.decode(cons.STR_UTF16, cons.STR_IGNORE)
-                    else: selection_data = selectiondata.data
+                    else: selection_data = selectiondata.data.decode(cons.STR_UTF8, cons.STR_IGNORE)
         #print "###########################"
         #print selectiondata.data
         #print "###########################"

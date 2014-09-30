@@ -358,6 +358,7 @@ class TablesHandler:
 
     def table_edit_properties(self, *args):
         """Edit Table Properties"""
+        if not self.dad.is_curr_node_not_read_only_or_error(): return
         self.dad.table_col_min = self.curr_table_anchor.table_col_min
         self.dad.table_col_max = self.curr_table_anchor.table_col_max
         ret_ok, ret_csv = self.dialog_tablehandle(_("Edit Table Properties"), False)
@@ -378,6 +379,7 @@ class TablesHandler:
         self.dad.menu_populate_popup(menu, cons.get_popup_menu_entries_table_cell(self))
 
     def curr_table_cell_insert_newline(self, *args):
+        if not self.dad.is_curr_node_not_read_only_or_error(): return
         cursor_pos = self.curr_table_cell.get_position()
         self.curr_table_cell.insert_text(cons.CHAR_NEWLINE, cursor_pos)
         self.curr_table_cell.set_position(cursor_pos+1)
@@ -399,8 +401,9 @@ class TablesHandler:
         else:
             if keyname in [cons.STR_RETURN, "Up", "Down"]:
                 if model[path][col_num] != widget.get_text():
-                    model[path][col_num] = widget.get_text()
-                    self.dad.update_window_save_needed("nbuf", True)
+                    if self.dad.is_curr_node_not_read_only_or_error():
+                        model[path][col_num] = widget.get_text()
+                        self.dad.update_window_save_needed("nbuf", True)
                 if keyname == "Up":
                     if col_num > 0:
                         next_col_num = col_num - 1
@@ -443,12 +446,14 @@ class TablesHandler:
 
     def on_table_cell_edited(self, cell, path, new_text, model, col_num):
         """A Table Cell has been Edited"""
+        if not self.dad.is_curr_node_not_read_only_or_error(): return
         if model[path][col_num] != new_text:
             model[path][col_num] = new_text
             self.dad.update_window_save_needed("nbuf", True)
 
     def table_column_clicked(self, column, anchor, col_num):
         """The Column Header was Clicked"""
+        if not self.dad.is_curr_node_not_read_only_or_error(): return
         col_label = column.get_widget()
         ret_ok, ret_rename, ret_add = self.dialog_tablecolhandle(_("Table Column Action"), col_label.get_text())
         if not ret_ok: return
@@ -540,11 +545,13 @@ class TablesHandler:
 
     def table_row_add(self, *args):
         """Add a Table Row"""
-        self.table_row_action("add")
+        if self.dad.is_curr_node_not_read_only_or_error():
+            self.table_row_action("add")
 
     def table_row_cut(self, *args):
         """Cut a Table Row"""
-        self.table_row_action("cut")
+        if self.dad.is_curr_node_not_read_only_or_error():
+            self.table_row_action("cut")
 
     def table_row_copy(self, *args):
         """Copy a Table Row"""
@@ -552,27 +559,33 @@ class TablesHandler:
 
     def table_row_paste(self, *args):
         """Paste a Table Row"""
-        self.table_row_action("paste")
+        if self.dad.is_curr_node_not_read_only_or_error():
+            self.table_row_action("paste")
 
     def table_row_delete(self, *args):
         """Delete a Table Row"""
-        self.table_row_action("delete")
+        if self.dad.is_curr_node_not_read_only_or_error():
+            self.table_row_action("delete")
 
     def table_row_up(self, *args):
         """Move the Selected Row Up"""
-        self.table_row_action("move_up")
+        if self.dad.is_curr_node_not_read_only_or_error():
+            self.table_row_action("move_up")
 
     def table_row_down(self, *args):
         """Move the Selected Row Down"""
-        self.table_row_action("move_down")
+        if self.dad.is_curr_node_not_read_only_or_error():
+            self.table_row_action("move_down")
 
     def table_rows_sort_descending(self, *args):
         """Sort all the Rows Descending"""
-        self.table_row_action("sort_desc")
+        if self.dad.is_curr_node_not_read_only_or_error():
+            self.table_row_action("sort_desc")
 
     def table_rows_sort_ascending(self, *args):
         """Sort all the Rows Ascending"""
-        self.table_row_action("sort_asc")
+        if self.dad.is_curr_node_not_read_only_or_error():
+            self.table_row_action("sort_asc")
 
     def on_key_press_treeview_table(self, widget, event, anchor):
         """Catches Table key presses"""
