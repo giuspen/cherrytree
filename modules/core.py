@@ -3313,6 +3313,7 @@ iter_end, exclude_iter_sel_end=True)
 
     def anchor_edit(self, *args):
         """Edit an Anchor"""
+        if not self.is_curr_node_not_read_only_or_error(): return
         iter_insert = self.curr_buffer.get_iter_at_child_anchor(self.curr_anchor_anchor)
         iter_bound = iter_insert.copy()
         iter_bound.forward_char()
@@ -3715,6 +3716,7 @@ iter_end, exclude_iter_sel_end=True)
 
     def image_edit(self, *args):
         """Edit the selected Image"""
+        if not self.is_curr_node_not_read_only_or_error(): return
         iter_insert = self.curr_buffer.get_iter_at_child_anchor(self.curr_image_anchor)
         iter_bound = iter_insert.copy()
         iter_bound.forward_char()
@@ -4035,6 +4037,7 @@ iter_end, exclude_iter_sel_end=True)
 
     def image_link_edit(self, *args):
         """Edit the Link Associated to the Image"""
+        if not self.is_curr_node_not_read_only_or_error(): return
         self.links_entries_reset()
         if not self.curr_image_anchor.pixbuf.link:
             self.link_type = cons.LINK_TYPE_WEBS # default value
