@@ -249,7 +249,8 @@ class ClipboardHandler:
         else:
             match = re.match('.*\x00\w\x00\w\x00\w.*', selectiondata.data, re.UNICODE) # \w is alphanumeric char
             if match: selection_data = selectiondata.data.decode(cons.STR_UTF16, cons.STR_IGNORE)
-            elif "HTML" in selectiondata.data: selection_data = selectiondata.data.decode(cons.STR_UTF8, cons.STR_IGNORE)
+            elif "html" in selectiondata.data or "HTML" in selectiondata.data:
+                selection_data = selectiondata.data.decode(cons.STR_UTF8, cons.STR_IGNORE)
             else:
                 utf8_OK = False
                 utf16_OK = False
