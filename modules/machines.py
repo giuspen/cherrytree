@@ -878,7 +878,7 @@ class StateMachine:
         new_state = [xml_content, pixbuf_table_codebox_vector, cursor_pos]
         if len(self.nodes_vectors[node_id]) > 0:
             if new_state == self.nodes_vectors[node_id][-1]:
-                print "update_state not needed"
+                #print "update_state not needed"
                 return
         self.nodes_vectors[node_id].append(new_state)
         num_saved_states = len(self.nodes_vectors[node_id])
