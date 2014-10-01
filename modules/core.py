@@ -3290,14 +3290,14 @@ iter_end, exclude_iter_sel_end=True)
 
     def check_unsaved(self):
         """Before close the current document, check for possible Unsaved"""
-        if self.curr_tree_iter != None and (self.curr_buffer.get_modified() == True or self.file_update == True):
+        if self.curr_tree_iter and (self.curr_buffer.get_modified() or self.file_update):
             if self.autosave_on_quit: response = 2
             else: response = support.dialog_exit_save(self.window)
             if response == 2: self.file_save() # button YES pressed or autosave ON
             elif response < 0: response = 6
         else: response = 0 # no need to save
         if response == 6: return False # button CANCEL
-        else: return True
+        return True
 
     def dialog_about(self, *args):
         """Show the About Dialog and hide it when a button is pressed"""

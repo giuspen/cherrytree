@@ -255,16 +255,20 @@ def clean_from_chars_not_for_filename(filename_in):
     filename_out = filename_out.replace(cons.CHAR_NEWLINE, "").replace(cons.CHAR_CR, "").strip()
     return filename_out.replace(cons.CHAR_SPACE, cons.CHAR_USCORE)
 
-def get_node_hierarchical_name(dad, tree_iter, separator="--"):
+def get_node_hierarchical_name(dad, tree_iter, separator="--", for_filename=True, root_to_leaf=True):
     """Get the Node Hierarchical Name"""
     hierarchical_name = dad.treestore[tree_iter][1].strip()
     father_iter = dad.treestore.iter_parent(tree_iter)
     while father_iter:
-        hierarchical_name = dad.treestore[father_iter][1].strip() + separator + hierarchical_name
+        if root_to_leaf:
+            hierarchical_name = dad.treestore[father_iter][1].strip() + separator + hierarchical_name
+        else:
+            hierarchical_name = hierarchical_name + separator + dad.treestore[father_iter][1].strip()
         father_iter = dad.treestore.iter_parent(father_iter)
-    hierarchical_name = clean_from_chars_not_for_filename(hierarchical_name)
-    if len(hierarchical_name) > cons.MAX_FILE_NAME_LEN:
-        hierarchical_name = hierarchical_name[-cons.MAX_FILE_NAME_LEN:]
+    if for_filename:
+        hierarchical_name = clean_from_chars_not_for_filename(hierarchical_name)
+        if len(hierarchical_name) > cons.MAX_FILE_NAME_LEN:
+            hierarchical_name = hierarchical_name[-cons.MAX_FILE_NAME_LEN:]
     return hierarchical_name
 
 def strip_trailing_spaces(text_buffer):
