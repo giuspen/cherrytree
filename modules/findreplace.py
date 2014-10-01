@@ -20,7 +20,7 @@
 #       MA 02110-1301, USA.
 
 import gtk, gobject
-import re
+import re, cgi
 import cons, support, config
 
 
@@ -346,11 +346,11 @@ class FindReplace:
             start_offset = match_offsets[0] + num_objs - newline_trick_offset
             end_offset = match_offsets[1] + num_objs - newline_trick_offset
             node_name = self.dad.treestore[tree_iter][1]
-            node_hier_name = support.get_node_hierarchical_name(self.dad, tree_iter)
+            node_hier_name = support.get_node_hierarchical_name(self.dad, tree_iter, separator=" << ", for_filename=False, root_to_leaf=False)
             line_content = self.get_line_content(text_buffer, iter_insert) if obj_match_offsets[0] == None else obj_match_offsets[2]
             line_num = text_buffer.get_iter_at_offset(start_offset).get_line()
             if not self.newline_trick: line_num += 1
-            self.liststore.append([node_id, start_offset, end_offset, node_name, line_content, line_num, node_hier_name])
+            self.liststore.append([node_id, start_offset, end_offset, node_name, line_content, line_num, cgi.escape(node_hier_name)])
             #print line_num, self.matches_num
         else: self.dad.sourceview.scroll_to_mark(mark_insert, 0.25)
         if self.replace_active:
@@ -499,9 +499,9 @@ class FindReplace:
             if all_matches:
                 node_id = self.dad.treestore[node_iter][3]
                 node_name = self.dad.treestore[node_iter][1]
-                node_hier_name = support.get_node_hierarchical_name(self.dad, node_iter)
+                node_hier_name = support.get_node_hierarchical_name(self.dad, node_iter, separator=" << ", for_filename=False, root_to_leaf=False)
                 line_content = self.get_first_line_content(self.dad.get_textbuffer_from_tree_iter(node_iter))
-                self.liststore.append([node_id, 0, 0, node_name, line_content, 1, node_hier_name])
+                self.liststore.append([node_id, 0, 0, node_name, line_content, 1, cgi.escape(node_hier_name)])
             if self.replace_active:
                 replacer_text = self.dad.search_replace_dict['replace']
                 text_name = text_name.replace(self.curr_find[1], replacer_text)
