@@ -2906,7 +2906,8 @@ iter_end, exclude_iter_sel_end=True)
 
     def requested_step_back(self, *args):
         """Step Back for the Current Node, if Possible"""
-        if self.curr_tree_iter == None: return
+        if not self.curr_tree_iter: return
+        if not self.is_curr_node_not_read_only_or_error(): return
         if self.syntax_highlighting == cons.RICH_TEXT_ID:
             # TEXT BUFFER STATE MACHINE
             step_back = self.state_machine.requested_previous_state(self.treestore[self.curr_tree_iter][3])
@@ -2936,7 +2937,8 @@ iter_end, exclude_iter_sel_end=True)
 
     def requested_step_ahead(self, *args):
         """Step Ahead for the Current Node, if Possible"""
-        if self.curr_tree_iter == None: return
+        if not self.curr_tree_iter: return
+        if not self.is_curr_node_not_read_only_or_error(): return
         if self.syntax_highlighting == cons.RICH_TEXT_ID:
             # TEXT BUFFER STATE MACHINE
             step_ahead = self.state_machine.requested_subsequent_state(self.treestore[self.curr_tree_iter][3])
@@ -3520,9 +3522,13 @@ iter_end, exclude_iter_sel_end=True)
             return False
         return True
 
+    def is_curr_node_read_only(self):
+        """Returns True if the Current Selected Node is Read Only"""
+        return self.curr_tree_iter and self.treestore[self.curr_tree_iter][7]
+
     def is_curr_node_not_read_only_or_error(self):
         """Returns False if the Current Selected Node is Read Only and prompts error dialog"""
-        if self.curr_tree_iter and self.treestore[self.curr_tree_iter][7]:
+        if self.is_curr_node_read_only():
             support.dialog_error(_("The Selected Node is Read Only"), self.window)
             return False
         return True
@@ -3973,6 +3979,7 @@ iter_end, exclude_iter_sel_end=True)
 
     def link_dismiss(self, *args):
         """Dismiss Link"""
+        if not self.is_curr_node_not_read_only_or_error(): return
         if self.link_check_around_cursor():
             self.remove_text_formatting()
 
@@ -4066,6 +4073,7 @@ iter_end, exclude_iter_sel_end=True)
 
     def image_link_dismiss(self, *args):
         """Dismiss the Link Associated to the Image"""
+        if not self.is_curr_node_not_read_only_or_error(): return
         self.curr_image_anchor.pixbuf.link = ""
         self.image_link_apply_frame_label(self.curr_image_anchor)
         self.update_window_save_needed("nbuf", True)
