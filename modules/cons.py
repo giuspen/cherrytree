@@ -289,8 +289,6 @@ UI_INFO = """
             <menuitem action='Save'/>
             <menuitem action='SaveAs'/>
             <separator/>
-            <menuitem action='OpenCfgFolder'/>
-            <separator/>
             <menuitem action='PageSetup'/>
             <menuitem action='NodePrint'/>
             <separator/>
@@ -434,6 +432,8 @@ UI_INFO = """
             <menuitem action='CheckNewer'/>
             <separator/>
             <menuitem action='Help'/>
+            <separator/>
+            <menuitem action='OpenCfgFolder'/>
             <separator/>
             <menuitem action='About'/>
         </menu>

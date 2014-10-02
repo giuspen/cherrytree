@@ -390,7 +390,7 @@ class CodeBoxesHandler:
 
     def on_vscrollbar_event_after(self, vscrollbar, event, anchor):
         """Catches CodeBox Vertical Scrollbar Movements"""
-        if self.curr_codebox_anchor != anchor: return False
+        if not self.dad.user_active or self.curr_codebox_anchor != anchor: return False
         if self.dad.codebox_auto_resize and event.type == gtk.gdk.EXPOSE:
             curr_v = vscrollbar.get_value()
             if curr_v:
@@ -400,7 +400,7 @@ class CodeBoxesHandler:
 
     def on_hscrollbar_event_after(self, hscrollbar, event, anchor):
         """Catches CodeBox Horizontal Scrollbar Movements"""
-        if self.curr_codebox_anchor != anchor: return False
+        if not self.dad.user_active or self.curr_codebox_anchor != anchor: return False
         if self.dad.codebox_auto_resize and event.type == gtk.gdk.EXPOSE:
             curr_h = hscrollbar.get_value()
             if curr_h:
