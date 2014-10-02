@@ -3690,7 +3690,7 @@ iter_end, exclude_iter_sel_end=True)
             anchor.eventbox.set_tooltip_text(pixbuf.anchor)
         elif "filename" in pixbuf_attrs:
             anchor.eventbox.connect("button-press-event", self.on_mouse_button_clicked_file, anchor)
-            anchor.eventbox.set_tooltip_text("%s\n%s B\n%s" % (pixbuf.filename, len(pixbuf.embfile), time.strftime(self.timestamp_format, time.localtime(pixbuf.time))))
+            anchor.eventbox.set_tooltip_text("%s\n%s Bytes\n%s" % (pixbuf.filename, len(pixbuf.embfile), time.strftime(self.timestamp_format, time.localtime(pixbuf.time))))
             anchor_label = gtk.Label()
             anchor_label.set_markup("<b><small>"+pixbuf.filename+"</small></b>")
             anchor_label.modify_fg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.rt_def_fg))
