@@ -62,6 +62,7 @@ class CodeBoxesHandler:
 
     def codebox_delete_keeping_text(self, *args):
         """Delete CodeBox but keep the Text"""
+        if not self.dad.is_curr_node_not_read_only_or_error(): return
         content = self.curr_codebox_anchor.sourcebuffer.get_text(*self.curr_codebox_anchor.sourcebuffer.get_bounds())
         self.dad.object_set_selection(self.curr_codebox_anchor)
         self.dad.curr_buffer.delete_selection(True, self.dad.sourceview.get_editable())
@@ -293,6 +294,7 @@ class CodeBoxesHandler:
 
     def codebox_increase_width(self, *args):
         """Increase CodeBox Width"""
+        if self.dad.is_curr_node_read_only(): return
         if self.curr_codebox_anchor.width_in_pixels:
             self.codebox_change_width_height(self.curr_codebox_anchor.frame_width + CB_WIDTH_HEIGHT_STEP_PIX, 0)
         else:
@@ -300,6 +302,7 @@ class CodeBoxesHandler:
 
     def codebox_decrease_width(self, *args):
         """Decrease CodeBox Width"""
+        if self.dad.is_curr_node_read_only(): return
         if self.curr_codebox_anchor.width_in_pixels:
             if self.curr_codebox_anchor.frame_width - CB_WIDTH_HEIGHT_STEP_PIX >= CB_WIDTH_LIMIT_MIN:
                 self.codebox_change_width_height(self.curr_codebox_anchor.frame_width - CB_WIDTH_HEIGHT_STEP_PIX, 0)
@@ -309,10 +312,12 @@ class CodeBoxesHandler:
 
     def codebox_increase_height(self, *args):
         """Increase CodeBox Height"""
+        if self.dad.is_curr_node_read_only(): return
         self.codebox_change_width_height(0, self.curr_codebox_anchor.frame_height + CB_WIDTH_HEIGHT_STEP_PIX)
 
     def codebox_decrease_height(self, *args):
         """Decrease CodeBox Height"""
+        if self.dad.is_curr_node_read_only(): return
         if self.curr_codebox_anchor.frame_height - CB_WIDTH_HEIGHT_STEP_PIX >= CB_HEIGHT_LIMIT_MIN:
             self.codebox_change_width_height(0, self.curr_codebox_anchor.frame_height - CB_WIDTH_HEIGHT_STEP_PIX)
 
@@ -340,6 +345,7 @@ class CodeBoxesHandler:
 
     def codebox_load_from_file(self, action):
         """Load the CodeBox Content From a Text File"""
+        if not self.dad.is_curr_node_not_read_only_or_error(): return
         filepath = support.dialog_file_select(curr_folder=self.dad.pick_dir, parent=self.dad.window)
         if not filepath: return
         self.dad.pick_dir = os.path.dirname(filepath)
@@ -357,6 +363,7 @@ class CodeBoxesHandler:
 
     def codebox_change_properties(self, action):
         """Change CodeBox Properties"""
+        if not self.dad.is_curr_node_not_read_only_or_error(): return
         self.dad.codebox_width = self.curr_codebox_anchor.frame_width
         self.dad.codebox_width_pixels = self.curr_codebox_anchor.width_in_pixels
         self.dad.codebox_height = self.curr_codebox_anchor.frame_height
@@ -436,6 +443,7 @@ class CodeBoxesHandler:
 
     def on_sourceview_motion_notify_event_codebox(self, text_view, event):
         """Update the cursor image if the pointer moved"""
+        text_view.set_editable(not self.dad.is_curr_node_read_only())
         x, y = text_view.window_to_buffer_coords(gtk.TEXT_WINDOW_TEXT, int(event.x), int(event.y))
         support.sourceview_cursor_and_tooltips_handler(self.dad, text_view, x, y)
         return False
