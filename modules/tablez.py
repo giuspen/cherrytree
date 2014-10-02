@@ -436,6 +436,7 @@ class TablesHandler:
                     focus_column=next_column,
                     focus_cell=next_column.get_cell_renderers()[0],
                     start_editing=True)
+                return True
         return False
 
     def on_table_cell_editing_started(self, cell, editable, path, model, col_num):
@@ -620,6 +621,8 @@ class TablesHandler:
             menu_table = gtk.Menu()
             self.dad.menu_populate_popup(menu_table, cons.get_popup_menu_table(self.dad))
             menu_table.popup(None, None, None, event.button, event.time)
+            return True
+        return False
 
 
 class UTF8Recoder:
