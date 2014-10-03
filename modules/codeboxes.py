@@ -448,10 +448,3 @@ class CodeBoxesHandler:
         x, y = text_view.window_to_buffer_coords(gtk.TEXT_WINDOW_TEXT, int(event.x), int(event.y))
         support.sourceview_cursor_and_tooltips_handler(self.dad, text_view, x, y)
         return False
-
-    def on_sourceview_visibility_notify_event_codebox(self, text_view, event):
-        """Update the cursor image if the window becomes visible (e.g. when a window covering it got iconified)"""
-        wx, wy, mod = text_view.window.get_pointer()
-        bx, by = text_view.window_to_buffer_coords(gtk.TEXT_WINDOW_TEXT, wx, wy)
-        support.sourceview_cursor_and_tooltips_handler(self.dad, text_view, bx, by)
-        return False
