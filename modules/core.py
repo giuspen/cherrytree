@@ -3424,7 +3424,7 @@ iter_end, exclude_iter_sel_end=True)
                         with open(filepath, 'rb') as fd:
                             anchor.pixbuf.embfile = fd.read()
                             anchor.pixbuf.time = time.time()
-                        anchor.eventbox.set_tooltip_text("%s\n%s B\n%s" % (anchor.pixbuf.filename, len(anchor.pixbuf.embfile), time.strftime(self.timestamp_format, time.localtime(anchor.pixbuf.time))))
+                        self.embfile_set_tooltip(anchor)
                         self.update_window_save_needed("nbuf")
                         self.statusbar.pop(self.statusbar_context_id)
                         self.statusbar.push(self.statusbar_context_id, _("Embedded File Automatically Updated:") + cons.CHAR_SPACE + anchor.pixbuf.filename)
@@ -3696,12 +3696,7 @@ iter_end, exclude_iter_sel_end=True)
             anchor.eventbox.set_tooltip_text(pixbuf.anchor)
         elif "filename" in pixbuf_attrs:
             anchor.eventbox.connect("button-press-event", self.on_mouse_button_clicked_file, anchor)
-            embfile_bytes = len(pixbuf.embfile)
-            embfile_Kbytes = float(embfile_bytes)/1024
-            embfile_Mbytes = embfile_Kbytes/1024
-            if embfile_Mbytes > 1: human_readable_size = "%.1f MB" % embfile_Mbytes
-            else: human_readable_size = "%.1f KB" % embfile_Kbytes
-            anchor.eventbox.set_tooltip_text("%s\n%s (%d Bytes)\n%s" % (pixbuf.filename, human_readable_size, embfile_bytes, time.strftime(self.timestamp_format, time.localtime(pixbuf.time))))
+            self.embfile_set_tooltip(anchor)
             anchor_label = gtk.Label()
             anchor_label.set_markup("<b><small>"+pixbuf.filename+"</small></b>")
             anchor_label.modify_fg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.rt_def_fg))
@@ -3724,6 +3719,15 @@ iter_end, exclude_iter_sel_end=True)
         elif self.user_active:
             # if I apply a justification, the state is already updated
             self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
+
+    def embfile_set_tooltip(self, anchor):
+        """Set Embedded File Tooltip"""
+        embfile_bytes = len(anchor.pixbuf.embfile)
+        embfile_Kbytes = float(embfile_bytes)/1024
+        embfile_Mbytes = embfile_Kbytes/1024
+        if embfile_Mbytes > 1: human_readable_size = "%.1f MB" % embfile_Mbytes
+        else: human_readable_size = "%.1f KB" % embfile_Kbytes
+        anchor.eventbox.set_tooltip_text("%s\n%s (%d Bytes)\n%s" % (anchor.pixbuf.filename, human_readable_size, embfile_bytes, time.strftime(self.timestamp_format, time.localtime(anchor.pixbuf.time))))
 
     def image_edit(self, *args):
         """Edit the selected Image"""
