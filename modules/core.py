@@ -3634,7 +3634,7 @@ iter_end, exclude_iter_sel_end=True)
             elif element[0] == "table": curr_node_tables += 1
             elif element[0] == "codebox": curr_node_codeboxes += 1
         if curr_node_images or curr_node_embfiles or curr_node_tables or curr_node_codeboxes or curr_node_anchors:
-            print "node with object(s):", self.treestore[tree_iter][1]
+            #print "node with object(s):", self.treestore[tree_iter][1]
             self.summary_images_num += curr_node_images
             self.summary_embfile_num += curr_node_embfiles
             self.summary_tables_num += curr_node_tables
@@ -3696,7 +3696,12 @@ iter_end, exclude_iter_sel_end=True)
             anchor.eventbox.set_tooltip_text(pixbuf.anchor)
         elif "filename" in pixbuf_attrs:
             anchor.eventbox.connect("button-press-event", self.on_mouse_button_clicked_file, anchor)
-            anchor.eventbox.set_tooltip_text("%s\n%s Bytes\n%s" % (pixbuf.filename, len(pixbuf.embfile), time.strftime(self.timestamp_format, time.localtime(pixbuf.time))))
+            embfile_bytes = len(pixbuf.embfile)
+            embfile_Kbytes = float(embfile_bytes)/1024
+            embfile_Mbytes = embfile_Kbytes/1024
+            if embfile_Mbytes > 1: human_readable_size = "%.1f MB" % embfile_Mbytes
+            else: human_readable_size = "%.1f KB" % embfile_Kbytes
+            anchor.eventbox.set_tooltip_text("%s\n%s (%d Bytes)\n%s" % (pixbuf.filename, human_readable_size, embfile_bytes, time.strftime(self.timestamp_format, time.localtime(pixbuf.time))))
             anchor_label = gtk.Label()
             anchor_label.set_markup("<b><small>"+pixbuf.filename+"</small></b>")
             anchor_label.modify_fg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.rt_def_fg))
