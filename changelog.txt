@@ -1,4 +1,20 @@
 
+0.35.0 (?)
+• the toolbar is now configurable in a dedicated preferences dialog tab.
+• added configurable option to use relative paths in links to files and folders.
+• added limit of 10 MB to embedded files. embedding larger files is not safe.
+• implemented the possibility to open embedded files with double click or right click menu. the opened embedded file is saved to a temporary location and opened with an external application same as it happens for links to files. the temporary file is monitored for changes and if a change is detected, the embedded file in the cherrytree document is updated automatically. all the external applications used to open embedded files must be closed before closing cherrytree since cherrytree will delete the temporary files at quit (a dialog warns the user to do so at cherrytree quit time if one or more opened embedded files is detected).
+• the embedded files have now the time of latest edit and the size visible in tooltip.
+• added configurable option to have codeboxes expand automatically.
+• the following commands now work also inside of the codeboxes: text row cut/copy/delete/up/down, text change case, text duplicate, insertion of special chars, timestamp, horizontal rule, lists handling.
+• added right click menu to cut, copy and delete embedded files and anchors.
+• added menu item and shortcut (Ctrl+Alt+R) to toggle the Read Only property of the selected node.
+• when we double click on text we are used to see the word under mouse to be selected. now it is possible in configuration to add chars to include in the selection (e.g. adding ‘@’ you select whole text me@mail).
+• added tooltip in find all matches dialog indicating the full node path.
+• improved the tree in links dialog and node change father dialog: now the middle (or wheel) click works also here to expand/collapse underlying node and also the double click toggles the expanded/collapsed state. furthermore the expanded/collapsed nodes status is the same of the main tree.
+• added menu item to open the directory containing the preferences files.
+• fixed several bugs.
+
 0.34.1 (August 16th, 2014)
 • fixed bug introduced in 0.34.0 in search and/or replace, all matches
 • fixed bug in handling of image format not recognized when pasting uri from clipboard
