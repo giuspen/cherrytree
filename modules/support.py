@@ -20,7 +20,7 @@
 #       MA 02110-1301, USA.
 
 import gtk, os, webbrowser, re
-import cons
+import cons, config
 
 
 def apply_tag_try_automatic_bounds(dad, text_buffer=None, iter_start=None):
@@ -941,6 +941,9 @@ def dialog_link_handle(dad, title, sel_tree_iter):
         treeview_2.expand_to_path(sel_path)
         treeview_2.set_cursor(sel_path)
         treeview_2.scroll_to_cell(sel_path)
+    else:
+        config.get_tree_expanded_collapsed_string(dad)
+        config.set_tree_expanded_collapsed_string(dad, treeview=treeview_2)
     
     vbox_anchor = gtk.VBox()
     label_over = gtk.Label()
