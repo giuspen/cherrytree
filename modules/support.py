@@ -1035,8 +1035,22 @@ def dialog_link_handle(dad, title, sel_tree_iter):
         ret_anchor_name = dialog_choose_element_in_list(dialog, _("Choose Existing Anchor"), anchors_list, _("Anchor Name"))
         if ret_anchor_name: entry_anchor.set_text(ret_anchor_name)
     def on_treeview_event_after(treeview, event):
-        if event.type not in [gtk.gdk.BUTTON_PRESS, gtk.gdk.KEY_PRESS]: return
+        if event.type not in [gtk.gdk.BUTTON_PRESS, gtk.gdk._2BUTTON_PRESS, gtk.gdk.KEY_PRESS]: return
         model, links_parms.sel_iter = treeviewselection_2.get_selected()
+        if event.type == gtk.gdk.BUTTON_PRESS:
+            if event.button == 2:
+                path_at_click = treeview.get_path_at_pos(int(event.x), int(event.y))
+                if path_at_click:
+                    if treeview.row_expanded(path_at_click[0]):
+                        treeview.collapse_row(path_at_click[0])
+                    else: treeview.expand_row(path_at_click[0], False)
+        elif event.button == 1 and event.type == gtk.gdk._2BUTTON_PRESS:
+            if links_parms.sel_iter:
+                treestore = treeview.get_model()
+                if treeview.row_expanded(treestore.get_path(links_parms.sel_iter)):
+                    treeview.collapse_row(treestore.get_path(links_parms.sel_iter))
+                else:
+                    treeview.expand_row(treestore.get_path(links_parms.sel_iter), open_all=False)
     def on_key_press_links_handle_dialog(widget, event):
         if gtk.gdk.keyval_name(event.keyval) == cons.STR_RETURN:
             try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
