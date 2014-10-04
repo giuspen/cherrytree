@@ -2287,7 +2287,7 @@ iter_end, exclude_iter_sel_end=True)
         old_father_iter = self.treestore.iter_parent(self.curr_tree_iter)
         if old_father_iter != None: old_father_node_id = self.treestore[old_father_iter][3]
         else: old_father_node_id = None
-        father_iter = support.dialog_choose_node(self.window, _("Select the New Father"), self.treestore, self.curr_tree_iter)
+        father_iter = support.dialog_choose_node(self, _("Select the New Father"), self.treestore, self.curr_tree_iter)
         if not father_iter: return
         new_father_node_id = self.treestore[father_iter][3]
         if curr_node_id == new_father_node_id:
