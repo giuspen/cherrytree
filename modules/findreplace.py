@@ -354,6 +354,7 @@ class FindReplace:
             #print line_num, self.matches_num
         else: self.dad.sourceview.scroll_to_mark(mark_insert, 0.25)
         if self.replace_active:
+            if self.dad.is_curr_node_read_only(): return False
             replacer_text = self.dad.search_replace_dict['replace']
             text_buffer.delete_selection(interactive=False, default_editable=True)
             text_buffer.insert_at_cursor(replacer_text)
@@ -502,7 +503,7 @@ class FindReplace:
                 node_hier_name = support.get_node_hierarchical_name(self.dad, node_iter, separator=" << ", for_filename=False, root_to_leaf=False)
                 line_content = self.get_first_line_content(self.dad.get_textbuffer_from_tree_iter(node_iter))
                 self.liststore.append([node_id, 0, 0, node_name, line_content, 1, cgi.escape(node_hier_name)])
-            if self.replace_active:
+            if self.replace_active and not self.dad.treestore[node_iter][7]:
                 replacer_text = self.dad.search_replace_dict['replace']
                 text_name = text_name.replace(self.curr_find[1], replacer_text)
                 self.dad.treestore[node_iter][1] = text_name
