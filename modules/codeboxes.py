@@ -332,6 +332,10 @@ class CodeBoxesHandler:
 
     def codebox_change_width_height(self, new_width, new_height):
         """Replace CodeBox changing Width and Height"""
+        if self.dad.user_active:
+            self.dad.user_active = False
+            user_active_restore = True
+        else: user_active_restore = False
         codebox_iter = self.dad.curr_buffer.get_iter_at_child_anchor(self.curr_codebox_anchor)
         codebox_element = [codebox_iter.get_offset(),
                            self.dad.state_machine.codebox_to_dict(self.curr_codebox_anchor, for_print=0),
@@ -343,6 +347,7 @@ class CodeBoxesHandler:
         iter_insert = self.dad.curr_buffer.get_iter_at_offset(codebox_element[0])
         self.codebox_insert(iter_insert, codebox_element[1], codebox_element[2], cursor_pos=cursor_pos)
         self.curr_codebox_anchor.sourceview.grab_focus()
+        if user_active_restore: self.dad.user_active = True
 
     def codebox_load_from_file(self, action):
         """Load the CodeBox Content From a Text File"""
