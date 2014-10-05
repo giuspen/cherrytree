@@ -2819,15 +2819,17 @@ msgstr "Anker einfügen..."
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3349
 msgid "The Maximum Size for Embedded Files is 10 MB"
-msgstr ""
+msgstr "Eingebettete Dateien dürfen nicht größer als 10 MB sein."
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3413
 msgid "Cannot Edit Embedded File in Read Only Node"
 msgstr ""
+"Eingebettete Dateien können in schreibgeschützten Knoten nicht editiert "
+"werden"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3427
 msgid "Embedded File Automatically Updated:"
-msgstr ""
+msgstr "Eingebettete Datei wurde automatisch aktualisiert:"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3475
 msgid "Not Any H1, H2 or H3 Formatting Found"
