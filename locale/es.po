@@ -2950,13 +2950,3 @@ msgstr "Etiquetas"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/imports.py:2153
 msgid "Downloading"
 msgstr "Descargando"
-
-#, fuzzy
-#~ msgid "Updated Embedded File"
-#~ msgstr "Cantidad de archivos incrustados"
-
-#~ msgid "Find a _Node"
-#~ msgstr "Buscar un _nodo"
-
-#~ msgid "Find a Node from its Name"
-#~ msgstr "Buscar un nodo por su nombre"
