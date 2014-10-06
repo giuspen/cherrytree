@@ -711,7 +711,7 @@ iter_end, exclude_iter_sel_end=True)
                 move_towards_top_iter = self.treestore.iter_parent(move_towards_top_iter)
             if drop_pos == gtk.TREE_VIEW_DROP_BEFORE:
                 prev_iter = self.get_tree_iter_prev_sibling(self.treestore, drop_iter)
-                self.node_move_after(self.drag_iter, self.treestore.iter_parent(drop_iter), prev_iter, True)
+                self.node_move_after(self.drag_iter, self.treestore.iter_parent(prev_iter), prev_iter, True)
             elif drop_pos == gtk.TREE_VIEW_DROP_AFTER:
                 self.node_move_after(self.drag_iter, self.treestore.iter_parent(drop_iter), drop_iter)
             else: # drop in
@@ -2255,7 +2255,7 @@ iter_end, exclude_iter_sel_end=True)
 
     def node_move_after(self, iter_to_move, father_iter, brother_iter=None, set_first=False):
         """Move a node to a father and after a brother"""
-        if brother_iter != None:
+        if brother_iter:
             new_node_iter = self.treestore.insert_after(father_iter, brother_iter, self.treestore[iter_to_move])
         elif set_first: new_node_iter = self.treestore.prepend(father_iter, self.treestore[iter_to_move])
         else: new_node_iter = self.treestore.append(father_iter, self.treestore[iter_to_move])
@@ -2263,8 +2263,9 @@ iter_end, exclude_iter_sel_end=True)
         self.node_move_children(iter_to_move, new_node_iter)
         # now we can remove the old iter (and all children)
         self.treestore.remove(iter_to_move)
+        self.ctdb_handler.pending_edit_db_node_hier(self.treestore[new_node_iter][3])
         self.nodes_sequences_fix(None, True)
-        if father_iter != None: self.treeview.expand_row(self.treestore.get_path(father_iter), False)
+        if father_iter: self.treeview.expand_row(self.treestore.get_path(father_iter), False)
         else: self.treeview.expand_row(self.treestore.get_path(new_node_iter), False)
         self.curr_tree_iter = new_node_iter
         new_node_path = self.treestore.get_path(new_node_iter)
