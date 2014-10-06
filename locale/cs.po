@@ -2946,13 +2946,3 @@ msgstr "Značky"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/imports.py:2153
 msgid "Downloading"
 msgstr "Stažení"
-
-#, fuzzy
-#~ msgid "Updated Embedded File"
-#~ msgstr "Počet vložených souborů"
-
-#~ msgid "Find a _Node"
-#~ msgstr "Hledat _uzel"
-
-#~ msgid "Find a Node from its Name"
-#~ msgstr "Hledat název uzlu na základě jeho názvu"

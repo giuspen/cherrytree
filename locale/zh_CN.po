@@ -2928,13 +2928,3 @@ msgstr "标签"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/imports.py:2153
 msgid "Downloading"
 msgstr "正在下载"
-
-#, fuzzy
-#~ msgid "Updated Embedded File"
-#~ msgstr "嵌入文件个数"
-
-#~ msgid "Find a _Node"
-#~ msgstr "搜索节点名称"
-
-#~ msgid "Find a Node from its Name"
-#~ msgstr "根据节点名搜索"
