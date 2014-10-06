@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 0.9.3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-09-29 00:14+0200\n"
-"PO-Revision-Date: 2014-08-01 23:11+0100\n"
+"PO-Revision-Date: 2014-10-06 15:08+0100\n"
 "Last-Translator: Daniel MC <i.e.betel@gmail.com>\n"
 "Language-Team: Spanish <>\n"
 "Language: es\n"
@@ -183,11 +183,11 @@ msgstr "Guardar archivo como"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:504
 msgid "Open Preferences _Directory"
-msgstr ""
+msgstr "Abrir directorio de preferencias"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:504
 msgid "Open the Directory with Preferences Files"
-msgstr ""
+msgstr "Abrir el directorio con los archivos de preferencias"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:505
 msgid "Pa_ge Setup"
@@ -709,15 +709,13 @@ msgstr "Editar las propiedades del nodo seleccionado"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:556
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:677
-#, fuzzy
 msgid "Toggle _Read Only"
-msgstr "Solo lectura"
+msgstr "Activa_r solo lectura"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:556
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:677
-#, fuzzy
 msgid "Toggle the Read Only Property of the Selected Node"
-msgstr "Activar cursiva para el texto seleccionado"
+msgstr "Activar propiedad de solo lectura del nodo seleccionado"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:557
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:678
@@ -865,50 +863,42 @@ msgid "Go to the Next Visited Node"
 msgstr "Ir al siguiente nodo visitado"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:571
-#, fuzzy
 msgid "_Find in Node Content"
-msgstr "_Buscar en el nodo"
+msgstr "_Buscar en el contenido del nodo"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:571
-#, fuzzy
 msgid "Find into the Selected Node Content"
-msgstr "Buscar dentro del nodo seleccionado"
+msgstr "Buscar dentro del contenido del nodo seleccionado"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:572
-#, fuzzy
 msgid "Find in _All Nodes Contents"
-msgstr "Busc_ar en todos los nodos"
+msgstr "Busc_ar en el contenido de todos los nodos"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:572
-#, fuzzy
 msgid "Find into All the Tree Nodes Contents"
-msgstr "Buscar en todos los nodos del árbol"
+msgstr "Buscar en el contenido de todos los nodos del árbol"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:573
-#, fuzzy
 msgid "Find in _Selected Node and Subnodes Contents"
-msgstr "Buscar en el nodo y subnodos _seleccionados"
+msgstr "Buscar en el contenido del nodo y subnodos _seleccionados"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:573
-#, fuzzy
 msgid "Find into the Selected Node and Subnodes Contents"
-msgstr "Buscar dentro del nodo y subnodo seleccionados"
+msgstr "Buscar en el contenido del nodo y subnodo seleccionados"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:574
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:695
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:801
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:843
-#, fuzzy
 msgid "Find in _Nodes Names and Tags"
-msgstr "Buscar en los nodo_s"
+msgstr "Buscar en los nombres y etiquetas de los nodo_s"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:574
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:695
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:801
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:843
-#, fuzzy
 msgid "Find in Nodes Names and Tags"
-msgstr "Buscar en los nodo_s"
+msgstr "Buscar en los nombres y etiquetas de los nodos"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:575
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:802
@@ -935,34 +925,28 @@ msgid "Iterate the Last Find Operation in Opposite Direction"
 msgstr "Repetir la última operación de búsqueda hacia arriba"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:577
-#, fuzzy
 msgid "_Replace in Node Content"
-msgstr "_Reemplazar en nodo"
+msgstr "_Reemplazar en contenido del nodo"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:577
-#, fuzzy
 msgid "Replace into the Selected Node Content"
-msgstr "Reemplazar dentro del nodo seleccionado"
+msgstr "Reemplazar en el contenido del nodo seleccionado"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:578
-#, fuzzy
 msgid "Replace in _All Nodes Contents"
-msgstr "Reemplaz_ar en todos los nodos"
+msgstr "Reemplaz_ar en el contenido de todos los nodos"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:578
-#, fuzzy
 msgid "Replace into All the Tree Nodes Contents"
-msgstr "Reemplazar en todos los nodos del árbol"
+msgstr "Reemplazar en el contenido de todos los nodos del árbol"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:579
-#, fuzzy
 msgid "Replace in _Selected Node and Subnodes Contents"
-msgstr "Reemplazar en los nodos y subnodos  seleccionados"
+msgstr "Reemplazar en el contenido de los nodos y subnodos  seleccionados"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:579
-#, fuzzy
 msgid "Replace into the Selected Node and Subnodes Contents"
-msgstr "Reemplazar dentro de los nodos y subnodos seleccionados"
+msgstr "Reemplazar en el contenido de los nodos y subnodos seleccionados"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:580
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:696
@@ -1352,34 +1336,28 @@ msgid "About CherryTree"
 msgstr "Acerca de CherryTree"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:621
-#, fuzzy
 msgid "C_ut Anchor"
-msgstr "Editar _ancla"
+msgstr "Cortar _ancla"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:621
-#, fuzzy
 msgid "Cut the Selected Anchor"
-msgstr "Cortar la Caja de Código seleccionada"
+msgstr "Cortar el ancla seleccionada"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:622
-#, fuzzy
 msgid "_Copy Anchor"
-msgstr "_Copiar fila"
+msgstr "_Copiar ancla"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:622
-#, fuzzy
 msgid "Copy the Selected Anchor"
-msgstr "Copiar la Caja de Código seleccionada"
+msgstr "Copiar el ancla seleccionada"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:623
-#, fuzzy
 msgid "_Delete Anchor"
-msgstr "E_liminar enlace"
+msgstr "Eliminar ancla"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:623
-#, fuzzy
 msgid "Delete the Selected Anchor"
-msgstr "Eliminar nodo seleccionado"
+msgstr "Eliminar ancla seleccionada"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:624
 msgid "Edit _Anchor"
@@ -1390,39 +1368,32 @@ msgid "Edit the Underlying Anchor"
 msgstr "Editar ancla subyacente"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:625
-#, fuzzy
 msgid "C_ut Embedded File"
-msgstr "Cantidad de archivos incrustados"
+msgstr "Cortar archivo embebido"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:625
-#, fuzzy
 msgid "Cut the Selected Embedded File"
-msgstr "Cortar la tabla seleccionada"
+msgstr "Cortar el archivo embebido seleccionado"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:626
-#, fuzzy
 msgid "_Copy Embedded File"
-msgstr "Cantidad de archivos incrustados"
+msgstr "Copiar archivo embebido"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:626
-#, fuzzy
 msgid "Copy the Selected Embedded File"
-msgstr "Copiar la tabla seleccionada"
+msgstr "Copiar el archivo embebido seleccionado"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:627
-#, fuzzy
 msgid "_Delete Embedded File"
-msgstr "Cantidad de archivos incrustados"
+msgstr "Eliminar archivo embebido"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:627
-#, fuzzy
 msgid "Delete the Selected Embedded File"
-msgstr "Eliminar la tabla seleccionada"
+msgstr "Eliminar  el archivo embebido seleccionado"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:629
-#, fuzzy
 msgid "Open Embedded File"
-msgstr "Cantidad de archivos incrustados"
+msgstr "Abrir archivo embebido"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:630
 msgid "_Save Image as PNG"
@@ -2029,30 +2000,27 @@ msgstr "Si"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:784
 msgid "Temporary Files were Created and Opened with External Applications."
 msgstr ""
+"Se han creado archivos temporales y se han abierto con aplicaciones externas"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:784
 msgid "Quit the External Applications Before Quit CherryTree."
-msgstr ""
+msgstr "Cerrar las aplicaciones externas antes de cerrar CherryTree"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:784
-#, fuzzy
 msgid "Did you Quit the External Applications?"
-msgstr "Salir del programa"
+msgstr "¿Has cerrado las aplicaciones externas?"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:815
 msgid "No"
 msgstr "No"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:830
-#, fuzzy
 msgid "The Current Document was Updated."
-msgstr ""
-"<b>El documento actual ha cambiado</b>,\n"
-"¿quieres guardar los cambios?"
+msgstr "El documento actual ha sido actualizado"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:830
 msgid "Do you want to Save the Changes?"
-msgstr ""
+msgstr "¿Quieres guardar los cambios?"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:872
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1199
@@ -2238,7 +2206,7 @@ msgstr "Carácteres especiales"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:618
 msgid "Chars to Select at Double Click"
-msgstr ""
+msgstr "Caracteres a seleccionar al hacer doble click"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:630
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:781
@@ -2293,9 +2261,8 @@ msgid "Show White Spaces"
 msgstr "Mostrar espacios"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:759
-#, fuzzy
 msgid "Expand CodeBoxes Automatically"
-msgstr "Cor_tar Caja de Código"
+msgstr "Expandir caja de código automáticamente"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:763
 msgid "Embedded File Icon Size"
@@ -2396,7 +2363,7 @@ msgstr "Colores"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1239
 msgid "Use Relative Paths for Files And Folders"
-msgstr ""
+msgstr "Usar rutas relativas para archivos y carpetas"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1243
 msgid "Anchor Size"
@@ -2404,7 +2371,7 @@ msgstr "Tamaño de ancla"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1360
 msgid "Select Element to Add"
-msgstr ""
+msgstr "Seleccionar elemento a añadir"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1387
 msgid "Enable System Tray Docking"
@@ -2490,7 +2457,7 @@ msgstr "Enlaces"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1597
 msgid "Toolbar"
-msgstr ""
+msgstr "Barra de herramientas"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/tablez.py:63
 msgid "Rename Column"
@@ -2848,15 +2815,15 @@ msgstr "Insertar _ancla"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3349
 msgid "The Maximum Size for Embedded Files is 10 MB"
-msgstr ""
+msgstr "El tamaño máximo para archivos embebidos es de 10 MB"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3413
 msgid "Cannot Edit Embedded File in Read Only Node"
-msgstr ""
+msgstr "No se puede editar el archivo embebido en nodo  de solo lectura"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3427
 msgid "Embedded File Automatically Updated:"
-msgstr ""
+msgstr "Archivo embebido actualizado automáticamente"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3475
 msgid "Not Any H1, H2 or H3 Formatting Found"
@@ -2878,9 +2845,8 @@ msgid "The Tree is Empty!"
 msgstr "¡El árbol está vacío!"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3525
-#, fuzzy
 msgid "The Selected Node is Read Only"
-msgstr "Solol nodo seleccionado"
+msgstr "El nodo seleccionado es de sólo lectura"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3546
 msgid "Number of Rich Text Nodes"
