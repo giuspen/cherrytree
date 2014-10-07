@@ -1147,8 +1147,16 @@ def preferences_tab_fonts(dad, vbox_fonts, pref_dialog):
     fontbutton_text.connect('font-set', on_fontbutton_text_font_set)
     def on_fontbutton_code_font_set(picker):
         dad.code_font = picker.get_font_name()
-        if dad.curr_tree_iter and dad.syntax_highlighting != cons.RICH_TEXT_ID:
+        if not dad.curr_tree_iter: return
+        if dad.syntax_highlighting != cons.RICH_TEXT_ID:
             dad.sourceview.modify_font(pango.FontDescription(dad.code_font))
+        else:
+            curr_iter = dad.curr_buffer.get_start_iter()
+            while 1:
+                anchor = curr_iter.get_child_anchor()
+                if anchor and "sourcebuffer" in dir(anchor):
+                    anchor.sourceview.modify_font(pango.FontDescription(dad.code_font))
+                if not curr_iter.forward_char(): break
     fontbutton_code.connect('font-set', on_fontbutton_code_font_set)
     def on_fontbutton_tree_font_set(picker):
         dad.tree_font = picker.get_font_name()
