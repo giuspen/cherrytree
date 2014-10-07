@@ -623,37 +623,45 @@ iter_end, exclude_iter_sel_end=True)
 
     def zoom_text_p(self):
         """Increase Text Font"""
-        if not self.is_there_selected_node_or_error(): return
-        if self.syntax_highlighting == cons.RICH_TEXT_ID:
+        text_view, text_buffer, from_codebox = self.get_text_view_n_buffer_codebox_proof()
+        if not text_buffer: return
+        if from_codebox or self.syntax_highlighting != cons.RICH_TEXT_ID:
+            font_vec = self.code_font.split(cons.CHAR_SPACE)
+            font_num = int(font_vec[-1])
+            font_vec[-1] = str(font_num+1)
+            self.code_font = cons.CHAR_SPACE.join(font_vec)
+            if not from_codebox:
+                self.sourceview.modify_font(pango.FontDescription(self.code_font))
+            else:
+                support.rich_text_node_modify_codeboxes_font(self.curr_buffer.get_start_iter(), self.code_font)
+        else:
             font_vec = self.text_font.split(cons.CHAR_SPACE)
             font_num = int(font_vec[-1])
             font_vec[-1] = str(font_num+1)
             self.text_font = cons.CHAR_SPACE.join(font_vec)
             self.sourceview.modify_font(pango.FontDescription(self.text_font))
-        else:
-            font_vec = self.code_font.split(cons.CHAR_SPACE)
-            font_num = int(font_vec[-1])
-            font_vec[-1] = str(font_num+1)
-            self.code_font = cons.CHAR_SPACE.join(font_vec)
-            self.sourceview.modify_font(pango.FontDescription(self.code_font))
 
     def zoom_text_m(self):
         """Decrease Text Font"""
-        if not self.is_there_selected_node_or_error(): return
-        if self.syntax_highlighting == cons.RICH_TEXT_ID:
+        text_view, text_buffer, from_codebox = self.get_text_view_n_buffer_codebox_proof()
+        if not text_buffer: return
+        if from_codebox or self.syntax_highlighting != cons.RICH_TEXT_ID:
+            font_vec = self.code_font.split(cons.CHAR_SPACE)
+            font_num = int(font_vec[-1])
+            if font_num > 6:
+                font_vec[-1] = str(font_num-1)
+                self.code_font = cons.CHAR_SPACE.join(font_vec)
+                if not from_codebox:
+                    self.sourceview.modify_font(pango.FontDescription(self.code_font))
+                else:
+                    support.rich_text_node_modify_codeboxes_font(self.curr_buffer.get_start_iter(), self.code_font)
+        else:
             font_vec = self.text_font.split(cons.CHAR_SPACE)
             font_num = int(font_vec[-1])
             if font_num > 6:
                 font_vec[-1] = str(font_num-1)
                 self.text_font = cons.CHAR_SPACE.join(font_vec)
                 self.sourceview.modify_font(pango.FontDescription(self.text_font))
-        else:
-            font_vec = self.code_font.split(cons.CHAR_SPACE)
-            font_num = int(font_vec[-1])
-            if font_num > 6:
-                font_vec[-1] = str(font_num-1)
-                self.code_font = cons.CHAR_SPACE.join(font_vec)
-                self.sourceview.modify_font(pango.FontDescription(self.code_font))
 
     def fullscreen_toggle(self, *args):
         """Toggle Fullscreen State"""

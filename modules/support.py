@@ -19,7 +19,7 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
-import gtk, os, webbrowser, re
+import gtk, pango, os, webbrowser, re
 import cons, config
 
 
@@ -213,6 +213,15 @@ def sourceview_cursor_and_tooltips_handler(dad, text_view, x, y):
     else:
         text_view.get_window(gtk.TEXT_WINDOW_TEXT).set_cursor(gtk.gdk.Cursor(gtk.gdk.XTERM))
         text_view.set_tooltip_text(None)
+
+def rich_text_node_modify_codeboxes_font(start_iter, code_font):
+    """Modify Font to CodeBoxes"""
+    curr_iter = start_iter.copy()
+    while 1:
+        anchor = curr_iter.get_child_anchor()
+        if anchor and "sourcebuffer" in dir(anchor):
+            anchor.sourceview.modify_font(pango.FontDescription(code_font))
+        if not curr_iter.forward_char(): break
 
 def text_file_rm_emptylines(filepath):
     """Remove empty lines in a text file"""
