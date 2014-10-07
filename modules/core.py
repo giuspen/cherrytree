@@ -1456,10 +1456,13 @@ iter_end, exclude_iter_sel_end=True)
                 esc_filepath = re.escape(filepath)
                 esc_filepath_tmp = re.escape(filepath_tmp)
             dot_tmp_existing = False
+            if os.path.isfile(filepath+".tmp"):
+                try: os.remove(filepath+".tmp")
+                except: subprocess.call("rm %s.tmp" % esc_filepath, shell=True)
             if os.path.isfile(filepath):
                 # old archive
                 try:
-                    shutil.move(filepath, filepath + ".tmp")
+                    shutil.move(filepath, filepath+".tmp")
                     dot_tmp_existing = True
                 except:
                     if not subprocess.call("mv %s %s.tmp" % (esc_filepath, esc_filepath), shell=True):
