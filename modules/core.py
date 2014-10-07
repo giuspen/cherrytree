@@ -2480,7 +2480,7 @@ iter_end, exclude_iter_sel_end=True)
     def node_add(self, *args):
         """Add a node having common father with the selected node's"""
         ret_name, ret_syntax, ret_tags, ret_ro = self.dialog_nodeprop(_("New Node Properties"), syntax_highl=self.syntax_highlighting)
-        if not ret_name: return
+        if not ret_name: ret_name = cons.CHAR_QUESTION
         self.update_window_save_needed()
         self.syntax_highlighting = ret_syntax
         father_iter = self.treestore.iter_parent(self.curr_tree_iter) if self.curr_tree_iter else None
@@ -2518,7 +2518,7 @@ iter_end, exclude_iter_sel_end=True)
         """Add a node having as father the selected node"""
         if not self.is_there_selected_node_or_error(): return
         ret_name, ret_syntax, ret_tags, ret_ro = self.dialog_nodeprop(_("New Child Node Properties"), syntax_highl=self.syntax_highlighting)
-        if not ret_name: return
+        if not ret_name: ret_name = cons.CHAR_QUESTION
         self.node_child_add_with_data(self.curr_tree_iter, ret_name, ret_syntax, ret_tags, ret_ro)
 
     def node_child_add_with_data(self, father_iter, ret_name, ret_syntax, ret_tags, ret_ro):
@@ -2581,7 +2581,7 @@ iter_end, exclude_iter_sel_end=True)
             syntax_highl=self.treestore[self.curr_tree_iter][4],
             tags=self.treestore[self.curr_tree_iter][6],
             ro=self.treestore[self.curr_tree_iter][7])
-        if not ret_name: return
+        if not ret_name: ret_name = cons.CHAR_QUESTION
         self.syntax_highlighting = ret_syntax
         if self.treestore[self.curr_tree_iter][4] == cons.RICH_TEXT_ID and self.syntax_highlighting != cons.RICH_TEXT_ID:
             if not support.dialog_question(_("Leaving the Node Type Rich Text you will Lose all Formatting for This Node, Do you want to Continue?"), self.window):
