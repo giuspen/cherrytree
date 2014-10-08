@@ -1,4 +1,7 @@
 
+0.35.1 (October 9th, 2014)
+• bugfix: pressing cancel on node add/edit dialog still inserts corrupted node
+
 0.35.0 (October 8th, 2014)
 • the toolbar is now configurable in a dedicated preferences dialog tab.
 • added configurable option to use relative paths in links to files and folders.
