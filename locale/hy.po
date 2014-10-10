@@ -153,7 +153,7 @@ msgstr "Բացել CherryTree-ի նոր նիշք"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:501
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:629
 msgid "_Open File"
-msgstr "_Բացել նիշքը"
+msgstr "_Բացել նիշք"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:501
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:1257
@@ -1810,7 +1810,7 @@ msgstr "Փոխարինել ճյուղերի անվանումներում..."
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:235
 msgid "Search For a Node Name..."
-msgstr "Փնտրել ճյուղի անվանում..."
+msgstr "Փնտրել ճյուղի անվանում կամ պիտակ..."
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/findreplace.py:551
 msgid "No Previous Search Was Performed During This Session"
@@ -1975,7 +1975,7 @@ msgstr "Ուկրաիներեն"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:771
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:814
 msgid "Cancel"
-msgstr "Չեղարկել'"
+msgstr "Չեղարկել"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:772
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:816
@@ -1984,11 +1984,11 @@ msgstr "Այո"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:784
 msgid "Temporary Files were Created and Opened with External Applications."
-msgstr "Արտաքին ծրագրերով ստեղծվել ու բացվել են ժամանակավոր նիշքեր"
+msgstr "Արտաքին ծրագրերով ստեղծվել ու բացվել են ժամանակավոր նիշքեր։"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:784
 msgid "Quit the External Applications Before Quit CherryTree."
-msgstr "CherryTree-ն փակելուց առաջ փակել արտաքին ծրագրերը"
+msgstr "CherryTree-ն փակելուց առաջ փակել արտաքին ծրագրերը։"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:784
 msgid "Did you Quit the External Applications?"
@@ -2515,7 +2515,7 @@ msgstr "Խմբագրել աղյուսակի հատկությունները"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/tablez.py:453
 msgid "Table Column Action"
-msgstr "Գործողություն աղյուսակի սյունակով"
+msgstr "Գործողություն աղյուսակի սյունակի հետ"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:215
 msgid "Checking for Newer Version..."
@@ -2793,7 +2793,7 @@ msgstr "Ներդրված նիշքերի առավելագույն չափը 10 Մ�
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3413
 msgid "Cannot Edit Embedded File in Read Only Node"
-msgstr "Միայն ընթերցվող ճյուղում հնարավոր չէ նիշք ներդնել"
+msgstr "Միայն ընթերցվող ճյուղում հնարավոր չէ խմբագրել ներդրված նիշքը"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3427
 msgid "Embedded File Automatically Updated:"
