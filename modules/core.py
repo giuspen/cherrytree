@@ -719,7 +719,8 @@ iter_end, exclude_iter_sel_end=True)
                 move_towards_top_iter = self.treestore.iter_parent(move_towards_top_iter)
             if drop_pos == gtk.TREE_VIEW_DROP_BEFORE:
                 prev_iter = self.get_tree_iter_prev_sibling(self.treestore, drop_iter)
-                self.node_move_after(self.drag_iter, self.treestore.iter_parent(prev_iter), prev_iter, True)
+                # note: prev_iter could be None, use drop_iter to retrieve the father
+                self.node_move_after(self.drag_iter, self.treestore.iter_parent(drop_iter), prev_iter, True)
             elif drop_pos == gtk.TREE_VIEW_DROP_AFTER:
                 self.node_move_after(self.drag_iter, self.treestore.iter_parent(drop_iter), drop_iter)
             else: # drop in
