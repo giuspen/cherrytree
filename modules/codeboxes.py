@@ -75,7 +75,7 @@ class CodeBoxesHandler:
         self.dad.curr_buffer.delete_selection(True, self.dad.sourceview.get_editable())
         self.dad.sourceview.grab_focus()
 
-    def dialog_codeboxhandle(self, title, line_num, match_bra, syntax_highl=cons.PLAIN_TEXT_ID):
+    def dialog_codeboxhandle(self, title):
         """Opens the CodeBox Handle Dialog"""
         dialog = gtk.Dialog(title=title,
                             parent=self.dad.window,
@@ -89,13 +89,13 @@ class CodeBoxesHandler:
         cell = gtk.CellRendererText()
         combobox_prog_lang.pack_start(cell, True)
         combobox_prog_lang.add_attribute(cell, 'text', 0)
-        combobox_value = syntax_highl if syntax_highl != cons.PLAIN_TEXT_ID else self.dad.auto_syn_highl
+        combobox_value = self.dad.codebox_syn_highl if self.dad.codebox_syn_highl != cons.PLAIN_TEXT_ID else self.dad.auto_syn_highl
         combobox_iter = self.dad.get_combobox_iter_from_value(self.dad.prog_lang_liststore, 1, combobox_value)
         combobox_prog_lang.set_active_iter(combobox_iter)
         radiobutton_plain_text = gtk.RadioButton(label=_("Plain Text"))
         radiobutton_auto_syntax_highl = gtk.RadioButton(label=_("Automatic Syntax Highlighting"))
         radiobutton_auto_syntax_highl.set_group(radiobutton_plain_text)
-        if syntax_highl == cons.PLAIN_TEXT_ID:
+        if self.dad.codebox_syn_highl == cons.PLAIN_TEXT_ID:
             radiobutton_plain_text.set_active(True)
             combobox_prog_lang.set_sensitive(False)
         else:
@@ -149,9 +149,9 @@ class CodeBoxesHandler:
         size_frame.add(size_align)
         
         checkbutton_codebox_linenumbers = gtk.CheckButton(label=_("Show Line Numbers"))
-        checkbutton_codebox_linenumbers.set_active(line_num)
+        checkbutton_codebox_linenumbers.set_active(self.dad.codebox_line_num)
         checkbutton_codebox_matchbrackets = gtk.CheckButton(label=_("Highlight Matching Brackets"))
-        checkbutton_codebox_matchbrackets.set_active(match_bra)
+        checkbutton_codebox_matchbrackets.set_active(self.dad.codebox_match_bra)
         vbox_options = gtk.VBox()
         vbox_options.pack_start(checkbutton_codebox_linenumbers)
         vbox_options.pack_start(checkbutton_codebox_matchbrackets)
@@ -196,15 +196,14 @@ class CodeBoxesHandler:
             self.dad.codebox_width = spinbutton_width.get_value()
             self.dad.codebox_width_pixels = radiobutton_codebox_pixels.get_active()
             self.dad.codebox_height = spinbutton_height.get_value()
-            ret_line_num = checkbutton_codebox_linenumbers.get_active()
-            ret_match_bra = checkbutton_codebox_matchbrackets.get_active()
+            self.dad.codebox_line_num = checkbutton_codebox_linenumbers.get_active()
+            self.dad.codebox_match_bra = checkbutton_codebox_matchbrackets.get_active()
             if radiobutton_plain_text.get_active():
-                ret_syntax = cons.PLAIN_TEXT_ID
+                self.dad.codebox_syn_highl = cons.PLAIN_TEXT_ID
             else:
-                ret_syntax = self.dad.prog_lang_liststore[combobox_prog_lang.get_active_iter()][1]
-                self.dad.auto_syn_highl = ret_syntax
-            return [ret_line_num, ret_match_bra, ret_syntax]
-        return [None, None, None]
+                self.dad.codebox_syn_highl = self.dad.prog_lang_liststore[combobox_prog_lang.get_active_iter()][1]
+            return True
+        return False
 
     def codebox_handle(self):
         """Insert Code Box"""
@@ -212,15 +211,14 @@ class CodeBoxesHandler:
             iter_sel_start, iter_sel_end = self.dad.curr_buffer.get_selection_bounds()
             fill_text = unicode(self.dad.curr_buffer.get_text(iter_sel_start, iter_sel_end), cons.STR_UTF8, cons.STR_IGNORE)
         else: fill_text = None
-        ret_line_num, ret_match_bra, ret_syn_highl = self.dialog_codeboxhandle(_("Insert a CodeBox"), False, True)
-        if ret_line_num == None: return
+        if not self.dialog_codeboxhandle(_("Insert a CodeBox")): return
         codebox_dict = {
            'frame_width': int(self.dad.codebox_width),
            'frame_height': int(self.dad.codebox_height),
            'width_in_pixels': self.dad.codebox_width_pixels,
-           'syntax_highlighting': ret_syn_highl,
-           'highlight_brackets': ret_match_bra,
-           'show_line_numbers': ret_line_num,
+           'syntax_highlighting': self.dad.codebox_syn_highl,
+           'highlight_brackets': self.dad.codebox_match_bra,
+           'show_line_numbers': self.dad.codebox_line_num,
            'fill_text': fill_text
         }
         if fill_text: self.dad.curr_buffer.delete(iter_sel_start, iter_sel_end)
@@ -373,9 +371,11 @@ class CodeBoxesHandler:
         self.dad.codebox_width = self.curr_codebox_anchor.frame_width
         self.dad.codebox_width_pixels = self.curr_codebox_anchor.width_in_pixels
         self.dad.codebox_height = self.curr_codebox_anchor.frame_height
-        ret_line_num, ret_match_bra, ret_syn_highl = self.dialog_codeboxhandle(_("Edit CodeBox"), self.curr_codebox_anchor.show_line_numbers, self.curr_codebox_anchor.highlight_brackets, self.curr_codebox_anchor.syntax_highlighting)
-        if ret_line_num == None: return
-        self.curr_codebox_anchor.syntax_highlighting = ret_syn_highl
+        self.dad.codebox_line_num = self.curr_codebox_anchor.show_line_numbers
+        self.dad.codebox_match_bra = self.curr_codebox_anchor.highlight_brackets
+        self.dad.codebox_syn_highl = self.curr_codebox_anchor.syntax_highlighting
+        if not self.dialog_codeboxhandle(_("Edit CodeBox")): return
+        self.curr_codebox_anchor.syntax_highlighting = self.dad.codebox_syn_highl
         self.dad.set_sourcebuffer_syntax_highlight(self.curr_codebox_anchor.sourcebuffer, self.curr_codebox_anchor.syntax_highlighting)
         if self.curr_codebox_anchor.syntax_highlighting == cons.PLAIN_TEXT_ID:
             self.curr_codebox_anchor.sourceview.modify_font(pango.FontDescription(self.dad.text_font))
@@ -384,9 +384,9 @@ class CodeBoxesHandler:
         self.curr_codebox_anchor.frame_width = int(self.dad.codebox_width)
         self.curr_codebox_anchor.frame_height = int(self.dad.codebox_height)
         self.curr_codebox_anchor.width_in_pixels = self.dad.codebox_width_pixels
-        self.curr_codebox_anchor.highlight_brackets = ret_match_bra
+        self.curr_codebox_anchor.highlight_brackets = self.dad.codebox_match_bra
         self.curr_codebox_anchor.sourcebuffer.set_highlight_matching_brackets(self.curr_codebox_anchor.highlight_brackets)
-        self.curr_codebox_anchor.show_line_numbers = ret_line_num
+        self.curr_codebox_anchor.show_line_numbers = self.dad.codebox_line_num
         self.curr_codebox_anchor.sourceview.set_show_line_numbers(self.curr_codebox_anchor.show_line_numbers)
         self.codebox_apply_width_height(self.curr_codebox_anchor)
         self.dad.update_window_save_needed("nbuf", True)
