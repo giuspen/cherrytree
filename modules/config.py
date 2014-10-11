@@ -186,6 +186,9 @@ def config_file_load(inst):
             inst.codebox_height = config.getfloat(section, "codebox_height")
         else: inst.codebox_height = 100
         inst.codebox_width_pixels = config.getboolean(section, "codebox_width_pixels") if config.has_option(section, "codebox_width_pixels") else True
+        inst.codebox_line_num = config.getboolean(section, "codebox_line_num") if config.has_option(section, "codebox_line_num") else False
+        inst.codebox_match_bra = config.getboolean(section, "codebox_match_bra") if config.has_option(section, "codebox_match_bra") else True
+        inst.codebox_syn_highl = config.get(section, "codebox_syn_highl") if config.has_option(section, "codebox_syn_highl") else cons.PLAIN_TEXT_ID
         inst.codebox_auto_resize = config.getboolean(section, "codebox_auto_resize") if config.has_option(section, "codebox_auto_resize") else True
 
         section = "table"
@@ -290,9 +293,12 @@ def config_file_load(inst):
         inst.folderlink_custom_action = [False, LINK_CUSTOM_ACTION_DEFAULT_FILE]
         inst.timestamp_format = "%Y/%m/%d - %H:%M"
         inst.codebox_width = 700
-        inst.codebox_width_pixels = True
-        inst.codebox_auto_resize = True
         inst.codebox_height = 100
+        inst.codebox_width_pixels = True
+        inst.codebox_line_num = False
+        inst.codebox_match_bra = True
+        inst.codebox_syn_highl = cons.PLAIN_TEXT_ID
+        inst.codebox_auto_resize = True
         inst.check_version = False
         inst.reload_doc_last = True
         inst.enable_mod_time_sentinel = True
@@ -427,6 +433,9 @@ def config_file_save(inst):
     config.set(section, "codebox_width", inst.codebox_width)
     config.set(section, "codebox_height", inst.codebox_height)
     config.set(section, "codebox_width_pixels", inst.codebox_width_pixels)
+    config.set(section, "codebox_line_num", inst.codebox_line_num)
+    config.set(section, "codebox_match_bra", inst.codebox_match_bra)
+    config.set(section, "codebox_syn_highl", inst.codebox_syn_highl)
     config.set(section, "codebox_auto_resize", inst.codebox_auto_resize)
 
     section = "table"
