@@ -1,4 +1,9 @@
 
+0.35.2 (October 13th, 2014)
+• bugfix: drag n drop with destination before the first sibling
+• bugfix: codebox memory of latest used settings
+• updated Armenian language
+
 0.35.1 (October 9th, 2014)
 • bugfix: pressing cancel on node add/edit dialog still inserts corrupted node
 
