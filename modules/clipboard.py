@@ -166,26 +166,27 @@ class ClipboardHandler:
                     self.clipboard.request_contents(target, self.to_plain_text)
                     return
         #print targets
-        if TARGET_CTD_RICH_TEXT in targets and self.dad.syntax_highlighting == cons.RICH_TEXT_ID:
-            self.clipboard.request_contents(TARGET_CTD_RICH_TEXT, self.to_rich_text)
-            return
-        if TARGET_CTD_CODEBOX in targets and self.dad.syntax_highlighting == cons.RICH_TEXT_ID:
-            self.clipboard.request_contents(TARGET_CTD_CODEBOX, self.to_codebox)
-            return
-        if TARGET_CTD_TABLE in targets and self.dad.syntax_highlighting == cons.RICH_TEXT_ID:
-            self.clipboard.request_contents(TARGET_CTD_TABLE, self.to_table, None)
-            return
-        for target in TARGETS_HTML:
-            if target in targets and self.dad.syntax_highlighting == cons.RICH_TEXT_ID:
-                self.clipboard.request_contents(target, self.to_html)
+        if self.dad.syntax_highlighting == cons.RICH_TEXT_ID:
+            if TARGET_CTD_RICH_TEXT in targets:
+                self.clipboard.request_contents(TARGET_CTD_RICH_TEXT, self.to_rich_text)
                 return
+            if TARGET_CTD_CODEBOX in targets:
+                self.clipboard.request_contents(TARGET_CTD_CODEBOX, self.to_codebox)
+                return
+            if TARGET_CTD_TABLE in targets:
+                self.clipboard.request_contents(TARGET_CTD_TABLE, self.to_table, None)
+                return
+            for target in TARGETS_HTML:
+                if target in targets:
+                    self.clipboard.request_contents(target, self.to_html)
+                    return
+            for target in TARGETS_IMAGES:
+                if target in targets:
+                    self.clipboard.request_contents(target, self.to_image)
+                    return
         if TARGET_URI_LIST in targets:
             self.clipboard.request_contents(TARGET_URI_LIST, self.to_uri_list)
             return
-        for target in TARGETS_IMAGES:
-            if target in targets and self.dad.syntax_highlighting == cons.RICH_TEXT_ID:
-                self.clipboard.request_contents(target, self.to_image)
-                return
         for target in TARGETS_PLAIN_TEXT:
             if target in targets:
                 self.clipboard.request_contents(target, self.to_plain_text)
@@ -244,6 +245,12 @@ class ClipboardHandler:
 
     def to_html(self, clipboard, selectiondata, data):
         """From Clipboard to HTML Text"""
+        #print "###########################"
+        #print selectiondata.data
+        #print "###########################"
+        #print selectiondata.data.decode(cons.STR_UTF16, cons.STR_IGNORE)
+        #print "###########################"
+        #for char in selection_data: print ord(char)
         if not cons.IS_WIN_OS and ord(selectiondata.data[0]) == 0xff and ord(selectiondata.data[1]) in [0xfe, 0xff]:
             selection_data = selectiondata.data.decode(cons.STR_UTF16, cons.STR_IGNORE)
         else:
@@ -266,13 +273,8 @@ class ClipboardHandler:
                 if utf16_OK == utf8_OK:
                     if cons.IS_WIN_OS: selection_data = selectiondata.data.decode(cons.STR_UTF16, cons.STR_IGNORE)
                     else: selection_data = selectiondata.data.decode(cons.STR_UTF8, cons.STR_IGNORE)
-        #print "###########################"
-        #print selectiondata.data
-        #print "###########################"
-        #print selectiondata.data.decode(cons.STR_UTF16, cons.STR_IGNORE)
-        #print "###########################"
-        #for char in selection_data: print ord(char)
         selection_data = re.sub(cons.BAD_CHARS, "", selection_data)
+        #print selection_data
         html_import = imports.HTMLHandler(self.dad)
         xml_string = html_import.get_clipboard_selection_xml(selection_data)
         self.from_xml_string_to_buffer(xml_string)
