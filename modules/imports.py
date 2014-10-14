@@ -2032,11 +2032,23 @@ class HTMLHandler(HTMLParser.HTMLParser):
         """Get RGB GTK attribute from HTML attribute"""
         if html_attribute[0] == "#":
             return html_attribute
-        elif "rgb" in html_attribute:
-            match = re.match(".*rgb\((\d+), (\d+), (\d+)\).*", html_attribute)
-            if match:
-                html_attribute = "#%.2x%.2x%.2x" % (int(match.group(1)), int(match.group(2)), int(match.group(3)))
-                return html_attribute
+        if "rgb" in html_attribute:
+            rgb_tern = []
+            for i in range(3):
+                if i == 0: parenth_start = html_attribute.find(cons.CHAR_PARENTH_OPEN)
+                else: parenth_start = html_attribute.find(cons.CHAR_COMMA)
+                if i == 2: parenth_end = html_attribute[parenth_start+1:].find(cons.CHAR_PARENTH_CLOSE)
+                else: parenth_end = html_attribute[parenth_start+1:].find(cons.CHAR_COMMA)
+                if parenth_start < 0 or parenth_end < 0:
+                    break
+                rgb_tern.append(int(html_attribute[parenth_start+1:parenth_start+1+parenth_end]))
+                html_attribute = html_attribute[parenth_start+1+parenth_end:]
+            if len(rgb_tern) != 3:
+                print rgb_tern
+                return None
+            html_attribute = "#%.2x%.2x%.2x" % (rgb_tern[0], rgb_tern[1], rgb_tern[2])
+            #print html_attribute
+            return html_attribute
         return None
 
     def handle_starttag(self, tag, attrs):
@@ -2063,28 +2075,29 @@ class HTMLHandler(HTMLParser.HTMLParser):
                         attributes = attr[1].split(";")
                         for attribute in attributes:
                             #print "attribute", attribute
-                            match = re.match("(?<=^)(.+):(.+)(?=$)", attribute)
-                            if match is not None:
-                                attr_name = match.group(1).strip().lower()
-                                attr_value = match.group(2).strip().lower()
-                                if attr_name == "color":
-                                    attribute = self.get_rgb_gtk_attribute(attr_value)
-                                    if attribute:
-                                        self.curr_attributes[cons.TAG_FOREGROUND] = attribute
-                                        self.latest_span.append(cons.TAG_FOREGROUND)
-                                elif attr_name in [cons.TAG_BACKGROUND, "background-color"]:
-                                    attribute = self.get_rgb_gtk_attribute(attr_value)
-                                    if attribute:
-                                        self.curr_attributes[cons.TAG_BACKGROUND] = attribute
-                                        self.latest_span.append(cons.TAG_BACKGROUND)
-                                elif attr_name == "text-decoration":
-                                    if attr_value in [cons.TAG_UNDERLINE, "underline;"]:
-                                        self.curr_attributes[cons.TAG_UNDERLINE] = cons.TAG_PROP_SINGLE
-                                        self.latest_span.append(cons.TAG_UNDERLINE)
-                                elif attr_name == "font-weight":
-                                    if attr_value in ["bold", "bolder", "700"]:
-                                        self.curr_attributes[cons.TAG_WEIGHT] = cons.TAG_PROP_HEAVY
-                                        self.latest_span.append(cons.TAG_WEIGHT)
+                            colon_pos = attribute.find(cons.CHAR_COLON)
+                            if colon_pos < 0: continue
+                            attr_name = attribute[:colon_pos].strip().lower()
+                            attr_value = attribute[colon_pos+1:].strip().lower()
+                            #print attr_name, attr_value
+                            if attr_name == "color":
+                                attribute = self.get_rgb_gtk_attribute(attr_value)
+                                if attribute:
+                                    self.curr_attributes[cons.TAG_FOREGROUND] = attribute
+                                    self.latest_span.append(cons.TAG_FOREGROUND)
+                            elif attr_name in [cons.TAG_BACKGROUND, "background-color"]:
+                                attribute = self.get_rgb_gtk_attribute(attr_value)
+                                if attribute:
+                                    self.curr_attributes[cons.TAG_BACKGROUND] = attribute
+                                    self.latest_span.append(cons.TAG_BACKGROUND)
+                            elif attr_name == "text-decoration":
+                                if attr_value in [cons.TAG_UNDERLINE, "underline;"]:
+                                    self.curr_attributes[cons.TAG_UNDERLINE] = cons.TAG_PROP_SINGLE
+                                    self.latest_span.append(cons.TAG_UNDERLINE)
+                            elif attr_name == "font-weight":
+                                if attr_value in ["bold", "bolder", "700"]:
+                                    self.curr_attributes[cons.TAG_WEIGHT] = cons.TAG_PROP_HEAVY
+                                    self.latest_span.append(cons.TAG_WEIGHT)
             elif tag == "font":
                 for attr in attrs:
                     if attr[0] == "color":
