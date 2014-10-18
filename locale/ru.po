@@ -2321,7 +2321,7 @@ msgstr "Ширина переноса в названиях ветки "
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1008
 msgid "Display Tree on the Right Side"
-msgstr "Отображать дерево слева"
+msgstr "Отображать дерево справа"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1113
 msgid "Text Font"
