@@ -134,9 +134,13 @@ class ClipboardHandler:
     def get_func(self, clipboard, selectiondata, info, data):
         """Connected with clipboard.set_with_data"""
         target = selectiondata.get_target()
-        if target == TARGET_CTD_PLAIN_TEXT: selectiondata.set('UTF8_STRING', 8, data[0])
+        if target == TARGET_CTD_PLAIN_TEXT: selectiondata.set(target, 8, data[0])
         elif target == TARGET_CTD_RICH_TEXT: selectiondata.set('UTF8_STRING', 8, data[1])
-        elif target == TARGETS_HTML[0]: selectiondata.set('UTF8_STRING', 8, data[2])
+        elif target == TARGETS_HTML[0]:
+            if not cons.IS_WIN_OS:
+                selectiondata.set(target, 8, data[2])
+            else:
+                selectiondata.set(target, 8, data[2].encode(cons.STR_UTF16))
         elif target == TARGET_CTD_CODEBOX:
             dom = xml.dom.minidom.Document()
             self.dad.xml_handler.codebox_element_to_xml([0, data[0], cons.TAG_PROP_LEFT], dom, dom)
