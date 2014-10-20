@@ -2094,10 +2094,17 @@ class HTMLHandler(HTMLParser.HTMLParser):
                                 if attr_value in [cons.TAG_UNDERLINE, "underline;"]:
                                     self.curr_attributes[cons.TAG_UNDERLINE] = cons.TAG_PROP_SINGLE
                                     self.latest_span.append(cons.TAG_UNDERLINE)
+                                elif attr_value in ["line-through"]:
+                                    self.curr_attributes[cons.TAG_STRIKETHROUGH] = cons.TAG_PROP_TRUE
+                                    self.latest_span.append(cons.TAG_STRIKETHROUGH)
                             elif attr_name == "font-weight":
                                 if attr_value in ["bold", "bolder", "700"]:
                                     self.curr_attributes[cons.TAG_WEIGHT] = cons.TAG_PROP_HEAVY
                                     self.latest_span.append(cons.TAG_WEIGHT)
+                            elif attr_name == "font-style":
+                                if attr_value in [cons.TAG_PROP_ITALIC]:
+                                    self.curr_attributes[cons.TAG_STYLE] = cons.TAG_PROP_ITALIC
+                                    self.latest_span.append(cons.TAG_STYLE)
             elif tag == "font":
                 for attr in attrs:
                     if attr[0] == "color":
@@ -2198,7 +2205,9 @@ class HTMLHandler(HTMLParser.HTMLParser):
                 if cons.TAG_FOREGROUND in self.latest_span: self.curr_attributes[cons.TAG_FOREGROUND] = ""
                 if cons.TAG_BACKGROUND in self.latest_span: self.curr_attributes[cons.TAG_BACKGROUND] = ""
                 if cons.TAG_UNDERLINE in self.latest_span: self.curr_attributes[cons.TAG_UNDERLINE] = ""
+                if cons.TAG_STRIKETHROUGH in self.latest_span: self.curr_attributes[cons.TAG_STRIKETHROUGH] = ""
                 if cons.TAG_WEIGHT in self.latest_span: self.curr_attributes[cons.TAG_WEIGHT] = ""
+                if cons.TAG_STYLE in self.latest_span: self.curr_attributes[cons.TAG_STYLE] = ""
                 self.latest_span = []
             elif tag == "font":
                 if self.latest_font == cons.TAG_FOREGROUND: self.curr_attributes[cons.TAG_FOREGROUND] = ""
@@ -2336,11 +2345,11 @@ class HTMLHandler(HTMLParser.HTMLParser):
         #with open("clipboard.log", 'w') as fd:
             #fd.write(input_string)
         #print "###############"
-        self.num_bodies = input_string.count("<body>")
+        self.num_bodies = len(re.findall("<body[^>]*>", input_string))
         self.feed(input_string)
 
     def add_folder(self, folderpath):
-        """Add nodes from plain text files in a Folder"""
+        """Add nodes from HTML files in a Folder"""
         folder_file_same_name = ""
         for element in sorted(os.listdir(folderpath)):
             if folder_file_same_name and folder_file_same_name == element:
@@ -2367,7 +2376,7 @@ class HTMLHandler(HTMLParser.HTMLParser):
                 self.nodes_list.pop()
 
     def add_file(self, filepath, do_pop=True):
-        """Add node from one plain text File"""
+        """Add node from one HTML File"""
         file_content = ""
         try:
             file_descriptor = open(filepath, 'r')
@@ -2394,7 +2403,7 @@ class HTMLHandler(HTMLParser.HTMLParser):
         if file_content: self.rich_text_serialize(file_content)
 
     def get_cherrytree_xml(self, filepath="", folderpath=""):
-        """Returns a CherryTree string Containing the Plain Text Nodes"""
+        """Returns a CherryTree string Containing the HTML Nodes"""
         self.dom = xml.dom.minidom.Document()
         self.nodes_list = [self.dom.createElement(cons.APP_NAME)]
         self.dom.appendChild(self.nodes_list[0])
