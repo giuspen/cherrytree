@@ -20,7 +20,7 @@
 #       MA 02110-1301, USA.
 
 import HTMLParser, htmlentitydefs
-import gtk, gio, locale, os, xml.dom.minidom, re, base64, urllib2, binascii, shutil, glob, time
+import gtk, gio, os, xml.dom.minidom, re, base64, urllib2, binascii, shutil, glob, time
 import cons, machines, support
 
 
@@ -1725,22 +1725,7 @@ class PlainTextHandler:
         except:
             print "skip import of", filepath
             return
-        if file_content.startswith("\xEF\xBB\xBF"): # UTF-8 "BOM"
-            encodings = ["utf-8-sig"]
-        elif file_content.startswith(("\xFF\xFE", "\xFE\xFF")): # UTF-16 BOMs
-            encodings = ["utf16"]
-        else:
-            encodings = ["utf8", locale.getdefaultlocale()[1], "iso-8859-1", "utf-16le"]
-        for enc in encodings:
-            try:
-                file_content = file_content.decode(enc)
-                print enc
-                break
-            except UnicodeDecodeError:
-                pass
-        else:
-            file_content = unicode(file_content, cons.STR_UTF8, cons.STR_IGNORE)
-        self.add_node_with_content(filepath, file_content)
+        self.add_node_with_content(filepath, support.auto_decode_str(file_content))
         self.nodes_list.pop()
 
     def add_node_with_content(self, filepath, file_content):
@@ -2351,7 +2336,6 @@ class HTMLHandler(HTMLParser.HTMLParser):
         # curr_state 0: standby, taking no data
         # curr_state 1: receiving rich text
         # curr_state 2: receiving table or codebox data
-        input_string = input_string.decode(cons.STR_UTF8, cons.STR_IGNORE)
         if not HTMLCheck().is_html_ok(input_string):
             input_string = cons.HTML_HEADER % "" + input_string + cons.HTML_FOOTER
         #print "###############"
@@ -2396,12 +2380,11 @@ class HTMLHandler(HTMLParser.HTMLParser):
             file_descriptor = open(filepath, 'r')
             file_content = file_descriptor.read()
             file_descriptor.close()
-            file_content = unicode(file_content, cons.STR_UTF8, cons.STR_IGNORE)
         except:
             print "skip import of", filepath
             return
         self.add_node_with_content(filepath, "")
-        self.boot_n_feed(file_content, os.path.dirname(filepath))
+        self.boot_n_feed(support.auto_decode_str(file_content), os.path.dirname(filepath))
         if do_pop: self.nodes_list.pop()
 
     def add_node_with_content(self, filepath, file_content):
