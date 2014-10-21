@@ -925,9 +925,7 @@ iter_end, exclude_iter_sel_end=True)
             raise
             return
         treepad = imports.TreepadHandler()
-        try: treepad_string = treepad_string.decode('iso-8859-1')
-        except: treepad_string = unicode(treepad_string, cons.STR_UTF8, cons.STR_IGNORE)
-        cherrytree_string = treepad.get_cherrytree_xml(treepad_string)
+        cherrytree_string = treepad.get_cherrytree_xml(support.auto_decode_str(treepad_string))
         file_descriptor.close()
         self.nodes_add_from_cherrytree_data(cherrytree_string)
 
