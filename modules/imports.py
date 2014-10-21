@@ -20,7 +20,7 @@
 #       MA 02110-1301, USA.
 
 import HTMLParser, htmlentitydefs
-import gtk, gio, os, xml.dom.minidom, re, base64, urllib2, binascii, shutil, glob, time
+import gtk, gio, locale, os, xml.dom.minidom, re, base64, urllib2, binascii, shutil, glob, time
 import cons, machines, support
 
 
@@ -1722,10 +1722,24 @@ class PlainTextHandler:
             file_descriptor = open(filepath, 'r')
             file_content = file_descriptor.read()
             file_descriptor.close()
-            file_content = unicode(file_content, cons.STR_UTF8, cons.STR_IGNORE)
         except:
             print "skip import of", filepath
             return
+        if file_content.startswith("\xEF\xBB\xBF"): # UTF-8 "BOM"
+            encodings = ["utf-8-sig"]
+        elif file_content.startswith(("\xFF\xFE", "\xFE\xFF")): # UTF-16 BOMs
+            encodings = ["utf16"]
+        else:
+            encodings = ["utf8", locale.getdefaultlocale()[1], "iso-8859-1", "utf-16le"]
+        for enc in encodings:
+            try:
+                file_content = file_content.decode(enc)
+                print enc
+                break
+            except UnicodeDecodeError:
+                pass
+        else:
+            file_content = unicode(file_content, cons.STR_UTF8, cons.STR_IGNORE)
         self.add_node_with_content(filepath, file_content)
         self.nodes_list.pop()
 
