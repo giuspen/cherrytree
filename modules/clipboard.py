@@ -20,7 +20,7 @@
 #       MA 02110-1301, USA.
 
 import gtk, os, xml.dom.minidom, re, base64, mimetypes
-import cons, machines, exports, imports
+import cons, machines, exports, imports, support
 
 
 TARGET_CTD_PLAIN_TEXT = 'UTF8_STRING'
@@ -252,31 +252,9 @@ class ClipboardHandler:
         #print "###########################"
         #print selectiondata.data
         #print "###########################"
-        #print selectiondata.data.decode(cons.STR_UTF16, cons.STR_IGNORE)
-        #print "###########################"
         #for char in selection_data: print ord(char)
-        if not cons.IS_WIN_OS and ord(selectiondata.data[0]) == 0xff and ord(selectiondata.data[1]) in [0xfe, 0xff]:
-            selection_data = selectiondata.data.decode(cons.STR_UTF16, cons.STR_IGNORE)
-        else:
-            match = re.match('.*\x00\w\x00\w\x00\w.*', selectiondata.data, re.UNICODE) # \w is alphanumeric char
-            if match: selection_data = selectiondata.data.decode(cons.STR_UTF16, cons.STR_IGNORE)
-            elif "html" in selectiondata.data or "HTML" in selectiondata.data:
-                selection_data = selectiondata.data.decode(cons.STR_UTF8, cons.STR_IGNORE)
-            else:
-                utf8_OK = False
-                utf16_OK = False
-                selection_data = ""
-                try:
-                    selection_data = selectiondata.data.decode(cons.STR_UTF16)
-                    utf16_OK = True
-                except: pass
-                try:
-                    selection_data = selectiondata.data.decode(cons.STR_UTF8)
-                    utf8_OK = True
-                except: pass
-                if utf16_OK == utf8_OK:
-                    if cons.IS_WIN_OS: selection_data = selectiondata.data.decode(cons.STR_UTF16, cons.STR_IGNORE)
-                    else: selection_data = selectiondata.data.decode(cons.STR_UTF8, cons.STR_IGNORE)
+        #print "###########################"
+        selection_data = support.auto_decode_str(selectiondata.data)
         selection_data = re.sub(cons.BAD_CHARS, "", selection_data)
         #print selection_data
         html_import = imports.HTMLHandler(self.dad)
