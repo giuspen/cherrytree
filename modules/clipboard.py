@@ -34,6 +34,59 @@ TARGETS_IMAGES = ('image/png', 'image/jpeg', 'image/bmp', 'image/tiff', 'image/x
 TARGET_WINDOWS_FILE_NAME = 'FileName'
 
 
+class Win32HtmlFormat:
+    '''This class adds support for Windows "HTML Format" clipboard content type
+
+    Code is based on example code from
+    U{http://code.activestate.com/recipes/474121/}
+
+    written by Phillip Piper (jppx1[at]bigfoot.com)
+
+    Also see specification at:
+    U{http://msdn.microsoft.com/library/default.asp?url=/library/en-us/winui/winui/windowsuserinterface/dataexchange/clipboard/htmlclipboardformat.asp}
+    '''
+
+    MARKER_BLOCK_OUTPUT = \
+        "Version:1.0\r\n" \
+        "StartHTML:%09d\r\n" \
+        "EndHTML:%09d\r\n" \
+        "StartFragment:%09d\r\n" \
+        "EndFragment:%09d\r\n" \
+        "StartSelection:%09d\r\n" \
+        "EndSelection:%09d\r\n" \
+        "SourceURL:%s\r\n"
+
+    DEFAULT_HTML_BODY = \
+        "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">" \
+        "<HTML><HEAD>%s</HEAD><BODY><!--StartFragment-->%s<!--EndFragment--></BODY></HTML>"
+
+    @classmethod
+    def encode(klass, fragment, selection=None, head=None, source=None):
+        if selection is None:
+            selection = fragment
+        if source is None:
+            source = "ct"
+        if head is None:
+            head = ''
+
+        html = klass.DEFAULT_HTML_BODY % (head, fragment)
+        fragmentStart = html.index(fragment)
+        fragmentEnd = fragmentStart + len(fragment)
+        selectionStart = html.index(selection)
+        selectionEnd = selectionStart + len(selection)
+
+        # How long is the prefix going to be?
+        dummyPrefix = klass.MARKER_BLOCK_OUTPUT % (0, 0, 0, 0, 0, 0, source)
+        lenPrefix = len(dummyPrefix)
+
+        prefix = klass.MARKER_BLOCK_OUTPUT % (
+            lenPrefix, len(html)+lenPrefix,
+            fragmentStart+lenPrefix, fragmentEnd+lenPrefix,
+            selectionStart+lenPrefix, selectionEnd+lenPrefix,
+            source
+        )
+        return prefix + html
+
 class ClipboardHandler:
     """Handler of Clipboard"""
 
@@ -118,7 +171,7 @@ class ClipboardHandler:
             txt_handler = exports.Export2Txt(self.dad)
             plain_text = txt_handler.node_export_to_txt(text_buffer, "", sel_range=[iter_sel_start.get_offset(), iter_sel_end.get_offset()])
             rich_text = self.rich_text_get_from_text_buffer_selection(text_buffer, iter_sel_start, iter_sel_end)
-            targets_vector = [TARGET_CTD_PLAIN_TEXT, TARGET_CTD_RICH_TEXT, TARGETS_HTML[0]]
+            targets_vector = [TARGET_CTD_PLAIN_TEXT, TARGET_CTD_RICH_TEXT, TARGETS_HTML[0], TARGETS_HTML[1]]
             if pixbuf_target: targets_vector.append(TARGETS_IMAGES[0])
             self.clipboard.set_with_data([(t, 0, 0) for t in targets_vector],
                 self.get_func,
@@ -126,7 +179,7 @@ class ClipboardHandler:
                 (plain_text, rich_text, html_text, pixbuf_target))
         else:
             plain_text = text_buffer.get_text(iter_sel_start, iter_sel_end)
-            self.clipboard.set_with_data([(t, 0, 0) for t in (TARGET_CTD_PLAIN_TEXT, TARGETS_HTML[0])],
+            self.clipboard.set_with_data([(t, 0, 0) for t in (TARGET_CTD_PLAIN_TEXT, TARGETS_HTML[0], TARGETS_HTML[1])],
                                          self.get_func,
                                          self.clear_func,
                                          (plain_text, None, html_text, pixbuf_target))
@@ -136,11 +189,15 @@ class ClipboardHandler:
         target = selectiondata.get_target()
         if target == TARGET_CTD_PLAIN_TEXT: selectiondata.set(target, 8, data[0])
         elif target == TARGET_CTD_RICH_TEXT: selectiondata.set('UTF8_STRING', 8, data[1])
-        elif target == TARGETS_HTML[0]:
+        elif target in TARGETS_HTML:
+            print target
             if not cons.IS_WIN_OS:
                 selectiondata.set(target, 8, data[2])
             else:
-                selectiondata.set(target, 8, data[2].encode(cons.STR_UTF16))
+                if target == TARGETS_HTML[0]:
+                    selectiondata.set(target, 8, data[2].encode(cons.STR_UTF16))
+                else:
+                    selectiondata.set(target, 8, Win32HtmlFormat.encode(data[2]))
         elif target == TARGET_CTD_CODEBOX:
             dom = xml.dom.minidom.Document()
             self.dad.xml_handler.codebox_element_to_xml([0, data[0], cons.TAG_PROP_LEFT], dom, dom)
