@@ -49,7 +49,13 @@ def apply_tag_try_automatic_bounds(dad, text_buffer=None, iter_start=None):
     curr_char = iter_end.get_char()
     # 1) select alphanumeric + special
     match = re.match('\w', curr_char, re.UNICODE)
-    if not match and not curr_char in dad.selword_chars: return False
+    if not match and not curr_char in dad.selword_chars:
+        iter_start.backward_char()
+        iter_end.backward_char()
+        curr_char = iter_end.get_char()
+        match = re.match('\w', curr_char, re.UNICODE)
+        if not match and not curr_char in dad.selword_chars:
+            return False
     while match or curr_char in dad.selword_chars:
         if not iter_end.forward_char(): break # end of buffer
         curr_char = iter_end.get_char()
