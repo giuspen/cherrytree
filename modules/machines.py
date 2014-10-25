@@ -427,18 +427,6 @@ class XMLHandler:
         text_iter = dom.createTextNode(slot_text)
         dom_iter.appendChild(text_iter)
 
-    def tag_header_toggling_on_or_off(self, curr_iter):
-        """Check for tag header toggle on or off"""
-        toggled_onoff = []
-        toggled_off = curr_iter.get_toggled_tags(toggled_on=False)
-        toggled_on = curr_iter.get_toggled_tags(toggled_on=True)
-        if toggled_off: toggled_onoff.extend(toggled_off)
-        if toggled_on: toggled_onoff.extend(toggled_on)
-        for tag in toggled_onoff:
-            tag_name = tag.get_property("name")
-            if tag_name and tag_name.startswith("scale_"): return True
-        return False
-        
     def tag_richtext_toggling_on_or_off(self, curr_iter):
         """Check for tag rich text toggle on or off"""
         toggled_onoff = []
@@ -567,6 +555,29 @@ class XMLHandler:
             child_tree_iter = self.dad.treestore.iter_next(child_tree_iter)
         return toc_list_per_node
 
+    def tag_h_in_given_iter(self, given_iter):
+        """Check for tag header in given_iter"""
+        for tag in given_iter.get_tags():
+            tag_name = tag.get_property("name")
+            if tag_name.startswith("scale_") and tag_name[6:] in [cons.TAG_PROP_H1, cons.TAG_PROP_H2, cons.TAG_PROP_H3]:
+                return True
+        return False
+
+    def safe_forward_to_h_toggle(self, curr_iter):
+        """Forward to the Toggle of a scale tag"""
+        if self.curr_attributes[cons.TAG_SCALE] in [cons.TAG_PROP_H1, cons.TAG_PROP_H2, cons.TAG_PROP_H3]:
+            # ON to OFF
+            if not self.tag_h_in_given_iter(curr_iter): return True
+            while curr_iter.forward_char():
+                if not self.tag_h_in_given_iter(curr_iter): return True
+            return True # at least at the buffer end, the tag will go off
+        else:
+            # OFF to ON
+            if self.tag_h_in_given_iter(curr_iter): return True
+            while curr_iter.forward_char():
+                if self.tag_h_in_given_iter(curr_iter): return True
+        return False
+
     def toc_insert_one(self, text_buffer, node_id, just_get_toc_list=False):
         """Given the text_buffer, inserts the Table Of Contents"""
         self.curr_attributes = {}
@@ -577,12 +588,8 @@ class XMLHandler:
         end_iter = text_buffer.get_end_iter()
         curr_iter = start_iter.copy()
         self.rich_text_attributes_update(curr_iter, self.curr_attributes)
-        tag_found = curr_iter.forward_to_tag_toggle(None)
+        tag_found = self.safe_forward_to_h_toggle(curr_iter)
         while tag_found:
-            if not self.tag_header_toggling_on_or_off(curr_iter):
-                if not curr_iter.forward_char(): tag_found = False
-                else: tag_found = curr_iter.forward_to_tag_toggle(None)
-                continue
             offsets = self.toc_insert_parser(text_buffer, start_iter, curr_iter, node_id)
             if offsets:
                 start_iter = text_buffer.get_iter_at_offset(offsets[0])
@@ -593,7 +600,7 @@ class XMLHandler:
                 self.rich_text_attributes_update(curr_iter, self.curr_attributes)
                 offset_old = curr_iter.get_offset()
                 start_iter.set_offset(offset_old)
-                tag_found = curr_iter.forward_to_tag_toggle(None)
+                tag_found = self.safe_forward_to_h_toggle(curr_iter)
                 if curr_iter.get_offset() == offset_old: break
         else: self.toc_insert_parser(text_buffer, start_iter, curr_iter, node_id)
         if self.toc_list and not just_get_toc_list:
