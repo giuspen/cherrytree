@@ -863,8 +863,8 @@ def get_popup_menu_entries_link(inst):
     (TAG_SEPARATOR, None, None, None, None),
     ("link_handle", _("Edit _Link"), None, _("Edit the Underlying Link"), inst.apply_tag_link),
     (TAG_SEPARATOR, None, None, None, None),
-    ("edit-cut", _("C_ut Link"), None, _("Cut the Selected CodeBox"), inst.link_cut),
-    ("edit-copy", _("_Copy Link"), None, _("Copy the Selected CodeBox"), inst.link_copy),
+    ("edit-cut", _("C_ut Link"), None, _("Cut the Selected Link"), inst.link_cut),
+    ("edit-copy", _("_Copy Link"), None, _("Copy the Selected Link"), inst.link_copy),
     ("gtk-clear", _("D_ismiss Link"), None, _("Dismiss the Selected Link"), inst.link_dismiss),
     ("edit-delete", _("_Delete Link"), None, _("Delete the Selected Link"), inst.link_delete),
     ]
