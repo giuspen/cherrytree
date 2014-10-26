@@ -902,7 +902,7 @@ def dialog_link_handle(dad, title, sel_tree_iter):
         gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
     dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
     dialog.set_default_size(600, 500)
-    
+
     hbox_webs = gtk.HBox()
     image_webs = gtk.Image()
     image_webs.set_from_stock("link_website", gtk.ICON_SIZE_BUTTON)
@@ -913,7 +913,7 @@ def dialog_link_handle(dad, title, sel_tree_iter):
     hbox_webs.pack_start(radiobutton_webs, expand=False)
     hbox_webs.pack_start(entry_webs)
     hbox_webs.set_spacing(5)
-    
+
     hbox_file = gtk.HBox()
     image_file = gtk.Image()
     image_file.set_from_stock(gtk.STOCK_FILE, gtk.ICON_SIZE_BUTTON)
@@ -928,7 +928,7 @@ def dialog_link_handle(dad, title, sel_tree_iter):
     hbox_file.pack_start(entry_file)
     hbox_file.pack_start(button_browse_file, expand=False)
     hbox_file.set_spacing(5)
-    
+
     hbox_folder = gtk.HBox()
     image_folder = gtk.Image()
     image_folder.set_from_stock(gtk.STOCK_DIRECTORY, gtk.ICON_SIZE_BUTTON)
@@ -943,7 +943,7 @@ def dialog_link_handle(dad, title, sel_tree_iter):
     hbox_folder.pack_start(entry_folder)
     hbox_folder.pack_start(button_browse_folder, expand=False)
     hbox_folder.set_spacing(5)
-    
+
     hbox_node = gtk.HBox()
     image_node = gtk.Image()
     image_node.set_from_stock("cherrytree", gtk.ICON_SIZE_BUTTON)
@@ -952,9 +952,9 @@ def dialog_link_handle(dad, title, sel_tree_iter):
     hbox_node.pack_start(image_node, expand=False)
     hbox_node.pack_start(radiobutton_node)
     hbox_node.set_spacing(5)
-    
+
     hbox_detail = gtk.HBox()
-    
+
     treeview_2 = gtk.TreeView(dad.treestore)
     treeview_2.set_headers_visible(False)
     renderer_pixbuf_2 = gtk.CellRendererPixbuf()
@@ -976,11 +976,11 @@ def dialog_link_handle(dad, title, sel_tree_iter):
         treeview_2.expand_to_path(sel_path)
         treeview_2.set_cursor(sel_path)
         treeview_2.scroll_to_cell(sel_path)
-    
+
     vbox_anchor = gtk.VBox()
     label_over = gtk.Label()
     label_below = gtk.Label()
-    
+
     hbox_anchor = gtk.HBox()
     entry_anchor = gtk.Entry()
     entry_anchor.set_text(dad.links_entries['anch'])
@@ -988,19 +988,19 @@ def dialog_link_handle(dad, title, sel_tree_iter):
     button_browse_anchor.set_image(gtk.image_new_from_stock("anchor", gtk.ICON_SIZE_BUTTON))
     hbox_anchor.pack_start(entry_anchor)
     hbox_anchor.pack_start(button_browse_anchor, expand=False)
-    
+
     frame_anchor = gtk.Frame(label="<b>"+_("Anchor Name (optional)")+"</b>")
     frame_anchor.get_label_widget().set_use_markup(True)
     frame_anchor.set_shadow_type(gtk.SHADOW_NONE)
     frame_anchor.add(hbox_anchor)
-    
+
     vbox_anchor.pack_start(label_over)
     vbox_anchor.pack_start(frame_anchor, expand=False)
     vbox_anchor.pack_start(label_below)
-    
+
     hbox_detail.pack_start(scrolledwindow)
     hbox_detail.pack_start(vbox_anchor, expand=False)
-    
+
     content_area = dialog.get_content_area()
     content_area.pack_start(hbox_webs, expand=False)
     content_area.pack_start(hbox_file, expand=False)
@@ -1008,17 +1008,25 @@ def dialog_link_handle(dad, title, sel_tree_iter):
     content_area.pack_start(hbox_node, expand=False)
     content_area.pack_start(hbox_detail)
     content_area.set_spacing(5)
-    
+
     radiobutton_webs.set_active(dad.link_type == cons.LINK_TYPE_WEBS)
     radiobutton_node.set_active(dad.link_type == cons.LINK_TYPE_NODE)
     radiobutton_file.set_active(dad.link_type == cons.LINK_TYPE_FILE)
     radiobutton_folder.set_active(dad.link_type == cons.LINK_TYPE_FOLD)
-    
+
     def link_type_changed_on_dialog():
         entry_webs.set_sensitive(dad.link_type == cons.LINK_TYPE_WEBS)
         hbox_detail.set_sensitive(dad.link_type == cons.LINK_TYPE_NODE)
         entry_file.set_sensitive(dad.link_type == cons.LINK_TYPE_FILE)
         entry_folder.set_sensitive(dad.link_type == cons.LINK_TYPE_FOLD)
+        if dad.link_type == cons.LINK_TYPE_WEBS: entry_webs.grab_focus()
+        elif dad.link_type == cons.LINK_TYPE_NODE:
+            treeview_2.grab_focus()
+            model, links_parms.sel_iter = treeviewselection_2.get_selected()
+            treestore = treeview_2.get_model()
+            if not links_parms.sel_iter: treeview_2.set_cursor(treestore.get_path(treestore.get_iter_first()))
+        elif dad.link_type == cons.LINK_TYPE_FILE: entry_file.grab_focus()
+        else: entry_folder.grab_focus()
     def on_radiobutton_link_website_toggled(radiobutton):
         if radiobutton.get_active(): dad.link_type = cons.LINK_TYPE_WEBS
         link_type_changed_on_dialog()
@@ -1098,7 +1106,7 @@ def dialog_link_handle(dad, title, sel_tree_iter):
     button_browse_anchor.connect('clicked', on_browse_anchors_button_clicked)
     treeview_2.connect('event-after', on_treeview_event_after)
     dialog.connect("key_press_event", on_key_press_links_handle_dialog)
-    
+
     link_type_changed_on_dialog()
     content_area.show_all()
     response = dialog.run()
