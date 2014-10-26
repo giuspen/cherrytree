@@ -73,6 +73,7 @@ class CodeBoxesHandler:
         """Delete CodeBox"""
         self.dad.object_set_selection(self.curr_codebox_anchor)
         self.dad.curr_buffer.delete_selection(True, self.dad.sourceview.get_editable())
+        self.curr_codebox_anchor = None
         self.dad.sourceview.grab_focus()
 
     def dialog_codeboxhandle(self, title):
@@ -393,6 +394,7 @@ class CodeBoxesHandler:
 
     def on_sourceview_event_after_codebox(self, text_view, event, anchor):
         """Called after every event on the SourceView"""
+        if not self.dad.user_active: return False
         if event.type == gtk.gdk._2BUTTON_PRESS and event.button == 1:
             support.on_sourceview_event_after_double_click_button1(self.dad, text_view, event)
         elif event.type == gtk.gdk.BUTTON_PRESS:
@@ -423,6 +425,7 @@ class CodeBoxesHandler:
 
     def on_key_press_sourceview_codebox(self, widget, event, anchor):
         """Extend the Default Right-Click Menu of the CodeBox"""
+        if not self.dad.user_active: return False
         if event.state & gtk.gdk.CONTROL_MASK:
             keyname = gtk.gdk.keyval_name(event.keyval)
             self.curr_codebox_anchor = anchor
@@ -438,6 +441,7 @@ class CodeBoxesHandler:
 
     def on_mouse_button_clicked_codebox(self, widget, event, anchor):
         """Catches mouse buttons clicks"""
+        if not self.dad.user_active: return False
         self.curr_codebox_anchor = anchor
         if event.button != 3:
             self.dad.object_set_selection(self.curr_codebox_anchor)
@@ -445,10 +449,12 @@ class CodeBoxesHandler:
 
     def on_sourceview_populate_popup_codebox(self, textview, menu, anchor):
         """Extend the Default Right-Click Menu of the CodeBox"""
+        if not self.dad.user_active: return
         self.dad.menu_populate_popup(menu, cons.get_popup_menu_entries_codebox(self), self.dad.orphan_accel_group)
 
     def on_sourceview_motion_notify_event_codebox(self, text_view, event):
         """Update the cursor image if the pointer moved"""
+        if not self.dad.user_active: return False
         text_view.set_editable(not self.dad.is_curr_node_read_only())
         x, y = text_view.window_to_buffer_coords(gtk.TEXT_WINDOW_TEXT, int(event.x), int(event.y))
         support.sourceview_cursor_and_tooltips_handler(self.dad, text_view, x, y)
