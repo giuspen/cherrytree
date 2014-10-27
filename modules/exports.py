@@ -226,15 +226,36 @@ class Export2Txt:
             self.nodes_all_export_to_txt_iter(child_tree_iter, single_txt_filepath, include_node_name)
             child_tree_iter = self.dad.treestore.iter_next(child_tree_iter)
 
+    def tag_link_in_given_iter(self, given_iter):
+        """Check for tag link in given_iter"""
+        for tag in given_iter.get_tags():
+            tag_name = tag.get_property("name")
+            if tag_name.startswith("link_"): return tag_name[5:]
+        return ""
+
     def plain_process_slot(self, start_offset, end_offset, curr_buffer):
         """Process a Single plain Slot"""
-        start_iter = curr_buffer.get_iter_at_offset(start_offset)
+        curr_start_offset = start_offset
         if end_offset == -1:
             end_offset = curr_buffer.get_end_iter().get_offset()
         end_iter = curr_buffer.get_iter_at_offset(end_offset)
         #print "process slot (%s->%s)" % (start_offset, end_offset)
         # begin operations
-        self.curr_plain_slots.append(curr_buffer.get_text(start_iter, end_iter))
+        plain_slot = ""
+        curr_iter = curr_buffer.get_iter_at_offset(curr_start_offset)
+        curr_link = self.tag_link_in_given_iter(curr_iter)
+        while curr_iter.forward_char():
+            new_link = self.tag_link_in_given_iter(curr_iter)
+            if new_link != curr_link:
+                if not curr_link: plain_slot += curr_buffer.get_text(curr_buffer.get_iter_at_offset(curr_start_offset), curr_iter)
+                else: plain_slot += self.dad.sourceview_hovering_link_get_tooltip(curr_link)
+                curr_link = new_link
+                curr_start_offset = curr_iter.get_offset()
+            if curr_iter.get_offset() >= end_offset:
+                if not curr_link: plain_slot += curr_buffer.get_text(curr_buffer.get_iter_at_offset(curr_start_offset), curr_iter)
+                else: plain_slot += self.dad.sourceview_hovering_link_get_tooltip(curr_link)
+                break
+        self.curr_plain_slots.append(plain_slot)
 
     def get_codebox_plain(self, codebox):
         """Returns the plain CodeBox"""
