@@ -1491,11 +1491,11 @@ class KeynoteHandler:
                     dummy_loop = 4
                     self.curr_node_content += cons.CHAR_NEWLINE + 3*cons.CHAR_SPACE
                 elif text_line[i+1:].startswith("pntext"):
-                    fN = text_line[i+8:i+10]
-                    if fN == "f0":
+                    fN = text_line[i+8:i+11]
+                    if fN == "f0 ":
                         curr_state = 1
                         self.in_br_read_data = True
-                    elif fN == "f1":
+                    elif fN == "f1 ":
                         dummy_loop = 10
                         curr_state = 0
                         self.in_br_read_data = True
