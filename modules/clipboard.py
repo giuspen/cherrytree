@@ -35,16 +35,9 @@ TARGET_WINDOWS_FILE_NAME = 'FileName'
 
 
 class Win32HtmlFormat:
-    '''This class adds support for Windows "HTML Format" clipboard content type
-
-    Code is based on example code from
-    U{http://code.activestate.com/recipes/474121/}
-
-    written by Phillip Piper (jppx1[at]bigfoot.com)
-
-    Also see specification at:
-    U{http://msdn.microsoft.com/library/default.asp?url=/library/en-us/winui/winui/windowsuserinterface/dataexchange/clipboard/htmlclipboardformat.asp}
-    '''
+    """This class adds support for Windows "HTML Format" clipboard content type
+    Code is based on example code from http://code.activestate.com/recipes/474121/
+    written by Phillip Piper (jppx1[at]bigfoot.com)"""
 
     MARKER_BLOCK_OUTPUT = \
         "Version:1.0\r\n" \
@@ -61,28 +54,23 @@ class Win32HtmlFormat:
         "<HTML><HEAD>%s</HEAD><BODY><!--StartFragment-->%s<!--EndFragment--></BODY></HTML>"
 
     @classmethod
-    def encode(klass, fragment, selection=None, head=None, source=None):
-        if selection is None:
-            selection = fragment
-        if source is None:
-            source = "ct"
-        if head is None:
-            head = ''
+    def encode(self, html_in):
+        fragment = html_in.encode(cons.STR_UTF8)
+        head = ""
+        source = cons.APP_NAME+cons.VERSION
 
-        html = klass.DEFAULT_HTML_BODY % (head, fragment)
+        html = self.DEFAULT_HTML_BODY % (head, fragment)
         fragmentStart = html.index(fragment)
         fragmentEnd = fragmentStart + len(fragment)
-        selectionStart = html.index(selection)
-        selectionEnd = selectionStart + len(selection)
 
         # How long is the prefix going to be?
-        dummyPrefix = klass.MARKER_BLOCK_OUTPUT % (0, 0, 0, 0, 0, 0, source)
+        dummyPrefix = self.MARKER_BLOCK_OUTPUT % (0, 0, 0, 0, 0, 0, source)
         lenPrefix = len(dummyPrefix)
 
-        prefix = klass.MARKER_BLOCK_OUTPUT % (
+        prefix = self.MARKER_BLOCK_OUTPUT % (
             lenPrefix, len(html)+lenPrefix,
             fragmentStart+lenPrefix, fragmentEnd+lenPrefix,
-            selectionStart+lenPrefix, selectionEnd+lenPrefix,
+            fragmentStart+lenPrefix, fragmentEnd+lenPrefix,
             source
         )
         return prefix + html
