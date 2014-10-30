@@ -346,7 +346,9 @@ class CodeBoxesHandler:
         iter_insert = self.dad.curr_buffer.get_iter_at_offset(codebox_element[0])
         self.codebox_insert(iter_insert, codebox_element[1], codebox_element[2], cursor_pos=cursor_pos)
         self.curr_codebox_anchor.sourceview.grab_focus()
-        if user_active_restore: self.dad.user_active = True
+        if user_active_restore:
+            self.dad.curr_buffer.set_modified(False)
+            self.dad.user_active = True
 
     def codebox_load_from_file(self, action):
         """Load the CodeBox Content From a Text File"""
