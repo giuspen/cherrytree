@@ -2342,7 +2342,7 @@ class HTMLHandler(HTMLParser.HTMLParser):
         if not HTMLCheck().is_html_ok(input_string):
             input_string = cons.HTML_HEADER % "" + input_string + cons.HTML_FOOTER
         #print "###############"
-        print input_string
+        #print input_string
         #with open("clipboard.log", 'w') as fd:
             #fd.write(input_string)
         #print "###############"
