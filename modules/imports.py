@@ -2029,25 +2029,28 @@ class HTMLHandler(HTMLParser.HTMLParser):
 
     def get_rgb_gtk_attribute(self, html_attribute):
         """Get RGB GTK attribute from HTML attribute"""
-        if html_attribute[0] == "#":
-            return html_attribute
-        if "rgb" in html_attribute:
+        html_attribute_key = html_attribute.strip().lower()
+        #print "html_attribute_key", html_attribute_key
+        if html_attribute_key[0] == "#":
+            return html_attribute_key
+        if html_attribute_key in cons.HTML_COLOR_NAMES:
+            return cons.HTML_COLOR_NAMES[html_attribute_key]
+        if "rgb" in html_attribute_key:
             rgb_tern = []
             for i in range(3):
-                if i == 0: parenth_start = html_attribute.find(cons.CHAR_PARENTH_OPEN)
-                else: parenth_start = html_attribute.find(cons.CHAR_COMMA)
-                if i == 2: parenth_end = html_attribute[parenth_start+1:].find(cons.CHAR_PARENTH_CLOSE)
-                else: parenth_end = html_attribute[parenth_start+1:].find(cons.CHAR_COMMA)
+                if i == 0: parenth_start = html_attribute_key.find(cons.CHAR_PARENTH_OPEN)
+                else: parenth_start = html_attribute_key.find(cons.CHAR_COMMA)
+                if i == 2: parenth_end = html_attribute_key[parenth_start+1:].find(cons.CHAR_PARENTH_CLOSE)
+                else: parenth_end = html_attribute_key[parenth_start+1:].find(cons.CHAR_COMMA)
                 if parenth_start < 0 or parenth_end < 0:
                     break
-                rgb_tern.append(int(html_attribute[parenth_start+1:parenth_start+1+parenth_end]))
-                html_attribute = html_attribute[parenth_start+1+parenth_end:]
+                rgb_tern.append(int(html_attribute_key[parenth_start+1:parenth_start+1+parenth_end]))
+                html_attribute_key = html_attribute_key[parenth_start+1+parenth_end:]
             if len(rgb_tern) != 3:
                 print rgb_tern
                 return None
-            html_attribute = "#%.2x%.2x%.2x" % (rgb_tern[0], rgb_tern[1], rgb_tern[2])
-            #print html_attribute
-            return html_attribute
+            html_attribute_key = "#%.2x%.2x%.2x" % (rgb_tern[0], rgb_tern[1], rgb_tern[2])
+            return html_attribute_key
         return None
 
     def handle_starttag(self, tag, attrs):
@@ -2339,7 +2342,7 @@ class HTMLHandler(HTMLParser.HTMLParser):
         if not HTMLCheck().is_html_ok(input_string):
             input_string = cons.HTML_HEADER % "" + input_string + cons.HTML_FOOTER
         #print "###############"
-        #print input_string
+        print input_string
         #with open("clipboard.log", 'w') as fd:
             #fd.write(input_string)
         #print "###############"
