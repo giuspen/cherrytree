@@ -178,7 +178,7 @@ class ClipboardHandler:
         if target == TARGET_CTD_PLAIN_TEXT: selectiondata.set(target, 8, data[0])
         elif target == TARGET_CTD_RICH_TEXT: selectiondata.set('UTF8_STRING', 8, data[1])
         elif target in TARGETS_HTML:
-            print target
+            #print target
             if not cons.IS_WIN_OS:
                 selectiondata.set(target, 8, data[2])
             else:
