@@ -333,13 +333,16 @@ def strip_trailing_spaces(text_buffer):
                 break
     return cleaned_lines
 
-def get_next_chars_from_iter_are(iter_start, num, chars):
+def get_next_chars_from_iter_are(iter_start, num_n_chars):
     """Returns True if the Given Chars are the next 'num' after iter"""
-    text_iter = iter_start.copy()
-    for i in range(num):
-        if text_iter.get_char() != chars[i]: return False
-        if i != num-1 and not text_iter.forward_char(): return False
-    return True
+    for num_n_chars_elem in num_n_chars:
+        text_iter = iter_start.copy()
+        (num, chars) = num_n_chars_elem
+        for i in range(num):
+            if text_iter.get_char().encode(cons.STR_UTF8) != chars[i]: break
+            if i != num-1 and not text_iter.forward_char(): break
+        else: return True
+    return False
 
 def get_former_line_indentation(iter_start):
     """Returns the indentation of the former paragraph or empty string"""
