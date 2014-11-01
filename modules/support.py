@@ -957,6 +957,7 @@ def dialog_link_handle(dad, title, sel_tree_iter):
 
     treeview_2 = gtk.TreeView(dad.treestore)
     treeview_2.set_headers_visible(False)
+    treeview_2.set_search_column(1)
     renderer_pixbuf_2 = gtk.CellRendererPixbuf()
     renderer_text_2 = gtk.CellRendererText()
     column_2 = gtk.TreeViewColumn()
@@ -1142,6 +1143,7 @@ def dialog_choose_node(dad, title, treestore, sel_tree_iter):
     dialog.set_default_size(600, 500)
     treeview_2 = gtk.TreeView(treestore)
     treeview_2.set_headers_visible(False)
+    treeview_2.set_search_column(1)
     renderer_pixbuf_2 = gtk.CellRendererPixbuf()
     renderer_text_2 = gtk.CellRendererText()
     column_2 = gtk.TreeViewColumn()
