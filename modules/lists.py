@@ -46,19 +46,21 @@ class ListsHandler:
             # this is not a list
             first_iteration = True
             while first_iteration or new_par_offset < end_offset:
-                first_iteration = False
                 iter_start, iter_end = self.get_paragraph_iters(text_buffer=text_buffer, force_iter=iter_start)
                 if not iter_start:
-                    # it's an empty paragraph
-                    iter_start = text_buffer.get_iter_at_mark(text_buffer.get_insert())
-                    text_buffer.insert(iter_start, cons.CHAR_LISTTODO + cons.CHAR_SPACE)
+                    if first_iteration:
+                        # it's an empty paragraph
+                        iter_start = text_buffer.get_iter_at_mark(text_buffer.get_insert())
+                        text_buffer.insert(iter_start, cons.CHAR_LISTTODO + cons.CHAR_SPACE)
                     break
                 elif self.is_list_indented_continuation(iter_start):
                     new_par_offset = iter_end.get_offset() + 1
                 else:
+                    iter_start, iter_end = self.list_check_n_remove_old_list_type_leading(iter_start, iter_end, text_buffer)
                     new_par_offset = iter_end.get_offset() + 2 + 1
-                    text_buffer.insert(iter_start, cons.CHAR_LISTTODO + cons.CHAR_SPACE)
                     end_offset += 2
+                    text_buffer.insert(iter_start, cons.CHAR_LISTTODO + cons.CHAR_SPACE)
+                first_iteration = False
                 iter_start = text_buffer.get_iter_at_offset(new_par_offset)
                 if not iter_start: break
         elif list_info[0] == 0:
@@ -103,19 +105,21 @@ class ListsHandler:
             # this is not a list
             first_iteration = True
             while first_iteration or new_par_offset < end_offset:
-                first_iteration = False
                 iter_start, iter_end = self.get_paragraph_iters(text_buffer=text_buffer, force_iter=iter_start)
                 if not iter_start:
-                    # it's an empty paragraph
-                    iter_start = text_buffer.get_iter_at_mark(text_buffer.get_insert())
-                    text_buffer.insert(iter_start, cons.CHAR_LISTBUL + cons.CHAR_SPACE)
+                    if first_iteration:
+                        # it's an empty paragraph
+                        iter_start = text_buffer.get_iter_at_mark(text_buffer.get_insert())
+                        text_buffer.insert(iter_start, cons.CHAR_LISTBUL + cons.CHAR_SPACE)
                     break
-                elif self.is_list_indented_continuation(iter_start):
+                if self.is_list_indented_continuation(iter_start):
                     new_par_offset = iter_end.get_offset() + 1
                 else:
+                    iter_start, iter_end = self.list_check_n_remove_old_list_type_leading(iter_start, iter_end, text_buffer)
                     new_par_offset = iter_end.get_offset() + 2 + 1
-                    text_buffer.insert(iter_start, cons.CHAR_LISTBUL + cons.CHAR_SPACE)
                     end_offset += 2
+                    text_buffer.insert(iter_start, cons.CHAR_LISTBUL + cons.CHAR_SPACE)
+                first_iteration = False
                 iter_start = text_buffer.get_iter_at_offset(new_par_offset)
                 if not iter_start: break
         elif list_info[0] == 0:
@@ -163,17 +167,19 @@ class ListsHandler:
                 leading_num_count += 1
                 iter_start, iter_end = self.get_paragraph_iters(text_buffer=text_buffer, force_iter=iter_start)
                 if not iter_start:
-                    # it's an empty paragraph
-                    iter_start = text_buffer.get_iter_at_mark(text_buffer.get_insert())
-                    text_buffer.insert(iter_start, "1. ")
+                    if leading_num_count == 1:
+                        # it's an empty paragraph
+                        iter_start = text_buffer.get_iter_at_mark(text_buffer.get_insert())
+                        text_buffer.insert(iter_start, "1. ")
                     break
                 elif self.is_list_indented_continuation(iter_start):
                     new_par_offset = iter_end.get_offset() + 1
                 else:
+                    iter_start, iter_end = self.list_check_n_remove_old_list_type_leading(iter_start, iter_end, text_buffer)
                     leading_str = "%s. " % leading_num_count
                     new_par_offset = iter_end.get_offset() + len(leading_str) + 1
-                    text_buffer.insert(iter_start, leading_str)
                     end_offset += len(leading_str)
+                    text_buffer.insert(iter_start, leading_str)
                 iter_start = text_buffer.get_iter_at_offset(new_par_offset)
                 if not iter_start: break
         elif list_info[0] == 0:
@@ -202,6 +208,19 @@ class ListsHandler:
                     end_offset -= leading_chars_num
                 iter_start = text_buffer.get_iter_at_offset(new_par_offset)
                 if not iter_start: break
+
+    def list_check_n_remove_old_list_type_leading(self, iter_start, iter_end, text_buffer):
+        """Clean List Start Characters"""
+        start_offset = iter_start.get_offset()
+        end_offset = iter_end.get_offset()
+        list_info = self.get_paragraph_list_info(iter_start)
+        if list_info[0] != None:
+            leading_chars_num = self.get_leading_chars_num_from_list_info_num(list_info[0])
+            iter_end = iter_start.copy()
+            iter_end.forward_chars(leading_chars_num)
+            text_buffer.delete(iter_start, iter_end)
+            end_offset -= leading_chars_num
+        return text_buffer.get_iter_at_offset(start_offset), text_buffer.get_iter_at_offset(end_offset)
 
     def get_leading_chars_num_from_list_info_num(self, list_info_num):
         """From List Info to List Prefix"""
