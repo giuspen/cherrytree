@@ -1091,6 +1091,14 @@ def dialog_link_handle(dad, title, sel_tree_iter):
                     treeview.collapse_row(treestore.get_path(links_parms.sel_iter))
                 else:
                     treeview.expand_row(treestore.get_path(links_parms.sel_iter), open_all=False)
+        elif event.type == gtk.gdk.KEY_PRESS:
+            if links_parms.sel_iter:
+                treestore = treeview.get_model()
+                keyname = gtk.gdk.keyval_name(event.keyval)
+                if keyname == "Left":
+                    treeview.collapse_row(treestore.get_path(links_parms.sel_iter))
+                elif keyname == "Right":
+                    treeview.expand_row(treestore.get_path(links_parms.sel_iter), open_all=False)
     def on_key_press_links_handle_dialog(widget, event):
         if gtk.gdk.keyval_name(event.keyval) == cons.STR_RETURN:
             try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
@@ -1177,6 +1185,14 @@ def dialog_choose_node(dad, title, treestore, sel_tree_iter):
                 if treeview.row_expanded(treestore.get_path(node_parms.sel_iter)):
                     treeview.collapse_row(treestore.get_path(node_parms.sel_iter))
                 else:
+                    treeview.expand_row(treestore.get_path(node_parms.sel_iter), open_all=False)
+        elif event.type == gtk.gdk.KEY_PRESS:
+            if node_parms.sel_iter:
+                treestore = treeview.get_model()
+                keyname = gtk.gdk.keyval_name(event.keyval)
+                if keyname == "Left":
+                    treeview.collapse_row(treestore.get_path(node_parms.sel_iter))
+                elif keyname == "Right":
                     treeview.expand_row(treestore.get_path(node_parms.sel_iter), open_all=False)
     dialog.connect("key_press_event", on_key_press_choose_node_dialog)
     treeview_2.connect('event-after', on_treeview_event_after)
