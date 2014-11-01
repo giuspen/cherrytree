@@ -175,7 +175,7 @@ class CodeBoxesHandler:
             combobox_prog_lang.set_sensitive(radiobutton.get_active())
         def on_key_press_codeboxhandle(widget, event):
             keyname = gtk.gdk.keyval_name(event.keyval)
-            if keyname == cons.STR_RETURN:
+            if keyname == cons.STR_KEY_RETURN:
                 spinbutton_width.update()
                 spinbutton_height.update()
                 try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()

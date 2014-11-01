@@ -64,7 +64,7 @@ class FindReplace:
             button.set_image(gtk.image_new_from_stock(gtk.STOCK_UNDO, gtk.ICON_SIZE_BUTTON))
         except: pass
         def on_key_press_iterated_find_dialog(widget, event):
-            if gtk.gdk.keyval_name(event.keyval) == cons.STR_RETURN:
+            if gtk.gdk.keyval_name(event.keyval) == cons.STR_KEY_RETURN:
                 try: dialog.get_widget_for_response(1).clicked()
                 except: print cons.STR_PYGTK_222_REQUIRED
                 return True
