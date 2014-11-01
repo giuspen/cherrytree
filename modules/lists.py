@@ -57,27 +57,28 @@ class ListsHandler:
                         else: text_buffer.insert(iter_start, "1. ")
                 break
             if self.is_list_indented_continuation(iter_start):
-                new_par_offset = iter_end.get_offset() + 1
+                new_par_offset = iter_end.get_offset()
                 leading_num_count -= 1
             else:
-                iter_start, iter_end = self.list_check_n_remove_old_list_type_leading(iter_start, iter_end, text_buffer)
+                iter_start, iter_end, chars_rm = self.list_check_n_remove_old_list_type_leading(iter_start, iter_end, text_buffer)
+                end_offset -= chars_rm
                 if list_info[0] != target_list_num_id:
                     # the target list type differs from this paragraph list type
                     if target_list_num_id == -1:
-                        new_par_offset = iter_end.get_offset() + 2 + 1
+                        new_par_offset = iter_end.get_offset() + 2
                         end_offset += 2
                         text_buffer.insert(iter_start, cons.CHAR_LISTTODO + cons.CHAR_SPACE)
                     elif target_list_num_id == 0:
-                        new_par_offset = iter_end.get_offset() + 2 + 1
+                        new_par_offset = iter_end.get_offset() + 2
                         end_offset += 2
                         text_buffer.insert(iter_start, cons.CHAR_LISTBUL + cons.CHAR_SPACE)
                     else:
                         leading_str = "%s. " % leading_num_count
-                        new_par_offset = iter_end.get_offset() + len(leading_str) + 1
+                        new_par_offset = iter_end.get_offset() + len(leading_str)
                         end_offset += len(leading_str)
                         text_buffer.insert(iter_start, leading_str)
-                else: new_par_offset = iter_end.get_offset() + 1
-            iter_start = text_buffer.get_iter_at_offset(new_par_offset)
+                else: new_par_offset = iter_end.get_offset()
+            iter_start = text_buffer.get_iter_at_offset(new_par_offset+1)
             if not iter_start: break
 
     def list_check_n_remove_old_list_type_leading(self, iter_start, iter_end, text_buffer):
@@ -91,7 +92,8 @@ class ListsHandler:
             iter_end.forward_chars(leading_chars_num)
             text_buffer.delete(iter_start, iter_end)
             end_offset -= leading_chars_num
-        return text_buffer.get_iter_at_offset(start_offset), text_buffer.get_iter_at_offset(end_offset)
+        else: leading_chars_num = 0
+        return text_buffer.get_iter_at_offset(start_offset), text_buffer.get_iter_at_offset(end_offset), leading_chars_num
 
     def get_leading_chars_num_from_list_info_num(self, list_info_num):
         """From List Info to List Prefix"""
