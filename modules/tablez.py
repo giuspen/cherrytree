@@ -122,7 +122,7 @@ class TablesHandler:
         content_area.show_all()
         def on_key_press_tablecolhandle(widget, event):
             keyname = gtk.gdk.keyval_name(event.keyval)
-            if keyname == cons.STR_RETURN:
+            if keyname == cons.STR_KEY_RETURN:
                 try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
                 except: print cons.STR_PYGTK_222_REQUIRED
                 return True
@@ -225,7 +225,7 @@ class TablesHandler:
         content_area.show_all()
         def on_key_press_tablehandle(widget, event):
             keyname = gtk.gdk.keyval_name(event.keyval)
-            if keyname == cons.STR_RETURN:
+            if keyname == cons.STR_KEY_RETURN:
                 spinbutton_rows.update()
                 spinbutton_columns.update()
                 spinbutton_col_min.update()
@@ -399,12 +399,12 @@ class TablesHandler:
             elif keyname == "comma":
                 return True
         else:
-            if keyname in [cons.STR_RETURN, "Up", "Down"]:
+            if keyname in [cons.STR_KEY_RETURN, cons.STR_KEY_UP, cons.STR_KEY_DOWN]:
                 if model[path][col_num] != widget.get_text():
                     if self.dad.is_curr_node_not_read_only_or_error():
                         model[path][col_num] = widget.get_text()
                         self.dad.update_window_save_needed("nbuf", True)
-                if keyname == "Up":
+                if keyname == cons.STR_KEY_UP:
                     if col_num > 0:
                         next_col_num = col_num - 1
                         next_path = path
@@ -604,7 +604,7 @@ class TablesHandler:
                     self.table_row_up()
                 else: self.table_row_down()
                 return True
-        elif keyname == "Menu":
+        elif keyname == cons.STR_KEY_MENU:
             self.curr_table_anchor = anchor
             self.dad.object_set_selection(self.curr_table_anchor)
             menu_table = gtk.Menu()

@@ -119,9 +119,9 @@ def on_sourceview_event_after_key_press(dad, text_view, event):
     text_buffer = text_view.get_buffer()
     keyname = gtk.gdk.keyval_name(event.keyval)
     if (event.state & gtk.gdk.SHIFT_MASK):
-        if keyname == cons.STR_RETURN:
+        if keyname == cons.STR_KEY_RETURN:
             text_buffer.insert(text_buffer.get_iter_at_mark(text_buffer.get_insert()), 3*cons.CHAR_SPACE)
-    elif keyname == cons.STR_RETURN:
+    elif keyname == cons.STR_KEY_RETURN:
         iter_insert = text_buffer.get_iter_at_mark(text_buffer.get_insert())
         if not iter_insert:
             return False
@@ -611,7 +611,7 @@ def dialog_choose_element_in_list(father_win, title, elements_list, column_title
         model, list_parms.sel_iter = elements_treeviewselection.get_selected()
     def on_key_press_elementslistdialog(widget, event):
         keyname = gtk.gdk.keyval_name(event.keyval)
-        if keyname == cons.STR_RETURN:
+        if keyname == cons.STR_KEY_RETURN:
             try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
             except: print cons.STR_PYGTK_222_REQUIRED
             return True
@@ -647,7 +647,7 @@ def dialog_img_n_entry(father_win, title, entry_content, img_stock):
     content_area.pack_start(hbox)
     def on_key_press_anchoreditdialog(widget, event):
         keyname = gtk.gdk.keyval_name(event.keyval)
-        if keyname == cons.STR_RETURN:
+        if keyname == cons.STR_KEY_RETURN:
             try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
             except: print cons.STR_PYGTK_222_REQUIRED
             return True
@@ -745,7 +745,7 @@ def dialog_image_handle(father_win, title, original_pixbuf):
         image_load_into_dialog()
     def on_key_press_imagehandledialog(widget, event):
         keyname = gtk.gdk.keyval_name(event.keyval)
-        if keyname == cons.STR_RETURN:
+        if keyname == cons.STR_KEY_RETURN:
             spinbutton_width.update()
             spinbutton_height.update()
             try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
@@ -787,7 +787,7 @@ def dialog_node_delete(father_win, warning_label):
     content_area.pack_start(hbox)
     def on_key_press_nodedeletedialog(widget, event):
         keyname = gtk.gdk.keyval_name(event.keyval)
-        if keyname == cons.STR_RETURN:
+        if keyname == cons.STR_KEY_RETURN:
             try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
             except: print cons.STR_PYGTK_222_REQUIRED
             return True
@@ -828,7 +828,7 @@ def dialog_exit_del_temp_files(dad):
     content_area.pack_start(hbox)
     def on_key_press_exitdialog(widget, event):
         keyname = gtk.gdk.keyval_name(event.keyval)
-        if keyname == cons.STR_RETURN:
+        if keyname == cons.STR_KEY_RETURN:
             try: dialog.get_widget_for_response(1).clicked()
             except: print cons.STR_PYGTK_222_REQUIRED
             return True
@@ -874,7 +874,7 @@ def dialog_exit_save(father_win):
     content_area.pack_start(hbox)
     def on_key_press_exitdialog(widget, event):
         keyname = gtk.gdk.keyval_name(event.keyval)
-        if keyname == cons.STR_RETURN:
+        if keyname == cons.STR_KEY_RETURN:
             try: dialog.get_widget_for_response(2).clicked()
             except: print cons.STR_PYGTK_222_REQUIRED
             return True
@@ -1096,14 +1096,21 @@ def dialog_link_handle(dad, title, sel_tree_iter):
             if links_parms.sel_iter:
                 treestore = treeview.get_model()
                 keyname = gtk.gdk.keyval_name(event.keyval)
-                if keyname == "Left":
+                if keyname == cons.STR_KEY_LEFT:
                     treeview.collapse_row(treestore.get_path(links_parms.sel_iter))
-                elif keyname == "Right":
+                elif keyname == cons.STR_KEY_RIGHT:
                     treeview.expand_row(treestore.get_path(links_parms.sel_iter), open_all=False)
     def on_key_press_links_handle_dialog(widget, event):
-        if gtk.gdk.keyval_name(event.keyval) == cons.STR_RETURN:
+        keyname = gtk.gdk.keyval_name(event.keyval)
+        if keyname == cons.STR_KEY_RETURN:
             try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
             except: print cons.STR_PYGTK_222_REQUIRED
+            return True
+        elif keyname == cons.STR_KEY_TAB:
+            if dad.link_type == cons.LINK_TYPE_WEBS: radiobutton_file.set_active(True)
+            elif dad.link_type == cons.LINK_TYPE_FILE: radiobutton_folder.set_active(True)
+            elif dad.link_type == cons.LINK_TYPE_FOLD: radiobutton_node.set_active(True)
+            else: radiobutton_webs.set_active(True)
             return True
         return False
     radiobutton_webs.connect("toggled", on_radiobutton_link_website_toggled)
@@ -1166,7 +1173,7 @@ def dialog_choose_node(dad, title, treestore, sel_tree_iter):
     content_area = dialog.get_content_area()
     content_area.pack_start(scrolledwindow)
     def on_key_press_choose_node_dialog(widget, event):
-        if gtk.gdk.keyval_name(event.keyval) == cons.STR_RETURN:
+        if gtk.gdk.keyval_name(event.keyval) == cons.STR_KEY_RETURN:
             try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
             except: print cons.STR_PYGTK_222_REQUIRED
             return True
@@ -1192,9 +1199,9 @@ def dialog_choose_node(dad, title, treestore, sel_tree_iter):
             if node_parms.sel_iter:
                 treestore = treeview.get_model()
                 keyname = gtk.gdk.keyval_name(event.keyval)
-                if keyname == "Left":
+                if keyname == cons.STR_KEY_LEFT:
                     treeview.collapse_row(treestore.get_path(node_parms.sel_iter))
-                elif keyname == "Right":
+                elif keyname == cons.STR_KEY_RIGHT:
                     treeview.expand_row(treestore.get_path(node_parms.sel_iter), open_all=False)
     dialog.connect("key_press_event", on_key_press_choose_node_dialog)
     treeview_2.connect('event-after', on_treeview_event_after)
@@ -1240,7 +1247,7 @@ def dialog_selnode_selnodeandsub_alltree(dad, also_selection, also_include_node_
         checkbutton_new_node_page.set_active(dad.last_new_node_page)
         content_area.pack_start(checkbutton_new_node_page)
     def on_key_press_enter_dialog(widget, event):
-        if gtk.gdk.keyval_name(event.keyval) == cons.STR_RETURN:
+        if gtk.gdk.keyval_name(event.keyval) == cons.STR_KEY_RETURN:
             try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
             except: print cons.STR_PYGTK_222_REQUIRED
             return True
@@ -1399,7 +1406,7 @@ def bookmarks_handle(dad):
     treeviewselection = treeview.get_selection()
     def on_key_press_liststore(widget, event):
         keyname = gtk.gdk.keyval_name(event.keyval)
-        if keyname == "Delete":
+        if keyname == cons.STR_KEY_DELETE:
             model, tree_iter = treeviewselection.get_selected()
             if tree_iter: model.remove(tree_iter)
     def on_mouse_button_clicked_liststore(widget, event):

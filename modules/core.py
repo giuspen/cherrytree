@@ -495,14 +495,14 @@ iter_end, exclude_iter_sel_end=True)
         if not self.curr_tree_iter: return
         keyname = gtk.gdk.keyval_name(event.keyval)
         if event.state & gtk.gdk.MOD1_MASK:
-            if keyname == "Left":
+            if keyname == cons.STR_KEY_LEFT:
                 self.go_back()
                 return True
-            elif keyname == "Right":
+            elif keyname == cons.STR_KEY_RIGHT:
                 self.go_forward()
                 return True
         elif (event.state & gtk.gdk.CONTROL_MASK):
-            if keyname == "Tab":
+            if keyname == cons.STR_KEY_TAB:
                 self.toggle_tree_text()
                 return True
             elif keyname in ["plus", "KP_Add"]:
@@ -520,22 +520,22 @@ iter_end, exclude_iter_sel_end=True)
         if not self.curr_tree_iter: return False
         keyname = gtk.gdk.keyval_name(event.keyval)
         if event.state & gtk.gdk.SHIFT_MASK:
-            if keyname == "Up":
+            if keyname == cons.STR_KEY_UP:
                 self.node_up()
                 return True
-            elif keyname == "Down":
+            elif keyname == cons.STR_KEY_DOWN:
                 self.node_down()
                 return True
-            elif keyname == "Left":
+            elif keyname == cons.STR_KEY_LEFT:
                 self.node_left()
                 return True
-            elif keyname == "Right":
+            elif keyname == cons.STR_KEY_RIGHT:
                 self.node_change_father()
                 return True
         elif event.state & gtk.gdk.MOD1_MASK:
             pass
         elif (event.state & gtk.gdk.CONTROL_MASK):
-            if keyname == "Up":
+            if keyname == cons.STR_KEY_UP:
                 prev_iter = self.get_tree_iter_prev_sibling(self.treestore, self.curr_tree_iter)
                 if prev_iter:
                     while prev_iter:
@@ -543,7 +543,7 @@ iter_end, exclude_iter_sel_end=True)
                         prev_iter = self.get_tree_iter_prev_sibling(self.treestore, prev_iter)
                     self.treeview_safe_set_cursor(move_iter)
                 return True
-            elif keyname == "Down":
+            elif keyname == cons.STR_KEY_DOWN:
                 next_iter = self.treestore.iter_next(self.curr_tree_iter)
                 if next_iter:
                     while next_iter:
@@ -551,7 +551,7 @@ iter_end, exclude_iter_sel_end=True)
                         next_iter = self.treestore.iter_next(next_iter)
                     self.treeview_safe_set_cursor(move_iter)
                 return True
-            elif keyname == "Left":
+            elif keyname == cons.STR_KEY_LEFT:
                 father_iter = self.treestore.iter_parent(self.curr_tree_iter)
                 if father_iter:
                     while father_iter:
@@ -559,7 +559,7 @@ iter_end, exclude_iter_sel_end=True)
                         father_iter = self.treestore.iter_parent(father_iter)
                     self.treeview_safe_set_cursor(move_iter)
                 return True
-            elif keyname == "Right":
+            elif keyname == cons.STR_KEY_RIGHT:
                 child_iter = self.treestore.iter_children(self.curr_tree_iter)
                 if child_iter:
                     while child_iter:
@@ -574,22 +574,22 @@ iter_end, exclude_iter_sel_end=True)
                 self.zoom_tree_m()
                 return True
         else:
-            if keyname == "Left":
+            if keyname == cons.STR_KEY_LEFT:
                 self.treeview.collapse_row(self.treestore.get_path(self.curr_tree_iter))
                 return True
-            elif keyname == "Right":
+            elif keyname == cons.STR_KEY_RIGHT:
                 self.treeview.expand_row(self.treestore.get_path(self.curr_tree_iter), open_all=False)
                 return True
-            elif keyname == cons.STR_RETURN:
+            elif keyname == cons.STR_KEY_RETURN:
                 self.toggle_tree_node_expanded_collapsed()
                 return True
-            elif keyname == "Delete":
+            elif keyname == cons.STR_KEY_DELETE:
                 self.node_delete()
                 return True
-            elif keyname == "Menu":
+            elif keyname == cons.STR_KEY_MENU:
                 self.menu_tree.popup(None, None, None, 0, event.time)
                 return True
-            elif keyname == "Tab":
+            elif keyname == cons.STR_KEY_TAB:
                 self.toggle_tree_text()
                 return True
         return False
@@ -1122,7 +1122,7 @@ iter_end, exclude_iter_sel_end=True)
                 menu_item.set_tooltip_text(attributes[3])
                 if attributes[2]:
                     key, mod = gtk.accelerator_parse(attributes[2])
-                    for element in ["Up", "Down", "Left", "Right", "Delete"]:
+                    for element in [cons.STR_KEY_UP, cons.STR_KEY_DOWN, cons.STR_KEY_LEFT, cons.STR_KEY_RIGHT, cons.STR_KEY_DELETE]:
                         if element in attributes[2]:
                             accel_group = self.orphan_accel_group
                             break
@@ -1699,7 +1699,7 @@ iter_end, exclude_iter_sel_end=True)
                 entry_passw_1.grab_focus()
             else: passw_frame.set_sensitive(False)
         def on_key_press_edit_data_storage_type_dialog(widget, event):
-            if gtk.gdk.keyval_name(event.keyval) == cons.STR_RETURN:
+            if gtk.gdk.keyval_name(event.keyval) == cons.STR_KEY_RETURN:
                 try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
                 except: print cons.STR_PYGTK_222_REQUIRED
                 return True
@@ -1763,7 +1763,7 @@ iter_end, exclude_iter_sel_end=True)
         content_area = dialog.get_content_area()
         content_area.pack_start(entry)
         def on_key_press_enter_password_dialog(widget, event):
-            if gtk.gdk.keyval_name(event.keyval) == cons.STR_RETURN:
+            if gtk.gdk.keyval_name(event.keyval) == cons.STR_KEY_RETURN:
                 try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
                 except: print cons.STR_PYGTK_222_REQUIRED
                 return True
@@ -3104,7 +3104,7 @@ iter_end, exclude_iter_sel_end=True)
         search_entry.grab_focus()
         def on_key_press_searchdialog(widget, event):
             keyname = gtk.gdk.keyval_name(event.keyval)
-            if keyname == cons.STR_RETURN:
+            if keyname == cons.STR_KEY_RETURN:
                 try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
                 except: print cons.STR_PYGTK_222_REQUIRED
                 return True
@@ -3197,7 +3197,7 @@ iter_end, exclude_iter_sel_end=True)
         name_entry.grab_focus()
         def on_key_press_nodepropdialog(widget, event):
             keyname = gtk.gdk.keyval_name(event.keyval)
-            if keyname == cons.STR_RETURN:
+            if keyname == cons.STR_KEY_RETURN:
                 try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
                 except: print cons.STR_PYGTK_222_REQUIRED
                 return True
@@ -4405,12 +4405,12 @@ iter_end, exclude_iter_sel_end=True)
         """Called at every event on the SourceView"""
         if event.type == gtk.gdk.KEY_PRESS:
             keyname = gtk.gdk.keyval_name(event.keyval)
-            if keyname == cons.STR_RETURN:
+            if keyname == cons.STR_KEY_RETURN:
                 iter_insert = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
                 if iter_insert: self.cursor_key_press = iter_insert.get_offset()
                 else: self.cursor_key_press = None
                 #print "self.cursor_key_press", self.cursor_key_press
-            elif self.syntax_highlighting == cons.RICH_TEXT_ID and keyname == "Menu":
+            elif self.syntax_highlighting == cons.RICH_TEXT_ID and keyname == cons.STR_KEY_MENU:
                 if not self.curr_buffer.get_has_selection(): return False
                 iter_sel_start, iter_sel_end = self.curr_buffer.get_selection_bounds()
                 num_chars = iter_sel_end.get_offset() - iter_sel_start.get_offset()

@@ -1387,7 +1387,7 @@ def preferences_tab_toolbar(dad, vbox_tool, pref_dialog):
     button_remove.connect('clicked', on_button_remove_clicked)
     def on_key_press_liststore(widget, event):
         keyname = gtk.gdk.keyval_name(event.keyval)
-        if keyname == "Delete": on_button_remove_clicked()
+        if keyname == cons.STR_KEY_DELETE: on_button_remove_clicked()
     treeview.connect('key_press_event', on_key_press_liststore)
     def on_treeview_drag_end(*args):
         update_toolbar_ui_vec()
