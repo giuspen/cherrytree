@@ -222,38 +222,25 @@ class ListsHandler:
             and iter_start.forward_char() and iter_start.get_char() == cons.CHAR_SPACE:
                 self.list_adjust_ahead(curr_num, iter_start.get_offset(), adj_type, text_buffer) # go on searching
             else: return # not an indentation
-        elif adj_type[0:3] == "num":
-            match = re.match('[1-9]', iter_start.get_char())
-            if not match: return
+        else:
+            list_info = self.get_paragraph_list_info(iter_start)
+            if list_info[0] == None:
+                if iter_start.get_char() == cons.CHAR_NEWLINE: return
+                else: leading_chars_num = 0
+            else: leading_chars_num = self.get_leading_chars_num_from_list_info_num(list_info[0])
             iter_end = iter_start.copy()
-            while iter_end.forward_char() and re.match('[0-9]', iter_end.get_char()): pass
-            if iter_end.get_char() != ".": return # something's wrong
-            self.list_adjust_ahead_write_in(iter_start, iter_end, curr_num, adj_type, text_buffer)
-        elif adj_type[0:3] == "bul":
-            if iter_start.get_char() != cons.CHAR_LISTBUL: return
-            iter_end = iter_start.copy()
-            self.list_adjust_ahead_write_in(iter_start, iter_end, curr_num, adj_type, text_buffer)
-        elif adj_type[0:3] == "tod":
-            if not iter_start.get_char() in [cons.CHAR_LISTTODO, cons.CHAR_LISTDONEOK, cons.CHAR_LISTDONEFAIL]: return
-            iter_end = iter_start.copy()
-            self.list_adjust_ahead_write_in(iter_start, iter_end, curr_num, adj_type, text_buffer)
-        else: print "bad adj_type", adj_type
-
-    def list_adjust_ahead_write_in(self, iter_start, iter_end, curr_num, adj_type, text_buffer):
-        """Write a Replacement of List Point"""
-        iter_end.forward_char()
-        text_buffer.delete(iter_start, iter_end)
-        if adj_type[-3:] == "num":
-            curr_num += 1
-            text_buffer.insert(iter_start, '%s.' % curr_num)
-            self.list_adjust_ahead(curr_num, iter_start.get_offset(), adj_type, text_buffer)
-        elif adj_type[-3:] == "bul":
-            text_buffer.insert(iter_start, cons.CHAR_LISTBUL)
-            self.list_adjust_ahead(None, iter_start.get_offset(), adj_type, text_buffer)
-        elif adj_type[-3:] == "tod":
-            text_buffer.insert(iter_start, cons.CHAR_LISTTODO)
-            self.list_adjust_ahead(None, iter_start.get_offset(), adj_type, text_buffer)
-        else: print "bad adj_type", adj_type
+            iter_end.forward_chars(leading_chars_num)
+            text_buffer.delete(iter_start, iter_end)
+            if adj_type[-3:] == "num":
+                curr_num += 1
+                text_buffer.insert(iter_start, '%s. ' % curr_num)
+                self.list_adjust_ahead(curr_num, iter_start.get_offset(), adj_type, text_buffer)
+            elif adj_type[-3:] == "bul":
+                text_buffer.insert(iter_start, cons.CHAR_LISTBUL+cons.CHAR_SPACE)
+                self.list_adjust_ahead(None, iter_start.get_offset(), adj_type, text_buffer)
+            elif adj_type[-3:] == "tod":
+                text_buffer.insert(iter_start, cons.CHAR_LISTTODO+cons.CHAR_SPACE)
+                self.list_adjust_ahead(None, iter_start.get_offset(), adj_type, text_buffer)
 
     def list_get_number(self, iter_first_paragraph):
         """Returns a Number or None (0 fot the bulleted list)"""
