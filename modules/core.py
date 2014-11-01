@@ -157,7 +157,7 @@ class CherryTree:
         self.sourceview.connect("paste-clipboard", self.clipboard_handler.paste)
         self.sourceview.set_left_margin(7)
         self.sourceview.set_right_margin(7)
-        self.hovering_over_link = False
+        self.hovering_link_iter_offset = -1
         self.tag_table = gtk.TextTagTable()
         self.scrolledwindow_text.add(self.sourceview)
         self.go_bk_fw_click = False
@@ -1100,7 +1100,9 @@ iter_end, exclude_iter_sel_end=True)
                     if menuitem.get_image().get_property("stock") == "gtk-paste":
                         menuitem.set_sensitive(True)
                 except: pass
-            if self.hovering_over_link:
+            if self.hovering_link_iter_offset >= 0:
+                target_iter = self.curr_buffer.get_iter_at_offset(self.hovering_link_iter_offset)
+                if target_iter: self.curr_buffer.place_cursor(target_iter)
                 self.menu_populate_popup(menu, cons.get_popup_menu_entries_link(self))
             else: self.menu_populate_popup(menu, cons.get_popup_menu_entries_text(self))
         else: self.menu_populate_popup(menu, cons.get_popup_menu_entries_code(self))

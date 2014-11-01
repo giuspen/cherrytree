@@ -200,7 +200,7 @@ def on_sourceview_event_after_key_press(dad, text_view, event):
 def sourceview_cursor_and_tooltips_handler(dad, text_view, x, y):
     """Looks at all tags covering the position (x, y) in the text view,
        and if one of them is a link, change the cursor to the HAND2 cursor"""
-    hovering_link = False
+    hovering_link_iter_offset = -1
     text_iter = text_view.get_iter_at_location(x, y)
     if dad.lists_handler.is_list_todo_beginning(text_iter):
         text_view.get_window(gtk.TEXT_WINDOW_TEXT).set_cursor(gtk.gdk.Cursor(gtk.gdk.X_CURSOR))
@@ -211,7 +211,7 @@ def sourceview_cursor_and_tooltips_handler(dad, text_view, x, y):
     for tag in tags:
         tag_name = tag.get_property("name")
         if tag_name and tag_name[0:4] == cons.TAG_LINK:
-            hovering_link = True
+            hovering_link_iter_offset = text_iter.get_offset()
             tooltip = dad.sourceview_hovering_link_get_tooltip(tag_name[5:])
             break
     else:
@@ -222,13 +222,13 @@ def sourceview_cursor_and_tooltips_handler(dad, text_view, x, y):
             if anchor and "pixbuf" in dir(anchor):
                 pixbuf_attrs = dir(anchor.pixbuf)
                 if "link" in pixbuf_attrs and anchor.pixbuf.link:
-                    hovering_link = True
+                    hovering_link_iter_offset = text_iter.get_offset()
                     tooltip = dad.sourceview_hovering_link_get_tooltip(anchor.pixbuf.link)
                     break
-    if hovering_link != dad.hovering_over_link:
-        dad.hovering_over_link = hovering_link
-        #print "link", dad.hovering_over_link
-    if dad.hovering_over_link:
+    if dad.hovering_link_iter_offset != hovering_link_iter_offset:
+        dad.hovering_link_iter_offset = hovering_link_iter_offset
+        #print "link", dad.hovering_link_iter_offset
+    if dad.hovering_link_iter_offset >= 0:
         text_view.get_window(gtk.TEXT_WINDOW_TEXT).set_cursor(gtk.gdk.Cursor(gtk.gdk.HAND2))
         text_view.set_tooltip_text(tooltip)
     else:
