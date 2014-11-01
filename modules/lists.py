@@ -73,13 +73,15 @@ class ListsHandler:
                 if not iter_start: break
                 if self.is_list_indented_continuation(iter_start):
                     new_par_offset = iter_end.get_offset() + 1
-                elif self.get_paragraph_list_info(iter_start)[0] != None:
-                    new_par_offset = iter_end.get_offset() - 2 + 1
+                else:
+                    list_info = self.get_paragraph_list_info(iter_start)
+                    if list_info[0] == None: break
+                    leading_chars_num = self.get_leading_chars_num_from_list_info_num(list_info[0])
+                    new_par_offset = iter_end.get_offset() - leading_chars_num + 1
                     iter_end_deletion = iter_start.copy()
-                    iter_end_deletion.forward_chars(2)
+                    iter_end_deletion.forward_chars(leading_chars_num)
                     text_buffer.delete(iter_start, iter_end_deletion)
-                    end_offset -= 2
-                else: break
+                    end_offset -= leading_chars_num
                 iter_start = text_buffer.get_iter_at_offset(new_par_offset)
                 if not iter_start: break
         else:
@@ -125,13 +127,15 @@ class ListsHandler:
                 if not iter_start: break
                 if self.is_list_indented_continuation(iter_start):
                     new_par_offset = iter_end.get_offset() + 1
-                elif self.get_paragraph_list_info(iter_start)[0] != None:
-                    new_par_offset = iter_end.get_offset() -2 + 1
+                else:
+                    list_info = self.get_paragraph_list_info(iter_start)
+                    if list_info[0] == None: break
+                    leading_chars_num = self.get_leading_chars_num_from_list_info_num(list_info[0])
+                    new_par_offset = iter_end.get_offset() - leading_chars_num + 1
                     iter_end_deletion = iter_start.copy()
-                    iter_end_deletion.forward_chars(2)
+                    iter_end_deletion.forward_chars(leading_chars_num)
                     text_buffer.delete(iter_start, iter_end_deletion)
-                    end_offset -= 2
-                else: break
+                    end_offset -= leading_chars_num
                 iter_start = text_buffer.get_iter_at_offset(new_par_offset)
                 if not iter_start: break
         elif list_info[0] == -1:
@@ -185,18 +189,24 @@ class ListsHandler:
                 first_iteration = False
                 iter_start, iter_end = self.get_paragraph_iters(text_buffer=text_buffer, force_iter=iter_start)
                 if not iter_start: break
-                leading_str = "%s. " % list_info[0]
                 if self.is_list_indented_continuation(iter_start):
                     new_par_offset = iter_end.get_offset() + 1
-                elif self.get_paragraph_list_info(iter_start)[0] != None:
-                    new_par_offset = iter_end.get_offset() -len(leading_str) + 1
+                else:
+                    list_info = self.get_paragraph_list_info(iter_start)
+                    if list_info[0] == None: break
+                    leading_chars_num = self.get_leading_chars_num_from_list_info_num(list_info[0])
+                    new_par_offset = iter_end.get_offset() - leading_chars_num + 1
                     iter_end_deletion = iter_start.copy()
-                    iter_end_deletion.forward_chars(len(leading_str))
+                    iter_end_deletion.forward_chars(leading_chars_num)
                     text_buffer.delete(iter_start, iter_end_deletion)
-                    end_offset -= len(leading_str)
-                else: break
+                    end_offset -= leading_chars_num
                 iter_start = text_buffer.get_iter_at_offset(new_par_offset)
                 if not iter_start: break
+
+    def get_leading_chars_num_from_list_info_num(self, list_info_num):
+        """From List Info to List Prefix"""
+        if list_info_num > 0: return len("%s. " % list_info_num)
+        return 2
 
     def list_adjust_ahead(self, curr_num, offset_start, adj_type, text_buffer):
         """Adjust the Following Numbering"""
