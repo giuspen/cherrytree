@@ -31,80 +31,8 @@ class ListsHandler:
         """Lists Handler boot"""
         self.dad = dad
 
-    def list_todo_handler(self, text_buffer=None):
-        """Handler of the ToDo List"""
-        if not text_buffer: text_buffer = self.dad.curr_buffer
-        if text_buffer.get_has_selection():
-            iter_start, sel_end = text_buffer.get_selection_bounds()
-            end_offset = sel_end.get_offset() - 1
-        else:
-            end_offset = 0
-            iter_start = text_buffer.get_iter_at_mark(text_buffer.get_insert())
-        # get info about the paragraph starting with iter_start ([Number, Whether multiple line, List Start Iter Offset])
-        list_info = self.get_paragraph_list_info(iter_start)
-        first_iteration = True
-        while first_iteration or new_par_offset < end_offset:
-            iter_start, iter_end = self.get_paragraph_iters(text_buffer=text_buffer, force_iter=iter_start)
-            if not iter_start:
-                if first_iteration:
-                    # it's an empty paragraph
-                    if list_info[0] != -1:
-                        # this was not a TODO list
-                        iter_start = text_buffer.get_iter_at_mark(text_buffer.get_insert())
-                        text_buffer.insert(iter_start, cons.CHAR_LISTTODO + cons.CHAR_SPACE)
-                break
-            if self.is_list_indented_continuation(iter_start):
-                new_par_offset = iter_end.get_offset() + 1
-            else:
-                iter_start, iter_end = self.list_check_n_remove_old_list_type_leading(iter_start, iter_end, text_buffer)
-                if list_info[0] != -1:
-                    # this was not a TODO list
-                    new_par_offset = iter_end.get_offset() + 2 + 1
-                    end_offset += 2
-                    text_buffer.insert(iter_start, cons.CHAR_LISTTODO + cons.CHAR_SPACE)
-                else: new_par_offset = iter_end.get_offset() + 1
-            first_iteration = False
-            iter_start = text_buffer.get_iter_at_offset(new_par_offset)
-            if not iter_start: break
-
-    def list_bulleted_handler(self, text_buffer=None):
-        """Handler of the Bulleted List"""
-        if not text_buffer: text_buffer = self.dad.curr_buffer
-        if text_buffer.get_has_selection():
-            iter_start, sel_end = text_buffer.get_selection_bounds()
-            end_offset = sel_end.get_offset() - 1
-        else:
-            end_offset = 0
-            iter_start = text_buffer.get_iter_at_mark(text_buffer.get_insert())
-        # get info about the paragraph starting with iter_start ([Number, Whether multiple line, List Start Iter Offset])
-        list_info = self.get_paragraph_list_info(iter_start)
-        first_iteration = True
-        while first_iteration or new_par_offset < end_offset:
-            iter_start, iter_end = self.get_paragraph_iters(text_buffer=text_buffer, force_iter=iter_start)
-            if not iter_start:
-                if first_iteration:
-                    # it's an empty paragraph
-                    if list_info[0] != 0:
-                        # this was not a bulleted list
-                        iter_start = text_buffer.get_iter_at_mark(text_buffer.get_insert())
-                        text_buffer.insert(iter_start, cons.CHAR_LISTBUL + cons.CHAR_SPACE)
-                break
-            if self.is_list_indented_continuation(iter_start):
-                new_par_offset = iter_end.get_offset() + 1
-            else:
-                iter_start, iter_end = self.list_check_n_remove_old_list_type_leading(iter_start, iter_end, text_buffer)
-                if list_info[0] != 0:
-                    # this was not a bulleted list
-                    new_par_offset = iter_end.get_offset() + 2 + 1
-                    end_offset += 2
-                    text_buffer.insert(iter_start, cons.CHAR_LISTBUL + cons.CHAR_SPACE)
-                else: new_par_offset = iter_end.get_offset() + 1
-            first_iteration = False
-            iter_start = text_buffer.get_iter_at_offset(new_par_offset)
-            if not iter_start: break
-
-    def list_numbered_handler(self, text_buffer=None):
-        """Handler of the Numbered List"""
+    def list_handler(self, target_list_num_id, text_buffer=None):
+        """Unified Handler of Lists"""
         if not text_buffer: text_buffer = self.dad.curr_buffer
         if text_buffer.get_has_selection():
             iter_start, sel_end = text_buffer.get_selection_bounds()
@@ -120,22 +48,34 @@ class ListsHandler:
             iter_start, iter_end = self.get_paragraph_iters(text_buffer=text_buffer, force_iter=iter_start)
             if not iter_start:
                 if leading_num_count == 1:
-                    # it's an empty paragraph
-                    if not list_info[0] > 0:
-                        # this was not a numbered list
+                    # this is the first iteration
+                    if list_info[0] != target_list_num_id:
+                        # the target list type differs from this paragraph list type
                         iter_start = text_buffer.get_iter_at_mark(text_buffer.get_insert())
-                        text_buffer.insert(iter_start, "1. ")
+                        if target_list_num_id == -1: text_buffer.insert(iter_start, cons.CHAR_LISTTODO + cons.CHAR_SPACE)
+                        elif target_list_num_id == 0: text_buffer.insert(iter_start, cons.CHAR_LISTBUL + cons.CHAR_SPACE)
+                        else: text_buffer.insert(iter_start, "1. ")
                 break
             if self.is_list_indented_continuation(iter_start):
                 new_par_offset = iter_end.get_offset() + 1
+                leading_num_count -= 1
             else:
                 iter_start, iter_end = self.list_check_n_remove_old_list_type_leading(iter_start, iter_end, text_buffer)
-                if not list_info[0] > 0:
-                    # this was not a numbered list
-                    leading_str = "%s. " % leading_num_count
-                    new_par_offset = iter_end.get_offset() + len(leading_str) + 1
-                    end_offset += len(leading_str)
-                    text_buffer.insert(iter_start, leading_str)
+                if list_info[0] != target_list_num_id:
+                    # the target list type differs from this paragraph list type
+                    if target_list_num_id == -1:
+                        new_par_offset = iter_end.get_offset() + 2 + 1
+                        end_offset += 2
+                        text_buffer.insert(iter_start, cons.CHAR_LISTTODO + cons.CHAR_SPACE)
+                    elif target_list_num_id == 0:
+                        new_par_offset = iter_end.get_offset() + 2 + 1
+                        end_offset += 2
+                        text_buffer.insert(iter_start, cons.CHAR_LISTBUL + cons.CHAR_SPACE)
+                    else:
+                        leading_str = "%s. " % leading_num_count
+                        new_par_offset = iter_end.get_offset() + len(leading_str) + 1
+                        end_offset += len(leading_str)
+                        text_buffer.insert(iter_start, leading_str)
                 else: new_par_offset = iter_end.get_offset() + 1
             iter_start = text_buffer.get_iter_at_offset(new_par_offset)
             if not iter_start: break
