@@ -73,12 +73,13 @@ class ListsHandler:
                 if not iter_start: break
                 if self.is_list_indented_continuation(iter_start):
                     new_par_offset = iter_end.get_offset() + 1
-                else:
+                elif self.get_paragraph_list_info(iter_start)[0] != None:
                     new_par_offset = iter_end.get_offset() - 2 + 1
                     iter_end_deletion = iter_start.copy()
                     iter_end_deletion.forward_chars(2)
                     text_buffer.delete(iter_start, iter_end_deletion)
                     end_offset -= 2
+                else: break
                 iter_start = text_buffer.get_iter_at_offset(new_par_offset)
                 if not iter_start: break
         else:
@@ -124,12 +125,13 @@ class ListsHandler:
                 if not iter_start: break
                 if self.is_list_indented_continuation(iter_start):
                     new_par_offset = iter_end.get_offset() + 1
-                else:
+                elif self.get_paragraph_list_info(iter_start)[0] != None:
                     new_par_offset = iter_end.get_offset() -2 + 1
                     iter_end_deletion = iter_start.copy()
                     iter_end_deletion.forward_chars(2)
                     text_buffer.delete(iter_start, iter_end_deletion)
                     end_offset -= 2
+                else: break
                 iter_start = text_buffer.get_iter_at_offset(new_par_offset)
                 if not iter_start: break
         elif list_info[0] == -1:
@@ -186,12 +188,13 @@ class ListsHandler:
                 leading_str = "%s. " % list_info[0]
                 if self.is_list_indented_continuation(iter_start):
                     new_par_offset = iter_end.get_offset() + 1
-                else:
+                elif self.get_paragraph_list_info(iter_start)[0] != None:
                     new_par_offset = iter_end.get_offset() -len(leading_str) + 1
                     iter_end_deletion = iter_start.copy()
                     iter_end_deletion.forward_chars(len(leading_str))
                     text_buffer.delete(iter_start, iter_end_deletion)
                     end_offset -= len(leading_str)
+                else: break
                 iter_start = text_buffer.get_iter_at_offset(new_par_offset)
                 if not iter_start: break
 
