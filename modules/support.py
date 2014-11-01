@@ -157,10 +157,7 @@ def on_sourceview_event_after_key_press(dad, text_view, event):
             return False # former was an empty paragraph => list quit
         if list_info[0] == 0: text_buffer.insert(iter_insert, cons.CHAR_LISTBUL + cons.CHAR_SPACE)
         elif list_info[0] == -1: text_buffer.insert(iter_insert, cons.CHAR_LISTTODO + cons.CHAR_SPACE)
-        else:
-            curr_num = list_info[0] + 1
-            text_buffer.insert(iter_insert, '%s. ' % curr_num)
-            dad.lists_handler.list_adjust_ahead(curr_num, iter_insert.get_offset(), "num2num", text_buffer)
+        else: text_buffer.insert(iter_insert, '%s. ' % (list_info[0] + 1))
     elif keyname == "space":
         iter_insert = text_buffer.get_iter_at_mark(text_buffer.get_insert())
         if iter_insert == None: return False
