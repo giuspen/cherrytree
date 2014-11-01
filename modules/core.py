@@ -574,21 +574,11 @@ iter_end, exclude_iter_sel_end=True)
                 self.zoom_tree_m()
                 return True
         else:
-            if keyname == "Up":
-                prev_iter = self.get_tree_iter_prev_sibling(self.treestore, self.curr_tree_iter)
-                if prev_iter: self.treeview_safe_set_cursor(prev_iter)
-                return True
-            elif keyname == "Down":
-                next_iter = self.treestore.iter_next(self.curr_tree_iter)
-                if next_iter: self.treeview_safe_set_cursor(next_iter)
-                return True
-            elif keyname == "Left":
-                father_iter = self.treestore.iter_parent(self.curr_tree_iter)
-                if father_iter: self.treeview_safe_set_cursor(father_iter)
+            if keyname == "Left":
+                self.treeview.collapse_row(self.treestore.get_path(self.curr_tree_iter))
                 return True
             elif keyname == "Right":
-                child_iter = self.treestore.iter_children(self.curr_tree_iter)
-                if child_iter: self.treeview_safe_set_cursor(child_iter)
+                self.treeview.expand_row(self.treestore.get_path(self.curr_tree_iter), open_all=False)
                 return True
             elif keyname == cons.STR_RETURN:
                 self.toggle_tree_node_expanded_collapsed()
