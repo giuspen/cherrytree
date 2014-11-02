@@ -1,4 +1,18 @@
 
+0.35.3 (November 2nd, 2014)
+• fixed bugs in copying rich text between cherrytree, libreoffice and gmail preserving the rich text properties; as a consequence the html import/export was improved
+• fixed bugs in importing text files with non utf-8 encoding
+• fixed bug in automatic word selection when applying a formatting
+• fixed bug in TOC not recognizing headers
+• fixed bug causing the codeboxes with automatic expansion to crash
+• fixed bugs in the conversion between the three list types
+• changed the behaviour of the direction arrows in the tree navigation: the left key collapses the node, the right key expands the node, the up and down arrows move the selection up and down not only between siblings (as it was before) but in the whole tree
+• links copy and paste: when converting from a rich text source to a plain text destination, now the link target is preserved, the link label is dropped
+• improved the links dialog navigation: the Tab key toggles between the link types, the tree is navigable using the four direction arrows and typing text while the focus is on the tree searches for a node name
+• added “Common Lisp” syntax highlighting definition from kfyatek-dev.jogger.pl
+• fixed bugs in import from KeyNote
+• other minor fixes
+
 0.35.2 (October 13th, 2014)
 • bugfix: drag n drop with destination before the first sibling
 • bugfix: codebox memory of latest used settings
