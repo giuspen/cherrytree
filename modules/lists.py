@@ -100,40 +100,6 @@ class ListsHandler:
         if list_info_num > 0: return len("%s. " % list_info_num)
         return 2
 
-    def list_adjust_ahead(self, curr_num, offset_start, adj_type, text_buffer):
-        """Adjust the Following Numbering"""
-        if offset_start >= 0:
-            iter_start = text_buffer.get_iter_at_offset(offset_start)
-            while iter_start.get_char() != cons.CHAR_NEWLINE:
-                if not iter_start.forward_char(): return # end of buffer
-            if not iter_start.forward_char(): return
-        else: iter_start = text_buffer.get_iter_at_offset(0)
-        # we're at the beginning of a list item or subsequent indented line of a list item
-        if iter_start.get_char() == cons.CHAR_SPACE:
-            if iter_start.forward_char() and iter_start.get_char() == cons.CHAR_SPACE\
-            and iter_start.forward_char() and iter_start.get_char() == cons.CHAR_SPACE:
-                self.list_adjust_ahead(curr_num, iter_start.get_offset(), adj_type, text_buffer) # go on searching
-            else: return # not an indentation
-        else:
-            list_info = self.get_paragraph_list_info(iter_start)
-            if list_info[0] == None:
-                if iter_start.get_char() == cons.CHAR_NEWLINE: return
-                else: leading_chars_num = 0
-            else: leading_chars_num = self.get_leading_chars_num_from_list_info_num(list_info[0])
-            iter_end = iter_start.copy()
-            iter_end.forward_chars(leading_chars_num)
-            text_buffer.delete(iter_start, iter_end)
-            if adj_type[-3:] == "num":
-                curr_num += 1
-                text_buffer.insert(iter_start, '%s. ' % curr_num)
-                self.list_adjust_ahead(curr_num, iter_start.get_offset(), adj_type, text_buffer)
-            elif adj_type[-3:] == "bul":
-                text_buffer.insert(iter_start, cons.CHAR_LISTBUL+cons.CHAR_SPACE)
-                self.list_adjust_ahead(None, iter_start.get_offset(), adj_type, text_buffer)
-            elif adj_type[-3:] == "tod":
-                text_buffer.insert(iter_start, cons.CHAR_LISTTODO+cons.CHAR_SPACE)
-                self.list_adjust_ahead(None, iter_start.get_offset(), adj_type, text_buffer)
-
     def list_get_number(self, iter_first_paragraph):
         """Returns a Number or None (0 fot the bulleted list)"""
         iter_start = iter_first_paragraph.copy()
