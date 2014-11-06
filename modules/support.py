@@ -187,14 +187,14 @@ def on_sourceview_event_after_key_press(dad, text_view, event):
             # Start bulleted list on "* " at line start
             elif iter_start.get_char() == cons.CHAR_STAR and iter_start.get_line_offset() == 0:
                 text_buffer.delete(iter_start, iter_insert)
-                dad.lists_handler.list_bulleted_handler(text_buffer=text_buffer)
+                dad.lists_handler.list_handler(0, text_buffer=text_buffer)
             # Start todo list on "[ ]" at line start
             elif iter_start.get_char() == cons.CHAR_SQ_BR_CLOSE and iter_start.backward_char()\
             and iter_start.get_char() == cons.CHAR_SPACE and iter_start.backward_char()\
             and iter_start.get_char() == cons.CHAR_SQ_BR_OPEN\
             and iter_start.get_line_offset() == 0:
                 text_buffer.delete(iter_start, iter_insert)
-                dad.lists_handler.list_todo_handler(text_buffer=text_buffer)
+                dad.lists_handler.list_handler(-1, text_buffer=text_buffer)
     return False
 
 def sourceview_cursor_and_tooltips_handler(dad, text_view, x, y):
