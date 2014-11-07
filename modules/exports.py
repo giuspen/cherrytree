@@ -255,6 +255,9 @@ class Export2Txt:
                 if not curr_link: plain_slot += curr_buffer.get_text(curr_buffer.get_iter_at_offset(curr_start_offset), curr_iter)
                 else: plain_slot += self.dad.sourceview_hovering_link_get_tooltip(curr_link)
                 break
+        else:
+            if not curr_link: plain_slot += curr_buffer.get_text(curr_buffer.get_iter_at_offset(curr_start_offset), curr_iter)
+            else: plain_slot += self.dad.sourceview_hovering_link_get_tooltip(curr_link)
         self.curr_plain_slots.append(plain_slot)
 
     def get_codebox_plain(self, codebox):
@@ -278,7 +281,7 @@ class Export2Txt:
         return table_plain
 
     def plain_get_from_treestore_node(self, curr_buffer, sel_range=None):
-        """Given a treestore iter returns the HTML rich text"""
+        """Given a treestore iter returns the plain text"""
         pixbuf_table_codebox_vector = self.dad.state_machine.get_embedded_pixbufs_tables_codeboxes(curr_buffer, sel_range=sel_range)
         # pixbuf_table_codebox_vector is [ [ "pixbuf"/"table"/"codebox", [offset, pixbuf, alignment] ],... ]
         self.curr_plain_slots = []
