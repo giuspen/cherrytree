@@ -1,4 +1,10 @@
 
+0.35.4 (November 10th, 2014)
+• bugfix: export to plain text and conversion from rich text to plain text problems in 0.35.3
+• bugfix: automatic list set after inserting "* " and "[ ] " problems in 0.35.3
+• bugfix: crash in codebox auto expansion
+• bugfix: crash loading the links dialog
+
 0.35.3 (November 2nd, 2014)
 • fixed bugs in copying rich text between cherrytree, libreoffice and gmail preserving the rich text properties; as a consequence the html import/export was improved
 • fixed bugs in importing text files with non utf-8 encoding
