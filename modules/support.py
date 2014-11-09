@@ -894,6 +894,7 @@ def dialog_link_handle(dad, title, sel_tree_iter):
     class LinksParms:
         def __init__(self):
             self.sel_iter = sel_tree_iter if sel_tree_iter else dad.links_entries['node']
+            self.first_in = True
     links_parms = LinksParms()
     dialog = gtk.Dialog(title=title,
         parent=dad.window,
@@ -970,13 +971,6 @@ def dialog_link_handle(dad, title, sel_tree_iter):
     scrolledwindow = gtk.ScrolledWindow()
     scrolledwindow.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
     scrolledwindow.add(treeview_2)
-    config.get_tree_expanded_collapsed_string(dad)
-    config.set_tree_expanded_collapsed_string(dad, treeview=treeview_2)
-    if links_parms.sel_iter:
-        sel_path = dad.treestore.get_path(links_parms.sel_iter)
-        treeview_2.expand_to_path(sel_path)
-        treeview_2.set_cursor(sel_path)
-        treeview_2.scroll_to_cell(sel_path)
 
     vbox_anchor = gtk.VBox()
     label_over = gtk.Label()
@@ -1023,9 +1017,15 @@ def dialog_link_handle(dad, title, sel_tree_iter):
         if dad.link_type == cons.LINK_TYPE_WEBS: entry_webs.grab_focus()
         elif dad.link_type == cons.LINK_TYPE_NODE:
             treeview_2.grab_focus()
-            model, links_parms.sel_iter = treeviewselection_2.get_selected()
-            treestore = treeview_2.get_model()
-            if not links_parms.sel_iter: treeview_2.set_cursor(treestore.get_path(treestore.get_iter_first()))
+            if links_parms.first_in:
+                links_parms.first_in = False
+                config.get_tree_expanded_collapsed_string(dad)
+                config.set_tree_expanded_collapsed_string(dad, treeview=treeview_2)
+            if not links_parms.sel_iter: links_parms.sel_iter = dad.treestore.get_iter_first()
+            sel_path = dad.treestore.get_path(links_parms.sel_iter)
+            treeview_2.expand_to_path(sel_path)
+            treeview_2.set_cursor(sel_path)
+            treeview_2.scroll_to_cell(sel_path)
         elif dad.link_type == cons.LINK_TYPE_FILE: entry_file.grab_focus()
         else: entry_folder.grab_focus()
     def on_radiobutton_link_website_toggled(radiobutton):
@@ -1123,8 +1123,8 @@ def dialog_link_handle(dad, title, sel_tree_iter):
     treeview_2.connect('event-after', on_treeview_event_after)
     dialog.connect("key_press_event", on_key_press_links_handle_dialog)
 
-    link_type_changed_on_dialog()
     content_area.show_all()
+    link_type_changed_on_dialog()
     response = dialog.run()
     dialog.hide()
     if response != gtk.RESPONSE_ACCEPT: return False
@@ -1163,13 +1163,6 @@ def dialog_choose_node(dad, title, treestore, sel_tree_iter):
     scrolledwindow = gtk.ScrolledWindow()
     scrolledwindow.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
     scrolledwindow.add(treeview_2)
-    config.get_tree_expanded_collapsed_string(dad)
-    config.set_tree_expanded_collapsed_string(dad, treeview=treeview_2)
-    if node_parms.sel_iter:
-        sel_path = treestore.get_path(node_parms.sel_iter)
-        treeview_2.expand_to_path(sel_path)
-        treeview_2.set_cursor(sel_path)
-        treeview_2.scroll_to_cell(sel_path)
     content_area = dialog.get_content_area()
     content_area.pack_start(scrolledwindow)
     def on_key_press_choose_node_dialog(widget, event):
@@ -1206,6 +1199,13 @@ def dialog_choose_node(dad, title, treestore, sel_tree_iter):
     dialog.connect("key_press_event", on_key_press_choose_node_dialog)
     treeview_2.connect('event-after', on_treeview_event_after)
     content_area.show_all()
+    config.get_tree_expanded_collapsed_string(dad)
+    config.set_tree_expanded_collapsed_string(dad, treeview=treeview_2)
+    if node_parms.sel_iter:
+        sel_path = treestore.get_path(node_parms.sel_iter)
+        treeview_2.expand_to_path(sel_path)
+        treeview_2.set_cursor(sel_path)
+        treeview_2.scroll_to_cell(sel_path)
     response = dialog.run()
     dialog.hide()
     return None if response != gtk.RESPONSE_ACCEPT else node_parms.sel_iter
