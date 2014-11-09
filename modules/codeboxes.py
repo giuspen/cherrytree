@@ -410,7 +410,11 @@ class CodeBoxesHandler:
         if not self.dad.user_active or self.curr_codebox_anchor != anchor: return False
         if self.dad.codebox_auto_resize and event.type == gtk.gdk.EXPOSE:
             curr_v = vscrollbar.get_value()
-            if curr_v:
+            #print curr_v+vscrollbar.get_adjustment().page_size, vscrollbar.get_adjustment().upper
+            if curr_v and ((curr_v+vscrollbar.get_adjustment().page_size) >= (vscrollbar.get_adjustment().upper-20)) and (vscrollbar.get_adjustment().page_size > curr_v):
+                # 1) the scrollbar is visible
+                # 2) we are at the scrolling end
+                # 3) the scrolling area is little, this step will probably cause the scrollbar to hide again
                 self.curr_v = curr_v
                 if not self.dad.codebox_sentinel_id: self.dad.codebox_sentinel_start()
         return False
@@ -420,7 +424,11 @@ class CodeBoxesHandler:
         if not self.dad.user_active or self.curr_codebox_anchor != anchor: return False
         if self.dad.codebox_auto_resize and event.type == gtk.gdk.EXPOSE:
             curr_h = hscrollbar.get_value()
-            if curr_h:
+            #print curr_h+hscrollbar.get_adjustment().page_size, hscrollbar.get_adjustment().upper
+            if curr_h and ((curr_h+hscrollbar.get_adjustment().page_size) >= (hscrollbar.get_adjustment().upper-20)) and (hscrollbar.get_adjustment().page_size > curr_h):
+                # 1) the scrollbar is visible
+                # 2) we are at the scrolling end
+                # 3) the scrolling area is little, this step will probably cause the scrollbar to hide again
                 self.curr_h = curr_h
                 if not self.dad.codebox_sentinel_id: self.dad.codebox_sentinel_start()
         return False
