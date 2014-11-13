@@ -188,9 +188,8 @@ def on_sourceview_event_after_key_press(dad, text_view, event):
             elif iter_start.get_char() == cons.CHAR_STAR and iter_start.get_line_offset() == 0:
                 text_buffer.delete(iter_start, iter_insert)
                 dad.lists_handler.list_handler(0, text_buffer=text_buffer)
-            # Start todo list on "[ ]" at line start
+            # Start todo list on "[]" at line start
             elif iter_start.get_char() == cons.CHAR_SQ_BR_CLOSE and iter_start.backward_char()\
-            and iter_start.get_char() == cons.CHAR_SPACE and iter_start.backward_char()\
             and iter_start.get_char() == cons.CHAR_SQ_BR_OPEN\
             and iter_start.get_line_offset() == 0:
                 text_buffer.delete(iter_start, iter_insert)
