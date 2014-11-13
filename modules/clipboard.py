@@ -157,7 +157,8 @@ class ClipboardHandler:
             self.dad.syntax_highlighting if not from_codebox else cons.PLAIN_TEXT_ID)
         if not from_codebox and self.dad.syntax_highlighting == cons.RICH_TEXT_ID:
             txt_handler = exports.Export2Txt(self.dad)
-            plain_text = txt_handler.node_export_to_txt(text_buffer, "", sel_range=[iter_sel_start.get_offset(), iter_sel_end.get_offset()])
+            text_offsets_range = [iter_sel_start.get_offset(), iter_sel_end.get_offset()]
+            plain_text = txt_handler.node_export_to_txt(text_buffer, "", sel_range=text_offsets_range, check_link_target=True)
             rich_text = self.rich_text_get_from_text_buffer_selection(text_buffer, iter_sel_start, iter_sel_end)
             targets_vector = [TARGET_CTD_PLAIN_TEXT, TARGET_CTD_RICH_TEXT, TARGETS_HTML[0], TARGETS_HTML[1]]
             if pixbuf_target: targets_vector.append(TARGETS_IMAGES[0])
