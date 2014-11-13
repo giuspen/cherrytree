@@ -233,31 +233,24 @@ class Export2Txt:
             if tag_name.startswith("link_"): return tag_name[5:]
         return ""
 
-    def plain_process_slot(self, start_offset, end_offset, curr_buffer):
+    def plain_process_slot(self, start_offset, end_offset, curr_buffer, check_link_target):
         """Process a Single plain Slot"""
-        curr_start_offset = start_offset
         if end_offset == -1:
             end_offset = curr_buffer.get_end_iter().get_offset()
-        end_iter = curr_buffer.get_iter_at_offset(end_offset)
         #print "process slot (%s->%s)" % (start_offset, end_offset)
         # begin operations
-        plain_slot = ""
-        curr_iter = curr_buffer.get_iter_at_offset(curr_start_offset)
-        curr_link = self.tag_link_in_given_iter(curr_iter)
-        while curr_iter.forward_char():
-            new_link = self.tag_link_in_given_iter(curr_iter)
-            if new_link != curr_link:
-                if not curr_link: plain_slot += curr_buffer.get_text(curr_buffer.get_iter_at_offset(curr_start_offset), curr_iter)
-                else: plain_slot += self.dad.sourceview_hovering_link_get_tooltip(curr_link)
-                curr_link = new_link
-                curr_start_offset = curr_iter.get_offset()
-            if curr_iter.get_offset() >= end_offset:
-                if not curr_link: plain_slot += curr_buffer.get_text(curr_buffer.get_iter_at_offset(curr_start_offset), curr_iter)
-                else: plain_slot += self.dad.sourceview_hovering_link_get_tooltip(curr_link)
-                break
-        else:
-            if not curr_link: plain_slot += curr_buffer.get_text(curr_buffer.get_iter_at_offset(curr_start_offset), curr_iter)
-            else: plain_slot += self.dad.sourceview_hovering_link_get_tooltip(curr_link)
+        start_iter = curr_buffer.get_iter_at_offset(start_offset)
+        end_iter = curr_buffer.get_iter_at_offset(end_offset)
+        if not check_link_target:
+            self.curr_plain_slots.append(curr_buffer.get_text(start_iter, end_iter))
+            return
+        start_link = self.tag_link_in_given_iter(start_iter)
+        middle_link = self.tag_link_in_given_iter(curr_buffer.get_iter_at_offset((start_offset+end_offset)/2-1))
+        end_link = self.tag_link_in_given_iter(curr_buffer.get_iter_at_offset(end_offset-1))
+        if start_link and start_link == middle_link and middle_link == end_link and not start_link.startswith("node"):
+            #print start_link
+            plain_slot = self.dad.sourceview_hovering_link_get_tooltip(start_link)
+        else: plain_slot = curr_buffer.get_text(start_iter, end_iter)
         self.curr_plain_slots.append(plain_slot)
 
     def get_codebox_plain(self, codebox):
@@ -280,7 +273,7 @@ class Export2Txt:
             table_plain += cons.CHAR_NEWLINE + self.dad.h_rule + cons.CHAR_NEWLINE
         return table_plain
 
-    def plain_get_from_treestore_node(self, curr_buffer, sel_range=None):
+    def plain_get_from_treestore_node(self, curr_buffer, sel_range, check_link_target):
         """Given a treestore iter returns the plain text"""
         pixbuf_table_codebox_vector = self.dad.state_machine.get_embedded_pixbufs_tables_codeboxes(curr_buffer, sel_range=sel_range)
         # pixbuf_table_codebox_vector is [ [ "pixbuf"/"table"/"codebox", [offset, pixbuf, alignment] ],... ]
@@ -288,18 +281,18 @@ class Export2Txt:
         start_offset = 0 if not sel_range else sel_range[0]
         for end_offset_element in pixbuf_table_codebox_vector:
             end_offset = end_offset_element[1][0]
-            self.plain_process_slot(start_offset, end_offset, curr_buffer)
+            self.plain_process_slot(start_offset, end_offset, curr_buffer, False)
             start_offset = end_offset
-        if not sel_range: self.plain_process_slot(start_offset, -1, curr_buffer)
-        else: self.plain_process_slot(start_offset, sel_range[1], curr_buffer)
+        if not sel_range: self.plain_process_slot(start_offset, -1, curr_buffer, check_link_target and not pixbuf_table_codebox_vector)
+        else: self.plain_process_slot(start_offset, sel_range[1], curr_buffer, check_link_target and not pixbuf_table_codebox_vector)
         #print "curr_plain_slots", curr_plain_slots
         #print "pixbuf_table_codebox_vector", pixbuf_table_codebox_vector
         return [self.curr_plain_slots, pixbuf_table_codebox_vector]
 
-    def node_export_to_txt(self, text_buffer, filepath, sel_range=None, tree_iter_for_node_name=None):
+    def node_export_to_txt(self, text_buffer, filepath, sel_range=None, tree_iter_for_node_name=None, check_link_target=False):
         """Export the Selected Node To Txt"""
         plain_text = ""
-        text_n_objects = self.plain_get_from_treestore_node(text_buffer, sel_range)
+        text_n_objects = self.plain_get_from_treestore_node(text_buffer, sel_range, check_link_target)
         self.images_count = 0
         for i, plain_slot in enumerate(text_n_objects[0]):
             plain_text += plain_slot
@@ -314,7 +307,7 @@ class Export2Txt:
             file_descriptor.write(plain_text + 2*cons.CHAR_NEWLINE)
             file_descriptor.close()
         return plain_text
-    
+
     def plain_text_get_node_name(self, tree_iter):
         """Get Node Name in Plain Text"""
         return self.dad.treestore[tree_iter][1].upper() + cons.CHAR_NEWLINE
