@@ -259,11 +259,22 @@ class TuxCardsHandler(HTMLParser.HTMLParser):
             elif tag in ["img", "v:imagedata"] and len(attrs) > 0:
                 dic_attrs = dict(a for a in attrs)
                 img_path = dic_attrs.get('src', "")
+                pixbuf = None
                 if os.path.isfile(img_path):
                     pixbuf = gtk.gdk.pixbuf_new_from_file(img_path)
+                else:
+                    try:
+                        url_desc = urllib2.urlopen(img_path, timeout=3)
+                        image_file = url_desc.read()
+                        pixbuf_loader = gtk.gdk.PixbufLoader()
+                        pixbuf_loader.write(image_file)
+                        pixbuf_loader.close()
+                        pixbuf = pixbuf_loader.get_pixbuf()
+                    except: pass
+                if pixbuf:
                     self.pixbuf_vector.append([self.chars_counter, pixbuf, cons.TAG_PROP_LEFT])
                     self.chars_counter += 1
-                else: print "%s not found" % img_path
+                else: print "%s insert fail" % img_path
             elif tag == "br":
                 # this is a data block composed only by an endline
                 self.rich_text_serialize(cons.CHAR_NEWLINE)

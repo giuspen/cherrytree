@@ -782,7 +782,7 @@ iter_end, exclude_iter_sel_end=True)
         self.pick_dir = os.path.dirname(filepath)
         try:
             file_descriptor = open(filepath, 'r')
-            tuxcards_string = file_descriptor.read()
+            tuxcards_string = re.sub(cons.BAD_CHARS, "", file_descriptor.read())
             file_descriptor.close()
         except:
             support.dialog_error("Error importing the file %s" % filepath, self.window)
