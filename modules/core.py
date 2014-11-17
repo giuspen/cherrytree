@@ -1092,7 +1092,14 @@ iter_end, exclude_iter_sel_end=True)
                 except: pass
             if self.hovering_link_iter_offset >= 0:
                 target_iter = self.curr_buffer.get_iter_at_offset(self.hovering_link_iter_offset)
-                if target_iter: self.curr_buffer.place_cursor(target_iter)
+                if target_iter:
+                    do_set_cursor = True
+                    if self.curr_buffer.get_has_selection():
+                        iter_sel_start, iter_sel_end = self.curr_buffer.get_selection_bounds()
+                        if self.hovering_link_iter_offset >= iter_sel_start.get_offset()\
+                        and self.hovering_link_iter_offset <= iter_sel_end.get_offset():
+                            do_set_cursor = False
+                    if do_set_cursor: self.curr_buffer.place_cursor(target_iter)
                 self.menu_populate_popup(menu, cons.get_popup_menu_entries_link(self))
             else: self.menu_populate_popup(menu, cons.get_popup_menu_entries_text(self))
         else: self.menu_populate_popup(menu, cons.get_popup_menu_entries_code(self))
