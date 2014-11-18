@@ -321,8 +321,7 @@ def config_file_apply(inst):
     inst.hpaned.set_property('position', inst.hpaned_pos)
     inst.header_node_name_label.set_property(cons.STR_VISIBLE, inst.show_node_name_label)
     inst.set_treeview_font()
-    inst.treeview.modify_base(gtk.STATE_NORMAL, gtk.gdk.color_parse(inst.tt_def_bg))
-    inst.treeview.modify_text(gtk.STATE_NORMAL, gtk.gdk.color_parse(inst.tt_def_fg))
+    inst.widget_set_colors(inst.treeview, inst.tt_def_fg, inst.tt_def_bg, False)
     if not pgsc_spellcheck.HAS_PYENCHANT:
         inst.enable_spell_check = False
     if inst.enable_spell_check:
@@ -816,12 +815,14 @@ def preferences_tab_rich_text_nodes(dad, vbox_text_nodes, pref_dialog):
     def on_colorbutton_text_fg_color_set(colorbutton):
         dad.rt_def_fg = "#" + dad.html_handler.rgb_to_24(colorbutton.get_color().to_string()[1:])
         if dad.curr_tree_iter and dad.syntax_highlighting == cons.RICH_TEXT_ID:
-            dad.sourceview.modify_text(gtk.STATE_NORMAL, gtk.gdk.color_parse(dad.rt_def_fg))
+            dad.widget_set_colors(dad.sourceview, dad.rt_def_fg, dad.rt_def_bg, False)
+            support.rich_text_node_modify_codeboxes_color(dad.curr_buffer.get_start_iter(), dad)
     colorbutton_text_fg.connect('color-set', on_colorbutton_text_fg_color_set)
     def on_colorbutton_text_bg_color_set(colorbutton):
         dad.rt_def_bg = "#" + dad.html_handler.rgb_to_24(colorbutton.get_color().to_string()[1:])
         if dad.curr_tree_iter and dad.syntax_highlighting == cons.RICH_TEXT_ID:
-            dad.sourceview.modify_base(gtk.STATE_NORMAL, gtk.gdk.color_parse(dad.rt_def_bg))
+            dad.widget_set_colors(dad.sourceview, dad.rt_def_fg, dad.rt_def_bg, False)
+            support.rich_text_node_modify_codeboxes_color(dad.curr_buffer.get_start_iter(), dad)
     colorbutton_text_bg.connect('color-set', on_colorbutton_text_bg_color_set)
     def on_radiobutton_rt_col_light_toggled(radiobutton):
         if not radiobutton.get_active(): return
@@ -1035,12 +1036,12 @@ def preferences_tab_tree(dad, vbox_tree, pref_dialog):
     vbox_tree.pack_start(frame_misc_tree, expand=False)
     def on_colorbutton_tree_fg_color_set(colorbutton):
         dad.tt_def_fg = "#" + dad.html_handler.rgb_to_24(colorbutton.get_color().to_string()[1:])
-        dad.treeview.modify_text(gtk.STATE_NORMAL, gtk.gdk.color_parse(dad.tt_def_fg))
+        dad.widget_set_colors(dad.treeview, dad.tt_def_fg, dad.tt_def_bg, False)
         if dad.curr_tree_iter: dad.update_node_name_header()
     colorbutton_tree_fg.connect('color-set', on_colorbutton_tree_fg_color_set)
     def on_colorbutton_tree_bg_color_set(colorbutton):
         dad.tt_def_bg = "#" + dad.html_handler.rgb_to_24(colorbutton.get_color().to_string()[1:])
-        dad.treeview.modify_base(gtk.STATE_NORMAL, gtk.gdk.color_parse(dad.tt_def_bg))
+        dad.widget_set_colors(dad.treeview, dad.tt_def_fg, dad.tt_def_bg, False)
         if dad.curr_tree_iter: dad.update_node_name_header()
     colorbutton_tree_bg.connect('color-set', on_colorbutton_tree_bg_color_set)
     def on_radiobutton_tt_col_light_toggled(radiobutton):

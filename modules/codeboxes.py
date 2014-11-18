@@ -283,6 +283,7 @@ class CodeBoxesHandler:
         anchor.eventbox.add(anchor.frame)
         self.dad.sourceview.add_child_at_anchor(anchor.eventbox, anchor)
         anchor.eventbox.show_all()
+        self.dad.widget_set_colors(anchor.sourceview, self.dad.rt_def_fg, self.dad.rt_def_bg, True)
         for win in [gtk.TEXT_WINDOW_LEFT, gtk.TEXT_WINDOW_RIGHT, gtk.TEXT_WINDOW_TOP, gtk.TEXT_WINDOW_BOTTOM]:
             anchor.sourceview.set_border_window_size(win, 1)
         if codebox_justification:
