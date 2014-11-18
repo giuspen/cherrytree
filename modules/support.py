@@ -243,6 +243,15 @@ def rich_text_node_modify_codeboxes_font(start_iter, code_font):
             anchor.sourceview.modify_font(pango.FontDescription(code_font))
         if not curr_iter.forward_char(): break
 
+def rich_text_node_modify_codeboxes_color(start_iter, dad):
+    """Modify Color to CodeBoxes"""
+    curr_iter = start_iter.copy()
+    while 1:
+        anchor = curr_iter.get_child_anchor()
+        if anchor and "sourcebuffer" in dir(anchor):
+            dad.widget_set_colors(anchor.sourceview, dad.rt_def_fg, dad.rt_def_bg, True)
+        if not curr_iter.forward_char(): break
+
 def text_file_rm_emptylines(filepath):
     """Remove empty lines in a text file"""
     overwrite_needed = False

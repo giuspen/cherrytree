@@ -2653,6 +2653,27 @@ iter_end, exclude_iter_sel_end=True)
             tree_iter = self.treestore.iter_next(tree_iter)
         return node_children_list
 
+    def widget_set_colors(self, widget, fg, bg, syntax_highl):
+        """Set a Widget's foreground and background colors"""
+        if not syntax_highl:
+            widget.modify_base(gtk.STATE_NORMAL, gtk.gdk.color_parse(bg))
+            widget.modify_text(gtk.STATE_NORMAL, gtk.gdk.color_parse(fg))
+        widget.modify_text(gtk.STATE_ACTIVE, gtk.gdk.color_parse(bg))
+        widget.modify_text(gtk.STATE_SELECTED, gtk.gdk.color_parse(bg))
+        bg_fg_merge = self.get_merge_of_colors_24(fg, bg)
+        widget.modify_base(gtk.STATE_ACTIVE, gtk.gdk.color_parse(bg_fg_merge))
+        widget.modify_base(gtk.STATE_SELECTED, gtk.gdk.color_parse(bg_fg_merge))
+
+    def get_merge_of_colors_24(self, color_1, color_2):
+        """Merge 2 colors"""
+        r1 = int(color_1[1:3], 16)
+        r2 = int(color_2[1:3], 16)
+        g1 = int(color_1[3:5], 16)
+        g2 = int(color_2[3:5], 16)
+        b1 = int(color_1[5:7], 16)
+        b2 = int(color_2[5:7], 16)
+        return "#%.2x%.2x%.2x" % ((r1+r2)/2, (g1+g2)/2, (b1+b2)/2)
+
     def sourceview_set_properties(self, tree_iter, syntax_highl):
         """Set sourceview properties according to current node"""
         if syntax_highl == cons.RICH_TEXT_ID:
@@ -2660,10 +2681,9 @@ iter_end, exclude_iter_sel_end=True)
             self.treestore[tree_iter][2].connect('delete-range', self.on_text_removal)
             self.treestore[tree_iter][2].connect('mark-set', self.on_textbuffer_mark_set)
             self.sourceview.modify_font(pango.FontDescription(self.text_font))
-            self.sourceview.modify_base(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.rt_def_bg))
-            self.sourceview.modify_text(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.rt_def_fg))
             self.sourceview.set_draw_spaces(codeboxes.DRAW_SPACES_FLAGS if self.rt_show_white_spaces else 0)
             self.sourceview.set_highlight_current_line(False)
+            self.widget_set_colors(self.sourceview, self.rt_def_fg, self.rt_def_bg, False)
         else:
             if syntax_highl == cons.PLAIN_TEXT_ID:
                 self.sourceview.modify_font(pango.FontDescription(self.text_font))
@@ -2671,6 +2691,7 @@ iter_end, exclude_iter_sel_end=True)
                 self.sourceview.modify_font(pango.FontDescription(self.code_font))
             self.sourceview.set_draw_spaces(codeboxes.DRAW_SPACES_FLAGS if self.show_white_spaces else 0)
             if self.highl_curr_line: self.sourceview.set_highlight_current_line(True)
+            self.widget_set_colors(self.sourceview, self.rt_def_fg, self.rt_def_bg, True)
 
     def switch_buffer_text_source(self, text_buffer, tree_iter, new_syntax_highl, old_syntax_highl):
         """Switch TextBuffer -> SourceBuffer or SourceBuffer -> TextBuffer"""
