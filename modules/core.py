@@ -2658,11 +2658,10 @@ iter_end, exclude_iter_sel_end=True)
         if not syntax_highl:
             widget.modify_base(gtk.STATE_NORMAL, gtk.gdk.color_parse(bg))
             widget.modify_text(gtk.STATE_NORMAL, gtk.gdk.color_parse(fg))
-        widget.modify_text(gtk.STATE_ACTIVE, gtk.gdk.color_parse(bg))
-        widget.modify_text(gtk.STATE_SELECTED, gtk.gdk.color_parse(bg))
-        bg_fg_merge = self.get_merge_of_colors_24(fg, bg)
-        widget.modify_base(gtk.STATE_ACTIVE, gtk.gdk.color_parse(bg_fg_merge))
-        widget.modify_base(gtk.STATE_SELECTED, gtk.gdk.color_parse(bg_fg_merge))
+        style = widget.get_style()
+        # gtk.STATE_NORMAL, gtk.STATE_ACTIVE, gtk.STATE_PRELIGHT, gtk.STATE_SELECTED, gtk.STATE_INSENSITIVE
+        widget.modify_text(gtk.STATE_ACTIVE, style.fg[3])
+        widget.modify_base(gtk.STATE_ACTIVE, style.bg[3])
 
     def get_merge_of_colors_24(self, color_1, color_2):
         """Merge 2 colors"""
