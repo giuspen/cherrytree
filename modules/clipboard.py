@@ -300,7 +300,7 @@ class ClipboardHandler:
         #print "###########################"
         #for char in selection_data: print ord(char)
         #print "###########################"
-        selection_data = support.auto_decode_str(selectiondata.data)
+        selection_data = support.auto_decode_str(selectiondata.data, from_clipboard=True)
         selection_data = re.sub(cons.BAD_CHARS, "", selection_data)
         #print selection_data
         html_import = imports.HTMLHandler(self.dad)
