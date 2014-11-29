@@ -640,10 +640,8 @@ class FindReplace:
             self.liststore.remove(list_iter)
             return
         self.dad.treeview_safe_set_cursor(tree_iter)
-        if model[list_iter][1] != 0 and model[list_iter][2] != 0:
-            self.dad.curr_buffer.move_mark(self.dad.curr_buffer.get_insert(),
-                                           self.dad.curr_buffer.get_iter_at_offset(model[list_iter][1]))
-            self.dad.curr_buffer.move_mark(self.dad.curr_buffer.get_selection_bound(),
-                                           self.dad.curr_buffer.get_iter_at_offset(model[list_iter][2]))
-            self.dad.sourceview.scroll_to_mark(self.dad.curr_buffer.get_insert(), 0.25)
-        else: self.dad.sourceview.grab_focus()
+        self.dad.curr_buffer.move_mark(self.dad.curr_buffer.get_insert(),
+                                       self.dad.curr_buffer.get_iter_at_offset(model[list_iter][1]))
+        self.dad.curr_buffer.move_mark(self.dad.curr_buffer.get_selection_bound(),
+                                       self.dad.curr_buffer.get_iter_at_offset(model[list_iter][2]))
+        self.dad.sourceview.scroll_to_mark(self.dad.curr_buffer.get_insert(), 0.25)
