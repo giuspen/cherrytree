@@ -1,4 +1,13 @@
 
+0.35.5 (November 29th, 2014)
+• bugfix: conversion from rich text to plain text of links results in the link target only if the link is the sole text copied and is not a link to node
+• bugfix: relative links are to be relative to the document folder and not to the executable folder
+• bugfix: right click over a selection including a link causes deselection if the right click is over the link
+• bugfix in import from tuxcards
+• bugfix: paste from firefox on windows with russian language page
+• bugfix: paste text in a codebox causing an auto resize, change node without saving before, go back to the older node, the text pasted in the codebox is lost
+• changed automatic conversion from ascii chars to “todo list” from “[ ] ” to “[] ”
+
 0.35.4 (November 10th, 2014)
 • bugfix: export to plain text and conversion from rich text to plain text problems in 0.35.3
 • bugfix: automatic list set after inserting "* " and "[ ] " problems in 0.35.3
