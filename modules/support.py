@@ -543,7 +543,7 @@ MA 02110-1301, USA.
 _("Chinese Simplified")+" (zh_CN) Channing Wong <channing.wong@qq.com>"+cons.CHAR_NEWLINE+
 _("Czech")+" (cs) Pavel Fric <fripohled@blogspot.com>"+cons.CHAR_NEWLINE+
 _("Dutch")+" (nl) Patrick Vijgeboom <pj.vijgeboom@gmail.com>"+cons.CHAR_NEWLINE+
-_("French")+" (fr) Benoît D'Angelo <benoit.dangelo@gmx.fr>"+cons.CHAR_NEWLINE+
+_("French")+" (fr) Klaus Becker <colonius@free.fr>"+cons.CHAR_NEWLINE+
 _("German")+" (de) Frank Brungräber <calexu@arcor.de>"+cons.CHAR_NEWLINE+
 _("Italian")+" (it) Vincenzo Reale <smart2128@baslug.org>"+cons.CHAR_NEWLINE+
 _("Polish")+" (pl) Marcin Swierczynski <orneo1212@gmail.com>"+cons.CHAR_NEWLINE+
