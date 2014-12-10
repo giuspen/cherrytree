@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: svn_cherrytree 0.14\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-09-29 00:14+0200\n"
-"PO-Revision-Date: 2014-04-13 10:44+0100\n"
-"Last-Translator: Benoît <benoit.dangelo@gmx.fr>\n"
+"PO-Revision-Date: 2014-12-10 23:34+0100\n"
+"Last-Translator: Klaus Becker <colonius@free.fr>\n"
 "Language-Team: French\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -183,11 +183,11 @@ msgstr "Enregistrer le Fichier sous"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:504
 msgid "Open Preferences _Directory"
-msgstr ""
+msgstr "Ouvrir les dossier de préférences"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:504
 msgid "Open the Directory with Preferences Files"
-msgstr ""
+msgstr "Ouvrir le dossier de fichiers de préférences"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:505
 msgid "Pa_ge Setup"
@@ -273,15 +273,13 @@ msgstr "Insérer une _CodeBox"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:515
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:777
-#, fuzzy
 msgid "Insert _File"
-msgstr "Insérer un _Tableau"
+msgstr "Insérer un _Fichier"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:515
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:777
-#, fuzzy
 msgid "Insert File"
-msgstr "Insérer un Tableau"
+msgstr "Insérer un Fichier"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:516
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:778
@@ -707,15 +705,13 @@ msgstr "Éditer les Propriétés du Nœud sélectionné"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:556
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:677
-#, fuzzy
 msgid "Toggle _Read Only"
-msgstr "Lecture seule"
+msgstr "Activer/désactiver la protection en écriture"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:556
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:677
-#, fuzzy
 msgid "Toggle the Read Only Property of the Selected Node"
-msgstr "Mettre le texte sélectionné en Italique"
+msgstr "Activer/désactiver la protection en écriture du noeud sélectionné"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:557
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:678
@@ -863,32 +859,26 @@ msgid "Go to the Next Visited Node"
 msgstr "Aller au prochain Nœud visité"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:571
-#, fuzzy
 msgid "_Find in Node Content"
 msgstr "_Trouver dans le Nœud"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:571
-#, fuzzy
 msgid "Find into the Selected Node Content"
 msgstr "Chercher dans le Nœud Sélectionné"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:572
-#, fuzzy
 msgid "Find in _All Nodes Contents"
 msgstr "Trouver dans tous les Nœuds"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:572
-#, fuzzy
 msgid "Find into All the Tree Nodes Contents"
 msgstr "Chercher dans tous les Nœuds"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:573
-#, fuzzy
 msgid "Find in _Selected Node and Subnodes Contents"
-msgstr "Trouver dans le nœud sélectionné et ses sous-rœuds"
+msgstr "Chercher dans le nœud sélectionné et ses sous-nœuds"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:573
-#, fuzzy
 msgid "Find into the Selected Node and Subnodes Contents"
 msgstr "Chercher dans le nœud sélectionné et ses sous-nœuds"
 
@@ -896,17 +886,15 @@ msgstr "Chercher dans le nœud sélectionné et ses sous-nœuds"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:695
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:801
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:843
-#, fuzzy
 msgid "Find in _Nodes Names and Tags"
-msgstr "Trouver dans les Nœud_s"
+msgstr "Trouver dans les noms de noeuds et les mots-clés"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:574
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:695
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:801
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:843
-#, fuzzy
 msgid "Find in Nodes Names and Tags"
-msgstr "Trouver dans les Nœud_s"
+msgstr "Trouver dans les noms de noeuds et les mots-clés"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:575
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:802
@@ -933,32 +921,26 @@ msgid "Iterate the Last Find Operation in Opposite Direction"
 msgstr "Réitérer la dernière action de recherche dans le Sens Opposé"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:577
-#, fuzzy
 msgid "_Replace in Node Content"
 msgstr "_Remplacer dans le Nœud"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:577
-#, fuzzy
 msgid "Replace into the Selected Node Content"
 msgstr "Remplacer dans le Nœud Sélectionné"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:578
-#, fuzzy
 msgid "Replace in _All Nodes Contents"
-msgstr "Remplacer dans tous les nœuds..."
+msgstr "Remplacer dans tous les nœuds"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:578
-#, fuzzy
 msgid "Replace into All the Tree Nodes Contents"
 msgstr "Remplacer dans tous les Nœuds"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:579
-#, fuzzy
 msgid "Replace in _Selected Node and Subnodes Contents"
 msgstr "Remplacer dans le nœud sélectionné et ses sous-nœuds"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:579
-#, fuzzy
 msgid "Replace into the Selected Node and Subnodes Contents"
 msgstr "Remplacer dans le nœud sélectionné et ses sous-nœuds"
 
@@ -1156,15 +1138,15 @@ msgstr "Ajouter les Nœuds d'un Répertoire Basket à l'Arborescence actuelle"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:601
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:706
-#, fuzzy
 msgid "From _EssentialPIM HTML File"
-msgstr "À partir d'un Fichier _HTML"
+msgstr "À partir d'un Fichier EssentialPIM HTML"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:601
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:706
-#, fuzzy
 msgid "Add Node from an EssentialPIM HTML File to the Current Tree"
-msgstr "Ajouter les nœuds à partir d'un fichier HTML à l'Arborescence actuelle"
+msgstr ""
+"Ajouter les nœuds à partir d'un fichier EssentialPIM HTML à l'Arborescence "
+"actuelle"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:602
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:705
@@ -1352,34 +1334,28 @@ msgid "About CherryTree"
 msgstr "À propos de CherryTree"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:621
-#, fuzzy
 msgid "C_ut Anchor"
-msgstr "Éditer l'Ancre"
+msgstr "Couper l'Ancre"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:621
-#, fuzzy
 msgid "Cut the Selected Anchor"
-msgstr "Couper la CodeBox Sélectionnée"
+msgstr "Couper l'Ancre Sélectionnée"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:622
-#, fuzzy
 msgid "_Copy Anchor"
-msgstr "_Copier la Ligne"
+msgstr "_Copier l'Ancre"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:622
-#, fuzzy
 msgid "Copy the Selected Anchor"
-msgstr "Copier la CodeBox Sélectionnée"
+msgstr "Copier l'Ancre Sélectionnée"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:623
-#, fuzzy
 msgid "_Delete Anchor"
-msgstr "_Supprimer le Lien"
+msgstr "_Supprimer l'Ancre"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:623
-#, fuzzy
 msgid "Delete the Selected Anchor"
-msgstr "Supprimer le Nœud Sélectionné"
+msgstr "Supprimer l'Ancre Sélectionné"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:624
 msgid "Edit _Anchor"
@@ -1390,39 +1366,32 @@ msgid "Edit the Underlying Anchor"
 msgstr "Éditer l'Ancre soulignée"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:625
-#, fuzzy
 msgid "C_ut Embedded File"
-msgstr "Nombre de Tableaux"
+msgstr "Couper le Fichier Incorporé"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:625
-#, fuzzy
 msgid "Cut the Selected Embedded File"
-msgstr "Couper le Tableau Sélectionné"
+msgstr "Couper le Fichier Incorporé Sélectionné"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:626
-#, fuzzy
 msgid "_Copy Embedded File"
-msgstr "Nombre de Tableaux"
+msgstr "Copier le Fichier Incorporé"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:626
-#, fuzzy
 msgid "Copy the Selected Embedded File"
-msgstr "Copier le Tableau Sélectionné"
+msgstr "Copier le Fichier Incorporé Sélectionné"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:627
-#, fuzzy
 msgid "_Delete Embedded File"
-msgstr "Nombre de Tableaux"
+msgstr "Supprimer le Fichier intégré"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:627
-#, fuzzy
 msgid "Delete the Selected Embedded File"
-msgstr "Supprimer le Tableau Sélectionné"
+msgstr "Supprimer le Fichier Incoporé Sélectionné"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:629
-#, fuzzy
 msgid "Open Embedded File"
-msgstr "Nombre de Tableaux"
+msgstr "Ouvrir le Fichier Incorporé"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:630
 msgid "_Save Image as PNG"
@@ -1470,9 +1439,8 @@ msgid "Edit _Link"
 msgstr "Éditer _Lien"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:635
-#, fuzzy
 msgid "Edit the Link Associated to the Image"
-msgstr "Éditer l'Image Sélectionnée"
+msgstr "Éditer le Lien Associé à l'Image Sélectionnée"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:636
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:867
@@ -1481,7 +1449,7 @@ msgstr "R_ejeter le Lien"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:636
 msgid "Dismiss the Link Associated to the Image"
-msgstr ""
+msgstr "Supprimer le lien associé à l'image"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:637
 msgid "Show/Hide _CherryTree"
@@ -1701,14 +1669,12 @@ msgid "Delete the Selected Link"
 msgstr "Supprimer le Lien Sélectionné"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:879
-#, fuzzy
 msgid "Insert _NewLine"
-msgstr "Insérer/Éditer un _Lien"
+msgstr "Insérer une Nouvelle ligne"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:879
-#, fuzzy
 msgid "Insert NewLine Char"
-msgstr "Insertion_Caractères spéciaux"
+msgstr "Insérer Passage à la Ligne Suivante"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:890
 msgid "Change CodeBox _Properties"
@@ -2037,30 +2003,28 @@ msgstr "Oui"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:784
 msgid "Temporary Files were Created and Opened with External Applications."
 msgstr ""
+"Les fichiers temporaires ont été créés et ouverts par des applications "
+"externes"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:784
 msgid "Quit the External Applications Before Quit CherryTree."
-msgstr ""
+msgstr "Veuillez fermer les applications externes avant de quitter CherryTree."
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:784
-#, fuzzy
 msgid "Did you Quit the External Applications?"
-msgstr "Quitter l'Application"
+msgstr "Avez-vous Quitté l'Application Externe?"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:815
 msgid "No"
 msgstr "Non"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:830
-#, fuzzy
 msgid "The Current Document was Updated."
-msgstr ""
-"<b>Le document actuel a été mis à jour</b>,\n"
-"voulez-vous enregistrer les changements ?"
+msgstr "Le document actuel a été mis à jour."
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:830
 msgid "Do you want to Save the Changes?"
-msgstr ""
+msgstr "Sauvegarder les modifications?"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:872
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1199
@@ -2247,7 +2211,7 @@ msgstr "Caractères spéciaux"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:618
 msgid "Chars to Select at Double Click"
-msgstr ""
+msgstr "Signes à sélectionner par double click"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:630
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:781
@@ -2301,14 +2265,14 @@ msgstr "Thème"
 msgid "Show White Spaces"
 msgstr "Afficher les espaces vides"
 
+# Élargir ?? I don't really understand what that means.
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:759
-#, fuzzy
 msgid "Expand CodeBoxes Automatically"
-msgstr "C_ouper la CodeBox"
+msgstr "Élargir automatiquement le CodeBox"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:763
 msgid "Embedded File Icon Size"
-msgstr ""
+msgstr "Taille de l'icône pour fichier incorporé"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:769
 msgid "Limit of Undoable Steps Per Node"
@@ -2405,7 +2369,7 @@ msgstr "Couleurs"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1239
 msgid "Use Relative Paths for Files And Folders"
-msgstr ""
+msgstr "Utiliser un chemin relatif pour les fichiers et dossiers"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1243
 msgid "Anchor Size"
@@ -2414,6 +2378,7 @@ msgstr "Taille de l'Ancre"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1360
 msgid "Select Element to Add"
 msgstr ""
+"Sélectionner l'élément (la commande selon la traduction allemande) à ajouter."
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1387
 msgid "Enable System Tray Docking"
@@ -2448,9 +2413,8 @@ msgid "Create a Backup Copy Before Saving"
 msgstr "Créer une copie de sauvegarde avant d'enregistrer"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1422
-#, fuzzy
 msgid "Number of Backups to Keep"
-msgstr "Nombre de Nœuds de Texte"
+msgstr "Nombre de Sauvegardes"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1439
 msgid "Saving"
@@ -2501,7 +2465,7 @@ msgstr "Liens"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1597
 msgid "Toolbar"
-msgstr ""
+msgstr "Barre d'outils"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/tablez.py:63
 msgid "Rename Column"
@@ -2618,9 +2582,8 @@ msgid "NoteCase Document"
 msgstr "NoteCase Document"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:850
-#, fuzzy
 msgid "EPIM HTML Document"
-msgstr "Document HTML"
+msgstr "Document EPIM HTML"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:864
 msgid "HTML Document"
@@ -2861,15 +2824,16 @@ msgstr "Insérer une Ancre"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3349
 msgid "The Maximum Size for Embedded Files is 10 MB"
-msgstr ""
+msgstr "La taille maximale pour un fichier incorporé est 10 MO"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3413
 msgid "Cannot Edit Embedded File in Read Only Node"
 msgstr ""
+"Impossible d'éditer un fichier incorporé dans un noeud protégé en écriture"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3427
 msgid "Embedded File Automatically Updated:"
-msgstr ""
+msgstr "Mise à jour automatique du fichier incorporé:"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3475
 msgid "Not Any H1, H2 or H3 Formatting Found"
@@ -2890,19 +2854,16 @@ msgid "The Tree is Empty!"
 msgstr "L'Arborescence est vide !"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3525
-#, fuzzy
 msgid "The Selected Node is Read Only"
-msgstr "Nœud sélectionné uniquement"
+msgstr "Le Nœud Sélectionné est en Lecture uniquement"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3546
-#, fuzzy
 msgid "Number of Rich Text Nodes"
-msgstr "Nombre de Nœuds de Texte"
+msgstr "Nombre de Nœuds en RTF (Rich Texte)"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3549
-#, fuzzy
 msgid "Number of Plain Text Nodes"
-msgstr "Nombre de Nœuds de Texte"
+msgstr "Nombre de Nœuds en Texte Brut"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3552
 msgid "Number of Code Nodes"
@@ -2913,9 +2874,8 @@ msgid "Number of Images"
 msgstr "Nombre d'Images"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3558
-#, fuzzy
 msgid "Number of Embedded Files"
-msgstr "Nombre de Tableaux"
+msgstr "Nombre de Fichiers intégrés"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3561
 msgid "Number of Tables"
@@ -2926,13 +2886,12 @@ msgid "Number of CodeBoxes"
 msgstr "Nombre de CodeBoxes"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3567
-#, fuzzy
 msgid "Number of Anchors"
-msgstr "Nombre d'Images"
+msgstr "Nombre d'Ancres"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3654
 msgid "Image Format Not Recognized"
-msgstr ""
+msgstr "Le format d'image n'est pas reconnu"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3658
 msgid "Image Properties"
@@ -2997,18 +2956,8 @@ msgstr ": "
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:4454
 msgid "Tags"
-msgstr "Tags"
+msgstr "Tags (Mots clés)"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/imports.py:2153
 msgid "Downloading"
 msgstr "Téléchargement"
-
-#, fuzzy
-#~ msgid "Updated Embedded File"
-#~ msgstr "Nombre de Tableaux"
-
-#~ msgid "Find a _Node"
-#~ msgstr "Trouver un _Nœud"
-
-#~ msgid "Find a Node from its Name"
-#~ msgstr "Localiser un Nœud par son Nom"
