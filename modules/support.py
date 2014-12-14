@@ -36,7 +36,7 @@ def auto_decode_str(in_str, from_clipboard=False):
     for enc in encodings:
         try:
             out_str = in_str.decode(enc)
-            #print enc
+            print enc
             break
         except: pass
     else:

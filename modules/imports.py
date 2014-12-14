@@ -1657,7 +1657,11 @@ class TreepadHandler:
         # 1: waiting for node name
         # 2: waiting for node level
         # 3: gathering node content
-        for text_line in treepad_string.split(cons.CHAR_CR+cons.CHAR_NEWLINE):
+        if cons.CHAR_CR+cons.CHAR_NEWLINE in treepad_string:
+            treepad_vec = treepad_string.split(cons.CHAR_CR+cons.CHAR_NEWLINE)
+        else:
+            treepad_vec = treepad_string.split(cons.CHAR_NEWLINE)
+        for text_line in treepad_vec:
             if self.curr_state == 0:
                 if len(text_line) > 5 and text_line[:6] == "<node>": self.curr_state = 1
             elif self.curr_state == 1:
@@ -1687,12 +1691,12 @@ class TreepadHandler:
                     self.rich_text_serialize(self.curr_node_content)
                 else: self.curr_node_content += text_line + cons.CHAR_NEWLINE
 
-    def get_cherrytree_xml(self, file_descriptor):
+    def get_cherrytree_xml(self, treepad_string):
         """Returns a CherryTree string Containing the Treepad Nodes"""
         self.dom = xml.dom.minidom.Document()
         self.nodes_list = [self.dom.createElement(cons.APP_NAME)]
         self.dom.appendChild(self.nodes_list[0])
-        self.parse_string_lines(file_descriptor)
+        self.parse_string_lines(treepad_string)
         return self.dom.toxml()
 
 
