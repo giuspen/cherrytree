@@ -907,7 +907,7 @@ iter_end, exclude_iter_sel_end=True)
         if not filepath: return
         self.pick_dir = os.path.dirname(filepath)
         try:
-            file_descriptor = open(filepath, 'r')
+            file_descriptor = open(filepath, 'rb')
             treepad_string = file_descriptor.read()
             file_descriptor.close()
         except:
@@ -1844,7 +1844,7 @@ iter_end, exclude_iter_sel_end=True)
         if filepath[-1] in ["d", "z"]:
             try:
                 if password_protected: file_descriptor = open(filepath_tmp, 'r')
-                else: file_descriptor = open(filepath, 'r')
+                else: file_descriptor = open(filepath, 'rb')
                 cherrytree_string = file_descriptor.read()
                 file_descriptor.close()
                 if password_protected: os.remove(filepath_tmp)
