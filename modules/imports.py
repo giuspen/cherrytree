@@ -1657,10 +1657,7 @@ class TreepadHandler:
         # 1: waiting for node name
         # 2: waiting for node level
         # 3: gathering node content
-        if cons.CHAR_CR+cons.CHAR_NEWLINE in treepad_string:
-            treepad_vec = treepad_string.split(cons.CHAR_CR+cons.CHAR_NEWLINE)
-        else:
-            treepad_vec = treepad_string.split(cons.CHAR_NEWLINE)
+        treepad_vec = treepad_string.split(cons.CHAR_CR+cons.CHAR_NEWLINE)
         for text_line in treepad_vec:
             if self.curr_state == 0:
                 if len(text_line) > 5 and text_line[:6] == "<node>": self.curr_state = 1
