@@ -4369,7 +4369,7 @@ iter_end, exclude_iter_sel_end=True)
             # link to file
             filepath_orig = unicode(base64.b64decode(vector[1]), cons.STR_UTF8, cons.STR_IGNORE)
             filepath = support.get_proper_platform_filepath(filepath_orig, True)
-            if not os.path.isfile(filepath) and not os.path.isabs(filepath) and os.path.isfile(os.path.join(self.file_dir, filepath)):
+            if not os.path.isabs(filepath) and os.path.isfile(os.path.join(self.file_dir, filepath)):
                 filepath = os.path.join(self.file_dir, filepath)
             if not os.path.isfile(filepath):
                 support.dialog_error(_("The File Link '%s' is Not Valid") % filepath, self.window)
@@ -4379,7 +4379,7 @@ iter_end, exclude_iter_sel_end=True)
             # link to folder
             filepath_orig = unicode(base64.b64decode(vector[1]), cons.STR_UTF8, cons.STR_IGNORE)
             filepath = support.get_proper_platform_filepath(filepath_orig, False)
-            if not os.path.isdir(filepath) and not os.path.isabs(filepath) and os.path.isdir(os.path.join(self.file_dir, filepath)):
+            if not os.path.isabs(filepath) and os.path.isdir(os.path.join(self.file_dir, filepath)):
                 filepath = os.path.join(self.file_dir, filepath)
             if not os.path.isdir(filepath):
                 support.dialog_error(_("The Folder Link '%s' is Not Valid") % filepath, self.window)
