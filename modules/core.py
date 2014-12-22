@@ -3845,11 +3845,11 @@ iter_end, exclude_iter_sel_end=True)
         """Catches mouse buttons clicks upon images"""
         self.curr_image_anchor = anchor
         self.object_set_selection(self.curr_image_anchor)
-        if event.button == 1:
+        if event.button in [1, 2]:
             if event.type == gtk.gdk._2BUTTON_PRESS:
                 self.image_edit()
             elif self.curr_image_anchor.pixbuf.link:
-                self.link_clicked(self.curr_image_anchor.pixbuf.link)
+                self.link_clicked(self.curr_image_anchor.pixbuf.link, event.button == 2)
         elif event.button == 3:
             if self.curr_image_anchor.pixbuf.link: self.ui.get_widget("/ImageMenu/DismissImageLink").show()
             else: self.ui.get_widget("/ImageMenu/DismissImageLink").hide()
@@ -4356,7 +4356,7 @@ iter_end, exclude_iter_sel_end=True)
                     if open_fold_if_no_app_error: os.startfile(os.path.dirname(filepath))
             else: subprocess.call(config.LINK_CUSTOM_ACTION_DEFAULT_FILE % re.escape(filepath), shell=True)
 
-    def link_clicked(self, tag_property_value):
+    def link_clicked(self, tag_property_value, from_wheel):
         """Function Called at Every Link Click"""
         vector = tag_property_value.split()
         if vector[0] == cons.LINK_TYPE_WEBS:
@@ -4374,6 +4374,8 @@ iter_end, exclude_iter_sel_end=True)
             if not os.path.isfile(filepath):
                 support.dialog_error(_("The File Link '%s' is Not Valid") % filepath, self.window)
                 return
+            if from_wheel:
+                filepath = os.path.dirname(os.path.abspath(filepath))
             self.external_filepath_open(filepath, True)
         elif vector[0] == cons.LINK_TYPE_FOLD:
             # link to folder
@@ -4384,6 +4386,8 @@ iter_end, exclude_iter_sel_end=True)
             if not os.path.isdir(filepath):
                 support.dialog_error(_("The Folder Link '%s' is Not Valid") % filepath, self.window)
                 return
+            if from_wheel:
+                filepath = os.path.dirname(os.path.abspath(filepath))
             self.external_folderpath_open(filepath)
         elif vector[0] == cons.LINK_TYPE_NODE:
             # link to a tree node
