@@ -683,6 +683,7 @@ def get_popup_menu_tree(inst):
     (TAG_SEPARATOR, None, None, None, None),
     ("cherry_edit", _("Change Node _Properties"), "F2", _("Edit the Properties of the Selected Node"), inst.node_edit),
     ("cherry_edit", _("Toggle _Read Only"), "<Ctrl><Alt>R", _("Toggle the Read Only Property of the Selected Node"), inst.node_toggle_read_only),
+    ("gtk-add", _("_Bookmark This Node"), None, _("Add the Current Node to the Bookmarks List"), inst.bookmark_curr_node),
     ("calendar", _("Insert Today's Node"), "F8", _("Insert a Node with Hierarchy Year/Month/Day"), inst.node_date),
     ("gtk-info", _("Tree _Info"), None, _("Tree Summary Information"), inst.tree_info),
     (TAG_SEPARATOR, None, None, None, None),
