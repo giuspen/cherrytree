@@ -97,7 +97,7 @@ def on_sourceview_event_after_double_click_button1(dad, text_view, event):
 def on_sourceview_event_after_button_press(dad, text_view, event):
     """Called after every gtk.gdk.BUTTON_PRESS on the SourceView"""
     text_buffer = text_view.get_buffer()
-    if event.button == 1:
+    if event.button in [1, 2]:
         x, y = text_view.window_to_buffer_coords(gtk.TEXT_WINDOW_TEXT, int(event.x), int(event.y))
         text_iter = text_view.get_iter_at_location(x, y)
         tags = text_iter.get_tags()
@@ -106,7 +106,7 @@ def on_sourceview_event_after_button_press(dad, text_view, event):
         for tag in tags:
             tag_name = tag.get_property("name")
             if tag_name and tag_name[0:4] == cons.TAG_LINK:
-                dad.link_clicked(tag_name[5:])
+                dad.link_clicked(tag_name[5:], event.button == 2)
                 return False
         if dad.lists_handler.is_list_todo_beginning(text_iter):
             dad.lists_handler.todo_list_rotate_status(text_iter, text_buffer)

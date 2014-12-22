@@ -1,5 +1,6 @@
 
 0.35.6 (December 22nd, 2014)
+• the middle (or wheel) click on a link to file or folder opens the parent directory of the target file or folder
 • bugfix in reading a cherrytree XML document
 • bugfix in relative links click
 • bugfix in import from treepad lite
