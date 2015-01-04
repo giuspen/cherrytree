@@ -1113,12 +1113,12 @@ msgstr "À partir d'un Fichier _HTML"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:598
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:702
 msgid "Add Node from an HTML File to the Current Tree"
-msgstr "Ajouter les nœuds à partir d'un fichier HTML à l'Arborescence actuelle"
+msgstr "Ajouter les nœuds à partir d'un Fichier HTML à l'Arborescence actuelle"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:599
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:703
 msgid "From _Folder of HTML Files"
-msgstr "À partir d'un répertoire de fichiers HTML"
+msgstr "À partir d'un Répertoire de Fichiers HTML"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:599
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:703
@@ -2103,7 +2103,7 @@ msgstr "Nouveau noeud dans une nouvelle page"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:1216
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1141
 msgid "Insert _Special Character"
-msgstr "Insertion_Caractères spéciaux"
+msgstr "Insertion _Caractères spéciaux"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:1218
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:1143
