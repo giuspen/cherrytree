@@ -1481,12 +1481,18 @@ iter_end, exclude_iter_sel_end=True)
                 esc_filepath_tmp)
             #print bash_str
             if not xml_string and not exporting: self.db.close()
-            ret_code = subprocess.call(bash_str, shell=True)
+            dest_file_size = 0
+            for attempt_num in range(3):
+                ret_code = subprocess.call(bash_str, shell=True)
+                if os.path.isfile(filepath):
+                    dest_file_size = os.path.getsize(filepath)
+                    if dest_file_size: break
+            print "dest_file_size %s bytes" % dest_file_size
             if xml_string: os.remove(filepath_tmp)
             elif not exporting:
                 self.db = self.ctdb_handler.get_connected_db_from_dbpath(filepath_tmp)
                 self.ctdb_handler.remove_at_quit_set.add(filepath_tmp)
-            if not ret_code:
+            if not ret_code and dest_file_size:
                 # everything OK
                 if dot_tmp_existing and os.path.isfile(filepath+".tmp"):
                     # remove temporary safety file
