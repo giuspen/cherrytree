@@ -1,4 +1,8 @@
 
+0.35.7 (January 30th, 2015)
+• improved checks at password protected documents save time after reports of data loss in windows os
+• updated Portuguese-Brazilian language
+
 0.35.6 (December 22nd, 2014)
 • the middle (or wheel) click on a link to file or folder opens the parent directory of the target file or folder
 • added tree right click menu item to bookmark the selected node
