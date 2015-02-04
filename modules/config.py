@@ -681,11 +681,7 @@ def preferences_tab_all_nodes(dad, vbox_all_nodes, pref_dialog):
         dad.timestamp_format = entry.get_text()
     entry_timestamp_format.connect('changed', on_entry_timestamp_format_changed)
     def on_button_strftime_help_clicked(menuitem, data=None):
-        lang_code = locale.getdefaultlocale()[0]
-        if lang_code:
-            page_lang = lang_code[0:2] if lang_code[0:2] in ["de", "es", "fr"] else ""
-        else: page_lang = ""
-        webbrowser.open("http://man.cx/strftime(3)/" + page_lang)
+        webbrowser.open("https://docs.python.org/2/library/time.html#time.strftime")
     button_strftime_help.connect('clicked', on_button_strftime_help_clicked)
     def on_entry_horizontal_rule_changed(entry):
         dad.h_rule = entry.get_text()
