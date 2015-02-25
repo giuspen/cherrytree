@@ -2595,17 +2595,26 @@ iter_end, exclude_iter_sel_end=True)
             ro=self.treestore[self.curr_tree_iter][7])
         if not ret_name: return
         self.syntax_highlighting = ret_syntax
-        if self.treestore[self.curr_tree_iter][4] == cons.RICH_TEXT_ID and self.syntax_highlighting != cons.RICH_TEXT_ID:
-            if not support.dialog_question(_("Leaving the Node Type Rich Text you will Lose all Formatting for This Node, Do you want to Continue?"), self.window):
-                self.syntax_highlighting = cons.RICH_TEXT_ID # STEP BACK (we stay in CUSTOM COLORS)
-                return
-            # SWITCH TextBuffer -> SourceBuffer
-            self.switch_buffer_text_source(self.curr_buffer, self.curr_tree_iter, self.syntax_highlighting, self.treestore[self.curr_tree_iter][4])
-            self.curr_buffer = self.treestore[self.curr_tree_iter][2]
-        elif self.treestore[self.curr_tree_iter][4] != cons.RICH_TEXT_ID and self.syntax_highlighting == cons.RICH_TEXT_ID:
-            # SWITCH SourceBuffer -> TextBuffer
-            self.switch_buffer_text_source(self.curr_buffer, self.curr_tree_iter, self.syntax_highlighting, self.treestore[self.curr_tree_iter][4])
-            self.curr_buffer = self.treestore[self.curr_tree_iter][2]
+        if self.treestore[self.curr_tree_iter][4] != self.syntax_highlighting:
+            if self.treestore[self.curr_tree_iter][4] == cons.RICH_TEXT_ID:
+                # leaving rich text
+                if not support.dialog_question(_("Leaving the Node Type Rich Text you will Lose all Formatting for This Node, Do you want to Continue?"), self.window):
+                    self.syntax_highlighting = cons.RICH_TEXT_ID # STEP BACK (we stay in CUSTOM COLORS)
+                    return
+                # SWITCH TextBuffer -> SourceBuffer
+                self.switch_buffer_text_source(self.curr_buffer, self.curr_tree_iter, self.syntax_highlighting, self.treestore[self.curr_tree_iter][4])
+                self.curr_buffer = self.treestore[self.curr_tree_iter][2]
+            elif self.syntax_highlighting == cons.RICH_TEXT_ID:
+                # going to rich text
+                # SWITCH SourceBuffer -> TextBuffer
+                self.switch_buffer_text_source(self.curr_buffer, self.curr_tree_iter, self.syntax_highlighting, self.treestore[self.curr_tree_iter][4])
+                self.curr_buffer = self.treestore[self.curr_tree_iter][2]
+            elif self.treestore[self.curr_tree_iter][4] == cons.PLAIN_TEXT_ID:
+                # plain text to code
+                self.sourceview.modify_font(pango.FontDescription(self.code_font))
+            elif self.syntax_highlighting == cons.PLAIN_TEXT_ID:
+                # code to plain text
+                self.sourceview.modify_font(pango.FontDescription(self.text_font))
         self.treestore[self.curr_tree_iter][1] = ret_name
         self.treestore[self.curr_tree_iter][4] = self.syntax_highlighting
         self.treestore[self.curr_tree_iter][6] = ret_tags
