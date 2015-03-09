@@ -56,7 +56,7 @@ class TablesHandler:
                             gtk.STOCK_OK, gtk.RESPONSE_ACCEPT))
         dialog.set_default_size(300, -1)
         dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-        
+
         hbox_column_rename = gtk.HBox()
         image_column_rename = gtk.Image()
         image_column_rename.set_from_stock(gtk.STOCK_EDIT, gtk.ICON_SIZE_BUTTON)
@@ -67,7 +67,7 @@ class TablesHandler:
         hbox_column_rename.pack_start(image_column_rename, expand=False)
         hbox_column_rename.pack_start(table_column_rename_radiobutton)
         hbox_column_rename.pack_start(table_column_rename_entry)
-        
+
         hbox_column_delete = gtk.HBox()
         image_column_delete = gtk.Image()
         image_column_delete.set_from_stock(gtk.STOCK_CLEAR, gtk.ICON_SIZE_BUTTON)
@@ -75,7 +75,7 @@ class TablesHandler:
         table_column_delete_radiobutton.set_group(table_column_rename_radiobutton)
         hbox_column_delete.pack_start(image_column_delete, expand=False)
         hbox_column_delete.pack_start(table_column_delete_radiobutton)
-        
+
         hbox_column_add = gtk.HBox()
         image_column_add = gtk.Image()
         image_column_add.set_from_stock(gtk.STOCK_ADD, gtk.ICON_SIZE_BUTTON)
@@ -86,7 +86,7 @@ class TablesHandler:
         hbox_column_add.pack_start(table_column_add_radiobutton)
         hbox_column_add.pack_start(table_column_new_entry)
         table_column_new_entry.set_sensitive(self.dad.table_column_mode == 'add')
-        
+
         hbox_column_left = gtk.HBox()
         image_column_left = gtk.Image()
         image_column_left.set_from_stock(gtk.STOCK_GO_BACK, gtk.ICON_SIZE_BUTTON)
@@ -94,7 +94,7 @@ class TablesHandler:
         table_column_left_radiobutton.set_group(table_column_rename_radiobutton)
         hbox_column_left.pack_start(image_column_left, expand=False)
         hbox_column_left.pack_start(table_column_left_radiobutton)
-        
+
         hbox_column_right = gtk.HBox()
         image_column_right = gtk.Image()
         image_column_right.set_from_stock(gtk.STOCK_GO_FORWARD, gtk.ICON_SIZE_BUTTON)
@@ -102,20 +102,24 @@ class TablesHandler:
         table_column_right_radiobutton.set_group(table_column_rename_radiobutton)
         hbox_column_right.pack_start(image_column_right, expand=False)
         hbox_column_right.pack_start(table_column_right_radiobutton)
-        
+
         table_column_rename_radiobutton.set_active(self.dad.table_column_mode == "rename")
         table_column_delete_radiobutton.set_active(self.dad.table_column_mode == "delete")
         table_column_add_radiobutton.set_active(self.dad.table_column_mode == "add")
         table_column_left_radiobutton.set_active(self.dad.table_column_mode == cons.TAG_PROP_LEFT)
         table_column_right_radiobutton.set_active(self.dad.table_column_mode == cons.TAG_PROP_RIGHT)
-        
+        if self.dad.table_column_mode == "rename":
+            table_column_rename_entry.grab_focus()
+        elif self.dad.table_column_mode == "add":
+            table_column_new_entry.grab_focus()
+
         tablehandle_vbox_col = gtk.VBox()
         tablehandle_vbox_col.pack_start(hbox_column_rename)
         tablehandle_vbox_col.pack_start(hbox_column_delete)
         tablehandle_vbox_col.pack_start(hbox_column_add)
         tablehandle_vbox_col.pack_start(hbox_column_left)
         tablehandle_vbox_col.pack_start(hbox_column_right)
-        
+
         content_area = dialog.get_content_area()
         content_area.set_spacing(5)
         content_area.pack_start(tablehandle_vbox_col)
@@ -126,11 +130,19 @@ class TablesHandler:
                 try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
                 except: print cons.STR_PYGTK_222_REQUIRED
                 return True
+            elif keyname == cons.STR_KEY_TAB:
+                if self.dad.table_column_mode == "rename": table_column_delete_radiobutton.set_active(True)
+                elif self.dad.table_column_mode == "delete": table_column_add_radiobutton.set_active(True)
+                elif self.dad.table_column_mode == "add": table_column_left_radiobutton.set_active(True)
+                elif self.dad.table_column_mode == cons.TAG_PROP_LEFT: table_column_right_radiobutton.set_active(True)
+                else: table_column_rename_radiobutton.set_active(True)
+                return True
             return False
         def on_table_column_rename_radiobutton_toggled(radiobutton):
             if radiobutton.get_active():
                 table_column_rename_entry.set_sensitive(True)
                 self.dad.table_column_mode = "rename"
+                table_column_rename_entry.grab_focus()
             else: table_column_rename_entry.set_sensitive(False)
         def on_table_column_delete_radiobutton_toggled(radiobutton):
             if radiobutton.get_active(): self.dad.table_column_mode = "delete"
@@ -138,6 +150,7 @@ class TablesHandler:
             if radiobutton.get_active():
                 table_column_new_entry.set_sensitive(True)
                 self.dad.table_column_mode = "add"
+                table_column_new_entry.grab_focus()
             else: table_column_new_entry.set_sensitive(False)
         def on_table_column_left_radiobutton_toggled(radiobutton):
             if radiobutton.get_active(): self.dad.table_column_mode = cons.TAG_PROP_LEFT
@@ -166,7 +179,7 @@ class TablesHandler:
                             gtk.STOCK_OK, gtk.RESPONSE_ACCEPT))
         dialog.set_default_size(300, -1)
         dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-        
+
         label_rows = gtk.Label(_("Rows"))
         adj_rows = gtk.Adjustment(value=self.dad.table_rows, lower=1, upper=10000, step_incr=1)
         spinbutton_rows = gtk.SpinButton(adj_rows)
@@ -175,7 +188,7 @@ class TablesHandler:
         adj_columns = gtk.Adjustment(value=self.dad.table_columns, lower=1, upper=10000, step_incr=1)
         spinbutton_columns = gtk.SpinButton(adj_columns)
         spinbutton_columns.set_value(self.dad.table_columns)
-        
+
         hbox_rows_cols = gtk.HBox()
         hbox_rows_cols.pack_start(label_rows, expand=False)
         hbox_rows_cols.pack_start(spinbutton_rows, expand=False)
@@ -185,12 +198,12 @@ class TablesHandler:
         size_align = gtk.Alignment()
         size_align.set_padding(6, 6, 6, 6)
         size_align.add(hbox_rows_cols)
-        
+
         size_frame = gtk.Frame(label="<b>"+_("Table Size")+"</b>")
         size_frame.get_label_widget().set_use_markup(True)
         size_frame.set_shadow_type(gtk.SHADOW_NONE)
         size_frame.add(size_align)
-        
+
         label_col_min = gtk.Label(_("Min Width"))
         adj_col_min = gtk.Adjustment(value=self.dad.table_col_min, lower=1, upper=10000, step_incr=1)
         spinbutton_col_min = gtk.SpinButton(adj_col_min)
@@ -199,7 +212,7 @@ class TablesHandler:
         adj_col_max = gtk.Adjustment(value=self.dad.table_col_max, lower=1, upper=10000, step_incr=1)
         spinbutton_col_max = gtk.SpinButton(adj_col_max)
         spinbutton_col_max.set_value(self.dad.table_col_max)
-        
+
         hbox_col_min_max = gtk.HBox()
         hbox_col_min_max.pack_start(label_col_min, expand=False)
         hbox_col_min_max.pack_start(spinbutton_col_min, expand=False)
@@ -209,14 +222,14 @@ class TablesHandler:
         col_min_max_align = gtk.Alignment()
         col_min_max_align.set_padding(6, 6, 6, 6)
         col_min_max_align.add(hbox_col_min_max)
-        
+
         col_min_max_frame = gtk.Frame(label="<b>"+_("Column Properties")+"</b>")
         col_min_max_frame.get_label_widget().set_use_markup(True)
         col_min_max_frame.set_shadow_type(gtk.SHADOW_NONE)
         col_min_max_frame.add(col_min_max_align)
-        
+
         checkbutton_table_ins_from_file = gtk.CheckButton(label=_("Import from CSV File"))
-        
+
         content_area = dialog.get_content_area()
         content_area.set_spacing(5)
         if is_insert: content_area.pack_start(size_frame)
