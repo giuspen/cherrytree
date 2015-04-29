@@ -130,6 +130,7 @@ NODES_ICONS = {0:'cherry_red', 1:'cherry_blue', 2:'cherry_orange', 3:'cherry_cya
 CODE_ICONS = {"python": 'cherry_green', "sh":'cherry_purple',
               "c":'cherry_black', "cpp":'cherry_black', "chdr":'cherry_black'}
 
+MIN_CT_DOC_SIZE = 10
 MAX_FILE_NAME_LEN = 150
 WHITE_SPACE_BETW_PIXB_AND_TEXT = 3
 GRID_SLIP_OFFSET = 3

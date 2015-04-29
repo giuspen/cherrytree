@@ -1485,7 +1485,7 @@ iter_end, exclude_iter_sel_end=True)
                 ret_code = subprocess.call(bash_str, shell=True)
                 if os.path.isfile(filepath):
                     dest_file_size = os.path.getsize(filepath)
-                    if dest_file_size: break
+                    if dest_file_size > cons.MIN_CT_DOC_SIZE: break
             print "dest_file_size %s bytes" % dest_file_size
             if xml_string: os.remove(filepath_tmp)
             elif not exporting:
@@ -1814,14 +1814,17 @@ iter_end, exclude_iter_sel_end=True)
                 tail = os.path.dirname(filepath)
                 if tail.startswith(cons.CHAR_SLASH): tail = tail[1:]
             tree_tmp_folder = os.path.join(cons.TMP_FOLDER, tail)
-            if not os.path.isdir(tree_tmp_folder): os.makedirs(tree_tmp_folder)
+            tree_tmp_folder_tmp = os.path.join(tree_tmp_folder, "tmp")
+            if not os.path.isdir(tree_tmp_folder_tmp): os.makedirs(tree_tmp_folder_tmp)
             last_letter = "d" if filepath[-1] == "z" else "b"
-            filepath_tmp = os.path.join(tree_tmp_folder, os.path.basename(filepath[:-1] + last_letter))
+            extracted_file_name = os.path.basename(filepath[:-1] + last_letter)
+            filepath_tmp = os.path.join(tree_tmp_folder, extracted_file_name)
+            filepath_tmp_tmp = os.path.join(tree_tmp_folder_tmp, extracted_file_name)
             if cons.IS_WIN_OS:
-                esc_tmp_folder = support.windows_cmd_prepare_path(tree_tmp_folder)
+                esc_tmp_folder = support.windows_cmd_prepare_path(tree_tmp_folder_tmp)
                 esc_filepath = support.windows_cmd_prepare_path(filepath)
             else:
-                esc_tmp_folder = re.escape(tree_tmp_folder)
+                esc_tmp_folder = re.escape(tree_tmp_folder_tmp)
                 esc_filepath = re.escape(filepath)
             bash_str = '%s e -p%s -w%s -bd -y -o%s %s' % (cons.SZA_PATH,
                 password_str,
@@ -1833,15 +1836,27 @@ iter_end, exclude_iter_sel_end=True)
             if ret_code != 0:
                 support.dialog_error(_('Wrong Password'), self.window)
                 return None
-            if not os.path.isfile(filepath_tmp):
+            if not os.path.isfile(filepath_tmp_tmp):
                 print "? the compressed file was renamed"
-                files_list = glob.glob(os.path.join(tree_tmp_folder, "*"+filepath_tmp[-4:]))
+                files_list = glob.glob(os.path.join(tree_tmp_folder_tmp, "*"+filepath_tmp_tmp[-4:]))
                 #print files_list
-                old_filepath_tmp = files_list[0]
+                old_filepath_tmp_tmp = files_list[0]
                 for file_path in files_list:
-                    if os.path.getmtime(file_path) > os.path.getmtime(old_filepath_tmp):
-                        old_filepath_tmp = file_path
-                os.rename(old_filepath_tmp, filepath_tmp)
+                    if os.path.getmtime(file_path) > os.path.getmtime(old_filepath_tmp_tmp):
+                        old_filepath_tmp_tmp = file_path
+                os.rename(old_filepath_tmp_tmp, filepath_tmp_tmp)
+            if not os.path.isfile(filepath_tmp_tmp):
+                print "! cannot find extracted file", filepath_tmp_tmp
+                raise
+            dest_file_size = os.path.getsize(filepath_tmp_tmp)
+            if dest_file_size < cons.MIN_CT_DOC_SIZE:
+                print "? extracted file zero size"
+                support.dialog_error(_('Wrong Password'), self.window)
+                return None
+            if os.path.isfile(filepath_tmp):
+                os.remove(filepath_tmp)
+            shutil.copy(filepath_tmp_tmp, filepath_tmp)
+            os.remove(filepath_tmp_tmp)
         elif filepath[-1] not in ["d", "b"]:
             print "bad filepath[-1]", filepath[-1]
             return False
