@@ -1724,7 +1724,7 @@ class PlainTextHandler:
                         self.add_file(full_element)
                 else:
                     mime_type = gio_file_info.get_content_type()
-                    if mime_type in ["."+self.ext_plain_import.lower(), "."+self.ext_plain_import.upper()]:
+                    if mime_type in ["."+self.dad.ext_plain_import.lower(), "."+self.dad.ext_plain_import.upper()]:
                         self.add_file(full_element)
             elif os.path.isdir(full_element):
                 self.add_node_with_content(full_element, "")
