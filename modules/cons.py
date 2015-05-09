@@ -27,7 +27,7 @@ APP_NAME = "cherrytree"
 NEWER_VERSION_URL = "http://www.giuspen.com/software/version_cherrytree"
 if sys.platform.startswith("win"):
     IS_WIN_OS = True
-    SZA_PATH = os.path.join(SHARE_PATH, "7za.exe")
+    SZA_PATH = '"'+os.path.join(SHARE_PATH, "7za.exe")+'"'
     if SHARE_PATH:
         EXE_DIR = SHARE_PATH
         os.chdir(EXE_DIR)
