@@ -879,22 +879,37 @@ iter_end, exclude_iter_sel_end=True)
 
     def nodes_add_from_plain_text_file(self, action):
         """Add Nodes from Selected Plain Text File"""
-        filepath = support.dialog_file_select(filter_pattern=["*.txt", "*.TXT"] if cons.IS_WIN_OS else [],
+        if not hasattr(self, "ext_plain_import"):
+            self.ext_plain_import = "txt"
+        if cons.IS_WIN_OS:
+            ext_plain_import = support.dialog_img_n_entry(self.window, _("Plain Text Document"), self.ext_plain_import, gtk.STOCK_FILE)
+            if not ext_plain_import: return
+            self.ext_plain_import = ext_plain_import
+            filter_pattern = ["*."+self.ext_plain_import.lower(), "*."+self.ext_plain_import.upper()]
+        else:
+            filter_pattern = []
+        filepath = support.dialog_file_select(filter_pattern=filter_pattern,
             filter_mime=["text/*"] if not cons.IS_WIN_OS else [],
             filter_name=_("Plain Text Document"),
             curr_folder=self.pick_dir, parent=self.window)
         if not filepath: return
         self.pick_dir = os.path.dirname(filepath)
-        plain = imports.PlainTextHandler()
+        plain = imports.PlainTextHandler(self)
         cherrytree_string = plain.get_cherrytree_xml(filepath=filepath)
         self.nodes_add_from_cherrytree_data(cherrytree_string)
 
     def nodes_add_from_plain_text_folder(self, action):
         """Add Nodes from Plain Text File(s) in Selected Folder"""
+        if not hasattr(self, "ext_plain_import"):
+            self.ext_plain_import = "txt"
+        if cons.IS_WIN_OS:
+            ext_plain_import = support.dialog_img_n_entry(self.window, _("Plain Text Document"), self.ext_plain_import, gtk.STOCK_FILE)
+            if not ext_plain_import: return
+            self.ext_plain_import = ext_plain_import
         folderpath = support.dialog_folder_select(curr_folder=self.pick_dir, parent=self.window)
         if not folderpath: return
         self.pick_dir = os.path.dirname(folderpath)
-        plain = imports.PlainTextHandler()
+        plain = imports.PlainTextHandler(self)
         cherrytree_string = plain.get_cherrytree_xml(folderpath=folderpath)
         self.nodes_add_from_cherrytree_data(cherrytree_string)
 

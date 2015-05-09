@@ -1700,6 +1700,10 @@ class TreepadHandler:
 class PlainTextHandler:
     """The Handler of the Plain Text Parsing"""
 
+    def __init__(self, dad):
+        """Machine boot"""
+        self.dad = dad
+
     def rich_text_serialize(self, text_data):
         """Appends a new part to the XML rich text"""
         dom_iter = self.dom.createElement("rich_text")
@@ -1720,7 +1724,7 @@ class PlainTextHandler:
                         self.add_file(full_element)
                 else:
                     mime_type = gio_file_info.get_content_type()
-                    if mime_type in [".txt", ".TXT"]:
+                    if mime_type in ["."+self.ext_plain_import.lower(), "."+self.ext_plain_import.upper()]:
                         self.add_file(full_element)
             elif os.path.isdir(full_element):
                 self.add_node_with_content(full_element, "")
@@ -1744,7 +1748,9 @@ class PlainTextHandler:
         """Append Node and Fill Content"""
         self.nodes_list.append(self.dom.createElement("node"))
         node_name = os.path.basename(filepath)
-        if node_name.lower().endswith(".txt"): node_name = node_name[:-4]
+        if node_name.lower().endswith("."+self.dad.ext_plain_import.lower()):
+            len_ext = 1+len(self.dad.ext_plain_import)
+            node_name = node_name[:-len_ext]
         self.nodes_list[-1].setAttribute("name", node_name)
         self.nodes_list[-1].setAttribute("prog_lang", cons.RICH_TEXT_ID)
         self.nodes_list[-2].appendChild(self.nodes_list[-1])
