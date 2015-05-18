@@ -146,7 +146,7 @@ class CherryTree:
         self.sourcestyleschememanager = gtksourceview2.StyleSchemeManager()
         self.sourceview = gtksourceview2.View()
         self.sourceview.set_sensitive(False)
-        self.sourceview.set_smart_home_end(gtksourceview2.SMART_HOME_END_BEFORE)
+        self.sourceview.set_smart_home_end(gtksourceview2.SMART_HOME_END_AFTER)
         self.sourceview.connect('populate-popup', self.on_sourceview_populate_popup)
         self.sourceview.connect("event", self.on_sourceview_event)
         self.sourceview.connect("motion-notify-event", self.on_sourceview_motion_notify_event)
