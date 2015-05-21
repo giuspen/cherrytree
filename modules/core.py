@@ -2245,7 +2245,7 @@ iter_end, exclude_iter_sel_end=True)
         """Iteration of the Node Inherit Syntax"""
         iter_child = self.treestore.iter_children(iter_father)
         while iter_child != None:
-            if self.treestore[iter_child][4] != self.treestore[iter_father][4]:
+            if not self.treestore[iter_child][7] and self.treestore[iter_child][4] != self.treestore[iter_father][4]:
                 self.get_textbuffer_from_tree_iter(iter_child)
                 old_syntax_highl = self.treestore[iter_child][4]
                 self.treestore[iter_child][4] = self.treestore[iter_father][4]
