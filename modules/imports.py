@@ -323,7 +323,6 @@ class TuxCardsHandler(HTMLParser.HTMLParser):
         self.dom.appendChild(self.nodes_list[0])
         self.curr_attributes = {}
         for tag_property in cons.TAG_PROPERTIES: self.curr_attributes[tag_property] = ""
-        self.latest_span = ""
         self.start_parsing(tuxcards_string)
         return self.dom.toxml()
 
@@ -375,7 +374,7 @@ class KeepnoteHandler(HTMLParser.HTMLParser):
         # curr_state 0: standby, taking no data
         # curr_state 1: waiting for node content, take many data
         for tag_property in cons.TAG_PROPERTIES: self.curr_attributes[tag_property] = ""
-        self.latest_span = ""
+        self.latest_span = []
         self.pixbuf_vector = []
         self.curr_folder = node_folder
         self.chars_counter = 0
@@ -402,10 +401,10 @@ class KeepnoteHandler(HTMLParser.HTMLParser):
                 if match != None:
                     if match.group(1) == "color":
                         self.curr_attributes[cons.TAG_FOREGROUND] = match.group(2).strip()
-                        self.latest_span = cons.TAG_FOREGROUND
+                        self.latest_span.append(cons.TAG_FOREGROUND)
                     elif match.group(1) == "background-color":
                         self.curr_attributes[cons.TAG_BACKGROUND] = match.group(2).strip()
-                        self.latest_span = cons.TAG_BACKGROUND
+                        self.latest_span.append(cons.TAG_BACKGROUND)
             elif tag == "a" and len(attrs) > 0:
                 link_url = attrs[0][1]
                 if len(link_url) > 7:
@@ -438,8 +437,10 @@ class KeepnoteHandler(HTMLParser.HTMLParser):
         elif tag == "u": self.curr_attributes[cons.TAG_UNDERLINE] = ""
         elif tag == "strike": self.curr_attributes[cons.TAG_STRIKETHROUGH] = ""
         elif tag == "span":
-            if self.latest_span == cons.TAG_FOREGROUND: self.curr_attributes[cons.TAG_FOREGROUND] = ""
-            elif self.latest_span == cons.TAG_BACKGROUND: self.curr_attributes[cons.TAG_BACKGROUND] = ""
+            if self.latest_span:
+                if self.latest_span[-1] == cons.TAG_FOREGROUND: self.curr_attributes[cons.TAG_FOREGROUND] = ""
+                elif self.latest_span[-1] == cons.TAG_BACKGROUND: self.curr_attributes[cons.TAG_BACKGROUND] = ""
+                del self.latest_span[-1]
         elif tag == "a": self.curr_attributes[cons.TAG_LINK] = ""
 
     def handle_data(self, data):
@@ -1171,7 +1172,6 @@ class BasketHandler(HTMLParser.HTMLParser):
         self.dom.appendChild(self.nodes_list[0])
         self.curr_attributes = {}
         for tag_property in cons.TAG_PROPERTIES: self.curr_attributes[tag_property] = ""
-        self.latest_span = ""
         self.start_parsing()
         return self.dom.toxml()
 
@@ -1334,7 +1334,6 @@ class KnowitHandler(HTMLParser.HTMLParser):
         self.dom.appendChild(self.nodes_list[0])
         self.curr_attributes = {}
         for tag_property in cons.TAG_PROPERTIES: self.curr_attributes[tag_property] = ""
-        self.latest_span = ""
         self.links_to_node_list = []
         self.parse_string_lines(file_descriptor)
         return self.dom.toxml()
@@ -1885,10 +1884,10 @@ class NotecaseHandler(HTMLParser.HTMLParser):
                 if match != None:
                     if match.group(1) == "color":
                         self.curr_attributes[cons.TAG_FOREGROUND] = match.group(2).strip()
-                        self.latest_span = cons.TAG_FOREGROUND
+                        self.latest_span.append(cons.TAG_FOREGROUND)
                     elif match.group(1) == "background-color":
                         self.curr_attributes[cons.TAG_BACKGROUND] = match.group(2).strip()
-                        self.latest_span = cons.TAG_BACKGROUND
+                        self.latest_span.append(cons.TAG_BACKGROUND)
             elif tag == "a" and len(attrs) > 0:
                 link_url = attrs[0][1]
                 if len(link_url) > 7:
@@ -1970,8 +1969,10 @@ class NotecaseHandler(HTMLParser.HTMLParser):
             elif tag == "u": self.curr_attributes[cons.TAG_UNDERLINE] = ""
             elif tag == "s": self.curr_attributes[cons.TAG_STRIKETHROUGH] = ""
             elif tag == "span":
-                if self.latest_span == cons.TAG_FOREGROUND: self.curr_attributes[cons.TAG_FOREGROUND] = ""
-                elif self.latest_span == cons.TAG_BACKGROUND: self.curr_attributes[cons.TAG_BACKGROUND] = ""
+                if self.latest_span:
+                    if self.latest_span[-1] == cons.TAG_FOREGROUND: self.curr_attributes[cons.TAG_FOREGROUND] = ""
+                    elif self.latest_span[-1] == cons.TAG_BACKGROUND: self.curr_attributes[cons.TAG_BACKGROUND] = ""
+                    del self.latest_span[-1]
             elif tag == "a": self.curr_attributes[cons.TAG_LINK] = ""
         elif tag == "dl":
             # backward one level in nodes list
@@ -2015,7 +2016,7 @@ class NotecaseHandler(HTMLParser.HTMLParser):
         self.curr_title = ""
         self.curr_attributes = {}
         for tag_property in cons.TAG_PROPERTIES: self.curr_attributes[tag_property] = ""
-        self.latest_span = ""
+        self.latest_span = []
         # curr_state 0: standby, taking no data
         # curr_state 1: waiting for node title, take one data
         # curr_state 2: waiting for node content, take many data
@@ -2222,13 +2223,14 @@ class HTMLHandler(HTMLParser.HTMLParser):
             elif tag == "u": self.curr_attributes[cons.TAG_UNDERLINE] = ""
             elif tag == "s": self.curr_attributes[cons.TAG_STRIKETHROUGH] = ""
             elif tag == "span":
-                if cons.TAG_FOREGROUND in self.latest_span: self.curr_attributes[cons.TAG_FOREGROUND] = ""
-                if cons.TAG_BACKGROUND in self.latest_span: self.curr_attributes[cons.TAG_BACKGROUND] = ""
-                if cons.TAG_UNDERLINE in self.latest_span: self.curr_attributes[cons.TAG_UNDERLINE] = ""
-                if cons.TAG_STRIKETHROUGH in self.latest_span: self.curr_attributes[cons.TAG_STRIKETHROUGH] = ""
-                if cons.TAG_WEIGHT in self.latest_span: self.curr_attributes[cons.TAG_WEIGHT] = ""
-                if cons.TAG_STYLE in self.latest_span: self.curr_attributes[cons.TAG_STYLE] = ""
-                self.latest_span = []
+                if self.latest_span:
+                    if self.latest_span[-1] == cons.TAG_FOREGROUND: self.curr_attributes[cons.TAG_FOREGROUND] = ""
+                    elif self.latest_span[-1] == cons.TAG_BACKGROUND: self.curr_attributes[cons.TAG_BACKGROUND] = ""
+                    elif self.latest_span[-1] == cons.TAG_UNDERLINE: self.curr_attributes[cons.TAG_UNDERLINE] = ""
+                    elif self.latest_span[-1] == cons.TAG_STRIKETHROUGH: self.curr_attributes[cons.TAG_STRIKETHROUGH] = ""
+                    elif self.latest_span[-1] == cons.TAG_WEIGHT: self.curr_attributes[cons.TAG_WEIGHT] = ""
+                    elif self.latest_span[-1] == cons.TAG_STYLE: self.curr_attributes[cons.TAG_STYLE] = ""
+                    del self.latest_span[-1]
             elif tag == "font":
                 if self.latest_font == cons.TAG_FOREGROUND: self.curr_attributes[cons.TAG_FOREGROUND] = ""
             elif tag in [cons.TAG_PROP_H1, cons.TAG_PROP_H2, cons.TAG_PROP_H3, cons.TAG_PROP_H4, cons.TAG_PROP_H5, cons.TAG_PROP_H6]:
