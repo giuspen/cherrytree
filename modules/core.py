@@ -2743,12 +2743,16 @@ iter_end, exclude_iter_sel_end=True)
             user_active_restore = True
         else: user_active_restore = False
         if old_syntax_highl == cons.RICH_TEXT_ID and new_syntax_highl != cons.RICH_TEXT_ID:
+            rich_to_non_rich = True
             txt_handler = exports.Export2Txt(self)
             node_text = txt_handler.node_export_to_txt(text_buffer, "")
         else:
+            rich_to_non_rich = False
             node_text = text_buffer.get_text(*text_buffer.get_bounds())
         self.treestore[tree_iter][2] = self.buffer_create(new_syntax_highl)
+        if rich_to_non_rich: self.treestore[tree_iter][2].begin_not_undoable_action()
         self.treestore[tree_iter][2].set_text(node_text)
+        if rich_to_non_rich: self.treestore[tree_iter][2].end_not_undoable_action()
         self.sourceview.set_buffer(self.treestore[tree_iter][2])
         self.treestore[tree_iter][2].connect('modified-changed', self.on_modified_changed)
         self.sourceview_set_properties(tree_iter, new_syntax_highl)
