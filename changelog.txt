@@ -1,4 +1,17 @@
 
+0.35.8 (May 25th, 2015)
+• protected documents: better checks at extraction time to cope with 7zip extracting zero size files after a wrong password
+• protected documents bugfix: windows 7za.exe wrong path detected causing wrong password error
+• import from plain text file in WIN_OS allow user to select an extension different than txt (in linux any text file is automatically detected)
+• changed behaviour of HOME and END key presses in text: at first press move the cursor to start or end of the line, at second go to smart start or end (start or end excluding spaces)
+• dialog tablecolumnhandle: change active radiobutton with Tab and auto focus to text entry
+• added support for Scala programming language (from gtksourceview-3.0/language-specs)
+• bugfix in import from html and notecase and nested span tags
+• bugfix: changing a node syntax highlighting from code to plain text and vice versa did not update the font
+• bugfix: if a node has the read only property set, do not let the user change the node type
+• bugfix: after changing node type from rich to non rich text, the undo removes all text
+• bugfix: preferences dialog, the timestamp format help button was linked to a web page listing options not implemented in the python version; now the link goes to the exact python implementation
+
 0.35.7 (January 30th, 2015)
 • improved checks at password protected documents save time after reports of data loss in windows os
 • updated Portuguese-Brazilian language
