@@ -4516,6 +4516,17 @@ iter_end, exclude_iter_sel_end=True)
                     else: self.ui.get_widget("/ImageMenu/DismissImageLink").hide()
                     self.ui.get_widget("/ImageMenu").popup(None, None, None, 3, event.time)
                 return True
+            elif self.syntax_highlighting == cons.RICH_TEXT_ID and keyname == cons.STR_KEY_TAB:
+                if not self.curr_buffer.get_has_selection(): return False
+                iter_sel_start, iter_sel_end = self.curr_buffer.get_selection_bounds()
+                num_chars = iter_sel_end.get_offset() - iter_sel_start.get_offset()
+                if num_chars != 1: return False
+                anchor = iter_sel_start.get_child_anchor()
+                if not anchor: return False
+                if not "liststore" in dir(anchor): return False
+                self.curr_buffer.place_cursor(iter_sel_end)
+                self.sourceview.grab_focus()
+                return True
         return False
 
     def on_sourceview_event_after(self, text_view, event):
