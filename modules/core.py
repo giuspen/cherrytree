@@ -1278,10 +1278,12 @@ iter_end, exclude_iter_sel_end=True)
                 runn_win.window.show_all()
                 runn_win.window.deiconify()
                 runn_win.window.present()
+                config.config_file_apply(runn_win)
                 runn_win.window.move(runn_win.win_position[0], runn_win.win_position[1])
                 #print "restored position", runn_win.win_position[0], runn_win.win_position[1]
             else:
                 runn_win.win_position = runn_win.window.get_position()
+                config.config_file_save(runn_win)
                 runn_win.window.hide_all()
 
     def on_mouse_button_clicked_systray(self, widget, event):
@@ -3328,8 +3330,9 @@ iter_end, exclude_iter_sel_end=True)
 
     def toggle_show_hide_toolbar(self, *args):
         """Toggle Show/Hide the Toolbar"""
-        if self.ui.get_widget("/ToolBar").get_property(cons.STR_VISIBLE): self.ui.get_widget("/ToolBar").hide()
-        else: self.ui.get_widget("/ToolBar").show()
+        old_toolbar_status = self.ui.get_widget("/ToolBar").get_property(cons.STR_VISIBLE)
+        self.toolbar_visible = not old_toolbar_status
+        self.ui.get_widget("/ToolBar").set_property(cons.STR_VISIBLE, self.toolbar_visible)
 
     def toggle_show_hide_tree(self, *args):
         """Toggle Show/Hide the Tree"""
@@ -3339,9 +3342,9 @@ iter_end, exclude_iter_sel_end=True)
 
     def toggle_show_hide_node_name_header(self, *args):
         """Toggle Show/Hide the Node Title Header"""
-        if self.header_node_name_label.get_property(cons.STR_VISIBLE):
-            self.header_node_name_label.hide()
-        else: self.header_node_name_label.show()
+        old_show_node_name_label = self.header_node_name_label.get_property(cons.STR_VISIBLE)
+        self.show_node_name_label = not old_show_node_name_label
+        self.header_node_name_label.set_property(cons.STR_VISIBLE, self.show_node_name_label)
 
     def quit_application(self, *args):
         """Just Hide or Quit the gtk main loop"""
