@@ -467,8 +467,10 @@ class Export2Html:
             new_folder += "2"
         self.new_path = os.path.join(dir_place, new_folder)
         self.images_dir = os.path.join(self.new_path, "images")
+        self.embed_dir = os.path.join(self.new_path, "EmbeddedFiles")
         os.mkdir(self.new_path)
         os.mkdir(self.images_dir)
+        os.mkdir(self.embed_dir)
         return True
 
     def nodes_all_export_to_html(self, top_tree_iter=None):
@@ -566,7 +568,12 @@ class Export2Html:
                 html_text += html_slot
                 if i < len(text_n_objects[1]):
                     curr_object = text_n_objects[1][i]
-                    if curr_object[0] == "pixbuf": html_text += self.get_image_html(curr_object[1], tree_iter)
+                    if curr_object[0] == "pixbuf":
+                        pix_dir = dir(curr_object[1][1])
+                        if "embfile" in pix_dir:
+                            html_text += self.get_embfile_html(curr_object[1], tree_iter)
+                        else:
+                            html_text += self.get_image_html(curr_object[1], tree_iter)
                     elif curr_object[0] == "table": html_text += self.get_table_html(curr_object[1])
                     elif curr_object[0] == "codebox": html_text += self.get_codebox_html(curr_object[1])
         else: html_text += self.html_get_from_code_buffer(self.dad.treestore[tree_iter][2], sel_range)
@@ -614,6 +621,22 @@ class Export2Html:
         html_text += self.get_codebox_html([0, codebox_dict, cons.TAG_PROP_LEFT])
         html_text += cons.HTML_FOOTER
         return html_text
+
+    def get_embfile_html(self, embeded, tree_iter):
+        """Returns the HTML embedded file"""
+        # embeded is: [offset, pixbuf, justification]
+        embfile_align_text = self.get_object_alignment_string(embeded[2])
+        if tree_iter:
+            embfile_name = "%s-%s" % (self.dad.treestore[tree_iter][3], embeded[1].filename)
+            embfile_rel_path = os.path.join("EmbeddedFiles", embfile_name)
+        else:
+            embfile_name = "%s.png" % embeded[1].filename
+            embfile_rel_path = "file://" + os.path.join(self.embed_dir, embfile_name)
+        embfile_html = '<table style="%s"><tr><td><a href="%s">Linked file: %s<a></td></tr></table>' % (embfile_align_text, embfile_rel_path, embeded[1].filename)        
+        with open(os.path.join(self.embed_dir,embfile_name), 'wb') as fd:
+            fd.write(embeded[1].embfile)
+        return embfile_html
+        
 
     def get_image_html(self, image, tree_iter):
         """Returns the HTML Image"""
