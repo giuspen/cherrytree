@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-09-29 00:14+0200\n"
-"PO-Revision-Date: 2015-06-16 18:35+0200\n"
+"PO-Revision-Date: 2015-06-23 22:20+0200\n"
 "Last-Translator: Ferhat AYDIN <ferhataydin44@gmail.com>\n"
 "Language-Team: Turkish\n"
 "Language: tr\n"
@@ -244,7 +244,7 @@ msgstr "_Yinele"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:511
 msgid "Redo Previously Discarded Operation"
-msgstr "Daha Önce İptal Edilen İşlemi Yinele"
+msgstr "Önce İptal Edilen İşlemi Yinele"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:512
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:774
@@ -685,7 +685,7 @@ msgstr "Seçili Notla Aynı Özellikte Not Ekle"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:554
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:674
 msgid "Add _SubNode"
-msgstr "Not Ekle"
+msgstr "Alt Not Ekle"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:554
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:674
@@ -1033,19 +1033,19 @@ msgstr "Tüm Notları Daralt"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:590
 msgid "_Increase Toolbar Icons Size"
-msgstr "Araç Çubuğu Simge Boyutunu Küçült"
+msgstr "Araç Çubuğu Simge Boyutunu Büyült"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:590
 msgid "Increase the Size of the Toolbar Icons"
-msgstr "Araç Çubuğundaki Simgelerin Boyutunu Küçült"
+msgstr "Araç Çubuğundaki Simgelerin Boyutunu Büyült"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:591
 msgid "_Decrease Toolbar Icons Size"
-msgstr "Araç Çubuğu Simge Boyutunu Büyült"
+msgstr "Araç Çubuğu Simge Boyutunu Küçült"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:591
 msgid "Decrease the Size of the Toolbar Icons"
-msgstr "Araç Çubuğundaki Simgelerin Boyutunu Büyült"
+msgstr "Araç Çubuğundaki Simgelerin Boyutunu Küçült"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:592
 msgid "_Full Screen On/Off"
@@ -2727,7 +2727,7 @@ msgstr "Bununla Değiştir"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3048
 msgid "Match Case"
-msgstr "Birebir Eşletir"
+msgstr "Birebir Eşleştir"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3050
 msgid "Regular Expression"
