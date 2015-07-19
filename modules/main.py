@@ -199,7 +199,11 @@ def main(args):
         DBUS_OK = True
     except:
         DBUS_OK = False
-    if DBUS_OK:
+        
+    if args.mode == "export":
+        lang_str = initializations()
+        CherryTreeHandler(args, lang_str)
+    elif DBUS_OK:
         try:
             # client
             remote_object = session_bus.get_object("com.giuspen.CherryTreeService", "/CherryTreeObject")
@@ -213,11 +217,9 @@ def main(args):
             name = dbus.service.BusName("com.giuspen.CherryTreeService", session_bus)
             object = CherryTreeObject(session_bus, '/CherryTreeObject')
             CherryTreeHandler(args, lang_str)
-            if args.mode != "export":
-                gtk.main()
+            gtk.main()
     else:
         print "dbus fail, maybe a firewall problem, centralized instances disabled"
         lang_str = initializations()
         CherryTreeHandler(args, lang_str)
-        if args.mode != "export":
-            gtk.main()
+        gtk.main()
