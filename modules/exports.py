@@ -458,14 +458,25 @@ class Export2Html:
         self.dad = dad
         self.tree_links_text = ""
 
-    def prepare_html_folder(self, new_folder):
+    def prepare_html_folder(self, new_folder,dir_place=""):
         """Prepare the website folder"""
-        dir_place = support.dialog_folder_select(curr_folder=self.dad.pick_dir, parent=self.dad.window)
-        if dir_place == None: return False
-        new_folder = support.clean_from_chars_not_for_filename(new_folder) + "_HTML"
-        while os.path.exists(os.path.join(dir_place, new_folder)):
-            new_folder += "2"
-        self.new_path = os.path.join(dir_place, new_folder)
+        if dir_place == "":
+            dir_place = support.dialog_folder_select(curr_folder=self.dad.pick_dir, parent=self.dad.window)
+            if dir_place == None: return False     
+            new_folder = support.clean_from_chars_not_for_filename(new_folder) + "_HTML"
+            if os.path.exists(os.path.join(dir_place, new_folder)):
+                n=2
+                while os.path.exists(os.path.join(dir_place, new_folder+'%03d'%n)):
+                    n += 1
+                new_folder += '%03d'%n
+            self.new_path = os.path.join(dir_place, new_folder)
+        else:
+            if os.path.exists(os.path.join(dir_place)):
+                print "Export error: folder already exists!"
+                return False
+            else:
+                self.new_path = dir_place
+        
         self.images_dir = os.path.join(self.new_path, "images")
         self.embed_dir = os.path.join(self.new_path, "EmbeddedFiles")
         os.mkdir(self.new_path)

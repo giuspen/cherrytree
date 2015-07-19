@@ -27,7 +27,7 @@ if cons.HAS_APPINDICATOR: import appindicator
 class CherryTree:
     """Application's GUI"""
 
-    def __init__(self, lang_str, open_with_file, node_name, boss, is_startup, is_arg):
+    def __init__(self, lang_str, open_with_file, node_name, boss, is_startup, is_arg,export_mode):
         """GUI Startup"""
         self.boss = boss
         self.filetype = ""
@@ -194,7 +194,8 @@ class CherryTree:
         self.prefpage = 0
         support.set_menu_items_recent_documents(self)
         support.set_menu_items_special_chars(self)
-        self.window.show_all() # this before the config_file_apply that could hide something
+        if export_mode!=True:
+            self.window.show_all() # this before the config_file_apply that could hide something
         self.window.present()
         config.config_file_apply(self)
         self.combobox_prog_lang_init()
@@ -2090,7 +2091,10 @@ iter_end, exclude_iter_sel_end=True)
     def export_to_html(self, *args):
         """Export to HTML"""
         if not self.is_there_selected_node_or_error(): return
-        export_type = support.dialog_selnode_selnodeandsub_alltree(self, also_selection=True, also_index_in_page=True)
+        if args[0] == "Auto":
+            export_type = 3
+        else:
+            export_type = support.dialog_selnode_selnodeandsub_alltree(self, also_selection=True, also_index_in_page=True)
         if export_type == 0: return
         if export_type == 1:
             # only selected node
@@ -2107,7 +2111,11 @@ iter_end, exclude_iter_sel_end=True)
                     self.objects_buffer_refresh()
         elif export_type == 3:
             # all nodes
-            if self.html_handler.prepare_html_folder(self.file_name):
+            if args[0] == "Auto":
+                dir_string = args[1]
+            else:
+                dir_string = ""    
+            if self.html_handler.prepare_html_folder(self.file_name,dir_place=dir_string):
                 self.html_handler.nodes_all_export_to_html()
                 if self.filetype in ["b", "x"] and self.curr_tree_iter:
                     self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
@@ -2118,6 +2126,9 @@ iter_end, exclude_iter_sel_end=True)
                 folder_name = support.get_node_hierarchical_name(self, self.curr_tree_iter)
                 if self.html_handler.prepare_html_folder(folder_name):
                     self.html_handler.node_export_to_html(self.curr_tree_iter, only_selection=True)
+                    
+  #  def cmd_export_to_html(self):
+        
 
     def export_print_page_setup(self, action):
         """Print Page Setup Operations"""
