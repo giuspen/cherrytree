@@ -22,7 +22,7 @@
 import os, sys
 
 
-VERSION = "0.35.8"
+VERSION = "0.35.9"
 APP_NAME = "cherrytree"
 NEWER_VERSION_URL = "http://www.giuspen.com/software/version_cherrytree"
 if sys.platform.startswith("win"):
@@ -63,7 +63,7 @@ except: HAS_APPINDICATOR = False
 XDG_CURRENT_DESKTOP = 'XDG_CURRENT_DESKTOP'
 HAS_SYSTRAY = not (XDG_CURRENT_DESKTOP in os.environ and os.environ[XDG_CURRENT_DESKTOP] == "Unity")
 
-AVAILABLE_LANGS = ['default', 'cs', 'de', 'en', 'es', 'fr', 'hy', 'it', 'nl', 'pl', 'pt_BR', 'ru', 'uk', 'zh_CN']
+AVAILABLE_LANGS = ['default', 'cs', 'de', 'en', 'es', 'fr', 'hy', 'it', 'nl', 'pl', 'pt_BR', 'ru', 'tr', 'uk', 'zh_CN']
 COLOR_48_LINK_WEBS = "#00004444ffff"
 COLOR_48_LINK_NODE = "#071c838e071c"
 COLOR_48_LINK_FILE = "#8b8b69691414"

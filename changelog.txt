@@ -1,4 +1,12 @@
 
+0.35.9 (July 7th, 2015)
+• added Turkish language - work of Ferhat Aydin
+• export to HTML now supports also the embedded files - work of Julian Stirling 
+• bugfix: cursor position not restored after closing and reopening the main window
+• bugfix: when pressing Tab with a table focused, do not delete the table but put the cursor after the table
+• bugfix: toolbar and node name header visibility state not saved/restored properly with system tray docking enabled
+• import from zim: improved preserving of links between nodes
+
 0.35.8 (May 25th, 2015)
 • protected documents: better checks at extraction time to cope with 7zip extracting zero size files after a wrong password
 • protected documents bugfix: windows 7za.exe wrong path detected causing wrong password error

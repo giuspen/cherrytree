@@ -66,6 +66,7 @@ class CherryTree:
         vbox_main = gtk.VBox()
         self.window.add(vbox_main)
         self.country_lang = lang_str
+        self.cursor_position = 0
         config.config_file_load(self)
         if not cons.HAS_APPINDICATOR: self.use_appind = False
         elif not cons.HAS_SYSTRAY: self.use_appind = True
@@ -176,7 +177,6 @@ class CherryTree:
         self.curr_tree_iter = None
         self.curr_window_n_tree_width = None
         self.curr_buffer = None
-        self.cursor_position = 0
         self.nodes_cursor_pos = {}
         self.search_replace_dict = {'find':"", 'replace':"", 'match_case':False, 'reg_exp':False, 'whole_word':False, 'start_word':False, 'fw':True, 'a_ff_fa':0, 'idialog':True}
         self.links_entries = {'webs':'', 'file':'', 'fold':'', 'anch':'', 'node':None}

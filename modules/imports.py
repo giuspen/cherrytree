@@ -756,13 +756,19 @@ class ZimHandler():
             node_dest = dad.get_tree_iter_from_node_name(link_to_node['name_dest'])
             node_source = dad.get_tree_iter_from_node_name(link_to_node['node_source'])
             if not node_dest:
-                #print "node_dest not found"
+                if cons.CHAR_COLON in link_to_node['name_dest']:
+                    node_dest = dad.get_tree_iter_from_node_name(link_to_node['name_dest'].split(cons.CHAR_COLON)[-1])
+                elif link_to_node['name_dest'].startswith("+"):
+                    node_dest = dad.get_tree_iter_from_node_name(link_to_node['name_dest'][1:])
+            if not node_dest:
+                print "node_dest not found", link_to_node['name_dest']
                 continue
             if not node_source:
-                #print "node_source not found"
+                print "node_source not found", link_to_node['node_source']
                 continue
             source_buffer = dad.get_textbuffer_from_tree_iter(node_source)
             if source_buffer.get_char_count() < link_to_node['char_end']:
+                print "source_buffer less than %d chars" % link_to_node['char_end']
                 continue
             property_value = cons.LINK_TYPE_NODE + cons.CHAR_SPACE + str(dad.treestore[node_dest][3])
             source_buffer.apply_tag_by_name(dad.apply_tag_exist_or_create(cons.TAG_LINK, property_value),
