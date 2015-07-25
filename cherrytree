@@ -51,6 +51,8 @@ if ARGPARSE_OK:
     parser = argparse.ArgumentParser()
     parser.add_argument('filepath', nargs='?', help='Optional CherryTree Document to Open')
     parser.add_argument("-n", "--node", help="Node Name to Focus")
+    parser.add_argument("-x", "--export", dest='mode', action='store_const', const='export', default='open', help="Export to HTML (-o must be set)")
+    parser.add_argument("-o", "--output", action='store', help="Set output directory.")
     args = parser.parse_args()
 else:
     class CherryArgs:
