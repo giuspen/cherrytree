@@ -53,20 +53,20 @@ class CherryTreeHandler():
         self.running_windows = []
         self.embfiles_id = 0
         self.systray_active = False
-        
-        if args.mode == "export":
-            if args.output and args.filepath:
-                ghost_window = core.CherryTree(self.lang_str, filepath_fix(args.filepath), args.node, self, True, True,True)
-                ghost_window.export_to_html("Auto",args.output)  
+
+        if args.export_to_html_dir:
+            if args.filepath:
+                ghost_window = core.CherryTree(self.lang_str, filepath_fix(args.filepath), args.node, self, True, True, True)
+                ghost_window.export_to_html("Auto", args.export_to_html_dir)
             else:
-                print "Export error: Either output or input not specified"
+                print "Export error: input not specified"
         else:
             self.window_open_new(filepath_fix(args.filepath), args.node, True, True if args.filepath else False)
             self.server_check_timer_id = gobject.timeout_add(1000, self.server_periodic_check) # 1 sec
 
     def window_open_new(self, filepath, node_name, is_startup, is_arg):
         """Open a new top level Window"""
-        window = core.CherryTree(self.lang_str, filepath, node_name, self, is_startup, is_arg,False)
+        window = core.CherryTree(self.lang_str, filepath, node_name, self, is_startup, is_arg, False)
         self.running_windows.append(window)
         #print self.running_windows
 
@@ -199,8 +199,8 @@ def main(args):
         DBUS_OK = True
     except:
         DBUS_OK = False
-        
-    if args.mode == "export":
+
+    if args.export_to_html_dir:
         lang_str = initializations()
         CherryTreeHandler(args, lang_str)
     elif DBUS_OK:

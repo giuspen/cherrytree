@@ -27,7 +27,7 @@ if cons.HAS_APPINDICATOR: import appindicator
 class CherryTree:
     """Application's GUI"""
 
-    def __init__(self, lang_str, open_with_file, node_name, boss, is_startup, is_arg,export_mode):
+    def __init__(self, lang_str, open_with_file, node_name, boss, is_startup, is_arg, export_mode):
         """GUI Startup"""
         self.boss = boss
         self.filetype = ""
@@ -194,9 +194,9 @@ class CherryTree:
         self.prefpage = 0
         support.set_menu_items_recent_documents(self)
         support.set_menu_items_special_chars(self)
-        if export_mode!=True:
+        if not export_mode:
             self.window.show_all() # this before the config_file_apply that could hide something
-        self.window.present()
+            self.window.present()
         config.config_file_apply(self)
         self.combobox_prog_lang_init()
         if is_arg or not is_startup or self.reload_doc_last:
@@ -2114,8 +2114,8 @@ iter_end, exclude_iter_sel_end=True)
             if args[0] == "Auto":
                 dir_string = args[1]
             else:
-                dir_string = ""    
-            if self.html_handler.prepare_html_folder(self.file_name,dir_place=dir_string):
+                dir_string = ""
+            if self.html_handler.prepare_html_folder(self.file_name, dir_place=dir_string):
                 self.html_handler.nodes_all_export_to_html()
                 if self.filetype in ["b", "x"] and self.curr_tree_iter:
                     self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
@@ -2126,9 +2126,6 @@ iter_end, exclude_iter_sel_end=True)
                 folder_name = support.get_node_hierarchical_name(self, self.curr_tree_iter)
                 if self.html_handler.prepare_html_folder(folder_name):
                     self.html_handler.node_export_to_html(self.curr_tree_iter, only_selection=True)
-                    
-  #  def cmd_export_to_html(self):
-        
 
     def export_print_page_setup(self, action):
         """Print Page Setup Operations"""
@@ -2466,7 +2463,7 @@ iter_end, exclude_iter_sel_end=True)
             self.country_lang_liststore = gtk.ListStore(str)
             for country_lang in cons.AVAILABLE_LANGS:
                 self.country_lang_liststore.append([country_lang])
-    
+
     def combobox_style_scheme_init(self):
         """Init The Style Scheme ComboBox"""
         if not "style_scheme_liststore" in dir(self):
@@ -2476,7 +2473,7 @@ iter_end, exclude_iter_sel_end=True)
                 self.style_scheme_liststore.append([style_scheme])
                 style_schemes_list.append(style_scheme)
             if not self.style_scheme in style_schemes_list: self.style_scheme = style_schemes_list[0]
-    
+
     def combobox_spell_check_lang_init(self):
         """Init The Spell Check Language ComboBox"""
         if not "spell_check_lang_liststore" in dir(self):
@@ -2486,7 +2483,7 @@ iter_end, exclude_iter_sel_end=True)
                 self.spell_check_lang_liststore.append([code_lang])
                 code_lang_list.append(code_lang)
             if not self.spell_check_lang in code_lang_list: self.spell_check_lang = code_lang_list[0]
-    
+
     def get_combobox_iter_from_value(self, liststore, column_num, value):
         """Returns the Liststore iter Given the First Column Value"""
         curr_iter = liststore.get_iter_first()
@@ -2495,7 +2492,7 @@ iter_end, exclude_iter_sel_end=True)
             else: curr_iter = liststore.iter_next(curr_iter)
         else: return liststore.get_iter_first()
         return curr_iter
-    
+
     def set_sourcebuffer_syntax_highlight(self, sourcebuffer, syntax_highlighting):
         """Set the given syntax highlighting to the given sourcebuffer"""
         language_id = self.prog_lang_liststore[self.get_combobox_iter_from_value(self.prog_lang_liststore, 1, syntax_highlighting)][1]
@@ -4102,7 +4099,7 @@ iter_end, exclude_iter_sel_end=True)
         self.links_entries['file'] = ""
         self.links_entries['fold'] = ""
         self.links_entries['anch'] = ""
-    
+
     def links_entries_pre_dialog(self, curr_link):
         """Prepare Global Links Variables for Dialog"""
         vector = curr_link.split()

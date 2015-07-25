@@ -458,25 +458,18 @@ class Export2Html:
         self.dad = dad
         self.tree_links_text = ""
 
-    def prepare_html_folder(self, new_folder,dir_place=""):
+    def prepare_html_folder(self, new_folder, dir_place=""):
         """Prepare the website folder"""
-        if dir_place == "":
+        if not dir_place:
             dir_place = support.dialog_folder_select(curr_folder=self.dad.pick_dir, parent=self.dad.window)
-            if dir_place == None: return False     
-            new_folder = support.clean_from_chars_not_for_filename(new_folder) + "_HTML"
-            if os.path.exists(os.path.join(dir_place, new_folder)):
-                n=2
-                while os.path.exists(os.path.join(dir_place, new_folder+'%03d'%n)):
-                    n += 1
-                new_folder += '%03d'%n
-            self.new_path = os.path.join(dir_place, new_folder)
-        else:
-            if os.path.exists(os.path.join(dir_place)):
-                print "Export error: folder already exists!"
-                return False
-            else:
-                self.new_path = dir_place
-        
+            if dir_place == None: return False
+        new_folder = support.clean_from_chars_not_for_filename(new_folder) + "_HTML"
+        if os.path.exists(os.path.join(dir_place, new_folder)):
+            n = 2
+            while os.path.exists(os.path.join(dir_place, new_folder + '%03d' % n)):
+                n += 1
+            new_folder += '%03d' % n
+        self.new_path = os.path.join(dir_place, new_folder)
         self.images_dir = os.path.join(self.new_path, "images")
         self.embed_dir = os.path.join(self.new_path, "EmbeddedFiles")
         os.mkdir(self.new_path)
@@ -643,11 +636,10 @@ class Export2Html:
         else:
             embfile_name = "%s.png" % embeded[1].filename
             embfile_rel_path = "file://" + os.path.join(self.embed_dir, embfile_name)
-        embfile_html = '<table style="%s"><tr><td><a href="%s">Linked file: %s<a></td></tr></table>' % (embfile_align_text, embfile_rel_path, embeded[1].filename)        
+        embfile_html = '<table style="%s"><tr><td><a href="%s">Linked file: %s<a></td></tr></table>' % (embfile_align_text, embfile_rel_path, embeded[1].filename)
         with open(os.path.join(self.embed_dir,embfile_name), 'wb') as fd:
             fd.write(embeded[1].embfile)
         return embfile_html
-        
 
     def get_image_html(self, image, tree_iter):
         """Returns the HTML Image"""
