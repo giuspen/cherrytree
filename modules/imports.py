@@ -619,8 +619,8 @@ class ZimHandler():
                     curr_pos += 1
                 elif curr_char == cons.CHAR_USCORE and next_char == cons.CHAR_USCORE:
                     wiki_slot_flush()
-                    if self.curr_attributes[cons.TAG_BACKGROUND]: self.curr_attributes[cons.TAG_BACKGROUND] = ""
-                    else: self.curr_attributes[cons.TAG_BACKGROUND] = cons.COLOR_48_YELLOW
+                    if self.curr_attributes[cons.TAG_UNDERLINE]: self.curr_attributes[cons.TAG_UNDERLINE] = ""
+                    else: self.curr_attributes[cons.TAG_UNDERLINE] = cons.TAG_PROP_SINGLE
                     curr_pos += 1
                 elif curr_char == cons.CHAR_TILDE and next_char == cons.CHAR_TILDE:
                     wiki_slot_flush()
