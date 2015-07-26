@@ -471,9 +471,10 @@ class KeepnoteHandler(HTMLParser.HTMLParser):
 class ZimHandler():
     """The Handler of the Zim Folder Parsing"""
 
-    def __init__(self, folderpath):
+    def __init__(self, dad, folderpath):
         """Machine boot"""
         self.folderpath = folderpath
+        self.dad = dad
         self.xml_handler = machines.XMLHandler(self)
 
     def rich_text_serialize(self, text_data):
@@ -523,6 +524,7 @@ class ZimHandler():
         self.in_block = False
         self.in_link = False
         self.in_plain_link = False
+        self.in_table = False
         curr_pos = 0
         wiki_string = wiki_string.replace(cons.CHAR_CR, "")
         wiki_string = wiki_string.replace(cons.CHAR_NEWLINE+cons.CHAR_STAR+cons.CHAR_SPACE, cons.CHAR_NEWLINE+cons.CHAR_LISTBUL+cons.CHAR_SPACE)
@@ -729,6 +731,27 @@ class ZimHandler():
                     else: self.wiki_slot += cons.CHAR_LISTDONEFAIL
                     self.wiki_slot += cons.CHAR_SPACE
                     curr_pos += 2
+                elif self.in_table:
+                    if curr_char == cons.CHAR_PIPE:
+                        self.curr_table[-1].append(self.curr_cell.strip())
+                        self.curr_cell = ""
+                        print self.curr_table[-1][-1]
+                        if next_char == cons.CHAR_NEWLINE:
+                            if third_char == cons.CHAR_PIPE:
+                                self.curr_table.append([])
+                                curr_pos += 2
+                            else:
+                                self.in_table = False
+                                self.curr_table.append(self.curr_table.pop(0))
+                                if self.curr_table[0][0].startswith(":-"):
+                                    del self.curr_table[0]
+                                table_dict = {'col_min': cons.TABLE_DEFAULT_COL_MIN,
+                                              'col_max': cons.TABLE_DEFAULT_COL_MAX,
+                                              'matrix': self.curr_table}
+                                self.dad.xml_handler.table_element_to_xml([self.chars_counter, table_dict, cons.TAG_PROP_LEFT], self.nodes_list[-1], self.dom)
+                                self.chars_counter += 1
+                    else:
+                        self.curr_cell += curr_char
                 else:
                     self.wiki_slot += curr_char
                     #print self.wiki_slot
@@ -736,6 +759,12 @@ class ZimHandler():
                         probably_url = True
                     elif curr_char in [cons.CHAR_SPACE, cons.CHAR_NEWLINE]:
                         probably_url = False
+                        if curr_char == cons.CHAR_NEWLINE and next_char == cons.CHAR_PIPE:
+                            self.in_table = True
+                            self.curr_cell = ""
+                            self.curr_table = [[]]
+                            curr_pos += 1
+                            wiki_slot_flush()
             curr_pos += 1
         wiki_slot_flush()
 

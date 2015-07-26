@@ -807,7 +807,7 @@ iter_end, exclude_iter_sel_end=True)
         start_folder = os.path.join(os.path.expanduser('~'), "Notebooks/Notes")
         folderpath = support.dialog_folder_select(curr_folder=start_folder, parent=self.window)
         if not folderpath: return
-        zim = imports.ZimHandler(folderpath)
+        zim = imports.ZimHandler(self, folderpath)
         cherrytree_string = zim.get_cherrytree_xml()
         self.nodes_add_from_cherrytree_data(cherrytree_string)
         zim.set_links_to_nodes(self)
