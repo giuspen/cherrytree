@@ -743,7 +743,8 @@ class ZimHandler():
                             else:
                                 self.in_table = False
                                 self.curr_table.append(self.curr_table.pop(0))
-                                if self.curr_table[0][0].startswith(":-"):
+                                if self.curr_table[0][0].startswith(":-")\
+                                or self.curr_table[0][0].startswith("--"):
                                     del self.curr_table[0]
                                 table_dict = {'col_min': cons.TABLE_DEFAULT_COL_MIN,
                                               'col_max': cons.TABLE_DEFAULT_COL_MAX,
