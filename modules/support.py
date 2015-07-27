@@ -123,79 +123,80 @@ def on_sourceview_event_after_key_press(dad, text_view, event):
     if (event.state & gtk.gdk.SHIFT_MASK):
         if keyname == cons.STR_KEY_RETURN:
             text_buffer.insert(text_buffer.get_iter_at_mark(text_buffer.get_insert()), 3*cons.CHAR_SPACE)
-    elif keyname == cons.STR_KEY_RETURN:
+    elif keyname in [cons.STR_KEY_RETURN, cons.STR_KEY_SPACE, cons.STR_KEY_TAB]:
         iter_insert = text_buffer.get_iter_at_mark(text_buffer.get_insert())
-        if not iter_insert:
-            return False
-        cursor_key_press = iter_insert.get_offset()
-        #print "cursor_key_press", cursor_key_press
-        if cursor_key_press == dad.cursor_key_press:
-            # problem of event-after called twice, once before really executing
-            return False
+        if not iter_insert: return False
         iter_start = iter_insert.copy()
-        if not iter_start.backward_char(): return False
-        if iter_start.get_char() != cons.CHAR_NEWLINE: return False
-        if iter_start.backward_char() and iter_start.get_char() == cons.CHAR_NEWLINE:
-            return False # former was an empty row
-        list_info = dad.lists_handler.get_paragraph_list_info(iter_start)
-        if list_info[0] == None:
-            if dad.auto_indent:
-                iter_start = iter_insert.copy()
-                former_line_indent = get_former_line_indentation(iter_start)
-                if former_line_indent: text_buffer.insert_at_cursor(former_line_indent)
-            return False # former was not a list
-        # possible list quit
-        iter_list_quit = iter_insert.copy()
-        if (list_info[0] == 0 and iter_list_quit.backward_chars(3) and iter_list_quit.get_char() == cons.CHAR_LISTBUL):
-            text_buffer.delete(iter_list_quit, iter_insert)
-            return False # former was an empty paragraph => list quit
-        elif (list_info[0] == -1 and iter_list_quit.backward_chars(3) and iter_list_quit.get_char() in [cons.CHAR_LISTTODO, cons.CHAR_LISTDONEOK, cons.CHAR_LISTDONEFAIL]):
-            text_buffer.delete(iter_list_quit, iter_insert)
-            return False # former was an empty paragraph => list quit
-        elif (list_info[0] > 0 and iter_list_quit.backward_chars(2) and iter_list_quit.get_char() == cons.CHAR_SPACE\
-        and iter_list_quit.backward_char() and iter_list_quit.get_char() == '.'):
-            iter_list_quit.backward_chars(len(str(list_info[0])))
-            text_buffer.delete(iter_list_quit, iter_insert)
-            return False # former was an empty paragraph => list quit
-        if list_info[0] == 0: text_buffer.insert(iter_insert, cons.CHAR_LISTBUL + cons.CHAR_SPACE)
-        elif list_info[0] == -1: text_buffer.insert(iter_insert, cons.CHAR_LISTTODO + cons.CHAR_SPACE)
-        else: text_buffer.insert(iter_insert, '%s. ' % (list_info[0] + 1))
-    elif keyname == "space":
-        iter_insert = text_buffer.get_iter_at_mark(text_buffer.get_insert())
-        if iter_insert == None: return False
-        iter_start = iter_insert.copy()
-        if iter_start.backward_chars(2):
-            if iter_start.get_char() == cons.CHAR_GREATER and iter_start.backward_char()\
-            and iter_start.get_char() == cons.CHAR_MINUS and iter_start.backward_char():
-                if iter_start.get_char() == cons.CHAR_LESSER:
-                    dad.special_char_replace(cons.SPECIAL_CHAR_ARROW_DOUBLE, iter_start, iter_insert, text_buffer)
-                elif iter_start.get_char() == cons.CHAR_MINUS:
-                    dad.special_char_replace(cons.SPECIAL_CHAR_ARROW_RIGHT, iter_start, iter_insert, text_buffer)
-            elif iter_start.get_char() == cons.CHAR_MINUS and iter_start.backward_char()\
-            and iter_start.get_char() == cons.CHAR_MINUS and iter_start.backward_char()\
-            and iter_start.get_char() == cons.CHAR_LESSER:
-                dad.special_char_replace(cons.SPECIAL_CHAR_ARROW_LEFT, iter_start, iter_insert, text_buffer)
-            elif iter_start.get_char() == cons.CHAR_PARENTH_CLOSE and iter_start.backward_char():
-                if iter_start.get_char().lower() == "c" and iter_start.backward_char()\
-                and iter_start.get_char() == cons.CHAR_PARENTH_OPEN:
-                    dad.special_char_replace(cons.SPECIAL_CHAR_COPYRIGHT, iter_start, iter_insert, text_buffer)
-                elif iter_start.get_char().lower() == "r" and iter_start.backward_char()\
-                and iter_start.get_char() == cons.CHAR_PARENTH_OPEN:
-                    dad.special_char_replace(cons.SPECIAL_CHAR_REGISTERED_TRADEMARK, iter_start, iter_insert, text_buffer)
-                elif iter_start.get_char().lower() == "m" and iter_start.backward_char()\
-                and iter_start.get_char() == "t" and iter_start.backward_char()\
-                and iter_start.get_char() == cons.CHAR_PARENTH_OPEN:
-                    dad.special_char_replace(cons.SPECIAL_CHAR_UNREGISTERED_TRADEMARK, iter_start, iter_insert, text_buffer)
-            # Start bulleted list on "* " at line start
-            elif iter_start.get_char() == cons.CHAR_STAR and iter_start.get_line_offset() == 0:
-                text_buffer.delete(iter_start, iter_insert)
-                dad.lists_handler.list_handler(0, text_buffer=text_buffer)
-            # Start todo list on "[]" at line start
-            elif iter_start.get_char() == cons.CHAR_SQ_BR_CLOSE and iter_start.backward_char()\
-            and iter_start.get_char() == cons.CHAR_SQ_BR_OPEN\
-            and iter_start.get_line_offset() == 0:
-                text_buffer.delete(iter_start, iter_insert)
-                dad.lists_handler.list_handler(-1, text_buffer=text_buffer)
+        if keyname == cons.STR_KEY_RETURN:
+            cursor_key_press = iter_insert.get_offset()
+            #print "cursor_key_press", cursor_key_press
+            if cursor_key_press == dad.cursor_key_press:
+                # problem of event-after called twice, once before really executing
+                return False
+            if not iter_start.backward_char(): return False
+            if iter_start.get_char() != cons.CHAR_NEWLINE: return False
+            if iter_start.backward_char() and iter_start.get_char() == cons.CHAR_NEWLINE:
+                return False # former was an empty row
+            list_info = dad.lists_handler.get_paragraph_list_info(iter_start)
+            if list_info[0] == None:
+                if dad.auto_indent:
+                    iter_start = iter_insert.copy()
+                    former_line_indent = get_former_line_indentation(iter_start)
+                    if former_line_indent: text_buffer.insert_at_cursor(former_line_indent)
+                return False # former was not a list
+            # possible list quit
+            iter_list_quit = iter_insert.copy()
+            if (list_info[0] == 0 and iter_list_quit.backward_chars(3) and iter_list_quit.get_char() == cons.CHAR_LISTBUL):
+                text_buffer.delete(iter_list_quit, iter_insert)
+                return False # former was an empty paragraph => list quit
+            elif (list_info[0] == -1 and iter_list_quit.backward_chars(3) and iter_list_quit.get_char() in [cons.CHAR_LISTTODO, cons.CHAR_LISTDONEOK, cons.CHAR_LISTDONEFAIL]):
+                text_buffer.delete(iter_list_quit, iter_insert)
+                return False # former was an empty paragraph => list quit
+            elif (list_info[0] > 0 and iter_list_quit.backward_chars(2) and iter_list_quit.get_char() == cons.CHAR_SPACE\
+            and iter_list_quit.backward_char() and iter_list_quit.get_char() == '.'):
+                iter_list_quit.backward_chars(len(str(list_info[0])))
+                text_buffer.delete(iter_list_quit, iter_insert)
+                return False # former was an empty paragraph => list quit
+            if list_info[0] == 0: text_buffer.insert(iter_insert, cons.CHAR_LISTBUL + cons.CHAR_SPACE)
+            elif list_info[0] == -1: text_buffer.insert(iter_insert, cons.CHAR_LISTTODO + cons.CHAR_SPACE)
+            else: text_buffer.insert(iter_insert, '%s. ' % (list_info[0] + 1))
+        elif keyname == cons.STR_KEY_TAB:
+            list_info = dad.lists_handler.get_paragraph_list_info(iter_start)
+            if list_info != None:
+                print list_info
+        elif keyname == cons.STR_KEY_SPACE:
+            if iter_start.backward_chars(2):
+                if iter_start.get_char() == cons.CHAR_GREATER and iter_start.backward_char()\
+                and iter_start.get_char() == cons.CHAR_MINUS and iter_start.backward_char():
+                    if iter_start.get_char() == cons.CHAR_LESSER:
+                        dad.special_char_replace(cons.SPECIAL_CHAR_ARROW_DOUBLE, iter_start, iter_insert, text_buffer)
+                    elif iter_start.get_char() == cons.CHAR_MINUS:
+                        dad.special_char_replace(cons.SPECIAL_CHAR_ARROW_RIGHT, iter_start, iter_insert, text_buffer)
+                elif iter_start.get_char() == cons.CHAR_MINUS and iter_start.backward_char()\
+                and iter_start.get_char() == cons.CHAR_MINUS and iter_start.backward_char()\
+                and iter_start.get_char() == cons.CHAR_LESSER:
+                    dad.special_char_replace(cons.SPECIAL_CHAR_ARROW_LEFT, iter_start, iter_insert, text_buffer)
+                elif iter_start.get_char() == cons.CHAR_PARENTH_CLOSE and iter_start.backward_char():
+                    if iter_start.get_char().lower() == "c" and iter_start.backward_char()\
+                    and iter_start.get_char() == cons.CHAR_PARENTH_OPEN:
+                        dad.special_char_replace(cons.SPECIAL_CHAR_COPYRIGHT, iter_start, iter_insert, text_buffer)
+                    elif iter_start.get_char().lower() == "r" and iter_start.backward_char()\
+                    and iter_start.get_char() == cons.CHAR_PARENTH_OPEN:
+                        dad.special_char_replace(cons.SPECIAL_CHAR_REGISTERED_TRADEMARK, iter_start, iter_insert, text_buffer)
+                    elif iter_start.get_char().lower() == "m" and iter_start.backward_char()\
+                    and iter_start.get_char() == "t" and iter_start.backward_char()\
+                    and iter_start.get_char() == cons.CHAR_PARENTH_OPEN:
+                        dad.special_char_replace(cons.SPECIAL_CHAR_UNREGISTERED_TRADEMARK, iter_start, iter_insert, text_buffer)
+                # Start bulleted list on "* " at line start
+                elif iter_start.get_char() == cons.CHAR_STAR and iter_start.get_line_offset() == 0:
+                    text_buffer.delete(iter_start, iter_insert)
+                    dad.lists_handler.list_handler(0, text_buffer=text_buffer)
+                # Start todo list on "[]" at line start
+                elif iter_start.get_char() == cons.CHAR_SQ_BR_CLOSE and iter_start.backward_char()\
+                and iter_start.get_char() == cons.CHAR_SQ_BR_OPEN\
+                and iter_start.get_line_offset() == 0:
+                    text_buffer.delete(iter_start, iter_insert)
+                    dad.lists_handler.list_handler(-1, text_buffer=text_buffer)
     return False
 
 def sourceview_cursor_and_tooltips_handler(dad, text_view, x, y):
