@@ -4066,9 +4066,10 @@ iter_end, exclude_iter_sel_end=True)
     def apply_tag_latest(self, *args):
         """The Iterate Tagging Button was Pressed"""
         if not self.is_curr_node_not_read_only_or_error(): return
-        if self.latest_tag[0] == "":
+        if not self.latest_tag[0]:
             support.dialog_warning(_("No Previous Text Format Was Performed During This Session"), self.window)
-        else: self.apply_tag(*self.latest_tag)
+        else:
+            self.apply_tag(*self.latest_tag)
 
     def link_cut(self, *args):
         """Cut Link"""
@@ -4251,7 +4252,7 @@ iter_end, exclude_iter_sel_end=True)
                 else:
                     self.palette_list.pop()
                 self.palette_list.insert(0, color_str_hex8)
-        if tag_property != cons.TAG_LINK:
+        if self.user_active and tag_property != cons.TAG_LINK:
             self.latest_tag = [tag_property, property_value]
         curr_tags = iter_sel_start.get_tags()
         # if there's already a tag about this property, we remove it before apply the new one
