@@ -528,13 +528,13 @@ class TablesHandler:
             subseq_iter = model.iter_next(iter)
             if subseq_iter == None: return
             model.swap(iter, subseq_iter)
-        elif action == "sort_desc":
+        elif action == "sort_asc":
             father_iter = model.iter_parent(iter)
             movements = False
             while self.dad.node_siblings_sort_iteration(model, father_iter, True, 0):
                 movements = True
             if not movements: return
-        elif action == "sort_asc":
+        elif action == "sort_desc":
             father_iter = model.iter_parent(iter)
             movements = False
             while self.dad.node_siblings_sort_iteration(model, father_iter, False, 0):
