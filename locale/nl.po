@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: cherrytree 0.30.5\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-09-29 00:14+0200\n"
-"PO-Revision-Date: 2015-08-05 23:58+0100\n"
+"PO-Revision-Date: 2015-08-07 07:44+0200\n"
 "Last-Translator: Patrick Vijgeboom <pj.vijgeboom@gmail.com>\n"
 "Language-Team: Nederlands <>\n"
 "Language: nl\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.8.4\n"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/codeboxes.py:94
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:3142
@@ -95,17 +95,17 @@ msgstr "_Boom"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:487
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:681
 msgid "Node _Move"
-msgstr "knooppunt _verplaatsen"
+msgstr "Knooppunt _verplaatsen"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:488
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:698
 msgid "Nodes _Import"
-msgstr "knooppunt _Importeren"
+msgstr "Knooppunt _Importeren"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:489
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:718
 msgid "Nodes E_xport"
-msgstr "knooppunt E_xporteren"
+msgstr "Knooppunt E_xporteren"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:490
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:784
@@ -275,7 +275,7 @@ msgstr "Codevak invoegen"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:515
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:777
 msgid "Insert _File"
-msgstr "Invoegen_bestand"
+msgstr "_Bestand invoegen"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:515
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:777
@@ -676,12 +676,12 @@ msgstr "Huidige alinea rechts uitlijnen"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:553
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:673
 msgid "Add _Node"
-msgstr "knooppunt toevoegen"
+msgstr "Knooppunt toevoegen"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:553
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:673
 msgid "Add a Node having the same Father of the Selected Node"
-msgstr "knooppunt toevoegen met zelfde vader als gekozen knooppunt"
+msgstr "Knooppunt toevoegen met zelfde vader als gekozen knooppunt"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:554
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:674
@@ -691,12 +691,12 @@ msgstr "Sub-knooppunttoevoegen"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:554
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:674
 msgid "Add a Child Node to the Selected Node"
-msgstr "Voegt een kooppunt toe onder het gekozen knooppunt"
+msgstr "Voegt een knooppunt toe onder het gekozen knooppunt"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:555
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:676
 msgid "Change Node _Properties"
-msgstr "knooppunt eigenschappen wijzigen"
+msgstr "Knooppunt eigenschappen wijzigen"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:555
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:676
@@ -721,7 +721,7 @@ msgstr "Vandaag knooppuntinvoegen"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:557
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:678
 msgid "Insert a Node with Hierarchy Year/Month/Day"
-msgstr "knooppunt met hierarchie Jaar/Maan/Dag toevoegen"
+msgstr "Knooppunt met hierarchie Jaar/Maan/Dag toevoegen"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:558
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:679
@@ -737,7 +737,7 @@ msgstr "Boom informatie overzicht"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:559
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:682
 msgid "Node _Up"
-msgstr "knooppunt omhoog"
+msgstr "Knooppunt omhoog"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:559
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:682
@@ -747,7 +747,7 @@ msgstr "Verplaatst het gekozen knooppunt omhoog"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:560
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:683
 msgid "Node _Down"
-msgstr "knooppunt omlaag"
+msgstr "Knooppunt omlaag"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:560
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:683
@@ -757,7 +757,7 @@ msgstr "Verplaatst het gekozen knooppunt omlaag"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:561
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:684
 msgid "Node _Left"
-msgstr "knooppunt links"
+msgstr "Knooppunt links"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:561
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:684
@@ -797,7 +797,7 @@ msgstr "Sorteert de boom aflopend"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:565
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:691
 msgid "Sort Siblings A_scending"
-msgstr " Sorteer onderliggende oplopend"
+msgstr "Sorteer onderliggende oplopend"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:565
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:691
@@ -862,7 +862,7 @@ msgstr "Naar volgende knooppuntgaan"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:571
 msgid "_Find in Node Content"
-msgstr "_Zoek in knooppunt Inhoud"
+msgstr "_Zoek in knooppunt inhoud"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:571
 msgid "Find into the Selected Node Content"
@@ -990,11 +990,11 @@ msgstr "Knoppenbalk weergeven/verbergen wisselen"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:584
 msgid "Show/Hide Node Name _Header"
-msgstr "knooppunt naam koptekst weergeven/verbergen"
+msgstr "Knooppunt naam koptekst weergeven/verbergen"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:584
 msgid "Toggle Show/Hide Node Name Header"
-msgstr "knooppunt naam koptekst weergeven/verbergen wisselen"
+msgstr "Knooppunt naam koptekst weergeven/verbergen wisselen"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:585
 msgid "Show _All Matches Dialog"
@@ -1014,7 +1014,7 @@ msgstr "Tussen boom en tekst focus wisselen"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:587
 msgid "Toggle Node _Expanded/Collapsed"
-msgstr "knooppunt _Uitklappen/inklappen wisselen"
+msgstr "Knooppunt _Uitklappen/inklappen wisselen"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:587
 msgid "Toggle Expanded/Collapsed Status of the Selected Node"
@@ -2293,7 +2293,7 @@ msgstr "Gebruik kersen als knooppunt pictogrammen"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:956
 msgid "Use Bullets as Nodes Icons"
-msgstr "Gebruik opsommingstekens als kooppunt pictogrammen"
+msgstr "Gebruik opsommingstekens als knooppunt pictogrammen"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:958
 msgid "Do Not Display Nodes Icons"
@@ -2714,7 +2714,7 @@ msgstr "Dit knooppunt<b>heeft kinderen, en worden ook verwijderd!</b>"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2575
 msgid "Node Properties"
-msgstr "knooppunt eigenschappen"
+msgstr "Knooppunt eigenschappen"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/core.py:2583
 msgid ""
