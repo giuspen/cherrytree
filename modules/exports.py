@@ -475,25 +475,26 @@ class Export2Html:
         os.mkdir(self.new_path)
         os.mkdir(self.images_dir)
         os.mkdir(self.embed_dir)
+        shutil.copy(os.path.join(cons.GLADE_PATH, "styles.css"), self.new_path)
         return True
 
     def nodes_all_export_to_html(self, top_tree_iter=None):
         """Export All Nodes To HTML"""
         # create tree links text
         self.tree_links_nums = ["1"]
-        for image_stock_id in cons.NODES_STOCKS:
-            shutil.copy(cons.GLADE_PATH + image_stock_id + ".png", self.images_dir)
-        shutil.copy(cons.GLADE_PATH + "home.png", self.images_dir)
+        shutil.copy(os.path.join(cons.GLADE_PATH, "home.png"), self.images_dir)
         pango_font = pango.FontDescription(self.dad.tree_font)
-        self.tree_links_text = '<table style="text-align:left; font-family: %s; font-size:%spt">' % (pango_font.get_family(), pango_font.get_size()/pango.SCALE)
+        self.tree_links_text = '<div class="tree">\n'
+        self.tree_links_text += '<p><strong>Index</strong></p>\n'
         if not top_tree_iter: tree_iter = self.dad.treestore.get_iter_first()
         else: tree_iter = top_tree_iter.copy()
+        self.tree_count_level = 1
         while tree_iter:
             self.tree_links_text_iter(tree_iter)
             self.tree_links_nums[-1] = str( int(self.tree_links_nums[-1]) + 1 )
             if top_tree_iter: break
             tree_iter = self.dad.treestore.iter_next(tree_iter)
-        self.tree_links_text += '</table>'
+        self.tree_links_text += '</div>\n'
         # create index html page
         self.create_tree_index_page()
         # create html pages
@@ -527,12 +528,19 @@ class Export2Html:
     def tree_links_text_iter(self, tree_iter):
         """Creating the Tree Links Text - iter"""
         href = self.get_html_filename(tree_iter)
-        self.tree_links_text += "<tr><td>"
-        self.tree_links_text += "&nbsp;&nbsp;&nbsp;" * len(self.tree_links_nums)
-        icon_rel_path = os.path.join("images", self.dad.treestore[tree_iter][0] + ".png")
-        self.tree_links_text += '<img src="%s" alt="%s" height="22" width="22"/>' % (icon_rel_path, icon_rel_path)
         node_name = self.clean_text_to_utf8(self.dad.treestore[tree_iter][1])
-        self.tree_links_text += '<a href="' + href + '">' + ".".join(self.tree_links_nums) + " " + node_name + "</a></td></tr>"
+        if self.tree_count_level < len(self.tree_links_nums):
+            self.tree_count_level += 1
+            self.tree_links_text += '<ol>\n'
+        elif self.tree_count_level > len(self.tree_links_nums):
+            i = self.tree_count_level - len(self.tree_links_nums)
+            self.tree_links_text += '</ol>\n' * i
+            self.tree_count_level -= i
+        if self.tree_count_level == 1:
+            self.tree_links_text += '<p><a href="' + href + '">' + node_name + '</p>\n'
+        else:
+            self.tree_links_text += '<li><a href="' + href + '">' + node_name + '</a></li>'
+        self.tree_links_text += '\n'
         child_tree_iter = self.dad.treestore.iter_children(tree_iter)
         self.tree_links_nums.append("1")
         while child_tree_iter:
@@ -558,12 +566,9 @@ class Export2Html:
         else: sel_range = None
         html_text = cons.HTML_HEADER % self.dad.treestore[tree_iter][1]
         if self.tree_links_text and self.dad.last_index_in_page:
-            html_text += r'<table width="100%"><tr>'
-            td_tree = r'<td valign="top" align=cons.TAG_PROP_LEFT width=20%>'
-            td_page = r'<td valign="top" align=cons.TAG_PROP_LEFT width=80%>'
+            td_tree = r'<div class="main">'
+            td_page = r'<div class="page">'
             html_text += td_tree + self.tree_links_text + td_page
-        pango_font = pango.FontDescription(self.dad.text_font if self.dad.treestore[tree_iter][4] in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID] else self.dad.code_font)
-        html_text += '<span style="font-family: %s; font-size:%spt">' % (pango_font.get_family(), pango_font.get_size()/pango.SCALE)
         self.dad.get_textbuffer_from_tree_iter(tree_iter)
         if self.dad.treestore[tree_iter][4] == cons.RICH_TEXT_ID:
             text_n_objects = self.html_get_from_treestore_node(tree_iter, sel_range)
@@ -583,9 +588,8 @@ class Export2Html:
         else: html_text += self.html_get_from_code_buffer(self.dad.treestore[tree_iter][2], sel_range)
         if self.tree_links_text and not self.dad.last_index_in_page:
             html_text += '<p align="center">' + '<img src="%s" height="22" width="22">' % os.path.join("images", "home.png") + 2*cons.CHAR_SPACE + '<a href="index.html">' + _("Index") + '</a></p>'
-        html_text += "</span>"
         if self.tree_links_text and self.dad.last_index_in_page:
-            html_text += '</td></tr></table>'
+            html_text += '</div>\n'
         html_text += cons.HTML_FOOTER
         node_html_filepath = os.path.join(self.new_path, self.get_html_filename(tree_iter))
         #print "full=%s(prefix=%s)" % (len(node_html_filepath), len(self.new_path))
@@ -654,7 +658,7 @@ class Export2Html:
         else:
             image_name = "%s.png" % self.images_count
             image_rel_path = "file://" + os.path.join(self.images_dir, image_name)
-        image_html = '<table style="%s"><tr><td><img src="%s" alt="%s" /></td></tr></table>' % (image_align_text, image_rel_path, image_rel_path)
+        image_html = '<img src="%s" alt="%s" />' % (image_rel_path, image_rel_path)
         image[1].save(os.path.join(self.images_dir, image_name), "png")
         return image_html
 
@@ -663,9 +667,9 @@ class Export2Html:
         # codebox is: [offset, dict, justification]
         pango_font = pango.FontDescription(self.dad.code_font)
         codebox_align_text = self.get_object_alignment_string(codebox[2])
-        codebox_html = '<table border="1" style="%s; font-family: %s; font-size:%spt"><tr><td>' % (codebox_align_text, pango_font.get_family(), pango_font.get_size()/pango.SCALE)
+        codebox_html = '<div class="codebox">'
         codebox_html += codebox[1]['fill_text']
-        codebox_html += "</td></tr></table>"
+        codebox_html += "</div>"
         return codebox_html
 
     def get_table_html(self, table_orig):
@@ -673,10 +677,10 @@ class Export2Html:
         # table is: [offset, dict, justification]
         table = copy.deepcopy(table_orig)
         table_align_text = self.get_object_alignment_string(table[2])
-        table_html = '<table border="1" style="%s;text-align:center">' % table_align_text
+        table_html = '<table class="table">'
         table[1]['matrix'].insert(0, table[1]['matrix'].pop())
         for col in table[1]['matrix'][0]:
-            table_html += '<col width="%s" />' % table[1]['col_max']
+            table_html += '<col/>'
         for j, row in enumerate(table[1]['matrix']):
             table_html += "<tr>"
             for cell in row:
@@ -740,8 +744,8 @@ class Export2Html:
             if not curr_iter.forward_char() or (sel_range and curr_iter.get_offset() > sel_range[1]):
                 if span_opened: html_text += "</span>"
                 break
-        html_text = html_text.replace(cons.CHAR_NEWLINE, "<br>")
-        return html_text
+        html_text = html_text.replace(cons.CHAR_NEWLINE, "<br />")
+        return '<div class="codebox">'+html_text+'</div>'
 
     def html_get_from_treestore_node(self, node_iter, sel_range=None):
         """Given a treestore iter returns the HTML rich text"""
@@ -816,7 +820,7 @@ class Export2Html:
         """Adds a slice to the HTML Text"""
         inner_text = cgi.escape(start_iter.get_text(end_iter))
         if inner_text == "": return
-        inner_text = inner_text.replace(cons.CHAR_NEWLINE, "<br>")
+        inner_text = inner_text.replace(cons.CHAR_NEWLINE, "<br />")
         html_attrs = ""
         superscript_active = False
         subscript_active = False
@@ -894,13 +898,24 @@ class Export2Html:
                     self.curr_html_text += '<a href="' + href + '">' + inner_text + "</a>"
                     return
                 html_attrs += "%s:%s;" % (tag_property, property_value)
-        if html_attrs == "" or inner_text == "<br/>": tagged_text = inner_text
-        else: tagged_text = '<span style="' + html_attrs + '">' + inner_text + "</span>"
+        if html_attrs == "" or inner_text == "<br />":
+            tagged_text = inner_text
+        else:
+            if 'xx-large' in html_attrs:
+                tagged_text = '<h1>' + inner_text + "</h1>"
+            elif 'x-large' in html_attrs:
+                tagged_text = '<h2>' + inner_text + "</h2>"
+            elif 'large' in html_attrs:
+                tagged_text = '<h3>' + inner_text + '</h3>'
+            elif 'x-small' in html_attrs:
+                tagged_text = '<small>' + inner_text + "</small>"
+            else:
+                tagged_text = '<span style="' + html_attrs + '">' + inner_text + "</span>"
         if superscript_active: tagged_text = "<sup>" + tagged_text + "</sup>"
         if subscript_active: tagged_text = "<sub>" + tagged_text + "</sub>"
-        if monospace_active: tagged_text = "<tt>" + tagged_text + "</tt>"
-        if bold_active: tagged_text = "<b>" + tagged_text + "</b>"
-        if italic_active: tagged_text = "<i>" + tagged_text + "</i>"
+        if monospace_active: tagged_text = "<code>" + tagged_text + "</code>"
+        if bold_active: tagged_text = "<strong>" + tagged_text + "</strong>"
+        if italic_active: tagged_text = "<em>" + tagged_text + "</em>"
         self.curr_html_text += tagged_text
         #print "###############"
         #print self.curr_html_text

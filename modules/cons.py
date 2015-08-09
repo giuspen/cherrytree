@@ -201,7 +201,14 @@ STR_KEY_LEFT = "Left"
 STR_KEY_RIGHT = "Right"
 STR_PYGTK_222_REQUIRED = "PyGTK 2.22 required"
 
-HTML_HEADER = '<!doctype html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><title>%s</title><meta name="generator" content="CherryTree"></head><body>'
+HTML_HEADER = '''<!doctype html><html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <title>%s</title>
+  <meta name="generator" content="CherryTree">
+  <link rel="stylesheet" href="styles.css" type="text/css" />
+</head>
+<body>'''
 HTML_FOOTER = '</body></html>'
 
 STOCKS_N_FILES = [
