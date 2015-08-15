@@ -2094,7 +2094,7 @@ iter_end, exclude_iter_sel_end=True)
         if args[0] == "Auto":
             export_type = 3
         else:
-            export_type = support.dialog_selnode_selnodeandsub_alltree(self, also_selection=True, also_index_in_page=True)
+            export_type = support.dialog_selnode_selnodeandsub_alltree(self, also_selection=True, also_include_node_name=True, also_index_in_page=True)
         if export_type == 0: return
         if export_type == 1:
             # only selected node

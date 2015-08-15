@@ -1,7 +1,15 @@
 
+0.35.10 (August 16th, 2015)
+• improved export to HTML now using a stylesheet - work of Emilie V. and Julian Stirling
+• added command line option to export to HTML a CherryTree document - work of Julian Stirling
+• import from Zim improvements: support for tables and converting to underline rather than yellow background
+• bugfix: table rows sorting ascending/descending were swapped
+• added Japanese language - work of Piyo
+• updated Dutch language - work of Patrick Vijgeboom
+
 0.35.9 (July 7th, 2015)
 • added Turkish language - work of Ferhat Aydin
-• export to HTML now supports also the embedded files - work of Julian Stirling 
+• export to HTML now supports also the embedded files - work of Julian Stirling
 • bugfix: cursor position not restored after closing and reopening the main window
 • bugfix: when pressing Tab with a table focused, do not delete the table but put the cursor after the table
 • bugfix: toolbar and node name header visibility state not saved/restored properly with system tray docking enabled

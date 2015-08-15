@@ -22,7 +22,7 @@
 import os, sys
 
 
-VERSION = "0.35.9"
+VERSION = "0.35.10"
 APP_NAME = "cherrytree"
 NEWER_VERSION_URL = "http://www.giuspen.com/software/version_cherrytree"
 if sys.platform.startswith("win"):
