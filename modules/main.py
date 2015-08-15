@@ -118,11 +118,11 @@ class CherryTreeHandler():
                 else:
                     # 3) check for opened window hidden (systray) in case there's no filepath (run from launcher)
                     just_run_new_win = True
-                    if not msg_server_to_core['p']:
+                    if not msg_server_to_core['p'] or msg_server_to_core['p'].endswith("None"):
                         for i, runn_win in enumerate(self.running_windows):
                             if not runn_win.window.get_property(cons.STR_VISIBLE):
                                 print "3 rise existing hidden in systray"
-                                runn_win.window.present()
+                                runn_win.toggle_show_hide_main_window()
                                 just_run_new_win = False
                                 break
                     if just_run_new_win:
