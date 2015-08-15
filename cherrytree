@@ -34,7 +34,7 @@ def f_main(args):
         SHARE_PATH = os.path.dirname(sys.executable)
         MODULES_PATH = os.path.join(SHARE_PATH, 'modules')
     else:
-        if os.path.isfile('glade/cherrytree.png'):
+        if os.path.isfile('glade/cherrytree.png') and os.path.isfile('modules/main.py'):
             # not installed
             SHARE_PATH = ''
             MODULES_PATH = 'modules'
