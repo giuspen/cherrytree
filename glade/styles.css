@@ -43,7 +43,8 @@ div.tree {
 
 div.page {
     width: 100%;
-    margin-left: 380px; /* div.tree width + L/R margins + padding */
+    padding-left: 380px; /* div.tree width + L/R margins + padding */
+    box-sizing: border-box;
 }
 
 .clear {

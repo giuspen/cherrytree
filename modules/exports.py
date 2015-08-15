@@ -494,6 +494,9 @@ class Export2Html:
             self.tree_links_nums[-1] = str( int(self.tree_links_nums[-1]) + 1 )
             if top_tree_iter: break
             tree_iter = self.dad.treestore.iter_next(tree_iter)
+        if self.tree_count_level > 1:
+            print self.tree_count_level-1
+            self.tree_links_text += '</ol>'*(self.tree_count_level-1)
         self.tree_links_text += '</div>\n'
         # create index html page
         self.create_tree_index_page()
@@ -537,7 +540,7 @@ class Export2Html:
             self.tree_links_text += '</ol>\n' * i
             self.tree_count_level -= i
         if self.tree_count_level == 1:
-            self.tree_links_text += '<p><a href="' + href + '">' + node_name + '</p>\n'
+            self.tree_links_text += '<p><a href="' + href + '">' + node_name + '</a></p>\n'
         else:
             self.tree_links_text += '<li><a href="' + href + '">' + node_name + '</a></li>'
         self.tree_links_text += '\n'
@@ -569,6 +572,7 @@ class Export2Html:
             td_tree = r'<div class="main">'
             td_page = r'<div class="page">'
             html_text += td_tree + self.tree_links_text + td_page
+            html_text += '<h1><b><u>%s</u></b></h1>' % self.dad.treestore[tree_iter][1]
         self.dad.get_textbuffer_from_tree_iter(tree_iter)
         if self.dad.treestore[tree_iter][4] == cons.RICH_TEXT_ID:
             text_n_objects = self.html_get_from_treestore_node(tree_iter, sel_range)
@@ -589,7 +593,7 @@ class Export2Html:
         if self.tree_links_text and not self.dad.last_index_in_page:
             html_text += '<p align="center">' + '<img src="%s" height="22" width="22">' % os.path.join("images", "home.png") + 2*cons.CHAR_SPACE + '<a href="index.html">' + _("Index") + '</a></p>'
         if self.tree_links_text and self.dad.last_index_in_page:
-            html_text += '</div>\n'
+            html_text += '</div></div>\n'
         html_text += cons.HTML_FOOTER
         node_html_filepath = os.path.join(self.new_path, self.get_html_filename(tree_iter))
         #print "full=%s(prefix=%s)" % (len(node_html_filepath), len(self.new_path))
