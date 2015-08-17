@@ -1,9 +1,10 @@
 
-0.35.10 (August 16th, 2015)
+0.35.10 (August 18th, 2015)
 • improved export to HTML now using a stylesheet - work of Emilie V. and Julian Stirling
 • added command line option to export to HTML a CherryTree document - work of Julian Stirling
 • import from Zim improvements: support for tables and converting to underline rather than yellow background
 • bugfix: table rows sorting ascending/descending were swapped
+• bugfix: cherrytree hidden to systray, new cherrytree launch not raising it
 • added Japanese language - work of Piyo
 • updated Dutch language - work of Patrick Vijgeboom
 
