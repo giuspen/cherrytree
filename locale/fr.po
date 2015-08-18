@@ -2349,15 +2349,15 @@ msgstr "Polices"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1161
 msgid "Enable Custom Web Link Clicked Action"
-msgstr "Personnaliser l'Ouverture des Liens de Dossiers"
+msgstr "Personnaliser l'Ouverture des Liens Internet"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1163
 msgid "Enable Custom File Link Clicked Action"
-msgstr "Personnaliser l'Ouverture des Liens Internet"
+msgstr "Personnaliser l'Ouverture des Liens de Fichiers"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1165
 msgid "Enable Custom Folder Link Clicked Action"
-msgstr "Personnaliser l'Ouverture des Liens de Fichiers"
+msgstr "Personnaliser l'Ouverture des Liens de Dossiers"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/config.py:1174
 msgid "Custom Actions"
