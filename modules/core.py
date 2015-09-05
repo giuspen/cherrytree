@@ -4420,6 +4420,20 @@ iter_end, exclude_iter_sel_end=True)
                     if open_fold_if_no_app_error: os.startfile(os.path.dirname(filepath))
             else: subprocess.call(config.LINK_CUSTOM_ACTION_DEFAULT_FILE % re.escape(filepath), shell=True)
 
+    def link_process_filepath(self, filepath_raw):
+        filepath_orig = unicode(base64.b64decode(filepath_raw), cons.STR_UTF8, cons.STR_IGNORE)
+        filepath = support.get_proper_platform_filepath(filepath_orig, True)
+        if not os.path.isabs(filepath) and os.path.isfile(os.path.join(self.file_dir, filepath)):
+            filepath = os.path.join(self.file_dir, filepath)
+        return filepath
+
+    def link_process_folderpath(self, folderpath_raw):
+        folderpath_orig = unicode(base64.b64decode(folderpath_raw), cons.STR_UTF8, cons.STR_IGNORE)
+        folderpath = support.get_proper_platform_filepath(folderpath_orig, False)
+        if not os.path.isabs(folderpath) and os.path.isdir(os.path.join(self.file_dir, folderpath)):
+            folderpath = os.path.join(self.file_dir, folderpath)
+        return folderpath
+
     def link_clicked(self, tag_property_value, from_wheel):
         """Function Called at Every Link Click"""
         vector = tag_property_value.split()
@@ -4431,10 +4445,7 @@ iter_end, exclude_iter_sel_end=True)
             else: webbrowser.open(clean_weblink)
         elif vector[0] == cons.LINK_TYPE_FILE:
             # link to file
-            filepath_orig = unicode(base64.b64decode(vector[1]), cons.STR_UTF8, cons.STR_IGNORE)
-            filepath = support.get_proper_platform_filepath(filepath_orig, True)
-            if not os.path.isabs(filepath) and os.path.isfile(os.path.join(self.file_dir, filepath)):
-                filepath = os.path.join(self.file_dir, filepath)
+            filepath = self.link_process_filepath(vector[1])
             if not os.path.isfile(filepath):
                 support.dialog_error(_("The File Link '%s' is Not Valid") % filepath, self.window)
                 return
@@ -4443,16 +4454,13 @@ iter_end, exclude_iter_sel_end=True)
             self.external_filepath_open(filepath, True)
         elif vector[0] == cons.LINK_TYPE_FOLD:
             # link to folder
-            filepath_orig = unicode(base64.b64decode(vector[1]), cons.STR_UTF8, cons.STR_IGNORE)
-            filepath = support.get_proper_platform_filepath(filepath_orig, False)
-            if not os.path.isabs(filepath) and os.path.isdir(os.path.join(self.file_dir, filepath)):
-                filepath = os.path.join(self.file_dir, filepath)
-            if not os.path.isdir(filepath):
-                support.dialog_error(_("The Folder Link '%s' is Not Valid") % filepath, self.window)
+            folderpath = self.link_process_folderpath(vector[1])
+            if not os.path.isdir(folderpath):
+                support.dialog_error(_("The Folder Link '%s' is Not Valid") % folderpath, self.window)
                 return
             if from_wheel:
-                filepath = os.path.dirname(os.path.abspath(filepath))
-            self.external_folderpath_open(filepath)
+                folderpath = os.path.dirname(os.path.abspath(folderpath))
+            self.external_folderpath_open(folderpath)
         elif vector[0] == cons.LINK_TYPE_NODE:
             # link to a tree node
             tree_iter = self.get_tree_iter_from_node_id(long(vector[1]))

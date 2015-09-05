@@ -645,7 +645,7 @@ class Export2Html:
         else:
             embfile_name = "%s.png" % embeded[1].filename
             embfile_rel_path = "file://" + os.path.join(self.embed_dir, embfile_name)
-        embfile_html = '<table style="%s"><tr><td><a href="%s">Linked file: %s<a></td></tr></table>' % (embfile_align_text, embfile_rel_path, embeded[1].filename)
+        embfile_html = '<table style="%s"><tr><td><a href="%s">Linked file: %s</a></td></tr></table>' % (embfile_align_text, embfile_rel_path, embeded[1].filename)
         with open(os.path.join(self.embed_dir,embfile_name), 'wb') as fd:
             fd.write(embeded[1].embfile)
         return embfile_html
@@ -664,6 +664,9 @@ class Export2Html:
             image_name = "%s.png" % self.images_count
             image_rel_path = "file://" + os.path.join(self.images_dir, image_name)
         image_html = '<img src="%s" alt="%s" />' % (image_rel_path, image_rel_path)
+        if image[1].link:
+            href = self.get_href_from_link_prop_val(image[1].link)
+            image_html = '<a href="%s">' % href + image_html + "</a>"
         image[1].save(os.path.join(self.images_dir, image_name), "png")
         return image_html
 
@@ -887,19 +890,9 @@ class Export2Html:
                     continue
                 elif tag_property == cons.TAG_LINK:
                     # <a href="http://www.example.com/">link-text goes here</a>
-                    vector = property_value.split()
-                    if vector[0] == cons.LINK_TYPE_WEBS: href = vector[1]
-                    elif vector[0] == cons.LINK_TYPE_FILE:
-                        href = "file://" + unicode(base64.b64decode(vector[1]), cons.STR_UTF8, cons.STR_IGNORE)
-                    elif vector[0] == cons.LINK_TYPE_NODE:
-                        dest_tree_iter = self.dad.get_tree_iter_from_node_id(long(vector[1]))
-                        if not dest_tree_iter: continue
-                        href = self.get_html_filename(dest_tree_iter)
-                        if len(vector) >= 3:
-                            if len(vector) == 3: anchor_name = vector[2]
-                            else: anchor_name = property_value[len(vector[0]) + len(vector[1]) + 2:]
-                            href += "#" + anchor_name
-                    else: continue
+                    href = self.get_href_from_link_prop_val(property_value)
+                    if not href:
+                        continue
                     self.curr_html_text += '<a href="' + href + '">' + inner_text + "</a>"
                     return
                 html_attrs += "%s:%s;" % (tag_property, property_value)
@@ -925,6 +918,27 @@ class Export2Html:
         #print "###############"
         #print self.curr_html_text
         #print "###############"
+
+    def get_href_from_link_prop_val(self, link_prop_val):
+        href = ""
+        vector = link_prop_val.split()
+        if vector[0] == cons.LINK_TYPE_WEBS:
+            href = vector[1]
+        elif vector[0] == cons.LINK_TYPE_FILE:
+            filepath = self.dad.link_process_filepath(vector[1])
+            href = "file://" + filepath
+        elif vector[0] == cons.LINK_TYPE_FOLD:
+            folderpath = self.dad.link_process_folderpath(vector[1])
+            href = "file://" + folderpath
+        elif vector[0] == cons.LINK_TYPE_NODE:
+            dest_tree_iter = self.dad.get_tree_iter_from_node_id(long(vector[1]))
+            if dest_tree_iter:
+                href = self.get_html_filename(dest_tree_iter)
+                if len(vector) >= 3:
+                    if len(vector) == 3: anchor_name = vector[2]
+                    else: anchor_name = link_prop_val[len(vector[0]) + len(vector[1]) + 2:]
+                    href += "#" + anchor_name
+        return href
 
     def rgb_to_24(self, rgb_in):
         """Convert RRRRGGGGBBBB to RRGGBB if needed"""
