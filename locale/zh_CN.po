@@ -214,11 +214,11 @@ msgstr "退出程序"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:508
 msgid "_Exit CherryTree"
-msgstr "退出ChreeTree(_E)"
+msgstr "退出CherryTree(_E)"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:508
 msgid "Exit from CherryTree"
-msgstr "从ChrerrTree中退出"
+msgstr "从CherryTree中退出"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:509
 msgid "_Preferences"
@@ -1294,12 +1294,12 @@ msgstr "导出到独个文本文件"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:617
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:723
 msgid "_Export To CherryTree Document"
-msgstr "导出到ChrerryTree文档(_E)"
+msgstr "导出到CherryTree文档(_E)"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:617
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:723
 msgid "Export To CherryTree Document"
-msgstr "导出到ChrerryTree文档"
+msgstr "导出到CherryTree文档"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/cons.py:618
 msgid "_Check Newer Version"
@@ -2100,7 +2100,7 @@ msgstr "最近文档(_R)"
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:1251
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:1258
 msgid "Open a Recent CherryTree Document"
-msgstr "最近打开的ChrerryTree文档"
+msgstr "最近打开的CherryTree文档"
 
 #: /home/giuspen/Software/HG-SW/hg_cherrytree/modules/support.py:1283
 #, python-format
