@@ -4254,31 +4254,38 @@ iter_end, exclude_iter_sel_end=True)
                 self.palette_list.insert(0, color_str_hex8)
         if self.user_active and tag_property != cons.TAG_LINK:
             self.latest_tag = [tag_property, property_value]
-        curr_tags = iter_sel_start.get_tags()
+        sel_start_offset = iter_sel_start.get_offset()
+        sel_end_offset = iter_sel_end.get_offset()
         # if there's already a tag about this property, we remove it before apply the new one
-        for curr_tag in curr_tags:
-            tag_name = curr_tag.get_property("name")
-            if not tag_name: continue
-            if (tag_property == cons.TAG_WEIGHT and tag_name.startswith("weight_"))\
-            or (tag_property == cons.TAG_STYLE and tag_name.startswith("style_"))\
-            or (tag_property == cons.TAG_UNDERLINE and tag_name.startswith("underline_"))\
-            or (tag_property == cons.TAG_STRIKETHROUGH and tag_name.startswith("strikethrough_"))\
-            or (tag_property == cons.TAG_FAMILY and tag_name.startswith("family_")):
-                text_buffer.remove_tag(curr_tag, iter_sel_start, iter_sel_end)
-                property_value = "" # just tag removal
-            elif tag_property == cons.TAG_SCALE and tag_name.startswith("scale_"):
-                text_buffer.remove_tag(curr_tag, iter_sel_start, iter_sel_end)
-                #print property_value, tag_name[6:]
-                if property_value == tag_name[6:]: return # just tag removal
-            elif tag_property == cons.TAG_JUSTIFICATION and tag_name[0:14] == "justification_":
-                text_buffer.remove_tag(curr_tag, iter_sel_start, iter_sel_end)
-            elif (tag_property == cons.TAG_FOREGROUND and tag_name[0:11] == "foreground_")\
-            or (tag_property == cons.TAG_BACKGROUND and tag_name[0:11] == "background_")\
-            or (tag_property == cons.TAG_LINK and tag_name[0:5] == "link_"):
-                text_buffer.remove_tag(curr_tag, iter_sel_start, iter_sel_end)
+        for offset in range(sel_start_offset, sel_end_offset):
+            iter_sel_start = text_buffer.get_iter_at_offset(offset)
+            curr_tags = iter_sel_start.get_tags()
+            for curr_tag in curr_tags:
+                tag_name = curr_tag.get_property("name")
+                #print tag_name
+                if not tag_name: continue
+                iter_sel_end = text_buffer.get_iter_at_offset(offset+1)
+                if (tag_property == cons.TAG_WEIGHT and tag_name.startswith("weight_"))\
+                or (tag_property == cons.TAG_STYLE and tag_name.startswith("style_"))\
+                or (tag_property == cons.TAG_UNDERLINE and tag_name.startswith("underline_"))\
+                or (tag_property == cons.TAG_STRIKETHROUGH and tag_name.startswith("strikethrough_"))\
+                or (tag_property == cons.TAG_FAMILY and tag_name.startswith("family_")):
+                    text_buffer.remove_tag(curr_tag, iter_sel_start, iter_sel_end)
+                    property_value = "" # just tag removal
+                elif tag_property == cons.TAG_SCALE and tag_name.startswith("scale_"):
+                    text_buffer.remove_tag(curr_tag, iter_sel_start, iter_sel_end)
+                    #print property_value, tag_name[6:]
+                    if property_value == tag_name[6:]: return # just tag removal
+                elif tag_property == cons.TAG_JUSTIFICATION and tag_name[0:14] == "justification_":
+                    text_buffer.remove_tag(curr_tag, iter_sel_start, iter_sel_end)
+                elif (tag_property == cons.TAG_FOREGROUND and tag_name[0:11] == "foreground_")\
+                or (tag_property == cons.TAG_BACKGROUND and tag_name[0:11] == "background_")\
+                or (tag_property == cons.TAG_LINK and tag_name[0:5] == "link_"):
+                    text_buffer.remove_tag(curr_tag, iter_sel_start, iter_sel_end)
         if property_value:
             text_buffer.apply_tag_by_name(self.apply_tag_exist_or_create(tag_property, property_value),
-                                          iter_sel_start, iter_sel_end)
+                                          text_buffer.get_iter_at_offset(sel_start_offset),
+                                          text_buffer.get_iter_at_offset(sel_end_offset))
         if self.user_active:
             self.update_window_save_needed("nbuf", True)
 
