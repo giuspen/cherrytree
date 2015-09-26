@@ -2121,6 +2121,7 @@ class HTMLHandler(HTMLParser.HTMLParser):
                 self.curr_table = []
                 self.curr_rows_span = []
                 self.curr_table_header = False
+                self.curr_cell = ""
             elif tag == "b": self.curr_attributes[cons.TAG_WEIGHT] = cons.TAG_PROP_HEAVY
             elif tag == "i": self.curr_attributes[cons.TAG_STYLE] = cons.TAG_PROP_ITALIC
             elif tag == "u": self.curr_attributes[cons.TAG_UNDERLINE] = cons.TAG_PROP_SINGLE
@@ -2202,15 +2203,25 @@ class HTMLHandler(HTMLParser.HTMLParser):
                 self.curr_table = []
                 self.curr_rows_span = []
                 self.curr_table_header = False
-            elif tag == "tr": self.curr_table.append([])
+                self.curr_cell = ""
+            elif tag == "tr":
+                if self.curr_cell and self.curr_table:
+                    # case of not closed <td>
+                    self.curr_table[-1].append(self.curr_cell)
+                    self.curr_cell = ""
+                self.curr_table.append([])
             elif tag in ["td", "th"]:
+                if not self.curr_table:
+                    # case of first missing <tr>, this is the header even if <td>
+                    self.curr_table.append([])
+                    self.curr_table_header = True
                 self.curr_cell = ""
                 self.curr_rowspan = 1
                 for attr in attrs:
                     if attr[0] == "rowspan":
                         self.curr_rowspan = int(attr[1])
-                        break
-                if tag == "th": self.curr_table_header = True
+                if tag == "th":
+                    self.curr_table_header = True
             elif tag in ["img", "v:imagedata"] and len(attrs) > 0:
                 dic_attrs = dict(a for a in attrs)
                 img_path = dic_attrs.get('src', "")
@@ -2279,7 +2290,9 @@ class HTMLHandler(HTMLParser.HTMLParser):
         elif self.curr_state == 2:
             if tag in ["td", "th"]:
                 self.curr_table[-1].append(self.curr_cell)
-                if len(self.curr_table) == 1: self.curr_rows_span.append(self.curr_rowspan)
+                self.curr_cell = ""
+                if len(self.curr_table) == 1:
+                    self.curr_rows_span.append(self.curr_rowspan)
                 else:
                     index = len(self.curr_table[-1])-1
                     #print "self.curr_rows_span", self.curr_rows_span
@@ -2287,7 +2300,8 @@ class HTMLHandler(HTMLParser.HTMLParser):
                         # rowspan in very first row
                         self.curr_rows_span.append(1)
                         self.curr_table[-2].append("")
-                    if self.curr_rows_span[index] == 1: self.curr_rows_span[index] = self.curr_rowspan
+                    if self.curr_rows_span[index] == 1:
+                        self.curr_rows_span[index] = self.curr_rowspan
                     else:
                         unos_found = 0
                         while unos_found < 2:
@@ -2304,6 +2318,9 @@ class HTMLHandler(HTMLParser.HTMLParser):
                                     if self.curr_rows_span[index] == 1: unos_found += 1
             elif tag == "table":
                 self.curr_state = 1
+                if not self.curr_table[-1]:
+                    # case of latest <tr> without any <tr> afterwards
+                    del self.curr_table[-1]
                 if len(self.curr_table) == 1 and len(self.curr_table[0]) == 1:
                     # it's a codebox
                     text_inside_codebox = self.curr_table[0][0].strip()
@@ -2422,7 +2439,7 @@ class HTMLHandler(HTMLParser.HTMLParser):
                         self.add_file(full_element)
                 else:
                     mime_type = gio_file_info.get_content_type()
-                    if mime_type in [".html", ".HTML", ".htm", ".HTM"]:
+                    if mime_type.lower() in [".html", ".htm"]:
                         self.add_file(full_element)
             elif os.path.isdir(full_element):
                 if os.path.isfile(full_element+".htm"):
