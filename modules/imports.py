@@ -2312,7 +2312,7 @@ class HTMLHandler(HTMLParser.HTMLParser):
                         'frame_width': 300,
                         'frame_height': 150,
                         'width_in_pixels': True,
-                        'syntax_highlighting': cons.RICH_TEXT_ID,
+                        'syntax_highlighting': cons.PLAIN_TEXT_ID,
                         'highlight_brackets': False,
                         'show_line_numbers': False,
                         'fill_text': text_inside_codebox
@@ -2402,7 +2402,7 @@ class HTMLHandler(HTMLParser.HTMLParser):
         #with open("clipboard.log", 'w') as fd:
             #fd.write(input_string)
         #print "###############"
-        self.num_bodies = len(re.findall("<body[^>]*>", input_string))
+        self.num_bodies = len(re.findall("<body[^>]*>", input_string, re.IGNORECASE))
         self.feed(input_string)
 
     def add_folder(self, folderpath):
