@@ -822,6 +822,8 @@ class Export2Html:
             self.html_text_serialize(start_iter, curr_iter)
         self.curr_html_text = self.curr_html_text.replace("<br/><p ", "<p ")
         self.curr_html_text = self.curr_html_text.replace("</p><br/>", "</p>")
+        for header in [cons.TAG_PROP_H1, cons.TAG_PROP_H2, cons.TAG_PROP_H3]:
+            self.curr_html_text = self.curr_html_text.replace("</%s><%s>" % (header, header), "")
         self.curr_html_slots.append(self.curr_html_text)
 
     def html_text_serialize(self, start_iter, end_iter):
