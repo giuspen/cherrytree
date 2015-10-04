@@ -35,6 +35,7 @@ COLOR_PALETTE_DEFAULT = ["#000000", "#ffffff", "#7f7f7f", "#ff0000", "#a020f0",
                          "#90ee90", "#1a1a1a", "#4d4d4d", "#bfbfbf", "#e5e5e5"]
 SPECIAL_CHARS_DEFAULT = "“”„•◇▪▸☐☑☒…‰€©®™°↓↑→←↔↵⇓⇑⇒⇐⇔»«▼▲►◄≤≥≠±¹²³½¼⅛×÷∞ø∑√∫ΔδΠπΣΦΩωαβγεηλμ☺☻☼♥♀♂♪♫"
 SELWORD_CHARS_DEFAULT = ".-@"
+TIMESTAMP_FORMAT_DEFAULT = "%Y/%m/%d - %H:%M"
 TOOLBAR_VEC_DEFAULT = ["TreeAddNode", "TreeAddSubNode", cons.TAG_SEPARATOR, "GoBack", "GoForward", cons.TAG_SEPARATOR, cons.CHAR_STAR, "Save", "Export2PDF", cons.TAG_SEPARATOR, "FindInNodes", cons.TAG_SEPARATOR, "BulletedList", "NumberedList", "ToDoList", cons.TAG_SEPARATOR, "HandleImage", "HandleTable", "HandleCodeBox", "EmbFileInsert", "HandleLink", "HandleAnchor", cons.TAG_SEPARATOR, "RemoveFormatting", "ColorForeground", "ColorBackground", "Bold", "Italic", "Underline", "Strikethrough", "H1", "H2", "H3", "Small", "Superscript", "Subscript", "Monospace"]
 TOOLBAR_VEC_BLACKLIST = ["CutAnchor", "CopyAnchor", "DeleteAnchor", "EditAnchor", "CutEmbFile", "CopyEmbFile", "DeleteEmbFile", "EmbFileSave", "EmbFileOpen", "SaveImage", "EditImage", "CutImage", "CopyImage", "DeleteImage", "EditImageLink", "DismissImageLink", "ShowHideMainWin"]
 SEPARATOR_ASCII_REPR = "---------"
@@ -163,7 +164,7 @@ def config_file_load(inst):
         inst.h_rule = config.get(section, "h_rule") if config.has_option(section, "h_rule") else HORIZONTAL_RULE
         inst.special_chars = unicode(config.get(section, "special_chars") if config.has_option(section, "special_chars") else SPECIAL_CHARS_DEFAULT, cons.STR_UTF8, cons.STR_IGNORE)
         inst.selword_chars = unicode(config.get(section, "selword_chars") if config.has_option(section, "selword_chars") else SELWORD_CHARS_DEFAULT, cons.STR_UTF8, cons.STR_IGNORE)
-        inst.timestamp_format = config.get(section, "timestamp_format") if config.has_option(section, "timestamp_format") else "%Y/%m/%d - %H:%M"
+        inst.timestamp_format = config.get(section, "timestamp_format") if config.has_option(section, "timestamp_format") else TIMESTAMP_FORMAT_DEFAULT
         inst.links_relative = config.getboolean(section, "links_relative") if config.has_option(section, "links_relative") else False
         if config.has_option(section, "weblink_custom_action"):
             temp_str = config.get(section, "weblink_custom_action")
@@ -291,7 +292,7 @@ def config_file_load(inst):
         inst.weblink_custom_action = [False, LINK_CUSTOM_ACTION_DEFAULT_WEB]
         inst.filelink_custom_action = [False, LINK_CUSTOM_ACTION_DEFAULT_FILE]
         inst.folderlink_custom_action = [False, LINK_CUSTOM_ACTION_DEFAULT_FILE]
-        inst.timestamp_format = "%Y/%m/%d - %H:%M"
+        inst.timestamp_format = TIMESTAMP_FORMAT_DEFAULT
         inst.codebox_width = 700
         inst.codebox_height = 100
         inst.codebox_width_pixels = True

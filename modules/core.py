@@ -3821,7 +3821,9 @@ iter_end, exclude_iter_sel_end=True)
         embfile_Mbytes = embfile_Kbytes/1024
         if embfile_Mbytes > 1: human_readable_size = "%.1f MB" % embfile_Mbytes
         else: human_readable_size = "%.1f KB" % embfile_Kbytes
-        anchor.eventbox.set_tooltip_text("%s\n%s (%d Bytes)\n%s" % (anchor.pixbuf.filename, human_readable_size, embfile_bytes, time.strftime(self.timestamp_format, time.localtime(anchor.pixbuf.time))))
+        try: timestamp = time.strftime(self.timestamp_format, time.localtime(anchor.pixbuf.time))
+        except: timestamp = time.strftime(config.TIMESTAMP_FORMAT_DEFAULT, time.localtime(anchor.pixbuf.time))
+        anchor.eventbox.set_tooltip_text("%s\n%s (%d Bytes)\n%s" % (anchor.pixbuf.filename, human_readable_size, embfile_bytes, timestamp))
 
     def image_edit(self, *args):
         """Edit the selected Image"""
