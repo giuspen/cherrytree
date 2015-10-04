@@ -23,7 +23,7 @@ import gtk, gobject
 import dbus
 import dbus.service
 import dbus.mainloop.glib
-import sys, os, gettext
+import sys, os, subprocess, gettext
 import __builtin__
 msg_server_to_core = {'f':0, 'p':""}
 __builtin__.msg_server_to_core = msg_server_to_core
@@ -218,6 +218,9 @@ def main(args):
             object = CherryTreeObject(session_bus, '/CherryTreeObject')
             CherryTreeHandler(args, lang_str)
             gtk.main()
+            if cons.IS_WIN_OS:
+                sys.stderr = os.devnull
+                subprocess.check_output(["taskkill", "/im", "dbus-daemon.exe"])
     else:
         print "dbus fail, maybe a firewall problem, centralized instances disabled"
         lang_str = initializations()
