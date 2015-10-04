@@ -2777,7 +2777,7 @@ iter_end, exclude_iter_sel_end=True)
             return # if i click on an already selected node
         if self.enable_spell_check and self.user_active and self.syntax_highlighting == cons.RICH_TEXT_ID:
             self.spell_check_set_off()
-        if self.curr_tree_iter:
+        if self.curr_tree_iter and self.curr_buffer:
             if self.user_active:
                 self.nodes_cursor_pos[model[self.curr_tree_iter][3]] = self.curr_buffer.get_property(cons.STR_CURSOR_POSITION)
                 #print "cursor_pos %s save for node %s" % (self.nodes_cursor_pos[model[self.curr_tree_iter][3]], model[self.curr_tree_iter][3])
