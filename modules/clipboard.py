@@ -210,11 +210,11 @@ class ClipboardHandler:
         if not targets: return
         self.dad.curr_buffer.delete_selection(True, sourceview.get_editable())
         if self.force_plain_text:
-            self.force_plain_text = False
             for target in TARGETS_PLAIN_TEXT:
                 if target in targets:
                     self.clipboard.request_contents(target, self.to_plain_text)
                     return
+            self.force_plain_text = False
         #print targets
         if self.dad.syntax_highlighting == cons.RICH_TEXT_ID:
             if TARGET_CTD_RICH_TEXT in targets:
@@ -316,7 +316,7 @@ class ClipboardHandler:
         iter_insert = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
         start_offset = iter_insert.get_offset()
         self.dad.curr_buffer.insert(iter_insert, plain_text)
-        if self.dad.syntax_highlighting == cons.RICH_TEXT_ID:
+        if self.dad.syntax_highlighting == cons.RICH_TEXT_ID and not self.force_plain_text:
             web_links_offsets = imports.get_web_links_offsets_from_plain_text(plain_text)
             if web_links_offsets:
                 for offsets in web_links_offsets:
@@ -341,6 +341,7 @@ class ClipboardHandler:
                         iter_sel_start.backward_chars(len(plain_text))
                         self.dad.curr_buffer.apply_tag_by_name(self.dad.apply_tag_exist_or_create("link", property_value),
                                                                iter_sel_start, iter_sel_end)
+        self.force_plain_text = False
 
     def to_rich_text(self, clipboard, selectiondata, data):
         """From Clipboard to Rich Text"""
