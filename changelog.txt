@@ -1,4 +1,12 @@
 
+0.35.11 (October 7th, 2015)
+• fixed bugs in export to HTML
+• fixed bugs in import from HTML
+• fixed bug in paste as plain text wrongly recognising and formatting links
+• fixed bug applying formatting to a selection including already formatted subsets
+• windows version now terminating dbus-daemon.exe at quit
+• fixed errors in French and Chinese translations
+
 0.35.10 (August 18th, 2015)
 • improved export to HTML now using a stylesheet - work of Emilie V. and Julian Stirling
 • added command line option to export to HTML a CherryTree document - work of Julian Stirling
