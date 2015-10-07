@@ -219,8 +219,10 @@ def main(args):
             CherryTreeHandler(args, lang_str)
             gtk.main()
             if cons.IS_WIN_OS:
+                si = subprocess.STARTUPINFO()
+                si.dwFlags |= subprocess.STARTF_USESHOWWINDOW
                 sys.stderr = os.devnull
-                subprocess.check_output(["taskkill", "/f", "/im", "dbus-daemon.exe"])
+                subprocess.check_output(["taskkill", "/f", "/im", "dbus-daemon.exe"], startupinfo=si)
     else:
         print "dbus fail, maybe a firewall problem, centralized instances disabled"
         lang_str = initializations()
