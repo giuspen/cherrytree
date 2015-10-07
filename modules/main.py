@@ -220,7 +220,7 @@ def main(args):
             gtk.main()
             if cons.IS_WIN_OS:
                 sys.stderr = os.devnull
-                subprocess.check_output(["taskkill", "/im", "dbus-daemon.exe"])
+                subprocess.check_output(["taskkill", "/f", "/im", "dbus-daemon.exe"])
     else:
         print "dbus fail, maybe a firewall problem, centralized instances disabled"
         lang_str = initializations()
