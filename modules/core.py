@@ -347,9 +347,9 @@ class CherryTree:
         if not missing_leading_newline: destination_iter.forward_char()
         destination_offset = destination_iter.get_offset()
         #print "***"
-        #print "iter_start", iter_start.get_offset(), ord(iter_start.get_char()), iter_start.get_char()
-        #print "iter_end", iter_end.get_offset(), ord(iter_end.get_char()), iter_end.get_char()
-        #print "destination_iter", destination_iter.get_offset(), ord(destination_iter.get_char()), destination_iter.get_char()
+        #print "iter_start %s %s '%s'" % (iter_start.get_offset(), ord(iter_start.get_char()), iter_start.get_char())
+        #print "iter_end %s %s '%s'" % (iter_end.get_offset(), ord(iter_end.get_char()), iter_end.get_char())
+        #print "destination_iter %s %s '%s'" % (destination_iter.get_offset(), ord(destination_iter.get_char()), destination_iter.get_char())
         text_to_move = text_buffer.get_text(iter_start, iter_end)
         diff_offsets = iter_end.get_offset() - iter_start.get_offset()
         if from_codebox or self.syntax_highlighting != cons.RICH_TEXT_ID:
@@ -366,6 +366,11 @@ class CherryTree:
 iter_end, exclude_iter_sel_end=True)
             text_buffer.delete(iter_start, iter_end)
             destination_iter = text_buffer.get_iter_at_offset(destination_offset)
+            if destination_offset > 0:
+                # clear the newline from any tag
+                clr_start_iter = text_buffer.get_iter_at_offset(destination_offset-1)
+                text_buffer.remove_all_tags(clr_start_iter, destination_iter)
+                destination_iter = text_buffer.get_iter_at_offset(destination_offset)
             if not text_to_move or text_to_move[-1] != cons.CHAR_NEWLINE:
                 diff_offsets += 1
                 append_newline = True
@@ -394,9 +399,9 @@ iter_end, exclude_iter_sel_end=True)
         destination_iter.forward_char()
         destination_offset = destination_iter.get_offset()
         #print "***"
-        #print "iter_start", iter_start.get_offset(), ord(iter_start.get_char()), iter_start.get_char()
-        #print "iter_end", iter_end.get_offset(), ord(iter_end.get_char()), iter_end.get_char()
-        #print "destination_iter", destination_iter.get_offset(), ord(destination_iter.get_char()), destination_iter.get_char()
+        #print "iter_start %s %s '%s'" % (iter_start.get_offset(), ord(iter_start.get_char()), iter_start.get_char())
+        #print "iter_end %s %s '%s'" % (iter_end.get_offset(), ord(iter_end.get_char()), iter_end.get_char())
+        #print "destination_iter %s %s '%s'" % (destination_iter.get_offset(), ord(destination_iter.get_char()), destination_iter.get_char())
         text_to_move = text_buffer.get_text(iter_start, iter_end)
         diff_offsets = iter_end.get_offset() - iter_start.get_offset()
         if from_codebox or self.syntax_highlighting != cons.RICH_TEXT_ID:
@@ -420,6 +425,11 @@ iter_end, exclude_iter_sel_end=True)
             text_buffer.delete(iter_start, iter_end)
             destination_offset -= diff_offsets
             destination_iter = text_buffer.get_iter_at_offset(destination_offset)
+            if destination_offset > 0:
+                # clear the newline from any tag
+                clr_start_iter = text_buffer.get_iter_at_offset(destination_offset-1)
+                text_buffer.remove_all_tags(clr_start_iter, destination_iter)
+                destination_iter = text_buffer.get_iter_at_offset(destination_offset)
             if not text_to_move or text_to_move[-1] != cons.CHAR_NEWLINE:
                 diff_offsets += 1
                 append_newline = True
