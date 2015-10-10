@@ -346,12 +346,13 @@ class CherryTree:
                     break
         if not missing_leading_newline: destination_iter.forward_char()
         destination_offset = destination_iter.get_offset()
-        #print "***"
-        #print "iter_start %s %s '%s'" % (iter_start.get_offset(), ord(iter_start.get_char()), iter_start.get_char())
-        #print "iter_end %s %s '%s'" % (iter_end.get_offset(), ord(iter_end.get_char()), iter_end.get_char())
-        #print "destination_iter %s %s '%s'" % (destination_iter.get_offset(), ord(destination_iter.get_char()), destination_iter.get_char())
+        start_offset = iter_start.get_offset()
+        end_offset = iter_end.get_offset()
+        #print "iter_start %s %s '%s'" % (start_offset, ord(iter_start.get_char()), iter_start.get_char())
+        #print "iter_end %s %s '%s'" % (end_offset, ord(iter_end.get_char()), iter_end.get_char())
+        #print "destination_iter %s %s '%s'" % (destination_offset, ord(destination_iter.get_char()), destination_iter.get_char())
         text_to_move = text_buffer.get_text(iter_start, iter_end)
-        diff_offsets = iter_end.get_offset() - iter_start.get_offset()
+        diff_offsets = end_offset - start_offset
         if from_codebox or self.syntax_highlighting != cons.RICH_TEXT_ID:
             text_buffer.delete(iter_start, iter_end)
             destination_iter = text_buffer.get_iter_at_offset(destination_offset)
@@ -370,14 +371,22 @@ iter_end, exclude_iter_sel_end=True)
                 # clear the newline from any tag
                 clr_start_iter = text_buffer.get_iter_at_offset(destination_offset-1)
                 text_buffer.remove_all_tags(clr_start_iter, destination_iter)
-                destination_iter = text_buffer.get_iter_at_offset(destination_offset)
             if not text_to_move or text_to_move[-1] != cons.CHAR_NEWLINE:
                 diff_offsets += 1
                 append_newline = True
             else: append_newline = False
             text_buffer.move_mark(text_buffer.get_insert(), destination_iter)
+            # trick of space to prevent subsequent text to take pasted text tag(s)
+            text_buffer.insert_at_cursor(cons.CHAR_SPACE)
+            destination_iter = text_buffer.get_iter_at_offset(destination_offset)
+            text_buffer.move_mark(text_buffer.get_insert(), destination_iter)
+            # write moved line
             self.clipboard_handler.from_xml_string_to_buffer(rich_text)
             if append_newline: text_buffer.insert_at_cursor(cons.CHAR_NEWLINE)
+            # clear space trick
+            cursor_iter = text_buffer.get_iter_at_mark(text_buffer.get_insert())
+            text_buffer.delete(cursor_iter, text_buffer.get_iter_at_offset(cursor_iter.get_offset()+1))
+            # selection
             self.set_selection_at_offset_n_delta(destination_offset, diff_offsets-1, text_buffer=text_buffer)
         self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
 
@@ -398,12 +407,13 @@ iter_end, exclude_iter_sel_end=True)
                 break
         destination_iter.forward_char()
         destination_offset = destination_iter.get_offset()
-        #print "***"
-        #print "iter_start %s %s '%s'" % (iter_start.get_offset(), ord(iter_start.get_char()), iter_start.get_char())
-        #print "iter_end %s %s '%s'" % (iter_end.get_offset(), ord(iter_end.get_char()), iter_end.get_char())
-        #print "destination_iter %s %s '%s'" % (destination_iter.get_offset(), ord(destination_iter.get_char()), destination_iter.get_char())
+        start_offset = iter_start.get_offset()
+        end_offset = iter_end.get_offset()
+        #print "iter_start %s %s '%s'" % (start_offset, ord(iter_start.get_char()), iter_start.get_char())
+        #print "iter_end %s %s '%s'" % (end_offset, ord(iter_end.get_char()), iter_end.get_char())
+        #print "destination_iter %s %s '%s'" % (destination_offset, ord(destination_iter.get_char()), destination_iter.get_char())
         text_to_move = text_buffer.get_text(iter_start, iter_end)
-        diff_offsets = iter_end.get_offset() - iter_start.get_offset()
+        diff_offsets = end_offset - start_offset
         if from_codebox or self.syntax_highlighting != cons.RICH_TEXT_ID:
             text_buffer.delete(iter_start, iter_end)
             destination_offset -= diff_offsets
@@ -429,7 +439,6 @@ iter_end, exclude_iter_sel_end=True)
                 # clear the newline from any tag
                 clr_start_iter = text_buffer.get_iter_at_offset(destination_offset-1)
                 text_buffer.remove_all_tags(clr_start_iter, destination_iter)
-                destination_iter = text_buffer.get_iter_at_offset(destination_offset)
             if not text_to_move or text_to_move[-1] != cons.CHAR_NEWLINE:
                 diff_offsets += 1
                 append_newline = True
@@ -438,8 +447,17 @@ iter_end, exclude_iter_sel_end=True)
             if missing_leading_newline:
                 diff_offsets += 1
                 text_buffer.insert_at_cursor(cons.CHAR_NEWLINE)
+            # trick of space to prevent subsequent text to take pasted text tag(s)
+            text_buffer.insert_at_cursor(cons.CHAR_SPACE)
+            destination_iter = text_buffer.get_iter_at_offset(destination_offset)
+            text_buffer.move_mark(text_buffer.get_insert(), destination_iter)
+            # write moved line
             self.clipboard_handler.from_xml_string_to_buffer(rich_text)
             if append_newline: text_buffer.insert_at_cursor(cons.CHAR_NEWLINE)
+            # clear space trick
+            cursor_iter = text_buffer.get_iter_at_mark(text_buffer.get_insert())
+            text_buffer.delete(cursor_iter, text_buffer.get_iter_at_offset(cursor_iter.get_offset()+1))
+            # selection
             if not missing_leading_newline:
                 self.set_selection_at_offset_n_delta(destination_offset, diff_offsets-1, text_buffer=text_buffer)
             else:
