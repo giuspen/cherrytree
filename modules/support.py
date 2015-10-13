@@ -1385,9 +1385,12 @@ def open_recent_document(menu_item, filepath, dad):
         dad.filepath_open(filepath)
     else:
         dialog_error(_("The Document %s was Not Found") % filepath, dad.window)
-        menu_item.hide()
-        try: dad.recent_docs.remove(filepath)
-        except: pass
+        try:
+            idx = dad.recent_docs.index(filepath)
+            dad.recent_docs.append(dad.recent_docs.pop(idx))
+            set_menu_items_recent_documents(dad)
+        except:
+            pass
 
 def select_bookmark_node(menu_item, node_id_str, dad):
     """Select a Node in the Bookmarks List"""
