@@ -1123,6 +1123,23 @@ class BasketHandler(HTMLParser.HTMLParser):
                         self.chars_counter += 1
                     break
                 content_dom_iter = content_dom_iter.nextSibling
+        elif note_dom_iter.attributes['type'].value == "file":
+            content_dom_iter = note_dom_iter.firstChild
+            while content_dom_iter:
+                if content_dom_iter.nodeName == "content":
+                    content_path = os.path.join(self.subfolder_path, content_dom_iter.firstChild.data)
+                    if os.path.isfile(content_path):
+                        pixbuf = gtk.gdk.pixbuf_new_from_file(cons.FILE_CHAR)
+                        with open(content_path, 'rb') as fd:
+                            pixbuf.filename = os.path.basename(content_path)
+                            pixbuf.embfile = fd.read()
+                            pixbuf.time = time.time()
+                        self.pixbuf_vector.append([self.chars_counter, pixbuf, cons.TAG_PROP_LEFT])
+                        self.chars_counter += 1
+                        self.rich_text_serialize(cons.CHAR_NEWLINE)
+                        self.chars_counter += 1
+                    break
+                content_dom_iter = content_dom_iter.nextSibling
         elif note_dom_iter.attributes['type'].value == cons.TAG_LINK:
             content_dom_iter = note_dom_iter.firstChild
             while content_dom_iter:
