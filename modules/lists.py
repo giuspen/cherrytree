@@ -21,7 +21,7 @@
 
 import gtk
 import re
-import cons
+import cons, support
 
 
 class ListsHandler:
@@ -132,13 +132,11 @@ class ListsHandler:
         # get the number of the paragraph starting with iter_start
         number = self.list_get_number(iter_start)
         if number != None: return [number, False, iter_start.get_offset()] # multiple line = False
-        elif not buffer_start and iter_start.get_char() == cons.CHAR_SPACE:
-            if iter_start.forward_char() and iter_start.get_char() == cons.CHAR_SPACE\
-            and iter_start.forward_char() and iter_start.get_char() == cons.CHAR_SPACE:
-                # we are inside of a list paragraph but after a shift+return
-                iter_start.backward_chars(3)
-                list_info = self.get_paragraph_list_info(iter_start)
-                return [list_info[0], True, list_info[2]] # multiple line = True
+        elif not buffer_start and support.get_next_chars_from_iter_are(iter_start, [3*cons.CHAR_SPACE]):
+            # we are inside of a list paragraph but after a shift+return
+            iter_start.backward_char()
+            list_info = self.get_paragraph_list_info(iter_start)
+            return [list_info[0], True, list_info[2]] # multiple line = True
         return [None, None, None] # this paragraph is not a list
 
     def get_paragraph_iters(self, text_buffer=None, force_iter=None):

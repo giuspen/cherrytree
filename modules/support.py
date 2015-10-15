@@ -336,11 +336,11 @@ def strip_trailing_spaces(text_buffer):
                 break
     return cleaned_lines
 
-def get_next_chars_from_iter_are(iter_start, num_n_chars):
+def get_next_chars_from_iter_are(iter_start, chars_list):
     """Returns True if the Given Chars are the next 'num' after iter"""
-    for num_n_chars_elem in num_n_chars:
+    for chars in chars_list:
         text_iter = iter_start.copy()
-        (num, chars) = num_n_chars_elem
+        num = len(chars)
         for i in range(num):
             if text_iter.get_char().encode(cons.STR_UTF8) != chars[i]: break
             if i != num-1 and not text_iter.forward_char(): break
