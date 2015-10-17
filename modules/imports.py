@@ -1140,6 +1140,17 @@ class BasketHandler(HTMLParser.HTMLParser):
                         self.chars_counter += 1
                     break
                 content_dom_iter = content_dom_iter.nextSibling
+        elif note_dom_iter.attributes['type'].value == "cross_reference":
+            content_dom_iter = note_dom_iter.firstChild
+            while content_dom_iter:
+                if content_dom_iter.nodeName == "content":
+                    if content_dom_iter.hasAttribute('title'):
+                        title = "cross reference: "  + content_dom_iter.attributes['title'].value
+                        self.feed(title.decode(cons.STR_UTF8, cons.STR_IGNORE))
+                        self.rich_text_serialize(cons.CHAR_NEWLINE)
+                        self.chars_counter += 1
+                        break
+                content_dom_iter = content_dom_iter.nextSibling
         elif note_dom_iter.attributes['type'].value == cons.TAG_LINK:
             content_dom_iter = note_dom_iter.firstChild
             while content_dom_iter:
