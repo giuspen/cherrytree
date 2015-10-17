@@ -100,20 +100,37 @@ class ListsHandler:
         if list_info_num > 0: return len("%s. " % list_info_num)
         return 2
 
-    def list_get_number(self, iter_first_paragraph):
+    def list_get_number_n_level(self, iter_first_paragraph):
         """Returns a Number or None (0 fot the bulleted list)"""
         iter_start = iter_first_paragraph.copy()
-        char = iter_start.get_char()
-        if char == cons.CHAR_LISTBUL:
-            return 0 if iter_start.forward_char() and iter_start.get_char() == cons.CHAR_SPACE else None
-        if char in [cons.CHAR_LISTTODO, cons.CHAR_LISTDONEOK, cons.CHAR_LISTDONEFAIL]:
-            return -1 if iter_start.forward_char() and iter_start.get_char() == cons.CHAR_SPACE else None
-        match = re.match('[1-9]', char)
-        if not match: return None
-        number_str = char
-        while iter_start.forward_char() and re.match('[0-9]', iter_start.get_char()):
-            number_str += iter_start.get_char()
-        return int(number_str) if iter_start.get_char() == "." and iter_start.forward_char() and iter_start.get_char() == cons.CHAR_SPACE else None
+        level = 0
+        while iter_start:
+            char = iter_start.get_char()
+            if char == cons.CHAR_LISTBUL:
+                if iter_start.forward_char() and iter_start.get_char() == cons.CHAR_SPACE:
+                    return [0, level]
+                break
+            if char in [cons.CHAR_LISTTODO, cons.CHAR_LISTDONEOK, cons.CHAR_LISTDONEFAIL]:
+                if iter_start.forward_char() and iter_start.get_char() == cons.CHAR_SPACE:
+                    return [-1, level]
+                break
+            if char == cons.CHAR_SPACE:
+                if support.get_next_chars_from_iter_are(iter_start, [3*cons.CHAR_SPACE]):
+                    iter_start.forward_chars(3)
+                    level += 1
+                else:
+                    break
+            else:
+                match = re.match('[1-9]', char)
+                if not match:
+                    break
+                number_str = char
+                while iter_start.forward_char() and re.match('[0-9]', iter_start.get_char()):
+                    number_str += iter_start.get_char()
+                if iter_start.get_char() == "." and iter_start.forward_char() and iter_start.get_char() == cons.CHAR_SPACE:
+                    return [int(number_str), level]
+                break
+        return [None, level]
 
     def get_paragraph_list_info(self, iter_start):
         """Returns [Number, Whether multiple line, List Start Iter Offset]
@@ -130,9 +147,10 @@ class ListsHandler:
                     break # we reached the buffer start
         if not buffer_start: iter_start.forward_char()
         # get the number of the paragraph starting with iter_start
-        number = self.list_get_number(iter_start)
-        if number != None: return [number, False, iter_start.get_offset()] # multiple line = False
-        elif not buffer_start and support.get_next_chars_from_iter_are(iter_start, [3*cons.CHAR_SPACE]):
+        number_n_level = self.list_get_number_n_level(iter_start)
+        if number_n_level[0] != None:
+            return [number_n_level[0], False, iter_start.get_offset()] # multiple line = False
+        if not buffer_start and support.get_next_chars_from_iter_are(iter_start, [3*cons.CHAR_SPACE]):
             # we are inside of a list paragraph but after a shift+return
             iter_start.backward_char()
             list_info = self.get_paragraph_list_info(iter_start)
