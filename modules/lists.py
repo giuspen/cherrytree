@@ -49,7 +49,7 @@ class ListsHandler:
             if not iter_start:
                 if leading_num_count == 1:
                     # this is the first iteration
-                    if list_info[0] != target_list_num_id:
+                    if not list_info or list_info["num"] != target_list_num_id:
                         # the target list type differs from this paragraph list type
                         iter_start = text_buffer.get_iter_at_mark(text_buffer.get_insert())
                         if target_list_num_id == -1: text_buffer.insert(iter_start, cons.CHAR_LISTTODO + cons.CHAR_SPACE)
@@ -62,7 +62,7 @@ class ListsHandler:
             else:
                 iter_start, iter_end, chars_rm = self.list_check_n_remove_old_list_type_leading(iter_start, iter_end, text_buffer)
                 end_offset -= chars_rm
-                if list_info[0] != target_list_num_id:
+                if not list_info or list_info["num"] != target_list_num_id:
                     # the target list type differs from this paragraph list type
                     if target_list_num_id == -1:
                         new_par_offset = iter_end.get_offset() + 2
@@ -86,8 +86,8 @@ class ListsHandler:
         start_offset = iter_start.get_offset()
         end_offset = iter_end.get_offset()
         list_info = self.get_paragraph_list_info(iter_start)
-        if list_info[0] != None:
-            leading_chars_num = self.get_leading_chars_num_from_list_info_num(list_info[0])
+        if list_info:
+            leading_chars_num = self.get_leading_chars_num_from_list_info_num(list_info["num"])
             iter_end = iter_start.copy()
             iter_end.forward_chars(leading_chars_num)
             text_buffer.delete(iter_start, iter_end)
@@ -101,7 +101,7 @@ class ListsHandler:
         return 2
 
     def list_get_number_n_level(self, iter_first_paragraph):
-        """Returns a Number or None (0 fot the bulleted list)"""
+        """Number == 0 if bulleted list, > 0 if numbered list, -1 if TODO list, None if not a list"""
         iter_start = iter_first_paragraph.copy()
         level = 0
         while iter_start:
@@ -133,8 +133,7 @@ class ListsHandler:
         return [None, level]
 
     def get_paragraph_list_info(self, iter_start):
-        """Returns [Number, Whether multiple line, List Start Iter Offset]
-           Number == 0 if bulleted list, >=1 if numbered list or None if not a list"""
+        """Returns [Number, Whether multiple line, List Start Iter Offset]"""
         buffer_start = False
         # let's search for the paragraph start
         if iter_start.get_char() == cons.CHAR_NEWLINE:
@@ -149,13 +148,14 @@ class ListsHandler:
         # get the number of the paragraph starting with iter_start
         number_n_level = self.list_get_number_n_level(iter_start)
         if number_n_level[0] != None:
-            return [number_n_level[0], False, iter_start.get_offset()] # multiple line = False
+            return {"num":number_n_level[0], "level":number_n_level[1], "multiline":False, "startoffs":iter_start.get_offset()}
         if not buffer_start and support.get_next_chars_from_iter_are(iter_start, [3*cons.CHAR_SPACE]):
             # we are inside of a list paragraph but after a shift+return
             iter_start.backward_char()
             list_info = self.get_paragraph_list_info(iter_start)
-            return [list_info[0], True, list_info[2]] # multiple line = True
-        return [None, None, None] # this paragraph is not a list
+            list_info["multiline"] = True
+            return list_info
+        return None # this paragraph is not a list
 
     def get_paragraph_iters(self, text_buffer=None, force_iter=None):
         """Generates and Returns two iters indicating the paragraph bounds"""

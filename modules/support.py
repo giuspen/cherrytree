@@ -138,7 +138,7 @@ def on_sourceview_event_after_key_press(dad, text_view, event):
             if iter_start.backward_char() and iter_start.get_char() == cons.CHAR_NEWLINE:
                 return False # former was an empty row
             list_info = dad.lists_handler.get_paragraph_list_info(iter_start)
-            if list_info[0] == None:
+            if not list_info:
                 if dad.auto_indent:
                     iter_start = iter_insert.copy()
                     former_line_indent = get_former_line_indentation(iter_start)
@@ -146,23 +146,23 @@ def on_sourceview_event_after_key_press(dad, text_view, event):
                 return False # former was not a list
             # possible list quit
             iter_list_quit = iter_insert.copy()
-            if (list_info[0] == 0 and iter_list_quit.backward_chars(3) and iter_list_quit.get_char() == cons.CHAR_LISTBUL):
+            if (list_info["num"] == 0 and iter_list_quit.backward_chars(3) and iter_list_quit.get_char() == cons.CHAR_LISTBUL):
                 text_buffer.delete(iter_list_quit, iter_insert)
                 return False # former was an empty paragraph => list quit
-            elif (list_info[0] == -1 and iter_list_quit.backward_chars(3) and iter_list_quit.get_char() in [cons.CHAR_LISTTODO, cons.CHAR_LISTDONEOK, cons.CHAR_LISTDONEFAIL]):
+            elif (list_info["num"] == -1 and iter_list_quit.backward_chars(3) and iter_list_quit.get_char() in [cons.CHAR_LISTTODO, cons.CHAR_LISTDONEOK, cons.CHAR_LISTDONEFAIL]):
                 text_buffer.delete(iter_list_quit, iter_insert)
                 return False # former was an empty paragraph => list quit
-            elif (list_info[0] > 0 and iter_list_quit.backward_chars(2) and iter_list_quit.get_char() == cons.CHAR_SPACE\
+            elif (list_info["num"] > 0 and iter_list_quit.backward_chars(2) and iter_list_quit.get_char() == cons.CHAR_SPACE\
             and iter_list_quit.backward_char() and iter_list_quit.get_char() == '.'):
-                iter_list_quit.backward_chars(len(str(list_info[0])))
+                iter_list_quit.backward_chars(len(str(list_info["num"])))
                 text_buffer.delete(iter_list_quit, iter_insert)
                 return False # former was an empty paragraph => list quit
-            if list_info[0] == 0: text_buffer.insert(iter_insert, cons.CHAR_LISTBUL + cons.CHAR_SPACE)
-            elif list_info[0] == -1: text_buffer.insert(iter_insert, cons.CHAR_LISTTODO + cons.CHAR_SPACE)
-            else: text_buffer.insert(iter_insert, '%s. ' % (list_info[0] + 1))
+            if list_info["num"] == 0: text_buffer.insert(iter_insert, cons.CHAR_LISTBUL + cons.CHAR_SPACE)
+            elif list_info["num"] == -1: text_buffer.insert(iter_insert, cons.CHAR_LISTTODO + cons.CHAR_SPACE)
+            else: text_buffer.insert(iter_insert, '%s. ' % (list_info["num"] + 1))
         elif keyname == cons.STR_KEY_TAB:
             list_info = dad.lists_handler.get_paragraph_list_info(iter_start)
-            if list_info != None:
+            if list_info:
                 print list_info
         elif keyname == cons.STR_KEY_SPACE:
             if iter_start.backward_chars(2):
