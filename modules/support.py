@@ -121,8 +121,19 @@ def on_sourceview_event_after_key_press(dad, text_view, event):
     text_buffer = text_view.get_buffer()
     keyname = gtk.gdk.keyval_name(event.keyval)
     if (event.state & gtk.gdk.SHIFT_MASK):
-        if keyname == cons.STR_KEY_RETURN:
-            text_buffer.insert(text_buffer.get_iter_at_mark(text_buffer.get_insert()), 3*cons.CHAR_SPACE)
+        if keyname in [cons.STR_KEY_RETURN, cons.STR_KEY_SHIFT_TAB]:
+            iter_insert = text_buffer.get_iter_at_mark(text_buffer.get_insert())
+            if not iter_insert: return False
+            iter_start = iter_insert.copy()
+            if keyname == cons.STR_KEY_RETURN:
+                iter_start.backward_char()
+                list_info = dad.lists_handler.get_paragraph_list_info(iter_start)
+                if list_info:
+                    text_buffer.insert(text_buffer.get_iter_at_mark(text_buffer.get_insert()), 3*(1+list_info["level"])*cons.CHAR_SPACE)
+            elif keyname == cons.STR_KEY_SHIFT_TAB:
+                list_info = dad.lists_handler.get_paragraph_list_info(iter_start)
+                if list_info:
+                    print list_info
     elif keyname in [cons.STR_KEY_RETURN, cons.STR_KEY_SPACE, cons.STR_KEY_TAB]:
         iter_insert = text_buffer.get_iter_at_mark(text_buffer.get_insert())
         if not iter_insert: return False
