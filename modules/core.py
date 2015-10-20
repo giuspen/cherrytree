@@ -3029,6 +3029,10 @@ iter_end, exclude_iter_sel_end=True)
             step_back = self.state_machine.requested_previous_state(self.treestore[self.curr_tree_iter][3])
             # step_back is [ [rich_text, pixbuf_table_vector, cursor_position],... ]
             if step_back != None:
+                if self.enable_spell_check:
+                    spell_check_restore = True
+                    self.toggle_ena_dis_spellcheck()
+                else: spell_check_restore = False
                 if self.user_active:
                     self.user_active = False
                     user_active_restore = True
@@ -3046,6 +3050,7 @@ iter_end, exclude_iter_sel_end=True)
                 self.curr_buffer.place_cursor(self.curr_buffer.get_iter_at_offset(step_back[2]))
                 self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), 0.3)
                 if user_active_restore: self.user_active = True
+                if spell_check_restore: self.toggle_ena_dis_spellcheck()
                 self.update_window_save_needed("nbuf")
         elif self.curr_buffer.can_undo():
             self.curr_buffer.undo()
@@ -3060,6 +3065,10 @@ iter_end, exclude_iter_sel_end=True)
             step_ahead = self.state_machine.requested_subsequent_state(self.treestore[self.curr_tree_iter][3])
             # step_ahead is [ [rich_text, pixbuf_table_vector, cursor_position],... ]
             if step_ahead != None:
+                if self.enable_spell_check:
+                    spell_check_restore = True
+                    self.toggle_ena_dis_spellcheck()
+                else: spell_check_restore = False
                 if self.user_active:
                     self.user_active = False
                     user_active_restore = True
@@ -3077,6 +3086,7 @@ iter_end, exclude_iter_sel_end=True)
                 self.curr_buffer.place_cursor(self.curr_buffer.get_iter_at_offset(step_ahead[2]))
                 self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), 0.3)
                 if user_active_restore: self.user_active = True
+                if spell_check_restore: self.toggle_ena_dis_spellcheck()
                 self.update_window_save_needed("nbuf")
         elif self.curr_buffer.can_redo():
             self.curr_buffer.redo()
