@@ -47,6 +47,7 @@ class ListsHandler:
             leading_num_count += 1
             iter_start, iter_end = self.get_paragraph_iters(text_buffer=text_buffer, force_iter=iter_start)
             if not iter_start:
+                # empty line
                 if leading_num_count == 1:
                     # this is the first iteration
                     if not list_info or list_info["num"] != target_list_num_id:
@@ -56,7 +57,7 @@ class ListsHandler:
                         elif target_list_num_id == 0: text_buffer.insert(iter_start, cons.CHAR_LISTBUL + cons.CHAR_SPACE)
                         else: text_buffer.insert(iter_start, "1. ")
                 break
-            if self.is_list_indented_continuation(iter_start):
+            if support.get_next_chars_from_iter_are(iter_start, [3*cons.CHAR_SPACE]):
                 new_par_offset = iter_end.get_offset()
                 leading_num_count -= 1
             else:
@@ -182,15 +183,6 @@ class ListsHandler:
                 break
             elif not iter_start.backward_char(): break # we reached the buffer start
         return (iter_start, iter_end)
-
-    def is_list_indented_continuation(self, iter_in):
-        """The given iter is the beginning of an indented list item"""
-        if not iter_in: return False
-        iter_start = iter_in.copy()
-        if iter_start.get_char() != cons.CHAR_SPACE: return False
-        if not iter_start.forward_char() or iter_start.get_char() != cons.CHAR_SPACE: return False
-        if not iter_start.forward_char() or iter_start.get_char() != cons.CHAR_SPACE: return False
-        return True
 
     def is_list_todo_beginning(self, square_bracket_open_iter):
         """Check if ☐ or ☑ or ☒"""

@@ -4564,36 +4564,46 @@ iter_end, exclude_iter_sel_end=True)
                 if iter_insert: self.cursor_key_press = iter_insert.get_offset()
                 else: self.cursor_key_press = None
                 #print "self.cursor_key_press", self.cursor_key_press
-            elif self.syntax_highlighting == cons.RICH_TEXT_ID and keyname == cons.STR_KEY_MENU:
-                if not self.curr_buffer.get_has_selection(): return False
-                iter_sel_start, iter_sel_end = self.curr_buffer.get_selection_bounds()
-                num_chars = iter_sel_end.get_offset() - iter_sel_start.get_offset()
-                if num_chars != 1: return False
-                anchor = iter_sel_start.get_child_anchor()
-                if not anchor: return False
-                if not "pixbuf" in dir(anchor): return False
-                if "anchor" in dir(anchor.pixbuf):
-                    self.curr_anchor_anchor = anchor
-                    self.object_set_selection(self.curr_anchor_anchor)
-                    self.ui.get_widget("/AnchorMenu").popup(None, None, None, 3, event.time)
-                else:
-                    self.curr_image_anchor = anchor
-                    self.object_set_selection(self.curr_image_anchor)
-                    if self.curr_image_anchor.pixbuf.link: self.ui.get_widget("/ImageMenu/DismissImageLink").show()
-                    else: self.ui.get_widget("/ImageMenu/DismissImageLink").hide()
-                    self.ui.get_widget("/ImageMenu").popup(None, None, None, 3, event.time)
-                return True
-            elif self.syntax_highlighting == cons.RICH_TEXT_ID and keyname == cons.STR_KEY_TAB:
-                if not self.curr_buffer.get_has_selection(): return False
-                iter_sel_start, iter_sel_end = self.curr_buffer.get_selection_bounds()
-                num_chars = iter_sel_end.get_offset() - iter_sel_start.get_offset()
-                if num_chars != 1: return False
-                anchor = iter_sel_start.get_child_anchor()
-                if not anchor: return False
-                if not "liststore" in dir(anchor): return False
-                self.curr_buffer.place_cursor(iter_sel_end)
-                self.sourceview.grab_focus()
-                return True
+            elif keyname == cons.STR_KEY_MENU:
+                if self.syntax_highlighting == cons.RICH_TEXT_ID:
+                    if not self.curr_buffer.get_has_selection(): return False
+                    iter_sel_start, iter_sel_end = self.curr_buffer.get_selection_bounds()
+                    num_chars = iter_sel_end.get_offset() - iter_sel_start.get_offset()
+                    if num_chars != 1: return False
+                    anchor = iter_sel_start.get_child_anchor()
+                    if not anchor: return False
+                    if not "pixbuf" in dir(anchor): return False
+                    if "anchor" in dir(anchor.pixbuf):
+                        self.curr_anchor_anchor = anchor
+                        self.object_set_selection(self.curr_anchor_anchor)
+                        self.ui.get_widget("/AnchorMenu").popup(None, None, None, 3, event.time)
+                    else:
+                        self.curr_image_anchor = anchor
+                        self.object_set_selection(self.curr_image_anchor)
+                        if self.curr_image_anchor.pixbuf.link: self.ui.get_widget("/ImageMenu/DismissImageLink").show()
+                        else: self.ui.get_widget("/ImageMenu/DismissImageLink").hide()
+                        self.ui.get_widget("/ImageMenu").popup(None, None, None, 3, event.time)
+                    return True
+            elif keyname == cons.STR_KEY_TAB:
+                if not self.curr_buffer.get_has_selection():
+                    iter_insert = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
+                    list_info = self.lists_handler.get_paragraph_list_info(iter_insert)
+                    if list_info:
+                        orig_offset = list_info["startoffs"]
+                        new_level = list_info["level"]+1
+                        iter_start, iter_end = self.lists_handler.get_paragraph_iters()
+                        self.curr_buffer.insert(iter_start, 3*cons.CHAR_SPACE)
+                        return True
+                elif self.syntax_highlighting == cons.RICH_TEXT_ID:
+                    iter_sel_start, iter_sel_end = self.curr_buffer.get_selection_bounds()
+                    num_chars = iter_sel_end.get_offset() - iter_sel_start.get_offset()
+                    if num_chars != 1: return False
+                    anchor = iter_sel_start.get_child_anchor()
+                    if not anchor: return False
+                    if not "liststore" in dir(anchor): return False
+                    self.curr_buffer.place_cursor(iter_sel_end)
+                    self.sourceview.grab_focus()
+                    return True
         return False
 
     def on_sourceview_event_after(self, text_view, event):

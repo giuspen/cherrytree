@@ -134,7 +134,7 @@ def on_sourceview_event_after_key_press(dad, text_view, event):
                 list_info = dad.lists_handler.get_paragraph_list_info(iter_start)
                 if list_info:
                     print list_info
-    elif keyname in [cons.STR_KEY_RETURN, cons.STR_KEY_SPACE, cons.STR_KEY_TAB]:
+    elif keyname in [cons.STR_KEY_RETURN, cons.STR_KEY_SPACE]:
         iter_insert = text_buffer.get_iter_at_mark(text_buffer.get_insert())
         if not iter_insert: return False
         iter_start = iter_insert.copy()
@@ -171,10 +171,6 @@ def on_sourceview_event_after_key_press(dad, text_view, event):
             if list_info["num"] == 0: text_buffer.insert(iter_insert, cons.CHAR_LISTBUL + cons.CHAR_SPACE)
             elif list_info["num"] == -1: text_buffer.insert(iter_insert, cons.CHAR_LISTTODO + cons.CHAR_SPACE)
             else: text_buffer.insert(iter_insert, '%s. ' % (list_info["num"] + 1))
-        elif keyname == cons.STR_KEY_TAB:
-            list_info = dad.lists_handler.get_paragraph_list_info(iter_start)
-            if list_info:
-                print list_info
         elif keyname == cons.STR_KEY_SPACE:
             if iter_start.backward_chars(2):
                 if iter_start.get_char() == cons.CHAR_GREATER and iter_start.backward_char()\
