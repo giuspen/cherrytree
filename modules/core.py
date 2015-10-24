@@ -4590,8 +4590,8 @@ iter_end, exclude_iter_sel_end=True)
                     list_info = self.lists_handler.get_paragraph_list_info(iter_insert)
                     if list_info:
                         end_offset = self.lists_handler.get_multiline_list_element_end_offset(iter_insert, list_info)
-                        iter_start = self.curr_buffer.get_iter_at_offset(list_info["startoffs"])
-                        curr_offset = iter_start.get_offset()
+                        curr_offset = list_info["startoffs"]
+                        iter_start = self.curr_buffer.get_iter_at_offset(curr_offset)
                         #print "%s -> %s" % (curr_offset, end_offset)
                         while curr_offset < end_offset:
                             self.curr_buffer.insert(iter_start, 3*cons.CHAR_SPACE)

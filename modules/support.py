@@ -168,9 +168,14 @@ def on_sourceview_event_after_key_press(dad, text_view, event):
                 iter_list_quit.backward_chars(len(str(list_info["num"])))
                 text_buffer.delete(iter_list_quit, iter_insert)
                 return False # former was an empty paragraph => list quit
-            if list_info["num"] == 0: text_buffer.insert(iter_insert, cons.CHAR_LISTBUL + cons.CHAR_SPACE)
-            elif list_info["num"] == -1: text_buffer.insert(iter_insert, cons.CHAR_LISTTODO + cons.CHAR_SPACE)
-            else: text_buffer.insert(iter_insert, '%s. ' % (list_info["num"] + 1))
+            # list new element
+            pre_spaces = 3*list_info["level"]*cons.CHAR_SPACE if list_info["level"] else ""
+            if list_info["num"] == 0:
+                text_buffer.insert(iter_insert, pre_spaces+cons.CHAR_LISTBUL+cons.CHAR_SPACE)
+            elif list_info["num"] == -1:
+                text_buffer.insert(iter_insert, pre_spaces+cons.CHAR_LISTTODO+cons.CHAR_SPACE)
+            else:
+                text_buffer.insert(iter_insert, pre_spaces+'%s. ' % (list_info["num"] + 1))
         elif keyname == cons.STR_KEY_SPACE:
             if iter_start.backward_chars(2):
                 if iter_start.get_char() == cons.CHAR_GREATER and iter_start.backward_char()\
