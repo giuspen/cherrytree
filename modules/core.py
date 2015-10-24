@@ -4559,7 +4559,27 @@ iter_end, exclude_iter_sel_end=True)
         """Called at every event on the SourceView"""
         if event.type == gtk.gdk.KEY_PRESS:
             keyname = gtk.gdk.keyval_name(event.keyval)
-            if keyname == cons.STR_KEY_RETURN:
+            if (event.state & gtk.gdk.SHIFT_MASK):
+                if keyname == cons.STR_KEY_SHIFT_TAB:
+                    if not self.curr_buffer.get_has_selection():
+                        iter_insert = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
+                        if not iter_insert: return False
+                        iter_start = iter_insert.copy()
+                        list_info = self.lists_handler.get_paragraph_list_info(iter_start)
+                        if list_info and list_info["level"]:
+                            end_offset = self.lists_handler.get_multiline_list_element_end_offset(iter_insert, list_info)
+                            curr_offset = list_info["startoffs"]
+                            iter_start = self.curr_buffer.get_iter_at_offset(curr_offset)
+                            #print "%s -> %s" % (curr_offset, end_offset)
+                            while curr_offset < end_offset:
+                                self.curr_buffer.delete(iter_start, self.curr_buffer.get_iter_at_offset(curr_offset+3))
+                                end_offset -= 3
+                                iter_start = self.curr_buffer.get_iter_at_offset(curr_offset+1)
+                                if not self.lists_handler.char_iter_forward_to_newline(iter_start) or not iter_start.forward_char():
+                                    break
+                                curr_offset = iter_start.get_offset()
+                            return True
+            elif keyname == cons.STR_KEY_RETURN:
                 iter_insert = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
                 if iter_insert: self.cursor_key_press = iter_insert.get_offset()
                 else: self.cursor_key_press = None

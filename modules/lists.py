@@ -135,9 +135,14 @@ class ListsHandler:
 
     def get_multiline_list_element_end_offset(self, curr_iter, list_info):
         iter_start = curr_iter.copy()
-        if not self.char_iter_forward_to_newline(iter_start) or not iter_start.forward_char():
-            # the end of buffer is also the list end
-            return iter_start.get_offset()
+        if iter_start.get_char() == cons.CHAR_NEWLINE:
+            if not iter_start.forward_char():
+                # the end of buffer is also the list end
+                return iter_start.get_offset()
+        else:
+            if not self.char_iter_forward_to_newline(iter_start) or not iter_start.forward_char():
+                # the end of buffer is also the list end
+                return iter_start.get_offset()
         number_n_level = self.list_get_number_n_level(iter_start)
         #print number_n_level
         if number_n_level[0] == None and number_n_level[1] == list_info["level"]+1:
