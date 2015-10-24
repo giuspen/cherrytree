@@ -133,8 +133,20 @@ class ListsHandler:
                 break
         return [None, level]
 
+    def get_multiline_list_element_end_offset(self, curr_iter, list_info):
+        iter_start = curr_iter.copy()
+        if not self.char_iter_forward_to_newline(iter_start) or not iter_start.forward_char():
+            # the end of buffer is also the list end
+            return iter_start.get_offset()
+        number_n_level = self.list_get_number_n_level(iter_start)
+        #print number_n_level
+        if number_n_level[0] == None and number_n_level[1] == list_info["level"]+1:
+            # multiline indentation
+            return self.get_multiline_list_element_end_offset(iter_start, list_info)
+        return iter_start.get_offset()-1
+
     def get_paragraph_list_info(self, iter_start):
-        """Returns [Number, Whether multiple line, List Start Iter Offset]"""
+        """Returns a dictionary indicating List Element Number, List Level and List Element Start Offset"""
         buffer_start = False
         # let's search for the paragraph start
         if iter_start.get_char() == cons.CHAR_NEWLINE:
@@ -149,12 +161,11 @@ class ListsHandler:
         # get the number of the paragraph starting with iter_start
         number_n_level = self.list_get_number_n_level(iter_start)
         if number_n_level[0] != None:
-            return {"num":number_n_level[0], "level":number_n_level[1], "multiline":False, "startoffs":iter_start.get_offset()}
+            return {"num":number_n_level[0], "level":number_n_level[1], "startoffs":iter_start.get_offset()}
         if not buffer_start and support.get_next_chars_from_iter_are(iter_start, [3*cons.CHAR_SPACE]):
             # we are inside of a list paragraph but after a shift+return
             iter_start.backward_char()
             list_info = self.get_paragraph_list_info(iter_start)
-            list_info["multiline"] = True
             return list_info
         return None # this paragraph is not a list
 
@@ -213,6 +224,13 @@ class ListsHandler:
         if not char_iter.forward_char(): return False
         while char_iter.get_char() != cons.CHAR_NEWLINE:
             if not char_iter.forward_char(): return False
+        return True
+
+    def char_iter_backward_to_newline(self, char_iter):
+        """Backwards char iter to line start"""
+        if not char_iter.backward_char(): return False
+        while char_iter.get_char() != cons.CHAR_NEWLINE:
+            if not char_iter.backward_char(): return False
         return True
 
     def todo_lists_old_to_new_conversion(self, text_buffer):

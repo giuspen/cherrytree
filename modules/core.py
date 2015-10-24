@@ -4589,10 +4589,17 @@ iter_end, exclude_iter_sel_end=True)
                     iter_insert = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
                     list_info = self.lists_handler.get_paragraph_list_info(iter_insert)
                     if list_info:
-                        orig_offset = list_info["startoffs"]
-                        new_level = list_info["level"]+1
-                        iter_start, iter_end = self.lists_handler.get_paragraph_iters()
-                        self.curr_buffer.insert(iter_start, 3*cons.CHAR_SPACE)
+                        end_offset = self.lists_handler.get_multiline_list_element_end_offset(iter_insert, list_info)
+                        iter_start = self.curr_buffer.get_iter_at_offset(list_info["startoffs"])
+                        curr_offset = iter_start.get_offset()
+                        #print "%s -> %s" % (curr_offset, end_offset)
+                        while curr_offset < end_offset:
+                            self.curr_buffer.insert(iter_start, 3*cons.CHAR_SPACE)
+                            end_offset += 3
+                            iter_start = self.curr_buffer.get_iter_at_offset(curr_offset+3)
+                            if not self.lists_handler.char_iter_forward_to_newline(iter_start) or not iter_start.forward_char():
+                                break
+                            curr_offset = iter_start.get_offset()
                         return True
                 elif self.syntax_highlighting == cons.RICH_TEXT_ID:
                     iter_sel_start, iter_sel_end = self.curr_buffer.get_selection_bounds()
