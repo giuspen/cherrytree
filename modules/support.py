@@ -173,12 +173,20 @@ def on_sourceview_event_after_key_press(dad, text_view, event):
                 text_buffer.insert(iter_insert, pre_spaces+'%s. ' % (list_info["num"] + 1))
         elif keyname == cons.STR_KEY_SPACE:
             if iter_start.backward_chars(2):
-                if iter_start.get_char() == cons.CHAR_GREATER and iter_start.backward_char()\
-                and iter_start.get_char() == cons.CHAR_MINUS and iter_start.backward_char():
-                    if iter_start.get_char() == cons.CHAR_LESSER:
-                        dad.special_char_replace(cons.SPECIAL_CHAR_ARROW_DOUBLE, iter_start, iter_insert, text_buffer)
-                    elif iter_start.get_char() == cons.CHAR_MINUS:
-                        dad.special_char_replace(cons.SPECIAL_CHAR_ARROW_RIGHT, iter_start, iter_insert, text_buffer)
+                if iter_start.get_char() == cons.CHAR_GREATER and iter_start.backward_char():
+                    # Start bulleted list on "<> ", "-> " and "=> " at line start
+                    if iter_start.get_line_offset() == 0:
+                        if iter_start.get_char() == cons.CHAR_LESSER:
+                            dad.special_char_replace(cons.CHARS_LISTBUL[1], iter_start, iter_insert, text_buffer)
+                        elif iter_start.get_char() == cons.CHAR_MINUS:
+                            dad.special_char_replace(cons.CHARS_LISTBUL[4], iter_start, iter_insert, text_buffer)
+                        elif iter_start.get_char() == cons.CHAR_EQUAL:
+                            dad.special_char_replace(cons.CHARS_LISTBUL[5], iter_start, iter_insert, text_buffer)
+                    elif iter_start.get_char() == cons.CHAR_MINUS and iter_start.backward_char():
+                        if iter_start.get_char() == cons.CHAR_LESSER:
+                            dad.special_char_replace(cons.SPECIAL_CHAR_ARROW_DOUBLE, iter_start, iter_insert, text_buffer)
+                        elif iter_start.get_char() == cons.CHAR_MINUS:
+                            dad.special_char_replace(cons.SPECIAL_CHAR_ARROW_RIGHT, iter_start, iter_insert, text_buffer)
                 elif iter_start.get_char() == cons.CHAR_MINUS and iter_start.backward_char()\
                 and iter_start.get_char() == cons.CHAR_MINUS and iter_start.backward_char()\
                 and iter_start.get_char() == cons.CHAR_LESSER:
@@ -194,16 +202,13 @@ def on_sourceview_event_after_key_press(dad, text_view, event):
                     and iter_start.get_char() == "t" and iter_start.backward_char()\
                     and iter_start.get_char() == cons.CHAR_PARENTH_OPEN:
                         dad.special_char_replace(cons.SPECIAL_CHAR_UNREGISTERED_TRADEMARK, iter_start, iter_insert, text_buffer)
-                # Start bulleted list on "* " at line start
                 elif iter_start.get_char() == cons.CHAR_STAR and iter_start.get_line_offset() == 0:
-                    text_buffer.delete(iter_start, iter_insert)
-                    dad.lists_handler.list_handler(0, text_buffer=text_buffer)
-                # Start todo list on "[] " at line start
-                elif iter_start.get_char() == cons.CHAR_SQ_BR_CLOSE and iter_start.backward_char()\
-                and iter_start.get_char() == cons.CHAR_SQ_BR_OPEN\
-                and iter_start.get_line_offset() == 0:
-                    text_buffer.delete(iter_start, iter_insert)
-                    dad.lists_handler.list_handler(-1, text_buffer=text_buffer)
+                    # Start bulleted list on "* " at line start
+                    dad.special_char_replace(cons.CHARS_LISTBUL[0], iter_start, iter_insert, text_buffer)
+                elif iter_start.get_char() == cons.CHAR_SQ_BR_CLOSE and iter_start.backward_char():
+                    # Start todo list on "[] " at line start
+                    if iter_start.get_line_offset() == 0 and iter_start.get_char() == cons.CHAR_SQ_BR_OPEN:
+                        dad.special_char_replace(cons.CHAR_LISTTODO, iter_start, iter_insert, text_buffer)
     return False
 
 def sourceview_cursor_and_tooltips_handler(dad, text_view, x, y):
