@@ -210,6 +210,10 @@ def on_sourceview_event_after_key_press(dad, text_view, event):
                     # Start todo list on "[] " at line start
                     if iter_start.get_line_offset() == 0 and iter_start.get_char() == cons.CHAR_SQ_BR_OPEN:
                         dad.special_char_replace(cons.CHAR_LISTTODO, iter_start, iter_insert, text_buffer)
+                elif iter_start.get_char() == cons.CHAR_COLON and iter_start.backward_char():
+                    # Start todo list on ":: " at line start
+                    if iter_start.get_line_offset() == 0 and iter_start.get_char() == cons.CHAR_COLON:
+                        dad.special_char_replace(cons.CHARS_LISTBUL[2], iter_start, iter_insert, text_buffer)
     return False
 
 def sourceview_cursor_and_tooltips_handler(dad, text_view, x, y):
