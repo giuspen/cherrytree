@@ -53,9 +53,13 @@ class ListsHandler:
                     if not list_info or list_info["num"] != target_list_num_id:
                         # the target list type differs from this paragraph list type
                         iter_start = text_buffer.get_iter_at_mark(text_buffer.get_insert())
-                        if target_list_num_id == -1: text_buffer.insert(iter_start, cons.CHAR_LISTTODO + cons.CHAR_SPACE)
-                        elif target_list_num_id == 0: text_buffer.insert(iter_start, cons.CHARS_LISTBUL[0] + cons.CHAR_SPACE)
-                        else: text_buffer.insert(iter_start, "1. ")
+                        if target_list_num_id == 0:
+                            text_buffer.insert(iter_start, cons.CHAR_LISTTODO + cons.CHAR_SPACE)
+                        elif target_list_num_id < 0:
+                            index = target_list_num_id*(-1) - 1
+                            text_buffer.insert(iter_start, cons.CHARS_LISTBUL[index] + cons.CHAR_SPACE)
+                        else:
+                            text_buffer.insert(iter_start, "1. ")
                 break
             if support.get_next_chars_from_iter_are(iter_start, [3*cons.CHAR_SPACE]):
                 new_par_offset = iter_end.get_offset()
@@ -102,18 +106,18 @@ class ListsHandler:
         return 2
 
     def list_get_number_n_level(self, iter_first_paragraph):
-        """Number == 0 if bulleted list, > 0 if numbered list, -1 if TODO list, None if not a list"""
+        """Number < 0 if bulleted list, > 0 if numbered list, 0 if TODO list, None if not a list"""
         iter_start = iter_first_paragraph.copy()
         level = 0
         while iter_start:
             char = iter_start.get_char()
             if char in cons.CHARS_LISTBUL:
                 if iter_start.forward_char() and iter_start.get_char() == cons.CHAR_SPACE:
-                    return [0, level]
+                    return [(cons.CHARS_LISTBUL.index(char) + 1)*(-1), level]
                 break
             if char in [cons.CHAR_LISTTODO, cons.CHAR_LISTDONEOK, cons.CHAR_LISTDONEFAIL]:
                 if iter_start.forward_char() and iter_start.get_char() == cons.CHAR_SPACE:
-                    return [-1, level]
+                    return [0, level]
                 break
             if char == cons.CHAR_SPACE:
                 if support.get_next_chars_from_iter_are(iter_start, [3*cons.CHAR_SPACE]):

@@ -4085,7 +4085,7 @@ iter_end, exclude_iter_sel_end=True)
         text_view, text_buffer, from_codebox = self.get_text_view_n_buffer_codebox_proof()
         if not text_buffer: return
         if from_codebox or self.is_curr_node_not_syntax_highlighting_or_error(plain_text_ok=True):
-            self.lists_handler.list_handler(0, text_buffer=text_buffer)
+            self.lists_handler.list_handler(-1, text_buffer=text_buffer)
 
     def list_numbered_handler(self, *args):
         """Handler of the Numbered List"""
@@ -4101,7 +4101,7 @@ iter_end, exclude_iter_sel_end=True)
         text_view, text_buffer, from_codebox = self.get_text_view_n_buffer_codebox_proof()
         if not text_buffer: return
         if from_codebox or self.is_curr_node_not_syntax_highlighting_or_error(plain_text_ok=True):
-            self.lists_handler.list_handler(-1, text_buffer=text_buffer)
+            self.lists_handler.list_handler(0, text_buffer=text_buffer)
 
     def apply_tag_latest(self, *args):
         """The Iterate Tagging Button was Pressed"""

@@ -152,10 +152,10 @@ def on_sourceview_event_after_key_press(dad, text_view, event):
                 return False # former was not a list
             # possible list quit
             iter_list_quit = iter_insert.copy()
-            if (list_info["num"] == 0 and iter_list_quit.backward_chars(3) and iter_list_quit.get_char() in cons.CHARS_LISTBUL):
+            if (list_info["num"] < 0 and iter_list_quit.backward_chars(3) and iter_list_quit.get_char() in cons.CHARS_LISTBUL):
                 text_buffer.delete(iter_list_quit, iter_insert)
                 return False # former was an empty paragraph => list quit
-            elif (list_info["num"] == -1 and iter_list_quit.backward_chars(3) and iter_list_quit.get_char() in [cons.CHAR_LISTTODO, cons.CHAR_LISTDONEOK, cons.CHAR_LISTDONEFAIL]):
+            elif (list_info["num"] == 0 and iter_list_quit.backward_chars(3) and iter_list_quit.get_char() in [cons.CHAR_LISTTODO, cons.CHAR_LISTDONEOK, cons.CHAR_LISTDONEFAIL]):
                 text_buffer.delete(iter_list_quit, iter_insert)
                 return False # former was an empty paragraph => list quit
             elif (list_info["num"] > 0 and iter_list_quit.backward_chars(2) and iter_list_quit.get_char() == cons.CHAR_SPACE\
@@ -165,9 +165,10 @@ def on_sourceview_event_after_key_press(dad, text_view, event):
                 return False # former was an empty paragraph => list quit
             # list new element
             pre_spaces = 3*list_info["level"]*cons.CHAR_SPACE if list_info["level"] else ""
-            if list_info["num"] == 0:
-                text_buffer.insert(iter_insert, pre_spaces+cons.CHARS_LISTBUL[0]+cons.CHAR_SPACE)
-            elif list_info["num"] == -1:
+            if list_info["num"] < 0:
+                index = list_info["num"]*(-1) - 1
+                text_buffer.insert(iter_insert, pre_spaces+cons.CHARS_LISTBUL[index]+cons.CHAR_SPACE)
+            elif list_info["num"] == 0:
                 text_buffer.insert(iter_insert, pre_spaces+cons.CHAR_LISTTODO+cons.CHAR_SPACE)
             else:
                 text_buffer.insert(iter_insert, pre_spaces+'%s. ' % (list_info["num"] + 1))
