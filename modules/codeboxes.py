@@ -430,8 +430,8 @@ class CodeBoxesHandler:
     def on_key_press_sourceview_codebox(self, widget, event, anchor):
         """Extend the Default Right-Click Menu of the CodeBox"""
         if not self.dad.user_active: return False
+        keyname = gtk.gdk.keyval_name(event.keyval)
         if event.state & gtk.gdk.CONTROL_MASK:
-            keyname = gtk.gdk.keyval_name(event.keyval)
             self.curr_codebox_anchor = anchor
             if keyname == "period":
                 if event.state & gtk.gdk.MOD1_MASK:
@@ -441,6 +441,23 @@ class CodeBoxesHandler:
                 if event.state & gtk.gdk.MOD1_MASK:
                     self.codebox_decrease_height()
                 else: self.codebox_increase_height()
+        elif (event.state & gtk.gdk.SHIFT_MASK):
+            if keyname == cons.STR_KEY_SHIFT_TAB:
+                text_buffer = widget.get_buffer()
+                if not text_buffer.get_has_selection():
+                    iter_insert = text_buffer.get_iter_at_mark(text_buffer.get_insert())
+                    list_info = self.dad.lists_handler.get_paragraph_list_info(iter_insert)
+                    if list_info and list_info["level"]:
+                        support.on_sourceview_list_change_level(self.dad, iter_insert, list_info, text_buffer, False)
+                        return True
+        elif keyname == cons.STR_KEY_TAB:
+            text_buffer = widget.get_buffer()
+            if not text_buffer.get_has_selection():
+                iter_insert = text_buffer.get_iter_at_mark(text_buffer.get_insert())
+                list_info = self.dad.lists_handler.get_paragraph_list_info(iter_insert)
+                if list_info:
+                    support.on_sourceview_list_change_level(self.dad, iter_insert, list_info, text_buffer, True)
+                    return True
         return False
 
     def on_mouse_button_clicked_codebox(self, widget, event, anchor):

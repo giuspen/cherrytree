@@ -4563,29 +4563,9 @@ iter_end, exclude_iter_sel_end=True)
                 if keyname == cons.STR_KEY_SHIFT_TAB:
                     if not self.curr_buffer.get_has_selection():
                         iter_insert = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
-                        if not iter_insert: return False
-                        iter_start = iter_insert.copy()
-                        list_info = self.lists_handler.get_paragraph_list_info(iter_start)
+                        list_info = self.lists_handler.get_paragraph_list_info(iter_insert)
                         if list_info and list_info["level"]:
-                            end_offset = self.lists_handler.get_multiline_list_element_end_offset(iter_insert, list_info)
-                            curr_offset = list_info["startoffs"]
-                            iter_start = self.curr_buffer.get_iter_at_offset(curr_offset)
-                            if list_info["num"] < 0:
-                                next_level = list_info["level"] - 1
-                                if next_level > cons.MAX_CHARS_LISTBUL_IDX:
-                                    next_level = cons.MAX_CHARS_LISTBUL_IDX
-                                bull_offset = curr_offset + 3*list_info["level"]
-                                self.replace_text_at_offset(cons.CHARS_LISTBUL[next_level],
-                                    bull_offset, bull_offset+1, self.curr_buffer)
-                                iter_start = self.curr_buffer.get_iter_at_offset(curr_offset)
-                            #print "%s -> %s" % (curr_offset, end_offset)
-                            while curr_offset < end_offset:
-                                self.curr_buffer.delete(iter_start, self.curr_buffer.get_iter_at_offset(curr_offset+3))
-                                end_offset -= 3
-                                iter_start = self.curr_buffer.get_iter_at_offset(curr_offset+1)
-                                if not self.lists_handler.char_iter_forward_to_newline(iter_start) or not iter_start.forward_char():
-                                    break
-                                curr_offset = iter_start.get_offset()
+                            support.on_sourceview_list_change_level(self, iter_insert, list_info, self.curr_buffer, False)
                             return True
             elif keyname == cons.STR_KEY_RETURN:
                 iter_insert = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
@@ -4617,25 +4597,7 @@ iter_end, exclude_iter_sel_end=True)
                     iter_insert = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
                     list_info = self.lists_handler.get_paragraph_list_info(iter_insert)
                     if list_info:
-                        end_offset = self.lists_handler.get_multiline_list_element_end_offset(iter_insert, list_info)
-                        curr_offset = list_info["startoffs"]
-                        iter_start = self.curr_buffer.get_iter_at_offset(curr_offset)
-                        if list_info["num"] < 0:
-                            next_level = list_info["level"] + 1
-                            if next_level > cons.MAX_CHARS_LISTBUL_IDX:
-                                next_level = cons.MAX_CHARS_LISTBUL_IDX
-                            bull_offset = curr_offset + 3*list_info["level"]
-                            self.replace_text_at_offset(cons.CHARS_LISTBUL[next_level],
-                                bull_offset, bull_offset+1, self.curr_buffer)
-                            iter_start = self.curr_buffer.get_iter_at_offset(curr_offset)
-                        #print "%s -> %s" % (curr_offset, end_offset)
-                        while curr_offset < end_offset:
-                            self.curr_buffer.insert(iter_start, 3*cons.CHAR_SPACE)
-                            end_offset += 3
-                            iter_start = self.curr_buffer.get_iter_at_offset(curr_offset+3)
-                            if not self.lists_handler.char_iter_forward_to_newline(iter_start) or not iter_start.forward_char():
-                                break
-                            curr_offset = iter_start.get_offset()
+                        support.on_sourceview_list_change_level(self, iter_insert, list_info, self.curr_buffer, True)
                         return True
                 elif self.syntax_highlighting == cons.RICH_TEXT_ID:
                     iter_sel_start, iter_sel_end = self.curr_buffer.get_selection_bounds()
