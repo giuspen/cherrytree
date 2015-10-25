@@ -152,7 +152,7 @@ def on_sourceview_event_after_key_press(dad, text_view, event):
                 return False # former was not a list
             # possible list quit
             iter_list_quit = iter_insert.copy()
-            if (list_info["num"] == 0 and iter_list_quit.backward_chars(3) and iter_list_quit.get_char() == cons.CHAR_LISTBUL):
+            if (list_info["num"] == 0 and iter_list_quit.backward_chars(3) and iter_list_quit.get_char() in cons.CHARS_LISTBUL):
                 text_buffer.delete(iter_list_quit, iter_insert)
                 return False # former was an empty paragraph => list quit
             elif (list_info["num"] == -1 and iter_list_quit.backward_chars(3) and iter_list_quit.get_char() in [cons.CHAR_LISTTODO, cons.CHAR_LISTDONEOK, cons.CHAR_LISTDONEFAIL]):
@@ -166,7 +166,7 @@ def on_sourceview_event_after_key_press(dad, text_view, event):
             # list new element
             pre_spaces = 3*list_info["level"]*cons.CHAR_SPACE if list_info["level"] else ""
             if list_info["num"] == 0:
-                text_buffer.insert(iter_insert, pre_spaces+cons.CHAR_LISTBUL+cons.CHAR_SPACE)
+                text_buffer.insert(iter_insert, pre_spaces+cons.CHARS_LISTBUL[0]+cons.CHAR_SPACE)
             elif list_info["num"] == -1:
                 text_buffer.insert(iter_insert, pre_spaces+cons.CHAR_LISTTODO+cons.CHAR_SPACE)
             else:
@@ -198,7 +198,7 @@ def on_sourceview_event_after_key_press(dad, text_view, event):
                 elif iter_start.get_char() == cons.CHAR_STAR and iter_start.get_line_offset() == 0:
                     text_buffer.delete(iter_start, iter_insert)
                     dad.lists_handler.list_handler(0, text_buffer=text_buffer)
-                # Start todo list on "[]" at line start
+                # Start todo list on "[] " at line start
                 elif iter_start.get_char() == cons.CHAR_SQ_BR_CLOSE and iter_start.backward_char()\
                 and iter_start.get_char() == cons.CHAR_SQ_BR_OPEN\
                 and iter_start.get_line_offset() == 0:

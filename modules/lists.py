@@ -36,7 +36,7 @@ class ListsHandler:
         if not text_buffer: text_buffer = self.dad.curr_buffer
         if text_buffer.get_has_selection():
             iter_start, sel_end = text_buffer.get_selection_bounds()
-            end_offset = sel_end.get_offset() - 1
+            end_offset = sel_end.get_offset() - 2
         else:
             end_offset = 0
             iter_start = text_buffer.get_iter_at_mark(text_buffer.get_insert())
@@ -54,7 +54,7 @@ class ListsHandler:
                         # the target list type differs from this paragraph list type
                         iter_start = text_buffer.get_iter_at_mark(text_buffer.get_insert())
                         if target_list_num_id == -1: text_buffer.insert(iter_start, cons.CHAR_LISTTODO + cons.CHAR_SPACE)
-                        elif target_list_num_id == 0: text_buffer.insert(iter_start, cons.CHAR_LISTBUL + cons.CHAR_SPACE)
+                        elif target_list_num_id == 0: text_buffer.insert(iter_start, cons.CHARS_LISTBUL[0] + cons.CHAR_SPACE)
                         else: text_buffer.insert(iter_start, "1. ")
                 break
             if support.get_next_chars_from_iter_are(iter_start, [3*cons.CHAR_SPACE]):
@@ -72,7 +72,7 @@ class ListsHandler:
                     elif target_list_num_id == 0:
                         new_par_offset = iter_end.get_offset() + 2
                         end_offset += 2
-                        text_buffer.insert(iter_start, cons.CHAR_LISTBUL + cons.CHAR_SPACE)
+                        text_buffer.insert(iter_start, cons.CHARS_LISTBUL[0] + cons.CHAR_SPACE)
                     else:
                         leading_str = "%s. " % leading_num_count
                         new_par_offset = iter_end.get_offset() + len(leading_str)
@@ -107,7 +107,7 @@ class ListsHandler:
         level = 0
         while iter_start:
             char = iter_start.get_char()
-            if char == cons.CHAR_LISTBUL:
+            if char in cons.CHARS_LISTBUL:
                 if iter_start.forward_char() and iter_start.get_char() == cons.CHAR_SPACE:
                     return [0, level]
                 break

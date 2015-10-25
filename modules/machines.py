@@ -524,13 +524,13 @@ class XMLHandler:
                 tag_names = [self.dad.apply_tag_exist_or_create(tag_property, property_value + cons.CHAR_SPACE + element[0])]
                 if not element[0]: continue
                 if element[0][:2] == cons.TAG_PROP_H1:
-                    text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), (2+2*curr_node_level)*cons.CHAR_SPACE + cons.CHAR_LISTBUL + cons.CHAR_SPACE)
+                    text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), (2+2*curr_node_level)*cons.CHAR_SPACE + cons.CHARS_LISTBUL[0] + cons.CHAR_SPACE)
                     curr_offset += 4 + 2*curr_node_level
                 elif element[0][:2] == cons.TAG_PROP_H2:
-                    text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), (4+2*curr_node_level)*cons.CHAR_SPACE + cons.CHAR_LISTBUL + cons.CHAR_SPACE)
+                    text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), (4+2*curr_node_level)*cons.CHAR_SPACE + cons.CHARS_LISTBUL[0] + cons.CHAR_SPACE)
                     curr_offset += 6 + 2*curr_node_level
                 else:
-                    text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), (6+2*curr_node_level)*cons.CHAR_SPACE + cons.CHAR_LISTBUL + cons.CHAR_SPACE)
+                    text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), (6+2*curr_node_level)*cons.CHAR_SPACE + cons.CHARS_LISTBUL[0] + cons.CHAR_SPACE)
                     curr_offset += 8 + 2*curr_node_level
                 text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), cons.CHAR_NEWLINE)
                 text_buffer.insert_with_tags_by_name(text_buffer.get_iter_at_offset(curr_offset), element[1], *tag_names)
@@ -613,13 +613,13 @@ class XMLHandler:
                 tag_names = []
                 tag_names.append(self.dad.apply_tag_exist_or_create(tag_property, property_value + cons.CHAR_SPACE + element[0]))
                 if element[0][:2] == cons.TAG_PROP_H1:
-                    text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), cons.CHAR_LISTBUL + cons.CHAR_SPACE)
+                    text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), cons.CHARS_LISTBUL[0] + cons.CHAR_SPACE)
                     curr_offset += 2
                 elif element[0][:2] == cons.TAG_PROP_H2:
-                    text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), 2*cons.CHAR_SPACE + cons.CHAR_LISTBUL + cons.CHAR_SPACE)
+                    text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), 2*cons.CHAR_SPACE + cons.CHARS_LISTBUL[0] + cons.CHAR_SPACE)
                     curr_offset += 4
                 else:
-                    text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), 4*cons.CHAR_SPACE + cons.CHAR_LISTBUL + cons.CHAR_SPACE)
+                    text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), 4*cons.CHAR_SPACE + cons.CHARS_LISTBUL[0] + cons.CHAR_SPACE)
                     curr_offset += 6
                 text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), cons.CHAR_NEWLINE)
                 text_buffer.insert_with_tags_by_name(text_buffer.get_iter_at_offset(curr_offset), element[1], *tag_names)

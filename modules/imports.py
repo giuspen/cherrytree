@@ -284,7 +284,7 @@ class TuxCardsHandler(HTMLParser.HTMLParser):
                 self.rich_text_serialize(cons.CHAR_NEWLINE+self.dad.h_rule+cons.CHAR_NEWLINE)
                 self.chars_counter += len(self.dad.h_rule)+2
             elif tag == "li":
-                self.rich_text_serialize(cons.CHAR_NEWLINE+cons.CHAR_LISTBUL+cons.CHAR_SPACE)
+                self.rich_text_serialize(cons.CHAR_NEWLINE+cons.CHARS_LISTBUL[0]+cons.CHAR_SPACE)
                 self.chars_counter += 3
 
     def handle_endtag(self, tag):
@@ -426,7 +426,7 @@ class KeepnoteHandler(HTMLParser.HTMLParser):
                 self.rich_text_serialize(cons.CHAR_NEWLINE+self.dad.h_rule+cons.CHAR_NEWLINE)
                 self.chars_counter += len(self.dad.h_rule)+2
             elif tag == "li":
-                self.rich_text_serialize(cons.CHAR_NEWLINE+cons.CHAR_LISTBUL+cons.CHAR_SPACE)
+                self.rich_text_serialize(cons.CHAR_NEWLINE+cons.CHARS_LISTBUL[0]+cons.CHAR_SPACE)
                 self.chars_counter += 3
 
     def handle_endtag(self, tag):
@@ -527,8 +527,8 @@ class ZimHandler():
         self.in_table = False
         curr_pos = 0
         wiki_string = wiki_string.replace(cons.CHAR_CR, "")
-        wiki_string = wiki_string.replace(cons.CHAR_NEWLINE+cons.CHAR_STAR+cons.CHAR_SPACE, cons.CHAR_NEWLINE+cons.CHAR_LISTBUL+cons.CHAR_SPACE)
-        wiki_string = wiki_string.replace(cons.CHAR_TAB+cons.CHAR_STAR+cons.CHAR_SPACE, cons.CHAR_TAB+cons.CHAR_LISTBUL+cons.CHAR_SPACE)
+        wiki_string = wiki_string.replace(cons.CHAR_NEWLINE+cons.CHAR_STAR+cons.CHAR_SPACE, cons.CHAR_NEWLINE+cons.CHARS_LISTBUL[0]+cons.CHAR_SPACE)
+        wiki_string = wiki_string.replace(cons.CHAR_TAB+cons.CHAR_STAR+cons.CHAR_SPACE, cons.CHAR_TAB+cons.CHARS_LISTBUL[0]+cons.CHAR_SPACE)
         max_pos = len(wiki_string)
         newline_count = 0
         self.wiki_slot = ""
@@ -888,7 +888,7 @@ class TomboyHandler():
                 if self.curr_attributes[cons.TAG_LINK] == "webs ":
                     self.curr_attributes[cons.TAG_LINK] += dom_iter.data
                 elif self.is_list_item:
-                    text_data = cons.CHAR_LISTBUL+cons.CHAR_SPACE + text_data
+                    text_data = cons.CHARS_LISTBUL[0]+cons.CHAR_SPACE + text_data
                 elif self.is_link_to_node:
                     self.links_to_node_list.append({'name_dest':text_data,
                                                     'node_source':self.node_title,
@@ -1194,7 +1194,7 @@ class BasketHandler(HTMLParser.HTMLParser):
                 self.rich_text_serialize(cons.CHAR_NEWLINE+self.dad.h_rule+cons.CHAR_NEWLINE)
                 self.chars_counter += len(self.dad.h_rule)+2
             elif tag == "li":
-                self.rich_text_serialize(cons.CHAR_NEWLINE+cons.CHAR_LISTBUL+cons.CHAR_SPACE)
+                self.rich_text_serialize(cons.CHAR_NEWLINE+cons.CHARS_LISTBUL[0]+cons.CHAR_SPACE)
                 self.chars_counter += 3
 
     def handle_endtag(self, tag):
@@ -1343,7 +1343,7 @@ class KnowitHandler(HTMLParser.HTMLParser):
                 # this is a data block composed only by an endline
                 self.rich_text_serialize(cons.CHAR_NEWLINE)
             elif tag == "li":
-                self.rich_text_serialize(cons.CHAR_NEWLINE+cons.CHAR_LISTBUL+cons.CHAR_SPACE)
+                self.rich_text_serialize(cons.CHAR_NEWLINE+cons.CHARS_LISTBUL[0]+cons.CHAR_SPACE)
 
     def handle_endtag(self, tag):
         """Encountered the end of a tag"""
@@ -1575,7 +1575,7 @@ class KeynoteHandler:
                         self.in_br_read_data = True
                     else:
                         dummy_loop = 9
-                        self.curr_node_content += cons.CHAR_LISTBUL + cons.CHAR_SPACE
+                        self.curr_node_content += cons.CHARS_LISTBUL[0] + cons.CHAR_SPACE
                 elif (text_line[i+1:].startswith("b"+cons.CHAR_SPACE) or text_line[i+1:].startswith("b"+cons.CHAR_BSLASH)):
                     self.check_pending_text_to_tag()
                     self.curr_attributes[cons.TAG_WEIGHT] = cons.TAG_PROP_HEAVY
@@ -1961,7 +1961,7 @@ class NotecaseHandler(HTMLParser.HTMLParser):
                 self.rich_text_serialize(cons.CHAR_NEWLINE)
                 self.chars_counter += 1
             elif tag == "li":
-                self.rich_text_serialize(cons.CHAR_NEWLINE+cons.CHAR_LISTBUL+cons.CHAR_SPACE)
+                self.rich_text_serialize(cons.CHAR_NEWLINE+cons.CHARS_LISTBUL[0]+cons.CHAR_SPACE)
                 self.chars_counter += 3
             elif tag in ["img", "v:imagedata"] and len(attrs) > 0:
                 for attribute in attrs:
@@ -2217,7 +2217,7 @@ class HTMLHandler(HTMLParser.HTMLParser):
             elif tag == "ol": self.curr_list_type = ["o", 1]
             elif tag == "ul": self.curr_list_type = ["u", 0]
             elif tag == "li":
-                if self.curr_list_type[0] == "u": self.rich_text_serialize(cons.CHAR_LISTBUL+cons.CHAR_SPACE)
+                if self.curr_list_type[0] == "u": self.rich_text_serialize(cons.CHARS_LISTBUL[0]+cons.CHAR_SPACE)
                 else:
                     self.rich_text_serialize("%s. " % self.curr_list_type[1])
                     self.curr_list_type[1] += 1
@@ -2258,7 +2258,7 @@ class HTMLHandler(HTMLParser.HTMLParser):
             elif tag == "ol": self.curr_list_type = ["o", 1]
             elif tag == "ul": self.curr_list_type = ["u", 0]
             elif tag == "li":
-                if self.curr_list_type[0] == "u": self.curr_cell += cons.CHAR_LISTBUL+cons.CHAR_SPACE
+                if self.curr_list_type[0] == "u": self.curr_cell += cons.CHARS_LISTBUL[0]+cons.CHAR_SPACE
                 else:
                     self.curr_cell += "%s. " % self.curr_list_type[1]
                     self.curr_list_type[1] += 1

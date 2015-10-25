@@ -2727,7 +2727,7 @@ iter_end, exclude_iter_sel_end=True)
         node_children_list = ""
         self.nodes_rows_count += 1
         if self.nodes_rows_count > 15: return "..."
-        node_children_list += cons.CHAR_NEWLINE + level*3*cons.CHAR_SPACE + cons.CHAR_LISTBUL + \
+        node_children_list += cons.CHAR_NEWLINE + level*3*cons.CHAR_SPACE + cons.CHARS_LISTBUL[0] + \
                               cons.CHAR_SPACE +self.treestore[father_tree_iter][1]
         tree_iter = self.treestore.iter_children(father_tree_iter)
         while tree_iter:
