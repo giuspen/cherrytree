@@ -145,6 +145,7 @@ CHAR_NEWPAGE = "\x0c"
 CHAR_CR = "\r"
 CHAR_TAB = "\t"
 CHARS_LISTBUL = ["•", "◇", "▪", "-", "→", "⇒"]
+MAX_CHARS_LISTBUL_IDX = len(CHARS_LISTBUL) -1
 CHAR_LISTARR = "▸"
 CHAR_LISTTODO = "☐"
 CHAR_LISTDONEOK= "☑"

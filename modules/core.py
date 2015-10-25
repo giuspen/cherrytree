@@ -4570,6 +4570,14 @@ iter_end, exclude_iter_sel_end=True)
                             end_offset = self.lists_handler.get_multiline_list_element_end_offset(iter_insert, list_info)
                             curr_offset = list_info["startoffs"]
                             iter_start = self.curr_buffer.get_iter_at_offset(curr_offset)
+                            if list_info["num"] < 0:
+                                next_level = list_info["level"] - 1
+                                if next_level > cons.MAX_CHARS_LISTBUL_IDX:
+                                    next_level = cons.MAX_CHARS_LISTBUL_IDX
+                                bull_offset = curr_offset + 3*list_info["level"]
+                                self.replace_text_at_offset(cons.CHARS_LISTBUL[next_level],
+                                    bull_offset, bull_offset+1, self.curr_buffer)
+                                iter_start = self.curr_buffer.get_iter_at_offset(curr_offset)
                             #print "%s -> %s" % (curr_offset, end_offset)
                             while curr_offset < end_offset:
                                 self.curr_buffer.delete(iter_start, self.curr_buffer.get_iter_at_offset(curr_offset+3))
@@ -4612,6 +4620,14 @@ iter_end, exclude_iter_sel_end=True)
                         end_offset = self.lists_handler.get_multiline_list_element_end_offset(iter_insert, list_info)
                         curr_offset = list_info["startoffs"]
                         iter_start = self.curr_buffer.get_iter_at_offset(curr_offset)
+                        if list_info["num"] < 0:
+                            next_level = list_info["level"] + 1
+                            if next_level > cons.MAX_CHARS_LISTBUL_IDX:
+                                next_level = cons.MAX_CHARS_LISTBUL_IDX
+                            bull_offset = curr_offset + 3*list_info["level"]
+                            self.replace_text_at_offset(cons.CHARS_LISTBUL[next_level],
+                                bull_offset, bull_offset+1, self.curr_buffer)
+                            iter_start = self.curr_buffer.get_iter_at_offset(curr_offset)
                         #print "%s -> %s" % (curr_offset, end_offset)
                         while curr_offset < end_offset:
                             self.curr_buffer.insert(iter_start, 3*cons.CHAR_SPACE)
@@ -4649,10 +4665,14 @@ iter_end, exclude_iter_sel_end=True)
 
     def special_char_replace(self, special_char, iter_start, iter_insert, text_buffer):
         """A special char replacement is triggered"""
-        self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
         text_buffer.delete(iter_start, iter_insert)
         iter_insert = text_buffer.get_iter_at_mark(text_buffer.get_insert())
         text_buffer.insert(iter_insert, special_char + cons.CHAR_SPACE)
+
+    def replace_text_at_offset(self, text_to, offset_from, offset_to, text_buffer):
+        text_buffer.delete(text_buffer.get_iter_at_offset(offset_from),
+            text_buffer.get_iter_at_offset(offset_to))
+        text_buffer.insert(text_buffer.get_iter_at_offset(offset_from), text_to)
 
     def on_sourceview_motion_notify_event(self, text_view, event):
         """Update the cursor image if the pointer moved"""
