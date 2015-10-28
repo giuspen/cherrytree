@@ -69,11 +69,11 @@ class ListsHandler:
                 end_offset -= chars_rm
                 if not list_info or list_info["num"] != target_list_num_id:
                     # the target list type differs from this paragraph list type
-                    if target_list_num_id == -1:
+                    if target_list_num_id == 0:
                         new_par_offset = iter_end.get_offset() + 2
                         end_offset += 2
                         text_buffer.insert(iter_start, cons.CHAR_LISTTODO + cons.CHAR_SPACE)
-                    elif target_list_num_id == 0:
+                    elif target_list_num_id < 0:
                         new_par_offset = iter_end.get_offset() + 2
                         end_offset += 2
                         text_buffer.insert(iter_start, cons.CHARS_LISTBUL[0] + cons.CHAR_SPACE)
