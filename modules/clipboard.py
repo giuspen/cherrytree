@@ -87,27 +87,32 @@ class ClipboardHandler:
     def copy(self, text_view, from_codebox):
         """Copy to Clipboard"""
         text_buffer = text_view.get_buffer()
-        if not text_buffer.get_has_selection(): return
-        iter_sel_start, iter_sel_end = text_buffer.get_selection_bounds()
-        num_chars = iter_sel_end.get_offset() - iter_sel_start.get_offset()
-        if from_codebox or self.dad.syntax_highlighting != cons.RICH_TEXT_ID:
-            if num_chars > 30000: return
-        text_view.stop_emission("copy-clipboard")
-        self.selection_to_clipboard(text_buffer, text_view, iter_sel_start, iter_sel_end, num_chars, from_codebox)
+        if text_buffer.get_has_selection():
+            iter_sel_start, iter_sel_end = text_buffer.get_selection_bounds()
+            num_chars = iter_sel_end.get_offset() - iter_sel_start.get_offset()
+            override_copy = True
+            if (from_codebox or self.dad.syntax_highlighting != cons.RICH_TEXT_ID) and num_chars > 30000:
+                print "copy-clipboard not overridden for num_chars", num_chars
+            else:
+                text_view.stop_emission("copy-clipboard")
+                self.selection_to_clipboard(text_buffer, text_view, iter_sel_start, iter_sel_end, num_chars, from_codebox)
+        self.force_plain_text = False
 
     def cut(self, text_view, from_codebox):
         """Cut to Clipboard"""
         text_buffer = text_view.get_buffer()
-        if not text_buffer.get_has_selection(): return
-        iter_sel_start, iter_sel_end = text_buffer.get_selection_bounds()
-        num_chars = iter_sel_end.get_offset() - iter_sel_start.get_offset()
-        if from_codebox or self.dad.syntax_highlighting != cons.RICH_TEXT_ID:
-            if num_chars > 30000: return
-        text_view.stop_emission("cut-clipboard")
-        self.selection_to_clipboard(text_buffer, text_view, iter_sel_start, iter_sel_end, num_chars, from_codebox)
-        if self.dad.is_curr_node_not_read_only_or_error():
-            text_buffer.delete_selection(True, text_view.get_editable())
-            text_view.grab_focus()
+        if text_buffer.get_has_selection():
+            iter_sel_start, iter_sel_end = text_buffer.get_selection_bounds()
+            num_chars = iter_sel_end.get_offset() - iter_sel_start.get_offset()
+            if (from_codebox or self.dad.syntax_highlighting != cons.RICH_TEXT_ID) and num_chars > 30000:
+                print "cut-clipboard not overridden for num_chars", num_chars
+            else:
+                text_view.stop_emission("cut-clipboard")
+                self.selection_to_clipboard(text_buffer, text_view, iter_sel_start, iter_sel_end, num_chars, from_codebox)
+                if self.dad.is_curr_node_not_read_only_or_error():
+                    text_buffer.delete_selection(True, text_view.get_editable())
+                    text_view.grab_focus()
+        self.force_plain_text = False
 
     def table_row_to_clipboard(self, table_dict):
         """Put the Selected Table Row to the Clipboard"""
@@ -160,15 +165,23 @@ class ClipboardHandler:
             text_offsets_range = [iter_sel_start.get_offset(), iter_sel_end.get_offset()]
             plain_text = txt_handler.node_export_to_txt(text_buffer, "", sel_range=text_offsets_range, check_link_target=True)
             rich_text = self.rich_text_get_from_text_buffer_selection(text_buffer, iter_sel_start, iter_sel_end)
-            targets_vector = [TARGET_CTD_PLAIN_TEXT, TARGET_CTD_RICH_TEXT, TARGETS_HTML[0], TARGETS_HTML[1]]
-            if pixbuf_target: targets_vector.append(TARGETS_IMAGES[0])
+            if not self.force_plain_text:
+                targets_vector = [TARGET_CTD_PLAIN_TEXT, TARGET_CTD_RICH_TEXT, TARGETS_HTML[0], TARGETS_HTML[1]]
+                if pixbuf_target:
+                    targets_vector.append(TARGETS_IMAGES[0])
+            else:
+                targets_vector = [TARGET_CTD_PLAIN_TEXT]
             self.clipboard.set_with_data([(t, 0, 0) for t in targets_vector],
                 self.get_func,
                 self.clear_func,
                 (plain_text, rich_text, html_text, pixbuf_target))
         else:
             plain_text = text_buffer.get_text(iter_sel_start, iter_sel_end)
-            self.clipboard.set_with_data([(t, 0, 0) for t in (TARGET_CTD_PLAIN_TEXT, TARGETS_HTML[0], TARGETS_HTML[1])],
+            if not self.force_plain_text:
+                targets_vector = [TARGET_CTD_PLAIN_TEXT, TARGETS_HTML[0], TARGETS_HTML[1]]
+            else:
+                targets_vector = [TARGET_CTD_PLAIN_TEXT]
+            self.clipboard.set_with_data([(t, 0, 0) for t in targets_vector],
                                          self.get_func,
                                          self.clear_func,
                                          (plain_text, None, html_text, pixbuf_target))

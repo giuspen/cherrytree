@@ -3891,6 +3891,16 @@ iter_end, exclude_iter_sel_end=True)
         if "pixbuf" in dir(anchor): self.sourceview.grab_focus()
         self.curr_buffer.select_range(iter_object, iter_bound)
 
+    def copy_as_plain_text(self, *args):
+        """Copy as Plain Text"""
+        self.clipboard_handler.force_plain_text = True
+        self.sourceview.emit("copy-clipboard")
+
+    def cut_as_plain_text(self, *args):
+        """Copy as Plain Text"""
+        self.clipboard_handler.force_plain_text = True
+        self.sourceview.emit("cut-clipboard")
+
     def paste_as_plain_text(self, *args):
         """Paste as Plain Text"""
         self.clipboard_handler.force_plain_text = True

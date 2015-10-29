@@ -339,6 +339,8 @@ UI_INFO = """
             <separator/>
             <menuitem action='EnaDisSpellCheck'/>
             <separator/>
+            <menuitem action='CutPlainText'/>
+            <menuitem action='CopyPlainText'/>
             <menuitem action='PastePlainText'/>
             <separator/>
             <menuitem action='CutRow'/>
@@ -541,6 +543,8 @@ def get_entries(inst):
     ( "UpCase", "case_upper", _("_Upper Case of Selection/Word"), "<control><shift>W", _("Upper the Case of the Selection/the Underlying Word"), inst.text_selection_upper_case),
     ( "ToggleCase", "case_toggle", _("_Toggle Case of Selection/Word"), "<control>G", _("Toggle the Case of the Selection/the Underlying Word"), inst.text_selection_toggle_case),
     ( "EnaDisSpellCheck", "gtk-spell-check", _("Enable/Disable _Spell Check"), "<control><alt>S", _("Toggle Enable/Disable Spell Check"), inst.toggle_ena_dis_spellcheck),
+    ( "CutPlainText", "edit-cut", _("Cu_t as Plain Text"), "<control><shift>X", _("Cut as Plain Text, Discard the Rich Text Formatting"), inst.cut_as_plain_text),
+    ( "CopyPlainText", "edit-copy", _("_Copy as Plain Text"), "<control><shift>C", _("Copy as Plain Text, Discard the Rich Text Formatting"), inst.copy_as_plain_text),
     ( "PastePlainText", "edit-paste", _("_Paste as Plain Text"), "<control><shift>V", _("Paste as Plain Text, Discard the Rich Text Formatting"), inst.paste_as_plain_text),
     ( "CutRow", "edit-cut", _("Cu_t Row"), "<control><shift>X", _("Cut the Current Row/Selected Rows"), inst.text_row_cut),
     ( "CopyRow", "edit-copy", _("_Copy Row"), "<control><shift>C", _("Copy the Current Row/Selected Rows"), inst.text_row_copy),
@@ -759,6 +763,8 @@ def get_popup_menu_entries_text(inst):
     # "submenu-end", None, None, None, None
     return [
     (TAG_SEPARATOR, None, None, None, None),
+    ("edit-cut", _("Cu_t as Plain Text"), "<control><shift>X", _("Cut as Plain Text, Discard the Rich Text Formatting"), inst.cut_as_plain_text),
+    ("edit-copy", _("_Copy as Plain Text"), "<control><shift>C", _("Copy as Plain Text, Discard the Rich Text Formatting"), inst.copy_as_plain_text),
     ("edit-paste", _("_Paste as Plain Text"), "<control><shift>V", _("Paste as Plain Text, Discard the Rich Text Formatting"), inst.paste_as_plain_text),
     (TAG_SEPARATOR, None, None, None, None),
     ("submenu-start", _("For_matting") , "format_text", None, None),
