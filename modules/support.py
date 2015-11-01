@@ -178,14 +178,9 @@ def on_sourceview_event_after_key_press(dad, text_view, event):
                     if former_line_indent: text_buffer.insert_at_cursor(former_line_indent)
                 return False # former was not a list
             # possible list quit
-            is_list_quit = False
             insert_offset = iter_insert.get_offset()
-            chars_to_dot = 3 + 3*list_info["level"]
-            if (list_info["num"] <= 0 and (insert_offset - list_info["startoffs"]) == chars_to_dot):
-                is_list_quit = True
-            elif (list_info["num"] > 0 and (insert_offset - list_info["startoffs"]) == (chars_to_dot + len(str(list_info["num"])))):
-                is_list_quit = True
-            if is_list_quit:
+            chars_to_startoffs = 1 + dad.lists_handler.get_leading_chars_num(list_info["num"]) + 3*list_info["level"]
+            if (insert_offset - list_info["startoffs"]) == chars_to_startoffs:
                 iter_list_quit = text_buffer.get_iter_at_offset(list_info["startoffs"])
                 text_buffer.delete(iter_list_quit, iter_insert)
                 return False # former was an empty paragraph => list quit

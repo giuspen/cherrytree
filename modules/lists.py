@@ -92,7 +92,7 @@ class ListsHandler:
         end_offset = iter_end.get_offset()
         list_info = self.get_paragraph_list_info(iter_start)
         if list_info:
-            leading_chars_num = self.get_leading_chars_num_from_list_info_num(list_info["num"])
+            leading_chars_num = self.get_leading_chars_num(list_info["num"])
             iter_end = iter_start.copy()
             iter_end.forward_chars(leading_chars_num)
             text_buffer.delete(iter_start, iter_end)
@@ -100,8 +100,8 @@ class ListsHandler:
         else: leading_chars_num = 0
         return text_buffer.get_iter_at_offset(start_offset), text_buffer.get_iter_at_offset(end_offset), leading_chars_num
 
-    def get_leading_chars_num_from_list_info_num(self, list_info_num):
-        """From List Info to List Prefix"""
+    def get_leading_chars_num(self, list_info_num):
+        """Get Number of Leading Chars from the List Num"""
         if list_info_num > 0: return len("%s. " % list_info_num)
         return 2
 
