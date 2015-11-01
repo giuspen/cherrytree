@@ -178,16 +178,15 @@ def on_sourceview_event_after_key_press(dad, text_view, event):
                     if former_line_indent: text_buffer.insert_at_cursor(former_line_indent)
                 return False # former was not a list
             # possible list quit
-            iter_list_quit = iter_insert.copy()
-            if (list_info["num"] < 0 and iter_list_quit.backward_chars(3) and iter_list_quit.get_char() in cons.CHARS_LISTBUL):
-                text_buffer.delete(iter_list_quit, iter_insert)
-                return False # former was an empty paragraph => list quit
-            elif (list_info["num"] == 0 and iter_list_quit.backward_chars(3) and iter_list_quit.get_char() in [cons.CHAR_LISTTODO, cons.CHAR_LISTDONEOK, cons.CHAR_LISTDONEFAIL]):
-                text_buffer.delete(iter_list_quit, iter_insert)
-                return False # former was an empty paragraph => list quit
-            elif (list_info["num"] > 0 and iter_list_quit.backward_chars(2) and iter_list_quit.get_char() == cons.CHAR_SPACE\
-            and iter_list_quit.backward_char() and iter_list_quit.get_char() == '.'):
-                iter_list_quit.backward_chars(len(str(list_info["num"])))
+            is_list_quit = False
+            insert_offset = iter_insert.get_offset()
+            chars_to_dot = 3 + 3*list_info["level"]
+            if (list_info["num"] <= 0 and (insert_offset - list_info["startoffs"]) == chars_to_dot):
+                is_list_quit = True
+            elif (list_info["num"] > 0 and (insert_offset - list_info["startoffs"]) == (chars_to_dot + len(str(list_info["num"])))):
+                is_list_quit = True
+            if is_list_quit:
+                iter_list_quit = text_buffer.get_iter_at_offset(list_info["startoffs"])
                 text_buffer.delete(iter_list_quit, iter_insert)
                 return False # former was an empty paragraph => list quit
             # list new element
