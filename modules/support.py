@@ -121,13 +121,16 @@ def on_sourceview_list_change_level(dad, iter_insert, list_info, text_buffer, le
     end_offset = dad.lists_handler.get_multiline_list_element_end_offset(iter_insert, list_info)
     curr_offset = list_info["startoffs"]
     iter_start = text_buffer.get_iter_at_offset(curr_offset)
-    if list_info["num"] < 0:
-        next_level = list_info["level"]+1 if level_increase else list_info["level"]-1
-        if next_level > cons.MAX_CHARS_LISTBUL_IDX:
-            next_level = cons.MAX_CHARS_LISTBUL_IDX
+    next_level = list_info["level"]+1 if level_increase else list_info["level"]-1
+    if list_info["num"] != 0:
         bull_offset = curr_offset + 3*list_info["level"]
-        dad.replace_text_at_offset(cons.CHARS_LISTBUL[next_level],
-            bull_offset, bull_offset+1, text_buffer)
+        if list_info["num"] < 0:
+            bull_idx = next_level % cons.NUM_CHARS_LISTBUL
+            dad.replace_text_at_offset(cons.CHARS_LISTBUL[bull_idx],
+                bull_offset, bull_offset+1, text_buffer)
+        else:
+            dad.replace_text_at_offset("1. ", bull_offset,
+                bull_offset+dad.lists_handler.get_leading_chars_num(list_info["num"]), text_buffer)
         iter_start = text_buffer.get_iter_at_offset(curr_offset)
     #print "%s -> %s" % (curr_offset, end_offset)
     while curr_offset < end_offset:
