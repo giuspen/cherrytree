@@ -138,6 +138,7 @@ class ListsHandler:
         return [None, level]
 
     def get_multiline_list_element_end_offset(self, curr_iter, list_info):
+        """Get the list end offset"""
         iter_start = curr_iter.copy()
         if iter_start.get_char() == cons.CHAR_NEWLINE:
             if not iter_start.forward_char():
@@ -153,6 +154,20 @@ class ListsHandler:
             # multiline indentation
             return self.get_multiline_list_element_end_offset(iter_start, list_info)
         return iter_start.get_offset()-1
+
+    def get_prev_list_num_on_level(self, iter_start, level):
+        """Given a level check for previous list number on the level or None"""
+        ret_val = None
+        while iter_start:
+            if not iter_start.backward_char():
+                break
+            list_info = self.get_paragraph_list_info(iter_start)
+            if not list_info:
+                break
+            if list_info["level"] == level:
+                ret_val = list_info["num"]
+                break
+        return ret_val
 
     def get_paragraph_list_info(self, iter_start):
         """Returns a dictionary indicating List Element Number, List Level and List Element Start Offset"""

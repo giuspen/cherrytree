@@ -120,18 +120,27 @@ def on_sourceview_list_change_level(dad, iter_insert, list_info, text_buffer, le
     """Called at list indent/unindent time"""
     end_offset = dad.lists_handler.get_multiline_list_element_end_offset(iter_insert, list_info)
     curr_offset = list_info["startoffs"]
-    iter_start = text_buffer.get_iter_at_offset(curr_offset)
     next_level = list_info["level"]+1 if level_increase else list_info["level"]-1
+    iter_start = text_buffer.get_iter_at_offset(curr_offset)
+    prev_num = dad.lists_handler.get_prev_list_num_on_level(iter_start, next_level)
+    #print prev_num
     if list_info["num"] != 0:
         bull_offset = curr_offset + 3*list_info["level"]
         if list_info["num"] < 0:
-            bull_idx = next_level % cons.NUM_CHARS_LISTBUL
+            if prev_num != None and prev_num < 0:
+                bull_idx = prev_num*(-1) - 1
+            else:
+                bull_idx = next_level % cons.NUM_CHARS_LISTBUL
             dad.replace_text_at_offset(cons.CHARS_LISTBUL[bull_idx],
                 bull_offset, bull_offset+1, text_buffer)
         else:
-            dad.replace_text_at_offset("1. ", bull_offset,
+            if prev_num != None and prev_num > 0:
+                this_num = prev_num + 1
+            else:
+                this_num = 1
+            dad.replace_text_at_offset("%s. " % this_num, bull_offset,
                 bull_offset+dad.lists_handler.get_leading_chars_num(list_info["num"]), text_buffer)
-        iter_start = text_buffer.get_iter_at_offset(curr_offset)
+    iter_start = text_buffer.get_iter_at_offset(curr_offset)
     #print "%s -> %s" % (curr_offset, end_offset)
     while curr_offset < end_offset:
         if level_increase:
