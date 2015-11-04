@@ -122,23 +122,27 @@ def on_sourceview_list_change_level(dad, iter_insert, list_info, text_buffer, le
     curr_offset = list_info["startoffs"]
     next_level = list_info["level"]+1 if level_increase else list_info["level"]-1
     iter_start = text_buffer.get_iter_at_offset(curr_offset)
-    prev_num = dad.lists_handler.get_prev_list_num_on_level(iter_start, next_level)
-    #print prev_num
+    prev_list_info = dad.lists_handler.get_prev_list_info_on_level(iter_start, next_level)
+    #print prev_list_info
     if list_info["num"] != 0:
         bull_offset = curr_offset + 3*list_info["level"]
         if list_info["num"] < 0:
-            if prev_num != None and prev_num < 0:
-                bull_idx = prev_num*(-1) - 1
+            if prev_list_info != None and prev_list_info["num"] < 0:
+                bull_idx = prev_list_info["num"]*(-1) - 1
             else:
                 bull_idx = next_level % cons.NUM_CHARS_LISTBUL
             dad.replace_text_at_offset(cons.CHARS_LISTBUL[bull_idx],
                 bull_offset, bull_offset+1, text_buffer)
         else:
-            if prev_num != None and prev_num > 0:
-                this_num = prev_num + 1
+            if prev_list_info != None and prev_list_info["num"] > 0:
+                this_num = prev_list_info["num"] + 1
+                index = prev_list_info["aux"]
             else:
                 this_num = 1
-            dad.replace_text_at_offset("%s. " % this_num, bull_offset,
+                index = next_level % cons.NUM_CHARS_LISTNUM
+            char_sep = cons.CHARS_LISTNUM[index]
+            text_to = str(this_num)+char_sep+cons.CHAR_SPACE
+            dad.replace_text_at_offset(text_to, bull_offset,
                 bull_offset+dad.lists_handler.get_leading_chars_num(list_info["num"]), text_buffer)
     iter_start = text_buffer.get_iter_at_offset(curr_offset)
     #print "%s -> %s" % (curr_offset, end_offset)
@@ -204,7 +208,10 @@ def on_sourceview_event_after_key_press(dad, text_view, event):
             elif list_info["num"] == 0:
                 text_buffer.insert(iter_insert, pre_spaces+cons.CHAR_LISTTODO+cons.CHAR_SPACE)
             else:
-                text_buffer.insert(iter_insert, pre_spaces+'%s. ' % (list_info["num"] + 1))
+                new_num = list_info["num"] + 1
+                index = list_info["aux"]
+                char_sep = cons.CHARS_LISTNUM[index]
+                text_buffer.insert(iter_insert, pre_spaces+str(new_num)+char_sep+cons.CHAR_SPACE)
         elif keyname == cons.STR_KEY_SPACE:
             if iter_start.backward_chars(2):
                 if iter_start.get_char() == cons.CHAR_GREATER and iter_start.backward_char():
