@@ -40,12 +40,13 @@ class ListsHandler:
         else:
             end_offset = 0
             iter_start = text_buffer.get_iter_at_mark(text_buffer.get_insert())
-        # get info about the paragraph starting with iter_start ([Number, Whether multiple line, List Start Iter Offset])
-        list_info = self.get_paragraph_list_info(iter_start)
         leading_num_count = 0
         while leading_num_count == 0 or new_par_offset < end_offset:
             leading_num_count += 1
             iter_start, iter_end = self.get_paragraph_iters(text_buffer=text_buffer, force_iter=iter_start)
+            list_info = self.get_paragraph_list_info(iter_start)
+            start_offset = iter_start.get_offset()
+            #print start_offset
             if not iter_start:
                 # empty line
                 if leading_num_count == 1:
@@ -60,7 +61,8 @@ class ListsHandler:
                         else:
                             text_buffer.insert(iter_start, "1. ")
                 break
-            if support.get_next_chars_from_iter_are(iter_start, [3*cons.CHAR_SPACE]):
+            #print list_info
+            if list_info and start_offset != list_info["startoffs"]:
                 new_par_offset = iter_end.get_offset()
                 leading_num_count -= 1
             else:
@@ -75,9 +77,13 @@ class ListsHandler:
                     elif target_list_num_id < 0:
                         new_par_offset = iter_end.get_offset() + 2
                         end_offset += 2
-                        text_buffer.insert(iter_start, cons.CHARS_LISTBUL[0] + cons.CHAR_SPACE)
+                        if not list_info: bull_idx = 0
+                        else: bull_idx = list_info["level"] % cons.NUM_CHARS_LISTBUL
+                        text_buffer.insert(iter_start, cons.CHARS_LISTBUL[bull_idx] + cons.CHAR_SPACE)
                     else:
-                        leading_str = "%s. " % leading_num_count
+                        if not list_info: index = 0
+                        else: index = list_info["level"] % cons.NUM_CHARS_LISTNUM
+                        leading_str = str(leading_num_count) + cons.CHARS_LISTNUM[index] + cons.CHAR_SPACE
                         new_par_offset = iter_end.get_offset() + len(leading_str)
                         end_offset += len(leading_str)
                         text_buffer.insert(iter_start, leading_str)
@@ -92,12 +98,17 @@ class ListsHandler:
         list_info = self.get_paragraph_list_info(iter_start)
         if list_info:
             leading_chars_num = self.get_leading_chars_num(list_info["num"])
+            start_offset += 3*list_info["level"]
+            iter_start = text_buffer.get_iter_at_offset(start_offset)
             iter_end = iter_start.copy()
             iter_end.forward_chars(leading_chars_num)
             text_buffer.delete(iter_start, iter_end)
             end_offset -= leading_chars_num
-        else: leading_chars_num = 0
-        return text_buffer.get_iter_at_offset(start_offset), text_buffer.get_iter_at_offset(end_offset), leading_chars_num
+        else:
+            leading_chars_num = 0
+        iter_start = text_buffer.get_iter_at_offset(start_offset)
+        iter_end = text_buffer.get_iter_at_offset(end_offset)
+        return iter_start, iter_end, leading_chars_num
 
     def get_leading_chars_num(self, list_info_num):
         """Get Number of Leading Chars from the List Num"""
@@ -172,9 +183,10 @@ class ListsHandler:
                 break
         return ret_val
 
-    def get_paragraph_list_info(self, iter_start):
+    def get_paragraph_list_info(self, iter_start_orig):
         """Returns a dictionary indicating List Element Number, List Level and List Element Start Offset"""
         buffer_start = False
+        iter_start = iter_start_orig.copy()
         # let's search for the paragraph start
         if iter_start.get_char() == cons.CHAR_NEWLINE:
             if not iter_start.backward_char(): buffer_start = True # if we are exactly on the paragraph end

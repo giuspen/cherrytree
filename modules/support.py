@@ -146,8 +146,7 @@ def on_sourceview_list_change_level(dad, iter_insert, list_info, text_buffer, le
                 idx_old = list_info["aux"]
                 idx_offset = idx_old - curr_level % cons.NUM_CHARS_LISTNUM
                 index = (next_level + idx_offset) % cons.NUM_CHARS_LISTNUM
-            char_sep = cons.CHARS_LISTNUM[index]
-            text_to = str(this_num)+char_sep+cons.CHAR_SPACE
+            text_to = str(this_num) + cons.CHARS_LISTNUM[index] + cons.CHAR_SPACE
             dad.replace_text_at_offset(text_to, bull_offset,
                 bull_offset+dad.lists_handler.get_leading_chars_num(list_info["num"]), text_buffer)
     iter_start = text_buffer.get_iter_at_offset(curr_offset)
@@ -216,8 +215,7 @@ def on_sourceview_event_after_key_press(dad, text_view, event):
             else:
                 new_num = list_info["num"] + 1
                 index = list_info["aux"]
-                char_sep = cons.CHARS_LISTNUM[index]
-                text_buffer.insert(iter_insert, pre_spaces+str(new_num)+char_sep+cons.CHAR_SPACE)
+                text_buffer.insert(iter_insert, pre_spaces + str(new_num) + cons.CHARS_LISTNUM[index] + cons.CHAR_SPACE)
         elif keyname == cons.STR_KEY_SPACE:
             if iter_start.backward_chars(2):
                 if iter_start.get_char() == cons.CHAR_GREATER and iter_start.backward_char():
