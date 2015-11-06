@@ -390,9 +390,7 @@ UI_INFO = """
             <menuitem action='FindNode'/>
             <menuitem action='FindAgain'/>
             <menuitem action='FindBack'/>
-        </menu>
-
-        <menu action='ReplaceMenu'>
+            <separator/>
             <menuitem action='ReplaceInNode'/>
             <menuitem action='ReplaceInNodes'/>
             <menuitem action='ReplaceInSelNSub'/>
@@ -512,7 +510,6 @@ def get_entries(inst):
     ( "TreeExportMenu", "export_from_cherrytree", _("Nodes E_xport") ),
     ( "ChangeCaseMenu", "case_toggle", _("C_hange Case") ),
     ( "SearchMenu", None, _("_Search") ),
-    ( "ReplaceMenu", None, _("_Replace") ),
     ( "ViewMenu", None, _("_View") ),
     ( "BookmarksMenu", None, _("_Bookmarks") ),
     ( "ImportMenu", None, _("_Import") ),
