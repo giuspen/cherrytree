@@ -40,19 +40,16 @@ class ListsHandler:
         else:
             end_offset = 0
             iter_start = text_buffer.get_iter_at_mark(text_buffer.get_insert())
-        leading_num_count = 0
-        while leading_num_count == 0 or new_par_offset < end_offset:
-            leading_num_count += 1
+        new_par_offset = -1
+        leading_num_count = []
+        while new_par_offset < end_offset:
+            #print new_par_offset, end_offset
             iter_start, iter_end = self.get_paragraph_iters(text_buffer=text_buffer, force_iter=iter_start)
-            list_info = self.get_paragraph_list_info(iter_start)
-            start_offset = iter_start.get_offset()
-            #print start_offset
             if not iter_start:
                 # empty line
-                if leading_num_count == 1:
+                if not leading_num_count:
                     # this is the first iteration
-                    if not list_info or list_info["num"] != target_list_num_id:
-                        # the target list type differs from this paragraph list type
+                    if not list_info:
                         iter_start = text_buffer.get_iter_at_mark(text_buffer.get_insert())
                         if target_list_num_id == 0:
                             text_buffer.insert(iter_start, cons.CHAR_LISTTODO + cons.CHAR_SPACE)
@@ -61,10 +58,10 @@ class ListsHandler:
                         else:
                             text_buffer.insert(iter_start, "1. ")
                 break
+            list_info = self.get_paragraph_list_info(iter_start)
             #print list_info
-            if list_info and start_offset != list_info["startoffs"]:
+            if list_info and iter_start.get_offset() != list_info["startoffs"]:
                 new_par_offset = iter_end.get_offset()
-                leading_num_count -= 1
             else:
                 iter_start, iter_end, chars_rm = self.list_check_n_remove_old_list_type_leading(iter_start, iter_end, text_buffer)
                 end_offset -= chars_rm
@@ -81,9 +78,30 @@ class ListsHandler:
                         else: bull_idx = list_info["level"] % cons.NUM_CHARS_LISTBUL
                         text_buffer.insert(iter_start, cons.CHARS_LISTBUL[bull_idx] + cons.CHAR_SPACE)
                     else:
-                        if not list_info: index = 0
-                        else: index = list_info["level"] % cons.NUM_CHARS_LISTNUM
-                        leading_str = str(leading_num_count) + cons.CHARS_LISTNUM[index] + cons.CHAR_SPACE
+                        if not list_info:
+                            index = 0
+                            if not leading_num_count:
+                                leading_num_count = [[0, 1]]
+                            else:
+                                leading_num_count = [[0, leading_num_count[0][1]]]
+                        else:
+                            level = list_info["level"]
+                            index = level % cons.NUM_CHARS_LISTNUM
+                            if not leading_num_count:
+                                leading_num_count = [[level, 1]]
+                            else:
+                                while True:
+                                    if level == leading_num_count[-1][0]:
+                                        leading_num_count[-1][1] += 1
+                                        break
+                                    if level > leading_num_count[-1][0]:
+                                        leading_num_count.append([level, 1])
+                                        break
+                                    if len(leading_num_count) == 1:
+                                        leading_num_count = [[level, 1]]
+                                        break
+                                    del leading_num_count[-1]
+                        leading_str = str(leading_num_count[-1][1]) + cons.CHARS_LISTNUM[index] + cons.CHAR_SPACE
                         new_par_offset = iter_end.get_offset() + len(leading_str)
                         end_offset += len(leading_str)
                         text_buffer.insert(iter_start, leading_str)
