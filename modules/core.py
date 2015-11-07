@@ -177,6 +177,7 @@ class CherryTree:
         self.curr_tree_iter = None
         self.curr_window_n_tree_width = None
         self.curr_buffer = None
+        self.node_add_is_duplication = False
         self.nodes_cursor_pos = {}
         self.search_replace_dict = {'find':"", 'replace':"", 'match_case':False, 'reg_exp':False, 'whole_word':False, 'start_word':False, 'fw':True, 'a_ff_fa':0, 'idialog':True}
         self.links_entries = {'webs':'', 'file':'', 'fold':'', 'anch':'', 'node':None}
@@ -2556,10 +2557,23 @@ iter_end, exclude_iter_sel_end=True)
                 self.nodes_sequences_fix(tree_iter, process_children)
             tree_iter = self.treestore.iter_next(tree_iter)
 
+    def node_duplicate(self, *args):
+        """Duplicate the Selected Node"""
+        if not self.is_there_selected_node_or_error(): return
+        self.node_add_is_duplication = True
+        self.node_add()
+        self.node_add_is_duplication = False
+
     def node_add(self, *args):
         """Add a node having common father with the selected node's"""
-        ret_name, ret_syntax, ret_tags, ret_ro = self.dialog_nodeprop(_("New Node Properties"), syntax_highl=self.syntax_highlighting)
-        if not ret_name: return
+        if not self.node_add_is_duplication:
+            ret_name, ret_syntax, ret_tags, ret_ro = self.dialog_nodeprop(_("New Node Properties"), syntax_highl=self.syntax_highlighting)
+            if not ret_name: return
+        else:
+            ret_name = self.treestore[self.curr_tree_iter][1]
+            ret_syntax = self.treestore[self.curr_tree_iter][4]
+            ret_tags = self.treestore[self.curr_tree_iter][6]
+            ret_ro = self.treestore[self.curr_tree_iter][7]
         self.update_window_save_needed()
         self.syntax_highlighting = ret_syntax
         father_iter = self.treestore.iter_parent(self.curr_tree_iter) if self.curr_tree_iter else None
@@ -2580,6 +2594,8 @@ iter_end, exclude_iter_sel_end=True)
         self.nodes_sequences_fix(father_iter, False)
         self.nodes_names_dict[new_node_id] = ret_name
         new_node_path = self.treestore.get_path(new_node_iter)
+        if self.node_add_is_duplication:
+            pass
         self.treeview.set_cursor(new_node_path)
         self.sourceview.grab_focus()
 
