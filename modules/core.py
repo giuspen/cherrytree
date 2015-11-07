@@ -4089,6 +4089,13 @@ iter_end, exclude_iter_sel_end=True)
         if not iter_start: return
         self.apply_tag(cons.TAG_JUSTIFICATION, cons.TAG_PROP_CENTER, iter_sel_start=iter_start, iter_sel_end=iter_end)
 
+    def apply_tag_justify_fill(self, *args):
+        """The Justify Fill Button was Pressed"""
+        if not self.is_curr_node_not_read_only_or_error(): return
+        iter_start, iter_end = self.lists_handler.get_paragraph_iters()
+        if not iter_start: return
+        self.apply_tag(cons.TAG_JUSTIFICATION, cons.TAG_PROP_FILL, iter_sel_start=iter_start, iter_sel_end=iter_end)
+
     def list_bulleted_handler(self, *args):
         """Handler of the Bulleted List"""
         if not self.is_curr_node_not_read_only_or_error(): return
@@ -4358,6 +4365,7 @@ iter_end, exclude_iter_sel_end=True)
             elif property_value == cons.TAG_PROP_LEFT: tag.set_property(tag_property, gtk.JUSTIFY_LEFT)
             elif property_value == cons.TAG_PROP_RIGHT: tag.set_property(tag_property, gtk.JUSTIFY_RIGHT)
             elif property_value == cons.TAG_PROP_CENTER: tag.set_property(tag_property, gtk.JUSTIFY_CENTER)
+            elif property_value == cons.TAG_PROP_FILL: tag.set_property(tag_property, gtk.JUSTIFY_FILL)
             elif property_value == cons.TAG_PROP_SUB:
                 tag.set_property(cons.TAG_SCALE, pango.SCALE_X_SMALL)
                 rise = pango.FontDescription(self.text_font).get_size() / -4

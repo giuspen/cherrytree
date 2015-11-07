@@ -735,10 +735,15 @@ class StateMachine:
     def get_iter_alignment(self, iter_text):
         """Get the Alignment Value of the given Iter"""
         align_center = self.dad.apply_tag_exist_or_create(cons.TAG_JUSTIFICATION, cons.TAG_PROP_CENTER)
+        align_fill = self.dad.apply_tag_exist_or_create(cons.TAG_JUSTIFICATION, cons.TAG_PROP_FILL)
         align_right = self.dad.apply_tag_exist_or_create(cons.TAG_JUSTIFICATION, cons.TAG_PROP_RIGHT)
-        if iter_text.has_tag(self.dad.tag_table.lookup(align_center)): return cons.TAG_PROP_CENTER
-        elif iter_text.has_tag(self.dad.tag_table.lookup(align_right)): return cons.TAG_PROP_RIGHT
-        else: return cons.TAG_PROP_LEFT
+        if iter_text.has_tag(self.dad.tag_table.lookup(align_center)):
+            return cons.TAG_PROP_CENTER
+        if iter_text.has_tag(self.dad.tag_table.lookup(align_fill)):
+            return cons.TAG_PROP_FILL
+        if iter_text.has_tag(self.dad.tag_table.lookup(align_right)):
+            return cons.TAG_PROP_RIGHT
+        return cons.TAG_PROP_LEFT
 
     def load_embedded_image_element(self, text_buffer, element):
         """Load an Image from the Embedded Vector into the Buffer"""

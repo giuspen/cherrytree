@@ -113,6 +113,7 @@ TAG_PROP_SUB = "sub"
 TAG_PROP_LEFT = "left"
 TAG_PROP_CENTER = "center"
 TAG_PROP_RIGHT = "right"
+TAG_PROP_FILL = "fill"
 TAG_PROPERTIES = [TAG_WEIGHT, TAG_FOREGROUND, TAG_BACKGROUND, TAG_STYLE, TAG_UNDERLINE,
                   TAG_STRIKETHROUGH, TAG_SCALE, TAG_FAMILY, TAG_JUSTIFICATION, TAG_LINK]
 TAG_SEPARATOR = "separator"
@@ -378,6 +379,7 @@ UI_INFO = """
             <menuitem action='JustifyLeft'/>
             <menuitem action='JustifyCenter'/>
             <menuitem action='JustifyRight'/>
+            <menuitem action='JustifyFill'/>
         </menu>
 
         <menu action='TreeMenu'>
@@ -572,6 +574,7 @@ def get_entries(inst):
     ( "JustifyLeft", "gtk-justify-left", _("Justify _Left"), None, _("Justify Left the Current Paragraph"), inst.apply_tag_justify_left),
     ( "JustifyCenter", "gtk-justify-center", _("Justify _Center"), None, _("Justify Center the Current Paragraph"), inst.apply_tag_justify_center),
     ( "JustifyRight", "gtk-justify-right", _("Justify _Right"), None, _("Justify Right the Current Paragraph"), inst.apply_tag_justify_right),
+    ( "JustifyFill", "gtk-justify-fill", _("Justify _Fill"), None, _("Justify Fill the Current Paragraph"), inst.apply_tag_justify_fill),
     ( "TreeAddNode", "tree-node-add", _("Add _Node"), "<control>N", _("Add a Node having the same Father of the Selected Node"), inst.node_add),
     ( "TreeAddSubNode", "tree-subnode-add", _("Add _SubNode"), "<control><shift>N", _("Add a Child Node to the Selected Node"), inst.node_child_add),
     ( "NodeEdit", "cherry_edit", _("Change Node _Properties"), "F2", _("Edit the Properties of the Selected Node"), inst.node_edit),
