@@ -509,7 +509,6 @@ def set_tree_expanded_collapsed_string(inst, treeview=None):
     if not treeview: treeview = inst.treeview
     treestore = treeview.get_model()
     treeview.collapse_all()
-    if not inst.expanded_collapsed_string: return
     expanded_collapsed_dict = {}
     expanded_collapsed_vector = inst.expanded_collapsed_string.split('_')
     for element in expanded_collapsed_vector:
@@ -517,17 +516,19 @@ def set_tree_expanded_collapsed_string(inst, treeview=None):
         expanded_collapsed_dict[couple[0]] = couple[1]
     tree_iter = treestore.get_iter_first()
     while tree_iter != None:
-        set_tree_expanded_collapsed_string_iter(tree_iter, expanded_collapsed_dict, treeview, treestore)
+        set_tree_expanded_collapsed_string_iter(inst, tree_iter, expanded_collapsed_dict, treeview, treestore)
         tree_iter = treestore.iter_next(tree_iter)
 
-def set_tree_expanded_collapsed_string_iter(tree_iter, expanded_collapsed_dict, treeview, treestore):
+def set_tree_expanded_collapsed_string_iter(inst, tree_iter, expanded_collapsed_dict, treeview, treestore):
     """Iter of the Expanded and Collapsed Nodes Parsing"""
     node_id = str(treestore[tree_iter][3])
     if node_id in expanded_collapsed_dict and expanded_collapsed_dict[node_id] == "True":
         treeview.expand_row(treestore.get_path(tree_iter), open_all=False)
+    elif str(node_id) in inst.bookmarks:
+        inst.treeview_expand_to_tree_iter(tree_iter)
     tree_iter = treestore.iter_children(tree_iter)
     while tree_iter != None:
-        set_tree_expanded_collapsed_string_iter(tree_iter, expanded_collapsed_dict, treeview, treestore)
+        set_tree_expanded_collapsed_string_iter(inst, tree_iter, expanded_collapsed_dict, treeview, treestore)
         tree_iter = treestore.iter_next(tree_iter)
 
 def set_tree_path_and_cursor_pos(inst):

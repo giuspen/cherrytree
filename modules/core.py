@@ -2439,12 +2439,16 @@ iter_end, exclude_iter_sel_end=True)
             tree_iter = self.treestore.iter_next(tree_iter)
         return None
 
-    def treeview_safe_set_cursor(self, tree_iter):
-        """Set Cursor being sure the Node is Expanded"""
+    def treeview_expand_to_tree_iter(self, tree_iter):
+        """Expanded Node at Tree Iter"""
         father_iter = self.treestore.iter_parent(tree_iter)
         if father_iter:
             father_path = self.treestore.get_path(father_iter)
             self.treeview.expand_to_path(father_path)
+
+    def treeview_safe_set_cursor(self, tree_iter):
+        """Set Cursor being sure the Node is Expanded"""
+        self.treeview_expand_to_tree_iter(tree_iter)
         tree_path = self.treestore.get_path(tree_iter)
         self.treeview.set_cursor(tree_path)
 
