@@ -1353,7 +1353,7 @@ def set_bookmarks_menu_items(inst):
             bookmarks_to_rm.append(node_id_str)
             continue
         menu_item = gtk.ImageMenuItem(inst.nodes_names_dict[long(node_id_str)])
-        menu_item.set_image(gtk.image_new_from_stock("cherry_red", gtk.ICON_SIZE_MENU))
+        menu_item.set_image(gtk.image_new_from_stock("pin", gtk.ICON_SIZE_MENU))
         menu_item.connect("activate", select_bookmark_node, node_id_str, inst)
         menu_item.show()
         bookmarks_menu.append(menu_item)
@@ -1470,7 +1470,7 @@ def bookmarks_handle(dad):
     liststore = gtk.ListStore(str, str, str)
     for node_id_str in dad.bookmarks:
         # icon, node name, node id string
-        liststore.append(["cherry_red", dad.nodes_names_dict[long(node_id_str)], node_id_str])
+        liststore.append(["pin", dad.nodes_names_dict[long(node_id_str)], node_id_str])
     treeview = gtk.TreeView(liststore)
     treeview.set_headers_visible(False)
     treeview.set_reorderable(True)

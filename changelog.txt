@@ -1,4 +1,18 @@
 
+0.36.0
+• Implemented multi-level lists: pressing Tab and Shift+Tab you can increase/decrease the level of the list
+• Valid Numbered lists are now "1.", "1)", "1-", "1>"; the multi levels lists cycle between them
+• Valid Bulleted lists are now “•”, “◇”, “▪”, “-“, “→”, “⇒”; the multi levels lists cycle between them
+• If at the beginning of a line you type “<> ”, this will turn into “◇ “; if you type “:: ” it will turn into “▪ “; if you type “-> ” it will turn into “→ “; if you type “=> ” it will turn into “⇒ “
+• added "copy as plain text" and "cut as plain text" with shortcuts Ctrl+Shift+C and Ctrl+Shift+X (stealing the shortcuts for copy and cut current row that become Alt+Shift+C and Alt+Shift+X)
+• added node duplication with shortcut Ctrl+Shift+D
+• added support for text Justify Fill
+• added configurable option to have nodes in bookmarks always visible in the tree
+• added a pin icon beside the tree node icon for nodes in the bookmarks
+• added menu item to remove the current node from the bookmarks; assigned shortcuts Ctrl+Shift+B" to add and Ctrl+Alt+B" to remove
+• merged the top menu Replace into the top menu Search
+• fixed bugs
+
 0.35.11 (October 7th, 2015)
 • fixed bugs in export to HTML
 • fixed bugs in import from HTML
