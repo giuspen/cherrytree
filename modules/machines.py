@@ -112,7 +112,7 @@ class XMLHandler:
                     for node_id_str in self.dad.bookmarks:
                         tree_iter = self.dad.get_tree_iter_from_node_id(int(node_id_str))
                         if tree_iter:
-                            self.dad.update_cell_background_in_node(tree_iter, color="red")
+                            self.dad.update_node_pre_icon(tree_iter, stock_id="pin")
                 dom_iter = dom_iter.nextSibling
             return True
 

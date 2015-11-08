@@ -108,7 +108,7 @@ class CherryTree:
         self.statusbar = gtk.Statusbar()
         self.statusbar_context_id = self.statusbar.get_context_id('')
         vbox_main.pack_start(self.statusbar, False, False)
-        # ROW: 0-icon_stock_id, 1-name, 2-buffer, 3-unique_id, 4-syntax_highlighting, 5-node_sequence, 6-tags, 7-readonly, 8-cell_background
+        # ROW: 0-icon_stock_id, 1-name, 2-buffer, 3-unique_id, 4-syntax_highlighting, 5-node_sequence, 6-tags, 7-readonly, 8-pre_icon_stock_id
         self.treestore = gtk.TreeStore(str, str, gobject.TYPE_PYOBJECT, long, str, int, str, gobject.TYPE_BOOLEAN, str)
         self.treeview = gtk.TreeView(self.treestore)
         self.treeview.set_headers_visible(False)
@@ -118,14 +118,17 @@ class CherryTree:
         self.treeview.drag_dest_set(gtk.DEST_DEFAULT_ALL,
                                     [('CT_DND', gtk.TARGET_SAME_WIDGET, 0)],
                                     gtk.gdk.ACTION_MOVE)
+        self.pre_renderer_pixbuf = gtk.CellRendererPixbuf()
         self.renderer_pixbuf = gtk.CellRendererPixbuf()
         self.renderer_text = gtk.CellRendererText()
         self.renderer_text.set_property('wrap-mode', pango.WRAP_WORD_CHAR)
         self.column = gtk.TreeViewColumn()
+        self.column.pack_start(self.pre_renderer_pixbuf, False)
         self.column.pack_start(self.renderer_pixbuf, False)
         self.column.pack_start(self.renderer_text, True)
-        self.column.set_attributes(self.renderer_pixbuf, stock_id=0, cell_background=8)
-        self.column.set_attributes(self.renderer_text, text=1, cell_background=8)
+        self.column.set_attributes(self.pre_renderer_pixbuf, stock_id=8)
+        self.column.set_attributes(self.renderer_pixbuf, stock_id=0)
+        self.column.set_attributes(self.renderer_text, text=1)
         self.treeview.append_column(self.column)
         self.treeview.set_search_column(1)
         self.treeviewselection = self.treeview.get_selection()
@@ -4767,9 +4770,9 @@ iter_end, exclude_iter_sel_end=True)
         if self.enable_spell_check: self.spell_check_set_on()
         self.update_window_save_needed("nbuf", True)
 
-    def update_cell_background_in_node(self, tree_iter, color=None):
-        """Set cell background to node"""
-        self.treestore[tree_iter][8] = color
+    def update_node_pre_icon(self, tree_iter, stock_id=None):
+        """Set Pre Icon to node"""
+        self.treestore[tree_iter][8] = stock_id
 
     def bookmark_curr_node_remove(self, *args):
         """Remove the Current Node from the Bookmarks List"""
@@ -4778,7 +4781,7 @@ iter_end, exclude_iter_sel_end=True)
         if curr_node_id_str in self.bookmarks:
             self.bookmarks.remove(curr_node_id_str)
             support.set_bookmarks_menu_items(self)
-            self.update_cell_background_in_node(self.curr_tree_iter)
+            self.update_node_pre_icon(self.curr_tree_iter)
             self.update_window_save_needed("book")
 
     def bookmark_curr_node(self, *args):
@@ -4788,7 +4791,7 @@ iter_end, exclude_iter_sel_end=True)
         if not curr_node_id_str in self.bookmarks:
             self.bookmarks.append(curr_node_id_str)
             support.set_bookmarks_menu_items(self)
-            self.update_cell_background_in_node(self.curr_tree_iter, color="red")
+            self.update_node_pre_icon(self.curr_tree_iter, stock_id="pin")
             self.update_window_save_needed("book")
 
     def bookmarks_handle(self, *args):

@@ -603,5 +603,5 @@ class CTDBHandler:
             self.dad.bookmarks.append(str(node_id))
             tree_iter = self.dad.get_tree_iter_from_node_id(node_id)
             if tree_iter:
-                self.dad.update_cell_background_in_node(tree_iter, color="red")
+                self.dad.update_node_pre_icon(tree_iter, stock_id="pin")
         self.dad.nodes_sequences_fix(tree_father, False)

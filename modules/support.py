@@ -1519,7 +1519,7 @@ def bookmarks_handle(dad):
             # removed bookmark
             tree_iter = dad.get_tree_iter_from_node_id(int(old_bookmark))
             if tree_iter:
-                dad.update_cell_background_in_node(tree_iter)
+                dad.update_node_pre_icon(tree_iter)
     dad.bookmarks = temp_bookmarks
     set_bookmarks_menu_items(dad)
     dad.ctdb_handler.pending_edit_db_bookmarks()
