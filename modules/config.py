@@ -140,6 +140,7 @@ def config_file_load(inst):
         inst.expcollstr3 = config.get(section, "expcollstr3") if config.has_option(section, "expcollstr3") else ""
         inst.expcollsel3 = config.get(section, "expcollsel3") if config.has_option(section, "expcollsel3") else ""
         inst.expcollcur3 = config.getint(section, "expcollcur3") if config.has_option(section, "expcollcur3") else 0
+        inst.nodes_bookm_exp = config.getboolean(section, "nodes_bookm_exp") if config.has_option(section, "nodes_bookm_exp") else True
         inst.nodes_icons = config.get(section, "nodes_icons") if config.has_option(section, "nodes_icons") else "c"
         inst.tree_right_side = config.getboolean(section, "tree_right_side") if config.has_option(section, "tree_right_side") else False
         inst.cherry_wrap_width = config.getint(section, "cherry_wrap_width") if config.has_option(section, "cherry_wrap_width") else 130
@@ -307,6 +308,7 @@ def config_file_load(inst):
         inst.backup_num = 3
         inst.autosave_on_quit = False
         inst.tree_right_side = False
+        inst.nodes_bookm_exp = True
         inst.rt_show_white_spaces = False
         inst.show_white_spaces = True
         inst.highl_curr_line = True
@@ -397,6 +399,7 @@ def config_file_save(inst):
         config.set(section, "expcollstr3", inst.expcollstr3)
         config.set(section, "expcollsel3", inst.expcollsel3)
         config.set(section, "expcollcur3", inst.expcollcur3)
+    config.set(section, "nodes_bookm_exp", inst.nodes_bookm_exp)
     config.set(section, "nodes_icons", inst.nodes_icons)
     config.set(section, "tree_right_side", inst.tree_right_side)
     config.set(section, "cherry_wrap_width", inst.cherry_wrap_width)
@@ -524,7 +527,7 @@ def set_tree_expanded_collapsed_string_iter(inst, tree_iter, expanded_collapsed_
     node_id = str(treestore[tree_iter][3])
     if node_id in expanded_collapsed_dict and expanded_collapsed_dict[node_id] == "True":
         treeview.expand_row(treestore.get_path(tree_iter), open_all=False)
-    elif str(node_id) in inst.bookmarks:
+    elif inst.nodes_bookm_exp and str(node_id) in inst.bookmarks:
         inst.treeview_expand_to_tree_iter(tree_iter)
     tree_iter = treestore.iter_children(tree_iter)
     while tree_iter != None:
@@ -649,7 +652,7 @@ def preferences_tab_all_nodes(dad, vbox_all_nodes, pref_dialog):
 
     vbox_all_nodes.pack_start(frame_text_editor, expand=False)
     vbox_all_nodes.pack_start(frame_misc_all, expand=False)
-    
+
     def on_textbuffer_special_chars_changed(textbuffer, *args):
         new_special_chars = unicode(textbuffer.get_text(*textbuffer.get_bounds()).replace(cons.CHAR_NEWLINE, ""), cons.STR_UTF8, cons.STR_IGNORE)
         if dad.special_chars != new_special_chars:
@@ -990,10 +993,14 @@ def preferences_tab_tree(dad, vbox_tree, pref_dialog):
     radiobutton_nodes_startup_expand.set_group(radiobutton_nodes_startup_restore)
     radiobutton_nodes_startup_collapse = gtk.RadioButton(label=_("Collapse all Nodes"))
     radiobutton_nodes_startup_collapse.set_group(radiobutton_nodes_startup_restore)
+    checkbutton_nodes_bookm_exp = gtk.CheckButton(_("Nodes in Bookmarks Always Visible"))
+    checkbutton_nodes_bookm_exp.set_active(dad.nodes_bookm_exp)
+    checkbutton_nodes_bookm_exp.set_sensitive(dad.rest_exp_coll == 0)
 
     vbox_nodes_startup.pack_start(radiobutton_nodes_startup_restore, expand=False)
     vbox_nodes_startup.pack_start(radiobutton_nodes_startup_expand, expand=False)
     vbox_nodes_startup.pack_start(radiobutton_nodes_startup_collapse, expand=False)
+    vbox_nodes_startup.pack_start(checkbutton_nodes_bookm_exp, expand=False)
     frame_nodes_startup = gtk.Frame(label="<b>"+_("Nodes Status at Startup")+"</b>")
     frame_nodes_startup.get_label_widget().set_use_markup(True)
     frame_nodes_startup.set_shadow_type(gtk.SHADOW_NONE)
@@ -1081,14 +1088,23 @@ def preferences_tab_tree(dad, vbox_tree, pref_dialog):
         dad.treeview_refresh(change_icon=True)
     radiobutton_node_icon_none.connect('toggled', on_radiobutton_node_icon_none_toggled)
     def on_radiobutton_nodes_startup_restore_toggled(checkbutton):
-        if checkbutton.get_active(): dad.rest_exp_coll = 0
+        if checkbutton.get_active():
+            dad.rest_exp_coll = 0
+            checkbutton_nodes_bookm_exp.set_sensitive(True)
     radiobutton_nodes_startup_restore.connect('toggled', on_radiobutton_nodes_startup_restore_toggled)
     def on_radiobutton_nodes_startup_expand_toggled(checkbutton):
-        if checkbutton.get_active(): dad.rest_exp_coll = 1
+        if checkbutton.get_active():
+            dad.rest_exp_coll = 1
+            checkbutton_nodes_bookm_exp.set_sensitive(False)
     radiobutton_nodes_startup_expand.connect('toggled', on_radiobutton_nodes_startup_expand_toggled)
     def on_radiobutton_nodes_startup_collapse_toggled(checkbutton):
-        if checkbutton.get_active(): dad.rest_exp_coll = 2
+        if checkbutton.get_active():
+            dad.rest_exp_coll = 2
+            checkbutton_nodes_bookm_exp.set_sensitive(False)
     radiobutton_nodes_startup_collapse.connect('toggled', on_radiobutton_nodes_startup_collapse_toggled)
+    def on_checkbutton_nodes_bookm_exp_toggled(checkbutton):
+        dad.nodes_bookm_exp = checkbutton.get_active()
+    checkbutton_nodes_bookm_exp.connect('toggled', on_checkbutton_nodes_bookm_exp_toggled)
     def on_spinbutton_tree_nodes_names_width_value_changed(spinbutton):
         dad.cherry_wrap_width = int(spinbutton.get_value())
         dad.renderer_text.set_property('wrap-width', dad.cherry_wrap_width)
@@ -1436,13 +1452,14 @@ def preferences_tab_misc(dad, vbox_misc, pref_dialog):
     adjustment_num_backups = gtk.Adjustment(value=dad.backup_num, lower=1, upper=100, step_incr=1)
     spinbutton_num_backups = gtk.SpinButton(adjustment_num_backups)
     spinbutton_num_backups.set_sensitive(dad.backup_copy)
+    spinbutton_num_backups.set_value(dad.backup_num)
     hbox_num_backups.pack_start(label_num_backups, expand=False)
     hbox_num_backups.pack_start(spinbutton_num_backups, expand=False)
     vbox_saving.pack_start(hbox_autosave, expand=False)
     vbox_saving.pack_start(checkbutton_autosave_on_quit, expand=False)
     vbox_saving.pack_start(checkbutton_backup_before_saving, expand=False)
     vbox_saving.pack_start(hbox_num_backups, expand=False)
-    
+
     checkbutton_autosave.set_active(dad.autosave[0])
     spinbutton_autosave.set_value(dad.autosave[1])
     spinbutton_autosave.set_sensitive(dad.autosave[0])
