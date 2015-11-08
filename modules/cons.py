@@ -235,7 +235,7 @@ STOCKS_N_FILES = [
 'from_cherrytree.png', 'from_txt.png', 'from_html.png', 'cherrytree.png', 'quit-app.png',
 'new-instance.png', 'toolbar.png', 'cherries.png', 'tree-node-dupl.png', 'tree-node-add.png',
 'tree-subnode-add.png', 'help-contents.png', 'index.png', 'timestamp.png',
-'calendar.png', 'horizontal_rule.png', 'file_icon.png']
+'calendar.png', 'horizontal_rule.png', 'file_icon.png', 'pin.png', 'pin-add.png', 'pin-remove.png']
 
 NODES_STOCKS = ['node_bullet', 'node_no_icon', 'cherry_black',
                 'cherry_blue', 'cherry_cyan', 'cherry_green',
@@ -615,7 +615,6 @@ def get_entries(inst):
     ( "IncreaseToolbarIconsSize", "gtk-add", _("_Increase Toolbar Icons Size"), None, _("Increase the Size of the Toolbar Icons"), inst.toolbar_icons_size_increase),
     ( "DecreaseToolbarIconsSize", "gtk-remove", _("_Decrease Toolbar Icons Size"), None, _("Decrease the Size of the Toolbar Icons"), inst.toolbar_icons_size_decrease),
     ( "Fullscreen", "gtk-fullscreen", _("_Full Screen On/Off"), "F11", _("Toggle Full Screen On/Off"), inst.fullscreen_toggle),
-    ( "BookmarkThisNode", "gtk-add", _("_Bookmark This Node"), None, _("Add the Current Node to the Bookmarks List"), inst.bookmark_curr_node),
     ( "BookmarksHandle", "gtk-edit", _("_Handle Bookmarks"), None, _("Handle the Bookmarks List"), inst.bookmarks_handle),
     ( "FromCherryTree", "from_cherrytree", _("From _CherryTree File"), None, _("Add Nodes of a CherryTree File to the Current Tree"), inst.nodes_add_from_cherrytree_file),
     ( "FromTxtFile", "from_txt", _("From _Plain Text File"), None, _("Add Node from a Plain Text File to the Current Tree"), inst.nodes_add_from_plain_text_file),
@@ -701,8 +700,8 @@ def get_popup_menu_tree(inst):
     (TAG_SEPARATOR, None, None, None, None),
     ("cherry_edit", _("Change Node _Properties"), "F2", _("Edit the Properties of the Selected Node"), inst.node_edit),
     ("cherry_edit", _("Toggle _Read Only"), "<Ctrl><Alt>R", _("Toggle the Read Only Property of the Selected Node"), inst.node_toggle_read_only),
-    ("gtk-add", _("Add to _Bookmarks"), None, _("Add the Current Node to the Bookmarks List"), inst.bookmark_curr_node),
-    ("gtk-remove", _("_Remove from Bookmarks"), None, _("Remove the Current Node from the Bookmarks List"), inst.bookmark_curr_node_remove),
+    ("pin-add", _("Add to _Bookmarks"), None, _("Add the Current Node to the Bookmarks List"), inst.bookmark_curr_node),
+    ("pin-remove", _("_Remove from Bookmarks"), None, _("Remove the Current Node from the Bookmarks List"), inst.bookmark_curr_node_remove),
     ("calendar", _("Insert Today's Node"), "F8", _("Insert a Node with Hierarchy Year/Month/Day"), inst.node_date),
     ("gtk-info", _("Tree _Info"), None, _("Tree Summary Information"), inst.tree_info),
     (TAG_SEPARATOR, None, None, None, None),

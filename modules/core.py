@@ -1215,10 +1215,10 @@ iter_end, exclude_iter_sel_end=True)
         for menu_tree in [self.top_menu_tree, self.node_menu_tree]:
             for menuitem in menu_tree:
                 try:
-                    if menuitem.get_image().get_property("stock") == "gtk-add":
+                    if menuitem.get_image().get_property("stock") == "pin-add":
                         if is_bookmarked: menuitem.hide()
                         else: menuitem.show()
-                    if menuitem.get_image().get_property("stock") == "gtk-remove":
+                    if menuitem.get_image().get_property("stock") == "pin-remove":
                         if not is_bookmarked: menuitem.hide()
                         else: menuitem.show()
                 except: pass
