@@ -1514,13 +1514,17 @@ def bookmarks_handle(dad):
         tree_iter = liststore.iter_next(tree_iter)
     dialog.destroy()
     if response != gtk.RESPONSE_ACCEPT: return False
+    removed_bookmarks = []
     for old_bookmark in dad.bookmarks:
         if not old_bookmark in temp_bookmarks:
-            # removed bookmark
-            tree_iter = dad.get_tree_iter_from_node_id(int(old_bookmark))
-            if tree_iter:
-                dad.update_node_pre_icon(tree_iter)
+            removed_bookmarks.append(old_bookmark)
     dad.bookmarks = temp_bookmarks
+    for removed_bookmark in removed_bookmarks:
+        tree_iter = dad.get_tree_iter_from_node_id(int(removed_bookmark))
+        if tree_iter:
+            dad.update_node_pre_icon(tree_iter)
+            if dad.curr_tree_iter and dad.treestore[tree_iter][3] == dad.treestore[dad.curr_tree_iter][3]:
+                dad.menu_tree_update_for_bookmarked_node(False)
     set_bookmarks_menu_items(dad)
     dad.ctdb_handler.pending_edit_db_bookmarks()
     return True

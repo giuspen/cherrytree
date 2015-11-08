@@ -341,6 +341,7 @@ def config_file_apply(inst):
     inst.ui.get_widget("/ToolBar").set_property("icon-size", ICONS_SIZE[inst.toolbar_icon_size])
     if inst.autosave[0]: inst.autosave_timer_start()
     if inst.enable_mod_time_sentinel: inst.modification_time_sentinel_start()
+    inst.pre_renderer_pixbuf.set_property("visible", len(inst.bookmarks) > 0)
 
 def config_file_save(inst):
     """Save the Preferences to Config File"""

@@ -4773,6 +4773,7 @@ iter_end, exclude_iter_sel_end=True)
     def update_node_pre_icon(self, tree_iter, stock_id=None):
         """Set Pre Icon to node"""
         self.treestore[tree_iter][8] = stock_id
+        self.pre_renderer_pixbuf.set_property("visible", len(self.bookmarks) > 0)
 
     def bookmark_curr_node_remove(self, *args):
         """Remove the Current Node from the Bookmarks List"""
@@ -4783,6 +4784,7 @@ iter_end, exclude_iter_sel_end=True)
             support.set_bookmarks_menu_items(self)
             self.update_node_pre_icon(self.curr_tree_iter)
             self.update_window_save_needed("book")
+            self.menu_tree_update_for_bookmarked_node(False)
 
     def bookmark_curr_node(self, *args):
         """Add the Current Node to the Bookmarks List"""
@@ -4793,6 +4795,7 @@ iter_end, exclude_iter_sel_end=True)
             support.set_bookmarks_menu_items(self)
             self.update_node_pre_icon(self.curr_tree_iter, stock_id="pin")
             self.update_window_save_needed("book")
+            self.menu_tree_update_for_bookmarked_node(True)
 
     def bookmarks_handle(self, *args):
         """Handle the Bookmarks List"""
