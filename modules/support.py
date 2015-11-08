@@ -1514,6 +1514,12 @@ def bookmarks_handle(dad):
         tree_iter = liststore.iter_next(tree_iter)
     dialog.destroy()
     if response != gtk.RESPONSE_ACCEPT: return False
+    for old_bookmark in dad.bookmarks:
+        if not old_bookmark in temp_bookmarks:
+            # removed bookmark
+            tree_iter = dad.get_tree_iter_from_node_id(int(old_bookmark))
+            if tree_iter:
+                dad.update_cell_background_in_node(tree_iter)
     dad.bookmarks = temp_bookmarks
     set_bookmarks_menu_items(dad)
     dad.ctdb_handler.pending_edit_db_bookmarks()

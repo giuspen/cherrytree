@@ -108,8 +108,8 @@ class CherryTree:
         self.statusbar = gtk.Statusbar()
         self.statusbar_context_id = self.statusbar.get_context_id('')
         vbox_main.pack_start(self.statusbar, False, False)
-        # ROW: 0-icon_stock_id, 1-name, 2-buffer, 3-unique_id, 4-syntax_highlighting, 5-node_sequence, 6-tags, 7-readonly
-        self.treestore = gtk.TreeStore(str, str, gobject.TYPE_PYOBJECT, long, str, int, str, gobject.TYPE_BOOLEAN)
+        # ROW: 0-icon_stock_id, 1-name, 2-buffer, 3-unique_id, 4-syntax_highlighting, 5-node_sequence, 6-tags, 7-readonly, 8-cell_background
+        self.treestore = gtk.TreeStore(str, str, gobject.TYPE_PYOBJECT, long, str, int, str, gobject.TYPE_BOOLEAN, str)
         self.treeview = gtk.TreeView(self.treestore)
         self.treeview.set_headers_visible(False)
         self.treeview.drag_source_set(gtk.gdk.BUTTON1_MASK,
@@ -124,8 +124,8 @@ class CherryTree:
         self.column = gtk.TreeViewColumn()
         self.column.pack_start(self.renderer_pixbuf, False)
         self.column.pack_start(self.renderer_text, True)
-        self.column.set_attributes(self.renderer_pixbuf, stock_id=0)
-        self.column.set_attributes(self.renderer_text, text=1)
+        self.column.set_attributes(self.renderer_pixbuf, stock_id=0, cell_background=8)
+        self.column.set_attributes(self.renderer_text, text=1, cell_background=8)
         self.treeview.append_column(self.column)
         self.treeview.set_search_column(1)
         self.treeviewselection = self.treeview.get_selection()
@@ -2389,6 +2389,10 @@ iter_end, exclude_iter_sel_end=True)
         self.node_move_after(self.curr_tree_iter, father_iter)
         if self.nodes_icons == "c": self.treeview_refresh(change_icon=True)
 
+    def get_node_id_from_tree_iter(self, tree_iter):
+        """Given a TreeIter, Returns the Node Id"""
+        return self.treestore[tree_iter][3]
+
     def get_tree_iter_from_node_id(self, node_id):
         """Given a Node Id, Returns the TreeIter or None"""
         tree_iter = self.treestore.get_iter_first()
@@ -2585,11 +2589,11 @@ iter_end, exclude_iter_sel_end=True)
             new_node_iter = self.treestore.insert_after(father_iter,
                 self.curr_tree_iter,
                 [cherry, ret_name, self.buffer_create(self.syntax_highlighting),
-                 new_node_id, self.syntax_highlighting, 0, ret_tags, ret_ro])
+                 new_node_id, self.syntax_highlighting, 0, ret_tags, ret_ro, None])
         else:
             new_node_iter = self.treestore.append(father_iter,
                 [cherry, ret_name, self.buffer_create(self.syntax_highlighting),
-                 new_node_id, self.syntax_highlighting, 0, ret_tags, ret_ro])
+                 new_node_id, self.syntax_highlighting, 0, ret_tags, ret_ro, None])
         if ret_tags: self.tags_add_from_node(ret_tags)
         self.ctdb_handler.pending_new_db_node(new_node_id)
         self.nodes_sequences_fix(father_iter, False)
@@ -2632,7 +2636,7 @@ iter_end, exclude_iter_sel_end=True)
         new_node_id = self.node_id_get()
         new_node_iter = self.treestore.append(father_iter,
             [cherry, ret_name, self.buffer_create(self.syntax_highlighting),
-             new_node_id, self.syntax_highlighting, 0, ret_tags, ret_ro])
+             new_node_id, self.syntax_highlighting, 0, ret_tags, ret_ro, None])
         self.ctdb_handler.pending_new_db_node(new_node_id)
         self.nodes_sequences_fix(father_iter, False)
         self.nodes_names_dict[new_node_id] = ret_name
@@ -4743,13 +4747,18 @@ iter_end, exclude_iter_sel_end=True)
         if self.enable_spell_check: self.spell_check_set_on()
         self.update_window_save_needed("nbuf", True)
 
+    def update_cell_background_in_node(self, tree_iter, color=None):
+        """Set cell background to node"""
+        self.treestore[tree_iter][8] = color
+
     def bookmark_curr_node(self, *args):
         """Add the Current Node to the Bookmarks List"""
         if not self.is_there_selected_node_or_error(): return
-        curr_node_id_str = str(self.treestore[self.curr_tree_iter][3])
+        curr_node_id_str = str(self.get_node_id_from_tree_iter(self.curr_tree_iter))
         if not curr_node_id_str in self.bookmarks:
             self.bookmarks.append(curr_node_id_str)
             support.set_bookmarks_menu_items(self)
+            self.update_cell_background_in_node(self.curr_tree_iter, color="red")
             self.update_window_save_needed("book")
 
     def bookmarks_handle(self, *args):

@@ -109,6 +109,10 @@ class XMLHandler:
                     self.append_tree_node(dom_iter, tree_father, discard_ids, node_sequence)
                 elif dom_iter.nodeName == "bookmarks":
                     self.dad.bookmarks = dom_iter.attributes['list'].value.split(",")
+                    for node_id_str in self.dad.bookmarks:
+                        tree_iter = self.dad.get_tree_iter_from_node_id(int(node_id_str))
+                        if tree_iter:
+                            self.dad.update_cell_background_in_node(tree_iter, color="red")
                 dom_iter = dom_iter.nextSibling
             return True
 
@@ -154,7 +158,8 @@ class XMLHandler:
                                                             syntax_highlighting,
                                                             node_sequence,
                                                             node_tags,
-                                                            readonly])
+                                                            readonly,
+                                                            None])
         self.dad.nodes_names_dict[unique_id] = self.dad.treestore[tree_iter][1]
         if discard_ids:
             # we are importing nodes
