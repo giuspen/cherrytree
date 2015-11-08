@@ -577,7 +577,7 @@ def get_entries(inst):
     ( "JustifyFill", "gtk-justify-fill", _("Justify _Fill"), None, _("Justify Fill the Current Paragraph"), inst.apply_tag_justify_fill),
     ( "TreeAddNode", "tree-node-add", _("Add _Node"), "<control>N", _("Add a Node having the same Father of the Selected Node"), inst.node_add),
     ( "TreeAddSubNode", "tree-subnode-add", _("Add _SubNode"), "<control><shift>N", _("Add a Child Node to the Selected Node"), inst.node_child_add),
-    ( "TreeDuplicateNode", "tree-node-dupl", _("_Duplicate Node"), None, _("Duplicate the Selected Node"), inst.node_duplicate),
+    ( "TreeDuplicateNode", "tree-node-dupl", _("_Duplicate Node"), "<control><shift>D", _("Duplicate the Selected Node"), inst.node_duplicate),
     ( "NodeEdit", "cherry_edit", _("Change Node _Properties"), "F2", _("Edit the Properties of the Selected Node"), inst.node_edit),
     ( "NodeToggleRO", "cherry_edit", _("Toggle _Read Only"), "<Ctrl><Alt>R", _("Toggle the Read Only Property of the Selected Node"), inst.node_toggle_read_only),
     ( "NodeDate", "calendar", _("Insert Today's Node"), "F8", _("Insert a Node with Hierarchy Year/Month/Day"), inst.node_date),
@@ -698,7 +698,7 @@ def get_popup_menu_tree(inst):
     return [
     ("tree-node-add", _("Add _Node"), "<control>N", _("Add a Node having the same Father of the Selected Node"), inst.node_add),
     ("tree-subnode-add", _("Add _SubNode"), "<control><shift>N", _("Add a Child Node to the Selected Node"), inst.node_child_add),
-    ("tree-node-dupl", _("_Duplicate Node"), None, _("Duplicate the Selected Node"), inst.node_duplicate),
+    ("tree-node-dupl", _("_Duplicate Node"), "<control><shift>D", _("Duplicate the Selected Node"), inst.node_duplicate),
     (TAG_SEPARATOR, None, None, None, None),
     ("cherry_edit", _("Change Node _Properties"), "F2", _("Edit the Properties of the Selected Node"), inst.node_edit),
     ("cherry_edit", _("Toggle _Read Only"), "<Ctrl><Alt>R", _("Toggle the Read Only Property of the Selected Node"), inst.node_toggle_read_only),
