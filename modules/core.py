@@ -2570,10 +2570,11 @@ iter_end, exclude_iter_sel_end=True)
             ret_name, ret_syntax, ret_tags, ret_ro = self.dialog_nodeprop(_("New Node Properties"), syntax_highl=self.syntax_highlighting)
             if not ret_name: return
         else:
-            ret_name = self.treestore[self.curr_tree_iter][1]
-            ret_syntax = self.treestore[self.curr_tree_iter][4]
-            ret_tags = self.treestore[self.curr_tree_iter][6]
-            ret_ro = self.treestore[self.curr_tree_iter][7]
+            tree_iter_from = self.curr_tree_iter
+            ret_name = self.treestore[tree_iter_from][1]
+            ret_syntax = self.treestore[tree_iter_from][4]
+            ret_tags = self.treestore[tree_iter_from][6]
+            ret_ro = self.treestore[tree_iter_from][7]
         self.update_window_save_needed()
         self.syntax_highlighting = ret_syntax
         father_iter = self.treestore.iter_parent(self.curr_tree_iter) if self.curr_tree_iter else None
@@ -2593,9 +2594,15 @@ iter_end, exclude_iter_sel_end=True)
         self.ctdb_handler.pending_new_db_node(new_node_id)
         self.nodes_sequences_fix(father_iter, False)
         self.nodes_names_dict[new_node_id] = ret_name
-        new_node_path = self.treestore.get_path(new_node_iter)
         if self.node_add_is_duplication:
-            pass
+            if self.syntax_highlighting != cons.RICH_TEXT_ID:
+                text_buffer = self.treestore[tree_iter_from][2]
+                content = text_buffer.get_text(*text_buffer.get_bounds())
+                self.treestore[new_node_iter][2].set_text(content)
+            else:
+                state = self.state_machine.requested_previous_state(self.treestore[tree_iter_from][3])
+                self.load_buffer_from_state(state, given_tree_iter=new_node_iter)
+        new_node_path = self.treestore.get_path(new_node_iter)
         self.treeview.set_cursor(new_node_path)
         self.sourceview.grab_focus()
 
@@ -3036,6 +3043,40 @@ iter_end, exclude_iter_sel_end=True)
             else: self.go_forward()
         self.go_bk_fw_click = False
 
+    def load_buffer_from_state(self, state, given_tree_iter=None):
+        """Load Text Buffer from State Machine"""
+        if not given_tree_iter:
+            if self.enable_spell_check:
+                spell_check_restore = True
+                self.toggle_ena_dis_spellcheck()
+            else: spell_check_restore = False
+            tree_iter = self.curr_tree_iter
+            text_buffer = self.curr_buffer
+        else:
+            tree_iter = given_tree_iter
+            text_buffer = self.get_textbuffer_from_tree_iter(tree_iter)
+        if self.user_active:
+            self.user_active = False
+            user_active_restore = True
+        else: user_active_restore = False
+        self.xml_handler.dom_to_buffer(text_buffer, state[0])
+        pixbuf_table_vector = state[1]
+        # pixbuf_table_vector is [ [ "pixbuf"/"table"/"codebox", [offset, pixbuf, alignment] ],... ]
+        for element in pixbuf_table_vector:
+            if element[0] == "pixbuf": self.state_machine.load_embedded_image_element(text_buffer, element[1])
+            elif element[0] == "table": self.state_machine.load_embedded_table_element(text_buffer, element[1])
+            elif element[0] == "codebox": self.state_machine.load_embedded_codebox_element(text_buffer, element[1])
+        if not given_tree_iter:
+            self.sourceview.set_buffer(None)
+            self.sourceview.set_buffer(text_buffer)
+            self.objects_buffer_refresh()
+            text_buffer.place_cursor(text_buffer.get_iter_at_offset(state[2]))
+            self.sourceview.scroll_to_mark(text_buffer.get_insert(), 0.3)
+        if user_active_restore: self.user_active = True
+        if not given_tree_iter:
+            if spell_check_restore: self.toggle_ena_dis_spellcheck()
+        self.update_window_save_needed("nbuf", given_tree_iter=tree_iter)
+
     def requested_step_back(self, *args):
         """Step Back for the Current Node, if Possible"""
         if not self.curr_tree_iter: return
@@ -3045,29 +3086,7 @@ iter_end, exclude_iter_sel_end=True)
             step_back = self.state_machine.requested_previous_state(self.treestore[self.curr_tree_iter][3])
             # step_back is [ [rich_text, pixbuf_table_vector, cursor_position],... ]
             if step_back != None:
-                if self.enable_spell_check:
-                    spell_check_restore = True
-                    self.toggle_ena_dis_spellcheck()
-                else: spell_check_restore = False
-                if self.user_active:
-                    self.user_active = False
-                    user_active_restore = True
-                else: user_active_restore = False
-                self.xml_handler.dom_to_buffer(self.curr_buffer, step_back[0])
-                pixbuf_table_vector = step_back[1]
-                # pixbuf_table_vector is [ [ "pixbuf"/"table"/"codebox", [offset, pixbuf, alignment] ],... ]
-                for element in pixbuf_table_vector:
-                    if element[0] == "pixbuf": self.state_machine.load_embedded_image_element(self.curr_buffer, element[1])
-                    elif element[0] == "table": self.state_machine.load_embedded_table_element(self.curr_buffer, element[1])
-                    elif element[0] == "codebox": self.state_machine.load_embedded_codebox_element(self.curr_buffer, element[1])
-                self.sourceview.set_buffer(None)
-                self.sourceview.set_buffer(self.curr_buffer)
-                self.objects_buffer_refresh()
-                self.curr_buffer.place_cursor(self.curr_buffer.get_iter_at_offset(step_back[2]))
-                self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), 0.3)
-                if user_active_restore: self.user_active = True
-                if spell_check_restore: self.toggle_ena_dis_spellcheck()
-                self.update_window_save_needed("nbuf")
+                self.load_buffer_from_state(step_back)
         elif self.curr_buffer.can_undo():
             self.curr_buffer.undo()
             self.update_window_save_needed("nbuf")
@@ -3081,29 +3100,7 @@ iter_end, exclude_iter_sel_end=True)
             step_ahead = self.state_machine.requested_subsequent_state(self.treestore[self.curr_tree_iter][3])
             # step_ahead is [ [rich_text, pixbuf_table_vector, cursor_position],... ]
             if step_ahead != None:
-                if self.enable_spell_check:
-                    spell_check_restore = True
-                    self.toggle_ena_dis_spellcheck()
-                else: spell_check_restore = False
-                if self.user_active:
-                    self.user_active = False
-                    user_active_restore = True
-                else: user_active_restore = False
-                self.xml_handler.dom_to_buffer(self.curr_buffer, step_ahead[0])
-                pixbuf_table_vector = step_ahead[1]
-                # pixbuf_table_vector is [ [ "pixbuf"/"table", [offset, pixbuf, alignment] ],... ]
-                for element in pixbuf_table_vector:
-                    if element[0] == "pixbuf": self.state_machine.load_embedded_image_element(self.curr_buffer, element[1])
-                    elif element[0] == "table": self.state_machine.load_embedded_table_element(self.curr_buffer, element[1])
-                    elif element[0] == "codebox": self.state_machine.load_embedded_codebox_element(self.curr_buffer, element[1])
-                self.sourceview.set_buffer(None)
-                self.sourceview.set_buffer(self.curr_buffer)
-                self.objects_buffer_refresh()
-                self.curr_buffer.place_cursor(self.curr_buffer.get_iter_at_offset(step_ahead[2]))
-                self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), 0.3)
-                if user_active_restore: self.user_active = True
-                if spell_check_restore: self.toggle_ena_dis_spellcheck()
-                self.update_window_save_needed("nbuf")
+                self.load_buffer_from_state(step_ahead)
         elif self.curr_buffer.can_redo():
             self.curr_buffer.redo()
             self.update_window_save_needed("nbuf")
