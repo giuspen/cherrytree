@@ -617,7 +617,7 @@ iter_end, exclude_iter_sel_end=True)
                 self.node_delete()
                 return True
             elif keyname == cons.STR_KEY_MENU:
-                self.menu_tree.popup(None, None, None, 0, event.time)
+                self.node_menu_tree.popup(None, None, None, 0, event.time)
                 return True
             elif keyname == cons.STR_KEY_TAB:
                 self.toggle_tree_text()
@@ -1203,12 +1203,25 @@ iter_end, exclude_iter_sel_end=True)
 
     def menu_tree_create(self):
         """Create the Tree Menus"""
-        self.menu_tree = gtk.Menu()
-        top_menu_tree = self.ui.get_widget("/MenuBar/TreeMenu").get_submenu()
-        for menuitem in top_menu_tree:
-            top_menu_tree.remove(menuitem)
-        self.menu_populate_popup(top_menu_tree, cons.get_popup_menu_tree(self))
-        self.menu_populate_popup(self.menu_tree, cons.get_popup_menu_tree(self))
+        self.node_menu_tree = gtk.Menu()
+        self.top_menu_tree = self.ui.get_widget("/MenuBar/TreeMenu").get_submenu()
+        for menuitem in self.top_menu_tree:
+            self.top_menu_tree.remove(menuitem)
+        self.menu_populate_popup(self.top_menu_tree, cons.get_popup_menu_tree(self))
+        self.menu_populate_popup(self.node_menu_tree, cons.get_popup_menu_tree(self))
+
+    def menu_tree_update_for_bookmarked_node(self, is_bookmarked):
+        """Update Tree Menu according to Node in Bookmarks or Not"""
+        for menu_tree in [self.top_menu_tree, self.node_menu_tree]:
+            for menuitem in menu_tree:
+                try:
+                    if menuitem.get_image().get_property("stock") == "gtk-add":
+                        if is_bookmarked: menuitem.hide()
+                        else: menuitem.show()
+                    if menuitem.get_image().get_property("stock") == "gtk-remove":
+                        if not is_bookmarked: menuitem.hide()
+                        else: menuitem.show()
+                except: pass
 
     def on_window_state_event(self, window, event):
         """Catch Window's Events"""
@@ -2459,7 +2472,7 @@ iter_end, exclude_iter_sel_end=True)
     def on_mouse_button_clicked_tree(self, widget, event):
         """Catches mouse buttons clicks"""
         if event.button == 3:
-            self.menu_tree.popup(None, None, None, event.button, event.time)
+            self.node_menu_tree.popup(None, None, None, event.button, event.time)
         elif event.button == 2:
             path_at_click = self.treeview.get_path_at_pos(int(event.x), int(event.y))
             if path_at_click:
@@ -2857,7 +2870,8 @@ iter_end, exclude_iter_sel_end=True)
         self.objects_buffer_refresh()
         self.update_selected_node_statusbar_info()
         if self.user_active:
-            if model[new_iter][3] in self.nodes_cursor_pos:
+            node_id = model[new_iter][3]
+            if node_id in self.nodes_cursor_pos:
                 already_visited = True
                 cursor_pos = self.nodes_cursor_pos[model[new_iter][3]]
             else:
@@ -2871,6 +2885,8 @@ iter_end, exclude_iter_sel_end=True)
             if self.syntax_highlighting == cons.RICH_TEXT_ID:
                 if not already_visited: self.lists_handler.todo_lists_old_to_new_conversion(self.curr_buffer)
                 if self.enable_spell_check: self.spell_check_set_on()
+            node_is_bookmarked = (str(node_id) in self.bookmarks)
+            self.menu_tree_update_for_bookmarked_node(node_is_bookmarked)
 
     def update_node_name_header(self):
         """Update Node Name Header"""
@@ -4754,6 +4770,16 @@ iter_end, exclude_iter_sel_end=True)
     def update_cell_background_in_node(self, tree_iter, color=None):
         """Set cell background to node"""
         self.treestore[tree_iter][8] = color
+
+    def bookmark_curr_node_remove(self, *args):
+        """Remove the Current Node from the Bookmarks List"""
+        if not self.is_there_selected_node_or_error(): return
+        curr_node_id_str = str(self.get_node_id_from_tree_iter(self.curr_tree_iter))
+        if curr_node_id_str in self.bookmarks:
+            self.bookmarks.remove(curr_node_id_str)
+            support.set_bookmarks_menu_items(self)
+            self.update_cell_background_in_node(self.curr_tree_iter)
+            self.update_window_save_needed("book")
 
     def bookmark_curr_node(self, *args):
         """Add the Current Node to the Bookmarks List"""
