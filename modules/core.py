@@ -118,17 +118,17 @@ class CherryTree:
         self.treeview.drag_dest_set(gtk.DEST_DEFAULT_ALL,
                                     [('CT_DND', gtk.TARGET_SAME_WIDGET, 0)],
                                     gtk.gdk.ACTION_MOVE)
-        self.pre_renderer_pixbuf = gtk.CellRendererPixbuf()
         self.renderer_pixbuf = gtk.CellRendererPixbuf()
         self.renderer_text = gtk.CellRendererText()
         self.renderer_text.set_property('wrap-mode', pango.WRAP_WORD_CHAR)
+        self.aux_renderer_pixbuf = gtk.CellRendererPixbuf()
         self.column = gtk.TreeViewColumn()
-        self.column.pack_start(self.pre_renderer_pixbuf, False)
         self.column.pack_start(self.renderer_pixbuf, False)
         self.column.pack_start(self.renderer_text, True)
-        self.column.set_attributes(self.pre_renderer_pixbuf, stock_id=8)
+        self.column.pack_start(self.aux_renderer_pixbuf, False)
         self.column.set_attributes(self.renderer_pixbuf, stock_id=0)
         self.column.set_attributes(self.renderer_text, text=1)
+        self.column.set_attributes(self.aux_renderer_pixbuf, stock_id=8)
         self.treeview.append_column(self.column)
         self.treeview.set_search_column(1)
         self.treeviewselection = self.treeview.get_selection()
@@ -4773,7 +4773,7 @@ iter_end, exclude_iter_sel_end=True)
     def update_node_pre_icon(self, tree_iter, stock_id=None):
         """Set Pre Icon to node"""
         self.treestore[tree_iter][8] = stock_id
-        self.pre_renderer_pixbuf.set_property("visible", len(self.bookmarks) > 0)
+        self.aux_renderer_pixbuf.set_property("visible", len(self.bookmarks) > 0)
 
     def bookmark_curr_node_remove(self, *args):
         """Remove the Current Node from the Bookmarks List"""

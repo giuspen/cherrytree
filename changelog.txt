@@ -8,7 +8,7 @@
 • added node duplication with shortcut Ctrl+Shift+D
 • added support for text Justify Fill
 • added configurable option to have nodes in bookmarks always visible in the tree
-• added a pin icon beside the tree node icon for nodes in the bookmarks
+• added a pin icon beside the tree node for nodes in the bookmarks
 • added menu item to remove the current node from the bookmarks; assigned shortcuts Ctrl+Shift+B" to add and Ctrl+Alt+B" to remove
 • merged the top menu Replace into the top menu Search
 • fixed bugs

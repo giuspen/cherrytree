@@ -341,7 +341,7 @@ def config_file_apply(inst):
     inst.ui.get_widget("/ToolBar").set_property("icon-size", ICONS_SIZE[inst.toolbar_icon_size])
     if inst.autosave[0]: inst.autosave_timer_start()
     if inst.enable_mod_time_sentinel: inst.modification_time_sentinel_start()
-    inst.pre_renderer_pixbuf.set_property("visible", len(inst.bookmarks) > 0)
+    inst.aux_renderer_pixbuf.set_property("visible", len(inst.bookmarks) > 0)
 
 def config_file_save(inst):
     """Save the Preferences to Config File"""
@@ -516,8 +516,9 @@ def set_tree_expanded_collapsed_string(inst, treeview=None):
     expanded_collapsed_dict = {}
     expanded_collapsed_vector = inst.expanded_collapsed_string.split('_')
     for element in expanded_collapsed_vector:
-        couple = element.split(',')
-        expanded_collapsed_dict[couple[0]] = couple[1]
+        if "," in element:
+            couple = element.split(',')
+            expanded_collapsed_dict[couple[0]] = couple[1]
     tree_iter = treestore.get_iter_first()
     while tree_iter != None:
         set_tree_expanded_collapsed_string_iter(inst, tree_iter, expanded_collapsed_dict, treeview, treestore)
