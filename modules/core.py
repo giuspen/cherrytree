@@ -2620,9 +2620,12 @@ iter_end, exclude_iter_sel_end=True)
         self.nodes_names_dict[new_node_id] = ret_name
         if self.node_add_is_duplication:
             if self.syntax_highlighting != cons.RICH_TEXT_ID:
-                text_buffer = self.treestore[tree_iter_from][2]
-                content = text_buffer.get_text(*text_buffer.get_bounds())
-                self.treestore[new_node_iter][2].set_text(content)
+                text_buffer_from = self.treestore[tree_iter_from][2]
+                text_buffer_to = self.treestore[new_node_iter][2]
+                content = text_buffer_from.get_text(*text_buffer_from.get_bounds())
+                text_buffer_to.begin_not_undoable_action()
+                text_buffer_to.set_text(content)
+                text_buffer_to.end_not_undoable_action()
             else:
                 state = self.state_machine.requested_previous_state(self.treestore[tree_iter_from][3])
                 self.load_buffer_from_state(state, given_tree_iter=new_node_iter)
@@ -2926,7 +2929,8 @@ iter_end, exclude_iter_sel_end=True)
     def update_window_save_needed(self, update_type=None, new_state_machine=False, given_tree_iter=None):
         """Window title preceeded by an asterix"""
         tree_iter = self.curr_tree_iter if not given_tree_iter else given_tree_iter
-        if tree_iter: self.treestore[tree_iter][2].set_modified(True)
+        if tree_iter and self.treestore[tree_iter][4] == cons.RICH_TEXT_ID:
+            self.treestore[tree_iter][2].set_modified(True)
         if not self.file_update:
             self.window_title_update(True)
             self.file_update = True
