@@ -260,7 +260,6 @@ class CodeBoxesHandler:
         anchor.sourceview.set_show_line_numbers(anchor.show_line_numbers)
         anchor.sourceview.set_insert_spaces_instead_of_tabs(self.dad.spaces_instead_tabs)
         anchor.sourceview.set_tab_width(self.dad.tabs_width)
-        anchor.sourceview.set_auto_indent(self.dad.auto_indent)
         anchor.sourceview.connect('populate-popup', self.on_sourceview_populate_popup_codebox, anchor)
         anchor.sourceview.connect('key_press_event', self.on_key_press_sourceview_codebox, anchor)
         anchor.sourceview.connect('button-press-event', self.on_mouse_button_clicked_codebox, anchor)
