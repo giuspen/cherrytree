@@ -843,19 +843,19 @@ class StateMachine:
     def text_variation(self, node_id, varied_text):
         """Insertion or Removal of text in the given node_id"""
         if cons.CHAR_NEWLINE in varied_text:
-            self.update_state(node_id)
+            self.update_state()
             return
         alphanum = re.search("\w", varied_text, re.UNICODE) # we search for an alphanumeric character
         if self.nodes_indicators[node_id] < 2:
             if alphanum != None: self.nodes_indicators[node_id] = 2 # alphanumeric transition
             else: self.nodes_indicators[node_id] = 1 # non alphanumeric transition
         elif alphanum == None: # self.nodes_indicators[node_id] == 2 and non alphanumeric transition
-            self.update_state(node_id)
+            self.update_state()
 
     def requested_previous_state(self, node_id):
         """A Previous State, if Existing, is Requested"""
         if self.curr_index_is_last_index(node_id):
-            self.update_state(node_id)
+            self.update_state()
         if self.nodes_indexes[node_id] > 0:
             self.nodes_indexes[node_id] -= 1
         return self.nodes_vectors[node_id][self.nodes_indexes[node_id]]
@@ -885,8 +885,11 @@ class StateMachine:
         last_index = len(self.nodes_vectors[node_id]) - 1
         return curr_index == last_index
 
-    def update_state(self, node_id):
+    def update_state(self):
         """Update the state for the given node_id"""
+        if self.dad.syntax_highlighting != cons.RICH_TEXT_ID:
+            return
+        node_id = self.dad.treestore[self.dad.curr_tree_iter][3]
         if not self.curr_index_is_last_index(node_id):
             del self.nodes_vectors[node_id][self.nodes_indexes[node_id]+1:]
         xml_content = self.dad.xml_handler.treestore_node_to_dom(self.dad.curr_tree_iter)

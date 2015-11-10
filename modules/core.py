@@ -327,7 +327,7 @@ class CherryTree:
                     text_buffer.move_mark(text_buffer.get_insert(), iter_end)
                     self.clipboard_handler.from_xml_string_to_buffer(rich_text)
                     text_buffer.place_cursor(text_buffer.get_iter_at_offset(cursor_offset))
-        self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
+        self.state_machine.update_state()
 
     def text_row_up(self, *args):
         """Moves Up the Current Row/Selected Rows"""
@@ -392,7 +392,7 @@ iter_end, exclude_iter_sel_end=True)
             text_buffer.delete(cursor_iter, text_buffer.get_iter_at_offset(cursor_iter.get_offset()+1))
             # selection
             self.set_selection_at_offset_n_delta(destination_offset, diff_offsets-1, text_buffer=text_buffer)
-        self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
+        self.state_machine.update_state()
 
     def text_row_down(self, *args):
         """Moves Down the Current Row/Selected Rows"""
@@ -466,7 +466,7 @@ iter_end, exclude_iter_sel_end=True)
                 self.set_selection_at_offset_n_delta(destination_offset, diff_offsets-1, text_buffer=text_buffer)
             else:
                 self.set_selection_at_offset_n_delta(destination_offset+1, diff_offsets-2, text_buffer=text_buffer)
-        self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
+        self.state_machine.update_state()
 
     def get_text_view_n_buffer_codebox_proof(self):
         """Returns Tuple TextView, TextBuffer, Boolean checking if CodeBox in Use"""
@@ -490,7 +490,7 @@ iter_end, exclude_iter_sel_end=True)
             iter_end = iter_start.copy()
         if not iter_end.forward_char() and not iter_start.backward_char(): return
         text_buffer.delete(iter_start, iter_end)
-        self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
+        self.state_machine.update_state()
 
     def text_row_cut(self, *args):
         """Cut a Whole Row"""
@@ -1060,7 +1060,7 @@ iter_end, exclude_iter_sel_end=True)
             if self.curr_buffer.get_modified() == True:
                 self.file_update = True
                 self.curr_buffer.set_modified(False)
-                self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
+                self.state_machine.update_state()
             dialog = gtk.Dialog(title=_("Who is the Father?"),
                                 parent=self.window,
                                 flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
@@ -1442,7 +1442,7 @@ iter_end, exclude_iter_sel_end=True)
             self.file_name = os.path.basename(filepath)
             support.add_recent_document(self, filepath)
             self.update_window_save_not_needed()
-            self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
+            self.state_machine.update_state()
             self.objects_buffer_refresh()
         self.modification_time_update_value(True)
 
@@ -1460,7 +1460,7 @@ iter_end, exclude_iter_sel_end=True)
                 if self.is_tree_not_empty_or_error() \
                 and self.file_write(os.path.join(self.file_dir, self.file_name), first_write=False):
                     self.update_window_save_not_needed()
-                    self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
+                    self.state_machine.update_state()
                 self.modification_time_update_value(True)
             else: print "no changes"
         else: self.file_save_as()
@@ -2056,7 +2056,7 @@ iter_end, exclude_iter_sel_end=True)
             if ctd_filepath:
                 ctd_handler.node_and_subnodes_export_to_ctd(self.curr_tree_iter, ctd_filepath)
                 if restore_filetype in ["b", "x"] and self.curr_tree_iter:
-                    self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
+                    self.state_machine.update_state()
                     self.objects_buffer_refresh()
         elif export_type == 3:
             # all nodes
@@ -2065,7 +2065,7 @@ iter_end, exclude_iter_sel_end=True)
             if ctd_filepath:
                 ctd_handler.nodes_all_export_to_ctd(ctd_filepath)
                 if restore_filetype in ["b", "x"] and self.curr_tree_iter:
-                    self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
+                    self.state_machine.update_state()
                     self.objects_buffer_refresh()
         else:
             # only selection
@@ -2152,7 +2152,7 @@ iter_end, exclude_iter_sel_end=True)
             if self.html_handler.prepare_html_folder(folder_name):
                 self.html_handler.nodes_all_export_to_html(self.curr_tree_iter)
                 if self.filetype in ["b", "x"] and self.curr_tree_iter:
-                    self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
+                    self.state_machine.update_state()
                     self.objects_buffer_refresh()
         elif export_type == 3:
             # all nodes
@@ -2163,7 +2163,7 @@ iter_end, exclude_iter_sel_end=True)
             if self.html_handler.prepare_html_folder(self.file_name, dir_place=dir_string):
                 self.html_handler.nodes_all_export_to_html()
                 if self.filetype in ["b", "x"] and self.curr_tree_iter:
-                    self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
+                    self.state_machine.update_state()
                     self.objects_buffer_refresh()
         else:
             # only selection
@@ -2862,7 +2862,7 @@ iter_end, exclude_iter_sel_end=True)
             if self.curr_buffer.get_modified():
                 self.file_update = True
                 self.curr_buffer.set_modified(False)
-                self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
+                self.state_machine.update_state()
         self.curr_tree_iter = new_iter
         self.curr_buffer = self.get_textbuffer_from_tree_iter(self.curr_tree_iter)
         self.sourceview.set_buffer(self.curr_buffer)
@@ -2947,7 +2947,7 @@ iter_end, exclude_iter_sel_end=True)
                     self.state_machine.delete_states(self.treestore[tree_iter][3])
             elif update_type == "book": self.ctdb_handler.pending_edit_db_bookmarks()
         if new_state_machine and tree_iter:
-            self.state_machine.update_state(self.treestore[tree_iter][3])
+            self.state_machine.update_state()
 
     def update_window_save_not_needed(self):
         """Window title not preceeded by an asterix"""
@@ -3142,7 +3142,7 @@ iter_end, exclude_iter_sel_end=True)
         if self.user_active and self.curr_buffer.get_modified():
             self.file_update = True
             self.curr_buffer.set_modified(False)
-            self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
+            self.state_machine.update_state()
         refresh = self.state_machine.requested_current_state(self.treestore[self.curr_tree_iter][3])
         # refresh is [ [rich_text, pixbuf_table_vector, cursor_position],... ]
         pixbuf_table_vector = refresh[1]
@@ -3894,7 +3894,7 @@ iter_end, exclude_iter_sel_end=True)
             self.state_machine.apply_object_justification(text_iter, image_justification, text_buffer)
         elif self.user_active:
             # if I apply a justification, the state is already updated
-            self.state_machine.update_state(self.treestore[self.curr_tree_iter][3])
+            self.state_machine.update_state()
 
     def embfile_set_tooltip(self, anchor):
         """Set Embedded File Tooltip"""

@@ -367,7 +367,7 @@ class TablesHandler:
             self.dad.state_machine.apply_object_justification(text_iter, table_justification, text_buffer)
         elif self.dad.user_active:
             # if I apply a justification, the state is already updated
-            self.dad.state_machine.update_state(self.dad.treestore[self.dad.curr_tree_iter][3])
+            self.dad.state_machine.update_state()
 
     def table_edit_properties(self, *args):
         """Edit Table Properties"""

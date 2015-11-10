@@ -360,7 +360,7 @@ class FindReplace:
             text_buffer.insert_at_cursor(replacer_text)
             if not all_matches:
                 self.dad.set_selection_at_offset_n_delta(match_offsets[0] + num_objs, len(replacer_text))
-            self.dad.state_machine.update_state(self.dad.treestore[tree_iter][3])
+            self.dad.state_machine.update_state()
             self.dad.ctdb_handler.pending_edit_db_node_buff(self.dad.treestore[tree_iter][3], force_user_active=True)
         return True
     
