@@ -1390,8 +1390,12 @@ iter_end, exclude_iter_sel_end=True)
         if self.file_name and os.path.isfile(os.path.join(self.file_dir, self.file_name)):
             self.file_load(os.path.join(self.file_dir, self.file_name))
             self.modification_time_update_value(True)
-            if self.rest_exp_coll == 1: self.treeview.expand_all()
-            elif self.rest_exp_coll == 0: config.set_tree_expanded_collapsed_string(self)
+            if self.rest_exp_coll == 1:
+                self.treeview.expand_all()
+            else:
+                if self.rest_exp_coll == 2:
+                    self.expanded_collapsed_string = ""
+                config.set_tree_expanded_collapsed_string(self)
             # is there a node name to focus?
             if node_name:
                 node_name = unicode(node_name, cons.STR_UTF8, cons.STR_IGNORE)
@@ -1680,8 +1684,12 @@ iter_end, exclude_iter_sel_end=True)
                 self.memory_save_old_file_props(old_file_name, old_exp_coll_str, old_node_path_str, old_cursor_pos)
         self.file_load(filepath)
         self.modification_time_update_value(True)
-        if self.rest_exp_coll == 1: self.treeview.expand_all()
-        elif self.rest_exp_coll == 0: config.set_tree_expanded_collapsed_string(self)
+        if self.rest_exp_coll == 1:
+            self.treeview.expand_all()
+        else:
+            if self.rest_exp_coll == 2:
+                self.expanded_collapsed_string = ""
+            config.set_tree_expanded_collapsed_string(self)
         config.set_tree_path_and_cursor_pos(self)
 
     def folder_cfg_open(self, *args):

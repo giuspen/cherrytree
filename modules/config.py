@@ -997,7 +997,7 @@ def preferences_tab_tree(dad, vbox_tree, pref_dialog):
     radiobutton_nodes_startup_collapse.set_group(radiobutton_nodes_startup_restore)
     checkbutton_nodes_bookm_exp = gtk.CheckButton(_("Nodes in Bookmarks Always Visible"))
     checkbutton_nodes_bookm_exp.set_active(dad.nodes_bookm_exp)
-    checkbutton_nodes_bookm_exp.set_sensitive(dad.rest_exp_coll == 0)
+    checkbutton_nodes_bookm_exp.set_sensitive(dad.rest_exp_coll != 1)
 
     vbox_nodes_startup.pack_start(radiobutton_nodes_startup_restore, expand=False)
     vbox_nodes_startup.pack_start(radiobutton_nodes_startup_expand, expand=False)
@@ -1102,7 +1102,7 @@ def preferences_tab_tree(dad, vbox_tree, pref_dialog):
     def on_radiobutton_nodes_startup_collapse_toggled(checkbutton):
         if checkbutton.get_active():
             dad.rest_exp_coll = 2
-            checkbutton_nodes_bookm_exp.set_sensitive(False)
+            checkbutton_nodes_bookm_exp.set_sensitive(True)
     radiobutton_nodes_startup_collapse.connect('toggled', on_radiobutton_nodes_startup_collapse_toggled)
     def on_checkbutton_nodes_bookm_exp_toggled(checkbutton):
         dad.nodes_bookm_exp = checkbutton.get_active()
