@@ -90,11 +90,15 @@ class CherryTree:
         self.scrolledwindow_text.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
         self.scrolledwindow_text.get_hscrollbar().connect('value-changed', self.on_hscrollbar_text_value_changed)
         self.vbox_text = gtk.VBox()
+        self.header_node_name_hbox = gtk.HBox()
+        self.header_node_name_icon = gtk.image_new_from_stock("pin", gtk.ICON_SIZE_MENU)
         self.header_node_name_label = gtk.Label()
         self.header_node_name_label.set_padding(10, 0)
         self.header_node_name_label.set_ellipsize(pango.ELLIPSIZE_MIDDLE)
+        self.header_node_name_hbox.pack_start(self.header_node_name_label, expand=True)
+        self.header_node_name_hbox.pack_start(self.header_node_name_icon, expand=False)
         self.header_node_name_eventbox = gtk.EventBox()
-        self.header_node_name_eventbox.add(self.header_node_name_label)
+        self.header_node_name_eventbox.add(self.header_node_name_hbox)
         self.vbox_text.pack_start(self.header_node_name_eventbox, False, False)
         self.vbox_text.pack_start(self.scrolledwindow_text)
         if self.tree_right_side:
@@ -1215,6 +1219,7 @@ iter_end, exclude_iter_sel_end=True)
 
     def menu_tree_update_for_bookmarked_node(self, is_bookmarked):
         """Update Tree Menu according to Node in Bookmarks or Not"""
+        self.header_node_name_icon.set_property(cons.STR_VISIBLE, is_bookmarked)
         for menu_tree in [self.top_menu_tree, self.node_menu_tree]:
             for menuitem in menu_tree:
                 try:
@@ -3440,9 +3445,9 @@ iter_end, exclude_iter_sel_end=True)
 
     def toggle_show_hide_node_name_header(self, *args):
         """Toggle Show/Hide the Node Title Header"""
-        old_show_node_name_label = self.header_node_name_label.get_property(cons.STR_VISIBLE)
+        old_show_node_name_label = self.header_node_name_hbox.get_property(cons.STR_VISIBLE)
         self.show_node_name_label = not old_show_node_name_label
-        self.header_node_name_label.set_property(cons.STR_VISIBLE, self.show_node_name_label)
+        self.header_node_name_hbox.set_property(cons.STR_VISIBLE, self.show_node_name_label)
 
     def quit_application(self, *args):
         """Just Hide or Quit the gtk main loop"""

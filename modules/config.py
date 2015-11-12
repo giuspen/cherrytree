@@ -322,7 +322,7 @@ def config_file_load(inst):
 def config_file_apply(inst):
     """Apply the Preferences from Config File"""
     inst.hpaned.set_property('position', inst.hpaned_pos)
-    inst.header_node_name_label.set_property(cons.STR_VISIBLE, inst.show_node_name_label)
+    inst.header_node_name_hbox.set_property(cons.STR_VISIBLE, inst.show_node_name_label)
     inst.set_treeview_font()
     inst.widget_set_colors(inst.treeview, inst.tt_def_fg, inst.tt_def_bg, False)
     if not pgsc_spellcheck.HAS_PYENCHANT:
