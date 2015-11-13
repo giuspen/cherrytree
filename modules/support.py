@@ -1474,7 +1474,6 @@ def bookmarks_handle(dad):
     treeview = gtk.TreeView(liststore)
     treeview.set_headers_visible(False)
     treeview.set_reorderable(True)
-    treeview.set_tooltip_text(_("Sort with Drag and Drop, Delete with the Delete Key"))
     treeviewselection = treeview.get_selection()
     def on_key_press_liststore(widget, event):
         keyname = gtk.gdk.keyval_name(event.keyval)
@@ -1504,7 +1503,48 @@ def bookmarks_handle(dad):
     scrolledwindow.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
     scrolledwindow.add(treeview)
     content_area = dialog.get_content_area()
-    content_area.pack_start(scrolledwindow)
+    hbox = gtk.HBox()
+    vbox = gtk.VBox()
+    vbox.set_spacing(1)
+    button_move_up = gtk.Button()
+    button_move_up.set_image(gtk.image_new_from_stock("gtk-go-up", gtk.ICON_SIZE_DND))
+    button_move_down = gtk.Button()
+    button_move_down.set_image(gtk.image_new_from_stock("gtk-go-down", gtk.ICON_SIZE_DND))
+    button_delete = gtk.Button()
+    button_delete.set_image(gtk.image_new_from_stock("gtk-clear", gtk.ICON_SIZE_DND))
+    button_sort_desc = gtk.Button()
+    button_sort_desc.set_image(gtk.image_new_from_stock("gtk-sort-descending", gtk.ICON_SIZE_DND))
+    button_sort_asc = gtk.Button()
+    button_sort_asc.set_image(gtk.image_new_from_stock("gtk-sort-ascending", gtk.ICON_SIZE_DND))
+    def on_button_move_up_clicked(*args):
+        model, tree_iter = treeviewselection.get_selected()
+        if tree_iter:
+            pass
+    button_move_up.connect('clicked', on_button_move_up_clicked)
+    def on_button_move_down_clicked(*args):
+        model, tree_iter = treeviewselection.get_selected()
+        if tree_iter:
+            pass
+    button_move_down.connect('clicked', on_button_move_down_clicked)
+    def on_button_delete_clicked(*args):
+        model, tree_iter = treeviewselection.get_selected()
+        if tree_iter:
+            model.remove(tree_iter)
+    button_delete.connect('clicked', on_button_delete_clicked)
+    def on_button_sort_desc_clicked(*args):
+        pass
+    button_sort_desc.connect('clicked', on_button_sort_desc_clicked)
+    def on_button_sort_asc_clicked(*args):
+        pass
+    button_sort_asc.connect('clicked', on_button_sort_asc_clicked)
+    vbox.pack_start(button_move_up, expand=False)
+    vbox.pack_start(button_move_down, expand=False)
+    vbox.pack_start(button_delete, expand=False)
+    vbox.pack_start(button_sort_desc, expand=False)
+    vbox.pack_start(button_sort_asc, expand=False)
+    hbox.pack_start(scrolledwindow, expand=True)
+    hbox.pack_start(vbox, expand=False)
+    content_area.pack_start(hbox)
     content_area.show_all()
     response = dialog.run()
     temp_bookmarks = []
