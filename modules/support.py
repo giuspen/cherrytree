@@ -1519,12 +1519,16 @@ def bookmarks_handle(dad):
     def on_button_move_up_clicked(*args):
         model, tree_iter = treeviewselection.get_selected()
         if tree_iter:
-            pass
+            prev_iter = dad.get_tree_iter_prev_sibling(model, tree_iter)
+            if prev_iter:
+                model.swap(tree_iter, prev_iter)
     button_move_up.connect('clicked', on_button_move_up_clicked)
     def on_button_move_down_clicked(*args):
         model, tree_iter = treeviewselection.get_selected()
         if tree_iter:
-            pass
+            next_iter = model.iter_next(tree_iter)
+            if next_iter:
+                model.swap(tree_iter, next_iter)
     button_move_down.connect('clicked', on_button_move_down_clicked)
     def on_button_delete_clicked(*args):
         model, tree_iter = treeviewselection.get_selected()
@@ -1532,10 +1536,12 @@ def bookmarks_handle(dad):
             model.remove(tree_iter)
     button_delete.connect('clicked', on_button_delete_clicked)
     def on_button_sort_desc_clicked(*args):
-        pass
+        while dad.node_siblings_sort_iteration(liststore, None, False, 1):
+            pass
     button_sort_desc.connect('clicked', on_button_sort_desc_clicked)
     def on_button_sort_asc_clicked(*args):
-        pass
+        while dad.node_siblings_sort_iteration(liststore, None, True, 1):
+            pass
     button_sort_asc.connect('clicked', on_button_sort_asc_clicked)
     vbox.pack_start(button_move_up, expand=False)
     vbox.pack_start(button_move_down, expand=False)
