@@ -206,7 +206,8 @@ def on_sourceview_event_after_key_press(dad, text_view, event):
                 text_buffer.delete(iter_list_quit, iter_insert)
                 return False # former was an empty paragraph => list quit
             # list new element
-            pre_spaces = 3*list_info["level"]*cons.CHAR_SPACE if list_info["level"] else ""
+            curr_level = list_info["level"]
+            pre_spaces = 3*curr_level*cons.CHAR_SPACE if curr_level else ""
             if list_info["num"] < 0:
                 index = list_info["num"]*(-1) - 1
                 text_buffer.insert(iter_insert, pre_spaces+cons.CHARS_LISTBUL[index]+cons.CHAR_SPACE)
@@ -216,6 +217,22 @@ def on_sourceview_event_after_key_press(dad, text_view, event):
                 new_num = list_info["num"] + 1
                 index = list_info["aux"]
                 text_buffer.insert(iter_insert, pre_spaces + str(new_num) + cons.CHARS_LISTNUM[index] + cons.CHAR_SPACE)
+                new_num += 1
+                iter_start = text_buffer.get_iter_at_offset(insert_offset)
+                dad.lists_handler.char_iter_forward_to_newline(iter_start)
+                list_info = dad.lists_handler.get_next_list_info_on_level(iter_start, curr_level)
+                #print list_info
+                while list_info and list_info["num"] > 0:
+                    iter_start = text_buffer.get_iter_at_offset(list_info["startoffs"])
+                    end_offset = dad.lists_handler.get_multiline_list_element_end_offset(iter_start, list_info)
+                    iter_end = text_buffer.get_iter_at_offset(end_offset)
+                    iter_start, iter_end, chars_rm = dad.lists_handler.list_check_n_remove_old_list_type_leading(iter_start, iter_end, text_buffer)
+                    end_offset -= chars_rm
+                    text_buffer.insert(iter_start, str(new_num) + cons.CHARS_LISTNUM[index] + cons.CHAR_SPACE)
+                    end_offset += dad.lists_handler.get_leading_chars_num(new_num)
+                    iter_start = text_buffer.get_iter_at_offset(end_offset)
+                    new_num += 1
+                    list_info = dad.lists_handler.get_next_list_info_on_level(iter_start, curr_level)
         elif keyname == cons.STR_KEY_SPACE:
             if iter_start.backward_chars(2):
                 if iter_start.get_char() == cons.CHAR_GREATER and iter_start.backward_char():

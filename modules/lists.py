@@ -191,7 +191,21 @@ class ListsHandler:
         """Given a level check for previous list number on the level or None"""
         ret_val = None
         while iter_start:
-            if not iter_start.backward_char():
+            if not self.char_iter_backward_to_newline(iter_start):
+                break
+            list_info = self.get_paragraph_list_info(iter_start)
+            if not list_info:
+                break
+            if list_info["level"] == level:
+                ret_val = list_info
+                break
+        return ret_val
+
+    def get_next_list_info_on_level(self, iter_start, level):
+        """Given a level check for next list number on the level or None"""
+        ret_val = None
+        while iter_start:
+            if not self.char_iter_forward_to_newline(iter_start):
                 break
             list_info = self.get_paragraph_list_info(iter_start)
             if not list_info:
