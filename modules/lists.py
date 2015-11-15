@@ -49,14 +49,13 @@ class ListsHandler:
                 # empty line
                 if not leading_num_count:
                     # this is the first iteration
-                    if not list_info:
-                        iter_start = text_buffer.get_iter_at_mark(text_buffer.get_insert())
-                        if target_list_num_id == 0:
-                            text_buffer.insert(iter_start, cons.CHAR_LISTTODO + cons.CHAR_SPACE)
-                        elif target_list_num_id < 0:
-                            text_buffer.insert(iter_start, cons.CHARS_LISTBUL[0] + cons.CHAR_SPACE)
-                        else:
-                            text_buffer.insert(iter_start, "1. ")
+                    iter_start = text_buffer.get_iter_at_mark(text_buffer.get_insert())
+                    if target_list_num_id == 0:
+                        text_buffer.insert(iter_start, cons.CHAR_LISTTODO + cons.CHAR_SPACE)
+                    elif target_list_num_id < 0:
+                        text_buffer.insert(iter_start, cons.CHARS_LISTBUL[0] + cons.CHAR_SPACE)
+                    else:
+                        text_buffer.insert(iter_start, "1. ")
                 break
             list_info = self.get_paragraph_list_info(iter_start)
             #print list_info
@@ -271,13 +270,10 @@ class ListsHandler:
 
     def is_list_todo_beginning(self, square_bracket_open_iter):
         """Check if ☐ or ☑ or ☒"""
-        text_iter = square_bracket_open_iter.copy()
-        if text_iter.backward_char():
-            if text_iter.get_char() == cons.CHAR_NEWLINE:
-                text_iter.forward_char()
-            else: return False
-        if text_iter.get_char() in [cons.CHAR_LISTTODO, cons.CHAR_LISTDONEOK, cons.CHAR_LISTDONEFAIL]:
-            return True
+        if square_bracket_open_iter.get_char() in [cons.CHAR_LISTTODO, cons.CHAR_LISTDONEOK, cons.CHAR_LISTDONEFAIL]:
+            list_info = self.get_paragraph_list_info(square_bracket_open_iter)
+            if list_info and list_info["num"] == 0:
+                return True
         return False
 
     def todo_list_rotate_status(self, todo_char_iter, text_buffer):
