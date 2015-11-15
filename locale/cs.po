@@ -4,13 +4,13 @@
 #
 # maul <giuspen@gmail.com>, 2010.
 # Pavel Fric <pavelfric@seznam.cz>, 2010, 2011.
-# Pavel Fric <pavelfric@seznam.cz>, 2011, 2012, 2013, 2014.
+# Pavel Fric <pavelfric@seznam.cz>, 2011, 2012, 2013, 2014, 2015.
 msgid ""
 msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-11-14 23:31+0000\n"
-"PO-Revision-Date: 2014-09-29 20:49+0200\n"
+"PO-Revision-Date: 2015-11-15 10:11+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
 "Language: cs\n"
@@ -377,27 +377,25 @@ msgstr "Přepnout Povolit/Zakázat ověřování pravopisu"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:546
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:769
-#, fuzzy
 msgid "Cu_t as Plain Text"
-msgstr "_Vložit jako prostý text"
+msgstr "Vyjmou_t jako prostý text"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:546
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:769
-#, fuzzy
 msgid "Cut as Plain Text, Discard the Rich Text Formatting"
-msgstr "Vložit jako prostý text, odložit formátování formátovaného textu (RTF)"
+msgstr ""
+"Vyjmout jako prostý text, odložit formátování formátovaného textu (RTF)"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:547
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:770
-#, fuzzy
 msgid "_Copy as Plain Text"
-msgstr "_Vložit jako prostý text"
+msgstr "_Kopírovat jako prostý text"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:547
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:770
-#, fuzzy
 msgid "Copy as Plain Text, Discard the Rich Text Formatting"
-msgstr "Vložit jako prostý text, odložit formátování formátovaného textu (RTF)"
+msgstr ""
+"Kopírovat jako prostý text, odložit formátování formátovaného textu (RTF)"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:548
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:771
@@ -696,14 +694,12 @@ msgid "Justify Right the Current Paragraph"
 msgstr "Zarovnat současný odstavec vpravo"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:576
-#, fuzzy
 msgid "Justify _Fill"
-msgstr "Zarovnat v_pravo"
+msgstr "Zarovnat do _bloku"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:576
-#, fuzzy
 msgid "Justify Fill the Current Paragraph"
-msgstr "Zarovnat současný odstavec vpravo"
+msgstr "Zarovnat současný odstavec do bloku"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:577
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:697
@@ -727,15 +723,13 @@ msgstr "Přidat uzel podřízený vybranému uzlu"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:579
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:699
-#, fuzzy
 msgid "_Duplicate Node"
-msgstr "_Zdvojit řádek"
+msgstr "_Zdvojit uzel"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:579
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:699
-#, fuzzy
 msgid "Duplicate the Selected Node"
-msgstr "Smazat vybraný uzel"
+msgstr "Zdvojit vybraný uzel"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:580
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:701
@@ -1264,7 +1258,7 @@ msgstr "Přidat uzly ze složky Tomboy do současné stromové stavby"
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:634
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:741
 msgid "From T_reepad Lite File"
-msgstr "Soubor z T_reepad Lite"
+msgstr "Ze souboru T_reepad Lite"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:634
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:741
@@ -1593,23 +1587,20 @@ msgid "Export Table as CSV File"
 msgstr "Vyvést tabulku jako soubor CSV"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:703
-#, fuzzy
 msgid "Add to _Bookmarks"
-msgstr "_Záložky"
+msgstr "Přidat do_záložek"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:703
 msgid "Add the Current Node to the Bookmarks List"
 msgstr "Přidat současný uzel do seznamu záložek"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:704
-#, fuzzy
 msgid "_Remove from Bookmarks"
-msgstr "_Záložky"
+msgstr "_Odstranit ze záložek"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:704
-#, fuzzy
 msgid "Remove the Current Node from the Bookmarks List"
-msgstr "Přidat současný uzel do seznamu záložek"
+msgstr "Odstranit současný uzel ze seznamu záložek"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:715
 msgid "Nodes _Sort"
@@ -1700,18 +1691,16 @@ msgid "C_ut Link"
 msgstr "V_yjmout odkaz"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:894
-#, fuzzy
 msgid "Cut the Selected Link"
-msgstr "Smazat vybraný odkaz"
+msgstr "Vyjmout vybraný odkaz"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:895
 msgid "_Copy Link"
 msgstr "_Kopírovat odkaz"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:895
-#, fuzzy
 msgid "Copy the Selected Link"
-msgstr "Kopírovat vybranou kotvu"
+msgstr "Kopírovat vybraný odkaz"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:896
 msgid "Dismiss the Selected Link"
@@ -1997,59 +1986,59 @@ msgstr ""
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:621
 msgid "Armenian"
-msgstr "Arménský"
+msgstr "Překlad do arménštiny"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:622
 msgid "Chinese Simplified"
-msgstr "Zjednodušená Čínština"
+msgstr "Překlad do zjednodušené čínštiny"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:623
 msgid "Czech"
-msgstr "Český překlad"
+msgstr "Překlad do češtiny"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:624
 msgid "Dutch"
-msgstr "Holandský překlad"
+msgstr "Překlad do holandštiny"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:625
 msgid "French"
-msgstr "Francouzský překlad"
+msgstr "Překlad do francouzštiny"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:626
 msgid "German"
-msgstr "Německý překlad"
+msgstr "Překlad do němčiny"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:627
 msgid "Italian"
-msgstr "Italský překlad"
+msgstr "Překlad do italštiny"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:628
 msgid "Japanese"
-msgstr ""
+msgstr "Překlad do japonštiny"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:629
 msgid "Polish"
-msgstr "Polský překlad"
+msgstr "Překlad do polštiny"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:630
 msgid "Portuguese Brazil"
-msgstr "Portugalština Brazílie"
+msgstr "Překlad do brazilské portugalštiny"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:631
 msgid "Russian"
-msgstr "Ruský překlad"
+msgstr "Překlad do ruštiny"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:632
 msgid "Spanish"
-msgstr "Španělský překlad"
+msgstr "Překlad do španělštiny"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:633
 msgid "Turkish"
-msgstr ""
+msgstr "Překlad do turečtiny"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:634
 msgid "Ukrainian"
-msgstr "Ukrajinský překlad"
+msgstr "Překlad do ukrajinštiny"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:894
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:937
@@ -2375,7 +2364,7 @@ msgstr "Složit všechny uzly"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:998
 msgid "Nodes in Bookmarks Always Visible"
-msgstr ""
+msgstr "Uzly v záložkách vždy viditelné"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:1006
 msgid "Nodes Status at Startup"

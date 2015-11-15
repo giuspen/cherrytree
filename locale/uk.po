@@ -15,8 +15,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Language: uk_UA\n"
 "X-Source-Language: C\n"
@@ -379,27 +378,23 @@ msgstr "Включити/Виключити перевірку орфограф�
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:546
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:769
-#, fuzzy
 msgid "Cu_t as Plain Text"
-msgstr "Вставити як звичайний текст"
+msgstr "Вирізати як звичайний текст"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:546
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:769
-#, fuzzy
 msgid "Cut as Plain Text, Discard the Rich Text Formatting"
-msgstr "Вставити як текст, ігноруючи форматування"
+msgstr "Вирізати як текст, ігноруючи форматування"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:547
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:770
-#, fuzzy
 msgid "_Copy as Plain Text"
-msgstr "Вставити як звичайний текст"
+msgstr "Скопіювати як звичайний текст"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:547
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:770
-#, fuzzy
 msgid "Copy as Plain Text, Discard the Rich Text Formatting"
-msgstr "Вставити як текст, ігноруючи форматування"
+msgstr "Скопіювати як текст, ігноруючи форматування"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:548
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:771
@@ -695,14 +690,12 @@ msgid "Justify Right the Current Paragraph"
 msgstr "Вирівняти поточний абзац по правому краю"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:576
-#, fuzzy
 msgid "Justify _Fill"
-msgstr "Вирівняти по правому краю"
+msgstr "Вирівняти по обох краях"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:576
-#, fuzzy
 msgid "Justify Fill the Current Paragraph"
-msgstr "Вирівняти поточний абзац по правому краю"
+msgstr "Вирівняти поточний абзац по обох краях"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:577
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:697
@@ -726,15 +719,13 @@ msgstr "Додати дочірню гілку"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:579
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:699
-#, fuzzy
 msgid "_Duplicate Node"
-msgstr "Продублювати рядок"
+msgstr "Продублювати гілку"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:579
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:699
-#, fuzzy
 msgid "Duplicate the Selected Node"
-msgstr "Видалити гілку"
+msgstr "Продублювати гілку"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:580
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:701
@@ -1590,23 +1581,20 @@ msgid "Export Table as CSV File"
 msgstr "Експорт таблиці в файл CSV"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:703
-#, fuzzy
 msgid "Add to _Bookmarks"
-msgstr "Закладки"
+msgstr "Додати в закладки"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:703
 msgid "Add the Current Node to the Bookmarks List"
 msgstr "Добавити поточну гілку в закладки"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:704
-#, fuzzy
 msgid "_Remove from Bookmarks"
-msgstr "Закладки"
+msgstr "Видалити з закладок"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:704
-#, fuzzy
 msgid "Remove the Current Node from the Bookmarks List"
-msgstr "Добавити поточну гілку в закладки"
+msgstr "Видалити поточну гілку з закладок"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:715
 msgid "Nodes _Sort"
@@ -1697,18 +1685,16 @@ msgid "C_ut Link"
 msgstr "Вирізати посилання"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:894
-#, fuzzy
 msgid "Cut the Selected Link"
-msgstr "Видалити виділене посилання"
+msgstr "Вирізати виділене посилання"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:895
 msgid "_Copy Link"
 msgstr "Копіювати посилання"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:895
-#, fuzzy
 msgid "Copy the Selected Link"
-msgstr "Копіювати виділений якір"
+msgstr "Копіювати виділене посилання"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:896
 msgid "Dismiss the Selected Link"
@@ -1998,59 +1984,59 @@ msgstr ""
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:621
 msgid "Armenian"
-msgstr "Вірменський"
+msgstr "Вірменська"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:622
 msgid "Chinese Simplified"
-msgstr "Китайський Спрощений"
+msgstr "Китайська спрощена"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:623
 msgid "Czech"
-msgstr "Чеський"
+msgstr "Чеська"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:624
 msgid "Dutch"
-msgstr "Голландський"
+msgstr "Голландська"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:625
 msgid "French"
-msgstr "Французький"
+msgstr "Французька"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:626
 msgid "German"
-msgstr "Німецький"
+msgstr "Німецька"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:627
 msgid "Italian"
-msgstr "Італійський"
+msgstr "Італійська"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:628
 msgid "Japanese"
-msgstr ""
+msgstr "Японська"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:629
 msgid "Polish"
-msgstr "Польський"
+msgstr "Польська"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:630
 msgid "Portuguese Brazil"
-msgstr "Португальский Бразилий"
+msgstr "Португальська бразильська"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:631
 msgid "Russian"
-msgstr "Російський"
+msgstr "Російська"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:632
 msgid "Spanish"
-msgstr "Іспанський"
+msgstr "Іспанська"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:633
 msgid "Turkish"
-msgstr ""
+msgstr "Турецька"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:634
 msgid "Ukrainian"
-msgstr "Український"
+msgstr "Українська"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:894
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:937
@@ -2376,7 +2362,7 @@ msgstr "Згорнути гілки"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:998
 msgid "Nodes in Bookmarks Always Visible"
-msgstr ""
+msgstr "Завжди видимі гілки в закладках"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:1006
 msgid "Nodes Status at Startup"
