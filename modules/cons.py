@@ -792,6 +792,7 @@ def get_popup_menu_entries_text(inst):
     ("gtk-justify-left", _("Justify _Left"), None, _("Justify Left the Current Paragraph"), inst.apply_tag_justify_left),
     ("gtk-justify-center", _("Justify _Center"), None, _("Justify Center the Current Paragraph"), inst.apply_tag_justify_center),
     ("gtk-justify-right", _("Justify _Right"), None, _("Justify Right the Current Paragraph"), inst.apply_tag_justify_right),
+    ("gtk-justify-fill", _("Justify _Fill"), None, _("Justify Fill the Current Paragraph"), inst.apply_tag_justify_fill),
     ("submenu-end", None, None, None, None),
     ("submenu-start", _("_List") , "list_bulleted", None, None),
     ("list_bulleted", _("Set/Unset _Bulleted List"), None, _("Set/Unset the Current Paragraph/Selection as a Bulleted List"), inst.list_bulleted_handler),

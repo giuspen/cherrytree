@@ -375,27 +375,23 @@ msgstr "スペルチェックの有効/無効"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:546
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:769
-#, fuzzy
 msgid "Cu_t as Plain Text"
-msgstr "テキスト形式で貼り付け(_P)"
+msgstr "テキスト形式で切り取り(&T)"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:546
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:769
-#, fuzzy
 msgid "Cut as Plain Text, Discard the Rich Text Formatting"
-msgstr "テキスト形式で貼り付け、リッチテキスト書式は失われます"
+msgstr "テキスト形式で切り取り、リッチテキスト書式は失われます"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:547
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:770
-#, fuzzy
 msgid "_Copy as Plain Text"
-msgstr "テキスト形式で貼り付け(_P)"
+msgstr "テキスト形式でコピー(&C)"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:547
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:770
-#, fuzzy
 msgid "Copy as Plain Text, Discard the Rich Text Formatting"
-msgstr "テキスト形式で貼り付け、リッチテキスト書式は失われます"
+msgstr "テキスト形式でコピー、リッチテキスト書式は失われます"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:548
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:771
@@ -691,14 +687,12 @@ msgid "Justify Right the Current Paragraph"
 msgstr "現在の段落を右揃え"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:576
-#, fuzzy
 msgid "Justify _Fill"
-msgstr "右揃え(_R)"
+msgstr "両端揃え(&F)"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:576
-#, fuzzy
 msgid "Justify Fill the Current Paragraph"
-msgstr "現在の段落を右揃え"
+msgstr "現在の段落を両端揃え"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:577
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:697
@@ -722,15 +716,13 @@ msgstr "選択ノードの子ノードを追加"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:579
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:699
-#, fuzzy
 msgid "_Duplicate Node"
-msgstr "行を複製(_D)"
+msgstr "ノードを複製(_D)"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:579
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:699
-#, fuzzy
 msgid "Duplicate the Selected Node"
-msgstr "選択ノードを削除"
+msgstr "選択ノードを複製"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:580
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:701
@@ -1590,23 +1582,20 @@ msgid "Export Table as CSV File"
 msgstr "表をCSVファイルにエクスポート"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:703
-#, fuzzy
 msgid "Add to _Bookmarks"
-msgstr "ブックマーク(_B)"
+msgstr "ブックマークに追加(_B)"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:703
 msgid "Add the Current Node to the Bookmarks List"
 msgstr "現在のノードをブックマーク一覧に追加"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:704
-#, fuzzy
 msgid "_Remove from Bookmarks"
-msgstr "ブックマーク(_B)"
+msgstr "ブックマークから削除(&R)"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:704
-#, fuzzy
 msgid "Remove the Current Node from the Bookmarks List"
-msgstr "現在のノードをブックマーク一覧に追加"
+msgstr "現在のノードをブックマーク一覧から削除"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:715
 msgid "Nodes _Sort"
@@ -1697,18 +1686,16 @@ msgid "C_ut Link"
 msgstr "リンクを切り取り(_U)"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:894
-#, fuzzy
 msgid "Cut the Selected Link"
-msgstr "選択リンクを削除"
+msgstr "選択リンクを切り取り"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:895
 msgid "_Copy Link"
 msgstr "リンクをコピー(_C)"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:895
-#, fuzzy
 msgid "Copy the Selected Link"
-msgstr "選択アンカーをコピー"
+msgstr "選択リンクをコピー"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:896
 msgid "Dismiss the Selected Link"
@@ -2022,7 +2009,7 @@ msgstr "Italian"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:628
 msgid "Japanese"
-msgstr ""
+msgstr "Japanese"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:629
 msgid "Polish"
@@ -2042,7 +2029,7 @@ msgstr "Spanish"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:633
 msgid "Turkish"
-msgstr ""
+msgstr "Turkish"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:634
 msgid "Ukrainian"
@@ -2372,7 +2359,7 @@ msgstr "すべてのノードを閉じる"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:998
 msgid "Nodes in Bookmarks Always Visible"
-msgstr ""
+msgstr "ブックマーク ノードを常に表示"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:1006
 msgid "Nodes Status at Startup"

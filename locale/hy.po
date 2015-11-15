@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-11-14 23:31+0000\n"
-"PO-Revision-Date: 2014-09-29 12:03+0400\n"
+"PO-Revision-Date: 2015-11-15 13:59+0400\n"
 "Last-Translator: Seda Stamboltsyan <sedastam@yandex.com>\n"
 "Language-Team: Armenian\n"
 "Language: hy\n"
@@ -373,27 +373,23 @@ msgstr "Ստուգել ուղղագրությունը"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:546
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:769
-#, fuzzy
 msgid "Cu_t as Plain Text"
-msgstr "Փակցնել որպես հասարակ տե_քստ"
+msgstr "Կ_տրել որպես հասարակ տեքստ"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:546
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:769
-#, fuzzy
 msgid "Cut as Plain Text, Discard the Rich Text Formatting"
-msgstr "Փակցնել որպես հասարակ տեքստ՝ ձևավորումն անտեսելով"
+msgstr "Կտրել որպես հասարակ տեքստ՝ ձևավորումն անտեսելով"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:547
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:770
-#, fuzzy
 msgid "_Copy as Plain Text"
-msgstr "Փակցնել որպես հասարակ տե_քստ"
+msgstr "_Պատճենել որպես հասարակ տեքստ"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:547
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:770
-#, fuzzy
 msgid "Copy as Plain Text, Discard the Rich Text Formatting"
-msgstr "Փակցնել որպես հասարակ տեքստ՝ ձևավորումն անտեսելով"
+msgstr "Պատճենել որպես հասարակ տեքստ՝ ձևավորումն անտեսելով"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:548
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:771
@@ -689,14 +685,12 @@ msgid "Justify Right the Current Paragraph"
 msgstr "Պարբերությունն ուղղել աջից"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:576
-#, fuzzy
 msgid "Justify _Fill"
-msgstr "Ուղղել ա_ջից"
+msgstr "Երկ_կողմանի հավասարեցում"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:576
-#, fuzzy
 msgid "Justify Fill the Current Paragraph"
-msgstr "Պարբերությունն ուղղել աջից"
+msgstr "Պարբերությունն ուղղել երկու կողմից"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:577
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:697
@@ -720,15 +714,13 @@ msgstr "Ընտրված ճյուղին ավելացնել դուստր ճյուղ
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:579
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:699
-#, fuzzy
 msgid "_Duplicate Node"
-msgstr "Կրկն_օրինակել տողը"
+msgstr "Կրկն_օրինակել ճյուղը"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:579
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:699
-#, fuzzy
 msgid "Duplicate the Selected Node"
-msgstr "Ջնջել ընտրված ճյուղը"
+msgstr "Կրկնօրինակել ընտրված ճյուղը"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:580
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:701
@@ -858,12 +850,8 @@ msgstr "Ժառանգել _շարահյուսությունը"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:592
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:753
-msgid ""
-"Change the Selected Node's Children Syntax Highlighting to the Father's "
-"Syntax Highlighting"
-msgstr ""
-"Ճյուղի շարահյուսական գունանշումը փոխարինել ծնողական ճյուղի շարահյուսական "
-"գունանշմամբ"
+msgid "Change the Selected Node's Children Syntax Highlighting to the Father's Syntax Highlighting"
+msgstr "Ճյուղի շարահյուսական գունանշումը փոխարինել ծնողական ճյուղի շարահյուսական գունանշմամբ"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:593
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:755
@@ -1586,23 +1574,20 @@ msgid "Export Table as CSV File"
 msgstr "Աղյուսակն արտահանել որպես CSV նիշք"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:703
-#, fuzzy
 msgid "Add to _Bookmarks"
-msgstr "_Էջանիշներ"
+msgstr "_Էջանշել"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:703
 msgid "Add the Current Node to the Bookmarks List"
 msgstr "Ընթացիկ ճյուղն ավելացնել էջանիշների ցանկին"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:704
-#, fuzzy
 msgid "_Remove from Bookmarks"
-msgstr "_Էջանիշներ"
+msgstr "_Էջանիշներից հանել"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:704
-#, fuzzy
 msgid "Remove the Current Node from the Bookmarks List"
-msgstr "Ընթացիկ ճյուղն ավելացնել էջանիշների ցանկին"
+msgstr "Ընթացիկ ճյուղը հանել էջանիշների ցանկից"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:715
 msgid "Nodes _Sort"
@@ -1693,18 +1678,16 @@ msgid "C_ut Link"
 msgstr "Կ_տրել հղումը"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:894
-#, fuzzy
 msgid "Cut the Selected Link"
-msgstr "Ջնջել ընտրված հղումը"
+msgstr "Կտրել ընտրված հղումը"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:895
 msgid "_Copy Link"
 msgstr "_Պատճենել հղումը"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:895
-#, fuzzy
 msgid "Copy the Selected Link"
-msgstr "Պատճենել ընտրված խարիսխը"
+msgstr "Պատճենել ընտրված հղումը"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:896
 msgid "Dismiss the Selected Link"
@@ -1947,12 +1930,8 @@ msgid "Error"
 msgstr "Սխալ"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:600
-msgid ""
-"A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
-"Highlighting"
-msgstr ""
-"Նվիրապետական կառուցվածքով նշատետր-ծրագիր՝ ձևավորման և շարահյուսական "
-"գունանշման հնարավորություններով"
+msgid "A Hierarchical Note Taking Application, featuring Rich Text and Syntax Highlighting"
+msgstr "Նվիրապետական կառուցվածքով նշատետր-ծրագիր՝ ձևավորման և շարահյուսական գունանշման հնարավորություններով"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:601
 msgid ""
@@ -1981,11 +1960,9 @@ msgstr ""
 "  \n"
 "Ծրագիրը տարածվում է օգտակար լինելու ակնկալիքով, \n"
 "սակայն ԱՌԱՆՑ ՈՐԵՎԷ ԵՐԱՇԽԻՔԻ կամ ՈՐԵՎԷ ՀԱՏՈՒԿ ՆՊԱՏԱԿԻ ԾԱՌԱՅԵՑՄԱՆ։\n"
-"Ավելի մանրամասն տեղեկությունների համար տեսեք GNU-ի  հանրային ընդհանուր "
-"արտոնագիրը։\n"
+"Ավելի մանրամասն տեղեկությունների համար տեսեք GNU-ի  հանրային ընդհանուր արտոնագիրը։\n"
 "  \n"
-"Այս ծրագրի հետ Դուք պետք է որ ստացած լինեք նաև GNU-ի հանրային ընդհանուր "
-"արտոնագրի պատճենը։\n"
+"Այս ծրագրի հետ Դուք պետք է որ ստացած լինեք նաև GNU-ի հանրային ընդհանուր արտոնագրի պատճենը։\n"
 "Եթե ոչ, գրավոր դիմեք Ազատ ծրագրային ապահովման հիմնադրամին հետևյալ հասցեով՝\n"
 "Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,\n"
 "MA 02110-1301, USA.\n"
@@ -2020,7 +1997,7 @@ msgstr "Իտալերեն"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:628
 msgid "Japanese"
-msgstr ""
+msgstr "Ճապոներեն"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:629
 msgid "Polish"
@@ -2040,7 +2017,7 @@ msgstr "Իսպաներեն"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:633
 msgid "Turkish"
-msgstr ""
+msgstr "Թուրքերեն"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:634
 msgid "Ukrainian"
@@ -2370,7 +2347,7 @@ msgstr "Ամփոփել բոլոր ճյուղերը"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:998
 msgid "Nodes in Bookmarks Always Visible"
-msgstr ""
+msgstr "Էջանշված ճյուղերը՝ միշտ տեսանելի"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:1006
 msgid "Nodes Status at Startup"
@@ -2607,9 +2584,7 @@ msgstr "Դուք գործածում եք առկա վերջին տարբերակ�
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/core.py:238
 msgid "Failed to Retrieve Latest Version Information - Try Again Later"
-msgstr ""
-"Վերջին տարբերակի մասին տեղեկություն ձեռք բերել չհաջողվեց։ Ավելի ուշ նորի՛ց "
-"փորձեք։"
+msgstr "Վերջին տարբերակի մասին տեղեկություն ձեռք բերել չհաջողվեց։ Ավելի ուշ նորի՛ց փորձեք։"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/core.py:257
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/core.py:3710
@@ -2726,11 +2701,8 @@ msgid "The Characters  %s  are Not Allowed"
 msgstr "%s  գրանշանները չեն թույլատրվում"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/core.py:1836
-msgid ""
-"Binary Executable '7za' Not Found, Check The Package 'p7zip-full' to be "
-"Installed Properly"
-msgstr ""
-" '7za' նիշքը չի գտնվել։ Համոզվեք, որ 'p7zip-full' փաթեթը ճիշտ է տեղակայված"
+msgid "Binary Executable '7za' Not Found, Check The Package 'p7zip-full' to be Installed Properly"
+msgstr " '7za' նիշքը չի գտնվել։ Համոզվեք, որ 'p7zip-full' փաթեթը ճիշտ է տեղակայված"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/core.py:1842
 #, python-format
@@ -2776,12 +2748,8 @@ msgid "Node Properties"
 msgstr "Ճյուղի հատկություններ"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/core.py:2731
-msgid ""
-"Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
-"Do you want to Continue?"
-msgstr ""
-"Ձևավորված տեքստից հրաժարվելու դեպքում կկորցնեք այս ճյուղի ամբողջ ձևավորումը։ "
-"Շարունակե՞լ։"
+msgid "Leaving the Node Type Rich Text you will Lose all Formatting for This Node, Do you want to Continue?"
+msgstr "Ձևավորված տեքստից հրաժարվելու դեպքում կկորցնեք այս ճյուղի ամբողջ ձևավորումը։ Շարունակե՞լ։"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/core.py:3211
 msgid "Search for"
@@ -2895,8 +2863,7 @@ msgstr "Այս հատկությունը հասանելի է միայն ձևավ�
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/core.py:3689
 msgid "This Feature is Not Available in Automatic Syntax Highlighting Nodes"
-msgstr ""
-"Այս հատկությունը հասանելի չէ շարահյուսական ինքնաշխատ գունանշմամբ ճյուղերում"
+msgstr "Այս հատկությունը հասանելի չէ շարահյուսական ինքնաշխատ գունանշմամբ ճյուղերում"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/core.py:3702
 msgid "The Tree is Empty!"
