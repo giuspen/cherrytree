@@ -31,6 +31,14 @@ class ListsHandler:
         """Lists Handler boot"""
         self.dad = dad
 
+    def get_list_type(self, list_num_id):
+        """Return List Type from Num Id"""
+        if list_num_id > 0:
+            return "Numbered"
+        if list_num_id < 0:
+            return "Bulleted"
+        return "Todo"
+
     def list_handler(self, target_list_num_id, text_buffer=None):
         """Unified Handler of Lists"""
         if not text_buffer: text_buffer = self.dad.curr_buffer
@@ -64,8 +72,10 @@ class ListsHandler:
             else:
                 iter_start, iter_end, chars_rm = self.list_check_n_remove_old_list_type_leading(iter_start, iter_end, text_buffer)
                 end_offset -= chars_rm
-                if not list_info or list_info["num"] != target_list_num_id:
+                if not list_info or self.get_list_type(list_info["num"]) != self.get_list_type(target_list_num_id):
                     # the target list type differs from this paragraph list type
+                    while support.get_next_chars_from_iter_are(iter_start, [3*cons.CHAR_SPACE]):
+                        iter_start.forward_chars(3)
                     if target_list_num_id == 0:
                         new_par_offset = iter_end.get_offset() + 2
                         end_offset += 2
@@ -230,16 +240,22 @@ class ListsHandler:
         if not buffer_start: iter_start.forward_char()
         # get the number of the paragraph starting with iter_start
         number_n_level = self.list_get_number_n_level(iter_start)
+        curr_level = number_n_level["level"]
         if number_n_level["num"] != None:
             return {"num":number_n_level["num"],
-                    "level":number_n_level["level"],
+                    "level":curr_level,
                     "aux":number_n_level["aux"],
                     "startoffs":iter_start.get_offset()}
-        if not buffer_start and support.get_next_chars_from_iter_are(iter_start, [3*cons.CHAR_SPACE]):
-            # we are inside of a list paragraph but after a shift+return
+        #print number_n_level
+        if not buffer_start and curr_level > 0:
+            # may be a list paragraph but after a shift+return
             iter_start.backward_char()
             list_info = self.get_paragraph_list_info(iter_start)
-            return list_info
+            #print list_info
+            if list_info:
+                if (list_info["num"] != None and list_info["level"] == (curr_level-1))\
+                or (list_info["num"] == None and list_info["level"] == curr_level):
+                    return list_info
         return None # this paragraph is not a list
 
     def get_paragraph_iters(self, text_buffer=None, force_iter=None):
