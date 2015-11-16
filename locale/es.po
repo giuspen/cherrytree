@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 0.9.3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-11-14 23:31+0000\n"
-"PO-Revision-Date: 2014-10-06 15:08+0100\n"
+"PO-Revision-Date: 2015-11-16 15:22-0000\n"
 "Last-Translator: Daniel MC <i.e.betel@gmail.com>\n"
 "Language-Team: Spanish <>\n"
 "Language: es\n"
@@ -16,13 +16,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.7.5\n"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/codeboxes.py:96
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/core.py:3327
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/core.py:4732
 msgid "Plain Text"
-msgstr "Texto plano"
+msgstr "Texto sin formato"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/codeboxes.py:97
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/core.py:3329
@@ -375,37 +375,33 @@ msgstr "Activar/Desactivar corrector ortográfico"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:546
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:769
-#, fuzzy
 msgid "Cu_t as Plain Text"
-msgstr "Co_piar como solo-texto"
+msgstr "Cor_tar como texto sin formato"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:546
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:769
-#, fuzzy
 msgid "Cut as Plain Text, Discard the Rich Text Formatting"
-msgstr "Pegar como solo texto, descartar formato enriquecido"
+msgstr "Pegar como texto sin formato, descartar formato enriquecido"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:547
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:770
-#, fuzzy
 msgid "_Copy as Plain Text"
-msgstr "Co_piar como solo-texto"
+msgstr "Co_piar como texto sin formato"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:547
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:770
-#, fuzzy
 msgid "Copy as Plain Text, Discard the Rich Text Formatting"
-msgstr "Pegar como solo texto, descartar formato enriquecido"
+msgstr "Pegar como texto sin formato, descartar formato enriquecido"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:548
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:771
 msgid "_Paste as Plain Text"
-msgstr "Co_piar como solo-texto"
+msgstr "Co_piar como texto sin formato"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:548
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:771
 msgid "Paste as Plain Text, Discard the Rich Text Formatting"
-msgstr "Pegar como solo texto, descartar formato enriquecido"
+msgstr "Pegar como texto sin formato, descartar formato enriquecido"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:549
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:676
@@ -696,14 +692,12 @@ msgid "Justify Right the Current Paragraph"
 msgstr "Alinear el párrafo actual a la derecha"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:576
-#, fuzzy
 msgid "Justify _Fill"
-msgstr "Justificar a la _derecha"
+msgstr "Justi_ficado"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:576
-#, fuzzy
 msgid "Justify Fill the Current Paragraph"
-msgstr "Alinear el párrafo actual a la derecha"
+msgstr "Justificar el párrafo actual"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:577
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:697
@@ -727,15 +721,13 @@ msgstr "Añadir un nodo hijo al nodo seleccionado"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:579
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:699
-#, fuzzy
 msgid "_Duplicate Node"
-msgstr "_Duplicar fila"
+msgstr "_Duplicar nodo"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:579
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:699
-#, fuzzy
 msgid "Duplicate the Selected Node"
-msgstr "Eliminar nodo seleccionado"
+msgstr "Duplicar nodo seleccionado"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:580
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:701
@@ -1124,23 +1116,24 @@ msgstr "Añadir nodos de un archivo de CherryTree al árbol actual"
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:620
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:727
 msgid "From _Plain Text File"
-msgstr "Desde archivo de texto _plano"
+msgstr "Desde archivo de texto sin formato"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:620
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:727
 msgid "Add Node from a Plain Text File to the Current Tree"
-msgstr "Añadir nodos de un archivo de texto plano al árbol actual"
+msgstr "Añadir nodos de un archivo de texto sin formato al árbol actual"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:621
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:728
 msgid "From _Folder of Plain Text Files"
-msgstr "Desde una carpe_ta archivos de texto plano"
+msgstr "Desde una carpe_ta archivos de texto sin formato"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:621
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:728
 msgid "Add Nodes from a Folder of Plain Text Files to the Current Tree"
 msgstr ""
-"Añadir nodos desde una carpeta de archivos de texto plano al árbol actual"
+"Añadir nodos desde una carpeta de archivos de texto sin formato al árbol "
+"actual"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:622
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:729
@@ -1594,23 +1587,20 @@ msgid "Export Table as CSV File"
 msgstr "Exportar tabla como archivo CSV"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:703
-#, fuzzy
 msgid "Add to _Bookmarks"
-msgstr "_Marcadores"
+msgstr "Añadir a _Marcadores"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:703
 msgid "Add the Current Node to the Bookmarks List"
 msgstr "Añadir este nodo a la lista de marcadores"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:704
-#, fuzzy
 msgid "_Remove from Bookmarks"
-msgstr "_Marcadores"
+msgstr "Elimina_r de Marcadores"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:704
-#, fuzzy
 msgid "Remove the Current Node from the Bookmarks List"
-msgstr "Añadir este nodo a la lista de marcadores"
+msgstr "Eliminar este nodo de la lista de marcadores"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:715
 msgid "Nodes _Sort"
@@ -1701,18 +1691,16 @@ msgid "C_ut Link"
 msgstr "Cortar enlace"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:894
-#, fuzzy
 msgid "Cut the Selected Link"
-msgstr "Eliminar el enlace seleccionado"
+msgstr "Cortar el enlace seleccionado"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:895
 msgid "_Copy Link"
 msgstr "_Copiar enlace"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:895
-#, fuzzy
 msgid "Copy the Selected Link"
-msgstr "Copiar el ancla seleccionada"
+msgstr "Copiar el enlace seleccionado"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:896
 msgid "Dismiss the Selected Link"
@@ -2025,7 +2013,7 @@ msgstr "Italiano"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:628
 msgid "Japanese"
-msgstr ""
+msgstr "Japonés"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:629
 msgid "Polish"
@@ -2045,7 +2033,7 @@ msgstr "Español"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:633
 msgid "Turkish"
-msgstr ""
+msgstr "Turco"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:634
 msgid "Ukrainian"
@@ -2134,7 +2122,7 @@ msgstr "Nodos involucrados"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:1307
 msgid "Selected Text Only"
-msgstr "Solo texto seleccionado"
+msgstr "Solamente texto seleccionado"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:1308
 msgid "Selected Node Only"
@@ -2224,7 +2212,7 @@ msgstr "Archivo PDF"
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/core.py:930
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/core.py:943
 msgid "Plain Text Document"
-msgstr "Documento de texto plano"
+msgstr "Documento de texto sin formato"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/exports.py:595
 msgid "Index"
@@ -2376,7 +2364,7 @@ msgstr "Contraer todos los nodos"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:998
 msgid "Nodes in Bookmarks Always Visible"
-msgstr ""
+msgstr "Nodos en Favoritos siempre visibles"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:1006
 msgid "Nodes Status at Startup"
@@ -2511,7 +2499,7 @@ msgstr "Texto enriquecido"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:1625
 msgid "Plain Text and Code"
-msgstr "Texto plano y código"
+msgstr "Texto sin formato y código"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:1626
 msgid "Tree"
@@ -2921,7 +2909,7 @@ msgstr "Cantidad de nodos de texto enriquecido"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/core.py:3745
 msgid "Number of Plain Text Nodes"
-msgstr "Cantidad de nodos de texto plano"
+msgstr "Cantidad de nodos de texto sin formato"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/core.py:3748
 msgid "Number of Code Nodes"

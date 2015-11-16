@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-11-14 23:31+0000\n"
-"PO-Revision-Date: 2015-08-03 00:08+0100\n"
+"PO-Revision-Date: 2015-11-16 17:19+0900\n"
 "Last-Translator: Piyo <py2@live.jp>\n"
 "Language-Team: Japanese\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.8.6\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/codeboxes.py:96
@@ -376,7 +376,7 @@ msgstr "スペルチェックの有効/無効"
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:546
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:769
 msgid "Cu_t as Plain Text"
-msgstr "テキスト形式で切り取り(&T)"
+msgstr "テキスト形式で切り取り(_T)"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:546
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:769
@@ -386,7 +386,7 @@ msgstr "テキスト形式で切り取り、リッチテキスト書式は失わ
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:547
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:770
 msgid "_Copy as Plain Text"
-msgstr "テキスト形式でコピー(&C)"
+msgstr "テキスト形式でコピー(_C)"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:547
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:770
@@ -688,7 +688,7 @@ msgstr "現在の段落を右揃え"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:576
 msgid "Justify _Fill"
-msgstr "両端揃え(&F)"
+msgstr "両端揃え(_F)"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:576
 msgid "Justify Fill the Current Paragraph"
@@ -856,8 +856,8 @@ msgid ""
 "Change the Selected Node's Children Syntax Highlighting to the Father's "
 "Syntax Highlighting"
 msgstr ""
-"すべての子孫ノードに対し、ノードの種類/構文ハイライトを、選択しているノードと"
-"同じ種類に変更する（注意: 確認ダイアログなし！）"
+"すべての子孫ノードに対し、ノードの種類/構文ハイライトを、選択しているノード"
+"と同じ種類に変更する（注意: 確認ダイアログなし！）"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:593
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:755
@@ -1591,7 +1591,7 @@ msgstr "現在のノードをブックマーク一覧に追加"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:704
 msgid "_Remove from Bookmarks"
-msgstr "ブックマークから削除(&R)"
+msgstr "ブックマークから削除(_R)"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:704
 msgid "Remove the Current Node from the Bookmarks List"
