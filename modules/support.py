@@ -118,6 +118,7 @@ def on_sourceview_event_after_button_press(dad, text_view, event):
 
 def on_sourceview_list_change_level(dad, iter_insert, list_info, text_buffer, level_increase):
     """Called at list indent/unindent time"""
+    dad.user_active = False
     end_offset = dad.lists_handler.get_multiline_list_element_end_offset(iter_insert, list_info)
     curr_offset = list_info["startoffs"]
     curr_level = list_info["level"]
@@ -163,6 +164,8 @@ def on_sourceview_list_change_level(dad, iter_insert, list_info, text_buffer, le
         if not dad.lists_handler.char_iter_forward_to_newline(iter_start) or not iter_start.forward_char():
             break
         curr_offset = iter_start.get_offset()
+    dad.user_active = True
+    dad.state_machine.update_state()
 
 def on_sourceview_event_after_key_press(dad, text_view, event):
     """Called after every gtk.gdk.KEY_PRESS on the SourceView"""
