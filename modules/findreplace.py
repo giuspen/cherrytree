@@ -405,12 +405,18 @@ class FindReplace:
         num_objs = 0
         local_limit_offset = max_offset
         curr_iter = text_buffer.get_start_iter()
-        while curr_iter.get_offset() <= local_limit_offset:
+        curr_offset = curr_iter.get_offset()
+        while curr_offset <= local_limit_offset:
             anchor = curr_iter.get_child_anchor()
             if anchor:
                 num_objs += 1
                 local_limit_offset += 1
-            if not curr_iter.forward_char(): break
+            if not curr_iter.forward_char():
+                break
+            next_offset = curr_iter.get_offset()
+            if next_offset == curr_offset:
+                break
+            curr_offset = next_offset
         return num_objs
 
     def get_inner_start_iter(self, text_buffer, forward):
