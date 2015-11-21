@@ -3631,14 +3631,15 @@ iter_end, exclude_iter_sel_end=True)
 
     def codebox_sentinel_iter(self):
         """Iteration of the CodeBox Sentinel"""
-        if self.codeboxes_handler.curr_v > 0:
-            #print "codebox_v", self.codeboxes_handler.curr_v
-            self.codeboxes_handler.codebox_increase_height()
-            self.codeboxes_handler.curr_v = 0
-        if self.codeboxes_handler.curr_h > 0:
-            #print "codebox_h", self.codeboxes_handler.curr_h
-            self.codeboxes_handler.codebox_increase_width()
-            self.codeboxes_handler.curr_h = 0
+        if not self.codeboxes_handler.key_down:
+            if self.codeboxes_handler.curr_v > 0:
+                #print "codebox_v", self.codeboxes_handler.curr_v
+                self.codeboxes_handler.codebox_increase_height()
+                self.codeboxes_handler.curr_v = 0
+            if self.codeboxes_handler.curr_h > 0:
+                #print "codebox_h", self.codeboxes_handler.curr_h
+                self.codeboxes_handler.codebox_increase_width()
+                self.codeboxes_handler.curr_h = 0
         return True # this way we keep the timer alive
 
     def toc_insert(self, *args):

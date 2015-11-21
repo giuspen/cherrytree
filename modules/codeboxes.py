@@ -39,6 +39,7 @@ class CodeBoxesHandler:
         self.curr_codebox_anchor = None
         self.curr_v = 0
         self.curr_h = 0
+        self.key_down = False
 
     def codebox_in_use(self):
         """Returns a CodeBox SourceView if Currently in Use or None"""
@@ -262,6 +263,7 @@ class CodeBoxesHandler:
         anchor.sourceview.set_tab_width(self.dad.tabs_width)
         anchor.sourceview.connect('populate-popup', self.on_sourceview_populate_popup_codebox, anchor)
         anchor.sourceview.connect('key_press_event', self.on_key_press_sourceview_codebox, anchor)
+        anchor.sourceview.connect('key_release_event', self.on_key_release_sourceview_codebox, anchor)
         anchor.sourceview.connect('button-press-event', self.on_mouse_button_clicked_codebox, anchor)
         anchor.sourceview.connect("event-after", self.on_sourceview_event_after_codebox, anchor)
         anchor.sourceview.connect("motion-notify-event", self.on_sourceview_motion_notify_event_codebox)
@@ -426,9 +428,16 @@ class CodeBoxesHandler:
                 if not self.dad.codebox_sentinel_id: self.dad.codebox_sentinel_start()
         return False
 
+    def on_key_release_sourceview_codebox(self, widget, event, anchor):
+        """Catches CodeBox Key Releases"""
+        self.key_down = False
+        return False
+
     def on_key_press_sourceview_codebox(self, widget, event, anchor):
-        """Extend the Default Right-Click Menu of the CodeBox"""
-        if not self.dad.user_active: return False
+        """Catches CodeBox Key Presses"""
+        self.key_down = True
+        if not self.dad.user_active:
+            return False
         keyname = gtk.gdk.keyval_name(event.keyval)
         if event.state & gtk.gdk.CONTROL_MASK:
             self.curr_codebox_anchor = anchor
