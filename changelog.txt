@@ -1,5 +1,5 @@
 
-0.36.0
+0.36.0 (November 21st, 2015)
 • Implemented multi-level lists: pressing Tab and Shift+Tab you can increase/decrease the level of the list
 • Valid Numbered lists are now "1.", "1)", "1-", "1>"; the multi levels lists cycle between them
 • Valid Bulleted lists are now “•”, “◇”, “▪”, “-“, “→”, “⇒”; the multi levels lists cycle between them
