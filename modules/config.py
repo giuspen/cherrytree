@@ -342,6 +342,8 @@ def config_file_apply(inst):
     if inst.autosave[0]: inst.autosave_timer_start()
     if inst.enable_mod_time_sentinel: inst.modification_time_sentinel_start()
     inst.aux_renderer_pixbuf.set_property("visible", len(inst.bookmarks) > 0)
+    inst.progresstop.hide()
+    inst.progressbar.hide()
 
 def config_file_save(inst):
     """Save the Preferences to Config File"""
