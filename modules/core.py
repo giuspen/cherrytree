@@ -4401,7 +4401,8 @@ iter_end, exclude_iter_sel_end=True)
                 elif tag_property == cons.TAG_SCALE and tag_name.startswith("scale_"):
                     text_buffer.remove_tag(curr_tag, iter_sel_start, iter_sel_end)
                     #print property_value, tag_name[6:]
-                    if property_value == tag_name[6:]: return # just tag removal
+                    if property_value == tag_name[6:]:
+                        property_value = "" # just tag removal
                 elif tag_property == cons.TAG_JUSTIFICATION and tag_name[0:14] == "justification_":
                     text_buffer.remove_tag(curr_tag, iter_sel_start, iter_sel_end)
                 elif (tag_property == cons.TAG_FOREGROUND and tag_name[0:11] == "foreground_")\
