@@ -142,6 +142,12 @@ class FindReplace:
             self.iterated_find_dialog()
         if user_active_restore: self.dad.user_active = True
 
+    def update_all_matches_progress(self):
+        self.dad.progressbar.set_fraction(float(self.processed_nodes)/self.dad.num_nodes)
+        if self.matches_num != self.latest_matches:
+            self.latest_matches = self.matches_num
+            self.dad.progressbar.set_text(str(self.matches_num))
+
     def find_in_all_nodes(self, father_tree_iter):
         """Search for a pattern in all the Tree Nodes"""
         if not self.from_find_iterated:
@@ -188,6 +194,13 @@ class FindReplace:
             self.dad.user_active = False
             user_active_restore = True
         else: user_active_restore = False
+        self.processed_nodes = 0
+        self.latest_matches = 0
+        self.dad.update_num_nodes()
+        if all_matches:
+            self.dad.progressbar.set_text("0")
+            self.dad.progresstop.show()
+            self.dad.progressbar.show()
         while node_iter:
             self.all_matches_first_in_node = True
             while self.parse_given_node_content(node_iter, pattern, forward, first_fromsel, all_matches):
@@ -208,6 +221,9 @@ class FindReplace:
                     if forward: node_iter = self.dad.treestore.iter_next(node_iter)
                     else: node_iter = self.dad.get_tree_iter_prev_sibling(self.dad.treestore, node_iter)
                 else: break
+        if all_matches:
+            self.dad.progresstop.hide()
+            self.dad.progressbar.hide()
         if user_active_restore: self.dad.user_active = True
         config.set_tree_expanded_collapsed_string(self.dad)
         if not self.matches_num or all_matches:
@@ -471,6 +487,9 @@ class FindReplace:
 
     def parse_given_node_content(self, node_iter, pattern, forward, first_fromsel, all_matches):
         """Returns True if pattern was found, False otherwise"""
+        self.processed_nodes += 1
+        if all_matches:
+            self.update_all_matches_progress()
         text_buffer = self.dad.get_textbuffer_from_tree_iter(node_iter)
         if not self.first_useful_node:
             # first_fromsel plus first_node not already parsed
