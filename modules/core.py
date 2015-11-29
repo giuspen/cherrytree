@@ -118,6 +118,7 @@ class CherryTree:
         progress_frame.add(self.progressbar)
         self.progresstop = gtk.Button()
         self.progresstop.set_image(gtk.image_new_from_stock("gtk-stop", gtk.ICON_SIZE_MENU))
+        self.progresstop.connect('clicked', self.on_button_progresstop_clicked)
         hbox_statusbar = gtk.HBox()
         hbox_statusbar.pack_start(self.statusbar, True, True)
         hbox_statusbar.pack_start(self.progresstop, False, True)
@@ -169,7 +170,7 @@ class CherryTree:
         self.sourceview.connect('populate-popup', self.on_sourceview_populate_popup)
         self.sourceview.connect("event", self.on_sourceview_event)
         self.sourceview.connect("motion-notify-event", self.on_sourceview_motion_notify_event)
-        #self.sourceview.connect("visibility-notify-event", self.on_sourceview_visibility_notify_event)
+        self.sourceview.connect("visibility-notify-event", self.on_sourceview_visibility_notify_event)
         self.sourceview.connect("event-after", self.on_sourceview_event_after)
         self.sourceview.connect("copy-clipboard", self.clipboard_handler.copy, False)
         self.sourceview.connect("cut-clipboard", self.clipboard_handler.cut, False)
@@ -179,6 +180,7 @@ class CherryTree:
         self.hovering_link_iter_offset = -1
         self.tag_table = gtk.TextTagTable()
         self.scrolledwindow_text.add(self.sourceview)
+        self.progress_stop = False
         self.go_bk_fw_click = False
         self.highlighted_obj = None
         self.embfiles_opened = {}
@@ -228,6 +230,10 @@ class CherryTree:
             if self.start_on_systray: self.window.hide_all()
         else: self.ui.get_widget("/MenuBar/FileMenu/ExitApp").set_property(cons.STR_VISIBLE, False)
         if self.check_version: self.check_for_newer_version()
+
+    def on_button_progresstop_clicked(self, *args):
+        """Progress Stop Button Clicked"""
+        self.progress_stop = True
 
     def check_for_newer_version(self, *args):
         """Check for a Newer Version"""

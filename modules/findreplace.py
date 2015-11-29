@@ -147,6 +147,7 @@ class FindReplace:
         if self.matches_num != self.latest_matches:
             self.latest_matches = self.matches_num
             self.dad.progressbar.set_text(str(self.matches_num))
+            #while gtk.events_pending(): gtk.main_iteration()
 
     def find_in_all_nodes(self, father_tree_iter):
         """Search for a pattern in all the Tree Nodes"""
@@ -205,7 +206,7 @@ class FindReplace:
             self.all_matches_first_in_node = True
             while self.parse_given_node_content(node_iter, pattern, forward, first_fromsel, all_matches):
                 self.matches_num += 1
-                if not all_matches: break
+                if not all_matches or self.dad.progress_stop: break
             if self.matches_num == 1 and not all_matches: break
             if father_tree_iter and not self.from_find_iterated: break
             last_top_node_iter = node_iter.copy() # we need this if we start from a node that is not in top level
@@ -221,9 +222,15 @@ class FindReplace:
                     if forward: node_iter = self.dad.treestore.iter_next(node_iter)
                     else: node_iter = self.dad.get_tree_iter_prev_sibling(self.dad.treestore, node_iter)
                 else: break
+            if self.dad.progress_stop: break
+            self.processed_nodes += 1
+            if all_matches:
+                self.update_all_matches_progress()
         if all_matches:
+            assert self.processed_nodes == self.dad.num_nodes or self.dad.progress_stop
             self.dad.progresstop.hide()
             self.dad.progressbar.hide()
+            self.dad.progress_stop = False
         if user_active_restore: self.dad.user_active = True
         config.set_tree_expanded_collapsed_string(self.dad)
         if not self.matches_num or all_matches:
@@ -487,9 +494,6 @@ class FindReplace:
 
     def parse_given_node_content(self, node_iter, pattern, forward, first_fromsel, all_matches):
         """Returns True if pattern was found, False otherwise"""
-        self.processed_nodes += 1
-        if all_matches:
-            self.update_all_matches_progress()
         text_buffer = self.dad.get_textbuffer_from_tree_iter(node_iter)
         if not self.first_useful_node:
             # first_fromsel plus first_node not already parsed
@@ -503,15 +507,18 @@ class FindReplace:
             if self.parse_node_content_iter(node_iter, text_buffer, pattern, forward, first_fromsel, all_matches, False):
                 return True # not first_node node
         node_iter = self.dad.treestore.iter_children(node_iter) # check for children
-        if node_iter != None and not forward: node_iter = self.dad.get_tree_iter_last_sibling(node_iter)
-        while node_iter != None:
+        if node_iter and not forward: node_iter = self.dad.get_tree_iter_last_sibling(node_iter)
+        while node_iter and not self.dad.progress_stop:
             self.all_matches_first_in_node = True
             while self.parse_given_node_content(node_iter, pattern, forward, first_fromsel, all_matches):
                 self.matches_num += 1
-                if not all_matches: break
+                if not all_matches or self.dad.progress_stop: break
             if self.matches_num == 1 and not all_matches: break
             if forward: node_iter = self.dad.treestore.iter_next(node_iter)
             else: node_iter = self.dad.get_tree_iter_prev_sibling(self.dad.treestore, node_iter)
+            self.processed_nodes += 1
+            if all_matches:
+                self.update_all_matches_progress()
         return False
 
     def parse_node_name(self, node_iter, pattern, forward, all_matches):

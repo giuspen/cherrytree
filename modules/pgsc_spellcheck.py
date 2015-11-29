@@ -254,8 +254,9 @@ class SpellChecker(object):
         Disable spellchecking.
         """
         self._enabled = False
-        start, end = self._buffer.get_bounds()
-        self._buffer.remove_tag(self._misspelled, start, end)
+        if hasattr(self, "_buffer"):
+            start, end = self._buffer.get_bounds()
+            self._buffer.remove_tag(self._misspelled, start, end)
 
     def enable(self):
         """
