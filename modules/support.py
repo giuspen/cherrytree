@@ -201,13 +201,19 @@ def on_sourceview_event_after_key_press(dad, text_view, event):
                     former_line_indent = get_former_line_indentation(iter_start)
                     if former_line_indent: text_buffer.insert_at_cursor(former_line_indent)
                 return False # former was not a list
-            # possible list quit
+            # possible enter on empty list element
             insert_offset = iter_insert.get_offset()
             chars_to_startoffs = 1 + dad.lists_handler.get_leading_chars_num(list_info["num"]) + 3*list_info["level"]
             if (insert_offset - list_info["startoffs"]) == chars_to_startoffs:
-                iter_list_quit = text_buffer.get_iter_at_offset(list_info["startoffs"])
+                # enter on empty list element
+                if list_info["level"] > 0:
+                    on_sourceview_list_change_level(dad, iter_insert, list_info, text_buffer, False)
+                    iter_insert = text_buffer.get_iter_at_mark(text_buffer.get_insert())
+                    iter_list_quit = text_buffer.get_iter_at_offset(iter_insert.get_offset()-1)
+                else:
+                    iter_list_quit = text_buffer.get_iter_at_offset(list_info["startoffs"])
                 text_buffer.delete(iter_list_quit, iter_insert)
-                return False # former was an empty paragraph => list quit
+                return False
             # list new element
             curr_level = list_info["level"]
             pre_spaces = 3*curr_level*cons.CHAR_SPACE if curr_level else ""
