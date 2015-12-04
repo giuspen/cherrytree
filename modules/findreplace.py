@@ -202,6 +202,7 @@ class FindReplace:
             self.dad.progressbar.set_text("0")
             self.dad.progresstop.show()
             self.dad.progressbar.show()
+            while gtk.events_pending(): gtk.main_iteration()
         while node_iter:
             self.all_matches_first_in_node = True
             while self.parse_given_node_content(node_iter, pattern, forward, first_fromsel, all_matches):
@@ -228,6 +229,7 @@ class FindReplace:
                 self.update_all_matches_progress()
         if all_matches:
             assert self.processed_nodes == self.dad.num_nodes or self.dad.progress_stop
+            while gtk.events_pending(): gtk.main_iteration()
             self.dad.progresstop.hide()
             self.dad.progressbar.hide()
             self.dad.progress_stop = False
@@ -332,7 +334,6 @@ class FindReplace:
             pattern = re.compile(pattern, re.UNICODE|re.MULTILINE)
         else: pattern = re.compile(pattern, re.IGNORECASE|re.UNICODE|re.MULTILINE)
         start_offset = start_iter.get_offset()
-        start_offset -= self.get_num_objs_before_offset(text_buffer, start_offset)
         if forward:
             match = pattern.search(text, start_offset)
         else:
