@@ -334,6 +334,7 @@ class FindReplace:
             pattern = re.compile(pattern, re.UNICODE|re.MULTILINE)
         else: pattern = re.compile(pattern, re.IGNORECASE|re.UNICODE|re.MULTILINE)
         start_offset = start_iter.get_offset()
+        #start_offset -= self.get_num_objs_before_offset(text_buffer, start_offset)
         if forward:
             match = pattern.search(text, start_offset)
         else:
@@ -445,24 +446,25 @@ class FindReplace:
 
     def get_inner_start_iter(self, text_buffer, forward):
         """Get start_iter when not at beginning or end"""
-        iter_insert = text_buffer.get_iter_at_mark(text_buffer.get_insert())
-        iter_bound = text_buffer.get_iter_at_mark(text_buffer.get_selection_bound())
+        if text_buffer.get_has_selection():
+            iter_start, iter_end = text_buffer.get_selection_bounds()
+            offsets = [iter_start.get_offset(), iter_end.get_offset()]
+        else:
+            iter_insert = text_buffer.get_iter_at_mark(text_buffer.get_insert())
+            offsets = [iter_insert.get_offset()]
         if not self.replace_active or self.replace_subsequent:
             # it's a find or subsequent replace, so we want, given a selected word, to find for the subsequent one
             if forward:
-                if iter_bound != None and iter_insert.compare(iter_bound) < 0: start_iter = iter_bound
-                else: start_iter = iter_insert
+                start_iter = text_buffer.get_iter_at_offset(max(offsets))
             else:
-                if iter_bound != None and iter_insert.compare(iter_bound) > 0: start_iter = iter_bound
-                else: start_iter = iter_insert
+                start_iter = text_buffer.get_iter_at_offset(min(offsets))
         else:
             # it's a first replace, so we want, given a selected word, to replace starting from this one
             if forward:
-                if iter_bound != None and iter_insert.compare(iter_bound) > 0: start_iter = iter_bound
-                else: start_iter = iter_insert
+                start_iter = text_buffer.get_iter_at_offset(min(offsets))
             else:
-                if iter_bound != None and iter_insert.compare(iter_bound) < 0: start_iter = iter_bound
-                else: start_iter = iter_insert
+                start_iter = text_buffer.get_iter_at_offset(max(offsets))
+        print offsets, start_iter.get_offset()
         return start_iter
 
     def parse_node_content_iter(self, tree_iter, text_buffer, pattern, forward, first_fromsel, all_matches, first_node):
