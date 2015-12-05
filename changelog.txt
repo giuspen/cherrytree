@@ -1,7 +1,8 @@
 
-0.36.1 (December 1st, 2015)
+0.36.1 (December 5th, 2015)
 • mult-level lists: when pressing Enter on an empty list element, the list level is decreased before quitting the list
 • bugfix: removal of header formatting was broken
+• bugfix in searches
 • updated Polish language
 
 0.36.0 (November 21st, 2015)
