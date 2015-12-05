@@ -121,8 +121,8 @@ class CherryTree:
         self.progresstop.connect('clicked', self.on_button_progresstop_clicked)
         hbox_statusbar = gtk.HBox()
         hbox_statusbar.pack_start(self.statusbar, True, True)
-        hbox_statusbar.pack_start(self.progresstop, False, True)
         hbox_statusbar.pack_start(progress_frame, False, True)
+        hbox_statusbar.pack_start(self.progresstop, False, True)
         vbox_main.pack_start(hbox_statusbar, False, False)
         # ROW: 0-icon_stock_id, 1-name, 2-buffer, 3-unique_id, 4-syntax_highlighting, 5-node_sequence, 6-tags, 7-readonly, 8-pre_icon_stock_id
         self.treestore = gtk.TreeStore(str, str, gobject.TYPE_PYOBJECT, long, str, int, str, gobject.TYPE_BOOLEAN, str)
@@ -234,6 +234,7 @@ class CherryTree:
     def on_button_progresstop_clicked(self, *args):
         """Progress Stop Button Clicked"""
         self.progress_stop = True
+        self.progresstop.hide()
 
     def check_for_newer_version(self, *args):
         """Check for a Newer Version"""

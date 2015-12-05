@@ -20,7 +20,7 @@
 #       MA 02110-1301, USA.
 
 import gtk, gobject
-import re, cgi
+import re, cgi, time
 import cons, support, config
 
 
@@ -147,7 +147,6 @@ class FindReplace:
         if self.matches_num != self.latest_matches:
             self.latest_matches = self.matches_num
             self.dad.progressbar.set_text(str(self.matches_num))
-            #while gtk.events_pending(): gtk.main_iteration()
 
     def find_in_all_nodes(self, father_tree_iter):
         """Search for a pattern in all the Tree Nodes"""
@@ -203,6 +202,7 @@ class FindReplace:
             self.dad.progresstop.show()
             self.dad.progressbar.show()
             while gtk.events_pending(): gtk.main_iteration()
+        search_start_time = time.time()
         while node_iter:
             self.all_matches_first_in_node = True
             while self.parse_given_node_content(node_iter, pattern, forward, first_fromsel, all_matches):
@@ -227,12 +227,8 @@ class FindReplace:
             self.processed_nodes += 1
             if all_matches:
                 self.update_all_matches_progress()
-        if all_matches:
-            assert self.processed_nodes == self.dad.num_nodes or self.dad.progress_stop
-            while gtk.events_pending(): gtk.main_iteration()
-            self.dad.progresstop.hide()
-            self.dad.progressbar.hide()
-            self.dad.progress_stop = False
+        search_end_time = time.time()
+        print search_end_time - search_start_time, "sec"
         if user_active_restore: self.dad.user_active = True
         config.set_tree_expanded_collapsed_string(self.dad)
         if not self.matches_num or all_matches:
@@ -252,6 +248,11 @@ class FindReplace:
                 self.dad.treeview_safe_set_cursor(self.dad.curr_tree_iter)
                 if self.dad.search_replace_dict['idialog']:
                     self.iterated_find_dialog()
+        if all_matches:
+            assert self.processed_nodes == self.dad.num_nodes or self.dad.progress_stop
+            self.dad.progresstop.hide()
+            self.dad.progressbar.hide()
+            self.dad.progress_stop = False
 
     def find_a_node(self):
         """Search for a pattern between all the Node's Names"""
