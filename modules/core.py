@@ -3915,6 +3915,7 @@ iter_end, exclude_iter_sel_end=True)
         anchor.frame = gtk.Frame()
         anchor.frame.set_shadow_type(gtk.SHADOW_NONE)
         pixbuf_attrs = dir(pixbuf)
+        if not hasattr(anchor.pixbuf, "link"): anchor.pixbuf.link = ""
         if "anchor" in pixbuf_attrs:
             anchor.eventbox.connect("button-press-event", self.on_mouse_button_clicked_anchor, anchor)
             anchor.eventbox.set_tooltip_text(pixbuf.anchor)
@@ -3928,8 +3929,7 @@ iter_end, exclude_iter_sel_end=True)
         else:
             anchor.eventbox.connect("button-press-event", self.on_mouse_button_clicked_image, anchor)
             anchor.eventbox.connect("visibility-notify-event", self.on_image_visibility_notify_event)
-            if not hasattr(anchor.pixbuf, "link"): anchor.pixbuf.link = ""
-            elif anchor.pixbuf.link:
+            if anchor.pixbuf.link:
                 self.image_link_apply_frame_label(anchor)
         anchor.image = gtk.Image()
         anchor.frame.add(anchor.image)
