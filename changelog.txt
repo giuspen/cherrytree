@@ -1,4 +1,7 @@
 
+0.36.2 (December 13th, 2015)
+• bugfix: copy/paste of embedded files broken
+
 0.36.1 (December 5th, 2015)
 • mult-level lists: when pressing Enter on an empty list element, the list level is decreased before quitting the list
 • bugfix: removal of header formatting was broken
