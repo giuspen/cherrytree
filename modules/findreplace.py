@@ -38,6 +38,7 @@ class FindReplace:
         self.newline_trick = False
         self.allmatchesdialog_init()
         self.iteratedfinddialog = None
+        self.latest_node_offset = {}
 
     def iterated_find_dialog_exist_or_create(self):
         """Exist or Create the Iterated Find Dialog"""
@@ -99,6 +100,7 @@ class FindReplace:
         """Search for a pattern in the selected Node"""
         entry_hint = ""
         if not self.from_find_iterated:
+            self.latest_node_offset = {}
             iter_insert = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
             iter_bound = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_selection_bound())
             entry_predefined_text = self.dad.curr_buffer.get_text(iter_insert, iter_bound)
@@ -151,6 +153,7 @@ class FindReplace:
     def find_in_all_nodes(self, father_tree_iter):
         """Search for a pattern in all the Tree Nodes"""
         if not self.from_find_iterated:
+            self.latest_node_offset = {}
             iter_insert = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
             iter_bound = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_selection_bound())
             entry_predefined_text = self.dad.curr_buffer.get_text(iter_insert, iter_bound)
@@ -445,7 +448,7 @@ class FindReplace:
             curr_offset = next_offset
         return num_objs
 
-    def get_inner_start_iter(self, text_buffer, forward):
+    def get_inner_start_iter(self, text_buffer, forward, node_id):
         """Get start_iter when not at beginning or end"""
         if text_buffer.get_has_selection():
             iter_start, iter_end = text_buffer.get_selection_bounds()
@@ -465,7 +468,14 @@ class FindReplace:
                 start_iter = text_buffer.get_iter_at_offset(min(offsets))
             else:
                 start_iter = text_buffer.get_iter_at_offset(max(offsets))
-        print offsets, start_iter.get_offset()
+        if self.latest_node_offset\
+        and self.latest_node_offset["n"] == node_id\
+        and self.latest_node_offset["o"] == start_iter.get_offset():
+            if forward: start_iter.forward_char()
+            else: start_iter.backward_char()
+        self.latest_node_offset["n"] = node_id
+        self.latest_node_offset["o"] = start_iter.get_offset()
+        print self.latest_node_offset["n"], offsets, self.latest_node_offset["o"]
         return start_iter
 
     def parse_node_content_iter(self, tree_iter, text_buffer, pattern, forward, first_fromsel, all_matches, first_node):
@@ -481,7 +491,8 @@ class FindReplace:
             restore_modified = False
         if (first_fromsel and first_node)\
         or (all_matches and not self.all_matches_first_in_node):
-            start_iter = self.get_inner_start_iter(text_buffer, forward)
+            node_id = self.dad.get_node_id_from_tree_iter(tree_iter)
+            start_iter = self.get_inner_start_iter(text_buffer, forward, node_id)
         else:
             if forward: start_iter = text_buffer.get_start_iter()
             else: start_iter = text_buffer.get_end_iter()
