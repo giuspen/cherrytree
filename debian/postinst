@@ -1,3 +1,6 @@
 #!/bin/sh
+# postinst script for cherrytree
+
 update-desktop-database &
-# End automatically added section
+
+#DEBHELPER#

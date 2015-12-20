@@ -2,8 +2,8 @@ Source: cherrytree
 Section: utils
 Priority: optional
 Maintainer: Giuseppe Penone <giuspen@gmail.com>
-Build-Depends: debhelper (>= 7), python-central (>=0.5.6), python (>=2.5), python-gtk2 (>=2.16)
-Standards-Version: 3.8.1
+Build-Depends: debhelper (>= 9), python-central (>=0.5.6), python (>=2.5), python-gtk2 (>=2.16)
+Standards-Version: 3.9.5
 Homepage: http://www.giuspen.com/cherrytree/
 
 Package: cherrytree
