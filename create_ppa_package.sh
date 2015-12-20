@@ -1,3 +1,3 @@
 #!/bin/sh
 
-debuild -S -sa
+debuild -S -sa -i -I
