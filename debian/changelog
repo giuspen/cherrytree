@@ -1,4 +1,4 @@
-cherrytree (0.36.2) trusty; urgency=low
+cherrytree (0.36.2-1) trusty; urgency=low
 
   * bugfix: copy/paste of embedded files broken
 
