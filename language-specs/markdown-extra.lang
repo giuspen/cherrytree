@@ -544,7 +544,7 @@
 
     <replace id="html:embedded-lang-hook" ref="markdown-syntax"/>
 
-    <context id="markdown">
+    <context id="markdown-extra">
       <include>
         <context ref="markdown-syntax"/>
         <!-- Note: even if it's highlighted, Markdown Extra syntax within HTML blocks

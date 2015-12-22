@@ -1,5 +1,6 @@
-cherrytree (0.36.2-1) trusty; urgency=low
+cherrytree (0.36.3-1) trusty; urgency=low
 
-  * bugfix: copy/paste of embedded files broken
+  * bugfix in searches
+  * added syntax highlightings Markdown and Markdown Extra from Jean-Philippe Fleury
 
- -- Giuseppe Penone <giuspen@gmail.com>  Sun, 20 Dec 2015 13:45:09 +0000
+ -- Giuseppe Penone <giuspen@gmail.com>  Tue, 22 Dec 2015 22:32:29 +0000

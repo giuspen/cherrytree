@@ -1,4 +1,8 @@
 
+0.36.3 (December 22nd, 2015)
+• bugfix in searches
+• added syntax highlightings Markdown and Markdown Extra from Jean-Philippe Fleury
+
 0.36.2 (December 13th, 2015)
 • bugfix: copy/paste of embedded files broken
 

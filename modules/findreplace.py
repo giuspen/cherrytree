@@ -475,7 +475,7 @@ class FindReplace:
             else: start_iter.backward_char()
         self.latest_node_offset["n"] = node_id
         self.latest_node_offset["o"] = start_iter.get_offset()
-        print self.latest_node_offset["n"], offsets, self.latest_node_offset["o"]
+        #print self.latest_node_offset["n"], offsets, self.latest_node_offset["o"]
         return start_iter
 
     def parse_node_content_iter(self, tree_iter, text_buffer, pattern, forward, first_fromsel, all_matches, first_node):
