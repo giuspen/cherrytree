@@ -1,7 +1,7 @@
 #!/usr/bin/make -f
 
 %:
-	dh $@ --with python2 --buildsystem=pybuild
+	dh $@ --buildsystem=pybuild
 
 override_dh_clean:
 	rm -rf build/
