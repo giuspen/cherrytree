@@ -270,7 +270,7 @@ class ClipboardHandler:
         for element in uri_list:
             if not element: continue
             iter_insert = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
-            if (element.startswith("http") or element.startswith("ftp")):
+            if support.get_first_chars_of_string_are(element, cons.WEB_LINK_STARTERS):
                 property_value = "webs " + element
             elif element.startswith("file://"):
                 file_path = element[7:].replace("%20", cons.CHAR_SPACE)

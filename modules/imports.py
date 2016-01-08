@@ -37,17 +37,7 @@ def get_web_links_offsets_from_plain_text(plain_text):
     max_start_offset = max_end_offset - 7
     start_offset = 0
     while start_offset < max_start_offset:
-        is_link = False
-        if plain_text[start_offset] == "h":
-            if plain_text[start_offset:start_offset+4] == "http":
-                is_link = True
-        elif plain_text[start_offset] == "f":
-            if plain_text[start_offset:start_offset+3] == "ftp":
-                is_link = True
-        elif plain_text[start_offset] == "w":
-            if plain_text[start_offset:start_offset+4] == "www.":
-                is_link = True
-        if is_link:
+        if support.get_first_chars_of_string_at_offset_are(plain_text, start_offset, cons.WEB_LINK_STARTERS):
             end_offset = start_offset + 3
             while (end_offset < max_end_offset)\
             and (plain_text[end_offset] not in [cons.CHAR_SPACE, cons.CHAR_NEWLINE]):

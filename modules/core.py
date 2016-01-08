@@ -4365,7 +4365,7 @@ iter_end, exclude_iter_sel_end=True)
                 return
         if property_value == None:
             if tag_property == cons.TAG_LINK:
-                if support.get_next_chars_from_iter_are(iter_sel_start, ["http://", "https://", "www."]):
+                if support.get_next_chars_from_iter_are(iter_sel_start, cons.WEB_LINK_STARTERS):
                     self.link_type = cons.LINK_TYPE_WEBS
                     self.links_entries['webs'] = text_buffer.get_text(iter_sel_start, iter_sel_end)
                 insert_offset = iter_sel_start.get_offset()

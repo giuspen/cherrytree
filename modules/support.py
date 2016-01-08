@@ -424,13 +424,33 @@ def strip_trailing_spaces(text_buffer):
     return cleaned_lines
 
 def get_next_chars_from_iter_are(iter_start, chars_list):
-    """Returns True if the Given Chars are the next 'num' after iter"""
+    """Returns True if one set of the Given Chars are the first after iter"""
     for chars in chars_list:
         text_iter = iter_start.copy()
         num = len(chars)
         for i in range(num):
-            if text_iter.get_char().encode(cons.STR_UTF8) != chars[i]: break
-            if i != num-1 and not text_iter.forward_char(): break
+            if text_iter.get_char().encode(cons.STR_UTF8) != chars[i]:
+                break
+            if i != num-1 and not text_iter.forward_char():
+                break
+        else:
+            return True
+    return False
+
+def get_first_chars_of_string_are(in_string, chars_list):
+    """Returns True if one set of the Given Chars are the first of in_string"""
+    for chars in chars_list:
+        if in_string.startswith(chars):
+            return True
+    return False
+
+def get_first_chars_of_string_at_offset_are(in_string, offset, chars_list):
+    """Returns True if one set of the Given Chars are the first of in_string"""
+    for chars in chars_list:
+        num = len(chars)
+        for i in range(num):
+            if in_string[offset+i] != chars[i]:
+                break
         else: return True
     return False
 
