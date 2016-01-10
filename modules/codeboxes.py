@@ -252,8 +252,8 @@ class CodeBoxesHandler:
             anchor.sourcebuffer.set_modified(False)
         anchor.sourceview = gtksourceview2.View(anchor.sourcebuffer)
         anchor.sourceview.set_smart_home_end(gtksourceview2.SMART_HOME_END_AFTER)
-        if self.dad.highl_curr_line: anchor.sourceview.set_highlight_current_line(True)
-        if self.dad.show_white_spaces: anchor.sourceview.set_draw_spaces(DRAW_SPACES_FLAGS)
+        anchor.sourceview.set_highlight_current_line(self.dad.pt_highl_curr_line)
+        if self.dad.pt_show_white_spaces: anchor.sourceview.set_draw_spaces(DRAW_SPACES_FLAGS)
         if anchor.syntax_highlighting == cons.PLAIN_TEXT_ID:
             anchor.sourceview.modify_font(pango.FontDescription(self.dad.text_font))
         else:

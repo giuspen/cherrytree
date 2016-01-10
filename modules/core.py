@@ -2860,15 +2860,15 @@ iter_end, exclude_iter_sel_end=True)
             self.treestore[tree_iter][2].connect('mark-set', self.on_textbuffer_mark_set)
             self.sourceview.modify_font(pango.FontDescription(self.text_font))
             self.sourceview.set_draw_spaces(codeboxes.DRAW_SPACES_FLAGS if self.rt_show_white_spaces else 0)
-            self.sourceview.set_highlight_current_line(False)
+            self.sourceview.set_highlight_current_line(self.rt_highl_curr_line)
             self.widget_set_colors(self.sourceview, self.rt_def_fg, self.rt_def_bg, False)
         else:
             if syntax_highl == cons.PLAIN_TEXT_ID:
                 self.sourceview.modify_font(pango.FontDescription(self.text_font))
             else:
                 self.sourceview.modify_font(pango.FontDescription(self.code_font))
-            self.sourceview.set_draw_spaces(codeboxes.DRAW_SPACES_FLAGS if self.show_white_spaces else 0)
-            if self.highl_curr_line: self.sourceview.set_highlight_current_line(True)
+            self.sourceview.set_draw_spaces(codeboxes.DRAW_SPACES_FLAGS if self.pt_show_white_spaces else 0)
+            self.sourceview.set_highlight_current_line(self.pt_highl_curr_line)
             self.widget_set_colors(self.sourceview, self.rt_def_fg, self.rt_def_bg, True)
 
     def switch_buffer_text_source(self, text_buffer, tree_iter, new_syntax_highl, old_syntax_highl):

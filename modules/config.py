@@ -160,8 +160,9 @@ def config_file_load(inst):
         inst.wrapping_indent = config.getint(section, "wrapping_indent") if config.has_option(section, "wrapping_indent") else -14
         inst.auto_indent = config.getboolean(section, "auto_indent") if config.has_option(section, "auto_indent") else True
         inst.rt_show_white_spaces = config.getboolean(section, "rt_show_white_spaces") if config.has_option(section, "rt_show_white_spaces") else False
-        inst.show_white_spaces = config.getboolean(section, "show_white_spaces") if config.has_option(section, "show_white_spaces") else True
-        inst.highl_curr_line = config.getboolean(section, "highl_curr_line") if config.has_option(section, "highl_curr_line") else True
+        inst.pt_show_white_spaces = config.getboolean(section, "pt_show_white_spaces") if config.has_option(section, "pt_show_white_spaces") else True
+        inst.rt_highl_curr_line = config.getboolean(section, "rt_highl_curr_line") if config.has_option(section, "rt_highl_curr_line") else True
+        inst.pt_highl_curr_line = config.getboolean(section, "pt_highl_curr_line") if config.has_option(section, "pt_highl_curr_line") else True
         inst.h_rule = config.get(section, "h_rule") if config.has_option(section, "h_rule") else HORIZONTAL_RULE
         inst.special_chars = unicode(config.get(section, "special_chars") if config.has_option(section, "special_chars") else SPECIAL_CHARS_DEFAULT, cons.STR_UTF8, cons.STR_IGNORE)
         inst.selword_chars = unicode(config.get(section, "selword_chars") if config.has_option(section, "selword_chars") else SELWORD_CHARS_DEFAULT, cons.STR_UTF8, cons.STR_IGNORE)
@@ -310,8 +311,9 @@ def config_file_load(inst):
         inst.tree_right_side = False
         inst.nodes_bookm_exp = True
         inst.rt_show_white_spaces = False
-        inst.show_white_spaces = True
-        inst.highl_curr_line = True
+        inst.pt_show_white_spaces = True
+        inst.rt_highl_curr_line = True
+        inst.pt_highl_curr_line = True
         inst.hpaned_pos = 170
         inst.show_node_name_label = True
         inst.nodes_icons = "c"
@@ -423,8 +425,9 @@ def config_file_save(inst):
     config.set(section, "wrapping_indent", inst.wrapping_indent)
     config.set(section, "auto_indent", inst.auto_indent)
     config.set(section, "rt_show_white_spaces", inst.rt_show_white_spaces)
-    config.set(section, "show_white_spaces", inst.show_white_spaces)
-    config.set(section, "highl_curr_line", inst.highl_curr_line)
+    config.set(section, "pt_show_white_spaces", inst.pt_show_white_spaces)
+    config.set(section, "rt_highl_curr_line", inst.rt_highl_curr_line)
+    config.set(section, "pt_highl_curr_line", inst.pt_highl_curr_line)
     config.set(section, "h_rule", inst.h_rule)
     config.set(section, "special_chars", inst.special_chars)
     config.set(section, "selword_chars", inst.selword_chars)
@@ -771,6 +774,8 @@ def preferences_tab_rich_text_nodes(dad, vbox_text_nodes, pref_dialog):
     hbox_misc_text.set_spacing(4)
     checkbutton_rt_show_white_spaces = gtk.CheckButton(_("Show White Spaces"))
     checkbutton_rt_show_white_spaces.set_active(dad.rt_show_white_spaces)
+    checkbutton_rt_highl_curr_line = gtk.CheckButton(_("Highlight Current Line"))
+    checkbutton_rt_highl_curr_line.set_active(dad.rt_highl_curr_line)
     checkbutton_codebox_auto_resize = gtk.CheckButton(_("Expand CodeBoxes Automatically"))
     checkbutton_codebox_auto_resize.set_active(dad.codebox_auto_resize)
     hbox_embfile_size = gtk.HBox()
@@ -790,6 +795,7 @@ def preferences_tab_rich_text_nodes(dad, vbox_text_nodes, pref_dialog):
 
     vbox_misc_text = gtk.VBox()
     vbox_misc_text.pack_start(checkbutton_rt_show_white_spaces, expand=False)
+    vbox_misc_text.pack_start(checkbutton_rt_highl_curr_line, expand=False)
     vbox_misc_text.pack_start(checkbutton_codebox_auto_resize, expand=False)
     vbox_misc_text.pack_start(hbox_embfile_size, expand=False)
     vbox_misc_text.pack_start(hbox_misc_text, expand=False)
@@ -857,6 +863,11 @@ def preferences_tab_rich_text_nodes(dad, vbox_text_nodes, pref_dialog):
         if dad.syntax_highlighting == cons.RICH_TEXT_ID:
             dad.sourceview.set_draw_spaces(codeboxes.DRAW_SPACES_FLAGS if dad.rt_show_white_spaces else 0)
     checkbutton_rt_show_white_spaces.connect('toggled', on_checkbutton_rt_show_white_spaces_toggled)
+    def on_checkbutton_rt_highl_curr_line_toggled(checkbutton):
+        dad.rt_highl_curr_line = checkbutton.get_active()
+        if dad.syntax_highlighting == cons.RICH_TEXT_ID:
+            dad.sourceview.set_highlight_current_line(dad.rt_highl_curr_line)
+    checkbutton_rt_highl_curr_line.connect('toggled', on_checkbutton_rt_highl_curr_line_toggled)
     def on_checkbutton_codebox_auto_resize_toggled(checkbutton):
         dad.codebox_auto_resize = checkbutton.get_active()
     checkbutton_codebox_auto_resize.connect('toggled', on_checkbutton_codebox_auto_resize_toggled)
@@ -889,14 +900,14 @@ def preferences_tab_plain_text_n_code_nodes(dad, vbox_code_nodes, pref_dialog):
     combobox_style_scheme.set_active_iter(dad.get_combobox_iter_from_value(dad.style_scheme_liststore, 0, dad.style_scheme))
     hbox_style_scheme.pack_start(label_style_scheme, expand=False)
     hbox_style_scheme.pack_start(combobox_style_scheme)
-    checkbutton_show_white_spaces = gtk.CheckButton(_("Show White Spaces"))
-    checkbutton_show_white_spaces.set_active(dad.show_white_spaces)
-    checkbutton_highlight_current_line = gtk.CheckButton(_("Highlight Current Line"))
-    checkbutton_highlight_current_line.set_active(dad.highl_curr_line)
+    checkbutton_pt_show_white_spaces = gtk.CheckButton(_("Show White Spaces"))
+    checkbutton_pt_show_white_spaces.set_active(dad.pt_show_white_spaces)
+    checkbutton_pt_highl_curr_line = gtk.CheckButton(_("Highlight Current Line"))
+    checkbutton_pt_highl_curr_line.set_active(dad.pt_highl_curr_line)
 
     vbox_syntax.pack_start(hbox_style_scheme, expand=False)
-    vbox_syntax.pack_start(checkbutton_show_white_spaces, expand=False)
-    vbox_syntax.pack_start(checkbutton_highlight_current_line, expand=False)
+    vbox_syntax.pack_start(checkbutton_pt_show_white_spaces, expand=False)
+    vbox_syntax.pack_start(checkbutton_pt_highl_curr_line, expand=False)
 
     frame_syntax = gtk.Frame(label="<b>"+_("Code Nodes")+"</b>")
     frame_syntax.get_label_widget().set_use_markup(True)
@@ -914,16 +925,16 @@ def preferences_tab_plain_text_n_code_nodes(dad, vbox_code_nodes, pref_dialog):
             dad.style_scheme = new_style
             support.dialog_info_after_restart(pref_dialog)
     combobox_style_scheme.connect('changed', on_combobox_style_scheme_changed)
-    def on_checkbutton_show_white_spaces_toggled(checkbutton):
-        dad.show_white_spaces = checkbutton.get_active()
+    def on_checkbutton_pt_show_white_spaces_toggled(checkbutton):
+        dad.pt_show_white_spaces = checkbutton.get_active()
         if dad.syntax_highlighting != cons.RICH_TEXT_ID:
-            dad.sourceview.set_draw_spaces(codeboxes.DRAW_SPACES_FLAGS if dad.show_white_spaces else 0)
-    checkbutton_show_white_spaces.connect('toggled', on_checkbutton_show_white_spaces_toggled)
-    def on_checkbutton_highlight_current_line_toggled(checkbutton):
-        dad.highl_curr_line = checkbutton.get_active()
+            dad.sourceview.set_draw_spaces(codeboxes.DRAW_SPACES_FLAGS if dad.pt_show_white_spaces else 0)
+    checkbutton_pt_show_white_spaces.connect('toggled', on_checkbutton_pt_show_white_spaces_toggled)
+    def on_checkbutton_pt_highl_curr_line_toggled(checkbutton):
+        dad.pt_highl_curr_line = checkbutton.get_active()
         if dad.syntax_highlighting != cons.RICH_TEXT_ID:
-            dad.sourceview.set_highlight_current_line(dad.highl_curr_line)
-    checkbutton_highlight_current_line.connect('toggled', on_checkbutton_highlight_current_line_toggled)
+            dad.sourceview.set_highlight_current_line(dad.pt_highl_curr_line)
+    checkbutton_pt_highl_curr_line.connect('toggled', on_checkbutton_pt_highl_curr_line_toggled)
 
 def preferences_tab_tree(dad, vbox_tree, pref_dialog):
     """Preferences Dialog, Tree Tab"""
