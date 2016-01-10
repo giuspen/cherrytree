@@ -33,7 +33,7 @@ COLOR_PALETTE_DEFAULT = ["#000000", "#ffffff", "#7f7f7f", "#ff0000", "#a020f0",
                          "#0000ff", "#add8e6", "#00ff00", "#ffff00", "#ffa500",
                          "#e6e6fa", "#a52a2a", "#8b6914", "#1e90ff", "#ffc0cb",
                          "#90ee90", "#1a1a1a", "#4d4d4d", "#bfbfbf", "#e5e5e5"]
-SPECIAL_CHARS_DEFAULT = "“”„•◇▪▸☐☑☒…‰€©®™°↓↑→←↔↵⇓⇑⇒⇐⇔»«▼▲►◄≤≥≠±¹²³½¼⅛×÷∞ø∑√∫ΔδΠπΣΦΩωαβγεηλμ☺☻☼♥♀♂♪♫"
+SPECIAL_CHARS_DEFAULT = "“”„•◇▪▸☐☑☒★…‰€©®™°↓↑→←↔↵⇓⇑⇒⇐⇔»«▼▲►◄≤≥≠≈±¹²³½¼⅛×÷∞ø∑√∫ΔδΠπΣΦΩωαβγεηλμ☺☻☼♥♣♦✔♀♂♪♫✝"
 SELWORD_CHARS_DEFAULT = ".-@"
 TIMESTAMP_FORMAT_DEFAULT = "%Y/%m/%d - %H:%M"
 TOOLBAR_VEC_DEFAULT = ["TreeAddNode", "TreeAddSubNode", cons.TAG_SEPARATOR, "GoBack", "GoForward", cons.TAG_SEPARATOR, cons.CHAR_STAR, "Save", "Export2PDF", cons.TAG_SEPARATOR, "FindInNodes", cons.TAG_SEPARATOR, "BulletedList", "NumberedList", "ToDoList", cons.TAG_SEPARATOR, "HandleImage", "HandleTable", "HandleCodeBox", "EmbFileInsert", "HandleLink", "HandleAnchor", cons.TAG_SEPARATOR, "RemoveFormatting", "ColorForeground", "ColorBackground", "Bold", "Italic", "Underline", "Strikethrough", "H1", "H2", "H3", "Small", "Superscript", "Subscript", "Monospace"]
