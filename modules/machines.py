@@ -753,12 +753,12 @@ class StateMachine:
     def load_embedded_image_element(self, text_buffer, element):
         """Load an Image from the Embedded Vector into the Buffer"""
         iter_insert = text_buffer.get_iter_at_offset(element[0])
-        self.dad.image_insert(iter_insert, element[1], element[2])
+        self.dad.image_insert(iter_insert, element[1], element[2], text_buffer=text_buffer)
 
     def load_embedded_table_element(self, text_buffer, element):
         """Load a Table from the Embedded Vector into the Buffer"""
         iter_insert = text_buffer.get_iter_at_offset(element[0])
-        self.dad.tables_handler.table_insert(iter_insert, element[1], element[2])
+        self.dad.tables_handler.table_insert(iter_insert, element[1], element[2], text_buffer=text_buffer)
 
     def load_embedded_codebox_element(self, text_buffer, element):
         """Load a CodeBox from the Embedded Vector into the Buffer"""
