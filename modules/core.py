@@ -20,7 +20,7 @@
 #       MA 02110-1301, USA.
 
 import gtk, pango, gtksourceview2, gobject
-import sys, os, re, glob, subprocess, webbrowser, base64, cgi, urllib2, shutil, time, pgsc_spellcheck
+import sys, os, re, glob, subprocess, webbrowser, base64, cgi, urllib2, shutil, time, locale, pgsc_spellcheck
 import cons, support, config, machines, clipboard, imports, exports, printing, tablez, lists, findreplace, codeboxes, ctdb
 if cons.HAS_APPINDICATOR: import appindicator
 
@@ -2797,9 +2797,9 @@ iter_end, exclude_iter_sel_end=True)
 
     def node_date(self, *args):
         """Insert Date Node in Tree"""
-        now_year = unicode(time.strftime("%Y"), cons.STR_UTF8, cons.STR_IGNORE)
-        now_month = unicode(time.strftime("%B"), cons.STR_UTF8, cons.STR_IGNORE)
-        now_day = unicode(time.strftime("%d %a"), cons.STR_UTF8, cons.STR_IGNORE)
+        now_year = time.strftime("%Y").decode(locale.getlocale()[1])
+        now_month =time.strftime("%B").decode(locale.getlocale()[1])
+        now_day = time.strftime("%d %a").decode(locale.getlocale()[1])
         #print now_year, now_month, now_day
         if self.curr_tree_iter:
             curr_depth = self.treestore.iter_depth(self.curr_tree_iter)
@@ -3952,8 +3952,8 @@ iter_end, exclude_iter_sel_end=True)
         embfile_Mbytes = embfile_Kbytes/1024
         if embfile_Mbytes > 1: human_readable_size = "%.1f MB" % embfile_Mbytes
         else: human_readable_size = "%.1f KB" % embfile_Kbytes
-        try: timestamp = time.strftime(self.timestamp_format, time.localtime(anchor.pixbuf.time))
-        except: timestamp = time.strftime(config.TIMESTAMP_FORMAT_DEFAULT, time.localtime(anchor.pixbuf.time))
+        try: timestamp = time.strftime(self.timestamp_format, time.localtime(anchor.pixbuf.time)).decode(locale.getlocale()[1])
+        except: timestamp = time.strftime(config.TIMESTAMP_FORMAT_DEFAULT, time.localtime(anchor.pixbuf.time)).decode(locale.getlocale()[1])
         anchor.eventbox.set_tooltip_text("%s\n%s (%d Bytes)\n%s" % (anchor.pixbuf.filename, human_readable_size, embfile_bytes, timestamp))
 
     def image_edit(self, *args):
@@ -4860,7 +4860,7 @@ iter_end, exclude_iter_sel_end=True)
         """Insert Timestamp"""
         text_view, text_buffer, from_codebox = self.get_text_view_n_buffer_codebox_proof()
         if not text_buffer: return
-        text_buffer.insert_at_cursor(time.strftime(self.timestamp_format))
+        text_buffer.insert_at_cursor(time.strftime(self.timestamp_format).decode(locale.getlocale()[1]))
 
     def set_selection_at_offset_n_delta(self, offset, delta, text_buffer=None):
         """Set the Selection from given offset to offset+delta"""
