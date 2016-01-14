@@ -674,7 +674,7 @@ iter_end, exclude_iter_sel_end=True)
         """Increase Text Font"""
         text_view, text_buffer, from_codebox = self.get_text_view_n_buffer_codebox_proof()
         if not text_buffer: return
-        if from_codebox or self.syntax_highlighting != cons.RICH_TEXT_ID:
+        if from_codebox or self.syntax_highlighting not in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID]:
             font_vec = self.code_font.split(cons.CHAR_SPACE)
             font_num = int(font_vec[-1])
             font_vec[-1] = str(font_num+1)
@@ -694,7 +694,7 @@ iter_end, exclude_iter_sel_end=True)
         """Decrease Text Font"""
         text_view, text_buffer, from_codebox = self.get_text_view_n_buffer_codebox_proof()
         if not text_buffer: return
-        if from_codebox or self.syntax_highlighting != cons.RICH_TEXT_ID:
+        if from_codebox or self.syntax_highlighting not in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID]:
             font_vec = self.code_font.split(cons.CHAR_SPACE)
             font_num = int(font_vec[-1])
             if font_num > 6:

@@ -1181,13 +1181,13 @@ def preferences_tab_fonts(dad, vbox_fonts, pref_dialog):
     vbox_fonts.pack_start(frame_fonts, expand=False)
     def on_fontbutton_text_font_set(picker):
         dad.text_font = picker.get_font_name()
-        if dad.curr_tree_iter and dad.syntax_highlighting == cons.RICH_TEXT_ID:
+        if dad.curr_tree_iter and dad.syntax_highlighting in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID]:
             dad.sourceview.modify_font(pango.FontDescription(dad.text_font))
     fontbutton_text.connect('font-set', on_fontbutton_text_font_set)
     def on_fontbutton_code_font_set(picker):
         dad.code_font = picker.get_font_name()
         if not dad.curr_tree_iter: return
-        if dad.syntax_highlighting != cons.RICH_TEXT_ID:
+        if dad.syntax_highlighting not in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID]:
             dad.sourceview.modify_font(pango.FontDescription(dad.code_font))
         else:
             support.rich_text_node_modify_codeboxes_font(dad.curr_buffer.get_start_iter(), dad.code_font)
