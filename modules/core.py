@@ -245,6 +245,9 @@ class CherryTree:
         try:
             fd = urllib2.urlopen(cons.NEWER_VERSION_URL, timeout=3)
             latest_version = fd.read().replace(cons.CHAR_NEWLINE, "")
+            if len(latest_version) > 10:
+                # html error page
+                raise
             if latest_version != cons.VERSION:
                 support.dialog_info(_("A Newer Version Is Available!") + " (%s)" % latest_version, self.window)
                 self.statusbar.pop(self.statusbar_context_id)
