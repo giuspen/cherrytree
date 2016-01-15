@@ -28,30 +28,31 @@ NEWER_VERSION_URL = "http://www.giuspen.com/software/version_cherrytree"
 if sys.platform.startswith("win"):
     IS_WIN_OS = True
     SZA_PATH = '"'+os.path.join(SHARE_PATH, "7za.exe")+'"'
-    if SHARE_PATH:
-        EXE_DIR = SHARE_PATH
-        os.chdir(EXE_DIR)
-    else: EXE_DIR = os.getcwd()
     TMP_FOLDER = os.path.join(os.environ['TEMP'], 'ct_tmp/')
-    GLADE_PATH = os.path.join(EXE_DIR, 'glade/')
-    SPECS_PATH = os.path.join(EXE_DIR, 'language-specs/')
-    LOCALE_PATH = os.path.join(EXE_DIR, 'locale/')
-    if not os.path.isfile(os.path.join(EXE_DIR, 'config.cfg')):
+    GLADE_PATH = os.path.join(SHARE_PATH, 'glade/')
+    SPECS_PATH = os.path.join(SHARE_PATH, 'language-specs/')
+    LOCALE_PATH = os.path.join(SHARE_PATH, 'locale/')
+    if not os.path.isfile(os.path.join(SHARE_PATH, 'config.cfg')):
         CONFIG_DIR = os.path.join(os.environ['APPDATA'], APP_NAME)
-    else: CONFIG_DIR = EXE_DIR
+    else:
+        CONFIG_DIR = SHARE_PATH
 else:
     IS_WIN_OS = False
     SZA_PATH = "7za"
-    CONFIG_DIR = os.path.join(os.path.expanduser('~'), '.config/cherrytree')
     TMP_FOLDER = '/tmp/ct_tmp/'
-    if not SHARE_PATH:
-        GLADE_PATH = os.path.join(os.getcwd(), "glade/")
-        SPECS_PATH = os.path.join(os.getcwd(), 'language-specs/')
-        LOCALE_PATH = os.path.join(os.getcwd(), 'locale/')
+    MODULES_PATH = os.path.dirname(os.path.realpath(__file__))
+    if SHARE_PATH == os.path.dirname(MODULES_PATH):
+        GLADE_PATH = os.path.join(SHARE_PATH, "glade/")
+        SPECS_PATH = os.path.join(SHARE_PATH, 'language-specs/')
+        LOCALE_PATH = os.path.join(SHARE_PATH, 'locale/')
     else:
-        GLADE_PATH = os.path.join(SHARE_PATH, 'cherrytree/glade/')
-        SPECS_PATH = os.path.join(SHARE_PATH, 'cherrytree/language-specs')
+        GLADE_PATH = os.path.join(SHARE_PATH, 'cherrytree', 'glade/')
+        SPECS_PATH = os.path.join(SHARE_PATH, 'cherrytree', 'language-specs')
         LOCALE_PATH = os.path.join(SHARE_PATH, 'locale')
+    if not os.path.isfile(os.path.join(SHARE_PATH, 'config.cfg')):
+        CONFIG_DIR = os.path.join(os.path.expanduser('~'), '.config', 'cherrytree')
+    else:
+        CONFIG_DIR = SHARE_PATH
 CONFIG_PATH = os.path.join(CONFIG_DIR, 'config.cfg')
 LANG_PATH = os.path.join(CONFIG_DIR, 'lang')
 IMG_PATH = os.path.join(CONFIG_DIR, 'img_tmp.png')
