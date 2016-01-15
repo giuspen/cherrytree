@@ -41,18 +41,17 @@ else:
     SZA_PATH = "7za"
     TMP_FOLDER = '/tmp/ct_tmp/'
     MODULES_PATH = os.path.dirname(os.path.realpath(__file__))
+    CONFIG_DIR = os.path.join(os.path.expanduser('~'), '.config', 'cherrytree')
     if SHARE_PATH == os.path.dirname(MODULES_PATH):
         GLADE_PATH = os.path.join(SHARE_PATH, "glade/")
         SPECS_PATH = os.path.join(SHARE_PATH, 'language-specs/')
         LOCALE_PATH = os.path.join(SHARE_PATH, 'locale/')
+        if os.path.isfile(os.path.join(SHARE_PATH, 'config.cfg')):
+            CONFIG_DIR = SHARE_PATH
     else:
         GLADE_PATH = os.path.join(SHARE_PATH, 'cherrytree', 'glade/')
         SPECS_PATH = os.path.join(SHARE_PATH, 'cherrytree', 'language-specs')
         LOCALE_PATH = os.path.join(SHARE_PATH, 'locale')
-    if not os.path.isfile(os.path.join(SHARE_PATH, 'config.cfg')):
-        CONFIG_DIR = os.path.join(os.path.expanduser('~'), '.config', 'cherrytree')
-    else:
-        CONFIG_DIR = SHARE_PATH
 CONFIG_PATH = os.path.join(CONFIG_DIR, 'config.cfg')
 LANG_PATH = os.path.join(CONFIG_DIR, 'lang')
 IMG_PATH = os.path.join(CONFIG_DIR, 'img_tmp.png')
