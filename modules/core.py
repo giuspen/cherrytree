@@ -2904,7 +2904,7 @@ iter_end, exclude_iter_sel_end=True)
         if new_iter == None: return # no node selected
         elif self.curr_tree_iter != None and model[new_iter][3] == model[self.curr_tree_iter][3]:
             return # if i click on an already selected node
-        if self.enable_spell_check and self.user_active and self.syntax_highlighting == cons.RICH_TEXT_ID:
+        if self.enable_spell_check and self.user_active and self.syntax_highlighting in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID]:
             self.spell_check_set_off()
         if self.curr_tree_iter and self.curr_buffer:
             if self.user_active:
@@ -2939,8 +2939,8 @@ iter_end, exclude_iter_sel_end=True)
                 #print "cursor_pos %s restore for node %s" % (cursor_pos, model[new_iter][3])
                 self.curr_buffer.place_cursor(cursor_iter)
                 self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), 0.3)
-            if self.syntax_highlighting == cons.RICH_TEXT_ID:
-                if not already_visited: self.lists_handler.todo_lists_old_to_new_conversion(self.curr_buffer)
+            if self.syntax_highlighting in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID]:
+                #if not already_visited: self.lists_handler.todo_lists_old_to_new_conversion(self.curr_buffer)
                 if self.enable_spell_check: self.spell_check_set_on()
             node_is_bookmarked = (str(node_id) in self.bookmarks)
             self.menu_tree_update_for_bookmarked_node(node_is_bookmarked)
@@ -3837,7 +3837,7 @@ iter_end, exclude_iter_sel_end=True)
         dialog.get_action_area().set_layout(gtk.BUTTONBOX_SPREAD)
         dialog.run()
         dialog.destroy()
-        if self.enable_spell_check and self.syntax_highlighting == cons.RICH_TEXT_ID:
+        if self.enable_spell_check and self.syntax_highlighting in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID]:
             self.spell_check_set_on()
 
     def tree_info_iter(self, tree_iter):
@@ -4505,11 +4505,11 @@ iter_end, exclude_iter_sel_end=True)
         """Enable Spell Check"""
         if not self.spell_check_init:
             self.spell_check_init = True
-            self.spellchecker = pgsc_spellcheck.SpellChecker(self.sourceview, self, self.syntax_highlighting == cons.RICH_TEXT_ID, self.spell_check_lang)
+            self.spellchecker = pgsc_spellcheck.SpellChecker(self.sourceview, self, self.syntax_highlighting in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID], self.spell_check_lang)
             self.combobox_spell_check_lang_init()
         else:
             self.spellchecker.enable()
-            if self.syntax_highlighting == cons.RICH_TEXT_ID:
+            if self.syntax_highlighting in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID]:
                 self.spell_check_reload_on_buffer()
         self.update_selected_node_statusbar_info()
 
