@@ -92,7 +92,7 @@ class ListsHandler:
                             if not leading_num_count:
                                 leading_num_count = [[0, 1]]
                             else:
-                                leading_num_count = [[0, leading_num_count[0][1]]]
+                                leading_num_count = [[0, leading_num_count[0][1]+1]]
                         else:
                             level = list_info["level"]
                             index = level % cons.NUM_CHARS_LISTNUM
