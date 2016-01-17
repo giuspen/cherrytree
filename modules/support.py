@@ -165,7 +165,7 @@ def on_sourceview_list_change_level(dad, iter_insert, list_info, text_buffer, le
             break
         curr_offset = iter_start.get_offset()
     dad.user_active = True
-    dad.state_machine.update_state()
+    dad.update_window_save_needed("nbuf", True)
 
 def on_sourceview_event_after_key_press(dad, text_view, event):
     """Called after every gtk.gdk.KEY_PRESS on the SourceView"""
