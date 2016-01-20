@@ -245,44 +245,65 @@ def on_sourceview_event_after_key_press(dad, text_view, event):
         elif keyname == cons.STR_KEY_SPACE:
             if iter_start.backward_chars(2):
                 if iter_start.get_char() == cons.CHAR_GREATER and iter_start.backward_char():
-                    # Start bulleted list on "<> ", "-> " and "=> " at line start
                     if iter_start.get_line_offset() == 0:
+                        # at line start
                         if iter_start.get_char() == cons.CHAR_LESSER:
+                            # "<> " becoming "◇ "
                             dad.special_char_replace(cons.CHARS_LISTBUL[1], iter_start, iter_insert, text_buffer)
                         elif iter_start.get_char() == cons.CHAR_MINUS:
+                            # "-> " becoming "→ "
                             dad.special_char_replace(cons.CHARS_LISTBUL[4], iter_start, iter_insert, text_buffer)
                         elif iter_start.get_char() == cons.CHAR_EQUAL:
+                            # "=> " becoming "⇒ "
                             dad.special_char_replace(cons.CHARS_LISTBUL[5], iter_start, iter_insert, text_buffer)
                     elif iter_start.get_char() == cons.CHAR_MINUS and iter_start.backward_char():
                         if iter_start.get_char() == cons.CHAR_LESSER:
+                            # "<-> " becoming "↔ "
                             dad.special_char_replace(cons.SPECIAL_CHAR_ARROW_DOUBLE, iter_start, iter_insert, text_buffer)
                         elif iter_start.get_char() == cons.CHAR_MINUS:
+                            # "--> " becoming "→ "
                             dad.special_char_replace(cons.SPECIAL_CHAR_ARROW_RIGHT, iter_start, iter_insert, text_buffer)
+                    elif iter_start.get_char() == cons.CHAR_EQUAL and iter_start.backward_char():
+                        if iter_start.get_char() == cons.CHAR_LESSER:
+                            # "<=> " becoming "⇔ "
+                            dad.special_char_replace(cons.SPECIAL_CHAR_ARROW_DOUBLE2, iter_start, iter_insert, text_buffer)
+                        elif iter_start.get_char() == cons.CHAR_EQUAL:
+                            # "==> " becoming "⇒ "
+                            dad.special_char_replace(cons.SPECIAL_CHAR_ARROW_RIGHT2, iter_start, iter_insert, text_buffer)
                 elif iter_start.get_char() == cons.CHAR_MINUS and iter_start.backward_char()\
                 and iter_start.get_char() == cons.CHAR_MINUS and iter_start.backward_char()\
                 and iter_start.get_char() == cons.CHAR_LESSER:
+                    # "<-- " becoming "← "
                     dad.special_char_replace(cons.SPECIAL_CHAR_ARROW_LEFT, iter_start, iter_insert, text_buffer)
+                elif iter_start.get_char() == cons.CHAR_EQUAL and iter_start.backward_char()\
+                and iter_start.get_char() == cons.CHAR_EQUAL and iter_start.backward_char()\
+                and iter_start.get_char() == cons.CHAR_LESSER:
+                    # "<== " becoming "⇐ "
+                    dad.special_char_replace(cons.SPECIAL_CHAR_ARROW_LEFT2, iter_start, iter_insert, text_buffer)
                 elif iter_start.get_char() == cons.CHAR_PARENTH_CLOSE and iter_start.backward_char():
                     if iter_start.get_char().lower() == "c" and iter_start.backward_char()\
                     and iter_start.get_char() == cons.CHAR_PARENTH_OPEN:
+                        # "(c) " becoming "© "
                         dad.special_char_replace(cons.SPECIAL_CHAR_COPYRIGHT, iter_start, iter_insert, text_buffer)
                     elif iter_start.get_char().lower() == "r" and iter_start.backward_char()\
                     and iter_start.get_char() == cons.CHAR_PARENTH_OPEN:
+                        # "(r) " becoming "® "
                         dad.special_char_replace(cons.SPECIAL_CHAR_REGISTERED_TRADEMARK, iter_start, iter_insert, text_buffer)
                     elif iter_start.get_char().lower() == "m" and iter_start.backward_char()\
                     and iter_start.get_char() == "t" and iter_start.backward_char()\
                     and iter_start.get_char() == cons.CHAR_PARENTH_OPEN:
+                        # "(tm) " becoming "™ "
                         dad.special_char_replace(cons.SPECIAL_CHAR_UNREGISTERED_TRADEMARK, iter_start, iter_insert, text_buffer)
                 elif iter_start.get_char() == cons.CHAR_STAR and iter_start.get_line_offset() == 0:
-                    # Start bulleted list on "* " at line start
+                    # "* " becoming "• " at line start
                     dad.special_char_replace(cons.CHARS_LISTBUL[0], iter_start, iter_insert, text_buffer)
                 elif iter_start.get_char() == cons.CHAR_SQ_BR_CLOSE and iter_start.backward_char():
-                    # Start todo list on "[] " at line start
                     if iter_start.get_line_offset() == 0 and iter_start.get_char() == cons.CHAR_SQ_BR_OPEN:
+                        # "[] " becoming "☐ " at line start
                         dad.special_char_replace(cons.CHAR_LISTTODO, iter_start, iter_insert, text_buffer)
                 elif iter_start.get_char() == cons.CHAR_COLON and iter_start.backward_char():
-                    # Start todo list on ":: " at line start
                     if iter_start.get_line_offset() == 0 and iter_start.get_char() == cons.CHAR_COLON:
+                        # ":: " becoming "▪ " at line start
                         dad.special_char_replace(cons.CHARS_LISTBUL[2], iter_start, iter_insert, text_buffer)
     return False
 
