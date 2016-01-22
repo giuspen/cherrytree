@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: svn_cherrytree 0.14\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-11-14 23:31+0000\n"
-"PO-Revision-Date: 2014-12-10 23:34+0100\n"
+"PO-Revision-Date: 2016-01-22 16:53+0100\n"
 "Last-Translator: Klaus Becker <colonius@free.fr>\n"
 "Language-Team: French\n"
 "Language: fr\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.8.6\n"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/codeboxes.py:96
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/core.py:3327
@@ -375,27 +375,23 @@ msgstr "Activer/Désactiver la vérification orthographique"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:546
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:769
-#, fuzzy
 msgid "Cu_t as Plain Text"
-msgstr "_Coller comme Texte Brut"
+msgstr "_Couper comme Texte Brut"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:546
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:769
-#, fuzzy
 msgid "Cut as Plain Text, Discard the Rich Text Formatting"
-msgstr "Coller comme Texte Brut, Supprimer le formattage en Texte Riche"
+msgstr "Couper comme Texte Brut, Supprimer le formatage en Texte Riche"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:547
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:770
-#, fuzzy
 msgid "_Copy as Plain Text"
-msgstr "_Coller comme Texte Brut"
+msgstr "_Copier comme Texte Brut"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:547
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:770
-#, fuzzy
 msgid "Copy as Plain Text, Discard the Rich Text Formatting"
-msgstr "Coller comme Texte Brut, Supprimer le formattage en Texte Riche"
+msgstr "Copier comme Texte Brut, Supprimer le formatage en Texte Riche"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:548
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:771
@@ -691,15 +687,14 @@ msgstr "Aligner à D_roite"
 msgid "Justify Right the Current Paragraph"
 msgstr "Aligner le Paragraphe à Droite"
 
+# Justify Fill or Justify ?
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:576
-#, fuzzy
 msgid "Justify _Fill"
-msgstr "Aligner à D_roite"
+msgstr "Justifier _Remplissage"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:576
-#, fuzzy
 msgid "Justify Fill the Current Paragraph"
-msgstr "Aligner le Paragraphe à Droite"
+msgstr "Justifier Remplissage le Paragraphe Courant"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:577
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:697
@@ -723,15 +718,13 @@ msgstr "Ajouter un Nœud Enfant au Nœud sélectionné"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:579
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:699
-#, fuzzy
 msgid "_Duplicate Node"
-msgstr "_Dupliquer la Ligne"
+msgstr "_Dupliquer le Noeud"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:579
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:699
-#, fuzzy
 msgid "Duplicate the Selected Node"
-msgstr "Supprimer le Nœud Sélectionné"
+msgstr "Dupliquer le Nœud Sélectionné"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:580
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:701
@@ -1592,23 +1585,20 @@ msgid "Export Table as CSV File"
 msgstr "Exporter le Tableau en Fichier CVS"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:703
-#, fuzzy
 msgid "Add to _Bookmarks"
-msgstr "_Favoris"
+msgstr "Ajouter aux _Signets"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:703
 msgid "Add the Current Node to the Bookmarks List"
 msgstr "Ajouter le Nœud actuel à la liste des Favoris"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:704
-#, fuzzy
 msgid "_Remove from Bookmarks"
-msgstr "_Favoris"
+msgstr "_Retirer des Favoris"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:704
-#, fuzzy
 msgid "Remove the Current Node from the Bookmarks List"
-msgstr "Ajouter le Nœud actuel à la liste des Favoris"
+msgstr "Retirer le Nœud actuel de la liste des Signets"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:715
 msgid "Nodes _Sort"
@@ -1699,18 +1689,16 @@ msgid "C_ut Link"
 msgstr "C_ouper le Lien"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:894
-#, fuzzy
 msgid "Cut the Selected Link"
-msgstr "Supprimer le Lien Sélectionné"
+msgstr "Couper le Lien Sélectionné"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:895
 msgid "_Copy Link"
 msgstr "_Copier le Lien"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:895
-#, fuzzy
 msgid "Copy the Selected Link"
-msgstr "Copier l'Ancre Sélectionnée"
+msgstr "Copier le Lien Sélectionné"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:896
 msgid "Dismiss the Selected Link"
@@ -2028,7 +2016,7 @@ msgstr "Italien"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:628
 msgid "Japanese"
-msgstr ""
+msgstr "Japonais"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:629
 msgid "Polish"
@@ -2048,7 +2036,7 @@ msgstr "Espagnol"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:633
 msgid "Turkish"
-msgstr ""
+msgstr "Turque"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:634
 msgid "Ukrainian"
@@ -2381,7 +2369,7 @@ msgstr "Replier tous les Nœuds"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:998
 msgid "Nodes in Bookmarks Always Visible"
-msgstr ""
+msgstr "Nœuds toujours visibles dans les Signets"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:1006
 msgid "Nodes Status at Startup"
