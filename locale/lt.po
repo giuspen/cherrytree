@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-11-14 23:31+0000\n"
-"PO-Revision-Date: 2016-01-23 14:40+0200\n"
+"PO-Revision-Date: 2016-01-23 14:50+0200\n"
 "Last-Translator: zygis <zygimantus@gmail.com>\n"
 "Language-Team: Lithuanian\n"
 "Language: lt\n"
@@ -206,15 +206,15 @@ msgstr "_Išeiti"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:528
 msgid "Quit the Application"
-msgstr ""
+msgstr "Išeiti iš programos"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:529
 msgid "_Exit CherryTree"
-msgstr ""
+msgstr "Išeiti iš CherryTree"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:529
 msgid "Exit from CherryTree"
-msgstr ""
+msgstr "Išeiti iš CherryTree"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:530
 msgid "_Preferences"
@@ -227,7 +227,7 @@ msgstr "Nustatymai"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:531
 msgid "_Undo"
-msgstr ""
+msgstr "_Atkurti"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:531
 msgid "Undo Last Operation"
@@ -235,11 +235,11 @@ msgstr ""
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:532
 msgid "_Redo"
-msgstr ""
+msgstr "_Kartoti"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:532
 msgid "Redo Previously Discarded Operation"
-msgstr ""
+msgstr "Kartoti paskutinę atšauktą operaciją"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:533
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:803
@@ -264,7 +264,7 @@ msgstr "Įterpti lentelę"
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:535
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:805
 msgid "Insert _CodeBox"
-msgstr ""
+msgstr "Įterpti _CodeBox"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:536
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:806
@@ -279,7 +279,7 @@ msgstr "Įterpti failą"
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:537
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:807
 msgid "Insert/Edit _Link"
-msgstr ""
+msgstr "Įterpti/Keisti _nuorodą"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:537
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:807
@@ -861,17 +861,17 @@ msgstr ""
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:593
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:755
 msgid "De_lete Node"
-msgstr ""
+msgstr "I_štrinti mazgą"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:593
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:755
 msgid "Delete the Selected Node"
-msgstr ""
+msgstr "Ištrinti pasirinktą mazgą"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:594
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:757
 msgid "Go _Back"
-msgstr ""
+msgstr "Grįžti atgal"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:594
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:757
@@ -881,7 +881,7 @@ msgstr ""
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:595
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:758
 msgid "Go _Forward"
-msgstr ""
+msgstr "Eiti _pirmyn"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:595
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:758
@@ -930,7 +930,7 @@ msgstr ""
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:831
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:873
 msgid "Find _Again"
-msgstr ""
+msgstr "Rasti _vėl"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:600
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:831
@@ -942,7 +942,7 @@ msgstr ""
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:832
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:874
 msgid "Find _Back"
-msgstr ""
+msgstr "Rasti _atgal"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:601
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:832
@@ -1050,35 +1050,35 @@ msgstr ""
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:613
 msgid "E_xpand All Nodes"
-msgstr ""
+msgstr "Išskleisti visu mazgus"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:613
 msgid "Expand All the Tree Nodes"
-msgstr ""
+msgstr "Išskleisti visus medžio mazgus"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:614
 msgid "_Collapse All Nodes"
-msgstr ""
+msgstr "Suskleisti visus mazgus"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:614
 msgid "Collapse All the Tree Nodes"
-msgstr ""
+msgstr "Suskleisti visus medžio mazgus"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:615
 msgid "_Increase Toolbar Icons Size"
-msgstr ""
+msgstr "Padidinti įrankių juostos ikonų dydį"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:615
 msgid "Increase the Size of the Toolbar Icons"
-msgstr ""
+msgstr "Padidinti įrankių juostos ikonų dydį"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:616
 msgid "_Decrease Toolbar Icons Size"
-msgstr ""
+msgstr "Sumažinti įrankių juostos ikonų dydį"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:616
 msgid "Decrease the Size of the Toolbar Icons"
-msgstr ""
+msgstr "Sumažinti įrankių juostos ikonų dydį"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:617
 msgid "_Full Screen On/Off"
@@ -1090,17 +1090,17 @@ msgstr ""
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:618
 msgid "_Handle Bookmarks"
-msgstr ""
+msgstr "_Tvarkyti žymes"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:618
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:1480
 msgid "Handle the Bookmarks List"
-msgstr ""
+msgstr "Tvarkyti žymių sąrašą"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:619
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:726
 msgid "From _CherryTree File"
-msgstr ""
+msgstr "Iš CherryTree failo"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:619
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:726
@@ -1270,7 +1270,7 @@ msgstr ""
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:636
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:743
 msgid "From _Zim Folder"
-msgstr ""
+msgstr "Iš _Zim aplanko"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:636
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:743
@@ -1422,49 +1422,49 @@ msgstr ""
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:655
 msgid "_Edit Image"
-msgstr ""
+msgstr "_Keisti paveikslėlį"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:655
 msgid "Edit the Selected Image"
-msgstr ""
+msgstr "Keisti pasirinktą paveikslėlį"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:656
 msgid "C_ut Image"
-msgstr ""
+msgstr "Iškirpti paveikslėlį"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:656
 msgid "Cut the Selected Image"
-msgstr ""
+msgstr "Iškirpti pasirinktą paveikslėlį"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:657
 msgid "_Copy Image"
-msgstr ""
+msgstr "_Kopijuoti paveikslėlį"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:657
 msgid "Copy the Selected Image"
-msgstr ""
+msgstr "Kopijuoti pasirinktą paveikslėlį"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:658
 msgid "_Delete Image"
-msgstr ""
+msgstr "_Ištrinti paveikslėlį"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:658
 msgid "Delete the Selected Image"
-msgstr ""
+msgstr "Ištrinti pasirinktą paveikslėlį"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:659
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:892
 msgid "Edit _Link"
-msgstr ""
+msgstr "Keisti _nuorodą"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:659
 msgid "Edit the Link Associated to the Image"
-msgstr ""
+msgstr "Keisti nuorodą, susietą su paveikslėliu"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:660
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:896
 msgid "D_ismiss Link"
-msgstr ""
+msgstr "Pa_šalinti nuorodą"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:660
 msgid "Dismiss the Link Associated to the Image"
@@ -1624,32 +1624,32 @@ msgstr "_Kopijuoti eilutę"
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:828
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:870
 msgid "_Find in Node"
-msgstr ""
+msgstr "_Rasti mazge"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:828
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:870
 msgid "Find into the Selected Node"
-msgstr ""
+msgstr "Rasti pasirinktame mazge"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:829
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:871
 msgid "Find in Node_s"
-msgstr ""
+msgstr "Rasti mazguo_se"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:829
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:871
 msgid "Find into all the Tree Nodes"
-msgstr ""
+msgstr "Rasti visuose medžio mazguose"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:834
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:876
 msgid "_Replace"
-msgstr ""
+msgstr "_Pakeisti"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:835
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:877
 msgid "_Replace in Node"
-msgstr ""
+msgstr "_Pakeisti mazge"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:835
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:877
@@ -1708,7 +1708,7 @@ msgstr ""
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:908
 msgid "Insert _NewLine"
-msgstr ""
+msgstr "Įterpti NewLine"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:908
 msgid "Insert NewLine Char"
@@ -1842,7 +1842,7 @@ msgstr ""
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/findreplace.py:223
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/findreplace.py:292
 msgid "Matches"
-msgstr ""
+msgstr "Sutampa"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/findreplace.py:154
 msgid "Replace in Selected Node and Subnodes"
@@ -2057,17 +2057,17 @@ msgstr ""
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:1007
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:1244
 msgid "To File"
-msgstr ""
+msgstr "Į failą"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:1022
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:1251
 msgid "To Folder"
-msgstr ""
+msgstr "Į katalogą"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:1037
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:1237
 msgid "To Node"
-msgstr ""
+msgstr "Į mazgą"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:1073
 msgid "Anchor Name (optional)"
@@ -2165,22 +2165,22 @@ msgstr ""
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/pgsc_spellcheck.py:452
 msgid "Languages"
-msgstr ""
+msgstr "Kalbos"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/pgsc_spellcheck.py:463
 msgid "Suggestions"
-msgstr ""
+msgstr "Pasiūlymai"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/exports.py:38
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/core.py:768
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/core.py:1437
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/core.py:1635
 msgid "CherryTree Document"
-msgstr ""
+msgstr "CherryTree dokumentacija"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/exports.py:99
 msgid "PDF File"
-msgstr ""
+msgstr "PDF failas"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/exports.py:185
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/core.py:922
@@ -2191,7 +2191,7 @@ msgstr ""
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/exports.py:595
 msgid "Index"
-msgstr ""
+msgstr "Indeksas"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:562
 msgid "Tab Width"
@@ -2253,17 +2253,17 @@ msgstr ""
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:722
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/core.py:4736
 msgid "Spell Check"
-msgstr ""
+msgstr "Rašybos tikrinimas"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:732
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:932
 msgid "Light Background, Dark Text"
-msgstr ""
+msgstr "Šviesus fonas, tamsus tekstas"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:733
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:933
 msgid "Dark Background, Light Text"
-msgstr ""
+msgstr "Tamsus fonas, šviesus tekstas"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:735
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:935
@@ -2388,7 +2388,7 @@ msgstr ""
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:1261
 msgid "Colors"
-msgstr ""
+msgstr "Spalvos"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:1270
 msgid "Use Relative Paths for Files And Folders"
@@ -2424,7 +2424,7 @@ msgstr ""
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:1445
 msgid "Minutes"
-msgstr ""
+msgstr "Minutės"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:1449
 msgid "Autosave on Quit"
@@ -2482,7 +2482,7 @@ msgstr ""
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:1628
 msgid "Links"
-msgstr ""
+msgstr "Nuorodos"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:1629
 msgid "Toolbar"
@@ -2490,11 +2490,11 @@ msgstr ""
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/tablez.py:63
 msgid "Rename Column"
-msgstr ""
+msgstr "Pervadinti stulpelį"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/tablez.py:74
 msgid "Delete Column"
-msgstr ""
+msgstr "Ištrinti stulpelį"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/tablez.py:82
 msgid "Add Column"
