@@ -676,6 +676,7 @@ _("French")+" (fr) Klaus Becker <colonius@free.fr>"+cons.CHAR_NEWLINE+
 _("German")+" (de) Frank Brungräber <calexu@arcor.de>"+cons.CHAR_NEWLINE+
 _("Italian")+" (it) Vincenzo Reale <smart2128@baslug.org>"+cons.CHAR_NEWLINE+
 _("Japanese")+" (ja) Piyo <py2@live.jp>"+cons.CHAR_NEWLINE+
+_("Lithuanian")+" (lt) Zygis <zygimantus@gmail.com>"+cons.CHAR_NEWLINE+
 _("Polish")+" (pl) Marcin Swierczynski <orneo1212@gmail.com>"+cons.CHAR_NEWLINE+
 _("Portuguese Brazil")+" (pt_BR) Vinicius Schmidt <viniciussm@rocketmail.com>"+cons.CHAR_NEWLINE+
 _("Russian")+" (ru) Andriy Kovtun <kovtunos@yandex.ru>"+cons.CHAR_NEWLINE+
