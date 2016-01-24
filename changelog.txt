@@ -1,4 +1,16 @@
 
+0.36.4 (???)
+• added the configurable option to highlight the current line also for rich text nodes
+• spell check working in both rich text and plain text nodes (not in code nodes)
+• special chars auto-replaced: "==> " becoming "⇒ ", "<== " becoming "⇐ " and "<=> " becoming "⇔ "
+• added support for "rust" programming language syntax highlighting
+• bugfix in duplicating nodes with images and tables
+• bugfix in lists change level and in numbered lists start with selected text
+• bugfix in insertion of today's node (F8) and non ascii chars
+• bugfix copying from plain text to rich text and automatic web link formatting
+• Added language Lithuanian (Zygis)
+• Updated language French (Klaus Becker)
+
 0.36.3 (December 22nd, 2015)
 • bugfix in searches
 • added syntax highlightings Markdown and Markdown Extra from Jean-Philippe Fleury

@@ -1,6 +1,6 @@
-cherrytree (0.36.3-2) trusty; urgency=low
+cherrytree (0.36.4-1) trusty; urgency=low
 
-  * bugfix in searches
-  * added syntax highlightings Markdown and Markdown Extra from Jean-Philippe Fleury
+  * 
+
 
  -- Giuseppe Penone <giuspen@gmail.com>  Tue, 22 Dec 2015 22:32:29 +0000
