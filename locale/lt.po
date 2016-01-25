@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-11-14 23:31+0000\n"
-"PO-Revision-Date: 2016-01-25 09:23+0200\n"
+"PO-Revision-Date: 2016-01-25 09:53+0200\n"
 "Last-Translator: zygis <zygimantus@gmail.com>\n"
 "Language-Team: Lithuanian\n"
 "Language: lt\n"
@@ -340,7 +340,7 @@ msgstr "Paversti į mažąsias raides"
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:814
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:856
 msgid "Lower the Case of the Selection/the Underlying Word"
-msgstr ""
+msgstr "Sumažinti pasirinkto žodžio raides"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:543
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:815
@@ -352,7 +352,7 @@ msgstr "Paversti _didžiosiomis raidėmis"
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:815
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:857
 msgid "Upper the Case of the Selection/the Underlying Word"
-msgstr ""
+msgstr "Padidinti pasirinkto žodžio raides"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:544
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:816
@@ -364,7 +364,7 @@ msgstr "Perjungti didžiąsias-mažąsias raides"
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:816
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:858
 msgid "Toggle the Case of the Selection/the Underlying Word"
-msgstr ""
+msgstr "Perjungti pasirinkto žodžio raides"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:545
 msgid "Enable/Disable _Spell Check"
@@ -550,12 +550,12 @@ msgstr "Pabrauktas"
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:562
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:782
 msgid "Toggle Stri_kethrough Property"
-msgstr ""
+msgstr "Įjungti pabraukimą"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:562
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:782
 msgid "Toggle Strikethrough Property of the Selected Text"
-msgstr ""
+msgstr "Perjungti perbrauktos savybės pažymėtą tekstą"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:563
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:783
@@ -600,22 +600,22 @@ msgstr "Perjungti mažojo teksto savybę"
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:567
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:787
 msgid "Toggle Su_perscript Property"
-msgstr ""
+msgstr "Perjungti viršutinį indeksą"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:567
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:787
 msgid "Toggle Superscript Property of the Selected Text"
-msgstr ""
+msgstr "Perjungti pasirinkto teksto viršutinį indeksą"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:568
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:788
 msgid "Toggle Su_bscript Property"
-msgstr ""
+msgstr "Perjungti apatinio indeksą"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:568
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:788
 msgid "Toggle Subscript Property of the Selected Text"
-msgstr ""
+msgstr "Perjungti pasirinkto teksto apatinį indeksą"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:569
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:789
@@ -635,7 +635,7 @@ msgstr "Punktuotas sąrašas"
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:570
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:797
 msgid "Set/Unset the Current Paragraph/Selection as a Bulleted List"
-msgstr ""
+msgstr "Nustatyti paragrafui punktuotą sąrašą"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:571
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:798
@@ -693,7 +693,7 @@ msgstr "Lygiuoti išpildant"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:576
 msgid "Justify Fill the Current Paragraph"
-msgstr ""
+msgstr "Išpildytas lygiavimas dabartiniam paragrafui"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:577
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:697
@@ -703,7 +703,7 @@ msgstr "Pridėti _pastabą"
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:577
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:697
 msgid "Add a Node having the same Father of the Selected Node"
-msgstr ""
+msgstr "Pridėti mazgą, turintį tą patį tėvą pasirinktam mazgui"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:578
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:698
@@ -713,7 +713,7 @@ msgstr "Pridėti pomazgį"
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:578
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:698
 msgid "Add a Child Node to the Selected Node"
-msgstr ""
+msgstr "Pridėti mazgą atžalą į pasirinktą mazgą"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:579
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:699
@@ -743,7 +743,7 @@ msgstr "Tik skaitymui"
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:581
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:702
 msgid "Toggle the Read Only Property of the Selected Node"
-msgstr ""
+msgstr "Perjungti tik skaitymo savybę pasirinktam mazgui"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:582
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:705
@@ -753,7 +753,7 @@ msgstr "Įterpti šios dienos pastabą"
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:582
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:705
 msgid "Insert a Node with Hierarchy Year/Month/Day"
-msgstr ""
+msgstr "Įterpti mazgą su hierarchiniais metais/mėnesiu/diena"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:583
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:706
@@ -857,6 +857,8 @@ msgid ""
 "Change the Selected Node's Children Syntax Highlighting to the Father's "
 "Syntax Highlighting"
 msgstr ""
+"Pakeisti pasirinkto mazgo vaikų sintaksės pažymėjimą į tėvo sintaksės "
+"pažymėjimą"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:593
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:755
@@ -902,15 +904,15 @@ msgstr "Rasti visuose mazgo turiniuose"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:597
 msgid "Find into All the Tree Nodes Contents"
-msgstr ""
+msgstr "Rasti visuose mazgo turiniuose"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:598
 msgid "Find in _Selected Node and Subnodes Contents"
-msgstr ""
+msgstr "Ieškoti pasirinktame mazge ir pomazgiuose"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:598
 msgid "Find into the Selected Node and Subnodes Contents"
-msgstr ""
+msgstr "Ieškoti pasirinktame mazge ir pomazgiuose"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:599
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:722
@@ -956,7 +958,7 @@ msgstr "Pakeisti mazgo turinyje"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:602
 msgid "Replace into the Selected Node Content"
-msgstr ""
+msgstr "Pakeisti mazgo turinyje"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:603
 msgid "Replace in _All Nodes Contents"
@@ -964,15 +966,19 @@ msgstr "Pakeisti visų mazgų turinį"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:603
 msgid "Replace into All the Tree Nodes Contents"
-msgstr ""
+msgstr "Pakeisti visų mazgų turinį"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:604
 msgid "Replace in _Selected Node and Subnodes Contents"
 msgstr ""
+"Pakeisti pasirinkto mazgo ir pomazgių\n"
+" turinius"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:604
 msgid "Replace into the Selected Node and Subnodes Contents"
 msgstr ""
+"Pakeisti pasirinkto mazgo ir pomazgių\n"
+" turinius"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:605
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:723
@@ -1022,7 +1028,7 @@ msgstr "Slėpti/rodyti mazgo pavadinimo antraštę"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:609
 msgid "Toggle Show/Hide Node Name Header"
-msgstr ""
+msgstr "Slėpti/rodyti mazgo pavadinimo antraštę"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:610
 msgid "Show _All Matches Dialog"
@@ -1046,7 +1052,7 @@ msgstr "Perjungti mazgo išplėtimą/suplėtimą"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:612
 msgid "Toggle Expanded/Collapsed Status of the Selected Node"
-msgstr ""
+msgstr "Perjungti mazgo išplėtimą/suplėtimą"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:613
 msgid "E_xpand All Nodes"
@@ -1105,7 +1111,7 @@ msgstr "Iš CherryTree failo"
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:619
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:726
 msgid "Add Nodes of a CherryTree File to the Current Tree"
-msgstr ""
+msgstr "Pridėti mazgus iš CherryTree failo į dabartinį medį"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:620
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:727
@@ -1664,15 +1670,15 @@ msgstr "Pakesti mazguose"
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:836
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:878
 msgid "Replace into all the Tree Nodes"
-msgstr ""
+msgstr "Pakeisti visuose mazguose"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:854
 msgid "Stri_p Trailing Spaces"
-msgstr ""
+msgstr "Šalinti tarpus"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:854
 msgid "Strip Trailing Spaces"
-msgstr ""
+msgstr "Šalinti tarpus"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:892
 msgid "Edit the Underlying Link"
@@ -1922,7 +1928,7 @@ msgstr "Informacija"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:567
 msgid "This Change will have Effect Only After Restarting CherryTree"
-msgstr ""
+msgstr "Šis pakeitimas veiks tik perleidus CherryTree"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:577
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:857
@@ -1940,6 +1946,7 @@ msgid ""
 "A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
 "Highlighting"
 msgstr ""
+"Hierarchinė užrašų programa, turinti raiškųjį tekstą ir sintaksės pažymėjimą"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:601
 msgid ""
@@ -1959,6 +1966,13 @@ msgid ""
 "Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,\n"
 "MA 02110-1301, USA.\n"
 msgstr ""
+"\n"
+"Ši programa yra nemokama programinė įranga; galite ją perskirstyti ir/arba "
+"modifikuoti\n"
+"naudojanti GNU General Public licenciją kaip yra išleista Free Software "
+"Foundation;\n"
+"licencijos versija 3 arba (jūsų pasirinkimas) bet kuri vėlesnė.\n"
+"\n"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:621
 msgid "Armenian"
@@ -2028,11 +2042,11 @@ msgstr "Taip"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:907
 msgid "Temporary Files were Created and Opened with External Applications."
-msgstr ""
+msgstr "Laikini failai buvo sukurti ir atidaryti su išorine programa."
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:907
 msgid "Quit the External Applications Before Quit CherryTree."
-msgstr ""
+msgstr "Išeikite iš išorinių programų prieš išeidami iš CherryTree"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:907
 msgid "Did you Quit the External Applications?"
@@ -2044,7 +2058,7 @@ msgstr "Ne"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:953
 msgid "The Current Document was Updated."
-msgstr ""
+msgstr "Dabartinis dokumentas buvo pakeistas."
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:953
 msgid "Do you want to Save the Changes?"
@@ -2082,7 +2096,7 @@ msgstr "Joks mazgas nepasirinktas"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:1160
 msgid "There are No Anchors in the Selected Node"
-msgstr ""
+msgstr "Nėra jokių inkarų pasirinktame mazge"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:1162
 msgid "Choose Existing Anchor"
@@ -2118,7 +2132,7 @@ msgstr "Įtraukti mazgo pavadinimą"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:1327
 msgid "Links Tree in Every Page"
-msgstr ""
+msgstr "Jungia medį kiekviename puslapyje"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:1332
 msgid "New Node in New Page"
@@ -2196,23 +2210,23 @@ msgstr "Indeksas"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:562
 msgid "Tab Width"
-msgstr ""
+msgstr "Tabuliatoriaus plotis"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:568
 msgid "Insert Spaces Instead of Tabs"
-msgstr ""
+msgstr "Įterpti tarpus vietoje tabuliatorių"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:570
 msgid "Use Line Wrapping"
-msgstr ""
+msgstr "Naudoti  perkėlimą"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:574
 msgid "Line Wrapping Indentation"
-msgstr ""
+msgstr "Linijų perkėlimo išlyginimas"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:580
 msgid "Enable Automatic Indentation"
-msgstr ""
+msgstr "Įjungti automatinį išlyginimą"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:592
 msgid "Text Editor"
@@ -2296,7 +2310,7 @@ msgstr "Įterpto failo ikonos dydis"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:782
 msgid "Limit of Undoable Steps Per Node"
-msgstr ""
+msgstr "Apriboti grąžinamus veiksmus mazgui"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:882
 msgid "Style Scheme"
@@ -2312,7 +2326,7 @@ msgstr "Kodo mazgai"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:970
 msgid "Use Cherries as Nodes Icons"
-msgstr ""
+msgstr "Naudoti vyšnias kaip mazgų ikonas"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:971
 msgid "Use Bullets as Nodes Icons"
@@ -2348,7 +2362,7 @@ msgstr "Mazgų būsena paleidimo metu"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:1021
 msgid "Tree Nodes Names Wrapping Width"
-msgstr ""
+msgstr "Medžio mazgų pavadinimų perkėlimo plotis"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:1027
 msgid "Display Tree on the Right Side"
@@ -2373,15 +2387,15 @@ msgstr "Šriftai"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:1192
 msgid "Enable Custom Web Link Clicked Action"
-msgstr ""
+msgstr "Įgalinti tinkintos nuorodos paspaudimo veiksmą"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:1194
 msgid "Enable Custom File Link Clicked Action"
-msgstr ""
+msgstr "Įgalinti tinkinto failo paspaudimo veiksmą"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:1196
 msgid "Enable Custom Folder Link Clicked Action"
-msgstr ""
+msgstr "Įgalinti tinkinto katalogo paspaudimo veiksmą"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:1205
 msgid "Custom Actions"
@@ -2393,7 +2407,7 @@ msgstr "Spalvos"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:1270
 msgid "Use Relative Paths for Files And Folders"
-msgstr ""
+msgstr "Naudoti santykinius kelius failams ir katalogams"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:1274
 msgid "Anchor Size"
@@ -2405,15 +2419,15 @@ msgstr "Pasirinkti elementą pridėjimui"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:1418
 msgid "Enable System Tray Docking"
-msgstr ""
+msgstr "Įgalinti sistemos dėklo prijungimą"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:1419
 msgid "Start Minimized in the System Tray"
-msgstr ""
+msgstr "Pradėti minimizavus sistemos dėkle"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:1420
 msgid "Use AppIndicator for Docking"
-msgstr ""
+msgstr "Naudoti AppIndicator prijungimui"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:1425
 msgid "System Tray"
@@ -2445,7 +2459,7 @@ msgstr "Saugojimas"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:1480
 msgid "Automatically Check for Newer Version"
-msgstr ""
+msgstr "Automatiškas tikrinti, ar yra nauja versija"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:1481
 msgid "Reload Document From Last Session"
@@ -2453,7 +2467,7 @@ msgstr "Perkrauti dokumentą iš paskutinės sesijos"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:1482
 msgid "Reload After External Update to CT* File"
-msgstr ""
+msgstr "Perkrauti po išorinio failo atnaujinimo į CT* failą"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:1507
 msgid "Language"
@@ -2461,7 +2475,7 @@ msgstr "Kalba"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:1603
 msgid "The New Language will be Available Only After Restarting CherryTree"
-msgstr ""
+msgstr "Nauja kalba bus galima tik po CherryTree perkrovimo"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:1623
 msgid "All Nodes"
@@ -2471,7 +2485,7 @@ msgstr "Visi mazgai"
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/core.py:3326
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/core.py:4731
 msgid "Rich Text"
-msgstr ""
+msgstr "Raiškusis tekstas"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:1625
 msgid "Plain Text and Code"
@@ -2643,7 +2657,7 @@ msgstr "Pasirinktas mazgas"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/core.py:1292
 msgid "The Document was Reloaded After External Update to CT* File"
-msgstr ""
+msgstr "Dokumentas buvo perkrautas po išorinio atnaujinimo į CT* failą"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/core.py:1319
 msgid "CherryTree Hierarchical Note Taking"
@@ -2698,6 +2712,8 @@ msgid ""
 "Binary Executable '7za' Not Found, Check The Package 'p7zip-full' to be "
 "Installed Properly"
 msgstr ""
+"Dvejetainis paleidimas '7za' nerastas, patikrink paragrafą 'p7zip-full', "
+"kad įdiegti teisingai"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/core.py:1842
 #, python-format
@@ -2747,6 +2763,8 @@ msgid ""
 "Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
 "Do you want to Continue?"
 msgstr ""
+"Paliekant mazgo raiškųjį tekstą prarasi visą formatavimą šiam mazgui, ar "
+"nori tęsti?"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/core.py:3211
 msgid "Search for"
@@ -2852,15 +2870,15 @@ msgstr "Įterptas failas automatiškai atnaujintas:"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/core.py:3667
 msgid "Not Any H1, H2 or H3 Formatting Found"
-msgstr ""
+msgstr "Joks H1, H2 arba H3 formatavimas nerastas"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/core.py:3687
 msgid "This Feature is Available Only in Rich Text Nodes"
-msgstr ""
+msgstr "Ši savybė galima tik raiškiojo teksto mazguose"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/core.py:3689
 msgid "This Feature is Not Available in Automatic Syntax Highlighting Nodes"
-msgstr ""
+msgstr "Ši savybė yra negalima automatinės sintaksės pažymėjimo mazguose"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/core.py:3702
 msgid "The Tree is Empty!"
@@ -2921,11 +2939,11 @@ msgstr "Įrašymas į %s nepavyko"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/core.py:4050
 msgid "Lines Stripped"
-msgstr ""
+msgstr "Atimtos linijos"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/core.py:4184
 msgid "No Previous Text Format Was Performed During This Session"
-msgstr ""
+msgstr "Joks buvęs teksto formatas nebuvo atliktas per šią sesiją"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/core.py:4272
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/core.py:4339
@@ -2938,7 +2956,7 @@ msgstr "Nuorodos pavadinimas"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/core.py:4329
 msgid "The Cursor is Not into a Paragraph"
-msgstr ""
+msgstr "Kursorius yra ne paragrafe"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/core.py:4344
 msgid "Pick a Color"
