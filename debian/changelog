@@ -1,6 +1,14 @@
 cherrytree (0.36.4-1) trusty; urgency=low
 
-  * 
+  * added the configurable option to highlight the current line also for rich text nodes
+  * spell check working in both rich text and plain text nodes (not in code nodes)
+  * special chars auto-replaced: "==> " becoming "⇒ ", "<== " becoming "⇐ " and "<=> " becoming "⇔ "
+  * added support for "rust" programming language syntax highlighting
+  * bugfix in duplicating nodes with images and tables
+  * bugfix in lists change level and in numbered lists start with selected text
+  * bugfix in insertion of today's node (F8) and non ascii chars
+  * bugfix copying from plain text to rich text and automatic web link formatting
+  * Added language Lithuanian (Zygis)
+  * Updated language French (Klaus Becker)
 
-
- -- Giuseppe Penone <giuspen@gmail.com>  Tue, 22 Dec 2015 22:32:29 +0000
+ -- Giuseppe Penone <giuspen@gmail.com>  Mon, 25 Jan 2016 23:00:18 +0000

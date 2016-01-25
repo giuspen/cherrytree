@@ -1,5 +1,5 @@
 
-0.36.4 (???)
+0.36.4 (January 25th, 2016)
 • added the configurable option to highlight the current line also for rich text nodes
 • spell check working in both rich text and plain text nodes (not in code nodes)
 • special chars auto-replaced: "==> " becoming "⇒ ", "<== " becoming "⇐ " and "<=> " becoming "⇔ "
