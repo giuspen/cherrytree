@@ -88,7 +88,10 @@ def config_file_load(inst):
     """Load the Preferences from Config File"""
     if os.path.isfile(cons.CONFIG_PATH):
         config = ConfigParser.RawConfigParser()
-        config.read(cons.CONFIG_PATH)
+        try:
+            config.read(cons.CONFIG_PATH)
+        except ConfigParser.MissingSectionHeaderError:
+            print "? ConfigParser.MissingSectionHeaderError"
 
         section = "state"
         inst.file_dir = unicode(config.get(section, "file_dir"), cons.STR_UTF8, cons.STR_IGNORE) if config.has_option(section, "file_dir") else ""
