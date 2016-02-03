@@ -30,9 +30,9 @@ def auto_decode_str(in_str, from_clipboard=False):
     elif in_str.startswith(("\xFF\xFE", "\xFE\xFF")): # UTF-16 BOMs
         encodings = [cons.STR_UTF16]
     elif from_clipboard:
-        encodings = [cons.STR_UTF8, cons.STR_UTF16]
+        encodings = [cons.STR_UTF16, cons.STR_UTF8]
     else:
-        encodings = [cons.STR_UTF8, cons.STR_ISO_8859, cons.STR_UTF16, "utf-16le", locale.getdefaultlocale()[1]]
+        encodings = [cons.STR_UTF16, "utf-16le", cons.STR_UTF8, cons.STR_ISO_8859, locale.getdefaultlocale()[1]]
     for enc in encodings:
         try:
             out_str = in_str.decode(enc)
