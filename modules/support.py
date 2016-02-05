@@ -680,6 +680,7 @@ _("Lithuanian")+" (lt) Zygis <zygimantus@gmail.com>"+cons.CHAR_NEWLINE+
 _("Polish")+" (pl) Marcin Swierczynski <orneo1212@gmail.com>"+cons.CHAR_NEWLINE+
 _("Portuguese Brazil")+" (pt_BR) Vinicius Schmidt <viniciussm@rocketmail.com>"+cons.CHAR_NEWLINE+
 _("Russian")+" (ru) Andriy Kovtun <kovtunos@yandex.ru>"+cons.CHAR_NEWLINE+
+_("Slovenian")+" (sl) Erik Lovrič <erik.lovric@gmail.com>"+cons.CHAR_NEWLINE+
 _("Spanish")+" (es) Daniel MC <i.e.betel@gmail.com>"+cons.CHAR_NEWLINE+
 _("Turkish")+" (tr) Ferhat Aydin <ferhataydin44@gmail.com>"+cons.CHAR_NEWLINE+
 _("Ukrainian")+" (uk) Andriy Kovtun <kovtunos@yandex.ru>")
