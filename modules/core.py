@@ -4399,7 +4399,7 @@ iter_end, exclude_iter_sel_end=True)
                 if response != gtk.RESPONSE_OK: return
                 self.curr_colors[tag_property[0]] = colorselection.get_current_color()
                 property_value = self.curr_colors[tag_property[0]].to_string()
-                color_str_hex8 = "#" + self.html_handler.rgb_to_24(property_value[1:])
+                color_str_hex8 = "#" + exports.rgb_any_to_24(property_value[1:])
                 if color_str_hex8 in self.palette_list:
                     self.palette_list.remove(color_str_hex8)
                 else:

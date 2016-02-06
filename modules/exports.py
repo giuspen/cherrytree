@@ -23,6 +23,37 @@ import os, cgi, base64, shutil, copy
 import pango
 import cons, support
 
+def rgb_any_to_24(rgb_in):
+    """Convert any RGB to RRGGBB if needed"""
+    if len(rgb_in) == 12:
+        r = int(rgb_in[:4], 16)
+        g = int(rgb_in[4:8], 16)
+        b = int(rgb_in[8:], 16)
+        r >>= 8
+        g >>= 8
+        b >>= 8
+        return "%.2x%.2x%.2x" % (r, g, b)
+    if len(rgb_in) == 6: return rgb_in
+    if len(rgb_in) == 3: return 2*rgb_in[0]+2*rgb_in[1]+2*rgb_in[2]
+    print "! rgb_any_to_24(%s)" % rgb_in
+    return rgb_in
+
+def rgb_48_to_48_no_white(in_rgb_48):
+    r = int(in_rgb_48[:4], 16)
+    g = int(in_rgb_48[4:8], 16)
+    b = int(in_rgb_48[8:], 16)
+    # r+g+b black is 0
+    # r+g+b white is 3*65535 = 196605
+    max_48 = 65535
+    if r+g+b > 2*max_48:
+        r = max_48 - r
+        g = max_48 - g
+        b = max_48 - b
+        out_rgb_48 = "%.4x%.4x%.4x" % (r, g, b)
+        #print "%s to %s" % (in_rgb_48, out_rgb_48)
+    else:
+        out_rgb_48 = in_rgb_48
+    return out_rgb_48
 
 class Export2CTD:
     """The Export to CTD Class"""
@@ -347,7 +378,7 @@ class Export2Pango:
                         former_tag_str = curr_tag_str
                         if span_opened: pango_text += "</span>"
                         # start of tag
-                        if curr_tag_str == cons.COLOR_48_WHITE: curr_tag_str = cons.COLOR_48_BLACK
+                        curr_tag_str = "#" + rgb_48_to_48_no_white(curr_tag_str[1:])
                         pango_text += '<span foreground="%s" font_weight="%s">' % (curr_tag_str, font_weight)
                         span_opened = True
             elif span_opened:
@@ -741,8 +772,8 @@ class Export2Html:
                         former_tag_str = curr_tag_str
                         if span_opened: html_text += "</span>"
                         # start of tag
-                        if curr_tag_str == cons.COLOR_48_WHITE: curr_tag_str = cons.COLOR_48_BLACK
-                        html_text += '<span style="color:#%s;font-weight:%s">' % (self.rgb_to_24(curr_tag_str[1:]), font_weight)
+                        curr_tag_str = "#" + rgb_48_to_48_no_white(curr_tag_str[1:])
+                        html_text += '<span style="color:#%s;font-weight:%s">' % (rgb_any_to_24(curr_tag_str[1:]), font_weight)
                         span_opened = True
             elif span_opened:
                 span_opened = False
@@ -850,11 +881,11 @@ class Export2Html:
                 elif tag_property == cons.TAG_FOREGROUND:
                     # color:#FFFF00
                     tag_property = "color"
-                    property_value = "#" + self.rgb_to_24(property_value[1:])
+                    property_value = "#" + rgb_any_to_24(property_value[1:])
                 elif tag_property == cons.TAG_BACKGROUND:
                     # background-color:#FFFF00
                     tag_property = "background-color"
-                    property_value = "#" + self.rgb_to_24(property_value[1:])
+                    property_value = "#" + rgb_any_to_24(property_value[1:])
                 elif tag_property == cons.TAG_STYLE:
                     # font-style:italic
                     #tag_property = "font-style"
@@ -941,18 +972,3 @@ class Export2Html:
                     else: anchor_name = link_prop_val[len(vector[0]) + len(vector[1]) + 2:]
                     href += "#" + anchor_name
         return href
-
-    def rgb_to_24(self, rgb_in):
-        """Convert RRRRGGGGBBBB to RRGGBB if needed"""
-        if len(rgb_in) == 12:
-            r = int(rgb_in[:4], 16)
-            g = int(rgb_in[4:8], 16)
-            b = int(rgb_in[8:], 16)
-            r >>= 8
-            g >>= 8
-            b >>= 8
-            return "%.2x%.2x%.2x" % (r, g, b)
-        if len(rgb_in) == 6: return rgb_in
-        if len(rgb_in) == 3: return 2*rgb_in[0]+2*rgb_in[1]+2*rgb_in[2]
-        print "! rgb_to_24(%s)" % rgb_in
-        return rgb_in

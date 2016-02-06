@@ -20,7 +20,7 @@
 #       MA 02110-1301, USA.
 
 import os, sys, ConfigParser, gtk, pango, locale, subprocess, base64, webbrowser
-import cons, support, codeboxes, pgsc_spellcheck
+import cons, support, exports, codeboxes, pgsc_spellcheck
 if cons.HAS_APPINDICATOR: import appindicator
 
 ICONS_SIZE = {1: gtk.ICON_SIZE_MENU, 2: gtk.ICON_SIZE_SMALL_TOOLBAR, 3: gtk.ICON_SIZE_LARGE_TOOLBAR,
@@ -827,13 +827,13 @@ def preferences_tab_rich_text_nodes(dad, vbox_text_nodes, pref_dialog):
         if new_lang_code != dad.spell_check_lang: dad.spell_check_set_new_lang(new_lang_code)
     combobox_spell_check_lang.connect('changed', on_combobox_spell_check_lang_changed)
     def on_colorbutton_text_fg_color_set(colorbutton):
-        dad.rt_def_fg = "#" + dad.html_handler.rgb_to_24(colorbutton.get_color().to_string()[1:])
+        dad.rt_def_fg = "#" + exports.rgb_any_to_24(colorbutton.get_color().to_string()[1:])
         if dad.curr_tree_iter and dad.syntax_highlighting == cons.RICH_TEXT_ID:
             dad.widget_set_colors(dad.sourceview, dad.rt_def_fg, dad.rt_def_bg, False)
             support.rich_text_node_modify_codeboxes_color(dad.curr_buffer.get_start_iter(), dad)
     colorbutton_text_fg.connect('color-set', on_colorbutton_text_fg_color_set)
     def on_colorbutton_text_bg_color_set(colorbutton):
-        dad.rt_def_bg = "#" + dad.html_handler.rgb_to_24(colorbutton.get_color().to_string()[1:])
+        dad.rt_def_bg = "#" + exports.rgb_any_to_24(colorbutton.get_color().to_string()[1:])
         if dad.curr_tree_iter and dad.syntax_highlighting == cons.RICH_TEXT_ID:
             dad.widget_set_colors(dad.sourceview, dad.rt_def_fg, dad.rt_def_bg, False)
             support.rich_text_node_modify_codeboxes_color(dad.curr_buffer.get_start_iter(), dad)
@@ -1058,12 +1058,12 @@ def preferences_tab_tree(dad, vbox_tree, pref_dialog):
     vbox_tree.pack_start(frame_nodes_startup, expand=False)
     vbox_tree.pack_start(frame_misc_tree, expand=False)
     def on_colorbutton_tree_fg_color_set(colorbutton):
-        dad.tt_def_fg = "#" + dad.html_handler.rgb_to_24(colorbutton.get_color().to_string()[1:])
+        dad.tt_def_fg = "#" + exports.rgb_any_to_24(colorbutton.get_color().to_string()[1:])
         dad.widget_set_colors(dad.treeview, dad.tt_def_fg, dad.tt_def_bg, False)
         if dad.curr_tree_iter: dad.update_node_name_header()
     colorbutton_tree_fg.connect('color-set', on_colorbutton_tree_fg_color_set)
     def on_colorbutton_tree_bg_color_set(colorbutton):
-        dad.tt_def_bg = "#" + dad.html_handler.rgb_to_24(colorbutton.get_color().to_string()[1:])
+        dad.tt_def_bg = "#" + exports.rgb_any_to_24(colorbutton.get_color().to_string()[1:])
         dad.widget_set_colors(dad.treeview, dad.tt_def_fg, dad.tt_def_bg, False)
         if dad.curr_tree_iter: dad.update_node_name_header()
     colorbutton_tree_bg.connect('color-set', on_colorbutton_tree_bg_color_set)
