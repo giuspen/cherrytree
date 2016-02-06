@@ -472,6 +472,8 @@ class Export2Pango:
                 elif tag_property == cons.TAG_FAMILY:
                     monospace_active = True
                     continue
+                elif tag_property == cons.TAG_FOREGROUND:
+                    property_value = "#" + rgb_48_to_48_no_white(property_value[1:])
                 pango_attrs += ' %s="%s"' % (tag_property, property_value)
         if pango_attrs == '': tagged_text = cgi.escape(start_iter.get_text(end_iter))
         else: tagged_text = '<span' + pango_attrs + '>' + cgi.escape(start_iter.get_text(end_iter)) + '</span>'
