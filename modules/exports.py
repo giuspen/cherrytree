@@ -883,7 +883,8 @@ class Export2Html:
                 elif tag_property == cons.TAG_FOREGROUND:
                     # color:#FFFF00
                     tag_property = "color"
-                    property_value = "#" + rgb_any_to_24(property_value[1:])
+                    color_no_white = rgb_48_to_48_no_white(property_value[1:])
+                    property_value = "#" + rgb_any_to_24(color_no_white)
                 elif tag_property == cons.TAG_BACKGROUND:
                     # background-color:#FFFF00
                     tag_property = "background-color"
