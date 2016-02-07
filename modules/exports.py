@@ -45,7 +45,7 @@ def rgb_48_to_48_no_white(in_rgb_48):
     # r+g+b black is 0
     # r+g+b white is 3*65535 = 196605
     max_48 = 65535
-    if r+g+b > 2*max_48:
+    if r+g+b > 2.3*max_48:
         r = max_48 - r
         g = max_48 - g
         b = max_48 - b
