@@ -112,7 +112,8 @@ def on_sourceview_event_after_button_press(dad, text_view, event):
                 dad.link_clicked(tag_name[5:], event.button == 2)
                 return False
         if dad.lists_handler.is_list_todo_beginning(text_iter):
-            dad.lists_handler.todo_list_rotate_status(text_iter, text_buffer)
+            if dad.is_curr_node_not_read_only_or_error():
+                dad.lists_handler.todo_list_rotate_status(text_iter, text_buffer)
     elif event.button == 3 and not text_buffer.get_has_selection():
         x, y = text_view.window_to_buffer_coords(gtk.TEXT_WINDOW_TEXT, int(event.x), int(event.y))
         text_iter = text_view.get_iter_at_location(x, y)
@@ -121,6 +122,7 @@ def on_sourceview_event_after_button_press(dad, text_view, event):
 
 def on_sourceview_list_change_level(dad, iter_insert, list_info, text_buffer, level_increase):
     """Called at list indent/unindent time"""
+    if not dad.is_curr_node_not_read_only_or_error(): return
     dad.user_active = False
     end_offset = dad.lists_handler.get_multiline_list_element_end_offset(iter_insert, list_info)
     curr_offset = list_info["startoffs"]
