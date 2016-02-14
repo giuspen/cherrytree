@@ -151,7 +151,7 @@ def config_file_load(inst):
         section = "editor"
         inst.syntax_highlighting = config.get(section, "syntax_highlighting") if config.has_option(section, "syntax_highlighting") else cons.RICH_TEXT_ID
         inst.auto_syn_highl = config.get(section, "auto_syn_highl") if config.has_option(section, "auto_syn_highl") else "sh"
-        inst.style_scheme = config.get(section, "style_scheme") if config.has_option(section, "style_scheme") else cons.STYLE_SCHEME_DEFAULT
+        inst.style_scheme = config.get(section, "style_scheme") if config.has_option(section, "style_scheme") else cons.STYLE_SCHEME_DARK
         inst.enable_spell_check = config.getboolean(section, "enable_spell_check") if config.has_option(section, "enable_spell_check") else False
         inst.spell_check_lang = config.get(section, "spell_check_lang") if config.has_option(section, "spell_check_lang") else SPELL_CHECK_LANG_DEFAULT
         inst.show_line_numbers = config.getboolean(section, "show_line_numbers") if config.has_option(section, "show_line_numbers") else False
@@ -245,7 +245,7 @@ def config_file_load(inst):
         inst.curr_colors = {'f':None, 'b':None}
         inst.syntax_highlighting = cons.RICH_TEXT_ID
         inst.auto_syn_highl = "sh"
-        inst.style_scheme = cons.STYLE_SCHEME_DEFAULT
+        inst.style_scheme = cons.STYLE_SCHEME_DARK
         inst.tree_font = "Sans 8" # default tree font
         inst.text_font = "Sans 9" # default text font
         inst.code_font = "Monospace 9" # default code font
