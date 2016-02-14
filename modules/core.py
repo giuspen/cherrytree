@@ -2921,10 +2921,8 @@ iter_end, exclude_iter_sel_end=True)
                 self.curr_buffer.set_modified(False)
                 self.state_machine.update_state()
         if self.rt_highl_curr_line and self.user_active and self.treestore[new_iter][4] == cons.RICH_TEXT_ID:
-            if self.rt_def_bg == cons.RICH_TEXT_DARK_BG:
+            if exports.rgb_24_get_is_dark(self.rt_def_bg[1:]):
                 self.set_sourcebuffer_with_style_scheme(cons.STYLE_SCHEME_DARK)
-            elif self.rt_def_bg == cons.RICH_TEXT_LIGHT_BG:
-                self.set_sourcebuffer_with_style_scheme(cons.STYLE_SCHEME_LIGHT)
             else:
                 self.set_sourcebuffer_with_style_scheme(cons.STYLE_SCHEME_LIGHT)
         self.curr_tree_iter = new_iter

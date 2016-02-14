@@ -38,6 +38,15 @@ def rgb_any_to_24(rgb_in):
     print "! rgb_any_to_24(%s)" % rgb_in
     return rgb_in
 
+def rgb_24_get_is_dark(in_rgb_24):
+    r = int(in_rgb_24[:2], 16)
+    g = int(in_rgb_24[2:4], 16)
+    b = int(in_rgb_24[4:], 16)
+    # r+g+b black is 0
+    # r+g+b white is 3*255 = 765
+    max_24 = 255
+    return (r+g+b < max_24)
+
 def rgb_48_to_48_no_white(in_rgb_48):
     r = int(in_rgb_48[:4], 16)
     g = int(in_rgb_48[4:8], 16)
