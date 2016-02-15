@@ -835,6 +835,10 @@ def preferences_tab_rich_text_nodes(dad, vbox_text_nodes, pref_dialog):
     def on_colorbutton_text_bg_color_set(colorbutton):
         dad.rt_def_bg = "#" + exports.rgb_any_to_24(colorbutton.get_color().to_string()[1:])
         if dad.curr_tree_iter and dad.syntax_highlighting == cons.RICH_TEXT_ID:
+            if dad.rt_highl_curr_line:
+                dad.set_sourcebuffer_with_style_scheme()
+                dad.sourceview.set_buffer(dad.curr_buffer)
+                dad.objects_buffer_refresh()
             dad.widget_set_colors(dad.sourceview, dad.rt_def_fg, dad.rt_def_bg, False)
             support.rich_text_node_modify_codeboxes_color(dad.curr_buffer.get_start_iter(), dad)
     colorbutton_text_bg.connect('color-set', on_colorbutton_text_bg_color_set)

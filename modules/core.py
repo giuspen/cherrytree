@@ -2537,7 +2537,11 @@ iter_end, exclude_iter_sel_end=True)
             self.toggle_tree_node_expanded_collapsed()
         return False
 
-    def set_sourcebuffer_with_style_scheme(self, style_scheme):
+    def set_sourcebuffer_with_style_scheme(self):
+        if exports.rgb_24_get_is_dark(self.rt_def_bg[1:]):
+            style_scheme = cons.STYLE_SCHEME_DARK
+        else:
+            style_scheme = cons.STYLE_SCHEME_LIGHT
         if not style_scheme in self.sourcebuffers.keys():
             self.sourcebuffers[style_scheme] = gtksourceview2.Buffer()
             self.sourcebuffers[style_scheme].set_style_scheme(self.sourcestyleschememanager.get_scheme(style_scheme))
@@ -2921,10 +2925,7 @@ iter_end, exclude_iter_sel_end=True)
                 self.curr_buffer.set_modified(False)
                 self.state_machine.update_state()
         if self.rt_highl_curr_line and self.user_active and self.treestore[new_iter][4] == cons.RICH_TEXT_ID:
-            if exports.rgb_24_get_is_dark(self.rt_def_bg[1:]):
-                self.set_sourcebuffer_with_style_scheme(cons.STYLE_SCHEME_DARK)
-            else:
-                self.set_sourcebuffer_with_style_scheme(cons.STYLE_SCHEME_LIGHT)
+            self.set_sourcebuffer_with_style_scheme()
         self.curr_tree_iter = new_iter
         self.curr_buffer = self.get_textbuffer_from_tree_iter(self.curr_tree_iter)
         self.sourceview.set_buffer(self.curr_buffer)
