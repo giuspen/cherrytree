@@ -47,22 +47,40 @@ def rgb_24_get_is_dark(in_rgb_24):
     max_24 = 255
     return (r+g+b < max_24)
 
-def rgb_48_to_48_no_white(in_rgb_48):
-    r = int(in_rgb_48[:4], 16)
-    g = int(in_rgb_48[4:8], 16)
-    b = int(in_rgb_48[8:], 16)
-    # r+g+b black is 0
-    # r+g+b white is 3*65535 = 196605
-    max_48 = 65535
-    if r+g+b > 2.3*max_48:
-        r = max_48 - r
-        g = max_48 - g
-        b = max_48 - b
-        out_rgb_48 = "%.4x%.4x%.4x" % (r, g, b)
-        #print "%s to %s" % (in_rgb_48, out_rgb_48)
+def rgb_to_no_white(in_rgb):
+    if len(in_rgb) == 12:
+        r = int(in_rgb[:4], 16)
+        g = int(in_rgb[4:8], 16)
+        b = int(in_rgb[8:], 16)
+        # r+g+b black is 0
+        # r+g+b white is 3*65535
+        max_48 = 65535
+        if r+g+b > 2.3*max_48:
+            r = max_48 - r
+            g = max_48 - g
+            b = max_48 - b
+            out_rgb = "%.4x%.4x%.4x" % (r, g, b)
+            #print "%s to %s" % (in_rgb, out_rgb)
+        else:
+            out_rgb = in_rgb
     else:
-        out_rgb_48 = in_rgb_48
-    return out_rgb_48
+        if len(in_rgb) != 6:
+            in_rgb = rgb_any_to_24(in_rgb)
+        r = int(in_rgb[:2], 16)
+        g = int(in_rgb[2:4], 16)
+        b = int(in_rgb[4:], 16)
+        # r+g+b black is 0
+        # r+g+b white is 3*255
+        max_24 = 255
+        if r+g+b > 2.3*max_24:
+            r = max_24 - r
+            g = max_24 - g
+            b = max_24 - b
+            out_rgb = "%.2x%.2x%.2x" % (r, g, b)
+            #print "%s to %s" % (in_rgb, out_rgb)
+        else:
+            out_rgb = in_rgb
+    return out_rgb
 
 class Export2CTD:
     """The Export to CTD Class"""
@@ -387,7 +405,7 @@ class Export2Pango:
                         former_tag_str = curr_tag_str
                         if span_opened: pango_text += "</span>"
                         # start of tag
-                        curr_tag_str = "#" + rgb_48_to_48_no_white(curr_tag_str[1:])
+                        curr_tag_str = "#" + rgb_to_no_white(curr_tag_str[1:])
                         pango_text += '<span foreground="%s" font_weight="%s">' % (curr_tag_str, font_weight)
                         span_opened = True
             elif span_opened:
@@ -482,7 +500,7 @@ class Export2Pango:
                     monospace_active = True
                     continue
                 elif tag_property == cons.TAG_FOREGROUND:
-                    property_value = "#" + rgb_48_to_48_no_white(property_value[1:])
+                    property_value = "#" + rgb_to_no_white(property_value[1:])
                 pango_attrs += ' %s="%s"' % (tag_property, property_value)
         if pango_attrs == '': tagged_text = cgi.escape(start_iter.get_text(end_iter))
         else: tagged_text = '<span' + pango_attrs + '>' + cgi.escape(start_iter.get_text(end_iter)) + '</span>'
@@ -783,7 +801,7 @@ class Export2Html:
                         former_tag_str = curr_tag_str
                         if span_opened: html_text += "</span>"
                         # start of tag
-                        curr_tag_str = "#" + rgb_48_to_48_no_white(curr_tag_str[1:])
+                        curr_tag_str = "#" + rgb_to_no_white(curr_tag_str[1:])
                         html_text += '<span style="color:#%s;font-weight:%s">' % (rgb_any_to_24(curr_tag_str[1:]), font_weight)
                         span_opened = True
             elif span_opened:
@@ -892,7 +910,7 @@ class Export2Html:
                 elif tag_property == cons.TAG_FOREGROUND:
                     # color:#FFFF00
                     tag_property = "color"
-                    color_no_white = rgb_48_to_48_no_white(property_value[1:])
+                    color_no_white = rgb_to_no_white(property_value[1:])
                     property_value = "#" + rgb_any_to_24(color_no_white)
                 elif tag_property == cons.TAG_BACKGROUND:
                     # background-color:#FFFF00
