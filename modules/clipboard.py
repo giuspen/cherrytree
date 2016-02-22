@@ -143,19 +143,25 @@ class ClipboardHandler:
                 elif "liststore" in anchor_dir:
                     table_dict = self.dad.state_machine.table_to_dict(anchor)
                     html_text = self.dad.html_handler.table_export_to_html(table_dict)
-                    self.clipboard.set_with_data([(t, 0, 0) for t in (TARGET_CTD_TABLE, TARGETS_HTML[0])],
+                    txt_handler = exports.Export2Txt(self.dad)
+                    text_offsets_range = [iter_sel_start.get_offset(), iter_sel_end.get_offset()]
+                    plain_text = txt_handler.node_export_to_txt(text_buffer, "", sel_range=text_offsets_range, check_link_target=True)
+                    self.clipboard.set_with_data([(t, 0, 0) for t in (TARGET_CTD_TABLE, TARGETS_HTML[0], TARGET_CTD_PLAIN_TEXT)],
                                                  self.get_func,
                                                  self.clear_func,
-                                                 (table_dict, None, html_text, None))
+                                                 (plain_text, None, html_text, table_dict))
                     return
                 elif "sourcebuffer" in anchor_dir:
                     codebox_dict = self.dad.state_machine.codebox_to_dict(anchor, for_print=0)
                     codebox_dict_html = self.dad.state_machine.codebox_to_dict(anchor, for_print=2)
                     html_text = self.dad.html_handler.codebox_export_to_html(codebox_dict_html)
-                    self.clipboard.set_with_data([(t, 0, 0) for t in (TARGET_CTD_CODEBOX, TARGETS_HTML[0])],
+                    txt_handler = exports.Export2Txt(self.dad)
+                    text_offsets_range = [iter_sel_start.get_offset(), iter_sel_end.get_offset()]
+                    plain_text = txt_handler.node_export_to_txt(text_buffer, "", sel_range=text_offsets_range, check_link_target=True)
+                    self.clipboard.set_with_data([(t, 0, 0) for t in (TARGET_CTD_CODEBOX, TARGETS_HTML[0], TARGET_CTD_PLAIN_TEXT)],
                                                  self.get_func,
                                                  self.clear_func,
-                                                 (codebox_dict, None, html_text, None))
+                                                 (plain_text, None, html_text, codebox_dict))
                     return
         if not os.path.isdir(cons.TMP_FOLDER): os.mkdir(cons.TMP_FOLDER)
         html_text = self.dad.html_handler.selection_export_to_html(text_buffer, iter_sel_start, iter_sel_end,
@@ -202,11 +208,11 @@ class ClipboardHandler:
                     selectiondata.set(target, 8, Win32HtmlFormat.encode(data[2]))
         elif target == TARGET_CTD_CODEBOX:
             dom = xml.dom.minidom.Document()
-            self.dad.xml_handler.codebox_element_to_xml([0, data[0], cons.TAG_PROP_LEFT], dom, dom)
+            self.dad.xml_handler.codebox_element_to_xml([0, data[3], cons.TAG_PROP_LEFT], dom, dom)
             selectiondata.set('UTF8_STRING', 8, dom.toxml())
         elif target == TARGET_CTD_TABLE:
             dom = xml.dom.minidom.Document()
-            self.dad.xml_handler.table_element_to_xml([0, data[0], cons.TAG_PROP_LEFT], dom, dom)
+            self.dad.xml_handler.table_element_to_xml([0, data[3], cons.TAG_PROP_LEFT], dom, dom)
             selectiondata.set('UTF8_STRING', 8, dom.toxml())
         elif target == TARGETS_IMAGES[0]: selectiondata.set_pixbuf(data[3])
 

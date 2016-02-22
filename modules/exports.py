@@ -322,13 +322,14 @@ class Export2Txt:
     def get_table_plain(self, table_orig):
         """Returns the plain Table"""
         # table is: [offset, dict, justification]
-        table_plain = cons.CHAR_NEWLINE + self.dad.h_rule + cons.CHAR_NEWLINE + cons.CHAR_PIPE*2
+        table_plain = cons.CHAR_NEWLINE
         table = copy.deepcopy(table_orig)
         table[1]['matrix'].insert(0, table[1]['matrix'].pop())
         for j, row in enumerate(table[1]['matrix']):
+            table_plain += cons.CHAR_PIPE
             for cell in row:
-                table_plain += cons.CHAR_SPACE + cell + cons.CHAR_SPACE + cons.CHAR_PIPE*2
-            table_plain += cons.CHAR_NEWLINE + self.dad.h_rule + cons.CHAR_NEWLINE
+                table_plain += cons.CHAR_SPACE + cell + cons.CHAR_SPACE + cons.CHAR_PIPE
+            table_plain += cons.CHAR_NEWLINE
         return table_plain
 
     def plain_get_from_treestore_node(self, curr_buffer, sel_range, check_link_target):
