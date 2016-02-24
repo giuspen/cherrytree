@@ -82,6 +82,16 @@ def rgb_to_no_white(in_rgb):
             out_rgb = in_rgb
     return out_rgb
 
+def clean_text_to_utf8(in_text):
+    """Clean from utf8 decode errors"""
+    clean_text = in_text
+    while clean_text:
+        try:
+            clean_text = unicode(clean_text, cons.STR_UTF8, cons.STR_IGNORE)
+            break
+        except: clean_text = clean_text[1:]
+    return clean_text
+
 class Export2CTD:
     """The Export to CTD Class"""
 
@@ -360,16 +370,13 @@ class Export2Txt:
                 if curr_object[0] == "table": plain_text += self.get_table_plain(curr_object[1])
                 elif curr_object[0] == "codebox": plain_text += self.get_codebox_plain(curr_object[1])
         if tree_iter_for_node_name:
-            plain_text = self.plain_text_get_node_name(tree_iter_for_node_name) + plain_text
+            node_name = clean_text_to_utf8(self.dad.treestore[tree_iter_for_node_name][1])
+            plain_text = node_name.upper() + cons.CHAR_NEWLINE + plain_text
         if filepath:
             file_descriptor = open(filepath, 'a')
             file_descriptor.write(plain_text + 2*cons.CHAR_NEWLINE)
             file_descriptor.close()
         return plain_text
-
-    def plain_text_get_node_name(self, tree_iter):
-        """Get Node Name in Plain Text"""
-        return self.dad.treestore[tree_iter][1].upper() + cons.CHAR_NEWLINE
 
 class Export2Pango:
     """The Export to Pango Class"""
@@ -579,20 +586,10 @@ class Export2Html:
             self.nodes_all_export_to_html_iter(child_tree_iter)
             child_tree_iter = self.dad.treestore.iter_next(child_tree_iter)
 
-    def clean_text_to_utf8(self, in_text):
-        """Clean from utf8 decode errors"""
-        clean_text = in_text
-        while clean_text:
-            try:
-                clean_text = unicode(clean_text, cons.STR_UTF8, cons.STR_IGNORE)
-                break
-            except: clean_text = clean_text[1:]
-        return clean_text
-
     def tree_links_text_iter(self, tree_iter):
         """Creating the Tree Links Text - iter"""
         href = self.get_html_filename(tree_iter)
-        node_name = self.clean_text_to_utf8(self.dad.treestore[tree_iter][1])
+        node_name = clean_text_to_utf8(self.dad.treestore[tree_iter][1])
         if self.tree_count_level < len(self.tree_links_nums):
             self.tree_count_level += 1
             self.tree_links_text += '<ol>\n'
@@ -768,10 +765,10 @@ class Export2Html:
 
     def get_html_filename(self, tree_iter):
         """Get the HTML page filename given the tree iter"""
-        file_name = self.clean_text_to_utf8(self.dad.treestore[tree_iter][1]).strip()
+        file_name = clean_text_to_utf8(self.dad.treestore[tree_iter][1]).strip()
         father_iter = self.dad.treestore.iter_parent(tree_iter)
         while father_iter:
-            file_name = self.clean_text_to_utf8(self.dad.treestore[father_iter][1]).strip() + "--" + file_name
+            file_name = clean_text_to_utf8(self.dad.treestore[father_iter][1]).strip() + "--" + file_name
             father_iter = self.dad.treestore.iter_parent(father_iter)
         file_name = support.clean_from_chars_not_for_filename(file_name) + ".html"
         if len(file_name) > cons.MAX_FILE_NAME_LEN:
