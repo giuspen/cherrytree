@@ -1,9 +1,5 @@
-cherrytree (0.36.5-1) trusty; urgency=low
+cherrytree (0.36.6-1) trusty; urgency=low
 
-  * fixed color of highlighted line in rich text with light background
-  * fixed generation of pdf with colors coming from dark background not suitable for white background 
-  * fixed missing checks in read only nodes
-  * fixed problem with html pasted from clipboard
-  * added Slovenian language, work of Erik Lovrič
+  * fixes in exports to html, pdf, txt
 
- -- Giuseppe Penone <giuspen@gmail.com>  Tue, 16 Feb 2016 00:01:06 +0000
+ -- Giuseppe Penone <giuspen@gmail.com>  Wed, 24 Feb 2016 21:14:32 +0000

@@ -1,4 +1,7 @@
 
+0.36.6 (February 24th, 2016)
+• fixes in exports to html, pdf, txt
+
 0.36.5 (February 16th, 2016)
 • fixed color of highlighted line in rich text with light background
 • fixed generation of pdf with colors coming from dark background not suitable for white background 
