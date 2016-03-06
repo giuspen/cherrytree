@@ -4,21 +4,21 @@
 #
 # maul <giuspen@gmail.com>, 2010.
 # Pavel Fric <pavelfric@seznam.cz>, 2010, 2011.
-# Pavel Fric <pavelfric@seznam.cz>, 2011, 2012, 2013, 2014, 2015.
+# Pavel Fric <pavelfric@seznam.cz>, 2011, 2012, 2013, 2014, 2015, 2016.
 msgid ""
 msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-11-14 23:31+0000\n"
-"PO-Revision-Date: 2015-11-15 10:11+0100\n"
+"PO-Revision-Date: 2016-03-06 15:58+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
-"Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
+"Language-Team: Czech <>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 1.5\n"
+"X-Generator: Lokalize 2.0\n"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/codeboxes.py:96
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/core.py:3327
@@ -82,7 +82,7 @@ msgstr "_Soubor"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:506
 msgid "_Edit"
-msgstr "_Úpravy"
+msgstr "Úp_ravy"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:507
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:773
@@ -96,7 +96,7 @@ msgstr "S_trom"
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:509
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:708
 msgid "Node _Move"
-msgstr "_Posunutí uzlu"
+msgstr "Po_sunutí uzlu"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:510
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:725
@@ -126,7 +126,7 @@ msgstr "_Pohled"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:515
 msgid "_Bookmarks"
-msgstr "_Záložky"
+msgstr "Zá_ložky"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:516
 msgid "_Import"
@@ -138,7 +138,7 @@ msgstr "_Vyvedení"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:518
 msgid "_Help"
-msgstr "_Nápověda"
+msgstr "Nápověd_a"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:521
 msgid "New _Instance"
@@ -170,7 +170,7 @@ msgstr "Uložit soubor"
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:524
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:652
 msgid "Save _As"
-msgstr "Uloži_t jako"
+msgstr "Uložit _jako"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:524
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:652
@@ -179,7 +179,7 @@ msgstr "Uložit soubor jako"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:525
 msgid "Open Preferences _Directory"
-msgstr "Otevřít _adresář s nastavením"
+msgstr "Otevřít adresář s _nastavením"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:525
 msgid "Open the Directory with Preferences Files"
@@ -187,7 +187,7 @@ msgstr "Otevřít adresář se soubory s nastavením"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:526
 msgid "Pa_ge Setup"
-msgstr "Nastavení strany"
+msgstr "Nastavení stran_y"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:526
 msgid "Set up the Page for Printing"
@@ -203,7 +203,7 @@ msgstr "Tisk"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:528
 msgid "_Quit"
-msgstr "_Ukončit"
+msgstr "U_končit"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:528
 msgid "Quit the Application"
@@ -236,7 +236,7 @@ msgstr "Vrátit poslední změny"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:532
 msgid "_Redo"
-msgstr "Z_novu"
+msgstr "Znov_u"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:532
 msgid "Redo Previously Discarded Operation"
@@ -280,7 +280,7 @@ msgstr "Vložit soubor"
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:537
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:807
 msgid "Insert/Edit _Link"
-msgstr "Vložit/Upravit _odkaz"
+msgstr "Vložit/Upravit o_dkaz"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:537
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:807
@@ -300,7 +300,7 @@ msgstr "Vložit jednu kotvu"
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:539
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:809
 msgid "Insert T_OC"
-msgstr "Vložit _obsah"
+msgstr "Vložit obs_ah"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:539
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:809
@@ -323,7 +323,7 @@ msgstr "Vložit časové razítko"
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:811
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:852
 msgid "Insert _Horizontal Rule"
-msgstr "Vložit _oddělovací čáru"
+msgstr "Vložit oddě_lovací čáru"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:541
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:811
@@ -335,7 +335,7 @@ msgstr "Vložit oddělovací čáru"
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:814
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:856
 msgid "_Lower Case of Selection/Word"
-msgstr "_Malá písmena výběru/slova"
+msgstr "M_alá písmena výběru/slova"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:542
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:814
@@ -412,7 +412,7 @@ msgstr "Vložit jako prostý text, odložit formátování formátovaného textu
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:819
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:861
 msgid "Cu_t Row"
-msgstr "Vyjmou_t řádek"
+msgstr "V_yjmout řádek"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:549
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:819
@@ -448,7 +448,7 @@ msgstr "Smazat nynější řádek/vybrané řádky"
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:822
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:864
 msgid "_Duplicate Row"
-msgstr "_Zdvojit řádek"
+msgstr "Zdvo_jit řádek"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:552
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:822
@@ -483,7 +483,7 @@ msgstr "Posunout nynější řádek/vybrané řádky dolů"
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:555
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:774
 msgid "Format _Latest"
-msgstr "Zopakovat _formátování"
+msgstr "_Zopakovat formátování"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:555
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:774
@@ -493,7 +493,7 @@ msgstr "Zopakovat poslední způsob formátování textu"
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:556
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:775
 msgid "_Remove Formatting"
-msgstr "Odstranit f_ormátování"
+msgstr "_Odstranit formátování"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:556
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:775
@@ -513,7 +513,7 @@ msgstr "Změnit barvu písma u vybraného textu"
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:558
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:778
 msgid "Text C_olor Background"
-msgstr "B_arva pozadí"
+msgstr "Barva _pozadí"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:558
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:778
@@ -543,7 +543,7 @@ msgstr "Formátovat vybraný text kurzívně"
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:561
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:781
 msgid "Toggle _Underline Property"
-msgstr "_Podtržení"
+msgstr "Podt_ržení"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:561
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:781
@@ -553,7 +553,7 @@ msgstr "Formátovat vybraný text podtržením"
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:562
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:782
 msgid "Toggle Stri_kethrough Property"
-msgstr "_Přeškrtnutí"
+msgstr "Př_eškrtnutí"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:562
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:782
@@ -603,7 +603,7 @@ msgstr "Formátovat vybraný text jako malý"
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:567
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:787
 msgid "Toggle Su_perscript Property"
-msgstr "Horní index"
+msgstr "_Horní index"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:567
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:787
@@ -613,7 +613,7 @@ msgstr "Formátovat vybraný text jako horní index"
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:568
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:788
 msgid "Toggle Su_bscript Property"
-msgstr "Dolní index"
+msgstr "_Dolní index"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:568
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:788
@@ -623,7 +623,7 @@ msgstr "Formátovat vybraný text jako dolní index"
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:569
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:789
 msgid "Toggle _Monospace Property"
-msgstr "Neproporcionální písmo"
+msgstr "_Neproporcionální písmo"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:569
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:789
@@ -644,7 +644,7 @@ msgstr ""
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:571
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:798
 msgid "Set/Unset _Numbered List"
-msgstr "Zapnout/Vypnout čís_lovaný seznam"
+msgstr "Zapnout/Vypnout číslov_aný seznam"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:571
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:798
@@ -655,7 +655,7 @@ msgstr ""
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:572
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:799
 msgid "Set/Unset _To-Do List"
-msgstr "Zapnout/Vypnout _seznam pracovních úkolů"
+msgstr "Zapnout/Vypnout seznam pra_covních úkolů"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:572
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:799
@@ -855,7 +855,7 @@ msgstr "Třídit všechny uzly na této úrovni sestupně"
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:592
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:753
 msgid "_Inherit Syntax"
-msgstr "Předat _skladbu"
+msgstr "Předat s_kladbu"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:592
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:753
@@ -867,7 +867,7 @@ msgstr "Předá vybrané zvýraznění skladby všem podřízeným uzlům"
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:593
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:755
 msgid "De_lete Node"
-msgstr "Smazat u_zel"
+msgstr "Smazat uze_l"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:593
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:755
@@ -896,7 +896,7 @@ msgstr "Jít na další navštívený uzel"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:596
 msgid "_Find in Node Content"
-msgstr "_Hledat v obsahu uzlu"
+msgstr "Hledat v _obsahu uzlu"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:596
 msgid "Find into the Selected Node Content"
@@ -923,7 +923,7 @@ msgstr "Hledat v obsahu vybraného uzlu a v obsazích podřízených uzlů"
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:830
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:872
 msgid "Find in _Nodes Names and Tags"
-msgstr "Hledat v názvech _uzlů a ve značkách"
+msgstr "_Hledat v názvech uzlů a ve značkách"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:599
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:722
@@ -936,7 +936,7 @@ msgstr "Hledat v názvech uzlů a ve značkách"
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:831
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:873
 msgid "Find _Again"
-msgstr "_Hledat dál"
+msgstr "Hledat _dál"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:600
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:831
@@ -958,7 +958,7 @@ msgstr "Zopakovat poslední hledání v opačném směru"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:602
 msgid "_Replace in Node Content"
-msgstr "_Nahradit v obsahu uzlu"
+msgstr "Nahradit v _obsahu uzlu"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:602
 msgid "Replace into the Selected Node Content"
@@ -1008,7 +1008,7 @@ msgstr "Zopakovat poslední nahrazení"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:607
 msgid "Show/Hide _Tree"
-msgstr "Ukázat/Skrýt stavbu _stromu"
+msgstr "Ukázat/Skrýt stavbu s_tromu"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:607
 msgid "Toggle Show/Hide Tree"
@@ -1016,7 +1016,7 @@ msgstr "Ukázat/Skrýt strom"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:608
 msgid "Show/Hide Tool_bar"
-msgstr "Ukázat/Skrýt nástrojový _pruh"
+msgstr "Ukázat/Skrýt nástrojový pr_uh"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:608
 msgid "Toggle Show/Hide Toolbar"
@@ -1024,7 +1024,7 @@ msgstr "Ukázat/Skrýt nástrojový pruh"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:609
 msgid "Show/Hide Node Name _Header"
-msgstr "Ukázat/Skrýt název uzlu v záhlaví"
+msgstr "Ukázat/Skrýt název uzlu v zá_hlaví"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:609
 msgid "Toggle Show/Hide Node Name Header"
@@ -1032,7 +1032,7 @@ msgstr "Ukázat/Skrýt název uzlu"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:610
 msgid "Show _All Matches Dialog"
-msgstr "Ukázat dialog _všechny shody"
+msgstr "Ukázat dialog všechny sho_dy"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:610
 msgid "Show Search All Matches Dialog"
@@ -1048,7 +1048,7 @@ msgstr "Přepnout zaměření mezi stromem a textem"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:612
 msgid "Toggle Node _Expanded/Collapsed"
-msgstr "Přepnout uzel rozbaleno/sbaleno"
+msgstr "Přepnout uzel roz_baleno/sbaleno"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:612
 msgid "Toggle Expanded/Collapsed Status of the Selected Node"
@@ -1056,7 +1056,7 @@ msgstr "Přepnout stav rozbaleno/sbaleno vybraného uzlu"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:613
 msgid "E_xpand All Nodes"
-msgstr "Roz_balit všechny uzly"
+msgstr "_Rozbalit všechny uzly"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:613
 msgid "Expand All the Tree Nodes"
@@ -1064,7 +1064,7 @@ msgstr "Rozbalit všechny uzly stromové stavby"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:614
 msgid "_Collapse All Nodes"
-msgstr "S_ložit všechny uzly"
+msgstr "_Složit všechny uzly"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:614
 msgid "Collapse All the Tree Nodes"
@@ -1088,7 +1088,7 @@ msgstr "Zmenšit velikost ikon v nástrojovém pruhu"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:617
 msgid "_Full Screen On/Off"
-msgstr "_Zobrazení na celou obrazovku zapnuto/vypnuto"
+msgstr "Zobrazení na _celou obrazovku zapnuto/vypnuto"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:617
 msgid "Toggle Full Screen On/Off"
@@ -1148,7 +1148,7 @@ msgstr "Přidat uzel ze souboru HTML do současné stromové stavby"
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:623
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:730
 msgid "From _Folder of HTML Files"
-msgstr "Ze _složky se soubory HTML"
+msgstr "Ze sl_ožky se soubory HTML"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:623
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:730
@@ -1198,7 +1198,7 @@ msgstr "Přidat uzly ze složky KeepNote do současné stromové stavby"
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:628
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:735
 msgid "From K_eyNote File"
-msgstr "Ze souboru K_eyNote"
+msgstr "Ze souboru Key_Note"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:628
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:735
@@ -1208,7 +1208,7 @@ msgstr "Přidat uzly ze souboru KeyNote do současné stromové stavby"
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:629
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:736
 msgid "From K_nowit File"
-msgstr "Ze souboru K_nowit"
+msgstr "Ze souboru Kno_wit"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:629
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:736
@@ -1238,7 +1238,7 @@ msgstr "Přidat uzly ze souboru Mempad do současné stromové stavby"
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:632
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:739
 msgid "From _NoteCase File"
-msgstr "Ze souboru _NoteCase"
+msgstr "Ze souboru NoteCas_e"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:632
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:739
@@ -1248,7 +1248,7 @@ msgstr "Přidat uzly ze souboru NoteCase do současné stromové stavby"
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:633
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:740
 msgid "From T_omboy Folder"
-msgstr "Ze složky T_omboy"
+msgstr "Ze složky Tombo_y"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:633
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:740
@@ -1258,7 +1258,7 @@ msgstr "Přidat uzly ze složky Tomboy do současné stromové stavby"
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:634
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:741
 msgid "From T_reepad Lite File"
-msgstr "Ze souboru T_reepad Lite"
+msgstr "Ze souboru _Treepad Lite"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:634
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:741
@@ -1268,7 +1268,7 @@ msgstr "Přidat uzly ze souboru Treepad Lite do současné stromové stavby"
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:635
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:742
 msgid "From _TuxCards File"
-msgstr "Ze souboru _TuxCards"
+msgstr "Ze souboru Tu_xCards"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:635
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:742
@@ -1278,7 +1278,7 @@ msgstr "Přidat uzly ze souboru TuxCards do současné stromové stavby"
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:636
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:743
 msgid "From _Zim Folder"
-msgstr "Ze složky __Zim"
+msgstr "Ze složky _Zim"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:636
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:743
@@ -1298,7 +1298,7 @@ msgstr "Vyvést jako PDF"
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:638
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:749
 msgid "Export To _HTML"
-msgstr "Vyvést _jako HTML"
+msgstr "Vyvést jako _HTML"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:638
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:749
@@ -1308,7 +1308,7 @@ msgstr "Vyvést jako HTML"
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:639
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:747
 msgid "Export to Multiple Plain _Text Files"
-msgstr "Vyvést jako více souborů prostého _textu"
+msgstr "Vyvést jako víc_e souborů prostého textu"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:639
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:747
@@ -1318,7 +1318,7 @@ msgstr "Vyvést jako více souborů prostého textu"
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:640
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:748
 msgid "Export to _Single Plain Text File"
-msgstr "Vyvést jako jeden soubor prostého _textu"
+msgstr "Vyvést jako _jeden soubor prostého textu"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:640
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:748
@@ -1328,7 +1328,7 @@ msgstr "Vyvést jako jeden soubor prostého textu"
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:641
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:750
 msgid "_Export To CherryTree Document"
-msgstr "_Vyvést jako dokument CherryTree"
+msgstr "Vyvést jako dokument _CherryTree"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:641
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:750
@@ -1604,7 +1604,7 @@ msgstr "Odstranit současný uzel ze seznamu záložek"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:715
 msgid "Nodes _Sort"
-msgstr "_Třídění uzlů"
+msgstr "Tří_dění uzlů"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:791
 msgid "_Justify"
@@ -2160,7 +2160,7 @@ msgstr "Vložit zvláštní znak"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:1431
 msgid "_Recent Documents"
-msgstr "_Nedávné dokumenty"
+msgstr "Nedávné _dokumenty"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:1433
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:1440
