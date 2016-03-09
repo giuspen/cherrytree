@@ -172,10 +172,29 @@ def on_sourceview_list_change_level(dad, iter_insert, list_info, text_buffer, le
     dad.user_active = True
     dad.update_window_save_needed("nbuf", True)
 
+def on_sourceview_event_after_scroll(dad, text_view, event):
+    """Called after every gtk.gdk.SCROLL on the SourceView"""
+    if dad.ctrl_down:
+        if event.direction == gtk.gdk.SCROLL_UP:
+            dad.zoom_text_p()
+        elif event.direction == gtk.gdk.SCROLL_DOWN:
+            dad.zoom_text_m()
+    return False
+
+def on_sourceview_event_after_key_release(dad, text_view, event):
+    """Called after every gtk.gdk.KEY_RELEASE on the SourceView"""
+    if dad.ctrl_down:
+        keyname = gtk.gdk.keyval_name(event.keyval)
+        if keyname in cons.STR_KEYS_CONTROL:
+            dad.ctrl_down = False
+    return False
+
 def on_sourceview_event_after_key_press(dad, text_view, event):
     """Called after every gtk.gdk.KEY_PRESS on the SourceView"""
     text_buffer = text_view.get_buffer()
     keyname = gtk.gdk.keyval_name(event.keyval)
+    if keyname in cons.STR_KEYS_CONTROL:
+        dad.ctrl_down = True
     if (event.state & gtk.gdk.SHIFT_MASK):
         if keyname == cons.STR_KEY_RETURN:
             iter_insert = text_buffer.get_iter_at_mark(text_buffer.get_insert())

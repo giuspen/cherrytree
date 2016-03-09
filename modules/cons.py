@@ -208,6 +208,7 @@ STR_KEY_UP = "Up"
 STR_KEY_DOWN = "Down"
 STR_KEY_LEFT = "Left"
 STR_KEY_RIGHT = "Right"
+STR_KEYS_CONTROL = ["Control_L", "Control_R"]
 STR_PYGTK_222_REQUIRED = "PyGTK 2.22 required"
 
 HTML_HEADER = '''<!doctype html><html>

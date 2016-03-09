@@ -32,6 +32,7 @@ class CherryTree:
         self.boss = boss
         self.filetype = ""
         self.user_active = True
+        self.ctrl_down = False
         self.window = gtk.Window()
         self.window.set_title("CherryTree")
         self.window.set_default_size(963, 630)
@@ -4751,6 +4752,10 @@ iter_end, exclude_iter_sel_end=True)
                 return support.on_sourceview_event_after_button_press(self, text_view, event)
             if event.type == gtk.gdk.KEY_PRESS:
                 return support.on_sourceview_event_after_key_press(self, text_view, event)
+        elif event.type == gtk.gdk.KEY_RELEASE:
+            return support.on_sourceview_event_after_key_release(self, text_view, event)
+        elif event.type == gtk.gdk.SCROLL:
+            return support.on_sourceview_event_after_scroll(self, text_view, event)
         return False
 
     def special_char_replace(self, special_char, iter_start, iter_insert, text_buffer):
