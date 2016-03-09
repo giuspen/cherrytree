@@ -193,8 +193,9 @@ def on_sourceview_event_after_key_press(dad, text_view, event):
     """Called after every gtk.gdk.KEY_PRESS on the SourceView"""
     text_buffer = text_view.get_buffer()
     keyname = gtk.gdk.keyval_name(event.keyval)
-    if keyname in cons.STR_KEYS_CONTROL:
-        dad.ctrl_down = True
+    if not dad.ctrl_down:
+        if keyname in cons.STR_KEYS_CONTROL:
+            dad.ctrl_down = True
     if (event.state & gtk.gdk.SHIFT_MASK):
         if keyname == cons.STR_KEY_RETURN:
             iter_insert = text_buffer.get_iter_at_mark(text_buffer.get_insert())

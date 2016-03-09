@@ -150,6 +150,7 @@ class CherryTree:
         self.treeview.set_search_column(1)
         self.treeviewselection = self.treeview.get_selection()
         self.treeview.connect('cursor-changed', self.on_node_changed)
+        self.treeview.connect('event-after', self.on_event_after_tree)
         self.treeview.connect('button-press-event', self.on_mouse_button_clicked_tree)
         self.treeview.connect('key_press_event', self.on_key_press_cherrytree)
         self.treeview.connect('drag-motion', self.on_drag_motion_cherrytree)
@@ -2523,6 +2524,25 @@ iter_end, exclude_iter_sel_end=True)
     def on_help_menu_item_activated(self, menuitem, data=None):
         """Show the Online Manual"""
         webbrowser.open("http://giuspen.com/cherrytreemanual/Introduction.html")
+
+    def on_event_after_tree(self, widget, event):
+        """Catches events after"""
+        if event.type == gtk.gdk.KEY_PRESS:
+            if not self.ctrl_down:
+                keyname = gtk.gdk.keyval_name(event.keyval)
+                if keyname in cons.STR_KEYS_CONTROL:
+                    self.ctrl_down = True
+        elif event.type == gtk.gdk.KEY_RELEASE:
+            if self.ctrl_down:
+                keyname = gtk.gdk.keyval_name(event.keyval)
+                if keyname in cons.STR_KEYS_CONTROL:
+                    self.ctrl_down = False
+        elif event.type == gtk.gdk.SCROLL:
+            if self.ctrl_down:
+                if event.direction == gtk.gdk.SCROLL_UP:
+                    self.zoom_tree_p()
+                elif event.direction == gtk.gdk.SCROLL_DOWN:
+                    self.zoom_tree_m()
 
     def on_mouse_button_clicked_tree(self, widget, event):
         """Catches mouse buttons clicks"""
