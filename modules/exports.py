@@ -543,7 +543,10 @@ class Export2Html:
         os.mkdir(self.new_path)
         os.mkdir(self.images_dir)
         os.mkdir(self.embed_dir)
-        shutil.copy(os.path.join(cons.GLADE_PATH, "styles.css"), self.new_path)
+        styles_css_filepath = os.path.join(cons.CONFIG_DIR, "styles.css")
+        if not os.path.isfile(styles_css_filepath):
+            shutil.copy(os.path.join(cons.GLADE_PATH, "styles.css"), cons.CONFIG_DIR)
+        shutil.copy(styles_css_filepath, self.new_path)
         return True
 
     def nodes_all_export_to_html(self, top_tree_iter=None):
