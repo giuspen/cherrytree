@@ -1,5 +1,9 @@
-cherrytree (0.36.6-1) trusty; urgency=low
+cherrytree (0.36.7-1) trusty; urgency=low
 
-  * fixes in exports to html, pdf, txt
+  * implemented font zoom in/out on tree and text with ctrl down and mouse wheel up/down
+  * implemented auto replace as you type of single and double quotes with smart quotes
+  * export to html: it is now possibile to override the default styles.css in the preferences dir
+  * updated icons of rich text color foreground/background
+  * updated language Czech (Pavel Fric)
 
- -- Giuseppe Penone <giuspen@gmail.com>  Wed, 24 Feb 2016 21:14:32 +0000
+ -- Giuseppe Penone <giuspen@gmail.com>  Sun, 13 Mar 2016 23:42:14 +0000
