@@ -4771,7 +4771,7 @@ iter_end, exclude_iter_sel_end=True)
             if event.type == gtk.gdk.BUTTON_PRESS:
                 return support.on_sourceview_event_after_button_press(self, text_view, event)
             if event.type == gtk.gdk.KEY_PRESS:
-                return support.on_sourceview_event_after_key_press(self, text_view, event)
+                return support.on_sourceview_event_after_key_press(self, text_view, event, self.syntax_highlighting)
         elif event.type == gtk.gdk.KEY_RELEASE:
             return support.on_sourceview_event_after_key_release(self, text_view, event)
         elif event.type == gtk.gdk.SCROLL:

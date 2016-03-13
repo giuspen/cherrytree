@@ -189,14 +189,42 @@ def on_sourceview_event_after_key_release(dad, text_view, event):
             dad.ctrl_down = False
     return False
 
-def on_sourceview_event_after_key_press(dad, text_view, event):
+def on_sourceview_event_after_key_press(dad, text_view, event, syntax_highl):
     """Called after every gtk.gdk.KEY_PRESS on the SourceView"""
     text_buffer = text_view.get_buffer()
     keyname = gtk.gdk.keyval_name(event.keyval)
     if not dad.ctrl_down:
         if keyname in cons.STR_KEYS_CONTROL:
             dad.ctrl_down = True
-    if (event.state & gtk.gdk.SHIFT_MASK):
+    if keyname in [cons.STR_KEY_DQUOTE, cons.STR_KEY_SQUOTE]:
+        if syntax_highl in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID]:
+            iter_insert = text_buffer.get_iter_at_mark(text_buffer.get_insert())
+            if iter_insert:
+                offset_1 = iter_insert.get_offset()-1
+                if offset_1 > 0:
+                    if keyname == cons.STR_KEY_DQUOTE:
+                        start_char = cons.CHAR_DQUOTE
+                        char_0 = cons.CHAR_SMART_DQUOTE_0
+                        char_1 = cons.CHAR_SMART_DQUOTE_1
+                    else:
+                        start_char = cons.CHAR_SQUOTE
+                        char_0 = cons.CHAR_SMART_SQUOTE_0
+                        char_1 = cons.CHAR_SMART_SQUOTE_1
+                    iter_start = text_buffer.get_iter_at_offset(offset_1-1)
+                    offset_0 = -1
+                    while iter_start:
+                        curr_char = iter_start.get_char()
+                        if curr_char == start_char:
+                            candidate_offset = iter_start.get_offset()
+                            if not iter_start.backward_char() or iter_start.get_char() in [cons.CHAR_NEWLINE, cons.CHAR_SPACE, cons.CHAR_TAB]:
+                                offset_0 = candidate_offset
+                            break
+                        if curr_char == cons.CHAR_NEWLINE: break
+                        if not iter_start.backward_char(): break
+                    if offset_0 >= 0:
+                        dad.replace_text_at_offset(char_0, offset_0, offset_0+1, text_buffer)
+                        dad.replace_text_at_offset(char_1, offset_1, offset_1+1, text_buffer)
+    elif (event.state & gtk.gdk.SHIFT_MASK):
         if keyname == cons.STR_KEY_RETURN:
             iter_insert = text_buffer.get_iter_at_mark(text_buffer.get_insert())
             if not iter_insert: return False
