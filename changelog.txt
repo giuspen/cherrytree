@@ -1,4 +1,7 @@
 
+0.36.8 (March 14th, 2016)
+• fixed bug in font zoom in/out on tree and text with ctrl down and mouse wheel up/down
+
 0.36.7 (March 14th, 2016)
 • implemented font zoom in/out on tree and text with ctrl down and mouse wheel up/down
 • implemented auto replace as you type of single and double quotes with smart quotes
