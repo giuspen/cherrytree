@@ -10,7 +10,7 @@ sys.path.insert(0, MODULES_DIR)
 __builtin__.SHARE_PATH = SCRIPT_DIR
 import cons
 
-BLACKLIST = [".hg", ".hgtags", ".hgignore", ".gitignore"]
+BLACKLIST = [".git", ".gitignore"]
 
 DEST_DIR = os.path.join(os.path.dirname(SCRIPT_DIR), "cherrytree-"+cons.VERSION)
 if len(sys.argv) > 1:
