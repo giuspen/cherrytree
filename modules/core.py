@@ -160,6 +160,7 @@ class CherryTree:
         self.orphan_accel_group = gtk.AccelGroup()
         self.menu_tree_create()
         self.window.connect('delete-event', self.on_window_delete_event)
+        self.window.connect("focus-out-event", self.on_window_focus_out_event)
         self.window.connect('window-state-event', self.on_window_state_event)
         self.window.connect("size-allocate", self.on_window_n_tree_size_allocate_event)
         self.window.connect('key_press_event', self.on_key_press_window)
@@ -2524,6 +2525,10 @@ iter_end, exclude_iter_sel_end=True)
     def on_help_menu_item_activated(self, menuitem, data=None):
         """Show the Online Manual"""
         webbrowser.open("http://giuspen.com/cherrytreemanual/Introduction.html")
+
+    def on_window_focus_out_event(self, widget, event, data=None):
+        """When the main windows loses the focus (e.g. dialog)"""
+        if self.ctrl_down: self.ctrl_down = False
 
     def on_event_after_tree(self, widget, event):
         """Catches events after"""
