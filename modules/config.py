@@ -167,6 +167,7 @@ def config_file_load(inst):
         inst.rt_highl_curr_line = config.getboolean(section, "rt_highl_curr_line") if config.has_option(section, "rt_highl_curr_line") else True
         inst.pt_highl_curr_line = config.getboolean(section, "pt_highl_curr_line") if config.has_option(section, "pt_highl_curr_line") else True
         inst.space_around_lines = config.getint(section, "space_around_lines") if config.has_option(section, "space_around_lines") else 0
+        inst.relative_wrapped_space = config.getint(section, "relative_wrapped_space") if config.has_option(section, "relative_wrapped_space") else 50
         inst.h_rule = config.get(section, "h_rule") if config.has_option(section, "h_rule") else HORIZONTAL_RULE
         inst.special_chars = unicode(config.get(section, "special_chars") if config.has_option(section, "special_chars") else SPECIAL_CHARS_DEFAULT, cons.STR_UTF8, cons.STR_IGNORE)
         inst.selword_chars = unicode(config.get(section, "selword_chars") if config.has_option(section, "selword_chars") else SELWORD_CHARS_DEFAULT, cons.STR_UTF8, cons.STR_IGNORE)
@@ -319,6 +320,7 @@ def config_file_load(inst):
         inst.rt_highl_curr_line = True
         inst.pt_highl_curr_line = True
         inst.space_around_lines = 0
+        inst.relative_wrapped_space = 50
         inst.hpaned_pos = 170
         inst.show_node_name_label = True
         inst.nodes_icons = "c"
@@ -342,6 +344,7 @@ def config_file_apply(inst):
     inst.sourceview.set_indent(inst.wrapping_indent)
     inst.sourceview.set_pixels_above_lines(inst.space_around_lines)
     inst.sourceview.set_pixels_below_lines(inst.space_around_lines)
+    inst.sourceview.set_pixels_inside_wrap(int(round(inst.space_around_lines * (inst.relative_wrapped_space / 100.0))))
     if inst.line_wrapping: inst.sourceview.set_wrap_mode(gtk.WRAP_WORD)
     else: inst.sourceview.set_wrap_mode(gtk.WRAP_NONE)
     inst.renderer_text.set_property('wrap-width', inst.cherry_wrap_width)
@@ -436,6 +439,7 @@ def config_file_save(inst):
     config.set(section, "rt_highl_curr_line", inst.rt_highl_curr_line)
     config.set(section, "pt_highl_curr_line", inst.pt_highl_curr_line)
     config.set(section, "space_around_lines", inst.space_around_lines)
+    config.set(section, "relative_wrapped_space", inst.relative_wrapped_space)
     config.set(section, "h_rule", inst.h_rule)
     config.set(section, "special_chars", inst.special_chars)
     config.set(section, "selword_chars", inst.selword_chars)
@@ -602,6 +606,14 @@ def preferences_tab_all_nodes(dad, vbox_all_nodes, pref_dialog):
     spinbutton_space_around_lines.set_value(dad.space_around_lines)
     hbox_space_around_lines.pack_start(label_space_around_lines, expand=False)
     hbox_space_around_lines.pack_start(spinbutton_space_around_lines, expand=False)
+    hbox_relative_wrapped_space = gtk.HBox()
+    hbox_relative_wrapped_space.set_spacing(4)
+    label_relative_wrapped_space = gtk.Label(_("Vertical space in wrapped lines %"))
+    adj_relative_wrapped_space = gtk.Adjustment(value=dad.relative_wrapped_space, lower=-0, upper=100, step_incr=1)
+    spinbutton_relative_wrapped_space = gtk.SpinButton(adj_relative_wrapped_space)
+    spinbutton_relative_wrapped_space.set_value(dad.relative_wrapped_space)
+    hbox_relative_wrapped_space.pack_start(label_relative_wrapped_space, expand=False)
+    hbox_relative_wrapped_space.pack_start(spinbutton_relative_wrapped_space, expand=False)
 
     vbox_text_editor = gtk.VBox()
     vbox_text_editor.pack_start(hbox_tab_width, expand=False)
@@ -611,6 +623,7 @@ def preferences_tab_all_nodes(dad, vbox_all_nodes, pref_dialog):
     vbox_text_editor.pack_start(checkbutton_auto_indent, expand=False)
     vbox_text_editor.pack_start(checkbutton_line_nums, expand=False)
     vbox_text_editor.pack_start(hbox_space_around_lines, expand=False)
+    vbox_text_editor.pack_start(hbox_relative_wrapped_space, expand=False)
     frame_text_editor = gtk.Frame(label="<b>"+_("Text Editor")+"</b>")
     frame_text_editor.get_label_widget().set_use_markup(True)
     frame_text_editor.set_shadow_type(gtk.SHADOW_NONE)
@@ -691,10 +704,15 @@ def preferences_tab_all_nodes(dad, vbox_all_nodes, pref_dialog):
         dad.wrapping_indent = int(spinbutton.get_value())
         dad.sourceview.set_indent(dad.wrapping_indent)
     spinbutton_wrapping_indent.connect('value-changed', on_spinbutton_wrapping_indent_value_changed)
+    def on_spinbutton_relative_wrapped_space_value_changed(spinbutton):
+        dad.relative_wrapped_space = int(spinbutton.get_value())
+        dad.sourceview.set_pixels_inside_wrap(int(round(dad.space_around_lines * (dad.relative_wrapped_space / 100.0))))
+    spinbutton_relative_wrapped_space.connect('value-changed', on_spinbutton_relative_wrapped_space_value_changed)
     def on_spinbutton_space_around_lines_value_changed(spinbutton):
         dad.space_around_lines = int(spinbutton.get_value())
         dad.sourceview.set_pixels_above_lines(dad.space_around_lines)
         dad.sourceview.set_pixels_below_lines(dad.space_around_lines)
+        on_spinbutton_relative_wrapped_space_value_changed(spinbutton_relative_wrapped_space)
     spinbutton_space_around_lines.connect('value-changed', on_spinbutton_space_around_lines_value_changed)
     def on_checkbutton_spaces_tabs_toggled(checkbutton):
         dad.spaces_instead_tabs = checkbutton.get_active()
