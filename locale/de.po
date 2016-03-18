@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-11-14 23:31+0000\n"
-"PO-Revision-Date: 2014-05-02 21:02+0100\n"
+"PO-Revision-Date: 2016-03-18 20:43+0100\n"
 "Last-Translator: Frank Brungräber <calexu@arcor.de>\n"
 "Language-Team: German\n"
 "Language: de\n"
@@ -376,22 +376,22 @@ msgstr "Rechtschreibprüfung ein/aus"
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:546
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:769
 msgid "Cu_t as Plain Text"
-msgstr "_als unformatierten Text einfügen"
+msgstr "_als unformatierten Text ausschneiden"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:546
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:769
 msgid "Cut as Plain Text, Discard the Rich Text Formatting"
-msgstr "Text ohne Formatierung einfügen"
+msgstr "Text ohne Formatierung ausschneiden"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:547
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:770
 msgid "_Copy as Plain Text"
-msgstr "_als unformatierten Text einfügen"
+msgstr "_als unformatierten Text kopieren"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:547
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:770
 msgid "Copy as Plain Text, Discard the Rich Text Formatting"
-msgstr "Text ohne Formatierung einfügen"
+msgstr "Text ohne Formatierung kopieren"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:548
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:771
