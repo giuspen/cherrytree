@@ -84,6 +84,9 @@ def get_node_path_str_from_path(tree_path):
         path_list_of_str.append( str(element) )
     return " ".join(path_list_of_str)
 
+def get_pixels_inside_wrap(space_around_lines, relative_wrapped_space):
+    return int(round(space_around_lines * (relative_wrapped_space / 100.0)))
+
 def config_file_load(inst):
     """Load the Preferences from Config File"""
     if os.path.isfile(cons.CONFIG_PATH):
@@ -344,7 +347,7 @@ def config_file_apply(inst):
     inst.sourceview.set_indent(inst.wrapping_indent)
     inst.sourceview.set_pixels_above_lines(inst.space_around_lines)
     inst.sourceview.set_pixels_below_lines(inst.space_around_lines)
-    inst.sourceview.set_pixels_inside_wrap(int(round(inst.space_around_lines * (inst.relative_wrapped_space / 100.0))))
+    inst.sourceview.set_pixels_inside_wrap(get_pixels_inside_wrap(inst.space_around_lines, inst.relative_wrapped_space))
     if inst.line_wrapping: inst.sourceview.set_wrap_mode(gtk.WRAP_WORD)
     else: inst.sourceview.set_wrap_mode(gtk.WRAP_NONE)
     inst.renderer_text.set_property('wrap-width', inst.cherry_wrap_width)
@@ -706,7 +709,7 @@ def preferences_tab_all_nodes(dad, vbox_all_nodes, pref_dialog):
     spinbutton_wrapping_indent.connect('value-changed', on_spinbutton_wrapping_indent_value_changed)
     def on_spinbutton_relative_wrapped_space_value_changed(spinbutton):
         dad.relative_wrapped_space = int(spinbutton.get_value())
-        dad.sourceview.set_pixels_inside_wrap(int(round(dad.space_around_lines * (dad.relative_wrapped_space / 100.0))))
+        dad.sourceview.set_pixels_inside_wrap(get_pixels_inside_wrap(dad.space_around_lines, dad.relative_wrapped_space))
     spinbutton_relative_wrapped_space.connect('value-changed', on_spinbutton_relative_wrapped_space_value_changed)
     def on_spinbutton_space_around_lines_value_changed(spinbutton):
         dad.space_around_lines = int(spinbutton.get_value())
