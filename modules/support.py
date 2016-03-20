@@ -196,7 +196,7 @@ def on_sourceview_event_after_key_press(dad, text_view, event, syntax_highl):
     if not dad.ctrl_down:
         if keyname in cons.STR_KEYS_CONTROL:
             dad.ctrl_down = True
-    if keyname in [cons.STR_KEY_DQUOTE, cons.STR_KEY_SQUOTE]:
+    if dad.auto_smart_quotes and keyname in [cons.STR_KEY_DQUOTE, cons.STR_KEY_SQUOTE]:
         if syntax_highl in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID]:
             iter_insert = text_buffer.get_iter_at_mark(text_buffer.get_insert())
             if iter_insert:

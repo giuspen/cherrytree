@@ -163,6 +163,7 @@ def config_file_load(inst):
         inst.anchor_size = config.getint(section, "anchor_size") if config.has_option(section, "anchor_size") else 16
         inst.embfile_size = config.getint(section, "embfile_size") if config.has_option(section, "embfile_size") else 48
         inst.line_wrapping = config.getboolean(section, "line_wrapping") if config.has_option(section, "line_wrapping") else True
+        inst.auto_smart_quotes = config.getboolean(section, "auto_smart_quotes") if config.has_option(section, "auto_smart_quotes") else True
         inst.wrapping_indent = config.getint(section, "wrapping_indent") if config.has_option(section, "wrapping_indent") else -14
         inst.auto_indent = config.getboolean(section, "auto_indent") if config.has_option(section, "auto_indent") else True
         inst.rt_show_white_spaces = config.getboolean(section, "rt_show_white_spaces") if config.has_option(section, "rt_show_white_spaces") else False
@@ -274,6 +275,7 @@ def config_file_load(inst):
         inst.anchor_size = 16
         inst.embfile_size = 48
         inst.line_wrapping = True
+        inst.auto_smart_quotes = True
         inst.wrapping_indent = -14
         inst.auto_indent = True
         inst.toolbar_ui_vec = TOOLBAR_VEC_DEFAULT
@@ -435,6 +437,7 @@ def config_file_save(inst):
     config.set(section, "anchor_size", inst.anchor_size)
     config.set(section, "embfile_size", inst.embfile_size)
     config.set(section, "line_wrapping", inst.line_wrapping)
+    config.set(section, "auto_smart_quotes", inst.auto_smart_quotes)
     config.set(section, "wrapping_indent", inst.wrapping_indent)
     config.set(section, "auto_indent", inst.auto_indent)
     config.set(section, "rt_show_white_spaces", inst.rt_show_white_spaces)
@@ -573,7 +576,7 @@ def set_tree_path_and_cursor_pos(inst):
             inst.treeview.set_cursor(inst.treestore.get_path(node_iter_to_focus))
             inst.sourceview.grab_focus()
 
-def preferences_tab_all_nodes(dad, vbox_all_nodes, pref_dialog):
+def preferences_tab_text_n_code(dad, vbox_all_nodes, pref_dialog):
     """Preferences Dialog, All Nodes Tab"""
     for child in vbox_all_nodes.get_children(): child.destroy()
 
@@ -746,7 +749,7 @@ def preferences_tab_all_nodes(dad, vbox_all_nodes, pref_dialog):
         dad.selword_chars = entry.get_text()
     entry_selword_chars.connect('changed', on_entry_selword_chars_changed)
 
-def preferences_tab_rich_text_nodes(dad, vbox_text_nodes, pref_dialog):
+def preferences_tab_rich_text(dad, vbox_text_nodes, pref_dialog):
     """Preferences Dialog, Text Nodes Tab"""
     for child in vbox_text_nodes.get_children(): child.destroy()
 
@@ -933,8 +936,31 @@ def preferences_tab_rich_text_nodes(dad, vbox_text_nodes, pref_dialog):
         checkbutton_spell_check.set_sensitive(False)
         combobox_spell_check_lang.set_sensitive(False)
 
-def preferences_tab_plain_text_n_code_nodes(dad, vbox_code_nodes, pref_dialog):
-    """Preferences Dialog, Code Nodes Tab"""
+def preferences_tab_text(dad, vbox_text, pref_dialog):
+    """Preferences Dialog, Plain Text and Rich Text Tab"""
+    for child in vbox_text.get_children(): child.destroy()
+
+    vbox_editor = gtk.VBox()
+    checkbutton_auto_smart_quotes = gtk.CheckButton(_("Enable Smart Quotes Auto Replacement"))
+    checkbutton_auto_smart_quotes.set_active(dad.auto_smart_quotes)
+
+    vbox_editor.pack_start(checkbutton_auto_smart_quotes, expand=False)
+
+    frame_editor = gtk.Frame(label="<b>"+_("Text Editor")+"</b>")
+    frame_editor.get_label_widget().set_use_markup(True)
+    frame_editor.set_shadow_type(gtk.SHADOW_NONE)
+    align_editor = gtk.Alignment()
+    align_editor.set_padding(3, 6, 6, 6)
+    align_editor.add(vbox_editor)
+    frame_editor.add(align_editor)
+
+    vbox_text.pack_start(frame_editor, expand=False)
+    def on_checkbutton_auto_smart_quotes_toggled(checkbutton):
+        dad.auto_smart_quotes = checkbutton.get_active()
+    checkbutton_auto_smart_quotes.connect('toggled', on_checkbutton_auto_smart_quotes_toggled)
+
+def preferences_tab_plain_text_n_code(dad, vbox_code_nodes, pref_dialog):
+    """Preferences Dialog, Plain Text and Code Tab"""
     for child in vbox_code_nodes.get_children(): child.destroy()
 
     vbox_syntax = gtk.VBox()
@@ -957,7 +983,7 @@ def preferences_tab_plain_text_n_code_nodes(dad, vbox_code_nodes, pref_dialog):
     vbox_syntax.pack_start(checkbutton_pt_show_white_spaces, expand=False)
     vbox_syntax.pack_start(checkbutton_pt_highl_curr_line, expand=False)
 
-    frame_syntax = gtk.Frame(label="<b>"+_("Code Nodes")+"</b>")
+    frame_syntax = gtk.Frame(label="<b>"+_("Text Editor")+"</b>")
     frame_syntax.get_label_widget().set_use_markup(True)
     frame_syntax.set_shadow_type(gtk.SHADOW_NONE)
     align_syntax = gtk.Alignment()
@@ -1675,30 +1701,32 @@ def dialog_preferences(dad):
         buttons=(gtk.STOCK_CLOSE, gtk.RESPONSE_ACCEPT))
 
     tabs_vbox_vec = []
-    for tabs_idx in range(8):
+    for tabs_idx in range(9):
         tabs_vbox_vec.append(gtk.VBox())
         tabs_vbox_vec[-1].set_spacing(3)
 
     notebook = gtk.Notebook()
     notebook.set_tab_pos(gtk.POS_LEFT)
-    notebook.append_page(tabs_vbox_vec[0], gtk.Label(_("All Nodes")))
-    notebook.append_page(tabs_vbox_vec[1], gtk.Label(_("Rich Text")))
-    notebook.append_page(tabs_vbox_vec[2], gtk.Label(_("Plain Text and Code")))
-    notebook.append_page(tabs_vbox_vec[3], gtk.Label(_("Tree")))
-    notebook.append_page(tabs_vbox_vec[4], gtk.Label(_("Fonts")))
-    notebook.append_page(tabs_vbox_vec[5], gtk.Label(_("Links")))
-    notebook.append_page(tabs_vbox_vec[6], gtk.Label(_("Toolbar")))
-    notebook.append_page(tabs_vbox_vec[7], gtk.Label(_("Miscellaneous")))
+    notebook.append_page(tabs_vbox_vec[0], gtk.Label(_("Text and Code")))
+    notebook.append_page(tabs_vbox_vec[1], gtk.Label(_("Text")))
+    notebook.append_page(tabs_vbox_vec[2], gtk.Label(_("Rich Text")))
+    notebook.append_page(tabs_vbox_vec[3], gtk.Label(_("Plain Text and Code")))
+    notebook.append_page(tabs_vbox_vec[4], gtk.Label(_("Tree")))
+    notebook.append_page(tabs_vbox_vec[5], gtk.Label(_("Fonts")))
+    notebook.append_page(tabs_vbox_vec[6], gtk.Label(_("Links")))
+    notebook.append_page(tabs_vbox_vec[7], gtk.Label(_("Toolbar")))
+    notebook.append_page(tabs_vbox_vec[8], gtk.Label(_("Miscellaneous")))
 
     tab_constructor = {
-        0: preferences_tab_all_nodes,
-        1: preferences_tab_rich_text_nodes,
-        2: preferences_tab_plain_text_n_code_nodes,
-        3: preferences_tab_tree,
-        4: preferences_tab_fonts,
-        5: preferences_tab_links,
-        6: preferences_tab_toolbar,
-        7: preferences_tab_misc,
+        0: preferences_tab_text_n_code,
+        1: preferences_tab_text,
+        2: preferences_tab_rich_text,
+        3: preferences_tab_plain_text_n_code,
+        4: preferences_tab_tree,
+        5: preferences_tab_fonts,
+        6: preferences_tab_links,
+        7: preferences_tab_toolbar,
+        8: preferences_tab_misc,
         }
 
     def on_notebook_switch_page(notebook, page, page_num):
