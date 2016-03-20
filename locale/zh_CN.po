@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: cherrytree 0.26\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-11-14 23:31+0000\n"
-"PO-Revision-Date: 2014-10-06 06:56+0800\n"
-"Last-Translator: Channing Wong <channing.wong@qq.com>\n"
+"PO-Revision-Date: 2016-03-20 11:16+0800\n"
+"Last-Translator: Channing Wong <mamimoluo@gmail.com>\n"
 "Language-Team: Chinese (simplified)\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.9\n"
+"X-Generator: Poedit 1.8.7\n"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/codeboxes.py:96
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/core.py:3327
@@ -374,27 +374,23 @@ msgstr "启用/禁用拼写检查"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:546
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:769
-#, fuzzy
 msgid "Cu_t as Plain Text"
-msgstr "粘贴为纯文本(_P)"
+msgstr "剪切为纯文本(_t)"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:546
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:769
-#, fuzzy
 msgid "Cut as Plain Text, Discard the Rich Text Formatting"
-msgstr "粘贴为纯文本，去除富文本的格式"
+msgstr "剪切为纯文本，去除富文本的格式"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:547
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:770
-#, fuzzy
 msgid "_Copy as Plain Text"
-msgstr "粘贴为纯文本(_P)"
+msgstr "复制为纯文本(_C)"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:547
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:770
-#, fuzzy
 msgid "Copy as Plain Text, Discard the Rich Text Formatting"
-msgstr "粘贴为纯文本，去除富文本的格式"
+msgstr "复制为纯文本，去除富文本的格式"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:548
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:771
@@ -447,13 +443,13 @@ msgstr "删除当前/已选中行"
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:822
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:864
 msgid "_Duplicate Row"
-msgstr "克隆行(_D)"
+msgstr "复制行(_D)"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:552
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:822
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:864
 msgid "Duplicate the Current Row/Selection"
-msgstr "克隆当前/已选中行"
+msgstr "复制当前/已选中行"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:553
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:823
@@ -690,14 +686,12 @@ msgid "Justify Right the Current Paragraph"
 msgstr "当前段落右对齐"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:576
-#, fuzzy
 msgid "Justify _Fill"
-msgstr "右对齐(_R)"
+msgstr "两端对齐(_F)"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:576
-#, fuzzy
 msgid "Justify Fill the Current Paragraph"
-msgstr "当前段落右对齐"
+msgstr "当前段落两端对齐"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:577
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:697
@@ -721,15 +715,13 @@ msgstr "为当前所选节点添加一个子节点"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:579
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:699
-#, fuzzy
 msgid "_Duplicate Node"
-msgstr "克隆行(_D)"
+msgstr "复制节点(_D)"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:579
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:699
-#, fuzzy
 msgid "Duplicate the Selected Node"
-msgstr "删除已选择节点"
+msgstr "复制已选择节点"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:580
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:701
@@ -800,7 +792,7 @@ msgstr "左移节点"
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:586
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:711
 msgid "Move the Selected Node Left"
-msgstr "将当前所选节点想左移动"
+msgstr "将当前所选节点向左移动"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:587
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:712
@@ -1360,7 +1352,7 @@ msgstr "关于CherryTree"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:645
 msgid "C_ut Anchor"
-msgstr "剪切锚点(_u)"
+msgstr "剪切锚点(_U)"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:645
 msgid "Cut the Selected Anchor"
@@ -1392,7 +1384,7 @@ msgstr "编辑锚点"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:649
 msgid "C_ut Embedded File"
-msgstr "剪切嵌入文件(_u)"
+msgstr "剪切嵌入文件(_U)"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:649
 msgid "Cut the Selected Embedded File"
@@ -1574,7 +1566,7 @@ msgstr "编辑表格属性(_E)"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:686
 msgid "Edit the Table Properties"
-msgstr "编辑表格的属性"
+msgstr "编辑表格属性"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:687
 msgid "_Table Export"
@@ -1585,23 +1577,20 @@ msgid "Export Table as CSV File"
 msgstr "导出表格为CSV文件"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:703
-#, fuzzy
 msgid "Add to _Bookmarks"
-msgstr "书签(_B)"
+msgstr "添加到书签(_B)"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:703
 msgid "Add the Current Node to the Bookmarks List"
 msgstr "添加当前节点到书签列表"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:704
-#, fuzzy
 msgid "_Remove from Bookmarks"
-msgstr "书签(_B)"
+msgstr "从书签中移除(_R)"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:704
-#, fuzzy
 msgid "Remove the Current Node from the Bookmarks List"
-msgstr "添加当前节点到书签列表"
+msgstr "从当前节点到书签列表中删除"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:715
 msgid "Nodes _Sort"
@@ -1689,21 +1678,19 @@ msgstr "编辑相关链接"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:894
 msgid "C_ut Link"
-msgstr "剪切链接(_u)"
+msgstr "剪切链接(_U)"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:894
-#, fuzzy
 msgid "Cut the Selected Link"
-msgstr "删除已选择链接"
+msgstr "剪切已选择链接"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:895
 msgid "_Copy Link"
 msgstr "复制链接(_C)"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:895
-#, fuzzy
 msgid "Copy the Selected Link"
-msgstr "复制已选中的锚点"
+msgstr "复制已选择链接"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:896
 msgid "Dismiss the Selected Link"
@@ -1731,7 +1718,7 @@ msgstr "修改代码框属性(_P)"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:919
 msgid "Edit the Properties of the CodeBox"
-msgstr "编辑代码框的属性"
+msgstr "编辑代码框属性"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:920
 msgid "CodeBox _Load From Text File"
@@ -1970,16 +1957,16 @@ msgid ""
 "MA 02110-1301, USA.\n"
 msgstr ""
 "\n"
-"此软件为自由软件，您可以在自由软件基金会发布的GNU通用许可证的条款下进行修改或"
-"再发布；\n"
+"此软件为自由软件，您可以在自由软件基金会发布的GNU通用许可证的条款下进行修改"
+"或再发布；\n"
 "许可协议可以是第三版，或之后的任何新版本。\n"
 "  \n"
 "发布本程序是希望给您带来便利，但不做任何担保，甚至没有适销性或特定目的而隐含"
 "的担保。\n"
 "有关详细信息，请参阅GNU通用许可证。\n"
 "  \n"
-"您应该随本程序收到了一份GNU通用许可证；如果没有，可写一份信向自由软件基金会索"
-"取。\n"
+"您应该随本程序收到了一份GNU通用许可证；如果没有，可写一份信向自由软件基金会"
+"索取。\n"
 "Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,\n"
 "MA 02110-1301, USA.\n"
 
@@ -2013,7 +2000,7 @@ msgstr "意大利语"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:628
 msgid "Japanese"
-msgstr ""
+msgstr "日语"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:629
 msgid "Polish"
@@ -2033,7 +2020,7 @@ msgstr "西班牙语"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:633
 msgid "Turkish"
-msgstr ""
+msgstr "土耳其语"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/support.py:634
 msgid "Ukrainian"
@@ -2363,7 +2350,7 @@ msgstr "收缩所有节点"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:998
 msgid "Nodes in Bookmarks Always Visible"
-msgstr ""
+msgstr "在书签中的节点始终显示"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/config.py:1006
 msgid "Nodes Status at Startup"
