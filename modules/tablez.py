@@ -21,7 +21,7 @@
 
 import gtk, pango
 import os, csv, codecs, cStringIO, copy
-import cons, support
+import cons, menus, support
 
 
 class TablesHandler:
@@ -389,7 +389,7 @@ class TablesHandler:
     def on_table_cell_populate_popup(self, entry, menu):
         """Table Cell Populate Popup"""
         self.curr_table_cell = entry
-        self.dad.menu_populate_popup(menu, cons.get_popup_menu_entries_table_cell(self))
+        self.dad.menu_populate_popup(menu, menus.get_popup_menu_entries_table_cell(self))
 
     def curr_table_cell_insert_newline(self, *args):
         if not self.dad.is_curr_node_not_read_only_or_error(): return
@@ -621,7 +621,7 @@ class TablesHandler:
             self.curr_table_anchor = anchor
             self.dad.object_set_selection(self.curr_table_anchor)
             menu_table = gtk.Menu()
-            self.dad.menu_populate_popup(menu_table, cons.get_popup_menu_table(self.dad))
+            self.dad.menu_populate_popup(menu_table, menus.get_popup_menu_table(self.dad))
             menu_table.popup(None, None, None, 3, event.time)
             return True
         return False
@@ -632,7 +632,7 @@ class TablesHandler:
         self.dad.object_set_selection(self.curr_table_anchor)
         if event.button == 3:
             menu_table = gtk.Menu()
-            self.dad.menu_populate_popup(menu_table, cons.get_popup_menu_table(self.dad))
+            self.dad.menu_populate_popup(menu_table, menus.get_popup_menu_table(self.dad))
             menu_table.popup(None, None, None, event.button, event.time)
             return True
         return False

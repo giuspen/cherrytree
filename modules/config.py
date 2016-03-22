@@ -20,7 +20,7 @@
 #       MA 02110-1301, USA.
 
 import os, sys, ConfigParser, gtk, pango, locale, subprocess, base64, webbrowser
-import cons, support, exports, codeboxes, pgsc_spellcheck
+import cons, menus, support, exports, codeboxes, pgsc_spellcheck
 if cons.HAS_APPINDICATOR: import appindicator
 
 ICONS_SIZE = {1: gtk.ICON_SIZE_MENU, 2: gtk.ICON_SIZE_SMALL_TOOLBAR, 3: gtk.ICON_SIZE_LARGE_TOOLBAR,
@@ -45,14 +45,14 @@ SPELL_CHECK_LANG_DEFAULT = locale.getdefaultlocale()[0]
 def get_toolbar_entry_columns_from_key(dad, key):
     if key == cons.TAG_SEPARATOR: return [key, "", SEPARATOR_ASCII_REPR]
     if key == cons.CHAR_STAR: return [key, "gtk-open", _("Open a CherryTree Document")]
-    for element in cons.get_entries(dad):
+    for element in menus.get_entries(dad):
         if len(element) == 3: continue
         if key == element[0]: return [element[0], element[1], element[4]]
     return ["", "", ""]
 
 def get_toolbar_icon_n_label_list(dad):
     icon_n_label_list = [[cons.TAG_SEPARATOR, "", SEPARATOR_ASCII_REPR]]
-    for element in cons.get_entries(dad):
+    for element in menus.get_entries(dad):
         if len(element) == 3: continue
         if element[0] in dad.toolbar_ui_vec: continue
         if element[0] in TOOLBAR_VEC_BLACKLIST: continue

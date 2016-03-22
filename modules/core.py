@@ -21,7 +21,7 @@
 
 import gtk, pango, gtksourceview2, gobject
 import sys, os, re, glob, subprocess, webbrowser, base64, cgi, urllib2, shutil, time, locale, pgsc_spellcheck
-import cons, support, config, machines, clipboard, imports, exports, printing, tablez, lists, findreplace, codeboxes, ctdb
+import cons, menus, support, config, machines, clipboard, imports, exports, printing, tablez, lists, findreplace, codeboxes, ctdb
 if cons.HAS_APPINDICATOR: import appindicator
 
 class CherryTree:
@@ -73,11 +73,11 @@ class CherryTree:
         elif not cons.HAS_SYSTRAY: self.use_appind = True
         # ui manager
         actions = gtk.ActionGroup("Actions")
-        actions.add_actions(cons.get_entries(self))
+        actions.add_actions(menus.get_entries(self))
         self.ui = gtk.UIManager()
         self.ui.insert_action_group(actions, 0)
         self.window.add_accel_group(self.ui.get_accel_group())
-        self.ui.add_ui_from_string(cons.UI_INFO)
+        self.ui.add_ui_from_string(menus.UI_INFO)
         self.ui.add_ui_from_string(config.get_toolbar_ui_str(self))
         # menubar add
         vbox_main.pack_start(self.ui.get_widget("/MenuBar"), False, False)
@@ -1177,9 +1177,9 @@ iter_end, exclude_iter_sel_end=True)
                         and self.hovering_link_iter_offset <= iter_sel_end.get_offset():
                             do_set_cursor = False
                     if do_set_cursor: self.curr_buffer.place_cursor(target_iter)
-                self.menu_populate_popup(menu, cons.get_popup_menu_entries_link(self))
-            else: self.menu_populate_popup(menu, cons.get_popup_menu_entries_text(self))
-        else: self.menu_populate_popup(menu, cons.get_popup_menu_entries_code(self))
+                self.menu_populate_popup(menu, menus.get_popup_menu_entries_link(self))
+            else: self.menu_populate_popup(menu, menus.get_popup_menu_entries_text(self))
+        else: self.menu_populate_popup(menu, menus.get_popup_menu_entries_code(self))
 
     def menu_populate_popup(self, menu, entries, accel_group=None):
         """Populate the given menu with the given entries"""
@@ -1239,8 +1239,8 @@ iter_end, exclude_iter_sel_end=True)
         self.top_menu_tree = self.ui.get_widget("/MenuBar/TreeMenu").get_submenu()
         for menuitem in self.top_menu_tree:
             self.top_menu_tree.remove(menuitem)
-        self.menu_populate_popup(self.top_menu_tree, cons.get_popup_menu_tree(self))
-        self.menu_populate_popup(self.node_menu_tree, cons.get_popup_menu_tree(self))
+        self.menu_populate_popup(self.top_menu_tree, menus.get_popup_menu_tree(self))
+        self.menu_populate_popup(self.node_menu_tree, menus.get_popup_menu_tree(self))
 
     def menu_tree_update_for_bookmarked_node(self, is_bookmarked):
         """Update Tree Menu according to Node in Bookmarks or Not"""

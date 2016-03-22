@@ -21,7 +21,7 @@
 
 import gtk, gtksourceview2, pango
 import os
-import cons, support
+import cons, menus, support
 
 DRAW_SPACES_FLAGS = gtksourceview2.DRAW_SPACES_ALL & ~gtksourceview2.DRAW_SPACES_NEWLINE
 CB_WIDTH_HEIGHT_STEP_PIX = 15
@@ -479,7 +479,7 @@ class CodeBoxesHandler:
     def on_sourceview_populate_popup_codebox(self, textview, menu, anchor):
         """Extend the Default Right-Click Menu of the CodeBox"""
         if not self.dad.user_active: return
-        self.dad.menu_populate_popup(menu, cons.get_popup_menu_entries_codebox(self), self.dad.orphan_accel_group)
+        self.dad.menu_populate_popup(menu, menus.get_popup_menu_entries_codebox(self), self.dad.orphan_accel_group)
 
     def on_sourceview_motion_notify_event_codebox(self, text_view, event):
         """Update the cursor image if the pointer moved"""
