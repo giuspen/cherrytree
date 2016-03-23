@@ -87,7 +87,7 @@ def get_node_path_str_from_path(tree_path):
 def get_pixels_inside_wrap(space_around_lines, relative_wrapped_space):
     return int(round(space_around_lines * (relative_wrapped_space / 100.0)))
 
-def config_file_load(inst):
+def config_file_load(dad):
     """Load the Preferences from Config File"""
     if os.path.isfile(cons.CONFIG_PATH):
         config = ConfigParser.RawConfigParser()
@@ -97,487 +97,487 @@ def config_file_load(inst):
             print "? ConfigParser.MissingSectionHeaderError"
 
         section = "state"
-        inst.file_dir = unicode(config.get(section, "file_dir"), cons.STR_UTF8, cons.STR_IGNORE) if config.has_option(section, "file_dir") else ""
-        inst.file_name = unicode(config.get(section, "file_name"), cons.STR_UTF8, cons.STR_IGNORE) if config.has_option(section, "file_name") else ""
-        inst.toolbar_visible = config.getboolean(section, "toolbar_visible") if config.has_option(section, "toolbar_visible") else True
-        inst.win_is_maximized = config.getboolean(section, "win_is_maximized") if config.has_option(section, "win_is_maximized") else False
+        dad.file_dir = unicode(config.get(section, "file_dir"), cons.STR_UTF8, cons.STR_IGNORE) if config.has_option(section, "file_dir") else ""
+        dad.file_name = unicode(config.get(section, "file_name"), cons.STR_UTF8, cons.STR_IGNORE) if config.has_option(section, "file_name") else ""
+        dad.toolbar_visible = config.getboolean(section, "toolbar_visible") if config.has_option(section, "toolbar_visible") else True
+        dad.win_is_maximized = config.getboolean(section, "win_is_maximized") if config.has_option(section, "win_is_maximized") else False
         # restore window size and position
         if config.has_option(section, "win_position_x") and config.has_option(section, "win_position_y"):
-            inst.win_position = [config.getint(section, "win_position_x"), config.getint(section, "win_position_y")]
-            inst.window.move(inst.win_position[0], inst.win_position[1])
-        else: inst.win_position = [10, 10]
-        if inst.win_is_maximized: inst.window.maximize()
+            dad.win_position = [config.getint(section, "win_position_x"), config.getint(section, "win_position_y")]
+            dad.window.move(dad.win_position[0], dad.win_position[1])
+        else: dad.win_position = [10, 10]
+        if dad.win_is_maximized: dad.window.maximize()
         elif config.has_option(section, "win_size_w") and config.has_option(section, "win_size_h"):
             win_size = [config.getint(section, "win_size_w"), config.getint(section, "win_size_h")]
-            inst.window.resize(win_size[0], win_size[1])
-        inst.hpaned_pos = config.getint(section, "hpaned_pos") if config.has_option(section, "hpaned_pos") else 170
+            dad.window.resize(win_size[0], win_size[1])
+        dad.hpaned_pos = config.getint(section, "hpaned_pos") if config.has_option(section, "hpaned_pos") else 170
         if config.has_option(section, "node_path"):
             # restore the selected node
-            inst.node_path = get_node_path_from_str(config.get(section, "node_path"))
-            inst.cursor_position = config.getint(section, "cursor_position") if config.has_option(section, "cursor_position") else 0
-        else: inst.node_path = None
-        inst.recent_docs = []
+            dad.node_path = get_node_path_from_str(config.get(section, "node_path"))
+            dad.cursor_position = config.getint(section, "cursor_position") if config.has_option(section, "cursor_position") else 0
+        else: dad.node_path = None
+        dad.recent_docs = []
         if config.has_option(section, "recent_docs"):
             temp_recent_docs = config.get(section, "recent_docs").split(cons.CHAR_SPACE)
             for element in temp_recent_docs:
-                if element: inst.recent_docs.append(unicode(base64.b64decode(element), cons.STR_UTF8, cons.STR_IGNORE))
-        inst.pick_dir = config.get(section, "pick_dir") if config.has_option(section, "pick_dir") else ""
-        inst.link_type = config.get(section, "link_type") if config.has_option(section, "link_type") else cons.LINK_TYPE_WEBS
-        inst.show_node_name_label = config.getboolean(section, "show_node_name_label") if config.has_option(section, "show_node_name_label") else True
+                if element: dad.recent_docs.append(unicode(base64.b64decode(element), cons.STR_UTF8, cons.STR_IGNORE))
+        dad.pick_dir = config.get(section, "pick_dir") if config.has_option(section, "pick_dir") else ""
+        dad.link_type = config.get(section, "link_type") if config.has_option(section, "link_type") else cons.LINK_TYPE_WEBS
+        dad.show_node_name_label = config.getboolean(section, "show_node_name_label") if config.has_option(section, "show_node_name_label") else True
         if config.has_option(section, "toolbar_icon_size"):
-            inst.toolbar_icon_size = config.getint(section, "toolbar_icon_size")
-            if inst.toolbar_icon_size not in ICONS_SIZE: inst.toolbar_icon_size = 1
-        else: inst.toolbar_icon_size = 1
-        inst.curr_colors = {'f':gtk.gdk.color_parse(config.get(section, "fg")) if config.has_option(section, "fg") else None,
+            dad.toolbar_icon_size = config.getint(section, "toolbar_icon_size")
+            if dad.toolbar_icon_size not in ICONS_SIZE: dad.toolbar_icon_size = 1
+        else: dad.toolbar_icon_size = 1
+        dad.curr_colors = {'f':gtk.gdk.color_parse(config.get(section, "fg")) if config.has_option(section, "fg") else None,
                             'b':gtk.gdk.color_parse(config.get(section, "bg")) if config.has_option(section, "bg") else None}
 
         section = "tree"
-        inst.rest_exp_coll = config.getint(section, "rest_exp_coll") if config.has_option(section, "rest_exp_coll") else 0
-        inst.expanded_collapsed_string = config.get(section, "expanded_collapsed_string") if config.has_option(section, "expanded_collapsed_string") else ""
-        inst.expcollnam1 = unicode(config.get(section, "expcollnam1"), cons.STR_UTF8, cons.STR_IGNORE) if config.has_option(section, "expcollnam1") else ""
-        inst.expcollstr1 = config.get(section, "expcollstr1") if config.has_option(section, "expcollstr1") else ""
-        inst.expcollsel1 = config.get(section, "expcollsel1") if config.has_option(section, "expcollsel1") else ""
-        inst.expcollcur1 = config.getint(section, "expcollcur1") if config.has_option(section, "expcollcur1") else 0
-        inst.expcollnam2 = unicode(config.get(section, "expcollnam2"), cons.STR_UTF8, cons.STR_IGNORE) if config.has_option(section, "expcollnam2") else ""
-        inst.expcollstr2 = config.get(section, "expcollstr2") if config.has_option(section, "expcollstr2") else ""
-        inst.expcollsel2 = config.get(section, "expcollsel2") if config.has_option(section, "expcollsel2") else ""
-        inst.expcollcur2 = config.getint(section, "expcollcur2") if config.has_option(section, "expcollcur2") else 0
-        inst.expcollnam3 = unicode(config.get(section, "expcollnam3"), cons.STR_UTF8, cons.STR_IGNORE) if config.has_option(section, "expcollnam3") else ""
-        inst.expcollstr3 = config.get(section, "expcollstr3") if config.has_option(section, "expcollstr3") else ""
-        inst.expcollsel3 = config.get(section, "expcollsel3") if config.has_option(section, "expcollsel3") else ""
-        inst.expcollcur3 = config.getint(section, "expcollcur3") if config.has_option(section, "expcollcur3") else 0
-        inst.nodes_bookm_exp = config.getboolean(section, "nodes_bookm_exp") if config.has_option(section, "nodes_bookm_exp") else True
-        inst.nodes_icons = config.get(section, "nodes_icons") if config.has_option(section, "nodes_icons") else "c"
-        inst.tree_right_side = config.getboolean(section, "tree_right_side") if config.has_option(section, "tree_right_side") else False
-        inst.cherry_wrap_width = config.getint(section, "cherry_wrap_width") if config.has_option(section, "cherry_wrap_width") else 130
+        dad.rest_exp_coll = config.getint(section, "rest_exp_coll") if config.has_option(section, "rest_exp_coll") else 0
+        dad.expanded_collapsed_string = config.get(section, "expanded_collapsed_string") if config.has_option(section, "expanded_collapsed_string") else ""
+        dad.expcollnam1 = unicode(config.get(section, "expcollnam1"), cons.STR_UTF8, cons.STR_IGNORE) if config.has_option(section, "expcollnam1") else ""
+        dad.expcollstr1 = config.get(section, "expcollstr1") if config.has_option(section, "expcollstr1") else ""
+        dad.expcollsel1 = config.get(section, "expcollsel1") if config.has_option(section, "expcollsel1") else ""
+        dad.expcollcur1 = config.getint(section, "expcollcur1") if config.has_option(section, "expcollcur1") else 0
+        dad.expcollnam2 = unicode(config.get(section, "expcollnam2"), cons.STR_UTF8, cons.STR_IGNORE) if config.has_option(section, "expcollnam2") else ""
+        dad.expcollstr2 = config.get(section, "expcollstr2") if config.has_option(section, "expcollstr2") else ""
+        dad.expcollsel2 = config.get(section, "expcollsel2") if config.has_option(section, "expcollsel2") else ""
+        dad.expcollcur2 = config.getint(section, "expcollcur2") if config.has_option(section, "expcollcur2") else 0
+        dad.expcollnam3 = unicode(config.get(section, "expcollnam3"), cons.STR_UTF8, cons.STR_IGNORE) if config.has_option(section, "expcollnam3") else ""
+        dad.expcollstr3 = config.get(section, "expcollstr3") if config.has_option(section, "expcollstr3") else ""
+        dad.expcollsel3 = config.get(section, "expcollsel3") if config.has_option(section, "expcollsel3") else ""
+        dad.expcollcur3 = config.getint(section, "expcollcur3") if config.has_option(section, "expcollcur3") else 0
+        dad.nodes_bookm_exp = config.getboolean(section, "nodes_bookm_exp") if config.has_option(section, "nodes_bookm_exp") else True
+        dad.nodes_icons = config.get(section, "nodes_icons") if config.has_option(section, "nodes_icons") else "c"
+        dad.tree_right_side = config.getboolean(section, "tree_right_side") if config.has_option(section, "tree_right_side") else False
+        dad.cherry_wrap_width = config.getint(section, "cherry_wrap_width") if config.has_option(section, "cherry_wrap_width") else 130
 
         section = "editor"
-        inst.syntax_highlighting = config.get(section, "syntax_highlighting") if config.has_option(section, "syntax_highlighting") else cons.RICH_TEXT_ID
-        inst.auto_syn_highl = config.get(section, "auto_syn_highl") if config.has_option(section, "auto_syn_highl") else "sh"
-        inst.style_scheme = config.get(section, "style_scheme") if config.has_option(section, "style_scheme") else cons.STYLE_SCHEME_DARK
-        inst.enable_spell_check = config.getboolean(section, "enable_spell_check") if config.has_option(section, "enable_spell_check") else False
-        inst.spell_check_lang = config.get(section, "spell_check_lang") if config.has_option(section, "spell_check_lang") else SPELL_CHECK_LANG_DEFAULT
-        inst.show_line_numbers = config.getboolean(section, "show_line_numbers") if config.has_option(section, "show_line_numbers") else False
-        inst.spaces_instead_tabs = config.getboolean(section, "spaces_instead_tabs") if config.has_option(section, "spaces_instead_tabs") else True
-        inst.tabs_width = config.getint(section, "tabs_width") if config.has_option(section, "tabs_width") else 4
-        inst.anchor_size = config.getint(section, "anchor_size") if config.has_option(section, "anchor_size") else 16
-        inst.embfile_size = config.getint(section, "embfile_size") if config.has_option(section, "embfile_size") else 48
-        inst.line_wrapping = config.getboolean(section, "line_wrapping") if config.has_option(section, "line_wrapping") else True
-        inst.auto_smart_quotes = config.getboolean(section, "auto_smart_quotes") if config.has_option(section, "auto_smart_quotes") else True
-        inst.wrapping_indent = config.getint(section, "wrapping_indent") if config.has_option(section, "wrapping_indent") else -14
-        inst.auto_indent = config.getboolean(section, "auto_indent") if config.has_option(section, "auto_indent") else True
-        inst.rt_show_white_spaces = config.getboolean(section, "rt_show_white_spaces") if config.has_option(section, "rt_show_white_spaces") else False
-        inst.pt_show_white_spaces = config.getboolean(section, "pt_show_white_spaces") if config.has_option(section, "pt_show_white_spaces") else True
-        inst.rt_highl_curr_line = config.getboolean(section, "rt_highl_curr_line") if config.has_option(section, "rt_highl_curr_line") else True
-        inst.pt_highl_curr_line = config.getboolean(section, "pt_highl_curr_line") if config.has_option(section, "pt_highl_curr_line") else True
-        inst.space_around_lines = config.getint(section, "space_around_lines") if config.has_option(section, "space_around_lines") else 0
-        inst.relative_wrapped_space = config.getint(section, "relative_wrapped_space") if config.has_option(section, "relative_wrapped_space") else 50
-        inst.h_rule = config.get(section, "h_rule") if config.has_option(section, "h_rule") else HORIZONTAL_RULE
-        inst.special_chars = unicode(config.get(section, "special_chars") if config.has_option(section, "special_chars") else SPECIAL_CHARS_DEFAULT, cons.STR_UTF8, cons.STR_IGNORE)
-        inst.selword_chars = unicode(config.get(section, "selword_chars") if config.has_option(section, "selword_chars") else SELWORD_CHARS_DEFAULT, cons.STR_UTF8, cons.STR_IGNORE)
-        inst.timestamp_format = config.get(section, "timestamp_format") if config.has_option(section, "timestamp_format") else TIMESTAMP_FORMAT_DEFAULT
-        inst.links_underline = config.getboolean(section, "links_underline") if config.has_option(section, "links_underline") else True
-        inst.links_relative = config.getboolean(section, "links_relative") if config.has_option(section, "links_relative") else False
+        dad.syntax_highlighting = config.get(section, "syntax_highlighting") if config.has_option(section, "syntax_highlighting") else cons.RICH_TEXT_ID
+        dad.auto_syn_highl = config.get(section, "auto_syn_highl") if config.has_option(section, "auto_syn_highl") else "sh"
+        dad.style_scheme = config.get(section, "style_scheme") if config.has_option(section, "style_scheme") else cons.STYLE_SCHEME_DARK
+        dad.enable_spell_check = config.getboolean(section, "enable_spell_check") if config.has_option(section, "enable_spell_check") else False
+        dad.spell_check_lang = config.get(section, "spell_check_lang") if config.has_option(section, "spell_check_lang") else SPELL_CHECK_LANG_DEFAULT
+        dad.show_line_numbers = config.getboolean(section, "show_line_numbers") if config.has_option(section, "show_line_numbers") else False
+        dad.spaces_instead_tabs = config.getboolean(section, "spaces_instead_tabs") if config.has_option(section, "spaces_instead_tabs") else True
+        dad.tabs_width = config.getint(section, "tabs_width") if config.has_option(section, "tabs_width") else 4
+        dad.anchor_size = config.getint(section, "anchor_size") if config.has_option(section, "anchor_size") else 16
+        dad.embfile_size = config.getint(section, "embfile_size") if config.has_option(section, "embfile_size") else 48
+        dad.line_wrapping = config.getboolean(section, "line_wrapping") if config.has_option(section, "line_wrapping") else True
+        dad.auto_smart_quotes = config.getboolean(section, "auto_smart_quotes") if config.has_option(section, "auto_smart_quotes") else True
+        dad.wrapping_indent = config.getint(section, "wrapping_indent") if config.has_option(section, "wrapping_indent") else -14
+        dad.auto_indent = config.getboolean(section, "auto_indent") if config.has_option(section, "auto_indent") else True
+        dad.rt_show_white_spaces = config.getboolean(section, "rt_show_white_spaces") if config.has_option(section, "rt_show_white_spaces") else False
+        dad.pt_show_white_spaces = config.getboolean(section, "pt_show_white_spaces") if config.has_option(section, "pt_show_white_spaces") else True
+        dad.rt_highl_curr_line = config.getboolean(section, "rt_highl_curr_line") if config.has_option(section, "rt_highl_curr_line") else True
+        dad.pt_highl_curr_line = config.getboolean(section, "pt_highl_curr_line") if config.has_option(section, "pt_highl_curr_line") else True
+        dad.space_around_lines = config.getint(section, "space_around_lines") if config.has_option(section, "space_around_lines") else 0
+        dad.relative_wrapped_space = config.getint(section, "relative_wrapped_space") if config.has_option(section, "relative_wrapped_space") else 50
+        dad.h_rule = config.get(section, "h_rule") if config.has_option(section, "h_rule") else HORIZONTAL_RULE
+        dad.special_chars = unicode(config.get(section, "special_chars") if config.has_option(section, "special_chars") else SPECIAL_CHARS_DEFAULT, cons.STR_UTF8, cons.STR_IGNORE)
+        dad.selword_chars = unicode(config.get(section, "selword_chars") if config.has_option(section, "selword_chars") else SELWORD_CHARS_DEFAULT, cons.STR_UTF8, cons.STR_IGNORE)
+        dad.timestamp_format = config.get(section, "timestamp_format") if config.has_option(section, "timestamp_format") else TIMESTAMP_FORMAT_DEFAULT
+        dad.links_underline = config.getboolean(section, "links_underline") if config.has_option(section, "links_underline") else True
+        dad.links_relative = config.getboolean(section, "links_relative") if config.has_option(section, "links_relative") else False
         if config.has_option(section, "weblink_custom_action"):
             temp_str = config.get(section, "weblink_custom_action")
-            inst.weblink_custom_action = [True, temp_str[4:]] if temp_str[:4] == "True" else [False, temp_str[5:]]
-        else: inst.weblink_custom_action = [False, LINK_CUSTOM_ACTION_DEFAULT_WEB]
+            dad.weblink_custom_action = [True, temp_str[4:]] if temp_str[:4] == "True" else [False, temp_str[5:]]
+        else: dad.weblink_custom_action = [False, LINK_CUSTOM_ACTION_DEFAULT_WEB]
         if config.has_option(section, "filelink_custom_action"):
             temp_str = config.get(section, "filelink_custom_action")
-            inst.filelink_custom_action = [True, temp_str[4:]] if temp_str[:4] == "True" else [False, temp_str[5:]]
-        else: inst.filelink_custom_action = [False, LINK_CUSTOM_ACTION_DEFAULT_FILE]
+            dad.filelink_custom_action = [True, temp_str[4:]] if temp_str[:4] == "True" else [False, temp_str[5:]]
+        else: dad.filelink_custom_action = [False, LINK_CUSTOM_ACTION_DEFAULT_FILE]
         if config.has_option(section, "folderlink_custom_action"):
             temp_str = config.get(section, "folderlink_custom_action")
-            inst.folderlink_custom_action = [True, temp_str[4:]] if temp_str[:4] == "True" else [False, temp_str[5:]]
-        else: inst.folderlink_custom_action = [False, LINK_CUSTOM_ACTION_DEFAULT_FILE]
+            dad.folderlink_custom_action = [True, temp_str[4:]] if temp_str[:4] == "True" else [False, temp_str[5:]]
+        else: dad.folderlink_custom_action = [False, LINK_CUSTOM_ACTION_DEFAULT_FILE]
 
         section = "codebox"
         if config.has_option(section, "codebox_width"):
-            inst.codebox_width = config.getfloat(section, "codebox_width")
-        else: inst.codebox_width = 700
+            dad.codebox_width = config.getfloat(section, "codebox_width")
+        else: dad.codebox_width = 700
         if config.has_option(section, "codebox_height"):
-            inst.codebox_height = config.getfloat(section, "codebox_height")
-        else: inst.codebox_height = 100
-        inst.codebox_width_pixels = config.getboolean(section, "codebox_width_pixels") if config.has_option(section, "codebox_width_pixels") else True
-        inst.codebox_line_num = config.getboolean(section, "codebox_line_num") if config.has_option(section, "codebox_line_num") else False
-        inst.codebox_match_bra = config.getboolean(section, "codebox_match_bra") if config.has_option(section, "codebox_match_bra") else True
-        inst.codebox_syn_highl = config.get(section, "codebox_syn_highl") if config.has_option(section, "codebox_syn_highl") else cons.PLAIN_TEXT_ID
-        inst.codebox_auto_resize = config.getboolean(section, "codebox_auto_resize") if config.has_option(section, "codebox_auto_resize") else True
+            dad.codebox_height = config.getfloat(section, "codebox_height")
+        else: dad.codebox_height = 100
+        dad.codebox_width_pixels = config.getboolean(section, "codebox_width_pixels") if config.has_option(section, "codebox_width_pixels") else True
+        dad.codebox_line_num = config.getboolean(section, "codebox_line_num") if config.has_option(section, "codebox_line_num") else False
+        dad.codebox_match_bra = config.getboolean(section, "codebox_match_bra") if config.has_option(section, "codebox_match_bra") else True
+        dad.codebox_syn_highl = config.get(section, "codebox_syn_highl") if config.has_option(section, "codebox_syn_highl") else cons.PLAIN_TEXT_ID
+        dad.codebox_auto_resize = config.getboolean(section, "codebox_auto_resize") if config.has_option(section, "codebox_auto_resize") else True
 
         section = "table"
-        inst.table_rows = config.getint(section, "table_rows") if config.has_option(section, "table_rows") else 3
-        inst.table_columns = config.getint(section, "table_columns") if config.has_option(section, "table_columns") else 3
-        inst.table_column_mode = config.get(section, "table_column_mode") if config.has_option(section, "table_column_mode") else "rename"
-        inst.table_col_min = config.getint(section, "table_col_min") if config.has_option(section, "table_col_min") else 40
-        inst.table_col_max = config.getint(section, "table_col_max") if config.has_option(section, "table_col_max") else 60
+        dad.table_rows = config.getint(section, "table_rows") if config.has_option(section, "table_rows") else 3
+        dad.table_columns = config.getint(section, "table_columns") if config.has_option(section, "table_columns") else 3
+        dad.table_column_mode = config.get(section, "table_column_mode") if config.has_option(section, "table_column_mode") else "rename"
+        dad.table_col_min = config.getint(section, "table_col_min") if config.has_option(section, "table_col_min") else 40
+        dad.table_col_max = config.getint(section, "table_col_max") if config.has_option(section, "table_col_max") else 60
 
         section = "fonts"
-        inst.text_font = config.get(section, "text_font") if config.has_option(section, "text_font") else "Sans 9" # default text font
-        inst.tree_font = config.get(section, "tree_font") if config.has_option(section, "tree_font") else "Sans 8" # default tree font
-        inst.code_font = config.get(section, "code_font") if config.has_option(section, "code_font") else "Monospace 9" # default code font
+        dad.text_font = config.get(section, "text_font") if config.has_option(section, "text_font") else "Sans 9" # default text font
+        dad.tree_font = config.get(section, "tree_font") if config.has_option(section, "tree_font") else "Sans 8" # default tree font
+        dad.code_font = config.get(section, "code_font") if config.has_option(section, "code_font") else "Monospace 9" # default code font
 
         section = "colors"
-        inst.rt_def_fg = config.get(section, "rt_def_fg") if config.has_option(section, "rt_def_fg") else cons.RICH_TEXT_DARK_FG
-        inst.rt_def_bg = config.get(section, "rt_def_bg") if config.has_option(section, "rt_def_bg") else cons.RICH_TEXT_DARK_BG
-        inst.tt_def_fg = config.get(section, "tt_def_fg") if config.has_option(section, "tt_def_fg") else cons.TREE_TEXT_LIGHT_FG
-        inst.tt_def_bg = config.get(section, "tt_def_bg") if config.has_option(section, "tt_def_bg") else cons.TREE_TEXT_LIGHT_BG
+        dad.rt_def_fg = config.get(section, "rt_def_fg") if config.has_option(section, "rt_def_fg") else cons.RICH_TEXT_DARK_FG
+        dad.rt_def_bg = config.get(section, "rt_def_bg") if config.has_option(section, "rt_def_bg") else cons.RICH_TEXT_DARK_BG
+        dad.tt_def_fg = config.get(section, "tt_def_fg") if config.has_option(section, "tt_def_fg") else cons.TREE_TEXT_LIGHT_FG
+        dad.tt_def_bg = config.get(section, "tt_def_bg") if config.has_option(section, "tt_def_bg") else cons.TREE_TEXT_LIGHT_BG
         if config.has_option(section, "palette_list"):
-            inst.palette_list = config.get(section, "palette_list").split(":")
-        else: inst.palette_list = COLOR_PALETTE_DEFAULT
-        inst.col_link_webs = config.get(section, "col_link_webs") if config.has_option(section, "col_link_webs") else cons.COLOR_48_LINK_WEBS
-        inst.col_link_node = config.get(section, "col_link_node") if config.has_option(section, "col_link_node") else cons.COLOR_48_LINK_NODE
-        inst.col_link_file = config.get(section, "col_link_file") if config.has_option(section, "col_link_file") else cons.COLOR_48_LINK_FILE
-        inst.col_link_fold = config.get(section, "col_link_fold") if config.has_option(section, "col_link_fold") else cons.COLOR_48_LINK_FOLD
+            dad.palette_list = config.get(section, "palette_list").split(":")
+        else: dad.palette_list = COLOR_PALETTE_DEFAULT
+        dad.col_link_webs = config.get(section, "col_link_webs") if config.has_option(section, "col_link_webs") else cons.COLOR_48_LINK_WEBS
+        dad.col_link_node = config.get(section, "col_link_node") if config.has_option(section, "col_link_node") else cons.COLOR_48_LINK_NODE
+        dad.col_link_file = config.get(section, "col_link_file") if config.has_option(section, "col_link_file") else cons.COLOR_48_LINK_FILE
+        dad.col_link_fold = config.get(section, "col_link_fold") if config.has_option(section, "col_link_fold") else cons.COLOR_48_LINK_FOLD
 
         section = "misc"
-        inst.toolbar_ui_vec = config.get(section, "toolbar_ui_vec").split(cons.CHAR_COMMA) if config.has_option(section, "toolbar_ui_vec") else TOOLBAR_VEC_DEFAULT
-        inst.systray = config.getboolean(section, "systray") if config.has_option(section, "systray") else False
-        inst.start_on_systray = config.getboolean(section, "start_on_systray") if config.has_option(section, "start_on_systray") else False
-        inst.use_appind = config.getboolean(section, "use_appind") if config.has_option(section, "use_appind") else False
+        dad.toolbar_ui_vec = config.get(section, "toolbar_ui_vec").split(cons.CHAR_COMMA) if config.has_option(section, "toolbar_ui_vec") else TOOLBAR_VEC_DEFAULT
+        dad.systray = config.getboolean(section, "systray") if config.has_option(section, "systray") else False
+        dad.start_on_systray = config.getboolean(section, "start_on_systray") if config.has_option(section, "start_on_systray") else False
+        dad.use_appind = config.getboolean(section, "use_appind") if config.has_option(section, "use_appind") else False
         if config.has_option(section, "autosave") and config.has_option(section, "autosave_val"):
-            inst.autosave = [config.getboolean(section, "autosave"), config.getint(section, "autosave_val")]
-        else: inst.autosave = [False, 5]
-        inst.check_version = config.getboolean(section, "check_version") if config.has_option(section, "check_version") else False
-        inst.reload_doc_last = config.getboolean(section, "reload_doc_last") if config.has_option(section, "reload_doc_last") else True
-        inst.enable_mod_time_sentinel = config.getboolean(section, "mod_time_sent") if config.has_option(section, "mod_time_sent") else True
-        inst.backup_copy = config.getboolean(section, "backup_copy") if config.has_option(section, "backup_copy") else True
-        inst.backup_num = config.getint(section, "backup_num") if config.has_option(section, "backup_num") else 3
-        inst.autosave_on_quit = config.getboolean(section, "autosave_on_quit") if config.has_option(section, "autosave_on_quit") else False
-        inst.limit_undoable_steps = config.getint(section, "limit_undoable_steps") if config.has_option(section, "limit_undoable_steps") else 20
-        #print "read", cons.CONFIG_PATH, "('%s', '%s')" % (inst.file_name, inst.file_dir)
+            dad.autosave = [config.getboolean(section, "autosave"), config.getint(section, "autosave_val")]
+        else: dad.autosave = [False, 5]
+        dad.check_version = config.getboolean(section, "check_version") if config.has_option(section, "check_version") else False
+        dad.reload_doc_last = config.getboolean(section, "reload_doc_last") if config.has_option(section, "reload_doc_last") else True
+        dad.enable_mod_time_sentinel = config.getboolean(section, "mod_time_sent") if config.has_option(section, "mod_time_sent") else True
+        dad.backup_copy = config.getboolean(section, "backup_copy") if config.has_option(section, "backup_copy") else True
+        dad.backup_num = config.getint(section, "backup_num") if config.has_option(section, "backup_num") else 3
+        dad.autosave_on_quit = config.getboolean(section, "autosave_on_quit") if config.has_option(section, "autosave_on_quit") else False
+        dad.limit_undoable_steps = config.getint(section, "limit_undoable_steps") if config.has_option(section, "limit_undoable_steps") else 20
+        #print "read", cons.CONFIG_PATH, "('%s', '%s')" % (dad.file_name, dad.file_dir)
     else:
-        inst.file_dir = ""
-        inst.file_name = ""
-        inst.node_path = None
-        inst.curr_colors = {'f':None, 'b':None}
-        inst.syntax_highlighting = cons.RICH_TEXT_ID
-        inst.auto_syn_highl = "sh"
-        inst.style_scheme = cons.STYLE_SCHEME_DARK
-        inst.tree_font = "Sans 8" # default tree font
-        inst.text_font = "Sans 9" # default text font
-        inst.code_font = "Monospace 9" # default code font
-        inst.rt_def_fg = cons.RICH_TEXT_DARK_FG
-        inst.rt_def_bg = cons.RICH_TEXT_DARK_BG
-        inst.tt_def_fg = cons.TREE_TEXT_LIGHT_FG
-        inst.tt_def_bg = cons.TREE_TEXT_LIGHT_BG
-        inst.palette_list = COLOR_PALETTE_DEFAULT
-        inst.col_link_webs = cons.COLOR_48_LINK_WEBS
-        inst.col_link_node = cons.COLOR_48_LINK_NODE
-        inst.col_link_file = cons.COLOR_48_LINK_FILE
-        inst.col_link_fold = cons.COLOR_48_LINK_FOLD
-        inst.h_rule = HORIZONTAL_RULE
-        inst.special_chars = unicode(SPECIAL_CHARS_DEFAULT, cons.STR_UTF8, cons.STR_IGNORE)
-        inst.selword_chars = unicode(SELWORD_CHARS_DEFAULT, cons.STR_UTF8, cons.STR_IGNORE)
-        inst.enable_spell_check = False
-        inst.spell_check_lang = SPELL_CHECK_LANG_DEFAULT
-        inst.show_line_numbers = False
-        inst.spaces_instead_tabs = True
-        inst.tabs_width = 4
-        inst.anchor_size = 16
-        inst.embfile_size = 48
-        inst.line_wrapping = True
-        inst.auto_smart_quotes = True
-        inst.wrapping_indent = -14
-        inst.auto_indent = True
-        inst.toolbar_ui_vec = TOOLBAR_VEC_DEFAULT
-        inst.systray = False
-        inst.win_position = [10, 10]
-        inst.autosave = [False, 5]
-        inst.win_is_maximized = False
-        inst.rest_exp_coll = 0
-        inst.expanded_collapsed_string = ""
-        inst.expcollnam1 = ""
-        inst.expcollnam2 = ""
-        inst.expcollnam3 = ""
-        inst.pick_dir = ""
-        inst.link_type = cons.LINK_TYPE_WEBS
-        inst.toolbar_icon_size = 1
-        inst.table_rows = 3
-        inst.table_columns = 3
-        inst.table_column_mode = "rename"
-        inst.table_col_min = 40
-        inst.table_col_max = 60
-        inst.limit_undoable_steps = 20
-        inst.cherry_wrap_width = 130
-        inst.start_on_systray = False
-        inst.use_appind = False
-        inst.links_underline = True
-        inst.links_relative = False
-        inst.weblink_custom_action = [False, LINK_CUSTOM_ACTION_DEFAULT_WEB]
-        inst.filelink_custom_action = [False, LINK_CUSTOM_ACTION_DEFAULT_FILE]
-        inst.folderlink_custom_action = [False, LINK_CUSTOM_ACTION_DEFAULT_FILE]
-        inst.timestamp_format = TIMESTAMP_FORMAT_DEFAULT
-        inst.codebox_width = 700
-        inst.codebox_height = 100
-        inst.codebox_width_pixels = True
-        inst.codebox_line_num = False
-        inst.codebox_match_bra = True
-        inst.codebox_syn_highl = cons.PLAIN_TEXT_ID
-        inst.codebox_auto_resize = True
-        inst.check_version = False
-        inst.reload_doc_last = True
-        inst.enable_mod_time_sentinel = True
-        inst.backup_copy = True
-        inst.backup_num = 3
-        inst.autosave_on_quit = False
-        inst.tree_right_side = False
-        inst.nodes_bookm_exp = True
-        inst.rt_show_white_spaces = False
-        inst.pt_show_white_spaces = True
-        inst.rt_highl_curr_line = True
-        inst.pt_highl_curr_line = True
-        inst.space_around_lines = 0
-        inst.relative_wrapped_space = 50
-        inst.hpaned_pos = 170
-        inst.show_node_name_label = True
-        inst.nodes_icons = "c"
-        inst.recent_docs = []
-        inst.toolbar_visible = True
+        dad.file_dir = ""
+        dad.file_name = ""
+        dad.node_path = None
+        dad.curr_colors = {'f':None, 'b':None}
+        dad.syntax_highlighting = cons.RICH_TEXT_ID
+        dad.auto_syn_highl = "sh"
+        dad.style_scheme = cons.STYLE_SCHEME_DARK
+        dad.tree_font = "Sans 8" # default tree font
+        dad.text_font = "Sans 9" # default text font
+        dad.code_font = "Monospace 9" # default code font
+        dad.rt_def_fg = cons.RICH_TEXT_DARK_FG
+        dad.rt_def_bg = cons.RICH_TEXT_DARK_BG
+        dad.tt_def_fg = cons.TREE_TEXT_LIGHT_FG
+        dad.tt_def_bg = cons.TREE_TEXT_LIGHT_BG
+        dad.palette_list = COLOR_PALETTE_DEFAULT
+        dad.col_link_webs = cons.COLOR_48_LINK_WEBS
+        dad.col_link_node = cons.COLOR_48_LINK_NODE
+        dad.col_link_file = cons.COLOR_48_LINK_FILE
+        dad.col_link_fold = cons.COLOR_48_LINK_FOLD
+        dad.h_rule = HORIZONTAL_RULE
+        dad.special_chars = unicode(SPECIAL_CHARS_DEFAULT, cons.STR_UTF8, cons.STR_IGNORE)
+        dad.selword_chars = unicode(SELWORD_CHARS_DEFAULT, cons.STR_UTF8, cons.STR_IGNORE)
+        dad.enable_spell_check = False
+        dad.spell_check_lang = SPELL_CHECK_LANG_DEFAULT
+        dad.show_line_numbers = False
+        dad.spaces_instead_tabs = True
+        dad.tabs_width = 4
+        dad.anchor_size = 16
+        dad.embfile_size = 48
+        dad.line_wrapping = True
+        dad.auto_smart_quotes = True
+        dad.wrapping_indent = -14
+        dad.auto_indent = True
+        dad.toolbar_ui_vec = TOOLBAR_VEC_DEFAULT
+        dad.systray = False
+        dad.win_position = [10, 10]
+        dad.autosave = [False, 5]
+        dad.win_is_maximized = False
+        dad.rest_exp_coll = 0
+        dad.expanded_collapsed_string = ""
+        dad.expcollnam1 = ""
+        dad.expcollnam2 = ""
+        dad.expcollnam3 = ""
+        dad.pick_dir = ""
+        dad.link_type = cons.LINK_TYPE_WEBS
+        dad.toolbar_icon_size = 1
+        dad.table_rows = 3
+        dad.table_columns = 3
+        dad.table_column_mode = "rename"
+        dad.table_col_min = 40
+        dad.table_col_max = 60
+        dad.limit_undoable_steps = 20
+        dad.cherry_wrap_width = 130
+        dad.start_on_systray = False
+        dad.use_appind = False
+        dad.links_underline = True
+        dad.links_relative = False
+        dad.weblink_custom_action = [False, LINK_CUSTOM_ACTION_DEFAULT_WEB]
+        dad.filelink_custom_action = [False, LINK_CUSTOM_ACTION_DEFAULT_FILE]
+        dad.folderlink_custom_action = [False, LINK_CUSTOM_ACTION_DEFAULT_FILE]
+        dad.timestamp_format = TIMESTAMP_FORMAT_DEFAULT
+        dad.codebox_width = 700
+        dad.codebox_height = 100
+        dad.codebox_width_pixels = True
+        dad.codebox_line_num = False
+        dad.codebox_match_bra = True
+        dad.codebox_syn_highl = cons.PLAIN_TEXT_ID
+        dad.codebox_auto_resize = True
+        dad.check_version = False
+        dad.reload_doc_last = True
+        dad.enable_mod_time_sentinel = True
+        dad.backup_copy = True
+        dad.backup_num = 3
+        dad.autosave_on_quit = False
+        dad.tree_right_side = False
+        dad.nodes_bookm_exp = True
+        dad.rt_show_white_spaces = False
+        dad.pt_show_white_spaces = True
+        dad.rt_highl_curr_line = True
+        dad.pt_highl_curr_line = True
+        dad.space_around_lines = 0
+        dad.relative_wrapped_space = 50
+        dad.hpaned_pos = 170
+        dad.show_node_name_label = True
+        dad.nodes_icons = "c"
+        dad.recent_docs = []
+        dad.toolbar_visible = True
         print "missing", cons.CONFIG_PATH
 
-def config_file_apply(inst):
+def config_file_apply(dad):
     """Apply the Preferences from Config File"""
-    inst.hpaned.set_property('position', inst.hpaned_pos)
-    inst.header_node_name_hbox.set_property(cons.STR_VISIBLE, inst.show_node_name_label)
-    inst.set_treeview_font()
-    inst.widget_set_colors(inst.treeview, inst.tt_def_fg, inst.tt_def_bg, False)
+    dad.hpaned.set_property('position', dad.hpaned_pos)
+    dad.header_node_name_hbox.set_property(cons.STR_VISIBLE, dad.show_node_name_label)
+    dad.set_treeview_font()
+    dad.widget_set_colors(dad.treeview, dad.tt_def_fg, dad.tt_def_bg, False)
     if not pgsc_spellcheck.HAS_PYENCHANT:
-        inst.enable_spell_check = False
-    if inst.enable_spell_check:
-        inst.spell_check_set_on()
-    inst.sourceview.set_show_line_numbers(inst.show_line_numbers)
-    inst.sourceview.set_insert_spaces_instead_of_tabs(inst.spaces_instead_tabs)
-    inst.sourceview.set_tab_width(inst.tabs_width)
-    inst.sourceview.set_indent(inst.wrapping_indent)
-    inst.sourceview.set_pixels_above_lines(inst.space_around_lines)
-    inst.sourceview.set_pixels_below_lines(inst.space_around_lines)
-    inst.sourceview.set_pixels_inside_wrap(get_pixels_inside_wrap(inst.space_around_lines, inst.relative_wrapped_space))
-    if inst.line_wrapping: inst.sourceview.set_wrap_mode(gtk.WRAP_WORD)
-    else: inst.sourceview.set_wrap_mode(gtk.WRAP_NONE)
-    inst.renderer_text.set_property('wrap-width', inst.cherry_wrap_width)
-    inst.ui.get_widget("/ToolBar").set_property(cons.STR_VISIBLE, inst.toolbar_visible)
-    inst.ui.get_widget("/ToolBar").set_style(gtk.TOOLBAR_ICONS)
-    inst.ui.get_widget("/ToolBar").set_property("icon-size", ICONS_SIZE[inst.toolbar_icon_size])
-    if inst.autosave[0]: inst.autosave_timer_start()
-    if inst.enable_mod_time_sentinel: inst.modification_time_sentinel_start()
-    inst.aux_renderer_pixbuf.set_property("visible", len(inst.bookmarks) > 0)
-    inst.progresstop.hide()
-    inst.progressbar.hide()
+        dad.enable_spell_check = False
+    if dad.enable_spell_check:
+        dad.spell_check_set_on()
+    dad.sourceview.set_show_line_numbers(dad.show_line_numbers)
+    dad.sourceview.set_insert_spaces_instead_of_tabs(dad.spaces_instead_tabs)
+    dad.sourceview.set_tab_width(dad.tabs_width)
+    dad.sourceview.set_indent(dad.wrapping_indent)
+    dad.sourceview.set_pixels_above_lines(dad.space_around_lines)
+    dad.sourceview.set_pixels_below_lines(dad.space_around_lines)
+    dad.sourceview.set_pixels_inside_wrap(get_pixels_inside_wrap(dad.space_around_lines, dad.relative_wrapped_space))
+    if dad.line_wrapping: dad.sourceview.set_wrap_mode(gtk.WRAP_WORD)
+    else: dad.sourceview.set_wrap_mode(gtk.WRAP_NONE)
+    dad.renderer_text.set_property('wrap-width', dad.cherry_wrap_width)
+    dad.ui.get_widget("/ToolBar").set_property(cons.STR_VISIBLE, dad.toolbar_visible)
+    dad.ui.get_widget("/ToolBar").set_style(gtk.TOOLBAR_ICONS)
+    dad.ui.get_widget("/ToolBar").set_property("icon-size", ICONS_SIZE[dad.toolbar_icon_size])
+    if dad.autosave[0]: dad.autosave_timer_start()
+    if dad.enable_mod_time_sentinel: dad.modification_time_sentinel_start()
+    dad.aux_renderer_pixbuf.set_property("visible", len(dad.bookmarks) > 0)
+    dad.progresstop.hide()
+    dad.progressbar.hide()
 
-def config_file_save(inst):
+def config_file_save(dad):
     """Save the Preferences to Config File"""
     config = ConfigParser.RawConfigParser()
 
     section = "state"
     config.add_section(section)
-    config.set(section, "file_dir", inst.file_dir)
-    config.set(section, "file_name", inst.file_name)
-    config.set(section, "toolbar_visible", inst.toolbar_visible)
-    config.set(section, "win_is_maximized", inst.win_is_maximized)
-    inst.win_position = inst.window.get_position()
-    config.set(section, "win_position_x", inst.win_position[0])
-    config.set(section, "win_position_y", inst.win_position[1])
-    if not inst.win_is_maximized:
-        win_size = inst.window.get_size()
+    config.set(section, "file_dir", dad.file_dir)
+    config.set(section, "file_name", dad.file_name)
+    config.set(section, "toolbar_visible", dad.toolbar_visible)
+    config.set(section, "win_is_maximized", dad.win_is_maximized)
+    dad.win_position = dad.window.get_position()
+    config.set(section, "win_position_x", dad.win_position[0])
+    config.set(section, "win_position_y", dad.win_position[1])
+    if not dad.win_is_maximized:
+        win_size = dad.window.get_size()
         config.set(section, "win_size_w", win_size[0])
         config.set(section, "win_size_h", win_size[1])
-    config.set(section, "hpaned_pos", inst.hpaned.get_property('position'))
-    if inst.curr_tree_iter:
-        config.set(section, "node_path", get_node_path_str_from_path(inst.treestore.get_path(inst.curr_tree_iter)))
-        config.set(section, "cursor_position", inst.curr_buffer.get_property(cons.STR_CURSOR_POSITION))
-    if inst.recent_docs:
+    config.set(section, "hpaned_pos", dad.hpaned.get_property('position'))
+    if dad.curr_tree_iter:
+        config.set(section, "node_path", get_node_path_str_from_path(dad.treestore.get_path(dad.curr_tree_iter)))
+        config.set(section, "cursor_position", dad.curr_buffer.get_property(cons.STR_CURSOR_POSITION))
+    if dad.recent_docs:
         temp_recent_docs = []
-        for i, element in enumerate(inst.recent_docs):
+        for i, element in enumerate(dad.recent_docs):
             if i >= cons.MAX_RECENT_DOCS: break
             temp_recent_docs.append(base64.b64encode(element))
         str_recent_docs = cons.CHAR_SPACE.join(temp_recent_docs)
     else: str_recent_docs = ""
     config.set(section, "recent_docs", str_recent_docs)
-    config.set(section, "pick_dir", inst.pick_dir)
-    config.set(section, "link_type", inst.link_type)
-    config.set(section, "show_node_name_label", inst.show_node_name_label)
-    config.set(section, "toolbar_icon_size", inst.toolbar_icon_size)
-    if inst.curr_colors['f']: config.set(section, "fg", inst.curr_colors['f'].to_string())
-    if inst.curr_colors['b']: config.set(section, "bg", inst.curr_colors['b'].to_string())
+    config.set(section, "pick_dir", dad.pick_dir)
+    config.set(section, "link_type", dad.link_type)
+    config.set(section, "show_node_name_label", dad.show_node_name_label)
+    config.set(section, "toolbar_icon_size", dad.toolbar_icon_size)
+    if dad.curr_colors['f']: config.set(section, "fg", dad.curr_colors['f'].to_string())
+    if dad.curr_colors['b']: config.set(section, "bg", dad.curr_colors['b'].to_string())
 
     section = "tree"
     config.add_section(section)
-    config.set(section, "rest_exp_coll", inst.rest_exp_coll)
-    if inst.rest_exp_coll == 0:
-        get_tree_expanded_collapsed_string(inst)
-        config.set(section, "expanded_collapsed_string", inst.expanded_collapsed_string)
-    if inst.expcollnam1 and inst.expcollnam1 != inst.file_name:
-        config.set(section, "expcollnam1", inst.expcollnam1)
-        config.set(section, "expcollstr1", inst.expcollstr1)
-        config.set(section, "expcollsel1", inst.expcollsel1)
-        config.set(section, "expcollcur1", inst.expcollcur1)
-    if inst.expcollnam2 and inst.expcollnam2 != inst.file_name:
-        config.set(section, "expcollnam2", inst.expcollnam2)
-        config.set(section, "expcollstr2", inst.expcollstr2)
-        config.set(section, "expcollsel2", inst.expcollsel2)
-        config.set(section, "expcollcur2", inst.expcollcur2)
-    if inst.expcollnam3 and inst.expcollnam3 != inst.file_name:
-        config.set(section, "expcollnam3", inst.expcollnam3)
-        config.set(section, "expcollstr3", inst.expcollstr3)
-        config.set(section, "expcollsel3", inst.expcollsel3)
-        config.set(section, "expcollcur3", inst.expcollcur3)
-    config.set(section, "nodes_bookm_exp", inst.nodes_bookm_exp)
-    config.set(section, "nodes_icons", inst.nodes_icons)
-    config.set(section, "tree_right_side", inst.tree_right_side)
-    config.set(section, "cherry_wrap_width", inst.cherry_wrap_width)
+    config.set(section, "rest_exp_coll", dad.rest_exp_coll)
+    if dad.rest_exp_coll == 0:
+        get_tree_expanded_collapsed_string(dad)
+        config.set(section, "expanded_collapsed_string", dad.expanded_collapsed_string)
+    if dad.expcollnam1 and dad.expcollnam1 != dad.file_name:
+        config.set(section, "expcollnam1", dad.expcollnam1)
+        config.set(section, "expcollstr1", dad.expcollstr1)
+        config.set(section, "expcollsel1", dad.expcollsel1)
+        config.set(section, "expcollcur1", dad.expcollcur1)
+    if dad.expcollnam2 and dad.expcollnam2 != dad.file_name:
+        config.set(section, "expcollnam2", dad.expcollnam2)
+        config.set(section, "expcollstr2", dad.expcollstr2)
+        config.set(section, "expcollsel2", dad.expcollsel2)
+        config.set(section, "expcollcur2", dad.expcollcur2)
+    if dad.expcollnam3 and dad.expcollnam3 != dad.file_name:
+        config.set(section, "expcollnam3", dad.expcollnam3)
+        config.set(section, "expcollstr3", dad.expcollstr3)
+        config.set(section, "expcollsel3", dad.expcollsel3)
+        config.set(section, "expcollcur3", dad.expcollcur3)
+    config.set(section, "nodes_bookm_exp", dad.nodes_bookm_exp)
+    config.set(section, "nodes_icons", dad.nodes_icons)
+    config.set(section, "tree_right_side", dad.tree_right_side)
+    config.set(section, "cherry_wrap_width", dad.cherry_wrap_width)
 
     section = "editor"
     config.add_section(section)
-    config.set(section, "syntax_highlighting", inst.syntax_highlighting)
-    config.set(section, "auto_syn_highl", inst.auto_syn_highl)
-    config.set(section, "style_scheme", inst.style_scheme)
-    config.set(section, "spell_check_lang", inst.spell_check_lang)
-    config.set(section, "enable_spell_check", inst.enable_spell_check)
-    config.set(section, "show_line_numbers", inst.show_line_numbers)
-    config.set(section, "spaces_instead_tabs", inst.spaces_instead_tabs)
-    config.set(section, "tabs_width", inst.tabs_width)
-    config.set(section, "anchor_size", inst.anchor_size)
-    config.set(section, "embfile_size", inst.embfile_size)
-    config.set(section, "line_wrapping", inst.line_wrapping)
-    config.set(section, "auto_smart_quotes", inst.auto_smart_quotes)
-    config.set(section, "wrapping_indent", inst.wrapping_indent)
-    config.set(section, "auto_indent", inst.auto_indent)
-    config.set(section, "rt_show_white_spaces", inst.rt_show_white_spaces)
-    config.set(section, "pt_show_white_spaces", inst.pt_show_white_spaces)
-    config.set(section, "rt_highl_curr_line", inst.rt_highl_curr_line)
-    config.set(section, "pt_highl_curr_line", inst.pt_highl_curr_line)
-    config.set(section, "space_around_lines", inst.space_around_lines)
-    config.set(section, "relative_wrapped_space", inst.relative_wrapped_space)
-    config.set(section, "h_rule", inst.h_rule)
-    config.set(section, "special_chars", inst.special_chars)
-    config.set(section, "selword_chars", inst.selword_chars)
-    config.set(section, "timestamp_format", inst.timestamp_format)
-    config.set(section, "links_underline", inst.links_underline)
-    config.set(section, "links_relative", inst.links_relative)
-    config.set(section, "weblink_custom_action", str(inst.weblink_custom_action[0])+inst.weblink_custom_action[1])
-    config.set(section, "filelink_custom_action", str(inst.filelink_custom_action[0])+inst.filelink_custom_action[1])
-    config.set(section, "folderlink_custom_action", str(inst.folderlink_custom_action[0])+inst.folderlink_custom_action[1])
+    config.set(section, "syntax_highlighting", dad.syntax_highlighting)
+    config.set(section, "auto_syn_highl", dad.auto_syn_highl)
+    config.set(section, "style_scheme", dad.style_scheme)
+    config.set(section, "spell_check_lang", dad.spell_check_lang)
+    config.set(section, "enable_spell_check", dad.enable_spell_check)
+    config.set(section, "show_line_numbers", dad.show_line_numbers)
+    config.set(section, "spaces_instead_tabs", dad.spaces_instead_tabs)
+    config.set(section, "tabs_width", dad.tabs_width)
+    config.set(section, "anchor_size", dad.anchor_size)
+    config.set(section, "embfile_size", dad.embfile_size)
+    config.set(section, "line_wrapping", dad.line_wrapping)
+    config.set(section, "auto_smart_quotes", dad.auto_smart_quotes)
+    config.set(section, "wrapping_indent", dad.wrapping_indent)
+    config.set(section, "auto_indent", dad.auto_indent)
+    config.set(section, "rt_show_white_spaces", dad.rt_show_white_spaces)
+    config.set(section, "pt_show_white_spaces", dad.pt_show_white_spaces)
+    config.set(section, "rt_highl_curr_line", dad.rt_highl_curr_line)
+    config.set(section, "pt_highl_curr_line", dad.pt_highl_curr_line)
+    config.set(section, "space_around_lines", dad.space_around_lines)
+    config.set(section, "relative_wrapped_space", dad.relative_wrapped_space)
+    config.set(section, "h_rule", dad.h_rule)
+    config.set(section, "special_chars", dad.special_chars)
+    config.set(section, "selword_chars", dad.selword_chars)
+    config.set(section, "timestamp_format", dad.timestamp_format)
+    config.set(section, "links_underline", dad.links_underline)
+    config.set(section, "links_relative", dad.links_relative)
+    config.set(section, "weblink_custom_action", str(dad.weblink_custom_action[0])+dad.weblink_custom_action[1])
+    config.set(section, "filelink_custom_action", str(dad.filelink_custom_action[0])+dad.filelink_custom_action[1])
+    config.set(section, "folderlink_custom_action", str(dad.folderlink_custom_action[0])+dad.folderlink_custom_action[1])
 
     section = "codebox"
     config.add_section(section)
-    config.set(section, "codebox_width", inst.codebox_width)
-    config.set(section, "codebox_height", inst.codebox_height)
-    config.set(section, "codebox_width_pixels", inst.codebox_width_pixels)
-    config.set(section, "codebox_line_num", inst.codebox_line_num)
-    config.set(section, "codebox_match_bra", inst.codebox_match_bra)
-    config.set(section, "codebox_syn_highl", inst.codebox_syn_highl)
-    config.set(section, "codebox_auto_resize", inst.codebox_auto_resize)
+    config.set(section, "codebox_width", dad.codebox_width)
+    config.set(section, "codebox_height", dad.codebox_height)
+    config.set(section, "codebox_width_pixels", dad.codebox_width_pixels)
+    config.set(section, "codebox_line_num", dad.codebox_line_num)
+    config.set(section, "codebox_match_bra", dad.codebox_match_bra)
+    config.set(section, "codebox_syn_highl", dad.codebox_syn_highl)
+    config.set(section, "codebox_auto_resize", dad.codebox_auto_resize)
 
     section = "table"
     config.add_section(section)
-    config.set(section, "table_rows", inst.table_rows)
-    config.set(section, "table_columns", inst.table_columns)
-    config.set(section, "table_column_mode", inst.table_column_mode)
-    config.set(section, "table_col_min", inst.table_col_min)
-    config.set(section, "table_col_max", inst.table_col_max)
+    config.set(section, "table_rows", dad.table_rows)
+    config.set(section, "table_columns", dad.table_columns)
+    config.set(section, "table_column_mode", dad.table_column_mode)
+    config.set(section, "table_col_min", dad.table_col_min)
+    config.set(section, "table_col_max", dad.table_col_max)
 
     section = "fonts"
     config.add_section(section)
-    config.set(section, "text_font", inst.text_font)
-    config.set(section, "tree_font", inst.tree_font)
-    config.set(section, "code_font", inst.code_font)
+    config.set(section, "text_font", dad.text_font)
+    config.set(section, "tree_font", dad.tree_font)
+    config.set(section, "code_font", dad.code_font)
 
     section = "colors"
     config.add_section(section)
-    config.set(section, "rt_def_fg", inst.rt_def_fg)
-    config.set(section, "rt_def_bg", inst.rt_def_bg)
-    config.set(section, "tt_def_fg", inst.tt_def_fg)
-    config.set(section, "tt_def_bg", inst.tt_def_bg)
-    config.set(section, "palette_list", ":".join(inst.palette_list))
-    config.set(section, "col_link_webs", inst.col_link_webs)
-    config.set(section, "col_link_node", inst.col_link_node)
-    config.set(section, "col_link_file", inst.col_link_file)
-    config.set(section, "col_link_fold", inst.col_link_fold)
+    config.set(section, "rt_def_fg", dad.rt_def_fg)
+    config.set(section, "rt_def_bg", dad.rt_def_bg)
+    config.set(section, "tt_def_fg", dad.tt_def_fg)
+    config.set(section, "tt_def_bg", dad.tt_def_bg)
+    config.set(section, "palette_list", ":".join(dad.palette_list))
+    config.set(section, "col_link_webs", dad.col_link_webs)
+    config.set(section, "col_link_node", dad.col_link_node)
+    config.set(section, "col_link_file", dad.col_link_file)
+    config.set(section, "col_link_fold", dad.col_link_fold)
 
     section = "misc"
     config.add_section(section)
-    config.set(section, "toolbar_ui_vec", cons.CHAR_COMMA.join(inst.toolbar_ui_vec))
-    config.set(section, "systray", inst.systray)
-    config.set(section, "start_on_systray", inst.start_on_systray)
-    config.set(section, "use_appind", inst.use_appind)
-    config.set(section, "autosave", inst.autosave[0])
-    config.set(section, "autosave_val", inst.autosave[1])
-    config.set(section, "check_version", inst.check_version)
-    config.set(section, "reload_doc_last", inst.reload_doc_last)
-    config.set(section, "mod_time_sent", inst.enable_mod_time_sentinel)
-    config.set(section, "backup_copy", inst.backup_copy)
-    config.set(section, "backup_num", inst.backup_num)
-    config.set(section, "autosave_on_quit", inst.autosave_on_quit)
-    config.set(section, "limit_undoable_steps", inst.limit_undoable_steps)
+    config.set(section, "toolbar_ui_vec", cons.CHAR_COMMA.join(dad.toolbar_ui_vec))
+    config.set(section, "systray", dad.systray)
+    config.set(section, "start_on_systray", dad.start_on_systray)
+    config.set(section, "use_appind", dad.use_appind)
+    config.set(section, "autosave", dad.autosave[0])
+    config.set(section, "autosave_val", dad.autosave[1])
+    config.set(section, "check_version", dad.check_version)
+    config.set(section, "reload_doc_last", dad.reload_doc_last)
+    config.set(section, "mod_time_sent", dad.enable_mod_time_sentinel)
+    config.set(section, "backup_copy", dad.backup_copy)
+    config.set(section, "backup_num", dad.backup_num)
+    config.set(section, "autosave_on_quit", dad.autosave_on_quit)
+    config.set(section, "limit_undoable_steps", dad.limit_undoable_steps)
 
     with open(cons.CONFIG_PATH, 'wb') as configfile:
         config.write(configfile)
-        #print "saved", cons.CONFIG_PATH, "('%s', '%s')" % (inst.file_name, inst.file_dir)
+        #print "saved", cons.CONFIG_PATH, "('%s', '%s')" % (dad.file_name, dad.file_dir)
 
-def get_tree_expanded_collapsed_string(inst):
+def get_tree_expanded_collapsed_string(dad):
     """Returns a String Containing the Info about Expanded and Collapsed Nodes"""
     expanded_collapsed_string = ""
-    tree_iter = inst.treestore.get_iter_first()
+    tree_iter = dad.treestore.get_iter_first()
     while tree_iter != None:
-        expanded_collapsed_string += get_tree_expanded_collapsed_string_iter(tree_iter, inst)
-        tree_iter = inst.treestore.iter_next(tree_iter)
-    if len(expanded_collapsed_string) > 0: inst.expanded_collapsed_string = expanded_collapsed_string[1:]
-    else: inst.expanded_collapsed_string = ""
+        expanded_collapsed_string += get_tree_expanded_collapsed_string_iter(tree_iter, dad)
+        tree_iter = dad.treestore.iter_next(tree_iter)
+    if len(expanded_collapsed_string) > 0: dad.expanded_collapsed_string = expanded_collapsed_string[1:]
+    else: dad.expanded_collapsed_string = ""
 
-def get_tree_expanded_collapsed_string_iter(tree_iter, inst):
+def get_tree_expanded_collapsed_string_iter(tree_iter, dad):
     """Iter of the Info about Expanded and Collapsed Nodes"""
-    expanded_collapsed_string = "_%s,%s" % (inst.treestore[tree_iter][3],
-                                            inst.treeview.row_expanded(inst.treestore.get_path(tree_iter)))
-    tree_iter = inst.treestore.iter_children(tree_iter)
+    expanded_collapsed_string = "_%s,%s" % (dad.treestore[tree_iter][3],
+                                            dad.treeview.row_expanded(dad.treestore.get_path(tree_iter)))
+    tree_iter = dad.treestore.iter_children(tree_iter)
     while tree_iter != None:
-        expanded_collapsed_string += get_tree_expanded_collapsed_string_iter(tree_iter, inst)
-        tree_iter = inst.treestore.iter_next(tree_iter)
+        expanded_collapsed_string += get_tree_expanded_collapsed_string_iter(tree_iter, dad)
+        tree_iter = dad.treestore.iter_next(tree_iter)
     return expanded_collapsed_string
 
-def set_tree_expanded_collapsed_string(inst, treeview=None):
+def set_tree_expanded_collapsed_string(dad, treeview=None):
     """Parses the String Containing the Info about Expanded and Collapsed Nodes"""
-    if not treeview: treeview = inst.treeview
+    if not treeview: treeview = dad.treeview
     treestore = treeview.get_model()
     treeview.collapse_all()
     expanded_collapsed_dict = {}
-    expanded_collapsed_vector = inst.expanded_collapsed_string.split('_')
+    expanded_collapsed_vector = dad.expanded_collapsed_string.split('_')
     for element in expanded_collapsed_vector:
         if "," in element:
             couple = element.split(',')
             expanded_collapsed_dict[couple[0]] = couple[1]
     tree_iter = treestore.get_iter_first()
     while tree_iter != None:
-        set_tree_expanded_collapsed_string_iter(inst, tree_iter, expanded_collapsed_dict, treeview, treestore)
+        set_tree_expanded_collapsed_string_iter(dad, tree_iter, expanded_collapsed_dict, treeview, treestore)
         tree_iter = treestore.iter_next(tree_iter)
 
-def set_tree_expanded_collapsed_string_iter(inst, tree_iter, expanded_collapsed_dict, treeview, treestore):
+def set_tree_expanded_collapsed_string_iter(dad, tree_iter, expanded_collapsed_dict, treeview, treestore):
     """Iter of the Expanded and Collapsed Nodes Parsing"""
     node_id = str(treestore[tree_iter][3])
     if node_id in expanded_collapsed_dict and expanded_collapsed_dict[node_id] == "True":
         treeview.expand_row(treestore.get_path(tree_iter), open_all=False)
-    elif inst.nodes_bookm_exp and str(node_id) in inst.bookmarks:
-        inst.treeview_expand_to_tree_iter(tree_iter)
+    elif dad.nodes_bookm_exp and str(node_id) in dad.bookmarks:
+        dad.treeview_expand_to_tree_iter(tree_iter)
     tree_iter = treestore.iter_children(tree_iter)
     while tree_iter != None:
-        set_tree_expanded_collapsed_string_iter(inst, tree_iter, expanded_collapsed_dict, treeview, treestore)
+        set_tree_expanded_collapsed_string_iter(dad, tree_iter, expanded_collapsed_dict, treeview, treestore)
         tree_iter = treestore.iter_next(tree_iter)
 
-def set_tree_path_and_cursor_pos(inst):
+def set_tree_path_and_cursor_pos(dad):
     """Try to set node path and cursor pos"""
-    if inst.node_path:
-        try: node_iter_to_focus = inst.treestore.get_iter(inst.node_path)
+    if dad.node_path:
+        try: node_iter_to_focus = dad.treestore.get_iter(dad.node_path)
         except: node_iter_to_focus = None
         if node_iter_to_focus:
-            inst.treeview_safe_set_cursor(node_iter_to_focus)
-            inst.sourceview.grab_focus()
-            inst.curr_buffer.place_cursor(inst.curr_buffer.get_iter_at_offset(inst.cursor_position))
-            inst.sourceview.scroll_to_mark(inst.curr_buffer.get_insert(), 0.3)
+            dad.treeview_safe_set_cursor(node_iter_to_focus)
+            dad.sourceview.grab_focus()
+            dad.curr_buffer.place_cursor(dad.curr_buffer.get_iter_at_offset(dad.cursor_position))
+            dad.sourceview.scroll_to_mark(dad.curr_buffer.get_insert(), 0.3)
     else: node_iter_to_focus = None
     if not node_iter_to_focus:
-        node_iter_to_focus = inst.treestore.get_iter_first()
+        node_iter_to_focus = dad.treestore.get_iter_first()
         if node_iter_to_focus:
-            inst.treeview.set_cursor(inst.treestore.get_path(node_iter_to_focus))
-            inst.sourceview.grab_focus()
+            dad.treeview.set_cursor(dad.treestore.get_path(node_iter_to_focus))
+            dad.sourceview.grab_focus()
 
 def preferences_tab_text_n_code(dad, vbox_all_nodes, pref_dialog):
     """Preferences Dialog, All Nodes Tab"""

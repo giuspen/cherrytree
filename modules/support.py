@@ -1460,61 +1460,61 @@ def dialog_selnode_selnodeandsub_alltree(dad, also_selection, also_include_node_
     if response != gtk.RESPONSE_ACCEPT: ret_val = 0
     return ret_val
 
-def set_bookmarks_menu_items(inst):
+def set_bookmarks_menu_items(dad):
     """Set Bookmarks Menu Items"""
-    bookmarks_menu = inst.ui.get_widget("/MenuBar/BookmarksMenu").get_submenu()
-    for menu_item in inst.bookmarks_menu_items:
+    bookmarks_menu = dad.ui.get_widget("/MenuBar/BookmarksMenu").get_submenu()
+    for menu_item in dad.bookmarks_menu_items:
         bookmarks_menu.remove(menu_item)
     menu_item = gtk.SeparatorMenuItem()
     menu_item.show()
     bookmarks_menu.append(menu_item)
-    inst.bookmarks_menu_items = [menu_item]
+    dad.bookmarks_menu_items = [menu_item]
     bookmarks_to_rm = []
-    for node_id_str in inst.bookmarks:
-        if not long(node_id_str) in inst.nodes_names_dict:
+    for node_id_str in dad.bookmarks:
+        if not long(node_id_str) in dad.nodes_names_dict:
             bookmarks_to_rm.append(node_id_str)
             continue
-        menu_item = gtk.ImageMenuItem(inst.nodes_names_dict[long(node_id_str)])
+        menu_item = gtk.ImageMenuItem(dad.nodes_names_dict[long(node_id_str)])
         menu_item.set_image(gtk.image_new_from_stock("pin", gtk.ICON_SIZE_MENU))
-        menu_item.connect("activate", select_bookmark_node, node_id_str, inst)
+        menu_item.connect("activate", select_bookmark_node, node_id_str, dad)
         menu_item.show()
         bookmarks_menu.append(menu_item)
-        inst.bookmarks_menu_items.append(menu_item)
-    for element in bookmarks_to_rm: inst.bookmarks.remove(element)
+        dad.bookmarks_menu_items.append(menu_item)
+    for element in bookmarks_to_rm: dad.bookmarks.remove(element)
 
-def set_menu_items_special_chars(inst):
+def set_menu_items_special_chars(dad):
     """Set Special Chars menu items"""
-    if not "special_menu_1" in dir(inst):
-        inst.special_menu_1 = gtk.Menu()
+    if not "special_menu_1" in dir(dad):
+        dad.special_menu_1 = gtk.Menu()
         first_run = True
     else:
-        children_1 = inst.special_menu_1.get_children()
+        children_1 = dad.special_menu_1.get_children()
         for children in children_1:
             children.hide()
             del children
         first_run = False
-    for special_char in inst.special_chars:
+    for special_char in dad.special_chars:
         menu_item = gtk.MenuItem(special_char)
-        menu_item.connect("activate", insert_special_char, special_char, inst)
+        menu_item.connect("activate", insert_special_char, special_char, dad)
         menu_item.show()
-        inst.special_menu_1.append(menu_item)
+        dad.special_menu_1.append(menu_item)
     if first_run:
         # main menu
         special_menuitem = gtk.ImageMenuItem(_("Insert _Special Character"))
         special_menuitem.set_image(gtk.image_new_from_stock("insert", gtk.ICON_SIZE_MENU))
         special_menuitem.set_tooltip_text(_("Insert a Special Character"))
-        special_menuitem.set_submenu(inst.special_menu_1)
-        inst.ui.get_widget("/MenuBar/EditMenu").get_submenu().insert(special_menuitem, 14)
+        special_menuitem.set_submenu(dad.special_menu_1)
+        dad.ui.get_widget("/MenuBar/EditMenu").get_submenu().insert(special_menuitem, 14)
 
-def set_menu_items_recent_documents(inst):
+def set_menu_items_recent_documents(dad):
     """Set Recent Documents menu items on Menu and Toolbar"""
-    if not "recent_menu_1" in dir(inst):
-        inst.recent_menu_1 = gtk.Menu()
-        inst.recent_menu_2 = gtk.Menu()
+    if not "recent_menu_1" in dir(dad):
+        dad.recent_menu_1 = gtk.Menu()
+        dad.recent_menu_2 = gtk.Menu()
         first_run = True
     else:
-        children_1 = inst.recent_menu_1.get_children()
-        children_2 = inst.recent_menu_2.get_children()
+        children_1 = dad.recent_menu_1.get_children()
+        children_2 = dad.recent_menu_2.get_children()
         for children in children_1:
             children.hide()
             del children
@@ -1523,37 +1523,37 @@ def set_menu_items_recent_documents(inst):
             del children
         first_run = False
     for target in [1, 2]:
-        for i, filepath in enumerate(inst.recent_docs):
+        for i, filepath in enumerate(dad.recent_docs):
             if i >= cons.MAX_RECENT_DOCS: break
             menu_item = gtk.ImageMenuItem(filepath)
             menu_item.set_image(gtk.image_new_from_stock("gtk-open", gtk.ICON_SIZE_MENU))
-            menu_item.connect("activate", open_recent_document, filepath, inst)
+            menu_item.connect("activate", open_recent_document, filepath, dad)
             menu_item.show()
-            if target == 1: inst.recent_menu_1.append(menu_item)
-            else: inst.recent_menu_2.append(menu_item)
+            if target == 1: dad.recent_menu_1.append(menu_item)
+            else: dad.recent_menu_2.append(menu_item)
     if first_run:
         # main menu
         recent_menuitem = gtk.ImageMenuItem(_("_Recent Documents"))
         recent_menuitem.set_image(gtk.image_new_from_stock("gtk-open", gtk.ICON_SIZE_MENU))
         recent_menuitem.set_tooltip_text(_("Open a Recent CherryTree Document"))
-        recent_menuitem.set_submenu(inst.recent_menu_1)
-        inst.ui.get_widget("/MenuBar/FileMenu").get_submenu().insert(recent_menuitem, 3)
+        recent_menuitem.set_submenu(dad.recent_menu_1)
+        dad.ui.get_widget("/MenuBar/FileMenu").get_submenu().insert(recent_menuitem, 3)
         # toolbar
-        if inst.toolbar_open_n_recent >= 0:
+        if dad.toolbar_open_n_recent >= 0:
             menu_toolbutton = gtk.MenuToolButton("gtk-open")
             menu_toolbutton.set_tooltip_text(_("Open a CherryTree Document"))
             menu_toolbutton.set_arrow_tooltip_text(_("Open a Recent CherryTree Document"))
-            menu_toolbutton.set_menu(inst.recent_menu_2)
-            menu_toolbutton.connect("clicked", inst.file_open)
-            inst.ui.get_widget("/ToolBar").insert(menu_toolbutton, inst.toolbar_open_n_recent)
+            menu_toolbutton.set_menu(dad.recent_menu_2)
+            menu_toolbutton.connect("clicked", dad.file_open)
+            dad.ui.get_widget("/ToolBar").insert(menu_toolbutton, dad.toolbar_open_n_recent)
 
-def add_recent_document(inst, filepath):
+def add_recent_document(dad, filepath):
     """Add a Recent Document if Needed"""
-    if filepath in inst.recent_docs and inst.recent_docs[0] == filepath:
+    if filepath in dad.recent_docs and dad.recent_docs[0] == filepath:
         return
-    if filepath in inst.recent_docs: inst.recent_docs.remove(filepath)
-    inst.recent_docs.insert(0, filepath)
-    set_menu_items_recent_documents(inst)
+    if filepath in dad.recent_docs: dad.recent_docs.remove(filepath)
+    dad.recent_docs.insert(0, filepath)
+    set_menu_items_recent_documents(dad)
 
 def insert_special_char(menu_item, special_char, dad):
     """A Special character insert was Requested"""
@@ -1699,11 +1699,11 @@ def bookmarks_handle(dad):
     dad.ctdb_handler.pending_edit_db_bookmarks()
     return True
 
-def set_object_highlight(inst, obj_highl):
+def set_object_highlight(dad, obj_highl):
     """Set the Highlight to obj_highl only"""
-    if inst.highlighted_obj:
-        inst.highlighted_obj.drag_unhighlight()
-        inst.highlighted_obj = None
+    if dad.highlighted_obj:
+        dad.highlighted_obj.drag_unhighlight()
+        dad.highlighted_obj = None
     if obj_highl:
         obj_highl.drag_highlight()
-        inst.highlighted_obj = obj_highl
+        dad.highlighted_obj = obj_highl
