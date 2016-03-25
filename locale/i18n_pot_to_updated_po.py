@@ -1,16 +1,16 @@
 #!/usr/bin/env python2
 
-import os, subprocess
+import os, subprocess, glob
 
 APP_NAME = "cherrytree"
-LOCALE_DIR = os.getcwd()
+SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 
-
-for dirpath, dirnames, filenames in os.walk(LOCALE_DIR):
-    for filename in filenames:
-        if dirpath == LOCALE_DIR:
-            nation, ext = os.path.splitext(filename)
-            if ext != ".po": continue
-            bash_string = "msgmerge -U %s.po %s.pot" % (nation, APP_NAME)
-            subprocess.call(bash_string, shell=True)
-subprocess.call("rm *.po~", shell=True)
+for po_filepath in glob.glob(os.path.join(SCRIPT_DIR, "*.po")):
+    shell_cmd = ["msgmerge",
+                 "-U",
+                 po_filepath,
+                 APP_NAME+".pot"]
+    subprocess.call(shell_cmd)
+shell_cmd = ["rm",
+             os.path.join(SCRIPT_DIR, "*.po~")]
+subprocess.call(shell_cmd)
