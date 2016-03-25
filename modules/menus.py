@@ -123,6 +123,8 @@ def load_menudict(dad):
 "IncreaseToolbarIconsSize": {"sk": "gtk-add", "sd": _("_Increase Toolbar Icons Size"), "kb": None, "dn": _("Increase the Size of the Toolbar Icons"), "cb": dad.toolbar_icons_size_increase},
 "DecreaseToolbarIconsSize": {"sk": "gtk-remove", "sd": _("_Decrease Toolbar Icons Size"), "kb": None, "dn": _("Decrease the Size of the Toolbar Icons"), "cb": dad.toolbar_icons_size_decrease},
 "Fullscreen": {"sk": "gtk-fullscreen", "sd": _("_Full Screen On/Off"), "kb": "F11", "dn": _("Toggle Full Screen On/Off"), "cb": dad.fullscreen_toggle},
+"BookmarkNode": {"sk": "pin-add", "sd": _("Add to _Bookmarks"), "kb": "<control><shift>B", "dn": _("Add the Current Node to the Bookmarks List"), "cb": dad.bookmark_curr_node},
+"UnBookmarkNode": {"sk": "pin-remove", "sd": _("_Remove from Bookmarks"), "kb": "<control><alt>B", "dn": _("Remove the Current Node from the Bookmarks List"), "cb": dad.bookmark_curr_node_remove},
 "BookmarksHandle": {"sk": "gtk-edit", "sd": _("_Handle Bookmarks"), "kb": None, "dn": _("Handle the Bookmarks List"), "cb": dad.bookmarks_handle},
 "FromCherryTree": {"sk": "from_cherrytree", "sd": _("From _CherryTree File"), "kb": None, "dn": _("Add Nodes of a CherryTree File to the Current Tree"), "cb": dad.nodes_add_from_cherrytree_file},
 "FromTxtFile": {"sk": "from_txt", "sd": _("From _Plain Text File"), "kb": None, "dn": _("Add Node from a Plain Text File to the Current Tree"), "cb": dad.nodes_add_from_plain_text_file},
@@ -167,6 +169,7 @@ def load_menudict(dad):
 "EditImageLink": {"sk": "link_handle", "sd": _("Edit _Link"), "kb": None, "dn": _("Edit the Link Associated to the Image"), "cb": dad.image_link_edit},
 "DismissImageLink": {"sk": "gtk-clear", "sd": _("D_ismiss Link"), "kb": None, "dn": _("Dismiss the Link Associated to the Image"), "cb": dad.image_link_dismiss},
 "ShowHideMainWin": {"sk": cons.APP_NAME, "sd": _("Show/Hide _CherryTree"), "kb": None, "dn": _("Toggle Show/Hide CherryTree"), "cb": dad.toggle_show_hide_main_window},
+"StripTrailSpace": {"sk": "gtk-clear", "sd": _("Stri_p Trailing Spaces"), "kb": None, "dn": _("Strip Trailing Spaces"), "cb": dad.strip_trailing_spaces},
 }
 
 def get_entries(dad):
@@ -194,6 +197,226 @@ def get_entries(dad):
         entries.append((name, subdict["sk"], subdict["sd"], subdict["kb"], subdict["dn"], subdict["cb"]))
     return entries
 
+def get_menu_item_tuple(dad, name):
+    subdict = dad.menudict[name]
+    return (subdict["sk"], subdict["sd"], subdict["kb"], subdict["dn"], subdict["cb"])
+
+def get_popup_menu_tree(dad):
+    """Returns the Menu Entries Given the Class Instance"""
+    # stock id, label, accelerator, tooltip, callback |
+    # "separator", None, None, None, None |
+    # "submenu-start", label, stock id, None, None |
+    # "submenu-end", None, None, None, None
+    return [
+get_menu_item_tuple(dad, "TreeAddNode"),
+get_menu_item_tuple(dad, "TreeAddSubNode"),
+get_menu_item_tuple(dad, "TreeDuplicateNode"),
+(cons.TAG_SEPARATOR, None, None, None, None),
+get_menu_item_tuple(dad, "NodeEdit"),
+get_menu_item_tuple(dad, "NodeToggleRO"),
+get_menu_item_tuple(dad, "BookmarkNode"),
+get_menu_item_tuple(dad, "UnBookmarkNode"),
+get_menu_item_tuple(dad, "NodeDate"),
+get_menu_item_tuple(dad, "TreeInfo"),
+(cons.TAG_SEPARATOR, None, None, None, None),
+("submenu-start", _("Node _Move"), "gtk-jump-to", None, None),
+get_menu_item_tuple(dad, "NodeUp"),
+get_menu_item_tuple(dad, "NodeDown"),
+get_menu_item_tuple(dad, "NodeLeft"),
+get_menu_item_tuple(dad, "NodeNewFather"),
+("submenu-end", None, None, None, None),
+(cons.TAG_SEPARATOR, None, None, None, None),
+("submenu-start", _("Nodes _Sort"), "gtk-sort-ascending", None, None),
+get_menu_item_tuple(dad, "TreeSortAsc"),
+get_menu_item_tuple(dad, "TreeSortDesc"),
+get_menu_item_tuple(dad, "SiblSortAsc"),
+get_menu_item_tuple(dad, "SiblSortDesc"),
+("submenu-end", None, None, None, None),
+(cons.TAG_SEPARATOR, None, None, None, None),
+get_menu_item_tuple(dad, "FindNode"),
+get_menu_item_tuple(dad, "ReplaceInNodesNames"),
+(cons.TAG_SEPARATOR, None, None, None, None),
+("submenu-start", _("Nodes _Import"), cons.STR_STOCK_CT_IMP, None, None),
+get_menu_item_tuple(dad, "FromCherryTree"),
+get_menu_item_tuple(dad, "FromTxtFile"),
+get_menu_item_tuple(dad, "FromTxtFolder"),
+get_menu_item_tuple(dad, "FromHtmlFile"),
+get_menu_item_tuple(dad, "FromHtmlFolder"),
+get_menu_item_tuple(dad, "FromBasket"),
+get_menu_item_tuple(dad, "FromEPIMHTML"),
+get_menu_item_tuple(dad, "FromGnote"),
+get_menu_item_tuple(dad, "FromKeepNote"),
+get_menu_item_tuple(dad, "FromKeyNote"),
+get_menu_item_tuple(dad, "FromKnowit"),
+get_menu_item_tuple(dad, "FromLeo"),
+get_menu_item_tuple(dad, "FromMempad"),
+get_menu_item_tuple(dad, "FromNoteCase"),
+get_menu_item_tuple(dad, "FromTomboy"),
+get_menu_item_tuple(dad, "FromTreepad"),
+get_menu_item_tuple(dad, "FromTuxCards"),
+get_menu_item_tuple(dad, "FromZim"),
+("submenu-end", None, None, None, None),
+("submenu-start", _("Nodes E_xport"), "export_from_cherrytree", None, None),
+get_menu_item_tuple(dad, "Export2PDF"),
+get_menu_item_tuple(dad, "Export2HTML"),
+get_menu_item_tuple(dad, "Export2TxtMultiple"),
+get_menu_item_tuple(dad, "Export2TxtSingle"),
+get_menu_item_tuple(dad, "Export2CTD"),
+("submenu-end", None, None, None, None),
+(cons.TAG_SEPARATOR, None, None, None, None),
+get_menu_item_tuple(dad, "InheritSyntax"),
+(cons.TAG_SEPARATOR, None, None, None, None),
+get_menu_item_tuple(dad, "NodeDel"),
+(cons.TAG_SEPARATOR, None, None, None, None),
+get_menu_item_tuple(dad, "GoBack"),
+get_menu_item_tuple(dad, "GoForward"),
+]
+
+def get_popup_menu_entries_text(dad):
+    """Returns the Menu Entries Given the Class Instance"""
+    # stock id, label, accelerator, tooltip, callback |
+    # "separator", None, None, None, None |
+    # "submenu-start", label, stock id, None, None |
+    # "submenu-end", None, None, None, None
+    return [
+(cons.TAG_SEPARATOR, None, None, None, None),
+get_menu_item_tuple(dad, "CutPlainText"),
+get_menu_item_tuple(dad, "CopyPlainText"),
+get_menu_item_tuple(dad, "PastePlainText"),
+(cons.TAG_SEPARATOR, None, None, None, None),
+("submenu-start", _("For_matting") , "format_text", None, None),
+get_menu_item_tuple(dad, "FormatLatest"),
+get_menu_item_tuple(dad, "RemoveFormatting"),
+(cons.TAG_SEPARATOR, None, None, None, None),
+get_menu_item_tuple(dad, "ColorForeground"),
+get_menu_item_tuple(dad, "ColorBackground"),
+get_menu_item_tuple(dad, "Bold"),
+get_menu_item_tuple(dad, "Italic"),
+get_menu_item_tuple(dad, "Underline"),
+get_menu_item_tuple(dad, "Strikethrough"),
+get_menu_item_tuple(dad, "H1"),
+get_menu_item_tuple(dad, "H2"),
+get_menu_item_tuple(dad, "H3"),
+get_menu_item_tuple(dad, "Small"),
+get_menu_item_tuple(dad, "Superscript"),
+get_menu_item_tuple(dad, "Subscript"),
+get_menu_item_tuple(dad, "Monospace"),
+("submenu-end", None, None, None, None),
+("submenu-start", _("_Justify") , "gtk-justify-center", None, None),
+get_menu_item_tuple(dad, "JustifyLeft"),
+get_menu_item_tuple(dad, "JustifyCenter"),
+get_menu_item_tuple(dad, "JustifyRight"),
+get_menu_item_tuple(dad, "JustifyFill"),
+("submenu-end", None, None, None, None),
+("submenu-start", _("_List") , "list_bulleted", None, None),
+get_menu_item_tuple(dad, "BulletedList"),
+get_menu_item_tuple(dad, "NumberedList"),
+get_menu_item_tuple(dad, "ToDoList"),
+("submenu-end", None, None, None, None),
+(cons.TAG_SEPARATOR, None, None, None, None),
+("submenu-start", _("_Insert") , "insert", None, None),
+get_menu_item_tuple(dad, "HandleImage"),
+get_menu_item_tuple(dad, "HandleTable"),
+get_menu_item_tuple(dad, "HandleCodeBox"),
+get_menu_item_tuple(dad, "EmbFileInsert"),
+get_menu_item_tuple(dad, "HandleLink"),
+get_menu_item_tuple(dad, "HandleAnchor"),
+get_menu_item_tuple(dad, "InsertTOC"),
+get_menu_item_tuple(dad, "Timestamp"),
+get_menu_item_tuple(dad, "HorizontalRule"),
+("submenu-end", None, None, None, None),
+("submenu-start", _("C_hange Case") , "case_toggle", None, None),
+get_menu_item_tuple(dad, "DownCase"),
+get_menu_item_tuple(dad, "UpCase"),
+get_menu_item_tuple(dad, "ToggleCase"),
+("submenu-end", None, None, None, None),
+("submenu-start", _("_Row") , "gtk-edit", None, None),
+get_menu_item_tuple(dad, "CutRow"),
+get_menu_item_tuple(dad, "CopyRow"),
+get_menu_item_tuple(dad, "DeleteRow"),
+get_menu_item_tuple(dad, "DuplicateRow"),
+get_menu_item_tuple(dad, "MoveRowUp"),
+get_menu_item_tuple(dad, "MoveRowDown"),
+("submenu-end", None, None, None, None),
+get_menu_item_tuple(dad, "StripTrailSpace"),
+(cons.TAG_SEPARATOR, None, None, None, None),
+("submenu-start", _("_Search") , "find", None, None),
+get_menu_item_tuple(dad, "FindInNode"),
+get_menu_item_tuple(dad, "FindInNodes"),
+get_menu_item_tuple(dad, "FindInSelNSub"),
+get_menu_item_tuple(dad, "FindNode"),
+get_menu_item_tuple(dad, "FindAgain"),
+get_menu_item_tuple(dad, "FindBack"),
+("submenu-end", None, None, None, None),
+("submenu-start", _("_Replace") , "find_replace", None, None),
+get_menu_item_tuple(dad, "ReplaceInNode"),
+get_menu_item_tuple(dad, "ReplaceInNodes"),
+get_menu_item_tuple(dad, "ReplaceInSelNSub"),
+get_menu_item_tuple(dad, "ReplaceInNodesNames"),
+get_menu_item_tuple(dad, "ReplaceAgain"),
+("submenu-end", None, None, None, None),
+]
+
+def get_popup_menu_entries_code(dad):
+    """Returns the Menu Entries Given the Class Instance"""
+    # stock id, label, accelerator, tooltip, callback |
+    # "separator", None, None, None, None |
+    # "submenu-start", label, stock id, None, None |
+    # "submenu-end", None, None, None, None
+    return [
+(cons.TAG_SEPARATOR, None, None, None, None),
+("submenu-start", _("_Insert") , "insert", None, None),
+get_menu_item_tuple(dad, "Timestamp"),
+get_menu_item_tuple(dad, "HorizontalRule"),
+("submenu-end", None, None, None, None),
+get_menu_item_tuple(dad, "StripTrailSpace"),
+("submenu-start", _("C_hange Case") , "case_toggle", None, None),
+get_menu_item_tuple(dad, "DownCase"),
+get_menu_item_tuple(dad, "UpCase"),
+get_menu_item_tuple(dad, "ToggleCase"),
+("submenu-end", None, None, None, None),
+("submenu-start", _("_Row") , "gtk-edit", None, None),
+get_menu_item_tuple(dad, "CutRow"),
+get_menu_item_tuple(dad, "CopyRow"),
+get_menu_item_tuple(dad, "DeleteRow"),
+get_menu_item_tuple(dad, "DuplicateRow"),
+get_menu_item_tuple(dad, "MoveRowUp"),
+get_menu_item_tuple(dad, "MoveRowDown"),
+("submenu-end", None, None, None, None),
+(cons.TAG_SEPARATOR, None, None, None, None),
+("submenu-start", _("_Search") , "find", None, None),
+get_menu_item_tuple(dad, "FindInNode"),
+get_menu_item_tuple(dad, "FindInNodes"),
+get_menu_item_tuple(dad, "FindInSelNSub"),
+get_menu_item_tuple(dad, "FindNode"),
+get_menu_item_tuple(dad, "FindAgain"),
+get_menu_item_tuple(dad, "FindBack"),
+("submenu-end", None, None, None, None),
+("submenu-start", _("_Replace") , "find_replace", None, None),
+get_menu_item_tuple(dad, "ReplaceInNode"),
+get_menu_item_tuple(dad, "ReplaceInNodes"),
+get_menu_item_tuple(dad, "ReplaceInSelNSub"),
+get_menu_item_tuple(dad, "ReplaceInNodesNames"),
+get_menu_item_tuple(dad, "ReplaceAgain"),
+("submenu-end", None, None, None, None),
+]
+
+def get_popup_menu_entries_link(dad):
+    """Returns the Menu Entries Given the Class Instance"""
+    # stock id, label, accelerator, tooltip, callback |
+    # "separator", None, None, None, None |
+    # "submenu-start", label, stock id, None, None |
+    # "submenu-end", None, None, None, None
+    return [
+(cons.TAG_SEPARATOR, None, None, None, None),
+("link_handle", _("Edit _Link"), None, _("Edit the Underlying Link"), dad.apply_tag_link),
+(cons.TAG_SEPARATOR, None, None, None, None),
+("edit-cut", _("C_ut Link"), None, _("Cut the Selected Link"), dad.link_cut),
+("edit-copy", _("_Copy Link"), None, _("Copy the Selected Link"), dad.link_copy),
+("gtk-clear", _("D_ismiss Link"), None, _("Dismiss the Selected Link"), dad.link_dismiss),
+("edit-delete", _("_Delete Link"), None, _("Delete the Selected Link"), dad.link_delete),
+]
+
 def get_popup_menu_table(dad):
     """Returns the Menu Entries Given the Class Instance"""
     # stock id, label, accelerator, tooltip, callback |
@@ -218,217 +441,6 @@ def get_popup_menu_table(dad):
 (cons.TAG_SEPARATOR, None, None, None, None),
 ("table_edit", _("_Edit Table Properties"), None, _("Edit the Table Properties"), dad.tables_handler.table_edit_properties),
 ("table_save", _("_Table Export"), None, _("Export Table as CSV File"), dad.tables_handler.table_export),
-]
-
-def get_popup_menu_tree(dad):
-    """Returns the Menu Entries Given the Class Instance"""
-    # stock id, label, accelerator, tooltip, callback |
-    # "separator", None, None, None, None |
-    # "submenu-start", label, stock id, None, None |
-    # "submenu-end", None, None, None, None
-    return [
-("tree-node-add", _("Add _Node"), "<control>N", _("Add a Node having the same Father of the Selected Node"), dad.node_add),
-("tree-subnode-add", _("Add _SubNode"), "<control><shift>N", _("Add a Child Node to the Selected Node"), dad.node_child_add),
-("tree-node-dupl", _("_Duplicate Node"), "<control><shift>D", _("Duplicate the Selected Node"), dad.node_duplicate),
-(cons.TAG_SEPARATOR, None, None, None, None),
-("cherry_edit", _("Change Node _Properties"), "F2", _("Edit the Properties of the Selected Node"), dad.node_edit),
-("cherry_edit", _("Toggle _Read Only"), "<Ctrl><Alt>R", _("Toggle the Read Only Property of the Selected Node"), dad.node_toggle_read_only),
-("pin-add", _("Add to _Bookmarks"), "<control><shift>B", _("Add the Current Node to the Bookmarks List"), dad.bookmark_curr_node),
-("pin-remove", _("_Remove from Bookmarks"), "<control><alt>B", _("Remove the Current Node from the Bookmarks List"), dad.bookmark_curr_node_remove),
-("calendar", _("Insert Today's Node"), "F8", _("Insert a Node with Hierarchy Year/Month/Day"), dad.node_date),
-("gtk-info", _("Tree _Info"), None, _("Tree Summary Information"), dad.tree_info),
-(cons.TAG_SEPARATOR, None, None, None, None),
-("submenu-start", _("Node _Move"), "gtk-jump-to", None, None),
-("gtk-go-up", _("Node _Up"), "<shift>Up", _("Move the Selected Node Up"), dad.node_up),
-("gtk-go-down", _("Node _Down"), "<shift>Down", _("Move the Selected Node Down"), dad.node_down),
-("gtk-go-back", _("Node _Left"), "<shift>Left", _("Move the Selected Node Left"), dad.node_left),
-("gtk-jump-to", _("Node Change _Father"), "<shift>Right", _("Change the Selected Node's Father"), dad.node_change_father),
-("submenu-end", None, None, None, None),
-(cons.TAG_SEPARATOR, None, None, None, None),
-("submenu-start", _("Nodes _Sort"), "gtk-sort-ascending", None, None),
-("gtk-sort-ascending", _("Sort Tree _Ascending"), None, _("Sort the Tree Ascending"), dad.tree_sort_ascending),
-("gtk-sort-descending", _("Sort Tree _Descending"), None, _("Sort the Tree Descending"), dad.tree_sort_descending),
-("gtk-sort-ascending", _("Sort Siblings A_scending"), None, _("Sort all the Siblings of the Selected Node Ascending"), dad.node_siblings_sort_ascending),
-("gtk-sort-descending", _("Sort Siblings D_escending"), None, _("Sort all the Siblings of the Selected Node Descending"), dad.node_siblings_sort_descending),
-("submenu-end", None, None, None, None),
-(cons.TAG_SEPARATOR, None, None, None, None),
-("find", _("Find in _Nodes Names and Tags"), "<control>T", _("Find in Nodes Names and Tags"), dad.find_a_node),
-("find_replace", _("Replace in Nodes _Names"), "<control><shift>T", _("Replace in Nodes Names"), dad.replace_in_nodes_names),
-(cons.TAG_SEPARATOR, None, None, None, None),
-("submenu-start", _("Nodes _Import"), cons.STR_STOCK_CT_IMP, None, None),
-("from_cherrytree", _("From _CherryTree File"), None, _("Add Nodes of a CherryTree File to the Current Tree"), dad.nodes_add_from_cherrytree_file),
-("from_txt", _("From _Plain Text File"), None, _("Add Node from a Plain Text File to the Current Tree"), dad.nodes_add_from_plain_text_file),
-("from_txt", _("From _Folder of Plain Text Files"), None, _("Add Nodes from a Folder of Plain Text Files to the Current Tree"), dad.nodes_add_from_plain_text_folder),
-("from_html", _("From _HTML File"), None, _("Add Node from an HTML File to the Current Tree"), dad.nodes_add_from_html_file),
-("from_html", _("From _Folder of HTML Files"), None, _("Add Nodes from a Folder of HTML Files to the Current Tree"), dad.nodes_add_from_html_folder),
-(cons.STR_STOCK_CT_IMP, _("From _Basket Folder"), None, _("Add Nodes of a Basket Folder to the Current Tree"), dad.nodes_add_from_basket_folder),
-(cons.STR_STOCK_CT_IMP, _("From _Gnote Folder"), None, _("Add Nodes of a Gnote Folder to the Current Tree"), dad.nodes_add_from_gnote_folder),
-(cons.STR_STOCK_CT_IMP, _("From _EssentialPIM HTML File"), None, _("Add Node from an EssentialPIM HTML File to the Current Tree"), dad.nodes_add_from_epim_html_file),
-(cons.STR_STOCK_CT_IMP, _("From _KeepNote Folder"), None, _("Add Nodes of a KeepNote Folder to the Current Tree"), dad.nodes_add_from_keepnote_folder),
-(cons.STR_STOCK_CT_IMP, _("From K_eyNote File"), None, _("Add Nodes of a KeyNote File to the Current Tree"), dad.nodes_add_from_keynote_file),
-(cons.STR_STOCK_CT_IMP, _("From K_nowit File"), None, _("Add Nodes of a Knowit File to the Current Tree"), dad.nodes_add_from_knowit_file),
-(cons.STR_STOCK_CT_IMP, _("From _Leo File"), None, _("Add Nodes of a Leo File to the Current Tree"), dad.nodes_add_from_leo_file),
-(cons.STR_STOCK_CT_IMP, _("From _Mempad File"), None, _("Add Nodes of a Mempad File to the Current Tree"), dad.nodes_add_from_mempad_file),
-(cons.STR_STOCK_CT_IMP, _("From _NoteCase File"), None, _("Add Nodes of a NoteCase File to the Current Tree"), dad.nodes_add_from_notecase_file),
-(cons.STR_STOCK_CT_IMP, _("From T_omboy Folder"), None, _("Add Nodes of a Tomboy Folder to the Current Tree"), dad.nodes_add_from_tomboy_folder),
-(cons.STR_STOCK_CT_IMP, _("From T_reepad Lite File"), None, _("Add Nodes of a Treepad Lite File to the Current Tree"), dad.nodes_add_from_treepad_file),
-(cons.STR_STOCK_CT_IMP, _("From _TuxCards File"), None, _("Add Nodes of a TuxCards File to the Current Tree"), dad.nodes_add_from_tuxcards_file),
-(cons.STR_STOCK_CT_IMP, _("From _Zim Folder"), None, _("Add Nodes of a Zim Folder to the Current Tree"), dad.nodes_add_from_zim_folder),
-("submenu-end", None, None, None, None),
-("submenu-start", _("Nodes E_xport"), "export_from_cherrytree", None, None),
-("to_pdf", _("Export To _PDF"), None, _("Export To PDF"), dad.export_to_pdf),
-("to_txt", _("Export to Multiple Plain _Text Files"), None, _("Export to Multiple Plain Text Files"), dad.export_to_txt_multiple),
-("to_txt", _("Export to _Single Plain Text File"), None, _("Export to Single Plain Text File"), dad.export_to_txt_single),
-("to_html", _("Export To _HTML"), None, _("Export To HTML"), dad.export_to_html),
-("to_cherrytree", _("_Export To CherryTree Document"), None, _("Export To CherryTree Document"), dad.export_to_ctd),
-("submenu-end", None, None, None, None),
-(cons.TAG_SEPARATOR, None, None, None, None),
-("gtk-execute", _("_Inherit Syntax"), None, _("Change the Selected Node's Children Syntax Highlighting to the Father's Syntax Highlighting"), dad.node_inherit_syntax),
-(cons.TAG_SEPARATOR, None, None, None, None),
-("edit-delete", _("De_lete Node"), "Delete", _("Delete the Selected Node"), dad.node_delete),
-(cons.TAG_SEPARATOR, None, None, None, None),
-("gtk-go-back", _("Go _Back"), "<alt>Left", _("Go to the Previous Visited Node"), dad.go_back),
-("gtk-go-forward", _("Go _Forward"), "<alt>Right", _("Go to the Next Visited Node"), dad.go_forward),
-]
-
-def get_popup_menu_entries_text(dad):
-    """Returns the Menu Entries Given the Class Instance"""
-    # stock id, label, accelerator, tooltip, callback |
-    # "separator", None, None, None, None |
-    # "submenu-start", label, stock id, None, None |
-    # "submenu-end", None, None, None, None
-    return [
-(cons.TAG_SEPARATOR, None, None, None, None),
-("edit-cut", _("Cu_t as Plain Text"), "<control><shift>X", _("Cut as Plain Text, Discard the Rich Text Formatting"), dad.cut_as_plain_text),
-("edit-copy", _("_Copy as Plain Text"), "<control><shift>C", _("Copy as Plain Text, Discard the Rich Text Formatting"), dad.copy_as_plain_text),
-("edit-paste", _("_Paste as Plain Text"), "<control><shift>V", _("Paste as Plain Text, Discard the Rich Text Formatting"), dad.paste_as_plain_text),
-(cons.TAG_SEPARATOR, None, None, None, None),
-("submenu-start", _("For_matting") , "format_text", None, None),
-("format_text_latest", _("Format _Latest"), "F7", _("Memory of Latest Text Format Type"), dad.apply_tag_latest),
-("format_text_clear", _("_Remove Formatting"), "<control><shift>R", _("Remove the Formatting from the Selected Text"), dad.remove_text_formatting),
-(cons.TAG_SEPARATOR, None, None, None, None),
-("color_foreground", _("Text _Color Foreground"), None, _("Change the Color of the Selected Text Foreground"), dad.apply_tag_foreground),
-("color_background", _("Text C_olor Background"), None, _("Change the Color of the Selected Text Background"), dad.apply_tag_background),
-("format-text-bold", _("Toggle _Bold Property"), "<control>B", _("Toggle Bold Property of the Selected Text"), dad.apply_tag_bold),
-("format-text-italic", _("Toggle _Italic Property"), "<control>I", _("Toggle Italic Property of the Selected Text"), dad.apply_tag_italic),
-("format-text-underline", _("Toggle _Underline Property"), "<control>U", _("Toggle Underline Property of the Selected Text"), dad.apply_tag_underline),
-("format-text-strikethrough", _("Toggle Stri_kethrough Property"), "<control>E", _("Toggle Strikethrough Property of the Selected Text"), dad.apply_tag_strikethrough),
-("format-text-large", _("Toggle h_1 Property"), "<control>1", _("Toggle h1 Property of the Selected Text"), dad.apply_tag_h1),
-("format-text-large2", _("Toggle h_2 Property"), "<control>2", _("Toggle h2 Property of the Selected Text"), dad.apply_tag_h2),
-("format-text-large3", _("Toggle h_3 Property"), "<control>3", _("Toggle h3 Property of the Selected Text"), dad.apply_tag_h3),
-("format-text-small", _("Toggle _Small Property"), "<control>0", _("Toggle Small Property of the Selected Text"), dad.apply_tag_small),
-("format-text-superscript", _("Toggle Su_perscript Property"), None, _("Toggle Superscript Property of the Selected Text"), dad.apply_tag_superscript),
-("format-text-subscript", _("Toggle Su_bscript Property"), None, _("Toggle Subscript Property of the Selected Text"), dad.apply_tag_subscript),
-("format-text-monospace", _("Toggle _Monospace Property"), "<control>M", _("Toggle Monospace Property of the Selected Text"), dad.apply_tag_monospace),
-("submenu-end", None, None, None, None),
-("submenu-start", _("_Justify") , "gtk-justify-center", None, None),
-("gtk-justify-left", _("Justify _Left"), None, _("Justify Left the Current Paragraph"), dad.apply_tag_justify_left),
-("gtk-justify-center", _("Justify _Center"), None, _("Justify Center the Current Paragraph"), dad.apply_tag_justify_center),
-("gtk-justify-right", _("Justify _Right"), None, _("Justify Right the Current Paragraph"), dad.apply_tag_justify_right),
-("gtk-justify-fill", _("Justify _Fill"), None, _("Justify Fill the Current Paragraph"), dad.apply_tag_justify_fill),
-("submenu-end", None, None, None, None),
-("submenu-start", _("_List") , "list_bulleted", None, None),
-("list_bulleted", _("Set/Unset _Bulleted List"), None, _("Set/Unset the Current Paragraph/Selection as a Bulleted List"), dad.list_bulleted_handler),
-("list_numbered", _("Set/Unset _Numbered List"), None, _("Set/Unset the Current Paragraph/Selection as a Numbered List"), dad.list_numbered_handler),
-("list_todo", _("Set/Unset _To-Do List"), None, _("Set/Unset the Current Paragraph/Selection as a To-Do List"), dad.list_todo_handler),
-("submenu-end", None, None, None, None),
-(cons.TAG_SEPARATOR, None, None, None, None),
-("submenu-start", _("_Insert") , "insert", None, None),
-("image_insert", _("Insert I_mage"), "<control><alt>I", _("Insert an Image"), dad.image_handle),
-("table_insert", _("Insert _Table"), "<control><alt>T", _("Insert a Table"), dad.table_handle),
-("codebox_insert", _("Insert _CodeBox"), "<control><alt>C", _("Insert a CodeBox"), dad.codebox_handle),
-("file_icon", _("Insert _File"), "<control><alt>E", _("Insert File"), dad.embfile_insert),
-("link_handle", _("Insert/Edit _Link"), "<control>L", _("Insert a Link/Edit the Underlying Link"), dad.apply_tag_link),
-("anchor_insert", _("Insert _Anchor"), "<control><alt>A", _("Insert an Anchor"), dad.anchor_handle),
-("index", _("Insert T_OC"), None, _("Insert Table of Contents"), dad.toc_insert),
-("timestamp", _("Insert Ti_mestamp"), "<control><alt>M", _("Insert Timestamp"), dad.timestamp_insert),
-("horizontal_rule", _("Insert _Horizontal Rule"), "<control>R", _("Insert Horizontal Rule"), dad.horizontal_rule_insert),
-("submenu-end", None, None, None, None),
-("submenu-start", _("C_hange Case") , "case_toggle", None, None),
-("case_lower", _("_Lower Case of Selection/Word"), "<control>W", _("Lower the Case of the Selection/the Underlying Word"), dad.text_selection_lower_case),
-("case_upper", _("_Upper Case of Selection/Word"), "<control><shift>W", _("Upper the Case of the Selection/the Underlying Word"), dad.text_selection_upper_case),
-("case_toggle", _("_Toggle Case of Selection/Word"), "<control>G", _("Toggle the Case of the Selection/the Underlying Word"), dad.text_selection_toggle_case),
-("submenu-end", None, None, None, None),
-("submenu-start", _("_Row") , "gtk-edit", None, None),
-("edit-cut", _("Cu_t Row"), "<shift><alt>X", _("Cut the Current Row/Selected Rows"), dad.text_row_cut),
-("edit-copy", _("C_opy Row"), "<shift><alt>C", _("Copy the Current Row/Selected Rows"), dad.text_row_copy),
-("edit-delete", _("De_lete Row"), "<control>K", _("Delete the Current Row/Selected Rows"), dad.text_row_delete),
-("gtk-add", _("_Duplicate Row"), "<control>D", _("Duplicate the Current Row/Selection"), dad.text_row_selection_duplicate),
-("gtk-go-up", _("Move _Up Row"), "<alt>Up", _("Move Up the Current Row/Selected Rows"), dad.text_row_up),
-("gtk-go-down", _("Move _Down Row"), "<alt>Down", _("Move Down the Current Row/Selected Rows"), dad.text_row_down),
-("submenu-end", None, None, None, None),
-(cons.TAG_SEPARATOR, None, None, None, None),
-("submenu-start", _("_Search") , "find", None, None),
-("find", _("_Find in Node"), "<control>F", _("Find into the Selected Node"), dad.find_in_selected_node),
-("find", _("Find in Node_s"), "<control><shift>F", _("Find into all the Tree Nodes"), dad.find_in_all_nodes),
-("find", _("Find in _Nodes Names and Tags"), "<control>T", _("Find in Nodes Names and Tags"), dad.find_a_node),
-("find_again", _("Find _Again"), "F3", _("Iterate the Last Find Operation"), dad.find_again),
-("find_back", _("Find _Back"), "F4", _("Iterate the Last Find Operation in Opposite Direction"), dad.find_back),
-("submenu-end", None, None, None, None),
-("submenu-start", _("_Replace") , "find_replace", None, None),
-("find_replace", _("_Replace in Node"), "<control>H", _("Replace into the Selected Node"), dad.replace_in_selected_node),
-("find_replace", _("Replace in Node_s"), "<control><shift>H", _("Replace into all the Tree Nodes"), dad.replace_in_all_nodes),
-("find_replace", _("Replace in Nodes _Names"), "<control><shift>T", _("Replace in Nodes Names"), dad.replace_in_nodes_names),
-("find_replace", _("Replace _Again"), "F6", _("Iterate the Last Replace Operation"), dad.replace_again),
-("submenu-end", None, None, None, None),
-]
-
-def get_popup_menu_entries_code(dad):
-    """Returns the Menu Entries Given the Class Instance"""
-    # stock id, label, accelerator, tooltip, callback |
-    # "separator", None, None, None, None |
-    # "submenu-start", label, stock id, None, None |
-    # "submenu-end", None, None, None, None
-    return [
-(cons.TAG_SEPARATOR, None, None, None, None),
-("submenu-start", _("_Insert") , "insert", None, None),
-("timestamp", _("Insert Ti_mestamp"), "<control><alt>M", _("Insert Timestamp"), dad.timestamp_insert),
-("horizontal_rule", _("Insert _Horizontal Rule"), "<control>R", _("Insert Horizontal Rule"), dad.horizontal_rule_insert),
-("submenu-end", None, None, None, None),
-("gtk-clear", _("Stri_p Trailing Spaces"), None, _("Strip Trailing Spaces"), dad.strip_trailing_spaces),
-("submenu-start", _("C_hange Case") , "case_toggle", None, None),
-("case_lower", _("_Lower Case of Selection/Word"), "<control>W", _("Lower the Case of the Selection/the Underlying Word"), dad.text_selection_lower_case),
-("case_upper", _("_Upper Case of Selection/Word"), "<control><shift>W", _("Upper the Case of the Selection/the Underlying Word"), dad.text_selection_upper_case),
-("case_toggle", _("_Toggle Case of Selection/Word"), "<control>G", _("Toggle the Case of the Selection/the Underlying Word"), dad.text_selection_toggle_case),
-("submenu-end", None, None, None, None),
-("submenu-start", _("_Row") , "gtk-edit", None, None),
-("edit-cut", _("Cu_t Row"), "<shift><alt>X", _("Cut the Current Row/Selected Rows"), dad.text_row_cut),
-("edit-copy", _("C_opy Row"), "<shift><alt>C", _("Copy the Current Row/Selected Rows"), dad.text_row_copy),
-("edit-delete", _("De_lete Row"), "<control>K", _("Delete the Current Row/Selected Rows"), dad.text_row_delete),
-("gtk-add", _("_Duplicate Row"), "<control>D", _("Duplicate the Current Row/Selection"), dad.text_row_selection_duplicate),
-("gtk-go-up", _("Move _Up Row"), "<alt>Up", _("Move Up the Current Row/Selected Rows"), dad.text_row_up),
-("gtk-go-down", _("Move _Down Row"), "<alt>Down", _("Move Down the Current Row/Selected Rows"), dad.text_row_down),
-("submenu-end", None, None, None, None),
-(cons.TAG_SEPARATOR, None, None, None, None),
-("submenu-start", _("_Search") , "find", None, None),
-("find", _("_Find in Node"), "<control>F", _("Find into the Selected Node"), dad.find_in_selected_node),
-("find", _("Find in Node_s"), "<control><shift>F", _("Find into all the Tree Nodes"), dad.find_in_all_nodes),
-("find", _("Find in _Nodes Names and Tags"), "<control>T", _("Find in Nodes Names and Tags"), dad.find_a_node),
-("find_again", _("Find _Again"), "F3", _("Iterate the Last Find Operation"), dad.find_again),
-("find_back", _("Find _Back"), "F4", _("Iterate the Last Find Operation in Opposite Direction"), dad.find_back),
-("submenu-end", None, None, None, None),
-("submenu-start", _("_Replace") , "find_replace", None, None),
-("find_replace", _("_Replace in Node"), "<control>H", _("Replace into the Selected Node"), dad.replace_in_selected_node),
-("find_replace", _("Replace in Node_s"), "<control><shift>H", _("Replace into all the Tree Nodes"), dad.replace_in_all_nodes),
-("find_replace", _("Replace in Nodes _Names"), "<control><shift>T", _("Replace in Nodes Names"), dad.replace_in_nodes_names),
-("find_replace", _("Replace _Again"), "F6", _("Iterate the Last Replace Operation"), dad.replace_again),
-("submenu-end", None, None, None, None),
-]
-
-def get_popup_menu_entries_link(dad):
-    """Returns the Menu Entries Given the Class Instance"""
-    # stock id, label, accelerator, tooltip, callback |
-    # "separator", None, None, None, None |
-    # "submenu-start", label, stock id, None, None |
-    # "submenu-end", None, None, None, None
-    return [
-(cons.TAG_SEPARATOR, None, None, None, None),
-("link_handle", _("Edit _Link"), None, _("Edit the Underlying Link"), dad.apply_tag_link),
-(cons.TAG_SEPARATOR, None, None, None, None),
-("edit-cut", _("C_ut Link"), None, _("Cut the Selected Link"), dad.link_cut),
-("edit-copy", _("_Copy Link"), None, _("Copy the Selected Link"), dad.link_copy),
-("gtk-clear", _("D_ismiss Link"), None, _("Dismiss the Selected Link"), dad.link_dismiss),
-("edit-delete", _("_Delete Link"), None, _("Delete the Selected Link"), dad.link_delete),
 ]
 
 def get_popup_menu_entries_table_cell(dad):
@@ -497,6 +509,7 @@ UI_INFO = """
       <menuitem action='InsertTOC'/>
       <menuitem action='Timestamp'/>
       <menuitem action='HorizontalRule'/>
+      <menuitem action='StripTrailSpace'/>
       <separator/>
       <menu action='ChangeCaseMenu'>
         <menuitem action='DownCase'/>
