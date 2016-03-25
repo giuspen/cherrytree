@@ -77,7 +77,7 @@ class CherryTree:
         self.ui = gtk.UIManager()
         self.ui.insert_action_group(actions, 0)
         self.window.add_accel_group(self.ui.get_accel_group())
-        self.ui.add_ui_from_string(cons.UI_INFO)
+        self.ui.add_ui_from_string(menus.UI_INFO)
         self.ui.add_ui_from_string(config.get_toolbar_ui_str(self))
         # menubar add
         vbox_main.pack_start(self.ui.get_widget("/MenuBar"), False, False)
