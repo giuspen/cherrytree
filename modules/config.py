@@ -89,162 +89,168 @@ def get_pixels_inside_wrap(space_around_lines, relative_wrapped_space):
 
 def config_file_load(dad):
     """Load the Preferences from Config File"""
+    dad.custom_kb_shortcuts = {}
     if os.path.isfile(cons.CONFIG_PATH):
-        config = ConfigParser.RawConfigParser()
+        cfg = ConfigParser.RawConfigParser()
         try:
-            config.read(cons.CONFIG_PATH)
+            cfg.read(cons.CONFIG_PATH)
         except ConfigParser.MissingSectionHeaderError:
             print "? ConfigParser.MissingSectionHeaderError"
 
         section = "state"
-        dad.file_dir = unicode(config.get(section, "file_dir"), cons.STR_UTF8, cons.STR_IGNORE) if config.has_option(section, "file_dir") else ""
-        dad.file_name = unicode(config.get(section, "file_name"), cons.STR_UTF8, cons.STR_IGNORE) if config.has_option(section, "file_name") else ""
-        dad.toolbar_visible = config.getboolean(section, "toolbar_visible") if config.has_option(section, "toolbar_visible") else True
-        dad.win_is_maximized = config.getboolean(section, "win_is_maximized") if config.has_option(section, "win_is_maximized") else False
+        dad.file_dir = unicode(cfg.get(section, "file_dir"), cons.STR_UTF8, cons.STR_IGNORE) if cfg.has_option(section, "file_dir") else ""
+        dad.file_name = unicode(cfg.get(section, "file_name"), cons.STR_UTF8, cons.STR_IGNORE) if cfg.has_option(section, "file_name") else ""
+        dad.toolbar_visible = cfg.getboolean(section, "toolbar_visible") if cfg.has_option(section, "toolbar_visible") else True
+        dad.win_is_maximized = cfg.getboolean(section, "win_is_maximized") if cfg.has_option(section, "win_is_maximized") else False
         # restore window size and position
-        if config.has_option(section, "win_position_x") and config.has_option(section, "win_position_y"):
-            dad.win_position = [config.getint(section, "win_position_x"), config.getint(section, "win_position_y")]
+        if cfg.has_option(section, "win_position_x") and cfg.has_option(section, "win_position_y"):
+            dad.win_position = [cfg.getint(section, "win_position_x"), cfg.getint(section, "win_position_y")]
             dad.window.move(dad.win_position[0], dad.win_position[1])
         else: dad.win_position = [10, 10]
         if dad.win_is_maximized: dad.window.maximize()
-        elif config.has_option(section, "win_size_w") and config.has_option(section, "win_size_h"):
-            win_size = [config.getint(section, "win_size_w"), config.getint(section, "win_size_h")]
+        elif cfg.has_option(section, "win_size_w") and cfg.has_option(section, "win_size_h"):
+            win_size = [cfg.getint(section, "win_size_w"), cfg.getint(section, "win_size_h")]
             dad.window.resize(win_size[0], win_size[1])
-        dad.hpaned_pos = config.getint(section, "hpaned_pos") if config.has_option(section, "hpaned_pos") else 170
-        if config.has_option(section, "node_path"):
+        dad.hpaned_pos = cfg.getint(section, "hpaned_pos") if cfg.has_option(section, "hpaned_pos") else 170
+        if cfg.has_option(section, "node_path"):
             # restore the selected node
-            dad.node_path = get_node_path_from_str(config.get(section, "node_path"))
-            dad.cursor_position = config.getint(section, "cursor_position") if config.has_option(section, "cursor_position") else 0
+            dad.node_path = get_node_path_from_str(cfg.get(section, "node_path"))
+            dad.cursor_position = cfg.getint(section, "cursor_position") if cfg.has_option(section, "cursor_position") else 0
         else: dad.node_path = None
         dad.recent_docs = []
-        if config.has_option(section, "recent_docs"):
-            temp_recent_docs = config.get(section, "recent_docs").split(cons.CHAR_SPACE)
+        if cfg.has_option(section, "recent_docs"):
+            temp_recent_docs = cfg.get(section, "recent_docs").split(cons.CHAR_SPACE)
             for element in temp_recent_docs:
                 if element: dad.recent_docs.append(unicode(base64.b64decode(element), cons.STR_UTF8, cons.STR_IGNORE))
-        dad.pick_dir = config.get(section, "pick_dir") if config.has_option(section, "pick_dir") else ""
-        dad.link_type = config.get(section, "link_type") if config.has_option(section, "link_type") else cons.LINK_TYPE_WEBS
-        dad.show_node_name_label = config.getboolean(section, "show_node_name_label") if config.has_option(section, "show_node_name_label") else True
-        if config.has_option(section, "toolbar_icon_size"):
-            dad.toolbar_icon_size = config.getint(section, "toolbar_icon_size")
+        dad.pick_dir = cfg.get(section, "pick_dir") if cfg.has_option(section, "pick_dir") else ""
+        dad.link_type = cfg.get(section, "link_type") if cfg.has_option(section, "link_type") else cons.LINK_TYPE_WEBS
+        dad.show_node_name_label = cfg.getboolean(section, "show_node_name_label") if cfg.has_option(section, "show_node_name_label") else True
+        if cfg.has_option(section, "toolbar_icon_size"):
+            dad.toolbar_icon_size = cfg.getint(section, "toolbar_icon_size")
             if dad.toolbar_icon_size not in ICONS_SIZE: dad.toolbar_icon_size = 1
         else: dad.toolbar_icon_size = 1
-        dad.curr_colors = {'f':gtk.gdk.color_parse(config.get(section, "fg")) if config.has_option(section, "fg") else None,
-                            'b':gtk.gdk.color_parse(config.get(section, "bg")) if config.has_option(section, "bg") else None}
+        dad.curr_colors = {'f':gtk.gdk.color_parse(cfg.get(section, "fg")) if cfg.has_option(section, "fg") else None,
+                            'b':gtk.gdk.color_parse(cfg.get(section, "bg")) if cfg.has_option(section, "bg") else None}
 
         section = "tree"
-        dad.rest_exp_coll = config.getint(section, "rest_exp_coll") if config.has_option(section, "rest_exp_coll") else 0
-        dad.expanded_collapsed_string = config.get(section, "expanded_collapsed_string") if config.has_option(section, "expanded_collapsed_string") else ""
-        dad.expcollnam1 = unicode(config.get(section, "expcollnam1"), cons.STR_UTF8, cons.STR_IGNORE) if config.has_option(section, "expcollnam1") else ""
-        dad.expcollstr1 = config.get(section, "expcollstr1") if config.has_option(section, "expcollstr1") else ""
-        dad.expcollsel1 = config.get(section, "expcollsel1") if config.has_option(section, "expcollsel1") else ""
-        dad.expcollcur1 = config.getint(section, "expcollcur1") if config.has_option(section, "expcollcur1") else 0
-        dad.expcollnam2 = unicode(config.get(section, "expcollnam2"), cons.STR_UTF8, cons.STR_IGNORE) if config.has_option(section, "expcollnam2") else ""
-        dad.expcollstr2 = config.get(section, "expcollstr2") if config.has_option(section, "expcollstr2") else ""
-        dad.expcollsel2 = config.get(section, "expcollsel2") if config.has_option(section, "expcollsel2") else ""
-        dad.expcollcur2 = config.getint(section, "expcollcur2") if config.has_option(section, "expcollcur2") else 0
-        dad.expcollnam3 = unicode(config.get(section, "expcollnam3"), cons.STR_UTF8, cons.STR_IGNORE) if config.has_option(section, "expcollnam3") else ""
-        dad.expcollstr3 = config.get(section, "expcollstr3") if config.has_option(section, "expcollstr3") else ""
-        dad.expcollsel3 = config.get(section, "expcollsel3") if config.has_option(section, "expcollsel3") else ""
-        dad.expcollcur3 = config.getint(section, "expcollcur3") if config.has_option(section, "expcollcur3") else 0
-        dad.nodes_bookm_exp = config.getboolean(section, "nodes_bookm_exp") if config.has_option(section, "nodes_bookm_exp") else True
-        dad.nodes_icons = config.get(section, "nodes_icons") if config.has_option(section, "nodes_icons") else "c"
-        dad.tree_right_side = config.getboolean(section, "tree_right_side") if config.has_option(section, "tree_right_side") else False
-        dad.cherry_wrap_width = config.getint(section, "cherry_wrap_width") if config.has_option(section, "cherry_wrap_width") else 130
+        dad.rest_exp_coll = cfg.getint(section, "rest_exp_coll") if cfg.has_option(section, "rest_exp_coll") else 0
+        dad.expanded_collapsed_string = cfg.get(section, "expanded_collapsed_string") if cfg.has_option(section, "expanded_collapsed_string") else ""
+        dad.expcollnam1 = unicode(cfg.get(section, "expcollnam1"), cons.STR_UTF8, cons.STR_IGNORE) if cfg.has_option(section, "expcollnam1") else ""
+        dad.expcollstr1 = cfg.get(section, "expcollstr1") if cfg.has_option(section, "expcollstr1") else ""
+        dad.expcollsel1 = cfg.get(section, "expcollsel1") if cfg.has_option(section, "expcollsel1") else ""
+        dad.expcollcur1 = cfg.getint(section, "expcollcur1") if cfg.has_option(section, "expcollcur1") else 0
+        dad.expcollnam2 = unicode(cfg.get(section, "expcollnam2"), cons.STR_UTF8, cons.STR_IGNORE) if cfg.has_option(section, "expcollnam2") else ""
+        dad.expcollstr2 = cfg.get(section, "expcollstr2") if cfg.has_option(section, "expcollstr2") else ""
+        dad.expcollsel2 = cfg.get(section, "expcollsel2") if cfg.has_option(section, "expcollsel2") else ""
+        dad.expcollcur2 = cfg.getint(section, "expcollcur2") if cfg.has_option(section, "expcollcur2") else 0
+        dad.expcollnam3 = unicode(cfg.get(section, "expcollnam3"), cons.STR_UTF8, cons.STR_IGNORE) if cfg.has_option(section, "expcollnam3") else ""
+        dad.expcollstr3 = cfg.get(section, "expcollstr3") if cfg.has_option(section, "expcollstr3") else ""
+        dad.expcollsel3 = cfg.get(section, "expcollsel3") if cfg.has_option(section, "expcollsel3") else ""
+        dad.expcollcur3 = cfg.getint(section, "expcollcur3") if cfg.has_option(section, "expcollcur3") else 0
+        dad.nodes_bookm_exp = cfg.getboolean(section, "nodes_bookm_exp") if cfg.has_option(section, "nodes_bookm_exp") else True
+        dad.nodes_icons = cfg.get(section, "nodes_icons") if cfg.has_option(section, "nodes_icons") else "c"
+        dad.tree_right_side = cfg.getboolean(section, "tree_right_side") if cfg.has_option(section, "tree_right_side") else False
+        dad.cherry_wrap_width = cfg.getint(section, "cherry_wrap_width") if cfg.has_option(section, "cherry_wrap_width") else 130
 
         section = "editor"
-        dad.syntax_highlighting = config.get(section, "syntax_highlighting") if config.has_option(section, "syntax_highlighting") else cons.RICH_TEXT_ID
-        dad.auto_syn_highl = config.get(section, "auto_syn_highl") if config.has_option(section, "auto_syn_highl") else "sh"
-        dad.style_scheme = config.get(section, "style_scheme") if config.has_option(section, "style_scheme") else cons.STYLE_SCHEME_DARK
-        dad.enable_spell_check = config.getboolean(section, "enable_spell_check") if config.has_option(section, "enable_spell_check") else False
-        dad.spell_check_lang = config.get(section, "spell_check_lang") if config.has_option(section, "spell_check_lang") else SPELL_CHECK_LANG_DEFAULT
-        dad.show_line_numbers = config.getboolean(section, "show_line_numbers") if config.has_option(section, "show_line_numbers") else False
-        dad.spaces_instead_tabs = config.getboolean(section, "spaces_instead_tabs") if config.has_option(section, "spaces_instead_tabs") else True
-        dad.tabs_width = config.getint(section, "tabs_width") if config.has_option(section, "tabs_width") else 4
-        dad.anchor_size = config.getint(section, "anchor_size") if config.has_option(section, "anchor_size") else 16
-        dad.embfile_size = config.getint(section, "embfile_size") if config.has_option(section, "embfile_size") else 48
-        dad.line_wrapping = config.getboolean(section, "line_wrapping") if config.has_option(section, "line_wrapping") else True
-        dad.auto_smart_quotes = config.getboolean(section, "auto_smart_quotes") if config.has_option(section, "auto_smart_quotes") else True
-        dad.wrapping_indent = config.getint(section, "wrapping_indent") if config.has_option(section, "wrapping_indent") else -14
-        dad.auto_indent = config.getboolean(section, "auto_indent") if config.has_option(section, "auto_indent") else True
-        dad.rt_show_white_spaces = config.getboolean(section, "rt_show_white_spaces") if config.has_option(section, "rt_show_white_spaces") else False
-        dad.pt_show_white_spaces = config.getboolean(section, "pt_show_white_spaces") if config.has_option(section, "pt_show_white_spaces") else True
-        dad.rt_highl_curr_line = config.getboolean(section, "rt_highl_curr_line") if config.has_option(section, "rt_highl_curr_line") else True
-        dad.pt_highl_curr_line = config.getboolean(section, "pt_highl_curr_line") if config.has_option(section, "pt_highl_curr_line") else True
-        dad.space_around_lines = config.getint(section, "space_around_lines") if config.has_option(section, "space_around_lines") else 0
-        dad.relative_wrapped_space = config.getint(section, "relative_wrapped_space") if config.has_option(section, "relative_wrapped_space") else 50
-        dad.h_rule = config.get(section, "h_rule") if config.has_option(section, "h_rule") else HORIZONTAL_RULE
-        dad.special_chars = unicode(config.get(section, "special_chars") if config.has_option(section, "special_chars") else SPECIAL_CHARS_DEFAULT, cons.STR_UTF8, cons.STR_IGNORE)
-        dad.selword_chars = unicode(config.get(section, "selword_chars") if config.has_option(section, "selword_chars") else SELWORD_CHARS_DEFAULT, cons.STR_UTF8, cons.STR_IGNORE)
-        dad.timestamp_format = config.get(section, "timestamp_format") if config.has_option(section, "timestamp_format") else TIMESTAMP_FORMAT_DEFAULT
-        dad.links_underline = config.getboolean(section, "links_underline") if config.has_option(section, "links_underline") else True
-        dad.links_relative = config.getboolean(section, "links_relative") if config.has_option(section, "links_relative") else False
-        if config.has_option(section, "weblink_custom_action"):
-            temp_str = config.get(section, "weblink_custom_action")
+        dad.syntax_highlighting = cfg.get(section, "syntax_highlighting") if cfg.has_option(section, "syntax_highlighting") else cons.RICH_TEXT_ID
+        dad.auto_syn_highl = cfg.get(section, "auto_syn_highl") if cfg.has_option(section, "auto_syn_highl") else "sh"
+        dad.style_scheme = cfg.get(section, "style_scheme") if cfg.has_option(section, "style_scheme") else cons.STYLE_SCHEME_DARK
+        dad.enable_spell_check = cfg.getboolean(section, "enable_spell_check") if cfg.has_option(section, "enable_spell_check") else False
+        dad.spell_check_lang = cfg.get(section, "spell_check_lang") if cfg.has_option(section, "spell_check_lang") else SPELL_CHECK_LANG_DEFAULT
+        dad.show_line_numbers = cfg.getboolean(section, "show_line_numbers") if cfg.has_option(section, "show_line_numbers") else False
+        dad.spaces_instead_tabs = cfg.getboolean(section, "spaces_instead_tabs") if cfg.has_option(section, "spaces_instead_tabs") else True
+        dad.tabs_width = cfg.getint(section, "tabs_width") if cfg.has_option(section, "tabs_width") else 4
+        dad.anchor_size = cfg.getint(section, "anchor_size") if cfg.has_option(section, "anchor_size") else 16
+        dad.embfile_size = cfg.getint(section, "embfile_size") if cfg.has_option(section, "embfile_size") else 48
+        dad.line_wrapping = cfg.getboolean(section, "line_wrapping") if cfg.has_option(section, "line_wrapping") else True
+        dad.auto_smart_quotes = cfg.getboolean(section, "auto_smart_quotes") if cfg.has_option(section, "auto_smart_quotes") else True
+        dad.wrapping_indent = cfg.getint(section, "wrapping_indent") if cfg.has_option(section, "wrapping_indent") else -14
+        dad.auto_indent = cfg.getboolean(section, "auto_indent") if cfg.has_option(section, "auto_indent") else True
+        dad.rt_show_white_spaces = cfg.getboolean(section, "rt_show_white_spaces") if cfg.has_option(section, "rt_show_white_spaces") else False
+        dad.pt_show_white_spaces = cfg.getboolean(section, "pt_show_white_spaces") if cfg.has_option(section, "pt_show_white_spaces") else True
+        dad.rt_highl_curr_line = cfg.getboolean(section, "rt_highl_curr_line") if cfg.has_option(section, "rt_highl_curr_line") else True
+        dad.pt_highl_curr_line = cfg.getboolean(section, "pt_highl_curr_line") if cfg.has_option(section, "pt_highl_curr_line") else True
+        dad.space_around_lines = cfg.getint(section, "space_around_lines") if cfg.has_option(section, "space_around_lines") else 0
+        dad.relative_wrapped_space = cfg.getint(section, "relative_wrapped_space") if cfg.has_option(section, "relative_wrapped_space") else 50
+        dad.h_rule = cfg.get(section, "h_rule") if cfg.has_option(section, "h_rule") else HORIZONTAL_RULE
+        dad.special_chars = unicode(cfg.get(section, "special_chars") if cfg.has_option(section, "special_chars") else SPECIAL_CHARS_DEFAULT, cons.STR_UTF8, cons.STR_IGNORE)
+        dad.selword_chars = unicode(cfg.get(section, "selword_chars") if cfg.has_option(section, "selword_chars") else SELWORD_CHARS_DEFAULT, cons.STR_UTF8, cons.STR_IGNORE)
+        dad.timestamp_format = cfg.get(section, "timestamp_format") if cfg.has_option(section, "timestamp_format") else TIMESTAMP_FORMAT_DEFAULT
+        dad.links_underline = cfg.getboolean(section, "links_underline") if cfg.has_option(section, "links_underline") else True
+        dad.links_relative = cfg.getboolean(section, "links_relative") if cfg.has_option(section, "links_relative") else False
+        if cfg.has_option(section, "weblink_custom_action"):
+            temp_str = cfg.get(section, "weblink_custom_action")
             dad.weblink_custom_action = [True, temp_str[4:]] if temp_str[:4] == "True" else [False, temp_str[5:]]
         else: dad.weblink_custom_action = [False, LINK_CUSTOM_ACTION_DEFAULT_WEB]
-        if config.has_option(section, "filelink_custom_action"):
-            temp_str = config.get(section, "filelink_custom_action")
+        if cfg.has_option(section, "filelink_custom_action"):
+            temp_str = cfg.get(section, "filelink_custom_action")
             dad.filelink_custom_action = [True, temp_str[4:]] if temp_str[:4] == "True" else [False, temp_str[5:]]
         else: dad.filelink_custom_action = [False, LINK_CUSTOM_ACTION_DEFAULT_FILE]
-        if config.has_option(section, "folderlink_custom_action"):
-            temp_str = config.get(section, "folderlink_custom_action")
+        if cfg.has_option(section, "folderlink_custom_action"):
+            temp_str = cfg.get(section, "folderlink_custom_action")
             dad.folderlink_custom_action = [True, temp_str[4:]] if temp_str[:4] == "True" else [False, temp_str[5:]]
         else: dad.folderlink_custom_action = [False, LINK_CUSTOM_ACTION_DEFAULT_FILE]
 
         section = "codebox"
-        if config.has_option(section, "codebox_width"):
-            dad.codebox_width = config.getfloat(section, "codebox_width")
+        if cfg.has_option(section, "codebox_width"):
+            dad.codebox_width = cfg.getfloat(section, "codebox_width")
         else: dad.codebox_width = 700
-        if config.has_option(section, "codebox_height"):
-            dad.codebox_height = config.getfloat(section, "codebox_height")
+        if cfg.has_option(section, "codebox_height"):
+            dad.codebox_height = cfg.getfloat(section, "codebox_height")
         else: dad.codebox_height = 100
-        dad.codebox_width_pixels = config.getboolean(section, "codebox_width_pixels") if config.has_option(section, "codebox_width_pixels") else True
-        dad.codebox_line_num = config.getboolean(section, "codebox_line_num") if config.has_option(section, "codebox_line_num") else False
-        dad.codebox_match_bra = config.getboolean(section, "codebox_match_bra") if config.has_option(section, "codebox_match_bra") else True
-        dad.codebox_syn_highl = config.get(section, "codebox_syn_highl") if config.has_option(section, "codebox_syn_highl") else cons.PLAIN_TEXT_ID
-        dad.codebox_auto_resize = config.getboolean(section, "codebox_auto_resize") if config.has_option(section, "codebox_auto_resize") else True
+        dad.codebox_width_pixels = cfg.getboolean(section, "codebox_width_pixels") if cfg.has_option(section, "codebox_width_pixels") else True
+        dad.codebox_line_num = cfg.getboolean(section, "codebox_line_num") if cfg.has_option(section, "codebox_line_num") else False
+        dad.codebox_match_bra = cfg.getboolean(section, "codebox_match_bra") if cfg.has_option(section, "codebox_match_bra") else True
+        dad.codebox_syn_highl = cfg.get(section, "codebox_syn_highl") if cfg.has_option(section, "codebox_syn_highl") else cons.PLAIN_TEXT_ID
+        dad.codebox_auto_resize = cfg.getboolean(section, "codebox_auto_resize") if cfg.has_option(section, "codebox_auto_resize") else True
 
         section = "table"
-        dad.table_rows = config.getint(section, "table_rows") if config.has_option(section, "table_rows") else 3
-        dad.table_columns = config.getint(section, "table_columns") if config.has_option(section, "table_columns") else 3
-        dad.table_column_mode = config.get(section, "table_column_mode") if config.has_option(section, "table_column_mode") else "rename"
-        dad.table_col_min = config.getint(section, "table_col_min") if config.has_option(section, "table_col_min") else 40
-        dad.table_col_max = config.getint(section, "table_col_max") if config.has_option(section, "table_col_max") else 60
+        dad.table_rows = cfg.getint(section, "table_rows") if cfg.has_option(section, "table_rows") else 3
+        dad.table_columns = cfg.getint(section, "table_columns") if cfg.has_option(section, "table_columns") else 3
+        dad.table_column_mode = cfg.get(section, "table_column_mode") if cfg.has_option(section, "table_column_mode") else "rename"
+        dad.table_col_min = cfg.getint(section, "table_col_min") if cfg.has_option(section, "table_col_min") else 40
+        dad.table_col_max = cfg.getint(section, "table_col_max") if cfg.has_option(section, "table_col_max") else 60
 
         section = "fonts"
-        dad.text_font = config.get(section, "text_font") if config.has_option(section, "text_font") else "Sans 9" # default text font
-        dad.tree_font = config.get(section, "tree_font") if config.has_option(section, "tree_font") else "Sans 8" # default tree font
-        dad.code_font = config.get(section, "code_font") if config.has_option(section, "code_font") else "Monospace 9" # default code font
+        dad.text_font = cfg.get(section, "text_font") if cfg.has_option(section, "text_font") else "Sans 9" # default text font
+        dad.tree_font = cfg.get(section, "tree_font") if cfg.has_option(section, "tree_font") else "Sans 8" # default tree font
+        dad.code_font = cfg.get(section, "code_font") if cfg.has_option(section, "code_font") else "Monospace 9" # default code font
 
         section = "colors"
-        dad.rt_def_fg = config.get(section, "rt_def_fg") if config.has_option(section, "rt_def_fg") else cons.RICH_TEXT_DARK_FG
-        dad.rt_def_bg = config.get(section, "rt_def_bg") if config.has_option(section, "rt_def_bg") else cons.RICH_TEXT_DARK_BG
-        dad.tt_def_fg = config.get(section, "tt_def_fg") if config.has_option(section, "tt_def_fg") else cons.TREE_TEXT_LIGHT_FG
-        dad.tt_def_bg = config.get(section, "tt_def_bg") if config.has_option(section, "tt_def_bg") else cons.TREE_TEXT_LIGHT_BG
-        if config.has_option(section, "palette_list"):
-            dad.palette_list = config.get(section, "palette_list").split(":")
+        dad.rt_def_fg = cfg.get(section, "rt_def_fg") if cfg.has_option(section, "rt_def_fg") else cons.RICH_TEXT_DARK_FG
+        dad.rt_def_bg = cfg.get(section, "rt_def_bg") if cfg.has_option(section, "rt_def_bg") else cons.RICH_TEXT_DARK_BG
+        dad.tt_def_fg = cfg.get(section, "tt_def_fg") if cfg.has_option(section, "tt_def_fg") else cons.TREE_TEXT_LIGHT_FG
+        dad.tt_def_bg = cfg.get(section, "tt_def_bg") if cfg.has_option(section, "tt_def_bg") else cons.TREE_TEXT_LIGHT_BG
+        if cfg.has_option(section, "palette_list"):
+            dad.palette_list = cfg.get(section, "palette_list").split(":")
         else: dad.palette_list = COLOR_PALETTE_DEFAULT
-        dad.col_link_webs = config.get(section, "col_link_webs") if config.has_option(section, "col_link_webs") else cons.COLOR_48_LINK_WEBS
-        dad.col_link_node = config.get(section, "col_link_node") if config.has_option(section, "col_link_node") else cons.COLOR_48_LINK_NODE
-        dad.col_link_file = config.get(section, "col_link_file") if config.has_option(section, "col_link_file") else cons.COLOR_48_LINK_FILE
-        dad.col_link_fold = config.get(section, "col_link_fold") if config.has_option(section, "col_link_fold") else cons.COLOR_48_LINK_FOLD
+        dad.col_link_webs = cfg.get(section, "col_link_webs") if cfg.has_option(section, "col_link_webs") else cons.COLOR_48_LINK_WEBS
+        dad.col_link_node = cfg.get(section, "col_link_node") if cfg.has_option(section, "col_link_node") else cons.COLOR_48_LINK_NODE
+        dad.col_link_file = cfg.get(section, "col_link_file") if cfg.has_option(section, "col_link_file") else cons.COLOR_48_LINK_FILE
+        dad.col_link_fold = cfg.get(section, "col_link_fold") if cfg.has_option(section, "col_link_fold") else cons.COLOR_48_LINK_FOLD
 
         section = "misc"
-        dad.toolbar_ui_vec = config.get(section, "toolbar_ui_vec").split(cons.CHAR_COMMA) if config.has_option(section, "toolbar_ui_vec") else TOOLBAR_VEC_DEFAULT
-        dad.systray = config.getboolean(section, "systray") if config.has_option(section, "systray") else False
-        dad.start_on_systray = config.getboolean(section, "start_on_systray") if config.has_option(section, "start_on_systray") else False
-        dad.use_appind = config.getboolean(section, "use_appind") if config.has_option(section, "use_appind") else False
-        if config.has_option(section, "autosave") and config.has_option(section, "autosave_val"):
-            dad.autosave = [config.getboolean(section, "autosave"), config.getint(section, "autosave_val")]
+        dad.toolbar_ui_vec = cfg.get(section, "toolbar_ui_vec").split(cons.CHAR_COMMA) if cfg.has_option(section, "toolbar_ui_vec") else TOOLBAR_VEC_DEFAULT
+        dad.systray = cfg.getboolean(section, "systray") if cfg.has_option(section, "systray") else False
+        dad.start_on_systray = cfg.getboolean(section, "start_on_systray") if cfg.has_option(section, "start_on_systray") else False
+        dad.use_appind = cfg.getboolean(section, "use_appind") if cfg.has_option(section, "use_appind") else False
+        if cfg.has_option(section, "autosave") and cfg.has_option(section, "autosave_val"):
+            dad.autosave = [cfg.getboolean(section, "autosave"), cfg.getint(section, "autosave_val")]
         else: dad.autosave = [False, 5]
-        dad.check_version = config.getboolean(section, "check_version") if config.has_option(section, "check_version") else False
-        dad.reload_doc_last = config.getboolean(section, "reload_doc_last") if config.has_option(section, "reload_doc_last") else True
-        dad.enable_mod_time_sentinel = config.getboolean(section, "mod_time_sent") if config.has_option(section, "mod_time_sent") else True
-        dad.backup_copy = config.getboolean(section, "backup_copy") if config.has_option(section, "backup_copy") else True
-        dad.backup_num = config.getint(section, "backup_num") if config.has_option(section, "backup_num") else 3
-        dad.autosave_on_quit = config.getboolean(section, "autosave_on_quit") if config.has_option(section, "autosave_on_quit") else False
-        dad.limit_undoable_steps = config.getint(section, "limit_undoable_steps") if config.has_option(section, "limit_undoable_steps") else 20
+        dad.check_version = cfg.getboolean(section, "check_version") if cfg.has_option(section, "check_version") else False
+        dad.reload_doc_last = cfg.getboolean(section, "reload_doc_last") if cfg.has_option(section, "reload_doc_last") else True
+        dad.enable_mod_time_sentinel = cfg.getboolean(section, "mod_time_sent") if cfg.has_option(section, "mod_time_sent") else True
+        dad.backup_copy = cfg.getboolean(section, "backup_copy") if cfg.has_option(section, "backup_copy") else True
+        dad.backup_num = cfg.getint(section, "backup_num") if cfg.has_option(section, "backup_num") else 3
+        dad.autosave_on_quit = cfg.getboolean(section, "autosave_on_quit") if cfg.has_option(section, "autosave_on_quit") else False
+        dad.limit_undoable_steps = cfg.getint(section, "limit_undoable_steps") if cfg.has_option(section, "limit_undoable_steps") else 20
         #print "read", cons.CONFIG_PATH, "('%s', '%s')" % (dad.file_name, dad.file_dir)
+        section = "keyboard"
+        if cfg.has_section(section):
+            for option in cfg.options(section):
+                value = cfg.get(section, option).strip()
+                dad.custom_kb_shortcuts[option] = value if value else None
     else:
         dad.file_dir = ""
         dad.file_name = ""
@@ -366,25 +372,25 @@ def config_file_apply(dad):
 
 def config_file_save(dad):
     """Save the Preferences to Config File"""
-    config = ConfigParser.RawConfigParser()
+    cfg = ConfigParser.RawConfigParser()
 
     section = "state"
-    config.add_section(section)
-    config.set(section, "file_dir", dad.file_dir)
-    config.set(section, "file_name", dad.file_name)
-    config.set(section, "toolbar_visible", dad.toolbar_visible)
-    config.set(section, "win_is_maximized", dad.win_is_maximized)
+    cfg.add_section(section)
+    cfg.set(section, "file_dir", dad.file_dir)
+    cfg.set(section, "file_name", dad.file_name)
+    cfg.set(section, "toolbar_visible", dad.toolbar_visible)
+    cfg.set(section, "win_is_maximized", dad.win_is_maximized)
     dad.win_position = dad.window.get_position()
-    config.set(section, "win_position_x", dad.win_position[0])
-    config.set(section, "win_position_y", dad.win_position[1])
+    cfg.set(section, "win_position_x", dad.win_position[0])
+    cfg.set(section, "win_position_y", dad.win_position[1])
     if not dad.win_is_maximized:
         win_size = dad.window.get_size()
-        config.set(section, "win_size_w", win_size[0])
-        config.set(section, "win_size_h", win_size[1])
-    config.set(section, "hpaned_pos", dad.hpaned.get_property('position'))
+        cfg.set(section, "win_size_w", win_size[0])
+        cfg.set(section, "win_size_h", win_size[1])
+    cfg.set(section, "hpaned_pos", dad.hpaned.get_property('position'))
     if dad.curr_tree_iter:
-        config.set(section, "node_path", get_node_path_str_from_path(dad.treestore.get_path(dad.curr_tree_iter)))
-        config.set(section, "cursor_position", dad.curr_buffer.get_property(cons.STR_CURSOR_POSITION))
+        cfg.set(section, "node_path", get_node_path_str_from_path(dad.treestore.get_path(dad.curr_tree_iter)))
+        cfg.set(section, "cursor_position", dad.curr_buffer.get_property(cons.STR_CURSOR_POSITION))
     if dad.recent_docs:
         temp_recent_docs = []
         for i, element in enumerate(dad.recent_docs):
@@ -392,126 +398,132 @@ def config_file_save(dad):
             temp_recent_docs.append(base64.b64encode(element))
         str_recent_docs = cons.CHAR_SPACE.join(temp_recent_docs)
     else: str_recent_docs = ""
-    config.set(section, "recent_docs", str_recent_docs)
-    config.set(section, "pick_dir", dad.pick_dir)
-    config.set(section, "link_type", dad.link_type)
-    config.set(section, "show_node_name_label", dad.show_node_name_label)
-    config.set(section, "toolbar_icon_size", dad.toolbar_icon_size)
-    if dad.curr_colors['f']: config.set(section, "fg", dad.curr_colors['f'].to_string())
-    if dad.curr_colors['b']: config.set(section, "bg", dad.curr_colors['b'].to_string())
+    cfg.set(section, "recent_docs", str_recent_docs)
+    cfg.set(section, "pick_dir", dad.pick_dir)
+    cfg.set(section, "link_type", dad.link_type)
+    cfg.set(section, "show_node_name_label", dad.show_node_name_label)
+    cfg.set(section, "toolbar_icon_size", dad.toolbar_icon_size)
+    if dad.curr_colors['f']: cfg.set(section, "fg", dad.curr_colors['f'].to_string())
+    if dad.curr_colors['b']: cfg.set(section, "bg", dad.curr_colors['b'].to_string())
 
     section = "tree"
-    config.add_section(section)
-    config.set(section, "rest_exp_coll", dad.rest_exp_coll)
+    cfg.add_section(section)
+    cfg.set(section, "rest_exp_coll", dad.rest_exp_coll)
     if dad.rest_exp_coll == 0:
         get_tree_expanded_collapsed_string(dad)
-        config.set(section, "expanded_collapsed_string", dad.expanded_collapsed_string)
+        cfg.set(section, "expanded_collapsed_string", dad.expanded_collapsed_string)
     if dad.expcollnam1 and dad.expcollnam1 != dad.file_name:
-        config.set(section, "expcollnam1", dad.expcollnam1)
-        config.set(section, "expcollstr1", dad.expcollstr1)
-        config.set(section, "expcollsel1", dad.expcollsel1)
-        config.set(section, "expcollcur1", dad.expcollcur1)
+        cfg.set(section, "expcollnam1", dad.expcollnam1)
+        cfg.set(section, "expcollstr1", dad.expcollstr1)
+        cfg.set(section, "expcollsel1", dad.expcollsel1)
+        cfg.set(section, "expcollcur1", dad.expcollcur1)
     if dad.expcollnam2 and dad.expcollnam2 != dad.file_name:
-        config.set(section, "expcollnam2", dad.expcollnam2)
-        config.set(section, "expcollstr2", dad.expcollstr2)
-        config.set(section, "expcollsel2", dad.expcollsel2)
-        config.set(section, "expcollcur2", dad.expcollcur2)
+        cfg.set(section, "expcollnam2", dad.expcollnam2)
+        cfg.set(section, "expcollstr2", dad.expcollstr2)
+        cfg.set(section, "expcollsel2", dad.expcollsel2)
+        cfg.set(section, "expcollcur2", dad.expcollcur2)
     if dad.expcollnam3 and dad.expcollnam3 != dad.file_name:
-        config.set(section, "expcollnam3", dad.expcollnam3)
-        config.set(section, "expcollstr3", dad.expcollstr3)
-        config.set(section, "expcollsel3", dad.expcollsel3)
-        config.set(section, "expcollcur3", dad.expcollcur3)
-    config.set(section, "nodes_bookm_exp", dad.nodes_bookm_exp)
-    config.set(section, "nodes_icons", dad.nodes_icons)
-    config.set(section, "tree_right_side", dad.tree_right_side)
-    config.set(section, "cherry_wrap_width", dad.cherry_wrap_width)
+        cfg.set(section, "expcollnam3", dad.expcollnam3)
+        cfg.set(section, "expcollstr3", dad.expcollstr3)
+        cfg.set(section, "expcollsel3", dad.expcollsel3)
+        cfg.set(section, "expcollcur3", dad.expcollcur3)
+    cfg.set(section, "nodes_bookm_exp", dad.nodes_bookm_exp)
+    cfg.set(section, "nodes_icons", dad.nodes_icons)
+    cfg.set(section, "tree_right_side", dad.tree_right_side)
+    cfg.set(section, "cherry_wrap_width", dad.cherry_wrap_width)
 
     section = "editor"
-    config.add_section(section)
-    config.set(section, "syntax_highlighting", dad.syntax_highlighting)
-    config.set(section, "auto_syn_highl", dad.auto_syn_highl)
-    config.set(section, "style_scheme", dad.style_scheme)
-    config.set(section, "spell_check_lang", dad.spell_check_lang)
-    config.set(section, "enable_spell_check", dad.enable_spell_check)
-    config.set(section, "show_line_numbers", dad.show_line_numbers)
-    config.set(section, "spaces_instead_tabs", dad.spaces_instead_tabs)
-    config.set(section, "tabs_width", dad.tabs_width)
-    config.set(section, "anchor_size", dad.anchor_size)
-    config.set(section, "embfile_size", dad.embfile_size)
-    config.set(section, "line_wrapping", dad.line_wrapping)
-    config.set(section, "auto_smart_quotes", dad.auto_smart_quotes)
-    config.set(section, "wrapping_indent", dad.wrapping_indent)
-    config.set(section, "auto_indent", dad.auto_indent)
-    config.set(section, "rt_show_white_spaces", dad.rt_show_white_spaces)
-    config.set(section, "pt_show_white_spaces", dad.pt_show_white_spaces)
-    config.set(section, "rt_highl_curr_line", dad.rt_highl_curr_line)
-    config.set(section, "pt_highl_curr_line", dad.pt_highl_curr_line)
-    config.set(section, "space_around_lines", dad.space_around_lines)
-    config.set(section, "relative_wrapped_space", dad.relative_wrapped_space)
-    config.set(section, "h_rule", dad.h_rule)
-    config.set(section, "special_chars", dad.special_chars)
-    config.set(section, "selword_chars", dad.selword_chars)
-    config.set(section, "timestamp_format", dad.timestamp_format)
-    config.set(section, "links_underline", dad.links_underline)
-    config.set(section, "links_relative", dad.links_relative)
-    config.set(section, "weblink_custom_action", str(dad.weblink_custom_action[0])+dad.weblink_custom_action[1])
-    config.set(section, "filelink_custom_action", str(dad.filelink_custom_action[0])+dad.filelink_custom_action[1])
-    config.set(section, "folderlink_custom_action", str(dad.folderlink_custom_action[0])+dad.folderlink_custom_action[1])
+    cfg.add_section(section)
+    cfg.set(section, "syntax_highlighting", dad.syntax_highlighting)
+    cfg.set(section, "auto_syn_highl", dad.auto_syn_highl)
+    cfg.set(section, "style_scheme", dad.style_scheme)
+    cfg.set(section, "spell_check_lang", dad.spell_check_lang)
+    cfg.set(section, "enable_spell_check", dad.enable_spell_check)
+    cfg.set(section, "show_line_numbers", dad.show_line_numbers)
+    cfg.set(section, "spaces_instead_tabs", dad.spaces_instead_tabs)
+    cfg.set(section, "tabs_width", dad.tabs_width)
+    cfg.set(section, "anchor_size", dad.anchor_size)
+    cfg.set(section, "embfile_size", dad.embfile_size)
+    cfg.set(section, "line_wrapping", dad.line_wrapping)
+    cfg.set(section, "auto_smart_quotes", dad.auto_smart_quotes)
+    cfg.set(section, "wrapping_indent", dad.wrapping_indent)
+    cfg.set(section, "auto_indent", dad.auto_indent)
+    cfg.set(section, "rt_show_white_spaces", dad.rt_show_white_spaces)
+    cfg.set(section, "pt_show_white_spaces", dad.pt_show_white_spaces)
+    cfg.set(section, "rt_highl_curr_line", dad.rt_highl_curr_line)
+    cfg.set(section, "pt_highl_curr_line", dad.pt_highl_curr_line)
+    cfg.set(section, "space_around_lines", dad.space_around_lines)
+    cfg.set(section, "relative_wrapped_space", dad.relative_wrapped_space)
+    cfg.set(section, "h_rule", dad.h_rule)
+    cfg.set(section, "special_chars", dad.special_chars)
+    cfg.set(section, "selword_chars", dad.selword_chars)
+    cfg.set(section, "timestamp_format", dad.timestamp_format)
+    cfg.set(section, "links_underline", dad.links_underline)
+    cfg.set(section, "links_relative", dad.links_relative)
+    cfg.set(section, "weblink_custom_action", str(dad.weblink_custom_action[0])+dad.weblink_custom_action[1])
+    cfg.set(section, "filelink_custom_action", str(dad.filelink_custom_action[0])+dad.filelink_custom_action[1])
+    cfg.set(section, "folderlink_custom_action", str(dad.folderlink_custom_action[0])+dad.folderlink_custom_action[1])
 
     section = "codebox"
-    config.add_section(section)
-    config.set(section, "codebox_width", dad.codebox_width)
-    config.set(section, "codebox_height", dad.codebox_height)
-    config.set(section, "codebox_width_pixels", dad.codebox_width_pixels)
-    config.set(section, "codebox_line_num", dad.codebox_line_num)
-    config.set(section, "codebox_match_bra", dad.codebox_match_bra)
-    config.set(section, "codebox_syn_highl", dad.codebox_syn_highl)
-    config.set(section, "codebox_auto_resize", dad.codebox_auto_resize)
+    cfg.add_section(section)
+    cfg.set(section, "codebox_width", dad.codebox_width)
+    cfg.set(section, "codebox_height", dad.codebox_height)
+    cfg.set(section, "codebox_width_pixels", dad.codebox_width_pixels)
+    cfg.set(section, "codebox_line_num", dad.codebox_line_num)
+    cfg.set(section, "codebox_match_bra", dad.codebox_match_bra)
+    cfg.set(section, "codebox_syn_highl", dad.codebox_syn_highl)
+    cfg.set(section, "codebox_auto_resize", dad.codebox_auto_resize)
 
     section = "table"
-    config.add_section(section)
-    config.set(section, "table_rows", dad.table_rows)
-    config.set(section, "table_columns", dad.table_columns)
-    config.set(section, "table_column_mode", dad.table_column_mode)
-    config.set(section, "table_col_min", dad.table_col_min)
-    config.set(section, "table_col_max", dad.table_col_max)
+    cfg.add_section(section)
+    cfg.set(section, "table_rows", dad.table_rows)
+    cfg.set(section, "table_columns", dad.table_columns)
+    cfg.set(section, "table_column_mode", dad.table_column_mode)
+    cfg.set(section, "table_col_min", dad.table_col_min)
+    cfg.set(section, "table_col_max", dad.table_col_max)
 
     section = "fonts"
-    config.add_section(section)
-    config.set(section, "text_font", dad.text_font)
-    config.set(section, "tree_font", dad.tree_font)
-    config.set(section, "code_font", dad.code_font)
+    cfg.add_section(section)
+    cfg.set(section, "text_font", dad.text_font)
+    cfg.set(section, "tree_font", dad.tree_font)
+    cfg.set(section, "code_font", dad.code_font)
 
     section = "colors"
-    config.add_section(section)
-    config.set(section, "rt_def_fg", dad.rt_def_fg)
-    config.set(section, "rt_def_bg", dad.rt_def_bg)
-    config.set(section, "tt_def_fg", dad.tt_def_fg)
-    config.set(section, "tt_def_bg", dad.tt_def_bg)
-    config.set(section, "palette_list", ":".join(dad.palette_list))
-    config.set(section, "col_link_webs", dad.col_link_webs)
-    config.set(section, "col_link_node", dad.col_link_node)
-    config.set(section, "col_link_file", dad.col_link_file)
-    config.set(section, "col_link_fold", dad.col_link_fold)
+    cfg.add_section(section)
+    cfg.set(section, "rt_def_fg", dad.rt_def_fg)
+    cfg.set(section, "rt_def_bg", dad.rt_def_bg)
+    cfg.set(section, "tt_def_fg", dad.tt_def_fg)
+    cfg.set(section, "tt_def_bg", dad.tt_def_bg)
+    cfg.set(section, "palette_list", ":".join(dad.palette_list))
+    cfg.set(section, "col_link_webs", dad.col_link_webs)
+    cfg.set(section, "col_link_node", dad.col_link_node)
+    cfg.set(section, "col_link_file", dad.col_link_file)
+    cfg.set(section, "col_link_fold", dad.col_link_fold)
 
     section = "misc"
-    config.add_section(section)
-    config.set(section, "toolbar_ui_vec", cons.CHAR_COMMA.join(dad.toolbar_ui_vec))
-    config.set(section, "systray", dad.systray)
-    config.set(section, "start_on_systray", dad.start_on_systray)
-    config.set(section, "use_appind", dad.use_appind)
-    config.set(section, "autosave", dad.autosave[0])
-    config.set(section, "autosave_val", dad.autosave[1])
-    config.set(section, "check_version", dad.check_version)
-    config.set(section, "reload_doc_last", dad.reload_doc_last)
-    config.set(section, "mod_time_sent", dad.enable_mod_time_sentinel)
-    config.set(section, "backup_copy", dad.backup_copy)
-    config.set(section, "backup_num", dad.backup_num)
-    config.set(section, "autosave_on_quit", dad.autosave_on_quit)
-    config.set(section, "limit_undoable_steps", dad.limit_undoable_steps)
+    cfg.add_section(section)
+    cfg.set(section, "toolbar_ui_vec", cons.CHAR_COMMA.join(dad.toolbar_ui_vec))
+    cfg.set(section, "systray", dad.systray)
+    cfg.set(section, "start_on_systray", dad.start_on_systray)
+    cfg.set(section, "use_appind", dad.use_appind)
+    cfg.set(section, "autosave", dad.autosave[0])
+    cfg.set(section, "autosave_val", dad.autosave[1])
+    cfg.set(section, "check_version", dad.check_version)
+    cfg.set(section, "reload_doc_last", dad.reload_doc_last)
+    cfg.set(section, "mod_time_sent", dad.enable_mod_time_sentinel)
+    cfg.set(section, "backup_copy", dad.backup_copy)
+    cfg.set(section, "backup_num", dad.backup_num)
+    cfg.set(section, "autosave_on_quit", dad.autosave_on_quit)
+    cfg.set(section, "limit_undoable_steps", dad.limit_undoable_steps)
+
+    section = "keyboard"
+    cfg.add_section(section)
+    for option in dad.custom_kb_shortcuts.keys():
+        value = dad.custom_kb_shortcuts[option] if dad.custom_kb_shortcuts[option] else ""
+        cfg.set(section, option, value)
 
     with open(cons.CONFIG_PATH, 'wb') as configfile:
-        config.write(configfile)
+        cfg.write(configfile)
         #print "saved", cons.CONFIG_PATH, "('%s', '%s')" % (dad.file_name, dad.file_dir)
 
 def get_tree_expanded_collapsed_string(dad):
@@ -1616,10 +1628,10 @@ def preferences_tab_misc(dad, vbox_misc, pref_dialog):
     def on_checkbutton_systray_toggled(checkbutton):
         dad.systray = checkbutton.get_active()
         if dad.systray:
-            dad.ui.get_widget("/MenuBar/FileMenu/ExitApp").set_property(cons.STR_VISIBLE, True)
+            dad.ui.get_widget("/MenuBar/FileMenu/exit_app").set_property(cons.STR_VISIBLE, True)
             checkbutton_start_on_systray.set_sensitive(True)
         else:
-            dad.ui.get_widget("/MenuBar/FileMenu/ExitApp").set_property(cons.STR_VISIBLE, False)
+            dad.ui.get_widget("/MenuBar/FileMenu/exit_app").set_property(cons.STR_VISIBLE, False)
             checkbutton_start_on_systray.set_sensitive(False)
         if dad.systray:
             if not dad.use_appind:

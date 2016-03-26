@@ -26,18 +26,18 @@ def load_menudict(dad):
     """Loads the Menus Dictionary"""
     dad.menudict = {
 # sk = stock; sd = short description; kb = keyboard shortcut, dn = description, cb = callback
-"NewInstance": {"sk": "new-instance", "sd": _("New _Instance"), "kb": None, "dn": _("Start a New Instance of CherryTree"), "cb": dad.file_new},
-"OpenFile": {"sk": "gtk-open", "sd": _("_Open File"), "kb": "<control>O", "dn": _("Open a CherryTree Document"), "cb": dad.file_open},
-"Save": {"sk": "gtk-save", "sd": _("_Save"), "kb": "<control>S", "dn": _("Save File"), "cb": dad.file_save},
-"SaveAs": {"sk": "gtk-save-as", "sd": _("Save _As"), "kb": "<control><shift>S", "dn": _("Save File As"), "cb": dad.file_save_as},
-"OpenCfgFolder": {"sk": "gtk-directory", "sd": _("Open Preferences _Directory"), "kb": None, "dn": _("Open the Directory with Preferences Files"), "cb": dad.folder_cfg_open},
-"PrintPageSetup": {"sk": "gtk-print", "sd": _("Pa_ge Setup"), "kb": "<control><shift>P", "dn": _("Set up the Page for Printing"), "cb": dad.export_print_page_setup},
-"DoPrint": {"sk": "gtk-print", "sd": _("_Print"), "kb": "<control>P", "dn": _("Print"), "cb": dad.export_print},
-"QuitApp": {"sk": "quit-app", "sd": _("_Quit"), "kb": "<control>Q", "dn": _("Quit the Application"), "cb": dad.quit_application},
-"ExitApp": {"sk": "quit-app", "sd": _("_Exit CherryTree"), "kb": "<control><shift>Q", "dn": _("Exit from CherryTree"), "cb": dad.quit_application_totally},
-"PreferencesDlg": {"sk": "gtk-preferences", "sd": _("_Preferences"), "kb": "<control><alt>P", "dn": _("Preferences"), "cb": dad.dialog_preferences},
-"Undo": {"sk": "gtk-undo", "sd": _("_Undo"), "kb": "<control>Z", "dn": _("Undo Last Operation"), "cb": dad.requested_step_back},
-"Redo": {"sk": "gtk-redo", "sd": _("_Redo"), "kb": "<control>Y", "dn": _("Redo Previously Discarded Operation"), "cb": dad.requested_step_ahead},
+"ct_new_inst": {"sk": "new-instance", "sd": _("New _Instance"), "kb": None, "dn": _("Start a New Instance of CherryTree"), "cb": dad.file_new},
+"ct_open_file": {"sk": "gtk-open", "sd": _("_Open File"), "kb": "<control>O", "dn": _("Open a CherryTree Document"), "cb": dad.file_open},
+"ct_save": {"sk": "gtk-save", "sd": _("_Save"), "kb": "<control>S", "dn": _("Save File"), "cb": dad.file_save},
+"ct_save_as": {"sk": "gtk-save-as", "sd": _("Save _As"), "kb": "<control><shift>S", "dn": _("Save File As"), "cb": dad.file_save_as},
+"open_cfg_folder": {"sk": "gtk-directory", "sd": _("Open Preferences _Directory"), "kb": None, "dn": _("Open the Directory with Preferences Files"), "cb": dad.folder_cfg_open},
+"print_page_setup": {"sk": "gtk-print", "sd": _("Pa_ge Setup"), "kb": "<control><shift>P", "dn": _("Set up the Page for Printing"), "cb": dad.export_print_page_setup},
+"do_print": {"sk": "gtk-print", "sd": _("_Print"), "kb": "<control>P", "dn": _("Print"), "cb": dad.export_print},
+"quit_app": {"sk": "quit-app", "sd": _("_Quit"), "kb": "<control>Q", "dn": _("Quit the Application"), "cb": dad.quit_application},
+"exit_app": {"sk": "quit-app", "sd": _("_Exit CherryTree"), "kb": "<control><shift>Q", "dn": _("Exit from CherryTree"), "cb": dad.quit_application_totally},
+"preferences_dlg": {"sk": "gtk-preferences", "sd": _("_Preferences"), "kb": "<control><alt>P", "dn": _("Preferences"), "cb": dad.dialog_preferences},
+"act_undo": {"sk": "gtk-undo", "sd": _("_Undo"), "kb": "<control>Z", "dn": _("Undo Last Operation"), "cb": dad.requested_step_back},
+"act_redo": {"sk": "gtk-redo", "sd": _("_Redo"), "kb": "<control>Y", "dn": _("Redo Previously Discarded Operation"), "cb": dad.requested_step_ahead},
 "HandleImage": {"sk": "image_insert", "sd": _("Insert I_mage"), "kb": "<control><alt>I", "dn": _("Insert an Image"), "cb": dad.image_handle},
 "HandleTable": {"sk": "table_insert", "sd": _("Insert _Table"), "kb": "<control><alt>T", "dn": _("Insert a Table"), "cb": dad.table_handle},
 "HandleCodeBox": {"sk": "codebox_insert", "sd": _("Insert _CodeBox"), "kb": "<control><alt>C", "dn": _("Insert a CodeBox"), "cb": dad.codebox_handle},
@@ -64,7 +64,7 @@ def load_menudict(dad):
 "RemoveFormatting": {"sk": "format_text_clear", "sd": _("_Remove Formatting"), "kb": "<control><shift>R", "dn": _("Remove the Formatting from the Selected Text"), "cb": dad.remove_text_formatting},
 "ColorForeground": {"sk": "color_foreground", "sd": _("Text _Color Foreground"), "kb": "<shift><alt>F", "dn": _("Change the Color of the Selected Text Foreground"), "cb": dad.apply_tag_foreground},
 "ColorBackground": {"sk": "color_background", "sd": _("Text C_olor Background"), "kb": "<shift><alt>B", "dn": _("Change the Color of the Selected Text Background"), "cb": dad.apply_tag_background},
-"Bold": {"sk": "format-text-bold", "sd": _("Toggle _Bold Property"), "kb": "<control>B", "dn": _("Toggle Bold Property of the Selected Text"), "cb": dad.apply_tag_bold},
+"bold": {"sk": "format-text-bold", "sd": _("Toggle _Bold Property"), "kb": "<control>B", "dn": _("Toggle Bold Property of the Selected Text"), "cb": dad.apply_tag_bold},
 "Italic": {"sk": "format-text-italic", "sd": _("Toggle _Italic Property"), "kb": "<control>I", "dn": _("Toggle Italic Property of the Selected Text"), "cb": dad.apply_tag_italic},
 "Underline": {"sk": "format-text-underline", "sd": _("Toggle _Underline Property"), "kb": "<control>U", "dn": _("Toggle Underline Property of the Selected Text"), "cb": dad.apply_tag_underline},
 "Strikethrough": {"sk": "format-text-strikethrough", "sd": _("Toggle Stri_kethrough Property"), "kb": "<control>E", "dn": _("Toggle Strikethrough Property of the Selected Text"), "cb": dad.apply_tag_strikethrough},
@@ -125,7 +125,7 @@ def load_menudict(dad):
 "Fullscreen": {"sk": "gtk-fullscreen", "sd": _("_Full Screen On/Off"), "kb": "F11", "dn": _("Toggle Full Screen On/Off"), "cb": dad.fullscreen_toggle},
 "BookmarkNode": {"sk": "pin-add", "sd": _("Add to _Bookmarks"), "kb": "<control><shift>B", "dn": _("Add the Current Node to the Bookmarks List"), "cb": dad.bookmark_curr_node},
 "UnBookmarkNode": {"sk": "pin-remove", "sd": _("_Remove from Bookmarks"), "kb": "<control><alt>B", "dn": _("Remove the Current Node from the Bookmarks List"), "cb": dad.bookmark_curr_node_remove},
-"BookmarksHandle": {"sk": "gtk-edit", "sd": _("_Handle Bookmarks"), "kb": None, "dn": _("Handle the Bookmarks List"), "cb": dad.bookmarks_handle},
+"bookmarkshandle": {"sk": "gtk-edit", "sd": _("_Handle Bookmarks"), "kb": None, "dn": _("Handle the Bookmarks List"), "cb": dad.bookmarks_handle},
 "FromCherryTree": {"sk": "from_cherrytree", "sd": _("From _CherryTree File"), "kb": None, "dn": _("Add Nodes of a CherryTree File to the Current Tree"), "cb": dad.nodes_add_from_cherrytree_file},
 "FromTxtFile": {"sk": "from_txt", "sd": _("From _Plain Text File"), "kb": None, "dn": _("Add Node from a Plain Text File to the Current Tree"), "cb": dad.nodes_add_from_plain_text_file},
 "FromTxtFolder": {"sk": "from_txt", "sd": _("From _Folder of Plain Text Files"), "kb": None, "dn": _("Add Nodes from a Folder of Plain Text Files to the Current Tree"), "cb": dad.nodes_add_from_plain_text_folder},
@@ -199,7 +199,8 @@ def get_entries(dad):
 
 def get_menu_item_tuple(dad, name):
     subdict = dad.menudict[name]
-    return (subdict["sk"], subdict["sd"], subdict["kb"], subdict["dn"], subdict["cb"])
+    kb_shortcut = subdict["kb"] if not name in dad.custom_kb_shortcuts.keys() else dad.custom_kb_shortcuts[name]
+    return (subdict["sk"], subdict["sd"], kb_shortcut, subdict["dn"], subdict["cb"])
 
 def get_popup_menu_tree(dad):
     """Returns the Menu Entries Given the Class Instance"""
@@ -290,7 +291,7 @@ get_menu_item_tuple(dad, "RemoveFormatting"),
 (cons.TAG_SEPARATOR, None, None, None, None),
 get_menu_item_tuple(dad, "ColorForeground"),
 get_menu_item_tuple(dad, "ColorBackground"),
-get_menu_item_tuple(dad, "Bold"),
+get_menu_item_tuple(dad, "bold"),
 get_menu_item_tuple(dad, "Italic"),
 get_menu_item_tuple(dad, "Underline"),
 get_menu_item_tuple(dad, "Strikethrough"),
@@ -481,24 +482,24 @@ UI_INFO = """
 <ui>
   <menubar name='MenuBar'>
     <menu action='FileMenu'>
-      <menuitem action='NewInstance'/>
-      <menuitem action='OpenFile'/>
+      <menuitem action='ct_new_inst'/>
+      <menuitem action='ct_open_file'/>
       <separator/>
-      <menuitem action='Save'/>
-      <menuitem action='SaveAs'/>
+      <menuitem action='ct_save'/>
+      <menuitem action='ct_save_as'/>
       <separator/>
-      <menuitem action='PrintPageSetup'/>
-      <menuitem action='DoPrint'/>
+      <menuitem action='print_page_setup'/>
+      <menuitem action='do_print'/>
       <separator/>
-      <menuitem action='QuitApp'/>
-      <menuitem action='ExitApp'/>
+      <menuitem action='quit_app'/>
+      <menuitem action='exit_app'/>
     </menu>
 
     <menu action='EditMenu'>
-      <menuitem action='PreferencesDlg'/>
+      <menuitem action='preferences_dlg'/>
       <separator/>
-      <menuitem action='Undo'/>
-      <menuitem action='Redo'/>
+      <menuitem action='act_undo'/>
+      <menuitem action='act_redo'/>
       <separator/>
       <menuitem action='HandleImage'/>
       <menuitem action='HandleTable'/>
@@ -537,7 +538,7 @@ UI_INFO = """
       <separator/>
       <menuitem action='ColorForeground'/>
       <menuitem action='ColorBackground'/>
-      <menuitem action='Bold'/>
+      <menuitem action='bold'/>
       <menuitem action='Italic'/>
       <menuitem action='Underline'/>
       <menuitem action='Strikethrough'/>
@@ -595,7 +596,7 @@ UI_INFO = """
     </menu>
 
     <menu action='BookmarksMenu'>
-      <menuitem action='BookmarksHandle'/>
+      <menuitem action='bookmarkshandle'/>
     </menu>
 
     <menu action='ImportMenu'>
@@ -632,7 +633,7 @@ UI_INFO = """
       <separator/>
       <menuitem action='Help'/>
       <separator/>
-      <menuitem action='OpenCfgFolder'/>
+      <menuitem action='open_cfg_folder'/>
       <separator/>
       <menuitem action='About'/>
     </menu>
@@ -641,7 +642,7 @@ UI_INFO = """
   <popup name='SysTrayMenu'>
     <menuitem action='ShowHideMainWin'/>
     <separator/>
-    <menuitem action='ExitApp'/>
+    <menuitem action='exit_app'/>
   </popup>
 
   <popup name='ImageMenu'>

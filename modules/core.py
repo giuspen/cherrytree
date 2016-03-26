@@ -232,7 +232,7 @@ class CherryTree:
             if not self.boss.systray_active:
                 self.status_icon_enable()
             if self.start_on_systray: self.window.hide_all()
-        else: self.ui.get_widget("/MenuBar/FileMenu/ExitApp").set_property(cons.STR_VISIBLE, False)
+        else: self.ui.get_widget("/MenuBar/FileMenu/exit_app").set_property(cons.STR_VISIBLE, False)
         if self.check_version: self.check_for_newer_version()
 
     def on_button_progresstop_clicked(self, *args):
