@@ -193,8 +193,8 @@ def get_entries(dad):
     ("HelpMenu", None, _("_Help"))]
     for name in dad.menudict.keys():
         # name, stock id, label, accelerator, tooltip, callback
-        subdict = dad.menudict[name]
-        entries.append((name, subdict["sk"], subdict["sd"], subdict["kb"], subdict["dn"], subdict["cb"]))
+        mi_tuple = get_menu_item_tuple(dad, name)
+        entries.append((name, mi_tuple[0], mi_tuple[1], mi_tuple[2], mi_tuple[3], mi_tuple[4]))
     return entries
 
 def get_menu_item_tuple(dad, name):
