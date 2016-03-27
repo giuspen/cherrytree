@@ -38,94 +38,93 @@ def load_menudict(dad):
 "preferences_dlg": {"sk": "gtk-preferences", "sd": _("_Preferences"), "kb": "<control><alt>P", "dn": _("Preferences"), "cb": dad.dialog_preferences},
 "act_undo": {"sk": "gtk-undo", "sd": _("_Undo"), "kb": "<control>Z", "dn": _("Undo Last Operation"), "cb": dad.requested_step_back},
 "act_redo": {"sk": "gtk-redo", "sd": _("_Redo"), "kb": "<control>Y", "dn": _("Redo Previously Discarded Operation"), "cb": dad.requested_step_ahead},
-"HandleImage": {"sk": "image_insert", "sd": _("Insert I_mage"), "kb": "<control><alt>I", "dn": _("Insert an Image"), "cb": dad.image_handle},
-"HandleTable": {"sk": "table_insert", "sd": _("Insert _Table"), "kb": "<control><alt>T", "dn": _("Insert a Table"), "cb": dad.table_handle},
-"HandleCodeBox": {"sk": "codebox_insert", "sd": _("Insert _CodeBox"), "kb": "<control><alt>C", "dn": _("Insert a CodeBox"), "cb": dad.codebox_handle},
-"EmbFileInsert": {"sk": "file_icon", "sd": _("Insert _File"), "kb": "<control><alt>E", "dn": _("Insert File"), "cb": dad.embfile_insert},
-"HandleLink": {"sk": "link_handle", "sd": _("Insert/Edit _Link"), "kb": "<control>L", "dn": _("Insert a Link/Edit the Underlying Link"), "cb": dad.apply_tag_link},
-"HandleAnchor": {"sk": "anchor_insert", "sd": _("Insert _Anchor"), "kb": "<control><alt>A", "dn": _("Insert an Anchor"), "cb": dad.anchor_handle},
-"InsertTOC": {"sk": "index", "sd": _("Insert T_OC"), "kb": None, "dn": _("Insert Table of Contents"), "cb": dad.toc_insert},
-"Timestamp": {"sk": "timestamp", "sd": _("Insert Ti_mestamp"), "kb": "<control><alt>M", "dn": _("Insert Timestamp"), "cb": dad.timestamp_insert},
-"HorizontalRule": {"sk": "horizontal_rule", "sd": _("Insert _Horizontal Rule"), "kb": "<control>R", "dn": _("Insert Horizontal Rule"), "cb": dad.horizontal_rule_insert},
-"DownCase": {"sk": "case_lower", "sd": _("_Lower Case of Selection/Word"), "kb": "<control>W", "dn": _("Lower the Case of the Selection/the Underlying Word"), "cb": dad.text_selection_lower_case},
-"UpCase": {"sk": "case_upper", "sd": _("_Upper Case of Selection/Word"), "kb": "<control><shift>W", "dn": _("Upper the Case of the Selection/the Underlying Word"), "cb": dad.text_selection_upper_case},
-"ToggleCase": {"sk": "case_toggle", "sd": _("_Toggle Case of Selection/Word"), "kb": "<control>G", "dn": _("Toggle the Case of the Selection/the Underlying Word"), "cb": dad.text_selection_toggle_case},
-"EnaDisSpellCheck": {"sk": "gtk-spell-check", "sd": _("Enable/Disable _Spell Check"), "kb": "<control><alt>S", "dn": _("Toggle Enable/Disable Spell Check"), "cb": dad.toggle_ena_dis_spellcheck},
-"CutPlainText": {"sk": "edit-cut", "sd": _("Cu_t as Plain Text"), "kb": "<control><shift>X", "dn": _("Cut as Plain Text, Discard the Rich Text Formatting"), "cb": dad.cut_as_plain_text},
-"CopyPlainText": {"sk": "edit-copy", "sd": _("_Copy as Plain Text"), "kb": "<control><shift>C", "dn": _("Copy as Plain Text, Discard the Rich Text Formatting"), "cb": dad.copy_as_plain_text},
-"PastePlainText": {"sk": "edit-paste", "sd": _("_Paste as Plain Text"), "kb": "<control><shift>V", "dn": _("Paste as Plain Text, Discard the Rich Text Formatting"), "cb": dad.paste_as_plain_text},
-"CutRow": {"sk": "edit-cut", "sd": _("Cu_t Row"), "kb": "<shift><alt>X", "dn": _("Cut the Current Row/Selected Rows"), "cb": dad.text_row_cut},
-"CopyRow": {"sk": "edit-copy", "sd": _("_Copy Row"), "kb": "<shift><alt>C", "dn": _("Copy the Current Row/Selected Rows"), "cb": dad.text_row_copy},
-"DeleteRow": {"sk": "edit-delete", "sd": _("De_lete Row"), "kb": "<control>K", "dn": _("Delete the Current Row/Selected Rows"), "cb": dad.text_row_delete},
-"DuplicateRow": {"sk": "gtk-add", "sd": _("_Duplicate Row"), "kb": "<control>D", "dn": _("Duplicate the Current Row/Selection"), "cb": dad.text_row_selection_duplicate},
-"MoveRowUp": {"sk": "gtk-go-up", "sd": _("Move _Up Row"), "kb": "<alt>Up", "dn": _("Move Up the Current Row/Selected Rows"), "cb": dad.text_row_up},
-"MoveRowDown": {"sk": "gtk-go-down", "sd": _("Move _Down Row"), "kb": "<alt>Down", "dn": _("Move Down the Current Row/Selected Rows"), "cb": dad.text_row_down},
-"FormatLatest": {"sk": "format_text_latest", "sd": _("Format _Latest"), "kb": "F7", "dn": _("Memory of Latest Text Format Type"), "cb": dad.apply_tag_latest},
-"RemoveFormatting": {"sk": "format_text_clear", "sd": _("_Remove Formatting"), "kb": "<control><shift>R", "dn": _("Remove the Formatting from the Selected Text"), "cb": dad.remove_text_formatting},
-"ColorForeground": {"sk": "color_foreground", "sd": _("Text _Color Foreground"), "kb": "<shift><alt>F", "dn": _("Change the Color of the Selected Text Foreground"), "cb": dad.apply_tag_foreground},
-"ColorBackground": {"sk": "color_background", "sd": _("Text C_olor Background"), "kb": "<shift><alt>B", "dn": _("Change the Color of the Selected Text Background"), "cb": dad.apply_tag_background},
-"bold": {"sk": "format-text-bold", "sd": _("Toggle _Bold Property"), "kb": "<control>B", "dn": _("Toggle Bold Property of the Selected Text"), "cb": dad.apply_tag_bold},
-"Italic": {"sk": "format-text-italic", "sd": _("Toggle _Italic Property"), "kb": "<control>I", "dn": _("Toggle Italic Property of the Selected Text"), "cb": dad.apply_tag_italic},
-"Underline": {"sk": "format-text-underline", "sd": _("Toggle _Underline Property"), "kb": "<control>U", "dn": _("Toggle Underline Property of the Selected Text"), "cb": dad.apply_tag_underline},
-"Strikethrough": {"sk": "format-text-strikethrough", "sd": _("Toggle Stri_kethrough Property"), "kb": "<control>E", "dn": _("Toggle Strikethrough Property of the Selected Text"), "cb": dad.apply_tag_strikethrough},
-"H1": {"sk": "format-text-large", "sd": _("Toggle h_1 Property"), "kb": "<control>1", "dn": _("Toggle h1 Property of the Selected Text"), "cb": dad.apply_tag_h1},
-"H2": {"sk": "format-text-large2", "sd": _("Toggle h_2 Property"), "kb": "<control>2", "dn": _("Toggle h2 Property of the Selected Text"), "cb": dad.apply_tag_h2},
-"H3": {"sk": "format-text-large3", "sd": _("Toggle h_3 Property"), "kb": "<control>3", "dn": _("Toggle h3 Property of the Selected Text"), "cb": dad.apply_tag_h3},
-"Small": {"sk": "format-text-small", "sd": _("Toggle _Small Property"), "kb": "<control>0", "dn": _("Toggle Small Property of the Selected Text"), "cb": dad.apply_tag_small},
-"Superscript": {"sk": "format-text-superscript", "sd": _("Toggle Su_perscript Property"), "kb": None, "dn": _("Toggle Superscript Property of the Selected Text"), "cb": dad.apply_tag_superscript},
-"Subscript": {"sk": "format-text-subscript", "sd": _("Toggle Su_bscript Property"), "kb": None, "dn": _("Toggle Subscript Property of the Selected Text"), "cb": dad.apply_tag_subscript},
-"Monospace": {"sk": "format-text-monospace", "sd": _("Toggle _Monospace Property"), "kb": "<control>M", "dn": _("Toggle Monospace Property of the Selected Text"), "cb": dad.apply_tag_monospace},
-"BulletedList": {"sk": "list_bulleted", "sd": _("Set/Unset _Bulleted List"), "kb": "<control><alt>1", "dn": _("Set/Unset the Current Paragraph/Selection as a Bulleted List"), "cb": dad.list_bulleted_handler},
-"NumberedList": {"sk": "list_numbered", "sd": _("Set/Unset _Numbered List"), "kb": "<control><alt>2", "dn": _("Set/Unset the Current Paragraph/Selection as a Numbered List"), "cb": dad.list_numbered_handler},
-"ToDoList": {"sk": "list_todo", "sd": _("Set/Unset _To-Do List"), "kb": "<control><alt>3", "dn": _("Set/Unset the Current Paragraph/Selection as a To-Do List"), "cb": dad.list_todo_handler},
-"JustifyLeft": {"sk": "gtk-justify-left", "sd": _("Justify _Left"), "kb": None, "dn": _("Justify Left the Current Paragraph"), "cb": dad.apply_tag_justify_left},
-"JustifyCenter": {"sk": "gtk-justify-center", "sd": _("Justify _Center"), "kb": None, "dn": _("Justify Center the Current Paragraph"), "cb": dad.apply_tag_justify_center},
-"JustifyRight": {"sk": "gtk-justify-right", "sd": _("Justify _Right"), "kb": None, "dn": _("Justify Right the Current Paragraph"), "cb": dad.apply_tag_justify_right},
-"JustifyFill": {"sk": "gtk-justify-fill", "sd": _("Justify _Fill"), "kb": None, "dn": _("Justify Fill the Current Paragraph"), "cb": dad.apply_tag_justify_fill},
-"TreeAddNode": {"sk": "tree-node-add", "sd": _("Add _Node"), "kb": "<control>N", "dn": _("Add a Node having the same Father of the Selected Node"), "cb": dad.node_add},
-"TreeAddSubNode": {"sk": "tree-subnode-add", "sd": _("Add _SubNode"), "kb": "<control><shift>N", "dn": _("Add a Child Node to the Selected Node"), "cb": dad.node_child_add},
-"TreeDuplicateNode": {"sk": "tree-node-dupl", "sd": _("_Duplicate Node"), "kb": "<control><shift>D", "dn": _("Duplicate the Selected Node"), "cb": dad.node_duplicate},
-"NodeEdit": {"sk": "cherry_edit", "sd": _("Change Node _Properties"), "kb": "F2", "dn": _("Edit the Properties of the Selected Node"), "cb": dad.node_edit},
-"NodeToggleRO": {"sk": "cherry_edit", "sd": _("Toggle _Read Only"), "kb": "<Ctrl><Alt>R", "dn": _("Toggle the Read Only Property of the Selected Node"), "cb": dad.node_toggle_read_only},
-"NodeDate": {"sk": "calendar", "sd": _("Insert Today's Node"), "kb": "F8", "dn": _("Insert a Node with Hierarchy Year/Month/Day"), "cb": dad.node_date},
-"TreeInfo": {"sk": "gtk-info", "sd": _("Tree _Info"), "kb": None, "dn": _("Tree Summary Information"), "cb": dad.tree_info},
-"NodeUp": {"sk": "gtk-go-up", "sd": _("Node _Up"), "kb": "<shift>Up", "dn": _("Move the Selected Node Up"), "cb": dad.node_up},
-"NodeDown": {"sk": "gtk-go-down", "sd": _("Node _Down"), "kb": "<shift>Down", "dn": _("Move the Selected Node Down"), "cb": dad.node_down},
-"NodeLeft": {"sk": "gtk-go-back", "sd": _("Node _Left"), "kb": "<shift>Left", "dn": _("Move the Selected Node Left"), "cb": dad.node_left},
-"NodeNewFather": {"sk": "gtk-jump-to", "sd": _("Node Change _Father"), "kb": "<shift>Right", "dn": _("Change the Selected Node's Father"), "cb": dad.node_change_father},
-"TreeSortAsc": {"sk": "gtk-sort-ascending", "sd": _("Sort Tree _Ascending"), "kb": None, "dn": _("Sort the Tree Ascending"), "cb": dad.tree_sort_ascending},
-"TreeSortDesc": {"sk": "gtk-sort-descending", "sd": _("Sort Tree _Descending"), "kb": None, "dn": _("Sort the Tree Descending"), "cb": dad.tree_sort_descending},
-"SiblSortAsc": {"sk": "gtk-sort-ascending", "sd": _("Sort Siblings A_scending"), "kb": None, "dn": _("Sort all the Siblings of the Selected Node Ascending"), "cb": dad.node_siblings_sort_ascending},
-"SiblSortDesc": {"sk": "gtk-sort-descending", "sd": _("Sort Siblings D_escending"), "kb": None, "dn": _("Sort all the Siblings of the Selected Node Descending"), "cb": dad.node_siblings_sort_descending},
-"InheritSyntax": {"sk": "gtk-execute", "sd": _("_Inherit Syntax"), "kb": None, "dn": _("Change the Selected Node's Children Syntax Highlighting to the Father's Syntax Highlighting"), "cb": dad.node_inherit_syntax},
-"NodeDel": {"sk": "edit-delete", "sd": _("De_lete Node"), "kb": "Delete", "dn": _("Delete the Selected Node"), "cb": dad.node_delete},
-"GoBack": {"sk": "gtk-go-back", "sd": _("Go _Back"), "kb": "<alt>Left", "dn": _("Go to the Previous Visited Node"), "cb": dad.go_back},
-"GoForward": {"sk": "gtk-go-forward", "sd": _("Go _Forward"), "kb": "<alt>Right", "dn": _("Go to the Next Visited Node"), "cb": dad.go_forward},
-"FindInNode": {"sk": "find", "sd": _("_Find in Node Content"), "kb": "<control>F", "dn": _("Find into the Selected Node Content"), "cb": dad.find_in_selected_node},
-"FindInNodes": {"sk": "find", "sd": _("Find in _All Nodes Contents"), "kb": "<control><shift>F", "dn": _("Find into All the Tree Nodes Contents"), "cb": dad.find_in_all_nodes},
-"FindInSelNSub": {"sk": "find", "sd": _("Find in _Selected Node and Subnodes Contents"), "kb": "<control><alt>F", "dn": _("Find into the Selected Node and Subnodes Contents"), "cb": dad.find_in_sel_node_and_subnodes},
-"FindNode": {"sk": "find", "sd": _("Find in _Nodes Names and Tags"), "kb": "<control>T", "dn": _("Find in Nodes Names and Tags"), "cb": dad.find_a_node},
-"FindAgain": {"sk": "find_again", "sd": _("Find _Again"), "kb": "F3", "dn": _("Iterate the Last Find Operation"), "cb": dad.find_again},
-"FindBack": {"sk": "find_back", "sd": _("Find _Back"), "kb": "F4", "dn": _("Iterate the Last Find Operation in Opposite Direction"), "cb": dad.find_back},
-"ReplaceInNode": {"sk": "find_replace", "sd": _("_Replace in Node Content"), "kb": "<control>H", "dn": _("Replace into the Selected Node Content"), "cb": dad.replace_in_selected_node},
-"ReplaceInNodes": {"sk": "find_replace", "sd": _("Replace in _All Nodes Contents"), "kb": "<control><shift>H", "dn": _("Replace into All the Tree Nodes Contents"), "cb": dad.replace_in_all_nodes},
-"ReplaceInSelNSub": {"sk": "find_replace", "sd": _("Replace in _Selected Node and Subnodes Contents"), "kb": "<control><alt>H", "dn": _("Replace into the Selected Node and Subnodes Contents"), "cb": dad.replace_in_sel_node_and_subnodes},
-"ReplaceInNodesNames": {"sk": "find_replace", "sd": _("Replace in Nodes _Names"), "kb": "<control><shift>T", "dn": _("Replace in Nodes Names"), "cb": dad.replace_in_nodes_names},
-"ReplaceAgain": {"sk": "find_replace", "sd": _("Replace _Again"), "kb": "F6", "dn": _("Iterate the Last Replace Operation"), "cb": dad.replace_again},
-"ShowHideTree": {"sk": "cherries", "sd": _("Show/Hide _Tree"), "kb": "F9", "dn": _("Toggle Show/Hide Tree"), "cb": dad.toggle_show_hide_tree},
-"ShowHideToolbar": {"sk": "toolbar", "sd": _("Show/Hide Tool_bar"), "kb": None, "dn": _("Toggle Show/Hide Toolbar"), "cb": dad.toggle_show_hide_toolbar},
-"ShowHideNodeNameHeader": {"sk": "node_name_header", "sd": _("Show/Hide Node Name _Header"), "kb": None, "dn": _("Toggle Show/Hide Node Name Header"), "cb": dad.toggle_show_hide_node_name_header},
-"ShowAllMatchesDialog": {"sk": "find", "sd": _("Show _All Matches Dialog"), "kb": "<control><shift>A", "dn": _("Show Search All Matches Dialog"), "cb": dad.find_allmatchesdialog_restore},
-"ToggleTreeText": {"sk": "gtk-jump-to", "sd": _("Toggle _Focus Tree/Text"), "kb": "<control>Tab", "dn": _("Toggle Focus Between Tree and Text"), "cb": dad.toggle_tree_text},
-"ToggleNodeExpColl": {"sk": "gtk-zoom-in", "sd": _("Toggle Node _Expanded/Collapsed"), "kb": "<control><shift>J", "dn": _("Toggle Expanded/Collapsed Status of the Selected Node"), "cb": dad.toggle_tree_node_expanded_collapsed},
-"NodesExpAll": {"sk": "gtk-zoom-in", "sd": _("E_xpand All Nodes"), "kb": "<control><shift>E", "dn": _("Expand All the Tree Nodes"), "cb": dad.nodes_expand_all},
-"NodesCollAll": {"sk": "gtk-zoom-out", "sd": _("_Collapse All Nodes"), "kb": "<control><shift>L", "dn": _("Collapse All the Tree Nodes"), "cb": dad.nodes_collapse_all},
-"IncreaseToolbarIconsSize": {"sk": "gtk-add", "sd": _("_Increase Toolbar Icons Size"), "kb": None, "dn": _("Increase the Size of the Toolbar Icons"), "cb": dad.toolbar_icons_size_increase},
-"DecreaseToolbarIconsSize": {"sk": "gtk-remove", "sd": _("_Decrease Toolbar Icons Size"), "kb": None, "dn": _("Decrease the Size of the Toolbar Icons"), "cb": dad.toolbar_icons_size_decrease},
-"Fullscreen": {"sk": "gtk-fullscreen", "sd": _("_Full Screen On/Off"), "kb": "F11", "dn": _("Toggle Full Screen On/Off"), "cb": dad.fullscreen_toggle},
-"BookmarkNode": {"sk": "pin-add", "sd": _("Add to _Bookmarks"), "kb": "<control><shift>B", "dn": _("Add the Current Node to the Bookmarks List"), "cb": dad.bookmark_curr_node},
-"UnBookmarkNode": {"sk": "pin-remove", "sd": _("_Remove from Bookmarks"), "kb": "<control><alt>B", "dn": _("Remove the Current Node from the Bookmarks List"), "cb": dad.bookmark_curr_node_remove},
-"bookmarkshandle": {"sk": "gtk-edit", "sd": _("_Handle Bookmarks"), "kb": None, "dn": _("Handle the Bookmarks List"), "cb": dad.bookmarks_handle},
+"handle_image": {"sk": "image_insert", "sd": _("Insert I_mage"), "kb": "<control><alt>I", "dn": _("Insert an Image"), "cb": dad.image_handle},
+"handle_table": {"sk": "table_insert", "sd": _("Insert _Table"), "kb": "<control><alt>T", "dn": _("Insert a Table"), "cb": dad.table_handle},
+"handle_codebox": {"sk": "codebox_insert", "sd": _("Insert _CodeBox"), "kb": "<control><alt>C", "dn": _("Insert a CodeBox"), "cb": dad.codebox_handle},
+"handle_embfile": {"sk": "file_icon", "sd": _("Insert _File"), "kb": "<control><alt>E", "dn": _("Insert File"), "cb": dad.embfile_insert},
+"handle_link": {"sk": "link_handle", "sd": _("Insert/Edit _Link"), "kb": "<control>L", "dn": _("Insert a Link/Edit the Underlying Link"), "cb": dad.apply_tag_link},
+"handle_anchor": {"sk": "anchor_insert", "sd": _("Insert _Anchor"), "kb": "<control><alt>A", "dn": _("Insert an Anchor"), "cb": dad.anchor_handle},
+"insert_toc": {"sk": "index", "sd": _("Insert T_OC"), "kb": None, "dn": _("Insert Table of Contents"), "cb": dad.toc_insert},
+"insert_timestamp": {"sk": "timestamp", "sd": _("Insert Ti_mestamp"), "kb": "<control><alt>M", "dn": _("Insert Timestamp"), "cb": dad.timestamp_insert},
+"insert_horiz_rule": {"sk": "horizontal_rule", "sd": _("Insert _Horizontal Rule"), "kb": "<control>R", "dn": _("Insert Horizontal Rule"), "cb": dad.horizontal_rule_insert},
+"case_down": {"sk": "case_lower", "sd": _("_Lower Case of Selection/Word"), "kb": "<control>W", "dn": _("Lower the Case of the Selection/the Underlying Word"), "cb": dad.text_selection_lower_case},
+"case_up": {"sk": "case_upper", "sd": _("_Upper Case of Selection/Word"), "kb": "<control><shift>W", "dn": _("Upper the Case of the Selection/the Underlying Word"), "cb": dad.text_selection_upper_case},
+"case_toggle": {"sk": "case_toggle", "sd": _("_Toggle Case of Selection/Word"), "kb": "<control>G", "dn": _("Toggle the Case of the Selection/the Underlying Word"), "cb": dad.text_selection_toggle_case},
+"spellcheck_toggle": {"sk": "gtk-spell-check", "sd": _("Enable/Disable _Spell Check"), "kb": "<control><alt>S", "dn": _("Toggle Enable/Disable Spell Check"), "cb": dad.toggle_ena_dis_spellcheck},
+"cut_plain": {"sk": "edit-cut", "sd": _("Cu_t as Plain Text"), "kb": "<control><shift>X", "dn": _("Cut as Plain Text, Discard the Rich Text Formatting"), "cb": dad.cut_as_plain_text},
+"copy_plain": {"sk": "edit-copy", "sd": _("_Copy as Plain Text"), "kb": "<control><shift>C", "dn": _("Copy as Plain Text, Discard the Rich Text Formatting"), "cb": dad.copy_as_plain_text},
+"paste_plain": {"sk": "edit-paste", "sd": _("_Paste as Plain Text"), "kb": "<control><shift>V", "dn": _("Paste as Plain Text, Discard the Rich Text Formatting"), "cb": dad.paste_as_plain_text},
+"cut_row": {"sk": "edit-cut", "sd": _("Cu_t Row"), "kb": "<shift><alt>X", "dn": _("Cut the Current Row/Selected Rows"), "cb": dad.text_row_cut},
+"copy_row": {"sk": "edit-copy", "sd": _("_Copy Row"), "kb": "<shift><alt>C", "dn": _("Copy the Current Row/Selected Rows"), "cb": dad.text_row_copy},
+"del_row": {"sk": "edit-delete", "sd": _("De_lete Row"), "kb": "<control>K", "dn": _("Delete the Current Row/Selected Rows"), "cb": dad.text_row_delete},
+"dup_row": {"sk": "gtk-add", "sd": _("_Duplicate Row"), "kb": "<control>D", "dn": _("Duplicate the Current Row/Selection"), "cb": dad.text_row_selection_duplicate},
+"mv_up_row": {"sk": "gtk-go-up", "sd": _("Move _Up Row"), "kb": "<alt>Up", "dn": _("Move Up the Current Row/Selected Rows"), "cb": dad.text_row_up},
+"mv_down_row": {"sk": "gtk-go-down", "sd": _("Move _Down Row"), "kb": "<alt>Down", "dn": _("Move Down the Current Row/Selected Rows"), "cb": dad.text_row_down},
+"fmt_latest": {"sk": "format_text_latest", "sd": _("Format _Latest"), "kb": "F7", "dn": _("Memory of Latest Text Format Type"), "cb": dad.apply_tag_latest},
+"fmt_rm": {"sk": "format_text_clear", "sd": _("_Remove Formatting"), "kb": "<control><shift>R", "dn": _("Remove the Formatting from the Selected Text"), "cb": dad.remove_text_formatting},
+"fmt_color_fg": {"sk": "color_foreground", "sd": _("Text _Color Foreground"), "kb": "<shift><alt>F", "dn": _("Change the Color of the Selected Text Foreground"), "cb": dad.apply_tag_foreground},
+"fmt_color_bg": {"sk": "color_background", "sd": _("Text C_olor Background"), "kb": "<shift><alt>B", "dn": _("Change the Color of the Selected Text Background"), "cb": dad.apply_tag_background},
+"fmt_bold": {"sk": "format-text-bold", "sd": _("Toggle _Bold Property"), "kb": "<control>B", "dn": _("Toggle Bold Property of the Selected Text"), "cb": dad.apply_tag_bold},
+"fmt_italic": {"sk": "format-text-italic", "sd": _("Toggle _Italic Property"), "kb": "<control>I", "dn": _("Toggle Italic Property of the Selected Text"), "cb": dad.apply_tag_italic},
+"fmt_underline": {"sk": "format-text-underline", "sd": _("Toggle _Underline Property"), "kb": "<control>U", "dn": _("Toggle Underline Property of the Selected Text"), "cb": dad.apply_tag_underline},
+"fmt_strikethrough": {"sk": "format-text-strikethrough", "sd": _("Toggle Stri_kethrough Property"), "kb": "<control>E", "dn": _("Toggle Strikethrough Property of the Selected Text"), "cb": dad.apply_tag_strikethrough},
+"fmt_h1": {"sk": "format-text-large", "sd": _("Toggle h_1 Property"), "kb": "<control>1", "dn": _("Toggle h1 Property of the Selected Text"), "cb": dad.apply_tag_h1},
+"fmt_h2": {"sk": "format-text-large2", "sd": _("Toggle h_2 Property"), "kb": "<control>2", "dn": _("Toggle h2 Property of the Selected Text"), "cb": dad.apply_tag_h2},
+"fmt_h3": {"sk": "format-text-large3", "sd": _("Toggle h_3 Property"), "kb": "<control>3", "dn": _("Toggle h3 Property of the Selected Text"), "cb": dad.apply_tag_h3},
+"fmt_small": {"sk": "format-text-small", "sd": _("Toggle _Small Property"), "kb": "<control>0", "dn": _("Toggle Small Property of the Selected Text"), "cb": dad.apply_tag_small},
+"fmt_superscript": {"sk": "format-text-superscript", "sd": _("Toggle Su_perscript Property"), "kb": None, "dn": _("Toggle Superscript Property of the Selected Text"), "cb": dad.apply_tag_superscript},
+"fmt_subscript": {"sk": "format-text-subscript", "sd": _("Toggle Su_bscript Property"), "kb": None, "dn": _("Toggle Subscript Property of the Selected Text"), "cb": dad.apply_tag_subscript},
+"fmt_monospace": {"sk": "format-text-monospace", "sd": _("Toggle _Monospace Property"), "kb": "<control>M", "dn": _("Toggle Monospace Property of the Selected Text"), "cb": dad.apply_tag_monospace},
+"handle_bull_list": {"sk": "list_bulleted", "sd": _("Set/Unset _Bulleted List"), "kb": "<control><alt>1", "dn": _("Set/Unset the Current Paragraph/Selection as a Bulleted List"), "cb": dad.list_bulleted_handler},
+"handle_num_list": {"sk": "list_numbered", "sd": _("Set/Unset _Numbered List"), "kb": "<control><alt>2", "dn": _("Set/Unset the Current Paragraph/Selection as a Numbered List"), "cb": dad.list_numbered_handler},
+"handle_todo_list": {"sk": "list_todo", "sd": _("Set/Unset _To-Do List"), "kb": "<control><alt>3", "dn": _("Set/Unset the Current Paragraph/Selection as a To-Do List"), "cb": dad.list_todo_handler},
+"fmt_justify_left": {"sk": "gtk-justify-left", "sd": _("Justify _Left"), "kb": None, "dn": _("Justify Left the Current Paragraph"), "cb": dad.apply_tag_justify_left},
+"fmt_justify_center": {"sk": "gtk-justify-center", "sd": _("Justify _Center"), "kb": None, "dn": _("Justify Center the Current Paragraph"), "cb": dad.apply_tag_justify_center},
+"fmt_justify_right": {"sk": "gtk-justify-right", "sd": _("Justify _Right"), "kb": None, "dn": _("Justify Right the Current Paragraph"), "cb": dad.apply_tag_justify_right},
+"fmt_justify_fill": {"sk": "gtk-justify-fill", "sd": _("Justify _Fill"), "kb": None, "dn": _("Justify Fill the Current Paragraph"), "cb": dad.apply_tag_justify_fill},
+"tree_add_node": {"sk": "tree-node-add", "sd": _("Add _Node"), "kb": "<control>N", "dn": _("Add a Node having the same Father of the Selected Node"), "cb": dad.node_add},
+"tree_add_subnode": {"sk": "tree-subnode-add", "sd": _("Add _SubNode"), "kb": "<control><shift>N", "dn": _("Add a Child Node to the Selected Node"), "cb": dad.node_child_add},
+"tree_dup_node": {"sk": "tree-node-dupl", "sd": _("_Duplicate Node"), "kb": "<control><shift>D", "dn": _("Duplicate the Selected Node"), "cb": dad.node_duplicate},
+"tree_node_prop": {"sk": "cherry_edit", "sd": _("Change Node _Properties"), "kb": "F2", "dn": _("Edit the Properties of the Selected Node"), "cb": dad.node_edit},
+"tree_node_ro": {"sk": "cherry_edit", "sd": _("Toggle _Read Only"), "kb": "<Ctrl><Alt>R", "dn": _("Toggle the Read Only Property of the Selected Node"), "cb": dad.node_toggle_read_only},
+"tree_node_date": {"sk": "calendar", "sd": _("Insert Today's Node"), "kb": "F8", "dn": _("Insert a Node with Hierarchy Year/Month/Day"), "cb": dad.node_date},
+"tree_parse_info": {"sk": "gtk-info", "sd": _("Tree _Info"), "kb": None, "dn": _("Tree Summary Information"), "cb": dad.tree_info},
+"tree_node_up": {"sk": "gtk-go-up", "sd": _("Node _Up"), "kb": "<shift>Up", "dn": _("Move the Selected Node Up"), "cb": dad.node_up},
+"tree_node_down": {"sk": "gtk-go-down", "sd": _("Node _Down"), "kb": "<shift>Down", "dn": _("Move the Selected Node Down"), "cb": dad.node_down},
+"tree_node_left": {"sk": "gtk-go-back", "sd": _("Node _Left"), "kb": "<shift>Left", "dn": _("Move the Selected Node Left"), "cb": dad.node_left},
+"tree_node_new_father": {"sk": "gtk-jump-to", "sd": _("Node Change _Father"), "kb": "<shift>Right", "dn": _("Change the Selected Node's Father"), "cb": dad.node_change_father},
+"tree_all_sort_asc": {"sk": "gtk-sort-ascending", "sd": _("Sort Tree _Ascending"), "kb": None, "dn": _("Sort the Tree Ascending"), "cb": dad.tree_sort_ascending},
+"tree_all_sort_desc": {"sk": "gtk-sort-descending", "sd": _("Sort Tree _Descending"), "kb": None, "dn": _("Sort the Tree Descending"), "cb": dad.tree_sort_descending},
+"tree_sibl_sort_asc": {"sk": "gtk-sort-ascending", "sd": _("Sort Siblings A_scending"), "kb": None, "dn": _("Sort all the Siblings of the Selected Node Ascending"), "cb": dad.node_siblings_sort_ascending},
+"tree_sibl_sort_desc": {"sk": "gtk-sort-descending", "sd": _("Sort Siblings D_escending"), "kb": None, "dn": _("Sort all the Siblings of the Selected Node Descending"), "cb": dad.node_siblings_sort_descending},
+"child_nodes_inherit_syntax": {"sk": "gtk-execute", "sd": _("_Inherit Syntax"), "kb": None, "dn": _("Change the Selected Node's Children Syntax Highlighting to the Father's Syntax Highlighting"), "cb": dad.node_inherit_syntax},
+"tree_node_del": {"sk": "edit-delete", "sd": _("De_lete Node"), "kb": "Delete", "dn": _("Delete the Selected Node"), "cb": dad.node_delete},
+"go_node_prev": {"sk": "gtk-go-back", "sd": _("Go _Back"), "kb": "<alt>Left", "dn": _("Go to the Previous Visited Node"), "cb": dad.go_back},
+"go_node_next": {"sk": "gtk-go-forward", "sd": _("Go _Forward"), "kb": "<alt>Right", "dn": _("Go to the Next Visited Node"), "cb": dad.go_forward},
+"find_in_node": {"sk": "find", "sd": _("_Find in Node Content"), "kb": "<control>F", "dn": _("Find into the Selected Node Content"), "cb": dad.find_in_selected_node},
+"find_in_allnodes": {"sk": "find", "sd": _("Find in _All Nodes Contents"), "kb": "<control><shift>F", "dn": _("Find into All the Tree Nodes Contents"), "cb": dad.find_in_all_nodes},
+"find_in_node_n_sub": {"sk": "find", "sd": _("Find in _Selected Node and Subnodes Contents"), "kb": "<control><alt>F", "dn": _("Find into the Selected Node and Subnodes Contents"), "cb": dad.find_in_sel_node_and_subnodes},
+"find_in_node_names": {"sk": "find", "sd": _("Find in _Nodes Names and Tags"), "kb": "<control>T", "dn": _("Find in Nodes Names and Tags"), "cb": dad.find_a_node},
+"find_again": {"sk": "find_again", "sd": _("Find _Again"), "kb": "F3", "dn": _("Iterate the Last Find Operation"), "cb": dad.find_again},
+"find_back": {"sk": "find_back", "sd": _("Find _Back"), "kb": "F4", "dn": _("Iterate the Last Find Operation in Opposite Direction"), "cb": dad.find_back},
+"replace_in_node": {"sk": "find_replace", "sd": _("_Replace in Node Content"), "kb": "<control>H", "dn": _("Replace into the Selected Node Content"), "cb": dad.replace_in_selected_node},
+"replace_in_allnodes": {"sk": "find_replace", "sd": _("Replace in _All Nodes Contents"), "kb": "<control><shift>H", "dn": _("Replace into All the Tree Nodes Contents"), "cb": dad.replace_in_all_nodes},
+"replace_in_node_n_sub": {"sk": "find_replace", "sd": _("Replace in _Selected Node and Subnodes Contents"), "kb": "<control><alt>H", "dn": _("Replace into the Selected Node and Subnodes Contents"), "cb": dad.replace_in_sel_node_and_subnodes},
+"replace_in_node_names": {"sk": "find_replace", "sd": _("Replace in Nodes _Names"), "kb": "<control><shift>T", "dn": _("Replace in Nodes Names"), "cb": dad.replace_in_nodes_names},
+"replace_again": {"sk": "find_replace", "sd": _("Replace _Again"), "kb": "F6", "dn": _("Iterate the Last Replace Operation"), "cb": dad.replace_again},
+"toggle_show_tree": {"sk": "cherries", "sd": _("Show/Hide _Tree"), "kb": "F9", "dn": _("Toggle Show/Hide Tree"), "cb": dad.toggle_show_hide_tree},
+"toggle_show_toolbar": {"sk": "toolbar", "sd": _("Show/Hide Tool_bar"), "kb": None, "dn": _("Toggle Show/Hide Toolbar"), "cb": dad.toggle_show_hide_toolbar},
+"toggle_show_node_name_head": {"sk": "node_name_header", "sd": _("Show/Hide Node Name _Header"), "kb": None, "dn": _("Toggle Show/Hide Node Name Header"), "cb": dad.toggle_show_hide_node_name_header},
+"toggle_show_allmatches_dlg": {"sk": "find", "sd": _("Show _All Matches Dialog"), "kb": "<control><shift>A", "dn": _("Show Search All Matches Dialog"), "cb": dad.find_allmatchesdialog_restore},
+"toggle_focus_tree_text": {"sk": "gtk-jump-to", "sd": _("Toggle _Focus Tree/Text"), "kb": "<control>Tab", "dn": _("Toggle Focus Between Tree and Text"), "cb": dad.toggle_tree_text},
+"nodes_all_expand": {"sk": "gtk-zoom-in", "sd": _("E_xpand All Nodes"), "kb": "<control><shift>E", "dn": _("Expand All the Tree Nodes"), "cb": dad.nodes_expand_all},
+"nodes_all_collapse": {"sk": "gtk-zoom-out", "sd": _("_Collapse All Nodes"), "kb": "<control><shift>L", "dn": _("Collapse All the Tree Nodes"), "cb": dad.nodes_collapse_all},
+"toolbar_icons_size_p": {"sk": "gtk-add", "sd": _("_Increase Toolbar Icons Size"), "kb": None, "dn": _("Increase the Size of the Toolbar Icons"), "cb": dad.toolbar_icons_size_increase},
+"toolbar_icons_size_m": {"sk": "gtk-remove", "sd": _("_Decrease Toolbar Icons Size"), "kb": None, "dn": _("Decrease the Size of the Toolbar Icons"), "cb": dad.toolbar_icons_size_decrease},
+"toggle_fullscreen": {"sk": "gtk-fullscreen", "sd": _("_Full Screen On/Off"), "kb": "F11", "dn": _("Toggle Full Screen On/Off"), "cb": dad.fullscreen_toggle},
+"node_bookmark": {"sk": "pin-add", "sd": _("Add to _Bookmarks"), "kb": "<control><shift>B", "dn": _("Add the Current Node to the Bookmarks List"), "cb": dad.bookmark_curr_node},
+"node_unbookmark": {"sk": "pin-remove", "sd": _("_Remove from Bookmarks"), "kb": "<control><alt>B", "dn": _("Remove the Current Node from the Bookmarks List"), "cb": dad.bookmark_curr_node_remove},
+"handle_bookmarks": {"sk": "gtk-edit", "sd": _("_Handle Bookmarks"), "kb": None, "dn": _("Handle the Bookmarks List"), "cb": dad.bookmarks_handle},
 "FromCherryTree": {"sk": "from_cherrytree", "sd": _("From _CherryTree File"), "kb": None, "dn": _("Add Nodes of a CherryTree File to the Current Tree"), "cb": dad.nodes_add_from_cherrytree_file},
 "FromTxtFile": {"sk": "from_txt", "sd": _("From _Plain Text File"), "kb": None, "dn": _("Add Node from a Plain Text File to the Current Tree"), "cb": dad.nodes_add_from_plain_text_file},
 "FromTxtFolder": {"sk": "from_txt", "sd": _("From _Folder of Plain Text Files"), "kb": None, "dn": _("Add Nodes from a Folder of Plain Text Files to the Current Tree"), "cb": dad.nodes_add_from_plain_text_folder},
@@ -161,15 +160,15 @@ def load_menudict(dad):
 "DeleteEmbFile": {"sk": "edit-delete", "sd": _("_Delete Embedded File"), "kb": None, "dn": _("Delete the Selected Embedded File"), "cb": dad.embfile_delete},
 "EmbFileSave": {"sk": "gtk-save-as", "sd": _("Save _As"), "kb": None, "dn": _("Save File As"), "cb": dad.embfile_save},
 "EmbFileOpen": {"sk": "gtk-open", "sd": _("_Open File"), "kb": None, "dn": _("Open Embedded File"), "cb": dad.embfile_open},
-"SaveImage": {"sk": "image_save", "sd": _("_Save Image as PNG"), "kb": None, "dn": _("Save the Selected Image as a PNG file"), "cb": dad.image_save},
-"EditImage": {"sk": "image_edit", "sd": _("_Edit Image"), "kb": None, "dn": _("Edit the Selected Image"), "cb": dad.image_edit},
-"CutImage": {"sk": "edit-cut", "sd": _("C_ut Image"), "kb": None, "dn": _("Cut the Selected Image"), "cb": dad.image_cut},
-"CopyImage": {"sk": "edit-copy", "sd": _("_Copy Image"), "kb": None, "dn": _("Copy the Selected Image"), "cb": dad.image_copy},
-"DeleteImage": {"sk": "edit-delete", "sd": _("_Delete Image"), "kb": None, "dn": _("Delete the Selected Image"), "cb": dad.image_delete},
-"EditImageLink": {"sk": "link_handle", "sd": _("Edit _Link"), "kb": None, "dn": _("Edit the Link Associated to the Image"), "cb": dad.image_link_edit},
-"DismissImageLink": {"sk": "gtk-clear", "sd": _("D_ismiss Link"), "kb": None, "dn": _("Dismiss the Link Associated to the Image"), "cb": dad.image_link_dismiss},
-"ShowHideMainWin": {"sk": cons.APP_NAME, "sd": _("Show/Hide _CherryTree"), "kb": None, "dn": _("Toggle Show/Hide CherryTree"), "cb": dad.toggle_show_hide_main_window},
-"StripTrailSpace": {"sk": "gtk-clear", "sd": _("Stri_p Trailing Spaces"), "kb": None, "dn": _("Strip Trailing Spaces"), "cb": dad.strip_trailing_spaces},
+"img_save": {"sk": "image_save", "sd": _("_Save Image as PNG"), "kb": None, "dn": _("Save the Selected Image as a PNG file"), "cb": dad.image_save},
+"img_edit": {"sk": "image_edit", "sd": _("_Edit Image"), "kb": None, "dn": _("Edit the Selected Image"), "cb": dad.image_edit},
+"img_cut": {"sk": "edit-cut", "sd": _("C_ut Image"), "kb": None, "dn": _("Cut the Selected Image"), "cb": dad.image_cut},
+"img_copy": {"sk": "edit-copy", "sd": _("_Copy Image"), "kb": None, "dn": _("Copy the Selected Image"), "cb": dad.image_copy},
+"img_del": {"sk": "edit-delete", "sd": _("_Delete Image"), "kb": None, "dn": _("Delete the Selected Image"), "cb": dad.image_delete},
+"img_link_edit": {"sk": "link_handle", "sd": _("Edit _Link"), "kb": None, "dn": _("Edit the Link Associated to the Image"), "cb": dad.image_link_edit},
+"img_link_dismiss": {"sk": "gtk-clear", "sd": _("D_ismiss Link"), "kb": None, "dn": _("Dismiss the Link Associated to the Image"), "cb": dad.image_link_dismiss},
+"toggle_show_mainwin": {"sk": cons.APP_NAME, "sd": _("Show/Hide _CherryTree"), "kb": None, "dn": _("Toggle Show/Hide CherryTree"), "cb": dad.toggle_show_hide_main_window},
+"strip_trail_spaces": {"sk": "gtk-clear", "sd": _("Stri_p Trailing Spaces"), "kb": None, "dn": _("Strip Trailing Spaces"), "cb": dad.strip_trailing_spaces},
 }
 
 def get_entries(dad):
@@ -209,33 +208,33 @@ def get_popup_menu_tree(dad):
     # "submenu-start", label, stock id, None, None |
     # "submenu-end", None, None, None, None
     return [
-get_menu_item_tuple(dad, "TreeAddNode"),
-get_menu_item_tuple(dad, "TreeAddSubNode"),
-get_menu_item_tuple(dad, "TreeDuplicateNode"),
+get_menu_item_tuple(dad, "tree_add_node"),
+get_menu_item_tuple(dad, "tree_add_subnode"),
+get_menu_item_tuple(dad, "tree_dup_node"),
 (cons.TAG_SEPARATOR, None, None, None, None),
-get_menu_item_tuple(dad, "NodeEdit"),
-get_menu_item_tuple(dad, "NodeToggleRO"),
-get_menu_item_tuple(dad, "BookmarkNode"),
-get_menu_item_tuple(dad, "UnBookmarkNode"),
-get_menu_item_tuple(dad, "NodeDate"),
-get_menu_item_tuple(dad, "TreeInfo"),
+get_menu_item_tuple(dad, "tree_node_prop"),
+get_menu_item_tuple(dad, "tree_node_ro"),
+get_menu_item_tuple(dad, "node_bookmark"),
+get_menu_item_tuple(dad, "node_unbookmark"),
+get_menu_item_tuple(dad, "tree_node_date"),
+get_menu_item_tuple(dad, "tree_parse_info"),
 (cons.TAG_SEPARATOR, None, None, None, None),
 ("submenu-start", _("Node _Move"), "gtk-jump-to", None, None),
-get_menu_item_tuple(dad, "NodeUp"),
-get_menu_item_tuple(dad, "NodeDown"),
-get_menu_item_tuple(dad, "NodeLeft"),
-get_menu_item_tuple(dad, "NodeNewFather"),
+get_menu_item_tuple(dad, "tree_node_up"),
+get_menu_item_tuple(dad, "tree_node_down"),
+get_menu_item_tuple(dad, "tree_node_left"),
+get_menu_item_tuple(dad, "tree_node_new_father"),
 ("submenu-end", None, None, None, None),
 (cons.TAG_SEPARATOR, None, None, None, None),
 ("submenu-start", _("Nodes _Sort"), "gtk-sort-ascending", None, None),
-get_menu_item_tuple(dad, "TreeSortAsc"),
-get_menu_item_tuple(dad, "TreeSortDesc"),
-get_menu_item_tuple(dad, "SiblSortAsc"),
-get_menu_item_tuple(dad, "SiblSortDesc"),
+get_menu_item_tuple(dad, "tree_all_sort_asc"),
+get_menu_item_tuple(dad, "tree_all_sort_desc"),
+get_menu_item_tuple(dad, "tree_sibl_sort_asc"),
+get_menu_item_tuple(dad, "tree_sibl_sort_desc"),
 ("submenu-end", None, None, None, None),
 (cons.TAG_SEPARATOR, None, None, None, None),
-get_menu_item_tuple(dad, "FindNode"),
-get_menu_item_tuple(dad, "ReplaceInNodesNames"),
+get_menu_item_tuple(dad, "find_in_node_names"),
+get_menu_item_tuple(dad, "replace_in_node_names"),
 (cons.TAG_SEPARATOR, None, None, None, None),
 ("submenu-start", _("Nodes _Import"), cons.STR_STOCK_CT_IMP, None, None),
 get_menu_item_tuple(dad, "FromCherryTree"),
@@ -265,12 +264,12 @@ get_menu_item_tuple(dad, "Export2TxtSingle"),
 get_menu_item_tuple(dad, "Export2CTD"),
 ("submenu-end", None, None, None, None),
 (cons.TAG_SEPARATOR, None, None, None, None),
-get_menu_item_tuple(dad, "InheritSyntax"),
+get_menu_item_tuple(dad, "child_nodes_inherit_syntax"),
 (cons.TAG_SEPARATOR, None, None, None, None),
-get_menu_item_tuple(dad, "NodeDel"),
+get_menu_item_tuple(dad, "tree_node_del"),
 (cons.TAG_SEPARATOR, None, None, None, None),
-get_menu_item_tuple(dad, "GoBack"),
-get_menu_item_tuple(dad, "GoForward"),
+get_menu_item_tuple(dad, "go_node_prev"),
+get_menu_item_tuple(dad, "go_node_next"),
 ]
 
 def get_popup_menu_entries_text(dad):
@@ -281,80 +280,80 @@ def get_popup_menu_entries_text(dad):
     # "submenu-end", None, None, None, None
     return [
 (cons.TAG_SEPARATOR, None, None, None, None),
-get_menu_item_tuple(dad, "CutPlainText"),
-get_menu_item_tuple(dad, "CopyPlainText"),
-get_menu_item_tuple(dad, "PastePlainText"),
+get_menu_item_tuple(dad, "cut_plain"),
+get_menu_item_tuple(dad, "copy_plain"),
+get_menu_item_tuple(dad, "paste_plain"),
 (cons.TAG_SEPARATOR, None, None, None, None),
 ("submenu-start", _("For_matting") , "format_text", None, None),
-get_menu_item_tuple(dad, "FormatLatest"),
-get_menu_item_tuple(dad, "RemoveFormatting"),
+get_menu_item_tuple(dad, "fmt_latest"),
+get_menu_item_tuple(dad, "fmt_rm"),
 (cons.TAG_SEPARATOR, None, None, None, None),
-get_menu_item_tuple(dad, "ColorForeground"),
-get_menu_item_tuple(dad, "ColorBackground"),
-get_menu_item_tuple(dad, "bold"),
-get_menu_item_tuple(dad, "Italic"),
-get_menu_item_tuple(dad, "Underline"),
-get_menu_item_tuple(dad, "Strikethrough"),
-get_menu_item_tuple(dad, "H1"),
-get_menu_item_tuple(dad, "H2"),
-get_menu_item_tuple(dad, "H3"),
-get_menu_item_tuple(dad, "Small"),
-get_menu_item_tuple(dad, "Superscript"),
-get_menu_item_tuple(dad, "Subscript"),
-get_menu_item_tuple(dad, "Monospace"),
+get_menu_item_tuple(dad, "fmt_color_fg"),
+get_menu_item_tuple(dad, "fmt_color_bg"),
+get_menu_item_tuple(dad, "fmt_bold"),
+get_menu_item_tuple(dad, "fmt_italic"),
+get_menu_item_tuple(dad, "fmt_underline"),
+get_menu_item_tuple(dad, "fmt_strikethrough"),
+get_menu_item_tuple(dad, "fmt_h1"),
+get_menu_item_tuple(dad, "fmt_h2"),
+get_menu_item_tuple(dad, "fmt_h3"),
+get_menu_item_tuple(dad, "fmt_small"),
+get_menu_item_tuple(dad, "fmt_superscript"),
+get_menu_item_tuple(dad, "fmt_subscript"),
+get_menu_item_tuple(dad, "fmt_monospace"),
 ("submenu-end", None, None, None, None),
 ("submenu-start", _("_Justify") , "gtk-justify-center", None, None),
-get_menu_item_tuple(dad, "JustifyLeft"),
-get_menu_item_tuple(dad, "JustifyCenter"),
-get_menu_item_tuple(dad, "JustifyRight"),
-get_menu_item_tuple(dad, "JustifyFill"),
+get_menu_item_tuple(dad, "fmt_justify_left"),
+get_menu_item_tuple(dad, "fmt_justify_center"),
+get_menu_item_tuple(dad, "fmt_justify_right"),
+get_menu_item_tuple(dad, "fmt_justify_fill"),
 ("submenu-end", None, None, None, None),
 ("submenu-start", _("_List") , "list_bulleted", None, None),
-get_menu_item_tuple(dad, "BulletedList"),
-get_menu_item_tuple(dad, "NumberedList"),
-get_menu_item_tuple(dad, "ToDoList"),
+get_menu_item_tuple(dad, "handle_bull_list"),
+get_menu_item_tuple(dad, "handle_num_list"),
+get_menu_item_tuple(dad, "handle_todo_list"),
 ("submenu-end", None, None, None, None),
 (cons.TAG_SEPARATOR, None, None, None, None),
 ("submenu-start", _("_Insert") , "insert", None, None),
-get_menu_item_tuple(dad, "HandleImage"),
-get_menu_item_tuple(dad, "HandleTable"),
-get_menu_item_tuple(dad, "HandleCodeBox"),
-get_menu_item_tuple(dad, "EmbFileInsert"),
-get_menu_item_tuple(dad, "HandleLink"),
-get_menu_item_tuple(dad, "HandleAnchor"),
-get_menu_item_tuple(dad, "InsertTOC"),
-get_menu_item_tuple(dad, "Timestamp"),
-get_menu_item_tuple(dad, "HorizontalRule"),
+get_menu_item_tuple(dad, "handle_image"),
+get_menu_item_tuple(dad, "handle_table"),
+get_menu_item_tuple(dad, "handle_codebox"),
+get_menu_item_tuple(dad, "handle_embfile"),
+get_menu_item_tuple(dad, "handle_link"),
+get_menu_item_tuple(dad, "handle_anchor"),
+get_menu_item_tuple(dad, "insert_toc"),
+get_menu_item_tuple(dad, "insert_timestamp"),
+get_menu_item_tuple(dad, "insert_horiz_rule"),
 ("submenu-end", None, None, None, None),
 ("submenu-start", _("C_hange Case") , "case_toggle", None, None),
-get_menu_item_tuple(dad, "DownCase"),
-get_menu_item_tuple(dad, "UpCase"),
-get_menu_item_tuple(dad, "ToggleCase"),
+get_menu_item_tuple(dad, "case_down"),
+get_menu_item_tuple(dad, "case_up"),
+get_menu_item_tuple(dad, "case_toggle"),
 ("submenu-end", None, None, None, None),
 ("submenu-start", _("_Row") , "gtk-edit", None, None),
-get_menu_item_tuple(dad, "CutRow"),
-get_menu_item_tuple(dad, "CopyRow"),
-get_menu_item_tuple(dad, "DeleteRow"),
-get_menu_item_tuple(dad, "DuplicateRow"),
-get_menu_item_tuple(dad, "MoveRowUp"),
-get_menu_item_tuple(dad, "MoveRowDown"),
+get_menu_item_tuple(dad, "cut_row"),
+get_menu_item_tuple(dad, "copy_row"),
+get_menu_item_tuple(dad, "del_row"),
+get_menu_item_tuple(dad, "dup_row"),
+get_menu_item_tuple(dad, "mv_up_row"),
+get_menu_item_tuple(dad, "mv_down_row"),
 ("submenu-end", None, None, None, None),
-get_menu_item_tuple(dad, "StripTrailSpace"),
+get_menu_item_tuple(dad, "strip_trail_spaces"),
 (cons.TAG_SEPARATOR, None, None, None, None),
 ("submenu-start", _("_Search") , "find", None, None),
-get_menu_item_tuple(dad, "FindInNode"),
-get_menu_item_tuple(dad, "FindInNodes"),
-get_menu_item_tuple(dad, "FindInSelNSub"),
-get_menu_item_tuple(dad, "FindNode"),
-get_menu_item_tuple(dad, "FindAgain"),
-get_menu_item_tuple(dad, "FindBack"),
+get_menu_item_tuple(dad, "find_in_node"),
+get_menu_item_tuple(dad, "find_in_allnodes"),
+get_menu_item_tuple(dad, "find_in_node_n_sub"),
+get_menu_item_tuple(dad, "find_in_node_names"),
+get_menu_item_tuple(dad, "find_again"),
+get_menu_item_tuple(dad, "find_back"),
 ("submenu-end", None, None, None, None),
 ("submenu-start", _("_Replace") , "find_replace", None, None),
-get_menu_item_tuple(dad, "ReplaceInNode"),
-get_menu_item_tuple(dad, "ReplaceInNodes"),
-get_menu_item_tuple(dad, "ReplaceInSelNSub"),
-get_menu_item_tuple(dad, "ReplaceInNodesNames"),
-get_menu_item_tuple(dad, "ReplaceAgain"),
+get_menu_item_tuple(dad, "replace_in_node"),
+get_menu_item_tuple(dad, "replace_in_allnodes"),
+get_menu_item_tuple(dad, "replace_in_node_n_sub"),
+get_menu_item_tuple(dad, "replace_in_node_names"),
+get_menu_item_tuple(dad, "replace_again"),
 ("submenu-end", None, None, None, None),
 ]
 
@@ -367,38 +366,38 @@ def get_popup_menu_entries_code(dad):
     return [
 (cons.TAG_SEPARATOR, None, None, None, None),
 ("submenu-start", _("_Insert") , "insert", None, None),
-get_menu_item_tuple(dad, "Timestamp"),
-get_menu_item_tuple(dad, "HorizontalRule"),
+get_menu_item_tuple(dad, "insert_timestamp"),
+get_menu_item_tuple(dad, "insert_horiz_rule"),
 ("submenu-end", None, None, None, None),
-get_menu_item_tuple(dad, "StripTrailSpace"),
+get_menu_item_tuple(dad, "strip_trail_spaces"),
 ("submenu-start", _("C_hange Case") , "case_toggle", None, None),
-get_menu_item_tuple(dad, "DownCase"),
-get_menu_item_tuple(dad, "UpCase"),
-get_menu_item_tuple(dad, "ToggleCase"),
+get_menu_item_tuple(dad, "case_down"),
+get_menu_item_tuple(dad, "case_up"),
+get_menu_item_tuple(dad, "case_toggle"),
 ("submenu-end", None, None, None, None),
 ("submenu-start", _("_Row") , "gtk-edit", None, None),
-get_menu_item_tuple(dad, "CutRow"),
-get_menu_item_tuple(dad, "CopyRow"),
-get_menu_item_tuple(dad, "DeleteRow"),
-get_menu_item_tuple(dad, "DuplicateRow"),
-get_menu_item_tuple(dad, "MoveRowUp"),
-get_menu_item_tuple(dad, "MoveRowDown"),
+get_menu_item_tuple(dad, "cut_row"),
+get_menu_item_tuple(dad, "copy_row"),
+get_menu_item_tuple(dad, "del_row"),
+get_menu_item_tuple(dad, "dup_row"),
+get_menu_item_tuple(dad, "mv_up_row"),
+get_menu_item_tuple(dad, "mv_down_row"),
 ("submenu-end", None, None, None, None),
 (cons.TAG_SEPARATOR, None, None, None, None),
 ("submenu-start", _("_Search") , "find", None, None),
-get_menu_item_tuple(dad, "FindInNode"),
-get_menu_item_tuple(dad, "FindInNodes"),
-get_menu_item_tuple(dad, "FindInSelNSub"),
-get_menu_item_tuple(dad, "FindNode"),
-get_menu_item_tuple(dad, "FindAgain"),
-get_menu_item_tuple(dad, "FindBack"),
+get_menu_item_tuple(dad, "find_in_node"),
+get_menu_item_tuple(dad, "find_in_allnodes"),
+get_menu_item_tuple(dad, "find_in_node_n_sub"),
+get_menu_item_tuple(dad, "find_in_node_names"),
+get_menu_item_tuple(dad, "find_again"),
+get_menu_item_tuple(dad, "find_back"),
 ("submenu-end", None, None, None, None),
 ("submenu-start", _("_Replace") , "find_replace", None, None),
-get_menu_item_tuple(dad, "ReplaceInNode"),
-get_menu_item_tuple(dad, "ReplaceInNodes"),
-get_menu_item_tuple(dad, "ReplaceInSelNSub"),
-get_menu_item_tuple(dad, "ReplaceInNodesNames"),
-get_menu_item_tuple(dad, "ReplaceAgain"),
+get_menu_item_tuple(dad, "replace_in_node"),
+get_menu_item_tuple(dad, "replace_in_allnodes"),
+get_menu_item_tuple(dad, "replace_in_node_n_sub"),
+get_menu_item_tuple(dad, "replace_in_node_names"),
+get_menu_item_tuple(dad, "replace_again"),
 ("submenu-end", None, None, None, None),
 ]
 
@@ -501,102 +500,101 @@ UI_INFO = """
       <menuitem action='act_undo'/>
       <menuitem action='act_redo'/>
       <separator/>
-      <menuitem action='HandleImage'/>
-      <menuitem action='HandleTable'/>
-      <menuitem action='HandleCodeBox'/>
-      <menuitem action='EmbFileInsert'/>
-      <menuitem action='HandleLink'/>
-      <menuitem action='HandleAnchor'/>
-      <menuitem action='InsertTOC'/>
-      <menuitem action='Timestamp'/>
-      <menuitem action='HorizontalRule'/>
-      <menuitem action='StripTrailSpace'/>
+      <menuitem action='handle_image'/>
+      <menuitem action='handle_table'/>
+      <menuitem action='handle_codebox'/>
+      <menuitem action='handle_embfile'/>
+      <menuitem action='handle_link'/>
+      <menuitem action='handle_anchor'/>
+      <menuitem action='insert_toc'/>
+      <menuitem action='insert_timestamp'/>
+      <menuitem action='insert_horiz_rule'/>
+      <menuitem action='strip_trail_spaces'/>
       <separator/>
       <menu action='ChangeCaseMenu'>
-        <menuitem action='DownCase'/>
-        <menuitem action='UpCase'/>
-        <menuitem action='ToggleCase'/>
+        <menuitem action='case_down'/>
+        <menuitem action='case_up'/>
+        <menuitem action='case_toggle'/>
       </menu>
       <separator/>
-      <menuitem action='EnaDisSpellCheck'/>
+      <menuitem action='spellcheck_toggle'/>
       <separator/>
-      <menuitem action='CutPlainText'/>
-      <menuitem action='CopyPlainText'/>
-      <menuitem action='PastePlainText'/>
+      <menuitem action='cut_plain'/>
+      <menuitem action='copy_plain'/>
+      <menuitem action='paste_plain'/>
       <separator/>
-      <menuitem action='CutRow'/>
-      <menuitem action='CopyRow'/>
-      <menuitem action='DeleteRow'/>
-      <menuitem action='DuplicateRow'/>
-      <menuitem action='MoveRowUp'/>
-      <menuitem action='MoveRowDown'/>
+      <menuitem action='cut_row'/>
+      <menuitem action='copy_row'/>
+      <menuitem action='del_row'/>
+      <menuitem action='dup_row'/>
+      <menuitem action='mv_up_row'/>
+      <menuitem action='mv_down_row'/>
     </menu>
 
     <menu action='FormattingMenu'>
-      <menuitem action='FormatLatest'/>
-      <menuitem action='RemoveFormatting'/>
+      <menuitem action='fmt_latest'/>
+      <menuitem action='fmt_rm'/>
       <separator/>
-      <menuitem action='ColorForeground'/>
-      <menuitem action='ColorBackground'/>
-      <menuitem action='bold'/>
-      <menuitem action='Italic'/>
-      <menuitem action='Underline'/>
-      <menuitem action='Strikethrough'/>
-      <menuitem action='H1'/>
-      <menuitem action='H2'/>
-      <menuitem action='H3'/>
-      <menuitem action='Small'/>
-      <menuitem action='Superscript'/>
-      <menuitem action='Subscript'/>
-      <menuitem action='Monospace'/>
+      <menuitem action='fmt_color_fg'/>
+      <menuitem action='fmt_color_bg'/>
+      <menuitem action='fmt_bold'/>
+      <menuitem action='fmt_italic'/>
+      <menuitem action='fmt_underline'/>
+      <menuitem action='fmt_strikethrough'/>
+      <menuitem action='fmt_h1'/>
+      <menuitem action='fmt_h2'/>
+      <menuitem action='fmt_h3'/>
+      <menuitem action='fmt_small'/>
+      <menuitem action='fmt_superscript'/>
+      <menuitem action='fmt_subscript'/>
+      <menuitem action='fmt_monospace'/>
       <separator/>
-      <menuitem action='BulletedList'/>
-      <menuitem action='NumberedList'/>
-      <menuitem action='ToDoList'/>
+      <menuitem action='handle_bull_list'/>
+      <menuitem action='handle_num_list'/>
+      <menuitem action='handle_todo_list'/>
       <separator/>
-      <menuitem action='JustifyLeft'/>
-      <menuitem action='JustifyCenter'/>
-      <menuitem action='JustifyRight'/>
-      <menuitem action='JustifyFill'/>
+      <menuitem action='fmt_justify_left'/>
+      <menuitem action='fmt_justify_center'/>
+      <menuitem action='fmt_justify_right'/>
+      <menuitem action='fmt_justify_fill'/>
     </menu>
 
     <menu action='TreeMenu'>
     </menu>
 
     <menu action='SearchMenu'>
-      <menuitem action='FindInNode'/>
-      <menuitem action='FindInNodes'/>
-      <menuitem action='FindInSelNSub'/>
-      <menuitem action='FindNode'/>
-      <menuitem action='FindAgain'/>
-      <menuitem action='FindBack'/>
+      <menuitem action='find_in_node'/>
+      <menuitem action='find_in_allnodes'/>
+      <menuitem action='find_in_node_n_sub'/>
+      <menuitem action='find_in_node_names'/>
+      <menuitem action='find_again'/>
+      <menuitem action='find_back'/>
       <separator/>
-      <menuitem action='ReplaceInNode'/>
-      <menuitem action='ReplaceInNodes'/>
-      <menuitem action='ReplaceInSelNSub'/>
-      <menuitem action='ReplaceInNodesNames'/>
-      <menuitem action='ReplaceAgain'/>
+      <menuitem action='replace_in_node'/>
+      <menuitem action='replace_in_allnodes'/>
+      <menuitem action='replace_in_node_n_sub'/>
+      <menuitem action='replace_in_node_names'/>
+      <menuitem action='replace_again'/>
     </menu>
 
     <menu action='ViewMenu'>
-      <menuitem action='ShowHideTree'/>
-      <menuitem action='ShowHideToolbar'/>
-      <menuitem action='ShowHideNodeNameHeader'/>
-      <menuitem action='ShowAllMatchesDialog'/>
+      <menuitem action='toggle_show_tree'/>
+      <menuitem action='toggle_show_toolbar'/>
+      <menuitem action='toggle_show_node_name_head'/>
+      <menuitem action='toggle_show_allmatches_dlg'/>
       <separator/>
-      <menuitem action='ToggleTreeText'/>
-      <menuitem action='ToggleNodeExpColl'/>
-      <menuitem action='NodesExpAll'/>
-      <menuitem action='NodesCollAll'/>
+      <menuitem action='toggle_focus_tree_text'/>
+      <menuitem action='nodes_all_expand'/>
+      <menuitem action='nodes_all_collapse'/>
       <separator/>
-      <menuitem action='IncreaseToolbarIconsSize'/>
-      <menuitem action='DecreaseToolbarIconsSize'/>
+      <menuitem action='toolbar_icons_size_p'/>
+      <menuitem action='toolbar_icons_size_m'/>
       <separator/>
-      <menuitem action='Fullscreen'/>
+      <menuitem action='toggle_fullscreen'/>
     </menu>
 
     <menu action='BookmarksMenu'>
-      <menuitem action='bookmarkshandle'/>
+      <menuitem action='handle_bookmarks'/>
     </menu>
 
     <menu action='ImportMenu'>
@@ -640,21 +638,21 @@ UI_INFO = """
   </menubar>
 
   <popup name='SysTrayMenu'>
-    <menuitem action='ShowHideMainWin'/>
+    <menuitem action='toggle_show_mainwin'/>
     <separator/>
     <menuitem action='exit_app'/>
   </popup>
 
   <popup name='ImageMenu'>
-    <menuitem action='CutImage'/>
-    <menuitem action='CopyImage'/>
-    <menuitem action='DeleteImage'/>
+    <menuitem action='img_cut'/>
+    <menuitem action='img_copy'/>
+    <menuitem action='img_del'/>
     <separator/>
-    <menuitem action='EditImage'/>
-    <menuitem action='SaveImage'/>
+    <menuitem action='img_edit'/>
+    <menuitem action='img_save'/>
     <separator/>
-    <menuitem action='EditImageLink'/>
-    <menuitem action='DismissImageLink'/>
+    <menuitem action='img_link_edit'/>
+    <menuitem action='img_link_dismiss'/>
   </popup>
 
   <popup name='AnchorMenu'>
@@ -675,3 +673,7 @@ UI_INFO = """
   </popup>
 </ui>
 """
+
+TOOLBAR_VEC_DEFAULT = ["tree_add_node", "tree_add_subnode", cons.TAG_SEPARATOR, "go_node_prev", "go_node_next", cons.TAG_SEPARATOR, cons.CHAR_STAR, "ct_save", "Export2PDF", cons.TAG_SEPARATOR, "find_in_allnodes", cons.TAG_SEPARATOR, "handle_bull_list", "handle_num_list", "handle_todo_list", cons.TAG_SEPARATOR, "handle_image", "handle_table", "handle_codebox", "handle_embfile", "handle_link", "handle_anchor", cons.TAG_SEPARATOR, "fmt_rm", "fmt_color_fg", "fmt_color_bg", "fmt_bold", "fmt_italic", "fmt_underline", "fmt_strikethrough", "fmt_h1", "fmt_h2", "fmt_h3", "fmt_small", "fmt_superscript", "fmt_subscript", "fmt_monospace"]
+
+TOOLBAR_VEC_BLACKLIST = ["CutAnchor", "CopyAnchor", "DeleteAnchor", "EditAnchor", "CutEmbFile", "CopyEmbFile", "DeleteEmbFile", "EmbFileSave", "EmbFileOpen", "img_save", "img_edit", "img_cut", "img_copy", "img_del", "img_link_edit", "img_link_dismiss", "toggle_show_mainwin"]

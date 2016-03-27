@@ -36,8 +36,6 @@ COLOR_PALETTE_DEFAULT = ["#000000", "#ffffff", "#7f7f7f", "#ff0000", "#a020f0",
 SPECIAL_CHARS_DEFAULT = "“”„‘’•◇▪▸☐☑☒★…‰€©®™°↓↑→←↔↵⇓⇑⇒⇐⇔»«▼▲►◄≤≥≠≈±¹²³½¼⅛×÷∞ø∑√∫ΔδΠπΣΦΩωαβγεηλμ☺☻☼♥♣♦✔♀♂♪♫✝"
 SELWORD_CHARS_DEFAULT = ".-@"
 TIMESTAMP_FORMAT_DEFAULT = "%Y/%m/%d - %H:%M"
-TOOLBAR_VEC_DEFAULT = ["TreeAddNode", "TreeAddSubNode", cons.TAG_SEPARATOR, "GoBack", "GoForward", cons.TAG_SEPARATOR, cons.CHAR_STAR, "Save", "Export2PDF", cons.TAG_SEPARATOR, "FindInNodes", cons.TAG_SEPARATOR, "BulletedList", "NumberedList", "ToDoList", cons.TAG_SEPARATOR, "HandleImage", "HandleTable", "HandleCodeBox", "EmbFileInsert", "HandleLink", "HandleAnchor", cons.TAG_SEPARATOR, "RemoveFormatting", "ColorForeground", "ColorBackground", "Bold", "Italic", "Underline", "Strikethrough", "H1", "H2", "H3", "Small", "Superscript", "Subscript", "Monospace"]
-TOOLBAR_VEC_BLACKLIST = ["CutAnchor", "CopyAnchor", "DeleteAnchor", "EditAnchor", "CutEmbFile", "CopyEmbFile", "DeleteEmbFile", "EmbFileSave", "EmbFileOpen", "SaveImage", "EditImage", "CutImage", "CopyImage", "DeleteImage", "EditImageLink", "DismissImageLink", "ShowHideMainWin"]
 SEPARATOR_ASCII_REPR = "---------"
 
 SPELL_CHECK_LANG_DEFAULT = locale.getdefaultlocale()[0]
@@ -55,7 +53,7 @@ def get_toolbar_icon_n_label_list(dad):
     for element in menus.get_entries(dad):
         if len(element) == 3: continue
         if element[0] in dad.toolbar_ui_vec: continue
-        if element[0] in TOOLBAR_VEC_BLACKLIST: continue
+        if element[0] in menus.TOOLBAR_VEC_BLACKLIST: continue
         if element[0] == "OpenFile" and cons.CHAR_STAR in dad.toolbar_ui_vec: continue
         icon_n_label_list.append([element[0], element[1], element[4]])
     return icon_n_label_list
@@ -231,7 +229,7 @@ def config_file_load(dad):
         dad.col_link_fold = cfg.get(section, "col_link_fold") if cfg.has_option(section, "col_link_fold") else cons.COLOR_48_LINK_FOLD
 
         section = "misc"
-        dad.toolbar_ui_vec = cfg.get(section, "toolbar_ui_vec").split(cons.CHAR_COMMA) if cfg.has_option(section, "toolbar_ui_vec") else TOOLBAR_VEC_DEFAULT
+        dad.toolbar_ui_vec = cfg.get(section, "toolbar_ui_vec").split(cons.CHAR_COMMA) if cfg.has_option(section, "toolbar_ui_vec") else menus.TOOLBAR_VEC_DEFAULT
         dad.systray = cfg.getboolean(section, "systray") if cfg.has_option(section, "systray") else False
         dad.start_on_systray = cfg.getboolean(section, "start_on_systray") if cfg.has_option(section, "start_on_systray") else False
         dad.use_appind = cfg.getboolean(section, "use_appind") if cfg.has_option(section, "use_appind") else False
@@ -285,7 +283,7 @@ def config_file_load(dad):
         dad.auto_smart_quotes = True
         dad.wrapping_indent = -14
         dad.auto_indent = True
-        dad.toolbar_ui_vec = TOOLBAR_VEC_DEFAULT
+        dad.toolbar_ui_vec = menus.TOOLBAR_VEC_DEFAULT
         dad.systray = False
         dad.win_position = [10, 10]
         dad.autosave = [False, 5]
