@@ -49,7 +49,7 @@ def load_menudict(dad):
 "insert_horiz_rule": {"sk": "horizontal_rule", "sd": _("Insert _Horizontal Rule"), "kb": "<control>R", "dn": _("Insert Horizontal Rule"), "cb": dad.horizontal_rule_insert},
 "case_down": {"sk": "case_lower", "sd": _("_Lower Case of Selection/Word"), "kb": "<control>W", "dn": _("Lower the Case of the Selection/the Underlying Word"), "cb": dad.text_selection_lower_case},
 "case_up": {"sk": "case_upper", "sd": _("_Upper Case of Selection/Word"), "kb": "<control><shift>W", "dn": _("Upper the Case of the Selection/the Underlying Word"), "cb": dad.text_selection_upper_case},
-"case_toggle": {"sk": "case_toggle", "sd": _("_Toggle Case of Selection/Word"), "kb": "<control>G", "dn": _("Toggle the Case of the Selection/the Underlying Word"), "cb": dad.text_selection_toggle_case},
+"case_tggl": {"sk": "case_toggle", "sd": _("_Toggle Case of Selection/Word"), "kb": "<control>G", "dn": _("Toggle the Case of the Selection/the Underlying Word"), "cb": dad.text_selection_toggle_case},
 "spellcheck_toggle": {"sk": "gtk-spell-check", "sd": _("Enable/Disable _Spell Check"), "kb": "<control><alt>S", "dn": _("Toggle Enable/Disable Spell Check"), "cb": dad.toggle_ena_dis_spellcheck},
 "cut_plain": {"sk": "edit-cut", "sd": _("Cu_t as Plain Text"), "kb": "<control><shift>X", "dn": _("Cut as Plain Text, Discard the Rich Text Formatting"), "cb": dad.cut_as_plain_text},
 "copy_plain": {"sk": "edit-copy", "sd": _("_Copy as Plain Text"), "kb": "<control><shift>C", "dn": _("Copy as Plain Text, Discard the Rich Text Formatting"), "cb": dad.copy_as_plain_text},
@@ -105,13 +105,13 @@ def load_menudict(dad):
 "find_in_allnodes": {"sk": "find", "sd": _("Find in _All Nodes Contents"), "kb": "<control><shift>F", "dn": _("Find into All the Tree Nodes Contents"), "cb": dad.find_in_all_nodes},
 "find_in_node_n_sub": {"sk": "find", "sd": _("Find in _Selected Node and Subnodes Contents"), "kb": "<control><alt>F", "dn": _("Find into the Selected Node and Subnodes Contents"), "cb": dad.find_in_sel_node_and_subnodes},
 "find_in_node_names": {"sk": "find", "sd": _("Find in _Nodes Names and Tags"), "kb": "<control>T", "dn": _("Find in Nodes Names and Tags"), "cb": dad.find_a_node},
-"find_again": {"sk": "find_again", "sd": _("Find _Again"), "kb": "F3", "dn": _("Iterate the Last Find Operation"), "cb": dad.find_again},
-"find_back": {"sk": "find_back", "sd": _("Find _Back"), "kb": "F4", "dn": _("Iterate the Last Find Operation in Opposite Direction"), "cb": dad.find_back},
+"find_iter_fw": {"sk": "find_again", "sd": _("Find _Again"), "kb": "F3", "dn": _("Iterate the Last Find Operation"), "cb": dad.find_again},
+"find_iter_bw": {"sk": "find_back", "sd": _("Find _Back"), "kb": "F4", "dn": _("Iterate the Last Find Operation in Opposite Direction"), "cb": dad.find_back},
 "replace_in_node": {"sk": "find_replace", "sd": _("_Replace in Node Content"), "kb": "<control>H", "dn": _("Replace into the Selected Node Content"), "cb": dad.replace_in_selected_node},
 "replace_in_allnodes": {"sk": "find_replace", "sd": _("Replace in _All Nodes Contents"), "kb": "<control><shift>H", "dn": _("Replace into All the Tree Nodes Contents"), "cb": dad.replace_in_all_nodes},
 "replace_in_node_n_sub": {"sk": "find_replace", "sd": _("Replace in _Selected Node and Subnodes Contents"), "kb": "<control><alt>H", "dn": _("Replace into the Selected Node and Subnodes Contents"), "cb": dad.replace_in_sel_node_and_subnodes},
 "replace_in_node_names": {"sk": "find_replace", "sd": _("Replace in Nodes _Names"), "kb": "<control><shift>T", "dn": _("Replace in Nodes Names"), "cb": dad.replace_in_nodes_names},
-"replace_again": {"sk": "find_replace", "sd": _("Replace _Again"), "kb": "F6", "dn": _("Iterate the Last Replace Operation"), "cb": dad.replace_again},
+"replace_iter_fw": {"sk": "find_replace", "sd": _("Replace _Again"), "kb": "F6", "dn": _("Iterate the Last Replace Operation"), "cb": dad.replace_again},
 "toggle_show_tree": {"sk": "cherries", "sd": _("Show/Hide _Tree"), "kb": "F9", "dn": _("Toggle Show/Hide Tree"), "cb": dad.toggle_show_hide_tree},
 "toggle_show_toolbar": {"sk": "toolbar", "sd": _("Show/Hide Tool_bar"), "kb": None, "dn": _("Toggle Show/Hide Toolbar"), "cb": dad.toggle_show_hide_toolbar},
 "toggle_show_node_name_head": {"sk": "node_name_header", "sd": _("Show/Hide Node Name _Header"), "kb": None, "dn": _("Toggle Show/Hide Node Name Header"), "cb": dad.toggle_show_hide_node_name_header},
@@ -125,41 +125,41 @@ def load_menudict(dad):
 "node_bookmark": {"sk": "pin-add", "sd": _("Add to _Bookmarks"), "kb": "<control><shift>B", "dn": _("Add the Current Node to the Bookmarks List"), "cb": dad.bookmark_curr_node},
 "node_unbookmark": {"sk": "pin-remove", "sd": _("_Remove from Bookmarks"), "kb": "<control><alt>B", "dn": _("Remove the Current Node from the Bookmarks List"), "cb": dad.bookmark_curr_node_remove},
 "handle_bookmarks": {"sk": "gtk-edit", "sd": _("_Handle Bookmarks"), "kb": None, "dn": _("Handle the Bookmarks List"), "cb": dad.bookmarks_handle},
-"FromCherryTree": {"sk": "from_cherrytree", "sd": _("From _CherryTree File"), "kb": None, "dn": _("Add Nodes of a CherryTree File to the Current Tree"), "cb": dad.nodes_add_from_cherrytree_file},
-"FromTxtFile": {"sk": "from_txt", "sd": _("From _Plain Text File"), "kb": None, "dn": _("Add Node from a Plain Text File to the Current Tree"), "cb": dad.nodes_add_from_plain_text_file},
-"FromTxtFolder": {"sk": "from_txt", "sd": _("From _Folder of Plain Text Files"), "kb": None, "dn": _("Add Nodes from a Folder of Plain Text Files to the Current Tree"), "cb": dad.nodes_add_from_plain_text_folder},
-"FromHtmlFile": {"sk": "from_html", "sd": _("From _HTML File"), "kb": None, "dn": _("Add Node from an HTML File to the Current Tree"), "cb": dad.nodes_add_from_html_file},
-"FromHtmlFolder": {"sk": "from_html", "sd": _("From _Folder of HTML Files"), "kb": None, "dn": _("Add Nodes from a Folder of HTML Files to the Current Tree"), "cb": dad.nodes_add_from_html_folder},
-"FromBasket": {"sk": cons.STR_STOCK_CT_IMP, "sd": _("From _Basket Folder"), "kb": None, "dn": _("Add Nodes of a Basket Folder to the Current Tree"), "cb": dad.nodes_add_from_basket_folder},
-"FromEPIMHTML": {"sk": cons.STR_STOCK_CT_IMP, "sd": _("From _EssentialPIM HTML File"), "kb": None, "dn": _("Add Node from an EssentialPIM HTML File to the Current Tree"), "cb": dad.nodes_add_from_epim_html_file},
-"FromGnote": {"sk": cons.STR_STOCK_CT_IMP, "sd": _("From _Gnote Folder"), "kb": None, "dn": _("Add Nodes of a Gnote Folder to the Current Tree"), "cb": dad.nodes_add_from_gnote_folder},
-"FromKeepNote": {"sk": cons.STR_STOCK_CT_IMP, "sd": _("From _KeepNote Folder"), "kb": None, "dn": _("Add Nodes of a KeepNote Folder to the Current Tree"), "cb": dad.nodes_add_from_keepnote_folder},
-"FromKeyNote": {"sk": cons.STR_STOCK_CT_IMP, "sd": _("From K_eyNote File"), "kb": None, "dn": _("Add Nodes of a KeyNote File to the Current Tree"), "cb": dad.nodes_add_from_keynote_file},
-"FromKnowit": {"sk": cons.STR_STOCK_CT_IMP, "sd": _("From K_nowit File"), "kb": None, "dn": _("Add Nodes of a Knowit File to the Current Tree"), "cb": dad.nodes_add_from_knowit_file},
-"FromLeo": {"sk": cons.STR_STOCK_CT_IMP, "sd": _("From _Leo File"), "kb": None, "dn": _("Add Nodes of a Leo File to the Current Tree"), "cb": dad.nodes_add_from_leo_file},
-"FromMempad": {"sk": cons.STR_STOCK_CT_IMP, "sd": _("From _Mempad File"), "kb": None, "dn": _("Add Nodes of a Mempad File to the Current Tree"), "cb": dad.nodes_add_from_mempad_file},
-"FromNoteCase": {"sk": cons.STR_STOCK_CT_IMP, "sd": _("From _NoteCase File"), "kb": None, "dn": _("Add Nodes of a NoteCase File to the Current Tree"), "cb": dad.nodes_add_from_notecase_file},
-"FromTomboy": {"sk": cons.STR_STOCK_CT_IMP, "sd": _("From T_omboy Folder"), "kb": None, "dn": _("Add Nodes of a Tomboy Folder to the Current Tree"), "cb": dad.nodes_add_from_tomboy_folder},
-"FromTreepad": {"sk": cons.STR_STOCK_CT_IMP, "sd": _("From T_reepad Lite File"), "kb": None, "dn": _("Add Nodes of a Treepad Lite File to the Current Tree"), "cb": dad.nodes_add_from_treepad_file},
-"FromTuxCards": {"sk": cons.STR_STOCK_CT_IMP, "sd": _("From _TuxCards File"), "kb": None, "dn": _("Add Nodes of a TuxCards File to the Current Tree"), "cb": dad.nodes_add_from_tuxcards_file},
-"FromZim": {"sk": cons.STR_STOCK_CT_IMP, "sd": _("From _Zim Folder"), "kb": None, "dn": _("Add Nodes of a Zim Folder to the Current Tree"), "cb": dad.nodes_add_from_zim_folder},
-"Export2PDF": {"sk": "to_pdf", "sd": _("Export To _PDF"), "kb": None, "dn": _("Export To PDF"), "cb": dad.export_to_pdf},
-"Export2HTML": {"sk": "to_html", "sd": _("Export To _HTML"), "kb": None, "dn": _("Export To HTML"), "cb": dad.export_to_html},
-"Export2TxtMultiple": {"sk": "to_txt", "sd": _("Export to Multiple Plain _Text Files"), "kb": None, "dn": _("Export to Multiple Plain Text Files"), "cb": dad.export_to_txt_multiple},
-"Export2TxtSingle": {"sk": "to_txt", "sd": _("Export to _Single Plain Text File"), "kb": None, "dn": _("Export to Single Plain Text File"), "cb": dad.export_to_txt_single},
-"Export2CTD": {"sk": "to_cherrytree", "sd": _("_Export To CherryTree Document"), "kb": None, "dn": _("Export To CherryTree Document"), "cb": dad.export_to_ctd},
-"CheckNewer": {"sk": "gtk-network", "sd": _("_Check Newer Version"), "kb": None, "dn": _("Check for a Newer Version"), "cb": dad.check_for_newer_version},
-"Help": {"sk": "help-contents", "sd": _("Online _Manual"), "kb": "F1", "dn": _("Application's Online Manual"), "cb": dad.on_help_menu_item_activated},
-"About": {"sk": "gtk-about", "sd": _("_About"), "kb": None, "dn": _("About CherryTree"), "cb": dad.dialog_about},
-"CutAnchor": {"sk": "edit-cut", "sd": _("C_ut Anchor"), "kb": None, "dn": _("Cut the Selected Anchor"), "cb": dad.anchor_cut},
-"CopyAnchor": {"sk": "edit-copy", "sd": _("_Copy Anchor"), "kb": None, "dn": _("Copy the Selected Anchor"), "cb": dad.anchor_copy},
-"DeleteAnchor": {"sk": "edit-delete", "sd": _("_Delete Anchor"), "kb": None, "dn": _("Delete the Selected Anchor"), "cb": dad.anchor_delete},
-"EditAnchor": {"sk": "anchor_edit", "sd": _("Edit _Anchor"), "kb": None, "dn": _("Edit the Underlying Anchor"), "cb": dad.anchor_edit},
-"CutEmbFile": {"sk": "edit-cut", "sd": _("C_ut Embedded File"), "kb": None, "dn": _("Cut the Selected Embedded File"), "cb": dad.embfile_cut},
-"CopyEmbFile": {"sk": "edit-copy", "sd": _("_Copy Embedded File"), "kb": None, "dn": _("Copy the Selected Embedded File"), "cb": dad.embfile_copy},
-"DeleteEmbFile": {"sk": "edit-delete", "sd": _("_Delete Embedded File"), "kb": None, "dn": _("Delete the Selected Embedded File"), "cb": dad.embfile_delete},
-"EmbFileSave": {"sk": "gtk-save-as", "sd": _("Save _As"), "kb": None, "dn": _("Save File As"), "cb": dad.embfile_save},
-"EmbFileOpen": {"sk": "gtk-open", "sd": _("_Open File"), "kb": None, "dn": _("Open Embedded File"), "cb": dad.embfile_open},
+"import_cherrytree": {"sk": "from_cherrytree", "sd": _("From _CherryTree File"), "kb": None, "dn": _("Add Nodes of a CherryTree File to the Current Tree"), "cb": dad.nodes_add_from_cherrytree_file},
+"import_txt_file": {"sk": "from_txt", "sd": _("From _Plain Text File"), "kb": None, "dn": _("Add Node from a Plain Text File to the Current Tree"), "cb": dad.nodes_add_from_plain_text_file},
+"import_txt_folder": {"sk": "from_txt", "sd": _("From _Folder of Plain Text Files"), "kb": None, "dn": _("Add Nodes from a Folder of Plain Text Files to the Current Tree"), "cb": dad.nodes_add_from_plain_text_folder},
+"import_html_file": {"sk": "from_html", "sd": _("From _HTML File"), "kb": None, "dn": _("Add Node from an HTML File to the Current Tree"), "cb": dad.nodes_add_from_html_file},
+"import_html_folder": {"sk": "from_html", "sd": _("From _Folder of HTML Files"), "kb": None, "dn": _("Add Nodes from a Folder of HTML Files to the Current Tree"), "cb": dad.nodes_add_from_html_folder},
+"import_basket": {"sk": cons.STR_STOCK_CT_IMP, "sd": _("From _Basket Folder"), "kb": None, "dn": _("Add Nodes of a Basket Folder to the Current Tree"), "cb": dad.nodes_add_from_basket_folder},
+"import_epim_html": {"sk": cons.STR_STOCK_CT_IMP, "sd": _("From _EssentialPIM HTML File"), "kb": None, "dn": _("Add Node from an EssentialPIM HTML File to the Current Tree"), "cb": dad.nodes_add_from_epim_html_file},
+"import_gnote": {"sk": cons.STR_STOCK_CT_IMP, "sd": _("From _Gnote Folder"), "kb": None, "dn": _("Add Nodes of a Gnote Folder to the Current Tree"), "cb": dad.nodes_add_from_gnote_folder},
+"import_keepnote": {"sk": cons.STR_STOCK_CT_IMP, "sd": _("From _KeepNote Folder"), "kb": None, "dn": _("Add Nodes of a KeepNote Folder to the Current Tree"), "cb": dad.nodes_add_from_keepnote_folder},
+"import_keynote": {"sk": cons.STR_STOCK_CT_IMP, "sd": _("From K_eyNote File"), "kb": None, "dn": _("Add Nodes of a KeyNote File to the Current Tree"), "cb": dad.nodes_add_from_keynote_file},
+"import_knowit": {"sk": cons.STR_STOCK_CT_IMP, "sd": _("From K_nowit File"), "kb": None, "dn": _("Add Nodes of a Knowit File to the Current Tree"), "cb": dad.nodes_add_from_knowit_file},
+"import_leo": {"sk": cons.STR_STOCK_CT_IMP, "sd": _("From _Leo File"), "kb": None, "dn": _("Add Nodes of a Leo File to the Current Tree"), "cb": dad.nodes_add_from_leo_file},
+"import_mempad": {"sk": cons.STR_STOCK_CT_IMP, "sd": _("From _Mempad File"), "kb": None, "dn": _("Add Nodes of a Mempad File to the Current Tree"), "cb": dad.nodes_add_from_mempad_file},
+"import_notecase": {"sk": cons.STR_STOCK_CT_IMP, "sd": _("From _NoteCase File"), "kb": None, "dn": _("Add Nodes of a NoteCase File to the Current Tree"), "cb": dad.nodes_add_from_notecase_file},
+"import_tomboy": {"sk": cons.STR_STOCK_CT_IMP, "sd": _("From T_omboy Folder"), "kb": None, "dn": _("Add Nodes of a Tomboy Folder to the Current Tree"), "cb": dad.nodes_add_from_tomboy_folder},
+"import_treepad": {"sk": cons.STR_STOCK_CT_IMP, "sd": _("From T_reepad Lite File"), "kb": None, "dn": _("Add Nodes of a Treepad Lite File to the Current Tree"), "cb": dad.nodes_add_from_treepad_file},
+"import_tuxcards": {"sk": cons.STR_STOCK_CT_IMP, "sd": _("From _TuxCards File"), "kb": None, "dn": _("Add Nodes of a TuxCards File to the Current Tree"), "cb": dad.nodes_add_from_tuxcards_file},
+"import_zim": {"sk": cons.STR_STOCK_CT_IMP, "sd": _("From _Zim Folder"), "kb": None, "dn": _("Add Nodes of a Zim Folder to the Current Tree"), "cb": dad.nodes_add_from_zim_folder},
+"export_pdf": {"sk": "to_pdf", "sd": _("Export To _PDF"), "kb": None, "dn": _("Export To PDF"), "cb": dad.export_to_pdf},
+"export_html": {"sk": "to_html", "sd": _("Export To _HTML"), "kb": None, "dn": _("Export To HTML"), "cb": dad.export_to_html},
+"export_txt_multiple": {"sk": "to_txt", "sd": _("Export to Multiple Plain _Text Files"), "kb": None, "dn": _("Export to Multiple Plain Text Files"), "cb": dad.export_to_txt_multiple},
+"export_txt_single": {"sk": "to_txt", "sd": _("Export to _Single Plain Text File"), "kb": None, "dn": _("Export to Single Plain Text File"), "cb": dad.export_to_txt_single},
+"export_ctd": {"sk": "to_cherrytree", "sd": _("_Export To CherryTree Document"), "kb": None, "dn": _("Export To CherryTree Document"), "cb": dad.export_to_ctd},
+"ct_check_newer": {"sk": "gtk-network", "sd": _("_Check Newer Version"), "kb": None, "dn": _("Check for a Newer Version"), "cb": dad.check_for_newer_version},
+"ct_help": {"sk": "help-contents", "sd": _("Online _Manual"), "kb": "F1", "dn": _("Application's Online Manual"), "cb": dad.on_help_menu_item_activated},
+"ct_about": {"sk": "gtk-about", "sd": _("_About"), "kb": None, "dn": _("About CherryTree"), "cb": dad.dialog_about},
+"anch_cut": {"sk": "edit-cut", "sd": _("C_ut Anchor"), "kb": None, "dn": _("Cut the Selected Anchor"), "cb": dad.anchor_cut},
+"anch_copy": {"sk": "edit-copy", "sd": _("_Copy Anchor"), "kb": None, "dn": _("Copy the Selected Anchor"), "cb": dad.anchor_copy},
+"anch_del": {"sk": "edit-delete", "sd": _("_Delete Anchor"), "kb": None, "dn": _("Delete the Selected Anchor"), "cb": dad.anchor_delete},
+"anch_edit": {"sk": "anchor_edit", "sd": _("Edit _Anchor"), "kb": None, "dn": _("Edit the Underlying Anchor"), "cb": dad.anchor_edit},
+"emb_file_cut": {"sk": "edit-cut", "sd": _("C_ut Embedded File"), "kb": None, "dn": _("Cut the Selected Embedded File"), "cb": dad.embfile_cut},
+"emb_file_copy": {"sk": "edit-copy", "sd": _("_Copy Embedded File"), "kb": None, "dn": _("Copy the Selected Embedded File"), "cb": dad.embfile_copy},
+"emb_file_del": {"sk": "edit-delete", "sd": _("_Delete Embedded File"), "kb": None, "dn": _("Delete the Selected Embedded File"), "cb": dad.embfile_delete},
+"emb_file_save": {"sk": "gtk-save-as", "sd": _("Save _As"), "kb": None, "dn": _("Save File As"), "cb": dad.embfile_save},
+"emb_file_open": {"sk": "gtk-open", "sd": _("_Open File"), "kb": None, "dn": _("Open Embedded File"), "cb": dad.embfile_open},
 "img_save": {"sk": "image_save", "sd": _("_Save Image as PNG"), "kb": None, "dn": _("Save the Selected Image as a PNG file"), "cb": dad.image_save},
 "img_edit": {"sk": "image_edit", "sd": _("_Edit Image"), "kb": None, "dn": _("Edit the Selected Image"), "cb": dad.image_edit},
 "img_cut": {"sk": "edit-cut", "sd": _("C_ut Image"), "kb": None, "dn": _("Cut the Selected Image"), "cb": dad.image_cut},
@@ -237,31 +237,31 @@ get_menu_item_tuple(dad, "find_in_node_names"),
 get_menu_item_tuple(dad, "replace_in_node_names"),
 (cons.TAG_SEPARATOR, None, None, None, None),
 ("submenu-start", _("Nodes _Import"), cons.STR_STOCK_CT_IMP, None, None),
-get_menu_item_tuple(dad, "FromCherryTree"),
-get_menu_item_tuple(dad, "FromTxtFile"),
-get_menu_item_tuple(dad, "FromTxtFolder"),
-get_menu_item_tuple(dad, "FromHtmlFile"),
-get_menu_item_tuple(dad, "FromHtmlFolder"),
-get_menu_item_tuple(dad, "FromBasket"),
-get_menu_item_tuple(dad, "FromEPIMHTML"),
-get_menu_item_tuple(dad, "FromGnote"),
-get_menu_item_tuple(dad, "FromKeepNote"),
-get_menu_item_tuple(dad, "FromKeyNote"),
-get_menu_item_tuple(dad, "FromKnowit"),
-get_menu_item_tuple(dad, "FromLeo"),
-get_menu_item_tuple(dad, "FromMempad"),
-get_menu_item_tuple(dad, "FromNoteCase"),
-get_menu_item_tuple(dad, "FromTomboy"),
-get_menu_item_tuple(dad, "FromTreepad"),
-get_menu_item_tuple(dad, "FromTuxCards"),
-get_menu_item_tuple(dad, "FromZim"),
+get_menu_item_tuple(dad, "import_cherrytree"),
+get_menu_item_tuple(dad, "import_txt_file"),
+get_menu_item_tuple(dad, "import_txt_folder"),
+get_menu_item_tuple(dad, "import_html_file"),
+get_menu_item_tuple(dad, "import_html_folder"),
+get_menu_item_tuple(dad, "import_basket"),
+get_menu_item_tuple(dad, "import_epim_html"),
+get_menu_item_tuple(dad, "import_gnote"),
+get_menu_item_tuple(dad, "import_keepnote"),
+get_menu_item_tuple(dad, "import_keynote"),
+get_menu_item_tuple(dad, "import_knowit"),
+get_menu_item_tuple(dad, "import_leo"),
+get_menu_item_tuple(dad, "import_mempad"),
+get_menu_item_tuple(dad, "import_notecase"),
+get_menu_item_tuple(dad, "import_tomboy"),
+get_menu_item_tuple(dad, "import_treepad"),
+get_menu_item_tuple(dad, "import_tuxcards"),
+get_menu_item_tuple(dad, "import_zim"),
 ("submenu-end", None, None, None, None),
 ("submenu-start", _("Nodes E_xport"), "export_from_cherrytree", None, None),
-get_menu_item_tuple(dad, "Export2PDF"),
-get_menu_item_tuple(dad, "Export2HTML"),
-get_menu_item_tuple(dad, "Export2TxtMultiple"),
-get_menu_item_tuple(dad, "Export2TxtSingle"),
-get_menu_item_tuple(dad, "Export2CTD"),
+get_menu_item_tuple(dad, "export_pdf"),
+get_menu_item_tuple(dad, "export_html"),
+get_menu_item_tuple(dad, "export_txt_multiple"),
+get_menu_item_tuple(dad, "export_txt_single"),
+get_menu_item_tuple(dad, "export_ctd"),
 ("submenu-end", None, None, None, None),
 (cons.TAG_SEPARATOR, None, None, None, None),
 get_menu_item_tuple(dad, "child_nodes_inherit_syntax"),
@@ -328,7 +328,7 @@ get_menu_item_tuple(dad, "insert_horiz_rule"),
 ("submenu-start", _("C_hange Case") , "case_toggle", None, None),
 get_menu_item_tuple(dad, "case_down"),
 get_menu_item_tuple(dad, "case_up"),
-get_menu_item_tuple(dad, "case_toggle"),
+get_menu_item_tuple(dad, "case_tggl"),
 ("submenu-end", None, None, None, None),
 ("submenu-start", _("_Row") , "gtk-edit", None, None),
 get_menu_item_tuple(dad, "cut_row"),
@@ -345,15 +345,15 @@ get_menu_item_tuple(dad, "find_in_node"),
 get_menu_item_tuple(dad, "find_in_allnodes"),
 get_menu_item_tuple(dad, "find_in_node_n_sub"),
 get_menu_item_tuple(dad, "find_in_node_names"),
-get_menu_item_tuple(dad, "find_again"),
-get_menu_item_tuple(dad, "find_back"),
+get_menu_item_tuple(dad, "find_iter_fw"),
+get_menu_item_tuple(dad, "find_iter_bw"),
 ("submenu-end", None, None, None, None),
 ("submenu-start", _("_Replace") , "find_replace", None, None),
 get_menu_item_tuple(dad, "replace_in_node"),
 get_menu_item_tuple(dad, "replace_in_allnodes"),
 get_menu_item_tuple(dad, "replace_in_node_n_sub"),
 get_menu_item_tuple(dad, "replace_in_node_names"),
-get_menu_item_tuple(dad, "replace_again"),
+get_menu_item_tuple(dad, "replace_iter_fw"),
 ("submenu-end", None, None, None, None),
 ]
 
@@ -373,7 +373,7 @@ get_menu_item_tuple(dad, "strip_trail_spaces"),
 ("submenu-start", _("C_hange Case") , "case_toggle", None, None),
 get_menu_item_tuple(dad, "case_down"),
 get_menu_item_tuple(dad, "case_up"),
-get_menu_item_tuple(dad, "case_toggle"),
+get_menu_item_tuple(dad, "case_tggl"),
 ("submenu-end", None, None, None, None),
 ("submenu-start", _("_Row") , "gtk-edit", None, None),
 get_menu_item_tuple(dad, "cut_row"),
@@ -389,15 +389,15 @@ get_menu_item_tuple(dad, "find_in_node"),
 get_menu_item_tuple(dad, "find_in_allnodes"),
 get_menu_item_tuple(dad, "find_in_node_n_sub"),
 get_menu_item_tuple(dad, "find_in_node_names"),
-get_menu_item_tuple(dad, "find_again"),
-get_menu_item_tuple(dad, "find_back"),
+get_menu_item_tuple(dad, "find_iter_fw"),
+get_menu_item_tuple(dad, "find_iter_bw"),
 ("submenu-end", None, None, None, None),
 ("submenu-start", _("_Replace") , "find_replace", None, None),
 get_menu_item_tuple(dad, "replace_in_node"),
 get_menu_item_tuple(dad, "replace_in_allnodes"),
 get_menu_item_tuple(dad, "replace_in_node_n_sub"),
 get_menu_item_tuple(dad, "replace_in_node_names"),
-get_menu_item_tuple(dad, "replace_again"),
+get_menu_item_tuple(dad, "replace_iter_fw"),
 ("submenu-end", None, None, None, None),
 ]
 
@@ -514,7 +514,7 @@ UI_INFO = """
       <menu action='ChangeCaseMenu'>
         <menuitem action='case_down'/>
         <menuitem action='case_up'/>
-        <menuitem action='case_toggle'/>
+        <menuitem action='case_tggl'/>
       </menu>
       <separator/>
       <menuitem action='spellcheck_toggle'/>
@@ -567,14 +567,14 @@ UI_INFO = """
       <menuitem action='find_in_allnodes'/>
       <menuitem action='find_in_node_n_sub'/>
       <menuitem action='find_in_node_names'/>
-      <menuitem action='find_again'/>
-      <menuitem action='find_back'/>
+      <menuitem action='find_iter_fw'/>
+      <menuitem action='find_iter_bw'/>
       <separator/>
       <menuitem action='replace_in_node'/>
       <menuitem action='replace_in_allnodes'/>
       <menuitem action='replace_in_node_n_sub'/>
       <menuitem action='replace_in_node_names'/>
-      <menuitem action='replace_again'/>
+      <menuitem action='replace_iter_fw'/>
     </menu>
 
     <menu action='ViewMenu'>
@@ -598,42 +598,42 @@ UI_INFO = """
     </menu>
 
     <menu action='ImportMenu'>
-      <menuitem action='FromCherryTree'/>
-      <menuitem action='FromTxtFile'/>
-      <menuitem action='FromTxtFolder'/>
-      <menuitem action='FromHtmlFile'/>
-      <menuitem action='FromHtmlFolder'/>
-      <menuitem action='FromBasket'/>
-      <menuitem action='FromEPIMHTML'/>
-      <menuitem action='FromGnote'/>
-      <menuitem action='FromKeepNote'/>
-      <menuitem action='FromKeyNote'/>
-      <menuitem action='FromKnowit'/>
-      <menuitem action='FromLeo'/>
-      <menuitem action='FromMempad'/>
-      <menuitem action='FromNoteCase'/>
-      <menuitem action='FromTomboy'/>
-      <menuitem action='FromTreepad'/>
-      <menuitem action='FromTuxCards'/>
-      <menuitem action='FromZim'/>
+      <menuitem action='import_cherrytree'/>
+      <menuitem action='import_txt_file'/>
+      <menuitem action='import_txt_folder'/>
+      <menuitem action='import_html_file'/>
+      <menuitem action='import_html_folder'/>
+      <menuitem action='import_basket'/>
+      <menuitem action='import_epim_html'/>
+      <menuitem action='import_gnote'/>
+      <menuitem action='import_keepnote'/>
+      <menuitem action='import_keynote'/>
+      <menuitem action='import_knowit'/>
+      <menuitem action='import_leo'/>
+      <menuitem action='import_mempad'/>
+      <menuitem action='import_notecase'/>
+      <menuitem action='import_tomboy'/>
+      <menuitem action='import_treepad'/>
+      <menuitem action='import_tuxcards'/>
+      <menuitem action='import_zim'/>
     </menu>
 
     <menu action='ExportMenu'>
-      <menuitem action='Export2PDF'/>
-      <menuitem action='Export2HTML'/>
-      <menuitem action='Export2TxtMultiple'/>
-      <menuitem action='Export2TxtSingle'/>
-      <menuitem action='Export2CTD'/>
+      <menuitem action='export_pdf'/>
+      <menuitem action='export_html'/>
+      <menuitem action='export_txt_multiple'/>
+      <menuitem action='export_txt_single'/>
+      <menuitem action='export_ctd'/>
     </menu>
 
     <menu action='HelpMenu'>
-      <menuitem action='CheckNewer'/>
+      <menuitem action='ct_check_newer'/>
       <separator/>
-      <menuitem action='Help'/>
+      <menuitem action='ct_help'/>
       <separator/>
       <menuitem action='open_cfg_folder'/>
       <separator/>
-      <menuitem action='About'/>
+      <menuitem action='ct_about'/>
     </menu>
   </menubar>
 
@@ -656,24 +656,24 @@ UI_INFO = """
   </popup>
 
   <popup name='AnchorMenu'>
-    <menuitem action='CutAnchor'/>
-    <menuitem action='CopyAnchor'/>
-    <menuitem action='DeleteAnchor'/>
+    <menuitem action='anch_cut'/>
+    <menuitem action='anch_copy'/>
+    <menuitem action='anch_del'/>
     <separator/>
-    <menuitem action='EditAnchor'/>
+    <menuitem action='anch_edit'/>
   </popup>
 
   <popup name='EmbFileMenu'>
-    <menuitem action='CutEmbFile'/>
-    <menuitem action='CopyEmbFile'/>
-    <menuitem action='DeleteEmbFile'/>
+    <menuitem action='emb_file_cut'/>
+    <menuitem action='emb_file_copy'/>
+    <menuitem action='emb_file_del'/>
     <separator/>
-    <menuitem action='EmbFileOpen'/>
-    <menuitem action='EmbFileSave'/>
+    <menuitem action='emb_file_open'/>
+    <menuitem action='emb_file_save'/>
   </popup>
 </ui>
 """
 
-TOOLBAR_VEC_DEFAULT = ["tree_add_node", "tree_add_subnode", cons.TAG_SEPARATOR, "go_node_prev", "go_node_next", cons.TAG_SEPARATOR, cons.CHAR_STAR, "ct_save", "Export2PDF", cons.TAG_SEPARATOR, "find_in_allnodes", cons.TAG_SEPARATOR, "handle_bull_list", "handle_num_list", "handle_todo_list", cons.TAG_SEPARATOR, "handle_image", "handle_table", "handle_codebox", "handle_embfile", "handle_link", "handle_anchor", cons.TAG_SEPARATOR, "fmt_rm", "fmt_color_fg", "fmt_color_bg", "fmt_bold", "fmt_italic", "fmt_underline", "fmt_strikethrough", "fmt_h1", "fmt_h2", "fmt_h3", "fmt_small", "fmt_superscript", "fmt_subscript", "fmt_monospace"]
+TOOLBAR_VEC_DEFAULT = ["tree_add_node", "tree_add_subnode", cons.TAG_SEPARATOR, "go_node_prev", "go_node_next", cons.TAG_SEPARATOR, cons.CHAR_STAR, "ct_save", "export_pdf", cons.TAG_SEPARATOR, "find_in_allnodes", cons.TAG_SEPARATOR, "handle_bull_list", "handle_num_list", "handle_todo_list", cons.TAG_SEPARATOR, "handle_image", "handle_table", "handle_codebox", "handle_embfile", "handle_link", "handle_anchor", cons.TAG_SEPARATOR, "fmt_rm", "fmt_color_fg", "fmt_color_bg", "fmt_bold", "fmt_italic", "fmt_underline", "fmt_strikethrough", "fmt_h1", "fmt_h2", "fmt_h3", "fmt_small", "fmt_superscript", "fmt_subscript", "fmt_monospace"]
 
-TOOLBAR_VEC_BLACKLIST = ["CutAnchor", "CopyAnchor", "DeleteAnchor", "EditAnchor", "CutEmbFile", "CopyEmbFile", "DeleteEmbFile", "EmbFileSave", "EmbFileOpen", "img_save", "img_edit", "img_cut", "img_copy", "img_del", "img_link_edit", "img_link_dismiss", "toggle_show_mainwin"]
+TOOLBAR_VEC_BLACKLIST = ["anch_cut", "anch_copy", "anch_del", "anch_edit", "emb_file_cut", "emb_file_copy", "emb_file_del", "emb_file_save", "emb_file_open", "img_save", "img_edit", "img_cut", "img_copy", "img_del", "img_link_edit", "img_link_dismiss", "toggle_show_mainwin"]

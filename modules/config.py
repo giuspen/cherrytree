@@ -52,16 +52,16 @@ def get_toolbar_icon_n_label_list(dad):
     icon_n_label_list = [[cons.TAG_SEPARATOR, "", SEPARATOR_ASCII_REPR]]
     for element in menus.get_entries(dad):
         if len(element) == 3: continue
-        if element[0] in dad.toolbar_ui_vec: continue
+        if element[0] in dad.toolbar_ui_list: continue
         if element[0] in menus.TOOLBAR_VEC_BLACKLIST: continue
-        if element[0] == "OpenFile" and cons.CHAR_STAR in dad.toolbar_ui_vec: continue
+        if element[0] == "ct_open_file" and cons.CHAR_STAR in dad.toolbar_ui_list: continue
         icon_n_label_list.append([element[0], element[1], element[4]])
     return icon_n_label_list
 
 def get_toolbar_ui_str(dad):
     dad.toolbar_open_n_recent = -1
     toolbar_ui_str = "<ui><toolbar name='ToolBar'>"
-    for i, toolbar_element in enumerate(dad.toolbar_ui_vec):
+    for i, toolbar_element in enumerate(dad.toolbar_ui_list):
         if toolbar_element == cons.CHAR_STAR: dad.toolbar_open_n_recent = i
         elif toolbar_element == cons.TAG_SEPARATOR: toolbar_ui_str += "<separator/>"
         else: toolbar_ui_str += "<toolitem action='%s'/>" % toolbar_element
@@ -229,7 +229,7 @@ def config_file_load(dad):
         dad.col_link_fold = cfg.get(section, "col_link_fold") if cfg.has_option(section, "col_link_fold") else cons.COLOR_48_LINK_FOLD
 
         section = "misc"
-        dad.toolbar_ui_vec = cfg.get(section, "toolbar_ui_vec").split(cons.CHAR_COMMA) if cfg.has_option(section, "toolbar_ui_vec") else menus.TOOLBAR_VEC_DEFAULT
+        dad.toolbar_ui_list = cfg.get(section, "toolbar_ui_list").split(cons.CHAR_COMMA) if cfg.has_option(section, "toolbar_ui_list") else menus.TOOLBAR_VEC_DEFAULT
         dad.systray = cfg.getboolean(section, "systray") if cfg.has_option(section, "systray") else False
         dad.start_on_systray = cfg.getboolean(section, "start_on_systray") if cfg.has_option(section, "start_on_systray") else False
         dad.use_appind = cfg.getboolean(section, "use_appind") if cfg.has_option(section, "use_appind") else False
@@ -283,7 +283,7 @@ def config_file_load(dad):
         dad.auto_smart_quotes = True
         dad.wrapping_indent = -14
         dad.auto_indent = True
-        dad.toolbar_ui_vec = menus.TOOLBAR_VEC_DEFAULT
+        dad.toolbar_ui_list = menus.TOOLBAR_VEC_DEFAULT
         dad.systray = False
         dad.win_position = [10, 10]
         dad.autosave = [False, 5]
@@ -500,7 +500,7 @@ def config_file_save(dad):
 
     section = "misc"
     cfg.add_section(section)
-    cfg.set(section, "toolbar_ui_vec", cons.CHAR_COMMA.join(dad.toolbar_ui_vec))
+    cfg.set(section, "toolbar_ui_list", cons.CHAR_COMMA.join(dad.toolbar_ui_list))
     cfg.set(section, "systray", dad.systray)
     cfg.set(section, "start_on_systray", dad.start_on_systray)
     cfg.set(section, "use_appind", dad.use_appind)
@@ -1480,15 +1480,15 @@ def preferences_tab_toolbar(dad, vbox_tool, pref_dialog):
 
     vbox_tool.add(hbox)
 
-    for element in dad.toolbar_ui_vec:
+    for element in dad.toolbar_ui_list:
         liststore.append(get_toolbar_entry_columns_from_key(dad, element))
 
     pref_dialog.disp_dialog_after_restart = False
     def update_toolbar_ui_vec():
-        dad.toolbar_ui_vec = []
+        dad.toolbar_ui_list = []
         tree_iter = liststore.get_iter_first()
         while tree_iter != None:
-            dad.toolbar_ui_vec.append(liststore[tree_iter][0])
+            dad.toolbar_ui_list.append(liststore[tree_iter][0])
             tree_iter = liststore.iter_next(tree_iter)
         if not pref_dialog.disp_dialog_after_restart:
             pref_dialog.disp_dialog_after_restart = True
@@ -1497,7 +1497,7 @@ def preferences_tab_toolbar(dad, vbox_tool, pref_dialog):
         icon_n_label_list = get_toolbar_icon_n_label_list(dad)
         sel_key = support.dialog_choose_element_in_list(pref_dialog, _("Select Element to Add"), [], "", icon_n_label_list)
         if sel_key:
-            if sel_key == "OpenFile": sel_key = cons.CHAR_STAR
+            if sel_key == "ct_open_file": sel_key = cons.CHAR_STAR
             model, tree_iter = treeviewselection.get_selected()
             if tree_iter: liststore.insert_after(tree_iter, get_toolbar_entry_columns_from_key(dad, sel_key))
             else: liststore.append(get_toolbar_entry_columns_from_key(dad, sel_key))
