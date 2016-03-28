@@ -45,7 +45,6 @@ class CherryTree:
         self.state_machine = machines.StateMachine(self)
         self.xml_handler = machines.XMLHandler(self)
         self.html_handler = exports.Export2Html(self)
-        self.find_handler = findreplace.FindReplace(self)
         self.ctdb_handler = ctdb.CTDBHandler(self)
         self.print_handler = printing.PrintHandler(self)
         # icon factory
@@ -219,6 +218,7 @@ class CherryTree:
         self.prefpage = 0
         support.set_menu_items_recent_documents(self)
         support.set_menu_items_special_chars(self)
+        self.find_handler = findreplace.FindReplace(self)
         if not export_mode:
             self.window.show_all() # this before the config_file_apply that could hide something
             self.window.present()
