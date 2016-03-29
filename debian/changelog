@@ -1,5 +1,7 @@
-cherrytree (0.36.8-1) trusty; urgency=low
+cherrytree (0.36.9-1) trusty; urgency=low
 
-  * fixed bug in font zoom in/out on tree and text with ctrl down and mouse wheel up/down
+  * new icons for codebox and table, fixed icon for image
+  * updated Chinese language to 100% coverage (Channing Wong)
+  * updated German language (fix from Stefan Pöschel)
 
- -- Giuseppe Penone <giuspen@gmail.com>  Mon, 14 Mar 2016 21:43:53 +0000
+ -- Giuseppe Penone <giuspen@gmail.com>  Tue, 29 Mar 2016 21:10:08 +0100
