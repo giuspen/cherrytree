@@ -1,4 +1,9 @@
 
+0.36.9 (March 29th, 2016)
+• new icons for codebox and table, fixed icon for image
+• updated Chinese language to 100% coverage (Channing Wong)
+• updated German language (fix from Stefan Pöschel)
+
 0.36.8 (March 14th, 2016)
 • fixed bug in font zoom in/out on tree and text with ctrl down and mouse wheel up/down
 
