@@ -4099,8 +4099,8 @@ iter_end, exclude_iter_sel_end=True)
             elif self.curr_image_anchor.pixbuf.link:
                 self.link_clicked(self.curr_image_anchor.pixbuf.link, event.button == 2)
         elif event.button == 3:
-            if self.curr_image_anchor.pixbuf.link: self.ui.get_widget("/ImageMenu/DismissImageLink").show()
-            else: self.ui.get_widget("/ImageMenu/DismissImageLink").hide()
+            if self.curr_image_anchor.pixbuf.link: self.ui.get_widget("/ImageMenu/img_link_dismiss").show()
+            else: self.ui.get_widget("/ImageMenu/img_link_dismiss").hide()
             self.ui.get_widget("/ImageMenu").popup(None, None, None, event.button, event.time)
         return True # do not propagate the event
 
@@ -4742,8 +4742,8 @@ iter_end, exclude_iter_sel_end=True)
                     else:
                         self.curr_image_anchor = anchor
                         self.object_set_selection(self.curr_image_anchor)
-                        if self.curr_image_anchor.pixbuf.link: self.ui.get_widget("/ImageMenu/DismissImageLink").show()
-                        else: self.ui.get_widget("/ImageMenu/DismissImageLink").hide()
+                        if self.curr_image_anchor.pixbuf.link: self.ui.get_widget("/ImageMenu/img_link_dismiss").show()
+                        else: self.ui.get_widget("/ImageMenu/img_link_dismiss").hide()
                         self.ui.get_widget("/ImageMenu").popup(None, None, None, 3, event.time)
                     return True
             elif keyname == cons.STR_KEY_TAB:
