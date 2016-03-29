@@ -14,7 +14,7 @@
    width="48"
    height="48"
    id="svg2839"
-   inkscape:version="0.47 r22583"
+   inkscape:version="0.91 r"
    sodipodi:docname="table_save.svg">
   <metadata
      id="metadata92">
@@ -42,10 +42,10 @@
      showgrid="false"
      inkscape:snap-grids="true"
      inkscape:zoom="4.9166667"
-     inkscape:cx="26.338984"
+     inkscape:cx="19.22034"
      inkscape:cy="29.642738"
      inkscape:window-x="124"
-     inkscape:window-y="62"
+     inkscape:window-y="52"
      inkscape:window-maximized="0"
      inkscape:current-layer="svg2839" />
   <defs
@@ -2835,67 +2835,42 @@
        d="m 102.82173,48.423685 -5.170368,7.836772 -5.244995,-7.836772 2.245765,0 0,-8.150244 5.998468,0 0,8.150244 2.17113,0 z" />
   </g>
   <g
-     id="g3792"
-     transform="matrix(0.07402698,0,0,0.05275501,0.31918882,-0.15483305)">
+     id="g3340"
+     transform="matrix(0.82148801,0,0,0.83098393,-12.91363,-7.6310373)">
     <rect
-       y="33.675911"
-       x="29.843773"
-       height="37.696575"
-       width="429.32211"
-       id="rect3343"
-       style="fill:#666666" />
+       x="18.676001"
+       y="11.336"
+       width="36.424999"
+       height="26.289"
+       rx="1.893"
+       style="fill:#cccccc;fill-rule:evenodd"
+       id="rect831" />
+    <path
+       sodipodi:stroke-cmyk="(0.0000000 0.0000000 0.0000000 0.80000001)"
+       d="m 18.881,20.182 36.053,0"
+       style="fill:none;stroke:#333333;stroke-width:1.875;stroke-linecap:round;stroke-linejoin:round"
+       id="path832"
+       inkscape:connector-curvature="0" />
+    <path
+       sodipodi:stroke-cmyk="(0.0000000 0.0000000 0.0000000 0.80000001)"
+       d="m 36.721,11.712 0,25.692"
+       style="fill:none;stroke:#333333;stroke-width:1.875;stroke-linecap:round;stroke-linejoin:round"
+       id="path833"
+       inkscape:connector-curvature="0" />
+    <path
+       sodipodi:stroke-cmyk="(0.0000000 0.0000000 0.0000000 0.80000001)"
+       d="m 18.881,28.798 36.053,0"
+       style="fill:none;stroke:#333333;stroke-width:1.875;stroke-linecap:round;stroke-linejoin:round"
+       id="path834"
+       inkscape:connector-curvature="0" />
     <rect
-       y="161.41382"
-       x="29.005806"
-       height="37.696575"
-       width="429.32211"
-       id="rect3343-3"
-       style="fill:#666666" />
-    <rect
-       y="425.41382"
-       x="29.005806"
-       height="37.696575"
-       width="429.32211"
-       id="rect3343-3-1"
-       style="fill:#666666" />
-    <rect
-       y="290.88055"
-       x="29.780499"
-       height="37.696575"
-       width="429.32211"
-       id="rect3343-3-8"
-       style="fill:#666666" />
-    <rect
-       transform="matrix(0,1,-1,0,0,0)"
-       y="-60.117462"
-       x="33.695301"
-       height="37.696575"
-       width="429.32211"
-       id="rect3343-4"
-       style="fill:#666666" />
-    <rect
-       transform="matrix(0,1,-1,0,0,0)"
-       y="-473.58167"
-       x="34.805687"
-       height="37.696575"
-       width="427.22787"
-       id="rect3343-4-8"
-       style="fill:#666666" />
-    <rect
-       transform="matrix(0,1,-1,0,0,0)"
-       y="-192.92189"
-       x="37.182705"
-       height="37.696575"
-       width="420.9451"
-       id="rect3343-4-2"
-       style="fill:#666666" />
-    <rect
-       transform="matrix(0,1,-1,0,0,0)"
-       y="-333.63458"
-       x="40.428677"
-       height="37.696575"
-       width="420.9451"
-       id="rect3343-4-2-9"
-       style="fill:#666666" />
+       x="18.676001"
+       y="11.336"
+       sodipodi:stroke-cmyk="(0.0000000 0.0000000 0.0000000 0.80000001)"
+       width="36.424999"
+       height="26.289"
+       rx="1.988"
+       style="fill:none;stroke:#333333;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round"
+       id="rect837" />
   </g>
 </svg>
