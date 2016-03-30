@@ -251,13 +251,21 @@ class CherryTree:
             if len(latest_version) > 10:
                 # html error page
                 raise
-            if latest_version != cons.VERSION:
+            splitted_latest_v = [int(i) for i in latest_version.split(".")]
+            splitted_local_v = [int(i) for i in cons.VERSION.split(".")]
+            weighted_latest_v = splitted_latest_v[0]*10000 + splitted_latest_v[1]*100 + splitted_latest_v[2]
+            weighted_local_v = splitted_local_v[0]*10000 + splitted_local_v[1]*100 + splitted_local_v[2]
+            if weighted_latest_v > weighted_local_v:
                 support.dialog_info(_("A Newer Version Is Available!") + " (%s)" % latest_version, self.window)
                 self.statusbar.pop(self.statusbar_context_id)
                 self.update_selected_node_statusbar_info()
             else:
                 self.statusbar.pop(self.statusbar_context_id)
-                self.statusbar.push(self.statusbar_context_id, _("You Are Using the Latest Version Available") + " (%s)" % latest_version)
+                if weighted_latest_v == weighted_local_v:
+                    msg_txt = _("You Are Using the Latest Version Available") + " (%s)" % latest_version
+                else:
+                    msg_txt = _("You Are Using a Development Version")
+                self.statusbar.push(self.statusbar_context_id, msg_txt)
         except:
             self.statusbar.pop(self.statusbar_context_id)
             self.statusbar.push(self.statusbar_context_id, _("Failed to Retrieve Latest Version Information - Try Again Later"))
