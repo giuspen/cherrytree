@@ -1449,7 +1449,44 @@ def preferences_tab_kb_shortcuts(dad, vbox_tool, pref_dialog):
     """Preferences Dialog, Keyboard Shortcuts Tab"""
     for child in vbox_tool.get_children(): child.destroy()
 
-    
+    treestore = gtk.TreeStore(str, str, str, str)
+    treeview = gtk.TreeView(treestore)
+    treeview.set_headers_visible(False)
+    treeview.set_reorderable(True)
+    treeview.set_size_request(300, 300)
+    renderer_pixbuf = gtk.CellRendererPixbuf()
+    renderer_text_kb = gtk.CellRendererText()
+    renderer_text_desc = gtk.CellRendererText()
+    column = gtk.TreeViewColumn()
+    column.pack_start(renderer_pixbuf, False)
+    column.pack_start(renderer_text_kb, False)
+    column.pack_start(renderer_text_desc, True)
+    column.set_attributes(renderer_pixbuf, stock_id=1)
+    column.set_attributes(renderer_text_kb, text=2)
+    column.set_attributes(renderer_text_desc, text=3)
+    treeview.append_column(column)
+    treeviewselection = treeview.get_selection()
+    scrolledwindow = gtk.ScrolledWindow()
+    scrolledwindow.add(treeview)
+    vbox_tool.add(scrolledwindow)
+
+    config_actions_sections = [
+["file", _("File")],
+["tree", _("Tree")],
+["editor", _("Editor")],
+["fmt", _("Format")],
+["findrepl", _("Find/Replace")],
+["view", _("View")],
+["export", _("Export")],
+["import", _("Import")],
+]
+    for section in config_actions_sections:
+        tree_iter = treestore.append(None, ["", "", "", section[1]])
+        for name in menus.CONFIG_ACTIONS_DICT[section[0]]:
+            subdict = dad.menudict[name]
+            kb_shortcut = menus.get_menu_item_kb_shortcut(dad, name)
+            treestore.append(tree_iter, [name, subdict["sk"], kb_shortcut, subdict["dn"]])
+    treeview.expand_all()
 
 def preferences_tab_toolbar(dad, vbox_tool, pref_dialog):
     """Preferences Dialog, Toolbar Tab"""
