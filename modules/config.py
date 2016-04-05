@@ -1468,7 +1468,16 @@ def preferences_tab_kb_shortcuts(dad, vbox_tool, pref_dialog):
     treeviewselection = treeview.get_selection()
     scrolledwindow = gtk.ScrolledWindow()
     scrolledwindow.add(treeview)
-    vbox_tool.add(scrolledwindow)
+
+    hbox = gtk.HBox()
+    button_edit = gtk.Button(stock=gtk.STOCK_EDIT)
+    hbox.pack_start(gtk.Label(""), expand=True)
+    hbox.pack_start(button_edit, expand=True)
+    hbox.pack_start(gtk.Label(""), expand=True)
+    vbox = gtk.VBox()
+    vbox.pack_start(scrolledwindow, expand=True)
+    vbox.pack_start(hbox, expand=False)
+    vbox_tool.add(vbox)
 
     config_actions_sections = [
 ["file", _("File")],
@@ -1487,6 +1496,19 @@ def preferences_tab_kb_shortcuts(dad, vbox_tool, pref_dialog):
             kb_shortcut = menus.get_menu_item_kb_shortcut(dad, name)
             treestore.append(tree_iter, [name, subdict["sk"], kb_shortcut, subdict["dn"]])
     treeview.expand_all()
+
+    def edit_selected_tree_iter():
+        model, tree_iter = treeviewselection.get_selected()
+        if tree_iter:
+            print model[tree_iter][0]
+
+    def on_button_edit_clicked(*args):
+        edit_selected_tree_iter()
+    button_edit.connect('clicked', on_button_edit_clicked)
+    def on_button_press_treestore(widget, event):
+        if event.button == 1 and event.type == gtk.gdk._2BUTTON_PRESS:
+            edit_selected_tree_iter()
+    treeview.connect('button-press-event', on_button_press_treestore)
 
 def preferences_tab_toolbar(dad, vbox_tool, pref_dialog):
     """Preferences Dialog, Toolbar Tab"""
