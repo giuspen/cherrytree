@@ -1499,8 +1499,65 @@ def preferences_tab_kb_shortcuts(dad, vbox_tool, pref_dialog):
 
     def edit_selected_tree_iter():
         model, tree_iter = treeviewselection.get_selected()
-        if tree_iter:
-            print model[tree_iter][0]
+        if not tree_iter: return
+        print model[tree_iter][0]
+        dialog = gtk.Dialog(title=_("Edit Keyboard Shortcut"),
+            parent=dad.window,
+            flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
+            buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
+            gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
+        dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+        dialog.set_default_size(400, 100)
+        radiobutton_kb_none = gtk.RadioButton(label=_("No Keyboard Shortcut"))
+        radiobutton_kb_shortcut = gtk.RadioButton()
+        radiobutton_kb_shortcut.set_group(radiobutton_kb_none)
+        ctrl_toggle = gtk.ToggleButton("control")
+        shift_toggle = gtk.ToggleButton("shift")
+        alt_toggle = gtk.ToggleButton("alt")
+        for widget in [ctrl_toggle, shift_toggle, alt_toggle]:
+            widget.set_size_request(70, -1)
+        key_entry = gtk.Entry()
+        vbox = gtk.VBox()
+        hbox = gtk.HBox()
+        hbox.pack_start(radiobutton_kb_shortcut)
+        hbox.pack_start(ctrl_toggle)
+        hbox.pack_start(shift_toggle)
+        hbox.pack_start(alt_toggle)
+        hbox.pack_start(key_entry)
+        hbox.set_spacing(5)
+        vbox.pack_start(radiobutton_kb_none)
+        vbox.pack_start(hbox)
+        content_area = dialog.get_content_area()
+        content_area.pack_start(vbox)
+        def on_radiobutton_kb_none_toggled(radiobutton):
+            if radiobutton.get_active():
+                for widget in [ctrl_toggle, shift_toggle, alt_toggle, key_entry]:
+                    widget.set_sensitive(False)
+        radiobutton_kb_none.connect('toggled', on_radiobutton_kb_none_toggled)
+        def on_radiobutton_kb_shortcut_toggled(radiobutton):
+            if radiobutton.get_active():
+                for widget in [ctrl_toggle, shift_toggle, alt_toggle, key_entry]:
+                    widget.set_sensitive(True)
+        radiobutton_kb_shortcut.connect('toggled', on_radiobutton_kb_shortcut_toggled)
+        def on_key_press_entry(widget, event):
+            keyname = gtk.gdk.keyval_name(event.keyval)
+            key_entry.set_text(keyname)
+            key_entry.select_region(0, len(keyname))
+            return True
+        key_entry.connect("key_press_event", on_key_press_entry)
+        def on_key_press_dialog(widget, event):
+            keyname = gtk.gdk.keyval_name(event.keyval)
+            if keyname == cons.STR_KEY_RETURN:
+                try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
+                except: print cons.STR_PYGTK_222_REQUIRED
+                return True
+            return False
+        dialog.connect("key_press_event", on_key_press_dialog)
+        content_area.show_all()
+        response = dialog.run()
+        dialog.hide()
+        if response == gtk.RESPONSE_ACCEPT:
+            print "action"
 
     def on_button_edit_clicked(*args):
         edit_selected_tree_iter()
