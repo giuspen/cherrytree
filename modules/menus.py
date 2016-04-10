@@ -21,6 +21,9 @@
 
 import cons
 
+KB_CONTROL = "<control>"
+KB_SHIFT = "<shift>"
+KB_ALT = "<alt>"
 
 CONFIG_ACTIONS_DICT = {
 "file": [

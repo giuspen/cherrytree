@@ -1449,6 +1449,7 @@ def preferences_tab_kb_shortcuts(dad, vbox_tool, pref_dialog):
     """Preferences Dialog, Keyboard Shortcuts Tab"""
     for child in vbox_tool.get_children(): child.destroy()
 
+    # 0: action_name 1: stock_icon 2: kb_shortcut 3: description
     treestore = gtk.TreeStore(str, str, str, str)
     treeview = gtk.TreeView(treestore)
     treeview.set_headers_visible(False)
@@ -1500,7 +1501,10 @@ def preferences_tab_kb_shortcuts(dad, vbox_tool, pref_dialog):
     def edit_selected_tree_iter():
         model, tree_iter = treeviewselection.get_selected()
         if not tree_iter: return
-        print model[tree_iter][0]
+        action_name = model[tree_iter][0]
+        kb_shortcut_full = model[tree_iter][2] if model[tree_iter][2] else ""
+        kb_shortcut_key = kb_shortcut_full.replace(menus.KB_CONTROL, "").replace(menus.KB_SHIFT, "").replace(menus.KB_ALT, "")
+        #print "'%s' -> '%s'" % (action_name, kb_shortcut)
         dialog = gtk.Dialog(title=_("Edit Keyboard Shortcut"),
             parent=dad.window,
             flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
@@ -1517,6 +1521,7 @@ def preferences_tab_kb_shortcuts(dad, vbox_tool, pref_dialog):
         for widget in [ctrl_toggle, shift_toggle, alt_toggle]:
             widget.set_size_request(70, -1)
         key_entry = gtk.Entry()
+        key_entry.set_text(kb_shortcut_key)
         vbox = gtk.VBox()
         hbox = gtk.HBox()
         hbox.pack_start(radiobutton_kb_shortcut)
@@ -1529,19 +1534,22 @@ def preferences_tab_kb_shortcuts(dad, vbox_tool, pref_dialog):
         vbox.pack_start(hbox)
         content_area = dialog.get_content_area()
         content_area.pack_start(vbox)
+        def kb_shortcut_on_off(is_on):
+            for widget in [ctrl_toggle, shift_toggle, alt_toggle, key_entry]:
+                widget.set_sensitive(is_on)
         def on_radiobutton_kb_none_toggled(radiobutton):
             if radiobutton.get_active():
-                for widget in [ctrl_toggle, shift_toggle, alt_toggle, key_entry]:
-                    widget.set_sensitive(False)
+                kb_shortcut_on_off(False)
         radiobutton_kb_none.connect('toggled', on_radiobutton_kb_none_toggled)
         def on_radiobutton_kb_shortcut_toggled(radiobutton):
             if radiobutton.get_active():
-                for widget in [ctrl_toggle, shift_toggle, alt_toggle, key_entry]:
-                    widget.set_sensitive(True)
+                kb_shortcut_on_off(True)
         radiobutton_kb_shortcut.connect('toggled', on_radiobutton_kb_shortcut_toggled)
         def on_key_press_entry(widget, event):
             keyname = gtk.gdk.keyval_name(event.keyval)
-            key_entry.set_text(keyname)
+            if len(keyname) == 1: out_txt = keyname.upper()
+            else: out_txt = keyname
+            key_entry.set_text(out_txt)
             key_entry.select_region(0, len(keyname))
             return True
         key_entry.connect("key_press_event", on_key_press_entry)
@@ -1553,6 +1561,12 @@ def preferences_tab_kb_shortcuts(dad, vbox_tool, pref_dialog):
                 return True
             return False
         dialog.connect("key_press_event", on_key_press_dialog)
+        radiobutton_kb_none.set_active(not bool(kb_shortcut_full))
+        radiobutton_kb_shortcut.set_active(bool(kb_shortcut_full))
+        ctrl_toggle.set_active(menus.KB_CONTROL in kb_shortcut_full)
+        shift_toggle.set_active(menus.KB_SHIFT in kb_shortcut_full)
+        alt_toggle.set_active(menus.KB_ALT in kb_shortcut_full)
+        kb_shortcut_on_off(bool(kb_shortcut_full))
         content_area.show_all()
         response = dialog.run()
         dialog.hide()
