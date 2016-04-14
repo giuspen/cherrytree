@@ -1480,6 +1480,8 @@ def preferences_tab_kb_shortcuts(dad, vbox_tool, pref_dialog):
     vbox.pack_start(hbox, expand=False)
     vbox_tool.add(vbox)
 
+    pref_dialog.disp_dialog_after_restart = False
+
     config_actions_sections = [
 ["file", _("File")],
 ["tree", _("Tree")],
@@ -1581,7 +1583,7 @@ def preferences_tab_kb_shortcuts(dad, vbox_tool, pref_dialog):
                 if shift_toggle.get_active(): kb_shortcut_full += menus.KB_SHIFT
                 if alt_toggle.get_active(): kb_shortcut_full += menus.KB_ALT
                 kb_shortcut_full += kb_shortcut_key
-            print kb_shortcut_full
+            #print kb_shortcut_full
             if kb_shortcut_full:
                 in_use_name = menus.get_menu_item_name_from_shortcut(dad, kb_shortcut_full)
                 if in_use_name and in_use_name != action_name:
@@ -1593,6 +1595,10 @@ def preferences_tab_kb_shortcuts(dad, vbox_tool, pref_dialog):
             else:
                 dad.custom_kb_shortcuts[action_name] = None
             reload_treestore()
+            if not pref_dialog.disp_dialog_after_restart:
+                pref_dialog.disp_dialog_after_restart = True
+                support.dialog_info_after_restart(pref_dialog)
+            menus.polish_overridden_keyboard_shortcuts(dad)
 
     def on_button_edit_clicked(*args):
         edit_selected_tree_iter()

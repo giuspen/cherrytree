@@ -344,6 +344,12 @@ def get_entries(dad):
         entries.append((name, mi_tuple[0], mi_tuple[1], mi_tuple[2], mi_tuple[3], mi_tuple[4]))
     return entries
 
+def polish_overridden_keyboard_shortcuts(dad):
+    """Polish the Overridded Keyboard Shortcuts"""
+    for name in dad.custom_kb_shortcuts.keys():
+        if dad.custom_kb_shortcuts[name] == dad.menudict[name]["kb"]:
+            del dad.custom_kb_shortcuts[name]
+
 def get_menu_item_name_from_shortcut(dad, kb_shortcut):
     """Returns a Menu Item name from a Keyboard Shortcut"""
     ret_name = ""
