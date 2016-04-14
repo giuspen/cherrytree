@@ -600,7 +600,7 @@ iter_end, exclude_iter_sel_end=True)
                 self.node_left()
                 return True
             elif keyname == cons.STR_KEY_RIGHT:
-                self.node_change_father()
+                self.node_right()
                 return True
         elif event.state & gtk.gdk.MOD1_MASK:
             pass
@@ -2386,6 +2386,15 @@ iter_end, exclude_iter_sel_end=True)
             self.ctdb_handler.pending_edit_db_node_hier(self.treestore[subseq_iter][3])
             self.treeview.set_cursor(self.treestore.get_path(self.curr_tree_iter))
             self.update_window_save_needed()
+
+    def node_right(self, *args):
+        """Node right one position"""
+        if not self.is_there_selected_node_or_error(): return
+        prev_iter = self.get_tree_iter_prev_sibling(self.treestore, self.curr_tree_iter)
+        if prev_iter != None:
+            self.node_move_after(self.curr_tree_iter,
+                                 prev_iter)
+            if self.nodes_icons == "c": self.treeview_refresh(change_icon=True)
 
     def node_left(self, *args):
         """Node left one position"""
