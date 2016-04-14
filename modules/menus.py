@@ -344,6 +344,16 @@ def get_entries(dad):
         entries.append((name, mi_tuple[0], mi_tuple[1], mi_tuple[2], mi_tuple[3], mi_tuple[4]))
     return entries
 
+def get_menu_item_name_from_shortcut(dad, kb_shortcut):
+    """Returns a Menu Item name from a Keyboard Shortcut"""
+    ret_name = ""
+    for name in dad.menudict.keys():
+        curr_kb_shortcut = get_menu_item_kb_shortcut(dad, name)
+        if curr_kb_shortcut == kb_shortcut:
+            ret_name = name
+            break
+    return ret_name
+
 def get_menu_item_kb_shortcut(dad, name):
     """Returns the Keyboard Shortcut for a Menu Item"""
     return dad.menudict[name]["kb"] if not name in dad.custom_kb_shortcuts.keys() else dad.custom_kb_shortcuts[name]

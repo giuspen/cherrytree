@@ -1490,13 +1490,16 @@ def preferences_tab_kb_shortcuts(dad, vbox_tool, pref_dialog):
 ["export", _("Export")],
 ["import", _("Import")],
 ]
-    for section in config_actions_sections:
-        tree_iter = treestore.append(None, ["", "", "", section[1]])
-        for name in menus.CONFIG_ACTIONS_DICT[section[0]]:
-            subdict = dad.menudict[name]
-            kb_shortcut = menus.get_menu_item_kb_shortcut(dad, name)
-            treestore.append(tree_iter, [name, subdict["sk"], kb_shortcut, subdict["dn"]])
-    treeview.expand_all()
+    def reload_treestore():
+        treestore.clear()
+        for section in config_actions_sections:
+            tree_iter = treestore.append(None, ["", "", "", section[1]])
+            for name in menus.CONFIG_ACTIONS_DICT[section[0]]:
+                subdict = dad.menudict[name]
+                kb_shortcut = menus.get_menu_item_kb_shortcut(dad, name)
+                treestore.append(tree_iter, [name, subdict["sk"], kb_shortcut, subdict["dn"]])
+        treeview.expand_all()
+    reload_treestore()
 
     def edit_selected_tree_iter():
         model, tree_iter = treeviewselection.get_selected()
@@ -1571,7 +1574,25 @@ def preferences_tab_kb_shortcuts(dad, vbox_tool, pref_dialog):
         response = dialog.run()
         dialog.hide()
         if response == gtk.RESPONSE_ACCEPT:
-            print "action"
+            kb_shortcut_full = ""
+            kb_shortcut_key = key_entry.get_text().strip()
+            if radiobutton_kb_shortcut.get_active() and kb_shortcut_key:
+                if ctrl_toggle.get_active(): kb_shortcut_full += menus.KB_CONTROL
+                if shift_toggle.get_active(): kb_shortcut_full += menus.KB_SHIFT
+                if alt_toggle.get_active(): kb_shortcut_full += menus.KB_ALT
+                kb_shortcut_full += kb_shortcut_key
+            print kb_shortcut_full
+            if kb_shortcut_full:
+                in_use_name = menus.get_menu_item_name_from_shortcut(dad, kb_shortcut_full)
+                if in_use_name and in_use_name != action_name:
+                    if support.dialog_question(_("The Keyboard Shortcut '%s' is Already in Use by '%s'.\nDo you Want to Override it?") % (kb_shortcut_full, dad.menudict[in_use_name]["dn"]), dad.window):
+                        dad.custom_kb_shortcuts[in_use_name] = None
+                    else:
+                        return
+                dad.custom_kb_shortcuts[action_name] = kb_shortcut_full
+            else:
+                dad.custom_kb_shortcuts[action_name] = None
+            reload_treestore()
 
     def on_button_edit_clicked(*args):
         edit_selected_tree_iter()
@@ -1579,6 +1600,8 @@ def preferences_tab_kb_shortcuts(dad, vbox_tool, pref_dialog):
     def on_button_press_treestore(widget, event):
         if event.button == 1 and event.type == gtk.gdk._2BUTTON_PRESS:
             edit_selected_tree_iter()
+            return True
+        return False
     treeview.connect('button-press-event', on_button_press_treestore)
 
 def preferences_tab_toolbar(dad, vbox_tool, pref_dialog):
