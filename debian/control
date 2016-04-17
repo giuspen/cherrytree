@@ -11,8 +11,8 @@ Build-Depends:
 X-Python-Version: >= 2.6
 Standards-Version: 3.9.5
 Homepage: http://www.giuspen.com/cherrytree/
-Vcs-Svn: svn://anonscm.debian.org/python-apps/packages/cherrytree/trunk/
-Vcs-Browser: http://anonscm.debian.org/viewvc/python-apps/packages/cherrytree/trunk/
+Vcs-Git: https://github.com/giuspen/cherrytree.git
+Vcs-Browser: https://github.com/giuspen/cherrytree
 
 Package: cherrytree
 Architecture: all
