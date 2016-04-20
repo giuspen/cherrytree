@@ -637,7 +637,7 @@ class FindReplace:
         """Create the All Matches Dialog"""
         self.allmatchesdialog = gtk.Dialog(parent=self.dad.window,
             flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
-            buttons=(_("Hide (Restore with %s)") % menus.get_menu_item_kb_shortcut(self.dad, "toggle_show_allmatches_dlg"), gtk.RESPONSE_CLOSE))
+            buttons=(_("Hide (Restore with '%s')") % menus.get_menu_item_kb_shortcut(self.dad, "toggle_show_allmatches_dlg"), gtk.RESPONSE_CLOSE))
         self.allmatchesdialog.set_default_size(700, 350)
         self.allmatchesdialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
         try:
