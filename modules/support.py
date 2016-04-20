@@ -957,8 +957,8 @@ def dialog_image_handle(father_win, title, original_pixbuf):
     if response != gtk.RESPONSE_ACCEPT: return None
     return img_parms.original_pixbuf.scale_simple(int(img_parms.width), int(img_parms.height), gtk.gdk.INTERP_BILINEAR)
 
-def dialog_node_delete(father_win, warning_label):
-    """Confirmation before Node Remove"""
+def dialog_question_warning(father_win, warning_label):
+    """Question with Warning"""
     dialog = gtk.Dialog(title=_("Warning"),
         parent=father_win,
         flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,

@@ -19,7 +19,7 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
-import os, sys, ConfigParser, gtk, pango, locale, subprocess, base64, webbrowser
+import os, sys, ConfigParser, gtk, pango, locale, subprocess, base64, webbrowser, cgi
 import cons, menus, support, exports, codeboxes, pgsc_spellcheck
 if cons.HAS_APPINDICATOR: import appindicator
 
@@ -1587,7 +1587,9 @@ def preferences_tab_kb_shortcuts(dad, vbox_tool, pref_dialog):
             if kb_shortcut_full:
                 in_use_name = menus.get_menu_item_name_from_shortcut(dad, kb_shortcut_full)
                 if in_use_name and in_use_name != action_name:
-                    if support.dialog_question(_("The Keyboard Shortcut '%s' is Already in Use by '%s'.\nDo you Want to Override it?") % (kb_shortcut_full, dad.menudict[in_use_name]["dn"]), dad.window):
+                    warning_label = "<b>" + _("The Keyboard Shortcut '%s' is already in use") % cgi.escape(kb_shortcut_full) + "</b>\n\n" + _("The current associated action is '%s'") % dad.menudict[in_use_name]["dn"] + "\n\n<b>" + _("Do you want to steal the shortcut?") + "</b>"
+                    response = support.dialog_question_warning(dad.window, warning_label)
+                    if response == gtk.RESPONSE_ACCEPT:
                         dad.custom_kb_shortcuts[in_use_name] = None
                     else:
                         return
