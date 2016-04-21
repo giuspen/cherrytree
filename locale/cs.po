@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-11-14 23:31+0000\n"
-"PO-Revision-Date: 2016-03-06 15:58+0100\n"
+"PO-Revision-Date: 2016-04-21 20:20+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <>\n"
 "Language: cs\n"
@@ -855,14 +855,15 @@ msgstr "Třídit všechny uzly na této úrovni sestupně"
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:592
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:753
 msgid "_Inherit Syntax"
-msgstr "Předat s_kladbu"
+msgstr "Dědit s_yntax"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:592
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:753
 msgid ""
 "Change the Selected Node's Children Syntax Highlighting to the Father's "
 "Syntax Highlighting"
-msgstr "Předá vybrané zvýraznění skladby všem podřízeným uzlům"
+msgstr ""
+"Přenášet vybrané zvýraznění skladby (syntaxe) na všechny podřízené uzly"
 
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:593
 #: /home/giuspen/Software/HG-GIT/hg_cherrytree/modules/cons.py:755
