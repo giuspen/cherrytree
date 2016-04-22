@@ -90,15 +90,7 @@ class CherryTree:
         self.scrolledwindow_text.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
         self.scrolledwindow_text.get_hscrollbar().connect('value-changed', self.on_hscrollbar_text_value_changed)
         self.vbox_text = gtk.VBox()
-        self.header_node_name_hbox = gtk.HBox()
-        self.header_node_name_icon = gtk.image_new_from_stock("pin", gtk.ICON_SIZE_MENU)
-        self.header_node_name_label = gtk.Label()
-        self.header_node_name_label.set_padding(10, 0)
-        self.header_node_name_label.set_ellipsize(pango.ELLIPSIZE_MIDDLE)
-        self.header_node_name_hbox.pack_start(self.header_node_name_label, expand=True)
-        self.header_node_name_hbox.pack_start(self.header_node_name_icon, expand=False)
-        self.header_node_name_eventbox = gtk.EventBox()
-        self.header_node_name_eventbox.add(self.header_node_name_hbox)
+        self.header_node_name_eventbox = self.instantiate_node_name_header()
         self.vbox_text.pack_start(self.header_node_name_eventbox, False, False)
         self.vbox_text.pack_start(self.scrolledwindow_text)
         if self.tree_right_side:
@@ -2730,7 +2722,7 @@ iter_end, exclude_iter_sel_end=True)
                 text_buffer_to.set_text(content)
                 text_buffer_to.end_not_undoable_action()
             else:
-                state = self.state_machine.requested_previous_state(self.treestore[tree_iter_from][3])
+                state = self.state_machine.requested_state_previous(self.treestore[tree_iter_from][3])
                 self.load_buffer_from_state(state, given_tree_iter=new_node_iter)
         new_node_path = self.treestore.get_path(new_node_iter)
         self.treeview.set_cursor(new_node_path)
@@ -2999,6 +2991,28 @@ iter_end, exclude_iter_sel_end=True)
             node_is_bookmarked = (str(node_id) in self.bookmarks)
             self.menu_tree_update_for_bookmarked_node(node_is_bookmarked)
 
+    def on_button_node_name_header_clicked(self, button, idx):
+        print idx
+
+    def instantiate_node_name_header(self):
+        """Instantiate Node Name Header"""
+        self.header_node_name_hbox = gtk.HBox()
+        self.header_node_name_hbuttonbox = gtk.HButtonBox()
+        for i in range(6):
+            button = gtk.Button()
+            button.connect('clicked', self.on_button_node_name_header_clicked, i)
+            self.header_node_name_hbuttonbox.add(button)
+        self.header_node_name_label = gtk.Label()
+        self.header_node_name_label.set_padding(10, 0)
+        self.header_node_name_label.set_ellipsize(pango.ELLIPSIZE_MIDDLE)
+        self.header_node_name_icon = gtk.image_new_from_stock("pin", gtk.ICON_SIZE_MENU)
+        self.header_node_name_hbox.pack_start(self.header_node_name_label, expand=True)
+        #self.header_node_name_hbox.pack_start(self.header_node_name_hbuttonbox, expand=False)
+        self.header_node_name_hbox.pack_start(self.header_node_name_icon, expand=False)
+        header_node_name_eventbox = gtk.EventBox()
+        header_node_name_eventbox.add(self.header_node_name_hbox)
+        return header_node_name_eventbox
+
     def update_node_name_header(self):
         """Update Node Name Header"""
         node_hier_name = self.treestore[self.curr_tree_iter][1] if self.curr_tree_iter else ""
@@ -3016,7 +3030,7 @@ iter_end, exclude_iter_sel_end=True)
         return self.treestore[tree_iter][2]
 
     def on_textbuffer_mark_set(self, text_buffer, text_iter, text_mark):
-        """"""
+        """Highlight Focused Objects"""
         if not text_buffer.get_has_selection():
             if self.highlighted_obj: support.set_object_highlight(self, None)
             return
@@ -3162,7 +3176,7 @@ iter_end, exclude_iter_sel_end=True)
     def go_back(self, *args):
         """Go to the Previous Visited Node"""
         self.go_bk_fw_click = True
-        new_node_id = self.state_machine.requested_previous_visited()
+        new_node_id = self.state_machine.requested_visited_previous()
         if new_node_id:
             node_iter = self.get_tree_iter_from_node_id(new_node_id)
             if node_iter: self.treeview_safe_set_cursor(node_iter)
@@ -3172,7 +3186,7 @@ iter_end, exclude_iter_sel_end=True)
     def go_forward(self, *args):
         """Go to the Next Visited Node"""
         self.go_bk_fw_click = True
-        new_node_id = self.state_machine.requested_next_visited()
+        new_node_id = self.state_machine.requested_visited_next()
         if new_node_id:
             node_iter = self.get_tree_iter_from_node_id(new_node_id)
             if node_iter: self.treeview_safe_set_cursor(node_iter)
@@ -3219,7 +3233,7 @@ iter_end, exclude_iter_sel_end=True)
         if not self.is_curr_node_not_read_only_or_error(): return
         if self.syntax_highlighting == cons.RICH_TEXT_ID:
             # TEXT BUFFER STATE MACHINE
-            step_back = self.state_machine.requested_previous_state(self.treestore[self.curr_tree_iter][3])
+            step_back = self.state_machine.requested_state_previous(self.treestore[self.curr_tree_iter][3])
             # step_back is [ [rich_text, pixbuf_table_vector, cursor_position],... ]
             if step_back != None:
                 self.load_buffer_from_state(step_back)
@@ -3233,7 +3247,7 @@ iter_end, exclude_iter_sel_end=True)
         if not self.is_curr_node_not_read_only_or_error(): return
         if self.syntax_highlighting == cons.RICH_TEXT_ID:
             # TEXT BUFFER STATE MACHINE
-            step_ahead = self.state_machine.requested_subsequent_state(self.treestore[self.curr_tree_iter][3])
+            step_ahead = self.state_machine.requested_state_subsequent(self.treestore[self.curr_tree_iter][3])
             # step_ahead is [ [rich_text, pixbuf_table_vector, cursor_position],... ]
             if step_ahead != None:
                 self.load_buffer_from_state(step_ahead)
@@ -3248,7 +3262,7 @@ iter_end, exclude_iter_sel_end=True)
             self.file_update = True
             self.curr_buffer.set_modified(False)
             self.state_machine.update_state()
-        refresh = self.state_machine.requested_current_state(self.treestore[self.curr_tree_iter][3])
+        refresh = self.state_machine.requested_state_current(self.treestore[self.curr_tree_iter][3])
         # refresh is [ [rich_text, pixbuf_table_vector, cursor_position],... ]
         pixbuf_table_vector = refresh[1]
         if len(pixbuf_table_vector) > 0:

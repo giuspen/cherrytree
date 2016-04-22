@@ -796,7 +796,7 @@ class StateMachine:
         self.visited_nodes_list = []
         self.visited_nodes_idx = 0
 
-    def requested_previous_visited(self):
+    def requested_visited_previous(self):
         """Requested the Previous Visited Node"""
         if self.visited_nodes_idx != None and self.visited_nodes_idx > 0:
             self.visited_nodes_idx -= 1
@@ -805,7 +805,7 @@ class StateMachine:
             #print "self.visited_nodes_idx", self.visited_nodes_idx
             return None
 
-    def requested_next_visited(self):
+    def requested_visited_next(self):
         """Requested the Next Visited Node"""
         if self.visited_nodes_idx != None and self.visited_nodes_idx < len(self.visited_nodes_list) - 1:
             self.visited_nodes_idx += 1
@@ -842,7 +842,7 @@ class StateMachine:
         elif alphanum == None: # self.nodes_indicators[node_id] == 2 and non alphanumeric transition
             self.update_state()
 
-    def requested_previous_state(self, node_id):
+    def requested_state_previous(self, node_id):
         """A Previous State, if Existing, is Requested"""
         if self.curr_index_is_last_index(node_id):
             self.update_state()
@@ -850,11 +850,11 @@ class StateMachine:
             self.nodes_indexes[node_id] -= 1
         return self.nodes_vectors[node_id][self.nodes_indexes[node_id]]
 
-    def requested_current_state(self, node_id):
+    def requested_state_current(self, node_id):
         """The current state is requested"""
         return self.nodes_vectors[node_id][self.nodes_indexes[node_id]]
 
-    def requested_subsequent_state(self, node_id):
+    def requested_state_subsequent(self, node_id):
         """A Subsequent State, if Existing, is Requested"""
         if self.nodes_indexes[node_id] < (len(self.nodes_vectors[node_id])-1):
             self.nodes_indexes[node_id] += 1
