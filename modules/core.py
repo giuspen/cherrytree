@@ -2998,20 +2998,27 @@ iter_end, exclude_iter_sel_end=True)
         """Instantiate Node Name Header"""
         self.header_node_name_hbox = gtk.HBox()
         self.header_node_name_hbuttonbox = gtk.HButtonBox()
-        for i in range(6):
-            button = gtk.Button()
-            button.connect('clicked', self.on_button_node_name_header_clicked, i)
-            self.header_node_name_hbuttonbox.add(button)
         self.header_node_name_label = gtk.Label()
         self.header_node_name_label.set_padding(10, 0)
         self.header_node_name_label.set_ellipsize(pango.ELLIPSIZE_MIDDLE)
         self.header_node_name_icon = gtk.image_new_from_stock("pin", gtk.ICON_SIZE_MENU)
         self.header_node_name_hbox.pack_start(self.header_node_name_label, expand=True)
-        #self.header_node_name_hbox.pack_start(self.header_node_name_hbuttonbox, expand=False)
+        self.header_node_name_hbox.pack_start(self.header_node_name_hbuttonbox, expand=False)
         self.header_node_name_hbox.pack_start(self.header_node_name_icon, expand=False)
         header_node_name_eventbox = gtk.EventBox()
         header_node_name_eventbox.add(self.header_node_name_hbox)
         return header_node_name_eventbox
+
+    def update_node_name_header_num_latest_visited(self):
+        """Update on the Node Name Header the Number of Latest Visited"""
+        for button in self.header_node_name_hbuttonbox.get_children():
+            button.hide()
+            del button
+        for i in range(self.nodes_on_node_name_header):
+            button = gtk.Button()
+            button.connect('clicked', self.on_button_node_name_header_clicked, i)
+            self.header_node_name_hbuttonbox.add(button)
+            #button.show()
 
     def update_node_name_header(self):
         """Update Node Name Header"""
@@ -3553,8 +3560,8 @@ iter_end, exclude_iter_sel_end=True)
     def toggle_show_hide_node_name_header(self, *args):
         """Toggle Show/Hide the Node Title Header"""
         old_show_node_name_label = self.header_node_name_hbox.get_property(cons.STR_VISIBLE)
-        self.show_node_name_label = not old_show_node_name_label
-        self.header_node_name_hbox.set_property(cons.STR_VISIBLE, self.show_node_name_label)
+        self.show_node_name_header = not old_show_node_name_label
+        self.header_node_name_hbox.set_property(cons.STR_VISIBLE, self.show_node_name_header)
 
     def quit_application(self, *args):
         """Just Hide or Quit the gtk main loop"""

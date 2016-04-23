@@ -35,6 +35,7 @@ COLOR_PALETTE_DEFAULT = ["#000000", "#ffffff", "#7f7f7f", "#ff0000", "#a020f0",
                          "#90ee90", "#1a1a1a", "#4d4d4d", "#bfbfbf", "#e5e5e5"]
 SPECIAL_CHARS_DEFAULT = "“”„‘’•◇▪▸☐☑☒★…‰€©®™°↓↑→←↔↵⇓⇑⇒⇐⇔»«▼▲►◄≤≥≠≈±¹²³½¼⅛×÷∞ø∑√∫ΔδΠπΣΦΩωαβγεηλμ☺☻☼♥♣♦✔♀♂♪♫✝"
 SELWORD_CHARS_DEFAULT = ".-@"
+NODES_ON_NODE_NAME_HEADER_DEFAULT = 3
 TIMESTAMP_FORMAT_DEFAULT = "%Y/%m/%d - %H:%M"
 SEPARATOR_ASCII_REPR = "---------"
 
@@ -122,7 +123,8 @@ def config_file_load(dad):
                 if element: dad.recent_docs.append(unicode(base64.b64decode(element), cons.STR_UTF8, cons.STR_IGNORE))
         dad.pick_dir = cfg.get(section, "pick_dir") if cfg.has_option(section, "pick_dir") else ""
         dad.link_type = cfg.get(section, "link_type") if cfg.has_option(section, "link_type") else cons.LINK_TYPE_WEBS
-        dad.show_node_name_label = cfg.getboolean(section, "show_node_name_label") if cfg.has_option(section, "show_node_name_label") else True
+        dad.show_node_name_header = cfg.getboolean(section, "show_node_name_header") if cfg.has_option(section, "show_node_name_header") else True
+        dad.nodes_on_node_name_header = cfg.getint(section, "nodes_on_node_name_header") if cfg.has_option(section, "nodes_on_node_name_header") else NODES_ON_NODE_NAME_HEADER_DEFAULT
         if cfg.has_option(section, "toolbar_icon_size"):
             dad.toolbar_icon_size = cfg.getint(section, "toolbar_icon_size")
             if dad.toolbar_icon_size not in ICONS_SIZE: dad.toolbar_icon_size = 1
@@ -333,7 +335,8 @@ def config_file_load(dad):
         dad.space_around_lines = 0
         dad.relative_wrapped_space = 50
         dad.hpaned_pos = 170
-        dad.show_node_name_label = True
+        dad.show_node_name_header = True
+        dad.nodes_on_node_name_header = NODES_ON_NODE_NAME_HEADER_DEFAULT
         dad.nodes_icons = "c"
         dad.recent_docs = []
         dad.toolbar_visible = True
@@ -342,7 +345,8 @@ def config_file_load(dad):
 def config_file_apply(dad):
     """Apply the Preferences from Config File"""
     dad.hpaned.set_property('position', dad.hpaned_pos)
-    dad.header_node_name_hbox.set_property(cons.STR_VISIBLE, dad.show_node_name_label)
+    dad.header_node_name_hbox.set_property(cons.STR_VISIBLE, dad.show_node_name_header)
+    dad.update_node_name_header_num_latest_visited()
     dad.set_treeview_font()
     dad.widget_set_colors(dad.treeview, dad.tt_def_fg, dad.tt_def_bg, False)
     if not pgsc_spellcheck.HAS_PYENCHANT:
@@ -399,7 +403,8 @@ def config_file_save(dad):
     cfg.set(section, "recent_docs", str_recent_docs)
     cfg.set(section, "pick_dir", dad.pick_dir)
     cfg.set(section, "link_type", dad.link_type)
-    cfg.set(section, "show_node_name_label", dad.show_node_name_label)
+    cfg.set(section, "show_node_name_header", dad.show_node_name_header)
+    cfg.set(section, "nodes_on_node_name_header", dad.nodes_on_node_name_header)
     cfg.set(section, "toolbar_icon_size", dad.toolbar_icon_size)
     if dad.curr_colors['f']: cfg.set(section, "fg", dad.curr_colors['f'].to_string())
     if dad.curr_colors['b']: cfg.set(section, "bg", dad.curr_colors['b'].to_string())
@@ -1126,9 +1131,18 @@ def preferences_tab_tree(dad, vbox_tree, pref_dialog):
     hbox_tree_nodes_names_width.pack_start(spinbutton_tree_nodes_names_width, expand=False)
     checkbutton_tree_right_side = gtk.CheckButton(_("Display Tree on the Right Side"))
     checkbutton_tree_right_side.set_active(dad.tree_right_side)
+    hbox_nodes_on_node_name_header = gtk.HBox()
+    hbox_nodes_on_node_name_header.set_spacing(4)
+    label_nodes_on_node_name_header = gtk.Label(_("Last Visited Nodes on Node Name Header"))
+    adj_nodes_on_node_name_header = gtk.Adjustment(value=dad.nodes_on_node_name_header, lower=0, upper=100, step_incr=1)
+    spinbutton_nodes_on_node_name_header = gtk.SpinButton(adj_nodes_on_node_name_header)
+    spinbutton_nodes_on_node_name_header.set_value(dad.nodes_on_node_name_header)
+    hbox_nodes_on_node_name_header.pack_start(label_nodes_on_node_name_header, expand=False)
+    hbox_nodes_on_node_name_header.pack_start(spinbutton_nodes_on_node_name_header, expand=False)
 
     vbox_misc_tree.pack_start(hbox_tree_nodes_names_width, expand=False)
     vbox_misc_tree.pack_start(checkbutton_tree_right_side, expand=False)
+    vbox_misc_tree.pack_start(hbox_nodes_on_node_name_header, expand=False)
     frame_misc_tree = gtk.Frame(label="<b>"+_("Miscellaneous")+"</b>")
     frame_misc_tree.get_label_widget().set_use_markup(True)
     frame_misc_tree.set_shadow_type(gtk.SHADOW_NONE)
@@ -1227,6 +1241,10 @@ def preferences_tab_tree(dad, vbox_tree, pref_dialog):
             dad.hpaned.add2(dad.vbox_text)
             dad.hpaned.set_property('position', tree_width)
     checkbutton_tree_right_side.connect('toggled', on_checkbutton_tree_right_side_toggled)
+    def on_spinbutton_nodes_on_node_name_header_value_changed(spinbutton):
+        dad.nodes_on_node_name_header = int(spinbutton.get_value())
+        dad.update_node_name_header_num_latest_visited()
+    spinbutton_nodes_on_node_name_header.connect('value-changed', on_spinbutton_nodes_on_node_name_header_value_changed)
 
 def preferences_tab_fonts(dad, vbox_fonts, pref_dialog):
     """Preferences Dialog, Fonts Tab"""
