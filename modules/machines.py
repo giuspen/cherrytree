@@ -820,6 +820,8 @@ class StateMachine:
         if not self.dad.go_bk_fw_click:
             last_index = len(self.visited_nodes_list) - 1
             if self.visited_nodes_idx != last_index: del self.visited_nodes_list[self.visited_nodes_idx+1:last_index+1]
+            if node_id in self.visited_nodes_list:
+                self.visited_nodes_list.remove(node_id)
             self.visited_nodes_list.append(node_id)
             self.visited_nodes_idx = len(self.visited_nodes_list) - 1
         if node_id not in self.nodes_vectors:

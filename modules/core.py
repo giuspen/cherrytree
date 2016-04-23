@@ -2992,7 +2992,9 @@ iter_end, exclude_iter_sel_end=True)
             self.menu_tree_update_for_bookmarked_node(node_is_bookmarked)
 
     def on_button_node_name_header_clicked(self, button, idx):
-        print idx
+        node_id = self.node_name_header_buttons[idx+1]
+        tree_iter = self.get_tree_iter_from_node_id(node_id)
+        if tree_iter: self.treeview_safe_set_cursor(tree_iter)
 
     def instantiate_node_name_header(self):
         """Instantiate Node Name Header"""
@@ -3002,23 +3004,43 @@ iter_end, exclude_iter_sel_end=True)
         self.header_node_name_label.set_padding(10, 0)
         self.header_node_name_label.set_ellipsize(pango.ELLIPSIZE_MIDDLE)
         self.header_node_name_icon = gtk.image_new_from_stock("pin", gtk.ICON_SIZE_MENU)
-        self.header_node_name_hbox.pack_start(self.header_node_name_label, expand=True)
         self.header_node_name_hbox.pack_start(self.header_node_name_hbuttonbox, expand=False)
+        self.header_node_name_hbox.pack_start(self.header_node_name_label, expand=True)
         self.header_node_name_hbox.pack_start(self.header_node_name_icon, expand=False)
         header_node_name_eventbox = gtk.EventBox()
         header_node_name_eventbox.add(self.header_node_name_hbox)
         return header_node_name_eventbox
 
+    def update_node_name_header_labels_latest_visited(self):
+        """Update on the Node Name Header the Labels of Latest Visited"""
+        if self.user_active and self.nodes_on_node_name_header and self.state_machine.visited_nodes_idx != None:
+            sel_node_id = self.get_node_id_from_tree_iter(self.curr_tree_iter) if self.curr_tree_iter else -1
+            self.node_name_header_buttons = {}
+            buttons = self.header_node_name_hbuttonbox.get_children()
+            assert len(buttons) == self.nodes_on_node_name_header, "%s != %s" % (len(buttons), self.nodes_on_node_name_header)
+            curr_button_num = self.nodes_on_node_name_header
+            for i in reversed(range(len(self.state_machine.visited_nodes_list))):
+                node_id = self.state_machine.visited_nodes_list[i]
+                if node_id != sel_node_id:
+                    tree_iter = self.get_tree_iter_from_node_id(node_id)
+                    if tree_iter:
+                        self.node_name_header_buttons[curr_button_num] = self.state_machine.visited_nodes_list[i]
+                        buttons[curr_button_num-1].set_label(self.treestore[tree_iter][1])
+                        buttons[curr_button_num-1].show()
+                        curr_button_num -= 1
+                        if not curr_button_num: break
+            for i in range(curr_button_num):
+                buttons[i].hide()
+
     def update_node_name_header_num_latest_visited(self):
         """Update on the Node Name Header the Number of Latest Visited"""
         for button in self.header_node_name_hbuttonbox.get_children():
-            button.hide()
-            del button
+            self.header_node_name_hbuttonbox.remove(button)
         for i in range(self.nodes_on_node_name_header):
             button = gtk.Button()
             button.connect('clicked', self.on_button_node_name_header_clicked, i)
             self.header_node_name_hbuttonbox.add(button)
-            #button.show()
+        self.update_node_name_header_labels_latest_visited()
 
     def update_node_name_header(self):
         """Update Node Name Header"""
@@ -3028,6 +3050,7 @@ iter_end, exclude_iter_sel_end=True)
             "<b><span foreground=\"" + self.tt_def_fg + "\" size=\"xx-large\">"+\
             cgi.escape(node_hier_name) + "</span></b>")
         self.header_node_name_label.set_use_markup(True)
+        self.update_node_name_header_labels_latest_visited()
 
     def get_textbuffer_from_tree_iter(self, tree_iter):
         """Returns the text buffer given the tree iter"""

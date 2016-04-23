@@ -1490,8 +1490,7 @@ def set_menu_items_special_chars(dad):
     else:
         children_1 = dad.special_menu_1.get_children()
         for children in children_1:
-            children.hide()
-            del children
+            children.destroy()
         first_run = False
     for special_char in dad.special_chars:
         menu_item = gtk.MenuItem(special_char)
@@ -1516,11 +1515,9 @@ def set_menu_items_recent_documents(dad):
         children_1 = dad.recent_menu_1.get_children()
         children_2 = dad.recent_menu_2.get_children()
         for children in children_1:
-            children.hide()
-            del children
+            children.destroy()
         for children in children_2:
-            children.hide()
-            del children
+            children.destroy()
         first_run = False
     for target in [1, 2]:
         for i, filepath in enumerate(dad.recent_docs):
