@@ -3025,7 +3025,8 @@ iter_end, exclude_iter_sel_end=True)
                     tree_iter = self.get_tree_iter_from_node_id(node_id)
                     if tree_iter:
                         self.node_name_header_buttons[curr_button_num] = self.state_machine.visited_nodes_list[i]
-                        buttons[curr_button_num-1].get_children()[0].set_text(self.treestore[tree_iter][1])
+                        markup = "<small>"+cgi.escape(self.treestore[tree_iter][1])+"</small>"
+                        buttons[curr_button_num-1].get_children()[0].set_markup(markup)
                         buttons[curr_button_num-1].show_all()
                         curr_button_num -= 1
                         if not curr_button_num: break
