@@ -545,7 +545,7 @@ class XMLHandler:
                 curr_offset += 1
             text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), cons.CHAR_NEWLINE)
         return toc_list_per_node
-        
+
     def toc_insert_all_iter(self, top_tree_iter):
         """Iterate on nodes for toc_insert_all"""
         self.dad.treeview_safe_set_cursor(top_tree_iter)

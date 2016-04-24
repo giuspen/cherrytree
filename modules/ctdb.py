@@ -34,14 +34,14 @@ class CTDBHandler:
         self.nodes_to_rm_set = set()
         self.bookmarks_to_write = False
         self.remove_at_quit_set = set()
-    
+
     def reset(self):
         """Reset Variables"""
         self.nodes_to_write_dict = {}
         self.nodes_to_rm_set.clear()
         self.bookmarks_to_write = False
         self.remove_at_quit_set.clear()
-    
+
     def pending_data_write(self, db):
         """Write pending data"""
         need_to_commit = False
@@ -66,7 +66,7 @@ class CTDBHandler:
         self.nodes_to_rm_set.clear()
         if need_to_commit: db.commit()
         else: print "Writing DB Data but No Updates Found"
-    
+
     def get_image_db_tuple(self, image_element, node_id):
         """From image element to db tuple"""
         offset = image_element[0]
@@ -93,7 +93,7 @@ class CTDBHandler:
             png_blob = machines.get_blob_buffer_from_pixbuf(pixbuf)
             time = 0
         return (node_id, offset, justification, anchor, png_blob, filename, link, time)
-    
+
     def get_table_db_tuple(self, table_element, node_id):
         """From table element to db tuple"""
         offset = table_element[0]
@@ -114,7 +114,7 @@ class CTDBHandler:
                 dom_cell.appendChild(text_iter)
         txt = (table_dom.toxml()).decode(cons.STR_UTF8)
         return (node_id, offset, justification, txt, col_min, col_max)
-    
+
     def get_codebox_db_tuple(self, codebox_element, node_id):
         """From codebox element to db tuple"""
         offset = codebox_element[0]
@@ -129,13 +129,13 @@ class CTDBHandler:
         do_show_linenum = codebox_dict['show_line_numbers']
         return (node_id, offset, justification, txt, syntax,
                 width, height, is_width_pix, do_highl_bra, do_show_linenum)
-    
+
     def get_connected_db_from_dbpath(self, dbpath):
         """Returns DB connection descriptor given the dbpath"""
         db = sqlite3.connect(dbpath)
         db.row_factory = sqlite3.Row
         return db
-    
+
     def new_db(self, dbpath, exporting="", sel_range=None):
         """Create a new DataBase"""
         if os.path.isfile(dbpath): os.remove(dbpath)
@@ -149,7 +149,7 @@ class CTDBHandler:
         self.write_db_full(db, exporting, sel_range)
         db.commit()
         return db
-    
+
     def write_db_bookmarks(self, db):
         """Write all the bookmarks in DB"""
         db.execute('DELETE FROM bookmark')
@@ -158,14 +158,14 @@ class CTDBHandler:
             sequence += 1
             bookmark_tuple = (int(bookmark_str), sequence)
             db.execute('INSERT INTO bookmark VALUES(?,?)', bookmark_tuple)
-    
+
     def pending_edit_db_bookmarks(self):
         """Pending Bookmarks Update"""
         if self.dad.filetype not in ["b", "x", ""]: return
         if not self.dad.user_active: return
         print "pending_edit_db_bookmarks"
         self.bookmarks_to_write = True
-    
+
     def pending_edit_db_node_prop(self, node_id):
         """Pending Node Needs 'prop' Update"""
         if self.dad.filetype not in ["b", "x", ""]: return
@@ -176,7 +176,7 @@ class CTDBHandler:
         else:
             write_dict = {'upd': True, 'prop': True, 'buff': False, 'hier': False, 'child': False}
             self.nodes_to_write_dict[node_id] = write_dict
-    
+
     def pending_edit_db_node_buff(self, node_id, force_user_active=False):
         """Pending Node Needs 'buff' Update"""
         if self.dad.filetype not in ["b", "x", ""]: return
@@ -187,7 +187,7 @@ class CTDBHandler:
         else:
             write_dict = {'upd': True, 'prop': False, 'buff': True, 'hier': False, 'child': False}
             self.nodes_to_write_dict[node_id] = write_dict
-    
+
     def pending_edit_db_node_hier(self, node_id):
         """Pending Node Needs 'hier' Update"""
         if self.dad.filetype not in ["b", "x", ""]: return
@@ -198,14 +198,14 @@ class CTDBHandler:
         else:
             write_dict = {'upd': True, 'prop': False, 'buff': False, 'hier': True, 'child': False}
             self.nodes_to_write_dict[node_id] = write_dict
-    
+
     def pending_new_db_node(self, node_id):
         """Pending Add a Node to DB"""
         if self.dad.filetype not in ["b", "x", ""]: return
         print "pending_new_db_node", node_id
         write_dict = {'upd': False, 'prop': True, 'buff': True, 'hier': True, 'child': False}
         self.nodes_to_write_dict[node_id] = write_dict
-    
+
     def pending_rm_db_node(self, node_id):
         """Pending RM a Node from DB"""
         if self.dad.filetype not in ["b", "x", ""]: return
@@ -225,7 +225,7 @@ class CTDBHandler:
                 # no need to rm the node, we just do not add it... but write to set to not use this id again
         self.nodes_to_rm_set.add(node_id)
         #print self.nodes_to_rm_set
-    
+
     def pending_rm_just_added_node_children(self, tree_iter):
         """Handle situation of nodes children just added and immediately removed"""
         node_id = self.dad.treestore[tree_iter][3]
@@ -237,7 +237,7 @@ class CTDBHandler:
         while tree_iter_children:
             self.pending_rm_just_added_node_children(tree_iter_children)
             tree_iter_children = self.dad.treestore.iter_next(tree_iter_children)
-    
+
     def remove_db_node_n_children(self, db, node_id):
         """Remove a Node and his children from DB"""
         db.execute('DELETE FROM codebox WHERE node_id=?', (node_id,))
@@ -248,7 +248,7 @@ class CTDBHandler:
         children_rows = self.get_children_rows_from_father_id(db, node_id)
         for child_row in children_rows:
             self.remove_db_node_n_children(db, child_row['node_id'])
-    
+
     def write_db_node(self, db, tree_iter, level, sequence, node_father_id, write_dict, exporting="", sel_range=None):
         """Write a node in DB"""
         node_id = self.dad.treestore[tree_iter][3]
@@ -361,7 +361,7 @@ class CTDBHandler:
             child_sequence += 1
             self.write_db_node(db, child_tree_iter, level+1, child_sequence, node_id, write_dict, exporting)
             child_tree_iter = self.dad.treestore.iter_next(child_tree_iter)
-    
+
     def write_db_full(self, db, exporting="", sel_range=None):
         """Write the whole DB"""
         if not exporting or exporting == "a": tree_iter = self.dad.treestore.get_iter_first()
@@ -383,7 +383,7 @@ class CTDBHandler:
             self.nodes_to_rm_set.clear()
             self.nodes_to_write_dict.clear()
         self.dad.objects_buffer_refresh()
-    
+
     def add_node_codebox(self, codebox_row, text_buffer):
         """Add Codebox to Text Buffer"""
         iter_insert = text_buffer.get_iter_at_offset(codebox_row['offset'])
@@ -400,7 +400,7 @@ class CTDBHandler:
                                                   codebox_dict,
                                                   codebox_justification=codebox_row['justification'],
                                                   text_buffer=text_buffer)
-    
+
     def add_node_table(self, table_row, text_buffer):
         """Add Table to Text Buffer"""
         iter_insert = text_buffer.get_iter_at_offset(table_row['offset'])
@@ -435,7 +435,7 @@ class CTDBHandler:
                                              table_dict,
                                              table_justification=table_row['justification'],
                                              text_buffer=text_buffer)
-    
+
     def add_node_image(self, image_row, text_buffer):
         """Add Image to Text Buffer"""
         iter_insert = text_buffer.get_iter_at_offset(image_row['offset'])
@@ -455,7 +455,7 @@ class CTDBHandler:
                 pixbuf,
                 image_justification=image_row['justification'],
                 text_buffer=text_buffer)
-    
+
     def read_db_node_content(self, tree_iter, db, original_id=None):
         """Read a node content from DB"""
         if self.dad.user_active:
@@ -526,17 +526,17 @@ class CTDBHandler:
                 self.dad.sourceview.set_buffer(self.dad.curr_buffer)
         curr_buffer.set_modified(False)
         if user_active_restore: self.dad.user_active = True
-    
+
     def get_children_rows_from_father_id(self, db, father_id):
         """Returns the children rows given the father_id"""
         children_rows = db.execute('SELECT * FROM children WHERE father_id=? ORDER BY sequence ASC', (father_id,)).fetchall()
         return children_rows
-    
+
     def get_node_row_partial_from_id(self, db, node_id):
         """Returns the (partial) node row given the node_id"""
         node_row = db.execute('SELECT node_id, name, syntax, tags, is_ro, level FROM node WHERE node_id=?', (node_id,)).fetchone()
         return node_row
-    
+
     def read_db_node_n_children(self, db, node_row, tree_father, discard_ids, node_sequence):
         """Read a node and his children from DB"""
         if not discard_ids:
@@ -581,7 +581,7 @@ class CTDBHandler:
                                              tree_iter,
                                              discard_ids,
                                              child_sequence)
-    
+
     def read_db_full(self, db, discard_ids, tree_father=None):
         """Read the whole DB"""
         # tree nodes

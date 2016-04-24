@@ -95,7 +95,7 @@ class FindReplace:
         elif response == 4:
             # find backward
             self.find_back()
-    
+
     def find_in_selected_node(self):
         """Search for a pattern in the selected Node"""
         entry_hint = ""
@@ -392,7 +392,7 @@ class FindReplace:
             self.dad.state_machine.update_state()
             self.dad.ctdb_handler.pending_edit_db_node_buff(self.dad.treestore[tree_iter][3], force_user_active=True)
         return True
-    
+
     def check_pattern_in_object(self, pattern, obj):
         """Search for the pattern in the given object"""
         if obj[0] == "pixbuf":

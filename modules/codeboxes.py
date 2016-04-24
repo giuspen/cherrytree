@@ -110,7 +110,7 @@ class CodeBoxesHandler:
         type_frame.get_label_widget().set_use_markup(True)
         type_frame.set_shadow_type(gtk.SHADOW_NONE)
         type_frame.add(type_vbox)
-        
+
         label_width = gtk.Label(_("Width"))
         adj_width = gtk.Adjustment(value=self.dad.codebox_width, lower=1, upper=10000, step_incr=1)
         spinbutton_width = gtk.SpinButton(adj_width)
@@ -119,13 +119,13 @@ class CodeBoxesHandler:
         adj_height = gtk.Adjustment(value=self.dad.codebox_height, lower=1, upper=10000, step_incr=1)
         spinbutton_height = gtk.SpinButton(adj_height)
         spinbutton_height.set_value(self.dad.codebox_height)
-        
+
         radiobutton_codebox_pixels = gtk.RadioButton(label=_("pixels"))
         radiobutton_codebox_percent = gtk.RadioButton(label="%")
         radiobutton_codebox_percent.set_group(radiobutton_codebox_pixels)
         radiobutton_codebox_pixels.set_active(self.dad.codebox_width_pixels)
         radiobutton_codebox_percent.set_active(not self.dad.codebox_width_pixels)
-        
+
         vbox_pix_perc = gtk.VBox()
         vbox_pix_perc.pack_start(radiobutton_codebox_pixels)
         vbox_pix_perc.pack_start(radiobutton_codebox_percent)
@@ -144,12 +144,12 @@ class CodeBoxesHandler:
         size_align = gtk.Alignment()
         size_align.set_padding(0, 6, 6, 6)
         size_align.add(vbox_size)
-        
+
         size_frame = gtk.Frame(label="<b>"+_("Size")+"</b>")
         size_frame.get_label_widget().set_use_markup(True)
         size_frame.set_shadow_type(gtk.SHADOW_NONE)
         size_frame.add(size_align)
-        
+
         checkbutton_codebox_linenumbers = gtk.CheckButton(label=_("Show Line Numbers"))
         checkbutton_codebox_linenumbers.set_active(self.dad.codebox_line_num)
         checkbutton_codebox_matchbrackets = gtk.CheckButton(label=_("Highlight Matching Brackets"))
@@ -160,12 +160,12 @@ class CodeBoxesHandler:
         opt_align = gtk.Alignment()
         opt_align.set_padding(6, 6, 6, 6)
         opt_align.add(vbox_options)
-        
+
         options_frame = gtk.Frame(label="<b>"+_("Options")+"</b>")
         options_frame.get_label_widget().set_use_markup(True)
         options_frame.set_shadow_type(gtk.SHADOW_NONE)
         options_frame.add(opt_align)
-        
+
         content_area = dialog.get_content_area()
         content_area.set_spacing(5)
         content_area.pack_start(type_frame)
