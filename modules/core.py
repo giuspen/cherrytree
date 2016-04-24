@@ -3025,8 +3025,8 @@ iter_end, exclude_iter_sel_end=True)
                     tree_iter = self.get_tree_iter_from_node_id(node_id)
                     if tree_iter:
                         self.node_name_header_buttons[curr_button_num] = self.state_machine.visited_nodes_list[i]
-                        buttons[curr_button_num-1].set_label(self.treestore[tree_iter][1])
-                        buttons[curr_button_num-1].show()
+                        buttons[curr_button_num-1].get_children()[0].set_text(self.treestore[tree_iter][1])
+                        buttons[curr_button_num-1].show_all()
                         curr_button_num -= 1
                         if not curr_button_num: break
             for i in range(curr_button_num):
@@ -3039,6 +3039,9 @@ iter_end, exclude_iter_sel_end=True)
         for i in range(self.nodes_on_node_name_header):
             button = gtk.Button()
             button.connect('clicked', self.on_button_node_name_header_clicked, i)
+            label = gtk.Label()
+            label.set_ellipsize(pango.ELLIPSIZE_END)
+            button.add(label)
             self.header_node_name_hbuttonbox.add(button)
         self.update_node_name_header_labels_latest_visited()
 
