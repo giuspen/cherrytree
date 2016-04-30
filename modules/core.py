@@ -49,8 +49,8 @@ class CherryTree:
         self.print_handler = printing.PrintHandler(self)
         # icon factory
         factory = gtk.IconFactory()
-        for filename in cons.STOCKS_N_FILES:
-            stock_name = filename[:-4]
+        for stock_name in cons.STOCKS_N_FILES:
+            filename = stock_name + ".png"
             filepath = os.path.join(cons.GLADE_PATH, filename)
             pixbuf = gtk.gdk.pixbuf_new_from_file(filepath)
             iconset = gtk.IconSet(pixbuf)
