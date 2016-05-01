@@ -116,8 +116,8 @@ class CherryTree:
         hbox_statusbar.pack_start(progress_frame, False, True)
         hbox_statusbar.pack_start(self.progresstop, False, True)
         vbox_main.pack_start(hbox_statusbar, False, False)
-        # ROW: 0-icon_stock_id, 1-name, 2-buffer, 3-unique_id, 4-syntax_highlighting, 5-node_sequence, 6-tags, 7-readonly, 8-pre_icon_stock_id
-        self.treestore = gtk.TreeStore(str, str, gobject.TYPE_PYOBJECT, long, str, int, str, gobject.TYPE_BOOLEAN, str)
+        # ROW: 0-icon_stock_id, 1-name, 2-buffer, 3-unique_id, 4-syntax_highlighting, 5-node_sequence, 6-tags, 7-readonly, 8-pre_icon_stock_id, 9-custom_icon_id
+        self.treestore = gtk.TreeStore(str, str, gobject.TYPE_PYOBJECT, long, str, int, str, gobject.TYPE_BOOLEAN, str, int)
         self.treeview = gtk.TreeView(self.treestore)
         self.treeview.set_headers_visible(False)
         self.treeview.drag_source_set(gtk.gdk.BUTTON1_MASK,
@@ -2686,7 +2686,7 @@ iter_end, exclude_iter_sel_end=True)
     def node_add(self, *args):
         """Add a node having common father with the selected node's"""
         if not self.node_add_is_duplication:
-            ret_name, ret_syntax, ret_tags, ret_ro = self.dialog_nodeprop(_("New Node Properties"), syntax_highl=self.syntax_highlighting)
+            ret_name, ret_syntax, ret_tags, ret_ro, ret_c_icon_id = self.dialog_nodeprop(_("New Node Properties"), syntax_highl=self.syntax_highlighting)
             if not ret_name: return
         else:
             tree_iter_from = self.curr_tree_iter
@@ -2694,6 +2694,7 @@ iter_end, exclude_iter_sel_end=True)
             ret_syntax = self.treestore[tree_iter_from][4]
             ret_tags = self.treestore[tree_iter_from][6]
             ret_ro = self.treestore[tree_iter_from][7]
+            ret_c_icon_id = self.treestore[tree_iter_from][9]
         self.update_window_save_needed()
         self.syntax_highlighting = ret_syntax
         father_iter = self.treestore.iter_parent(self.curr_tree_iter) if self.curr_tree_iter else None
@@ -2704,11 +2705,11 @@ iter_end, exclude_iter_sel_end=True)
             new_node_iter = self.treestore.insert_after(father_iter,
                 self.curr_tree_iter,
                 [cherry, ret_name, self.buffer_create(self.syntax_highlighting),
-                 new_node_id, self.syntax_highlighting, 0, ret_tags, ret_ro, None])
+                 new_node_id, self.syntax_highlighting, 0, ret_tags, ret_ro, None, ret_c_icon_id])
         else:
             new_node_iter = self.treestore.append(father_iter,
                 [cherry, ret_name, self.buffer_create(self.syntax_highlighting),
-                 new_node_id, self.syntax_highlighting, 0, ret_tags, ret_ro, None])
+                 new_node_id, self.syntax_highlighting, 0, ret_tags, ret_ro, None, ret_c_icon_id])
         if ret_tags: self.tags_add_from_node(ret_tags)
         self.ctdb_handler.pending_new_db_node(new_node_id)
         self.nodes_sequences_fix(father_iter, False)
@@ -2729,23 +2730,23 @@ iter_end, exclude_iter_sel_end=True)
         self.sourceview.grab_focus()
 
     def node_child_exist_or_create(self, father_iter, node_name):
-        """Create Child Node or Select Just Select It if Existing"""
+        """Create Child Node or Just Select it if Already Existing"""
         curr_iter = self.treestore.iter_children(father_iter) if father_iter else self.treestore.get_iter_first()
         while curr_iter:
             if self.treestore[curr_iter][1] == node_name:
                 self.treeview_safe_set_cursor(curr_iter)
                 return
             curr_iter = self.treestore.iter_next(curr_iter)
-        self.node_child_add_with_data(father_iter, node_name, cons.RICH_TEXT_ID, "", False)
+        self.node_child_add_with_data(father_iter, node_name, cons.RICH_TEXT_ID, "", False, 0)
 
     def node_child_add(self, *args):
         """Add a node having as father the selected node"""
         if not self.is_there_selected_node_or_error(): return
-        ret_name, ret_syntax, ret_tags, ret_ro = self.dialog_nodeprop(_("New Child Node Properties"), syntax_highl=self.syntax_highlighting)
+        ret_name, ret_syntax, ret_tags, ret_ro, ret_c_icon_id = self.dialog_nodeprop(_("New Child Node Properties"), syntax_highl=self.syntax_highlighting)
         if not ret_name: return
-        self.node_child_add_with_data(self.curr_tree_iter, ret_name, ret_syntax, ret_tags, ret_ro)
+        self.node_child_add_with_data(self.curr_tree_iter, ret_name, ret_syntax, ret_tags, ret_ro, ret_c_icon_id)
 
-    def node_child_add_with_data(self, father_iter, ret_name, ret_syntax, ret_tags, ret_ro):
+    def node_child_add_with_data(self, father_iter, ret_name, ret_syntax, ret_tags, ret_ro, ret_c_icon_id):
         """Add a node having as father the given node"""
         self.update_window_save_needed()
         self.syntax_highlighting = ret_syntax
@@ -2754,7 +2755,7 @@ iter_end, exclude_iter_sel_end=True)
         new_node_id = self.node_id_get()
         new_node_iter = self.treestore.append(father_iter,
             [cherry, ret_name, self.buffer_create(self.syntax_highlighting),
-             new_node_id, self.syntax_highlighting, 0, ret_tags, ret_ro, None])
+             new_node_id, self.syntax_highlighting, 0, ret_tags, ret_ro, None, ret_c_icon_id])
         self.ctdb_handler.pending_new_db_node(new_node_id)
         self.nodes_sequences_fix(father_iter, False)
         self.nodes_names_dict[new_node_id] = ret_name
@@ -2800,11 +2801,12 @@ iter_end, exclude_iter_sel_end=True)
     def node_edit(self, *args):
         """Edit the Properties of the Selected Node"""
         if not self.is_there_selected_node_or_error(): return
-        ret_name, ret_syntax, ret_tags, ret_ro = self.dialog_nodeprop(_("Node Properties"),
+        ret_name, ret_syntax, ret_tags, ret_ro, ret_c_icon_id = self.dialog_nodeprop(_("Node Properties"),
             name=self.treestore[self.curr_tree_iter][1],
             syntax_highl=self.treestore[self.curr_tree_iter][4],
             tags=self.treestore[self.curr_tree_iter][6],
-            ro=self.treestore[self.curr_tree_iter][7])
+            ro=self.treestore[self.curr_tree_iter][7],
+            c_icon_id=self.treestore[self.curr_tree_iter][9])
         if not ret_name: return
         self.syntax_highlighting = ret_syntax
         if self.treestore[self.curr_tree_iter][4] != self.syntax_highlighting:
@@ -3449,7 +3451,7 @@ iter_end, exclude_iter_sel_end=True)
             return self.search_replace_dict['find']
         return None
 
-    def dialog_nodeprop(self, title, name="", syntax_highl=cons.RICH_TEXT_ID, tags="", ro=False):
+    def dialog_nodeprop(self, title, name="", syntax_highl=cons.RICH_TEXT_ID, tags="", ro=False, c_icon_id=0):
         """Opens the Node Properties Dialog"""
         dialog = gtk.Dialog(title=title,
                             parent=self.window,
@@ -3553,8 +3555,9 @@ iter_end, exclude_iter_sel_end=True)
                 self.auto_syn_highl = ret_syntax
             ret_tags = unicode(tags_entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE)
             ret_ro = ro_checkbutton.get_active()
-            return [ret_name, ret_syntax, ret_tags, ret_ro]
-        return [None, None, None, None]
+            ret_c_icon_id = 0
+            return [ret_name, ret_syntax, ret_tags, ret_ro, ret_c_icon_id]
+        return [None, None, None, None, None]
 
     def toolbar_icons_size_increase(self, *args):
         """Increase the Size of the Toolbar Icons"""

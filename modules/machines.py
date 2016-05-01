@@ -126,6 +126,8 @@ class XMLHandler:
         if node_tags: self.dad.tags_add_from_node(node_tags)
         if dom_iter.hasAttribute('readonly'): readonly = (dom_iter.attributes['readonly'].value == "True")
         else: readonly = False
+        if dom_iter.hasAttribute('custom_icon_id'): custom_icon_id = int(dom_iter.attributes['custom_icon_id'].value)
+        else: custom_icon_id = 0
         syntax_highlighting = dom_iter.attributes['prog_lang'].value
         if syntax_highlighting not in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID]\
         and syntax_highlighting not in self.dad.available_languages:
@@ -159,7 +161,8 @@ class XMLHandler:
                                                             node_sequence,
                                                             node_tags,
                                                             readonly,
-                                                            None])
+                                                            None,
+                                                            custom_icon_id])
         self.dad.nodes_names_dict[unique_id] = self.dad.treestore[tree_iter][1]
         if discard_ids:
             # we are importing nodes
@@ -313,6 +316,7 @@ class XMLHandler:
         dom_iter.setAttribute("prog_lang", programming_language)
         dom_iter.setAttribute("tags", self.dad.treestore[tree_iter][6])
         dom_iter.setAttribute("readonly", str(self.dad.treestore[tree_iter][7]))
+        dom_iter.setAttribute("custom_icon_id", str(self.dad.treestore[tree_iter][9]))
         dom_father.appendChild(dom_iter)
         # allocate and init the rich text attributes
         self.curr_attributes = {}
