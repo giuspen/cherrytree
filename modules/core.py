@@ -262,17 +262,26 @@ class CherryTree:
             self.statusbar.pop(self.statusbar_context_id)
             self.statusbar.push(self.statusbar_context_id, _("Failed to Retrieve Latest Version Information - Try Again Later"))
 
-    def get_node_icon(self, node_level, node_code):
+    def get_node_icon(self, node_level, node_code, custom_icon_id):
         """Returns the Stock Id given the Node Level"""
-        if self.nodes_icons == "c":
+        if custom_icon_id:
+            stock_id = cons.NODES_STOCKS[custom_icon_id]
+        elif self.nodes_icons == "c":
             if node_code in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID]:
-                if node_level in cons.NODES_ICONS: return cons.NODES_ICONS[node_level]
-                else: return cons.NODES_ICONS[6]
+                if node_level in cons.NODES_ICONS:
+                    stock_id = cons.NODES_ICONS[node_level]
+                else:
+                    stock_id = cons.NODES_ICONS[6]
             else:
-                if node_code in cons.CODE_ICONS: return cons.CODE_ICONS[node_code]
-                else: return "cherry_gray"
-        elif self.nodes_icons == "b": return "node_bullet"
-        else: return "node_no_icon"
+                if node_code in cons.CODE_ICONS:
+                    stock_id = cons.CODE_ICONS[node_code]
+                else:
+                    stock_id = "cherry_gray"
+        elif self.nodes_icons == "b":
+            stock_id = "node_bullet"
+        else:
+            stock_id = "node_no_icon"
+        return stock_id
 
     def text_selection_change_case(self, change_type):
         """Change the Case of the Selected Text/the Underlying Word"""
@@ -1400,7 +1409,8 @@ iter_end, exclude_iter_sel_end=True)
     def change_icon_iter(self, tree_iter):
         """Changing all icons type - iter"""
         self.treestore[tree_iter][0] = self.get_node_icon(self.treestore.iter_depth(tree_iter),
-                                                          self.treestore[tree_iter][4])
+                                                          self.treestore[tree_iter][4],
+                                                          self.treestore[tree_iter][9])
         child_tree_iter = self.treestore.iter_children(tree_iter)
         while child_tree_iter:
             self.change_icon_iter(child_tree_iter)
@@ -2342,7 +2352,8 @@ iter_end, exclude_iter_sel_end=True)
                 old_syntax_highl = self.treestore[iter_child][4]
                 self.treestore[iter_child][4] = self.treestore[iter_father][4]
                 self.treestore[iter_child][0] = self.get_node_icon(self.treestore.iter_depth(iter_child),
-                                                                   self.treestore[iter_child][4])
+                                                                   self.treestore[iter_child][4],
+                                                                   self.treestore[iter_child][9])
                 self.switch_buffer_text_source(self.treestore[iter_child][2],
                                                iter_child,
                                                self.treestore[iter_child][4],
@@ -2699,7 +2710,7 @@ iter_end, exclude_iter_sel_end=True)
         self.syntax_highlighting = ret_syntax
         father_iter = self.treestore.iter_parent(self.curr_tree_iter) if self.curr_tree_iter else None
         node_level = self.treestore.iter_depth(father_iter)+1 if father_iter else 0
-        cherry = self.get_node_icon(node_level, self.syntax_highlighting)
+        cherry = self.get_node_icon(node_level, self.syntax_highlighting, ret_c_icon_id)
         new_node_id = self.node_id_get()
         if self.curr_tree_iter != None:
             new_node_iter = self.treestore.insert_after(father_iter,
@@ -2751,7 +2762,7 @@ iter_end, exclude_iter_sel_end=True)
         self.update_window_save_needed()
         self.syntax_highlighting = ret_syntax
         node_level = self.treestore.iter_depth(father_iter)+1 if father_iter else 0
-        cherry = self.get_node_icon(node_level, self.syntax_highlighting)
+        cherry = self.get_node_icon(node_level, self.syntax_highlighting, ret_c_icon_id)
         new_node_id = self.node_id_get()
         new_node_iter = self.treestore.append(father_iter,
             [cherry, ret_name, self.buffer_create(self.syntax_highlighting),
@@ -2834,8 +2845,10 @@ iter_end, exclude_iter_sel_end=True)
         self.treestore[self.curr_tree_iter][6] = ret_tags
         if ret_tags: self.tags_add_from_node(ret_tags)
         self.treestore[self.curr_tree_iter][7] = ret_ro
+        self.treestore[self.curr_tree_iter][9] = ret_c_icon_id
         self.treestore[self.curr_tree_iter][0] = self.get_node_icon(self.treestore.iter_depth(self.curr_tree_iter),
-                                                                    self.syntax_highlighting)
+                                                                    self.syntax_highlighting,
+                                                                    ret_c_icon_id)
         if self.syntax_highlighting not in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID]:
             self.set_sourcebuffer_syntax_highlight(self.curr_buffer, self.syntax_highlighting)
         self.sourceview.set_editable(not self.treestore[self.curr_tree_iter][7])
@@ -3511,12 +3524,26 @@ iter_end, exclude_iter_sel_end=True)
         tags_frame.add(tags_hbox)
         ro_checkbutton = gtk.CheckButton(label=_("Read Only"))
         ro_checkbutton.set_active(ro)
+        c_icon_checkbutton = gtk.CheckButton(label=_("Use Selected Icon"))
+        c_icon_checkbutton.set_active(c_icon_id in cons.NODES_STOCKS.keys())
+        c_icon_button = gtk.Button()
+        if c_icon_checkbutton.get_active():
+            c_icon_button.set_image(gtk.image_new_from_stock(cons.NODES_STOCKS[c_icon_id], gtk.ICON_SIZE_BUTTON))
+        else:
+            c_icon_button.set_label(_("click me"))
+            c_icon_button.set_sensitive(False)
+        c_icon_hbox = gtk.HBox()
+        c_icon_hbox.set_spacing(2)
+        c_icon_hbox.pack_start(c_icon_checkbutton, expand=False)
+        c_icon_hbox.pack_start(c_icon_button, expand=False)
+        dialog.ret_c_icon_id = c_icon_id
         content_area = dialog.get_content_area()
         content_area.set_spacing(5)
         content_area.pack_start(name_frame)
         content_area.pack_start(type_frame)
         content_area.pack_start(tags_frame)
         content_area.pack_start(ro_checkbutton)
+        content_area.pack_start(c_icon_hbox)
         content_area.show_all()
         name_entry.grab_focus()
         def on_key_press_nodepropdialog(widget, event):
@@ -3526,9 +3553,11 @@ iter_end, exclude_iter_sel_end=True)
                 except: print cons.STR_PYGTK_222_REQUIRED
                 return True
             return False
+        dialog.connect('key_press_event', on_key_press_nodepropdialog)
         def on_radiobutton_auto_syntax_highl_toggled(radiobutton):
             combobox_prog_lang.set_sensitive(radiobutton.get_active())
-        def on_browse_tags_button_clicked(*args):
+        radiobutton_auto_syntax_highl.connect("toggled", on_radiobutton_auto_syntax_highl_toggled)
+        def on_browse_tags_button_clicked(button):
             ret_tag_name = support.dialog_choose_element_in_list(dialog,
                 _("Choose Existing Tag"), [[element] for element in sorted(self.tags_set)], _("Tag Name"))
             if ret_tag_name:
@@ -3537,12 +3566,23 @@ iter_end, exclude_iter_sel_end=True)
                 if not curr_text: tags_entry.set_text(ret_tag_name)
                 elif curr_text.endswith(cons.CHAR_SPACE): tags_entry.set_text(curr_text+ret_tag_name)
                 else: tags_entry.set_text(curr_text+cons.CHAR_SPACE+ret_tag_name)
+        button_browse_tags.connect('clicked', on_browse_tags_button_clicked)
         def on_checkbutton_ro_toggled(checkbutton):
             type_frame.set_sensitive(not checkbutton.get_active())
         ro_checkbutton.connect('toggled', on_checkbutton_ro_toggled)
-        radiobutton_auto_syntax_highl.connect("toggled", on_radiobutton_auto_syntax_highl_toggled)
-        button_browse_tags.connect('clicked', on_browse_tags_button_clicked)
-        dialog.connect('key_press_event', on_key_press_nodepropdialog)
+        def on_c_icon_checkbutton_toggled(checkbutton):
+            c_icon_button.set_sensitive(checkbutton.get_active())
+        c_icon_checkbutton.connect('toggled', on_c_icon_checkbutton_toggled)
+        def on_c_icon_button_clicked(button):
+            icon_n_label_list = []
+            for key in cons.NODES_STOCKS.keys():
+                icon_n_label_list.append([str(key), cons.NODES_STOCKS[key], ""])
+            sel_key = support.dialog_choose_element_in_list(dialog, _("Select Node Icon"), [], "", icon_n_label_list)
+            if sel_key:
+                dialog.ret_c_icon_id = int(sel_key)
+                c_icon_button.set_label("")
+                c_icon_button.set_image(gtk.image_new_from_stock(cons.NODES_STOCKS[dialog.ret_c_icon_id], gtk.ICON_SIZE_BUTTON))
+        c_icon_button.connect('clicked', on_c_icon_button_clicked)
         response = dialog.run()
         dialog.hide()
         if response == gtk.RESPONSE_ACCEPT:
@@ -3555,7 +3595,7 @@ iter_end, exclude_iter_sel_end=True)
                 self.auto_syn_highl = ret_syntax
             ret_tags = unicode(tags_entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE)
             ret_ro = ro_checkbutton.get_active()
-            ret_c_icon_id = 0
+            ret_c_icon_id = dialog.ret_c_icon_id if c_icon_checkbutton.get_active() else 0
             return [ret_name, ret_syntax, ret_tags, ret_ro, ret_c_icon_id]
         return [None, None, None, None, None]
 

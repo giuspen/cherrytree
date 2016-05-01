@@ -556,7 +556,7 @@ class CTDBHandler:
             if syntax_highlighting not in self.dad.available_languages:
                 syntax_highlighting = cons.RICH_TEXT_ID
         node_level = self.dad.treestore.iter_depth(tree_father)+1 if tree_father else 0
-        cherry = self.dad.get_node_icon(node_level, syntax_highlighting)
+        cherry = self.dad.get_node_icon(node_level, syntax_highlighting, custom_icon_id)
         #print "added node with unique_id", unique_id
         # insert the node containing the buffer into the tree
         tree_iter = self.dad.treestore.append(tree_father, [cherry,

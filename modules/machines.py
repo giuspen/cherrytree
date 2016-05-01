@@ -135,7 +135,7 @@ class XMLHandler:
             if syntax_highlighting not in self.dad.available_languages:
                 syntax_highlighting = cons.RICH_TEXT_ID
         node_depth = 0 if not tree_father else self.dad.treestore.iter_depth(tree_father)+1
-        cherry = self.dad.get_node_icon(node_depth, syntax_highlighting)
+        cherry = self.dad.get_node_icon(node_depth, syntax_highlighting, custom_icon_id)
         curr_buffer = self.dad.buffer_create(syntax_highlighting)
         if syntax_highlighting != cons.RICH_TEXT_ID: curr_buffer.begin_not_undoable_action()
         # loop into rich text, write into the buffer
