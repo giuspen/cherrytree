@@ -276,7 +276,7 @@ class CherryTree:
                 if node_code in cons.CODE_ICONS:
                     stock_id = cons.CODE_ICONS[node_code]
                 else:
-                    stock_id = "cherry_gray"
+                    stock_id = cons.DEFAULT_CODE_ICON
         elif self.nodes_icons == "b":
             stock_id = "node_bullet"
         else:
@@ -3525,7 +3525,7 @@ iter_end, exclude_iter_sel_end=True)
         ro_checkbutton = gtk.CheckButton(label=_("Read Only"))
         ro_checkbutton.set_active(ro)
         c_icon_checkbutton = gtk.CheckButton(label=_("Use Selected Icon"))
-        c_icon_checkbutton.set_active(c_icon_id in cons.NODES_STOCKS.keys())
+        c_icon_checkbutton.set_active(c_icon_id in cons.NODES_STOCKS_KEYS)
         c_icon_button = gtk.Button()
         if c_icon_checkbutton.get_active():
             c_icon_button.set_image(gtk.image_new_from_stock(cons.NODES_STOCKS[c_icon_id], gtk.ICON_SIZE_BUTTON))
@@ -3575,7 +3575,7 @@ iter_end, exclude_iter_sel_end=True)
         c_icon_checkbutton.connect('toggled', on_c_icon_checkbutton_toggled)
         def on_c_icon_button_clicked(button):
             icon_n_label_list = []
-            for key in cons.NODES_STOCKS.keys():
+            for key in cons.NODES_STOCKS_KEYS:
                 icon_n_label_list.append([str(key), cons.NODES_STOCKS[key], ""])
             sel_key = support.dialog_choose_element_in_list(dialog, _("Select Node Icon"), [], "", icon_n_label_list)
             if sel_key:

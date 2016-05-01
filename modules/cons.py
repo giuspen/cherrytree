@@ -129,10 +129,6 @@ STYLE_SCHEME_DARK = "cobalt"
 STYLE_SCHEME_GRAY = "oblivion"
 ANCHOR_CHAR = GLADE_PATH + 'anchor.png'
 FILE_CHAR = GLADE_PATH + 'file_icon.png'
-NODES_ICONS = {0:'cherry_red', 1:'cherry_blue', 2:'cherry_orange', 3:'cherry_cyan',
-               4:'cherry_orange_dark', 5:'cherry_sherbert', 6:'cherry_yellow'}
-CODE_ICONS = {"python": 'cherry_green', "sh":'cherry_purple',
-              "c":'cherry_black', "cpp":'cherry_black', "chdr":'cherry_black'}
 
 MIN_CT_DOC_SIZE = 10
 MAX_FILE_NAME_LEN = 150
@@ -251,10 +247,10 @@ STOCKS_N_FILES = [
 'tree-subnode-add', 'information', 'help-contents', 'index', 'timestamp',
 'calendar', 'horizontal_rule', 'file_icon', 'pin', 'pin-add', 'pin-remove',
 'add', 'cancel', 'done', 'java', 'mail', 'notes', 'python', 'remove', 'star',
-'terminal', 'terminal-red', 'warning', 'home',
+'terminal', 'terminal-red', 'warning', 'home', 'code', 'html',
 'circle-green', 'circle-grey', 'circle-red', 'circle-yellow',
 ]
-
+NODES_STOCKS_KEYS = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,18,19,20,38,21,22,23,24,17,25,26,27,28,29,30,31,32,33,34,35,36,37]
 NODES_STOCKS = {
  1: 'circle-green',
  2: 'circle-yellow',
@@ -272,7 +268,7 @@ NODES_STOCKS = {
 14: 'home',
 15: 'index',
 16: 'mail',
-17: 'link_website',
+17: 'html',
 18: 'notes',
 19: 'timestamp',
 20: 'calendar',
@@ -293,7 +289,20 @@ NODES_STOCKS = {
 35: 'cherry_red',
 36: 'cherry_sherbert',
 37: 'cherry_yellow',
+38: 'code',
 }
+NODES_ICONS = {
+0:'cherry_red', 1:'cherry_blue', 2:'cherry_orange', 3:'cherry_cyan',
+4:'cherry_orange_dark', 5:'cherry_sherbert', 6:'cherry_yellow',
+7: 'cherry_green', 8:'cherry_purple', 9:'cherry_black', 10:'cherry_gray'
+}
+CODE_ICONS = {
+"python": 'python',
+"sh": 'terminal',
+"java": 'java',
+"html": 'html',
+}
+DEFAULT_CODE_ICON = 'code'
 
 TABLE_NODE_CREATE = """CREATE TABLE node (
 node_id INTEGER UNIQUE,
