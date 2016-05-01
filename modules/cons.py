@@ -249,8 +249,9 @@ STOCKS_N_FILES = [
 'add', 'cancel', 'done', 'java', 'mail', 'notes', 'python', 'remove', 'star',
 'terminal', 'terminal-red', 'warning', 'home', 'code', 'html',
 'circle-green', 'circle-grey', 'circle-red', 'circle-yellow',
+'locked', 'unlocked', 'people', 'urgent', 'folder',
 ]
-NODES_STOCKS_KEYS = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,18,19,20,38,21,22,23,24,17,25,26,27,28,29,30,31,32,33,34,35,36,37]
+NODES_STOCKS_KEYS = [1,2,3,4,5,6,7,8,9,40,41,42,10,43,11,12,13,14,15,16,44,18,19,20,39,38,21,22,23,24,17,25,26,27,28,29,30,31,32,33,34,35,36,37]
 NODES_STOCKS = {
  1: 'circle-green',
  2: 'circle-yellow',
@@ -290,6 +291,12 @@ NODES_STOCKS = {
 36: 'cherry_sherbert',
 37: 'cherry_yellow',
 38: 'code',
+39: 'find',
+40: 'locked',
+41: 'unlocked',
+42: 'people',
+43: 'urgent',
+44: 'folder',
 }
 NODES_ICONS = {
 0:'cherry_red', 1:'cherry_blue', 2:'cherry_orange', 3:'cherry_cyan',
