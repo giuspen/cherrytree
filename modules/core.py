@@ -265,22 +265,28 @@ class CherryTree:
     def get_node_icon(self, node_level, node_code, custom_icon_id):
         """Returns the Stock Id given the Node Level"""
         if custom_icon_id:
+            # overridden icon
             stock_id = cons.NODES_STOCKS[custom_icon_id]
-        elif self.nodes_icons == "c":
-            if node_code in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID]:
+        elif node_code in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID]:
+            # text node
+            if self.nodes_icons == "c":
                 if node_level in cons.NODES_ICONS:
                     stock_id = cons.NODES_ICONS[node_level]
                 else:
-                    stock_id = cons.NODES_ICONS[6]
+                    stock_id = cons.NODES_ICONS[-1]
+            elif self.nodes_icons == "b":
+                stock_id = cons.NODES_STOCKS[self.default_icon_text]
             else:
+                stock_id = cons.NODES_STOCKS[cons.NODE_ICON_NO_ICON_ID]
+        else:
+            # code node
+            if self.nodes_icons in ["c", "b"]:
                 if node_code in cons.CODE_ICONS:
                     stock_id = cons.CODE_ICONS[node_code]
                 else:
-                    stock_id = cons.DEFAULT_CODE_ICON
-        elif self.nodes_icons == "b":
-            stock_id = "node_bullet"
-        else:
-            stock_id = "node_no_icon"
+                    stock_id = cons.NODES_STOCKS[cons.NODE_ICON_CODE_ID]
+            else:
+                stock_id = cons.NODES_STOCKS[cons.NODE_ICON_NO_ICON_ID]
         return stock_id
 
     def text_selection_change_case(self, change_type):

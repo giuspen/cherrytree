@@ -309,7 +309,9 @@ CODE_ICONS = {
 "java": 'java',
 "html": 'html',
 }
-DEFAULT_CODE_ICON = 'code'
+NODE_ICON_CODE_ID = 38
+NODE_ICON_BULLET_ID = 25
+NODE_ICON_NO_ICON_ID = 26
 
 TABLE_NODE_CREATE = """CREATE TABLE node (
 node_id INTEGER UNIQUE,

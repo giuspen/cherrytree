@@ -149,6 +149,7 @@ def config_file_load(dad):
         dad.expcollcur3 = cfg.getint(section, "expcollcur3") if cfg.has_option(section, "expcollcur3") else 0
         dad.nodes_bookm_exp = cfg.getboolean(section, "nodes_bookm_exp") if cfg.has_option(section, "nodes_bookm_exp") else True
         dad.nodes_icons = cfg.get(section, "nodes_icons") if cfg.has_option(section, "nodes_icons") else "c"
+        dad.default_icon_text = cfg.getint(section, "default_icon_text") if cfg.has_option(section, "default_icon_text") else cons.NODE_ICON_BULLET_ID
         dad.tree_right_side = cfg.getboolean(section, "tree_right_side") if cfg.has_option(section, "tree_right_side") else False
         dad.cherry_wrap_width = cfg.getint(section, "cherry_wrap_width") if cfg.has_option(section, "cherry_wrap_width") else 130
 
@@ -338,6 +339,7 @@ def config_file_load(dad):
         dad.show_node_name_header = True
         dad.nodes_on_node_name_header = NODES_ON_NODE_NAME_HEADER_DEFAULT
         dad.nodes_icons = "c"
+        dad.default_icon_text = cons.NODE_ICON_BULLET_ID
         dad.recent_docs = []
         dad.toolbar_visible = True
         print "missing", cons.CONFIG_PATH
@@ -432,6 +434,7 @@ def config_file_save(dad):
         cfg.set(section, "expcollcur3", dad.expcollcur3)
     cfg.set(section, "nodes_bookm_exp", dad.nodes_bookm_exp)
     cfg.set(section, "nodes_icons", dad.nodes_icons)
+    cfg.set(section, "default_icon_text", dad.default_icon_text)
     cfg.set(section, "tree_right_side", dad.tree_right_side)
     cfg.set(section, "cherry_wrap_width", dad.cherry_wrap_width)
 
@@ -1072,16 +1075,23 @@ def preferences_tab_tree(dad, vbox_tree, pref_dialog):
 
     vbox_nodes_icons = gtk.VBox()
 
-    radiobutton_node_icon_cherry = gtk.RadioButton(label=_("Use Cherries as Nodes Icons"))
-    radiobutton_node_icon_bullet = gtk.RadioButton(label=_("Use Bullets as Nodes Icons"))
-    radiobutton_node_icon_bullet.set_group(radiobutton_node_icon_cherry)
-    radiobutton_node_icon_none = gtk.RadioButton(label=_("Do Not Display Nodes Icons"))
+    radiobutton_node_icon_cherry = gtk.RadioButton(label=_("Use Different Cherries per Level"))
+    radiobutton_node_icon_custom = gtk.RadioButton(label=_("Use Selected Icon"))
+    radiobutton_node_icon_custom.set_group(radiobutton_node_icon_cherry)
+    radiobutton_node_icon_none = gtk.RadioButton(label=_("No Icon"))
     radiobutton_node_icon_none.set_group(radiobutton_node_icon_cherry)
 
+    c_icon_button = gtk.Button()
+    c_icon_button.set_image(gtk.image_new_from_stock(cons.NODES_STOCKS[dad.default_icon_text], gtk.ICON_SIZE_BUTTON))
+    c_icon_hbox = gtk.HBox()
+    c_icon_hbox.set_spacing(2)
+    c_icon_hbox.pack_start(radiobutton_node_icon_custom, expand=False)
+    c_icon_hbox.pack_start(c_icon_button, expand=False)
+
     vbox_nodes_icons.pack_start(radiobutton_node_icon_cherry, expand=False)
-    vbox_nodes_icons.pack_start(radiobutton_node_icon_bullet, expand=False)
+    vbox_nodes_icons.pack_start(c_icon_hbox, expand=False)
     vbox_nodes_icons.pack_start(radiobutton_node_icon_none, expand=False)
-    frame_nodes_icons = gtk.Frame(label="<b>"+_("Nodes Icons")+"</b>")
+    frame_nodes_icons = gtk.Frame(label="<b>"+_("Default Text Nodes Icons")+"</b>")
     frame_nodes_icons.get_label_widget().set_use_markup(True)
     frame_nodes_icons.set_shadow_type(gtk.SHADOW_NONE)
     align_nodes_icons = gtk.Alignment()
@@ -1090,7 +1100,7 @@ def preferences_tab_tree(dad, vbox_tree, pref_dialog):
     frame_nodes_icons.add(align_nodes_icons)
 
     radiobutton_node_icon_cherry.set_active(dad.nodes_icons == "c")
-    radiobutton_node_icon_bullet.set_active(dad.nodes_icons == "b")
+    radiobutton_node_icon_custom.set_active(dad.nodes_icons == "b")
     radiobutton_node_icon_none.set_active(dad.nodes_icons == "n")
 
     vbox_nodes_startup = gtk.VBox()
@@ -1193,16 +1203,26 @@ def preferences_tab_tree(dad, vbox_tree, pref_dialog):
         dad.nodes_icons = "c"
         dad.treeview_refresh(change_icon=True)
     radiobutton_node_icon_cherry.connect('toggled', on_radiobutton_node_icon_cherry_toggled)
-    def on_radiobutton_node_icon_bullet_toggled(radiobutton):
+    def on_radiobutton_node_icon_custom_toggled(radiobutton):
         if not radiobutton.get_active(): return
         dad.nodes_icons = "b"
         dad.treeview_refresh(change_icon=True)
-    radiobutton_node_icon_bullet.connect('toggled', on_radiobutton_node_icon_bullet_toggled)
+    radiobutton_node_icon_custom.connect('toggled', on_radiobutton_node_icon_custom_toggled)
     def on_radiobutton_node_icon_none_toggled(radiobutton):
         if not radiobutton.get_active(): return
         dad.nodes_icons = "n"
         dad.treeview_refresh(change_icon=True)
     radiobutton_node_icon_none.connect('toggled', on_radiobutton_node_icon_none_toggled)
+    def on_c_icon_button_clicked(button):
+        icon_n_label_list = []
+        for key in cons.NODES_STOCKS_KEYS:
+            icon_n_label_list.append([str(key), cons.NODES_STOCKS[key], ""])
+        sel_key = support.dialog_choose_element_in_list(pref_dialog, _("Select Node Icon"), [], "", icon_n_label_list)
+        if sel_key:
+            dad.default_icon_text = int(sel_key)
+            c_icon_button.set_image(gtk.image_new_from_stock(cons.NODES_STOCKS[dad.default_icon_text], gtk.ICON_SIZE_BUTTON))
+            dad.treeview_refresh(change_icon=True)
+    c_icon_button.connect('clicked', on_c_icon_button_clicked)
     def on_radiobutton_nodes_startup_restore_toggled(checkbutton):
         if checkbutton.get_active():
             dad.rest_exp_coll = 0
