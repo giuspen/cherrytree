@@ -116,8 +116,8 @@ class CherryTree:
         hbox_statusbar.pack_start(progress_frame, False, True)
         hbox_statusbar.pack_start(self.progresstop, False, True)
         vbox_main.pack_start(hbox_statusbar, False, False)
-        # ROW: 0-icon_stock_id, 1-name, 2-buffer, 3-unique_id, 4-syntax_highlighting, 5-node_sequence, 6-tags, 7-readonly, 8-pre_icon_stock_id, 9-custom_icon_id
-        self.treestore = gtk.TreeStore(str, str, gobject.TYPE_PYOBJECT, long, str, int, str, gobject.TYPE_BOOLEAN, str, int)
+        # ROW: 0-icon_stock_id, 1-name, 2-buffer, 3-unique_id, 4-syntax_highlighting, 5-node_sequence, 6-tags, 7-readonly, 8-pre_icon_stock_id, 9-custom_icon_id, 10-weight
+        self.treestore = gtk.TreeStore(str, str, gobject.TYPE_PYOBJECT, long, str, int, str, gobject.TYPE_BOOLEAN, str, int, int)
         self.treeview = gtk.TreeView(self.treestore)
         self.treeview.set_headers_visible(False)
         self.treeview.drag_source_set(gtk.gdk.BUTTON1_MASK,
@@ -135,7 +135,7 @@ class CherryTree:
         self.column.pack_start(self.renderer_text, True)
         self.column.pack_start(self.aux_renderer_pixbuf, False)
         self.column.set_attributes(self.renderer_pixbuf, stock_id=0)
-        self.column.set_attributes(self.renderer_text, text=1)
+        self.column.set_attributes(self.renderer_text, text=1, weight=10)
         self.column.set_attributes(self.aux_renderer_pixbuf, stock_id=8)
         self.treeview.append_column(self.column)
         self.treeview.set_search_column(1)
@@ -2703,7 +2703,7 @@ iter_end, exclude_iter_sel_end=True)
     def node_add(self, *args):
         """Add a node having common father with the selected node's"""
         if not self.node_add_is_duplication:
-            ret_name, ret_syntax, ret_tags, ret_ro, ret_c_icon_id = self.dialog_nodeprop(_("New Node Properties"), syntax_highl=self.syntax_highlighting)
+            ret_name, ret_syntax, ret_tags, ret_ro, ret_c_icon_id, ret_is_bold = self.dialog_nodeprop(_("New Node Properties"), syntax_highl=self.syntax_highlighting)
             if not ret_name: return
         else:
             tree_iter_from = self.curr_tree_iter
@@ -2712,6 +2712,7 @@ iter_end, exclude_iter_sel_end=True)
             ret_tags = self.treestore[tree_iter_from][6]
             ret_ro = self.treestore[tree_iter_from][7]
             ret_c_icon_id = self.treestore[tree_iter_from][9]
+            ret_is_bold = support.get_pango_is_bold(self.treestore[tree_iter_from][10])
         self.update_window_save_needed()
         self.syntax_highlighting = ret_syntax
         father_iter = self.treestore.iter_parent(self.curr_tree_iter) if self.curr_tree_iter else None
@@ -2722,11 +2723,13 @@ iter_end, exclude_iter_sel_end=True)
             new_node_iter = self.treestore.insert_after(father_iter,
                 self.curr_tree_iter,
                 [cherry, ret_name, self.buffer_create(self.syntax_highlighting),
-                 new_node_id, self.syntax_highlighting, 0, ret_tags, ret_ro, None, ret_c_icon_id])
+                 new_node_id, self.syntax_highlighting, 0, ret_tags, ret_ro, None, ret_c_icon_id,
+                 support.get_pango_weight(ret_is_bold)])
         else:
             new_node_iter = self.treestore.append(father_iter,
                 [cherry, ret_name, self.buffer_create(self.syntax_highlighting),
-                 new_node_id, self.syntax_highlighting, 0, ret_tags, ret_ro, None, ret_c_icon_id])
+                 new_node_id, self.syntax_highlighting, 0, ret_tags, ret_ro, None, ret_c_icon_id,
+                 support.get_pango_weight(ret_is_bold)])
         if ret_tags: self.tags_add_from_node(ret_tags)
         self.ctdb_handler.pending_new_db_node(new_node_id)
         self.nodes_sequences_fix(father_iter, False)
@@ -2754,16 +2757,16 @@ iter_end, exclude_iter_sel_end=True)
                 self.treeview_safe_set_cursor(curr_iter)
                 return
             curr_iter = self.treestore.iter_next(curr_iter)
-        self.node_child_add_with_data(father_iter, node_name, cons.RICH_TEXT_ID, "", False, 0)
+        self.node_child_add_with_data(father_iter, node_name, cons.RICH_TEXT_ID, "", False, 0, False)
 
     def node_child_add(self, *args):
         """Add a node having as father the selected node"""
         if not self.is_there_selected_node_or_error(): return
-        ret_name, ret_syntax, ret_tags, ret_ro, ret_c_icon_id = self.dialog_nodeprop(_("New Child Node Properties"), syntax_highl=self.syntax_highlighting)
+        ret_name, ret_syntax, ret_tags, ret_ro, ret_c_icon_id, ret_is_bold = self.dialog_nodeprop(_("New Child Node Properties"), syntax_highl=self.syntax_highlighting)
         if not ret_name: return
-        self.node_child_add_with_data(self.curr_tree_iter, ret_name, ret_syntax, ret_tags, ret_ro, ret_c_icon_id)
+        self.node_child_add_with_data(self.curr_tree_iter, ret_name, ret_syntax, ret_tags, ret_ro, ret_c_icon_id, ret_is_bold)
 
-    def node_child_add_with_data(self, father_iter, ret_name, ret_syntax, ret_tags, ret_ro, ret_c_icon_id):
+    def node_child_add_with_data(self, father_iter, ret_name, ret_syntax, ret_tags, ret_ro, ret_c_icon_id, ret_is_bold):
         """Add a node having as father the given node"""
         self.update_window_save_needed()
         self.syntax_highlighting = ret_syntax
@@ -2772,7 +2775,8 @@ iter_end, exclude_iter_sel_end=True)
         new_node_id = self.node_id_get()
         new_node_iter = self.treestore.append(father_iter,
             [cherry, ret_name, self.buffer_create(self.syntax_highlighting),
-             new_node_id, self.syntax_highlighting, 0, ret_tags, ret_ro, None, ret_c_icon_id])
+             new_node_id, self.syntax_highlighting, 0, ret_tags, ret_ro, None, ret_c_icon_id,
+             support.get_pango_weight(ret_is_bold)])
         self.ctdb_handler.pending_new_db_node(new_node_id)
         self.nodes_sequences_fix(father_iter, False)
         self.nodes_names_dict[new_node_id] = ret_name
@@ -2818,12 +2822,13 @@ iter_end, exclude_iter_sel_end=True)
     def node_edit(self, *args):
         """Edit the Properties of the Selected Node"""
         if not self.is_there_selected_node_or_error(): return
-        ret_name, ret_syntax, ret_tags, ret_ro, ret_c_icon_id = self.dialog_nodeprop(_("Node Properties"),
+        ret_name, ret_syntax, ret_tags, ret_ro, ret_c_icon_id, ret_is_bold = self.dialog_nodeprop(_("Node Properties"),
             name=self.treestore[self.curr_tree_iter][1],
             syntax_highl=self.treestore[self.curr_tree_iter][4],
             tags=self.treestore[self.curr_tree_iter][6],
             ro=self.treestore[self.curr_tree_iter][7],
-            c_icon_id=self.treestore[self.curr_tree_iter][9])
+            c_icon_id=self.treestore[self.curr_tree_iter][9],
+            is_bold=support.get_pango_is_bold(self.treestore[self.curr_tree_iter][10]))
         if not ret_name: return
         self.syntax_highlighting = ret_syntax
         if self.treestore[self.curr_tree_iter][4] != self.syntax_highlighting:
@@ -2852,6 +2857,7 @@ iter_end, exclude_iter_sel_end=True)
         if ret_tags: self.tags_add_from_node(ret_tags)
         self.treestore[self.curr_tree_iter][7] = ret_ro
         self.treestore[self.curr_tree_iter][9] = ret_c_icon_id
+        self.treestore[self.curr_tree_iter][10] = support.get_pango_weight(ret_is_bold)
         self.treestore[self.curr_tree_iter][0] = self.get_node_icon(self.treestore.iter_depth(self.curr_tree_iter),
                                                                     self.syntax_highlighting,
                                                                     ret_c_icon_id)
@@ -3470,7 +3476,7 @@ iter_end, exclude_iter_sel_end=True)
             return self.search_replace_dict['find']
         return None
 
-    def dialog_nodeprop(self, title, name="", syntax_highl=cons.RICH_TEXT_ID, tags="", ro=False, c_icon_id=0):
+    def dialog_nodeprop(self, title, name="", syntax_highl=cons.RICH_TEXT_ID, tags="", ro=False, c_icon_id=0, is_bold=False):
         """Opens the Node Properties Dialog"""
         dialog = gtk.Dialog(title=title,
                             parent=self.window,
@@ -3530,6 +3536,8 @@ iter_end, exclude_iter_sel_end=True)
         tags_frame.add(tags_hbox)
         ro_checkbutton = gtk.CheckButton(label=_("Read Only"))
         ro_checkbutton.set_active(ro)
+        is_bold_checkbutton = gtk.CheckButton(label=_("Bold"))
+        is_bold_checkbutton.set_active(is_bold)
         c_icon_checkbutton = gtk.CheckButton(label=_("Use Selected Icon"))
         c_icon_checkbutton.set_active(c_icon_id in cons.NODES_STOCKS_KEYS)
         c_icon_button = gtk.Button()
@@ -3549,6 +3557,7 @@ iter_end, exclude_iter_sel_end=True)
         content_area.pack_start(type_frame)
         content_area.pack_start(tags_frame)
         content_area.pack_start(ro_checkbutton)
+        content_area.pack_start(is_bold_checkbutton)
         content_area.pack_start(c_icon_hbox)
         content_area.show_all()
         name_entry.grab_focus()
@@ -3602,8 +3611,9 @@ iter_end, exclude_iter_sel_end=True)
             ret_tags = unicode(tags_entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE)
             ret_ro = ro_checkbutton.get_active()
             ret_c_icon_id = dialog.ret_c_icon_id if c_icon_checkbutton.get_active() else 0
-            return [ret_name, ret_syntax, ret_tags, ret_ro, ret_c_icon_id]
-        return [None, None, None, None, None]
+            ret_is_bold = is_bold_checkbutton.get_active()
+            return [ret_name, ret_syntax, ret_tags, ret_ro, ret_c_icon_id, ret_is_bold]
+        return [None, None, None, None, None, None]
 
     def toolbar_icons_size_increase(self, *args):
         """Increase the Size of the Toolbar Icons"""

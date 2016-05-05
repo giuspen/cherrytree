@@ -550,6 +550,14 @@ def get_former_line_indentation(iter_start):
         return num_tabs*cons.CHAR_TAB
     return ""
 
+def get_pango_weight(is_bold):
+    """Get pango weight (integer 200:900) heavy=900, normal=400"""
+    return pango.WEIGHT_HEAVY if is_bold else pango.WEIGHT_NORMAL
+
+def get_pango_is_bold(weight):
+    """Get True if pango weight is bold (heavy)"""
+    return weight == pango.WEIGHT_HEAVY
+
 def windows_cmd_prepare_path(filepath):
     """Prepares a Path to be digested by windows command line"""
     return cons.CHAR_DQUOTE + filepath + cons.CHAR_DQUOTE

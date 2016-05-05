@@ -256,10 +256,14 @@ class CTDBHandler:
         name = self.dad.treestore[tree_iter][1].decode(cons.STR_UTF8)
         syntax = self.dad.treestore[tree_iter][4]
         tags = self.dad.treestore[tree_iter][6].decode(cons.STR_UTF8)
+        # is_ro (bitfield)
         is_ro = self.dad.treestore[tree_iter][9] << 1
         if self.dad.treestore[tree_iter][7]:
             is_ro |= 0x01
-        is_richtxt = 1 if syntax == cons.RICH_TEXT_ID else 0
+        # is_richtxt (bitfield)
+        is_richtxt = 0x01 if syntax == cons.RICH_TEXT_ID else 0x00
+        if support.get_pango_is_bold(self.dad.treestore[tree_iter][10]):
+            is_richtxt |= 0x02
         if write_dict['buff']:
             if not self.dad.treestore[tree_iter][2]:
                 # we are using db storage and the buffer was not created yet
@@ -347,7 +351,7 @@ class CTDBHandler:
         elif write_dict['buff']:
             db.execute('UPDATE node SET txt=?, syntax=?, is_richtxt=?, has_codebox=?, has_table=?, has_image=?, level=? WHERE node_id=?', (txt, syntax, is_richtxt, has_codebox, has_table, has_image, level, node_id))
         elif write_dict['prop']:
-            db.execute('UPDATE node SET name=?, syntax=?, tags=?, is_ro=?, level=? WHERE node_id=?', (name, syntax, tags, is_ro, level, node_id))
+            db.execute('UPDATE node SET name=?, syntax=?, tags=?, is_ro=?, is_richtxt=?, level=? WHERE node_id=?', (name, syntax, tags, is_ro, is_richtxt, level, node_id))
         if write_dict['hier']:
             if write_dict['upd']:
                 db.execute('DELETE FROM children WHERE node_id=?', (node_id,))
@@ -536,7 +540,7 @@ class CTDBHandler:
 
     def get_node_row_partial_from_id(self, db, node_id):
         """Returns the (partial) node row given the node_id"""
-        node_row = db.execute('SELECT node_id, name, syntax, tags, is_ro, level FROM node WHERE node_id=?', (node_id,)).fetchone()
+        node_row = db.execute('SELECT node_id, name, syntax, tags, is_ro, is_richtxt, level FROM node WHERE node_id=?', (node_id,)).fetchone()
         return node_row
 
     def read_db_node_n_children(self, db, node_row, tree_father, discard_ids, node_sequence):
@@ -546,9 +550,13 @@ class CTDBHandler:
         else: unique_id = self.dad.node_id_get()
         node_tags = node_row['tags']
         if node_tags: self.dad.tags_add_from_node(node_tags)
+        # is_ro (bitfield)
         readonly_n_custom_icon_id = node_row['is_ro']
         readonly = readonly_n_custom_icon_id & 0x01
         custom_icon_id = readonly_n_custom_icon_id >> 1
+        # is_richtxt (bitfield)
+        richtxt_n_bold = node_row['is_richtxt']
+        is_bold = (richtxt_n_bold >> 1) & 0x01
         syntax_highlighting = node_row['syntax']
         if syntax_highlighting not in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID]\
         and syntax_highlighting not in self.dad.available_languages:
@@ -568,7 +576,8 @@ class CTDBHandler:
                                                             node_tags,
                                                             readonly,
                                                             None,
-                                                            custom_icon_id])
+                                                            custom_icon_id,
+                                                            support.get_pango_weight(is_bold)])
         self.dad.nodes_names_dict[self.dad.treestore[tree_iter][3]] = self.dad.treestore[tree_iter][1]
         if discard_ids:
             # we are importing (=> adding) a node
