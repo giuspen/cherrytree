@@ -121,15 +121,13 @@ class XMLHandler:
         if not discard_ids and dom_iter.hasAttribute('unique_id'):
             unique_id = long(dom_iter.attributes['unique_id'].value)
         else: unique_id = self.dad.node_id_get()
-        if dom_iter.hasAttribute('tags'): node_tags = dom_iter.attributes['tags'].value
-        else: node_tags = ""
+        node_tags = dom_iter.attributes['tags'].value if dom_iter.hasAttribute('tags') else ""
         if node_tags: self.dad.tags_add_from_node(node_tags)
-        if dom_iter.hasAttribute('readonly'): readonly = (dom_iter.attributes['readonly'].value == "True")
-        else: readonly = False
-        if dom_iter.hasAttribute('custom_icon_id'): custom_icon_id = int(dom_iter.attributes['custom_icon_id'].value)
-        else: custom_icon_id = 0
-        if dom_iter.hasAttribute('is_bold'): is_bold = (dom_iter.attributes['is_bold'].value == "True")
-        else: is_bold = False
+        readonly = (dom_iter.attributes['readonly'].value == "True") if dom_iter.hasAttribute('readonly') else False
+        custom_icon_id = int(dom_iter.attributes['custom_icon_id'].value) if dom_iter.hasAttribute('custom_icon_id') else 0
+        is_bold = (dom_iter.attributes['is_bold'].value == "True") if dom_iter.hasAttribute('is_bold') else False
+        foreground = dom_iter.attributes['foreground'].value if dom_iter.hasAttribute('foreground') else ""
+        if not foreground: foreground = None
         syntax_highlighting = dom_iter.attributes['prog_lang'].value
         if syntax_highlighting not in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID]\
         and syntax_highlighting not in self.dad.available_languages:
@@ -165,7 +163,8 @@ class XMLHandler:
                                                             readonly,
                                                             None,
                                                             custom_icon_id,
-                                                            support.get_pango_weight(is_bold)])
+                                                            support.get_pango_weight(is_bold),
+                                                            foreground])
         self.dad.nodes_names_dict[unique_id] = self.dad.treestore[tree_iter][1]
         if discard_ids:
             # we are importing nodes
@@ -321,6 +320,9 @@ class XMLHandler:
         dom_iter.setAttribute("readonly", str(self.dad.treestore[tree_iter][7]))
         dom_iter.setAttribute("custom_icon_id", str(self.dad.treestore[tree_iter][9]))
         dom_iter.setAttribute("is_bold", str(support.get_pango_is_bold(self.dad.treestore[tree_iter][10])))
+        foreground = self.dad.treestore[tree_iter][11]
+        if not foreground: foreground = ""
+        dom_iter.setAttribute("foreground", foreground)
         dom_father.appendChild(dom_iter)
         # allocate and init the rich text attributes
         self.curr_attributes = {}

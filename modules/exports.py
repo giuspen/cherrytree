@@ -23,6 +23,19 @@ import os, cgi, base64, shutil, copy
 import pango
 import cons, support
 
+def rgb_str_from_int24bit(int24bit):
+    r = (int24bit >> 16) & 0xff
+    g = (int24bit >> 8) & 0xff
+    b = int24bit & 0xff
+    return "#%.2x%.2x%.2x" % (r, g, b)
+
+def rgb_int24bit_from_str(rgb_str):
+    rgb_24 = rgb_any_to_24(rgb_str)
+    r = int(rgb_24[:2], 16)
+    g = int(rgb_24[2:4], 16)
+    b = int(rgb_24[4:], 16)
+    return (r << 16 | g << 8 | b)
+
 def rgb_any_to_24(rgb_in):
     """Convert any RGB to RRGGBB if needed"""
     if len(rgb_in) == 12:

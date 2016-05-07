@@ -21,7 +21,7 @@
 
 import gtk
 import os, sqlite3, xml.dom.minidom, re
-import cons, machines, support
+import cons, machines, support, exports
 
 
 class CTDBHandler:
@@ -264,6 +264,10 @@ class CTDBHandler:
         is_richtxt = 0x01 if syntax == cons.RICH_TEXT_ID else 0x00
         if support.get_pango_is_bold(self.dad.treestore[tree_iter][10]):
             is_richtxt |= 0x02
+        foreground = self.dad.treestore[tree_iter][11]
+        if foreground:
+            is_richtxt |= 0x04
+            is_richtxt |= exports.rgb_int24bit_from_str(foreground[1:]) << 3
         if write_dict['buff']:
             if not self.dad.treestore[tree_iter][2]:
                 # we are using db storage and the buffer was not created yet
@@ -555,8 +559,13 @@ class CTDBHandler:
         readonly = readonly_n_custom_icon_id & 0x01
         custom_icon_id = readonly_n_custom_icon_id >> 1
         # is_richtxt (bitfield)
-        richtxt_n_bold = node_row['is_richtxt']
-        is_bold = (richtxt_n_bold >> 1) & 0x01
+        richtxt_bold_foreground = node_row['is_richtxt']
+        is_bold = (richtxt_bold_foreground >> 1) & 0x01
+        fg_override = (richtxt_bold_foreground >> 2) & 0x01
+        if fg_override:
+            foreground = exports.rgb_str_from_int24bit((richtxt_bold_foreground >> 3) & 0xffffff)
+        else:
+            foreground = None
         syntax_highlighting = node_row['syntax']
         if syntax_highlighting not in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID]\
         and syntax_highlighting not in self.dad.available_languages:
@@ -577,7 +586,8 @@ class CTDBHandler:
                                                             readonly,
                                                             None,
                                                             custom_icon_id,
-                                                            support.get_pango_weight(is_bold)])
+                                                            support.get_pango_weight(is_bold),
+                                                            foreground])
         self.dad.nodes_names_dict[self.dad.treestore[tree_iter][3]] = self.dad.treestore[tree_iter][1]
         if discard_ids:
             # we are importing (=> adding) a node
