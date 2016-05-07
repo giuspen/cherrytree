@@ -3080,8 +3080,10 @@ iter_end, exclude_iter_sel_end=True)
         """Update Node Name Header"""
         node_hier_name = self.treestore[self.curr_tree_iter][1] if self.curr_tree_iter else ""
         self.header_node_name_eventbox.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.tt_def_bg))
+        foreground = self.treestore[self.curr_tree_iter][11]
+        fg = self.tt_def_fg if not foreground else foreground
         self.header_node_name_label.set_text(
-            "<b><span foreground=\"" + self.tt_def_fg + "\" size=\"xx-large\">"+\
+            "<b><span foreground=\"" + fg + "\" size=\"xx-large\">"+\
             cgi.escape(node_hier_name) + "</span></b>")
         self.header_node_name_label.set_use_markup(True)
         self.update_node_name_header_labels_latest_visited()
@@ -3490,10 +3492,39 @@ iter_end, exclude_iter_sel_end=True)
         dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
         name_entry = gtk.Entry()
         name_entry.set_text(name)
+        is_bold_checkbutton = gtk.CheckButton(label=_("Bold"))
+        is_bold_checkbutton.set_active(is_bold)
+        fg_checkbutton = gtk.CheckButton(label=_("Use Selected Color"))
+        fg_checkbutton.set_active(fg != None)
+        fg_colorbutton = gtk.ColorButton(color=gtk.gdk.color_parse(fg if fg else "red"))
+        fg_colorbutton.set_sensitive(fg != None)
+        fg_hbox = gtk.HBox()
+        fg_hbox.set_spacing(2)
+        fg_hbox.pack_start(fg_checkbutton, expand=False)
+        fg_hbox.pack_start(fg_colorbutton, expand=False)
+        dialog.ret_fg = fg
+        c_icon_checkbutton = gtk.CheckButton(label=_("Use Selected Icon"))
+        c_icon_checkbutton.set_active(c_icon_id in cons.NODES_STOCKS_KEYS)
+        c_icon_button = gtk.Button()
+        if c_icon_checkbutton.get_active():
+            c_icon_button.set_image(gtk.image_new_from_stock(cons.NODES_STOCKS[c_icon_id], gtk.ICON_SIZE_BUTTON))
+        else:
+            c_icon_button.set_label(_("click me"))
+            c_icon_button.set_sensitive(False)
+        c_icon_hbox = gtk.HBox()
+        c_icon_hbox.set_spacing(2)
+        c_icon_hbox.pack_start(c_icon_checkbutton, expand=False)
+        c_icon_hbox.pack_start(c_icon_button, expand=False)
+        dialog.ret_c_icon_id = c_icon_id
+        name_vbox = gtk.VBox()
+        name_vbox.pack_start(name_entry)
+        name_vbox.pack_start(is_bold_checkbutton)
+        name_vbox.pack_start(fg_hbox)
+        name_vbox.pack_start(c_icon_hbox)
         name_frame = gtk.Frame(label="<b>"+_("Node Name")+"</b>")
         name_frame.get_label_widget().set_use_markup(True)
         name_frame.set_shadow_type(gtk.SHADOW_NONE)
-        name_frame.add(name_entry)
+        name_frame.add(name_vbox)
         radiobutton_rich_text = gtk.RadioButton(label=_("Rich Text"))
         radiobutton_plain_text = gtk.RadioButton(label=_("Plain Text"))
         radiobutton_plain_text.set_group(radiobutton_rich_text)
@@ -3539,38 +3570,12 @@ iter_end, exclude_iter_sel_end=True)
         tags_frame.add(tags_hbox)
         ro_checkbutton = gtk.CheckButton(label=_("Read Only"))
         ro_checkbutton.set_active(ro)
-        is_bold_checkbutton = gtk.CheckButton(label=_("Bold"))
-        is_bold_checkbutton.set_active(is_bold)
-        fg_checkbutton = gtk.CheckButton(label=_("Use Selected Color"))
-        fg_checkbutton.set_active(fg != None)
-        fg_colorbutton = gtk.ColorButton(color=gtk.gdk.color_parse(fg)) if fg else gtk.ColorButton()
-        fg_hbox = gtk.HBox()
-        fg_hbox.set_spacing(2)
-        fg_hbox.pack_start(fg_checkbutton, expand=False)
-        fg_hbox.pack_start(fg_colorbutton, expand=False)
-        dialog.ret_fg = fg
-        c_icon_checkbutton = gtk.CheckButton(label=_("Use Selected Icon"))
-        c_icon_checkbutton.set_active(c_icon_id in cons.NODES_STOCKS_KEYS)
-        c_icon_button = gtk.Button()
-        if c_icon_checkbutton.get_active():
-            c_icon_button.set_image(gtk.image_new_from_stock(cons.NODES_STOCKS[c_icon_id], gtk.ICON_SIZE_BUTTON))
-        else:
-            c_icon_button.set_label(_("click me"))
-            c_icon_button.set_sensitive(False)
-        c_icon_hbox = gtk.HBox()
-        c_icon_hbox.set_spacing(2)
-        c_icon_hbox.pack_start(c_icon_checkbutton, expand=False)
-        c_icon_hbox.pack_start(c_icon_button, expand=False)
-        dialog.ret_c_icon_id = c_icon_id
         content_area = dialog.get_content_area()
         content_area.set_spacing(5)
         content_area.pack_start(name_frame)
         content_area.pack_start(type_frame)
         content_area.pack_start(tags_frame)
         content_area.pack_start(ro_checkbutton)
-        content_area.pack_start(is_bold_checkbutton)
-        content_area.pack_start(fg_hbox)
-        content_area.pack_start(c_icon_hbox)
         content_area.show_all()
         name_entry.grab_focus()
         def on_key_press_nodepropdialog(widget, event):
@@ -3600,9 +3605,6 @@ iter_end, exclude_iter_sel_end=True)
         def on_fg_checkbutton_toggled(checkbutton):
             fg_colorbutton.set_sensitive(checkbutton.get_active())
         fg_checkbutton.connect('toggled', on_fg_checkbutton_toggled)
-        def on_fg_colorbutton_color_set(colorbutton):
-            dialog.ret_fg = "#" + exports.rgb_any_to_24(colorbutton.get_color().to_string()[1:])
-        fg_colorbutton.connect('color-set', on_fg_colorbutton_color_set)
         def on_c_icon_checkbutton_toggled(checkbutton):
             c_icon_button.set_sensitive(checkbutton.get_active())
         c_icon_checkbutton.connect('toggled', on_c_icon_checkbutton_toggled)
@@ -3630,7 +3632,10 @@ iter_end, exclude_iter_sel_end=True)
             ret_ro = ro_checkbutton.get_active()
             ret_c_icon_id = dialog.ret_c_icon_id if c_icon_checkbutton.get_active() else 0
             ret_is_bold = is_bold_checkbutton.get_active()
-            ret_fg = dialog.ret_fg if fg_checkbutton.get_active() else None
+            if fg_checkbutton.get_active():
+                ret_fg = "#" + exports.rgb_any_to_24(fg_colorbutton.get_color().to_string()[1:])
+            else:
+                ret_fg = None
             return [ret_name, ret_syntax, ret_tags, ret_ro, ret_c_icon_id, ret_is_bold, ret_fg]
         return [None, None, None, None, None, None, None]
 
