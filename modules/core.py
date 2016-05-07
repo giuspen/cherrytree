@@ -3080,7 +3080,7 @@ iter_end, exclude_iter_sel_end=True)
         """Update Node Name Header"""
         node_hier_name = self.treestore[self.curr_tree_iter][1] if self.curr_tree_iter else ""
         self.header_node_name_eventbox.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.tt_def_bg))
-        foreground = self.treestore[self.curr_tree_iter][11]
+        foreground = self.treestore[self.curr_tree_iter][11] if self.curr_tree_iter else None
         fg = self.tt_def_fg if not foreground else foreground
         self.header_node_name_label.set_text(
             "<b><span foreground=\"" + fg + "\" size=\"xx-large\">"+\
