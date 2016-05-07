@@ -2910,25 +2910,22 @@ iter_end, exclude_iter_sel_end=True)
             tree_iter = self.treestore.iter_next(tree_iter)
         return node_children_list
 
-    def widget_set_colors(self, widget, fg, bg, syntax_highl):
+    def widget_set_colors(self, widget, fg, bg, syntax_highl, gdk_col_fg=None):
         """Set a Widget's foreground and background colors"""
         if not syntax_highl:
             widget.modify_base(gtk.STATE_NORMAL, gtk.gdk.color_parse(bg))
             widget.modify_text(gtk.STATE_NORMAL, gtk.gdk.color_parse(fg))
             style = widget.get_style()
             # gtk.STATE_NORMAL, gtk.STATE_ACTIVE, gtk.STATE_PRELIGHT, gtk.STATE_SELECTED, gtk.STATE_INSENSITIVE
-            widget.modify_text(gtk.STATE_ACTIVE, style.fg[3])
+            widget.modify_text(gtk.STATE_SELECTED, style.fg[3] if not gdk_col_fg else gdk_col_fg)
+            widget.modify_text(gtk.STATE_ACTIVE, style.fg[3] if not gdk_col_fg else gdk_col_fg)
             widget.modify_base(gtk.STATE_ACTIVE, style.bg[3])
 
-    def get_merge_of_colors_24(self, color_1, color_2):
-        """Merge 2 colors"""
-        r1 = int(color_1[1:3], 16)
-        r2 = int(color_2[1:3], 16)
-        g1 = int(color_1[3:5], 16)
-        g2 = int(color_2[3:5], 16)
-        b1 = int(color_1[5:7], 16)
-        b2 = int(color_2[5:7], 16)
-        return "#%.2x%.2x%.2x" % ((r1+r2)/2, (g1+g2)/2, (b1+b2)/2)
+    def treeview_set_colors(self):
+        """Set Treeview Colors"""
+        col_fg = self.treestore[self.curr_tree_iter][11] if self.curr_tree_iter else None
+        gdk_col_fg = gtk.gdk.color_parse(col_fg) if col_fg else None
+        self.widget_set_colors(self.treeview, self.tt_def_fg, self.tt_def_bg, False, gdk_col_fg=gdk_col_fg)
 
     def sourceview_set_properties(self, tree_iter, syntax_highl):
         """Set sourceview properties according to current node"""
@@ -2998,6 +2995,7 @@ iter_end, exclude_iter_sel_end=True)
         self.sourceview_set_properties(self.curr_tree_iter, self.syntax_highlighting)
         self.sourceview.set_sensitive(True)
         self.sourceview.set_editable(not self.treestore[self.curr_tree_iter][7])
+        self.treeview_set_colors()
         self.update_node_name_header()
         self.state_machine.node_selected_changed(self.treestore[self.curr_tree_iter][3])
         self.objects_buffer_refresh()

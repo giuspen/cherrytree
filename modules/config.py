@@ -350,7 +350,7 @@ def config_file_apply(dad):
     dad.header_node_name_hbox.set_property(cons.STR_VISIBLE, dad.show_node_name_header)
     dad.update_node_name_header_num_latest_visited()
     dad.set_treeview_font()
-    dad.widget_set_colors(dad.treeview, dad.tt_def_fg, dad.tt_def_bg, False)
+    dad.treeview_set_colors()
     if not pgsc_spellcheck.HAS_PYENCHANT:
         dad.enable_spell_check = False
     if dad.enable_spell_check:
@@ -1167,12 +1167,12 @@ def preferences_tab_tree(dad, vbox_tree, pref_dialog):
     vbox_tree.pack_start(frame_misc_tree, expand=False)
     def on_colorbutton_tree_fg_color_set(colorbutton):
         dad.tt_def_fg = "#" + exports.rgb_any_to_24(colorbutton.get_color().to_string()[1:])
-        dad.widget_set_colors(dad.treeview, dad.tt_def_fg, dad.tt_def_bg, False)
+        dad.treeview_set_colors()
         if dad.curr_tree_iter: dad.update_node_name_header()
     colorbutton_tree_fg.connect('color-set', on_colorbutton_tree_fg_color_set)
     def on_colorbutton_tree_bg_color_set(colorbutton):
         dad.tt_def_bg = "#" + exports.rgb_any_to_24(colorbutton.get_color().to_string()[1:])
-        dad.widget_set_colors(dad.treeview, dad.tt_def_fg, dad.tt_def_bg, False)
+        dad.treeview_set_colors()
         if dad.curr_tree_iter: dad.update_node_name_header()
     colorbutton_tree_bg.connect('color-set', on_colorbutton_tree_bg_color_set)
     def on_radiobutton_tt_col_light_toggled(radiobutton):
