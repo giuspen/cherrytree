@@ -2573,6 +2573,15 @@ iter_end, exclude_iter_sel_end=True)
                     self.zoom_tree_p()
                 elif event.direction == gtk.gdk.SCROLL_DOWN:
                     self.zoom_tree_m()
+        elif event.type == gtk.gdk.BUTTON_PRESS:
+            if event.button == 1:
+                if self.tree_click_focus_text:
+                    self.sourceview.grab_focus()
+                if self.tree_click_expand and self.curr_tree_iter:
+                    self.treeview.expand_row(self.treestore.get_path(self.curr_tree_iter), open_all=False)
+        elif event.type == gtk.gdk._2BUTTON_PRESS:
+            if event.button == 1:
+                self.toggle_tree_node_expanded_collapsed()
 
     def on_mouse_button_clicked_tree(self, widget, event):
         """Catches mouse buttons clicks"""
@@ -2584,8 +2593,6 @@ iter_end, exclude_iter_sel_end=True)
                 if self.treeview.row_expanded(path_at_click[0]):
                     self.treeview.collapse_row(path_at_click[0])
                 else: self.treeview.expand_row(path_at_click[0], False)
-        elif event.button == 1 and event.type == gtk.gdk._2BUTTON_PRESS:
-            self.toggle_tree_node_expanded_collapsed()
         return False
 
     def set_sourcebuffer_with_style_scheme(self):

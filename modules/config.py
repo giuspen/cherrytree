@@ -152,6 +152,8 @@ def config_file_load(dad):
         dad.default_icon_text = cfg.getint(section, "default_icon_text") if cfg.has_option(section, "default_icon_text") else cons.NODE_ICON_BULLET_ID
         dad.tree_right_side = cfg.getboolean(section, "tree_right_side") if cfg.has_option(section, "tree_right_side") else False
         dad.cherry_wrap_width = cfg.getint(section, "cherry_wrap_width") if cfg.has_option(section, "cherry_wrap_width") else 130
+        dad.tree_click_focus_text = cfg.getboolean(section, "tree_click_focus_text") if cfg.has_option(section, "tree_click_focus_text") else False
+        dad.tree_click_expand = cfg.getboolean(section, "tree_click_expand") if cfg.has_option(section, "tree_click_expand") else False
 
         section = "editor"
         dad.syntax_highlighting = cfg.get(section, "syntax_highlighting") if cfg.has_option(section, "syntax_highlighting") else cons.RICH_TEXT_ID
@@ -306,6 +308,8 @@ def config_file_load(dad):
         dad.table_col_max = 60
         dad.limit_undoable_steps = 20
         dad.cherry_wrap_width = 130
+        dad.tree_click_focus_text = False
+        dad.tree_click_expand = False
         dad.start_on_systray = False
         dad.use_appind = False
         dad.links_underline = True
@@ -437,6 +441,8 @@ def config_file_save(dad):
     cfg.set(section, "default_icon_text", dad.default_icon_text)
     cfg.set(section, "tree_right_side", dad.tree_right_side)
     cfg.set(section, "cherry_wrap_width", dad.cherry_wrap_width)
+    cfg.set(section, "tree_click_focus_text", dad.tree_click_focus_text)
+    cfg.set(section, "tree_click_expand", dad.tree_click_expand)
 
     section = "editor"
     cfg.add_section(section)
@@ -1031,8 +1037,81 @@ def preferences_tab_plain_text_n_code(dad, vbox_code_nodes, pref_dialog):
             dad.sourceview.set_highlight_current_line(dad.pt_highl_curr_line)
     checkbutton_pt_highl_curr_line.connect('toggled', on_checkbutton_pt_highl_curr_line_toggled)
 
-def preferences_tab_tree(dad, vbox_tree, pref_dialog):
-    """Preferences Dialog, Tree Tab"""
+def preferences_tab_tree_2(dad, vbox_tree, pref_dialog):
+    """Preferences Dialog, Tree Tab part 2"""
+    for child in vbox_tree.get_children(): child.destroy()
+
+    vbox_misc_tree = gtk.VBox()
+    hbox_tree_nodes_names_width = gtk.HBox()
+    hbox_tree_nodes_names_width.set_spacing(4)
+    label_tree_nodes_names_width = gtk.Label(_("Tree Nodes Names Wrapping Width"))
+    adj_tree_nodes_names_width = gtk.Adjustment(value=dad.cherry_wrap_width, lower=10, upper=10000, step_incr=1)
+    spinbutton_tree_nodes_names_width = gtk.SpinButton(adj_tree_nodes_names_width)
+    spinbutton_tree_nodes_names_width.set_value(dad.cherry_wrap_width)
+    hbox_tree_nodes_names_width.pack_start(label_tree_nodes_names_width, expand=False)
+    hbox_tree_nodes_names_width.pack_start(spinbutton_tree_nodes_names_width, expand=False)
+    checkbutton_tree_right_side = gtk.CheckButton(_("Display Tree on the Right Side"))
+    checkbutton_tree_right_side.set_active(dad.tree_right_side)
+    checkbutton_tree_click_focus_text = gtk.CheckButton(_("Move Focus to Text at Mouse Click"))
+    checkbutton_tree_click_focus_text.set_active(dad.tree_click_focus_text)
+    checkbutton_tree_click_expand = gtk.CheckButton(_("Expand Node at Mouse Click"))
+    checkbutton_tree_click_expand.set_active(dad.tree_click_expand)
+    hbox_nodes_on_node_name_header = gtk.HBox()
+    hbox_nodes_on_node_name_header.set_spacing(4)
+    label_nodes_on_node_name_header = gtk.Label(_("Last Visited Nodes on Node Name Header"))
+    adj_nodes_on_node_name_header = gtk.Adjustment(value=dad.nodes_on_node_name_header, lower=0, upper=100, step_incr=1)
+    spinbutton_nodes_on_node_name_header = gtk.SpinButton(adj_nodes_on_node_name_header)
+    spinbutton_nodes_on_node_name_header.set_value(dad.nodes_on_node_name_header)
+    hbox_nodes_on_node_name_header.pack_start(label_nodes_on_node_name_header, expand=False)
+    hbox_nodes_on_node_name_header.pack_start(spinbutton_nodes_on_node_name_header, expand=False)
+
+    vbox_misc_tree.pack_start(hbox_tree_nodes_names_width, expand=False)
+    vbox_misc_tree.pack_start(checkbutton_tree_right_side, expand=False)
+    vbox_misc_tree.pack_start(checkbutton_tree_click_focus_text, expand=False)
+    vbox_misc_tree.pack_start(checkbutton_tree_click_expand, expand=False)
+    vbox_misc_tree.pack_start(hbox_nodes_on_node_name_header, expand=False)
+    frame_misc_tree = gtk.Frame(label="<b>"+_("Miscellaneous")+"</b>")
+    frame_misc_tree.get_label_widget().set_use_markup(True)
+    frame_misc_tree.set_shadow_type(gtk.SHADOW_NONE)
+    align_misc_tree = gtk.Alignment()
+    align_misc_tree.set_padding(3, 6, 6, 6)
+    align_misc_tree.add(vbox_misc_tree)
+    frame_misc_tree.add(align_misc_tree)
+
+    vbox_tree.pack_start(frame_misc_tree, expand=False)
+    def on_spinbutton_tree_nodes_names_width_value_changed(spinbutton):
+        dad.cherry_wrap_width = int(spinbutton.get_value())
+        dad.renderer_text.set_property('wrap-width', dad.cherry_wrap_width)
+        dad.treeview_refresh()
+    spinbutton_tree_nodes_names_width.connect('value-changed', on_spinbutton_tree_nodes_names_width_value_changed)
+    def on_checkbutton_tree_right_side_toggled(checkbutton):
+        dad.tree_right_side = checkbutton.get_active()
+        tree_width = dad.scrolledwindow_tree.get_allocation().width
+        text_width = dad.vbox_text.get_allocation().width
+        dad.hpaned.remove(dad.scrolledwindow_tree)
+        dad.hpaned.remove(dad.vbox_text)
+        if dad.tree_right_side:
+            dad.hpaned.add1(dad.vbox_text)
+            dad.hpaned.add2(dad.scrolledwindow_tree)
+            dad.hpaned.set_property('position', text_width)
+        else:
+            dad.hpaned.add1(dad.scrolledwindow_tree)
+            dad.hpaned.add2(dad.vbox_text)
+            dad.hpaned.set_property('position', tree_width)
+    checkbutton_tree_right_side.connect('toggled', on_checkbutton_tree_right_side_toggled)
+    def on_checkbutton_tree_click_focus_text_toggled(checkbutton):
+        dad.tree_click_focus_text = checkbutton.get_active()
+    checkbutton_tree_click_focus_text.connect('toggled', on_checkbutton_tree_click_focus_text_toggled)
+    def on_checkbutton_tree_click_expand_toggled(checkbutton):
+        dad.tree_click_expand = checkbutton.get_active()
+    checkbutton_tree_click_expand.connect('toggled', on_checkbutton_tree_click_expand_toggled)
+    def on_spinbutton_nodes_on_node_name_header_value_changed(spinbutton):
+        dad.nodes_on_node_name_header = int(spinbutton.get_value())
+        dad.update_node_name_header_num_latest_visited()
+    spinbutton_nodes_on_node_name_header.connect('value-changed', on_spinbutton_nodes_on_node_name_header_value_changed)
+
+def preferences_tab_tree_1(dad, vbox_tree, pref_dialog):
+    """Preferences Dialog, Tree Tab part 1"""
     for child in vbox_tree.get_children(): child.destroy()
 
     vbox_tt_theme = gtk.VBox()
@@ -1130,41 +1209,9 @@ def preferences_tab_tree(dad, vbox_tree, pref_dialog):
     radiobutton_nodes_startup_expand.set_active(dad.rest_exp_coll == 1)
     radiobutton_nodes_startup_collapse.set_active(dad.rest_exp_coll == 2)
 
-    vbox_misc_tree = gtk.VBox()
-    hbox_tree_nodes_names_width = gtk.HBox()
-    hbox_tree_nodes_names_width.set_spacing(4)
-    label_tree_nodes_names_width = gtk.Label(_("Tree Nodes Names Wrapping Width"))
-    adj_tree_nodes_names_width = gtk.Adjustment(value=dad.cherry_wrap_width, lower=10, upper=10000, step_incr=1)
-    spinbutton_tree_nodes_names_width = gtk.SpinButton(adj_tree_nodes_names_width)
-    spinbutton_tree_nodes_names_width.set_value(dad.cherry_wrap_width)
-    hbox_tree_nodes_names_width.pack_start(label_tree_nodes_names_width, expand=False)
-    hbox_tree_nodes_names_width.pack_start(spinbutton_tree_nodes_names_width, expand=False)
-    checkbutton_tree_right_side = gtk.CheckButton(_("Display Tree on the Right Side"))
-    checkbutton_tree_right_side.set_active(dad.tree_right_side)
-    hbox_nodes_on_node_name_header = gtk.HBox()
-    hbox_nodes_on_node_name_header.set_spacing(4)
-    label_nodes_on_node_name_header = gtk.Label(_("Last Visited Nodes on Node Name Header"))
-    adj_nodes_on_node_name_header = gtk.Adjustment(value=dad.nodes_on_node_name_header, lower=0, upper=100, step_incr=1)
-    spinbutton_nodes_on_node_name_header = gtk.SpinButton(adj_nodes_on_node_name_header)
-    spinbutton_nodes_on_node_name_header.set_value(dad.nodes_on_node_name_header)
-    hbox_nodes_on_node_name_header.pack_start(label_nodes_on_node_name_header, expand=False)
-    hbox_nodes_on_node_name_header.pack_start(spinbutton_nodes_on_node_name_header, expand=False)
-
-    vbox_misc_tree.pack_start(hbox_tree_nodes_names_width, expand=False)
-    vbox_misc_tree.pack_start(checkbutton_tree_right_side, expand=False)
-    vbox_misc_tree.pack_start(hbox_nodes_on_node_name_header, expand=False)
-    frame_misc_tree = gtk.Frame(label="<b>"+_("Miscellaneous")+"</b>")
-    frame_misc_tree.get_label_widget().set_use_markup(True)
-    frame_misc_tree.set_shadow_type(gtk.SHADOW_NONE)
-    align_misc_tree = gtk.Alignment()
-    align_misc_tree.set_padding(3, 6, 6, 6)
-    align_misc_tree.add(vbox_misc_tree)
-    frame_misc_tree.add(align_misc_tree)
-
     vbox_tree.pack_start(frame_tt_theme, expand=False)
     vbox_tree.pack_start(frame_nodes_icons, expand=False)
     vbox_tree.pack_start(frame_nodes_startup, expand=False)
-    vbox_tree.pack_start(frame_misc_tree, expand=False)
     def on_colorbutton_tree_fg_color_set(colorbutton):
         dad.tt_def_fg = "#" + exports.rgb_any_to_24(colorbutton.get_color().to_string()[1:])
         dad.treeview_set_colors()
@@ -1241,30 +1288,6 @@ def preferences_tab_tree(dad, vbox_tree, pref_dialog):
     def on_checkbutton_nodes_bookm_exp_toggled(checkbutton):
         dad.nodes_bookm_exp = checkbutton.get_active()
     checkbutton_nodes_bookm_exp.connect('toggled', on_checkbutton_nodes_bookm_exp_toggled)
-    def on_spinbutton_tree_nodes_names_width_value_changed(spinbutton):
-        dad.cherry_wrap_width = int(spinbutton.get_value())
-        dad.renderer_text.set_property('wrap-width', dad.cherry_wrap_width)
-        dad.treeview_refresh()
-    spinbutton_tree_nodes_names_width.connect('value-changed', on_spinbutton_tree_nodes_names_width_value_changed)
-    def on_checkbutton_tree_right_side_toggled(checkbutton):
-        dad.tree_right_side = checkbutton.get_active()
-        tree_width = dad.scrolledwindow_tree.get_allocation().width
-        text_width = dad.vbox_text.get_allocation().width
-        dad.hpaned.remove(dad.scrolledwindow_tree)
-        dad.hpaned.remove(dad.vbox_text)
-        if dad.tree_right_side:
-            dad.hpaned.add1(dad.vbox_text)
-            dad.hpaned.add2(dad.scrolledwindow_tree)
-            dad.hpaned.set_property('position', text_width)
-        else:
-            dad.hpaned.add1(dad.scrolledwindow_tree)
-            dad.hpaned.add2(dad.vbox_text)
-            dad.hpaned.set_property('position', tree_width)
-    checkbutton_tree_right_side.connect('toggled', on_checkbutton_tree_right_side_toggled)
-    def on_spinbutton_nodes_on_node_name_header_value_changed(spinbutton):
-        dad.nodes_on_node_name_header = int(spinbutton.get_value())
-        dad.update_node_name_header_num_latest_visited()
-    spinbutton_nodes_on_node_name_header.connect('value-changed', on_spinbutton_nodes_on_node_name_header_value_changed)
 
 def preferences_tab_fonts(dad, vbox_fonts, pref_dialog):
     """Preferences Dialog, Fonts Tab"""
@@ -1926,7 +1949,7 @@ def dialog_preferences(dad):
         buttons=(gtk.STOCK_CLOSE, gtk.RESPONSE_ACCEPT))
 
     tabs_vbox_vec = []
-    for tabs_idx in range(10):
+    for tabs_idx in range(11):
         tabs_vbox_vec.append(gtk.VBox())
         tabs_vbox_vec[-1].set_spacing(3)
 
@@ -1936,24 +1959,26 @@ def dialog_preferences(dad):
     notebook.append_page(tabs_vbox_vec[1], gtk.Label(_("Text")))
     notebook.append_page(tabs_vbox_vec[2], gtk.Label(_("Rich Text")))
     notebook.append_page(tabs_vbox_vec[3], gtk.Label(_("Plain Text and Code")))
-    notebook.append_page(tabs_vbox_vec[4], gtk.Label(_("Tree")))
-    notebook.append_page(tabs_vbox_vec[5], gtk.Label(_("Fonts")))
-    notebook.append_page(tabs_vbox_vec[6], gtk.Label(_("Links")))
-    notebook.append_page(tabs_vbox_vec[7], gtk.Label(_("Toolbar")))
-    notebook.append_page(tabs_vbox_vec[8], gtk.Label(_("Keyboard Shortcuts")))
-    notebook.append_page(tabs_vbox_vec[9], gtk.Label(_("Miscellaneous")))
+    notebook.append_page(tabs_vbox_vec[4], gtk.Label(_("Tree")+" 1"))
+    notebook.append_page(tabs_vbox_vec[5], gtk.Label(_("Tree")+" 2"))
+    notebook.append_page(tabs_vbox_vec[6], gtk.Label(_("Fonts")))
+    notebook.append_page(tabs_vbox_vec[7], gtk.Label(_("Links")))
+    notebook.append_page(tabs_vbox_vec[8], gtk.Label(_("Toolbar")))
+    notebook.append_page(tabs_vbox_vec[9], gtk.Label(_("Keyboard Shortcuts")))
+    notebook.append_page(tabs_vbox_vec[10], gtk.Label(_("Miscellaneous")))
 
     tab_constructor = {
         0: preferences_tab_text_n_code,
         1: preferences_tab_text,
         2: preferences_tab_rich_text,
         3: preferences_tab_plain_text_n_code,
-        4: preferences_tab_tree,
-        5: preferences_tab_fonts,
-        6: preferences_tab_links,
-        7: preferences_tab_toolbar,
-        8: preferences_tab_kb_shortcuts,
-        9: preferences_tab_misc,
+        4: preferences_tab_tree_1,
+        5: preferences_tab_tree_2,
+        6: preferences_tab_fonts,
+        7: preferences_tab_links,
+        8: preferences_tab_toolbar,
+        9: preferences_tab_kb_shortcuts,
+       10: preferences_tab_misc,
         }
 
     def on_notebook_switch_page(notebook, page, page_num):
