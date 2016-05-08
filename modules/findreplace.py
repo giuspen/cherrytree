@@ -222,7 +222,7 @@ class FindReplace:
                 node_iter = self.dad.treestore.iter_parent(last_top_node_iter)
                 if node_iter:
                     last_top_node_iter = node_iter.copy()
-                    # we do not check the father on purpose, only the uncles in the proper direction
+                    # we do not check the parent on purpose, only the uncles in the proper direction
                     if forward: node_iter = self.dad.treestore.iter_next(node_iter)
                     else: node_iter = self.dad.get_tree_iter_prev_sibling(self.dad.treestore, node_iter)
                 else: break
@@ -310,7 +310,7 @@ class FindReplace:
                 node_iter = self.dad.treestore.iter_parent(last_top_node_iter)
                 if node_iter != None:
                     last_top_node_iter = node_iter.copy()
-                    # we do not check the father on purpose, only the uncles in the proper direction
+                    # we do not check the parent on purpose, only the uncles in the proper direction
                     if forward: node_iter = self.dad.treestore.iter_next(node_iter)
                     else: node_iter = self.dad.get_tree_iter_prev_sibling(self.dad.treestore, node_iter)
                 else: break

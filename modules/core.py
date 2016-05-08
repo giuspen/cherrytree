@@ -781,12 +781,12 @@ iter_end, exclude_iter_sel_end=True)
             move_towards_top_iter = self.treestore.iter_parent(drop_iter)
             while move_towards_top_iter:
                 if self.treestore[move_towards_top_iter][3] == drag_node_id:
-                    support.dialog_error(_("The new father can't be one of his sons!"), self.window)
+                    support.dialog_error(_("The new parent can't be one of his children!"), self.window)
                     return False
                 move_towards_top_iter = self.treestore.iter_parent(move_towards_top_iter)
             if drop_pos == gtk.TREE_VIEW_DROP_BEFORE:
                 prev_iter = self.get_tree_iter_prev_sibling(self.treestore, drop_iter)
-                # note: prev_iter could be None, use drop_iter to retrieve the father
+                # note: prev_iter could be None, use drop_iter to retrieve the parent
                 self.node_move_after(self.drag_iter, self.treestore.iter_parent(drop_iter), prev_iter, True)
             elif drop_pos == gtk.TREE_VIEW_DROP_AFTER:
                 self.node_move_after(self.drag_iter, self.treestore.iter_parent(drop_iter), drop_iter)
@@ -1105,7 +1105,7 @@ iter_end, exclude_iter_sel_end=True)
                 self.file_update = True
                 self.curr_buffer.set_modified(False)
                 self.state_machine.update_state()
-            dialog = gtk.Dialog(title=_("Who is the Father?"),
+            dialog = gtk.Dialog(title=_("Who is the Parent?"),
                                 parent=self.window,
                                 flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
                                 buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
@@ -2343,7 +2343,7 @@ iter_end, exclude_iter_sel_end=True)
         return swap_executed
 
     def node_inherit_syntax(self, *args):
-        """Change the Selected Node's Children Syntax Highlighting to the Father's Syntax Highlighting"""
+        """Change the Selected Node's Children Syntax Highlighting to the Parent's Syntax Highlighting"""
         if not self.is_there_selected_node_or_error(): return
         self.sourceview.set_buffer(None)
         self.node_inherit_syntax_iter(self.curr_tree_iter)
@@ -2416,7 +2416,7 @@ iter_end, exclude_iter_sel_end=True)
             if self.nodes_icons == "c": self.treeview_refresh(change_icon=True)
 
     def node_move_after(self, iter_to_move, father_iter, brother_iter=None, set_first=False):
-        """Move a node to a father and after a brother"""
+        """Move a node to a parent and after a sibling"""
         if brother_iter:
             new_node_iter = self.treestore.insert_after(father_iter, brother_iter, self.treestore[iter_to_move])
         elif set_first: new_node_iter = self.treestore.prepend(father_iter, self.treestore[iter_to_move])
@@ -2436,7 +2436,7 @@ iter_end, exclude_iter_sel_end=True)
         self.update_window_save_needed()
 
     def node_move_children(self, old_father, new_father):
-        """Move the children from a father to another"""
+        """Move the children from a parent to another"""
         children_iter_to_move = self.treestore.iter_children(old_father)
         while children_iter_to_move != None:
             new_children_iter = self.treestore.append(new_father, self.treestore[children_iter_to_move])
@@ -2444,25 +2444,25 @@ iter_end, exclude_iter_sel_end=True)
             children_iter_to_move = self.treestore.iter_next(children_iter_to_move)
 
     def node_change_father(self, *args):
-        """Node browse for a new father"""
+        """Node browse for a new parent"""
         if not self.is_there_selected_node_or_error(): return
         curr_node_id = self.treestore[self.curr_tree_iter][3]
         old_father_iter = self.treestore.iter_parent(self.curr_tree_iter)
         if old_father_iter != None: old_father_node_id = self.treestore[old_father_iter][3]
         else: old_father_node_id = None
-        father_iter = support.dialog_choose_node(self, _("Select the New Father"), self.treestore, self.curr_tree_iter)
+        father_iter = support.dialog_choose_node(self, _("Select the New Parent"), self.treestore, self.curr_tree_iter)
         if not father_iter: return
         new_father_node_id = self.treestore[father_iter][3]
         if curr_node_id == new_father_node_id:
-            support.dialog_error(_("The new father can't be the very node to move!"), self.window)
+            support.dialog_error(_("The new parent can't be the very node to move!"), self.window)
             return
         if old_father_node_id != None and new_father_node_id == old_father_node_id:
-            support.dialog_info(_("The new choosed father is again the old father!"), self.window)
+            support.dialog_info(_("The new chosen parent is still the old parent!"), self.window)
             return
         move_towards_top_iter = self.treestore.iter_parent(father_iter)
         while move_towards_top_iter:
             if self.treestore[move_towards_top_iter][3] == curr_node_id:
-                support.dialog_error(_("The new father can't be one of his sons!"), self.window)
+                support.dialog_error(_("The new parent can't be one of his children!"), self.window)
                 return
             move_towards_top_iter = self.treestore.iter_parent(move_towards_top_iter)
         self.node_move_after(self.curr_tree_iter, father_iter)
@@ -2708,7 +2708,7 @@ iter_end, exclude_iter_sel_end=True)
         self.node_add_is_duplication = False
 
     def node_add(self, *args):
-        """Add a node having common father with the selected node's"""
+        """Add a node having common parent with the selected node"""
         if not self.node_add_is_duplication:
             ret_name, ret_syntax, ret_tags, ret_ro, ret_c_icon_id, ret_is_bold, ret_fg = self.dialog_nodeprop(_("New Node Properties"), syntax_highl=self.syntax_highlighting)
             if not ret_name: return
@@ -2768,14 +2768,14 @@ iter_end, exclude_iter_sel_end=True)
         self.node_child_add_with_data(father_iter, node_name, cons.RICH_TEXT_ID, "", False, 0, False, None)
 
     def node_child_add(self, *args):
-        """Add a node having as father the selected node"""
+        """Add a node having as parent the selected node"""
         if not self.is_there_selected_node_or_error(): return
         ret_name, ret_syntax, ret_tags, ret_ro, ret_c_icon_id, ret_is_bold, ret_fg = self.dialog_nodeprop(_("New Child Node Properties"), syntax_highl=self.syntax_highlighting)
         if not ret_name: return
         self.node_child_add_with_data(self.curr_tree_iter, ret_name, ret_syntax, ret_tags, ret_ro, ret_c_icon_id, ret_is_bold, ret_fg)
 
     def node_child_add_with_data(self, father_iter, ret_name, ret_syntax, ret_tags, ret_ro, ret_c_icon_id, ret_is_bold, ret_fg):
-        """Add a node having as father the given node"""
+        """Add a node having as parent the given node"""
         self.update_window_save_needed()
         self.syntax_highlighting = ret_syntax
         node_level = self.treestore.iter_depth(father_iter)+1 if father_iter else 0
@@ -2801,7 +2801,7 @@ iter_end, exclude_iter_sel_end=True)
             warning_label += self.get_node_children_list(self.curr_tree_iter, 0)
         response = support.dialog_question_warning(self.window, warning_label)
         if response != gtk.RESPONSE_ACCEPT: return # the user did not confirm
-        # next selected node will be previous sibling or next sibling or father or None
+        # next selected node will be previous sibling or next sibling or parent or None
         new_iter = self.get_tree_iter_prev_sibling(self.treestore, self.curr_tree_iter)
         if new_iter == None:
             new_iter = self.treestore.iter_next(self.curr_tree_iter)

@@ -1912,7 +1912,7 @@ class NotecaseHandler(HTMLParser.HTMLParser):
                 self.curr_state = 1
         elif self.curr_state == 2:
             if tag == "dl":
-                # the current node becomes father
+                # the current node becomes parent
                 for pixbuf_element in self.pixbuf_vector:
                     self.xml_handler.pixbuf_element_to_xml(pixbuf_element, self.nodes_list[-1], self.dom)
                 self.pixbuf_vector = []
@@ -1991,7 +1991,7 @@ class NotecaseHandler(HTMLParser.HTMLParser):
                 self.curr_title = ""
                 # waiting for data
                 if self.chars_counter > 0:
-                    # this means the new node is son of the previous, so we did not pop
+                    # this means the new node is child of the previous, so we did not pop
                     for pixbuf_element in self.pixbuf_vector:
                         self.xml_handler.pixbuf_element_to_xml(pixbuf_element, self.nodes_list[-2], self.dom)
                     self.pixbuf_vector = []
@@ -2016,7 +2016,7 @@ class NotecaseHandler(HTMLParser.HTMLParser):
                 self.chars_counter = 0
                 self.nodes_list.pop()
                 self.nodes_list.pop()
-                # got /dl, we go state 2->0 and wait for a father's brother
+                # got /dl, we go state 2->0 and wait for a parent's sibling
                 self.curr_state = 0
             elif tag == "b": self.curr_attributes[cons.TAG_WEIGHT] = ""
             elif tag == "i": self.curr_attributes[cons.TAG_STYLE] = ""
