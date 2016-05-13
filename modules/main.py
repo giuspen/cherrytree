@@ -201,7 +201,7 @@ def main(args):
         DBUS_OK = False
 
     if args.filepath:
-        args.filepath = unicode(args.filepath, cons.STR_UTF8, cons.STR_IGNORE)
+        args.filepath = args.filepath.decode(sys.getfilesystemencoding()).encode(cons.STR_UTF8, cons.STR_IGNORE)
     if args.export_to_html_dir:
         lang_str = initializations()
         CherryTreeHandler(args, lang_str)
