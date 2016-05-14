@@ -375,6 +375,10 @@ def config_file_apply(dad):
     if dad.autosave[0]: dad.autosave_timer_start()
     if dad.enable_mod_time_sentinel: dad.modification_time_sentinel_start()
     dad.aux_renderer_pixbuf.set_property("visible", len(dad.bookmarks) > 0)
+    if dad.curr_tree_iter:
+        node_id = dad.get_node_id_from_tree_iter(dad.curr_tree_iter)
+        node_is_bookmarked = str(node_id) in dad.bookmarks
+        dad.menu_tree_update_for_bookmarked_node(node_is_bookmarked)
     dad.progresstop.hide()
     dad.progressbar.hide()
 

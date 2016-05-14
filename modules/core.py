@@ -1361,7 +1361,7 @@ iter_end, exclude_iter_sel_end=True)
     def toggle_show_hide_main_window(self, *args):
         do_show = True
         for runn_win in self.boss.running_windows:
-            if runn_win.window.has_toplevel_focus():
+            if runn_win.window.get_visible():
                 do_show = False
                 break
         for runn_win in self.boss.running_windows:
@@ -2080,7 +2080,9 @@ iter_end, exclude_iter_sel_end=True)
         self.state_machine.reset()
         self.sourceview.set_sensitive(False)
         if "db" in dir(self) and self.db: self.db.close()
-        for filepath_tmp in self.ctdb_handler.remove_at_quit_set: os.remove(filepath_tmp)
+        for filepath_tmp in self.ctdb_handler.remove_at_quit_set:
+            if os.path.isfile(filepath_tmp):
+                os.remove(filepath_tmp)
         self.ctdb_handler.reset()
         if user_active_restore: self.user_active = True
         return True
@@ -3012,13 +3014,13 @@ iter_end, exclude_iter_sel_end=True)
             node_id = model[new_iter][3]
             if node_id in self.nodes_cursor_pos:
                 already_visited = True
-                cursor_pos = self.nodes_cursor_pos[model[new_iter][3]]
+                cursor_pos = self.nodes_cursor_pos[node_id]
             else:
                 already_visited = False
                 cursor_pos = 0
             cursor_iter = self.curr_buffer.get_iter_at_offset(cursor_pos)
             if cursor_iter:
-                #print "cursor_pos %s restore for node %s" % (cursor_pos, model[new_iter][3])
+                #print "cursor_pos %s restore for node %s" % (cursor_pos, node_id)
                 self.curr_buffer.place_cursor(cursor_iter)
                 self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), 0.3)
             if self.syntax_highlighting in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID]:
@@ -3696,7 +3698,9 @@ iter_end, exclude_iter_sel_end=True)
             return
         config.config_file_save(self)
         if "db" in dir(self) and self.db: self.db.close()
-        for filepath_tmp in self.ctdb_handler.remove_at_quit_set: os.remove(filepath_tmp)
+        for filepath_tmp in self.ctdb_handler.remove_at_quit_set:
+            if os.path.isfile(filepath_tmp):
+                os.remove(filepath_tmp)
         for filepath_tmp in self.embfiles_opened.keys(): os.remove(filepath_tmp)
         self.window.destroy()
         if not self.boss.running_windows:
