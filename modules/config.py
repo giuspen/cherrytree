@@ -676,7 +676,7 @@ def preferences_tab_text_n_code(dad, vbox_all_nodes, pref_dialog):
     entry_timestamp_format = gtk.Entry()
     entry_timestamp_format.set_text(dad.timestamp_format)
     button_strftime_help = gtk.Button()
-    button_strftime_help.set_image(gtk.image_new_from_stock("gtk-help", gtk.ICON_SIZE_BUTTON))
+    button_strftime_help.set_image(gtk.image_new_from_stock(gtk.STOCK_HELP, gtk.ICON_SIZE_BUTTON))
     hbox_timestamp.pack_start(label_timestamp, expand=False)
     hbox_timestamp.pack_start(entry_timestamp_format)
     hbox_timestamp.pack_start(button_strftime_help, expand=False)
@@ -689,7 +689,19 @@ def preferences_tab_text_n_code(dad, vbox_all_nodes, pref_dialog):
     hbox_horizontal_rule.pack_start(entry_horizontal_rule)
     hbox_special_chars = gtk.HBox()
     hbox_special_chars.set_spacing(4)
+    vbox_special_chars = gtk.VBox()
     label_special_chars = gtk.Label(_("Special Characters"))
+    hbox_reset = gtk.HBox()
+    button_reset = gtk.Button()
+    button_reset.set_image(gtk.image_new_from_stock(gtk.STOCK_CLEAR, gtk.ICON_SIZE_BUTTON))
+    button_reset.set_tooltip_text(_("Reset to Default"))
+    hbox_reset.pack_start(gtk.Label(), expand=True)
+    hbox_reset.pack_start(button_reset, expand=False)
+    hbox_reset.pack_start(gtk.Label(), expand=True)
+    vbox_special_chars.pack_start(gtk.Label(), expand=False)
+    vbox_special_chars.pack_start(label_special_chars, expand=False)
+    vbox_special_chars.pack_start(hbox_reset, expand=False)
+    vbox_special_chars.pack_start(gtk.Label(), expand=False)
     frame_special_chars = gtk.Frame()
     frame_special_chars.set_size_request(-1, 80)
     frame_special_chars.set_shadow_type(gtk.SHADOW_IN)
@@ -701,7 +713,7 @@ def preferences_tab_text_n_code(dad, vbox_all_nodes, pref_dialog):
     textview_special_chars = gtk.TextView(buffer=textbuffer_special_chars)
     textview_special_chars.set_wrap_mode(gtk.WRAP_CHAR)
     scrolledwindow_special_chars.add(textview_special_chars)
-    hbox_special_chars.pack_start(label_special_chars, expand=False)
+    hbox_special_chars.pack_start(vbox_special_chars, expand=False)
     hbox_special_chars.pack_start(frame_special_chars)
     hbox_selword_chars = gtk.HBox()
     hbox_selword_chars.set_spacing(4)
@@ -734,6 +746,12 @@ def preferences_tab_text_n_code(dad, vbox_all_nodes, pref_dialog):
             dad.special_chars = new_special_chars
             support.set_menu_items_special_chars(dad)
     textbuffer_special_chars.connect('changed', on_textbuffer_special_chars_changed)
+    def on_button_reset_clicked(button):
+        warning_label = "<b>"+_("Are you sure to Reset to Default?")+"</b>"
+        response = support.dialog_question_warning(pref_dialog, warning_label)
+        if response == gtk.RESPONSE_ACCEPT:
+            textbuffer_special_chars.set_text(SPECIAL_CHARS_DEFAULT)
+    button_reset.connect('clicked', on_button_reset_clicked)
     def on_spinbutton_tab_width_value_changed(spinbutton):
         dad.tabs_width = int(spinbutton.get_value())
         dad.sourceview.set_tab_width(dad.tabs_width)
@@ -1656,7 +1674,7 @@ def preferences_tab_kb_shortcuts(dad, vbox_tool, pref_dialog):
                 in_use_name = menus.get_menu_item_name_from_shortcut(dad, kb_shortcut_full)
                 if in_use_name and in_use_name != action_name:
                     warning_label = "<b>" + _("The Keyboard Shortcut '%s' is already in use") % cgi.escape(kb_shortcut_full) + "</b>\n\n" + _("The current associated action is '%s'") % dad.menudict[in_use_name]["dn"] + "\n\n<b>" + _("Do you want to steal the shortcut?") + "</b>"
-                    response = support.dialog_question_warning(dad.window, warning_label)
+                    response = support.dialog_question_warning(pref_dialog, warning_label)
                     if response == gtk.RESPONSE_ACCEPT:
                         dad.custom_kb_shortcuts[in_use_name] = None
                     else:
@@ -1675,7 +1693,7 @@ def preferences_tab_kb_shortcuts(dad, vbox_tool, pref_dialog):
     button_edit.connect('clicked', on_button_edit_clicked)
     def on_button_reset_clicked(button):
         warning_label = "<b>"+_("Are you sure to Reset to Default?")+"</b>"
-        response = support.dialog_question_warning(dad.window, warning_label)
+        response = support.dialog_question_warning(pref_dialog, warning_label)
         if response == gtk.RESPONSE_ACCEPT:
             dad.custom_kb_shortcuts = {}
             reload_treestore()
@@ -1759,7 +1777,7 @@ def preferences_tab_toolbar(dad, vbox_tool, pref_dialog):
     button_remove.connect('clicked', on_button_remove_clicked)
     def on_button_reset_clicked(button):
         warning_label = "<b>"+_("Are you sure to Reset to Default?")+"</b>"
-        response = support.dialog_question_warning(dad.window, warning_label)
+        response = support.dialog_question_warning(pref_dialog, warning_label)
         if response == gtk.RESPONSE_ACCEPT:
             dad.toolbar_ui_list = menus.TOOLBAR_VEC_DEFAULT
             populate_liststore()
