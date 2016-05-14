@@ -1536,10 +1536,13 @@ def preferences_tab_kb_shortcuts(dad, vbox_tool, pref_dialog):
     scrolledwindow.add(treeview)
 
     hbox = gtk.HBox()
-    button_edit = gtk.Button(stock=gtk.STOCK_EDIT)
-    hbox.pack_start(gtk.Label(""), expand=True)
+    button_edit = gtk.Button(label=_("Change Selected"))
+    button_edit.set_image(gtk.image_new_from_stock(gtk.STOCK_EDIT, gtk.ICON_SIZE_BUTTON))
+    button_reset = gtk.Button(label=_("Reset to Default"))
+    button_reset.set_image(gtk.image_new_from_stock(gtk.STOCK_CLEAR, gtk.ICON_SIZE_BUTTON))
     hbox.pack_start(button_edit, expand=True)
     hbox.pack_start(gtk.Label(""), expand=True)
+    hbox.pack_start(button_reset, expand=True)
     vbox = gtk.VBox()
     vbox.pack_start(scrolledwindow, expand=True)
     vbox.pack_start(hbox, expand=False)
@@ -1667,9 +1670,17 @@ def preferences_tab_kb_shortcuts(dad, vbox_tool, pref_dialog):
                 support.dialog_info_after_restart(pref_dialog)
             menus.polish_overridden_keyboard_shortcuts(dad)
 
-    def on_button_edit_clicked(*args):
+    def on_button_edit_clicked(button):
         edit_selected_tree_iter()
     button_edit.connect('clicked', on_button_edit_clicked)
+    def on_button_reset_clicked(button):
+        warning_label = "<b>"+_("Are you sure to Reset to Default?")+"</b>"
+        response = support.dialog_question_warning(dad.window, warning_label)
+        if response == gtk.RESPONSE_ACCEPT:
+            dad.custom_kb_shortcuts = {}
+            reload_treestore()
+            support.dialog_info_after_restart(pref_dialog)
+    button_reset.connect('clicked', on_button_reset_clicked)
     def on_button_press_treestore(widget, event):
         if event.button == 1 and event.type == gtk.gdk._2BUTTON_PRESS:
             edit_selected_tree_iter()
