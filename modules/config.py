@@ -1541,7 +1541,7 @@ def preferences_tab_kb_shortcuts(dad, vbox_tool, pref_dialog):
     button_reset = gtk.Button(label=_("Reset to Default"))
     button_reset.set_image(gtk.image_new_from_stock(gtk.STOCK_CLEAR, gtk.ICON_SIZE_BUTTON))
     hbox.pack_start(button_edit, expand=True)
-    hbox.pack_start(gtk.Label(""), expand=True)
+    hbox.pack_start(gtk.Label(), expand=True)
     hbox.pack_start(button_reset, expand=True)
     vbox = gtk.VBox()
     vbox.pack_start(scrolledwindow, expand=True)
@@ -1710,23 +1710,28 @@ def preferences_tab_toolbar(dad, vbox_tool, pref_dialog):
     scrolledwindow.add(treeview)
 
     button_add = gtk.Button()
-    button_add.set_image(gtk.image_new_from_stock("gtk-add", gtk.ICON_SIZE_BUTTON))
+    button_add.set_image(gtk.image_new_from_stock(gtk.STOCK_ADD, gtk.ICON_SIZE_BUTTON))
     button_remove = gtk.Button()
-    button_remove.set_image(gtk.image_new_from_stock("gtk-remove", gtk.ICON_SIZE_BUTTON))
+    button_remove.set_image(gtk.image_new_from_stock(gtk.STOCK_REMOVE, gtk.ICON_SIZE_BUTTON))
+    button_reset = gtk.Button()
+    button_reset.set_image(gtk.image_new_from_stock(gtk.STOCK_CLEAR, gtk.ICON_SIZE_BUTTON))
+    button_reset.set_tooltip_text(_("Reset to Default"))
 
     hbox = gtk.HBox()
     vbox = gtk.VBox()
     vbox.pack_start(button_add, expand=False)
     vbox.pack_start(button_remove, expand=False)
+    vbox.pack_start(gtk.Label(), expand=True)
+    vbox.pack_start(button_reset, expand=False)
     hbox.pack_start(scrolledwindow, expand=True)
     hbox.pack_start(vbox, expand=False)
 
     vbox_tool.add(hbox)
 
-    for element in dad.toolbar_ui_list:
-        liststore.append(get_toolbar_entry_columns_from_key(dad, element))
-
-    pref_dialog.disp_dialog_after_restart = False
+    def populate_liststore():
+        liststore.clear()
+        for element in dad.toolbar_ui_list:
+            liststore.append(get_toolbar_entry_columns_from_key(dad, element))
     def update_toolbar_ui_vec():
         dad.toolbar_ui_list = []
         tree_iter = liststore.get_iter_first()
@@ -1736,7 +1741,7 @@ def preferences_tab_toolbar(dad, vbox_tool, pref_dialog):
         if not pref_dialog.disp_dialog_after_restart:
             pref_dialog.disp_dialog_after_restart = True
             support.dialog_info_after_restart(pref_dialog)
-    def on_button_add_clicked(*args):
+    def on_button_add_clicked(button):
         icon_n_label_list = get_toolbar_icon_n_label_list(dad)
         sel_key = support.dialog_choose_element_in_list(pref_dialog, _("Select Element to Add"), [], "", icon_n_label_list)
         if sel_key:
@@ -1746,12 +1751,20 @@ def preferences_tab_toolbar(dad, vbox_tool, pref_dialog):
             else: liststore.append(get_toolbar_entry_columns_from_key(dad, sel_key))
             update_toolbar_ui_vec()
     button_add.connect('clicked', on_button_add_clicked)
-    def on_button_remove_clicked(*args):
+    def on_button_remove_clicked(button):
         model, tree_iter = treeviewselection.get_selected()
         if tree_iter:
             model.remove(tree_iter)
             update_toolbar_ui_vec()
     button_remove.connect('clicked', on_button_remove_clicked)
+    def on_button_reset_clicked(button):
+        warning_label = "<b>"+_("Are you sure to Reset to Default?")+"</b>"
+        response = support.dialog_question_warning(dad.window, warning_label)
+        if response == gtk.RESPONSE_ACCEPT:
+            dad.toolbar_ui_list = menus.TOOLBAR_VEC_DEFAULT
+            populate_liststore()
+            support.dialog_info_after_restart(pref_dialog)
+    button_reset.connect('clicked', on_button_reset_clicked)
     def on_key_press_liststore(widget, event):
         keyname = gtk.gdk.keyval_name(event.keyval)
         if keyname == cons.STR_KEY_DELETE: on_button_remove_clicked()
@@ -1759,6 +1772,8 @@ def preferences_tab_toolbar(dad, vbox_tool, pref_dialog):
     def on_treeview_drag_end(*args):
         update_toolbar_ui_vec()
     treeview.connect('drag-end', on_treeview_drag_end)
+    pref_dialog.disp_dialog_after_restart = False
+    populate_liststore()
 
 def preferences_tab_misc(dad, vbox_misc, pref_dialog):
     """Preferences Dialog, Misc Tab"""
