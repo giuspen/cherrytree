@@ -898,6 +898,10 @@ iter_end, exclude_iter_sel_end=True)
         self.nodes_add_from_cherrytree_data(cherrytree_string)
         gnote.set_links_to_nodes(self)
 
+    def nodes_add_from_rednotebook_folder(self, action):
+        """Add Nodes Parsing a RedNotebook Folder"""
+        print "WIP"
+
     def nodes_add_from_tomboy_folder(self, action):
         """Add Nodes Parsing a Tomboy Folder"""
         start_folder = os.path.join(os.path.expanduser('~'), ".local/share/tomboy")

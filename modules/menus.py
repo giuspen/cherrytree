@@ -157,6 +157,7 @@ CONFIG_ACTIONS_DICT = {
 "import_leo",
 "import_mempad",
 "import_notecase",
+"import_rednotebook",
 "import_tomboy",
 "import_treepad",
 "import_tuxcards",
@@ -282,6 +283,7 @@ def load_menudict(dad):
 "import_leo": {"sk": cons.STR_STOCK_CT_IMP, "sd": _("From _Leo File"), "kb": None, "dn": _("Add Nodes of a Leo File to the Current Tree"), "cb": dad.nodes_add_from_leo_file},
 "import_mempad": {"sk": cons.STR_STOCK_CT_IMP, "sd": _("From _Mempad File"), "kb": None, "dn": _("Add Nodes of a Mempad File to the Current Tree"), "cb": dad.nodes_add_from_mempad_file},
 "import_notecase": {"sk": cons.STR_STOCK_CT_IMP, "sd": _("From _NoteCase File"), "kb": None, "dn": _("Add Nodes of a NoteCase File to the Current Tree"), "cb": dad.nodes_add_from_notecase_file},
+"import_rednotebook": {"sk": cons.STR_STOCK_CT_IMP, "sd": _("From _RedNotebook Folder"), "kb": None, "dn": _("Add Nodes of a RedNotebook Folder to the Current Tree"), "cb": dad.nodes_add_from_rednotebook_folder},
 "import_tomboy": {"sk": cons.STR_STOCK_CT_IMP, "sd": _("From T_omboy Folder"), "kb": None, "dn": _("Add Nodes of a Tomboy Folder to the Current Tree"), "cb": dad.nodes_add_from_tomboy_folder},
 "import_treepad": {"sk": cons.STR_STOCK_CT_IMP, "sd": _("From T_reepad Lite File"), "kb": None, "dn": _("Add Nodes of a Treepad Lite File to the Current Tree"), "cb": dad.nodes_add_from_treepad_file},
 "import_tuxcards": {"sk": cons.STR_STOCK_CT_IMP, "sd": _("From _TuxCards File"), "kb": None, "dn": _("Add Nodes of a TuxCards File to the Current Tree"), "cb": dad.nodes_add_from_tuxcards_file},
@@ -416,6 +418,7 @@ get_menu_item_tuple(dad, "import_knowit"),
 get_menu_item_tuple(dad, "import_leo"),
 get_menu_item_tuple(dad, "import_mempad"),
 get_menu_item_tuple(dad, "import_notecase"),
+get_menu_item_tuple(dad, "import_rednotebook"),
 get_menu_item_tuple(dad, "import_tomboy"),
 get_menu_item_tuple(dad, "import_treepad"),
 get_menu_item_tuple(dad, "import_tuxcards"),
@@ -777,6 +780,7 @@ UI_INFO = """
       <menuitem action='import_leo'/>
       <menuitem action='import_mempad'/>
       <menuitem action='import_notecase'/>
+      <menuitem action='import_rednotebook'/>
       <menuitem action='import_tomboy'/>
       <menuitem action='import_treepad'/>
       <menuitem action='import_tuxcards'/>
