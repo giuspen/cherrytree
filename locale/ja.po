@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-05-15 11:35+0100\n"
-"PO-Revision-Date: 2015-11-16 17:19+0900\n"
+"PO-Revision-Date: 2016-05-15 22:38+0900\n"
 "Last-Translator: Piyo <py2@live.jp>\n"
 "Language-Team: Japanese\n"
 "Language: ja\n"
@@ -144,9 +144,9 @@ msgid "No Previous Search Was Performed During This Session"
 msgstr "まだこのセッションでは検索が実行されていません"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:640
-#, fuzzy, python-format
+#, python-format
 msgid "Hide (Restore with '%s')"
-msgstr "隠す（Ctrl+Shift+A で復元）"
+msgstr "隠す（'%s' で復元）"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:653
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3536
@@ -629,7 +629,6 @@ msgid "Add _Node"
 msgstr "ノードを追加(_N)"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:228
-#, fuzzy
 msgid "Add a Node having the same Parent of the Selected Node"
 msgstr "選択ノードと同じ親を持つノードを追加"
 
@@ -707,22 +706,18 @@ msgid "Move the Selected Node Left"
 msgstr "選択ノードを左に移動"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:238
-#, fuzzy
 msgid "Node _Right"
-msgstr "左に移動(_L)"
+msgstr "右に移動(_R)"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:238
-#, fuzzy
 msgid "Move the Selected Node Right"
-msgstr "選択ノードを左に移動"
+msgstr "選択ノードを右に移動"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:239
-#, fuzzy
 msgid "Node Change _Parent"
-msgstr "親ノードを変更(_F)"
+msgstr "親ノードを変更(_P)"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:239
-#, fuzzy
 msgid "Change the Selected Node's Parent"
 msgstr "選択ノードの親を変更する"
 
@@ -763,13 +758,12 @@ msgid "_Inherit Syntax"
 msgstr "ノードの種類/構文を子孫に適用(_I)"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:244
-#, fuzzy
 msgid ""
 "Change the Selected Node's Children Syntax Highlighting to the Parent's "
 "Syntax Highlighting"
 msgstr ""
-"すべての子孫ノードに対し、ノードの種類/構文ハイライトを、選択しているノードと"
-"同じ種類に変更する（注意: 確認ダイアログなし！）"
+"すべての子孫ノードに対し、ノードの種類/構文ハイライトを、選択しているノード"
+"と同じ種類に変更する（注意: 確認ダイアログなし！）"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:245
 msgid "De_lete Node"
@@ -1103,14 +1097,12 @@ msgid "Add Nodes of a NoteCase File to the Current Tree"
 msgstr "NoteCase ファイルから、ツリーにノードを追加"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:286
-#, fuzzy
 msgid "From _RedNotebook Folder"
-msgstr "KeepNote フォルダーから(_K)"
+msgstr "RedNotebook フォルダーから(_R)"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:286
-#, fuzzy
 msgid "Add Nodes of a RedNotebook Folder to the Current Tree"
-msgstr "KeepNote フォルダーから、ツリーにノードを追加"
+msgstr "RedNotebook フォルダーから、ツリーにノードを追加"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:287
 msgid "From T_omboy Folder"
@@ -1773,7 +1765,7 @@ msgstr "Japanese"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:740
 msgid "Lithuanian"
-msgstr ""
+msgstr "Lithuanian"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:741
 msgid "Polish"
@@ -1789,7 +1781,7 @@ msgstr "Russian"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:744
 msgid "Slovenian"
-msgstr ""
+msgstr "Slovenian"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:745
 msgid "Spanish"
@@ -2003,11 +1995,11 @@ msgstr "自動インデントを有効にする"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:640
 msgid "Vertical Space Around Lines"
-msgstr ""
+msgstr "行内の上下の余白 (px)"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:648
 msgid "Vertical Space in Wrapped Lines"
-msgstr ""
+msgstr "折り返し行の上下の余白"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:665
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:998
@@ -2031,7 +2023,7 @@ msgstr "特殊文字"
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1562
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1739
 msgid "Reset to Default"
-msgstr ""
+msgstr "既定に初期化"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:720
 msgid "Chars to Select at Double Click"
@@ -2049,9 +2041,8 @@ msgstr "その他"
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:750
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1696
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1781
-#, fuzzy
 msgid "Are you sure to Reset to Default?"
-msgstr "<b>'%s' ノードを削除しますか？</b>"
+msgstr "既定値に初期化しますか？"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:806
 msgid "Enable Spell Check"
@@ -2115,7 +2106,7 @@ msgstr "ノードごとの元に戻せる制限回数"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:993
 msgid "Enable Smart Quotes Auto Replacement"
-msgstr ""
+msgstr "スマート クォートの自動置換を有効にする"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1018
 msgid "Style Scheme"
@@ -2130,38 +2121,33 @@ msgid "Display Tree on the Right Side"
 msgstr "ツリーを右側に表示する"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1077
-#, fuzzy
 msgid "Move Focus to Text at Mouse Click"
-msgstr "ダブルクリック選択で、単語の一部として扱う文字"
+msgstr "マウスクリックで、テキストエディタにフォーカスを移動する"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1079
 msgid "Expand Node at Mouse Click"
-msgstr ""
+msgstr "マウスクリックでノードのツリーを開く"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1083
-#, fuzzy
 msgid "Last Visited Nodes on Node Name Header"
-msgstr "ノード名のヘッダを表示/隠す"
+msgstr "最近表示したノードをノード名ヘッダに表示する数"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1179
 msgid "Use Different Cherries per Level"
-msgstr ""
+msgstr "レベルごとに異なるチェリー画像を使用する"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1180
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3518
-#, fuzzy
 msgid "Use Selected Icon"
-msgstr "選択しているノード"
+msgstr "選択アイコンを使用する"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1182
-#, fuzzy
 msgid "No Icon"
-msgstr "ノードアイコン"
+msgstr "アイコンなし"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1195
-#, fuzzy
 msgid "Default Text Nodes Icons"
-msgstr "黒点を表示"
+msgstr "既定のテキスト ノードのアイコン"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1209
 msgid "Restore Expanded/Collapsed Status"
@@ -2185,9 +2171,8 @@ msgstr "起動時のノードの状態"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1289
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3627
-#, fuzzy
 msgid "Select Node Icon"
-msgstr "選択ノードのみ"
+msgstr "ノード アイコンの選択"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1324
 msgid "Text Font"
@@ -2227,9 +2212,8 @@ msgid "Colors"
 msgstr "色"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1453
-#, fuzzy
 msgid "Underline Links"
-msgstr "直下のリンクを編集"
+msgstr "リンクに下線を表示する"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1455
 msgid "Use Relative Paths for Files And Folders"
@@ -2240,14 +2224,12 @@ msgid "Anchor Size"
 msgstr "アンカー画像の大きさ"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1559
-#, fuzzy
 msgid "Change Selected"
-msgstr "選択しているノード"
+msgstr "選択項目の変更"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1573
-#, fuzzy
 msgid "File"
-msgstr "ファイル(_F)"
+msgstr "ファイル"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1574
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2012
@@ -2256,66 +2238,58 @@ msgid "Tree"
 msgstr "ツリー"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1575
-#, fuzzy
 msgid "Editor"
-msgstr "編集(_E)"
+msgstr "編集"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1576
-#, fuzzy
 msgid "Format"
-msgstr "最後に使用した書式(_L)"
+msgstr "書式"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1577
-#, fuzzy
 msgid "Find/Replace"
-msgstr "置換"
+msgstr "検索/置換"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1578
-#, fuzzy
 msgid "View"
-msgstr "表示(_V)"
+msgstr "表示"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1579
-#, fuzzy
 msgid "Export"
-msgstr "エクスポート(_X)"
+msgstr "エクスポート"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1580
-#, fuzzy
 msgid "Import"
-msgstr "インポート(_I)"
+msgstr "インポート"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1600
 msgid "Edit Keyboard Shortcut"
-msgstr ""
+msgstr "キーボード ショートカットの編集"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1607
 msgid "No Keyboard Shortcut"
-msgstr ""
+msgstr "キーボード ショートカットなし"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1677
 #, python-format
 msgid "The Keyboard Shortcut '%s' is already in use"
-msgstr ""
+msgstr "キーボード ショートカット '%s' はすでに使用しています"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1677
 #, python-format
 msgid "The current associated action is '%s'"
-msgstr ""
+msgstr "現在関連付けられている操作は '%s' です"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1677
-#, fuzzy
 msgid "Do you want to steal the shortcut?"
-msgstr "変更を保存しますか？"
+msgstr "ショートカットの割り当てを変更しますか？"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1733
 msgid "Add"
-msgstr ""
+msgstr "追加"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1736
-#, fuzzy
 msgid "Remove Selected"
-msgstr "ノードが選択されていません"
+msgstr "選択項目の削除"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1766
 msgid "Select Element to Add"
@@ -2382,14 +2356,12 @@ msgid "The New Language will be Available Only After Restarting CherryTree"
 msgstr "新しい言語は、CherryTreeの再起動後に有効になります"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2008
-#, fuzzy
 msgid "Text and Code"
-msgstr "プレーンテキストとコード"
+msgstr "テキストとコード"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2009
-#, fuzzy
 msgid "Text"
-msgstr "と文字色"
+msgstr "テキスト"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2010
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3540
@@ -2411,7 +2383,7 @@ msgstr "ツールバー"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2017
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "キーボード ショートカット"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/tablez.py:63
 msgid "Rename Column"
@@ -2501,9 +2473,8 @@ msgid "You Are Using the Latest Version Available"
 msgstr "最新のバージョンを使用しています"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:259
-#, fuzzy
 msgid "You Are Using a Development Version"
-msgstr "最新のバージョンを使用しています"
+msgstr "開発バージョンを使用しています"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:263
 msgid "Failed to Retrieve Latest Version Information - Try Again Later"
@@ -2519,9 +2490,8 @@ msgstr "テキストが選択されていません"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:784
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2471
-#, fuzzy
 msgid "The new parent can't be one of his children!"
-msgstr "自分の子ノードを親ノードにすることはできません"
+msgstr "自分の子ノードを親ノードにすることはできません！"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:832
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2048
@@ -2562,7 +2532,6 @@ msgid "Leo Document"
 msgstr "Leo ドキュメント"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1112
-#, fuzzy
 msgid "Who is the Parent?"
 msgstr "親ノードを選択"
 
@@ -2643,17 +2612,14 @@ msgid "Wrong Password"
 msgstr "パスワードが違います"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2459
-#, fuzzy
 msgid "Select the New Parent"
 msgstr "新しい親ノードを選択"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2463
-#, fuzzy
 msgid "The new parent can't be the very node to move!"
 msgstr "自分自身を親ノードにすることはできません！"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2466
-#, fuzzy
 msgid "The new chosen parent is still the old parent!"
 msgstr "現在の親ノードが選択されました、移動しません！"
 
@@ -2740,12 +2706,11 @@ msgstr "検索オプション"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3507
 msgid "Bold"
-msgstr ""
+msgstr "太字"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3509
-#, fuzzy
 msgid "Use Selected Color"
-msgstr "選択しているノード"
+msgstr "選択色を使用"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3565
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4974
