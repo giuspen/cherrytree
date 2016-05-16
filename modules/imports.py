@@ -458,6 +458,46 @@ class KeepnoteHandler(HTMLParser.HTMLParser):
         return self.dom.toxml()
 
 
+class RedNotebookHandler():
+    """The Handler of the RedNotebook Folder Parsing"""
+
+    def __init__(self, dad, folderpath):
+        """Machine boot"""
+        self.folderpath = folderpath
+        self.dad = dad
+        self.xml_handler = machines.XMLHandler(self)
+
+    def node_day_add(self, day):
+        """Add a new Day node"""
+        self.nodes_list.append(self.dom.createElement("node"))
+        self.nodes_list[-1].setAttribute("name", day)
+        self.nodes_list[-1].setAttribute("prog_lang", cons.RICH_TEXT_ID)
+        self.nodes_list[-2].appendChild(self.nodes_list[-1])
+
+    def node_month_add(self, filename):
+        """Add a new Month node"""
+        self.nodes_list.append(self.dom.createElement("node"))
+        self.nodes_list[-1].setAttribute("name", filename[:-4])
+        self.nodes_list[-1].setAttribute("prog_lang", cons.RICH_TEXT_ID)
+        self.nodes_list[-2].appendChild(self.nodes_list[-1])
+        with open(os.path.join(self.folderpath, filename), "r") as fd:
+            for fileline in fd.readlines():
+                pass
+        self.nodes_list.pop()
+
+    def get_cherrytree_xml(self):
+        """Returns a CherryTree string Containing the RedNotebook Nodes"""
+        self.dom = xml.dom.minidom.Document()
+        self.nodes_list = [self.dom.createElement(cons.APP_NAME)]
+        self.dom.appendChild(self.nodes_list[0])
+        self.curr_attributes = {}
+        for tag_property in cons.TAG_PROPERTIES: self.curr_attributes[tag_property] = ""
+        for element in sorted(os.listdir(self.folderpath)):
+            if element.endswith(".txt") and len(element) == 11:
+                self.node_month_add(element)
+        return self.dom.toxml()
+
+
 class ZimHandler():
     """The Handler of the Zim Folder Parsing"""
 

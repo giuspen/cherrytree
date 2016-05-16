@@ -310,6 +310,7 @@ NODES_ICONS = {
 CODE_ICONS = {
 "python": 'python',
 "sh": 'terminal',
+"powershell": 'terminal-red',
 "java": 'java',
 "html": 'html',
 "xml": 'xml',

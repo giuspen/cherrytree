@@ -880,7 +880,7 @@ iter_end, exclude_iter_sel_end=True)
 
     def nodes_add_from_zim_folder(self, action):
         """Add Nodes Parsing a Zim Folder"""
-        start_folder = os.path.join(os.path.expanduser('~'), "Notebooks/Notes")
+        start_folder = os.path.join(os.path.expanduser('~'), "Notebooks", "Notes")
         folderpath = support.dialog_folder_select(curr_folder=start_folder, parent=self.window)
         if not folderpath: return
         zim = imports.ZimHandler(self, folderpath)
@@ -890,7 +890,7 @@ iter_end, exclude_iter_sel_end=True)
 
     def nodes_add_from_gnote_folder(self, action):
         """Add Nodes Parsing a Gnote Folder"""
-        start_folder = os.path.join(os.path.expanduser('~'), ".local/share/gnote")
+        start_folder = os.path.join(os.path.expanduser('~'), ".local", "share", "gnote")
         folderpath = support.dialog_folder_select(curr_folder=start_folder, parent=self.window)
         if not folderpath: return
         gnote = imports.TomboyHandler(folderpath)
@@ -900,11 +900,16 @@ iter_end, exclude_iter_sel_end=True)
 
     def nodes_add_from_rednotebook_folder(self, action):
         """Add Nodes Parsing a RedNotebook Folder"""
-        print "WIP"
+        start_folder = os.path.join(os.path.expanduser('~'), ".rednotebook", "data")
+        folderpath = support.dialog_folder_select(curr_folder=start_folder, parent=self.window)
+        if not folderpath: return
+        rednotebook = imports.RedNotebookHandler(self, folderpath)
+        cherrytree_string = rednotebook.get_cherrytree_xml()
+        self.nodes_add_from_cherrytree_data(cherrytree_string)
 
     def nodes_add_from_tomboy_folder(self, action):
         """Add Nodes Parsing a Tomboy Folder"""
-        start_folder = os.path.join(os.path.expanduser('~'), ".local/share/tomboy")
+        start_folder = os.path.join(os.path.expanduser('~'), ".local", "share", "tomboy")
         folderpath = support.dialog_folder_select(curr_folder=start_folder, parent=self.window)
         if not folderpath: return
         tomboy = imports.TomboyHandler(folderpath)
@@ -914,7 +919,7 @@ iter_end, exclude_iter_sel_end=True)
 
     def nodes_add_from_basket_folder(self, action):
         """Add Nodes Parsing a Basket Folder"""
-        start_folder = os.path.join(os.path.expanduser('~'), ".kde/share/apps/basket/baskets")
+        start_folder = os.path.join(os.path.expanduser('~'), ".kde", "share", "apps", "basket", "baskets")
         folderpath = support.dialog_folder_select(curr_folder=start_folder, parent=self.window)
         if not folderpath: return
         basket = imports.BasketHandler(self, folderpath)
