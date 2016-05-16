@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-05-15 11:35+0100\n"
-"PO-Revision-Date: 2016-02-05 12:29+0100\n"
+"PO-Revision-Date: 2016-05-16 09:44+0200\n"
 "Last-Translator: Erik Lovrič <erik.lovric@gmail.com>\n"
 "Language-Team: Slovenian\n"
 "Language: sl\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
 "%100==4 ? 2 : 3);\n"
-"X-Generator: Poedit 1.8.5\n"
+"X-Generator: Poedit 1.8.7.1\n"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/codeboxes.py:97
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3541
@@ -145,9 +145,9 @@ msgid "No Previous Search Was Performed During This Session"
 msgstr "V tej seji ni bilo preteklih iskanj"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:640
-#, fuzzy, python-format
+#, python-format
 msgid "Hide (Restore with '%s')"
-msgstr "Skrij (Obnovi z Ctrl+Shift+A)"
+msgstr "Skrij (Obnovi z '%s')"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:653
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3536
@@ -630,7 +630,6 @@ msgid "Add _Node"
 msgstr "Dodaj _vozlišče"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:228
-#, fuzzy
 msgid "Add a Node having the same Parent of the Selected Node"
 msgstr "Dodaj vozlišče z istim nadrejenim kot izbrano vozlišče"
 
@@ -708,22 +707,18 @@ msgid "Move the Selected Node Left"
 msgstr "Premakni izbrano vozlišče v levo"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:238
-#, fuzzy
 msgid "Node _Right"
-msgstr "Vozlišče _levo"
+msgstr "Vozlišče _desno"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:238
-#, fuzzy
 msgid "Move the Selected Node Right"
-msgstr "Premakni izbrano vozlišče v levo"
+msgstr "Premakni izbrano vozlišče v desno"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:239
-#, fuzzy
 msgid "Node Change _Parent"
 msgstr "Vozlišče spremeni _nadrejenega"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:239
-#, fuzzy
 msgid "Change the Selected Node's Parent"
 msgstr "Spremeni nadrejeno vozlišče izbranega vozlišča"
 
@@ -764,13 +759,12 @@ msgid "_Inherit Syntax"
 msgstr "_Podeduj sintakso"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:244
-#, fuzzy
 msgid ""
 "Change the Selected Node's Children Syntax Highlighting to the Parent's "
 "Syntax Highlighting"
 msgstr ""
 "Spremeni obarvanje sintakse podrejenih vozlišč izbranega vozlišča v obliko "
-"izbranega vozlišča"
+"nadrejenega vozlišča"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:245
 msgid "De_lete Node"
@@ -1103,14 +1097,12 @@ msgid "Add Nodes of a NoteCase File to the Current Tree"
 msgstr "Dodaj vozlišča iz NoteCase datoteke k trenutnemu drevesu"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:286
-#, fuzzy
 msgid "From _RedNotebook Folder"
-msgstr "Iz _KeepNote mape"
+msgstr "Iz _RedNotebook mape"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:286
-#, fuzzy
 msgid "Add Nodes of a RedNotebook Folder to the Current Tree"
-msgstr "Dodaj vozlišča KeepNote mape k trenutnemu drevesu"
+msgstr "Dodaj vozlišča RedNotebook mape k trenutnemu drevesu"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:287
 msgid "From T_omboy Folder"
@@ -1772,7 +1764,7 @@ msgstr "Japonščina"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:740
 msgid "Lithuanian"
-msgstr ""
+msgstr "Litovščina"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:741
 msgid "Polish"
@@ -1788,7 +1780,7 @@ msgstr "Ruščina"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:744
 msgid "Slovenian"
-msgstr ""
+msgstr "Slovenščina"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:745
 msgid "Spanish"
@@ -2002,11 +1994,11 @@ msgstr "Omogoči samodejni zamik"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:640
 msgid "Vertical Space Around Lines"
-msgstr ""
+msgstr "Navpični razmak vrstic"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:648
 msgid "Vertical Space in Wrapped Lines"
-msgstr ""
+msgstr "Navpični razmak v vrsticah s prelomom"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:665
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:998
@@ -2030,7 +2022,7 @@ msgstr "Posebni znaki"
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1562
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1739
 msgid "Reset to Default"
-msgstr ""
+msgstr "Ponastavi na privzeto"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:720
 msgid "Chars to Select at Double Click"
@@ -2048,9 +2040,8 @@ msgstr "Razno"
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:750
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1696
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1781
-#, fuzzy
 msgid "Are you sure to Reset to Default?"
-msgstr "Ali ste prepričani, da <b>želite izbrisati vozlišče '%s'</b>?"
+msgstr "Ali ste prepričani, da želite ponastaviti na privzeto?"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:806
 msgid "Enable Spell Check"
@@ -2114,7 +2105,7 @@ msgstr "Omejitev števila razveljavitev na vozlišče"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:993
 msgid "Enable Smart Quotes Auto Replacement"
-msgstr ""
+msgstr "Omogoči samodejno zamenjavo pametnih navednic"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1018
 msgid "Style Scheme"
@@ -2129,38 +2120,33 @@ msgid "Display Tree on the Right Side"
 msgstr "Prikaži drevo desni strani"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1077
-#, fuzzy
 msgid "Move Focus to Text at Mouse Click"
-msgstr "izbira znakov ob dvojnem kliku"
+msgstr "Premakni osredotočenost na besedilo ob kliku miške"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1079
 msgid "Expand Node at Mouse Click"
-msgstr ""
+msgstr "Razšiti vozlišče ob kliku miške"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1083
-#, fuzzy
 msgid "Last Visited Nodes on Node Name Header"
-msgstr "Preklopi prikaži/skrij ime vozlišča v glavi"
+msgstr "Zadnje obiskana vozlišča v glavi z imenom vozlišč"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1179
 msgid "Use Different Cherries per Level"
-msgstr ""
+msgstr "Uporabi različne češnjice na različnih nivojih"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1180
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3518
-#, fuzzy
 msgid "Use Selected Icon"
-msgstr "Izbrano vozlišče"
+msgstr "Uporabi izbrano ikono"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1182
-#, fuzzy
 msgid "No Icon"
-msgstr "Ikone vozlišč"
+msgstr "Brez ikone"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1195
-#, fuzzy
 msgid "Default Text Nodes Icons"
-msgstr "Uporabljaj krogle kot ikone vozlišč"
+msgstr "Privzete ikone vozlišč z besedilom"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1209
 msgid "Restore Expanded/Collapsed Status"
@@ -2184,9 +2170,8 @@ msgstr "Stanje vozlišč ob zagonu"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1289
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3627
-#, fuzzy
 msgid "Select Node Icon"
-msgstr "Le izbrano vozlišče"
+msgstr "Izberi ikono vozlišča"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1324
 msgid "Text Font"
@@ -2226,9 +2211,8 @@ msgid "Colors"
 msgstr "Barve"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1453
-#, fuzzy
 msgid "Underline Links"
-msgstr "Uredi spodnjo povezavo"
+msgstr "Podčrtaj povezave"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1455
 msgid "Use Relative Paths for Files And Folders"
@@ -2239,14 +2223,12 @@ msgid "Anchor Size"
 msgstr "Velikost sidra"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1559
-#, fuzzy
 msgid "Change Selected"
-msgstr "Izbrano vozlišče"
+msgstr "Spremeni izbrano"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1573
-#, fuzzy
 msgid "File"
-msgstr "_Datoteka"
+msgstr "Datoteka"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1574
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2012
@@ -2255,66 +2237,58 @@ msgid "Tree"
 msgstr "Drevo"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1575
-#, fuzzy
 msgid "Editor"
-msgstr "_Uredi"
+msgstr "Urejevalnik"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1576
-#, fuzzy
 msgid "Format"
-msgstr "Oblikuj _zadnje"
+msgstr "Oblika"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1577
-#, fuzzy
 msgid "Find/Replace"
-msgstr "Zamenjaj"
+msgstr "Najdi/Zamenjaj"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1578
-#, fuzzy
 msgid "View"
-msgstr "_Pogled"
+msgstr "Pogled"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1579
-#, fuzzy
 msgid "Export"
-msgstr "I_zvoz"
+msgstr "Izvoz"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1580
-#, fuzzy
 msgid "Import"
-msgstr "U_voz"
+msgstr "Uvoz"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1600
 msgid "Edit Keyboard Shortcut"
-msgstr ""
+msgstr "Uredi tipko kot bližnjica"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1607
 msgid "No Keyboard Shortcut"
-msgstr ""
+msgstr "Brez tipke za bližnjico"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1677
 #, python-format
 msgid "The Keyboard Shortcut '%s' is already in use"
-msgstr ""
+msgstr "Tipka za bližnjico '%s' je že v rabi"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1677
 #, python-format
 msgid "The current associated action is '%s'"
-msgstr ""
+msgstr "Trenutno povezano dejanje je '%s'"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1677
-#, fuzzy
 msgid "Do you want to steal the shortcut?"
-msgstr "Ali želite shraniti spremembe?"
+msgstr "Ali želite prevzeti bližnjico?"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1733
 msgid "Add"
-msgstr ""
+msgstr "Dodaj"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1736
-#, fuzzy
 msgid "Remove Selected"
-msgstr "Ni izbranega vozlišča"
+msgstr "Odstrani izbrano"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1766
 msgid "Select Element to Add"
@@ -2381,14 +2355,12 @@ msgid "The New Language will be Available Only After Restarting CherryTree"
 msgstr "Novi jezik bo na voljo ob ponovnem zagonu CherryTree"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2008
-#, fuzzy
 msgid "Text and Code"
-msgstr "Golo besedilo in koda"
+msgstr "Besedilo in koda"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2009
-#, fuzzy
 msgid "Text"
-msgstr "in besedilo"
+msgstr "Besedilo"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2010
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3540
@@ -2410,7 +2382,7 @@ msgstr "Orodna vrstica"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2017
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Bližnjice"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/tablez.py:63
 msgid "Rename Column"
@@ -2500,9 +2472,8 @@ msgid "You Are Using the Latest Version Available"
 msgstr "Uporabljate zadnjo različico"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:259
-#, fuzzy
 msgid "You Are Using a Development Version"
-msgstr "Uporabljate zadnjo različico"
+msgstr "Uporabljate razvojno različico"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:263
 msgid "Failed to Retrieve Latest Version Information - Try Again Later"
@@ -2517,9 +2488,8 @@ msgstr "Ni izbranega besedila"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:784
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2471
-#, fuzzy
 msgid "The new parent can't be one of his children!"
-msgstr "Novi nadrejeni ne mora biti eno izmed podrejenih vozlišč"
+msgstr "Novi nadrejeni ne mora biti eno izmed podrejenih vozlišč!"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:832
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2048
@@ -2560,7 +2530,6 @@ msgid "Leo Document"
 msgstr "Leo dokument"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1112
-#, fuzzy
 msgid "Who is the Parent?"
 msgstr "Kdo je nadrejeni?"
 
@@ -2643,19 +2612,16 @@ msgid "Wrong Password"
 msgstr "Napačno geslo"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2459
-#, fuzzy
 msgid "Select the New Parent"
 msgstr "Izberite novega nadrejenega"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2463
-#, fuzzy
 msgid "The new parent can't be the very node to move!"
-msgstr "Novi nadrejeni ne mora biti vozlišče ki se bo premaknilo"
+msgstr "Novi nadrejeni ne mora biti vozlišče, ki se bo premaknilo"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2466
-#, fuzzy
 msgid "The new chosen parent is still the old parent!"
-msgstr "Na novo izbrani nadrejeni je ponovno stari nadrejeni"
+msgstr "Na novo izbrani nadrejeni je ponovno stari nadrejeni!"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2719
 msgid "New Node Properties"
@@ -2740,12 +2706,11 @@ msgstr "Možnosti iskanja"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3507
 msgid "Bold"
-msgstr ""
+msgstr "Krepko"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3509
-#, fuzzy
 msgid "Use Selected Color"
-msgstr "Izbrano vozlišče"
+msgstr "Uporabi izbrano barvo"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3565
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4974
