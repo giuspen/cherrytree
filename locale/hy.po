@@ -2691,7 +2691,7 @@ msgstr "Թավատառ"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3509
 msgid "Use Selected Color"
-msgstr "Գործածել ընտրված գույն"
+msgstr "Ընտրել գույն"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3565
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4974
