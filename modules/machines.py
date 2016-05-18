@@ -827,7 +827,7 @@ class StateMachine:
 
     def node_selected_changed(self, node_id):
         """When a New Node is Selected"""
-        if not self.dad.go_bk_fw_click:
+        if self.dad.user_active and not self.dad.go_bk_fw_click:
             last_index = len(self.visited_nodes_list) - 1
             if self.visited_nodes_idx != last_index: del self.visited_nodes_list[self.visited_nodes_idx+1:last_index+1]
             if node_id in self.visited_nodes_list:
