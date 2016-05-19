@@ -467,12 +467,23 @@ class RedNotebookHandler():
         self.dad = dad
         self.xml_handler = machines.XMLHandler(self)
 
-    def node_day_add(self, day):
+    def rich_text_serialize(self, text_data):
+        """Appends a new part to the XML rich text"""
+        dom_iter = self.dom.createElement("rich_text")
+        for tag_property in cons.TAG_PROPERTIES:
+            if self.curr_attributes[tag_property] != "":
+                dom_iter.setAttribute(tag_property, self.curr_attributes[tag_property])
+        self.nodes_list[-1].appendChild(dom_iter)
+        text_iter = self.dom.createTextNode(text_data)
+        dom_iter.appendChild(text_iter)
+
+    def node_day_add(self, day, data):
         """Add a new Day node"""
         self.nodes_list.append(self.dom.createElement("node"))
         self.nodes_list[-1].setAttribute("name", day)
         self.nodes_list[-1].setAttribute("prog_lang", cons.RICH_TEXT_ID)
         self.nodes_list[-2].appendChild(self.nodes_list[-1])
+        self.rich_text_serialize(data)
 
     def node_month_add(self, filename):
         """Add a new Month node"""
@@ -481,8 +492,35 @@ class RedNotebookHandler():
         self.nodes_list[-1].setAttribute("prog_lang", cons.RICH_TEXT_ID)
         self.nodes_list[-2].appendChild(self.nodes_list[-1])
         with open(os.path.join(self.folderpath, filename), "r") as fd:
-            for fileline in fd.readlines():
-                pass
+            month_list = []
+            def clean_markdown_start():
+                if month_list[-1]["md"].startswith(cons.CHAR_SQUOTE):
+                    month_list[-1]["md"] = month_list[-1]["md"][1:]
+            def clean_markdown_end():
+                if month_list:
+                    if month_list[-1]["md"].endswith(cons.CHAR_SQUOTE+cons.CHAR_BR_CLOSE):
+                        month_list[-1]["md"] = month_list[-1]["md"][:-2]
+                    elif month_list[-1]["md"].endswith(cons.CHAR_BR_CLOSE):
+                        month_list[-1]["md"] = month_list[-1]["md"][:-1]
+                    else:
+                        print "!! unexpected md end"
+                        print month_list[-1]["md"]
+            for text_line in fd:
+                text_line = text_line.replace(cons.CHAR_NEWLINE, "").replace(cons.CHAR_CR, "")
+                ret_match = re.search("^(\d+):\s{text:\s(.+)$", text_line)
+                if ret_match:
+                    # start of new day
+                    clean_markdown_end()
+                    month_list.append({"day": ret_match.group(1), "md": ret_match.group(2)})
+                    clean_markdown_start()
+                else:
+                    curr_line = text_line if not text_line.startswith(4*cons.CHAR_SPACE) else text_line[4:]
+                    curr_line = curr_line.replace(2*cons.CHAR_SQUOTE, cons.CHAR_SQUOTE)
+                    month_list[-1]["md"] += cons.CHAR_NEWLINE + curr_line
+            clean_markdown_end()
+            for month_element in month_list:
+                self.node_day_add(month_element["day"], month_element["md"])
+                self.nodes_list.pop()
         self.nodes_list.pop()
 
     def get_cherrytree_xml(self):
