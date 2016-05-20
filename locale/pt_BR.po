@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: CherryTree 0.30.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-05-15 11:35+0100\n"
-"PO-Revision-Date: 2015-11-15 02:47-0300\n"
+"PO-Revision-Date: 2016-05-20 01:01-0300\n"
 "Last-Translator: Vinicius Schmidt <viniciussm@rocketmail.com>\n"
 "Language-Team: Brazilian Portuguese\n"
 "Language: pt_BR\n"
@@ -144,9 +144,9 @@ msgid "No Previous Search Was Performed During This Session"
 msgstr "Nenhuma procura foi realizada previamente durante esta sessão"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:640
-#, fuzzy, python-format
+#, python-format
 msgid "Hide (Restore with '%s')"
-msgstr "Esconder (Restaurar com Ctrl+Shift+A)"
+msgstr "Esconder (Restaura com '%s')"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:653
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3536
@@ -629,7 +629,6 @@ msgid "Add _Node"
 msgstr "Adicionar _nó"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:228
-#, fuzzy
 msgid "Add a Node having the same Parent of the Selected Node"
 msgstr "Adiciona um nó com o mesmo pai do nó selecionado"
 
@@ -707,24 +706,20 @@ msgid "Move the Selected Node Left"
 msgstr "Move o nó selecionado para a esquerda"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:238
-#, fuzzy
 msgid "Node _Right"
-msgstr "Para a _esquerda"
+msgstr "Para a _direita"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:238
-#, fuzzy
 msgid "Move the Selected Node Right"
-msgstr "Move o nó selecionado para a esquerda"
+msgstr "Move o nó selecionado para a direita"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:239
-#, fuzzy
 msgid "Node Change _Parent"
-msgstr "Alterar o _pai do nó"
+msgstr "Alterar _pai"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:239
-#, fuzzy
 msgid "Change the Selected Node's Parent"
-msgstr "Muda o pai do nó selecionado"
+msgstr "Altera o pai do nó selecionado"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:240
 msgid "Sort Tree _Ascending"
@@ -763,7 +758,6 @@ msgid "_Inherit Syntax"
 msgstr "_Herdar sintaxe"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:244
-#, fuzzy
 msgid ""
 "Change the Selected Node's Children Syntax Highlighting to the Parent's "
 "Syntax Highlighting"
@@ -797,39 +791,39 @@ msgstr "Ir ao próximo nó visitado"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:248
 msgid "_Find in Node Content"
-msgstr "_Procurar no nó"
+msgstr "_Localizar no nó"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:248
 msgid "Find into the Selected Node Content"
-msgstr "Procura no conteúdo do nó selecionado"
+msgstr "Pesquisa no conteúdo do nó selecionado"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:249
 msgid "Find in _All Nodes Contents"
-msgstr "Procurar em _todos os nós"
+msgstr "Localizar em _todos os nós"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:249
 msgid "Find into All the Tree Nodes Contents"
-msgstr "Procura no conteúdo de todos os nós da árvore"
+msgstr "Pesquisa no conteúdo de todos os nós da árvore"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:250
 msgid "Find in _Selected Node and Subnodes Contents"
-msgstr "Procurar no nó _selecionado e nós filhos"
+msgstr "Localizar no nó _selecionado e nós filhos"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:250
 msgid "Find into the Selected Node and Subnodes Contents"
-msgstr "Procura no conteúdo do nó selecionado e dos nós filhos"
+msgstr "Pesquisa no conteúdo do nó selecionado e dos nós filhos"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:251
 msgid "Find in _Nodes Names and Tags"
-msgstr "Procurar nos nomes ou etiquetas dos nós"
+msgstr "Localizar nos nomes ou etiquetas dos nós"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:251
 msgid "Find in Nodes Names and Tags"
-msgstr "Procura nos nomes ou etiquetas dos nós"
+msgstr "Pesquisa nos nomes ou etiquetas dos nós"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:252
 msgid "Find _Again"
-msgstr "Procurar _novamente"
+msgstr "Localizar _novamente"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:252
 msgid "Iterate the Last Find Operation"
@@ -1101,14 +1095,12 @@ msgid "Add Nodes of a NoteCase File to the Current Tree"
 msgstr "Adiciona nós de um arquivo NoteCase para a árvore atual"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:286
-#, fuzzy
 msgid "From _RedNotebook Folder"
-msgstr "De uma pasta do _KeepNote"
+msgstr "De uma pasta do _RedNotebook"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:286
-#, fuzzy
 msgid "Add Nodes of a RedNotebook Folder to the Current Tree"
-msgstr "Adiciona nós de uma pasta do KeepNote para árvore atual"
+msgstr "Adiciona nós de uma pasta do RedNotebook para a árvore atual"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:287
 msgid "From T_omboy Folder"
@@ -1771,7 +1763,7 @@ msgstr "Japonês"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:740
 msgid "Lithuanian"
-msgstr ""
+msgstr "Lituano"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:741
 msgid "Polish"
@@ -1787,7 +1779,7 @@ msgstr "Russo"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:744
 msgid "Slovenian"
-msgstr ""
+msgstr "Esloveno"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:745
 msgid "Spanish"
@@ -2001,11 +1993,11 @@ msgstr "Habilitar indentação automática"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:640
 msgid "Vertical Space Around Lines"
-msgstr ""
+msgstr "Espaço vertical entre as linhas"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:648
 msgid "Vertical Space in Wrapped Lines"
-msgstr ""
+msgstr "Espaço vertical entre linhas quebradas"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:665
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:998
@@ -2029,7 +2021,7 @@ msgstr "Caracteres especiais"
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1562
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1739
 msgid "Reset to Default"
-msgstr ""
+msgstr "Restaurar valores padrão"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:720
 msgid "Chars to Select at Double Click"
@@ -2047,9 +2039,8 @@ msgstr "Diversos"
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:750
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1696
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1781
-#, fuzzy
 msgid "Are you sure to Reset to Default?"
-msgstr "Tem certeza de que quer <b>Excluir o nó '%s'?</b>"
+msgstr "Você realmente quer restaurar aos valores padrão?"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:806
 msgid "Enable Spell Check"
@@ -2113,7 +2104,7 @@ msgstr "Limite de passos reversíveis por nó"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:993
 msgid "Enable Smart Quotes Auto Replacement"
-msgstr ""
+msgstr "Habilitar substituição automática de aspas curvas"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1018
 msgid "Style Scheme"
@@ -2128,38 +2119,33 @@ msgid "Display Tree on the Right Side"
 msgstr "Mostrar árvore no lado direito"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1077
-#, fuzzy
 msgid "Move Focus to Text at Mouse Click"
-msgstr "Caracteres a selecionar em clique duplo"
+msgstr "Mover foco ao texto ao clicar com o mouse"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1079
 msgid "Expand Node at Mouse Click"
-msgstr ""
+msgstr "Expandir nó ao clicar"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1083
-#, fuzzy
 msgid "Last Visited Nodes on Node Name Header"
-msgstr "Alterna entre mostrar e esconder o nome do nó no cabeçalho"
+msgstr "Últimos Nós Visitados no cabeçalho"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1179
 msgid "Use Different Cherries per Level"
-msgstr ""
+msgstr "Cerejas de cores distintas por nível"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1180
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3518
-#, fuzzy
 msgid "Use Selected Icon"
-msgstr "O nó selecionado"
+msgstr "Escolher Ícone"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1182
-#, fuzzy
 msgid "No Icon"
-msgstr "Ícones dos Nós"
+msgstr "Sem cones"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1195
-#, fuzzy
 msgid "Default Text Nodes Icons"
-msgstr "Usar pontos como ícone dos nós"
+msgstr "Ícones padrão dos nós de texto"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1209
 msgid "Restore Expanded/Collapsed Status"
@@ -2183,9 +2169,8 @@ msgstr "Estado dos Nós na Inicialização"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1289
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3627
-#, fuzzy
 msgid "Select Node Icon"
-msgstr "Somente nó selecionado"
+msgstr "Selecione um ícone para o nó"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1324
 msgid "Text Font"
@@ -2225,9 +2210,8 @@ msgid "Colors"
 msgstr "Cores"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1453
-#, fuzzy
 msgid "Underline Links"
-msgstr "Edita o link selecionado"
+msgstr "Sublinhar Links"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1455
 msgid "Use Relative Paths for Files And Folders"
@@ -2238,14 +2222,12 @@ msgid "Anchor Size"
 msgstr "Tamanho da âncora"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1559
-#, fuzzy
 msgid "Change Selected"
-msgstr "O nó selecionado"
+msgstr "Alterar selecionado"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1573
-#, fuzzy
 msgid "File"
-msgstr "_Arquivo"
+msgstr "Arquivo"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1574
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2012
@@ -2254,66 +2236,58 @@ msgid "Tree"
 msgstr "Árvore"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1575
-#, fuzzy
 msgid "Editor"
-msgstr "_Editar"
+msgstr "Editor"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1576
-#, fuzzy
 msgid "Format"
-msgstr "Formatação Mais _Recente"
+msgstr "Formatação"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1577
-#, fuzzy
 msgid "Find/Replace"
-msgstr "Substituir"
+msgstr "Localizar/Substituir"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1578
-#, fuzzy
 msgid "View"
-msgstr "_Visão"
+msgstr "Visão"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1579
-#, fuzzy
 msgid "Export"
-msgstr "E_xportar"
+msgstr "Exportar"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1580
-#, fuzzy
 msgid "Import"
-msgstr "_Importar"
+msgstr "Importar"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1600
 msgid "Edit Keyboard Shortcut"
-msgstr ""
+msgstr "Escolher atalho de teclado"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1607
 msgid "No Keyboard Shortcut"
-msgstr ""
+msgstr "Não definir atalho"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1677
 #, python-format
 msgid "The Keyboard Shortcut '%s' is already in use"
-msgstr ""
+msgstr "O atalho '%s' já está em uso"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1677
 #, python-format
 msgid "The current associated action is '%s'"
-msgstr ""
+msgstr "A ação associada atualmente é '%s'"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1677
-#, fuzzy
 msgid "Do you want to steal the shortcut?"
-msgstr "Você quer gravar as alterações?"
+msgstr "Você quer mover este atalho?"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1733
 msgid "Add"
-msgstr ""
+msgstr "Adicionar"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1736
-#, fuzzy
 msgid "Remove Selected"
-msgstr "Nenhum nó selecionado"
+msgstr "Remover selecionado"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1766
 msgid "Select Element to Add"
@@ -2380,14 +2354,12 @@ msgid "The New Language will be Available Only After Restarting CherryTree"
 msgstr "O novo idioma estará disponível somente após reiniciar o CherryTree"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2008
-#, fuzzy
 msgid "Text and Code"
-msgstr "Texto Puro e Código"
+msgstr "Texto e Código"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2009
-#, fuzzy
 msgid "Text"
-msgstr "e texto"
+msgstr "Texto"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2010
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3540
@@ -2409,7 +2381,7 @@ msgstr "Barra de Ferramentas"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2017
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Atalhos de Teclado"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/tablez.py:63
 msgid "Rename Column"
@@ -2499,9 +2471,8 @@ msgid "You Are Using the Latest Version Available"
 msgstr "Você está usando a última versão disponível"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:259
-#, fuzzy
 msgid "You Are Using a Development Version"
-msgstr "Você está usando a última versão disponível"
+msgstr "Você está usando uma versão de desenvolvimento"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:263
 msgid "Failed to Retrieve Latest Version Information - Try Again Later"
@@ -2518,7 +2489,6 @@ msgstr "Nenhum texto foi selecionado"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:784
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2471
-#, fuzzy
 msgid "The new parent can't be one of his children!"
 msgstr "O novo pai não pode ser um de seus filhos!"
 
@@ -2561,7 +2531,6 @@ msgid "Leo Document"
 msgstr "Documento Loe"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1112
-#, fuzzy
 msgid "Who is the Parent?"
 msgstr "Quem é o pai?"
 
@@ -2645,19 +2614,16 @@ msgid "Wrong Password"
 msgstr "Senha errada"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2459
-#, fuzzy
 msgid "Select the New Parent"
 msgstr "Selecione o novo pai"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2463
-#, fuzzy
 msgid "The new parent can't be the very node to move!"
 msgstr "O novo pai não pode ser o mesmo nó a ser movido!"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2466
-#, fuzzy
 msgid "The new chosen parent is still the old parent!"
-msgstr "O novo pai escolhido é o mesmo pai antigo!"
+msgstr "O pai escolhido é o mesmo pai atual!"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2719
 msgid "New Node Properties"
@@ -2742,12 +2708,11 @@ msgstr "Opções de pesquisa"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3507
 msgid "Bold"
-msgstr ""
+msgstr "Negrito"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3509
-#, fuzzy
 msgid "Use Selected Color"
-msgstr "O nó selecionado"
+msgstr "Escolher Cor"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3565
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4974
