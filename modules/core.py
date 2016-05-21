@@ -1368,9 +1368,11 @@ iter_end, exclude_iter_sel_end=True)
             self.boss.status_icon.set_tooltip(_("CherryTree Hierarchical Note Taking"))
 
     def toggle_show_hide_main_window(self, *args):
+        self.ui.get_widget("/SysTrayMenu").hide()
+        while gtk.events_pending(): gtk.main_iteration()
         do_show = True
         for runn_win in self.boss.running_windows:
-            if runn_win.window.get_visible():
+            if runn_win.window.has_toplevel_focus():
                 do_show = False
                 break
         for runn_win in self.boss.running_windows:
