@@ -477,13 +477,261 @@ class RedNotebookHandler():
         text_iter = self.dom.createTextNode(text_data)
         dom_iter.appendChild(text_iter)
 
-    def node_day_add(self, day, data):
+    def node_day_add(self, node_name, wiki_string):
         """Add a new Day node"""
         self.nodes_list.append(self.dom.createElement("node"))
-        self.nodes_list[-1].setAttribute("name", day)
+        self.nodes_list[-1].setAttribute("name", node_name)
         self.nodes_list[-1].setAttribute("prog_lang", cons.RICH_TEXT_ID)
         self.nodes_list[-2].appendChild(self.nodes_list[-1])
-        self.rich_text_serialize(data)
+        #
+        self.pixbuf_vector = []
+        self.chars_counter = 0
+        self.node_wiki_parse(wiki_string, node_name)
+        for pixbuf_element in self.pixbuf_vector:
+            self.xml_handler.pixbuf_element_to_xml(pixbuf_element, self.nodes_list[-1], self.dom)
+
+    def node_wiki_parse(self, wiki_string, node_name):
+        """Parse the node wiki content"""
+        for tag_property in cons.TAG_PROPERTIES: self.curr_attributes[tag_property] = ""
+        self.in_block = False
+        self.in_link = False
+        self.in_plain_link = False
+        self.in_table = False
+        curr_pos = 0
+        #wiki_string = wiki_string.replace(cons.CHAR_NEWLINE+cons.CHAR_STAR+cons.CHAR_SPACE, cons.CHAR_NEWLINE+cons.CHARS_LISTBUL[0]+cons.CHAR_SPACE)
+        #wiki_string = wiki_string.replace(cons.CHAR_TAB+cons.CHAR_STAR+cons.CHAR_SPACE, cons.CHAR_TAB+cons.CHARS_LISTBUL[0]+cons.CHAR_SPACE)
+        max_pos = len(wiki_string)
+        self.wiki_slot = ""
+        def wiki_slot_flush():
+            if self.wiki_slot:
+                #print self.wiki_slot
+                self.rich_text_serialize(self.wiki_slot)
+                self.wiki_slot = ""
+        probably_url = False
+        in_hN = [False, False, False, False, False]
+        while curr_pos < max_pos:
+            curr_char = wiki_string[curr_pos:curr_pos+1]
+            next_char = wiki_string[curr_pos+1:curr_pos+2] if curr_pos+1 < max_pos else cons.CHAR_SPACE
+            third_char = wiki_string[curr_pos+2:curr_pos+3] if curr_pos+2 < max_pos else cons.CHAR_SPACE
+            fourth_char = wiki_string[curr_pos+3:curr_pos+4] if curr_pos+3 < max_pos else cons.CHAR_SPACE
+
+            if self.in_block:
+                if curr_char == cons.CHAR_SQUOTE and next_char == cons.CHAR_SQUOTE and third_char == cons.CHAR_SQUOTE:
+                    wiki_slot_flush()
+                    self.curr_attributes[cons.TAG_FAMILY] = ""
+                    curr_pos += 2
+                    self.in_block = False
+                else: self.wiki_slot += curr_char
+            elif self.in_plain_link:
+                if curr_char in [cons.CHAR_SPACE, cons.CHAR_NEWLINE]:
+                    self.curr_attributes[cons.TAG_LINK] = "webs %s" % self.wiki_slot
+                    wiki_slot_flush()
+                    self.curr_attributes[cons.TAG_LINK] = ""
+                    self.in_plain_link = False
+                self.wiki_slot += curr_char
+            elif self.in_link:
+                if curr_char == cons.CHAR_BR_CLOSE and next_char == cons.CHAR_BR_CLOSE:
+                    valid_image = False
+                    if cons.CHAR_QUESTION in self.wiki_slot:
+                        splitted_wiki_slot = self.wiki_slot.split(cons.CHAR_QUESTION)
+                        self.wiki_slot = splitted_wiki_slot[0]
+                    if self.wiki_slot.startswith("./"): self.wiki_slot = os.path.join(self.folderpath, self.wiki_slot[2:])
+                    if os.path.isfile(self.wiki_slot):
+                        try:
+                            pixbuf = gtk.gdk.pixbuf_new_from_file(self.wiki_slot)
+                            self.pixbuf_vector.append([self.chars_counter, pixbuf, cons.TAG_PROP_LEFT])
+                            self.chars_counter += 1
+                            valid_image = True
+                        except: pass
+                    if not valid_image: print "! error: '%s' is not a valid image" % self.wiki_slot
+                    self.wiki_slot = ""
+                    curr_pos += 1
+                    self.in_link = False
+                elif curr_char == cons.CHAR_SQ_BR_CLOSE and next_char == cons.CHAR_SQ_BR_CLOSE:
+                    if cons.CHAR_PIPE in self.wiki_slot:
+                        target_n_label = self.wiki_slot.split(cons.CHAR_PIPE)
+                    else:
+                        target_n_label = [self.wiki_slot, self.wiki_slot]
+                    exp_filepath = target_n_label[0]
+                    if exp_filepath.startswith("./"): exp_filepath = os.path.join(self.folderpath, exp_filepath[2:])
+                    if exp_filepath.startswith("http") or exp_filepath.startswith("ftp") or exp_filepath.startswith("www.")\
+                    and not cons.CHAR_SPACE in exp_filepath:
+                        self.curr_attributes[cons.TAG_LINK] = "webs %s" % exp_filepath
+                        self.rich_text_serialize(target_n_label[1])
+                        self.curr_attributes[cons.TAG_LINK] = ""
+                    elif cons.CHAR_SLASH in exp_filepath:
+                        self.curr_attributes[cons.TAG_LINK] = "file %s" % base64.b64encode(exp_filepath)
+                        self.rich_text_serialize(target_n_label[1])
+                        self.curr_attributes[cons.TAG_LINK] = ""
+                    else:
+                        print "?", target_n_label
+                    self.wiki_slot = ""
+                    curr_pos += 1
+                    self.in_link = False
+                else: self.wiki_slot += curr_char
+            elif curr_char == cons.CHAR_STAR and next_char == cons.CHAR_STAR:
+                wiki_slot_flush()
+                if self.curr_attributes[cons.TAG_WEIGHT]: self.curr_attributes[cons.TAG_WEIGHT] = ""
+                else: self.curr_attributes[cons.TAG_WEIGHT] = cons.TAG_PROP_HEAVY
+                curr_pos += 1
+            elif curr_char == cons.CHAR_SLASH and next_char == cons.CHAR_SLASH:
+                if probably_url:
+                    self.wiki_slot += curr_char
+                    curr_pos += 1
+                    continue
+                wiki_slot_flush()
+                if self.curr_attributes[cons.TAG_STYLE]: self.curr_attributes[cons.TAG_STYLE] = ""
+                else: self.curr_attributes[cons.TAG_STYLE] = cons.TAG_PROP_ITALIC
+                curr_pos += 1
+            elif curr_char == cons.CHAR_USCORE and next_char == cons.CHAR_USCORE:
+                wiki_slot_flush()
+                if self.curr_attributes[cons.TAG_UNDERLINE]: self.curr_attributes[cons.TAG_UNDERLINE] = ""
+                else: self.curr_attributes[cons.TAG_UNDERLINE] = cons.TAG_PROP_SINGLE
+                curr_pos += 1
+            elif curr_char == cons.CHAR_TILDE and next_char == cons.CHAR_TILDE:
+                wiki_slot_flush()
+                if self.curr_attributes[cons.TAG_STRIKETHROUGH]: self.curr_attributes[cons.TAG_STRIKETHROUGH] = ""
+                else: self.curr_attributes[cons.TAG_STRIKETHROUGH] = cons.TAG_PROP_TRUE
+                curr_pos += 1
+            elif curr_char == cons.CHAR_SQUOTE and next_char == cons.CHAR_SQUOTE:
+                wiki_slot_flush()
+                if self.curr_attributes[cons.TAG_FAMILY]: self.curr_attributes[cons.TAG_FAMILY] = ""
+                else: self.curr_attributes[cons.TAG_FAMILY] = "monospace"
+                if third_char == cons.CHAR_SQUOTE:
+                    curr_pos += 2
+                    self.in_block = True if self.curr_attributes[cons.TAG_FAMILY] else False
+                else: curr_pos += 1
+            elif curr_char == 'h' and next_char == 't' and third_char == 't' and fourth_char == 'p':
+                wiki_slot_flush()
+                self.wiki_slot += curr_char
+                self.in_plain_link = True
+            # ==
+            elif not in_hN[4] and curr_char == cons.CHAR_EQUAL and next_char == cons.CHAR_EQUAL and third_char == cons.CHAR_SPACE:
+                wiki_slot_flush()
+                self.curr_attributes[cons.TAG_SCALE] = cons.TAG_PROP_H3
+                curr_pos += 2
+                in_hN[4] = True
+                #print "H5sta"
+            elif in_hN[4] and curr_char == cons.CHAR_SPACE and next_char == cons.CHAR_EQUAL and third_char == cons.CHAR_EQUAL:
+                wiki_slot_flush()
+                self.curr_attributes[cons.TAG_SCALE] = ""
+                curr_pos += 2
+                in_hN[4] = False
+                #print "H5end"
+            ## ===
+            elif not in_hN[3] and curr_char == cons.CHAR_EQUAL and next_char == cons.CHAR_EQUAL and third_char == cons.CHAR_EQUAL and fourth_char == cons.CHAR_SPACE:
+                wiki_slot_flush()
+                self.curr_attributes[cons.TAG_SCALE] = cons.TAG_PROP_H3
+                curr_pos += 3
+                in_hN[3] = True
+                #print "H4sta"
+            elif in_hN[3] and curr_char == cons.CHAR_SPACE and next_char == cons.CHAR_EQUAL and third_char == cons.CHAR_EQUAL and fourth_char == cons.CHAR_EQUAL:
+                wiki_slot_flush()
+                self.curr_attributes[cons.TAG_SCALE] = ""
+                curr_pos += 3
+                in_hN[3] = False
+                #print "H4end"
+            ## ====
+            elif not in_hN[2] and curr_pos+4 < max_pos and curr_char == cons.CHAR_EQUAL and next_char == cons.CHAR_EQUAL and third_char == cons.CHAR_EQUAL and fourth_char == cons.CHAR_EQUAL and wiki_string[curr_pos+4:curr_pos+5] == cons.CHAR_SPACE:
+                wiki_slot_flush()
+                self.curr_attributes[cons.TAG_SCALE] = cons.TAG_PROP_H3
+                curr_pos += 4
+                in_hN[2] = True
+                #print "H3sta"
+            elif curr_pos+4 < max_pos and in_hN[2] and curr_char == cons.CHAR_SPACE and next_char == cons.CHAR_EQUAL and third_char == cons.CHAR_EQUAL and fourth_char == cons.CHAR_EQUAL and wiki_string[curr_pos+4:curr_pos+5] == cons.CHAR_EQUAL:
+                wiki_slot_flush()
+                self.curr_attributes[cons.TAG_SCALE] = ""
+                curr_pos += 4
+                in_hN[2] = False
+                #print "H3end"
+            ## =====
+            elif not in_hN[1] and curr_pos+5 < max_pos and curr_char == cons.CHAR_EQUAL and next_char == cons.CHAR_EQUAL and third_char == cons.CHAR_EQUAL and fourth_char == cons.CHAR_EQUAL and wiki_string[curr_pos+4:curr_pos+6] == (cons.CHAR_EQUAL+cons.CHAR_SPACE):
+                wiki_slot_flush()
+                self.curr_attributes[cons.TAG_SCALE] = cons.TAG_PROP_H2
+                curr_pos += 5
+                in_hN[1] = True
+                #print "H2sta"
+            elif curr_pos+5 < max_pos and in_hN[1] and curr_char == cons.CHAR_SPACE and next_char == cons.CHAR_EQUAL and third_char == cons.CHAR_EQUAL and fourth_char == cons.CHAR_EQUAL and wiki_string[curr_pos+4:curr_pos+6] == 2*cons.CHAR_EQUAL:
+                wiki_slot_flush()
+                self.curr_attributes[cons.TAG_SCALE] = ""
+                curr_pos += 5
+                in_hN[1] = False
+                #print "H2end"
+            # ======
+            elif not in_hN[0] and curr_pos+6 < max_pos and curr_char == cons.CHAR_EQUAL and next_char == cons.CHAR_EQUAL and third_char == cons.CHAR_EQUAL and fourth_char == cons.CHAR_EQUAL and wiki_string[curr_pos+4:curr_pos+7] == (2*cons.CHAR_EQUAL+cons.CHAR_SPACE):
+                wiki_slot_flush()
+                self.curr_attributes[cons.TAG_SCALE] = cons.TAG_PROP_H1
+                curr_pos += 6
+                in_hN[0] = True
+                #print "H1sta"
+            elif curr_pos+6 < max_pos and in_hN[0] and curr_char == cons.CHAR_SPACE and next_char == cons.CHAR_EQUAL and third_char == cons.CHAR_EQUAL and fourth_char == cons.CHAR_EQUAL and wiki_string[curr_pos+4:curr_pos+7] == 3*cons.CHAR_EQUAL:
+                wiki_slot_flush()
+                self.curr_attributes[cons.TAG_SCALE] = ""
+                curr_pos += 6
+                in_hN[0] = False
+                #print "H1end"
+            #
+            elif curr_char == cons.CHAR_CARET and next_char == cons.CHAR_BR_OPEN:
+                wiki_slot_flush()
+                self.curr_attributes[cons.TAG_SCALE] = cons.TAG_PROP_SUP
+                curr_pos += 1
+            elif curr_char == cons.CHAR_USCORE and next_char == cons.CHAR_BR_OPEN:
+                wiki_slot_flush()
+                self.curr_attributes[cons.TAG_SCALE] = cons.TAG_PROP_SUB
+                curr_pos += 1
+            elif curr_char == cons.CHAR_BR_CLOSE and self.curr_attributes[cons.TAG_SCALE] in [cons.TAG_PROP_SUP, cons.TAG_PROP_SUB]:
+                wiki_slot_flush()
+                self.curr_attributes[cons.TAG_SCALE] = ""
+            elif curr_char == cons.CHAR_BR_OPEN and next_char == cons.CHAR_BR_OPEN \
+              or curr_char == cons.CHAR_SQ_BR_OPEN and next_char == cons.CHAR_SQ_BR_OPEN:
+                wiki_slot_flush()
+                curr_pos += 1
+                self.in_link = True
+            elif curr_char == cons.CHAR_SQ_BR_OPEN\
+            and next_char in [cons.CHAR_SPACE, cons.CHAR_STAR, 'x']\
+            and third_char == cons.CHAR_SQ_BR_CLOSE:
+                if next_char == cons.CHAR_SPACE: self.wiki_slot += cons.CHAR_LISTTODO
+                elif next_char == cons.CHAR_STAR: self.wiki_slot += cons.CHAR_LISTDONEOK
+                else: self.wiki_slot += cons.CHAR_LISTDONEFAIL
+                self.wiki_slot += cons.CHAR_SPACE
+                curr_pos += 2
+            elif self.in_table:
+                if curr_char == cons.CHAR_PIPE:
+                    self.curr_table[-1].append(self.curr_cell.strip())
+                    self.curr_cell = ""
+                    print self.curr_table[-1][-1]
+                    if next_char == cons.CHAR_NEWLINE:
+                        if third_char == cons.CHAR_PIPE:
+                            self.curr_table.append([])
+                            curr_pos += 2
+                        else:
+                            self.in_table = False
+                            self.curr_table.append(self.curr_table.pop(0))
+                            if self.curr_table[0][0].startswith(":-")\
+                            or self.curr_table[0][0].startswith("--"):
+                                del self.curr_table[0]
+                            table_dict = {'col_min': cons.TABLE_DEFAULT_COL_MIN,
+                                          'col_max': cons.TABLE_DEFAULT_COL_MAX,
+                                          'matrix': self.curr_table}
+                            self.dad.xml_handler.table_element_to_xml([self.chars_counter, table_dict, cons.TAG_PROP_LEFT], self.nodes_list[-1], self.dom)
+                            self.chars_counter += 1
+                else:
+                    self.curr_cell += curr_char
+            else:
+                self.wiki_slot += curr_char
+                #print self.wiki_slot
+                if curr_char == ":" and next_char == cons.CHAR_SLASH:
+                    probably_url = True
+                elif curr_char in [cons.CHAR_SPACE, cons.CHAR_NEWLINE]:
+                    probably_url = False
+                    if curr_char == cons.CHAR_NEWLINE and next_char == cons.CHAR_PIPE:
+                        self.in_table = True
+                        self.curr_cell = ""
+                        self.curr_table = [[]]
+                        curr_pos += 1
+                        wiki_slot_flush()
+            curr_pos += 1
+        wiki_slot_flush()
 
     def node_month_add(self, filename):
         """Add a new Month node"""
