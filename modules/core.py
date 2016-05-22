@@ -142,6 +142,8 @@ class CherryTree:
         self.treeviewselection = self.treeview.get_selection()
         self.treeview.connect('cursor-changed', self.on_node_changed)
         self.treeview.connect('event-after', self.on_event_after_tree)
+        self.tree_just_auto_expanded = False
+        self.treeview.connect('test-collapse-row', self.on_test_collapse_row_tree)
         self.treeview.connect('button-press-event', self.on_mouse_button_clicked_tree)
         self.treeview.connect('key_press_event', self.on_key_press_cherrytree)
         self.treeview.connect('drag-motion', self.on_drag_motion_cherrytree)
@@ -2590,11 +2592,22 @@ iter_end, exclude_iter_sel_end=True)
             if event.button == 1:
                 if self.tree_click_focus_text:
                     self.sourceview.grab_focus()
-                if self.tree_click_expand and self.curr_tree_iter:
-                    self.treeview.expand_row(self.treestore.get_path(self.curr_tree_iter), open_all=False)
+                if self.tree_click_expand:
+                    if self.curr_tree_iter and not self.treeview.row_expanded(self.treestore.get_path(self.curr_tree_iter)):
+                        self.treeview.expand_row(self.treestore.get_path(self.curr_tree_iter), open_all=False)
+                        self.tree_just_auto_expanded = True
+                    else:
+                        self.tree_just_auto_expanded = False
         elif event.type == gtk.gdk._2BUTTON_PRESS:
             if event.button == 1:
                 self.toggle_tree_node_expanded_collapsed()
+
+    def on_test_collapse_row_tree(self, treeview, tree_iter, tree_path):
+        """Just before collapsing a node"""
+        if self.tree_click_expand:
+            if self.tree_just_auto_expanded:
+                self.tree_just_auto_expanded = False
+                return True
 
     def on_mouse_button_clicked_tree(self, widget, event):
         """Catches mouse buttons clicks"""
@@ -3043,7 +3056,9 @@ iter_end, exclude_iter_sel_end=True)
     def on_button_node_name_header_clicked(self, button, idx):
         node_id = self.node_name_header_buttons[idx+1]
         tree_iter = self.get_tree_iter_from_node_id(node_id)
-        if tree_iter: self.treeview_safe_set_cursor(tree_iter)
+        if tree_iter:
+            self.treeview_safe_set_cursor(tree_iter)
+            self.sourceview.grab_focus()
 
     def instantiate_node_name_header(self):
         """Instantiate Node Name Header"""
