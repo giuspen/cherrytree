@@ -474,6 +474,7 @@ class RedNotebookHandler():
             if self.curr_attributes[tag_property] != "":
                 dom_iter.setAttribute(tag_property, self.curr_attributes[tag_property])
         self.nodes_list[-1].appendChild(dom_iter)
+        self.chars_counter += len(text_data)
         text_iter = self.dom.createTextNode(text_data)
         dom_iter.appendChild(text_iter)
 
@@ -494,9 +495,13 @@ class RedNotebookHandler():
         """Parse the node wiki content"""
         for tag_property in cons.TAG_PROPERTIES: self.curr_attributes[tag_property] = ""
         self.in_link = False
+        self.in_image = False
         self.in_plain_link = False
+        in_numbered_list = 0
         curr_pos = 0
+        wiki_string = wiki_string.replace(2*cons.CHAR_NEWLINE, cons.CHAR_NEWLINE)
         wiki_string = wiki_string.replace(2*cons.CHAR_BSLASH, cons.CHAR_NEWLINE)
+        wiki_string = wiki_string.replace(2*cons.CHAR_SQUOTE, cons.CHAR_SQUOTE)
         wiki_string = wiki_string.replace(cons.CHAR_NEWLINE+cons.CHAR_MINUS+cons.CHAR_SPACE, cons.CHAR_NEWLINE+cons.CHARS_LISTBUL[0]+cons.CHAR_SPACE)
         max_pos = len(wiki_string)
         self.wiki_slot = ""
@@ -513,6 +518,16 @@ class RedNotebookHandler():
             third_char = wiki_string[curr_pos+2:curr_pos+3] if curr_pos+2 < max_pos else cons.CHAR_SPACE
             fourth_char = wiki_string[curr_pos+3:curr_pos+4] if curr_pos+3 < max_pos else cons.CHAR_SPACE
 
+            if curr_char == cons.CHAR_NEWLINE:
+                if next_char == "+" and third_char == cons.CHAR_SPACE:
+                    in_numbered_list += 1
+                    leading_chars_num = self.dad.lists_handler.get_leading_chars_num(in_numbered_list)
+                    self.wiki_slot += cons.CHAR_NEWLINE + "%s. " % in_numbered_list
+                    curr_pos += 3
+                    continue
+                elif in_numbered_list:
+                    in_numbered_list = 0
+
             if self.in_plain_link:
                 if curr_char in [cons.CHAR_SPACE, cons.CHAR_NEWLINE]:
                     self.curr_attributes[cons.TAG_LINK] = "webs %s" % self.wiki_slot
@@ -520,12 +535,10 @@ class RedNotebookHandler():
                     self.curr_attributes[cons.TAG_LINK] = ""
                     self.in_plain_link = False
                 self.wiki_slot += curr_char
-            elif self.in_link:
-                if curr_char == cons.CHAR_BR_CLOSE and next_char == cons.CHAR_BR_CLOSE:
+            elif self.in_image:
+                #[""file://...."".png]
+                if curr_char == cons.CHAR_SQ_BR_CLOSE:
                     valid_image = False
-                    if cons.CHAR_QUESTION in self.wiki_slot:
-                        splitted_wiki_slot = self.wiki_slot.split(cons.CHAR_QUESTION)
-                        self.wiki_slot = splitted_wiki_slot[0]
                     if self.wiki_slot.startswith("./"): self.wiki_slot = os.path.join(self.folderpath, self.wiki_slot[2:])
                     if os.path.isfile(self.wiki_slot):
                         try:
@@ -537,8 +550,11 @@ class RedNotebookHandler():
                     if not valid_image: print "! error: '%s' is not a valid image" % self.wiki_slot
                     self.wiki_slot = ""
                     curr_pos += 1
-                    self.in_link = False
-                elif curr_char == cons.CHAR_SQ_BR_CLOSE and next_char == cons.CHAR_SQ_BR_CLOSE:
+                    self.in_image = False
+                elif not curr_char in [cons.CHAR_DQUOTE]:
+                    self.wiki_slot += curr_char
+            elif self.in_link:
+                if curr_char == cons.CHAR_SQ_BR_CLOSE and next_char == cons.CHAR_SQ_BR_CLOSE:
                     if cons.CHAR_PIPE in self.wiki_slot:
                         target_n_label = self.wiki_slot.split(cons.CHAR_PIPE)
                     else:
@@ -659,11 +675,10 @@ class RedNotebookHandler():
                 in_hN[4] = False
                 #print "H5end"
             #
-            elif curr_char == cons.CHAR_BR_OPEN and next_char == cons.CHAR_BR_OPEN \
-              or curr_char == cons.CHAR_SQ_BR_OPEN and next_char == cons.CHAR_SQ_BR_OPEN:
+            elif curr_char == cons.CHAR_SQ_BR_OPEN and next_char == cons.CHAR_DQUOTE and third_char == cons.CHAR_DQUOTE and curr_pos+9 < max_pos and wiki_string[curr_pos+3:curr_pos+10] == "file://":
                 wiki_slot_flush()
-                curr_pos += 1
-                self.in_link = True
+                curr_pos += 9
+                self.in_image = True
             else:
                 self.wiki_slot += curr_char
                 #print self.wiki_slot
