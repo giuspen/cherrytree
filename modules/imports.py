@@ -527,6 +527,8 @@ class RedNotebookHandler():
                     continue
                 elif in_numbered_list:
                     in_numbered_list = 0
+                self.in_link = False
+                self.in_image = False
 
             if self.in_plain_link:
                 if curr_char in [cons.CHAR_SPACE, cons.CHAR_NEWLINE]:
@@ -554,26 +556,27 @@ class RedNotebookHandler():
                 elif not curr_char in [cons.CHAR_DQUOTE]:
                     self.wiki_slot += curr_char
             elif self.in_link:
-                if curr_char == cons.CHAR_SQ_BR_CLOSE and next_char == cons.CHAR_SQ_BR_CLOSE:
-                    if cons.CHAR_PIPE in self.wiki_slot:
-                        target_n_label = self.wiki_slot.split(cons.CHAR_PIPE)
-                    else:
-                        target_n_label = [self.wiki_slot, self.wiki_slot]
-                    exp_filepath = target_n_label[0]
-                    if exp_filepath.startswith("./"): exp_filepath = os.path.join(self.folderpath, exp_filepath[2:])
-                    if exp_filepath.startswith("http") or exp_filepath.startswith("ftp") or exp_filepath.startswith("www.")\
-                    and not cons.CHAR_SPACE in exp_filepath:
-                        self.curr_attributes[cons.TAG_LINK] = "webs %s" % exp_filepath
-                        self.rich_text_serialize(target_n_label[1])
-                        self.curr_attributes[cons.TAG_LINK] = ""
-                    elif cons.CHAR_SLASH in exp_filepath:
-                        self.curr_attributes[cons.TAG_LINK] = "file %s" % base64.b64encode(exp_filepath)
-                        self.rich_text_serialize(target_n_label[1])
-                        self.curr_attributes[cons.TAG_LINK] = ""
-                    else:
-                        print "?", target_n_label
-                    self.wiki_slot = ""
-                    curr_pos += 1
+                #[rednotebook-1.12.tar.gz ""file:///home/giuspen/Downloads/rednotebook-1.12.tar.gz""]
+                #[Google ""http://google.com""]
+                if curr_char == cons.CHAR_SQ_BR_CLOSE:
+                    if ' ""' in self.wiki_slot:
+                        label_n_target = self.wiki_slot.split(' ""')
+                        if len(label_n_target) == 2:
+                            exp_filepath = label_n_target[1].replace(cons.CHAR_DQUOTE, "").replace("file://", "")
+                            if exp_filepath.startswith("./"): exp_filepath = os.path.join(self.folderpath, exp_filepath[2:])
+                            if exp_filepath.startswith("http") or exp_filepath.startswith("ftp") or exp_filepath.startswith("www.")\
+                            and not cons.CHAR_SPACE in exp_filepath:
+                                self.curr_attributes[cons.TAG_LINK] = "webs %s" % exp_filepath
+                                self.rich_text_serialize(label_n_target[0])
+                                self.curr_attributes[cons.TAG_LINK] = ""
+                            elif cons.CHAR_SLASH in exp_filepath:
+                                self.curr_attributes[cons.TAG_LINK] = "file %s" % base64.b64encode(exp_filepath)
+                                self.rich_text_serialize(label_n_target[0])
+                                self.curr_attributes[cons.TAG_LINK] = ""
+                            else:
+                                print "?", label_n_target
+                            self.wiki_slot = ""
+                            curr_pos += 1
                     self.in_link = False
                 else: self.wiki_slot += curr_char
             elif curr_char == cons.CHAR_STAR and next_char == cons.CHAR_STAR:
@@ -679,6 +682,9 @@ class RedNotebookHandler():
                 wiki_slot_flush()
                 curr_pos += 9
                 self.in_image = True
+            elif curr_char == cons.CHAR_SQ_BR_OPEN:
+                wiki_slot_flush()
+                self.in_link = True
             else:
                 self.wiki_slot += curr_char
                 #print self.wiki_slot
