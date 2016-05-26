@@ -2015,25 +2015,25 @@ msgstr "Texteditor"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:675
 msgid "Timestamp Format"
-msgstr "Zeitstempel-Format"
+msgstr "Zeitstempel-Format:"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:685
 msgid "Horizontal Rule"
-msgstr "horizontale Linie"
+msgstr "horizontale Linie:"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:693
 msgid "Special Characters"
-msgstr "Sonderzeichen"
+msgstr "Sonderzeichen:"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:697
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1562
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1739
 msgid "Reset to Default"
-msgstr "Standard wiederherstellen"
+msgstr "Zurücksetzen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:720
 msgid "Chars to Select at Double Click"
-msgstr "Zeichen, die mit Doppelklick markiert werden"
+msgstr "Bei Doppelklick mitmarkierte Zeichen:"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:732
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:898
@@ -2048,7 +2048,7 @@ msgstr "Sonstiges"
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1696
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1781
 msgid "Are you sure to Reset to Default?"
-msgstr "Wollen Sie den Standard wiederherstellen?"
+msgstr "Wollen Sie die Standardeinstellungen wiederherstellen?"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:806
 msgid "Enable Spell Check"
@@ -2140,12 +2140,12 @@ msgstr "Anzahl zuletzt besuchter Knoten in Kopfzeile"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1179
 msgid "Use Different Cherries per Level"
-msgstr "Unterschiedliche Kirschen je Ebene"
+msgstr "Kirschen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1180
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3518
 msgid "Use Selected Icon"
-msgstr "Markiertes Symbol verwenden"
+msgstr "Benutzerdefiniertes Symbol:"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1182
 msgid "No Icon"
@@ -2153,7 +2153,7 @@ msgstr "Keine Symbole"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1195
 msgid "Default Text Nodes Icons"
-msgstr "Icon für Textknoten"
+msgstr "Symbole für Textknoten"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1209
 msgid "Restore Expanded/Collapsed Status"
