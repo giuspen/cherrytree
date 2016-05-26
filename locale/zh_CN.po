@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: cherrytree 0.26\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-05-15 11:35+0100\n"
-"PO-Revision-Date: 2016-03-20 11:16+0800\n"
+"PO-Revision-Date: 2016-05-26 18:20+0800\n"
 "Last-Translator: Channing Wong <mamimoluo@gmail.com>\n"
 "Language-Team: Chinese (simplified)\n"
 "Language: zh_CN\n"
@@ -143,9 +143,9 @@ msgid "No Previous Search Was Performed During This Session"
 msgstr "当前会话没有历史搜索"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:640
-#, fuzzy, python-format
+#, python-format
 msgid "Hide (Restore with '%s')"
-msgstr "隐藏 (可用 Ctrl+Shift+A 组合键恢复)"
+msgstr "隐藏 (用 ‘%s’ 恢复)"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:653
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3536
@@ -628,9 +628,8 @@ msgid "Add _Node"
 msgstr "添加节点(_N)"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:228
-#, fuzzy
 msgid "Add a Node having the same Parent of the Selected Node"
-msgstr "添加一个与当前同级的节点"
+msgstr "添加一个当前选中节点的上级节点"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:229
 msgid "Add _SubNode"
@@ -706,22 +705,18 @@ msgid "Move the Selected Node Left"
 msgstr "将当前所选节点向左移动"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:238
-#, fuzzy
 msgid "Node _Right"
-msgstr "左移节点"
+msgstr "右移节点(_R)"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:238
-#, fuzzy
 msgid "Move the Selected Node Right"
-msgstr "将当前所选节点向左移动"
+msgstr "将当前所选节点向右移动"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:239
-#, fuzzy
 msgid "Node Change _Parent"
-msgstr "改变父节点(_F)"
+msgstr "改变父节点(_P)"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:239
-#, fuzzy
 msgid "Change the Selected Node's Parent"
 msgstr "改变当前所选节点的父节点"
 
@@ -762,11 +757,10 @@ msgid "_Inherit Syntax"
 msgstr "继承语法高亮(_I)"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:244
-#, fuzzy
 msgid ""
 "Change the Selected Node's Children Syntax Highlighting to the Parent's "
 "Syntax Highlighting"
-msgstr "使当前所选节点的子节点与其有相同的语法高亮"
+msgstr "改变当前所选节点的子节点语法高亮与其父节点相同"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:245
 msgid "De_lete Node"
@@ -1098,14 +1092,12 @@ msgid "Add Nodes of a NoteCase File to the Current Tree"
 msgstr "从NoteCase文件添加节点到当前树"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:286
-#, fuzzy
 msgid "From _RedNotebook Folder"
-msgstr "从KeepNote文件夹(_K)"
+msgstr "从RedNotebook文件夹(_R)"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:286
-#, fuzzy
 msgid "Add Nodes of a RedNotebook Folder to the Current Tree"
-msgstr "从KeepNote文件夹添加节点到当前树"
+msgstr "从RedNotebook文件夹添加节点到当前树"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:287
 msgid "From T_omboy Folder"
@@ -1717,16 +1709,16 @@ msgid ""
 "MA 02110-1301, USA.\n"
 msgstr ""
 "\n"
-"此软件为自由软件，您可以在自由软件基金会发布的GNU通用许可证的条款下进行修改或"
-"再发布；\n"
+"此软件为自由软件，您可以在自由软件基金会发布的GNU通用许可证的条款下进行修改"
+"或再发布；\n"
 "许可协议可以是第三版，或之后的任何新版本。\n"
 "  \n"
 "发布本程序是希望给您带来便利，但不做任何担保，甚至没有适销性或特定目的而隐含"
 "的担保。\n"
 "有关详细信息，请参阅GNU通用许可证。\n"
 "  \n"
-"您应该随本程序收到了一份GNU通用许可证；如果没有，可写一份信向自由软件基金会索"
-"取。\n"
+"您应该随本程序收到了一份GNU通用许可证；如果没有，可写一份信向自由软件基金会"
+"索取。\n"
 "Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,\n"
 "MA 02110-1301, USA.\n"
 
@@ -1764,7 +1756,7 @@ msgstr "日语"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:740
 msgid "Lithuanian"
-msgstr ""
+msgstr "立陶宛语"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:741
 msgid "Polish"
@@ -1780,7 +1772,7 @@ msgstr "俄语"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:744
 msgid "Slovenian"
-msgstr ""
+msgstr "斯洛文尼亚语"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:745
 msgid "Spanish"
@@ -1994,11 +1986,11 @@ msgstr "启用自动缩进"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:640
 msgid "Vertical Space Around Lines"
-msgstr ""
+msgstr "行之间的距离"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:648
 msgid "Vertical Space in Wrapped Lines"
-msgstr ""
+msgstr "换行之间的间距"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:665
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:998
@@ -2022,7 +2014,7 @@ msgstr "特殊字符"
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1562
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1739
 msgid "Reset to Default"
-msgstr ""
+msgstr "还原至默认"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:720
 msgid "Chars to Select at Double Click"
@@ -2040,9 +2032,8 @@ msgstr "杂项"
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:750
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1696
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1781
-#, fuzzy
 msgid "Are you sure to Reset to Default?"
-msgstr "确认<b>删除</b> '%s' 节点吗？"
+msgstr "确认要还原至默认吗？"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:806
 msgid "Enable Spell Check"
@@ -2106,7 +2097,7 @@ msgstr "每个节点撤销步数限制"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:993
 msgid "Enable Smart Quotes Auto Replacement"
-msgstr ""
+msgstr "启动智能引号替换"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1018
 msgid "Style Scheme"
@@ -2121,38 +2112,33 @@ msgid "Display Tree on the Right Side"
 msgstr "节点树显示在右侧"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1077
-#, fuzzy
 msgid "Move Focus to Text at Mouse Click"
-msgstr "双击选中图表"
+msgstr "点击鼠标移动焦距至文字"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1079
 msgid "Expand Node at Mouse Click"
-msgstr ""
+msgstr "点击鼠标展开节点"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1083
-#, fuzzy
 msgid "Last Visited Nodes on Node Name Header"
-msgstr "切换节点标题头的显示"
+msgstr "节点标题头上次访问的节点"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1179
 msgid "Use Different Cherries per Level"
-msgstr ""
+msgstr "每层及使用不同的樱桃图标"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1180
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3518
-#, fuzzy
 msgid "Use Selected Icon"
-msgstr "已选择的节点"
+msgstr "使用所选图标"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1182
-#, fuzzy
 msgid "No Icon"
-msgstr "节点图标"
+msgstr "无图标"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1195
-#, fuzzy
 msgid "Default Text Nodes Icons"
-msgstr "使用圆点作为节点图标"
+msgstr "文本节点的默认图标"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1209
 msgid "Restore Expanded/Collapsed Status"
@@ -2176,9 +2162,8 @@ msgstr "启动时节点状态"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1289
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3627
-#, fuzzy
 msgid "Select Node Icon"
-msgstr "已选择的节点"
+msgstr "选择节点图标"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1324
 msgid "Text Font"
@@ -2218,9 +2203,8 @@ msgid "Colors"
 msgstr "颜色"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1453
-#, fuzzy
 msgid "Underline Links"
-msgstr "编辑相关链接"
+msgstr "链接下划线"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1455
 msgid "Use Relative Paths for Files And Folders"
@@ -2231,14 +2215,12 @@ msgid "Anchor Size"
 msgstr "锚点大小"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1559
-#, fuzzy
 msgid "Change Selected"
-msgstr "已选择的节点"
+msgstr "改变当前所选"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1573
-#, fuzzy
 msgid "File"
-msgstr "文件(_F)"
+msgstr "文件"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1574
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2012
@@ -2247,66 +2229,58 @@ msgid "Tree"
 msgstr "树"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1575
-#, fuzzy
 msgid "Editor"
-msgstr "编辑(_E)"
+msgstr "编辑者"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1576
-#, fuzzy
 msgid "Format"
-msgstr "上次格式(_L)"
+msgstr "格式化"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1577
-#, fuzzy
 msgid "Find/Replace"
-msgstr "替换"
+msgstr "查找/替换"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1578
-#, fuzzy
 msgid "View"
-msgstr "视图(_V)"
+msgstr "视图"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1579
-#, fuzzy
 msgid "Export"
-msgstr "导出(_X)"
+msgstr "导出"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1580
-#, fuzzy
 msgid "Import"
-msgstr "导入(_I)"
+msgstr "导入"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1600
 msgid "Edit Keyboard Shortcut"
-msgstr ""
+msgstr "编辑快捷键"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1607
 msgid "No Keyboard Shortcut"
-msgstr ""
+msgstr "没有快捷键"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1677
 #, python-format
 msgid "The Keyboard Shortcut '%s' is already in use"
-msgstr ""
+msgstr "快捷键’%s’已被占用"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1677
 #, python-format
 msgid "The current associated action is '%s'"
-msgstr ""
+msgstr "当前关联动作是’%s’"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1677
-#, fuzzy
 msgid "Do you want to steal the shortcut?"
-msgstr "要保存文件的修改吗？"
+msgstr "要覆盖这个快捷键吗？"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1733
 msgid "Add"
-msgstr ""
+msgstr "添加"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1736
-#, fuzzy
 msgid "Remove Selected"
-msgstr "没有节点被选中"
+msgstr "移除所选"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1766
 msgid "Select Element to Add"
@@ -2373,14 +2347,12 @@ msgid "The New Language will be Available Only After Restarting CherryTree"
 msgstr "新语言仅在CherryTree下次启动时生效"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2008
-#, fuzzy
 msgid "Text and Code"
 msgstr "纯文本和代码"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2009
-#, fuzzy
 msgid "Text"
-msgstr "和文字"
+msgstr "文字"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2010
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3540
@@ -2402,7 +2374,7 @@ msgstr "工具栏"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2017
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "快捷键"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/tablez.py:63
 msgid "Rename Column"
@@ -2492,9 +2464,8 @@ msgid "You Are Using the Latest Version Available"
 msgstr "您使用的是最新版本"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:259
-#, fuzzy
 msgid "You Are Using a Development Version"
-msgstr "您使用的是最新版本"
+msgstr "您正在使用开发版本"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:263
 msgid "Failed to Retrieve Latest Version Information - Try Again Later"
@@ -2509,9 +2480,8 @@ msgstr "没有文字被选择"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:784
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2471
-#, fuzzy
 msgid "The new parent can't be one of his children!"
-msgstr "父节点不能成为其自身的子节点"
+msgstr "父节点不能是其自身的子节点"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:832
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2048
@@ -2552,7 +2522,6 @@ msgid "Leo Document"
 msgstr "Leo 文档"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1112
-#, fuzzy
 msgid "Who is the Parent?"
 msgstr "哪个是父节点？"
 
@@ -2633,19 +2602,16 @@ msgid "Wrong Password"
 msgstr "密码错误"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2459
-#, fuzzy
 msgid "Select the New Parent"
 msgstr "选择新的父节点"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2463
-#, fuzzy
 msgid "The new parent can't be the very node to move!"
-msgstr "新的父节点不能是其自身！"
+msgstr "新的父节点不能随意移动！"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2466
-#, fuzzy
 msgid "The new chosen parent is still the old parent!"
-msgstr "新的父节点和原先一样！"
+msgstr "新选择的父节点和原先一样！"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2719
 msgid "New Node Properties"
@@ -2728,12 +2694,11 @@ msgstr "搜索选项"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3507
 msgid "Bold"
-msgstr ""
+msgstr "粗体"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3509
-#, fuzzy
 msgid "Use Selected Color"
-msgstr "已选择的节点"
+msgstr "使用所选颜色"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3565
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4974
