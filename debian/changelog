@@ -1,5 +1,16 @@
-cherrytree (0.36.8-1) trusty; urgency=low
+cherrytree (0.37.0-1) trusty; urgency=low
 
-  * fixed bug in font zoom in/out on tree and text with ctrl down and mouse wheel up/down
+  * implemented configurability of most of the keyboard shortcuts (few of them cannot be changed)
+  * implemented quick access to last visited nodes with configurable number of buttons on the node name header
+  * implemented the possibility to select from a list the default icon for all the (non code) nodes in the tree; code nodes have by default explicit icons related to the programming language
+  * implemented the possibility for any node to set an icon from a list
+  * implemented the possibility for any node to set color and boldness for the node name
+  * implemented control of the vertical space around lines (work by bfloch)
+  * implemented the possibility to disable the smart quotes auto replacement
+  * implemented the option to have the links underlined or not
+  * implemented the tree node action "move right" to make a node son of the above sibling; taking shortcut Shift+Right
+  * implemented the possibility at mouse click on the node to expand it and to have the focus moved to the text
+  * implemented the import from RedNotebook
+  * added in the preferences dialog the possibility to reset to the default values the toolbar and the special characters
 
- -- Giuseppe Penone <giuspen@gmail.com>  Mon, 14 Mar 2016 21:43:53 +0000
+ -- Giuseppe Penone <giuspen@gmail.com>  Thu, 26 May 2016 22:41:44 +0100
