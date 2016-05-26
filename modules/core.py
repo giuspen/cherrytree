@@ -2593,8 +2593,9 @@ iter_end, exclude_iter_sel_end=True)
                 if self.tree_click_focus_text:
                     self.sourceview.grab_focus()
                 if self.tree_click_expand:
-                    if self.curr_tree_iter and not self.treeview.row_expanded(self.treestore.get_path(self.curr_tree_iter)):
-                        self.treeview.expand_row(self.treestore.get_path(self.curr_tree_iter), open_all=False)
+                    path_at_click = self.treeview.get_path_at_pos(int(event.x), int(event.y))
+                    if path_at_click and not self.treeview.row_expanded(path_at_click[0]):
+                        self.treeview.expand_row(path_at_click[0], open_all=False)
                         self.tree_just_auto_expanded = True
                     else:
                         self.tree_just_auto_expanded = False
@@ -2608,6 +2609,7 @@ iter_end, exclude_iter_sel_end=True)
             if self.tree_just_auto_expanded:
                 self.tree_just_auto_expanded = False
                 return True
+        return False
 
     def on_mouse_button_clicked_tree(self, widget, event):
         """Catches mouse buttons clicks"""
