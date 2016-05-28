@@ -2364,7 +2364,7 @@ msgstr "CherryTree muss neu gestartet werden, um die Sprache zu übernehmen."
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2008
 msgid "Text and Code"
-msgstr "Text und Code"
+msgstr "Editor"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2009
 msgid "Text"
