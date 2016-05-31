@@ -120,7 +120,7 @@ class ClipboardHandler:
         self.clipboard.set_with_data([(t, 0, 0) for t in (TARGET_CTD_TABLE, TARGETS_HTML[0])],
                                      self.get_func,
                                      self.clear_func,
-                                     (table_dict, None, html_text, None))
+                                     (None, None, html_text, table_dict))
 
     def table_row_paste(self, model_n_iter):
         """Paste Table Row from the Clipboard"""
