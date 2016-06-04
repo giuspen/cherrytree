@@ -2,13 +2,13 @@
 # Copyright (C) 2010 THE svn_cherrytree'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the svn_cherrytree package.
 # giuspen <giuspen@gmail.com>, 2010.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: svn_cherrytree 0.14\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-05-15 11:35+0100\n"
-"PO-Revision-Date: 2016-01-22 16:53+0100\n"
+"PO-Revision-Date: 2016-06-03 20:47+0200\n"
 "Last-Translator: Klaus Becker <colonius@free.fr>\n"
 "Language-Team: French\n"
 "Language: fr\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 1.8.6\n"
+"X-Generator: Poedit 1.8.8\n"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/codeboxes.py:97
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3541
@@ -145,9 +145,9 @@ msgstr ""
 "Aucune Recherche précédente n'a été effectuée durant cette session de travail"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:640
-#, fuzzy, python-format
+#, python-format
 msgid "Hide (Restore with '%s')"
-msgstr "Cacher (Restaurer avec Ctrl+Shift+A)"
+msgstr "Cacher (Restaurer avec '%s')"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:653
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3536
@@ -634,7 +634,6 @@ msgid "Add _Node"
 msgstr "Ajouter un _Nœud"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:228
-#, fuzzy
 msgid "Add a Node having the same Parent of the Selected Node"
 msgstr "Ajouter un Nœud ayant le même Parent que le Nœud sélectionné"
 
@@ -711,23 +710,20 @@ msgstr "Nœud vers la Gauche"
 msgid "Move the Selected Node Left"
 msgstr "Déplacer le Nœud vers la Gauche"
 
+# move node to the right ?
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:238
-#, fuzzy
 msgid "Node _Right"
-msgstr "Nœud vers la Gauche"
+msgstr "Nœud vers la _Droite"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:238
-#, fuzzy
 msgid "Move the Selected Node Right"
-msgstr "Déplacer le Nœud vers la Gauche"
+msgstr "Déplacer le Nœud vers la Droite"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:239
-#, fuzzy
 msgid "Node Change _Parent"
 msgstr "Changer le parent du Nœud"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:239
-#, fuzzy
 msgid "Change the Selected Node's Parent"
 msgstr "Changer le Parent du Nœud sélectionné"
 
@@ -768,7 +764,6 @@ msgid "_Inherit Syntax"
 msgstr "_Héritage de la Syntaxe"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:244
-#, fuzzy
 msgid ""
 "Change the Selected Node's Children Syntax Highlighting to the Parent's "
 "Syntax Highlighting"
@@ -1109,14 +1104,13 @@ msgid "Add Nodes of a NoteCase File to the Current Tree"
 msgstr "Ajouter les Nœuds d'un Fichier NoteCase à l'Arborescence actuelle"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:286
-#, fuzzy
 msgid "From _RedNotebook Folder"
-msgstr "À partir d'un Répertoire _KeepNote"
+msgstr "À partir du répertoir RedNotebook"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:286
-#, fuzzy
 msgid "Add Nodes of a RedNotebook Folder to the Current Tree"
-msgstr "Ajouter les Nœuds d'un Répertoire KeepNote à l'Arborescence actuelle"
+msgstr ""
+"Ajouter des Nœuds d'un Répertoire RedNotebook à l'Arborescence en cours"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:287
 msgid "From T_omboy Folder"
@@ -1780,7 +1774,7 @@ msgstr "Japonais"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:740
 msgid "Lithuanian"
-msgstr ""
+msgstr "Lituanien"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:741
 msgid "Polish"
@@ -1796,7 +1790,7 @@ msgstr "Russe"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:744
 msgid "Slovenian"
-msgstr ""
+msgstr "Slovaque"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:745
 msgid "Spanish"
@@ -2012,11 +2006,11 @@ msgstr "Activer l'Indentation Automatique"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:640
 msgid "Vertical Space Around Lines"
-msgstr ""
+msgstr "Espace vertical autour des lignes"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:648
 msgid "Vertical Space in Wrapped Lines"
-msgstr ""
+msgstr "Espace vertical dans les lignes tronquées (?)"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:665
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:998
@@ -2040,7 +2034,7 @@ msgstr "Caractères spéciaux"
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1562
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1739
 msgid "Reset to Default"
-msgstr ""
+msgstr "Remise à la valeur par défaut"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:720
 msgid "Chars to Select at Double Click"
@@ -2058,9 +2052,8 @@ msgstr "Autres"
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:750
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1696
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1781
-#, fuzzy
 msgid "Are you sure to Reset to Default?"
-msgstr "Êtes-vous sûr de vouloir <b>Supprimer le nœud '%s'?</b>"
+msgstr "Êtes-vous sûr de vouloir Restaurer la valeur par défaut"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:806
 msgid "Enable Spell Check"
@@ -2110,10 +2103,9 @@ msgstr "Afficher les espaces vides"
 msgid "Highlight Current Line"
 msgstr "Surligner la Ligne actuelle"
 
-# Élargir ?? I don't really understand what that means.
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:875
 msgid "Expand CodeBoxes Automatically"
-msgstr "Élargir automatiquement le CodeBox"
+msgstr "Élargir le CodeBox Automatiquement"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:879
 msgid "Embedded File Icon Size"
@@ -2125,7 +2117,7 @@ msgstr "Limite d'annulations par Nœud"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:993
 msgid "Enable Smart Quotes Auto Replacement"
-msgstr ""
+msgstr "Remplacement Automatiques des Apostrophes"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1018
 msgid "Style Scheme"
@@ -2140,38 +2132,35 @@ msgid "Display Tree on the Right Side"
 msgstr "Afficher l'Arborescence à Droite"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1077
-#, fuzzy
 msgid "Move Focus to Text at Mouse Click"
-msgstr "Signes à sélectionner par double click"
+msgstr "Le Clic de souris déplace le Focus sur le Texte"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1079
 msgid "Expand Node at Mouse Click"
-msgstr ""
+msgstr "Déplier un nœud par clique de souris"
 
+# Nœud principal: not sure
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1083
-#, fuzzy
 msgid "Last Visited Nodes on Node Name Header"
-msgstr "Activer/Désactiver le Nom du Nœud en Titre de Page"
+msgstr "Les derniers Nœuds consultés du Nœud principal"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1179
 msgid "Use Different Cherries per Level"
-msgstr ""
+msgstr "Utiliser des cerises différentes par niveau"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1180
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3518
-#, fuzzy
 msgid "Use Selected Icon"
-msgstr "Le Nœud Sélectionné"
+msgstr "Utiliser l'Icône Sélectionné"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1182
-#, fuzzy
 msgid "No Icon"
-msgstr "Icônes des Nœuds"
+msgstr "Pas d'Icône"
 
+# are there other nodes than Text Nodes ?
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1195
-#, fuzzy
 msgid "Default Text Nodes Icons"
-msgstr "Utiliser des Puces comme icônes des Nœuds"
+msgstr "Icônes pour Nœuds Texte"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1209
 msgid "Restore Expanded/Collapsed Status"
@@ -2195,9 +2184,8 @@ msgstr "État des nœuds au démarrage"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1289
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3627
-#, fuzzy
 msgid "Select Node Icon"
-msgstr "Nœud sélectionné uniquement"
+msgstr "Choisir l'Icône du Nœud"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1324
 msgid "Text Font"
@@ -2237,9 +2225,8 @@ msgid "Colors"
 msgstr "Couleurs"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1453
-#, fuzzy
 msgid "Underline Links"
-msgstr "Éditer le Lien Soulignée"
+msgstr "Souligner les Liens"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1455
 msgid "Use Relative Paths for Files And Folders"
@@ -2249,13 +2236,12 @@ msgstr "Utiliser un chemin relatif pour les fichiers et dossiers"
 msgid "Anchor Size"
 msgstr "Taille de l'Ancre"
 
+#  
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1559
-#, fuzzy
 msgid "Change Selected"
-msgstr "Le Nœud Sélectionné"
+msgstr "Modifier la Sélection"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1573
-#, fuzzy
 msgid "File"
 msgstr "_Fichier"
 
@@ -2266,66 +2252,60 @@ msgid "Tree"
 msgstr "Arborescence"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1575
-#, fuzzy
 msgid "Editor"
 msgstr "_Edition"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1576
-#, fuzzy
 msgid "Format"
-msgstr "Dernière _Mise en forme"
+msgstr "_Mise en forme"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1577
-#, fuzzy
 msgid "Find/Replace"
-msgstr "Remplacer"
+msgstr "Chercher/Remplacer"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1578
-#, fuzzy
 msgid "View"
 msgstr "A_ffichage"
 
+# is "_" at the right place ?
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1579
-#, fuzzy
 msgid "Export"
 msgstr "E_xporter"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1580
-#, fuzzy
 msgid "Import"
 msgstr "_Importer"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1600
 msgid "Edit Keyboard Shortcut"
-msgstr ""
+msgstr "Éditer raccourci clavier"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1607
 msgid "No Keyboard Shortcut"
-msgstr ""
+msgstr "Pas de raccourci clavier"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1677
 #, python-format
 msgid "The Keyboard Shortcut '%s' is already in use"
-msgstr ""
+msgstr "Le raccourci clavier '%s' est déjà utilisé"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1677
 #, python-format
 msgid "The current associated action is '%s'"
-msgstr ""
+msgstr "L'action actuellement associée est '%s'"
 
+#  
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1677
-#, fuzzy
 msgid "Do you want to steal the shortcut?"
-msgstr "Sauvegarder les modifications?"
+msgstr "Voulez-vous modifier le raccourci clavier ?"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1733
 msgid "Add"
-msgstr ""
+msgstr "Ajouter"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1736
-#, fuzzy
 msgid "Remove Selected"
-msgstr "Aucun Nœud n'est sélectionné"
+msgstr "Supprimer la Sélection"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1766
 msgid "Select Element to Add"
@@ -2393,15 +2373,15 @@ msgid "The New Language will be Available Only After Restarting CherryTree"
 msgstr ""
 "La nouvelle langue sera activée uniquement après avoir relancé CherryTree"
 
+# is that right ?
+# edition ? That"s what de.po says
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2008
-#, fuzzy
 msgid "Text and Code"
-msgstr "Document texte brut et code"
+msgstr "Éditeur"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2009
-#, fuzzy
 msgid "Text"
-msgstr "du texte"
+msgstr "Texte"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2010
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3540
@@ -2423,7 +2403,7 @@ msgstr "Barre d'outils"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2017
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Raccourcis clavier"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/tablez.py:63
 msgid "Rename Column"
@@ -2513,9 +2493,8 @@ msgid "You Are Using the Latest Version Available"
 msgstr "Vous disposez de la dernière version en date !"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:259
-#, fuzzy
 msgid "You Are Using a Development Version"
-msgstr "Vous disposez de la dernière version en date !"
+msgstr "Vous utilisez une Version de Développement"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:263
 msgid "Failed to Retrieve Latest Version Information - Try Again Later"
@@ -2532,7 +2511,6 @@ msgstr "Aucun Texte n'est sélectionné"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:784
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2471
-#, fuzzy
 msgid "The new parent can't be one of his children!"
 msgstr "Le nouveau Parent ne peut être l'un de ses enfants !"
 
@@ -2575,9 +2553,8 @@ msgid "Leo Document"
 msgstr "Document Leo"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1112
-#, fuzzy
 msgid "Who is the Parent?"
-msgstr "Quel est le parent ?"
+msgstr "Quel est le Parent ?"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1119
 msgid "The Tree Root"
@@ -2659,19 +2636,16 @@ msgid "Wrong Password"
 msgstr "Mauvais Mot de Passe"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2459
-#, fuzzy
 msgid "Select the New Parent"
 msgstr "Choisir un nouveau Parent"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2463
-#, fuzzy
 msgid "The new parent can't be the very node to move!"
 msgstr "Le nouveau Parent ne peut être le nœud à déplacer !"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2466
-#, fuzzy
 msgid "The new chosen parent is still the old parent!"
-msgstr "Le nouveau Parent est encore l'ancien Parent !"
+msgstr "Le nouveau Parent choisi est encore l'ancien Parent !"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2719
 msgid "New Node Properties"
@@ -2756,12 +2730,11 @@ msgstr "Options de Recherche"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3507
 msgid "Bold"
-msgstr ""
+msgstr "Gras"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3509
-#, fuzzy
 msgid "Use Selected Color"
-msgstr "Le Nœud Sélectionné"
+msgstr "Utiliser la Couleur Sélectionnée"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3565
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4974
