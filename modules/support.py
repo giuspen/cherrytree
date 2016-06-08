@@ -19,16 +19,39 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
-import gtk, pango, locale, os, webbrowser, re, chardet
+import gtk, pango, locale, os, webbrowser, re
 import cons, config
 
 
 def auto_decode_str(in_str, from_clipboard=False):
     """Try to Detect Encoding and Decode"""
-    enc_dict = chardet.detect(in_str)
-    encoding = enc_dict["encoding"]
-    print encoding
-    return in_str.decode(encoding)
+    try:
+        import chardet
+        enc_dict = chardet.detect(in_str)
+        encoding = enc_dict["encoding"]
+        encodings = [encoding]
+    except:
+        encodings = []
+    if in_str.startswith("\xEF\xBB\xBF"): # UTF-8 "BOM"
+        encodings.extend(["utf-8-sig"])
+    elif in_str.startswith(("\xFF\xFE", "\xFE\xFF")): # UTF-16 BOMs
+        encodings.extend([cons.STR_UTF16])
+    elif from_clipboard:
+        if "html" in in_str or "HTML" in in_str:
+            encodings.extend([encoding, cons.STR_UTF8])
+        else:
+            encodings.extend([encoding, cons.STR_UTF16, cons.STR_UTF8])
+    else:
+        encodings.extend([encoding, cons.STR_UTF16, "utf-16le", cons.STR_UTF8, cons.STR_ISO_8859, locale.getdefaultlocale()[1]])
+    for enc in encodings:
+        try:
+            out_str = in_str.decode(enc)
+            print enc
+            break
+        except: pass
+    else:
+        out_str = unicode(in_str, cons.STR_UTF8, cons.STR_IGNORE)
+    return out_str
 
 def apply_tag_try_automatic_bounds(dad, text_buffer=None, iter_start=None):
     """Try to Select a Word Forward/Backward the Cursor"""
