@@ -33,16 +33,16 @@ def auto_decode_str(in_str, from_clipboard=False):
     except:
         encodings = []
     if in_str.startswith("\xEF\xBB\xBF"): # UTF-8 "BOM"
-        encodings.extend(["utf-8-sig"])
+        encodings += ["utf-8-sig"]
     elif in_str.startswith(("\xFF\xFE", "\xFE\xFF")): # UTF-16 BOMs
-        encodings.extend([cons.STR_UTF16])
+        encodings += [cons.STR_UTF16]
     elif from_clipboard:
         if "html" in in_str or "HTML" in in_str:
-            encodings.extend([encoding, cons.STR_UTF8])
+            encodings = [cons.STR_UTF8] + encodings
         else:
-            encodings.extend([encoding, cons.STR_UTF16, cons.STR_UTF8])
+            encodings = [cons.STR_UTF16, cons.STR_UTF8] + encodings
     else:
-        encodings.extend([encoding, cons.STR_UTF16, "utf-16le", cons.STR_UTF8, cons.STR_ISO_8859, locale.getdefaultlocale()[1]])
+        encodings += [cons.STR_UTF16, "utf-16le", cons.STR_UTF8, cons.STR_ISO_8859, locale.getdefaultlocale()[1]]
     for enc in encodings:
         try:
             out_str = in_str.decode(enc)
