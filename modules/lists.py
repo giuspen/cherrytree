@@ -61,7 +61,7 @@ class ListsHandler:
                     if target_list_num_id == 0:
                         text_buffer.insert(iter_start, cons.CHAR_LISTTODO + cons.CHAR_SPACE)
                     elif target_list_num_id < 0:
-                        text_buffer.insert(iter_start, cons.CHARS_LISTBUL[0] + cons.CHAR_SPACE)
+                        text_buffer.insert(iter_start, self.dad.chars_listbul[0] + cons.CHAR_SPACE)
                     else:
                         text_buffer.insert(iter_start, "1. ")
                 break
@@ -84,8 +84,8 @@ class ListsHandler:
                         new_par_offset = iter_end.get_offset() + 2
                         end_offset += 2
                         if not list_info: bull_idx = 0
-                        else: bull_idx = list_info["level"] % cons.NUM_CHARS_LISTBUL
-                        text_buffer.insert(iter_start, cons.CHARS_LISTBUL[bull_idx] + cons.CHAR_SPACE)
+                        else: bull_idx = list_info["level"] % len(self.dad.chars_listbul)
+                        text_buffer.insert(iter_start, self.dad.chars_listbul[bull_idx] + cons.CHAR_SPACE)
                     else:
                         if not list_info:
                             index = 0
@@ -148,9 +148,9 @@ class ListsHandler:
         level = 0
         while iter_start:
             char = iter_start.get_char()
-            if char in cons.CHARS_LISTBUL:
+            if char in self.dad.chars_listbul:
                 if iter_start.forward_char() and iter_start.get_char() == cons.CHAR_SPACE:
-                    num = (cons.CHARS_LISTBUL.index(char) + 1)*(-1)
+                    num = (self.dad.chars_listbul.index(char) + 1)*(-1)
                     return {"num":num, "level":level, "aux":None}
                 break
             if char in [cons.CHAR_LISTTODO, cons.CHAR_LISTDONEOK, cons.CHAR_LISTDONEFAIL]:

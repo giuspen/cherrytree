@@ -850,7 +850,7 @@ iter_end, exclude_iter_sel_end=True)
             support.dialog_error("Error importing the file %s" % filepath, self.window)
             raise
             return
-        notecase = imports.NotecaseHandler()
+        notecase = imports.NotecaseHandler(self)
         cherrytree_string = notecase.get_cherrytree_xml(notecase_string)
         self.nodes_add_from_cherrytree_data(cherrytree_string)
 
@@ -895,7 +895,7 @@ iter_end, exclude_iter_sel_end=True)
         start_folder = os.path.join(os.path.expanduser('~'), ".local", "share", "gnote")
         folderpath = support.dialog_folder_select(curr_folder=start_folder, parent=self.window)
         if not folderpath: return
-        gnote = imports.TomboyHandler(folderpath)
+        gnote = imports.TomboyHandler(self, folderpath)
         cherrytree_string = gnote.get_cherrytree_xml()
         self.nodes_add_from_cherrytree_data(cherrytree_string)
         gnote.set_links_to_nodes(self)
@@ -914,7 +914,7 @@ iter_end, exclude_iter_sel_end=True)
         start_folder = os.path.join(os.path.expanduser('~'), ".local", "share", "tomboy")
         folderpath = support.dialog_folder_select(curr_folder=start_folder, parent=self.window)
         if not folderpath: return
-        tomboy = imports.TomboyHandler(folderpath)
+        tomboy = imports.TomboyHandler(self, folderpath)
         cherrytree_string = tomboy.get_cherrytree_xml()
         self.nodes_add_from_cherrytree_data(cherrytree_string)
         tomboy.set_links_to_nodes(self)
@@ -1069,7 +1069,7 @@ iter_end, exclude_iter_sel_end=True)
             parent=self.window)
         if not filepath: return
         self.pick_dir = os.path.dirname(filepath)
-        knowit = imports.KnowitHandler()
+        knowit = imports.KnowitHandler(self)
         try:
             file_descriptor = open(filepath, 'r')
             cherrytree_string = knowit.get_cherrytree_xml(file_descriptor)
@@ -2938,7 +2938,7 @@ iter_end, exclude_iter_sel_end=True)
         node_children_list = ""
         self.nodes_rows_count += 1
         if self.nodes_rows_count > 15: return "..."
-        node_children_list += cons.CHAR_NEWLINE + level*3*cons.CHAR_SPACE + cons.CHARS_LISTBUL[0] + \
+        node_children_list += cons.CHAR_NEWLINE + level*3*cons.CHAR_SPACE + self.chars_listbul[0] + \
                               cons.CHAR_SPACE +self.treestore[father_tree_iter][1]
         tree_iter = self.treestore.iter_children(father_tree_iter)
         while tree_iter:

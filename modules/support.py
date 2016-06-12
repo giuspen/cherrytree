@@ -145,9 +145,9 @@ def on_sourceview_list_change_level(dad, iter_insert, list_info, text_buffer, le
                 bull_idx = prev_list_info["num"]*(-1) - 1
             else:
                 idx_old = list_info["num"]*(-1) - 1
-                idx_offset = idx_old - curr_level % cons.NUM_CHARS_LISTBUL
-                bull_idx = (next_level + idx_offset) % cons.NUM_CHARS_LISTBUL
-            dad.replace_text_at_offset(cons.CHARS_LISTBUL[bull_idx],
+                idx_offset = idx_old - curr_level % len(dad.chars_listbul)
+                bull_idx = (next_level + idx_offset) % len(dad.chars_listbul)
+            dad.replace_text_at_offset(dad.chars_listbul[bull_idx],
                 bull_offset, bull_offset+1, text_buffer)
         else:
             idx = list_info["aux"]
@@ -279,7 +279,7 @@ def on_sourceview_event_after_key_press(dad, text_view, event, syntax_highl):
             pre_spaces = 3*curr_level*cons.CHAR_SPACE if curr_level else ""
             if list_info["num"] < 0:
                 index = list_info["num"]*(-1) - 1
-                text_buffer.insert(iter_insert, pre_spaces+cons.CHARS_LISTBUL[index]+cons.CHAR_SPACE)
+                text_buffer.insert(iter_insert, pre_spaces+dad.chars_listbul[index]+cons.CHAR_SPACE)
             elif list_info["num"] == 0:
                 text_buffer.insert(iter_insert, pre_spaces+cons.CHAR_LISTTODO+cons.CHAR_SPACE)
             else:
@@ -309,13 +309,13 @@ def on_sourceview_event_after_key_press(dad, text_view, event, syntax_highl):
                         # at line start
                         if iter_start.get_char() == cons.CHAR_LESSER:
                             # "<> " becoming "◇ "
-                            dad.special_char_replace(cons.CHARS_LISTBUL[1], iter_start, iter_insert, text_buffer)
+                            dad.special_char_replace(config.CHARS_LISTBUL_DEFAULT[1], iter_start, iter_insert, text_buffer)
                         elif iter_start.get_char() == cons.CHAR_MINUS:
                             # "-> " becoming "→ "
-                            dad.special_char_replace(cons.CHARS_LISTBUL[4], iter_start, iter_insert, text_buffer)
+                            dad.special_char_replace(config.CHARS_LISTBUL_DEFAULT[4], iter_start, iter_insert, text_buffer)
                         elif iter_start.get_char() == cons.CHAR_EQUAL:
                             # "=> " becoming "⇒ "
-                            dad.special_char_replace(cons.CHARS_LISTBUL[5], iter_start, iter_insert, text_buffer)
+                            dad.special_char_replace(config.CHARS_LISTBUL_DEFAULT[5], iter_start, iter_insert, text_buffer)
                     elif iter_start.get_char() == cons.CHAR_MINUS and iter_start.backward_char():
                         if iter_start.get_char() == cons.CHAR_LESSER:
                             # "<-> " becoming "↔ "
@@ -356,7 +356,7 @@ def on_sourceview_event_after_key_press(dad, text_view, event, syntax_highl):
                         dad.special_char_replace(cons.SPECIAL_CHAR_UNREGISTERED_TRADEMARK, iter_start, iter_insert, text_buffer)
                 elif iter_start.get_char() == cons.CHAR_STAR and iter_start.get_line_offset() == 0:
                     # "* " becoming "• " at line start
-                    dad.special_char_replace(cons.CHARS_LISTBUL[0], iter_start, iter_insert, text_buffer)
+                    dad.special_char_replace(config.CHARS_LISTBUL_DEFAULT[0], iter_start, iter_insert, text_buffer)
                 elif iter_start.get_char() == cons.CHAR_SQ_BR_CLOSE and iter_start.backward_char():
                     if iter_start.get_line_offset() == 0 and iter_start.get_char() == cons.CHAR_SQ_BR_OPEN:
                         # "[] " becoming "☐ " at line start
@@ -364,7 +364,7 @@ def on_sourceview_event_after_key_press(dad, text_view, event, syntax_highl):
                 elif iter_start.get_char() == cons.CHAR_COLON and iter_start.backward_char():
                     if iter_start.get_line_offset() == 0 and iter_start.get_char() == cons.CHAR_COLON:
                         # ":: " becoming "▪ " at line start
-                        dad.special_char_replace(cons.CHARS_LISTBUL[2], iter_start, iter_insert, text_buffer)
+                        dad.special_char_replace(config.CHARS_LISTBUL_DEFAULT[2], iter_start, iter_insert, text_buffer)
     return False
 
 def sourceview_cursor_and_tooltips_handler(dad, text_view, x, y):
