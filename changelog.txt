@@ -1,4 +1,11 @@
 
+0.37.1 (June 19th, 2016)
+• bugfix: import of text documents bad decoding (added new dependency python-chardet)
+• bugfix: copy/paste of table row not working
+• the chars used for the multi level bulleted lists are configurable editing config.cfg (editor/chars_listbul)
+• the chars used for the toc are configurable editing config.cfg (editor/chars_toc)
+• updated languages French, German and Polish
+
 0.37.0 (May 26th, 2016)
 • implemented configurability of most of the keyboard shortcuts (few of them cannot be changed)
 • implemented quick access to last visited nodes with configurable number of buttons on the node name header
