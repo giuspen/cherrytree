@@ -528,7 +528,7 @@ class XMLHandler:
                     curr_node_level = self.dad.treestore.iter_depth(node_tree_iter)
                     node_name = self.dad.treestore[node_tree_iter][1].replace(cons.CHAR_NEWLINE, cons.CHAR_SPACE).replace(cons.CHAR_CR, "")
                     tag_names = [self.dad.apply_tag_exist_or_create(tag_property, property_value)]
-                    text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), 2*curr_node_level*cons.CHAR_SPACE + cons.CHAR_LISTARR + cons.CHAR_SPACE)
+                    text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), 2*curr_node_level*cons.CHAR_SPACE + self.dad.chars_toc[0] + cons.CHAR_SPACE)
                     curr_offset += 2 + 2*curr_node_level
                     text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), cons.CHAR_NEWLINE)
                     text_buffer.insert_with_tags_by_name(text_buffer.get_iter_at_offset(curr_offset), node_name, *tag_names)
@@ -539,13 +539,13 @@ class XMLHandler:
                 tag_names = [self.dad.apply_tag_exist_or_create(tag_property, property_value + cons.CHAR_SPACE + element[0])]
                 if not element[0]: continue
                 if element[0][:2] == cons.TAG_PROP_H1:
-                    text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), (2+2*curr_node_level)*cons.CHAR_SPACE + self.dad.chars_listbul[0] + cons.CHAR_SPACE)
+                    text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), (2+2*curr_node_level)*cons.CHAR_SPACE + self.dad.chars_toc[1] + cons.CHAR_SPACE)
                     curr_offset += 4 + 2*curr_node_level
                 elif element[0][:2] == cons.TAG_PROP_H2:
-                    text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), (4+2*curr_node_level)*cons.CHAR_SPACE + self.dad.chars_listbul[0] + cons.CHAR_SPACE)
+                    text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), (4+2*curr_node_level)*cons.CHAR_SPACE + self.dad.chars_toc[2] + cons.CHAR_SPACE)
                     curr_offset += 6 + 2*curr_node_level
                 else:
-                    text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), (6+2*curr_node_level)*cons.CHAR_SPACE + self.dad.chars_listbul[0] + cons.CHAR_SPACE)
+                    text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), (6+2*curr_node_level)*cons.CHAR_SPACE + self.dad.chars_toc[3] + cons.CHAR_SPACE)
                     curr_offset += 8 + 2*curr_node_level
                 text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), cons.CHAR_NEWLINE)
                 text_buffer.insert_with_tags_by_name(text_buffer.get_iter_at_offset(curr_offset), element[1], *tag_names)
@@ -628,13 +628,13 @@ class XMLHandler:
                 tag_names = []
                 tag_names.append(self.dad.apply_tag_exist_or_create(tag_property, property_value + cons.CHAR_SPACE + element[0]))
                 if element[0][:2] == cons.TAG_PROP_H1:
-                    text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), self.dad.chars_listbul[0] + cons.CHAR_SPACE)
+                    text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), self.dad.chars_toc[1] + cons.CHAR_SPACE)
                     curr_offset += 2
                 elif element[0][:2] == cons.TAG_PROP_H2:
-                    text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), 2*cons.CHAR_SPACE + self.dad.chars_listbul[0] + cons.CHAR_SPACE)
+                    text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), 2*cons.CHAR_SPACE + self.dad.chars_toc[2] + cons.CHAR_SPACE)
                     curr_offset += 4
                 else:
-                    text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), 4*cons.CHAR_SPACE + self.dad.chars_listbul[0] + cons.CHAR_SPACE)
+                    text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), 4*cons.CHAR_SPACE + self.dad.chars_toc[3] + cons.CHAR_SPACE)
                     curr_offset += 6
                 text_buffer.insert(text_buffer.get_iter_at_offset(curr_offset), cons.CHAR_NEWLINE)
                 text_buffer.insert_with_tags_by_name(text_buffer.get_iter_at_offset(curr_offset), element[1], *tag_names)

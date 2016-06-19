@@ -36,6 +36,7 @@ COLOR_PALETTE_DEFAULT = ["#000000", "#ffffff", "#7f7f7f", "#ff0000", "#a020f0",
 SPECIAL_CHARS_DEFAULT = "“”„‘’•◇▪▸☐☑☒★…‰€©®™°↓↑→←↔↵⇓⇑⇒⇐⇔»«▼▲►◄≤≥≠≈±¹²³½¼⅛×÷∞ø∑√∫ΔδΠπΣΦΩωαβγεηλμ☺☻☼♥♣♦✔♀♂♪♫✝"
 SELWORD_CHARS_DEFAULT = ".-@"
 CHARS_LISTBUL_DEFAULT = "•◇▪-→⇒"
+CHARS_TOC_DEFAULT = "▸•◇▪"
 NODES_ON_NODE_NAME_HEADER_DEFAULT = 3
 TIMESTAMP_FORMAT_DEFAULT = "%Y/%m/%d - %H:%M"
 SEPARATOR_ASCII_REPR = "---------"
@@ -181,6 +182,7 @@ def config_file_load(dad):
         dad.special_chars = unicode(cfg.get(section, "special_chars") if cfg.has_option(section, "special_chars") else SPECIAL_CHARS_DEFAULT, cons.STR_UTF8, cons.STR_IGNORE)
         dad.selword_chars = unicode(cfg.get(section, "selword_chars") if cfg.has_option(section, "selword_chars") else SELWORD_CHARS_DEFAULT, cons.STR_UTF8, cons.STR_IGNORE)
         dad.chars_listbul = unicode(cfg.get(section, "chars_listbul") if cfg.has_option(section, "chars_listbul") else CHARS_LISTBUL_DEFAULT, cons.STR_UTF8, cons.STR_IGNORE)
+        dad.chars_toc = unicode(cfg.get(section, "chars_toc") if cfg.has_option(section, "chars_toc") else CHARS_TOC_DEFAULT, cons.STR_UTF8, cons.STR_IGNORE)
         dad.timestamp_format = cfg.get(section, "timestamp_format") if cfg.has_option(section, "timestamp_format") else TIMESTAMP_FORMAT_DEFAULT
         dad.links_underline = cfg.getboolean(section, "links_underline") if cfg.has_option(section, "links_underline") else True
         dad.links_relative = cfg.getboolean(section, "links_relative") if cfg.has_option(section, "links_relative") else False
@@ -280,6 +282,7 @@ def config_file_load(dad):
         dad.special_chars = unicode(SPECIAL_CHARS_DEFAULT, cons.STR_UTF8, cons.STR_IGNORE)
         dad.selword_chars = unicode(SELWORD_CHARS_DEFAULT, cons.STR_UTF8, cons.STR_IGNORE)
         dad.chars_listbul = unicode(CHARS_LISTBUL_DEFAULT, cons.STR_UTF8, cons.STR_IGNORE)
+        dad.chars_toc = unicode(CHARS_TOC_DEFAULT, cons.STR_UTF8, cons.STR_IGNORE)
         dad.enable_spell_check = False
         dad.spell_check_lang = SPELL_CHECK_LANG_DEFAULT
         dad.show_line_numbers = False
@@ -477,6 +480,7 @@ def config_file_save(dad):
     cfg.set(section, "special_chars", dad.special_chars)
     cfg.set(section, "selword_chars", dad.selword_chars)
     cfg.set(section, "chars_listbul", dad.chars_listbul)
+    cfg.set(section, "chars_toc", dad.chars_toc)
     cfg.set(section, "timestamp_format", dad.timestamp_format)
     cfg.set(section, "links_underline", dad.links_underline)
     cfg.set(section, "links_relative", dad.links_relative)
