@@ -33,10 +33,10 @@ COLOR_PALETTE_DEFAULT = ["#000000", "#ffffff", "#7f7f7f", "#ff0000", "#a020f0",
                          "#0000ff", "#add8e6", "#00ff00", "#ffff00", "#ffa500",
                          "#e6e6fa", "#a52a2a", "#8b6914", "#1e90ff", "#ffc0cb",
                          "#90ee90", "#1a1a1a", "#4d4d4d", "#bfbfbf", "#e5e5e5"]
-SPECIAL_CHARS_DEFAULT = "“”„‘’•◇▪▸☐☑☒★…‰€©®™°↓↑→←↔↵⇓⇑⇒⇐⇔»«▼▲►◄≤≥≠≈±¹²³½¼⅛×÷∞ø∑√∫ΔδΠπΣΦΩωαβγεηλμ☺☻☼♥♣♦✔♀♂♪♫✝"
-SELWORD_CHARS_DEFAULT = ".-@"
-CHARS_LISTBUL_DEFAULT = "•◇▪-→⇒"
-CHARS_TOC_DEFAULT = "▸•◇▪"
+SPECIAL_CHARS_DEFAULT = unicode("“”„‘’•◇▪▸☐☑☒★…‰€©®™°↓↑→←↔↵⇓⇑⇒⇐⇔»«▼▲►◄≤≥≠≈±¹²³½¼⅛×÷∞ø∑√∫ΔδΠπΣΦΩωαβγεηλμ☺☻☼♥♣♦✔♀♂♪♫✝", cons.STR_UTF8, cons.STR_IGNORE)
+SELWORD_CHARS_DEFAULT = unicode(".-@", cons.STR_UTF8, cons.STR_IGNORE)
+CHARS_LISTBUL_DEFAULT = unicode("•◇▪-→⇒", cons.STR_UTF8, cons.STR_IGNORE)
+CHARS_TOC_DEFAULT = unicode("▸•◇▪", cons.STR_UTF8, cons.STR_IGNORE)
 NODES_ON_NODE_NAME_HEADER_DEFAULT = 3
 TIMESTAMP_FORMAT_DEFAULT = "%Y/%m/%d - %H:%M"
 SEPARATOR_ASCII_REPR = "---------"
@@ -179,10 +179,10 @@ def config_file_load(dad):
         dad.space_around_lines = cfg.getint(section, "space_around_lines") if cfg.has_option(section, "space_around_lines") else 0
         dad.relative_wrapped_space = cfg.getint(section, "relative_wrapped_space") if cfg.has_option(section, "relative_wrapped_space") else 50
         dad.h_rule = cfg.get(section, "h_rule") if cfg.has_option(section, "h_rule") else HORIZONTAL_RULE
-        dad.special_chars = unicode(cfg.get(section, "special_chars") if cfg.has_option(section, "special_chars") else SPECIAL_CHARS_DEFAULT, cons.STR_UTF8, cons.STR_IGNORE)
-        dad.selword_chars = unicode(cfg.get(section, "selword_chars") if cfg.has_option(section, "selword_chars") else SELWORD_CHARS_DEFAULT, cons.STR_UTF8, cons.STR_IGNORE)
-        dad.chars_listbul = unicode(cfg.get(section, "chars_listbul") if cfg.has_option(section, "chars_listbul") else CHARS_LISTBUL_DEFAULT, cons.STR_UTF8, cons.STR_IGNORE)
-        dad.chars_toc = unicode(cfg.get(section, "chars_toc") if cfg.has_option(section, "chars_toc") else CHARS_TOC_DEFAULT, cons.STR_UTF8, cons.STR_IGNORE)
+        dad.special_chars = unicode(cfg.get(section, "special_chars"), cons.STR_UTF8, cons.STR_IGNORE) if cfg.has_option(section, "special_chars") else SPECIAL_CHARS_DEFAULT
+        dad.selword_chars = unicode(cfg.get(section, "selword_chars"), cons.STR_UTF8, cons.STR_IGNORE) if cfg.has_option(section, "selword_chars") else SELWORD_CHARS_DEFAULT
+        dad.chars_listbul = unicode(cfg.get(section, "chars_listbul"), cons.STR_UTF8, cons.STR_IGNORE) if cfg.has_option(section, "chars_listbul") else CHARS_LISTBUL_DEFAULT
+        dad.chars_toc = unicode(cfg.get(section, "chars_toc"), cons.STR_UTF8, cons.STR_IGNORE) if cfg.has_option(section, "chars_toc") else CHARS_TOC_DEFAULT
         dad.timestamp_format = cfg.get(section, "timestamp_format") if cfg.has_option(section, "timestamp_format") else TIMESTAMP_FORMAT_DEFAULT
         dad.links_underline = cfg.getboolean(section, "links_underline") if cfg.has_option(section, "links_underline") else True
         dad.links_relative = cfg.getboolean(section, "links_relative") if cfg.has_option(section, "links_relative") else False
@@ -279,10 +279,10 @@ def config_file_load(dad):
         dad.col_link_file = cons.COLOR_48_LINK_FILE
         dad.col_link_fold = cons.COLOR_48_LINK_FOLD
         dad.h_rule = HORIZONTAL_RULE
-        dad.special_chars = unicode(SPECIAL_CHARS_DEFAULT, cons.STR_UTF8, cons.STR_IGNORE)
-        dad.selword_chars = unicode(SELWORD_CHARS_DEFAULT, cons.STR_UTF8, cons.STR_IGNORE)
-        dad.chars_listbul = unicode(CHARS_LISTBUL_DEFAULT, cons.STR_UTF8, cons.STR_IGNORE)
-        dad.chars_toc = unicode(CHARS_TOC_DEFAULT, cons.STR_UTF8, cons.STR_IGNORE)
+        dad.special_chars = SPECIAL_CHARS_DEFAULT
+        dad.selword_chars = SELWORD_CHARS_DEFAULT
+        dad.chars_listbul = CHARS_LISTBUL_DEFAULT
+        dad.chars_toc = CHARS_TOC_DEFAULT
         dad.enable_spell_check = False
         dad.spell_check_lang = SPELL_CHECK_LANG_DEFAULT
         dad.show_line_numbers = False
