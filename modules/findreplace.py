@@ -199,7 +199,7 @@ class FindReplace:
         else: user_active_restore = False
         self.processed_nodes = 0
         self.latest_matches = 0
-        self.dad.update_num_nodes()
+        self.dad.update_num_nodes(father_tree_iter)
         if all_matches:
             self.dad.progressbar.set_text("0")
             self.dad.progresstop.show()
@@ -211,6 +211,7 @@ class FindReplace:
             while self.parse_given_node_content(node_iter, pattern, forward, first_fromsel, all_matches):
                 self.matches_num += 1
                 if not all_matches or self.dad.progress_stop: break
+            self.processed_nodes += 1
             if self.matches_num == 1 and not all_matches: break
             if father_tree_iter and not self.from_find_iterated: break
             last_top_node_iter = node_iter.copy() # we need this if we start from a node that is not in top level
@@ -227,7 +228,6 @@ class FindReplace:
                     else: node_iter = self.dad.get_tree_iter_prev_sibling(self.dad.treestore, node_iter)
                 else: break
             if self.dad.progress_stop: break
-            self.processed_nodes += 1
             if all_matches:
                 self.update_all_matches_progress()
         search_end_time = time.time()
@@ -252,7 +252,7 @@ class FindReplace:
                 if self.dad.search_replace_dict['idialog']:
                     self.iterated_find_dialog()
         if all_matches:
-            assert self.processed_nodes == self.dad.num_nodes or self.dad.progress_stop
+            assert self.processed_nodes == self.dad.num_nodes or self.dad.progress_stop, "%s != %s" % (self.processed_nodes, self.dad.num_nodes)
             self.dad.progresstop.hide()
             self.dad.progressbar.hide()
             self.dad.progress_stop = False

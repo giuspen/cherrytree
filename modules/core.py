@@ -2507,13 +2507,16 @@ iter_end, exclude_iter_sel_end=True)
             tree_iter = self.treestore.iter_next(tree_iter)
         return None
 
-    def update_num_nodes(self):
+    def update_num_nodes(self, father_tree_iter):
         """Count the Nodes"""
         self.num_nodes = 0
-        tree_iter = self.treestore.get_iter_first()
-        while tree_iter:
-            self.update_num_nodes_children(tree_iter)
-            tree_iter = self.treestore.iter_next(tree_iter)
+        if father_tree_iter:
+            self.update_num_nodes_children(father_tree_iter)
+        else:
+            tree_iter = self.treestore.get_iter_first()
+            while tree_iter:
+                self.update_num_nodes_children(tree_iter)
+                tree_iter = self.treestore.iter_next(tree_iter)
 
     def update_num_nodes_children(self, father_iter):
         """Count the Nodes Children"""
