@@ -198,7 +198,6 @@ class CherryTree:
         self.nodes_cursor_pos = {}
         self.search_replace_dict = {'find':"", 'replace':"", 'match_case':False, 'reg_exp':False, 'whole_word':False, 'start_word':False, 'fw':True, 'a_ff_fa':0, 'idialog':True}
         self.links_entries = {'webs':'', 'file':'', 'fold':'', 'anch':'', 'node':None}
-        self.latest_tag = ["", ""] # [latest tag property, latest tag value]
         self.tags_set = set()
         self.file_update = False
         self.anchor_size_mod = False

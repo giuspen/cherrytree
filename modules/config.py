@@ -91,6 +91,7 @@ def get_pixels_inside_wrap(space_around_lines, relative_wrapped_space):
 def config_file_load(dad):
     """Load the Preferences from Config File"""
     dad.custom_kb_shortcuts = {}
+    dad.latest_tag = ["", ""]
     if os.path.isfile(cons.CONFIG_PATH):
         cfg = ConfigParser.RawConfigParser()
         try:
@@ -183,6 +184,9 @@ def config_file_load(dad):
         dad.selword_chars = unicode(cfg.get(section, "selword_chars"), cons.STR_UTF8, cons.STR_IGNORE) if cfg.has_option(section, "selword_chars") else SELWORD_CHARS_DEFAULT
         dad.chars_listbul = unicode(cfg.get(section, "chars_listbul"), cons.STR_UTF8, cons.STR_IGNORE) if cfg.has_option(section, "chars_listbul") else CHARS_LISTBUL_DEFAULT
         dad.chars_toc = unicode(cfg.get(section, "chars_toc"), cons.STR_UTF8, cons.STR_IGNORE) if cfg.has_option(section, "chars_toc") else CHARS_TOC_DEFAULT
+        if cfg.has_option(section, "latest_tag_prop") and cfg.has_option(section, "latest_tag_val"):
+            dad.latest_tag[0] = cfg.get(section, "latest_tag_prop")
+            dad.latest_tag[1] = cfg.get(section, "latest_tag_val")
         dad.timestamp_format = cfg.get(section, "timestamp_format") if cfg.has_option(section, "timestamp_format") else TIMESTAMP_FORMAT_DEFAULT
         dad.links_underline = cfg.getboolean(section, "links_underline") if cfg.has_option(section, "links_underline") else True
         dad.links_relative = cfg.getboolean(section, "links_relative") if cfg.has_option(section, "links_relative") else False
@@ -481,6 +485,8 @@ def config_file_save(dad):
     cfg.set(section, "selword_chars", dad.selword_chars)
     cfg.set(section, "chars_listbul", dad.chars_listbul)
     cfg.set(section, "chars_toc", dad.chars_toc)
+    cfg.set(section, "latest_tag_prop", dad.latest_tag[0])
+    cfg.set(section, "latest_tag_val", dad.latest_tag[1])
     cfg.set(section, "timestamp_format", dad.timestamp_format)
     cfg.set(section, "links_underline", dad.links_underline)
     cfg.set(section, "links_relative", dad.links_relative)
