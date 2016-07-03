@@ -449,6 +449,11 @@ class CodeBoxesHandler:
                 if event.state & gtk.gdk.MOD1_MASK:
                     self.codebox_decrease_height()
                 else: self.codebox_increase_height()
+            elif keyname == "space":
+                text_iter = self.dad.curr_buffer.get_iter_at_child_anchor(self.curr_codebox_anchor)
+                text_iter.forward_char()
+                self.dad.curr_buffer.place_cursor(text_iter)
+                self.dad.sourceview.grab_focus()
         elif (event.state & gtk.gdk.SHIFT_MASK):
             if keyname == cons.STR_KEY_SHIFT_TAB:
                 text_buffer = widget.get_buffer()

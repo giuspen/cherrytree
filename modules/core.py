@@ -4908,6 +4908,12 @@ iter_end, exclude_iter_sel_end=True)
                         if list_info and list_info["level"]:
                             support.on_sourceview_list_change_level(self, iter_insert, list_info, self.curr_buffer, False)
                             return True
+            elif (event.state & gtk.gdk.CONTROL_MASK) and keyname == "space":
+                iter_insert = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
+                anchor = iter_insert.get_child_anchor()
+                if anchor and hasattr(anchor, "sourcebuffer"):
+                    anchor.sourceview.grab_focus()
+                    return True
             elif keyname == cons.STR_KEY_RETURN:
                 iter_insert = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
                 if iter_insert: self.cursor_key_press = iter_insert.get_offset()
