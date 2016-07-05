@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-05-15 11:35+0100\n"
-"PO-Revision-Date: 2016-01-25 09:53+0200\n"
+"PO-Revision-Date: 2016-07-06 00:21+0300\n"
 "Last-Translator: zygis <zygimantus@gmail.com>\n"
 "Language-Team: Lithuanian\n"
 "Language: lt\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
 "%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 1.8.4\n"
+"X-Generator: Poedit 1.8.7.1\n"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/codeboxes.py:97
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3541
@@ -145,9 +145,9 @@ msgid "No Previous Search Was Performed During This Session"
 msgstr "Nebuvo atlikta jokių paieškų šioje sesijoje"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:640
-#, fuzzy, python-format
+#, python-format
 msgid "Hide (Restore with '%s')"
-msgstr "Paslėpti (atkurti su Ctrl+Shift+A)"
+msgstr "Paslėpti (atkurti su '%s')"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:653
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3536
@@ -184,7 +184,7 @@ msgstr "Atidaryti naują CherryTree langą"
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:173
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:307
 msgid "_Open File"
-msgstr "_Atverti failą"
+msgstr "Atverti failą"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:173
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1549
@@ -261,7 +261,7 @@ msgstr "Nustatymai"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:182
 msgid "_Undo"
-msgstr "_Atkurti"
+msgstr "_Atšauti"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:182
 msgid "Undo Last Operation"
@@ -269,7 +269,7 @@ msgstr "Atšaukti paskutinę operaciją"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:183
 msgid "_Redo"
-msgstr "_Kartoti"
+msgstr "_Pakartoti"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:183
 msgid "Redo Previously Discarded Operation"
@@ -337,7 +337,7 @@ msgstr "Įterpti datą ir laiką"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:192
 msgid "Insert _Horizontal Rule"
-msgstr "Įterpti horizontalę liniuotę"
+msgstr "Įterpti horizontalią liniuotę"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:192
 msgid "Insert Horizontal Rule"
@@ -428,7 +428,7 @@ msgstr "Ištrinti eilutes"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:203
 msgid "_Duplicate Row"
-msgstr "_Dubliuoti eilutę"
+msgstr "Dubliuoti eilutę"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:203
 msgid "Duplicate the Current Row/Selection"
@@ -645,7 +645,7 @@ msgstr "Pridėti mazgą atžalą į pasirinktą mazgą"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:230
 msgid "_Duplicate Node"
-msgstr "_Dubliuoti mazgą"
+msgstr "Dubliuoti mazgą"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:230
 msgid "Duplicate the Selected Node"
@@ -714,9 +714,8 @@ msgid "Node _Right"
 msgstr "Mazgas kairėn"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:238
-#, fuzzy
 msgid "Move the Selected Node Right"
-msgstr "Perkelti pasirinktą mazgą kairėn"
+msgstr "Perkelti pasirinktą mazgą į dešinę"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:239
 #, fuzzy
@@ -724,9 +723,8 @@ msgid "Node Change _Parent"
 msgstr "Mazgas pakeisti tėvui"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:239
-#, fuzzy
 msgid "Change the Selected Node's Parent"
-msgstr "Pakeisti pasirinkto mazgo tėvą"
+msgstr "Pakeisti pasirinktų mazgų tėvą"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:240
 msgid "Sort Tree _Ascending"
@@ -765,12 +763,11 @@ msgid "_Inherit Syntax"
 msgstr "Paveldėti sintaksę"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:244
-#, fuzzy
 msgid ""
 "Change the Selected Node's Children Syntax Highlighting to the Parent's "
 "Syntax Highlighting"
 msgstr ""
-"Pakeisti pasirinkto mazgo vaikų sintaksės pažymėjimą į tėvo sintaksės "
+"Pakeisti pasirinktų mazgų vaikų sintaksės pažymėjimą į tėvo sintaksės "
 "pažymėjimą"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:245
@@ -791,7 +788,7 @@ msgstr "Eiti prieš tai lankytą mazgą"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:247
 msgid "Go _Forward"
-msgstr "Eiti _pirmyn"
+msgstr "Eiti pirmyn"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:247
 msgid "Go to the Next Visited Node"
@@ -1107,7 +1104,6 @@ msgid "Add Nodes of a NoteCase File to the Current Tree"
 msgstr "Pridėti mazgus iš NoteCase failo į dabartinį medį"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:286
-#, fuzzy
 msgid "From _RedNotebook Folder"
 msgstr "Iš KeepNote katalogo"
 
@@ -1206,7 +1202,7 @@ msgstr "Programos vadovas tinkle"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:298
 msgid "_About"
-msgstr "_Apie"
+msgstr "Apie"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:298
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:749
@@ -1349,7 +1345,7 @@ msgstr "Šalinti tarpus"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:324
 msgid "_File"
-msgstr "_Failas"
+msgstr "Failas"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:325
 msgid "_Edit"
@@ -1393,7 +1389,7 @@ msgstr "_Paieška"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:333
 msgid "_View"
-msgstr "_Rodymas"
+msgstr "Rodymas"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:334
 msgid "_Bookmarks"
@@ -1405,7 +1401,7 @@ msgstr "_Importuoti"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:336
 msgid "E_xport"
-msgstr "_Eksportuoti"
+msgstr "Eksportuoti"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:337
 msgid "_Help"
@@ -1431,7 +1427,7 @@ msgstr "_Įterpti"
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:501
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:546
 msgid "_Row"
-msgstr "_Eilutė"
+msgstr "Eilutė"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:519
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:563
@@ -1768,7 +1764,7 @@ msgstr "Japonų"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:740
 msgid "Lithuanian"
-msgstr ""
+msgstr "Lietuvių"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:741
 msgid "Polish"
@@ -1784,7 +1780,7 @@ msgstr "Rusų"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:744
 msgid "Slovenian"
-msgstr ""
+msgstr "Slovėnų"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:745
 msgid "Spanish"
@@ -1998,11 +1994,11 @@ msgstr "Įjungti automatinį išlyginimą"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:640
 msgid "Vertical Space Around Lines"
-msgstr ""
+msgstr "Vertikalūs tarpai aplinkui linijas"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:648
 msgid "Vertical Space in Wrapped Lines"
-msgstr ""
+msgstr "Vertikalūs tarpai suvyniotose linijose"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:665
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:998
@@ -2026,7 +2022,7 @@ msgstr "Specialūs simboliai"
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1562
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1739
 msgid "Reset to Default"
-msgstr ""
+msgstr "Atkurti į numatytą"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:720
 msgid "Chars to Select at Double Click"
@@ -2044,9 +2040,8 @@ msgstr "Kita"
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:750
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1696
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1781
-#, fuzzy
 msgid "Are you sure to Reset to Default?"
-msgstr "Ar tikrai norite <b>Ištrinti mazgą '%s'?</b>"
+msgstr "Ar tikrai norite atkurti numatytuosius?"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:806
 msgid "Enable Spell Check"
@@ -2110,7 +2105,7 @@ msgstr "Apriboti grąžinamus veiksmus mazgui"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:993
 msgid "Enable Smart Quotes Auto Replacement"
-msgstr ""
+msgstr "Įgalinti sumaniųjų kabučių pakeitimą"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1018
 msgid "Style Scheme"
@@ -2131,7 +2126,7 @@ msgstr "Pasirinkti simbolius dvigubu paspaudimu"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1079
 msgid "Expand Node at Mouse Click"
-msgstr ""
+msgstr "Išskleisti mazgą paspaudus pele"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1083
 #, fuzzy
@@ -2140,27 +2135,24 @@ msgstr "Slėpti/rodyti mazgo pavadinimo antraštę"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1179
 msgid "Use Different Cherries per Level"
-msgstr ""
+msgstr "Naudoti skirtingas vyšnias lygiui"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1180
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3518
-#, fuzzy
 msgid "Use Selected Icon"
-msgstr "Pasirinktas mazgas"
+msgstr "Naudoti pasirinktą ikoną"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1182
-#, fuzzy
 msgid "No Icon"
-msgstr "Mazgų ikonos"
+msgstr "Nėra ikonų"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1195
-#, fuzzy
 msgid "Default Text Nodes Icons"
-msgstr "Naudoti punktus kaip mazgų ikonas"
+msgstr "Numatytos tekstinės mazgų ikonos"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1209
 msgid "Restore Expanded/Collapsed Status"
-msgstr "\t"
+msgstr "Atkurti išskleidimo/suskleidimo būseną"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1210
 msgid "Expand all Nodes"
@@ -2180,9 +2172,8 @@ msgstr "Mazgų būsena paleidimo metu"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1289
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3627
-#, fuzzy
 msgid "Select Node Icon"
-msgstr "TIk pasirinktiems mazgams"
+msgstr "Pasirinkti mazgo ikoną"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1324
 msgid "Text Font"
@@ -2222,9 +2213,8 @@ msgid "Colors"
 msgstr "Spalvos"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1453
-#, fuzzy
 msgid "Underline Links"
-msgstr "Keisti nuorodą"
+msgstr "Pabraukti nuorodas"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1455
 msgid "Use Relative Paths for Files And Folders"
@@ -2235,14 +2225,12 @@ msgid "Anchor Size"
 msgstr "Inkaro dydis"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1559
-#, fuzzy
 msgid "Change Selected"
-msgstr "Pasirinktas mazgas"
+msgstr "Pakeisti pasirinktą"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1573
-#, fuzzy
 msgid "File"
-msgstr "_Failas"
+msgstr "Failas"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1574
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2012
@@ -2251,64 +2239,56 @@ msgid "Tree"
 msgstr "Medis"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1575
-#, fuzzy
 msgid "Editor"
-msgstr "_Keisti"
+msgstr "Redaktorius"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1576
-#, fuzzy
 msgid "Format"
 msgstr "Formatuoto paskutinį"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1577
-#, fuzzy
 msgid "Find/Replace"
-msgstr "Pakeisti"
+msgstr "Rasti/Pakeisti"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1578
-#, fuzzy
 msgid "View"
-msgstr "_Rodymas"
+msgstr "Rodymas"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1579
-#, fuzzy
 msgid "Export"
-msgstr "_Eksportuoti"
+msgstr "Eksportuoti"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1580
-#, fuzzy
 msgid "Import"
-msgstr "_Importuoti"
+msgstr "Importuoti"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1600
 msgid "Edit Keyboard Shortcut"
-msgstr ""
+msgstr "Keisti sparčiuosius klavišus"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1607
 msgid "No Keyboard Shortcut"
-msgstr ""
+msgstr "Nėra sparčiojo klavišo"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1677
 #, python-format
 msgid "The Keyboard Shortcut '%s' is already in use"
-msgstr ""
+msgstr "Spartusis klavišas '%s' jau yra naudojamas"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1677
 #, python-format
 msgid "The current associated action is '%s'"
-msgstr ""
+msgstr "Dabartinis susietas veiksmas yra '%s'"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1677
-#, fuzzy
 msgid "Do you want to steal the shortcut?"
 msgstr "Ar nori išsaugoti pakeitimus?"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1733
 msgid "Add"
-msgstr ""
+msgstr "Pridėti"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1736
-#, fuzzy
 msgid "Remove Selected"
 msgstr "Joks mazgas nepasirinktas"
 
@@ -2377,12 +2357,10 @@ msgid "The New Language will be Available Only After Restarting CherryTree"
 msgstr "Nauja kalba bus galima tik po CherryTree perkrovimo"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2008
-#, fuzzy
 msgid "Text and Code"
-msgstr "Paprastas tekstas ir kodas"
+msgstr "Tekstas ir kodas"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2009
-#, fuzzy
 msgid "Text"
 msgstr "ir tekstas"
 
@@ -2406,7 +2384,7 @@ msgstr "Įrankių juosta"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2017
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Spartieji klavišai"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/tablez.py:63
 msgid "Rename Column"
@@ -2496,9 +2474,8 @@ msgid "You Are Using the Latest Version Available"
 msgstr "Tai yra naujausia versija"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:259
-#, fuzzy
 msgid "You Are Using a Development Version"
-msgstr "Tai yra naujausia versija"
+msgstr "Jūs naudojatės kuriama versija"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:263
 msgid "Failed to Retrieve Latest Version Information - Try Again Later"
@@ -2513,7 +2490,6 @@ msgstr "Nepasirinktas joks tekstas"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:784
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2471
-#, fuzzy
 msgid "The new parent can't be one of his children!"
 msgstr "Tėvas negali būti vienas iš jo sūnų!"
 
@@ -2556,7 +2532,6 @@ msgid "Leo Document"
 msgstr "Leo dokumentas"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1112
-#, fuzzy
 msgid "Who is the Parent?"
 msgstr "Kas yra tėvas?"
 
@@ -2639,19 +2614,16 @@ msgid "Wrong Password"
 msgstr "Blogas slaptažodis"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2459
-#, fuzzy
 msgid "Select the New Parent"
-msgstr "Pasirinkite naują tėvą"
+msgstr "Pasirinkti naują tėvą"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2463
-#, fuzzy
 msgid "The new parent can't be the very node to move!"
 msgstr "Naujas tėvas negali būti vienintelis mazgas perkėlimui!"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2466
-#, fuzzy
 msgid "The new chosen parent is still the old parent!"
-msgstr "Naujas pasirinktas tėvas vėl yra senasis tėvas!"
+msgstr "Naujas pasirinktas tėvas vis dar yra senasis tėvas!"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2719
 msgid "New Node Properties"
@@ -2664,7 +2636,7 @@ msgstr "Naujo vaiko mazgo savybės"
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2803
 #, python-format
 msgid "Are you sure to <b>Delete the node '%s'?</b>"
-msgstr "Ar tikrai norite <b>Ištrinti mazgą '%s'?</b>"
+msgstr "Ar tikrai norite <b>ištrinti mazgą '%s'?</b>"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2805
 msgid "The node <b>has Children, they will be Deleted too!</b>"
@@ -2736,12 +2708,11 @@ msgstr "Paieškos nustatymai"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3507
 msgid "Bold"
-msgstr ""
+msgstr "Pastorintai"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3509
-#, fuzzy
 msgid "Use Selected Color"
-msgstr "Pasirinktas mazgas"
+msgstr "Naudoti pasirinktą spalvą"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3565
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4974
