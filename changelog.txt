@@ -1,4 +1,11 @@
 
+0.37.2 (July 7th, 2016)
+• fixed problems introduced with configurability of the bulleted lists chars
+• fixed problem with search in selected node and subnodes and progressbar
+• the latest applied formatting is now remembered between sessions
+• the Ctrl+Space shortcut now allows to enter and exit the codeboxes
+• updated Lithuanian language
+
 0.37.1 (June 19th, 2016)
 • bugfix: import of text documents bad decoding (added new dependency python-chardet)
 • bugfix: copy/paste of table row not working
