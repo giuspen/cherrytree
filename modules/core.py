@@ -4678,7 +4678,7 @@ iter_end, exclude_iter_sel_end=True)
         if tag == None:
             tag = gtk.TextTag(str(tag_name))
             if property_value == cons.TAG_PROP_HEAVY: tag.set_property(tag_property, pango.WEIGHT_HEAVY)
-            elif property_value == cons.TAG_PROP_SMALL: tag.set_property(tag_property, pango.SCALE_X_SMALL)
+            elif property_value == cons.TAG_PROP_SMALL: tag.set_property(tag_property, pango.SCALE_SMALL)
             elif property_value == cons.TAG_PROP_H1: tag.set_property(tag_property, pango.SCALE_XX_LARGE)
             elif property_value == cons.TAG_PROP_H2: tag.set_property(tag_property, pango.SCALE_X_LARGE)
             elif property_value == cons.TAG_PROP_H3: tag.set_property(tag_property, pango.SCALE_LARGE)
