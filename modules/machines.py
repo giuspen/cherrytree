@@ -300,7 +300,7 @@ class XMLHandler:
             self.append_dom_node(tree_iter, cherrytree, to_disk=True)
             tree_iter = self.dad.treestore.iter_next(tree_iter)
         self.append_bookmarks(cherrytree)
-        return self.dom.toxml()
+        return self.dom.toprettyxml()
 
     def append_bookmarks(self, dom_father):
         """Adds the bookmarks data to the DOM"""
