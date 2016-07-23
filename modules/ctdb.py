@@ -280,7 +280,7 @@ class CTDBHandler:
             else:
                 start_iter = curr_buffer.get_iter_at_offset(sel_range[0])
                 end_iter = curr_buffer.get_iter_at_offset(sel_range[1])
-            if is_richtxt:
+            if (is_richtxt & 0x01):
                 # prepare xml dom node
                 if "dom" in dir(self): del self.dom
                 self.dom = xml.dom.minidom.Document()
