@@ -169,6 +169,7 @@ def config_file_load(dad):
         dad.tabs_width = cfg.getint(section, "tabs_width") if cfg.has_option(section, "tabs_width") else 4
         dad.anchor_size = cfg.getint(section, "anchor_size") if cfg.has_option(section, "anchor_size") else 16
         dad.embfile_size = cfg.getint(section, "embfile_size") if cfg.has_option(section, "embfile_size") else 48
+        dad.embfile_show_filename = cfg.getboolean(section, "embfile_show_filename") if cfg.has_option(section, "embfile_show_filename") else True
         dad.line_wrapping = cfg.getboolean(section, "line_wrapping") if cfg.has_option(section, "line_wrapping") else True
         dad.auto_smart_quotes = cfg.getboolean(section, "auto_smart_quotes") if cfg.has_option(section, "auto_smart_quotes") else True
         dad.wrapping_indent = cfg.getint(section, "wrapping_indent") if cfg.has_option(section, "wrapping_indent") else -14
@@ -294,6 +295,7 @@ def config_file_load(dad):
         dad.tabs_width = 4
         dad.anchor_size = 16
         dad.embfile_size = 48
+        dad.embfile_show_filename = True
         dad.line_wrapping = True
         dad.auto_smart_quotes = True
         dad.wrapping_indent = -14
@@ -470,6 +472,7 @@ def config_file_save(dad):
     cfg.set(section, "tabs_width", dad.tabs_width)
     cfg.set(section, "anchor_size", dad.anchor_size)
     cfg.set(section, "embfile_size", dad.embfile_size)
+    cfg.set(section, "embfile_show_filename", dad.embfile_show_filename)
     cfg.set(section, "line_wrapping", dad.line_wrapping)
     cfg.set(section, "auto_smart_quotes", dad.auto_smart_quotes)
     cfg.set(section, "wrapping_indent", dad.wrapping_indent)
@@ -896,6 +899,8 @@ def preferences_tab_rich_text(dad, vbox_text_nodes, pref_dialog):
     spinbutton_embfile_size.set_value(dad.embfile_size)
     hbox_embfile_size.pack_start(label_embfile_size, expand=False)
     hbox_embfile_size.pack_start(spinbutton_embfile_size, expand=False)
+    checkbutton_embfile_show_filename = gtk.CheckButton(_("Show Embedded File Name"))
+    checkbutton_embfile_show_filename.set_active(dad.embfile_show_filename)
     label_limit_undoable_steps = gtk.Label(_("Limit of Undoable Steps Per Node"))
     adj_limit_undoable_steps = gtk.Adjustment(value=dad.limit_undoable_steps, lower=1, upper=10000, step_incr=1)
     spinbutton_limit_undoable_steps = gtk.SpinButton(adj_limit_undoable_steps)
@@ -908,6 +913,7 @@ def preferences_tab_rich_text(dad, vbox_text_nodes, pref_dialog):
     vbox_misc_text.pack_start(checkbutton_rt_highl_curr_line, expand=False)
     vbox_misc_text.pack_start(checkbutton_codebox_auto_resize, expand=False)
     vbox_misc_text.pack_start(hbox_embfile_size, expand=False)
+    vbox_misc_text.pack_start(checkbutton_embfile_show_filename, expand=False)
     vbox_misc_text.pack_start(hbox_misc_text, expand=False)
     frame_misc_text = gtk.Frame(label="<b>"+_("Miscellaneous")+"</b>")
     frame_misc_text.get_label_widget().set_use_markup(True)
@@ -991,6 +997,12 @@ def preferences_tab_rich_text(dad, vbox_text_nodes, pref_dialog):
             dad.embfile_size_mod = True
             support.dialog_info_after_restart(pref_dialog)
     spinbutton_embfile_size.connect('value-changed', on_spinbutton_embfile_size_value_changed)
+    def on_checkbutton_embfile_show_filename_toggled(checkbutton):
+        dad.embfile_show_filename = checkbutton.get_active()
+        if not dad.embfile_show_filename_mod:
+            dad.embfile_show_filename_mod = True
+            support.dialog_info_after_restart(pref_dialog)
+    checkbutton_embfile_show_filename.connect('toggled', on_checkbutton_embfile_show_filename_toggled)
     def on_spinbutton_limit_undoable_steps_value_changed(spinbutton):
         dad.limit_undoable_steps = int(spinbutton.get_value())
     spinbutton_limit_undoable_steps.connect('value-changed', on_spinbutton_limit_undoable_steps_value_changed)
