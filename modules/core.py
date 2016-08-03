@@ -202,6 +202,7 @@ class CherryTree:
         self.file_update = False
         self.anchor_size_mod = False
         self.embfile_size_mod = False
+        self.embfile_show_filename_mod = False
         self.cursor_key_press = None
         self.autosave_timer_id = None
         self.spell_check_init = False
@@ -4152,10 +4153,11 @@ iter_end, exclude_iter_sel_end=True)
         elif "filename" in pixbuf_attrs:
             anchor.eventbox.connect("button-press-event", self.on_mouse_button_clicked_file, anchor)
             self.embfile_set_tooltip(anchor)
-            anchor_label = gtk.Label()
-            anchor_label.set_markup("<b><small>"+pixbuf.filename+"</small></b>")
-            anchor_label.modify_fg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.rt_def_fg))
-            anchor.frame.set_label_widget(anchor_label)
+            if self.embfile_show_filename :
+                anchor_label = gtk.Label()
+                anchor_label.set_markup("<b><small>"+pixbuf.filename+"</small></b>")
+                anchor_label.modify_fg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.rt_def_fg))
+                anchor.frame.set_label_widget(anchor_label)
         else:
             anchor.eventbox.connect("button-press-event", self.on_mouse_button_clicked_image, anchor)
             anchor.eventbox.connect("visibility-notify-event", self.on_image_visibility_notify_event)
