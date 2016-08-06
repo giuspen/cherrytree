@@ -1,9 +1,5 @@
-cherrytree (0.37.2-1) trusty; urgency=low
+cherrytree (0.37.99-1) xenial; urgency=low
 
-  * fixed problems introduced with configurability of the bulleted lists chars
-  * fixed problem with search in selected node and subnodes and progressbar
-  * the latest applied formatting is now remembered between sessions
-  * the Ctrl+Space shortcut now allows to enter and exit the codeboxes
-  * updated Lithuanian language
+  * ...
 
- -- Giuseppe Penone <giuspen@gmail.com>  Thu, 07 Jul 2016 22:50:59 +0100
+ -- Giuseppe Penone <giuspen@gmail.com>  Sat, 06 Aug 2016 11:10:11 +0100
