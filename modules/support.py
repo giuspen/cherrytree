@@ -1341,6 +1341,106 @@ def dialog_link_handle(dad, title, sel_tree_iter):
     dad.links_entries['node'] = links_parms.sel_iter
     return True
 
+def dialog_choose_data_storage(dad):
+    """Choose the CherryTree data storage type (xml or db) and protection"""
+    dialog = gtk.Dialog(title=_("Choose Storage Type"),
+                        parent=dad.window,
+                        flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
+                        buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
+                        gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
+    dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+    dialog.set_default_size(350, -1)
+    radiobutton_sqlite_not_protected = gtk.RadioButton(label="SQLite, " + _("Not Protected") + " (.ctb)")
+    radiobutton_sqlite_pass_protected = gtk.RadioButton(label="SQLite, " + _("Password Protected") + " (.ctx)")
+    radiobutton_sqlite_pass_protected.set_group(radiobutton_sqlite_not_protected)
+    radiobutton_xml_not_protected = gtk.RadioButton(label="XML, " + _("Not Protected") + " (.ctd)")
+    radiobutton_xml_not_protected.set_group(radiobutton_sqlite_not_protected)
+    radiobutton_xml_pass_protected = gtk.RadioButton(label="XML, " + _("Password Protected") + " (.ctz)")
+    radiobutton_xml_pass_protected.set_group(radiobutton_sqlite_not_protected)
+    type_vbox = gtk.VBox()
+    type_vbox.pack_start(radiobutton_sqlite_not_protected)
+    type_vbox.pack_start(radiobutton_sqlite_pass_protected)
+    type_vbox.pack_start(radiobutton_xml_not_protected)
+    type_vbox.pack_start(radiobutton_xml_pass_protected)
+    type_frame = gtk.Frame(label="<b>"+_("Storage Type")+"</b>")
+    type_frame.get_label_widget().set_use_markup(True)
+    type_frame.set_shadow_type(gtk.SHADOW_NONE)
+    type_frame.add(type_vbox)
+    entry_passw_1 = gtk.Entry()
+    entry_passw_1.set_visibility(False)
+    entry_passw_2 = gtk.Entry()
+    entry_passw_2.set_visibility(False)
+    label_passwd = gtk.Label(_("This is not in-memory encryption. CT will save the document in an encrypted 7zip archive. When viewing or editing a document, CT will extract the encrypted archive to a temporary folder, and work on this unencrypted copy. When closing gracefully, the document is placed in an encrypted archive again, then deleted from the temporary directory. Note that in the case of an ungraceful CT shutdown, such as an application or system crash, the unencrypted document will remain on the disk as a temporary file."))
+    label_passwd.set_width_chars(70)
+    label_passwd.set_line_wrap(True)
+    vbox_passw = gtk.VBox()
+    vbox_passw.pack_start(entry_passw_1)
+    vbox_passw.pack_start(entry_passw_2)
+    vbox_passw.pack_start(label_passwd)
+    passw_frame = gtk.Frame(label="<b>"+_("Enter the New Password Twice")+"</b>")
+    passw_frame.get_label_widget().set_use_markup(True)
+    passw_frame.set_shadow_type(gtk.SHADOW_NONE)
+    passw_frame.add(vbox_passw)
+    if len(dad.file_name) > 4:
+        if dad.file_name[-1] == "b": radiobutton_sqlite_not_protected.set_active(True)
+        elif dad.file_name[-1] == "x": radiobutton_sqlite_pass_protected.set_active(True)
+        elif dad.file_name[-1] == "d": radiobutton_xml_not_protected.set_active(True)
+        else: radiobutton_xml_pass_protected.set_active(True)
+    if dad.password: passw_frame.set_sensitive(True)
+    else: passw_frame.set_sensitive(False)
+    content_area = dialog.get_content_area()
+    content_area.set_spacing(5)
+    content_area.pack_start(type_frame)
+    content_area.pack_start(passw_frame)
+    content_area.show_all()
+    def on_radiobutton_savetype_toggled(widget):
+        if radiobutton_sqlite_pass_protected.get_active()\
+        or radiobutton_xml_pass_protected.get_active():
+            passw_frame.set_sensitive(True)
+            entry_passw_1.grab_focus()
+        else: passw_frame.set_sensitive(False)
+    def on_key_press_edit_data_storage_type_dialog(widget, event):
+        if gtk.gdk.keyval_name(event.keyval) == cons.STR_KEY_RETURN:
+            try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
+            except: print cons.STR_PYGTK_222_REQUIRED
+            return True
+        return False
+    radiobutton_sqlite_not_protected.connect("toggled", on_radiobutton_savetype_toggled)
+    radiobutton_sqlite_pass_protected.connect("toggled", on_radiobutton_savetype_toggled)
+    radiobutton_xml_not_protected.connect("toggled", on_radiobutton_savetype_toggled)
+    dialog.connect("key_press_event", on_key_press_edit_data_storage_type_dialog)
+    response = dialog.run()
+    storage_type_is_xml = (radiobutton_xml_not_protected.get_active()\
+                           or radiobutton_xml_pass_protected.get_active())
+    new_protection = {'on': (radiobutton_sqlite_pass_protected.get_active()\
+                             or radiobutton_xml_pass_protected.get_active()),
+                      'p1': unicode(entry_passw_1.get_text(), cons.STR_UTF8, cons.STR_IGNORE),
+                      'p2': unicode(entry_passw_2.get_text(), cons.STR_UTF8, cons.STR_IGNORE)}
+    dialog.destroy()
+    if response != gtk.RESPONSE_ACCEPT: return False
+    if new_protection['on']:
+        if new_protection['p1'] == "":
+            dialog_error(_("The Password Fields Must be Filled"), dad.window)
+            return False
+        if new_protection['p1'] != new_protection['p2']:
+            dialog_error(_("The Two Inserted Passwords Do Not Match"), dad.window)
+            return False
+        for bad_char in cons.CHARS_NOT_FOR_PASSWD:
+            if bad_char in new_protection['p1']:
+                dialog_error(_("The Characters  %s  are Not Allowed") % cons.CHAR_SPACE.join(cons.CHARS_NOT_FOR_PASSWD), dad.window)
+                return False
+        if not new_protection['p1'] or not dad.is_7za_available(): return False
+        dad.password = new_protection['p1']
+    else: dad.password = None
+    if storage_type_is_xml:
+        if dad.password: dad.filetype = "z"
+        else: dad.filetype = "d"
+    else:
+        if dad.password: dad.filetype = "x"
+        else: dad.filetype = "b"
+    #print "dad.filetype = '%s'" % dad.filetype
+    return True
+
 def dialog_choose_node(dad, title, treestore, sel_tree_iter):
     """Dialog to Select a Node"""
     class NodeParms:
