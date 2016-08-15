@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<language id="groovy" _name="Groovy" version="2.0" _section="Sources">
+  <metadata>
+    <property name="mimetypes">text/x-groovy</property>
+    <property name="globs">*.groovy</property>
+    <property name="line-comment-start">//</property>
+    <property name="block-comment-start">/*</property>
+    <property name="block-comment-end">*/</property>
+  </metadata>
+
+  <styles>
+    <style id="comment" _name="Comment" map-to="def:comment"/>
+    <style id="error" _name="Error" map-to="def:error"/>
+    <style id="string" _name="String" map-to="def:string"/>
+    <style id="external" _name="External" map-to="def:preprocessor"/>
+    <style id="declaration" _name="Declaration" map-to="def:type"/>
+    <style id="storage-class" _name="Storage Class" map-to="def:type"/>
+    <style id="scope-declaration" _name="Scope Declaration" map-to="def:type"/>
+    <style id="keyword" _name="Keyword" map-to="def:keyword"/>
+    <style id="null-value" _name="Null Value" map-to="def:special-constant"/>
+    <style id="boolean" _name="Boolean value" map-to="def:boolean"/>
+    <style id="number" _name="Number" map-to="def:decimal"/>
+    <style id="reserved" _name="Future Reserved Keywords" map-to="def:error"/>
+    <style id="type" _name="Data Type" map-to="def:type"/>
+    <style id="enum-constant" _name="Enum Constant" map-to="def:special-constant"/>
+    <style id="builtin" _name="Built-in Identifier" map-to="def:builtin"/>
+    <style id="escaped-character" _name="Escaped Character" map-to="def:special-char"/>
+    <style id="identifier" _name="Identifier" map-to="def:identifier"/>
+    <style id="underlined" _name="Underlined" map-to="def:underlined"/>
+  </styles>
+
+  <definitions>
+
+    <define-regex id="escaped-character" extended="true">
+      \\(               # leading backslash
+      [\\\"\'nrbtf] |   # escaped character
+      [0-9]{1,3}    |   # latin encoded char
+      u[0-9]{1,4}       # unicode char
+      )
+    </define-regex>
+
+    <define-regex id="class-name" extended="true">
+      \b[_A-Z][\w]*\b
+    </define-regex>
+
+    <context id="escaped-character" style-ref="escaped-character">
+      <match>\%{escaped-character}</match>
+    </context>
+
+    <context id="gstring-var" style-ref="identifier">
+      <match>\$[\w]+</match>
+    </context>
+
+    <context id="gstring-eval" style-ref="identifier">
+      <start>\${</start>
+      <end>}</end>
+      <include>
+        <context ref="groovy:*"/>
+      </include>
+    </context>
+
+    <context id="gstring" style-ref="string" end-at-line-end="true">
+      <start>"</start>
+      <end>"</end>
+      <include>
+        <context ref="escaped-character"/>
+        <context ref="gstring-var"/>
+        <context ref="gstring-eval"/>
+      </include>
+    </context>
+
+    <context id="string" style-ref="string" end-at-line-end="true">
+      <start>'</start>
+      <end>'</end>
+      <include>
+        <context ref="escaped-character"/>
+      </include>
+    </context>
+
+    <context id="line-comment" style-ref="comment" end-at-line-end="true">
+      <start>//</start>
+      <include>
+        <context ref="def:in-line-comment"/>
+      </include>
+    </context>
+
+    <context id="block-comment" style-ref="comment">
+      <start>/\*</start>
+      <end>\*/</end>
+      <include>
+        <context ref="def:in-comment"/>
+      </include>
+    </context>
+
+    <context id="close-comment-outside-comment" style-ref="error">
+      <match>\*/(?!\*)</match>
+    </context>
+
+    <context id="externals" style-ref="external">
+      <keyword>import</keyword>
+      <keyword>package</keyword>
+    </context>
+
+    <context id="declarations" style-ref="declaration">
+      <keyword>class</keyword>
+      <keyword>enum</keyword>
+      <keyword>extends</keyword>
+      <keyword>implements</keyword>
+      <keyword>instanceof</keyword>
+      <keyword>interface</keyword>
+      <keyword>native</keyword>
+      <keyword>throws</keyword>
+      <keyword>trait</keyword>
+    </context>
+
+    <context id="primitive-types" style-ref="type">
+      <keyword>boolean</keyword>
+      <keyword>byte</keyword>
+      <keyword>char</keyword>
+      <keyword>def</keyword>
+      <keyword>double</keyword>
+      <keyword>float</keyword>
+      <keyword>int</keyword>
+      <keyword>long</keyword>
+      <keyword>short</keyword>
+      <keyword>void</keyword>
+    </context>
+
+    <context id="complex-types" style-ref="type">
+      <match>\%{class-name}</match>
+    </context>
+
+    <context id="annotation" style-ref="enum-constant">
+      <match>@\%{class-name}</match>
+    </context>
+
+    <context id="storage-class" style-ref="storage-class">
+      <keyword>abstract</keyword>
+      <keyword>final</keyword>
+      <keyword>static</keyword>
+      <keyword>strictfp</keyword>
+      <keyword>synchronized</keyword>
+      <keyword>transient</keyword>
+      <keyword>volatile</keyword>
+    </context>
+
+    <context id="scope-declarations" style-ref="scope-declaration">
+      <keyword>private</keyword>
+      <keyword>protected</keyword>
+      <keyword>public</keyword>
+    </context>
+
+    <context id="flow" style-ref="keyword">
+      <keyword>as</keyword>
+      <keyword>assert</keyword>
+      <keyword>break</keyword>
+      <keyword>case</keyword>
+      <keyword>catch</keyword>
+      <keyword>continue</keyword>
+      <keyword>default</keyword>
+      <keyword>do</keyword>
+      <keyword>each</keyword>
+      <keyword>else</keyword>
+      <keyword>finally</keyword>
+      <keyword>for</keyword>
+      <keyword>if</keyword>
+      <keyword>render</keyword>
+      <keyword>return</keyword>
+      <keyword>throw</keyword>
+      <keyword>switch</keyword>
+      <keyword>try</keyword>
+      <keyword>while</keyword>
+      <keyword>with</keyword>
+    </context>
+
+    <context id="memory" style-ref="keyword">
+      <keyword>new</keyword>
+      <keyword>super</keyword>
+      <keyword>this</keyword>
+    </context>
+
+    <context id="future-reserved-words" style-ref="reserved">
+      <keyword>const</keyword>
+      <keyword>goto</keyword>
+    </context>
+
+    <context id="null-value" style-ref="null-value">
+      <keyword>null</keyword>
+    </context>
+
+    <context id="boolean" style-ref="boolean">
+      <keyword>false</keyword>
+      <keyword>true</keyword>
+    </context>
+
+    <context id="numeric" style-ref="number">
+      <match extended="true">
+        (\b([0-9]+|0[xX][0-9a-fA-F]+)[Ll]?\b|
+         \b(([0-9]+[Ee][-]?[0-9]+|
+            ([0-9]*\.[0-9]+|[0-9]+\.)([Ee][-]?[0-9]+)?)[fFdD]?|
+            [0-9]+[FfDd]))
+      </match>
+    </context>
+
+    <context id="enum-constant" style-ref="enum-constant">
+      <match extended="true">
+        (\b[A-Z]+(_[0-9A-Z]+)*\b)
+      </match>
+    </context>
+
+    <context id="builtin" style-ref="builtin">
+      <keyword>print</keyword>
+      <keyword>println</keyword>
+      <keyword>with</keyword>
+    </context>
+
+    <context id="map-key" style-ref="identifier">
+      <match extended="true">
+        (([\w]+)[\s]*:)
+      </match>
+    </context>
+
+    <context id="groovy">
+      <include>
+        <context ref="gstring"/>
+        <context ref="string"/>
+        <context ref="line-comment"/>
+        <context ref="block-comment"/>
+        <context ref="close-comment-outside-comment"/>
+        <context ref="externals"/>
+        <context ref="declarations"/>
+        <context ref="enum-constant"/>
+        <context ref="annotation"/>
+        <context ref="primitive-types"/>
+        <context ref="complex-types"/>
+        <context ref="storage-class"/>
+        <context ref="scope-declarations"/>
+        <context ref="flow"/>
+        <context ref="memory"/>
+        <context ref="future-reserved-words"/>
+        <context ref="null-value"/>
+        <context ref="boolean"/>
+        <context ref="numeric"/>
+        <context ref="builtin"/>
+        <context ref="map-key"/>
+      </include>
+    </context>
+
+  </definitions>
+</language>
