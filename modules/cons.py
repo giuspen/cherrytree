@@ -212,6 +212,18 @@ STR_KEY_SQUOTE = "apostrophe"
 STR_KEYS_CONTROL = ["Control_L", "Control_R"]
 STR_PYGTK_222_REQUIRED = "PyGTK 2.22 required"
 
+CHERRY_RED = 'cherry_red'
+CHERRY_BLUE = 'cherry_blue'
+CHERRY_ORANGE = 'cherry_orange'
+CHERRY_CYAN = 'cherry_cyan'
+CHERRY_ORANGE_DARK = 'cherry_orange_dark'
+CHERRY_SHERBERT = 'cherry_sherbert'
+CHERRY_YELLOW = 'cherry_yellow'
+CHERRY_GREEN = 'cherry_green'
+CHERRY_PURPLE = 'cherry_purple'
+CHERRY_BLACK = 'cherry_black'
+CHERRY_GRAY = 'cherry_gray'
+
 HTML_HEADER = '''<!doctype html><html>
 <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
@@ -223,10 +235,10 @@ HTML_HEADER = '''<!doctype html><html>
 HTML_FOOTER = '</body></html>'
 
 STOCKS_N_FILES = [
-'node_bullet', 'node_no_icon', 'cherry_black', 'cherry_blue',
-'cherry_cyan', 'cherry_green', 'cherry_gray', 'cherry_orange',
-'cherry_orange_dark', 'cherry_purple', 'cherry_red', 'cherry_sherbert',
-'cherry_yellow', 'image_insert', 'image_edit', 'image_save',
+'node_bullet', 'node_no_icon', CHERRY_BLACK, CHERRY_BLUE,
+CHERRY_CYAN, CHERRY_GREEN, CHERRY_GRAY, CHERRY_ORANGE,
+CHERRY_ORANGE_DARK, CHERRY_PURPLE, CHERRY_RED, CHERRY_SHERBERT,
+CHERRY_YELLOW, 'image_insert', 'image_edit', 'image_save',
 'table_insert', 'table_edit', 'table_save', 'codebox_insert',
 'codebox_edit', 'anchor_insert', 'anchor_edit', 'anchor',
 'insert', 'link_handle', 'link_website', 'cherry_edit',
@@ -277,17 +289,17 @@ NODES_STOCKS = {
 24: 'java',
 25: 'node_bullet',
 26: 'node_no_icon',
-27: 'cherry_black',
-28: 'cherry_blue',
-29: 'cherry_cyan',
-30: 'cherry_green',
-31: 'cherry_gray',
-32: 'cherry_orange',
-33: 'cherry_orange_dark',
-34: 'cherry_purple',
-35: 'cherry_red',
-36: 'cherry_sherbert',
-37: 'cherry_yellow',
+27: CHERRY_BLACK,
+28: CHERRY_BLUE,
+29: CHERRY_CYAN,
+30: CHERRY_GREEN,
+31: CHERRY_GRAY,
+32: CHERRY_ORANGE,
+33: CHERRY_ORANGE_DARK,
+34: CHERRY_PURPLE,
+35: CHERRY_RED,
+36: CHERRY_SHERBERT,
+37: CHERRY_YELLOW,
 38: 'code',
 39: 'find',
 40: 'locked',
@@ -301,9 +313,18 @@ NODES_STOCKS = {
 48: 'cpp',
 }
 NODES_ICONS = {
-0:'cherry_red', 1:'cherry_blue', 2:'cherry_orange', 3:'cherry_cyan',
-4:'cherry_orange_dark', 5:'cherry_sherbert', 6:'cherry_yellow',
-7: 'cherry_green', 8:'cherry_purple', 9:'cherry_black', 10:'cherry_gray'
+0: CHERRY_RED,
+1: CHERRY_BLUE,
+2: CHERRY_ORANGE,
+3: CHERRY_CYAN,
+4: CHERRY_ORANGE_DARK,
+5: CHERRY_SHERBERT,
+6: CHERRY_YELLOW,
+7: CHERRY_GREEN,
+8: CHERRY_PURPLE,
+9: CHERRY_BLACK,
+10: CHERRY_GRAY,
+-1: CHERRY_GRAY,
 }
 CODE_ICONS = {
 "python": 'python',
