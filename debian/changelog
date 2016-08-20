@@ -1,7 +1,7 @@
-cherrytree (0.37.3-1) xenial; urgency=low
+cherrytree (0.37.4-1) xenial; urgency=low
 
-  * bugfix: problem with sqlite storage (ctb, ctx), bold node name and plain text node
-  * for the document type XML (ctd, ctz) changed the generated XML to be pretty (indented)
-  * change to slightly larger 'small font' in formatted text
+  * bugfix: regression since 0.37.0 for trees with more than 11 levels and cherries per node level
+  * added groovy language syntax highlighting support
+  * added language Greek, work of Delphina
 
- -- Giuseppe Penone <giuspen@gmail.com>  Sat, 06 Aug 2016 11:31:11 +0100
+ -- Giuseppe Penone <giuspen@gmail.com>  Sat, 20 Aug 2016 09:12:12 +0100
