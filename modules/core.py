@@ -1599,7 +1599,7 @@ iter_end, exclude_iter_sel_end=True)
                     if not subprocess.call("mv %s %s.tmp" % (esc_filepath, esc_filepath), shell=True):
                         dot_tmp_existing = True
                     else: subprocess.call("%s d %s" % (cons.SZA_PATH, esc_filepath), shell=True)
-            bash_str = '%s a -p%s -w%s -bd -y %s %s' % (cons.SZA_PATH,
+            bash_str = '%s a -p%s -w%s -mx1 -bd -y %s %s' % (cons.SZA_PATH,
                 self.password,
                 esc_tmp_folder,
                 esc_filepath,
