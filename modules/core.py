@@ -2918,7 +2918,7 @@ iter_end, exclude_iter_sel_end=True)
         if new_iter == None: return # no node selected
         elif self.curr_tree_iter != None and model[new_iter][3] == model[self.curr_tree_iter][3]:
             return # if i click on an already selected node
-        if self.enable_spell_check and self.user_active and self.syntax_highlighting in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID]:
+        if self.enable_spell_check and self.user_active and self.syntax_highlighting == cons.RICH_TEXT_ID:
             self.spell_check_set_off()
         if self.curr_tree_iter and self.curr_buffer:
             if self.user_active:
@@ -2956,7 +2956,7 @@ iter_end, exclude_iter_sel_end=True)
                 #print "cursor_pos %s restore for node %s" % (cursor_pos, node_id)
                 self.curr_buffer.place_cursor(cursor_iter)
                 self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), 0.3)
-            if self.syntax_highlighting in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID]:
+            if self.syntax_highlighting == cons.RICH_TEXT_ID:
                 #if not already_visited: self.lists_handler.todo_lists_old_to_new_conversion(self.curr_buffer)
                 if self.enable_spell_check: self.spell_check_set_on()
             node_is_bookmarked = (str(node_id) in self.bookmarks)
@@ -3968,7 +3968,7 @@ iter_end, exclude_iter_sel_end=True)
         dialog.get_action_area().set_layout(gtk.BUTTONBOX_SPREAD)
         dialog.run()
         dialog.destroy()
-        if self.enable_spell_check and self.syntax_highlighting in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID]:
+        if self.enable_spell_check and self.syntax_highlighting == cons.RICH_TEXT_ID:
             self.spell_check_set_on()
 
     def tree_info_iter(self, tree_iter):
@@ -4637,17 +4637,17 @@ iter_end, exclude_iter_sel_end=True)
         """Enable Spell Check"""
         if not self.spell_check_init:
             self.spell_check_init = True
-            self.spellchecker = pgsc_spellcheck.SpellChecker(self.sourceview, self, self.syntax_highlighting in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID], self.spell_check_lang)
+            self.spellchecker = pgsc_spellcheck.SpellChecker(self.sourceview, self, self.syntax_highlighting == cons.RICH_TEXT_ID, self.spell_check_lang)
             self.combobox_spell_check_lang_init()
         else:
             self.spellchecker.enable()
-            if self.syntax_highlighting in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID]:
+            if self.syntax_highlighting == cons.RICH_TEXT_ID:
                 self.spell_check_reload_on_buffer()
         self.update_selected_node_statusbar_info()
 
     def spell_check_set_off(self, update_statusbar=False):
         """Disable Spell Check"""
-        self.spellchecker.disable()
+        if self.spell_check_init: self.spellchecker.disable()
         if update_statusbar: self.update_selected_node_statusbar_info()
 
     def spell_check_reload_on_buffer(self):
@@ -4910,12 +4910,13 @@ iter_end, exclude_iter_sel_end=True)
             tooltip_text = _("No Node is Selected")
         else:
             tooltip_text = _("Node Type") + _(": ")
-            if self.treestore[self.curr_tree_iter][4] == cons.RICH_TEXT_ID: tooltip_text += _("Rich Text")
-            elif self.treestore[self.curr_tree_iter][4] == cons.PLAIN_TEXT_ID: tooltip_text += _("Plain Text")
-            else: tooltip_text += self.treestore[self.curr_tree_iter][4]
+            if self.syntax_highlighting == cons.RICH_TEXT_ID: tooltip_text += _("Rich Text")
+            elif self.syntax_highlighting == cons.PLAIN_TEXT_ID: tooltip_text += _("Plain Text")
+            else: tooltip_text += self.syntax_highlighting
             if self.treestore[self.curr_tree_iter][7]: tooltip_text += "  -  " + _("Read Only")
             if self.treestore[self.curr_tree_iter][6]: tooltip_text += "  -  " + _("Tags") + _(": ") + self.treestore[self.curr_tree_iter][6]
-            if self.enable_spell_check: tooltip_text += "  -  " + _("Spell Check") + _(": ") + self.spell_check_lang
+            if self.enable_spell_check and self.syntax_highlighting == cons.RICH_TEXT_ID:
+                tooltip_text += "  -  " + _("Spell Check") + _(": ") + self.spell_check_lang
             print "sel node id=%s, seq=%s" % (self.treestore[self.curr_tree_iter][3], self.treestore[self.curr_tree_iter][5])
         self.statusbar.pop(self.statusbar_context_id)
         self.statusbar.push(self.statusbar_context_id, tooltip_text)

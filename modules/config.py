@@ -369,8 +369,6 @@ def config_file_apply(dad):
     dad.treeview_set_colors()
     if not pgsc_spellcheck.HAS_PYENCHANT:
         dad.enable_spell_check = False
-    if dad.enable_spell_check:
-        dad.spell_check_set_on()
     dad.sourceview.set_show_line_numbers(dad.show_line_numbers)
     dad.sourceview.set_insert_spaces_instead_of_tabs(dad.spaces_instead_tabs)
     dad.sourceview.set_tab_width(dad.tabs_width)
