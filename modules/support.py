@@ -20,7 +20,7 @@
 #       MA 02110-1301, USA.
 
 import gtk, pango, locale, os, webbrowser, re
-import cons, config
+import cons, config, exports
 
 
 def auto_decode_str(in_str, from_clipboard=False):
@@ -1575,6 +1575,31 @@ def dialog_selnode_selnodeandsub_alltree(dad, also_selection, also_include_node_
     dialog.destroy()
     if response != gtk.RESPONSE_ACCEPT: ret_val = 0
     return ret_val
+
+def dialog_color_pick(dad, curr_color=None):
+    """Dialog to select a color, featuring a palette"""
+    dialog = gtk.ColorSelectionDialog(_("Pick a Color"))
+    dialog.set_transient_for(dad.window)
+    dialog.set_property("modal", True)
+    dialog.set_property("destroy-with-parent", True)
+    dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+    gtk_settings = gtk.settings_get_default()
+    gtk_settings.set_property("gtk-color-palette", ":".join(dad.palette_list))
+    colorselection = dialog.get_color_selection()
+    colorselection.set_has_palette(True)
+    if curr_color:
+        colorselection.set_current_color(curr_color)
+    response = dialog.run()
+    dialog.hide()
+    if response != gtk.RESPONSE_OK: return None
+    ret_color = colorselection.get_current_color()
+    color_str_hex8 = "#" + exports.rgb_any_to_24(ret_color.to_string()[1:])
+    if color_str_hex8 in dad.palette_list:
+        dad.palette_list.remove(color_str_hex8)
+    else:
+        dad.palette_list.pop()
+    dad.palette_list.insert(0, color_str_hex8)
+    return ret_color
 
 def set_bookmarks_menu_items(dad):
     """Set Bookmarks Menu Items"""

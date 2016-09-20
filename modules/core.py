@@ -3439,7 +3439,10 @@ iter_end, exclude_iter_sel_end=True)
         is_bold_checkbutton.set_active(is_bold)
         fg_checkbutton = gtk.CheckButton(label=_("Use Selected Color"))
         fg_checkbutton.set_active(fg != None)
-        fg_colorbutton = gtk.ColorButton(color=gtk.gdk.color_parse(fg if fg else "red"))
+        if fg: curr_color = gtk.gdk.color_parse(fg)
+        elif self.curr_colors['n']: curr_color = self.curr_colors['n']
+        else: curr_color = gtk.gdk.color_parse("red")
+        fg_colorbutton = gtk.ColorButton(color=curr_color)
         fg_colorbutton.set_sensitive(fg != None)
         fg_hbox = gtk.HBox()
         fg_hbox.set_spacing(2)
@@ -3548,6 +3551,12 @@ iter_end, exclude_iter_sel_end=True)
         def on_fg_checkbutton_toggled(checkbutton):
             fg_colorbutton.set_sensitive(checkbutton.get_active())
         fg_checkbutton.connect('toggled', on_fg_checkbutton_toggled)
+        def on_fg_colorbutton_press_event(colorbutton, event):
+            ret_color = support.dialog_color_pick(self, colorbutton.get_color())
+            if ret_color:
+                colorbutton.set_color(ret_color)
+            return True
+        fg_colorbutton.connect('button-press-event', on_fg_colorbutton_press_event)
         def on_c_icon_checkbutton_toggled(checkbutton):
             c_icon_button.set_sensitive(checkbutton.get_active())
         c_icon_checkbutton.connect('toggled', on_c_icon_checkbutton_toggled)
@@ -3577,6 +3586,7 @@ iter_end, exclude_iter_sel_end=True)
             ret_is_bold = is_bold_checkbutton.get_active()
             if fg_checkbutton.get_active():
                 ret_fg = "#" + exports.rgb_any_to_24(fg_colorbutton.get_color().to_string()[1:])
+                self.curr_colors['n'] = fg_colorbutton.get_color()
             else:
                 ret_fg = None
             return [ret_name, ret_syntax, ret_tags, ret_ro, ret_c_icon_id, ret_is_bold, ret_fg]
@@ -4512,31 +4522,11 @@ iter_end, exclude_iter_sel_end=True)
                 iter_sel_end = text_buffer.get_iter_at_offset(bound_offset)
                 property_value = self.links_entries_post_dialog()
             else:
-                dialog = gtk.ColorSelectionDialog(_("Pick a Color"))
-                dialog.set_transient_for(self.window)
-                dialog.set_property("modal", True)
-                dialog.set_property("destroy-with-parent", True)
-                dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-                gtk_settings = gtk.settings_get_default()
-                gtk_settings.set_property("gtk-color-palette", ":".join(self.palette_list))
-                colorselection = dialog.get_color_selection()
-                colorselection.set_has_palette(True)
-                if tag_property[0] == 'f':
-                    if self.curr_colors['f']: colorselection.set_current_color(self.curr_colors['f'])
-                elif tag_property[0] == 'b':
-                    if self.curr_colors['b']: colorselection.set_current_color(self.curr_colors['b'])
-                else: print "ERROR bad tag_property"
-                response = dialog.run()
-                dialog.hide()
-                if response != gtk.RESPONSE_OK: return
-                self.curr_colors[tag_property[0]] = colorselection.get_current_color()
-                property_value = self.curr_colors[tag_property[0]].to_string()
-                color_str_hex8 = "#" + exports.rgb_any_to_24(property_value[1:])
-                if color_str_hex8 in self.palette_list:
-                    self.palette_list.remove(color_str_hex8)
-                else:
-                    self.palette_list.pop()
-                self.palette_list.insert(0, color_str_hex8)
+                assert tag_property[0] in ['f', 'b'], "!! bad tag_property '%s'" % tag_property
+                ret_color = support.dialog_color_pick(self, self.curr_colors[tag_property[0]])
+                if not ret_color: return
+                self.curr_colors[tag_property[0]] = ret_color
+                property_value = ret_color.to_string()
         if self.user_active and tag_property != cons.TAG_LINK:
             self.latest_tag = [tag_property, property_value]
         sel_start_offset = iter_sel_start.get_offset()

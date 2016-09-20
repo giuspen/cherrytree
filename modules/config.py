@@ -132,8 +132,10 @@ def config_file_load(dad):
             dad.toolbar_icon_size = cfg.getint(section, "toolbar_icon_size")
             if dad.toolbar_icon_size not in ICONS_SIZE: dad.toolbar_icon_size = 1
         else: dad.toolbar_icon_size = 1
-        dad.curr_colors = {'f':gtk.gdk.color_parse(cfg.get(section, "fg")) if cfg.has_option(section, "fg") else None,
-                            'b':gtk.gdk.color_parse(cfg.get(section, "bg")) if cfg.has_option(section, "bg") else None}
+        dad.curr_colors = {
+            'f':gtk.gdk.color_parse(cfg.get(section, "fg")) if cfg.has_option(section, "fg") else None,
+            'b':gtk.gdk.color_parse(cfg.get(section, "bg")) if cfg.has_option(section, "bg") else None,
+            'n':gtk.gdk.color_parse(cfg.get(section, "nn")) if cfg.has_option(section, "nn") else None}
 
         section = "tree"
         dad.rest_exp_coll = cfg.getint(section, "rest_exp_coll") if cfg.has_option(section, "rest_exp_coll") else 0
@@ -267,7 +269,7 @@ def config_file_load(dad):
         dad.file_dir = ""
         dad.file_name = ""
         dad.node_path = None
-        dad.curr_colors = {'f':None, 'b':None}
+        dad.curr_colors = {'f':None, 'b':None, 'n':None}
         dad.syntax_highlighting = cons.RICH_TEXT_ID
         dad.auto_syn_highl = "sh"
         dad.style_scheme = cons.STYLE_SCHEME_DARK
@@ -428,6 +430,7 @@ def config_file_save(dad):
     cfg.set(section, "toolbar_icon_size", dad.toolbar_icon_size)
     if dad.curr_colors['f']: cfg.set(section, "fg", dad.curr_colors['f'].to_string())
     if dad.curr_colors['b']: cfg.set(section, "bg", dad.curr_colors['b'].to_string())
+    if dad.curr_colors['n']: cfg.set(section, "nn", dad.curr_colors['n'].to_string())
 
     section = "tree"
     cfg.add_section(section)
