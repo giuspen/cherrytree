@@ -271,46 +271,47 @@ class ClipboardHandler:
         if self.dad.syntax_highlighting != cons.RICH_TEXT_ID:
             iter_insert = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
             self.dad.curr_buffer.insert(iter_insert, selection_data)
-            return
-        uri_list = selection_data.split(cons.CHAR_NEWLINE)
-        for element in uri_list:
-            if not element: continue
-            iter_insert = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
-            if support.get_first_chars_of_string_are(element, cons.WEB_LINK_STARTERS):
-                property_value = "webs " + element
-            elif element.startswith("file://"):
-                file_path = element[7:].replace("%20", cons.CHAR_SPACE)
-                mimetype = mimetypes.guess_type(file_path)[0]
-                if mimetype and mimetype.startswith("image/") and os.path.isfile(file_path):
-                    try:
-                        pixbuf = gtk.gdk.pixbuf_new_from_file(file_path)
-                        self.dad.image_insert(iter_insert, pixbuf)
-                        iter_insert = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
-                        self.dad.curr_buffer.insert(iter_insert, 3*cons.CHAR_SPACE)
-                        continue
-                    except: pass
-                if os.path.isdir(file_path):
-                    property_value = "fold %s" % base64.b64encode(file_path)
-                elif os.path.isfile(file_path):
-                    property_value = "file %s" % base64.b64encode(file_path)
+        else:
+            uri_list = selection_data.split(cons.CHAR_NEWLINE)
+            for element in uri_list:
+                if not element: continue
+                iter_insert = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
+                if support.get_first_chars_of_string_are(element, cons.WEB_LINK_STARTERS):
+                    property_value = "webs " + element
+                elif element.startswith("file://"):
+                    file_path = element[7:].replace("%20", cons.CHAR_SPACE)
+                    mimetype = mimetypes.guess_type(file_path)[0]
+                    if mimetype and mimetype.startswith("image/") and os.path.isfile(file_path):
+                        try:
+                            pixbuf = gtk.gdk.pixbuf_new_from_file(file_path)
+                            self.dad.image_insert(iter_insert, pixbuf)
+                            iter_insert = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
+                            self.dad.curr_buffer.insert(iter_insert, 3*cons.CHAR_SPACE)
+                            continue
+                        except: pass
+                    if os.path.isdir(file_path):
+                        property_value = "fold %s" % base64.b64encode(file_path)
+                    elif os.path.isfile(file_path):
+                        property_value = "file %s" % base64.b64encode(file_path)
+                    else:
+                        property_value = None
+                        print "ERROR: discarded file uri '%s'" % file_path
                 else:
-                    property_value = None
-                    print "ERROR: discarded file uri '%s'" % file_path
-            else:
-                if os.path.isdir(element):
-                    property_value = "fold %s" % base64.b64encode(element)
-                elif os.path.isfile(element):
-                    property_value = "file %s" % base64.b64encode(element)
-                else:
-                    property_value = None
-                    print "ERROR: discarded ? uri '%s'" % element
-            start_offset = iter_insert.get_offset()
-            self.dad.curr_buffer.insert(iter_insert, element + cons.CHAR_NEWLINE)
-            if property_value:
-                iter_sel_start = self.dad.curr_buffer.get_iter_at_offset(start_offset)
-                iter_sel_end = self.dad.curr_buffer.get_iter_at_offset(start_offset + len(element))
-                self.dad.curr_buffer.apply_tag_by_name(self.dad.apply_tag_exist_or_create("link", property_value),
-                                                       iter_sel_start, iter_sel_end)
+                    if os.path.isdir(element):
+                        property_value = "fold %s" % base64.b64encode(element)
+                    elif os.path.isfile(element):
+                        property_value = "file %s" % base64.b64encode(element)
+                    else:
+                        property_value = None
+                        print "ERROR: discarded ? uri '%s'" % element
+                start_offset = iter_insert.get_offset()
+                self.dad.curr_buffer.insert(iter_insert, element + cons.CHAR_NEWLINE)
+                if property_value:
+                    iter_sel_start = self.dad.curr_buffer.get_iter_at_offset(start_offset)
+                    iter_sel_end = self.dad.curr_buffer.get_iter_at_offset(start_offset + len(element))
+                    self.dad.curr_buffer.apply_tag_by_name(self.dad.apply_tag_exist_or_create("link", property_value),
+                                                           iter_sel_start, iter_sel_end)
+        self.dad.sourceview.scroll_to_mark(self.dad.curr_buffer.get_insert(), cons.SCROLL_MARGIN)
 
     def to_html(self, clipboard, selectiondata, data):
         """From Clipboard to HTML Text"""
@@ -325,6 +326,7 @@ class ClipboardHandler:
         html_import = imports.HTMLHandler(self.dad)
         xml_string = html_import.get_clipboard_selection_xml(selection_data)
         self.from_xml_string_to_buffer(xml_string)
+        self.dad.sourceview.scroll_to_mark(self.dad.curr_buffer.get_insert(), cons.SCROLL_MARGIN)
 
     def to_plain_text(self, clipboard, selectiondata, data):
         """From Clipboard to Plain Text"""
@@ -361,6 +363,7 @@ class ClipboardHandler:
                         self.dad.curr_buffer.apply_tag_by_name(self.dad.apply_tag_exist_or_create("link", property_value),
                                                                iter_sel_start, iter_sel_end)
         self.force_plain_text = False
+        self.dad.sourceview.scroll_to_mark(self.dad.curr_buffer.get_insert(), cons.SCROLL_MARGIN)
 
     def to_rich_text(self, clipboard, selectiondata, data):
         """From Clipboard to Rich Text"""
@@ -369,6 +372,7 @@ class ClipboardHandler:
             print "? no clipboard rich text"
             return
         self.from_xml_string_to_buffer(rich_text)
+        self.dad.sourceview.scroll_to_mark(self.dad.curr_buffer.get_insert(), cons.SCROLL_MARGIN)
 
     def from_xml_string_to_buffer(self, xml_string):
         """From XML String to Text Buffer"""
@@ -416,6 +420,7 @@ class ClipboardHandler:
         pixbuf = selectiondata.get_pixbuf()
         pixbuf.link = ""
         self.dad.image_insert(self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert()), pixbuf)
+        self.dad.sourceview.scroll_to_mark(self.dad.curr_buffer.get_insert(), cons.SCROLL_MARGIN)
 
     def dom_node_to_image(self, dom_node):
         """From dom_node to Image"""
@@ -449,6 +454,7 @@ class ClipboardHandler:
             print "codebox from clipboard error"
             return
         self.dom_node_to_codebox(dom_node)
+        self.dad.sourceview.scroll_to_mark(self.dad.curr_buffer.get_insert(), cons.SCROLL_MARGIN)
 
     def dom_node_to_codebox(self, dom_node):
         """From dom_node to CodeBox"""
@@ -479,6 +485,7 @@ class ClipboardHandler:
             print "table from clipboard error"
             return
         self.dom_node_to_table(dom_node, table_model_n_iter)
+        self.dad.sourceview.scroll_to_mark(self.dad.curr_buffer.get_insert(), cons.SCROLL_MARGIN)
 
     def dom_node_to_table(self, dom_node, table_model_n_iter):
         """From dom_node to Table"""

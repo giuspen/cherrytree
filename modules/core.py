@@ -1172,7 +1172,7 @@ iter_end, exclude_iter_sel_end=True)
                 # try to restore cursor position if in memory
                 if self.treestore[former_node][3] in self.nodes_cursor_pos:
                     self.curr_buffer.place_cursor(self.curr_buffer.get_iter_at_offset(self.nodes_cursor_pos[self.treestore[former_node][3]]))
-                    self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), 0.3)
+                    self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), cons.SCROLL_MARGIN)
         else: support.dialog_error('Error Parsing the CherryTree File', self.window)
         if user_active_restore: self.user_active = True
 
@@ -3050,7 +3050,7 @@ iter_end, exclude_iter_sel_end=True)
             if cursor_iter:
                 #print "cursor_pos %s restore for node %s" % (cursor_pos, node_id)
                 self.curr_buffer.place_cursor(cursor_iter)
-                self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), 0.3)
+                self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), cons.SCROLL_MARGIN)
             if self.syntax_highlighting == cons.RICH_TEXT_ID:
                 #if not already_visited: self.lists_handler.todo_lists_old_to_new_conversion(self.curr_buffer)
                 if self.enable_spell_check: self.spell_check_set_on()
@@ -3325,7 +3325,7 @@ iter_end, exclude_iter_sel_end=True)
             self.sourceview.set_buffer(text_buffer)
             self.objects_buffer_refresh()
             text_buffer.place_cursor(text_buffer.get_iter_at_offset(state[2]))
-            self.sourceview.scroll_to_mark(text_buffer.get_insert(), 0.3)
+            self.sourceview.scroll_to_mark(text_buffer.get_insert(), cons.SCROLL_MARGIN)
         if user_active_restore: self.user_active = True
         if not given_tree_iter:
             if spell_check_restore: self.toggle_ena_dis_spellcheck()
@@ -3387,7 +3387,7 @@ iter_end, exclude_iter_sel_end=True)
             self.curr_buffer.set_modified(False)
             self.curr_buffer.move_mark(self.curr_buffer.get_insert(), self.curr_buffer.get_iter_at_offset(insert_offset))
             self.curr_buffer.move_mark(self.curr_buffer.get_selection_bound(), self.curr_buffer.get_iter_at_offset(bound_offset))
-            self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), 0.3)
+            self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), cons.SCROLL_MARGIN)
             if user_active_restore: self.user_active = True
 
     def on_text_insertion(self, sourcebuffer, text_iter, text_inserted, length):
@@ -4856,7 +4856,7 @@ iter_end, exclude_iter_sel_end=True)
                 if iter_anchor == None: support.dialog_warning(_("No anchor named '%s' found") % anchor_name, self.window)
                 else:
                     self.curr_buffer.place_cursor(iter_anchor)
-                    self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), 0.3)
+                    self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), cons.SCROLL_MARGIN)
         else: support.dialog_error("Tag Name Not Recognized! (%s)" % vector[0], self.window)
 
     def link_seek_for_anchor(self, anchor_name):
