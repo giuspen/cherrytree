@@ -309,7 +309,7 @@ class ClipboardHandler:
                 if property_value:
                     iter_sel_start = self.dad.curr_buffer.get_iter_at_offset(start_offset)
                     iter_sel_end = self.dad.curr_buffer.get_iter_at_offset(start_offset + len(element))
-                    self.dad.curr_buffer.apply_tag_by_name(self.dad.apply_tag_exist_or_create("link", property_value),
+                    self.dad.curr_buffer.apply_tag_by_name(self.dad.apply_tag_exist_or_create(cons.TAG_LINK, property_value),
                                                            iter_sel_start, iter_sel_end)
         self.dad.sourceview.scroll_to_mark(self.dad.curr_buffer.get_insert(), cons.SCROLL_MARGIN)
 
@@ -346,7 +346,7 @@ class ClipboardHandler:
                     link_url = plain_text[offsets[0]:offsets[1]]
                     if link_url[0:3] not in ["htt", "ftp"]: link_url = "http://" + link_url
                     property_value = "webs " + link_url
-                    self.dad.curr_buffer.apply_tag_by_name(self.dad.apply_tag_exist_or_create("link", property_value),
+                    self.dad.curr_buffer.apply_tag_by_name(self.dad.apply_tag_exist_or_create(cons.TAG_LINK, property_value),
                                                            iter_sel_start, iter_sel_end)
             else:
                 # check for file or folder path
@@ -360,7 +360,7 @@ class ClipboardHandler:
                         iter_sel_end = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
                         iter_sel_start = iter_sel_end.copy()
                         iter_sel_start.backward_chars(len(plain_text))
-                        self.dad.curr_buffer.apply_tag_by_name(self.dad.apply_tag_exist_or_create("link", property_value),
+                        self.dad.curr_buffer.apply_tag_by_name(self.dad.apply_tag_exist_or_create(cons.TAG_LINK, property_value),
                                                                iter_sel_start, iter_sel_end)
         self.force_plain_text = False
         self.dad.sourceview.scroll_to_mark(self.dad.curr_buffer.get_insert(), cons.SCROLL_MARGIN)
