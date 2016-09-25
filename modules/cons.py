@@ -63,7 +63,6 @@ except: HAS_APPINDICATOR = False
 XDG_CURRENT_DESKTOP = 'XDG_CURRENT_DESKTOP'
 HAS_SYSTRAY = not (XDG_CURRENT_DESKTOP in os.environ and os.environ[XDG_CURRENT_DESKTOP] == "Unity")
 
-WEB_LINK_STARTERS = ["http://", "https://", "www.", "ftp://"]
 AVAILABLE_LANGS = ['default', 'cs', 'de', 'el', 'en', 'es', 'fr', 'hy', 'it', 'ja', 'lt', 'nl', 'pl', 'pt_BR', 'ru', 'sl', 'tr', 'uk', 'zh_CN']
 COLOR_48_LINK_WEBS = "#00004444ffff"
 COLOR_48_LINK_NODE = "#071c838e071c"
@@ -190,6 +189,9 @@ SPECIAL_CHAR_ARROW_DOUBLE2 = "⇔"
 SPECIAL_CHAR_COPYRIGHT = "©"
 SPECIAL_CHAR_UNREGISTERED_TRADEMARK = "™"
 SPECIAL_CHAR_REGISTERED_TRADEMARK = "®"
+
+WEB_LINK_STARTERS = ["http://", "https://", "www.", "ftp://"]
+WEB_LINK_SEPARATORS = [CHAR_SPACE, CHAR_NEWLINE, CHAR_CR, CHAR_TAB]
 
 STR_CURSOR_POSITION = "cursor-position"
 STR_STOCK_CT_IMP = "import_in_cherrytree"
