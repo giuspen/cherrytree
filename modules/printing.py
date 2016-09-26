@@ -475,6 +475,15 @@ class PrintHandler:
         """Split Long CodeBoxes"""
         codebox_dict = self.pixbuf_table_codebox_vector[idx][1][1]
         original_splitted_pango = codebox_dict['fill_text'].split(cons.CHAR_NEWLINE)
+        for i, element in enumerate(original_splitted_pango):
+            last_close = element.rfind("</span")
+            last_open = element.rfind("<span")
+            if last_close < last_open:
+                non_closed_span = original_splitted_pango[i][last_open:]
+                end_non_closed_span_idx = non_closed_span.find(">")
+                non_closed_span = non_closed_span[:end_non_closed_span_idx+1]
+                original_splitted_pango[i] += "</span>"
+                original_splitted_pango[i+1] = non_closed_span + original_splitted_pango[i+1]
         splitted_pango = []
         codebox_dict_jolly = copy.deepcopy(codebox_dict)
         partial_pango_vec = []
