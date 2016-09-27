@@ -85,6 +85,11 @@ class PrintHandler:
         self.table_line_thickness = 6
         self.pixbuf_table_codebox_vector = pixbuf_table_codebox_vector
         # pixbuf_table_codebox_vector is [ [ "pixbuf"/"table"/"codebox", [offset, pixbuf, alignment] ],... ]
+        # in tables we need to move the title from the last to the first row
+        for element in self.pixbuf_table_codebox_vector:
+            if element[0] == "table":
+                table = element[1][1]
+                table['matrix'].insert(0, table['matrix'].pop())
         print_data = PrintData()
         print_data.text = pango_text
         print_operation = self.get_print_operation()
@@ -196,7 +201,6 @@ class PrintHandler:
                         if inline_pending_height < pixbuf_height: inline_pending_height = pixbuf_height
                     elif self.pixbuf_table_codebox_vector[i][0] == "table":
                         table = self.pixbuf_table_codebox_vector[i][1][1]
-                        table['matrix'].insert(0, table['matrix'].pop()) # let's put the title to first row
                         table_layouts = self.get_table_layouts(context, table)
                         table_grid = self.get_table_grid(table_layouts, table['col_min'])
                         table_height = self.get_table_height_from_grid(table_grid)
