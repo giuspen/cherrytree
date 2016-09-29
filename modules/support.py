@@ -61,8 +61,9 @@ def apply_tag_try_link(dad, iter_end, iter_cursor=None):
         if curr_char in cons.WEB_LINK_SEPARATORS:
             iter_start.forward_char()
             break
-    if (iter_end.get_offset() - iter_start.get_offset()) > 4 \
-    and get_next_chars_from_iter_are(iter_start, cons.WEB_LINK_STARTERS):
+    num_chars = iter_end.get_offset() - iter_start.get_offset()
+    tag_applied = False
+    if num_chars > 4 and get_next_chars_from_iter_are(iter_start, cons.WEB_LINK_STARTERS):
         dad.curr_buffer.select_range(iter_start, iter_end)
         if dad.link_check_around_cursor():
             dad.remove_text_formatting()
@@ -70,9 +71,18 @@ def apply_tag_try_link(dad, iter_end, iter_cursor=None):
         if link_url[0:3] not in ["htt", "ftp"]: link_url = "http://" + link_url
         property_value = "webs " + link_url
         dad.curr_buffer.apply_tag_by_name(dad.apply_tag_exist_or_create(cons.TAG_LINK, property_value),
-                                                           iter_start, iter_end)
-        if iter_cursor:
-            dad.curr_buffer.place_cursor(iter_cursor)
+                                          iter_start, iter_end)
+        tag_applied = True
+    elif num_chars > 2 and get_is_camel_case(iter_start, num_chars):
+        node_name = dad.curr_buffer.get_text(iter_start, iter_end)
+        node_dest = dad.get_tree_iter_from_node_name(node_name)
+        if node_dest:
+            property_value = cons.LINK_TYPE_NODE + cons.CHAR_SPACE + str(dad.treestore[node_dest][3])
+            dad.curr_buffer.apply_tag_by_name(dad.apply_tag_exist_or_create(cons.TAG_LINK, property_value),
+                                              iter_start, iter_end)
+            tag_applied = True
+    if tag_applied and iter_cursor:
+        dad.curr_buffer.place_cursor(iter_cursor)
 
 def apply_tag_try_automatic_bounds(dad, text_buffer=None, iter_start=None):
     """Try to Select a Word Forward/Backward the Cursor"""
@@ -528,6 +538,30 @@ def strip_trailing_spaces(text_buffer):
                     text_buffer.delete(text_buffer.get_iter_at_offset(start_offset), curr_iter)
                 break
     return cleaned_lines
+
+def get_is_camel_case(iter_start, num_chars):
+    """Returns True if the characters compose a camel case word"""
+    text_iter = iter_start.copy()
+    curr_state = 0
+    for i in range(num_chars):
+        curr_char = text_iter.get_char()
+        alphanumeric = re.match('\w', curr_char, re.UNICODE)
+        if not alphanumeric:
+            curr_state = -1
+            break
+        if curr_state == 0:
+            if curr_char.islower():
+                curr_state = 1
+        elif curr_state == 1:
+            if curr_char.isupper():
+                curr_state = 2
+        elif curr_state == 2:
+            if curr_char.islower():
+                curr_state = 3
+        else:
+            pass
+        text_iter.forward_char()
+    return curr_state == 3
 
 def get_next_chars_from_iter_are(iter_start, chars_list):
     """Returns True if one set of the Given Chars are the first after iter"""
