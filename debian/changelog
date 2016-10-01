@@ -1,7 +1,11 @@
-cherrytree (0.37.4-1) xenial; urgency=low
+cherrytree (0.37.5-1) xenial; urgency=low
 
-  * bugfix: regression since 0.37.0 for trees with more than 11 levels and cherries per node level
-  * added groovy language syntax highlighting support
-  * added language Greek, work of Delphina
+  * the password protected documents now use 7zip fastest compression resulting in faster save and slightly larger documents
+  * added auto apply of web links as you type in rich text nodes
+  * added auto apply of links to nodes as you type in rich text nodes (CamelCase nodes names only)
+  * added proper scrolling to cursor after pasting of multiple lines of text from the clipboard
+  * added palette to the color picker dialog for the node name
+  * fixed bugs related to export to pdf of tables and codeboxes
+  * limited the spell check to rich text nodes after currently unresolvable problems with plain text spell check
 
- -- Giuseppe Penone <giuspen@gmail.com>  Sat, 20 Aug 2016 09:12:12 +0100
+ -- Giuseppe Penone <giuspen@gmail.com>  Sat, 01 Oct 2016 12:56:00 +0100
