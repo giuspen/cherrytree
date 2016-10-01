@@ -65,21 +65,18 @@ def apply_tag_try_link(dad, iter_end, iter_cursor=None):
     tag_applied = False
     if num_chars > 4 and get_next_chars_from_iter_are(iter_start, cons.WEB_LINK_STARTERS):
         dad.curr_buffer.select_range(iter_start, iter_end)
-        if dad.link_check_around_cursor():
-            dad.remove_text_formatting()
         link_url = dad.curr_buffer.get_text(iter_start, iter_end)
         if link_url[0:3] not in ["htt", "ftp"]: link_url = "http://" + link_url
-        property_value = "webs " + link_url
-        dad.curr_buffer.apply_tag_by_name(dad.apply_tag_exist_or_create(cons.TAG_LINK, property_value),
-                                          iter_start, iter_end)
+        property_value = cons.LINK_TYPE_WEBS + cons.CHAR_SPACE + link_url
+        dad.apply_tag(cons.TAG_LINK, property_value=property_value)
         tag_applied = True
     elif num_chars > 2 and get_is_camel_case(iter_start, num_chars):
         node_name = dad.curr_buffer.get_text(iter_start, iter_end)
         node_dest = dad.get_tree_iter_from_node_name(node_name)
         if node_dest:
+            dad.curr_buffer.select_range(iter_start, iter_end)
             property_value = cons.LINK_TYPE_NODE + cons.CHAR_SPACE + str(dad.treestore[node_dest][3])
-            dad.curr_buffer.apply_tag_by_name(dad.apply_tag_exist_or_create(cons.TAG_LINK, property_value),
-                                              iter_start, iter_end)
+            dad.apply_tag(cons.TAG_LINK, property_value=property_value)
             tag_applied = True
     if tag_applied and iter_cursor:
         dad.curr_buffer.place_cursor(iter_cursor)
