@@ -178,11 +178,11 @@ class ExportPrint:
         ret_filepath = support.dialog_file_save_as(proposed_name + ".pdf",
             filter_pattern="*.pdf",
             filter_name=_("PDF File"),
-            curr_folder=self.dad.pick_dir,
+            curr_folder=self.dad.pick_dir_export,
             parent=self.dad.window)
         if ret_filepath:
             if not ret_filepath.endswith(".pdf"): ret_filepath += ".pdf"
-            self.dad.pick_dir = os.path.dirname(ret_filepath)
+            self.dad.pick_dir_export = os.path.dirname(ret_filepath)
         return ret_filepath
 
     def nodes_all_export_print(self, top_tree_iter, include_node_name, new_node_in_new_page):
@@ -264,16 +264,16 @@ class Export2Txt:
         ret_filepath = support.dialog_file_save_as(proposed_name + ".txt",
                                                    filter_pattern="*.txt",
                                                    filter_name=_("Plain Text Document"),
-                                                   curr_folder=self.dad.pick_dir,
+                                                   curr_folder=self.dad.pick_dir_export,
                                                    parent=self.dad.window)
         if ret_filepath:
             if not ret_filepath.endswith(".txt"): ret_filepath += ".txt"
-            self.dad.pick_dir = os.path.dirname(ret_filepath)
+            self.dad.pick_dir_export = os.path.dirname(ret_filepath)
         return ret_filepath
 
     def prepare_txt_folder(self, new_folder):
         """Prepare the website folder"""
-        dir_place = support.dialog_folder_select(curr_folder=self.dad.pick_dir, parent=self.dad.window)
+        dir_place = support.dialog_folder_select(curr_folder=self.dad.pick_dir_export, parent=self.dad.window)
         if dir_place == None: return False
         new_folder = support.clean_from_chars_not_for_filename(new_folder) + "_TXT"
         while os.path.exists(os.path.join(dir_place, new_folder)):
@@ -542,7 +542,7 @@ class Export2Html:
     def prepare_html_folder(self, new_folder, dir_place=""):
         """Prepare the website folder"""
         if not dir_place:
-            dir_place = support.dialog_folder_select(curr_folder=self.dad.pick_dir, parent=self.dad.window)
+            dir_place = support.dialog_folder_select(curr_folder=self.dad.pick_dir_export, parent=self.dad.window)
             if dir_place == None: return False
         new_folder = support.clean_from_chars_not_for_filename(new_folder) + "_HTML"
         if os.path.exists(os.path.join(dir_place, new_folder)):

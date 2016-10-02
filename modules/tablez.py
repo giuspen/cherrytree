@@ -265,13 +265,13 @@ class TablesHandler:
 
     def table_export(self, action):
         """Table Export as CSV File"""
-        filename = support.dialog_file_save_as(curr_folder=self.dad.pick_dir,
+        filename = support.dialog_file_save_as(curr_folder=self.dad.pick_dir_csv,
                                                filter_pattern="*.csv",
                                                filter_name=_("CSV File"),
                                                parent=self.dad.window)
         if not filename: return
         if len(filename) < 4 or filename[-4:] != ".csv": filename += ".csv"
-        self.dad.pick_dir = os.path.dirname(filename)
+        self.dad.pick_dir_csv = os.path.dirname(filename)
         table_dict = self.dad.state_machine.table_to_dict(self.curr_table_anchor)
         table_matrix = table_dict['matrix']
         table_matrix.insert(0, table_matrix.pop())
@@ -290,10 +290,10 @@ class TablesHandler:
         else:
             filepath = support.dialog_file_select(filter_pattern=["*.csv"],
                 filter_name=_("CSV File"),
-                curr_folder=self.dad.pick_dir,
+                curr_folder=self.dad.pick_dir_csv,
                 parent=self.dad.window)
             if filepath != None:
-                self.dad.pick_dir = os.path.dirname(filepath)
+                self.dad.pick_dir_csv = os.path.dirname(filepath)
                 support.text_file_rm_emptylines(filepath)
                 file_descriptor = open(filepath, 'r')
                 reader = UnicodeReader(file_descriptor)

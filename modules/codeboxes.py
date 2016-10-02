@@ -348,18 +348,18 @@ class CodeBoxesHandler:
     def codebox_load_from_file(self, action):
         """Load the CodeBox Content From a Text File"""
         if not self.dad.is_curr_node_not_read_only_or_error(): return
-        filepath = support.dialog_file_select(curr_folder=self.dad.pick_dir, parent=self.dad.window)
+        filepath = support.dialog_file_select(curr_folder=self.dad.pick_dir_cbox, parent=self.dad.window)
         if not filepath: return
-        self.dad.pick_dir = os.path.dirname(filepath)
+        self.dad.pick_dir_cbox = os.path.dirname(filepath)
         with open(filepath, 'r') as fd:
             self.curr_codebox_anchor.sourcebuffer.set_text(fd.read())
 
     def codebox_save_to_file(self, action):
         """Save the CodeBox Content To a Text File"""
-        filepath = support.dialog_file_save_as(curr_folder=self.dad.pick_dir,
+        filepath = support.dialog_file_save_as(curr_folder=self.dad.pick_dir_cbox,
                                                parent=self.dad.window)
         if not filepath: return
-        self.dad.pick_dir = os.path.dirname(filepath)
+        self.dad.pick_dir_cbox = os.path.dirname(filepath)
         with open(filepath, 'w') as fd:
             fd.write(self.curr_codebox_anchor.sourcebuffer.get_text(*self.curr_codebox_anchor.sourcebuffer.get_bounds()))
 

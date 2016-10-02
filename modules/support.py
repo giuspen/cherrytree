@@ -1304,17 +1304,17 @@ def dialog_link_handle(dad, title, sel_tree_iter):
         if radiobutton.get_active(): dad.link_type = cons.LINK_TYPE_FOLD
         link_type_changed_on_dialog()
     def on_button_browse_for_file_to_link_to_clicked(self, *args):
-        filepath = dialog_file_select(curr_folder=dad.pick_dir, parent=dialog)
+        filepath = dialog_file_select(curr_folder=dad.pick_dir_file, parent=dialog)
         if not filepath: return
-        dad.pick_dir = os.path.dirname(filepath)
+        dad.pick_dir_file = os.path.dirname(filepath)
         if dad.links_relative:
             try: filepath = os.path.relpath(filepath, dad.file_dir)
             except: print "cannot set relative path for different drives"
         entry_file.set_text(filepath)
     def on_button_browse_for_folder_to_link_to_clicked(self, *args):
-        filepath = dialog_folder_select(curr_folder=dad.pick_dir, parent=dialog)
+        filepath = dialog_folder_select(curr_folder=dad.pick_dir_file, parent=dialog)
         if not filepath: return
-        dad.pick_dir = filepath
+        dad.pick_dir_file = filepath
         if dad.links_relative:
             try: filepath = os.path.relpath(filepath, dad.file_dir)
             except: print "cannot set relative path for different drives"

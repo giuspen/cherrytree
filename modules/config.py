@@ -28,6 +28,7 @@ ICONS_SIZE = {1: gtk.ICON_SIZE_MENU, 2: gtk.ICON_SIZE_SMALL_TOOLBAR, 3: gtk.ICON
 
 LINK_CUSTOM_ACTION_DEFAULT_WEB = "firefox %s &"
 LINK_CUSTOM_ACTION_DEFAULT_FILE = "xdg-open %s &"
+MAX_SIZE_EMBFILE_MB_DEFAULT = 10
 HORIZONTAL_RULE = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 COLOR_PALETTE_DEFAULT = ["#000000", "#ffffff", "#7f7f7f", "#ff0000", "#a020f0",
                          "#0000ff", "#add8e6", "#00ff00", "#ffff00", "#ffa500",
@@ -124,7 +125,12 @@ def config_file_load(dad):
             temp_recent_docs = cfg.get(section, "recent_docs").split(cons.CHAR_SPACE)
             for element in temp_recent_docs:
                 if element: dad.recent_docs.append(unicode(base64.b64decode(element), cons.STR_UTF8, cons.STR_IGNORE))
-        dad.pick_dir = cfg.get(section, "pick_dir") if cfg.has_option(section, "pick_dir") else ""
+        dad.pick_dir_import = cfg.get(section, "pick_dir_import") if cfg.has_option(section, "pick_dir_import") else ""
+        dad.pick_dir_export = cfg.get(section, "pick_dir_export") if cfg.has_option(section, "pick_dir_export") else ""
+        dad.pick_dir_file = cfg.get(section, "pick_dir_file") if cfg.has_option(section, "pick_dir_file") else ""
+        dad.pick_dir_img = cfg.get(section, "pick_dir_img") if cfg.has_option(section, "pick_dir_img") else ""
+        dad.pick_dir_csv = cfg.get(section, "pick_dir_csv") if cfg.has_option(section, "pick_dir_csv") else ""
+        dad.pick_dir_cbox = cfg.get(section, "pick_dir_cbox") if cfg.has_option(section, "pick_dir_cbox") else ""
         dad.link_type = cfg.get(section, "link_type") if cfg.has_option(section, "link_type") else cons.LINK_TYPE_WEBS
         dad.show_node_name_header = cfg.getboolean(section, "show_node_name_header") if cfg.has_option(section, "show_node_name_header") else True
         dad.nodes_on_node_name_header = cfg.getint(section, "nodes_on_node_name_header") if cfg.has_option(section, "nodes_on_node_name_header") else NODES_ON_NODE_NAME_HEADER_DEFAULT
@@ -172,6 +178,7 @@ def config_file_load(dad):
         dad.anchor_size = cfg.getint(section, "anchor_size") if cfg.has_option(section, "anchor_size") else 16
         dad.embfile_size = cfg.getint(section, "embfile_size") if cfg.has_option(section, "embfile_size") else 48
         dad.embfile_show_filename = cfg.getboolean(section, "embfile_show_filename") if cfg.has_option(section, "embfile_show_filename") else True
+        dad.embfile_max_size = cfg.getint(section, "embfile_max_size") if cfg.has_option(section, "embfile_max_size") else MAX_SIZE_EMBFILE_MB_DEFAULT
         dad.line_wrapping = cfg.getboolean(section, "line_wrapping") if cfg.has_option(section, "line_wrapping") else True
         dad.auto_smart_quotes = cfg.getboolean(section, "auto_smart_quotes") if cfg.has_option(section, "auto_smart_quotes") else True
         dad.wrapping_indent = cfg.getint(section, "wrapping_indent") if cfg.has_option(section, "wrapping_indent") else -14
@@ -298,6 +305,7 @@ def config_file_load(dad):
         dad.anchor_size = 16
         dad.embfile_size = 48
         dad.embfile_show_filename = True
+        dad.embfile_max_size = MAX_SIZE_EMBFILE_MB_DEFAULT
         dad.line_wrapping = True
         dad.auto_smart_quotes = True
         dad.wrapping_indent = -14
@@ -312,7 +320,12 @@ def config_file_load(dad):
         dad.expcollnam1 = ""
         dad.expcollnam2 = ""
         dad.expcollnam3 = ""
-        dad.pick_dir = ""
+        dad.pick_dir_import = ""
+        dad.pick_dir_export = ""
+        dad.pick_dir_file = ""
+        dad.pick_dir_img = ""
+        dad.pick_dir_csv = ""
+        dad.pick_dir_cbox = ""
         dad.link_type = cons.LINK_TYPE_WEBS
         dad.toolbar_icon_size = 1
         dad.table_rows = 3
@@ -423,7 +436,12 @@ def config_file_save(dad):
         str_recent_docs = cons.CHAR_SPACE.join(temp_recent_docs)
     else: str_recent_docs = ""
     cfg.set(section, "recent_docs", str_recent_docs)
-    cfg.set(section, "pick_dir", dad.pick_dir)
+    cfg.set(section, "pick_dir_import", dad.pick_dir_import)
+    cfg.set(section, "pick_dir_export", dad.pick_dir_export)
+    cfg.set(section, "pick_dir_file", dad.pick_dir_file)
+    cfg.set(section, "pick_dir_img", dad.pick_dir_img)
+    cfg.set(section, "pick_dir_csv", dad.pick_dir_csv)
+    cfg.set(section, "pick_dir_cbox", dad.pick_dir_cbox)
     cfg.set(section, "link_type", dad.link_type)
     cfg.set(section, "show_node_name_header", dad.show_node_name_header)
     cfg.set(section, "nodes_on_node_name_header", dad.nodes_on_node_name_header)
@@ -474,6 +492,7 @@ def config_file_save(dad):
     cfg.set(section, "anchor_size", dad.anchor_size)
     cfg.set(section, "embfile_size", dad.embfile_size)
     cfg.set(section, "embfile_show_filename", dad.embfile_show_filename)
+    cfg.set(section, "embfile_max_size", dad.embfile_max_size)
     cfg.set(section, "line_wrapping", dad.line_wrapping)
     cfg.set(section, "auto_smart_quotes", dad.auto_smart_quotes)
     cfg.set(section, "wrapping_indent", dad.wrapping_indent)

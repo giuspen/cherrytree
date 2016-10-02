@@ -808,10 +808,10 @@ iter_end, exclude_iter_sel_end=True)
         """Appends Nodes at the Bottom of the Current Ones, Importing from a CherryTree File"""
         filepath = support.dialog_file_select(filter_pattern=["*.ct*"],
             filter_name=_("CherryTree Document"),
-            curr_folder=self.pick_dir,
+            curr_folder=self.pick_dir_import,
             parent=self.window)
         if not filepath: return
-        self.pick_dir = os.path.dirname(filepath)
+        self.pick_dir_import = os.path.dirname(filepath)
         document_loaded_ok = False
         if filepath[-1] in ["d", "z"]:
             # xml
@@ -838,10 +838,10 @@ iter_end, exclude_iter_sel_end=True)
         """Add Nodes Parsing a NoteCase File"""
         filepath = support.dialog_file_select(filter_pattern=["*.ncd"],
             filter_name=_("NoteCase Document"),
-            curr_folder=self.pick_dir,
+            curr_folder=self.pick_dir_import,
             parent=self.window)
         if not filepath: return
-        self.pick_dir = os.path.dirname(filepath)
+        self.pick_dir_import = os.path.dirname(filepath)
         try:
             file_descriptor = open(filepath, 'r')
             notecase_string = file_descriptor.read()
@@ -856,9 +856,9 @@ iter_end, exclude_iter_sel_end=True)
 
     def nodes_add_from_tuxcards_file(self, action):
         """Add Nodes Parsing a TuxCards File"""
-        filepath = support.dialog_file_select(curr_folder=self.pick_dir, parent=self.window)
+        filepath = support.dialog_file_select(curr_folder=self.pick_dir_import, parent=self.window)
         if not filepath: return
-        self.pick_dir = os.path.dirname(filepath)
+        self.pick_dir_import = os.path.dirname(filepath)
         try:
             file_descriptor = open(filepath, 'r')
             tuxcards_string = re.sub(cons.BAD_CHARS, "", file_descriptor.read())
@@ -873,9 +873,9 @@ iter_end, exclude_iter_sel_end=True)
 
     def nodes_add_from_keepnote_folder(self, action):
         """Add Nodes Parsing a KeepNote Folder"""
-        folderpath = support.dialog_folder_select(curr_folder=self.pick_dir, parent=self.window)
+        folderpath = support.dialog_folder_select(curr_folder=self.pick_dir_import, parent=self.window)
         if not folderpath: return
-        self.pick_dir = os.path.dirname(folderpath)
+        self.pick_dir_import = os.path.dirname(folderpath)
         keepnote = imports.KeepnoteHandler(self, folderpath)
         cherrytree_string = keepnote.get_cherrytree_xml()
         self.nodes_add_from_cherrytree_data(cherrytree_string)
@@ -935,9 +935,9 @@ iter_end, exclude_iter_sel_end=True)
         filepath = support.dialog_file_select(filter_pattern=["*.html", "*.HTML", "*.htm", "*.HTM"] if cons.IS_WIN_OS else [],
             filter_mime=["text/html"] if not cons.IS_WIN_OS else [],
             filter_name=_("EPIM HTML Document"),
-            curr_folder=self.pick_dir, parent=self.window)
+            curr_folder=self.pick_dir_import, parent=self.window)
         if not filepath: return
-        self.pick_dir = os.path.dirname(filepath)
+        self.pick_dir_import = os.path.dirname(filepath)
         html_folder = imports.epim_html_file_to_hier_files(filepath)
         if not html_folder: return
         html = imports.HTMLHandler(self)
@@ -949,18 +949,18 @@ iter_end, exclude_iter_sel_end=True)
         filepath = support.dialog_file_select(filter_pattern=["*.html", "*.HTML", "*.htm", "*.HTM"] if cons.IS_WIN_OS else [],
             filter_mime=["text/html"] if not cons.IS_WIN_OS else [],
             filter_name=_("HTML Document"),
-            curr_folder=self.pick_dir, parent=self.window)
+            curr_folder=self.pick_dir_import, parent=self.window)
         if not filepath: return
-        self.pick_dir = os.path.dirname(filepath)
+        self.pick_dir_import = os.path.dirname(filepath)
         html = imports.HTMLHandler(self)
         cherrytree_string = html.get_cherrytree_xml(filepath=filepath)
         self.nodes_add_from_cherrytree_data(cherrytree_string)
 
     def nodes_add_from_html_folder(self, action):
         """Add Nodes from HTML File(s) in Selected Folder"""
-        folderpath = support.dialog_folder_select(curr_folder=self.pick_dir, parent=self.window)
+        folderpath = support.dialog_folder_select(curr_folder=self.pick_dir_import, parent=self.window)
         if not folderpath: return
-        self.pick_dir = os.path.dirname(folderpath)
+        self.pick_dir_import = os.path.dirname(folderpath)
         html = imports.HTMLHandler(self)
         cherrytree_string = html.get_cherrytree_xml(folderpath=folderpath)
         self.nodes_add_from_cherrytree_data(cherrytree_string)
@@ -979,9 +979,9 @@ iter_end, exclude_iter_sel_end=True)
         filepath = support.dialog_file_select(filter_pattern=filter_pattern,
             filter_mime=["text/*"] if not cons.IS_WIN_OS else [],
             filter_name=_("Plain Text Document"),
-            curr_folder=self.pick_dir, parent=self.window)
+            curr_folder=self.pick_dir_import, parent=self.window)
         if not filepath: return
-        self.pick_dir = os.path.dirname(filepath)
+        self.pick_dir_import = os.path.dirname(filepath)
         plain = imports.PlainTextHandler(self)
         cherrytree_string = plain.get_cherrytree_xml(filepath=filepath)
         self.nodes_add_from_cherrytree_data(cherrytree_string)
@@ -994,9 +994,9 @@ iter_end, exclude_iter_sel_end=True)
             ext_plain_import = support.dialog_img_n_entry(self.window, _("Plain Text Document"), self.ext_plain_import, gtk.STOCK_FILE)
             if not ext_plain_import: return
             self.ext_plain_import = ext_plain_import
-        folderpath = support.dialog_folder_select(curr_folder=self.pick_dir, parent=self.window)
+        folderpath = support.dialog_folder_select(curr_folder=self.pick_dir_import, parent=self.window)
         if not folderpath: return
-        self.pick_dir = os.path.dirname(folderpath)
+        self.pick_dir_import = os.path.dirname(folderpath)
         plain = imports.PlainTextHandler(self)
         cherrytree_string = plain.get_cherrytree_xml(folderpath=folderpath)
         self.nodes_add_from_cherrytree_data(cherrytree_string)
@@ -1005,10 +1005,10 @@ iter_end, exclude_iter_sel_end=True)
         """Add Nodes Parsing a Treepad File"""
         filepath = support.dialog_file_select(filter_pattern=["*.hjt"],
             filter_name=_("Treepad Document"),
-            curr_folder=self.pick_dir,
+            curr_folder=self.pick_dir_import,
             parent=self.window)
         if not filepath: return
-        self.pick_dir = os.path.dirname(filepath)
+        self.pick_dir_import = os.path.dirname(filepath)
         try:
             file_descriptor = open(filepath, 'rb')
             treepad_string = file_descriptor.read()
@@ -1026,10 +1026,10 @@ iter_end, exclude_iter_sel_end=True)
         """Add Nodes Parsing a Keynote File"""
         filepath = support.dialog_file_select(filter_pattern=["*.knt"],
             filter_name=_("KeyNote Document"),
-            curr_folder=self.pick_dir,
+            curr_folder=self.pick_dir_import,
             parent=self.window)
         if not filepath: return
-        self.pick_dir = os.path.dirname(filepath)
+        self.pick_dir_import = os.path.dirname(filepath)
         try:
             file_descriptor = open(filepath, 'r')
             keynote = imports.KeynoteHandler(self)
@@ -1046,10 +1046,10 @@ iter_end, exclude_iter_sel_end=True)
         """Add Nodes Parsing a Mempad File"""
         filepath = support.dialog_file_select(filter_pattern=["*.lst"],
             filter_name=_("Mempad Document"),
-            curr_folder=self.pick_dir,
+            curr_folder=self.pick_dir_import,
             parent=self.window)
         if not filepath: return
-        self.pick_dir = os.path.dirname(filepath)
+        self.pick_dir_import = os.path.dirname(filepath)
         try:
             file_descriptor = open(filepath, 'r')
             mempad = imports.MempadHandler()
@@ -1065,10 +1065,10 @@ iter_end, exclude_iter_sel_end=True)
         """Add Nodes Parsing a Knowit File"""
         filepath = support.dialog_file_select(filter_pattern=["*.kno"],
             filter_name=_("Knowit Document"),
-            curr_folder=self.pick_dir,
+            curr_folder=self.pick_dir_import,
             parent=self.window)
         if not filepath: return
-        self.pick_dir = os.path.dirname(filepath)
+        self.pick_dir_import = os.path.dirname(filepath)
         knowit = imports.KnowitHandler(self)
         try:
             file_descriptor = open(filepath, 'r')
@@ -1085,10 +1085,10 @@ iter_end, exclude_iter_sel_end=True)
         """Add Nodes Parsing a Leo File"""
         filepath = support.dialog_file_select(filter_pattern=["*.leo"],
             filter_name=_("Leo Document"),
-            curr_folder=self.pick_dir,
+            curr_folder=self.pick_dir_import,
             parent=self.window)
         if not filepath: return
-        self.pick_dir = os.path.dirname(filepath)
+        self.pick_dir_import = os.path.dirname(filepath)
         try:
             file_descriptor = open(filepath, 'r')
             leo_string = file_descriptor.read()
@@ -3713,18 +3713,18 @@ iter_end, exclude_iter_sel_end=True)
         if not self.node_sel_and_rich_text(): return
         if not self.is_curr_node_not_read_only_or_error(): return
         iter_insert = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
-        filepath = support.dialog_file_select(curr_folder=self.pick_dir, parent=self.window)
+        filepath = support.dialog_file_select(curr_folder=self.pick_dir_file, parent=self.window)
         if not filepath: return
+        self.pick_dir_file = os.path.dirname(filepath)
+        if os.path.getsize(filepath) > self.embfile_max_size*1024*1024:
+            support.dialog_error(_("The Maximum Size for Embedded Files is %s MB") % self.embfile_max_size, self.window)
+            return
+        pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(cons.FILE_CHAR, self.embfile_size, self.embfile_size)
+        pixbuf.filename = os.path.basename(filepath)
         with open(filepath, 'rb') as fd:
-            if os.path.getsize(filepath) > 10*1024*1024:
-                support.dialog_error(_("The Maximum Size for Embedded Files is 10 MB"), self.window)
-                return
-            self.pick_dir = os.path.dirname(filepath)
-            pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(cons.FILE_CHAR, self.embfile_size, self.embfile_size)
-            pixbuf.filename = os.path.basename(filepath)
             pixbuf.embfile = fd.read()
-            pixbuf.time = time.time()
-            self.image_insert(iter_insert, pixbuf, image_justification=None)
+        pixbuf.time = time.time()
+        self.image_insert(iter_insert, pixbuf, image_justification=None)
 
     def embfile_open(self, *args):
         """Embedded File Open"""
@@ -3749,10 +3749,10 @@ iter_end, exclude_iter_sel_end=True)
         iter_bound = iter_insert.copy()
         iter_bound.forward_char()
         filepath = support.dialog_file_save_as(filename=self.curr_file_anchor.pixbuf.filename,
-            curr_folder=self.pick_dir,
+            curr_folder=self.pick_dir_file,
             parent=self.window)
         if not filepath: return
-        self.pick_dir = os.path.dirname(filepath)
+        self.pick_dir_file = os.path.dirname(filepath)
         with open(filepath, 'wb') as fd:
             fd.write(self.curr_file_anchor.pixbuf.embfile)
 
@@ -4020,9 +4020,9 @@ iter_end, exclude_iter_sel_end=True)
         if not self.node_sel_and_rich_text(): return
         if not self.is_curr_node_not_read_only_or_error(): return
         iter_insert = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
-        filename = support.dialog_file_select(curr_folder=self.pick_dir, parent=self.window)
+        filename = support.dialog_file_select(curr_folder=self.pick_dir_img, parent=self.window)
         if not filename: return
-        self.pick_dir = os.path.dirname(filename)
+        self.pick_dir_img = os.path.dirname(filename)
         try:
             pixbuf = gtk.gdk.pixbuf_new_from_file(filename)
             self.image_edit_dialog(pixbuf, self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert()))
@@ -4111,12 +4111,12 @@ iter_end, exclude_iter_sel_end=True)
 
     def image_save(self, *args):
         """Save to Disk the selected Image"""
-        filename = support.dialog_file_save_as(curr_folder=self.pick_dir,
+        filename = support.dialog_file_save_as(curr_folder=self.pick_dir_img,
                                                filter_pattern="*.png",
                                                filter_name=_("PNG Image"),
                                                parent=self.window)
         if not filename: return
-        self.pick_dir = os.path.dirname(filename)
+        self.pick_dir_img = os.path.dirname(filename)
         if len(filename) < 4 or filename[-4:] != ".png": filename += ".png"
         try: self.curr_image_anchor.pixbuf.save(filename, "png")
         except: support.dialog_error(_("Write to %s Failed") % filename, self.window)
