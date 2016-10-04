@@ -2612,7 +2612,7 @@ msgstr ""
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1886
 #, python-format
 msgid "Enter Password for %s"
-msgstr "Introduce la contraseá para %s"
+msgstr "Introduce la contraseña para %s"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1957
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1974
