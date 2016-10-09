@@ -71,7 +71,7 @@ msgstr "Inserta Caja de Código"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/codeboxes.py:375
 msgid "Edit CodeBox"
-msgstr "Editar Caja de Código"
+msgstr "Editar Caja de código"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:46
 msgid "Iterate Latest Find/Replace"
@@ -327,11 +327,11 @@ msgstr "Insertar Tabla de Contenidos"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:191
 msgid "Insert Ti_mestamp"
-msgstr "Insertar  Ti_mestamp"
+msgstr "Insertar Ti_mestamp"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:191
 msgid "Insert Timestamp"
-msgstr "Insertar  Timestamp"
+msgstr "Insertar Timestamp"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:192
 msgid "Insert _Horizontal Rule"
@@ -1191,7 +1191,7 @@ msgstr "Comprobar si hay una nueva versión"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:297
 msgid "Online _Manual"
-msgstr "_Manual Online"
+msgstr "_Manual online"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:297
 msgid "Application's Online Manual"
@@ -1886,7 +1886,7 @@ msgstr "Solamente texto seleccionado"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1421
 msgid "Selected Node Only"
-msgstr "Solol nodo seleccionado"
+msgstr "Solo nodo seleccionado"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1422
 msgid "Selected Node and Subnodes"
@@ -1894,11 +1894,11 @@ msgstr "Nodo seleccionado y subnodos"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1423
 msgid "All the Tree"
-msgstr "Todo ell árbol"
+msgstr "Todo el árbol"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1434
 msgid "Include Node Name"
-msgstr "Incluie nombre del nodo"
+msgstr "Incluir el nombre del nodo"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1440
 msgid "Links Tree in Every Page"
@@ -2032,7 +2032,7 @@ msgstr "Volver a valores predeterminados"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:720
 msgid "Chars to Select at Double Click"
-msgstr "Caracteres a seleccionar al hacer doble click"
+msgstr "Caracteres a seleccionar al hacer doble clic"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:732
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:898
@@ -2189,12 +2189,12 @@ msgstr "Código fuente"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1326
 msgid "Tree Font"
-msgstr "Fuente para el árbol  "
+msgstr "Tipografía para el árbol  "
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1343
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2014
 msgid "Fonts"
-msgstr "Fuentes"
+msgstr "Tipografía"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1375
 msgid "Enable Custom Web Link Clicked Action"
@@ -2451,11 +2451,11 @@ msgstr "Insertar tabla"
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3524
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/imports.py:2361
 msgid "click me"
-msgstr "haz click"
+msgstr "haz clic"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/tablez.py:330
 msgid "Click to Edit the Column Settings"
-msgstr "Hacer click para editar las características de la columna"
+msgstr "Hacer clic para editar las características de la columna"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/tablez.py:377
 msgid "Edit Table Properties"
@@ -2586,7 +2586,7 @@ msgstr "Tipo de almacenamiento"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1812
 msgid "Enter the New Password Twice"
-msgstr "Introduce el nuevo password dos veces"
+msgstr "Introduce la nueva contraseña dos veces"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1855
 msgid "The Password Fields Must be Filled"
@@ -2594,7 +2594,7 @@ msgstr "Se deben rellenar los campos para el password"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1858
 msgid "The Two Inserted Passwords Do Not Match"
-msgstr "Los passwords introducidos no son iguales"
+msgstr "Las contraseñas introducidas no son iguales"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1862
 #, python-format
@@ -2612,12 +2612,12 @@ msgstr ""
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1886
 #, python-format
 msgid "Enter Password for %s"
-msgstr "Introduce el password para %s"
+msgstr "Introduce la contraseña para %s"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1957
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1974
 msgid "Wrong Password"
-msgstr "Passowrd incorrecto"
+msgstr "Contraseña incorrecta"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2459
 msgid "Select the New Parent"
@@ -2657,7 +2657,7 @@ msgid ""
 "Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
 "Do you want to Continue?"
 msgstr ""
-"Al salir del modo de Texto Enriquecido perderás el formato para este nodo "
+"Al salir del modo de Texto enriquecido perderás el formato para este nodo "
 "¿quieres continuar?"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3396
@@ -2764,7 +2764,7 @@ msgstr "El tamaño máximo para archivos embebidos es de 10 MB"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3843
 msgid "Cannot Edit Embedded File in Read Only Node"
-msgstr "No se puede editar el archivo embebido en nodo  de solo lectura"
+msgstr "No se puede editar el archivo embebido en nodo de solo lectura"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3857
 msgid "Embedded File Automatically Updated:"
