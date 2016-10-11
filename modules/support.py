@@ -53,33 +53,67 @@ def auto_decode_str(in_str, from_clipboard=False):
         out_str = unicode(in_str, cons.STR_UTF8, cons.STR_IGNORE)
     return out_str
 
-def apply_tag_try_link(dad, iter_end, iter_cursor=None):
-    """Try and apply link to previous word (after space or newline)"""
-    iter_start = iter_end.copy()
-    while iter_start.backward_char():
-        curr_char = iter_start.get_char()
-        if curr_char in cons.WEB_LINK_SEPARATORS:
-            iter_start.forward_char()
-            break
-    num_chars = iter_end.get_offset() - iter_start.get_offset()
-    tag_applied = False
-    if num_chars > 4 and get_next_chars_from_iter_are(iter_start, cons.WEB_LINK_STARTERS):
+def apply_tag_try_node_name(dad, iter_start, iter_end):
+    node_name = dad.curr_buffer.get_text(iter_start, iter_end)
+    node_dest = dad.get_tree_iter_from_node_name(node_name)
+    if node_dest:
         dad.curr_buffer.select_range(iter_start, iter_end)
-        link_url = dad.curr_buffer.get_text(iter_start, iter_end)
-        if link_url[0:3] not in ["htt", "ftp"]: link_url = "http://" + link_url
-        property_value = cons.LINK_TYPE_WEBS + cons.CHAR_SPACE + link_url
+        property_value = cons.LINK_TYPE_NODE + cons.CHAR_SPACE + str(dad.treestore[node_dest][3])
         dad.apply_tag(cons.TAG_LINK, property_value=property_value)
-        tag_applied = True
-    elif num_chars > 2 and get_is_camel_case(iter_start, num_chars):
-        node_name = dad.curr_buffer.get_text(iter_start, iter_end)
-        node_dest = dad.get_tree_iter_from_node_name(node_name)
-        if node_dest:
+        return True
+    return False
+
+def apply_tag_try_link(dad, iter_end, offset_cursor=None):
+    """Try and apply link to previous word (after space or newline)"""
+    tag_applied = False
+    iter_start = iter_end.copy()
+    if iter_start.backward_char() and iter_start.get_char() == cons.CHAR_SQ_BR_CLOSE\
+    and iter_start.backward_char() and iter_start.get_char() == cons.CHAR_SQ_BR_CLOSE:
+        curr_state = 0
+        end_offset = iter_start.get_offset()
+        while iter_start.backward_char():
+            curr_char = iter_start.get_char()
+            if curr_char == cons.CHAR_NEWLINE:
+                break
+            if curr_char == cons.CHAR_SQ_BR_OPEN:
+                if curr_state == 0:
+                    curr_state = 1
+                else:
+                    curr_state = 2
+                    break
+        if curr_state == 2:
+            start_offset = iter_start.get_offset()+2
+            end_offset = iter_end.get_offset()-2
+            if apply_tag_try_node_name(dad, dad.curr_buffer.get_iter_at_offset(start_offset),
+                                       dad.curr_buffer.get_iter_at_offset(end_offset)):
+                tag_applied = True
+                dad.curr_buffer.delete(dad.curr_buffer.get_iter_at_offset(end_offset),
+                                       dad.curr_buffer.get_iter_at_offset(end_offset+2))
+                dad.curr_buffer.delete(dad.curr_buffer.get_iter_at_offset(start_offset-2),
+                                       dad.curr_buffer.get_iter_at_offset(start_offset))
+                if offset_cursor != None:
+                    offset_cursor -= 4
+    else:
+        iter_start = iter_end.copy()
+        while iter_start.backward_char():
+            curr_char = iter_start.get_char()
+            if curr_char in cons.WEB_LINK_SEPARATORS:
+                iter_start.forward_char()
+                break
+        num_chars = iter_end.get_offset() - iter_start.get_offset()
+        if num_chars > 4 and get_next_chars_from_iter_are(iter_start, cons.WEB_LINK_STARTERS):
             dad.curr_buffer.select_range(iter_start, iter_end)
-            property_value = cons.LINK_TYPE_NODE + cons.CHAR_SPACE + str(dad.treestore[node_dest][3])
+            link_url = dad.curr_buffer.get_text(iter_start, iter_end)
+            if link_url[0:3] not in ["htt", "ftp"]: link_url = "http://" + link_url
+            property_value = cons.LINK_TYPE_WEBS + cons.CHAR_SPACE + link_url
             dad.apply_tag(cons.TAG_LINK, property_value=property_value)
             tag_applied = True
-    if tag_applied and iter_cursor:
-        dad.curr_buffer.place_cursor(iter_cursor)
+        elif num_chars > 2 and get_is_camel_case(iter_start, num_chars):
+            if apply_tag_try_node_name(dad, iter_start, iter_end):
+                tag_applied = True
+    if tag_applied and offset_cursor != None:
+        dad.curr_buffer.place_cursor(dad.curr_buffer.get_iter_at_offset(offset_cursor))
+    return tag_applied
 
 def apply_tag_try_automatic_bounds(dad, text_buffer=None, iter_start=None):
     """Try to Select a Word Forward/Backward the Cursor"""
@@ -274,7 +308,8 @@ def on_sourceview_event_after_key_press(dad, text_view, event, syntax_highl):
         if syntax_highl == cons.RICH_TEXT_ID:
             iter_end_link = iter_insert.copy()
             iter_end_link.backward_char()
-            apply_tag_try_link(dad, iter_end_link, iter_insert)
+            if apply_tag_try_link(dad, iter_end_link, iter_insert.get_offset()):
+                iter_insert = text_buffer.get_iter_at_mark(text_buffer.get_insert())
         iter_start = iter_insert.copy()
         if keyname == cons.STR_KEY_RETURN:
             cursor_key_press = iter_insert.get_offset()
