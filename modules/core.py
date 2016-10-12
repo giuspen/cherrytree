@@ -3023,10 +3023,10 @@ iter_end, exclude_iter_sel_end=True)
                 self.file_update = True
                 self.curr_buffer.set_modified(False)
                 self.state_machine.update_state()
-        if self.rt_highl_curr_line and self.user_active and self.treestore[new_iter][4] == cons.RICH_TEXT_ID:
-            self.set_sourcebuffer_with_style_scheme()
         self.curr_tree_iter = new_iter
         self.curr_buffer = self.get_textbuffer_from_tree_iter(self.curr_tree_iter)
+        if self.rt_highl_curr_line and self.user_active and self.treestore[new_iter][4] == cons.RICH_TEXT_ID:
+            self.set_sourcebuffer_with_style_scheme()
         self.sourceview.set_buffer(self.curr_buffer)
         self.syntax_highlighting = self.treestore[self.curr_tree_iter][4]
         self.curr_buffer.connect('modified-changed', self.on_modified_changed)
