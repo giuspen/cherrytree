@@ -467,6 +467,8 @@ def sourceview_cursor_and_tooltips_handler(dad, text_view, x, y):
         #print "link", dad.hovering_link_iter_offset
     if dad.hovering_link_iter_offset >= 0:
         text_view.get_window(gtk.TEXT_WINDOW_TEXT).set_cursor(gtk.gdk.Cursor(gtk.gdk.HAND2))
+        if len(tooltip) > cons.MAX_TOOLTIP_LINK_CHARS:
+            tooltip = tooltip[:cons.MAX_TOOLTIP_LINK_CHARS] + "..."
         text_view.set_tooltip_text(tooltip)
     else:
         text_view.get_window(gtk.TEXT_WINDOW_TEXT).set_cursor(gtk.gdk.Cursor(gtk.gdk.XTERM))
