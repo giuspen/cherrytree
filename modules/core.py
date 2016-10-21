@@ -4759,7 +4759,10 @@ iter_end, exclude_iter_sel_end=True)
                 if len(vector) == 3: anchor_name = vector[2]
                 else: anchor_name = tag_property_value[len(vector[0]) + len(vector[1]) + 2:]
                 iter_anchor = self.link_seek_for_anchor(anchor_name)
-                if iter_anchor == None: support.dialog_warning(_("No anchor named '%s' found") % anchor_name, self.window)
+                if iter_anchor == None:
+                    if len(anchor_name) > cons.MAX_TOOLTIP_LINK_CHARS:
+                        anchor_name = anchor_name[:cons.MAX_TOOLTIP_LINK_CHARS] + "..."
+                    support.dialog_warning(_("No anchor named '%s' found") % anchor_name, self.window)
                 else:
                     self.curr_buffer.place_cursor(iter_anchor)
                     self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), cons.SCROLL_MARGIN)
