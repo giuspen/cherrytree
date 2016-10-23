@@ -4679,6 +4679,10 @@ iter_end, exclude_iter_sel_end=True)
             elif property_value == cons.TAG_PROP_RIGHT: tag.set_property(tag_property, gtk.JUSTIFY_RIGHT)
             elif property_value == cons.TAG_PROP_CENTER: tag.set_property(tag_property, gtk.JUSTIFY_CENTER)
             elif property_value == cons.TAG_PROP_FILL: tag.set_property(tag_property, gtk.JUSTIFY_FILL)
+            elif property_value == cons.TAG_PROP_MONOSPACE:
+                tag.set_property(tag_property, property_value)
+                if self.monospace_bg:
+                    tag.set_property(cons.TAG_BACKGROUND, self.monospace_bg)
             elif property_value == cons.TAG_PROP_SUB:
                 tag.set_property(cons.TAG_SCALE, pango.SCALE_X_SMALL)
                 rise = pango.FontDescription(self.text_font).get_size() / -4
