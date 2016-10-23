@@ -28,6 +28,7 @@ ICONS_SIZE = {1: gtk.ICON_SIZE_MENU, 2: gtk.ICON_SIZE_SMALL_TOOLBAR, 3: gtk.ICON
 
 LINK_CUSTOM_ACTION_DEFAULT_WEB = "firefox %s &"
 LINK_CUSTOM_ACTION_DEFAULT_FILE = "xdg-open %s &"
+DEFAULT_MONOSPACE_BG = "#7f7f7f"
 MAX_SIZE_EMBFILE_MB_DEFAULT = 10
 HORIZONTAL_RULE = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 COLOR_PALETTE_DEFAULT = ["#000000", "#ffffff", "#7f7f7f", "#ff0000", "#a020f0",
@@ -198,6 +199,7 @@ def config_file_load(dad):
             dad.latest_tag[0] = cfg.get(section, "latest_tag_prop")
             dad.latest_tag[1] = cfg.get(section, "latest_tag_val")
         dad.timestamp_format = cfg.get(section, "timestamp_format") if cfg.has_option(section, "timestamp_format") else TIMESTAMP_FORMAT_DEFAULT
+        dad.monospace_bg = cfg.get(section, "monospace_bg") if cfg.has_option(section, "monospace_bg") else DEFAULT_MONOSPACE_BG
         dad.links_underline = cfg.getboolean(section, "links_underline") if cfg.has_option(section, "links_underline") else True
         dad.links_relative = cfg.getboolean(section, "links_relative") if cfg.has_option(section, "links_relative") else False
         if cfg.has_option(section, "weblink_custom_action"):
@@ -339,6 +341,7 @@ def config_file_load(dad):
         dad.tree_click_expand = False
         dad.start_on_systray = False
         dad.use_appind = False
+        dad.monospace_bg = DEFAULT_MONOSPACE_BG
         dad.links_underline = True
         dad.links_relative = False
         dad.weblink_custom_action = [False, LINK_CUSTOM_ACTION_DEFAULT_WEB]
@@ -511,6 +514,7 @@ def config_file_save(dad):
     cfg.set(section, "latest_tag_prop", dad.latest_tag[0])
     cfg.set(section, "latest_tag_val", dad.latest_tag[1])
     cfg.set(section, "timestamp_format", dad.timestamp_format)
+    cfg.set(section, "monospace_bg", dad.monospace_bg)
     cfg.set(section, "links_underline", dad.links_underline)
     cfg.set(section, "links_relative", dad.links_relative)
     cfg.set(section, "weblink_custom_action", str(dad.weblink_custom_action[0])+dad.weblink_custom_action[1])
