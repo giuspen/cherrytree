@@ -1,4 +1,11 @@
 
+0.37.6 (October 24th, 2016)
+• added auto apply of links to nodes as you type [[node name]] in rich text nodes
+• the text formatted monospace has now by default gray background; configurable in config.cfg
+• fixed problem causing the highlighted line to have wrong background
+• fixed crash caused by too large tooltip hovering a link
+• fixes to Spanish language submitted by stripTM
+
 0.37.5 (October 1st, 2016)
 • the password protected documents now use 7zip fastest compression resulting in faster save and slightly larger documents
 • added auto apply of web links as you type in rich text nodes
