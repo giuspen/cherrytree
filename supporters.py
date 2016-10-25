@@ -4,7 +4,7 @@
 import re
 
 SUPPORTERS="""
-<h2>Friends of giuspen.com (donated €2997,53)</h2>
+<h2>Friends of giuspen.com (donated €3017,53)</h2>
 • Miguel Latorre (Spain) donated €240
 • DistroWatch.com (International) donated €200
 • Alan M. (United States) donated €100
@@ -18,6 +18,7 @@ SUPPORTERS="""
 • Ger de Gooijer (Netherlands) donated €50 [mark node in the tree with bold or color]
 • Manuel Pacheco (Spain) donated €50
 • Rudy Witt (Canada) donated €50
+• Ted (Germany) donated €45 [same tree visible twice for drag n drop]
 • Andrew Marquis (United Kingdom) donated €40
 • Jack Downes (United States) donated €40
 • Sylvain Pasche (Switzerland) donated €40
@@ -37,7 +38,6 @@ SUPPORTERS="""
 • James Lin (United States) donated €25
 • Soren ONeill (Denmark) donated €25
 • Steve Davis (United States) donated €25
-• Ted (Germany) donated €25 [tree node shift+right to pick as new father the sibling above]
 • Jaroslav Polacek (Czech Republic) donated €22,22
 • Andrew Golovanov (United States) donated €20
 • Anthony Miller (United Kingdom) donated €20
