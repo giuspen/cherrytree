@@ -237,11 +237,11 @@ msgstr "Drucken"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:179
 msgid "_Quit"
-msgstr "S_chließen (zum Tray)"
+msgstr "S_chließen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:179
 msgid "Quit the Application"
-msgstr "Schließen"
+msgstr "Programm beenden"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:180
 msgid "_Exit CherryTree"
@@ -742,19 +742,19 @@ msgstr "Baum absteigend sortieren"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:242
 msgid "Sort Siblings A_scending"
-msgstr "_Kinderknoten aufsteigend sortieren"
+msgstr "_Geschwisterknoten aufsteigend sortieren"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:242
 msgid "Sort all the Siblings of the Selected Node Ascending"
-msgstr "Kinderknoten des markierten Knotens aufsteigend sortieren"
+msgstr "Geschwisterknoten des markierten Knotens aufsteigend sortieren"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:243
 msgid "Sort Siblings D_escending"
-msgstr "K_inderknoten absteigend sortieren"
+msgstr "Geschw_isterknoten absteigend sortieren"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:243
 msgid "Sort all the Siblings of the Selected Node Descending"
-msgstr "Kinderknoten des markierten Knotens absteigend sortieren"
+msgstr "Geschwisterknoten des markierten Knotens absteigend sortieren"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:244
 msgid "_Inherit Syntax"
@@ -2307,11 +2307,11 @@ msgstr "Tray-Icon verwenden"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1804
 msgid "Start Minimized in the System Tray"
-msgstr "minimiert im Tray starten"
+msgstr "Minimiert im Tray starten"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1805
 msgid "Use AppIndicator for Docking"
-msgstr "in Benachrichtigungsanzeige integrieren"
+msgstr "In Benachrichtigungsanzeige integrieren"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1810
 msgid "System Tray"
