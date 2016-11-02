@@ -2784,6 +2784,7 @@ iter_end, exclude_iter_sel_end=True)
                 # SWITCH TextBuffer -> SourceBuffer
                 self.switch_buffer_text_source(self.curr_buffer, self.curr_tree_iter, self.syntax_highlighting, self.treestore[self.curr_tree_iter][4])
                 self.curr_buffer = self.treestore[self.curr_tree_iter][2]
+                self.state_machine.delete_states(self.get_node_id_from_tree_iter(self.curr_tree_iter))
             elif self.syntax_highlighting == cons.RICH_TEXT_ID:
                 # going to rich text
                 # SWITCH SourceBuffer -> TextBuffer
