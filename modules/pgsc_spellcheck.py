@@ -212,6 +212,8 @@ class SpellChecker(object):
         have associated a new GtkTextBuffer with the GtkTextView call this
         method.
         """
+        #self._misspelled = gtk.TextTag('{}-misspelled'.format(self._prefix))
+        #self._misspelled.set_property('underline', 4)
         self._buffer = self._view.get_buffer()
         self._buffer.connect('insert-text', self._before_text_insert)
         self._buffer.connect_after('insert-text', self._after_text_insert)
@@ -246,6 +248,8 @@ class SpellChecker(object):
         """
         Rechecks the spelling of the whole text.
         """
+        if not hasattr(self, "_buffer"):
+            self.buffer_initialize()
         start, end = self._buffer.get_bounds()
         self.check_range(start, end, True)
 
@@ -263,6 +267,7 @@ class SpellChecker(object):
         Enable spellchecking.
         """
         self._enabled = True
+        self.recheck()
 
     def append_filter(self, regex, filter_type):
         """
@@ -363,13 +368,15 @@ class SpellChecker(object):
         if start.equal(end):
             return
         if end.inside_word(): end.forward_word_end()
-        if not start.starts_word() and (start.inside_word() or start.ends_word()):
+        if not start.starts_word() and (start.inside_word() or
+                                        start.ends_word()):
             start.backward_word_start()
         self._buffer.remove_tag(self._misspelled, start, end)
         cursor = self._buffer.get_iter_at_mark(self._buffer.get_insert())
         precursor = cursor.copy()
         precursor.backward_char()
-        highlight = (cursor.has_tag(self._misspelled) or precursor.has_tag(self._misspelled))
+        highlight = (cursor.has_tag(self._misspelled) or
+                     precursor.has_tag(self._misspelled))
         if not start.get_offset():
             start.forward_word_end()
             start.backward_word_start()
@@ -488,7 +495,10 @@ class SpellChecker(object):
             if self._deferred_check: self._check_deferred_range(True)
             x, y = self._view.window_to_buffer_coords(2, int(event.x),
                                                       int(event.y))
-            self._marks['click'].move(self._view.get_iter_at_location(x, y))
+            iter = self._view.get_iter_at_location(x, y)
+            if isinstance(iter, tuple):
+                iter = iter[1]
+            self._marks['click'].move(iter)
         return False
 
     def _before_text_insert(self, textbuffer, location, text, length):
@@ -533,6 +543,8 @@ class SpellChecker(object):
             if start.has_tag(tag):
                 return
         word = self._buffer.get_text(start, end, False).decode('utf-8').strip()
+        if not word:
+            return
         if " " in word:
             # BUG!
             return
@@ -543,7 +555,8 @@ class SpellChecker(object):
             line_start = self._buffer.get_iter_at_line(start.get_line())
             line_end = end.copy()
             line_end.forward_to_line_end()
-            line = self._buffer.get_text(line_start, line_end, False).decode('utf-8')
+            line = self._buffer.get_text(line_start, line_end,
+                                             False).decode('utf-8')
             for match in self._regexes[SpellChecker.FILTER_LINE].finditer(line):
                 if match.start() <= start.get_line_offset() <= match.end():
                     start = self._buffer.get_iter_at_line_offset(
@@ -554,7 +567,8 @@ class SpellChecker(object):
                     return
         if len(self._filters[SpellChecker.FILTER_TEXT]):
             text_start, text_end = self._buffer.get_bounds()
-            text = self._buffer.get_text(text_start, text_end, False).decode('utf-8')
+            text = self._buffer.get_text(text_start, text_end,
+                                             False).decode('utf-8')
             for match in self._regexes[SpellChecker.FILTER_TEXT].finditer(text):
                 if match.start() <= start.get_offset() <= match.end():
                     start = self._buffer.get_iter_at_offset(match.start())

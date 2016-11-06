@@ -1,5 +1,5 @@
 
-This is pygtkspellcheck 4.0.1 written by Maximilian Köhl <linuxmaxi@googlemail.com> and Carlos Jenkins <carlos@jenkins.co.cr>
+This is pygtkspellcheck 4.0.5 written by Maximilian Köhl <linuxmaxi@googlemail.com> and Carlos Jenkins <carlos@jenkins.co.cr>
 Changes introduced by Giuseppe Penone (giuspen) <giuspen@gmail.com>:
 
 
