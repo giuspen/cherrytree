@@ -4,7 +4,7 @@
 import re
 
 SUPPORTERS="""
-<h2>Friends of giuspen.com (donated €3092,53)</h2>
+<h2>Friends of giuspen.com (donated €3102,53)</h2>
 • Miguel Latorre (Spain) donated €240
 • DistroWatch.com (International) donated €200
 • Alan M. (United States) donated €100
@@ -91,6 +91,7 @@ SUPPORTERS="""
 • iCore effective GmbH (Germany) donated €10
 • Jesus Arocho (United States) donated €10
 • Kåre Jensen (Denmark) donated €10
+• Ken Dangerfield (Canada) donated €10
 • Laura Haglund (United States) donated €10
 • Leonardo Gonçalves (Brazil) donated €10
 • Marilena Marrone (Italy) donated €10
