@@ -4,7 +4,7 @@
 import re
 
 SUPPORTERS="""
-<h2>Friends of giuspen.com (donated €3102,53)</h2>
+<h2>Friends of giuspen.com (donated €3127,53)</h2>
 • Miguel Latorre (Spain) donated €240
 • DistroWatch.com (International) donated €200
 • Alan M. (United States) donated €100
@@ -38,6 +38,7 @@ SUPPORTERS="""
 • Bruce Ashford (United Kingdom) donated €25
 • Édipo Gonçalves (Brazil) donated €25
 • James Lin (United States) donated €25
+• Miguel Vilar (Switzerland) donated €25
 • Soren ONeill (Denmark) donated €25
 • Steve Davis (United States) donated €25
 • Jaroslav Polacek (Czech Republic) donated €22,22
