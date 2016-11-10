@@ -599,7 +599,11 @@ iter_end, exclude_iter_sel_end=True)
         if not self.curr_tree_iter: return False
         keyname = gtk.gdk.keyval_name(event.keyval)
         if event.state & gtk.gdk.SHIFT_MASK:
-            if keyname == cons.STR_KEY_UP:
+            if event.state & gtk.gdk.CONTROL_MASK:
+                if keyname == cons.STR_KEY_RIGHT:
+                    self.node_change_father()
+                    return True
+            elif keyname == cons.STR_KEY_UP:
                 self.node_up()
                 return True
             elif keyname == cons.STR_KEY_DOWN:
@@ -613,7 +617,7 @@ iter_end, exclude_iter_sel_end=True)
                 return True
         elif event.state & gtk.gdk.MOD1_MASK:
             pass
-        elif (event.state & gtk.gdk.CONTROL_MASK):
+        elif event.state & gtk.gdk.CONTROL_MASK:
             if keyname == cons.STR_KEY_UP:
                 prev_iter = self.get_tree_iter_prev_sibling(self.treestore, self.curr_tree_iter)
                 if prev_iter:
