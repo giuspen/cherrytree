@@ -2669,12 +2669,15 @@ class HTMLHandler(HTMLParser.HTMLParser):
         if self.in_a_tag: clean_data = data.replace(cons.CHAR_NEWLINE, cons.CHAR_SPACE)
         else: clean_data = data.replace(cons.CHAR_NEWLINE, "")
         if not clean_data or clean_data == cons.CHAR_TAB: return
+        #for char in clean_data: print ord(char)
+        clean_data = re.sub("\xa0", cons.CHAR_SPACE, clean_data)
         if self.curr_state == 1: self.rich_text_serialize(clean_data.replace(cons.CHAR_TAB, cons.CHAR_SPACE))
         elif self.curr_state == 2: self.curr_cell += clean_data.replace(cons.CHAR_TAB, "")
 
     def handle_entityref(self, name):
         """Found Entity Reference like &name;"""
         if self.curr_state == 0: return
+        #print name
         if name == "nbsp":
             unicode_char = cons.CHAR_SPACE
         elif name in htmlentitydefs.name2codepoint:
@@ -2689,6 +2692,7 @@ class HTMLHandler(HTMLParser.HTMLParser):
         if name[0] in ['x', 'X']:
             unicode_num = int(name[1:], 16)
         else: unicode_num = int(name)
+        #print unicode_num
         if unicode_num == 160: # nbsp
             unicode_num = 32 # space
         unicode_char = unichr(unicode_num)
