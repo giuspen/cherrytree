@@ -2669,8 +2669,20 @@ class HTMLHandler(HTMLParser.HTMLParser):
         if self.in_a_tag: clean_data = data.replace(cons.CHAR_NEWLINE, cons.CHAR_SPACE)
         else: clean_data = data.replace(cons.CHAR_NEWLINE, "")
         if not clean_data or clean_data == cons.CHAR_TAB: return
-        #for char in clean_data: print ord(char)
-        clean_data = re.sub("\xa0", cons.CHAR_SPACE, clean_data)
+        replacements = False
+        out_data = []
+        for char in clean_data:
+            ord_char = ord(char)
+            #print ord_char
+            if ord_char == 0xa0:
+                out_data.append(cons.CHAR_SPACE)
+                replacements = True
+            elif ord_char == 0xfeff:
+                replacements = True
+            else:
+                out_data.append(char)
+        if replacements:
+            clean_data = "".join(out_data)
         if self.curr_state == 1: self.rich_text_serialize(clean_data.replace(cons.CHAR_TAB, cons.CHAR_SPACE))
         elif self.curr_state == 2: self.curr_cell += clean_data.replace(cons.CHAR_TAB, "")
 
