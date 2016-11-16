@@ -199,7 +199,6 @@ def config_file_load(dad):
             dad.latest_tag[0] = cfg.get(section, "latest_tag_prop")
             dad.latest_tag[1] = cfg.get(section, "latest_tag_val")
         dad.timestamp_format = cfg.get(section, "timestamp_format") if cfg.has_option(section, "timestamp_format") else TIMESTAMP_FORMAT_DEFAULT
-        dad.monospace_bg = cfg.get(section, "monospace_bg") if cfg.has_option(section, "monospace_bg") else DEFAULT_MONOSPACE_BG
         dad.links_underline = cfg.getboolean(section, "links_underline") if cfg.has_option(section, "links_underline") else True
         dad.links_relative = cfg.getboolean(section, "links_relative") if cfg.has_option(section, "links_relative") else False
         if cfg.has_option(section, "weblink_custom_action"):
@@ -245,6 +244,7 @@ def config_file_load(dad):
         dad.rt_def_bg = cfg.get(section, "rt_def_bg") if cfg.has_option(section, "rt_def_bg") else cons.RICH_TEXT_DARK_BG
         dad.tt_def_fg = cfg.get(section, "tt_def_fg") if cfg.has_option(section, "tt_def_fg") else cons.TREE_TEXT_LIGHT_FG
         dad.tt_def_bg = cfg.get(section, "tt_def_bg") if cfg.has_option(section, "tt_def_bg") else cons.TREE_TEXT_LIGHT_BG
+        dad.monospace_bg = cfg.get(section, "monospace_bg") if cfg.has_option(section, "monospace_bg") else DEFAULT_MONOSPACE_BG
         if cfg.has_option(section, "palette_list"):
             dad.palette_list = cfg.get(section, "palette_list").split(":")
         else: dad.palette_list = COLOR_PALETTE_DEFAULT
@@ -514,7 +514,6 @@ def config_file_save(dad):
     cfg.set(section, "latest_tag_prop", dad.latest_tag[0])
     cfg.set(section, "latest_tag_val", dad.latest_tag[1])
     cfg.set(section, "timestamp_format", dad.timestamp_format)
-    cfg.set(section, "monospace_bg", dad.monospace_bg)
     cfg.set(section, "links_underline", dad.links_underline)
     cfg.set(section, "links_relative", dad.links_relative)
     cfg.set(section, "weblink_custom_action", str(dad.weblink_custom_action[0])+dad.weblink_custom_action[1])
@@ -551,6 +550,7 @@ def config_file_save(dad):
     cfg.set(section, "rt_def_bg", dad.rt_def_bg)
     cfg.set(section, "tt_def_fg", dad.tt_def_fg)
     cfg.set(section, "tt_def_bg", dad.tt_def_bg)
+    cfg.set(section, "monospace_bg", dad.monospace_bg)
     cfg.set(section, "palette_list", ":".join(dad.palette_list))
     cfg.set(section, "col_link_webs", dad.col_link_webs)
     cfg.set(section, "col_link_node", dad.col_link_node)
@@ -885,10 +885,18 @@ def preferences_tab_rich_text(dad, vbox_text_nodes, pref_dialog):
     hbox_rt_col_custom.pack_start(colorbutton_text_bg, expand=False)
     hbox_rt_col_custom.pack_start(label_rt_col_custom, expand=False)
     hbox_rt_col_custom.pack_start(colorbutton_text_fg, expand=False)
+    checkbutton_monospace_bg = gtk.CheckButton(_("Monospace Background"))
+    mono_color = dad.monospace_bg if dad.monospace_bg else DEFAULT_MONOSPACE_BG
+    colorbutton_monospace_bg = gtk.ColorButton(color=gtk.gdk.color_parse(mono_color))
+    hbox_monospace_bg = gtk.HBox()
+    hbox_monospace_bg.set_spacing(4)
+    hbox_monospace_bg.pack_start(checkbutton_monospace_bg, expand=False)
+    hbox_monospace_bg.pack_start(colorbutton_monospace_bg, expand=False)
 
     vbox_rt_theme.pack_start(radiobutton_rt_col_light, expand=False)
     vbox_rt_theme.pack_start(radiobutton_rt_col_dark, expand=False)
     vbox_rt_theme.pack_start(hbox_rt_col_custom, expand=False)
+    vbox_rt_theme.pack_start(hbox_monospace_bg, expand=False)
     frame_rt_theme = gtk.Frame(label="<b>"+_("Theme")+"</b>")
     frame_rt_theme.get_label_widget().set_use_markup(True)
     frame_rt_theme.set_shadow_type(gtk.SHADOW_NONE)
@@ -906,6 +914,12 @@ def preferences_tab_rich_text(dad, vbox_text_nodes, pref_dialog):
         colorbutton_text_fg.set_sensitive(False)
         colorbutton_text_bg.set_sensitive(False)
     else: radiobutton_rt_col_custom.set_active(True)
+    if dad.monospace_bg:
+        checkbutton_monospace_bg.set_active(True)
+        colorbutton_monospace_bg.set_sensitive(True)
+    else:
+        checkbutton_monospace_bg.set_active(False)
+        colorbutton_monospace_bg.set_sensitive(False)
 
     hbox_misc_text = gtk.HBox()
     hbox_misc_text.set_spacing(4)
@@ -1002,6 +1016,23 @@ def preferences_tab_rich_text(dad, vbox_text_nodes, pref_dialog):
         colorbutton_text_fg.set_sensitive(True)
         colorbutton_text_bg.set_sensitive(True)
     radiobutton_rt_col_custom.connect('toggled', on_radiobutton_rt_col_custom_toggled)
+    def on_checkbutton_monospace_bg_toggled(checkbutton):
+        if checkbutton.get_active():
+            dad.monospace_bg = "#" + exports.rgb_any_to_24(colorbutton_monospace_bg.get_color().to_string()[1:])
+            colorbutton_monospace_bg.set_sensitive(True)
+        else:
+            dad.monospace_bg = ""
+            colorbutton_monospace_bg.set_sensitive(False)
+        if not pref_dialog.disp_dialog_after_restart:
+            pref_dialog.disp_dialog_after_restart = True
+            support.dialog_info_after_restart(pref_dialog)
+    checkbutton_monospace_bg.connect('toggled', on_checkbutton_monospace_bg_toggled)
+    def on_colorbutton_monospace_bg_color_set(colorbutton):
+        dad.monospace_bg = "#" + exports.rgb_any_to_24(colorbutton.get_color().to_string()[1:])
+        if not pref_dialog.disp_dialog_after_restart:
+            pref_dialog.disp_dialog_after_restart = True
+            support.dialog_info_after_restart(pref_dialog)
+    colorbutton_monospace_bg.connect('color-set', on_colorbutton_monospace_bg_color_set)
     def on_checkbutton_rt_show_white_spaces_toggled(checkbutton):
         dad.rt_show_white_spaces = checkbutton.get_active()
         if dad.syntax_highlighting == cons.RICH_TEXT_ID:
@@ -1618,8 +1649,6 @@ def preferences_tab_kb_shortcuts(dad, vbox_tool, pref_dialog):
     hbox_main.pack_start(vbox_buttons, expand=False)
     vbox_tool.add(hbox_main)
 
-    pref_dialog.disp_dialog_after_restart = False
-
     config_actions_sections = [
 ["file", _("File")],
 ["tree", _("Tree")],
@@ -1844,7 +1873,6 @@ def preferences_tab_toolbar(dad, vbox_tool, pref_dialog):
     def on_treeview_drag_end(*args):
         update_toolbar_ui_vec()
     treeview.connect('drag-end', on_treeview_drag_end)
-    pref_dialog.disp_dialog_after_restart = False
     populate_liststore()
 
 def preferences_tab_misc(dad, vbox_misc, pref_dialog):
@@ -2093,6 +2121,7 @@ def dialog_preferences(dad):
     content_area.pack_start(notebook)
     content_area.show_all()
     notebook.set_current_page(dad.prefpage)
+    dialog.disp_dialog_after_restart = False
     dialog.run()
     dad.prefpage = notebook.get_current_page()
     dialog.hide()
