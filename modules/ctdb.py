@@ -34,6 +34,7 @@ class CTDBHandler:
         self.nodes_to_rm_set = set()
         self.bookmarks_to_write = False
         self.remove_at_quit_set = set()
+        self.is_vacuum = False
 
     def reset(self):
         """Reset Variables"""
@@ -65,7 +66,10 @@ class CTDBHandler:
             need_to_commit = True
         self.nodes_to_rm_set.clear()
         if need_to_commit: db.commit()
-        else: print "Writing DB Data but No Updates Found"
+        elif not self.is_vacuum: print "Writing DB Data but No Updates Found"
+        if self.is_vacuum:
+            print "vacuum"
+            db.execute('VACUUM')
 
     def get_image_db_tuple(self, image_element, node_id):
         """From image element to db tuple"""

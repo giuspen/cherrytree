@@ -1512,12 +1512,22 @@ iter_end, exclude_iter_sel_end=True)
             self.state_machine.update_state()
             self.objects_buffer_refresh()
         self.modification_time_update_value(True)
+        self.ui.get_widget("/MenuBar/FileMenu/ct_vacuum").set_property(cons.STR_VISIBLE, self.filetype in ["b", "x"])
 
     def filepath_extension_fix(self, filepath):
         """Check a filepath to have the proper extension"""
         extension = ".ct" + self.filetype
         if len(filepath) < 4 or filepath[-4:] != extension: return filepath + extension
         return filepath
+
+    def file_vacuum(self, *args):
+        """Vacuum the DB"""
+        if self.file_name and self.filetype in ["b", "x"]:
+            self.file_update = True
+            self.ctdb_handler.is_vacuum = True
+            self.file_save()
+            self.ctdb_handler.is_vacuum = False
+        else: print "no document or not SQLite"
 
     def file_save(self, *args):
         """Save the file"""
@@ -1957,6 +1967,7 @@ iter_end, exclude_iter_sel_end=True)
                 self.file_dir = os.path.dirname(filepath)
                 self.file_name = os.path.basename(filepath)
                 self.filetype = self.file_name[-1]
+                self.ui.get_widget("/MenuBar/FileMenu/ct_vacuum").set_property(cons.STR_VISIBLE, self.filetype in ["b", "x"])
                 support.add_recent_document(self, filepath)
                 support.set_bookmarks_menu_items(self)
                 self.update_window_save_not_needed()

@@ -30,6 +30,7 @@ CONFIG_ACTIONS_DICT = {
 "ct_new_inst",
 "ct_open_file",
 "ct_save",
+"ct_vacuum",
 "ct_save_as",
 "print_page_setup",
 "do_print",
@@ -171,6 +172,7 @@ def load_menudict(dad):
 "ct_new_inst": {"sk": "new-instance", "sd": _("New _Instance"), "kb": None, "dn": _("Start a New Instance of CherryTree"), "cb": dad.file_new},
 "ct_open_file": {"sk": "gtk-open", "sd": _("_Open File"), "kb": KB_CONTROL+"O", "dn": _("Open a CherryTree Document"), "cb": dad.file_open},
 "ct_save": {"sk": "gtk-save", "sd": _("_Save"), "kb": KB_CONTROL+"S", "dn": _("Save File"), "cb": dad.file_save},
+"ct_vacuum": {"sk": "gtk-clear", "sd": _("Save and _Vacuum"), "kb": None, "dn": _("Save File and Vacuum"), "cb": dad.file_vacuum},
 "ct_save_as": {"sk": "gtk-save-as", "sd": _("Save _As"), "kb": KB_CONTROL+KB_SHIFT+"S", "dn": _("Save File As"), "cb": dad.file_save_as},
 "open_cfg_folder": {"sk": "gtk-directory", "sd": _("Open Preferences _Directory"), "kb": None, "dn": _("Open the Directory with Preferences Files"), "cb": dad.folder_cfg_open},
 "print_page_setup": {"sk": "gtk-print", "sd": _("Pa_ge Setup"), "kb": KB_CONTROL+KB_SHIFT+"P", "dn": _("Set up the Page for Printing"), "cb": dad.export_print_page_setup},
@@ -651,6 +653,7 @@ UI_INFO = """
       <menuitem action='ct_new_inst'/>
       <menuitem action='ct_open_file'/>
       <separator/>
+      <menuitem action='ct_vacuum'/>
       <menuitem action='ct_save'/>
       <menuitem action='ct_save_as'/>
       <separator/>
