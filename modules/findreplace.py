@@ -138,8 +138,7 @@ class FindReplace:
             support.dialog_info(_("The pattern '%s' was not found") % pattern, self.dad.window)
         elif all_matches:
             self.allmatchesdialog.set_title(str(self.matches_num) + cons.CHAR_SPACE + _("Matches"))
-            self.allmatchesdialog.run()
-            self.allmatchesdialog.hide()
+            self.allmatchesdialog.show()
         elif self.dad.search_replace_dict['idialog']:
             self.iterated_find_dialog()
         if user_active_restore: self.dad.user_active = True
@@ -245,8 +244,7 @@ class FindReplace:
         else:
             if all_matches:
                 self.allmatchesdialog.set_title(str(self.matches_num) + cons.CHAR_SPACE + _("Matches"))
-                self.allmatchesdialog.run()
-                self.allmatchesdialog.hide()
+                self.allmatchesdialog.show()
             else:
                 self.dad.treeview_safe_set_cursor(self.dad.curr_tree_iter)
                 if self.dad.search_replace_dict['idialog']:
@@ -319,8 +317,7 @@ class FindReplace:
             support.dialog_info(_("The pattern '%s' was not found") % pattern_clean, self.dad.window)
         elif all_matches:
             self.allmatchesdialog.set_title(str(self.matches_num) + cons.CHAR_SPACE + _("Matches"))
-            self.allmatchesdialog.run()
-            self.allmatchesdialog.hide()
+            self.allmatchesdialog.show()
         elif self.dad.search_replace_dict['idialog']:
             self.iterated_find_dialog()
         if self.matches_num and self.replace_active: self.dad.update_window_save_needed()
@@ -635,15 +632,13 @@ class FindReplace:
 
     def allmatchesdialog_init(self):
         """Create the All Matches Dialog"""
-        self.allmatchesdialog = gtk.Dialog(parent=self.dad.window,
-            flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
-            buttons=(_("Hide (Restore with '%s')") % menus.get_menu_item_kb_shortcut(self.dad, "toggle_show_allmatches_dlg"), gtk.RESPONSE_CLOSE))
+        self.allmatchesdialog = gtk.Dialog(parent=self.dad.window, flags=gtk.DIALOG_DESTROY_WITH_PARENT)
         self.allmatchesdialog.set_default_size(700, 350)
         self.allmatchesdialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-        try:
-            button = self.allmatchesdialog.get_widget_for_response(gtk.RESPONSE_CLOSE)
-            button.set_image(gtk.image_new_from_stock(gtk.STOCK_CLOSE, gtk.ICON_SIZE_BUTTON))
-        except: pass
+        kb_sh = menus.get_menu_item_kb_shortcut(self.dad, "toggle_show_allmatches_dlg")
+        self.button_hide = self.allmatchesdialog.add_button(_("Hide (Restore with '%s')") % kb_sh, gtk.RESPONSE_CLOSE)
+        self.button_hide.set_image(gtk.image_new_from_stock(gtk.STOCK_CLOSE, gtk.ICON_SIZE_BUTTON))
+        self.button_hide.connect('clicked', lambda x : self.allmatchesdialog.hide())
         # ROW: 0-node_id, 1-start_offset, 2-end_offset, 3-node_name, 4-line_content, 5-line_num 6-node_hier_name
         self.liststore = gtk.ListStore(long, long, long, str, str, int, str)
         self.treeview = gtk.TreeView(self.liststore)
@@ -659,22 +654,12 @@ class FindReplace:
         self.treeview.set_tooltip_column(6)
         self.treeviewselection = self.treeview.get_selection()
         self.treeview.connect('event-after', self.on_treeview_event_after)
-        self.allmatchesdialog.connect("key_press_event", self.on_key_press_allmatches_dialog)
         scrolledwindow_allmatches = gtk.ScrolledWindow()
         scrolledwindow_allmatches.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
         scrolledwindow_allmatches.add(self.treeview)
         content_area = self.allmatchesdialog.get_content_area()
         content_area.pack_start(scrolledwindow_allmatches)
         content_area.show_all()
-
-    def on_key_press_allmatches_dialog(self, widget, event):
-        if event.state & gtk.gdk.CONTROL_MASK\
-        and event.state & gtk.gdk.SHIFT_MASK\
-        and event.hardware_keycode == 38: # 'A' case and keyboard layout independent
-            try: self.allmatchesdialog.get_widget_for_response(gtk.RESPONSE_CLOSE).clicked()
-            except: print cons.STR_PYGTK_222_REQUIRED
-            return True
-        return False
 
     def on_treeview_event_after(self, treeview, event):
         """Catches mouse buttons clicks"""

@@ -3172,7 +3172,8 @@ iter_end, exclude_iter_sel_end=True)
     def find_allmatchesdialog_restore(self, *args):
         """Display the AllMatchesDialog Again"""
         if not self.find_handler.allmatchesdialog.get_property(cons.STR_VISIBLE):
-            self.find_handler.allmatchesdialog.run()
+            self.find_handler.allmatchesdialog.show()
+        else:
             self.find_handler.allmatchesdialog.hide()
 
     def get_tree_iter_last_sibling(self, node_iter):
