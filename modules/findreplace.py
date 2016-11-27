@@ -40,61 +40,52 @@ class FindReplace:
         self.iteratedfinddialog = None
         self.latest_node_offset = {}
 
-    def iterated_find_dialog_exist_or_create(self):
-        """Exist or Create the Iterated Find Dialog"""
-        if self.iteratedfinddialog: return
-        dialog = gtk.Dialog(title=_("Iterate Latest Find/Replace"),
-            parent=self.dad.window,
-            flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
-            buttons=(_("Close"), 0,
-                     _("Find"), 4,
-                     _("Find"), 1,
-                     _("Replace"), 2,
-                     _("Undo"), 3) )
-        dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-        try:
-            button = dialog.get_widget_for_response(0)
-            button.set_image(gtk.image_new_from_stock(gtk.STOCK_CLOSE, gtk.ICON_SIZE_BUTTON))
-            button = dialog.get_widget_for_response(4)
-            button.set_image(gtk.image_new_from_stock("find_back", gtk.ICON_SIZE_BUTTON))
-            button = dialog.get_widget_for_response(1)
-            button.set_image(gtk.image_new_from_stock("find_again", gtk.ICON_SIZE_BUTTON))
-            button = dialog.get_widget_for_response(2)
-            button.set_image(gtk.image_new_from_stock("find_replace", gtk.ICON_SIZE_BUTTON))
-            button = dialog.get_widget_for_response(3)
-            button.set_image(gtk.image_new_from_stock(gtk.STOCK_UNDO, gtk.ICON_SIZE_BUTTON))
-        except: pass
-        def on_key_press_iterated_find_dialog(widget, event):
-            if gtk.gdk.keyval_name(event.keyval) == cons.STR_KEY_RETURN:
-                try: dialog.get_widget_for_response(1).clicked()
-                except: print cons.STR_PYGTK_222_REQUIRED
-                return True
-            return False
-        dialog.connect("key_press_event", on_key_press_iterated_find_dialog)
-        self.iteratedfinddialog = dialog
-
     def iterated_find_dialog(self):
         """Iterated Find/Replace Dialog"""
-        self.iterated_find_dialog_exist_or_create()
-        response = self.iteratedfinddialog.run()
-        self.iteratedfinddialog.hide()
-        if response == 1:
-            # find forward
-            self.replace_active = False
-            self.find_again()
-        elif response == 2:
-            # replace
-            self.replace_active = True
-            self.replace_subsequent = True
-            self.find_again()
-            self.replace_subsequent = False
-        elif response == 3:
-            # undo replace
-            self.dad.requested_step_back()
-            self.iterated_find_dialog()
-        elif response == 4:
-            # find backward
-            self.find_back()
+        if not self.iteratedfinddialog:
+            dialog = gtk.Dialog(title=_("Iterate Latest Find/Replace"),
+                parent=self.dad.window, flags=gtk.DIALOG_DESTROY_WITH_PARENT)
+            button_close = dialog.add_button(_("Close"), 0)
+            button_find_bw = dialog.add_button(_("Find"), 4)
+            button_find_fw = dialog.add_button(_("Find"), 1)
+            button_replace = dialog.add_button(_("Replace"), 2)
+            button_undo = dialog.add_button(_("Undo"), 3)
+            dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+            button_close.set_image(gtk.image_new_from_stock(gtk.STOCK_CLOSE, gtk.ICON_SIZE_BUTTON))
+            button_find_bw.set_image(gtk.image_new_from_stock("find_back", gtk.ICON_SIZE_BUTTON))
+            button_find_fw.set_image(gtk.image_new_from_stock("find_again", gtk.ICON_SIZE_BUTTON))
+            button_replace.set_image(gtk.image_new_from_stock("find_replace", gtk.ICON_SIZE_BUTTON))
+            button_undo.set_image(gtk.image_new_from_stock(gtk.STOCK_UNDO, gtk.ICON_SIZE_BUTTON))
+            def on_button_find_bw_clicked(widget):
+                dialog.hide()
+                self.replace_active = False
+                self.find_back()
+            def on_button_find_fw_clicked(widget):
+                dialog.hide()
+                self.replace_active = False
+                self.find_again()
+            def on_button_replace_clicked(widget):
+                dialog.hide()
+                self.replace_active = True
+                self.replace_subsequent = True
+                self.find_again()
+                self.replace_subsequent = False
+            def on_button_undo_clicked(widget):
+                self.dad.requested_step_back()
+            button_close.connect('clicked', lambda x : dialog.hide())
+            button_find_bw.connect('clicked', on_button_find_bw_clicked)
+            button_find_fw.connect('clicked', on_button_find_fw_clicked)
+            button_replace.connect('clicked', on_button_replace_clicked)
+            button_undo.connect('clicked', on_button_undo_clicked)
+            def on_key_press_iterated_find_dialog(widget, event):
+                if gtk.gdk.keyval_name(event.keyval) == cons.STR_KEY_RETURN:
+                    try: dialog.get_widget_for_response(1).clicked()
+                    except: print cons.STR_PYGTK_222_REQUIRED
+                    return True
+                return False
+            dialog.connect("key_press_event", on_key_press_iterated_find_dialog)
+            self.iteratedfinddialog = dialog
+        self.iteratedfinddialog.show()
 
     def find_in_selected_node(self):
         """Search for a pattern in the selected Node"""
@@ -636,9 +627,9 @@ class FindReplace:
         self.allmatchesdialog.set_default_size(700, 350)
         self.allmatchesdialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
         kb_sh = menus.get_menu_item_kb_shortcut(self.dad, "toggle_show_allmatches_dlg")
-        self.button_hide = self.allmatchesdialog.add_button(_("Hide (Restore with '%s')") % kb_sh, gtk.RESPONSE_CLOSE)
-        self.button_hide.set_image(gtk.image_new_from_stock(gtk.STOCK_CLOSE, gtk.ICON_SIZE_BUTTON))
-        self.button_hide.connect('clicked', lambda x : self.allmatchesdialog.hide())
+        button_hide = self.allmatchesdialog.add_button(_("Hide (Restore with '%s')") % kb_sh, gtk.RESPONSE_CLOSE)
+        button_hide.set_image(gtk.image_new_from_stock(gtk.STOCK_CLOSE, gtk.ICON_SIZE_BUTTON))
+        button_hide.connect('clicked', lambda x : self.allmatchesdialog.hide())
         # ROW: 0-node_id, 1-start_offset, 2-end_offset, 3-node_name, 4-line_content, 5-line_num 6-node_hier_name
         self.liststore = gtk.ListStore(long, long, long, str, str, int, str)
         self.treeview = gtk.TreeView(self.liststore)
