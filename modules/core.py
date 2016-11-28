@@ -4938,13 +4938,17 @@ iter_end, exclude_iter_sel_end=True)
         self.statusbar.push(self.statusbar_context_id, tooltip_text)
 
     def on_buffer_change(self, *args, **kwargs):
-        self.statusbar.pop(self.statusbar_context_id)
-        self.statusbar.push(self.statusbar_context_id, self.append_word_count())
+        if self.word_count:
+            self.statusbar.pop(self.statusbar_context_id)
+            self.statusbar.push(self.statusbar_context_id, self.append_word_count())
 
-    def append_word_count(self, text = ""):
-        buffer = unicode(self.curr_buffer.get_text(*self.curr_buffer.get_bounds()))
-        count = len([w for w in wordbreak.words(buffer) if w.strip() != ''])
-        return "{}{}{}{}{}".format(text, " - " if text != "" else "", _("Word Count"), _(": "), count)
+    def append_word_count(self, text=""):
+        if self.word_count:
+            textbuffer = unicode(self.curr_buffer.get_text(*self.curr_buffer.get_bounds()))
+            count = len([w for w in wordbreak.words(textbuffer) if w.strip() != ''])
+            return "{}{}{}{}{}".format(text, " - " if text != "" else "", _("Word Count"), _(": "), count)
+        else:
+            return text
 
     def on_image_visibility_notify_event(self, widget, event):
         """Problem of image colored frame disappearing"""
