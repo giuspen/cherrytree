@@ -1,0 +1,443 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+ "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title>uniseg-python</title>
+<link href="mailto:mshibata@emptypage.jp" rev="made">
+<style type="text/css"><!--
+*[lang |= "en"] { font-family: Verdana, sans-serif; }
+*[lang |= "ja"] { font-family: Verdana, 標準ゴシック, sans-serif; }
+body { line-height: 1.75; margin: 0; padding: 0 10%; }
+ul.nav { font-size: small; margin: 1em 0; padding: 0; }
+ul.nav li { margin: 0; padding: 0; display: inline; }
+ul.nav li + li:before { content: "> "; }
+ul.langmenu { text-align: right; margin: 1em 0; padding: 0; }
+ul.langmenu li { margin: 0; padding: 0; display: inline; }
+dl.datestamp { text-align: right; }
+dl.datestamp dt { margin: 0 0.25em 0 0; padding: 0; display: run-in; }
+dl.datestamp dd { margin: 0; padding: 0; display: block; }
+.abstract { margin: 0 2em; }
+.toc li { list-style-type: none; }
+pre, code, samp, tt { font-family: Consolas, monospace; font-size: 100%; line-height: 1.25; background-color: #F5F5F5; }
+@media print {
+body { margin: auto; padding: 0; }
+}
+--></style>
+</head>
+<body>
+
+<ul class="nav">
+<li><a href="/">emptypage.jp</a></li>
+<li><a href="../">gadgets</a></li>
+<li><a href="./">uniseg</a></li>
+</ul>
+
+<h1>uniseg-python</h1>
+
+<h2>Unicode テキスト境界処理ライブラリ for Python</h2>
+
+<p class="abstract">Unicode 文字列を単語や行として適切に分割する。</p>
+
+<dl class="datestamp">
+<dt>公開:</dt>
+<dd>2012-05-20</dd>
+</dl>
+
+<ul class="toc">
+<!--htmlex_CONTENTS H2="" H3="" H4="" H5="" NOCONTAINER-->
+		<li><a href="#install">1. インストール</a></li>
+		<li><a href="#glossary">2. 用語</a></li>
+		<li><a href="#ID000003">3. クラス</a>
+		<ul>
+			<li><a href="#ID00000301">3.1. <code>uniseg.TextWrapper</code> クラス</a></li>
+			<li><a href="#ID00000302">3.2. <code>uniseg.TTWrapper</code> クラス</a></li>
+		</ul>
+</li>
+		<li><a href="#functions">4. 関数</a>
+		<ul>
+			<li><a href="#ID00000401">4.1. コード・ポイントを扱う関数</a></li>
+			<li><a href="#splitting">4.2. 文字列を分割する関数</a></li>
+			<li><a href="#boundaries">4.3. 文字列を分割する境界を取得する関数</a></li>
+			<li><a href="#breakables">4.4. 分割境界のカスタマイズ</a>
+			<ul>
+				<li><a href="#breaking-property-functions">4.4.1. 文字列の分割情報を取得する関数</a></li>
+				<li><a href="#breaking-table-customization">4.4.2. 分割情報を扱う関数</a></li>
+			</ul>
+</li>
+			<li><a href="#breaking-properties">4.5. Unicode 分割属性</a></li>
+		</ul>
+</li>
+		<li><a href="#scripts">5. スクリプト</a>
+		<ul>
+			<li><a href="#unibreak-py"><code>unibreak.py</code></a></li>
+			<li><a href="#uniwrap-py"><code>uniwrap.py</code></a></li>
+			<li><a href="#ID00000503"><code>wxwrapdemo.py</code></a></li>
+		</ul>
+</li>
+		<li><a href="#history">6. 履歴</a></li>
+		<li><a href="#todos">7. ToDos</a></li>
+		<li><a href="#licese">8. ライセンス</a></li>
+<!--htmlex_CONTENTS_END-->
+</ul>
+
+<h3><a name="install">1. インストール</a></h3>
+
+<p>最新版は <a href="https://bitbucket.org/emptypage/uniseg-python"><samp>https://bitbucket.org/emptypage/uniseg-python</samp></a> から入手できます。</p>
+
+<p>アーカイブを展開した後、コマンドラインから <samp>python setup.py install</samp> してください。</p>
+
+<h3><a name="glossary">2. 用語</a></h3>
+
+<p>このモジュール（と Unicode）では、テキストの分割について次のような用語を使います。</p>
+
+<dl>
+<dt><code>unicode</code> オブジェクト</dt>
+<dd>
+<p>Python の Unicode 文字列です。</p>
+
+<p>その内部表現は Python インタプリタをビルドした条件によって異なり、narrow と wide とがあります。前者は Unicode 文字列を 16 ビット単位で、後者は 32 ビット単位でメモリに格納しています。</p>
+
+<p>Unicode に収録される文字の数は 16 ビットの範囲を超えています。このため、narrow ビルドでは 16 ビットの範囲外の文字はふたつの 16 ビット表現を組み合わせて表現します（サロゲート・ペア）。narrow ビルドでは、文字列に格納されている文字の数と、unicode オブジェクトとしての長さ（<code>len(s)</code> の値）が一致しないことがあります。たとえば U+20B9F は Python では <code>u'\U00020b9f'</code> ですが、narrow ビルドでは <code>len(u'\U00020b9f')</code> は <code>2</code> です。また <code>list(u'\U00020b9f')</code> の結果は <code>[u'\ud842', u'\udf9f']</code> になります。厳密には、narrow ビルドでは Unicode 文字列を一文字ずつ処理するのに <code>list()</code> や <code>for</code> 文をそのまま使っては不適切なのです（それで問題ない処理が多いことも事実ですが）。</p>
+
+<p>wide ビルドでは <code>len(u'\U00020b9f')</code> は <code>1</code> であり、<code>list(u'\U00020b9f')</code> の結果はそのまま <code>[u'\U00020b9f']</code> になります。</p>
+
+<p>自分の使っている Python インタプリタの Unicode 実装が narrow か wide かは <a href="http://www.python.jp/doc/2.7/library/sys.html#sys.maxunicode"><code>sys.maxunicode</code></a> の値を見ればわかります。narrow ビルドではこの値が 16 ビットの最大値である 65535 になっています。wide ビルドではこれより大きい値が格納されています。</p>
+</dd>
+
+<dt>コード・ポイント <span lang="en">(code point)</span></dt>
+<dd>
+<p>Python の unicode 文字列が上記のように実装によってその単位が異なる可能性があるのに対して、コード・ポイントというのは Unicode の文字セットに収録されている文字ひとつひとつに与えられている論理的な番号のことをいいます。コードポイントはふつう U+XXXX ないし U+XXXXX の形式で表記されます。</p>
+
+<p>コードポイントは論理的な概念なので、Python の Unicode 実装に関わらず、Unicode の文字と一対一で対応しています。<code>u'\U00020b9f'</code> は Python で <code>len(u'\U00020b9f')</code> がいくつであろうと、コード・ポイントでいえば U+20B9F というひとつのコード・ポイントです。</p>
+
+<p>Unicode 文字列の処理は、基本的にこのコード・ポイント単位になります。Unicode で「文字」といえば、単一のコード・ポイントを指すことがほとんどです。後述のグラフィム・クラスタとの混同を避けるために「文字」という言葉を使わずにこの「コード・ポイント」という用語をあえて使うこともあります。</p>
+
+<p>wide ビルドの Python では、長さ 1 の unicode オブジェクトがすなわち 1 コード・ポイントに対応しています。</p>
+</dd>
+
+<dt>グラフィム・クラスタ <span lang="en">(grapheme cluster)</span></dt>
+<dd>
+<p>Unicode の「文字」といえばふつう単一のコード・ポイントのことですが、コンピュータの利用者にとってはひとつのコード・ポイントが必ずしもひとつの「文字」であるとは限りません。</p>
+
+<p>たとえば、アイヌ語の表記につかわれる、小書きの「プ」に相当する文字があります。これは日本の規格である JIS X 0213 にはひとつの文字として他の文字と同様にひとつのコードが割り当てられていますが、Unicode ではこの文字を表す単一のコード・ポイントはありません。小書きの「フ」に相当する U+31F7 <small lang="en">(KATAKANA LETTER SMALL HU)</small> に U+309A <small lang="en">(COMBINING KATAKANA-HIRAGANA SEMI-VOICED SOUND MARK)</small> を続けて表します（個人的には、「プ」を小書きにするのと、小書きの「フ」に半濁点を付けるのとは等価でないような気がしますが、とにかくそういうことになっています）。しかし、テキストエディタなどの表示の上では、ユーザーはこれをひとつの「文字」と認識しています。デリート・キーによる削除や矢印キーによるカーソルの移動などでは、これらのコード・ポイントは一体のものとして扱われなければいけません。</p>
+
+<p>このような「利用者にとっての一文字」の単位に相当するのが「グラフィム・クラスタ」です。エディタの文字数のカウント機能などでは、このグラフィム・クラスタの数を数える必要があります。</p>
+
+<p>グラフィム・クラスタは言語によって解釈が異なる可能性があります。たとえば、チェコ語やスロバキア語ではアルファベットのひとつとして ‘ch’ を使います。</p>
+</dd>
+</dl>
+
+<h3><a name="ID000003">3. クラス</a></h3>
+
+<h4><a name="ID00000301">3.1. <code>uniseg.TextWrapper</code> クラス</a></h4>
+
+<p>折り返しエンジンの基底クラス。</p>
+
+<h4><a name="ID00000302">3.2. <code>uniseg.TTWrapper</code> クラス</a></h4>
+
+<p>等幅フォントの折り返しエンジン。</p>
+
+<h3><a name="functions">4. 関数</a></h3>
+
+<h4><a name="ID00000401">4.1. コード・ポイントを扱う関数</a></h4>
+
+<dl>
+<dt><code>uniseg.<strong>ord(<var>c</var>, <var>index</var>=None)</strong></code></dt>
+<dd>
+<p>単一のコード・ポイントを表す Unicode 文字列 <var>c</var> に割り当てられた整数値を返す。組み込み関数 <code>ord()</code> と同様だが、<var>c</var> がサロゲート・ペアで表わされる U+10000 以上の文字の時、narrow ビルド環境（<code>len(c) == 2</code>）でも例外を起こさない。</p>
+
+<p><var>index</var> が指定されると、第 1 引数 <var>c</var> は単一の Unicode コードポイントではなく、それ以上の長さを持ちうる Unicode 文字列と解釈され、<code>c[index]</code> に位置するコード・ポイントの値を返す。</p>
+</dd>
+
+<dt><code>uniseg.<strong>unichr(<var>cp</var>)</strong></code></dt>
+<dd>
+<p>整数値 <var>cp</var> に相当するコード・ポイントを表す Unicode 文字列を返す。組み込み関数 <code>unichr()</code> と同等だが、<var>cp</var> が 0x10000 以上でも例外を起こさない。</p>
+</dd>
+
+<dt><code>uniseg.<strong>code_point(<var>s</var>, <var>index</var>=0)</strong></code></dt>
+<dd>
+<p>Unicode 文字列 <var>s</var> について、<code>s[index]</code> の位置のコード・ポイント文字列を返す。単純に <code>s[index]</code> の値を使うと、narrow ビルド環境ではサロゲート・ペアで表されている U+10000 以上のコード・ポイントを分断してしまうおそれがある。</p>
+
+<p><var>index</var> は省略すると 0 とみなされ、文字列先頭のコード・ポイントを返す。</p>
+</dd>
+
+<dt><code>uniseg.<strong>code_points(<var>s</var>)</strong></code></dt>
+<dd>
+<p>Unicode 文字列 <var>s</var> に含まれているコード・ポイントを列挙する（イテレータ）。narrow ビルドの Python インタプリタでは、<code>list(s)</code> はサロゲート・ペアで表現された U+10000 以上の文字をふたつの無効な文字に切り離してしまうが、この関数では適切に保たれる。</p>
+</dd>
+
+</dl>
+
+<h4><a name="splitting">4.2. 文字列を分割する関数</a></h4>
+
+<p>以下、説明が下っていくに従って、詳細でレイヤの低い処理になっていきます。基本的な処理であれば、「Unicode 文字列を分割する関数」「Unicode 文字列を分割する境界を取得する関数」のどちらかで十分なことも多いでしょう。</p>
+
+<dl>
+<dt><code>uniseg.<strong>grapheme_clusters(<var>s</var>, <var>tailor</var>=None)</strong></code></dt>
+<dd>
+<p>Unicode 文字列 <var>s</var> を grapheme cluster 単位に分割して列挙する（イテレータ）。</p>
+</dd>
+
+<dt><code>uniseg.<strong>words(<var>s</var>, <var>tailor</var>=None)</strong></code></dt>
+<dd>
+<p>Unicode 文字列 <var>s</var> を単語単位に分割して列挙する（イテレータ）。</p>
+</dd>
+
+<dt><code>uniseg.<strong>sentences(<var>s</var>, <var>tailor</var>=None)</strong></code></dt>
+<dd>
+<p>Unicode 文字列 <var>s</var> を文単位に分割して列挙する（イテレータ）。</p>
+</dd>
+
+<dt><code>uniseg.<strong>line_break_units(<var>s</var>, <var>legacy</var>=False, <var>tailor</var>=None)</strong></code></dt>
+<dd>
+<p>文字列 <var>s</var> を行分割可能な単位に分割して列挙する（イテレータ）。</p>
+
+<p><var>legacy</var> を <code>True</code> にすると、旧来の文字コードでいわゆる全角文字として扱われていたギリシャ文字やキリル文字、一部の記号などを漢字と同等にみなし、これらの単語間での分割が許可されるようになります。</p>
+</dd>
+
+</dl>
+
+<h4><a name="boundaries">4.3. 文字列を分割する境界を取得する関数</a></h4>
+
+<dl>
+<dt><code>uniseg.<strong>grapheme_cluster_boundaries(<var>s</var>, <var>tailor</var>=None)</strong></code></dt>
+<dd>
+<p>Unicode 文字列 <var>s</var> の grapheme cluster 境界のインデックスを列挙する（イテレータ）。<code>0</code> から文字列末尾の境界（<code>== len(s)</code>）まで。</p>
+</dd>
+
+<dt><code>uniseg.<strong>word_boundaries(<var>s</var>, <var>tailor</var>=None)</strong></code></dt>
+<dd>
+<p>Unicode 文字列 <var>s</var> の単語境界のインデックスを列挙する（イテレータ）。<code>0</code> から文字列末尾の境界（<code>== len(s)</code>）まで。</p>
+</dd>
+
+<dt><code>uniseg.<strong>sentence_boundaries(<var>s</var>, <var>tailor</var>=None)</strong></code></dt>
+<dd>
+<p>Unicode 文字列 <var>s</var> の文境界のインデックスを列挙する（イテレータ）。<code>0</code> から文字列末尾の境界（<code>== len(s)</code>）まで。</p>
+</dd>
+
+<dt><code>uniseg.<strong>line_break_boundaries(<var>s</var>, <var>legacy</var>=False, <var>tailor</var>=None)</strong></code></dt>
+<dd>
+<p>行分割を行ってもよい境界のインデックスを列挙する（イテレータ）。<code>0</code> から文字列末尾の境界（<code>== len(s)</code>）まで。<var>legacy</var> の意味は <code>line_break_breakables()</code> に同じ。</p>
+</dd>
+</dl>
+
+<h4><a name="breakables">4.4. 分割境界のカスタマイズ</a></h4>
+
+<h5><a name="breaking-property-functions">4.4.1. 文字列の分割情報を取得する関数</a></h5>
+
+<dl>
+<dt><code>uniseg.<strong>grapheme_cluster_breakables(<var>s</var>)</strong></code></dt>
+<dd>
+<p>Unicode 文字列 <var>s</var> のどこが grapheme cluster 境界として分割可能かを列挙する（イテレータ）。1 であれば分割可、0 であれば分割不可を表す。列挙する要素の数は <code>len(s)</code> に等しい。</p>
+</dd>
+
+<dt><code>uniseg.<strong>word_breakables(<var>s</var>)</strong></code></dt>
+<dd>
+<p>Unicode 文字列 <var>s</var> のどこが単語の境界として分割可能かを列挙する（イテレータ）。</p>
+</dd>
+
+<dt><code>uniseg.<strong>sentence_breakables(<var>s</var>)</strong></code></dt>
+<dd>
+<p>Unicode 文字列 <var>s</var> のどこが文の境界として分割可能かを列挙する（イテレータ）。</p>
+</dd>
+
+<dt><code>uniseg.<strong>line_break_breakables(<var>s</var>, <var>legacy</var>=False)</strong></code></dt>
+<dd>
+<p>Unicode 文字列 <var>s</var> のどこが行分割の境界として分割可能かを列挙する（イテレータ）。</p>
+</dd>
+</dl>
+
+<h5><a name="breaking-table-customization">4.4.2. 分割情報を扱う関数</a></h5>
+
+<dl>
+<dt><code>boundaries(<var>breakables</var>)</code></dt>
+<dd>
+<p><var>breakables</var> の情報を元に文字列の境界インデックスを列挙する（イテレータ）。境界は 0 から文字列末尾（== len(breakables)）まで。列挙されるアイテムの数は、<code>len(breakables) + 1</code> に等しい。</p>
+
+<p><code>grapheme_cluster_boundaries(s)</code> は <code>boundaries(grapheme_cluster_breakables(s))</code> と同等の処理にあたる。<code>word_boundaries()</code>, <code>sentence_boundaries()</code>, <code>line_break_boundaries()</code> についても同様。</p>
+</dd>
+
+<dt><code>break_units(<var>s</var>, <var>breakables</var>)</code></dt>
+<dd>
+<p><var>breakables</var> の情報を元に文字列 s を分割し、各部分文字列を列挙する（イテレータ）。</p>
+
+<p><code>grapheme_clusters(s)</code> は <code>break_units(grapheme_cluster_breakables(s))</code> と同等の処理にあたる。その他の <code>words()</code>, <code>sentences()</code>, <code>line_break_units()</code> についても同様。</p>
+</dd>
+</dl>
+
+<h4><a name="breaking-properties">4.5. Unicode 分割属性</a></h4>
+
+<dl>
+<dt><code>uniseg.<strong>grapheme_cluster(<var>c</var>, <var>index</var>=0)</strong></code></dt>
+<dd>
+<p>Unicode 文字 <var>c</var> の Grapheme_Cluster クラスを文字列で返す。戻り値は次のうちのいずれか： <code>'Other'</code>, <code>'CR'</code>, <code>'LF'</code>, <code>'Control'</code>, <code>'Extend'</code>, <code>'Prepend'</code>, <code>'SpacingMark'</code>, <code>'L'</code>, <code>'V'</code>, <code>'T'</code>, <code>'LV'</code>, <code>'LVT'</code></p>
+
+<p><var>index</var> の意味は <code>code_point()</code> 関数に同じ。</p>
+</dd>
+
+<dt><code>uniseg.<strong>word_break(<var>c</var>, <var>index</var>=0)</strong></code></dt>
+<dd>
+<p>Unicode 文字 <var>c</var> の Word_Break クラスを文字列で返す。戻り値は次のうちのいずれか： <code>'Other'</code>, <code>'CR'</code>, <code>'LF'</code>, <code>'Newline'</code>, <code>'Extend'</code>, <code>'format'</code>, <code>'Katakana'</code>, <code>'ALetter'</code>, <code>'MidNumLet'</code>, <code>'MidLetter'</code>, <code>'MidNum'</code>, <code>'Numeric'</code>, <code>'ExtendNumLet'</code></p>
+
+<p><var>index</var> の意味は <code>code_point()</code> 関数に同じ。</p>
+</dd>
+
+<dt><code>uniseg.<strong>sentence_break(<var>c</var>, <var>index</var>=0)</strong></code></dt>
+<dd>
+<p>Unicode 文字 <var>c</var> の Sentence_Break クラスを文字列で返す。戻り値は次のうちのいずれか： <code>'CR'</code>, <code>'LF'</code>, <code>'Extend'</code>, <code>'Sep'</code>, <code>'Format'</code>, <code>'Sp'</code>, <code>'Lower'</code>, <code>'Upper'</code>, <code>'OLetter'</code>, <code>'Numeric'</code>, <code>'ATerm'</code>, <code>'SContinue'</code>, <code>'STerm'</code>, <code>'Close'</code></p>
+
+<p><var>index</var> の意味は <code>code_point()</code> 関数に同じ。</p>
+</dd>
+
+<dt><code>uniseg.<strong>line_break(<var>c</var>, <var>index</var>=0)</strong></code></dt>
+<dd>
+<p>Unicode 文字 <var>c</var> の Line_Break クラスを文字列で返す。戻り値は次のうちのいずれか： <code>'BK'</code>, <code>'CR'</code>, <code>'LF'</code>, <code>'CM'</code>, <code>'NL'</code>, <code>'SG'</code>, <code>'WJ'</code>, <code>'ZW'</code>, <code>'GL'</code>, <code>'SP'</code>, <code>'B2'</code>, <code>'BA'</code>, <code>'BB'</code>, <code>'HY'</code>, <code>'CB'</code>, <code>'CL'</code>, <code>'CP'</code>, <code>'EX'</code>, <code>'IN'</code>, <code>'NS'</code>, <code>'OP'</code>, <code>'QU'</code>, <code>'IS'</code>, <code>'NU'</code>, <code>'PO'</code>, <code>'PR'</code>, <code>'SY'</code>, <code>'AI'</code>, <code>'AL'</code>, <code>'H2'</code>, <code>'H3'</code>, <code>'ID'</code>, <code>'JL'</code>, <code>'JV'</code>, <code>'JT'</code>, <code>'SA'</code>, <code>'XX'</code></p>
+
+<p><var>index</var> の意味は <code>code_point()</code> 関数に同じ。</p>
+</dd>
+
+</dl>
+
+<h3><a name="scripts">5. スクリプト</a></h3>
+
+<p>本モジュールを使ったスクリプトを付属しています。いまのところサンプル・アプリケーション的な存在です。</p>
+
+<h4><a name="unibreak-py"><code>unibreak.py</code></a></h4>
+
+<p>ファイルの文字列をコードポイント、文字（grapheme cluster）、単語、行分割単位で分割して一行ずつ出力します。</p>
+
+<pre>
+usage: unibreak.py [-h] [-e ENCODING] [-l] [-m {c,g,l,s,w}] [-o OUTPUT] [file]
+
+positional arguments:
+  file                  input text file
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -e ENCODING, --encoding ENCODING
+                        text encoding of the input &lt;cp932&gt;
+  -l, --legacy          legacy mode (makes sense only with '--mode l')
+  -m {c,g,l,s,w}, --mode {c,g,l,s,w}
+                        breaking algorithm &lt;w&gt; (c: code points, g: grapheme
+                        clusters, s: sentences l: line breaking units, w:
+                        words)
+  -o OUTPUT, --output OUTPUT
+                        leave output to specified file
+</pre>
+
+<h4><a name="uniwrap-py"><code>uniwrap.py</code></a></h4>
+
+<p>ファイルの文字列を指定された桁数で折り返し整形して出力します。漢字や仮名などはいわゆる全角文字としてアルファベットなどの倍の幅を持つものとして計算されます（早い話が日本語でも大丈夫ってことです）。</p>
+
+<pre>
+usage: uniwrap.py [-h] [-e ENCODING] [-x] [-j] [-r] [-t TAB_WIDTH] [-l]
+                  [-o OUTPUT] [-w WRAP_WIDTH] [-c]
+                  [file]
+
+positional arguments:
+  file                  input file
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -e ENCODING, --encoding ENCODING
+                        file encoding &lt;cp932&gt;
+  -x, --expand-tabs     expand tabs to spaces
+  -j, --justify         justify lines
+  -r, --ruler           show ruler
+  -t TAB_WIDTH, --tab-width TAB_WIDTH
+                        tab width &lt;8&gt;
+  -l, --legacy          treat ambiguous-width letters as wide
+  -o OUTPUT, --output OUTPUT
+                        leave output to specified file
+  -w WRAP_WIDTH, --wrap-width WRAP_WIDTH
+                        wrap width &lt;60&gt;
+  -c, --char-wrap       wrap on grapheme boundaries instead of line break
+                        boundaries
+</pre>
+
+<h4><a name="ID00000503"><code>wxwrapdemo.py</code></a></h4>
+
+<p>プロポーショナルなフォントでの折り返し処理の例として、<a href="http://wxpython.org/">wxPython</a> を使った GUI アプリケーションのサンプル・プログラムを同梱しています。</p>
+
+<h3><a name="history">6. 履歴</a></h3>
+
+<dl>
+<dt>0.5.1 (2012-06-02)</dt>
+<dd>モジュール名を <code>uniseg</code> に。</dd>
+<dd><code>TextWrapper</code>、<code>TTWrapper</code> クラスをモジュール内に移動。あとでドキュメント化すること。</dd>
+<dd><code>wxwrapdemo.py</code> 追加。</dd>
+<dd><code>breakables</code> でなく <code>tailor</code> 関数でカスタマイズを指定するようにした。あとでドキュメント化すること。</dd>
+
+<dt>0.5.0 (2012-05-27)</dt>
+<dd>Sentence boundaries 実装。</dd>
+<dd><code>*_boundaries</code> は 0 から列挙するようにした。</dd>
+<dd><code>*_breakables</code> 追加。</dd>
+<dd><code>*_boundaries</code> および <code>grapheme_clusters</code>, <code>words</code>, <code>sentences</code>, <code>line_break_units</code> の結果をカスタマイズできるようにした。</dd>
+<dd><code>ord</code> 関数に第 2 引数追加。</dd>
+<dd>Python インタプリタの Unicode 実装が narrow build でも wide build でも動く（はずな）ようにした。Wide build でテストできていません。</dd>
+
+<dt>0.4.0 (2012-05-20)</dt>
+<dd>公開。</dd>
+
+</dl>
+
+<h3><a name="todos">7. ToDos</a></h3>
+
+<p>以下の問題にたいして解決のめどが立ったらバージョン 1.0 にしたい。</p>
+
+<ul>
+<li><del><samp>uniwrap.py</samp> に入っている折り返しエンジンをモジュール本体のほうに取り込み。</del></li>
+<li><del>grapheme cluster の分割動作をユーザーがカスタマイズできるように。</del></li>
+<li><del>word break の分割動作をユーザーがカスタマイズできるように。</del></li>
+<li><del>line break の分割動作をユーザーがカスタマイズできるように。</del></li>
+<li><del>sentence break 実装。</del></li>
+<li><del> よりよいモジュール名。</del></li>
+<li><del>サブモジュール廃止。</del></li>
+<li><code>TextWrapper</code>、<code>TTWrapper</code> の仕様を整理。</li>
+<li>データベースのスリム化。</li>
+<li><del>Unicode 6.1.0 対応（現在は 5.2.0）。</del><ins>6.2.0 対応。</ins></li>
+<li><code>TextWrapper</code>、<code>TTWrapper</code>、<code>tailor</code> のカスタマイズ例をドキュメントに。</li>
+<li>より親切なドキュメント。（「Unicode テキスト境界処理の基本」）</li>
+<li>遅い。現在の 2～10 倍程度の高速化。</li>
+<li lang="en">English documents.</li>
+<li>Python 3 対応。</li>
+<li>その他、思い出したら書き足す。</li>
+</ul>
+
+<h3><a name="licese">8. ライセンス</a></h3>
+
+<p>MIT ライセンスです。</p>
+
+<pre>
+Copyright (c) 2012 Masaaki Shibata
+
+Permission is hereby granted, free of charge, to any person obtaining  a
+copy  of  this   software  and  associated   documentation  files   (the
+"Software"), to  deal in  the  Software without  restriction,  including
+without limitation  the rights  to use,  copy, modify,  merge,  publish,
+distribute, sublicense,  and/or  sell copies  of  the Software,  and  to
+permit persons to whom  the Software is furnished  to do so, subject  to
+the following conditions:
+
+The above copyright notice and this permission notice shall be  included
+in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,  EXPRESS
+OR  IMPLIED,   INCLUDING  BUT   NOT  LIMITED   TO  THE   WARRANTIES   OF
+MERCHANTABILITY, FITNESS FOR A  PARTICULAR PURPOSE AND  NONINFRINGEMENT.
+IN NO EVENT  SHALL THE AUTHORS  OR COPYRIGHT HOLDERS  BE LIABLE FOR  ANY
+CLAIM, DAMAGES OR  OTHER LIABILITY,  WHETHER IN AN  ACTION OF  CONTRACT,
+TORT OR  OTHERWISE, ARISING  FROM,  OUT OF  OR  IN CONNECTION  WITH  THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+</pre>
+
+<p>（※ 上記条文は <samp>uniwrap.py</samp> による整形例です。<samp>-j -w 72</samp> オプション。）</p>
+
+<hr>
+
+<p>このページについてのご意見ご感想は<a href="/bbs/">ゲストブック</a>またはメール <samp>&lt;mshibata at emptypage.jp&gt;</samp> まで。</p>
+
+</body>
+</html>
