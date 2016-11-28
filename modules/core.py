@@ -4932,6 +4932,11 @@ iter_end, exclude_iter_sel_end=True)
             if self.enable_spell_check and self.syntax_highlighting == cons.RICH_TEXT_ID:
                 tooltip_text += "  -  " + _("Spell Check") + _(": ") + self.spell_check_lang
             print "sel node id=%s, seq=%s" % (self.treestore[self.curr_tree_iter][3], self.treestore[self.curr_tree_iter][5])
+
+        if self.word_count:
+            count = len(re.split(ur"[\s,]+",self.curr_buffer.get_text(*self.curr_buffer.get_bounds()), flags=re.UNICODE))
+            tooltip_text = "{} - {}{} {}".format(tooltip_text, _("Word Count"), _(": "), count)
+
         self.statusbar.pop(self.statusbar_context_id)
         self.statusbar.push(self.statusbar_context_id, tooltip_text)
 

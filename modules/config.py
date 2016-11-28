@@ -262,6 +262,7 @@ def config_file_load(dad):
             dad.autosave = [cfg.getboolean(section, "autosave"), cfg.getint(section, "autosave_val")]
         else: dad.autosave = [False, 5]
         dad.check_version = cfg.getboolean(section, "check_version") if cfg.has_option(section, "check_version") else False
+        dad.word_count = cfg.getboolean(section, "word_count") if cfg.has_option(section, "word_count") else False
         dad.reload_doc_last = cfg.getboolean(section, "reload_doc_last") if cfg.has_option(section, "reload_doc_last") else True
         dad.enable_mod_time_sentinel = cfg.getboolean(section, "mod_time_sent") if cfg.has_option(section, "mod_time_sent") else True
         dad.backup_copy = cfg.getboolean(section, "backup_copy") if cfg.has_option(section, "backup_copy") else True
@@ -356,6 +357,7 @@ def config_file_load(dad):
         dad.codebox_syn_highl = cons.PLAIN_TEXT_ID
         dad.codebox_auto_resize = True
         dad.check_version = False
+        dad.word_count = True
         dad.reload_doc_last = True
         dad.enable_mod_time_sentinel = True
         dad.backup_copy = True
@@ -566,6 +568,7 @@ def config_file_save(dad):
     cfg.set(section, "autosave", dad.autosave[0])
     cfg.set(section, "autosave_val", dad.autosave[1])
     cfg.set(section, "check_version", dad.check_version)
+    cfg.set(section, "word_count", dad.word_count)
     cfg.set(section, "reload_doc_last", dad.reload_doc_last)
     cfg.set(section, "mod_time_sent", dad.enable_mod_time_sentinel)
     cfg.set(section, "backup_copy", dad.backup_copy)
@@ -1943,13 +1946,16 @@ def preferences_tab_misc(dad, vbox_misc, pref_dialog):
 
     vbox_misc_misc = gtk.VBox()
     checkbutton_newer_version = gtk.CheckButton(_("Automatically Check for Newer Version"))
+    checkbutton_word_count = gtk.CheckButton(_("Word Count In Status Bar"))
     checkbutton_reload_doc_last = gtk.CheckButton(_("Reload Document From Last Session"))
     checkbutton_mod_time_sentinel = gtk.CheckButton(_("Reload After External Update to CT* File"))
     vbox_misc_misc.pack_start(checkbutton_newer_version, expand=False)
+    vbox_misc_misc.pack_start(checkbutton_word_count, expand=False)
     vbox_misc_misc.pack_start(checkbutton_reload_doc_last, expand=False)
     vbox_misc_misc.pack_start(checkbutton_mod_time_sentinel, expand=False)
 
     checkbutton_newer_version.set_active(dad.check_version)
+    checkbutton_word_count.set_active(dad.word_count)
     checkbutton_reload_doc_last.set_active(dad.reload_doc_last)
     checkbutton_mod_time_sentinel.set_active(dad.enable_mod_time_sentinel)
 
@@ -2060,6 +2066,10 @@ def preferences_tab_misc(dad, vbox_misc, pref_dialog):
     def on_checkbutton_newer_version_toggled(checkbutton):
         dad.check_version = checkbutton.get_active()
     checkbutton_newer_version.connect('toggled', on_checkbutton_newer_version_toggled)
+    def on_checkbutton_word_count_toggled(checkbutton):
+        dad.word_count = checkbutton.get_active()
+        dad.update_selected_node_statusbar_info()
+    checkbutton_word_count.connect('toggled', on_checkbutton_word_count_toggled)
     def on_combobox_country_language_changed(combobox):
         new_iter = combobox_country_language.get_active_iter()
         new_lang = dad.country_lang_liststore[new_iter][0]
