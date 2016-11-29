@@ -159,7 +159,7 @@ def config_file_load(dad):
         dad.expcollstr3 = cfg.get(section, "expcollstr3") if cfg.has_option(section, "expcollstr3") else ""
         dad.expcollsel3 = cfg.get(section, "expcollsel3") if cfg.has_option(section, "expcollsel3") else ""
         dad.expcollcur3 = cfg.getint(section, "expcollcur3") if cfg.has_option(section, "expcollcur3") else 0
-        dad.nodes_bookm_exp = cfg.getboolean(section, "nodes_bookm_exp") if cfg.has_option(section, "nodes_bookm_exp") else True
+        dad.nodes_bookm_exp = cfg.getboolean(section, "nodes_bookm_exp") if cfg.has_option(section, "nodes_bookm_exp") else False
         dad.nodes_icons = cfg.get(section, "nodes_icons") if cfg.has_option(section, "nodes_icons") else "c"
         dad.default_icon_text = cfg.getint(section, "default_icon_text") if cfg.has_option(section, "default_icon_text") else cons.NODE_ICON_BULLET_ID
         dad.tree_right_side = cfg.getboolean(section, "tree_right_side") if cfg.has_option(section, "tree_right_side") else False
@@ -362,7 +362,7 @@ def config_file_load(dad):
         dad.backup_num = 3
         dad.autosave_on_quit = False
         dad.tree_right_side = False
-        dad.nodes_bookm_exp = True
+        dad.nodes_bookm_exp = False
         dad.rt_show_white_spaces = False
         dad.pt_show_white_spaces = True
         dad.rt_highl_curr_line = True
