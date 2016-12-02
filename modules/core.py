@@ -22,7 +22,7 @@
 import gtk, pango, gtksourceview2, gobject
 import sys, os, re, glob, subprocess, webbrowser, base64, cgi, urllib2, shutil, time, locale, pgsc_spellcheck
 import cons, menus, support, config, machines, clipboard, imports, exports, printing, tablez, lists, findreplace, codeboxes, ctdb
-from uniseg import wordbreak
+import wordbreak
 if cons.HAS_APPINDICATOR: import appindicator
 
 class CherryTree:
