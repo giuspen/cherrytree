@@ -4932,24 +4932,19 @@ iter_end, exclude_iter_sel_end=True)
             if self.treestore[self.curr_tree_iter][6]: tooltip_text += "  -  " + _("Tags") + _(": ") + self.treestore[self.curr_tree_iter][6]
             if self.enable_spell_check and self.syntax_highlighting == cons.RICH_TEXT_ID:
                 tooltip_text += "  -  " + _("Spell Check") + _(": ") + self.spell_check_lang
-            self.curr_buffer.connect("changed", self.on_buffer_change)
-            tooltip_text = self.append_word_count(tooltip_text)
+            if self.word_count:
+                tooltip_text += "  -  " + _("Word Count") + _(": ") + str(self.get_word_count())
             print "sel node id=%s, seq=%s" % (self.treestore[self.curr_tree_iter][3], self.treestore[self.curr_tree_iter][5])
         self.statusbar.pop(self.statusbar_context_id)
         self.statusbar.push(self.statusbar_context_id, tooltip_text)
 
-    def on_buffer_change(self, *args, **kwargs):
-        if self.word_count:
-            self.statusbar.pop(self.statusbar_context_id)
-            self.statusbar.push(self.statusbar_context_id, self.append_word_count())
-
-    def append_word_count(self, text=""):
-        if self.word_count:
-            textbuffer = unicode(self.curr_buffer.get_text(*self.curr_buffer.get_bounds()))
-            count = len([w for w in wordbreak.words(textbuffer) if w.strip() != ''])
-            return "{}{}{}{}{}".format(text, " - " if text != "" else "", _("Word Count"), _(": "), count)
+    def get_word_count(self):
+        if self.curr_buffer:
+            all_text = unicode(self.curr_buffer.get_text(*self.curr_buffer.get_bounds()))
+            word_count = len([w for w in wordbreak.words(all_text) if w.strip() != ''])
         else:
-            return text
+            word_count = 0
+        return word_count
 
     def on_image_visibility_notify_event(self, widget, event):
         """Problem of image colored frame disappearing"""

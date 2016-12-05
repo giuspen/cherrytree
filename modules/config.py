@@ -1946,7 +1946,7 @@ def preferences_tab_misc(dad, vbox_misc, pref_dialog):
 
     vbox_misc_misc = gtk.VBox()
     checkbutton_newer_version = gtk.CheckButton(_("Automatically Check for Newer Version"))
-    checkbutton_word_count = gtk.CheckButton(_("Word Count"))
+    checkbutton_word_count = gtk.CheckButton(_("Enable Word Count in Statusbar"))
     checkbutton_reload_doc_last = gtk.CheckButton(_("Reload Document From Last Session"))
     checkbutton_mod_time_sentinel = gtk.CheckButton(_("Reload After External Update to CT* File"))
     vbox_misc_misc.pack_start(checkbutton_newer_version, expand=False)
