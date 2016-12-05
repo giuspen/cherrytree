@@ -252,10 +252,13 @@ def on_sourceview_event_after_scroll(dad, text_view, event):
 
 def on_sourceview_event_after_key_release(dad, text_view, event):
     """Called after every gtk.gdk.KEY_RELEASE on the SourceView"""
+    keyname = gtk.gdk.keyval_name(event.keyval)
     if dad.ctrl_down:
-        keyname = gtk.gdk.keyval_name(event.keyval)
         if keyname in cons.STR_KEYS_CONTROL:
             dad.ctrl_down = False
+    elif keyname in [cons.STR_KEY_RETURN, cons.STR_KEY_SPACE]:
+        if dad.word_count:
+            dad.update_selected_node_statusbar_info()
     return False
 
 def on_sourceview_event_after_key_press(dad, text_view, event, syntax_highl):
