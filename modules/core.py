@@ -4941,7 +4941,7 @@ iter_end, exclude_iter_sel_end=True)
     def get_word_count(self):
         if self.curr_buffer:
             all_text = unicode(self.curr_buffer.get_text(*self.curr_buffer.get_bounds()))
-            word_count = len([w for w in wordbreak.words(all_text) if w.strip() != ''])
+            word_count = len([w for w in wordbreak.words(all_text) if re.search("\w", w, re.UNICODE)])
         else:
             word_count = 0
         return word_count
