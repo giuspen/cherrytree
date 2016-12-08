@@ -4,7 +4,7 @@
 import re
 
 SUPPORTERS="""
-<h2>Friends of giuspen.com (donated €3192,53)</h2>
+<h2>Friends of giuspen.com (donated €3212,53)</h2>
 • Miguel Latorre (Spain) donated €240
 • DistroWatch.com (International) donated €200
 • Alan M. (United States) donated €100
@@ -60,6 +60,7 @@ SUPPORTERS="""
 • Michael Jabbour (Austria) donated €20
 • Michael Matney (United States) donated €20
 • Randall Raziano (United States) donated €20
+• Robert Johansson (Sweden) donated €20
 • Roger Rowles (Australia) donated €20
 • Rudy Witt (Canada) donated €20
 • Timothy DeCant (United States) donated €20
