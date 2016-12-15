@@ -3726,6 +3726,37 @@ iter_end, exclude_iter_sel_end=True)
         else: image_justification = None
         self.image_insert(iter_insert, pixbuf, image_justification)
 
+    def exec_code(self, *args):
+        """Exec Code"""
+        if not self.is_there_selected_node_or_error(): return
+        if self.syntax_highlighting == cons.RICH_TEXT_ID:
+            code_type = None
+            if self.curr_buffer.get_has_selection():
+                iter_sel_start, iter_sel_end = self.curr_buffer.get_selection_bounds()
+                num_chars = iter_sel_end.get_offset() - iter_sel_start.get_offset()
+                if num_chars == 1:
+                    anchor = iter_sel_start.get_child_anchor()
+                    if anchor and "sourcebuffer" in dir(anchor):
+                        code_type = anchor.syntax_highlighting
+                        code_val = unicode(anchor.sourcebuffer.get_text(*anchor.sourcebuffer.get_bounds()), cons.STR_UTF8, cons.STR_IGNORE)
+            if not code_type:
+                support.dialog_warning(_("No CodeBox is Selected"), self.window)
+                return
+        else:
+            code_type = self.syntax_highlighting
+            code_val = unicode(self.curr_buffer.get_text(*self.curr_buffer.get_bounds()), cons.STR_UTF8, cons.STR_IGNORE)
+        print code_type
+        filepath_tmp = os.path.join(cons.TMP_FOLDER, "exec_code")
+        if not os.path.isdir(cons.TMP_FOLDER): os.makedirs(cons.TMP_FOLDER)
+        with open(filepath_tmp, 'w') as fd:
+            fd.write(code_val)
+        if cons.IS_WIN_OS:
+            shell_cmd = []
+        else:
+            shell_cmd = []
+        #subprocess.call(shell_cmd)
+        os.remove(filepath_tmp)
+
     def embfile_insert(self, *args):
         """Embedded File Insert"""
         if not self.node_sel_and_rich_text(): return
@@ -4085,7 +4116,7 @@ iter_end, exclude_iter_sel_end=True)
         elif "filename" in pixbuf_attrs:
             anchor.eventbox.connect("button-press-event", self.on_mouse_button_clicked_file, anchor)
             self.embfile_set_tooltip(anchor)
-            if self.embfile_show_filename :
+            if self.embfile_show_filename:
                 anchor_label = gtk.Label()
                 anchor_label.set_markup("<b><small>"+pixbuf.filename+"</small></b>")
                 anchor_label.modify_fg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.rt_def_fg))
@@ -4940,7 +4971,7 @@ iter_end, exclude_iter_sel_end=True)
 
     def get_word_count(self):
         if self.curr_buffer:
-            all_text = unicode(self.curr_buffer.get_text(*self.curr_buffer.get_bounds()))
+            all_text = unicode(self.curr_buffer.get_text(*self.curr_buffer.get_bounds()), cons.STR_UTF8, cons.STR_IGNORE)
             word_count = len([w for w in wordbreak.words(all_text) if re.search("\w", w, re.UNICODE)])
         else:
             word_count = 0

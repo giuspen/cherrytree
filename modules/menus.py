@@ -34,6 +34,7 @@ CONFIG_ACTIONS_DICT = {
 "ct_save_as",
 "print_page_setup",
 "do_print",
+"exec_code",
 "quit_app",
 "exit_app",
 "preferences_dlg",
@@ -174,6 +175,7 @@ def load_menudict(dad):
 "ct_save": {"sk": "gtk-save", "sd": _("_Save"), "kb": KB_CONTROL+"S", "dn": _("Save File"), "cb": dad.file_save},
 "ct_vacuum": {"sk": "gtk-clear", "sd": _("Save and _Vacuum"), "kb": None, "dn": _("Save File and Vacuum"), "cb": dad.file_vacuum},
 "ct_save_as": {"sk": "gtk-save-as", "sd": _("Save _As"), "kb": KB_CONTROL+KB_SHIFT+"S", "dn": _("Save File As"), "cb": dad.file_save_as},
+"exec_code": {"sk": "gtk-execute", "sd": _("_Execute Code"), "kb": "F5", "dn": _("Execute Code"), "cb": dad.exec_code},
 "open_cfg_folder": {"sk": "gtk-directory", "sd": _("Open Preferences _Directory"), "kb": None, "dn": _("Open the Directory with Preferences Files"), "cb": dad.folder_cfg_open},
 "print_page_setup": {"sk": "gtk-print", "sd": _("Pa_ge Setup"), "kb": KB_CONTROL+KB_SHIFT+"P", "dn": _("Set up the Page for Printing"), "cb": dad.export_print_page_setup},
 "do_print": {"sk": "gtk-print", "sd": _("_Print"), "kb": KB_CONTROL+"P", "dn": _("Print"), "cb": dad.export_print},
@@ -659,6 +661,8 @@ UI_INFO = """
       <separator/>
       <menuitem action='print_page_setup'/>
       <menuitem action='do_print'/>
+      <separator/>
+      <menuitem action='exec_code'/>
       <separator/>
       <menuitem action='quit_app'/>
       <menuitem action='exit_app'/>
