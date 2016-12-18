@@ -28,6 +28,17 @@ ICONS_SIZE = {1: gtk.ICON_SIZE_MENU, 2: gtk.ICON_SIZE_SMALL_TOOLBAR, 3: gtk.ICON
 
 LINK_CUSTOM_ACTION_DEFAULT_WEB = "firefox %s &"
 LINK_CUSTOM_ACTION_DEFAULT_FILE = "xdg-open %s &"
+CODE_EXEC_DEFAULT = {
+"python": "python %s",
+"perl": "perl %s",
+"sh": "sh %s",
+"dosbatch": "cmd %s",
+"powershell": "cmd %s",
+}
+CODE_EXEC_TERM_DEFAULT = {
+"linux" : "xterm -hold -geometry 180x45 -e \"%s\"",
+"win" : "start cmd /k \"%s\"",
+}
 DEFAULT_MONOSPACE_BG = "#7f7f7f"
 MAX_SIZE_EMBFILE_MB_DEFAULT = 10
 HORIZONTAL_RULE = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
@@ -275,6 +286,9 @@ def config_file_load(dad):
             for option in cfg.options(section):
                 value = cfg.get(section, option).strip()
                 dad.custom_kb_shortcuts[option] = value if value else None
+        section = "codexec"
+        if cfg.has_section(section):
+            pass
     else:
         dad.file_dir = ""
         dad.file_name = ""
@@ -581,6 +595,9 @@ def config_file_save(dad):
     for option in dad.custom_kb_shortcuts.keys():
         value = dad.custom_kb_shortcuts[option] if dad.custom_kb_shortcuts[option] else ""
         cfg.set(section, option, value)
+
+    section = "codexec"
+    cfg.add_section(section)
 
     with open(cons.CONFIG_PATH, 'wb') as configfile:
         cfg.write(configfile)
