@@ -28,16 +28,16 @@ ICONS_SIZE = {1: gtk.ICON_SIZE_MENU, 2: gtk.ICON_SIZE_SMALL_TOOLBAR, 3: gtk.ICON
 
 LINK_CUSTOM_ACTION_DEFAULT_WEB = "firefox %s &"
 LINK_CUSTOM_ACTION_DEFAULT_FILE = "xdg-open %s &"
-CODE_EXEC_DEFAULT = {
+CODE_EXEC_TYPE_CMD_DEFAULT = {
 "python": "python %s",
 "perl": "perl %s",
 "sh": "sh %s",
 "dosbatch": "cmd %s",
 "powershell": "cmd %s",
 }
-CODE_EXEC_TERM_DEFAULT = {
-"linux" : "xterm -hold -geometry 180x45 -e \"%s\"",
-"win" : "start cmd /k \"%s\"",
+CODE_EXEC_TERM_RUN_DEFAULT = {
+"term_run_linux" : "xterm -hold -geometry 180x45 -e \"%s\"",
+"term_run_win" : "start cmd /k \"%s\"",
 }
 DEFAULT_MONOSPACE_BG = "#7f7f7f"
 MAX_SIZE_EMBFILE_MB_DEFAULT = 10
@@ -55,6 +55,25 @@ TIMESTAMP_FORMAT_DEFAULT = "%Y/%m/%d - %H:%M"
 SEPARATOR_ASCII_REPR = "---------"
 
 SPELL_CHECK_LANG_DEFAULT = locale.getdefaultlocale()[0]
+
+def get_code_exec_type_cmd(dad, syntax_type):
+    if syntax_type in dad.custom_codexec_type.keys():
+        ret_val = dad.custom_codexec_type[syntax_type]
+    elif syntax_type in CODE_EXEC_TYPE_CMD_DEFAULT.keys():
+        ret_val = CODE_EXEC_TYPE_CMD_DEFAULT[syntax_type]
+    else:
+        ret_val = None
+    return ret_val
+
+def get_code_exec_term_run(dad, op_sys=None):
+    if not op_sys:
+        op_sys = "linux" if not cons.IS_WIN_OS else "win"
+    key = "term_run_" + op_sys
+    if key in dad.custom_codexec_term.keys():
+        ret_val = dad.custom_codexec_term[key]
+    else:
+        ret_val = CODE_EXEC_TERM_RUN_DEFAULT[key]
+    return ret_val
 
 def get_toolbar_entry_columns_from_key(dad, key):
     if key == cons.TAG_SEPARATOR: return [key, "", SEPARATOR_ASCII_REPR]
@@ -104,6 +123,8 @@ def get_pixels_inside_wrap(space_around_lines, relative_wrapped_space):
 def config_file_load(dad):
     """Load the Preferences from Config File"""
     dad.custom_kb_shortcuts = {}
+    dad.custom_codexec_type = {}
+    dad.custom_codexec_term = {}
     dad.latest_tag = ["", ""]
     if os.path.isfile(cons.CONFIG_PATH):
         cfg = ConfigParser.RawConfigParser()
@@ -286,9 +307,14 @@ def config_file_load(dad):
             for option in cfg.options(section):
                 value = cfg.get(section, option).strip()
                 dad.custom_kb_shortcuts[option] = value if value else None
-        section = "codexec"
+        section = "codexec_term"
         if cfg.has_section(section):
-            pass
+            for option in cfg.options(section):
+                dad.custom_codexec_term[option] = cfg.get(section, option)
+        section = "codexec_type"
+        if cfg.has_section(section):
+            for option in cfg.options(section):
+                dad.custom_codexec_type[option] = cfg.get(section, option)
     else:
         dad.file_dir = ""
         dad.file_name = ""
@@ -596,8 +622,15 @@ def config_file_save(dad):
         value = dad.custom_kb_shortcuts[option] if dad.custom_kb_shortcuts[option] else ""
         cfg.set(section, option, value)
 
-    section = "codexec"
+    section = "codexec_term"
     cfg.add_section(section)
+    for option in dad.custom_codexec_term.keys():
+        cfg.set(section, dad.custom_codexec_term[option], value)
+
+    section = "codexec_type"
+    cfg.add_section(section)
+    for option in dad.custom_codexec_type.keys():
+        cfg.set(section, dad.custom_codexec_type[option], value)
 
     with open(cons.CONFIG_PATH, 'wb') as configfile:
         cfg.write(configfile)
@@ -1159,6 +1192,82 @@ def preferences_tab_plain_text_n_code(dad, vbox_code_nodes, pref_dialog):
         if dad.syntax_highlighting != cons.RICH_TEXT_ID:
             dad.sourceview.set_highlight_current_line(dad.pt_highl_curr_line)
     checkbutton_pt_highl_curr_line.connect('toggled', on_checkbutton_pt_highl_curr_line_toggled)
+
+    liststore = gtk.ListStore(str, str, str)
+    treeview = gtk.TreeView(liststore)
+    treeview.set_headers_visible(False)
+    treeview.set_size_request(300, 200)
+    renderer_pixbuf = gtk.CellRendererPixbuf()
+    renderer_text_key = gtk.CellRendererText()
+    renderer_text_val = gtk.CellRendererText()
+    column_key = gtk.TreeViewColumn()
+    column_key.pack_start(renderer_pixbuf, False)
+    column_key.pack_start(renderer_text_key, True)
+    column_key.set_attributes(renderer_pixbuf, stock_id=0)
+    column_key.set_attributes(renderer_text_key, text=1)
+    column_val = gtk.TreeViewColumn("", renderer_text_val, text=2)
+    treeview.append_column(column_key)
+    treeview.append_column(column_val)
+    treeviewselection = treeview.get_selection()
+    scrolledwindow = gtk.ScrolledWindow()
+    scrolledwindow.add(treeview)
+
+    button_add = gtk.Button()
+    button_add.set_image(gtk.image_new_from_stock(gtk.STOCK_ADD, gtk.ICON_SIZE_BUTTON))
+    button_add.set_tooltip_text(_("Add"))
+    button_edit = gtk.Button()
+    button_edit.set_image(gtk.image_new_from_stock(gtk.STOCK_EDIT, gtk.ICON_SIZE_BUTTON))
+    button_edit.set_tooltip_text(_("Edit"))
+    vbox_buttons = gtk.VBox()
+    vbox_buttons.pack_start(button_add, expand=False)
+    vbox_buttons.pack_start(button_edit, expand=False)
+
+    vbox_codexec = gtk.VBox()
+    entry_term_run_linux = gtk.Entry()
+    entry_term_run_linux.set_text(get_code_exec_term_run(dad, "linux"))
+    entry_term_run_win = gtk.Entry()
+    entry_term_run_win.set_text(get_code_exec_term_run(dad, "win"))
+    hbox_cmd_per_type = gtk.HBox()
+    hbox_cmd_per_type.pack_start(scrolledwindow, expand=True)
+    hbox_cmd_per_type.pack_start(vbox_buttons, expand=False)
+
+    vbox_codexec.pack_start(gtk.Label(_("Linux Terminal")), expand=False)
+    vbox_codexec.pack_start(entry_term_run_linux, expand=False)
+    vbox_codexec.pack_start(gtk.Label(_("Windows Terminal")), expand=False)
+    vbox_codexec.pack_start(entry_term_run_win, expand=False)
+    vbox_codexec.pack_start(gtk.Label(_("Command per Node/CodeBox Type")), expand=False)
+    vbox_codexec.pack_start(hbox_cmd_per_type, expand=False)
+
+    frame_codexec = gtk.Frame(label="<b>"+_("Code Execution")+"</b>")
+    frame_codexec.get_label_widget().set_use_markup(True)
+    frame_codexec.set_shadow_type(gtk.SHADOW_NONE)
+    align_codexec = gtk.Alignment()
+    align_codexec.set_padding(3, 6, 6, 6)
+    align_codexec.add(vbox_codexec)
+    frame_codexec.add(align_codexec)
+
+    vbox_code_nodes.pack_start(frame_codexec, expand=False)
+    def on_entry_term_run_linux_changed(entry):
+        dad.custom_codexec_term["term_run_linux"] = entry.get_text()
+    entry_term_run_linux.connect('changed', on_entry_term_run_linux_changed)
+    def on_entry_term_run_win_changed(entry):
+        dad.custom_codexec_term["term_run_win"] = entry.get_text()
+    entry_term_run_win.connect('changed', on_entry_term_run_win_changed)
+    def on_button_add_clicked(button):
+        print "add"
+    button_add.connect('clicked', on_button_add_clicked)
+    def on_button_edit_clicked(button):
+        model, tree_iter = treeviewselection.get_selected()
+        if tree_iter:
+            curr_key = model[tree_iter][1]
+            curr_val = model[tree_iter][2]
+            print curr_key, curr_val
+    button_edit.connect('clicked', on_button_edit_clicked)
+
+    #all_code_syntax_keys = set(dad.custom_codexec_type.keys()).update(set(CODE_EXEC_TYPE_CMD_DEFAULT.keys()))
+    #for key in all_code_syntax_keys:
+    #    pass
+
 
 def preferences_tab_tree_2(dad, vbox_tree, pref_dialog):
     """Preferences Dialog, Tree Tab part 2"""
