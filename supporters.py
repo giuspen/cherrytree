@@ -4,7 +4,7 @@
 import re
 
 SUPPORTERS="""
-<h2>Friends of giuspen.com (donated €3232,53)</h2>
+<h2>Friends of giuspen.com (donated €3252,53)</h2>
 • Miguel Latorre (Spain) donated €240
 • DistroWatch.com (International) donated €200
 • Alan M. (United States) donated €100
@@ -34,6 +34,7 @@ SUPPORTERS="""
 • Miguel Gestal (Spain) donated €30
 • Ravinderpal Vaid (United States) donated €30
 • Steven Rockefeller (United States) donated €30
+• Glen Garfein (United States) donated €27
 • Sebastian Prodan (Germany) donated €26
 • Andy Lavarre (United States) donated €25
 • Bruce Ashford (United Kingdom) donated €25
@@ -126,7 +127,6 @@ SUPPORTERS="""
 • Winfred McCarty (United States) donated €7,66
 • Angus Rose (United Kingdom) donated €7
 • Gerard Dubrulle (France) donated €7
-• Glen Garfein (United States) donated €7
 • Tara Stewart (United States) donated €6
 • Thomas Bondois (France) donated €6
 • Nick Cross (United Kingdom) donated €5,80
