@@ -284,10 +284,7 @@ class CherryTree:
         else:
             # code node
             if self.nodes_icons in ["c", "b"]:
-                if node_code in cons.CODE_ICONS:
-                    stock_id = cons.CODE_ICONS[node_code]
-                else:
-                    stock_id = cons.NODES_STOCKS[cons.NODE_ICON_CODE_ID]
+                stock_id = config.get_stock_id_for_code_type(node_code)
             else:
                 stock_id = cons.NODES_STOCKS[cons.NODE_ICON_NO_ICON_ID]
         return stock_id
@@ -2575,9 +2572,9 @@ iter_end, exclude_iter_sel_end=True)
         search_path.append(cons.SPECS_PATH)
         self.language_manager.set_search_path(search_path)
         #print self.language_manager.get_search_path()
-        self.available_languages = self.language_manager.get_language_ids()
+        self.available_languages = sorted(self.language_manager.get_language_ids())
         if "def" in self.available_languages: self.available_languages.remove("def")
-        for language_id in sorted(self.available_languages):
+        for language_id in self.available_languages:
             self.prog_lang_liststore.append([self.language_manager.get_language(language_id).get_name(), language_id])
 
     def combobox_country_lang_init(self):
@@ -3745,16 +3742,17 @@ iter_end, exclude_iter_sel_end=True)
         else:
             code_type = self.syntax_highlighting
             code_val = unicode(self.curr_buffer.get_text(*self.curr_buffer.get_bounds()), cons.STR_UTF8, cons.STR_IGNORE)
-        print code_type
+        #print code_type
+        response = support.dialog_question_warning(self.window, _("Execute the Code?"))
+        if response != gtk.RESPONSE_ACCEPT: return # the user did not confirm
         filepath_tmp = os.path.join(cons.TMP_FOLDER, "exec_code")
         if not os.path.isdir(cons.TMP_FOLDER): os.makedirs(cons.TMP_FOLDER)
         with open(filepath_tmp, 'w') as fd:
             fd.write(code_val)
-        if cons.IS_WIN_OS:
-            shell_cmd = []
-        else:
-            shell_cmd = []
-        #subprocess.call(shell_cmd)
+        binary_cmd = config.get_code_exec_type_cmd(self, code_type) % filepath_tmp
+        terminal_cmd = config.get_code_exec_term_run(self) % binary_cmd
+        #print terminal_cmd
+        subprocess.call(terminal_cmd, shell=True)
         os.remove(filepath_tmp)
 
     def embfile_insert(self, *args):

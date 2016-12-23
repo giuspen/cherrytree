@@ -29,11 +29,11 @@ ICONS_SIZE = {1: gtk.ICON_SIZE_MENU, 2: gtk.ICON_SIZE_SMALL_TOOLBAR, 3: gtk.ICON
 LINK_CUSTOM_ACTION_DEFAULT_WEB = "firefox %s &"
 LINK_CUSTOM_ACTION_DEFAULT_FILE = "xdg-open %s &"
 CODE_EXEC_TYPE_CMD_DEFAULT = {
-"python": "python %s",
-"perl": "perl %s",
-"sh": "sh %s",
 "dosbatch": "cmd %s",
+"perl": "perl %s",
 "powershell": "cmd %s",
+"python": "python %s",
+"sh": "sh %s",
 }
 CODE_EXEC_TERM_RUN_DEFAULT = {
 "term_run_linux" : "xterm -hold -geometry 180x45 -e \"%s\"",
@@ -65,6 +65,13 @@ def get_code_exec_type_cmd(dad, syntax_type):
         ret_val = None
     return ret_val
 
+def get_code_exec_type_keys(dad):
+    all_codexec_keys = dad.custom_codexec_type.keys()
+    for key in CODE_EXEC_TYPE_CMD_DEFAULT.keys():
+        if not key in all_codexec_keys:
+            all_codexec_keys.append(key)
+    return sorted(all_codexec_keys)
+
 def get_code_exec_term_run(dad, op_sys=None):
     if not op_sys:
         op_sys = "linux" if not cons.IS_WIN_OS else "win"
@@ -74,6 +81,9 @@ def get_code_exec_term_run(dad, op_sys=None):
     else:
         ret_val = CODE_EXEC_TERM_RUN_DEFAULT[key]
     return ret_val
+
+def get_stock_id_for_code_type(key):
+    return cons.CODE_ICONS[key] if key in cons.CODE_ICONS else cons.NODES_STOCKS[cons.NODE_ICON_CODE_ID]
 
 def get_toolbar_entry_columns_from_key(dad, key):
     if key == cons.TAG_SEPARATOR: return [key, "", SEPARATOR_ASCII_REPR]
@@ -625,12 +635,12 @@ def config_file_save(dad):
     section = "codexec_term"
     cfg.add_section(section)
     for option in dad.custom_codexec_term.keys():
-        cfg.set(section, dad.custom_codexec_term[option], value)
+        cfg.set(section, option, dad.custom_codexec_term[option])
 
     section = "codexec_type"
     cfg.add_section(section)
     for option in dad.custom_codexec_type.keys():
-        cfg.set(section, dad.custom_codexec_type[option], value)
+        cfg.set(section, option, dad.custom_codexec_type[option])
 
     with open(cons.CONFIG_PATH, 'wb') as configfile:
         cfg.write(configfile)
@@ -1200,6 +1210,13 @@ def preferences_tab_plain_text_n_code(dad, vbox_code_nodes, pref_dialog):
     renderer_pixbuf = gtk.CellRendererPixbuf()
     renderer_text_key = gtk.CellRendererText()
     renderer_text_val = gtk.CellRendererText()
+    renderer_text_val.set_property('editable', True)
+    def on_table_cell_edited(cell, path, new_text):
+        if liststore[path][2] != new_text:
+            liststore[path][2] = new_text
+            key = liststore[path][0]
+            dad.custom_codexec_type[key] = new_text
+    renderer_text_val.connect('edited', on_table_cell_edited)
     column_key = gtk.TreeViewColumn()
     column_key.pack_start(renderer_pixbuf, False)
     column_key.pack_start(renderer_text_key, True)
@@ -1210,17 +1227,19 @@ def preferences_tab_plain_text_n_code(dad, vbox_code_nodes, pref_dialog):
     treeview.append_column(column_val)
     treeviewselection = treeview.get_selection()
     scrolledwindow = gtk.ScrolledWindow()
+    scrolledwindow.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
     scrolledwindow.add(treeview)
 
     button_add = gtk.Button()
     button_add.set_image(gtk.image_new_from_stock(gtk.STOCK_ADD, gtk.ICON_SIZE_BUTTON))
     button_add.set_tooltip_text(_("Add"))
-    button_edit = gtk.Button()
-    button_edit.set_image(gtk.image_new_from_stock(gtk.STOCK_EDIT, gtk.ICON_SIZE_BUTTON))
-    button_edit.set_tooltip_text(_("Edit"))
+    button_reset = gtk.Button()
+    button_reset.set_image(gtk.image_new_from_stock(gtk.STOCK_UNDO, gtk.ICON_SIZE_BUTTON))
+    button_reset.set_tooltip_text(_("Reset to Default"))
     vbox_buttons = gtk.VBox()
     vbox_buttons.pack_start(button_add, expand=False)
-    vbox_buttons.pack_start(button_edit, expand=False)
+    vbox_buttons.pack_start(gtk.Label(), expand=True)
+    vbox_buttons.pack_start(button_reset, expand=False)
 
     vbox_codexec = gtk.VBox()
     entry_term_run_linux = gtk.Entry()
@@ -1246,6 +1265,18 @@ def preferences_tab_plain_text_n_code(dad, vbox_code_nodes, pref_dialog):
     align_codexec.add(vbox_codexec)
     frame_codexec.add(align_codexec)
 
+    def liststore_append_element(key, val=None):
+        stock_id = get_stock_id_for_code_type(key)
+        if not val:
+            val = get_code_exec_type_cmd(dad, key)
+        liststore.append((stock_id, key, val))
+
+    def populate_liststore():
+        liststore.clear()
+        all_codexec_keys = get_code_exec_type_keys(dad)
+        for key in all_codexec_keys:
+            liststore_append_element(key)
+
     vbox_code_nodes.pack_start(frame_codexec, expand=False)
     def on_entry_term_run_linux_changed(entry):
         dad.custom_codexec_term["term_run_linux"] = entry.get_text()
@@ -1254,19 +1285,26 @@ def preferences_tab_plain_text_n_code(dad, vbox_code_nodes, pref_dialog):
         dad.custom_codexec_term["term_run_win"] = entry.get_text()
     entry_term_run_win.connect('changed', on_entry_term_run_win_changed)
     def on_button_add_clicked(button):
-        print "add"
+        icon_n_key_list = []
+        all_codexec_keys = get_code_exec_type_keys(dad)
+        for key in dad.available_languages:
+            if not key in all_codexec_keys:
+                stock_id = get_stock_id_for_code_type(key)
+                icon_n_key_list.append([key, stock_id, key])
+        sel_key = support.dialog_choose_element_in_list(dad.window, _("Select Element to Add"), [], "", icon_n_key_list)
+        default_type_command = "<binary_command> [<options>] %s"
+        liststore_append_element(sel_key, default_type_command)
+        dad.custom_codexec_type[sel_key] = default_type_command
     button_add.connect('clicked', on_button_add_clicked)
-    def on_button_edit_clicked(button):
-        model, tree_iter = treeviewselection.get_selected()
-        if tree_iter:
-            curr_key = model[tree_iter][1]
-            curr_val = model[tree_iter][2]
-            print curr_key, curr_val
-    button_edit.connect('clicked', on_button_edit_clicked)
+    def on_button_reset_clicked(button):
+        warning_label = "<b>"+_("Are you sure to Reset to Default?")+"</b>"
+        response = support.dialog_question_warning(pref_dialog, warning_label)
+        if response == gtk.RESPONSE_ACCEPT:
+            dad.custom_codexec_type.clear()
+            populate_liststore()
+    button_reset.connect('clicked', on_button_reset_clicked)
 
-    #all_code_syntax_keys = set(dad.custom_codexec_type.keys()).update(set(CODE_EXEC_TYPE_CMD_DEFAULT.keys()))
-    #for key in all_code_syntax_keys:
-    #    pass
+    populate_liststore()
 
 
 def preferences_tab_tree_2(dad, vbox_tree, pref_dialog):
