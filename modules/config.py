@@ -29,9 +29,9 @@ ICONS_SIZE = {1: gtk.ICON_SIZE_MENU, 2: gtk.ICON_SIZE_SMALL_TOOLBAR, 3: gtk.ICON
 LINK_CUSTOM_ACTION_DEFAULT_WEB = "firefox %s &"
 LINK_CUSTOM_ACTION_DEFAULT_FILE = "xdg-open %s &"
 CODE_EXEC_TYPE_CMD_DEFAULT = {
-"dosbatch": "cmd %s",
+"dosbatch": "call %s",
 "perl": "perl %s",
-"powershell": "cmd %s",
+"powershell": "call %s",
 "python": "python %s",
 "sh": "sh %s",
 }
