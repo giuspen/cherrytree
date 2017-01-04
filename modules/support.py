@@ -2,7 +2,7 @@
 #
 #       support.py
 #
-#       Copyright 2009-2016 Giuseppe Penone <giuspen@gmail.com>
+#       Copyright 2009-2017 Giuseppe Penone <giuspen@gmail.com>
 #
 #       This program is free software; you can redistribute it and/or modify
 #       it under the terms of the GNU General Public License as published by
@@ -809,7 +809,7 @@ def dialog_about(dad):
     dialog = gtk.AboutDialog()
     dialog.set_program_name("CherryTree")
     dialog.set_version(cons.VERSION)
-    dialog.set_copyright("""Copyright © 2009-2016
+    dialog.set_copyright("""Copyright © 2009-2017
 Giuseppe Penone <giuspen@gmail.com>""")
     dialog.set_comments(_("A Hierarchical Note Taking Application, featuring Rich Text and Syntax Highlighting"))
     dialog.set_license(_("""

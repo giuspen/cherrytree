@@ -4,7 +4,7 @@
 import re
 
 SUPPORTERS="""
-<h2>Friends of giuspen.com (donated €3252,53)</h2>
+<h2>Friends of giuspen.com (donated €3265,30)</h2>
 • Miguel Latorre (Spain) donated €240
 • DistroWatch.com (International) donated €200
 • Alan M. (United States) donated €100
@@ -124,6 +124,7 @@ SUPPORTERS="""
 • David Severn (United States) donated €8,82
 • Daniel Siefert (Germany) donated €8
 • Richard Trefz (United States) donated €8
+• Kastytis Belazaras (Lithuania) donated €7,77
 • Winfred McCarty (United States) donated €7,66
 • Angus Rose (United Kingdom) donated €7
 • Gerard Dubrulle (France) donated €7
@@ -138,6 +139,7 @@ SUPPORTERS="""
 • Gloria See (United States) donated €5
 • Ivo Grigull (Germany) donated €5
 • Karsten Kulach (Germany) donated €5
+• Katarzyna Górnisiewicz (Poland) donated €5
 • Marian Hanzel (Slovakia) donated €5
 • Mario Tosques (Italy) donated €5
 • Marius Van der Merwe (Australia) donated €5

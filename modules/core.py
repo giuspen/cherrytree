@@ -2,7 +2,7 @@
 #
 #       core.py
 #
-#       Copyright 2009-2016 Giuseppe Penone <giuspen@gmail.com>
+#       Copyright 2009-2017 Giuseppe Penone <giuspen@gmail.com>
 #
 #       This program is free software; you can redistribute it and/or modify
 #       it under the terms of the GNU General Public License as published by
@@ -3013,10 +3013,13 @@ iter_end, exclude_iter_sel_end=True)
                 if node_id != sel_node_id:
                     tree_iter = self.get_tree_iter_from_node_id(node_id)
                     if tree_iter:
+                        node_name = self.treestore[tree_iter][1]
                         self.node_name_header_buttons[curr_button_num] = self.state_machine.visited_nodes_list[i]
-                        markup = "<small>"+cgi.escape(self.treestore[tree_iter][1])+"</small>"
-                        buttons[curr_button_num-1].get_children()[0].set_markup(markup)
-                        buttons[curr_button_num-1].show_all()
+                        markup = "<small>"+cgi.escape(node_name)+"</small>"
+                        curr_button_idx = curr_button_num-1
+                        buttons[curr_button_idx].get_children()[0].set_markup(markup)
+                        buttons[curr_button_idx].show_all()
+                        buttons[curr_button_idx].set_tooltip_text(node_name)
                         curr_button_num -= 1
                         if not curr_button_num: break
             for i in range(curr_button_num):
