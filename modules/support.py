@@ -1467,7 +1467,7 @@ def dialog_choose_data_storage(dad):
     entry_passw_1.set_visibility(False)
     entry_passw_2 = gtk.Entry()
     entry_passw_2.set_visibility(False)
-    label_passwd = gtk.Label(_("This is not in-memory encryption. CT will save the document in an encrypted 7zip archive. When viewing or editing a document, CT will extract the encrypted archive to a temporary folder, and work on this unencrypted copy. When closing gracefully, the document is placed in an encrypted archive again, then deleted from the temporary directory. Note that in the case of an ungraceful CT shutdown, such as an application or system crash, the unencrypted document will remain on the disk as a temporary file."))
+    label_passwd = gtk.Label(_("CT saves the document in an encrypted 7zip archive. When viewing or editing the document, CT extracts the encrypted archive to a temporary folder, and works on the unencrypted copy. When closing, the unencrypted copy is deleted from the temporary directory. Note that in the case of application or system crash, the unencrypted document will remain in the temporary folder."))
     label_passwd.set_width_chars(70)
     label_passwd.set_line_wrap(True)
     vbox_passw = gtk.VBox()
