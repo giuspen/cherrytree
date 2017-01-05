@@ -188,7 +188,7 @@ def filepath_fix(filepath):
     if not filepath: return ""
     if not os.path.dirname(filepath): filepath = os.path.join(os.getcwd(), filepath)
     else: filepath = os.path.abspath(filepath)
-    return filepath
+    return os.path.realpath(filepath)
 
 
 def main(args):
