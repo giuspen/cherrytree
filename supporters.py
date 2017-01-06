@@ -4,7 +4,7 @@
 import re
 
 SUPPORTERS="""
-<h2>Friends of giuspen.com (donated €3265,30)</h2>
+<h2>Friends of giuspen.com (donated €3270,30)</h2>
 • Miguel Latorre (Spain) donated €240
 • DistroWatch.com (International) donated €200
 • Alan M. (United States) donated €100
@@ -43,6 +43,7 @@ SUPPORTERS="""
 • Miguel Vilar (Switzerland) donated €25
 • Soren ONeill (Denmark) donated €25
 • Steve Davis (United States) donated €25
+• Wolfgang See (Germany) donated €25
 • Jaroslav Polacek (Czech Republic) donated €22,22
 • Andrew Golovanov (United States) donated €20
 • Anthony Miller (United Kingdom) donated €20
@@ -66,7 +67,6 @@ SUPPORTERS="""
 • Roger Rowles (Australia) donated €20
 • Rudy Witt (Canada) donated €20
 • Timothy DeCant (United States) donated €20
-• Wolfgang See (Germany) donated €20
 • Zigurds Gavars (Latvia) donated €20 [better table cells support]
 • Christopher Brazill (United States) donated €15
 • Hans van Meteren (Netherlands) donated €15

@@ -3,21 +3,21 @@
 # This file is distributed under the same license as the PACKAGE package.
 # giuspen <giuspen@gmail.com>, 2013.
 # Patrick Vijgeboom <pj.vijgeboom@gmail.com>, 2013.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: cherrytree 0.30.5\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-05-15 11:35+0100\n"
-"PO-Revision-Date: 2015-11-19 12:04+0100\n"
-"Last-Translator: Patrick Vijgeboom <pj.vijgeboom@gmail.com>\n"
+"PO-Revision-Date: 2017-01-06 01:25+0100\n"
+"Last-Translator: Luuk Geurts <l.geurts@student.ru.nl>\n"
 "Language-Team: Nederlands <>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.6\n"
+"X-Generator: Poedit 1.8.11\n"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/codeboxes.py:97
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3541
@@ -59,7 +59,7 @@ msgstr "Regelnummers weergeven"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/codeboxes.py:155
 msgid "Highlight Matching Brackets"
-msgstr "Gelijke haken markeren"
+msgstr "Bij elkaar behorende haken markeren"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/codeboxes.py:164
 msgid "Options"
@@ -114,11 +114,11 @@ msgstr "Het patroon '%s' is niet gevonden"
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:247
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:321
 msgid "Matches"
-msgstr "Gelijke"
+msgstr "treffers"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:163
 msgid "Replace in Selected Node and Subnodes"
-msgstr "Vervang in gekozen- en subknooppunten"
+msgstr "Vervang in geselecteerde knooppunt en subknooppunten"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:164
 msgid "Replace in All Nodes"
@@ -126,7 +126,7 @@ msgstr "Vervang in alle knooppunten"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:166
 msgid "Search in Selected Node and Subnodes"
-msgstr "Zoeken in gekozen- en subknooppunten"
+msgstr "Zoeken in geselecteerde knooppunt en subknooppunten"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:167
 msgid "Search in All Nodes"
@@ -145,9 +145,9 @@ msgid "No Previous Search Was Performed During This Session"
 msgstr "Geen vorige zoekopdracht is uitgevoerd tijdens deze sessie"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:640
-#, fuzzy, python-format
+#, python-format
 msgid "Hide (Restore with '%s')"
-msgstr "Verbergen (Herstellen door Ctrl+Shift+A)"
+msgstr "Verbergen (herstellen met '%s')"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:653
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3536
@@ -166,11 +166,12 @@ msgstr "Regelinhoud"
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4830
 #, python-format
 msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
-msgstr "The koppeling wijst naar een knooppuntdie niet meer bestaat (Id = %s)"
+msgstr ""
+"De koppeling verwijst naar een knooppunt dat niet meer bestaat (Id = %s)"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/printing.py:213
 msgid "Warning: One or More Images Were Reduced to Enter the Page"
-msgstr "Waarschuwing: Een of meer afbeeldingen zijn verkleind tot de pagina"
+msgstr "Waarschuwing: een of meer afbeeldingen zijn verkleind tot de pagina"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:172
 msgid "New _Instance"
@@ -215,7 +216,7 @@ msgstr "Open instellingen map"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:176
 msgid "Open the Directory with Preferences Files"
-msgstr "Open de map met instellingbestanden"
+msgstr "Open de map met instellingsbestanden"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:177
 msgid "Pa_ge Setup"
@@ -264,7 +265,7 @@ msgstr "_Ongedaan maken"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:182
 msgid "Undo Last Operation"
-msgstr "Laatste handeling ongedaan maken"
+msgstr "Laatste actie ongedaan maken"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:183
 msgid "_Redo"
@@ -272,7 +273,7 @@ msgstr "Opnieuw"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:183
 msgid "Redo Previously Discarded Operation"
-msgstr "Laatste handeling opnieuw uitvoeren"
+msgstr "Laatste actie opnieuw uitvoeren"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:184
 msgid "Insert I_mage"
@@ -376,19 +377,19 @@ msgstr "Spellingcontrole inschakelen/uitschakelen wisselen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:197
 msgid "Cu_t as Plain Text"
-msgstr "Als platte tekst plakken"
+msgstr "Als platte tekst knippen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:197
 msgid "Cut as Plain Text, Discard the Rich Text Formatting"
-msgstr "Als platte tekst plakken, opmaak negeren"
+msgstr "Als platte tekst knippen, opmaak negeren"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:198
 msgid "_Copy as Plain Text"
-msgstr "Als platte tekst plakken"
+msgstr "Als platte tekst kopiëren"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:198
 msgid "Copy as Plain Text, Discard the Rich Text Formatting"
-msgstr "Als platte tekst plakken, opmaak negeren"
+msgstr "Als platte tekst kopiëren, opmaak negeren"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:199
 msgid "_Paste as Plain Text"
@@ -405,7 +406,7 @@ msgstr "Rij knippen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:200
 msgid "Cut the Current Row/Selected Rows"
-msgstr "Huidige rij/gekozen rijen knippen"
+msgstr "Huidige rij/geselecteerde rijen knippen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:201
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:601
@@ -414,7 +415,7 @@ msgstr "Rij kopiëren"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:201
 msgid "Copy the Current Row/Selected Rows"
-msgstr "Huidige rij/gekozen rijen kopiëren"
+msgstr "Huidige rij/geselecteerde rijen kopiëren"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:202
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:603
@@ -423,7 +424,7 @@ msgstr "Rij verwijderen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:202
 msgid "Delete the Current Row/Selected Rows"
-msgstr "huidige rij/gekozen rijen verwijderen"
+msgstr "huidige rij/geselecteerde rijen verwijderen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:203
 msgid "_Duplicate Row"
@@ -439,7 +440,7 @@ msgstr "Rij omhoog verplaatsen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:204
 msgid "Move Up the Current Row/Selected Rows"
-msgstr "Huidige rij/gekozen rijen omhoog verplaatsen"
+msgstr "Huidige rij/geselecteerde rijen omhoog verplaatsen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:205
 msgid "Move _Down Row"
@@ -447,13 +448,14 @@ msgstr "Rij omlaag verplaatsen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:205
 msgid "Move Down the Current Row/Selected Rows"
-msgstr "Huidige rij/gekozen rijen omlaag verplaatsen"
+msgstr "Huidige rij/geselecteerde rijen omlaag verplaatsen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:206
 msgid "Format _Latest"
 msgstr "_Laatst gebruikte opmaak toepassen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:206
+#, fuzzy
 msgid "Memory of Latest Text Format Type"
 msgstr "Geheugen van laatste tekst opmaaktype"
 
@@ -463,7 +465,7 @@ msgstr "_Opmaak verwijderen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:207
 msgid "Remove the Formatting from the Selected Text"
-msgstr "Opmaak van gekozen tekst verwijderen"
+msgstr "Opmaak van geselecteerde tekst verwijderen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:208
 msgid "Text _Color Foreground"
@@ -479,7 +481,7 @@ msgstr "Tekst achtergrondkleur"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:209
 msgid "Change the Color of the Selected Text Background"
-msgstr "Achtergrondkleur van gekozen tekst wijzigen"
+msgstr "Achtergrondkleur van geselecteerde tekst wijzigen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:210
 msgid "Toggle _Bold Property"
@@ -487,7 +489,7 @@ msgstr "Tekststijl vet wisselen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:210
 msgid "Toggle Bold Property of the Selected Text"
-msgstr "Tekststijl vet van gekozen tekst wisselen"
+msgstr "Tekststijl vet van geselecteerde tekst wisselen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:211
 msgid "Toggle _Italic Property"
@@ -495,7 +497,7 @@ msgstr "Tekststijl cursief wisselen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:211
 msgid "Toggle Italic Property of the Selected Text"
-msgstr "Tekststijl cursief van gekozen tekst wisselen"
+msgstr "Tekststijl cursief van geselecteerde tekst wisselen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:212
 msgid "Toggle _Underline Property"
@@ -503,7 +505,7 @@ msgstr "Tekststijl onderstrepen wisselen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:212
 msgid "Toggle Underline Property of the Selected Text"
-msgstr "Tekststijl onderstrepen van gekozen tekst wisselen"
+msgstr "Tekststijl onderstrepen van geselecteerde tekst wisselen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:213
 msgid "Toggle Stri_kethrough Property"
@@ -511,7 +513,7 @@ msgstr "Tekststijl doorhalen wisselen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:213
 msgid "Toggle Strikethrough Property of the Selected Text"
-msgstr "Tekststijl doorhalen van gekozen tekst wisselen"
+msgstr "Tekststijl doorhalen eigenschap van de geselecteerde tekst wisselen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:214
 msgid "Toggle h_1 Property"
@@ -519,7 +521,7 @@ msgstr "Tekststijl h_1 wisselen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:214
 msgid "Toggle h1 Property of the Selected Text"
-msgstr "Tekststijl h1 van gekozen tekst wisselen"
+msgstr "Tekststijl h1 van geselecteerde tekst wisselen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:215
 msgid "Toggle h_2 Property"
@@ -527,7 +529,7 @@ msgstr "Tekststijl h_2 wisselen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:215
 msgid "Toggle h2 Property of the Selected Text"
-msgstr "Tekststijl h2 van gekozen tekst wisselen"
+msgstr "Tekststijl h2 van geselecteerde tekst wisselen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:216
 msgid "Toggle h_3 Property"
@@ -535,7 +537,7 @@ msgstr "Tekststijl h_3 wisselen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:216
 msgid "Toggle h3 Property of the Selected Text"
-msgstr "Tekststijl h3 van gekozen tekst wisselen"
+msgstr "Tekststijl h3 van geselecteerde tekst wisselen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:217
 msgid "Toggle _Small Property"
@@ -543,7 +545,7 @@ msgstr "Tekststijl _klein wisselen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:217
 msgid "Toggle Small Property of the Selected Text"
-msgstr "Tekststijl klein van gekozen tekst wisselen"
+msgstr "Tekststijl klein van geselecteerde tekst wisselen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:218
 msgid "Toggle Su_perscript Property"
@@ -551,7 +553,7 @@ msgstr "Tekststijl superscript wisselen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:218
 msgid "Toggle Superscript Property of the Selected Text"
-msgstr "Tekststijl superscript van gekozen tekst wisselen"
+msgstr "Tekststijl superscript van geselecteerde tekst wisselen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:219
 msgid "Toggle Su_bscript Property"
@@ -559,7 +561,7 @@ msgstr "Tekststijl subscript wisselen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:219
 msgid "Toggle Subscript Property of the Selected Text"
-msgstr "Tekststijl subscript van gekozen tekst wisselen"
+msgstr "Tekststijl subscript van geselecteerde tekst wisselen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:220
 msgid "Toggle _Monospace Property"
@@ -567,15 +569,15 @@ msgstr "Tekststijl monospace wisselen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:220
 msgid "Toggle Monospace Property of the Selected Text"
-msgstr "Tekststijl doorhalen van gekozen tekst wisselen"
+msgstr "Monospace eigenschap van de geselecteerde tekst wisselen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:221
 msgid "Set/Unset _Bulleted List"
-msgstr "In/Uitschakelen _Opsommingslijst"
+msgstr "In/Uitschakelen _opsommingstekenlijst"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:221
 msgid "Set/Unset the Current Paragraph/Selection as a Bulleted List"
-msgstr "De huidige alinea/selectie als opsommingslijst in/uitschakelen"
+msgstr "De huidige alinea/selectie als opsommingstekenlijst in/uitschakelen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:222
 msgid "Set/Unset _Numbered List"
@@ -587,11 +589,11 @@ msgstr "De huidige alinea/selectie als genummerde lijst in/uitschakelen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:223
 msgid "Set/Unset _To-Do List"
-msgstr "In/Uitschakelen _Te-Doen lijst"
+msgstr "In/Uitschakelen _taken lijst"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:223
 msgid "Set/Unset the Current Paragraph/Selection as a To-Do List"
-msgstr "De huidige alinea/selectie als Te-Doen lijst in/uitschakelen"
+msgstr "De huidige alinea/selectie als taken lijst in/uitschakelen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:224
 msgid "Justify _Left"
@@ -599,7 +601,7 @@ msgstr "Links uitlijnen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:224
 msgid "Justify Left the Current Paragraph"
-msgstr "Tekststijl doorhalen van gekozen tekst wisselen"
+msgstr "De huidige alinea links uitlijnen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:225
 msgid "Justify _Center"
@@ -607,7 +609,7 @@ msgstr "Centreren"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:225
 msgid "Justify Center the Current Paragraph"
-msgstr "Tekststijl doorhalen van gekozen tekst wisselen"
+msgstr "De huidige alinea volledig uitvullen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:226
 msgid "Justify _Right"
@@ -615,32 +617,31 @@ msgstr "Rechts uitlijnen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:226
 msgid "Justify Right the Current Paragraph"
-msgstr "Huidige alinea rechts uitlijnen"
+msgstr "De huidige alinea rechts uitlijnen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:227
 msgid "Justify _Fill"
-msgstr "volledig uitvullen"
+msgstr "Volledig uitvullen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:227
 msgid "Justify Fill the Current Paragraph"
-msgstr "De huidige paragraaf volledig uitvullen"
+msgstr "De huidige alinea volledig uitvullen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:228
 msgid "Add _Node"
 msgstr "Knooppunt toevoegen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:228
-#, fuzzy
 msgid "Add a Node having the same Parent of the Selected Node"
-msgstr "Knooppunt toevoegen met zelfde vader als gekozen knooppunt"
+msgstr "Knooppunt toevoegen met dezelfde ouder als het geselecteerde knooppunt"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:229
 msgid "Add _SubNode"
-msgstr "Sub-knooppunttoevoegen"
+msgstr "Subknooppunt toevoegen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:229
 msgid "Add a Child Node to the Selected Node"
-msgstr "Voegt een knooppunt toe onder het gekozen knooppunt"
+msgstr "Voeg een subknooppunt toe onder geselecteerde knooppunt"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:230
 msgid "_Duplicate Node"
@@ -648,7 +649,7 @@ msgstr "Knooppunt dupliceren"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:230
 msgid "Duplicate the Selected Node"
-msgstr "Dupliceert het geselecteerde knoppunt"
+msgstr "Dupliceert het geselecteerde knooppunt"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:231
 msgid "Change Node _Properties"
@@ -656,27 +657,27 @@ msgstr "Knooppunt eigenschappen wijzigen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:231
 msgid "Edit the Properties of the Selected Node"
-msgstr "Wijzigt de eigenschappen van het gekozen knooppunt"
+msgstr "Wijzigt de eigenschappen van het geselecteerde knooppunt"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:232
 msgid "Toggle _Read Only"
-msgstr "Alleen Lezen wisselen"
+msgstr "Alleen lezen wisselen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:232
 msgid "Toggle the Read Only Property of the Selected Node"
-msgstr "Alleen Lezen instelling van de gekozen knooppunt wisselen"
+msgstr "Alleen lezen instelling van de geselecteerde knooppunt wisselen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:233
 msgid "Insert Today's Node"
-msgstr "Vandaag knooppuntinvoegen"
+msgstr "Vandaag knooppunt invoegen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:233
 msgid "Insert a Node with Hierarchy Year/Month/Day"
-msgstr "Knooppunt met hierarchie Jaar/Maan/Dag toevoegen"
+msgstr "Knooppunt met hiërarchie Jaar/Maand/Dag toevoegen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:234
 msgid "Tree _Info"
-msgstr "Boom informatie"
+msgstr "Boom _informatie"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:234
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3973
@@ -689,7 +690,7 @@ msgstr "Knooppunt omhoog"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:235
 msgid "Move the Selected Node Up"
-msgstr "Verplaatst het gekozen knooppunt omhoog"
+msgstr "Verplaatst het geselecteerde knooppunt omhoog"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:236
 msgid "Node _Down"
@@ -697,7 +698,7 @@ msgstr "Knooppunt omlaag"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:236
 msgid "Move the Selected Node Down"
-msgstr "Verplaatst het gekozen knooppunt omlaag"
+msgstr "Verplaatst het geselecteerde knooppunt omlaag"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:237
 msgid "Node _Left"
@@ -705,27 +706,23 @@ msgstr "Knooppunt links"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:237
 msgid "Move the Selected Node Left"
-msgstr "Verplaatst het gekozen knooppunt naar links"
+msgstr "Verplaatst het geselecteerde knooppunt naar links"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:238
-#, fuzzy
 msgid "Node _Right"
-msgstr "Knooppunt links"
+msgstr "Knooppunt _rechts"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:238
-#, fuzzy
 msgid "Move the Selected Node Right"
-msgstr "Verplaatst het gekozen knooppunt naar links"
+msgstr "Verplaatst het geselecteerde knooppunt naar rechts"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:239
-#, fuzzy
 msgid "Node Change _Parent"
-msgstr "Vader van knooppuntwijzigen"
+msgstr "Ouder van knooppunt wijzigen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:239
-#, fuzzy
 msgid "Change the Selected Node's Parent"
-msgstr "Wijzigt de vader van de gekozen knooppunten"
+msgstr "Wijzigt de ouder van het geselecteerde knooppunt"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:240
 msgid "Sort Tree _Ascending"
@@ -750,7 +747,8 @@ msgstr "Sorteer onderliggende oplopend"
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:242
 msgid "Sort all the Siblings of the Selected Node Ascending"
 msgstr ""
-"Alle onderliggende knooppunten van het gekozen knooppunt oplopend sorteren"
+"Alle onderliggende knooppunten van het geselecteerde knooppunt oplopend "
+"sorteren"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:243
 msgid "Sort Siblings D_escending"
@@ -759,28 +757,28 @@ msgstr "Onderliggende aflopend sorteren"
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:243
 msgid "Sort all the Siblings of the Selected Node Descending"
 msgstr ""
-"Alle onderliggende knooppunten van het gekozen knooppunt aflopend sorteren"
+"Alle onderliggende knooppunten van het geselecteerde knooppunt aflopend "
+"sorteren"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:244
 msgid "_Inherit Syntax"
-msgstr "Syntax doorerven"
+msgstr "Syntax overerven"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:244
-#, fuzzy
 msgid ""
 "Change the Selected Node's Children Syntax Highlighting to the Parent's "
 "Syntax Highlighting"
 msgstr ""
-"De gekozen onderliggende Syntax Markering knooppunts wijzigen naar de "
-"bovenliggende syntax  "
+"De geselecteerde onderliggende Syntax Markering knooppunt wijzigen naar de "
+"bovenliggende Syntax Markering"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:245
 msgid "De_lete Node"
-msgstr "Kooppunt verwijderen"
+msgstr "Knooppunt verwijderen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:245
 msgid "Delete the Selected Node"
-msgstr "Verwijdert het gekozen knooppunt"
+msgstr "Verwijder het geselecteerde knooppunt"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:246
 msgid "Go _Back"
@@ -796,39 +794,39 @@ msgstr "Naar volgende"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:247
 msgid "Go to the Next Visited Node"
-msgstr "Naar volgende knooppuntgaan"
+msgstr "Naar volgende knooppunt gaan"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:248
 msgid "_Find in Node Content"
-msgstr "_Zoek in knooppunt inhoud"
+msgstr "_Zoek in knooppunt-inhoud"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:248
 msgid "Find into the Selected Node Content"
-msgstr "In het gekozen knooppunt inhoud zoeken"
+msgstr "In de geselecteerde knooppunt-inhoud zoeken"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:249
 msgid "Find in _All Nodes Contents"
-msgstr "In _alle knooppunten inhoud  zoeken"
+msgstr "In _alle knooppunt-inhouden zoeken"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:249
 msgid "Find into All the Tree Nodes Contents"
-msgstr "In alle knooppunten inhoud zoeken"
+msgstr "In alle knooppunt-inhouden zoeken"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:250
 msgid "Find in _Selected Node and Subnodes Contents"
-msgstr "In gekozen knooppunten en _subknooppunten inhoud zoeken"
+msgstr "In geselecteerde knooppunt- en _subknooppunt-inhouden zoeken"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:250
 msgid "Find into the Selected Node and Subnodes Contents"
-msgstr "In het gekozen knooppunten sub knooppunten zoeken"
+msgstr "In de geselecteerde knooppunten- en subknooppunten-inhouden zoeken"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:251
 msgid "Find in _Nodes Names and Tags"
-msgstr "In knooppuntnamen en tags zoeken"
+msgstr "In knooppuntnamen en labels zoeken"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:251
 msgid "Find in Nodes Names and Tags"
-msgstr "Zoek in knooppunt namen en tags"
+msgstr "Zoek in knooppuntnamen en labels"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:252
 msgid "Find _Again"
@@ -840,35 +838,35 @@ msgstr "Laatste zoekopdracht herhalen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:253
 msgid "Find _Back"
-msgstr "Terug zoeken"
+msgstr "Achteruit zoeken"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:253
 msgid "Iterate the Last Find Operation in Opposite Direction"
-msgstr "Laatste zoekopdracht  in omgekeerde richting herhalen"
+msgstr "Laatste zoekopdracht in omgekeerde richting herhalen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:254
 msgid "_Replace in Node Content"
-msgstr "In knooppunt inhoud vervangen"
+msgstr "Vervang in knooppunt-inhoud"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:254
 msgid "Replace into the Selected Node Content"
-msgstr "In gekozen knooppunt inhoud vervangen"
+msgstr "In geselecteerde knooppunt-inhoud vervangen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:255
 msgid "Replace in _All Nodes Contents"
-msgstr "Vervang in _alle knooppunt inhoud"
+msgstr "Vervang in _alle knooppunt-inhouden"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:255
 msgid "Replace into All the Tree Nodes Contents"
-msgstr "In alle knooppunten inhoud vervangen"
+msgstr "In alle knooppunt-inhouden vervangen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:256
 msgid "Replace in _Selected Node and Subnodes Contents"
-msgstr "Vervangen in gekozen- en subknooppunt inhoud"
+msgstr "Vervangen in geselecteerde knooppunt- en subknooppunt-inhouden"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:256
 msgid "Replace into the Selected Node and Subnodes Contents"
-msgstr "Vervangen in gekozen knooppunt knooppunt en subknooppunt inhoud"
+msgstr "Vervangen in geselecteere knooppunt- en subknooppunt-inhouden"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:257
 msgid "Replace in Nodes _Names"
@@ -876,7 +874,7 @@ msgstr "In knooppunt_namen vervangen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:257
 msgid "Replace in Nodes Names"
-msgstr "In knooppuntenamen vervangen"
+msgstr "Vervang in knooppuntnamen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:258
 msgid "Replace _Again"
@@ -928,7 +926,7 @@ msgstr "Tussen boom en tekst focus wisselen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:264
 msgid "E_xpand All Nodes"
-msgstr "Alle knooppunten uitklappen"
+msgstr "Alle knooppunten _uitklappen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:264
 msgid "Expand All the Tree Nodes"
@@ -936,7 +934,7 @@ msgstr "Alle boom knooppunten uitklappen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:265
 msgid "_Collapse All Nodes"
-msgstr "Alle knoppunten inklappen"
+msgstr "Alle knoppunten _inklappen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:265
 msgid "Collapse All the Tree Nodes"
@@ -944,23 +942,23 @@ msgstr "Alle boom knooppunten inklappen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:266
 msgid "_Increase Toolbar Icons Size"
-msgstr "Knoppenbalk pictogrammen afmeting vergroten"
+msgstr "Vergroot afmetingen knoppenbalk pictogrammen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:266
 msgid "Increase the Size of the Toolbar Icons"
-msgstr "Knoppenbalk pictogrammen afmeting vergroten"
+msgstr "De afmetingen van de knoppenbalk pictogrammen vergroten"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:267
 msgid "_Decrease Toolbar Icons Size"
-msgstr "Knoppenbalk pictogrammen afmeting verkleinen"
+msgstr "Verklein afmetingen knoppenbalk pictogrammen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:267
 msgid "Decrease the Size of the Toolbar Icons"
-msgstr "Knoppenbalk pictogrammen afmeting verkleinen"
+msgstr "De afmetingen van de knoppenbalk pictogrammen verkleinen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:268
 msgid "_Full Screen On/Off"
-msgstr "Volledig scherm aan/uit"
+msgstr "_Volledig scherm aan/uit"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:268
 msgid "Toggle Full Screen On/Off"
@@ -972,7 +970,7 @@ msgstr "Toevoegen aan _Bladwijzers"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:269
 msgid "Add the Current Node to the Bookmarks List"
-msgstr "Voegt dit knooppunttoe aan de bladwijzerlijst"
+msgstr "Voegt dit knooppunt toe aan de bladwijzerlijst"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:270
 msgid "_Remove from Bookmarks"
@@ -998,7 +996,7 @@ msgstr "Uit CherryTree bestand"
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:272
 msgid "Add Nodes of a CherryTree File to the Current Tree"
 msgstr ""
-"knooppunten uit een CherryTree tekst bestand aan de huidige boom toevoegen"
+"Knooppunten uit een CherryTree tekst bestand aan de huidige boom toevoegen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:273
 msgid "From _Plain Text File"
@@ -1006,7 +1004,7 @@ msgstr "Uit _Platte tekst bestand"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:273
 msgid "Add Node from a Plain Text File to the Current Tree"
-msgstr "knooppunten uit een platte tekst bestand aan de huidige boom toevoegen"
+msgstr "Knooppunten uit een platte tekst bestand aan de huidige boom toevoegen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:274
 msgid "From _Folder of Plain Text Files"
@@ -1015,7 +1013,7 @@ msgstr "Uit _Map met platte tekst bestanden"
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:274
 msgid "Add Nodes from a Folder of Plain Text Files to the Current Tree"
 msgstr ""
-"knooppunten uit een map met platte tekst bestanden aan de huidige boom "
+"Knooppunten uit een map met platte tekst bestanden aan de huidige boom "
 "toevoegen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:275
@@ -1024,7 +1022,7 @@ msgstr "Uit _HTML bestand"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:275
 msgid "Add Node from an HTML File to the Current Tree"
-msgstr "knooppunten uit een HTML bestand aan de huidige boom toevoegen"
+msgstr "Knooppunten uit een HTML bestand aan de huidige boom toevoegen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:276
 msgid "From _Folder of HTML Files"
@@ -1033,7 +1031,7 @@ msgstr "Uit _Map met HTML bestanden"
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:276
 msgid "Add Nodes from a Folder of HTML Files to the Current Tree"
 msgstr ""
-"knooppunten uit een map met HTML bestanden aan de huidige boom toevoegen"
+"Knooppunten uit een map met HTML bestanden aan de huidige boom toevoegen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:277
 msgid "From _Basket Folder"
@@ -1041,7 +1039,7 @@ msgstr "Uit _Basket map"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:277
 msgid "Add Nodes of a Basket Folder to the Current Tree"
-msgstr "knooppunten uit een Basket map aan de huidige boom toevoegen"
+msgstr "Knooppunten uit een Basket map aan de huidige boom toevoegen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:278
 msgid "From _EssentialPIM HTML File"
@@ -1050,7 +1048,7 @@ msgstr "Uit _EssentialPIM HTML bestand"
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:278
 msgid "Add Node from an EssentialPIM HTML File to the Current Tree"
 msgstr ""
-"knooppunten uit een EssentialPIM HTML bestand aan de huidige boom toevoegen"
+"Knooppunten uit een EssentialPIM HTML bestand aan de huidige boom toevoegen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:279
 msgid "From _Gnote Folder"
@@ -1058,7 +1056,7 @@ msgstr "Uit _Gnote map"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:279
 msgid "Add Nodes of a Gnote Folder to the Current Tree"
-msgstr "knooppunten uit een Gnote map aan de huidige boom toevoegen"
+msgstr "Knooppunten uit een Gnote map aan de huidige boom toevoegen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:280
 msgid "From _KeepNote Folder"
@@ -1066,7 +1064,7 @@ msgstr "Uit _KeepNote map"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:280
 msgid "Add Nodes of a KeepNote Folder to the Current Tree"
-msgstr "knooppunten uit een KoopNote map aan de huidige boom toevoegen"
+msgstr "Knooppunten uit een KoopNote map aan de huidige boom toevoegen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:281
 msgid "From K_eyNote File"
@@ -1074,7 +1072,7 @@ msgstr "Uit K_eyNote bestand"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:281
 msgid "Add Nodes of a KeyNote File to the Current Tree"
-msgstr "knooppunten uit een KeyNote bestand aan de huidige boom toevoegen"
+msgstr "Knooppunten uit een KeyNote bestand aan de huidige boom toevoegen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:282
 msgid "From K_nowit File"
@@ -1082,7 +1080,7 @@ msgstr "Uit K_nowit bestand"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:282
 msgid "Add Nodes of a Knowit File to the Current Tree"
-msgstr "knooppunten uit een Knowit bestand aan de huidige boom toevoegen"
+msgstr "Knooppunten uit een Knowit bestand aan de huidige boom toevoegen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:283
 msgid "From _Leo File"
@@ -1090,7 +1088,7 @@ msgstr "Uit _Leo bestand"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:283
 msgid "Add Nodes of a Leo File to the Current Tree"
-msgstr "knooppunten uit een Leo bestand aan de huidige boom toevoegen"
+msgstr "Knooppunten uit een Leo bestand aan de huidige boom toevoegen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:284
 msgid "From _Mempad File"
@@ -1098,7 +1096,7 @@ msgstr "Uit _Mempad bestand"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:284
 msgid "Add Nodes of a Mempad File to the Current Tree"
-msgstr "knooppunten uit een Mempad bestand aan de huidige boom toevoegen"
+msgstr "Knooppunten uit een Mempad bestand aan de huidige boom toevoegen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:285
 msgid "From _NoteCase File"
@@ -1106,17 +1104,15 @@ msgstr "Uit _NoteCase bestand"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:285
 msgid "Add Nodes of a NoteCase File to the Current Tree"
-msgstr "knooppunten uit een NoteCase bestand aan de huidige boom toevoegen"
+msgstr "Knooppunten uit een NoteCase bestand aan de huidige boom toevoegen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:286
-#, fuzzy
 msgid "From _RedNotebook Folder"
-msgstr "Uit _KeepNote map"
+msgstr "Uit _RedNotebook map"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:286
-#, fuzzy
 msgid "Add Nodes of a RedNotebook Folder to the Current Tree"
-msgstr "knooppunten uit een KoopNote map aan de huidige boom toevoegen"
+msgstr "Knooppunten uit een RedNotebook map aan de huidige boom toevoegen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:287
 msgid "From T_omboy Folder"
@@ -1124,7 +1120,7 @@ msgstr "Uit T_omboy map"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:287
 msgid "Add Nodes of a Tomboy Folder to the Current Tree"
-msgstr "knooppunten uit een Tomboy map aan de huidige boom toevoegen"
+msgstr "Knooppunten uit een Tomboy map aan de huidige boom toevoegen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:288
 msgid "From T_reepad Lite File"
@@ -1132,7 +1128,7 @@ msgstr "Uit T_reepad Lite bestand"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:288
 msgid "Add Nodes of a Treepad Lite File to the Current Tree"
-msgstr "knooppunten uit een Treepad Lite bestand aan de huidige boom toevoegen"
+msgstr "Knooppunten uit een Treepad Lite bestand aan de huidige boom toevoegen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:289
 msgid "From _TuxCards File"
@@ -1140,7 +1136,7 @@ msgstr "Uit _TuxCards bestand"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:289
 msgid "Add Nodes of a TuxCards File to the Current Tree"
-msgstr "knooppunten uit een TuxCards bestand aan de huidige boom toevoegen"
+msgstr "Knooppunten uit een TuxCards bestand aan de huidige boom toevoegen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:290
 msgid "From _Zim Folder"
@@ -1148,7 +1144,7 @@ msgstr "Uit _Zim map"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:290
 msgid "Add Nodes of a Zim Folder to the Current Tree"
-msgstr "knooppunten uit een Zim map aan de huidige boom toevoegen"
+msgstr "Knooppunten uit een Zim map aan de huidige boom toevoegen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:291
 msgid "Export To _PDF"
@@ -1200,7 +1196,7 @@ msgstr "Op nieuwe versie controleren"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:297
 msgid "Online _Manual"
-msgstr "Online _Handleiding"
+msgstr "Online _hkandleiding"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:297
 msgid "Application's Online Manual"
@@ -1221,7 +1217,7 @@ msgstr "Anker knippen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:299
 msgid "Cut the Selected Anchor"
-msgstr "Knip het gekozen anker"
+msgstr "Knip het geselecteerde anker"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:300
 msgid "_Copy Anchor"
@@ -1229,7 +1225,7 @@ msgstr "_Anker kopiëren"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:300
 msgid "Copy the Selected Anchor"
-msgstr "Kopieer het gekozen anker"
+msgstr "Kopieer het geselecteerde anker"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:301
 msgid "_Delete Anchor"
@@ -1237,7 +1233,7 @@ msgstr "Anker verwijderen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:301
 msgid "Delete the Selected Anchor"
-msgstr "Verwijdert het gekozen anker"
+msgstr "Verwijder het geselecteerde anker"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:302
 msgid "Edit _Anchor"
@@ -1253,7 +1249,7 @@ msgstr "Ingevoegd bestand knippen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:303
 msgid "Cut the Selected Embedded File"
-msgstr "Gekozen ingevoegde bestand knippen"
+msgstr "Knip het geselecteerde ingevoegde bestand"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:304
 msgid "_Copy Embedded File"
@@ -1261,7 +1257,7 @@ msgstr "Kopieer ingevoegde bestand"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:304
 msgid "Copy the Selected Embedded File"
-msgstr "Gekozen ingevoegde bestand kopiëren"
+msgstr "Kopieer het ingevoegde bestand"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:305
 msgid "_Delete Embedded File"
@@ -1269,7 +1265,7 @@ msgstr "Verwijder ingevoegde bestand"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:305
 msgid "Delete the Selected Embedded File"
-msgstr "Gekozen ingevoegde bestand verwijderen"
+msgstr "Verwijder het ingevoegde bestand"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:307
 msgid "Open Embedded File"
@@ -1530,7 +1526,7 @@ msgstr "Rij _omhoog verplaatsen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:605
 msgid "Move the Selected Row Up"
-msgstr "Verplaatst de gekozen rij omhoog"
+msgstr "Verplaatst de geselecteerde rij omhoog"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:606
 msgid "Move Row _Down"
@@ -1538,7 +1534,7 @@ msgstr "Rij omlaag verplaatsen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:606
 msgid "Move the Selected Row Down"
-msgstr "Verplaatst de gekozen rij omlaag"
+msgstr "Verplaatst de geselecteerde rij omlaag"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:607
 msgid "Sort Rows De_scending"
@@ -1590,7 +1586,7 @@ msgstr "Wijzigt de codevak eigenschappen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:634
 msgid "CodeBox _Load From Text File"
-msgstr "Codevak _laden uit textbestand"
+msgstr "Codevak _laden uit tekstbestand"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:634
 msgid "Load the CodeBox Content From a Text File"
@@ -1610,7 +1606,7 @@ msgstr "Codevak knippen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:637
 msgid "Cut the Selected CodeBox"
-msgstr "Knipt het gekozen codevak"
+msgstr "Knip het geselecteerde codevak"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:638
 msgid "_Copy CodeBox"
@@ -1618,7 +1614,7 @@ msgstr "Codevak kopiëren"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:638
 msgid "Copy the Selected CodeBox"
-msgstr "Kopieert het gekozen codevak"
+msgstr "Kopieer het geselecteerde codevak"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:639
 msgid "_Delete CodeBox"
@@ -1626,15 +1622,15 @@ msgstr "Codevak verwijderen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:639
 msgid "Delete the Selected CodeBox"
-msgstr "Verwijdert het gekozen codevak"
+msgstr "Verwijder het geselecteerde codevak"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:640
 msgid "Delete CodeBox _Keep Content"
-msgstr "Codeva_k verwijderen inhoud bewaren"
+msgstr "Codevak verwijderen inhoud bewaren"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:640
 msgid "Delete the Selected CodeBox But Keep Its Content"
-msgstr "Verwijder het gekozen codevak maar bewaar de inhoud"
+msgstr "Verwijder het geselecteerde codevak maar bewaar de inhoud"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:642
 msgid "Increase CodeBox Width"
@@ -1780,7 +1776,7 @@ msgstr "Japans"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:740
 msgid "Lithuanian"
-msgstr ""
+msgstr "Litouws"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:741
 msgid "Polish"
@@ -1796,7 +1792,7 @@ msgstr "Russisch"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:744
 msgid "Slovenian"
-msgstr ""
+msgstr "Sloveens"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:745
 msgid "Spanish"
@@ -1808,7 +1804,7 @@ msgstr "Turks"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:747
 msgid "Ukrainian"
-msgstr "Oekraeens"
+msgstr "Oekraïns"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1007
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1050
@@ -1872,11 +1868,11 @@ msgstr "Ankernaam (optioneel)"
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3934
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4972
 msgid "No Node is Selected"
-msgstr "Geen knooppuntgeselecteerd"
+msgstr "Geen knooppunt geselecteerd"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1273
 msgid "There are No Anchors in the Selected Node"
-msgstr "Er zijn geen ankers in het gekozen knooppunt"
+msgstr "Er zijn geen ankers in het geselecteerde knooppunt"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1275
 msgid "Choose Existing Anchor"
@@ -1892,11 +1888,11 @@ msgstr "Betrokken knooppunten"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1420
 msgid "Selected Text Only"
-msgstr "Alleen gekozen tekst"
+msgstr "Alleen tekst geselecteerd"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1421
 msgid "Selected Node Only"
-msgstr "Alleen gekozen knooppunt"
+msgstr "Alleen knooppunt geselecteerd"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1422
 msgid "Selected Node and Subnodes"
@@ -1908,7 +1904,7 @@ msgstr "De hele boom"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1434
 msgid "Include Node Name"
-msgstr "Inclusief knooppuntenaam"
+msgstr "Inclusief knooppuntnaam"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1440
 msgid "Links Tree in Every Page"
@@ -1916,7 +1912,7 @@ msgstr "Boom koppelen in elke pagina"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1445
 msgid "New Node in New Page"
-msgstr "Nieuw knooppuntin nieuwe pagina"
+msgstr "Nieuw knooppunt in nieuwe pagina"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1510
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1243
@@ -1994,7 +1990,7 @@ msgstr "Tab breedte"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:622
 msgid "Insert Spaces Instead of Tabs"
-msgstr "Spaties invoegen in plaats van Tabs"
+msgstr "Spaties invoegen in plaats van tabs"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:624
 msgid "Use Line Wrapping"
@@ -2020,7 +2016,7 @@ msgstr ""
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:998
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1035
 msgid "Text Editor"
-msgstr "Tektbewerker"
+msgstr "Tekstverwerker"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:675
 msgid "Timestamp Format"
@@ -2038,7 +2034,7 @@ msgstr "Speciale tekens"
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1562
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1739
 msgid "Reset to Default"
-msgstr ""
+msgstr "Terugzetten naar standaardwaarden"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:720
 msgid "Chars to Select at Double Click"
@@ -2056,9 +2052,8 @@ msgstr "Diversen"
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:750
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1696
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1781
-#, fuzzy
 msgid "Are you sure to Reset to Default?"
-msgstr "Weet u zeker dat u <b>het knooppunt'%s' wilt verwijderen?</b>"
+msgstr "Weet u zeker dat u wilt teruggaan naar de standaardwaarde?"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:806
 msgid "Enable Spell Check"
@@ -2076,12 +2071,12 @@ msgstr "Spellingscontrole"
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:833
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1141
 msgid "Light Background, Dark Text"
-msgstr "Lichte achtergrond, Donkere tekst"
+msgstr "Lichte achtergrond, donkere tekst"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:834
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1142
 msgid "Dark Background, Light Text"
-msgstr "Donkere achtergrond, Lichte tekst"
+msgstr "Donkere achtergrond, lichte tekst"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:836
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1144
@@ -2122,7 +2117,7 @@ msgstr "Maximum uitvoerbare stappen per knooppunt"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:993
 msgid "Enable Smart Quotes Auto Replacement"
-msgstr ""
+msgstr "Schakel slimme aanhalingstekens automatisch vervangen in"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1018
 msgid "Style Scheme"
@@ -2137,38 +2132,34 @@ msgid "Display Tree on the Right Side"
 msgstr "Boom aan de rechterzijde weergeven"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1077
-#, fuzzy
 msgid "Move Focus to Text at Mouse Click"
-msgstr "Karakter selecteren bij dubbelklikken"
+msgstr "Verplaats de focus naar de tekst bij muisklik"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1079
 msgid "Expand Node at Mouse Click"
-msgstr ""
+msgstr "Klap knooppunt uit bij muisklik"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1083
-#, fuzzy
 msgid "Last Visited Nodes on Node Name Header"
-msgstr "Knooppunt naam koptekst weergeven/verbergen wisselen"
+msgstr "Aantal bezochte knooppunten weergeven in titelbalk"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1179
 msgid "Use Different Cherries per Level"
-msgstr ""
+msgstr "Gebruik verschillende Cherries per niveau"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1180
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3518
-#, fuzzy
 msgid "Use Selected Icon"
-msgstr "Het gekozen knooppunt"
+msgstr "Gebruik het geselecteerde pictogram"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1182
-#, fuzzy
 msgid "No Icon"
-msgstr "Knooppunt pictogrammen"
+msgstr "Geen pictogram"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1195
 #, fuzzy
 msgid "Default Text Nodes Icons"
-msgstr "Gebruik opsommingstekens als knooppunt pictogrammen"
+msgstr "Standaard tekst knooppunt pictogrammen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1209
 msgid "Restore Expanded/Collapsed Status"
@@ -2192,9 +2183,8 @@ msgstr "Knooppunt status bij opstarten"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1289
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3627
-#, fuzzy
 msgid "Select Node Icon"
-msgstr "Alleen gekozen knooppunt"
+msgstr "Selecteer het knooppunt pictogram"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1324
 msgid "Text Font"
@@ -2234,9 +2224,8 @@ msgid "Colors"
 msgstr "Kleuren"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1453
-#, fuzzy
 msgid "Underline Links"
-msgstr "Onderliggende koppeling wijzigen"
+msgstr "Onderstreep koppelingen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1455
 msgid "Use Relative Paths for Files And Folders"
@@ -2247,14 +2236,12 @@ msgid "Anchor Size"
 msgstr "Anker grootte"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1559
-#, fuzzy
 msgid "Change Selected"
-msgstr "Het gekozen knooppunt"
+msgstr "Pas het geselecteerde aan"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1573
-#, fuzzy
 msgid "File"
-msgstr "_Bestand"
+msgstr "Bestand"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1574
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2012
@@ -2270,59 +2257,54 @@ msgstr "_Wijzigen"
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1576
 #, fuzzy
 msgid "Format"
-msgstr "_Laatst gebruikte opmaak toepassen"
+msgstr "Opmaken"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1577
-#, fuzzy
 msgid "Find/Replace"
-msgstr "Vervang"
+msgstr "Zoeken/Vervangen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1578
-#, fuzzy
 msgid "View"
-msgstr "_Weergeven"
+msgstr "Beeld"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1579
-#, fuzzy
 msgid "Export"
-msgstr "E_xporteren"
+msgstr "Exporteren"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1580
-#, fuzzy
 msgid "Import"
-msgstr "_Importeren"
+msgstr "Importeren"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1600
 msgid "Edit Keyboard Shortcut"
-msgstr ""
+msgstr "Pas sneltoets aan"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1607
 msgid "No Keyboard Shortcut"
-msgstr ""
+msgstr "Geen sneltoets"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1677
 #, python-format
 msgid "The Keyboard Shortcut '%s' is already in use"
-msgstr ""
+msgstr "De sneltoets '%s' is al in gebruik"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1677
 #, python-format
 msgid "The current associated action is '%s'"
-msgstr ""
+msgstr "De huidige geassocieerde actie is '%s'"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1677
 #, fuzzy
 msgid "Do you want to steal the shortcut?"
-msgstr "Wilt u de wijzigingen opslaan?"
+msgstr "Wilt u de sneltoets overnemen?"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1733
 msgid "Add"
-msgstr ""
+msgstr "Toevoegen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1736
-#, fuzzy
 msgid "Remove Selected"
-msgstr "Geen knooppuntgeselecteerd"
+msgstr "Verwijder de geselecteerde"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1766
 msgid "Select Element to Add"
@@ -2334,7 +2316,7 @@ msgstr "In systeemvak verbergen inschakelen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1804
 msgid "Start Minimized in the System Tray"
-msgstr "Geminimaliseerd in systeemvak starten"
+msgstr "Geminimaliseerd in systeemvak opstarten"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1805
 msgid "Use AppIndicator for Docking"
@@ -2342,15 +2324,15 @@ msgstr "Gebruik AppIndicator voor verbergen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1810
 msgid "System Tray"
-msgstr "Systeembalk"
+msgstr "Systeemvak"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1827
 msgid "Autosave Every"
-msgstr "Automatisch opslaan"
+msgstr "Automatisch opslaan na"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1830
 msgid "Minutes"
-msgstr "Minuten"
+msgstr "minuten"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1834
 msgid "Autosave on Quit"
@@ -2378,7 +2360,7 @@ msgstr "Document laden uit laatste sessie"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1867
 msgid "Reload After External Update to CT* File"
-msgstr "Opnieuw laden na extern bijwerken naar CT* bestand"
+msgstr "Opnieuw inladen na externe bijwerking van CT* bestand"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1892
 msgid "Language"
@@ -2389,14 +2371,12 @@ msgid "The New Language will be Available Only After Restarting CherryTree"
 msgstr "De nieuwe taal is beschikbaar nadat CherryTree opnieuw is opgestart"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2008
-#, fuzzy
 msgid "Text and Code"
-msgstr "Platte tekst en code"
+msgstr "Tekst en code"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2009
-#, fuzzy
 msgid "Text"
-msgstr "en tekst"
+msgstr "Tekst"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2010
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3540
@@ -2418,7 +2398,7 @@ msgstr "Knoppenbalk"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2017
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Sneltoetsen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/tablez.py:63
 msgid "Rename Column"
@@ -2454,11 +2434,11 @@ msgstr "Tabel grootte"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/tablez.py:207
 msgid "Min Width"
-msgstr "Min Breedte"
+msgstr "Minimum breedte"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/tablez.py:211
 msgid "Max Width"
-msgstr "Maximum Breedte"
+msgstr "Maximum breedte"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/tablez.py:226
 msgid "Column Properties"
@@ -2481,7 +2461,7 @@ msgstr "Tabel invoegen"
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3524
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/imports.py:2361
 msgid "click me"
-msgstr "Klik hier"
+msgstr "klik hier"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/tablez.py:330
 msgid "Click to Edit the Column Settings"
@@ -2508,9 +2488,8 @@ msgid "You Are Using the Latest Version Available"
 msgstr "U gebruikt de laatst beschikbare versie"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:259
-#, fuzzy
 msgid "You Are Using a Development Version"
-msgstr "U gebruikt de laatst beschikbare versie"
+msgstr "U gebruikt een ontwikkelings versie"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:263
 msgid "Failed to Retrieve Latest Version Information - Try Again Later"
@@ -2525,9 +2504,8 @@ msgstr "Geen tekst geselecteerd"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:784
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2471
-#, fuzzy
 msgid "The new parent can't be one of his children!"
-msgstr "De nieuwe vader kan niet een van zijn zonen zijn!"
+msgstr "De nieuwe ouder kan niet een van zijn kinderen zijn!"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:832
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2048
@@ -2568,9 +2546,8 @@ msgid "Leo Document"
 msgstr "Leo document"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1112
-#, fuzzy
 msgid "Who is the Parent?"
-msgstr "Wie is de vader?"
+msgstr "Wie is de ouder?"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1119
 msgid "The Tree Root"
@@ -2578,15 +2555,15 @@ msgstr "De stam"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1120
 msgid "The Selected Node"
-msgstr "Het gekozen knooppunt"
+msgstr "Het geselecteerde knooppunt"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1336
 msgid "The Document was Reloaded After External Update to CT* File"
-msgstr "Dit document is geladen na een externe update naar CT* bestand"
+msgstr "Dit document is herladen na een externe update van CT* bestand"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1363
 msgid "CherryTree Hierarchical Note Taking"
-msgstr "CherryTree hiearchische notitie programma"
+msgstr "CherryTree hiërarchisch notitie programma"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1646
 #, python-format
@@ -2617,7 +2594,7 @@ msgstr "Opslagtype"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1812
 msgid "Enter the New Password Twice"
-msgstr "Geef twee maal het nieuwe wachtwoord in"
+msgstr "Geef tweemaal het nieuwe wachtwoord in"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1855
 msgid "The Password Fields Must be Filled"
@@ -2651,27 +2628,26 @@ msgid "Wrong Password"
 msgstr "Verkeerd wachtwoord"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2459
-#, fuzzy
 msgid "Select the New Parent"
-msgstr "Selecteer de nieuwe vader"
+msgstr "Selecteer de nieuwe ouder"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2463
 #, fuzzy
 msgid "The new parent can't be the very node to move!"
-msgstr "De nieuwe vader kan niet het knooppuntzijn om te verplaatsen"
+msgstr "De nieuwe ouder kan niet het knooppunt zijn om naar te verplaatsen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2466
-#, fuzzy
 msgid "The new chosen parent is still the old parent!"
-msgstr "De nieuw gekozen vader is weer de oude vader!"
+msgstr "De nieuw gekozen ouder is weer de oude ouder!"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2719
 msgid "New Node Properties"
 msgstr "Nieuw knooppunteigenschappen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2779
+#, fuzzy
 msgid "New Child Node Properties"
-msgstr "Nieuw kind knooppunteigenschappen"
+msgstr "Nieuw subknooppunteigenschappen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2803
 #, python-format
@@ -2680,7 +2656,7 @@ msgstr "Weet u zeker dat u <b>het knooppunt'%s' wilt verwijderen?</b>"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2805
 msgid "The node <b>has Children, they will be Deleted too!</b>"
-msgstr "Dit knooppunt<b>heeft kinderen, en worden ook verwijderd!</b>"
+msgstr "Dit knooppunt<b>heeft kinderen, en die worden ook verwijderd!</b>"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2839
 msgid "Node Properties"
@@ -2728,7 +2704,7 @@ msgstr "Vorige"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3431
 msgid "All, List Matches"
-msgstr "Alle, lijst overeenkomsten"
+msgstr "Alle, toon treffers"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3433
 msgid "First From Selection"
@@ -2739,6 +2715,7 @@ msgid "First in All Range"
 msgstr "Eerste in hele bereik"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3439
+#, fuzzy
 msgid "Show Iterated Find/Replace Dialog"
 msgstr "Herhaaldelijk Zoek/Vervang dialoogvenster weergeven"
 
@@ -2748,12 +2725,11 @@ msgstr "Zoek opties"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3507
 msgid "Bold"
-msgstr ""
+msgstr "Vet"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3509
-#, fuzzy
 msgid "Use Selected Color"
-msgstr "Het gekozen knooppunt"
+msgstr "Gebruik de geselecteerde kleur"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3565
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4974
@@ -2762,12 +2738,12 @@ msgstr "Knooppunt type"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3579
 msgid "Tags for Searching"
-msgstr "Tags voor zoeken"
+msgstr "Labels om te zoeken"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3583
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4978
 msgid "Read Only"
-msgstr "Alleen Lezen"
+msgstr "Alleen lezen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3606
 msgid "Choose Existing Tag"
@@ -2799,15 +2775,15 @@ msgstr "De maximale grootte voor ingevoegde bestanden is 10 MB"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3843
 msgid "Cannot Edit Embedded File in Read Only Node"
-msgstr "Kan geen ingevoegde bestanden in Alleen Lezen mode bewerken"
+msgstr "Kan geen ingevoegde bestanden in Alleen Lezen modus bewerken"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3857
 msgid "Embedded File Automatically Updated:"
-msgstr "Ingevoegde bestanden is automatisch geupdate"
+msgstr "Ingevoegde bestand is automatisch geüpdate:"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3906
 msgid "Not Any H1, H2 or H3 Formatting Found"
-msgstr "Geen enkel H1, H2 of H3 opmaak gevonden"
+msgstr "Geen enkele H1, H2 of H3 opmaak gevonden"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3926
 msgid "This Feature is Available Only in Rich Text Nodes"
@@ -2825,11 +2801,11 @@ msgstr "De boom is leeg!"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3960
 msgid "The Selected Node is Read Only"
-msgstr "De gekozen knooppunt is Alleen Lezen"
+msgstr "Het geselecteerde knooppunt is Alleen Lezen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3981
 msgid "Number of Rich Text Nodes"
-msgstr "Aantal Rich Text knooppunts"
+msgstr "Aantal Rich Text knooppunten"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3984
 msgid "Number of Plain Text Nodes"
@@ -2878,7 +2854,7 @@ msgstr "Schrijven naar %s mislukt"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4289
 msgid "Lines Stripped"
-msgstr "Gestippelde tijn"
+msgstr "Gestippelde lijn"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4423
 msgid "No Previous Text Format Was Performed During This Session"
@@ -2891,7 +2867,7 @@ msgstr "Koppeling invoegen/wijzigen"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4556
 msgid "Link Name"
-msgstr "Koppelingnaam"
+msgstr "Koppelingsnaam"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4568
 msgid "The Cursor is Not into a Paragraph"
@@ -2909,7 +2885,7 @@ msgstr "Het bestandskoppeling '%s' is ongeldig"
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4821
 #, python-format
 msgid "The Folder Link '%s' is Not Valid"
-msgstr "De mapkoppeling   '%s' is ongeldig"
+msgstr "De mapkoppeling '%s' is ongeldig"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4840
 #, python-format
@@ -2924,7 +2900,7 @@ msgstr ": "
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4979
 msgid "Tags"
-msgstr "Label"
+msgstr "Labels"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/imports.py:2259
 msgid "Downloading"
