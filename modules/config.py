@@ -41,8 +41,8 @@ CODE_EXEC_TYPE_CMD_DEFAULT = {
 "sh": "sh %s" % CODE_EXEC_TMP_SRC,
 }
 CODE_EXEC_TERM_RUN_DEFAULT = {
-"term_run_linux" : "xterm -hold -geometry 180x45 -e \"%s\"" % CODE_EXEC_COMMAND,
-"term_run_win" : "start cmd /k \"%s\"" % CODE_EXEC_COMMAND,
+"linux" : "xterm -hold -geometry 180x45 -e \"%s\"" % CODE_EXEC_COMMAND,
+"win" : "start cmd /k \"%s\"" % CODE_EXEC_COMMAND,
 }
 DEFAULT_MONOSPACE_BG = "#7f7f7f"
 MAX_SIZE_EMBFILE_MB_DEFAULT = 10
@@ -80,11 +80,10 @@ def get_code_exec_type_keys(dad):
 def get_code_exec_term_run(dad, op_sys=None):
     if not op_sys:
         op_sys = "linux" if not cons.IS_WIN_OS else "win"
-    key = "term_run_" + op_sys
-    if key in dad.custom_codexec_term.keys():
-        ret_val = dad.custom_codexec_term[key]
+    if dad.custom_codexec_term:
+        ret_val = dad.custom_codexec_term
     else:
-        ret_val = CODE_EXEC_TERM_RUN_DEFAULT[key]
+        ret_val = CODE_EXEC_TERM_RUN_DEFAULT[op_sys]
     return ret_val
 
 def get_stock_id_for_code_type(key):
@@ -139,7 +138,7 @@ def config_file_load(dad):
     """Load the Preferences from Config File"""
     dad.custom_kb_shortcuts = {}
     dad.custom_codexec_type = {}
-    dad.custom_codexec_term = {}
+    dad.custom_codexec_term = None
     dad.latest_tag = ["", ""]
     if os.path.isfile(cons.CONFIG_PATH):
         cfg = ConfigParser.RawConfigParser()
@@ -324,8 +323,8 @@ def config_file_load(dad):
                 dad.custom_kb_shortcuts[option] = value if value else None
         section = "codexec_term"
         if cfg.has_section(section):
-            for option in cfg.options(section):
-                dad.custom_codexec_term[option] = cfg.get(section, option)
+            if cfg.has_option(section, "custom"):
+                dad.custom_codexec_term = cfg.get(section, "custom")
         section = "codexec_type"
         if cfg.has_section(section):
             for option in cfg.options(section):
@@ -639,8 +638,8 @@ def config_file_save(dad):
 
     section = "codexec_term"
     cfg.add_section(section)
-    for option in dad.custom_codexec_term.keys():
-        cfg.set(section, option, dad.custom_codexec_term[option])
+    if dad.custom_codexec_term:
+        cfg.set(section, "custom", dad.custom_codexec_term)
 
     section = "codexec_type"
     cfg.add_section(section)
@@ -1238,29 +1237,35 @@ def preferences_tab_plain_text_n_code(dad, vbox_code_nodes, pref_dialog):
     button_add = gtk.Button()
     button_add.set_image(gtk.image_new_from_stock(gtk.STOCK_ADD, gtk.ICON_SIZE_BUTTON))
     button_add.set_tooltip_text(_("Add"))
-    button_reset = gtk.Button()
-    button_reset.set_image(gtk.image_new_from_stock(gtk.STOCK_UNDO, gtk.ICON_SIZE_BUTTON))
-    button_reset.set_tooltip_text(_("Reset to Default"))
+    button_reset_cmds = gtk.Button()
+    button_reset_cmds.set_image(gtk.image_new_from_stock(gtk.STOCK_UNDO, gtk.ICON_SIZE_BUTTON))
+    button_reset_cmds.set_tooltip_text(_("Reset to Default"))
     vbox_buttons = gtk.VBox()
     vbox_buttons.pack_start(button_add, expand=False)
     vbox_buttons.pack_start(gtk.Label(), expand=True)
-    vbox_buttons.pack_start(button_reset, expand=False)
+    vbox_buttons.pack_start(button_reset_cmds, expand=False)
 
     vbox_codexec = gtk.VBox()
-    entry_term_run_linux = gtk.Entry()
-    entry_term_run_linux.set_text(get_code_exec_term_run(dad, "linux"))
-    entry_term_run_win = gtk.Entry()
-    entry_term_run_win.set_text(get_code_exec_term_run(dad, "win"))
+    hbox_term_run = gtk.HBox()
+    entry_term_run = gtk.Entry()
+    entry_term_run.set_text(get_code_exec_term_run(dad))
+    button_reset_term = gtk.Button()
+    button_reset_term.set_image(gtk.image_new_from_stock(gtk.STOCK_UNDO, gtk.ICON_SIZE_BUTTON))
+    button_reset_term.set_tooltip_text(_("Reset to Default"))
+    hbox_term_run.pack_start(entry_term_run, expand=True)
+    hbox_term_run.pack_start(button_reset_term, expand=False)
     hbox_cmd_per_type = gtk.HBox()
     hbox_cmd_per_type.pack_start(scrolledwindow, expand=True)
     hbox_cmd_per_type.pack_start(vbox_buttons, expand=False)
 
-    vbox_codexec.pack_start(gtk.Label(_("Linux Terminal")), expand=False)
-    vbox_codexec.pack_start(entry_term_run_linux, expand=False)
-    vbox_codexec.pack_start(gtk.Label(_("Windows Terminal")), expand=False)
-    vbox_codexec.pack_start(entry_term_run_win, expand=False)
-    vbox_codexec.pack_start(gtk.Label(_("Command per Node/CodeBox Type")), expand=False)
-    vbox_codexec.pack_start(hbox_cmd_per_type, expand=False)
+    label = gtk.Label("<b>"+_("Command per Node/CodeBox Type")+"</b>")
+    label.set_use_markup(True)
+    vbox_codexec.pack_start(label, expand=False)
+    vbox_codexec.pack_start(hbox_cmd_per_type, expand=True)
+    label = gtk.Label("<b>"+_("Terminal Command")+"</b>")
+    label.set_use_markup(True)
+    vbox_codexec.pack_start(label, expand=False)
+    vbox_codexec.pack_start(hbox_term_run, expand=False)
 
     frame_codexec = gtk.Frame(label="<b>"+_("Code Execution")+"</b>")
     frame_codexec.get_label_widget().set_use_markup(True)
@@ -1282,13 +1287,10 @@ def preferences_tab_plain_text_n_code(dad, vbox_code_nodes, pref_dialog):
         for key in all_codexec_keys:
             liststore_append_element(key)
 
-    vbox_code_nodes.pack_start(frame_codexec, expand=False)
-    def on_entry_term_run_linux_changed(entry):
-        dad.custom_codexec_term["term_run_linux"] = entry.get_text()
-    entry_term_run_linux.connect('changed', on_entry_term_run_linux_changed)
-    def on_entry_term_run_win_changed(entry):
-        dad.custom_codexec_term["term_run_win"] = entry.get_text()
-    entry_term_run_win.connect('changed', on_entry_term_run_win_changed)
+    vbox_code_nodes.pack_start(frame_codexec, expand=True)
+    def on_entry_term_run_changed(entry):
+        dad.custom_codexec_term = entry.get_text()
+    entry_term_run.connect('changed', on_entry_term_run_changed)
     def on_button_add_clicked(button):
         icon_n_key_list = []
         all_codexec_keys = get_code_exec_type_keys(dad)
@@ -1301,13 +1303,18 @@ def preferences_tab_plain_text_n_code(dad, vbox_code_nodes, pref_dialog):
         liststore_append_element(sel_key, default_type_command)
         dad.custom_codexec_type[sel_key] = default_type_command
     button_add.connect('clicked', on_button_add_clicked)
-    def on_button_reset_clicked(button):
+    def on_button_reset_cmds_clicked(button, type_str):
         warning_label = "<b>"+_("Are you sure to Reset to Default?")+"</b>"
         response = support.dialog_question_warning(pref_dialog, warning_label)
         if response == gtk.RESPONSE_ACCEPT:
-            dad.custom_codexec_type.clear()
-            populate_liststore()
-    button_reset.connect('clicked', on_button_reset_clicked)
+            if type_str == "cmds":
+                dad.custom_codexec_type.clear()
+                populate_liststore()
+            elif type_str == "term":
+                dad.custom_codexec_term = None
+                entry_term_run.set_text(get_code_exec_term_run(dad))
+    button_reset_cmds.connect('clicked', on_button_reset_cmds_clicked, "cmds")
+    button_reset_term.connect('clicked', on_button_reset_cmds_clicked, "term")
 
     populate_liststore()
 
