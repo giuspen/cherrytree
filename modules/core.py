@@ -3750,21 +3750,23 @@ iter_end, exclude_iter_sel_end=True)
         #print code_type
         binary_cmd = config.get_code_exec_type_cmd(self, code_type)
         if not binary_cmd:
-            support.dialog_warning(_("You must associate a command with %s.\nDo so in the Preferences Dialog") % code_type, self.window)
+            support.dialog_warning(_("You must associate a command with '%s'.\nDo so in the Preferences Dialog") % code_type, self.window)
             return
-        filepath_tmp = os.path.join(cons.TMP_FOLDER, "exec_code.cmd")
-        binary_cmd = binary_cmd % filepath_tmp
-        terminal_cmd = config.get_code_exec_term_run(self) % binary_cmd
+        filepath_src_tmp = os.path.join(cons.TMP_FOLDER, "exec_code.cmd")
+        filepath_bin_tmp = os.path.join(cons.TMP_FOLDER, "exec_code.exe")
+        binary_cmd = binary_cmd.replace(config.CODE_EXEC_TMP_SRC, filepath_src_tmp).replace(config.CODE_EXEC_TMP_BIN, filepath_bin_tmp)
+        terminal_cmd = config.get_code_exec_term_run(self).replace(config.CODE_EXEC_COMMAND, binary_cmd)
         #print terminal_cmd
         warning_label = "<b>"+_("Do you want to Execute the Code?")+"</b>"
         response = support.dialog_question_warning(self.window, warning_label)
         if response != gtk.RESPONSE_ACCEPT:
             return # the user did not confirm
         if not os.path.isdir(cons.TMP_FOLDER): os.makedirs(cons.TMP_FOLDER)
-        with open(filepath_tmp, 'w') as fd:
+        with open(filepath_src_tmp, 'w') as fd:
             fd.write(code_val)
         subprocess.call(terminal_cmd, shell=True)
-        self.ctdb_handler.remove_at_quit_set.add(filepath_tmp)
+        self.ctdb_handler.remove_at_quit_set.add(filepath_src_tmp)
+        self.ctdb_handler.remove_at_quit_set.add(filepath_bin_tmp)
 
     def embfile_insert(self, *args):
         """Embedded File Insert"""

@@ -28,16 +28,21 @@ ICONS_SIZE = {1: gtk.ICON_SIZE_MENU, 2: gtk.ICON_SIZE_SMALL_TOOLBAR, 3: gtk.ICON
 
 LINK_CUSTOM_ACTION_DEFAULT_WEB = "firefox %s &"
 LINK_CUSTOM_ACTION_DEFAULT_FILE = "xdg-open %s &"
+CODE_EXEC_TMP_SRC = "<tmp_src_path>"
+CODE_EXEC_TMP_BIN = "<tmp_bin_path>"
+CODE_EXEC_COMMAND = "<command>"
 CODE_EXEC_TYPE_CMD_DEFAULT = {
-"dosbatch": "call %s",
-"perl": "perl %s",
-"powershell": "call %s",
-"python": "python %s",
-"sh": "sh %s",
+"c": "gcc -x c -o %s %s && %s" % (CODE_EXEC_TMP_BIN, CODE_EXEC_TMP_SRC, CODE_EXEC_TMP_BIN),
+"cpp": "g++ -x c++ -o %s %s && %s" % (CODE_EXEC_TMP_BIN, CODE_EXEC_TMP_SRC, CODE_EXEC_TMP_BIN),
+"dosbatch": "call %s" % CODE_EXEC_TMP_SRC,
+"perl": "perl %s" % CODE_EXEC_TMP_SRC,
+"powershell": "call %s" % CODE_EXEC_TMP_SRC,
+"python": "python %s" % CODE_EXEC_TMP_SRC,
+"sh": "sh %s" % CODE_EXEC_TMP_SRC,
 }
 CODE_EXEC_TERM_RUN_DEFAULT = {
-"term_run_linux" : "xterm -hold -geometry 180x45 -e \"%s\"",
-"term_run_win" : "start cmd /k \"%s\"",
+"term_run_linux" : "xterm -hold -geometry 180x45 -e \"%s\"" % CODE_EXEC_COMMAND,
+"term_run_win" : "start cmd /k \"%s\"" % CODE_EXEC_COMMAND,
 }
 DEFAULT_MONOSPACE_BG = "#7f7f7f"
 MAX_SIZE_EMBFILE_MB_DEFAULT = 10
@@ -1292,7 +1297,7 @@ def preferences_tab_plain_text_n_code(dad, vbox_code_nodes, pref_dialog):
                 stock_id = get_stock_id_for_code_type(key)
                 icon_n_key_list.append([key, stock_id, key])
         sel_key = support.dialog_choose_element_in_list(dad.window, _("Select Element to Add"), [], "", icon_n_key_list)
-        default_type_command = "<binary_command> [<options>] %s"
+        default_type_command = "REPLACE_ME %s" % CODE_EXEC_TMP_SRC
         liststore_append_element(sel_key, default_type_command)
         dad.custom_codexec_type[sel_key] = default_type_command
     button_add.connect('clicked', on_button_add_clicked)
