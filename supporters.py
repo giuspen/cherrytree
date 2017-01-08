@@ -4,7 +4,7 @@
 import re
 
 SUPPORTERS="""
-<h2>Friends of giuspen.com (donated €3270,30)</h2>
+<h2>Friends of giuspen.com (donated €3280,30)</h2>
 • Miguel Latorre (Spain) donated €240
 • DistroWatch.com (International) donated €200
 • Alan M. (United States) donated €100
@@ -109,6 +109,7 @@ SUPPORTERS="""
 • Paul Saletan (United States) donated €10
 • Petr Bartel (Czech Republic) donated €10
 • Ranjit Singh (Germany) donated €10
+• Ravi Kumar (India) donated €10
 • Robert Harris (United States) donated €10
 • Ronald Cameron (United States) donated €10
 • Rudy Richardson (United States) donated €10

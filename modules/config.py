@@ -1299,9 +1299,10 @@ def preferences_tab_plain_text_n_code(dad, vbox_code_nodes, pref_dialog):
                 stock_id = get_stock_id_for_code_type(key)
                 icon_n_key_list.append([key, stock_id, key])
         sel_key = support.dialog_choose_element_in_list(dad.window, _("Select Element to Add"), [], "", icon_n_key_list)
-        default_type_command = "REPLACE_ME %s" % CODE_EXEC_TMP_SRC
-        liststore_append_element(sel_key, default_type_command)
-        dad.custom_codexec_type[sel_key] = default_type_command
+        if sel_key:
+            default_type_command = "REPLACE_ME %s" % CODE_EXEC_TMP_SRC
+            liststore_append_element(sel_key, default_type_command)
+            dad.custom_codexec_type[sel_key] = default_type_command
     button_add.connect('clicked', on_button_add_clicked)
     def on_button_reset_cmds_clicked(button, type_str):
         warning_label = "<b>"+_("Are you sure to Reset to Default?")+"</b>"
