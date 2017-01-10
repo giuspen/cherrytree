@@ -2568,7 +2568,6 @@ iter_end, exclude_iter_sel_end=True)
 
     def combobox_prog_lang_init(self):
         """Init The Programming Languages Syntax Highlighting ComboBox"""
-        self.prog_lang_liststore = gtk.ListStore(str, str)
         self.language_manager = gtksourceview2.LanguageManager()
         search_path = self.language_manager.get_search_path()
         search_path.append(cons.SPECS_PATH)
@@ -2576,8 +2575,6 @@ iter_end, exclude_iter_sel_end=True)
         #print self.language_manager.get_search_path()
         self.available_languages = sorted(self.language_manager.get_language_ids())
         if "def" in self.available_languages: self.available_languages.remove("def")
-        for language_id in self.available_languages:
-            self.prog_lang_liststore.append([self.language_manager.get_language(language_id).get_name(), language_id])
 
     def combobox_country_lang_init(self):
         """Init The Country Language ComboBox"""
@@ -2617,8 +2614,7 @@ iter_end, exclude_iter_sel_end=True)
 
     def set_sourcebuffer_syntax_highlight(self, sourcebuffer, syntax_highlighting):
         """Set the given syntax highlighting to the given sourcebuffer"""
-        language_id = self.prog_lang_liststore[self.get_combobox_iter_from_value(self.prog_lang_liststore, 1, syntax_highlighting)][1]
-        sourcebuffer.set_language(self.language_manager.get_language(language_id))
+        sourcebuffer.set_language(self.language_manager.get_language(syntax_highlighting))
         sourcebuffer.set_highlight_syntax(True)
 
     def nodes_sequences_swap(self, first_iter, second_iter):
@@ -3496,26 +3492,24 @@ iter_end, exclude_iter_sel_end=True)
         radiobutton_plain_text.set_group(radiobutton_rich_text)
         radiobutton_auto_syntax_highl = gtk.RadioButton(label=_("Automatic Syntax Highlighting"))
         radiobutton_auto_syntax_highl.set_group(radiobutton_rich_text)
-        combobox_prog_lang = gtk.ComboBox(model=self.prog_lang_liststore)
-        cell = gtk.CellRendererText()
-        combobox_prog_lang.pack_start(cell, True)
-        combobox_prog_lang.add_attribute(cell, 'text', 0)
-        combobox_value = syntax_highl if syntax_highl not in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID] else self.auto_syn_highl
-        combobox_iter = self.get_combobox_iter_from_value(self.prog_lang_liststore, 1, combobox_value)
-        combobox_prog_lang.set_active_iter(combobox_iter)
+        button_prog_lang = gtk.Button()
+        button_label = syntax_highl if syntax_highl not in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID] else self.auto_syn_highl
+        button_stock_id = config.get_stock_id_for_code_type(button_label)
+        button_prog_lang.set_label(button_label)
+        button_prog_lang.set_image(gtk.image_new_from_stock(button_stock_id, gtk.ICON_SIZE_MENU))
         if syntax_highl == cons.RICH_TEXT_ID:
             radiobutton_rich_text.set_active(True)
-            combobox_prog_lang.set_sensitive(False)
+            button_prog_lang.set_sensitive(False)
         elif syntax_highl == cons.PLAIN_TEXT_ID:
             radiobutton_plain_text.set_active(True)
-            combobox_prog_lang.set_sensitive(False)
+            button_prog_lang.set_sensitive(False)
         else:
             radiobutton_auto_syntax_highl.set_active(True)
         type_vbox = gtk.VBox()
         type_vbox.pack_start(radiobutton_rich_text)
         type_vbox.pack_start(radiobutton_plain_text)
         type_vbox.pack_start(radiobutton_auto_syntax_highl)
-        type_vbox.pack_start(combobox_prog_lang)
+        type_vbox.pack_start(button_prog_lang)
         type_frame = gtk.Frame(label="<b>"+_("Node Type")+"</b>")
         type_frame.get_label_widget().set_use_markup(True)
         type_frame.set_shadow_type(gtk.SHADOW_NONE)
@@ -3544,6 +3538,16 @@ iter_end, exclude_iter_sel_end=True)
         content_area.pack_start(ro_checkbutton)
         content_area.show_all()
         name_entry.grab_focus()
+        def on_button_prog_lang_clicked(button):
+            icon_n_key_list = []
+            for key in self.available_languages:
+                stock_id = config.get_stock_id_for_code_type(key)
+                icon_n_key_list.append([key, stock_id, key])
+            sel_key = support.dialog_choose_element_in_list(self.window, _("Automatic Syntax Highlighting"), [], "", icon_n_key_list)
+            if sel_key:
+                button.set_label(sel_key)
+                button.set_image(gtk.image_new_from_stock(sel_key, gtk.ICON_SIZE_MENU))
+        button_prog_lang.connect('clicked', on_button_prog_lang_clicked)
         def on_key_press_nodepropdialog(widget, event):
             keyname = gtk.gdk.keyval_name(event.keyval)
             if keyname == cons.STR_KEY_RETURN:
@@ -3553,7 +3557,7 @@ iter_end, exclude_iter_sel_end=True)
             return False
         dialog.connect('key_press_event', on_key_press_nodepropdialog)
         def on_radiobutton_auto_syntax_highl_toggled(radiobutton):
-            combobox_prog_lang.set_sensitive(radiobutton.get_active())
+            button_prog_lang.set_sensitive(radiobutton.get_active())
         radiobutton_auto_syntax_highl.connect("toggled", on_radiobutton_auto_syntax_highl_toggled)
         def on_browse_tags_button_clicked(button):
             ret_tag_name = support.dialog_choose_element_in_list(dialog,
@@ -3598,7 +3602,7 @@ iter_end, exclude_iter_sel_end=True)
             if radiobutton_rich_text.get_active(): ret_syntax = cons.RICH_TEXT_ID
             elif radiobutton_plain_text.get_active(): ret_syntax = cons.PLAIN_TEXT_ID
             else:
-                ret_syntax = self.prog_lang_liststore[combobox_prog_lang.get_active_iter()][1]
+                ret_syntax = button_prog_lang.get_label()
                 self.auto_syn_highl = ret_syntax
             ret_tags = unicode(tags_entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE)
             ret_ro = ro_checkbutton.get_active()

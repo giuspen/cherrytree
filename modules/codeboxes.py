@@ -21,7 +21,7 @@
 
 import gtk, gtksourceview2, pango
 import os
-import cons, menus, support
+import cons, menus, support, config
 
 DRAW_SPACES_FLAGS = gtksourceview2.DRAW_SPACES_ALL & ~gtksourceview2.DRAW_SPACES_NEWLINE
 CB_WIDTH_HEIGHT_STEP_PIX = 15
@@ -87,25 +87,23 @@ class CodeBoxesHandler:
         dialog.set_default_size(300, -1)
         dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
 
-        combobox_prog_lang = gtk.ComboBox(model=self.dad.prog_lang_liststore)
-        cell = gtk.CellRendererText()
-        combobox_prog_lang.pack_start(cell, True)
-        combobox_prog_lang.add_attribute(cell, 'text', 0)
-        combobox_value = self.dad.codebox_syn_highl if self.dad.codebox_syn_highl != cons.PLAIN_TEXT_ID else self.dad.auto_syn_highl
-        combobox_iter = self.dad.get_combobox_iter_from_value(self.dad.prog_lang_liststore, 1, combobox_value)
-        combobox_prog_lang.set_active_iter(combobox_iter)
+        button_prog_lang = gtk.Button()
+        button_label = self.dad.codebox_syn_highl if self.dad.codebox_syn_highl != cons.PLAIN_TEXT_ID else self.dad.auto_syn_highl
+        button_stock_id = config.get_stock_id_for_code_type(button_label)
+        button_prog_lang.set_label(button_label)
+        button_prog_lang.set_image(gtk.image_new_from_stock(button_stock_id, gtk.ICON_SIZE_MENU))
         radiobutton_plain_text = gtk.RadioButton(label=_("Plain Text"))
         radiobutton_auto_syntax_highl = gtk.RadioButton(label=_("Automatic Syntax Highlighting"))
         radiobutton_auto_syntax_highl.set_group(radiobutton_plain_text)
         if self.dad.codebox_syn_highl == cons.PLAIN_TEXT_ID:
             radiobutton_plain_text.set_active(True)
-            combobox_prog_lang.set_sensitive(False)
+            button_prog_lang.set_sensitive(False)
         else:
             radiobutton_auto_syntax_highl.set_active(True)
         type_vbox = gtk.VBox()
         type_vbox.pack_start(radiobutton_plain_text)
         type_vbox.pack_start(radiobutton_auto_syntax_highl)
-        type_vbox.pack_start(combobox_prog_lang)
+        type_vbox.pack_start(button_prog_lang)
         type_frame = gtk.Frame(label="<b>"+_("Type")+"</b>")
         type_frame.get_label_widget().set_use_markup(True)
         type_frame.set_shadow_type(gtk.SHADOW_NONE)
@@ -172,8 +170,18 @@ class CodeBoxesHandler:
         content_area.pack_start(size_frame)
         content_area.pack_start(options_frame)
         content_area.show_all()
+        def on_button_prog_lang_clicked(button):
+            icon_n_key_list = []
+            for key in self.dad.available_languages:
+                stock_id = config.get_stock_id_for_code_type(key)
+                icon_n_key_list.append([key, stock_id, key])
+            sel_key = support.dialog_choose_element_in_list(self.dad.window, _("Automatic Syntax Highlighting"), [], "", icon_n_key_list)
+            if sel_key:
+                button.set_label(sel_key)
+                button.set_image(gtk.image_new_from_stock(sel_key, gtk.ICON_SIZE_MENU))
+        button_prog_lang.connect('clicked', on_button_prog_lang_clicked)
         def on_radiobutton_auto_syntax_highl_toggled(radiobutton):
-            combobox_prog_lang.set_sensitive(radiobutton.get_active())
+            button_prog_lang.set_sensitive(radiobutton.get_active())
         def on_key_press_codeboxhandle(widget, event):
             keyname = gtk.gdk.keyval_name(event.keyval)
             if keyname == cons.STR_KEY_RETURN:
@@ -203,7 +211,7 @@ class CodeBoxesHandler:
             if radiobutton_plain_text.get_active():
                 self.dad.codebox_syn_highl = cons.PLAIN_TEXT_ID
             else:
-                self.dad.codebox_syn_highl = self.dad.prog_lang_liststore[combobox_prog_lang.get_active_iter()][1]
+                self.dad.codebox_syn_highl = button_prog_lang.get_label()
             return True
         return False
 
