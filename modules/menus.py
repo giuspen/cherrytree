@@ -232,7 +232,7 @@ def load_menudict(dad):
 "tree_add_subnode": {"sk": "tree-subnode-add", "sd": _("Add _SubNode"), "kb": KB_CONTROL+KB_SHIFT+"N", "dn": _("Add a Child Node to the Selected Node"), "cb": dad.node_child_add},
 "tree_dup_node": {"sk": "tree-node-dupl", "sd": _("_Duplicate Node"), "kb": KB_CONTROL+KB_SHIFT+"D", "dn": _("Duplicate the Selected Node"), "cb": dad.node_duplicate},
 "tree_node_prop": {"sk": "cherry_edit", "sd": _("Change Node _Properties"), "kb": "F2", "dn": _("Edit the Properties of the Selected Node"), "cb": dad.node_edit},
-"tree_node_toggle_ro": {"sk": "cherry_edit", "sd": _("Toggle _Read Only"), "kb": KB_CONTROL+KB_ALT+"R", "dn": _("Toggle the Read Only Property of the Selected Node"), "cb": dad.node_toggle_read_only},
+"tree_node_toggle_ro": {"sk": "locked", "sd": _("Toggle _Read Only"), "kb": KB_CONTROL+KB_ALT+"R", "dn": _("Toggle the Read Only Property of the Selected Node"), "cb": dad.node_toggle_read_only},
 "tree_node_date": {"sk": "calendar", "sd": _("Insert Today's Node"), "kb": "F8", "dn": _("Insert a Node with Hierarchy Year/Month/Day"), "cb": dad.node_date},
 "tree_parse_info": {"sk": "gtk-info", "sd": _("Tree _Info"), "kb": None, "dn": _("Tree Summary Information"), "cb": dad.tree_info},
 "tree_node_up": {"sk": "gtk-go-up", "sd": _("Node _Up"), "kb": KB_SHIFT+cons.STR_KEY_UP, "dn": _("Move the Selected Node Up"), "cb": dad.node_up},
