@@ -117,7 +117,7 @@ class CherryTree:
         hbox_statusbar.pack_start(progress_frame, False, True)
         hbox_statusbar.pack_start(self.progresstop, False, True)
         vbox_main.pack_start(hbox_statusbar, False, False)
-        # ROW: 0-icon_stock_id, 1-name, 2-buffer, 3-unique_id, 4-syntax_highlighting, 5-node_sequence, 6-tags, 7-readonly, 8-pre_icon_stock_id, 9-custom_icon_id, 10-weight, 11-foreground
+        # ROW: 0-icon_stock_id, 1-name, 2-buffer, 3-unique_id, 4-syntax_highlighting, 5-node_sequence, 6-tags, 7-readonly, 8-aux_icon_stock_id, 9-custom_icon_id, 10-weight, 11-foreground
         self.treestore = gtk.TreeStore(str, str, gobject.TYPE_PYOBJECT, long, str, int, str, gobject.TYPE_BOOLEAN, str, int, int, str)
         self.treeview = gtk.TreeView(self.treestore)
         self.treeview.set_headers_visible(False)
@@ -1272,7 +1272,7 @@ iter_end, exclude_iter_sel_end=True)
 
     def menu_tree_update_for_bookmarked_node(self, is_bookmarked):
         """Update Tree Menu according to Node in Bookmarks or Not"""
-        self.header_node_name_icon.set_property(cons.STR_VISIBLE, is_bookmarked)
+        self.header_node_name_icon_pin.set_property(cons.STR_VISIBLE, is_bookmarked)
         for menu_tree in [self.top_menu_tree, self.node_menu_tree]:
             for menuitem in menu_tree:
                 try:
@@ -2287,7 +2287,7 @@ iter_end, exclude_iter_sel_end=True)
         """Iteration of the Node Inherit Syntax"""
         iter_child = self.treestore.iter_children(iter_father)
         while iter_child != None:
-            if not self.treestore[iter_child][7] and self.treestore[iter_child][4] != self.treestore[iter_father][4]:
+            if not self.get_node_read_only(iter_child) and self.treestore[iter_child][4] != self.treestore[iter_father][4]:
                 self.get_textbuffer_from_tree_iter(iter_child)
                 old_syntax_highl = self.treestore[iter_child][4]
                 self.treestore[iter_child][4] = self.treestore[iter_father][4]
@@ -2687,6 +2687,7 @@ iter_end, exclude_iter_sel_end=True)
         if ret_tags: self.tags_add_from_node(ret_tags)
         self.ctdb_handler.pending_new_db_node(new_node_id)
         self.nodes_sequences_fix(father_iter, False)
+        self.update_node_aux_icon(new_node_iter)
         self.nodes_names_dict[new_node_id] = ret_name
         if self.node_add_is_duplication:
             if self.syntax_highlighting != cons.RICH_TEXT_ID:
@@ -2733,6 +2734,7 @@ iter_end, exclude_iter_sel_end=True)
              support.get_pango_weight(ret_is_bold), ret_fg])
         self.ctdb_handler.pending_new_db_node(new_node_id)
         self.nodes_sequences_fix(father_iter, False)
+        self.update_node_aux_icon(new_node_iter)
         self.nodes_names_dict[new_node_id] = ret_name
         self.treeview_safe_set_cursor(new_node_iter)
         self.sourceview.grab_focus()
@@ -2767,9 +2769,12 @@ iter_end, exclude_iter_sel_end=True)
     def node_toggle_read_only(self, *args):
         """Toggle the Read Only Property of the Selected Node"""
         if not self.is_there_selected_node_or_error(): return
-        self.treestore[self.curr_tree_iter][7] = not self.treestore[self.curr_tree_iter][7]
-        self.sourceview.set_editable(not self.treestore[self.curr_tree_iter][7])
+        node_is_ro = not self.get_node_read_only()
+        self.treestore[self.curr_tree_iter][7] = node_is_ro
+        self.sourceview.set_editable(not node_is_ro)
+        self.header_node_name_icon_lock.set_property(cons.STR_VISIBLE, node_is_ro)
         self.update_selected_node_statusbar_info()
+        self.update_node_aux_icon(self.curr_tree_iter)
         self.update_window_save_needed("npro")
         self.sourceview.grab_focus()
 
@@ -2820,8 +2825,9 @@ iter_end, exclude_iter_sel_end=True)
                                                                     ret_c_icon_id)
         if self.syntax_highlighting not in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID]:
             self.set_sourcebuffer_syntax_highlight(self.curr_buffer, self.syntax_highlighting)
-        self.sourceview.set_editable(not self.treestore[self.curr_tree_iter][7])
+        self.sourceview.set_editable(not ret_ro)
         self.update_selected_node_statusbar_info()
+        self.update_node_aux_icon(self.curr_tree_iter)
         self.treeview_set_colors()
         self.update_node_name_header()
         self.update_window_save_needed("npro")
@@ -2949,7 +2955,8 @@ iter_end, exclude_iter_sel_end=True)
         self.curr_buffer.connect('modified-changed', self.on_modified_changed)
         self.sourceview_set_properties(self.curr_tree_iter, self.syntax_highlighting)
         self.sourceview.set_sensitive(True)
-        self.sourceview.set_editable(not self.treestore[self.curr_tree_iter][7])
+        node_is_ro = self.get_node_read_only()
+        self.sourceview.set_editable(not node_is_ro)
         self.treeview_set_colors()
         self.update_node_name_header()
         self.state_machine.node_selected_changed(self.treestore[self.curr_tree_iter][3])
@@ -2973,6 +2980,7 @@ iter_end, exclude_iter_sel_end=True)
                 if self.enable_spell_check: self.spell_check_set_on()
             node_is_bookmarked = (str(node_id) in self.bookmarks)
             self.menu_tree_update_for_bookmarked_node(node_is_bookmarked)
+            self.header_node_name_icon_lock.set_property(cons.STR_VISIBLE, node_is_ro)
 
     def on_button_node_name_header_clicked(self, button, idx):
         node_id = self.node_name_header_buttons[idx+1]
@@ -2988,10 +2996,12 @@ iter_end, exclude_iter_sel_end=True)
         self.header_node_name_label = gtk.Label()
         self.header_node_name_label.set_padding(10, 0)
         self.header_node_name_label.set_ellipsize(pango.ELLIPSIZE_MIDDLE)
-        self.header_node_name_icon = gtk.image_new_from_stock("pin", gtk.ICON_SIZE_MENU)
+        self.header_node_name_icon_lock = gtk.image_new_from_stock("locked", gtk.ICON_SIZE_MENU)
+        self.header_node_name_icon_pin = gtk.image_new_from_stock("pin", gtk.ICON_SIZE_MENU)
         self.header_node_name_hbox.pack_start(self.header_node_name_hbuttonbox, expand=False)
         self.header_node_name_hbox.pack_start(self.header_node_name_label, expand=True)
-        self.header_node_name_hbox.pack_start(self.header_node_name_icon, expand=False)
+        self.header_node_name_hbox.pack_start(self.header_node_name_icon_lock, expand=False)
+        self.header_node_name_hbox.pack_start(self.header_node_name_icon_pin, expand=False)
         header_node_name_eventbox = gtk.EventBox()
         header_node_name_eventbox.add(self.header_node_name_hbox)
         return header_node_name_eventbox
@@ -3843,7 +3853,7 @@ iter_end, exclude_iter_sel_end=True)
                 embfile_id = int(data_vec[1])
                 tree_iter = self.get_tree_iter_from_node_id(node_id)
                 if not tree_iter: continue
-                is_ro = self.treestore[tree_iter][7]
+                is_ro = self.get_node_read_only(tree_iter)
                 if is_ro:
                     support.dialog_warning(_("Cannot Edit Embedded File in Read Only Node"), self.window)
                     continue
@@ -3955,13 +3965,14 @@ iter_end, exclude_iter_sel_end=True)
             return False
         return True
 
-    def is_curr_node_read_only(self):
-        """Returns True if the Current Selected Node is Read Only"""
-        return self.curr_tree_iter and self.treestore[self.curr_tree_iter][7]
+    def get_node_read_only(self, tree_iter=None):
+        """Returns True if the Given Node is Read Only"""
+        if tree_iter is None: tree_iter = self.curr_tree_iter
+        return tree_iter and self.treestore[tree_iter][7]
 
     def is_curr_node_not_read_only_or_error(self):
         """Returns False if the Current Selected Node is Read Only and prompts error dialog"""
-        if self.is_curr_node_read_only():
+        if self.get_node_read_only():
             support.dialog_error(_("The Selected Node is Read Only"), self.window)
             return False
         return True
@@ -4974,7 +4985,7 @@ iter_end, exclude_iter_sel_end=True)
             if self.syntax_highlighting == cons.RICH_TEXT_ID: tooltip_text += _("Rich Text")
             elif self.syntax_highlighting == cons.PLAIN_TEXT_ID: tooltip_text += _("Plain Text")
             else: tooltip_text += self.syntax_highlighting
-            if self.treestore[self.curr_tree_iter][7]: tooltip_text += "  -  " + _("Read Only")
+            if self.get_node_read_only(): tooltip_text += "  -  " + _("Read Only")
             if self.treestore[self.curr_tree_iter][6]: tooltip_text += "  -  " + _("Tags") + _(": ") + self.treestore[self.curr_tree_iter][6]
             if self.enable_spell_check and self.syntax_highlighting == cons.RICH_TEXT_ID:
                 tooltip_text += "  -  " + _("Spell Check") + _(": ") + self.spell_check_lang
@@ -5041,10 +5052,20 @@ iter_end, exclude_iter_sel_end=True)
         if self.enable_spell_check: self.spell_check_set_on()
         self.update_window_save_needed("nbuf", True)
 
-    def update_node_pre_icon(self, tree_iter, stock_id=None):
-        """Set Pre Icon to node"""
+    def update_node_aux_icon(self, tree_iter):
+        """Set Aux Icon to node"""
+        node_id = self.get_node_id_from_tree_iter(tree_iter)
+        is_bookmarked = str(node_id) in self.bookmarks
+        is_ro = self.get_node_read_only(tree_iter)
+        if is_bookmarked and is_ro:
+            stock_id = "lockpin"
+        elif is_bookmarked:
+            stock_id = "pin"
+        elif is_ro:
+            stock_id = "locked"
+        else:
+            stock_id = None
         self.treestore[tree_iter][8] = stock_id
-        self.aux_renderer_pixbuf.set_property("visible", len(self.bookmarks) > 0)
 
     def bookmark_curr_node_remove(self, *args):
         """Remove the Current Node from the Bookmarks List"""
@@ -5053,7 +5074,7 @@ iter_end, exclude_iter_sel_end=True)
         if curr_node_id_str in self.bookmarks:
             self.bookmarks.remove(curr_node_id_str)
             support.set_bookmarks_menu_items(self)
-            self.update_node_pre_icon(self.curr_tree_iter)
+            self.update_node_aux_icon(self.curr_tree_iter)
             self.update_window_save_needed("book")
             self.menu_tree_update_for_bookmarked_node(False)
 
@@ -5064,7 +5085,7 @@ iter_end, exclude_iter_sel_end=True)
         if not curr_node_id_str in self.bookmarks:
             self.bookmarks.append(curr_node_id_str)
             support.set_bookmarks_menu_items(self)
-            self.update_node_pre_icon(self.curr_tree_iter, stock_id="pin")
+            self.update_node_aux_icon(self.curr_tree_iter)
             self.update_window_save_needed("book")
             self.menu_tree_update_for_bookmarked_node(True)
 

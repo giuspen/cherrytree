@@ -371,7 +371,7 @@ class FindReplace:
             #print line_num, self.matches_num
         else: self.dad.sourceview.scroll_to_mark(mark_insert, cons.SCROLL_MARGIN)
         if self.replace_active:
-            if self.dad.is_curr_node_read_only(): return False
+            if self.dad.get_node_read_only(): return False
             replacer_text = self.dad.search_replace_dict['replace']
             text_buffer.delete_selection(interactive=False, default_editable=True)
             text_buffer.insert_at_cursor(replacer_text)

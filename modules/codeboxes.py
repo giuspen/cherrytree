@@ -304,7 +304,7 @@ class CodeBoxesHandler:
 
     def codebox_increase_width(self, *args):
         """Increase CodeBox Width"""
-        if self.dad.is_curr_node_read_only(): return
+        if self.dad.get_node_read_only(): return
         if self.curr_codebox_anchor.width_in_pixels:
             self.codebox_change_width_height(self.curr_codebox_anchor.frame_width + CB_WIDTH_HEIGHT_STEP_PIX, 0)
         else:
@@ -312,7 +312,7 @@ class CodeBoxesHandler:
 
     def codebox_decrease_width(self, *args):
         """Decrease CodeBox Width"""
-        if self.dad.is_curr_node_read_only(): return
+        if self.dad.get_node_read_only(): return
         if self.curr_codebox_anchor.width_in_pixels:
             if self.curr_codebox_anchor.frame_width - CB_WIDTH_HEIGHT_STEP_PIX >= CB_WIDTH_LIMIT_MIN:
                 self.codebox_change_width_height(self.curr_codebox_anchor.frame_width - CB_WIDTH_HEIGHT_STEP_PIX, 0)
@@ -322,12 +322,12 @@ class CodeBoxesHandler:
 
     def codebox_increase_height(self, *args):
         """Increase CodeBox Height"""
-        if self.dad.is_curr_node_read_only(): return
+        if self.dad.get_node_read_only(): return
         self.codebox_change_width_height(0, self.curr_codebox_anchor.frame_height + CB_WIDTH_HEIGHT_STEP_PIX)
 
     def codebox_decrease_height(self, *args):
         """Decrease CodeBox Height"""
-        if self.dad.is_curr_node_read_only(): return
+        if self.dad.get_node_read_only(): return
         if self.curr_codebox_anchor.frame_height - CB_WIDTH_HEIGHT_STEP_PIX >= CB_HEIGHT_LIMIT_MIN:
             self.codebox_change_width_height(0, self.curr_codebox_anchor.frame_height - CB_WIDTH_HEIGHT_STEP_PIX)
 
@@ -497,7 +497,7 @@ class CodeBoxesHandler:
     def on_sourceview_motion_notify_event_codebox(self, text_view, event):
         """Update the cursor image if the pointer moved"""
         if not self.dad.user_active: return False
-        text_view.set_editable(not self.dad.is_curr_node_read_only())
+        text_view.set_editable(not self.dad.get_node_read_only())
         x, y = text_view.window_to_buffer_coords(gtk.TEXT_WINDOW_TEXT, int(event.x), int(event.y))
         support.sourceview_cursor_and_tooltips_handler(self.dad, text_view, x, y)
         return False

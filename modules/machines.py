@@ -109,10 +109,6 @@ class XMLHandler:
                     self.append_tree_node(dom_iter, tree_father, discard_ids, node_sequence)
                 elif dom_iter.nodeName == "bookmarks":
                     self.dad.bookmarks = dom_iter.attributes['list'].value.split(",")
-                    for node_id_str in self.dad.bookmarks:
-                        tree_iter = self.dad.get_tree_iter_from_node_id(int(node_id_str))
-                        if tree_iter:
-                            self.dad.update_node_pre_icon(tree_iter, stock_id="pin")
                 dom_iter = dom_iter.nextSibling
             return True
 
@@ -165,6 +161,7 @@ class XMLHandler:
                                                             custom_icon_id,
                                                             support.get_pango_weight(is_bold),
                                                             foreground])
+        self.dad.update_node_aux_icon(tree_iter)
         self.dad.nodes_names_dict[unique_id] = self.dad.treestore[tree_iter][1]
         if discard_ids:
             # we are importing nodes
@@ -294,12 +291,13 @@ class XMLHandler:
         self.dom = xml.dom.minidom.Document()
         cherrytree = self.dom.createElement(cons.APP_NAME)
         self.dom.appendChild(cherrytree)
+        # bookmarks first
+        self.append_bookmarks(cherrytree)
         # full tree parsing
         tree_iter = self.dad.treestore.get_iter_first()
         while tree_iter != None:
             self.append_dom_node(tree_iter, cherrytree, to_disk=True)
             tree_iter = self.dad.treestore.iter_next(tree_iter)
-        self.append_bookmarks(cherrytree)
         return self.dom.toprettyxml()
 
     def append_bookmarks(self, dom_father):

@@ -264,7 +264,8 @@ CHERRY_YELLOW, 'image_insert', 'image_edit', 'image_save',
 'add', 'cancel', 'done', 'java', 'mail', 'notes', 'python', 'remove', 'star',
 'terminal', 'terminal-red', 'warning', 'home', 'code', 'html',
 'circle-green', 'circle-grey', 'circle-red', 'circle-yellow',
-'locked', 'unlocked', 'people', 'urgent', 'folder', 'leaf', 'xml', 'c', 'cpp', 'perl',
+'locked', 'unlocked', 'lockpin', 'people', 'urgent', 'folder', 'leaf',
+'xml', 'c', 'cpp', 'perl',
 ]
 NODES_STOCKS_KEYS = [1,2,3,4,5,6,7,8,9,40,41,42,10,43,11,12,13,14,15,16,44,18,19,20,39,38,21,22,23,24,46,47,48,17,25,26,45,27,28,29,30,31,32,33,34,35,36,37]
 NODES_STOCKS = {

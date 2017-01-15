@@ -592,6 +592,7 @@ class CTDBHandler:
                                                             custom_icon_id,
                                                             support.get_pango_weight(is_bold),
                                                             foreground])
+        self.dad.update_node_aux_icon(tree_iter)
         self.dad.nodes_names_dict[self.dad.treestore[tree_iter][3]] = self.dad.treestore[tree_iter][1]
         if discard_ids:
             # we are importing (=> adding) a node
@@ -612,6 +613,11 @@ class CTDBHandler:
 
     def read_db_full(self, db, discard_ids, tree_father=None):
         """Read the whole DB"""
+        # bookmarks
+        bookmarks_rows = db.execute('SELECT * FROM bookmark ORDER BY sequence ASC').fetchall()
+        for bookmark_row in bookmarks_rows:
+            node_id = bookmark_row['node_id']
+            self.dad.bookmarks.append(str(node_id))
         # tree nodes
         node_sequence = 0
         children_rows = self.get_children_rows_from_father_id(db, 0)
@@ -624,12 +630,4 @@ class CTDBHandler:
                                              tree_father,
                                              discard_ids,
                                              node_sequence)
-        # bookmarks
-        bookmarks_rows = db.execute('SELECT * FROM bookmark ORDER BY sequence ASC').fetchall()
-        for bookmark_row in bookmarks_rows:
-            node_id = bookmark_row['node_id']
-            self.dad.bookmarks.append(str(node_id))
-            tree_iter = self.dad.get_tree_iter_from_node_id(node_id)
-            if tree_iter:
-                self.dad.update_node_pre_icon(tree_iter, stock_id="pin")
         self.dad.nodes_sequences_fix(tree_father, False)
