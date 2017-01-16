@@ -207,6 +207,7 @@ def config_file_load(dad):
         dad.expcollcur3 = cfg.getint(section, "expcollcur3") if cfg.has_option(section, "expcollcur3") else 0
         dad.nodes_bookm_exp = cfg.getboolean(section, "nodes_bookm_exp") if cfg.has_option(section, "nodes_bookm_exp") else False
         dad.nodes_icons = cfg.get(section, "nodes_icons") if cfg.has_option(section, "nodes_icons") else "c"
+        dad.aux_icon_hide = cfg.getboolean(section, "aux_icon_hide") if cfg.has_option(section, "aux_icon_hide") else False
         dad.default_icon_text = cfg.getint(section, "default_icon_text") if cfg.has_option(section, "default_icon_text") else cons.NODE_ICON_BULLET_ID
         dad.tree_right_side = cfg.getboolean(section, "tree_right_side") if cfg.has_option(section, "tree_right_side") else False
         dad.cherry_wrap_width = cfg.getint(section, "cherry_wrap_width") if cfg.has_option(section, "cherry_wrap_width") else 130
@@ -418,6 +419,7 @@ def config_file_load(dad):
         dad.backup_num = 3
         dad.autosave_on_quit = False
         dad.tree_right_side = False
+        dad.aux_icon_hide = False
         dad.nodes_bookm_exp = False
         dad.rt_show_white_spaces = False
         dad.pt_show_white_spaces = True
@@ -453,6 +455,7 @@ def config_file_apply(dad):
     if dad.line_wrapping: dad.sourceview.set_wrap_mode(gtk.WRAP_WORD)
     else: dad.sourceview.set_wrap_mode(gtk.WRAP_NONE)
     dad.renderer_text.set_property('wrap-width', dad.cherry_wrap_width)
+    dad.aux_renderer_pixbuf.set_property("visible", not dad.aux_icon_hide)
     dad.ui.get_widget("/ToolBar").set_property(cons.STR_VISIBLE, dad.toolbar_visible)
     dad.ui.get_widget("/ToolBar").set_style(gtk.TOOLBAR_ICONS)
     dad.ui.get_widget("/ToolBar").set_property("icon-size", ICONS_SIZE[dad.toolbar_icon_size])
@@ -531,6 +534,7 @@ def config_file_save(dad):
         cfg.set(section, "expcollcur3", dad.expcollcur3)
     cfg.set(section, "nodes_bookm_exp", dad.nodes_bookm_exp)
     cfg.set(section, "nodes_icons", dad.nodes_icons)
+    cfg.set(section, "aux_icon_hide", dad.aux_icon_hide)
     cfg.set(section, "default_icon_text", dad.default_icon_text)
     cfg.set(section, "tree_right_side", dad.tree_right_side)
     cfg.set(section, "cherry_wrap_width", dad.cherry_wrap_width)
@@ -1441,6 +1445,8 @@ def preferences_tab_tree_1(dad, vbox_tree, pref_dialog):
     radiobutton_node_icon_custom.set_group(radiobutton_node_icon_cherry)
     radiobutton_node_icon_none = gtk.RadioButton(label=_("No Icon"))
     radiobutton_node_icon_none.set_group(radiobutton_node_icon_cherry)
+    checkbutton_aux_icon_hide = gtk.CheckButton(_("Hide Right Side Auxiliary Icon"))
+    checkbutton_aux_icon_hide.set_active(dad.aux_icon_hide)
 
     c_icon_button = gtk.Button()
     c_icon_button.set_image(gtk.image_new_from_stock(cons.NODES_STOCKS[dad.default_icon_text], gtk.ICON_SIZE_BUTTON))
@@ -1452,6 +1458,7 @@ def preferences_tab_tree_1(dad, vbox_tree, pref_dialog):
     vbox_nodes_icons.pack_start(radiobutton_node_icon_cherry, expand=False)
     vbox_nodes_icons.pack_start(c_icon_hbox, expand=False)
     vbox_nodes_icons.pack_start(radiobutton_node_icon_none, expand=False)
+    vbox_nodes_icons.pack_start(checkbutton_aux_icon_hide, expand=False)
     frame_nodes_icons = gtk.Frame(label="<b>"+_("Default Text Nodes Icons")+"</b>")
     frame_nodes_icons.get_label_widget().set_use_markup(True)
     frame_nodes_icons.set_shadow_type(gtk.SHADOW_NONE)
@@ -1570,6 +1577,11 @@ def preferences_tab_tree_1(dad, vbox_tree, pref_dialog):
     def on_checkbutton_nodes_bookm_exp_toggled(checkbutton):
         dad.nodes_bookm_exp = checkbutton.get_active()
     checkbutton_nodes_bookm_exp.connect('toggled', on_checkbutton_nodes_bookm_exp_toggled)
+    def on_checkbutton_aux_icon_hide_toggled(checkbutton):
+        dad.aux_icon_hide = checkbutton.get_active()
+        dad.aux_renderer_pixbuf.set_property("visible", not dad.aux_icon_hide)
+        dad.treeview_refresh()
+    checkbutton_aux_icon_hide.connect('toggled', on_checkbutton_aux_icon_hide_toggled)
 
 def preferences_tab_fonts(dad, vbox_fonts, pref_dialog):
     """Preferences Dialog, Fonts Tab"""
