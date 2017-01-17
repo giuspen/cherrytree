@@ -1685,6 +1685,18 @@ def dialog_color_pick(dad, curr_color=None):
     colorselection.set_has_palette(True)
     if curr_color:
         colorselection.set_current_color(curr_color)
+    def on_key_press_color_pick_dialog(widget, event):
+        if gtk.gdk.keyval_name(event.keyval) == cons.STR_KEY_RETURN:
+            try: dialog.get_widget_for_response(gtk.RESPONSE_OK).clicked()
+            except: print cons.STR_PYGTK_222_REQUIRED
+            return True
+        return False
+    dialog.connect("key_press_event", on_key_press_color_pick_dialog)
+    def on_mouse_button_clicked_color_pick_dialog(widget, event):
+        if event.button == 1 and event.type == gtk.gdk._2BUTTON_PRESS:
+            try: dialog.get_widget_for_response(gtk.RESPONSE_OK).clicked()
+            except: print cons.STR_PYGTK_222_REQUIRED
+    dialog.connect('button-press-event', on_mouse_button_clicked_color_pick_dialog)
     response = dialog.run()
     dialog.hide()
     if response != gtk.RESPONSE_OK: return None
