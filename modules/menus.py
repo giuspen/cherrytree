@@ -536,6 +536,7 @@ def get_popup_menu_entries_code(dad):
     # "submenu-end", None, None, None, None
     return [
 (cons.TAG_SEPARATOR, None, None, None, None),
+get_menu_item_tuple(dad, "exec_code"),
 ("submenu-start", _("_Insert") , "insert", None, None),
 get_menu_item_tuple(dad, "insert_timestamp"),
 get_menu_item_tuple(dad, "insert_horiz_rule"),
@@ -634,6 +635,7 @@ def get_popup_menu_entries_codebox(dad):
     return [
 (cons.TAG_SEPARATOR, None, None, None, None),
 ("codebox_edit", _("Change CodeBox _Properties"), None, _("Edit the Properties of the CodeBox"), dad.codebox_change_properties),
+("gtk-execute", _("_Execute CodeBox Code"), None, _("Execute CodeBox Code"), dad.dad.exec_code),
 ("from_txt", _("CodeBox _Load From Text File"), None, _("Load the CodeBox Content From a Text File"), dad.codebox_load_from_file),
 ("to_txt", _("CodeBox _Save To Text File"), None, _("Save the CodeBox Content To a Text File"), dad.codebox_save_to_file),
 (cons.TAG_SEPARATOR, None, None, None, None),

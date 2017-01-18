@@ -41,14 +41,14 @@ class CodeBoxesHandler:
         self.curr_h = 0
         self.key_down = False
 
-    def codebox_in_use(self):
+    def codebox_in_use_get_anchor(self):
         """Returns a CodeBox SourceView if Currently in Use or None"""
         if not self.curr_codebox_anchor: return None
         if not self.dad.curr_buffer: return None
         iter_sel_start = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
         anchor = iter_sel_start.get_child_anchor()
         if not anchor: return None
-        if "sourcebuffer" in dir(anchor): return anchor.sourceview
+        if "sourcebuffer" in dir(anchor): return anchor
         return None
 
     def codebox_cut(self, *args):

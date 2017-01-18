@@ -1007,7 +1007,7 @@ def preferences_tab_rich_text(dad, vbox_text_nodes, pref_dialog):
     spinbutton_embfile_size.set_value(dad.embfile_size)
     hbox_embfile_size.pack_start(label_embfile_size, expand=False)
     hbox_embfile_size.pack_start(spinbutton_embfile_size, expand=False)
-    checkbutton_embfile_show_filename = gtk.CheckButton(_("Show File Name on top of Embedded File Icon"))
+    checkbutton_embfile_show_filename = gtk.CheckButton(_("Show File Name on Top of Embedded File Icon"))
     checkbutton_embfile_show_filename.set_active(dad.embfile_show_filename)
     label_limit_undoable_steps = gtk.Label(_("Limit of Undoable Steps Per Node"))
     adj_limit_undoable_steps = gtk.Adjustment(value=dad.limit_undoable_steps, lower=1, upper=10000, step_incr=1)

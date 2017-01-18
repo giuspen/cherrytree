@@ -514,8 +514,9 @@ iter_end, exclude_iter_sel_end=True)
 
     def get_text_view_n_buffer_codebox_proof(self):
         """Returns Tuple TextView, TextBuffer, Boolean checking if CodeBox in Use"""
-        text_view = self.codeboxes_handler.codebox_in_use()
-        if text_view:
+        anchor = self.codeboxes_handler.codebox_in_use_get_anchor()
+        if anchor:
+            text_view = anchor.sourceview
             text_buffer = text_view.get_buffer()
             from_codebox = True
         else:
@@ -3747,14 +3748,10 @@ iter_end, exclude_iter_sel_end=True)
         if not self.is_there_selected_node_or_error(): return
         if self.syntax_highlighting == cons.RICH_TEXT_ID:
             code_type = None
-            if self.curr_buffer.get_has_selection():
-                iter_sel_start, iter_sel_end = self.curr_buffer.get_selection_bounds()
-                num_chars = iter_sel_end.get_offset() - iter_sel_start.get_offset()
-                if num_chars == 1:
-                    anchor = iter_sel_start.get_child_anchor()
-                    if anchor and "sourcebuffer" in dir(anchor):
-                        code_type = anchor.syntax_highlighting
-                        code_val = unicode(anchor.sourcebuffer.get_text(*anchor.sourcebuffer.get_bounds()), cons.STR_UTF8, cons.STR_IGNORE)
+            anchor = self.codeboxes_handler.codebox_in_use_get_anchor()
+            if anchor:
+                code_type = anchor.syntax_highlighting
+                code_val = unicode(anchor.sourcebuffer.get_text(*anchor.sourcebuffer.get_bounds()), cons.STR_UTF8, cons.STR_IGNORE)
             if not code_type:
                 support.dialog_warning(_("No CodeBox is Selected"), self.window)
                 return
@@ -3764,7 +3761,7 @@ iter_end, exclude_iter_sel_end=True)
         #print code_type
         binary_cmd = config.get_code_exec_type_cmd(self, code_type)
         if not binary_cmd:
-            support.dialog_warning(_("You must associate a command with '%s'.\nDo so in the Preferences Dialog") % code_type, self.window)
+            support.dialog_warning(_("You must associate a command to '%s'.\nDo so in the Preferences Dialog") % code_type, self.window)
             return
         filepath_src_tmp = os.path.join(cons.TMP_FOLDER, "exec_code.cmd")
         filepath_bin_tmp = os.path.join(cons.TMP_FOLDER, "exec_code.exe")
@@ -3778,7 +3775,9 @@ iter_end, exclude_iter_sel_end=True)
         if not os.path.isdir(cons.TMP_FOLDER): os.makedirs(cons.TMP_FOLDER)
         with open(filepath_src_tmp, 'w') as fd:
             fd.write(code_val)
-        subprocess.call(terminal_cmd, shell=True)
+        ret_code = subprocess.call(terminal_cmd, shell=True)
+        if ret_code and terminal_cmd.startswith("xterm ") and subprocess.call("xterm -version", shell=True):
+            support.dialog_error(_("Install the package 'xterm' or configure a different terminal in the Preferences Dialog"), self.window)
         self.ctdb_handler.remove_at_quit_set.add(filepath_src_tmp)
         self.ctdb_handler.remove_at_quit_set.add(filepath_bin_tmp)
 

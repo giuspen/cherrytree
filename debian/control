@@ -18,7 +18,6 @@ Package: cherrytree
 Architecture: all
 Depends:
  p7zip-full,
- xterm,
  python-appindicator,
  python-dbus,
  python-enchant,
