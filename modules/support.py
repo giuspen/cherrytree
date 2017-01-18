@@ -19,9 +19,17 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
-import gtk, pango, locale, os, webbrowser, re
+import gtk, pango, locale, os, webbrowser, re, time
 import cons, config, exports
 
+
+def get_timestamp_str_from_float(dad, time_float):
+    """Get timestamp printable from float"""
+    try:
+        timestamp_str = time.strftime(dad.timestamp_format, time.localtime(time_float)).decode(locale.getlocale()[1])
+    except:
+        timestamp_str = time.strftime(config.TIMESTAMP_FORMAT_DEFAULT, time.localtime(time_float)).decode(locale.getlocale()[1])
+    return timestamp_str
 
 def auto_decode_str(in_str, from_clipboard=False):
     """Try to Detect Encoding and Decode"""
@@ -54,6 +62,7 @@ def auto_decode_str(in_str, from_clipboard=False):
     return out_str
 
 def apply_tag_try_node_name(dad, iter_start, iter_end):
+    """Apply Link to Node Tag if the text is a node name"""
     node_name = dad.curr_buffer.get_text(iter_start, iter_end)
     node_dest = dad.get_tree_iter_from_node_name(node_name)
     if node_dest:

@@ -20,7 +20,7 @@
 #       MA 02110-1301, USA.
 
 import gtk
-import os, sqlite3, xml.dom.minidom, re
+import os, sqlite3, xml.dom.minidom, re, time
 import cons, machines, support, exports
 
 
@@ -35,6 +35,7 @@ class CTDBHandler:
         self.bookmarks_to_write = False
         self.remove_at_quit_set = set()
         self.is_vacuum = False
+        self.db_tables_check_done = False
 
     def reset(self):
         """Reset Variables"""
@@ -253,6 +254,22 @@ class CTDBHandler:
         for child_row in children_rows:
             self.remove_db_node_n_children(db, child_row['node_id'])
 
+    def db_tables_execute_check(self, db):
+        curr_cols_num_node = len(db.execute('PRAGMA table_info(node)').fetchall())
+        if curr_cols_num_node == 11:
+            db.execute('ALTER TABLE node ADD COLUMN ts_creation INTEGER')
+            db.execute('ALTER TABLE node ADD COLUMN ts_lastsave INTEGER')
+            print "table 'node' alter from 11"
+        curr_cols_num_image = len(db.execute('PRAGMA table_info(image)').fetchall())
+        if curr_cols_num_image == 5:
+            db.execute('ALTER TABLE image ADD COLUMN filename TEXT')
+            db.execute('ALTER TABLE image ADD COLUMN link TEXT')
+            db.execute('ALTER TABLE image ADD COLUMN time INTEGER')
+            print "table 'image' alter from 5"
+        elif curr_cols_num_image == 7:
+            db.execute('ALTER TABLE image ADD COLUMN time INTEGER')
+            print "table 'image' alter from 7"
+
     def write_db_node(self, db, tree_iter, level, sequence, node_father_id, write_dict, exporting="", sel_range=None):
         """Write a node in DB"""
         node_id = self.dad.treestore[tree_iter][3]
@@ -272,6 +289,11 @@ class CTDBHandler:
         if foreground:
             is_richtxt |= 0x04
             is_richtxt |= exports.rgb_int24bit_from_str(foreground[1:]) << 3
+        ts_creation = self.dad.treestore[tree_iter][12]
+        ts_lastsave = self.dad.treestore[tree_iter][13]
+        if not self.db_tables_check_done:
+            self.db_tables_execute_check(db)
+            self.db_tables_check_done = True
         if write_dict['buff']:
             if not self.dad.treestore[tree_iter][2]:
                 # we are using db storage and the buffer was not created yet
@@ -332,13 +354,6 @@ class CTDBHandler:
                 else: has_table = 0
                 if images_tuples:
                     has_image = 1
-                    curr_num_cols = len(db.execute('PRAGMA table_info(image)').fetchall())
-                    if curr_num_cols == 5:
-                        db.execute('ALTER TABLE image ADD COLUMN filename TEXT')
-                        db.execute('ALTER TABLE image ADD COLUMN link TEXT')
-                        db.execute('ALTER TABLE image ADD COLUMN time INTEGER')
-                    elif curr_num_cols == 7:
-                        db.execute('ALTER TABLE image ADD COLUMN time INTEGER')
                     db.executemany('INSERT INTO image VALUES(?,?,?,?,?,?,?,?)', images_tuples)
                 else: has_image = 0
                 # retrieve xml text
@@ -354,10 +369,10 @@ class CTDBHandler:
                 db.execute('DELETE FROM node WHERE node_id=?', (node_id,))
             node_tuple = (node_id, name, txt, syntax, tags,
                           is_ro, is_richtxt, has_codebox, has_table, has_image,
-                          level)
-            db.execute('INSERT INTO node VALUES(?,?,?,?,?,?,?,?,?,?,?)', node_tuple)
+                          level, ts_creation, ts_lastsave)
+            db.execute('INSERT INTO node VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)', node_tuple)
         elif write_dict['buff']:
-            db.execute('UPDATE node SET txt=?, syntax=?, is_richtxt=?, has_codebox=?, has_table=?, has_image=?, level=? WHERE node_id=?', (txt, syntax, is_richtxt, has_codebox, has_table, has_image, level, node_id))
+            db.execute('UPDATE node SET txt=?, syntax=?, is_richtxt=?, has_codebox=?, has_table=?, has_image=?, level=?, ts_lastsave=? WHERE node_id=?', (txt, syntax, is_richtxt, has_codebox, has_table, has_image, level, ts_lastsave, node_id))
         elif write_dict['prop']:
             db.execute('UPDATE node SET name=?, syntax=?, tags=?, is_ro=?, is_richtxt=?, level=? WHERE node_id=?', (name, syntax, tags, is_ro, is_richtxt, level, node_id))
         if write_dict['hier']:
@@ -578,6 +593,12 @@ class CTDBHandler:
                 syntax_highlighting = cons.RICH_TEXT_ID
         node_level = self.dad.treestore.iter_depth(tree_father)+1 if tree_father else 0
         cherry = self.dad.get_node_icon(node_level, syntax_highlighting, custom_icon_id)
+        try:
+            ts_creation = node_row['ts_creation']
+            ts_lastsave = node_row['ts_lastsave']
+        except:
+            ts_creation = 0
+            ts_lastsave = 0
         #print "added node with unique_id", unique_id
         # insert the node containing the buffer into the tree
         tree_iter = self.dad.treestore.append(tree_father, [cherry,
@@ -591,7 +612,9 @@ class CTDBHandler:
                                                             None,
                                                             custom_icon_id,
                                                             support.get_pango_weight(is_bold),
-                                                            foreground])
+                                                            foreground,
+                                                            ts_creation,
+                                                            ts_lastsave])
         self.dad.update_node_aux_icon(tree_iter)
         self.dad.nodes_names_dict[self.dad.treestore[tree_iter][3]] = self.dad.treestore[tree_iter][1]
         if discard_ids:
@@ -613,6 +636,7 @@ class CTDBHandler:
 
     def read_db_full(self, db, discard_ids, tree_father=None):
         """Read the whole DB"""
+        self.db_tables_check_done = False
         # bookmarks
         bookmarks_rows = db.execute('SELECT * FROM bookmark ORDER BY sequence ASC').fetchall()
         for bookmark_row in bookmarks_rows:

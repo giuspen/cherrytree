@@ -359,7 +359,9 @@ is_richtxt INTEGER,
 has_codebox INTEGER,
 has_table INTEGER,
 has_image INTEGER,
-level INTEGER
+level INTEGER,
+ts_creation INTEGER,
+ts_lastsave INTEGER
 )"""
 
 TABLE_CODEBOX_CREATE = """CREATE TABLE codebox (

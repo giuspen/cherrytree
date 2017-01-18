@@ -117,8 +117,8 @@ class CherryTree:
         hbox_statusbar.pack_start(progress_frame, False, True)
         hbox_statusbar.pack_start(self.progresstop, False, True)
         vbox_main.pack_start(hbox_statusbar, False, False)
-        # ROW: 0-icon_stock_id, 1-name, 2-buffer, 3-unique_id, 4-syntax_highlighting, 5-node_sequence, 6-tags, 7-readonly, 8-aux_icon_stock_id, 9-custom_icon_id, 10-weight, 11-foreground
-        self.treestore = gtk.TreeStore(str, str, gobject.TYPE_PYOBJECT, long, str, int, str, gobject.TYPE_BOOLEAN, str, int, int, str)
+        # ROW: 0-icon_stock_id, 1-name, 2-buffer, 3-unique_id, 4-syntax_highlighting, 5-node_sequence, 6-tags, 7-readonly, 8-aux_icon_stock_id, 9-custom_icon_id, 10-weight, 11-foreground, 12-ts_creation, 13-ts_lastsave
+        self.treestore = gtk.TreeStore(str, str, gobject.TYPE_PYOBJECT, long, str, int, str, gobject.TYPE_BOOLEAN, str, int, int, str, float, float)
         self.treeview = gtk.TreeView(self.treestore)
         self.treeview.set_headers_visible(False)
         self.treeview.drag_source_set(gtk.gdk.BUTTON1_MASK,
@@ -2674,17 +2674,19 @@ iter_end, exclude_iter_sel_end=True)
         node_level = self.treestore.iter_depth(father_iter)+1 if father_iter else 0
         cherry = self.get_node_icon(node_level, self.syntax_highlighting, ret_c_icon_id)
         new_node_id = self.node_id_get()
+        ts_creation = time.time()
+        ts_lastsave = 0
         if self.curr_tree_iter != None:
             new_node_iter = self.treestore.insert_after(father_iter,
                 self.curr_tree_iter,
                 [cherry, ret_name, self.buffer_create(self.syntax_highlighting),
                  new_node_id, self.syntax_highlighting, 0, ret_tags, ret_ro, None, ret_c_icon_id,
-                 support.get_pango_weight(ret_is_bold), ret_fg])
+                 support.get_pango_weight(ret_is_bold), ret_fg, ts_creation, ts_lastsave])
         else:
             new_node_iter = self.treestore.append(father_iter,
                 [cherry, ret_name, self.buffer_create(self.syntax_highlighting),
                  new_node_id, self.syntax_highlighting, 0, ret_tags, ret_ro, None, ret_c_icon_id,
-                 support.get_pango_weight(ret_is_bold), ret_fg])
+                 support.get_pango_weight(ret_is_bold), ret_fg, ts_creation, ts_lastsave])
         if ret_tags: self.tags_add_from_node(ret_tags)
         self.ctdb_handler.pending_new_db_node(new_node_id)
         self.nodes_sequences_fix(father_iter, False)
@@ -2729,10 +2731,12 @@ iter_end, exclude_iter_sel_end=True)
         node_level = self.treestore.iter_depth(father_iter)+1 if father_iter else 0
         cherry = self.get_node_icon(node_level, self.syntax_highlighting, ret_c_icon_id)
         new_node_id = self.node_id_get()
+        ts_creation = time.time()
+        ts_lastsave = 0
         new_node_iter = self.treestore.append(father_iter,
             [cherry, ret_name, self.buffer_create(self.syntax_highlighting),
              new_node_id, self.syntax_highlighting, 0, ret_tags, ret_ro, None, ret_c_icon_id,
-             support.get_pango_weight(ret_is_bold), ret_fg])
+             support.get_pango_weight(ret_is_bold), ret_fg, ts_creation, ts_lastsave])
         self.ctdb_handler.pending_new_db_node(new_node_id)
         self.nodes_sequences_fix(father_iter, False)
         self.update_node_aux_icon(new_node_iter)
@@ -4171,8 +4175,7 @@ iter_end, exclude_iter_sel_end=True)
         embfile_Mbytes = embfile_Kbytes/1024
         if embfile_Mbytes > 1: human_readable_size = "%.1f MB" % embfile_Mbytes
         else: human_readable_size = "%.1f KB" % embfile_Kbytes
-        try: timestamp = time.strftime(self.timestamp_format, time.localtime(anchor.pixbuf.time)).decode(locale.getlocale()[1])
-        except: timestamp = time.strftime(config.TIMESTAMP_FORMAT_DEFAULT, time.localtime(anchor.pixbuf.time)).decode(locale.getlocale()[1])
+        timestamp = support.get_timestamp_str_from_float(self, anchor.pixbuf.time)
         anchor.eventbox.set_tooltip_text("%s\n%s (%d Bytes)\n%s" % (anchor.pixbuf.filename, human_readable_size, embfile_bytes, timestamp))
 
     def image_edit(self, *args):
@@ -4978,21 +4981,29 @@ iter_end, exclude_iter_sel_end=True)
     def update_selected_node_statusbar_info(self):
         """Update the statusbar with node info"""
         if not self.curr_tree_iter:
-            tooltip_text = _("No Node is Selected")
+            statusbar_text = _("No Node is Selected")
         else:
-            tooltip_text = _("Node Type") + _(": ")
-            if self.syntax_highlighting == cons.RICH_TEXT_ID: tooltip_text += _("Rich Text")
-            elif self.syntax_highlighting == cons.PLAIN_TEXT_ID: tooltip_text += _("Plain Text")
-            else: tooltip_text += self.syntax_highlighting
-            if self.get_node_read_only(): tooltip_text += "  -  " + _("Read Only")
-            if self.treestore[self.curr_tree_iter][6]: tooltip_text += "  -  " + _("Tags") + _(": ") + self.treestore[self.curr_tree_iter][6]
+            separator_text = "  -  "
+            statusbar_text = _("Node Type") + _(": ")
+            if self.syntax_highlighting == cons.RICH_TEXT_ID: statusbar_text += _("Rich Text")
+            elif self.syntax_highlighting == cons.PLAIN_TEXT_ID: statusbar_text += _("Plain Text")
+            else: statusbar_text += self.syntax_highlighting
+            if self.treestore[self.curr_tree_iter][6]: statusbar_text += separator_text + _("Tags") + _(": ") + self.treestore[self.curr_tree_iter][6]
             if self.enable_spell_check and self.syntax_highlighting == cons.RICH_TEXT_ID:
-                tooltip_text += "  -  " + _("Spell Check") + _(": ") + self.spell_check_lang
+                statusbar_text += separator_text + _("Spell Check") + _(": ") + self.spell_check_lang
             if self.word_count:
-                tooltip_text += "  -  " + _("Word Count") + _(": ") + str(self.get_word_count())
+                statusbar_text += separator_text + _("Word Count") + _(": ") + str(self.get_word_count())
+            ts_creation = self.treestore[self.curr_tree_iter][12]
+            if ts_creation:
+                timestamp_creation = support.get_timestamp_str_from_float(self, ts_creation)
+                statusbar_text += separator_text + _("Created") + _(": ") + timestamp_creation
+                ts_lastsave = self.treestore[self.curr_tree_iter][13]
+                if ts_lastsave:
+                    timestamp_lastsave = support.get_timestamp_str_from_float(self, ts_lastsave)
+                    statusbar_text += separator_text + _("Last Saved") + _(": ") + timestamp_lastsave
             print "sel node id=%s, seq=%s" % (self.treestore[self.curr_tree_iter][3], self.treestore[self.curr_tree_iter][5])
         self.statusbar.pop(self.statusbar_context_id)
-        self.statusbar.push(self.statusbar_context_id, tooltip_text)
+        self.statusbar.push(self.statusbar_context_id, statusbar_text)
 
     def get_word_count(self):
         if self.curr_buffer:
@@ -5097,7 +5108,8 @@ iter_end, exclude_iter_sel_end=True)
         """Insert Timestamp"""
         text_view, text_buffer, from_codebox = self.get_text_view_n_buffer_codebox_proof()
         if not text_buffer: return
-        text_buffer.insert_at_cursor(time.strftime(self.timestamp_format).decode(locale.getlocale()[1]))
+        timestamp = support.get_timestamp_str_from_float(self, time.time())
+        text_buffer.insert_at_cursor(timestamp)
 
     def set_selection_at_offset_n_delta(self, offset, delta, text_buffer=None):
         """Set the Selection from given offset to offset+delta"""

@@ -132,6 +132,8 @@ class XMLHandler:
                 syntax_highlighting = cons.RICH_TEXT_ID
         node_depth = 0 if not tree_father else self.dad.treestore.iter_depth(tree_father)+1
         cherry = self.dad.get_node_icon(node_depth, syntax_highlighting, custom_icon_id)
+        ts_creation = float(dom_iter.attributes['ts_creation'].value) if dom_iter.hasAttribute('ts_creation') else 0
+        ts_lastsave = float(dom_iter.attributes['ts_lastsave'].value) if dom_iter.hasAttribute('ts_lastsave') else 0
         curr_buffer = self.dad.buffer_create(syntax_highlighting)
         if syntax_highlighting != cons.RICH_TEXT_ID: curr_buffer.begin_not_undoable_action()
         # loop into rich text, write into the buffer
@@ -160,7 +162,9 @@ class XMLHandler:
                                                             None,
                                                             custom_icon_id,
                                                             support.get_pango_weight(is_bold),
-                                                            foreground])
+                                                            foreground,
+                                                            ts_creation,
+                                                            ts_lastsave])
         self.dad.update_node_aux_icon(tree_iter)
         self.dad.nodes_names_dict[unique_id] = self.dad.treestore[tree_iter][1]
         if discard_ids:
@@ -318,6 +322,8 @@ class XMLHandler:
         dom_iter.setAttribute("readonly", str(self.dad.treestore[tree_iter][7]))
         dom_iter.setAttribute("custom_icon_id", str(self.dad.treestore[tree_iter][9]))
         dom_iter.setAttribute("is_bold", str(support.get_pango_is_bold(self.dad.treestore[tree_iter][10])))
+        dom_iter.setAttribute("ts_creation", str(self.dad.treestore[tree_iter][12]))
+        dom_iter.setAttribute("ts_lastsave", str(self.dad.treestore[tree_iter][13]))
         foreground = self.dad.treestore[tree_iter][11]
         if not foreground: foreground = ""
         dom_iter.setAttribute("foreground", foreground)

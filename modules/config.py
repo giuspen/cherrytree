@@ -467,6 +467,8 @@ def config_file_apply(dad):
         dad.menu_tree_update_for_bookmarked_node(node_is_bookmarked)
     dad.progresstop.hide()
     dad.progressbar.hide()
+    dad.header_node_name_icon_lock.hide()
+    dad.header_node_name_icon_pin.hide()
 
 def config_file_save(dad):
     """Save the Preferences to Config File"""
