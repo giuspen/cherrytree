@@ -197,7 +197,6 @@ class CherryTree:
         self.curr_buffer = None
         self.node_add_is_duplication = False
         self.nodes_cursor_pos = {}
-        self.search_replace_dict = {'find':"", 'replace':"", 'match_case':False, 'reg_exp':False, 'whole_word':False, 'start_word':False, 'fw':True, 'a_ff_fa':0, 'idialog':True}
         self.links_entries = {'webs':'', 'file':'', 'fold':'', 'anch':'', 'node':None}
         self.tags_set = set()
         self.file_update = False
@@ -1554,35 +1553,22 @@ iter_end, exclude_iter_sel_end=True)
             if not os.path.isdir(tree_tmp_folder): os.makedirs(tree_tmp_folder)
             last_letter = "d" if xml_string else "b"
             filepath_tmp = os.path.join(tree_tmp_folder, os.path.basename(filepath[:-1] + last_letter))
-            if xml_string: file_descriptor = open(filepath_tmp, 'w')
-            else:
-                if first_write:
-                    if not exporting:
-                        if "db" in dir(self) and self.db: self.db_old = self.db
-                        self.db = self.ctdb_handler.new_db(filepath_tmp)
-                        if "db_old" in dir(self) and self.db_old:
-                            self.db_old.close()
-                            del self.db_old
-                    elif exporting in ["a", "s", "n"]:
-                        print "exporting", exporting
-                        exp_db = self.ctdb_handler.new_db(filepath_tmp, exporting, sel_range)
-                        exp_db.close()
-                else: self.ctdb_handler.pending_data_write(self.db)
         else:
-            if xml_string: file_descriptor = open(filepath, 'w')
-            else:
-                if first_write:
-                    if not exporting:
-                        if "db" in dir(self) and self.db: self.db_old = self.db
-                        self.db = self.ctdb_handler.new_db(filepath)
-                        if "db_old" in dir(self) and self.db_old:
-                            self.db_old.close()
-                            del self.db_old
-                    elif exporting in ["a", "s", "n"]:
-                        print "exporting", exporting
-                        exp_db = self.ctdb_handler.new_db(filepath, exporting, sel_range)
-                        exp_db.close()
-                else: self.ctdb_handler.pending_data_write(self.db)
+            filepath_tmp = filepath
+        if xml_string: file_descriptor = open(filepath_tmp, 'w')
+        else:
+            if first_write:
+                if not exporting:
+                    if "db" in dir(self) and self.db: self.db_old = self.db
+                    self.db = self.ctdb_handler.new_db(filepath_tmp)
+                    if "db_old" in dir(self) and self.db_old:
+                        self.db_old.close()
+                        del self.db_old
+                elif exporting in ["a", "s", "n"]:
+                    print "exporting", exporting
+                    exp_db = self.ctdb_handler.new_db(filepath_tmp, exporting, sel_range)
+                    exp_db.close()
+            else: self.ctdb_handler.pending_data_write(self.db)
         if xml_string:
             file_descriptor.write(xml_string)
             file_descriptor.close()
@@ -2675,7 +2661,7 @@ iter_end, exclude_iter_sel_end=True)
         cherry = self.get_node_icon(node_level, self.syntax_highlighting, ret_c_icon_id)
         new_node_id = self.node_id_get()
         ts_creation = time.time()
-        ts_lastsave = 0
+        ts_lastsave = ts_creation
         if self.curr_tree_iter != None:
             new_node_iter = self.treestore.insert_after(father_iter,
                 self.curr_tree_iter,
@@ -2732,7 +2718,7 @@ iter_end, exclude_iter_sel_end=True)
         cherry = self.get_node_icon(node_level, self.syntax_highlighting, ret_c_icon_id)
         new_node_id = self.node_id_get()
         ts_creation = time.time()
-        ts_lastsave = 0
+        ts_lastsave = ts_creation
         new_node_iter = self.treestore.append(father_iter,
             [cherry, ret_name, self.buffer_create(self.syntax_highlighting),
              new_node_id, self.syntax_highlighting, 0, ret_tags, ret_ro, None, ret_c_icon_id,
@@ -3096,6 +3082,7 @@ iter_end, exclude_iter_sel_end=True)
             if update_type == "nbuf":
                 if tree_iter:
                     self.ctdb_handler.pending_edit_db_node_buff(self.treestore[tree_iter][3])
+                    self.treestore[tree_iter][13] = time.time()
             elif update_type == "npro":
                 if tree_iter:
                     self.ctdb_handler.pending_edit_db_node_prop(self.treestore[tree_iter][3])
@@ -3135,12 +3122,12 @@ iter_end, exclude_iter_sel_end=True)
 
     def find_again(self, *args):
         """Continue the previous search (a_node/in_selected_node/in_all_nodes)"""
-        self.search_replace_dict['idialog'] = False
+        self.find_handler.search_replace_dict['idialog'] = False
         self.find_handler.find_again()
 
     def find_back(self, *args):
         """Continue the previous search (a_node/in_selected_node/in_all_nodes) but in Opposite Direction"""
-        self.search_replace_dict['idialog'] = False
+        self.find_handler.search_replace_dict['idialog'] = False
         self.find_handler.find_back()
 
     def replace_in_selected_node(self, *args):
@@ -3343,117 +3330,6 @@ iter_end, exclude_iter_sel_end=True)
         text_view, text_buffer, from_codebox = self.get_text_view_n_buffer_codebox_proof()
         if not text_buffer: return
         text_buffer.insert_at_cursor(cons.CHAR_NEWLINE+self.h_rule+cons.CHAR_NEWLINE)
-
-    def dialog_search(self, title, replace_on):
-        """Opens the Search Dialog"""
-        dialog = gtk.Dialog(title=title,
-                            parent=self.window,
-                            flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
-                            buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
-                            gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
-        dialog.set_default_size(400, -1)
-        dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-        search_entry = gtk.Entry()
-        search_entry.set_text(self.search_replace_dict['find'])
-        search_frame = gtk.Frame(label="<b>"+_("Search for")+"</b>")
-        search_frame.get_label_widget().set_use_markup(True)
-        search_frame.set_shadow_type(gtk.SHADOW_NONE)
-        search_frame.add(search_entry)
-        if replace_on:
-            replace_entry = gtk.Entry()
-            replace_entry.set_text(self.search_replace_dict['replace'])
-            replace_frame = gtk.Frame(label="<b>"+_("Replace with")+"</b>")
-            replace_frame.get_label_widget().set_use_markup(True)
-            replace_frame.set_shadow_type(gtk.SHADOW_NONE)
-            replace_frame.add(replace_entry)
-        opt_vbox = gtk.VBox()
-        opt_vbox.set_spacing(1)
-        four_1_hbox = gtk.HBox()
-        four_1_hbox.set_homogeneous(True)
-        four_2_hbox = gtk.HBox()
-        four_2_hbox.set_homogeneous(True)
-        bw_fw_hbox = gtk.HBox()
-        bw_fw_hbox.set_homogeneous(True)
-        three_hbox = gtk.HBox()
-        three_hbox.set_homogeneous(True)
-        three_vbox = gtk.VBox()
-        match_case_checkbutton = gtk.CheckButton(label=_("Match Case"))
-        match_case_checkbutton.set_active(self.search_replace_dict['match_case'])
-        reg_exp_checkbutton = gtk.CheckButton(label=_("Regular Expression"))
-        reg_exp_checkbutton.set_active(self.search_replace_dict['reg_exp'])
-        whole_word_checkbutton = gtk.CheckButton(label=_("Whole Word"))
-        whole_word_checkbutton.set_active(self.search_replace_dict['whole_word'])
-        start_word_checkbutton = gtk.CheckButton(label=_("Start Word"))
-        start_word_checkbutton.set_active(self.search_replace_dict['start_word'])
-        fw_radiobutton = gtk.RadioButton(label=_("Forward"))
-        fw_radiobutton.set_active(self.search_replace_dict['fw'])
-        bw_radiobutton = gtk.RadioButton(label=_("Backward"))
-        bw_radiobutton.set_group(fw_radiobutton)
-        bw_radiobutton.set_active(not self.search_replace_dict['fw'])
-        all_radiobutton = gtk.RadioButton(label=_("All, List Matches"))
-        all_radiobutton.set_active(self.search_replace_dict['a_ff_fa'] == 0)
-        first_from_radiobutton = gtk.RadioButton(label=_("First From Selection"))
-        first_from_radiobutton.set_group(all_radiobutton)
-        first_from_radiobutton.set_active(self.search_replace_dict['a_ff_fa'] == 1)
-        first_all_radiobutton = gtk.RadioButton(label=_("First in All Range"))
-        first_all_radiobutton.set_group(all_radiobutton)
-        first_all_radiobutton.set_active(self.search_replace_dict['a_ff_fa'] == 2)
-        iter_dialog_checkbutton = gtk.CheckButton(label=_("Show Iterated Find/Replace Dialog"))
-        iter_dialog_checkbutton.set_active(self.search_replace_dict['idialog'])
-        four_1_hbox.pack_start(match_case_checkbutton)
-        four_1_hbox.pack_start(reg_exp_checkbutton)
-        four_2_hbox.pack_start(whole_word_checkbutton)
-        four_2_hbox.pack_start(start_word_checkbutton)
-        bw_fw_hbox.pack_start(fw_radiobutton)
-        bw_fw_hbox.pack_start(bw_radiobutton)
-        three_hbox.pack_start(all_radiobutton)
-        three_vbox.pack_start(first_from_radiobutton)
-        three_vbox.pack_start(first_all_radiobutton)
-        three_hbox.pack_start(three_vbox)
-        opt_vbox.pack_start(four_1_hbox)
-        opt_vbox.pack_start(four_2_hbox)
-        opt_vbox.pack_start(gtk.HSeparator())
-        opt_vbox.pack_start(bw_fw_hbox)
-        opt_vbox.pack_start(gtk.HSeparator())
-        opt_vbox.pack_start(three_hbox)
-        opt_vbox.pack_start(gtk.HSeparator())
-        opt_vbox.pack_start(iter_dialog_checkbutton)
-        opt_frame = gtk.Frame(label="<b>"+_("Search options")+"</b>")
-        opt_frame.get_label_widget().set_use_markup(True)
-        opt_frame.set_shadow_type(gtk.SHADOW_NONE)
-        opt_frame.add(opt_vbox)
-        content_area = dialog.get_content_area()
-        content_area.set_spacing(5)
-        content_area.pack_start(search_frame)
-        if replace_on: content_area.pack_start(replace_frame)
-        content_area.pack_start(opt_frame)
-        content_area.show_all()
-        search_entry.grab_focus()
-        def on_key_press_searchdialog(widget, event):
-            keyname = gtk.gdk.keyval_name(event.keyval)
-            if keyname == cons.STR_KEY_RETURN:
-                try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
-                except: print cons.STR_PYGTK_222_REQUIRED
-                return True
-            return False
-        dialog.connect('key_press_event', on_key_press_searchdialog)
-        response = dialog.run()
-        dialog.hide()
-        if response == gtk.RESPONSE_ACCEPT:
-            find_content = unicode(search_entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE)
-            if not find_content: return None
-            self.search_replace_dict['find'] = find_content
-            if replace_on:
-                self.search_replace_dict['replace'] = unicode(replace_entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE)
-            self.search_replace_dict['match_case'] = match_case_checkbutton.get_active()
-            self.search_replace_dict['reg_exp'] = reg_exp_checkbutton.get_active()
-            self.search_replace_dict['whole_word'] = whole_word_checkbutton.get_active()
-            self.search_replace_dict['start_word'] = start_word_checkbutton.get_active()
-            self.search_replace_dict['fw'] = fw_radiobutton.get_active()
-            self.search_replace_dict['a_ff_fa'] = 0 if all_radiobutton.get_active() else 1 if first_from_radiobutton.get_active() else 2
-            self.search_replace_dict['idialog'] = iter_dialog_checkbutton.get_active()
-            return self.search_replace_dict['find']
-        return None
 
     def dialog_nodeprop(self, title, name="", syntax_highl=cons.RICH_TEXT_ID, tags="", ro=False, c_icon_id=0, is_bold=False, fg=None):
         """Opens the Node Properties Dialog"""
@@ -4996,11 +4872,11 @@ iter_end, exclude_iter_sel_end=True)
             ts_creation = self.treestore[self.curr_tree_iter][12]
             if ts_creation:
                 timestamp_creation = support.get_timestamp_str_from_float(self, ts_creation)
-                statusbar_text += separator_text + _("Created") + _(": ") + timestamp_creation
-                ts_lastsave = self.treestore[self.curr_tree_iter][13]
-                if ts_lastsave:
-                    timestamp_lastsave = support.get_timestamp_str_from_float(self, ts_lastsave)
-                    statusbar_text += separator_text + _("Last Saved") + _(": ") + timestamp_lastsave
+                statusbar_text += separator_text + _("Date Created") + _(": ") + timestamp_creation
+            ts_lastsave = self.treestore[self.curr_tree_iter][13]
+            if ts_lastsave:
+                timestamp_lastsave = support.get_timestamp_str_from_float(self, ts_lastsave)
+                statusbar_text += separator_text + _("Date Modified") + _(": ") + timestamp_lastsave
             print "sel node id=%s, seq=%s" % (self.treestore[self.curr_tree_iter][3], self.treestore[self.curr_tree_iter][5])
         self.statusbar.pop(self.statusbar_context_id)
         self.statusbar.push(self.statusbar_context_id, statusbar_text)

@@ -563,7 +563,10 @@ class CTDBHandler:
 
     def get_node_row_partial_from_id(self, db, node_id):
         """Returns the (partial) node row given the node_id"""
-        node_row = db.execute('SELECT node_id, name, syntax, tags, is_ro, is_richtxt, level FROM node WHERE node_id=?', (node_id,)).fetchone()
+        try:
+            node_row = db.execute('SELECT node_id, name, syntax, tags, is_ro, is_richtxt, level, ts_creation, ts_lastsave FROM node WHERE node_id=?', (node_id,)).fetchone()
+        except:
+            node_row = db.execute('SELECT node_id, name, syntax, tags, is_ro, is_richtxt, level FROM node WHERE node_id=?', (node_id,)).fetchone()
         return node_row
 
     def read_db_node_n_children(self, db, node_row, tree_father, discard_ids, node_sequence):
@@ -596,9 +599,11 @@ class CTDBHandler:
         try:
             ts_creation = node_row['ts_creation']
             ts_lastsave = node_row['ts_lastsave']
-        except:
-            ts_creation = 0
-            ts_lastsave = 0
+        except IndexError:
+            ts_creation = None
+            ts_lastsave = None
+        if not ts_creation: ts_creation = 0
+        if not ts_lastsave: ts_lastsave = 0
         #print "added node with unique_id", unique_id
         # insert the node containing the buffer into the tree
         tree_iter = self.dad.treestore.append(tree_father, [cherry,
