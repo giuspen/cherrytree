@@ -20,8 +20,42 @@
 #       MA 02110-1301, USA.
 
 import gtk, gobject
-import re, cgi, time
+import re, cgi, time, datetime
 import cons, menus, support, config
+
+
+def dialog_date_select(parent_win, title, curr_datetime):
+    """Dialog to select a Date"""
+    dialog = gtk.Dialog(title=title,
+        parent=parent_win,
+        flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
+        buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
+                 gtk.STOCK_OK, gtk.RESPONSE_OK))
+    dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+    content_area = dialog.get_content_area()
+    calendar = gtk.Calendar()
+    calendar.select_month(curr_datetime.month-1, curr_datetime.year) # month 0-11
+    calendar.select_day(curr_datetime.day) # day 1-31
+    content_area.pack_start(calendar)
+    def on_key_press_dialog(widget, event):
+        if gtk.gdk.keyval_name(event.keyval) == cons.STR_KEY_RETURN:
+            try: dialog.get_widget_for_response(gtk.RESPONSE_OK).clicked()
+            except: print cons.STR_PYGTK_222_REQUIRED
+            return True
+        return False
+    dialog.connect("key_press_event", on_key_press_dialog)
+    def on_mouse_button_clicked_dialog(widget, event):
+        if event.button == 1 and event.type == gtk.gdk._2BUTTON_PRESS:
+            try: dialog.get_widget_for_response(gtk.RESPONSE_OK).clicked()
+            except: print cons.STR_PYGTK_222_REQUIRED
+    dialog.connect('button-press-event', on_mouse_button_clicked_dialog)
+    content_area.show_all()
+    response = dialog.run()
+    dialog.hide()
+    if response != gtk.RESPONSE_OK: return curr_datetime
+    new_year, new_month, new_day = calendar.get_date()
+    new_datetime = datetime.datetime(new_year, new_month+1, new_day)
+    return new_datetime
 
 
 class FindReplace:
@@ -39,9 +73,16 @@ class FindReplace:
         self.allmatchesdialog_init()
         self.iteratedfinddialog = None
         self.latest_node_offset = {}
-        self.search_replace_dict = {'find':"", 'replace':"", 'match_case':False, 'reg_exp':False, 'whole_word':False, 'start_word':False, 'fw':True, 'a_ff_fa':0, 'idialog':True}
+        self.search_replace_dict = {'find':"", 'replace':"",
+'match_case':False, 'reg_exp':False, 'whole_word':False, 'start_word':False,
+'fw':True, 'a_ff_fa':0,
+'ts_cre_>': [False, datetime.datetime.now()+datetime.timedelta(days=-1)],
+'ts_cre_<': [False, datetime.datetime.now()],
+'ts_mod_>': [False, datetime.datetime.now()+datetime.timedelta(days=-1)],
+'ts_mod_<': [False, datetime.datetime.now()],
+'idialog':True}
 
-    def dialog_search(self, title, replace_on):
+    def dialog_search(self, title, replace_on, multiple_nodes):
         """Opens the Search Dialog"""
         dialog = gtk.Dialog(title=title,
                             parent=self.dad.window,
@@ -95,6 +136,63 @@ class FindReplace:
         first_all_radiobutton = gtk.RadioButton(label=_("First in All Range"))
         first_all_radiobutton.set_group(all_radiobutton)
         first_all_radiobutton.set_active(self.search_replace_dict['a_ff_fa'] == 2)
+        if multiple_nodes:
+            ts_format = "%A, %d %B %Y"
+            ts_node_created_after_checkbutton = gtk.CheckButton(label=_("Node Created After"))
+            ts_node_created_after_button = gtk.Button(label=self.search_replace_dict['ts_cre_>'][1].strftime(ts_format))
+            ts_node_created_after_hbox = gtk.HBox()
+            ts_node_created_after_hbox.set_homogeneous(True)
+            ts_node_created_after_hbox.pack_start(ts_node_created_after_checkbutton)
+            ts_node_created_after_hbox.pack_start(ts_node_created_after_button)
+            ts_node_created_before_checkbutton = gtk.CheckButton(label=_("Node Created Before"))
+            ts_node_created_before_button = gtk.Button(label=self.search_replace_dict['ts_cre_<'][1].strftime(ts_format))
+            ts_node_created_before_hbox = gtk.HBox()
+            ts_node_created_before_hbox.set_homogeneous(True)
+            ts_node_created_before_hbox.pack_start(ts_node_created_before_checkbutton)
+            ts_node_created_before_hbox.pack_start(ts_node_created_before_button)
+            ts_node_modified_after_checkbutton = gtk.CheckButton(label=_("Node Modified After"))
+            ts_node_modified_after_button = gtk.Button(label=self.search_replace_dict['ts_mod_>'][1].strftime(ts_format))
+            ts_node_modified_after_hbox = gtk.HBox()
+            ts_node_modified_after_hbox.set_homogeneous(True)
+            ts_node_modified_after_hbox.pack_start(ts_node_modified_after_checkbutton)
+            ts_node_modified_after_hbox.pack_start(ts_node_modified_after_button)
+            ts_node_modified_before_checkbutton = gtk.CheckButton(label=_("Node Modified Before"))
+            ts_node_modified_before_button = gtk.Button(label=self.search_replace_dict['ts_mod_<'][1].strftime(ts_format))
+            ts_node_modified_before_hbox = gtk.HBox()
+            ts_node_modified_before_hbox.set_homogeneous(True)
+            ts_node_modified_before_hbox.pack_start(ts_node_modified_before_checkbutton)
+            ts_node_modified_before_hbox.pack_start(ts_node_modified_before_button)
+            ts_node_created_after_checkbutton.set_active(self.search_replace_dict['ts_cre_>'][0])
+            ts_node_created_before_checkbutton.set_active(self.search_replace_dict['ts_cre_<'][0])
+            ts_node_modified_after_checkbutton.set_active(self.search_replace_dict['ts_mod_>'][0])
+            ts_node_modified_before_checkbutton.set_active(self.search_replace_dict['ts_mod_<'][0])
+            ts_node_vbox = gtk.VBox()
+            ts_node_vbox.pack_start(ts_node_created_after_hbox)
+            ts_node_vbox.pack_start(ts_node_created_before_hbox)
+            ts_node_vbox.pack_start(gtk.HSeparator())
+            ts_node_vbox.pack_start(ts_node_modified_after_hbox)
+            ts_node_vbox.pack_start(ts_node_modified_before_hbox)
+            ts_frame = gtk.Frame(label="<b>"+_("Time filter")+"</b>")
+            ts_frame.get_label_widget().set_use_markup(True)
+            ts_frame.set_shadow_type(gtk.SHADOW_NONE)
+            ts_frame.add(ts_node_vbox)
+            def on_ts_node_button_clicked(widget, ts_id):
+                if ts_id == 'ts_cre_>':
+                    title = _("Node Created After")
+                elif ts_id == 'ts_cre_<':
+                    title = _("Node Created Before")
+                elif ts_id == 'ts_mod_>':
+                    title = _("Node Modified After")
+                else:
+                    title = _("Node Modified Before")
+                new_datetime = dialog_date_select(dialog, title, self.search_replace_dict[ts_id][1])
+                if new_datetime:
+                    self.search_replace_dict[ts_id][1] = new_datetime
+                    widget.set_label(new_datetime.strftime(ts_format))
+            ts_node_created_after_button.connect('clicked', on_ts_node_button_clicked, 'ts_cre_>')
+            ts_node_created_before_button.connect('clicked', on_ts_node_button_clicked, 'ts_cre_<')
+            ts_node_modified_after_button.connect('clicked', on_ts_node_button_clicked, 'ts_mod_>')
+            ts_node_modified_before_button.connect('clicked', on_ts_node_button_clicked, 'ts_mod_<')
         iter_dialog_checkbutton = gtk.CheckButton(label=_("Show Iterated Find/Replace Dialog"))
         iter_dialog_checkbutton.set_active(self.search_replace_dict['idialog'])
         four_1_hbox.pack_start(match_case_checkbutton)
@@ -114,6 +212,9 @@ class FindReplace:
         opt_vbox.pack_start(gtk.HSeparator())
         opt_vbox.pack_start(three_hbox)
         opt_vbox.pack_start(gtk.HSeparator())
+        if multiple_nodes:
+            opt_vbox.pack_start(ts_frame)
+            opt_vbox.pack_start(gtk.HSeparator())
         opt_vbox.pack_start(iter_dialog_checkbutton)
         opt_frame = gtk.Frame(label="<b>"+_("Search options")+"</b>")
         opt_frame.get_label_widget().set_use_markup(True)
@@ -148,6 +249,11 @@ class FindReplace:
             self.search_replace_dict['start_word'] = start_word_checkbutton.get_active()
             self.search_replace_dict['fw'] = fw_radiobutton.get_active()
             self.search_replace_dict['a_ff_fa'] = 0 if all_radiobutton.get_active() else 1 if first_from_radiobutton.get_active() else 2
+            if multiple_nodes:
+                self.search_replace_dict['ts_cre_>'][0] = ts_node_created_after_checkbutton.get_active()
+                self.search_replace_dict['ts_cre_<'][0] = ts_node_created_before_checkbutton.get_active()
+                self.search_replace_dict['ts_mod_>'][0] = ts_node_modified_after_checkbutton.get_active()
+                self.search_replace_dict['ts_mod_<'][0] = ts_node_modified_before_checkbutton.get_active()
             self.search_replace_dict['idialog'] = iter_dialog_checkbutton.get_active()
             return self.search_replace_dict['find']
         return None
@@ -211,7 +317,7 @@ class FindReplace:
                 self.search_replace_dict['find'] = entry_predefined_text
             if self.replace_active: title = _("Replace in Current Node...")
             else: title = _("Search in Current Node...")
-            pattern = self.dialog_search(title, self.replace_active)
+            pattern = self.dialog_search(title, self.replace_active, False)
             if entry_predefined_text != "":
                 self.dad.curr_buffer.move_mark(self.dad.curr_buffer.get_insert(), iter_insert)
                 self.dad.curr_buffer.move_mark(self.dad.curr_buffer.get_selection_bound(), iter_bound)
@@ -267,7 +373,7 @@ class FindReplace:
             else:
                 if father_tree_iter: title = _("Search in Selected Node and Subnodes")
                 else: title = _("Search in All Nodes")
-            pattern = self.dialog_search(title, self.replace_active)
+            pattern = self.dialog_search(title, self.replace_active, True)
             if entry_predefined_text != "":
                 self.dad.curr_buffer.move_mark(self.dad.curr_buffer.get_insert(), iter_insert)
                 self.dad.curr_buffer.move_mark(self.dad.curr_buffer.get_selection_bound(), iter_bound)
@@ -363,7 +469,7 @@ class FindReplace:
         if not self.from_find_iterated:
             if self.replace_active: title = _("Replace in Node Names...")
             else: title = _("Search For a Node Name...")
-            pattern_clean = self.dialog_search(title, self.replace_active)
+            pattern_clean = self.dialog_search(title, self.replace_active, True)
             if pattern_clean != None: self.curr_find = ["a_node", pattern_clean]
             else: return
         else: pattern_clean = self.curr_find[1]
