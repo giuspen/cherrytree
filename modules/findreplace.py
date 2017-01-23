@@ -24,7 +24,7 @@ import re, cgi, time, datetime
 import cons, menus, support, config
 
 
-def dialog_date_select(parent_win, title, curr_datetime):
+def dialog_date_select(parent_win, title, curr_time):
     """Dialog to select a Date"""
     dialog = gtk.Dialog(title=title,
         parent=parent_win,
@@ -34,14 +34,15 @@ def dialog_date_select(parent_win, title, curr_datetime):
     dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
     content_area = dialog.get_content_area()
     calendar = gtk.Calendar()
-    calendar.select_month(curr_datetime.month-1, curr_datetime.year) # month 0-11
-    calendar.select_day(curr_datetime.day) # day 1-31
-    adj_h = gtk.Adjustment(value=curr_datetime.hour, lower=0, upper=23, step_incr=1)
+    struct_time = time.localtime(curr_time)
+    calendar.select_month(struct_time.tm_mon-1, struct_time.tm_year) # month 0-11
+    calendar.select_day(struct_time.tm_mday) # day 1-31
+    adj_h = gtk.Adjustment(value=struct_time.tm_hour, lower=0, upper=23, step_incr=1)
     spinbutton_h = gtk.SpinButton(adj_h)
-    spinbutton_h.set_value(curr_datetime.hour)
-    adj_m = gtk.Adjustment(value=curr_datetime.minute, lower=0, upper=59, step_incr=1)
+    spinbutton_h.set_value(struct_time.tm_hour)
+    adj_m = gtk.Adjustment(value=struct_time.tm_min, lower=0, upper=59, step_incr=1)
     spinbutton_m = gtk.SpinButton(adj_m)
-    spinbutton_m.set_value(curr_datetime.minute)
+    spinbutton_m.set_value(struct_time.tm_min)
     hbox = gtk.HBox()
     hbox.pack_start(spinbutton_h)
     hbox.pack_start(spinbutton_m)
@@ -62,12 +63,13 @@ def dialog_date_select(parent_win, title, curr_datetime):
     content_area.show_all()
     response = dialog.run()
     dialog.hide()
-    if response != gtk.RESPONSE_OK: return curr_datetime
+    if response != gtk.RESPONSE_OK: return None
     new_year, new_month, new_day = calendar.get_date()
     new_h = int(spinbutton_h.get_value())
     new_m = int(spinbutton_m.get_value())
     new_datetime = datetime.datetime(new_year, new_month+1, new_day, new_h, new_m)
-    return new_datetime
+    new_time = time.mktime(new_datetime.timetuple())
+    return new_time
 
 
 class FindReplace:
@@ -85,30 +87,28 @@ class FindReplace:
         self.allmatchesdialog_init()
         self.iteratedfinddialog = None
         self.latest_node_offset = {}
+        time_now = time.time()
+        time_yesterday = time_now - 86400 #24*60*60
         self.search_replace_dict = {'find':"", 'replace':"",
 'match_case':False, 'reg_exp':False, 'whole_word':False, 'start_word':False,
 'fw':True, 'a_ff_fa':0,
-'ts_cre_>': [False, datetime.datetime.now()+datetime.timedelta(days=-1)],
-'ts_cre_<': [False, datetime.datetime.now()],
-'ts_mod_>': [False, datetime.datetime.now()+datetime.timedelta(days=-1)],
-'ts_mod_<': [False, datetime.datetime.now()],
+'ts_cre_>': [False, time_yesterday],
+'ts_cre_<': [False, time_now],
+'ts_mod_>': [False, time_yesterday],
+'ts_mod_<': [False, time_now],
 'idialog':True}
 
     def is_node_within_time_filter(self, node_iter):
         """Returns True if the given node_iter is within the Time Filter"""
         ts_cre = self.dad.treestore[node_iter][12]
-        if (self.search_replace_dict['ts_cre_>'][0]\
-        and time.mktime(self.search_replace_dict['ts_cre_>'][1].timetuple()) < ts_cre):
+        if self.search_replace_dict['ts_cre_>'][0] and ts_cre < self.search_replace_dict['ts_cre_>'][1]:
             return False
-        if (self.search_replace_dict['ts_cre_<'][0]\
-        and time.mktime(self.search_replace_dict['ts_cre_<'][1].timetuple()) > ts_cre):
+        if self.search_replace_dict['ts_cre_<'][0] and ts_cre > self.search_replace_dict['ts_cre_<'][1]:
             return False
         ts_mod = self.dad.treestore[node_iter][13]
-        if (self.search_replace_dict['ts_mod_>'][0]\
-        and time.mktime(self.search_replace_dict['ts_mod_>'][1].timetuple()) < ts_mod):
+        if self.search_replace_dict['ts_mod_>'][0] and ts_mod < self.search_replace_dict['ts_mod_>'][1]:
             return False
-        if (self.search_replace_dict['ts_mod_<'][0]\
-        and time.mktime(self.search_replace_dict['ts_mod_<'][1].timetuple()) > ts_mod):
+        if self.search_replace_dict['ts_mod_<'][0] and ts_mod > self.search_replace_dict['ts_mod_<'][1]:
             return False
         return True
 
@@ -169,25 +169,29 @@ class FindReplace:
         if multiple_nodes:
             ts_format = "%A, %d %B %Y, %H:%M"
             ts_node_created_after_checkbutton = gtk.CheckButton(label=_("Node Created After"))
-            ts_node_created_after_button = gtk.Button(label=self.search_replace_dict['ts_cre_>'][1].strftime(ts_format))
+            struct_time = time.localtime(self.search_replace_dict['ts_cre_>'][1])
+            ts_node_created_after_button = gtk.Button(label=time.strftime(ts_format, struct_time))
             ts_node_created_after_hbox = gtk.HBox()
             ts_node_created_after_hbox.set_homogeneous(True)
             ts_node_created_after_hbox.pack_start(ts_node_created_after_checkbutton)
             ts_node_created_after_hbox.pack_start(ts_node_created_after_button)
             ts_node_created_before_checkbutton = gtk.CheckButton(label=_("Node Created Before"))
-            ts_node_created_before_button = gtk.Button(label=self.search_replace_dict['ts_cre_<'][1].strftime(ts_format))
+            struct_time = time.localtime(self.search_replace_dict['ts_cre_<'][1])
+            ts_node_created_before_button = gtk.Button(label=time.strftime(ts_format, struct_time))
             ts_node_created_before_hbox = gtk.HBox()
             ts_node_created_before_hbox.set_homogeneous(True)
             ts_node_created_before_hbox.pack_start(ts_node_created_before_checkbutton)
             ts_node_created_before_hbox.pack_start(ts_node_created_before_button)
             ts_node_modified_after_checkbutton = gtk.CheckButton(label=_("Node Modified After"))
-            ts_node_modified_after_button = gtk.Button(label=self.search_replace_dict['ts_mod_>'][1].strftime(ts_format))
+            struct_time = time.localtime(self.search_replace_dict['ts_mod_>'][1])
+            ts_node_modified_after_button = gtk.Button(label=time.strftime(ts_format, struct_time))
             ts_node_modified_after_hbox = gtk.HBox()
             ts_node_modified_after_hbox.set_homogeneous(True)
             ts_node_modified_after_hbox.pack_start(ts_node_modified_after_checkbutton)
             ts_node_modified_after_hbox.pack_start(ts_node_modified_after_button)
             ts_node_modified_before_checkbutton = gtk.CheckButton(label=_("Node Modified Before"))
-            ts_node_modified_before_button = gtk.Button(label=self.search_replace_dict['ts_mod_<'][1].strftime(ts_format))
+            struct_time = time.localtime(self.search_replace_dict['ts_mod_<'][1])
+            ts_node_modified_before_button = gtk.Button(label=time.strftime(ts_format, struct_time))
             ts_node_modified_before_hbox = gtk.HBox()
             ts_node_modified_before_hbox.set_homogeneous(True)
             ts_node_modified_before_hbox.pack_start(ts_node_modified_before_checkbutton)
@@ -215,10 +219,11 @@ class FindReplace:
                     title = _("Node Modified After")
                 else:
                     title = _("Node Modified Before")
-                new_datetime = dialog_date_select(dialog, title, self.search_replace_dict[ts_id][1])
-                if new_datetime:
-                    self.search_replace_dict[ts_id][1] = new_datetime
-                    widget.set_label(new_datetime.strftime(ts_format))
+                new_time = dialog_date_select(dialog, title, self.search_replace_dict[ts_id][1])
+                if new_time:
+                    self.search_replace_dict[ts_id][1] = new_time
+                    struct_time = time.localtime(new_time)
+                    widget.set_label(time.strftime(ts_format, struct_time))
             ts_node_created_after_button.connect('clicked', on_ts_node_button_clicked, 'ts_cre_>')
             ts_node_created_before_button.connect('clicked', on_ts_node_button_clicked, 'ts_cre_<')
             ts_node_modified_after_button.connect('clicked', on_ts_node_button_clicked, 'ts_mod_>')
@@ -279,11 +284,10 @@ class FindReplace:
             self.search_replace_dict['start_word'] = start_word_checkbutton.get_active()
             self.search_replace_dict['fw'] = fw_radiobutton.get_active()
             self.search_replace_dict['a_ff_fa'] = 0 if all_radiobutton.get_active() else 1 if first_from_radiobutton.get_active() else 2
-            if multiple_nodes:
-                self.search_replace_dict['ts_cre_>'][0] = ts_node_created_after_checkbutton.get_active()
-                self.search_replace_dict['ts_cre_<'][0] = ts_node_created_before_checkbutton.get_active()
-                self.search_replace_dict['ts_mod_>'][0] = ts_node_modified_after_checkbutton.get_active()
-                self.search_replace_dict['ts_mod_<'][0] = ts_node_modified_before_checkbutton.get_active()
+            self.search_replace_dict['ts_cre_>'][0] = ts_node_created_after_checkbutton.get_active() if multiple_nodes else False
+            self.search_replace_dict['ts_cre_<'][0] = ts_node_created_before_checkbutton.get_active() if multiple_nodes else False
+            self.search_replace_dict['ts_mod_>'][0] = ts_node_modified_after_checkbutton.get_active() if multiple_nodes else False
+            self.search_replace_dict['ts_mod_<'][0] = ts_node_modified_before_checkbutton.get_active() if multiple_nodes else False
             self.search_replace_dict['idialog'] = iter_dialog_checkbutton.get_active()
             return self.search_replace_dict['find']
         return None
@@ -733,7 +737,10 @@ class FindReplace:
             if forward: start_iter = text_buffer.get_start_iter()
             else: start_iter = text_buffer.get_end_iter()
             if all_matches: self.all_matches_first_in_node = False
-        pattern_found = self.find_pattern(tree_iter, text_buffer, pattern, start_iter, forward, all_matches)
+        if self.is_node_within_time_filter(tree_iter):
+            pattern_found = self.find_pattern(tree_iter, text_buffer, pattern, start_iter, forward, all_matches)
+        else:
+            pattern_found = False
         if self.newline_trick:
             buff_start_iter = text_buffer.get_start_iter()
             buff_step_iter = buff_start_iter.copy()
@@ -774,11 +781,14 @@ class FindReplace:
 
     def parse_node_name(self, node_iter, pattern, forward, all_matches):
         """Recursive function that searchs for the given pattern"""
-        text_name = self.dad.treestore[node_iter][1].decode(cons.STR_UTF8)
-        match = pattern.search(text_name)
-        if not match:
-            text_tags = self.dad.treestore[node_iter][6].decode(cons.STR_UTF8)
-            match = pattern.search(text_tags)
+        if self.is_node_within_time_filter(node_iter):
+            text_name = self.dad.treestore[node_iter][1].decode(cons.STR_UTF8)
+            match = pattern.search(text_name)
+            if not match:
+                text_tags = self.dad.treestore[node_iter][6].decode(cons.STR_UTF8)
+                match = pattern.search(text_tags)
+        else:
+            match = None
         if match:
             if all_matches:
                 node_id = self.dad.treestore[node_iter][3]
