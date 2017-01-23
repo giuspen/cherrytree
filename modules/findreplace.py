@@ -36,7 +36,17 @@ def dialog_date_select(parent_win, title, curr_datetime):
     calendar = gtk.Calendar()
     calendar.select_month(curr_datetime.month-1, curr_datetime.year) # month 0-11
     calendar.select_day(curr_datetime.day) # day 1-31
+    adj_h = gtk.Adjustment(value=curr_datetime.hour, lower=0, upper=23, step_incr=1)
+    spinbutton_h = gtk.SpinButton(adj_h)
+    spinbutton_h.set_value(curr_datetime.hour)
+    adj_m = gtk.Adjustment(value=curr_datetime.minute, lower=0, upper=59, step_incr=1)
+    spinbutton_m = gtk.SpinButton(adj_m)
+    spinbutton_m.set_value(curr_datetime.minute)
+    hbox = gtk.HBox()
+    hbox.pack_start(spinbutton_h)
+    hbox.pack_start(spinbutton_m)
     content_area.pack_start(calendar)
+    content_area.pack_start(hbox)
     def on_key_press_dialog(widget, event):
         if gtk.gdk.keyval_name(event.keyval) == cons.STR_KEY_RETURN:
             try: dialog.get_widget_for_response(gtk.RESPONSE_OK).clicked()
@@ -54,7 +64,9 @@ def dialog_date_select(parent_win, title, curr_datetime):
     dialog.hide()
     if response != gtk.RESPONSE_OK: return curr_datetime
     new_year, new_month, new_day = calendar.get_date()
-    new_datetime = datetime.datetime(new_year, new_month+1, new_day)
+    new_h = int(spinbutton_h.get_value())
+    new_m = int(spinbutton_m.get_value())
+    new_datetime = datetime.datetime(new_year, new_month+1, new_day, new_h, new_m)
     return new_datetime
 
 
@@ -81,6 +93,24 @@ class FindReplace:
 'ts_mod_>': [False, datetime.datetime.now()+datetime.timedelta(days=-1)],
 'ts_mod_<': [False, datetime.datetime.now()],
 'idialog':True}
+
+    def is_node_within_time_filter(self, node_iter):
+        """Returns True if the given node_iter is within the Time Filter"""
+        ts_cre = self.dad.treestore[node_iter][12]
+        if (self.search_replace_dict['ts_cre_>'][0]\
+        and time.mktime(self.search_replace_dict['ts_cre_>'][1].timetuple()) < ts_cre):
+            return False
+        if (self.search_replace_dict['ts_cre_<'][0]\
+        and time.mktime(self.search_replace_dict['ts_cre_<'][1].timetuple()) > ts_cre):
+            return False
+        ts_mod = self.dad.treestore[node_iter][13]
+        if (self.search_replace_dict['ts_mod_>'][0]\
+        and time.mktime(self.search_replace_dict['ts_mod_>'][1].timetuple()) < ts_mod):
+            return False
+        if (self.search_replace_dict['ts_mod_<'][0]\
+        and time.mktime(self.search_replace_dict['ts_mod_<'][1].timetuple()) > ts_mod):
+            return False
+        return True
 
     def dialog_search(self, title, replace_on, multiple_nodes):
         """Opens the Search Dialog"""
@@ -137,7 +167,7 @@ class FindReplace:
         first_all_radiobutton.set_group(all_radiobutton)
         first_all_radiobutton.set_active(self.search_replace_dict['a_ff_fa'] == 2)
         if multiple_nodes:
-            ts_format = "%A, %d %B %Y"
+            ts_format = "%A, %d %B %Y, %H:%M"
             ts_node_created_after_checkbutton = gtk.CheckButton(label=_("Node Created After"))
             ts_node_created_after_button = gtk.Button(label=self.search_replace_dict['ts_cre_>'][1].strftime(ts_format))
             ts_node_created_after_hbox = gtk.HBox()
