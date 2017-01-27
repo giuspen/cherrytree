@@ -19,7 +19,8 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
-import gtk, gobject
+import gtk
+import gobject
 import re, cgi, time, datetime
 import cons, menus, support, config
 
@@ -84,7 +85,11 @@ class FindReplace:
         self.from_find_iterated = False
         self.from_find_back = False
         self.newline_trick = False
-        self.allmatchesdialog_init()
+        # 0-node_id, 1-start_offset, 2-end_offset, 3-node_name, 4-line_content, 5-line_num 6-node_hier_name
+        self.allmatches_liststore = gtk.ListStore(long, long, long, str, str, int, str)
+        self.allmatches_title = ""
+        self.allmatches_position = None
+        self.allmatches_size = None
         self.iteratedfinddialog = None
         self.latest_node_offset = {}
         time_now = time.time()
@@ -371,7 +376,7 @@ class FindReplace:
             user_active_restore = True
         else: user_active_restore = False
         if all_matches:
-            self.liststore.clear()
+            self.allmatches_liststore.clear()
             self.all_matches_first_in_node = True
             while self.parse_node_content_iter(self.dad.curr_tree_iter, self.dad.curr_buffer, pattern, forward, first_fromsel, all_matches, True):
                 self.matches_num += 1
@@ -380,8 +385,8 @@ class FindReplace:
         if self.matches_num == 0:
             support.dialog_info(_("The pattern '%s' was not found") % pattern, self.dad.window)
         elif all_matches:
-            self.allmatchesdialog.set_title(str(self.matches_num) + cons.CHAR_SPACE + _("Matches"))
-            self.allmatchesdialog.show()
+            self.allmatches_title = str(self.matches_num) + cons.CHAR_SPACE + _("Matches")
+            self.allmatchesdialog_show()
         elif self.search_replace_dict['idialog']:
             self.iterated_find_dialog()
         if user_active_restore: self.dad.user_active = True
@@ -432,7 +437,7 @@ class FindReplace:
             if forward: node_iter = self.dad.treestore.get_iter_first()
             else: node_iter = self.dad.get_tree_iter_last_sibling(None)
         self.matches_num = 0
-        if all_matches: self.liststore.clear()
+        if all_matches: self.allmatches_liststore.clear()
         config.get_tree_expanded_collapsed_string(self.dad)
         # searching start
         if self.dad.user_active:
@@ -486,8 +491,8 @@ class FindReplace:
             support.dialog_info(_("The pattern '%s' was not found") % pattern, self.dad.window)
         else:
             if all_matches:
-                self.allmatchesdialog.set_title(str(self.matches_num) + cons.CHAR_SPACE + _("Matches"))
-                self.allmatchesdialog.show()
+                self.allmatches_title = str(self.matches_num) + cons.CHAR_SPACE + _("Matches")
+                self.allmatchesdialog_show()
             else:
                 self.dad.treeview_safe_set_cursor(self.dad.curr_tree_iter)
                 if self.search_replace_dict['idialog']:
@@ -537,7 +542,7 @@ class FindReplace:
             if forward: node_iter = self.dad.treestore.get_iter_first()
             else: node_iter = self.dad.get_tree_iter_last_sibling(None)
         self.matches_num = 0
-        if all_matches: self.liststore.clear()
+        if all_matches: self.allmatches_liststore.clear()
         # searching start
         while node_iter != None:
             if self.parse_node_name(node_iter, pattern, forward, all_matches):
@@ -559,8 +564,8 @@ class FindReplace:
         if self.matches_num == 0:
             support.dialog_info(_("The pattern '%s' was not found") % pattern_clean, self.dad.window)
         elif all_matches:
-            self.allmatchesdialog.set_title(str(self.matches_num) + cons.CHAR_SPACE + _("Matches"))
-            self.allmatchesdialog.show()
+            self.allmatches_title = str(self.matches_num) + cons.CHAR_SPACE + _("Matches")
+            self.allmatchesdialog_show()
         elif self.search_replace_dict['idialog']:
             self.iterated_find_dialog()
         if self.matches_num and self.replace_active: self.dad.update_window_save_needed()
@@ -619,7 +624,7 @@ class FindReplace:
             line_content = self.get_line_content(text_buffer, iter_insert) if obj_match_offsets[0] == None else obj_match_offsets[2]
             line_num = text_buffer.get_iter_at_offset(start_offset).get_line()
             if not self.newline_trick: line_num += 1
-            self.liststore.append([node_id, start_offset, end_offset, node_name, line_content, line_num, cgi.escape(node_hier_name)])
+            self.allmatches_liststore.append([node_id, start_offset, end_offset, node_name, line_content, line_num, cgi.escape(node_hier_name)])
             #print line_num, self.matches_num
         else: self.dad.sourceview.scroll_to_mark(mark_insert, cons.SCROLL_MARGIN)
         if self.replace_active:
@@ -795,7 +800,7 @@ class FindReplace:
                 node_name = self.dad.treestore[node_iter][1]
                 node_hier_name = support.get_node_hierarchical_name(self.dad, node_iter, separator=" << ", for_filename=False, root_to_leaf=False)
                 line_content = self.get_first_line_content(self.dad.get_textbuffer_from_tree_iter(node_iter))
-                self.liststore.append([node_id, 0, 0, node_name, line_content, 1, cgi.escape(node_hier_name)])
+                self.allmatches_liststore.append([node_id, 0, 0, node_name, line_content, 1, cgi.escape(node_hier_name)])
             if self.replace_active and not self.dad.treestore[node_iter][7]:
                 replacer_text = self.search_replace_dict['replace']
                 text_name = text_name.replace(self.curr_find[1], replacer_text)
@@ -879,46 +884,56 @@ class FindReplace:
             if not end_iter.forward_char(): break
         return text_buffer.get_text(start_iter, end_iter)
 
-    def allmatchesdialog_init(self):
+    def allmatchesdialog_show(self):
         """Create the All Matches Dialog"""
-        self.allmatchesdialog = gtk.Dialog(parent=self.dad.window, flags=gtk.DIALOG_DESTROY_WITH_PARENT)
-        self.allmatchesdialog.set_default_size(700, 350)
-        self.allmatchesdialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+        allmatchesdialog = gtk.Dialog(title=self.allmatches_title, parent=self.dad.window, flags=gtk.DIALOG_DESTROY_WITH_PARENT)
+        if self.allmatches_position:
+            allmatchesdialog.set_default_size(self.allmatches_size[0], self.allmatches_size[1])
+            allmatchesdialog.move(self.allmatches_position[0], self.allmatches_position[1])
+        else:
+            allmatchesdialog.set_default_size(700, 350)
+            allmatchesdialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
         kb_sh = menus.get_menu_item_kb_shortcut(self.dad, "toggle_show_allmatches_dlg")
-        button_hide = self.allmatchesdialog.add_button(_("Hide (Restore with '%s')") % kb_sh, gtk.RESPONSE_CLOSE)
+        button_hide = allmatchesdialog.add_button(_("Hide (Restore with '%s')") % kb_sh, gtk.RESPONSE_CLOSE)
         button_hide.set_image(gtk.image_new_from_stock(gtk.STOCK_CLOSE, gtk.ICON_SIZE_BUTTON))
-        button_hide.connect('clicked', lambda x : self.allmatchesdialog.hide())
-        # ROW: 0-node_id, 1-start_offset, 2-end_offset, 3-node_name, 4-line_content, 5-line_num 6-node_hier_name
-        self.liststore = gtk.ListStore(long, long, long, str, str, int, str)
-        self.treeview = gtk.TreeView(self.liststore)
-        self.renderer_text_node = gtk.CellRendererText()
-        self.renderer_text_linenum = gtk.CellRendererText()
-        self.renderer_text_linecontent = gtk.CellRendererText()
-        self.node_column = gtk.TreeViewColumn(_("Node Name"), self.renderer_text_node, text=3)
-        self.treeview.append_column(self.node_column)
-        self.linenum_column = gtk.TreeViewColumn(_("Line"), self.renderer_text_linenum, text=5)
-        self.treeview.append_column(self.linenum_column)
-        self.linecontent_column = gtk.TreeViewColumn(_("Line Content"), self.renderer_text_linecontent, text=4)
-        self.treeview.append_column(self.linecontent_column)
-        self.treeview.set_tooltip_column(6)
-        self.treeviewselection = self.treeview.get_selection()
-        self.treeview.connect('event-after', self.on_treeview_event_after)
+        def on_allmatchesdialog_delete_event(widget, event):
+            self.allmatches_position = allmatchesdialog.get_position()
+            self.allmatches_size = (allmatchesdialog.get_allocation().width,
+                                    allmatchesdialog.get_allocation().height)
+            return False
+        allmatchesdialog.connect('delete-event', on_allmatchesdialog_delete_event)
+        def on_button_hide_clicked(button):
+            on_allmatchesdialog_delete_event(None, None)
+            allmatchesdialog.destroy()
+        button_hide.connect('clicked', on_button_hide_clicked)
+        treeview = gtk.TreeView(self.allmatches_liststore)
+        renderer_text_node = gtk.CellRendererText()
+        renderer_text_linenum = gtk.CellRendererText()
+        renderer_text_linecontent = gtk.CellRendererText()
+        node_column = gtk.TreeViewColumn(_("Node Name"), renderer_text_node, text=3)
+        treeview.append_column(node_column)
+        linenum_column = gtk.TreeViewColumn(_("Line"), renderer_text_linenum, text=5)
+        treeview.append_column(linenum_column)
+        linecontent_column = gtk.TreeViewColumn(_("Line Content"), renderer_text_linecontent, text=4)
+        treeview.append_column(linecontent_column)
+        treeview.set_tooltip_column(6)
+        treeview.connect('event-after', self.on_treeview_event_after)
         scrolledwindow_allmatches = gtk.ScrolledWindow()
         scrolledwindow_allmatches.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-        scrolledwindow_allmatches.add(self.treeview)
-        content_area = self.allmatchesdialog.get_content_area()
+        scrolledwindow_allmatches.add(treeview)
+        content_area = allmatchesdialog.get_content_area()
         content_area.pack_start(scrolledwindow_allmatches)
-        content_area.show_all()
+        allmatchesdialog.show_all()
 
     def on_treeview_event_after(self, treeview, event):
         """Catches mouse buttons clicks"""
         if event.type not in [gtk.gdk.BUTTON_PRESS, gtk.gdk.KEY_PRESS]: return
-        model, list_iter = self.treeviewselection.get_selected()
+        model, list_iter = treeview.get_selection().get_selected()
         if not list_iter: return
         tree_iter = self.dad.get_tree_iter_from_node_id(model[list_iter][0])
         if not tree_iter:
             support.dialog_error(_("The Link Refers to a Node that Does Not Exist Anymore (Id = %s)") % model[list_iter][0], self.dad.window)
-            self.liststore.remove(list_iter)
+            self.allmatches_liststore.remove(list_iter)
             return
         self.dad.treeview_safe_set_cursor(tree_iter)
         self.dad.curr_buffer.move_mark(self.dad.curr_buffer.get_insert(),

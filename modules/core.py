@@ -19,7 +19,10 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
-import gtk, pango, gtksourceview2, gobject
+import gtk
+import pango
+import gtksourceview2
+import gobject
 import sys, os, re, glob, subprocess, webbrowser, base64, cgi, urllib2, shutil, time, locale, pgsc_spellcheck
 import cons, menus, support, config, machines, clipboard, imports, exports, printing, tablez, lists, findreplace, codeboxes, ctdb
 import wordbreak
@@ -104,6 +107,7 @@ class CherryTree:
         # statusbar add
         self.statusbar = gtk.Statusbar()
         self.statusbar_context_id = self.statusbar.get_context_id('')
+        self.latest_statusbar_update_time = {}
         self.progressbar = gtk.ProgressBar()
         progress_frame = gtk.Frame()
         progress_frame.set_shadow_type(gtk.SHADOW_NONE)
@@ -1991,6 +1995,7 @@ iter_end, exclude_iter_sel_end=True)
             self.update_selected_node_statusbar_info()
         self.treestore.clear()
         self.tags_set.clear()
+        self.latest_statusbar_update_time = {}
         self.file_name = ""
         self.password = None
         self.xml_handler.reset_nodes_names()
@@ -3081,8 +3086,14 @@ iter_end, exclude_iter_sel_end=True)
         if update_type:
             if update_type == "nbuf":
                 if tree_iter:
-                    self.ctdb_handler.pending_edit_db_node_buff(self.treestore[tree_iter][3])
-                    self.treestore[tree_iter][13] = time.time()
+                    node_id = self.get_node_id_from_tree_iter(tree_iter)
+                    self.ctdb_handler.pending_edit_db_node_buff(node_id)
+                    curr_time = time.time()
+                    self.treestore[tree_iter][13] = curr_time
+                    if (not node_id in self.latest_statusbar_update_time.keys())\
+                    or (curr_time - self.latest_statusbar_update_time[node_id] > 60):
+                        self.latest_statusbar_update_time[node_id] = curr_time
+                        self.update_selected_node_statusbar_info()
             elif update_type == "npro":
                 if tree_iter:
                     self.ctdb_handler.pending_edit_db_node_prop(self.treestore[tree_iter][3])
@@ -3171,11 +3182,8 @@ iter_end, exclude_iter_sel_end=True)
         self.find_handler.find_a_node()
 
     def find_allmatchesdialog_restore(self, *args):
-        """Display the AllMatchesDialog Again"""
-        if not self.find_handler.allmatchesdialog.get_property(cons.STR_VISIBLE):
-            self.find_handler.allmatchesdialog.show()
-        else:
-            self.find_handler.allmatchesdialog.hide()
+        """Restore AllMatchesDialog"""
+        self.find_handler.allmatchesdialog_show()
 
     def get_tree_iter_last_sibling(self, node_iter):
         """Returns the last top level iter or None if the tree is empty"""
