@@ -1,9 +1,11 @@
 
 0.38.0 (?)
+  * added the timestamp of creation and latest modification per node and the possibility to filter the searches using these values
   * implemented the possibility to execute the code of code nodes and codeboxes (File--Execute Code); the terminal and the command per node type is configurable in the preferences dialog, tab "Plain Text and Code"
   * the background color of the text formatted monospace is now configurable in the preferences dialog, tab Rich Text
   * implemented the VACUUM command for SQLite database to repack into minimal amount of disk space (File--Save and Vacuum)
   * it is now possible to edit the underlying text with the dialog listing the results of the search opened
+  * better support for drag and drop of nodes in large trees with the scrollbars uncovering the hidden parts of the tree when dragging close to the edges
   * implemented the word count in the statusbar, to be enabled in the preferences dialog (tab Miscellaneous, work of cyingfan)
   * implemented the option to hide the tree right side auxiliary icon (currently a padlock for read only nodes and a pin for bookmarked nodes)
   * implemented the option to hide the embedded file name on top of the embedded file icon (tab Rich Text, work of jhermans76)

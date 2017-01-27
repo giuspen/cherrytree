@@ -23,8 +23,33 @@ import gtk
 import pango
 import gtksourceview2
 import gobject
-import sys, os, re, glob, subprocess, webbrowser, base64, cgi, urllib2, shutil, time, locale, pgsc_spellcheck
-import cons, menus, support, config, machines, clipboard, imports, exports, printing, tablez, lists, findreplace, codeboxes, ctdb
+import sys
+import os
+import re
+import glob
+import subprocess
+import webbrowser
+import base64
+import cgi
+import urllib2
+import shutil
+import time
+import locale
+import pgsc_spellcheck
+import cons
+import menus
+import support
+import config
+import machines
+import clipboard
+import imports
+import exports
+import printing
+import tablez
+import lists
+import findreplace
+import codeboxes
+import ctdb
 import wordbreak
 if cons.HAS_APPINDICATOR: import appindicator
 
@@ -767,6 +792,14 @@ iter_end, exclude_iter_sel_end=True)
 
     def on_drag_motion_cherrytree(self, widget, drag_context, x, y, timestamp):
         """Cherry Tree drag motion"""
+        if y < cons.TREE_DRAG_EDGE_PROX or y > (widget.get_allocation().height - cons.TREE_DRAG_EDGE_PROX):
+            delta = -cons.TREE_DRAG_EDGE_SCROLL if y < cons.TREE_DRAG_EDGE_PROX else cons.TREE_DRAG_EDGE_SCROLL
+            vscroll_obj = self.scrolledwindow_tree.get_vscrollbar()
+            vscroll_obj.set_value(vscroll_obj.get_value() + delta)
+        if x < cons.TREE_DRAG_EDGE_PROX or x > (widget.get_allocation().width - cons.TREE_DRAG_EDGE_PROX):
+            delta = -cons.TREE_DRAG_EDGE_SCROLL if x < cons.TREE_DRAG_EDGE_PROX else cons.TREE_DRAG_EDGE_SCROLL
+            hscroll_obj = self.scrolledwindow_tree.get_hscrollbar()
+            hscroll_obj.set_value(hscroll_obj.get_value() + delta)
         drop_info = self.treeview.get_dest_row_at_pos(x, y)
         if drop_info:
             drop_path, drop_pos = drop_info

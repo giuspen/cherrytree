@@ -19,7 +19,8 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
-import os, sys
+import os
+import sys
 
 
 VERSION = "0.37.99"
@@ -139,6 +140,8 @@ MAX_TOOLTIP_LINK_CHARS = 150
 TABLE_DEFAULT_COL_MIN = 40
 TABLE_DEFAULT_COL_MAX = 400
 SCROLL_MARGIN = 0.3
+TREE_DRAG_EDGE_PROX = 10
+TREE_DRAG_EDGE_SCROLL = 15
 
 CHAR_SPACE = " "
 CHAR_NEWLINE = "\n"
