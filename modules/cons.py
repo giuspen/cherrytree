@@ -23,7 +23,7 @@ import os
 import sys
 
 
-VERSION = "0.37.99"
+VERSION = "0.37.100"
 APP_NAME = "cherrytree"
 NEWER_VERSION_URL = "http://www.giuspen.com/software/version_cherrytree"
 if sys.platform.startswith("win"):
@@ -337,6 +337,7 @@ NODES_ICONS = {
 }
 CODE_ICONS = {
 "python": 'python',
+"python3": 'python',
 "perl": 'perl',
 "sh": 'terminal',
 "dosbatch": 'terminal-red',

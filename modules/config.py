@@ -19,8 +19,22 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
-import os, sys, ConfigParser, gtk, pango, locale, subprocess, base64, webbrowser, cgi
-import cons, menus, support, exports, codeboxes, pgsc_spellcheck
+import os
+import sys
+import ConfigParser
+import gtk
+import pango
+import locale
+import subprocess
+import base64
+import webbrowser
+import cgi
+import cons
+import menus
+import support
+import exports
+import codeboxes
+import pgsc_spellcheck
 if cons.HAS_APPINDICATOR: import appindicator
 
 ICONS_SIZE = {1: gtk.ICON_SIZE_MENU, 2: gtk.ICON_SIZE_SMALL_TOOLBAR, 3: gtk.ICON_SIZE_LARGE_TOOLBAR,
@@ -37,7 +51,8 @@ CODE_EXEC_TYPE_CMD_DEFAULT = {
 "dosbatch": "call %s" % CODE_EXEC_TMP_SRC,
 "perl": "perl %s" % CODE_EXEC_TMP_SRC,
 "powershell": "call %s" % CODE_EXEC_TMP_SRC,
-"python": "python %s" % CODE_EXEC_TMP_SRC,
+"python": "python2 %s" % CODE_EXEC_TMP_SRC,
+"python3": "python3 %s" % CODE_EXEC_TMP_SRC,
 "sh": "sh %s" % CODE_EXEC_TMP_SRC,
 }
 CODE_EXEC_TERM_RUN_DEFAULT = {
