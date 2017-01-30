@@ -5,1687 +5,1798 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-15 11:35+0100\n"
-"PO-Revision-Date: 2016-05-15 16:14+0400\n"
+"POT-Creation-Date: 2017-01-29 11:13+0000\n"
+"PO-Revision-Date: 2017-01-30 02:48+0400\n"
 "Last-Translator: Seda Stamboltsyan <sedastam@yandex.com>\n"
 "Language-Team: Armenian\n"
 "Language: hy\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.9\n"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/codeboxes.py:97
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3541
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4976
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/codeboxes.py:95
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3423
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4906
 msgid "Plain Text"
 msgstr "Հասարակ տեքստ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/codeboxes.py:98
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3543
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/codeboxes.py:96
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/codeboxes.py:178
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3425
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3478
 msgid "Automatic Syntax Highlighting"
 msgstr "Շարահյուսության ինքնաշխատ գունանշում"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/codeboxes.py:109
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/codeboxes.py:107
 msgid "Type"
 msgstr "Տեսակ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/codeboxes.py:114
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:892
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/codeboxes.py:112
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1005
 msgid "Width"
 msgstr "Լայնք"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/codeboxes.py:118
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:895
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/codeboxes.py:116
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1008
 msgid "Height"
 msgstr "Բարձրություն"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/codeboxes.py:123
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/codeboxes.py:121
 msgid "pixels"
 msgstr "պիքսել"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/codeboxes.py:148
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/codeboxes.py:146
 msgid "Size"
 msgstr "Չափ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/codeboxes.py:153
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:636
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/codeboxes.py:151
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:764
 msgid "Show Line Numbers"
 msgstr "Ցուցադրել տողերի համարակալումը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/codeboxes.py:155
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/codeboxes.py:153
 msgid "Highlight Matching Brackets"
 msgstr "Գունանշել լծորդ փակագծերը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/codeboxes.py:164
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/codeboxes.py:162
 msgid "Options"
 msgstr "Ընտրանքներ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/codeboxes.py:216
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:186
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/codeboxes.py:224
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:189
 msgid "Insert a CodeBox"
-msgstr "Դնել այլագրի վանդակ"
+msgstr "Դնել այլագրավանդակ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/codeboxes.py:375
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/codeboxes.py:383
 msgid "Edit CodeBox"
-msgstr "Խմբագրել այլագրի վանդակը"
+msgstr "Խմբագրել այլագրավանդակը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:46
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:131
+msgid "Search for"
+msgstr "Փնտրել"
+
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:138
+msgid "Replace with"
+msgstr "Փոխարինել"
+
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:153
+msgid "Match Case"
+msgstr "Մեծատառն ու փոքրատառը տարբերակել"
+
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:155
+msgid "Regular Expression"
+msgstr "Կանոնավոր արտահայտություն"
+
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:157
+msgid "Whole Word"
+msgstr "Միայն ամբողջական բառ"
+
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:159
+msgid "Start Word"
+msgstr "Բառի սկիզբ"
+
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:161
+msgid "Forward"
+msgstr "Առաջ"
+
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:163
+msgid "Backward"
+msgstr "Հետ"
+
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:166
+msgid "All, List Matches"
+msgstr "Բոլորը. համընկումները ցանկով ներկայացնել"
+
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:168
+msgid "First From Selection"
+msgstr "Առաջինը՝ ընտրված հատվածում"
+
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:171
+msgid "First in All Range"
+msgstr "Առաջինը՝ ամբողջ տիրույթում"
+
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:176
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:220
+msgid "Node Created After"
+msgstr "Ճյուղը ստեղծվել է նշյալ ժամանակից հետո՝ "
+
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:183
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:222
+msgid "Node Created Before"
+msgstr "Ճյուղը ստեղծվել է նախքան "
+
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:190
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:224
+msgid "Node Modified After"
+msgstr "Ճյուղը փոփոխվել է նշյալ ժամանակից հետո՝"
+
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:197
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:226
+msgid "Node Modified Before"
+msgstr "Ճյուղը փոփոխվել է նախքան"
+
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:214
+msgid "Time filter"
+msgstr "Ժամանակի զտիչ"
+
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:236
+msgid "Show Iterated Find/Replace Dialog"
+msgstr "Կրկնել որոնման/փոխարինման երկխոսությունը"
+
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:259
+msgid "Search options"
+msgstr "Որոնման կարգավորումներ"
+
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:303
 msgid "Iterate Latest Find/Replace"
 msgstr "Կրկնել վերջին փնտրում-փոխարինումը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:49
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:305
 msgid "Close"
 msgstr "Փակել"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:50
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:51
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:306
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:307
 msgid "Find"
 msgstr "Գտնել"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:52
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:308
 msgid "Replace"
 msgstr "Փոխարինել"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:53
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:309
 msgid "Undo"
-msgstr "Չեղարկել"
+msgstr "Հետարկել"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:109
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:357
 msgid "Replace in Current Node..."
 msgstr "Փոխարինել ընթացիկ ճյուղում..."
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:110
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:358
 msgid "Search in Current Node..."
 msgstr "Փնտրել ընթացիկ ճյուղում..."
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:138
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:244
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:319
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:386
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:491
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:565
 #, python-format
 msgid "The pattern '%s' was not found"
 msgstr "«%s» ձևը չի գտնվել"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:140
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:247
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:321
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:388
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:494
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:567
 msgid "Matches"
 msgstr "համընկում"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:163
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:410
 msgid "Replace in Selected Node and Subnodes"
 msgstr "Փոխարինել ընտրված ճյուղում ու ենթաճյուղերում"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:164
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:411
 msgid "Replace in All Nodes"
 msgstr "Փոխարինել բոլոր ճյուղերում"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:166
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:413
 msgid "Search in Selected Node and Subnodes"
 msgstr "Փնտրել ընտրված ճյուղում ու ենթաճյուղերում"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:167
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:414
 msgid "Search in All Nodes"
 msgstr "Փնտրել բոլոր ճյուղերում"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:263
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:509
 msgid "Replace in Node Names..."
 msgstr "Փոխարինել ճյուղերի անվանումներում..."
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:264
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:510
 msgid "Search For a Node Name..."
 msgstr "Փնտրել ճյուղի անվանում կամ պիտակ..."
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:599
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:850
 msgid "No Previous Search Was Performed During This Session"
 msgstr "Որոնում չի կատարվել այս գործաժամի ընթացքում"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:640
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:897
 #, python-format
 msgid "Hide (Restore with '%s')"
 msgstr "Թաքցնել (վերականգնել  '%s' -ով)"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:653
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3536
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:913
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3418
 msgid "Node Name"
 msgstr "Ճյուղի անվանում"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:655
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:915
 msgid "Line"
 msgstr "Տող"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:657
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:917
 msgid "Line Content"
 msgstr "Տողի պարունակություն"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:686
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4830
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:935
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4750
 #, python-format
 msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
 msgstr "Հղումը տանում է այլևս գոյություն չունեցող ճյուղի (Id = %s)"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/printing.py:213
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/printing.py:217
 msgid "Warning: One or More Images Were Reduced to Enter the Page"
 msgstr "Զգուշացում։ Մեկ կամ մի քանի նկար փոքրացվել է էջում տեղավորվելու համար"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:172
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:173
 msgid "New _Instance"
 msgstr "Նոր նիշք"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:172
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:173
 msgid "Start a New Instance of CherryTree"
 msgstr "Բացել CherryTree-ի նոր նիշք"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:173
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:307
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:174
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:310
 msgid "_Open File"
 msgstr "_Բացել նիշք"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:173
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1549
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:46
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:174
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1799
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:109
 msgid "Open a CherryTree Document"
 msgstr "Բացել CherryTree փաստաթուղթ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:174
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:175
 msgid "_Save"
 msgstr "Պահպանել"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:174
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:175
 msgid "Save File"
 msgstr "Պահպանել նիշքը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:175
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:306
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:176
+msgid "Save and _Vacuum"
+msgstr "Save and _Vacuum"
+
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:176
+msgid "Save File and Vacuum"
+msgstr "Save File and Vacuum"
+
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:177
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:309
 msgid "Save _As"
 msgstr "Պահպանել _որպես"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:175
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:306
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:177
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:309
 msgid "Save File As"
-msgstr "Պահպանել նիշքը որպես"
+msgstr "Նիշքը պահպանել որպես"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:176
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:178
+msgid "_Execute Code"
+msgstr "_Գործարկել այլագիրը"
+
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:178
+msgid "Execute Code"
+msgstr "Գործարկել այլագիրը"
+
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:179
 msgid "Open Preferences _Directory"
 msgstr "Բացել նախընտրանքների _պանակը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:176
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:179
 msgid "Open the Directory with Preferences Files"
 msgstr "Բացել նախընտրանքների նիշքերով պանակը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:177
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:180
 msgid "Pa_ge Setup"
 msgstr "Է_ջի կարգավորում"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:177
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:180
 msgid "Set up the Page for Printing"
 msgstr "Էջը կարգավորել տպելու համար"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:178
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:181
 msgid "_Print"
 msgstr "_Տպել"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:178
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:181
 msgid "Print"
 msgstr "Տպել"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:179
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:182
 msgid "_Quit"
 msgstr "_Դուրս գալ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:179
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:182
 msgid "Quit the Application"
 msgstr "Ծրագրից դուրս գալ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:180
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:183
 msgid "_Exit CherryTree"
 msgstr "_Փակել CherryTree-ն"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:180
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:183
 msgid "Exit from CherryTree"
 msgstr "Փակել CherryTree-ն"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:181
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:184
 msgid "_Preferences"
 msgstr "_Նախընտրանքներ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:181
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1996
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:184
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2291
 msgid "Preferences"
 msgstr "Նախընտրանքներ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:182
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:185
 msgid "_Undo"
-msgstr "Չեղարկել"
+msgstr "Հետարկել"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:182
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:185
 msgid "Undo Last Operation"
-msgstr "Չեղարկել վերջին գործողությունը"
+msgstr "Հետարկել վերջին գործողությունը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:183
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:186
 msgid "_Redo"
 msgstr "Վերականգնել"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:183
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:186
 msgid "Redo Previously Discarded Operation"
-msgstr "Կրկնել չեղարկված գործողությունը"
+msgstr "Կրկնել հետարկված գործողությունը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:184
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:187
 msgid "Insert I_mage"
 msgstr "Ներմու_ծել նկար"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:184
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:187
 msgid "Insert an Image"
 msgstr "Ներմուծել նկար"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:185
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:188
 msgid "Insert _Table"
 msgstr "Դնել աղյու_սակ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:185
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:188
 msgid "Insert a Table"
 msgstr "Դնել աղյուսակ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:186
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:189
 msgid "Insert _CodeBox"
-msgstr "Դնել այլա_գրի վանդակ"
+msgstr "Դնել այլա_գրավանդակ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:187
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:190
 msgid "Insert _File"
 msgstr "Ներմուծել _նիշք"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:187
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:190
 msgid "Insert File"
 msgstr "Ներմուծել նիշք"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:188
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:191
 msgid "Insert/Edit _Link"
 msgstr "Դնել/խմբագրել հ_ղում"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:188
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:191
 msgid "Insert a Link/Edit the Underlying Link"
 msgstr "Դնել/խմբագրել հղում"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:189
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:192
 msgid "Insert _Anchor"
 msgstr "Դնել _խարիսխ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:189
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:192
 msgid "Insert an Anchor"
 msgstr "Դնել խարիսխ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:190
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:193
 msgid "Insert T_OC"
 msgstr "Դնել _բովանդակության ցանկ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:190
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:193
 msgid "Insert Table of Contents"
 msgstr "Դնել բովանդակության ցանկ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:191
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:194
 msgid "Insert Ti_mestamp"
 msgstr "Դնել ամսաթվի _կնիք"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:191
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:194
 msgid "Insert Timestamp"
 msgstr "Դնել ամսաթվի կնիք"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:192
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:195
 msgid "Insert _Horizontal Rule"
 msgstr "Դնել _հորիզոնական գիծ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:192
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:195
 msgid "Insert Horizontal Rule"
 msgstr "Դնել հորիզոնական գիծ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:193
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:196
 msgid "_Lower Case of Selection/Word"
 msgstr "Ընտրված մասը/բառը՝ _փոքրատառ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:193
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:196
 msgid "Lower the Case of the Selection/the Underlying Word"
 msgstr "Ընտրված մասը/բառը փոքրատառ դարձնել"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:194
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:197
 msgid "_Upper Case of Selection/Word"
 msgstr "Ընտրված մասը/բառը՝ _մեծատառ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:194
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:197
 msgid "Upper the Case of the Selection/the Underlying Word"
 msgstr "Ընտրված մասը/բառը մեծատառ դարձնել"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:195
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:198
 msgid "_Toggle Case of Selection/Word"
 msgstr "Փոխել ընտրված մասի/բառի տառաշարը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:195
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:198
 msgid "Toggle the Case of the Selection/the Underlying Word"
 msgstr "Փոխել ընտրված մասի/բառի տառաշարը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:196
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:199
 msgid "Enable/Disable _Spell Check"
 msgstr "Ուղղագրության ստուգում"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:196
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:199
 msgid "Toggle Enable/Disable Spell Check"
 msgstr "Ստուգել ուղղագրությունը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:197
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:200
 msgid "Cu_t as Plain Text"
 msgstr "Կ_տրել որպես հասարակ տեքստ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:197
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:200
 msgid "Cut as Plain Text, Discard the Rich Text Formatting"
 msgstr "Կտրել որպես հասարակ տեքստ՝ ձևավորումն անտեսելով"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:198
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:201
 msgid "_Copy as Plain Text"
 msgstr "_Պատճենել որպես հասարակ տեքստ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:198
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:201
 msgid "Copy as Plain Text, Discard the Rich Text Formatting"
 msgstr "Պատճենել որպես հասարակ տեքստ՝ ձևավորումն անտեսելով"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:199
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:202
 msgid "_Paste as Plain Text"
 msgstr "Փակցնել որպես հասարակ տե_քստ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:199
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:202
 msgid "Paste as Plain Text, Discard the Rich Text Formatting"
 msgstr "Փակցնել որպես հասարակ տեքստ՝ ձևավորումն անտեսելով"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:200
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:600
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:203
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:604
 msgid "Cu_t Row"
 msgstr "Կ_տրել տողը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:200
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:203
 msgid "Cut the Current Row/Selected Rows"
 msgstr "Կտրել տողը/ընտրված տողերը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:201
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:601
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:204
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:605
 msgid "_Copy Row"
 msgstr "Պատ_ճենել տողը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:201
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:204
 msgid "Copy the Current Row/Selected Rows"
 msgstr "Պատճենել տողը/ընտրված տողերը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:202
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:603
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:205
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:607
 msgid "De_lete Row"
 msgstr "_Ջնջել տողը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:202
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:205
 msgid "Delete the Current Row/Selected Rows"
 msgstr "Ջնջել տողը/ընտրված տողերը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:203
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:206
 msgid "_Duplicate Row"
 msgstr "Կրկն_օրինակել տողը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:203
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:206
 msgid "Duplicate the Current Row/Selection"
 msgstr "Կրկնօրինակել տողը/ընտրված մասը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:204
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:207
 msgid "Move _Up Row"
 msgstr "Տողը _վերև տանել"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:204
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:207
 msgid "Move Up the Current Row/Selected Rows"
 msgstr "Տողը/ընտրված տողերը վերև տանել"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:205
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:208
 msgid "Move _Down Row"
 msgstr "Տողը _ներքև տանել"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:205
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:208
 msgid "Move Down the Current Row/Selected Rows"
 msgstr "Տողը/ընտրված տողերը ներքև տանել"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:206
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:209
 msgid "Format _Latest"
 msgstr "Գործածել վերջին _ձևավորումը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:206
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:209
 msgid "Memory of Latest Text Format Type"
 msgstr "Հիշել վերջին ձևավորումը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:207
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:210
 msgid "_Remove Formatting"
 msgstr "Վերացնել ձևավորումը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:207
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:210
 msgid "Remove the Formatting from the Selected Text"
 msgstr "Վերացնել ընտրված մասի ձևավորումը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:208
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:211
 msgid "Text _Color Foreground"
 msgstr "_Տեքստի գույն"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:208
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:211
 msgid "Change the Color of the Selected Text Foreground"
 msgstr "Փոխել ընտրված տեքստի գույնը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:209
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:212
 msgid "Text C_olor Background"
 msgstr "Տեքստի _խորքի գույն"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:209
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:212
 msgid "Change the Color of the Selected Text Background"
 msgstr "Փոխել ընտրված տեքստի խորքի գույնը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:210
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:213
 msgid "Toggle _Bold Property"
 msgstr "Թավատառ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:210
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:213
 msgid "Toggle Bold Property of the Selected Text"
 msgstr "Ընտրված մասը թավատառ դարձնել"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:211
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:214
 msgid "Toggle _Italic Property"
 msgstr "Շեղատառ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:211
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:214
 msgid "Toggle Italic Property of the Selected Text"
 msgstr "Ընտրված մասը շեղատառ դարձնել"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:212
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:215
 msgid "Toggle _Underline Property"
 msgstr "Ընդգծված"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:212
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:215
 msgid "Toggle Underline Property of the Selected Text"
 msgstr "Ընտրված մասն ընդգծել"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:213
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:216
 msgid "Toggle Stri_kethrough Property"
 msgstr "Ջնջագծված"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:213
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:216
 msgid "Toggle Strikethrough Property of the Selected Text"
 msgstr "Ընտրված մասը ջնջագծել"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:214
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:217
 msgid "Toggle h_1 Property"
 msgstr "h1 գլխագիր"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:214
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:217
 msgid "Toggle h1 Property of the Selected Text"
 msgstr "Ընտրված մասը փոխել h1 գլխագրի"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:215
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:218
 msgid "Toggle h_2 Property"
 msgstr "h2 գլխագիր"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:215
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:218
 msgid "Toggle h2 Property of the Selected Text"
 msgstr "Ընտրված մասը փոխել h2 գլխագրի"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:216
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:219
 msgid "Toggle h_3 Property"
 msgstr "h3 գլխագիր"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:216
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:219
 msgid "Toggle h3 Property of the Selected Text"
 msgstr "Ընտրված մասը փոխել h3 գլխագրի"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:217
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:220
 msgid "Toggle _Small Property"
 msgstr "Փոքրացված տառեր"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:217
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:220
 msgid "Toggle Small Property of the Selected Text"
 msgstr "Ընտրված մասի տառերը փոքրացնել"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:218
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:221
 msgid "Toggle Su_perscript Property"
 msgstr "Վերտողագիր"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:218
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:221
 msgid "Toggle Superscript Property of the Selected Text"
 msgstr "Ընտրված մասը վերտողագրով ներկայացնել"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:219
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:222
 msgid "Toggle Su_bscript Property"
 msgstr "Ենթատողագիր"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:219
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:222
 msgid "Toggle Subscript Property of the Selected Text"
 msgstr "Ընտրված մասը ենթատողագրով ներկայացնել"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:220
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:223
 msgid "Toggle _Monospace Property"
 msgstr "Նույնալայնք տառատեսակ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:220
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:223
 msgid "Toggle Monospace Property of the Selected Text"
 msgstr "Ընտրված տեքստում նույնալայնք տառատեսակ գործածել"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:221
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:224
 msgid "Set/Unset _Bulleted List"
 msgstr "Ն_շանակալված ցանկ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:221
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:224
 msgid "Set/Unset the Current Paragraph/Selection as a Bulleted List"
 msgstr "Պարբերությունը/ընտրված մասը վերածել նշանակալված ցանկի"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:222
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:225
 msgid "Set/Unset _Numbered List"
 msgstr "Հա_մարակալված ցանկ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:222
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:225
 msgid "Set/Unset the Current Paragraph/Selection as a Numbered List"
 msgstr "Պարբերությունը/ընտրված մասը վերածել համարակալված ցանկի"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:223
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:226
 msgid "Set/Unset _To-Do List"
 msgstr "_Անելիքի ցանկ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:223
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:226
 msgid "Set/Unset the Current Paragraph/Selection as a To-Do List"
 msgstr "Պարբերությունը/ընտրված մասը վերածել անելիքի ցանկի"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:224
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:227
 msgid "Justify _Left"
 msgstr "Ուղղել _ձախից"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:224
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:227
 msgid "Justify Left the Current Paragraph"
 msgstr "Պարբերությունն ուղղել ձախից"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:225
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:228
 msgid "Justify _Center"
 msgstr "Ուղղել _կենտրոնով"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:225
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:228
 msgid "Justify Center the Current Paragraph"
 msgstr "Պարբերությունն ուղղել կենտրոնով"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:226
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:229
 msgid "Justify _Right"
 msgstr "Ուղղել ա_ջից"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:226
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:229
 msgid "Justify Right the Current Paragraph"
 msgstr "Պարբերությունն ուղղել աջից"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:227
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:230
 msgid "Justify _Fill"
 msgstr "Երկ_կողմանի հավասարեցում"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:227
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:230
 msgid "Justify Fill the Current Paragraph"
 msgstr "Պարբերությունն ուղղել երկու կողմից"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:228
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:231
 msgid "Add _Node"
 msgstr "Ավելացնել _ճյուղ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:228
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:231
 msgid "Add a Node having the same Parent of the Selected Node"
 msgstr "Ընտրված ճյուղին ավելացնել համահայր ճյուղ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:229
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:232
 msgid "Add _SubNode"
 msgstr "Ավելացնել _ենթաճյուղ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:229
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:232
 msgid "Add a Child Node to the Selected Node"
 msgstr "Ընտրված ճյուղին ավելացնել դուստր ճյուղ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:230
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:233
 msgid "_Duplicate Node"
 msgstr "Կրկն_օրինակել ճյուղը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:230
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:233
 msgid "Duplicate the Selected Node"
 msgstr "Կրկնօրինակել ընտրված ճյուղը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:231
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:234
 msgid "Change Node _Properties"
 msgstr "Փոխել ճյուղի _հատկությունները"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:231
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:234
 msgid "Edit the Properties of the Selected Node"
 msgstr "Խմբագրել ընտրված ճյուղի հատկությունները"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:232
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:235
 msgid "Toggle _Read Only"
 msgstr "Միայն _ընթերցման համար"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:232
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:235
 msgid "Toggle the Read Only Property of the Selected Node"
 msgstr "Ընտրված ճյուղը դարձնել միայն ընթերցվող"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:233
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:236
 msgid "Insert Today's Node"
 msgstr "Դնել այսօրվա ճյուղը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:233
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:236
 msgid "Insert a Node with Hierarchy Year/Month/Day"
 msgstr "Դնել տարի/ամիս/օր աստիճանակարգմամբ ճյուղ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:234
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:237
 msgid "Tree _Info"
 msgstr "Ծառի մասին տեղեկանք"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:234
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3973
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:237
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3909
 msgid "Tree Summary Information"
 msgstr "Ծառի մասին ընդհանուր տեղեկանք"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:235
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:238
 msgid "Node _Up"
 msgstr "Ճյուղը _վերև տանել"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:235
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:238
 msgid "Move the Selected Node Up"
 msgstr "Ընտրված ճյուղը վերև տանել"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:236
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:239
 msgid "Node _Down"
 msgstr "Ճյուղը _ներքև տանել"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:236
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:239
 msgid "Move the Selected Node Down"
 msgstr "Ընտրված ճյուղը ներքև տանել"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:237
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:240
 msgid "Node _Left"
 msgstr "Ճյուղը _ձախ տանել"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:237
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:240
 msgid "Move the Selected Node Left"
 msgstr "Ընտրված ճյուղը ձախ տանել"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:238
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:241
 msgid "Node _Right"
 msgstr "Ճյուղն _աջ տանել"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:238
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:241
 msgid "Move the Selected Node Right"
 msgstr "Ընտրված ճյուղն աջ տանել"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:239
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:242
 msgid "Node Change _Parent"
 msgstr "Փոխել ճյուղի _ծնողին"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:239
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:242
 msgid "Change the Selected Node's Parent"
 msgstr "Փոխել ընտրված ճյուղի ծնողին"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:240
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:243
 msgid "Sort Tree _Ascending"
 msgstr "Դասավորել ծառն ըստ _աճման կարգի"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:240
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:243
 msgid "Sort the Tree Ascending"
 msgstr "Դասավորել ծառն ըստ աճման կարգի"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:241
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:244
 msgid "Sort Tree _Descending"
 msgstr "Դասավորել ծառն ըստ _նվազման կարգի"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:241
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:244
 msgid "Sort the Tree Descending"
 msgstr "Դասավորել ծառն ըստ նվազման կարգի"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:242
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:245
 msgid "Sort Siblings A_scending"
 msgstr "Դասավորել ենթաճյուղերն ըստ ա_ճման կարգի"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:242
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:245
 msgid "Sort all the Siblings of the Selected Node Ascending"
 msgstr "Դասավորել ընտրված ճյուղի ենթաճյուղերն ըստ աճման կարգի"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:243
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:246
 msgid "Sort Siblings D_escending"
 msgstr "Դասավորել ենթաճյուղերն ըստ ն_վազման կարգի"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:243
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:246
 msgid "Sort all the Siblings of the Selected Node Descending"
 msgstr "Դասավորել ընտրված ճյուղի ենթաճյուղերն ըստ նվազման կարգի"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:244
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:247
 msgid "_Inherit Syntax"
 msgstr "Ժառանգել _շարահյուսությունը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:244
-msgid "Change the Selected Node's Children Syntax Highlighting to the Parent's Syntax Highlighting"
-msgstr "Ճյուղի շարահյուսական գունանշումը փոխարինել ծնողական ճյուղի շարահյուսական գունանշմամբ"
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:247
+msgid ""
+"Change the Selected Node's Children Syntax Highlighting to the Parent's "
+"Syntax Highlighting"
+msgstr ""
+"Ճյուղի շարահյուսական գունանշումը փոխարինել ծնողական ճյուղի շարահյուսական "
+"գունանշմամբ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:245
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:248
 msgid "De_lete Node"
 msgstr "Ջնջել ճյուղը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:245
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:248
 msgid "Delete the Selected Node"
 msgstr "Ջնջել ընտրված ճյուղը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:246
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:249
 msgid "Go _Back"
 msgstr "_Հետ գնալ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:246
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:249
 msgid "Go to the Previous Visited Node"
 msgstr "Անցնել նախորդ ճյուղին"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:247
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:250
 msgid "Go _Forward"
 msgstr "_Առաջ գնալ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:247
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:250
 msgid "Go to the Next Visited Node"
 msgstr "Անցնել հաջորդ ճյուղին"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:248
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:251
 msgid "_Find in Node Content"
 msgstr "_Գտնել ճյուղի պարունակության մեջ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:248
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:251
 msgid "Find into the Selected Node Content"
 msgstr "Գտնել ընտրված ճյուղի պարունակության մեջ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:249
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:252
 msgid "Find in _All Nodes Contents"
 msgstr "Գտնել _բոլոր ճյուղերի պարունակության մեջ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:249
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:252
 msgid "Find into All the Tree Nodes Contents"
 msgstr "Գտնել ծառի բոլոր ճյուղերի պարունակության մեջ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:250
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:253
 msgid "Find in _Selected Node and Subnodes Contents"
 msgstr "Գտնել _ընտրված ճյուղի և ենթաճյուղերի պարունակության մեջ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:250
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:253
 msgid "Find into the Selected Node and Subnodes Contents"
 msgstr "Գտնել ընտրված ճյուղի և ենթաճյուղերի պարունակության մեջ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:251
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:254
 msgid "Find in _Nodes Names and Tags"
 msgstr "Գտնել _ճյուղերի անվանումներում ու պիտակներում"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:251
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:254
 msgid "Find in Nodes Names and Tags"
 msgstr "Գտնել ճյուղերի անվանումներում ու պիտակներում"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:252
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:255
 msgid "Find _Again"
 msgstr "Նորից փնտրել"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:252
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:255
 msgid "Iterate the Last Find Operation"
 msgstr "Կրկնել որոնման վերջին գործողությունը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:253
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:256
 msgid "Find _Back"
 msgstr "Փնտրել _հակառակ ուղղությամբ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:253
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:256
 msgid "Iterate the Last Find Operation in Opposite Direction"
 msgstr "Կրկնել որոնման վերջին գործողությունը հակառակ ուղղությամբ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:254
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:257
 msgid "_Replace in Node Content"
 msgstr "_Փոխարինել ճյուղի պարունակության մեջ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:254
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:257
 msgid "Replace into the Selected Node Content"
 msgstr "Փոխարինել ընտրված ճյուղի պարունակության մեջ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:255
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:258
 msgid "Replace in _All Nodes Contents"
 msgstr "Փոխարինել _բոլոր ճյուղերի պարունակության մեջ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:255
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:258
 msgid "Replace into All the Tree Nodes Contents"
 msgstr "Փոխարինել ծառի բոլոր ճյուղերի պարունակության մեջ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:256
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:259
 msgid "Replace in _Selected Node and Subnodes Contents"
 msgstr "Փոխարինել _ընտրված ճյուղի ու ենթաճյուղերի պարունակության մեջ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:256
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:259
 msgid "Replace into the Selected Node and Subnodes Contents"
 msgstr "Փոխարինել ընտրված ճյուղի ու ենթաճյուղերի պարունակության մեջ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:257
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:260
 msgid "Replace in Nodes _Names"
 msgstr "Փոխարինել ճյուղերի անվանումներում"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:257
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:260
 msgid "Replace in Nodes Names"
 msgstr "Փոխարինել ճյուղերի անվանումներում"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:258
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:261
 msgid "Replace _Again"
 msgstr "Նորից փոխարինել"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:258
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:261
 msgid "Iterate the Last Replace Operation"
 msgstr "Կրկնել փոխարինման վերջին գործողությունը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:259
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:262
 msgid "Show/Hide _Tree"
 msgstr "Ցուցադրել/թաքցնել _ծառը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:259
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:262
 msgid "Toggle Show/Hide Tree"
 msgstr "Ցուցադրել/թաքցնել ծառը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:260
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:263
 msgid "Show/Hide Tool_bar"
 msgstr "Ցուցադրել/թաքցնել _գործիքավահանակը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:260
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:263
 msgid "Toggle Show/Hide Toolbar"
 msgstr "Ցուցադրել/թաքցնել գործիքավահանակը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:261
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:264
 msgid "Show/Hide Node Name _Header"
 msgstr "Ցուցադրել/թաքցնել ճյուղի _վերնագիրը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:261
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:264
 msgid "Toggle Show/Hide Node Name Header"
 msgstr "Ցուցադրել/թաքցնել ճյուղի վերնագիրը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:262
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:265
 msgid "Show _All Matches Dialog"
 msgstr "Ցուցադրել համընկումների երկխոսությունը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:262
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:265
 msgid "Show Search All Matches Dialog"
 msgstr "Ցուցադրել համընկումներ փնտրելու երկխոսությունը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:263
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:266
 msgid "Toggle _Focus Tree/Text"
 msgstr "Շարժագծի տեղափոխում ծառից դեպի տեքստ կամ հակառակը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:263
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:266
 msgid "Toggle Focus Between Tree and Text"
 msgstr "Շարժագիծը տեղափոխել ծառից դեպի տեքստ կամ հակառակը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:264
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:267
 msgid "E_xpand All Nodes"
 msgstr "_Ընդարձակել բոլոր ճյուղերը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:264
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:267
 msgid "Expand All the Tree Nodes"
 msgstr "Ընդարձակել ծառի բոլոր ճյուղերը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:265
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:268
 msgid "_Collapse All Nodes"
 msgstr "_Ամփոփել բոլոր ճյուղերը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:265
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:268
 msgid "Collapse All the Tree Nodes"
 msgstr "Ամփոփել ծառի բոլոր ճյուղերը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:266
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:269
 msgid "_Increase Toolbar Icons Size"
 msgstr "_Մեծացնել գործիքավահանակի պատկերակները"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:266
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:269
 msgid "Increase the Size of the Toolbar Icons"
 msgstr "Մեծացնել գործիքավահանակի պատկերակները"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:267
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:270
 msgid "_Decrease Toolbar Icons Size"
 msgstr "_Փոքրացնել գործիքավահանակի պատկերակները"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:267
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:270
 msgid "Decrease the Size of the Toolbar Icons"
 msgstr "Փոքրացնել գործիքավահանակի պատկերակները"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:268
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:271
 msgid "_Full Screen On/Off"
 msgstr "Ամբ_ողջ էկրանով"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:268
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:271
 msgid "Toggle Full Screen On/Off"
 msgstr "Միացնել/անջատել ամբողջ էկրանով ցուցադրումը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:269
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:272
 msgid "Add to _Bookmarks"
 msgstr "_Էջանշել"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:269
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:272
 msgid "Add the Current Node to the Bookmarks List"
 msgstr "Ընթացիկ ճյուղն ավելացնել էջանիշների ցանկին"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:270
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:273
 msgid "_Remove from Bookmarks"
 msgstr "_Էջանիշներից հանել"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:270
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:273
 msgid "Remove the Current Node from the Bookmarks List"
 msgstr "Ընթացիկ ճյուղը հանել էջանիշների ցանկից"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:271
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:274
 msgid "_Handle Bookmarks"
 msgstr "_Կարգավորել էջանիշները"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:271
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1590
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:274
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1840
 msgid "Handle the Bookmarks List"
 msgstr "Կարգավորել էջանիշների ցանկը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:272
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:275
 msgid "From _CherryTree File"
 msgstr "CherryTree նիշքից"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:272
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:275
 msgid "Add Nodes of a CherryTree File to the Current Tree"
 msgstr "Մեկ այլ CherryTree նիշքի ճյուղերն ավելացնել ընթացիկ ծառին"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:273
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:276
 msgid "From _Plain Text File"
 msgstr "Հասարակ տեքստային նիշքից"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:273
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:276
 msgid "Add Node from a Plain Text File to the Current Tree"
 msgstr "Հասարակ տեքստային նիշքից ճյուղ ավելացնել ծառին"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:274
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:277
 msgid "From _Folder of Plain Text Files"
 msgstr "Հասարակ տեքստային նիշքերով պանակից"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:274
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:277
 msgid "Add Nodes from a Folder of Plain Text Files to the Current Tree"
 msgstr "Հասարակ տեքստային նիշքերով պանակից ճյուղեր ավելացնել ծառին"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:275
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:278
 msgid "From _HTML File"
 msgstr "HTML նիշքից"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:275
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:278
 msgid "Add Node from an HTML File to the Current Tree"
 msgstr "HTML նիշքից ճյուղ ավելացնել ծառին"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:276
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:279
 msgid "From _Folder of HTML Files"
 msgstr "HTML նիշքերով պանակից"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:276
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:279
 msgid "Add Nodes from a Folder of HTML Files to the Current Tree"
 msgstr "HTML նիշքերով պանակից ճյուղեր ավելացնել ծառին"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:277
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:280
 msgid "From _Basket Folder"
 msgstr "Basket-ի պանակից"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:277
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:280
 msgid "Add Nodes of a Basket Folder to the Current Tree"
 msgstr "Basket-ի պանակից ճյուղեր ավելացնել ծառին"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:278
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:281
 msgid "From _EssentialPIM HTML File"
 msgstr "EssentialPIM-ի HTML նիշքից"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:278
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:281
 msgid "Add Node from an EssentialPIM HTML File to the Current Tree"
 msgstr "EssentialPIM-ի HTML նիշքից ճյուղ ավելացնել ծառին"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:279
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:282
 msgid "From _Gnote Folder"
 msgstr "Gnote-ի պանակից"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:279
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:282
 msgid "Add Nodes of a Gnote Folder to the Current Tree"
 msgstr "Gnote-ի պանակից ճյուղեր ավելացնել ծառին"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:280
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:283
 msgid "From _KeepNote Folder"
 msgstr "KeepNote-ի պանակից"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:280
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:283
 msgid "Add Nodes of a KeepNote Folder to the Current Tree"
 msgstr "KeepNote-ի պանակից ճյուղեր ավելացնել ծառին"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:281
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:284
 msgid "From K_eyNote File"
 msgstr "KeyNote նիշքից"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:281
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:284
 msgid "Add Nodes of a KeyNote File to the Current Tree"
 msgstr "KeyNote նիշքից ճյուղեր ավելացնել ծառին"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:282
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:285
 msgid "From K_nowit File"
 msgstr "Knowit նիշքից"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:282
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:285
 msgid "Add Nodes of a Knowit File to the Current Tree"
 msgstr "Knowit նիշքից ճյուղեր ավելացնել ծառին"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:283
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:286
 msgid "From _Leo File"
 msgstr "Leo նիշքից"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:283
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:286
 msgid "Add Nodes of a Leo File to the Current Tree"
 msgstr "Leo նիշքից ճյուղեր ավելացնել ծառին"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:284
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:287
 msgid "From _Mempad File"
 msgstr "Mempad նիշքից"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:284
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:287
 msgid "Add Nodes of a Mempad File to the Current Tree"
 msgstr "Mempad նիշքից ճյուղեր ավելացնել ծառին"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:285
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:288
 msgid "From _NoteCase File"
 msgstr "NoteCase նիշքից"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:285
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:288
 msgid "Add Nodes of a NoteCase File to the Current Tree"
 msgstr "NoteCase նիշքից ճյուղեր ավելացնել ծառին"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:286
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:289
 msgid "From _RedNotebook Folder"
 msgstr "RedNotebook-ի պանակից"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:286
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:289
 msgid "Add Nodes of a RedNotebook Folder to the Current Tree"
 msgstr "RedNotebook-ի պանակից ճյուղեր ավելացնել ծառին"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:287
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:290
 msgid "From T_omboy Folder"
 msgstr "Tomboy-ի պանակից"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:287
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:290
 msgid "Add Nodes of a Tomboy Folder to the Current Tree"
 msgstr "Tomboy-ի պանակից ճյուղեր ավելացնել ծառին"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:288
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:291
 msgid "From T_reepad Lite File"
 msgstr "Treepad Lite նիշքից"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:288
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:291
 msgid "Add Nodes of a Treepad Lite File to the Current Tree"
 msgstr "Treepad Lite նիշքից ճյուղեր ավելացնել ծառին"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:289
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:292
 msgid "From _TuxCards File"
 msgstr "TuxCards նիշքից"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:289
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:292
 msgid "Add Nodes of a TuxCards File to the Current Tree"
 msgstr "TuxCards նիշքից ճյուղեր ավելացնել ծառին"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:290
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:293
 msgid "From _Zim Folder"
 msgstr "Zim-ի պանակից"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:290
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:293
 msgid "Add Nodes of a Zim Folder to the Current Tree"
 msgstr "Zim-ի պանակից ճյուղեր ավելացնել ծառին"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:291
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:294
 msgid "Export To _PDF"
 msgstr "Արտահանել որպես PDF"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:291
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:294
 msgid "Export To PDF"
 msgstr "Արտահանել որպես PDF"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:292
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:295
 msgid "Export To _HTML"
 msgstr "Արտահանել որպես HTML"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:292
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:295
 msgid "Export To HTML"
 msgstr "Արտահանել որպես HTML"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:293
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:296
 msgid "Export to Multiple Plain _Text Files"
 msgstr "Արտահանել որպես բազմաթիվ հասարակ տեքստային նիշքեր"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:293
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:296
 msgid "Export to Multiple Plain Text Files"
 msgstr "Արտահանել որպես բազմաթիվ հասարակ տեքստային նիշքեր"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:294
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:297
 msgid "Export to _Single Plain Text File"
 msgstr "Արտահանել որպես մեկ հասարակ տեքստային նիշք"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:294
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:297
 msgid "Export to Single Plain Text File"
 msgstr "Արտահանել որպես մեկ հասարակ տեքստային նիշք"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:295
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:298
 msgid "_Export To CherryTree Document"
 msgstr "Արտա_հանել որպես CherryTree փաստաթուղթ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:295
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:298
 msgid "Export To CherryTree Document"
 msgstr "Արտահանել որպես CherryTree փաստաթուղթ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:296
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:299
 msgid "_Check Newer Version"
 msgstr "Ստուգել ծրագրի թարմացումները"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:296
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:299
 msgid "Check for a Newer Version"
 msgstr "Ստուգել ծրագրի թարմացումները"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:297
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:300
 msgid "Online _Manual"
 msgstr "Առցանց ուղեցույց"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:297
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:300
 msgid "Application's Online Manual"
 msgstr "Ծրագրի առցանց ուղեցույցը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:298
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:301
 msgid "_About"
 msgstr "Ծրագրի մասին"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:298
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:749
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:301
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:862
 msgid "About CherryTree"
 msgstr "CherryTree-ի մասին"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:299
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:302
 msgid "C_ut Anchor"
 msgstr "Կ_տրել խարիսխը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:299
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:302
 msgid "Cut the Selected Anchor"
 msgstr "Կտրել ընտրված խարիսխը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:300
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:303
 msgid "_Copy Anchor"
 msgstr "Պատ_ճենել խարիսխը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:300
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:303
 msgid "Copy the Selected Anchor"
 msgstr "Պատճենել ընտրված խարիսխը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:301
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:304
 msgid "_Delete Anchor"
 msgstr "_Ջնջել խարիսխը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:301
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:304
 msgid "Delete the Selected Anchor"
 msgstr "Ջնջել ընտրված խարիսխը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:302
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:305
 msgid "Edit _Anchor"
 msgstr "Խմբագրել _խարիսխը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:302
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:305
 msgid "Edit the Underlying Anchor"
 msgstr "Խմբագրել խարիսխը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:303
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:306
 msgid "C_ut Embedded File"
 msgstr "Կ_տրել ներդրված նիշքը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:303
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:306
 msgid "Cut the Selected Embedded File"
 msgstr "Կտրել ընտրված ներդրված նիշքը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:304
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:307
 msgid "_Copy Embedded File"
 msgstr "Պատ_ճենել ներդրված նիշքը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:304
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:307
 msgid "Copy the Selected Embedded File"
 msgstr "Պատճենել ընտրված ներդրված նիշքը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:305
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:308
 msgid "_Delete Embedded File"
 msgstr "_Ջնջել ներդրված նիշքը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:305
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:308
 msgid "Delete the Selected Embedded File"
 msgstr "Ջնջել ընտրված ներդրված նիշքը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:307
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:310
 msgid "Open Embedded File"
 msgstr "Բացել ներդրված նիշքը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:308
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:311
 msgid "_Save Image as PNG"
 msgstr "Նկարը պահպանել որ_պես PNG"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:308
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:311
 msgid "Save the Selected Image as a PNG file"
 msgstr "Ընտրված նկարը պահպանել որպես PNG նիշք"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:309
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:312
 msgid "_Edit Image"
 msgstr "Խմբագրել նկարը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:309
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:312
 msgid "Edit the Selected Image"
 msgstr "Ընտրված նկարը խմբագրել"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:310
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:313
 msgid "C_ut Image"
 msgstr "Կ_տրել նկարը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:310
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:313
 msgid "Cut the Selected Image"
 msgstr "Ընտրված նկարը կտրել"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:311
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:314
 msgid "_Copy Image"
 msgstr "Պատ_ճենել նկարը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:311
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:314
 msgid "Copy the Selected Image"
 msgstr "Ընտրված նկարը պատճենել"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:312
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:315
 msgid "_Delete Image"
 msgstr "_Ջնջել նկարը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:312
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:315
 msgid "Delete the Selected Image"
 msgstr "Ընտրված նկարը ջնջել"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:313
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:580
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:316
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:584
 msgid "Edit _Link"
 msgstr "Խմբագրել հ_ղումը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:313
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:316
 msgid "Edit the Link Associated to the Image"
 msgstr "Խմբագրել նկարին առնչվող հղումը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:314
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:584
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:317
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:588
 msgid "D_ismiss Link"
 msgstr "Հանել հղման _ընդգծումը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:314
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:317
 msgid "Dismiss the Link Associated to the Image"
 msgstr "Վերացնել նկարին առնչվող հղումը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:315
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:318
 msgid "Show/Hide _CherryTree"
 msgstr "Ցուցադրել/թաքցնել CherryTree-ն"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:315
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:318
 msgid "Toggle Show/Hide CherryTree"
 msgstr "Ցուցադրել/թաքցնել CherryTree-ն"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:316
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:319
 msgid "Stri_p Trailing Spaces"
 msgstr "Վերացնել տողավեր_ջի բացակները"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:316
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:319
 msgid "Strip Trailing Spaces"
 msgstr "Վերացնել տողավերջի բացակները"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:324
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:327
 msgid "_File"
 msgstr "_Նիշք"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:325
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:328
 msgid "_Edit"
 msgstr "_Խմբագրում"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:326
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:455
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:329
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:458
 msgid "For_matting"
 msgstr "_Ձևավորում"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:327
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:330
 msgid "_Tree"
 msgstr "_Ծառ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:328
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:388
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:331
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:391
 msgid "Node _Move"
 msgstr "Ճյուղի տեղափոխում"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:329
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:406
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:332
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:409
 msgid "Nodes _Import"
 msgstr "Ճյուղերի ներմուծում"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:330
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:427
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:333
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:430
 msgid "Nodes E_xport"
 msgstr "Ճյուղերի արտահանում"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:331
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:496
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:541
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:334
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:499
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:545
 msgid "C_hange Case"
 msgstr "Փոխել տառաշարը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:332
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:511
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:555
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:335
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:514
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:559
 msgid "_Search"
 msgstr "_Որոնում"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:333
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:336
 msgid "_View"
 msgstr "_Տեսք"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:334
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:337
 msgid "_Bookmarks"
 msgstr "_Էջանիշներ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:335
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:338
 msgid "_Import"
 msgstr "Ներ_մուծում"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:336
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:339
 msgid "E_xport"
 msgstr "_Արտահանում"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:337
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:340
 msgid "_Help"
 msgstr "_Օգնություն"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:396
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:399
 msgid "Nodes _Sort"
 msgstr "Ճյուղերի _դասավորում"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:473
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:476
 msgid "_Justify"
 msgstr "Ու_ղղել տողերը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:479
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:482
 msgid "_List"
 msgstr "_Ցանկ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:485
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:536
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:488
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:540
 msgid "_Insert"
 msgstr "Ներ_մուծել"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:501
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:546
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:504
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:550
 msgid "_Row"
 msgstr "_Տող"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:519
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:563
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:522
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:567
 msgid "_Replace"
 msgstr "_Փոխարինում"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:580
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:584
 msgid "Edit the Underlying Link"
 msgstr "Խմբագրել հղումը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:582
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:586
 msgid "C_ut Link"
 msgstr "Կ_տրել հղումը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:582
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:586
 msgid "Cut the Selected Link"
 msgstr "Կտրել ընտրված հղումը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:583
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:587
 msgid "_Copy Link"
 msgstr "_Պատճենել հղումը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:583
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:587
 msgid "Copy the Selected Link"
 msgstr "Պատճենել ընտրված հղումը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:584
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:588
 msgid "Dismiss the Selected Link"
 msgstr "Հանել ընտրված հղման ընդգծումը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:585
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:589
 msgid "_Delete Link"
 msgstr "Ջնջել հղումը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:585
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:589
 msgid "Delete the Selected Link"
 msgstr "Ջնջել ընտրված հղումը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:595
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:599
 msgid "C_ut Table"
 msgstr "Կ_տրել աղյուսակը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:595
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:599
 msgid "Cut the Selected Table"
 msgstr "Ընտրված աղյուսակը կտրել"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:596
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:600
 msgid "_Copy Table"
 msgstr "Պատ_ճենել աղյուսակը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:596
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:600
 msgid "Copy the Selected Table"
 msgstr "Ընտրված աղյուսակը պատճենել"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:597
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:601
 msgid "_Delete Table"
 msgstr "_Ջնջել աղյուսակը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:597
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:601
 msgid "Delete the Selected Table"
 msgstr "Ընտրված աղյուսակը ջնջել"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:599
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:603
 msgid "_Add Row"
 msgstr "Ավելացնել _տող"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:599
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:603
 msgid "Add a Table Row"
 msgstr "Ավելացնել աղյուսակի տող"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:600
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:604
 msgid "Cut a Table Row"
 msgstr "Կտրել աղյուսակի տողը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:601
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:605
 msgid "Copy a Table Row"
 msgstr "Պատճենել աղյուսակի տողը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:602
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:606
 msgid "_Paste Row"
 msgstr "Փակցնել տողը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:602
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:606
 msgid "Paste a Table Row"
 msgstr "Փակցնել աղյուսակի տողը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:603
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:607
 msgid "Delete the Selected Table Row"
 msgstr "Ջնջել աղյուսակի ընտրված տողը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:605
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:609
 msgid "Move Row _Up"
 msgstr "Տողը _վերև տանել"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:605
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:609
 msgid "Move the Selected Row Up"
 msgstr "Ընտրված տողը վերև տանել"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:606
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:610
 msgid "Move Row _Down"
 msgstr "Տողը _ներքև տանել"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:606
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:610
 msgid "Move the Selected Row Down"
 msgstr "Ընտրված տողը ներքև տանել"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:607
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:611
 msgid "Sort Rows De_scending"
 msgstr "Տողերը դասավորել ըստ նվա_զման կարգի"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:607
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:611
 msgid "Sort all the Rows Descending"
 msgstr "Բոլոր տողերը դասավորել ըստ նվազման կարգի"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:608
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:612
 msgid "Sort Rows As_cending"
 msgstr "Տողերը դասավորել ըստ ա_ճման կարգի"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:608
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:612
 msgid "Sort all the Rows Ascending"
 msgstr "Բոլոր տողերը դասավորել ըստ աճման կարգի"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:610
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:614
 msgid "_Edit Table Properties"
 msgstr "Ա_ղյուսակի հատկությունների խմբագրում"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:610
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:614
 msgid "Edit the Table Properties"
 msgstr "Խմբագրել աղյուսակի հատկությունները"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:611
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:615
 msgid "_Table Export"
 msgstr "Աղյուսակի արտա_հանում"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:611
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:615
 msgid "Export Table as CSV File"
 msgstr "Աղյուսակն արտահանել որպես CSV նիշք"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:622
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:626
 msgid "Insert _NewLine"
 msgstr "Դնել _տողահատիչ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:622
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:626
 msgid "Insert NewLine Char"
 msgstr "Դնել տողահատիչի գրանշանը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:633
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:637
 msgid "Change CodeBox _Properties"
-msgstr "Փոխել այլագրի վանդակի հատկությունները"
+msgstr "Փոխել այլագրավանդակի հատկությունները"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:633
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:637
 msgid "Edit the Properties of the CodeBox"
-msgstr "Խմբագրել այլագրի վանդակի հատկությունները"
+msgstr "Խմբագրել այլագրավանդակի հատկությունները"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:634
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:638
+msgid "_Execute CodeBox Code"
+msgstr "_Գործարկել այլագիրը"
+
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:638
+msgid "Execute CodeBox Code"
+msgstr "Գործարկել այլագիրը"
+
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:639
 msgid "CodeBox _Load From Text File"
-msgstr "Այլագրի վանդակի պարունակությունը՝ _տեքստային նիշքից"
+msgstr "Այլագրավանդակի պարունակությունը՝ _տեքստային նիշքից"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:634
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:639
 msgid "Load the CodeBox Content From a Text File"
-msgstr "Այլագրի վանդակի պարունակությունը ներմուծել տեքստային նիշքից"
+msgstr "Այլագրավանդակի պարունակությունը ներմուծել տեքստային նիշքից"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:635
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:640
 msgid "CodeBox _Save To Text File"
-msgstr "Այլագրի վանդակի պարունակությունը՝ որպես տե_քստային նիշք"
+msgstr "Այլագրավանդակի պարունակությունը՝ որպես տե_քստային նիշք"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:635
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:640
 msgid "Save the CodeBox Content To a Text File"
-msgstr "Այլագրի վանդակի պարունակությունը պահպանել որպես տեքստային նիշք"
+msgstr "Այլագրավանդակի պարունակությունը պահպանել որպես տեքստային նիշք"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:637
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:642
 msgid "C_ut CodeBox"
-msgstr "_Կտրել այլագրի վանդակը"
+msgstr "_Կտրել այլագրավանդակը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:637
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:642
 msgid "Cut the Selected CodeBox"
-msgstr "Կտրել այլագրի վանդակը"
+msgstr "Կտրել այլագրավանդակը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:638
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:643
 msgid "_Copy CodeBox"
-msgstr "Պատ_ճենել այլագրի վանդակը"
+msgstr "Պատ_ճենել այլագրավանդակը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:638
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:643
 msgid "Copy the Selected CodeBox"
-msgstr "Պատճենել այլագրի վանդակը"
+msgstr "Պատճենել այլագրավանդակը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:639
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:644
 msgid "_Delete CodeBox"
-msgstr "Ջնջել այլագրի վանդակը"
+msgstr "Ջնջել այլագրավանդակը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:639
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:644
 msgid "Delete the Selected CodeBox"
-msgstr "Ջնջել այլագրի վանդակը"
+msgstr "Ջնջել այլագրավանդակը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:640
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:645
 msgid "Delete CodeBox _Keep Content"
-msgstr "Այլագրի վանդակը ջնջել, _պարունակությունը պահել"
+msgstr "Այլագրավանդակը ջնջել, _պարունակությունը պահել"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:640
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:645
 msgid "Delete the Selected CodeBox But Keep Its Content"
-msgstr "Այլագրի վանդակը ջնջել, պարունակությունը պահել"
+msgstr "Այլագրավանդակը ջնջել, պարունակությունը պահել"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:642
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:647
 msgid "Increase CodeBox Width"
-msgstr "Լայնացնել այլագրի վանդակը"
+msgstr "Լայնացնել այլագրավանդակը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:642
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:647
 msgid "Increase the Width of the CodeBox"
-msgstr "Լայնացնել այլագրի վանդակը"
+msgstr "Լայնացնել այլագրավանդակը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:643
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:648
 msgid "Decrease CodeBox Width"
-msgstr "Նեղացնել այլագրի վանդակը"
+msgstr "Նեղացնել այլագրավանդակը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:643
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:648
 msgid "Decrease the Width of the CodeBox"
-msgstr "Նեղացնել այլագրի վանդակը"
+msgstr "Նեղացնել այլագրավանդակը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:644
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:649
 msgid "Increase CodeBox Height"
-msgstr "Մեծացնել այլագրի վանդակի բարձրությունը"
+msgstr "Մեծացնել այլագրավանդակի բարձրությունը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:644
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:649
 msgid "Increase the Height of the CodeBox"
-msgstr "Մեծացնել այլագրի վանդակի բարձրությունը"
+msgstr "Մեծացնել այլագրավանդակի բարձրությունը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:645
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:650
 msgid "Decrease CodeBox Height"
-msgstr "Փոքրացնել այլագրի վանդակի բարձրությունը"
+msgstr "Փոքրացնել այլագրավանդակի բարձրությունը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:645
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:650
 msgid "Decrease the Height of the CodeBox"
-msgstr "Փոքրացնել այլագրի վանդակի բարձրությունը"
+msgstr "Փոքրացնել այլագրավանդակի բարձրությունը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:567
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:679
 msgid "Save File as"
 msgstr "Պահպանել նիշքը որպես"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:598
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:710
 msgid "Select File"
 msgstr "Ընտրել նիշք"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:629
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:741
 msgid "Select Folder"
 msgstr "Ընտրել պանակ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:657
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:769
 msgid "Question"
 msgstr "Հարց"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:672
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:784
 msgid "Info"
 msgstr "Տեղեկանք"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:678
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:790
 msgid "This Change will have Effect Only After Restarting CherryTree"
 msgstr "Փոփոխությունը կկատարվի CherryTree-ի վերագործարկումից հետո։"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:688
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:970
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1004
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1047
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:800
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1083
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1117
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1160
 msgid "Warning"
 msgstr "Զգուշացում"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:700
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:812
 msgid "Error"
 msgstr "Սխալ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:711
-msgid "A Hierarchical Note Taking Application, featuring Rich Text and Syntax Highlighting"
-msgstr "Նվիրապետական կառուցվածքով նշատետր-ծրագիր՝ ձևավորման և շարահյուսական գունանշման հնարավորություններով"
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:823
+msgid ""
+"A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
+"Highlighting"
+msgstr ""
+"Նվիրապետական կառուցվածքով նշատետր-ծրագիր՝ ձևավորման և շարահյուսական "
+"գունանշման հնարավորություններով"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:712
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:824
 msgid ""
 "\n"
 "This program is free software; you can redistribute it and/or modify\n"
@@ -1712,205 +1823,265 @@ msgstr ""
 "  \n"
 "Ծրագիրը տարածվում է օգտակար լինելու ակնկալիքով, \n"
 "սակայն ԱՌԱՆՑ ՈՐԵՎԷ ԵՐԱՇԽԻՔԻ կամ ՈՐԵՎԷ ՀԱՏՈՒԿ ՆՊԱՏԱԿԻ ԾԱՌԱՅԵՑՄԱՆ։\n"
-"Ավելի մանրամասն տեղեկությունների համար տեսեք GNU-ի  հանրային ընդհանուր արտոնագիրը։\n"
+"Ավելի մանրամասն տեղեկությունների համար տեսեք GNU-ի  հանրային ընդհանուր "
+"արտոնագիրը։\n"
 "  \n"
-"Այս ծրագրի հետ Դուք պետք է որ ստացած լինեք նաև GNU-ի հանրային ընդհանուր արտոնագրի պատճենը։\n"
+"Այս ծրագրի հետ Դուք պետք է որ ստացած լինեք նաև GNU-ի հանրային ընդհանուր "
+"արտոնագրի պատճենը։\n"
 "Եթե ոչ, գրավոր դիմեք Ազատ ծրագրային ապահովման հիմնադրամին հետևյալ հասցեով՝\n"
 "Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,\n"
 "MA 02110-1301, USA.\n"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:732
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:844
 msgid "Armenian"
 msgstr "Հայերեն"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:733
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:845
 msgid "Chinese Simplified"
 msgstr "Պարզեցված չինարեն"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:734
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:846
 msgid "Czech"
 msgstr "Չեխերեն"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:735
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:847
 msgid "Dutch"
 msgstr "Հոլանդերեն"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:736
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:848
 msgid "French"
 msgstr "Ֆրանսերեն"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:737
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:849
 msgid "German"
 msgstr "Գերմաներեն"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:738
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:850
+msgid "Greek"
+msgstr "Հունարեն"
+
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:851
 msgid "Italian"
 msgstr "Իտալերեն"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:739
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:852
 msgid "Japanese"
 msgstr "Ճապոներեն"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:740
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:853
 msgid "Lithuanian"
 msgstr "Լիտվերեն"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:741
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:854
 msgid "Polish"
 msgstr "Լեհերեն"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:742
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:855
 msgid "Portuguese Brazil"
 msgstr "Բրազիլական պորտուգալերեն"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:743
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:856
 msgid "Russian"
 msgstr "Ռուսերեն"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:744
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:857
 msgid "Slovenian"
 msgstr "Սլովեներեն"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:745
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:858
 msgid "Spanish"
 msgstr "Իսպաներեն"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:746
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:859
 msgid "Turkish"
 msgstr "Թուրքերեն"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:747
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:860
 msgid "Ukrainian"
 msgstr "Ուկրաիներեն"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1007
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1050
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1120
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1163
 msgid "Cancel"
 msgstr "Չեղարկել"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1008
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1052
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1121
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1165
 msgid "Yes"
 msgstr "Այո"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1020
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1133
 msgid "Temporary Files were Created and Opened with External Applications."
 msgstr "Արտաքին ծրագրերով ստեղծվել ու բացվել են ժամանակավոր նիշքեր։"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1020
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1133
 msgid "Quit the External Applications Before Quit CherryTree."
 msgstr "CherryTree-ն փակելուց առաջ փակել արտաքին ծրագրերը։"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1020
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1133
 msgid "Did you Quit the External Applications?"
 msgstr "Արդյոք փակե՞լ եք արտաքին ծրագրերը։"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1051
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1164
 msgid "No"
 msgstr "Ոչ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1066
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1179
 msgid "The Current Document was Updated."
 msgstr "Փաստաթուղթը թարմացվել է։"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1066
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1179
 msgid "Do you want to Save the Changes?"
 msgstr "Կամենո՞ւմ եք պահպանել փոփոխությունները"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1109
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1413
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1222
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1702
 msgid "To WebSite"
 msgstr "Դեպի կայք"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1120
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1427
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1233
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1716
 msgid "To File"
 msgstr "Դեպի նիշք"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1135
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1434
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1248
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1723
 msgid "To Folder"
 msgstr "Դեպի պանակ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1150
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1420
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1263
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1709
 msgid "To Node"
 msgstr "Դեպի ճյուղ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1186
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1299
 msgid "Anchor Name (optional)"
 msgstr "Խարիսխի անվանում (ըստ ցանկության)"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1260
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3934
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4972
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1373
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3869
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4901
 msgid "No Node is Selected"
 msgstr "Որևէ ճյուղ չի ընտրված"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1273
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1386
 msgid "There are No Anchors in the Selected Node"
 msgstr "Ընտրված ճյուղում խարիսխներ չկան"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1275
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1388
 msgid "Choose Existing Anchor"
 msgstr "Ընտրել գոյություն ունեցող խարիսխ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1275
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1388
 msgid "Anchor Name"
 msgstr "Խարիսխի անվանում"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1414
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1452
+msgid "Choose Storage Type"
+msgstr "Ընտրեք պահեստարանի տեսակը"
+
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1459
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1462
+msgid "Not Protected"
+msgstr "պաշտպանված չէ"
+
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1460
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1464
+msgid "Password Protected"
+msgstr "պաշտպանված է գաղտնաբառով"
+
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1471
+msgid "Storage Type"
+msgstr "Պահեստարանի տեսակ"
+
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1479
+msgid ""
+"CT saves the document in an encrypted 7zip archive. When viewing or editing "
+"the document, CT extracts the encrypted archive to a temporary folder, and "
+"works on the unencrypted copy. When closing, the unencrypted copy is deleted "
+"from the temporary directory. Note that in the case of application or system "
+"crash, the unencrypted document will remain in the temporary folder."
+msgstr ""
+"CT-ն փաստաթուղթը պահպանում է որպես գաղտնագրված 7zip սեղմանիշք։ Փաստաթղթի "
+"ընթերցման կամ խմբագրման ժամանակ CT-ն ընդարձակում է գաղտնագրված սեղմանիշքը մի "
+"ժամանակավոր պանակում և աշխատում գաղտնազերծված պատճենի վրա։ Նիշքի փակվելուց "
+"հետո գաղտնազերծված պատճենը ջնջվում է ժամանակավոր պանակից։ Նկատի ունեցեք, որ "
+"ծրագրի կամ համակարգի խափանման դեպքում գաղտնազերծված փաստաթուղթը կմնա "
+"ժամանակավոր պանակում։"
+
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1486
+msgid "Enter the New Password Twice"
+msgstr "Նոր գաղտնաբառը մուտքագրեք երկիցս"
+
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1529
+msgid "The Password Fields Must be Filled"
+msgstr "Գաղտնաբառի դաշտերը պիտի լրացվեն"
+
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1532
+msgid "The Two Inserted Passwords Do Not Match"
+msgstr "Մուտքագրված երկու գաղտնաբառերը չեն համընկնում"
+
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1536
+#, python-format
+msgid "The Characters  %s  are Not Allowed"
+msgstr "%s  գրանշանները չեն թույլատրվում"
+
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1627
 msgid "Involved Nodes"
 msgstr "Առնչվող ճյուղեր"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1420
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1633
 msgid "Selected Text Only"
 msgstr "Տեքստի միայն ընտրված մասը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1421
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1634
 msgid "Selected Node Only"
 msgstr "Միայն ընտրված ճյուղը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1422
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1635
 msgid "Selected Node and Subnodes"
 msgstr "Ընտրված ճյուղն ու ենթաճյուղերը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1423
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1636
 msgid "All the Tree"
 msgstr "Ամբողջ ծառը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1434
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1647
 msgid "Include Node Name"
 msgstr "Ներառել ճյուղի անվանումը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1440
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1653
 msgid "Links Tree in Every Page"
 msgstr "Հղումների ծառը՝ ամեն էջին"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1445
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1658
 msgid "New Node in New Page"
 msgstr "Նոր ճյուղը՝ նոր էջից"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1510
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1243
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1686
+msgid "Pick a Color"
+msgstr "Ընտրել գույն"
+
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1760
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1289
 msgid "Insert _Special Character"
 msgstr "Դնել հատուկ գրանշան"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1512
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1245
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1762
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1291
 msgid "Insert a Special Character"
 msgstr "Դնել հատուկ գրանշան"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1541
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1791
 msgid "_Recent Documents"
 msgstr "Վերջին փաստաթղթեր"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1543
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1550
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1793
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1800
 msgid "Open a Recent CherryTree Document"
 msgstr "Բացել վերջին CherryTree փաստաթղթերից մեկը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1575
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1825
 #, python-format
 msgid "The Document %s was Not Found"
 msgstr "%s փաստաթուղթը չի գտնվել"
@@ -1919,30 +2090,30 @@ msgstr "%s փաստաթուղթը չի գտնվել"
 msgid "Unknown"
 msgstr "Անհայտ է"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/pgsc_spellcheck.py:423
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/pgsc_spellcheck.py:430
 msgid "(no suggestions)"
 msgstr "(տարբերակ չկա)"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/pgsc_spellcheck.py:439
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/pgsc_spellcheck.py:446
 msgid "Add \"{}\" to Dictionary"
 msgstr "Ավելացնել \"{}\"-ը բառարանի մեջ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/pgsc_spellcheck.py:442
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/pgsc_spellcheck.py:449
 msgid "Ignore All"
 msgstr "Անտեսել բոլորը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/pgsc_spellcheck.py:453
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/pgsc_spellcheck.py:460
 msgid "Languages"
 msgstr "Լեզուներ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/pgsc_spellcheck.py:464
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/pgsc_spellcheck.py:471
 msgid "Suggestions"
 msgstr "Տարբերակներ"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/exports.py:119
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:808
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1482
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1680
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:849
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1530
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1725
 msgid "CherryTree Document"
 msgstr "CherryTree փաստաթուղթ"
 
@@ -1951,9 +2122,9 @@ msgid "PDF File"
 msgstr "PDF նիշք"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/exports.py:266
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:966
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:974
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:987
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1012
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1020
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1033
 msgid "Plain Text Document"
 msgstr "Հասարակ տեքստային փաստաթուղթ"
 
@@ -1961,415 +2132,448 @@ msgstr "Հասարակ տեքստային փաստաթուղթ"
 msgid "Index"
 msgstr "Ցանկ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:616
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:744
 msgid "Tab Width"
 msgstr "Սյունատի լայնք"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:622
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:750
 msgid "Insert Spaces Instead of Tabs"
 msgstr "Սյունանշանի փոխարեն բացակներ դնել"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:624
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:752
 msgid "Use Line Wrapping"
 msgstr "Գործածել տողանցում"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:628
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:756
 msgid "Line Wrapping Indentation"
 msgstr "Տողանցում՝ ներքաշված տողագլխով"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:634
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:762
 msgid "Enable Automatic Indentation"
 msgstr "Տողագլխի ինքնաշխատ ներքաշում"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:640
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:768
 msgid "Vertical Space Around Lines"
 msgstr "Միջպարբերութային տարածք"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:648
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:776
 msgid "Vertical Space in Wrapped Lines"
 msgstr "Միջտողային տարածք"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:665
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:998
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1035
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:793
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1166
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1203
 msgid "Text Editor"
 msgstr "Տեքստային խմբագրիչ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:675
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:803
 msgid "Timestamp Format"
 msgstr "Ամսաթվի կնիքի ձևաչափ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:685
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:813
 msgid "Horizontal Rule"
 msgstr "Հորիզոնական գիծ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:693
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:821
 msgid "Special Characters"
 msgstr "Հատուկ գրանշաններ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:697
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1562
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1739
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:825
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1262
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1274
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1851
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2027
 msgid "Reset to Default"
 msgstr "Վերականգնել սկզբնադիր տարբերակը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:720
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:848
 msgid "Chars to Select at Double Click"
 msgstr "Կրկնակի կտտացմամբ ընտրվող գրանշաններ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:732
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:898
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1095
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1469
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1876
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2018
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:860
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1043
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1376
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1758
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2167
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2313
 msgid "Miscellaneous"
-msgstr "Զանազանք"
+msgstr "Զանազան"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:750
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1696
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1781
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:878
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1328
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1984
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2070
 msgid "Are you sure to Reset to Default?"
 msgstr "Վերականգնե՞լ սկզբնադիր տարբերակը։"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:806
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:934
 msgid "Enable Spell Check"
 msgstr "Կատարել ուղղագրության ստուգում"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:810
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:938
 msgid "Spell Check Language"
 msgstr "Ուղղագրության ստուգման լեզուն"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:823
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4980
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:951
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4910
 msgid "Spell Check"
 msgstr "Ուղղագրության ստուգում"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:833
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1141
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:961
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1422
 msgid "Light Background, Dark Text"
 msgstr "Բաց գույնի խորք, մուգ տեքստ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:834
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1142
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:962
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1423
 msgid "Dark Background, Light Text"
 msgstr "Մուգ խորք, բաց գույնի տեքստ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:836
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1144
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:964
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1425
 msgid "Custom Background"
 msgstr "Այլ գույնի խորք"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:841
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1149
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:969
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1430
 msgid "and Text"
 msgstr "և տեքստ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:851
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1159
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:975
+msgid "Monospace Background"
+msgstr "Նույնալայնք խորք"
+
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:987
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1440
 msgid "Theme"
 msgstr "Թեմա"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:871
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1026
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1013
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1194
 msgid "Show White Spaces"
 msgstr "Ցուցադրել բացակների նիշերը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:873
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1028
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1015
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1196
 msgid "Highlight Current Line"
 msgstr "Գունանշել ընթացիկ տողը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:875
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1017
 msgid "Expand CodeBoxes Automatically"
-msgstr "Այլագրային վանդակների ինքնաշխատ ընդարձակում"
+msgstr "Այլագրավանդակների ինքնաշխատ ընդարձակում"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:879
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1021
 msgid "Embedded File Icon Size"
 msgstr "Ներդրված նիշքի պատկերակի չափերը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:885
-msgid "Limit of Undoable Steps Per Node"
-msgstr "Չեղարկման քայլերի քանակը մեկ ճյուղի համար"
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1027
+msgid "Show File Name on Top of Embedded File Icon"
+msgstr "Ներդրված նիշքի պատկերակի վերևում ցուցադրել նիշքի անունը "
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:993
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1029
+msgid "Limit of Undoable Steps Per Node"
+msgstr "Հետարկման քայլերի քանակը մեկ ճյուղի համար"
+
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1161
 msgid "Enable Smart Quotes Auto Replacement"
 msgstr "Չակերտների ինքնաշխատ փոփոխում"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1018
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1186
 msgid "Style Scheme"
 msgstr "Ոճ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1069
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1259
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2021
+msgid "Add"
+msgstr "Ավելացնել"
+
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1281
+msgid "Command per Node/CodeBox Type"
+msgstr "Հրաման ամեն ճյուղի/այլագրավանդակի տեսակի համար"
+
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1285
+msgid "Terminal Command"
+msgstr "Տերմինալային հրաման"
+
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1290
+msgid "Code Execution"
+msgstr "Այլագրի գործարկում"
+
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1321
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2055
+msgid "Select Element to Add"
+msgstr "Ընտրեք ցանկից՝ ավելացնելու համար'"
+
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1350
 msgid "Tree Nodes Names Wrapping Width"
 msgstr "Ճյուղի անվան երկարությունը տողանցումից առաջ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1075
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1356
 msgid "Display Tree on the Right Side"
 msgstr "Ծառը ցուցադրել աջ կողմում"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1077
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1358
 msgid "Move Focus to Text at Mouse Click"
 msgstr "Մկնիկի մեկ կտտոցով անցնել տեքստի հատված"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1079
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1360
 msgid "Expand Node at Mouse Click"
 msgstr "Ընդարձակել ճյուղը մկնիկի մեկ կտտոցով"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1083
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1364
 msgid "Last Visited Nodes on Node Name Header"
 msgstr "Գործածված վերջին ճյուղերը՝ ճյուղի էջագլխում"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1179
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1460
 msgid "Use Different Cherries per Level"
 msgstr "Տարբեր բալեր՝ ըստ մակարդակի"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1180
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3518
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1461
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3400
 msgid "Use Selected Icon"
 msgstr "Ընտրել պատկերակ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1182
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1463
 msgid "No Icon"
 msgstr "Պատկերակ պետք չէ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1195
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1465
+msgid "Hide Right Side Auxiliary Icon"
+msgstr "Թաքցնել աջ կողմի լրացուցիչ պատկերակը"
+
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1479
 msgid "Default Text Nodes Icons"
 msgstr "Ճյուղերի սկզբնադիր պատկերակները"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1209
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1493
 msgid "Restore Expanded/Collapsed Status"
 msgstr "Վերականգնել ընդարձակված/ամփոփված տեսքը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1210
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1494
 msgid "Expand all Nodes"
 msgstr "Ընդարձակել բոլոր ճյուղերը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1212
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1496
 msgid "Collapse all Nodes"
 msgstr "Ամփոփել բոլոր ճյուղերը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1214
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1498
 msgid "Nodes in Bookmarks Always Visible"
 msgstr "Էջանշված ճյուղերը՝ միշտ տեսանելի"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1222
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1506
 msgid "Nodes Status at Startup"
 msgstr "Ճյուղերի տեսքը ծրագրի գործարկման ժամանակ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1289
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3627
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1573
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3523
 msgid "Select Node Icon"
 msgstr "Ընտրել ճյուղի պատկերակ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1324
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1613
 msgid "Text Font"
 msgstr "Տեքստի տառատեսակ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1325
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1614
 msgid "Code Font"
 msgstr "Այլագրի տառատեսակ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1326
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1615
 msgid "Tree Font"
 msgstr "Ծառի տառատեսակ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1343
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2014
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1632
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2309
 msgid "Fonts"
 msgstr "Տառատեսակներ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1375
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1664
 msgid "Enable Custom Web Link Clicked Action"
 msgstr "Դեպի կայք հղման համար գործածել հետևյալը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1377
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1666
 msgid "Enable Custom File Link Clicked Action"
 msgstr "Դեպի նիշք հղման համար գործածել հետևյալը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1379
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1668
 msgid "Enable Custom Folder Link Clicked Action"
 msgstr "Դեպի պանակ հղման համար գործածել հետևյալը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1388
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1677
 msgid "Custom Actions"
 msgstr "Այլ գործողություններ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1444
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1733
 msgid "Colors"
 msgstr "Գույներ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1453
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1742
 msgid "Underline Links"
 msgstr "Ընդգծել հղումները"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1455
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1744
 msgid "Use Relative Paths for Files And Folders"
 msgstr "Նիշքերի և պանակների համար գործածել հարաբերական ուղիներ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1459
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1748
 msgid "Anchor Size"
 msgstr "Խարիսխի չափ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1559
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1848
 msgid "Change Selected"
 msgstr "Փոխել ընտրվածը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1573
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1861
 msgid "File"
 msgstr "Նիշք"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1574
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2012
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2013
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1862
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2307
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2308
 msgid "Tree"
 msgstr "Ծառ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1575
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1863
 msgid "Editor"
 msgstr "Խմբագրում"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1576
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1864
 msgid "Format"
 msgstr "Ձևավորում"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1577
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1865
 msgid "Find/Replace"
 msgstr "Որոնում"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1578
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1866
 msgid "View"
 msgstr "Տեսք"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1579
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1867
 msgid "Export"
 msgstr "Արտահանում"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1580
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1868
 msgid "Import"
 msgstr "Ներմուծում"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1600
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1888
 msgid "Edit Keyboard Shortcut"
 msgstr "Խմբագրել ստեղնային կարճատը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1607
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1895
 msgid "No Keyboard Shortcut"
 msgstr "Ստեղնային կարճատ պետք չէ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1677
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1965
 #, python-format
 msgid "The Keyboard Shortcut '%s' is already in use"
 msgstr " '%s' ստեղնային կարճատն արդեն կա"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1677
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1965
 #, python-format
 msgid "The current associated action is '%s'"
 msgstr "Ներկա գործողությունը  '%s' -ն է։"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1677
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1965
 msgid "Do you want to steal the shortcut?"
 msgstr "Կամենո՞ւմ եք «գողանալ» կարճատը։"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1733
-msgid "Add"
-msgstr "Ավելացնել"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1736
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2024
 msgid "Remove Selected"
 msgstr "Վերացնել ընտրվածը։"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1766
-msgid "Select Element to Add"
-msgstr "Ընտրեք ցանկից՝ ավելացնելու համար'"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1803
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2091
 msgid "Enable System Tray Docking"
 msgstr "Փակելուց հետո փակցնել համակարգի վահանակում"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1804
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2092
 msgid "Start Minimized in the System Tray"
 msgstr "Սկսել համակարգի վահանակում փակցված տեսքով"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1805
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2093
 msgid "Use AppIndicator for Docking"
 msgstr "Փակցնելու համար գործածել AppIndicator-ը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1810
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2098
 msgid "System Tray"
 msgstr "Համակարգի վահանակ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1827
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2115
 msgid "Autosave Every"
 msgstr "Լռելյայն պահպանում ամեն"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1830
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2118
 msgid "Minutes"
 msgstr "րոպեն մեկ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1834
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2122
 msgid "Autosave on Quit"
 msgstr "Լռելյայն պահպանում նիշքի փակման ժամանակ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1835
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2123
 msgid "Create a Backup Copy Before Saving"
 msgstr "Նախքան պահպանումը պահեստային օրինակ ստեղծել"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1838
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2126
 msgid "Number of Backups to Keep"
 msgstr "Պահեստային նիշքերի քանակը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1856
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2144
 msgid "Saving"
 msgstr "Պահպանում"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1865
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2153
 msgid "Automatically Check for Newer Version"
 msgstr "Լռելյայն ստուգել թարմացումները"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1866
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2154
+msgid "Enable Word Count in Statusbar"
+msgstr "Ցույց տալ բառերի քանակը վիճակագոտում"
+
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2155
 msgid "Reload Document From Last Session"
 msgstr "Բեռնել փաստաթուղթը վերջին գործաժամից"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1867
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2156
 msgid "Reload After External Update to CT* File"
 msgstr "Բեռնել նիշքն արտաքին թարմացումից հետո"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1892
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2183
 msgid "Language"
 msgstr "Ծրագրի լեզուն"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1988
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2283
 msgid "The New Language will be Available Only After Restarting CherryTree"
 msgstr "Նոր լեզուն կգործածվի CherryTree-ի վերագործարկումից հետո։"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2008
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2303
 msgid "Text and Code"
 msgstr "Տեքստ և այլագիր"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2009
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2304
 msgid "Text"
 msgstr "Տեքստ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2010
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3540
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4975
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2305
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3422
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4905
 msgid "Rich Text"
 msgstr "Ձևավորված տեքստ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2011
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2306
 msgid "Plain Text and Code"
 msgstr "Հասարակ տեքստ և այլագիր"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2015
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2310
 msgid "Links"
 msgstr "Հղումներ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2016
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2311
 msgid "Toolbar"
 msgstr "Գործիքավահանակ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2017
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2312
 msgid "Keyboard Shortcuts"
 msgstr "Ստեղնային կարճատներ"
 
@@ -2431,8 +2635,8 @@ msgid "Insert Table"
 msgstr "Դնել աղյուսակ"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/tablez.py:321
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3524
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/imports.py:2361
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3406
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/imports.py:2652
 msgid "click me"
 msgstr "սեղմել այստեղ"
 
@@ -2448,421 +2652,380 @@ msgstr "Խմբագրել աղյուսակի հատկությունները"
 msgid "Table Column Action"
 msgstr "Գործողություն աղյուսակի սյունակի հետ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:238
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:269
 msgid "Checking for Newer Version..."
 msgstr "Ստուգվում են թարմացումները..."
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:251
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:282
 msgid "A Newer Version Is Available!"
 msgstr "Առկա է նոր տարբերակ։"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:257
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:288
 msgid "You Are Using the Latest Version Available"
 msgstr "Դուք գործածում եք առկա վերջին տարբերակը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:259
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:290
 msgid "You Are Using a Development Version"
 msgstr "Դուք գործածում եք դեռ մշակվող տարբերակ։"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:263
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:294
 msgid "Failed to Retrieve Latest Version Information - Try Again Later"
-msgstr "Վերջին տարբերակի մասին տեղեկություն ձեռք բերել չհաջողվեց։ Ավելի ուշ նորի՛ց փորձեք։"
+msgstr ""
+"Վերջին տարբերակի մասին տեղեկություն ձեռք բերել չհաջողվեց։ Ավելի ուշ նորի՛ց "
+"փորձեք։"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:297
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3949
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4550
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:5027
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:325
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3884
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4486
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4975
 msgid "No Text is Selected"
 msgstr "Որևէ տեքստ չի ընտրված"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:784
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2471
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:825
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2424
 msgid "The new parent can't be one of his children!"
 msgstr "Ծնողական նոր ճյուղը չի կարող նույնանալ դուստր ճյուղի հետ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:832
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2048
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:873
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2000
 #, python-format
 msgid "\"%s\" is Not a CherryTree Document"
 msgstr "\"%s\" անունով նիշքը CherryTree փաստաթուղթ չէ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:838
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:879
 msgid "NoteCase Document"
 msgstr "NoteCase փաստաթուղթ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:930
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:976
 msgid "EPIM HTML Document"
 msgstr "EPIM-ի HTML փաստաթուղթ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:944
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:990
 msgid "HTML Document"
 msgstr "HTML փաստաթուղթ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1000
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1046
 msgid "Treepad Document"
 msgstr "Treepad փաստաթուղթ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1021
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1067
 msgid "KeyNote Document"
 msgstr "KeyNote փաստաթուղթ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1041
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1087
 msgid "Mempad Document"
 msgstr "Mempad փաստաթուղթ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1060
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1106
 msgid "Knowit Document"
 msgstr "Knowit փաստաթուղթ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1080
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1126
 msgid "Leo Document"
 msgstr "Leo փաստաթուղթ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1112
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1158
 msgid "Who is the Parent?"
 msgstr "Ո՞րն է ծնողը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1119
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1165
 msgid "The Tree Root"
 msgstr "Ծառարմատը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1120
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1166
 msgid "The Selected Node"
 msgstr "Ընտրված ճյուղը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1336
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1382
 msgid "The Document was Reloaded After External Update to CT* File"
 msgstr "Փաստաթուղթը բեռնվել է արտաքին թարմացումից հետո"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1363
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1409
 msgid "CherryTree Hierarchical Note Taking"
 msgstr "Նվիրապետական կառուցվածքով նշատետր CherryTree"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1646
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1691
 #, python-format
 msgid "You Have No Write Access to %s"
 msgstr "%s նիշքին գրանցումը հասանելի չէ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1660
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1705
 msgid "Writing to Disk..."
 msgstr "Գրանցվում է սկավառակի վրա..."
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1782
-msgid "Choose Storage Type"
-msgstr "Ընտրեք պահեստարանի տեսակը"
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1829
+msgid ""
+"Binary Executable '7za' Not Found, Check The Package 'p7zip-full' to be "
+"Installed Properly"
+msgstr ""
+" '7za' նիշքը չի գտնվել։ Համոզվեք, որ 'p7zip-full' փաթեթը ճիշտ է տեղակայված"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1789
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1792
-msgid "Not Protected"
-msgstr "պաշտպանված չէ"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1790
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1794
-msgid "Password Protected"
-msgstr "պաշտպանված է գաղտնաբառով"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1801
-msgid "Storage Type"
-msgstr "Պահեստարանի տեսակ"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1812
-msgid "Enter the New Password Twice"
-msgstr "Նոր գաղտնաբառը մուտքագրեք երկիցս"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1855
-msgid "The Password Fields Must be Filled"
-msgstr "Գաղտնաբառի դաշտերը պիտի լրացվեն"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1858
-msgid "The Two Inserted Passwords Do Not Match"
-msgstr "Մուտքագրված երկու գաղտնաբառերը չեն համընկնում"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1862
-#, python-format
-msgid "The Characters  %s  are Not Allowed"
-msgstr "%s  գրանշանները չեն թույլատրվում"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1880
-msgid "Binary Executable '7za' Not Found, Check The Package 'p7zip-full' to be Installed Properly"
-msgstr " '7za' նիշքը չի գտնվել։ Համոզվեք, որ 'p7zip-full' փաթեթը ճիշտ է տեղակայված"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1886
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1835
 #, python-format
 msgid "Enter Password for %s"
 msgstr "Մուտքագրեք %s օգտվողի գաղտնաբառը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1957
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1974
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1907
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1924
 msgid "Wrong Password"
 msgstr "Սխալ գաղտնաբառ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2459
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2412
 msgid "Select the New Parent"
 msgstr "Ընտրել նոր ծնողին"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2463
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2416
 msgid "The new parent can't be the very node to move!"
 msgstr "Նոր ծնողը չի կարող լինել հենց տեղափոխման ենթակա ճյուղը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2466
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2419
 msgid "The new chosen parent is still the old parent!"
 msgstr "Ընտրված նոր ծնողը դարձյալ հինն է"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2719
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2684
 msgid "New Node Properties"
 msgstr "Նոր ճյուղի հատկություններ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2779
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2747
 msgid "New Child Node Properties"
 msgstr "Նոր ենթաճյուղի հատկություններ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2803
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2774
 #, python-format
 msgid "Are you sure to <b>Delete the node '%s'?</b>"
 msgstr "<b>Ջնջե՞լ  «%s» ճյուղը</b>"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2805
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2776
 msgid "The node <b>has Children, they will be Deleted too!</b>"
 msgstr "Ճյուղն ունի <b>ենթաճյուղեր, որոնք նույնպես կջնջվեն</b>"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2839
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2813
 msgid "Node Properties"
 msgstr "Ճյուղի հատկություններ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2852
-msgid "Leaving the Node Type Rich Text you will Lose all Formatting for This Node, Do you want to Continue?"
-msgstr "Ձևավորված տեքստից հրաժարվելու դեպքում կկորցնեք այս ճյուղի ամբողջ ձևավորումը։ Շարունակե՞լ։"
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2826
+msgid ""
+"Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
+"Do you want to Continue?"
+msgstr ""
+"Ձևավորված տեքստից հրաժարվելու դեպքում կկորցնեք այս ճյուղի ամբողջ ձևավորումը։ "
+"Շարունակե՞լ։"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3396
-msgid "Search for"
-msgstr "Փնտրել"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3403
-msgid "Replace with"
-msgstr "Փոխարինել"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3418
-msgid "Match Case"
-msgstr "Մեծատառն ու փոքրատառը տարբերակել"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3420
-msgid "Regular Expression"
-msgstr "Կանոնավոր արտահայտություն"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3422
-msgid "Whole Word"
-msgstr "Միայն ամբողջական բառ"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3424
-msgid "Start Word"
-msgstr "Բառի սկիզբ"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3426
-msgid "Forward"
-msgstr "Առաջ"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3428
-msgid "Backward"
-msgstr "Հետ"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3431
-msgid "All, List Matches"
-msgstr "Բոլորը. համընկումները ցանկով ներկայացնել"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3433
-msgid "First From Selection"
-msgstr "Առաջինը՝ ընտրված հատվածում"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3436
-msgid "First in All Range"
-msgstr "Առաջինը՝ ամբողջ տիրույթում"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3439
-msgid "Show Iterated Find/Replace Dialog"
-msgstr "Կրկնել որոնման/փոխարինման երկխոսությունը"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3459
-msgid "Search options"
-msgstr "Որոնման կարգավորումներ"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3507
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3386
 msgid "Bold"
 msgstr "Թավատառ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3509
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3388
 msgid "Use Selected Color"
 msgstr "Ընտրել գույն"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3565
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4974
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3445
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4904
 msgid "Node Type"
 msgstr "Ճյուղի տեսակ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3579
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3459
 msgid "Tags for Searching"
 msgstr "Պիտակներ՝ որոնման համար"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3583
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4978
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3463
 msgid "Read Only"
 msgstr "Միայն ընթերցման համար"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3606
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3496
 msgid "Choose Existing Tag"
 msgstr "Ընտրել գոյություն ունեցող պիտակ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3606
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3496
 msgid "Tag Name"
 msgstr "Պիտակի անվանում"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3657
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3554
 msgid "The Size of the Toolbar Icons is already at the Maximum Value"
 msgstr "Գործիքավահանակի պատկերակներն արդեն իսկ առավելագույն չափն ունեն"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3665
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3562
 msgid "The Size of the Toolbar Icons is already at the Minimum Value"
 msgstr "Գործիքավահանակի պատկերակներն արդեն իսկ նվազագույն չափն ունեն"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3755
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3652
 msgid "Edit Anchor"
 msgstr "Խմբագրել խարիսխը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3758
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3655
 msgid "Insert Anchor"
 msgstr "Դնել խարիսխ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3779
-msgid "The Maximum Size for Embedded Files is 10 MB"
-msgstr "Ներդրված նիշքերի առավելագույն չափը 10 ՄԲ է"
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3677
+msgid "No CodeBox is Selected"
+msgstr "Որևէ այլագրավանդակ չի ընտրված"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3843
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3685
+#, python-format
+msgid ""
+"You must associate a command to '%s'.\n"
+"Do so in the Preferences Dialog"
+msgstr ""
+"Պետք է '%s'-ի համար հրաման ընտրել։\n"
+"Սա արեք նախընտրանքների բաժնում։"
+
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3692
+msgid "Do you want to Execute the Code?"
+msgstr "Կամենո՞ւմ եք այլագիրը գործարկել։"
+
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3701
+msgid ""
+"Install the package 'xterm' or configure a different terminal in the "
+"Preferences Dialog"
+msgstr ""
+"Տեղակայեք  'xterm'  փաթեթը կամ նախընտրանքների բաժնում ընտրեք մեկ այլ "
+"տերմինալ։"
+
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3714
+#, python-format
+msgid "The Maximum Size for Embedded Files is %s MB"
+msgstr "Ներդրված նիշքերի առավելագույն չափը %s ՄԲ է"
+
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3778
 msgid "Cannot Edit Embedded File in Read Only Node"
 msgstr "Միայն ընթերցվող ճյուղում հնարավոր չէ խմբագրել ներդրված նիշքը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3857
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3792
 msgid "Embedded File Automatically Updated:"
 msgstr "Ներդրված նիշքը լռելյայն թարմացվել է"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3906
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3841
 msgid "Not Any H1, H2 or H3 Formatting Found"
 msgstr "H1, H2 կամ H3 ձևավորում չի գտնվել"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3926
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3861
 msgid "This Feature is Available Only in Rich Text Nodes"
 msgstr "Այս հատկությունը հասանելի է միայն ձևավորված տեքստով ճյուղերում"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3928
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3863
 msgid "This Feature is Not Available in Automatic Syntax Highlighting Nodes"
-msgstr "Այս հատկությունը հասանելի չէ շարահյուսական ինքնաշխատ գունանշմամբ ճյուղերում"
+msgstr ""
+"Այս հատկությունը հասանելի չէ շարահյուսական ինքնաշխատ գունանշմամբ ճյուղերում"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3941
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3876
 msgid "The Tree is Empty!"
 msgstr "Ծառը դատարկ է"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3960
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3896
 msgid "The Selected Node is Read Only"
 msgstr "Ընտրված ճյուղը միայն ընթերցման համար է"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3981
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3917
 msgid "Number of Rich Text Nodes"
 msgstr "Ձևավորված տեքստով ճյուղերի քանակը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3984
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3920
 msgid "Number of Plain Text Nodes"
 msgstr "Հասարակ տեքստով ճյուղերի քանակը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3987
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3923
 msgid "Number of Code Nodes"
 msgstr "Այլագրային ճյուղերի քանակը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3990
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3926
 msgid "Number of Images"
 msgstr "Նկարների քանակը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3993
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3929
 msgid "Number of Embedded Files"
 msgstr "Ներդրված նիշքերի քանակը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3996
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3932
 msgid "Number of Tables"
 msgstr "Աղյուսակների քանակը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3999
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3935
 msgid "Number of CodeBoxes"
-msgstr "Այլագրային վանդակների քանակը"
+msgstr "Այլագրավանդակների քանակը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4002
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3938
 msgid "Number of Anchors"
 msgstr "Խարիսխների քանակը"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4089
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4025
 msgid "Image Format Not Recognized"
 msgstr "Չհաջողվեց ճանաչել նկարի ձևաչափը։"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4093
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4029
 msgid "Image Properties"
 msgstr "Նկարի հատկություններ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4174
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4110
 msgid "PNG Image"
 msgstr "PNG նկար"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4180
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4116
 #, python-format
 msgid "Write to %s Failed"
 msgstr "%s նիշքին գրանցումը չհաջողվեց"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4289
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4225
 msgid "Lines Stripped"
 msgstr "Մաքրված տողեր"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4423
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4359
 msgid "No Previous Text Format Was Performed During This Session"
 msgstr "Այս գործաժամի ընթացքում ձևավորում չի կատարվել"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4511
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4578
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4447
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4514
 msgid "Insert/Edit Link"
 msgstr "Դնել/խմբագրել հղում"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4556
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4492
 msgid "Link Name"
 msgstr "Հղման անվանում"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4568
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4504
 msgid "The Cursor is Not into a Paragraph"
 msgstr "Շարժագիծը պարբերությունից դուրս է"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4583
-msgid "Pick a Color"
-msgstr "Ընտրել գույն"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4812
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4732
 #, python-format
 msgid "The File Link '%s' is Not Valid"
 msgstr "Նիշքի '%s' հղումը ճիշտ չէ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4821
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4741
 #, python-format
 msgid "The Folder Link '%s' is Not Valid"
 msgstr "Պանակի '%s' հղումը ճիշտ չէ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4840
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4763
 #, python-format
 msgid "No anchor named '%s' found"
 msgstr "«%s» անվանումով խարիսխ չգտնվեց"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4974
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4979
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4980
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4904
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4908
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4910
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4912
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4916
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4920
 msgid ": "
 msgstr "՝ "
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4979
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4908
 msgid "Tags"
 msgstr "Պիտակներ"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/imports.py:2259
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4912
+msgid "Word Count"
+msgstr "Բառերի քանակ"
+
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4916
+msgid "Date Created"
+msgstr "Ստեղծման ժամանակ"
+
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4920
+msgid "Date Modified"
+msgstr "Փոփոխման ժամանակ"
+
+#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/imports.py:2550
 msgid "Downloading"
 msgstr "Բեռնում"
 
