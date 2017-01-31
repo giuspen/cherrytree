@@ -21,8 +21,14 @@
 
 import gtk
 import gobject
-import re, cgi, time, datetime
-import cons, menus, support, config
+import re
+import cgi
+import time
+import datetime
+import cons
+import menus
+import support
+import config
 
 
 def dialog_date_select(parent_win, title, curr_time):
@@ -174,29 +180,29 @@ class FindReplace:
         if multiple_nodes:
             ts_format = "%A, %d %B %Y, %H:%M"
             ts_node_created_after_checkbutton = gtk.CheckButton(label=_("Node Created After"))
-            struct_time = time.localtime(self.search_replace_dict['ts_cre_>'][1])
-            ts_node_created_after_button = gtk.Button(label=time.strftime(ts_format, struct_time))
+            ts_label = support.get_timestamp_str(ts_format, self.search_replace_dict['ts_cre_>'][1])
+            ts_node_created_after_button = gtk.Button(label=ts_label)
             ts_node_created_after_hbox = gtk.HBox()
             ts_node_created_after_hbox.set_homogeneous(True)
             ts_node_created_after_hbox.pack_start(ts_node_created_after_checkbutton)
             ts_node_created_after_hbox.pack_start(ts_node_created_after_button)
             ts_node_created_before_checkbutton = gtk.CheckButton(label=_("Node Created Before"))
-            struct_time = time.localtime(self.search_replace_dict['ts_cre_<'][1])
-            ts_node_created_before_button = gtk.Button(label=time.strftime(ts_format, struct_time))
+            ts_label = support.get_timestamp_str(ts_format, self.search_replace_dict['ts_cre_<'][1])
+            ts_node_created_before_button = gtk.Button(label=ts_label)
             ts_node_created_before_hbox = gtk.HBox()
             ts_node_created_before_hbox.set_homogeneous(True)
             ts_node_created_before_hbox.pack_start(ts_node_created_before_checkbutton)
             ts_node_created_before_hbox.pack_start(ts_node_created_before_button)
             ts_node_modified_after_checkbutton = gtk.CheckButton(label=_("Node Modified After"))
-            struct_time = time.localtime(self.search_replace_dict['ts_mod_>'][1])
-            ts_node_modified_after_button = gtk.Button(label=time.strftime(ts_format, struct_time))
+            ts_label = support.get_timestamp_str(ts_format, self.search_replace_dict['ts_mod_>'][1])
+            ts_node_modified_after_button = gtk.Button(label=ts_label)
             ts_node_modified_after_hbox = gtk.HBox()
             ts_node_modified_after_hbox.set_homogeneous(True)
             ts_node_modified_after_hbox.pack_start(ts_node_modified_after_checkbutton)
             ts_node_modified_after_hbox.pack_start(ts_node_modified_after_button)
             ts_node_modified_before_checkbutton = gtk.CheckButton(label=_("Node Modified Before"))
-            struct_time = time.localtime(self.search_replace_dict['ts_mod_<'][1])
-            ts_node_modified_before_button = gtk.Button(label=time.strftime(ts_format, struct_time))
+            ts_label = support.get_timestamp_str(ts_format, self.search_replace_dict['ts_mod_<'][1])
+            ts_node_modified_before_button = gtk.Button(label=ts_label)
             ts_node_modified_before_hbox = gtk.HBox()
             ts_node_modified_before_hbox.set_homogeneous(True)
             ts_node_modified_before_hbox.pack_start(ts_node_modified_before_checkbutton)
@@ -227,8 +233,7 @@ class FindReplace:
                 new_time = dialog_date_select(dialog, title, self.search_replace_dict[ts_id][1])
                 if new_time:
                     self.search_replace_dict[ts_id][1] = new_time
-                    struct_time = time.localtime(new_time)
-                    widget.set_label(time.strftime(ts_format, struct_time))
+                    widget.set_label(support.get_timestamp_str(ts_format, new_time))
             ts_node_created_after_button.connect('clicked', on_ts_node_button_clicked, 'ts_cre_>')
             ts_node_created_before_button.connect('clicked', on_ts_node_button_clicked, 'ts_cre_<')
             ts_node_modified_after_button.connect('clicked', on_ts_node_button_clicked, 'ts_mod_>')

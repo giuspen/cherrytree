@@ -19,16 +19,25 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
-import gtk, pango, locale, os, webbrowser, re, time
-import cons, config, exports
+import gtk
+import pango
+import locale
+import os
+import webbrowser
+import re
+import time
+import cons
+import config
+import exports
 
 
-def get_timestamp_str_from_float(dad, time_float):
+def get_timestamp_str(timestamp_format, time_float):
     """Get timestamp printable from float"""
+    struct_time = time.localtime(time_float)
     try:
-        timestamp_str = time.strftime(dad.timestamp_format, time.localtime(time_float)).decode(locale.getlocale()[1])
+        timestamp_str = time.strftime(timestamp_format, struct_time).decode(locale.getlocale()[1])
     except:
-        timestamp_str = time.strftime(config.TIMESTAMP_FORMAT_DEFAULT, time.localtime(time_float)).decode(locale.getlocale()[1])
+        timestamp_str = time.strftime(config.TIMESTAMP_FORMAT_DEFAULT, struct_time).decode(locale.getlocale()[1])
     return timestamp_str
 
 def auto_decode_str(in_str, from_clipboard=False):

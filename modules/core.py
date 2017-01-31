@@ -34,7 +34,6 @@ import cgi
 import urllib2
 import shutil
 import time
-import locale
 import pgsc_spellcheck
 import cons
 import menus
@@ -2864,9 +2863,10 @@ iter_end, exclude_iter_sel_end=True)
 
     def node_date(self, *args):
         """Insert Date Node in Tree"""
-        now_year = time.strftime("%Y").decode(locale.getlocale()[1])
-        now_month =time.strftime("%B").decode(locale.getlocale()[1])
-        now_day = time.strftime("%d %a").decode(locale.getlocale()[1])
+        curr_time = time.time()
+        now_year = support.get_timestamp_str("%Y", curr_time)
+        now_month = support.get_timestamp_str("%B", curr_time)
+        now_day = support.get_timestamp_str("%d %a", curr_time)
         #print now_year, now_month, now_day
         if self.curr_tree_iter:
             curr_depth = self.treestore.iter_depth(self.curr_tree_iter)
@@ -4092,7 +4092,7 @@ iter_end, exclude_iter_sel_end=True)
         embfile_Mbytes = embfile_Kbytes/1024
         if embfile_Mbytes > 1: human_readable_size = "%.1f MB" % embfile_Mbytes
         else: human_readable_size = "%.1f KB" % embfile_Kbytes
-        timestamp = support.get_timestamp_str_from_float(self, anchor.pixbuf.time)
+        timestamp = support.get_timestamp_str(self.timestamp_format, anchor.pixbuf.time)
         anchor.eventbox.set_tooltip_text("%s\n%s (%d Bytes)\n%s" % (anchor.pixbuf.filename, human_readable_size, embfile_bytes, timestamp))
 
     def image_edit(self, *args):
@@ -4912,11 +4912,11 @@ iter_end, exclude_iter_sel_end=True)
                 statusbar_text += separator_text + _("Word Count") + _(": ") + str(self.get_word_count())
             ts_creation = self.treestore[self.curr_tree_iter][12]
             if ts_creation:
-                timestamp_creation = support.get_timestamp_str_from_float(self, ts_creation)
+                timestamp_creation = support.get_timestamp_str(self.timestamp_format, ts_creation)
                 statusbar_text += separator_text + _("Date Created") + _(": ") + timestamp_creation
             ts_lastsave = self.treestore[self.curr_tree_iter][13]
             if ts_lastsave:
-                timestamp_lastsave = support.get_timestamp_str_from_float(self, ts_lastsave)
+                timestamp_lastsave = support.get_timestamp_str(self.timestamp_format, ts_lastsave)
                 statusbar_text += separator_text + _("Date Modified") + _(": ") + timestamp_lastsave
             print "sel node id=%s, seq=%s" % (self.treestore[self.curr_tree_iter][3], self.treestore[self.curr_tree_iter][5])
         self.statusbar.pop(self.statusbar_context_id)
@@ -5025,7 +5025,7 @@ iter_end, exclude_iter_sel_end=True)
         """Insert Timestamp"""
         text_view, text_buffer, from_codebox = self.get_text_view_n_buffer_codebox_proof()
         if not text_buffer: return
-        timestamp = support.get_timestamp_str_from_float(self, time.time())
+        timestamp = support.get_timestamp_str(self.timestamp_format, time.time())
         text_buffer.insert_at_cursor(timestamp)
 
     def set_selection_at_offset_n_delta(self, offset, delta, text_buffer=None):
