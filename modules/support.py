@@ -40,6 +40,14 @@ def get_timestamp_str(timestamp_format, time_float):
         timestamp_str = time.strftime(config.TIMESTAMP_FORMAT_DEFAULT, struct_time).decode(locale.getlocale()[1])
     return timestamp_str
 
+def get_word_count(dad):
+    if dad.curr_buffer:
+        all_text = unicode(dad.curr_buffer.get_text(*dad.curr_buffer.get_bounds()), cons.STR_UTF8, cons.STR_IGNORE)
+        word_count = len([w for w in all_text.split() if re.search("\w", w, re.UNICODE)])
+    else:
+        word_count = 0
+    return word_count
+
 def auto_decode_str(in_str, from_clipboard=False):
     """Try to Detect Encoding and Decode"""
     try:

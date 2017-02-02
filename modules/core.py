@@ -49,7 +49,6 @@ import lists
 import findreplace
 import codeboxes
 import ctdb
-import wordbreak
 if cons.HAS_APPINDICATOR: import appindicator
 
 class CherryTree:
@@ -3684,7 +3683,7 @@ iter_end, exclude_iter_sel_end=True)
         if not binary_cmd:
             support.dialog_warning(_("You must associate a command to '%s'.\nDo so in the Preferences Dialog") % code_type, self.window)
             return
-        filepath_src_tmp = os.path.join(cons.TMP_FOLDER, "exec_code.cmd")
+        filepath_src_tmp = os.path.join(cons.TMP_FOLDER, "exec_code."+config.get_code_exec_ext(self, code_type))
         filepath_bin_tmp = os.path.join(cons.TMP_FOLDER, "exec_code.exe")
         binary_cmd = binary_cmd.replace(config.CODE_EXEC_TMP_SRC, filepath_src_tmp).replace(config.CODE_EXEC_TMP_BIN, filepath_bin_tmp)
         terminal_cmd = config.get_code_exec_term_run(self).replace(config.CODE_EXEC_COMMAND, binary_cmd)
@@ -4909,7 +4908,7 @@ iter_end, exclude_iter_sel_end=True)
             if self.enable_spell_check and self.syntax_highlighting == cons.RICH_TEXT_ID:
                 statusbar_text += separator_text + _("Spell Check") + _(": ") + self.spell_check_lang
             if self.word_count:
-                statusbar_text += separator_text + _("Word Count") + _(": ") + str(self.get_word_count())
+                statusbar_text += separator_text + _("Word Count") + _(": ") + str(support.get_word_count(self))
             ts_creation = self.treestore[self.curr_tree_iter][12]
             if ts_creation:
                 timestamp_creation = support.get_timestamp_str(self.timestamp_format, ts_creation)
@@ -4921,14 +4920,6 @@ iter_end, exclude_iter_sel_end=True)
             print "sel node id=%s, seq=%s" % (self.treestore[self.curr_tree_iter][3], self.treestore[self.curr_tree_iter][5])
         self.statusbar.pop(self.statusbar_context_id)
         self.statusbar.push(self.statusbar_context_id, statusbar_text)
-
-    def get_word_count(self):
-        if self.curr_buffer:
-            all_text = unicode(self.curr_buffer.get_text(*self.curr_buffer.get_bounds()), cons.STR_UTF8, cons.STR_IGNORE)
-            word_count = len([w for w in wordbreak.words(all_text) if re.search("\w", w, re.UNICODE)])
-        else:
-            word_count = 0
-        return word_count
 
     def on_image_visibility_notify_event(self, widget, event):
         """Problem of image colored frame disappearing"""

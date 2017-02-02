@@ -46,14 +46,22 @@ CODE_EXEC_TMP_SRC = "<tmp_src_path>"
 CODE_EXEC_TMP_BIN = "<tmp_bin_path>"
 CODE_EXEC_COMMAND = "<command>"
 CODE_EXEC_TYPE_CMD_DEFAULT = {
-"c": "gcc -x c -o %s %s && %s" % (CODE_EXEC_TMP_BIN, CODE_EXEC_TMP_SRC, CODE_EXEC_TMP_BIN),
-"cpp": "g++ -x c++ -o %s %s && %s" % (CODE_EXEC_TMP_BIN, CODE_EXEC_TMP_SRC, CODE_EXEC_TMP_BIN),
+"c": "gcc -o %s %s && %s" % (CODE_EXEC_TMP_BIN, CODE_EXEC_TMP_SRC, CODE_EXEC_TMP_BIN),
+"cpp": "g++ -o %s %s && %s" % (CODE_EXEC_TMP_BIN, CODE_EXEC_TMP_SRC, CODE_EXEC_TMP_BIN),
 "dosbatch": "call %s" % CODE_EXEC_TMP_SRC,
 "perl": "perl %s" % CODE_EXEC_TMP_SRC,
-"powershell": "call %s" % CODE_EXEC_TMP_SRC,
 "python": "python2 %s" % CODE_EXEC_TMP_SRC,
 "python3": "python3 %s" % CODE_EXEC_TMP_SRC,
 "sh": "sh %s" % CODE_EXEC_TMP_SRC,
+}
+CODE_EXEC_TYPE_EXT_DEFAULT = {
+"c": "c",
+"cpp": "cpp",
+"dosbatch": "bat",
+"perl": "pl",
+"python": "py",
+"python3": "py",
+"sh": "sh",
 }
 CODE_EXEC_TERM_RUN_DEFAULT = {
 "linux" : "xterm -hold -geometry 180x45 -e \"%s\"" % CODE_EXEC_COMMAND,
@@ -75,6 +83,16 @@ TIMESTAMP_FORMAT_DEFAULT = "%Y/%m/%d - %H:%M"
 SEPARATOR_ASCII_REPR = "---------"
 
 SPELL_CHECK_LANG_DEFAULT = locale.getdefaultlocale()[0]
+
+
+def get_code_exec_ext(dad, syntax_type):
+    if syntax_type in dad.custom_codexec_ext.keys():
+        ret_val = dad.custom_codexec_ext[syntax_type]
+    elif syntax_type in CODE_EXEC_TYPE_EXT_DEFAULT.keys():
+        ret_val = CODE_EXEC_TYPE_EXT_DEFAULT[syntax_type]
+    else:
+        ret_val = "txt"
+    return ret_val
 
 def get_code_exec_type_cmd(dad, syntax_type):
     if syntax_type in dad.custom_codexec_type.keys():
@@ -153,6 +171,7 @@ def config_file_load(dad):
     """Load the Preferences from Config File"""
     dad.custom_kb_shortcuts = {}
     dad.custom_codexec_type = {}
+    dad.custom_codexec_ext = {}
     dad.custom_codexec_term = None
     dad.latest_tag = ["", ""]
     if os.path.isfile(cons.CONFIG_PATH):
@@ -345,6 +364,10 @@ def config_file_load(dad):
         if cfg.has_section(section):
             for option in cfg.options(section):
                 dad.custom_codexec_type[option] = cfg.get(section, option)
+        section = "codexec_ext"
+        if cfg.has_section(section):
+            for option in cfg.options(section):
+                dad.custom_codexec_ext[option] = cfg.get(section, option)
     else:
         dad.file_dir = ""
         dad.file_name = ""
@@ -665,6 +688,11 @@ def config_file_save(dad):
     cfg.add_section(section)
     for option in dad.custom_codexec_type.keys():
         cfg.set(section, option, dad.custom_codexec_type[option])
+
+    section = "codexec_ext"
+    cfg.add_section(section)
+    for option in dad.custom_codexec_ext.keys():
+        cfg.set(section, option, dad.custom_codexec_ext[option])
 
     with open(cons.CONFIG_PATH, 'wb') as configfile:
         cfg.write(configfile)
@@ -1238,7 +1266,7 @@ def preferences_tab_plain_text_n_code(dad, vbox_code_nodes, pref_dialog):
     def on_table_cell_edited(cell, path, new_text):
         if liststore[path][2] != new_text:
             liststore[path][2] = new_text
-            key = liststore[path][0]
+            key = liststore[path][1]
             dad.custom_codexec_type[key] = new_text
     renderer_text_val.connect('edited', on_table_cell_edited)
     column_key = gtk.TreeViewColumn()
