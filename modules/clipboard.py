@@ -311,7 +311,7 @@ class ClipboardHandler:
                     iter_sel_end = self.dad.curr_buffer.get_iter_at_offset(start_offset + len(element))
                     self.dad.curr_buffer.apply_tag_by_name(self.dad.apply_tag_exist_or_create(cons.TAG_LINK, property_value),
                                                            iter_sel_start, iter_sel_end)
-        self.dad.sourceview.scroll_to_mark(self.dad.curr_buffer.get_insert(), cons.SCROLL_MARGIN)
+        self.dad.sourceview.scroll_mark_onscreen(self.dad.curr_buffer.get_insert())
 
     def to_html(self, clipboard, selectiondata, data):
         """From Clipboard to HTML Text"""
@@ -326,7 +326,7 @@ class ClipboardHandler:
         html_import = imports.HTMLHandler(self.dad)
         xml_string = html_import.get_clipboard_selection_xml(selection_data)
         self.from_xml_string_to_buffer(xml_string)
-        self.dad.sourceview.scroll_to_mark(self.dad.curr_buffer.get_insert(), cons.SCROLL_MARGIN)
+        self.dad.sourceview.scroll_mark_onscreen(self.dad.curr_buffer.get_insert())
 
     def to_plain_text(self, clipboard, selectiondata, data):
         """From Clipboard to Plain Text"""
@@ -363,7 +363,7 @@ class ClipboardHandler:
                         self.dad.curr_buffer.apply_tag_by_name(self.dad.apply_tag_exist_or_create(cons.TAG_LINK, property_value),
                                                                iter_sel_start, iter_sel_end)
         self.force_plain_text = False
-        self.dad.sourceview.scroll_to_mark(self.dad.curr_buffer.get_insert(), cons.SCROLL_MARGIN)
+        self.dad.sourceview.scroll_mark_onscreen(self.dad.curr_buffer.get_insert())
 
     def to_rich_text(self, clipboard, selectiondata, data):
         """From Clipboard to Rich Text"""
@@ -372,7 +372,7 @@ class ClipboardHandler:
             print "? no clipboard rich text"
             return
         self.from_xml_string_to_buffer(rich_text)
-        self.dad.sourceview.scroll_to_mark(self.dad.curr_buffer.get_insert(), cons.SCROLL_MARGIN)
+        self.dad.sourceview.scroll_mark_onscreen(self.dad.curr_buffer.get_insert())
 
     def from_xml_string_to_buffer(self, xml_string):
         """From XML String to Text Buffer"""
@@ -420,7 +420,7 @@ class ClipboardHandler:
         pixbuf = selectiondata.get_pixbuf()
         pixbuf.link = ""
         self.dad.image_insert(self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert()), pixbuf)
-        self.dad.sourceview.scroll_to_mark(self.dad.curr_buffer.get_insert(), cons.SCROLL_MARGIN)
+        self.dad.sourceview.scroll_mark_onscreen(self.dad.curr_buffer.get_insert())
 
     def dom_node_to_image(self, dom_node):
         """From dom_node to Image"""
@@ -454,7 +454,7 @@ class ClipboardHandler:
             print "codebox from clipboard error"
             return
         self.dom_node_to_codebox(dom_node)
-        self.dad.sourceview.scroll_to_mark(self.dad.curr_buffer.get_insert(), cons.SCROLL_MARGIN)
+        self.dad.sourceview.scroll_mark_onscreen(self.dad.curr_buffer.get_insert())
 
     def dom_node_to_codebox(self, dom_node):
         """From dom_node to CodeBox"""
@@ -485,7 +485,7 @@ class ClipboardHandler:
             print "table from clipboard error"
             return
         self.dom_node_to_table(dom_node, table_model_n_iter)
-        self.dad.sourceview.scroll_to_mark(self.dad.curr_buffer.get_insert(), cons.SCROLL_MARGIN)
+        self.dad.sourceview.scroll_mark_onscreen(self.dad.curr_buffer.get_insert())
 
     def dom_node_to_table(self, dom_node, table_model_n_iter):
         """From dom_node to Table"""
