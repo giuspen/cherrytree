@@ -19,8 +19,17 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
-import gtk, os, xml.dom.minidom, re, base64, mimetypes
-import cons, machines, exports, imports, support
+import gtk
+import os
+import xml.dom.minidom
+import re
+import base64
+import mimetypes
+import cons
+import machines
+import exports
+import imports
+import support
 
 
 TARGET_CTD_PLAIN_TEXT = 'UTF8_STRING'
@@ -381,6 +390,7 @@ class ClipboardHandler:
         if dom_node.nodeName != "root":
             print "rich text from clipboard error"
             return
+        self.dad.state_machine.not_undoable_timeslot_set(True)
         child_dom_iter = dom_node.firstChild
         while child_dom_iter != None:
             if child_dom_iter.nodeName == "slot":
@@ -396,6 +406,7 @@ class ClipboardHandler:
                         self.dom_node_to_codebox(nephew_dom_iter)
                     nephew_dom_iter = nephew_dom_iter.nextSibling
             child_dom_iter = child_dom_iter.nextSibling
+        self.dad.state_machine.not_undoable_timeslot_set(False)
 
     def dom_node_to_rich_text(self, dom_node):
         """From dom_node to Rich Text"""

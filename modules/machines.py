@@ -19,8 +19,16 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
-import gtk, xml.dom.minidom, re, base64, copy, StringIO
-import cons, config, support, exports
+import gtk
+import xml.dom.minidom
+import re
+import base64
+import copy
+import StringIO
+import cons
+import config
+import support
+import exports
 
 
 def get_blob_buffer_from_pixbuf(pixbuf):
@@ -683,6 +691,7 @@ class StateMachine:
 
     def __init__(self, dad):
         """Machine boot"""
+        self.dad = dad
         self.nodes_vectors = {}
         self.nodes_indexes = {}
         self.nodes_indicators = {}
@@ -691,7 +700,7 @@ class StateMachine:
         # indicator 0 -> current text in node_vector matches the textbuffer
         # indicator 1 -> textbuffer is ahead, but only of non alphanumeric chars
         # indicator 2 -> textbuffer is ahead with alphanumeric chars
-        self.dad = dad
+        self.not_undoable_timeslot_set(False)
 
     def get_embedded_pixbufs_tables_codeboxes(self, text_buffer, for_print=0, sel_range=None):
         """Retrieve the list of Images Embedded into the Buffer"""
@@ -891,9 +900,15 @@ class StateMachine:
         last_index = len(self.nodes_vectors[node_id]) - 1
         return curr_index == last_index
 
+    def not_undoable_timeslot_set(self, not_undoable_val):
+        self._not_undoable_timeslot = not_undoable_val
+
+    def not_undoable_timeslot_get(self):
+        return self._not_undoable_timeslot
+
     def update_state(self):
         """Update the state for the given node_id"""
-        if self.dad.syntax_highlighting != cons.RICH_TEXT_ID:
+        if self.dad.syntax_highlighting != cons.RICH_TEXT_ID or self.not_undoable_timeslot_get():
             return
         node_id = self.dad.treestore[self.dad.curr_tree_iter][3]
         if not self.curr_index_is_last_index(node_id):
