@@ -284,7 +284,6 @@ class FindReplace:
         dialog.hide()
         if response == gtk.RESPONSE_ACCEPT:
             find_content = unicode(search_entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE)
-            if not find_content: return None
             self.search_replace_dict['find'] = find_content
             if replace_on:
                 self.search_replace_dict['replace'] = unicode(replace_entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE)
@@ -365,7 +364,7 @@ class FindReplace:
             if entry_predefined_text != "":
                 self.dad.curr_buffer.move_mark(self.dad.curr_buffer.get_insert(), iter_insert)
                 self.dad.curr_buffer.move_mark(self.dad.curr_buffer.get_selection_bound(), iter_bound)
-            if pattern != None: self.curr_find = ["in_selected_node", pattern]
+            if pattern: self.curr_find = ["in_selected_node", pattern]
             else: return
         else: pattern = self.curr_find[1]
         forward = self.search_replace_dict['fw']
@@ -421,7 +420,7 @@ class FindReplace:
             if entry_predefined_text != "":
                 self.dad.curr_buffer.move_mark(self.dad.curr_buffer.get_insert(), iter_insert)
                 self.dad.curr_buffer.move_mark(self.dad.curr_buffer.get_selection_bound(), iter_bound)
-            if pattern != None:
+            if pattern:
                 if not father_tree_iter: self.curr_find = ["in_all_nodes", pattern]
                 else: self.curr_find = ["in_sel_nod_n_sub", pattern]
             else: return
@@ -514,7 +513,7 @@ class FindReplace:
             if self.replace_active: title = _("Replace in Node Names...")
             else: title = _("Search For a Node Name...")
             pattern_clean = self.dialog_search(title, self.replace_active, True)
-            if pattern_clean != None: self.curr_find = ["a_node", pattern_clean]
+            if pattern_clean is not None: self.curr_find = ["a_node", pattern_clean]
             else: return
         else: pattern_clean = self.curr_find[1]
         if not self.search_replace_dict['reg_exp']: # NOT REGULAR EXPRESSION
