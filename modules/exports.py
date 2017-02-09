@@ -19,9 +19,14 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
-import os, cgi, base64, shutil, copy
+import os
+import cgi
+import base64
+import shutil
+import copy
 import pango
-import cons, support
+import cons
+import support
 
 def rgb_str_from_int24bit(int24bit):
     r = (int24bit >> 16) & 0xff
@@ -50,6 +55,22 @@ def rgb_any_to_24(rgb_in):
     if len(rgb_in) == 3: return 2*rgb_in[0]+2*rgb_in[1]+2*rgb_in[2]
     print "! rgb_any_to_24(%s)" % rgb_in
     return rgb_in
+
+def rgb_get_is_blackish_or_whiteish(in_rgb):
+    rgb_24 = rgb_any_to_24(in_rgb if not in_rgb.startswith("#") else in_rgb[1:])
+    r = int(rgb_24[:2], 16)
+    g = int(rgb_24[2:4], 16)
+    b = int(rgb_24[4:], 16)
+    # r+g+b black is 0
+    # r+g+b white is 3*255 = 765
+    sum_r_g_b = r+g+b
+    if sum_r_g_b < 150:
+        #print "black-ish", sum_r_g_b
+        return True
+    if sum_r_g_b > 700:
+        #print "white-ish", sum_r_g_b
+        return True
+    return False
 
 def rgb_24_get_is_dark(in_rgb_24):
     r = int(in_rgb_24[:2], 16)

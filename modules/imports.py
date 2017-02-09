@@ -19,9 +19,23 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
-import HTMLParser, htmlentitydefs
-import gtk, gio, os, xml.dom.minidom, re, base64, urllib2, binascii, shutil, glob, time
-import cons, machines, support
+import HTMLParser
+import htmlentitydefs
+import gtk
+import gio
+import os
+import xml.dom.minidom
+import re
+import base64
+import urllib2
+import binascii
+import shutil
+import glob
+import time
+import cons
+import machines
+import support
+import exports
 
 
 def get_internal_link_from_http_url(link_url):
@@ -2437,6 +2451,7 @@ class HTMLHandler(HTMLParser.HTMLParser):
             elif tag == "s": self.curr_attributes[cons.TAG_STRIKETHROUGH] = cons.TAG_PROP_TRUE
             elif tag == cons.TAG_STYLE: self.curr_state = 0
             elif tag == "span":
+                self.latest_span.append(set())
                 for attr in attrs:
                     if attr[0] == cons.TAG_STYLE:
                         attributes = attr[1].split(";")
@@ -2449,34 +2464,34 @@ class HTMLHandler(HTMLParser.HTMLParser):
                             #print attr_name, attr_value
                             if attr_name == "color":
                                 attribute = self.get_rgb_gtk_attribute(attr_value)
-                                if attribute:
+                                if attribute and not exports.rgb_get_is_blackish_or_whiteish(attribute):
                                     self.curr_attributes[cons.TAG_FOREGROUND] = attribute
-                                    self.latest_span.append(cons.TAG_FOREGROUND)
+                                    self.latest_span[-1].add(cons.TAG_FOREGROUND)
                             elif attr_name in [cons.TAG_BACKGROUND, "background-color"]:
                                 attribute = self.get_rgb_gtk_attribute(attr_value)
-                                if attribute:
+                                if attribute and not exports.rgb_get_is_blackish_or_whiteish(attribute):
                                     self.curr_attributes[cons.TAG_BACKGROUND] = attribute
-                                    self.latest_span.append(cons.TAG_BACKGROUND)
+                                    self.latest_span[-1].add(cons.TAG_BACKGROUND)
                             elif attr_name == "text-decoration":
                                 if attr_value in [cons.TAG_UNDERLINE, "underline;"]:
                                     self.curr_attributes[cons.TAG_UNDERLINE] = cons.TAG_PROP_SINGLE
-                                    self.latest_span.append(cons.TAG_UNDERLINE)
+                                    self.latest_span[-1].add(cons.TAG_UNDERLINE)
                                 elif attr_value in ["line-through"]:
                                     self.curr_attributes[cons.TAG_STRIKETHROUGH] = cons.TAG_PROP_TRUE
-                                    self.latest_span.append(cons.TAG_STRIKETHROUGH)
+                                    self.latest_span[-1].add(cons.TAG_STRIKETHROUGH)
                             elif attr_name == "font-weight":
                                 if attr_value in ["bold", "bolder", "700"]:
                                     self.curr_attributes[cons.TAG_WEIGHT] = cons.TAG_PROP_HEAVY
-                                    self.latest_span.append(cons.TAG_WEIGHT)
+                                    self.latest_span[-1].add(cons.TAG_WEIGHT)
                             elif attr_name == "font-style":
                                 if attr_value in [cons.TAG_PROP_ITALIC]:
                                     self.curr_attributes[cons.TAG_STYLE] = cons.TAG_PROP_ITALIC
-                                    self.latest_span.append(cons.TAG_STYLE)
+                                    self.latest_span[-1].add(cons.TAG_STYLE)
             elif tag == "font":
                 for attr in attrs:
                     if attr[0] == "color":
                         attribute = self.get_rgb_gtk_attribute(attr[1].strip())
-                        if attribute:
+                        if attribute and not exports.rgb_get_is_blackish_or_whiteish(attribute):
                             self.curr_attributes[cons.TAG_FOREGROUND] = attribute
                             self.latest_font = cons.TAG_FOREGROUND
             elif tag in [cons.TAG_PROP_H1, cons.TAG_PROP_H2, cons.TAG_PROP_H3, cons.TAG_PROP_H4, cons.TAG_PROP_H5, cons.TAG_PROP_H6]:
@@ -2580,12 +2595,12 @@ class HTMLHandler(HTMLParser.HTMLParser):
             elif tag == "s": self.curr_attributes[cons.TAG_STRIKETHROUGH] = ""
             elif tag == "span":
                 if self.latest_span:
-                    if self.latest_span[-1] == cons.TAG_FOREGROUND: self.curr_attributes[cons.TAG_FOREGROUND] = ""
-                    elif self.latest_span[-1] == cons.TAG_BACKGROUND: self.curr_attributes[cons.TAG_BACKGROUND] = ""
-                    elif self.latest_span[-1] == cons.TAG_UNDERLINE: self.curr_attributes[cons.TAG_UNDERLINE] = ""
-                    elif self.latest_span[-1] == cons.TAG_STRIKETHROUGH: self.curr_attributes[cons.TAG_STRIKETHROUGH] = ""
-                    elif self.latest_span[-1] == cons.TAG_WEIGHT: self.curr_attributes[cons.TAG_WEIGHT] = ""
-                    elif self.latest_span[-1] == cons.TAG_STYLE: self.curr_attributes[cons.TAG_STYLE] = ""
+                    if cons.TAG_FOREGROUND in self.latest_span[-1]: self.curr_attributes[cons.TAG_FOREGROUND] = ""
+                    elif cons.TAG_BACKGROUND in self.latest_span[-1]: self.curr_attributes[cons.TAG_BACKGROUND] = ""
+                    elif cons.TAG_UNDERLINE in self.latest_span[-1]: self.curr_attributes[cons.TAG_UNDERLINE] = ""
+                    elif cons.TAG_STRIKETHROUGH in self.latest_span[-1]: self.curr_attributes[cons.TAG_STRIKETHROUGH] = ""
+                    elif cons.TAG_WEIGHT in self.latest_span[-1]: self.curr_attributes[cons.TAG_WEIGHT] = ""
+                    elif cons.TAG_STYLE in self.latest_span[-1]: self.curr_attributes[cons.TAG_STYLE] = ""
                     del self.latest_span[-1]
             elif tag == "font":
                 if self.latest_font == cons.TAG_FOREGROUND: self.curr_attributes[cons.TAG_FOREGROUND] = ""
