@@ -292,13 +292,17 @@ class Export2Txt:
             self.dad.pick_dir_export = os.path.dirname(ret_filepath)
         return ret_filepath
 
-    def prepare_txt_folder(self, new_folder):
+    def prepare_txt_folder(self, new_folder, dir_place=""):
         """Prepare the website folder"""
-        dir_place = support.dialog_folder_select(curr_folder=self.dad.pick_dir_export, parent=self.dad.window)
-        if dir_place == None: return False
+        if not dir_place:
+            dir_place = support.dialog_folder_select(curr_folder=self.dad.pick_dir_export, parent=self.dad.window)
+            if dir_place == None: return False
         new_folder = support.clean_from_chars_not_for_filename(new_folder) + "_TXT"
-        while os.path.exists(os.path.join(dir_place, new_folder)):
-            new_folder += "2"
+        if os.path.exists(os.path.join(dir_place, new_folder)):
+            n = 2
+            while os.path.exists(os.path.join(dir_place, new_folder + '%03d' % n)):
+                n += 1
+            new_folder += '%03d' % n
         self.new_path = os.path.join(dir_place, new_folder)
         os.mkdir(self.new_path)
         return True

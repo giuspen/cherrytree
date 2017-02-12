@@ -2099,9 +2099,14 @@ iter_end, exclude_iter_sel_end=True)
     def export_to_txt_multiple(self, *args):
         """Export To Plain Text Multiple Files"""
         if not self.is_there_selected_node_or_error(): return
-        export_type = support.dialog_selnode_selnodeandsub_alltree(self, also_selection=True, also_include_node_name=True)
-        if export_type == 0: return
+        if args[0] == "Auto":
+            export_type = 3
+            self.export_single = False
+            self.last_include_node_name = True
+        else:
+            export_type = support.dialog_selnode_selnodeandsub_alltree(self, also_selection=True, also_include_node_name=True)
         txt_handler = exports.Export2Txt(self)
+        if export_type == 0: return
         if export_type == 1:
             # only selected node
             proposed_name = support.get_node_hierarchical_name(self, self.curr_tree_iter)
@@ -2129,7 +2134,11 @@ iter_end, exclude_iter_sel_end=True)
                     if os.path.isfile(txt_filepath): os.remove(txt_filepath)
                     txt_handler.nodes_all_export_to_txt(single_txt_filepath=txt_filepath, include_node_name=self.last_include_node_name)
             else:
-                if txt_handler.prepare_txt_folder(self.file_name):
+                if args[0] == "Auto":
+                    dir_string = args[1]
+                else:
+                    dir_string = ""
+                if txt_handler.prepare_txt_folder(self.file_name, dir_place=dir_string):
                     txt_handler.nodes_all_export_to_txt(include_node_name=self.last_include_node_name)
         else:
             # only selection

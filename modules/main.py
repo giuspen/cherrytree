@@ -60,6 +60,12 @@ class CherryTreeHandler():
                 ghost_window.export_to_html("Auto", args.export_to_html_dir)
             else:
                 print "Export error: input not specified"
+        elif args.export_to_txt_dir:
+            if args.filepath:
+                ghost_window = core.CherryTree(self.lang_str, filepath_fix(args.filepath), args.node, self, True, True, True)
+                ghost_window.export_to_txt_multiple("Auto", args.export_to_txt_dir)
+            else:
+                print "Export error: input not specified"
         else:
             self.window_open_new(filepath_fix(args.filepath), args.node, True, True if args.filepath else False)
             self.server_check_timer_id = gobject.timeout_add(1000, self.server_periodic_check) # 1 sec
@@ -202,7 +208,7 @@ def main(args):
 
     if args.filepath:
         args.filepath = args.filepath.decode(sys.getfilesystemencoding()).encode(cons.STR_UTF8, cons.STR_IGNORE)
-    if args.export_to_html_dir:
+    if args.export_to_html_dir or args.export_to_txt_dir:
         lang_str = initializations()
         CherryTreeHandler(args, lang_str)
     elif DBUS_OK:
