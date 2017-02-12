@@ -2098,10 +2098,26 @@ iter_end, exclude_iter_sel_end=True)
 
     def export_to_txt_multiple(self, *args):
         """Export To Plain Text Multiple Files"""
+        txt_handler = exports.Export2Txt(self)
+
+        # support shell
+        if len(args):
+            if os.path.isdir(args[0]):
+                for root, dirs, files in os.walk(args[0], topdown=False):
+                    for name in files:
+                        os.remove(os.path.join(root, name))
+                    for name in dirs:
+                        os.rmdir(os.path.join(root, name))
+                os.rmdir(args[0])
+            txt_handler.new_path = args[0]
+            os.mkdir(txt_handler.new_path)
+            txt_handler.nodes_all_export_to_txt(include_node_name=True)
+            return
+
         if not self.is_there_selected_node_or_error(): return
         export_type = support.dialog_selnode_selnodeandsub_alltree(self, also_selection=True, also_include_node_name=True)
         if export_type == 0: return
-        txt_handler = exports.Export2Txt(self)
+
         if export_type == 1:
             # only selected node
             proposed_name = support.get_node_hierarchical_name(self, self.curr_tree_iter)
