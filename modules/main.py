@@ -57,13 +57,13 @@ class CherryTreeHandler():
         if args.export_to_html_dir:
             if args.filepath:
                 ghost_window = core.CherryTree(self.lang_str, filepath_fix(args.filepath), args.node, self, True, True, True)
-                ghost_window.export_to_html("Auto", args.export_to_html_dir)
+                ghost_window.export_to_html("Auto", args.export_to_html_dir, args.export_overwrite)
             else:
                 print "Export error: input not specified"
         elif args.export_to_txt_dir:
             if args.filepath:
                 ghost_window = core.CherryTree(self.lang_str, filepath_fix(args.filepath), args.node, self, True, True, True)
-                ghost_window.export_to_txt_multiple("Auto", args.export_to_txt_dir)
+                ghost_window.export_to_txt_multiple("Auto", args.export_to_txt_dir, args.export_overwrite)
             else:
                 print "Export error: input not specified"
         else:

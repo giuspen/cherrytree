@@ -55,6 +55,7 @@ if ARGPARSE_OK:
     parser.add_argument("-n", "--node", help="Node Name to Focus")
     parser.add_argument("-x", "--export_to_html_dir", help="Export to HTML at Specified Directory")
     parser.add_argument("-t", "--export_to_txt_dir", help="Export to Text at Specified Directory")
+    parser.add_argument("-w", "--export_overwrite", action="store_true", help="Overwrite Existing Export")
     args = parser.parse_args()
 else:
     class CherryArgs:
@@ -62,14 +63,16 @@ else:
         filepath = None
         export_to_html_dir = None
         export_to_txt_dir = None
+        export_overwrite = False
     args = CherryArgs
     if len(sys.argv) > 1:
         if sys.argv[1] == "-h":
-            print "cherrytree [filepath [-n nodename] [-x export_to_html_dir] [-t export_to_txt_dir]]"
+            print "cherrytree [filepath [-n nodename] [-x export_to_html_dir] [-t export_to_txt_dir] [-w]]"
             exit(0)
         else: args.filepath = sys.argv[1]
         if len(sys.argv) > 3:
             if sys.argv[2] == "-n": args.node = sys.argv[3]
             elif sys.argv[2] == "-x": args.export_to_html_dir = sys.argv[3]
             elif sys.argv[2] == "-t": args.export_to_txt_dir = sys.argv[3]
+            elif sys.argv[2] == "-w": args.export_overwrite = True
 f_main(args)

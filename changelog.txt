@@ -9,6 +9,7 @@
   * implemented a simple selected node word count in the statusbar; to be enabled in the preferences dialog (tab Miscellaneous)
   * implemented the option to hide the tree right side auxiliary icon (currently a padlock for read only nodes and a pin for bookmarked nodes)
   * implemented the option to hide the embedded file name on top of the embedded file icon (tab Rich Text, work of jhermans76)
+  * added command line option to export to txt [-t export_to_txt_dir] and command line option to overwrite existing export rather than adding a trailing number to the exported folder [-w] (valid also for [-x export_to_html_dir])
   * assigned static keyboard shortcut Ctrl+Shift+Right for 'Node Change Parent'
   * updated bundled pygtkspellcheck from 4.0.1 to 4.0.5
 

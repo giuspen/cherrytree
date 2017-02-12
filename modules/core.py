@@ -234,6 +234,7 @@ class CherryTree:
         self.autosave_timer_id = None
         self.spell_check_init = False
         self.writing_to_disk = False
+        self.export_overwrite = False
         self.mod_time_sentinel_id = None
         self.mod_time_val = 0
         self.prefpage = 0
@@ -2136,6 +2137,7 @@ iter_end, exclude_iter_sel_end=True)
             else:
                 if args[0] == "Auto":
                     dir_string = args[1]
+                    self.export_overwrite = args[2]
                 else:
                     dir_string = ""
                 if txt_handler.prepare_txt_folder(self.file_name, dir_place=dir_string):
@@ -2177,6 +2179,7 @@ iter_end, exclude_iter_sel_end=True)
             # all nodes
             if args[0] == "Auto":
                 dir_string = args[1]
+                self.export_overwrite = args[2]
             else:
                 dir_string = ""
             if self.html_handler.prepare_html_folder(self.file_name, dir_place=dir_string):

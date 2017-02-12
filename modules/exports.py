@@ -28,6 +28,7 @@ import pango
 import cons
 import support
 
+
 def rgb_str_from_int24bit(int24bit):
     r = (int24bit >> 16) & 0xff
     g = (int24bit >> 8) & 0xff
@@ -125,6 +126,18 @@ def clean_text_to_utf8(in_text):
             break
         except: clean_text = clean_text[1:]
     return clean_text
+
+def prepare_export_folder(dir_place, new_folder, overwrite_existing):
+    if os.path.exists(os.path.join(dir_place, new_folder)):
+        if overwrite_existing:
+            shutil.rmtree(os.path.join(dir_place, new_folder))
+        else:
+            n = 2
+            while os.path.exists(os.path.join(dir_place, new_folder + '%03d' % n)):
+                n += 1
+            new_folder += '%03d' % n
+    return new_folder
+
 
 class Export2CTD:
     """The Export to CTD Class"""
@@ -298,11 +311,7 @@ class Export2Txt:
             dir_place = support.dialog_folder_select(curr_folder=self.dad.pick_dir_export, parent=self.dad.window)
             if dir_place == None: return False
         new_folder = support.clean_from_chars_not_for_filename(new_folder) + "_TXT"
-        if os.path.exists(os.path.join(dir_place, new_folder)):
-            n = 2
-            while os.path.exists(os.path.join(dir_place, new_folder + '%03d' % n)):
-                n += 1
-            new_folder += '%03d' % n
+        new_folder = prepare_export_folder(dir_place, new_folder, self.dad.export_overwrite)
         self.new_path = os.path.join(dir_place, new_folder)
         os.mkdir(self.new_path)
         return True
@@ -415,6 +424,7 @@ class Export2Txt:
             file_descriptor.write(plain_text + 2*cons.CHAR_NEWLINE)
             file_descriptor.close()
         return plain_text
+
 
 class Export2Pango:
     """The Export to Pango Class"""
@@ -570,11 +580,7 @@ class Export2Html:
             dir_place = support.dialog_folder_select(curr_folder=self.dad.pick_dir_export, parent=self.dad.window)
             if dir_place == None: return False
         new_folder = support.clean_from_chars_not_for_filename(new_folder) + "_HTML"
-        if os.path.exists(os.path.join(dir_place, new_folder)):
-            n = 2
-            while os.path.exists(os.path.join(dir_place, new_folder + '%03d' % n)):
-                n += 1
-            new_folder += '%03d' % n
+        new_folder = prepare_export_folder(dir_place, new_folder, self.dad.export_overwrite)
         self.new_path = os.path.join(dir_place, new_folder)
         self.images_dir = os.path.join(self.new_path, "images")
         self.embed_dir = os.path.join(self.new_path, "EmbeddedFiles")
