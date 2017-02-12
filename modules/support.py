@@ -861,7 +861,7 @@ MA 02110-1301, USA.
     dialog.set_translator_credits(_("Armenian")+" (hy) Seda Stamboltsyan <sedastam@yandex.com>"+cons.CHAR_NEWLINE+
 _("Chinese Simplified")+" (zh_CN) Channing Wong <channing.wong@qq.com>"+cons.CHAR_NEWLINE+
 _("Czech")+" (cs) Pavel Fric <fripohled@blogspot.com>"+cons.CHAR_NEWLINE+
-_("Dutch")+" (nl) Patrick Vijgeboom <pj.vijgeboom@gmail.com>"+cons.CHAR_NEWLINE+
+_("Dutch")+" (nl) Luuk Geurts"+cons.CHAR_NEWLINE+
 _("French")+" (fr) Klaus Becker <colonius@free.fr>"+cons.CHAR_NEWLINE+
 _("German")+" (de) Frank Brungräber <calexu@arcor.de>"+cons.CHAR_NEWLINE+
 _("Greek")+" (el) Delphina <delphina.2009@yahoo.gr>"+cons.CHAR_NEWLINE+
