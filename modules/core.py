@@ -320,6 +320,7 @@ class CherryTree:
         """Change the Case of the Selected Text/the Underlying Word"""
         text_view, text_buffer, from_codebox = self.get_text_view_n_buffer_codebox_proof()
         if not text_buffer: return
+        if not self.is_curr_node_not_read_only_or_error(): return
         if not text_buffer.get_has_selection() and not support.apply_tag_try_automatic_bounds(self, text_buffer=text_buffer):
             support.dialog_warning(_("No Text is Selected"), self.window)
             return
@@ -362,6 +363,7 @@ class CherryTree:
         """Duplicates the Whole Row or a Selection"""
         text_view, text_buffer, from_codebox = self.get_text_view_n_buffer_codebox_proof()
         if not text_buffer: return
+        if not self.is_curr_node_not_read_only_or_error(): return
         if text_buffer.get_has_selection():
             iter_start, iter_end = text_buffer.get_selection_bounds() # there's a selection
             sel_start_offset = iter_start.get_offset()
@@ -404,6 +406,7 @@ class CherryTree:
         """Moves Up the Current Row/Selected Rows"""
         text_view, text_buffer, from_codebox = self.get_text_view_n_buffer_codebox_proof()
         if not text_buffer: return
+        if not self.is_curr_node_not_read_only_or_error(): return
         iter_start, iter_end = self.lists_handler.get_paragraph_iters(text_buffer=text_buffer)
         if iter_start == None:
             iter_start = text_buffer.get_iter_at_mark(text_buffer.get_insert())
@@ -469,6 +472,7 @@ iter_end, exclude_iter_sel_end=True)
         """Moves Down the Current Row/Selected Rows"""
         text_view, text_buffer, from_codebox = self.get_text_view_n_buffer_codebox_proof()
         if not text_buffer: return
+        if not self.is_curr_node_not_read_only_or_error(): return
         iter_start, iter_end = self.lists_handler.get_paragraph_iters(text_buffer=text_buffer)
         if iter_start == None:
             iter_start = text_buffer.get_iter_at_mark(text_buffer.get_insert())
@@ -556,6 +560,7 @@ iter_end, exclude_iter_sel_end=True)
         """Deletes the Whole Row"""
         text_view, text_buffer, from_codebox = self.get_text_view_n_buffer_codebox_proof()
         if not text_buffer: return
+        if not self.is_curr_node_not_read_only_or_error(): return
         iter_start, iter_end = self.lists_handler.get_paragraph_iters(text_buffer=text_buffer)
         if iter_start == None:
             iter_start = text_buffer.get_iter_at_mark(text_buffer.get_insert())
@@ -568,6 +573,7 @@ iter_end, exclude_iter_sel_end=True)
         """Cut a Whole Row"""
         text_view, text_buffer, from_codebox = self.get_text_view_n_buffer_codebox_proof()
         if not text_buffer: return
+        if not self.is_curr_node_not_read_only_or_error(): return
         iter_start, iter_end = self.lists_handler.get_paragraph_iters(text_buffer=text_buffer)
         if iter_start == None:
             iter_start = text_buffer.get_iter_at_mark(text_buffer.get_insert())
@@ -5028,6 +5034,7 @@ iter_end, exclude_iter_sel_end=True)
         """Insert Timestamp"""
         text_view, text_buffer, from_codebox = self.get_text_view_n_buffer_codebox_proof()
         if not text_buffer: return
+        if not self.is_curr_node_not_read_only_or_error(): return
         timestamp = support.get_timestamp_str(self.timestamp_format, time.time())
         text_buffer.insert_at_cursor(timestamp)
 

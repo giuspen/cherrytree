@@ -1831,6 +1831,7 @@ def insert_special_char(menu_item, special_char, dad):
     """A Special character insert was Requested"""
     text_view, text_buffer, from_codebox = dad.get_text_view_n_buffer_codebox_proof()
     if not text_buffer: return
+    if not dad.is_curr_node_not_read_only_or_error(): return
     text_buffer.insert_at_cursor(special_char)
 
 def open_recent_document(menu_item, filepath, dad):
