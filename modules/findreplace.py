@@ -123,7 +123,7 @@ class FindReplace:
             return False
         return True
 
-    def dialog_search(self, title, replace_on, multiple_nodes):
+    def dialog_search(self, title, replace_on, multiple_nodes, pattern_required):
         """Opens the Search Dialog"""
         dialog = gtk.Dialog(title=title,
                             parent=self.dad.window,
@@ -134,6 +134,13 @@ class FindReplace:
         dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
         search_entry = gtk.Entry()
         search_entry.set_text(self.search_replace_dict['find'])
+        try:
+            button_ok = dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT)
+            if pattern_required:
+                button_ok.set_sensitive(bool(self.search_replace_dict['find']))
+        except:
+            print cons.STR_PYGTK_222_REQUIRED
+            button_ok = None
         search_frame = gtk.Frame(label="<b>"+_("Search for")+"</b>")
         search_frame.get_label_widget().set_use_markup(True)
         search_frame.set_shadow_type(gtk.SHADOW_NONE)
@@ -275,11 +282,16 @@ class FindReplace:
         def on_key_press_searchdialog(widget, event):
             keyname = gtk.gdk.keyval_name(event.keyval)
             if keyname == cons.STR_KEY_RETURN:
-                try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
-                except: print cons.STR_PYGTK_222_REQUIRED
+                if button_ok is not None and button_ok.get_sensitive():
+                    button_ok.clicked()
                 return True
             return False
         dialog.connect('key_press_event', on_key_press_searchdialog)
+        def on_search_entry_changed(editable):
+            if button_ok is not None:
+                button_ok.set_sensitive(bool(search_entry.get_text()))
+        if pattern_required:
+            search_entry.connect("changed", on_search_entry_changed)
         response = dialog.run()
         dialog.hide()
         if response == gtk.RESPONSE_ACCEPT:
@@ -360,7 +372,7 @@ class FindReplace:
                 self.search_replace_dict['find'] = entry_predefined_text
             if self.replace_active: title = _("Replace in Current Node...")
             else: title = _("Search in Current Node...")
-            pattern = self.dialog_search(title, self.replace_active, False)
+            pattern = self.dialog_search(title, self.replace_active, False, True)
             if entry_predefined_text != "":
                 self.dad.curr_buffer.move_mark(self.dad.curr_buffer.get_insert(), iter_insert)
                 self.dad.curr_buffer.move_mark(self.dad.curr_buffer.get_selection_bound(), iter_bound)
@@ -416,7 +428,7 @@ class FindReplace:
             else:
                 if father_tree_iter: title = _("Search in Selected Node and Subnodes")
                 else: title = _("Search in All Nodes")
-            pattern = self.dialog_search(title, self.replace_active, True)
+            pattern = self.dialog_search(title, self.replace_active, True, True)
             if entry_predefined_text != "":
                 self.dad.curr_buffer.move_mark(self.dad.curr_buffer.get_insert(), iter_insert)
                 self.dad.curr_buffer.move_mark(self.dad.curr_buffer.get_selection_bound(), iter_bound)
@@ -512,7 +524,7 @@ class FindReplace:
         if not self.from_find_iterated:
             if self.replace_active: title = _("Replace in Node Names...")
             else: title = _("Search For a Node Name...")
-            pattern_clean = self.dialog_search(title, self.replace_active, True)
+            pattern_clean = self.dialog_search(title, self.replace_active, True, False)
             if pattern_clean is not None: self.curr_find = ["a_node", pattern_clean]
             else: return
         else: pattern_clean = self.curr_find[1]
