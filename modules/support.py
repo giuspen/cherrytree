@@ -1851,7 +1851,10 @@ def open_recent_document(menu_item, filepath, dad):
 def select_bookmark_node(menu_item, node_id_str, dad):
     """Select a Node in the Bookmarks List"""
     node_iter = dad.get_tree_iter_from_node_id(long(node_id_str))
-    if node_iter: dad.treeview_safe_set_cursor(node_iter)
+    if node_iter:
+        dad.treeview_safe_set_cursor(node_iter)
+        if dad.tree_click_expand:
+            dad.treeview.expand_row(dad.treestore.get_path(node_iter), open_all=False)
 
 def bookmarks_handle(dad):
     """Handle the Bookmarks List"""

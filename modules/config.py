@@ -756,6 +756,8 @@ def set_tree_path_and_cursor_pos(dad):
             dad.sourceview.grab_focus()
             dad.curr_buffer.place_cursor(dad.curr_buffer.get_iter_at_offset(dad.cursor_position))
             dad.sourceview.scroll_to_mark(dad.curr_buffer.get_insert(), cons.SCROLL_MARGIN)
+            if dad.tree_click_expand:
+                dad.treeview.expand_row(dad.node_path, open_all=False)
     else: node_iter_to_focus = None
     if not node_iter_to_focus:
         node_iter_to_focus = dad.treestore.get_iter_first()
