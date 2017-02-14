@@ -19,11 +19,15 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
-import gtk, gobject
+import gtk
+import gobject
 import dbus
 import dbus.service
 import dbus.mainloop.glib
-import sys, os, subprocess, gettext
+import sys
+import os
+import subprocess
+import gettext
 import __builtin__
 msg_server_to_core = {'f':0, 'p':""}
 __builtin__.msg_server_to_core = msg_server_to_core
@@ -39,7 +43,7 @@ class CherryTreeObject(dbus.service.Object):
             print "bad in_message =", in_message
             return ""
         sep_pos = in_message.find("\x03")
-        filepath = filepath_fix(in_message[4:sep_pos] if sep_pos != -1 else in_message[4:])
+        filepath = in_message[4:sep_pos] if sep_pos != -1 else in_message[4:]
         node_name = in_message[sep_pos+1:] if sep_pos != -1 else ""
         msg_server_to_core['p'] = filepath
         msg_server_to_core['n'] = node_name
@@ -56,18 +60,18 @@ class CherryTreeHandler():
 
         if args.export_to_html_dir:
             if args.filepath:
-                ghost_window = core.CherryTree(self.lang_str, filepath_fix(args.filepath), args.node, self, True, True, True)
+                ghost_window = core.CherryTree(self.lang_str, args.filepath, args.node, self, True, True, True)
                 ghost_window.export_to_html("Auto", args.export_to_html_dir, args.export_overwrite)
             else:
                 print "Export error: input not specified"
         elif args.export_to_txt_dir:
             if args.filepath:
-                ghost_window = core.CherryTree(self.lang_str, filepath_fix(args.filepath), args.node, self, True, True, True)
+                ghost_window = core.CherryTree(self.lang_str, args.filepath, args.node, self, True, True, True)
                 ghost_window.export_to_txt_multiple("Auto", args.export_to_txt_dir, args.export_overwrite)
             else:
                 print "Export error: input not specified"
         else:
-            self.window_open_new(filepath_fix(args.filepath), args.node, True, True if args.filepath else False)
+            self.window_open_new(args.filepath, args.node, True, True if args.filepath else False)
             self.server_check_timer_id = gobject.timeout_add(1000, self.server_periodic_check) # 1 sec
 
     def window_open_new(self, filepath, node_name, is_startup, is_arg):
@@ -189,11 +193,14 @@ def initializations():
     return lang_str
 
 
-def filepath_fix(filepath):
+def arg_filepath_fix(filepath):
     """Fix a FilePath to an Absolute Path"""
     if not filepath: return ""
-    if not os.path.dirname(filepath): filepath = os.path.join(os.getcwd(), filepath)
-    else: filepath = os.path.abspath(filepath)
+    filepath = filepath.decode(sys.getfilesystemencoding()).encode(cons.STR_UTF8, cons.STR_IGNORE)
+    if not os.path.dirname(filepath):
+        filepath = os.path.join(os.getcwd(), filepath)
+    else:
+        filepath = os.path.abspath(filepath)
     return os.path.realpath(filepath)
 
 
@@ -206,9 +213,10 @@ def main(args):
     except:
         DBUS_OK = False
 
-    if args.filepath:
-        args.filepath = args.filepath.decode(sys.getfilesystemencoding()).encode(cons.STR_UTF8, cons.STR_IGNORE)
+    args.filepath = arg_filepath_fix(args.filepath)
     if args.export_to_html_dir or args.export_to_txt_dir:
+        args.export_to_html_dir = arg_filepath_fix(args.export_to_html_dir)
+        args.export_to_txt_dir = arg_filepath_fix(args.export_to_txt_dir)
         lang_str = initializations()
         CherryTreeHandler(args, lang_str)
     elif DBUS_OK:
