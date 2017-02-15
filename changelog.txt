@@ -1,5 +1,5 @@
 
-0.38.0 (?)
+0.38.0 (February 15th, 2017)
   * added the timestamp of creation and latest modification per node and the possibility to filter the searches using these values
   * implemented the possibility to execute the code of code nodes and codeboxes (File--Execute Code); the terminal and the command per node type is configurable in the preferences dialog, tab "Plain Text and Code"
   * the background color of the text formatted monospace is now configurable in the preferences dialog, tab Rich Text
