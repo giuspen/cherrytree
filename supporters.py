@@ -4,7 +4,7 @@
 import re
 
 SUPPORTERS="""
-<h2>Friends of giuspen.com (donated €3315,30)</h2>
+<h2>Friends of giuspen.com (donated €3335,30)</h2>
 • Miguel Latorre (Spain) donated €240
 • DistroWatch.com (International) donated €200
 • Alan M. (United States) donated €100
@@ -83,6 +83,7 @@ SUPPORTERS="""
 • Bennett Z. Kobb (United States) donated €12,39
 • Dandi Soft (Italy) donated €12
 • Administrateur (France) donated €10
+• Andreas Strömdahl (Sweden) donated €10
 • Balint Fekete (Hungary) donated €10
 • Benoît D’Angelo (France) donated €10
 • Chipmunk Software &amp; Systems (United States) donated €10
@@ -121,6 +122,7 @@ SUPPORTERS="""
 • Thomas Gruschwitz (Germany) donated €10
 • Thomas Locquet (France) donated €10
 • Thomas Polomski (Germany) donated €10
+• Uwe Ebers (Germany) donated €10 [android version]
 • ZebraMap (United States) donated €10
 • James Skahan (United States) donated €9 [shortcut to leave the codebox]
 • David Severn (United States) donated €8,82
