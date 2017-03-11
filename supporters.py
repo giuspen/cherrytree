@@ -4,7 +4,7 @@
 import re
 
 SUPPORTERS="""
-<h2>Friends of giuspen.com (donated €3335,30)</h2>
+<h2>Friends of giuspen.com (donated €3395,30)</h2>
 • Miguel Latorre (Spain) donated €240
 • DistroWatch.com (International) donated €200
 • Alan M. (United States) donated €100
@@ -18,6 +18,7 @@ SUPPORTERS="""
 • Andy Lavarre (United States) donated €50 [datetime of creation/modification per node + search filter]
 • Barbara Buri (Switzerland) donated €50
 • Ger de Gooijer (Netherlands) donated €50 [mark node in the tree with bold or color]
+• Lisardo Sobrino (Spain) donated €50
 • Manuel Pacheco (Spain) donated €50
 • Rudy Witt (Canada) donated €50
 • Ted (Germany) donated €45 [same tree visible twice for drag n drop]
@@ -110,6 +111,7 @@ SUPPORTERS="""
 • Passionate Awakenings (United States) donated €10
 • Paul Saletan (United States) donated €10
 • Petr Bartel (Czech Republic) donated €10
+• Philippe Missout (France) donated €10
 • Ranjit Singh (Germany) donated €10
 • Ravi Kumar (India) donated €10
 • Robert Harris (United States) donated €10
