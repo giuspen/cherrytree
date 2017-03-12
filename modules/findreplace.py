@@ -96,6 +96,7 @@ class FindReplace:
         self.allmatches_title = ""
         self.allmatches_position = None
         self.allmatches_size = None
+        self.allmatches_path = None
         self.iteratedfinddialog = None
         self.latest_node_offset = {}
         time_now = time.time()
@@ -912,16 +913,6 @@ class FindReplace:
         kb_sh = menus.get_menu_item_kb_shortcut(self.dad, "toggle_show_allmatches_dlg")
         button_hide = allmatchesdialog.add_button(_("Hide (Restore with '%s')") % kb_sh, gtk.RESPONSE_CLOSE)
         button_hide.set_image(gtk.image_new_from_stock(gtk.STOCK_CLOSE, gtk.ICON_SIZE_BUTTON))
-        def on_allmatchesdialog_delete_event(widget, event):
-            self.allmatches_position = allmatchesdialog.get_position()
-            self.allmatches_size = (allmatchesdialog.get_allocation().width,
-                                    allmatchesdialog.get_allocation().height)
-            return False
-        allmatchesdialog.connect('delete-event', on_allmatchesdialog_delete_event)
-        def on_button_hide_clicked(button):
-            on_allmatchesdialog_delete_event(None, None)
-            allmatchesdialog.destroy()
-        button_hide.connect('clicked', on_button_hide_clicked)
         treeview = gtk.TreeView(self.allmatches_liststore)
         renderer_text_node = gtk.CellRendererText()
         renderer_text_linenum = gtk.CellRendererText()
@@ -939,6 +930,24 @@ class FindReplace:
         scrolledwindow_allmatches.add(treeview)
         content_area = allmatchesdialog.get_content_area()
         content_area.pack_start(scrolledwindow_allmatches)
+        def on_allmatchesdialog_delete_event(widget, event):
+            self.allmatches_position = allmatchesdialog.get_position()
+            self.allmatches_size = (allmatchesdialog.get_allocation().width,
+                                    allmatchesdialog.get_allocation().height)
+            model, list_iter = treeview.get_selection().get_selected()
+            if not list_iter:
+                self.allmatches_path = None
+            else:
+                self.allmatches_path = self.allmatches_liststore.get_path(list_iter)
+            return False
+        allmatchesdialog.connect('delete-event', on_allmatchesdialog_delete_event)
+        def on_button_hide_clicked(button):
+            on_allmatchesdialog_delete_event(None, None)
+            allmatchesdialog.destroy()
+        button_hide.connect('clicked', on_button_hide_clicked)
+        if self.allmatches_path is not None:
+            treeview.set_cursor(self.allmatches_path)
+            treeview.scroll_to_cell(self.allmatches_path)
         allmatchesdialog.show_all()
 
     def on_treeview_event_after(self, treeview, event):
