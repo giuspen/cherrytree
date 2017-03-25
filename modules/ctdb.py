@@ -70,7 +70,8 @@ class CTDBHandler:
         elif not self.is_vacuum: print "Writing DB Data but No Updates Found"
         if self.is_vacuum:
             print "vacuum"
-            db.execute('VACUUM REINDEX')
+            db.execute('VACUUM')
+            db.execute('REINDEX')
 
     def get_image_db_tuple(self, image_element, node_id):
         """From image element to db tuple"""
