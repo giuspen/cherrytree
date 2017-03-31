@@ -20,6 +20,7 @@
 #       MA 02110-1301, USA.
 
 from gi.repository import Gtk
+from gi.repository import Gdk
 from gi.repository import GdkPixbuf
 from gi.repository import Pango
 from gi.repository import GtkSource
@@ -84,13 +85,6 @@ class CherryTree:
             iconset = Gtk.IconSet(pixbuf)
             factory.add(stock_name, iconset)
         factory.add_default()
-        # system settings
-        try:
-            gtk_settings = Gtk.Settings.get_default()
-            gtk_settings.set_property("gtk-button-images", True)
-            gtk_settings.set_property("gtk-menu-images", True)
-        except: pass # older gtk do not have the property "gtk-menu-images"
-        os.environ['UBUNTU_MENUPROXY'] = '0' # cherrytree has custom stock icons not visible in appmenu
         vbox_main = Gtk.VBox()
         self.window.add(vbox_main)
         self.country_lang = lang_str
@@ -107,9 +101,9 @@ class CherryTree:
         self.ui.add_ui_from_string(menus.UI_INFO)
         self.ui.add_ui_from_string(config.get_toolbar_ui_str(self))
         # menubar add
-        vbox_main.pack_start(self.ui.get_widget("/MenuBar", True, True, 0), False, False)
+        vbox_main.pack_start(self.ui.get_widget("/MenuBar"), False, False, 0)
         # toolbar add
-        vbox_main.pack_start(self.ui.get_widget("/ToolBar", True, True, 0), False, False)
+        vbox_main.pack_start(self.ui.get_widget("/ToolBar"), False, False, 0)
         # hpaned add
         self.hpaned = Gtk.HPaned()
         self.scrolledwindow_tree = Gtk.ScrolledWindow()
@@ -119,7 +113,7 @@ class CherryTree:
         self.scrolledwindow_text.get_hscrollbar().connect('value-changed', self.on_hscrollbar_text_value_changed)
         self.vbox_text = Gtk.VBox()
         self.header_node_name_eventbox = self.instantiate_node_name_header()
-        self.vbox_text.pack_start(self.header_node_name_eventbox, False, False)
+        self.vbox_text.pack_start(self.header_node_name_eventbox, False, False, 0)
         self.vbox_text.pack_start(self.scrolledwindow_text, True, True, 0)
         if self.tree_right_side:
             self.hpaned.add1(self.vbox_text)
@@ -141,20 +135,16 @@ class CherryTree:
         self.progresstop.set_image(Gtk.Image.new_from_stock("gtk-stop", Gtk.IconSize.MENU))
         self.progresstop.connect('clicked', self.on_button_progresstop_clicked)
         hbox_statusbar = Gtk.HBox()
-        hbox_statusbar.pack_start(self.statusbar, True, True)
-        hbox_statusbar.pack_start(progress_frame, False, True)
-        hbox_statusbar.pack_start(self.progresstop, False, True)
-        vbox_main.pack_start(hbox_statusbar, False, False)
+        hbox_statusbar.pack_start(self.statusbar, True, True, 0)
+        hbox_statusbar.pack_start(progress_frame, False, True, 0)
+        hbox_statusbar.pack_start(self.progresstop, False, True, 0)
+        vbox_main.pack_start(hbox_statusbar, False, False, 0)
         # ROW: 0-icon_stock_id, 1-name, 2-buffer, 3-unique_id, 4-syntax_highlighting, 5-node_sequence, 6-tags, 7-readonly, 8-aux_icon_stock_id, 9-custom_icon_id, 10-weight, 11-foreground, 12-ts_creation, 13-ts_lastsave
         self.treestore = Gtk.TreeStore(str, str, GObject.TYPE_PYOBJECT, long, str, int, str, GObject.TYPE_BOOLEAN, str, int, int, str, float, float)
         self.treeview = Gtk.TreeView(self.treestore)
         self.treeview.set_headers_visible(False)
-        self.treeview.drag_source_set(Gdk.ModifierType.BUTTON1_MASK,
-                                      [('CT_DND', Gtk.TargetFlags.SAME_WIDGET, 0)],
-                                      Gdk.DragAction.MOVE)
-        self.treeview.drag_dest_set(Gtk.DestDefaults.ALL,
-                                    [('CT_DND', Gtk.TargetFlags.SAME_WIDGET, 0)],
-                                    Gdk.DragAction.MOVE)
+        self.treeview.drag_source_set(Gdk.ModifierType.BUTTON1_MASK, None, Gdk.DragAction.MOVE)
+        self.treeview.drag_dest_set(Gtk.DestDefaults.ALL, None, Gdk.DragAction.MOVE)
         self.renderer_pixbuf = Gtk.CellRendererPixbuf()
         self.renderer_text = Gtk.CellRendererText()
         self.renderer_text.set_property('wrap-mode', Pango.WrapMode.WORD_CHAR)
@@ -1857,9 +1847,6 @@ iter_end, exclude_iter_sel_end=True)
             return False
         dialog.connect("key_press_event", on_key_press_enter_password_dialog)
         dialog.show_all()
-        if not cons.IS_WIN_OS:
-            the_window = dialog.get_window()
-            the_window.focus(GdkX11.x11_get_server_time(the_window))
         dialog.present()
         response = dialog.run()
         passw = unicode(entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE)

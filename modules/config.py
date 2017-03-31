@@ -20,6 +20,7 @@
 #       MA 02110-1301, USA.
 
 from gi.repository import Gtk
+from gi.repository import Gdk
 from gi.repository import Pango
 import os
 import sys
@@ -809,7 +810,7 @@ def preferences_tab_text_n_code(dad, vbox_all_nodes, pref_dialog):
     spinbutton_relative_wrapped_space.set_value(dad.relative_wrapped_space)
     hbox_relative_wrapped_space.pack_start(label_relative_wrapped_space, False, True, 0)
     hbox_relative_wrapped_space.pack_start(spinbutton_relative_wrapped_space, False, True, 0)
-    hbox_relative_wrapped_space.pack_start(Gtk.Label("%", True, True, 0), False, True, 0)
+    hbox_relative_wrapped_space.pack_start(Gtk.Label(label="%"), False, True, 0)
 
     vbox_text_editor = Gtk.VBox()
     vbox_text_editor.pack_start(hbox_tab_width, False, True, 0)

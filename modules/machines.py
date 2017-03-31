@@ -20,6 +20,7 @@
 #       MA 02110-1301, USA.
 
 from gi.repository import Gtk
+from gi.repository import GdkPixbuf
 import xml.dom.minidom
 import re
 import base64

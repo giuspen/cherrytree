@@ -20,9 +20,9 @@
 #       MA 02110-1301, USA.
 
 from gi.repository import Gtk
+from gi.repository import GdkPixbuf
 from gi.repository import GObject
 from gi.repository import Pango
-import cairo
 import copy
 import cgi
 import support

@@ -20,6 +20,7 @@
 #       MA 02110-1301, USA.
 
 from gi.repository import Gtk
+from gi.repository import GdkPixbuf
 from gi.repository import Gio
 import HTMLParser
 import htmlentitydefs
