@@ -19,7 +19,7 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
-import gtk
+from gi.repository import Gtk
 import os
 import xml.dom.minidom
 import re
@@ -84,13 +84,20 @@ class Win32HtmlFormat:
         )
         return prefix + html
 
+
+def get_clipboard():
+    atom = Gdk.atom_intern('CLIPBOARD', True)
+    clipboard = Gtk.Clipboard.get(atom)
+    return clipboard
+
+
 class ClipboardHandler:
     """Handler of Clipboard"""
 
     def __init__(self, dad):
         """Clipboard Handler boot"""
         self.dad = dad
-        self.clipboard = gtk.clipboard_get()
+        
         self.force_plain_text = False
 
     def copy(self, text_view, from_codebox):
@@ -126,22 +133,25 @@ class ClipboardHandler:
     def table_row_to_clipboard(self, table_dict):
         """Put the Selected Table Row to the Clipboard"""
         html_text = self.dad.html_handler.table_export_to_html(table_dict)
-        self.clipboard.set_with_data([(t, 0, 0) for t in (TARGET_CTD_TABLE, TARGETS_HTML[0])],
+        clipboard = get_clipboard()
+        clipboard.set_with_data([(t, 0, 0) for t in (TARGET_CTD_TABLE, TARGETS_HTML[0])],
                                      self.get_func,
                                      self.clear_func,
                                      (None, None, html_text, table_dict))
 
     def table_row_paste(self, model_n_iter):
         """Paste Table Row from the Clipboard"""
-        targets = self.clipboard.wait_for_targets()
+        clipboard = get_clipboard()
+        targets = clipboard.wait_for_targets()
         if not targets: return False
         if TARGET_CTD_TABLE in targets:
-            self.clipboard.request_contents(TARGET_CTD_TABLE, self.to_table, model_n_iter)
+            clipboard.request_contents(TARGET_CTD_TABLE, self.to_table, model_n_iter)
             return True
         return False
 
     def selection_to_clipboard(self, text_buffer, sourceview, iter_sel_start, iter_sel_end, num_chars, from_codebox):
         """Write the Selected Content to the Clipboard"""
+        clipboard = get_clipboard()
         pixbuf_target = None
         if not from_codebox and self.dad.syntax_highlighting == cons.RICH_TEXT_ID and num_chars == 1:
             anchor = iter_sel_start.get_child_anchor()
@@ -155,10 +165,10 @@ class ClipboardHandler:
                     txt_handler = exports.Export2Txt(self.dad)
                     text_offsets_range = [iter_sel_start.get_offset(), iter_sel_end.get_offset()]
                     plain_text = txt_handler.node_export_to_txt(text_buffer, "", sel_range=text_offsets_range, check_link_target=True)
-                    self.clipboard.set_with_data([(t, 0, 0) for t in (TARGET_CTD_TABLE, TARGETS_HTML[0], TARGET_CTD_PLAIN_TEXT)],
-                                                 self.get_func,
-                                                 self.clear_func,
-                                                 (plain_text, None, html_text, table_dict))
+                    clipboard.set_with_data([(t, 0, 0) for t in (TARGET_CTD_TABLE, TARGETS_HTML[0], TARGET_CTD_PLAIN_TEXT)],
+                                            self.get_func,
+                                            self.clear_func,
+                                            (plain_text, None, html_text, table_dict))
                     return
                 elif "sourcebuffer" in anchor_dir:
                     codebox_dict = self.dad.state_machine.codebox_to_dict(anchor, for_print=0)
@@ -167,10 +177,10 @@ class ClipboardHandler:
                     txt_handler = exports.Export2Txt(self.dad)
                     text_offsets_range = [iter_sel_start.get_offset(), iter_sel_end.get_offset()]
                     plain_text = txt_handler.node_export_to_txt(text_buffer, "", sel_range=text_offsets_range, check_link_target=True)
-                    self.clipboard.set_with_data([(t, 0, 0) for t in (TARGET_CTD_CODEBOX, TARGETS_HTML[0], TARGET_CTD_PLAIN_TEXT)],
-                                                 self.get_func,
-                                                 self.clear_func,
-                                                 (plain_text, None, html_text, codebox_dict))
+                    clipboard.set_with_data([(t, 0, 0) for t in (TARGET_CTD_CODEBOX, TARGETS_HTML[0], TARGET_CTD_PLAIN_TEXT)],
+                                            self.get_func,
+                                            self.clear_func,
+                                            (plain_text, None, html_text, codebox_dict))
                     return
         if not os.path.isdir(cons.TMP_FOLDER): os.mkdir(cons.TMP_FOLDER)
         html_text = self.dad.html_handler.selection_export_to_html(text_buffer, iter_sel_start, iter_sel_end,
@@ -186,20 +196,20 @@ class ClipboardHandler:
                     targets_vector.append(TARGETS_IMAGES[0])
             else:
                 targets_vector = [TARGET_CTD_PLAIN_TEXT]
-            self.clipboard.set_with_data([(t, 0, 0) for t in targets_vector],
-                self.get_func,
-                self.clear_func,
-                (plain_text, rich_text, html_text, pixbuf_target))
+            clipboard.set_with_data([(t, 0, 0) for t in targets_vector],
+                                    self.get_func,
+                                    self.clear_func,
+                                    (plain_text, rich_text, html_text, pixbuf_target))
         else:
             plain_text = text_buffer.get_text(iter_sel_start, iter_sel_end)
             if not self.force_plain_text:
                 targets_vector = [TARGET_CTD_PLAIN_TEXT, TARGETS_HTML[0], TARGETS_HTML[1]]
             else:
                 targets_vector = [TARGET_CTD_PLAIN_TEXT]
-            self.clipboard.set_with_data([(t, 0, 0) for t in targets_vector],
-                                         self.get_func,
-                                         self.clear_func,
-                                         (plain_text, None, html_text, pixbuf_target))
+            clipboard.set_with_data([(t, 0, 0) for t in targets_vector],
+                                    self.get_func,
+                                    self.clear_func,
+                                    (plain_text, None, html_text, pixbuf_target))
 
     def get_func(self, clipboard, selectiondata, info, data):
         """Connected with clipboard.set_with_data"""
@@ -234,43 +244,44 @@ class ClipboardHandler:
         """Paste from Clipboard"""
         sourceview.stop_emission("paste-clipboard")
         if self.dad.treestore[self.dad.curr_tree_iter][7]: return
-        targets = self.clipboard.wait_for_targets()
+        clipboard = get_clipboard()
+        targets = clipboard.wait_for_targets()
         if not targets: return
         self.dad.curr_buffer.delete_selection(True, sourceview.get_editable())
         if self.force_plain_text:
             for target in TARGETS_PLAIN_TEXT:
                 if target in targets:
-                    self.clipboard.request_contents(target, self.to_plain_text)
+                    clipboard.request_contents(target, self.to_plain_text)
                     return
             self.force_plain_text = False
         #print targets
         if self.dad.syntax_highlighting == cons.RICH_TEXT_ID:
             if TARGET_CTD_RICH_TEXT in targets:
-                self.clipboard.request_contents(TARGET_CTD_RICH_TEXT, self.to_rich_text)
+                clipboard.request_contents(TARGET_CTD_RICH_TEXT, self.to_rich_text)
                 return
             if TARGET_CTD_CODEBOX in targets:
-                self.clipboard.request_contents(TARGET_CTD_CODEBOX, self.to_codebox)
+                clipboard.request_contents(TARGET_CTD_CODEBOX, self.to_codebox)
                 return
             if TARGET_CTD_TABLE in targets:
-                self.clipboard.request_contents(TARGET_CTD_TABLE, self.to_table, None)
+                clipboard.request_contents(TARGET_CTD_TABLE, self.to_table, None)
                 return
             for target in TARGETS_HTML:
                 if target in targets:
-                    self.clipboard.request_contents(target, self.to_html)
+                    clipboard.request_contents(target, self.to_html)
                     return
             for target in TARGETS_IMAGES:
                 if target in targets:
-                    self.clipboard.request_contents(target, self.to_image)
+                    clipboard.request_contents(target, self.to_image)
                     return
         if TARGET_URI_LIST in targets:
-            self.clipboard.request_contents(TARGET_URI_LIST, self.to_uri_list)
+            clipboard.request_contents(TARGET_URI_LIST, self.to_uri_list)
             return
         for target in TARGETS_PLAIN_TEXT:
             if target in targets:
-                self.clipboard.request_contents(target, self.to_plain_text)
+                clipboard.request_contents(target, self.to_plain_text)
                 return
         if TARGET_WINDOWS_FILE_NAME in targets:
-            self.clipboard.request_contents(TARGET_WINDOWS_FILE_NAME, self.to_uri_list)
+            clipboard.request_contents(TARGET_WINDOWS_FILE_NAME, self.to_uri_list)
             return
         print "WARNING: targets not handled", targets
 
@@ -292,7 +303,7 @@ class ClipboardHandler:
                     mimetype = mimetypes.guess_type(file_path)[0]
                     if mimetype and mimetype.startswith("image/") and os.path.isfile(file_path):
                         try:
-                            pixbuf = gtk.gdk.pixbuf_new_from_file(file_path)
+                            pixbuf = GdkPixbuf.Pixbuf.new_from_file(file_path)
                             self.dad.image_insert(iter_insert, pixbuf)
                             iter_insert = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
                             self.dad.curr_buffer.insert(iter_insert, 3*cons.CHAR_SPACE)
@@ -438,10 +449,10 @@ class ClipboardHandler:
         if dom_node.hasAttribute("justification"): justification = dom_node.attributes["justification"].value
         else: justification = cons.TAG_PROP_LEFT
         if dom_node.hasAttribute("anchor"):
-            pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(cons.ANCHOR_CHAR, self.dad.anchor_size, self.dad.anchor_size)
+            pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(cons.ANCHOR_CHAR, self.dad.anchor_size, self.dad.anchor_size)
             pixbuf.anchor = dom_node.attributes["anchor"].value
         elif dom_node.hasAttribute("filename"):
-            pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(cons.FILE_CHAR, self.dad.embfile_size, self.dad.embfile_size)
+            pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(cons.FILE_CHAR, self.dad.embfile_size, self.dad.embfile_size)
             pixbuf.filename = dom_node.attributes["filename"].value
             pixbuf.embfile = base64.b64decode(dom_node.firstChild.data)
             pixbuf.time = float(dom_node.attributes["time"].value) if dom_node.hasAttribute("time") else 0

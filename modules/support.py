@@ -19,8 +19,8 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
-import gtk
-import pango
+from gi.repository import Gtk
+from gi.repository import Pango
 import locale
 import os
 import webbrowser
@@ -188,15 +188,15 @@ def apply_tag_try_automatic_bounds(dad, text_buffer=None, iter_start=None):
 def on_sourceview_event_after_double_click_button1(dad, text_view, event):
     """Called after every Double Click with button 1"""
     text_buffer = text_view.get_buffer()
-    x, y = text_view.window_to_buffer_coords(gtk.TEXT_WINDOW_TEXT, int(event.x), int(event.y))
+    x, y = text_view.window_to_buffer_coords(Gtk.TextWindowType.TEXT, int(event.x), int(event.y))
     iter_start = text_view.get_iter_at_location(x, y)
     apply_tag_try_automatic_bounds(dad, text_buffer=text_buffer, iter_start=iter_start)
 
 def on_sourceview_event_after_button_press(dad, text_view, event):
-    """Called after every gtk.gdk.BUTTON_PRESS on the SourceView"""
+    """Called after every Gdk.EventType.BUTTON_PRESS on the SourceView"""
     text_buffer = text_view.get_buffer()
     if event.button in [1, 2]:
-        x, y = text_view.window_to_buffer_coords(gtk.TEXT_WINDOW_TEXT, int(event.x), int(event.y))
+        x, y = text_view.window_to_buffer_coords(Gtk.TextWindowType.TEXT, int(event.x), int(event.y))
         text_iter = text_view.get_iter_at_location(x, y)
         tags = text_iter.get_tags()
         # check whether we are hovering a link
@@ -210,7 +210,7 @@ def on_sourceview_event_after_button_press(dad, text_view, event):
             if dad.is_curr_node_not_read_only_or_error():
                 dad.lists_handler.todo_list_rotate_status(text_iter, text_buffer)
     elif event.button == 3 and not text_buffer.get_has_selection():
-        x, y = text_view.window_to_buffer_coords(gtk.TEXT_WINDOW_TEXT, int(event.x), int(event.y))
+        x, y = text_view.window_to_buffer_coords(Gtk.TextWindowType.TEXT, int(event.x), int(event.y))
         text_iter = text_view.get_iter_at_location(x, y)
         text_buffer.place_cursor(text_iter)
     return False
@@ -268,17 +268,17 @@ def on_sourceview_list_change_level(dad, iter_insert, list_info, text_buffer, le
     dad.update_window_save_needed("nbuf", True)
 
 def on_sourceview_event_after_scroll(dad, text_view, event):
-    """Called after every gtk.gdk.SCROLL on the SourceView"""
+    """Called after every Gdk.SCROLL on the SourceView"""
     if dad.ctrl_down:
-        if event.direction == gtk.gdk.SCROLL_UP:
+        if event.direction == Gdk.ScrollDirection.UP:
             dad.zoom_text_p()
-        elif event.direction == gtk.gdk.SCROLL_DOWN:
+        elif event.direction == Gdk.ScrollDirection.DOWN:
             dad.zoom_text_m()
     return False
 
 def on_sourceview_event_after_key_release(dad, text_view, event):
-    """Called after every gtk.gdk.KEY_RELEASE on the SourceView"""
-    keyname = gtk.gdk.keyval_name(event.keyval)
+    """Called after every Gdk.KEY_RELEASE on the SourceView"""
+    keyname = Gdk.keyval_name(event.keyval)
     if dad.ctrl_down:
         if keyname in cons.STR_KEYS_CONTROL:
             dad.ctrl_down = False
@@ -288,9 +288,9 @@ def on_sourceview_event_after_key_release(dad, text_view, event):
     return False
 
 def on_sourceview_event_after_key_press(dad, text_view, event, syntax_highl):
-    """Called after every gtk.gdk.KEY_PRESS on the SourceView"""
+    """Called after every Gdk.KEY_PRESS on the SourceView"""
     text_buffer = text_view.get_buffer()
-    keyname = gtk.gdk.keyval_name(event.keyval)
+    keyname = Gdk.keyval_name(event.keyval)
     if not dad.ctrl_down:
         if keyname in cons.STR_KEYS_CONTROL:
             dad.ctrl_down = True
@@ -322,7 +322,7 @@ def on_sourceview_event_after_key_press(dad, text_view, event, syntax_highl):
                     if offset_0 >= 0:
                         dad.replace_text_at_offset(char_0, offset_0, offset_0+1, text_buffer)
                         dad.replace_text_at_offset(char_1, offset_1, offset_1+1, text_buffer)
-    elif (event.state & gtk.gdk.SHIFT_MASK):
+    elif (event.get_state() & Gdk.ModifierType.SHIFT_MASK):
         if keyname == cons.STR_KEY_RETURN:
             iter_insert = text_buffer.get_iter_at_mark(text_buffer.get_insert())
             if not iter_insert: return False
@@ -469,7 +469,7 @@ def sourceview_cursor_and_tooltips_handler(dad, text_view, x, y):
     hovering_link_iter_offset = -1
     text_iter = text_view.get_iter_at_location(x, y)
     if dad.lists_handler.is_list_todo_beginning(text_iter):
-        text_view.get_window(gtk.TEXT_WINDOW_TEXT).set_cursor(gtk.gdk.Cursor(gtk.gdk.X_CURSOR))
+        text_view.get_window(Gtk.TextWindowType.TEXT).set_cursor(Gdk.Cursor.new(Gdk.CursorType.X_CURSOR))
         text_view.set_tooltip_text(None)
         return
     tags = text_iter.get_tags()
@@ -495,12 +495,12 @@ def sourceview_cursor_and_tooltips_handler(dad, text_view, x, y):
         dad.hovering_link_iter_offset = hovering_link_iter_offset
         #print "link", dad.hovering_link_iter_offset
     if dad.hovering_link_iter_offset >= 0:
-        text_view.get_window(gtk.TEXT_WINDOW_TEXT).set_cursor(gtk.gdk.Cursor(gtk.gdk.HAND2))
+        text_view.get_window(Gtk.TextWindowType.TEXT).set_cursor(Gdk.Cursor.new(Gdk.HAND2))
         if len(tooltip) > cons.MAX_TOOLTIP_LINK_CHARS:
             tooltip = tooltip[:cons.MAX_TOOLTIP_LINK_CHARS] + "..."
         text_view.set_tooltip_text(tooltip)
     else:
-        text_view.get_window(gtk.TEXT_WINDOW_TEXT).set_cursor(gtk.gdk.Cursor(gtk.gdk.XTERM))
+        text_view.get_window(Gtk.TextWindowType.TEXT).set_cursor(Gdk.Cursor.new(Gdk.XTERM))
         text_view.set_tooltip_text(None)
 
 def rich_text_node_modify_codeboxes_font(start_iter, code_font):
@@ -509,7 +509,7 @@ def rich_text_node_modify_codeboxes_font(start_iter, code_font):
     while 1:
         anchor = curr_iter.get_child_anchor()
         if anchor and "sourcebuffer" in dir(anchor):
-            anchor.sourceview.modify_font(pango.FontDescription(code_font))
+            anchor.sourceview.modify_font(Pango.FontDescription(code_font))
         if not curr_iter.forward_char(): break
 
 def rich_text_node_modify_codeboxes_color(start_iter, dad):
@@ -681,11 +681,11 @@ def get_former_line_indentation(iter_start):
 
 def get_pango_weight(is_bold):
     """Get pango weight (integer 200:900) heavy=900, normal=400"""
-    return pango.WEIGHT_HEAVY if is_bold else pango.WEIGHT_NORMAL
+    return Pango.Weight.HEAVY if is_bold else Pango.Weight.NORMAL
 
 def get_pango_is_bold(weight):
     """Get True if pango weight is bold (heavy)"""
-    return weight == pango.WEIGHT_HEAVY
+    return weight == Pango.Weight.HEAVY
 
 def windows_cmd_prepare_path(filepath):
     """Prepares a Path to be digested by windows command line"""
@@ -693,16 +693,16 @@ def windows_cmd_prepare_path(filepath):
 
 def dialog_file_save_as(filename=None, filter_pattern=None, filter_name=None, curr_folder=None, parent=None):
     """The Save file as dialog, Returns the retrieved filepath or None"""
-    chooser = gtk.FileChooserDialog(title=_("Save File as"),
-                                    action=gtk.FILE_CHOOSER_ACTION_SAVE,
-                                    buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, gtk.STOCK_SAVE, gtk.RESPONSE_ACCEPT) )
+    chooser = Gtk.FileChooserDialog(title=_("Save File as"),
+                                    action=Gtk.FileChooserAction.SAVE,
+                                    buttons=(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, Gtk.STOCK_SAVE, Gtk.ResponseType.ACCEPT) )
     chooser.set_do_overwrite_confirmation(True)
     if parent != None:
         chooser.set_transient_for(parent)
         chooser.set_property("modal", True)
         chooser.set_property("destroy-with-parent", True)
-        chooser.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-    else: chooser.set_position(gtk.WIN_POS_CENTER)
+        chooser.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
+    else: chooser.set_position(Gtk.WindowPosition.CENTER)
     if curr_folder == None or os.path.isdir(curr_folder) == False:
         chooser.set_current_folder(os.path.expanduser('~'))
     else:
@@ -710,11 +710,11 @@ def dialog_file_save_as(filename=None, filter_pattern=None, filter_name=None, cu
     if filename != None:
         chooser.set_current_name(filename)
     if filter_pattern != None:
-        filter = gtk.FileFilter()
+        filter = Gtk.FileFilter()
         filter.set_name(filter_name)
         filter.add_pattern(filter_pattern)
         chooser.add_filter(filter)
-    if chooser.run() == gtk.RESPONSE_ACCEPT:
+    if chooser.run() == Gtk.ResponseType.ACCEPT:
         filepath = chooser.get_filename()
         chooser.destroy()
         return unicode(filepath, cons.STR_UTF8, cons.STR_IGNORE) if filepath != None else None
@@ -724,28 +724,28 @@ def dialog_file_save_as(filename=None, filter_pattern=None, filter_name=None, cu
 
 def dialog_file_select(filter_pattern=[], filter_mime=[], filter_name=None, curr_folder=None, parent=None):
     """The Select file dialog, Returns the retrieved filepath or None"""
-    chooser = gtk.FileChooserDialog(title = _("Select File"),
-                                    action=gtk.FILE_CHOOSER_ACTION_OPEN,
-                                    buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, gtk.STOCK_OPEN, gtk.RESPONSE_ACCEPT) )
+    chooser = Gtk.FileChooserDialog(title = _("Select File"),
+                                    action=Gtk.FileChooserAction.OPEN,
+                                    buttons=(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, Gtk.STOCK_OPEN, Gtk.ResponseType.ACCEPT) )
     if parent != None:
         chooser.set_transient_for(parent)
         chooser.set_property("modal", True)
         chooser.set_property("destroy-with-parent", True)
-        chooser.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-    else: chooser.set_position(gtk.WIN_POS_CENTER)
+        chooser.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
+    else: chooser.set_position(Gtk.WindowPosition.CENTER)
     if curr_folder == None or os.path.isdir(curr_folder) == False:
         chooser.set_current_folder(os.path.expanduser('~'))
     else:
         chooser.set_current_folder(curr_folder)
     if filter_pattern or filter_mime:
-        filefilter = gtk.FileFilter()
+        filefilter = Gtk.FileFilter()
         filefilter.set_name(filter_name)
         for element in filter_pattern:
             filefilter.add_pattern(element)
         for element in filter_mime:
             filefilter.add_mime_type(element)
         chooser.add_filter(filefilter)
-    if chooser.run() == gtk.RESPONSE_ACCEPT:
+    if chooser.run() == Gtk.ResponseType.ACCEPT:
         filepath = chooser.get_filename()
         chooser.destroy()
         return unicode(filepath, cons.STR_UTF8, cons.STR_IGNORE) if filepath != None else None
@@ -755,20 +755,20 @@ def dialog_file_select(filter_pattern=[], filter_mime=[], filter_name=None, curr
 
 def dialog_folder_select(curr_folder=None, parent=None):
     """The Select folder dialog, returns the retrieved folderpath or None"""
-    chooser = gtk.FileChooserDialog(title = _("Select Folder"),
-                                    action=gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER,
-                                    buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, gtk.STOCK_OPEN, gtk.RESPONSE_ACCEPT) )
+    chooser = Gtk.FileChooserDialog(title = _("Select Folder"),
+                                    action=Gtk.FileChooserAction.SELECT_FOLDER,
+                                    buttons=(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, Gtk.STOCK_OPEN, Gtk.ResponseType.ACCEPT) )
     if parent != None:
         chooser.set_transient_for(parent)
         chooser.set_property("modal", True)
         chooser.set_property("destroy-with-parent", True)
-        chooser.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-    else: chooser.set_position(gtk.WIN_POS_CENTER)
+        chooser.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
+    else: chooser.set_position(Gtk.WindowPosition.CENTER)
     if curr_folder == None or os.path.isdir(curr_folder) == False:
         chooser.set_current_folder(os.path.expanduser('~'))
     else:
         chooser.set_current_folder(curr_folder)
-    if chooser.run() == gtk.RESPONSE_ACCEPT:
+    if chooser.run() == Gtk.ResponseType.ACCEPT:
         folderpath = chooser.get_filename()
         chooser.destroy()
         return unicode(folderpath, cons.STR_UTF8, cons.STR_IGNORE) if folderpath != None else None
@@ -778,26 +778,26 @@ def dialog_folder_select(curr_folder=None, parent=None):
 
 def dialog_question(message, parent=None):
     """The Question dialog, returns True if the user presses OK"""
-    dialog = gtk.MessageDialog(parent=parent,
-                               flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
-                               type=gtk.MESSAGE_QUESTION,
+    dialog = Gtk.MessageDialog(parent=parent,
+                               flags=Gtk.DialogFlags.MODAL|Gtk.DialogFlags.DESTROY_WITH_PARENT,
+                               type=Gtk.MessageType.QUESTION,
                                message_format=message)
-    dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+    dialog.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
     dialog.set_title(_("Question"))
-    dialog.add_button(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT)
-    dialog.add_button(gtk.STOCK_OK, gtk.RESPONSE_ACCEPT)
+    dialog.add_button(Gtk.STOCK_CANCEL, Gtk.ResponseType.REJECT)
+    dialog.add_button(Gtk.STOCK_OK, Gtk.ResponseType.ACCEPT)
     response = dialog.run()
     dialog.hide()
-    return True if response == gtk.RESPONSE_ACCEPT else False
+    return True if response == Gtk.ResponseType.ACCEPT else False
 
 def dialog_info(message, parent):
     """The Info dialog"""
-    dialog = gtk.MessageDialog(parent=parent,
-                               flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
-                               type=gtk.MESSAGE_INFO,
-                               buttons=gtk.BUTTONS_OK,
+    dialog = Gtk.MessageDialog(parent=parent,
+                               flags=Gtk.DialogFlags.MODAL|Gtk.DialogFlags.DESTROY_WITH_PARENT,
+                               type=Gtk.MessageType.INFO,
+                               buttons=Gtk.ButtonsType.OK,
                                message_format=message)
-    dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+    dialog.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
     dialog.set_title(_("Info"))
     dialog.run()
     dialog.destroy()
@@ -808,31 +808,31 @@ def dialog_info_after_restart(parent=None):
 
 def dialog_warning(message, parent):
     """The Warning dialog"""
-    dialog = gtk.MessageDialog(parent=parent,
-                               flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
-                               type=gtk.MESSAGE_WARNING,
-                               buttons=gtk.BUTTONS_OK,
+    dialog = Gtk.MessageDialog(parent=parent,
+                               flags=Gtk.DialogFlags.MODAL|Gtk.DialogFlags.DESTROY_WITH_PARENT,
+                               type=Gtk.MessageType.WARNING,
+                               buttons=Gtk.ButtonsType.OK,
                                message_format=message)
-    dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+    dialog.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
     dialog.set_title(_("Warning"))
     dialog.run()
     dialog.destroy()
 
 def dialog_error(message, parent):
     """The Error dialog"""
-    dialog = gtk.MessageDialog(parent=parent,
-                               flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
-                               type=gtk.MESSAGE_ERROR,
-                               buttons=gtk.BUTTONS_OK,
+    dialog = Gtk.MessageDialog(parent=parent,
+                               flags=Gtk.DialogFlags.MODAL|Gtk.DialogFlags.DESTROY_WITH_PARENT,
+                               type=Gtk.MessageType.ERROR,
+                               buttons=Gtk.ButtonsType.OK,
                                message_format=message)
-    dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+    dialog.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
     dialog.set_title(_("Error"))
     dialog.run()
     dialog.destroy()
 
 def dialog_about(dad):
     """Application About Dialog"""
-    dialog = gtk.AboutDialog()
+    dialog = Gtk.AboutDialog()
     dialog.set_program_name("CherryTree")
     dialog.set_version(cons.VERSION)
     dialog.set_copyright("""Copyright © 2009-2017
@@ -875,14 +875,14 @@ _("Slovenian")+" (sl) Erik Lovrič <erik.lovric@gmail.com>"+cons.CHAR_NEWLINE+
 _("Spanish")+" (es) Daniel MC <i.e.betel@gmail.com>"+cons.CHAR_NEWLINE+
 _("Turkish")+" (tr) Ferhat Aydin <ferhataydin44@gmail.com>"+cons.CHAR_NEWLINE+
 _("Ukrainian")+" (uk) Andriy Kovtun <kovtunos@yandex.ru>")
-    dialog.set_logo(gtk.gdk.pixbuf_new_from_file(os.path.join(cons.GLADE_PATH, "cherrytree.png")))
+    dialog.set_logo(GdkPixbuf.Pixbuf.new_from_file(os.path.join(cons.GLADE_PATH, "cherrytree.png")))
     dialog.set_title(_("About CherryTree"))
     dialog.set_transient_for(dad.window)
-    dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+    dialog.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
     dialog.set_modal(True)
     def f_url_hook(dialog, link, user_data):
         webbrowser.open(link)
-    gtk.about_dialog_set_url_hook(f_url_hook, None)
+    Gtk.about_dialog_set_url_hook(f_url_hook, None)
     dialog.run()
     dialog.hide()
 
@@ -892,26 +892,26 @@ def dialog_choose_element_in_list(father_win, title, elements_list, column_title
         def __init__(self):
             self.sel_iter = None
     list_parms = ListParms()
-    dialog = gtk.Dialog(title=title,
+    dialog = Gtk.Dialog(title=title,
         parent=father_win,
-        flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
-        buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
-                 gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
-    dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+        flags=Gtk.DialogFlags.MODAL|Gtk.DialogFlags.DESTROY_WITH_PARENT,
+        buttons=(Gtk.STOCK_CANCEL, Gtk.ResponseType.REJECT,
+                 Gtk.STOCK_OK, Gtk.ResponseType.ACCEPT) )
+    dialog.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
     dialog.set_default_size(400, 300)
-    scrolledwindow = gtk.ScrolledWindow()
-    scrolledwindow.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-    if not icon_n_label_list: elements_liststore = gtk.ListStore(str)
-    else: elements_liststore = gtk.ListStore(str,str,str)
-    elements_treeview = gtk.TreeView(elements_liststore)
-    elements_renderer_text = gtk.CellRendererText()
+    scrolledwindow = Gtk.ScrolledWindow()
+    scrolledwindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
+    if not icon_n_label_list: elements_liststore = Gtk.ListStore(str)
+    else: elements_liststore = Gtk.ListStore(str,str,str)
+    elements_treeview = Gtk.TreeView(elements_liststore)
+    elements_renderer_text = Gtk.CellRendererText()
     if not icon_n_label_list:
-        elements_column = gtk.TreeViewColumn(column_title, elements_renderer_text, text=0)
+        elements_column = Gtk.TreeViewColumn(column_title, elements_renderer_text, text=0)
     else:
         elements_treeview.set_headers_visible(False)
-        renderer_pixbuf = gtk.CellRendererPixbuf()
-        renderer_text = gtk.CellRendererText()
-        elements_column = gtk.TreeViewColumn()
+        renderer_pixbuf = Gtk.CellRendererPixbuf()
+        renderer_text = Gtk.CellRendererText()
+        elements_column = Gtk.TreeViewColumn()
         elements_column.pack_start(renderer_pixbuf, False)
         elements_column.pack_start(renderer_text, True)
         elements_column.set_attributes(renderer_pixbuf, stock_id=1)
@@ -929,19 +929,19 @@ def dialog_choose_element_in_list(father_win, title, elements_list, column_title
     if list_parms.sel_iter:
         elements_treeview.set_cursor(elements_liststore.get_path(list_parms.sel_iter))
     content_area = dialog.get_content_area()
-    content_area.pack_start(scrolledwindow)
+    content_area.pack_start(scrolledwindow, True, True, 0)
     def on_mouse_button_clicked_elements_list(widget, event):
         if event.button != 1: return
-        if event.type == gtk.gdk._2BUTTON_PRESS:
-            try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
+        if event.type == Gdk._2BUTTON_PRESS:
+            try: dialog.get_widget_for_response(Gtk.ResponseType.ACCEPT).clicked()
             except: print cons.STR_PYGTK_222_REQUIRED
     def on_treeview_event_after(treeview, event):
-        if event.type not in [gtk.gdk.BUTTON_PRESS, gtk.gdk.KEY_PRESS]: return
+        if event.type not in [Gdk.EventType.BUTTON_PRESS, Gdk.KEY_PRESS]: return
         model, list_parms.sel_iter = elements_treeviewselection.get_selected()
     def on_key_press_elementslistdialog(widget, event):
-        keyname = gtk.gdk.keyval_name(event.keyval)
+        keyname = Gdk.keyval_name(event.keyval)
         if keyname == cons.STR_KEY_RETURN:
-            try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
+            try: dialog.get_widget_for_response(Gtk.ResponseType.ACCEPT).clicked()
             except: print cons.STR_PYGTK_222_REQUIRED
             return True
         return False
@@ -952,32 +952,32 @@ def dialog_choose_element_in_list(father_win, title, elements_list, column_title
     elements_treeview.grab_focus()
     response = dialog.run()
     dialog.hide()
-    if response != gtk.RESPONSE_ACCEPT or not list_parms.sel_iter: return ""
+    if response != Gtk.ResponseType.ACCEPT or not list_parms.sel_iter: return ""
     return unicode(elements_liststore[list_parms.sel_iter][0], cons.STR_UTF8, cons.STR_IGNORE)
 
 def dialog_img_n_entry(father_win, title, entry_content, img_stock):
     """Insert/Edit Anchor Name"""
-    dialog = gtk.Dialog(title=title,
+    dialog = Gtk.Dialog(title=title,
         parent=father_win,
-        flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
-        buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
-                 gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
-    dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+        flags=Gtk.DialogFlags.MODAL|Gtk.DialogFlags.DESTROY_WITH_PARENT,
+        buttons=(Gtk.STOCK_CANCEL, Gtk.ResponseType.REJECT,
+                 Gtk.STOCK_OK, Gtk.ResponseType.ACCEPT) )
+    dialog.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
     dialog.set_default_size(300, -1)
-    image = gtk.Image()
-    image.set_from_stock(img_stock, gtk.ICON_SIZE_BUTTON)
-    entry = gtk.Entry()
+    image = Gtk.Image()
+    image.set_from_stock(img_stock, Gtk.IconSize.BUTTON)
+    entry = Gtk.Entry()
     entry.set_text(entry_content)
-    hbox = gtk.HBox()
-    hbox.pack_start(image, expand=False)
-    hbox.pack_start(entry)
+    hbox = Gtk.HBox()
+    hbox.pack_start(image, False, True, 0)
+    hbox.pack_start(entry, True, True, 0)
     hbox.set_spacing(5)
     content_area = dialog.get_content_area()
-    content_area.pack_start(hbox)
+    content_area.pack_start(hbox, True, True, 0)
     def on_key_press_anchoreditdialog(widget, event):
-        keyname = gtk.gdk.keyval_name(event.keyval)
+        keyname = Gdk.keyval_name(event.keyval)
         if keyname == cons.STR_KEY_RETURN:
-            try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
+            try: dialog.get_widget_for_response(Gtk.ResponseType.ACCEPT).clicked()
             except: print cons.STR_PYGTK_222_REQUIRED
             return True
         return False
@@ -986,7 +986,7 @@ def dialog_img_n_entry(father_win, title, entry_content, img_stock):
     entry.grab_focus()
     response = dialog.run()
     dialog.hide()
-    return unicode(entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE).strip() if response == gtk.RESPONSE_ACCEPT else ""
+    return unicode(entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE).strip() if response == Gtk.ResponseType.ACCEPT else ""
 
 def dialog_image_handle(father_win, title, original_pixbuf):
     """Insert/Edit Image"""
@@ -997,49 +997,49 @@ def dialog_image_handle(father_win, title, original_pixbuf):
             self.height = original_pixbuf.get_height()
             self.image_w_h_ration = float(self.width)/self.height
     img_parms = ImgParms(original_pixbuf)
-    dialog = gtk.Dialog(title=title,
+    dialog = Gtk.Dialog(title=title,
         parent=father_win,
-        flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
-        buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
-                 gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
-    dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+        flags=Gtk.DialogFlags.MODAL|Gtk.DialogFlags.DESTROY_WITH_PARENT,
+        buttons=(Gtk.STOCK_CANCEL, Gtk.ResponseType.REJECT,
+                 Gtk.STOCK_OK, Gtk.ResponseType.ACCEPT) )
+    dialog.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
     dialog.set_default_size(600, 500)
-    button_rotate_90_ccw = gtk.Button()
-    button_rotate_90_ccw.set_image(gtk.image_new_from_stock("object-rotate-left", gtk.ICON_SIZE_DND))
-    button_rotate_90_cw = gtk.Button()
-    button_rotate_90_cw.set_image(gtk.image_new_from_stock("object-rotate-right", gtk.ICON_SIZE_DND))
-    scrolledwindow = gtk.ScrolledWindow()
-    scrolledwindow.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-    viewport = gtk.Viewport()
-    image = gtk.image_new_from_pixbuf(original_pixbuf)
+    button_rotate_90_ccw = Gtk.Button()
+    button_rotate_90_ccw.set_image(Gtk.Image.new_from_stock("object-rotate-left", Gtk.IconSize.DND))
+    button_rotate_90_cw = Gtk.Button()
+    button_rotate_90_cw.set_image(Gtk.Image.new_from_stock("object-rotate-right", Gtk.IconSize.DND))
+    scrolledwindow = Gtk.ScrolledWindow()
+    scrolledwindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
+    viewport = Gtk.Viewport()
+    image = Gtk.image_new_from_pixbuf(original_pixbuf)
     scrolledwindow.add(viewport)
     viewport.add(image)
-    hbox_1 = gtk.HBox()
-    hbox_1.pack_start(button_rotate_90_ccw, expand=False)
-    hbox_1.pack_start(scrolledwindow)
-    hbox_1.pack_start(button_rotate_90_cw, expand=False)
+    hbox_1 = Gtk.HBox()
+    hbox_1.pack_start(button_rotate_90_ccw, False, True, 0)
+    hbox_1.pack_start(scrolledwindow, True, True, 0)
+    hbox_1.pack_start(button_rotate_90_cw, False, True, 0)
     hbox_1.set_spacing(2)
-    label_width = gtk.Label(_("Width"))
-    adj_width = gtk.Adjustment(value=img_parms.width, lower=1, upper=10000, step_incr=1)
-    spinbutton_width = gtk.SpinButton(adj_width)
-    label_height = gtk.Label(_("Height"))
-    adj_height = gtk.Adjustment(value=img_parms.height, lower=1, upper=10000, step_incr=1)
-    spinbutton_height = gtk.SpinButton(adj_height)
-    hbox_2 = gtk.HBox()
-    hbox_2.pack_start(label_width)
-    hbox_2.pack_start(spinbutton_width)
-    hbox_2.pack_start(label_height)
-    hbox_2.pack_start(spinbutton_height)
+    label_width = Gtk.Label(label=_("Width"))
+    adj_width = Gtk.Adjustment(value=img_parms.width, lower=1, upper=10000, step_incr=1)
+    spinbutton_width = Gtk.SpinButton(adj_width)
+    label_height = Gtk.Label(label=_("Height"))
+    adj_height = Gtk.Adjustment(value=img_parms.height, lower=1, upper=10000, step_incr=1)
+    spinbutton_height = Gtk.SpinButton(adj_height)
+    hbox_2 = Gtk.HBox()
+    hbox_2.pack_start(label_width, True, True, 0)
+    hbox_2.pack_start(spinbutton_width, True, True, 0)
+    hbox_2.pack_start(label_height, True, True, 0)
+    hbox_2.pack_start(spinbutton_height, True, True, 0)
     content_area = dialog.get_content_area()
-    content_area.pack_start(hbox_1)
-    content_area.pack_start(hbox_2, expand=False)
+    content_area.pack_start(hbox_1, True, True, 0)
+    content_area.pack_start(hbox_2, False, True, 0)
     content_area.set_spacing(6)
     def image_load_into_dialog():
         spinbutton_width.set_value(img_parms.width)
         spinbutton_height.set_value(img_parms.height)
         if img_parms.width <= 900 and img_parms.height <= 600:
             # original size into the dialog
-            pixbuf = img_parms.original_pixbuf.scale_simple(int(img_parms.width), int(img_parms.height), gtk.gdk.INTERP_BILINEAR)
+            pixbuf = img_parms.original_pixbuf.scale_simple(int(img_parms.width), int(img_parms.height), GdkPixbuf.InterpType.BILINEAR)
         else:
             # reduced size visible into the dialog
             if img_parms.width > 900:
@@ -1048,7 +1048,7 @@ def dialog_image_handle(father_win, title, original_pixbuf):
             else:
                 img_parms_height = 600
                 img_parms_width = img_parms_height * img_parms.image_w_h_ration
-            pixbuf = img_parms.original_pixbuf.scale_simple(int(img_parms_width), int(img_parms_height), gtk.gdk.INTERP_BILINEAR)
+            pixbuf = img_parms.original_pixbuf.scale_simple(int(img_parms_width), int(img_parms_height), GdkPixbuf.InterpType.BILINEAR)
         image.set_from_pixbuf(pixbuf)
     def on_button_rotate_90_cw_clicked(*args):
         img_parms.original_pixbuf = img_parms.original_pixbuf.rotate_simple(270)
@@ -1073,11 +1073,11 @@ def dialog_image_handle(father_win, title, original_pixbuf):
         img_parms.width = img_parms.height*img_parms.image_w_h_ration
         image_load_into_dialog()
     def on_key_press_imagehandledialog(widget, event):
-        keyname = gtk.gdk.keyval_name(event.keyval)
+        keyname = Gdk.keyval_name(event.keyval)
         if keyname == cons.STR_KEY_RETURN:
             spinbutton_width.update()
             spinbutton_height.update()
-            try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
+            try: dialog.get_widget_for_response(Gtk.ResponseType.ACCEPT).clicked()
             except: print cons.STR_PYGTK_222_REQUIRED
             return True
         return False
@@ -1088,42 +1088,42 @@ def dialog_image_handle(father_win, title, original_pixbuf):
     dialog.connect('key_press_event', on_key_press_imagehandledialog)
     image_load_into_dialog()
     content_area.show_all()
-    try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).grab_focus()
+    try: dialog.get_widget_for_response(Gtk.ResponseType.ACCEPT).grab_focus()
     except: pass
     response = dialog.run()
     dialog.hide()
-    if response != gtk.RESPONSE_ACCEPT: return None
-    return img_parms.original_pixbuf.scale_simple(int(img_parms.width), int(img_parms.height), gtk.gdk.INTERP_BILINEAR)
+    if response != Gtk.ResponseType.ACCEPT: return None
+    return img_parms.original_pixbuf.scale_simple(int(img_parms.width), int(img_parms.height), GdkPixbuf.InterpType.BILINEAR)
 
 def dialog_question_warning(father_win, warning_label):
     """Question with Warning"""
-    dialog = gtk.Dialog(title=_("Warning"),
+    dialog = Gtk.Dialog(title=_("Warning"),
         parent=father_win,
-        flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
-        buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
-                 gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
-    dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+        flags=Gtk.DialogFlags.MODAL|Gtk.DialogFlags.DESTROY_WITH_PARENT,
+        buttons=(Gtk.STOCK_CANCEL, Gtk.ResponseType.REJECT,
+                 Gtk.STOCK_OK, Gtk.ResponseType.ACCEPT) )
+    dialog.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
     dialog.set_default_size(350, 150)
-    image = gtk.Image()
-    image.set_from_stock(gtk.STOCK_DIALOG_WARNING, gtk.ICON_SIZE_DIALOG)
-    label = gtk.Label(warning_label)
+    image = Gtk.Image()
+    image.set_from_stock(Gtk.STOCK_DIALOG_WARNING, Gtk.IconSize.DIALOG)
+    label = Gtk.Label(label=warning_label)
     label.set_use_markup(True)
-    hbox = gtk.HBox()
-    hbox.pack_start(image)
-    hbox.pack_start(label)
+    hbox = Gtk.HBox()
+    hbox.pack_start(image, True, True, 0)
+    hbox.pack_start(label, True, True, 0)
     hbox.set_spacing(5)
     content_area = dialog.get_content_area()
-    content_area.pack_start(hbox)
+    content_area.pack_start(hbox, True, True, 0)
     def on_key_press_nodedeletedialog(widget, event):
-        keyname = gtk.gdk.keyval_name(event.keyval)
+        keyname = Gdk.keyval_name(event.keyval)
         if keyname == cons.STR_KEY_RETURN:
-            try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
+            try: dialog.get_widget_for_response(Gtk.ResponseType.ACCEPT).clicked()
             except: print cons.STR_PYGTK_222_REQUIRED
             return True
         return False
     dialog.connect('key_press_event', on_key_press_nodedeletedialog)
     content_area.show_all()
-    try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).grab_focus()
+    try: dialog.get_widget_for_response(Gtk.ResponseType.ACCEPT).grab_focus()
     except: pass
     response = dialog.run()
     dialog.hide()
@@ -1131,32 +1131,32 @@ def dialog_question_warning(father_win, warning_label):
 
 def dialog_exit_del_temp_files(dad):
     """Temporary Files will be deleted, close applications using them"""
-    dialog = gtk.Dialog(title=_("Warning"),
+    dialog = Gtk.Dialog(title=_("Warning"),
         parent=dad.window,
-        flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
+        flags=Gtk.DialogFlags.MODAL|Gtk.DialogFlags.DESTROY_WITH_PARENT,
         buttons=(_("Cancel"), 2,
                  _("Yes"), 1) )
-    dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+    dialog.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
     dialog.set_default_size(350, 150)
     try:
         button = dialog.get_widget_for_response(2)
-        button.set_image(gtk.image_new_from_stock(gtk.STOCK_CANCEL, gtk.ICON_SIZE_BUTTON))
+        button.set_image(Gtk.Image.new_from_stock(Gtk.STOCK_CANCEL, Gtk.IconSize.BUTTON))
         button = dialog.get_widget_for_response(1)
-        button.set_image(gtk.image_new_from_stock(gtk.STOCK_DIALOG_WARNING, gtk.ICON_SIZE_BUTTON))
+        button.set_image(Gtk.Image.new_from_stock(Gtk.STOCK_DIALOG_WARNING, Gtk.IconSize.BUTTON))
         button.grab_focus()
     except: pass
-    image = gtk.Image()
-    image.set_from_stock(gtk.STOCK_DIALOG_WARNING, gtk.ICON_SIZE_DIALOG)
-    label = gtk.Label("<b>"+_("Temporary Files were Created and Opened with External Applications.")+"</b>"+2*cons.CHAR_NEWLINE+"<b>"+_("Quit the External Applications Before Quit CherryTree.")+"</b>"+2*cons.CHAR_NEWLINE+"<b>"+_("Did you Quit the External Applications?")+"</b>")
+    image = Gtk.Image()
+    image.set_from_stock(Gtk.STOCK_DIALOG_WARNING, Gtk.IconSize.DIALOG)
+    label = Gtk.Label(label="<b>"+_("Temporary Files were Created and Opened with External Applications.")+"</b>"+2*cons.CHAR_NEWLINE+"<b>"+_("Quit the External Applications Before Quit CherryTree.")+"</b>"+2*cons.CHAR_NEWLINE+"<b>"+_("Did you Quit the External Applications?")+"</b>")
     label.set_use_markup(True)
-    hbox = gtk.HBox()
-    hbox.pack_start(image)
-    hbox.pack_start(label)
+    hbox = Gtk.HBox()
+    hbox.pack_start(image, True, True, 0)
+    hbox.pack_start(label, True, True, 0)
     hbox.set_spacing(5)
     content_area = dialog.get_content_area()
-    content_area.pack_start(hbox)
+    content_area.pack_start(hbox, True, True, 0)
     def on_key_press_exitdialog(widget, event):
-        keyname = gtk.gdk.keyval_name(event.keyval)
+        keyname = Gdk.keyval_name(event.keyval)
         if keyname == cons.STR_KEY_RETURN:
             try: dialog.get_widget_for_response(1).clicked()
             except: print cons.STR_PYGTK_222_REQUIRED
@@ -1174,35 +1174,35 @@ def dialog_exit_del_temp_files(dad):
 
 def dialog_exit_save(father_win):
     """Save before Exit Dialog"""
-    dialog = gtk.Dialog(title=_("Warning"),
+    dialog = Gtk.Dialog(title=_("Warning"),
         parent=father_win,
-        flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
+        flags=Gtk.DialogFlags.MODAL|Gtk.DialogFlags.DESTROY_WITH_PARENT,
         buttons=(_("Cancel"), 6,
                  _("No"), 4,
                  _("Yes"), 2) )
-    dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+    dialog.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
     dialog.set_default_size(350, 150)
     try:
         button = dialog.get_widget_for_response(6)
-        button.set_image(gtk.image_new_from_stock(gtk.STOCK_CANCEL, gtk.ICON_SIZE_BUTTON))
+        button.set_image(Gtk.Image.new_from_stock(Gtk.STOCK_CANCEL, Gtk.IconSize.BUTTON))
         button = dialog.get_widget_for_response(4)
-        button.set_image(gtk.image_new_from_stock(gtk.STOCK_CLEAR, gtk.ICON_SIZE_BUTTON))
+        button.set_image(Gtk.Image.new_from_stock(Gtk.STOCK_CLEAR, Gtk.IconSize.BUTTON))
         button = dialog.get_widget_for_response(2)
-        button.set_image(gtk.image_new_from_stock(gtk.STOCK_SAVE, gtk.ICON_SIZE_BUTTON))
+        button.set_image(Gtk.Image.new_from_stock(Gtk.STOCK_SAVE, Gtk.IconSize.BUTTON))
         button.grab_focus()
     except: pass
-    image = gtk.Image()
-    image.set_from_stock(gtk.STOCK_DIALOG_WARNING, gtk.ICON_SIZE_DIALOG)
-    label = gtk.Label("<b>"+_("The Current Document was Updated.")+"</b>"+2*cons.CHAR_NEWLINE+"<b>"+_("Do you want to Save the Changes?")+"</b>")
+    image = Gtk.Image()
+    image.set_from_stock(Gtk.STOCK_DIALOG_WARNING, Gtk.IconSize.DIALOG)
+    label = Gtk.Label(label="<b>"+_("The Current Document was Updated.")+"</b>"+2*cons.CHAR_NEWLINE+"<b>"+_("Do you want to Save the Changes?")+"</b>")
     label.set_use_markup(True)
-    hbox = gtk.HBox()
-    hbox.pack_start(image)
-    hbox.pack_start(label)
+    hbox = Gtk.HBox()
+    hbox.pack_start(image, True, True, 0)
+    hbox.pack_start(label, True, True, 0)
     hbox.set_spacing(5)
     content_area = dialog.get_content_area()
-    content_area.pack_start(hbox)
+    content_area.pack_start(hbox, True, True, 0)
     def on_key_press_exitdialog(widget, event):
-        keyname = gtk.gdk.keyval_name(event.keyval)
+        keyname = Gdk.keyval_name(event.keyval)
         if keyname == cons.STR_KEY_RETURN:
             try: dialog.get_widget_for_response(2).clicked()
             except: print cons.STR_PYGTK_222_REQUIRED
@@ -1225,112 +1225,112 @@ def dialog_link_handle(dad, title, sel_tree_iter):
             self.sel_iter = sel_tree_iter if sel_tree_iter else dad.links_entries['node']
             self.first_in = True
     links_parms = LinksParms()
-    dialog = gtk.Dialog(title=title,
+    dialog = Gtk.Dialog(title=title,
         parent=dad.window,
-        flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
-        buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
-        gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
-    dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+        flags=Gtk.DialogFlags.MODAL|Gtk.DialogFlags.DESTROY_WITH_PARENT,
+        buttons=(Gtk.STOCK_CANCEL, Gtk.ResponseType.REJECT,
+        Gtk.STOCK_OK, Gtk.ResponseType.ACCEPT) )
+    dialog.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
     dialog.set_default_size(600, 500)
 
-    hbox_webs = gtk.HBox()
-    image_webs = gtk.Image()
-    image_webs.set_from_stock("link_website", gtk.ICON_SIZE_BUTTON)
-    radiobutton_webs = gtk.RadioButton(label=_("To WebSite"))
-    entry_webs = gtk.Entry()
+    hbox_webs = Gtk.HBox()
+    image_webs = Gtk.Image()
+    image_webs.set_from_stock("link_website", Gtk.IconSize.BUTTON)
+    radiobutton_webs = Gtk.RadioButton(label=_("To WebSite"))
+    entry_webs = Gtk.Entry()
     entry_webs.set_text(dad.links_entries['webs'])
-    hbox_webs.pack_start(image_webs, expand=False)
-    hbox_webs.pack_start(radiobutton_webs, expand=False)
-    hbox_webs.pack_start(entry_webs)
+    hbox_webs.pack_start(image_webs, False, True, 0)
+    hbox_webs.pack_start(radiobutton_webs, False, True, 0)
+    hbox_webs.pack_start(entry_webs, True, True, 0)
     hbox_webs.set_spacing(5)
 
-    hbox_file = gtk.HBox()
-    image_file = gtk.Image()
-    image_file.set_from_stock(gtk.STOCK_FILE, gtk.ICON_SIZE_BUTTON)
-    radiobutton_file = gtk.RadioButton(label=_("To File"))
+    hbox_file = Gtk.HBox()
+    image_file = Gtk.Image()
+    image_file.set_from_stock(Gtk.STOCK_FILE, Gtk.IconSize.BUTTON)
+    radiobutton_file = Gtk.RadioButton(label=_("To File"))
     radiobutton_file.set_group(radiobutton_webs)
-    entry_file = gtk.Entry()
+    entry_file = Gtk.Entry()
     entry_file.set_text(dad.links_entries['file'])
-    button_browse_file = gtk.Button()
-    button_browse_file.set_image(gtk.image_new_from_stock("find", gtk.ICON_SIZE_BUTTON))
-    hbox_file.pack_start(image_file, expand=False)
-    hbox_file.pack_start(radiobutton_file, expand=False)
-    hbox_file.pack_start(entry_file)
-    hbox_file.pack_start(button_browse_file, expand=False)
+    button_browse_file = Gtk.Button()
+    button_browse_file.set_image(Gtk.Image.new_from_stock("find", Gtk.IconSize.BUTTON))
+    hbox_file.pack_start(image_file, False, True, 0)
+    hbox_file.pack_start(radiobutton_file, False, True, 0)
+    hbox_file.pack_start(entry_file, True, True, 0)
+    hbox_file.pack_start(button_browse_file, False, True, 0)
     hbox_file.set_spacing(5)
 
-    hbox_folder = gtk.HBox()
-    image_folder = gtk.Image()
-    image_folder.set_from_stock(gtk.STOCK_DIRECTORY, gtk.ICON_SIZE_BUTTON)
-    radiobutton_folder = gtk.RadioButton(label=_("To Folder"))
+    hbox_folder = Gtk.HBox()
+    image_folder = Gtk.Image()
+    image_folder.set_from_stock(Gtk.STOCK_DIRECTORY, Gtk.IconSize.BUTTON)
+    radiobutton_folder = Gtk.RadioButton(label=_("To Folder"))
     radiobutton_folder.set_group(radiobutton_webs)
-    entry_folder = gtk.Entry()
+    entry_folder = Gtk.Entry()
     entry_folder.set_text(dad.links_entries['fold'])
-    button_browse_folder = gtk.Button()
-    button_browse_folder.set_image(gtk.image_new_from_stock("find", gtk.ICON_SIZE_BUTTON))
-    hbox_folder.pack_start(image_folder, expand=False)
-    hbox_folder.pack_start(radiobutton_folder, expand=False)
-    hbox_folder.pack_start(entry_folder)
-    hbox_folder.pack_start(button_browse_folder, expand=False)
+    button_browse_folder = Gtk.Button()
+    button_browse_folder.set_image(Gtk.Image.new_from_stock("find", Gtk.IconSize.BUTTON))
+    hbox_folder.pack_start(image_folder, False, True, 0)
+    hbox_folder.pack_start(radiobutton_folder, False, True, 0)
+    hbox_folder.pack_start(entry_folder, True, True, 0)
+    hbox_folder.pack_start(button_browse_folder, False, True, 0)
     hbox_folder.set_spacing(5)
 
-    hbox_node = gtk.HBox()
-    image_node = gtk.Image()
-    image_node.set_from_stock("cherrytree", gtk.ICON_SIZE_BUTTON)
-    radiobutton_node = gtk.RadioButton(label=_("To Node"))
+    hbox_node = Gtk.HBox()
+    image_node = Gtk.Image()
+    image_node.set_from_stock("cherrytree", Gtk.IconSize.BUTTON)
+    radiobutton_node = Gtk.RadioButton(label=_("To Node"))
     radiobutton_node.set_group(radiobutton_webs)
-    hbox_node.pack_start(image_node, expand=False)
-    hbox_node.pack_start(radiobutton_node)
+    hbox_node.pack_start(image_node, False, True, 0)
+    hbox_node.pack_start(radiobutton_node, True, True, 0)
     hbox_node.set_spacing(5)
 
-    hbox_detail = gtk.HBox()
+    hbox_detail = Gtk.HBox()
 
-    treeview_2 = gtk.TreeView(dad.treestore)
+    treeview_2 = Gtk.TreeView(dad.treestore)
     treeview_2.set_headers_visible(False)
     treeview_2.set_search_column(1)
-    renderer_pixbuf_2 = gtk.CellRendererPixbuf()
-    renderer_text_2 = gtk.CellRendererText()
-    column_2 = gtk.TreeViewColumn()
+    renderer_pixbuf_2 = Gtk.CellRendererPixbuf()
+    renderer_text_2 = Gtk.CellRendererText()
+    column_2 = Gtk.TreeViewColumn()
     column_2.pack_start(renderer_pixbuf_2, False)
     column_2.pack_start(renderer_text_2, True)
     column_2.set_attributes(renderer_pixbuf_2, stock_id=0)
     column_2.set_attributes(renderer_text_2, text=1)
     treeview_2.append_column(column_2)
     treeviewselection_2 = treeview_2.get_selection()
-    scrolledwindow = gtk.ScrolledWindow()
-    scrolledwindow.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+    scrolledwindow = Gtk.ScrolledWindow()
+    scrolledwindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
     scrolledwindow.add(treeview_2)
 
-    vbox_anchor = gtk.VBox()
-    label_over = gtk.Label()
-    label_below = gtk.Label()
+    vbox_anchor = Gtk.VBox()
+    label_over = Gtk.Label()
+    label_below = Gtk.Label()
 
-    hbox_anchor = gtk.HBox()
-    entry_anchor = gtk.Entry()
+    hbox_anchor = Gtk.HBox()
+    entry_anchor = Gtk.Entry()
     entry_anchor.set_text(dad.links_entries['anch'])
-    button_browse_anchor = gtk.Button()
-    button_browse_anchor.set_image(gtk.image_new_from_stock("anchor", gtk.ICON_SIZE_BUTTON))
-    hbox_anchor.pack_start(entry_anchor)
-    hbox_anchor.pack_start(button_browse_anchor, expand=False)
+    button_browse_anchor = Gtk.Button()
+    button_browse_anchor.set_image(Gtk.Image.new_from_stock("anchor", Gtk.IconSize.BUTTON))
+    hbox_anchor.pack_start(entry_anchor, True, True, 0)
+    hbox_anchor.pack_start(button_browse_anchor, False, True, 0)
 
-    frame_anchor = gtk.Frame(label="<b>"+_("Anchor Name (optional)")+"</b>")
+    frame_anchor = Gtk.Frame(label="<b>"+_("Anchor Name (optional)")+"</b>")
     frame_anchor.get_label_widget().set_use_markup(True)
-    frame_anchor.set_shadow_type(gtk.SHADOW_NONE)
+    frame_anchor.set_shadow_type(Gtk.ShadowType.NONE)
     frame_anchor.add(hbox_anchor)
 
-    vbox_anchor.pack_start(label_over)
-    vbox_anchor.pack_start(frame_anchor, expand=False)
-    vbox_anchor.pack_start(label_below)
+    vbox_anchor.pack_start(label_over, True, True, 0)
+    vbox_anchor.pack_start(frame_anchor, False, True, 0)
+    vbox_anchor.pack_start(label_below, True, True, 0)
 
-    hbox_detail.pack_start(scrolledwindow)
-    hbox_detail.pack_start(vbox_anchor, expand=False)
+    hbox_detail.pack_start(scrolledwindow, True, True, 0)
+    hbox_detail.pack_start(vbox_anchor, False, True, 0)
 
     content_area = dialog.get_content_area()
-    content_area.pack_start(hbox_webs, expand=False)
-    content_area.pack_start(hbox_file, expand=False)
-    content_area.pack_start(hbox_folder, expand=False)
-    content_area.pack_start(hbox_node, expand=False)
-    content_area.pack_start(hbox_detail)
+    content_area.pack_start(hbox_webs, False, True, 0)
+    content_area.pack_start(hbox_file, False, True, 0)
+    content_area.pack_start(hbox_folder, False, True, 0)
+    content_area.pack_start(hbox_node, False, True, 0)
+    content_area.pack_start(hbox_detail, True, True, 0)
     content_area.set_spacing(5)
 
     radiobutton_webs.set_active(dad.link_type == cons.LINK_TYPE_WEBS)
@@ -1405,34 +1405,34 @@ def dialog_link_handle(dad, title, sel_tree_iter):
         ret_anchor_name = dialog_choose_element_in_list(dialog, _("Choose Existing Anchor"), anchors_list, _("Anchor Name"))
         if ret_anchor_name: entry_anchor.set_text(ret_anchor_name)
     def on_treeview_event_after(treeview, event):
-        if event.type not in [gtk.gdk.BUTTON_PRESS, gtk.gdk._2BUTTON_PRESS, gtk.gdk.KEY_PRESS]: return
+        if event.type not in [Gdk.EventType.BUTTON_PRESS, Gdk._2BUTTON_PRESS, Gdk.KEY_PRESS]: return
         model, links_parms.sel_iter = treeviewselection_2.get_selected()
-        if event.type == gtk.gdk.BUTTON_PRESS:
+        if event.type == Gdk.EventType.BUTTON_PRESS:
             if event.button == 2:
                 path_at_click = treeview.get_path_at_pos(int(event.x), int(event.y))
                 if path_at_click:
                     if treeview.row_expanded(path_at_click[0]):
                         treeview.collapse_row(path_at_click[0])
                     else: treeview.expand_row(path_at_click[0], False)
-        elif event.type == gtk.gdk._2BUTTON_PRESS and event.button == 1:
+        elif event.type == Gdk._2BUTTON_PRESS and event.button == 1:
             if links_parms.sel_iter:
                 treestore = treeview.get_model()
                 if treeview.row_expanded(treestore.get_path(links_parms.sel_iter)):
                     treeview.collapse_row(treestore.get_path(links_parms.sel_iter))
                 else:
                     treeview.expand_row(treestore.get_path(links_parms.sel_iter), open_all=False)
-        elif event.type == gtk.gdk.KEY_PRESS:
+        elif event.type == Gdk.KEY_PRESS:
             if links_parms.sel_iter:
                 treestore = treeview.get_model()
-                keyname = gtk.gdk.keyval_name(event.keyval)
+                keyname = Gdk.keyval_name(event.keyval)
                 if keyname == cons.STR_KEY_LEFT:
                     treeview.collapse_row(treestore.get_path(links_parms.sel_iter))
                 elif keyname == cons.STR_KEY_RIGHT:
                     treeview.expand_row(treestore.get_path(links_parms.sel_iter), open_all=False)
     def on_key_press_links_handle_dialog(widget, event):
-        keyname = gtk.gdk.keyval_name(event.keyval)
+        keyname = Gdk.keyval_name(event.keyval)
         if keyname == cons.STR_KEY_RETURN:
-            try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
+            try: dialog.get_widget_for_response(Gtk.ResponseType.ACCEPT).clicked()
             except: print cons.STR_PYGTK_222_REQUIRED
             return True
         elif keyname == cons.STR_KEY_TAB:
@@ -1456,7 +1456,7 @@ def dialog_link_handle(dad, title, sel_tree_iter):
     link_type_changed_on_dialog()
     response = dialog.run()
     dialog.hide()
-    if response != gtk.RESPONSE_ACCEPT: return False
+    if response != Gtk.ResponseType.ACCEPT: return False
     dad.links_entries['webs'] = unicode(entry_webs.get_text(), cons.STR_UTF8, cons.STR_IGNORE).strip()
     dad.links_entries['file'] = unicode(entry_file.get_text(), cons.STR_UTF8, cons.STR_IGNORE).strip()
     dad.links_entries['fold'] = unicode(entry_folder.get_text(), cons.STR_UTF8, cons.STR_IGNORE).strip()
@@ -1466,43 +1466,43 @@ def dialog_link_handle(dad, title, sel_tree_iter):
 
 def dialog_choose_data_storage(dad):
     """Choose the CherryTree data storage type (xml or db) and protection"""
-    dialog = gtk.Dialog(title=_("Choose Storage Type"),
+    dialog = Gtk.Dialog(title=_("Choose Storage Type"),
                         parent=dad.window,
-                        flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
-                        buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
-                        gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
-    dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+                        flags=Gtk.DialogFlags.MODAL|Gtk.DialogFlags.DESTROY_WITH_PARENT,
+                        buttons=(Gtk.STOCK_CANCEL, Gtk.ResponseType.REJECT,
+                        Gtk.STOCK_OK, Gtk.ResponseType.ACCEPT) )
+    dialog.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
     dialog.set_default_size(350, -1)
-    radiobutton_sqlite_not_protected = gtk.RadioButton(label="SQLite, " + _("Not Protected") + " (.ctb)")
-    radiobutton_sqlite_pass_protected = gtk.RadioButton(label="SQLite, " + _("Password Protected") + " (.ctx)")
+    radiobutton_sqlite_not_protected = Gtk.RadioButton(label="SQLite, " + _("Not Protected") + " (.ctb)")
+    radiobutton_sqlite_pass_protected = Gtk.RadioButton(label="SQLite, " + _("Password Protected") + " (.ctx)")
     radiobutton_sqlite_pass_protected.set_group(radiobutton_sqlite_not_protected)
-    radiobutton_xml_not_protected = gtk.RadioButton(label="XML, " + _("Not Protected") + " (.ctd)")
+    radiobutton_xml_not_protected = Gtk.RadioButton(label="XML, " + _("Not Protected") + " (.ctd)")
     radiobutton_xml_not_protected.set_group(radiobutton_sqlite_not_protected)
-    radiobutton_xml_pass_protected = gtk.RadioButton(label="XML, " + _("Password Protected") + " (.ctz)")
+    radiobutton_xml_pass_protected = Gtk.RadioButton(label="XML, " + _("Password Protected") + " (.ctz)")
     radiobutton_xml_pass_protected.set_group(radiobutton_sqlite_not_protected)
-    type_vbox = gtk.VBox()
-    type_vbox.pack_start(radiobutton_sqlite_not_protected)
-    type_vbox.pack_start(radiobutton_sqlite_pass_protected)
-    type_vbox.pack_start(radiobutton_xml_not_protected)
-    type_vbox.pack_start(radiobutton_xml_pass_protected)
-    type_frame = gtk.Frame(label="<b>"+_("Storage Type")+"</b>")
+    type_vbox = Gtk.VBox()
+    type_vbox.pack_start(radiobutton_sqlite_not_protected, True, True, 0)
+    type_vbox.pack_start(radiobutton_sqlite_pass_protected, True, True, 0)
+    type_vbox.pack_start(radiobutton_xml_not_protected, True, True, 0)
+    type_vbox.pack_start(radiobutton_xml_pass_protected, True, True, 0)
+    type_frame = Gtk.Frame(label="<b>"+_("Storage Type")+"</b>")
     type_frame.get_label_widget().set_use_markup(True)
-    type_frame.set_shadow_type(gtk.SHADOW_NONE)
+    type_frame.set_shadow_type(Gtk.ShadowType.NONE)
     type_frame.add(type_vbox)
-    entry_passw_1 = gtk.Entry()
+    entry_passw_1 = Gtk.Entry()
     entry_passw_1.set_visibility(False)
-    entry_passw_2 = gtk.Entry()
+    entry_passw_2 = Gtk.Entry()
     entry_passw_2.set_visibility(False)
-    label_passwd = gtk.Label(_("CT saves the document in an encrypted 7zip archive. When viewing or editing the document, CT extracts the encrypted archive to a temporary folder, and works on the unencrypted copy. When closing, the unencrypted copy is deleted from the temporary directory. Note that in the case of application or system crash, the unencrypted document will remain in the temporary folder."))
+    label_passwd = Gtk.Label(_("CT saves the document in an encrypted 7zip archive. When viewing or editing the document, CT extracts the encrypted archive to a temporary folder, and works on the unencrypted copy. When closing, the unencrypted copy is deleted from the temporary directory. Note that in the case of application or system crash, the unencrypted document will remain in the temporary folder."))
     label_passwd.set_width_chars(70)
     label_passwd.set_line_wrap(True)
-    vbox_passw = gtk.VBox()
-    vbox_passw.pack_start(entry_passw_1)
-    vbox_passw.pack_start(entry_passw_2)
-    vbox_passw.pack_start(label_passwd)
-    passw_frame = gtk.Frame(label="<b>"+_("Enter the New Password Twice")+"</b>")
+    vbox_passw = Gtk.VBox()
+    vbox_passw.pack_start(entry_passw_1, True, True, 0)
+    vbox_passw.pack_start(entry_passw_2, True, True, 0)
+    vbox_passw.pack_start(label_passwd, True, True, 0)
+    passw_frame = Gtk.Frame(label="<b>"+_("Enter the New Password Twice")+"</b>")
     passw_frame.get_label_widget().set_use_markup(True)
-    passw_frame.set_shadow_type(gtk.SHADOW_NONE)
+    passw_frame.set_shadow_type(Gtk.ShadowType.NONE)
     passw_frame.add(vbox_passw)
     if len(dad.file_name) > 4:
         if dad.file_name[-1] == "b": radiobutton_sqlite_not_protected.set_active(True)
@@ -1513,8 +1513,8 @@ def dialog_choose_data_storage(dad):
     else: passw_frame.set_sensitive(False)
     content_area = dialog.get_content_area()
     content_area.set_spacing(5)
-    content_area.pack_start(type_frame)
-    content_area.pack_start(passw_frame)
+    content_area.pack_start(type_frame, True, True, 0)
+    content_area.pack_start(passw_frame, True, True, 0)
     content_area.show_all()
     def on_radiobutton_savetype_toggled(widget):
         if radiobutton_sqlite_pass_protected.get_active()\
@@ -1523,8 +1523,8 @@ def dialog_choose_data_storage(dad):
             entry_passw_1.grab_focus()
         else: passw_frame.set_sensitive(False)
     def on_key_press_edit_data_storage_type_dialog(widget, event):
-        if gtk.gdk.keyval_name(event.keyval) == cons.STR_KEY_RETURN:
-            try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
+        if Gdk.keyval_name(event.keyval) == cons.STR_KEY_RETURN:
+            try: dialog.get_widget_for_response(Gtk.ResponseType.ACCEPT).clicked()
             except: print cons.STR_PYGTK_222_REQUIRED
             return True
         return False
@@ -1540,7 +1540,7 @@ def dialog_choose_data_storage(dad):
                       'p1': unicode(entry_passw_1.get_text(), cons.STR_UTF8, cons.STR_IGNORE),
                       'p2': unicode(entry_passw_2.get_text(), cons.STR_UTF8, cons.STR_IGNORE)}
     dialog.destroy()
-    if response != gtk.RESPONSE_ACCEPT: return False
+    if response != Gtk.ResponseType.ACCEPT: return False
     if new_protection['on']:
         if new_protection['p1'] == "":
             dialog_error(_("The Password Fields Must be Filled"), dad.window)
@@ -1570,57 +1570,57 @@ def dialog_choose_node(dad, title, treestore, sel_tree_iter):
         def __init__(self):
             self.sel_iter = sel_tree_iter
     node_parms = NodeParms()
-    dialog = gtk.Dialog(title=title,
+    dialog = Gtk.Dialog(title=title,
         parent=dad.window,
-        flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
-        buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
-        gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
-    dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+        flags=Gtk.DialogFlags.MODAL|Gtk.DialogFlags.DESTROY_WITH_PARENT,
+        buttons=(Gtk.STOCK_CANCEL, Gtk.ResponseType.REJECT,
+        Gtk.STOCK_OK, Gtk.ResponseType.ACCEPT) )
+    dialog.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
     dialog.set_default_size(600, 500)
-    treeview_2 = gtk.TreeView(treestore)
+    treeview_2 = Gtk.TreeView(treestore)
     treeview_2.set_headers_visible(False)
     treeview_2.set_search_column(1)
-    renderer_pixbuf_2 = gtk.CellRendererPixbuf()
-    renderer_text_2 = gtk.CellRendererText()
-    column_2 = gtk.TreeViewColumn()
+    renderer_pixbuf_2 = Gtk.CellRendererPixbuf()
+    renderer_text_2 = Gtk.CellRendererText()
+    column_2 = Gtk.TreeViewColumn()
     column_2.pack_start(renderer_pixbuf_2, False)
     column_2.pack_start(renderer_text_2, True)
     column_2.set_attributes(renderer_pixbuf_2, stock_id=0)
     column_2.set_attributes(renderer_text_2, text=1)
     treeview_2.append_column(column_2)
     treeviewselection_2 = treeview_2.get_selection()
-    scrolledwindow = gtk.ScrolledWindow()
-    scrolledwindow.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+    scrolledwindow = Gtk.ScrolledWindow()
+    scrolledwindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
     scrolledwindow.add(treeview_2)
     content_area = dialog.get_content_area()
-    content_area.pack_start(scrolledwindow)
+    content_area.pack_start(scrolledwindow, True, True, 0)
     def on_key_press_choose_node_dialog(widget, event):
-        if gtk.gdk.keyval_name(event.keyval) == cons.STR_KEY_RETURN:
-            try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
+        if Gdk.keyval_name(event.keyval) == cons.STR_KEY_RETURN:
+            try: dialog.get_widget_for_response(Gtk.ResponseType.ACCEPT).clicked()
             except: print cons.STR_PYGTK_222_REQUIRED
             return True
         return False
     def on_treeview_event_after(treeview, event):
-        if event.type not in [gtk.gdk.BUTTON_PRESS, gtk.gdk._2BUTTON_PRESS, gtk.gdk.KEY_PRESS]: return
+        if event.type not in [Gdk.EventType.BUTTON_PRESS, Gdk._2BUTTON_PRESS, Gdk.KEY_PRESS]: return
         model, node_parms.sel_iter = treeviewselection_2.get_selected()
-        if event.type == gtk.gdk.BUTTON_PRESS:
+        if event.type == Gdk.EventType.BUTTON_PRESS:
             if event.button == 2:
                 path_at_click = treeview.get_path_at_pos(int(event.x), int(event.y))
                 if path_at_click:
                     if treeview.row_expanded(path_at_click[0]):
                         treeview.collapse_row(path_at_click[0])
                     else: treeview.expand_row(path_at_click[0], False)
-        elif event.type == gtk.gdk._2BUTTON_PRESS and event.button == 1:
+        elif event.type == Gdk._2BUTTON_PRESS and event.button == 1:
             if node_parms.sel_iter:
                 treestore = treeview.get_model()
                 if treeview.row_expanded(treestore.get_path(node_parms.sel_iter)):
                     treeview.collapse_row(treestore.get_path(node_parms.sel_iter))
                 else:
                     treeview.expand_row(treestore.get_path(node_parms.sel_iter), open_all=False)
-        elif event.type == gtk.gdk.KEY_PRESS:
+        elif event.type == Gdk.KEY_PRESS:
             if node_parms.sel_iter:
                 treestore = treeview.get_model()
-                keyname = gtk.gdk.keyval_name(event.keyval)
+                keyname = Gdk.keyval_name(event.keyval)
                 if keyname == cons.STR_KEY_LEFT:
                     treeview.collapse_row(treestore.get_path(node_parms.sel_iter))
                 elif keyname == cons.STR_KEY_RIGHT:
@@ -1637,47 +1637,47 @@ def dialog_choose_node(dad, title, treestore, sel_tree_iter):
         treeview_2.scroll_to_cell(sel_path)
     response = dialog.run()
     dialog.hide()
-    return None if response != gtk.RESPONSE_ACCEPT else node_parms.sel_iter
+    return None if response != Gtk.ResponseType.ACCEPT else node_parms.sel_iter
 
 def dialog_selnode_selnodeandsub_alltree(dad, also_selection, also_include_node_name=False, also_new_node_page=False, also_index_in_page=False):
     """Dialog to select between the Selected Node/Selected Node + Subnodes/All Tree"""
-    dialog = gtk.Dialog(title=_("Involved Nodes"),
+    dialog = Gtk.Dialog(title=_("Involved Nodes"),
         parent=dad.window,
-        flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
-        buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
-        gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
-    dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-    if also_selection: radiobutton_selection = gtk.RadioButton(label=_("Selected Text Only"))
-    radiobutton_selnode = gtk.RadioButton(label=_("Selected Node Only"))
-    radiobutton_selnodeandsub = gtk.RadioButton(label=_("Selected Node and Subnodes"))
-    radiobutton_alltree = gtk.RadioButton(label=_("All the Tree"))
+        flags=Gtk.DialogFlags.MODAL|Gtk.DialogFlags.DESTROY_WITH_PARENT,
+        buttons=(Gtk.STOCK_CANCEL, Gtk.ResponseType.REJECT,
+        Gtk.STOCK_OK, Gtk.ResponseType.ACCEPT) )
+    dialog.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
+    if also_selection: radiobutton_selection = Gtk.RadioButton(label=_("Selected Text Only"))
+    radiobutton_selnode = Gtk.RadioButton(label=_("Selected Node Only"))
+    radiobutton_selnodeandsub = Gtk.RadioButton(label=_("Selected Node and Subnodes"))
+    radiobutton_alltree = Gtk.RadioButton(label=_("All the Tree"))
     radiobutton_selnodeandsub.set_group(radiobutton_selnode)
     radiobutton_alltree.set_group(radiobutton_selnode)
     if also_selection: radiobutton_selection.set_group(radiobutton_selnode)
     content_area = dialog.get_content_area()
-    if also_selection: content_area.pack_start(radiobutton_selection)
-    content_area.pack_start(radiobutton_selnode)
-    content_area.pack_start(radiobutton_selnodeandsub)
-    content_area.pack_start(radiobutton_alltree)
+    if also_selection: content_area.pack_start(radiobutton_selection, True, True, 0)
+    content_area.pack_start(radiobutton_selnode, True, True, 0)
+    content_area.pack_start(radiobutton_selnodeandsub, True, True, 0)
+    content_area.pack_start(radiobutton_alltree, True, True, 0)
     if also_include_node_name:
-        separator_item = gtk.HSeparator()
-        checkbutton_node_name = gtk.CheckButton(label=_("Include Node Name"))
+        separator_item = Gtk.HSeparator()
+        checkbutton_node_name = Gtk.CheckButton(label=_("Include Node Name"))
         checkbutton_node_name.set_active(dad.last_include_node_name)
-        content_area.pack_start(separator_item)
-        content_area.pack_start(checkbutton_node_name)
+        content_area.pack_start(separator_item, True, True, 0)
+        content_area.pack_start(checkbutton_node_name, True, True, 0)
     if also_index_in_page:
-        separator_item = gtk.HSeparator()
-        checkbutton_index_in_page = gtk.CheckButton(label=_("Links Tree in Every Page"))
+        separator_item = Gtk.HSeparator()
+        checkbutton_index_in_page = Gtk.CheckButton(label=_("Links Tree in Every Page"))
         checkbutton_index_in_page.set_active(dad.last_index_in_page)
-        content_area.pack_start(separator_item)
-        content_area.pack_start(checkbutton_index_in_page)
+        content_area.pack_start(separator_item, True, True, 0)
+        content_area.pack_start(checkbutton_index_in_page, True, True, 0)
     if also_new_node_page:
-        checkbutton_new_node_page = gtk.CheckButton(label=_("New Node in New Page"))
+        checkbutton_new_node_page = Gtk.CheckButton(label=_("New Node in New Page"))
         checkbutton_new_node_page.set_active(dad.last_new_node_page)
-        content_area.pack_start(checkbutton_new_node_page)
+        content_area.pack_start(checkbutton_new_node_page, True, True, 0)
     def on_key_press_enter_dialog(widget, event):
-        if gtk.gdk.keyval_name(event.keyval) == cons.STR_KEY_RETURN:
-            try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
+        if Gdk.keyval_name(event.keyval) == cons.STR_KEY_RETURN:
+            try: dialog.get_widget_for_response(Gtk.ResponseType.ACCEPT).clicked()
             except: print cons.STR_PYGTK_222_REQUIRED
             return True
         return False
@@ -1695,37 +1695,37 @@ def dialog_selnode_selnodeandsub_alltree(dad, also_selection, also_include_node_
     if also_new_node_page:
         dad.last_new_node_page = checkbutton_new_node_page.get_active()
     dialog.destroy()
-    if response != gtk.RESPONSE_ACCEPT: ret_val = 0
+    if response != Gtk.ResponseType.ACCEPT: ret_val = 0
     return ret_val
 
 def dialog_color_pick(dad, curr_color=None):
     """Dialog to select a color, featuring a palette"""
-    dialog = gtk.ColorSelectionDialog(_("Pick a Color"))
+    dialog = Gtk.ColorSelectionDialog(_("Pick a Color"))
     dialog.set_transient_for(dad.window)
     dialog.set_property("modal", True)
     dialog.set_property("destroy-with-parent", True)
-    dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-    gtk_settings = gtk.settings_get_default()
+    dialog.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
+    gtk_settings = Gtk.Settings.get_default()
     gtk_settings.set_property("gtk-color-palette", ":".join(dad.palette_list))
     colorselection = dialog.get_color_selection()
     colorselection.set_has_palette(True)
     if curr_color:
         colorselection.set_current_color(curr_color)
     def on_key_press_color_pick_dialog(widget, event):
-        if gtk.gdk.keyval_name(event.keyval) == cons.STR_KEY_RETURN:
-            try: dialog.get_widget_for_response(gtk.RESPONSE_OK).clicked()
+        if Gdk.keyval_name(event.keyval) == cons.STR_KEY_RETURN:
+            try: dialog.get_widget_for_response(Gtk.ResponseType.OK).clicked()
             except: print cons.STR_PYGTK_222_REQUIRED
             return True
         return False
     dialog.connect("key_press_event", on_key_press_color_pick_dialog)
     def on_mouse_button_clicked_color_pick_dialog(widget, event):
-        if event.button == 1 and event.type == gtk.gdk._2BUTTON_PRESS:
-            try: dialog.get_widget_for_response(gtk.RESPONSE_OK).clicked()
+        if event.button == 1 and event.type == Gdk._2BUTTON_PRESS:
+            try: dialog.get_widget_for_response(Gtk.ResponseType.OK).clicked()
             except: print cons.STR_PYGTK_222_REQUIRED
     dialog.connect('button-press-event', on_mouse_button_clicked_color_pick_dialog)
     response = dialog.run()
     dialog.hide()
-    if response != gtk.RESPONSE_OK: return None
+    if response != Gtk.ResponseType.OK: return None
     ret_color = colorselection.get_current_color()
     color_str_hex8 = "#" + exports.rgb_any_to_24(ret_color.to_string()[1:])
     if color_str_hex8 in dad.palette_list:
@@ -1740,7 +1740,7 @@ def set_bookmarks_menu_items(dad):
     bookmarks_menu = dad.ui.get_widget("/MenuBar/BookmarksMenu").get_submenu()
     for menu_item in dad.bookmarks_menu_items:
         bookmarks_menu.remove(menu_item)
-    menu_item = gtk.SeparatorMenuItem()
+    menu_item = Gtk.SeparatorMenuItem()
     menu_item.show()
     bookmarks_menu.append(menu_item)
     dad.bookmarks_menu_items = [menu_item]
@@ -1749,8 +1749,8 @@ def set_bookmarks_menu_items(dad):
         if not long(node_id_str) in dad.nodes_names_dict:
             bookmarks_to_rm.append(node_id_str)
             continue
-        menu_item = gtk.ImageMenuItem(dad.nodes_names_dict[long(node_id_str)])
-        menu_item.set_image(gtk.image_new_from_stock("pin", gtk.ICON_SIZE_MENU))
+        menu_item = Gtk.ImageMenuItem(dad.nodes_names_dict[long(node_id_str)])
+        menu_item.set_image(Gtk.Image.new_from_stock("pin", Gtk.IconSize.MENU))
         menu_item.connect("activate", select_bookmark_node, node_id_str, dad)
         menu_item.show()
         bookmarks_menu.append(menu_item)
@@ -1760,7 +1760,7 @@ def set_bookmarks_menu_items(dad):
 def set_menu_items_special_chars(dad):
     """Set Special Chars menu items"""
     if not "special_menu_1" in dir(dad):
-        dad.special_menu_1 = gtk.Menu()
+        dad.special_menu_1 = Gtk.Menu()
         first_run = True
     else:
         children_1 = dad.special_menu_1.get_children()
@@ -1768,14 +1768,14 @@ def set_menu_items_special_chars(dad):
             children.destroy()
         first_run = False
     for special_char in dad.special_chars:
-        menu_item = gtk.MenuItem(special_char)
+        menu_item = Gtk.MenuItem(special_char)
         menu_item.connect("activate", insert_special_char, special_char, dad)
         menu_item.show()
         dad.special_menu_1.append(menu_item)
     if first_run:
         # main menu
-        special_menuitem = gtk.ImageMenuItem(_("Insert _Special Character"))
-        special_menuitem.set_image(gtk.image_new_from_stock("insert", gtk.ICON_SIZE_MENU))
+        special_menuitem = Gtk.ImageMenuItem(_("Insert _Special Character"))
+        special_menuitem.set_image(Gtk.Image.new_from_stock("insert", Gtk.IconSize.MENU))
         special_menuitem.set_tooltip_text(_("Insert a Special Character"))
         special_menuitem.set_submenu(dad.special_menu_1)
         dad.ui.get_widget("/MenuBar/EditMenu").get_submenu().insert(special_menuitem, 14)
@@ -1783,8 +1783,8 @@ def set_menu_items_special_chars(dad):
 def set_menu_items_recent_documents(dad):
     """Set Recent Documents menu items on Menu and Toolbar"""
     if not "recent_menu_1" in dir(dad):
-        dad.recent_menu_1 = gtk.Menu()
-        dad.recent_menu_2 = gtk.Menu()
+        dad.recent_menu_1 = Gtk.Menu()
+        dad.recent_menu_2 = Gtk.Menu()
         first_run = True
     else:
         children_1 = dad.recent_menu_1.get_children()
@@ -1797,22 +1797,22 @@ def set_menu_items_recent_documents(dad):
     for target in [1, 2]:
         for i, filepath in enumerate(dad.recent_docs):
             if i >= cons.MAX_RECENT_DOCS: break
-            menu_item = gtk.ImageMenuItem(filepath)
-            menu_item.set_image(gtk.image_new_from_stock("gtk-open", gtk.ICON_SIZE_MENU))
+            menu_item = Gtk.ImageMenuItem(filepath)
+            menu_item.set_image(Gtk.Image.new_from_stock("gtk-open", Gtk.IconSize.MENU))
             menu_item.connect("activate", open_recent_document, filepath, dad)
             menu_item.show()
             if target == 1: dad.recent_menu_1.append(menu_item)
             else: dad.recent_menu_2.append(menu_item)
     if first_run:
         # main menu
-        recent_menuitem = gtk.ImageMenuItem(_("_Recent Documents"))
-        recent_menuitem.set_image(gtk.image_new_from_stock("gtk-open", gtk.ICON_SIZE_MENU))
+        recent_menuitem = Gtk.ImageMenuItem(_("_Recent Documents"))
+        recent_menuitem.set_image(Gtk.Image.new_from_stock("gtk-open", Gtk.IconSize.MENU))
         recent_menuitem.set_tooltip_text(_("Open a Recent CherryTree Document"))
         recent_menuitem.set_submenu(dad.recent_menu_1)
         dad.ui.get_widget("/MenuBar/FileMenu").get_submenu().insert(recent_menuitem, 3)
         # toolbar
         if dad.toolbar_open_n_recent >= 0:
-            menu_toolbutton = gtk.MenuToolButton("gtk-open")
+            menu_toolbutton = Gtk.MenuToolButton("gtk-open")
             menu_toolbutton.set_tooltip_text(_("Open a CherryTree Document"))
             menu_toolbutton.set_arrow_tooltip_text(_("Open a Recent CherryTree Document"))
             menu_toolbutton.set_menu(dad.recent_menu_2)
@@ -1858,30 +1858,30 @@ def select_bookmark_node(menu_item, node_id_str, dad):
 
 def bookmarks_handle(dad):
     """Handle the Bookmarks List"""
-    dialog = gtk.Dialog(title=_("Handle the Bookmarks List"),
+    dialog = Gtk.Dialog(title=_("Handle the Bookmarks List"),
         parent=dad.window,
-        flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
-        buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
-        gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
+        flags=Gtk.DialogFlags.MODAL|Gtk.DialogFlags.DESTROY_WITH_PARENT,
+        buttons=(Gtk.STOCK_CANCEL, Gtk.ResponseType.REJECT,
+        Gtk.STOCK_OK, Gtk.ResponseType.ACCEPT) )
     dialog.set_default_size(500, 400)
-    dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-    liststore = gtk.ListStore(str, str, str)
+    dialog.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
+    liststore = Gtk.ListStore(str, str, str)
     for node_id_str in dad.bookmarks:
         # icon, node name, node id string
         liststore.append(["pin", dad.nodes_names_dict[long(node_id_str)], node_id_str])
-    treeview = gtk.TreeView(liststore)
+    treeview = Gtk.TreeView(liststore)
     treeview.set_headers_visible(False)
     treeview.set_reorderable(True)
     treeviewselection = treeview.get_selection()
     def on_key_press_liststore(widget, event):
-        keyname = gtk.gdk.keyval_name(event.keyval)
+        keyname = Gdk.keyval_name(event.keyval)
         if keyname == cons.STR_KEY_DELETE:
             model, tree_iter = treeviewselection.get_selected()
             if tree_iter: model.remove(tree_iter)
     def on_mouse_button_clicked_liststore(widget, event):
         """Catches mouse buttons clicks"""
         if event.button != 1: return
-        if event.type != gtk.gdk._2BUTTON_PRESS: return
+        if event.type != Gdk._2BUTTON_PRESS: return
         path_n_tvc = treeview.get_path_at_pos(int(event.x), int(event.y))
         if not path_n_tvc: return
         tree_path = path_n_tvc[0]
@@ -1889,31 +1889,31 @@ def bookmarks_handle(dad):
         dad.treeview_safe_set_cursor(dad_tree_path)
     treeview.connect('key_press_event', on_key_press_liststore)
     treeview.connect('button-press-event', on_mouse_button_clicked_liststore)
-    renderer_pixbuf = gtk.CellRendererPixbuf()
-    renderer_text = gtk.CellRendererText()
-    column = gtk.TreeViewColumn()
+    renderer_pixbuf = Gtk.CellRendererPixbuf()
+    renderer_text = Gtk.CellRendererText()
+    column = Gtk.TreeViewColumn()
     column.pack_start(renderer_pixbuf, False)
     column.pack_start(renderer_text, True)
     column.set_attributes(renderer_pixbuf, stock_id=0)
     column.set_attributes(renderer_text, text=1)
     treeview.append_column(column)
-    scrolledwindow = gtk.ScrolledWindow()
-    scrolledwindow.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+    scrolledwindow = Gtk.ScrolledWindow()
+    scrolledwindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
     scrolledwindow.add(treeview)
     content_area = dialog.get_content_area()
-    hbox = gtk.HBox()
-    vbox = gtk.VBox()
+    hbox = Gtk.HBox()
+    vbox = Gtk.VBox()
     vbox.set_spacing(1)
-    button_move_up = gtk.Button()
-    button_move_up.set_image(gtk.image_new_from_stock("gtk-go-up", gtk.ICON_SIZE_DND))
-    button_move_down = gtk.Button()
-    button_move_down.set_image(gtk.image_new_from_stock("gtk-go-down", gtk.ICON_SIZE_DND))
-    button_delete = gtk.Button()
-    button_delete.set_image(gtk.image_new_from_stock("gtk-clear", gtk.ICON_SIZE_DND))
-    button_sort_desc = gtk.Button()
-    button_sort_desc.set_image(gtk.image_new_from_stock("gtk-sort-descending", gtk.ICON_SIZE_DND))
-    button_sort_asc = gtk.Button()
-    button_sort_asc.set_image(gtk.image_new_from_stock("gtk-sort-ascending", gtk.ICON_SIZE_DND))
+    button_move_up = Gtk.Button()
+    button_move_up.set_image(Gtk.Image.new_from_stock("gtk-go-up", Gtk.IconSize.DND))
+    button_move_down = Gtk.Button()
+    button_move_down.set_image(Gtk.Image.new_from_stock("gtk-go-down", Gtk.IconSize.DND))
+    button_delete = Gtk.Button()
+    button_delete.set_image(Gtk.Image.new_from_stock("gtk-clear", Gtk.IconSize.DND))
+    button_sort_desc = Gtk.Button()
+    button_sort_desc.set_image(Gtk.Image.new_from_stock("gtk-sort-descending", Gtk.IconSize.DND))
+    button_sort_asc = Gtk.Button()
+    button_sort_asc.set_image(Gtk.Image.new_from_stock("gtk-sort-ascending", Gtk.IconSize.DND))
     def on_button_move_up_clicked(*args):
         model, tree_iter = treeviewselection.get_selected()
         if tree_iter:
@@ -1941,16 +1941,16 @@ def bookmarks_handle(dad):
         while dad.node_siblings_sort_iteration(liststore, None, True, 1):
             pass
     button_sort_asc.connect('clicked', on_button_sort_asc_clicked)
-    vbox.pack_start(button_move_up, expand=False)
-    vbox.pack_start(button_move_down, expand=False)
-    vbox.pack_start(button_delete, expand=False)
-    vbox.pack_start(gtk.Label(), expand=True)
-    vbox.pack_start(button_sort_desc, expand=False)
-    vbox.pack_start(button_sort_asc, expand=False)
-    vbox.pack_start(gtk.Label(), expand=True)
-    hbox.pack_start(scrolledwindow, expand=True)
-    hbox.pack_start(vbox, expand=False)
-    content_area.pack_start(hbox)
+    vbox.pack_start(button_move_up, False, True, 0)
+    vbox.pack_start(button_move_down, False, True, 0)
+    vbox.pack_start(button_delete, False, True, 0)
+    vbox.pack_start(Gtk.Label(), True, True, 0)
+    vbox.pack_start(button_sort_desc, False, True, 0)
+    vbox.pack_start(button_sort_asc, False, True, 0)
+    vbox.pack_start(Gtk.Label(), True, True, 0)
+    hbox.pack_start(scrolledwindow, True, True, 0)
+    hbox.pack_start(vbox, False, True, 0)
+    content_area.pack_start(hbox, True, True, 0)
     content_area.show_all()
     response = dialog.run()
     temp_bookmarks = []
@@ -1959,7 +1959,7 @@ def bookmarks_handle(dad):
         temp_bookmarks.append(liststore[tree_iter][2])
         tree_iter = liststore.iter_next(tree_iter)
     dialog.destroy()
-    if response != gtk.RESPONSE_ACCEPT: return False
+    if response != Gtk.ResponseType.ACCEPT: return False
     removed_bookmarks = []
     for old_bookmark in dad.bookmarks:
         if not old_bookmark in temp_bookmarks:

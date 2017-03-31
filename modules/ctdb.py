@@ -19,9 +19,16 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
-import gtk
-import os, sqlite3, xml.dom.minidom, re, time
-import cons, machines, support, exports
+from gi.repository import Gtk
+import os
+import sqlite3
+import xml.dom.minidom
+import re
+import time
+import cons
+import machines
+import support
+import exports
 
 
 class CTDBHandler:
@@ -470,10 +477,10 @@ class CTDBHandler:
         """Add Image to Text Buffer"""
         iter_insert = text_buffer.get_iter_at_offset(image_row['offset'])
         if image_row['anchor']:
-            pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(cons.ANCHOR_CHAR, self.dad.anchor_size, self.dad.anchor_size)
+            pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(cons.ANCHOR_CHAR, self.dad.anchor_size, self.dad.anchor_size)
             pixbuf.anchor = image_row['anchor']
         elif 'filename' in image_row.keys() and image_row['filename']:
-            pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(cons.FILE_CHAR, self.dad.embfile_size, self.dad.embfile_size)
+            pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(cons.FILE_CHAR, self.dad.embfile_size, self.dad.embfile_size)
             pixbuf.filename = image_row['filename']
             pixbuf.embfile = image_row['png']
             pixbuf.time = image_row['time'] if 'time' in image_row.keys() else 0

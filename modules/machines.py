@@ -19,7 +19,7 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
-import gtk
+from gi.repository import Gtk
 import xml.dom.minidom
 import re
 import base64
@@ -40,7 +40,7 @@ def get_blob_buffer_from_pixbuf(pixbuf):
 
 def get_pixbuf_from_png_blob_buffer(blob_buffer):
     """Encoded Buffer To Pixbuf"""
-    pixbuf_loader = gtk.gdk.pixbuf_loader_new_with_mime_type("image/png")
+    pixbuf_loader = GdkPixbuf.Pixbuf.loader_new_with_mime_type("image/png")
     try:
         pixbuf_loader.write(blob_buffer)
         pixbuf_loader.close()
@@ -57,7 +57,7 @@ def get_encoded_buffer_from_pixbuf(pixbuf):
 
 def get_pixbuf_from_encoded_buffer(encoded_buffer):
     """Encoded Buffer To Pixbuf"""
-    pixbuf_loader = gtk.gdk.pixbuf_loader_new_with_mime_type("image/png")
+    pixbuf_loader = GdkPixbuf.Pixbuf.loader_new_with_mime_type("image/png")
     try:
         pixbuf_loader.write(base64.b64decode(encoded_buffer))
         pixbuf_loader.close()
@@ -70,7 +70,7 @@ def get_pixbuf_from_png_encoded_string(png_encoded_string):
     fd = open(cons.IMG_PATH, "wb")
     fd.write(base64.b64decode(png_encoded_string))
     fd.close()
-    pixbuf = gtk.gdk.pixbuf_new_from_file(cons.IMG_PATH)
+    pixbuf = GdkPixbuf.Pixbuf.new_from_file(cons.IMG_PATH)
     return pixbuf
 
 
@@ -240,10 +240,10 @@ class XMLHandler:
         if dom_node.hasAttribute(cons.TAG_JUSTIFICATION): justification = dom_node.attributes[cons.TAG_JUSTIFICATION].value
         else: justification = cons.TAG_PROP_LEFT
         if dom_node.hasAttribute("anchor"):
-            pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(cons.ANCHOR_CHAR, self.dad.anchor_size, self.dad.anchor_size)
+            pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(cons.ANCHOR_CHAR, self.dad.anchor_size, self.dad.anchor_size)
             pixbuf.anchor = dom_node.attributes["anchor"].value
         elif dom_node.hasAttribute("filename"):
-            pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(cons.FILE_CHAR, self.dad.embfile_size, self.dad.embfile_size)
+            pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(cons.FILE_CHAR, self.dad.embfile_size, self.dad.embfile_size)
             pixbuf.filename = dom_node.attributes["filename"].value
             pixbuf.embfile = base64.b64decode(dom_node.firstChild.data)
             pixbuf.time = float(dom_node.attributes["time"].value) if dom_node.hasAttribute("time") else 0
@@ -679,7 +679,7 @@ class XMLHandler:
                 start_offset -= 1
                 end_offset -= 1
                 start_iter = text_buffer.get_iter_at_offset(start_offset)
-        pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(cons.ANCHOR_CHAR, self.dad.anchor_size, self.dad.anchor_size)
+        pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(cons.ANCHOR_CHAR, self.dad.anchor_size, self.dad.anchor_size)
         pixbuf.anchor = self.toc_list[-1][0]
         self.dad.image_insert(start_iter, pixbuf)
         self.dad.ctdb_handler.pending_edit_db_node_buff(node_id, force_user_active=True)

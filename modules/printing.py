@@ -19,9 +19,14 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
-import gtk, gobject, pango, cairo
-import copy, cgi
-import support, cons
+from gi.repository import Gtk
+from gi.repository import GObject
+from gi.repository import Pango
+import cairo
+import copy
+import cgi
+import support
+import cons
 
 BOX_OFFSET = 4
 
@@ -49,10 +54,10 @@ class PrintHandler:
 
     def get_print_operation(self):
         """Return a Print Operation"""
-        print_operation = gtk.PrintOperation()
+        print_operation = Gtk.PrintOperation()
         print_operation.set_show_progress(True)
-        if self.page_setup is None: self.page_setup = gtk.PageSetup()
-        if self.settings is None: self.settings = gtk.PrintSettings()
+        if self.page_setup is None: self.page_setup = Gtk.PageSetup()
+        if self.settings is None: self.settings = Gtk.PrintSettings()
         print_operation.set_default_page_setup(self.page_setup)
         print_operation.set_print_settings(self.settings)
         return print_operation
@@ -60,14 +65,14 @@ class PrintHandler:
     def run_print_operation(self, print_operation, parent):
         """Run a Ready Print Operation"""
         if self.pdf_filepath: print_operation.set_export_filename(self.pdf_filepath)
-        print_operation_action = gtk.PRINT_OPERATION_ACTION_EXPORT if self.pdf_filepath else gtk.PRINT_OPERATION_ACTION_PRINT_DIALOG
+        print_operation_action = Gtk.PRINT_OPERATION_ACTION_EXPORT if self.pdf_filepath else Gtk.PRINT_OPERATION_ACTION_PRINT_DIALOG
         try: res = print_operation.run(print_operation_action, parent)
-        except gobject.GError, ex:
+        except GObject.GError, ex:
             support.dialog_error("Error printing file:\n%s (exception catched)" % str(ex), parent)
         else:
-            if res == gtk.PRINT_OPERATION_RESULT_ERROR:
+            if res == Gtk.PRINT_OPERATION_RESULT_ERROR:
                 support.dialog_error("Error printing file (bad res)", parent)
-            elif res == gtk.PRINT_OPERATION_RESULT_APPLY:
+            elif res == Gtk.PRINT_OPERATION_RESULT_APPLY:
                 self.settings = print_operation.get_print_settings()
         if not print_operation.is_finished():
             print_operation.connect("status_changed", self.on_print_status_changed)
@@ -78,10 +83,10 @@ class PrintHandler:
 
     def print_text(self, window, pango_text, text_font, code_font, pixbuf_table_codebox_vector, text_window_width):
         """Start the Print Operations for Text"""
-        self.pango_font = pango.FontDescription(text_font)
-        self.codebox_font = pango.FontDescription(code_font)
+        self.pango_font = Pango.FontDescription(text_font)
+        self.codebox_font = Pango.FontDescription(code_font)
         self.text_window_width = text_window_width
-        self.table_text_row_height = self.pango_font.get_size()/pango.SCALE
+        self.table_text_row_height = self.pango_font.get_size()/Pango.SCALE
         self.table_line_thickness = 6
         self.pixbuf_table_codebox_vector = pixbuf_table_codebox_vector
         # pixbuf_table_codebox_vector is [ [ "pixbuf"/"table"/"codebox", [offset, pixbuf, alignment] ],... ]
@@ -104,7 +109,7 @@ class PrintHandler:
         any_image_resized = False
         layout_newline = context.create_pango_layout()
         layout_newline.set_font_description(self.pango_font)
-        layout_newline.set_width(int(self.page_width*pango.SCALE))
+        layout_newline.set_width(int(self.page_width*Pango.SCALE))
         layout_newline.set_markup(cons.CHAR_NEWLINE)
         line_width, self.layout_newline_height = self.layout_line_get_width_height(layout_newline.get_line(0))
         while 1:
@@ -118,7 +123,7 @@ class PrintHandler:
             for i, text_slot in enumerate(print_data.text):
                 print_data.layout.append(context.create_pango_layout())
                 print_data.layout[-1].set_font_description(self.pango_font)
-                print_data.layout[-1].set_width(int(self.page_width*pango.SCALE))
+                print_data.layout[-1].set_width(int(self.page_width*Pango.SCALE))
                 is_forced_page_break = text_slot.startswith(2*cons.CHAR_NEWPAGE)
                 print_data.forced_page_break.append(is_forced_page_break)
                 print_data.layout[-1].set_markup(text_slot if not is_forced_page_break else text_slot[2:])
@@ -182,7 +187,7 @@ class PrintHandler:
                             image_w_h_ration = float(pixbuf_width)/pixbuf_height
                             image_width = self.page_width
                             image_height = image_width / image_w_h_ration
-                            pixbuf = pixbuf.scale_simple(int(image_width), int(image_height), gtk.gdk.INTERP_BILINEAR)
+                            pixbuf = pixbuf.scale_simple(int(image_width), int(image_height), GdkPixbuf.InterpType.BILINEAR)
                             pixbuf_width = pixbuf.get_width()
                             pixbuf_height = pixbuf.get_height()
                             pixbuf_was_resized = True
@@ -190,7 +195,7 @@ class PrintHandler:
                             image_w_h_ration = float(pixbuf_width)/pixbuf_height
                             image_height = self.page_height-self.layout_newline_height-cons.WHITE_SPACE_BETW_PIXB_AND_TEXT
                             image_width = image_height * image_w_h_ration
-                            pixbuf = pixbuf.scale_simple(int(image_width), int(image_height), gtk.gdk.INTERP_BILINEAR)
+                            pixbuf = pixbuf.scale_simple(int(image_width), int(image_height), GdkPixbuf.InterpType.BILINEAR)
                             pixbuf_width = pixbuf.get_width()
                             pixbuf_height = pixbuf.get_height()
                             pixbuf_was_resized = True
@@ -305,8 +310,8 @@ class PrintHandler:
         if codebox_dict['width_in_pixels']: codebox_width = codebox_dict['frame_width']
         else: codebox_width = self.text_window_width*codebox_dict['frame_width']/100
         if codebox_width > self.page_width: codebox_width = self.page_width
-        layout.set_width(int(codebox_width*pango.SCALE))
-        layout.set_wrap(pango.WRAP_WORD_CHAR)
+        layout.set_width(int(codebox_width*Pango.SCALE))
+        layout.set_wrap(Pango.WrapMode.WORD_CHAR)
         layout.set_markup(codebox_dict['fill_text'])
         return layout
 
@@ -340,8 +345,8 @@ class PrintHandler:
                 layout.set_font_description(self.pango_font)
                 cell_text = cgi.escape(cell_text)
                 if i == 0: cell_text = "<b>" + cell_text + "</b>"
-                layout.set_width(int(table['col_max']*pango.SCALE))
-                layout.set_wrap(pango.WRAP_WORD_CHAR)
+                layout.set_width(int(table['col_max']*Pango.SCALE))
+                layout.set_wrap(Pango.WrapMode.WORD_CHAR)
                 layout.set_markup(cell_text)
                 table_layouts[i].append(layout)
         return table_layouts
@@ -494,7 +499,7 @@ class PrintHandler:
         partial_pango = ""
         partial_pango_old = ""
         while len(splitted_pango) < len(original_splitted_pango):
-            splitted_pango.append(original_splitted_pango[len(splitted_pango)])
+            splitted_Pango.append(original_splitted_pango[len(splitted_pango)])
             if partial_pango: partial_pango_old = partial_pango
             partial_pango = cons.CHAR_NEWLINE.join(splitted_pango)
             codebox_dict_jolly['fill_text'] = partial_pango

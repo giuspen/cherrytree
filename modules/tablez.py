@@ -19,9 +19,16 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
-import gtk, pango
-import os, csv, codecs, cStringIO, copy
-import cons, menus, support
+from gi.repository import Gtk
+from gi.repository import Pango
+import os
+import csv
+import codecs
+import cStringIO
+import copy
+import cons
+import menus
+import support
 
 
 class TablesHandler:
@@ -49,59 +56,59 @@ class TablesHandler:
 
     def dialog_tablecolhandle(self, title, rename_text):
         """Opens the Table Column Handle Dialog"""
-        dialog = gtk.Dialog(title=title,
+        dialog = Gtk.Dialog(title=title,
                             parent=self.dad.window,
-                            flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
-                            buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
-                            gtk.STOCK_OK, gtk.RESPONSE_ACCEPT))
+                            flags=Gtk.DialogFlags.MODAL|Gtk.DialogFlags.DESTROY_WITH_PARENT,
+                            buttons=(Gtk.STOCK_CANCEL, Gtk.ResponseType.REJECT,
+                            Gtk.STOCK_OK, Gtk.ResponseType.ACCEPT))
         dialog.set_default_size(300, -1)
-        dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+        dialog.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
 
-        hbox_column_rename = gtk.HBox()
-        image_column_rename = gtk.Image()
-        image_column_rename.set_from_stock(gtk.STOCK_EDIT, gtk.ICON_SIZE_BUTTON)
-        table_column_rename_radiobutton = gtk.RadioButton(label=_("Rename Column"))
-        table_column_rename_entry = gtk.Entry()
+        hbox_column_rename = Gtk.HBox()
+        image_column_rename = Gtk.Image()
+        image_column_rename.set_from_stock(Gtk.STOCK_EDIT, Gtk.IconSize.BUTTON)
+        table_column_rename_radiobutton = Gtk.RadioButton(label=_("Rename Column"))
+        table_column_rename_entry = Gtk.Entry()
         table_column_rename_entry.set_text(rename_text)
         table_column_rename_entry.set_sensitive(self.dad.table_column_mode == 'rename')
-        hbox_column_rename.pack_start(image_column_rename, expand=False)
-        hbox_column_rename.pack_start(table_column_rename_radiobutton)
-        hbox_column_rename.pack_start(table_column_rename_entry)
+        hbox_column_rename.pack_start(image_column_rename, False, True, 0)
+        hbox_column_rename.pack_start(table_column_rename_radiobutton, True, True, 0)
+        hbox_column_rename.pack_start(table_column_rename_entry, True, True, 0)
 
-        hbox_column_delete = gtk.HBox()
-        image_column_delete = gtk.Image()
-        image_column_delete.set_from_stock(gtk.STOCK_CLEAR, gtk.ICON_SIZE_BUTTON)
-        table_column_delete_radiobutton = gtk.RadioButton(label=_("Delete Column"))
+        hbox_column_delete = Gtk.HBox()
+        image_column_delete = Gtk.Image()
+        image_column_delete.set_from_stock(Gtk.STOCK_CLEAR, Gtk.IconSize.BUTTON)
+        table_column_delete_radiobutton = Gtk.RadioButton(label=_("Delete Column"))
         table_column_delete_radiobutton.set_group(table_column_rename_radiobutton)
-        hbox_column_delete.pack_start(image_column_delete, expand=False)
-        hbox_column_delete.pack_start(table_column_delete_radiobutton)
+        hbox_column_delete.pack_start(image_column_delete, False, True, 0)
+        hbox_column_delete.pack_start(table_column_delete_radiobutton, True, True, 0)
 
-        hbox_column_add = gtk.HBox()
-        image_column_add = gtk.Image()
-        image_column_add.set_from_stock(gtk.STOCK_ADD, gtk.ICON_SIZE_BUTTON)
-        table_column_add_radiobutton = gtk.RadioButton(label=_("Add Column"))
+        hbox_column_add = Gtk.HBox()
+        image_column_add = Gtk.Image()
+        image_column_add.set_from_stock(Gtk.STOCK_ADD, Gtk.IconSize.BUTTON)
+        table_column_add_radiobutton = Gtk.RadioButton(label=_("Add Column"))
         table_column_add_radiobutton.set_group(table_column_rename_radiobutton)
-        table_column_new_entry = gtk.Entry()
-        hbox_column_add.pack_start(image_column_add, expand=False)
-        hbox_column_add.pack_start(table_column_add_radiobutton)
-        hbox_column_add.pack_start(table_column_new_entry)
+        table_column_new_entry = Gtk.Entry()
+        hbox_column_add.pack_start(image_column_add, False, True, 0)
+        hbox_column_add.pack_start(table_column_add_radiobutton, True, True, 0)
+        hbox_column_add.pack_start(table_column_new_entry, True, True, 0)
         table_column_new_entry.set_sensitive(self.dad.table_column_mode == 'add')
 
-        hbox_column_left = gtk.HBox()
-        image_column_left = gtk.Image()
-        image_column_left.set_from_stock(gtk.STOCK_GO_BACK, gtk.ICON_SIZE_BUTTON)
-        table_column_left_radiobutton = gtk.RadioButton(label=_("Move Column Left"))
+        hbox_column_left = Gtk.HBox()
+        image_column_left = Gtk.Image()
+        image_column_left.set_from_stock(Gtk.STOCK_GO_BACK, Gtk.IconSize.BUTTON)
+        table_column_left_radiobutton = Gtk.RadioButton(label=_("Move Column Left"))
         table_column_left_radiobutton.set_group(table_column_rename_radiobutton)
-        hbox_column_left.pack_start(image_column_left, expand=False)
-        hbox_column_left.pack_start(table_column_left_radiobutton)
+        hbox_column_left.pack_start(image_column_left, False, True, 0)
+        hbox_column_left.pack_start(table_column_left_radiobutton, True, True, 0)
 
-        hbox_column_right = gtk.HBox()
-        image_column_right = gtk.Image()
-        image_column_right.set_from_stock(gtk.STOCK_GO_FORWARD, gtk.ICON_SIZE_BUTTON)
-        table_column_right_radiobutton = gtk.RadioButton(label=_("Move Column Right"))
+        hbox_column_right = Gtk.HBox()
+        image_column_right = Gtk.Image()
+        image_column_right.set_from_stock(Gtk.STOCK_GO_FORWARD, Gtk.IconSize.BUTTON)
+        table_column_right_radiobutton = Gtk.RadioButton(label=_("Move Column Right"))
         table_column_right_radiobutton.set_group(table_column_rename_radiobutton)
-        hbox_column_right.pack_start(image_column_right, expand=False)
-        hbox_column_right.pack_start(table_column_right_radiobutton)
+        hbox_column_right.pack_start(image_column_right, False, True, 0)
+        hbox_column_right.pack_start(table_column_right_radiobutton, True, True, 0)
 
         table_column_rename_radiobutton.set_active(self.dad.table_column_mode == "rename")
         table_column_delete_radiobutton.set_active(self.dad.table_column_mode == "delete")
@@ -113,21 +120,21 @@ class TablesHandler:
         elif self.dad.table_column_mode == "add":
             table_column_new_entry.grab_focus()
 
-        tablehandle_vbox_col = gtk.VBox()
-        tablehandle_vbox_col.pack_start(hbox_column_rename)
-        tablehandle_vbox_col.pack_start(hbox_column_delete)
-        tablehandle_vbox_col.pack_start(hbox_column_add)
-        tablehandle_vbox_col.pack_start(hbox_column_left)
-        tablehandle_vbox_col.pack_start(hbox_column_right)
+        tablehandle_vbox_col = Gtk.VBox()
+        tablehandle_vbox_col.pack_start(hbox_column_rename, True, True, 0)
+        tablehandle_vbox_col.pack_start(hbox_column_delete, True, True, 0)
+        tablehandle_vbox_col.pack_start(hbox_column_add, True, True, 0)
+        tablehandle_vbox_col.pack_start(hbox_column_left, True, True, 0)
+        tablehandle_vbox_col.pack_start(hbox_column_right, True, True, 0)
 
         content_area = dialog.get_content_area()
         content_area.set_spacing(5)
-        content_area.pack_start(tablehandle_vbox_col)
+        content_area.pack_start(tablehandle_vbox_col, True, True, 0)
         content_area.show_all()
         def on_key_press_tablecolhandle(widget, event):
-            keyname = gtk.gdk.keyval_name(event.keyval)
+            keyname = Gdk.keyval_name(event.keyval)
             if keyname == cons.STR_KEY_RETURN:
-                try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
+                try: dialog.get_widget_for_response(Gtk.ResponseType.ACCEPT).clicked()
                 except: print cons.STR_PYGTK_222_REQUIRED
                 return True
             elif keyname == cons.STR_KEY_TAB:
@@ -164,7 +171,7 @@ class TablesHandler:
         table_column_right_radiobutton.connect('toggled', on_table_column_right_radiobutton_toggled)
         response = dialog.run()
         dialog.hide()
-        if response == gtk.RESPONSE_ACCEPT:
+        if response == Gtk.ResponseType.ACCEPT:
             ret_rename = unicode(table_column_rename_entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE)
             ret_add = unicode(table_column_new_entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE)
             return [True, ret_rename, ret_add]
@@ -172,78 +179,78 @@ class TablesHandler:
 
     def dialog_tablehandle(self, title, is_insert):
         """Opens the Table Handle Dialog"""
-        dialog = gtk.Dialog(title=title,
+        dialog = Gtk.Dialog(title=title,
                             parent=self.dad.window,
-                            flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
-                            buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
-                            gtk.STOCK_OK, gtk.RESPONSE_ACCEPT))
+                            flags=Gtk.DialogFlags.MODAL|Gtk.DialogFlags.DESTROY_WITH_PARENT,
+                            buttons=(Gtk.STOCK_CANCEL, Gtk.ResponseType.REJECT,
+                            Gtk.STOCK_OK, Gtk.ResponseType.ACCEPT))
         dialog.set_default_size(300, -1)
-        dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+        dialog.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
 
-        label_rows = gtk.Label(_("Rows"))
-        adj_rows = gtk.Adjustment(value=self.dad.table_rows, lower=1, upper=10000, step_incr=1)
-        spinbutton_rows = gtk.SpinButton(adj_rows)
+        label_rows = Gtk.Label(label=_("Rows"))
+        adj_rows = Gtk.Adjustment(value=self.dad.table_rows, lower=1, upper=10000, step_incr=1)
+        spinbutton_rows = Gtk.SpinButton(adj_rows)
         spinbutton_rows.set_value(self.dad.table_rows)
-        label_columns = gtk.Label(_("Columns"))
-        adj_columns = gtk.Adjustment(value=self.dad.table_columns, lower=1, upper=10000, step_incr=1)
-        spinbutton_columns = gtk.SpinButton(adj_columns)
+        label_columns = Gtk.Label(label=_("Columns"))
+        adj_columns = Gtk.Adjustment(value=self.dad.table_columns, lower=1, upper=10000, step_incr=1)
+        spinbutton_columns = Gtk.SpinButton(adj_columns)
         spinbutton_columns.set_value(self.dad.table_columns)
 
-        hbox_rows_cols = gtk.HBox()
-        hbox_rows_cols.pack_start(label_rows, expand=False)
-        hbox_rows_cols.pack_start(spinbutton_rows, expand=False)
-        hbox_rows_cols.pack_start(label_columns, expand=False)
-        hbox_rows_cols.pack_start(spinbutton_columns, expand=False)
+        hbox_rows_cols = Gtk.HBox()
+        hbox_rows_cols.pack_start(label_rows, False, True, 0)
+        hbox_rows_cols.pack_start(spinbutton_rows, False, True, 0)
+        hbox_rows_cols.pack_start(label_columns, False, True, 0)
+        hbox_rows_cols.pack_start(spinbutton_columns, False, True, 0)
         hbox_rows_cols.set_spacing(5)
-        size_align = gtk.Alignment()
+        size_align = Gtk.Alignment.new()
         size_align.set_padding(6, 6, 6, 6)
         size_align.add(hbox_rows_cols)
 
-        size_frame = gtk.Frame(label="<b>"+_("Table Size")+"</b>")
+        size_frame = Gtk.Frame(label="<b>"+_("Table Size")+"</b>")
         size_frame.get_label_widget().set_use_markup(True)
-        size_frame.set_shadow_type(gtk.SHADOW_NONE)
+        size_frame.set_shadow_type(Gtk.ShadowType.NONE)
         size_frame.add(size_align)
 
-        label_col_min = gtk.Label(_("Min Width"))
-        adj_col_min = gtk.Adjustment(value=self.dad.table_col_min, lower=1, upper=10000, step_incr=1)
-        spinbutton_col_min = gtk.SpinButton(adj_col_min)
+        label_col_min = Gtk.Label(label=_("Min Width"))
+        adj_col_min = Gtk.Adjustment(value=self.dad.table_col_min, lower=1, upper=10000, step_incr=1)
+        spinbutton_col_min = Gtk.SpinButton(adj_col_min)
         spinbutton_col_min.set_value(self.dad.table_col_min)
-        label_col_max = gtk.Label(_("Max Width"))
-        adj_col_max = gtk.Adjustment(value=self.dad.table_col_max, lower=1, upper=10000, step_incr=1)
-        spinbutton_col_max = gtk.SpinButton(adj_col_max)
+        label_col_max = Gtk.Label(label=_("Max Width"))
+        adj_col_max = Gtk.Adjustment(value=self.dad.table_col_max, lower=1, upper=10000, step_incr=1)
+        spinbutton_col_max = Gtk.SpinButton(adj_col_max)
         spinbutton_col_max.set_value(self.dad.table_col_max)
 
-        hbox_col_min_max = gtk.HBox()
-        hbox_col_min_max.pack_start(label_col_min, expand=False)
-        hbox_col_min_max.pack_start(spinbutton_col_min, expand=False)
-        hbox_col_min_max.pack_start(label_col_max, expand=False)
-        hbox_col_min_max.pack_start(spinbutton_col_max, expand=False)
+        hbox_col_min_max = Gtk.HBox()
+        hbox_col_min_max.pack_start(label_col_min, False, True, 0)
+        hbox_col_min_max.pack_start(spinbutton_col_min, False, True, 0)
+        hbox_col_min_max.pack_start(label_col_max, False, True, 0)
+        hbox_col_min_max.pack_start(spinbutton_col_max, False, True, 0)
         hbox_col_min_max.set_spacing(5)
-        col_min_max_align = gtk.Alignment()
+        col_min_max_align = Gtk.Alignment.new()
         col_min_max_align.set_padding(6, 6, 6, 6)
         col_min_max_align.add(hbox_col_min_max)
 
-        col_min_max_frame = gtk.Frame(label="<b>"+_("Column Properties")+"</b>")
+        col_min_max_frame = Gtk.Frame(label="<b>"+_("Column Properties")+"</b>")
         col_min_max_frame.get_label_widget().set_use_markup(True)
-        col_min_max_frame.set_shadow_type(gtk.SHADOW_NONE)
+        col_min_max_frame.set_shadow_type(Gtk.ShadowType.NONE)
         col_min_max_frame.add(col_min_max_align)
 
-        checkbutton_table_ins_from_file = gtk.CheckButton(label=_("Import from CSV File"))
+        checkbutton_table_ins_from_file = Gtk.CheckButton(label=_("Import from CSV File"))
 
         content_area = dialog.get_content_area()
         content_area.set_spacing(5)
-        if is_insert: content_area.pack_start(size_frame)
-        content_area.pack_start(col_min_max_frame)
-        if is_insert: content_area.pack_start(checkbutton_table_ins_from_file)
+        if is_insert: content_area.pack_start(size_frame, True, True, 0)
+        content_area.pack_start(col_min_max_frame, True, True, 0)
+        if is_insert: content_area.pack_start(checkbutton_table_ins_from_file, True, True, 0)
         content_area.show_all()
         def on_key_press_tablehandle(widget, event):
-            keyname = gtk.gdk.keyval_name(event.keyval)
+            keyname = Gdk.keyval_name(event.keyval)
             if keyname == cons.STR_KEY_RETURN:
                 spinbutton_rows.update()
                 spinbutton_columns.update()
                 spinbutton_col_min.update()
                 spinbutton_col_max.update()
-                try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
+                try: dialog.get_widget_for_response(Gtk.ResponseType.ACCEPT).clicked()
                 except: print cons.STR_PYGTK_222_REQUIRED
                 return True
             return False
@@ -254,7 +261,7 @@ class TablesHandler:
         checkbutton_table_ins_from_file.connect('toggled', on_checkbutton_table_ins_from_file_toggled)
         response = dialog.run()
         dialog.hide()
-        if response == gtk.RESPONSE_ACCEPT:
+        if response == Gtk.ResponseType.ACCEPT:
             self.dad.table_rows = int(spinbutton_rows.get_value())
             self.dad.table_columns = int(spinbutton_columns.get_value())
             self.dad.table_col_min = int(spinbutton_col_min.get_value())
@@ -322,37 +329,37 @@ class TablesHandler:
             table_col_min = self.dad.table_col_min
             table_col_max = self.dad.table_col_max
         anchor = text_buffer.create_child_anchor(iter_insert)
-        anchor.liststore = gtk.ListStore(*(str,)*self.dad.table_columns)
-        anchor.treeview = gtk.TreeView(anchor.liststore)
+        anchor.liststore = Gtk.ListStore(*(str,)*self.dad.table_columns)
+        anchor.treeview = Gtk.TreeView(anchor.liststore)
         for element in range(self.dad.table_columns):
-            label = gtk.Label('<b>' + headers[element] + '</b>')
+            label = Gtk.Label(label='<b>' + headers[element] + '</b>')
             label.set_use_markup(True)
             label.set_tooltip_text(_("Click to Edit the Column Settings"))
             label.show()
-            renderer_text = gtk.CellRendererText()
+            renderer_text = Gtk.CellRendererText()
             renderer_text.set_property('editable', True)
             renderer_text.set_property('wrap-width', table_col_max)
-            renderer_text.set_property('wrap-mode', pango.WRAP_WORD_CHAR)
-            renderer_text.set_property('font-desc', pango.FontDescription(self.dad.text_font))
+            renderer_text.set_property('wrap-mode', Pango.WrapMode.WORD_CHAR)
+            renderer_text.set_property('font-desc', Pango.FontDescription(self.dad.text_font))
             renderer_text.connect('edited', self.on_table_cell_edited, anchor.liststore, element)
             renderer_text.connect('editing-started', self.on_table_cell_editing_started, anchor.liststore, element)
-            column = gtk.TreeViewColumn("", renderer_text, text=element)
+            column = Gtk.TreeViewColumn("", renderer_text, text=element)
             column.set_min_width(table_col_min)
             column.set_clickable(True)
             column.set_widget(label)
-            column.set_sizing(gtk.TREE_VIEW_COLUMN_AUTOSIZE)
+            column.set_sizing(Gtk.TreeViewColumnSizing.AUTOSIZE)
             column.connect('clicked', self.table_column_clicked, anchor, element)
             anchor.treeview.append_column(column)
         anchor.headers = headers
         anchor.table_col_min = table_col_min
         anchor.table_col_max = table_col_max
-        anchor.treeview.set_grid_lines(gtk.TREE_VIEW_GRID_LINES_BOTH)
+        anchor.treeview.set_grid_lines(Gtk.TREE_VIEW_GRID_LINES_BOTH)
         anchor.treeview.connect('button-press-event', self.on_mouse_button_clicked_treeview_table, anchor)
         anchor.treeview.connect('key_press_event', self.on_key_press_treeview_table, anchor)
-        anchor.frame = gtk.Frame()
+        anchor.frame = Gtk.Frame()
         anchor.frame.add(anchor.treeview)
-        anchor.frame.set_shadow_type(gtk.SHADOW_NONE)
-        anchor.eventbox = gtk.EventBox()
+        anchor.frame.set_shadow_type(Gtk.ShadowType.NONE)
+        anchor.eventbox = Gtk.EventBox()
         anchor.eventbox.add(anchor.frame)
         self.dad.sourceview.add_child_at_anchor(anchor.eventbox, anchor)
         anchor.eventbox.show_all()
@@ -399,12 +406,12 @@ class TablesHandler:
 
     def on_table_cell_key_press(self, widget, event, path, model, col_num):
         """Catches Table Cell key presses"""
-        keyname = gtk.gdk.keyval_name(event.keyval)
-        if event.state & gtk.gdk.SHIFT_MASK:
+        keyname = Gdk.keyval_name(event.keyval)
+        if event.get_state() & Gdk.ModifierType.SHIFT_MASK:
             pass
-        elif event.state & gtk.gdk.MOD1_MASK:
+        elif event.get_state() & Gdk.ModifierType.MOD1_MASK:
             pass
-        elif event.state & gtk.gdk.CONTROL_MASK:
+        elif event.get_state() & Gdk.ModifierType.CONTROL_MASK:
             if keyname == "period":
                 self.curr_table_cell = widget
                 self.curr_table_cell_insert_newline()
@@ -454,7 +461,7 @@ class TablesHandler:
 
     def on_table_cell_editing_started(self, cell, editable, path, model, col_num):
         """A Table Cell is going to be Edited"""
-        if isinstance(editable, gtk.Entry):
+        if isinstance(editable, Gtk.Entry):
             editable.connect('key_press_event', self.on_table_cell_key_press, path, model, col_num)
             editable.connect('populate-popup', self.on_table_cell_populate_popup)
 
@@ -603,24 +610,24 @@ class TablesHandler:
 
     def on_key_press_treeview_table(self, widget, event, anchor):
         """Catches Table key presses"""
-        keyname = gtk.gdk.keyval_name(event.keyval)
-        if event.state & gtk.gdk.CONTROL_MASK:
+        keyname = Gdk.keyval_name(event.keyval)
+        if event.get_state() & Gdk.ModifierType.CONTROL_MASK:
             self.curr_table_anchor = anchor
             self.dad.object_set_selection(self.curr_table_anchor)
             if keyname == "comma":
-                if event.state & gtk.gdk.MOD1_MASK:
+                if event.get_state() & Gdk.ModifierType.MOD1_MASK:
                     self.table_row_delete()
                 else: self.table_row_add()
                 return True
             if keyname == "period":
-                if event.state & gtk.gdk.MOD1_MASK:
+                if event.get_state() & Gdk.ModifierType.MOD1_MASK:
                     self.table_row_up()
                 else: self.table_row_down()
                 return True
         elif keyname == cons.STR_KEY_MENU:
             self.curr_table_anchor = anchor
             self.dad.object_set_selection(self.curr_table_anchor)
-            menu_table = gtk.Menu()
+            menu_table = Gtk.Menu()
             self.dad.menu_populate_popup(menu_table, menus.get_popup_menu_table(self.dad))
             menu_table.popup(None, None, None, 3, event.time)
             return True
@@ -631,7 +638,7 @@ class TablesHandler:
         self.curr_table_anchor = anchor
         self.dad.object_set_selection(self.curr_table_anchor)
         if event.button == 3:
-            menu_table = gtk.Menu()
+            menu_table = Gtk.Menu()
             self.dad.menu_populate_popup(menu_table, menus.get_popup_menu_table(self.dad))
             menu_table.popup(None, None, None, event.button, event.time)
             return True

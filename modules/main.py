@@ -19,8 +19,8 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
-import gtk
-import gobject
+from gi.repository import Gtk
+from gi.repository import GObject
 import dbus
 import dbus.service
 import dbus.mainloop.glib
@@ -31,7 +31,8 @@ import gettext
 import __builtin__
 msg_server_to_core = {'f':0, 'p':""}
 __builtin__.msg_server_to_core = msg_server_to_core
-import cons, core
+import cons
+import core
 
 
 class CherryTreeObject(dbus.service.Object):
@@ -72,7 +73,7 @@ class CherryTreeHandler():
                 print "Export error: input not specified"
         else:
             self.window_open_new(args.filepath, args.node, True, True if args.filepath else False)
-            self.server_check_timer_id = gobject.timeout_add(1000, self.server_periodic_check) # 1 sec
+            self.server_check_timer_id = GObject.timeout_add(1000, self.server_periodic_check) # 1 sec
 
     def window_open_new(self, filepath, node_name, is_startup, is_arg):
         """Open a new top level Window"""
@@ -91,7 +92,7 @@ class CherryTreeHandler():
             print "win destroy: runn_win not found"
             i = -1
         self.running_windows.pop(i)
-        if not self.running_windows: gtk.main_quit()
+        if not self.running_windows: Gtk.main_quit()
 
     def server_periodic_check(self):
         """Check Whether the server posted messages"""
@@ -233,7 +234,7 @@ def main(args):
             name = dbus.service.BusName("com.giuspen.CherryTreeService", session_bus)
             object = CherryTreeObject(session_bus, '/CherryTreeObject')
             CherryTreeHandler(args, lang_str)
-            gtk.main()
+            Gtk.main()
             if cons.IS_WIN_OS:
                 si = subprocess.STARTUPINFO()
                 si.dwFlags |= subprocess.STARTF_USESHOWWINDOW
@@ -243,4 +244,4 @@ def main(args):
         print "dbus fail, maybe a firewall problem, centralized instances disabled"
         lang_str = initializations()
         CherryTreeHandler(args, lang_str)
-        gtk.main()
+        Gtk.main()

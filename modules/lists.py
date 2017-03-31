@@ -19,9 +19,10 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
-import gtk
+from gi.repository import Gtk
 import re
-import cons, support
+import cons
+import support
 
 
 class ListsHandler:

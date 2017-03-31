@@ -19,8 +19,8 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
-import gtk
-import gobject
+from gi.repository import Gtk
+from gi.repository import GObject
 import re
 import cgi
 import time
@@ -33,44 +33,44 @@ import config
 
 def dialog_date_select(parent_win, title, curr_time):
     """Dialog to select a Date"""
-    dialog = gtk.Dialog(title=title,
+    dialog = Gtk.Dialog(title=title,
         parent=parent_win,
-        flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
-        buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
-                 gtk.STOCK_OK, gtk.RESPONSE_OK))
-    dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+        flags=Gtk.DialogFlags.MODAL|Gtk.DialogFlags.DESTROY_WITH_PARENT,
+        buttons=(Gtk.STOCK_CANCEL, Gtk.ResponseType.REJECT,
+                 Gtk.STOCK_OK, Gtk.ResponseType.OK))
+    dialog.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
     content_area = dialog.get_content_area()
-    calendar = gtk.Calendar()
+    calendar = Gtk.Calendar()
     struct_time = time.localtime(curr_time)
     calendar.select_month(struct_time.tm_mon-1, struct_time.tm_year) # month 0-11
     calendar.select_day(struct_time.tm_mday) # day 1-31
-    adj_h = gtk.Adjustment(value=struct_time.tm_hour, lower=0, upper=23, step_incr=1)
-    spinbutton_h = gtk.SpinButton(adj_h)
+    adj_h = Gtk.Adjustment(value=struct_time.tm_hour, lower=0, upper=23, step_incr=1)
+    spinbutton_h = Gtk.SpinButton(adj_h)
     spinbutton_h.set_value(struct_time.tm_hour)
-    adj_m = gtk.Adjustment(value=struct_time.tm_min, lower=0, upper=59, step_incr=1)
-    spinbutton_m = gtk.SpinButton(adj_m)
+    adj_m = Gtk.Adjustment(value=struct_time.tm_min, lower=0, upper=59, step_incr=1)
+    spinbutton_m = Gtk.SpinButton(adj_m)
     spinbutton_m.set_value(struct_time.tm_min)
-    hbox = gtk.HBox()
-    hbox.pack_start(spinbutton_h)
-    hbox.pack_start(spinbutton_m)
-    content_area.pack_start(calendar)
-    content_area.pack_start(hbox)
+    hbox = Gtk.HBox()
+    hbox.pack_start(spinbutton_h, True, True, 0)
+    hbox.pack_start(spinbutton_m, True, True, 0)
+    content_area.pack_start(calendar, True, True, 0)
+    content_area.pack_start(hbox, True, True, 0)
     def on_key_press_dialog(widget, event):
-        if gtk.gdk.keyval_name(event.keyval) == cons.STR_KEY_RETURN:
-            try: dialog.get_widget_for_response(gtk.RESPONSE_OK).clicked()
+        if Gdk.keyval_name(event.keyval) == cons.STR_KEY_RETURN:
+            try: dialog.get_widget_for_response(Gtk.ResponseType.OK).clicked()
             except: print cons.STR_PYGTK_222_REQUIRED
             return True
         return False
     dialog.connect("key_press_event", on_key_press_dialog)
     def on_mouse_button_clicked_dialog(widget, event):
-        if event.button == 1 and event.type == gtk.gdk._2BUTTON_PRESS:
-            try: dialog.get_widget_for_response(gtk.RESPONSE_OK).clicked()
+        if event.button == 1 and event.type == Gdk._2BUTTON_PRESS:
+            try: dialog.get_widget_for_response(Gtk.ResponseType.OK).clicked()
             except: print cons.STR_PYGTK_222_REQUIRED
     dialog.connect('button-press-event', on_mouse_button_clicked_dialog)
     content_area.show_all()
     response = dialog.run()
     dialog.hide()
-    if response != gtk.RESPONSE_OK: return None
+    if response != Gtk.ResponseType.OK: return None
     new_year, new_month, new_day = calendar.get_date()
     new_h = int(spinbutton_h.get_value())
     new_m = int(spinbutton_m.get_value())
@@ -92,7 +92,7 @@ class FindReplace:
         self.from_find_back = False
         self.newline_trick = False
         # 0-node_id, 1-start_offset, 2-end_offset, 3-node_name, 4-line_content, 5-line_num 6-node_hier_name
-        self.allmatches_liststore = gtk.ListStore(long, long, long, str, str, int, str)
+        self.allmatches_liststore = Gtk.ListStore(long, long, long, str, str, int, str)
         self.allmatches_title = ""
         self.allmatches_position = None
         self.allmatches_size = None
@@ -126,108 +126,108 @@ class FindReplace:
 
     def dialog_search(self, title, replace_on, multiple_nodes, pattern_required):
         """Opens the Search Dialog"""
-        dialog = gtk.Dialog(title=title,
+        dialog = Gtk.Dialog(title=title,
                             parent=self.dad.window,
-                            flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
-                            buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
-                            gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
+                            flags=Gtk.DialogFlags.MODAL|Gtk.DialogFlags.DESTROY_WITH_PARENT,
+                            buttons=(Gtk.STOCK_CANCEL, Gtk.ResponseType.REJECT,
+                            Gtk.STOCK_OK, Gtk.ResponseType.ACCEPT) )
         dialog.set_default_size(400, -1)
-        dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-        search_entry = gtk.Entry()
+        dialog.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
+        search_entry = Gtk.Entry()
         search_entry.set_text(self.search_replace_dict['find'])
         try:
-            button_ok = dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT)
+            button_ok = dialog.get_widget_for_response(Gtk.ResponseType.ACCEPT)
             if pattern_required:
                 button_ok.set_sensitive(bool(self.search_replace_dict['find']))
         except:
             print cons.STR_PYGTK_222_REQUIRED
             button_ok = None
-        search_frame = gtk.Frame(label="<b>"+_("Search for")+"</b>")
+        search_frame = Gtk.Frame(label="<b>"+_("Search for")+"</b>")
         search_frame.get_label_widget().set_use_markup(True)
-        search_frame.set_shadow_type(gtk.SHADOW_NONE)
+        search_frame.set_shadow_type(Gtk.ShadowType.NONE)
         search_frame.add(search_entry)
         if replace_on:
-            replace_entry = gtk.Entry()
+            replace_entry = Gtk.Entry()
             replace_entry.set_text(self.search_replace_dict['replace'])
-            replace_frame = gtk.Frame(label="<b>"+_("Replace with")+"</b>")
+            replace_frame = Gtk.Frame(label="<b>"+_("Replace with")+"</b>")
             replace_frame.get_label_widget().set_use_markup(True)
-            replace_frame.set_shadow_type(gtk.SHADOW_NONE)
+            replace_frame.set_shadow_type(Gtk.ShadowType.NONE)
             replace_frame.add(replace_entry)
-        opt_vbox = gtk.VBox()
+        opt_vbox = Gtk.VBox()
         opt_vbox.set_spacing(1)
-        four_1_hbox = gtk.HBox()
+        four_1_hbox = Gtk.HBox()
         four_1_hbox.set_homogeneous(True)
-        four_2_hbox = gtk.HBox()
+        four_2_hbox = Gtk.HBox()
         four_2_hbox.set_homogeneous(True)
-        bw_fw_hbox = gtk.HBox()
+        bw_fw_hbox = Gtk.HBox()
         bw_fw_hbox.set_homogeneous(True)
-        three_hbox = gtk.HBox()
+        three_hbox = Gtk.HBox()
         three_hbox.set_homogeneous(True)
-        three_vbox = gtk.VBox()
-        match_case_checkbutton = gtk.CheckButton(label=_("Match Case"))
+        three_vbox = Gtk.VBox()
+        match_case_checkbutton = Gtk.CheckButton(label=_("Match Case"))
         match_case_checkbutton.set_active(self.search_replace_dict['match_case'])
-        reg_exp_checkbutton = gtk.CheckButton(label=_("Regular Expression"))
+        reg_exp_checkbutton = Gtk.CheckButton(label=_("Regular Expression"))
         reg_exp_checkbutton.set_active(self.search_replace_dict['reg_exp'])
-        whole_word_checkbutton = gtk.CheckButton(label=_("Whole Word"))
+        whole_word_checkbutton = Gtk.CheckButton(label=_("Whole Word"))
         whole_word_checkbutton.set_active(self.search_replace_dict['whole_word'])
-        start_word_checkbutton = gtk.CheckButton(label=_("Start Word"))
+        start_word_checkbutton = Gtk.CheckButton(label=_("Start Word"))
         start_word_checkbutton.set_active(self.search_replace_dict['start_word'])
-        fw_radiobutton = gtk.RadioButton(label=_("Forward"))
+        fw_radiobutton = Gtk.RadioButton(label=_("Forward"))
         fw_radiobutton.set_active(self.search_replace_dict['fw'])
-        bw_radiobutton = gtk.RadioButton(label=_("Backward"))
+        bw_radiobutton = Gtk.RadioButton(label=_("Backward"))
         bw_radiobutton.set_group(fw_radiobutton)
         bw_radiobutton.set_active(not self.search_replace_dict['fw'])
-        all_radiobutton = gtk.RadioButton(label=_("All, List Matches"))
+        all_radiobutton = Gtk.RadioButton(label=_("All, List Matches"))
         all_radiobutton.set_active(self.search_replace_dict['a_ff_fa'] == 0)
-        first_from_radiobutton = gtk.RadioButton(label=_("First From Selection"))
+        first_from_radiobutton = Gtk.RadioButton(label=_("First From Selection"))
         first_from_radiobutton.set_group(all_radiobutton)
         first_from_radiobutton.set_active(self.search_replace_dict['a_ff_fa'] == 1)
-        first_all_radiobutton = gtk.RadioButton(label=_("First in All Range"))
+        first_all_radiobutton = Gtk.RadioButton(label=_("First in All Range"))
         first_all_radiobutton.set_group(all_radiobutton)
         first_all_radiobutton.set_active(self.search_replace_dict['a_ff_fa'] == 2)
         if multiple_nodes:
             ts_format = "%A, %d %B %Y, %H:%M"
-            ts_node_created_after_checkbutton = gtk.CheckButton(label=_("Node Created After"))
+            ts_node_created_after_checkbutton = Gtk.CheckButton(label=_("Node Created After"))
             ts_label = support.get_timestamp_str(ts_format, self.search_replace_dict['ts_cre_>'][1])
-            ts_node_created_after_button = gtk.Button(label=ts_label)
-            ts_node_created_after_hbox = gtk.HBox()
+            ts_node_created_after_button = Gtk.Button(label=ts_label)
+            ts_node_created_after_hbox = Gtk.HBox()
             ts_node_created_after_hbox.set_homogeneous(True)
-            ts_node_created_after_hbox.pack_start(ts_node_created_after_checkbutton)
-            ts_node_created_after_hbox.pack_start(ts_node_created_after_button)
-            ts_node_created_before_checkbutton = gtk.CheckButton(label=_("Node Created Before"))
+            ts_node_created_after_hbox.pack_start(ts_node_created_after_checkbutton, True, True, 0)
+            ts_node_created_after_hbox.pack_start(ts_node_created_after_button, True, True, 0)
+            ts_node_created_before_checkbutton = Gtk.CheckButton(label=_("Node Created Before"))
             ts_label = support.get_timestamp_str(ts_format, self.search_replace_dict['ts_cre_<'][1])
-            ts_node_created_before_button = gtk.Button(label=ts_label)
-            ts_node_created_before_hbox = gtk.HBox()
+            ts_node_created_before_button = Gtk.Button(label=ts_label)
+            ts_node_created_before_hbox = Gtk.HBox()
             ts_node_created_before_hbox.set_homogeneous(True)
-            ts_node_created_before_hbox.pack_start(ts_node_created_before_checkbutton)
-            ts_node_created_before_hbox.pack_start(ts_node_created_before_button)
-            ts_node_modified_after_checkbutton = gtk.CheckButton(label=_("Node Modified After"))
+            ts_node_created_before_hbox.pack_start(ts_node_created_before_checkbutton, True, True, 0)
+            ts_node_created_before_hbox.pack_start(ts_node_created_before_button, True, True, 0)
+            ts_node_modified_after_checkbutton = Gtk.CheckButton(label=_("Node Modified After"))
             ts_label = support.get_timestamp_str(ts_format, self.search_replace_dict['ts_mod_>'][1])
-            ts_node_modified_after_button = gtk.Button(label=ts_label)
-            ts_node_modified_after_hbox = gtk.HBox()
+            ts_node_modified_after_button = Gtk.Button(label=ts_label)
+            ts_node_modified_after_hbox = Gtk.HBox()
             ts_node_modified_after_hbox.set_homogeneous(True)
-            ts_node_modified_after_hbox.pack_start(ts_node_modified_after_checkbutton)
-            ts_node_modified_after_hbox.pack_start(ts_node_modified_after_button)
-            ts_node_modified_before_checkbutton = gtk.CheckButton(label=_("Node Modified Before"))
+            ts_node_modified_after_hbox.pack_start(ts_node_modified_after_checkbutton, True, True, 0)
+            ts_node_modified_after_hbox.pack_start(ts_node_modified_after_button, True, True, 0)
+            ts_node_modified_before_checkbutton = Gtk.CheckButton(label=_("Node Modified Before"))
             ts_label = support.get_timestamp_str(ts_format, self.search_replace_dict['ts_mod_<'][1])
-            ts_node_modified_before_button = gtk.Button(label=ts_label)
-            ts_node_modified_before_hbox = gtk.HBox()
+            ts_node_modified_before_button = Gtk.Button(label=ts_label)
+            ts_node_modified_before_hbox = Gtk.HBox()
             ts_node_modified_before_hbox.set_homogeneous(True)
-            ts_node_modified_before_hbox.pack_start(ts_node_modified_before_checkbutton)
-            ts_node_modified_before_hbox.pack_start(ts_node_modified_before_button)
+            ts_node_modified_before_hbox.pack_start(ts_node_modified_before_checkbutton, True, True, 0)
+            ts_node_modified_before_hbox.pack_start(ts_node_modified_before_button, True, True, 0)
             ts_node_created_after_checkbutton.set_active(self.search_replace_dict['ts_cre_>'][0])
             ts_node_created_before_checkbutton.set_active(self.search_replace_dict['ts_cre_<'][0])
             ts_node_modified_after_checkbutton.set_active(self.search_replace_dict['ts_mod_>'][0])
             ts_node_modified_before_checkbutton.set_active(self.search_replace_dict['ts_mod_<'][0])
-            ts_node_vbox = gtk.VBox()
-            ts_node_vbox.pack_start(ts_node_created_after_hbox)
-            ts_node_vbox.pack_start(ts_node_created_before_hbox)
-            ts_node_vbox.pack_start(gtk.HSeparator())
-            ts_node_vbox.pack_start(ts_node_modified_after_hbox)
-            ts_node_vbox.pack_start(ts_node_modified_before_hbox)
-            ts_frame = gtk.Frame(label="<b>"+_("Time filter")+"</b>")
+            ts_node_vbox = Gtk.VBox()
+            ts_node_vbox.pack_start(ts_node_created_after_hbox, True, True, 0)
+            ts_node_vbox.pack_start(ts_node_created_before_hbox, True, True, 0)
+            ts_node_vbox.pack_start(Gtk.HSeparator(), True, True, 0)
+            ts_node_vbox.pack_start(ts_node_modified_after_hbox, True, True, 0)
+            ts_node_vbox.pack_start(ts_node_modified_before_hbox, True, True, 0)
+            ts_frame = Gtk.Frame(label="<b>"+_("Time filter")+"</b>")
             ts_frame.get_label_widget().set_use_markup(True)
-            ts_frame.set_shadow_type(gtk.SHADOW_NONE)
+            ts_frame.set_shadow_type(Gtk.ShadowType.NONE)
             ts_frame.add(ts_node_vbox)
             def on_ts_node_button_clicked(widget, ts_id):
                 if ts_id == 'ts_cre_>':
@@ -246,42 +246,42 @@ class FindReplace:
             ts_node_created_before_button.connect('clicked', on_ts_node_button_clicked, 'ts_cre_<')
             ts_node_modified_after_button.connect('clicked', on_ts_node_button_clicked, 'ts_mod_>')
             ts_node_modified_before_button.connect('clicked', on_ts_node_button_clicked, 'ts_mod_<')
-        iter_dialog_checkbutton = gtk.CheckButton(label=_("Show Iterated Find/Replace Dialog"))
+        iter_dialog_checkbutton = Gtk.CheckButton(label=_("Show Iterated Find/Replace Dialog"))
         iter_dialog_checkbutton.set_active(self.search_replace_dict['idialog'])
-        four_1_hbox.pack_start(match_case_checkbutton)
-        four_1_hbox.pack_start(reg_exp_checkbutton)
-        four_2_hbox.pack_start(whole_word_checkbutton)
-        four_2_hbox.pack_start(start_word_checkbutton)
-        bw_fw_hbox.pack_start(fw_radiobutton)
-        bw_fw_hbox.pack_start(bw_radiobutton)
-        three_hbox.pack_start(all_radiobutton)
-        three_vbox.pack_start(first_from_radiobutton)
-        three_vbox.pack_start(first_all_radiobutton)
-        three_hbox.pack_start(three_vbox)
-        opt_vbox.pack_start(four_1_hbox)
-        opt_vbox.pack_start(four_2_hbox)
-        opt_vbox.pack_start(gtk.HSeparator())
-        opt_vbox.pack_start(bw_fw_hbox)
-        opt_vbox.pack_start(gtk.HSeparator())
-        opt_vbox.pack_start(three_hbox)
-        opt_vbox.pack_start(gtk.HSeparator())
+        four_1_hbox.pack_start(match_case_checkbutton, True, True, 0)
+        four_1_hbox.pack_start(reg_exp_checkbutton, True, True, 0)
+        four_2_hbox.pack_start(whole_word_checkbutton, True, True, 0)
+        four_2_hbox.pack_start(start_word_checkbutton, True, True, 0)
+        bw_fw_hbox.pack_start(fw_radiobutton, True, True, 0)
+        bw_fw_hbox.pack_start(bw_radiobutton, True, True, 0)
+        three_hbox.pack_start(all_radiobutton, True, True, 0)
+        three_vbox.pack_start(first_from_radiobutton, True, True, 0)
+        three_vbox.pack_start(first_all_radiobutton, True, True, 0)
+        three_hbox.pack_start(three_vbox, True, True, 0)
+        opt_vbox.pack_start(four_1_hbox, True, True, 0)
+        opt_vbox.pack_start(four_2_hbox, True, True, 0)
+        opt_vbox.pack_start(Gtk.HSeparator(), True, True, 0)
+        opt_vbox.pack_start(bw_fw_hbox, True, True, 0)
+        opt_vbox.pack_start(Gtk.HSeparator(), True, True, 0)
+        opt_vbox.pack_start(three_hbox, True, True, 0)
+        opt_vbox.pack_start(Gtk.HSeparator(), True, True, 0)
         if multiple_nodes:
-            opt_vbox.pack_start(ts_frame)
-            opt_vbox.pack_start(gtk.HSeparator())
-        opt_vbox.pack_start(iter_dialog_checkbutton)
-        opt_frame = gtk.Frame(label="<b>"+_("Search options")+"</b>")
+            opt_vbox.pack_start(ts_frame, True, True, 0)
+            opt_vbox.pack_start(Gtk.HSeparator(), True, True, 0)
+        opt_vbox.pack_start(iter_dialog_checkbutton, True, True, 0)
+        opt_frame = Gtk.Frame(label="<b>"+_("Search options")+"</b>")
         opt_frame.get_label_widget().set_use_markup(True)
-        opt_frame.set_shadow_type(gtk.SHADOW_NONE)
+        opt_frame.set_shadow_type(Gtk.ShadowType.NONE)
         opt_frame.add(opt_vbox)
         content_area = dialog.get_content_area()
         content_area.set_spacing(5)
-        content_area.pack_start(search_frame)
-        if replace_on: content_area.pack_start(replace_frame)
-        content_area.pack_start(opt_frame)
+        content_area.pack_start(search_frame, True, True, 0)
+        if replace_on: content_area.pack_start(replace_frame, True, True, 0)
+        content_area.pack_start(opt_frame, True, True, 0)
         content_area.show_all()
         search_entry.grab_focus()
         def on_key_press_searchdialog(widget, event):
-            keyname = gtk.gdk.keyval_name(event.keyval)
+            keyname = Gdk.keyval_name(event.keyval)
             if keyname == cons.STR_KEY_RETURN:
                 if button_ok is not None and button_ok.get_sensitive():
                     button_ok.clicked()
@@ -295,7 +295,7 @@ class FindReplace:
             search_entry.connect("changed", on_search_entry_changed)
         response = dialog.run()
         dialog.hide()
-        if response == gtk.RESPONSE_ACCEPT:
+        if response == Gtk.ResponseType.ACCEPT:
             find_content = unicode(search_entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE)
             self.search_replace_dict['find'] = find_content
             if replace_on:
@@ -317,19 +317,19 @@ class FindReplace:
     def iterated_find_dialog(self):
         """Iterated Find/Replace Dialog"""
         if not self.iteratedfinddialog:
-            dialog = gtk.Dialog(title=_("Iterate Latest Find/Replace"),
-                parent=self.dad.window, flags=gtk.DIALOG_DESTROY_WITH_PARENT)
+            dialog = Gtk.Dialog(title=_("Iterate Latest Find/Replace"),
+                parent=self.dad.window, flags=Gtk.DialogFlags.DESTROY_WITH_PARENT)
             button_close = dialog.add_button(_("Close"), 0)
             button_find_bw = dialog.add_button(_("Find"), 4)
             button_find_fw = dialog.add_button(_("Find"), 1)
             button_replace = dialog.add_button(_("Replace"), 2)
             button_undo = dialog.add_button(_("Undo"), 3)
-            dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-            button_close.set_image(gtk.image_new_from_stock(gtk.STOCK_CLOSE, gtk.ICON_SIZE_BUTTON))
-            button_find_bw.set_image(gtk.image_new_from_stock("find_back", gtk.ICON_SIZE_BUTTON))
-            button_find_fw.set_image(gtk.image_new_from_stock("find_again", gtk.ICON_SIZE_BUTTON))
-            button_replace.set_image(gtk.image_new_from_stock("find_replace", gtk.ICON_SIZE_BUTTON))
-            button_undo.set_image(gtk.image_new_from_stock(gtk.STOCK_UNDO, gtk.ICON_SIZE_BUTTON))
+            dialog.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
+            button_close.set_image(Gtk.Image.new_from_stock(Gtk.STOCK_CLOSE, Gtk.IconSize.BUTTON))
+            button_find_bw.set_image(Gtk.Image.new_from_stock("find_back", Gtk.IconSize.BUTTON))
+            button_find_fw.set_image(Gtk.Image.new_from_stock("find_again", Gtk.IconSize.BUTTON))
+            button_replace.set_image(Gtk.Image.new_from_stock("find_replace", Gtk.IconSize.BUTTON))
+            button_undo.set_image(Gtk.Image.new_from_stock(Gtk.STOCK_UNDO, Gtk.IconSize.BUTTON))
             def on_button_find_bw_clicked(widget):
                 dialog.hide()
                 self.replace_active = False
@@ -352,7 +352,7 @@ class FindReplace:
             button_replace.connect('clicked', on_button_replace_clicked)
             button_undo.connect('clicked', on_button_undo_clicked)
             def on_key_press_iterated_find_dialog(widget, event):
-                if gtk.gdk.keyval_name(event.keyval) == cons.STR_KEY_RETURN:
+                if Gdk.keyval_name(event.keyval) == cons.STR_KEY_RETURN:
                     try: dialog.get_widget_for_response(1).clicked()
                     except: print cons.STR_PYGTK_222_REQUIRED
                     return True
@@ -468,7 +468,7 @@ class FindReplace:
             self.dad.progressbar.set_text("0")
             self.dad.progresstop.show()
             self.dad.progressbar.show()
-            while gtk.events_pending(): gtk.main_iteration()
+            while Gtk.events_pending(): Gtk.main_iteration()
         search_start_time = time.time()
         while node_iter:
             self.all_matches_first_in_node = True
@@ -903,33 +903,33 @@ class FindReplace:
 
     def allmatchesdialog_show(self):
         """Create the All Matches Dialog"""
-        allmatchesdialog = gtk.Dialog(title=self.allmatches_title, parent=self.dad.window, flags=gtk.DIALOG_DESTROY_WITH_PARENT)
+        allmatchesdialog = Gtk.Dialog(title=self.allmatches_title, parent=self.dad.window, flags=Gtk.DialogFlags.DESTROY_WITH_PARENT)
         if self.allmatches_position:
             allmatchesdialog.set_default_size(self.allmatches_size[0], self.allmatches_size[1])
             allmatchesdialog.move(self.allmatches_position[0], self.allmatches_position[1])
         else:
             allmatchesdialog.set_default_size(700, 350)
-            allmatchesdialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+            allmatchesdialog.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
         kb_sh = menus.get_menu_item_kb_shortcut(self.dad, "toggle_show_allmatches_dlg")
-        button_hide = allmatchesdialog.add_button(_("Hide (Restore with '%s')") % kb_sh, gtk.RESPONSE_CLOSE)
-        button_hide.set_image(gtk.image_new_from_stock(gtk.STOCK_CLOSE, gtk.ICON_SIZE_BUTTON))
-        treeview = gtk.TreeView(self.allmatches_liststore)
-        renderer_text_node = gtk.CellRendererText()
-        renderer_text_linenum = gtk.CellRendererText()
-        renderer_text_linecontent = gtk.CellRendererText()
-        node_column = gtk.TreeViewColumn(_("Node Name"), renderer_text_node, text=3)
+        button_hide = allmatchesdialog.add_button(_("Hide (Restore with '%s')") % kb_sh, Gtk.ResponseType.CLOSE)
+        button_hide.set_image(Gtk.Image.new_from_stock(Gtk.STOCK_CLOSE, Gtk.IconSize.BUTTON))
+        treeview = Gtk.TreeView(self.allmatches_liststore)
+        renderer_text_node = Gtk.CellRendererText()
+        renderer_text_linenum = Gtk.CellRendererText()
+        renderer_text_linecontent = Gtk.CellRendererText()
+        node_column = Gtk.TreeViewColumn(_("Node Name"), renderer_text_node, text=3)
         treeview.append_column(node_column)
-        linenum_column = gtk.TreeViewColumn(_("Line"), renderer_text_linenum, text=5)
+        linenum_column = Gtk.TreeViewColumn(_("Line"), renderer_text_linenum, text=5)
         treeview.append_column(linenum_column)
-        linecontent_column = gtk.TreeViewColumn(_("Line Content"), renderer_text_linecontent, text=4)
+        linecontent_column = Gtk.TreeViewColumn(_("Line Content"), renderer_text_linecontent, text=4)
         treeview.append_column(linecontent_column)
         treeview.set_tooltip_column(6)
         treeview.connect('event-after', self.on_treeview_event_after)
-        scrolledwindow_allmatches = gtk.ScrolledWindow()
-        scrolledwindow_allmatches.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+        scrolledwindow_allmatches = Gtk.ScrolledWindow()
+        scrolledwindow_allmatches.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
         scrolledwindow_allmatches.add(treeview)
         content_area = allmatchesdialog.get_content_area()
-        content_area.pack_start(scrolledwindow_allmatches)
+        content_area.pack_start(scrolledwindow_allmatches, True, True, 0)
         def on_allmatchesdialog_delete_event(widget, event):
             self.allmatches_position = allmatchesdialog.get_position()
             self.allmatches_size = (allmatchesdialog.get_allocation().width,
@@ -952,7 +952,7 @@ class FindReplace:
 
     def on_treeview_event_after(self, treeview, event):
         """Catches mouse buttons clicks"""
-        if event.type not in [gtk.gdk.BUTTON_PRESS, gtk.gdk.KEY_PRESS]: return
+        if event.type not in [Gdk.EventType.BUTTON_PRESS, Gdk.KEY_PRESS]: return
         model, list_iter = treeview.get_selection().get_selected()
         if not list_iter: return
         tree_iter = self.dad.get_tree_iter_from_node_id(model[list_iter][0])

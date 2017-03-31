@@ -27,7 +27,7 @@ automatic switching and binding detection. For automatic translation of the user
 interface it can use Gedit’s translation files.
 """
 
-import gtk
+from gi.repository import Gtk
 try:
     import enchant
     HAS_PYENCHANT = True
@@ -151,7 +151,7 @@ class SpellChecker(object):
         self._view.connect('popup-menu', self._click_move_popup)
         self._view.connect('button-press-event', self._click_move_button)
         self._prefix = prefix
-        self._misspelled = gtk.TextTag('{}-misspelled'.format(self._prefix))
+        self._misspelled = Gtk.TextTag('{}-misspelled'.format(self._prefix))
         self._misspelled.set_property('underline', 4)
         self._broker = enchant.Broker()
         for param, value in params.items(): self._broker.set_param(param, value)
@@ -212,7 +212,7 @@ class SpellChecker(object):
         have associated a new GtkTextBuffer with the GtkTextView call this
         method.
         """
-        #self._misspelled = gtk.TextTag('{}-misspelled'.format(self._prefix))
+        #self._misspelled = Gtk.TextTag('{}-misspelled'.format(self._prefix))
         #self._misspelled.set_property('underline', 4)
         self._buffer = self._view.get_buffer()
         self._buffer.connect('insert-text', self._before_text_insert)
@@ -240,7 +240,7 @@ class SpellChecker(object):
         self._table.foreach(tag_added, None)
         self.no_spell_check = self._table.lookup('no-spell-check')
         if not self.no_spell_check:
-            self.no_spell_check = gtk.TextTag('no-spell-check')
+            self.no_spell_check = Gtk.TextTag('no-spell-check')
             self._table.add(self.no_spell_check)
         self.recheck()
 
@@ -404,11 +404,11 @@ class SpellChecker(object):
         def _set_language(item, code):
             self.language = code
             self._cherrytree_instance.spell_check_notify_new_lang(code)
-        menu = gtk.Menu()
-        group = gtk.RadioMenuItem()
+        menu = Gtk.Menu()
+        group = Gtk.RadioMenuItem()
         connect = []
         for code, name in self.languages:
-            item = gtk.RadioMenuItem(group, name)
+            item = Gtk.RadioMenuItem(group, name)
             if code == self.language:
                 item.set_active(True)
             connect.append((item, code))
@@ -421,10 +421,10 @@ class SpellChecker(object):
         menu = []
         suggestions = self._dictionary.suggest(word)
         if not suggestions:
-            item = gtk.MenuItem()
-            label = gtk.Label()
+            item = Gtk.MenuItem()
+            label = Gtk.Label()
             try:
-                label.set_halign(gtk.Align.LEFT)
+                label.set_halign(Gtk.Align.LEFT)
             except AttributeError:
                 label.set_alignment(0.0, 0.5)
             label.set_markup('<i>{text}</i>'.format(text=_('(no suggestions)')))
@@ -432,21 +432,21 @@ class SpellChecker(object):
             menu.append(item)
         else:
             for suggestion in suggestions:
-                item = gtk.MenuItem()
-                label = gtk.Label()
+                item = Gtk.MenuItem()
+                label = Gtk.Label()
                 label.set_markup('<b>{text}</b>'.format(text=suggestion))
                 try:
-                    label.set_halign(gtk.Align.LEFT)
+                    label.set_halign(Gtk.Align.LEFT)
                 except AttributeError:
                     label.set_alignment(0.0, 0.5)
                 item.add(label)
                 item.connect('activate', self._replace_word, word, suggestion)
                 menu.append(item)
-        menu.append(gtk.SeparatorMenuItem())
-        item = gtk.MenuItem(_('Add "{}" to Dictionary').format(word))
+        menu.append(Gtk.SeparatorMenuItem())
+        item = Gtk.MenuItem(_('Add "{}" to Dictionary').format(word))
         item.connect('activate', lambda *args: self.add_to_dictionary(word))
         menu.append(item)
-        item = gtk.MenuItem(_('Ignore All'))
+        item = Gtk.MenuItem(_('Ignore All'))
         item.connect('activate', lambda *args: self.ignore_all(word))
         menu.append(item)
         return menu
@@ -454,10 +454,10 @@ class SpellChecker(object):
     def _extend_menu(self, menu):
         if not self._enabled or not self._cherrytree_instance.user_active:
             return
-        separator = gtk.SeparatorMenuItem()
+        separator = Gtk.SeparatorMenuItem()
         separator.show()
         menu.prepend(separator)
-        languages = gtk.MenuItem(_('Languages'))
+        languages = Gtk.MenuItem(_('Languages'))
         languages.set_submenu(self._languages_menu())
         languages.show_all()
         menu.prepend(languages)
@@ -468,8 +468,8 @@ class SpellChecker(object):
                                                  False).decode('utf-8')
                 items = self._suggestion_menu(word)
                 if self.collapse:
-                    suggestions = gtk.MenuItem(_('Suggestions'))
-                    submenu = gtk.Menu()
+                    suggestions = Gtk.MenuItem(_('Suggestions'))
+                    submenu = Gtk.Menu()
                     for item in items:
                         submenu.append(item)
                     suggestions.set_submenu(submenu)

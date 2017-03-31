@@ -19,12 +19,12 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
+from gi.repository import Pango
 import os
 import cgi
 import base64
 import shutil
 import copy
-import pango
 import cons
 import support
 
@@ -598,7 +598,7 @@ class Export2Html:
         # create tree links text
         self.tree_links_nums = ["1"]
         shutil.copy(os.path.join(cons.GLADE_PATH, "home.png"), self.images_dir)
-        pango_font = pango.FontDescription(self.dad.tree_font)
+        pango_font = Pango.FontDescription(self.dad.tree_font)
         self.tree_links_text = '<div class="tree">\n'
         self.tree_links_text += '<p><strong>Index</strong></p>\n'
         if not top_tree_iter: tree_iter = self.dad.treestore.get_iter_first()
@@ -778,7 +778,7 @@ class Export2Html:
     def get_codebox_html(self, codebox):
         """Returns the HTML CodeBox"""
         # codebox is: [offset, dict, justification]
-        pango_font = pango.FontDescription(self.dad.code_font)
+        pango_font = Pango.FontDescription(self.dad.code_font)
         codebox_align_text = self.get_object_alignment_string(codebox[2])
         codebox_html = '<div class="codebox">'
         codebox_html += codebox[1]['fill_text']

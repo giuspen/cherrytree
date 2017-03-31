@@ -19,10 +19,10 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
+from gi.repository import Gtk
+from gi.repository import Gio
 import HTMLParser
 import htmlentitydefs
-import gtk
-import gio
 import os
 import xml.dom.minidom
 import re
@@ -265,12 +265,12 @@ class TuxCardsHandler(HTMLParser.HTMLParser):
                 img_path = dic_attrs.get('src', "")
                 pixbuf = None
                 if os.path.isfile(img_path):
-                    pixbuf = gtk.gdk.pixbuf_new_from_file(img_path)
+                    pixbuf = GdkPixbuf.Pixbuf.new_from_file(img_path)
                 else:
                     try:
                         url_desc = urllib2.urlopen(img_path, timeout=3)
                         image_file = url_desc.read()
-                        pixbuf_loader = gtk.gdk.PixbufLoader()
+                        pixbuf_loader = GdkPixbuf.PixbufLoader()
                         pixbuf_loader.write(image_file)
                         pixbuf_loader.close()
                         pixbuf = pixbuf_loader.get_pixbuf()
@@ -417,7 +417,7 @@ class KeepnoteHandler(HTMLParser.HTMLParser):
                 img_name = attrs[0][1]
                 img_path = os.path.join(self.curr_folder, img_name)
                 if os.path.isfile(img_path):
-                    pixbuf = gtk.gdk.pixbuf_new_from_file(img_path)
+                    pixbuf = GdkPixbuf.Pixbuf.new_from_file(img_path)
                     self.pixbuf_vector.append([self.chars_counter, pixbuf, cons.TAG_PROP_LEFT])
                     self.chars_counter += 1
                 else: print "%s not found" % img_path
@@ -558,7 +558,7 @@ class RedNotebookHandler():
                     if self.wiki_slot.startswith("./"): self.wiki_slot = os.path.join(self.folderpath, self.wiki_slot[2:])
                     if os.path.isfile(self.wiki_slot):
                         try:
-                            pixbuf = gtk.gdk.pixbuf_new_from_file(self.wiki_slot)
+                            pixbuf = GdkPixbuf.Pixbuf.new_from_file(self.wiki_slot)
                             self.pixbuf_vector.append([self.chars_counter, pixbuf, cons.TAG_PROP_LEFT])
                             self.chars_counter += 1
                             valid_image = True
@@ -862,7 +862,7 @@ class ZimHandler():
                         if self.wiki_slot.startswith("./"): self.wiki_slot = os.path.join(curr_folder, node_name, self.wiki_slot[2:])
                         if os.path.isfile(self.wiki_slot):
                             try:
-                                pixbuf = gtk.gdk.pixbuf_new_from_file(self.wiki_slot)
+                                pixbuf = GdkPixbuf.Pixbuf.new_from_file(self.wiki_slot)
                                 self.pixbuf_vector.append([self.chars_counter, pixbuf, cons.TAG_PROP_LEFT])
                                 self.chars_counter += 1
                                 valid_image = True
@@ -1409,7 +1409,7 @@ class BasketHandler(HTMLParser.HTMLParser):
                 if content_dom_iter.nodeName == "content":
                     content_path = os.path.join(self.subfolder_path, content_dom_iter.firstChild.data)
                     if os.path.isfile(content_path):
-                        pixbuf = gtk.gdk.pixbuf_new_from_file(content_path)
+                        pixbuf = GdkPixbuf.Pixbuf.new_from_file(content_path)
                         self.pixbuf_vector.append([self.chars_counter, pixbuf, cons.TAG_PROP_LEFT])
                         self.chars_counter += 1
                         self.rich_text_serialize(cons.CHAR_NEWLINE)
@@ -1422,7 +1422,7 @@ class BasketHandler(HTMLParser.HTMLParser):
                 if content_dom_iter.nodeName == "content":
                     content_path = os.path.join(self.subfolder_path, content_dom_iter.firstChild.data)
                     if os.path.isfile(content_path):
-                        pixbuf = gtk.gdk.pixbuf_new_from_file(cons.FILE_CHAR)
+                        pixbuf = GdkPixbuf.Pixbuf.new_from_file(cons.FILE_CHAR)
                         with open(content_path, 'rb') as fd:
                             pixbuf.filename = os.path.basename(content_path)
                             pixbuf.embfile = fd.read()
@@ -1788,7 +1788,7 @@ class KeynoteHandler:
                 if self.in_picture: print "in_picture OFF"
                 else: print "in_object OFF"
                 with open(self.img_tmp_path, 'rb') as fd:
-                    pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(cons.FILE_CHAR, self.dad.embfile_size, self.dad.embfile_size)
+                    pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(cons.FILE_CHAR, self.dad.embfile_size, self.dad.embfile_size)
                     pixbuf.filename = "image.wmf" if self.in_picture else "file"
                     pixbuf.embfile = fd.read()
                     pixbuf.time = time.time()
@@ -2073,7 +2073,7 @@ class PlainTextHandler:
         for element in sorted(os.listdir(folderpath)):
             full_element = os.path.join(folderpath, element)
             if os.path.isfile(full_element):
-                gio_file = gio.File(full_element)
+                gio_file = Gio.File(full_element)
                 gio_file_info = gio_file.query_info("*")
                 if not cons.IS_WIN_OS:
                     mime_types = str(gio_file_info.get_icon())
@@ -2263,7 +2263,7 @@ class NotecaseHandler(HTMLParser.HTMLParser):
                     if attribute[0] == "src":
                         if attribute[1][:23] == "data:image/jpeg;base64,":
                             jpeg_data = attribute[1][23:]
-                            pixbuf_loader = gtk.gdk.pixbuf_loader_new_with_mime_type("image/jpeg")
+                            pixbuf_loader = GdkPixbuf.Pixbuf.loader_new_with_mime_type("image/jpeg")
                             try: pixbuf_loader.write(base64.b64decode(jpeg_data))
                             except:
                                 try: pixbuf_loader.write(base64.b64decode(jpeg_data + "="))
@@ -2274,7 +2274,7 @@ class NotecaseHandler(HTMLParser.HTMLParser):
                             self.chars_counter += 1
                         elif attribute[1][:22] == "data:image/png;base64,":
                             png_data = attribute[1][22:]
-                            pixbuf_loader = gtk.gdk.pixbuf_loader_new_with_mime_type("image/png")
+                            pixbuf_loader = GdkPixbuf.Pixbuf.loader_new_with_mime_type("image/png")
                             try: pixbuf_loader.write(base64.b64decode(png_data))
                             except:
                                 try: pixbuf_loader.write(base64.b64decode(png_data + "="))
@@ -2563,10 +2563,10 @@ class HTMLHandler(HTMLParser.HTMLParser):
         """Insert Image in Buffer"""
         try:
             self.dad.statusbar.push(self.dad.statusbar_context_id, _("Downloading") + " %s ..." % img_path)
-            while gtk.events_pending(): gtk.main_iteration()
+            while Gtk.events_pending(): Gtk.main_iteration()
             url_desc = urllib2.urlopen(img_path, timeout=3)
             image_file = url_desc.read()
-            pixbuf_loader = gtk.gdk.PixbufLoader()
+            pixbuf_loader = GdkPixbuf.PixbufLoader()
             pixbuf_loader.write(image_file)
             pixbuf_loader.close()
             pixbuf = pixbuf_loader.get_pixbuf()
@@ -2576,7 +2576,7 @@ class HTMLHandler(HTMLParser.HTMLParser):
             if trailing_chars: self.rich_text_serialize(trailing_chars)
         except:
             if os.path.isfile(os.path.join(self.local_dir, img_path)):
-                pixbuf = gtk.gdk.pixbuf_new_from_file(os.path.join(self.local_dir, img_path))
+                pixbuf = GdkPixbuf.Pixbuf.new_from_file(os.path.join(self.local_dir, img_path))
                 self.dad.xml_handler.pixbuf_element_to_xml([self.chars_counter, pixbuf, cons.TAG_PROP_LEFT], self.nodes_list[-1], self.dom)
                 self.chars_counter += 1
             else: print "failed download of", img_path
@@ -2771,7 +2771,7 @@ class HTMLHandler(HTMLParser.HTMLParser):
                 continue
             full_element = os.path.join(folderpath, element)
             if os.path.isfile(full_element):
-                gio_file = gio.File(full_element)
+                gio_file = Gio.File(full_element)
                 gio_file_info = gio_file.query_info("*")
                 if not cons.IS_WIN_OS:
                     mime_types = str(gio_file_info.get_icon()).lower()

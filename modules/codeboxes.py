@@ -19,11 +19,16 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
-import gtk, gtksourceview2, pango
+from gi.repository import Gtk
+from gi.repository import Pango
+from gi.repository import GtkSource
 import os
-import cons, menus, support, config
+import cons
+import menus
+import support
+import config
 
-DRAW_SPACES_FLAGS = gtksourceview2.DRAW_SPACES_ALL & ~gtksourceview2.DRAW_SPACES_NEWLINE
+DRAW_SPACES_FLAGS = GtkSource.DrawSpacesFlags.ALL & ~GtkSource.DrawSpacesFlags.NEWLINE
 CB_WIDTH_HEIGHT_STEP_PIX = 15
 CB_WIDTH_HEIGHT_STEP_PERC = 9
 CB_WIDTH_LIMIT_MIN = 40
@@ -79,96 +84,96 @@ class CodeBoxesHandler:
 
     def dialog_codeboxhandle(self, title):
         """Opens the CodeBox Handle Dialog"""
-        dialog = gtk.Dialog(title=title,
+        dialog = Gtk.Dialog(title=title,
                             parent=self.dad.window,
-                            flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
-                            buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
-                            gtk.STOCK_OK, gtk.RESPONSE_ACCEPT))
+                            flags=Gtk.DialogFlags.MODAL|Gtk.DialogFlags.DESTROY_WITH_PARENT,
+                            buttons=(Gtk.STOCK_CANCEL, Gtk.ResponseType.REJECT,
+                            Gtk.STOCK_OK, Gtk.ResponseType.ACCEPT))
         dialog.set_default_size(300, -1)
-        dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+        dialog.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
 
-        button_prog_lang = gtk.Button()
+        button_prog_lang = Gtk.Button()
         button_label = self.dad.codebox_syn_highl if self.dad.codebox_syn_highl != cons.PLAIN_TEXT_ID else self.dad.auto_syn_highl
         button_stock_id = config.get_stock_id_for_code_type(button_label)
         button_prog_lang.set_label(button_label)
-        button_prog_lang.set_image(gtk.image_new_from_stock(button_stock_id, gtk.ICON_SIZE_MENU))
-        radiobutton_plain_text = gtk.RadioButton(label=_("Plain Text"))
-        radiobutton_auto_syntax_highl = gtk.RadioButton(label=_("Automatic Syntax Highlighting"))
+        button_prog_lang.set_image(Gtk.Image.new_from_stock(button_stock_id, Gtk.IconSize.MENU))
+        radiobutton_plain_text = Gtk.RadioButton(label=_("Plain Text"))
+        radiobutton_auto_syntax_highl = Gtk.RadioButton(label=_("Automatic Syntax Highlighting"))
         radiobutton_auto_syntax_highl.set_group(radiobutton_plain_text)
         if self.dad.codebox_syn_highl == cons.PLAIN_TEXT_ID:
             radiobutton_plain_text.set_active(True)
             button_prog_lang.set_sensitive(False)
         else:
             radiobutton_auto_syntax_highl.set_active(True)
-        type_vbox = gtk.VBox()
-        type_vbox.pack_start(radiobutton_plain_text)
-        type_vbox.pack_start(radiobutton_auto_syntax_highl)
-        type_vbox.pack_start(button_prog_lang)
-        type_frame = gtk.Frame(label="<b>"+_("Type")+"</b>")
+        type_vbox = Gtk.VBox()
+        type_vbox.pack_start(radiobutton_plain_text, True, True, 0)
+        type_vbox.pack_start(radiobutton_auto_syntax_highl, True, True, 0)
+        type_vbox.pack_start(button_prog_lang, True, True, 0)
+        type_frame = Gtk.Frame(label="<b>"+_("Type")+"</b>")
         type_frame.get_label_widget().set_use_markup(True)
-        type_frame.set_shadow_type(gtk.SHADOW_NONE)
+        type_frame.set_shadow_type(Gtk.ShadowType.NONE)
         type_frame.add(type_vbox)
 
-        label_width = gtk.Label(_("Width"))
-        adj_width = gtk.Adjustment(value=self.dad.codebox_width, lower=1, upper=10000, step_incr=1)
-        spinbutton_width = gtk.SpinButton(adj_width)
+        label_width = Gtk.Label(label=_("Width"))
+        adj_width = Gtk.Adjustment(value=self.dad.codebox_width, lower=1, upper=10000, step_incr=1)
+        spinbutton_width = Gtk.SpinButton(adj_width)
         spinbutton_width.set_value(self.dad.codebox_width)
-        label_height = gtk.Label(_("Height"))
-        adj_height = gtk.Adjustment(value=self.dad.codebox_height, lower=1, upper=10000, step_incr=1)
-        spinbutton_height = gtk.SpinButton(adj_height)
+        label_height = Gtk.Label(label=_("Height"))
+        adj_height = Gtk.Adjustment(value=self.dad.codebox_height, lower=1, upper=10000, step_incr=1)
+        spinbutton_height = Gtk.SpinButton(adj_height)
         spinbutton_height.set_value(self.dad.codebox_height)
 
-        radiobutton_codebox_pixels = gtk.RadioButton(label=_("pixels"))
-        radiobutton_codebox_percent = gtk.RadioButton(label="%")
+        radiobutton_codebox_pixels = Gtk.RadioButton(label=_("pixels"))
+        radiobutton_codebox_percent = Gtk.RadioButton(label="%")
         radiobutton_codebox_percent.set_group(radiobutton_codebox_pixels)
         radiobutton_codebox_pixels.set_active(self.dad.codebox_width_pixels)
         radiobutton_codebox_percent.set_active(not self.dad.codebox_width_pixels)
 
-        vbox_pix_perc = gtk.VBox()
-        vbox_pix_perc.pack_start(radiobutton_codebox_pixels)
-        vbox_pix_perc.pack_start(radiobutton_codebox_percent)
-        hbox_width = gtk.HBox()
-        hbox_width.pack_start(label_width, expand=False)
-        hbox_width.pack_start(spinbutton_width, expand=False)
-        hbox_width.pack_start(vbox_pix_perc)
+        vbox_pix_perc = Gtk.VBox()
+        vbox_pix_perc.pack_start(radiobutton_codebox_pixels, True, True, 0)
+        vbox_pix_perc.pack_start(radiobutton_codebox_percent, True, True, 0)
+        hbox_width = Gtk.HBox()
+        hbox_width.pack_start(label_width, False, True, 0)
+        hbox_width.pack_start(spinbutton_width, False, True, 0)
+        hbox_width.pack_start(vbox_pix_perc, True, True, 0)
         hbox_width.set_spacing(5)
-        hbox_height = gtk.HBox()
-        hbox_height.pack_start(label_height, expand=False)
-        hbox_height.pack_start(spinbutton_height, expand=False)
+        hbox_height = Gtk.HBox()
+        hbox_height.pack_start(label_height, False, True, 0)
+        hbox_height.pack_start(spinbutton_height, False, True, 0)
         hbox_height.set_spacing(5)
-        vbox_size = gtk.VBox()
-        vbox_size.pack_start(hbox_width)
-        vbox_size.pack_start(hbox_height)
-        size_align = gtk.Alignment()
+        vbox_size = Gtk.VBox()
+        vbox_size.pack_start(hbox_width, True, True, 0)
+        vbox_size.pack_start(hbox_height, True, True, 0)
+        size_align = Gtk.Alignment.new()
         size_align.set_padding(0, 6, 6, 6)
         size_align.add(vbox_size)
 
-        size_frame = gtk.Frame(label="<b>"+_("Size")+"</b>")
+        size_frame = Gtk.Frame(label="<b>"+_("Size")+"</b>")
         size_frame.get_label_widget().set_use_markup(True)
-        size_frame.set_shadow_type(gtk.SHADOW_NONE)
+        size_frame.set_shadow_type(Gtk.ShadowType.NONE)
         size_frame.add(size_align)
 
-        checkbutton_codebox_linenumbers = gtk.CheckButton(label=_("Show Line Numbers"))
+        checkbutton_codebox_linenumbers = Gtk.CheckButton(label=_("Show Line Numbers"))
         checkbutton_codebox_linenumbers.set_active(self.dad.codebox_line_num)
-        checkbutton_codebox_matchbrackets = gtk.CheckButton(label=_("Highlight Matching Brackets"))
+        checkbutton_codebox_matchbrackets = Gtk.CheckButton(label=_("Highlight Matching Brackets"))
         checkbutton_codebox_matchbrackets.set_active(self.dad.codebox_match_bra)
-        vbox_options = gtk.VBox()
-        vbox_options.pack_start(checkbutton_codebox_linenumbers)
-        vbox_options.pack_start(checkbutton_codebox_matchbrackets)
-        opt_align = gtk.Alignment()
+        vbox_options = Gtk.VBox()
+        vbox_options.pack_start(checkbutton_codebox_linenumbers, True, True, 0)
+        vbox_options.pack_start(checkbutton_codebox_matchbrackets, True, True, 0)
+        opt_align = Gtk.Alignment.new()
         opt_align.set_padding(6, 6, 6, 6)
         opt_align.add(vbox_options)
 
-        options_frame = gtk.Frame(label="<b>"+_("Options")+"</b>")
+        options_frame = Gtk.Frame(label="<b>"+_("Options")+"</b>")
         options_frame.get_label_widget().set_use_markup(True)
-        options_frame.set_shadow_type(gtk.SHADOW_NONE)
+        options_frame.set_shadow_type(Gtk.ShadowType.NONE)
         options_frame.add(opt_align)
 
         content_area = dialog.get_content_area()
         content_area.set_spacing(5)
-        content_area.pack_start(type_frame)
-        content_area.pack_start(size_frame)
-        content_area.pack_start(options_frame)
+        content_area.pack_start(type_frame, True, True, 0)
+        content_area.pack_start(size_frame, True, True, 0)
+        content_area.pack_start(options_frame, True, True, 0)
         content_area.show_all()
         def on_button_prog_lang_clicked(button):
             icon_n_key_list = []
@@ -178,16 +183,16 @@ class CodeBoxesHandler:
             sel_key = support.dialog_choose_element_in_list(self.dad.window, _("Automatic Syntax Highlighting"), [], "", icon_n_key_list)
             if sel_key:
                 button.set_label(sel_key)
-                button.set_image(gtk.image_new_from_stock(sel_key, gtk.ICON_SIZE_MENU))
+                button.set_image(Gtk.Image.new_from_stock(sel_key, Gtk.IconSize.MENU))
         button_prog_lang.connect('clicked', on_button_prog_lang_clicked)
         def on_radiobutton_auto_syntax_highl_toggled(radiobutton):
             button_prog_lang.set_sensitive(radiobutton.get_active())
         def on_key_press_codeboxhandle(widget, event):
-            keyname = gtk.gdk.keyval_name(event.keyval)
+            keyname = Gdk.keyval_name(event.keyval)
             if keyname == cons.STR_KEY_RETURN:
                 spinbutton_width.update()
                 spinbutton_height.update()
-                try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
+                try: dialog.get_widget_for_response(Gtk.ResponseType.ACCEPT).clicked()
                 except: print cons.STR_PYGTK_222_REQUIRED
                 return True
             return False
@@ -202,7 +207,7 @@ class CodeBoxesHandler:
         radiobutton_codebox_pixels.connect('toggled', on_radiobutton_codebox_pixels_toggled)
         response = dialog.run()
         dialog.hide()
-        if response == gtk.RESPONSE_ACCEPT:
+        if response == Gtk.ResponseType.ACCEPT:
             self.dad.codebox_width = spinbutton_width.get_value()
             self.dad.codebox_width_pixels = radiobutton_codebox_pixels.get_active()
             self.dad.codebox_height = spinbutton_height.get_value()
@@ -246,7 +251,7 @@ class CodeBoxesHandler:
         anchor.syntax_highlighting = codebox_dict['syntax_highlighting']
         anchor.highlight_brackets = codebox_dict['highlight_brackets']
         anchor.show_line_numbers = codebox_dict['show_line_numbers']
-        anchor.sourcebuffer = gtksourceview2.Buffer()
+        anchor.sourcebuffer = GtkSource.Buffer()
         anchor.sourcebuffer.set_style_scheme(self.dad.sourcestyleschememanager.get_scheme(self.dad.style_scheme))
         if anchor.syntax_highlighting != cons.PLAIN_TEXT_ID:
             self.dad.set_sourcebuffer_syntax_highlight(anchor.sourcebuffer, anchor.syntax_highlighting)
@@ -258,14 +263,14 @@ class CodeBoxesHandler:
             anchor.sourcebuffer.set_text(codebox_dict['fill_text'])
             anchor.sourcebuffer.place_cursor(anchor.sourcebuffer.get_iter_at_offset(cursor_pos))
             anchor.sourcebuffer.set_modified(False)
-        anchor.sourceview = gtksourceview2.View(anchor.sourcebuffer)
-        anchor.sourceview.set_smart_home_end(gtksourceview2.SMART_HOME_END_AFTER)
+        anchor.sourceview = GtkSource.View(anchor.sourcebuffer)
+        anchor.sourceview.set_smart_home_end(GtkSource.SmartHomeEndType.AFTER)
         anchor.sourceview.set_highlight_current_line(self.dad.pt_highl_curr_line)
         if self.dad.pt_show_white_spaces: anchor.sourceview.set_draw_spaces(DRAW_SPACES_FLAGS)
         if anchor.syntax_highlighting == cons.PLAIN_TEXT_ID:
-            anchor.sourceview.modify_font(pango.FontDescription(self.dad.text_font))
+            anchor.sourceview.modify_font(Pango.FontDescription(self.dad.text_font))
         else:
-            anchor.sourceview.modify_font(pango.FontDescription(self.dad.code_font))
+            anchor.sourceview.modify_font(Pango.FontDescription(self.dad.code_font))
         anchor.sourceview.set_show_line_numbers(anchor.show_line_numbers)
         anchor.sourceview.set_insert_spaces_instead_of_tabs(self.dad.spaces_instead_tabs)
         anchor.sourceview.set_tab_width(self.dad.tabs_width)
@@ -277,23 +282,23 @@ class CodeBoxesHandler:
         anchor.sourceview.connect("motion-notify-event", self.on_sourceview_motion_notify_event_codebox)
         anchor.sourceview.connect("copy-clipboard", self.dad.clipboard_handler.copy, True)
         anchor.sourceview.connect("cut-clipboard", self.dad.clipboard_handler.cut, True)
-        if self.dad.line_wrapping: anchor.sourceview.set_wrap_mode(gtk.WRAP_WORD)
-        else: anchor.sourceview.set_wrap_mode(gtk.WRAP_NONE)
-        anchor.scrolledwindow = gtk.ScrolledWindow()
-        anchor.scrolledwindow.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+        if self.dad.line_wrapping: anchor.sourceview.set_wrap_mode(Gtk.WrapMode.WORD)
+        else: anchor.sourceview.set_wrap_mode(Gtk.WrapMode.NONE)
+        anchor.scrolledwindow = Gtk.ScrolledWindow()
+        anchor.scrolledwindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
         anchor.scrolledwindow.add(anchor.sourceview)
         anchor.scrolledwindow.get_vscrollbar().connect('event-after', self.on_vscrollbar_event_after, anchor)
         anchor.scrolledwindow.get_hscrollbar().connect('event-after', self.on_hscrollbar_event_after, anchor)
-        anchor.frame = gtk.Frame()
+        anchor.frame = Gtk.Frame()
         self.codebox_apply_width_height(anchor)
         anchor.frame.add(anchor.scrolledwindow)
-        anchor.frame.set_shadow_type(gtk.SHADOW_NONE)
-        anchor.eventbox = gtk.EventBox()
+        anchor.frame.set_shadow_type(Gtk.ShadowType.NONE)
+        anchor.eventbox = Gtk.EventBox()
         anchor.eventbox.add(anchor.frame)
         self.dad.sourceview.add_child_at_anchor(anchor.eventbox, anchor)
         anchor.eventbox.show_all()
         self.dad.widget_set_colors(anchor.sourceview, self.dad.rt_def_fg, self.dad.rt_def_bg, True)
-        for win in [gtk.TEXT_WINDOW_LEFT, gtk.TEXT_WINDOW_RIGHT, gtk.TEXT_WINDOW_TOP, gtk.TEXT_WINDOW_BOTTOM]:
+        for win in [Gtk.TextWindowType.LEFT, Gtk.TextWindowType.RIGHT, Gtk.TextWindowType.TOP, Gtk.TextWindowType.BOTTOM]:
             anchor.sourceview.set_border_window_size(win, 1)
         if codebox_justification:
             text_iter = text_buffer.get_iter_at_child_anchor(anchor)
@@ -384,9 +389,9 @@ class CodeBoxesHandler:
         self.curr_codebox_anchor.syntax_highlighting = self.dad.codebox_syn_highl
         self.dad.set_sourcebuffer_syntax_highlight(self.curr_codebox_anchor.sourcebuffer, self.curr_codebox_anchor.syntax_highlighting)
         if self.curr_codebox_anchor.syntax_highlighting == cons.PLAIN_TEXT_ID:
-            self.curr_codebox_anchor.sourceview.modify_font(pango.FontDescription(self.dad.text_font))
+            self.curr_codebox_anchor.sourceview.modify_font(Pango.FontDescription(self.dad.text_font))
         else:
-            self.curr_codebox_anchor.sourceview.modify_font(pango.FontDescription(self.dad.code_font))
+            self.curr_codebox_anchor.sourceview.modify_font(Pango.FontDescription(self.dad.code_font))
         self.curr_codebox_anchor.frame_width = int(self.dad.codebox_width)
         self.curr_codebox_anchor.frame_height = int(self.dad.codebox_height)
         self.curr_codebox_anchor.width_in_pixels = self.dad.codebox_width_pixels
@@ -400,18 +405,18 @@ class CodeBoxesHandler:
     def on_sourceview_event_after_codebox(self, text_view, event, anchor):
         """Called after every event on the SourceView"""
         if not self.dad.user_active: return False
-        if event.type == gtk.gdk._2BUTTON_PRESS and event.button == 1:
+        if event.type == Gdk._2BUTTON_PRESS and event.button == 1:
             support.on_sourceview_event_after_double_click_button1(self.dad, text_view, event)
-        elif event.type == gtk.gdk.BUTTON_PRESS:
+        elif event.type == Gdk.EventType.BUTTON_PRESS:
             return support.on_sourceview_event_after_button_press(self.dad, text_view, event)
-        elif event.type == gtk.gdk.KEY_PRESS:
+        elif event.type == Gdk.KEY_PRESS:
             return support.on_sourceview_event_after_key_press(self.dad, text_view, event, self.curr_codebox_anchor.syntax_highlighting)
         return False
 
     def on_vscrollbar_event_after(self, vscrollbar, event, anchor):
         """Catches CodeBox Vertical Scrollbar Movements"""
         if not self.dad.user_active or self.curr_codebox_anchor != anchor: return False
-        if self.dad.codebox_auto_resize and event.type == gtk.gdk.EXPOSE:
+        if self.dad.codebox_auto_resize and event.type == Gdk.EXPOSE:
             curr_v = vscrollbar.get_value()
             #print curr_v+vscrollbar.get_adjustment().page_size, vscrollbar.get_adjustment().upper
             if curr_v and ((curr_v+vscrollbar.get_adjustment().page_size) >= (vscrollbar.get_adjustment().upper-20)) and (vscrollbar.get_adjustment().page_size > curr_v):
@@ -425,7 +430,7 @@ class CodeBoxesHandler:
     def on_hscrollbar_event_after(self, hscrollbar, event, anchor):
         """Catches CodeBox Horizontal Scrollbar Movements"""
         if not self.dad.user_active or self.curr_codebox_anchor != anchor: return False
-        if self.dad.codebox_auto_resize and event.type == gtk.gdk.EXPOSE:
+        if self.dad.codebox_auto_resize and event.type == Gdk.EXPOSE:
             curr_h = hscrollbar.get_value()
             #print curr_h+hscrollbar.get_adjustment().page_size, hscrollbar.get_adjustment().upper
             if curr_h and ((curr_h+hscrollbar.get_adjustment().page_size) >= (hscrollbar.get_adjustment().upper-20)) and (hscrollbar.get_adjustment().page_size > curr_h):
@@ -446,15 +451,15 @@ class CodeBoxesHandler:
         self.key_down = True
         if not self.dad.user_active:
             return False
-        keyname = gtk.gdk.keyval_name(event.keyval)
-        if event.state & gtk.gdk.CONTROL_MASK:
+        keyname = Gdk.keyval_name(event.keyval)
+        if event.get_state() & Gdk.ModifierType.CONTROL_MASK:
             self.curr_codebox_anchor = anchor
             if keyname == "period":
-                if event.state & gtk.gdk.MOD1_MASK:
+                if event.get_state() & Gdk.ModifierType.MOD1_MASK:
                     self.codebox_decrease_width()
                 else: self.codebox_increase_width()
             elif keyname == "comma":
-                if event.state & gtk.gdk.MOD1_MASK:
+                if event.get_state() & Gdk.ModifierType.MOD1_MASK:
                     self.codebox_decrease_height()
                 else: self.codebox_increase_height()
             elif keyname == "space":
@@ -462,7 +467,7 @@ class CodeBoxesHandler:
                 text_iter.forward_char()
                 self.dad.curr_buffer.place_cursor(text_iter)
                 self.dad.sourceview.grab_focus()
-        elif (event.state & gtk.gdk.SHIFT_MASK):
+        elif (event.get_state() & Gdk.ModifierType.SHIFT_MASK):
             if keyname == cons.STR_KEY_SHIFT_TAB:
                 text_buffer = widget.get_buffer()
                 if not text_buffer.get_has_selection():
@@ -498,6 +503,6 @@ class CodeBoxesHandler:
         """Update the cursor image if the pointer moved"""
         if not self.dad.user_active: return False
         text_view.set_editable(not self.dad.get_node_read_only())
-        x, y = text_view.window_to_buffer_coords(gtk.TEXT_WINDOW_TEXT, int(event.x), int(event.y))
+        x, y = text_view.window_to_buffer_coords(Gtk.TextWindowType.TEXT, int(event.x), int(event.y))
         support.sourceview_cursor_and_tooltips_handler(self.dad, text_view, x, y)
         return False
