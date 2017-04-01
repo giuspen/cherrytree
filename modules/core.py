@@ -2523,17 +2523,17 @@ iter_end, exclude_iter_sel_end=True)
 
     def on_event_after_tree(self, widget, event):
         """Catches events after"""
-        if event.type == Gdk.KEY_PRESS:
+        if event.type == Gdk.EventType.KEY_PRESS:
             if not self.ctrl_down:
                 keyname = Gdk.keyval_name(event.keyval)
                 if keyname in cons.STR_KEYS_CONTROL:
                     self.ctrl_down = True
-        elif event.type == Gdk.KEY_RELEASE:
+        elif event.type == Gdk.EventType.KEY_RELEASE:
             if self.ctrl_down:
                 keyname = Gdk.keyval_name(event.keyval)
                 if keyname in cons.STR_KEYS_CONTROL:
                     self.ctrl_down = False
-        elif event.type == Gdk.SCROLL:
+        elif event.type == Gdk.EventType.SCROLL:
             if self.ctrl_down:
                 if event.direction == Gdk.ScrollDirection.UP:
                     self.zoom_tree_p()
@@ -2550,7 +2550,7 @@ iter_end, exclude_iter_sel_end=True)
                         self.tree_just_auto_expanded = True
                     else:
                         self.tree_just_auto_expanded = False
-        elif event.type == Gdk._2BUTTON_PRESS:
+        elif event.type == Gdk.EventType._2BUTTON_PRESS:
             if event.button == 1:
                 self.toggle_tree_node_expanded_collapsed()
 
@@ -2910,11 +2910,15 @@ iter_end, exclude_iter_sel_end=True)
         if not syntax_highl:
             widget.modify_base(Gtk.StateType.NORMAL, Gdk.color_parse(bg))
             widget.modify_text(Gtk.StateType.NORMAL, Gdk.color_parse(fg))
-            style = widget.get_style()
+            style_context = widget.get_style_context()
+            #import pdb
+            #pdb.set_trace()
+            curr_style_fg_selected = Gdk.color_parse(style_context.get_property("background-color", Gtk.StateFlags.SELECTED).to_string())
+            curr_style_bg_selected = Gdk.color_parse(style_context.get_property("color", Gtk.StateFlags.SELECTED).to_string())
             # Gtk.StateType.NORMAL, Gtk.StateType.ACTIVE, Gtk.StateType.PRELIGHT, Gtk.StateType.SELECTED, Gtk.StateType.INSENSITIVE
-            widget.modify_text(Gtk.StateType.SELECTED, style.fg[3] if not gdk_col_fg else gdk_col_fg)
-            widget.modify_text(Gtk.StateType.ACTIVE, style.fg[3] if not gdk_col_fg else gdk_col_fg)
-            widget.modify_base(Gtk.StateType.ACTIVE, style.bg[3])
+            widget.modify_text(Gtk.StateType.SELECTED, curr_style_fg_selected if not gdk_col_fg else gdk_col_fg)
+            widget.modify_text(Gtk.StateType.ACTIVE, curr_style_fg_selected if not gdk_col_fg else gdk_col_fg)
+            widget.modify_base(Gtk.StateType.ACTIVE, curr_style_bg_selected)
 
     def treeview_set_colors(self):
         """Set Treeview Colors"""
@@ -4196,7 +4200,7 @@ iter_end, exclude_iter_sel_end=True)
         self.curr_image_anchor = anchor
         self.object_set_selection(self.curr_image_anchor)
         if event.button in [1, 2]:
-            if event.type == Gdk._2BUTTON_PRESS:
+            if event.type == Gdk.EventType._2BUTTON_PRESS:
                 self.image_edit()
             elif self.curr_image_anchor.pixbuf.link:
                 self.link_clicked(self.curr_image_anchor.pixbuf.link, event.button == 2)
@@ -4212,7 +4216,7 @@ iter_end, exclude_iter_sel_end=True)
         self.object_set_selection(self.curr_file_anchor)
         if event.button == 3:
             self.ui.get_widget("/EmbFileMenu").popup(None, None, None, event.button, event.time)
-        elif event.type == Gdk._2BUTTON_PRESS: self.embfile_open()
+        elif event.type == Gdk.EventType._2BUTTON_PRESS: self.embfile_open()
         return True # do not propagate the event
 
     def on_mouse_button_clicked_anchor(self, widget, event, anchor):
@@ -4221,7 +4225,7 @@ iter_end, exclude_iter_sel_end=True)
         self.object_set_selection(self.curr_anchor_anchor)
         if event.button == 3:
             self.ui.get_widget("/AnchorMenu").popup(None, None, None, event.button, event.time)
-        elif event.type == Gdk._2BUTTON_PRESS: self.anchor_edit()
+        elif event.type == Gdk.EventType._2BUTTON_PRESS: self.anchor_edit()
         return True # do not propagate the event
 
     def strip_trailing_spaces(self, *args):
@@ -4756,7 +4760,7 @@ iter_end, exclude_iter_sel_end=True)
                 return
             self.treeview_safe_set_cursor(tree_iter)
             self.sourceview.grab_focus()
-            self.sourceview.get_window(Gtk.TextWindowType.TEXT).set_cursor(Gdk.Cursor.new(Gdk.XTERM))
+            self.sourceview.get_window(Gtk.TextWindowType.TEXT).set_cursor(Gdk.Cursor.new(Gdk.CursorType.XTERM))
             self.sourceview.set_tooltip_text(None)
             if len(vector) >= 3:
                 if len(vector) == 3: anchor_name = vector[2]
@@ -4800,7 +4804,7 @@ iter_end, exclude_iter_sel_end=True)
 
     def on_sourceview_event(self, text_view, event):
         """Called at every event on the SourceView"""
-        if event.type == Gdk.KEY_PRESS:
+        if event.type == Gdk.EventType.KEY_PRESS:
             keyname = Gdk.keyval_name(event.keyval)
             if (event.get_state() & Gdk.ModifierType.SHIFT_MASK):
                 if keyname == cons.STR_KEY_SHIFT_TAB:
@@ -4862,19 +4866,19 @@ iter_end, exclude_iter_sel_end=True)
 
     def on_sourceview_event_after(self, text_view, event):
         """Called after every event on the SourceView"""
-        if event.type == Gdk._2BUTTON_PRESS and event.button == 1:
+        if event.type == Gdk.EventType._2BUTTON_PRESS and event.button == 1:
             support.on_sourceview_event_after_double_click_button1(self, text_view, event)
-        elif event.type in [Gdk.EventType.BUTTON_PRESS, Gdk.KEY_PRESS]:
+        elif event.type in [Gdk.EventType.BUTTON_PRESS, Gdk.EventType.KEY_PRESS]:
             if self.syntax_highlighting == cons.RICH_TEXT_ID\
             and self.curr_tree_iter and not self.curr_buffer.get_modified():
                 self.state_machine.update_curr_state_cursor_pos(self.treestore[self.curr_tree_iter][3])
             if event.type == Gdk.EventType.BUTTON_PRESS:
                 return support.on_sourceview_event_after_button_press(self, text_view, event)
-            if event.type == Gdk.KEY_PRESS:
+            if event.type == Gdk.EventType.KEY_PRESS:
                 return support.on_sourceview_event_after_key_press(self, text_view, event, self.syntax_highlighting)
-        elif event.type == Gdk.KEY_RELEASE:
+        elif event.type == Gdk.EventType.KEY_RELEASE:
             return support.on_sourceview_event_after_key_release(self, text_view, event)
-        elif event.type == Gdk.SCROLL:
+        elif event.type == Gdk.EventType.SCROLL:
             return support.on_sourceview_event_after_scroll(self, text_view, event)
         return False
 
@@ -4894,7 +4898,7 @@ iter_end, exclude_iter_sel_end=True)
         if not self.sourceview.get_cursor_visible():
             self.sourceview.set_cursor_visible(True)
         if self.syntax_highlighting not in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID]:
-            self.sourceview.get_window(Gtk.TextWindowType.TEXT).set_cursor(Gdk.Cursor.new(Gdk.XTERM))
+            self.sourceview.get_window(Gtk.TextWindowType.TEXT).set_cursor(Gdk.Cursor.new(Gdk.CursorType.XTERM))
             return False
         x, y = self.sourceview.window_to_buffer_coords(Gtk.TextWindowType.TEXT, int(event.x), int(event.y))
         support.sourceview_cursor_and_tooltips_handler(self, text_view, x, y)
@@ -4934,9 +4938,13 @@ iter_end, exclude_iter_sel_end=True)
     def on_sourceview_visibility_notify_event(self, text_view, event):
         """Update the cursor image if the window becomes visible (e.g. when a window covering it got iconified)"""
         if self.syntax_highlighting not in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID]:
-            self.sourceview.get_window(Gtk.TextWindowType.TEXT).set_cursor(Gdk.Cursor.new(Gdk.XTERM))
+            self.sourceview.get_window(Gtk.TextWindowType.TEXT).set_cursor(Gdk.Cursor.new(Gdk.CursorType.XTERM))
             return False
-        wx, wy, mod = text_view.window.get_pointer()
+        display = Gdk.Display.get_default()
+        device_manager = display.get_device_manager()
+        device = device_manager.get_client_pointer()
+        window = text_view.get_parent_window()
+        win_under_device, wx, wy, mod = window.get_device_position(device)
         bx, by = text_view.window_to_buffer_coords(Gtk.TextWindowType.TEXT, wx, wy)
         support.sourceview_cursor_and_tooltips_handler(self, text_view, bx, by)
         return False

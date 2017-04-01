@@ -406,11 +406,11 @@ class CodeBoxesHandler:
     def on_sourceview_event_after_codebox(self, text_view, event, anchor):
         """Called after every event on the SourceView"""
         if not self.dad.user_active: return False
-        if event.type == Gdk._2BUTTON_PRESS and event.button == 1:
+        if event.type == Gdk.EventType._2BUTTON_PRESS and event.button == 1:
             support.on_sourceview_event_after_double_click_button1(self.dad, text_view, event)
         elif event.type == Gdk.EventType.BUTTON_PRESS:
             return support.on_sourceview_event_after_button_press(self.dad, text_view, event)
-        elif event.type == Gdk.KEY_PRESS:
+        elif event.type == Gdk.EventType.KEY_PRESS:
             return support.on_sourceview_event_after_key_press(self.dad, text_view, event, self.curr_codebox_anchor.syntax_highlighting)
         return False
 

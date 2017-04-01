@@ -64,7 +64,7 @@ def dialog_date_select(parent_win, title, curr_time):
         return False
     dialog.connect("key_press_event", on_key_press_dialog)
     def on_mouse_button_clicked_dialog(widget, event):
-        if event.button == 1 and event.type == Gdk._2BUTTON_PRESS:
+        if event.button == 1 and event.type == Gdk.EventType._2BUTTON_PRESS:
             try: dialog.get_widget_for_response(Gtk.ResponseType.OK).clicked()
             except: print cons.STR_PYGTK_222_REQUIRED
     dialog.connect('button-press-event', on_mouse_button_clicked_dialog)
@@ -953,7 +953,7 @@ class FindReplace:
 
     def on_treeview_event_after(self, treeview, event):
         """Catches mouse buttons clicks"""
-        if event.type not in [Gdk.EventType.BUTTON_PRESS, Gdk.KEY_PRESS]: return
+        if event.type not in [Gdk.EventType.BUTTON_PRESS, Gdk.EventType.KEY_PRESS]: return
         model, list_iter = treeview.get_selection().get_selected()
         if not list_iter: return
         tree_iter = self.dad.get_tree_iter_from_node_id(model[list_iter][0])

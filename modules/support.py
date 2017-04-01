@@ -270,7 +270,7 @@ def on_sourceview_list_change_level(dad, iter_insert, list_info, text_buffer, le
     dad.update_window_save_needed("nbuf", True)
 
 def on_sourceview_event_after_scroll(dad, text_view, event):
-    """Called after every Gdk.SCROLL on the SourceView"""
+    """Called after every Gdk.EventType.SCROLL on the SourceView"""
     if dad.ctrl_down:
         if event.direction == Gdk.ScrollDirection.UP:
             dad.zoom_text_p()
@@ -279,7 +279,7 @@ def on_sourceview_event_after_scroll(dad, text_view, event):
     return False
 
 def on_sourceview_event_after_key_release(dad, text_view, event):
-    """Called after every Gdk.KEY_RELEASE on the SourceView"""
+    """Called after every Gdk.EventType.KEY_RELEASE on the SourceView"""
     keyname = Gdk.keyval_name(event.keyval)
     if dad.ctrl_down:
         if keyname in cons.STR_KEYS_CONTROL:
@@ -290,7 +290,7 @@ def on_sourceview_event_after_key_release(dad, text_view, event):
     return False
 
 def on_sourceview_event_after_key_press(dad, text_view, event, syntax_highl):
-    """Called after every Gdk.KEY_PRESS on the SourceView"""
+    """Called after every Gdk.EventType.KEY_PRESS on the SourceView"""
     text_buffer = text_view.get_buffer()
     keyname = Gdk.keyval_name(event.keyval)
     if not dad.ctrl_down:
@@ -497,12 +497,12 @@ def sourceview_cursor_and_tooltips_handler(dad, text_view, x, y):
         dad.hovering_link_iter_offset = hovering_link_iter_offset
         #print "link", dad.hovering_link_iter_offset
     if dad.hovering_link_iter_offset >= 0:
-        text_view.get_window(Gtk.TextWindowType.TEXT).set_cursor(Gdk.Cursor.new(Gdk.HAND2))
+        text_view.get_window(Gtk.TextWindowType.TEXT).set_cursor(Gdk.Cursor.new(Gdk.CursorType.HAND2))
         if len(tooltip) > cons.MAX_TOOLTIP_LINK_CHARS:
             tooltip = tooltip[:cons.MAX_TOOLTIP_LINK_CHARS] + "..."
         text_view.set_tooltip_text(tooltip)
     else:
-        text_view.get_window(Gtk.TextWindowType.TEXT).set_cursor(Gdk.Cursor.new(Gdk.XTERM))
+        text_view.get_window(Gtk.TextWindowType.TEXT).set_cursor(Gdk.Cursor.new(Gdk.CursorType.XTERM))
         text_view.set_tooltip_text(None)
 
 def rich_text_node_modify_codeboxes_font(start_iter, code_font):
@@ -934,11 +934,11 @@ def dialog_choose_element_in_list(father_win, title, elements_list, column_title
     content_area.pack_start(scrolledwindow, True, True, 0)
     def on_mouse_button_clicked_elements_list(widget, event):
         if event.button != 1: return
-        if event.type == Gdk._2BUTTON_PRESS:
+        if event.type == Gdk.EventType._2BUTTON_PRESS:
             try: dialog.get_widget_for_response(Gtk.ResponseType.ACCEPT).clicked()
             except: print cons.STR_PYGTK_222_REQUIRED
     def on_treeview_event_after(treeview, event):
-        if event.type not in [Gdk.EventType.BUTTON_PRESS, Gdk.KEY_PRESS]: return
+        if event.type not in [Gdk.EventType.BUTTON_PRESS, Gdk.EventType.KEY_PRESS]: return
         model, list_parms.sel_iter = elements_treeviewselection.get_selected()
     def on_key_press_elementslistdialog(widget, event):
         keyname = Gdk.keyval_name(event.keyval)
@@ -1407,7 +1407,7 @@ def dialog_link_handle(dad, title, sel_tree_iter):
         ret_anchor_name = dialog_choose_element_in_list(dialog, _("Choose Existing Anchor"), anchors_list, _("Anchor Name"))
         if ret_anchor_name: entry_anchor.set_text(ret_anchor_name)
     def on_treeview_event_after(treeview, event):
-        if event.type not in [Gdk.EventType.BUTTON_PRESS, Gdk._2BUTTON_PRESS, Gdk.KEY_PRESS]: return
+        if event.type not in [Gdk.EventType.BUTTON_PRESS, Gdk.EventType._2BUTTON_PRESS, Gdk.EventType.KEY_PRESS]: return
         model, links_parms.sel_iter = treeviewselection_2.get_selected()
         if event.type == Gdk.EventType.BUTTON_PRESS:
             if event.button == 2:
@@ -1416,14 +1416,14 @@ def dialog_link_handle(dad, title, sel_tree_iter):
                     if treeview.row_expanded(path_at_click[0]):
                         treeview.collapse_row(path_at_click[0])
                     else: treeview.expand_row(path_at_click[0], False)
-        elif event.type == Gdk._2BUTTON_PRESS and event.button == 1:
+        elif event.type == Gdk.EventType._2BUTTON_PRESS and event.button == 1:
             if links_parms.sel_iter:
                 treestore = treeview.get_model()
                 if treeview.row_expanded(treestore.get_path(links_parms.sel_iter)):
                     treeview.collapse_row(treestore.get_path(links_parms.sel_iter))
                 else:
                     treeview.expand_row(treestore.get_path(links_parms.sel_iter), open_all=False)
-        elif event.type == Gdk.KEY_PRESS:
+        elif event.type == Gdk.EventType.KEY_PRESS:
             if links_parms.sel_iter:
                 treestore = treeview.get_model()
                 keyname = Gdk.keyval_name(event.keyval)
@@ -1603,7 +1603,7 @@ def dialog_choose_node(dad, title, treestore, sel_tree_iter):
             return True
         return False
     def on_treeview_event_after(treeview, event):
-        if event.type not in [Gdk.EventType.BUTTON_PRESS, Gdk._2BUTTON_PRESS, Gdk.KEY_PRESS]: return
+        if event.type not in [Gdk.EventType.BUTTON_PRESS, Gdk.EventType._2BUTTON_PRESS, Gdk.EventType.KEY_PRESS]: return
         model, node_parms.sel_iter = treeviewselection_2.get_selected()
         if event.type == Gdk.EventType.BUTTON_PRESS:
             if event.button == 2:
@@ -1612,14 +1612,14 @@ def dialog_choose_node(dad, title, treestore, sel_tree_iter):
                     if treeview.row_expanded(path_at_click[0]):
                         treeview.collapse_row(path_at_click[0])
                     else: treeview.expand_row(path_at_click[0], False)
-        elif event.type == Gdk._2BUTTON_PRESS and event.button == 1:
+        elif event.type == Gdk.EventType._2BUTTON_PRESS and event.button == 1:
             if node_parms.sel_iter:
                 treestore = treeview.get_model()
                 if treeview.row_expanded(treestore.get_path(node_parms.sel_iter)):
                     treeview.collapse_row(treestore.get_path(node_parms.sel_iter))
                 else:
                     treeview.expand_row(treestore.get_path(node_parms.sel_iter), open_all=False)
-        elif event.type == Gdk.KEY_PRESS:
+        elif event.type == Gdk.EventType.KEY_PRESS:
             if node_parms.sel_iter:
                 treestore = treeview.get_model()
                 keyname = Gdk.keyval_name(event.keyval)
@@ -1721,7 +1721,7 @@ def dialog_color_pick(dad, curr_color=None):
         return False
     dialog.connect("key_press_event", on_key_press_color_pick_dialog)
     def on_mouse_button_clicked_color_pick_dialog(widget, event):
-        if event.button == 1 and event.type == Gdk._2BUTTON_PRESS:
+        if event.button == 1 and event.type == Gdk.EventType._2BUTTON_PRESS:
             try: dialog.get_widget_for_response(Gtk.ResponseType.OK).clicked()
             except: print cons.STR_PYGTK_222_REQUIRED
     dialog.connect('button-press-event', on_mouse_button_clicked_color_pick_dialog)
@@ -1883,7 +1883,7 @@ def bookmarks_handle(dad):
     def on_mouse_button_clicked_liststore(widget, event):
         """Catches mouse buttons clicks"""
         if event.button != 1: return
-        if event.type != Gdk._2BUTTON_PRESS: return
+        if event.type != Gdk.EventType._2BUTTON_PRESS: return
         path_n_tvc = treeview.get_path_at_pos(int(event.x), int(event.y))
         if not path_n_tvc: return
         tree_path = path_n_tvc[0]

@@ -2020,7 +2020,7 @@ def preferences_tab_kb_shortcuts(dad, vbox_tool, pref_dialog):
             support.dialog_info_after_restart(pref_dialog)
     button_reset.connect('clicked', on_button_reset_clicked)
     def on_button_press_treestore(widget, event):
-        if event.button == 1 and event.type == Gdk._2BUTTON_PRESS:
+        if event.button == 1 and event.type == Gdk.EventType._2BUTTON_PRESS:
             edit_selected_tree_iter()
             return True
         return False
