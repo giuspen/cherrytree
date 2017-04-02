@@ -190,11 +190,13 @@ class TablesHandler:
 
         label_rows = Gtk.Label(label=_("Rows"))
         adj_rows = Gtk.Adjustment(value=self.dad.table_rows, lower=1, upper=10000, step_incr=1)
-        spinbutton_rows = Gtk.SpinButton(adj_rows)
+        spinbutton_rows = Gtk.SpinButton()
+        spinbutton_rows.set_adjustment(adj_rows)
         spinbutton_rows.set_value(self.dad.table_rows)
         label_columns = Gtk.Label(label=_("Columns"))
         adj_columns = Gtk.Adjustment(value=self.dad.table_columns, lower=1, upper=10000, step_incr=1)
-        spinbutton_columns = Gtk.SpinButton(adj_columns)
+        spinbutton_columns = Gtk.SpinButton()
+        spinbutton_columns.set_adjustment(adj_columns)
         spinbutton_columns.set_value(self.dad.table_columns)
 
         hbox_rows_cols = Gtk.HBox()
@@ -203,7 +205,7 @@ class TablesHandler:
         hbox_rows_cols.pack_start(label_columns, False, True, 0)
         hbox_rows_cols.pack_start(spinbutton_columns, False, True, 0)
         hbox_rows_cols.set_spacing(5)
-        size_align = Gtk.Alignment.new()
+        size_align = Gtk.Alignment.new(*cons.XY_ALIGN_XY_SCALE)
         size_align.set_padding(6, 6, 6, 6)
         size_align.add(hbox_rows_cols)
 
@@ -214,11 +216,13 @@ class TablesHandler:
 
         label_col_min = Gtk.Label(label=_("Min Width"))
         adj_col_min = Gtk.Adjustment(value=self.dad.table_col_min, lower=1, upper=10000, step_incr=1)
-        spinbutton_col_min = Gtk.SpinButton(adj_col_min)
+        spinbutton_col_min = Gtk.SpinButton()
+        spinbutton_col_min.set_adjustment(adj_col_min)
         spinbutton_col_min.set_value(self.dad.table_col_min)
         label_col_max = Gtk.Label(label=_("Max Width"))
         adj_col_max = Gtk.Adjustment(value=self.dad.table_col_max, lower=1, upper=10000, step_incr=1)
-        spinbutton_col_max = Gtk.SpinButton(adj_col_max)
+        spinbutton_col_max = Gtk.SpinButton()
+        spinbutton_col_max.set_adjustment(adj_col_max)
         spinbutton_col_max.set_value(self.dad.table_col_max)
 
         hbox_col_min_max = Gtk.HBox()
@@ -227,7 +231,7 @@ class TablesHandler:
         hbox_col_min_max.pack_start(label_col_max, False, True, 0)
         hbox_col_min_max.pack_start(spinbutton_col_max, False, True, 0)
         hbox_col_min_max.set_spacing(5)
-        col_min_max_align = Gtk.Alignment.new()
+        col_min_max_align = Gtk.Alignment.new(*cons.XY_ALIGN_XY_SCALE)
         col_min_max_align.set_padding(6, 6, 6, 6)
         col_min_max_align.add(hbox_col_min_max)
 

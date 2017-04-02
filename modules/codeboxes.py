@@ -117,11 +117,13 @@ class CodeBoxesHandler:
 
         label_width = Gtk.Label(label=_("Width"))
         adj_width = Gtk.Adjustment(value=self.dad.codebox_width, lower=1, upper=10000, step_incr=1)
-        spinbutton_width = Gtk.SpinButton(adj_width)
+        spinbutton_width = Gtk.SpinButton()
+        spinbutton_width.set_adjustment(adj_width)
         spinbutton_width.set_value(self.dad.codebox_width)
         label_height = Gtk.Label(label=_("Height"))
         adj_height = Gtk.Adjustment(value=self.dad.codebox_height, lower=1, upper=10000, step_incr=1)
-        spinbutton_height = Gtk.SpinButton(adj_height)
+        spinbutton_height = Gtk.SpinButton()
+        spinbutton_height.set_adjustment(adj_height)
         spinbutton_height.set_value(self.dad.codebox_height)
 
         radiobutton_codebox_pixels = Gtk.RadioButton(label=_("pixels"))
@@ -145,7 +147,7 @@ class CodeBoxesHandler:
         vbox_size = Gtk.VBox()
         vbox_size.pack_start(hbox_width, True, True, 0)
         vbox_size.pack_start(hbox_height, True, True, 0)
-        size_align = Gtk.Alignment.new()
+        size_align = Gtk.Alignment.new(*cons.XY_ALIGN_XY_SCALE)
         size_align.set_padding(0, 6, 6, 6)
         size_align.add(vbox_size)
 
@@ -161,7 +163,7 @@ class CodeBoxesHandler:
         vbox_options = Gtk.VBox()
         vbox_options.pack_start(checkbutton_codebox_linenumbers, True, True, 0)
         vbox_options.pack_start(checkbutton_codebox_matchbrackets, True, True, 0)
-        opt_align = Gtk.Alignment.new()
+        opt_align = Gtk.Alignment.new(*cons.XY_ALIGN_XY_SCALE)
         opt_align.set_padding(6, 6, 6, 6)
         opt_align.add(vbox_options)
 

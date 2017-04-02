@@ -46,10 +46,12 @@ def dialog_date_select(parent_win, title, curr_time):
     calendar.select_month(struct_time.tm_mon-1, struct_time.tm_year) # month 0-11
     calendar.select_day(struct_time.tm_mday) # day 1-31
     adj_h = Gtk.Adjustment(value=struct_time.tm_hour, lower=0, upper=23, step_incr=1)
-    spinbutton_h = Gtk.SpinButton(adj_h)
+    spinbutton_h = Gtk.SpinButton()
+    spinbutton_h.set_adjustment(adj_h)
     spinbutton_h.set_value(struct_time.tm_hour)
     adj_m = Gtk.Adjustment(value=struct_time.tm_min, lower=0, upper=59, step_incr=1)
-    spinbutton_m = Gtk.SpinButton(adj_m)
+    spinbutton_m = Gtk.SpinButton()
+    spinbutton_m.set_adjustment(adj_m)
     spinbutton_m.set_value(struct_time.tm_min)
     hbox = Gtk.HBox()
     hbox.pack_start(spinbutton_h, True, True, 0)
