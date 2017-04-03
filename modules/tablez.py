@@ -355,7 +355,7 @@ class TablesHandler:
         anchor.headers = headers
         anchor.table_col_min = table_col_min
         anchor.table_col_max = table_col_max
-        anchor.treeview.set_grid_lines(Gtk.TREE_VIEW_GRID_LINES_BOTH)
+        anchor.treeview.set_grid_lines(Gtk.TreeViewGridLines.BOTH)
         anchor.treeview.connect('button-press-event', self.on_mouse_button_clicked_treeview_table, anchor)
         anchor.treeview.connect('key_press_event', self.on_key_press_treeview_table, anchor)
         anchor.frame = Gtk.Frame()

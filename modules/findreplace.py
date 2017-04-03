@@ -503,7 +503,7 @@ class FindReplace:
             self.dad.objects_buffer_refresh()
             self.dad.sourceview.grab_focus()
             self.dad.curr_buffer.place_cursor(self.dad.curr_buffer.get_iter_at_offset(current_cursor_pos))
-            self.dad.sourceview.scroll_to_mark(self.dad.curr_buffer.get_insert(), cons.SCROLL_MARGIN)
+            self.dad.sourceview.scroll_to_mark(self.dad.curr_buffer.get_insert(), cons.SCROLL_MARGIN, False, 0.5, 0.5)
         if not self.matches_num:
             support.dialog_info(_("The pattern '%s' was not found") % pattern, self.dad.window)
         else:
@@ -643,7 +643,7 @@ class FindReplace:
             if not self.newline_trick: line_num += 1
             self.allmatches_liststore.append([node_id, start_offset, end_offset, node_name, line_content, line_num, cgi.escape(node_hier_name)])
             #print line_num, self.matches_num
-        else: self.dad.sourceview.scroll_to_mark(mark_insert, cons.SCROLL_MARGIN)
+        else: self.dad.sourceview.scroll_to_mark(mark_insert, cons.SCROLL_MARGIN, False, 0.5, 0.5)
         if self.replace_active:
             if self.dad.get_node_read_only(): return False
             replacer_text = self.search_replace_dict['replace']
@@ -965,4 +965,4 @@ class FindReplace:
                                        self.dad.curr_buffer.get_iter_at_offset(model[list_iter][1]))
         self.dad.curr_buffer.move_mark(self.dad.curr_buffer.get_selection_bound(),
                                        self.dad.curr_buffer.get_iter_at_offset(model[list_iter][2]))
-        self.dad.sourceview.scroll_to_mark(self.dad.curr_buffer.get_insert(), cons.SCROLL_MARGIN)
+        self.dad.sourceview.scroll_to_mark(self.dad.curr_buffer.get_insert(), cons.SCROLL_MARGIN, False, 0.5, 0.5)

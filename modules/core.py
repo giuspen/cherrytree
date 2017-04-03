@@ -1207,7 +1207,7 @@ iter_end, exclude_iter_sel_end=True)
                 # try to restore cursor position if in memory
                 if self.treestore[former_node][3] in self.nodes_cursor_pos:
                     self.curr_buffer.place_cursor(self.curr_buffer.get_iter_at_offset(self.nodes_cursor_pos[self.treestore[former_node][3]]))
-                    self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), cons.SCROLL_MARGIN)
+                    self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), cons.SCROLL_MARGIN, False, 0.5, 0.5)
         else: support.dialog_error('Error Parsing the CherryTree File', self.window)
         if user_active_restore: self.user_active = True
 
@@ -2592,7 +2592,7 @@ iter_end, exclude_iter_sel_end=True)
                 self.set_sourcebuffer_syntax_highlight(sourcebuffer, syntax_highlighting)
             sourcebuffer.set_highlight_matching_brackets(True)
             return sourcebuffer
-        else: return Gtk.TextBuffer(self.tag_table)
+        else: return Gtk.TextBuffer.new(self.tag_table)
 
     def combobox_prog_lang_init(self):
         """Init The Programming Languages Syntax Highlighting ComboBox"""
@@ -3011,7 +3011,7 @@ iter_end, exclude_iter_sel_end=True)
             if cursor_iter:
                 #print "cursor_pos %s restore for node %s" % (cursor_pos, node_id)
                 self.curr_buffer.place_cursor(cursor_iter)
-                self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), cons.SCROLL_MARGIN)
+                self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), cons.SCROLL_MARGIN, False, 0.5, 0.5)
             if self.syntax_highlighting == cons.RICH_TEXT_ID:
                 #if not already_visited: self.lists_handler.todo_lists_old_to_new_conversion(self.curr_buffer)
                 if self.enable_spell_check: self.spell_check_set_on()
@@ -3297,7 +3297,7 @@ iter_end, exclude_iter_sel_end=True)
             self.sourceview.set_buffer(text_buffer)
             self.objects_buffer_refresh()
             text_buffer.place_cursor(text_buffer.get_iter_at_offset(state[2]))
-            self.sourceview.scroll_to_mark(text_buffer.get_insert(), cons.SCROLL_MARGIN)
+            self.sourceview.scroll_to_mark(text_buffer.get_insert(), cons.SCROLL_MARGIN, False, 0.5, 0.5)
         if user_active_restore: self.user_active = True
         if not given_tree_iter:
             if spell_check_restore: self.toggle_ena_dis_spellcheck()
@@ -3359,7 +3359,7 @@ iter_end, exclude_iter_sel_end=True)
             self.curr_buffer.set_modified(False)
             self.curr_buffer.move_mark(self.curr_buffer.get_insert(), self.curr_buffer.get_iter_at_offset(insert_offset))
             self.curr_buffer.move_mark(self.curr_buffer.get_selection_bound(), self.curr_buffer.get_iter_at_offset(bound_offset))
-            self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), cons.SCROLL_MARGIN)
+            self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), cons.SCROLL_MARGIN, False, 0.5, 0.5)
             if user_active_restore: self.user_active = True
 
     def on_text_insertion(self, sourcebuffer, text_iter, text_inserted, length):
@@ -4572,12 +4572,12 @@ iter_end, exclude_iter_sel_end=True)
         tag_name = tag_property + "_" + property_value
         tag = self.tag_table.lookup(str(tag_name))
         if tag == None:
-            tag = Gtk.TextTag(str(tag_name))
+            tag = Gtk.TextTag.new(str(tag_name))
             if property_value == cons.TAG_PROP_HEAVY: tag.set_property(tag_property, Pango.Weight.HEAVY)
-            elif property_value == cons.TAG_PROP_SMALL: tag.set_property(tag_property, Pango.SCALE_SMALL)
-            elif property_value == cons.TAG_PROP_H1: tag.set_property(tag_property, Pango.SCALE_XX_LARGE)
-            elif property_value == cons.TAG_PROP_H2: tag.set_property(tag_property, Pango.SCALE_X_LARGE)
-            elif property_value == cons.TAG_PROP_H3: tag.set_property(tag_property, Pango.SCALE_LARGE)
+            elif property_value == cons.TAG_PROP_SMALL: tag.set_property(tag_property, cons.SCALE_SMALL)
+            elif property_value == cons.TAG_PROP_H1: tag.set_property(tag_property, cons.SCALE_XX_LARGE)
+            elif property_value == cons.TAG_PROP_H2: tag.set_property(tag_property, cons.SCALE_X_LARGE)
+            elif property_value == cons.TAG_PROP_H3: tag.set_property(tag_property, cons.SCALE_LARGE)
             elif property_value == cons.TAG_PROP_ITALIC: tag.set_property(tag_property, Pango.Style.ITALIC)
             elif property_value == cons.TAG_PROP_SINGLE: tag.set_property(tag_property, Pango.Underline.SINGLE)
             elif property_value == cons.TAG_PROP_TRUE: tag.set_property(tag_property, True)
@@ -4590,11 +4590,11 @@ iter_end, exclude_iter_sel_end=True)
                 if self.monospace_bg:
                     tag.set_property(cons.TAG_BACKGROUND, self.monospace_bg)
             elif property_value == cons.TAG_PROP_SUB:
-                tag.set_property(cons.TAG_SCALE, Pango.SCALE_X_SMALL)
+                tag.set_property(cons.TAG_SCALE, cons.SCALE_X_SMALL)
                 rise = Pango.FontDescription(self.text_font).get_size() / -4
                 tag.set_property("rise", rise)
             elif property_value == cons.TAG_PROP_SUP:
-                tag.set_property(cons.TAG_SCALE, Pango.SCALE_X_SMALL)
+                tag.set_property(cons.TAG_SCALE, cons.SCALE_X_SMALL)
                 rise = Pango.FontDescription(self.text_font).get_size() / 2
                 tag.set_property("rise", rise)
             elif property_value[0:4] == cons.LINK_TYPE_WEBS:
@@ -4769,7 +4769,7 @@ iter_end, exclude_iter_sel_end=True)
                     support.dialog_warning(_("No anchor named '%s' found") % anchor_name, self.window)
                 else:
                     self.curr_buffer.place_cursor(iter_anchor)
-                    self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), cons.SCROLL_MARGIN)
+                    self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), cons.SCROLL_MARGIN, False, 0.5, 0.5)
         else: support.dialog_error("Tag Name Not Recognized! (%s)" % vector[0], self.window)
 
     def link_seek_for_anchor(self, anchor_name):

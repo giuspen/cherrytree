@@ -151,7 +151,7 @@ class SpellChecker(object):
         self._view.connect('popup-menu', self._click_move_popup)
         self._view.connect('button-press-event', self._click_move_button)
         self._prefix = prefix
-        self._misspelled = Gtk.TextTag('{}-misspelled'.format(self._prefix))
+        self._misspelled = Gtk.TextTag.new('{}-misspelled'.format(self._prefix))
         self._misspelled.set_property('underline', 4)
         self._broker = enchant.Broker()
         for param, value in params.items(): self._broker.set_param(param, value)
@@ -212,7 +212,7 @@ class SpellChecker(object):
         have associated a new GtkTextBuffer with the GtkTextView call this
         method.
         """
-        #self._misspelled = Gtk.TextTag('{}-misspelled'.format(self._prefix))
+        #self._misspelled = Gtk.TextTag.new('{}-misspelled'.format(self._prefix))
         #self._misspelled.set_property('underline', 4)
         self._buffer = self._view.get_buffer()
         self._buffer.connect('insert-text', self._before_text_insert)
@@ -240,7 +240,7 @@ class SpellChecker(object):
         self._table.foreach(tag_added, None)
         self.no_spell_check = self._table.lookup('no-spell-check')
         if not self.no_spell_check:
-            self.no_spell_check = Gtk.TextTag('no-spell-check')
+            self.no_spell_check = Gtk.TextTag.new('no-spell-check')
             self._table.add(self.no_spell_check)
         self.recheck()
 
