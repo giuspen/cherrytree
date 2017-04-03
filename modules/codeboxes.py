@@ -99,8 +99,7 @@ class CodeBoxesHandler:
         button_prog_lang.set_label(button_label)
         button_prog_lang.set_image(Gtk.Image.new_from_stock(button_stock_id, Gtk.IconSize.MENU))
         radiobutton_plain_text = Gtk.RadioButton(label=_("Plain Text"))
-        radiobutton_auto_syntax_highl = Gtk.RadioButton(label=_("Automatic Syntax Highlighting"))
-        radiobutton_auto_syntax_highl.set_group(radiobutton_plain_text)
+        radiobutton_auto_syntax_highl = Gtk.RadioButton.new_with_label_from_widget(radiobutton_plain_text, _("Automatic Syntax Highlighting"))
         if self.dad.codebox_syn_highl == cons.PLAIN_TEXT_ID:
             radiobutton_plain_text.set_active(True)
             button_prog_lang.set_sensitive(False)
@@ -127,8 +126,7 @@ class CodeBoxesHandler:
         spinbutton_height.set_value(self.dad.codebox_height)
 
         radiobutton_codebox_pixels = Gtk.RadioButton(label=_("pixels"))
-        radiobutton_codebox_percent = Gtk.RadioButton(label="%")
-        radiobutton_codebox_percent.set_group(radiobutton_codebox_pixels)
+        radiobutton_codebox_percent = Gtk.RadioButton.new_with_label_from_widget(radiobutton_codebox_pixels, "%")
         radiobutton_codebox_pixels.set_active(self.dad.codebox_width_pixels)
         radiobutton_codebox_percent.set_active(not self.dad.codebox_width_pixels)
 
