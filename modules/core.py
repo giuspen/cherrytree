@@ -2603,6 +2603,8 @@ iter_end, exclude_iter_sel_end=True)
             sourcebuffer.set_style_scheme(self.sourcestyleschememanager.get_scheme(self.style_scheme))
             if syntax_highlighting != cons.PLAIN_TEXT_ID:
                 self.set_sourcebuffer_syntax_highlight(sourcebuffer, syntax_highlighting)
+            else:
+                sourcebuffer.set_highlight_syntax(False)
             sourcebuffer.set_highlight_matching_brackets(True)
             return sourcebuffer
         else: return gtk.TextBuffer(self.tag_table)
