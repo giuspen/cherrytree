@@ -2590,6 +2590,8 @@ iter_end, exclude_iter_sel_end=True)
             sourcebuffer.set_style_scheme(self.sourcestyleschememanager.get_scheme(self.style_scheme))
             if syntax_highlighting != cons.PLAIN_TEXT_ID:
                 self.set_sourcebuffer_syntax_highlight(sourcebuffer, syntax_highlighting)
+            else:
+                sourcebuffer.set_highlight_syntax(False)
             sourcebuffer.set_highlight_matching_brackets(True)
             return sourcebuffer
         else: return Gtk.TextBuffer.new(self.tag_table)
@@ -2987,7 +2989,9 @@ iter_end, exclude_iter_sel_end=True)
         self.curr_buffer = self.get_textbuffer_from_tree_iter(self.curr_tree_iter)
         if self.rt_highl_curr_line and self.user_active and self.treestore[new_iter][4] == cons.RICH_TEXT_ID:
             self.set_sourcebuffer_with_style_scheme()
+        print "C"
         self.sourceview.set_buffer(self.curr_buffer)
+        print "D"
         self.syntax_highlighting = self.treestore[self.curr_tree_iter][4]
         self.curr_buffer.connect('modified-changed', self.on_modified_changed)
         self.sourceview_set_properties(self.curr_tree_iter, self.syntax_highlighting)
@@ -4803,7 +4807,7 @@ iter_end, exclude_iter_sel_end=True)
         """Called at every event on the SourceView"""
         if event.type == Gdk.EventType.KEY_PRESS:
             keyname = Gdk.keyval_name(event.keyval)
-            if (event.get_state() & Gdk.ModifierType.SHIFT_MASK):
+            if (event.get_state()[1] & Gdk.ModifierType.SHIFT_MASK):
                 if keyname == cons.STR_KEY_SHIFT_TAB:
                     if not self.curr_buffer.get_has_selection():
                         iter_insert = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
@@ -4811,7 +4815,7 @@ iter_end, exclude_iter_sel_end=True)
                         if list_info and list_info["level"]:
                             support.on_sourceview_list_change_level(self, iter_insert, list_info, self.curr_buffer, False)
                             return True
-            elif (event.get_state() & Gdk.ModifierType.CONTROL_MASK) and keyname == "space":
+            elif (event.get_state()[1] & Gdk.ModifierType.CONTROL_MASK) and keyname == "space":
                 iter_insert = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
                 anchor = iter_insert.get_child_anchor()
                 if anchor and hasattr(anchor, "sourcebuffer"):

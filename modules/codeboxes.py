@@ -20,6 +20,7 @@
 #       MA 02110-1301, USA.
 
 from gi.repository import Gtk
+from gi.repository import GtkSource
 from gi.repository import Gdk
 from gi.repository import Pango
 from gi.repository import GtkSource
@@ -29,7 +30,7 @@ import menus
 import support
 import config
 
-DRAW_SPACES_FLAGS = GtkSource.DrawSpacesFlags.ALL & ~GtkSource.DrawSpacesFlags.NEWLINE
+DRAW_SPACES_FLAGS = GtkSource.DrawSpacesFlags.ALL
 CB_WIDTH_HEIGHT_STEP_PIX = 15
 CB_WIDTH_HEIGHT_STEP_PERC = 9
 CB_WIDTH_LIMIT_MIN = 40

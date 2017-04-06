@@ -324,7 +324,7 @@ def on_sourceview_event_after_key_press(dad, text_view, event, syntax_highl):
                     if offset_0 >= 0:
                         dad.replace_text_at_offset(char_0, offset_0, offset_0+1, text_buffer)
                         dad.replace_text_at_offset(char_1, offset_1, offset_1+1, text_buffer)
-    elif (event.get_state() & Gdk.ModifierType.SHIFT_MASK):
+    elif (event.get_state()[1] & Gdk.ModifierType.SHIFT_MASK):
         if keyname == cons.STR_KEY_RETURN:
             iter_insert = text_buffer.get_iter_at_mark(text_buffer.get_insert())
             if not iter_insert: return False

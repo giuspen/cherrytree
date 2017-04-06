@@ -41,7 +41,7 @@ def get_blob_buffer_from_pixbuf(pixbuf):
 
 def get_pixbuf_from_png_blob_buffer(blob_buffer):
     """Encoded Buffer To Pixbuf"""
-    pixbuf_loader = GdkPixbuf.Pixbuf.loader_new_with_mime_type("image/png")
+    pixbuf_loader = GdkPixbuf.PixbufLoader.new_with_mime_type("image/png")
     try:
         pixbuf_loader.write(blob_buffer)
         pixbuf_loader.close()
@@ -58,7 +58,7 @@ def get_encoded_buffer_from_pixbuf(pixbuf):
 
 def get_pixbuf_from_encoded_buffer(encoded_buffer):
     """Encoded Buffer To Pixbuf"""
-    pixbuf_loader = GdkPixbuf.Pixbuf.loader_new_with_mime_type("image/png")
+    pixbuf_loader = GdkPixbuf.PixbufLoader.new_with_mime_type("image/png")
     try:
         pixbuf_loader.write(base64.b64decode(encoded_buffer))
         pixbuf_loader.close()
