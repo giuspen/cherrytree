@@ -31,11 +31,14 @@ class ScreenShotHandler(object):
         filename = None
         try:
             h, filename = tempfile.mkstemp(prefix='tmpctscreenshot-', suffix='.png')
-            #fclose(h)
+            os.close(h)
             fargs = dict(tempfilename=filename)
             args = self.dad.screenshot_exec.format(**fargs)
             args = shlex.split(args)
             subprocess.check_call(args)
+            if not os.path.getsize(filename):
+                os.unlink(filename)
+                return
         except Exception as e:
             support.dialog_error(_("Exception: {0}: {1}".format(e.__class__.__name__, e)), self.dad.window)
             if filename:
