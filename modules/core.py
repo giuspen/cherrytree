@@ -49,6 +49,8 @@ import lists
 import findreplace
 import codeboxes
 import ctdb
+import screenshot
+
 if cons.HAS_APPINDICATOR: import appindicator
 
 class CherryTree:
@@ -74,6 +76,7 @@ class CherryTree:
         self.html_handler = exports.Export2Html(self)
         self.ctdb_handler = ctdb.CTDBHandler(self)
         self.print_handler = printing.PrintHandler(self)
+        self.screenshot_handler = screenshot.ScreenShotHandler(self)
         # icon factory
         factory = gtk.IconFactory()
         for stock_name in cons.STOCKS_N_FILES:

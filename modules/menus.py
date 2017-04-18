@@ -64,6 +64,7 @@ CONFIG_ACTIONS_DICT = {
 "act_undo",
 "act_redo",
 "handle_image",
+"handle_screenshot",
 "handle_table",
 "handle_codebox",
 "handle_embfile",
@@ -185,6 +186,7 @@ def load_menudict(dad):
 "act_undo": {"sk": "gtk-undo", "sd": _("_Undo"), "kb": KB_CONTROL+"Z", "dn": _("Undo Last Operation"), "cb": dad.requested_step_back},
 "act_redo": {"sk": "gtk-redo", "sd": _("_Redo"), "kb": KB_CONTROL+"Y", "dn": _("Redo Previously Discarded Operation"), "cb": dad.requested_step_ahead},
 "handle_image": {"sk": "image_insert", "sd": _("Insert I_mage"), "kb": KB_CONTROL+KB_ALT+"I", "dn": _("Insert an Image"), "cb": dad.image_handle},
+"handle_screenshot": {"sk": "screenshot_insert", "sd": _("Insert Screenshot"), "kb": KB_CONTROL+KB_ALT+"S", "dn": _("Insert a Screenshot"), "cb": dad.screenshot_handler},
 "handle_table": {"sk": "table_insert", "sd": _("Insert _Table"), "kb": KB_CONTROL+KB_ALT+"T", "dn": _("Insert a Table"), "cb": dad.table_handle},
 "handle_codebox": {"sk": "codebox_insert", "sd": _("Insert _CodeBox"), "kb": KB_CONTROL+KB_ALT+"C", "dn": _("Insert a CodeBox"), "cb": dad.codebox_handle},
 "handle_embfile": {"sk": "file_icon", "sd": _("Insert _File"), "kb": KB_CONTROL+KB_ALT+"E", "dn": _("Insert File"), "cb": dad.embfile_insert},
@@ -487,6 +489,7 @@ get_menu_item_tuple(dad, "handle_todo_list"),
 (cons.TAG_SEPARATOR, None, None, None, None),
 ("submenu-start", _("_Insert") , "insert", None, None),
 get_menu_item_tuple(dad, "handle_image"),
+get_menu_item_tuple(dad, "handle_screenshot"),
 get_menu_item_tuple(dad, "handle_table"),
 get_menu_item_tuple(dad, "handle_codebox"),
 get_menu_item_tuple(dad, "handle_embfile"),
@@ -677,6 +680,7 @@ UI_INFO = """
       <menuitem action='act_redo'/>
       <separator/>
       <menuitem action='handle_image'/>
+      <menuitem action='handle_screenshot'/>
       <menuitem action='handle_table'/>
       <menuitem action='handle_codebox'/>
       <menuitem action='handle_embfile'/>
@@ -851,6 +855,6 @@ UI_INFO = """
 </ui>
 """
 
-TOOLBAR_VEC_DEFAULT = ["tree_add_node", "tree_add_subnode", cons.TAG_SEPARATOR, "go_node_prev", "go_node_next", cons.TAG_SEPARATOR, cons.CHAR_STAR, "ct_save", "export_pdf", cons.TAG_SEPARATOR, "find_in_allnodes", cons.TAG_SEPARATOR, "handle_bull_list", "handle_num_list", "handle_todo_list", cons.TAG_SEPARATOR, "handle_image", "handle_table", "handle_codebox", "handle_embfile", "handle_link", "handle_anchor", cons.TAG_SEPARATOR, "fmt_rm", "fmt_color_fg", "fmt_color_bg", "fmt_bold", "fmt_italic", "fmt_underline", "fmt_strikethrough", "fmt_h1", "fmt_h2", "fmt_h3", "fmt_small", "fmt_superscript", "fmt_subscript", "fmt_monospace"]
+TOOLBAR_VEC_DEFAULT = ["tree_add_node", "tree_add_subnode", cons.TAG_SEPARATOR, "go_node_prev", "go_node_next", cons.TAG_SEPARATOR, cons.CHAR_STAR, "ct_save", "export_pdf", cons.TAG_SEPARATOR, "find_in_allnodes", cons.TAG_SEPARATOR, "handle_bull_list", "handle_num_list", "handle_todo_list", cons.TAG_SEPARATOR, "handle_image", "handle_screenshot", "handle_table", "handle_codebox", "handle_embfile", "handle_link", "handle_anchor", cons.TAG_SEPARATOR, "fmt_rm", "fmt_color_fg", "fmt_color_bg", "fmt_bold", "fmt_italic", "fmt_underline", "fmt_strikethrough", "fmt_h1", "fmt_h2", "fmt_h3", "fmt_small", "fmt_superscript", "fmt_subscript", "fmt_monospace"]
 
 TOOLBAR_VEC_BLACKLIST = ["anch_cut", "anch_copy", "anch_del", "anch_edit", "emb_file_cut", "emb_file_copy", "emb_file_del", "emb_file_save", "emb_file_open", "img_save", "img_edit", "img_cut", "img_copy", "img_del", "img_link_edit", "img_link_dismiss", "toggle_show_mainwin"]
