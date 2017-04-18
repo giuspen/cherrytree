@@ -1,4 +1,4 @@
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
 #
 #       findreplace.py
 #
@@ -60,15 +60,13 @@ def dialog_date_select(parent_win, title, curr_time):
     content_area.pack_start(hbox, True, True, 0)
     def on_key_press_dialog(widget, event):
         if Gdk.keyval_name(event.keyval) == cons.STR_KEY_RETURN:
-            try: dialog.get_widget_for_response(Gtk.ResponseType.OK).clicked()
-            except: print cons.STR_PYGTK_222_REQUIRED
+            dialog.get_widget_for_response(Gtk.ResponseType.OK).clicked()
             return True
         return False
     dialog.connect("key_press_event", on_key_press_dialog)
     def on_mouse_button_clicked_dialog(widget, event):
         if event.button == 1 and event.type == Gdk.EventType._2BUTTON_PRESS:
-            try: dialog.get_widget_for_response(Gtk.ResponseType.OK).clicked()
-            except: print cons.STR_PYGTK_222_REQUIRED
+            dialog.get_widget_for_response(Gtk.ResponseType.OK).clicked()
     dialog.connect('button-press-event', on_mouse_button_clicked_dialog)
     content_area.show_all()
     response = dialog.run()
@@ -95,7 +93,7 @@ class FindReplace:
         self.from_find_back = False
         self.newline_trick = False
         # 0-node_id, 1-start_offset, 2-end_offset, 3-node_name, 4-line_content, 5-line_num 6-node_hier_name
-        self.allmatches_liststore = Gtk.ListStore(long, long, long, str, str, int, str)
+        self.allmatches_liststore = Gtk.ListStore(int, int, int, str, str, int, str)
         self.allmatches_title = ""
         self.allmatches_position = None
         self.allmatches_size = None
@@ -138,13 +136,9 @@ class FindReplace:
         dialog.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
         search_entry = Gtk.Entry()
         search_entry.set_text(self.search_replace_dict['find'])
-        try:
-            button_ok = dialog.get_widget_for_response(Gtk.ResponseType.ACCEPT)
-            if pattern_required:
-                button_ok.set_sensitive(bool(self.search_replace_dict['find']))
-        except:
-            print cons.STR_PYGTK_222_REQUIRED
-            button_ok = None
+        button_ok = dialog.get_widget_for_response(Gtk.ResponseType.ACCEPT)
+        if pattern_required:
+            button_ok.set_sensitive(bool(self.search_replace_dict['find']))
         search_frame = Gtk.Frame(label="<b>"+_("Search for")+"</b>")
         search_frame.get_label_widget().set_use_markup(True)
         search_frame.set_shadow_type(Gtk.ShadowType.NONE)
@@ -296,10 +290,10 @@ class FindReplace:
         response = dialog.run()
         dialog.hide()
         if response == Gtk.ResponseType.ACCEPT:
-            find_content = unicode(search_entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE)
+            find_content = search_entry.get_text()
             self.search_replace_dict['find'] = find_content
             if replace_on:
-                self.search_replace_dict['replace'] = unicode(replace_entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE)
+                self.search_replace_dict['replace'] = replace_entry.get_text()
             self.search_replace_dict['match_case'] = match_case_checkbutton.get_active()
             self.search_replace_dict['reg_exp'] = reg_exp_checkbutton.get_active()
             self.search_replace_dict['whole_word'] = whole_word_checkbutton.get_active()
@@ -353,8 +347,7 @@ class FindReplace:
             button_undo.connect('clicked', on_button_undo_clicked)
             def on_key_press_iterated_find_dialog(widget, event):
                 if Gdk.keyval_name(event.keyval) == cons.STR_KEY_RETURN:
-                    try: dialog.get_widget_for_response(1).clicked()
-                    except: print cons.STR_PYGTK_222_REQUIRED
+                    dialog.get_widget_for_response(1).clicked()
                     return True
                 return False
             dialog.connect("key_press_event", on_key_press_iterated_find_dialog)
@@ -495,7 +488,7 @@ class FindReplace:
             if all_matches:
                 self.update_all_matches_progress()
         search_end_time = time.time()
-        print search_end_time - search_start_time, "sec"
+        print(search_end_time - search_start_time, "sec")
         if user_active_restore: self.dad.user_active = True
         config.set_tree_expanded_collapsed_string(self.dad)
         if not self.matches_num or all_matches:
@@ -589,7 +582,7 @@ class FindReplace:
 
     def find_pattern(self, tree_iter, text_buffer, pattern, start_iter, forward, all_matches):
         """Returns (start_iter, end_iter) or (None, None)"""
-        text = unicode(text_buffer.get_text(*text_buffer.get_bounds()), cons.STR_UTF8, cons.STR_IGNORE)
+        text = text_buffer.get_text(*text_buffer.get_bounds())
         if not self.search_replace_dict['reg_exp']: # NOT REGULAR EXPRESSION
             pattern = re.escape(pattern) # backslashes all non alphanum chars => to not spoil re
             if self.search_replace_dict['whole_word']: # WHOLE WORD

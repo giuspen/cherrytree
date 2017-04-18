@@ -1,4 +1,4 @@
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
 #
 #       main.py
 #
@@ -32,9 +32,9 @@ import sys
 import os
 import subprocess
 import gettext
-import __builtin__
+import builtins
 msg_server_to_core = {'f':0, 'p':""}
-__builtin__.msg_server_to_core = msg_server_to_core
+builtins.msg_server_to_core = msg_server_to_core
 import cons
 import core
 
@@ -45,7 +45,7 @@ class CherryTreeObject(dbus.service.Object):
                          in_signature='s', out_signature='s')
     def Send(self, in_message):
         if len(in_message) < 4 or in_message[:4] != "ct*=":
-            print "bad in_message =", in_message
+            print("bad in_message =", in_message)
             return ""
         sep_pos = in_message.find("\x03")
         filepath = in_message[4:sep_pos] if sep_pos != -1 else in_message[4:]
@@ -68,13 +68,13 @@ class CherryTreeHandler():
                 ghost_window = core.CherryTree(self.lang_str, args.filepath, args.node, self, True, True, True)
                 ghost_window.export_to_html("Auto", args.export_to_html_dir, args.export_overwrite)
             else:
-                print "Export error: input not specified"
+                print("Export error: input not specified")
         elif args.export_to_txt_dir:
             if args.filepath:
                 ghost_window = core.CherryTree(self.lang_str, args.filepath, args.node, self, True, True, True)
                 ghost_window.export_to_txt_multiple("Auto", args.export_to_txt_dir, args.export_overwrite)
             else:
-                print "Export error: input not specified"
+                print("Export error: input not specified")
         else:
             self.window_open_new(args.filepath, args.node, True, True if args.filepath else False)
             self.server_check_timer_id = GObject.timeout_add(1000, self.server_periodic_check) # 1 sec
@@ -90,10 +90,10 @@ class CherryTreeHandler():
         #print self.running_windows
         for i, runn_win in enumerate(self.running_windows):
             if runn_win.window == widget:
-                print "win destroy: runn_win found with id", i
+                print("win destroy: runn_win found with id", i)
                 break
         else:
-            print "win destroy: runn_win not found"
+            print("win destroy: runn_win not found")
             i = -1
         self.running_windows.pop(i)
         if not self.running_windows: Gtk.main_quit()
@@ -105,13 +105,13 @@ class CherryTreeHandler():
             msg_server_to_core['f'] = 0
             # 0) debug
             for i, runn_win in enumerate(self.running_windows):
-                print "already running '%s' - '%s'" % (runn_win.file_dir, runn_win.file_name)
+                print("already running '%s' - '%s'" % (runn_win.file_dir, runn_win.file_name))
             # 1) check for opened window with same filepath
             for i, runn_win in enumerate(self.running_windows):
                 if msg_server_to_core['p']\
                 and runn_win.file_name\
                 and msg_server_to_core['p'] == os.path.join(runn_win.file_dir, runn_win.file_name):
-                    print "1 rise existing '%s'" % msg_server_to_core['p']
+                    print("1 rise existing '%s'" % msg_server_to_core['p'])
                     runn_win.window.present()
                     node_name = msg_server_to_core['n']
                     if node_name:
@@ -126,7 +126,7 @@ class CherryTreeHandler():
                 # 2) check for opened window with empty path
                 for i, runn_win in enumerate(self.running_windows):
                     if not runn_win.file_name:
-                        print "2 rise existing '%s'" % msg_server_to_core['p']
+                        print("2 rise existing '%s'" % msg_server_to_core['p'])
                         runn_win.window.present()
                         runn_win.file_startup_load(msg_server_to_core['p'], "")
                         break
@@ -136,13 +136,13 @@ class CherryTreeHandler():
                     if not msg_server_to_core['p'] or msg_server_to_core['p'].endswith("None"):
                         for i, runn_win in enumerate(self.running_windows):
                             if not runn_win.window.get_property(cons.STR_VISIBLE):
-                                print "3 rise existing hidden in systray"
+                                print("3 rise existing hidden in systray")
                                 runn_win.toggle_show_hide_main_window()
                                 just_run_new_win = False
                                 break
                     if just_run_new_win:
                         # 4) run new window
-                        print "4 run '%s'" % msg_server_to_core['p']
+                        print("4 run '%s'" % msg_server_to_core['p'])
                         self.window_open_new(msg_server_to_core['p'], msg_server_to_core['n'], False, False)
         return True # this way we keep the timer alive
 
@@ -161,7 +161,7 @@ def initializations():
             libc = ctypes.cdll.LoadLibrary(ctypes.util.find_library("libc"))
             libc.prctl(15, cons.APP_NAME, 0, 0, 0)
         except:
-            print "libc.prctl not available, the process name will be python and not cherrytree"
+            print("libc.prctl not available, the process name will be python and not cherrytree")
     import locale
     locale.setlocale(locale.LC_ALL, '')
     try:
@@ -191,10 +191,10 @@ def initializations():
     else: lang_str = 'default'
     try: gettext.translation(cons.APP_NAME, cons.LOCALE_PATH).install()
     except:
-        import __builtin__
+        import builtins
         def _(transl_str):
             return transl_str
-        __builtin__._ = _
+        builtins._ = _
     return lang_str
 
 
@@ -245,7 +245,7 @@ def main(args):
                 sys.stderr = os.devnull
                 subprocess.check_output(["taskkill", "/f", "/im", "dbus-daemon.exe"], startupinfo=si)
     else:
-        print "dbus fail, maybe a firewall problem, centralized instances disabled"
+        print("dbus fail, maybe a firewall problem, centralized instances disabled")
         lang_str = initializations()
         CherryTreeHandler(args, lang_str)
         Gtk.main()

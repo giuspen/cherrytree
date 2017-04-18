@@ -1,4 +1,4 @@
-# -*- coding:utf-8 -*-
+# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2012, Maximilian Köhl <linuxmaxi@googlemail.com>
 # Copyright (C) 2012, Carlos Jenkins <carlos@jenkins.co.cr>

@@ -1,4 +1,4 @@
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
 #
 #       ctdb.py
 #
@@ -75,9 +75,9 @@ class CTDBHandler:
             need_to_commit = True
         self.nodes_to_rm_set.clear()
         if need_to_commit: db.commit()
-        elif not self.is_vacuum: print "Writing DB Data but No Updates Found"
+        elif not self.is_vacuum: print("Writing DB Data but No Updates Found")
         if self.is_vacuum:
-            print "vacuum"
+            print("vacuum")
             db.execute('VACUUM')
             db.execute('REINDEX')
 
@@ -177,14 +177,14 @@ class CTDBHandler:
         """Pending Bookmarks Update"""
         if self.dad.filetype not in ["b", "x", ""]: return
         if not self.dad.user_active: return
-        print "pending_edit_db_bookmarks"
+        print("pending_edit_db_bookmarks")
         self.bookmarks_to_write = True
 
     def pending_edit_db_node_prop(self, node_id):
         """Pending Node Needs 'prop' Update"""
         if self.dad.filetype not in ["b", "x", ""]: return
         if not self.dad.user_active: return
-        print "pending_edit_db_node_prop", node_id
+        print("pending_edit_db_node_prop", node_id)
         if node_id in self.nodes_to_write_dict:
             self.nodes_to_write_dict[node_id]['prop'] = True
         else:
@@ -195,7 +195,7 @@ class CTDBHandler:
         """Pending Node Needs 'buff' Update"""
         if self.dad.filetype not in ["b", "x", ""]: return
         if not self.dad.user_active and not force_user_active: return
-        print "pending_edit_db_node_buff", node_id
+        print("pending_edit_db_node_buff", node_id)
         if node_id in self.nodes_to_write_dict:
             self.nodes_to_write_dict[node_id]['buff'] = True
         else:
@@ -206,7 +206,7 @@ class CTDBHandler:
         """Pending Node Needs 'hier' Update"""
         if self.dad.filetype not in ["b", "x", ""]: return
         if not self.dad.user_active: return
-        print "pending_edit_db_node_hier", node_id
+        print("pending_edit_db_node_hier", node_id)
         if node_id in self.nodes_to_write_dict:
             self.nodes_to_write_dict[node_id]['hier'] = True
         else:
@@ -216,7 +216,7 @@ class CTDBHandler:
     def pending_new_db_node(self, node_id):
         """Pending Add a Node to DB"""
         if self.dad.filetype not in ["b", "x", ""]: return
-        print "pending_new_db_node", node_id
+        print("pending_new_db_node", node_id)
         write_dict = {'upd': False, 'prop': True, 'buff': True, 'hier': True, 'child': False}
         self.nodes_to_write_dict[node_id] = write_dict
 
@@ -224,7 +224,7 @@ class CTDBHandler:
         """Pending RM a Node from DB"""
         if self.dad.filetype not in ["b", "x", ""]: return
         if not self.dad.user_active: return
-        print "pending_rm_db_node", node_id
+        print("pending_rm_db_node", node_id)
         if node_id in self.nodes_to_write_dict:
             # no need to write changes to a node that got to be removed
             node_just_inserted = not self.nodes_to_write_dict[node_id]['upd']
@@ -245,7 +245,7 @@ class CTDBHandler:
         node_id = self.dad.treestore[tree_iter][3]
         node_just_inserted = node_id in self.nodes_to_write_dict and not self.nodes_to_write_dict[node_id]['upd']
         if node_just_inserted:
-            print "pending_rm_just_added_node_children", node_id
+            print("pending_rm_just_added_node_children", node_id)
             del self.nodes_to_write_dict[node_id]
         tree_iter_children = self.dad.treestore.iter_children(tree_iter)
         while tree_iter_children:
@@ -268,21 +268,21 @@ class CTDBHandler:
         if curr_cols_num_node == 11:
             db.execute('ALTER TABLE node ADD COLUMN ts_creation INTEGER')
             db.execute('ALTER TABLE node ADD COLUMN ts_lastsave INTEGER')
-            print "table 'node' alter from 11"
+            print("table 'node' alter from 11")
         curr_cols_num_image = len(db.execute('PRAGMA table_info(image)').fetchall())
         if curr_cols_num_image == 5:
             db.execute('ALTER TABLE image ADD COLUMN filename TEXT')
             db.execute('ALTER TABLE image ADD COLUMN link TEXT')
             db.execute('ALTER TABLE image ADD COLUMN time INTEGER')
-            print "table 'image' alter from 5"
+            print("table 'image' alter from 5")
         elif curr_cols_num_image == 7:
             db.execute('ALTER TABLE image ADD COLUMN time INTEGER')
-            print "table 'image' alter from 7"
+            print("table 'image' alter from 7")
 
     def write_db_node(self, db, tree_iter, level, sequence, node_father_id, write_dict, exporting="", sel_range=None):
         """Write a node in DB"""
         node_id = self.dad.treestore[tree_iter][3]
-        print "write node content, node_id", node_id, ", write_dict", write_dict
+        print("write node content, node_id", node_id, ", write_dict", write_dict)
         name = self.dad.treestore[tree_iter][1].decode(cons.STR_UTF8)
         syntax = self.dad.treestore[tree_iter][4]
         tags = self.dad.treestore[tree_iter][6].decode(cons.STR_UTF8)
@@ -449,13 +449,14 @@ class CTDBHandler:
         }
         try: dom = xml.dom.minidom.parseString(table_row['txt'])
         except:
-            print "** failed to parse **"
-            print table_row['txt']
+            print("** failed to parse **")
+            print(table_row['txt'])
+            raise
             return
         dom_node = dom.firstChild
         if not dom_node or dom_node.nodeName != "table":
-            print "** table name != 'table' **"
-            print table_row['txt']
+            print("** table name != 'table' **")
+            print(table_row['txt'])
             return
         child_dom_iter = dom_node.firstChild
         while child_dom_iter != None:
@@ -516,14 +517,15 @@ class CTDBHandler:
             rich_text_xml = re.sub(cons.BAD_CHARS, "", node_row['txt'])
             try: dom = xml.dom.minidom.parseString(rich_text_xml)
             except:
-                print "** failed to parse **"
-                print node_row['txt']
+                print("** failed to parse **")
+                print(node_row['txt'])
+                raise
                 if user_active_restore: self.dad.user_active = True
                 return
             dom_node = dom.firstChild
             if not dom_node or dom_node.nodeName != "node":
-                print "** node name != 'node' **"
-                print node_row['txt']
+                print("** node name != 'node' **")
+                print(node_row['txt'])
                 if user_active_restore: self.dad.user_active = True
                 return
             child_dom_iter = dom_node.firstChild

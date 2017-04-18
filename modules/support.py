@@ -1,4 +1,4 @@
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
 #
 #       support.py
 #
@@ -37,15 +37,15 @@ def get_timestamp_str(timestamp_format, time_float):
     """Get timestamp printable from float"""
     struct_time = time.localtime(time_float)
     try:
-        timestamp_str = time.strftime(timestamp_format, struct_time).decode(locale.getlocale()[1])
+        timestamp_str = time.strftime(timestamp_format, struct_time)
     except:
-        timestamp_str = time.strftime(config.TIMESTAMP_FORMAT_DEFAULT, struct_time).decode(locale.getlocale()[1])
+        timestamp_str = time.strftime(config.TIMESTAMP_FORMAT_DEFAULT, struct_time)
     return timestamp_str
 
 def get_word_count(dad):
     if dad.curr_buffer:
-        all_text = unicode(dad.curr_buffer.get_text(*dad.curr_buffer.get_bounds()), cons.STR_UTF8, cons.STR_IGNORE)
-        word_count = len([w for w in all_text.split() if re.search("\w", w, re.UNICODE)])
+        all_text = dad.curr_buffer.get_text(*dad.curr_buffer.get_bounds())
+        word_count = len([w for w in all_text.split() if re.search(r"\w", w, re.UNICODE)])
     else:
         word_count = 0
     return word_count
@@ -73,11 +73,11 @@ def auto_decode_str(in_str, from_clipboard=False):
     for enc in encodings:
         try:
             out_str = in_str.decode(enc)
-            print enc
+            print(enc)
             break
         except: pass
     else:
-        out_str = unicode(in_str, cons.STR_UTF8, cons.STR_IGNORE)
+        out_str = in_str
     return out_str
 
 def apply_tag_try_node_name(dad, iter_start, iter_end):
@@ -150,25 +150,25 @@ def apply_tag_try_automatic_bounds(dad, text_buffer=None, iter_start=None):
     iter_end = iter_start.copy()
     curr_char = iter_end.get_char()
     # 1) select alphanumeric + special
-    match = re.match('\w', curr_char, re.UNICODE)
+    match = re.match(r'\w', curr_char, re.UNICODE)
     if not match and not curr_char in dad.selword_chars:
         iter_start.backward_char()
         iter_end.backward_char()
         curr_char = iter_end.get_char()
-        match = re.match('\w', curr_char, re.UNICODE)
+        match = re.match(r'\w', curr_char, re.UNICODE)
         if not match and not curr_char in dad.selword_chars:
             return False
     while match or curr_char in dad.selword_chars:
         if not iter_end.forward_char(): break # end of buffer
         curr_char = iter_end.get_char()
-        match = re.match('\w', curr_char, re.UNICODE)
+        match = re.match(r'\w', curr_char, re.UNICODE)
     iter_start.backward_char()
     curr_char = iter_start.get_char()
-    match = re.match('\w', curr_char, re.UNICODE)
+    match = re.match(r'\w', curr_char, re.UNICODE)
     while match or curr_char in dad.selword_chars:
         if not iter_start.backward_char(): break # start of buffer
         curr_char = iter_start.get_char()
-        match = re.match('\w', curr_char, re.UNICODE)
+        match = re.match(r'\w', curr_char, re.UNICODE)
     if not match and not curr_char in dad.selword_chars: iter_start.forward_char()
     # 2) remove non alphanumeric from borders
     iter_end.backward_char()
@@ -534,7 +534,7 @@ def text_file_rm_emptylines(filepath):
         else: overwrite_needed = True
     fd.close()
     if overwrite_needed:
-        print filepath, "empty lines removed"
+        print(filepath, "empty lines removed")
         fd = open(filepath, 'w')
         fd.writelines(file_lines)
         fd.close()
@@ -610,7 +610,7 @@ def get_is_camel_case(iter_start, num_chars):
     curr_state = 0
     for i in range(num_chars):
         curr_char = text_iter.get_char()
-        alphanumeric = re.match('\w', curr_char, re.UNICODE)
+        alphanumeric = re.match(r'\w', curr_char, re.UNICODE)
         if not alphanumeric:
             curr_state = -1
             break
@@ -719,7 +719,7 @@ def dialog_file_save_as(filename=None, filter_pattern=None, filter_name=None, cu
     if chooser.run() == Gtk.ResponseType.ACCEPT:
         filepath = chooser.get_filename()
         chooser.destroy()
-        return unicode(filepath, cons.STR_UTF8, cons.STR_IGNORE) if filepath != None else None
+        return filepath
     else:
         chooser.destroy()
         return None
@@ -750,7 +750,7 @@ def dialog_file_select(filter_pattern=[], filter_mime=[], filter_name=None, curr
     if chooser.run() == Gtk.ResponseType.ACCEPT:
         filepath = chooser.get_filename()
         chooser.destroy()
-        return unicode(filepath, cons.STR_UTF8, cons.STR_IGNORE) if filepath != None else None
+        return filepath
     else:
         chooser.destroy()
         return None
@@ -773,7 +773,7 @@ def dialog_folder_select(curr_folder=None, parent=None):
     if chooser.run() == Gtk.ResponseType.ACCEPT:
         folderpath = chooser.get_filename()
         chooser.destroy()
-        return unicode(folderpath, cons.STR_UTF8, cons.STR_IGNORE) if folderpath != None else None
+        return folderpath
     else:
         chooser.destroy()
         return None
@@ -935,16 +935,14 @@ def dialog_choose_element_in_list(father_win, title, elements_list, column_title
     def on_mouse_button_clicked_elements_list(widget, event):
         if event.button != 1: return
         if event.type == Gdk.EventType._2BUTTON_PRESS:
-            try: dialog.get_widget_for_response(Gtk.ResponseType.ACCEPT).clicked()
-            except: print cons.STR_PYGTK_222_REQUIRED
+            dialog.get_widget_for_response(Gtk.ResponseType.ACCEPT).clicked()
     def on_treeview_event_after(treeview, event):
         if event.type not in [Gdk.EventType.BUTTON_PRESS, Gdk.EventType.KEY_PRESS]: return
         model, list_parms.sel_iter = elements_treeviewselection.get_selected()
     def on_key_press_elementslistdialog(widget, event):
         keyname = Gdk.keyval_name(event.keyval)
         if keyname == cons.STR_KEY_RETURN:
-            try: dialog.get_widget_for_response(Gtk.ResponseType.ACCEPT).clicked()
-            except: print cons.STR_PYGTK_222_REQUIRED
+            dialog.get_widget_for_response(Gtk.ResponseType.ACCEPT).clicked()
             return True
         return False
     elements_treeview.connect('event-after', on_treeview_event_after)
@@ -955,7 +953,7 @@ def dialog_choose_element_in_list(father_win, title, elements_list, column_title
     response = dialog.run()
     dialog.hide()
     if response != Gtk.ResponseType.ACCEPT or not list_parms.sel_iter: return ""
-    return unicode(elements_liststore[list_parms.sel_iter][0], cons.STR_UTF8, cons.STR_IGNORE)
+    return elements_liststore[list_parms.sel_iter][0]
 
 def dialog_img_n_entry(father_win, title, entry_content, img_stock):
     """Insert/Edit Anchor Name"""
@@ -979,8 +977,7 @@ def dialog_img_n_entry(father_win, title, entry_content, img_stock):
     def on_key_press_anchoreditdialog(widget, event):
         keyname = Gdk.keyval_name(event.keyval)
         if keyname == cons.STR_KEY_RETURN:
-            try: dialog.get_widget_for_response(Gtk.ResponseType.ACCEPT).clicked()
-            except: print cons.STR_PYGTK_222_REQUIRED
+            dialog.get_widget_for_response(Gtk.ResponseType.ACCEPT).clicked()
             return True
         return False
     dialog.connect('key_press_event', on_key_press_anchoreditdialog)
@@ -988,7 +985,7 @@ def dialog_img_n_entry(father_win, title, entry_content, img_stock):
     entry.grab_focus()
     response = dialog.run()
     dialog.hide()
-    return unicode(entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE).strip() if response == Gtk.ResponseType.ACCEPT else ""
+    return entry.get_text().strip() if response == Gtk.ResponseType.ACCEPT else ""
 
 def dialog_image_handle(father_win, title, original_pixbuf):
     """Insert/Edit Image"""
@@ -1081,8 +1078,7 @@ def dialog_image_handle(father_win, title, original_pixbuf):
         if keyname == cons.STR_KEY_RETURN:
             spinbutton_width.update()
             spinbutton_height.update()
-            try: dialog.get_widget_for_response(Gtk.ResponseType.ACCEPT).clicked()
-            except: print cons.STR_PYGTK_222_REQUIRED
+            dialog.get_widget_for_response(Gtk.ResponseType.ACCEPT).clicked()
             return True
         return False
     button_rotate_90_ccw.connect('clicked', on_button_rotate_90_ccw_clicked)
@@ -1121,8 +1117,7 @@ def dialog_question_warning(father_win, warning_label):
     def on_key_press_nodedeletedialog(widget, event):
         keyname = Gdk.keyval_name(event.keyval)
         if keyname == cons.STR_KEY_RETURN:
-            try: dialog.get_widget_for_response(Gtk.ResponseType.ACCEPT).clicked()
-            except: print cons.STR_PYGTK_222_REQUIRED
+            dialog.get_widget_for_response(Gtk.ResponseType.ACCEPT).clicked()
             return True
         return False
     dialog.connect('key_press_event', on_key_press_nodedeletedialog)
@@ -1162,12 +1157,10 @@ def dialog_exit_del_temp_files(dad):
     def on_key_press_exitdialog(widget, event):
         keyname = Gdk.keyval_name(event.keyval)
         if keyname == cons.STR_KEY_RETURN:
-            try: dialog.get_widget_for_response(1).clicked()
-            except: print cons.STR_PYGTK_222_REQUIRED
+            dialog.get_widget_for_response(1).clicked()
             return True
         elif keyname == "Escape":
-            try: dialog.get_widget_for_response(2).clicked()
-            except: print cons.STR_PYGTK_222_REQUIRED
+            dialog.get_widget_for_response(2).clicked()
             return True
         return False
     dialog.connect('key_press_event', on_key_press_exitdialog)
@@ -1208,12 +1201,10 @@ def dialog_exit_save(father_win):
     def on_key_press_exitdialog(widget, event):
         keyname = Gdk.keyval_name(event.keyval)
         if keyname == cons.STR_KEY_RETURN:
-            try: dialog.get_widget_for_response(2).clicked()
-            except: print cons.STR_PYGTK_222_REQUIRED
+            dialog.get_widget_for_response(2).clicked()
             return True
         elif keyname == "Escape":
-            try: dialog.get_widget_for_response(6).clicked()
-            except: print cons.STR_PYGTK_222_REQUIRED
+            dialog.get_widget_for_response(6).clicked()
             return True
         return False
     dialog.connect('key_press_event', on_key_press_exitdialog)
@@ -1376,7 +1367,7 @@ def dialog_link_handle(dad, title, sel_tree_iter):
         dad.pick_dir_file = os.path.dirname(filepath)
         if dad.links_relative:
             try: filepath = os.path.relpath(filepath, dad.file_dir)
-            except: print "cannot set relative path for different drives"
+            except: print("cannot set relative path for different drives")
         entry_file.set_text(filepath)
     def on_button_browse_for_folder_to_link_to_clicked(self, *args):
         filepath = dialog_folder_select(curr_folder=dad.pick_dir_file, parent=dialog)
@@ -1384,7 +1375,7 @@ def dialog_link_handle(dad, title, sel_tree_iter):
         dad.pick_dir_file = filepath
         if dad.links_relative:
             try: filepath = os.path.relpath(filepath, dad.file_dir)
-            except: print "cannot set relative path for different drives"
+            except: print("cannot set relative path for different drives")
         entry_folder.set_text(filepath)
     def on_browse_anchors_button_clicked(*args):
         if not links_parms.sel_iter:
@@ -1433,8 +1424,7 @@ def dialog_link_handle(dad, title, sel_tree_iter):
     def on_key_press_links_handle_dialog(widget, event):
         keyname = Gdk.keyval_name(event.keyval)
         if keyname == cons.STR_KEY_RETURN:
-            try: dialog.get_widget_for_response(Gtk.ResponseType.ACCEPT).clicked()
-            except: print cons.STR_PYGTK_222_REQUIRED
+            dialog.get_widget_for_response(Gtk.ResponseType.ACCEPT).clicked()
             return True
         elif keyname == cons.STR_KEY_TAB:
             if dad.link_type == cons.LINK_TYPE_WEBS: radiobutton_file.set_active(True)
@@ -1458,10 +1448,10 @@ def dialog_link_handle(dad, title, sel_tree_iter):
     response = dialog.run()
     dialog.hide()
     if response != Gtk.ResponseType.ACCEPT: return False
-    dad.links_entries['webs'] = unicode(entry_webs.get_text(), cons.STR_UTF8, cons.STR_IGNORE).strip()
-    dad.links_entries['file'] = unicode(entry_file.get_text(), cons.STR_UTF8, cons.STR_IGNORE).strip()
-    dad.links_entries['fold'] = unicode(entry_folder.get_text(), cons.STR_UTF8, cons.STR_IGNORE).strip()
-    dad.links_entries['anch'] = unicode(entry_anchor.get_text(), cons.STR_UTF8, cons.STR_IGNORE).strip()
+    dad.links_entries['webs'] = entry_webs.get_text().strip()
+    dad.links_entries['file'] = entry_file.get_text().strip()
+    dad.links_entries['fold'] = entry_folder.get_text().strip()
+    dad.links_entries['anch'] = entry_anchor.get_text().strip()
     dad.links_entries['node'] = links_parms.sel_iter
     return True
 
@@ -1522,8 +1512,7 @@ def dialog_choose_data_storage(dad):
         else: passw_frame.set_sensitive(False)
     def on_key_press_edit_data_storage_type_dialog(widget, event):
         if Gdk.keyval_name(event.keyval) == cons.STR_KEY_RETURN:
-            try: dialog.get_widget_for_response(Gtk.ResponseType.ACCEPT).clicked()
-            except: print cons.STR_PYGTK_222_REQUIRED
+            dialog.get_widget_for_response(Gtk.ResponseType.ACCEPT).clicked()
             return True
         return False
     radiobutton_sqlite_not_protected.connect("toggled", on_radiobutton_savetype_toggled)
@@ -1535,8 +1524,8 @@ def dialog_choose_data_storage(dad):
                            or radiobutton_xml_pass_protected.get_active())
     new_protection = {'on': (radiobutton_sqlite_pass_protected.get_active()\
                              or radiobutton_xml_pass_protected.get_active()),
-                      'p1': unicode(entry_passw_1.get_text(), cons.STR_UTF8, cons.STR_IGNORE),
-                      'p2': unicode(entry_passw_2.get_text(), cons.STR_UTF8, cons.STR_IGNORE)}
+                      'p1': entry_passw_1.get_text(),
+                      'p2': entry_passw_2.get_text()}
     dialog.destroy()
     if response != Gtk.ResponseType.ACCEPT: return False
     if new_protection['on']:
@@ -1594,8 +1583,7 @@ def dialog_choose_node(dad, title, treestore, sel_tree_iter):
     content_area.pack_start(scrolledwindow, True, True, 0)
     def on_key_press_choose_node_dialog(widget, event):
         if Gdk.keyval_name(event.keyval) == cons.STR_KEY_RETURN:
-            try: dialog.get_widget_for_response(Gtk.ResponseType.ACCEPT).clicked()
-            except: print cons.STR_PYGTK_222_REQUIRED
+            dialog.get_widget_for_response(Gtk.ResponseType.ACCEPT).clicked()
             return True
         return False
     def on_treeview_event_after(treeview, event):
@@ -1674,8 +1662,7 @@ def dialog_selnode_selnodeandsub_alltree(dad, also_selection, also_include_node_
         content_area.pack_start(checkbutton_new_node_page, True, True, 0)
     def on_key_press_enter_dialog(widget, event):
         if Gdk.keyval_name(event.keyval) == cons.STR_KEY_RETURN:
-            try: dialog.get_widget_for_response(Gtk.ResponseType.ACCEPT).clicked()
-            except: print cons.STR_PYGTK_222_REQUIRED
+            dialog.get_widget_for_response(Gtk.ResponseType.ACCEPT).clicked()
             return True
         return False
     dialog.connect("key_press_event", on_key_press_enter_dialog)
@@ -1710,15 +1697,13 @@ def dialog_color_pick(dad, curr_color=None):
         colorselection.set_current_color(curr_color)
     def on_key_press_color_pick_dialog(widget, event):
         if Gdk.keyval_name(event.keyval) == cons.STR_KEY_RETURN:
-            try: dialog.get_widget_for_response(Gtk.ResponseType.OK).clicked()
-            except: print cons.STR_PYGTK_222_REQUIRED
+            dialog.get_widget_for_response(Gtk.ResponseType.OK).clicked()
             return True
         return False
     dialog.connect("key_press_event", on_key_press_color_pick_dialog)
     def on_mouse_button_clicked_color_pick_dialog(widget, event):
         if event.button == 1 and event.type == Gdk.EventType._2BUTTON_PRESS:
-            try: dialog.get_widget_for_response(Gtk.ResponseType.OK).clicked()
-            except: print cons.STR_PYGTK_222_REQUIRED
+            dialog.get_widget_for_response(Gtk.ResponseType.OK).clicked()
     dialog.connect('button-press-event', on_mouse_button_clicked_color_pick_dialog)
     response = dialog.run()
     dialog.hide()
@@ -1743,10 +1728,10 @@ def set_bookmarks_menu_items(dad):
     dad.bookmarks_menu_items = [menu_item]
     bookmarks_to_rm = []
     for node_id_str in dad.bookmarks:
-        if not long(node_id_str) in dad.nodes_names_dict:
+        if not int(node_id_str) in dad.nodes_names_dict:
             bookmarks_to_rm.append(node_id_str)
             continue
-        menu_item = Gtk.ImageMenuItem(dad.nodes_names_dict[long(node_id_str)])
+        menu_item = Gtk.ImageMenuItem(dad.nodes_names_dict[int(node_id_str)])
         menu_item.set_image(Gtk.Image.new_from_stock("pin", Gtk.IconSize.MENU))
         menu_item.connect("activate", select_bookmark_node, node_id_str, dad)
         menu_item.show()
@@ -1847,7 +1832,7 @@ def open_recent_document(menu_item, filepath, dad):
 
 def select_bookmark_node(menu_item, node_id_str, dad):
     """Select a Node in the Bookmarks List"""
-    node_iter = dad.get_tree_iter_from_node_id(long(node_id_str))
+    node_iter = dad.get_tree_iter_from_node_id(int(node_id_str))
     if node_iter:
         dad.treeview_safe_set_cursor(node_iter)
         if dad.tree_click_expand:
@@ -1865,7 +1850,7 @@ def bookmarks_handle(dad):
     liststore = Gtk.ListStore(str, str, str)
     for node_id_str in dad.bookmarks:
         # icon, node name, node id string
-        liststore.append(["pin", dad.nodes_names_dict[long(node_id_str)], node_id_str])
+        liststore.append(["pin", dad.nodes_names_dict[int(node_id_str)], node_id_str])
     treeview = Gtk.TreeView(liststore)
     treeview.set_headers_visible(False)
     treeview.set_reorderable(True)
@@ -1882,7 +1867,7 @@ def bookmarks_handle(dad):
         path_n_tvc = treeview.get_path_at_pos(int(event.x), int(event.y))
         if not path_n_tvc: return
         tree_path = path_n_tvc[0]
-        dad_tree_path = dad.get_tree_iter_from_node_id(long(liststore[tree_path][2]))
+        dad_tree_path = dad.get_tree_iter_from_node_id(int(liststore[tree_path][2]))
         dad.treeview_safe_set_cursor(dad_tree_path)
     treeview.connect('key_press_event', on_key_press_liststore)
     treeview.connect('button-press-event', on_mouse_button_clicked_liststore)

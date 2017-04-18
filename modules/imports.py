@@ -1,4 +1,4 @@
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
 #
 #       imports.py
 #
@@ -22,13 +22,13 @@
 from gi.repository import Gtk
 from gi.repository import GdkPixbuf
 from gi.repository import Gio
-import HTMLParser
-import htmlentitydefs
+import html.parser
+import html.entities
 import os
 import xml.dom.minidom
 import re
 import base64
-import urllib2
+import urllib.request
 import binascii
 import shutil
 import glob
@@ -96,15 +96,15 @@ def epim_html_file_to_hier_files(filepath):
                     curr_state = 4
                 else: nodes_content[curr_node_idx] += html_row
             else: break
-    print len(nodes_levels), nodes_levels
-    print len(nodes_names), nodes_names
+    print(len(nodes_levels), nodes_levels)
+    print(len(nodes_names), nodes_names)
     filedir, filename = os.path.split(filepath)
     dest_folder = [epim_dir]
     for i,node_name in enumerate(nodes_names):
         if i>0:
             if nodes_levels[i] > nodes_levels[i-1]:
                 dest_folder.append(os.path.join(dest_folder[-1], nodes_names[i-1]))
-                print dest_folder[-1]
+                print(dest_folder[-1])
             elif nodes_levels[i] < nodes_levels[i-1]:
                 for back_jumps in range(nodes_levels[i-1] - nodes_levels[i]):
                     dest_folder.pop()
@@ -186,12 +186,12 @@ class LeoHandler:
         return self.dom.toxml()
 
 
-class TuxCardsHandler(HTMLParser.HTMLParser):
+class TuxCardsHandler(html.parser.HTMLParser):
     """The Handler of the TuxCards File Parsing"""
 
     def __init__(self, dad):
         """Machine boot"""
-        HTMLParser.HTMLParser.__init__(self)
+        html.parser.HTMLParser.__init__(self)
         self.dad = dad
         self.xml_handler = machines.XMLHandler(self)
 
@@ -255,7 +255,7 @@ class TuxCardsHandler(HTMLParser.HTMLParser):
                 elif "font-style" in attrs[0][1] and cons.TAG_PROP_ITALIC in attrs[0][1]: self.curr_attributes[cons.TAG_STYLE] = cons.TAG_PROP_ITALIC
                 elif "text-decoration" in attrs[0][1] and cons.TAG_UNDERLINE in attrs[0][1]: self.curr_attributes[cons.TAG_UNDERLINE] = cons.TAG_PROP_SINGLE
                 elif "color" in attrs[0][1]:
-                    match = re.match("(?<=^).+:(.+);(?=$)", attrs[0][1])
+                    match = re.match(r"(?<=^).+:(.+);(?=$)", attrs[0][1])
                     if match != None: self.curr_attributes[cons.TAG_FOREGROUND] = match.group(1).strip()
             elif tag == "a" and len(attrs) > 0:
                 link_url = attrs[0][1]
@@ -269,7 +269,7 @@ class TuxCardsHandler(HTMLParser.HTMLParser):
                     pixbuf = GdkPixbuf.Pixbuf.new_from_file(img_path)
                 else:
                     try:
-                        url_desc = urllib2.urlopen(img_path, timeout=3)
+                        url_desc = urllib.request.urlopen(img_path, timeout=3)
                         image_file = url_desc.read()
                         pixbuf_loader = GdkPixbuf.PixbufLoader()
                         pixbuf_loader.write(image_file)
@@ -279,7 +279,7 @@ class TuxCardsHandler(HTMLParser.HTMLParser):
                 if pixbuf:
                     self.pixbuf_vector.append([self.chars_counter, pixbuf, cons.TAG_PROP_LEFT])
                     self.chars_counter += 1
-                else: print "%s insert fail" % img_path
+                else: print("%s insert fail" % img_path)
             elif tag == "br":
                 # this is a data block composed only by an endline
                 self.rich_text_serialize(cons.CHAR_NEWLINE)
@@ -316,8 +316,8 @@ class TuxCardsHandler(HTMLParser.HTMLParser):
     def handle_entityref(self, name):
         """Found Entity Reference like &name;"""
         if self.curr_state == 0: return
-        if name in htmlentitydefs.name2codepoint:
-            unicode_char = unichr(htmlentitydefs.name2codepoint[name])
+        if name in html.entities.name2codepoint:
+            unicode_char = chr(html.entities.name2codepoint[name])
             self.rich_text_serialize(unicode_char)
             self.chars_counter += 1
 
@@ -332,12 +332,12 @@ class TuxCardsHandler(HTMLParser.HTMLParser):
         return self.dom.toxml()
 
 
-class KeepnoteHandler(HTMLParser.HTMLParser):
+class KeepnoteHandler(html.parser.HTMLParser):
     """The Handler of the KeepNote Folder Parsing"""
 
     def __init__(self, dad, folderpath):
         """Machine boot"""
-        HTMLParser.HTMLParser.__init__(self)
+        html.parser.HTMLParser.__init__(self)
         self.dad = dad
         self.folderpath = folderpath
         self.xml_handler = machines.XMLHandler(self)
@@ -372,7 +372,7 @@ class KeepnoteHandler(HTMLParser.HTMLParser):
                 node_string = file_descriptor.read()
                 file_descriptor.close()
             except:
-                print "Error opening the file %s" % filepath
+                print("Error opening the file %s" % filepath)
                 return
         else: node_string = "" # empty node
         self.curr_state = 0
@@ -402,7 +402,7 @@ class KeepnoteHandler(HTMLParser.HTMLParser):
             elif tag == "u": self.curr_attributes[cons.TAG_UNDERLINE] = cons.TAG_PROP_SINGLE
             elif tag == "strike": self.curr_attributes[cons.TAG_STRIKETHROUGH] = cons.TAG_PROP_TRUE
             elif tag == "span" and attrs[0][0] == cons.TAG_STYLE:
-                match = re.match("(?<=^)(.+):(.+)(?=$)", attrs[0][1])
+                match = re.match(r"(?<=^)(.+):(.+)(?=$)", attrs[0][1])
                 if match != None:
                     if match.group(1) == "color":
                         self.curr_attributes[cons.TAG_FOREGROUND] = match.group(2).strip()
@@ -421,7 +421,7 @@ class KeepnoteHandler(HTMLParser.HTMLParser):
                     pixbuf = GdkPixbuf.Pixbuf.new_from_file(img_path)
                     self.pixbuf_vector.append([self.chars_counter, pixbuf, cons.TAG_PROP_LEFT])
                     self.chars_counter += 1
-                else: print "%s not found" % img_path
+                else: print("%s not found" % img_path)
             elif tag == "br":
                 # this is a data block composed only by an endline
                 self.rich_text_serialize(cons.CHAR_NEWLINE)
@@ -458,8 +458,8 @@ class KeepnoteHandler(HTMLParser.HTMLParser):
     def handle_entityref(self, name):
         """Found Entity Reference like &name;"""
         if self.curr_state == 0: return
-        if name in htmlentitydefs.name2codepoint:
-            unicode_char = unichr(htmlentitydefs.name2codepoint[name])
+        if name in html.entities.name2codepoint:
+            unicode_char = chr(html.entities.name2codepoint[name])
             self.rich_text_serialize(unicode_char)
             self.chars_counter += 1
 
@@ -564,7 +564,7 @@ class RedNotebookHandler():
                             self.chars_counter += 1
                             valid_image = True
                         except: pass
-                    if not valid_image: print "! error: '%s' is not a valid image" % self.wiki_slot
+                    if not valid_image: print("! error: '%s' is not a valid image" % self.wiki_slot)
                     self.wiki_slot = ""
                     curr_pos += 1
                     self.in_image = False
@@ -589,7 +589,7 @@ class RedNotebookHandler():
                                 self.rich_text_serialize(label_n_target[0])
                                 self.curr_attributes[cons.TAG_LINK] = ""
                             else:
-                                print "?", label_n_target
+                                print("?", label_n_target)
                             self.wiki_slot = ""
                             curr_pos += 1
                     self.in_link = False
@@ -728,11 +728,11 @@ class RedNotebookHandler():
                     elif month_list[-1]["md"].endswith(cons.CHAR_BR_CLOSE):
                         month_list[-1]["md"] = month_list[-1]["md"][:-1]
                     else:
-                        print "!! unexpected md end"
-                        print month_list[-1]["md"]
+                        print("!! unexpected md end")
+                        print(month_list[-1]["md"])
             for text_line in fd:
                 text_line = text_line.replace(cons.CHAR_NEWLINE, "").replace(cons.CHAR_CR, "")
-                ret_match = re.search("^(\d+):\s{text:\s(.+)$", text_line)
+                ret_match = re.search(r"^(\d+):\s{text:\s(.+)$", text_line)
                 if ret_match:
                     # start of new day
                     clean_markdown_end()
@@ -868,7 +868,7 @@ class ZimHandler():
                                 self.chars_counter += 1
                                 valid_image = True
                             except: pass
-                        if not valid_image: print "! error: '%s' is not a valid image" % self.wiki_slot
+                        if not valid_image: print("! error: '%s' is not a valid image" % self.wiki_slot)
                         self.wiki_slot = ""
                         curr_pos += 1
                         self.in_link = False
@@ -1028,7 +1028,7 @@ class ZimHandler():
                     if curr_char == cons.CHAR_PIPE:
                         self.curr_table[-1].append(self.curr_cell.strip())
                         self.curr_cell = ""
-                        print self.curr_table[-1][-1]
+                        print(self.curr_table[-1][-1])
                         if next_char == cons.CHAR_NEWLINE:
                             if third_char == cons.CHAR_PIPE:
                                 self.curr_table.append([])
@@ -1084,14 +1084,14 @@ class ZimHandler():
                 elif link_to_node['name_dest'].startswith("+"):
                     node_dest = dad.get_tree_iter_from_node_name(link_to_node['name_dest'][1:])
             if not node_dest:
-                print "node_dest not found", link_to_node['name_dest']
+                print("node_dest not found", link_to_node['name_dest'])
                 continue
             if not node_source:
-                print "node_source not found", link_to_node['node_source']
+                print("node_source not found", link_to_node['node_source'])
                 continue
             source_buffer = dad.get_textbuffer_from_tree_iter(node_source)
             if source_buffer.get_char_count() < link_to_node['char_end']:
-                print "source_buffer less than %d chars" % link_to_node['char_end']
+                print("source_buffer less than %d chars" % link_to_node['char_end'])
                 continue
             property_value = cons.LINK_TYPE_NODE + cons.CHAR_SPACE + str(dad.treestore[node_dest][3])
             source_buffer.apply_tag_by_name(dad.apply_tag_exist_or_create(cons.TAG_LINK, property_value),
@@ -1132,7 +1132,7 @@ class TomboyHandler():
         dest_dom_father = self.dest_orphans_dom_node
         try: dom = xml.dom.minidom.parseString(xml_string)
         except:
-            print "? non xml file:", file_name
+            print("? non xml file:", file_name)
             return
         dom_iter = dom.firstChild
         while dom_iter:
@@ -1288,12 +1288,12 @@ class TomboyHandler():
                                             source_buffer.get_iter_at_offset(link_to_node['char_end']))
 
 
-class BasketHandler(HTMLParser.HTMLParser):
+class BasketHandler(html.parser.HTMLParser):
     """The Handler of the Basket Folder Parsing"""
 
     def __init__(self, dad, folderpath):
         """Machine boot"""
-        HTMLParser.HTMLParser.__init__(self)
+        html.parser.HTMLParser.__init__(self)
         self.folderpath = folderpath
         self.dad = dad
         self.xml_handler = machines.XMLHandler(dad)
@@ -1473,7 +1473,7 @@ class BasketHandler(HTMLParser.HTMLParser):
                 elif "font-style" in attrs[0][1] and cons.TAG_PROP_ITALIC in attrs[0][1]: self.curr_attributes[cons.TAG_STYLE] = cons.TAG_PROP_ITALIC
                 elif "text-decoration" in attrs[0][1] and cons.TAG_UNDERLINE in attrs[0][1]: self.curr_attributes[cons.TAG_UNDERLINE] = cons.TAG_PROP_SINGLE
                 elif "color" in attrs[0][1]:
-                    match = re.match("(?<=^).+:(.+);(?=$)", attrs[0][1])
+                    match = re.match(r"(?<=^).+:(.+);(?=$)", attrs[0][1])
                     if match != None: self.curr_attributes[cons.TAG_FOREGROUND] = match.group(1).strip()
             elif tag == "a" and len(attrs) > 0:
                 link_url = attrs[0][1]
@@ -1518,8 +1518,8 @@ class BasketHandler(HTMLParser.HTMLParser):
     def handle_entityref(self, name):
         """Found Entity Reference like &name;"""
         if self.curr_state == 0: return
-        if name in htmlentitydefs.name2codepoint:
-            unicode_char = unichr(htmlentitydefs.name2codepoint[name])
+        if name in html.entities.name2codepoint:
+            unicode_char = chr(html.entities.name2codepoint[name])
             self.rich_text_serialize(unicode_char)
             self.chars_counter += 1
 
@@ -1534,12 +1534,12 @@ class BasketHandler(HTMLParser.HTMLParser):
         return self.dom.toxml()
 
 
-class KnowitHandler(HTMLParser.HTMLParser):
+class KnowitHandler(html.parser.HTMLParser):
     """The Handler of the Knowit File Parsing"""
 
     def __init__(self, dad):
         """Machine boot"""
-        HTMLParser.HTMLParser.__init__(self)
+        html.parser.HTMLParser.__init__(self)
         self.dad = dad
         self.xml_handler = machines.XMLHandler(self)
 
@@ -1566,12 +1566,12 @@ class KnowitHandler(HTMLParser.HTMLParser):
         for text_line in file_descriptor:
             text_line = text_line.decode(cons.STR_UTF8, cons.STR_IGNORE)
             if self.curr_xml_state == 0:
-                if text_line.startswith("\NewEntry ")\
-                or text_line.startswith("\CurrentEntry "):
+                if text_line.startswith(r"\NewEntry ")\
+                or text_line.startswith(r"\CurrentEntry "):
                     if text_line[1] == "N": text_to_parse = text_line[10:-1]
                     else: text_to_parse = text_line[14:-1]
-                    match = re.match("(\d+) (.*)$", text_to_parse)
-                    if not match: print '%s' % text_to_parse
+                    match = re.match(r"(\d+) (.*)$", text_to_parse)
+                    if not match: print('%s' % text_to_parse)
                     self.curr_node_level = int(match.group(1))
                     self.curr_node_name = match.group(2)
                     #print "node name = '%s', node level = %s" % (self.curr_node_name, self.curr_node_level)
@@ -1588,10 +1588,10 @@ class KnowitHandler(HTMLParser.HTMLParser):
                     self.nodes_list[-2].appendChild(self.nodes_list[-1])
                 else: self.curr_node_name += text_line.replace(cons.CHAR_CR, "").replace(cons.CHAR_NEWLINE, "") + cons.CHAR_SPACE
             elif self.curr_xml_state == 1:
-                if text_line.startswith("\Link "):
+                if text_line.startswith(r"\Link "):
                     link_uri = text_line[6:-1]
                     self.links_list.append([link_uri, ""])
-                elif text_line.startswith("\Descr "):
+                elif text_line.startswith(r"\Descr "):
                     link_desc = text_line[7:-1]
                     self.links_list[-1][1] = link_desc
                 elif text_line.endswith("</body></html>"+cons.CHAR_NEWLINE):
@@ -1632,7 +1632,7 @@ class KnowitHandler(HTMLParser.HTMLParser):
                 elif "font-style" in attrs[0][1] and cons.TAG_PROP_ITALIC in attrs[0][1]: self.curr_attributes[cons.TAG_STYLE] = cons.TAG_PROP_ITALIC
                 elif "text-decoration" in attrs[0][1] and cons.TAG_UNDERLINE in attrs[0][1]: self.curr_attributes[cons.TAG_UNDERLINE] = cons.TAG_PROP_SINGLE
                 elif "color" in attrs[0][1]:
-                    match = re.match("(?<=^).+:(.+)(?=$)", attrs[0][1])
+                    match = re.match(r"(?<=^).+:(.+)(?=$)", attrs[0][1])
                     if match != None: self.curr_attributes[cons.TAG_FOREGROUND] = match.group(1).strip()
             elif tag == "br":
                 # this is a data block composed only by an endline
@@ -1661,8 +1661,8 @@ class KnowitHandler(HTMLParser.HTMLParser):
     def handle_entityref(self, name):
         """Found Entity Reference like &name;"""
         if self.curr_html_state == 0: return
-        if name in htmlentitydefs.name2codepoint:
-            unicode_char = unichr(htmlentitydefs.name2codepoint[name])
+        if name in html.entities.name2codepoint:
+            unicode_char = chr(html.entities.name2codepoint[name])
             self.rich_text_serialize(unicode_char)
 
     def set_links_to_nodes(self, dad):
@@ -1734,7 +1734,7 @@ class KeynoteHandler:
             text_line = text_line.decode(cons.STR_UTF8, cons.STR_IGNORE)
             if self.curr_state == 0:
                 if text_line.startswith("LV="):
-                    print "node level:", text_line[3:]
+                    print("node level:", text_line[3:])
                     self.curr_state = 1
                     self.curr_node_level = int(text_line[3:])
                     if self.curr_node_level <= self.former_node_level:
@@ -1744,7 +1744,7 @@ class KeynoteHandler:
                     self.former_node_level = self.curr_node_level
             elif self.curr_state == 1:
                 if text_line.startswith("ND="):
-                    print "node name:", text_line[3:]
+                    print("node name:", text_line[3:])
                     self.curr_state = 2
                     self.curr_node_name = text_line[3:]
             elif self.curr_state == 2:
@@ -1786,8 +1786,8 @@ class KeynoteHandler:
         if self.in_picture or self.in_object:
             if text_line[0] == cons.CHAR_BR_CLOSE:
                 self.img_fd.close()
-                if self.in_picture: print "in_picture OFF"
-                else: print "in_object OFF"
+                if self.in_picture: print("in_picture OFF")
+                else: print("in_object OFF")
                 with open(self.img_tmp_path, 'rb') as fd:
                     pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(cons.FILE_CHAR, self.dad.embfile_size, self.dad.embfile_size)
                     pixbuf.filename = "image.wmf" if self.in_picture else "file"
@@ -1815,8 +1815,8 @@ class KeynoteHandler:
             text_label = text_line[hyp_idx_2+1:]
             text_target = text_target.replace(4*cons.CHAR_BSLASH, cons.CHAR_BSLASH)
             text_label = text_label.replace(2*cons.CHAR_BSLASH, cons.CHAR_BSLASH)
-            print text_target
-            print text_label
+            print(text_target)
+            print(text_label)
             self.check_pending_text_to_tag()
             if text_target.startswith("http"):
                 self.curr_attributes[cons.TAG_LINK] = "webs %s" % text_target
@@ -1838,7 +1838,7 @@ class KeynoteHandler:
                 continue
             if curr_char == cons.CHAR_BSLASH:
                 if (self.in_br_num == 0 or self.in_br_read_data) and text_line[i+1:].startswith(cons.CHAR_SQUOTE):
-                    self.curr_node_content += unichr(int(text_line[i+2:i+4], 16))
+                    self.curr_node_content += chr(int(text_line[i+2:i+4], 16))
                     dummy_loop = 3
                     curr_state = 0
                 elif text_line[i+1:].startswith(cons.CHAR_BSLASH):
@@ -1925,16 +1925,16 @@ class KeynoteHandler:
                     curr_state = 0
                 elif text_line[i+1:].startswith("pict"):
                     self.in_picture = True
-                    print "in_picture ON"
+                    print("in_picture ON")
                     curr_state = 1
                     self.img_fd = open(self.img_tmp_path, "wb")
                 elif text_line[i+1:].startswith("object"):
                     self.in_object = True
-                    print "in_object ON"
+                    print("in_object ON")
                     curr_state = 1
                     self.img_fd = open(self.img_tmp_path, "wb")
                 elif text_line[i+1:].startswith("result"):
-                    print "result"
+                    print("result")
                     dummy_loop = 6
                     curr_state = 0
                 else:
@@ -1942,11 +1942,11 @@ class KeynoteHandler:
             elif curr_char == cons.CHAR_BR_OPEN:
                 if self.node_br_ok:
                     self.in_br_num += 1
-                    print "self.in_br_num", self.in_br_num
+                    print("self.in_br_num", self.in_br_num)
                 else: self.node_br_ok = True
             elif curr_char == cons.CHAR_BR_CLOSE:
                 self.in_br_num -= 1
-                print "self.in_br_num", self.in_br_num
+                print("self.in_br_num", self.in_br_num)
                 curr_state = 0
                 self.in_br_read_data = False
             elif self.in_br_read_data and curr_char == cons.CHAR_PARENTH_CLOSE:
@@ -2025,7 +2025,7 @@ class TreepadHandler:
                 self.curr_state = 2
             elif self.curr_state == 2:
                 #print "node level", text_line
-                if re.match("\d+", text_line):
+                if re.match(r"\d+", text_line):
                     self.curr_node_level = int(text_line)
                     #print self.curr_node_level
                     if self.curr_node_level <= self.former_node_level:
@@ -2097,7 +2097,7 @@ class PlainTextHandler:
             file_content = file_descriptor.read()
             file_descriptor.close()
         except:
-            print "skip import of", filepath
+            print("skip import of", filepath)
             return
         self.add_node_with_content(filepath, support.auto_decode_str(file_content))
         self.nodes_list.pop()
@@ -2190,12 +2190,12 @@ class MempadHandler:
         return self.dom.toxml()
 
 
-class NotecaseHandler(HTMLParser.HTMLParser):
+class NotecaseHandler(html.parser.HTMLParser):
     """The Handler of the Notecase Files Parsing"""
 
     def __init__(self, dad):
         """Machine boot"""
-        HTMLParser.HTMLParser.__init__(self)
+        html.parser.HTMLParser.__init__(self)
         self.dad = dad
         self.xml_handler = machines.XMLHandler(self)
 
@@ -2240,7 +2240,7 @@ class NotecaseHandler(HTMLParser.HTMLParser):
             elif tag == "u": self.curr_attributes[cons.TAG_UNDERLINE] = cons.TAG_PROP_SINGLE
             elif tag == "s": self.curr_attributes[cons.TAG_STRIKETHROUGH] = cons.TAG_PROP_TRUE
             elif tag == "span" and attrs[0][0] == cons.TAG_STYLE:
-                match = re.match("(?<=^)(.+):(.+)(?=$)", attrs[0][1])
+                match = re.match(r"(?<=^)(.+):(.+)(?=$)", attrs[0][1])
                 if match != None:
                     if match.group(1) == "color":
                         self.curr_attributes[cons.TAG_FOREGROUND] = match.group(2).strip()
@@ -2356,8 +2356,8 @@ class NotecaseHandler(HTMLParser.HTMLParser):
 
     def handle_entityref(self, name):
         """Found Entity Reference like &name;"""
-        if name in htmlentitydefs.name2codepoint:
-            unicode_char = unichr(htmlentitydefs.name2codepoint[name])
+        if name in html.entities.name2codepoint:
+            unicode_char = chr(html.entities.name2codepoint[name])
         else: return
         if self.curr_state == 1:
             # state 1 got title
@@ -2386,14 +2386,14 @@ class NotecaseHandler(HTMLParser.HTMLParser):
         return self.dom.toxml()
 
 
-class HTMLHandler(HTMLParser.HTMLParser):
+class HTMLHandler(html.parser.HTMLParser):
     """The Handler of the HTML received from clipboard"""
 
     def __init__(self, dad):
         """Machine boot"""
         self.dad = dad
         self.monitored_tags = ["p", "b", "i", "u", "s", cons.TAG_PROP_H1, cons.TAG_PROP_H2, cons.TAG_PROP_H3, "span", "font"]
-        HTMLParser.HTMLParser.__init__(self)
+        html.parser.HTMLParser.__init__(self)
 
     def rich_text_serialize(self, text_data):
         """Appends a new part to the XML rich text"""
@@ -2426,7 +2426,7 @@ class HTMLHandler(HTMLParser.HTMLParser):
                 rgb_tern.append(int(html_attribute_key[parenth_start+1:parenth_start+1+parenth_end]))
                 html_attribute_key = html_attribute_key[parenth_start+1+parenth_end:]
             if len(rgb_tern) != 3:
-                print rgb_tern
+                print(rgb_tern)
                 return None
             html_attribute_key = "#%.2x%.2x%.2x" % (rgb_tern[0], rgb_tern[1], rgb_tern[2])
             return html_attribute_key
@@ -2565,7 +2565,7 @@ class HTMLHandler(HTMLParser.HTMLParser):
         try:
             self.dad.statusbar.push(self.dad.statusbar_context_id, _("Downloading") + " %s ..." % img_path)
             while Gtk.events_pending(): Gtk.main_iteration()
-            url_desc = urllib2.urlopen(img_path, timeout=3)
+            url_desc = urllib.request.urlopen(img_path, timeout=3)
             image_file = url_desc.read()
             pixbuf_loader = GdkPixbuf.PixbufLoader()
             pixbuf_loader.write(image_file)
@@ -2580,7 +2580,7 @@ class HTMLHandler(HTMLParser.HTMLParser):
                 pixbuf = GdkPixbuf.Pixbuf.new_from_file(os.path.join(self.local_dir, img_path))
                 self.dad.xml_handler.pixbuf_element_to_xml([self.chars_counter, pixbuf, cons.TAG_PROP_LEFT], self.nodes_list[-1], self.dom)
                 self.chars_counter += 1
-            else: print "failed download of", img_path
+            else: print("failed download of", img_path)
             self.dad.statusbar.pop(self.dad.statusbar_context_id)
 
     def handle_endtag(self, tag):
@@ -2662,7 +2662,7 @@ class HTMLHandler(HTMLParser.HTMLParser):
                         self.dad.xml_handler.codebox_element_to_xml([self.chars_counter, codebox_dict, cons.TAG_PROP_LEFT],
                             self.nodes_list[-1], self.dom)
                         self.chars_counter += 1
-                    else: print "empty codebox skip"
+                    else: print("empty codebox skip")
                 else:
                     # it's a table
                     if not self.curr_table_header: self.curr_table.append([_("click me")]*len(self.curr_table[0]))
@@ -2708,8 +2708,8 @@ class HTMLHandler(HTMLParser.HTMLParser):
         #print name
         if name == "nbsp":
             unicode_char = cons.CHAR_SPACE
-        elif name in htmlentitydefs.name2codepoint:
-            unicode_char = unichr(htmlentitydefs.name2codepoint[name])
+        elif name in html.entities.name2codepoint:
+            unicode_char = chr(html.entities.name2codepoint[name])
         else: return
         if self.curr_state == 1: self.rich_text_serialize(unicode_char)
         elif self.curr_state == 2: self.curr_cell += unicode_char
@@ -2723,7 +2723,7 @@ class HTMLHandler(HTMLParser.HTMLParser):
         #print unicode_num
         if unicode_num == 160: # nbsp
             unicode_num = 32 # space
-        unicode_char = unichr(unicode_num)
+        unicode_char = chr(unicode_num)
         if self.curr_state == 1: self.rich_text_serialize(unicode_char)
         elif self.curr_state == 2: self.curr_cell += unicode_char
 
@@ -2760,7 +2760,7 @@ class HTMLHandler(HTMLParser.HTMLParser):
         #with open("clipboard.log", 'w') as fd:
             #fd.write(input_string)
         #print "###############"
-        self.num_bodies = len(re.findall("<body[^>]*>", input_string, re.IGNORECASE))
+        self.num_bodies = len(re.findall(r"<body[^>]*>", input_string, re.IGNORECASE))
         self.feed(input_string)
 
     def add_folder(self, folderpath):
@@ -2798,7 +2798,7 @@ class HTMLHandler(HTMLParser.HTMLParser):
             file_content = file_descriptor.read()
             file_descriptor.close()
         except:
-            print "skip import of", filepath
+            print("skip import of", filepath)
             return
         self.add_node_with_content(filepath, "")
         self.boot_n_feed(support.auto_decode_str(file_content), os.path.dirname(filepath))
@@ -2826,12 +2826,12 @@ class HTMLHandler(HTMLParser.HTMLParser):
         return self.dom.toxml()
 
 
-class HTMLCheck(HTMLParser.HTMLParser):
+class HTMLCheck(html.parser.HTMLParser):
     """Check for Minimal Tags"""
 
     def __init__(self):
         """Machine boot"""
-        HTMLParser.HTMLParser.__init__(self)
+        html.parser.HTMLParser.__init__(self)
 
     def handle_starttag(self, tag, attrs):
         """Encountered the beginning of a tag"""

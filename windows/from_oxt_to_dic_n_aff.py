@@ -1,5 +1,5 @@
-#!/usr/bin/env python2
-# -*- coding: UTF-8 -*-
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 import os, sys
 sys.path.append(os.path.join(os.path.dirname(__file__), '../pygtkspellcheck/gtkspellcheck/'))

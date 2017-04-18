@@ -1,4 +1,4 @@
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
 #
 #       clipboard.py
 #
@@ -110,7 +110,7 @@ class ClipboardHandler:
             num_chars = iter_sel_end.get_offset() - iter_sel_start.get_offset()
             override_copy = True
             if (from_codebox or self.dad.syntax_highlighting != cons.RICH_TEXT_ID) and num_chars > 30000:
-                print "copy-clipboard not overridden for num_chars", num_chars
+                print("copy-clipboard not overridden for num_chars", num_chars)
             else:
                 text_view.stop_emission("copy-clipboard")
                 self.selection_to_clipboard(text_buffer, text_view, iter_sel_start, iter_sel_end, num_chars, from_codebox)
@@ -123,7 +123,7 @@ class ClipboardHandler:
             iter_sel_start, iter_sel_end = text_buffer.get_selection_bounds()
             num_chars = iter_sel_end.get_offset() - iter_sel_start.get_offset()
             if (from_codebox or self.dad.syntax_highlighting != cons.RICH_TEXT_ID) and num_chars > 30000:
-                print "cut-clipboard not overridden for num_chars", num_chars
+                print("cut-clipboard not overridden for num_chars", num_chars)
             else:
                 text_view.stop_emission("cut-clipboard")
                 self.selection_to_clipboard(text_buffer, text_view, iter_sel_start, iter_sel_end, num_chars, from_codebox)
@@ -285,7 +285,7 @@ class ClipboardHandler:
         if TARGET_WINDOWS_FILE_NAME in targets:
             clipboard.request_contents(TARGET_WINDOWS_FILE_NAME, self.to_uri_list)
             return
-        print "WARNING: targets not handled", targets
+        print("WARNING: targets not handled", targets)
 
     def to_uri_list(self, clipboard, selectiondata, data):
         """From Clipboard to URI list"""
@@ -317,7 +317,7 @@ class ClipboardHandler:
                         property_value = "file %s" % base64.b64encode(file_path)
                     else:
                         property_value = None
-                        print "ERROR: discarded file uri '%s'" % file_path
+                        print("ERROR: discarded file uri '%s'" % file_path)
                 else:
                     if os.path.isdir(element):
                         property_value = "fold %s" % base64.b64encode(element)
@@ -325,7 +325,7 @@ class ClipboardHandler:
                         property_value = "file %s" % base64.b64encode(element)
                     else:
                         property_value = None
-                        print "ERROR: discarded ? uri '%s'" % element
+                        print("ERROR: discarded ? uri '%s'" % element)
                 start_offset = iter_insert.get_offset()
                 self.dad.curr_buffer.insert(iter_insert, element + cons.CHAR_NEWLINE)
                 if property_value:
@@ -354,7 +354,7 @@ class ClipboardHandler:
         """From Clipboard to Plain Text"""
         plain_text = selectiondata.get_text()
         if not plain_text:
-            print "? no clipboard plain text"
+            print("? no clipboard plain text")
             return
         iter_insert = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
         start_offset = iter_insert.get_offset()
@@ -391,7 +391,7 @@ class ClipboardHandler:
         """From Clipboard to Rich Text"""
         rich_text = selectiondata.get_text()
         if not rich_text:
-            print "? no clipboard rich text"
+            print("? no clipboard rich text")
             return
         self.from_xml_string_to_buffer(rich_text)
         self.dad.sourceview.scroll_mark_onscreen(self.dad.curr_buffer.get_insert())
@@ -401,7 +401,7 @@ class ClipboardHandler:
         dom = xml.dom.minidom.parseString(xml_string)
         dom_node = dom.firstChild
         if dom_node.nodeName != "root":
-            print "rich text from clipboard error"
+            print("rich text from clipboard error")
             return
         self.dad.state_machine.not_undoable_timeslot_set(True)
         child_dom_iter = dom_node.firstChild
@@ -470,12 +470,12 @@ class ClipboardHandler:
         """From Clipboard to CodeBox"""
         xml_text = selectiondata.get_text()
         if not xml_text:
-            print "? no clipboard xml text"
+            print("? no clipboard xml text")
             return
         dom = xml.dom.minidom.parseString(xml_text)
         dom_node = dom.firstChild
         if dom_node.nodeName != "codebox":
-            print "codebox from clipboard error"
+            print("codebox from clipboard error")
             return
         self.dom_node_to_codebox(dom_node)
         self.dad.sourceview.scroll_mark_onscreen(self.dad.curr_buffer.get_insert())
@@ -501,12 +501,12 @@ class ClipboardHandler:
         """From Clipboard to Table"""
         xml_text = selectiondata.get_text()
         if not xml_text:
-            print "? no clipboard xml text"
+            print("? no clipboard xml text")
             return
         dom = xml.dom.minidom.parseString(xml_text)
         dom_node = dom.firstChild
         if dom_node.nodeName != "table":
-            print "table from clipboard error"
+            print("table from clipboard error")
             return
         self.dom_node_to_table(dom_node, table_model_n_iter)
         self.dad.sourceview.scroll_mark_onscreen(self.dad.curr_buffer.get_insert())

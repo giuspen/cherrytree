@@ -1,4 +1,4 @@
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
 #
 #       printing.py
 #
@@ -67,7 +67,7 @@ class PrintHandler:
         if self.pdf_filepath: print_operation.set_export_filename(self.pdf_filepath)
         print_operation_action = Gtk.PRINT_OPERATION_ACTION_EXPORT if self.pdf_filepath else Gtk.PRINT_OPERATION_ACTION_PRINT_DIALOG
         try: res = print_operation.run(print_operation_action, parent)
-        except GObject.GError, ex:
+        except GObject.GError as ex:
             support.dialog_error("Error printing file:\n%s (exception catched)" % str(ex), parent)
         else:
             if res == Gtk.PRINT_OPERATION_RESULT_ERROR:

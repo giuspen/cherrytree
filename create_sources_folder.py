@@ -1,13 +1,13 @@
-#!/usr/bin/env python2
-# -*- coding: UTF-8 -*-
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
-import os, sys, shutil, glob, __builtin__
+import os, sys, shutil, glob, builtins
 
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 MODULES_DIR = os.path.join(SCRIPT_DIR, "modules")
 sys.path.insert(0, MODULES_DIR)
 
-__builtin__.SHARE_PATH = SCRIPT_DIR
+builtins.SHARE_PATH = SCRIPT_DIR
 import cons
 
 BLACKLIST = [".git", ".gitignore"]

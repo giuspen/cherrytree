@@ -1,5 +1,5 @@
-#!/usr/bin/env python2
-# -*- coding: UTF-8 -*-
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 from gi.repository import Gtk
 from gi.repository import GdkPixbuf

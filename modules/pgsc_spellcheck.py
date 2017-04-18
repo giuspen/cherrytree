@@ -1,4 +1,4 @@
-# -*- coding:utf-8 -*-
+# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2012, Maximilian Köhl <linuxmaxi@googlemail.com>
 # Copyright (C) 2012, Carlos Jenkins <carlos@jenkins.co.cr>
@@ -323,7 +323,7 @@ class SpellChecker(object):
 
         :param tag: Tag object or tag name.
         """
-        if isinstance(tag, basestring):
+        if isinstance(tag, str):
             tag = self._table.lookup(tag)
         self.ignored_tags.append(tag)
 
@@ -334,7 +334,7 @@ class SpellChecker(object):
 
         :param tag: Tag object or tag name.
         """
-        if isinstance(tag, basestring):
+        if isinstance(tag, str):
             tag = self._table.lookup(tag)
         self.ignored_tags.remove(tag)
 

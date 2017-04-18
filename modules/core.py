@@ -1,4 +1,4 @@
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
 #
 #       core.py
 #
@@ -33,7 +33,7 @@ import subprocess
 import webbrowser
 import base64
 import cgi
-import urllib2
+import urllib.request
 import shutil
 import time
 import pgsc_spellcheck
@@ -140,7 +140,7 @@ class CherryTree:
         hbox_statusbar.pack_start(self.progresstop, False, True, 0)
         vbox_main.pack_start(hbox_statusbar, False, False, 0)
         # ROW: 0-icon_stock_id, 1-name, 2-buffer, 3-unique_id, 4-syntax_highlighting, 5-node_sequence, 6-tags, 7-readonly, 8-aux_icon_stock_id, 9-custom_icon_id, 10-weight, 11-foreground, 12-ts_creation, 13-ts_lastsave
-        self.treestore = Gtk.TreeStore(str, str, GObject.TYPE_PYOBJECT, long, str, int, str, GObject.TYPE_BOOLEAN, str, int, int, str, float, float)
+        self.treestore = Gtk.TreeStore(str, str, GObject.TYPE_PYOBJECT, int, str, int, str, GObject.TYPE_BOOLEAN, str, int, int, str, float, float)
         self.treeview = Gtk.TreeView(self.treestore)
         self.treeview.set_headers_visible(False)
         self.treeview.drag_source_set(Gdk.ModifierType.BUTTON1_MASK, None, Gdk.DragAction.MOVE)
@@ -259,7 +259,7 @@ class CherryTree:
         self.statusbar.push(self.statusbar_context_id, _("Checking for Newer Version..."))
         while Gtk.events_pending(): Gtk.main_iteration()
         try:
-            fd = urllib2.urlopen(cons.NEWER_VERSION_URL, timeout=3)
+            fd = urllib.request.urlopen(cons.NEWER_VERSION_URL, timeout=3)
             latest_version = fd.read().replace(cons.CHAR_NEWLINE, "")
             if len(latest_version) > 10:
                 # html error page
@@ -813,7 +813,7 @@ iter_end, exclude_iter_sel_end=True)
             if not self.drag_iter: return False
             drag_node_id = self.treestore[self.drag_iter][3]
             if self.treestore[drop_iter][3] == drag_node_id:
-                print "drag node and drop node are the same"
+                print("drag node and drop node are the same")
                 return False
             move_towards_top_iter = self.treestore.iter_parent(drop_iter)
             while move_towards_top_iter:
@@ -1346,9 +1346,9 @@ iter_end, exclude_iter_sel_end=True)
     def autosave_timer_iter(self):
         """Iteration of the Autosave"""
         if not self.tree_is_empty() and self.user_active:
-            print "autosave iter"
+            print("autosave iter")
             self.file_save()
-        else: print "autosave skip"
+        else: print("autosave skip")
         return True # this way we keep the timer alive
 
     def modification_time_sentinel_start(self):
@@ -1370,7 +1370,7 @@ iter_end, exclude_iter_sel_end=True)
                 #print "last modified: %s (%s)" % (time.ctime(read_mod_time), read_mod_time)
                 if read_mod_time > self.mod_time_val:
                     curr_sys_time = time.time()
-                    print curr_sys_time, read_mod_time, curr_sys_time-read_mod_time
+                    print(curr_sys_time, read_mod_time, curr_sys_time-read_mod_time)
                     if curr_sys_time - read_mod_time > 2:
                         self.filepath_open(file_path, force_reset=True)
                         self.statusbar.pop(self.statusbar_context_id)
@@ -1491,7 +1491,6 @@ iter_end, exclude_iter_sel_end=True)
                 config.set_tree_expanded_collapsed_string(self)
             # is there a node name to focus?
             if node_name:
-                node_name = unicode(node_name, cons.STR_UTF8, cons.STR_IGNORE)
                 node_name_iter = self.get_tree_iter_from_node_name(node_name, use_content=False)
                 if node_name_iter:
                     self.node_path = self.treestore.get_path(node_name_iter)
@@ -1505,7 +1504,7 @@ iter_end, exclude_iter_sel_end=True)
             config.set_tree_path_and_cursor_pos(self)
         else:
             if self.file_name:
-                print "? not is_file '%s'" % (os.path.join(self.file_dir, self.file_name))
+                print("? not is_file '%s'" % (os.path.join(self.file_dir, self.file_name)))
                 self.file_name = ""
             self.update_window_save_not_needed()
         self.file_update = False
@@ -1557,7 +1556,7 @@ iter_end, exclude_iter_sel_end=True)
             self.ctdb_handler.is_vacuum = True
             self.file_save()
             self.ctdb_handler.is_vacuum = False
-        else: print "no document or not SQLite"
+        else: print("no document or not SQLite")
 
     def file_save(self, *args):
         """Save the file"""
@@ -1569,7 +1568,7 @@ iter_end, exclude_iter_sel_end=True)
                     self.update_window_save_not_needed()
                     self.state_machine.update_state()
                 self.modification_time_update_value(True)
-            else: print "no changes"
+            else: print("no changes")
         else: self.file_save_as()
 
     def file_write_low_level(self, filepath, xml_string, first_write, exporting="", sel_range=None):
@@ -1597,7 +1596,7 @@ iter_end, exclude_iter_sel_end=True)
                         self.db_old.close()
                         del self.db_old
                 elif exporting in ["a", "s", "n"]:
-                    print "exporting", exporting
+                    print("exporting", exporting)
                     exp_db = self.ctdb_handler.new_db(filepath_tmp, exporting, sel_range)
                     exp_db.close()
             else: self.ctdb_handler.pending_data_write(self.db)
@@ -1643,7 +1642,7 @@ iter_end, exclude_iter_sel_end=True)
                 if os.path.isfile(filepath):
                     dest_file_size = os.path.getsize(filepath)
                     if dest_file_size > cons.MIN_CT_DOC_SIZE: break
-            print "dest_file_size %s bytes" % dest_file_size
+            print("dest_file_size %s bytes" % dest_file_size)
             if xml_string: os.remove(filepath_tmp)
             elif not exporting:
                 self.db = self.ctdb_handler.get_connected_db_from_dbpath(filepath_tmp)
@@ -1655,7 +1654,7 @@ iter_end, exclude_iter_sel_end=True)
                     try: os.remove(filepath+".tmp")
                     except: subprocess.call("rm %s.tmp" % esc_filepath, shell=True)
             else:
-                print "7za FAIL!!!"
+                print("7za FAIL!!!")
                 # spoiled file is worse than no file, this way the backups will not be spoiled
                 if os.path.isfile(filepath):
                     try: os.remove(filepath)
@@ -1707,7 +1706,7 @@ iter_end, exclude_iter_sel_end=True)
             if not os.path.isfile(filepath) and os.path.isfile(filepath + cons.CHAR_TILDE):
                 try: os.rename(filepath + cons.CHAR_TILDE, filepath)
                 except:
-                    print "os.rename failed"
+                    print("os.rename failed")
                     subprocess.call("mv %s~ %s" % (re.escape(filepath), re.escape(filepath)), shell=True)
             support.dialog_error("%s write failed - writing to disk" % filepath, self.window)
             raise
@@ -1840,15 +1839,14 @@ iter_end, exclude_iter_sel_end=True)
         content_area.pack_start(entry, True, True, 0)
         def on_key_press_enter_password_dialog(widget, event):
             if Gdk.keyval_name(event.keyval) == cons.STR_KEY_RETURN:
-                try: dialog.get_widget_for_response(Gtk.ResponseType.ACCEPT).clicked()
-                except: print cons.STR_PYGTK_222_REQUIRED
+                dialog.get_widget_for_response(Gtk.ResponseType.ACCEPT).clicked()
                 return True
             return False
         dialog.connect("key_press_event", on_key_press_enter_password_dialog)
         dialog.show_all()
         dialog.present()
         response = dialog.run()
-        passw = unicode(entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE)
+        passw = entry.get_text()
         dialog.destroy()
         while Gtk.events_pending(): Gtk.main_iteration()
         if response != Gtk.ResponseType.ACCEPT: return ""
@@ -1899,7 +1897,7 @@ iter_end, exclude_iter_sel_end=True)
                     support.dialog_error(_('Wrong Password'), self.window)
                     continue
                 if not os.path.isfile(filepath_tmp_tmp):
-                    print "? the compressed file was renamed"
+                    print("? the compressed file was renamed")
                     files_list = glob.glob(os.path.join(tree_tmp_folder_tmp, "*"+filepath_tmp_tmp[-4:]))
                     #print files_list
                     old_filepath_tmp_tmp = files_list[0]
@@ -1908,11 +1906,11 @@ iter_end, exclude_iter_sel_end=True)
                             old_filepath_tmp_tmp = file_path
                     os.rename(old_filepath_tmp_tmp, filepath_tmp_tmp)
                 if not os.path.isfile(filepath_tmp_tmp):
-                    print "! cannot find extracted file", filepath_tmp_tmp
+                    print("! cannot find extracted file", filepath_tmp_tmp)
                     raise
                 dest_file_size = os.path.getsize(filepath_tmp_tmp)
                 if dest_file_size < cons.MIN_CT_DOC_SIZE:
-                    print "? extracted file zero size"
+                    print("? extracted file zero size")
                     support.dialog_error(_('Wrong Password'), self.window)
                 else:
                     break # extraction successful
@@ -1921,7 +1919,7 @@ iter_end, exclude_iter_sel_end=True)
             shutil.copy(filepath_tmp_tmp, filepath_tmp)
             os.remove(filepath_tmp_tmp)
         elif filepath[-1] not in ["d", "b"]:
-            print "bad filepath[-1]", filepath[-1]
+            print("bad filepath[-1]", filepath[-1])
             return False
         elif main_file: self.password = None
         if filepath[-1] in ["d", "z"]:
@@ -1932,7 +1930,7 @@ iter_end, exclude_iter_sel_end=True)
                 file_descriptor.close()
                 if password_protected: os.remove(filepath_tmp)
             except:
-                print "error reading from plain text xml"
+                print("error reading from plain text xml")
                 raise
                 return False
             return re.sub(cons.BAD_CHARS, "", cherrytree_string)
@@ -1944,7 +1942,7 @@ iter_end, exclude_iter_sel_end=True)
                     if filepath[-1] == "z": os.remove(filepath_tmp)
                     else: self.ctdb_handler.remove_at_quit_set.add(filepath_tmp)
             except:
-                print "error connecting to db"
+                print("error connecting to db")
                 raise
                 return False
             return db
@@ -2593,8 +2591,10 @@ iter_end, exclude_iter_sel_end=True)
             else:
                 sourcebuffer.set_highlight_syntax(False)
             sourcebuffer.set_highlight_matching_brackets(True)
-            return sourcebuffer
-        else: return Gtk.TextBuffer.new(self.tag_table)
+        else:
+            sourcebuffer = GtkSource.Buffer.new(self.tag_table)
+            sourcebuffer.set_highlight_syntax(False)
+        return sourcebuffer
 
     def combobox_prog_lang_init(self):
         """Init The Programming Languages Syntax Highlighting ComboBox"""
@@ -2989,9 +2989,7 @@ iter_end, exclude_iter_sel_end=True)
         self.curr_buffer = self.get_textbuffer_from_tree_iter(self.curr_tree_iter)
         if self.rt_highl_curr_line and self.user_active and self.treestore[new_iter][4] == cons.RICH_TEXT_ID:
             self.set_sourcebuffer_with_style_scheme()
-        print "C"
         self.sourceview.set_buffer(self.curr_buffer)
-        print "D"
         self.syntax_highlighting = self.treestore[self.curr_tree_iter][4]
         self.curr_buffer.connect('modified-changed', self.on_modified_changed)
         self.sourceview_set_properties(self.curr_tree_iter, self.syntax_highlighting)
@@ -3493,8 +3491,7 @@ iter_end, exclude_iter_sel_end=True)
         def on_key_press_nodepropdialog(widget, event):
             keyname = Gdk.keyval_name(event.keyval)
             if keyname == cons.STR_KEY_RETURN:
-                try: dialog.get_widget_for_response(Gtk.ResponseType.ACCEPT).clicked()
-                except: print cons.STR_PYGTK_222_REQUIRED
+                dialog.get_widget_for_response(Gtk.ResponseType.ACCEPT).clicked()
                 return True
             return False
         dialog.connect('key_press_event', on_key_press_nodepropdialog)
@@ -3506,7 +3503,7 @@ iter_end, exclude_iter_sel_end=True)
                 _("Choose Existing Tag"), [[element] for element in sorted(self.tags_set)], _("Tag Name"))
             if ret_tag_name:
                 curr_text = tags_entry.get_text()
-                print curr_text, ret_tag_name
+                print(curr_text, ret_tag_name)
                 if not curr_text: tags_entry.set_text(ret_tag_name)
                 elif curr_text.endswith(cons.CHAR_SPACE): tags_entry.set_text(curr_text+ret_tag_name)
                 else: tags_entry.set_text(curr_text+cons.CHAR_SPACE+ret_tag_name)
@@ -3539,14 +3536,14 @@ iter_end, exclude_iter_sel_end=True)
         response = dialog.run()
         dialog.hide()
         if response == Gtk.ResponseType.ACCEPT:
-            ret_name = unicode(name_entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE)
+            ret_name = name_entry.get_text()
             if not ret_name: ret_name = cons.CHAR_QUESTION
             if radiobutton_rich_text.get_active(): ret_syntax = cons.RICH_TEXT_ID
             elif radiobutton_plain_text.get_active(): ret_syntax = cons.PLAIN_TEXT_ID
             else:
                 ret_syntax = button_prog_lang.get_label()
                 self.auto_syn_highl = ret_syntax
-            ret_tags = unicode(tags_entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE)
+            ret_tags = tags_entry.get_text()
             ret_ro = ro_checkbutton.get_active()
             ret_c_icon_id = dialog.ret_c_icon_id if c_icon_checkbutton.get_active() else 0
             ret_is_bold = is_bold_checkbutton.get_active()
@@ -3682,13 +3679,13 @@ iter_end, exclude_iter_sel_end=True)
             anchor = self.codeboxes_handler.codebox_in_use_get_anchor()
             if anchor:
                 code_type = anchor.syntax_highlighting
-                code_val = unicode(anchor.sourcebuffer.get_text(*anchor.sourcebuffer.get_bounds()), cons.STR_UTF8, cons.STR_IGNORE)
+                code_val = anchor.sourcebuffer.get_text(*anchor.sourcebuffer.get_bounds())
             if not code_type:
                 support.dialog_warning(_("No CodeBox is Selected"), self.window)
                 return
         else:
             code_type = self.syntax_highlighting
-            code_val = unicode(self.curr_buffer.get_text(*self.curr_buffer.get_bounds()), cons.STR_UTF8, cons.STR_IGNORE)
+            code_val = self.curr_buffer.get_text(*self.curr_buffer.get_bounds())
         #print code_type
         binary_cmd = config.get_code_exec_type_cmd(self, code_type)
         if not binary_cmd:
@@ -3742,7 +3739,7 @@ iter_end, exclude_iter_sel_end=True)
             fd.write(self.curr_file_anchor.pixbuf.embfile)
         #if self.treestore[self.curr_tree_iter][7]:
         #    os.chmod(filepath, os.stat(filepath).st_mode & ~stat.S_IWUSR & ~stat.S_IWGRP & ~stat.S_IWOTH)
-        print "embopen", filepath
+        print("embopen", filepath)
         self.external_filepath_open(filepath, False)
         self.embfiles_opened[filepath] = os.path.getmtime(filepath)
         if not self.embfiles_sentinel_id: self.embfiles_sentinel_start()
@@ -3773,7 +3770,7 @@ iter_end, exclude_iter_sel_end=True)
         """Iteration of the Modification Time Sentinel"""
         for filepath in self.embfiles_opened.keys():
             if not os.path.isfile(filepath):
-                print "embdrop", filepath
+                print("embdrop", filepath)
                 del self.embfiles_opened[filepath]
                 break
             if self.embfiles_opened[filepath] != os.path.getmtime(filepath):
@@ -4407,11 +4404,11 @@ iter_end, exclude_iter_sel_end=True)
         if self.link_type == cons.LINK_TYPE_WEBS:
             self.links_entries['webs'] = vector[1]
         elif self.link_type == cons.LINK_TYPE_FILE:
-            self.links_entries['file'] = unicode(base64.b64decode(vector[1]), cons.STR_UTF8, cons.STR_IGNORE)
+            self.links_entries['file'] = base64.b64decode(vector[1])
         elif self.link_type == cons.LINK_TYPE_FOLD:
-            self.links_entries['fold'] = unicode(base64.b64decode(vector[1]), cons.STR_UTF8, cons.STR_IGNORE)
+            self.links_entries['fold'] = base64.b64decode(vector[1])
         elif self.link_type == cons.LINK_TYPE_NODE:
-            self.link_node_id = long(vector[1])
+            self.link_node_id = int(vector[1])
             if len(vector) >= 3:
                 if len(vector) == 3: anchor_name = vector[2]
                 else: anchor_name = curr_link[len(vector[0]) + len(vector[1]) + 2:]
@@ -4713,14 +4710,14 @@ iter_end, exclude_iter_sel_end=True)
             else: subprocess.call(config.LINK_CUSTOM_ACTION_DEFAULT_FILE % re.escape(filepath), shell=True)
 
     def link_process_filepath(self, filepath_raw):
-        filepath_orig = unicode(base64.b64decode(filepath_raw), cons.STR_UTF8, cons.STR_IGNORE)
+        filepath_orig = base64.b64decode(filepath_raw)
         filepath = support.get_proper_platform_filepath(filepath_orig, True)
         if not os.path.isabs(filepath) and os.path.isfile(os.path.join(self.file_dir, filepath)):
             filepath = os.path.join(self.file_dir, filepath)
         return filepath
 
     def link_process_folderpath(self, folderpath_raw):
-        folderpath_orig = unicode(base64.b64decode(folderpath_raw), cons.STR_UTF8, cons.STR_IGNORE)
+        folderpath_orig = base64.b64decode(folderpath_raw)
         folderpath = support.get_proper_platform_filepath(folderpath_orig, False)
         if not os.path.isabs(folderpath) and os.path.isdir(os.path.join(self.file_dir, folderpath)):
             folderpath = os.path.join(self.file_dir, folderpath)
@@ -4755,7 +4752,7 @@ iter_end, exclude_iter_sel_end=True)
             self.external_folderpath_open(folderpath)
         elif vector[0] == cons.LINK_TYPE_NODE:
             # link to a tree node
-            tree_iter = self.get_tree_iter_from_node_id(long(vector[1]))
+            tree_iter = self.get_tree_iter_from_node_id(int(vector[1]))
             if tree_iter == None:
                 support.dialog_error(_("The Link Refers to a Node that Does Not Exist Anymore (Id = %s)") % vector[1], self.window)
                 return
@@ -4792,10 +4789,10 @@ iter_end, exclude_iter_sel_end=True)
         tooltip = ""
         vector = link.split()
         if vector[0] in [cons.LINK_TYPE_FILE, cons.LINK_TYPE_FOLD]:
-            tooltip = unicode(base64.b64decode(vector[1]), cons.STR_UTF8, cons.STR_IGNORE)
+            tooltip = base64.b64decode(vector[1])
         else:
-            if vector[0] == cons.LINK_TYPE_NODE and long(vector[1]) in self.nodes_names_dict:
-                tooltip = self.nodes_names_dict[long(vector[1])]
+            if vector[0] == cons.LINK_TYPE_NODE and int(vector[1]) in self.nodes_names_dict:
+                tooltip = self.nodes_names_dict[int(vector[1])]
             else: tooltip = vector[1].replace("amp;", "")
             if len(vector) >= 3:
                 if len(vector) == 3: anchor_name = vector[2]
@@ -4928,7 +4925,7 @@ iter_end, exclude_iter_sel_end=True)
             if ts_lastsave:
                 timestamp_lastsave = support.get_timestamp_str(self.timestamp_format, ts_lastsave)
                 statusbar_text += separator_text + _("Date Modified") + _(": ") + timestamp_lastsave
-            print "sel node id=%s, seq=%s" % (self.treestore[self.curr_tree_iter][3], self.treestore[self.curr_tree_iter][5])
+            print("sel node id=%s, seq=%s" % (self.treestore[self.curr_tree_iter][3], self.treestore[self.curr_tree_iter][5]))
         self.statusbar.pop(self.statusbar_context_id)
         self.statusbar.push(self.statusbar_context_id, statusbar_text)
 
@@ -5046,7 +5043,7 @@ iter_end, exclude_iter_sel_end=True)
                 pass
             text_buffer.move_mark(text_buffer.get_selection_bound(), target)
             return
-        print "! bad offset=%s, delta=%s on node %s" % (offset, delta, self.treestore[self.curr_tree_iter][1])
+        print("! bad offset=%s, delta=%s on node %s" % (offset, delta, self.treestore[self.curr_tree_iter][1]))
 
     def tree_is_empty(self):
         """Return True if the treestore is empty"""

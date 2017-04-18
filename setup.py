@@ -1,5 +1,5 @@
-#!/usr/bin/env python
-
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 # for linux install: "python setup.py install --prefix=/usr -f"
 # for windows exe creation: "python setup.py py2exe"
 
@@ -17,11 +17,11 @@ try: import py2exe
 except: pass
 
 import os, glob, sys, subprocess
-import __builtin__
+import builtins
 def _(transl_str):
     return transl_str
-__builtin__._ = _
-__builtin__.SHARE_PATH = ""
+builtins._ = _
+builtins.SHARE_PATH = ""
 sys.path.append(os.path.join(os.getcwd(), "modules"))
 import cons
 
@@ -63,8 +63,8 @@ class BuildData(build):
                 info('compiling %s -> %s' % (po, mo))
                 try:
                     rc = subprocess.call(['msgfmt', '-o', mo, po])
-                    if rc != 0: raise Warning, "msgfmt returned %d" % rc
-                except Exception, e:
+                    if rc != 0: raise Warning("msgfmt returned %d" % rc)
+                except Exception as e:
                     error("Building gettext files failed. Try setup.py --without-gettext [build|install]")
                     error("Error: %s" % str(e))
                     sys.exit(1)
@@ -92,7 +92,7 @@ class Uninstall(Command):
                     raise DistutilsFileError("Pass manifest with --manifest=file")
                 f = open(self.manifest)
                 files = [file.strip() for file in f]
-            except IOError, e:
+            except IOError as e:
                 raise DistutilsFileError("unable to open install manifest: %s", str(e))
         finally:
             if f: f.close()
@@ -101,7 +101,7 @@ class Uninstall(Command):
                 info("removing %s" % repr(file))
                 if not self.dry_run:
                     try: os.unlink(file)
-                    except OSError, e:
+                    except OSError as e:
                         warn("could not delete: %s" % repr(file))
             elif not os.path.isdir(file):
                 info("skipping %s" % repr(file))
@@ -116,7 +116,7 @@ class Uninstall(Command):
                     info("removing %s" % repr(dir))
                     if not self.dry_run:
                         try: os.rmdir(dir)
-                        except OSError, e:
+                        except OSError as e:
                             warn("could not remove directory: %s" % str(e))
                 else: info("skipping empty directory %s" % repr(dir))
 
@@ -175,7 +175,7 @@ if "py2exe" in sys.argv:
                 },
        data_files = data_files,
     )
-    print "remember to copy 7za.exe to the dist folder and relocate lib/enchant and share/enchant"
+    print("remember to copy 7za.exe to the dist folder and relocate lib/enchant and share/enchant")
 else:
     setup(
        name = "CherryTree",

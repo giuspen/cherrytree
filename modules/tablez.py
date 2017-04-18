@@ -1,4 +1,4 @@
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
 #
 #       tablez.py
 #
@@ -25,7 +25,7 @@ from gi.repository import Pango
 import os
 import csv
 import codecs
-import cStringIO
+import io
 import copy
 import cons
 import menus
@@ -132,8 +132,7 @@ class TablesHandler:
         def on_key_press_tablecolhandle(widget, event):
             keyname = Gdk.keyval_name(event.keyval)
             if keyname == cons.STR_KEY_RETURN:
-                try: dialog.get_widget_for_response(Gtk.ResponseType.ACCEPT).clicked()
-                except: print cons.STR_PYGTK_222_REQUIRED
+                dialog.get_widget_for_response(Gtk.ResponseType.ACCEPT).clicked()
                 return True
             elif keyname == cons.STR_KEY_TAB:
                 if self.dad.table_column_mode == "rename": table_column_delete_radiobutton.set_active(True)
@@ -170,8 +169,8 @@ class TablesHandler:
         response = dialog.run()
         dialog.hide()
         if response == Gtk.ResponseType.ACCEPT:
-            ret_rename = unicode(table_column_rename_entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE)
-            ret_add = unicode(table_column_new_entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE)
+            ret_rename = table_column_rename_entry.get_text()
+            ret_add = table_column_new_entry.get_text()
             return [True, ret_rename, ret_add]
         return [False, None, None]
 
@@ -252,8 +251,7 @@ class TablesHandler:
                 spinbutton_columns.update()
                 spinbutton_col_min.update()
                 spinbutton_col_max.update()
-                try: dialog.get_widget_for_response(Gtk.ResponseType.ACCEPT).clicked()
-                except: print cons.STR_PYGTK_222_REQUIRED
+                dialog.get_widget_for_response(Gtk.ResponseType.ACCEPT).clicked()
                 return True
             return False
         def on_checkbutton_table_ins_from_file_toggled(checkbutton):
@@ -307,10 +305,10 @@ class TablesHandler:
                 file_descriptor = open(filepath, 'r')
                 reader = UnicodeReader(file_descriptor)
                 table_matrix = []
-                row = reader.next()
+                row = next(reader)
                 while row:
                     table_matrix.append(row)
-                    row = reader.next()
+                    row = next(reader)
                 file_descriptor.close()
                 table_matrix.append(table_matrix.pop(0))
                 self.table_insert(iter_insert, {'col_min': cons.TABLE_DEFAULT_COL_MIN,
@@ -657,7 +655,7 @@ class UTF8Recoder:
     def __iter__(self):
         return self
 
-    def next(self):
+    def __next__(self):
         return self.reader.next().encode(cons.STR_UTF8)
 
 
@@ -670,10 +668,10 @@ class UnicodeReader:
         f = UTF8Recoder(f, encoding)
         self.reader = csv.reader(f, dialect=dialect, **kwds)
 
-    def next(self):
+    def __next__(self):
         try:
-            row = self.reader.next()
-            return [unicode(s, cons.STR_UTF8, cons.STR_IGNORE) for s in row]
+            row = next(self.reader)
+            return row
         except: return None
 
     def __iter__(self):
@@ -688,7 +686,7 @@ class UnicodeWriter:
 
     def __init__(self, f, dialect=csv.excel, encoding=cons.STR_UTF8, **kwds):
         # Redirect output to a queue
-        self.queue = cStringIO.StringIO()
+        self.queue = io.StringIO()
         self.writer = csv.writer(self.queue, dialect=dialect, **kwds)
         self.stream = f
         self.encoder = codecs.getincrementalencoder(encoding)()

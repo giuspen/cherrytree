@@ -1,4 +1,4 @@
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
 #
 #       lists.py
 #
@@ -164,11 +164,11 @@ class ListsHandler:
                 else:
                     break
             else:
-                match = re.match('[1-9]', char)
+                match = re.match(r'[1-9]', char)
                 if not match:
                     break
                 number_str = char
-                while iter_start.forward_char() and re.match('[0-9]', iter_start.get_char()):
+                while iter_start.forward_char() and re.match(r'[0-9]', iter_start.get_char()):
                     number_str += iter_start.get_char()
                 char = iter_start.get_char()
                 if char in cons.CHARS_LISTNUM and iter_start.forward_char() and iter_start.get_char() == cons.CHAR_SPACE:

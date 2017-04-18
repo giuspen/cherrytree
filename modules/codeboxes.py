@@ -1,4 +1,4 @@
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
 #
 #       codeboxes.py
 #
@@ -194,8 +194,7 @@ class CodeBoxesHandler:
             if keyname == cons.STR_KEY_RETURN:
                 spinbutton_width.update()
                 spinbutton_height.update()
-                try: dialog.get_widget_for_response(Gtk.ResponseType.ACCEPT).clicked()
-                except: print cons.STR_PYGTK_222_REQUIRED
+                dialog.get_widget_for_response(Gtk.ResponseType.ACCEPT).clicked()
                 return True
             return False
         def on_radiobutton_codebox_pixels_toggled(radiobutton):
@@ -226,7 +225,7 @@ class CodeBoxesHandler:
         """Insert Code Box"""
         if self.dad.curr_buffer.get_has_selection():
             iter_sel_start, iter_sel_end = self.dad.curr_buffer.get_selection_bounds()
-            fill_text = unicode(self.dad.curr_buffer.get_text(iter_sel_start, iter_sel_end), cons.STR_UTF8, cons.STR_IGNORE)
+            fill_text = self.dad.curr_buffer.get_text(iter_sel_start, iter_sel_end)
         else: fill_text = None
         if not self.dialog_codeboxhandle(_("Insert a CodeBox")): return
         codebox_dict = {

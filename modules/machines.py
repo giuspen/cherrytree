@@ -1,4 +1,4 @@
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
 #
 #       machines.py
 #
@@ -25,7 +25,7 @@ import xml.dom.minidom
 import re
 import base64
 import copy
-import StringIO
+import io
 import cons
 import config
 import support
@@ -34,7 +34,7 @@ import exports
 
 def get_blob_buffer_from_pixbuf(pixbuf):
     """Pixbuf To BLOB Buffer"""
-    io = StringIO.StringIO()
+    io = io.StringIO()
     pixbuf.save_to_callback(io.write, "png")
     blob_buffer = buffer(io.getvalue())
     return blob_buffer
@@ -51,7 +51,7 @@ def get_pixbuf_from_png_blob_buffer(blob_buffer):
 
 def get_encoded_buffer_from_pixbuf(pixbuf):
     """Pixbuf To Encoded Buffer"""
-    io = StringIO.StringIO()
+    io = io.StringIO()
     pixbuf.save_to_callback(io.write, "png")
     encoded_buffer = base64.b64encode(io.getvalue())
     return encoded_buffer
@@ -124,7 +124,7 @@ class XMLHandler:
     def append_tree_node(self, dom_iter, tree_father, discard_ids, node_sequence):
         """Given the dom_iter node, adds it to the tree"""
         if not discard_ids and dom_iter.hasAttribute('unique_id'):
-            unique_id = long(dom_iter.attributes['unique_id'].value)
+            unique_id = int(dom_iter.attributes['unique_id'].value)
         else: unique_id = self.dad.node_id_get()
         node_tags = dom_iter.attributes['tags'].value if dom_iter.hasAttribute('tags') else ""
         if node_tags: self.dad.tags_add_from_node(node_tags)
@@ -861,7 +861,7 @@ class StateMachine:
         if cons.CHAR_NEWLINE in varied_text:
             self.update_state()
             return
-        alphanum = re.search("\w", varied_text, re.UNICODE) # we search for an alphanumeric character
+        alphanum = re.search(r"\w", varied_text, re.UNICODE) # we search for an alphanumeric character
         if self.nodes_indicators[node_id] < 2:
             if alphanum != None: self.nodes_indicators[node_id] = 2 # alphanumeric transition
             else: self.nodes_indicators[node_id] = 1 # non alphanumeric transition

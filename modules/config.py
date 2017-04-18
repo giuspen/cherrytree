@@ -1,4 +1,4 @@
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
 #
 #       config.py
 #
@@ -24,7 +24,7 @@ from gi.repository import Gdk
 from gi.repository import Pango
 import os
 import sys
-import ConfigParser
+import configparser
 import locale
 import subprocess
 import base64
@@ -176,15 +176,15 @@ def config_file_load(dad):
     dad.custom_codexec_term = None
     dad.latest_tag = ["", ""]
     if os.path.isfile(cons.CONFIG_PATH):
-        cfg = ConfigParser.RawConfigParser()
+        cfg = configparser.RawConfigParser()
         try:
             cfg.read(cons.CONFIG_PATH)
-        except ConfigParser.MissingSectionHeaderError:
-            print "? ConfigParser.MissingSectionHeaderError"
+        except configparser.MissingSectionHeaderError:
+            print("? ConfigParser.MissingSectionHeaderError")
 
         section = "state"
-        dad.file_dir = unicode(cfg.get(section, "file_dir"), cons.STR_UTF8, cons.STR_IGNORE) if cfg.has_option(section, "file_dir") else ""
-        dad.file_name = unicode(cfg.get(section, "file_name"), cons.STR_UTF8, cons.STR_IGNORE) if cfg.has_option(section, "file_name") else ""
+        dad.file_dir = cfg.get(section, "file_dir") if cfg.has_option(section, "file_dir") else ""
+        dad.file_name = cfg.get(section, "file_name") if cfg.has_option(section, "file_name") else ""
         dad.toolbar_visible = cfg.getboolean(section, "toolbar_visible") if cfg.has_option(section, "toolbar_visible") else True
         dad.win_is_maximized = cfg.getboolean(section, "win_is_maximized") if cfg.has_option(section, "win_is_maximized") else False
         # restore window size and position
@@ -206,7 +206,7 @@ def config_file_load(dad):
         if cfg.has_option(section, "recent_docs"):
             temp_recent_docs = cfg.get(section, "recent_docs").split(cons.CHAR_SPACE)
             for element in temp_recent_docs:
-                if element: dad.recent_docs.append(unicode(base64.b64decode(element), cons.STR_UTF8, cons.STR_IGNORE))
+                if element: dad.recent_docs.append(base64.b64decode(element))
         dad.pick_dir_import = cfg.get(section, "pick_dir_import") if cfg.has_option(section, "pick_dir_import") else ""
         dad.pick_dir_export = cfg.get(section, "pick_dir_export") if cfg.has_option(section, "pick_dir_export") else ""
         dad.pick_dir_file = cfg.get(section, "pick_dir_file") if cfg.has_option(section, "pick_dir_file") else ""
@@ -228,15 +228,15 @@ def config_file_load(dad):
         section = "tree"
         dad.rest_exp_coll = cfg.getint(section, "rest_exp_coll") if cfg.has_option(section, "rest_exp_coll") else 0
         dad.expanded_collapsed_string = cfg.get(section, "expanded_collapsed_string") if cfg.has_option(section, "expanded_collapsed_string") else ""
-        dad.expcollnam1 = unicode(cfg.get(section, "expcollnam1"), cons.STR_UTF8, cons.STR_IGNORE) if cfg.has_option(section, "expcollnam1") else ""
+        dad.expcollnam1 = cfg.get(section, "expcollnam1") if cfg.has_option(section, "expcollnam1") else ""
         dad.expcollstr1 = cfg.get(section, "expcollstr1") if cfg.has_option(section, "expcollstr1") else ""
         dad.expcollsel1 = cfg.get(section, "expcollsel1") if cfg.has_option(section, "expcollsel1") else ""
         dad.expcollcur1 = cfg.getint(section, "expcollcur1") if cfg.has_option(section, "expcollcur1") else 0
-        dad.expcollnam2 = unicode(cfg.get(section, "expcollnam2"), cons.STR_UTF8, cons.STR_IGNORE) if cfg.has_option(section, "expcollnam2") else ""
+        dad.expcollnam2 = cfg.get(section, "expcollnam2") if cfg.has_option(section, "expcollnam2") else ""
         dad.expcollstr2 = cfg.get(section, "expcollstr2") if cfg.has_option(section, "expcollstr2") else ""
         dad.expcollsel2 = cfg.get(section, "expcollsel2") if cfg.has_option(section, "expcollsel2") else ""
         dad.expcollcur2 = cfg.getint(section, "expcollcur2") if cfg.has_option(section, "expcollcur2") else 0
-        dad.expcollnam3 = unicode(cfg.get(section, "expcollnam3"), cons.STR_UTF8, cons.STR_IGNORE) if cfg.has_option(section, "expcollnam3") else ""
+        dad.expcollnam3 = cfg.get(section, "expcollnam3") if cfg.has_option(section, "expcollnam3") else ""
         dad.expcollstr3 = cfg.get(section, "expcollstr3") if cfg.has_option(section, "expcollstr3") else ""
         dad.expcollsel3 = cfg.get(section, "expcollsel3") if cfg.has_option(section, "expcollsel3") else ""
         dad.expcollcur3 = cfg.getint(section, "expcollcur3") if cfg.has_option(section, "expcollcur3") else 0
@@ -473,7 +473,7 @@ def config_file_load(dad):
         dad.default_icon_text = cons.NODE_ICON_BULLET_ID
         dad.recent_docs = []
         dad.toolbar_visible = True
-        print "missing", cons.CONFIG_PATH
+        print("missing", cons.CONFIG_PATH)
 
 def config_file_apply(dad):
     """Apply the Preferences from Config File"""
@@ -511,7 +511,7 @@ def config_file_apply(dad):
 
 def config_file_save(dad):
     """Save the Preferences to Config File"""
-    cfg = ConfigParser.RawConfigParser()
+    cfg = configparser.RawConfigParser()
 
     section = "state"
     cfg.add_section(section)
@@ -1967,8 +1967,7 @@ def preferences_tab_kb_shortcuts(dad, vbox_tool, pref_dialog):
         def on_key_press_dialog(widget, event):
             keyname = Gdk.keyval_name(event.keyval)
             if keyname == cons.STR_KEY_RETURN:
-                try: dialog.get_widget_for_response(Gtk.ResponseType.ACCEPT).clicked()
-                except: print cons.STR_PYGTK_222_REQUIRED
+                dialog.get_widget_for_response(Gtk.ResponseType.ACCEPT).clicked()
                 return True
             return False
         dialog.connect("key_press_event", on_key_press_dialog)

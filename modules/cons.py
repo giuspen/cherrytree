@@ -1,4 +1,4 @@
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
 #
 #       cons.py
 #
@@ -23,7 +23,7 @@ import os
 import sys
 
 
-VERSION = "0.38.0"
+VERSION = "0.38.100"
 APP_NAME = "cherrytree"
 NEWER_VERSION_URL = "http://www.giuspen.com/software/version_cherrytree"
 if sys.platform.startswith("win"):
@@ -222,7 +222,6 @@ STR_KEY_RIGHT = "Right"
 STR_KEY_DQUOTE = "quotedbl"
 STR_KEY_SQUOTE = "apostrophe"
 STR_KEYS_CONTROL = ["Control_L", "Control_R"]
-STR_PYGTK_222_REQUIRED = "PyGTK 2.22 required"
 
 CHERRY_RED = 'cherry_red'
 CHERRY_BLUE = 'cherry_blue'
