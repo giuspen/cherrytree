@@ -39,7 +39,7 @@ class ScreenShotPlugin(CTPlugin):
             h, filename = tempfile.mkstemp(prefix='tmpctscreenshot-', suffix='.png')
             os.close(h)
             fargs = dict(tempfilename=filename)
-            args = self.dad.screenshot_exec.format(**fargs)
+            args = self.config['screenshot_exec'].format(**fargs)
             args = shlex.split(args)
             subprocess.check_call(args)
             if not os.path.getsize(filename):
