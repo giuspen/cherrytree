@@ -22,7 +22,7 @@ class ScreenShotPlugin(CTPlugin):
     friendly_name = _("Screenshot Plugin")
 
     plugin_menu = [
-        CTMenuItem('MenuBar:EditMenu:menu_screenshot', after='handle_image', sk='image_insert', kb=KB_CONTROL+KB_ALT+"S", cb='handle_screenshot')
+        CTMenuItem('MenuBar:EditMenu:menu_screenshot', after='handle_image', sd="Insert Screenshot", sk='image_insert', kb=KB_CONTROL+KB_ALT+"S", cb='handle_screenshot')
     ]
 
     config_defaults = dict(screenshot_exec=None)
