@@ -369,12 +369,6 @@ def config_file_load(dad):
             for option in cfg.options(section):
                 dad.custom_codexec_ext[option] = cfg.get(section, option)
 
-        section = 'tools'
-        if cfg.has_option(section, 'screenshot'):
-            dad.screenshot_exec = cfg.get(section, 'screenshot')
-        else:
-            dad.screenshot_exec = None
-
     else:
         dad.file_dir = ""
         dad.file_name = ""
@@ -479,7 +473,6 @@ def config_file_load(dad):
         dad.default_icon_text = cons.NODE_ICON_BULLET_ID
         dad.recent_docs = []
         dad.toolbar_visible = True
-        dad.screenshot_exec = None
 
         print "missing", cons.CONFIG_PATH
 
@@ -702,11 +695,6 @@ def config_file_save(dad):
     cfg.add_section(section)
     for option in dad.custom_codexec_ext.keys():
         cfg.set(section, option, dad.custom_codexec_ext[option])
-
-    section = 'tools'
-    cfg.add_section(section)
-    if dad.screenshot_exec:
-        cfg.set(section, 'screenshot', dad.screenshot_exec)
 
     with open(cons.CONFIG_PATH, 'wb') as configfile:
         cfg.write(configfile)
@@ -2330,38 +2318,6 @@ def preferences_tab_misc(dad, vbox_misc, pref_dialog):
             lang_file_descriptor.close()
     combobox_country_language.connect('changed', on_combobox_country_language_changed)
 
-
-def preferences_tab_tools(dad, vbox_tools, pref_dialog):
-    """Preferences Dialog, Misc Tab"""
-    for child in vbox_tools.get_children(): child.destroy()
-
-    hbox_screenshot = gtk.HBox()
-    hbox_screenshot.set_spacing(4)
-    label_screenshot = gtk.Label(_("Screenshot command, e.g.: spectacle -r -b -d 5000 -n -o {tempfilename}"))
-    entry_screenshot = gtk.Entry()
-    entry_screenshot.set_text(dad.screenshot_exec or "")
-    hbox_screenshot.pack_start(label_screenshot, expand=False)
-    hbox_screenshot.pack_start(entry_screenshot)
-
-    vbox_all = gtk.VBox()
-    vbox_all.set_spacing(2)
-    vbox_all.pack_start(hbox_screenshot)
-    frame_all = gtk.Frame(label="<b>" + _("Tools") + "</b>")
-    frame_all.get_label_widget().set_use_markup(True)
-    frame_all.set_shadow_type(gtk.SHADOW_NONE)
-    align_all = gtk.Alignment()
-    align_all.set_padding(3, 6, 6, 6)
-    align_all.add(vbox_all)
-    frame_all.add(align_all)
-
-    vbox_tools.pack_start(frame_all, expand=False)
-
-    def on_entry_screenshot_changed(entry):
-        dad.screenshot_exec = entry.get_text()
-
-    entry_screenshot.connect('changed', on_entry_screenshot_changed)
-
-
 def dialog_preferences(dad):
     """Preferences Dialog"""
     dialog = gtk.Dialog(title=_("Preferences"),
@@ -2370,7 +2326,7 @@ def dialog_preferences(dad):
         buttons=(gtk.STOCK_CLOSE, gtk.RESPONSE_ACCEPT))
 
     tabs_vbox_vec = []
-    for tabs_idx in range(12):
+    for tabs_idx in xrange(11):
         tabs_vbox_vec.append(gtk.VBox())
         tabs_vbox_vec[-1].set_spacing(3)
 
@@ -2387,7 +2343,6 @@ def dialog_preferences(dad):
     notebook.append_page(tabs_vbox_vec[8], gtk.Label(_("Toolbar")))
     notebook.append_page(tabs_vbox_vec[9], gtk.Label(_("Keyboard Shortcuts")))
     notebook.append_page(tabs_vbox_vec[10], gtk.Label(_("Miscellaneous")))
-    notebook.append_page(tabs_vbox_vec[11], gtk.Label(_("Tools")))
 
     tab_constructor = {
         0: preferences_tab_text_n_code,
@@ -2401,8 +2356,18 @@ def dialog_preferences(dad):
         8: preferences_tab_toolbar,
         9: preferences_tab_kb_shortcuts,
        10: preferences_tab_misc,
-       11: preferences_tab_tools,
     }
+
+    index = 10
+
+    for plugin in dad.plugins:
+        if not hasattr(plugin, 'ui_preferences_tab'):
+            continue
+
+        index += 1
+        tab_constructor[index] = plugin.ui_preferences_tab
+        tabs_vbox_vec.append(gtk.VBox())
+        notebook.append_page(tabs_vbox_vec[-1], gtk.Label(plugin.friendly_name))
 
     def on_notebook_switch_page(notebook, page, page_num):
         #print "new page", page_num

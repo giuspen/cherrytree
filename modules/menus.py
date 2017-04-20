@@ -20,6 +20,8 @@
 #       MA 02110-1301, USA.
 
 import cons
+import menusutils
+from menustruct import *
 
 KB_CONTROL = "<control>"
 KB_SHIFT = "<shift>"
@@ -64,7 +66,7 @@ CONFIG_ACTIONS_DICT = {
 "act_undo",
 "act_redo",
 "handle_image",
-"handle_screenshot",
+# "handle_screenshot",
 "handle_table",
 "handle_codebox",
 "handle_embfile",
@@ -186,7 +188,7 @@ def load_menudict(dad):
 "act_undo": {"sk": "gtk-undo", "sd": _("_Undo"), "kb": KB_CONTROL+"Z", "dn": _("Undo Last Operation"), "cb": dad.requested_step_back},
 "act_redo": {"sk": "gtk-redo", "sd": _("_Redo"), "kb": KB_CONTROL+"Y", "dn": _("Redo Previously Discarded Operation"), "cb": dad.requested_step_ahead},
 "handle_image": {"sk": "image_insert", "sd": _("Insert I_mage"), "kb": KB_CONTROL+KB_ALT+"I", "dn": _("Insert an Image"), "cb": dad.image_handle},
-"handle_screenshot": {"sk": "screenshot_insert", "sd": _("Insert Screenshot"), "kb": KB_CONTROL+KB_ALT+"S", "dn": _("Insert a Screenshot"), "cb": dad.screenshot_handler},
+# "handle_screenshot": {"sk": "screenshot_insert", "sd": _("Insert Screenshot"), "kb": KB_CONTROL+KB_ALT+"S", "dn": _("Insert a Screenshot"), "cb": dad.screenshot_handler},
 "handle_table": {"sk": "table_insert", "sd": _("Insert _Table"), "kb": KB_CONTROL+KB_ALT+"T", "dn": _("Insert a Table"), "cb": dad.table_handle},
 "handle_codebox": {"sk": "codebox_insert", "sd": _("Insert _CodeBox"), "kb": KB_CONTROL+KB_ALT+"C", "dn": _("Insert a CodeBox"), "cb": dad.codebox_handle},
 "handle_embfile": {"sk": "file_icon", "sd": _("Insert _File"), "kb": KB_CONTROL+KB_ALT+"E", "dn": _("Insert File"), "cb": dad.embfile_insert},
@@ -489,7 +491,7 @@ get_menu_item_tuple(dad, "handle_todo_list"),
 (cons.TAG_SEPARATOR, None, None, None, None),
 ("submenu-start", _("_Insert") , "insert", None, None),
 get_menu_item_tuple(dad, "handle_image"),
-get_menu_item_tuple(dad, "handle_screenshot"),
+# get_menu_item_tuple(dad, "handle_screenshot"),
 get_menu_item_tuple(dad, "handle_table"),
 get_menu_item_tuple(dad, "handle_codebox"),
 get_menu_item_tuple(dad, "handle_embfile"),
@@ -653,208 +655,220 @@ def get_popup_menu_entries_codebox(dad):
 ("gtk-go-up", _("Decrease CodeBox Height"), KB_CONTROL+KB_ALT+"comma", _("Decrease the Height of the CodeBox"), dad.codebox_decrease_height),
 ]
 
-UI_INFO = """
-<ui>
-  <menubar name='MenuBar'>
-    <menu action='FileMenu'>
-      <menuitem action='ct_new_inst'/>
-      <menuitem action='ct_open_file'/>
-      <separator/>
-      <menuitem action='ct_vacuum'/>
-      <menuitem action='ct_save'/>
-      <menuitem action='ct_save_as'/>
-      <separator/>
-      <menuitem action='print_page_setup'/>
-      <menuitem action='do_print'/>
-      <separator/>
-      <menuitem action='exec_code'/>
-      <separator/>
-      <menuitem action='quit_app'/>
-      <menuitem action='exit_app'/>
-    </menu>
+UI_INFO = None
 
-    <menu action='EditMenu'>
-      <menuitem action='preferences_dlg'/>
-      <separator/>
-      <menuitem action='act_undo'/>
-      <menuitem action='act_redo'/>
-      <separator/>
-      <menuitem action='handle_image'/>
-      <menuitem action='handle_screenshot'/>
-      <menuitem action='handle_table'/>
-      <menuitem action='handle_codebox'/>
-      <menuitem action='handle_embfile'/>
-      <menuitem action='handle_link'/>
-      <menuitem action='handle_anchor'/>
-      <menuitem action='insert_toc'/>
-      <menuitem action='insert_timestamp'/>
-      <menuitem action='insert_horiz_rule'/>
-      <menuitem action='strip_trail_spaces'/>
-      <separator/>
-      <menu action='ChangeCaseMenu'>
-        <menuitem action='case_down'/>
-        <menuitem action='case_up'/>
-        <menuitem action='case_tggl'/>
-      </menu>
-      <separator/>
-      <menuitem action='spellcheck_toggle'/>
-      <separator/>
-      <menuitem action='cut_plain'/>
-      <menuitem action='copy_plain'/>
-      <menuitem action='paste_plain'/>
-      <separator/>
-      <menuitem action='cut_row'/>
-      <menuitem action='copy_row'/>
-      <menuitem action='del_row'/>
-      <menuitem action='dup_row'/>
-      <menuitem action='mv_up_row'/>
-      <menuitem action='mv_down_row'/>
-    </menu>
+#
+# UI_INFO = """
+# <ui>
+#   <menubar name='MenuBar'>
+#     <menu action='FileMenu'>
+#       <menuitem action='ct_new_inst'/>
+#       <menuitem action='ct_open_file'/>
+#       <separator/>
+#       <menuitem action='ct_vacuum'/>
+#       <menuitem action='ct_save'/>
+#       <menuitem action='ct_save_as'/>
+#       <separator/>
+#       <menuitem action='print_page_setup'/>
+#       <menuitem action='do_print'/>
+#       <separator/>
+#       <menuitem action='exec_code'/>
+#       <separator/>
+#       <menuitem action='quit_app'/>
+#       <menuitem action='exit_app'/>
+#     </menu>
+#
+#     <menu action='EditMenu'>
+#       <menuitem action='preferences_dlg'/>
+#       <separator/>
+#       <menuitem action='act_undo'/>
+#       <menuitem action='act_redo'/>
+#       <separator/>
+#       <menuitem action='handle_image'/>
+#       <menuitem action='handle_screenshot'/>
+#       <menuitem action='handle_table'/>
+#       <menuitem action='handle_codebox'/>
+#       <menuitem action='handle_embfile'/>
+#       <menuitem action='handle_link'/>
+#       <menuitem action='handle_anchor'/>
+#       <menuitem action='insert_toc'/>
+#       <menuitem action='insert_timestamp'/>
+#       <menuitem action='insert_horiz_rule'/>
+#       <menuitem action='strip_trail_spaces'/>
+#       <menuitem action='menu_test'/>
+#       <separator/>
+#       <menu action='ChangeCaseMenu'>
+#         <menuitem action='case_down'/>
+#         <menuitem action='case_up'/>
+#         <menuitem action='case_tggl'/>
+#       </menu>
+#       <separator/>
+#       <menuitem action='spellcheck_toggle'/>
+#       <separator/>
+#       <menuitem action='cut_plain'/>
+#       <menuitem action='copy_plain'/>
+#       <menuitem action='paste_plain'/>
+#       <separator/>
+#       <menuitem action='cut_row'/>
+#       <menuitem action='copy_row'/>
+#       <menuitem action='del_row'/>
+#       <menuitem action='dup_row'/>
+#       <menuitem action='mv_up_row'/>
+#       <menuitem action='mv_down_row'/>
+#     </menu>
+#
+#     <menu action='FormattingMenu'>
+#       <menuitem action='fmt_latest'/>
+#       <menuitem action='fmt_rm'/>
+#       <separator/>
+#       <menuitem action='fmt_color_fg'/>
+#       <menuitem action='fmt_color_bg'/>
+#       <menuitem action='fmt_bold'/>
+#       <menuitem action='fmt_italic'/>
+#       <menuitem action='fmt_underline'/>
+#       <menuitem action='fmt_strikethrough'/>
+#       <menuitem action='fmt_h1'/>
+#       <menuitem action='fmt_h2'/>
+#       <menuitem action='fmt_h3'/>
+#       <menuitem action='fmt_small'/>
+#       <menuitem action='fmt_superscript'/>
+#       <menuitem action='fmt_subscript'/>
+#       <menuitem action='fmt_monospace'/>
+#       <separator/>
+#       <menuitem action='handle_bull_list'/>
+#       <menuitem action='handle_num_list'/>
+#       <menuitem action='handle_todo_list'/>
+#       <separator/>
+#       <menuitem action='fmt_justify_left'/>
+#       <menuitem action='fmt_justify_center'/>
+#       <menuitem action='fmt_justify_right'/>
+#       <menuitem action='fmt_justify_fill'/>
+#     </menu>
+#
+#     <menu action='TreeMenu'>
+#     </menu>
+#
+#     <menu action='SearchMenu'>
+#       <menuitem action='find_in_node'/>
+#       <menuitem action='find_in_allnodes'/>
+#       <menuitem action='find_in_node_n_sub'/>
+#       <menuitem action='find_in_node_names'/>
+#       <menuitem action='find_iter_fw'/>
+#       <menuitem action='find_iter_bw'/>
+#       <separator/>
+#       <menuitem action='replace_in_node'/>
+#       <menuitem action='replace_in_allnodes'/>
+#       <menuitem action='replace_in_node_n_sub'/>
+#       <menuitem action='replace_in_node_names'/>
+#       <menuitem action='replace_iter_fw'/>
+#     </menu>
+#
+#     <menu action='ViewMenu'>
+#       <menuitem action='toggle_show_tree'/>
+#       <menuitem action='toggle_show_toolbar'/>
+#       <menuitem action='toggle_show_node_name_head'/>
+#       <menuitem action='toggle_show_allmatches_dlg'/>
+#       <separator/>
+#       <menuitem action='toggle_focus_tree_text'/>
+#       <menuitem action='nodes_all_expand'/>
+#       <menuitem action='nodes_all_collapse'/>
+#       <separator/>
+#       <menuitem action='toolbar_icons_size_p'/>
+#       <menuitem action='toolbar_icons_size_m'/>
+#       <separator/>
+#       <menuitem action='toggle_fullscreen'/>
+#     </menu>
+#
+#     <menu action='BookmarksMenu'>
+#       <menuitem action='handle_bookmarks'/>
+#     </menu>
+#
+#     <menu action='ImportMenu'>
+#       <menuitem action='import_cherrytree'/>
+#       <menuitem action='import_txt_file'/>
+#       <menuitem action='import_txt_folder'/>
+#       <menuitem action='import_html_file'/>
+#       <menuitem action='import_html_folder'/>
+#       <menuitem action='import_basket'/>
+#       <menuitem action='import_epim_html'/>
+#       <menuitem action='import_gnote'/>
+#       <menuitem action='import_keepnote'/>
+#       <menuitem action='import_keynote'/>
+#       <menuitem action='import_knowit'/>
+#       <menuitem action='import_leo'/>
+#       <menuitem action='import_mempad'/>
+#       <menuitem action='import_notecase'/>
+#       <menuitem action='import_rednotebook'/>
+#       <menuitem action='import_tomboy'/>
+#       <menuitem action='import_treepad'/>
+#       <menuitem action='import_tuxcards'/>
+#       <menuitem action='import_zim'/>
+#     </menu>
+#
+#     <menu action='ExportMenu'>
+#       <menuitem action='export_pdf'/>
+#       <menuitem action='export_html'/>
+#       <menuitem action='export_txt_multiple'/>
+#       <menuitem action='export_txt_single'/>
+#       <menuitem action='export_ctd'/>
+#     </menu>
+#
+#     <menu action='HelpMenu'>
+#       <menuitem action='ct_check_newer'/>
+#       <separator/>
+#       <menuitem action='ct_help'/>
+#       <separator/>
+#       <menuitem action='open_cfg_folder'/>
+#       <separator/>
+#       <menuitem action='ct_about'/>
+#     </menu>
+#   </menubar>
+#
+#   <popup name='SysTrayMenu'>
+#     <menuitem action='toggle_show_mainwin'/>
+#     <separator/>
+#     <menuitem action='exit_app'/>
+#   </popup>
+#
+#   <popup name='ImageMenu'>
+#     <menuitem action='img_cut'/>
+#     <menuitem action='img_copy'/>
+#     <menuitem action='img_del'/>
+#     <separator/>
+#     <menuitem action='img_edit'/>
+#     <menuitem action='img_save'/>
+#     <separator/>
+#     <menuitem action='img_link_edit'/>
+#     <menuitem action='img_link_dismiss'/>
+#   </popup>
+#
+#   <popup name='AnchorMenu'>
+#     <menuitem action='anch_cut'/>
+#     <menuitem action='anch_copy'/>
+#     <menuitem action='anch_del'/>
+#     <separator/>
+#     <menuitem action='anch_edit'/>
+#   </popup>
+#
+#   <popup name='EmbFileMenu'>
+#     <menuitem action='emb_file_cut'/>
+#     <menuitem action='emb_file_copy'/>
+#     <menuitem action='emb_file_del'/>
+#     <separator/>
+#     <menuitem action='emb_file_open'/>
+#     <menuitem action='emb_file_save'/>
+#   </popup>
+# </ui>
+# """
 
-    <menu action='FormattingMenu'>
-      <menuitem action='fmt_latest'/>
-      <menuitem action='fmt_rm'/>
-      <separator/>
-      <menuitem action='fmt_color_fg'/>
-      <menuitem action='fmt_color_bg'/>
-      <menuitem action='fmt_bold'/>
-      <menuitem action='fmt_italic'/>
-      <menuitem action='fmt_underline'/>
-      <menuitem action='fmt_strikethrough'/>
-      <menuitem action='fmt_h1'/>
-      <menuitem action='fmt_h2'/>
-      <menuitem action='fmt_h3'/>
-      <menuitem action='fmt_small'/>
-      <menuitem action='fmt_superscript'/>
-      <menuitem action='fmt_subscript'/>
-      <menuitem action='fmt_monospace'/>
-      <separator/>
-      <menuitem action='handle_bull_list'/>
-      <menuitem action='handle_num_list'/>
-      <menuitem action='handle_todo_list'/>
-      <separator/>
-      <menuitem action='fmt_justify_left'/>
-      <menuitem action='fmt_justify_center'/>
-      <menuitem action='fmt_justify_right'/>
-      <menuitem action='fmt_justify_fill'/>
-    </menu>
-
-    <menu action='TreeMenu'>
-    </menu>
-
-    <menu action='SearchMenu'>
-      <menuitem action='find_in_node'/>
-      <menuitem action='find_in_allnodes'/>
-      <menuitem action='find_in_node_n_sub'/>
-      <menuitem action='find_in_node_names'/>
-      <menuitem action='find_iter_fw'/>
-      <menuitem action='find_iter_bw'/>
-      <separator/>
-      <menuitem action='replace_in_node'/>
-      <menuitem action='replace_in_allnodes'/>
-      <menuitem action='replace_in_node_n_sub'/>
-      <menuitem action='replace_in_node_names'/>
-      <menuitem action='replace_iter_fw'/>
-    </menu>
-
-    <menu action='ViewMenu'>
-      <menuitem action='toggle_show_tree'/>
-      <menuitem action='toggle_show_toolbar'/>
-      <menuitem action='toggle_show_node_name_head'/>
-      <menuitem action='toggle_show_allmatches_dlg'/>
-      <separator/>
-      <menuitem action='toggle_focus_tree_text'/>
-      <menuitem action='nodes_all_expand'/>
-      <menuitem action='nodes_all_collapse'/>
-      <separator/>
-      <menuitem action='toolbar_icons_size_p'/>
-      <menuitem action='toolbar_icons_size_m'/>
-      <separator/>
-      <menuitem action='toggle_fullscreen'/>
-    </menu>
-
-    <menu action='BookmarksMenu'>
-      <menuitem action='handle_bookmarks'/>
-    </menu>
-
-    <menu action='ImportMenu'>
-      <menuitem action='import_cherrytree'/>
-      <menuitem action='import_txt_file'/>
-      <menuitem action='import_txt_folder'/>
-      <menuitem action='import_html_file'/>
-      <menuitem action='import_html_folder'/>
-      <menuitem action='import_basket'/>
-      <menuitem action='import_epim_html'/>
-      <menuitem action='import_gnote'/>
-      <menuitem action='import_keepnote'/>
-      <menuitem action='import_keynote'/>
-      <menuitem action='import_knowit'/>
-      <menuitem action='import_leo'/>
-      <menuitem action='import_mempad'/>
-      <menuitem action='import_notecase'/>
-      <menuitem action='import_rednotebook'/>
-      <menuitem action='import_tomboy'/>
-      <menuitem action='import_treepad'/>
-      <menuitem action='import_tuxcards'/>
-      <menuitem action='import_zim'/>
-    </menu>
-
-    <menu action='ExportMenu'>
-      <menuitem action='export_pdf'/>
-      <menuitem action='export_html'/>
-      <menuitem action='export_txt_multiple'/>
-      <menuitem action='export_txt_single'/>
-      <menuitem action='export_ctd'/>
-    </menu>
-
-    <menu action='HelpMenu'>
-      <menuitem action='ct_check_newer'/>
-      <separator/>
-      <menuitem action='ct_help'/>
-      <separator/>
-      <menuitem action='open_cfg_folder'/>
-      <separator/>
-      <menuitem action='ct_about'/>
-    </menu>
-  </menubar>
-
-  <popup name='SysTrayMenu'>
-    <menuitem action='toggle_show_mainwin'/>
-    <separator/>
-    <menuitem action='exit_app'/>
-  </popup>
-
-  <popup name='ImageMenu'>
-    <menuitem action='img_cut'/>
-    <menuitem action='img_copy'/>
-    <menuitem action='img_del'/>
-    <separator/>
-    <menuitem action='img_edit'/>
-    <menuitem action='img_save'/>
-    <separator/>
-    <menuitem action='img_link_edit'/>
-    <menuitem action='img_link_dismiss'/>
-  </popup>
-
-  <popup name='AnchorMenu'>
-    <menuitem action='anch_cut'/>
-    <menuitem action='anch_copy'/>
-    <menuitem action='anch_del'/>
-    <separator/>
-    <menuitem action='anch_edit'/>
-  </popup>
-
-  <popup name='EmbFileMenu'>
-    <menuitem action='emb_file_cut'/>
-    <menuitem action='emb_file_copy'/>
-    <menuitem action='emb_file_del'/>
-    <separator/>
-    <menuitem action='emb_file_open'/>
-    <menuitem action='emb_file_save'/>
-  </popup>
-</ui>
-"""
-
-TOOLBAR_VEC_DEFAULT = ["tree_add_node", "tree_add_subnode", cons.TAG_SEPARATOR, "go_node_prev", "go_node_next", cons.TAG_SEPARATOR, cons.CHAR_STAR, "ct_save", "export_pdf", cons.TAG_SEPARATOR, "find_in_allnodes", cons.TAG_SEPARATOR, "handle_bull_list", "handle_num_list", "handle_todo_list", cons.TAG_SEPARATOR, "handle_image", "handle_screenshot", "handle_table", "handle_codebox", "handle_embfile", "handle_link", "handle_anchor", cons.TAG_SEPARATOR, "fmt_rm", "fmt_color_fg", "fmt_color_bg", "fmt_bold", "fmt_italic", "fmt_underline", "fmt_strikethrough", "fmt_h1", "fmt_h2", "fmt_h3", "fmt_small", "fmt_superscript", "fmt_subscript", "fmt_monospace"]
+TOOLBAR_VEC_DEFAULT = ["tree_add_node", "tree_add_subnode", cons.TAG_SEPARATOR, "go_node_prev", "go_node_next", cons.TAG_SEPARATOR, cons.CHAR_STAR, "ct_save", "export_pdf", cons.TAG_SEPARATOR, "find_in_allnodes", cons.TAG_SEPARATOR, "handle_bull_list", "handle_num_list", "handle_todo_list", cons.TAG_SEPARATOR, "handle_image", "handle_table", "handle_codebox", "handle_embfile", "handle_link", "handle_anchor", cons.TAG_SEPARATOR, "fmt_rm", "fmt_color_fg", "fmt_color_bg", "fmt_bold", "fmt_italic", "fmt_underline", "fmt_strikethrough", "fmt_h1", "fmt_h2", "fmt_h3", "fmt_small", "fmt_superscript", "fmt_subscript", "fmt_monospace"]
 
 TOOLBAR_VEC_BLACKLIST = ["anch_cut", "anch_copy", "anch_del", "anch_edit", "emb_file_cut", "emb_file_copy", "emb_file_del", "emb_file_save", "emb_file_open", "img_save", "img_edit", "img_cut", "img_copy", "img_del", "img_link_edit", "img_link_dismiss", "toggle_show_mainwin"]
+
+
+def getUiInfo():
+    global UI_INFO
+    if UI_INFO is None:
+        UI_INFO = menusutils.menuBuildXML(UI_INFO_STRUCT_MENUBAR, UI_INFO_STRUCT_POPUP)
+
+    return UI_INFO
