@@ -36,21 +36,21 @@ import cgi
 import urllib.request
 import shutil
 import time
-import pgsc_spellcheck
-import cons
-import menus
-import support
-import config
-import machines
-import clipboard
-import imports
-import exports
-import printing
-import tablez
-import lists
-import findreplace
-import codeboxes
-import ctdb
+from . import pgsc_spellcheck
+from . import cons
+from . import menus
+from . import support
+from . import config
+from . import machines
+from . import clipboard
+from . import imports
+from . import exports
+from . import printing
+from . import tablez
+from . import lists
+from . import findreplace
+from . import codeboxes
+from . import ctdb
 if cons.HAS_APPINDICATOR: import appindicator
 
 class CherryTree:
@@ -317,7 +317,7 @@ class CherryTree:
             return
         iter_start, iter_end = text_buffer.get_selection_bounds()
         if from_codebox or self.syntax_highlighting != cons.RICH_TEXT_ID:
-            text_to_change_case = text_buffer.get_text(iter_start, iter_end)
+            text_to_change_case = text_buffer.get_text(iter_start, iter_end, False)
             if change_type == "l": text_to_change_case = text_to_change_case.lower()
             elif change_type == "u": text_to_change_case = text_to_change_case.upper()
             elif change_type == "t": text_to_change_case = text_to_change_case.swapcase()
@@ -360,7 +360,7 @@ class CherryTree:
             sel_start_offset = iter_start.get_offset()
             sel_end_offset = iter_end.get_offset()
             if from_codebox or self.syntax_highlighting != cons.RICH_TEXT_ID:
-                text_to_duplicate = text_buffer.get_text(iter_start, iter_end)
+                text_to_duplicate = text_buffer.get_text(iter_start, iter_end, False)
                 if cons.CHAR_NEWLINE in text_to_duplicate:
                     text_to_duplicate = cons.CHAR_NEWLINE + text_to_duplicate
                 text_buffer.insert(iter_end, text_to_duplicate)
@@ -381,7 +381,7 @@ class CherryTree:
                 text_buffer.insert(iter_start, cons.CHAR_NEWLINE)
             else:
                 if from_codebox or self.syntax_highlighting != cons.RICH_TEXT_ID:
-                    text_to_duplicate = text_buffer.get_text(iter_start, iter_end)
+                    text_to_duplicate = text_buffer.get_text(iter_start, iter_end, False)
                     text_buffer.insert(iter_end, cons.CHAR_NEWLINE + text_to_duplicate)
                 else:
                     rich_text = self.clipboard_handler.rich_text_get_from_text_buffer_selection(text_buffer, iter_start, iter_end)
@@ -420,7 +420,7 @@ class CherryTree:
         #print "iter_start %s %s '%s'" % (start_offset, ord(iter_start.get_char()), iter_start.get_char())
         #print "iter_end %s %s '%s'" % (end_offset, ord(iter_end.get_char()), iter_end.get_char())
         #print "destination_iter %s %s '%s'" % (destination_offset, ord(destination_iter.get_char()), destination_iter.get_char())
-        text_to_move = text_buffer.get_text(iter_start, iter_end)
+        text_to_move = text_buffer.get_text(iter_start, iter_end, False)
         diff_offsets = end_offset - start_offset
         if from_codebox or self.syntax_highlighting != cons.RICH_TEXT_ID:
             text_buffer.delete(iter_start, iter_end)
@@ -482,7 +482,7 @@ iter_end, exclude_iter_sel_end=True)
         #print "iter_start %s %s '%s'" % (start_offset, ord(iter_start.get_char()), iter_start.get_char())
         #print "iter_end %s %s '%s'" % (end_offset, ord(iter_end.get_char()), iter_end.get_char())
         #print "destination_iter %s %s '%s'" % (destination_offset, ord(destination_iter.get_char()), destination_iter.get_char())
-        text_to_move = text_buffer.get_text(iter_start, iter_end)
+        text_to_move = text_buffer.get_text(iter_start, iter_end, False)
         diff_offsets = end_offset - start_offset
         if from_codebox or self.syntax_highlighting != cons.RICH_TEXT_ID:
             text_buffer.delete(iter_start, iter_end)
@@ -2725,7 +2725,7 @@ iter_end, exclude_iter_sel_end=True)
             if self.syntax_highlighting != cons.RICH_TEXT_ID:
                 text_buffer_from = self.treestore[tree_iter_from][2]
                 text_buffer_to = self.treestore[new_node_iter][2]
-                content = text_buffer_from.get_text(*text_buffer_from.get_bounds())
+                content = text_buffer_from.get_text(*text_buffer_from.get_bounds(), False)
                 text_buffer_to.begin_not_undoable_action()
                 text_buffer_to.set_text(content)
                 text_buffer_to.end_not_undoable_action()
@@ -2958,7 +2958,7 @@ iter_end, exclude_iter_sel_end=True)
             node_text = txt_handler.node_export_to_txt(text_buffer, "")
         else:
             rich_to_non_rich = False
-            node_text = text_buffer.get_text(*text_buffer.get_bounds())
+            node_text = text_buffer.get_text(*text_buffer.get_bounds(), False)
         self.treestore[tree_iter][2] = self.buffer_create(new_syntax_highl)
         if rich_to_non_rich: self.treestore[tree_iter][2].begin_not_undoable_action()
         self.treestore[tree_iter][2].set_text(node_text)
@@ -3679,13 +3679,13 @@ iter_end, exclude_iter_sel_end=True)
             anchor = self.codeboxes_handler.codebox_in_use_get_anchor()
             if anchor:
                 code_type = anchor.syntax_highlighting
-                code_val = anchor.sourcebuffer.get_text(*anchor.sourcebuffer.get_bounds())
+                code_val = anchor.sourcebuffer.get_text(*anchor.sourcebuffer.get_bounds(), False)
             if not code_type:
                 support.dialog_warning(_("No CodeBox is Selected"), self.window)
                 return
         else:
             code_type = self.syntax_highlighting
-            code_val = self.curr_buffer.get_text(*self.curr_buffer.get_bounds())
+            code_val = self.curr_buffer.get_text(*self.curr_buffer.get_bounds(), False)
         #print code_type
         binary_cmd = config.get_code_exec_type_cmd(self, code_type)
         if not binary_cmd:
@@ -4514,7 +4514,7 @@ iter_end, exclude_iter_sel_end=True)
             if tag_property == cons.TAG_LINK:
                 if support.get_next_chars_from_iter_are(iter_sel_start, cons.WEB_LINK_STARTERS):
                     self.link_type = cons.LINK_TYPE_WEBS
-                    self.links_entries['webs'] = text_buffer.get_text(iter_sel_start, iter_sel_end)
+                    self.links_entries['webs'] = text_buffer.get_text(iter_sel_start, iter_sel_end, False)
                 insert_offset = iter_sel_start.get_offset()
                 bound_offset = iter_sel_end.get_offset()
                 sel_tree_iter = self.get_tree_iter_from_node_id(self.link_node_id) if self.link_node_id else None

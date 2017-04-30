@@ -26,10 +26,10 @@ import re
 import base64
 import copy
 import io
-import cons
-import config
-import support
-import exports
+from . import cons
+from . import config
+from . import support
+from . import exports
 
 
 def get_blob_buffer_from_pixbuf(pixbuf):
@@ -665,13 +665,13 @@ class XMLHandler:
         end_offset = end_iter.get_offset()
         if self.curr_attributes[cons.TAG_SCALE] == cons.TAG_PROP_H1:
             self.toc_counters[cons.TAG_PROP_H1] += 1
-            self.toc_list.append(["h1-%d" % self.toc_counters[cons.TAG_PROP_H1], text_buffer.get_text(start_iter, end_iter), node_id])
+            self.toc_list.append(["h1-%d" % self.toc_counters[cons.TAG_PROP_H1], text_buffer.get_text(start_iter, end_iter, False), node_id])
         elif self.curr_attributes[cons.TAG_SCALE] == cons.TAG_PROP_H2:
             self.toc_counters[cons.TAG_PROP_H2] += 1
-            self.toc_list.append(["h2-%d" % self.toc_counters[cons.TAG_PROP_H2], text_buffer.get_text(start_iter, end_iter), node_id])
+            self.toc_list.append(["h2-%d" % self.toc_counters[cons.TAG_PROP_H2], text_buffer.get_text(start_iter, end_iter, False), node_id])
         else:
             self.toc_counters[cons.TAG_PROP_H3] += 1
-            self.toc_list.append(["h3-%d" % self.toc_counters[cons.TAG_PROP_H3], text_buffer.get_text(start_iter, end_iter), node_id])
+            self.toc_list.append(["h3-%d" % self.toc_counters[cons.TAG_PROP_H3], text_buffer.get_text(start_iter, end_iter, False), node_id])
         anchor_start = start_iter.copy()
         if anchor_start.backward_char():
             anchor = anchor_start.get_child_anchor()
@@ -758,7 +758,7 @@ class StateMachine:
             codebox_dict['fill_text'] = pango_handler.pango_get_from_code_buffer(anchor.sourcebuffer)
         elif for_print == 2:
             codebox_dict['fill_text'] = self.dad.html_handler.html_get_from_code_buffer(anchor.sourcebuffer)
-        else: codebox_dict['fill_text'] = anchor.sourcebuffer.get_text(*anchor.sourcebuffer.get_bounds())
+        else: codebox_dict['fill_text'] = anchor.sourcebuffer.get_text(*anchor.sourcebuffer.get_bounds(), False)
         return codebox_dict
 
     def get_iter_alignment(self, iter_text):

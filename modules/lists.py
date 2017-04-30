@@ -20,8 +20,8 @@
 #       MA 02110-1301, USA.
 
 import re
-import cons
-import support
+from . import cons
+from . import support
 
 
 class ListsHandler:

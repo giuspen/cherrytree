@@ -35,8 +35,8 @@ import gettext
 import builtins
 msg_server_to_core = {'f':0, 'p':""}
 builtins.msg_server_to_core = msg_server_to_core
-import cons
-import core
+from . import cons
+from . import core
 
 
 class CherryTreeObject(dbus.service.Object):
@@ -212,11 +212,12 @@ def arg_filepath_fix(filepath):
 def main(args):
     """Everything Starts from Here"""
     dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
-    try:
-        session_bus = dbus.SessionBus()
-        DBUS_OK = True
-    except:
-        DBUS_OK = False
+    #try:
+        #session_bus = dbus.SessionBus()
+        #DBUS_OK = True
+    #except:
+        #DBUS_OK = False
+    DBUS_OK = False # TODO try and use GtkApplication instead of DBUS
 
     args.filepath = arg_filepath_fix(args.filepath)
     if args.export_to_html_dir or args.export_to_txt_dir:

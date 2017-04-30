@@ -27,9 +27,9 @@ import csv
 import codecs
 import io
 import copy
-import cons
-import menus
-import support
+from . import cons
+from . import menus
+from . import support
 
 
 class TablesHandler:

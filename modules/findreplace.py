@@ -26,10 +26,10 @@ import re
 import cgi
 import time
 import datetime
-import cons
-import menus
-import support
-import config
+from . import cons
+from . import menus
+from . import support
+from . import config
 
 
 def dialog_date_select(parent_win, title, curr_time):
@@ -361,7 +361,7 @@ class FindReplace:
             self.latest_node_offset = {}
             iter_insert = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
             iter_bound = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_selection_bound())
-            entry_predefined_text = self.dad.curr_buffer.get_text(iter_insert, iter_bound)
+            entry_predefined_text = self.dad.curr_buffer.get_text(iter_insert, iter_bound, False)
             if entry_predefined_text:
                 self.search_replace_dict['find'] = entry_predefined_text
             if self.replace_active: title = _("Replace in Current Node...")
@@ -413,7 +413,7 @@ class FindReplace:
             self.latest_node_offset = {}
             iter_insert = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
             iter_bound = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_selection_bound())
-            entry_predefined_text = self.dad.curr_buffer.get_text(iter_insert, iter_bound)
+            entry_predefined_text = self.dad.curr_buffer.get_text(iter_insert, iter_bound, False)
             if entry_predefined_text:
                 self.search_replace_dict['find'] = entry_predefined_text
             if self.replace_active:
@@ -582,7 +582,7 @@ class FindReplace:
 
     def find_pattern(self, tree_iter, text_buffer, pattern, start_iter, forward, all_matches):
         """Returns (start_iter, end_iter) or (None, None)"""
-        text = text_buffer.get_text(*text_buffer.get_bounds())
+        text = text_buffer.get_text(*text_buffer.get_bounds(), False)
         if not self.search_replace_dict['reg_exp']: # NOT REGULAR EXPRESSION
             pattern = re.escape(pattern) # backslashes all non alphanum chars => to not spoil re
             if self.search_replace_dict['whole_word']: # WHOLE WORD
@@ -882,7 +882,7 @@ class FindReplace:
         else: line_start.forward_char()
         while line_end.get_char() != cons.CHAR_NEWLINE:
             if not line_end.forward_char(): break
-        return text_buffer.get_text(line_start, line_end)
+        return text_buffer.get_text(line_start, line_end, False)
 
     def get_first_line_content(self, text_buffer):
         """Returns the First Not Empty Line Content Given the Text Buffer"""
@@ -892,7 +892,7 @@ class FindReplace:
         end_iter = start_iter.copy()
         while end_iter.get_char() != cons.CHAR_NEWLINE:
             if not end_iter.forward_char(): break
-        return text_buffer.get_text(start_iter, end_iter)
+        return text_buffer.get_text(start_iter, end_iter, False)
 
     def allmatchesdialog_show(self):
         """Create the All Matches Dialog"""

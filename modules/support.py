@@ -28,9 +28,9 @@ import os
 import webbrowser
 import re
 import time
-import cons
-import config
-import exports
+from . import cons
+from . import config
+from . import exports
 
 
 def get_timestamp_str(timestamp_format, time_float):
@@ -44,7 +44,7 @@ def get_timestamp_str(timestamp_format, time_float):
 
 def get_word_count(dad):
     if dad.curr_buffer:
-        all_text = dad.curr_buffer.get_text(*dad.curr_buffer.get_bounds())
+        all_text = dad.curr_buffer.get_text(*dad.curr_buffer.get_bounds(), False)
         word_count = len([w for w in all_text.split() if re.search(r"\w", w, re.UNICODE)])
     else:
         word_count = 0
@@ -82,7 +82,7 @@ def auto_decode_str(in_str, from_clipboard=False):
 
 def apply_tag_try_node_name(dad, iter_start, iter_end):
     """Apply Link to Node Tag if the text is a node name"""
-    node_name = dad.curr_buffer.get_text(iter_start, iter_end)
+    node_name = dad.curr_buffer.get_text(iter_start, iter_end, False)
     node_dest = dad.get_tree_iter_from_node_name(node_name)
     if node_dest:
         dad.curr_buffer.select_range(iter_start, iter_end)
@@ -131,7 +131,7 @@ def apply_tag_try_link(dad, iter_end, offset_cursor=None):
         num_chars = iter_end.get_offset() - iter_start.get_offset()
         if num_chars > 4 and get_next_chars_from_iter_are(iter_start, cons.WEB_LINK_STARTERS):
             dad.curr_buffer.select_range(iter_start, iter_end)
-            link_url = dad.curr_buffer.get_text(iter_start, iter_end)
+            link_url = dad.curr_buffer.get_text(iter_start, iter_end, False)
             if link_url[0:3] not in ["htt", "ftp"]: link_url = "http://" + link_url
             property_value = cons.LINK_TYPE_WEBS + cons.CHAR_SPACE + link_url
             dad.apply_tag(cons.TAG_LINK, property_value=property_value)
@@ -882,9 +882,6 @@ _("Ukrainian")+" (uk) Andriy Kovtun <kovtunos@yandex.ru>")
     dialog.set_transient_for(dad.window)
     dialog.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
     dialog.set_modal(True)
-    def f_url_hook(dialog, link, user_data):
-        webbrowser.open(link)
-    Gtk.about_dialog_set_url_hook(f_url_hook, None)
     dialog.run()
     dialog.hide()
 

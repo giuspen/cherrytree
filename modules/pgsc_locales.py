@@ -30,7 +30,7 @@ iso-code messages are installed on your system.
 import gettext
 import os
 import sqlite3
-import cons
+from . import cons
 
 # public objects
 __all__ = ['Country', 'Language', 'LanguageNotFound',

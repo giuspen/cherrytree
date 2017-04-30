@@ -25,8 +25,8 @@ import cgi
 import base64
 import shutil
 import copy
-import cons
-import support
+from . import cons
+from . import support
 
 
 def rgb_str_from_int24bit(int24bit):
@@ -347,7 +347,7 @@ class Export2Txt:
         start_iter = curr_buffer.get_iter_at_offset(start_offset)
         end_iter = curr_buffer.get_iter_at_offset(end_offset)
         if not check_link_target:
-            self.curr_plain_slots.append(curr_buffer.get_text(start_iter, end_iter))
+            self.curr_plain_slots.append(curr_buffer.get_text(start_iter, end_iter, False))
             return
         start_link = self.tag_link_in_given_iter(start_iter)
         middle_link = self.tag_link_in_given_iter(curr_buffer.get_iter_at_offset((start_offset+end_offset)/2-1))
@@ -355,7 +355,7 @@ class Export2Txt:
         if start_link and start_link == middle_link and middle_link == end_link and not start_link.startswith("node"):
             #print start_link
             plain_slot = self.dad.sourceview_hovering_link_get_tooltip(start_link)
-        else: plain_slot = curr_buffer.get_text(start_iter, end_iter)
+        else: plain_slot = curr_buffer.get_text(start_iter, end_iter, False)
         self.curr_plain_slots.append(plain_slot)
 
     def get_codebox_plain(self, codebox):

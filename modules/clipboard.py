@@ -27,11 +27,11 @@ import xml.dom.minidom
 import re
 import base64
 import mimetypes
-import cons
-import machines
-import exports
-import imports
-import support
+from . import cons
+from . import machines
+from . import exports
+from . import imports
+from . import support
 
 
 TARGET_CTD_PLAIN_TEXT = 'UTF8_STRING'
@@ -203,7 +203,7 @@ class ClipboardHandler:
                                     self.clear_func,
                                     (plain_text, rich_text, html_text, pixbuf_target))
         else:
-            plain_text = text_buffer.get_text(iter_sel_start, iter_sel_end)
+            plain_text = text_buffer.get_text(iter_sel_start, iter_sel_end, False)
             if not self.force_plain_text:
                 targets_vector = [TARGET_CTD_PLAIN_TEXT, TARGETS_HTML[0], TARGETS_HTML[1]]
             else:

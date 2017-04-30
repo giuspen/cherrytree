@@ -25,8 +25,8 @@ from gi.repository import GObject
 from gi.repository import Pango
 import copy
 import cgi
-import support
-import cons
+from . import cons
+from . import support
 
 BOX_OFFSET = 4
 

@@ -20,36 +20,33 @@
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
 
-import os, sys, builtins
+import os
+import sys
+import builtins
+import argparse
 
-try:
-    import argparse
-    ARGPARSE_OK = True
-except:
-    ARGPARSE_OK = False
 
 def f_main(args):
     if hasattr(sys, 'frozen'):
         # windows, py2exe
         SHARE_PATH = os.path.dirname(sys.executable)
-        MODULES_PATH = os.path.join(SHARE_PATH, 'modules')
     else:
         SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
         if os.path.isfile(os.path.join(SCRIPT_DIR, 'glade', 'cherrytree.png'))\
         and os.path.isfile(os.path.join(SCRIPT_DIR, 'modules', 'main.py')):
             # not installed
             SHARE_PATH = SCRIPT_DIR
-            MODULES_PATH = os.path.join(SCRIPT_DIR, 'modules')
         else:
             # installed
             SHARE_PATH = os.path.join(os.path.dirname(SCRIPT_DIR), 'share')
-            MODULES_PATH = os.path.join(SHARE_PATH, 'cherrytree', 'modules')
+            CHERRYTREE_PATH = os.path.join(SHARE_PATH, 'cherrytree')
+            sys.path.insert(0, CHERRYTREE_PATH)
     builtins.SHARE_PATH = SHARE_PATH
-    sys.path.insert(0, MODULES_PATH)
-    import main
-    main.main(args)
+    import modules.main
+    modules.main.main(args)
 
-if ARGPARSE_OK:
+
+if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('filepath', nargs='?', help='Optional CherryTree Document to Open')
     parser.add_argument("-n", "--node", help="Node Name to Focus")
@@ -57,22 +54,4 @@ if ARGPARSE_OK:
     parser.add_argument("-t", "--export_to_txt_dir", help="Export to Text at Specified Directory")
     parser.add_argument("-w", "--export_overwrite", action="store_true", help="Overwrite Existing Export")
     args = parser.parse_args()
-else:
-    class CherryArgs:
-        node = None
-        filepath = None
-        export_to_html_dir = None
-        export_to_txt_dir = None
-        export_overwrite = False
-    args = CherryArgs
-    if len(sys.argv) > 1:
-        if sys.argv[1] == "-h":
-            print("cherrytree [filepath [-n nodename] [-x export_to_html_dir] [-t export_to_txt_dir] [-w]]")
-            exit(0)
-        else: args.filepath = sys.argv[1]
-        if len(sys.argv) > 3:
-            if sys.argv[2] == "-n": args.node = sys.argv[3]
-            elif sys.argv[2] == "-x": args.export_to_html_dir = sys.argv[3]
-            elif sys.argv[2] == "-t": args.export_to_txt_dir = sys.argv[3]
-            elif sys.argv[2] == "-w": args.export_overwrite = True
-f_main(args)
+    f_main(args)

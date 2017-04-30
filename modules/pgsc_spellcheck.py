@@ -36,8 +36,8 @@ except:
 import re
 import sys
 
-from pgsc_locales import code_to_name as _code_to_name
-from pgsc_locales import LanguageNotFound, CountryNotFound
+from .pgsc_locales import code_to_name as _code_to_name
+from .pgsc_locales import LanguageNotFound, CountryNotFound
 
 # public objects
 __all__ = ['SpellChecker', 'NoDictionariesFound', 'NoGtkBindingFound']
@@ -464,8 +464,7 @@ class SpellChecker(object):
         if self._marks['click'].inside_word:
             start, end = self._marks['click'].word
             if start.has_tag(self._misspelled):
-                word = self._buffer.get_text(start, end,
-                                                 False).decode('utf-8')
+                word = self._buffer.get_text(start, end, False)
                 items = self._suggestion_menu(word)
                 if self.collapse:
                     suggestions = Gtk.MenuItem(_('Suggestions'))
@@ -542,7 +541,7 @@ class SpellChecker(object):
         for tag in self.ignored_tags:
             if start.has_tag(tag):
                 return
-        word = self._buffer.get_text(start, end, False).decode('utf-8').strip()
+        word = self._buffer.get_text(start, end, False).strip()
         if not word:
             return
         if " " in word:
@@ -555,8 +554,7 @@ class SpellChecker(object):
             line_start = self._buffer.get_iter_at_line(start.get_line())
             line_end = end.copy()
             line_end.forward_to_line_end()
-            line = self._buffer.get_text(line_start, line_end,
-                                             False).decode('utf-8')
+            line = self._buffer.get_text(line_start, line_end, False)
             for match in self._regexes[SpellChecker.FILTER_LINE].finditer(line):
                 if match.start() <= start.get_line_offset() <= match.end():
                     start = self._buffer.get_iter_at_line_offset(
@@ -567,8 +565,7 @@ class SpellChecker(object):
                     return
         if len(self._filters[SpellChecker.FILTER_TEXT]):
             text_start, text_end = self._buffer.get_bounds()
-            text = self._buffer.get_text(text_start, text_end,
-                                             False).decode('utf-8')
+            text = self._buffer.get_text(text_start, text_end, False)
             for match in self._regexes[SpellChecker.FILTER_TEXT].finditer(text):
                 if match.start() <= start.get_offset() <= match.end():
                     start = self._buffer.get_iter_at_offset(match.start())

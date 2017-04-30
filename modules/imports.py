@@ -33,10 +33,10 @@ import binascii
 import shutil
 import glob
 import time
-import cons
-import machines
-import support
-import exports
+from . import cons
+from . import machines
+from . import support
+from . import exports
 
 
 def get_internal_link_from_http_url(link_url):

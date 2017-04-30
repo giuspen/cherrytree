@@ -25,10 +25,10 @@ from gi.repository import Gdk
 from gi.repository import Pango
 from gi.repository import GtkSource
 import os
-import cons
-import menus
-import support
-import config
+from . import cons
+from . import menus
+from . import support
+from . import config
 
 DRAW_SPACES_FLAGS = GtkSource.DrawSpacesFlags.ALL
 CB_WIDTH_HEIGHT_STEP_PIX = 15
@@ -71,7 +71,7 @@ class CodeBoxesHandler:
     def codebox_delete_keeping_text(self, *args):
         """Delete CodeBox but keep the Text"""
         if not self.dad.is_curr_node_not_read_only_or_error(): return
-        content = self.curr_codebox_anchor.sourcebuffer.get_text(*self.curr_codebox_anchor.sourcebuffer.get_bounds())
+        content = self.curr_codebox_anchor.sourcebuffer.get_text(*self.curr_codebox_anchor.sourcebuffer.get_bounds(), False)
         self.dad.object_set_selection(self.curr_codebox_anchor)
         self.dad.curr_buffer.delete_selection(True, self.dad.sourceview.get_editable())
         self.dad.sourceview.grab_focus()
@@ -225,7 +225,7 @@ class CodeBoxesHandler:
         """Insert Code Box"""
         if self.dad.curr_buffer.get_has_selection():
             iter_sel_start, iter_sel_end = self.dad.curr_buffer.get_selection_bounds()
-            fill_text = self.dad.curr_buffer.get_text(iter_sel_start, iter_sel_end)
+            fill_text = self.dad.curr_buffer.get_text(iter_sel_start, iter_sel_end, False)
         else: fill_text = None
         if not self.dialog_codeboxhandle(_("Insert a CodeBox")): return
         codebox_dict = {
@@ -264,7 +264,7 @@ class CodeBoxesHandler:
             anchor.sourcebuffer.set_text(codebox_dict['fill_text'])
             anchor.sourcebuffer.place_cursor(anchor.sourcebuffer.get_iter_at_offset(cursor_pos))
             anchor.sourcebuffer.set_modified(False)
-        anchor.sourceview = GtkSource.View(anchor.sourcebuffer)
+        anchor.sourceview = GtkSource.View.new_with_buffer(anchor.sourcebuffer)
         anchor.sourceview.set_smart_home_end(GtkSource.SmartHomeEndType.AFTER)
         anchor.sourceview.set_highlight_current_line(self.dad.pt_highl_curr_line)
         if self.dad.pt_show_white_spaces: anchor.sourceview.set_draw_spaces(DRAW_SPACES_FLAGS)
@@ -375,7 +375,7 @@ class CodeBoxesHandler:
         if not filepath: return
         self.dad.pick_dir_cbox = os.path.dirname(filepath)
         with open(filepath, 'w') as fd:
-            fd.write(self.curr_codebox_anchor.sourcebuffer.get_text(*self.curr_codebox_anchor.sourcebuffer.get_bounds()))
+            fd.write(self.curr_codebox_anchor.sourcebuffer.get_text(*self.curr_codebox_anchor.sourcebuffer.get_bounds(), False))
 
     def codebox_change_properties(self, action):
         """Change CodeBox Properties"""
@@ -417,7 +417,7 @@ class CodeBoxesHandler:
     def on_vscrollbar_event_after(self, vscrollbar, event, anchor):
         """Catches CodeBox Vertical Scrollbar Movements"""
         if not self.dad.user_active or self.curr_codebox_anchor != anchor: return False
-        if self.dad.codebox_auto_resize and event.type == Gdk.EXPOSE:
+        if self.dad.codebox_auto_resize and event.type == Gdk.EventType.EXPOSE:
             curr_v = vscrollbar.get_value()
             #print curr_v+vscrollbar.get_adjustment().page_size, vscrollbar.get_adjustment().upper
             if curr_v and ((curr_v+vscrollbar.get_adjustment().page_size) >= (vscrollbar.get_adjustment().upper-20)) and (vscrollbar.get_adjustment().page_size > curr_v):
@@ -431,7 +431,7 @@ class CodeBoxesHandler:
     def on_hscrollbar_event_after(self, hscrollbar, event, anchor):
         """Catches CodeBox Horizontal Scrollbar Movements"""
         if not self.dad.user_active or self.curr_codebox_anchor != anchor: return False
-        if self.dad.codebox_auto_resize and event.type == Gdk.EXPOSE:
+        if self.dad.codebox_auto_resize and event.type == Gdk.EventType.EXPOSE:
             curr_h = hscrollbar.get_value()
             #print curr_h+hscrollbar.get_adjustment().page_size, hscrollbar.get_adjustment().upper
             if curr_h and ((curr_h+hscrollbar.get_adjustment().page_size) >= (hscrollbar.get_adjustment().upper-20)) and (hscrollbar.get_adjustment().page_size > curr_h):

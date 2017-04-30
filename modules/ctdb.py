@@ -26,10 +26,10 @@ import sqlite3
 import xml.dom.minidom
 import re
 import time
-import cons
-import machines
-import support
-import exports
+from . import cons
+from . import machines
+from . import support
+from . import exports
 
 
 class CTDBHandler:

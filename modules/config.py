@@ -30,12 +30,12 @@ import subprocess
 import base64
 import webbrowser
 import cgi
-import cons
-import menus
-import support
-import exports
-import codeboxes
-import pgsc_spellcheck
+from . import cons
+from . import menus
+from . import support
+from . import exports
+from . import codeboxes
+from . import pgsc_spellcheck
 if cons.HAS_APPINDICATOR: import appindicator
 
 ICONS_SIZE = {1: Gtk.IconSize.MENU, 2: Gtk.IconSize.SMALL_TOOLBAR, 3: Gtk.IconSize.LARGE_TOOLBAR,
@@ -904,7 +904,7 @@ def preferences_tab_text_n_code(dad, vbox_all_nodes, pref_dialog):
     vbox_all_nodes.pack_start(frame_misc_all, False, True, 0)
 
     def on_textbuffer_special_chars_changed(textbuffer, *args):
-        new_special_chars = textbuffer.get_text(*textbuffer.get_bounds()).replace(cons.CHAR_NEWLINE, "")
+        new_special_chars = textbuffer.get_text(*textbuffer.get_bounds(), False).replace(cons.CHAR_NEWLINE, "")
         if dad.special_chars != new_special_chars:
             dad.special_chars = new_special_chars
             support.set_menu_items_special_chars(dad)
