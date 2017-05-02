@@ -24,7 +24,6 @@ from gi.repository import Gdk
 from gi.repository import GdkPixbuf
 import os
 import xml.dom.minidom
-import re
 import base64
 import mimetypes
 from . import cons
@@ -289,7 +288,7 @@ class ClipboardHandler:
 
     def to_uri_list(self, clipboard, selectiondata, data):
         """From Clipboard to URI list"""
-        selection_data = re.sub(cons.BAD_CHARS, "", selectiondata.data)
+        selection_data = selectiondata.data
         if self.dad.syntax_highlighting != cons.RICH_TEXT_ID:
             iter_insert = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
             self.dad.curr_buffer.insert(iter_insert, selection_data)
@@ -343,7 +342,6 @@ class ClipboardHandler:
         #for char in selection_data: print ord(char)
         #print "###########################"
         selection_data = support.auto_decode_str(selectiondata.data, from_clipboard=True)
-        selection_data = re.sub(cons.BAD_CHARS, "", selection_data)
         #print selection_data
         html_import = imports.HTMLHandler(self.dad)
         xml_string = html_import.get_clipboard_selection_xml(selection_data)

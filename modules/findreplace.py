@@ -797,10 +797,10 @@ class FindReplace:
     def parse_node_name(self, node_iter, pattern, forward, all_matches):
         """Recursive function that searchs for the given pattern"""
         if self.is_node_within_time_filter(node_iter):
-            text_name = self.dad.treestore[node_iter][1].decode(cons.STR_UTF8)
+            text_name = self.dad.treestore[node_iter][1]
             match = pattern.search(text_name)
             if not match:
-                text_tags = self.dad.treestore[node_iter][6].decode(cons.STR_UTF8)
+                text_tags = self.dad.treestore[node_iter][6]
                 match = pattern.search(text_tags)
         else:
             match = None

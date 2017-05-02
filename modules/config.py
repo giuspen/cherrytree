@@ -27,7 +27,6 @@ import sys
 import configparser
 import locale
 import subprocess
-import base64
 import webbrowser
 import cgi
 from . import cons
@@ -203,10 +202,12 @@ def config_file_load(dad):
             dad.cursor_position = cfg.getint(section, "cursor_position") if cfg.has_option(section, "cursor_position") else 0
         else: dad.node_path = None
         dad.recent_docs = []
-        if cfg.has_option(section, "recent_docs"):
-            temp_recent_docs = cfg.get(section, "recent_docs").split(cons.CHAR_SPACE)
-            for element in temp_recent_docs:
-                if element: dad.recent_docs.append(base64.b64decode(element))
+        for i in range(cons.MAX_RECENT_DOCS):
+            curr_key = "doc_%s" % i
+            if cfg.has_option(section, curr_key):
+                dad.recent_docs.append(cfg.get(section, curr_key))
+            else:
+                break
         dad.pick_dir_import = cfg.get(section, "pick_dir_import") if cfg.has_option(section, "pick_dir_import") else ""
         dad.pick_dir_export = cfg.get(section, "pick_dir_export") if cfg.has_option(section, "pick_dir_export") else ""
         dad.pick_dir_file = cfg.get(section, "pick_dir_file") if cfg.has_option(section, "pick_dir_file") else ""
@@ -531,13 +532,8 @@ def config_file_save(dad):
         cfg.set(section, "node_path", get_node_path_str_from_path(dad.treestore.get_path(dad.curr_tree_iter)))
         cfg.set(section, "cursor_position", dad.curr_buffer.get_property(cons.STR_CURSOR_POSITION))
     if dad.recent_docs:
-        temp_recent_docs = []
-        for i, element in enumerate(dad.recent_docs):
-            if i >= cons.MAX_RECENT_DOCS: break
-            temp_recent_docs.append(base64.b64encode(element))
-        str_recent_docs = cons.CHAR_SPACE.join(temp_recent_docs)
-    else: str_recent_docs = ""
-    cfg.set(section, "recent_docs", str_recent_docs)
+        for i in range(min(len(dad.recent_docs), cons.MAX_RECENT_DOCS)):
+            cfg.set(section, "doc_%s" % i, dad.recent_docs[i])
     cfg.set(section, "pick_dir_import", dad.pick_dir_import)
     cfg.set(section, "pick_dir_export", dad.pick_dir_export)
     cfg.set(section, "pick_dir_file", dad.pick_dir_file)
@@ -695,8 +691,8 @@ def config_file_save(dad):
     for option in dad.custom_codexec_ext.keys():
         cfg.set(section, option, dad.custom_codexec_ext[option])
 
-    with open(cons.CONFIG_PATH, 'wb') as configfile:
-        cfg.write(configfile)
+    with open(cons.CONFIG_PATH, 'w') as fd:
+        cfg.write(fd)
         #print "saved", cons.CONFIG_PATH, "('%s', '%s')" % (dad.file_name, dad.file_dir)
 
 def get_tree_expanded_collapsed_string(dad):

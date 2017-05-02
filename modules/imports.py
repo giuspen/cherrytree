@@ -237,7 +237,7 @@ class TuxCardsHandler(html.parser.HTMLParser):
                 # curr_state 1: waiting for node content, take many data
                 self.pixbuf_vector = []
                 self.chars_counter = 0
-                self.feed(node_string.decode(cons.STR_UTF8, cons.STR_IGNORE))
+                self.feed(node_string)
                 for pixbuf_element in self.pixbuf_vector:
                     self.xml_handler.pixbuf_element_to_xml(pixbuf_element, self.nodes_list[-1], self.dom)
             elif child_dom_iter.nodeName == "InformationElement":
@@ -383,7 +383,7 @@ class KeepnoteHandler(html.parser.HTMLParser):
         self.pixbuf_vector = []
         self.curr_folder = node_folder
         self.chars_counter = 0
-        self.feed(node_string.decode(cons.STR_UTF8, cons.STR_IGNORE))
+        self.feed(node_string)
         for pixbuf_element in self.pixbuf_vector:
             self.xml_handler.pixbuf_element_to_xml(pixbuf_element, self.nodes_list[-1], self.dom)
         # check if the node has children
@@ -791,7 +791,7 @@ class ZimHandler():
                 file_descriptor.close()
                 #
                 node_name = os.path.splitext(element)[0]
-                self.node_add(wiki_string.decode(cons.STR_UTF8), node_name, curr_folder)
+                self.node_add(wiki_string, node_name, curr_folder)
                 # check if the node has children
                 children_folder = os.path.join(curr_folder, node_name)
                 if os.path.isdir(children_folder):
@@ -1399,7 +1399,7 @@ class BasketHandler(html.parser.HTMLParser):
                         node_string = file_descriptor.read()
                         file_descriptor.close()
                     else: node_string = "" # empty node
-                    self.feed(node_string.decode(cons.STR_UTF8, cons.STR_IGNORE))
+                    self.feed(node_string)
                     self.rich_text_serialize(cons.CHAR_NEWLINE)
                     self.chars_counter += 1
                     break
@@ -1440,7 +1440,7 @@ class BasketHandler(html.parser.HTMLParser):
                 if content_dom_iter.nodeName == "content":
                     if content_dom_iter.hasAttribute('title'):
                         title = "cross reference: "  + content_dom_iter.attributes['title'].value
-                        self.feed(title.decode(cons.STR_UTF8, cons.STR_IGNORE))
+                        self.feed(title)
                         self.rich_text_serialize(cons.CHAR_NEWLINE)
                         self.chars_counter += 1
                         break
@@ -1564,7 +1564,6 @@ class KnowitHandler(html.parser.HTMLParser):
         # 0: waiting for \NewEntry or \CurrentEntry
         # 1: gathering node content
         for text_line in file_descriptor:
-            text_line = text_line.decode(cons.STR_UTF8, cons.STR_IGNORE)
             if self.curr_xml_state == 0:
                 if text_line.startswith(r"\NewEntry ")\
                 or text_line.startswith(r"\CurrentEntry "):
@@ -1598,7 +1597,7 @@ class KnowitHandler(html.parser.HTMLParser):
                     # node content end
                     self.curr_xml_state = 0
                     self.curr_html_state = 0
-                    self.feed(self.curr_node_content.decode(cons.STR_UTF8, cons.STR_IGNORE))
+                    self.feed(self.curr_node_content)
                     if self.links_list:
                         self.rich_text_serialize(cons.CHAR_NEWLINE)
                         for link_element in self.links_list:
@@ -1731,7 +1730,6 @@ class KeynoteHandler:
         # 2: waiting for %:
         # 3: gathering node content
         for text_line in file_descriptor:
-            text_line = text_line.decode(cons.STR_UTF8, cons.STR_IGNORE)
             if self.curr_state == 0:
                 if text_line.startswith("LV="):
                     print("node level:", text_line[3:])
@@ -2382,7 +2380,7 @@ class NotecaseHandler(html.parser.HTMLParser):
         # curr_state 2: waiting for node content, take many data
         self.pixbuf_vector = []
         self.chars_counter = 0
-        self.feed(input_string.decode(cons.STR_UTF8, cons.STR_IGNORE))
+        self.feed(input_string)
         return self.dom.toxml()
 
 

@@ -634,7 +634,7 @@ def get_next_chars_from_iter_are(iter_start, chars_list):
         text_iter = iter_start.copy()
         num = len(chars)
         for i in range(num):
-            if text_iter.get_char().encode(cons.STR_UTF8) != chars[i]:
+            if text_iter.get_char() != chars[i]:
                 break
             if i != num-1 and not text_iter.forward_char():
                 break

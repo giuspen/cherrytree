@@ -90,18 +90,18 @@ class CTDBHandler:
         if "anchor" in pixbuf_attrs:
             filename = ""
             link = ""
-            anchor = (pixbuf.anchor).decode(cons.STR_UTF8)
+            anchor = pixbuf.anchor
             png_blob = None
             time = 0
         elif "filename" in pixbuf_attrs:
-            filename = (pixbuf.filename).decode(cons.STR_UTF8)
+            filename = pixbuf.filename
             link = ""
             anchor = ""
             png_blob = buffer(pixbuf.embfile)
             time = pixbuf.time
         else:
             filename = ""
-            try: link = (pixbuf.link).decode(cons.STR_UTF8)
+            try: link = pixbuf.link
             except: link = ""
             anchor = ""
             png_blob = machines.get_blob_buffer_from_pixbuf(pixbuf)
@@ -126,7 +126,7 @@ class CTDBHandler:
                 dom_row.appendChild(dom_cell)
                 text_iter = table_dom.createTextNode(cell)
                 dom_cell.appendChild(text_iter)
-        txt = (table_dom.toxml()).decode(cons.STR_UTF8)
+        txt = table_dom.toxml()
         return (node_id, offset, justification, txt, col_min, col_max)
 
     def get_codebox_db_tuple(self, codebox_element, node_id):
@@ -134,7 +134,7 @@ class CTDBHandler:
         offset = codebox_element[0]
         codebox_dict = codebox_element[1]
         justification = codebox_element[2]
-        txt = codebox_dict['fill_text'].decode(cons.STR_UTF8)
+        txt = codebox_dict['fill_text']
         syntax = codebox_dict['syntax_highlighting']
         width = codebox_dict['frame_width']
         height = codebox_dict['frame_height']
@@ -283,9 +283,9 @@ class CTDBHandler:
         """Write a node in DB"""
         node_id = self.dad.treestore[tree_iter][3]
         print("write node content, node_id", node_id, ", write_dict", write_dict)
-        name = self.dad.treestore[tree_iter][1].decode(cons.STR_UTF8)
+        name = self.dad.treestore[tree_iter][1]
         syntax = self.dad.treestore[tree_iter][4]
-        tags = self.dad.treestore[tree_iter][6].decode(cons.STR_UTF8)
+        tags = self.dad.treestore[tree_iter][6]
         # is_ro (bitfield)
         is_ro = self.dad.treestore[tree_iter][9] << 1
         if self.dad.treestore[tree_iter][7]:
@@ -366,13 +366,13 @@ class CTDBHandler:
                     db.executemany('INSERT INTO image VALUES(?,?,?,?,?,?,?,?)', images_tuples)
                 else: has_image = 0
                 # retrieve xml text
-                txt = (self.dom.toxml()).decode(cons.STR_UTF8)
+                txt = self.dom.toxml()
             else:
                 # not richtext
                 has_codebox = 0
                 has_table = 0
                 has_image = 0
-                txt = (start_iter.get_text(end_iter)).decode(cons.STR_UTF8)
+                txt = start_iter.get_text(end_iter)
         if write_dict['prop'] and write_dict['buff']:
             if write_dict['upd']:
                 db.execute('DELETE FROM node WHERE node_id=?', (node_id,))
@@ -514,8 +514,7 @@ class CTDBHandler:
             curr_buffer.end_not_undoable_action()
         else:
             # first we go for the rich text
-            rich_text_xml = re.sub(cons.BAD_CHARS, "", node_row['txt'])
-            try: dom = xml.dom.minidom.parseString(rich_text_xml)
+            try: dom = xml.dom.minidom.parseString(node_row['txt'])
             except:
                 print("** failed to parse **")
                 print(node_row['txt'])

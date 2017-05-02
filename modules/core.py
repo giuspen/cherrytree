@@ -20,10 +20,10 @@
 #       MA 02110-1301, USA.
 
 from gi.repository import Gtk
+from gi.repository import GtkSource
 from gi.repository import Gdk
 from gi.repository import GdkPixbuf
 from gi.repository import Pango
-from gi.repository import GtkSource
 from gi.repository import GObject
 import sys
 import os
@@ -36,7 +36,6 @@ import cgi
 import urllib.request
 import shutil
 import time
-from . import pgsc_spellcheck
 from . import cons
 from . import menus
 from . import support
@@ -51,6 +50,7 @@ from . import lists
 from . import findreplace
 from . import codeboxes
 from . import ctdb
+from . import pgsc_spellcheck
 if cons.HAS_APPINDICATOR: import appindicator
 
 class CherryTree:
@@ -896,7 +896,7 @@ iter_end, exclude_iter_sel_end=True)
         self.pick_dir_import = os.path.dirname(filepath)
         try:
             file_descriptor = open(filepath, 'r')
-            tuxcards_string = re.sub(cons.BAD_CHARS, "", file_descriptor.read())
+            tuxcards_string = file_descriptor.read()
             file_descriptor.close()
         except:
             support.dialog_error("Error importing the file %s" % filepath, self.window)
@@ -1172,7 +1172,6 @@ iter_end, exclude_iter_sel_end=True)
                 return
         try:
             if not cherrytree_db:
-                cherrytree_string = re.sub(cons.BAD_CHARS, "", cherrytree_string)
                 if self.xml_handler.dom_to_treestore(cherrytree_string, discard_ids=True,
                                                      tree_father=tree_father):
                     file_loaded = True
@@ -1933,7 +1932,7 @@ iter_end, exclude_iter_sel_end=True)
                 print("error reading from plain text xml")
                 raise
                 return False
-            return re.sub(cons.BAD_CHARS, "", cherrytree_string)
+            return cherrytree_string
         else:
             try:
                 if password_protected: db = self.ctdb_handler.get_connected_db_from_dbpath(filepath_tmp)

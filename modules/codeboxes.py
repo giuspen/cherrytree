@@ -23,7 +23,6 @@ from gi.repository import Gtk
 from gi.repository import GtkSource
 from gi.repository import Gdk
 from gi.repository import Pango
-from gi.repository import GtkSource
 import os
 from . import cons
 from . import menus
