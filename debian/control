@@ -22,8 +22,9 @@ Depends:
  python-dbus,
  python-enchant,
  python-chardet,
- python-gtk2 (>= 2.16),
- python-gtksourceview2,
+ gir1.2-gtk-3.0,
+ gir1.2-gtksource-3.0,
+ gir1.2-sugarext-1.0,
  ${misc:Depends},
  ${python:Depends}
 Description: hierarchical note taking application

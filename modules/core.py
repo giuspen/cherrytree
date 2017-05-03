@@ -4788,7 +4788,7 @@ iter_end, exclude_iter_sel_end=True)
         tooltip = ""
         vector = link.split()
         if vector[0] in [cons.LINK_TYPE_FILE, cons.LINK_TYPE_FOLD]:
-            tooltip = base64.b64decode(vector[1])
+            tooltip = str(base64.b64decode(vector[1]))
         else:
             if vector[0] == cons.LINK_TYPE_NODE and int(vector[1]) in self.nodes_names_dict:
                 tooltip = self.nodes_names_dict[int(vector[1])]
