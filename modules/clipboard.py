@@ -349,15 +349,12 @@ class ClipboardHandler:
 
     def to_html(self, clipboard, selectiondata, data):
         """From Clipboard to HTML Text"""
-        #print "###########################"
-        #print selectiondata.data
-        #print "###########################"
-        #for char in selection_data: print ord(char)
-        #print "###########################"
-        selection_data = support.auto_decode_str(selectiondata.data, from_clipboard=True)
-        #print selection_data
+        selection_data_bytes = selectiondata.get_data()
+        selection_data_str = support.auto_decode_str(selection_data_bytes, from_clipboard=True)
+        #print(selection_data_str)
         html_import = imports.HTMLHandler(self.dad)
-        xml_string = html_import.get_clipboard_selection_xml(selection_data)
+        xml_string = html_import.get_clipboard_selection_xml(selection_data_str)
+        #print(xml_string)
         self.from_xml_string_to_buffer(xml_string)
         self.dad.sourceview.scroll_mark_onscreen(self.dad.curr_buffer.get_insert())
 

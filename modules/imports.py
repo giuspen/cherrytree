@@ -2733,7 +2733,7 @@ class HTMLHandler(html.parser.HTMLParser):
         self.nodes_list.append(self.dom.createElement("slot"))
         self.nodes_list[0].appendChild(self.nodes_list[-1])
         self.boot_n_feed(input_string, "")
-        return self.dom.toxml()
+        return self.dom.toxml(encoding=cons.STR_UTF8)
 
     def boot_n_feed(self, input_string, local_dir):
         """Init variables and start feed"""

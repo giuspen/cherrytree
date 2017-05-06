@@ -28,6 +28,7 @@ import os
 import webbrowser
 import re
 import time
+import chardet
 from . import cons
 from . import config
 from . import exports
@@ -50,21 +51,17 @@ def get_word_count(dad):
         word_count = 0
     return word_count
 
-def auto_decode_str(in_str, from_clipboard=False):
+def auto_decode_str(in_bytes, from_clipboard=False):
     """Try to Detect Encoding and Decode"""
-    try:
-        import chardet
-        enc_dict = chardet.detect(in_str)
-        encoding = enc_dict["encoding"]
-        encodings = [encoding]
-    except:
-        encodings = []
-    if in_str.startswith("\xEF\xBB\xBF"): # UTF-8 "BOM"
+    enc_dict = chardet.detect(in_bytes)
+    encoding = enc_dict["encoding"]
+    encodings = [encoding]
+    if in_bytes.startswith(b"\xEF\xBB\xBF"): # UTF-8 "BOM"
         encodings += ["utf-8-sig"]
-    elif in_str.startswith(("\xFF\xFE", "\xFE\xFF")): # UTF-16 BOMs
+    elif in_bytes.startswith((b"\xFF\xFE", b"\xFE\xFF")): # UTF-16 BOMs
         encodings += [cons.STR_UTF16]
     elif from_clipboard:
-        if "html" in in_str or "HTML" in in_str:
+        if b"html" in in_bytes or b"HTML" in in_bytes:
             encodings = [cons.STR_UTF8] + encodings
         else:
             encodings = [cons.STR_UTF16, cons.STR_UTF8] + encodings
@@ -72,13 +69,13 @@ def auto_decode_str(in_str, from_clipboard=False):
         encodings += [cons.STR_UTF16, "utf-16le", cons.STR_UTF8, cons.STR_ISO_8859, locale.getdefaultlocale()[1]]
     for enc in encodings:
         try:
-            out_str = in_str.decode(enc)
+            out_str = in_bytes.decode(enc)
             print(enc)
             break
         except: pass
     else:
-        out_str = in_str
-    return out_str
+        out_str = str(in_bytes)
+    return re.sub("[\x00-\x08\x0b-\x1f]", "", out_str)
 
 def apply_tag_try_node_name(dad, iter_start, iter_end):
     """Apply Link to Node Tag if the text is a node name"""
