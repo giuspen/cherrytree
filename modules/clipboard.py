@@ -88,12 +88,6 @@ class Win32HtmlFormat:
         return prefix + html
 
 
-def get_clipboard():
-    atom = Gdk.atom_intern('CLIPBOARD', True)
-    clipboard = Gtk.Clipboard.get(atom)
-    return clipboard
-
-
 class ClipboardHandler:
     """Handler of Clipboard"""
 
@@ -101,6 +95,7 @@ class ClipboardHandler:
         """Clipboard Handler boot"""
         self.dad = dad
         self.force_plain_text = False
+        self._gtk_targets = {}
 
     def copy(self, text_view, from_codebox):
         """Copy to Clipboard"""
@@ -132,12 +127,18 @@ class ClipboardHandler:
                     text_view.grab_focus()
         self.force_plain_text = False
 
+    def _targets_names_to_gtk_targets(self, targets_names):
+        for t in targets_names:
+            if not t in self._gtk_targets:
+                self._gtk_targets[t] = Gtk.TargetEntry.new(t, 0, 0)
+        return [self._gtk_targets[t] for t in targets_names]
+
     def table_row_to_clipboard(self, table_dict):
         """Put the Selected Table Row to the Clipboard"""
         html_text = self.dad.html_handler.table_export_to_html(table_dict)
-        clipboard = get_clipboard()
+        clipboard = Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD)
         stored = SugarExt.clipboard_set_with_data(clipboard,
-            [Gtk.TargetEntry.new(t, 0, 0) for t in (TARGET_CTD_TABLE, TARGETS_HTML[0])],
+            self._targets_names_to_gtk_targets([TARGET_CTD_TABLE, TARGETS_HTML[0]]),
             self.get_func,
             self.clear_func,
             (None, None, html_text, table_dict))
@@ -145,7 +146,7 @@ class ClipboardHandler:
 
     def table_row_paste(self, model_n_iter):
         """Paste Table Row from the Clipboard"""
-        clipboard = get_clipboard()
+        clipboard = Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD)
         result, targets = clipboard.wait_for_targets()
         if not result: return False
         targets_dict = {t.name():t for t in targets}
@@ -156,7 +157,7 @@ class ClipboardHandler:
 
     def selection_to_clipboard(self, text_buffer, sourceview, iter_sel_start, iter_sel_end, num_chars, from_codebox):
         """Write the Selected Content to the Clipboard"""
-        clipboard = get_clipboard()
+        clipboard = Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD)
         pixbuf_target = None
         if not from_codebox and self.dad.syntax_highlighting == cons.RICH_TEXT_ID and num_chars == 1:
             anchor = iter_sel_start.get_child_anchor()
@@ -171,7 +172,7 @@ class ClipboardHandler:
                     text_offsets_range = [iter_sel_start.get_offset(), iter_sel_end.get_offset()]
                     plain_text = txt_handler.node_export_to_txt(text_buffer, "", sel_range=text_offsets_range, check_link_target=True)
                     stored = SugarExt.clipboard_set_with_data(clipboard,
-                        [Gtk.TargetEntry.new(t, 0, 0) for t in (TARGET_CTD_TABLE, TARGETS_HTML[0], TARGET_CTD_PLAIN_TEXT)],
+                        self._targets_names_to_gtk_targets([TARGET_CTD_TABLE, TARGETS_HTML[0], TARGET_CTD_PLAIN_TEXT]),
                         self.get_func,
                         self.clear_func,
                         (plain_text, None, html_text, table_dict))
@@ -185,7 +186,7 @@ class ClipboardHandler:
                     text_offsets_range = [iter_sel_start.get_offset(), iter_sel_end.get_offset()]
                     plain_text = txt_handler.node_export_to_txt(text_buffer, "", sel_range=text_offsets_range, check_link_target=True)
                     stored = SugarExt.clipboard_set_with_data(clipboard,
-                        [Gtk.TargetEntry.new(t, 0, 0) for t in (TARGET_CTD_CODEBOX, TARGETS_HTML[0], TARGET_CTD_PLAIN_TEXT)],
+                        self._targets_names_to_gtk_targets([TARGET_CTD_CODEBOX, TARGETS_HTML[0], TARGET_CTD_PLAIN_TEXT]),
                         self.get_func,
                         self.clear_func,
                         (plain_text, None, html_text, codebox_dict))
@@ -206,7 +207,7 @@ class ClipboardHandler:
             else:
                 targets_vector = [TARGET_CTD_PLAIN_TEXT]
             stored = SugarExt.clipboard_set_with_data(clipboard,
-                [Gtk.TargetEntry.new(t, 0, 0) for t in targets_vector],
+                self._targets_names_to_gtk_targets(targets_vector),
                 self.get_func,
                 self.clear_func,
                 (plain_text, rich_text, html_text, pixbuf_target))
@@ -218,7 +219,7 @@ class ClipboardHandler:
             else:
                 targets_vector = [TARGET_CTD_PLAIN_TEXT]
             stored = SugarExt.clipboard_set_with_data(clipboard,
-                [Gtk.TargetEntry.new(t, 0, 0) for t in targets_vector],
+                self._targets_names_to_gtk_targets(targets_vector),
                 self.get_func,
                 self.clear_func,
                 (plain_text, None, html_text, pixbuf_target))
@@ -227,26 +228,28 @@ class ClipboardHandler:
     def get_func(self, clipboard, selectiondata, info, data):
         """Connected with clipboard_set_with_data"""
         target = selectiondata.get_target()
-        if target == TARGET_CTD_PLAIN_TEXT: selectiondata.set(target, 8, data[0])
-        elif target == TARGET_CTD_RICH_TEXT: selectiondata.set('UTF8_STRING', 8, data[1])
-        elif target in TARGETS_HTML:
-            #print target
+        target_name = target.name()
+        if target_name == TARGET_CTD_PLAIN_TEXT:
+            selectiondata.set(Gdk.SELECTION_TYPE_STRING, 8, data[0].encode(cons.STR_UTF8))
+        elif target_name == TARGET_CTD_RICH_TEXT: selectiondata.set(Gdk.SELECTION_TYPE_STRING, 8, data[1].encode(cons.STR_UTF8))
+        elif target_name in TARGETS_HTML:
+            #print target_name
             if not cons.IS_WIN_OS:
-                selectiondata.set(target, 8, data[2])
+                selectiondata.set(target, 8, data[2].encode(cons.STR_UTF8))
             else:
-                if target == TARGETS_HTML[0]:
+                if target_name == TARGETS_HTML[0]:
                     selectiondata.set(target, 8, data[2].encode(cons.STR_UTF16))
                 else:
                     selectiondata.set(target, 8, Win32HtmlFormat.encode(data[2]))
-        elif target == TARGET_CTD_CODEBOX:
+        elif target_name == TARGET_CTD_CODEBOX:
             dom = xml.dom.minidom.Document()
             self.dad.xml_handler.codebox_element_to_xml([0, data[3], cons.TAG_PROP_LEFT], dom, dom)
-            selectiondata.set('UTF8_STRING', 8, dom.toxml())
-        elif target == TARGET_CTD_TABLE:
+            selectiondata.set(Gdk.SELECTION_TYPE_STRING, 8, dom.toxml())
+        elif target_name == TARGET_CTD_TABLE:
             dom = xml.dom.minidom.Document()
             self.dad.xml_handler.table_element_to_xml([0, data[3], cons.TAG_PROP_LEFT], dom, dom)
-            selectiondata.set('UTF8_STRING', 8, dom.toxml())
-        elif target == TARGETS_IMAGES[0]: selectiondata.set_pixbuf(data[3])
+            selectiondata.set(Gdk.SELECTION_TYPE_STRING, 8, dom.toxml())
+        elif target_name == TARGETS_IMAGES[0]: selectiondata.set_pixbuf(data[3])
 
     def clear_func(self, clipboard, data):
         """Connected with clipboard_set_with_data"""
@@ -257,16 +260,16 @@ class ClipboardHandler:
         """Paste from Clipboard"""
         sourceview.stop_emission("paste-clipboard")
         if self.dad.get_node_read_only(): return
-        clipboard = get_clipboard()
+        clipboard = Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD)
         result, targets = clipboard.wait_for_targets()
         if not result: return
         targets_dict = {t.name():t for t in targets}
         #print targets_dict
         self.dad.curr_buffer.delete_selection(True, sourceview.get_editable())
         if self.force_plain_text:
-            for target in TARGETS_PLAIN_TEXT:
-                if target in targets_dict:
-                    clipboard.request_contents(targets_dict[target], self.to_plain_text, None)
+            for target_name in TARGETS_PLAIN_TEXT:
+                if target_name in targets_dict:
+                    clipboard.request_contents(targets_dict[target_name], self.to_plain_text, None)
                     return
             self.force_plain_text = False
         if self.dad.syntax_highlighting == cons.RICH_TEXT_ID:
@@ -279,20 +282,20 @@ class ClipboardHandler:
             if TARGET_CTD_TABLE in targets_dict:
                 clipboard.request_contents(targets_dict[TARGET_CTD_TABLE], self.to_table, None)
                 return
-            for target in TARGETS_HTML:
-                if target in targets_dict:
-                    clipboard.request_contents(targets_dict[target], self.to_html, None)
+            for target_name in TARGETS_HTML:
+                if target_name in targets_dict:
+                    clipboard.request_contents(targets_dict[target_name], self.to_html, None)
                     return
-            for target in TARGETS_IMAGES:
-                if target in targets_dict:
-                    clipboard.request_contents(targets_dict[target], self.to_image, None)
+            for target_name in TARGETS_IMAGES:
+                if target_name in targets_dict:
+                    clipboard.request_contents(targets_dict[target_name], self.to_image, None)
                     return
         if TARGET_URI_LIST in targets_dict:
             clipboard.request_contents(targets_dict[TARGET_URI_LIST], self.to_uri_list, None)
             return
-        for target in TARGETS_PLAIN_TEXT:
-            if target in targets_dict:
-                clipboard.request_contents(targets_dict[target], self.to_plain_text, None)
+        for target_name in TARGETS_PLAIN_TEXT:
+            if target_name in targets_dict:
+                clipboard.request_contents(targets_dict[target_name], self.to_plain_text, None)
                 return
         if TARGET_WINDOWS_FILE_NAME in targets_dict:
             clipboard.request_contents(targets_dict[TARGET_WINDOWS_FILE_NAME], self.to_uri_list, None)
