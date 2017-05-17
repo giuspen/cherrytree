@@ -711,6 +711,7 @@ class RedNotebookHandler():
 
     def node_month_add(self, filename):
         """Add a new Month node"""
+        #print filename
         self.nodes_list.append(self.dom.createElement("node"))
         self.nodes_list[-1].setAttribute("name", filename[:-4])
         self.nodes_list[-1].setAttribute("prog_lang", cons.RICH_TEXT_ID)
@@ -737,6 +738,7 @@ class RedNotebookHandler():
                     clean_markdown_end()
                     month_list.append({"day": ret_match.group(1), "md": ret_match.group(2)})
                     clean_markdown_start()
+                elif text_line == "{}": pass
                 else:
                     curr_line = text_line if not text_line.startswith(4*cons.CHAR_SPACE) else text_line[4:]
                     curr_line = curr_line.replace(2*cons.CHAR_SQUOTE, cons.CHAR_SQUOTE)
@@ -754,6 +756,8 @@ class RedNotebookHandler():
         self.dom.appendChild(self.nodes_list[0])
         self.curr_attributes = {}
         for tag_property in cons.TAG_PROPERTIES: self.curr_attributes[tag_property] = ""
+        if os.path.isdir(os.path.join(self.folderpath, "data")):
+            self.folderpath = os.path.join(self.folderpath, "data")
         for element in sorted(os.listdir(self.folderpath)):
             if element.endswith(".txt") and len(element) == 11:
                 self.node_month_add(element)
