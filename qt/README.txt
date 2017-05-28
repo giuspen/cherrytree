@@ -5,11 +5,11 @@ https://www.riverbankcomputing.com/software/pyqt/download5
 https://www.riverbankcomputing.com/software/qscintilla/download
 
 
-Dependencies for Linux Ubuntu/Mint
-sudo apt install python3-pyqt5 python3-pyqt5.qsci
+Dependencies for Linux
+sudo pip3 install PyQt5
+sudo pip3 install QScintilla
 
 
 Dependencies for Windows
 pip install PyQt5
 pip install QScintilla
-

@@ -3,9 +3,16 @@
 
 import sys
 #import PyQt5.QtCore as QtCore
-#import PyQt5.QtGui as QtGui
+import PyQt5.QtGui as QtGui
 import PyQt5.QtWidgets as QtWidgets
 import PyQt5.Qsci as Qsci
+
+
+def get_hardcoded_lexers():
+    lexers = [l[9:] for l in dir(Qsci) if l.startswith("QsciLexer")]
+    lexers.remove("")
+    lexers.remove("Custom")
+    return lexers
 
 
 class MyQScintilla(Qsci.QsciScintilla):
@@ -25,7 +32,8 @@ class MyQScintilla(Qsci.QsciScintilla):
         self.setWrapMode(Qsci.QsciScintilla.WrapWord)
         self.setUtf8(True)
         self.setBraceMatching(Qsci.QsciScintilla.SloppyBraceMatch)
-        
+        self.setCaretLineVisible(True) # highlight current line
+        self.setCaretLineBackgroundColor(QtGui.QColor("#e5e5e5"))
 
     def setContent(self, content_text):
         self.setText(content_text)
@@ -36,8 +44,8 @@ class MyQScintilla(Qsci.QsciScintilla):
         print("modified", modified_flag)
 
 
-
 if __name__ == "__main__":
+    print(get_hardcoded_lexers())
     app = QtWidgets.QApplication(sys.argv)
     editor = MyQScintilla()
     with open(__file__, 'r') as fd:
