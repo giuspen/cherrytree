@@ -45,7 +45,8 @@ class MyQScintilla(Qsci.QsciScintilla):
 
 
 if __name__ == "__main__":
-    print(get_hardcoded_lexers())
+    hardcoded_lexers = get_hardcoded_lexers()
+    print(len(hardcoded_lexers), hardcoded_lexers)
     app = QtWidgets.QApplication(sys.argv)
     editor = MyQScintilla()
     with open(__file__, 'r') as fd:
