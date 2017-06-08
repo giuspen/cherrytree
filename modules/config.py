@@ -369,6 +369,7 @@ def config_file_load(dad):
         if cfg.has_section(section):
             for option in cfg.options(section):
                 dad.custom_codexec_ext[option] = cfg.get(section, option)
+
     else:
         dad.file_dir = ""
         dad.file_name = ""
@@ -473,6 +474,7 @@ def config_file_load(dad):
         dad.default_icon_text = cons.NODE_ICON_BULLET_ID
         dad.recent_docs = []
         dad.toolbar_visible = True
+
         print "missing", cons.CONFIG_PATH
 
 def config_file_apply(dad):
@@ -2320,7 +2322,7 @@ def dialog_preferences(dad):
         buttons=(gtk.STOCK_CLOSE, gtk.RESPONSE_ACCEPT))
 
     tabs_vbox_vec = []
-    for tabs_idx in range(11):
+    for tabs_idx in xrange(11):
         tabs_vbox_vec.append(gtk.VBox())
         tabs_vbox_vec[-1].set_spacing(3)
 
@@ -2350,7 +2352,18 @@ def dialog_preferences(dad):
         8: preferences_tab_toolbar,
         9: preferences_tab_kb_shortcuts,
        10: preferences_tab_misc,
-        }
+    }
+
+    index = 10
+
+    for plugin in dad.plugins:
+        if not hasattr(plugin, 'ui_preferences_tab'):
+            continue
+
+        index += 1
+        tab_constructor[index] = plugin.ui_preferences_tab
+        tabs_vbox_vec.append(gtk.VBox())
+        notebook.append_page(tabs_vbox_vec[-1], gtk.Label(plugin.friendly_name))
 
     def on_notebook_switch_page(notebook, page, page_num):
         #print "new page", page_num

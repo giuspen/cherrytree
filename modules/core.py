@@ -49,12 +49,20 @@ import lists
 import findreplace
 import codeboxes
 import ctdb
+from plugins import CTPlugins
+
+
 if cons.HAS_APPINDICATOR: import appindicator
 
 class CherryTree:
     """Application's GUI"""
 
     def __init__(self, lang_str, open_with_file, node_name, boss, is_startup, is_arg, export_mode):
+        """ plugins load first"""
+        self.plugins = CTPlugins(self)
+        self.plugins.load("test")
+        self.plugins.load("screenshot")
+
         """GUI Startup"""
         self.boss = boss
         self.filetype = ""
@@ -74,6 +82,7 @@ class CherryTree:
         self.html_handler = exports.Export2Html(self)
         self.ctdb_handler = ctdb.CTDBHandler(self)
         self.print_handler = printing.PrintHandler(self)
+
         # icon factory
         factory = gtk.IconFactory()
         for stock_name in cons.STOCKS_N_FILES:
@@ -90,6 +99,9 @@ class CherryTree:
             gtk_settings.set_property("gtk-menu-images", True)
         except: pass # older gtk do not have the property "gtk-menu-images"
         os.environ['UBUNTU_MENUPROXY'] = '0' # cherrytree has custom stock icons not visible in appmenu
+        menus.load_menudict(self)
+        self.plugins.build_menus()
+
         vbox_main = gtk.VBox()
         self.window.add(vbox_main)
         self.country_lang = lang_str
@@ -103,7 +115,7 @@ class CherryTree:
         self.ui = gtk.UIManager()
         self.ui.insert_action_group(actions, 0)
         self.window.add_accel_group(self.ui.get_accel_group())
-        self.ui.add_ui_from_string(menus.UI_INFO)
+        self.ui.add_ui_from_string(menus.getUiInfo())
         self.ui.add_ui_from_string(config.get_toolbar_ui_str(self))
         # menubar add
         vbox_main.pack_start(self.ui.get_widget("/MenuBar"), False, False)
@@ -1343,6 +1355,7 @@ iter_end, exclude_iter_sel_end=True)
         if self.spell_check_init: self.combobox_spell_check_lang_init()
         config.dialog_preferences(self)
         config.config_file_save(self)
+        self.plugins.config_save()
 
     def autosave_timer_start(self):
         """Start Autosave Timer"""
