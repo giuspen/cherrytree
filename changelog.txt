@@ -1,4 +1,13 @@
 
+0.38.1 (June 9th, 2017)
+  * bugfix in export to txt
+  * bugfix in all matches dialog hide/restore selected line
+  * sqlite document: when save and vacuum, perform also the reindex
+  * added yaml syntax highlighting (Sergei Zyubin)
+  * bugfix unwanted syntax highlighting in plain text
+  * bugfix in import from rednotebook
+  * better implementation for the recent docs saving in config.cfg
+
 0.38.0 (February 15th, 2017)
   * added the timestamp of creation and latest modification per node and the possibility to filter the searches using these values
   * implemented the possibility to execute the code of code nodes and codeboxes (File--Execute Code); the terminal and the command per node type is configurable in the preferences dialog, tab "Plain Text and Code"

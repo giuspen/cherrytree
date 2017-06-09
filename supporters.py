@@ -4,7 +4,7 @@
 import re
 
 SUPPORTERS="""
-<h2>Friends of giuspen.com (donated €3470,30)</h2>
+<h2>Friends of giuspen.com (donated €3485,30)</h2>
 • Miguel Latorre (Spain) donated €240
 • DistroWatch.com (International) donated €200
 • Alan M. (United States) donated €100
@@ -82,6 +82,7 @@ SUPPORTERS="""
 • Lukas Golombek (Germany) donated €15
 • Marwan Nader (Canada) donated €15
 • Patricia Bonardi (Netherlands) donated €15
+• Robert Madore (Canada) donated €15
 • Duncan M.K. (United Kingdom) donated €12,5
 • Bennett Z. Kobb (United States) donated €12,39
 • Dandi Soft (Italy) donated €12
