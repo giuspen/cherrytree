@@ -1,10 +1,29 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+#
+#       qscintilla.py
+#
+#       Copyright 2017 Giuseppe Penone <giuspen@gmail.com>
+#
+#       This program is free software; you can redistribute it and/or modify
+#       it under the terms of the GNU General Public License as published by
+#       the Free Software Foundation; either version 3 of the License, or
+#       (at your option) any later version.
+#
+#       This program is distributed in the hope that it will be useful,
+#       but WITHOUT ANY WARRANTY; without even the implied warranty of
+#       MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#       GNU General Public License for more details.
+#
+#       You should have received a copy of the GNU General Public License
+#       along with this program; if not, write to the Free Software
+#       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+#       MA 02110-1301, USA.
 
 import sys
-#import PyQt5.QtCore as QtCore
-import PyQt5.QtGui as QtGui
-import PyQt5.QtWidgets as QtWidgets
+#from PyQt5.QtCore import
+from PyQt5.QtGui import QColor
+from PyQt5.QtWidgets import QApplication
 import PyQt5.Qsci as Qsci
 
 
@@ -33,7 +52,7 @@ class MyQScintilla(Qsci.QsciScintilla):
         self.setUtf8(True)
         self.setBraceMatching(Qsci.QsciScintilla.SloppyBraceMatch)
         self.setCaretLineVisible(True) # highlight current line
-        self.setCaretLineBackgroundColor(QtGui.QColor("#e5e5e5"))
+        self.setCaretLineBackgroundColor(QColor("#e5e5e5"))
 
     def setContent(self, content_text):
         self.setText(content_text)
@@ -47,7 +66,7 @@ class MyQScintilla(Qsci.QsciScintilla):
 if __name__ == "__main__":
     hardcoded_lexers = get_hardcoded_lexers()
     print(len(hardcoded_lexers), hardcoded_lexers)
-    app = QtWidgets.QApplication(sys.argv)
+    app = QApplication(sys.argv)
     editor = MyQScintilla()
     with open(__file__, 'r') as fd:
         myself_text = fd.read()
