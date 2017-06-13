@@ -1,0 +1,6 @@
+
+sudo apt install libtool autoconf libgtkmm-3.0-dev
+
+./autogen.sh
+./configure
+make
