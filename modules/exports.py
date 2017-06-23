@@ -817,7 +817,7 @@ class Export2Html:
         while father_iter:
             file_name = clean_text_to_utf8(self.dad.treestore[father_iter][1]).strip() + "--" + file_name
             father_iter = self.dad.treestore.iter_parent(father_iter)
-        file_name = support.clean_from_chars_not_for_filename(file_name) + ".html"
+        file_name = support.clean_from_chars_not_for_filename(file_name).replace("#","~") + ".html"
         if len(file_name) > cons.MAX_FILE_NAME_LEN:
             file_name = file_name[-cons.MAX_FILE_NAME_LEN:]
         return file_name

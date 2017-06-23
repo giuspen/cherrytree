@@ -4,7 +4,7 @@
 import re
 
 SUPPORTERS="""
-<h2>Friends of giuspen.com (donated €3503,16)</h2>
+<h2>Friends of giuspen.com (donated €3533,16)</h2>
 • Miguel Latorre (Spain) donated €240
 • DistroWatch.com (International) donated €200
 • Alan M. (United States) donated €100
@@ -33,6 +33,7 @@ SUPPORTERS="""
 • Johnathan Moseley (United States) donated €30
 • Josh Hanson (United States) donated €30 [sub item pressing the TAB key in lists]
 • MC Merchants (United States) donated €30
+• Michael Jabbour (Austria) donated €30
 • Miguel Gestal (Spain) donated €30
 • Ravinderpal Vaid (United States) donated €30
 • Steven Rockefeller (United States) donated €30
@@ -53,6 +54,7 @@ SUPPORTERS="""
 • Francesco Zaniol (Australia) donated €20
 • Frank Dehmel (Germany) donated €20
 • Gaurav Pal (United Kingdom) donated €20
+• Gene Clem (United States) donated €20
 • Geoffrey Munn (United Kingdom) donated €20
 • Hermann Grell (Germany) donated €20
 • J Walters (United Kingdom) donated €20
@@ -63,7 +65,6 @@ SUPPORTERS="""
 • Ken Dangerfield (Canada) donated €20
 • Laurent Soulet (France) donated €20
 • Lee Rottler (United States) donated €20
-• Michael Jabbour (Austria) donated €20
 • Michael Matney (United States) donated €20
 • Randall Raziano (United States) donated €20
 • Robert Johansson (Sweden) donated €20
