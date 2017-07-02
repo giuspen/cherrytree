@@ -27,29 +27,71 @@
 #include <libxml++/libxml++.h>
 #include <glibmm.h>
 
-using namespace std;
 
-
-void parse_ctd(const Glib::ustring& filepath)
+class CherryTreeXML : public xmlpp::DomParser
 {
-    cout << filepath << endl;
-    xmlpp::DomParser  parser;
-    parser.parse_file(filepath);
-    xmlpp::Document* document = parser.get_document();
+public:
+    void tree_walk();
+    virtual void handle_cherry();
+    virtual void handle_bookmarks();
+private:
+    void _tree_walk_iter(const xmlpp::Element* node);
+};
+
+
+void CherryTreeXML::tree_walk()
+{
+    xmlpp::Document* document = get_document();
     assert(document != nullptr);
     xmlpp::Element* root = document->get_root_node();
-    cout << root->get_name() << endl;
+    assert(root->get_name() == "cherrytree");
+    for(xmlpp::Node* p_node : root->get_children())
+    {
+        if(p_node->get_name() == "node")
+        {
+            //_tree_walk_iter(p_node);
+        }
+        else if(p_node->get_name() == "bookmarks")
+        {
+            xmlpp::Attribute* p_attribute = static_cast<xmlpp::Element*>(p_node)->get_attribute("list");
+            Glib::ustring bookmarks_csv = p_attribute->get_value();
+            
+        }
+    }
+}
+
+
+void CherryTreeXML::_tree_walk_iter(const xmlpp::Element* p_node)
+{
+    
+}
+
+
+void CherryTreeXML::handle_cherry()
+{
+    
+}
+
+
+void CherryTreeXML::handle_bookmarks()
+{
+    
 }
 
 
 int main(int argc, char *argv[])
 {
+    // Set the global C++ locale to the user-specified locale. Then we can
+    // hopefully use std::cout with UTF-8, via Glib::ustring, without exceptions.
+    std::locale::global(std::locale(""));
     if(argc != 2)
     {
-        cerr << "Usage: " << argv[0] << " FILEPATH.CTD" << endl;
+        std::cerr << "Usage: " << argv[0] << " FILEPATH.CTD" << std::endl;
         return 1;
     }
     Glib::ustring filepath(argv[1]);
     assert(Glib::file_test(filepath, Glib::FILE_TEST_EXISTS));
-    parse_ctd(filepath);
+    CherryTreeXML ct_xml;
+    ct_xml.parse_file(filepath);
+    ct_xml.tree_walk();
 }

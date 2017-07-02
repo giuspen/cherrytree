@@ -28,28 +28,26 @@
 #include <sqlite3.h>
 #include <glibmm.h>
 
-using namespace std;
-
 
 int on_sqlite3_exec_result_row(void *data, int num_columns, char **col_values, char **col_names)
 {
     for(int i = 0; i < num_columns; i++)
     {
-        cout << col_names[i] << "=" << (col_values[i] ? col_values[i] : "NULL") << ";";
+        std::cout << col_names[i] << "=" << (col_values[i] ? col_values[i] : "NULL") << ";";
     }
-    cout << endl << "----" << endl;
+    std::cout << std::endl << "----" << std::endl;
     return 0; // invoke callback again for subsequent result rows
 }
 
 
 void parse_ctb(const Glib::ustring& filepath)
 {
-    cout << filepath << endl;
+    std::cout << filepath << std::endl;
     sqlite3 *p_db;
     int ret_code = sqlite3_open(filepath.c_str(), &p_db);
     if(ret_code != SQLITE_OK)
     {
-        cerr << "!! sqlite3_open: " << sqlite3_errmsg(p_db) << endl;
+        std::cerr << "!! sqlite3_open: " << sqlite3_errmsg(p_db) << std::endl;
     }
     else
     {
@@ -57,7 +55,7 @@ void parse_ctb(const Glib::ustring& filepath)
         ret_code = sqlite3_exec(p_db, "SELECT name,syntax,level FROM node", on_sqlite3_exec_result_row, 0, &p_err_msg);
         if(ret_code != SQLITE_OK)
         {
-            cerr << "!! sqlite3_exec: " << p_err_msg << endl;
+            std::cerr << "!! sqlite3_exec: " << p_err_msg << std::endl;
             sqlite3_free(p_err_msg);
         }
         else
@@ -71,9 +69,12 @@ void parse_ctb(const Glib::ustring& filepath)
 
 int main(int argc, char *argv[])
 {
+    // Set the global C++ locale to the user-specified locale. Then we can
+    // hopefully use std::cout with UTF-8, via Glib::ustring, without exceptions.
+    std::locale::global(std::locale(""));
     if(argc != 2)
     {
-        cerr << "Usage: " << argv[0] << " FILEPATH.CTB" << endl;
+        std::cerr << "Usage: " << argv[0] << " FILEPATH.CTB" << std::endl;
         return 1;
     }
     Glib::ustring filepath(argv[1]);
