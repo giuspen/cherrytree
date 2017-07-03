@@ -69,9 +69,7 @@ void parse_ctb(const Glib::ustring& filepath)
 
 int main(int argc, char *argv[])
 {
-    // Set the global C++ locale to the user-specified locale. Then we can
-    // hopefully use std::cout with UTF-8, via Glib::ustring, without exceptions.
-    std::locale::global(std::locale(""));
+    std::locale::global(std::locale("")); // Set the global C++ locale to the user-specified locale
     if(argc != 2)
     {
         std::cerr << "Usage: " << argv[0] << " FILEPATH.CTB" << std::endl;

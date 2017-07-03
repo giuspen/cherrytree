@@ -28,12 +28,25 @@
 #include <glibmm.h>
 
 
+std::list<Glib::ustring> ustring_split(const gchar *in_str, const gchar *delimiter, gint max_tokens=-1)
+{
+    std::list<Glib::ustring> ret_list;
+    gchar** array_of_strings = g_strsplit(in_str, delimiter, max_tokens);
+    for(gchar** ptr = array_of_strings; *ptr; ptr++)
+    {
+        ret_list.push_back(*ptr);
+    }
+    g_strfreev(array_of_strings);
+    return ret_list;
+}
+
+
 class CherryTreeXML : public xmlpp::DomParser
 {
 public:
     void tree_walk();
     virtual void handle_cherry();
-    virtual void handle_bookmarks();
+    virtual void handle_bookmarks(std::list<Glib::ustring>& bookmarks_list);
 private:
     void _tree_walk_iter(const xmlpp::Element* node);
 };
@@ -55,7 +68,8 @@ void CherryTreeXML::tree_walk()
         {
             xmlpp::Attribute* p_attribute = static_cast<xmlpp::Element*>(p_node)->get_attribute("list");
             Glib::ustring bookmarks_csv = p_attribute->get_value();
-            
+            std::list<Glib::ustring> bookmarks_list = ustring_split(bookmarks_csv.c_str(), ",");
+            handle_bookmarks(bookmarks_list);
         }
     }
 }
@@ -73,17 +87,18 @@ void CherryTreeXML::handle_cherry()
 }
 
 
-void CherryTreeXML::handle_bookmarks()
+void CherryTreeXML::handle_bookmarks(std::list<Glib::ustring>& bookmarks_list)
 {
-    
+    for(Glib::ustring str_elem : bookmarks_list)
+    {
+        std::cout << str_elem << std::endl;
+    }
 }
 
 
 int main(int argc, char *argv[])
 {
-    // Set the global C++ locale to the user-specified locale. Then we can
-    // hopefully use std::cout with UTF-8, via Glib::ustring, without exceptions.
-    std::locale::global(std::locale(""));
+    std::locale::global(std::locale("")); // Set the global C++ locale to the user-specified locale
     if(argc != 2)
     {
         std::cerr << "Usage: " << argv[0] << " FILEPATH.CTD" << std::endl;
