@@ -40,12 +40,35 @@ std::list<Glib::ustring> ustring_split(const gchar *in_str, const gchar *delimit
 }
 
 
+Glib::ustring ustring_join(std::list<Glib::ustring>& in_str_list, const gchar *delimiter)
+{
+    Glib::ustring ret_str;
+    bool first_iteration = true;
+    for(Glib::ustring element : in_str_list)
+    {
+        if(!first_iteration) ret_str += delimiter;
+        else first_iteration = false;
+        ret_str += element;
+    }
+    return ret_str;
+}
+
+
 int main(int argc, char *argv[])
 {
     std::locale::global(std::locale("")); // Set the global C++ locale to the user-specified locale
 
-    for(Glib::ustring str_elem : ustring_split(":a:bc::d:", ":"))
+    const gchar str_orig[] = ":a:bc::d:";
+    const gchar str_delimiter[] = ":";
+
+    std::cout << str_orig << std::endl;
+    std::list<Glib::ustring> splitted_list = ustring_split(str_orig, str_delimiter);
+    for(Glib::ustring str_elem : splitted_list)
     {
         std::cout << str_elem << std::endl;
     }
+    Glib::ustring rejoined = ustring_join(splitted_list, str_delimiter);
+    std::cout << rejoined << std::endl;
+
+    assert(rejoined == str_orig);
 }

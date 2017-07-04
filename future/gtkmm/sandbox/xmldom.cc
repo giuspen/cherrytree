@@ -41,14 +41,28 @@ std::list<Glib::ustring> ustring_split(const gchar *in_str, const gchar *delimit
 }
 
 
+Glib::ustring ustring_join(std::list<Glib::ustring>& in_str_list, const gchar *delimiter)
+{
+    Glib::ustring ret_str;
+    bool first_iteration = true;
+    for(Glib::ustring element : in_str_list)
+    {
+        if(!first_iteration) ret_str += delimiter;
+        else first_iteration = false;
+        ret_str += element;
+    }
+    return ret_str;
+}
+
+
 class CherryTreeXML : public xmlpp::DomParser
 {
 public:
     void tree_walk();
-    virtual void handle_cherry();
+    virtual void handle_cherry(xmlpp::Element* p_node_element, int level);
     virtual void handle_bookmarks(std::list<Glib::ustring>& bookmarks_list);
 private:
-    void _tree_walk_iter(const xmlpp::Element* node);
+    void _tree_walk_iter(xmlpp::Element* p_node_element, int level);
 };
 
 
@@ -62,12 +76,11 @@ void CherryTreeXML::tree_walk()
     {
         if(p_node->get_name() == "node")
         {
-            //_tree_walk_iter(p_node);
+            _tree_walk_iter(static_cast<xmlpp::Element*>(p_node), 0);
         }
         else if(p_node->get_name() == "bookmarks")
         {
-            xmlpp::Attribute* p_attribute = static_cast<xmlpp::Element*>(p_node)->get_attribute("list");
-            Glib::ustring bookmarks_csv = p_attribute->get_value();
+            Glib::ustring bookmarks_csv = static_cast<xmlpp::Element*>(p_node)->get_attribute_value("list");
             std::list<Glib::ustring> bookmarks_list = ustring_split(bookmarks_csv.c_str(), ",");
             handle_bookmarks(bookmarks_list);
         }
@@ -75,24 +88,28 @@ void CherryTreeXML::tree_walk()
 }
 
 
-void CherryTreeXML::_tree_walk_iter(const xmlpp::Element* p_node)
+void CherryTreeXML::_tree_walk_iter(xmlpp::Element* p_node_element, int level)
 {
-    
+    handle_cherry(p_node_element, level);
+    for(xmlpp::Node* p_node : p_node_element->get_children())
+    {
+        if(p_node->get_name() == "node")
+        {
+            _tree_walk_iter(static_cast<xmlpp::Element*>(p_node), level+1);
+        }
+    }
 }
 
 
-void CherryTreeXML::handle_cherry()
+void CherryTreeXML::handle_cherry(xmlpp::Element* p_node_element, int level)
 {
-    
+    std::cout << level << " - " << p_node_element->get_attribute_value("name") << std::endl;
 }
 
 
 void CherryTreeXML::handle_bookmarks(std::list<Glib::ustring>& bookmarks_list)
 {
-    for(Glib::ustring str_elem : bookmarks_list)
-    {
-        std::cout << str_elem << std::endl;
-    }
+    std::cout << ustring_join(bookmarks_list, ",") << std::endl;
 }
 
 
