@@ -690,7 +690,10 @@ iter_end, exclude_iter_sel_end=True)
                 return True
         else:
             if keyname == cons.STR_KEY_LEFT:
-                self.treeview.collapse_row(self.treestore.get_path(self.curr_tree_iter))
+                if self.treeview.row_expanded(self.treestore.get_path(self.curr_tree_iter)):
+                    self.treeview.collapse_row(self.treestore.get_path(self.curr_tree_iter))
+                elif self.treestore.iter_parent(self.curr_tree_iter) is not None:
+                    self.treeview_safe_set_cursor(self.treestore.iter_parent(self.curr_tree_iter))
                 return True
             elif keyname == cons.STR_KEY_RIGHT:
                 self.treeview.expand_row(self.treestore.get_path(self.curr_tree_iter), open_all=False)
