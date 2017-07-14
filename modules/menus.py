@@ -536,6 +536,9 @@ def get_popup_menu_entries_code(dad):
     # "submenu-end", None, None, None, None
     return [
 (cons.TAG_SEPARATOR, None, None, None, None),
+get_menu_item_tuple(dad, "cut_plain"),
+get_menu_item_tuple(dad, "copy_plain"),
+(cons.TAG_SEPARATOR, None, None, None, None),
 get_menu_item_tuple(dad, "exec_code"),
 ("submenu-start", _("_Insert") , "insert", None, None),
 get_menu_item_tuple(dad, "insert_timestamp"),
