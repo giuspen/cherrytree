@@ -486,14 +486,14 @@ class CTDBHandler:
                 image_justification=image_row['justification'],
                 text_buffer=text_buffer)
 
-    def read_db_node_content(self, tree_iter, db, original_id=None):
+    def read_db_node_content(self, tree_iter, db, original_id=None, discard_ids=None):
         """Read a node content from DB"""
         if self.dad.user_active:
             self.dad.user_active = False
             user_active_restore = True
         else: user_active_restore = False
         syntax_highlighting = self.dad.treestore[tree_iter][4]
-        if original_id: node_id = original_id
+        if original_id is not None: node_id = original_id
         else: node_id = self.dad.treestore[tree_iter][3]
         #print "read node content, node_id", node_id
         self.dad.treestore[tree_iter][2] = self.dad.buffer_create(syntax_highlighting)
@@ -521,7 +521,7 @@ class CTDBHandler:
             child_dom_iter = dom_node.firstChild
             while child_dom_iter != None:
                 if child_dom_iter.nodeName == "rich_text":
-                    self.dad.xml_handler.rich_text_deserialize(curr_buffer, child_dom_iter)
+                    self.dad.xml_handler.rich_text_deserialize(curr_buffer, child_dom_iter, discard_ids)
                 child_dom_iter = child_dom_iter.nextSibling
             # then we go for the objects
             objects_index_list = []
@@ -572,9 +572,11 @@ class CTDBHandler:
 
     def read_db_node_n_children(self, db, node_row, tree_father, discard_ids, node_sequence):
         """Read a node and his children from DB"""
-        if not discard_ids:
-            unique_id = node_row['node_id']
-        else: unique_id = self.dad.node_id_get()
+        original_id = node_row['node_id']
+        if discard_ids is None:
+            unique_id = original_id
+        else:
+            unique_id = self.dad.node_id_get(original_id, discard_ids)
         node_tags = node_row['tags']
         if node_tags: self.dad.tags_add_from_node(node_tags)
         # is_ro (bitfield)
@@ -623,10 +625,10 @@ class CTDBHandler:
                                                             ts_lastsave])
         self.dad.update_node_aux_icon(tree_iter)
         self.dad.nodes_names_dict[self.dad.treestore[tree_iter][3]] = self.dad.treestore[tree_iter][1]
-        if discard_ids:
+        if discard_ids is not None:
             # we are importing (=> adding) a node
             self.pending_new_db_node(unique_id)
-            self.read_db_node_content(tree_iter, db, original_id=node_row['node_id'])
+            self.read_db_node_content(tree_iter, db, original_id, discard_ids)
         # loop for child nodes
         child_sequence = 0
         children_rows = self.get_children_rows_from_father_id(db, node_row['node_id'])

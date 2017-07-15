@@ -1186,12 +1186,10 @@ iter_end, exclude_iter_sel_end=True)
         try:
             if not cherrytree_db:
                 cherrytree_string = re.sub(cons.BAD_CHARS, "", cherrytree_string)
-                if self.xml_handler.dom_to_treestore(cherrytree_string, discard_ids=True,
-                                                     tree_father=tree_father):
+                if self.xml_handler.dom_to_treestore(cherrytree_string, discard_ids={}, tree_father=tree_father):
                     file_loaded = True
             else:
-                self.ctdb_handler.read_db_full(cherrytree_db, discard_ids=True,
-                                               tree_father=tree_father)
+                self.ctdb_handler.read_db_full(cherrytree_db, discard_ids={}, tree_father=tree_father)
                 cherrytree_db.close()
                 file_loaded = True
         except: raise
@@ -1443,11 +1441,21 @@ iter_end, exclude_iter_sel_end=True)
         elif event.button == 3: self.ui.get_widget("/SysTrayMenu").popup(None, None, None, event.button, event.time)
         return False
 
-    def node_id_get(self):
+    def node_id_get(self, original_id=None, discard_ids=None):
         """Returns the node_ids, all Different Each Other"""
-        new_node_id = 1
-        while self.get_tree_iter_from_node_id(new_node_id) or new_node_id in self.ctdb_handler.nodes_to_rm_set:
-            new_node_id += 1
+        if discard_ids is not None and original_id in discard_ids:
+            new_node_id = discard_ids[original_id]
+            #print new_node_id
+        else:
+            discard_ids_allocated = []
+            if discard_ids is not None: discard_ids_allocated += [discard_ids[o] for o in discard_ids]
+            new_node_id = 1
+            while (self.get_tree_iter_from_node_id(new_node_id)\
+               or (new_node_id in self.ctdb_handler.nodes_to_rm_set)\
+               or (new_node_id in discard_ids_allocated)):
+                new_node_id += 1
+            if discard_ids is not None:
+                discard_ids[original_id] = new_node_id
         return new_node_id
 
     def set_treeview_font(self):
@@ -1989,11 +1997,11 @@ iter_end, exclude_iter_sel_end=True)
             file_loaded = False
             if self.filetype in ["d", "z"]:
                 # xml
-                if self.xml_handler.dom_to_treestore(cherrytree_string, discard_ids=False):
+                if self.xml_handler.dom_to_treestore(cherrytree_string, discard_ids=None):
                     document_loaded_ok = True
             else:
                 # db
-                self.ctdb_handler.read_db_full(self.db, discard_ids=False)
+                self.ctdb_handler.read_db_full(self.db, discard_ids=None)
                 document_loaded_ok = True
             if document_loaded_ok:
                 self.file_dir = os.path.dirname(filepath)

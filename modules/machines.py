@@ -122,9 +122,11 @@ class XMLHandler:
 
     def append_tree_node(self, dom_iter, tree_father, discard_ids, node_sequence):
         """Given the dom_iter node, adds it to the tree"""
-        if not discard_ids and dom_iter.hasAttribute('unique_id'):
-            unique_id = long(dom_iter.attributes['unique_id'].value)
-        else: unique_id = self.dad.node_id_get()
+        original_id = long(dom_iter.attributes['unique_id'].value)
+        if discard_ids is None:
+            unique_id = original_id
+        else:
+            unique_id = self.dad.node_id_get(original_id, discard_ids)
         node_tags = dom_iter.attributes['tags'].value if dom_iter.hasAttribute('tags') else ""
         if node_tags: self.dad.tags_add_from_node(node_tags)
         readonly = (dom_iter.attributes['readonly'].value == "True") if dom_iter.hasAttribute('readonly') else False
@@ -148,7 +150,7 @@ class XMLHandler:
         child_dom_iter = dom_iter.firstChild
         while child_dom_iter != None:
             if child_dom_iter.nodeName == "rich_text":
-                self.rich_text_deserialize(curr_buffer, child_dom_iter)
+                self.rich_text_deserialize(curr_buffer, child_dom_iter, discard_ids)
             elif child_dom_iter.nodeName == "encoded_png": self.image_deserialize(curr_buffer, child_dom_iter, 2)
             elif child_dom_iter.nodeName == "table": self.table_deserialize(curr_buffer, child_dom_iter)
             elif child_dom_iter.nodeName == "codebox": self.codebox_deserialize(curr_buffer, child_dom_iter)
@@ -175,7 +177,7 @@ class XMLHandler:
                                                             ts_lastsave])
         self.dad.update_node_aux_icon(tree_iter)
         self.dad.nodes_names_dict[unique_id] = self.dad.treestore[tree_iter][1]
-        if discard_ids:
+        if discard_ids is not None:
             # we are importing nodes
             self.dad.ctdb_handler.pending_new_db_node(unique_id)
         # loop for child nodes
@@ -257,18 +259,26 @@ class XMLHandler:
                 image_justification=justification,
                 text_buffer=curr_buffer)
 
-    def rich_text_deserialize(self, curr_buffer, dom_node):
+    def rich_text_deserialize(self, curr_buffer, dom_node, discard_ids=None):
         """From the XML rich text to the SourceBuffer"""
-        if dom_node.firstChild: text = dom_node.firstChild.data
-        else: text = ""
-        tag_names = []
-        for tag_property in cons.TAG_PROPERTIES:
-            if dom_node.hasAttribute(tag_property):
-                property_value = dom_node.attributes[tag_property].value
-                if property_value: tag_names.append(self.dad.apply_tag_exist_or_create(tag_property, property_value))
-        tags_num = len(tag_names)
-        if tags_num == 0: curr_buffer.insert(curr_buffer.get_end_iter(), text)
-        else: curr_buffer.insert_with_tags_by_name(curr_buffer.get_end_iter(), text, *tag_names)
+        if dom_node.firstChild:
+            text = dom_node.firstChild.data
+            tag_names = []
+            for tag_property in cons.TAG_PROPERTIES:
+                if dom_node.hasAttribute(tag_property):
+                    property_value = dom_node.attributes[tag_property].value
+                    if property_value:
+                        if discard_ids is not None and property_value.startswith(cons.LINK_TYPE_NODE):
+                            property_value_vec = property_value.split()
+                            original_id = int(property_value_vec[1])
+                            imported_id = self.dad.node_id_get(original_id, discard_ids)
+                            property_value_vec[1] = str(imported_id)
+                            property_value = cons.CHAR_SPACE.join(property_value_vec)
+                            #print original_id, imported_id
+                        tag_names.append(self.dad.apply_tag_exist_or_create(tag_property, property_value))
+            tags_num = len(tag_names)
+            if tags_num == 0: curr_buffer.insert(curr_buffer.get_end_iter(), text)
+            else: curr_buffer.insert_with_tags_by_name(curr_buffer.get_end_iter(), text, *tag_names)
 
     def treestore_node_to_dom(self, node_iter):
         """Given a treestore iter returns the CherryTree rich text"""
