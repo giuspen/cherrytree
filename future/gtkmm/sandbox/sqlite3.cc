@@ -21,49 +21,123 @@
 
 // https://sqlite.org/cintro.html
 // http://zetcode.com/db/sqlitec
-// g++ sqlite3.cc -o sqlite3 `pkg-config sqlite3 glibmm-2.4 --cflags --libs`
+// g++ sqlite3.cc -o sqlite3 `pkg-config sqlite3 libxml++-2.6 gtkmm-3.0 --cflags --libs` -Wno-deprecated
 
 #include <assert.h>
 #include <iostream>
 #include <sqlite3.h>
-#include <glibmm.h>
+#include <libxml++/libxml++.h>
+#include <gtkmm.h>
 
 
-int on_sqlite3_exec_result_row(void *data, int num_columns, char **col_values, char **col_names)
+gint64 gint64_from_gstring(gchar *in_gstring)
 {
-    for(int i = 0; i < num_columns; i++)
-    {
-        std::cout << col_names[i] << "=" << (col_values[i] ? col_values[i] : "NULL") << ";";
-    }
-    std::cout << std::endl << "----" << std::endl;
-    return 0; // invoke callback again for subsequent result rows
+    return g_ascii_strtoll(in_gstring, NULL, 10);
 }
 
 
-void parse_ctb(const Glib::ustring& filepath)
+class CherryTreeDocRead
 {
-    std::cout << filepath << std::endl;
-    sqlite3 *p_db;
-    int ret_code = sqlite3_open(filepath.c_str(), &p_db);
+public:
+    CherryTreeDocRead(std::list<gint64> *p_bookmarks, Glib::RefPtr<Gtk::TreeStore> r_treestore);
+    virtual ~CherryTreeDocRead();
+    virtual void tree_walk(Gtk::TreeIter parent_iter)=0;
+protected:
+    std::list<gint64> *mp_bookmarks;
+    Glib::RefPtr<Gtk::TreeStore>  mr_treestore;
+};
+
+
+class CherryTreeSQLiteRead : public CherryTreeDocRead
+{
+public:
+    CherryTreeSQLiteRead(Glib::ustring &filepath, std::list<gint64> *p_bookmarks, Glib::RefPtr<Gtk::TreeStore> r_treestore);
+    virtual ~CherryTreeSQLiteRead();
+    void tree_walk(Gtk::TreeIter parent_iter);
+private:
+    sqlite3 *mp_db;
+    std::list<gint64> _sqlite3_get_children_node_id_from_father_id(gint64 father_id);
+    Gtk::TreeIter _sqlite3_node_process(xmlpp::Element* p_node_element, Gtk::TreeIter parent_iter);
+};
+
+
+CherryTreeDocRead::CherryTreeDocRead(std::list<gint64> *p_bookmarks, Glib::RefPtr<Gtk::TreeStore> r_treestore) : mp_bookmarks(p_bookmarks), mr_treestore(r_treestore)
+{
+}
+
+
+CherryTreeDocRead::~CherryTreeDocRead()
+{
+}
+
+
+CherryTreeSQLiteRead::CherryTreeSQLiteRead(Glib::ustring &filepath, std::list<gint64> *p_bookmarks, Glib::RefPtr<Gtk::TreeStore> r_treestore) : CherryTreeDocRead(p_bookmarks, r_treestore)
+{
+    int ret_code = sqlite3_open(filepath.c_str(), &mp_db);
     if(ret_code != SQLITE_OK)
     {
-        std::cerr << "!! sqlite3_open: " << sqlite3_errmsg(p_db) << std::endl;
+        std::cerr << "!! sqlite3_open: " << sqlite3_errmsg(mp_db) << std::endl;
+        exit(EXIT_FAILURE);
     }
-    else
-    {
-        char *p_err_msg = 0;
-        ret_code = sqlite3_exec(p_db, "SELECT name,syntax,level FROM node", on_sqlite3_exec_result_row, 0, &p_err_msg);
-        if(ret_code != SQLITE_OK)
-        {
-            std::cerr << "!! sqlite3_exec: " << p_err_msg << std::endl;
-            sqlite3_free(p_err_msg);
-        }
-        else
-        {
+}
 
-        }
+
+CherryTreeSQLiteRead::~CherryTreeSQLiteRead()
+{
+    sqlite3_close(mp_db);
+}
+
+
+void CherryTreeSQLiteRead::tree_walk(Gtk::TreeIter parent_iter)
+{
+    sqlite3_stmt *p_stmt;
+    if(sqlite3_prepare_v2(mp_db, "SELECT node_id FROM bookmark ORDER BY sequence ASC", -1, &p_stmt, 0) != SQLITE_OK)
+    {
+        std::cerr << "!! sqlite3_prepare_v2: " << sqlite3_errmsg(mp_db) << std::endl;
+        exit(EXIT_FAILURE);
     }
-    sqlite3_close(p_db);
+    while(sqlite3_step(p_stmt) == SQLITE_ROW)
+    {
+        gint64 node_id = sqlite3_column_int64(p_stmt, 0);
+        mp_bookmarks->push_back(node_id);
+    }
+    sqlite3_finalize(p_stmt);
+
+    std::list<gint64> children_node_id = _sqlite3_get_children_node_id_from_father_id(0);
+    for(gint64 node_id : children_node_id)
+    {
+        
+    }
+}
+
+
+std::list<gint64> CherryTreeSQLiteRead::_sqlite3_get_children_node_id_from_father_id(gint64 father_id)
+{
+    std::list<gint64> ret_children;
+    sqlite3_stmt *p_stmt;
+    if(sqlite3_prepare_v2(mp_db, "SELECT node_id FROM children WHERE father_id=? ORDER BY sequence ASC", -1, &p_stmt, 0) != SQLITE_OK)
+    {
+        std::cerr << "!! sqlite3_prepare_v2: " << sqlite3_errmsg(mp_db) << std::endl;
+        exit(EXIT_FAILURE);
+    }
+    sqlite3_bind_int(p_stmt, 1, father_id);
+    while(sqlite3_step(p_stmt) == SQLITE_ROW)
+    {
+        gint64 node_id = sqlite3_column_int64(p_stmt, 0);
+        ret_children.push_back(node_id);
+    }
+    sqlite3_finalize(p_stmt);
+    return ret_children;
+}
+
+
+Gtk::TreeIter CherryTreeSQLiteRead::_sqlite3_node_process(xmlpp::Element *p_node_element, Gtk::TreeIter parent_iter)
+{
+    Gtk::TreeIter new_iter;
+
+    
+
+    return new_iter;
 }
 
 
@@ -77,5 +151,11 @@ int main(int argc, char *argv[])
     }
     Glib::ustring filepath(argv[1]);
     assert(Glib::file_test(filepath, Glib::FILE_TEST_EXISTS));
-    parse_ctb(filepath);
+
+    std::list<gint64> bookmarks;
+    Glib::RefPtr<Gtk::TreeStore> r_treestore;
+    Gtk::TreeIter parent_iter;
+
+    CherryTreeSQLiteRead ct_sqlite_read(filepath, &bookmarks, r_treestore);
+    ct_sqlite_read.tree_walk(parent_iter);
 }

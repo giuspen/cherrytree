@@ -25,7 +25,6 @@
 #include <assert.h>
 #include <iostream>
 #include <libxml++/libxml++.h>
-#include <glibmm.h>
 #include <gtkmm.h>
 
 
@@ -47,8 +46,9 @@ class CherryTreeDocRead
 {
 public:
     CherryTreeDocRead(std::list<gint64> *p_bookmarks, Glib::RefPtr<Gtk::TreeStore> r_treestore);
+    virtual ~CherryTreeDocRead();
+    virtual void tree_walk(Gtk::TreeIter parent_iter)=0;
 protected:
-    virtual void tree_walk(Gtk::TreeModel::Row *p_parent_row)=0;
     std::list<gint64> *mp_bookmarks;
     Glib::RefPtr<Gtk::TreeStore>  mr_treestore;
 };
@@ -58,15 +58,20 @@ class CherryTreeXMLRead : public CherryTreeDocRead, public xmlpp::DomParser
 {
 public:
     CherryTreeXMLRead(Glib::ustring& filepath, std::list<gint64> *p_bookmarks, Glib::RefPtr<Gtk::TreeStore> r_treestore);
-    ~CherryTreeXMLRead();
-    void tree_walk(Gtk::TreeModel::Row *p_parent_row);
+    virtual ~CherryTreeXMLRead();
+    void tree_walk(Gtk::TreeIter parent_iter);
 private:
-    void _xml_tree_walk_iter(xmlpp::Element* p_node_element, Gtk::TreeModel::Row *p_parent_row);
-    Gtk::TreeModel::Row *_xml_node_process(xmlpp::Element* p_node_element, Gtk::TreeModel::Row *p_parent_row);
+    void _xml_tree_walk_iter(xmlpp::Element *p_node_element, Gtk::TreeIter parent_iter);
+    Gtk::TreeIter _xml_node_process(xmlpp::Element *p_node_element, Gtk::TreeIter parent_iter);
 };
 
 
 CherryTreeDocRead::CherryTreeDocRead(std::list<gint64> *p_bookmarks, Glib::RefPtr<Gtk::TreeStore> r_treestore) : mp_bookmarks(p_bookmarks), mr_treestore(r_treestore)
+{
+}
+
+
+CherryTreeDocRead::~CherryTreeDocRead()
 {
 }
 
@@ -82,48 +87,51 @@ CherryTreeXMLRead::~CherryTreeXMLRead()
 }
 
 
-void CherryTreeXMLRead::tree_walk(Gtk::TreeModel::Row *p_parent_row)
+void CherryTreeXMLRead::tree_walk(Gtk::TreeIter parent_iter)
 {
-    xmlpp::Document* document = get_document();
-    assert(document != nullptr);
-    xmlpp::Element* root = document->get_root_node();
-    assert(root->get_name() == "cherrytree");
-    for(xmlpp::Node* p_node : root->get_children())
+    xmlpp::Document *p_document = get_document();
+    assert(p_document != nullptr);
+    xmlpp::Element *p_root = p_document->get_root_node();
+    assert(p_root->get_name() == "cherrytree");
+    for(xmlpp::Node *p_node : p_root->get_children())
     {
         if(p_node->get_name() == "node")
         {
-            _xml_tree_walk_iter(static_cast<xmlpp::Element*>(p_node), p_parent_row);
+            _xml_tree_walk_iter(static_cast<xmlpp::Element*>(p_node), parent_iter);
         }
         else if(p_node->get_name() == "bookmarks")
         {
             Glib::ustring bookmarks_csv = static_cast<xmlpp::Element*>(p_node)->get_attribute_value("list");
-            *mp_bookmarks = gstring_split2int64(bookmarks_csv.c_str(), ",");
+            for(gint64 node_id : gstring_split2int64(bookmarks_csv.c_str(), ","))
+            {
+                mp_bookmarks->push_back(node_id);
+            }
         }
     }
 }
 
 
-void CherryTreeXMLRead::_xml_tree_walk_iter(xmlpp::Element* p_node_element, Gtk::TreeModel::Row *p_parent_row)
+void CherryTreeXMLRead::_xml_tree_walk_iter(xmlpp::Element *p_node_element, Gtk::TreeIter parent_iter)
 {
-    Gtk::TreeModel::Row *p_new_node = _xml_node_process(p_node_element, p_parent_row);
+    Gtk::TreeIter new_iter = _xml_node_process(p_node_element, parent_iter);
 
-    for(xmlpp::Node* p_node : p_node_element->get_children())
+    for(xmlpp::Node *p_node : p_node_element->get_children())
     {
         if(p_node->get_name() == "node")
         {
-            _xml_tree_walk_iter(static_cast<xmlpp::Element*>(p_node), p_new_node);
+            _xml_tree_walk_iter(static_cast<xmlpp::Element*>(p_node), new_iter);
         }
     }
 }
 
 
-Gtk::TreeModel::Row *CherryTreeXMLRead::_xml_node_process(xmlpp::Element* p_node_element, Gtk::TreeModel::Row *p_parent_row)
+Gtk::TreeIter CherryTreeXMLRead::_xml_node_process(xmlpp::Element *p_node_element, Gtk::TreeIter parent_iter)
 {
-    Gtk::TreeModel::Row *p_new_node = nullptr;
+    Gtk::TreeIter new_iter;
 
     std::cout << p_node_element->get_attribute_value("name") << std::endl;
 
-    return p_new_node;
+    return new_iter;
 }
 
 
@@ -140,8 +148,8 @@ int main(int argc, char *argv[])
 
     std::list<gint64> bookmarks;
     Glib::RefPtr<Gtk::TreeStore> r_treestore;
-    Gtk::TreeModel::Row *p_parent_row;
+    Gtk::TreeIter parent_iter;
 
     CherryTreeXMLRead ct_xml_read(filepath, &bookmarks, r_treestore);
-    ct_xml_read.tree_walk(p_parent_row);
+    ct_xml_read.tree_walk(parent_iter);
 }

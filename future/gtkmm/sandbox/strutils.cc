@@ -31,7 +31,7 @@ std::list<Glib::ustring> gstring_split2ustring(const gchar *in_str, const gchar 
 {
     std::list<Glib::ustring> ret_list;
     gchar **array_of_strings = g_strsplit(in_str, delimiter, max_tokens);
-    for(gchar** ptr = array_of_strings; *ptr; ptr++)
+    for(gchar **ptr = array_of_strings; *ptr; ptr++)
     {
         ret_list.push_back(*ptr);
     }
@@ -40,13 +40,19 @@ std::list<Glib::ustring> gstring_split2ustring(const gchar *in_str, const gchar 
 }
 
 
+gint64 gint64_from_gstring(gchar *in_gstring)
+{
+    return g_ascii_strtoll(in_gstring, NULL, 10);
+}
+
+
 std::list<gint64> gstring_split2int64(const gchar *in_str, const gchar *delimiter, gint max_tokens=-1)
 {
     std::list<gint64> ret_list;
     gchar **array_of_strings = g_strsplit(in_str, delimiter, max_tokens);
-    for(gchar** ptr = array_of_strings; *ptr; ptr++)
+    for(gchar **ptr = array_of_strings; *ptr; ptr++)
     {
-        gint64 curr_int = g_ascii_strtoll(*ptr, NULL, 10);
+        gint64 curr_int = gint64_from_gstring(*ptr);
         ret_list.push_back(curr_int);
     }
     g_strfreev(array_of_strings);
@@ -54,7 +60,7 @@ std::list<gint64> gstring_split2int64(const gchar *in_str, const gchar *delimite
 }
 
 
-Glib::ustring ustring_join4ustring(std::list<Glib::ustring>& in_str_list, const gchar *delimiter)
+Glib::ustring ustring_join4ustring(std::list<Glib::ustring> &in_str_list, const gchar *delimiter)
 {
     Glib::ustring ret_str;
     bool first_iteration = true;
