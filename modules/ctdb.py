@@ -55,11 +55,10 @@ class CTDBHandler:
             #print "node_id_to_write", node_id_to_write
             write_dict = self.nodes_to_write_dict[node_id_to_write]
             tree_iter = self.dad.get_tree_iter_from_node_id(node_id_to_write)
-            level = self.dad.treestore.iter_depth(tree_iter)
             node_sequence = self.dad.treestore[tree_iter][5]
             father_iter = self.dad.treestore.iter_parent(tree_iter)
             node_father_id = 0 if not father_iter else self.dad.treestore[father_iter][3]
-            self.write_db_node(db, tree_iter, level, node_sequence, node_father_id, write_dict)
+            self.write_db_node(db, tree_iter, node_sequence, node_father_id, write_dict)
             need_to_commit = True
         self.nodes_to_write_dict.clear()
         for node_to_rm in self.nodes_to_rm_set:
@@ -251,9 +250,9 @@ class CTDBHandler:
         db.execute('DELETE FROM image WHERE node_id=?', (node_id,))
         db.execute('DELETE FROM node WHERE node_id=?', (node_id,))
         db.execute('DELETE FROM children WHERE node_id=?', (node_id,))
-        children_rows = self.get_children_rows_from_father_id(db, node_id)
-        for child_row in children_rows:
-            self.remove_db_node_n_children(db, child_row['node_id'])
+        children_node_ids = self.get_children_node_ids_from_father_id(db, node_id)
+        for child_node_id in children_node_ids:
+            self.remove_db_node_n_children(db, child_node_id)
 
     def db_tables_execute_check(self, db):
         curr_cols_num_node = len(db.execute('PRAGMA table_info(node)').fetchall())
@@ -271,7 +270,7 @@ class CTDBHandler:
             db.execute('ALTER TABLE image ADD COLUMN time INTEGER')
             print "table 'image' alter from 7"
 
-    def write_db_node(self, db, tree_iter, level, sequence, node_father_id, write_dict, exporting="", sel_range=None):
+    def write_db_node(self, db, tree_iter, sequence, node_father_id, write_dict, exporting="", sel_range=None):
         """Write a node in DB"""
         node_id = self.dad.treestore[tree_iter][3]
         print "write node content, node_id", node_id, ", write_dict", write_dict
@@ -370,33 +369,29 @@ class CTDBHandler:
                 db.execute('DELETE FROM node WHERE node_id=?', (node_id,))
             node_tuple = (node_id, name, txt, syntax, tags,
                           is_ro, is_richtxt, has_codebox, has_table, has_image,
-                          level, ts_creation, ts_lastsave)
+                          0, ts_creation, ts_lastsave) # TODO remove the column 'level'
             db.execute('INSERT INTO node VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)', node_tuple)
         elif write_dict['buff']:
-            db.execute('UPDATE node SET txt=?, syntax=?, is_richtxt=?, has_codebox=?, has_table=?, has_image=?, level=?, ts_lastsave=? WHERE node_id=?', (txt, syntax, is_richtxt, has_codebox, has_table, has_image, level, ts_lastsave, node_id))
+            db.execute('UPDATE node SET txt=?, syntax=?, is_richtxt=?, has_codebox=?, has_table=?, has_image=?, ts_lastsave=? WHERE node_id=?', (txt, syntax, is_richtxt, has_codebox, has_table, has_image, ts_lastsave, node_id))
         elif write_dict['prop']:
-            db.execute('UPDATE node SET name=?, syntax=?, tags=?, is_ro=?, is_richtxt=?, level=? WHERE node_id=?', (name, syntax, tags, is_ro, is_richtxt, level, node_id))
+            db.execute('UPDATE node SET name=?, syntax=?, tags=?, is_ro=?, is_richtxt=?, WHERE node_id=?', (name, syntax, tags, is_ro, is_richtxt, node_id))
         if write_dict['hier']:
             if write_dict['upd']:
                 db.execute('DELETE FROM children WHERE node_id=?', (node_id,))
             db.execute('INSERT INTO children VALUES(?,?,?)', (node_id, node_father_id, sequence))
-            # need to write "level"
-            if not write_dict['buff'] and not write_dict['prop']:
-                db.execute('UPDATE node SET level=? WHERE node_id=?', (level, node_id))
         if not write_dict['child']: return
         # let's take care about the children
         child_tree_iter = self.dad.treestore.iter_children(tree_iter)
         child_sequence = 0
         while child_tree_iter != None:
             child_sequence += 1
-            self.write_db_node(db, child_tree_iter, level+1, child_sequence, node_id, write_dict, exporting)
+            self.write_db_node(db, child_tree_iter, child_sequence, node_id, write_dict, exporting)
             child_tree_iter = self.dad.treestore.iter_next(child_tree_iter)
 
     def write_db_full(self, db, exporting="", sel_range=None):
         """Write the whole DB"""
         if not exporting or exporting == "a": tree_iter = self.dad.treestore.get_iter_first()
         else: tree_iter = self.dad.curr_tree_iter
-        level = 0
         sequence = 0
         node_father_id = 0
         if exporting == "n":
@@ -404,7 +399,7 @@ class CTDBHandler:
         else: write_dict = {'upd': False, 'prop': True, 'buff': True, 'hier': True, 'child': True}
         while tree_iter != None:
             sequence += 1
-            self.write_db_node(db, tree_iter, level, sequence, node_father_id, write_dict, exporting, sel_range)
+            self.write_db_node(db, tree_iter, sequence, node_father_id, write_dict, exporting, sel_range)
             if not exporting or exporting == "a": tree_iter = self.dad.treestore.iter_next(tree_iter)
             else: break
         if not exporting or exporting == "a": self.write_db_bookmarks(db)
@@ -557,22 +552,21 @@ class CTDBHandler:
         curr_buffer.set_modified(False)
         if user_active_restore: self.dad.user_active = True
 
-    def get_children_rows_from_father_id(self, db, father_id):
-        """Returns the children rows given the father_id"""
-        children_rows = db.execute('SELECT * FROM children WHERE father_id=? ORDER BY sequence ASC', (father_id,)).fetchall()
-        return children_rows
+    def get_children_node_ids_from_father_id(self, db, father_id):
+        """Returns the children node_ids given the father_id"""
+        children_rows = db.execute('SELECT node_id FROM children WHERE father_id=? ORDER BY sequence ASC', (father_id,)).fetchall()
+        return [child_row['node_id'] for child_row in children_rows]
 
     def get_node_row_partial_from_id(self, db, node_id):
         """Returns the (partial) node row given the node_id"""
         try:
-            node_row = db.execute('SELECT node_id, name, syntax, tags, is_ro, is_richtxt, level, ts_creation, ts_lastsave FROM node WHERE node_id=?', (node_id,)).fetchone()
+            node_row = db.execute('SELECT name, syntax, tags, is_ro, is_richtxt, ts_creation, ts_lastsave FROM node WHERE node_id=?', (node_id,)).fetchone()
         except:
-            node_row = db.execute('SELECT node_id, name, syntax, tags, is_ro, is_richtxt, level FROM node WHERE node_id=?', (node_id,)).fetchone()
+            node_row = db.execute('SELECT name, syntax, tags, is_ro, is_richtxt, FROM node WHERE node_id=?', (node_id,)).fetchone()
         return node_row
 
-    def read_db_node_n_children(self, db, node_row, tree_father, discard_ids, node_sequence):
+    def read_db_node_n_children(self, db, original_id, node_row, tree_father, discard_ids, node_sequence):
         """Read a node and his children from DB"""
-        original_id = node_row['node_id']
         if discard_ids is None:
             unique_id = original_id
         else:
@@ -631,12 +625,13 @@ class CTDBHandler:
             self.read_db_node_content(tree_iter, db, original_id, discard_ids)
         # loop for child nodes
         child_sequence = 0
-        children_rows = self.get_children_rows_from_father_id(db, node_row['node_id'])
-        for child_row in children_rows:
-            child_node_row = self.get_node_row_partial_from_id(db, child_row['node_id'])
+        children_node_ids = self.get_children_node_ids_from_father_id(db, original_id)
+        for child_node_id in children_node_ids:
+            child_node_row = self.get_node_row_partial_from_id(db, child_node_id)
             if child_node_row:
                 child_sequence += 1
                 self.read_db_node_n_children(db,
+                                             child_node_id,
                                              child_node_row,
                                              tree_iter,
                                              discard_ids,
@@ -652,12 +647,13 @@ class CTDBHandler:
             self.dad.bookmarks.append(str(node_id))
         # tree nodes
         node_sequence = 0
-        children_rows = self.get_children_rows_from_father_id(db, 0)
-        for child_row in children_rows:
-            child_node_row = self.get_node_row_partial_from_id(db, child_row['node_id'])
+        children_node_ids = self.get_children_node_ids_from_father_id(db, 0)
+        for child_node_id in children_node_ids:
+            child_node_row = self.get_node_row_partial_from_id(db, child_node_id)
             if child_node_row:
                 node_sequence += 1
                 self.read_db_node_n_children(db,
+                                             child_node_id,
                                              child_node_row,
                                              tree_father,
                                              discard_ids,
