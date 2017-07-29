@@ -1400,7 +1400,7 @@ iter_end, exclude_iter_sel_end=True)
             self.boss.status_icon = Gtk.StatusIcon()
             self.boss.status_icon.set_from_stock(cons.APP_NAME)
             self.boss.status_icon.connect('button-press-event', self.on_mouse_button_clicked_systray)
-            self.boss.status_icon.set_tooltip(_("CherryTree Hierarchical Note Taking"))
+            self.boss.status_icon.set_tooltip_text(_("CherryTree Hierarchical Note Taking"))
 
     def toggle_show_hide_main_window(self, *args):
         self.ui.get_widget("/SysTrayMenu").hide()
