@@ -4,7 +4,7 @@
 import re
 
 SUPPORTERS="""
-<h2>Friends of giuspen.com (donated €3548,16)</h2>
+<h2>Friends of giuspen.com (donated €3588,16)</h2>
 • Miguel Latorre (Spain) donated €240
 • DistroWatch.com (International) donated €200
 • Alan M. (United States) donated €100
@@ -47,6 +47,7 @@ SUPPORTERS="""
 • Steve Davis (United States) donated €25
 • Wolfgang See (Germany) donated €25
 • Jaroslav Polacek (Czech Republic) donated €22,22
+• Andreas Strömdahl (Sweden) donated €20
 • Andrew Golovanov (United States) donated €20
 • Anthony Miller (United Kingdom) donated €20
 • David Condray (United States) donated €20
@@ -89,13 +90,15 @@ SUPPORTERS="""
 • Bennett Z. Kobb (United States) donated €12,39
 • Dandi Soft (Italy) donated €12
 • Administrateur (France) donated €10
-• Andreas Strömdahl (Sweden) donated €10
 • Balint Fekete (Hungary) donated €10
 • Benoît D’Angelo (France) donated €10
+• Bruno Pietzsch (Germany) donated €10
 • Chipmunk Software &amp; Systems (United States) donated €10
 • Christoph Rottleb (Germany) donated €10
 • Claus Karstensen (Denmark) donated €10
+• Cosmin Saveanu (France) donated €10
 • Daniel Toro (Chile) donated €10
+• Darren Wood (United States) donated €10
 • David Allinson (United Kingdom) donated €10
 • David Butcher (United Kingdom) donated €10
 • Dennis Roberts (United States) donated €10
