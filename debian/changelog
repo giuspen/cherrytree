@@ -1,4 +1,4 @@
-cherrytree (0.38.1-1) xenial; urgency=low
+cherrytree (0.38.1-0xenial1) xenial; urgency=low
 
   * bugfix in export to txt
   * bugfix in all matches dialog hide/restore selected line
