@@ -39,15 +39,18 @@ struct t_node_properties
     guint32        custom_icon_id;
     bool           is_bold;
     bool           fg_override;
-    char           foreground[8];
+    char           foreground_rgb24[8];
     gint64         ts_creation;
     gint64         ts_lastsave;
 };
 
 
-gint64 gint64_from_gstring(gchar *in_gstring)
+void set_rgb24_str_from_int24(guint32 int24, char *foreground_rgb24)
 {
-    return g_ascii_strtoll(in_gstring, NULL, 10);
+    guint8 r = (int24 >> 16) & 0xff;
+    guint8 g = (int24 >> 8) & 0xff;
+    guint8 b = int24 & 0xff;
+    sprintf(foreground_rgb24, "#%.2x%.2x%.2x", r, g, b);
 }
 
 
@@ -182,7 +185,10 @@ t_node_properties CherryTreeSQLiteRead::_sqlite3_get_node_properties(gint64 node
         gint64 richtxt_bold_foreground = sqlite3_column_int64(p_stmt, 4);
         node_properties.is_bold = bool((richtxt_bold_foreground >> 1) & 0x01);
         node_properties.fg_override = bool((richtxt_bold_foreground >> 2) & 0x01);
-        //node_properties.foreground  ((richtxt_bold_foreground >> 3) & 0xffffff)
+        if(node_properties.fg_override)
+        {
+            set_rgb24_str_from_int24((richtxt_bold_foreground >> 3) & 0xffffff, node_properties.foreground_rgb24);
+        }
         node_properties.ts_creation = sqlite3_column_int64(p_stmt, 5);
         node_properties.ts_lastsave = sqlite3_column_int64(p_stmt, 6);
     }

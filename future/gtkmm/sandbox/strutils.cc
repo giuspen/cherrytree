@@ -40,7 +40,7 @@ std::list<Glib::ustring> gstring_split2ustring(const gchar *in_str, const gchar 
 }
 
 
-gint64 gint64_from_gstring(gchar *in_gstring)
+gint64 gint64_from_gstring(const gchar *in_gstring)
 {
     return g_ascii_strtoll(in_gstring, NULL, 10);
 }
