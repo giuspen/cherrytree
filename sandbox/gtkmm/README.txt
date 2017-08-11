@@ -1,4 +1,4 @@
-This is the porting to gtkmm3 (C++ and GTK3) of CherryTree from pygtk (Python2 and GTK2)
+This is gtkmm3 (C++ and GTK3) sandbox
 
 https://developer.gnome.org/gtkmm/stable/
 https://developer.gnome.org/gtksourceviewmm/stable/

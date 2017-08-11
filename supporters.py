@@ -4,7 +4,7 @@
 import re
 
 SUPPORTERS="""
-<h2>Friends of giuspen.com (donated €3588,16)</h2>
+<h2>Friends of giuspen.com (donated €3628,16)</h2>
 • Miguel Latorre (Spain) donated €240
 • DistroWatch.com (International) donated €200
 • Alan M. (United States) donated €100
@@ -26,6 +26,7 @@ SUPPORTERS="""
 • Jack Downes (United States) donated €40
 • Sylvain Pasche (Switzerland) donated €40
 • Thomas Ludwig (Germany) donated €40
+• William Haschke (United States) donated €40
 • Juan Rivera (Spain) donated €35
 • Giulio Achilli (Italy) donated €30
 • Jan Axelsson (Sweden) donated €30 [nodes icons or colors and nodes separator]

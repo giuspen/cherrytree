@@ -1,4 +1,4 @@
-This is the porting to Python3, PyQt5 and QScintilla of CherryTree from pygtk (Python2 and GTK2)
+This is Python3, PyQt5 and QScintilla sandbox
 
 https://www.python.org/downloads/
 https://www.riverbankcomputing.com/software/pyqt/download5
