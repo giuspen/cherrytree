@@ -27,6 +27,26 @@
 #include <glibmm.h>
 
 
+Glib::ustring replace_in_string(Glib::ustring &subject_str, const Glib::ustring &search_str, const Glib::ustring &replace_str)
+{
+    size_t pos = 0;
+    while ((pos = subject_str.find(search_str, pos)) != std::string::npos)
+    {
+        subject_str.replace(pos, search_str.length(), replace_str);
+        pos += replace_str.length();
+    }
+    return subject_str;
+}
+
+
+Glib::ustring trim_string(Glib::ustring &s)
+{
+    s.erase(s.begin(), std::find_if(s.begin(), s.end(), [](int ch) { return !std::isspace(ch); }));
+    s.erase(std::find_if(s.rbegin(), s.rend(), [](int ch) { return !std::isspace(ch); }).base(), s.end());
+    return s;
+}
+
+
 std::list<Glib::ustring> gstring_split2ustring(const gchar *in_str, const gchar *delimiter, gint max_tokens=-1)
 {
     std::list<Glib::ustring> ret_list;
@@ -128,4 +148,12 @@ int main(int argc, char *argv[])
     std::cout << rejoined_int64 << std::endl;
 
     assert(rejoined_int64 == str_int64_orig);
+
+    Glib::ustring test_replaces_str = "one two three";
+    assert(replace_in_string(test_replaces_str, "two", "four") == "one four three");
+    std::cout << test_replaces_str << std::endl;
+
+    Glib::ustring test_trim_str = "\t one two three ";
+    assert(trim_string(test_trim_str) == "one two three");
+    std::cout << test_trim_str << std::endl;
 }
