@@ -125,7 +125,7 @@ void CherryTreeXMLRead::tree_walk(Gtk::TreeIter parent_iter)
         else if(p_node->get_name() == "bookmarks")
         {
             Glib::ustring bookmarks_csv = static_cast<xmlpp::Element*>(p_node)->get_attribute_value("list");
-            for(gint64 node_id : gstring_split2int64(bookmarks_csv.c_str(), ","))
+            for(gint64 &node_id : gstring_split2int64(bookmarks_csv.c_str(), ","))
             {
                 mp_bookmarks->push_back(node_id);
             }

@@ -12,11 +12,11 @@ ACLOCAL_AMFLAGS = ${ACLOCAL_FLAGS}
 ## obtained from pkg-config via PKG_CHECK_MODULES in configure.ac.  These
 ## flags are passed to the compiler for both C and C++, in addition to the
 ## language-specific options.
-AM_CPPFLAGS = $(HELLOWORLD_CFLAGS) -DHELLOWORLD_LOCALEDIR=\"${HELLOWORLD_LOCALEDIR}\" -DGETTEXT_PACKAGE=\"$(GETTEXT_PACKAGE)\"
+AM_CPPFLAGS = $(CHERRYTREE_CFLAGS) -DCHERRYTREE_LOCALEDIR=\"${CHERRYTREE_LOCALEDIR}\" -DGETTEXT_PACKAGE=\"$(GETTEXT_PACKAGE)\"
 
 ## Define an executable target, which will be installed into the
 ## directory named by the predefined variable $(bindir).
-bin_PROGRAMS = helloworld
+bin_PROGRAMS = cherrytree
 
 ## Define the non executable data that needs to be installed
 ## and have a define tell to our software where that dir is
@@ -29,12 +29,12 @@ bin_PROGRAMS = helloworld
 ## the C compiler to produce an object file (.o) from each source file. The
 ## header files (.h) do not result in object files by themselves, but will be
 ## included in distribution archives of the project.
-helloworld_SOURCES = src/main.cc
+cherrytree_SOURCES = src/main.cc
 
 ## Set the library dependencies for the "example" target to the value obtained
 ## from pkg-config via PKG_CHECK_MODULES in configure.ac.  These libraries are
 ## passed to the linker in addition to the other linker flags.
-helloworld_LDADD = $(HELLOWORLD_LIBS)
+cherrytree_LDADD = $(CHERRYTREE_LIBS)
 
 ## Define an independent executable script for inclusion in the distribution
 ## archive. It will not be installed on an end user's system, however.

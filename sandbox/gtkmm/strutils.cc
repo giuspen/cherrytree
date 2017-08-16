@@ -94,15 +94,6 @@ Glib::ustring ustring_join4ustring(std::list<Glib::ustring> &in_str_list, const 
 }
 
 
-Glib::ustring ustring_from_int64(gint64 in_int64)
-{
-    gchar *p_str = g_strdup_printf("%ld", in_int64);
-    Glib::ustring ret_ustr(p_str);
-    g_free(p_str);
-    return ret_ustr;
-}
-
-
 Glib::ustring ustring_join4int64(std::list<gint64>& in_int64_list, const gchar *delimiter)
 {
     Glib::ustring ret_str;
@@ -111,7 +102,7 @@ Glib::ustring ustring_join4int64(std::list<gint64>& in_int64_list, const gchar *
     {
         if(!first_iteration) ret_str += delimiter;
         else first_iteration = false;
-        ret_str += ustring_from_int64(element);
+        ret_str += std::to_string(element);
     }
     return ret_str;
 }
@@ -149,8 +140,8 @@ int main(int argc, char *argv[])
 
     assert(rejoined_int64 == str_int64_orig);
 
-    Glib::ustring test_replaces_str = "one two three";
-    assert(replace_in_string(test_replaces_str, "two", "four") == "one four three");
+    Glib::ustring test_replaces_str = "one two threetwo";
+    assert(replace_in_string(test_replaces_str, "two", "four") == "one four threefour");
     std::cout << test_replaces_str << std::endl;
 
     Glib::ustring test_trim_str = "\t one two three ";

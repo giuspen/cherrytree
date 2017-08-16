@@ -124,7 +124,7 @@ void CherryTreeSQLiteRead::tree_walk(Gtk::TreeIter parent_iter)
     sqlite3_finalize(p_stmt);
 
     std::list<gint64> top_nodes_ids = _sqlite3_get_children_node_id_from_father_id(0);
-    for(gint64 top_node_id : top_nodes_ids)
+    for(gint64 &top_node_id : top_nodes_ids)
     {
         _sqlite3_tree_walk_iter(top_node_id, parent_iter);
     }
@@ -136,7 +136,7 @@ void CherryTreeSQLiteRead::_sqlite3_tree_walk_iter(gint64 node_id, Gtk::TreeIter
     Gtk::TreeIter new_iter = _sqlite3_node_process(node_id, parent_iter);
 
     std::list<gint64> children_nodes_ids = _sqlite3_get_children_node_id_from_father_id(node_id);
-    for(gint64 child_node_id : children_nodes_ids)
+    for(gint64 &child_node_id : children_nodes_ids)
     {
         _sqlite3_tree_walk_iter(child_node_id, new_iter);
     }

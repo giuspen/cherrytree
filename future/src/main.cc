@@ -23,11 +23,11 @@
 #include <glibmm/i18n.h>
 #include <gtkmm.h>
 
-class HelloWorld : public Gtk::Window
+class CherryTree : public Gtk::Window
 {
 public:
-    HelloWorld();
-    virtual ~HelloWorld();
+    CherryTree();
+    virtual ~CherryTree();
 
 protected:
     void on_button_clicked();
@@ -35,35 +35,35 @@ protected:
     Gtk::Button m_button;
 };
 
-HelloWorld::HelloWorld() : m_button(_("Hello World"))
+CherryTree::CherryTree() : m_button(_("Hello World"))
 {
     set_border_width(10);
 
-    m_button.signal_clicked().connect(sigc::mem_fun(*this, &HelloWorld::on_button_clicked));
+    m_button.signal_clicked().connect(sigc::mem_fun(*this, &CherryTree::on_button_clicked));
 
     add(m_button);
 
     m_button.show();
 }
 
-HelloWorld::~HelloWorld()
+CherryTree::~CherryTree()
 {
 }
 
-void HelloWorld::on_button_clicked()
+void CherryTree::on_button_clicked()
 {
     std::cout << _("Hello World") << std::endl;
 }
 
 int main(int argc, char *argv[])
 {
-    bindtextdomain(GETTEXT_PACKAGE, HELLOWORLD_LOCALEDIR);
+    bindtextdomain(GETTEXT_PACKAGE, CHERRYTREE_LOCALEDIR);
     bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
     textdomain(GETTEXT_PACKAGE);
 
-    auto app = Gtk::Application::create(argc, argv, "org.gtkmm.example");
+    auto app = Gtk::Application::create(argc, argv, "com.giuspen.cherrytree");
 
-    HelloWorld helloworld;
+    CherryTree cherrytree;
 
-    return app->run(helloworld);
+    return app->run(cherrytree);
 }
