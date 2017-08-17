@@ -1798,6 +1798,7 @@ def set_menu_items_recent_documents(dad):
             if i >= cons.MAX_RECENT_DOCS: break
             menu_item = gtk.ImageMenuItem(filepath)
             menu_item.set_image(gtk.image_new_from_stock("gtk-open", gtk.ICON_SIZE_MENU))
+            menu_item.set_use_underline(False)
             menu_item.connect("activate", open_recent_document, filepath, dad)
             menu_item.show()
             if target == 1: dad.recent_menu_1.append(menu_item)

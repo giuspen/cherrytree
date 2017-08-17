@@ -89,7 +89,6 @@ class CherryTree:
             gtk_settings.set_property("gtk-button-images", True)
             gtk_settings.set_property("gtk-menu-images", True)
         except: pass # older gtk do not have the property "gtk-menu-images"
-        os.environ['UBUNTU_MENUPROXY'] = '0' # cherrytree has custom stock icons not visible in appmenu
         vbox_main = gtk.VBox()
         self.window.add(vbox_main)
         self.country_lang = lang_str
