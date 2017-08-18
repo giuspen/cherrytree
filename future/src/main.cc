@@ -22,6 +22,9 @@
 #include <iostream>
 #include <glibmm/i18n.h>
 #include <gtkmm.h>
+#include <assert.h>
+#include "ct_doc_rw.h"
+
 
 class CherryTree : public Gtk::Window
 {
@@ -55,13 +58,49 @@ void CherryTree::on_button_clicked()
     std::cout << _("Hello World") << std::endl;
 }
 
+
+static void _print_help_message()
+{
+    std::cout << "Usage: " << GETTEXT_PACKAGE << " filepath[.ctd|.ctb]" << std::endl;
+}
+
+
 int main(int argc, char *argv[])
 {
+    std::locale::global(std::locale("")); // Set the global C++ locale to the user-specified locale
+    if(argc != 2)
+    {
+        _print_help_message();
+        return 1;
+    }
+    Glib::ustring filepath(argv[1]);
+    assert(Glib::file_test(filepath, Glib::FILE_TEST_EXISTS));
+
+    std::list<gint64> bookmarks;
+    Glib::RefPtr<Gtk::TreeStore> r_treestore;
+    Gtk::TreeIter parent_iter;
+
+    if(Glib::str_has_suffix(filepath, "ctd"))
+    {
+        CherryTreeXMLRead ct_xml_read(filepath, &bookmarks, r_treestore);
+        ct_xml_read.tree_walk(parent_iter);
+    }
+    else if(Glib::str_has_suffix(filepath, "ctb"))
+    {
+        CherryTreeSQLiteRead ct_sqlite_read(filepath, &bookmarks, r_treestore);
+        ct_sqlite_read.tree_walk(parent_iter);
+    }
+    else
+    {
+        _print_help_message();
+        return 1;
+    }
+
     bindtextdomain(GETTEXT_PACKAGE, CHERRYTREE_LOCALEDIR);
     bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
     textdomain(GETTEXT_PACKAGE);
 
-    auto app = Gtk::Application::create(argc, argv, "com.giuspen.cherrytree");
+    auto app = Gtk::Application::create(argc, argv, "com.giuspen.cherrytree", Gio::APPLICATION_HANDLES_OPEN);
 
     CherryTree cherrytree;
 
