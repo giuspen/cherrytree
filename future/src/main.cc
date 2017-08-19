@@ -19,44 +19,12 @@
  * MA 02110-1301, USA.
  */
 
-#include <iostream>
-#include <glibmm/i18n.h>
 #include <gtkmm.h>
+#include <glibmm/i18n.h>
+#include <iostream>
 #include <assert.h>
+#include "cherrytree.h"
 #include "ct_doc_rw.h"
-
-
-class CherryTree : public Gtk::Window
-{
-public:
-    CherryTree();
-    virtual ~CherryTree();
-
-protected:
-    void on_button_clicked();
-
-    Gtk::Button m_button;
-};
-
-CherryTree::CherryTree() : m_button(_("Hello World"))
-{
-    set_border_width(10);
-
-    m_button.signal_clicked().connect(sigc::mem_fun(*this, &CherryTree::on_button_clicked));
-
-    add(m_button);
-
-    m_button.show();
-}
-
-CherryTree::~CherryTree()
-{
-}
-
-void CherryTree::on_button_clicked()
-{
-    std::cout << _("Hello World") << std::endl;
-}
 
 
 static void _print_help_message()

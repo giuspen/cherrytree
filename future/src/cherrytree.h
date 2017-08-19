@@ -1,5 +1,5 @@
 /*
- * str_utils.h
+ * cherrytree.h
  * 
  * Copyright 2017 giuspen <giuspen@gmail.com>
  * 
@@ -21,21 +21,17 @@
 
 #pragma once
 
-#include <glibmm.h>
+#include <gtkmm.h>
 
 
-Glib::ustring replace_in_string(Glib::ustring &subject_str, const Glib::ustring &search_str, const Glib::ustring &replace_str);
+class CherryTree : public Gtk::Window
+{
+public:
+    CherryTree();
+    virtual ~CherryTree();
 
-Glib::ustring trim_string(Glib::ustring &s);
+protected:
+    void on_button_clicked();
 
-gint64 gint64_from_gstring(const gchar *in_gstring, bool force_hex=false);
-
-std::list<Glib::ustring> gstring_split2ustring(const gchar *in_str, const gchar *delimiter, gint max_tokens=-1);
-
-std::list<gint64> gstring_split2int64(const gchar *in_str, const gchar *delimiter, gint max_tokens=-1);
-
-Glib::ustring ustring_join4ustring(std::list<Glib::ustring> &in_str_list, const gchar *delimiter);
-
-Glib::ustring ustring_join4int64(std::list<gint64>& in_int64_list, const gchar *delimiter);
-
-void set_rgb24_str_from_int24(guint32 int24, char *foreground_rgb24);
+    Gtk::Button m_button;
+};

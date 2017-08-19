@@ -1,5 +1,5 @@
 /*
- * str_utils.h
+ * cherrytree.cc
  * 
  * Copyright 2017 giuspen <giuspen@gmail.com>
  * 
@@ -19,23 +19,29 @@
  * MA 02110-1301, USA.
  */
 
-#pragma once
+#include <glibmm/i18n.h>
+#include <iostream>
+#include "cherrytree.h"
 
-#include <glibmm.h>
+
+CherryTree::CherryTree() : m_button(_("Hello World"))
+{
+    set_border_width(10);
+
+    m_button.signal_clicked().connect(sigc::mem_fun(*this, &CherryTree::on_button_clicked));
+
+    add(m_button);
+
+    m_button.show();
+}
 
 
-Glib::ustring replace_in_string(Glib::ustring &subject_str, const Glib::ustring &search_str, const Glib::ustring &replace_str);
+CherryTree::~CherryTree()
+{
+}
 
-Glib::ustring trim_string(Glib::ustring &s);
 
-gint64 gint64_from_gstring(const gchar *in_gstring, bool force_hex=false);
-
-std::list<Glib::ustring> gstring_split2ustring(const gchar *in_str, const gchar *delimiter, gint max_tokens=-1);
-
-std::list<gint64> gstring_split2int64(const gchar *in_str, const gchar *delimiter, gint max_tokens=-1);
-
-Glib::ustring ustring_join4ustring(std::list<Glib::ustring> &in_str_list, const gchar *delimiter);
-
-Glib::ustring ustring_join4int64(std::list<gint64>& in_int64_list, const gchar *delimiter);
-
-void set_rgb24_str_from_int24(guint32 int24, char *foreground_rgb24);
+void CherryTree::on_button_clicked()
+{
+    std::cout << _("Hello World") << std::endl;
+}

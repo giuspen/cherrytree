@@ -42,6 +42,21 @@ Glib::ustring trim_string(Glib::ustring &s)
 }
 
 
+gint64 gint64_from_gstring(const gchar *in_gstring, bool force_hex)
+{
+    gint64 ret_val;
+    if(force_hex || g_strrstr(in_gstring, "0x"))
+    {
+        ret_val = g_ascii_strtoll(in_gstring, NULL, 16);
+    }
+    else
+    {
+        ret_val = g_ascii_strtoll(in_gstring, NULL, 10);
+    }
+    return ret_val;
+}
+
+
 std::list<Glib::ustring> gstring_split2ustring(const gchar *in_str, const gchar *delimiter, gint max_tokens)
 {
     std::list<Glib::ustring> ret_list;
@@ -52,12 +67,6 @@ std::list<Glib::ustring> gstring_split2ustring(const gchar *in_str, const gchar 
     }
     g_strfreev(array_of_strings);
     return ret_list;
-}
-
-
-gint64 gint64_from_gstring(const gchar *in_gstring)
-{
-    return g_ascii_strtoll(in_gstring, NULL, 10);
 }
 
 

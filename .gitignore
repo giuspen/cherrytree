@@ -1,7 +1,11 @@
 *.pyc
 *.mo
 linux/cherrytree.1.gz
-7za.exe
-*sqlite3
-*xmldom
-*strutils
+*.exe
+*.o
+*.gmo
+*.in
+*~
+*.sed
+*.sin
+*Makefile

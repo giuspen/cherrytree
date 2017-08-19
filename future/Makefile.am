@@ -30,6 +30,7 @@ bin_PROGRAMS = cherrytree
 ## header files (.h) do not result in object files by themselves, but will be
 ## included in distribution archives of the project.
 cherrytree_SOURCES = src/main.cc \
+                     src/cherrytree.cc src/cherrytree.h \
                      src/ct_doc_rw.cc src/ct_sqlite3_rw.cc src/ct_xml_rw.cc src/ct_doc_rw.h \
                      src/str_utils.cc src/str_utils.h
 

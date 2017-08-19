@@ -19,6 +19,7 @@
  * MA 02110-1301, USA.
  */
 
+#include <iostream>
 #include "ct_doc_rw.h"
 #include "str_utils.h"
 
