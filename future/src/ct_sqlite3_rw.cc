@@ -120,7 +120,7 @@ t_node_properties CherryTreeSQLiteRead::_sqlite3_get_node_properties(gint64 node
         node_properties.fg_override = bool((richtxt_bold_foreground >> 2) & 0x01);
         if(node_properties.fg_override)
         {
-            set_rgb24_str_from_int24((richtxt_bold_foreground >> 3) & 0xffffff, node_properties.foreground_rgb24);
+            set_rgb24_str_from_rgb24_int((richtxt_bold_foreground >> 3) & 0xffffff, node_properties.foreground_rgb24);
         }
         node_properties.ts_creation = sqlite3_column_int64(p_stmt, 5);
         node_properties.ts_lastsave = sqlite3_column_int64(p_stmt, 6);

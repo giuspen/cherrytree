@@ -19,6 +19,9 @@
  * MA 02110-1301, USA.
  */
 
+#include <iostream>
+#include <string.h>
+#include <assert.h>
 #include "str_utils.h"
 
 
@@ -57,6 +60,16 @@ gint64 gint64_from_gstring(const gchar *in_gstring, bool force_hex)
 }
 
 
+guint32 get_uint_from_hex_chars(const char *hex_chars, guint8 num_chars)
+{
+    char hexstring[9];
+    assert(num_chars < 9);
+    strncpy(hexstring, hex_chars, num_chars);
+    hexstring[num_chars] = 0;
+    return (guint32)strtoul(hexstring, NULL, 16);
+}
+
+
 std::list<Glib::ustring> gstring_split2ustring(const gchar *in_str, const gchar *delimiter, gint max_tokens)
 {
     std::list<Glib::ustring> ret_list;
@@ -84,7 +97,7 @@ std::list<gint64> gstring_split2int64(const gchar *in_str, const gchar *delimite
 }
 
 
-Glib::ustring ustring_join4ustring(std::list<Glib::ustring> &in_str_list, const gchar *delimiter)
+Glib::ustring ustring_join4ustring(const std::list<Glib::ustring> &in_str_list, const gchar *delimiter)
 {
     Glib::ustring ret_str;
     bool first_iteration = true;
@@ -98,7 +111,7 @@ Glib::ustring ustring_join4ustring(std::list<Glib::ustring> &in_str_list, const 
 }
 
 
-Glib::ustring ustring_join4int64(std::list<gint64>& in_int64_list, const gchar *delimiter)
+Glib::ustring ustring_join4int64(const std::list<gint64>& in_int64_list, const gchar *delimiter)
 {
     Glib::ustring ret_str;
     bool first_iteration = true;
@@ -112,10 +125,57 @@ Glib::ustring ustring_join4int64(std::list<gint64>& in_int64_list, const gchar *
 }
 
 
-void set_rgb24_str_from_int24(guint32 int24, char *foreground_rgb24)
+void set_rgb24_str_from_rgb24_int(guint32 rgb24_int, char *rgb24_str_out)
 {
-    guint8 r = (int24 >> 16) & 0xff;
-    guint8 g = (int24 >> 8) & 0xff;
-    guint8 b = int24 & 0xff;
-    sprintf(foreground_rgb24, "#%.2x%.2x%.2x", r, g, b);
+    guint8 r = (rgb24_int >> 16) & 0xff;
+    guint8 g = (rgb24_int >> 8) & 0xff;
+    guint8 b = rgb24_int & 0xff;
+    sprintf(rgb24_str_out, "#%.2x%.2x%.2x", r, g, b);
+}
+
+
+guint32 get_rgb24_int_from_rgb24_str(const char *rgb24_str)
+{
+    const char *scan_start = g_str_has_prefix(rgb24_str, "#") ? rgb24_str + 1 : rgb24_str;
+    guint8 r = (guint8)get_uint_from_hex_chars(scan_start, 2);
+    guint8 g = (guint8)get_uint_from_hex_chars(scan_start+2, 2);
+    guint8 b = (guint8)get_uint_from_hex_chars(scan_start+4, 2);
+    return (r << 16 | g << 8 | b);
+}
+
+
+void set_rgb24_str_from_str_any(const char *rgb_str_any, char *rgb24_str_out)
+{
+    const char *scan_start = g_str_has_prefix(rgb_str_any, "#") ? rgb_str_any + 1 : rgb_str_any;
+    switch(strlen(scan_start))
+    {
+        case 12:
+        {
+            guint16 r = (guint16)get_uint_from_hex_chars(scan_start, 4);
+            guint16 g = (guint16)get_uint_from_hex_chars(scan_start+4, 4);
+            guint16 b = (guint16)get_uint_from_hex_chars(scan_start+8, 4);
+            r >>= 8;
+            g >>= 8;
+            b >>= 8;
+            sprintf(rgb24_str_out, "#%.2x%.2x%.2x", r, g, b);
+        }
+        break;
+        case 6:
+            sprintf(rgb24_str_out, "#%s", scan_start);
+        break;
+        case 3:
+            sprintf(rgb24_str_out, "#%c%c%c%c%c%c", scan_start[0], scan_start[0], scan_start[1], scan_start[1], scan_start[2], scan_start[2]);
+        break;
+        default:
+            std::cerr << "!! set_rgb24_str_from_str_any " << rgb_str_any << std::endl;
+            sprintf(rgb24_str_out, "#");
+    }
+}
+
+
+guint32 get_rgb24_int_from_str_any(const char *rgb_str_any)
+{
+    char rgb24_str[8];
+    set_rgb24_str_from_str_any(rgb_str_any, rgb24_str);
+    return get_rgb24_int_from_rgb24_str(rgb24_str);
 }

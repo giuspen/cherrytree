@@ -30,12 +30,20 @@ Glib::ustring trim_string(Glib::ustring &s);
 
 gint64 gint64_from_gstring(const gchar *in_gstring, bool force_hex=false);
 
+guint32 get_uint_from_hex_chars(const char *hex_chars, guint8 num_chars);
+
 std::list<Glib::ustring> gstring_split2ustring(const gchar *in_str, const gchar *delimiter, gint max_tokens=-1);
 
 std::list<gint64> gstring_split2int64(const gchar *in_str, const gchar *delimiter, gint max_tokens=-1);
 
-Glib::ustring ustring_join4ustring(std::list<Glib::ustring> &in_str_list, const gchar *delimiter);
+Glib::ustring ustring_join4ustring(const std::list<Glib::ustring> &in_str_list, const gchar *delimiter);
 
-Glib::ustring ustring_join4int64(std::list<gint64>& in_int64_list, const gchar *delimiter);
+Glib::ustring ustring_join4int64(const std::list<gint64>& in_int64_list, const gchar *delimiter);
 
-void set_rgb24_str_from_int24(guint32 int24, char *foreground_rgb24);
+void set_rgb24_str_from_rgb24_int(guint32 rgb24_int, char *rgb24_str_out);
+
+guint32 get_rgb24_int_from_rgb24_str(const char *rgb24_str);
+
+void set_rgb24_str_from_str_any(const char *rgb_str_any, char *rgb24_str_out);
+
+guint32 get_rgb24_int_from_str_any(const char *rgb_str_any);

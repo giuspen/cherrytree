@@ -34,22 +34,72 @@ TEST(StrUtilsGroup, gint64_from_gstring)
     CHECK(gint64_from_gstring("ffff", true) == 0xffff);
 }
 
+TEST(StrUtilsGroup, get_uint_from_hex_chars)
+{
+    CHECK(get_uint_from_hex_chars("aff", 2) == 0xaf);
+    CHECK(get_uint_from_hex_chars("aff", 1) == 0xa);
+}
+
 TEST(StrUtilsGroup, gstring_split2ustring)
 {
-    const gchar str_orig[] = ":a:bc::d:";
-    const gchar str_delimiter[] = ":";
-
-    std::list<Glib::ustring> splitted_list = gstring_split2ustring(str_orig, str_delimiter);
+    std::list<Glib::ustring> splitted_list = gstring_split2ustring(":a:bc::d:", ":");
     CHECK(splitted_list == std::list<Glib::ustring>({"", "a", "bc", "", "d", ""}));
 }
 
 TEST(StrUtilsGroup, gstring_split2int64)
 {
-    const gchar str_int64_orig[] = "-1, 1,0, 1000";
-    const gchar str_delimiter_int64[] = ",";
-
-    std::list<gint64> splitted_list = gstring_split2int64(str_int64_orig, str_delimiter_int64);
+    std::list<gint64> splitted_list = gstring_split2int64("-1, 1,0, 1000", ",");
     CHECK(splitted_list == std::list<gint64>({-1, 1, 0, 1000}));
+}
+
+TEST(StrUtilsGroup, ustring_join4ustring)
+{
+    std::list<Glib::ustring> list_to_join({"", "a", "bc", "", "d", ""});
+    Glib::ustring rejoined = ustring_join4ustring(list_to_join, ":");
+    CHECK(rejoined == ":a:bc::d:");
+}
+
+TEST(StrUtilsGroup, ustring_join4int64)
+{
+    std::list<gint64> list_to_join({-1, 1, 0, 1000});
+    Glib::ustring rejoined = ustring_join4int64(list_to_join, ",");
+    CHECK(rejoined == "-1,1,0,1000");
+}
+
+TEST(StrUtilsGroup, set_rgb24_str_from_rgb24_int)
+{
+    guint32 int24 = (0xf1 << 16) | (0xab << 8) | 0x57;
+    char rgb24_str[8];
+    set_rgb24_str_from_rgb24_int(int24, rgb24_str);
+    CHECK(g_strcmp0(rgb24_str, "#f1ab57") == 0);
+}
+
+TEST(StrUtilsGroup, get_rgb24_int_from_rgb24_str)
+{
+    guint32 expected_int24 = (0xf1 << 16) | (0xab << 8) | 0x57;
+    CHECK(get_rgb24_int_from_rgb24_str("#f1ab57") == expected_int24);
+    CHECK(get_rgb24_int_from_rgb24_str("f1ab57") == expected_int24);
+}
+
+TEST(StrUtilsGroup, set_rgb24_str_from_str_any)
+{
+    char rgb24_str[8];
+    set_rgb24_str_from_str_any("#f1ab57", rgb24_str);
+    CHECK(g_strcmp0(rgb24_str, "#f1ab57") == 0);
+    set_rgb24_str_from_str_any("#fab", rgb24_str);
+    CHECK(g_strcmp0(rgb24_str, "#ffaabb") == 0);
+    set_rgb24_str_from_str_any("#122334455667", rgb24_str);
+    CHECK(g_strcmp0(rgb24_str, "#123456") == 0);
+    set_rgb24_str_from_str_any("122334455667", rgb24_str);
+    CHECK(g_strcmp0(rgb24_str, "#123456") == 0);
+}
+
+TEST(StrUtilsGroup, get_rgb24_int_from_str_any)
+{
+    guint32 expected_int24 = (0xf1 << 16) | (0xab << 8) | 0x57;
+    CHECK(get_rgb24_int_from_str_any("#f1ab57") == expected_int24);
+    CHECK(get_rgb24_int_from_str_any("f1ab57") == expected_int24);
+    CHECK(get_rgb24_int_from_str_any("f122ab335744") == expected_int24);
 }
 
 
