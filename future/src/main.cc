@@ -24,7 +24,7 @@
 #include <iostream>
 #include <assert.h>
 #include "cherrytree.h"
-#include "ct_doc_rw.h"
+#include "the_tree.h"
 
 
 static void _print_help_message()
@@ -44,21 +44,10 @@ int main(int argc, char *argv[])
     Glib::ustring filepath(argv[1]);
     assert(Glib::file_test(filepath, Glib::FILE_TEST_EXISTS));
 
-    std::list<gint64> bookmarks;
-    Glib::RefPtr<Gtk::TreeStore> r_treestore;
-    Gtk::TreeIter parent_iter;
+    auto app = Gtk::Application::create(argc, argv, "com.giuspen.cherrytree", Gio::APPLICATION_HANDLES_OPEN);
 
-    if(Glib::str_has_suffix(filepath, "ctd"))
-    {
-        CherryTreeXMLRead ct_xml_read(filepath, &bookmarks, r_treestore);
-        ct_xml_read.tree_walk(parent_iter);
-    }
-    else if(Glib::str_has_suffix(filepath, "ctb"))
-    {
-        CherryTreeSQLiteRead ct_sqlite_read(filepath, &bookmarks, r_treestore);
-        ct_sqlite_read.tree_walk(parent_iter);
-    }
-    else
+    TheTree the_tree;
+    if(!the_tree.read_nodes_from_filepath(filepath))
     {
         _print_help_message();
         return 1;
@@ -67,8 +56,6 @@ int main(int argc, char *argv[])
     bindtextdomain(GETTEXT_PACKAGE, CHERRYTREE_LOCALEDIR);
     bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
     textdomain(GETTEXT_PACKAGE);
-
-    auto app = Gtk::Application::create(argc, argv, "com.giuspen.cherrytree", Gio::APPLICATION_HANDLES_OPEN);
 
     CherryTree cherrytree;
 

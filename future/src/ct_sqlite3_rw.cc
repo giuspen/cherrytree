@@ -41,7 +41,7 @@ CherryTreeSQLiteRead::~CherryTreeSQLiteRead()
 }
 
 
-void CherryTreeSQLiteRead::tree_walk(Gtk::TreeIter parent_iter)
+void CherryTreeSQLiteRead::tree_walk(Gtk::TreeIter *p_parent_iter)
 {
     sqlite3_stmt *p_stmt;
     if(sqlite3_prepare_v2(mp_db, "SELECT node_id FROM bookmark ORDER BY sequence ASC", -1, &p_stmt, 0) != SQLITE_OK)
@@ -59,19 +59,19 @@ void CherryTreeSQLiteRead::tree_walk(Gtk::TreeIter parent_iter)
     std::list<gint64> top_nodes_ids = _sqlite3_get_children_node_id_from_father_id(0);
     for(gint64 &top_node_id : top_nodes_ids)
     {
-        _sqlite3_tree_walk_iter(top_node_id, parent_iter);
+        _sqlite3_tree_walk_iter(top_node_id, p_parent_iter);
     }
 }
 
 
-void CherryTreeSQLiteRead::_sqlite3_tree_walk_iter(gint64 node_id, Gtk::TreeIter parent_iter)
+void CherryTreeSQLiteRead::_sqlite3_tree_walk_iter(gint64 node_id, Gtk::TreeIter *p_parent_iter)
 {
-    Gtk::TreeIter new_iter = _sqlite3_node_process(node_id, parent_iter);
+    Gtk::TreeIter new_iter = _sqlite3_node_process(node_id, p_parent_iter);
 
     std::list<gint64> children_nodes_ids = _sqlite3_get_children_node_id_from_father_id(node_id);
     for(gint64 &child_node_id : children_nodes_ids)
     {
-        _sqlite3_tree_walk_iter(child_node_id, new_iter);
+        _sqlite3_tree_walk_iter(child_node_id, &new_iter);
     }
 }
 
@@ -134,7 +134,7 @@ t_node_properties CherryTreeSQLiteRead::_sqlite3_get_node_properties(gint64 node
 }
 
 
-Gtk::TreeIter CherryTreeSQLiteRead::_sqlite3_node_process(gint64 node_id, Gtk::TreeIter parent_iter)
+Gtk::TreeIter CherryTreeSQLiteRead::_sqlite3_node_process(gint64 node_id, Gtk::TreeIter *p_parent_iter)
 {
     t_node_properties node_properties = _sqlite3_get_node_properties(node_id);
     Gtk::TreeIter new_iter;

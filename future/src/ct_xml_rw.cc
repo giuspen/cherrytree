@@ -36,7 +36,7 @@ CherryTreeXMLRead::~CherryTreeXMLRead()
 }
 
 
-void CherryTreeXMLRead::tree_walk(Gtk::TreeIter parent_iter)
+void CherryTreeXMLRead::tree_walk(Gtk::TreeIter *p_parent_iter)
 {
     xmlpp::Document *p_document = get_document();
     assert(p_document != nullptr);
@@ -46,7 +46,7 @@ void CherryTreeXMLRead::tree_walk(Gtk::TreeIter parent_iter)
     {
         if(p_node->get_name() == "node")
         {
-            _xml_tree_walk_iter(static_cast<xmlpp::Element*>(p_node), parent_iter);
+            _xml_tree_walk_iter(static_cast<xmlpp::Element*>(p_node), p_parent_iter);
         }
         else if(p_node->get_name() == "bookmarks")
         {
@@ -60,15 +60,15 @@ void CherryTreeXMLRead::tree_walk(Gtk::TreeIter parent_iter)
 }
 
 
-void CherryTreeXMLRead::_xml_tree_walk_iter(xmlpp::Element *p_node_element, Gtk::TreeIter parent_iter)
+void CherryTreeXMLRead::_xml_tree_walk_iter(xmlpp::Element *p_node_element, Gtk::TreeIter *p_parent_iter)
 {
-    Gtk::TreeIter new_iter = _xml_node_process(p_node_element, parent_iter);
+    Gtk::TreeIter new_iter = _xml_node_process(p_node_element, p_parent_iter);
 
     for(xmlpp::Node *p_node : p_node_element->get_children())
     {
         if(p_node->get_name() == "node")
         {
-            _xml_tree_walk_iter(static_cast<xmlpp::Element*>(p_node), new_iter);
+            _xml_tree_walk_iter(static_cast<xmlpp::Element*>(p_node), &new_iter);
         }
     }
 }
@@ -96,7 +96,7 @@ t_node_properties CherryTreeXMLRead::_xml_get_node_properties(xmlpp::Element *p_
 }
 
 
-Gtk::TreeIter CherryTreeXMLRead::_xml_node_process(xmlpp::Element *p_node_element, Gtk::TreeIter parent_iter)
+Gtk::TreeIter CherryTreeXMLRead::_xml_node_process(xmlpp::Element *p_node_element, Gtk::TreeIter *p_parent_iter)
 {
     t_node_properties node_properties = _xml_get_node_properties(p_node_element);
     Gtk::TreeIter new_iter;

@@ -31,6 +31,7 @@ bin_PROGRAMS = cherrytree
 ## included in distribution archives of the project.
 cherrytree_SOURCES = src/main.cc \
                      src/cherrytree.cc src/cherrytree.h \
+                     src/the_tree.cc src/the_tree.h \
                      src/ct_doc_rw.cc src/ct_sqlite3_rw.cc src/ct_xml_rw.cc src/ct_doc_rw.h \
                      src/str_utils.cc src/str_utils.h
 
