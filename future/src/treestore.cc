@@ -1,5 +1,5 @@
 /*
- * the_tree.cc
+ * treestore.cc
  * 
  * Copyright 2017 giuspen <giuspen@gmail.com>
  * 
@@ -21,7 +21,7 @@
 
 #include <glibmm/i18n.h>
 #include <iostream>
-#include "the_tree.h"
+#include "treestore.h"
 #include "ct_doc_rw.h"
 
 

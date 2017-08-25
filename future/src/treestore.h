@@ -1,5 +1,5 @@
 /*
- * the_tree.h
+ * treestore.h
  * 
  * Copyright 2017 giuspen <giuspen@gmail.com>
  * 
@@ -24,7 +24,7 @@
 #include <gtkmm.h>
 
 
-class TheTree : public Gtk::TreeView
+class TheTree
 {
 public:
     TheTree();
@@ -37,7 +37,9 @@ protected:
         ModelColumns()
         {
             add(m_col_icon_stock_id); add(m_col_node_name); add(m_col_text_buffer); add(m_col_node_unique_id);
-            add(m_col_syntax_highlighting); add(m_col_node_sequence);
+            add(m_col_syntax_highlighting); add(m_col_node_sequence); add(m_col_node_tags); add(m_col_node_ro);
+            add(m_col_aux_icon_stock_id); add(m_col_custom_icon_id); add(m_col_weight); add(m_col_foreground);
+            add(m_col_ts_creation); add(m_col_ts_lastsave);
         }
         Gtk::TreeModelColumn<Glib::ustring>                 m_col_icon_stock_id;
         Gtk::TreeModelColumn<Glib::ustring>                 m_col_node_name;

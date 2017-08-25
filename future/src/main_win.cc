@@ -1,5 +1,5 @@
 /*
- * cherrytree.h
+ * main_win.cc
  * 
  * Copyright 2017 giuspen <giuspen@gmail.com>
  * 
@@ -19,19 +19,22 @@
  * MA 02110-1301, USA.
  */
 
-#pragma once
+#include <glibmm/i18n.h>
+#include <iostream>
+#include "main_win.h"
 
-#include <gtkmm.h>
 
-
-class CherryTree : public Gtk::Window
+MainWindow::MainWindow() : Gtk::ApplicationWindow()
 {
-public:
-    CherryTree();
-    virtual ~CherryTree();
+}
 
-protected:
-    void on_button_clicked();
 
-    Gtk::Button m_button;
-};
+MainWindow::~MainWindow()
+{
+}
+
+
+bool MainWindow::read_nodes_from_filepath(Glib::ustring &filepath)
+{
+    return m_tree.read_nodes_from_filepath(filepath);
+}

@@ -1,5 +1,5 @@
 /*
- * cherrytree.cc
+ * main_win.h
  * 
  * Copyright 2017 giuspen <giuspen@gmail.com>
  * 
@@ -19,29 +19,19 @@
  * MA 02110-1301, USA.
  */
 
-#include <glibmm/i18n.h>
-#include <iostream>
-#include "cherrytree.h"
+#pragma once
+
+#include <gtkmm.h>
+#include "treestore.h"
 
 
-CherryTree::CherryTree() : m_button(_("Hello World"))
+class MainWindow : public Gtk::ApplicationWindow
 {
-    set_border_width(10);
+public:
+    MainWindow();
+    virtual ~MainWindow();
+    bool read_nodes_from_filepath(Glib::ustring &filepath);
 
-    m_button.signal_clicked().connect(sigc::mem_fun(*this, &CherryTree::on_button_clicked));
-
-    add(m_button);
-
-    m_button.show();
-}
-
-
-CherryTree::~CherryTree()
-{
-}
-
-
-void CherryTree::on_button_clicked()
-{
-    std::cout << _("Hello World") << std::endl;
-}
+protected:
+    TheTree m_tree;
+};
