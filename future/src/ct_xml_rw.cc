@@ -25,7 +25,7 @@
 #include "str_utils.h"
 
 
-CherryTreeXMLRead::CherryTreeXMLRead(Glib::ustring &filepath, std::list<gint64> *p_bookmarks, Glib::RefPtr<Gtk::TreeStore> r_treestore) : CherryTreeDocRead(p_bookmarks, r_treestore)
+CherryTreeXMLRead::CherryTreeXMLRead(Glib::ustring &filepath)
 {
     parse_file(filepath);
 }
@@ -53,7 +53,7 @@ void CherryTreeXMLRead::tree_walk(Gtk::TreeIter *p_parent_iter)
             Glib::ustring bookmarks_csv = static_cast<xmlpp::Element*>(p_node)->get_attribute_value("list");
             for(gint64 &node_id : gstring_split2int64(bookmarks_csv.c_str(), ","))
             {
-                mp_bookmarks->push_back(node_id);
+                m_signal_add_bookmark.emit(node_id);
             }
         }
     }
@@ -74,34 +74,31 @@ void CherryTreeXMLRead::_xml_tree_walk_iter(xmlpp::Element *p_node_element, Gtk:
 }
 
 
-t_node_properties CherryTreeXMLRead::_xml_get_node_properties(xmlpp::Element *p_node_element)
+t_ct_node_data CherryTreeXMLRead::_xml_get_node_properties(xmlpp::Element *p_node_element)
 {
-    t_node_properties node_properties;
-    node_properties.node_id = gint64_from_gstring(p_node_element->get_attribute_value("unique_id").c_str());
-    node_properties.name = p_node_element->get_attribute_value("name");
-    node_properties.syntax = p_node_element->get_attribute_value("prog_lang");
-    node_properties.tags = p_node_element->get_attribute_value("name");
-    node_properties.is_ro = Glib::str_has_prefix(p_node_element->get_attribute_value("readonly"), "T");
-    node_properties.custom_icon_id = gint64_from_gstring(p_node_element->get_attribute_value("custom_icon_id").c_str());
-    node_properties.is_bold = Glib::str_has_prefix(p_node_element->get_attribute_value("is_bold"), "T");
+    t_ct_node_data node_data;
+    node_data.node_id = gint64_from_gstring(p_node_element->get_attribute_value("unique_id").c_str());
+    node_data.name = p_node_element->get_attribute_value("name");
+    node_data.syntax = p_node_element->get_attribute_value("prog_lang");
+    node_data.tags = p_node_element->get_attribute_value("name");
+    node_data.is_ro = Glib::str_has_prefix(p_node_element->get_attribute_value("readonly"), "T");
+    node_data.custom_icon_id = gint64_from_gstring(p_node_element->get_attribute_value("custom_icon_id").c_str());
+    node_data.is_bold = Glib::str_has_prefix(p_node_element->get_attribute_value("is_bold"), "T");
     Glib::ustring foreground_rgb24 = p_node_element->get_attribute_value("foreground");
-    node_properties.fg_override = !foreground_rgb24.empty();
-    if(node_properties.fg_override)
+    node_data.fg_override = !foreground_rgb24.empty();
+    if(node_data.fg_override)
     {
-        g_strlcpy(node_properties.foreground_rgb24, foreground_rgb24.c_str(), 8);
+        g_strlcpy(node_data.foreground_rgb24, foreground_rgb24.c_str(), 8);
     }
-    node_properties.ts_creation = gint64_from_gstring(p_node_element->get_attribute_value("ts_creation").c_str());
-    node_properties.ts_lastsave = gint64_from_gstring(p_node_element->get_attribute_value("ts_lastsave").c_str());
-    return node_properties;
+    node_data.ts_creation = gint64_from_gstring(p_node_element->get_attribute_value("ts_creation").c_str());
+    node_data.ts_lastsave = gint64_from_gstring(p_node_element->get_attribute_value("ts_lastsave").c_str());
+    return node_data;
 }
 
 
 Gtk::TreeIter CherryTreeXMLRead::_xml_node_process(xmlpp::Element *p_node_element, Gtk::TreeIter *p_parent_iter)
 {
-    t_node_properties node_properties = _xml_get_node_properties(p_node_element);
-    Gtk::TreeIter new_iter;
-
-    std::cout << node_properties.name << std::endl;
-
+    t_ct_node_data node_data = _xml_get_node_properties(p_node_element);
+    Gtk::TreeIter new_iter = m_signal_append_node.emit(&node_data, p_parent_iter);
     return new_iter;
 }

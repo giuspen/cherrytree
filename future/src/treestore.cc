@@ -42,17 +42,37 @@ bool TheTree::read_nodes_from_filepath(Glib::ustring &filepath, Gtk::TreeIter *p
     CherryTreeDocRead *p_ct_doc_read = nullptr;
     if(Glib::str_has_suffix(filepath, "ctd"))
     {
-        p_ct_doc_read = new CherryTreeXMLRead(filepath, &m_bookmarks, mr_treestore);
+        p_ct_doc_read = new CherryTreeXMLRead(filepath);
     }
     else if(Glib::str_has_suffix(filepath, "ctb"))
     {
-        p_ct_doc_read = new CherryTreeSQLiteRead(filepath, &m_bookmarks, mr_treestore);
+        p_ct_doc_read = new CherryTreeSQLiteRead(filepath);
     }
     if(p_ct_doc_read != nullptr)
     {
+        p_ct_doc_read->m_signal_add_bookmark.connect(sigc::mem_fun(this, &TheTree::on_request_add_bookmark));
+        p_ct_doc_read->m_signal_append_node.connect(sigc::mem_fun(this, &TheTree::on_request_append_node));
         p_ct_doc_read->tree_walk(p_parent_iter);
         delete p_ct_doc_read;
         ret_ok = true;
     }
     return ret_ok;
+}
+
+
+Gtk::TreeIter TheTree::append_node(t_ct_node_data *p_node_data, Gtk::TreeIter *p_parent_iter)
+{
+    std::cout << p_node_data->name << std::endl;
+}
+
+
+void TheTree::on_request_add_bookmark(gint64 node_id)
+{
+    m_bookmarks.push_back(node_id);
+}
+
+
+Gtk::TreeIter TheTree::on_request_append_node(t_ct_node_data *p_node_data, Gtk::TreeIter *p_parent_iter)
+{
+    return append_node(p_node_data, p_parent_iter);
 }

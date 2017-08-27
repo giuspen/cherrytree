@@ -24,12 +24,31 @@
 #include <gtkmm.h>
 
 
-class TheTree
+struct t_ct_node_data
+{
+    gint64         node_id;
+    Glib::ustring  name;
+    Glib::ustring  syntax;
+    Glib::ustring  tags;
+    bool           is_ro;
+    guint32        custom_icon_id;
+    bool           is_bold;
+    bool           fg_override;
+    char           foreground_rgb24[8];
+    gint64         ts_creation;
+    gint64         ts_lastsave;
+};
+
+
+class TheTree : public sigc::trackable
 {
 public:
     TheTree();
     virtual ~TheTree();
     bool read_nodes_from_filepath(Glib::ustring &filepath, Gtk::TreeIter *p_parent_iter=nullptr);
+    Gtk::TreeIter append_node(t_ct_node_data *p_node_data, Gtk::TreeIter *p_parent_iter=nullptr);
+    void on_request_add_bookmark(gint64 node_id);
+    Gtk::TreeIter on_request_append_node(t_ct_node_data *p_node_data, Gtk::TreeIter *p_parent_iter);
 protected:
     class ModelColumns : public Gtk::TreeModel::ColumnRecord
     {
