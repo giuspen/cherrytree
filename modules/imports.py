@@ -1724,6 +1724,7 @@ class KeynoteHandler:
         """Parse the string line by line"""
         self.curr_state = 0
         self.curr_node_name = ""
+        self.curr_node_id = None
         self.curr_node_content = ""
         self.curr_node_level = 0
         self.former_node_level = -1
@@ -1731,8 +1732,9 @@ class KeynoteHandler:
         self.img_tmp_path = os.path.join(cons.TMP_FOLDER, "img_tmp")
         # 0: waiting for LV=
         # 1: waiting for ND=
-        # 2: waiting for %:
-        # 3: gathering node content
+        # 2: waiting for DI=
+        # 3: waiting for %:
+        # 4: parsing node content
         for text_line in file_descriptor:
             text_line = text_line.decode(cons.STR_UTF8, cons.STR_IGNORE)
             if self.curr_state == 0:
@@ -1751,11 +1753,16 @@ class KeynoteHandler:
                     self.curr_state = 2
                     self.curr_node_name = text_line[3:]
             elif self.curr_state == 2:
-                if text_line.startswith("%:"):
+                if text_line.startswith("DI="):
                     self.curr_state = 3
+                    self.curr_node_id = text_line[3:]
+            elif self.curr_state == 3:
+                if text_line.startswith("%:"):
+                    self.curr_state = 4
                     self.curr_node_content = ""
                     self.nodes_list.append(self.dom.createElement("node"))
                     self.nodes_list[-1].setAttribute("name", self.curr_node_name)
+                    self.nodes_list[-1].setAttribute("unique_id", self.curr_node_id)
                     self.nodes_list[-1].setAttribute("prog_lang", cons.RICH_TEXT_ID)
                     self.nodes_list[-2].appendChild(self.nodes_list[-1])
                     self.node_br_ok = False
@@ -1765,7 +1772,7 @@ class KeynoteHandler:
                     self.chars_counter = 0
                     self.in_br_num = 0
                     self.in_br_read_data = False
-            elif self.curr_state == 3:
+            elif self.curr_state == 4:
                 if text_line.startswith("%-") or text_line.startswith("%%"):
                     self.curr_state = 0
                     self.rich_text_serialize(self.curr_node_content)
@@ -1773,7 +1780,7 @@ class KeynoteHandler:
                         self.xml_handler.pixbuf_element_to_xml(pixbuf_element, self.nodes_list[-1], self.dom)
                     self.pixbuf_vector = []
                     self.chars_counter = 0
-                else: self.write_line_text(text_line.replace(cons.CHAR_CR, "").replace(cons.CHAR_NEWLINE, ""))
+                else: self.write_line_text(text_line.replace(cons.CHAR_CR, "").replace(cons.CHAR_NEWLINE, "") + cons.CHAR_NEWLINE)
 
     def check_pending_text_to_tag(self):
         """Check if there's text to process before opening tag"""

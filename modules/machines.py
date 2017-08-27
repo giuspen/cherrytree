@@ -122,7 +122,7 @@ class XMLHandler:
 
     def append_tree_node(self, dom_iter, tree_father, discard_ids, node_sequence):
         """Given the dom_iter node, adds it to the tree"""
-        original_id = long(dom_iter.attributes['unique_id'].value)
+        original_id = long(dom_iter.attributes['unique_id'].value) if dom_iter.hasAttribute('unique_id') else self.dad.node_id_get()
         if discard_ids is None:
             unique_id = original_id
         else:
