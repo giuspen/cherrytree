@@ -562,7 +562,7 @@ class CTDBHandler:
         try:
             node_row = db.execute('SELECT name, syntax, tags, is_ro, is_richtxt, ts_creation, ts_lastsave FROM node WHERE node_id=?', (node_id,)).fetchone()
         except:
-            node_row = db.execute('SELECT name, syntax, tags, is_ro, is_richtxt, FROM node WHERE node_id=?', (node_id,)).fetchone()
+            node_row = db.execute('SELECT name, syntax, tags, is_ro, is_richtxt FROM node WHERE node_id=?', (node_id,)).fetchone()
         return node_row
 
     def read_db_node_n_children(self, db, original_id, node_row, tree_father, discard_ids, node_sequence):
