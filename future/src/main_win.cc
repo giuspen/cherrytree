@@ -24,8 +24,26 @@
 #include "main_win.h"
 
 
+TheTreeView::TheTreeView() : Gtk::TreeView()
+{
+    set_headers_visible(false);
+}
+
+
+TheTreeView::~TheTreeView()
+{
+}
+
+
 MainWindow::MainWindow() : Gtk::ApplicationWindow()
 {
+    m_scrolledwindow_tree.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
+    add(m_scrolledwindow_tree);
+    m_treestore.view_append_columns(&m_treeview);
+    m_treestore.view_connect(&m_treeview);
+    m_scrolledwindow_tree.add(m_treeview);
+    set_size_request(300, 400);
+    show_all();
 }
 
 
@@ -36,5 +54,5 @@ MainWindow::~MainWindow()
 
 bool MainWindow::read_nodes_from_filepath(Glib::ustring &filepath)
 {
-    return m_tree.read_nodes_from_filepath(filepath);
+    return m_treestore.read_nodes_from_filepath(filepath);
 }

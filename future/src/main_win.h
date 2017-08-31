@@ -25,13 +25,24 @@
 #include "treestore.h"
 
 
+class TheTreeView : public Gtk::TreeView
+{
+public:
+    TheTreeView();
+    virtual ~TheTreeView();
+};
+
+
 class MainWindow : public Gtk::ApplicationWindow
 {
 public:
     MainWindow();
     virtual ~MainWindow();
+
     bool read_nodes_from_filepath(Glib::ustring &filepath);
 
 protected:
-    TheTree m_tree;
+    Gtk::ScrolledWindow m_scrolledwindow_tree;
+    TheTreeStore        m_treestore;
+    TheTreeView         m_treeview;
 };

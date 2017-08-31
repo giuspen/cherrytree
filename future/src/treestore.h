@@ -40,43 +40,55 @@ struct t_ct_node_data
 };
 
 
-class TheTree : public sigc::trackable
+class TheTreeModelColumns : public Gtk::TreeModel::ColumnRecord
 {
 public:
-    TheTree();
-    virtual ~TheTree();
-    bool read_nodes_from_filepath(Glib::ustring &filepath, Gtk::TreeIter *p_parent_iter=nullptr);
-    Gtk::TreeIter append_node(t_ct_node_data *p_node_data, Gtk::TreeIter *p_parent_iter=nullptr);
-    void on_request_add_bookmark(gint64 node_id);
-    Gtk::TreeIter on_request_append_node(t_ct_node_data *p_node_data, Gtk::TreeIter *p_parent_iter);
-protected:
-    class ModelColumns : public Gtk::TreeModel::ColumnRecord
+    TheTreeModelColumns()
     {
-    public:
-        ModelColumns()
-        {
-            add(m_col_icon_stock_id); add(m_col_node_name); add(m_col_text_buffer); add(m_col_node_unique_id);
-            add(m_col_syntax_highlighting); add(m_col_node_sequence); add(m_col_node_tags); add(m_col_node_ro);
-            add(m_col_aux_icon_stock_id); add(m_col_custom_icon_id); add(m_col_weight); add(m_col_foreground);
-            add(m_col_ts_creation); add(m_col_ts_lastsave);
-        }
-        Gtk::TreeModelColumn<Glib::ustring>                 m_col_icon_stock_id;
-        Gtk::TreeModelColumn<Glib::ustring>                 m_col_node_name;
-        Gtk::TreeModelColumn<Glib::RefPtr<Gtk::TextBuffer>> m_col_text_buffer;
-        Gtk::TreeModelColumn<gint64>                        m_col_node_unique_id;
-        Gtk::TreeModelColumn<Glib::ustring>                 m_col_syntax_highlighting;
-        Gtk::TreeModelColumn<guint16>                       m_col_node_sequence;
-        Gtk::TreeModelColumn<Glib::ustring>                 m_col_node_tags;
-        Gtk::TreeModelColumn<bool>                          m_col_node_ro;
-        Gtk::TreeModelColumn<Glib::ustring>                 m_col_aux_icon_stock_id;
-        Gtk::TreeModelColumn<guint16>                       m_col_custom_icon_id;
-        Gtk::TreeModelColumn<guint16>                       m_col_weight;
-        Gtk::TreeModelColumn<Glib::ustring>                 m_col_foreground;
-        Gtk::TreeModelColumn<gint64>                        m_col_ts_creation;
-        Gtk::TreeModelColumn<gint64>                        m_col_ts_lastsave;
-    };
-    ModelColumns m_columns;
+        add(m_col_icon_stock_id); add(m_col_node_name); add(m_col_text_buffer); add(m_col_node_unique_id);
+        add(m_col_syntax_highlighting); add(m_col_node_sequence); add(m_col_node_tags); add(m_col_node_ro);
+        add(m_col_aux_icon_stock_id); add(m_col_custom_icon_id); add(m_col_weight); add(m_col_foreground);
+        add(m_col_ts_creation); add(m_col_ts_lastsave);
+    }
+    Gtk::TreeModelColumn<Glib::ustring>                 m_col_icon_stock_id;
+    Gtk::TreeModelColumn<Glib::ustring>                 m_col_node_name;
+    Gtk::TreeModelColumn<Glib::RefPtr<Gtk::TextBuffer>> m_col_text_buffer;
+    Gtk::TreeModelColumn<gint64>                        m_col_node_unique_id;
+    Gtk::TreeModelColumn<Glib::ustring>                 m_col_syntax_highlighting;
+    Gtk::TreeModelColumn<guint16>                       m_col_node_sequence;
+    Gtk::TreeModelColumn<Glib::ustring>                 m_col_node_tags;
+    Gtk::TreeModelColumn<bool>                          m_col_node_ro;
+    Gtk::TreeModelColumn<Glib::ustring>                 m_col_aux_icon_stock_id;
+    Gtk::TreeModelColumn<guint16>                       m_col_custom_icon_id;
+    Gtk::TreeModelColumn<guint16>                       m_col_weight;
+    Gtk::TreeModelColumn<Glib::ustring>                 m_col_foreground;
+    Gtk::TreeModelColumn<gint64>                        m_col_ts_creation;
+    Gtk::TreeModelColumn<gint64>                        m_col_ts_lastsave;
+};
 
+
+class TheTreeStore : public sigc::trackable
+{
+public:
+    TheTreeStore();
+    virtual ~TheTreeStore();
+
+    void view_connect(Gtk::TreeView *p_treeview);
+
+    void view_append_columns(Gtk::TreeView *p_treeview);
+
+    bool read_nodes_from_filepath(Glib::ustring &filepath, Gtk::TreeIter *p_parent_iter=nullptr);
+
+    Gtk::TreeIter append_node(t_ct_node_data *p_node_data, Gtk::TreeIter *p_parent_iter=nullptr);
+
+    void on_request_add_bookmark(gint64 node_id);
+
+    Gtk::TreeIter on_request_append_node(t_ct_node_data *p_node_data, Gtk::TreeIter *p_parent_iter);
+
+protected:
+    guint16 _get_pango_weight(bool is_bold);
+
+    TheTreeModelColumns          m_columns;
     Glib::RefPtr<Gtk::TreeStore> mr_treestore;
     std::list<gint64>            m_bookmarks;
 };
