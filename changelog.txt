@@ -1,4 +1,12 @@
 
+0.38.2 (September 1st, 2017)
+  * bugfix in import from cherrytree file (links broken)
+  * bugfix in export to HTML ('#' in node name)
+  * left arrow key press with focus on an already collapsed tree node, now moves the selection to the node parent
+  * automatic syntax highlighting nodes - added right click menus cut & copy as plain text
+  * bugfix in recent filenames, problem with underscore character
+  * bugfix in import from keynote
+
 0.38.1 (June 9th, 2017)
   * bugfix in export to txt
   * bugfix in all matches dialog hide/restore selected line

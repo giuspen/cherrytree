@@ -1,11 +1,10 @@
-cherrytree (0.38.1-0xenial1) xenial; urgency=low
+cherrytree (0.38.2-0) xenial; urgency=low
 
-  * bugfix in export to txt
-  * bugfix in all matches dialog hide/restore selected line
-  * sqlite document: when save and vacuum, perform also the reindex
-  * added yaml syntax highlighting (Sergei Zyubin)
-  * bugfix unwanted syntax highlighting in plain text
-  * bugfix in import from rednotebook
-  * better implementation for the recent docs saving in config.cfg
+  * bugfix in import from cherrytree file (links broken)
+  * bugfix in export to HTML ('#' in node name)
+  * left arrow key press with focus on an already collapsed tree node, now moves the selection to the node parent
+  * automatic syntax highlighting nodes - added right click menus cut & copy as plain text
+  * bugfix in recent filenames, problem with underscore character
+  * bugfix in import from keynote
 
- -- Giuseppe Penone <giuspen@gmail.com>  Fri, 09 Jun 2017 22:44:50 +0100
+ -- Giuseppe Penone <giuspen@gmail.com>  Fri, 01 Sep 2017 22:49:06 +0100
