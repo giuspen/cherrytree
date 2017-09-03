@@ -31,3 +31,6 @@ AC_SUBST(CHERRYTREE_LOCALEDIR)
 
 
 AC_OUTPUT
+
+
+python3 scripts/gresource_to_c.py

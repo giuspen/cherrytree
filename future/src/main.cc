@@ -23,6 +23,7 @@
 #include <glibmm/i18n.h>
 #include <iostream>
 #include "main_win.h"
+#include "icons.gresource.h"
 
 
 class CTApplication: public Gtk::Application
@@ -50,6 +51,13 @@ static void _print_help_message()
 
 CTApplication::CTApplication() : Gtk::Application("com.giuspen.cherrytree", Gio::APPLICATION_HANDLES_OPEN)
 {
+    GResource *p_gresource = icons_get_resource();
+    gchar **array_of_strings = g_resources_enumerate_children("/icons/", G_RESOURCE_LOOKUP_FLAGS_NONE, NULL);
+    for(gchar **ptr = array_of_strings; *ptr; ptr++)
+    {
+        std::cout << *ptr << std::endl;
+    }
+    g_strfreev(array_of_strings);
 }
 
 

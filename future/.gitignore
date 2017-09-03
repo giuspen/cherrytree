@@ -1,4 +1,5 @@
 cherrytree
+*.gresource.*
 
 ABOUT-NLS
 COPYING
@@ -6,12 +7,7 @@ INSTALL
 aclocal.m4
 autom4te.cache/
 compile
-config.guess
-config.h
-config.log
-config.rpath
-config.status
-config.sub
+config.*
 configure
 depcomp
 install-sh
@@ -20,11 +16,10 @@ missing
 po/Makevars.template
 po/POTFILES
 po/Rules-quot
-po/en@boldquot.header
-po/en@quot.header
+*.header
 po/stamp-it
-src/.deps/
-src/.dirstamp
 stamp-h1
+*.deps/
+*.dirstamp
 
 *bin_tests_*

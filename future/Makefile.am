@@ -33,7 +33,8 @@ cherrytree_SOURCES = src/main.cc \
                      src/main_win.cc src/main_win.h \
                      src/treestore.cc src/treestore.h \
                      src/ct_sqlite3_rw.cc src/ct_xml_rw.cc src/ct_doc_rw.h \
-                     src/str_utils.cc src/str_utils.h
+                     src/str_utils.cc src/str_utils.h \
+                     src/icons.gresource.cc src/icons.gresource.h
 
 ## Set the library dependencies for the "example" target to the value obtained
 ## from pkg-config via PKG_CHECK_MODULES in configure.ac.  These libraries are

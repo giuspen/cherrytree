@@ -75,7 +75,7 @@ bool TheTreeStore::read_nodes_from_filepath(Glib::ustring &filepath, Gtk::TreeIt
 Gtk::TreeIter TheTreeStore::append_node(t_ct_node_data *p_node_data, Gtk::TreeIter *p_parent_iter)
 {
     Gtk::TreeIter new_iter;
-    std::cout << p_node_data->name << std::endl;
+    //std::cout << p_node_data->name << std::endl;
 
     if(p_parent_iter == nullptr)
     {
