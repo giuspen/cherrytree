@@ -35,10 +35,8 @@ def main(args):
     gresources_ElementTree = etree.ElementTree(gresources_Element)
     gresources_ElementTree.write(GRESOURCE_XML_FILEPATH, xml_declaration=True, encoding='UTF-8', pretty_print=True)
 
-    # convert gresource xml to source files
+    # convert gresource xml to source file
     shell_cmd = ("glib-compile-resources", "--target="+GRESOURCE_SOURCE_FILEPATH_NOEXT+".cc", "--generate-source", GRESOURCE_XML_FILEPATH)
-    subprocess.call(shell_cmd, cwd=ICONS_DIR)
-    shell_cmd = ("glib-compile-resources", "--target="+GRESOURCE_SOURCE_FILEPATH_NOEXT+".h", "--generate-header", GRESOURCE_XML_FILEPATH)
     subprocess.call(shell_cmd, cwd=ICONS_DIR)
     return 0
 

@@ -1,5 +1,5 @@
 /*
- * main.cc
+ * ct_app.h
  * 
  * Copyright 2017 giuspen <giuspen@gmail.com>
  * 
@@ -19,20 +19,26 @@
  * MA 02110-1301, USA.
  */
 
-#include <iostream>
-#include <glibmm/i18n.h>
-#include "ct_app.h"
+#include <gtkmm.h>
+#include "main_win.h"
 
 
-int main(int argc, char *argv[])
+class CTApplication: public Gtk::Application
 {
-    std::locale::global(std::locale("")); // Set the global C++ locale to the user-specified locale
+protected:
+    CTApplication();
 
-    bindtextdomain(GETTEXT_PACKAGE, CHERRYTREE_LOCALEDIR);
-    bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
-    textdomain(GETTEXT_PACKAGE);
+public:
+    static Glib::RefPtr<CTApplication> create();
 
-    auto p_app = CTApplication::create();
+protected:
+    void on_activate() override;
+    void on_open(const Gio::Application::type_vec_files& files, const Glib::ustring& hint) override;
 
-    return p_app->run(argc, argv);
-}
+    void _print_help_message();
+    void _print_gresource_icons();
+    void _icontheme_populate();
+
+private:
+    MainWindow* create_appwindow();
+};

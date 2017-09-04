@@ -30,11 +30,12 @@ bin_PROGRAMS = cherrytree
 ## header files (.h) do not result in object files by themselves, but will be
 ## included in distribution archives of the project.
 cherrytree_SOURCES = src/main.cc \
+                     src/ct_app.cc src/ct_app.h \
                      src/main_win.cc src/main_win.h \
                      src/treestore.cc src/treestore.h \
                      src/ct_sqlite3_rw.cc src/ct_xml_rw.cc src/ct_doc_rw.h \
                      src/str_utils.cc src/str_utils.h \
-                     src/icons.gresource.cc src/icons.gresource.h
+                     src/icons.gresource.cc
 
 ## Set the library dependencies for the "example" target to the value obtained
 ## from pkg-config via PKG_CHECK_MODULES in configure.ac.  These libraries are
