@@ -45,12 +45,12 @@ class TheTreeModelColumns : public Gtk::TreeModel::ColumnRecord
 public:
     TheTreeModelColumns()
     {
-        add(m_col_icon_stock_id); add(m_col_node_name); add(m_col_text_buffer); add(m_col_node_unique_id);
+        add(mr_col_pixbuf); add(m_col_node_name); add(m_col_text_buffer); add(m_col_node_unique_id);
         add(m_col_syntax_highlighting); add(m_col_node_sequence); add(m_col_node_tags); add(m_col_node_ro);
-        add(m_col_aux_icon_stock_id); add(m_col_custom_icon_id); add(m_col_weight); add(m_col_foreground);
+        add(mr_col_pixbuf_aux); add(m_col_custom_icon_id); add(m_col_weight); add(m_col_foreground);
         add(m_col_ts_creation); add(m_col_ts_lastsave);
     }
-    Gtk::TreeModelColumn<Glib::ustring>                 m_col_icon_stock_id;
+    Gtk::TreeModelColumn<Glib::RefPtr<Gdk::Pixbuf>>     mr_col_pixbuf;
     Gtk::TreeModelColumn<Glib::ustring>                 m_col_node_name;
     Gtk::TreeModelColumn<Glib::RefPtr<Gtk::TextBuffer>> m_col_text_buffer;
     Gtk::TreeModelColumn<gint64>                        m_col_node_unique_id;
@@ -58,7 +58,7 @@ public:
     Gtk::TreeModelColumn<guint16>                       m_col_node_sequence;
     Gtk::TreeModelColumn<Glib::ustring>                 m_col_node_tags;
     Gtk::TreeModelColumn<bool>                          m_col_node_ro;
-    Gtk::TreeModelColumn<Glib::ustring>                 m_col_aux_icon_stock_id;
+    Gtk::TreeModelColumn<Glib::RefPtr<Gdk::Pixbuf>>     mr_col_pixbuf_aux;
     Gtk::TreeModelColumn<guint16>                       m_col_custom_icon_id;
     Gtk::TreeModelColumn<guint16>                       m_col_weight;
     Gtk::TreeModelColumn<Glib::ustring>                 m_col_foreground;

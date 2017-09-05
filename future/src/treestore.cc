@@ -44,7 +44,11 @@ void TheTreeStore::view_connect(Gtk::TreeView *p_treeview)
 
 void TheTreeStore::view_append_columns(Gtk::TreeView *p_treeview)
 {
-    p_treeview->append_column("", m_columns.m_col_node_name);
+    Gtk::TreeView::Column* p_column = Gtk::manage(new Gtk::TreeView::Column(""));
+    p_column->pack_start(m_columns.mr_col_pixbuf, /*expand=*/false);
+    p_column->pack_start(m_columns.m_col_node_name);
+    p_column->pack_start(m_columns.mr_col_pixbuf_aux, /*expand=*/false);
+    p_treeview->append_column(*p_column);
 }
 
 
@@ -85,8 +89,9 @@ Gtk::TreeIter TheTreeStore::append_node(t_ct_node_data *p_node_data, Gtk::TreeIt
     {
         new_iter = mr_treestore->append(static_cast<Gtk::TreeRow>(**p_parent_iter).children());
     }
+    Glib::RefPtr<Gtk::IconTheme> r_icontheme = Gtk::IconTheme::get_default();
     Gtk::TreeRow row = *new_iter;
-    //row[m_columns.m_col_icon_stock_id] = ;
+    row[m_columns.mr_col_pixbuf] = r_icontheme->load_icon("cherry_red", 20);
     row[m_columns.m_col_node_name] = p_node_data->name;
     //row[m_columns.m_col_text_buffer] = ;
     row[m_columns.m_col_node_unique_id] = p_node_data->node_id;
@@ -94,7 +99,7 @@ Gtk::TreeIter TheTreeStore::append_node(t_ct_node_data *p_node_data, Gtk::TreeIt
     //row[m_columns.m_col_node_sequence] = ;
     row[m_columns.m_col_node_tags] = p_node_data->tags;
     row[m_columns.m_col_node_ro] = p_node_data->is_ro;
-    //row[m_columns.m_col_aux_icon_stock_id] = ;
+    //row[m_columns.mr_col_pixbuf_aux] = ;
     row[m_columns.m_col_custom_icon_id] = p_node_data->custom_icon_id;
     row[m_columns.m_col_weight] = _get_pango_weight(p_node_data->is_bold);
     //row[m_columns.m_col_foreground] = ;
