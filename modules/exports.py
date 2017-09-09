@@ -468,7 +468,8 @@ class Export2Pango:
                 span_opened = False
                 former_tag_str = cons.COLOR_48_BLACK
                 pango_text += "</span>"
-            pango_text += cgi.escape(curr_iter.get_char())
+            try: pango_text += cgi.escape(curr_iter.get_char())
+            except: pass
             if not curr_iter.forward_char() or (sel_range and curr_iter.get_offset() > sel_range[1]):
                 if span_opened: pango_text += "</span>"
                 break
