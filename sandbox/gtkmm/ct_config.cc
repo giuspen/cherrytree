@@ -27,6 +27,8 @@
 #include <iostream>
 #include <glibmm.h>
 
+#define MAX_RECENT_DOCS 10
+
 class CTConfig
 {
 public:
@@ -34,18 +36,27 @@ public:
     virtual ~CTConfig();
 
     // [state]
-    Glib::ustring m_file_dir;
-    Glib::ustring m_file_name;
-    bool          m_toolbar_visible;
-    bool          m_win_is_maximized;
-    int           m_win_rect[4];
-    int           m_hpaned_pos;
+    Glib::ustring            m_file_dir;
+    Glib::ustring            m_file_name;
+    bool                     m_toolbar_visible;
+    bool                     m_win_is_maximized;
+    int                      m_win_rect[4];
+    int                      m_hpaned_pos;
+    Glib::ustring            m_node_path;
+    int                      m_cursor_position;
+    std::list<Glib::ustring> m_recent_docs;
+    Glib::ustring            m_pick_dir_import;
+    Glib::ustring            m_pick_dir_export;
+    Glib::ustring            m_pick_dir_file;
+    Glib::ustring            m_pick_dir_img;
+    Glib::ustring            m_pick_dir_csv;
+    Glib::ustring            m_pick_dir_cbox;
 
 protected:
     void _populate_with_defaults();
-    void _populate_string_from_keyfile(const Glib::ustring &group, const gchar *key, Glib::ustring *p_target);
-    void _populate_bool_from_keyfile(const Glib::ustring &group, const gchar *key, bool *p_target);
-    void _populate_int_from_keyfile(const Glib::ustring &group, const gchar *key, int *p_target);
+    bool _populate_string_from_keyfile(const Glib::ustring &group, const gchar *key, Glib::ustring *p_target);
+    bool _populate_bool_from_keyfile(const Glib::ustring &group, const gchar *key, bool *p_target);
+    bool _populate_int_from_keyfile(const Glib::ustring &group, const gchar *key, int *p_target);
     void _populate_from_keyfile();
     bool _check_load_from_file();
     void _unexpected_keyfile_error(const gchar *key, const Glib::KeyFileError &kferror);
@@ -82,28 +93,33 @@ void CTConfig::_populate_with_defaults()
     m_hpaned_pos = 170;
 }
 
-void CTConfig::_populate_string_from_keyfile(const Glib::ustring &group, const gchar *key, Glib::ustring *p_target)
+bool CTConfig::_populate_string_from_keyfile(const Glib::ustring &group, const gchar *key, Glib::ustring *p_target)
 {
+    bool got_it = false;
     if (mp_key_file->has_key(group, key))
     {
         try
         {
             *p_target = mp_key_file->get_value(group, key);
+            got_it = true;
         }
         catch (Glib::KeyFileError &kferror)
         {
             _unexpected_keyfile_error(key, kferror);
         }
     }
+    return got_it;
 }
 
-void CTConfig::_populate_bool_from_keyfile(const Glib::ustring &group, const gchar *key, bool *p_target)
+bool CTConfig::_populate_bool_from_keyfile(const Glib::ustring &group, const gchar *key, bool *p_target)
 {
+    bool got_it = false;
     if (mp_key_file->has_key(group, key))
     {
         try
         {
             *p_target = mp_key_file->get_boolean(group, key);
+            got_it = true;
         }
         catch (Glib::KeyFileError &kferror)
         {
@@ -112,6 +128,7 @@ void CTConfig::_populate_bool_from_keyfile(const Glib::ustring &group, const gch
                 // booleans from python ConfigParser
                 Glib::ustring bool_str = mp_key_file->get_value(group, key);
                 *p_target = (bool_str == "True");
+                got_it = true;
             }
             else
             {
@@ -119,21 +136,25 @@ void CTConfig::_populate_bool_from_keyfile(const Glib::ustring &group, const gch
             }
         }
     }
+    return got_it;
 }
 
-void CTConfig::_populate_int_from_keyfile(const Glib::ustring &group, const gchar *key, int *p_target)
+bool CTConfig::_populate_int_from_keyfile(const Glib::ustring &group, const gchar *key, int *p_target)
 {
+    bool got_it = false;
     if (mp_key_file->has_key(group, key))
     {
         try
         {
             *p_target = mp_key_file->get_integer(group, key);
+            got_it = true;
         }
         catch (Glib::KeyFileError &kferror)
         {
             _unexpected_keyfile_error(key, kferror);
         }
     }
+    return got_it;
 }
 
 void CTConfig::_unexpected_keyfile_error(const gchar *key, const Glib::KeyFileError &kferror)
@@ -153,6 +174,27 @@ void CTConfig::_populate_from_keyfile()
     _populate_int_from_keyfile(curr_group, "win_size_w", &m_win_rect[2]);
     _populate_int_from_keyfile(curr_group, "win_size_h", &m_win_rect[3]);
     _populate_int_from_keyfile(curr_group, "hpaned_pos", &m_hpaned_pos);
+    if (_populate_string_from_keyfile(curr_group, "node_path", &m_node_path))
+    {
+        _populate_int_from_keyfile(curr_group, "cursor_position", &m_cursor_position);
+    }
+    for (int i=0; i<MAX_RECENT_DOCS; i++)
+    {
+        Glib::ustring recent_doc;
+        gchar key[10];
+        snprintf(key, 10, "doc_%d", i);
+        if (!_populate_string_from_keyfile(curr_group, key, &recent_doc))
+        {
+            break;
+        }
+        m_recent_docs.push_back(recent_doc);
+    }
+    _populate_string_from_keyfile(curr_group, "pick_dir_import", &m_pick_dir_import);
+    _populate_string_from_keyfile(curr_group, "pick_dir_export", &m_pick_dir_export);
+    _populate_string_from_keyfile(curr_group, "pick_dir_file", &m_pick_dir_file);
+    _populate_string_from_keyfile(curr_group, "pick_dir_img", &m_pick_dir_img);
+    _populate_string_from_keyfile(curr_group, "pick_dir_csv", &m_pick_dir_csv);
+    _populate_string_from_keyfile(curr_group, "pick_dir_cbox", &m_pick_dir_cbox);
 }
 
 bool CTConfig::_check_load_from_file()
