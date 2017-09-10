@@ -59,6 +59,16 @@ const gchar   CHERRY_GREEN[] = "cherry_green";
 const gchar   CHERRY_PURPLE[] = "cherry_purple";
 const gchar   CHERRY_BLACK[] = "cherry_black";
 const gchar   CHERRY_GRAY[] = "cherry_gray";
+const gchar   RICH_TEXT_ID[] = "custom-colors";
+const gchar   PLAIN_TEXT_ID[] = "plain-text";
+const gchar   SYN_HIGHL_BASH[] = "sh";
+const gchar   STYLE_SCHEME_LIGHT[] = "classic";
+const gchar   STYLE_SCHEME_DARK[] = "cobalt";
+const gchar   STYLE_SCHEME_GRAY[] = "oblivion";
+const gchar   SPECIAL_CHARS_DEFAULT[] = "“”„‘’•◇▪▸☐☑☒★…‰€©®™°↓↑→←↔↵⇓⇑⇒⇐⇔»«▼▲►◄≤≥≠≈±¹²³½¼⅛×÷∞ø∑√∫ΔδΠπΣΦΩωαβγεηλμ☺☻☼♥♣♦✔♀♂♪♫✝";
+const gchar   SELWORD_CHARS_DEFAULT[] = ".-@";
+const gchar   CHARS_LISTBUL_DEFAULT[] = "•◇▪-→⇒";
+const gchar   CHARS_TOC_DEFAULT[] = "▸•◇▪";
 const int NODE_ICON_CODE_ID = 38;
 const int NODE_ICON_BULLET_ID = 25;
 const int NODE_ICON_NO_ICON_ID = 26;
@@ -149,6 +159,39 @@ public:
     Glib::ustring                               m_nodes_icons;
     bool                                        m_aux_icon_hide;
     int                                         m_default_icon_text;
+    bool                                        m_tree_right_side;
+    int                                         m_cherry_wrap_width;
+    bool                                        m_tree_click_focus_text;
+    bool                                        m_tree_click_expand;
+
+    // [editor]
+    Glib::ustring                               m_syntax_highlighting;
+    Glib::ustring                               m_auto_syn_highl;
+    Glib::ustring                               m_style_scheme;
+    bool                                        m_enable_spell_check;
+    Glib::ustring                               m_spell_check_lang;
+    bool                                        m_show_line_numbers;
+    bool                                        m_spaces_instead_tabs;
+    int                                         m_tabs_width;
+    int                                         m_anchor_size;
+    int                                         m_embfile_size;
+    bool                                        m_embfile_show_filename;
+    int                                         m_embfile_max_size;
+    bool                                        m_line_wrapping;
+    bool                                        m_auto_smart_quotes;
+    int                                         m_wrapping_indent;
+    bool                                        m_auto_indent;
+    bool                                        m_rt_show_white_spaces;
+    bool                                        m_pt_show_white_spaces;
+    bool                                        m_rt_highl_curr_line;
+    bool                                        m_pt_highl_curr_line;
+    int                                         m_space_around_lines;
+    int                                         m_relative_wrapped_space;
+    Glib::ustring                               m_h_rule;
+    Glib::ustring                               m_special_chars;
+    Glib::ustring                               m_selword_chars;
+    Glib::ustring                               m_chars_listbul;
+    Glib::ustring                               m_chars_toc;
 
 protected:
     void _populate_with_defaults();
@@ -204,6 +247,38 @@ void CTConfig::_populate_with_defaults()
     m_nodes_icons = NODE_ICON_TYPE_CHERRY;
     m_aux_icon_hide = false;
     m_default_icon_text = NODE_ICON_BULLET_ID;
+    m_tree_right_side = false;
+    m_cherry_wrap_width = 130;
+    m_tree_click_focus_text = false;
+    m_tree_click_expand = false;
+
+    // [editor]
+    m_syntax_highlighting = RICH_TEXT_ID;
+    m_auto_syn_highl = SYN_HIGHL_BASH;
+    m_style_scheme = STYLE_SCHEME_DARK;
+    m_enable_spell_check = false;
+    m_show_line_numbers = false;
+    m_spaces_instead_tabs = true;
+    m_tabs_width = 4;
+    m_anchor_size = 16;
+    m_embfile_size = 48;
+    m_embfile_show_filename = true;
+    m_embfile_max_size = 10;
+    m_line_wrapping = true;
+    m_auto_smart_quotes = true;
+    m_wrapping_indent = -14;
+    m_auto_indent = true;
+    m_rt_show_white_spaces = false;
+    m_pt_show_white_spaces = true;
+    m_rt_highl_curr_line = true;
+    m_pt_highl_curr_line = true;
+    m_space_around_lines = 0;
+    m_relative_wrapped_space = 50;
+    m_h_rule = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
+    m_special_chars = SPECIAL_CHARS_DEFAULT;
+    m_selword_chars = SELWORD_CHARS_DEFAULT;
+    m_chars_listbul = CHARS_LISTBUL_DEFAULT;
+    m_chars_toc = CHARS_TOC_DEFAULT;
 }
 
 bool CTConfig::_populate_string_from_keyfile(const gchar *key, Glib::ustring *p_target)
@@ -345,6 +420,42 @@ void CTConfig::_populate_from_keyfile()
     _populate_string_from_keyfile("nodes_icons", &m_nodes_icons);
     _populate_bool_from_keyfile("aux_icon_hide", &m_aux_icon_hide);
     _populate_int_from_keyfile("default_icon_text", &m_default_icon_text);
+    _populate_bool_from_keyfile("tree_right_side", &m_tree_right_side);
+    _populate_int_from_keyfile("cherry_wrap_width", &m_cherry_wrap_width);
+    _populate_bool_from_keyfile("tree_click_focus_text", &m_tree_click_focus_text);
+    _populate_bool_from_keyfile("tree_click_expand", &m_tree_click_expand);
+
+    // [editor]
+    _m_current_group = "editor";
+    _populate_string_from_keyfile("syntax_highlighting", &m_syntax_highlighting);
+    _populate_string_from_keyfile("auto_syn_highl", &m_auto_syn_highl);
+    _populate_string_from_keyfile("style_scheme", &m_style_scheme);
+    if (_populate_bool_from_keyfile("enable_spell_check", &m_enable_spell_check))
+    {
+        _populate_string_from_keyfile("spell_check_lang", &m_spell_check_lang);
+    }
+    _populate_bool_from_keyfile("show_line_numbers", &m_show_line_numbers);
+    _populate_bool_from_keyfile("spaces_instead_tabs", &m_spaces_instead_tabs);
+    _populate_int_from_keyfile("tabs_width", &m_tabs_width);
+    _populate_int_from_keyfile("anchor_size", &m_anchor_size);
+    _populate_int_from_keyfile("embfile_size", &m_embfile_size);
+    _populate_bool_from_keyfile("embfile_show_filename", &m_embfile_show_filename);
+    _populate_int_from_keyfile("embfile_max_size", &m_embfile_max_size);
+    _populate_bool_from_keyfile("line_wrapping", &m_line_wrapping);
+    _populate_bool_from_keyfile("auto_smart_quotes", &m_auto_smart_quotes);
+    _populate_int_from_keyfile("wrapping_indent", &m_wrapping_indent);
+    _populate_bool_from_keyfile("auto_indent", &m_auto_indent);
+    _populate_bool_from_keyfile("rt_show_white_spaces", &m_rt_show_white_spaces);
+    _populate_bool_from_keyfile("pt_show_white_spaces", &m_pt_show_white_spaces);
+    _populate_bool_from_keyfile("rt_highl_curr_line", &m_rt_highl_curr_line);
+    _populate_bool_from_keyfile("pt_highl_curr_line", &m_pt_highl_curr_line);
+    _populate_int_from_keyfile("space_around_lines", &m_space_around_lines);
+    _populate_int_from_keyfile("relative_wrapped_space", &m_relative_wrapped_space);
+    _populate_string_from_keyfile("h_rule", &m_h_rule);
+    _populate_string_from_keyfile("special_chars", &m_special_chars);
+    _populate_string_from_keyfile("selword_chars", &m_selword_chars);
+    _populate_string_from_keyfile("chars_listbul", &m_chars_listbul);
+    _populate_string_from_keyfile("chars_toc", &m_chars_toc);
 }
 
 bool CTConfig::_check_load_from_file()
@@ -361,5 +472,10 @@ bool CTConfig::_check_load_from_file()
 
 int main(int argc, char *argv[])
 {
+    std::locale::global(std::locale("")); // Set the global C++ locale to the user-specified locale
     CTConfig ct_config;
+    std::cout << ct_config.m_special_chars.size() << "\t" << ct_config.m_special_chars << std::endl;
+    std::cout << ct_config.m_selword_chars.size() << "\t" << ct_config.m_selword_chars << std::endl;
+    std::cout << ct_config.m_chars_listbul.size() << "\t" << ct_config.m_chars_listbul << std::endl;
+    std::cout << ct_config.m_chars_toc.size() << "\t" << ct_config.m_chars_toc << std::endl;
 }
