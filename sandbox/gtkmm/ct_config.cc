@@ -30,6 +30,7 @@
 #include <gtkmm.h>
 
 enum class RestoreExpColl : int {FROM_STR=0, ALL_EXP=1, ALL_COLL=2};
+enum class TableColMode : int {RENAME=0, ADD=1, DELETE=2, RIGHT=3, LEFT=4};
 
 struct t_ct_recent_docs_restore
 {
@@ -65,6 +66,7 @@ const gchar   SYN_HIGHL_BASH[] = "sh";
 const gchar   STYLE_SCHEME_LIGHT[] = "classic";
 const gchar   STYLE_SCHEME_DARK[] = "cobalt";
 const gchar   STYLE_SCHEME_GRAY[] = "oblivion";
+const gchar   TIMESTAMP_FORMAT_DEFAULT[] = "%Y/%m/%d - %H:%M";
 const gchar   SPECIAL_CHARS_DEFAULT[] = "“”„‘’•◇▪▸☐☑☒★…‰€©®™°↓↑→←↔↵⇓⇑⇒⇐⇔»«▼▲►◄≤≥≠≈±¹²³½¼⅛×÷∞ø∑√∫ΔδΠπΣΦΩωαβγεηλμ☺☻☼♥♣♦✔♀♂♪♫✝";
 const gchar   SELWORD_CHARS_DEFAULT[] = ".-@";
 const gchar   CHARS_LISTBUL_DEFAULT[] = "•◇▪-→⇒";
@@ -192,6 +194,41 @@ public:
     Glib::ustring                               m_selword_chars;
     Glib::ustring                               m_chars_listbul;
     Glib::ustring                               m_chars_toc;
+    Glib::ustring                               m_latest_tag_prop;
+    Glib::ustring                               m_latest_tag_val;
+    Glib::ustring                               m_timestamp_format;
+    bool                                        m_links_underline;
+    bool                                        m_links_relative;
+    bool                                        m_weblink_custom_on;
+    bool                                        m_filelink_custom_on;
+    bool                                        m_folderlink_custom_on;
+    Glib::ustring                               m_weblink_custom_act;
+    Glib::ustring                               m_filelink_custom_act;
+    Glib::ustring                               m_folderlink_custom_act;
+
+    // [codebox]
+    int                                         m_codebox_width;
+    int                                         m_codebox_height;
+    bool                                        m_codebox_width_pixels;
+    bool                                        m_codebox_line_num;
+    bool                                        m_codebox_match_bra;
+    Glib::ustring                               m_codebox_syn_highl;
+    bool                                        m_codebox_auto_resize;
+
+    // [table]
+    int                                         m_table_rows;
+    int                                         m_table_columns;
+    TableColMode                                m_table_col_mode;
+    int                                         m_table_col_min;
+    int                                         m_table_col_max;
+
+    // [fonts]
+    Glib::ustring                               m_text_font;
+    Glib::ustring                               m_tree_font;
+    Glib::ustring                               m_code_font;
+
+    // [colors]
+    
 
 protected:
     void _populate_with_defaults();
@@ -279,6 +316,39 @@ void CTConfig::_populate_with_defaults()
     m_selword_chars = SELWORD_CHARS_DEFAULT;
     m_chars_listbul = CHARS_LISTBUL_DEFAULT;
     m_chars_toc = CHARS_TOC_DEFAULT;
+    m_timestamp_format = TIMESTAMP_FORMAT_DEFAULT;
+    m_links_underline = true;
+    m_links_relative = false;
+    m_weblink_custom_on = false;
+    m_filelink_custom_on = false;
+    m_folderlink_custom_on = false;
+    m_weblink_custom_act = "firefox %s &";
+    m_filelink_custom_act = "xdg-open %s &";
+    m_folderlink_custom_act = "xdg-open %s &";
+
+    // [codebox]
+    m_codebox_width = 700;
+    m_codebox_height = 100;
+    m_codebox_width_pixels = true;
+    m_codebox_line_num = false;
+    m_codebox_match_bra = true;
+    m_codebox_syn_highl = PLAIN_TEXT_ID;
+    m_codebox_auto_resize = true;
+
+    // [table]
+    m_table_rows = 3;
+    m_table_columns = 3;
+    m_table_col_mode = TableColMode::RENAME;
+    m_table_col_min = 40;
+    m_table_col_max = 60;
+
+    // [fonts]
+    m_text_font = "Sans 9";
+    m_tree_font = "Sans 8";
+    m_code_font = "Monospace 9";
+
+    // [colors]
+    
 }
 
 bool CTConfig::_populate_string_from_keyfile(const gchar *key, Glib::ustring *p_target)
@@ -456,6 +526,45 @@ void CTConfig::_populate_from_keyfile()
     _populate_string_from_keyfile("selword_chars", &m_selword_chars);
     _populate_string_from_keyfile("chars_listbul", &m_chars_listbul);
     _populate_string_from_keyfile("chars_toc", &m_chars_toc);
+    _populate_string_from_keyfile("latest_tag_prop", &m_latest_tag_prop);
+    _populate_string_from_keyfile("latest_tag_val", &m_latest_tag_val);
+    _populate_string_from_keyfile("timestamp_format", &m_timestamp_format);
+    _populate_bool_from_keyfile("links_underline", &m_links_underline);
+    _populate_bool_from_keyfile("links_relative", &m_links_relative);
+    _populate_bool_from_keyfile("weblink_custom_on", &m_weblink_custom_on);
+    _populate_bool_from_keyfile("filelink_custom_on", &m_filelink_custom_on);
+    _populate_bool_from_keyfile("folderlink_custom_on", &m_folderlink_custom_on);
+    _populate_string_from_keyfile("weblink_custom_act", &m_weblink_custom_act);
+    _populate_string_from_keyfile("filelink_custom_act", &m_filelink_custom_act);
+    _populate_string_from_keyfile("folderlink_custom_act", &m_folderlink_custom_act);
+
+    // [codebox]
+    _populate_int_from_keyfile("codebox_width", &m_codebox_width);
+    _populate_int_from_keyfile("codebox_height", &m_codebox_height);
+    _populate_bool_from_keyfile("codebox_width_pixels", &m_codebox_width_pixels);
+    _populate_bool_from_keyfile("codebox_line_num", &m_codebox_line_num);
+    _populate_bool_from_keyfile("codebox_match_bra", &m_codebox_match_bra);
+    _populate_string_from_keyfile("codebox_syn_highl", &m_codebox_syn_highl);
+    _populate_bool_from_keyfile("codebox_auto_resize", &m_codebox_auto_resize);
+
+    // [table]
+    _populate_int_from_keyfile("table_rows", &m_table_rows);
+    _populate_int_from_keyfile("table_columns", &m_table_columns);
+    int table_col_mode;
+    if (_populate_int_from_keyfile("table_col_mode", &table_col_mode))
+    {
+        m_table_col_mode = static_cast<TableColMode>(table_col_mode);
+    }
+    _populate_int_from_keyfile("table_col_min", &m_table_col_min);
+    _populate_int_from_keyfile("table_col_max", &m_table_col_max);
+
+    // [fonts]
+    _populate_string_from_keyfile("text_font", &m_text_font);
+    _populate_string_from_keyfile("tree_font", &m_tree_font);
+    _populate_string_from_keyfile("code_font", &m_code_font);
+
+    // [colors]
+    
 }
 
 bool CTConfig::_check_load_from_file()
