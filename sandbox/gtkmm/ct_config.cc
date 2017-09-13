@@ -71,9 +71,38 @@ const gchar   SPECIAL_CHARS_DEFAULT[] = "“”„‘’•◇▪▸☐☑☒★
 const gchar   SELWORD_CHARS_DEFAULT[] = ".-@";
 const gchar   CHARS_LISTBUL_DEFAULT[] = "•◇▪-→⇒";
 const gchar   CHARS_TOC_DEFAULT[] = "▸•◇▪";
-const int NODE_ICON_CODE_ID = 38;
-const int NODE_ICON_BULLET_ID = 25;
-const int NODE_ICON_NO_ICON_ID = 26;
+const gchar   COLOR_48_LINK_WEBS[] = "#00004444ffff";
+const gchar   COLOR_48_LINK_NODE[] = "#071c838e071c";
+const gchar   COLOR_48_LINK_FILE[] = "#8b8b69691414";
+const gchar   COLOR_48_LINK_FOLD[] = "#7f7f7f7f7f7f";
+const gchar   COLOR_48_YELLOW[] = "#bbbbbbbb0000";
+const gchar   COLOR_48_WHITE[] = "#ffffffffffff";
+const gchar   COLOR_48_BLACK[] = "#000000000000";
+const gchar   COLOR_24_BLACK[] = "#000000";
+const gchar   COLOR_24_WHITE[] = "#ffffff";
+const gchar   COLOR_24_BLUEBG[] = "#001b33";
+const gchar   COLOR_24_LBLACK[] = "#0b0c0c";
+const gchar   COLOR_24_GRAY[] = "#e0e0e0";
+const gchar   DEFAULT_MONOSPACE_BG[] = "#7f7f7f";
+const gchar  *RICH_TEXT_DARK_FG = COLOR_24_WHITE;
+const gchar  *RICH_TEXT_DARK_BG = COLOR_24_BLUEBG;
+const gchar  *RICH_TEXT_LIGHT_FG = COLOR_24_BLACK;
+const gchar  *RICH_TEXT_LIGHT_BG = COLOR_24_WHITE;
+const gchar  *TREE_TEXT_DARK_FG = COLOR_24_WHITE;
+const gchar  *TREE_TEXT_DARK_BG = COLOR_24_BLUEBG;
+const gchar  *TREE_TEXT_LIGHT_FG = COLOR_24_LBLACK;
+const gchar  *TREE_TEXT_LIGHT_BG = COLOR_24_GRAY;
+const int     NODE_ICON_CODE_ID = 38;
+const int     NODE_ICON_BULLET_ID = 25;
+const int     NODE_ICON_NO_ICON_ID = 26;
+const gchar   TOOLBAR_VEC_DEFAULT[] = 
+    "tree_add_node,tree_add_subnode,sep,go_node_prev,go_node_next,"
+    "sep,*,ct_save,export_pdf,sep,"
+    "find_in_allnodes,sep,handle_bull_list,handle_num_list,handle_todo_list,"
+    "sep,handle_image,handle_table,handle_codebox,handle_embfile,"
+    "handle_link,handle_anchor,sep,fmt_rm,fmt_color_fg,"
+    "fmt_color_bg,fmt_bold,fmt_italic,fmt_underline,fmt_strikethrough,"
+    "fmt_h1,fmt_h2,fmt_h3,fmt_small,fmt_superscript,fmt_subscript,fmt_monospace";
 const std::map<int, Glib::ustring> NODES_STOCKS = {
     { 1, "circle-green"},
     { 2, "circle-yellow"},
@@ -228,7 +257,19 @@ public:
     Glib::ustring                               m_code_font;
 
     // [colors]
-    
+    Glib::ustring                               m_rt_def_fg;
+    Glib::ustring                               m_rt_def_bg;
+    Glib::ustring                               m_tt_def_fg;
+    Glib::ustring                               m_tt_def_bg;
+    Glib::ustring                               m_monospace_bg;
+    Glib::ustring                               m_color_palette;
+    Glib::ustring                               m_col_link_webs;
+    Glib::ustring                               m_col_link_node;
+    Glib::ustring                               m_col_link_file;
+    Glib::ustring                               m_col_link_fold;
+
+    // [misc]
+    Glib::ustring                               m_toolbar_ui_list;
 
 protected:
     void _populate_with_defaults();
@@ -348,7 +389,23 @@ void CTConfig::_populate_with_defaults()
     m_code_font = "Monospace 9";
 
     // [colors]
-    
+    m_rt_def_fg = RICH_TEXT_DARK_FG;
+    m_rt_def_bg = RICH_TEXT_DARK_BG;
+    m_tt_def_fg = TREE_TEXT_LIGHT_FG;
+    m_tt_def_bg = TREE_TEXT_LIGHT_BG;
+    m_monospace_bg = DEFAULT_MONOSPACE_BG;
+    m_color_palette = 
+        "#000000:#ffffff:#7f7f7f:#ff0000:#a020f0:"
+        "#0000ff:#add8e6:#00ff00:#ffff00:#ffa500:"
+        "#e6e6fa:#a52a2a:#8b6914:#1e90ff:#ffc0cb:"
+        "#90ee90:#1a1a1a:#4d4d4d:#bfbfbf:#e5e5e5";
+    m_col_link_webs = COLOR_48_LINK_WEBS;
+    m_col_link_node = COLOR_48_LINK_NODE;
+    m_col_link_file = COLOR_48_LINK_FILE;
+    m_col_link_fold = COLOR_48_LINK_FOLD;
+
+    // [misc]
+    m_toolbar_ui_list = TOOLBAR_VEC_DEFAULT;
 }
 
 bool CTConfig::_populate_string_from_keyfile(const gchar *key, Glib::ustring *p_target)
@@ -564,7 +621,19 @@ void CTConfig::_populate_from_keyfile()
     _populate_string_from_keyfile("code_font", &m_code_font);
 
     // [colors]
-    
+    _populate_string_from_keyfile("rt_def_fg", &m_rt_def_fg);
+    _populate_string_from_keyfile("rt_def_bg", &m_rt_def_bg);
+    _populate_string_from_keyfile("tt_def_fg", &m_tt_def_fg);
+    _populate_string_from_keyfile("tt_def_bg", &m_tt_def_bg);
+    _populate_string_from_keyfile("monospace_bg", &m_monospace_bg);
+    _populate_string_from_keyfile("color_palette", &m_color_palette);
+    _populate_string_from_keyfile("col_link_webs", &m_col_link_webs);
+    _populate_string_from_keyfile("col_link_node", &m_col_link_node);
+    _populate_string_from_keyfile("col_link_file", &m_col_link_file);
+    _populate_string_from_keyfile("col_link_fold", &m_col_link_fold);
+
+    // [misc]
+    _populate_string_from_keyfile("toolbar_ui_list", &m_toolbar_ui_list);
 }
 
 bool CTConfig::_check_load_from_file()
