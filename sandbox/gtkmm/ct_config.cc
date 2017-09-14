@@ -236,8 +236,8 @@ public:
     Glib::ustring                               m_folderlink_custom_act;
 
     // [codebox]
-    int                                         m_codebox_width;
-    int                                         m_codebox_height;
+    double                                      m_codebox_width;
+    double                                      m_codebox_height;
     bool                                        m_codebox_width_pixels;
     bool                                        m_codebox_line_num;
     bool                                        m_codebox_match_bra;
@@ -270,12 +270,39 @@ public:
 
     // [misc]
     Glib::ustring                               m_toolbar_ui_list;
+    bool                                        m_systray;
+    bool                                        m_start_on_systray;
+    bool                                        m_use_appind;
+    bool                                        m_autosave_on;
+    int                                         m_autosave_val;
+    bool                                        m_check_version;
+    bool                                        m_word_count;
+    bool                                        m_reload_doc_last;
+    bool                                        m_mod_time_sentinel;
+    bool                                        m_backup_copy;
+    int                                         m_backup_num;
+    bool                                        m_autosave_on_quit;
+    int                                         m_limit_undoable_steps;
+
+    // [keyboard]
+    std::map<Glib::ustring, Glib::ustring>     m_custom_kb_shortcuts;
+
+    // [codexec_term]
+    Glib::ustring                              m_custom_codexec_term;
+
+    // [codexec_type]
+    std::map<Glib::ustring, Glib::ustring>     m_custom_codexec_type;
+
+    // [codexec_ext]
+    std::map<Glib::ustring, Glib::ustring>     m_custom_codexec_ext;
 
 protected:
     void _populate_with_defaults();
     bool _populate_string_from_keyfile(const gchar *key, Glib::ustring *p_target);
     bool _populate_bool_from_keyfile(const gchar *key, bool *p_target);
     bool _populate_int_from_keyfile(const gchar *key, int *p_target);
+    bool _populate_double_from_keyfile(const gchar *key, double *p_target);
+    void _populate_map_from_current_group(std::map<Glib::ustring, Glib::ustring> *p_target);
     void _populate_from_keyfile();
     bool _check_load_from_file();
     void _unexpected_keyfile_error(const gchar *key, const Glib::KeyFileError &kferror);
@@ -406,6 +433,19 @@ void CTConfig::_populate_with_defaults()
 
     // [misc]
     m_toolbar_ui_list = TOOLBAR_VEC_DEFAULT;
+    m_systray = false;
+    m_start_on_systray = false;
+    m_use_appind = false;
+    m_autosave_on = false;
+    m_autosave_val = 5;
+    m_check_version = false;
+    m_word_count = false;
+    m_reload_doc_last = true;
+    m_mod_time_sentinel = true;
+    m_backup_copy = true;
+    m_backup_num = 3;
+    m_autosave_on_quit = false;
+    m_limit_undoable_steps = 20;
 }
 
 bool CTConfig::_populate_string_from_keyfile(const gchar *key, Glib::ustring *p_target)
@@ -470,6 +510,32 @@ bool CTConfig::_populate_int_from_keyfile(const gchar *key, int *p_target)
         }
     }
     return got_it;
+}
+
+bool CTConfig::_populate_double_from_keyfile(const gchar *key, double *p_target)
+{
+    bool got_it = false;
+    if (_mp_key_file->has_key(_m_current_group, key))
+    {
+        try
+        {
+            *p_target = _mp_key_file->get_double(_m_current_group, key);
+            got_it = true;
+        }
+        catch (Glib::KeyFileError &kferror)
+        {
+            _unexpected_keyfile_error(key, kferror);
+        }
+    }
+    return got_it;
+}
+
+void CTConfig::_populate_map_from_current_group(std::map<Glib::ustring, Glib::ustring> *p_map)
+{
+    for (Glib::ustring key : _mp_key_file->get_keys(_m_current_group))
+    {
+        (*p_map)[key] = _mp_key_file->get_value(_m_current_group, key);
+    }
 }
 
 void CTConfig::_unexpected_keyfile_error(const gchar *key, const Glib::KeyFileError &kferror)
@@ -596,8 +662,9 @@ void CTConfig::_populate_from_keyfile()
     _populate_string_from_keyfile("folderlink_custom_act", &m_folderlink_custom_act);
 
     // [codebox]
-    _populate_int_from_keyfile("codebox_width", &m_codebox_width);
-    _populate_int_from_keyfile("codebox_height", &m_codebox_height);
+    _m_current_group = "codebox";
+    _populate_double_from_keyfile("codebox_width", &m_codebox_width);
+    _populate_double_from_keyfile("codebox_height", &m_codebox_height);
     _populate_bool_from_keyfile("codebox_width_pixels", &m_codebox_width_pixels);
     _populate_bool_from_keyfile("codebox_line_num", &m_codebox_line_num);
     _populate_bool_from_keyfile("codebox_match_bra", &m_codebox_match_bra);
@@ -605,6 +672,7 @@ void CTConfig::_populate_from_keyfile()
     _populate_bool_from_keyfile("codebox_auto_resize", &m_codebox_auto_resize);
 
     // [table]
+    _m_current_group = "table";
     _populate_int_from_keyfile("table_rows", &m_table_rows);
     _populate_int_from_keyfile("table_columns", &m_table_columns);
     int table_col_mode;
@@ -616,11 +684,13 @@ void CTConfig::_populate_from_keyfile()
     _populate_int_from_keyfile("table_col_max", &m_table_col_max);
 
     // [fonts]
+    _m_current_group = "fonts";
     _populate_string_from_keyfile("text_font", &m_text_font);
     _populate_string_from_keyfile("tree_font", &m_tree_font);
     _populate_string_from_keyfile("code_font", &m_code_font);
 
     // [colors]
+    _m_current_group = "colors";
     _populate_string_from_keyfile("rt_def_fg", &m_rt_def_fg);
     _populate_string_from_keyfile("rt_def_bg", &m_rt_def_bg);
     _populate_string_from_keyfile("tt_def_fg", &m_tt_def_fg);
@@ -633,7 +703,37 @@ void CTConfig::_populate_from_keyfile()
     _populate_string_from_keyfile("col_link_fold", &m_col_link_fold);
 
     // [misc]
+    _m_current_group = "misc";
     _populate_string_from_keyfile("toolbar_ui_list", &m_toolbar_ui_list);
+    _populate_bool_from_keyfile("systray", &m_systray);
+    _populate_bool_from_keyfile("start_on_systray", &m_start_on_systray);
+    _populate_bool_from_keyfile("use_appind", &m_use_appind);
+    _populate_bool_from_keyfile("autosave_on", &m_autosave_on);
+    _populate_int_from_keyfile("autosave_val", &m_autosave_val);
+    _populate_bool_from_keyfile("check_version", &m_check_version);
+    _populate_bool_from_keyfile("word_count", &m_word_count);
+    _populate_bool_from_keyfile("reload_doc_last", &m_reload_doc_last);
+    _populate_bool_from_keyfile("mod_time_sentinel", &m_mod_time_sentinel);
+    _populate_bool_from_keyfile("backup_copy", &m_backup_copy);
+    _populate_int_from_keyfile("backup_num", &m_backup_num);
+    _populate_bool_from_keyfile("autosave_on_quit", &m_autosave_on_quit);
+    _populate_int_from_keyfile("limit_undoable_steps", &m_limit_undoable_steps);
+
+    // [keyboard]
+    _m_current_group = "keyboard";
+    _populate_map_from_current_group(&m_custom_kb_shortcuts);
+
+    // [codexec_term]
+    _m_current_group = "codexec_term";
+    _populate_string_from_keyfile("custom_codexec_term", &m_custom_codexec_term);
+
+    // [codexec_type]
+    _m_current_group = "codexec_type";
+    _populate_map_from_current_group(&m_custom_codexec_type);
+
+    // [codexec_ext]
+    _m_current_group = "codexec_ext";
+    _populate_map_from_current_group(&m_custom_codexec_ext);
 }
 
 bool CTConfig::_check_load_from_file()
