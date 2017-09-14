@@ -22,10 +22,12 @@
 #include <glibmm/i18n.h>
 #include <iostream>
 #include "ct_app.h"
+#include "ct_config.h"
 
 
 CTApplication::CTApplication() : Gtk::Application("com.giuspen.cherrytree", Gio::APPLICATION_HANDLES_OPEN)
 {
+    _config_read();
     _icontheme_populate();
 }
 
@@ -47,6 +49,15 @@ void CTApplication::_print_gresource_icons()
     for (std::string &str_icon : Gio::Resource::enumerate_children_global("/icons/", Gio::ResourceLookupFlags::RESOURCE_LOOKUP_FLAGS_NONE))
     {
         std::cout << str_icon << std::endl;
+    }
+}
+
+
+void CTApplication::_config_read()
+{
+    if (p_ct_config == nullptr)
+    {
+        p_ct_config = new CTConfig();
     }
 }
 

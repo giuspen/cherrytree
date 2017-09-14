@@ -38,6 +38,7 @@ protected:
     void _print_help_message();
     void _print_gresource_icons();
     void _icontheme_populate();
+    void _config_read();
 
 private:
     MainWindow* create_appwindow();

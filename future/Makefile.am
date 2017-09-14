@@ -34,6 +34,8 @@ cherrytree_SOURCES = src/main.cc \
                      src/main_win.cc src/main_win.h \
                      src/treestore.cc src/treestore.h \
                      src/ct_sqlite3_rw.cc src/ct_xml_rw.cc src/ct_doc_rw.h \
+                     src/ct_config.cc src/ct_config.h \
+                     src/ct_const.cc src/ct_const.h \
                      src/str_utils.cc src/str_utils.h \
                      src/icons.gresource.cc
 
