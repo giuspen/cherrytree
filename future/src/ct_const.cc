@@ -130,3 +130,36 @@ const std::map<int, Glib::ustring> NODES_STOCKS = {
     {47, "c"},
     {48, "cpp"},
 };
+const std::map<int, Glib::ustring> NODES_ICONS = {
+    { 0, CHERRY_RED},
+    { 1, CHERRY_BLUE},
+    { 2, CHERRY_ORANGE},
+    { 3, CHERRY_CYAN},
+    { 4, CHERRY_ORANGE_DARK},
+    { 5, CHERRY_SHERBERT},
+    { 6, CHERRY_YELLOW},
+    { 7, CHERRY_GREEN},
+    { 8, CHERRY_PURPLE},
+    { 9, CHERRY_BLACK},
+    {10, CHERRY_GRAY},
+    {-1, CHERRY_GRAY},
+};
+const std::map<Glib::ustring, Glib::ustring> CODE_ICONS = {
+    {"python", "python"},
+    {"python3", "python"},
+    {"perl", "perl"},
+    {"sh", "terminal"},
+    {"dosbatch", "terminal-red"},
+    {"powershell", "terminal-red"},
+    {"java", "java"},
+    {"html", "html"},
+    {"xml", "xml"},
+    {"c", "c"},
+    {"cpp", "cpp"},
+};
+
+
+Glib::ustring get_stock_id_for_code_type(Glib::ustring code_type)
+{
+    return (1 == CODE_ICONS.count(code_type) ? CODE_ICONS.at(code_type) : NODES_STOCKS.at(NODE_ICON_CODE_ID));
+}

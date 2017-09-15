@@ -22,13 +22,23 @@
 #include <glibmm/i18n.h>
 #include <iostream>
 #include "ct_app.h"
-#include "ct_config.h"
+
+
+CTConfig *P_ct_config = nullptr;
+
+Glib::RefPtr<Gtk::IconTheme> R_icontheme;
 
 
 CTApplication::CTApplication() : Gtk::Application("com.giuspen.cherrytree", Gio::APPLICATION_HANDLES_OPEN)
 {
     _config_read();
     _icontheme_populate();
+}
+
+
+CTApplication::~CTApplication()
+{
+    _config_teardown();
 }
 
 
@@ -55,17 +65,25 @@ void CTApplication::_print_gresource_icons()
 
 void CTApplication::_config_read()
 {
-    if (p_ct_config == nullptr)
+    if (P_ct_config == nullptr)
     {
-        p_ct_config = new CTConfig();
+        P_ct_config = new CTConfig();
+        //std::cout << P_ct_config->m_special_chars.size() << "\t" << P_ct_config->m_special_chars << std::endl;
     }
+}
+
+
+void CTApplication::_config_teardown()
+{
+    delete P_ct_config;
+    P_ct_config = nullptr;
 }
 
 
 void CTApplication::_icontheme_populate()
 {
-    Glib::RefPtr<Gtk::IconTheme> r_icontheme = Gtk::IconTheme::get_default();
-    r_icontheme->add_resource_path("/icons/");
+    R_icontheme = Gtk::IconTheme::get_default();
+    R_icontheme->add_resource_path("/icons/");
     //_print_gresource_icons();
 }
 

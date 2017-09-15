@@ -24,9 +24,6 @@
 #include "ct_config.h"
 
 
-CTConfig *p_ct_config = nullptr;
-
-
 CTConfig::CTConfig() : _m_filepath(Glib::build_filename(Glib::get_user_config_dir(), "cherrytree", "config.cfg")),
                        _mp_key_file(nullptr)
 {

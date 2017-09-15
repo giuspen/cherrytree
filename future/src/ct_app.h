@@ -20,13 +20,20 @@
  */
 
 #include <gtkmm.h>
+#include "ct_config.h"
 #include "main_win.h"
+
+
+extern CTConfig *P_ct_config;
+
+extern Glib::RefPtr<Gtk::IconTheme> R_icontheme;
 
 
 class CTApplication: public Gtk::Application
 {
 protected:
     CTApplication();
+    ~CTApplication();
 
 public:
     static Glib::RefPtr<CTApplication> create();
@@ -39,6 +46,7 @@ protected:
     void _print_gresource_icons();
     void _icontheme_populate();
     void _config_read();
+    void _config_teardown();
 
 private:
     MainWindow* create_appwindow();

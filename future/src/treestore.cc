@@ -21,8 +21,10 @@
 
 #include <glibmm/i18n.h>
 #include <iostream>
+#include <set>
 #include "treestore.h"
 #include "ct_doc_rw.h"
+#include "ct_app.h"
 
 
 TheTreeStore::TheTreeStore()
@@ -56,15 +58,15 @@ bool TheTreeStore::read_nodes_from_filepath(Glib::ustring &filepath, Gtk::TreeIt
 {
     bool ret_ok = false;
     CherryTreeDocRead *p_ct_doc_read = nullptr;
-    if(Glib::str_has_suffix(filepath, "ctd"))
+    if (Glib::str_has_suffix(filepath, "ctd"))
     {
         p_ct_doc_read = new CherryTreeXMLRead(filepath);
     }
-    else if(Glib::str_has_suffix(filepath, "ctb"))
+    else if (Glib::str_has_suffix(filepath, "ctb"))
     {
         p_ct_doc_read = new CherryTreeSQLiteRead(filepath);
     }
-    if(p_ct_doc_read != nullptr)
+    if (p_ct_doc_read != nullptr)
     {
         p_ct_doc_read->m_signal_add_bookmark.connect(sigc::mem_fun(this, &TheTreeStore::on_request_add_bookmark));
         p_ct_doc_read->m_signal_append_node.connect(sigc::mem_fun(this, &TheTreeStore::on_request_append_node));
@@ -76,12 +78,55 @@ bool TheTreeStore::read_nodes_from_filepath(Glib::ustring &filepath, Gtk::TreeIt
 }
 
 
+Glib::RefPtr<Gdk::Pixbuf> TheTreeStore::_get_node_icon(int node_depth, Glib::ustring &syntax, guint32 custom_icon_id)
+{
+    Glib::RefPtr<Gdk::Pixbuf> r_pixbuf;
+
+    if (custom_icon_id != 0)
+    {
+        // custom_icon_id
+        r_pixbuf = R_icontheme->load_icon(NODES_STOCKS.at(custom_icon_id), NODE_ICON_SIZE);
+    }
+    else if (NODE_ICON_TYPE_NONE == P_ct_config->m_nodes_icons)
+    {
+        // NODE_ICON_TYPE_NONE
+        r_pixbuf = R_icontheme->load_icon(NODES_STOCKS.at(NODE_ICON_NO_ICON_ID), NODE_ICON_SIZE);
+    }
+    else if (1 == std::set<Glib::ustring>({RICH_TEXT_ID, PLAIN_TEXT_ID}).count(syntax))
+    {
+        // text node
+        if (NODE_ICON_TYPE_CHERRY == P_ct_config->m_nodes_icons)
+        {
+            if (1 == NODES_ICONS.count(node_depth))
+            {
+                r_pixbuf = R_icontheme->load_icon(NODES_ICONS.at(node_depth), NODE_ICON_SIZE);
+            }
+            else
+            {
+                r_pixbuf = R_icontheme->load_icon(NODES_ICONS.at(-1), NODE_ICON_SIZE);
+            }
+        }
+        else
+        {
+            // NODE_ICON_TYPE_CUSTOM
+            r_pixbuf = R_icontheme->load_icon(NODES_STOCKS.at(P_ct_config->m_default_icon_text), NODE_ICON_SIZE);
+        }
+    }
+    else
+    {
+        // code node
+        r_pixbuf = R_icontheme->load_icon(get_stock_id_for_code_type(syntax), NODE_ICON_SIZE);
+    }
+    return r_pixbuf;
+}
+
+
 Gtk::TreeIter TheTreeStore::append_node(t_ct_node_data *p_node_data, Gtk::TreeIter *p_parent_iter)
 {
     Gtk::TreeIter new_iter;
     //std::cout << p_node_data->name << std::endl;
 
-    if(p_parent_iter == nullptr)
+    if (p_parent_iter == nullptr)
     {
         new_iter = mr_treestore->append();
     }
@@ -89,9 +134,8 @@ Gtk::TreeIter TheTreeStore::append_node(t_ct_node_data *p_node_data, Gtk::TreeIt
     {
         new_iter = mr_treestore->append(static_cast<Gtk::TreeRow>(**p_parent_iter).children());
     }
-    Glib::RefPtr<Gtk::IconTheme> r_icontheme = Gtk::IconTheme::get_default();
     Gtk::TreeRow row = *new_iter;
-    row[m_columns.mr_col_pixbuf] = r_icontheme->load_icon("cherry_red", 20);
+    row[m_columns.mr_col_pixbuf] = _get_node_icon(mr_treestore->iter_depth(new_iter), p_node_data->syntax, p_node_data->custom_icon_id);
     row[m_columns.m_col_node_name] = p_node_data->name;
     //row[m_columns.m_col_text_buffer] = ;
     row[m_columns.m_col_node_unique_id] = p_node_data->node_id;

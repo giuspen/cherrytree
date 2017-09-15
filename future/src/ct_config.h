@@ -197,6 +197,3 @@ protected:
     Glib::KeyFile *_mp_key_file;
     Glib::ustring _m_current_group;
 };
-
-
-extern CTConfig *p_ct_config;

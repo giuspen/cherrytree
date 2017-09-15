@@ -88,6 +88,8 @@ public:
 protected:
     guint16 _get_pango_weight(bool is_bold);
 
+    Glib::RefPtr<Gdk::Pixbuf> _get_node_icon(int node_depth, Glib::ustring &syntax, guint32 custom_icon_id);
+
     TheTreeModelColumns          m_columns;
     Glib::RefPtr<Gtk::TreeStore> mr_treestore;
     std::list<gint64>            m_bookmarks;
