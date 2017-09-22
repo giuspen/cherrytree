@@ -1,10 +1,4 @@
-#!/usr/bin/env python2
-# -*- coding: UTF-8 -*-
-
-import re
-
-SUPPORTERS="""
-<h2>Friends of giuspen.com (donated €3648,16)</h2>
+<h2>Friends of giuspen.com (donated €3663,16)</h2>
 • Miguel Latorre (Spain) donated €240
 • DistroWatch.com (International) donated €200
 • Alan M. (United States) donated €100
@@ -77,6 +71,7 @@ SUPPORTERS="""
 • Zigurds Gavars (Latvia) donated €20 [better table cells support]
 • Gerry Williams (United States) donated €17,86
 • Christopher Brazill (United States) donated €15
+• Hannes Mertl (Austria) donated €15
 • Hans van Meteren (Netherlands) donated €15
 • Istvan Cebrian (Portugal) donated €15
 • John Duchek (United States) donated €15
@@ -183,28 +178,3 @@ SUPPORTERS="""
 • Tomáš Chalúpek (Czech Republic) donated €3
 • Frank Lazar (Germany) donated €2
 • Виталий Волков (Russia) donated €2
-"""
-
-sum_donations = float(0)
-countries_dict = {}
-for supporter_line in SUPPORTERS.split("\n"):
-    match = re.search(r"\(([^\)]+)\) donated €(\d+,\d+|\d+)", supporter_line, re.UNICODE)
-    if match:
-        curr_country = match.group(1)
-        curr_donation = float(match.group(2).replace(",","."))
-        sum_donations += curr_donation
-        if not curr_country in countries_dict.keys():
-            countries_dict[curr_country] = float(0)
-        countries_dict[curr_country] += curr_donation
-    else:
-        print supporter_line
-print sum_donations
-while countries_dict:
-    curr_max_key = None
-    for curr_key, curr_val in countries_dict.iteritems():
-        if not curr_max_key:
-            curr_max_key = curr_key
-        elif curr_val > countries_dict[curr_max_key]:
-            curr_max_key = curr_key
-    print curr_max_key, countries_dict[curr_max_key]
-    del countries_dict[curr_max_key]

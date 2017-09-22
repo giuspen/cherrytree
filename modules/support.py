@@ -271,9 +271,9 @@ def on_sourceview_event_after_scroll(dad, text_view, event):
     """Called after every gtk.gdk.SCROLL on the SourceView"""
     if dad.ctrl_down:
         if event.direction == gtk.gdk.SCROLL_UP:
-            dad.zoom_text_p()
+            dad.zoom_text(True)
         elif event.direction == gtk.gdk.SCROLL_DOWN:
-            dad.zoom_text_m()
+            dad.zoom_text(False)
     return False
 
 def on_sourceview_event_after_key_release(dad, text_view, event):
@@ -503,13 +503,14 @@ def sourceview_cursor_and_tooltips_handler(dad, text_view, x, y):
         text_view.get_window(gtk.TEXT_WINDOW_TEXT).set_cursor(gtk.gdk.Cursor(gtk.gdk.XTERM))
         text_view.set_tooltip_text(None)
 
-def rich_text_node_modify_codeboxes_font(start_iter, code_font):
+def rich_text_node_modify_codeboxes_font(start_iter, dad):
     """Modify Font to CodeBoxes"""
     curr_iter = start_iter.copy()
     while 1:
         anchor = curr_iter.get_child_anchor()
         if anchor and "sourcebuffer" in dir(anchor):
-            anchor.sourceview.modify_font(pango.FontDescription(code_font))
+            target_font = dad.code_font if anchor.syntax_highlighting != cons.PLAIN_TEXT_ID else dad.pt_font
+            anchor.sourceview.modify_font(pango.FontDescription(target_font))
         if not curr_iter.forward_char(): break
 
 def rich_text_node_modify_codeboxes_color(start_iter, dad):
@@ -1829,7 +1830,7 @@ def add_recent_document(dad, filepath):
 
 def insert_special_char(menu_item, special_char, dad):
     """A Special character insert was Requested"""
-    text_view, text_buffer, from_codebox = dad.get_text_view_n_buffer_codebox_proof()
+    text_view, text_buffer, syntax_highl, from_codebox = dad.get_text_view_n_buffer_codebox_proof()
     if not text_buffer: return
     if not dad.is_curr_node_not_read_only_or_error(): return
     text_buffer.insert_at_cursor(special_char)

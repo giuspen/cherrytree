@@ -125,7 +125,8 @@ void CTConfig::_populate_with_defaults()
     m_table_col_max = 60;
 
     // [fonts]
-    m_text_font = "Sans 9";
+    m_rt_font = "Sans 9";
+    m_pt_font = "Sans 9";
     m_tree_font = "Sans 8";
     m_code_font = "Monospace 9";
 
@@ -406,7 +407,8 @@ void CTConfig::_populate_from_keyfile()
 
     // [fonts]
     _m_current_group = "fonts";
-    _populate_string_from_keyfile("text_font", &m_text_font);
+    _populate_string_from_keyfile("rt_font", &m_rt_font);
+    _populate_string_from_keyfile("pt_font", &m_pt_font);
     _populate_string_from_keyfile("tree_font", &m_tree_font);
     _populate_string_from_keyfile("code_font", &m_code_font);
 

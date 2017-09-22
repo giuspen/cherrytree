@@ -333,7 +333,7 @@ class TablesHandler:
             renderer_text.set_property('editable', True)
             renderer_text.set_property('wrap-width', table_col_max)
             renderer_text.set_property('wrap-mode', pango.WRAP_WORD_CHAR)
-            renderer_text.set_property('font-desc', pango.FontDescription(self.dad.text_font))
+            renderer_text.set_property('font-desc', pango.FontDescription(self.dad.pt_font))
             renderer_text.connect('edited', self.on_table_cell_edited, anchor.liststore, element)
             renderer_text.connect('editing-started', self.on_table_cell_editing_started, anchor.liststore, element)
             column = gtk.TreeViewColumn("", renderer_text, text=element)

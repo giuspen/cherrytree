@@ -238,7 +238,7 @@ class ExportPrint:
         self.dad.get_textbuffer_from_tree_iter(tree_iter)
         if self.dad.treestore[tree_iter][4] == cons.RICH_TEXT_ID:
             pango_text, pixbuf_table_codebox_vector = self.pango_handler.pango_get_from_treestore_node(tree_iter)
-            self.text_font = self.dad.text_font # text font for all (also eventual code nodes)
+            self.text_font = self.dad.rt_font # text font for all (also eventual code nodes)
         else:
             pango_text = [self.pango_handler.pango_get_from_code_buffer(self.dad.treestore[tree_iter][2])]
             pixbuf_table_codebox_vector = []
@@ -268,11 +268,11 @@ class ExportPrint:
         """Export Print the Selected Node"""
         if self.dad.treestore[tree_iter][4] == cons.RICH_TEXT_ID:
             self.pango_text, self.pixbuf_table_codebox_vector = self.pango_handler.pango_get_from_treestore_node(tree_iter, sel_range)
-            self.text_font = self.dad.text_font
+            self.text_font = self.dad.rt_font
         else:
             self.pango_text = [self.pango_handler.pango_get_from_code_buffer(self.dad.treestore[tree_iter][2], sel_range)]
             self.pixbuf_table_codebox_vector = []
-            self.text_font = self.dad.code_font if self.dad.treestore[tree_iter][4] != cons.PLAIN_TEXT_ID else self.dad.text_font
+            self.text_font = self.dad.code_font if self.dad.treestore[tree_iter][4] != cons.PLAIN_TEXT_ID else self.dad.pt_font
         if include_node_name: self.pango_text_add_node_name(tree_iter, self.pango_text)
         self.run_print()
 

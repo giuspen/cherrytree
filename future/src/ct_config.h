@@ -138,7 +138,8 @@ public:
     int                                         m_table_col_max;
 
     // [fonts]
-    Glib::ustring                               m_text_font;
+    Glib::ustring                               m_rt_font;
+    Glib::ustring                               m_pt_font;
     Glib::ustring                               m_tree_font;
     Glib::ustring                               m_code_font;
 

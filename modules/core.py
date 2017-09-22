@@ -317,7 +317,7 @@ class CherryTree:
 
     def text_selection_change_case(self, change_type):
         """Change the Case of the Selected Text/the Underlying Word"""
-        text_view, text_buffer, from_codebox = self.get_text_view_n_buffer_codebox_proof()
+        text_view, text_buffer, syntax_highl, from_codebox = self.get_text_view_n_buffer_codebox_proof()
         if not text_buffer: return
         if not self.is_curr_node_not_read_only_or_error(): return
         if not text_buffer.get_has_selection() and not support.apply_tag_try_automatic_bounds(self, text_buffer=text_buffer):
@@ -360,7 +360,7 @@ class CherryTree:
 
     def text_row_selection_duplicate(self, *args):
         """Duplicates the Whole Row or a Selection"""
-        text_view, text_buffer, from_codebox = self.get_text_view_n_buffer_codebox_proof()
+        text_view, text_buffer, syntax_highl, from_codebox = self.get_text_view_n_buffer_codebox_proof()
         if not text_buffer: return
         if not self.is_curr_node_not_read_only_or_error(): return
         if text_buffer.get_has_selection():
@@ -403,7 +403,7 @@ class CherryTree:
 
     def text_row_up(self, *args):
         """Moves Up the Current Row/Selected Rows"""
-        text_view, text_buffer, from_codebox = self.get_text_view_n_buffer_codebox_proof()
+        text_view, text_buffer, syntax_highl, from_codebox = self.get_text_view_n_buffer_codebox_proof()
         if not text_buffer: return
         if not self.is_curr_node_not_read_only_or_error(): return
         iter_start, iter_end = self.lists_handler.get_paragraph_iters(text_buffer=text_buffer)
@@ -469,7 +469,7 @@ iter_end, exclude_iter_sel_end=True)
 
     def text_row_down(self, *args):
         """Moves Down the Current Row/Selected Rows"""
-        text_view, text_buffer, from_codebox = self.get_text_view_n_buffer_codebox_proof()
+        text_view, text_buffer, syntax_highl, from_codebox = self.get_text_view_n_buffer_codebox_proof()
         if not text_buffer: return
         if not self.is_curr_node_not_read_only_or_error(): return
         iter_start, iter_end = self.lists_handler.get_paragraph_iters(text_buffer=text_buffer)
@@ -548,16 +548,18 @@ iter_end, exclude_iter_sel_end=True)
         if anchor:
             text_view = anchor.sourceview
             text_buffer = text_view.get_buffer()
+            syntax_highl = anchor.syntax_highlighting
             from_codebox = True
         else:
             text_buffer = self.curr_buffer
             text_view = self.sourceview
+            syntax_highl = self.syntax_highlighting
             from_codebox = False
-        return text_view, text_buffer, from_codebox
+        return text_view, text_buffer, syntax_highl, from_codebox
 
     def text_row_delete(self, *args):
         """Deletes the Whole Row"""
-        text_view, text_buffer, from_codebox = self.get_text_view_n_buffer_codebox_proof()
+        text_view, text_buffer, syntax_highl, from_codebox = self.get_text_view_n_buffer_codebox_proof()
         if not text_buffer: return
         if not self.is_curr_node_not_read_only_or_error(): return
         iter_start, iter_end = self.lists_handler.get_paragraph_iters(text_buffer=text_buffer)
@@ -570,7 +572,7 @@ iter_end, exclude_iter_sel_end=True)
 
     def text_row_cut(self, *args):
         """Cut a Whole Row"""
-        text_view, text_buffer, from_codebox = self.get_text_view_n_buffer_codebox_proof()
+        text_view, text_buffer, syntax_highl, from_codebox = self.get_text_view_n_buffer_codebox_proof()
         if not text_buffer: return
         if not self.is_curr_node_not_read_only_or_error(): return
         iter_start, iter_end = self.lists_handler.get_paragraph_iters(text_buffer=text_buffer)
@@ -583,7 +585,7 @@ iter_end, exclude_iter_sel_end=True)
 
     def text_row_copy(self, *args):
         """Copy a Whole Row"""
-        text_view, text_buffer, from_codebox = self.get_text_view_n_buffer_codebox_proof()
+        text_view, text_buffer, syntax_highl, from_codebox = self.get_text_view_n_buffer_codebox_proof()
         if not text_buffer: return
         iter_start, iter_end = self.lists_handler.get_paragraph_iters(text_buffer=text_buffer)
         if iter_start == None:
@@ -616,12 +618,12 @@ iter_end, exclude_iter_sel_end=True)
                 self.toggle_tree_text()
                 return True
             elif keyname in ["plus", "KP_Add"]:
-                if self.treeview.is_focus(): self.zoom_tree_p()
-                else: self.zoom_text_p()
+                if self.treeview.is_focus(): self.zoom_tree(True)
+                else: self.zoom_text(True)
                 return True
             elif keyname in ["minus", "KP_Subtract"]:
-                if self.treeview.is_focus(): self.zoom_tree_m()
-                else: self.zoom_text_m()
+                if self.treeview.is_focus(): self.zoom_tree(False)
+                else: self.zoom_text(False)
                 return True
         return False
 
@@ -682,10 +684,10 @@ iter_end, exclude_iter_sel_end=True)
                     self.treeview_safe_set_cursor(move_iter)
                 return True
             elif keyname in ["plus", "KP_Add"]:
-                self.zoom_tree_p()
+                self.zoom_tree(True)
                 return True
             elif keyname in ["minus", "KP_Subtract"]:
-                self.zoom_tree_m()
+                self.zoom_tree(False)
                 return True
         else:
             if keyname == cons.STR_KEY_LEFT:
@@ -711,64 +713,47 @@ iter_end, exclude_iter_sel_end=True)
                 return True
         return False
 
-    def zoom_tree_p(self):
-        """Increase Tree Font"""
+    def zoom_tree(self, is_increase):
+        """Increase or Decrease Tree Font"""
         font_vec = self.tree_font.split(cons.CHAR_SPACE)
         font_num = int(font_vec[-1])
-        font_vec[-1] = str(font_num+1)
+        if is_increase is True:
+            font_vec[-1] = str(font_num+1)
+        else:
+            if font_num <= 6: return # do not go under 6
+            font_vec[-1] = str(font_num-1)
         self.tree_font = cons.CHAR_SPACE.join(font_vec)
         self.set_treeview_font()
 
-    def zoom_tree_m(self):
-        """Decrease Tree Font"""
-        font_vec = self.tree_font.split(cons.CHAR_SPACE)
+    def zoom_text(self, is_increase):
+        """Increase or Decrease Text Font"""
+        text_view, text_buffer, syntax_highl, from_codebox = self.get_text_view_n_buffer_codebox_proof()
+        if not text_buffer: return
+        if syntax_highl == cons.RICH_TEXT_ID:
+            font_vec = self.rt_font.split(cons.CHAR_SPACE)
+        elif syntax_highl == cons.PLAIN_TEXT_ID:
+            font_vec = self.pt_font.split(cons.CHAR_SPACE)
+        else:
+            font_vec = self.code_font.split(cons.CHAR_SPACE)
         font_num = int(font_vec[-1])
-        if font_num > 6:
+        if is_increase is True:
+            font_vec[-1] = str(font_num+1)
+        else:
+            if font_num <= 6: return # do not go under 6
             font_vec[-1] = str(font_num-1)
-            self.tree_font = cons.CHAR_SPACE.join(font_vec)
-            self.set_treeview_font()
-
-    def zoom_text_p(self):
-        """Increase Text Font"""
-        text_view, text_buffer, from_codebox = self.get_text_view_n_buffer_codebox_proof()
-        if not text_buffer: return
-        if from_codebox or self.syntax_highlighting not in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID]:
-            font_vec = self.code_font.split(cons.CHAR_SPACE)
-            font_num = int(font_vec[-1])
-            font_vec[-1] = str(font_num+1)
+        if syntax_highl == cons.RICH_TEXT_ID:
+            self.rt_font = cons.CHAR_SPACE.join(font_vec)
+            target_font = self.rt_font
+        elif syntax_highl == cons.PLAIN_TEXT_ID:
+            self.pt_font = cons.CHAR_SPACE.join(font_vec)
+            target_font = self.pt_font
+        else:
             self.code_font = cons.CHAR_SPACE.join(font_vec)
-            if not from_codebox:
-                self.sourceview.modify_font(pango.FontDescription(self.code_font))
-            else:
-                support.rich_text_node_modify_codeboxes_font(self.curr_buffer.get_start_iter(), self.code_font)
+            target_font = self.code_font
+        if from_codebox is True:
+            support.rich_text_node_modify_codeboxes_font(self.curr_buffer.get_start_iter(), self)
         else:
-            font_vec = self.text_font.split(cons.CHAR_SPACE)
-            font_num = int(font_vec[-1])
-            font_vec[-1] = str(font_num+1)
-            self.text_font = cons.CHAR_SPACE.join(font_vec)
-            self.sourceview.modify_font(pango.FontDescription(self.text_font))
-
-    def zoom_text_m(self):
-        """Decrease Text Font"""
-        text_view, text_buffer, from_codebox = self.get_text_view_n_buffer_codebox_proof()
-        if not text_buffer: return
-        if from_codebox or self.syntax_highlighting not in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID]:
-            font_vec = self.code_font.split(cons.CHAR_SPACE)
-            font_num = int(font_vec[-1])
-            if font_num > 6:
-                font_vec[-1] = str(font_num-1)
-                self.code_font = cons.CHAR_SPACE.join(font_vec)
-                if not from_codebox:
-                    self.sourceview.modify_font(pango.FontDescription(self.code_font))
-                else:
-                    support.rich_text_node_modify_codeboxes_font(self.curr_buffer.get_start_iter(), self.code_font)
-        else:
-            font_vec = self.text_font.split(cons.CHAR_SPACE)
-            font_num = int(font_vec[-1])
-            if font_num > 6:
-                font_vec[-1] = str(font_num-1)
-                self.text_font = cons.CHAR_SPACE.join(font_vec)
-                self.sourceview.modify_font(pango.FontDescription(self.text_font))
+            self.sourceview.modify_font(pango.FontDescription(target_font))
 
     def fullscreen_toggle(self, *args):
         """Toggle Fullscreen State"""
@@ -1205,9 +1190,9 @@ iter_end, exclude_iter_sel_end=True)
                 if self.syntax_highlighting == cons.RICH_TEXT_ID:
                     self.curr_buffer.connect('insert-text', self.on_text_insertion)
                     self.curr_buffer.connect('delete-range', self.on_text_removal)
-                    self.sourceview.modify_font(pango.FontDescription(self.text_font))
+                    self.sourceview.modify_font(pango.FontDescription(self.rt_font))
                 elif self.syntax_highlighting == cons.PLAIN_TEXT_ID:
-                    self.sourceview.modify_font(pango.FontDescription(self.text_font))
+                    self.sourceview.modify_font(pango.FontDescription(self.pt_font))
                 else:
                     self.sourceview.modify_font(pango.FontDescription(self.code_font))
                 self.sourceview.set_sensitive(True)
@@ -2558,9 +2543,9 @@ iter_end, exclude_iter_sel_end=True)
         elif event.type == gtk.gdk.SCROLL:
             if self.ctrl_down:
                 if event.direction == gtk.gdk.SCROLL_UP:
-                    self.zoom_tree_p()
+                    self.zoom_tree(True)
                 elif event.direction == gtk.gdk.SCROLL_DOWN:
-                    self.zoom_tree_m()
+                    self.zoom_tree(False)
         elif event.type == gtk.gdk.BUTTON_PRESS:
             if event.button == 1:
                 if self.tree_click_focus_text:
@@ -2868,7 +2853,7 @@ iter_end, exclude_iter_sel_end=True)
                 self.sourceview.modify_font(pango.FontDescription(self.code_font))
             elif self.syntax_highlighting == cons.PLAIN_TEXT_ID:
                 # code to plain text
-                self.sourceview.modify_font(pango.FontDescription(self.text_font))
+                self.sourceview.modify_font(pango.FontDescription(self.pt_font))
         self.treestore[self.curr_tree_iter][1] = ret_name
         self.treestore[self.curr_tree_iter][4] = self.syntax_highlighting
         self.treestore[self.curr_tree_iter][6] = ret_tags
@@ -2952,13 +2937,13 @@ iter_end, exclude_iter_sel_end=True)
             self.treestore[tree_iter][2].connect('insert-text', self.on_text_insertion)
             self.treestore[tree_iter][2].connect('delete-range', self.on_text_removal)
             self.treestore[tree_iter][2].connect('mark-set', self.on_textbuffer_mark_set)
-            self.sourceview.modify_font(pango.FontDescription(self.text_font))
+            self.sourceview.modify_font(pango.FontDescription(self.rt_font))
             self.sourceview.set_draw_spaces(codeboxes.DRAW_SPACES_FLAGS if self.rt_show_white_spaces else 0)
             self.sourceview.set_highlight_current_line(self.rt_highl_curr_line)
             self.widget_set_colors(self.sourceview, self.rt_def_fg, self.rt_def_bg, False)
         else:
             if syntax_highl == cons.PLAIN_TEXT_ID:
-                self.sourceview.modify_font(pango.FontDescription(self.text_font))
+                self.sourceview.modify_font(pango.FontDescription(self.pt_font))
             else:
                 self.sourceview.modify_font(pango.FontDescription(self.code_font))
             self.sourceview.set_draw_spaces(codeboxes.DRAW_SPACES_FLAGS if self.pt_show_white_spaces else 0)
@@ -3397,7 +3382,7 @@ iter_end, exclude_iter_sel_end=True)
     def horizontal_rule_insert(self, action):
         """Insert a Horizontal Line"""
         if not self.is_curr_node_not_read_only_or_error(): return
-        text_view, text_buffer, from_codebox = self.get_text_view_n_buffer_codebox_proof()
+        text_view, text_buffer, syntax_highl, from_codebox = self.get_text_view_n_buffer_codebox_proof()
         if not text_buffer: return
         text_buffer.insert_at_cursor(cons.CHAR_NEWLINE+self.h_rule+cons.CHAR_NEWLINE)
 
@@ -4360,7 +4345,7 @@ iter_end, exclude_iter_sel_end=True)
     def list_bulleted_handler(self, *args):
         """Handler of the Bulleted List"""
         if not self.is_curr_node_not_read_only_or_error(): return
-        text_view, text_buffer, from_codebox = self.get_text_view_n_buffer_codebox_proof()
+        text_view, text_buffer, syntax_highl, from_codebox = self.get_text_view_n_buffer_codebox_proof()
         if not text_buffer: return
         if from_codebox or self.is_curr_node_not_syntax_highlighting_or_error(plain_text_ok=True):
             self.lists_handler.list_handler(-1, text_buffer=text_buffer)
@@ -4368,7 +4353,7 @@ iter_end, exclude_iter_sel_end=True)
     def list_numbered_handler(self, *args):
         """Handler of the Numbered List"""
         if not self.is_curr_node_not_read_only_or_error(): return
-        text_view, text_buffer, from_codebox = self.get_text_view_n_buffer_codebox_proof()
+        text_view, text_buffer, syntax_highl, from_codebox = self.get_text_view_n_buffer_codebox_proof()
         if not text_buffer: return
         if from_codebox or self.is_curr_node_not_syntax_highlighting_or_error(plain_text_ok=True):
             self.lists_handler.list_handler(1, text_buffer=text_buffer)
@@ -4376,7 +4361,7 @@ iter_end, exclude_iter_sel_end=True)
     def list_todo_handler(self, *args):
         """Handler of the ToDo List"""
         if not self.is_curr_node_not_read_only_or_error(): return
-        text_view, text_buffer, from_codebox = self.get_text_view_n_buffer_codebox_proof()
+        text_view, text_buffer, syntax_highl, from_codebox = self.get_text_view_n_buffer_codebox_proof()
         if not text_buffer: return
         if from_codebox or self.is_curr_node_not_syntax_highlighting_or_error(plain_text_ok=True):
             self.lists_handler.list_handler(0, text_buffer=text_buffer)
@@ -4614,11 +4599,11 @@ iter_end, exclude_iter_sel_end=True)
                     tag.set_property(cons.TAG_BACKGROUND, self.monospace_bg)
             elif property_value == cons.TAG_PROP_SUB:
                 tag.set_property(cons.TAG_SCALE, pango.SCALE_X_SMALL)
-                rise = pango.FontDescription(self.text_font).get_size() / -4
+                rise = pango.FontDescription(self.rt_font).get_size() / -4
                 tag.set_property("rise", rise)
             elif property_value == cons.TAG_PROP_SUP:
                 tag.set_property(cons.TAG_SCALE, pango.SCALE_X_SMALL)
-                rise = pango.FontDescription(self.text_font).get_size() / 2
+                rise = pango.FontDescription(self.rt_font).get_size() / 2
                 tag.set_property("rise", rise)
             elif property_value[0:4] == cons.LINK_TYPE_WEBS:
                 if self.links_underline: tag.set_property(cons.TAG_UNDERLINE, pango.UNDERLINE_SINGLE)
@@ -5044,7 +5029,7 @@ iter_end, exclude_iter_sel_end=True)
 
     def timestamp_insert(self, *args):
         """Insert Timestamp"""
-        text_view, text_buffer, from_codebox = self.get_text_view_n_buffer_codebox_proof()
+        text_view, text_buffer, syntax_highl, from_codebox = self.get_text_view_n_buffer_codebox_proof()
         if not text_buffer: return
         if not self.is_curr_node_not_read_only_or_error(): return
         timestamp = support.get_timestamp_str(self.timestamp_format, time.time())
