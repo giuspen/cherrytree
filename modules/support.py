@@ -62,7 +62,7 @@ def auto_decode_str(in_str, from_clipboard=False):
     elif in_str.startswith(("\xFF\xFE", "\xFE\xFF")): # UTF-16 BOMs
         encodings += [cons.STR_UTF16]
     elif from_clipboard:
-        if "html" in in_str or "HTML" in in_str:
+        if re.search(r"</[a-zA-Z]+>", in_str) is not None:
             encodings = [cons.STR_UTF8] + encodings
         else:
             encodings = [cons.STR_UTF16, cons.STR_UTF8] + encodings
