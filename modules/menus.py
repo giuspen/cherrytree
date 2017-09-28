@@ -637,6 +637,9 @@ def get_popup_menu_entries_codebox(dad):
     # "submenu-end", None, None, None, None
     return [
 (cons.TAG_SEPARATOR, None, None, None, None),
+("edit-cut", _("Cu_t as Plain Text"), KB_CONTROL+KB_SHIFT+"X", _("Cut as Plain Text, Discard the Rich Text Formatting"), dad.dad.cut_as_plain_text),
+("edit-copy", _("_Copy as Plain Text"), KB_CONTROL+KB_SHIFT+"C", _("Copy as Plain Text, Discard the Rich Text Formatting"), dad.dad.copy_as_plain_text),
+(cons.TAG_SEPARATOR, None, None, None, None),
 ("codebox_edit", _("Change CodeBox _Properties"), None, _("Edit the Properties of the CodeBox"), dad.codebox_change_properties),
 ("gtk-execute", _("_Execute CodeBox Code"), None, _("Execute CodeBox Code"), dad.dad.exec_code),
 ("from_txt", _("CodeBox _Load From Text File"), None, _("Load the CodeBox Content From a Text File"), dad.codebox_load_from_file),

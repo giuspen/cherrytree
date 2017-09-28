@@ -545,7 +545,7 @@ iter_end, exclude_iter_sel_end=True)
     def get_text_view_n_buffer_codebox_proof(self):
         """Returns Tuple TextView, TextBuffer, Boolean checking if CodeBox in Use"""
         anchor = self.codeboxes_handler.codebox_in_use_get_anchor()
-        if anchor:
+        if anchor is not None:
             text_view = anchor.sourceview
             text_buffer = text_view.get_buffer()
             syntax_highl = anchor.syntax_highlighting
@@ -3684,7 +3684,7 @@ iter_end, exclude_iter_sel_end=True)
         if self.syntax_highlighting == cons.RICH_TEXT_ID:
             code_type = None
             anchor = self.codeboxes_handler.codebox_in_use_get_anchor()
-            if anchor:
+            if anchor is not None:
                 code_type = anchor.syntax_highlighting
                 code_val = unicode(anchor.sourcebuffer.get_text(*anchor.sourcebuffer.get_bounds()), cons.STR_UTF8, cons.STR_IGNORE)
             if not code_type:
@@ -4140,12 +4140,16 @@ iter_end, exclude_iter_sel_end=True)
     def copy_as_plain_text(self, *args):
         """Copy as Plain Text"""
         self.clipboard_handler.force_plain_text = True
-        self.sourceview.emit("copy-clipboard")
+        anchor = self.codeboxes_handler.codebox_in_use_get_anchor()
+        if anchor is not None: anchor.sourceview.emit("copy-clipboard")
+        else: self.sourceview.emit("copy-clipboard")
 
     def cut_as_plain_text(self, *args):
         """Copy as Plain Text"""
         self.clipboard_handler.force_plain_text = True
-        self.sourceview.emit("cut-clipboard")
+        anchor = self.codeboxes_handler.codebox_in_use_get_anchor()
+        if anchor is not None: anchor.sourceview.emit("cut-clipboard")
+        else: self.sourceview.emit("cut-clipboard")
 
     def paste_as_plain_text(self, *args):
         """Paste as Plain Text"""
