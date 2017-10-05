@@ -332,7 +332,7 @@ class Export2Txt:
         tree_iter_for_node_name = tree_iter if include_node_name else None
         if not single_txt_filepath:
             filepath = os.path.join(self.new_path,
-                                    support.get_node_hierarchical_name(self.dad, tree_iter) + ".txt")
+                                    support.get_node_hierarchical_name(self.dad, tree_iter, trailer=".txt"))
             self.node_export_to_txt(text_buffer, filepath, tree_iter_for_node_name=tree_iter_for_node_name)
         else:
             self.node_export_to_txt(text_buffer, single_txt_filepath, tree_iter_for_node_name=tree_iter_for_node_name)
@@ -813,15 +813,7 @@ class Export2Html:
 
     def get_html_filename(self, tree_iter):
         """Get the HTML page filename given the tree iter"""
-        file_name = clean_text_to_utf8(self.dad.treestore[tree_iter][1]).strip()
-        father_iter = self.dad.treestore.iter_parent(tree_iter)
-        while father_iter:
-            file_name = clean_text_to_utf8(self.dad.treestore[father_iter][1]).strip() + "--" + file_name
-            father_iter = self.dad.treestore.iter_parent(father_iter)
-        file_name = support.clean_from_chars_not_for_filename(file_name).replace("#","~") + ".html"
-        if len(file_name) > cons.MAX_FILE_NAME_LEN:
-            file_name = file_name[-cons.MAX_FILE_NAME_LEN:]
-        return file_name
+        return support.get_node_hierarchical_name(self.dad, tree_iter, trailer=".html").replace("#","~")
 
     def html_get_from_code_buffer(self, code_buffer, sel_range=None):
         """Get rich text from syntax highlighted code node"""
