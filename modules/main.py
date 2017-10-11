@@ -158,7 +158,8 @@ def initializations():
         except:
             print "libc.prctl not available, the process name will be python and not cherrytree"
     import locale
-    locale.setlocale(locale.LC_ALL, '')
+    try: locale.setlocale(locale.LC_ALL, '')
+    except: print "locale.setlocale failure"
     try:
         # change locale text domain
         locale.bindtextdomain(cons.APP_NAME, cons.LOCALE_PATH)
