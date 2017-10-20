@@ -6,7 +6,8 @@ AM_INIT_AUTOMAKE([1.10 -Wall no-define])
 
 AC_CONFIG_HEADERS([config.h])
 
-# check for Cpp compiler
+# check for C and Cpp compiler
+AC_PROG_CC
 AC_PROG_CXX
 
 #PKG_CHECK_MODULES([P7ZR], [dl])

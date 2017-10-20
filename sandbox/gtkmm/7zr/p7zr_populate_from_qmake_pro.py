@@ -5,6 +5,7 @@ import os
 import shutil
 import argparse
 import re
+import subprocess
 
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 SRC_DIR = os.path.join(SCRIPT_DIR, "src")
@@ -21,6 +22,8 @@ class P7ZRAutotools(object):
         self._p7zip_sources = p7zip_sources
         self._dry_run = dry_run
 
+        if self._p7zip_sources[-1] in ("/", "\\"):
+            self._p7zip_sources = self._p7zip_sources[:-1]
         self._version = os.path.basename(self._p7zip_sources).split("_")[-1]
         self._all_includedirs_from = []
         self._all_sourcefiles_to = []
@@ -75,15 +78,20 @@ class P7ZRAutotools(object):
         rel_filepath = os.path.relpath(filepath, self._p7zip_sources)
         target_filepath = os.path.join(SRC_DIR, rel_filepath)
 
+        parse_for_includes = False
         if self._is_header(filepath):
             if target_filepath not in self._all_headerfiles_to:
                 self._all_headerfiles_to.append(target_filepath)
                 self._filepath_do_copy(filepath, target_filepath)
+                parse_for_includes = True
         else:
             if target_filepath not in self._all_sourcefiles_to:
                 self._all_sourcefiles_to.append(target_filepath)
                 self._filepath_do_copy(filepath, target_filepath)
-                self._source_parse_headers(filepath)
+                parse_for_includes = True
+
+        if parse_for_includes is True:
+            self._source_parse_headers(filepath)
 
 
     def _is_header(self, filepath):
@@ -108,12 +116,21 @@ class P7ZRAutotools(object):
         all_defines_list = re.findall(r"DEFINES\s*\+=\s*([^\s]+)", qmake_pro_txt, re.MULTILINE)
 
         all_defines_txt = ""
-        for d in all_defines_list:
-            all_defines_txt += "    -D"+d+" \\\n"
+        last_index = len(all_defines_list)-1
+        for i, d in enumerate(all_defines_list):
+            new_element = "    -D"+d
+            if i < last_index:
+                new_element += " \\\n"
+            all_defines_txt += new_element
 
         all_sources_txt = ""
-        for s in (self._all_sourcefiles_to + self._all_headerfiles_to):
-            all_sources_txt += "    "+os.path.relpath(s, SCRIPT_DIR)+" \\\n"
+        all_sources_list = self._all_sourcefiles_to + self._all_headerfiles_to
+        last_index = len(all_sources_list)-1
+        for i, s in enumerate(all_sources_list):
+            new_element = "    "+os.path.relpath(s, SCRIPT_DIR)
+            if i < last_index:
+                new_element += " \\\n"
+            all_sources_txt += new_element
 
         if self._dry_run is True:
             print self._version
@@ -132,6 +149,12 @@ class P7ZRAutotools(object):
             makefile_am_txt = makefile_am_txt.replace("__SOURCE_FILES_HERE__", all_sources_txt)
             with open(MAKEFILE_AM_TARGET, "w") as fd:
                 fd.write(makefile_am_txt)
+
+        for filename in ("NEWS", "README", "AUTHORS", "ChangeLog"):
+            subprocess.call(("touch", os.path.join(SCRIPT_DIR, filename)))
+        po_dir = os.path.join(SCRIPT_DIR, "po")
+        if not os.path.isdir(po_dir):
+            os.mkdir(po_dir)
 
 
 if "__main__" == __name__:
