@@ -22,7 +22,6 @@ class P7ZRAutotools(object):
         self._dry_run = dry_run
 
         self._version = os.path.basename(self._p7zip_sources).split("_")[-1]
-        print self._version
         self._all_includedirs_from = []
         self._all_sourcefiles_to = []
         self._all_headerfiles_to = []
@@ -103,6 +102,36 @@ class P7ZRAutotools(object):
 
         for filepath in self._get_pro_paths(qmake_pro_dirpath, qmake_pro_filepath, "SOURCES +="):
             self._filepath_to_copy(filepath)
+
+        with open(qmake_pro_filepath, "r") as fd:
+            qmake_pro_txt = fd.read()
+        all_defines_list = re.findall(r"DEFINES\s*\+=\s*([^\s]+)", qmake_pro_txt, re.MULTILINE)
+
+        all_defines_txt = ""
+        for d in all_defines_list:
+            all_defines_txt += "    -D"+d+" \\\n"
+
+        all_sources_txt = ""
+        for s in (self._all_sourcefiles_to + self._all_headerfiles_to):
+            all_sources_txt += "    "+os.path.relpath(s, SCRIPT_DIR)+" \\\n"
+
+        if self._dry_run is True:
+            print self._version
+            print all_defines_txt
+            print all_sources_txt
+        else:
+            with open(CONFIGURE_AC_TEMPLATE, "r") as fd:
+                configure_ac_txt = fd.read()
+            configure_ac_txt = configure_ac_txt.replace("__VERSION_HERE__", self._version)
+            with open(CONFIGURE_AC_TARGET, "w") as fd:
+                fd.write(configure_ac_txt)
+
+            with open(MAKEFILE_AM_TEMPLATE, "r") as fd:
+                makefile_am_txt = fd.read()
+            makefile_am_txt = makefile_am_txt.replace("__DEFINES_HERE__", all_defines_txt)
+            makefile_am_txt = makefile_am_txt.replace("__SOURCE_FILES_HERE__", all_sources_txt)
+            with open(MAKEFILE_AM_TARGET, "w") as fd:
+                fd.write(makefile_am_txt)
 
 
 if "__main__" == __name__:
