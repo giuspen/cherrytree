@@ -374,7 +374,7 @@ class CTDBHandler:
         elif write_dict['buff']:
             db.execute('UPDATE node SET txt=?, syntax=?, is_richtxt=?, has_codebox=?, has_table=?, has_image=?, ts_lastsave=? WHERE node_id=?', (txt, syntax, is_richtxt, has_codebox, has_table, has_image, ts_lastsave, node_id))
         elif write_dict['prop']:
-            db.execute('UPDATE node SET name=?, syntax=?, tags=?, is_ro=?, is_richtxt=?, WHERE node_id=?', (name, syntax, tags, is_ro, is_richtxt, node_id))
+            db.execute('UPDATE node SET name=?, syntax=?, tags=?, is_ro=?, is_richtxt=? WHERE node_id=?', (name, syntax, tags, is_ro, is_richtxt, node_id))
         if write_dict['hier']:
             if write_dict['upd']:
                 db.execute('DELETE FROM children WHERE node_id=?', (node_id,))
