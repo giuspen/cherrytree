@@ -1,4 +1,13 @@
 
+0.38.3 (October 30th, 2017)
+  * bugfix saving sqlite document (syntax error)
+  * plain text to have font independent from rich text (#258)
+  * right click menu inside of codeboxes, added cut/copy as plain text
+  * paste rich text from clipboard fix
+  * HTML-export IOError: 'filename too long' (#285)
+  * bugfix in export to pdf
+  * added Finnish language (Henri Kaustinen)
+
 0.38.2 (September 1st, 2017)
   * bugfix in import from cherrytree file (links broken)
   * bugfix in export to HTML ('#' in node name)

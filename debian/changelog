@@ -1,10 +1,11 @@
-cherrytree (0.38.2-0) xenial; urgency=low
+cherrytree (0.38.3-0) xenial; urgency=low
 
-  * bugfix in import from cherrytree file (links broken)
-  * bugfix in export to HTML ('#' in node name)
-  * left arrow key press with focus on an already collapsed tree node, now moves the selection to the node parent
-  * automatic syntax highlighting nodes - added right click menus cut & copy as plain text
-  * bugfix in recent filenames, problem with underscore character
-  * bugfix in import from keynote
+  * bugfix saving sqlite document (syntax error)
+  * plain text to have font independent from rich text (#258)
+  * right click menu inside of codeboxes, added cut/copy as plain text
+  * paste rich text from clipboard fix
+  * HTML-export IOError: 'filename too long' (#285)
+  * bugfix in export to pdf
+  * added Finnish language (Henri Kaustinen)
 
- -- Giuseppe Penone <giuspen@gmail.com>  Fri, 01 Sep 2017 22:49:06 +0100
+ -- Giuseppe Penone <giuspen@gmail.com>  Mon, 30 Oct 2017 00:59:07 +0000
