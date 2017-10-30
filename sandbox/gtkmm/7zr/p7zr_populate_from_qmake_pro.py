@@ -26,6 +26,7 @@ class P7ZRAutotools(object):
             self._p7zip_sources = self._p7zip_sources[:-1]
         self._version = os.path.basename(self._p7zip_sources).split("_")[-1]
         self._all_includedirs_from = []
+        self._all_includedirs_to = []
         self._all_sourcefiles_to = []
         self._all_headerfiles_to = []
 
@@ -51,7 +52,8 @@ class P7ZRAutotools(object):
 
         with open(filepath, "r") as fd:
             txt_content = fd.read()
-        matches = re.findall(r'#include\s+\"([^\"]+)\"', txt_content, re.MULTILINE)
+        matches = re.findall(r'#include\s+\"([^\"]+)\"', txt_content, re.MULTILINE) + \
+                  re.findall(r'#include\s+<([^>]+)>', txt_content, re.MULTILINE)
         for head_rel_path in matches:
             #print headpath
             this_dirpath = os.path.dirname(filepath)
@@ -106,6 +108,9 @@ class P7ZRAutotools(object):
 
         for dirpath in self._get_pro_paths(qmake_pro_dirpath, qmake_pro_filepath, "INCLUDEPATH ="):
             self._all_includedirs_from.append(dirpath)
+            rel_dirpath = os.path.relpath(dirpath, self._p7zip_sources)
+            target_dirpath = os.path.join(SRC_DIR, rel_dirpath)
+            self._all_includedirs_to.append(target_dirpath)
             #print dirpath
 
         for filepath in self._get_pro_paths(qmake_pro_dirpath, qmake_pro_filepath, "SOURCES +="):
@@ -116,6 +121,8 @@ class P7ZRAutotools(object):
         all_defines_list = re.findall(r"DEFINES\s*\+=\s*([^\s]+)", qmake_pro_txt, re.MULTILINE)
 
         all_defines_txt = ""
+        for h in self._all_includedirs_to:
+            all_defines_txt += "    -I"+h + " \\\n"
         last_index = len(all_defines_list)-1
         for i, d in enumerate(all_defines_list):
             new_element = "    -D"+d
@@ -124,9 +131,8 @@ class P7ZRAutotools(object):
             all_defines_txt += new_element
 
         all_sources_txt = ""
-        all_sources_list = self._all_sourcefiles_to + self._all_headerfiles_to
-        last_index = len(all_sources_list)-1
-        for i, s in enumerate(all_sources_list):
+        last_index = len(self._all_sourcefiles_to)-1
+        for i, s in enumerate(self._all_sourcefiles_to):
             new_element = "    "+os.path.relpath(s, SCRIPT_DIR)
             if i < last_index:
                 new_element += " \\\n"

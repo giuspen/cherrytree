@@ -30,7 +30,7 @@ __SOURCE_FILES_HERE__
 ## Set the library dependencies for the "example" target to the value obtained
 ## from pkg-config via PKG_CHECK_MODULES in configure.ac.  These libraries are
 ## passed to the linker in addition to the other linker flags.
-p7zr_LDADD = $(P7ZR_LIBS)
+p7zr_LDADD = $(P7ZR_LIBS) -lpthread
 
 ## Define an independent executable script for inclusion in the distribution
 ## archive. It will not be installed on an end user's system, however.
