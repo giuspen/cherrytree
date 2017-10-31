@@ -729,6 +729,12 @@ iter_end, exclude_iter_sel_end=True)
         """Increase or Decrease Text Font"""
         text_view, text_buffer, syntax_highl, from_codebox = self.get_text_view_n_buffer_codebox_proof()
         if not text_buffer: return
+        from_table = False
+        if syntax_highl == cons.RICH_TEXT_ID:
+            anchor_table = self.tables_handler.table_in_use_get_anchor()
+            if not (anchor_table is None):
+                from_table = True
+                syntax_highl = cons.PLAIN_TEXT_ID
         if syntax_highl == cons.RICH_TEXT_ID:
             font_vec = self.rt_font.split(cons.CHAR_SPACE)
         elif syntax_highl == cons.PLAIN_TEXT_ID:
@@ -752,6 +758,8 @@ iter_end, exclude_iter_sel_end=True)
             target_font = self.code_font
         if from_codebox is True:
             support.rich_text_node_modify_codeboxes_font(self.curr_buffer.get_start_iter(), self)
+        elif from_table is True:
+            support.rich_text_node_modify_tables_font(self.curr_buffer.get_start_iter(), self)
         else:
             self.sourceview.modify_font(pango.FontDescription(target_font))
 

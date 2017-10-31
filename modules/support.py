@@ -503,6 +503,18 @@ def sourceview_cursor_and_tooltips_handler(dad, text_view, x, y):
         text_view.get_window(gtk.TEXT_WINDOW_TEXT).set_cursor(gtk.gdk.Cursor(gtk.gdk.XTERM))
         text_view.set_tooltip_text(None)
 
+def rich_text_node_modify_tables_font(start_iter, dad):
+    """Modify Font to Tables"""
+    curr_iter = start_iter.copy()
+    while 1:
+        anchor = curr_iter.get_child_anchor()
+        if anchor and "liststore" in dir(anchor):
+            for renderer_text in anchor.renderers_text:
+                renderer_text.set_property('font-desc', pango.FontDescription(dad.pt_font))
+            anchor.treeview.set_model(None)
+            anchor.treeview.set_model(anchor.liststore)
+        if not curr_iter.forward_char(): break
+
 def rich_text_node_modify_codeboxes_font(start_iter, dad):
     """Modify Font to CodeBoxes"""
     curr_iter = start_iter.copy()

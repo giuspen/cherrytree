@@ -1686,6 +1686,7 @@ def preferences_tab_fonts(dad, vbox_fonts, pref_dialog):
             dad.sourceview.modify_font(pango.FontDescription(dad.pt_font))
         elif dad.syntax_highlighting == cons.RICH_TEXT_ID:
             support.rich_text_node_modify_codeboxes_font(dad.curr_buffer.get_start_iter(), dad)
+            support.rich_text_node_modify_tables_font(dad.curr_buffer.get_start_iter(), dad)
     fontbutton_pt.connect('font-set', on_fontbutton_pt_font_set)
     def on_fontbutton_code_font_set(picker):
         dad.code_font = picker.get_font_name()

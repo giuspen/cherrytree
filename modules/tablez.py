@@ -324,6 +324,7 @@ class TablesHandler:
         anchor = text_buffer.create_child_anchor(iter_insert)
         anchor.liststore = gtk.ListStore(*(str,)*self.dad.table_columns)
         anchor.treeview = gtk.TreeView(anchor.liststore)
+        anchor.renderers_text = []
         for element in range(self.dad.table_columns):
             label = gtk.Label('<b>' + headers[element] + '</b>')
             label.set_use_markup(True)
@@ -343,6 +344,7 @@ class TablesHandler:
             column.set_sizing(gtk.TREE_VIEW_COLUMN_AUTOSIZE)
             column.connect('clicked', self.table_column_clicked, anchor, element)
             anchor.treeview.append_column(column)
+            anchor.renderers_text.append(renderer_text)
         anchor.headers = headers
         anchor.table_col_min = table_col_min
         anchor.table_col_max = table_col_max
@@ -636,6 +638,16 @@ class TablesHandler:
             menu_table.popup(None, None, None, event.button, event.time)
             return True
         return False
+
+    def table_in_use_get_anchor(self):
+        """Returns a Table Anchor if Currently in Use or None"""
+        if not self.curr_table_anchor: return None
+        if not self.dad.curr_buffer: return None
+        iter_sel_start = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
+        anchor = iter_sel_start.get_child_anchor()
+        if not anchor: return None
+        if "liststore" in dir(anchor): return anchor
+        return None
 
 
 class UTF8Recoder:
