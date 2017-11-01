@@ -90,7 +90,7 @@ def rgb_to_no_white(in_rgb):
         # r+g+b black is 0
         # r+g+b white is 3*65535
         max_48 = 65535
-        if r+g+b > 2.3*max_48:
+        if r+g+b > 2.2*max_48:
             r = max_48 - r
             g = max_48 - g
             b = max_48 - b
@@ -107,7 +107,7 @@ def rgb_to_no_white(in_rgb):
         # r+g+b black is 0
         # r+g+b white is 3*255
         max_24 = 255
-        if r+g+b > 2.3*max_24:
+        if r+g+b > 2.2*max_24:
             r = max_24 - r
             g = max_24 - g
             b = max_24 - b
