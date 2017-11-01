@@ -195,6 +195,7 @@ def config_file_load(dad):
             win_size = [cfg.getint(section, "win_size_w"), cfg.getint(section, "win_size_h")]
             dad.window.resize(win_size[0], win_size[1])
         dad.hpaned_pos = cfg.getint(section, "hpaned_pos") if cfg.has_option(section, "hpaned_pos") else 170
+        dad.tree_visible = cfg.getboolean(section, "tree_visible") if cfg.has_option(section, "tree_visible") else True
         if cfg.has_option(section, "node_path"):
             # restore the selected node
             dad.node_path = get_node_path_from_str(cfg.get(section, "node_path"))
@@ -469,6 +470,7 @@ def config_file_load(dad):
         dad.space_around_lines = 0
         dad.relative_wrapped_space = 50
         dad.hpaned_pos = 170
+        dad.tree_visible = True
         dad.show_node_name_header = True
         dad.nodes_on_node_name_header = NODES_ON_NODE_NAME_HEADER_DEFAULT
         dad.nodes_icons = "c"
@@ -480,6 +482,7 @@ def config_file_load(dad):
 def config_file_apply(dad):
     """Apply the Preferences from Config File"""
     dad.hpaned.set_property('position', dad.hpaned_pos)
+    dad.scrolledwindow_tree.set_property(cons.STR_VISIBLE, dad.tree_visible)
     dad.header_node_name_hbox.set_property(cons.STR_VISIBLE, dad.show_node_name_header)
     dad.update_node_name_header_num_latest_visited()
     dad.set_treeview_font()
@@ -529,6 +532,7 @@ def config_file_save(dad):
         cfg.set(section, "win_size_w", win_size[0])
         cfg.set(section, "win_size_h", win_size[1])
     cfg.set(section, "hpaned_pos", dad.hpaned.get_property('position'))
+    cfg.set(section, "tree_visible", dad.tree_visible)
     if dad.curr_tree_iter:
         cfg.set(section, "node_path", get_node_path_str_from_path(dad.treestore.get_path(dad.curr_tree_iter)))
         cfg.set(section, "cursor_position", dad.curr_buffer.get_property(cons.STR_CURSOR_POSITION))

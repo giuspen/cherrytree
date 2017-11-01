@@ -52,6 +52,7 @@ void CTConfig::_populate_with_defaults()
     m_win_rect[2] = 963;
     m_win_rect[3] = 630;
     m_hpaned_pos = 170;
+    m_tree_visible = true;
     m_link_type = LINK_TYPE_WEBS;
     m_show_node_name_header = true;
     m_nodes_on_node_name_header = 3;
@@ -281,6 +282,7 @@ void CTConfig::_populate_from_keyfile()
     _populate_int_from_keyfile("win_size_w", &m_win_rect[2]);
     _populate_int_from_keyfile("win_size_h", &m_win_rect[3]);
     _populate_int_from_keyfile("hpaned_pos", &m_hpaned_pos);
+    _populate_bool_from_keyfile("tree_visible", &m_tree_visible);
     if (_populate_string_from_keyfile("node_path", &m_node_path))
     {
         _populate_int_from_keyfile("cursor_position", &m_cursor_position);

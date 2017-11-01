@@ -3594,9 +3594,9 @@ iter_end, exclude_iter_sel_end=True)
 
     def toggle_show_hide_tree(self, *args):
         """Toggle Show/Hide the Tree"""
-        if self.scrolledwindow_tree.get_property(cons.STR_VISIBLE):
-            self.scrolledwindow_tree.hide()
-        else: self.scrolledwindow_tree.show()
+        old_tree_status = self.scrolledwindow_tree.get_property(cons.STR_VISIBLE)
+        self.tree_visible = not old_tree_status
+        self.scrolledwindow_tree.set_property(cons.STR_VISIBLE, self.tree_visible)
 
     def toggle_show_hide_node_name_header(self, *args):
         """Toggle Show/Hide the Node Title Header"""

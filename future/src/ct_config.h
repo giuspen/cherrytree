@@ -53,6 +53,7 @@ public:
     bool                                        m_win_is_maximized;
     int                                         m_win_rect[4];
     int                                         m_hpaned_pos;
+    bool                                        m_tree_visible;
     Glib::ustring                               m_node_path;
     int                                         m_cursor_position;
     std::list<Glib::ustring>                    m_recent_docs;
