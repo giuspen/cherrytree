@@ -294,34 +294,34 @@ def on_sourceview_event_after_key_press(dad, text_view, event, syntax_highl):
     if not dad.ctrl_down:
         if keyname in cons.STR_KEYS_CONTROL:
             dad.ctrl_down = True
-    if dad.auto_smart_quotes and keyname in [cons.STR_KEY_DQUOTE, cons.STR_KEY_SQUOTE]:
-        if syntax_highl in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID]:
-            iter_insert = text_buffer.get_iter_at_mark(text_buffer.get_insert())
-            if iter_insert:
-                offset_1 = iter_insert.get_offset()-1
-                if offset_1 > 0:
-                    if keyname == cons.STR_KEY_DQUOTE:
-                        start_char = cons.CHAR_DQUOTE
-                        char_0 = cons.CHAR_SMART_DQUOTE_0
-                        char_1 = cons.CHAR_SMART_DQUOTE_1
-                    else:
-                        start_char = cons.CHAR_SQUOTE
-                        char_0 = cons.CHAR_SMART_SQUOTE_0
-                        char_1 = cons.CHAR_SMART_SQUOTE_1
-                    iter_start = text_buffer.get_iter_at_offset(offset_1-1)
-                    offset_0 = -1
-                    while iter_start:
-                        curr_char = iter_start.get_char()
-                        if curr_char == start_char:
-                            candidate_offset = iter_start.get_offset()
-                            if not iter_start.backward_char() or iter_start.get_char() in [cons.CHAR_NEWLINE, cons.CHAR_SPACE, cons.CHAR_TAB]:
-                                offset_0 = candidate_offset
-                            break
-                        if curr_char == cons.CHAR_NEWLINE: break
-                        if not iter_start.backward_char(): break
-                    if offset_0 >= 0:
-                        dad.replace_text_at_offset(char_0, offset_0, offset_0+1, text_buffer)
-                        dad.replace_text_at_offset(char_1, offset_1, offset_1+1, text_buffer)
+    is_code = syntax_highl not in (cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID)
+    if is_code is False and dad.auto_smart_quotes is True and keyname in (cons.STR_KEY_DQUOTE, cons.STR_KEY_SQUOTE):
+        iter_insert = text_buffer.get_iter_at_mark(text_buffer.get_insert())
+        if iter_insert:
+            offset_1 = iter_insert.get_offset()-1
+            if offset_1 > 0:
+                if keyname == cons.STR_KEY_DQUOTE:
+                    start_char = cons.CHAR_DQUOTE
+                    char_0 = cons.CHAR_SMART_DQUOTE_0
+                    char_1 = cons.CHAR_SMART_DQUOTE_1
+                else:
+                    start_char = cons.CHAR_SQUOTE
+                    char_0 = cons.CHAR_SMART_SQUOTE_0
+                    char_1 = cons.CHAR_SMART_SQUOTE_1
+                iter_start = text_buffer.get_iter_at_offset(offset_1-1)
+                offset_0 = -1
+                while iter_start:
+                    curr_char = iter_start.get_char()
+                    if curr_char == start_char:
+                        candidate_offset = iter_start.get_offset()
+                        if not iter_start.backward_char() or iter_start.get_char() in [cons.CHAR_NEWLINE, cons.CHAR_SPACE, cons.CHAR_TAB]:
+                            offset_0 = candidate_offset
+                        break
+                    if curr_char == cons.CHAR_NEWLINE: break
+                    if not iter_start.backward_char(): break
+                if offset_0 >= 0:
+                    dad.replace_text_at_offset(char_0, offset_0, offset_0+1, text_buffer)
+                    dad.replace_text_at_offset(char_1, offset_1, offset_1+1, text_buffer)
     elif (event.state & gtk.gdk.SHIFT_MASK):
         if keyname == cons.STR_KEY_RETURN:
             iter_insert = text_buffer.get_iter_at_mark(text_buffer.get_insert())
@@ -331,7 +331,7 @@ def on_sourceview_event_after_key_press(dad, text_view, event, syntax_highl):
             list_info = dad.lists_handler.get_paragraph_list_info(iter_start)
             if list_info:
                 text_buffer.insert(text_buffer.get_iter_at_mark(text_buffer.get_insert()), 3*(1+list_info["level"])*cons.CHAR_SPACE)
-    elif keyname in [cons.STR_KEY_RETURN, cons.STR_KEY_SPACE]:
+    elif keyname in (cons.STR_KEY_RETURN, cons.STR_KEY_SPACE):
         iter_insert = text_buffer.get_iter_at_mark(text_buffer.get_insert())
         if not iter_insert: return False
         if syntax_highl == cons.RICH_TEXT_ID:
@@ -398,8 +398,8 @@ def on_sourceview_event_after_key_press(dad, text_view, event, syntax_highl):
                     iter_start = text_buffer.get_iter_at_offset(end_offset)
                     new_num += 1
                     list_info = dad.lists_handler.get_next_list_info_on_level(iter_start, curr_level)
-        elif keyname == cons.STR_KEY_SPACE:
-            if iter_start.backward_chars(2):
+        else: # keyname == cons.STR_KEY_SPACE
+            if is_code is False and iter_start.backward_chars(2):
                 if iter_start.get_char() == cons.CHAR_GREATER and iter_start.backward_char():
                     if iter_start.get_line_offset() == 0:
                         # at line start
