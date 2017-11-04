@@ -116,7 +116,7 @@ void CTConfig::_populate_with_defaults()
     m_codebox_line_num = false;
     m_codebox_match_bra = true;
     m_codebox_syn_highl = PLAIN_TEXT_ID;
-    m_codebox_auto_resize = true;
+    m_codebox_auto_resize = false;
 
     // [table]
     m_table_rows = 3;

@@ -65,7 +65,7 @@ XDG_CURRENT_DESKTOP = 'XDG_CURRENT_DESKTOP'
 HAS_SYSTRAY = not (XDG_CURRENT_DESKTOP in os.environ and os.environ[XDG_CURRENT_DESKTOP] == "Unity")
 
 AVAILABLE_LANGS = ['default', 'cs', 'de', 'el', 'en', 'es', 'fi', 'fr', 'hy', 'it', 'ja', 'lt', 'nl', 'pl', 'pt_BR', 'ru', 'sl', 'tr', 'uk', 'zh_CN']
-COLOR_48_LINK_WEBS = "#00004444ffff"
+COLOR_48_LINK_WEBS = "#00008989ffff"
 COLOR_48_LINK_NODE = "#071c838e071c"
 COLOR_48_LINK_FILE = "#8b8b69691414"
 COLOR_48_LINK_FOLD = "#7f7f7f7f7f7f"

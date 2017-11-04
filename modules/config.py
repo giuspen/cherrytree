@@ -308,7 +308,7 @@ def config_file_load(dad):
         dad.codebox_line_num = cfg.getboolean(section, "codebox_line_num") if cfg.has_option(section, "codebox_line_num") else False
         dad.codebox_match_bra = cfg.getboolean(section, "codebox_match_bra") if cfg.has_option(section, "codebox_match_bra") else True
         dad.codebox_syn_highl = cfg.get(section, "codebox_syn_highl") if cfg.has_option(section, "codebox_syn_highl") else cons.PLAIN_TEXT_ID
-        dad.codebox_auto_resize = cfg.getboolean(section, "codebox_auto_resize") if cfg.has_option(section, "codebox_auto_resize") else True
+        dad.codebox_auto_resize = cfg.getboolean(section, "codebox_auto_resize") if cfg.has_option(section, "codebox_auto_resize") else False
 
         section = "table"
         dad.table_rows = cfg.getint(section, "table_rows") if cfg.has_option(section, "table_rows") else 3
@@ -452,7 +452,7 @@ def config_file_load(dad):
         dad.codebox_line_num = False
         dad.codebox_match_bra = True
         dad.codebox_syn_highl = cons.PLAIN_TEXT_ID
-        dad.codebox_auto_resize = True
+        dad.codebox_auto_resize = False
         dad.check_version = False
         dad.word_count = False
         dad.reload_doc_last = True
