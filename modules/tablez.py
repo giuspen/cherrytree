@@ -30,6 +30,7 @@ class TablesHandler:
     def __init__(self, dad):
         """Lists Handler boot"""
         self.dad = dad
+        self.curr_table_anchor = None
 
     def table_cut(self, *args):
         """Cut Table"""

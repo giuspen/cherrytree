@@ -406,6 +406,8 @@ class CodeBoxesHandler:
             return support.on_sourceview_event_after_button_press(self.dad, text_view, event)
         elif event.type == gtk.gdk.KEY_PRESS:
             return support.on_sourceview_event_after_key_press(self.dad, text_view, event, self.curr_codebox_anchor.syntax_highlighting)
+        elif event.type == gtk.gdk.SCROLL:
+            return support.on_sourceview_event_after_scroll(self.dad, text_view, event)
         return False
 
     def on_vscrollbar_event_after(self, vscrollbar, event, anchor):
