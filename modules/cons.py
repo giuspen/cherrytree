@@ -40,7 +40,7 @@ if sys.platform.startswith("win"):
 else:
     IS_WIN_OS = False
     SZA_PATH = "7za"
-    TMP_FOLDER = '/tmp/ct_tmp/'
+    TMP_FOLDER = os.environ['TEMP'] if 'TEMP' in os.environ else '/tmp/ct_tmp/'
     MODULES_PATH = os.path.dirname(os.path.realpath(__file__))
     CONFIG_DIR = os.path.join(os.path.expanduser('~'), '.config', 'cherrytree')
     if SHARE_PATH == os.path.dirname(MODULES_PATH):
