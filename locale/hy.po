@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-01-29 11:13+0000\n"
-"PO-Revision-Date: 2017-01-30 02:48+0400\n"
+"PO-Revision-Date: 2017-11-09 13:48+0400\n"
 "Last-Translator: Seda Stamboltsyan <sedastam@yandex.com>\n"
 "Language-Team: Armenian\n"
 "Language: hy\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.9\n"
+"X-Generator: Poedit 2.0.1\n"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/codeboxes.py:95
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3423
@@ -1420,11 +1420,11 @@ msgstr "Ցուցադրել/թաքցնել CherryTree-ն"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:319
 msgid "Stri_p Trailing Spaces"
-msgstr "Վերացնել տողավեր_ջի բացակները"
+msgstr "Վերացնել տողավեր_ջի բացատները"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:319
 msgid "Strip Trailing Spaces"
-msgstr "Վերացնել տողավերջի բացակները"
+msgstr "Վերացնել տողավերջի բացատները"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:327
 msgid "_File"
@@ -2138,7 +2138,7 @@ msgstr "Սյունատի լայնք"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:750
 msgid "Insert Spaces Instead of Tabs"
-msgstr "Սյունանշանի փոխարեն բացակներ դնել"
+msgstr "Սյունանշանի փոխարեն բացատներ դնել"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:752
 msgid "Use Line Wrapping"
@@ -2251,7 +2251,7 @@ msgstr "Թեմա"
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1013
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1194
 msgid "Show White Spaces"
-msgstr "Ցուցադրել բացակների նիշերը"
+msgstr "Ցուցադրել բացատների նիշերը"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1015
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1196
