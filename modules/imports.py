@@ -2533,6 +2533,7 @@ class HTMLHandler(HTMLParser.HTMLParser):
                 img_path = dic_attrs.get('src', "")
                 self.insert_image(img_path)
             elif tag == "pre": self.pre_tag = "p"
+            elif tag == "code": self.curr_attributes[cons.TAG_FAMILY] = cons.TAG_PROP_MONOSPACE
         elif self.curr_state == 2:
             if tag == "table": # nested tables
                 self.curr_table = []
@@ -2622,6 +2623,7 @@ class HTMLHandler(HTMLParser.HTMLParser):
             elif tag == "a": self.curr_attributes[cons.TAG_LINK] = ""
             elif tag == "li": self.rich_text_serialize(cons.CHAR_NEWLINE)
             elif tag == "pre": self.pre_tag = ""
+            elif tag == "code": self.curr_attributes[cons.TAG_FAMILY] = ""
         elif self.curr_state == 2:
             if tag in ["td", "th"]:
                 self.curr_table[-1].append(self.curr_cell)
