@@ -415,7 +415,7 @@ class TablesHandler:
             elif keyname == "comma":
                 return True
         else:
-            if keyname in [cons.STR_KEY_RETURN, cons.STR_KEY_UP, cons.STR_KEY_DOWN]:
+            if keyname in [cons.STR_KEY_RETURN, cons.STR_KEY_TAB, cons.STR_KEY_UP, cons.STR_KEY_DOWN]:
                 if model[path][col_num] != widget.get_text():
                     if self.dad.is_curr_node_not_read_only_or_error():
                         model[path][col_num] = widget.get_text()

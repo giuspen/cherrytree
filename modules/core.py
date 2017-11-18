@@ -508,8 +508,7 @@ iter_end, exclude_iter_sel_end=True)
             else:
                 self.set_selection_at_offset_n_delta(destination_offset+1, diff_offsets-2, text_buffer=text_buffer)
         else:
-            rich_text = self.clipboard_handler.rich_text_get_from_text_buffer_selection(text_buffer,
- iter_start, iter_end, exclude_iter_sel_end=True)
+            rich_text = self.clipboard_handler.rich_text_get_from_text_buffer_selection(text_buffer, iter_start, iter_end, exclude_iter_sel_end=True)
             text_buffer.delete(iter_start, iter_end)
             destination_offset -= diff_offsets
             destination_iter = text_buffer.get_iter_at_offset(destination_offset)
