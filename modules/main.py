@@ -21,34 +21,42 @@
 
 import gtk
 import gobject
-import dbus
-import dbus.service
-import dbus.mainloop.glib
+
 import sys
 import os
 import subprocess
 import gettext
 import __builtin__
+
+__builtin__.DBUS_OK = True
+try:
+    import dbus
+    import dbus.service
+    import dbus.mainloop.glib
+except:
+    __builtin__.DBUS_OK = False
+
 msg_server_to_core = {'f':0, 'p':""}
 __builtin__.msg_server_to_core = msg_server_to_core
 import cons, core
 
 
-class CherryTreeObject(dbus.service.Object):
+if __builtin__.DBUS_OK is True:
+    class CherryTreeObject(dbus.service.Object):
 
-    @dbus.service.method("com.giuspen.CherryTreeInterface",
-                         in_signature='s', out_signature='s')
-    def Send(self, in_message):
-        if len(in_message) < 4 or in_message[:4] != "ct*=":
-            print "bad in_message =", in_message
-            return ""
-        sep_pos = in_message.find("\x03")
-        filepath = in_message[4:sep_pos] if sep_pos != -1 else in_message[4:]
-        node_name = in_message[sep_pos+1:] if sep_pos != -1 else ""
-        msg_server_to_core['p'] = filepath
-        msg_server_to_core['n'] = node_name
-        msg_server_to_core['f'] = 1
-        return "okz"
+        @dbus.service.method("com.giuspen.CherryTreeInterface",
+                             in_signature='s', out_signature='s')
+        def Send(self, in_message):
+            if len(in_message) < 4 or in_message[:4] != "ct*=":
+                print "bad in_message =", in_message
+                return ""
+            sep_pos = in_message.find("\x03")
+            filepath = in_message[4:sep_pos] if sep_pos != -1 else in_message[4:]
+            node_name = in_message[sep_pos+1:] if sep_pos != -1 else ""
+            msg_server_to_core['p'] = filepath
+            msg_server_to_core['n'] = node_name
+            msg_server_to_core['f'] = 1
+            return "okz"
 
 
 class CherryTreeHandler():
@@ -207,12 +215,12 @@ def arg_filepath_fix(filepath):
 
 def main(args):
     """Everything Starts from Here"""
-    dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
-    try:
-        session_bus = dbus.SessionBus()
-        DBUS_OK = True
-    except:
-        DBUS_OK = False
+    if __builtin__.DBUS_OK is True:
+        dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
+        try:
+            session_bus = dbus.SessionBus()
+        except:
+            __builtin__.DBUS_OK = False
 
     args.filepath = arg_filepath_fix(args.filepath)
     if args.export_to_html_dir or args.export_to_txt_dir:
@@ -220,7 +228,7 @@ def main(args):
         args.export_to_txt_dir = arg_filepath_fix(args.export_to_txt_dir)
         lang_str = initializations()
         CherryTreeHandler(args, lang_str)
-    elif DBUS_OK:
+    elif __builtin__.DBUS_OK is True:
         try:
             # client
             remote_object = session_bus.get_object("com.giuspen.CherryTreeService", "/CherryTreeObject")
