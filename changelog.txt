@@ -1,4 +1,13 @@
 
+0.38.4 (December 2nd, 2017)
+  * support for zoom in tables (#292) with both Ctrl+Mouse Wheel or Ctrl+Plus/Minus
+  * copy/paste rich text with dark background to light background - fix too light color
+  * tree visible status now persistent after system tray hide/show and between sessions
+  * default value changes for web link color (less bright blue) and codebox auto resize (to False)
+  * no special chars auto replacements for code - only for rich and plain text (#293)
+  * paste from rich text and import from html - support fot tag <code> to codebox (#229)
+  * Tab key also valid to switch between table cell (#298)
+
 0.38.3 (October 30th, 2017)
   * bugfix saving sqlite document (syntax error)
   * plain text to have font independent from rich text (#258)

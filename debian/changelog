@@ -1,11 +1,11 @@
-cherrytree (0.38.3-0) xenial; urgency=low
+cherrytree (0.38.4-0) xenial; urgency=low
 
-  * bugfix saving sqlite document (syntax error)
-  * plain text to have font independent from rich text (#258)
-  * right click menu inside of codeboxes, added cut/copy as plain text
-  * paste rich text from clipboard fix
-  * HTML-export IOError: 'filename too long' (#285)
-  * bugfix in export to pdf
-  * added Finnish language (Henri Kaustinen)
+  * support for zoom in tables (#292) with both Ctrl+Mouse Wheel or Ctrl+Plus/Minus
+  * copy/paste rich text with dark background to light background - fix too light color
+  * tree visible status now persistent after system tray hide/show and between sessions
+  * default value changes for web link color (less bright blue) and codebox auto resize (to False)
+  * no special chars auto replacements for code - only for rich and plain text (#293)
+  * paste from rich text and import from html - support fot tag <code> to codebox (#229)
+  * Tab key also valid to switch between table cell (#298)
 
- -- Giuseppe Penone <giuspen@gmail.com>  Mon, 30 Oct 2017 00:59:07 +0000
+ -- Giuseppe Penone <giuspen@gmail.com>  Sat, 02 Dec 2017 17:06:54 +0000
