@@ -13,15 +13,14 @@ ACLOCAL_AMFLAGS = ${ACLOCAL_FLAGS}
 ## flags are passed to the compiler for both C and C++, in addition to the
 ## language-specific options.
 AM_CPPFLAGS = $(P7ZR_CFLAGS) \
-    -I/home/giuspen/Software/git_cherrytree/sandbox/gtkmm/7zr/src/CPP/myWindows \
-    -I/home/giuspen/Software/git_cherrytree/sandbox/gtkmm/7zr/src/CPP \
-    -I/home/giuspen/Software/git_cherrytree/sandbox/gtkmm/7zr/src/CPP/include_windows \
+    -Isrc/CPP/myWindows \
+    -Isrc/CPP \
+    -Isrc/CPP/include_windows \
     -DUSE_LIB7Z_DLL \
     -D_FILE_OFFSET_BITS=64 \
     -D_LARGEFILE_SOURCE \
     -D_REENTRANT \
     -DENV_UNIX \
-    -D_NO_CRYPTO \
     -DBREAK_HANDLER \
     -DUNICODE \
     -D_UNICODE \
