@@ -473,7 +473,7 @@ msgstr "Cor_tar como texto sin formato"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:200
 msgid "Cut as Plain Text, Discard the Rich Text Formatting"
-msgstr "Pegar como texto sin formato, descartar formato enriquecido"
+msgstr "Cortar como texto sin formato, descartar formato enriquecido"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:201
 msgid "_Copy as Plain Text"
@@ -481,11 +481,11 @@ msgstr "Co_piar como texto sin formato"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:201
 msgid "Copy as Plain Text, Discard the Rich Text Formatting"
-msgstr "Pegar como texto sin formato, descartar formato enriquecido"
+msgstr "Copiar como texto sin formato, descartar formato enriquecido"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:202
 msgid "_Paste as Plain Text"
-msgstr "Co_piar como texto sin formato"
+msgstr "_Pegar como texto sin formato"
 
 #: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:202
 msgid "Paste as Plain Text, Discard the Rich Text Formatting"
