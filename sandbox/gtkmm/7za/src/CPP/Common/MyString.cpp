@@ -2,11 +2,7 @@
 
 #include "StdAfx.h"
 
-#ifdef _WIN32
-#include <wchar.h>
-#else
 #include <ctype.h>
-#endif
 
 #if !defined(_UNICODE) || !defined(USE_UNICODE_FSTRING)
 #include "StringConvert.h"
@@ -15,18 +11,7 @@
 #include "MyString.h"
 
 #define MY_STRING_NEW(_T_, _size_) new _T_[_size_]
-// #define MY_STRING_NEW(_T_, _size_) ((_T_ *)my_new((size_t)(_size_) * sizeof(_T_)))
 
-/*
-inline const char* MyStringGetNextCharPointer(const char *p) throw()
-{
-  #if defined(_WIN32) && !defined(UNDER_CE)
-  return CharNextA(p);
-  #else
-  return p + 1;
-  #endif
-}
-*/
 
 int FindCharPosInString(const char *s, char c) throw()
 {
@@ -51,18 +36,6 @@ int FindCharPosInString(const wchar_t *s, wchar_t c) throw()
   }
 }
 
-/*
-void MyStringUpper_Ascii(wchar_t *s)
-{
-  for (;;)
-  {
-    wchar_t c = *s;
-    if (c == 0)
-      return;
-    *s++ = MyCharUpper_Ascii(c);
-  }
-}
-*/
 
 void MyStringLower_Ascii(char *s) throw()
 {
@@ -86,88 +59,7 @@ void MyStringLower_Ascii(wchar_t *s) throw()
   }
 }
 
-#ifdef _WIN32
 
-#ifdef _UNICODE
-
-// wchar_t * MyStringUpper(wchar_t *s) { return CharUpperW(s); }
-// wchar_t * MyStringLower(wchar_t *s) { return CharLowerW(s); }
-// for WinCE - FString - char
-// const char *MyStringGetPrevCharPointer(const char * /* base */, const char *p) { return p - 1; }
-
-#else
-
-// const char * MyStringGetPrevCharPointer(const char *base, const char *p) throw() { return CharPrevA(base, p); }
-// char * MyStringUpper(char *s) { return CharUpperA(s); }
-// char * MyStringLower(char *s) { return CharLowerA(s); }
-
-wchar_t MyCharUpper_WIN(wchar_t c) throw()
-{
-  wchar_t *res = CharUpperW((LPWSTR)(UINT_PTR)(unsigned)c);
-  if (res != 0 || ::GetLastError() != ERROR_CALL_NOT_IMPLEMENTED)
-    return (wchar_t)(unsigned)(UINT_PTR)res;
-  const int kBufSize = 4;
-  char s[kBufSize + 1];
-  int numChars = ::WideCharToMultiByte(CP_ACP, 0, &c, 1, s, kBufSize, 0, 0);
-  if (numChars == 0 || numChars > kBufSize)
-    return c;
-  s[numChars] = 0;
-  ::CharUpperA(s);
-  ::MultiByteToWideChar(CP_ACP, 0, s, numChars, &c, 1);
-  return c;
-}
-
-/*
-wchar_t MyCharLower_WIN(wchar_t c)
-{
-  wchar_t *res = CharLowerW((LPWSTR)(UINT_PTR)(unsigned)c);
-  if (res != 0 || ::GetLastError() != ERROR_CALL_NOT_IMPLEMENTED)
-    return (wchar_t)(unsigned)(UINT_PTR)res;
-  const int kBufSize = 4;
-  char s[kBufSize + 1];
-  int numChars = ::WideCharToMultiByte(CP_ACP, 0, &c, 1, s, kBufSize, 0, 0);
-  if (numChars == 0 || numChars > kBufSize)
-    return c;
-  s[numChars] = 0;
-  ::CharLowerA(s);
-  ::MultiByteToWideChar(CP_ACP, 0, s, numChars, &c, 1);
-  return c;
-}
-*/
-
-/*
-wchar_t * MyStringUpper(wchar_t *s)
-{
-  if (s == 0)
-    return 0;
-  wchar_t *res = CharUpperW(s);
-  if (res != 0 || ::GetLastError() != ERROR_CALL_NOT_IMPLEMENTED)
-    return res;
-  AString a = UnicodeStringToMultiByte(s);
-  a.MakeUpper();
-  MyStringCopy(s, (const wchar_t *)MultiByteToUnicodeString(a));
-  return s;
-}
-*/
-
-/*
-wchar_t * MyStringLower(wchar_t *s)
-{
-  if (s == 0)
-    return 0;
-  wchar_t *res = CharLowerW(s);
-  if (res != 0 || ::GetLastError() != ERROR_CALL_NOT_IMPLEMENTED)
-    return res;
-  AString a = UnicodeStringToMultiByte(s);
-  a.MakeLower();
-  MyStringCopy(s, (const wchar_t *)MultiByteToUnicodeString(a));
-  return s;
-}
-*/
-
-#endif
-
-#endif
 
 bool IsString1PrefixedByString2(const char *s1, const char *s2) throw()
 {
@@ -310,26 +202,6 @@ int MyStringCompareNoCase(const wchar_t *s1, const wchar_t *s2) throw()
     if (c1 == 0) return 0;
   }
 }
-
-/*
-int MyStringCompareNoCase_N(const wchar_t *s1, const wchar_t *s2, unsigned num)
-{
-  for (; num != 0; num--)
-  {
-    wchar_t c1 = *s1++;
-    wchar_t c2 = *s2++;
-    if (c1 != c2)
-    {
-      wchar_t u1 = MyCharUpper(c1);
-      wchar_t u2 = MyCharUpper(c2);
-      if (u1 < u2) return -1;
-      if (u1 > u2) return 1;
-    }
-    if (c1 == 0) return 0;
-  }
-  return 0;
-}
-*/
 
 // ---------- AString ----------
 
@@ -1526,11 +1398,7 @@ int MyStringCompareNoCase(const char *s1, const char *s2)
 
 static inline UINT GetCurrentCodePage()
 {
-  #if defined(UNDER_CE) || !defined(_WIN32)
   return CP_ACP;
-  #else
-  return ::AreFileApisANSI() ? CP_ACP : CP_OEMCP;
-  #endif
 }
 
 #ifdef USE_UNICODE_FSTRING

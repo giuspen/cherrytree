@@ -18,9 +18,6 @@ static const UInt64 kNumSecondsInFileTime = (UInt64)(Int64)-1 / kNumTimeQuantums
 
 bool DosTimeToFileTime(UInt32 dosTime, FILETIME &ft) throw()
 {
-  #if defined(_WIN32) && !defined(UNDER_CE)
-  return BOOLToBool(::DosDateTimeToFileTime((UInt16)(dosTime >> 16), (UInt16)(dosTime & 0xFFFF), &ft));
-  #else
   ft.dwLowDateTime = 0;
   ft.dwHighDateTime = 0;
   UInt64 res;
@@ -31,7 +28,6 @@ bool DosTimeToFileTime(UInt32 dosTime, FILETIME &ft) throw()
   ft.dwLowDateTime = (UInt32)res;
   ft.dwHighDateTime = (UInt32)(res >> 32);
   return true;
-  #endif
 }
 
 static const UInt32 kHighDosTime = 0xFF9FBF7D;
@@ -43,18 +39,6 @@ static const UInt32 kLowDosTime = 0x210000;
 
 bool FileTimeToDosTime(const FILETIME &ft, UInt32 &dosTime) throw()
 {
-  #if defined(_WIN32) && !defined(UNDER_CE)
-
-  WORD datePart, timePart;
-  if (!::FileTimeToDosDateTime(&ft, &datePart, &timePart))
-  {
-    dosTime = (ft.dwHighDateTime >= 0x01C00000) ? kHighDosTime : kLowDosTime;
-    return false;
-  }
-  dosTime = (((UInt32)datePart) << 16) + timePart;
-
-  #else
-
   unsigned year, mon, day, hour, min, sec;
   UInt64 v64 = ft.dwLowDateTime | ((UInt64)ft.dwHighDateTime << 32);
   Byte ms[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
@@ -111,7 +95,7 @@ bool FileTimeToDosTime(const FILETIME &ft, UInt32 &dosTime) throw()
   if (year >= 128)
     return false;
   dosTime = (year << 25) | (mon << 21) | (day << 16) | (hour << 11) | (min << 5) | (sec >> 1);
-  #endif
+
   return true;
 }
 

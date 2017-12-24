@@ -25,45 +25,4 @@ Also we declare delete(void *p) throw() that creates smaller code.
 
 class CNewException {};
 
-#ifdef WIN32
-// We can compile my_new and my_delete with _fastcall
-/*
-void * my_new(size_t size);
-void my_delete(void *p) throw();
-// void * my_Realloc(void *p, size_t newSize, size_t oldSize);
-*/
-#endif
-
-#ifdef _WIN32
-
-void *
-#ifdef _MSC_VER
-__cdecl
-#endif
-operator new(size_t size);
-
-void
-#ifdef _MSC_VER
-__cdecl
-#endif
-operator delete(void *p) throw();
-
-#endif
-
-/*
-#ifdef _WIN32
-void *
-#ifdef _MSC_VER
-__cdecl
-#endif
-operator new[](size_t size);
-
-void
-#ifdef _MSC_VER
-__cdecl
-#endif
-operator delete[](void *p) throw();
-#endif
-*/
-
 #endif

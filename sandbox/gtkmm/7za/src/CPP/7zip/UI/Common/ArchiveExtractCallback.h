@@ -235,10 +235,6 @@ class CArchiveExtractCallback:
   FStringVector _extractedFolderPaths;
   CRecordVector<UInt32> _extractedFolderIndices;
 
-  #if defined(_WIN32) && !defined(UNDER_CE) && !defined(_SFX)
-  bool _saclEnabled;
-  #endif
-
   CObjectVector<NWindows::NFile::NDir::CDelayedSymLink> _delayedSymLinks;
   
   void CreateComplexDirectory(const UStringVector &dirPathParts, FString &fullPath);

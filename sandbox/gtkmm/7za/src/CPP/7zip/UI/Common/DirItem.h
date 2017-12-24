@@ -50,15 +50,7 @@ struct CDirItem
   FILETIME ATime;
   FILETIME MTime;
   UString Name;
-  
-  #if defined(_WIN32) && !defined(UNDER_CE)
-  // UString ShortName;
-  CByteBuffer ReparseData;
-  CByteBuffer ReparseData2; // fixed (reduced) absolute links
 
-  bool AreReparseData() const { return ReparseData.Size() != 0 || ReparseData2.Size() != 0; }
-  #endif
-  
   UInt32 Attrib;
   int PhyParent;
   int LogParent;
@@ -94,18 +86,6 @@ public:
       const FString &phyPrefix);
   #endif
 
-
-  #if defined(_WIN32) && !defined(UNDER_CE)
-
-  CUniqBlocks SecureBlocks;
-  CByteBuffer TempSecureBuf;
-  bool _saclEnabled;
-  bool ReadSecure;
-  
-  HRESULT AddSecurityItem(const FString &path, int &secureIndex);
-
-  #endif
-
   IDirItemsCallback *Callback;
 
   CDirItems();
@@ -130,10 +110,6 @@ public:
     const UString &logPrefix,
     const FStringVector &filePaths,
     FStringVector *requestedPaths);
-
-  #if defined(_WIN32) && !defined(UNDER_CE)
-  void FillFixedReparse();
-  #endif
 
   void ReserveDown();
 };

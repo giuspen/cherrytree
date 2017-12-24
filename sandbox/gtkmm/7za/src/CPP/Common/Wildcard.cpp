@@ -455,7 +455,7 @@ int CCensor::FindPrefix(const UString &prefix) const
   return -1;
 }
 
-#if 1 // #ifdef _WIN32
+#if 1
 
 bool IsDriveColonName(const wchar_t *s)
 {
@@ -489,46 +489,7 @@ static unsigned GetNumPrefixParts(const UStringVector pathParts)
   if (pathParts.IsEmpty())
     return 0;
   
-  #ifdef _WIN32
-  
-  if (IsDriveColonName(pathParts[0]))
-    return 1;
-  if (!pathParts[0].IsEmpty())
-    return 0;
-
-  if (pathParts.Size() == 1)
-    return 1;
-  if (!pathParts[1].IsEmpty())
-    return 1;
-  if (pathParts.Size() == 2)
-    return 2;
-  if (pathParts[2] == L".")
-    return 3;
-
-  unsigned networkParts = 2;
-  if (pathParts[2] == L"?")
-  {
-    if (pathParts.Size() == 3)
-      return 3;
-    if (IsDriveColonName(pathParts[3]))
-      return 4;
-    if (!pathParts[3].IsEqualTo_Ascii_NoCase("UNC"))
-      return 3;
-    networkParts = 4;
-  }
-
-  networkParts +=
-      // 2; // server/share
-      1; // server
-  if (pathParts.Size() <= networkParts)
-    return pathParts.Size();
-  return networkParts;
-
-  #else
-  
   return pathParts[0].IsEmpty() ? 1 : 0;
- 
-  #endif
 }
 
 void CCensor::AddItem(ECensorPathMode pathMode, bool include, const UString &path, bool recursive, bool wildcardMatching)
@@ -550,14 +511,12 @@ void CCensor::AddItem(ECensorPathMode pathMode, bool include, const UString &pat
   
   int ignoreWildcardIndex = -1;
 
-  // #ifdef _WIN32
   // we ignore "?" wildcard in "\\?\" prefix.
   if (pathParts.Size() >= 3
       && pathParts[0].IsEmpty()
       && pathParts[1].IsEmpty()
       && pathParts[2] == L"?")
     ignoreWildcardIndex = 2;
-  // #endif
 
   if (pathMode != k_AbsPath)
   {

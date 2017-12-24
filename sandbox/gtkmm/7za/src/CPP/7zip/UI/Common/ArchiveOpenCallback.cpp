@@ -96,10 +96,6 @@ STDMETHODIMP COpenCallbackImp::GetStream(const wchar_t *name, IInStream **inStre
 
   
   #ifndef _SFX
-  
-  #ifdef _WIN32
-  name2.Replace(L'/', WCHAR_PATH_SEPARATOR);
-  #endif
 
   // if (!allowAbsVolPaths)
   if (!IsSafePath(name2))

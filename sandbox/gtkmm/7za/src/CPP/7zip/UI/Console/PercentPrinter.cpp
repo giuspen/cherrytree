@@ -33,20 +33,12 @@ void CPercentPrinter::ClosePrint(bool needFlush)
   /* '\r' in old MAC OS means "new line".
      So we can't use '\r' in some systems */
     
-  #ifdef _WIN32
-    char *start = _temp.GetBuf(num  + 2);
-    char *p = start;
-    *p++ = '\r';
-    for (i = 0; i < num; i++) *p++ = ' ';
-    *p++ = '\r';
-  #else
     char *start = _temp.GetBuf(num * 3);
     char *p = start;
     for (i = 0; i < num; i++) *p++ = '\b';
     for (i = 0; i < num; i++) *p++ = ' ';
     for (i = 0; i < num; i++) *p++ = '\b';
-  #endif
-    
+
   *p = 0;
   _temp.ReleaseBuf_SetLen((unsigned)(p - start));
   *_so << _temp;

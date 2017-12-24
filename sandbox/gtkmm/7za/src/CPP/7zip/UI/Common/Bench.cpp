@@ -4,10 +4,8 @@
 
 #include <stdio.h>
 
-#ifndef _WIN32
 #define USE_POSIX_TIME
 #define USE_POSIX_TIME2
-#endif
 
 #ifdef USE_POSIX_TIME
 #include <time.h>
@@ -16,16 +14,8 @@
 #endif
 #endif
 
-#ifdef _WIN32
-#define USE_ALLOCA
-#endif
-
 #ifdef USE_ALLOCA
-#ifdef _WIN32
-#include <malloc.h>
-#else
 #include <stdlib.h>
-#endif
 #endif
 
 #include "../../../../C/7zCrc.h"
@@ -39,7 +29,7 @@
 #include "../../../Windows/Thread.h"
 #endif
 
-#if defined(_WIN32) || defined(UNIX_USE_WIN_FILE)
+#if defined(UNIX_USE_WIN_FILE)
 #define USE_WIN_FILE
 #endif
 
@@ -117,24 +107,6 @@ static const unsigned kBufferAlignment = 1 << 4;
 struct CBenchBuffer
 {
   size_t BufferSize;
-
-  #ifdef _WIN32
-
-  Byte *Buffer;
-
-  CBenchBuffer(): BufferSize(0), Buffer(NULL) {}
-  ~CBenchBuffer() { ::MidFree(Buffer); }
-  
-  void AllocAlignedMask(size_t size, size_t)
-  {
-    ::MidFree(Buffer);
-    BufferSize = 0;
-    Buffer = (Byte *)::MidAlloc(size);
-    if (Buffer)
-      BufferSize = size;
-  }
-  
-  #else
   
   Byte *Buffer;
   Byte *_bufBase;
@@ -156,8 +128,6 @@ struct CBenchBuffer
       BufferSize = size;
     }
   }
-
-  #endif
 
   bool Alloc(size_t size)
   {

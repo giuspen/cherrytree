@@ -69,11 +69,6 @@ static const UINT kIconTypesResId = 100;
 #include "../../../Windows/FileFind.h"
 #include "../../../Windows/DLL.h"
 
-#ifdef _WIN32
-#include "../../../Windows/FileName.h"
-#include "../../../Windows/Registry.h"
-#endif
-
 using namespace NFile;
 
 
@@ -82,45 +77,12 @@ using namespace NFile;
 
 
 static CFSTR kMainDll =
-  // #ifdef _WIN32
+
 #ifdef USE_LIB7Z_DLL
     FTEXT("lib7z.dll");
 #else
     FTEXT("7z.dll");
 #endif
-  // #else
-  // FTEXT("7z.so");
-  // #endif
-
-
-#ifdef _WIN32
-
-static LPCTSTR kRegistryPath = TEXT("Software") TEXT(STRING_PATH_SEPARATOR) TEXT("7-zip");
-static LPCWSTR kProgramPathValue = L"Path";
-static LPCWSTR kProgramPath2Value = L"Path"
-  #ifdef _WIN64
-  L"64";
-  #else
-  L"32";
-  #endif
-
-static bool ReadPathFromRegistry(HKEY baseKey, LPCWSTR value, FString &path)
-{
-  NRegistry::CKey key;
-  if (key.Open(baseKey, kRegistryPath, KEY_READ) == ERROR_SUCCESS)
-  {
-    UString pathU;
-    if (key.QueryValue(value, pathU) == ERROR_SUCCESS)
-    {
-      path = us2fs(pathU);
-      NName::NormalizeDirPathPrefix(path);
-      return NFind::DoesFileExist(path + kMainDll);
-    }
-  }
-  return false;
-}
-
-#endif // _WIN32
 
 #endif // EXTERNAL_CODECS
 
@@ -215,18 +177,6 @@ static bool ParseSignatures(const Byte *data, unsigned size, CObjectVector<CByte
 static FString GetBaseFolderPrefixFromRegistry()
 {
   FString moduleFolderPrefix = NDLL::GetModuleDirPrefix();
-  #ifdef _WIN32
-  if (!NFind::DoesFileExist(moduleFolderPrefix + kMainDll) &&
-      !NFind::DoesDirExist(moduleFolderPrefix + kCodecsFolderName) &&
-      !NFind::DoesDirExist(moduleFolderPrefix + kFormatsFolderName))
-  {
-    FString path;
-    if (ReadPathFromRegistry(HKEY_CURRENT_USER,  kProgramPath2Value, path)) return path;
-    if (ReadPathFromRegistry(HKEY_LOCAL_MACHINE, kProgramPath2Value, path)) return path;
-    if (ReadPathFromRegistry(HKEY_CURRENT_USER,  kProgramPathValue,  path)) return path;
-    if (ReadPathFromRegistry(HKEY_LOCAL_MACHINE, kProgramPathValue,  path)) return path;
-  }
-  #endif
   return moduleFolderPrefix;
 }
 
@@ -481,14 +431,7 @@ HRESULT CCodecs::LoadDll(const FString &dllPath, bool needCheckDll, bool *loaded
 {
   if (loadedOK)
     *loadedOK = false;
-#ifdef _WIN32
-  if (needCheckDll)
-  {
-    NDLL::CLibrary lib;
-    if (!lib.LoadEx(dllPath, LOAD_LIBRARY_AS_DATAFILE))
-      return S_OK;
-  }
-#endif  
+
   Libs.AddNew();
   CCodecLib &lib = Libs.Back();
   lib.Path = dllPath;
@@ -583,9 +526,6 @@ void CCodecs::CloseLibs()
 HRESULT CCodecs::Load()
 {
   #ifdef NEW_FOLDER_INTERFACE
-  #ifdef _WIN32
-  InternalIcons.LoadIcons(g_hInstance);
-  #endif
   #endif
 
   Formats.Clear();
@@ -751,50 +691,10 @@ bool CCodecs::FindFormatForArchiveType(const UString &arcType, CIntVector &forma
 
 void CCodecIcons::LoadIcons(HMODULE m)
 {
-#ifdef _WIN32
-  UString iconTypes;
-  MyLoadString(m, kIconTypesResId, iconTypes);
-  UStringVector pairs;
-  SplitString(iconTypes, pairs);
-  FOR_VECTOR (i, pairs)
-  {
-    const UString &s = pairs[i];
-    int pos = s.Find(L':');
-    CIconPair iconPair;
-    iconPair.IconIndex = -1;
-    if (pos < 0)
-      pos = s.Len();
-    else
-    {
-      UString num = s.Ptr(pos + 1);
-      if (!num.IsEmpty())
-      {
-        const wchar_t *end;
-        iconPair.IconIndex = ConvertStringToUInt32(num, &end);
-        if (*end != 0)
-          continue;
-      }
-    }
-    iconPair.Ext = s.Left(pos);
-    IconPairs.Add(iconPair);
-  }
-#endif
 }
 
 bool CCodecIcons::FindIconIndex(const UString &ext, int &iconIndex) const
 {
-#ifdef _WIN32
-  iconIndex = -1;
-  FOR_VECTOR (i, IconPairs)
-  {
-    const CIconPair &pair = IconPairs[i];
-    if (ext.IsEqualTo_NoCase(pair.Ext))
-    {
-      iconIndex = pair.IconIndex;
-      return true;
-    }
-  }
-#endif
   return false;
 }
 

@@ -149,19 +149,8 @@ static HRESULT DecompressArchive(
     // outDir = outDirReduced;
   }
 
-  #ifdef _WIN32
-  // GetCorrectFullFsPath doesn't like "..".
-  // outDir.TrimRight();
-  // outDir = GetCorrectFullFsPath(outDir);
-  #endif
-
   if (outDir.IsEmpty())
     outDir = FTEXT(".") FSTRING_PATH_SEPARATOR;
-  /*
-  #ifdef _WIN32
-  else if (NName::IsAltPathPrefix(outDir)) {}
-  #endif
-  */
   else if (!CreateComplexDir(outDir))
   {
     HRESULT res = ::GetLastError();

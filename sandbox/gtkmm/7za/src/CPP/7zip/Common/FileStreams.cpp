@@ -2,11 +2,9 @@
 
 #include "StdAfx.h"
 
-#ifndef _WIN32
 #include <fcntl.h>
 #include <unistd.h>
 #include <errno.h>
-#endif
 
 #ifdef SUPPORT_DEVICE_FILE
 #include "../../../C/Alloc.h"
@@ -17,16 +15,7 @@
 
 static inline HRESULT ConvertBoolToHRESULT(bool result)
 {
-  #ifdef _WIN32
-  if (result)
-    return S_OK;
-  DWORD lastError = ::GetLastError();
-  if (lastError == 0)
-    return E_FAIL;
-  return HRESULT_FROM_WIN32(lastError);
-  #else
   return result ? S_OK: E_FAIL;
-  #endif
 }
 
 
@@ -205,21 +194,6 @@ STDMETHODIMP CStdInFileStream::Read(void *data, UInt32 size, UInt32 *processedSi
 #else
 STDMETHODIMP CStdInFileStream::Read(void *data, UInt32 size, UInt32 *processedSize)
 {
-  #ifdef _WIN32
-  
-  DWORD realProcessedSize;
-  UInt32 sizeTemp = (1 << 20);
-  if (sizeTemp > size)
-    sizeTemp = size;
-  BOOL res = ::ReadFile(GetStdHandle(STD_INPUT_HANDLE), data, sizeTemp, &realProcessedSize, NULL);
-  if (processedSize)
-    *processedSize = realProcessedSize;
-  if (res == FALSE && GetLastError() == ERROR_BROKEN_PIPE)
-    return S_OK;
-  return ConvertBoolToHRESULT(res != FALSE);
-  
-  #else
-
   if (processedSize)
     *processedSize = 0;
   ssize_t res;
@@ -233,8 +207,6 @@ STDMETHODIMP CStdInFileStream::Read(void *data, UInt32 size, UInt32 *processedSi
   if (processedSize)
     *processedSize = (UInt32)res;
   return S_OK;
-  
-  #endif
 }
   
 #endif
@@ -430,30 +402,6 @@ STDMETHODIMP CStdOutFileStream::Write(const void *data, UInt32 size, UInt32 *pro
 {
   if (processedSize)
     *processedSize = 0;
-
-  #ifdef _WIN32
-
-  UInt32 realProcessedSize;
-  BOOL res = TRUE;
-  if (size > 0)
-  {
-    // Seems that Windows doesn't like big amounts writing to stdout.
-    // So we limit portions by 32KB.
-    UInt32 sizeTemp = (1 << 15);
-    if (sizeTemp > size)
-      sizeTemp = size;
-    res = ::WriteFile(GetStdHandle(STD_OUTPUT_HANDLE),
-        data, sizeTemp, (DWORD *)&realProcessedSize, NULL);
-    _size += realProcessedSize;
-    size -= realProcessedSize;
-    data = (const void *)((const Byte *)data + realProcessedSize);
-    if (processedSize)
-      *processedSize += realProcessedSize;
-  }
-  return ConvertBoolToHRESULT(res != FALSE);
-
-  #else
-  
   ssize_t res;
 
   do
@@ -469,8 +417,6 @@ STDMETHODIMP CStdOutFileStream::Write(const void *data, UInt32 size, UInt32 *pro
   if (processedSize)
     *processedSize = (UInt32)res;
   return S_OK;
-  
-  #endif
 }
 
 #endif

@@ -9,12 +9,6 @@
 #include "MyTypes.h"
 #include "MyWindows.h"
 
-#ifdef _WIN32
-#ifdef _MSC_VER
-typedef size_t ssize_t;
-#endif
-#endif
-
 namespace NC {
 namespace NFile {
 namespace NIO {

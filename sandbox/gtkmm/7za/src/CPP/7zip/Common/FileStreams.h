@@ -3,7 +3,7 @@
 #ifndef __FILE_STREAMS_H
 #define __FILE_STREAMS_H
 
-#if defined(_WIN32) || defined(UNIX_USE_WIN_FILE)
+#if defined(UNIX_USE_WIN_FILE)
 #define USE_WIN_FILE
 #endif
 
@@ -19,7 +19,7 @@
 
 #include "../IStream.h"
 
-#if 1 // FIXME #ifdef _WIN32
+#if 1
 typedef UINT_PTR My_UINT_PTR;
 #else
 typedef UINT My_UINT_PTR;

@@ -61,12 +61,6 @@ NUserAnswerMode::EEnum ScanUserYesNoAllQuit(CStdOutStream *outStream)
   }
 }
 
-#ifdef _WIN32
-#ifndef UNDER_CE
-#define MY_DISABLE_ECHO
-#endif
-#endif
-
 #ifdef ENV_HAVE_GETPASS
 #define MY_DISABLE_ECHO
 #endif

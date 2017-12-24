@@ -64,172 +64,6 @@ void NormalizeDirPathPrefix(UString &dirPath)
     dirPath += WCHAR_PATH_SEPARATOR;
 }
 
-
-#ifdef _WIN32
-
-const wchar_t *kSuperPathPrefix = L"\\\\?\\";
-static const wchar_t *kSuperUncPrefix = L"\\\\?\\UNC\\";
-
-#define IS_DEVICE_PATH(s)  ((s)[0] == '\\' && (s)[1] == '\\' && (s)[2] == '.' && (s)[3] == '\\')
-#define IS_SUPER_PREFIX(s) ((s)[0] == '\\' && (s)[1] == '\\' && (s)[2] == '?' && (s)[3] == '\\')
-#define IS_SUPER_OR_DEVICE_PATH(s) ((s)[0] == '\\' && (s)[1] == '\\' && ((s)[2] == '?' || (s)[2] == '.') && (s)[3] == '\\')
-#define IS_LETTER_CHAR(c) ((c) >= 'a' && (c) <= 'z' || (c) >= 'A' && (c) <= 'Z')
-
-#define IS_UNC_WITH_SLASH(s) ( \
-  ((s)[0] == 'U' || (s)[0] == 'u') && \
-  ((s)[1] == 'N' || (s)[1] == 'n') && \
-  ((s)[2] == 'C' || (s)[2] == 'c') && \
-   (s)[3] == '\\')
-
-bool IsDevicePath(CFSTR s) throw()
-{
-  #ifdef UNDER_CE
-
-  s = s;
-  return false;
-  /*
-  // actually we don't know the way to open device file in WinCE.
-  unsigned len = MyStringLen(s);
-  if (len < 5 || len > 5 || memcmp(s, FTEXT("DSK"), 3 * sizeof(FChar)) != 0)
-    return false;
-  if (s[4] != ':')
-    return false;
-  // for reading use SG_REQ sg; if (DeviceIoControl(dsk, IOCTL_DISK_READ));
-  */
-  
-  #else
-  
-  if (!IS_DEVICE_PATH(s))
-    return false;
-  unsigned len = MyStringLen(s);
-  if (len == 6 && s[5] == ':')
-    return true;
-  if (len < 18 || len > 22 || memcmp(s + kDevicePathPrefixSize, FTEXT("PhysicalDrive"), 13 * sizeof(FChar)) != 0)
-    return false;
-  for (unsigned i = 17; i < len; i++)
-    if (s[i] < '0' || s[i] > '9')
-      return false;
-  return true;
-  
-  #endif
-}
-
-bool IsSuperUncPath(CFSTR s) throw() { return (IS_SUPER_PREFIX(s) && IS_UNC_WITH_SLASH(s + kSuperPathPrefixSize)); }
-
-bool IsDrivePath(const wchar_t *s) throw() { return IS_LETTER_CHAR(s[0]) && s[1] == ':' && s[2] == '\\'; }
-bool IsSuperPath(const wchar_t *s) throw() { return IS_SUPER_PREFIX(s); }
-bool IsSuperOrDevicePath(const wchar_t *s) throw() { return IS_SUPER_OR_DEVICE_PATH(s); }
-// bool IsSuperUncPath(const wchar_t *s) { return (IS_SUPER_PREFIX(s) && IS_UNC_WITH_SLASH(s + kSuperPathPrefixSize)); }
-
-#ifndef USE_UNICODE_FSTRING
-bool IsDrivePath(CFSTR s) throw() { return IS_LETTER_CHAR(s[0]) && s[1] == ':' && s[2] == '\\'; }
-bool IsSuperPath(CFSTR s) throw() { return IS_SUPER_PREFIX(s); }
-bool IsSuperOrDevicePath(CFSTR s) throw() { return IS_SUPER_OR_DEVICE_PATH(s); }
-#endif // USE_UNICODE_FSTRING
-
-bool IsAbsolutePath(const wchar_t *s) throw()
-{
-  return s[0] == WCHAR_PATH_SEPARATOR || IsDrivePath(s);
-}
-
-static const unsigned kDrivePrefixSize = 3; /* c:\ */
-
-#ifndef USE_UNICODE_FSTRING
-
-static unsigned GetRootPrefixSize_Of_NetworkPath(CFSTR s) throw()
-{
-  // Network path: we look "server\path\" as root prefix
-  int pos = FindCharPosInString(s, '\\');
-  if (pos < 0)
-    return 0;
-  int pos2 = FindCharPosInString(s + pos + 1, '\\');
-  if (pos2 < 0)
-    return 0;
-  return pos + pos2 + 2;
-}
-
-static unsigned GetRootPrefixSize_Of_SimplePath(CFSTR s) throw()
-{
-  if (IsDrivePath(s))
-    return kDrivePrefixSize;
-  if (s[0] != '\\' || s[1] != '\\')
-    return 0;
-  unsigned size = GetRootPrefixSize_Of_NetworkPath(s + 2);
-  return (size == 0) ? 0 : 2 + size;
-}
-
-static unsigned GetRootPrefixSize_Of_SuperPath(CFSTR s) throw()
-{
-  if (IS_UNC_WITH_SLASH(s + kSuperPathPrefixSize))
-  {
-    unsigned size = GetRootPrefixSize_Of_NetworkPath(s + kSuperUncPathPrefixSize);
-    return (size == 0) ? 0 : kSuperUncPathPrefixSize + size;
-  }
-  // we support \\?\c:\ paths and volume GUID paths \\?\Volume{GUID}\"
-  int pos = FindCharPosInString(s + kSuperPathPrefixSize, FCHAR_PATH_SEPARATOR);
-  if (pos < 0)
-    return 0;
-  return kSuperPathPrefixSize + pos + 1;
-}
-
-unsigned GetRootPrefixSize(CFSTR s) throw()
-{
-  if (IS_DEVICE_PATH(s))
-    return kDevicePathPrefixSize;
-  if (IsSuperPath(s))
-    return GetRootPrefixSize_Of_SuperPath(s);
-  return GetRootPrefixSize_Of_SimplePath(s);
-}
-
-#endif // USE_UNICODE_FSTRING
-
-static unsigned GetRootPrefixSize_Of_NetworkPath(const wchar_t *s) throw()
-{
-  // Network path: we look "server\path\" as root prefix
-  int pos = FindCharPosInString(s, L'\\');
-  if (pos < 0)
-    return 0;
-  int pos2 = FindCharPosInString(s + pos + 1, L'\\');
-  if (pos2 < 0)
-    return 0;
-  return pos + pos2 + 2;
-}
-
-static unsigned GetRootPrefixSize_Of_SimplePath(const wchar_t *s) throw()
-{
-  if (IsDrivePath(s))
-    return kDrivePrefixSize;
-  if (s[0] != '\\' || s[1] != '\\')
-    return 0;
-  unsigned size = GetRootPrefixSize_Of_NetworkPath(s + 2);
-  return (size == 0) ? 0 : 2 + size;
-}
-
-static unsigned GetRootPrefixSize_Of_SuperPath(const wchar_t *s) throw()
-{
-  if (IS_UNC_WITH_SLASH(s + kSuperPathPrefixSize))
-  {
-    unsigned size = GetRootPrefixSize_Of_NetworkPath(s + kSuperUncPathPrefixSize);
-    return (size == 0) ? 0 : kSuperUncPathPrefixSize + size;
-  }
-  // we support \\?\c:\ paths and volume GUID paths \\?\Volume{GUID}\"
-  int pos = FindCharPosInString(s + kSuperPathPrefixSize, L'\\');
-  if (pos < 0)
-    return 0;
-  return kSuperPathPrefixSize + pos + 1;
-}
-
-unsigned GetRootPrefixSize(const wchar_t *s) throw()
-{
-  if (IS_DEVICE_PATH(s))
-    return kDevicePathPrefixSize;
-  if (IsSuperPath(s))
-    return GetRootPrefixSize_Of_SuperPath(s);
-  return GetRootPrefixSize_Of_SimplePath(s);
-}
-
-#else // _WIN32
-
 static const unsigned kDrivePrefixSize = 3; /* c:\ */
 #define IS_LETTER_CHAR(c) ((c) >= 'a' && (c) <= 'z' || (c) >= 'A' && (c) <= 'Z')
 bool IsDrivePath(const wchar_t *s) throw() { return IS_LETTER_CHAR(s[0]) && s[1] == ':' && s[2] == WCHAR_PATH_SEPARATOR; }
@@ -245,8 +79,6 @@ unsigned GetRootPrefixSize(const wchar_t *s) throw() {
 
  return s[0] == CHAR_PATH_SEPARATOR ? 1 : 0;
 }
-
-#endif // _WIN32
 
 
 #ifndef UNDER_CE
@@ -272,9 +104,6 @@ static bool GetCurDir(UString &path)
 
 static bool ResolveDotsFolders(UString &s)
 {
-  #ifdef _WIN32
-  s.Replace(L'/', WCHAR_PATH_SEPARATOR);
-  #endif
   for (int i = 0;;)
   {
     wchar_t c = s[i];
@@ -672,33 +501,8 @@ bool GetFullPath(CFSTR dirPrefix, CFSTR s, FString &res)
 
   unsigned fixedSize = 0;
 
-  #ifdef _WIN32
-
-  if (IsSuperPath(curDir))
-  {
-    fixedSize = GetRootPrefixSize_Of_SuperPath(curDir);
-    if (fixedSize == 0)
-      return false;
-  }
-  else
-  {
     if (IsDrivePath(curDir))
       fixedSize = kDrivePrefixSize;
-    else
-    {
-      if (curDir[0] != WCHAR_PATH_SEPARATOR || curDir[1] != WCHAR_PATH_SEPARATOR)
-        return false;
-      fixedSize = GetRootPrefixSize_Of_NetworkPath(&curDir[2]);
-      if (fixedSize == 0)
-        return false;
-      fixedSize += 2;
-    }
-  }
-  #else
-    if (IsDrivePath(curDir))
-      fixedSize = kDrivePrefixSize;
-
-  #endif // _WIN32
   
   UString temp;
   if (s[0] == CHAR_PATH_SEPARATOR)

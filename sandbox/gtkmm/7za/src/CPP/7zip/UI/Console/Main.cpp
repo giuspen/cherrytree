@@ -4,11 +4,7 @@
 
 #include "../../../Common/MyWindows.h"
 
-#ifdef _WIN32
-#include <Psapi.h>
-#else
 #include "myPrivate.h"
-#endif
 
 #include "../../../../C/CpuArch.h"
 
@@ -26,10 +22,6 @@
 #include "../../../Common/UTFConvert.h"
 
 #include "../../../Windows/ErrorMsg.h"
-
-#ifdef _WIN32
-#include "../../../Windows/MemoryLock.h"
-#endif
 
 #include "../../../Windows/TimeUtils.h"
 
@@ -61,10 +53,6 @@
 using namespace NWindows;
 using namespace NFile;
 using namespace NCommandLineParser;
-
-#ifdef _WIN32
-HINSTANCE g_hInstance = 0;
-#endif
 
 extern CStdOutStream *g_StdStream;
 extern CStdOutStream *g_ErrStream;
@@ -183,7 +171,6 @@ static void ShowMessageAndThrowException(LPCSTR message, NExitCode::EEnum code)
   throw code;
 }
 
-#ifndef _WIN32
 static void GetArguments(int numArgs, const char *args[], UStringVector &parts)
 {
   parts.Clear();
@@ -193,7 +180,6 @@ static void GetArguments(int numArgs, const char *args[], UStringVector &parts)
     parts.Add(s);
   }
 }
-#endif
 
 static void ShowCopyrightAndHelp(CStdOutStream *so, bool needHelp)
 {
@@ -479,23 +465,14 @@ static void PrintHexId(CStdOutStream &so, UInt64 id)
 }
 
 int Main2(
-  #ifndef _WIN32
   int numArgs, char *args[]
-  #endif
 )
 {
-  #if defined(_WIN32) && !defined(UNDER_CE)
-  SetFileApisToOEM();
-  #endif
 
   UStringVector commandStrings;
-  
-  #ifdef _WIN32
-  NCommandLineParser::SplitCommandLine(GetCommandLineW(), commandStrings);
-  #else
+
   // GetArguments(numArgs, args, commandStrings);
   mySplitCommandLine(numArgs,args,commandStrings);  
-  #endif
 
   if (commandStrings.Size() == 1)
   {
@@ -527,18 +504,11 @@ int Main2(
     ShowCopyrightAndHelp(g_StdStream, true);
     return 0;
   }
-
-  #if defined(_WIN32) && !defined(UNDER_CE)
-  NSecurity::EnablePrivilege_SymLink();
-  #endif
   
   #ifdef _7ZIP_LARGE_PAGES
   if (options.LargePages)
   {
     SetLargePageSize();
-    #if defined(_WIN32) && !defined(UNDER_CE)
-    NSecurity::EnablePrivilege_LockMemory();
-    #endif
   }
   #endif
 
@@ -555,23 +525,6 @@ int Main2(
 
   if (percentsStream)
   {
-/* FIXME
-    #ifdef _WIN32
-    
-    #if !defined(UNDER_CE)
-    CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
-    if (GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &consoleInfo))
-      consoleWidth = consoleInfo.dwSize.X;
-    #endif
-    
-    #else
-    
-    struct winsize w;
-    if (ioctl(0, TIOCGWINSZ, &w) == )
-      consoleWidth = w.ws_col;
-    
-    #endif
-*/
   }
 
   CREATE_CODECS_OBJECT

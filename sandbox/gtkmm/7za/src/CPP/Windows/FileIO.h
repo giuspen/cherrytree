@@ -5,8 +5,6 @@
 
 #include <Common/MyString.h>
 
-#ifndef _WIN32
-
 #define FILE_SHARE_READ	1
 #define FILE_SHARE_WRITE 2
 
@@ -14,8 +12,6 @@
 #define FILE_CURRENT	SEEK_CUR
 #define FILE_END	SEEK_END
 #define INVALID_SET_FILE_POINTER	((DWORD)-1)
-
-#endif
 
 #define _my_IO_REPARSE_TAG_MOUNT_POINT  (0xA0000003L)
 #define _my_IO_REPARSE_TAG_SYMLINK      (0xA000000CL)

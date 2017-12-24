@@ -67,9 +67,6 @@ class CArchiveUpdateCallback:
   public IInFileStream_Callback,
   public CMyUnknownImp
 {
-  #if defined(_WIN32) && !defined(UNDER_CE)
-  bool _saclEnabled;
-  #endif
   CRecordVector<CKeyKeyValPair> _map;
 
   UInt32 _hardIndex_From;

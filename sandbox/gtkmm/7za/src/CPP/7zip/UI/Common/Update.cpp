@@ -944,12 +944,6 @@ static HRESULT EnumerateInArchiveItems(
   return S_OK;
 }
 
-#if defined(_WIN32) && !defined(UNDER_CE)
-
-#include <mapi.h>
-
-#endif
-
 struct CRefSortPair
 {
   unsigned Len;
@@ -975,10 +969,6 @@ static unsigned GetNumSlashes(const FChar *s)
       numSlashes++;
   }
 }
-
-#ifdef _WIN32
-void ConvertToLongNames(NWildcard::CCensor &censor);
-#endif
 
 HRESULT UpdateArchive(
     CCodecs *codecs,
@@ -1015,9 +1005,6 @@ HRESULT UpdateArchive(
   }
 
   censor.AddPathsToCensor(options.PathMode);
-  #ifdef _WIN32
-  ConvertToLongNames(censor);
-  #endif
   censor.ExtendExclude();
 
   
@@ -1199,10 +1186,6 @@ HRESULT UpdateArchive(
 
       dirItems.SymLinks = options.SymLinks.Val;
 
-      #if defined(_WIN32) && !defined(UNDER_CE)
-      dirItems.ReadSecure = options.NtSecurity.Val;
-      #endif
-
       dirItems.ScanAltStreams = options.AltStreams.Val;
 
       HRESULT res = EnumerateItems(censor,
@@ -1242,10 +1225,7 @@ HRESULT UpdateArchive(
             parentDirItem_Ptr = &parentDirItem;
 
             int secureIndex = -1;
-            #if defined(_WIN32) && !defined(UNDER_CE)
-            if (options.NtSecurity.Val)
-              dirItems.AddSecurityItem(prefix, secureIndex);
-            #endif
+
             parentDirItem.SecureIndex = secureIndex;
 
             parentDirItem_Ptr = &parentDirItem;
@@ -1256,17 +1236,6 @@ HRESULT UpdateArchive(
 
   FString tempDirPrefix;
   bool usesTempDir = false;
-  
-  #ifdef _WIN32
-  CTempDir tempDirectory;
-  if (options.EMailMode && options.EMailRemoveAfter)
-  {
-    tempDirectory.Create(kTempFolderPrefix);
-    tempDirPrefix = tempDirectory.GetPath();
-    NormalizeDirPathPrefix(tempDirPrefix);
-    usesTempDir = true;
-  }
-  #endif
 
   CTempFiles tempFiles;
 
@@ -1420,86 +1389,6 @@ HRESULT UpdateArchive(
       throw;
     }
   }
-
-
-  #if defined(_WIN32) && !defined(UNDER_CE)
-  
-  if (options.EMailMode)
-  {
-    NDLL::CLibrary mapiLib;
-    if (!mapiLib.Load(FTEXT("Mapi32.dll")))
-    {
-      errorInfo.SetFromLastError("cannot load Mapi32.dll");
-      return errorInfo.Get_HRESULT_Error();
-    }
-
-    /*
-    LPMAPISENDDOCUMENTS fnSend = (LPMAPISENDDOCUMENTS)mapiLib.GetProc("MAPISendDocuments");
-    if (fnSend == 0)
-    {
-      errorInfo.SetFromLastError)("7-Zip cannot find MAPISendDocuments function");
-      return errorInfo.Get_HRESULT_Error();
-    }
-    */
-    
-    LPMAPISENDMAIL sendMail = (LPMAPISENDMAIL)mapiLib.GetProc("MAPISendMail");
-    if (sendMail == 0)
-    {
-      errorInfo.SetFromLastError("7-Zip cannot find MAPISendMail function");
-      return errorInfo.Get_HRESULT_Error();;
-    }
-
-    FStringVector fullPaths;
-    unsigned i;
-    
-    for (i = 0; i < options.Commands.Size(); i++)
-    {
-      CArchivePath &ap = options.Commands[i].ArchivePath;
-      FString finalPath = us2fs(ap.GetFinalPath());
-      FString arcPath2;
-      if (!MyGetFullPathName(finalPath, arcPath2))
-        return errorInfo.SetFromLastError("GetFullPathName error", finalPath);
-      fullPaths.Add(arcPath2);
-    }
-
-    CCurrentDirRestorer curDirRestorer;
-    
-    for (i = 0; i < fullPaths.Size(); i++)
-    {
-      UString arcPath2 = fs2us(fullPaths[i]);
-      UString fileName = ExtractFileNameFromPath(arcPath2);
-      AString path = GetAnsiString(arcPath2);
-      AString name = GetAnsiString(fileName);
-      // Warning!!! MAPISendDocuments function changes Current directory
-      // fnSend(0, ";", (LPSTR)(LPCSTR)path, (LPSTR)(LPCSTR)name, 0);
-
-      MapiFileDesc f;
-      memset(&f, 0, sizeof(f));
-      f.nPosition = 0xFFFFFFFF;
-      f.lpszPathName = (char *)(const char *)path;
-      f.lpszFileName = (char *)(const char *)name;
-      
-      MapiMessage m;
-      memset(&m, 0, sizeof(m));
-      m.nFileCount = 1;
-      m.lpFiles = &f;
-      
-      const AString addr = GetAnsiString(options.EMailAddress);
-      MapiRecipDesc rec;
-      if (!addr.IsEmpty())
-      {
-        memset(&rec, 0, sizeof(rec));
-        rec.ulRecipClass = MAPI_TO;
-        rec.lpszAddress = (char *)(const char *)addr;
-        m.nRecipCount = 1;
-        m.lpRecips = &rec;
-      }
-      
-      sendMail((LHANDLE)0, 0, &m, MAPI_DIALOG, 0);
-    }
-  }
-  
-  #endif
 
   if (options.DeleteAfterCompressing)
   {

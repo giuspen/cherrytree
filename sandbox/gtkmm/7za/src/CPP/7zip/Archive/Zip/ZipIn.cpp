@@ -775,7 +775,6 @@ static bool FlagsAreSame(const CItem &i1, const CItem &i2)
 }
 
 
-// #ifdef _WIN32
 static bool AreEqualPaths_IgnoreSlashes(const char *s1, const char *s2)
 {
   for (;;)
@@ -796,7 +795,6 @@ static bool AreEqualPaths_IgnoreSlashes(const char *s1, const char *s2)
     }
   }
 }
-// #endif
 
 
 static bool AreItemsEqual(const CItemEx &localItem, const CItemEx &cdItem)
@@ -820,7 +818,6 @@ static bool AreItemsEqual(const CItemEx &localItem, const CItemEx &cdItem)
   */
   if (cdItem.Name != localItem.Name)
   {
-    // #ifdef _WIN32
     // some xap files use backslash in central dir items.
     // we can ignore such errors in windows, where all slashes are converted to backslashes
     unsigned hostOs = cdItem.GetHostOS();
@@ -837,11 +834,6 @@ static bool AreItemsEqual(const CItemEx &localItem, const CItemEx &cdItem)
           return false;
       }
     }
-    /*
-    else
-    #endif
-      return false;
-    */
   }
   return true;
 }

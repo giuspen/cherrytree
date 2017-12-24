@@ -19,21 +19,6 @@
 
 struct CAlignedMidBuffer
 {
-  #ifdef _WIN32
-
-  Byte *_buf;
-
-  CAlignedMidBuffer(): _buf(NULL) {}
-  ~CAlignedMidBuffer() { ::MidFree(_buf); }
-  
-  void AllocAlignedMask(size_t size, size_t)
-  {
-    ::MidFree(_buf);
-    _buf = (Byte *)::MidAlloc(size);
-  }
-  
-  #else
-  
   Byte *_bufBase;
   Byte *_buf;
 
@@ -52,8 +37,6 @@ struct CAlignedMidBuffer
          _buf = (Byte *)(((ptrdiff_t)_bufBase + alignMask) & ~(ptrdiff_t)alignMask);
     }
   }
-  
-  #endif
 };
 
 class CFilterCoder:

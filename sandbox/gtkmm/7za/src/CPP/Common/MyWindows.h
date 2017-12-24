@@ -3,12 +3,6 @@
 #ifndef __MYWINDOWS_H
 #define __MYWINDOWS_H
 
-#ifdef _WIN32
-
-#include <windows.h>
-
-#else
-
 #include <stddef.h> // for wchar_t
 #include <string.h>
 
@@ -112,9 +106,7 @@ struct IUnknown
   STDMETHOD(QueryInterface) (REFIID iid, void **outObject) PURE;
   STDMETHOD_(ULONG, AddRef)() PURE;
   STDMETHOD_(ULONG, Release)() PURE;
-  #ifndef _WIN32
   virtual ~IUnknown() {}
-  #endif
 };
 
 typedef IUnknown *LPUNKNOWN;
@@ -222,5 +214,4 @@ typedef enum tagSTREAM_SEEK
   STREAM_SEEK_END = 2
 } STREAM_SEEK;
 
-#endif
 #endif

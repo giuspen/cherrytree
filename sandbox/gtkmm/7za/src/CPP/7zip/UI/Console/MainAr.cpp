@@ -19,9 +19,7 @@ CStdOutStream *g_StdStream = NULL;
 CStdOutStream *g_ErrStream = NULL;
 
 extern int Main2(
-  #ifndef _WIN32
   int numArgs, char *args[]
-  #endif
 );
 
 static const char *kException_CmdLine_Error_Message = "Command Line Error:";
@@ -48,9 +46,7 @@ static void PrintError(const char *message)
 
 int MY_CDECL main
 (
-  #ifndef _WIN32
   int numArgs, char *args[]
-  #endif
 )
 {
   g_ErrStream = &g_StdErr;
@@ -64,9 +60,7 @@ int MY_CDECL main
   try
   {
     res = Main2(
-    #ifndef _WIN32
     numArgs, args
-    #endif
     );
   }
   catch(const CNewException &)

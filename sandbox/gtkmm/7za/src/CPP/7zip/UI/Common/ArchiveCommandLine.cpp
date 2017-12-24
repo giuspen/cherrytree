@@ -4,11 +4,6 @@
 #undef printf
 #undef sprintf
 
-#ifdef _WIN32
-#ifndef UNDER_CE
-#include <io.h>
-#endif
-#endif
 #include <stdio.h>
 
 #include "../../../Common/ListFileUtils.h"
@@ -17,12 +12,7 @@
 
 #include "../../../Windows/FileDir.h"
 #include "../../../Windows/FileName.h"
-#ifdef _WIN32
-#include "../../../Windows/FileMapping.h"
-#include "../../../Windows/Synchronization.h"
-#else
 #include "myPrivate.h"
-#endif
 
 #include "ArchiveCommandLine.h"
 #include "EnumDirItems.h"
@@ -468,80 +458,6 @@ static void AddToCensorFromNonSwitchesStrings(
   }
 }
 
-#ifdef _WIN32
-
-struct CEventSetEnd
-{
-  UString Name;
-  
-  CEventSetEnd(const wchar_t *name): Name(name) {}
-  ~CEventSetEnd()
-  {
-    NSynchronization::CManualResetEvent event;
-    if (event.Open(EVENT_MODIFY_STATE, false, GetSystemString(Name)) == 0)
-      event.Set();
-  }
-};
-
-const char *k_IncorrectMapCommand = "Incorrect Map command";
-
-static const char *ParseMapWithPaths(
-    NWildcard::CCensor &censor,
-    const UString &s2, bool include,
-    NRecursedType::EEnum commonRecursedType,
-    bool wildcardMatching)
-{
-  UString s = s2;
-  int pos = s.Find(L':');
-  if (pos < 0)
-    return k_IncorrectMapCommand;
-  int pos2 = s.Find(L':', pos + 1);
-  if (pos2 < 0)
-    return k_IncorrectMapCommand;
-
-  CEventSetEnd eventSetEnd((const wchar_t *)s + ((unsigned)pos2 + 1));
-  s.DeleteFrom(pos2);
-  UInt32 size;
-  if (!StringToUInt32(s.Ptr(pos + 1), size)
-      || size < sizeof(wchar_t)
-      || size > ((UInt32)1 << 31)
-      || size % sizeof(wchar_t) != 0)
-    return "Unsupported Map data size";
-
-  s.DeleteFrom(pos);
-  CFileMapping map;
-  if (map.Open(FILE_MAP_READ, GetSystemString(s)) != 0)
-    return "Can not open mapping";
-  LPVOID data = map.Map(FILE_MAP_READ, 0, size);
-  if (!data)
-    return "MapViewOfFile error";
-  CFileUnmapper unmapper(data);
-
-  UString name;
-  const wchar_t *p = (const wchar_t *)data;
-  if (*p != 0) // data format marker
-    return "Unsupported Map data";
-  UInt32 numChars = size / sizeof(wchar_t);
-  for (UInt32 i = 1; i < numChars; i++)
-  {
-    wchar_t c = p[i];
-    if (c == 0)
-    {
-      // MessageBoxW(0, name, L"7-Zip", 0);
-      AddNameToCensor(censor, name, include, commonRecursedType, wildcardMatching);
-      name.Empty();
-    }
-    else
-      name += c;
-  }
-  if (!name.IsEmpty())
-    return "Map data error";
-
-  return NULL;
-}
-
-#endif
-
 static void AddSwitchWildcardsToCensor(
     NWildcard::CCensor &censor,
     const UStringVector &strings, bool include,
@@ -589,14 +505,6 @@ static void AddSwitchWildcardsToCensor(
       AddNameToCensor(censor, tail, include, recursedType, wildcardMatching);
     else if (name[pos] == kFileListID)
       AddToCensorFromListFile(NULL, censor, tail, include, recursedType, wildcardMatching, codePage);
-    #ifdef _WIN32
-    else if (name[pos] == kMapNameID)
-    {
-      errorMessage = ParseMapWithPaths(censor, tail, include, recursedType, wildcardMatching);
-      if (errorMessage)
-        break;
-    }
-    #endif
     else
     {
       errorMessage = "Incorrect wildcard type marker";
@@ -606,98 +514,6 @@ static void AddSwitchWildcardsToCensor(
   if (i != strings.Size())
     throw CArcCmdLineException(errorMessage, strings[i]);
 }
-
-#ifdef _WIN32
-
-// This code converts all short file names to long file names.
-
-static void ConvertToLongName(const UString &prefix, UString &name)
-{
-  if (name.IsEmpty() || DoesNameContainWildcard(name))
-    return;
-  NFind::CFileInfo fi;
-  const FString path = us2fs(prefix + name);
-  #ifndef UNDER_CE
-  if (NFile::NName::IsDevicePath(path))
-    return;
-  #endif
-  if (fi.Find(path))
-    name = fs2us(fi.Name);
-}
-
-static void ConvertToLongNames(const UString &prefix, CObjectVector<NWildcard::CItem> &items)
-{
-  FOR_VECTOR (i, items)
-  {
-    NWildcard::CItem &item = items[i];
-    if (item.Recursive || item.PathParts.Size() != 1)
-      continue;
-    if (prefix.IsEmpty() && item.IsDriveItem())
-      continue;
-    ConvertToLongName(prefix, item.PathParts.Front());
-  }
-}
-
-static void ConvertToLongNames(const UString &prefix, NWildcard::CCensorNode &node)
-{
-  ConvertToLongNames(prefix, node.IncludeItems);
-  ConvertToLongNames(prefix, node.ExcludeItems);
-  unsigned i;
-  for (i = 0; i < node.SubNodes.Size(); i++)
-  {
-    UString &name = node.SubNodes[i].Name;
-    if (prefix.IsEmpty() && NWildcard::IsDriveColonName(name))
-      continue;
-    ConvertToLongName(prefix, name);
-  }
-  // mix folders with same name
-  for (i = 0; i < node.SubNodes.Size(); i++)
-  {
-    NWildcard::CCensorNode &nextNode1 = node.SubNodes[i];
-    for (unsigned j = i + 1; j < node.SubNodes.Size();)
-    {
-      const NWildcard::CCensorNode &nextNode2 = node.SubNodes[j];
-      if (nextNode1.Name.IsEqualTo_NoCase(nextNode2.Name))
-      {
-        nextNode1.IncludeItems += nextNode2.IncludeItems;
-        nextNode1.ExcludeItems += nextNode2.ExcludeItems;
-        node.SubNodes.Delete(j);
-      }
-      else
-        j++;
-    }
-  }
-  for (i = 0; i < node.SubNodes.Size(); i++)
-  {
-    NWildcard::CCensorNode &nextNode = node.SubNodes[i];
-    ConvertToLongNames(prefix + nextNode.Name + WCHAR_PATH_SEPARATOR, nextNode);
-  }
-}
-
-void ConvertToLongNames(NWildcard::CCensor &censor)
-{
-  FOR_VECTOR (i, censor.Pairs)
-  {
-    NWildcard::CPair &pair = censor.Pairs[i];
-    ConvertToLongNames(pair.Prefix, pair.Head);
-  }
-}
-
-#endif
-
-/*
-static NUpdateArchive::NPairAction::EEnum GetUpdatePairActionType(int i)
-{
-  switch (i)
-  {
-    case NUpdateArchive::NPairAction::kIgnore: return NUpdateArchive::NPairAction::kIgnore;
-    case NUpdateArchive::NPairAction::kCopy: return NUpdateArchive::NPairAction::kCopy;
-    case NUpdateArchive::NPairAction::kCompress: return NUpdateArchive::NPairAction::kCompress;
-    case NUpdateArchive::NPairAction::kCompressAsAnti: return NUpdateArchive::NPairAction::kCompressAsAnti;
-  }
-  throw 98111603;
-}
-*/
 
 static const wchar_t *kUpdatePairStateIDSet = L"pqrxyzw";
 static const int kUpdatePairStateNotSupportedActions[] = {2, 2, 1, -1, -1, -1, -1};
@@ -938,10 +754,6 @@ void CArcCmdLineParser::Parse1(const UStringVector &commandStrings,
       }
       if (a.IsEmpty())
         throw CArcCmdLineException("Unsupported switch postfix -stm", s);
-      
-      #ifdef _WIN32
-      SetProcessAffinityMask(GetCurrentProcess(), v);
-      #endif
     }
   }
 
@@ -1137,9 +949,6 @@ void CArcCmdLineParser::Parse2(CArcCmdLineOptions &options)
     options.ArchiveName = nonSwitchStrings[curCommandIndex++];
     if (options.ArchiveName.IsEmpty())
       throw CArcCmdLineException("Archive name cannot by empty");
-    #ifdef _WIN32
-    // options.ArchiveName.Replace(L'/', WCHAR_PATH_SEPARATOR);
-    #endif
   }
 
   AddToCensorFromNonSwitchesStrings(isRename ? &options.UpdateOptions.RenamePairs : NULL,
@@ -1216,10 +1025,6 @@ void CArcCmdLineParser::Parse2(CArcCmdLineOptions &options)
       AddNameToCensor(arcCensor, options.ArchiveName, true, NRecursedType::kNonRecursed, wildcardMatching);
 
     arcCensor.AddPathsToCensor(NWildcard::k_RelatPath);
-
-    #ifdef _WIN32
-    ConvertToLongNames(arcCensor);
-    #endif
 
     arcCensor.ExtendExclude();
 

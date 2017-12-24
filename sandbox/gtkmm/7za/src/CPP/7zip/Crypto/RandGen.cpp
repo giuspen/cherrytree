@@ -8,11 +8,9 @@
 
 #include "RandGen.h"
 
-#ifndef _WIN32
 #include <unistd.h>
 #define USE_POSIX_TIME
 #define USE_POSIX_TIME2
-#endif
 
 #ifdef USE_POSIX_TIME
 #include <time.h>
@@ -34,17 +32,10 @@ void CRandomGenerator::Init()
   CSha256 hash;
   Sha256_Init(&hash);
 
-  #ifdef _WIN32
-  DWORD w = ::GetCurrentProcessId();
-  HASH_UPD(w);
-  w = ::GetCurrentThreadId();
-  HASH_UPD(w);
-  #else
   pid_t pid = getpid();
   HASH_UPD(pid);
   pid = getppid();
   HASH_UPD(pid);
-  #endif
 
   for (unsigned i = 0; i <
     #ifdef _DEBUG
@@ -54,12 +45,6 @@ void CRandomGenerator::Init()
     #endif
     i++)
   {
-    #ifdef _WIN32
-    LARGE_INTEGER v;
-    if (::QueryPerformanceCounter(&v))
-      HASH_UPD(v.QuadPart);
-    #endif
-
     #ifdef USE_POSIX_TIME
     #ifdef USE_POSIX_TIME2
     timeval v;

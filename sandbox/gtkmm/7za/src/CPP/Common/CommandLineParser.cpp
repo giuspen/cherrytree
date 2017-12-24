@@ -20,46 +20,6 @@ static bool IsString1PrefixedByString2_NoCase(const wchar_t *u, const char *a)
 
 namespace NCommandLineParser {
 
-#ifdef _WIN32
-bool SplitCommandLine(const UString &src, UString &dest1, UString &dest2)
-{
-  dest1.Empty();
-  dest2.Empty();
-  bool quoteMode = false;
-  unsigned i;
-  for (i = 0; i < src.Len(); i++)
-  {
-    wchar_t c = src[i];
-    if ((c == L' ' || c == L'\t') && !quoteMode)
-    {
-      dest2 = src.Ptr(i + 1);
-      return i != 0;
-    }
-    if (c == L'\"')
-      quoteMode = !quoteMode;
-    else
-      dest1 += c;
-  }
-  return i != 0;
-}
-
-void SplitCommandLine(const UString &s, UStringVector &parts)
-{
-  UString sTemp = s;
-  sTemp.Trim();
-  parts.Clear();
-  for (;;)
-  {
-    UString s1, s2;
-    if (SplitCommandLine(sTemp, s1, s2))
-      parts.Add(s1);
-    if (s2.IsEmpty())
-      break;
-    sTemp = s2;
-  }
-}
-#endif
-
 static const char *kStopSwitchParsing = "--";
 
 static bool inline IsItSwitchChar(wchar_t c)

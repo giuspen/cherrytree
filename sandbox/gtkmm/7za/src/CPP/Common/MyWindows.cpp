@@ -2,23 +2,12 @@
 
 #include "StdAfx.h"
 
-#ifndef _WIN32
-
 #include "MyWindows.h"
 #include "MyTypes.h"
 #include <stdlib.h> /* FIXED <malloc.h> */
 
 static inline void *AllocateForBSTR(size_t cb) { return ::malloc(cb); }
 static inline void FreeForBSTR(void *pv) { ::free(pv);}
-
-/* FIXME
-static UINT MyStringLen(const wchar_t *s)
-{ 
-  UINT i;
-  for (i = 0; s[i] != '\0'; i++);
-  return i;
-}
-*/
 
 BSTR SysAllocStringByteLen(LPCSTR psz, UINT len)
 {
@@ -124,5 +113,3 @@ LONG CompareFileTime(const FILETIME* ft1, const FILETIME* ft2)
     return 1;
   return 0;
 }
-
-#endif

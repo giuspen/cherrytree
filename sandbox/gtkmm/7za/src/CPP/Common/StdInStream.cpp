@@ -70,21 +70,7 @@ AString CStdInStream::ScanStringUntilNewLine(bool allowEOF)
   return s;
 }
 
-#ifdef _WIN32
-UString CStdInStream::ScanUStringUntilNewLine()
-{
-  AString s = ScanStringUntilNewLine(true);
-  int codePage = g_CodePage;
-  if (codePage == -1)
-    codePage = CP_OEMCP;
-  UString dest;
-  if (codePage == CP_UTF8)
-    ConvertUTF8ToUnicode(s, dest);
-  else
-    dest = MultiByteToUnicodeString(s, (UINT)codePage);
-  return dest;
-}
-#else
+
 
 #ifndef ENV_HAVE_GETPASS
 UString CStdInStream::ScanUStringUntilNewLine()
@@ -93,8 +79,6 @@ UString CStdInStream::ScanUStringUntilNewLine()
   UString dest = MultiByteToUnicodeString(s, (UINT)-1);
   return dest;
 }
-#endif
-
 #endif
 
 void CStdInStream::ReadToString(AString &resultString)

@@ -2,11 +2,7 @@
 
 #include "StdAfx.h"
 
-#ifdef _WIN32
-#include <wchar.h>
-#else
 #include <ctype.h>
-#endif
 
 #include "../../../../C/7zCrc.h"
 #include "../../../../C/CpuArch.h"
@@ -460,20 +456,12 @@ void CDatabase::GetPath(unsigned index, UString &path) const
 
   const Byte *p = ((const Byte *)NamesBuf + offset * 2);
 
-  #if defined(_WIN32) && defined(MY_CPU_LE)
-  
-  wmemcpy(s, (const wchar_t *)p, size);
-  
-  #else
-
   for (size_t i = 0; i < size; i++)
   {
     *s = Get16(p);
     p += 2;
     s++;
   }
-
-  #endif
 
   path.ReleaseBuf_SetLen((unsigned)size - 1);
 }

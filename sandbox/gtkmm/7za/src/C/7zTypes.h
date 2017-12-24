@@ -4,10 +4,6 @@
 #ifndef __7Z_TYPES_H
 #define __7Z_TYPES_H
 
-#ifdef _WIN32
-/* #include <windows.h> */
-#endif
-
 #include <stddef.h>
 
 #ifndef EXTERN_C_BEGIN
@@ -41,13 +37,7 @@ EXTERN_C_BEGIN
 #define SZ_ERROR_NO_ARCHIVE 17
 
 typedef int SRes;
-
-#ifdef _WIN32
-/* typedef DWORD WRes; */
-typedef unsigned WRes;
-#else
 typedef int WRes;
-#endif
 
 #ifndef RINOK
 #define RINOK(x) { int __result__ = (x); if (__result__ != 0) return __result__; }
@@ -98,11 +88,7 @@ typedef int Bool;
 #define False 0
 
 
-#ifdef _WIN32
-#define MY_STD_CALL __stdcall
-#else
 #define MY_STD_CALL
-#endif
 
 #ifdef _MSC_VER
 
@@ -235,21 +221,10 @@ typedef struct
 #define IAlloc_Alloc(p, size) (p)->Alloc((p), size)
 #define IAlloc_Free(p, a) (p)->Free((p), a)
 
-#ifdef _WIN32
-
-#define CHAR_PATH_SEPARATOR '\\'
-#define WCHAR_PATH_SEPARATOR L'\\'
-#define STRING_PATH_SEPARATOR "\\"
-#define WSTRING_PATH_SEPARATOR L"\\"
-
-#else
-
 #define CHAR_PATH_SEPARATOR '/'
 #define WCHAR_PATH_SEPARATOR L'/'
 #define STRING_PATH_SEPARATOR "/"
 #define WSTRING_PATH_SEPARATOR L"/"
-
-#endif
 
 EXTERN_C_END
 

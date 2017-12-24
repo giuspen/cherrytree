@@ -3,9 +3,6 @@
 
 #include "Precomp.h"
 
-#ifdef _WIN32
-#include <windows.h>
-#endif
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -92,8 +89,6 @@ void MyFree(void *address)
   align_free(address);
 }
 
-#ifndef _WIN32
-
 #ifdef _7ZIP_LARGE_PAGES
 
 #ifdef __linux__
@@ -101,9 +96,9 @@ void MyFree(void *address)
 static void *g_HugePageAddr[_7ZIP_MAX_HUGE_ALLOCS] = { NULL };
 static size_t g_HugePageLen[_7ZIP_MAX_HUGE_ALLOCS];
 static char *g_HugetlbPath;
-#endif
+#endif // __linux__
 
-#endif
+#endif // _7ZIP_LARGE_PAGES
 
 #ifdef _7ZIP_LARGE_PAGES
 static void *VirtualAlloc(size_t size, int memLargePages)
@@ -163,7 +158,7 @@ static void *VirtualAlloc(size_t size, int memLargePages )
 {
   return align_alloc(size);
 }
-#endif
+#endif // _7ZIP_LARGE_PAGES
 
 static int VirtualFree(void *address)
 {
@@ -185,8 +180,6 @@ static int VirtualFree(void *address)
   align_free(address);
   return 1;
 }
-
-#endif
 
 void *MidAlloc(size_t size)
 {
@@ -211,9 +204,7 @@ void MidFree(void *address)
 
 #ifdef _7ZIP_LARGE_PAGES
 size_t g_LargePageSize = 0;
-#ifdef _WIN32
-typedef SIZE_T (WINAPI *GetLargePageMinimumP)();
-#elif defined(__linux__)
+#if defined(__linux__)
 size_t largePageMinimum()
 {
   size_t size;
@@ -272,12 +263,6 @@ void SetLargePageSize()
 {
   #ifdef _7ZIP_LARGE_PAGES
   size_t size;
-  #ifdef _WIN32
-  GetLargePageMinimumP largePageMinimum = (GetLargePageMinimumP)
-        GetProcAddress(GetModuleHandle(TEXT("kernel32.dll")), "GetLargePageMinimum");
-  if (largePageMinimum == 0)
-    return;
-  #endif
   size = largePageMinimum();
   if (size == 0 || (size & (size - 1)) != 0)
     return;

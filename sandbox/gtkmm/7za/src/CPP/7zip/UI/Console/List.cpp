@@ -595,18 +595,7 @@ HRESULT CFieldPrinter::PrintItemInfo(UInt32 index, const CListStat &st)
           needPrint = false;
           #endif
         }
-#ifdef _WIN32
-        else if (f.PropID == kpidNtReparse)
-        {
-          UString s;
-          if (ConvertNtReparseToString((const Byte *)data, dataSize, s))
-          {
-            needPrint = false;
-            g_StdOut.PrintUString(s, TempAString);
-          }
-        }
-#endif
-      
+
         if (needPrint)
         {
           if (propType != NPropDataType::kRaw)

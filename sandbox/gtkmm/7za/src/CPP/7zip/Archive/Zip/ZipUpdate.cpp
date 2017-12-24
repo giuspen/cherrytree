@@ -906,13 +906,7 @@ static HRESULT Update2(
 
           DWORD result = ::WaitForMultipleObjects(compressingCompletedEvents.Size(),
               &compressingCompletedEvents.Front(), FALSE, INFINITE);
-#ifdef _WIN32 // FIXME
-          if (result == WAIT_FAILED)
-          {
-            DWORD lastError = GetLastError();
-            return lastError != 0 ? lastError : E_FAIL;
-          }
-#endif
+
           unsigned t = (unsigned)(result - WAIT_OBJECT_0);
           if (t >= compressingCompletedEvents.Size())
             return E_FAIL;

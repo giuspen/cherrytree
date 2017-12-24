@@ -22,11 +22,7 @@ wchar_t * wcsstr(const wchar_t *wcs1, const wchar_t *wcs2);
 #include "MyTypes.h"
 #include "MyVector.h"
 
-#ifdef _WIN32
-#define IS_PATH_SEPAR(c) ((c) == '\\' || (c) == '/')
-#else
 #define IS_PATH_SEPAR(c) ((c) == CHAR_PATH_SEPARATOR)
-#endif
 
 inline bool IsPathSepar(char    c) { return IS_PATH_SEPAR(c); }
 inline bool IsPathSepar(wchar_t c) { return IS_PATH_SEPAR(c); }
@@ -86,12 +82,6 @@ inline wchar_t *MyWcpCpy(wchar_t *dest, const wchar_t *src)
 int FindCharPosInString(const char *s, char c) throw();
 int FindCharPosInString(const wchar_t *s, wchar_t c) throw();
 
-#ifdef _WIN32
-  #ifndef _UNICODE
-    #define STRING_UNICODE_THROW
-  #endif
-#endif
-
 #ifndef STRING_UNICODE_THROW
   #define STRING_UNICODE_THROW throw()
 #endif
@@ -132,45 +122,11 @@ inline wchar_t MyCharUpper(wchar_t c) throw()
   if (c < 'a') return c;
   if (c <= 'z') return (wchar_t)(c - 0x20);
   if (c <= 0x7F) return c;
-  #ifdef _WIN32
-    #ifdef _UNICODE
-      return (wchar_t)(unsigned)(UINT_PTR)CharUpperW((LPWSTR)(UINT_PTR)(unsigned)c);
-    #else
-      return (wchar_t)MyCharUpper_WIN(c);
-    #endif
-  #else
     return (wchar_t)towupper(c);
-  #endif
 }
 
-/*
-wchar_t MyCharLower_WIN(wchar_t c) throw();
-
-inline wchar_t MyCharLower(wchar_t c) throw()
-{
-  if (c < 'A') return c;
-  if (c <= 'Z') return (wchar_t)(c + 0x20);
-  if (c <= 0x7F) return c;
-  #ifdef _WIN32
-    #ifdef _UNICODE
-      return (wchar_t)(unsigned)(UINT_PTR)CharLowerW((LPWSTR)(UINT_PTR)(unsigned)c);
-    #else
-      return (wchar_t)MyCharLower_WIN(c);
-    #endif
-  #else
-    return (wchar_t)tolower(c);
-  #endif
-}
-*/
-
-// char *MyStringUpper(char *s) throw();
-// char *MyStringLower(char *s) throw();
-
-// void MyStringUpper_Ascii(wchar_t *s) throw();
 void MyStringLower_Ascii(char *s) throw();
 void MyStringLower_Ascii(wchar_t *s) throw();
-// wchar_t *MyStringUpper(wchar_t *s) STRING_UNICODE_THROW;
-// wchar_t *MyStringLower(wchar_t *s) STRING_UNICODE_THROW;
 
 bool StringsAreEqualNoCase(const wchar_t *s1, const wchar_t *s2) throw();
 
@@ -644,22 +600,6 @@ void operator+(char c, const UString &s);
 void operator+(unsigned char c, const UString &s);
 void operator-(const UString &s1, wchar_t c);
 
-#ifdef _WIN32
-// can we forbid these functions, if wchar_t is 32-bit ?
-void operator+(const UString &s, int c);
-void operator+(const UString &s, unsigned c);
-void operator+(int c, const UString &s);
-void operator+(unsigned c, const UString &s);
-void operator-(const UString &s1, int c);
-void operator-(const UString &s1, unsigned c);
-#endif
-
-
-
-
-
-
-
 class UString2
 {
   wchar_t *_chars;
@@ -749,7 +689,7 @@ typedef CObjectVector<CSysString> CSysStringVector;
 
 // ---------- FString ----------
 
-#ifdef _UNICODE  // FIXME #ifdef _WIN32
+#ifdef _UNICODE
   #define USE_UNICODE_FSTRING
 #endif
 

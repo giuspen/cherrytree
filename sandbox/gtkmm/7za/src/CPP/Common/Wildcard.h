@@ -24,11 +24,9 @@ bool DoesWildcardMatchName(const UString &mask, const UString &name);
 
 namespace NWildcard {
 
-// FIXME #ifdef _WIN32
 // returns true, if name is like "a:", "c:", ...
 bool IsDriveColonName(const wchar_t *s);
 unsigned GetNumPrefixParts_if_DrivePath(UStringVector &pathParts);
-// #endif
 
 struct CItem
 {
@@ -37,13 +35,6 @@ struct CItem
   bool ForFile;
   bool ForDir;
   bool WildcardMatching;
-  
-  #ifdef _WIN32
-  bool IsDriveItem() const
-  {
-    return PathParts.Size() == 1 && !ForFile && ForDir && IsDriveColonName(PathParts[0]);
-  }
-  #endif
 
   // CItem(): WildcardMatching(true) {}
 

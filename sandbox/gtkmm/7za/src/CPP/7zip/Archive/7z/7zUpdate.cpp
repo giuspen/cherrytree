@@ -21,9 +21,7 @@
 #include "7zOut.h"
 #include "7zUpdate.h"
 
-#ifndef WIN32
 #include "Windows/FileIO.h"
-#endif
 
 namespace NArchive {
 namespace N7z {
@@ -800,7 +798,6 @@ static bool IsExeExt(const wchar_t *ext)
   return false;
 }
 
-#ifndef _WIN32
 static bool IsExeFile(const CUpdateItem &ui)
 {
   int dotPos = ui.Name.ReverseFind(L'.');
@@ -833,7 +830,6 @@ static bool IsExeFile(const CUpdateItem &ui)
   } 
   return false;
 }
-#endif
 
 struct CAnalysis
 {
@@ -886,24 +882,14 @@ HRESULT CAnalysis::GetFilterGroup(UInt32 index, const CUpdateItem &ui, CFilterMo
         // st_mode = 00111;
         if ((st_mode & 00111) && (ui.Size >= 2048))
         {
-          #ifndef _WIN32
           probablyIsSameIsa = true;
-          #endif
           needReadFile = true;
         }
       }
 
-#ifdef _WIN32
-      if (IsExeExt(ext))
-#else
       if (IsExeFile(ui))
-#endif
       {
         needReadFile = true;
-        #ifdef _WIN32
-        probablyIsSameIsa = true;
-        needReadFile = ParseExe;
-        #endif
       }
       else if (StringsAreEqualNoCase_Ascii(ext, "wav"))
       {

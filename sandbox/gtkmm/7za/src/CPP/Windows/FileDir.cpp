@@ -221,58 +221,6 @@ bool GetLongPath(CFSTR fileName, UString &res);
 
 namespace NDir {
 
-
-#ifdef _WIN32
-
-#ifndef UNDER_CE
-
-bool MyGetWindowsDirectory(FString &path)
-{
-  UINT needLength;
-  #ifndef _UNICODE
-  if (!g_IsNT)
-  {
-    TCHAR s[MAX_PATH + 2];
-    s[0] = 0;
-    needLength = ::GetWindowsDirectory(s, MAX_PATH + 1);
-    path = fas2fs(s);
-  }
-  else
-  #endif
-  {
-    WCHAR s[MAX_PATH + 2];
-    s[0] = 0;
-    needLength = ::GetWindowsDirectoryW(s, MAX_PATH + 1);
-    path = us2fs(s);
-  }
-  return (needLength > 0 && needLength <= MAX_PATH);
-}
-
-
-bool MyGetSystemDirectory(FString &path)
-{
-  UINT needLength;
-  #ifndef _UNICODE
-  if (!g_IsNT)
-  {
-    TCHAR s[MAX_PATH + 2];
-    s[0] = 0;
-    needLength = ::GetSystemDirectory(s, MAX_PATH + 1);
-    path = fas2fs(s);
-  }
-  else
-  #endif
-  {
-    WCHAR s[MAX_PATH + 2];
-    s[0] = 0;
-    needLength = ::GetSystemDirectoryW(s, MAX_PATH + 1);
-    path = us2fs(s);
-  }
-  return (needLength > 0 && needLength <= MAX_PATH);
-}
-#endif
-#endif // _WIN32
-
 bool SetDirTime(CFSTR fileName, const FILETIME * /* cTime */ , const FILETIME *aTime, const FILETIME *mTime)
 {
   AString  cfilename = UnicodeStringToMultiByte(fileName);
@@ -515,13 +463,6 @@ bool CreateComplexDir(CFSTR _aPathName)
     TRACEN((printf("CreateComplexDir(%s) GetLastError=%d (ERROR_ALREADY_EXISTS=%d)\n",(const char *)name,::GetLastError(), ERROR_ALREADY_EXISTS)))
     if (::GetLastError() == ERROR_ALREADY_EXISTS)
     {
-#ifdef _WIN32 // FIXED for supporting symbolic link instead of a directory
-      NFind::CFileInfo fileInfo;
-      if (!fileInfo.Find(pathName)) // For network folders
-        return true;
-      if (!fileInfo.IsDir())
-        return false;
-#endif
       break;
     }
     pos = pathName.ReverseFind(FCHAR_PATH_SEPARATOR);
@@ -693,9 +634,6 @@ bool MyGetTempPath(FString &path)
 
 static bool CreateTempFile(CFSTR prefix, bool addRandom, FString &path, NIO::COutFile *outFile)
 {
-#ifdef _WIN32
-  UInt32 d = (GetTickCount() << 12) ^ (GetCurrentThreadId() << 14) ^ GetCurrentProcessId();
-#else
   static UInt32 memo_count = 0;
   UInt32 count;
 
@@ -705,7 +643,7 @@ static bool CreateTempFile(CFSTR prefix, bool addRandom, FString &path, NIO::COu
   UINT number = (UINT)getpid();
 
   UInt32 d = (GetTickCount() << 12) ^ (count << 14) ^ number;
-#endif
+
   for (unsigned i = 0; i < 100; i++)
   {
     path = prefix;

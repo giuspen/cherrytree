@@ -7,7 +7,6 @@
 #include "../Common/MyString.h"
 #include "../Common/MyTypes.h"
 
-#ifndef _WIN32
 class HKEY_Impl;
 
 typedef HKEY_Impl * HKEY;
@@ -18,8 +17,6 @@ typedef DWORD REGSAM;
 #define ERROR_SUCCESS (0)
 #define KEY_READ	(0x1234) // FIXME
 #define KEY_ALL_ACCESS  (~0)     // FIXME
-
-#endif
 
 namespace NWindows {
 namespace NRegistry {

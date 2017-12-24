@@ -20,11 +20,6 @@
 
 #include "UpdateCallback.h"
 
-#if defined(_WIN32) && !defined(UNDER_CE)
-#define _USE_SECURITY_CODE
-#include "../../../Windows/SecurityUtils.h"
-#endif
-
 using namespace NWindows;
 using namespace NFile;
 
@@ -290,11 +285,6 @@ static UString GetRelativePath(const UString &to, const UString &from)
 
   if (i == 0)
   {
-    #ifdef _WIN32
-    if (NName::IsDrivePath(to) ||
-        NName::IsDrivePath(from))
-      return to;
-    #endif
   }
 
   UString s;
@@ -417,9 +407,6 @@ STDMETHODIMP CArchiveUpdateCallback::GetProperty(UInt32 index, PROPID propID, PR
       case kpidATime:  prop = di.ATime; break;
       case kpidMTime:  prop = di.MTime; break;
       case kpidIsAltStream:  prop = di.IsAltStream; break;
-      #if defined(_WIN32) && !defined(UNDER_CE)
-      // case kpidShortName:  prop = di.ShortName; break;
-      #endif
     }
   }
   prop.Detach(value);
@@ -494,47 +481,10 @@ STDMETHODIMP CArchiveUpdateCallback::GetStream2(UInt32 index, ISequentialInStrea
     _openFiles_Indexes.Add(index);
     _openFiles_Paths.Add(path);
 
-    #if defined(_WIN32) && !defined(UNDER_CE)
-    if (DirItems->Items[up.DirIndex].AreReparseData())
-    {
-      if (!inStreamSpec->File.OpenReparse(path))
-      {
-        return Callback->OpenFileError(path, ::GetLastError());
-      }
-    }
-    else
-    #endif
     if (!inStreamSpec->OpenShared(path, ShareForWrite))
     {
       return Callback->OpenFileError(path, ::GetLastError());
     }
-
-#ifdef _WIN32 // FIXME
-    if (StoreHardLinks)
-    {
-      CStreamFileProps props;
-      if (inStreamSpec->GetProps2(&props) == S_OK)
-      {
-        if (props.NumLinks > 1)
-        {
-          CKeyKeyValPair pair;
-          pair.Key1 = props.VolID;
-          pair.Key2 = props.FileID_Low;
-          pair.Value = index;
-          unsigned numItems = _map.Size();
-          unsigned pairIndex = _map.AddToUniqueSorted2(pair);
-          if (numItems == _map.Size())
-          {
-            // const CKeyKeyValPair &pair2 = _map.Pairs[pairIndex];
-            _hardIndex_From = index;
-            _hardIndex_To = pairIndex;
-            // we could return NULL as stream, but it's better to return real stream
-            // return S_OK;
-          }
-        }
-      }
-    }
-#endif
 
     if (ProcessedItemsStatuses)
     {
@@ -727,21 +677,6 @@ STDMETHODIMP CArchiveUpdateCallback::CryptoGetTextPassword(BSTR *password)
 
 HRESULT CArchiveUpdateCallback::InFileStream_On_Error(UINT_PTR val, DWORD error)
 {
-#ifdef _WIN32 // FIXME
-  if (error == ERROR_LOCK_VIOLATION)
-  {
-    MT_LOCK
-    UInt32 index = (UInt32)val;
-    FOR_VECTOR(i, _openFiles_Indexes)
-    {
-      if (_openFiles_Indexes[i] == index)
-      {
-        RINOK(Callback->ReadingFileError(_openFiles_Paths[i], error));
-        break;
-      }
-    }
-  }
-#endif
   return HRESULT_FROM_WIN32(error);
 }
 

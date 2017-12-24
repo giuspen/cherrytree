@@ -48,14 +48,6 @@ MY_CPU_LE_UNALIGN means that CPU is LITTLE ENDIAN and CPU supports unaligned mem
   #define MY_CPU_32BIT
 #endif
 
-#if defined(_WIN32) && defined(_M_ARM)
-#define MY_CPU_ARM_LE
-#endif
-
-#if defined(_WIN32) && defined(_M_IA64)
-#define MY_CPU_IA64_LE
-#endif
-
 #if defined(MY_CPU_X86_OR_AMD64) \
     || defined(MY_CPU_ARM_LE) \
     || defined(MY_CPU_IA64_LE) \

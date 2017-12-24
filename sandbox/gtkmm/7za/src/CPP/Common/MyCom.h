@@ -47,23 +47,7 @@ public:
     _p = NULL;
     return pt;
   }
-  #ifdef _WIN32
-  HRESULT CoCreateInstance(REFCLSID rclsid, REFIID iid, LPUNKNOWN pUnkOuter = NULL, DWORD dwClsContext = CLSCTX_ALL)
-  {
-    return ::CoCreateInstance(rclsid, pUnkOuter, dwClsContext, iid, (void**)&_p);
-  }
-  #endif
-  /*
-  HRESULT CoCreateInstance(LPCOLESTR szProgID, LPUNKNOWN pUnkOuter = NULL, DWORD dwClsContext = CLSCTX_ALL)
-  {
-    CLSID clsid;
-    HRESULT hr = CLSIDFromProgID(szProgID, &clsid);
-    ATLASSERT(_p == NULL);
-    if (SUCCEEDED(hr))
-      hr = ::CoCreateInstance(clsid, pUnkOuter, dwClsContext, __uuidof(T), (void**)&_p);
-    return hr;
-  }
-  */
+
   template <class Q>
   HRESULT QueryInterface(REFGUID iid, Q** pp) const throw()
   {

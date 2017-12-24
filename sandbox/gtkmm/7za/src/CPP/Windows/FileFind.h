@@ -67,9 +67,6 @@ public:
 struct CFileInfo: public CFileInfoBase
 {
   FString Name;
-  #if defined(_WIN32) && !defined(UNDER_CE)
-  // FString ShortName;
-  #endif
 
   bool IsDots() const throw();
   bool Find(CFSTR wildcard, bool ignoreLink = false);
@@ -105,21 +102,6 @@ public:
   bool Next(CFileInfo &fileInfo);
   bool Next(CFileInfo &fileInfo, bool &found);
 };
-
-#ifdef _WIN32
-class CFindChangeNotification
-{
-  HANDLE _handle;
-public:
-  operator HANDLE () { return _handle; }
-  bool IsHandleAllocated() const { return _handle != INVALID_HANDLE_VALUE && _handle != 0; }
-  CFindChangeNotification(): _handle(INVALID_HANDLE_VALUE) {}
-  ~CFindChangeNotification() { Close(); }
-  bool Close() throw();
-  HANDLE FindFirst(CFSTR pathName, bool watchSubtree, DWORD notifyFilter);
-  bool FindNext() { return BOOLToBool(::FindNextChangeNotification(_handle)); }
-};
-#endif
 
 #ifndef UNDER_CE
 bool MyGetLogicalDriveStrings(CObjectVector<FString> &driveStrings);

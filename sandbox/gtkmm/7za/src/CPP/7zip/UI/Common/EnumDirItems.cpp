@@ -10,11 +10,6 @@
 #include "../../../Windows/FileIO.h"
 #include "../../../Windows/FileName.h"
 
-#if defined(_WIN32) && !defined(UNDER_CE)
-#define _USE_SECURITY_CODE
-#include "../../../Windows/SecurityUtils.h"
-#endif
-
 #include "EnumDirItems.h"
 
 #define UNDER_CE 1 // FIXME
@@ -37,9 +32,7 @@ void CDirItems::AddDirFileInfo(int phyParent, int logParent, int secureIndex,
   di.LogParent = logParent;
   di.SecureIndex = secureIndex;
   di.Name = fs2us(fi.Name);
-  #if defined(_WIN32) && !defined(UNDER_CE)
-  // di.ShortName = fs2us(fi.ShortName);
-  #endif
+
   Items.Add(di);
   
   if (fi.IsDir())
@@ -337,44 +330,6 @@ static HRESULT EnumerateDirItems_Spec(
 
 #ifndef UNDER_CE
 
-#ifdef _WIN32
-
-static HRESULT EnumerateAltStreams(
-    const NFind::CFileInfo &fi,
-    const NWildcard::CCensorNode &curNode,
-    int phyParent, int logParent, const FString &fullPath,
-    const UStringVector &addArchivePrefix,  // prefix from curNode
-    CDirItems &dirItems)
-{
-  NFind::CStreamEnumerator enumerator(fullPath);
-  for (;;)
-  {
-    NFind::CStreamInfo si;
-    bool found;
-    if (!enumerator.Next(si, found))
-    {
-      return dirItems.AddError(fullPath + FTEXT(":*")); // , (DWORD)E_FAIL
-    }
-    if (!found)
-      return S_OK;
-    if (si.IsMainStream())
-      continue;
-    UStringVector addArchivePrefixNew = addArchivePrefix;
-    UString reducedName = si.GetReducedName();
-    addArchivePrefixNew.Back() += reducedName;
-    if (curNode.CheckPathToRoot(false, addArchivePrefixNew, true))
-      continue;
-    NFind::CFileInfo fi2 = fi;
-    fi2.Name += us2fs(reducedName);
-    fi2.Size = si.Size;
-    fi2.Attrib &= ~FILE_ATTRIBUTE_DIRECTORY;
-    fi2.IsAltStream = true;
-    dirItems.AddDirFileInfo(phyParent, logParent, -1, fi2);
-  }
-}
-
-#endif
-
 HRESULT CDirItems::SetLinkInfo(CDirItem &dirItem, const NFind::CFileInfo &fi,
     const FString &phyPrefix)
 {
@@ -501,19 +456,6 @@ static bool CanUseFsDirect(const NWildcard::CCensorNode &curNode)
   return true;
 }
 
-
-#if defined(_WIN32) && !defined(UNDER_CE)
-
-static bool IsVirtualFsFolder(const FString &prefix, const UString &name)
-{
-  UString s = fs2us(prefix);
-  s += name;
-  s.Add_PathSepar();
-  return IsPathSepar(s[0]) && GetRootPrefixSize(s) == 0;
-}
-
-#endif
-
 static HRESULT EnumerateDirItems(
     const NWildcard::CCensorNode &curNode,
     int phyParent, int logParent, const FString &phyPrefix,
@@ -543,10 +485,6 @@ static HRESULT EnumerateDirItems(
         const UString &name = item.PathParts.Front();
         FString fullPath = phyPrefix + us2fs(name);
 
-        #if defined(_WIN32) && !defined(UNDER_CE)
-        bool needAltStreams = true;
-        #endif
-
         #ifdef _USE_SECURITY_CODE
         bool needSecurity = true;
         #endif
@@ -561,38 +499,12 @@ static HRESULT EnumerateDirItems(
                So we ignore alt streams for these cases */
             if (name.IsEmpty())
             {
-              #if defined(_WIN32) && !defined(UNDER_CE)
-              needAltStreams = false;
-              #endif
-
-              /*
-              // do we need to ignore security info for "\\" folder ?
-              #ifdef _USE_SECURITY_CODE
-              needSecurity = false;
-              #endif
-              */
-
               fullPath = FCHAR_PATH_SEPARATOR;
             }
-            #if defined(_WIN32) && !defined(UNDER_CE)
-            else if (item.IsDriveItem())
-            {
-              needAltStreams = false;
-              fullPath.Add_PathSepar();
-            }
-            #endif
           }
         }
 
         NFind::CFileInfo fi;
-        #if defined(_WIN32) && !defined(UNDER_CE)
-        if (IsVirtualFsFolder(phyPrefix, name))
-        {
-          fi.SetAsDir();
-          fi.Name = us2fs(name);
-        }
-        else
-        #endif
         if (!fi.Find(fullPath,true))
         {
           RINOK(dirItems.AddError(fullPath));
@@ -685,18 +597,11 @@ static HRESULT EnumerateDirItems(
           {
             if (nextNode.Name.IsEmpty())
               fullPath = FCHAR_PATH_SEPARATOR;
-            #ifdef _WIN32
-            else if (NWildcard::IsDriveColonName(nextNode.Name))
-              fullPath.Add_PathSepar();
-            #endif
           }
         }
 
         // we don't want to call fi.Find() for root folder or virtual folder
         if (phyPrefix.IsEmpty() && nextNode.Name.IsEmpty()
-            #if defined(_WIN32) && !defined(UNDER_CE)
-            || IsVirtualFsFolder(phyPrefix, nextNode.Name)
-            #endif
             )
         {
           fi.SetAsDir();
@@ -726,54 +631,6 @@ static HRESULT EnumerateDirItems(
       return S_OK;
     }
   }
-
-  #ifdef _WIN32
-  #ifndef UNDER_CE
-
-  // scan drives, if wildcard is "*:\"
-
-  if (phyPrefix.IsEmpty() && curNode.IncludeItems.Size() > 0)
-  {
-    unsigned i;
-    for (i = 0; i < curNode.IncludeItems.Size(); i++)
-    {
-      const NWildcard::CItem &item = curNode.IncludeItems[i];
-      if (item.PathParts.Size() < 1)
-        break;
-      const UString &name = item.PathParts.Front();
-      if (name.Len() != 2 || name[1] != ':')
-        break;
-      if (item.PathParts.Size() == 1)
-        if (item.ForFile || !item.ForDir)
-          break;
-      if (NWildcard::IsDriveColonName(name))
-        continue;
-      if (name[0] != '*' && name[0] != '?')
-        break;
-    }
-    if (i == curNode.IncludeItems.Size())
-    {
-      FStringVector driveStrings;
-      NFind::MyGetLogicalDriveStrings(driveStrings);
-      for (i = 0; i < driveStrings.Size(); i++)
-      {
-        FString driveName = driveStrings[i];
-        if (driveName.Len() < 3 || driveName.Back() != '\\')
-          return E_FAIL;
-        driveName.DeleteBack();
-        NFind::CFileInfo fi;
-        fi.SetAsDir();
-        fi.Name = driveName;
-
-        RINOK(EnumerateForItem(fi, curNode, phyParent, logParent, phyPrefix,
-            addArchivePrefix, dirItems, enterToSubFolders));
-      }
-      return S_OK;
-    }
-  }
-  
-  #endif
-  #endif
 
   NFind::CEnumerator enumerator(phyPrefix + FCHAR_ANY_MASK);
   for (unsigned ttt = 0; ; ttt++)
@@ -827,74 +684,5 @@ HRESULT EnumerateItems(
   }
   dirItems.ReserveDown();
 
-  #if defined(_WIN32) && !defined(UNDER_CE)
-  dirItems.FillFixedReparse();
-  #endif
-
   return S_OK;
 }
-
-#if defined(_WIN32) && !defined(UNDER_CE)
-
-void CDirItems::FillFixedReparse()
-{
-  /* imagex/WIM reduces absolute pathes in links (raparse data),
-     if we archive non root folder. We do same thing here */
-
-  if (!SymLinks)
-    return;
-  
-  FOR_VECTOR(i, Items)
-  {
-    CDirItem &item = Items[i];
-    if (item.ReparseData.Size() == 0)
-      continue;
-    
-    CReparseAttr attr;
-    if (!attr.Parse(item.ReparseData, item.ReparseData.Size()))
-      continue;
-    if (attr.IsRelative())
-      continue;
-
-    const UString &link = attr.GetPath();
-    if (!IsDrivePath(link))
-      continue;
-    // maybe we need to support networks paths also ?
-
-    FString fullPathF;
-    if (!NDir::MyGetFullPathName(GetPhyPath(i), fullPathF))
-      continue;
-    UString fullPath = fs2us(fullPathF);
-    const UString logPath = GetLogPath(i);
-    if (logPath.Len() >= fullPath.Len())
-      continue;
-    if (CompareFileNames(logPath, fullPath.RightPtr(logPath.Len())) != 0)
-      continue;
-    
-    const UString prefix = fullPath.Left(fullPath.Len() - logPath.Len());
-    if (!IsPathSepar(prefix.Back()))
-      continue;
-
-    unsigned rootPrefixSize = GetRootPrefixSize(prefix);
-    if (rootPrefixSize == 0)
-      continue;
-    if (rootPrefixSize == prefix.Len())
-      continue; // simple case: paths are from root
-
-    if (link.Len() <= prefix.Len())
-      continue;
-
-    if (CompareFileNames(link.Left(prefix.Len()), prefix) != 0)
-      continue;
-
-    UString newLink = prefix.Left(rootPrefixSize);
-    newLink += link.Ptr(prefix.Len());
-
-    CByteBuffer data;
-    if (!FillLinkData(data, newLink, attr.IsSymLink()))
-      continue;
-    item.ReparseData2 = data;
-  }
-}
-
-#endif

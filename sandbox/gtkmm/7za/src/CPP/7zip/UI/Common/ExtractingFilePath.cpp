@@ -15,35 +15,13 @@ static void ReplaceIncorrectChars(UString &s)
     {
       wchar_t c = s[i];
       if (
-          #ifdef _WIN32
-          c == ':' || c == '*' || c == '?' || c < 0x20 || c == '<' || c == '>' || c == '|' || c == '"'
-          || c == '/'
-          // || c == 0x202E // RLO
-          ||
-          #endif
           c == WCHAR_PATH_SEPARATOR)
         s.ReplaceOneCharAtPos(i, '_');
     }
   }
-  
-  #ifdef _WIN32
-  {
-    for (unsigned i = s.Len(); i != 0;)
-    {
-      wchar_t c = s[--i];
-      if (c != '.' && c != ' ')
-        break;
-      s.ReplaceOneCharAtPos(i, '_');
-    }
-  }
-  #endif
 }
 
-#if 1 // FIXME #ifdef _WIN32
-
-/* WinXP-64 doesn't support ':', '\\' and '/' symbols in name of alt stream.
-   But colon in postfix ":$DATA" is allowed.
-   WIN32 functions don't allow empty alt stream name "name:" */
+#if 1
 
 void Correct_AltStream_Name(UString &s)
 {
@@ -114,10 +92,6 @@ static void Correct_PathPart(UString &s)
   // "." and ".."
   if (s[0] == '.' && (s[1] == 0 || s[1] == '.' && s[2] == 0))
     s.Empty();
-  #ifdef _WIN32
-  else
-    ReplaceIncorrectChars(s);
-  #endif
 }
 
 // static const wchar_t *k_EmptyReplaceName = L"[]";
@@ -127,10 +101,6 @@ UString Get_Correct_FsFile_Name(const UString &name)
 {
   UString res = name;
   Correct_PathPart(res);
-  
-  #ifdef _WIN32
-  CorrectUnsupportedName(res);
-  #endif
   
   if (res.IsEmpty())
     res = k_EmptyReplaceName;
@@ -144,53 +114,17 @@ void Correct_FsPath(bool absIsAllowed, UStringVector &parts, bool isDir)
 
   if (absIsAllowed)
   {
-    #if defined(_WIN32) && !defined(UNDER_CE)
-    bool isDrive = false;
-    #endif
     if (parts[0].IsEmpty())
     {
       i = 1;
-      #if defined(_WIN32) && !defined(UNDER_CE)
-      if (parts.Size() > 1 && parts[1].IsEmpty())
-      {
-        i = 2;
-        if (parts.Size() > 2 && parts[2] == L"?")
-        {
-          i = 3;
-          if (parts.Size() > 3  && NWindows::NFile::NName::IsDrivePath2(parts[3]))
-          {
-            isDrive = true;
-            i = 4;
-          }
-        }
-      }
-      #endif
     }
-    #if defined(_WIN32) && !defined(UNDER_CE)
-    else if (NWindows::NFile::NName::IsDrivePath2(parts[0]))
-    {
-      isDrive = true;
-      i = 1;
-    }
-
-    if (isDrive)
-    {
-      // we convert "c:name" to "c:\name", if absIsAllowed path.
-      const UString &ds = parts[i - 1];
-      if (ds.Len() != 2)
-      {
-        UString s = ds.Ptr(2);
-        parts.Insert(i, s);
-      }
-    }
-    #endif
   }
 
   for (; i < parts.Size();)
   {
     UString &s = parts[i];
 
-    #if 1 // #ifdef _WIN32  // ticket #153 Relative paths extracted outside of extraction directory
+    #if 1
     Correct_PathPart(s);
     #endif
 
@@ -205,9 +139,6 @@ void Correct_FsPath(bool absIsAllowed, UStringVector &parts, bool isDir)
     }
     else
     {
-      #ifdef _WIN32
-      CorrectUnsupportedName(s);
-      #endif
     }
     
     i++;

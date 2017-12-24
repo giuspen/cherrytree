@@ -19,11 +19,6 @@
 #include "../../../Windows/PropVariant.h"
 #include "../../../Windows/PropVariantConv.h"
 
-#if defined(_WIN32) && !defined(UNDER_CE)  && !defined(_SFX)
-#define _USE_SECURITY_CODE
-#include "../../../Windows/SecurityUtils.h"
-#endif
-
 #include "../../Common/FilePathAutoRename.h"
 // #include "../../Common/StreamUtils.h"
 
@@ -254,9 +249,6 @@ void CArchiveExtractCallback::Init(
   _arc = arc;
   _dirPathPrefix = directoryPath;
   _dirPathPrefix_Full = directoryPath;
-  #if defined(_WIN32) && !defined(UNDER_CE)
-  if (!NName::IsAltPathPrefix(_dirPathPrefix))
-  #endif
   {
     NName::NormalizeDirPathPrefix(_dirPathPrefix);
     NDir::MyGetFullPathName(directoryPath, _dirPathPrefix_Full);
@@ -330,13 +322,6 @@ void CArchiveExtractCallback::CreateComplexDirectory(const UStringVector &dirPat
     const UString &s = dirPathParts[0];
     if (s.IsEmpty())
       isAbsPath = true;
-    #if defined(_WIN32) && !defined(UNDER_CE)
-    else
-    {
-      if (NName::IsDrivePath2(s))
-        isAbsPath = true;
-    }
-    #endif
   }
   
   if (_pathMode == NExtract::NPathMode::kAbsPaths && isAbsPath)
@@ -350,11 +335,6 @@ void CArchiveExtractCallback::CreateComplexDirectory(const UStringVector &dirPat
       fullPath.Add_PathSepar();
     const UString &s = dirPathParts[i];
     fullPath += us2fs(s);
-    #if defined(_WIN32) && !defined(UNDER_CE)
-    if (_pathMode == NExtract::NPathMode::kAbsPaths)
-      if (i == 0 && s.Len() == 2 && NName::IsDrivePath2(s))
-        continue;
-    #endif
     CreateDir(fullPath);
   }
 }
@@ -542,13 +522,6 @@ bool CensorNode_CheckPath(const NWildcard::CCensorNode &node, const CReadArcItem
 static FString MakePath_from_2_Parts(const FString &prefix, const FString &path)
 {
   FString s = prefix;
-  #if defined(_WIN32) && !defined(UNDER_CE)
-  if (!path.IsEmpty() && path[0] == ':' && !prefix.IsEmpty() && IsPathSepar(prefix.Back()))
-  {
-    if (!NName::IsDriveRootPath_SuperAllowed(prefix))
-      s.DeleteBack();
-  }
-  #endif
   s += path;
   return s;
 }
@@ -734,19 +707,13 @@ STDMETHODIMP CArchiveExtractCallback::GetStream(UInt32 index, ISequentialOutStre
         linkPath = reparse.GetPath();
         isJunction = reparse.IsMountPoint();
         isRelative = reparse.IsRelative();
-        #ifndef _WIN32
         linkPath.Replace(L'\\', WCHAR_PATH_SEPARATOR);
-        #endif
       }
     }
   }
 
   if (!linkPath.IsEmpty())
   {
-    #ifdef _WIN32
-    linkPath.Replace(L'/', WCHAR_PATH_SEPARATOR);
-    #endif
-
     // rar5 uses "\??\" prefix for absolute links
     if (linkPath.IsPrefixedBy(WSTRING_PATH_SEPARATOR L"??" WSTRING_PATH_SEPARATOR))
     {
@@ -1161,20 +1128,6 @@ if (askExtractMode == NArchive::NExtract::NAskMode::kExtract && !_testMode)
     else // not Find(fullProcessedPath)
     {
       // we need to clear READ-ONLY of parent before creating alt stream
-      #if defined(_WIN32) && !defined(UNDER_CE)
-      int colonPos = NName::FindAltStreamColon(fullProcessedPath);
-      if (colonPos >= 0 && fullProcessedPath[(unsigned)colonPos + 1] != 0)
-      {
-        FString parentFsPath = fullProcessedPath;
-        parentFsPath.DeleteFrom(colonPos);
-        NFind::CFileInfo parentFi;
-        if (parentFi.Find(parentFsPath))
-        {
-          if (parentFi.IsReadOnly())
-            SetFileAttrib(parentFsPath, parentFi.Attrib & ~FILE_ATTRIBUTE_READONLY);
-        }
-      }
-      #endif
     }
     // ----- END of code for    Is file (not split) -----
 

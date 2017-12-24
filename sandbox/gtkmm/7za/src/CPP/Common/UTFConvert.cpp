@@ -5,10 +5,6 @@
 #include "MyTypes.h"
 #include "UTFConvert.h"
 
-#ifdef _WIN32
-#define _WCHART_IS_16BIT 1
-#endif
-
 /*
   _UTF8_START(n) - is a base value for start byte (head), if there are (n) additional bytes after start byte
   
