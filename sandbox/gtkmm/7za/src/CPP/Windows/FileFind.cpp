@@ -264,10 +264,10 @@ static int fillin_CFileInfo(CFileInfo &fi,const char *dir,const char *name,bool 
   memcpy(filename,dir,dir_len);
   if (dir_len >= 1)
   {
-	if (filename[dir_len-1] == CHAR_PATH_SEPARATOR)
-	{ // delete the '/'
-		dir_len--;
-	}
+    if (filename[dir_len-1] == CHAR_PATH_SEPARATOR)
+    { // delete the '/'
+        dir_len--;
+    }
   }
   filename[dir_len] = CHAR_PATH_SEPARATOR;
   memcpy(filename+(dir_len+1),name,name_len+1); // copy also final '\0'
@@ -280,7 +280,7 @@ static int fillin_CFileInfo(CFileInfo &fi,const char *dir,const char *name,bool 
 
   int ret = fillin_CFileInfo(fi,filename,ignoreLink);
   if (ret != 0) {
-	AString err_msg = "stat error for ";
+    AString err_msg = "stat error for ";
         err_msg += filename;
         err_msg += " (";
         err_msg += strerror(errno);
@@ -457,3 +457,7 @@ bool CEnumerator::Next(CFileInfo &fi, bool &found)
   found = false;
   return (::GetLastError() == ERROR_NO_MORE_FILES);
 }
+
+} // namespace NFind
+} // namespace NFile
+} // namespace NWindows
