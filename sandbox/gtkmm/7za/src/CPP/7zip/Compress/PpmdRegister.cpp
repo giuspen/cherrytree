@@ -6,9 +6,7 @@
 
 #include "PpmdDecoder.h"
 
-#ifndef EXTRACT_ONLY
 #include "PpmdEncoder.h"
-#endif
 
 namespace NCompress {
 namespace NPpmd {
@@ -18,5 +16,4 @@ REGISTER_CODEC_E(PPMD,
     CEncoder(),
     0x30401,
     "PPMD")
-
 }}

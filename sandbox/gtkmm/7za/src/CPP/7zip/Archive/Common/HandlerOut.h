@@ -12,21 +12,15 @@ class CMultiMethodProps
   UInt32 _level;
   int _analysisLevel;
 public:
-  #ifndef _7ZIP_ST
   UInt32 _numThreads;
   UInt32 _numProcessors;
-  #endif
 
   UInt32 _crcSize;
   CObjectVector<COneMethodInfo> _methods;
   COneMethodInfo _filterMethod;
   bool _autoFilter;
 
-  void SetGlobalLevelAndThreads(COneMethodInfo &oneMethodInfo
-      #ifndef _7ZIP_ST
-      , UInt32 numThreads
-      #endif
-      );
+  void SetGlobalLevelAndThreads(COneMethodInfo &oneMethodInfo, UInt32 numThreads);
 
   unsigned GetNumEmptyMethods() const
   {
@@ -51,10 +45,8 @@ class CSingleMethodProps: public COneMethodInfo
   UInt32 _level;
   
 public:
-  #ifndef _7ZIP_ST
   UInt32 _numThreads;
   UInt32 _numProcessors;
-  #endif
 
   void Init();
   CSingleMethodProps() { Init(); }

@@ -41,9 +41,7 @@ struct CExtractOptions: public CExtractOptionsBase
   bool YesToAll;
   bool TestMode;
 
-  #ifndef _SFX
   CObjectVector<CProperty> Properties;
-  #endif
 
   #ifdef EXTERNAL_CODECS
   CCodecs *Codecs;
@@ -82,9 +80,7 @@ HRESULT Extract(
     const CExtractOptions &options,
     IOpenCallbackUI *openCallback,
     IExtractCallbackUI *extractCallback,
-    #ifndef _SFX
     IHashCalc *hash,
-    #endif
     UString &errorMessage,
     CDecompressStat &st);
 

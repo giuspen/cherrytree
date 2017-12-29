@@ -70,12 +70,8 @@ is implemented by
   FileManager/ExtractCallback.h     CExtractCallbackImp
 */
 
-#ifdef _NO_CRYPTO
-  #define INTERFACE_IExtractCallbackUI_Crypto(x)
-#else
-  #define INTERFACE_IExtractCallbackUI_Crypto(x) \
-  virtual HRESULT SetPassword(const UString &password) x;
-#endif
+#define INTERFACE_IExtractCallbackUI_Crypto(x) \
+virtual HRESULT SetPassword(const UString &password) x;
 
 #define INTERFACE_IExtractCallbackUI(x) \
   virtual HRESULT BeforeOpen(const wchar_t *name, bool testMode) x; \

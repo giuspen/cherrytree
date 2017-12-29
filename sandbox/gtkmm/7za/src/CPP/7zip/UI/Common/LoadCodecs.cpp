@@ -152,8 +152,6 @@ void CArcInfoEx::AddExts(const UString &ext, const UString &addExt)
   }
 }
 
-#ifndef _SFX
-
 static bool ParseSignatures(const Byte *data, unsigned size, CObjectVector<CByteBuffer> &signatures)
 {
   signatures.Clear();
@@ -169,8 +167,6 @@ static bool ParseSignatures(const Byte *data, unsigned size, CObjectVector<CByte
   }
   return true;
 }
-
-#endif // _SFX
 
 #ifdef EXTERNAL_CODECS
 
@@ -500,13 +496,6 @@ HRESULT CCodecs::LoadDllsFromFolder(const FString &folderPrefix)
 void CCodecs::CloseLibs()
 {
   // OutputDebugStringA("~CloseLibs start");
-  /*
-  WIN32: FreeLibrary() (CLibrary::Free()) function doesn't work as expected,
-  if it's called from another FreeLibrary() call.
-  So we need to call FreeLibrary() before global destructors.
-  
-  Also we free global links from DLLs to object of this module before CLibrary::Free() call.
-  */
   
   FOR_VECTOR(i, Libs)
   {
@@ -555,8 +544,6 @@ HRESULT CCodecs::Load()
       item.AddExts(e, ae);
     }
 
-    #ifndef _SFX
-
     item.CreateOutArchive = arc.CreateOutArchive;
     item.UpdateEnabled = (arc.CreateOutArchive != NULL);
     item.SignatureOffset = arc.SignatureOffset;
@@ -567,8 +554,6 @@ HRESULT CCodecs::Load()
       ParseSignatures(arc.Signature, arc.SignatureSize, item.Signatures);
     else
       item.Signatures.AddNew().CopyFrom(arc.Signature, arc.SignatureSize);
-    
-    #endif
 
     Formats.Add(item);
   }
@@ -618,8 +603,6 @@ HRESULT CCodecs::Load()
   return S_OK;
 }
 
-#ifndef _SFX
-
 int CCodecs::FindFormatForArchiveName(const UString &arcPath) const
 {
   int dotPos = arcPath.ReverseFind_Dot();
@@ -633,10 +616,6 @@ int CCodecs::FindFormatForArchiveName(const UString &arcPath) const
   FOR_VECTOR (i, Formats)
   {
     const CArcInfoEx &arc = Formats[i];
-    /*
-    if (!arc.UpdateEnabled)
-      continue;
-    */
     if (arc.FindExtension(ext) >= 0)
       return i;
   }
@@ -683,9 +662,6 @@ bool CCodecs::FindFormatForArchiveType(const UString &arcType, CIntVector &forma
   }
   return true;
 }
-
-#endif // _SFX
-
 
 #ifdef NEW_FOLDER_INTERFACE
 

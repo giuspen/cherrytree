@@ -32,12 +32,7 @@ void RegisterArc(const CArcInfo *arcInfo) throw();
 
 #define IMP_CreateArcIn IMP_CreateArcIn_2(CHandler())
 
-#ifdef EXTRACT_ONLY
-  #define IMP_CreateArcOut
-  #define CreateArcOut NULL
-#else
-  #define IMP_CreateArcOut static IOutArchive *CreateArcOut() { return new CHandler(); }
-#endif
+#define IMP_CreateArcOut static IOutArchive *CreateArcOut() { return new CHandler(); }
 
 #define REGISTER_ARC_V(n, e, ae, id, sigSize, sig, offs, flags, crIn, crOut, isArc) \
   static const CArcInfo g_ArcInfo = { flags, id, sigSize, offs, sig, n, e, ae, crIn, crOut, isArc } ; \

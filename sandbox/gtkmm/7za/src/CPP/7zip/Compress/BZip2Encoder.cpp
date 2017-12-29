@@ -46,8 +46,6 @@ void CThreadInfo::Free()
   m_Block = 0;
 }
 
-#ifndef _7ZIP_ST
-
 static THREAD_FUNC_DECL MFThread(void *threadCoderInfo)
 {
   return ((CThreadInfo *)threadCoderInfo)->ThreadFunc();
@@ -120,8 +118,6 @@ DWORD CThreadInfo::ThreadFunc()
   }
 }
 
-#endif
-
 void CEncProps::Normalize(int level)
 {
   if (level < 0) level = 5;
@@ -142,14 +138,11 @@ CEncoder::CEncoder()
 {
   _props.Normalize(-1);
 
-  #ifndef _7ZIP_ST
   ThreadsInfo = 0;
   m_NumThreadsPrev = 0;
   NumThreads = 1;
-  #endif
 }
 
-#ifndef _7ZIP_ST
 CEncoder::~CEncoder()
 {
   Free();
@@ -205,7 +198,6 @@ void CEncoder::Free()
   delete []ThreadsInfo;
   ThreadsInfo = 0;
 }
-#endif
 
 UInt32 CEncoder::ReadRleBlock(Byte *buffer)
 {
@@ -693,15 +685,12 @@ HRESULT CThreadInfo::EncodeBlock3(UInt32 blockSize)
 
   EncodeBlock2(m_Block, blockSize, Encoder->_props.NumPasses);
 
-  #ifndef _7ZIP_ST
   if (Encoder->MtMode)
     Encoder->ThreadsInfo[m_BlockIndex].CanWriteEvent.Lock();
-  #endif
   for (UInt32 i = 0; i < m_NumCrcs; i++)
     Encoder->CombinedCrc.Update(m_CRCs[i]);
   Encoder->WriteBytes(m_TempArray, outStreamTemp.GetPos(), outStreamTemp.GetCurByte());
   HRESULT res = S_OK;
-  #ifndef _7ZIP_ST
   if (Encoder->MtMode)
   {
     UInt32 blockIndex = m_BlockIndex + 1;
@@ -716,7 +705,6 @@ HRESULT CThreadInfo::EncodeBlock3(UInt32 blockSize)
 
     Encoder->ThreadsInfo[blockIndex].CanWriteEvent.Set();
   }
-  #endif
   return res;
 }
 
@@ -732,13 +720,10 @@ void CEncoder::WriteBytes(const Byte *data, UInt32 sizeInBits, Byte lastByte)
 HRESULT CEncoder::CodeReal(ISequentialInStream *inStream, ISequentialOutStream *outStream,
     const UInt64 * /* inSize */, const UInt64 * /* outSize */, ICompressProgressInfo *progress)
 {
-  #ifndef _7ZIP_ST
   Progress = progress;
   RINOK(Create());
   for (UInt32 t = 0; t < NumThreads; t++)
-  #endif
   {
-    #ifndef _7ZIP_ST
     CThreadInfo &ti = ThreadsInfo[t];
     if (MtMode)
     {
@@ -746,17 +731,12 @@ HRESULT CEncoder::CodeReal(ISequentialInStream *inStream, ISequentialOutStream *
       RINOK(ti.WaitingWasStartedEvent.Reset());
       RINOK(ti.CanWriteEvent.Reset());
     }
-    #else
-    CThreadInfo &ti = ThreadsInfo;
-    ti.Encoder = this;
-    #endif
 
     ti.m_OptimizeNumTables = _props.DoOptimizeNumTables();
 
     if (!ti.Alloc())
       return E_OUTOFMEMORY;
   }
-
 
   if (!m_InStream.Create(kBufferSize))
     return E_OUTOFMEMORY;
@@ -771,19 +751,15 @@ HRESULT CEncoder::CodeReal(ISequentialInStream *inStream, ISequentialOutStream *
   m_OutStream.Init();
 
   CombinedCrc.Init();
-  #ifndef _7ZIP_ST
   NextBlockIndex = 0;
   StreamWasFinished = false;
   CloseThreads = false;
   CanStartWaitingEvent.Reset();
-  #endif
 
   WriteByte(kArSig0);
   WriteByte(kArSig1);
   WriteByte(kArSig2);
   WriteByte((Byte)(kArSig3 + _props.BlockSizeMult));
-
-  #ifndef _7ZIP_ST
 
   if (MtMode)
   {
@@ -801,16 +777,10 @@ HRESULT CEncoder::CodeReal(ISequentialInStream *inStream, ISequentialOutStream *
     RINOK(Result);
   }
   else
-  #endif
   {
     for (;;)
     {
-      CThreadInfo &ti =
-      #ifndef _7ZIP_ST
-      ThreadsInfo[0];
-      #else
-      ThreadsInfo;
-      #endif
+      CThreadInfo &ti = ThreadsInfo[0];
       UInt32 blockSize = ReadRleBlock(ti.m_Block);
       if (blockSize == 0)
         break;
@@ -863,9 +833,7 @@ HRESULT CEncoder::SetCoderProperties(const PROPID *propIDs, const PROPVARIANT *c
       case NCoderPropID::kLevel: level = v; break;
       case NCoderPropID::kNumThreads:
       {
-        #ifndef _7ZIP_ST
         SetNumberOfThreads(v);
-        #endif
         break;
       }
       default: return E_INVALIDARG;
@@ -876,7 +844,6 @@ HRESULT CEncoder::SetCoderProperties(const PROPID *propIDs, const PROPVARIANT *c
   return S_OK;
 }
 
-#ifndef _7ZIP_ST
 STDMETHODIMP CEncoder::SetNumberOfThreads(UInt32 numThreads)
 {
   const UInt32 kNumThreadsMax = 64;
@@ -885,6 +852,5 @@ STDMETHODIMP CEncoder::SetNumberOfThreads(UInt32 numThreads)
   NumThreads = numThreads;
   return S_OK;
 }
-#endif
 
 }}

@@ -5,28 +5,12 @@
 
 #include "../IArchive.h"
 
-// #include "../../Common/UniqBlocks.h"
-
 #include "7zCompressionMode.h"
 #include "7zIn.h"
 #include "7zOut.h"
 
 namespace NArchive {
 namespace N7z {
-
-/*
-struct CTreeFolder
-{
-  UString Name;
-  int Parent;
-  CIntVector SubFolders;
-  int UpdateItemIndex;
-  int SortIndex;
-  int SortIndexEnd;
-
-  CTreeFolder(): UpdateItemIndex(-1) {}
-};
-*/
 
 struct CUpdateItem
 {
@@ -39,15 +23,8 @@ struct CUpdateItem
 
   UInt64 Size;
   UString Name;
-  /*
-  bool IsAltStream;
-  int ParentFolderIndex;
-  int TreeFolderIndex;
-  */
 
   // that code is not used in 9.26
-  // int ParentSortIndex;
-  // int ParentSortIndexEnd;
 
   UInt32 Attrib;
   
@@ -62,26 +39,18 @@ struct CUpdateItem
   bool ATimeDefined;
   bool MTimeDefined;
 
-  // int SecureIndex; // 0 means (no_security)
-
   bool HasStream() const { return !IsDir && !IsAnti && Size != 0; }
-  // bool HasStream() const { return !IsDir && !IsAnti /* && Size != 0 */; } // for test purposes
 
   CUpdateItem():
-      // ParentSortIndex(-1),
-      // IsAltStream(false),
       IsAnti(false),
       IsDir(false),
       AttribDefined(false),
       CTimeDefined(false),
       ATimeDefined(false),
       MTimeDefined(false)
-      // SecureIndex(0)
       {}
   void SetDirStatusFromAttrib() { IsDir = ((Attrib & FILE_ATTRIBUTE_DIRECTORY) != 0); }
 
-  // unsigned GetExtensionPos() const;
-  // UString GetExtension() const;
 };
 
 struct CUpdateOptions
@@ -123,16 +92,12 @@ HRESULT Update(
     IInStream *inStream,
     const CDbEx *db,
     const CObjectVector<CUpdateItem> &updateItems,
-    // const CObjectVector<CTreeFolder> &treeFolders, // treeFolders[0] is root
-    // const CUniqBlocks &secureBlocks,
     COutArchive &archive,
     CArchiveDatabaseOut &newDatabase,
     ISequentialOutStream *seqOutStream,
     IArchiveUpdateCallback *updateCallback,
-    const CUpdateOptions &options
-    #ifndef _NO_CRYPTO
-    , ICryptoGetTextPassword *getDecoderPassword
-    #endif
+    const CUpdateOptions &options,
+    ICryptoGetTextPassword *getDecoderPassword
     );
 }}
 

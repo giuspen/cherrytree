@@ -27,11 +27,7 @@ WRes LoopThread_StopAndWait(CLoopThread *p);
 WRes LoopThread_StartSubThread(CLoopThread *p);
 WRes LoopThread_WaitSubThread(CLoopThread *p);
 
-#ifndef _7ZIP_ST
 #define NUM_MT_CODER_THREADS_MAX 32
-#else
-#define NUM_MT_CODER_THREADS_MAX 1
-#endif
 
 typedef struct
 {

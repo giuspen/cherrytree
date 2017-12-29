@@ -10,12 +10,13 @@
 #include "HashCalc.h"
 #include "Update.h"
 
-struct CArcCmdLineException: public UString
+struct CArcCmdLineException : public UString
 {
   CArcCmdLineException(const char *a, const wchar_t *u = NULL);
 };
 
-namespace NCommandType { enum EEnum
+namespace NCommandType {
+enum EEnum
 {
   kAdd = 0,
   kUpdate,
@@ -28,7 +29,8 @@ namespace NCommandType { enum EEnum
   kInfo,
   kHash,
   kRename
-};}
+};
+} // namespace NCommandType
 
 struct CArcCommand
 {
@@ -69,10 +71,8 @@ struct CArcCmdLineOptions
   CArcCommand Command;
   UString ArchiveName;
 
-  #ifndef _NO_CRYPTO
   bool PasswordEnabled;
   UString Password;
-  #endif
 
   bool TechMode;
   bool ShowTime;

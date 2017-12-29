@@ -54,10 +54,6 @@ HRESULT CBaseCoder::Alloc(bool allocForOrig)
   return S_OK;
 }
 
-
-
-#ifndef EXTRACT_ONLY
-
 CEncoder::CEncoder(): _relatLim(BCJ2_RELAT_LIMIT) {}
 CEncoder::~CEncoder() {}
 
@@ -76,18 +72,6 @@ STDMETHODIMP CEncoder::SetCoderProperties(const PROPID *propIDs, const PROPVARIA
       continue;
     switch (propID)
     {
-      /*
-      case NCoderPropID::kDefaultProp:
-      {
-        if (prop.vt != VT_UI4)
-          return E_INVALIDARG;
-        UInt32 v = prop.ulVal;
-        if (v > 31)
-          return E_INVALIDARG;
-        relatLim = (UInt32)1 << v;
-        break;
-      }
-      */
       case NCoderPropID::kDictionarySize:
       {
         if (prop.vt != VT_UI4)
@@ -298,8 +282,6 @@ HRESULT CEncoder::CodeReal(ISequentialInStream * const *inStreams, const UInt64 
     RINOK(WriteStream(outStreams[i], _bufs[i], enc.bufs[i] - _bufs[i]));
   }
 
-  // if (currentInPos != subStreamStartPos + subStreamSize) return E_FAIL;
-
   return S_OK;
 }
 
@@ -313,13 +295,6 @@ STDMETHODIMP CEncoder::Code(ISequentialInStream * const *inStreams, const UInt64
   }
   catch(...) { return E_FAIL; }
 }
-
-#endif
-
-
-
-
-
 
 STDMETHODIMP CDecoder::SetInBufSize(UInt32 streamIndex, UInt32 size) { _bufsNewSizes[streamIndex] = size; return S_OK; }
 STDMETHODIMP CDecoder::SetOutBufSize(UInt32 , UInt32 size) { _bufsNewSizes[BCJ2_NUM_STREAMS] = size; return S_OK; }

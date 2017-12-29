@@ -75,7 +75,6 @@ void ConvertWinAttribToString(char *s, UInt32 wa) throw()
   // we support p7zip trick that stores posix attributes in high 16 bits, and 0x8000 flag
   // we also support ZIP archives created in Unix, that store posix attributes in high 16 bits without 0x8000 flag
   
-  // if (wa & 0x8000)
   if ((wa >> 16) != 0)
   {
     *s++ = ' ';
@@ -113,11 +112,6 @@ void ConvertPropertyToShortString(char *dest, const PROPVARIANT &prop, PROPID pr
         break;
       UInt32 a = prop.ulVal;
 
-      /*
-      if ((a & 0x8000) && (a & 0x7FFF) == 0)
-        ConvertPosixAttribToString(dest, a >> 16);
-      else
-      */
       ConvertWinAttribToString(dest, a);
       return;
     }
@@ -175,24 +169,12 @@ static inline unsigned GetHex(unsigned v)
   return (v < 10) ? ('0' + v) : ('A' + (v - 10));
 }
 
-#ifndef _SFX
-
 static inline void AddHexToString(AString &res, unsigned v)
 {
   res += (char)GetHex(v >> 4);
   res += (char)GetHex(v & 0xF);
   res += ' ';
 }
-
-/*
-static AString Data_To_Hex(const Byte *data, size_t size)
-{
-  AString s;
-  for (size_t i = 0; i < size; i++)
-    AddHexToString(s, data[i]);
-  return s;
-}
-*/
 
 static const char * const sidNames[] =
 {
@@ -406,39 +388,6 @@ static void ParseAcl(AString &s, const Byte *p, UInt32 size, const char *strName
     return;
   UInt32 num = Get32(p + 4);
   AddUInt32ToString(s, num);
-  
-  /*
-  UInt32 aclSize = Get16(p + 2);
-  if (num >= (1 << 16))
-    return;
-  if (aclSize > size)
-    return;
-  size = aclSize;
-  size -= 8;
-  p += 8;
-  for (UInt32 i = 0 ; i < num; i++)
-  {
-    if (size <= 8)
-      return;
-    // Byte type = p[0];
-    // Byte flags = p[1];
-    // UInt32 aceSize = Get16(p + 2);
-    // UInt32 mask = Get32(p + 4);
-    p += 8;
-    size -= 8;
-
-    UInt32 sidSize = 0;
-    s += ' ';
-    ParseSid(s, p, size, sidSize);
-    if (sidSize == 0)
-      return;
-    p += sidSize;
-    size -= sidSize;
-  }
-
-  // the tail can contain zeros. So (size != 0) is not ERROR
-  // if (size != 0) s += " ERROR";
-  */
 }
 
 #define MY_SE_OWNER_DEFAULTED       (0x0001)
@@ -476,8 +425,4 @@ void ConvertNtSecureToString(const Byte *data, UInt32 size, AString &s)
   ParseAcl(s, data, size, "d:", MY_SE_DACL_PRESENT, 16);
   s += ' ';
   AddUInt32ToString(s, size);
-  // s += '\n';
-  // s += Data_To_Hex(data, size);
 }
-
-#endif

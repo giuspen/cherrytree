@@ -119,9 +119,7 @@ static const char *kHelpString =
     "  -m{Parameters} : set compression Method\n"
     "    -mmt[N] : set number of CPU threads\n"
     "  -o{Directory} : set Output directory\n"
-    #ifndef _NO_CRYPTO
     "  -p{Password} : set Password\n"
-    #endif
     "  -r[-|0] : Recurse subdirectories\n"
     "  -sa{a|e|s} : set Archive name mode\n"
     "  -scc{UTF-8|WIN|DOS} : set charset for for console input/output\n"
@@ -694,10 +692,8 @@ int Main2(int numArgs, char *args[])
       CExtractCallbackConsole *ecs = new CExtractCallbackConsole;
       CMyComPtr<IFolderArchiveExtractCallback> extractCallback = ecs;
 
-      #ifndef _NO_CRYPTO
       ecs->PasswordIsDefined = options.PasswordEnabled;
       ecs->Password = options.Password;
-      #endif
 
       ecs->Init(g_StdStream, g_ErrStream, percentsStream);
       ecs->MultiArcMode = (ArchivePathsSorted.Size() > 1);
@@ -716,9 +712,7 @@ int Main2(int numArgs, char *args[])
       eo.YesToAll = options.YesToAll;
       eo.TestMode = options.Command.IsTestCommand();
 
-      #ifndef _SFX
       eo.Properties = options.Properties;
-      #endif
 
       UString errorMessage;
       CDecompressStat stat;
@@ -855,10 +849,8 @@ int Main2(int numArgs, char *args[])
           options.Censor.Pairs.Front().Head,
           options.EnableHeaders,
           options.TechMode,
-          #ifndef _NO_CRYPTO
           options.PasswordEnabled,
           options.Password,
-          #endif
           &options.Properties,
           numErrors, numWarnings);
 
@@ -883,12 +875,10 @@ int Main2(int numArgs, char *args[])
     COpenCallbackConsole openCallback;
     openCallback.Init(g_StdStream, g_ErrStream, percentsStream);
 
-    #ifndef _NO_CRYPTO
     bool passwordIsDefined =
         (options.PasswordEnabled && !options.Password.IsEmpty());
     openCallback.PasswordIsDefined = passwordIsDefined;
     openCallback.Password = options.Password;
-    #endif
 
     CUpdateCallbackConsole callback;
     callback.LogLevel = options.LogLevel;
@@ -897,11 +887,9 @@ int Main2(int numArgs, char *args[])
     if (percentsStream)
       callback.SetWindowWidth(consoleWidth);
 
-    #ifndef _NO_CRYPTO
     callback.PasswordIsDefined = passwordIsDefined;
     callback.AskPassword = (options.PasswordEnabled && options.Password.IsEmpty());
     callback.Password = options.Password;
-    #endif
 
     callback.StdOutMode = uo.StdOutMode;
     callback.Init(

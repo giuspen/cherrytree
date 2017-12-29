@@ -217,14 +217,11 @@ STDMETHODIMP CHandler::Extract(const UInt32 *indices, UInt32 numItems,
 
   try
   {
-
   NCompress::NBZip2::CDecoder *decoderSpec = new NCompress::NBZip2::CDecoder;
   CMyComPtr<ICompressCoder> decoder = decoderSpec;
   decoderSpec->SetInStream(_seqStream);
 
-  #ifndef _7ZIP_ST
   RINOK(decoderSpec->SetNumberOfThreads(_props._numThreads));
-  #endif
 
   CDummyOutStream *outStreamSpec = new CDummyOutStream;
   CMyComPtr<ISequentialOutStream> outStream(outStreamSpec);

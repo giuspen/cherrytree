@@ -9,11 +9,7 @@
 #include "LoadCodecs.h"
 #include "Property.h"
 
-#ifndef _SFX
-
 #define SUPPORT_ALT_STREAMS
-
-#endif
 
 HRESULT Archive_GetItemBoolProp(IInArchive *arc, UInt32 index, PROPID propID, bool &result) throw();
 HRESULT Archive_IsItem_Dir(IInArchive *arc, UInt32 index, bool &result) throw();
@@ -33,12 +29,7 @@ struct COptionalOpenProperties
 };
 */
 
-#ifdef _SFX
-#define OPEN_PROPS_DECL
-#else
 #define OPEN_PROPS_DECL const CObjectVector<CProperty> *props;
-// #define OPEN_PROPS_DECL , const CObjectVector<COptionalOpenProperties> *props
-#endif
 
 struct COpenSpecFlags
 {
@@ -240,10 +231,8 @@ struct CReadArcItem
   bool MainIsDir;
   UInt32 ParentIndex; // use it, if IsAltStream
 
-  #ifndef _SFX
   bool _use_baseParentFolder_mode;
   int _baseParentFolder;
-  #endif
 
   CReadArcItem()
   {
@@ -251,10 +240,8 @@ struct CReadArcItem
     WriteToAltStreamIfColon = false;
     #endif
 
-    #ifndef _SFX
     _use_baseParentFolder_mode = false;
     _baseParentFolder = -1;
-    #endif
   }
 };
 
@@ -264,10 +251,8 @@ class CArc
   HRESULT CheckZerosTail(const COpenOptions &op, UInt64 offset);
   HRESULT OpenStream2(const COpenOptions &options);
 
-  #ifndef _SFX
   // parts.Back() can contain alt stream name "nams:AltName"
   HRESULT GetItemPathToParent(UInt32 index, UInt32 parent, UStringVector &parts) const;
-  #endif
 
 public:
   CMyComPtr<IInArchive> Archive;

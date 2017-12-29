@@ -2,9 +2,7 @@
 
 #include "StdAfx.h"
 
-#ifndef _7ZIP_ST
 #include "../../Windows/Synchronization.h"
-#endif
 
 #include "RandGen.h"
 
@@ -72,12 +70,8 @@ void CRandomGenerator::Init()
   _needInit = false;
 }
 
-#ifndef _7ZIP_ST
-  static NWindows::NSynchronization::CCriticalSection g_CriticalSection;
-  #define MT_LOCK NWindows::NSynchronization::CCriticalSectionLock lock(g_CriticalSection);
-#else
-  #define MT_LOCK
-#endif
+static NWindows::NSynchronization::CCriticalSection g_CriticalSection;
+#define MT_LOCK NWindows::NSynchronization::CCriticalSectionLock lock(g_CriticalSection);
 
 void CRandomGenerator::Generate(Byte *data, unsigned size)
 {

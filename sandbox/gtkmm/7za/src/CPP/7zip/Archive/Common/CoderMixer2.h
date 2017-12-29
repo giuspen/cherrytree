@@ -10,14 +10,8 @@
 
 #include "../../Common/CreateCoder.h"
 
-#ifdef _7ZIP_ST
-  #define USE_MIXER_ST
-#else
-  #define USE_MIXER_MT
-  #ifndef _SFX
-    #define USE_MIXER_ST
-  #endif
-#endif
+#define USE_MIXER_MT
+#define USE_MIXER_ST
 
 #ifdef USE_MIXER_MT
 #include "../../Common/StreamBinder.h"

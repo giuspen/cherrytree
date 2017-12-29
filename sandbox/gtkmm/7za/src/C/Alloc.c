@@ -8,9 +8,7 @@
 
 #ifdef _7ZIP_LARGE_PAGES
 #ifdef __linux__
-#ifndef _7ZIP_ST
 #include <pthread.h>
-#endif
 #include <errno.h>
 #include <string.h>
 #include <unistd.h>
@@ -107,15 +105,11 @@ static void *VirtualAlloc(size_t size, int memLargePages)
   {
     #ifdef __linux__
     /* huge pages support for Linux; added by Joachim Henke */
-    #ifndef _7ZIP_ST
     static pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
-    #endif
     int i;
 
     void * address = NULL;
-    #ifndef _7ZIP_ST
     pthread_mutex_lock(&mutex);
-    #endif
     for (i = 0; i < _7ZIP_MAX_HUGE_ALLOCS; ++i)
     {
       if (g_HugePageAddr[i] == NULL)
@@ -145,9 +139,7 @@ static void *VirtualAlloc(size_t size, int memLargePages)
         break;
       }
     }
-    #ifndef _7ZIP_ST
     pthread_mutex_unlock(&mutex);
-    #endif
     return address;
     #endif
   }

@@ -11,10 +11,8 @@ This code is based on public domain code from Wei Dai's Crypto++ library. */
 #include "Sha256.h"
 
 /* define it for speed optimization */
-#ifndef _SFX
 #define _SHA256_UNROLL
 #define _SHA256_UNROLL2
-#endif
 
 /* #define _SHA256_UNROLL2 */
 

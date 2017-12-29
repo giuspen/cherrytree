@@ -22,9 +22,6 @@ struct CDelta
   void DeltaInit() { Delta_Init(_state); }
 };
 
-
-#ifndef EXTRACT_ONLY
-
 class CEncoder:
   public ICompressFilter,
   public ICompressSetCoderProperties,
@@ -83,9 +80,6 @@ STDMETHODIMP CEncoder::WriteCoderProperties(ISequentialOutStream *outStream)
   Byte prop = (Byte)(_delta - 1);
   return outStream->Write(&prop, 1, NULL);
 }
-
-#endif
-
 
 class CDecoder:
   public ICompressFilter,

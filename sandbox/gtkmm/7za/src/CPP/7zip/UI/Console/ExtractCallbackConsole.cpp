@@ -11,9 +11,7 @@
 #include "../../../Windows/ErrorMsg.h"
 #include "../../../Windows/PropVariantConv.h"
 
-#ifndef _7ZIP_ST
 #include "../../../Windows/Synchronization.h"
-#endif
 
 #include "../../Common/FilePathAutoRename.h"
 
@@ -124,27 +122,12 @@ void CExtractScanConsole::PrintStat(const CDirItemsStat &st)
   }
 }
 
-
-
-
-
-
-
-#ifndef _7ZIP_ST
 static NSynchronization::CCriticalSection g_CriticalSection;
 #define MT_LOCK NSynchronization::CCriticalSectionLock lock(g_CriticalSection);
-#else
-#define MT_LOCK
-#endif
-
 
 static const char *kTestString    =  "T";
 static const char *kExtractString =  "-";
 static const char *kSkipString    =  ".";
-
-// static const char *kCantAutoRename = "can not create file with auto name\n";
-// static const char *kCantRenameFile = "can not rename existing file\n";
-// static const char *kCantDeleteOutputFile = "can not delete output file ";
 
 static const char *kMemoryExceptionMessage = "Can't allocate required memory!";
 
@@ -442,10 +425,6 @@ STDMETHODIMP CExtractCallbackConsole::ReportExtractResult(Int32 opRes, Int32 enc
   return CheckBreak2();
 }
 
-
-
-#ifndef _NO_CRYPTO
-
 HRESULT CExtractCallbackConsole::SetPassword(const UString &password)
 {
   PasswordIsDefined = true;
@@ -460,8 +439,6 @@ STDMETHODIMP CExtractCallbackConsole::CryptoGetTextPassword(BSTR *password)
   return Open_CryptoGetTextPassword(password);
   COM_TRY_END
 }
-
-#endif
 
 HRESULT CExtractCallbackConsole::BeforeOpen(const wchar_t *name, bool testMode)
 {

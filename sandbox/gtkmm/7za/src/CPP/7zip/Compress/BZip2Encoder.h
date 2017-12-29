@@ -6,10 +6,8 @@
 #include "../../Common/Defs.h"
 #include "../../Common/MyCom.h"
 
-#ifndef _7ZIP_ST
 #include "../../Windows/Synchronization.h"
 #include "../../Windows/Thread.h"
-#endif
 
 #include "../ICoder.h"
 
@@ -120,7 +118,6 @@ private:
 public:
   bool m_OptimizeNumTables;
   CEncoder *Encoder;
-  #ifndef _7ZIP_ST
   NWindows::CThread Thread;
 
   NWindows::NSynchronization::CAutoResetEvent StreamWasFinishedEvent;
@@ -135,7 +132,6 @@ public:
   HRESULT Create();
   void FinishStream(bool needLeave);
   DWORD ThreadFunc();
-  #endif
 
   CThreadInfo(): m_BlockSorterIndex(0), m_Block(0) {}
   ~CThreadInfo() { Free(); }
@@ -162,9 +158,7 @@ struct CEncProps
 class CEncoder :
   public ICompressCoder,
   public ICompressSetCoderProperties,
-  #ifndef _7ZIP_ST
   public ICompressSetCoderMt,
-  #endif
   public CMyUnknownImp
 {
   UInt32 m_NumThreadsPrev;
@@ -175,7 +169,6 @@ public:
   CEncProps _props;
   CBZip2CombinedCrc CombinedCrc;
 
-  #ifndef _7ZIP_ST
   CThreadInfo *ThreadsInfo;
   NWindows::NSynchronization::CManualResetEvent CanProcessEvent;
   NWindows::NSynchronization::CCriticalSection CS;
@@ -189,9 +182,6 @@ public:
 
   HRESULT Result;
   ICompressProgressInfo *Progress;
-  #else
-  CThreadInfo ThreadsInfo;
-  #endif
 
   UInt32 ReadRleBlock(Byte *buf);
   void WriteBytes(const Byte *data, UInt32 sizeInBits, Byte lastByte);
@@ -201,23 +191,17 @@ public:
   // void WriteBit(Byte v);
   void WriteCrc(UInt32 v);
 
-  #ifndef _7ZIP_ST
   HRESULT Create();
   void Free();
-  #endif
 
 public:
   CEncoder();
-  #ifndef _7ZIP_ST
   ~CEncoder();
-  #endif
 
   HRESULT Flush() { return m_OutStream.Flush(); }
   
   MY_QUERYINTERFACE_BEGIN2(ICompressCoder)
-  #ifndef _7ZIP_ST
   MY_QUERYINTERFACE_ENTRY(ICompressSetCoderMt)
-  #endif
   MY_QUERYINTERFACE_ENTRY(ICompressSetCoderProperties)
   MY_QUERYINTERFACE_END
   MY_ADDREF_RELEASE
@@ -229,9 +213,7 @@ public:
       const UInt64 *inSize, const UInt64 *outSize, ICompressProgressInfo *progress);
   STDMETHOD(SetCoderProperties)(const PROPID *propIDs, const PROPVARIANT *props, UInt32 numProps);
 
-  #ifndef _7ZIP_ST
   STDMETHOD(SetNumberOfThreads)(UInt32 numThreads);
-  #endif
 };
 
 }}

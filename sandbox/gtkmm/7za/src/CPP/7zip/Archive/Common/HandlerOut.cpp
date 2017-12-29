@@ -2,9 +2,7 @@
 
 #include "StdAfx.h"
 
-#ifndef _7ZIP_ST
 #include "../../../Windows/System.h"
-#endif
 
 #include "../Common/ParseProperties.h"
 
@@ -20,27 +18,19 @@ static void SetMethodProp32(COneMethodInfo &m, PROPID propID, UInt32 value)
     m.AddProp32(propID, value);
 }
 
-void CMultiMethodProps::SetGlobalLevelAndThreads(COneMethodInfo &oneMethodInfo
-    #ifndef _7ZIP_ST
-    , UInt32 numThreads
-    #endif
-    )
+void CMultiMethodProps::SetGlobalLevelAndThreads(COneMethodInfo &oneMethodInfo, UInt32 numThreads)
 {
   UInt32 level = _level;
   if (level != (UInt32)(Int32)-1)
     SetMethodProp32(oneMethodInfo, NCoderPropID::kLevel, (UInt32)level);
-  
-  #ifndef _7ZIP_ST
+
   SetMethodProp32(oneMethodInfo, NCoderPropID::kNumThreads, numThreads);
-  #endif
 }
 
 void CMultiMethodProps::Init()
 {
-  #ifndef _7ZIP_ST
   _numProcessors = _numThreads = NSystem::GetNumberOfProcessors();
-  #endif
-  
+
   _level = (UInt32)(Int32)-1;
   _analysisLevel = -1;
 
@@ -56,7 +46,7 @@ HRESULT CMultiMethodProps::SetProperty(const wchar_t *nameSpec, const PROPVARIAN
   name.MakeLower_Ascii();
   if (name.IsEmpty())
     return E_INVALIDARG;
-  
+
   if (name[0] == 'x')
   {
     name.Delete(0);
@@ -72,14 +62,14 @@ HRESULT CMultiMethodProps::SetProperty(const wchar_t *nameSpec, const PROPVARIAN
     _analysisLevel = (int)v;
     return S_OK;
   }
-  
+
   if (name.IsEqualTo("crc"))
   {
     name.Delete(0, 3);
     _crcSize = 4;
     return ParsePropToUInt32(name, value, _crcSize);
   }
-  
+
   UInt32 number;
   unsigned index = ParseStringToUInt32(name, number);
   UString realName = name.Ptr(index);
@@ -87,10 +77,7 @@ HRESULT CMultiMethodProps::SetProperty(const wchar_t *nameSpec, const PROPVARIAN
   {
     if (name.IsPrefixedBy_Ascii_NoCase("mt"))
     {
-      #ifndef _7ZIP_ST
       RINOK(ParseMtProp(name.Ptr(2), value, _numProcessors, _numThreads));
-      #endif
-      
       return S_OK;
     }
     if (name.IsEqualTo("f"))
@@ -115,11 +102,9 @@ void CSingleMethodProps::Init()
 {
   Clear();
   _level = (UInt32)(Int32)-1;
-  
-  #ifndef _7ZIP_ST
+
   _numProcessors = _numThreads = NWindows::NSystem::GetNumberOfProcessors();
   AddProp_NumThreads(_numThreads);
-  #endif
 }
 
 HRESULT CSingleMethodProps::SetProperties(const wchar_t * const *names, const PROPVARIANT *values, UInt32 numProps)
@@ -141,10 +126,8 @@ HRESULT CSingleMethodProps::SetProperties(const wchar_t * const *names, const PR
     }
     else if (name.IsPrefixedBy_Ascii_NoCase("mt"))
     {
-      #ifndef _7ZIP_ST
       RINOK(ParseMtProp(name.Ptr(2), value, _numProcessors, _numThreads));
       AddProp_NumThreads(_numThreads);
-      #endif
     }
     else
     {

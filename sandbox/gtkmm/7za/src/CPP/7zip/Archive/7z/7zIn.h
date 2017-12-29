@@ -14,21 +14,12 @@
 #include "../../Common/InBuffer.h"
 
 #include "7zItem.h"
- 
+
 namespace NArchive {
 namespace N7z {
 
-/*
-  We don't need to init isEncrypted and passwordIsDefined
-  We must upgrade them only */
-
-#ifdef _NO_CRYPTO
-#define _7Z_DECODER_CRYPRO_VARS_DECL
-#define _7Z_DECODER_CRYPRO_VARS
-#else
 #define _7Z_DECODER_CRYPRO_VARS_DECL , ICryptoGetTextPassword *getTextPassword, bool &isEncrypted, bool &passwordIsDefined, UString &password
 #define _7Z_DECODER_CRYPRO_VARS , getTextPassword, isEncrypted, passwordIsDefined, password
-#endif
 
 struct CParsedMethods
 {
@@ -50,7 +41,6 @@ struct CFolders
   CNum NumFolders;
 
   CObjArray<UInt64> PackPositions; // NumPackStreams + 1
-  // CUInt32DefVector PackCRCs; // we don't use PackCRCs now
 
   CUInt32DefVector FolderCRCs;             // NumFolders
   CObjArray<CNum> NumUnpackStreamsVector;  // NumFolders
@@ -59,7 +49,7 @@ struct CFolders
   CObjArray<CNum> FoToCoderUnpackSizes;    // NumFolders + 1
   CObjArray<CNum> FoStartPackStreamIndex;  // NumFolders + 1
   CObjArray<Byte> FoToMainUnpackSizeIndex; // NumFolders
-  
+
   CObjArray<size_t> FoCodersDataOffset;    // NumFolders + 1
   CByteBuffer CodersData;
 
@@ -71,7 +61,7 @@ struct CFolders
     ParseFolderInfo(folderIndex, folder);
     folder.UnpackCoder = FoToMainUnpackSizeIndex[folderIndex];
   }
-  
+
   unsigned GetNumFolderUnpackSizes(unsigned folderIndex) const
   {
     return (unsigned)(FoToCoderUnpackSizes[folderIndex + 1] - FoToCoderUnpackSizes[folderIndex]);
@@ -93,7 +83,6 @@ struct CFolders
   {
     NumPackStreams = 0;
     PackPositions.Free();
-    // PackCRCs.Clear();
 
     NumFolders = 0;
     FolderCRCs.Clear();
@@ -116,38 +105,23 @@ struct CDatabase: public CFolders
   CUInt64DefVector MTime;
   CUInt64DefVector StartPos;
   CBoolVector IsAnti;
-  /*
-  CBoolVector IsAux;
-  CByteBuffer SecureBuf;
-  CRecordVector<UInt32> SecureIDs;
-  */
 
   CByteBuffer NamesBuf;
   CObjArray<size_t> NameOffsets; // numFiles + 1, offsets of utf-16 symbols
 
-  /*
-  void ClearSecure()
-  {
-    SecureBuf.Free();
-    SecureIDs.Clear();
-  }
-  */
-
   void Clear()
   {
     CFolders::Clear();
-    // ClearSecure();
 
     NamesBuf.Free();
     NameOffsets.Free();
-    
+
     Files.Clear();
     CTime.Clear();
     ATime.Clear();
     MTime.Clear();
     StartPos.Clear();
     IsAnti.Clear();
-    // IsAux.Clear();
   }
 
   bool IsSolid() const
@@ -158,16 +132,6 @@ struct CDatabase: public CFolders
     return false;
   }
   bool IsItemAnti(unsigned index) const { return (index < IsAnti.Size() && IsAnti[index]); }
-  // bool IsItemAux(unsigned index) const { return (index < IsAux.Size() && IsAux[index]); }
-
-  /*
-  const void* GetName(unsigned index) const
-  {
-    if (!NameOffsets || !NamesBuf)
-      return NULL;
-    return (void *)((const Byte *)NamesBuf + NameOffsets[index] * 2);
-  };
-  */
   void GetPath(unsigned index, UString &path) const;
   HRESULT GetPath_Prop(unsigned index, PROPVARIANT *path) const throw();
 };
@@ -180,7 +144,7 @@ struct CInArchiveInfo
   UInt64 DataStartPosition;
   UInt64 DataStartPosition2;
   CRecordVector<UInt64> FileInfoPopIDs;
-  
+
   void Clear()
   {
     StartPosition = 0;
@@ -194,37 +158,22 @@ struct CInArchiveInfo
 struct CDbEx: public CDatabase
 {
   CInArchiveInfo ArcInfo;
-  
+
   CObjArray<CNum> FolderStartFileIndex;
   CObjArray<CNum> FileIndexToFolderIndexMap;
 
   UInt64 HeadersSize;
   UInt64 PhySize;
 
-  /*
-  CRecordVector<size_t> SecureOffsets;
-  bool IsTree;
-  bool ThereAreAltStreams;
-  */
-
   bool IsArc;
   bool PhySizeWasConfirmed;
 
   bool ThereIsHeaderError;
   bool UnexpectedEnd;
-  // bool UnsupportedVersion;
 
   bool StartHeaderWasRecovered;
   bool UnsupportedFeatureWarning;
   bool UnsupportedFeatureError;
-
-  /*
-  void ClearSecureEx()
-  {
-    ClearSecure();
-    SecureOffsets.Clear();
-  }
-  */
 
   void Clear()
   {
@@ -233,20 +182,13 @@ struct CDbEx: public CDatabase
 
     ThereIsHeaderError = false;
     UnexpectedEnd = false;
-    // UnsupportedVersion = false;
 
     StartHeaderWasRecovered = false;
     UnsupportedFeatureError = false;
     UnsupportedFeatureWarning = false;
 
-    /*
-    IsTree = false;
-    ThereAreAltStreams = false;
-    */
-
     CDatabase::Clear();
-    
-    // SecureOffsets.Clear();
+
     ArcInfo.Clear();
     FolderStartFileIndex.Free();
     FileIndexToFolderIndexMap.Free();
@@ -256,20 +198,20 @@ struct CDbEx: public CDatabase
   }
 
   void FillLinks();
-  
+
   UInt64 GetFolderStreamPos(CNum folderIndex, unsigned indexInFolder) const
   {
     return ArcInfo.DataStartPosition +
         PackPositions[FoStartPackStreamIndex[folderIndex] + indexInFolder];
   }
-  
+
   UInt64 GetFolderFullPackSize(CNum folderIndex) const
   {
     return
       PackPositions[FoStartPackStreamIndex[folderIndex + 1]] -
       PackPositions[FoStartPackStreamIndex[folderIndex]];
   }
-  
+
   UInt64 GetFolderPackStreamSize(CNum folderIndex, unsigned streamIndex) const
   {
     size_t i = FoStartPackStreamIndex[folderIndex] + streamIndex;
@@ -294,7 +236,7 @@ struct CInByte2
 public:
   size_t _size;
   size_t _pos;
-  
+
   size_t GetRem() const { return _size - _pos; }
   const Byte *GetPtr() const { return _buffer + _pos; }
   void Init(const Byte *buffer, size_t size)
@@ -333,7 +275,7 @@ class CInArchive
 
   CInByte2 *_inByteBack;
   bool ThereIsHeaderError;
- 
+
   UInt64 _arhiveBeginStreamPosition;
   UInt64 _fileEndPosition;
 
@@ -344,7 +286,7 @@ class CInArchive
   bool _useMixerMT;
 
   void AddByteStream(const Byte *buffer, size_t size);
-  
+
   void DeleteByteStream(bool needUpdatePos)
   {
     _numInByteBufs--;
@@ -357,7 +299,7 @@ class CInArchive
   }
 
   HRESULT FindAndReadSignature(IInStream *stream, const UInt64 *searchHeaderSizeLimit);
-  
+
   void ReadBytes(Byte *data, size_t size) { _inByteBack->ReadBytes(data, size); }
   Byte ReadByte() { return _inByteBack->ReadByte(); }
   UInt64 ReadNumber() { return _inByteBack->ReadNumber(); }
@@ -371,13 +313,13 @@ class CInArchive
 
   void ReadArchiveProperties(CInArchiveInfo &archiveInfo);
   void ReadHashDigests(unsigned numItems, CUInt32DefVector &crcs);
-  
+
   void ReadPackInfo(CFolders &f);
-  
+
   void ReadUnpackInfo(
       const CObjectVector<CByteBuffer> *dataVector,
       CFolders &folders);
-  
+
   void ReadSubStreamsInfo(
       CFolders &folders,
       CRecordVector<UInt64> &unpackSizes,
@@ -415,7 +357,7 @@ public:
       _numInByteBufs(0),
       _useMixerMT(useMixerMT)
       {}
-  
+
   HRESULT Open(IInStream *stream, const UInt64 *searchHeaderSizeLimit); // S_FALSE means is not archive
   void Close();
 
@@ -425,7 +367,7 @@ public:
       _7Z_DECODER_CRYPRO_VARS_DECL
       );
 };
-  
+
 }}
-  
+
 #endif

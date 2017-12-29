@@ -6,9 +6,7 @@
 
 #include "Lzma2Decoder.h"
 
-#ifndef EXTRACT_ONLY
 #include "Lzma2Encoder.h"
-#endif
 
 namespace NCompress {
 namespace NLzma2 {
@@ -18,5 +16,4 @@ REGISTER_CODEC_E(LZMA2,
     CEncoder(),
     0x21,
     "LZMA2")
-
 }}

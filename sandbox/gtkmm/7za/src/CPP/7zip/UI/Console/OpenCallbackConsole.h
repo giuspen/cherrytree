@@ -19,8 +19,6 @@ protected:
 
   bool _totalFilesDefined;
   bool _totalBytesDefined;
-  // UInt64 _totalFiles;
-  // UInt64 _totalBytes;
 
   bool NeedPercents() const { return _percent._so != NULL; }
 
@@ -34,18 +32,13 @@ public:
       _percent.ClosePrint(true);
   }
 
-  COpenCallbackConsole():
+  COpenCallbackConsole() :
       _totalFilesDefined(false),
       _totalBytesDefined(false),
-      MultiArcMode(false)
-      
-      #ifndef _NO_CRYPTO
-      , PasswordIsDefined(false)
-      // , PasswordWasAsked(false)
-      #endif
-      
-      {}
-  
+      MultiArcMode(false),
+      PasswordIsDefined(false)
+  {}
+
   void Init(CStdOutStream *outStream, CStdOutStream *errorStream, CStdOutStream *percentStream)
   {
     _so = outStream;
@@ -54,12 +47,9 @@ public:
   }
 
   INTERFACE_IOpenCallbackUI(;)
-  
-  #ifndef _NO_CRYPTO
+
   bool PasswordIsDefined;
-  // bool PasswordWasAsked;
   UString Password;
-  #endif
 };
 
 #endif

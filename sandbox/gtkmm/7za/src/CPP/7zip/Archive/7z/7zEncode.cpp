@@ -18,7 +18,7 @@ namespace N7z {
 void CEncoder::InitBindConv()
 {
   unsigned numIn = _bindInfo.Coders.Size();
-  
+
   _SrcIn_to_DestOut.ClearAndSetSize(numIn);
   _DestOut_to_SrcIn.ClearAndSetSize(numIn);
 
@@ -37,12 +37,12 @@ void CEncoder::InitBindConv()
 
     numIn--;
     numOut -= coder.NumStreams;
-    
+
     _SrcIn_to_DestOut[numIn] = destOut;
     _DestOut_to_SrcIn[destOut] = numIn;
 
     destOut++;
-  
+
     for (UInt32 j = 0; j < coder.NumStreams; j++, destIn++)
     {
       UInt32 index = numOut + j;
@@ -55,7 +55,7 @@ void CEncoder::InitBindConv()
 void CEncoder::SetFolder(CFolder &folder)
 {
   folder.Bonds.SetSize(_bindInfo.Bonds.Size());
-  
+
   unsigned i;
 
   for (i = 0; i < _bindInfo.Bonds.Size(); i++)
@@ -65,21 +65,21 @@ void CEncoder::SetFolder(CFolder &folder)
     fb.PackIndex = _SrcOut_to_DestIn[mixerBond.PackIndex];
     fb.UnpackIndex = _SrcIn_to_DestOut[mixerBond.UnpackIndex];
   }
-  
+
   folder.Coders.SetSize(_bindInfo.Coders.Size());
-  
+
   for (i = 0; i < _bindInfo.Coders.Size(); i++)
   {
     CCoderInfo &coderInfo = folder.Coders[i];
     const NCoderMixer2::CCoderStreamsInfo &coderStreamsInfo = _bindInfo.Coders[_bindInfo.Coders.Size() - 1 - i];
-    
+
     coderInfo.NumStreams = coderStreamsInfo.NumStreams;
     coderInfo.MethodID = _decompressionMethods[i];
     // we don't free coderInfo.Props here. So coderInfo.Props can be non-empty.
   }
-  
+
   folder.PackStreams.SetSize(_bindInfo.PackStreams.Size());
-  
+
   for (i = 0; i < _bindInfo.PackStreams.Size(); i++)
     folder.PackStreams[i] = _SrcOut_to_DestIn[_bindInfo.PackStreams[i]];
 }
@@ -107,15 +107,13 @@ STDMETHODIMP CMtEncMultiProgress::SetRatioInfo(const UInt64 *inSize, const UInt6
 {
   UInt64 outSize2;
   {
-    #ifndef _7ZIP_ST
     NWindows::NSynchronization::CCriticalSectionLock lock(CriticalSection);
-    #endif
     outSize2 = OutSize;
   }
-  
+
   if (_progress)
     return _progress->SetRatioInfo(inSize, &outSize2);
-   
+
   return S_OK;
 }
 
@@ -153,7 +151,7 @@ HRESULT CEncoder::CreateMixerCoder(
     const CMethodFull &methodFull = _options.Methods[m];
 
     CCreatedCoder cod;
-    
+
     RINOK(CreateCoder(
         EXTERNAL_CODECS_LOC_VARS
         methodFull.Id, true, cod));
@@ -164,8 +162,7 @@ HRESULT CEncoder::CreateMixerCoder(
       return E_FAIL;
 
     CMyComPtr<IUnknown> encoderCommon = cod.Coder ? (IUnknown *)cod.Coder : (IUnknown *)cod.Coder2;
-   
-    #ifndef _7ZIP_ST
+
     {
       CMyComPtr<ICompressSetCoderMt> setCoderMt;
       encoderCommon.QueryInterface(IID_ICompressSetCoderMt, &setCoderMt);
@@ -174,32 +171,9 @@ HRESULT CEncoder::CreateMixerCoder(
         RINOK(setCoderMt->SetNumberOfThreads(_options.NumThreads));
       }
     }
-    #endif
-        
+
     RINOK(SetCoderProps2(methodFull, inSizeForReduce, encoderCommon));
 
-    /*
-    CMyComPtr<ICryptoResetSalt> resetSalt;
-    encoderCommon.QueryInterface(IID_ICryptoResetSalt, (void **)&resetSalt);
-    if (resetSalt)
-    {
-      resetSalt->ResetSalt();
-    }
-    */
-
-    // now there is no codec that uses another external codec
-    /*
-    #ifdef EXTERNAL_CODECS
-    CMyComPtr<ISetCompressCodecsInfo> setCompressCodecsInfo;
-    encoderCommon.QueryInterface(IID_ISetCompressCodecsInfo, (void **)&setCompressCodecsInfo);
-    if (setCompressCodecsInfo)
-    {
-      // we must use g_ExternalCodecs also
-      RINOK(setCompressCodecsInfo->SetCompressCodecsInfo(__externalCodecs->GetCodecs));
-    }
-    #endif
-    */
-    
     CMyComPtr<ICryptoSetPassword> cryptoSetPassword;
     encoderCommon.QueryInterface(IID_ICryptoSetPassword, &cryptoSetPassword);
 
@@ -230,7 +204,7 @@ class CSequentialOutTempBufferImp2:
   CInOutTempBuffer *_buf;
 public:
   CMtEncMultiProgress *_mtProgresSpec;
-  
+
   CSequentialOutTempBufferImp2(): _buf(0), _mtProgresSpec(NULL) {}
   void Init(CInOutTempBuffer *buffer) { _buf = buffer; }
   MY_UNKNOWN_IMP1(ISequentialOutStream)
@@ -261,7 +235,7 @@ class CSequentialOutMtNotify:
 public:
   CMyComPtr<ISequentialOutStream> _stream;
   CMtEncMultiProgress *_mtProgresSpec;
-  
+
   CSequentialOutMtNotify(): _mtProgresSpec(NULL) {}
   MY_UNKNOWN_IMP1(ISequentialOutStream)
 
@@ -299,7 +273,7 @@ HRESULT CEncoder::Encode(
   {
     RINOK(CreateMixerCoder(EXTERNAL_CODECS_LOC_VARS inSizeForReduce));
   }
-  
+
   _mixer->ReInit();
 
   CMtEncMultiProgress *mtProgressSpec = NULL;
@@ -311,9 +285,9 @@ HRESULT CEncoder::Encode(
   CObjectVector<CInOutTempBuffer> inOutTempBuffers;
   CObjectVector<CSequentialOutTempBufferImp2 *> tempBufferSpecs;
   CObjectVector<CMyComPtr<ISequentialOutStream> > tempBuffers;
-  
+
   unsigned numMethods = _bindInfo.Coders.Size();
-  
+
   unsigned i;
 
   for (i = 1; i < _bindInfo.PackStreams.Size(); i++)
@@ -322,7 +296,7 @@ HRESULT CEncoder::Encode(
     iotb.Create();
     iotb.InitWriting();
   }
-  
+
   for (i = 1; i < _bindInfo.PackStreams.Size(); i++)
   {
     CSequentialOutTempBufferImp2 *tempBufferSpec = new CSequentialOutTempBufferImp2;
@@ -345,7 +319,7 @@ HRESULT CEncoder::Encode(
     _mixer->SetCoderInfo(_bindInfo.UnpackCoder, inStreamSize, NULL);
   */
 
-  
+
   CSequentialInStreamSizeCount2 *inStreamSizeCountSpec = new CSequentialInStreamSizeCount2;
   CMyComPtr<ISequentialInStream> inStreamSizeCount = inStreamSizeCountSpec;
 
@@ -356,7 +330,7 @@ HRESULT CEncoder::Encode(
 
   ISequentialInStream *inStreamPointer = inStreamSizeCount;
   CRecordVector<ISequentialOutStream *> outStreamPointers;
-  
+
   SetFolder(folderItem);
 
   for (i = 0; i < numMethods; i++)
@@ -393,10 +367,7 @@ HRESULT CEncoder::Encode(
   bool useMtProgress = false;
   if (!_mixer->Is_PackSize_Correct_for_Coder(mainCoder))
   {
-    #ifdef _7ZIP_ST
-    if (!_mixer->IsThere_ExternalCoder_in_PackTree(mainCoder))
-    #endif
-      useMtProgress = true;
+    useMtProgress = true;
   }
 
   if (useMtProgress)
@@ -404,19 +375,19 @@ HRESULT CEncoder::Encode(
     mtProgressSpec = new CMtEncMultiProgress;
     mtProgress = mtProgressSpec;
     mtProgressSpec->Init(compressProgress);
-    
+
     mtOutStreamNotifySpec = new CSequentialOutMtNotify;
     mtOutStreamNotify = mtOutStreamNotifySpec;
     mtOutStreamNotifySpec->_stream = outStream;
     mtOutStreamNotifySpec->_mtProgresSpec = mtProgressSpec;
-    
+
     FOR_VECTOR(t, tempBufferSpecs)
     {
       tempBufferSpecs[t]->_mtProgresSpec = mtProgressSpec;
     }
   }
-  
-  
+
+
   if (_bindInfo.PackStreams.Size() != 0)
   {
     outStreamSizeCountSpec = new CSequentialOutStreamSizeCount;
@@ -433,10 +404,10 @@ HRESULT CEncoder::Encode(
       &inStreamPointer,
       &outStreamPointers.Front(),
       mtProgress ? (ICompressProgressInfo *)mtProgress : compressProgress));
-  
+
   if (_bindInfo.PackStreams.Size() != 0)
     packSizes.Add(outStreamSizeCountSpec->GetSize());
-  
+
   for (i = 1; i < _bindInfo.PackStreams.Size(); i++)
   {
     CInOutTempBuffer &inOutTempBuffer = inOutTempBuffers[i - 1];
@@ -445,7 +416,7 @@ HRESULT CEncoder::Encode(
   }
 
   unpackSize = 0;
-  
+
   for (i = 0; i < _bindInfo.Coders.Size(); i++)
   {
     int bond = _bindInfo.FindBond_for_UnpackStream(_DestOut_to_SrcIn[i]);
@@ -459,7 +430,7 @@ HRESULT CEncoder::Encode(
       streamSize = _mixer->GetBondStreamSize(bond);
     coderUnpackSizes.Add(streamSize);
   }
-  
+
   return S_OK;
 }
 
@@ -475,7 +446,7 @@ CEncoder::CEncoder(const CCompressionMethodMode &options):
   #ifdef USE_MIXER_ST
     _mixerST = NULL;
   #endif
-  
+
   #ifdef USE_MIXER_MT
     _mixerMT = NULL;
   #endif
@@ -504,7 +475,7 @@ HRESULT CEncoder::EncoderConstr()
     NCoderMixer2::CCoderStreamsInfo coderStreamsInfo;
     coderStreamsInfo.NumStreams = 1;
     _bindInfo.Coders.Add(coderStreamsInfo);
-  
+
     _bindInfo.PackStreams.Add(0);
     _bindInfo.UnpackCoder = 0;
   }
@@ -513,12 +484,12 @@ HRESULT CEncoder::EncoderConstr()
 
   UInt32 numOutStreams = 0;
   unsigned i;
-  
+
   for (i = 0; i < _options.Methods.Size(); i++)
   {
     const CMethodFull &methodFull = _options.Methods[i];
     NCoderMixer2::CCoderStreamsInfo cod;
-    
+
     cod.NumStreams = methodFull.NumStreams;
 
     if (_options.Bonds.IsEmpty())
@@ -533,11 +504,11 @@ HRESULT CEncoder::EncoderConstr()
       }
       else if (cod.NumStreams != 0)
         _bindInfo.PackStreams.Insert(0, numOutStreams);
-      
+
       for (UInt32 j = 1; j < cod.NumStreams; j++)
         _bindInfo.PackStreams.Add(numOutStreams + j);
     }
-    
+
     numOutStreams += cod.NumStreams;
 
     _bindInfo.Coders.Add(cod);
@@ -577,12 +548,12 @@ HRESULT CEncoder::EncoderConstr()
        if main_PackStream is largest stream. */
 
     UInt32 ci = _bindInfo.UnpackCoder;
-    
+
     for (;;)
     {
       if (_bindInfo.Coders[ci].NumStreams == 0)
         break;
-      
+
       UInt32 outIndex = _bindInfo.Coder_to_Stream[ci];
       int bond = _bindInfo.FindBond_for_PackStream(outIndex);
       if (bond >= 0)
@@ -590,7 +561,7 @@ HRESULT CEncoder::EncoderConstr()
         ci = _bindInfo.Bonds[bond].UnpackIndex;
         continue;
       }
-      
+
       int si = _bindInfo.FindStream_in_PackStreams(outIndex);
       if (si >= 0)
         _bindInfo.PackStreams.MoveToFront(si);
@@ -603,7 +574,7 @@ HRESULT CEncoder::EncoderConstr()
     unsigned numCryptoStreams = _bindInfo.PackStreams.Size();
 
     unsigned numInStreams = _bindInfo.Coders.Size();
-    
+
     for (i = 0; i < numCryptoStreams; i++)
     {
       NCoderMixer2::CBond bond;

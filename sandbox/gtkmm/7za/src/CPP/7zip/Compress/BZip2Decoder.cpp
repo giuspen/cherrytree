@@ -413,15 +413,11 @@ static UInt32 NO_INLINE DecodeBlock(const CBlockProps &props, UInt32 *tt, COutBu
 
 CDecoder::CDecoder()
 {
-  #ifndef _7ZIP_ST
   m_States = 0;
   m_NumThreadsPrev = 0;
   NumThreads = 1;
-  #endif
   _needInStreamInit = true;
 }
-
-#ifndef _7ZIP_ST
 
 CDecoder::~CDecoder()
 {
@@ -480,8 +476,6 @@ void CDecoder::Free()
   delete []m_States;
   m_States = 0;
 }
-
-#endif
 
 bool IsEndSig(const Byte *p) throw()
 {
@@ -550,7 +544,6 @@ HRESULT CDecoder::ReadSignature(UInt32 &crc)
 HRESULT CDecoder::DecodeFile(ICompressProgressInfo *progress)
 {
   Progress = progress;
-  #ifndef _7ZIP_ST
   RINOK(Create());
   for (UInt32 t = 0; t < NumThreads; t++)
   {
@@ -564,17 +557,8 @@ HRESULT CDecoder::DecodeFile(ICompressProgressInfo *progress)
       RINOK(s.CanWriteEvent.Reset());
     }
   }
-  #else
-  if (!m_States[0].Alloc())
-    return E_OUTOFMEMORY;
-  #endif
 
   IsBz = false;
-
-  /*
-  if (Base.BitDecoder.ExtraBitsWereRead())
-    return E_FAIL;
-  */
 
   Byte s[4];
   unsigned i;
@@ -593,7 +577,6 @@ HRESULT CDecoder::DecodeFile(ICompressProgressInfo *progress)
   UInt32 dicSize = (UInt32)(s[3] - kArSig3) * kBlockSizeStep;
 
   CombinedCrc.Init();
-  #ifndef _7ZIP_ST
   if (MtMode)
   {
     NextBlockIndex = 0;
@@ -616,7 +599,6 @@ HRESULT CDecoder::DecodeFile(ICompressProgressInfo *progress)
     RINOK(Result1);
   }
   else
-  #endif
   {
     CState &state = m_States[0];
     for (;;)
@@ -707,8 +689,6 @@ STDMETHODIMP CDecoder::ReleaseInStream()
   Base.InStreamRef.Release();
   return S_OK;
 }
-
-#ifndef _7ZIP_ST
 
 static THREAD_FUNC_DECL MFThread(void *p) { ((CState *)p)->ThreadFunc(); return 0; }
 
@@ -836,8 +816,6 @@ STDMETHODIMP CDecoder::SetNumberOfThreads(UInt32 numThreads)
   return S_OK;
 }
 
-#endif
-
 HRESULT CDecoder::SetRatioProgress(UInt64 packSize)
 {
   if (!Progress)
@@ -846,7 +824,6 @@ HRESULT CDecoder::SetRatioProgress(UInt64 packSize)
   UInt64 unpackSize = m_OutStream.GetProcessedSize();
   return Progress->SetRatioInfo(&packSize, &unpackSize);
 }
-
 
 // ---------- NSIS ----------
 

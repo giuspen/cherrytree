@@ -67,7 +67,7 @@ STDMETHODIMP CHandler::UpdateItems(ISequentialOutStream *outStream, UInt32 numIt
     IArchiveUpdateCallback *callback)
 {
   COM_TRY_BEGIN2
-  
+
   if (m_Archive.IsOpen())
   {
     if (!m_Archive.CanUpdate())
@@ -275,7 +275,7 @@ STDMETHODIMP CHandler::UpdateItems(ISequentialOutStream *outStream, UInt32 numIt
       m_Items, updateItems, outStream,
       m_Archive.IsOpen() ? &m_Archive : NULL, _removeSfxBlock,
       &options, callback);
- 
+
   COM_TRY_END2
 }
 
@@ -298,10 +298,8 @@ static const CMethodIndexToName k_SupportedMethods[] =
 STDMETHODIMP CHandler::SetProperties(const wchar_t * const *names, const PROPVARIANT *values, UInt32 numProps)
 {
   InitMethodProps();
-  #ifndef _7ZIP_ST
   const UInt32 numProcessors = _props.NumThreads;
-  #endif
-  
+
   for (UInt32 i = 0; i < numProps; i++)
   {
     UString name = names[i];
@@ -397,10 +395,8 @@ STDMETHODIMP CHandler::SetProperties(const wchar_t * const *names, const PROPVAR
     }
     else if (name.IsPrefixedBy(L"mt"))
     {
-      #ifndef _7ZIP_ST
       RINOK(ParseMtProp(name.Ptr(2), prop, numProcessors, _props.NumThreads));
       _props.NumThreadsWasChanged = true;
-      #endif
     }
     else if (name.IsEqualTo("tc"))
     {

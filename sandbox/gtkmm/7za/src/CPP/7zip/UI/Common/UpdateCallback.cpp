@@ -2,9 +2,7 @@
 
 #include "StdAfx.h"
 
-#ifndef _7ZIP_ST
 #include "../../../Windows/Synchronization.h"
-#endif
 
 #include "../../../Common/ComTry.h"
 #include "../../../Common/IntToString.h"
@@ -23,12 +21,8 @@
 using namespace NWindows;
 using namespace NFile;
 
-#ifndef _7ZIP_ST
 static NSynchronization::CCriticalSection g_CriticalSection;
 #define MT_LOCK NSynchronization::CCriticalSectionLock lock(g_CriticalSection);
-#else
-#define MT_LOCK
-#endif
 
 
 #ifdef _USE_SECURITY_CODE
@@ -84,26 +78,6 @@ STDMETHODIMP CArchiveUpdateCallback::SetRatioInfo(const UInt64 *inSize, const UI
   return Callback->SetRatioInfo(inSize, outSize);
   COM_TRY_END
 }
-
-
-/*
-static const CStatProp kProps[] =
-{
-  { NULL, kpidPath, VT_BSTR},
-  { NULL, kpidIsDir, VT_BOOL},
-  { NULL, kpidSize, VT_UI8},
-  { NULL, kpidCTime, VT_FILETIME},
-  { NULL, kpidATime, VT_FILETIME},
-  { NULL, kpidMTime, VT_FILETIME},
-  { NULL, kpidAttrib, VT_UI4},
-  { NULL, kpidIsAnti, VT_BOOL}
-};
-
-STDMETHODIMP CArchiveUpdateCallback::EnumProperties(IEnumSTATPROPSTG **)
-{
-  return CStatPropEnumerator::CreateEnumerator(kProps, ARRAY_SIZE(kProps), enumerator);
-}
-*/
 
 STDMETHODIMP CArchiveUpdateCallback::GetUpdateItemInfo(UInt32 index,
       Int32 *newData, Int32 *newProps, UInt32 *indexInArchive)
@@ -376,9 +350,7 @@ STDMETHODIMP CArchiveUpdateCallback::GetProperty(UInt32 index, PROPID propID, PR
   COM_TRY_END
 }
 
-#ifndef _7ZIP_ST
 static NSynchronization::CCriticalSection CS;
-#endif
 
 STDMETHODIMP CArchiveUpdateCallback::GetStream2(UInt32 index, ISequentialInStream **inStream, UInt32 mode)
 {
@@ -450,9 +422,7 @@ STDMETHODIMP CArchiveUpdateCallback::GetStream2(UInt32 index, ISequentialInStrea
 
     if (ProcessedItemsStatuses)
     {
-      #ifndef _7ZIP_ST
       NSynchronization::CCriticalSectionLock lock(CS);
-      #endif
       ProcessedItemsStatuses[(unsigned)up.DirIndex] = 1;
     }
     *inStream = inStreamLoc.Detach();

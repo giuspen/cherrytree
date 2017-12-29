@@ -49,11 +49,9 @@ struct CCompressionMethodMode
   bool DefaultMethod_was_Inserted;
   bool Filter_was_Inserted;
 
-  #ifndef _7ZIP_ST
   UInt32 NumThreads;
   bool MultiThreadMixer;
-  #endif
-  
+
   bool PasswordIsDefined;
   UString Password;
 
@@ -62,10 +60,8 @@ struct CCompressionMethodMode
       DefaultMethod_was_Inserted(false),
       Filter_was_Inserted(false),
       PasswordIsDefined(false)
-      #ifndef _7ZIP_ST
       , NumThreads(1)
       , MultiThreadMixer(true)
-      #endif
   {}
 };
 

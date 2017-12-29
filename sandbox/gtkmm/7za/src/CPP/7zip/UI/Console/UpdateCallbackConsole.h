@@ -35,7 +35,7 @@ protected:
   CStdOutStream *_se;
 
   void CommonError(const FString &path, DWORD systemError, bool isWarning);
-  
+
   HRESULT ScanError_Base(const FString &path, DWORD systemError);
   HRESULT OpenFileError_Base(const FString &name, DWORD systemError);
   HRESULT ReadingFileError_Base(const FString &name, DWORD systemError);
@@ -58,7 +58,7 @@ public:
       PercentsNameLevel(1),
       LogLevel(0)
       {}
-  
+
   void SetWindowWidth(unsigned width) { _percent.MaxLen = width - 1; }
 
   void Init(CStdOutStream *outStream, CStdOutStream *errorStream, CStdOutStream *percentStream)
@@ -82,7 +82,6 @@ public:
       _percent.ClosePrint(false);
   }
 
-
   CErrorPathCodes FailedFiles;
   CErrorPathCodes ScanErrors;
 
@@ -92,32 +91,19 @@ public:
 
 class CUpdateCallbackConsole: public IUpdateCallbackUI2, public CCallbackConsoleBase
 {
-  // void PrintPropPair(const char *name, const wchar_t *val);
-
 public:
-  #ifndef _NO_CRYPTO
   bool PasswordIsDefined;
   UString Password;
   bool AskPassword;
-  #endif
 
   bool DeleteMessageWasShown;
 
   CUpdateCallbackConsole()
       : DeleteMessageWasShown(false)
-      #ifndef _NO_CRYPTO
       , PasswordIsDefined(false)
       , AskPassword(false)
-      #endif
-      {}
-  
-  /*
-  void Init(CStdOutStream *outStream)
-  {
-    CCallbackConsoleBase::Init(outStream);
-  }
-  */
-  // ~CUpdateCallbackConsole() { if (NeedPercents()) _percent.ClosePrint(); }
+  {}
+
   INTERFACE_IUpdateCallbackUI2(;)
 };
 

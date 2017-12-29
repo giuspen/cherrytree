@@ -5,9 +5,7 @@
 
 #include "../../../Common/MyString.h"
 
-#ifndef _7ZIP_ST
 #include "../../../Windows/System.h"
-#endif
 
 #include "../Common/HandlerOut.h"
 
@@ -19,10 +17,8 @@ struct CBaseProps
   CMethodProps MethodInfo;
   Int32 Level;
 
-  #ifndef _7ZIP_ST
   UInt32 NumThreads;
   bool NumThreadsWasChanged;
-  #endif
   bool IsAesMode;
   Byte AesKeyMode;
 
@@ -30,10 +26,8 @@ struct CBaseProps
   {
     MethodInfo.Clear();
     Level = -1;
-    #ifndef _7ZIP_ST
     NumThreads = NWindows::NSystem::GetNumberOfProcessors();;
     NumThreadsWasChanged = false;
-    #endif
     IsAesMode = false;
     AesKeyMode = 3;
   }

@@ -379,9 +379,6 @@ STDMETHODIMP CFilterCoder::Read(void *data, UInt32 size, UInt32 *processedSize)
   return S_OK;
 }
 
-
-#ifndef _NO_CRYPTO
-
 STDMETHODIMP CFilterCoder::CryptoSetPassword(const Byte *data, UInt32 size)
   { return _SetPassword->CryptoSetPassword(data, size); }
 
@@ -391,11 +388,6 @@ STDMETHODIMP CFilterCoder::SetKey(const Byte *data, UInt32 size)
 STDMETHODIMP CFilterCoder::SetInitVector(const Byte *data, UInt32 size)
   { return _CryptoProperties->SetInitVector(data, size); }
 
-#endif
-
-
-#ifndef EXTRACT_ONLY
-
 STDMETHODIMP CFilterCoder::SetCoderProperties(const PROPID *propIDs,
     const PROPVARIANT *properties, UInt32 numProperties)
   { return _SetCoderProperties->SetCoderProperties(propIDs, properties, numProperties); }
@@ -403,16 +395,8 @@ STDMETHODIMP CFilterCoder::SetCoderProperties(const PROPID *propIDs,
 STDMETHODIMP CFilterCoder::WriteCoderProperties(ISequentialOutStream *outStream)
   { return _WriteCoderProperties->WriteCoderProperties(outStream); }
 
-/*
-STDMETHODIMP CFilterCoder::ResetSalt()
-  { return _CryptoResetSalt->ResetSalt(); }
-*/
-
 STDMETHODIMP CFilterCoder::ResetInitVector()
   { return _CryptoResetInitVector->ResetInitVector(); }
-
-#endif
-
 
 STDMETHODIMP CFilterCoder::SetDecoderProperties2(const Byte *data, UInt32 size)
   { return _SetDecoderProperties2->SetDecoderProperties2(data, size); }

@@ -18,9 +18,7 @@
 #define Get64(p) GetUi64(p)
 
 // define FORMAT_7Z_RECOVERY if you want to recover multivolume archives with empty StartHeader
-#ifndef _SFX
 #define FORMAT_7Z_RECOVERY
-#endif
 
 using namespace NWindows;
 using namespace NCOM;
@@ -201,17 +199,6 @@ UInt64 CInByte2::ReadNumber()
 
 CNum CInByte2::ReadNum()
 {
-  /*
-  if (_pos < _size)
-  {
-    Byte val = _buffer[_pos];
-    if ((unsigned)val < 0x80)
-    {
-      _pos++;
-      return (unsigned)val;
-    }
-  }
-  */
   UInt64 value = ReadNumber();
   if (value > kNumMax)
     ThrowUnsupported();
@@ -1074,10 +1061,8 @@ HRESULT CInArchive::ReadAndDecodePackedStreams(
         NULL  // **inStreamMainRes
         
         _7Z_DECODER_CRYPRO_VARS
-        #if !defined(_7ZIP_ST) && !defined(_SFX)
           , false // mtMode
           , 1     // numThreads
-        #endif
       );
     RINOK(result);
     

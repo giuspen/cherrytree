@@ -795,8 +795,6 @@ bool CDelayedSymLink::Create()
 
 }}}
 
-#ifndef _SFX
-
 namespace NWindows {
 namespace NDLL {
 
@@ -813,5 +811,3 @@ FString GetModuleDirPrefix()
 }
 
 }}
-
-#endif

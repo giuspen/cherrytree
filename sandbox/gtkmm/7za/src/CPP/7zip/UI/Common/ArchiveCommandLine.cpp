@@ -128,11 +128,9 @@ enum Enum
   kWriteToAltStreamIfColon,
 
   kDeleteAfterCompressing,
-  kSetArcMTime
+  kSetArcMTime,
 
-  #ifndef _NO_CRYPTO
-  , kPassword
-  #endif
+  kPassword
 };
 
 }
@@ -248,18 +246,15 @@ static const CSwitchForm kSwitchForms[] =
   { "snc" },
   
   { "sdel" },
-  { "stl" }
+  { "stl" },
 
-  #ifndef _NO_CRYPTO
-  , { "p",  NSwitchType::kString }
-  #endif
+  { "p",  NSwitchType::kString }
 };
 
 static const wchar_t *kUniversalWildcard = L"*";
 static const unsigned kMinNonSwitchWords = 1;
 static const unsigned kCommandIndex = 0;
 
-// static const char *kUserErrorMessage  = "Incorrect command line";
 static const char *kCannotFindListFile = "Cannot find listfile";
 static const char *kIncorrectListFile = "Incorrect item in listfile.\nCheck charset encoding and -scs switch.";
 static const char *kTerminalOutError = "I won't write compressed data to a terminal";
@@ -958,11 +953,9 @@ void CArcCmdLineParser::Parse2(CArcCmdLineOptions &options)
   global_use_lstat = !parser[NKey::kUseLStat].ThereIs;
 #endif
 
-  #ifndef _NO_CRYPTO
   options.PasswordEnabled = parser[NKey::kPassword].ThereIs;
   if (options.PasswordEnabled)
     options.Password = parser[NKey::kPassword].PostStrings[0];
-  #endif
 
   options.ShowDialog = parser[NKey::kShowDialog].ThereIs;
 
@@ -1033,16 +1026,12 @@ void CArcCmdLineParser::Parse2(CArcCmdLineOptions &options)
       {
         if (
                   options.Number_for_Percents == k_OutStream_stdout
-            // || options.Number_for_Out      == k_OutStream_stdout
-            // || options.Number_for_Errors   == k_OutStream_stdout
             ||
             (
               (options.IsStdOutTerminal && options.IsStdErrTerminal)
               &&
               (
                       options.Number_for_Percents != k_OutStream_disabled
-                // || options.Number_for_Out      != k_OutStream_disabled
-                // || options.Number_for_Errors   != k_OutStream_disabled
               )
             )
            )

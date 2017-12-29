@@ -231,9 +231,7 @@ HRESULT Extract(
     const CExtractOptions &options,
     IOpenCallbackUI *openCallback,
     IExtractCallbackUI *extractCallback,
-    #ifndef _SFX
     IHashCalc *hash,
-    #endif
     UString &errorMessage,
     CDecompressStat &st)
 {
@@ -269,9 +267,7 @@ HRESULT Extract(
   CMyComPtr<IArchiveExtractCallback> ec(ecs);
   bool multi = (numArcs > 1);
   ecs->InitForMulti(multi, options.PathMode, options.OverwriteMode);
-  #ifndef _SFX
   ecs->SetHashMethods(hash);
-  #endif
 
   if (multi)
   {
@@ -299,48 +295,13 @@ HRESULT Extract(
         throw "there is no such archive";
     }
 
-    /*
-    #ifndef _NO_CRYPTO
-    openCallback->Open_Clear_PasswordWasAsked_Flag();
-    #endif
-    */
-
     RINOK(extractCallback->BeforeOpen(arcPath, options.TestMode));
     CArchiveLink arcLink;
 
     CObjectVector<COpenType> types2 = types;
-    /*
-    #ifndef _SFX
-    if (types.IsEmpty())
-    {
-      int pos = arcPath.ReverseFind(L'.');
-      if (pos >= 0)
-      {
-        UString s = arcPath.Ptr(pos + 1);
-        int index = codecs->FindFormatForExtension(s);
-        if (index >= 0 && s == L"001")
-        {
-          s = arcPath.Left(pos);
-          pos = s.ReverseFind(L'.');
-          if (pos >= 0)
-          {
-            int index2 = codecs->FindFormatForExtension(s.Ptr(pos + 1));
-            if (index2 >= 0) // && s.CompareNoCase(L"rar") != 0
-            {
-              types2.Add(index2);
-              types2.Add(index);
-            }
-          }
-        }
-      }
-    }
-    #endif
-    */
 
     COpenOptions op;
-    #ifndef _SFX
     op.props = &options.Properties;
-    #endif
     op.codecs = codecs;
     op.types = &types2;
     op.excludedFormats = &excludedFormats;
@@ -374,11 +335,6 @@ HRESULT Extract(
 
     if (!options.StdInMode)
     {
-      // numVolumes += arcLink.VolumePaths.Size();
-      // arcLink.VolumesSize;
-
-      // totalPackSize -= DeleteUsedFileNamesFromList(arcLink, i + 1, arcPaths, arcPathsFull, &arcSizes);
-      // numArcs = arcPaths.Size();
       if (arcLink.VolumePaths.Size() != 0)
       {
         Int64 correctionSize = arcLink.VolumesSize;
@@ -405,31 +361,12 @@ HRESULT Extract(
       }
     }
 
-    /*
-    // Now openCallback and extractCallback use same object. So we don't need to send password.
-
-    #ifndef _NO_CRYPTO
-    bool passwordIsDefined;
-    UString password;
-    RINOK(openCallback->Open_GetPasswordIfAny(passwordIsDefined, password));
-    if (passwordIsDefined)
-    {
-      RINOK(extractCallback->SetPassword(password));
-    }
-    #endif
-    */
-
     CArc &arc = arcLink.Arcs.Back();
     arc.MTimeDefined = (!options.StdInMode && !fi.IsDevice);
     arc.MTime = fi.MTime;
 
     UInt64 packProcessed;
-    bool calcCrc =
-        #ifndef _SFX
-          (hash != NULL);
-        #else
-          false;
-        #endif
+    bool calcCrc = (hash != NULL);
 
     RINOK(DecompressArchive(
         codecs,

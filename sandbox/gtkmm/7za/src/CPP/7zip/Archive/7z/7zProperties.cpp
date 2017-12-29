@@ -39,15 +39,11 @@ static const CPropMap kPropMap[] =
 
   { NID::kCRC, { NULL, kpidCRC, VT_UI4 } },
   
-//  { NID::kIsAux, { NULL, kpidIsAux, VT_BOOL } },
-  { NID::kAnti, { NULL, kpidIsAnti, VT_BOOL } }
+  { NID::kAnti, { NULL, kpidIsAnti, VT_BOOL } },
 
-  #ifndef _SFX
-  ,
   { 97, { NULL, kpidEncrypted, VT_BOOL } },
   { 98, { NULL, kpidMethod, VT_BSTR } },
   { 99, { NULL, kpidBlock, VT_UI4 } }
-  #endif
 };
 
 static void CopyOneItem(CRecordVector<UInt64> &src,
@@ -100,10 +96,6 @@ void CHandler::FillPopIDs()
 
   RemoveOneItem(fileInfoPopIDs, NID::kEmptyStream);
   RemoveOneItem(fileInfoPopIDs, NID::kEmptyFile);
-  /*
-  RemoveOneItem(fileInfoPopIDs, NID::kParent);
-  RemoveOneItem(fileInfoPopIDs, NID::kNtSecure);
-  */
 
   COPY_ONE_ITEM(kName);
   COPY_ONE_ITEM(kAnti);
@@ -118,11 +110,9 @@ void CHandler::FillPopIDs()
 
   _fileInfoPopIDs += fileInfoPopIDs;
  
-  #ifndef _SFX
   _fileInfoPopIDs.Add(97);
   _fileInfoPopIDs.Add(98);
   _fileInfoPopIDs.Add(99);
-  #endif
 
   #ifdef _MULTI_PACK
   _fileInfoPopIDs.Add(100);
@@ -132,12 +122,10 @@ void CHandler::FillPopIDs()
   _fileInfoPopIDs.Add(104);
   #endif
 
-  #ifndef _SFX
   InsertToHead(_fileInfoPopIDs, NID::kMTime);
   InsertToHead(_fileInfoPopIDs, NID::kPackInfo);
   InsertToHead(_fileInfoPopIDs, NID::kSize);
   InsertToHead(_fileInfoPopIDs, NID::kName);
-  #endif
 }
 
 STDMETHODIMP CHandler::GetNumberOfProperties(UInt32 *numProps)

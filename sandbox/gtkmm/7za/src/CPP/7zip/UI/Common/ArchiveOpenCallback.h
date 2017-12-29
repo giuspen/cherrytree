@@ -7,24 +7,11 @@
 
 #include "../../../Windows/FileFind.h"
 
-#ifndef _NO_CRYPTO
 #include "../../IPassword.h"
-#endif
 #include "../../Archive/IArchive.h"
 
-#ifdef _NO_CRYPTO
-
-#define INTERFACE_IOpenCallbackUI_Crypto(x)
-
-#else
-
 #define INTERFACE_IOpenCallbackUI_Crypto(x) \
-  virtual HRESULT Open_CryptoGetTextPassword(BSTR *password) x; \
-  /* virtual HRESULT Open_GetPasswordIfAny(bool &passwordIsDefined, UString &password) x; */ \
-  /* virtual bool Open_WasPasswordAsked() x; */ \
-  /* virtual void Open_Clear_PasswordWasAsked_Flag() x; */  \
-  
-#endif
+  virtual HRESULT Open_CryptoGetTextPassword(BSTR *password) x;
 
 #define INTERFACE_IOpenCallbackUI(x) \
   virtual HRESULT Open_CheckBreak() x; \
@@ -38,36 +25,29 @@ struct IOpenCallbackUI
   INTERFACE_IOpenCallbackUI(=0)
 };
 
-class COpenCallbackImp:
+class COpenCallbackImp :
   public IArchiveOpenCallback,
   public IArchiveOpenVolumeCallback,
   public IArchiveOpenSetSubArchiveName,
-  #ifndef _NO_CRYPTO
   public ICryptoGetTextPassword,
-  #endif
   public CMyUnknownImp
 {
 public:
   MY_QUERYINTERFACE_BEGIN2(IArchiveOpenVolumeCallback)
   MY_QUERYINTERFACE_ENTRY(IArchiveOpenSetSubArchiveName)
-  #ifndef _NO_CRYPTO
   MY_QUERYINTERFACE_ENTRY(ICryptoGetTextPassword)
-  #endif
   MY_QUERYINTERFACE_END
   MY_ADDREF_RELEASE
 
   INTERFACE_IArchiveOpenCallback(;)
   INTERFACE_IArchiveOpenVolumeCallback(;)
 
-  #ifndef _NO_CRYPTO
   STDMETHOD(CryptoGetTextPassword)(BSTR *password);
-  #endif
 
   STDMETHOD(SetSubArchiveName(const wchar_t *name))
   {
     _subArchiveMode = true;
     _subArchiveName = name;
-    // TotalSize = 0;
     return S_OK;
   }
 
@@ -86,7 +66,6 @@ public:
 
   IOpenCallbackUI *Callback;
   CMyComPtr<IArchiveOpenCallback> ReOpenCallback;
-  // UInt64 TotalSize;
 
   COpenCallbackImp(): Callback(NULL), _subArchiveMode(false) {}
   
@@ -99,7 +78,6 @@ public:
     FileNames_WasUsed.Clear();
     FileSizes.Clear();
     _subArchiveMode = false;
-    // TotalSize = 0;
     PasswordWasAsked = false;
   }
 

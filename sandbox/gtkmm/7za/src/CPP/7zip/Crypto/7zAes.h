@@ -77,12 +77,9 @@ public:
   STDMETHOD(CryptoSetPassword)(const Byte *data, UInt32 size);
 };
 
-#ifndef EXTRACT_ONLY
-
 class CEncoder:
   public CBaseCoder,
   public ICompressWriteCoderProperties,
-  // public ICryptoResetSalt,
   public ICryptoResetInitVector
 {
 public:
@@ -90,15 +87,11 @@ public:
       ICompressFilter,
       ICryptoSetPassword,
       ICompressWriteCoderProperties,
-      // ICryptoResetSalt,
       ICryptoResetInitVector)
   STDMETHOD(WriteCoderProperties)(ISequentialOutStream *outStream);
-  // STDMETHOD(ResetSalt)();
   STDMETHOD(ResetInitVector)();
   CEncoder();
 };
-
-#endif
 
 class CDecoder:
   public CBaseCoder,

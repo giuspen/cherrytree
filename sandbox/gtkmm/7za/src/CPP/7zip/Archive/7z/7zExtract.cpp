@@ -66,10 +66,10 @@ HRESULT CFolderOutStream::Init(unsigned startIndex, const UInt32 *indexes, unsig
   _fileIndex = startIndex;
   _indexes = indexes;
   _numFiles = numFiles;
-  
+
   _fileIsOpen = false;
   ExtraWriteWasCut = false;
-  
+
   return ProcessEmptyFiles();
 }
 
@@ -88,17 +88,17 @@ HRESULT CFolderOutStream::OpenFile(bool isCorrupted)
       && !_db->IsItemAnti(_fileIndex)
       && !fi.IsDir)
     askMode = NExtract::NAskMode::kTest;
-  
+
   CMyComPtr<ISequentialOutStream> realOutStream;
   RINOK(ExtractCallback->GetStream(_fileIndex, &realOutStream, askMode));
-  
+
   _stream = realOutStream;
   _crc = CRC_INIT_VAL;
   _calcCrc = (CheckCrc && fi.CrcDefined && !fi.IsDir);
 
   _fileIsOpen = true;
   _rem = fi.Size;
-  
+
   if (askMode == NExtract::NAskMode::kExtract
       && !realOutStream
       && !_db->IsItemAnti(_fileIndex)
@@ -111,7 +111,7 @@ HRESULT CFolderOutStream::CloseFile_and_SetResult(Int32 res)
 {
   _stream.Release();
   _fileIsOpen = false;
-  
+
   if (!_indexes)
     _numFiles--;
   else if (*_indexes == _fileIndex)
@@ -146,7 +146,7 @@ STDMETHODIMP CFolderOutStream::Write(const void *data, UInt32 size, UInt32 *proc
 {
   if (processedSize)
     *processedSize = 0;
-  
+
   while (size != 0)
   {
     if (_fileIsOpen)
@@ -172,7 +172,7 @@ STDMETHODIMP CFolderOutStream::Write(const void *data, UInt32 size, UInt32 *proc
         break;
       continue;
     }
-  
+
     RINOK(ProcessEmptyFiles());
     if (_numFiles == 0)
     {
@@ -188,7 +188,7 @@ STDMETHODIMP CFolderOutStream::Write(const void *data, UInt32 size, UInt32 *proc
     }
     RINOK(OpenFile());
   }
-  
+
   return S_OK;
 }
 
@@ -212,9 +212,9 @@ STDMETHODIMP CHandler::Extract(const UInt32 *indices, UInt32 numItems,
     Int32 testModeSpec, IArchiveExtractCallback *extractCallbackSpec)
 {
   COM_TRY_BEGIN
-  
+
   CMyComPtr<IArchiveExtractCallback> extractCallback = extractCallbackSpec;
-  
+
   UInt64 importantTotalUnpacked = 0;
 
   // numItems = (UInt32)(Int32)-1;
@@ -229,9 +229,9 @@ STDMETHODIMP CHandler::Extract(const UInt32 *indices, UInt32 numItems,
   {
     CNum prevFolder = kNumNoIndex;
     UInt32 nextFile = 0;
-    
+
     UInt32 i;
-    
+
     for (i = 0; i < numItems; i++)
     {
       UInt32 fileIndex = allFilesMode ? i : indices[i];
@@ -259,11 +259,7 @@ STDMETHODIMP CHandler::Extract(const UInt32 *indices, UInt32 numItems,
     #elif !defined(USE_MIXER_ST)
       true
     #elif !defined(__7Z_SET_PROPERTIES)
-      #ifdef _7ZIP_ST
-        false
-      #else
-        true
-      #endif
+      true
     #else
       _useMultiThreadMixer
     #endif
@@ -312,9 +308,9 @@ STDMETHODIMP CHandler::Extract(const UInt32 *indices, UInt32 numItems,
           break;
         nextFile = fileIndex2 + 1;
       }
-      
+
       numSolidFiles = k - i;
-      
+
       for (k = fileIndex; k < nextFile; k++)
         curUnpacked += _db.Files[k].Size;
     }
@@ -333,20 +329,15 @@ STDMETHODIMP CHandler::Extract(const UInt32 *indices, UInt32 numItems,
     if (folderOutStream->WasWritingFinished())
       continue;
 
-    #ifndef _NO_CRYPTO
     CMyComPtr<ICryptoGetTextPassword> getTextPassword;
     if (extractCallback)
       extractCallback.QueryInterface(IID_ICryptoGetTextPassword, &getTextPassword);
-    #endif
 
     try
     {
-      #ifndef _NO_CRYPTO
         bool isEncrypted = false;
         bool passwordIsDefined = false;
         UString password;
-      #endif
-
 
       HRESULT result = decoder.Decode(
           EXTERNAL_CODECS_VARS
@@ -358,17 +349,15 @@ STDMETHODIMP CHandler::Extract(const UInt32 *indices, UInt32 numItems,
           outStream,
           progress,
           NULL // *inStreamMainRes
-          
+
           _7Z_DECODER_CRYPRO_VARS
-          #if !defined(_7ZIP_ST) && !defined(_SFX)
             , true, _numThreads
-          #endif
           );
 
       if (result == S_FALSE || result == E_NOTIMPL)
       {
         bool wasFinished = folderOutStream->WasWritingFinished();
-      
+
         int resOp = (result == S_FALSE ?
             NExtract::NOperationResult::kDataError :
             NExtract::NOperationResult::kUnsupportedMethod);
@@ -385,7 +374,7 @@ STDMETHODIMP CHandler::Extract(const UInt32 *indices, UInt32 numItems,
         }
         continue;
       }
-      
+
       if (result != S_OK)
         return result;
 

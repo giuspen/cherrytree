@@ -25,9 +25,6 @@ public:
   ~CBaseCoder();
 };
 
-
-#ifndef EXTRACT_ONLY
-
 class CEncoder:
   public ICompressCoder2,
   public ICompressSetCoderProperties,
@@ -56,8 +53,6 @@ public:
   CEncoder();
   ~CEncoder();
 };
-
-#endif
 
 class CDecoder:
   public ICompressCoder2,

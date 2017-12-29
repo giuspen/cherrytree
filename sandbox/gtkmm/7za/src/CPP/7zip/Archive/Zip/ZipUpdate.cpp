@@ -15,9 +15,7 @@
 #include "../../Common/LimitedStreams.h"
 #include "../../Common/OutMemStream.h"
 #include "../../Common/ProgressUtils.h"
-#ifndef _7ZIP_ST
 #include "../../Common/ProgressMt.h"
-#endif
 #include "../../Common/StreamUtils.h"
 
 #include "../../Compress/CopyCoder.h"
@@ -126,8 +124,6 @@ static void SetItemInfoFromCompressingResult(const CCompressingResult &compressi
   }
 }
 
-
-#ifndef _7ZIP_ST
 
 static THREAD_FUNC_DECL CoderThread(void *threadCoderInfo);
 
@@ -319,9 +315,6 @@ STDMETHODIMP CMtProgressMixer::SetRatioInfo(const UInt64 *inSize, const UInt64 *
 {
   return Mixer2->SetRatioInfo(1, inSize, outSize);
 }
-
-
-#endif
 
 
 static HRESULT UpdateItemOldData(
@@ -637,8 +630,6 @@ static HRESULT Update2(
   if (options != 0)
     options2 = *options;
 
-  #ifndef _7ZIP_ST
-
   UInt32 numThreads = options->NumThreads;
   const UInt32 kNumMaxThreads = 64;
   if (numThreads > kNumMaxThreads)
@@ -702,14 +693,10 @@ static HRESULT Update2(
   }
 
   if (!mtMode)
-  #endif
     return Update2St(
         EXTERNAL_CODECS_LOC_VARS
         archive, inArchive,
         inputItems, updateItems, &options2, comment, updateCallback, totalComplexity, opCallback);
-
-
-  #ifndef _7ZIP_ST
 
   // Warning : before memManager, threads and compressingCompletedEvents
   // in order to have a "good" order for the destructor
@@ -952,7 +939,6 @@ static HRESULT Update2(
   RINOK(mtCompressProgressMixer.SetRatioInfo(0, NULL, NULL));
   archive.WriteCentralDir(items, comment);
   return S_OK;
-  #endif
 }
 
 

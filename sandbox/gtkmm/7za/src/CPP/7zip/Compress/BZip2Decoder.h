@@ -5,10 +5,8 @@
 
 #include "../../Common/MyCom.h"
 
-#ifndef _7ZIP_ST
 #include "../../Windows/Synchronization.h"
 #include "../../Windows/Thread.h"
-#endif
 
 #include "../ICoder.h"
 
@@ -34,8 +32,6 @@ struct CState
 {
   UInt32 *Counters;
 
-  #ifndef _7ZIP_ST
-
   CDecoder *Decoder;
   NWindows::CThread Thread;
   bool m_OptimizeNumTables;
@@ -52,8 +48,6 @@ struct CState
   void FinishStream();
   void ThreadFunc();
 
-  #endif
-
   CState(): Counters(0) {}
   ~CState() { Free(); }
   bool Alloc();
@@ -65,7 +59,7 @@ struct CBlockProps
   UInt32 blockSize;
   UInt32 origPtr;
   bool randMode;
-  
+
   CBlockProps(): blockSize(0), origPtr(0), randMode(false) {}
 };
 
@@ -96,9 +90,7 @@ public:
 
 class CDecoder :
   public ICompressCoder,
-  #ifndef _7ZIP_ST
   public ICompressSetCoderMt,
-  #endif
   public CMyUnknownImp
 {
 public:
@@ -117,7 +109,7 @@ private:
 
   HRESULT DecodeFile(ICompressProgressInfo *progress);
   HRESULT CodeReal(ISequentialInStream *inStream, ISequentialOutStream *outStream, ICompressProgressInfo *progress);
-  
+
   class CDecoderFlusher
   {
     CDecoder *_decoder;
@@ -135,7 +127,6 @@ public:
   CBZip2CombinedCrc CombinedCrc;
   ICompressProgressInfo *Progress;
 
-  #ifndef _7ZIP_ST
   CState *m_States;
   UInt32 m_NumThreadsPrev;
 
@@ -158,10 +149,6 @@ public:
   HRESULT Create();
   void Free();
 
-  #else
-  CState m_States[1];
-  #endif
-
   bool IsBz;
   bool BzWasFinished; // bzip stream was finished with end signature
   bool CrcError; // it can CRC error of block or CRC error of whole stream.
@@ -174,14 +161,11 @@ public:
   HRESULT Flush() { return m_OutStream.Flush(); }
 
   MY_QUERYINTERFACE_BEGIN2(ICompressCoder)
-  #ifndef _7ZIP_ST
   MY_QUERYINTERFACE_ENTRY(ICompressSetCoderMt)
-  #endif
 
   MY_QUERYINTERFACE_END
   MY_ADDREF_RELEASE
 
-  
   STDMETHOD(Code)(ISequentialInStream *inStream, ISequentialOutStream *outStream,
       const UInt64 *inSize, const UInt64 *outSize, ICompressProgressInfo *progress);
 
@@ -195,10 +179,8 @@ public:
 
   void InitNumBlocks() { Base.InitNumBlocks(); }
   UInt64 GetNumBlocks() const { return Base.NumBlocks; }
-  
-  #ifndef _7ZIP_ST
+
   STDMETHOD(SetNumberOfThreads)(UInt32 numThreads);
-  #endif
 };
 
 
@@ -211,7 +193,7 @@ class CNsisDecoder :
   CBase Base;
 
   CState m_State;
-  
+
   int _nsisState;
   UInt32 _tPos;
   unsigned _prevByte;

@@ -57,9 +57,7 @@ public:
       
       _7Z_DECODER_CRYPRO_VARS_DECL
       
-      #if !defined(_7ZIP_ST) && !defined(_SFX)
       , bool mtMode, UInt32 numThreads
-      #endif
       );
 };
 

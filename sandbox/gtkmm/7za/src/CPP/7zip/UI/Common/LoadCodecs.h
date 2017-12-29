@@ -17,14 +17,14 @@ EXTERNAL_CODECS
   plugins from DLL files (shared libraries).
 
   There are two types of executables in 7-Zip:
-  
+
   1) Executable that uses external plugins must be compiled
      with EXTERNAL_CODECS defined:
        - 7z.exe, 7zG.exe, 7zFM.exe
-    
+
      Note: EXTERNAL_CODECS is used also in CPP/7zip/Common/CreateCoder.h
            that code is used in plugin module (7z.dll).
-  
+
   2) Standalone modules are compiled without EXTERNAL_CODECS:
     - SFX modules: 7z.sfx, 7zCon.sfx
     - standalone versions of console 7-Zip: 7za.exe, 7zr.exe
@@ -32,7 +32,7 @@ EXTERNAL_CODECS
   if EXTERNAL_CODECS is defined, CCodecs class implements interfaces:
     - ICompressCodecsInfo : for Codecs
     - IHashers            : for Hashers
-  
+
   The client application can send CCodecs object to each plugin module.
   And plugin module can use ICompressCodecsInfo or IHashers interface to access
   another plugins.
@@ -84,7 +84,7 @@ struct CArcExtInfo
 {
   UString Ext;
   UString AddExt;
-  
+
   CArcExtInfo() {}
   CArcExtInfo(const UString &ext): Ext(ext) {}
   CArcExtInfo(const UString &ext, const UString &addExt): Ext(ext), AddExt(addExt) {}
@@ -94,25 +94,23 @@ struct CArcExtInfo
 struct CArcInfoEx
 {
   UInt32 Flags;
-  
+
   Func_CreateInArchive CreateInArchive;
   Func_IsArc IsArcFunc;
 
   UString Name;
   CObjectVector<CArcExtInfo> Exts;
-  
-  #ifndef _SFX
-    Func_CreateOutArchive CreateOutArchive;
-    bool UpdateEnabled;
-    bool NewInterface;
-    // UInt32 Version;
-    UInt32 SignatureOffset;
-    CObjectVector<CByteBuffer> Signatures;
-    #ifdef NEW_FOLDER_INTERFACE
-      UStringVector AssociateExts;
-    #endif
+
+  Func_CreateOutArchive CreateOutArchive;
+  bool UpdateEnabled;
+  bool NewInterface;
+  // UInt32 Version;
+  UInt32 SignatureOffset;
+  CObjectVector<CByteBuffer> Signatures;
+  #ifdef NEW_FOLDER_INTERFACE
+    UStringVector AssociateExts;
   #endif
-  
+
   #ifdef EXTERNAL_CODECS
     int LibIndex;
     UInt32 FormatIndex;
@@ -132,7 +130,7 @@ struct CArcInfoEx
   bool Flags_BackwardOpen() const { return (Flags & NArcInfoFlags::kBackwardOpen) != 0; }
   bool Flags_PreArc() const { return (Flags & NArcInfoFlags::kPreArc) != 0; }
   bool Flags_PureStartOpen() const { return (Flags & NArcInfoFlags::kPureStartOpen) != 0; }
-  
+
   UString GetMainExt() const
   {
     if (Exts.IsEmpty())
@@ -140,7 +138,7 @@ struct CArcInfoEx
     return Exts[0].Ext;
   }
   int FindExtension(const UString &ext) const;
-  
+
   /*
   UString GetAllExtensions() const
   {
@@ -164,13 +162,11 @@ struct CArcInfoEx
       Flags(0),
       CreateInArchive(NULL),
       IsArcFunc(NULL)
-      #ifndef _SFX
       , CreateOutArchive(NULL)
       , UpdateEnabled(false)
       , NewInterface(false)
       // , Version(0)
       , SignatureOffset(0)
-      #endif
       #ifdef EXTERNAL_CODECS
       , LibIndex(-1)
       #endif
@@ -203,7 +199,7 @@ struct CCodecLib
 {
   NWindows::NDLL::CLibrary Lib;
   FString Path;
-  
+
   Func_CreateObject CreateObject;
   Func_GetMethodProperty GetMethodProperty;
   Func_CreateDecoder CreateDecoder;
@@ -211,11 +207,11 @@ struct CCodecLib
   Func_SetCodecs SetCodecs;
 
   CMyComPtr<IHashers> ComHashers;
-  
+
   #ifdef NEW_FOLDER_INTERFACE
   void LoadIcons() { CCodecIcons::LoadIcons((HMODULE)Lib); }
   #endif
-  
+
   CCodecLib():
       CreateObject(NULL),
       GetMethodProperty(NULL),
@@ -240,7 +236,7 @@ class CCodecs:
   CLASS_NO_COPY(CCodecs);
 public:
   #ifdef EXTERNAL_CODECS
-  
+
   CObjectVector<CCodecLib> Libs;
   FString MainDll_ErrorPath;
 
@@ -256,7 +252,7 @@ public:
        To break that reference loop, we must close all CCodecs::Libs in CCodecsReleaser desttructor. */
 
     CCodecs *_codecs;
-      
+
     public:
     CReleaser(): _codecs(NULL) {}
     void Set(CCodecs *codecs) { _codecs = codecs; }
@@ -274,7 +270,7 @@ public:
   {
     return Libs[ai.LibIndex].CreateObject(&ai.ClassID, outHandler ? &IID_IOutArchive : &IID_IInArchive, (void **)archive);
   }
-  
+
   #endif
 
   #ifdef NEW_FOLDER_INTERFACE
@@ -282,7 +278,7 @@ public:
   #endif
 
   CObjectVector<CArcInfoEx> Formats;
-  
+
   #ifdef EXTERNAL_CODECS
   CRecordVector<CDllCodecInfo> Codecs;
   CRecordVector<CDllHasherInfo> Hashers;
@@ -303,25 +299,23 @@ public:
   {
     // OutputDebugStringA("~CCodecs");
   }
- 
+
   const wchar_t *GetFormatNamePtr(int formatIndex) const
   {
     return formatIndex < 0 ? L"#" : (const wchar_t *)Formats[formatIndex].Name;
   }
 
   HRESULT Load();
-  
-  #ifndef _SFX
+
   int FindFormatForArchiveName(const UString &arcPath) const;
   int FindFormatForExtension(const UString &ext) const;
   int FindFormatForArchiveType(const UString &arcType) const;
   bool FindFormatForArchiveType(const UString &arcType, CIntVector &formatIndices) const;
-  #endif
 
   #ifdef EXTERNAL_CODECS
 
   MY_UNKNOWN_IMP2(ICompressCodecsInfo, IHashers)
-    
+
   STDMETHOD(GetNumMethods)(UInt32 *numMethods);
   STDMETHOD(GetProperty)(UInt32 index, PROPID propID, PROPVARIANT *value);
   STDMETHOD(CreateDecoder)(UInt32 index, const GUID *iid, void **coder);
@@ -337,7 +331,7 @@ public:
 
   #endif // EXTERNAL_CODECS
 
-  
+
   #ifdef EXTERNAL_CODECS
 
   int GetCodec_LibIndex(UInt32 index) const;
@@ -370,8 +364,6 @@ public:
     return CreateArchiveHandler(ai, false, (void **)&archive);
     #endif
   }
-  
-  #ifndef _SFX
 
   HRESULT CreateOutArchive(unsigned formatIndex, CMyComPtr<IOutArchive> &archive) const
   {
@@ -385,12 +377,12 @@ public:
       return S_OK;
       COM_TRY_END
     }
-    
+
     #ifdef EXTERNAL_CODECS
     return CreateArchiveHandler(ai, true, (void **)&archive);
     #endif
   }
-  
+
   int FindOutFormatFromName(const UString &name) const
   {
     FOR_VECTOR (i, Formats)
@@ -403,8 +395,6 @@ public:
     }
     return -1;
   }
-
-  #endif // _SFX
 };
 
 #ifdef EXTERNAL_CODECS
@@ -420,5 +410,5 @@ public:
     CCodecs *codecs = new CCodecs; \
     CMyComPtr<IUnknown> __codecsRef = codecs;
 #endif
-  
+
 #endif

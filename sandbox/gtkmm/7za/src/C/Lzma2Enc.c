@@ -3,18 +3,11 @@
 
 #include "Precomp.h"
 
-/* #include <stdio.h> */
 #include <string.h>
-
-/* #define _7ZIP_ST */
 
 #include "Lzma2Enc.h"
 
-#ifndef _7ZIP_ST
 #include "MtCoder.h"
-#else
-#define NUM_MT_CODER_THREADS_MAX 1
-#endif
 
 #define LZMA2_CONTROL_LZMA (1 << 7)
 #define LZMA2_CONTROL_COPY_NO_RESET 2
@@ -282,9 +275,7 @@ typedef struct
 
   CLzma2EncInt coders[NUM_MT_CODER_THREADS_MAX];
 
-  #ifndef _7ZIP_ST
   CMtCoder mtCoder;
-  #endif
 
 } CLzma2Enc;
 
@@ -333,9 +324,6 @@ static SRes Lzma2Enc_EncodeMt1(CLzma2EncInt *p, CLzma2Enc *mainEncoder,
   
   return res;
 }
-
-
-#ifndef _7ZIP_ST
 
 typedef struct
 {
@@ -398,9 +386,6 @@ static SRes MtCallbackImp_Code(void *pp, unsigned index, Byte *dest, size_t *des
   return res;
 }
 
-#endif
-
-
 /* ---------- Lzma2Enc ---------- */
 
 CLzma2EncHandle Lzma2Enc_Create(ISzAlloc *alloc, ISzAlloc *allocBig)
@@ -419,9 +404,7 @@ CLzma2EncHandle Lzma2Enc_Create(ISzAlloc *alloc, ISzAlloc *allocBig)
       p->coders[i].enc = 0;
   }
   
-  #ifndef _7ZIP_ST
   MtCoder_Construct(&p->mtCoder);
-  #endif
 
   return p;
 }
@@ -440,9 +423,7 @@ void Lzma2Enc_Destroy(CLzma2EncHandle pp)
     }
   }
 
-  #ifndef _7ZIP_ST
   MtCoder_Destruct(&p->mtCoder);
-  #endif
 
   IAlloc_Free(p->alloc, p->outBuf);
   IAlloc_Free(p->alloc, pp);
@@ -488,7 +469,6 @@ SRes Lzma2Enc_Encode(CLzma2EncHandle pp,
     }
   }
 
-  #ifndef _7ZIP_ST
   if (p->props.numBlockThreads > 1)
   {
     CMtCallbackImp mtCallback;
@@ -514,7 +494,6 @@ SRes Lzma2Enc_Encode(CLzma2EncHandle pp,
     
     return MtCoder_Code(&p->mtCoder);
   }
-  #endif
 
   return Lzma2Enc_EncodeMt1(&p->coders[0], p, outStream, inStream, progress);
 }

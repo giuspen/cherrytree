@@ -43,7 +43,6 @@ STDMETHODIMP COpenCallbackImp::GetProperty(PROPID propID, PROPVARIANT *value)
     switch (propID)
     {
       case kpidName: prop = _subArchiveName; break;
-      // case kpidSize:  prop = _subArchiveSize; break; // we don't use it now
     }
   else
     switch (propID)
@@ -76,7 +75,6 @@ struct CInFileStreamVol: public CInFileStream
   }
 };
 
-
 // from ArchiveExtractCallback.cpp
 bool IsSafePath(const UString &path);
 
@@ -94,15 +92,8 @@ STDMETHODIMP COpenCallbackImp::GetStream(const wchar_t *name, IInStream **inStre
 
   UString name2 = name;
 
-  
-  #ifndef _SFX
-
-  // if (!allowAbsVolPaths)
   if (!IsSafePath(name2))
     return S_FALSE;
-  
-  #endif
-
 
   FString fullPath;
   if (!NFile::NName::GetFullPath(_folderPrefix, us2fs(name2), fullPath))
@@ -126,13 +117,11 @@ STDMETHODIMP COpenCallbackImp::GetStream(const wchar_t *name, IInStream **inStre
   inFile->FileNameIndex = FileNames_WasUsed.Add(true);
   inFile->OpenCallbackImp = this;
   inFile->OpenCallbackRef = this;
-  // TotalSize += _fileInfo.Size;
   *inStream = inStreamTemp.Detach();
   return S_OK;
   COM_TRY_END
 }
 
-#ifndef _NO_CRYPTO
 STDMETHODIMP COpenCallbackImp::CryptoGetTextPassword(BSTR *password)
 {
   COM_TRY_BEGIN
@@ -149,4 +138,3 @@ STDMETHODIMP COpenCallbackImp::CryptoGetTextPassword(BSTR *password)
   return Callback->Open_CryptoGetTextPassword(password);
   COM_TRY_END
 }
-#endif

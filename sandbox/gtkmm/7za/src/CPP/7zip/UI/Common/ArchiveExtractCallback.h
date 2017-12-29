@@ -21,8 +21,6 @@
 
 #include "HashCalc.h"
 
-#ifndef _SFX
-
 class COutStreamWithHash:
   public ISequentialOutStream,
   public CMyUnknownImp
@@ -48,8 +46,6 @@ public:
   UInt64 GetSize() const { return _size; }
 };
 
-#endif
-
 struct CExtractNtOptions
 {
   CBoolPair NtSecurity;
@@ -69,8 +65,6 @@ struct CExtractNtOptions
   }
 };
 
-#ifndef _SFX
-
 class CGetProp:
   public IGetProp,
   public CMyUnknownImp
@@ -83,9 +77,6 @@ public:
   MY_UNKNOWN_IMP1(IGetProp)
   INTERFACE_IGetProp(;)
 };
-
-#endif
-
 
 #ifdef SUPPORT_LINKS
 
@@ -158,13 +149,9 @@ class CArchiveExtractCallback:
   NExtract::NPathMode::EEnum _pathMode;
   NExtract::NOverwriteMode::EEnum _overwriteMode;
 
-  #ifndef _SFX
-
   CMyComPtr<IFolderExtractToStreamCallback> ExtractToStreamCallback;
   CGetProp *GetProp_Spec;
   CMyComPtr<IGetProp> GetProp;
-  
-  #endif
 
   CReadArcItem _item;
   FString _diskFilePath;
@@ -185,7 +172,7 @@ class CArchiveExtractCallback:
     FILETIME ATime;
     FILETIME MTime;
     UInt32 Attrib;
-  
+
     bool CTimeDefined;
     bool ATimeDefined;
     bool MTimeDefined;
@@ -198,21 +185,15 @@ class CArchiveExtractCallback:
   COutFileStream *_outFileStreamSpec;
   CMyComPtr<ISequentialOutStream> _outFileStream;
 
-  #ifndef _SFX
-  
   COutStreamWithHash *_hashStreamSpec;
   CMyComPtr<ISequentialOutStream> _hashStream;
   bool _hashStreamWasUsed;
-  
-  #endif
 
   bool _removePartsForAltStreams;
   UStringVector _removePathParts;
-  
-  #ifndef _SFX
+
   bool _use_baseParentFolder_mode;
   UInt32 _baseParentFolder;
-  #endif
 
   bool _stdOutMode;
   bool _testMode;
@@ -220,7 +201,7 @@ class CArchiveExtractCallback:
 
   CMyComPtr<ICompressProgressInfo> _localProgress;
   UInt64 _packTotal;
-  
+
   UInt64 _progressTotal;
   bool _progressTotal_Defined;
 
@@ -228,7 +209,7 @@ class CArchiveExtractCallback:
   CRecordVector<UInt32> _extractedFolderIndices;
 
   CObjectVector<NWindows::NFile::NDir::CDelayedSymLink> _delayedSymLinks;
-  
+
   void CreateComplexDirectory(const UStringVector &dirPathParts, FString &fullPath);
   HRESULT GetTime(int index, PROPID propID, FILETIME &filetime, bool &filetimeIsDefined);
   HRESULT GetUnpackSize();
@@ -246,7 +227,7 @@ public:
   UInt64 NumAltStreams;
   UInt64 UnpackSize;
   UInt64 AltStreams_UnpackSize;
-  
+
   MY_UNKNOWN_IMP3(IArchiveExtractCallbackMessage, ICryptoGetTextPassword, ICompressProgressInfo)
 
   INTERFACE_IArchiveExtractCallback(;)
@@ -268,8 +249,6 @@ public:
     NumFolders = NumFiles = NumAltStreams = UnpackSize = AltStreams_UnpackSize = 0;
   }
 
-  #ifndef _SFX
-
   void SetHashMethods(IHashCalc *hash)
   {
     if (!hash)
@@ -278,8 +257,6 @@ public:
     _hashStream = _hashStreamSpec;
     _hashStreamSpec->_hash = hash;
   }
-
-  #endif
 
   void Init(
       const CExtractNtOptions &ntOptions,
@@ -314,13 +291,11 @@ public:
 
   // call it after Init()
 
-  #ifndef _SFX
   void SetBaseParentFolderIndex(UInt32 indexInArc)
   {
     _baseParentFolder = indexInArc;
     _use_baseParentFolder_mode = true;
   }
-  #endif
 
   HRESULT SetDirsTimes();
 };

@@ -15,12 +15,8 @@ HRESULT ListArchives(CCodecs *codecs,
     bool processAltStreams, bool showAltStreams,
     const NWildcard::CCensorNode &wildcardCensor,
     bool enableHeaders, bool techMode,
-    #ifndef _NO_CRYPTO
     bool &passwordEnabled, UString &password,
-    #endif
-    #ifndef _SFX
     const CObjectVector<CProperty> *props,
-    #endif
     UInt64 &errors,
     UInt64 &numWarnings);
 

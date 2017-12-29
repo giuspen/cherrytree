@@ -24,7 +24,6 @@ HRESULT COpenCallbackConsole::Open_SetTotal(const UInt64 *files, const UInt64 *b
     if (files)
     {
       _totalFilesDefined = true;
-      // _totalFiles = *files;
       _percent.Total = *files;
     }
     else
@@ -33,7 +32,6 @@ HRESULT COpenCallbackConsole::Open_SetTotal(const UInt64 *files, const UInt64 *b
     if (bytes)
     {
       _totalBytesDefined = true;
-      // _totalBytes = *bytes;
       if (!files)
         _percent.Total = *bytes;
     }
@@ -72,9 +70,6 @@ HRESULT COpenCallbackConsole::Open_Finished()
   return S_OK;
 }
 
-
-#ifndef _NO_CRYPTO
-
 HRESULT COpenCallbackConsole::Open_CryptoGetTextPassword(BSTR *password)
 {
   *password = NULL;
@@ -88,24 +83,3 @@ HRESULT COpenCallbackConsole::Open_CryptoGetTextPassword(BSTR *password)
   }
   return StringToBstr(Password, password);
 }
-
-/*
-HRESULT COpenCallbackConsole::Open_GetPasswordIfAny(bool &passwordIsDefined, UString &password)
-{
-  passwordIsDefined = PasswordIsDefined;
-  password = Password;
-  return S_OK;
-}
-
-bool COpenCallbackConsole::Open_WasPasswordAsked()
-{
-  return PasswordWasAsked;
-}
-
-void COpenCallbackConsole::Open_Clear_PasswordWasAsked_Flag ()
-{
-  PasswordWasAsked = false;
-}
-*/
-
-#endif

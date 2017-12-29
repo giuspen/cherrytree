@@ -17,9 +17,7 @@ class CMtEncMultiProgress:
   public CMyUnknownImp
 {
   CMyComPtr<ICompressProgressInfo> _progress;
-  #ifndef _7ZIP_ST
   NWindows::NSynchronization::CCriticalSection CriticalSection;
-  #endif
 
 public:
   UInt64 OutSize;
@@ -30,9 +28,7 @@ public:
 
   void AddOutSize(UInt64 addOutSize)
   {
-    #ifndef _7ZIP_ST
     NWindows::NSynchronization::CCriticalSectionLock lock(CriticalSection);
-    #endif
     OutSize += addOutSize;
   }
 
