@@ -8,31 +8,13 @@
 #ifdef _7ZIP_ASM
 #ifdef MY_CPU_X86_OR_AMD64
 
-#if (defined(_MSC_VER) && !defined(MY_CPU_AMD64)) || defined(__GNUC__)
+#if defined(__GNUC__)
 #define USE_ASM
-#endif
-
-#if !defined(USE_ASM) && _MSC_VER >= 1500
-#include <intrin.h>
 #endif
 
 #if defined(USE_ASM) && !defined(MY_CPU_AMD64)
 static UInt32 CheckFlag(UInt32 flag)
 {
-  #ifdef _MSC_VER
-  __asm pushfd;
-  __asm pop EAX;
-  __asm mov EDX, EAX;
-  __asm xor EAX, flag;
-  __asm push EAX;
-  __asm popfd;
-  __asm pushfd;
-  __asm pop EAX;
-  __asm xor EAX, EDX;
-  __asm push EDX;
-  __asm popfd;
-  __asm and flag, EAX;
-  #else
   __asm__ __volatile__ (
     "pushf\n\t"
     "pop  %%EAX\n\t"
@@ -48,7 +30,6 @@ static UInt32 CheckFlag(UInt32 flag)
     "andl %%EAX, %0\n\t":
     "=c" (flag) : "c" (flag) :
     "%eax", "%edx");
-  #endif
   return flag;
 }
 #define CHECK_CPUID_IS_SUPPORTED if (CheckFlag(1 << 18) == 0 || CheckFlag(1 << 21) == 0) return False;
@@ -59,26 +40,6 @@ static UInt32 CheckFlag(UInt32 flag)
 void MyCPUID(UInt32 function, UInt32 *a, UInt32 *b, UInt32 *c, UInt32 *d)
 {
   #ifdef USE_ASM
-
-  #ifdef _MSC_VER
-
-  UInt32 a2, b2, c2, d2;
-  __asm xor EBX, EBX;
-  __asm xor ECX, ECX;
-  __asm xor EDX, EDX;
-  __asm mov EAX, function;
-  __asm cpuid;
-  __asm mov a2, EAX;
-  __asm mov b2, EBX;
-  __asm mov c2, ECX;
-  __asm mov d2, EDX;
-
-  *a = a2;
-  *b = b2;
-  *c = c2;
-  *d = d2;
-
-  #else
 
   __asm__ __volatile__ (
   #if defined(MY_CPU_AMD64) && defined(__PIC__)
@@ -101,8 +62,6 @@ void MyCPUID(UInt32 function, UInt32 *a, UInt32 *b, UInt32 *c, UInt32 *d)
       "=c" (*c) ,
       "=d" (*d)
     : "0" (function)) ;
-
-  #endif
   
   #else
 

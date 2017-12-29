@@ -82,15 +82,9 @@ typedef LONG SCODE;
 #define E_OUTOFMEMORY ((HRESULT)0x8007000EL)
 #define E_INVALIDARG ((HRESULT)0x80070057L)
 
-#ifdef _MSC_VER
-#define STDMETHODCALLTYPE __stdcall
-#else
-#define STDMETHODCALLTYPE
-#endif
-
-#define STDMETHOD_(t, f) virtual t STDMETHODCALLTYPE f
+#define STDMETHOD_(t, f) virtual t f
 #define STDMETHOD(f) STDMETHOD_(HRESULT, f)
-#define STDMETHODIMP_(type) type STDMETHODCALLTYPE
+#define STDMETHODIMP_(type) type
 #define STDMETHODIMP STDMETHODIMP_(HRESULT)
 
 #define PURE = 0

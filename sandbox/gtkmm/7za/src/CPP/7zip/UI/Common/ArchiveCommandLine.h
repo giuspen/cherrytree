@@ -80,8 +80,6 @@ struct CArcCmdLineOptions
   UStringVector HashMethods;
 
   bool AppendName;
-  // UStringVector ArchivePathsSorted;
-  // UStringVector ArchivePathsFullSorted;
   NWildcard::CCensor arcCensor;
   UString ArcName_for_StdInMode;
 
@@ -103,8 +101,6 @@ struct CArcCmdLineOptions
   unsigned Number_for_Errors;
   unsigned Number_for_Percents;
   unsigned LogLevel;
-
-  // bool IsOutAllowed() const { return Number_for_Out != k_OutStream_disabled; }
 
   // Benchmark
   UInt32 NumIterations;

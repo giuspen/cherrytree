@@ -9,13 +9,6 @@
 
 #include "DeflateEncoder.h"
 
-#undef NO_INLINE
-
-#ifdef _MSC_VER
-#define NO_INLINE MY_NO_INLINE
-#else
-#define NO_INLINE
-#endif
 
 namespace NCompress {
 namespace NDeflate {

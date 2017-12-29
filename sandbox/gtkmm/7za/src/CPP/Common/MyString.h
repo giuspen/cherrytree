@@ -64,42 +64,12 @@ inline void MyStringCopy(wchar_t *dest, const wchar_t *src)
   while ((*dest++ = *src++) != 0);
 }
 
-/*
-inline wchar_t *MyWcpCpy(wchar_t *dest, const wchar_t *src)
-{
-  for (;;)
-  {
-    wchar_t c = *src;
-    *dest = c;
-    if (c == 0)
-      return dest;
-    src++;
-    dest++;
-  }
-}
-*/
-
 int FindCharPosInString(const char *s, char c) throw();
 int FindCharPosInString(const wchar_t *s, wchar_t c) throw();
 
 #ifndef STRING_UNICODE_THROW
   #define STRING_UNICODE_THROW throw()
 #endif
-
-/*
-inline char MyCharUpper_Ascii(char c)
-{
-  if (c >= 'a' && c <= 'z')
-    return (char)(c - 0x20);
-  return c;
-}
-inline wchar_t MyCharUpper_Ascii(wchar_t c)
-{
-  if (c >= 'a' && c <= 'z')
-    return (wchar_t)(c - 0x20);
-  return c;
-}
-*/
 
 inline char MyCharLower_Ascii(char c)
 {
@@ -135,7 +105,6 @@ bool IsString1PrefixedByString2(const wchar_t *s1, const wchar_t *s2) throw();
 bool IsString1PrefixedByString2_NoCase(const wchar_t *s1, const wchar_t *s2) throw();
 
 int MyStringCompareNoCase(const wchar_t *s1, const wchar_t *s2) throw();
-// int MyStringCompareNoCase_N(const wchar_t *s1, const wchar_t *s2, unsigned num) throw();
 
 // ---------- ASCII ----------
 // char values in ASCII strings must be less then 128
@@ -145,7 +114,6 @@ bool StringsAreEqualNoCase_Ascii(const wchar_t *s1, const char *s2) throw();
 bool StringsAreEqualNoCase_Ascii(const wchar_t *s1, const wchar_t *s2) throw();
 
 #define MY_STRING_DELETE(_p_) delete []_p_;
-// #define MY_STRING_DELETE(_p_) my_delete(_p_);
 
 class AString
 {
@@ -240,7 +208,6 @@ public:
   AString &operator=(const char *s);
   AString &operator=(const AString &s);
   void SetFromWStr_if_Ascii(const wchar_t *s);
-  // void SetFromBstr_if_Ascii(BSTR s);
 
   AString &operator+=(char c)
   {
@@ -265,22 +232,14 @@ public:
 
   void SetFrom(const char *s, unsigned len); // no check
   void SetFrom_CalcLen(const char *s, unsigned len);
-  // void SetFromAscii(const char *s) { operator+=(s); }
 
   AString Mid(unsigned startIndex, unsigned count) const { return AString(count, _chars + startIndex); }
   AString Left(unsigned count) const { return AString(count, *this); }
 
-  // void MakeUpper() { MyStringUpper(_chars); }
-  // void MakeLower() { MyStringLower(_chars); }
   void MakeLower_Ascii() { MyStringLower_Ascii(_chars); }
-
 
   bool IsEqualTo(const char *s) const { return strcmp(_chars, s) == 0; }
   bool IsEqualTo_Ascii_NoCase(const char *s) const { return StringsAreEqualNoCase_Ascii(_chars, s); }
-  // int Compare(const char *s) const { return MyStringCompare(_chars, s); }
-  // int Compare(const AString &s) const { return MyStringCompare(_chars, s._chars); }
-  // int CompareNoCase(const char *s) const { return MyStringCompareNoCase(_chars, s); }
-  // int CompareNoCase(const AString &s) const { return MyStringCompareNoCase(_chars, s._chars); }
   bool IsPrefixedBy(const char *s) const { return IsString1PrefixedByString2(_chars, s); }
   bool IsPrefixedBy_Ascii_NoCase(const char *s) const throw();
  
@@ -316,7 +275,6 @@ public:
   }
 
   void InsertAtFront(char c);
-  // void Insert(unsigned index, char c);
   void Insert(unsigned index, const char *s);
   void Insert(unsigned index, const AString &s);
 
@@ -342,16 +300,6 @@ public:
 bool operator<(const AString &s1, const AString &s2);
 bool operator>(const AString &s1, const AString &s2);
 
-/*
-bool operator==(const AString &s1, const AString &s2);
-bool operator==(const AString &s1, const char    *s2);
-bool operator==(const char    *s1, const AString &s2);
-
-bool operator!=(const AString &s1, const AString &s2);
-bool operator!=(const AString &s1, const char    *s2);
-bool operator!=(const char    *s1, const AString &s2);
-*/
-
 inline bool operator==(const AString &s1, const AString &s2) { return s1.Len() == s2.Len() && strcmp(s1, s2) == 0; }
 inline bool operator==(const AString &s1, const char    *s2) { return strcmp(s1, s2) == 0; }
 inline bool operator==(const char    *s1, const AString &s2) { return strcmp(s1, s2) == 0; }
@@ -373,7 +321,6 @@ void operator+(int c, const AString &s);
 void operator+(unsigned c, const AString &s);
 void operator-(const AString &s, int c);
 void operator-(const AString &s, unsigned c);
-
 
 class UString
 {
@@ -400,7 +347,6 @@ class UString
   UString(const wchar_t *s1, unsigned num1, const wchar_t *s2, unsigned num2);
 
   friend UString operator+(const UString &s, wchar_t c) { return UString(s, c); } ;
-  // friend UString operator+(wchar_t c, const UString &s); // is not supported
 
   friend UString operator+(const UString &s1, const UString &s2);
   friend UString operator+(const UString &s1, const wchar_t *s2);
@@ -504,18 +450,12 @@ public:
   UString Mid(unsigned startIndex, unsigned count) const { return UString(count, _chars + startIndex); }
   UString Left(unsigned count) const { return UString(count, *this); }
 
-  // void MakeUpper() { MyStringUpper(_chars); }
-  // void MakeUpper() { MyStringUpper_Ascii(_chars); }
-  // void MakeUpper_Ascii() { MyStringUpper_Ascii(_chars); }
   void MakeLower_Ascii() { MyStringLower_Ascii(_chars); }
 
   bool IsEqualTo(const char *s) const { return StringsAreEqual_Ascii(_chars, s); }
   bool IsEqualTo_NoCase(const wchar_t *s) const { return StringsAreEqualNoCase(_chars, s); }
   bool IsEqualTo_Ascii_NoCase(const char *s) const { return StringsAreEqualNoCase_Ascii(_chars, s); }
   int Compare(const wchar_t *s) const { return wcscmp(_chars, s); }
-  // int Compare(const UString &s) const { return MyStringCompare(_chars, s._chars); }
-  // int CompareNoCase(const wchar_t *s) const { return MyStringCompareNoCase(_chars, s); }
-  // int CompareNoCase(const UString &s) const { return MyStringCompareNoCase(_chars, s._chars); }
   bool IsPrefixedBy(const wchar_t *s) const { return IsString1PrefixedByString2(_chars, s); }
   bool IsPrefixedBy_NoCase(const wchar_t *s) const { return IsString1PrefixedByString2_NoCase(_chars, s); }
   bool IsPrefixedBy_Ascii_NoCase(const char *s) const throw();
@@ -552,7 +492,6 @@ public:
   }
 
   void InsertAtFront(wchar_t c);
-  // void Insert(unsigned index, wchar_t c);
   void Insert(unsigned index, const wchar_t *s);
   void Insert(unsigned index, const UString &s);
 
@@ -618,16 +557,13 @@ class UString2
 
 public:
   UString2(): _chars(NULL), _len(0) {}
-  // UString2(wchar_t c);
   UString2(const wchar_t *s);
   UString2(const UString2 &s);
   ~UString2() { if (_chars) MY_STRING_DELETE(_chars); }
 
   unsigned Len() const { return _len; }
   bool IsEmpty() const { return _len == 0; }
-  // void Empty() { _len = 0; _chars[0] = 0; }
 
-  // operator const wchar_t *() const { return _chars; }
   const wchar_t *GetRawPtr() const { return _chars; }
 
   wchar_t *GetBuf(unsigned minLen)
@@ -669,11 +605,6 @@ void operator+(const UString2 &s, unsigned char c);
 void operator+(char c, const UString2 &s);
 void operator+(unsigned char c, const UString2 &s);
 void operator-(const UString2 &s1, wchar_t c);
-
-
-
-
-
 
 typedef CObjectVector<AString> AStringVector;
 typedef CObjectVector<UString> UStringVector;

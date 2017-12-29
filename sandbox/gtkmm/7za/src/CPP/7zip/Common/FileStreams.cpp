@@ -265,44 +265,6 @@ STDMETHODIMP CInFileStream::GetSize(UInt64 *size)
   return ConvertBoolToHRESULT(File.GetLength(*size));
 }
 
-#if 0 // #ifdef USE_WIN_FILE
-
-STDMETHODIMP CInFileStream::GetProps(UInt64 *size, FILETIME *cTime, FILETIME *aTime, FILETIME *mTime, UInt32 *attrib)
-{
-  BY_HANDLE_FILE_INFORMATION info;
-  if (File.GetFileInformation(&info))
-  {
-    if (size) *size = (((UInt64)info.nFileSizeHigh) << 32) + info.nFileSizeLow;
-    if (cTime) *cTime = info.ftCreationTime;
-    if (aTime) *aTime = info.ftLastAccessTime;
-    if (mTime) *mTime = info.ftLastWriteTime;
-    if (attrib) *attrib = info.dwFileAttributes;
-    return S_OK;
-  }
-  return GetLastError();
-}
-
-STDMETHODIMP CInFileStream::GetProps2(CStreamFileProps *props)
-{
-  BY_HANDLE_FILE_INFORMATION info;
-  if (File.GetFileInformation(&info))
-  {
-    props->Size = (((UInt64)info.nFileSizeHigh) << 32) + info.nFileSizeLow;
-    props->VolID = info.dwVolumeSerialNumber;
-    props->FileID_Low = (((UInt64)info.nFileIndexHigh) << 32) + info.nFileIndexLow;
-    props->FileID_High = 0;
-    props->NumLinks = SupportHardLinks ? info.nNumberOfLinks : 1;
-    props->Attrib = info.dwFileAttributes;
-    props->CTime = info.ftCreationTime;
-    props->ATime = info.ftLastAccessTime;
-    props->MTime = info.ftLastWriteTime;
-    return S_OK;
-  }
-  return GetLastError();
-}
-
-#endif
-
 //////////////////////////
 // COutFileStream
 

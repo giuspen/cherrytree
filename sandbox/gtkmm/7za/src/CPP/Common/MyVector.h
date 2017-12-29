@@ -11,7 +11,7 @@ class CRecordVector
   T *_items;
   unsigned _size;
   unsigned _capacity;
-  
+
   void MoveItems(unsigned destIndex, unsigned srcIndex)
   {
     memmove(_items + destIndex, _items + srcIndex, (size_t)(_size - srcIndex) * sizeof(T));
@@ -34,7 +34,7 @@ class CRecordVector
 public:
 
   CRecordVector(): _items(0), _size(0), _capacity(0) {}
-  
+
   CRecordVector(const CRecordVector &v): _items(0), _size(0), _capacity(0)
   {
     unsigned size = v.Size();
@@ -46,10 +46,10 @@ public:
       memcpy(_items, v._items, (size_t)size * sizeof(T));
     }
   }
-  
+
   unsigned Size() const { return _size; }
   bool IsEmpty() const { return _size == 0; }
-  
+
   void ConstructReserve(unsigned size)
   {
     if (size != 0)
@@ -119,9 +119,9 @@ public:
     _items = p;
     _capacity = _size;
   }
-  
+
   ~CRecordVector() { delete []_items; }
-  
+
   void ClearAndFree()
   {
     delete []_items;
@@ -129,17 +129,16 @@ public:
     _size = 0;
     _capacity = 0;
   }
-  
+
   void Clear() { _size = 0; }
 
   void DeleteBack() { _size--; }
-  
+
   void DeleteFrom(unsigned index)
   {
-    // if (index <= _size)
-      _size = index;
+    _size = index;
   }
-  
+
   void DeleteFrontal(unsigned num)
   {
     if (num != 0)
@@ -154,17 +153,6 @@ public:
     MoveItems(index, index + 1);
     _size -= 1;
   }
-
-  /*
-  void Delete(unsigned index, unsigned num)
-  {
-    if (num > 0)
-    {
-      MoveItems(index, index + num);
-      _size -= num;
-    }
-  }
-  */
 
   CRecordVector& operator=(const CRecordVector &v)
   {
@@ -195,7 +183,7 @@ public:
     _size += size;
     return *this;
   }
-  
+
   unsigned Add(const T item)
   {
     ReserveOnePosition();
@@ -232,15 +220,6 @@ public:
         T& Front()       { return _items[0]; }
   const T& Back() const  { return _items[_size - 1]; }
         T& Back()        { return _items[_size - 1]; }
-
-  /*
-  void Swap(unsigned i, unsigned j)
-  {
-    T temp = _items[i];
-    _items[i] = _items[j];
-    _items[j] = temp;
-  }
-  */
 
   int FindInSorted(const T item, unsigned left, unsigned right) const
   {
@@ -417,7 +396,6 @@ public:
   unsigned Size() const { return _v.Size(); }
   bool IsEmpty() const { return _v.IsEmpty(); }
   void ReserveDown() { _v.ReserveDown(); }
-  // void Reserve(unsigned newCapacity) { _v.Reserve(newCapacity); }
   void ClearAndReserve(unsigned newCapacity) { Clear(); _v.ClearAndReserve(newCapacity); }
 
   CObjectVector() {};
@@ -448,36 +426,36 @@ public:
       _v.AddInReserved(new T(v[i]));
     return *this;
   }
-  
+
   const T& operator[](unsigned index) const { return *((T *)_v[index]); }
         T& operator[](unsigned index)       { return *((T *)_v[index]); }
   const T& Front() const { return operator[](0); }
         T& Front()       { return operator[](0); }
   const T& Back() const  { return operator[](_v.Size() - 1); }
         T& Back()        { return operator[](_v.Size() - 1); }
-  
+
   void MoveToFront(unsigned index) { _v.MoveToFront(index); }
 
   unsigned Add(const T& item) { return _v.Add(new T(item)); }
-  
+
   void AddInReserved(const T& item) { _v.AddInReserved(new T(item)); }
-  
+
   T& AddNew()
   {
     T *p = new T;
     _v.Add(p);
     return *p;
   }
-  
+
   T& AddNewInReserved()
   {
     T *p = new T;
     _v.AddInReserved(p);
     return *p;
   }
-  
+
   void Insert(unsigned index, const T& item) { _v.Insert(index, new T(item)); }
-  
+
   T& InsertNew(unsigned index)
   {
     T *p = new T;
@@ -490,20 +468,20 @@ public:
     for (unsigned i = _v.Size(); i != 0;)
       delete (T *)_v[--i];
   }
-  
+
   void ClearAndFree()
   {
     Clear();
     _v.ClearAndFree();
   }
-  
+
   void Clear()
   {
     for (unsigned i = _v.Size(); i != 0;)
       delete (T *)_v[--i];
     _v.Clear();
   }
-  
+
   void DeleteFrom(unsigned index)
   {
     unsigned size = _v.Size();
@@ -531,26 +509,6 @@ public:
     _v.Delete(index);
   }
 
-  /*
-  void Delete(unsigned index, unsigned num)
-  {
-    for (unsigned i = 0; i < num; i++)
-      delete (T *)_v[index + i];
-    _v.Delete(index, num);
-  }
-  */
-
-  /*
-  int Find(const T& item) const
-  {
-    unsigned size = Size();
-    for (unsigned i = 0; i < size; i++)
-      if (item == (*this)[i])
-        return i;
-    return -1;
-  }
-  */
-  
   int FindInSorted(const T& item) const
   {
     unsigned left = 0, right = Size();
@@ -587,30 +545,6 @@ public:
     Insert(right, item);
     return right;
   }
-
-  /*
-  unsigned AddToSorted(const T& item)
-  {
-    unsigned left = 0, right = Size();
-    while (left != right)
-    {
-      unsigned mid = (left + right) / 2;
-      const T& midVal = (*this)[mid];
-      int comp = item.Compare(midVal);
-      if (comp == 0)
-      {
-        right = mid + 1;
-        break;
-      }
-      if (comp < 0)
-        right = mid;
-      else
-        left = mid + 1;
-    }
-    Insert(right, item);
-    return right;
-  }
-  */
 
   void Sort(int (*compare)(void *const *, void *const *, void *), void *param)
     { _v.Sort(compare, param); }

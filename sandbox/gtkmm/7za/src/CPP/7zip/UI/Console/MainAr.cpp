@@ -18,9 +18,7 @@ using namespace NWindows;
 CStdOutStream *g_StdStream = NULL;
 CStdOutStream *g_ErrStream = NULL;
 
-extern int Main2(
-  int numArgs, char *args[]
-);
+extern int Main2(int numArgs, char *args[]);
 
 static const char *kException_CmdLine_Error_Message = "Command Line Error:";
 static const char *kExceptionErrorMessage = "ERROR:";
@@ -44,10 +42,7 @@ static void PrintError(const char *message)
 
 #define NT_CHECK_FAIL_ACTION *g_StdStream << "Unsupported Windows version"; return NExitCode::kFatalError;
 
-int MY_CDECL main
-(
-  int numArgs, char *args[]
-)
+int main(int numArgs, char *args[])
 {
   g_ErrStream = &g_StdErr;
   g_StdStream = &g_StdOut;
@@ -56,12 +51,10 @@ int MY_CDECL main
 
   NConsoleClose::CCtrlHandlerSetter ctrlHandlerSetter;
   int res = 0;
-  
+
   try
   {
-    res = Main2(
-    numArgs, args
-    );
+    res = Main2(numArgs, args);
   }
   catch(const CNewException &)
   {

@@ -34,10 +34,6 @@ struct IInFileStream_Callback
 class CInFileStream:
   public IInStream,
   public IStreamGetSize,
-  #if 0 // #ifdef USE_WIN_FILE
-  public IStreamGetProps,
-  public IStreamGetProps2,
-  #endif
   public CMyUnknownImp
 {
   bool _ignoreSymbolicLink;
@@ -82,10 +78,6 @@ public:
 
   MY_QUERYINTERFACE_BEGIN2(IInStream)
   MY_QUERYINTERFACE_ENTRY(IStreamGetSize)
-  #if 0 // #ifdef USE_WIN_FILE
-  MY_QUERYINTERFACE_ENTRY(IStreamGetProps)
-  MY_QUERYINTERFACE_ENTRY(IStreamGetProps2)
-  #endif
   MY_QUERYINTERFACE_END
   MY_ADDREF_RELEASE
 
@@ -93,10 +85,6 @@ public:
   STDMETHOD(Seek)(Int64 offset, UInt32 seekOrigin, UInt64 *newPosition);
 
   STDMETHOD(GetSize)(UInt64 *size);
-  #if 0 // #ifdef USE_WIN_FILE
-  STDMETHOD(GetProps)(UInt64 *size, FILETIME *cTime, FILETIME *aTime, FILETIME *mTime, UInt32 *attrib);
-  STDMETHOD(GetProps2)(CStreamFileProps *props);
-  #endif
 };
 
 class CStdInFileStream:

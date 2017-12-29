@@ -28,11 +28,7 @@ extern bool g_CaseSensitive;
 
 #else
 
-#if _MSC_VER >= 1400
-#define MY_isatty_fileno(x) _isatty(_fileno(x))
-#else
 #define MY_isatty_fileno(x) isatty(fileno(x))
-#endif
 
 #define MY_IS_TERMINAL(x) (MY_isatty_fileno(x) != 0);
 

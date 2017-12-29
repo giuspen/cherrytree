@@ -22,8 +22,6 @@ UString MultiByteToUnicodeString(const AString &srcString, UINT codePage)
     UString resultString;
     const char * path = &srcString[0];
 
-// FIXME    size_t n = strlen(path);
-
     CFStringRef cfpath = CFStringCreateWithCString(NULL,path,kCFStringEncodingUTF8);
 
     if (cfpath)

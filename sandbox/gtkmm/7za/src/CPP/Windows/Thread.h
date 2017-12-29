@@ -20,7 +20,7 @@ public:
   ~CThread() { Close(); }
   bool IsCreated() { return Thread_WasCreated(&thread) != 0; }
   WRes Close()  { return Thread_Close(&thread); }
-  WRes Create(THREAD_FUNC_RET_TYPE (THREAD_FUNC_CALL_TYPE *startAddress)(void *), LPVOID parameter)
+  WRes Create(THREAD_FUNC_RET_TYPE (*startAddress)(void *), LPVOID parameter)
     { return Thread_Create(&thread, startAddress, parameter); }
   WRes Wait() { return Thread_Wait(&thread); }
 };

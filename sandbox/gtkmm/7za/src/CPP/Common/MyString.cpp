@@ -21,7 +21,6 @@ int FindCharPosInString(const char *s, char c) throw()
       return (int)(p - s);
     if (*p == 0)
       return -1;
-    // MyStringGetNextCharPointer(p);
   }
 }
 
@@ -35,7 +34,6 @@ int FindCharPosInString(const wchar_t *s, wchar_t c) throw()
       return -1;
   }
 }
-
 
 void MyStringLower_Ascii(char *s) throw()
 {
@@ -58,8 +56,6 @@ void MyStringLower_Ascii(wchar_t *s) throw()
     *s++ = MyCharLower_Ascii(c);
   }
 }
-
-
 
 bool IsString1PrefixedByString2(const char *s1, const char *s2) throw()
 {
@@ -216,7 +212,6 @@ void AString::InsertSpace(unsigned &index, unsigned size)
 void AString::ReAlloc(unsigned newLimit)
 {
   if (newLimit < _len || newLimit >= k_Alloc_Len_Limit) throw 20130220;
-  // MY_STRING_REALLOC(_chars, char, newLimit + 1, _len + 1);
   char *newBuf = MY_STRING_NEW(char, newLimit + 1);
   memcpy(newBuf, _chars, (size_t)(_len + 1)); \
   MY_STRING_DELETE(_chars);
@@ -227,7 +222,6 @@ void AString::ReAlloc(unsigned newLimit)
 void AString::ReAlloc2(unsigned newLimit)
 {
   if (newLimit >= k_Alloc_Len_Limit) throw 20130220;
-  // MY_STRING_REALLOC(_chars, char, newLimit + 1, 0);
   char *newBuf = MY_STRING_NEW(char, newLimit + 1);
   newBuf[0] = 0;
   MY_STRING_DELETE(_chars);
@@ -257,25 +251,13 @@ void AString::Grow(unsigned n)
   unsigned freeSize = _limit - _len;
   if (n <= freeSize)
     return;
-  
+
   unsigned next = _len + n;
   next += next / 2;
   next += 16;
   next &= ~(unsigned)15;
   ReAlloc(next - 1);
 }
-
-/*
-AString::AString(unsigned num, const char *s)
-{
-  unsigned len = MyStringLen(s);
-  if (num > len)
-    num = len;
-  SetStartLen(num);
-  memcpy(_chars, s, num);
-  _chars[num] = 0;
-}
-*/
 
 AString::AString(unsigned num, const AString &s)
 {
@@ -411,31 +393,6 @@ void AString::SetFromWStr_if_Ascii(const wchar_t *s)
   dest[i] = 0;
 }
 
-/*
-void AString::SetFromBstr_if_Ascii(BSTR s)
-{
-  unsigned len = ::SysStringLen(s);
-  {
-    for (unsigned i = 0; i < len; i++)
-      if (s[i] <= 0 || s[i] >= 0x80)
-        return;
-  }
-  if (len > _limit)
-  {
-    char *newBuf = MY_STRING_NEW(char, len + 1);
-    MY_STRING_DELETE(_chars);
-    _chars = newBuf;
-    _limit = len;
-  }
-  _len = len;
-  char *dest = _chars;
-  unsigned i;
-  for (i = 0; i < len; i++)
-    dest[i] = (char)s[i];
-  dest[i] = 0;
-}
-*/
-
 void AString::Add_Space() { operator+=(' '); }
 void AString::Add_Space_if_NotEmpty() { if (!IsEmpty()) Add_Space(); }
 void AString::Add_LF() { operator+=('\n'); }
@@ -487,29 +444,6 @@ int AString::Find(const char *s, unsigned startIndex) const throw()
   if (!fs)
     return -1;
   return (int)(fs - _chars);
-
-  /*
-  if (s[0] == 0)
-    return startIndex;
-  unsigned len = MyStringLen(s);
-  const char *p = _chars + startIndex;
-  for (;; p++)
-  {
-    const char c = *p;
-    if (c != s[0])
-    {
-      if (c == 0)
-        return -1;
-      continue;
-    }
-    unsigned i;
-    for (i = 1; i < len; i++)
-      if (p[i] != s[i])
-        break;
-    if (i == len)
-      return (int)(p - _chars);
-  }
-  */
 }
 
 int AString::ReverseFind(char c) const throw()
@@ -586,15 +520,6 @@ void AString::InsertAtFront(char c)
   _len++;
 }
 
-/*
-void AString::Insert(unsigned index, char c)
-{
-  InsertSpace(index, 1);
-  _chars[index] = c;
-  _len++;
-}
-*/
-
 void AString::Insert(unsigned index, const char *s)
 {
   unsigned num = MyStringLen(s);
@@ -620,7 +545,7 @@ void AString::Insert(unsigned index, const AString &s)
 void AString::RemoveChar(char ch) throw()
 {
   char *src = _chars;
-  
+
   for (;;)
   {
     char c = *src++;
@@ -631,7 +556,7 @@ void AString::RemoveChar(char ch) throw()
   }
 
   char *dest = src - 1;
-  
+
   for (;;)
   {
     char c = *src++;
@@ -640,7 +565,7 @@ void AString::RemoveChar(char ch) throw()
     if (c != ch)
       *dest++ = c;
   }
-  
+
   *dest = 0;
   _len = (unsigned)(dest - _chars);
 }
@@ -650,7 +575,6 @@ void AString::Replace(char oldChar, char newChar) throw()
 {
   if (oldChar == newChar)
     return; // 0;
-  // unsigned number = 0;
   int pos = 0;
   while ((unsigned)pos < _len)
   {
@@ -659,9 +583,7 @@ void AString::Replace(char oldChar, char newChar) throw()
       break;
     _chars[(unsigned)pos] = newChar;
     pos++;
-    // number++;
   }
-  return; //  number;
 }
 
 void AString::Replace(const AString &oldString, const AString &newString)
@@ -672,7 +594,6 @@ void AString::Replace(const AString &oldString, const AString &newString)
     return; // 0;
   unsigned oldLen = oldString.Len();
   unsigned newLen = newString.Len();
-  // unsigned number = 0;
   int pos = 0;
   while ((unsigned)pos < _len)
   {
@@ -682,9 +603,7 @@ void AString::Replace(const AString &oldString, const AString &newString)
     Delete(pos, oldLen);
     Insert(pos, newString);
     pos += newLen;
-    // number++;
   }
-  // return number;
 }
 
 void AString::Delete(unsigned index) throw()
@@ -713,48 +632,6 @@ void AString::DeleteFrontal(unsigned num) throw()
   }
 }
 
-/*
-AString operator+(const AString &s1, const AString &s2)
-{
-  AString result(s1);
-  result += s2;
-  return result;
-}
-
-AString operator+(const AString &s, const char *chars)
-{
-  AString result(s);
-  result += chars;
-  return result;
-}
-
-AString operator+(const char *chars, const AString &s)
-{
-  AString result(chars);
-  result += s;
-  return result;
-}
-
-AString operator+(const AString &s, char c)
-{
-  AString result(s);
-  result += c;
-  return result;
-}
-*/
-
-/*
-AString operator+(char c, const AString &s)
-{
-  AString result(c);
-  result += s;
-  return result;
-}
-*/
-
-
-
-
 // ---------- UString ----------
 
 void UString::InsertSpace(unsigned index, unsigned size)
@@ -766,7 +643,6 @@ void UString::InsertSpace(unsigned index, unsigned size)
 void UString::ReAlloc(unsigned newLimit)
 {
   if (newLimit < _len || newLimit >= k_Alloc_Len_Limit) throw 20130221;
-  // MY_STRING_REALLOC(_chars, wchar_t, newLimit + 1, _len + 1);
   wchar_t *newBuf = MY_STRING_NEW(wchar_t, newLimit + 1);
   wmemcpy(newBuf, _chars, _len + 1);
   MY_STRING_DELETE(_chars);
@@ -777,7 +653,6 @@ void UString::ReAlloc(unsigned newLimit)
 void UString::ReAlloc2(unsigned newLimit)
 {
   if (newLimit >= k_Alloc_Len_Limit) throw 20130221;
-  // MY_STRING_REALLOC(_chars, wchar_t, newLimit + 1, 0);
   wchar_t *newBuf = MY_STRING_NEW(wchar_t, newLimit + 1);
   newBuf[0] = 0;
   MY_STRING_DELETE(_chars);
@@ -807,7 +682,7 @@ void UString::Grow(unsigned n)
   unsigned freeSize = _limit - _len;
   if (n <= freeSize)
     return;
-  
+
   unsigned next = _len + n;
   next += next / 2;
   next += 16;
@@ -945,8 +820,7 @@ void UString::SetFromBstr(BSTR s)
     _limit = len;
   }
   _len = len;
-  // if (s)
-    wmemcpy(_chars, s, len + 1);
+  wmemcpy(_chars, s, len + 1);
 }
 
 void UString::Add_Space() { operator+=(L' '); }
@@ -1031,29 +905,6 @@ int UString::Find(const wchar_t *s, unsigned startIndex) const throw()
   if (!fs)
     return -1;
   return (int)(fs - _chars);
-
-  /*
-  if (s[0] == 0)
-    return startIndex;
-  unsigned len = MyStringLen(s);
-  const wchar_t *p = _chars + startIndex;
-  for (;; p++)
-  {
-    const wchar_t c = *p;
-    if (c != s[0])
-    {
-      if (c == 0)
-        return -1;
-      continue;
-    }
-    unsigned i;
-    for (i = 1; i < len; i++)
-      if (p[i] != s[i])
-        break;
-    if (i == len)
-      return (int)(p - _chars);
-  }
-  */
 }
 
 int UString::ReverseFind(wchar_t c) const throw()
@@ -1130,15 +981,6 @@ void UString::InsertAtFront(wchar_t c)
   _len++;
 }
 
-/*
-void UString::Insert(unsigned index, wchar_t c)
-{
-  InsertSpace(index, 1);
-  _chars[index] = c;
-  _len++;
-}
-*/
-
 void UString::Insert(unsigned index, const wchar_t *s)
 {
   unsigned num = MyStringLen(s);
@@ -1164,7 +1006,7 @@ void UString::Insert(unsigned index, const UString &s)
 void UString::RemoveChar(wchar_t ch) throw()
 {
   wchar_t *src = _chars;
-  
+
   for (;;)
   {
     wchar_t c = *src++;
@@ -1175,7 +1017,7 @@ void UString::RemoveChar(wchar_t ch) throw()
   }
 
   wchar_t *dest = src - 1;
-  
+
   for (;;)
   {
     wchar_t c = *src++;
@@ -1184,7 +1026,7 @@ void UString::RemoveChar(wchar_t ch) throw()
     if (c != ch)
       *dest++ = c;
   }
-  
+
   *dest = 0;
   _len = (unsigned)(dest - _chars);
 }
@@ -1194,7 +1036,6 @@ void UString::Replace(wchar_t oldChar, wchar_t newChar) throw()
 {
   if (oldChar == newChar)
     return; // 0;
-  // unsigned number = 0;
   int pos = 0;
   while ((unsigned)pos < _len)
   {
@@ -1203,9 +1044,7 @@ void UString::Replace(wchar_t oldChar, wchar_t newChar) throw()
       break;
     _chars[(unsigned)pos] = newChar;
     pos++;
-    // number++;
   }
-  return; //  number;
 }
 
 void UString::Replace(const UString &oldString, const UString &newString)
@@ -1216,7 +1055,6 @@ void UString::Replace(const UString &oldString, const UString &newString)
     return; // 0;
   unsigned oldLen = oldString.Len();
   unsigned newLen = newString.Len();
-  // unsigned number = 0;
   int pos = 0;
   while ((unsigned)pos < _len)
   {
@@ -1226,9 +1064,7 @@ void UString::Replace(const UString &oldString, const UString &newString)
     Delete(pos, oldLen);
     Insert(pos, newString);
     pos += newLen;
-    // number++;
   }
-  // return number;
 }
 
 void UString::Delete(unsigned index) throw()
@@ -1263,7 +1099,6 @@ void UString::DeleteFrontal(unsigned num) throw()
 void UString2::ReAlloc2(unsigned newLimit)
 {
   if (newLimit >= k_Alloc_Len_Limit) throw 20130221;
-  // MY_STRING_REALLOC(_chars, wchar_t, newLimit + 1, 0);
   _chars = MY_STRING_NEW(wchar_t, newLimit + 1);
 }
 
@@ -1273,16 +1108,6 @@ void UString2::SetStartLen(unsigned len)
   _chars = MY_STRING_NEW(wchar_t, len + 1);
   _len = len;
 }
-
-
-/*
-UString2::UString2(wchar_t c)
-{
-  SetStartLen(1);
-  _chars[0] = c;
-  _chars[1] = 0;
-}
-*/
 
 UString2::UString2(const wchar_t *s)
 {
@@ -1299,23 +1124,6 @@ UString2::UString2(const UString2 &s): _chars(NULL), _len(0)
     wmemcpy(_chars, s._chars, s._len + 1);
   }
 }
-
-/*
-UString2 &UString2::operator=(wchar_t c)
-{
-  if (1 > _len)
-  {
-    wchar_t *newBuf = MY_STRING_NEW(wchar_t, 1 + 1);
-    if (_chars)
-      MY_STRING_DELETE(_chars);
-    _chars = newBuf;
-  }
-  _len = 1;
-  _chars[0] = c;
-  _chars[1] = 0;
-  return *this;
-}
-*/
 
 UString2 &UString2::operator=(const wchar_t *s)
 {
@@ -1389,13 +1197,6 @@ bool operator==(const wchar_t *s1, const UString2 &s2)
 
 // ----------------------------------------
 
-/*
-int MyStringCompareNoCase(const char *s1, const char *s2)
-{
-  return MyStringCompareNoCase(MultiByteToUnicodeString(s1), MultiByteToUnicodeString(s2));
-}
-*/
-
 static inline UINT GetCurrentCodePage()
 {
   return CP_ACP;
@@ -1438,41 +1239,41 @@ FString us2fs(const wchar_t *s)
 
 wchar_t *wmemcpy(wchar_t * d, const wchar_t * s, size_t n)
 {
-	wchar_t *a = d;
-	while (n--) *d++ = *s++;
-	return a;
+  wchar_t *a = d;
+  while (n--) *d++ = *s++;
+  return a;
 }
 
 int wmemcmp(const wchar_t *l, const wchar_t *r, size_t n)
 {
-	for (; n && *l==*r; n--, l++, r++);
-	return n ? (*l-*r) : 0;
+  for (; n && *l==*r; n--, l++, r++);
+  return n ? (*l-*r) : 0;
 }
 
 wchar_t *wmemchr(const wchar_t *s, wchar_t c, size_t n)
 {
-	for (; n && *s != c; n--, s++);
-	return n ? (wchar_t *)s : 0;
+  for (; n && *s != c; n--, s++);
+  return n ? (wchar_t *)s : 0;
 }
 
 int wcscmp(const wchar_t *l, const wchar_t *r)
 {
-	for (; *l==*r && *l && *r; l++, r++);
-	return *l - *r;
+  for (; *l==*r && *l && *r; l++, r++);
+  return *l - *r;
 }
 
 size_t wcslen(const wchar_t *s)
 {
-	const wchar_t *a;
-	for (a=s; *s; s++);
-	return s-a;
+  const wchar_t *a;
+  for (a=s; *s; s++);
+  return s-a;
 }
 
 wchar_t *wcschr(const wchar_t *s, wchar_t c)
 {
-	if (!c) return (wchar_t *)s + wcslen(s);
-	for (; *s && *s != c; s++);
-	return *s ? (wchar_t *)s : 0;
+  if (!c) return (wchar_t *)s + wcslen(s);
+  for (; *s && *s != c; s++);
+  return *s ? (wchar_t *)s : 0;
 }
 
 #undef MAX
@@ -1482,117 +1283,117 @@ wchar_t *wcschr(const wchar_t *s, wchar_t c)
 
 static wchar_t *twoway_wcsstr(const wchar_t *h, const wchar_t *n)
 {
-	const wchar_t *z;
-	size_t l, ip, jp, k, p, ms, p0, mem, mem0;
+  const wchar_t *z;
+  size_t l, ip, jp, k, p, ms, p0, mem, mem0;
 
-	/* Computing length of needle */
-	for (l=0; n[l] && h[l]; l++);
-	if (n[l]) return 0; /* hit the end of h */
+  /* Computing length of needle */
+  for (l=0; n[l] && h[l]; l++);
+  if (n[l]) return 0; /* hit the end of h */
 
-	/* Compute maximal suffix */
-	ip = -1; jp = 0; k = p = 1;
-	while (jp+k<l) {
-		if (n[ip+k] == n[jp+k]) {
-			if (k == p) {
-				jp += p;
-				k = 1;
-			} else k++;
-		} else if (n[ip+k] > n[jp+k]) {
-			jp += k;
-			k = 1;
-			p = jp - ip;
-		} else {
-			ip = jp++;
-			k = p = 1;
-		}
-	}
-	ms = ip;
-	p0 = p;
+  /* Compute maximal suffix */
+  ip = -1; jp = 0; k = p = 1;
+  while (jp+k<l) {
+    if (n[ip+k] == n[jp+k]) {
+      if (k == p) {
+        jp += p;
+        k = 1;
+      } else k++;
+    } else if (n[ip+k] > n[jp+k]) {
+      jp += k;
+      k = 1;
+      p = jp - ip;
+    } else {
+      ip = jp++;
+      k = p = 1;
+    }
+  }
+  ms = ip;
+  p0 = p;
 
-	/* And with the opposite comparison */
-	ip = -1; jp = 0; k = p = 1;
-	while (jp+k<l) {
-		if (n[ip+k] == n[jp+k]) {
-			if (k == p) {
-				jp += p;
-				k = 1;
-			} else k++;
-		} else if (n[ip+k] < n[jp+k]) {
-			jp += k;
-			k = 1;
-			p = jp - ip;
-		} else {
-			ip = jp++;
-			k = p = 1;
-		}
-	}
-	if (ip+1 > ms+1) ms = ip;
-	else p = p0;
+  /* And with the opposite comparison */
+  ip = -1; jp = 0; k = p = 1;
+  while (jp+k<l) {
+    if (n[ip+k] == n[jp+k]) {
+      if (k == p) {
+        jp += p;
+        k = 1;
+      } else k++;
+    } else if (n[ip+k] < n[jp+k]) {
+      jp += k;
+      k = 1;
+      p = jp - ip;
+    } else {
+      ip = jp++;
+      k = p = 1;
+    }
+  }
+  if (ip+1 > ms+1) ms = ip;
+  else p = p0;
 
-	/* Periodic needle? */
-	if (wmemcmp(n, n+p, ms+1)) {
-		mem0 = 0;
-		p = MAX(ms, l-ms-1) + 1;
-	} else mem0 = l-p;
-	mem = 0;
+  /* Periodic needle? */
+  if (wmemcmp(n, n+p, ms+1)) {
+    mem0 = 0;
+    p = MAX(ms, l-ms-1) + 1;
+  } else mem0 = l-p;
+  mem = 0;
 
-	/* Initialize incremental end-of-haystack pointer */
-	z = h;
+  /* Initialize incremental end-of-haystack pointer */
+  z = h;
 
-	/* Search loop */
-	for (;;) {
-		/* Update incremental end-of-haystack pointer */
-		if (z-h < l) {
-			/* Fast estimate for MIN(l,63) */
-			size_t grow = l | 63;
-			const wchar_t *z2 = wmemchr(z, 0, grow);
-			if (z2) {
-				z = z2;
-				if (z-h < l) return 0;
-			} else z += grow;
-		}
+  /* Search loop */
+  for (;;) {
+    /* Update incremental end-of-haystack pointer */
+    if (z-h < l) {
+      /* Fast estimate for MIN(l,63) */
+      size_t grow = l | 63;
+      const wchar_t *z2 = wmemchr(z, 0, grow);
+      if (z2) {
+        z = z2;
+        if (z-h < l) return 0;
+      } else z += grow;
+    }
 
-		/* Compare right half */
-		for (k=MAX(ms+1,mem); n[k] && n[k] == h[k]; k++);
-		if (n[k]) {
-			h += k-ms;
-			mem = 0;
-			continue;
-		}
-		/* Compare left half */
-		for (k=ms+1; k>mem && n[k-1] == h[k-1]; k--);
-		if (k <= mem) return (wchar_t *)h;
-		h += p;
-		mem = mem0;
-	}
+    /* Compare right half */
+    for (k=MAX(ms+1,mem); n[k] && n[k] == h[k]; k++);
+    if (n[k]) {
+      h += k-ms;
+      mem = 0;
+      continue;
+    }
+    /* Compare left half */
+    for (k=ms+1; k>mem && n[k-1] == h[k-1]; k--);
+    if (k <= mem) return (wchar_t *)h;
+    h += p;
+    mem = mem0;
+  }
 }
 
 wchar_t *wcsstr(const wchar_t * h, const wchar_t * n)
 {
-	/* Return immediately on empty needle or haystack */
-	if (!n[0]) return (wchar_t *)h;
-	if (!h[0]) return 0;
+  /* Return immediately on empty needle or haystack */
+  if (!n[0]) return (wchar_t *)h;
+  if (!h[0]) return 0;
 
-	/* Use faster algorithms for short needles */
-	h = wcschr(h, *n);
-	if (!h || !n[1]) return (wchar_t *)h;
-	if (!h[1]) return 0;
+  /* Use faster algorithms for short needles */
+  h = wcschr(h, *n);
+  if (!h || !n[1]) return (wchar_t *)h;
+  if (!h[1]) return 0;
 
-	return twoway_wcsstr(h, n);
+  return twoway_wcsstr(h, n);
 }
 
 #if defined(__DJGPP__)
 wchar_t *wcscpy(wchar_t * d, const wchar_t * s)
 {
-	wchar_t *a = d;
-	while ((*d++ = *s++));
-	return a;
+  wchar_t *a = d;
+  while ((*d++ = *s++));
+  return a;
 }
 
 wchar_t *wcscat(wchar_t *dest, const wchar_t * src)
 {
-	wcscpy(dest + wcslen(dest), src);
-	return dest;
+  wcscpy(dest + wcslen(dest), src);
+  return dest;
 }
 
 #endif

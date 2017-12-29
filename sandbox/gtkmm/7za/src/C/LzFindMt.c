@@ -459,8 +459,8 @@ void MatchFinderMt_Destruct(CMatchFinderMt *p, ISzAlloc *alloc)
 #define kHashBufferSize (kMtHashBlockSize * kMtHashNumBlocks)
 #define kBtBufferSize (kMtBtBlockSize * kMtBtNumBlocks)
 
-static THREAD_FUNC_RET_TYPE THREAD_FUNC_CALL_TYPE HashThreadFunc2(void *p) { HashThreadFunc((CMatchFinderMt *)p);  return 0; }
-static THREAD_FUNC_RET_TYPE THREAD_FUNC_CALL_TYPE BtThreadFunc2(void *p)
+static THREAD_FUNC_RET_TYPE HashThreadFunc2(void *p) { HashThreadFunc((CMatchFinderMt *)p);  return 0; }
+static THREAD_FUNC_RET_TYPE BtThreadFunc2(void *p)
 {
   Byte allocaDummy[0x180];
   unsigned i = 0;

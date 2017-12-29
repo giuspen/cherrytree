@@ -73,7 +73,6 @@ p7za_SOURCES = \
     src/C/XzDec.c \
     src/C/XzEnc.c \
     src/C/XzIn.c \
-    src/CPP/7zip/Archive/7z/7zCompressionMode.cpp \
     src/CPP/7zip/Archive/7z/7zDecode.cpp \
     src/CPP/7zip/Archive/7z/7zEncode.cpp \
     src/CPP/7zip/Archive/7z/7zExtract.cpp \
@@ -101,8 +100,6 @@ p7za_SOURCES = \
     src/CPP/7zip/Archive/Common/ItemNameUtils.cpp \
     src/CPP/7zip/Archive/Common/MultiStream.cpp \
     src/CPP/7zip/Archive/Common/OutStreamWithCRC.cpp \
-    src/CPP/7zip/Archive/Common/ParseProperties.cpp \
-    src/CPP/7zip/Archive/DeflateProps.cpp \
     src/CPP/7zip/Archive/GzHandler.cpp \
     src/CPP/7zip/Archive/LzmaHandler.cpp \
     src/CPP/7zip/Archive/PpmdHandler.cpp \
@@ -133,7 +130,6 @@ p7za_SOURCES = \
     src/CPP/7zip/Common/InOutTempBuffer.cpp \
     src/CPP/7zip/Common/LimitedStreams.cpp \
     src/CPP/7zip/Common/MemBlocks.cpp \
-    src/CPP/7zip/Common/MethodId.cpp \
     src/CPP/7zip/Common/MethodProps.cpp \
     src/CPP/7zip/Common/OffsetStream.cpp \
     src/CPP/7zip/Common/OutBuffer.cpp \
@@ -229,7 +225,6 @@ p7za_SOURCES = \
     src/CPP/Common/IntToString.cpp \
     src/CPP/Common/ListFileUtils.cpp \
     src/CPP/Common/MyString.cpp \
-    src/CPP/Common/MyVector.cpp \
     src/CPP/Common/MyWindows.cpp \
     src/CPP/Common/Sha1Reg.cpp \
     src/CPP/Common/Sha256Reg.cpp \

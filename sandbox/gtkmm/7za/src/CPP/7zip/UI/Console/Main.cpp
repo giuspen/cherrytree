@@ -160,7 +160,6 @@ static const char *kEverythingIsOk = "Everything is Ok";
 static const char *kUserErrorMessage = "Incorrect command line";
 static const char *kNoFormats = "7-Zip cannot find the code that works with archives.";
 static const char *kUnsupportedArcTypeMessage = "Unsupported archive type";
-// static const char *kUnsupportedUpdateArcType = "Can't create archive for that type";
 
 static CFSTR kDefaultSfxModule = FTEXT("7zCon.sfx");
 
@@ -171,25 +170,14 @@ static void ShowMessageAndThrowException(LPCSTR message, NExitCode::EEnum code)
   throw code;
 }
 
-static void GetArguments(int numArgs, const char *args[], UStringVector &parts)
-{
-  parts.Clear();
-  for (int i = 0; i < numArgs; i++)
-  {
-    UString s = MultiByteToUnicodeString(args[i]);
-    parts.Add(s);
-  }
-}
-
 static void ShowCopyrightAndHelp(CStdOutStream *so, bool needHelp)
 {
   if (!so)
     return;
   *so << kCopyrightString;
-  // *so << "# CPUs: " << (UInt64)NWindows::NSystem::GetNumberOfProcessors() << endl;
 
   showP7zipInfo(so);
- 
+
 
   if (needHelp)
     *so << kHelpString;
@@ -250,7 +238,7 @@ static int WarningsCheck(HRESULT result, const CCallbackConsoleBase &callback,
     bool showHeaders)
 {
   int exitCode = NExitCode::kSuccess;
-  
+
   if (callback.ScanErrors.Paths.Size() != 0)
   {
     if (se)
@@ -263,7 +251,7 @@ static int WarningsCheck(HRESULT result, const CCallbackConsoleBase &callback,
     }
     exitCode = NExitCode::kWarning;
   }
-  
+
   if (result != S_OK || errorInfo.ThereIsError())
   {
     if (se)
@@ -290,8 +278,6 @@ static int WarningsCheck(HRESULT result, const CCallbackConsoleBase &callback,
         *se << L"\nError:\n" << message;
     }
 
-    // we will work with (result) later
-    // throw CSystemException(result);
     return NExitCode::kFatalError;
   }
 
@@ -321,7 +307,7 @@ static int WarningsCheck(HRESULT result, const CCallbackConsoleBase &callback,
     }
     exitCode = NExitCode::kWarning;
   }
-  
+
   return exitCode;
 }
 
@@ -352,7 +338,7 @@ static void PrintTime(const char *s, UInt64 val, UInt64 total)
   *g_StdStream << '.';
   UInt32 ms = (UInt32)(val - (sec * kFreq)) / (kFreq / 1000);
   PrintNum(ms, 3, '0');
-  
+
   while (val > ((UInt64)1 << 56))
   {
     val >>= 1;
@@ -367,95 +353,7 @@ static void PrintTime(const char *s, UInt64 val, UInt64 total)
   *g_StdStream << '%';
 }
 
-#if 0 // #ifndef UNDER_CE
-
-#define SHIFT_SIZE_VALUE(x, num) (((x) + (1 << (num)) - 1) >> (num))
-
-static void PrintMemUsage(const char *s, UInt64 val)
-{
-  *g_StdStream << "    " << s << " Memory =";
-  PrintNum(SHIFT_SIZE_VALUE(val, 20), 7);
-  *g_StdStream << " MB";
-}
-
-EXTERN_C_BEGIN
-typedef BOOL (WINAPI *Func_GetProcessMemoryInfo)(HANDLE Process,
-    PPROCESS_MEMORY_COUNTERS ppsmemCounters, DWORD cb);
-EXTERN_C_END
-
-#endif
-
 static inline UInt64 GetTime64(const FILETIME &t) { return ((UInt64)t.dwHighDateTime << 32) | t.dwLowDateTime; }
-
-static void PrintStat()
-{
-#if 0
-  FILETIME creationTimeFT, exitTimeFT, kernelTimeFT, userTimeFT;
-  if (!
-      #ifdef UNDER_CE
-        ::GetThreadTimes(::GetCurrentThread()
-      #else
-        // NT 3.5
-        ::GetProcessTimes(::GetCurrentProcess()
-      #endif
-      , &creationTimeFT, &exitTimeFT, &kernelTimeFT, &userTimeFT))
-    return;
-  FILETIME curTimeFT;
-  NTime::GetCurUtcFileTime(curTimeFT);
-
-  #ifndef UNDER_CE
-  
-  PROCESS_MEMORY_COUNTERS m;
-  memset(&m, 0, sizeof(m));
-  BOOL memDefined = FALSE;
-  {
-    /* NT 4.0: GetProcessMemoryInfo() in Psapi.dll
-       Win7: new function K32GetProcessMemoryInfo() in kernel32.dll
-       It's faster to call kernel32.dll code than Psapi.dll code
-       GetProcessMemoryInfo() requires Psapi.lib
-       Psapi.lib in SDK7+ can link to K32GetProcessMemoryInfo in kernel32.dll
-       The program with K32GetProcessMemoryInfo will not work on systems before Win7
-       // memDefined = GetProcessMemoryInfo(GetCurrentProcess(), &m, sizeof(m));
-    */
-
-    Func_GetProcessMemoryInfo my_GetProcessMemoryInfo = (Func_GetProcessMemoryInfo)
-        ::GetProcAddress(::GetModuleHandleW(L"kernel32.dll"), "K32GetProcessMemoryInfo");
-    if (!my_GetProcessMemoryInfo)
-    {
-      HMODULE lib = LoadLibraryW(L"Psapi.dll");
-      if (lib)
-        my_GetProcessMemoryInfo = (Func_GetProcessMemoryInfo)::GetProcAddress(lib, "GetProcessMemoryInfo");
-    }
-    if (my_GetProcessMemoryInfo)
-      memDefined = my_GetProcessMemoryInfo(GetCurrentProcess(), &m, sizeof(m));
-    // FreeLibrary(lib);
-  }
-
-  #endif
-
-  UInt64 curTime = GetTime64(curTimeFT);
-  UInt64 creationTime = GetTime64(creationTimeFT);
-  UInt64 kernelTime = GetTime64(kernelTimeFT);
-  UInt64 userTime = GetTime64(userTimeFT);
-
-  UInt64 totalTime = curTime - creationTime;
-  
-  PrintTime("Kernel ", kernelTime, totalTime);
-  PrintTime("User   ", userTime, totalTime);
-  
-  PrintTime("Process", kernelTime + userTime, totalTime);
-  #ifndef UNDER_CE
-  if (memDefined) PrintMemUsage("Virtual ", m.PeakPagefileUsage);
-  #endif
-  
-  PrintTime("Global ", totalTime, totalTime);
-  #ifndef UNDER_CE
-  if (memDefined) PrintMemUsage("Physical", m.PeakWorkingSetSize);
-  #endif
-  
-  *g_StdStream << endl;
-#endif // FIXME 
-}
 
 static void PrintHexId(CStdOutStream &so, UInt64 id)
 {
@@ -464,15 +362,11 @@ static void PrintHexId(CStdOutStream &so, UInt64 id)
   PrintStringRight(so, s, 8);
 }
 
-int Main2(
-  int numArgs, char *args[]
-)
+int Main2(int numArgs, char *args[])
 {
-
   UStringVector commandStrings;
 
-  // GetArguments(numArgs, args, commandStrings);
-  mySplitCommandLine(numArgs,args,commandStrings);  
+  mySplitCommandLine(numArgs,args,commandStrings);
 
   if (commandStrings.Size() == 1)
   {
@@ -498,13 +392,13 @@ int Main2(
   CStdOutStream *percentsStream = NULL;
   if (options.Number_for_Percents != k_OutStream_disabled)
     percentsStream = (options.Number_for_Percents == k_OutStream_stderr) ? &g_StdErr : &g_StdOut;;
-  
+
   if (options.HelpMode)
   {
     ShowCopyrightAndHelp(g_StdStream, true);
     return 0;
   }
-  
+
   #ifdef _7ZIP_LARGE_PAGES
   if (options.LargePages)
   {
@@ -522,10 +416,6 @@ int Main2(
     percentsNameLevel = 2;
 
   unsigned consoleWidth = 80; // FIXME
-
-  if (percentsStream)
-  {
-  }
 
   CREATE_CODECS_OBJECT
 
@@ -548,7 +438,7 @@ int Main2(
       throw s;
     }
     #endif
-    
+
     throw kNoFormats;
   }
 
@@ -564,10 +454,9 @@ int Main2(
         || tempIndices.Size() != 1)
       throw kUnsupportedArcTypeMessage;
     excludedFormats.AddToUniqueSorted(tempIndices[0]);
-    // excludedFormats.Sort();
   }
 
-  
+
   #ifdef EXTERNAL_CODECS
   if (isExtractGroupCommand
       || options.Command.CommandType == NCommandType::kHash
@@ -577,15 +466,6 @@ int Main2(
 
   int retCode = NExitCode::kSuccess;
   HRESULT hresultMain = S_OK;
-
-  // bool showStat = options.ShowTime;
-  
-  /*
-  if (!options.EnableHeaders ||
-      options.TechMode)
-    showStat = false;
-  */
-  
 
   if (options.Command.CommandType == NCommandType::kInfo)
   {
@@ -602,10 +482,10 @@ int Main2(
     #endif
 
     so << endl << "Formats:" << endl;
-    
+
     const char *kArcFlags = "KSNFMGOPBELH";
     const unsigned kNumArcFlags = (unsigned)strlen(kArcFlags);
-    
+
     for (i = 0; i < codecs->Formats.Size(); i++)
     {
       const CArcInfoEx &arc = codecs->Formats[i];
@@ -617,18 +497,18 @@ int Main2(
       #endif
 
       so << (char)(arc.UpdateEnabled ? 'C' : ' ');
-      
+
       for (unsigned b = 0; b < kNumArcFlags; b++)
       {
         so << (char)
           ((arc.Flags & ((UInt32)1 << b)) != 0 ? kArcFlags[b] : ' ');
       }
-        
+
       so << ' ';
       PrintString(so, arc.Name, 8);
       so << ' ';
       UString s;
-      
+
       FOR_VECTOR (t, arc.Exts)
       {
         if (t != 0)
@@ -642,10 +522,10 @@ int Main2(
           s += L')';
         }
       }
-      
+
       PrintString(so, s, 13);
       so << ' ';
-      
+
       if (arc.SignatureOffset != 0)
         so << "offset=" << arc.SignatureOffset << ' ';
 
@@ -655,7 +535,7 @@ int Main2(
           so << "  ||  ";
 
         const CByteBuffer &sig = arc.Signatures[si];
-        
+
         for (size_t j = 0; j < sig.Size(); j++)
         {
           if (j != 0)
@@ -687,7 +567,7 @@ int Main2(
         so << ' ';
       else
         so << cod.NumStreams;
-      
+
       so << (char)(cod.CreateEncoder ? 'E' : ' ');
       so << (char)(cod.CreateDecoder ? 'D' : ' ');
 
@@ -710,7 +590,7 @@ int Main2(
         so << ' ';
       else
         so << numStreams;
-      
+
       so << (char)(codecs->GetCodec_EncoderIsAssigned(j) ? 'E' : ' ');
       so << (char)(codecs->GetCodec_DecoderIsAssigned(j) ? 'D' : ' ');
 
@@ -724,7 +604,7 @@ int Main2(
     }
 
     #endif
-    
+
 
     so << endl << "Hashers:" << endl; //  << " L Size       ID Name" << endl;
 
@@ -739,7 +619,7 @@ int Main2(
     }
 
     #ifdef EXTERNAL_CODECS
-    
+
     numMethods = codecs->GetNumHashers();
     for (UInt32 j = 0; j < numMethods; j++)
     {
@@ -751,7 +631,7 @@ int Main2(
     }
 
     #endif
-    
+
   }
   else if (options.Command.CommandType == NCommandType::kBenchmark)
   {
@@ -779,7 +659,7 @@ int Main2(
     else
     {
       CExtractScanConsole scan;
-      
+
       scan.Init(options.EnableHeaders ? g_StdStream : NULL, g_ErrStream, percentsStream);
       scan.SetWindowWidth(consoleWidth);
 
@@ -806,17 +686,6 @@ int Main2(
         if (options.EnableHeaders)
           scan.PrintStat(st);
       }
-      else
-      {
-        /*
-        if (res != E_ABORT)
-        {
-          throw CSystemException(res);
-          // errorInfo.Message = "Scanning error";
-        }
-        return res;
-        */
-      }
     }
 
     if (hresultMain == S_OK)
@@ -835,28 +704,18 @@ int Main2(
 
       ecs->LogLevel = options.LogLevel;
       ecs->PercentsNameLevel = percentsNameLevel;
-      
+
       if (percentsStream)
         ecs->SetWindowWidth(consoleWidth);
 
-      /*
-      COpenCallbackConsole openCallback;
-      openCallback.Init(g_StdStream, g_ErrStream);
-
-      #ifndef _NO_CRYPTO
-      openCallback.PasswordIsDefined = options.PasswordEnabled;
-      openCallback.Password = options.Password;
-      #endif
-      */
-
       CExtractOptions eo;
       (CExtractOptionsBase &)eo = options.ExtractOptions;
-      
+
       eo.StdInMode = options.StdInMode;
       eo.StdOutMode = options.StdOutMode;
       eo.YesToAll = options.YesToAll;
       eo.TestMode = options.Command.IsTestCommand();
-      
+
       #ifndef _SFX
       eo.Properties = options.Properties;
       #endif
@@ -872,7 +731,7 @@ int Main2(
         ThrowException_if_Error(hb.SetMethods(EXTERNAL_CODECS_VARS_L options.HashMethods));
         hb.Init();
       }
-      
+
       hresultMain = Extract(
           codecs,
           types,
@@ -881,7 +740,7 @@ int Main2(
           ArchivePathsFullSorted,
           options.Censor.Pairs.Front().Head,
           eo, ecs, ecs, hashCalc, errorMessage, stat);
-      
+
       ecs->ClosePercents();
 
       if (!errorMessage.IsEmpty())
@@ -899,7 +758,7 @@ int Main2(
       if (so)
       {
         *so << endl;
-        
+
         if (ecs->NumTryArcs > 1)
         {
           *so << "Archives: " << ecs->NumTryArcs << endl;
@@ -913,19 +772,19 @@ int Main2(
         if (so)
           *so << "Can't open as archive: " << ecs->NumCantOpenArcs << endl;
       }
-      
+
       if (ecs->NumArcsWithError != 0)
       {
         isError = true;
         if (so)
           *so << "Archives with Errors: " << ecs->NumArcsWithError << endl;
       }
-      
+
       if (so)
       {
         if (ecs->NumArcsWithWarnings != 0)
           *so << "Archives with Warnings: " << ecs->NumArcsWithWarnings << endl;
-        
+
         if (ecs->NumOpenArcWarnings != 0)
         {
           *so << endl;
@@ -933,7 +792,7 @@ int Main2(
             *so << "Warnings: " << ecs->NumOpenArcWarnings << endl;
         }
       }
-      
+
       if (ecs->NumOpenArcErrors != 0)
       {
         isError = true;
@@ -947,11 +806,10 @@ int Main2(
 
       if (isError)
         retCode = NExitCode::kFatalError;
-      
+
       if (so)
       if (ecs->NumArcsWithError != 0 || ecs->NumFileErrors != 0)
       {
-        // if (ecs->NumArchives > 1)
         {
           *so << endl;
           if (ecs->NumFileErrors != 0)
@@ -969,7 +827,7 @@ int Main2(
           *so << "Alternate Streams: " << stat.NumAltStreams << endl;
           *so << "Alternate Streams Size: " << stat.AltStreams_UnpackSize << endl;
         }
-        
+
         *so
           << "Size:       " << stat.UnpackSize << endl
           << "Compressed: " << stat.PackSize << endl;
@@ -984,8 +842,6 @@ int Main2(
     {
       UInt64 numErrors = 0;
       UInt64 numWarnings = 0;
-      
-      // options.ExtractNtOptions.StoreAltStreams = true, if -sns[-] is not definmed
 
       hresultMain = ListArchives(
           codecs,
@@ -1009,7 +865,7 @@ int Main2(
       if (options.EnableHeaders)
         if (numWarnings > 0)
           g_StdOut << endl << "Warnings: " << numWarnings << endl;
-      
+
       if (numErrors > 0)
       {
         if (options.EnableHeaders)
@@ -1049,15 +905,10 @@ int Main2(
 
     callback.StdOutMode = uo.StdOutMode;
     callback.Init(
-      // NULL,
       g_StdStream, g_ErrStream, percentsStream);
 
     CUpdateErrorInfo errorInfo;
 
-    /*
-    if (!uo.Init(codecs, types, options.ArchiveName))
-      throw kUnsupportedUpdateArcType;
-    */
     hresultMain = UpdateArchive(codecs,
         types,
         options.ArchiveName,
@@ -1097,7 +948,7 @@ int Main2(
     CHashCallbackConsole callback;
     if (percentsStream)
       callback.SetWindowWidth(consoleWidth);
-  
+
     callback.Init(g_StdStream, g_ErrStream, percentsStream);
     callback.PrintHeaders = options.EnableHeaders;
 
@@ -1114,9 +965,6 @@ int Main2(
   }
   else
     ShowMessageAndThrowException(kUserErrorMessage, NExitCode::kUserError);
-
-  if (options.ShowTime && g_StdStream)
-    PrintStat();
 
   ThrowException_if_Error(hresultMain);
 

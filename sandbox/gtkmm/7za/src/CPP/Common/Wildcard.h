@@ -36,8 +36,6 @@ struct CItem
   bool ForDir;
   bool WildcardMatching;
 
-  // CItem(): WildcardMatching(true) {}
-
   bool AreAllAllowed() const;
   bool CheckPath(const UStringVector &pathParts, bool isFile) const;
 };
@@ -70,11 +68,7 @@ public:
   bool NeedCheckSubDirs() const;
   bool AreThereIncludeItems() const;
 
-  // bool CheckPath2(bool isAltStream, const UString &path, bool isFile, bool &include) const;
-  // bool CheckPath(bool isAltStream, const UString &path, bool isFile) const;
-
   bool CheckPathToRoot(bool include, UStringVector &pathParts, bool isFile) const;
-  // bool CheckPathToRoot(const UString &path, bool isFile, bool include) const;
   void ExtendExclude(const CCensorNode &fromNodes);
 };
 

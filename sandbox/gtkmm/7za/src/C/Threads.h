@@ -19,11 +19,11 @@
 typedef struct _CThread
 {
 #ifdef ENV_BEOS
-	thread_id _tid;
+  thread_id _tid;
 #else
-	pthread_t _tid;
+  pthread_t _tid;
 #endif
-	int _created;
+  int _created;
 
 } CThread;
 
@@ -31,10 +31,9 @@ typedef struct _CThread
 #define Thread_WasCreated(thread) ((thread)->_created != 0)
 
 typedef unsigned THREAD_FUNC_RET_TYPE;
-#define THREAD_FUNC_CALL_TYPE MY_STD_CALL
-#define THREAD_FUNC_DECL THREAD_FUNC_RET_TYPE THREAD_FUNC_CALL_TYPE
+#define THREAD_FUNC_DECL THREAD_FUNC_RET_TYPE
 
-typedef THREAD_FUNC_RET_TYPE (THREAD_FUNC_CALL_TYPE * THREAD_FUNC_TYPE)(void *);
+typedef THREAD_FUNC_RET_TYPE (*THREAD_FUNC_TYPE)(void *);
 
 WRes Thread_Create(CThread *thread, THREAD_FUNC_TYPE startAddress, LPVOID parameter);
 WRes Thread_Wait(CThread *thread);
@@ -96,9 +95,9 @@ WRes Semaphore_Close(CSemaphore *p);
 
 typedef struct {
 #ifdef ENV_BEOS
-	sem_id _sem;
+  sem_id _sem;
 #else
-        pthread_mutex_t _mutex;
+  pthread_mutex_t _mutex;
 #endif
 } CCriticalSection;
 

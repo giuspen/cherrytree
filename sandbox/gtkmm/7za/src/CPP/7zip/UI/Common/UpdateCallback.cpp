@@ -245,17 +245,6 @@ STDMETHODIMP CArchiveUpdateCallback::GetRawProp(UInt32 index, PROPID propID, con
         // propID == kpidNtReparse
         if (!StoreSymLinks)
           return S_OK;
-        #if 0 // #ifndef UNDER_CE
-        const CByteBuffer *buf = &di.ReparseData2;
-        if (buf->Size() == 0)
-          buf = &di.ReparseData;
-        if (buf->Size() != 0)
-        {
-          *data = *buf;
-          *dataSize = (UInt32)buf->Size();
-          *propType = NPropDataType::kRaw;
-        }
-        #endif
       }
  
       return S_OK;
@@ -327,33 +316,6 @@ STDMETHODIMP CArchiveUpdateCallback::GetProperty(UInt32 index, PROPID propID, PR
       {
         prop.Detach(value);
         return S_OK;
-      }
-      if (up.DirIndex >= 0)
-      {
-        #if 0 // #ifndef UNDER_CE
-        const CDirItem &di = DirItems->Items[up.DirIndex];
-        // if (di.IsDir())
-        {
-          CReparseAttr attr;
-          if (attr.Parse(di.ReparseData, di.ReparseData.Size()))
-          {
-            UString simpleName = attr.GetPath();
-            if (attr.IsRelative())
-              prop = simpleName;
-            else
-            {
-              const FString phyPath = DirItems->GetPhyPath(up.DirIndex);
-              FString fullPath;
-              if (NDir::MyGetFullPathName(phyPath, fullPath))
-              {
-                prop = GetRelativePath(simpleName, fs2us(fullPath));
-              }
-            }
-            prop.Detach(value);
-            return S_OK;
-          }
-        }
-        #endif
       }
     }
     else if (propID == kpidHardLink)

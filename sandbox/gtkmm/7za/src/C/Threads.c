@@ -19,16 +19,16 @@
 
 /* TODO : optimize the code and verify the returned values */ 
 
-WRes Thread_Create(CThread *thread, THREAD_FUNC_RET_TYPE (THREAD_FUNC_CALL_TYPE *startAddress)(void *), LPVOID parameter)
+WRes Thread_Create(CThread *thread, THREAD_FUNC_RET_TYPE (*startAddress)(void *), LPVOID parameter)
 { 
-	thread->_tid = spawn_thread((int32 (*)(void *))startAddress, "CThread", B_LOW_PRIORITY, parameter);
-	if (thread->_tid >= B_OK) {
-		resume_thread(thread->_tid);
-	} else {
-		thread->_tid = B_BAD_THREAD_ID;
-	}
-	thread->_created = 1;
-	return 0; // SZ_OK;
+  thread->_tid = spawn_thread((int32 (*)(void *))startAddress, "CThread", B_LOW_PRIORITY, parameter);
+  if (thread->_tid >= B_OK) {
+    resume_thread(thread->_tid);
+  } else {
+    thread->_tid = B_BAD_THREAD_ID;
+  }
+  thread->_created = 1;
+  return 0; // SZ_OK;
 }
 
 WRes Thread_Wait(CThread *thread)
@@ -185,28 +185,28 @@ WRes CriticalSection_Init(CCriticalSection * lpCriticalSection)
 
 #else /* !ENV_BEOS */
 
-WRes Thread_Create(CThread *thread, THREAD_FUNC_RET_TYPE (THREAD_FUNC_CALL_TYPE *startAddress)(void *), LPVOID parameter)
+WRes Thread_Create(CThread *thread, THREAD_FUNC_RET_TYPE (*startAddress)(void *), LPVOID parameter)
 { 
-	pthread_attr_t attr;
-	int ret;
+  pthread_attr_t attr;
+  int ret;
 
-	thread->_created = 0;
+  thread->_created = 0;
 
-	ret = pthread_attr_init(&attr);
-	if (ret) return ret;
+  ret = pthread_attr_init(&attr);
+  if (ret) return ret;
 
-	ret = pthread_attr_setdetachstate(&attr,PTHREAD_CREATE_JOINABLE);
-	if (ret) return ret;
+  ret = pthread_attr_setdetachstate(&attr,PTHREAD_CREATE_JOINABLE);
+  if (ret) return ret;
 
-	ret = pthread_create(&thread->_tid, &attr, (void * (*)(void *))startAddress, parameter);
+  ret = pthread_create(&thread->_tid, &attr, (void * (*)(void *))startAddress, parameter);
 
-	/* ret2 = */ pthread_attr_destroy(&attr);
+  /* ret2 = */ pthread_attr_destroy(&attr);
 
-	if (ret) return ret;
-	
-	thread->_created = 1;
+  if (ret) return ret;
+  
+  thread->_created = 1;
 
-	return 0; // SZ_OK;
+  return 0; // SZ_OK;
 }
 
 WRes Thread_Wait(CThread *thread)
@@ -415,47 +415,47 @@ WRes Semaphore_Close(CSemaphore *p) {
 
 WRes CriticalSection_Init(CCriticalSection * lpCriticalSection)
 {
-	if (lpCriticalSection)
-	{
-		int ret;
-		pthread_mutexattr_t mutexattr;
-		memset(&mutexattr,0,sizeof(mutexattr));
-		ret = pthread_mutexattr_init(&mutexattr);
-		if (ret != 0) dump_error(__LINE__,ret,"CS I::pthread_mutexattr_init",&mutexattr);
-		ret = pthread_mutexattr_settype(&mutexattr,PTHREAD_MUTEX_ERRORCHECK);
-		if (ret != 0) dump_error(__LINE__,ret,"CS I::pthread_mutexattr_settype",&mutexattr);
-		ret = pthread_mutex_init(&lpCriticalSection->_mutex,&mutexattr);
-		if (ret != 0) dump_error(__LINE__,ret,"CS I::pthread_mutexattr_init",&lpCriticalSection->_mutex);
-		return ret;
-	}
-	return EINTR;
+  if (lpCriticalSection)
+  {
+    int ret;
+    pthread_mutexattr_t mutexattr;
+    memset(&mutexattr,0,sizeof(mutexattr));
+    ret = pthread_mutexattr_init(&mutexattr);
+    if (ret != 0) dump_error(__LINE__,ret,"CS I::pthread_mutexattr_init",&mutexattr);
+    ret = pthread_mutexattr_settype(&mutexattr,PTHREAD_MUTEX_ERRORCHECK);
+    if (ret != 0) dump_error(__LINE__,ret,"CS I::pthread_mutexattr_settype",&mutexattr);
+    ret = pthread_mutex_init(&lpCriticalSection->_mutex,&mutexattr);
+    if (ret != 0) dump_error(__LINE__,ret,"CS I::pthread_mutexattr_init",&lpCriticalSection->_mutex);
+    return ret;
+  }
+  return EINTR;
 }
 
 void CriticalSection_Enter(CCriticalSection * lpCriticalSection)
 {
-	if (lpCriticalSection)
-	{
-		int ret = pthread_mutex_lock(&(lpCriticalSection->_mutex));
+  if (lpCriticalSection)
+  {
+    int ret = pthread_mutex_lock(&(lpCriticalSection->_mutex));
                 if (ret != 0) dump_error(__LINE__,ret,"CS::pthread_mutex_lock",&(lpCriticalSection->_mutex));
-	}
+  }
 }
 
 void CriticalSection_Leave(CCriticalSection * lpCriticalSection)
 {
-	if (lpCriticalSection)
-	{
-		int ret = pthread_mutex_unlock(&(lpCriticalSection->_mutex));
+  if (lpCriticalSection)
+  {
+    int ret = pthread_mutex_unlock(&(lpCriticalSection->_mutex));
                 if (ret != 0) dump_error(__LINE__,ret,"CS::pthread_mutex_unlock",&(lpCriticalSection->_mutex));
-	}
+  }
 }
 
 void CriticalSection_Delete(CCriticalSection * lpCriticalSection)
 {
-	if (lpCriticalSection)
-	{
-		int ret = pthread_mutex_destroy(&(lpCriticalSection->_mutex));
+  if (lpCriticalSection)
+  {
+    int ret = pthread_mutex_destroy(&(lpCriticalSection->_mutex));
                 if (ret != 0) dump_error(__LINE__,ret,"CS::pthread_mutex_destroy",&(lpCriticalSection->_mutex));
-	}
+  }
 }
 
 #else
@@ -562,7 +562,7 @@ WRes Semaphore_Close(CSemaphore *p) {
 
 WRes CriticalSection_Init(CCriticalSection * lpCriticalSection)
 {
-	return pthread_mutex_init(&(lpCriticalSection->_mutex),0);
+  return pthread_mutex_init(&(lpCriticalSection->_mutex),0);
 }
 
 #endif /* DEBUG_SYNCHRO */

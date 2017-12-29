@@ -65,15 +65,9 @@ typedef unsigned long UInt64;
 
 #else
 
-#if defined(_MSC_VER) || defined(__BORLANDC__)
-typedef __int64 Int64;
-typedef unsigned __int64 UInt64;
-#define UINT64_CONST(n) n
-#else
 typedef long long int Int64;
 typedef unsigned long long int UInt64;
 #define UINT64_CONST(n) n ## ULL
-#endif
 
 #endif
 
@@ -88,26 +82,7 @@ typedef int Bool;
 #define False 0
 
 
-#define MY_STD_CALL
-
-#ifdef _MSC_VER
-
-#if _MSC_VER >= 1300
-#define MY_NO_INLINE __declspec(noinline)
-#else
-#define MY_NO_INLINE
-#endif
-
-#define MY_CDECL __cdecl
-#define MY_FAST_CALL __fastcall
-
-#else
-
-#define MY_NO_INLINE
-#define MY_CDECL
 #define MY_FAST_CALL
-
-#endif
 
 
 /* The following interfaces use first parameter as pointer to structure */
