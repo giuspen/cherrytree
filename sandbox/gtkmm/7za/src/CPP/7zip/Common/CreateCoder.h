@@ -26,80 +26,6 @@
     2) External codecs
 */
 
-#ifdef EXTERNAL_CODECS
-
-struct CCodecInfoEx
-{
-  CMethodId Id;
-  AString Name;
-  UInt32 NumStreams;
-  bool EncoderIsAssigned;
-  bool DecoderIsAssigned;
-  
-  CCodecInfoEx(): EncoderIsAssigned(false), DecoderIsAssigned(false) {}
-};
-
-struct CHasherInfoEx
-{
-  CMethodId Id;
-  AString Name;
-};
-
-#define PUBLIC_ISetCompressCodecsInfo public ISetCompressCodecsInfo,
-#define QUERY_ENTRY_ISetCompressCodecsInfo MY_QUERYINTERFACE_ENTRY(ISetCompressCodecsInfo)
-#define DECL_ISetCompressCodecsInfo STDMETHOD(SetCompressCodecsInfo)(ICompressCodecsInfo *compressCodecsInfo);
-#define IMPL_ISetCompressCodecsInfo2(x) \
-STDMETHODIMP x::SetCompressCodecsInfo(ICompressCodecsInfo *compressCodecsInfo) { \
-  COM_TRY_BEGIN __externalCodecs.GetCodecs = compressCodecsInfo;  return __externalCodecs.Load(); COM_TRY_END }
-#define IMPL_ISetCompressCodecsInfo IMPL_ISetCompressCodecsInfo2(CHandler)
-
-struct CExternalCodecs
-{
-  CMyComPtr<ICompressCodecsInfo> GetCodecs;
-  CMyComPtr<IHashers> GetHashers;
-
-  CObjectVector<CCodecInfoEx> Codecs;
-  CObjectVector<CHasherInfoEx> Hashers;
-
-  bool IsSet() const { return GetCodecs != NULL || GetHashers != NULL; }
-
-  HRESULT Load();
-
-  void ClearAndRelease()
-  {
-    Hashers.Clear();
-    Codecs.Clear();
-    GetHashers.Release();
-    GetCodecs.Release();
-  }
-
-  ~CExternalCodecs()
-  {
-    GetHashers.Release();
-    GetCodecs.Release();
-  }
-};
-
-extern CExternalCodecs g_ExternalCodecs;
-
-#define EXTERNAL_CODECS_VARS2   (__externalCodecs.IsSet() ? &__externalCodecs : &g_ExternalCodecs)
-#define EXTERNAL_CODECS_VARS2_L (&__externalCodecs)
-#define EXTERNAL_CODECS_VARS2_G (&g_ExternalCodecs)
-
-#define DECL_EXTERNAL_CODECS_VARS CExternalCodecs __externalCodecs;
-
-#define EXTERNAL_CODECS_VARS   EXTERNAL_CODECS_VARS2,
-#define EXTERNAL_CODECS_VARS_L EXTERNAL_CODECS_VARS2_L,
-#define EXTERNAL_CODECS_VARS_G EXTERNAL_CODECS_VARS2_G,
-
-#define DECL_EXTERNAL_CODECS_LOC_VARS2 const CExternalCodecs *__externalCodecs
-#define EXTERNAL_CODECS_LOC_VARS2 __externalCodecs
-
-#define DECL_EXTERNAL_CODECS_LOC_VARS DECL_EXTERNAL_CODECS_LOC_VARS2,
-#define EXTERNAL_CODECS_LOC_VARS EXTERNAL_CODECS_LOC_VARS2,
-
-#else
-
 #define PUBLIC_ISetCompressCodecsInfo
 #define QUERY_ENTRY_ISetCompressCodecsInfo
 #define DECL_ISetCompressCodecsInfo
@@ -113,11 +39,6 @@ extern CExternalCodecs g_ExternalCodecs;
 #define EXTERNAL_CODECS_LOC_VARS2
 #define DECL_EXTERNAL_CODECS_LOC_VARS
 #define EXTERNAL_CODECS_LOC_VARS
-
-#endif
-
-
-
 
 bool FindMethod(
     DECL_EXTERNAL_CODECS_LOC_VARS

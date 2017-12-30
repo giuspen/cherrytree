@@ -43,10 +43,6 @@ struct CExtractOptions: public CExtractOptionsBase
 
   CObjectVector<CProperty> Properties;
 
-  #ifdef EXTERNAL_CODECS
-  CCodecs *Codecs;
-  #endif
-
   CExtractOptions():
       TestMode(false),
       StdInMode(false),

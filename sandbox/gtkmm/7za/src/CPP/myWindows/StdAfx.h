@@ -52,7 +52,7 @@
 
 EXTERN_C_BEGIN
 
-size_t	wcslen(const wchar_t *);
+size_t  wcslen(const wchar_t *);
 wchar_t *wcscpy(wchar_t * , const wchar_t * );
 wchar_t *wcscat(wchar_t * , const wchar_t * );
 
@@ -155,16 +155,16 @@ typedef void * WNDPROC;
 typedef void * CREATESTRUCT;
 typedef struct
 {
-	HWND  hwndFrom;
+  HWND  hwndFrom;
 
-	UINT  code;
+  UINT  code;
 #define NM_DBLCLK       1
 #define LVN_ITEMCHANGED 2
-#define LVN_COLUMNCLICK 3	
+#define LVN_COLUMNCLICK 3
 #define CBEN_BEGINEDIT  10
 #define CBEN_ENDEDITW   11
-	
-	
+
+
 } NMHDR;
 typedef NMHDR * LPNMHDR;
 
@@ -204,13 +204,7 @@ LANGID GetSystemDefaultLangID(void);
 #define PRIMARYLANGID(l)        ((WORD)(l) & 0x3ff)
 #define SUBLANGID(l)            ((WORD)(l) >> 10)
 
-#if defined( __x86_64__ )
-
-#define _WIN64 1
-
 #endif
 
 #endif
-
-#endif 
 

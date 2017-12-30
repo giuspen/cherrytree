@@ -29,10 +29,6 @@
 #include "../Common/ExitCode.h"
 #include "../Common/Extract.h"
 
-#ifdef EXTERNAL_CODECS
-#include "../Common/LoadCodecs.h"
-#endif
-
 #include "../../Common/RegisterCodec.h"
 
 #include "BenchCon.h"
@@ -64,12 +60,10 @@ extern unsigned g_NumHashers;
 extern const CHasherInfo *g_Hashers[];
 
 static const char *kCopyrightString = "\n7-Zip"
-#ifndef EXTERNAL_CODECS
 #ifdef PROG_VARIANT_R
 " (r)"
 #else
 " (a)"
-#endif
 #endif
 
 #ifdef MY_CPU_64BIT
@@ -82,12 +76,10 @@ static const char *kCopyrightString = "\n7-Zip"
 
 static const char *kHelpString =
     "Usage: 7z"
-#ifndef EXTERNAL_CODECS
 #ifdef PROG_VARIANT_R
     "r"
 #else
     "a"
-#endif
 #endif
     " <command> [<switches>...] <archive_name> [<file_names>...]\n"
     "       [<@listfiles...>]\n"
@@ -176,11 +168,9 @@ static void ShowCopyrightAndHelp(CStdOutStream *so, bool needHelp)
 
   showP7zipInfo(so);
 
-
   if (needHelp)
     *so << kHelpString;
 }
-
 
 static void PrintStringRight(CStdOutStream &so, const AString &s, unsigned size)
 {
@@ -315,7 +305,6 @@ static void ThrowException_if_Error(HRESULT res)
     throw CSystemException(res);
 }
 
-
 static void PrintNum(UInt64 val, unsigned numDigits, char c = ' ')
 {
   char temp[64];
@@ -428,15 +417,6 @@ int Main2(int numArgs, char *args[])
         || options.Command.CommandType == NCommandType::kList
         || options.Command.IsFromUpdateGroup()))
   {
-    #ifdef EXTERNAL_CODECS
-    if (!codecs->MainDll_ErrorPath.IsEmpty())
-    {
-      UString s = L"Can't load module ";
-      s += fs2us(codecs->MainDll_ErrorPath);
-      throw s;
-    }
-    #endif
-
     throw kNoFormats;
   }
 
@@ -454,14 +434,6 @@ int Main2(int numArgs, char *args[])
     excludedFormats.AddToUniqueSorted(tempIndices[0]);
   }
 
-
-  #ifdef EXTERNAL_CODECS
-  if (isExtractGroupCommand
-      || options.Command.CommandType == NCommandType::kHash
-      || options.Command.CommandType == NCommandType::kBenchmark)
-    ThrowException_if_Error(__externalCodecs.Load());
-  #endif
-
   int retCode = NExitCode::kSuccess;
   HRESULT hresultMain = S_OK;
 
@@ -469,15 +441,6 @@ int Main2(int numArgs, char *args[])
   {
     CStdOutStream &so = (g_StdStream ? *g_StdStream : g_StdOut);
     unsigned i;
-
-    #ifdef EXTERNAL_CODECS
-    so << endl << "Libs:" << endl;
-    for (i = 0; i < codecs->Libs.Size(); i++)
-    {
-      PrintLibIndex(so, i);
-      so << ' ' << codecs->Libs[i].Path << endl;
-    }
-    #endif
 
     so << endl << "Formats:" << endl;
 
@@ -488,11 +451,7 @@ int Main2(int numArgs, char *args[])
     {
       const CArcInfoEx &arc = codecs->Formats[i];
 
-      #ifdef EXTERNAL_CODECS
-      PrintLibIndex(so, arc.LibIndex);
-      #else
       so << "  ";
-      #endif
 
       so << (char)(arc.UpdateEnabled ? 'C' : ' ');
 
@@ -574,36 +533,6 @@ int Main2(int numArgs, char *args[])
       so << ' ' << cod.Name << endl;
     }
 
-
-    #ifdef EXTERNAL_CODECS
-
-    UInt32 numMethods;
-    if (codecs->GetNumMethods(&numMethods) == S_OK)
-    for (UInt32 j = 0; j < numMethods; j++)
-    {
-      PrintLibIndex(so, codecs->GetCodec_LibIndex(j));
-
-      UInt32 numStreams = codecs->GetCodec_NumStreams(j);
-      if (numStreams == 1)
-        so << ' ';
-      else
-        so << numStreams;
-
-      so << (char)(codecs->GetCodec_EncoderIsAssigned(j) ? 'E' : ' ');
-      so << (char)(codecs->GetCodec_DecoderIsAssigned(j) ? 'D' : ' ');
-
-      so << ' ';
-      UInt64 id;
-      HRESULT res = codecs->GetCodec_Id(j, id);
-      if (res != S_OK)
-        id = (UInt64)(Int64)-1;
-      PrintHexId(so, id);
-      so << ' ' << codecs->GetCodec_Name(j) << endl;
-    }
-
-    #endif
-
-
     so << endl << "Hashers:" << endl; //  << " L Size       ID Name" << endl;
 
     for (i = 0; i < g_NumHashers; i++)
@@ -615,21 +544,6 @@ int Main2(int numArgs, char *args[])
       PrintHexId(so, codec.Id);
       so << ' ' << codec.Name << endl;
     }
-
-    #ifdef EXTERNAL_CODECS
-
-    numMethods = codecs->GetNumHashers();
-    for (UInt32 j = 0; j < numMethods; j++)
-    {
-      PrintLibIndex(so, codecs->GetHasherLibIndex(j));
-      PrintUInt32(so, codecs->GetHasherDigestSize(j), 4);
-      so << ' ';
-      PrintHexId(so, codecs->GetHasherId(j));
-      so << ' ' << codecs->GetHasherName(j) << endl;
-    }
-
-    #endif
-
   }
   else if (options.Command.CommandType == NCommandType::kBenchmark)
   {

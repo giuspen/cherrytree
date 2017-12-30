@@ -519,17 +519,6 @@ static HRESULT Compress(
   else
   {
     RINOK(codecs->CreateOutArchive(formatIndex, outArchive));
-
-    #ifdef EXTERNAL_CODECS
-    {
-      CMyComPtr<ISetCompressCodecsInfo> setCompressCodecsInfo;
-      outArchive.QueryInterface(IID_ISetCompressCodecsInfo, (void **)&setCompressCodecsInfo);
-      if (setCompressCodecsInfo)
-      {
-        RINOK(setCompressCodecsInfo->SetCompressCodecsInfo(codecs));
-      }
-    }
-    #endif
   }
 
   if (outArchive == 0)

@@ -1688,9 +1688,6 @@ HRESULT Update(
 
   if (options.MultiThreadMixer && thereAreRepacks)
   {
-    #ifdef EXTERNAL_CODECS
-    threadDecoder.__externalCodecs = __externalCodecs;
-    #endif
     RINOK(threadDecoder.Create());
   }
 

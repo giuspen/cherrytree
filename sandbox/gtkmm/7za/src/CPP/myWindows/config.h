@@ -35,9 +35,9 @@
     /* towupper */
     #define ENV_HAVE_TOWUPPER
   #endif
-		
-  
-  
+
+
+
   #if !defined(ENV_BEOS) && !defined(ANDROID_NDK)
 
     #define ENV_HAVE_GETPASS

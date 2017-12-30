@@ -1086,25 +1086,6 @@ HRESULT CArc::PrepareToOpen(const COpenOptions &op, unsigned formatIndex, CMyCom
   if (!archive)
     return S_OK;
 
-  #ifdef EXTERNAL_CODECS
-  if (op.codecs->NeedSetLibCodecs)
-  {
-    const CArcInfoEx &ai = op.codecs->Formats[formatIndex];
-    if (ai.LibIndex >= 0 ?
-        !op.codecs->Libs[ai.LibIndex].SetCodecs :
-        !op.codecs->Libs.IsEmpty())
-    {
-      CMyComPtr<ISetCompressCodecsInfo> setCompressCodecsInfo;
-      archive.QueryInterface(IID_ISetCompressCodecsInfo, (void **)&setCompressCodecsInfo);
-      if (setCompressCodecsInfo)
-      {
-        RINOK(setCompressCodecsInfo->SetCompressCodecsInfo(op.codecs));
-      }
-    }
-  }
-  #endif
-
-
   const CArcInfoEx &ai = op.codecs->Formats[formatIndex];
 
   if (ai.Flags_PreArc())

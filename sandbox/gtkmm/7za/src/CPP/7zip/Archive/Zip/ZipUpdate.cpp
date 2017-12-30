@@ -732,9 +732,6 @@ static HRESULT Update2(
     for (i = 0; i < numThreads; i++)
     {
       CThreadInfo &threadInfo = threads.Threads[i];
-      #ifdef EXTERNAL_CODECS
-      threadInfo.__externalCodecs = __externalCodecs;
-      #endif
       RINOK(threadInfo.CreateEvents(&synchroForCompressingCompletedEvents));
       threadInfo.OutStreamSpec = new COutMemStream(&memManager);
       RINOK(threadInfo.OutStreamSpec->CreateEvents(&synchroForOutStreamSpec));
