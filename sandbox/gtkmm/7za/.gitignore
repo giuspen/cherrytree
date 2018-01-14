@@ -1,5 +1,7 @@
 p7za
 
+libp7za.a
+
 ABOUT-NLS
 COPYING
 INSTALL
@@ -20,3 +22,8 @@ po/stamp-it
 stamp-h1
 *.deps/
 *.dirstamp
+
+ar-lib
+
+Makefile.am
+configure.ac

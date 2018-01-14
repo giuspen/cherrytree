@@ -12,7 +12,7 @@ ACLOCAL_AMFLAGS = ${ACLOCAL_FLAGS}
 ## obtained from pkg-config via PKG_CHECK_MODULES in configure.ac.  These
 ## flags are passed to the compiler for both C and C++, in addition to the
 ## language-specific options.
-AM_CPPFLAGS = $(P7ZA_CFLAGS) \
+AM_CPPFLAGS = $(LIBP7ZA_CFLAGS) \
     -Isrc/CPP/myWindows \
     -Isrc/CPP \
     -Isrc/CPP/include_windows \
@@ -26,16 +26,15 @@ AM_CPPFLAGS = $(P7ZA_CFLAGS) \
     -D_UNICODE \
     -DUNIX_USE_WIN_FILE
 
-## Define an executable target, which will be installed into the
-## directory named by the predefined variable $(bindir).
-bin_PROGRAMS = p7za
+## Target
+lib_LIBRARIES = libp7za.a
 
 ## Define the list of source files for the target. The file extension
 ## .c is recognized by Automake, and causes it to produce rules which invoke
 ## the C compiler to produce an object file (.o) from each source file. The
 ## header files (.h) do not result in object files by themselves, but will be
 ## included in distribution archives of the project.
-p7za_SOURCES = \
+libp7za_a_SOURCES = \
     src/C/7zCrc.c \
     src/C/7zCrcOpt.c \
     src/C/7zStream.c \
@@ -248,11 +247,6 @@ p7za_SOURCES = \
     src/CPP/myWindows/myAddExeFlag.cpp \
     src/CPP/myWindows/mySplitCommandLine.cpp \
     src/CPP/myWindows/wine_date_and_time.cpp
-
-## Set the library dependencies for the "example" target to the value obtained
-## from pkg-config via PKG_CHECK_MODULES in configure.ac.  These libraries are
-## passed to the linker in addition to the other linker flags.
-p7za_LDADD = $(P7ZA_LIBS) -lpthread
 
 ## Define an independent executable script for inclusion in the distribution
 ## archive. It will not be installed on an end user's system, however.
