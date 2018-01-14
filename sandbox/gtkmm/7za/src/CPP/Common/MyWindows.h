@@ -95,6 +95,7 @@ typedef LONG SCODE;
 
 DEFINE_GUID(IID_IUnknown,
 0x00000000, 0x0000, 0x0000, 0xC0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x46);
+
 struct IUnknown
 {
   STDMETHOD(QueryInterface) (REFIID iid, void **outObject) PURE;

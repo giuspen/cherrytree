@@ -8,12 +8,13 @@
 typedef int HRes;
 
 #ifdef __cplusplus
+
 struct CBoolPair
 {
   bool Val;
   bool Def;
 
-  CBoolPair(): Val(false), Def(false) {}
+  CBoolPair() : Val(false), Def(false) {}
   
   void Init()
   {
@@ -30,9 +31,9 @@ struct CBoolPair
 
 #define CLASS_NO_COPY(cls) \
   private: \
-  cls(const cls &); \
-  cls &operator=(const cls &);
+    cls(const cls &); \
+    cls &operator=(const cls &);
 
-#endif
+#endif // __cplusplus
 
 #endif

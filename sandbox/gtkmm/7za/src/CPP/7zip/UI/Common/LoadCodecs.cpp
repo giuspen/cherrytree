@@ -1,36 +1,5 @@
 // LoadCodecs.cpp
 
-/*
-EXTERNAL_CODECS
----------------
-  CCodecs::Load() tries to detect the directory with plugins.
-  It stops the checking, if it can find any of the following items:
-    - 7z.dll file
-    - "Formats" subdir
-    - "Codecs"  subdir
-  The order of check:
-    1) directory of client executable
-    2) WIN32: directory for REGISTRY item [HKEY_*\Software\7-Zip\Path**]
-       The order for HKEY_* : Path** :
-         - HKEY_CURRENT_USER  : PathXX
-         - HKEY_LOCAL_MACHINE : PathXX
-         - HKEY_CURRENT_USER  : Path
-         - HKEY_LOCAL_MACHINE : Path
-       PathXX is Path32 in 32-bit code
-       PathXX is Path64 in 64-bit code
-
-
-EXPORT_CODECS
--------------
-  if (EXTERNAL_CODECS) is defined, then the code exports internal
-  codecs of client from CCodecs object to external plugins.
-  7-Zip doesn't use that feature. 7-Zip uses the scheme:
-    - client application without internal plugins.
-    - 7z.dll module contains all (or almost all) plugins.
-      7z.dll can use codecs from another plugins, if required.
-*/
-
-
 #include "StdAfx.h"
 
 #include "../../../../C/7zVersion.h"

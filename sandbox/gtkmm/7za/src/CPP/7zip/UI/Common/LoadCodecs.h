@@ -3,49 +3,6 @@
 #ifndef __LOAD_CODECS_H
 #define __LOAD_CODECS_H
 
-/*
-Client application uses LoadCodecs.* to load plugins to
-CCodecs object, that contains 3 lists of plugins:
-  1) Formats - internal and external archive handlers
-  2) Codecs  - external codecs
-  3) Hashers - external hashers
-
-EXTERNAL_CODECS
----------------
-
-  if EXTERNAL_CODECS is defined, then the code tries to load external
-  plugins from DLL files (shared libraries).
-
-  There are two types of executables in 7-Zip:
-
-  1) Executable that uses external plugins must be compiled
-     with EXTERNAL_CODECS defined:
-       - 7z.exe, 7zG.exe, 7zFM.exe
-
-     Note: EXTERNAL_CODECS is used also in CPP/7zip/Common/CreateCoder.h
-           that code is used in plugin module (7z.dll).
-
-  2) Standalone modules are compiled without EXTERNAL_CODECS:
-    - SFX modules: 7z.sfx, 7zCon.sfx
-    - standalone versions of console 7-Zip: 7za.exe, 7zr.exe
-
-  if EXTERNAL_CODECS is defined, CCodecs class implements interfaces:
-    - ICompressCodecsInfo : for Codecs
-    - IHashers            : for Hashers
-
-  The client application can send CCodecs object to each plugin module.
-  And plugin module can use ICompressCodecsInfo or IHashers interface to access
-  another plugins.
-
-  There are 2 ways to send (ICompressCodecsInfo * compressCodecsInfo) to plugin
-    1) for old versions:
-        a) request ISetCompressCodecsInfo from created archive handler.
-        b) call ISetCompressCodecsInfo::SetCompressCodecsInfo(compressCodecsInfo)
-    2) for new versions:
-        a) request "SetCodecs" function from DLL file
-        b) call SetCodecs(compressCodecsInfo) function from DLL file
-*/
-
 #include "../../../Common/MyBuffer.h"
 #include "../../../Common/MyCom.h"
 #include "../../../Common/MyString.h"
@@ -54,7 +11,6 @@ EXTERNAL_CODECS
 #include "../../ICoder.h"
 
 #include "../../Archive/IArchive.h"
-
 
 struct CArcExtInfo
 {
@@ -102,6 +58,7 @@ struct CArcInfoEx
       return UString();
     return Exts[0].Ext;
   }
+
   int FindExtension(const UString &ext) const;
 
   void AddExts(const UString &ext, const UString &addExt);
@@ -111,15 +68,15 @@ struct CArcInfoEx
   CArcInfoEx():
       Flags(0),
       CreateInArchive(NULL),
-      IsArcFunc(NULL)
-      , CreateOutArchive(NULL)
-      , UpdateEnabled(false)
-      , NewInterface(false)
-      , SignatureOffset(0)
+      IsArcFunc(NULL),
+      CreateOutArchive(NULL),
+      UpdateEnabled(false),
+      NewInterface(false),
+      SignatureOffset(0)
   {}
 };
 
-class CCodecs:
+class CCodecs :
   public IUnknown,
   public CMyUnknownImp
 {
@@ -133,12 +90,10 @@ public:
   CCodecs() :
       CaseSensitiveChange(false),
       CaseSensitive(false)
-      {}
+  {}
 
   ~CCodecs()
-  {
-    // OutputDebugStringA("~CCodecs");
-  }
+  {}
 
   const wchar_t *GetFormatNamePtr(int formatIndex) const
   {
