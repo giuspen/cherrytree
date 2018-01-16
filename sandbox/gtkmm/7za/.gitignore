@@ -27,3 +27,5 @@ ar-lib
 
 Makefile.am
 configure.ac
+
+*bin_test_lib_p7za_exec

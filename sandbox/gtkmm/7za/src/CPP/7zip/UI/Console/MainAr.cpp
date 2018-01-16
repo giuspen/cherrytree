@@ -42,7 +42,11 @@ static void PrintError(const char *message)
 
 #define NT_CHECK_FAIL_ACTION *g_StdStream << "Unsupported Windows version"; return NExitCode::kFatalError;
 
+#ifdef _LIB_FOR_CHERRYTREE
+int p7za_exec(int numArgs, char *args[])
+#else
 int main(int numArgs, char *args[])
+#endif
 {
   g_ErrStream = &g_StdErr;
   g_StdStream = &g_StdOut;
