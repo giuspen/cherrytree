@@ -295,7 +295,8 @@ class CherryTree:
         """Returns the Stock Id given the Node Level"""
         if custom_icon_id:
             # overridden icon
-            stock_id = cons.NODES_STOCKS[custom_icon_id]
+            try: stock_id = cons.NODES_STOCKS[custom_icon_id]
+            except: stock_id = cons.NODES_STOCKS[cons.NODE_ICON_NO_ICON_ID]
         elif node_code in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID]:
             # text node
             if self.nodes_icons == "c":
