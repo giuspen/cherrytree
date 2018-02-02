@@ -28,14 +28,14 @@ AM_CPPFLAGS = $(LIBP7ZA_CFLAGS) \
     -D_LIB_FOR_CHERRYTREE
 
 ## Target
-lib_LIBRARIES = libp7za.a
+lib_LTLIBRARIES = libp7za.la
 
 ## Define the list of source files for the target. The file extension
 ## .c is recognized by Automake, and causes it to produce rules which invoke
 ## the C compiler to produce an object file (.o) from each source file. The
 ## header files (.h) do not result in object files by themselves, but will be
 ## included in distribution archives of the project.
-libp7za_a_SOURCES = \
+libp7za_la_SOURCES = \
     src/C/7zCrc.c \
     src/C/7zCrcOpt.c \
     src/C/7zStream.c \

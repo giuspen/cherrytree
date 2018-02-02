@@ -1,7 +1,7 @@
 
 // https://cpputest.github.io/
 // sudo apt install cpputest
-// g++ test_lib_p7za_exec.cpp -o bin_test_lib_p7za_exec ../libp7za.a `pkg-config cpputest glibmm-2.4 --cflags --libs` -lpthread
+// g++ test_lib_p7za_exec.cpp ../.libs/libp7za.so -o bin_test_lib_p7za_exec `pkg-config cpputest glibmm-2.4 --cflags --libs` -lpthread
 
 #include <glib/gstdio.h>
 #include <glibmm.h>
@@ -57,7 +57,7 @@ TEST_GROUP(P7zaExecGroup)
 TEST(P7zaExecGroup, extract)
 {
     _extract(CTZ_INPUT_PATH.c_str());
-    CHECK(Glib::file_test(CTZ_INPUT_PATH, Glib::FILE_TEST_EXISTS));
+    CHECK(Glib::file_test(CTD_TMP_PATH, Glib::FILE_TEST_EXISTS));
 }
 
 
