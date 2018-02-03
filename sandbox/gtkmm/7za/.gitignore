@@ -1,6 +1,6 @@
 p7za
 
-libp7za.la
+libp7za.a
 
 ABOUT-NLS
 COPYING
@@ -22,10 +22,6 @@ po/stamp-it
 stamp-h1
 *.deps/
 *.dirstamp
-*.lo
-.libs/
-libtool
-ltmain.sh
 
 ar-lib
 
