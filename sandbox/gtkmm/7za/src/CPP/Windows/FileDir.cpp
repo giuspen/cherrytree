@@ -24,7 +24,11 @@ using namespace NName;
 #include <unistd.h> // rmdir
 #include <errno.h>
 
+#ifdef _WIN32
+#include <direct.h> // mkdir
+#else
 #include <sys/stat.h> // mkdir
+#endif // _WIN32
 #include <sys/types.h>
 #include <fcntl.h>
 
@@ -221,6 +225,7 @@ bool GetLongPath(CFSTR fileName, UString &res);
 
 namespace NDir {
 
+#ifndef _LIB_FOR_CHERRYTREE
 bool SetDirTime(CFSTR fileName, const FILETIME * /* cTime */ , const FILETIME *aTime, const FILETIME *mTime)
 {
   AString  cfilename = UnicodeStringToMultiByte(fileName);
@@ -263,6 +268,7 @@ bool SetDirTime(CFSTR fileName, const FILETIME * /* cTime */ , const FILETIME *a
 
   return true;
 }
+#endif // _LIB_FOR_CHERRYTREE
 
 #ifdef WIN_LONG_PATH
 bool GetLongPaths(CFSTR s1, CFSTR s2, UString &d1, UString &d2)
@@ -278,6 +284,7 @@ bool GetLongPaths(CFSTR s1, CFSTR s2, UString &d1, UString &d2)
 }
 #endif
 
+#ifndef _LIB_FOR_CHERRYTREE
 static int convert_to_symlink(const char * name) {
   TRACEN(printf("LINK(%s)\n",name))
   FILE *file = fopen(name,"rb");
@@ -368,6 +375,7 @@ bool SetFileAttrib(CFSTR fileName, DWORD fileAttributes,CObjectVector<CDelayedSy
 
   return true;
 }
+#endif // _LIB_FOR_CHERRYTREE
 
 bool RemoveDir(CFSTR path)
 {
@@ -399,6 +407,7 @@ bool MyMoveFile(CFSTR existFileName, CFSTR newFileName)
   int ret = rename(src,dst);
   if (ret != 0)
   {
+#ifndef _LIB_FOR_CHERRYTREE
     if (errno == EXDEV) // FIXED : bug #1112167 (Temporary directory must be on same partition as target)
     {
       BOOL bret = CopyFile(src,dst);
@@ -415,6 +424,7 @@ bool MyMoveFile(CFSTR existFileName, CFSTR newFileName)
       }
       if (ret == 0) return true;
     }
+#endif // _LIB_FOR_CHERRYTREE
     return false;
   }
   return true;
@@ -433,8 +443,11 @@ bool CreateDir(CFSTR path)
   const char * name = nameWindowToUnix(path);
 #endif
   bool bret = false;
+#ifdef _WIN32
+  if (mkdir(name) == 0) bret = true;
+#else
   if (mkdir( name, 0700 ) == 0) bret = true;
-
+#endif // _WIN32
   TRACEN((printf("CreateDir(%s)=%d\n",(const char *)name,(int)bret)))
   return bret;
 }
@@ -539,8 +552,10 @@ bool RemoveDirWithSubItems(const FString &path)
     }
   }
 
+#ifndef _LIB_FOR_CHERRYTREE
   if (!SetFileAttrib(path, 0))
     return false;
+#endif // _LIB_FOR_CHERRYTREE
   return RemoveDir(path);
 }
 
@@ -562,8 +577,10 @@ bool RemoveDirectoryWithSubItems(const FString &path)
       if (!RemoveDirectorySubItems2(pathPrefix, fileInfo))
         return false;
   }
+#ifndef _LIB_FOR_CHERRYTREE
   if (!SetFileAttrib(path, 0))
     return false;
+#endif // _LIB_FOR_CHERRYTREE
   return RemoveDir(path);
 }
 

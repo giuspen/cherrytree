@@ -21,8 +21,10 @@ class CDelayedSymLink;
 bool GetWindowsDir(FString &path);
 bool GetSystemDir(FString &path);
 
+#ifndef _LIB_FOR_CHERRYTREE
 bool SetDirTime(CFSTR path, const FILETIME *cTime, const FILETIME *aTime, const FILETIME *mTime);
 bool SetFileAttrib(CFSTR path, DWORD attrib, CObjectVector<CDelayedSymLink> *delayedSymLinks = 0);
+#endif // _LIB_FOR_CHERRYTREE
 bool MyMoveFile(CFSTR existFileName, CFSTR newFileName);
 
 #ifndef UNDER_CE

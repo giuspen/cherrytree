@@ -20,7 +20,6 @@ AM_CPPFLAGS = $(LIBP7ZA_CFLAGS) \
     -D_FILE_OFFSET_BITS=64 \
     -D_LARGEFILE_SOURCE \
     -D_REENTRANT \
-    -DENV_UNIX \
     -DBREAK_HANDLER \
     -DUNICODE \
     -D_UNICODE \
@@ -218,7 +217,6 @@ libp7za_a_SOURCES = \
     src/CPP/7zip/UI/Console/OpenCallbackConsole.cpp \
     src/CPP/7zip/UI/Console/PercentPrinter.cpp \
     src/CPP/7zip/UI/Console/UpdateCallbackConsole.cpp \
-    src/CPP/7zip/UI/Console/UserInputUtils.cpp \
     src/CPP/Common/CRC.cpp \
     src/CPP/Common/CommandLineParser.cpp \
     src/CPP/Common/CrcReg.cpp \

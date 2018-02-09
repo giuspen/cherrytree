@@ -32,7 +32,7 @@ void CRandomGenerator::Init()
 
   pid_t pid = getpid();
   HASH_UPD(pid);
-  pid = getppid();
+  pid = pthread_self();
   HASH_UPD(pid);
 
   for (unsigned i = 0; i <

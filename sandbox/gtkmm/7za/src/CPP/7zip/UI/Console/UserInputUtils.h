@@ -18,7 +18,9 @@ enum EEnum
 };
 }
 
+#ifndef _LIB_FOR_CHERRYTREE
 NUserAnswerMode::EEnum ScanUserYesNoAllQuit(CStdOutStream *outStream);
 UString GetPassword(CStdOutStream *outStream,bool verify = false);
+#endif // _LIB_FOR_CHERRYTREE
 
 #endif

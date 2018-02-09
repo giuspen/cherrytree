@@ -42,14 +42,18 @@
 
     #define ENV_HAVE_GETPASS
 
+#ifndef _LIB_FOR_CHERRYTREE
     #if !defined(sun)
       #define ENV_HAVE_TIMEGM
     #endif
+#endif // _LIB_FOR_CHERRYTREE
 
   #endif
 
+#ifndef _LIB_FOR_CHERRYTREE
   /* lstat, readlink and S_ISLNK */
   #define ENV_HAVE_LSTAT
+#endif // _LIB_FOR_CHERRYTREE
 
   /* <locale.h> */
   #define ENV_HAVE_LOCALE

@@ -573,7 +573,12 @@ HRESULT CUpdateCallbackConsole::CryptoGetTextPassword2(Int32 *passwordIsDefined,
   {
     if (AskPassword)
     {
+#ifndef _LIB_FOR_CHERRYTREE
       Password = GetPassword(_so,true);
+#else
+    printf("!! not supported\n");
+    exit(1);
+#endif // _LIB_FOR_CHERRYTREE
       PasswordIsDefined = true;
     }
   }
@@ -592,7 +597,12 @@ HRESULT CUpdateCallbackConsole::CryptoGetTextPassword(BSTR *password)
   if (!PasswordIsDefined)
   {
     {
+#ifndef _LIB_FOR_CHERRYTREE
       Password = GetPassword(_so);
+#else
+    printf("!! not supported\n");
+    exit(1);
+#endif // _LIB_FOR_CHERRYTREE
       PasswordIsDefined = true;
     }
   }

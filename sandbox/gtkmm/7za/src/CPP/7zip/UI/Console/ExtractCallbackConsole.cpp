@@ -228,9 +228,13 @@ STDMETHODIMP CExtractCallbackConsole::AskOverwrite(
     *_so << "with the file from archive:\n";
     PrintFileInfo(_so, newName, newTime, newSize);
   }
-  
+
+#ifndef _LIB_FOR_CHERRYTREE
   NUserAnswerMode::EEnum overwriteAnswer = ScanUserYesNoAllQuit(_so);
-  
+#else
+  NUserAnswerMode::EEnum overwriteAnswer = NUserAnswerMode::kYesAll;
+#endif // _LIB_FOR_CHERRYTREE
+
   switch (overwriteAnswer)
   {
     case NUserAnswerMode::kQuit:  return E_ABORT;

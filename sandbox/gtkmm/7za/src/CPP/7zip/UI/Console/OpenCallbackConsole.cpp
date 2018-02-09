@@ -78,7 +78,12 @@ HRESULT COpenCallbackConsole::Open_CryptoGetTextPassword(BSTR *password)
   if (!PasswordIsDefined)
   {
     ClosePercents();
+#ifndef _LIB_FOR_CHERRYTREE
     Password = GetPassword(_so);
+#else
+    printf("!! not supported\n");
+    exit(1);
+#endif // _LIB_FOR_CHERRYTREE
     PasswordIsDefined = true;
   }
   return StringToBstr(Password, password);
