@@ -1,12 +1,13 @@
 
 // https://cpputest.github.io/
 // sudo apt install cpputest
-// g++ test_lib_p7za_exec.cpp -Wl,--whole-archive ../libp7za.a -Wl,--no-whole-archive `pkg-config cpputest glibmm-2.4 libxml++-2.6 --cflags --libs` -lpthread -o bin_test_lib_p7za_exec -Wno-deprecated
+// g++ test_lib_p7za_exec.cpp -Wl,--whole-archive ../libp7za.a -Wl,--no-whole-archive `pkg-config cpputest glibmm-2.4 libxml++-2.6 --cflags --libs` -lpthread -lboost_system -lboost_filesystem -o bin_test_lib_p7za_exec -Wno-deprecated
 
 #include <glib/gstdio.h>
 #include <glibmm.h>
 #include <libxml++/libxml++.h>
 #include <iostream>
+#include <boost/filesystem.hpp>
 #include "CppUTest/CommandLineTestRunner.h"
 
 
@@ -68,7 +69,7 @@ TEST_GROUP(P7zaExecGroup)
 };
 
 
-TEST(P7zaExecGroup, extract)
+TEST(P7zaExecGroup, current)
 {
     _extract(CTZ_INPUT_PATH.c_str());
     CHECK(Glib::file_test(CTD_TMP_PATH, Glib::FILE_TEST_EXISTS));
@@ -87,6 +88,12 @@ TEST(P7zaExecGroup, extract)
     CHECK(Glib::file_test(CTD_TMP_PATH, Glib::FILE_TEST_EXISTS));
     std::string xml_txt_bis = Glib::file_get_contents(CTD_TMP_PATH);
     CHECK(0 == xml_txt.compare(xml_txt_bis));
+}
+
+
+TEST(P7zaExecGroup, experimental)
+{
+    
 }
 
 
