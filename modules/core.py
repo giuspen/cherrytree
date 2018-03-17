@@ -2888,7 +2888,7 @@ iter_end, exclude_iter_sel_end=True)
         curr_time = time.time()
         now_year = support.get_timestamp_str("%Y", curr_time)
         now_month = support.get_timestamp_str("%B", curr_time)
-        now_day = support.get_timestamp_str("%d %a", curr_time)
+        now_day = support.get_timestamp_str(self.journal_day_format, curr_time)
         #print now_year, now_month, now_day
         if self.curr_tree_iter:
             curr_depth = self.treestore.iter_depth(self.curr_tree_iter)
