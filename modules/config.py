@@ -80,6 +80,7 @@ CHARS_TOC_DEFAULT = unicode("▸•◇▪", cons.STR_UTF8, cons.STR_IGNORE)
 NODES_ON_NODE_NAME_HEADER_DEFAULT = 3
 TIMESTAMP_FORMAT_DEFAULT = "%Y/%m/%d - %H:%M"
 SEPARATOR_ASCII_REPR = "---------"
+JOURNAL_DAY_FORMAT_DEFAULT = "%d %a"
 
 SPELL_CHECK_LANG_DEFAULT = locale.getdefaultlocale()[0]
 
@@ -353,7 +354,7 @@ def config_file_load(dad):
         dad.backup_num = cfg.getint(section, "backup_num") if cfg.has_option(section, "backup_num") else 3
         dad.autosave_on_quit = cfg.getboolean(section, "autosave_on_quit") if cfg.has_option(section, "autosave_on_quit") else False
         dad.limit_undoable_steps = cfg.getint(section, "limit_undoable_steps") if cfg.has_option(section, "limit_undoable_steps") else 20
-        dad.journal_day_format = cfg.get(section, "journal_day_format") if cfg.has_option(section, "journal_day_format") else "%d %a"
+        dad.journal_day_format = cfg.get(section, "journal_day_format") if cfg.has_option(section, "journal_day_format") else JOURNAL_DAY_FORMAT_DEFAULT
         #print "read", cons.CONFIG_PATH, "('%s', '%s')" % (dad.file_name, dad.file_dir)
         section = "keyboard"
         if cfg.has_section(section):
@@ -478,6 +479,7 @@ def config_file_load(dad):
         dad.default_icon_text = cons.NODE_ICON_BULLET_ID
         dad.recent_docs = []
         dad.toolbar_visible = True
+        dad.journal_day_format = JOURNAL_DAY_FORMAT_DEFAULT
         print "missing", cons.CONFIG_PATH
 
 def config_file_apply(dad):
