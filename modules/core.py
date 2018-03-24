@@ -3715,7 +3715,6 @@ iter_end, exclude_iter_sel_end=True)
         response = support.dialog_question_warning(self.window, warning_label)
         if response != gtk.RESPONSE_ACCEPT:
             return # the user did not confirm
-        if not os.path.isdir(cons.TMP_FOLDER): os.makedirs(cons.TMP_FOLDER)
         with open(filepath_src_tmp, 'w') as fd:
             fd.write(code_val)
         ret_code = subprocess.call(terminal_cmd, shell=True)
@@ -3749,7 +3748,6 @@ iter_end, exclude_iter_sel_end=True)
             self.curr_file_anchor.pixbuf.id = self.boss.embfiles_id
         filename = str(self.treestore[self.curr_tree_iter][3])+cons.CHAR_MINUS+str(self.curr_file_anchor.pixbuf.id)+cons.CHAR_MINUS+str(os.getpid())+cons.CHAR_MINUS+self.curr_file_anchor.pixbuf.filename
         filepath = os.path.join(cons.TMP_FOLDER, filename)
-        if not os.path.isdir(cons.TMP_FOLDER): os.makedirs(cons.TMP_FOLDER)
         with open(filepath, 'wb') as fd:
             fd.write(self.curr_file_anchor.pixbuf.embfile)
         #if self.treestore[self.curr_tree_iter][7]:

@@ -21,6 +21,7 @@
 
 import os
 import sys
+import tempfile
 
 
 VERSION = "0.38.4"
@@ -29,7 +30,6 @@ NEWER_VERSION_URL = "http://www.giuspen.com/software/version_cherrytree"
 if sys.platform.startswith("win"):
     IS_WIN_OS = True
     SZA_PATH = '"'+os.path.join(SHARE_PATH, "7za.exe")+'"'
-    TMP_FOLDER = os.path.join(os.environ['TEMP'], 'ct_tmp/')
     GLADE_PATH = os.path.join(SHARE_PATH, 'glade/')
     SPECS_PATH = os.path.join(SHARE_PATH, 'language-specs/')
     LOCALE_PATH = os.path.join(SHARE_PATH, 'locale/')
@@ -40,7 +40,6 @@ if sys.platform.startswith("win"):
 else:
     IS_WIN_OS = False
     SZA_PATH = "7za"
-    TMP_FOLDER = os.environ['TEMP'] if 'TEMP' in os.environ else '/tmp/ct_tmp/'
     MODULES_PATH = os.path.dirname(os.path.realpath(__file__))
     CONFIG_DIR = os.path.join(os.path.expanduser('~'), '.config', 'cherrytree')
     if SHARE_PATH == os.path.dirname(MODULES_PATH):
@@ -56,6 +55,7 @@ else:
 CONFIG_PATH = os.path.join(CONFIG_DIR, 'config.cfg')
 LANG_PATH = os.path.join(CONFIG_DIR, 'lang')
 IMG_PATH = os.path.join(CONFIG_DIR, 'img_tmp.png')
+TMP_FOLDER = tempfile.mkdtemp()
 
 try:
     import appindicator

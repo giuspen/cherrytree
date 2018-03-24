@@ -24,6 +24,7 @@ import gobject
 
 import sys
 import os
+import shutil
 import subprocess
 import gettext
 import __builtin__
@@ -99,7 +100,9 @@ class CherryTreeHandler():
             print "win destroy: runn_win not found"
             i = -1
         self.running_windows.pop(i)
-        if not self.running_windows: gtk.main_quit()
+        if not self.running_windows:
+            gtk.main_quit()
+            shutil.rmtree(cons.TMP_FOLDER)
 
     def server_periodic_check(self):
         """Check Whether the server posted messages"""

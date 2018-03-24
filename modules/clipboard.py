@@ -172,7 +172,6 @@ class ClipboardHandler:
                                                  self.clear_func,
                                                  (plain_text, None, html_text, codebox_dict))
                     return
-        if not os.path.isdir(cons.TMP_FOLDER): os.mkdir(cons.TMP_FOLDER)
         html_text = self.dad.html_handler.selection_export_to_html(text_buffer, iter_sel_start, iter_sel_end,
             self.dad.syntax_highlighting if not from_codebox else cons.PLAIN_TEXT_ID)
         if not from_codebox and self.dad.syntax_highlighting == cons.RICH_TEXT_ID:

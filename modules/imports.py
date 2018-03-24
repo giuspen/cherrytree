@@ -1728,7 +1728,6 @@ class KeynoteHandler:
         self.curr_node_content = ""
         self.curr_node_level = 0
         self.former_node_level = -1
-        if not os.path.isdir(cons.TMP_FOLDER): os.mkdir(cons.TMP_FOLDER)
         self.img_tmp_path = os.path.join(cons.TMP_FOLDER, "img_tmp")
         # 0: waiting for LV=
         # 1: waiting for ND=
