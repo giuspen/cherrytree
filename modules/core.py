@@ -1530,21 +1530,21 @@ iter_end, exclude_iter_sel_end=True)
 
     def file_save_as(self, *args):
         """Save the file providing a new name"""
-        if not self.is_tree_not_empty_or_error(): return
-        if not support.dialog_choose_data_storage(self): return
+        if not self.is_tree_not_empty_or_error(): return False
+        if not support.dialog_choose_data_storage(self): return False
         filename_hint = self.file_name[:-1] + self.filetype if len(self.file_name) > 4 else ""
         filepath = support.dialog_file_save_as(filename_hint,
                                                filter_pattern="*.ct" + self.filetype,
                                                filter_name=_("CherryTree Document"),
                                                curr_folder=self.file_dir,
                                                parent=self.window)
-        restore_filetype = False
-        if not filepath: restore_filetype = True
+        restore_filetype = False if filepath else True
         self.modification_time_update_value(False)
-        if not restore_filetype:
+        if restore_filetype is False:
             filepath = self.filepath_extension_fix(filepath)
-            if not self.file_write(filepath, first_write=True): restore_filetype = True
-        if restore_filetype:
+            if not self.file_write(filepath, first_write=True):
+                restore_filetype = True
+        if restore_filetype is True:
             # restore filetype previous dialog_choose_data_storage
             if len(self.file_name) > 4: self.filetype = self.file_name[-1]
         else:
@@ -1556,6 +1556,7 @@ iter_end, exclude_iter_sel_end=True)
             self.objects_buffer_refresh()
         self.modification_time_update_value(True)
         self.ui.get_widget("/MenuBar/FileMenu/ct_vacuum").set_property(cons.STR_VISIBLE, self.filetype in ["b", "x"])
+        return not restore_filetype
 
     def filepath_extension_fix(self, filepath):
         """Check a filepath to have the proper extension"""
@@ -1577,13 +1578,15 @@ iter_end, exclude_iter_sel_end=True)
         if self.file_name:
             if self.file_update or (self.curr_tree_iter != None and self.curr_buffer.get_modified() == True):
                 self.modification_time_update_value(False)
-                if self.is_tree_not_empty_or_error() \
-                and self.file_write(os.path.join(self.file_dir, self.file_name), first_write=False):
+                if self.is_tree_not_empty_or_error():
+                    if not self.file_write(os.path.join(self.file_dir, self.file_name), first_write=False):
+                        return False
                     self.update_window_save_not_needed()
                     self.state_machine.update_state()
                 self.modification_time_update_value(True)
             else: print "no changes"
-        else: self.file_save_as()
+            return True
+        return self.file_save_as()
 
     def file_write_low_level(self, filepath, xml_string, first_write, exporting="", sel_range=None):
         """File Write Low Level (ctd, ctb, ctz, ctx)"""
@@ -1723,7 +1726,7 @@ iter_end, exclude_iter_sel_end=True)
                     print "os.rename failed"
                     subprocess.call("mv %s~ %s" % (re.escape(filepath), re.escape(filepath)), shell=True)
             support.dialog_error("%s write failed - writing to disk" % filepath, self.window)
-            raise
+            #raise
             self.writing_to_disk = False
             return False
 
@@ -3641,9 +3644,14 @@ iter_end, exclude_iter_sel_end=True)
         if self.curr_tree_iter and (self.curr_buffer.get_modified() or self.file_update):
             if self.autosave_on_quit: response = 2
             else: response = support.dialog_exit_save(self.window)
-            if response == 2: self.file_save() # button YES pressed or autosave ON
+            if response == 2:
+                # button YES pressed or autosave ON
+                if not self.file_save():
+                    # the file save failed, we are NOT closing
+                    response = 6
             elif response < 0: response = 6
-        else: response = 0 # no need to save
+        else:
+            response = 0 # no need to save
         if response == 6: return False # button CANCEL
         return True
 
