@@ -2504,10 +2504,11 @@ class HTMLHandler(HTMLParser.HTMLParser):
                         if attribute and not exports.rgb_get_is_blackish_or_whiteish(attribute):
                             self.curr_attributes[cons.TAG_FOREGROUND] = attribute
                             self.latest_font = cons.TAG_FOREGROUND
-            elif tag in [cons.TAG_PROP_H1, cons.TAG_PROP_H2, cons.TAG_PROP_H3, cons.TAG_PROP_H4, cons.TAG_PROP_H5, cons.TAG_PROP_H6]:
+            elif tag in (cons.TAG_PROP_SUP, cons.TAG_PROP_SUB):
+                self.curr_attributes[cons.TAG_SCALE] = tag
+            elif tag in (cons.TAG_PROP_H1, cons.TAG_PROP_H2, cons.TAG_PROP_H3, cons.TAG_PROP_H4, cons.TAG_PROP_H5, cons.TAG_PROP_H6):
                 self.rich_text_serialize(cons.CHAR_NEWLINE)
-                if tag == cons.TAG_PROP_H1: self.curr_attributes[cons.TAG_SCALE] = cons.TAG_PROP_H1
-                elif tag == cons.TAG_PROP_H2: self.curr_attributes[cons.TAG_SCALE] = cons.TAG_PROP_H2
+                if tag in (cons.TAG_PROP_H1, cons.TAG_PROP_H2): self.curr_attributes[cons.TAG_SCALE] = tag
                 else: self.curr_attributes[cons.TAG_SCALE] = cons.TAG_PROP_H3
                 for attr in attrs:
                     if attr[0] == "align": self.curr_attributes[cons.TAG_JUSTIFICATION] = attr[1].strip().lower()
@@ -2615,7 +2616,9 @@ class HTMLHandler(HTMLParser.HTMLParser):
                     del self.latest_span[-1]
             elif tag == "font":
                 if self.latest_font == cons.TAG_FOREGROUND: self.curr_attributes[cons.TAG_FOREGROUND] = ""
-            elif tag in [cons.TAG_PROP_H1, cons.TAG_PROP_H2, cons.TAG_PROP_H3, cons.TAG_PROP_H4, cons.TAG_PROP_H5, cons.TAG_PROP_H6]:
+            elif tag in (cons.TAG_PROP_SUP, cons.TAG_PROP_SUB):
+                self.curr_attributes[cons.TAG_SCALE] = ""
+            elif tag in (cons.TAG_PROP_H1, cons.TAG_PROP_H2, cons.TAG_PROP_H3, cons.TAG_PROP_H4, cons.TAG_PROP_H5, cons.TAG_PROP_H6):
                 self.curr_attributes[cons.TAG_SCALE] = ""
                 self.curr_attributes[cons.TAG_JUSTIFICATION] = ""
                 self.rich_text_serialize(cons.CHAR_NEWLINE)
