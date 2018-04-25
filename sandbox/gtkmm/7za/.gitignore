@@ -23,6 +23,8 @@ stamp-h1
 *.deps/
 *.dirstamp
 
+src/
+
 ar-lib
 
 Makefile.am
