@@ -6,8 +6,12 @@ AM_INIT_AUTOMAKE([1.10 -Wall no-define])
 
 AC_CONFIG_HEADERS([config.h])
 
-# check for Cpp compiler
+# check for C and Cpp compiler
+AC_PROG_CC
 AC_PROG_CXX
+
+# shared library framework (7za)
+LT_INIT
 
 PKG_CHECK_MODULES([CHERRYTREE], [gtkmm-3.0 glibmm-2.4 libxml++-2.6 sqlite3])
 

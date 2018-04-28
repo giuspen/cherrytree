@@ -23,3 +23,9 @@ stamp-h1
 *.dirstamp
 
 *bin_tests_*
+
+*.lo
+.libs/
+libp7za.la
+libtool
+ltmain.sh
