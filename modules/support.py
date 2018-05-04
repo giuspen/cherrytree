@@ -29,6 +29,7 @@ import time
 import cons
 import config
 import exports
+import screenshot
 
 
 def get_timestamp_str(timestamp_format, time_float):
@@ -791,6 +792,10 @@ def dialog_folder_select(curr_folder=None, parent=None):
     else:
         chooser.destroy()
         return None
+
+def dialog_screenshot_take(parent=None):
+    dialog = screenshot.ScreenshotWindow()
+    return dialog.run() 
 
 def dialog_question(message, parent=None):
     """The Question dialog, returns True if the user presses OK"""

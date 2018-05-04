@@ -245,7 +245,7 @@ STOCKS_N_FILES = [
 'node_bullet', 'node_no_icon', CHERRY_BLACK, CHERRY_BLUE,
 CHERRY_CYAN, CHERRY_GREEN, CHERRY_GRAY, CHERRY_ORANGE,
 CHERRY_ORANGE_DARK, CHERRY_PURPLE, CHERRY_RED, CHERRY_SHERBERT,
-CHERRY_YELLOW, 'image_insert', 'image_edit', 'image_save',
+CHERRY_YELLOW, 'image_insert', 'screenshot_insert', 'image_edit', 'image_save',
 'table_insert', 'table_edit', 'table_save', 'codebox_insert',
 'codebox_edit', 'anchor_insert', 'anchor_edit', 'anchor',
 'insert', 'link_handle', 'link_website', 'cherry_edit',

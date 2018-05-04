@@ -49,13 +49,18 @@ import lists
 import findreplace
 import codeboxes
 import ctdb
+import screenshot
+import gtk.gdk
+from threading import Event, Thread
+
 if cons.HAS_APPINDICATOR: import appindicator
 
 class CherryTree:
     """Application's GUI"""
-
+    
     def __init__(self, lang_str, open_with_file, node_name, boss, is_startup, is_arg, export_mode):
         """GUI Startup"""
+        
         self.boss = boss
         self.filetype = ""
         self.user_active = True
@@ -4046,11 +4051,25 @@ iter_end, exclude_iter_sel_end=True)
         filename = support.dialog_file_select(curr_folder=self.pick_dir_img, parent=self.window)
         if not filename: return
         self.pick_dir_img = os.path.dirname(filename)
+        
         try:
             pixbuf = gtk.gdk.pixbuf_new_from_file(filename)
             self.image_edit_dialog(pixbuf, self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert()))
         except:
             support.dialog_error(_("Image Format Not Recognized"), self.window)
+
+    def screenshot_handle(self, *args):
+        """Insert/Edit Screenshot"""
+        if not self.node_sel_and_rich_text(): return
+        if not self.is_curr_node_not_read_only_or_error(): return
+        iter_insert = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
+        
+        try:
+            pixbuf = support.dialog_screenshot_take()
+            if pixbuf == None: return
+            self.image_edit_dialog(pixbuf, self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert()))
+        except:
+            support.dialog_error(_("Something Went Wrong Taking The Screenshot"), self.window)
 
     def image_edit_dialog(self, pixbuf, insert_iter, iter_bound=None):
         """Insert/Edit Image Dialog"""
