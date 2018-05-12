@@ -64,6 +64,7 @@ CONFIG_ACTIONS_DICT = {
 "act_undo",
 "act_redo",
 "handle_image",
+"handle_screenshot",
 "handle_table",
 "handle_codebox",
 "handle_embfile",
@@ -185,6 +186,7 @@ def load_menudict(dad):
 "act_undo": {"sk": "gtk-undo", "sd": _("_Undo"), "kb": KB_CONTROL+"Z", "dn": _("Undo Last Operation"), "cb": dad.requested_step_back},
 "act_redo": {"sk": "gtk-redo", "sd": _("_Redo"), "kb": KB_CONTROL+"Y", "dn": _("Redo Previously Discarded Operation"), "cb": dad.requested_step_ahead},
 "handle_image": {"sk": "image_insert", "sd": _("Insert I_mage"), "kb": KB_CONTROL+KB_ALT+"I", "dn": _("Insert an Image"), "cb": dad.image_handle},
+"handle_screenshot": {"sk": "screenshot_insert", "sd": _("Insert _Screenshot"), "kb": KB_CONTROL+KB_SHIFT+KB_ALT+"S", "dn": _("Insert a Screenshot"), "cb": dad.screenshot_handle},
 "handle_table": {"sk": "table_insert", "sd": _("Insert _Table"), "kb": KB_CONTROL+KB_ALT+"T", "dn": _("Insert a Table"), "cb": dad.table_handle},
 "handle_codebox": {"sk": "codebox_insert", "sd": _("Insert _CodeBox"), "kb": KB_CONTROL+KB_ALT+"C", "dn": _("Insert a CodeBox"), "cb": dad.codebox_handle},
 "handle_embfile": {"sk": "file_icon", "sd": _("Insert _File"), "kb": KB_CONTROL+KB_ALT+"E", "dn": _("Insert File"), "cb": dad.embfile_insert},
@@ -487,6 +489,7 @@ get_menu_item_tuple(dad, "handle_todo_list"),
 (cons.TAG_SEPARATOR, None, None, None, None),
 ("submenu-start", _("_Insert") , "insert", None, None),
 get_menu_item_tuple(dad, "handle_image"),
+get_menu_item_tuple(dad, "handle_screenshot"),
 get_menu_item_tuple(dad, "handle_table"),
 get_menu_item_tuple(dad, "handle_codebox"),
 get_menu_item_tuple(dad, "handle_embfile"),
@@ -683,6 +686,7 @@ UI_INFO = """
       <menuitem action='act_redo'/>
       <separator/>
       <menuitem action='handle_image'/>
+      <menuitem action='handle_screenshot'/>
       <menuitem action='handle_table'/>
       <menuitem action='handle_codebox'/>
       <menuitem action='handle_embfile'/>
