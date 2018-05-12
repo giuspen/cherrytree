@@ -50,8 +50,6 @@ import findreplace
 import codeboxes
 import ctdb
 import screenshot
-import gtk.gdk
-from threading import Event, Thread
 
 if cons.HAS_APPINDICATOR: import appindicator
 
