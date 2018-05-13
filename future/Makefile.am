@@ -12,9 +12,9 @@ ACLOCAL_AMFLAGS = ${ACLOCAL_FLAGS}
 ## obtained from pkg-config via PKG_CHECK_MODULES in configure.ac.  These
 ## flags are passed to the compiler for both C and C++, in addition to the
 ## language-specific options.
-AM_CPPFLAGS = $(CHERRYTREE_CFLAGS) \
+AM_CPPFLAGS = ${CHERRYTREE_CFLAGS} \
     -DCHERRYTREE_LOCALEDIR=\"${CHERRYTREE_LOCALEDIR}\" \
-    -DGETTEXT_PACKAGE=\"$(GETTEXT_PACKAGE)\" \
+    -DGETTEXT_PACKAGE=\"${GETTEXT_PACKAGE}\" \
     -Isrc/7za/CPP/myWindows \
     -Isrc/7za/CPP \
     -Isrc/7za/CPP/include_windows \
@@ -45,13 +45,15 @@ noinst_LTLIBRARIES = libp7za.la
 ## header files (.h) do not result in object files by themselves, but will be
 ## included in distribution archives of the project.
 cherrytree_SOURCES = src/main.cc \
-                     src/ct_app.cc src/ct_app.h \
-                     src/main_win.cc src/main_win.h \
-                     src/treestore.cc src/treestore.h \
-                     src/ct_sqlite3_rw.cc src/ct_xml_rw.cc src/ct_doc_rw.h \
-                     src/ct_config.cc src/ct_config.h \
-                     src/ct_const.cc src/ct_const.h \
-                     src/str_utils.cc src/str_utils.h \
+                     src/ct_app.cc \
+                     src/main_win.cc \
+                     src/treestore.cc \
+                     src/ct_sqlite3_rw.cc \
+                     src/ct_xml_rw.cc \
+                     src/ct_config.cc \
+                     src/ct_const.cc \
+                     src/str_utils.cc \
+                     src/p7za_iface.cc \
                      src/icons.gresource.cc
 
 libp7za_la_SOURCES = \
@@ -270,7 +272,7 @@ libp7za_la_SOURCES = \
 ## Set the library dependencies for the "example" target to the value obtained
 ## from pkg-config via PKG_CHECK_MODULES in configure.ac.  These libraries are
 ## passed to the linker in addition to the other linker flags.
-cherrytree_LDADD = $(CHERRYTREE_LIBS) libp7za.la
+cherrytree_LDADD = ${CHERRYTREE_LIBS} libp7za.la -lpthread
 
 ## Define an independent executable script for inclusion in the distribution
 ## archive. It will not be installed on an end user's system, however.
