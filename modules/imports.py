@@ -787,6 +787,7 @@ class ZimHandler():
     def parse_folder(self, curr_folder):
         """Start the Parsing"""
         for element in os.listdir(curr_folder):
+            path = os.path.join(curr_folder, element)
             if len(element) > 4 and element[-4:] == ".txt" \
             and os.path.isfile(os.path.join(curr_folder, element)):
                 file_descriptor = open(os.path.join(curr_folder, element), 'r')
@@ -797,10 +798,13 @@ class ZimHandler():
                 self.node_add(wiki_string.decode(cons.STR_UTF8), node_name, curr_folder)
                 # check if the node has children
                 children_folder = os.path.join(curr_folder, node_name)
-                if os.path.isdir(children_folder):
-                    self.parse_folder(children_folder)
                 self.nodes_list.pop()
-
+            if os.path.isdir(path):
+                print("recurse into: "+path)
+                self.node_add('', element, curr_folder)
+                self.parse_folder(path)
+                self.nodes_list.pop()
+                
     def node_add(self, wiki_string, node_name, curr_folder):
         """Add a node"""
         self.nodes_list.append(self.dom.createElement("node"))
