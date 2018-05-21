@@ -80,7 +80,6 @@ CHARS_TOC_DEFAULT = unicode("▸•◇▪", cons.STR_UTF8, cons.STR_IGNORE)
 NODES_ON_NODE_NAME_HEADER_DEFAULT = 3
 TIMESTAMP_FORMAT_DEFAULT = "%Y/%m/%d - %H:%M"
 SEPARATOR_ASCII_REPR = "---------"
-JOURNAL_DAY_FORMAT_DEFAULT = "%d %a"
 
 SPELL_CHECK_LANG_DEFAULT = locale.getdefaultlocale()[0]
 
@@ -354,7 +353,10 @@ def config_file_load(dad):
         dad.backup_num = cfg.getint(section, "backup_num") if cfg.has_option(section, "backup_num") else 3
         dad.autosave_on_quit = cfg.getboolean(section, "autosave_on_quit") if cfg.has_option(section, "autosave_on_quit") else False
         dad.limit_undoable_steps = cfg.getint(section, "limit_undoable_steps") if cfg.has_option(section, "limit_undoable_steps") else 20
-        dad.journal_day_format = cfg.get(section, "journal_day_format") if cfg.has_option(section, "journal_day_format") else JOURNAL_DAY_FORMAT_DEFAULT
+        dad.today_format_year = cfg.get(section, "today_format_year") if cfg.has_option(section, "today_format_year") else '%Y'
+        dad.today_format_month = cfg.get(section, "today_format_month") if cfg.has_option(section, "today_format_month") else '%B'
+        dad.today_format_day = cfg.get(section, "today_format_day") if cfg.has_option(section, "today_format_day") else '%d %a'
+
         #print "read", cons.CONFIG_PATH, "('%s', '%s')" % (dad.file_name, dad.file_dir)
         section = "keyboard"
         if cfg.has_section(section):
@@ -479,7 +481,9 @@ def config_file_load(dad):
         dad.default_icon_text = cons.NODE_ICON_BULLET_ID
         dad.recent_docs = []
         dad.toolbar_visible = True
-        dad.journal_day_format = JOURNAL_DAY_FORMAT_DEFAULT
+        dad.today_format_year = '%Y'
+        dad.today_format_month = '%B'
+        dad.today_format_day = '%d %a'
         print "missing", cons.CONFIG_PATH
 
 def config_file_apply(dad):
@@ -678,7 +682,9 @@ def config_file_save(dad):
     cfg.set(section, "backup_num", dad.backup_num)
     cfg.set(section, "autosave_on_quit", dad.autosave_on_quit)
     cfg.set(section, "limit_undoable_steps", dad.limit_undoable_steps)
-    cfg.set(section, "journal_day_format", dad.journal_day_format)
+    cfg.set(section, "today_format_year", dad.today_format_year)
+    cfg.set(section, "today_format_month", dad.today_format_month)
+    cfg.set(section, "today_format_day", dad.today_format_day)
 
     section = "keyboard"
     cfg.add_section(section)
@@ -845,6 +851,25 @@ def preferences_tab_text_n_code(dad, vbox_all_nodes, pref_dialog):
     hbox_timestamp.pack_start(label_timestamp, expand=False)
     hbox_timestamp.pack_start(entry_timestamp_format)
     hbox_timestamp.pack_start(button_strftime_help, expand=False)
+
+    hbox_today_format = gtk.HBox()
+    hbox_today_format.set_spacing(4)
+    label_today_format_year = gtk.Label(_("Today's date format. Year:"))
+    entry_today_format_year = gtk.Entry()
+    entry_today_format_year.set_text(dad.today_format_year)
+    label_today_format_month = gtk.Label(_("Month:"))
+    entry_today_format_month = gtk.Entry()
+    entry_today_format_month.set_text(dad.today_format_month)
+    label_today_format_day = gtk.Label(_("Day:"))
+    entry_today_format_day = gtk.Entry()
+    entry_today_format_day.set_text(dad.today_format_day)
+    hbox_today_format.pack_start(label_today_format_year, expand=False)
+    hbox_today_format.pack_start(entry_today_format_year)
+    hbox_today_format.pack_start(label_today_format_month, expand=False)
+    hbox_today_format.pack_start(entry_today_format_month)
+    hbox_today_format.pack_start(label_today_format_day, expand=False)
+    hbox_today_format.pack_start(entry_today_format_day)
+
     hbox_horizontal_rule = gtk.HBox()
     hbox_horizontal_rule.set_spacing(4)
     label_horizontal_rule = gtk.Label(_("Horizontal Rule"))
@@ -891,6 +916,7 @@ def preferences_tab_text_n_code(dad, vbox_all_nodes, pref_dialog):
     vbox_misc_all = gtk.VBox()
     vbox_misc_all.set_spacing(2)
     vbox_misc_all.pack_start(hbox_timestamp)
+    vbox_misc_all.pack_start(hbox_today_format)
     vbox_misc_all.pack_start(hbox_horizontal_rule)
     vbox_misc_all.pack_start(hbox_special_chars)
     vbox_misc_all.pack_start(hbox_selword_chars)
@@ -956,6 +982,15 @@ def preferences_tab_text_n_code(dad, vbox_all_nodes, pref_dialog):
     def on_button_strftime_help_clicked(menuitem, data=None):
         webbrowser.open("https://docs.python.org/2/library/time.html#time.strftime")
     button_strftime_help.connect('clicked', on_button_strftime_help_clicked)
+    def on_entry_today_format_year_changed(entry):
+        dad.today_format_year = entry.get_text()
+    entry_today_format_year.connect('changed', on_entry_today_format_year_changed)
+    def on_entry_today_format_month_changed(entry):
+        dad.today_format_month = entry.get_text()
+    entry_today_format_month.connect('changed', on_entry_today_format_month_changed)
+    def on_entry_today_format_day_changed(entry):
+        dad.today_format_day = entry.get_text()
+    entry_today_format_day.connect('changed', on_entry_today_format_day_changed)
     def on_entry_horizontal_rule_changed(entry):
         dad.h_rule = entry.get_text()
     entry_horizontal_rule.connect('changed', on_entry_horizontal_rule_changed)
