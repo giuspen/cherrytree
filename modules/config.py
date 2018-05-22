@@ -82,7 +82,8 @@ TIMESTAMP_FORMAT_DEFAULT = "%Y/%m/%d - %H:%M"
 SEPARATOR_ASCII_REPR = "---------"
 JOURNAL_DAY_FORMAT_DEFAULT = "%d %a"
 
-SPELL_CHECK_LANG_DEFAULT = locale.getdefaultlocale()[0]
+try: SPELL_CHECK_LANG_DEFAULT = locale.getdefaultlocale()[0]
+except: SPELL_CHECK_LANG_DEFAULT = "en_US"
 
 
 def get_code_exec_ext(dad, syntax_type):
