@@ -2,7 +2,7 @@
 #
 #       core.py
 #
-#       Copyright 2009-2017 Giuseppe Penone <giuspen@gmail.com>
+#       Copyright 2009-2018 Giuseppe Penone <giuspen@gmail.com>
 #
 #       This program is free software; you can redistribute it and/or modify
 #       it under the terms of the GNU General Public License as published by
@@ -4063,8 +4063,9 @@ iter_end, exclude_iter_sel_end=True)
         iter_insert = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
         
         try:
-            pixbuf = support.dialog_screenshot_take()
-            if pixbuf == None: return
+            dialog = screenshot.ScreenshotWindow()
+            pixbuf = dialog.run() 
+            if pixbuf is None: return
             self.image_edit_dialog(pixbuf, self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert()))
         except:
             support.dialog_error(_("Something Went Wrong Taking The Screenshot"), self.window)

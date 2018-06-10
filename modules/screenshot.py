@@ -2,7 +2,7 @@
 #
 #       screenshot.py
 #
-#       Copyright CherryTree 2009-2017 Giuseppe Penone <giuspen@gmail.com>
+#       Copyright CherryTree 2009-2018 Giuseppe Penone <giuspen@gmail.com>
 #
 #       Copyright screenshot.py 2018 David Holland <davidholland5499@outlook.com>, as long as it is a standalone module and not integrated with Cherry Tree
 #
@@ -27,10 +27,8 @@ import gtk.gdk
 class ScreenshotWindow(gtk.Window):
     window_modifier = "move"
     window_mode = "Move-Mode"
-    window_instructions = '<span size="xx-large">To switch between Move- and Resize-Mode,\nsimply press <i>Space</i> or <i>Tab</i>.\nIf you want to move the upper, lower, left or right edge individually\npress either the <i>arrow</i> or <i>WASD</i> keys to switch modes.\nTo return to Move-Mode again press <i>space</i> or <i>tab</i>!\nIf you are in the desired mode,\nclick and drag with the left mouse button to modify the window.\nIf you are happy with the screen snippet,\npress the <i>Return</i> key to take the screenshot,\nor press the <i>Esc</i> key to cancel the screenshot.\n\n<b>Press Space to dismiss this dialog!</b></span>'
-
     pixbuf_result = None
-    
+
     label = gtk.Label()
     # label.set_justify(gtk.JUSTIFY_CENTER)
 
@@ -41,24 +39,25 @@ class ScreenshotWindow(gtk.Window):
 
         # self.connect("destroy",lambda wid:gtk.main_quit())
         self.move(250,100)
-        
+
         self.resize(width-500, height-200)
         self.set_opacity(0.7)
         self.set_keep_above(True)
         self.set_decorated(False)
-        
+
         self.connect("key_press_event", self.on_key_press)
         self.connect("key_release_event", self.on_key_release)
         self.connect("button-press-event", self.on_clicked)
         self.set_events(gtk.gdk.KEY_PRESS_MASK | gtk.gdk.KEY_RELEASE_MASK | gtk.gdk.BUTTON_PRESS_MASK)
-        
+
         col = gtk.gdk.Color('#666')
         self.modify_bg(gtk.STATE_NORMAL, col)
 
+        self.window_instructions = _('<span size="xx-large">To switch between Move- and Resize-Mode,\nsimply press <i>Space</i> or <i>Tab</i>.\nIf you want to move the upper, lower, left or right edge individually\npress either the <i>arrow</i> or <i>WASD</i> keys to switch modes.\nTo return to Move-Mode again press <i>space</i> or <i>tab</i>!\nIf you are in the desired mode,\nclick and drag with the left mouse button to modify the window.\nIf you are happy with the screen snippet,\npress the <i>Return</i> key to take the screenshot,\nor press the <i>Esc</i> key to cancel the screenshot.\n\n<b>Press Space to dismiss this dialog!</b></span>')
         self.label.show()
-        
+
         self.add(self.label)
-        
+
         self.update_mode_label(self.label)
 
         self.fullscreen()
@@ -72,7 +71,7 @@ class ScreenshotWindow(gtk.Window):
     def stop(self, result):
         self.pixbuf_result = result
         gtk.main_quit()
-        
+
     def update_mode_label(self, mode_label):
         mode_label.set_markup('<span foreground="white" size="xx-large"><b>' + self.window_mode + '</b></span><span foreground="white">\nDouble-Click for help</span>');
 
@@ -85,10 +84,10 @@ class ScreenshotWindow(gtk.Window):
             lbl.set_markup(self.window_instructions);
             lbl.set_justify(gtk.JUSTIFY_CENTER)
             lbl.set_line_wrap(False)
-            
+
             lbl.show()
             dlg.vbox.add(lbl)
-            
+
             dlg.set_keep_above(True)
             dlg.present()
             dlg.run()
@@ -104,8 +103,8 @@ class ScreenshotWindow(gtk.Window):
         elif self.window_modifier == "resize_u":
             widget.window.begin_resize_drag(gtk.gdk.WINDOW_EDGE_NORTH, event.button, int(event.x_root), int(event.y_root), event.time)
         elif self.window_modifier == "resize_d":
-            widget.window.begin_resize_drag(gtk.gdk.WINDOW_EDGE_SOUTH, event.button, int(event.x_root), int(event.y_root), event.time)    
-                
+            widget.window.begin_resize_drag(gtk.gdk.WINDOW_EDGE_SOUTH, event.button, int(event.x_root), int(event.y_root), event.time)
+
     def on_key_press(self, widget, event):
         key_name = gtk.gdk.keyval_name(event.keyval)
         if key_name == "Return":
@@ -119,7 +118,7 @@ class ScreenshotWindow(gtk.Window):
                 self.stop(screenshot)
         if key_name == "Escape":
             self.stop(None)
-                
+
     def on_key_release(self, widget, event):
         key_name = gtk.gdk.keyval_name(event.keyval)
         # print key_name

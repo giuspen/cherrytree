@@ -1,7 +1,7 @@
 /*
  * ct_sqlite3_rw.cc
  *
- * Copyright 2017 giuspen <giuspen@gmail.com>
+ * Copyright 2017-2018 Giuseppe Penone <giuspen@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
