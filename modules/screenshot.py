@@ -22,17 +22,19 @@
 #       MA 02110-1301, USA.
 
 import gtk
-import gtk.gdk
+
 
 class ScreenshotWindow(gtk.Window):
     window_modifier = "move"
     window_mode = "Move-Mode"
-    pixbuf_result = None
 
     label = gtk.Label()
     # label.set_justify(gtk.JUSTIFY_CENTER)
 
-    def __init__(self, ready=None):
+    def __init__(self, ret_dict):
+
+        self.ret_dict = ret_dict
+
         gtk.Window.__init__(self)
         width = gtk.gdk.screen_width()
         height = gtk.gdk.screen_height()
@@ -54,7 +56,6 @@ class ScreenshotWindow(gtk.Window):
         self.modify_bg(gtk.STATE_NORMAL, col)
 
         self.window_instructions = _('<span size="xx-large">To switch between Move- and Resize-Mode,\nsimply press <i>Space</i> or <i>Tab</i>.\nIf you want to move the upper, lower, left or right edge individually\npress either the <i>arrow</i> or <i>WASD</i> keys to switch modes.\nTo return to Move-Mode again press <i>space</i> or <i>tab</i>!\nIf you are in the desired mode,\nclick and drag with the left mouse button to modify the window.\nIf you are happy with the screen snippet,\npress the <i>Return</i> key to take the screenshot,\nor press the <i>Esc</i> key to cancel the screenshot.\n\n<b>Press Space to dismiss this dialog!</b></span>')
-        self.label.show()
 
         self.add(self.label)
 
@@ -62,21 +63,19 @@ class ScreenshotWindow(gtk.Window):
 
         self.fullscreen()
 
-    def run(self):
-        self.show()
-        gtk.main()
-        self.destroy()
-        return self.pixbuf_result
+        self.show_all()
 
-    def stop(self, result):
-        self.pixbuf_result = result
-        gtk.main_quit()
+
+    def stop(self):
+        self.ret_dict["o"] = True
+
 
     def update_mode_label(self, mode_label):
         mode_label.set_markup('<span foreground="white" size="xx-large"><b>' + self.window_mode + '</b></span><span foreground="white">\nDouble-Click for help</span>');
 
+
     def on_clicked(self, widget, event):
-        widget.window.unfullscreen()
+        self.window.unfullscreen()
         if event.type == 5 or event.type == 6:
             dlg = gtk.Dialog("How to", widget, gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT, (gtk.STOCK_OK, gtk.RESPONSE_OK))
 
@@ -93,31 +92,29 @@ class ScreenshotWindow(gtk.Window):
             dlg.run()
             dlg.destroy()
         if self.window_modifier == "move":
-            widget.window.begin_move_drag(event.button, int(event.x_root), int(event.y_root), event.time)
+            self.window.begin_move_drag(event.button, int(event.x_root), int(event.y_root), event.time)
         elif self.window_modifier == "resize":
-            widget.window.begin_resize_drag(gtk.gdk.WINDOW_EDGE_SOUTH_EAST, event.button, int(event.x_root), int(event.y_root), event.time)
+            self.window.begin_resize_drag(gtk.gdk.WINDOW_EDGE_SOUTH_EAST, event.button, int(event.x_root), int(event.y_root), event.time)
         elif self.window_modifier == "resize_l":
-            widget.window.begin_resize_drag(gtk.gdk.WINDOW_EDGE_WEST, event.button, int(event.x_root), int(event.y_root), event.time)
+            self.window.begin_resize_drag(gtk.gdk.WINDOW_EDGE_WEST, event.button, int(event.x_root), int(event.y_root), event.time)
         elif self.window_modifier == "resize_r":
-            widget.window.begin_resize_drag(gtk.gdk.WINDOW_EDGE_EAST, event.button, int(event.x_root), int(event.y_root), event.time)
+            self.window.begin_resize_drag(gtk.gdk.WINDOW_EDGE_EAST, event.button, int(event.x_root), int(event.y_root), event.time)
         elif self.window_modifier == "resize_u":
-            widget.window.begin_resize_drag(gtk.gdk.WINDOW_EDGE_NORTH, event.button, int(event.x_root), int(event.y_root), event.time)
+            self.window.begin_resize_drag(gtk.gdk.WINDOW_EDGE_NORTH, event.button, int(event.x_root), int(event.y_root), event.time)
         elif self.window_modifier == "resize_d":
-            widget.window.begin_resize_drag(gtk.gdk.WINDOW_EDGE_SOUTH, event.button, int(event.x_root), int(event.y_root), event.time)
+            self.window.begin_resize_drag(gtk.gdk.WINDOW_EDGE_SOUTH, event.button, int(event.x_root), int(event.y_root), event.time)
+
 
     def on_key_press(self, widget, event):
         key_name = gtk.gdk.keyval_name(event.keyval)
         if key_name == "Return":
             if not widget.emit("delete-event", gtk.gdk.Event(gtk.gdk.DELETE)):
-                x, y = widget.window.get_position()
-                width, height = widget.window.get_size()
-                widget.window.destroy()
-
-                format = "png"
-                screenshot = gtk.gdk.Pixbuf.get_from_drawable(gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, True, 8, width, height), gtk.gdk.get_default_root_window(), gtk.gdk.colormap_get_system(), x, y, 0, 0, width, height)
-                self.stop(screenshot)
+                self.ret_dict["x"], self.ret_dict["y"] = self.window.get_position()
+                self.ret_dict["w"], self.ret_dict["h"] = self.window.get_size()
+                self.stop()
         if key_name == "Escape":
-            self.stop(None)
+            self.stop()
+
 
     def on_key_release(self, widget, event):
         key_name = gtk.gdk.keyval_name(event.keyval)

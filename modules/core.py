@@ -55,10 +55,10 @@ if cons.HAS_APPINDICATOR: import appindicator
 
 class CherryTree:
     """Application's GUI"""
-    
+
     def __init__(self, lang_str, open_with_file, node_name, boss, is_startup, is_arg, export_mode):
         """GUI Startup"""
-        
+
         self.boss = boss
         self.filetype = ""
         self.user_active = True
@@ -4049,7 +4049,7 @@ iter_end, exclude_iter_sel_end=True)
         filename = support.dialog_file_select(curr_folder=self.pick_dir_img, parent=self.window)
         if not filename: return
         self.pick_dir_img = os.path.dirname(filename)
-        
+
         try:
             pixbuf = gtk.gdk.pixbuf_new_from_file(filename)
             self.image_edit_dialog(pixbuf, self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert()))
@@ -4061,14 +4061,21 @@ iter_end, exclude_iter_sel_end=True)
         if not self.node_sel_and_rich_text(): return
         if not self.is_curr_node_not_read_only_or_error(): return
         iter_insert = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
-        
-        try:
-            dialog = screenshot.ScreenshotWindow()
-            pixbuf = dialog.run() 
-            if pixbuf is None: return
-            self.image_edit_dialog(pixbuf, self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert()))
-        except:
-            support.dialog_error(_("Something Went Wrong Taking The Screenshot"), self.window)
+
+        ret_dict = {"x": None, "o": False}
+        dialog = screenshot.ScreenshotWindow(ret_dict)
+        while ret_dict["o"] is False:
+            while gtk.events_pending(): gtk.main_iteration()
+            time.sleep(.01)
+        dialog.destroy()
+        if ret_dict["x"] is None: return
+        while gtk.events_pending(): gtk.main_iteration()
+        pixbuf = gtk.gdk.Pixbuf.get_from_drawable(
+                    gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, True, 8, ret_dict["w"], ret_dict["h"]),
+                    gtk.gdk.get_default_root_window(),
+                    gtk.gdk.colormap_get_system(),
+                    ret_dict["x"], ret_dict["y"], 0, 0, ret_dict["w"], ret_dict["h"])
+        self.image_edit_dialog(pixbuf, self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert()))
 
     def image_edit_dialog(self, pixbuf, insert_iter, iter_bound=None):
         """Insert/Edit Image Dialog"""
