@@ -2011,8 +2011,13 @@ iter_end, exclude_iter_sel_end=True)
                 self.update_window_save_not_needed()
             if user_active_restore: self.user_active = True
         if not document_loaded_ok:
-            support.dialog_error(_('"%s" is Not a CherryTree Document') % filepath, self.window)
             self.file_name = ""
+            try:
+                node_content = open(filepath, "r").read()
+                self.node_child_exist_or_create(None, os.path.basename(filepath))
+                self.curr_buffer.insert_at_cursor(node_content)
+            except:
+                support.dialog_error(_('"%s" is Not a CherryTree Document') % filepath, self.window)
 
     def file_new(self, *args):
         """Starts a new unsaved instance"""
