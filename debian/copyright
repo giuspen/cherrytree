@@ -3,7 +3,7 @@ Upstream-Name: cherrytree
 Source: http://www.giuspen.com/cherrytree/
 
 Files: *
-Copyright: 2009-2016 Giuseppe Penone <giuspen@gmail.com>
+Copyright: 2009-2018 Giuseppe Penone <giuspen@gmail.com>
 License: GPL-3.0+
 
 Files: modules/pgsc_locales.py

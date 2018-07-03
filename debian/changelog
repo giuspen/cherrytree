@@ -1,11 +1,9 @@
-cherrytree (0.38.4-0) xenial; urgency=low
+cherrytree (0.38.5-0) xenial; urgency=low
 
-  * support for zoom in tables (#292) with both Ctrl+Mouse Wheel or Ctrl+Plus/Minus
-  * copy/paste rich text with dark background to light background - fix too light color
-  * tree visible status now persistent after system tray hide/show and between sessions
-  * default value changes for web link color (less bright blue) and codebox auto resize (to False)
-  * no special chars auto replacements for code - only for rich and plain text (#293)
-  * paste from rich text and import from html - support fot tag <code> to codebox (#229)
-  * Tab key also valid to switch between table cell (#298)
+  * bugfix - when save on exit is enabled and write to disk fails, changes are lost (#358)
+  * bugfix - superscript and subscript tags not recognized when copied from external source (#355)
+  * bugfix - workaround for bug in locale module (#368)
+  * added syntax highlighting for go language
+  * implemented support for opening a text file from the command line with cherrytree
 
- -- Giuseppe Penone <giuspen@gmail.com>  Sat, 02 Dec 2017 17:06:54 +0000
+ -- Giuseppe Penone <giuspen@gmail.com>  Tue, 03 Jul 2018 21:57:22 +0100

@@ -1,4 +1,11 @@
 
+0.38.5 (July 3rd, 2018)
+  * bugfix - when save on exit is enabled and write to disk fails, changes are lost (#358)
+  * bugfix - superscript and subscript tags not recognized when copied from external source (#355)
+  * bugfix - workaround for bug in locale module (#368)
+  * added syntax highlighting for go language
+  * implemented support for opening a text file from the command line with cherrytree
+
 0.38.4 (December 2nd, 2017)
   * support for zoom in tables (#292) with both Ctrl+Mouse Wheel or Ctrl+Plus/Minus
   * copy/paste rich text with dark background to light background - fix too light color
