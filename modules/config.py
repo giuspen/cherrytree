@@ -500,7 +500,7 @@ def config_file_apply(dad):
     dad.sourceview.set_pixels_above_lines(dad.space_around_lines)
     dad.sourceview.set_pixels_below_lines(dad.space_around_lines)
     dad.sourceview.set_pixels_inside_wrap(get_pixels_inside_wrap(dad.space_around_lines, dad.relative_wrapped_space))
-    if dad.line_wrapping: dad.sourceview.set_wrap_mode(gtk.WRAP_WORD)
+    if dad.line_wrapping: dad.sourceview.set_wrap_mode(gtk.WRAP_WORD_CHAR)
     else: dad.sourceview.set_wrap_mode(gtk.WRAP_NONE)
     dad.renderer_text.set_property('wrap-width', dad.cherry_wrap_width)
     dad.aux_renderer_pixbuf.set_property("visible", not dad.aux_icon_hide)
@@ -942,7 +942,7 @@ def preferences_tab_text_n_code(dad, vbox_all_nodes, pref_dialog):
     checkbutton_spaces_tabs.connect('toggled', on_checkbutton_spaces_tabs_toggled)
     def on_checkbutton_line_wrap_toggled(checkbutton):
         dad.line_wrapping = checkbutton.get_active()
-        dad.sourceview.set_wrap_mode(gtk.WRAP_WORD if dad.line_wrapping else gtk.WRAP_NONE)
+        dad.sourceview.set_wrap_mode(gtk.WRAP_WORD_CHAR if dad.line_wrapping else gtk.WRAP_NONE)
     checkbutton_line_wrap.connect('toggled', on_checkbutton_line_wrap_toggled)
     def on_checkbutton_auto_indent_toggled(checkbutton):
         dad.auto_indent = checkbutton.get_active()

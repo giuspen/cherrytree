@@ -277,7 +277,7 @@ class CodeBoxesHandler:
         anchor.sourceview.connect("motion-notify-event", self.on_sourceview_motion_notify_event_codebox)
         anchor.sourceview.connect("copy-clipboard", self.dad.clipboard_handler.copy, True)
         anchor.sourceview.connect("cut-clipboard", self.dad.clipboard_handler.cut, True)
-        if self.dad.line_wrapping: anchor.sourceview.set_wrap_mode(gtk.WRAP_WORD)
+        if self.dad.line_wrapping: anchor.sourceview.set_wrap_mode(gtk.WRAP_WORD_CHAR)
         else: anchor.sourceview.set_wrap_mode(gtk.WRAP_NONE)
         anchor.scrolledwindow = gtk.ScrolledWindow()
         anchor.scrolledwindow.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
