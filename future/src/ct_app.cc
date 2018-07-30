@@ -20,25 +20,33 @@
  */
 
 #include <glibmm/i18n.h>
+#include <glib/gstdio.h>
 #include <iostream>
 #include "ct_app.h"
 
 
-CTConfig *P_ct_config = nullptr;
-
+CTConfig* P_ct_config = nullptr;
 Glib::RefPtr<Gtk::IconTheme> R_icontheme;
+gchar* P_ctmp_dirpath = NULL;
 
 
 CTApplication::CTApplication() : Gtk::Application("com.giuspen.cherrytree", Gio::APPLICATION_HANDLES_OPEN)
 {
     _config_read();
     _icontheme_populate();
+    P_ctmp_dirpath = g_dir_make_tmp(NULL, NULL);
+    //std::cout << P_ctmp_dirpath << std::endl;
 }
 
 
 CTApplication::~CTApplication()
 {
     _config_teardown();
+    if (NULL != P_ctmp_dirpath)
+    {
+        g_rmdir(P_ctmp_dirpath);
+        g_free(P_ctmp_dirpath);
+    }
 }
 
 

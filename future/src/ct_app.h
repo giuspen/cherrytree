@@ -25,8 +25,8 @@
 
 
 extern CTConfig *P_ct_config;
-
 extern Glib::RefPtr<Gtk::IconTheme> R_icontheme;
+extern gchar* P_ctmp_dirpath;
 
 
 class CTApplication: public Gtk::Application
