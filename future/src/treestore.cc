@@ -58,11 +58,11 @@ bool TheTreeStore::read_nodes_from_filepath(Glib::ustring &filepath, Gtk::TreeIt
 {
     bool ret_ok = false;
     CherryTreeDocRead *p_ct_doc_read = nullptr;
-    if (Glib::str_has_suffix(filepath, "ctd"))
+    if (Glib::str_has_suffix(filepath, ".ctd"))
     {
         p_ct_doc_read = new CherryTreeXMLRead(filepath);
     }
-    else if (Glib::str_has_suffix(filepath, "ctb"))
+    else if (Glib::str_has_suffix(filepath, ".ctb"))
     {
         p_ct_doc_read = new CherryTreeSQLiteRead(filepath);
     }

@@ -54,5 +54,12 @@ MainWindow::~MainWindow()
 
 bool MainWindow::read_nodes_from_filepath(Glib::ustring &filepath)
 {
+    if ( (Glib::str_has_suffix(filepath, ".ctz")) ||
+         (Glib::str_has_suffix(filepath, ".ctx")) )
+    {
+        
+    }
+    
+    
     return m_treestore.read_nodes_from_filepath(filepath);
 }
