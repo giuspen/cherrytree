@@ -30,6 +30,7 @@ AM_CPPFLAGS = ${CHERRYTREE_CFLAGS} \
 	-D_UNICODE \
 	-DUNIX_USE_WIN_FILE \
 	-D_LIB_FOR_CHERRYTREE \
+	-D_UNITTEST_DATA_DIR=\"${top_srcdir}/tests/data\" \
 	-std=c++14
 
 ## Define an executable target, which will be installed into the
