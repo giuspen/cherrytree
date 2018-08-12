@@ -24,10 +24,20 @@
 #include "main_win.h"
 
 
+class CTTmp
+{
+public:
+    CTTmp();
+    virtual ~CTTmp();
+    const gchar* getRootDirpath();
+
+protected:
+    gchar* _rootDirpath{NULL};
+};
+
 extern CTConfig *P_ct_config;
 extern Glib::RefPtr<Gtk::IconTheme> R_icontheme;
-extern gchar* P_ctmp_dirpath;
-
+extern CTTmp* P_ctmp;
 
 class CTApplication: public Gtk::Application
 {
@@ -45,8 +55,6 @@ protected:
     void _print_help_message();
     void _print_gresource_icons();
     void _icontheme_populate();
-    void _config_read();
-    void _config_teardown();
 
 private:
     MainWindow* create_appwindow();

@@ -25,28 +25,32 @@
 #include "ct_app.h"
 
 
-CTConfig* P_ct_config = nullptr;
+CTConfig* P_ct_config{nullptr};
 Glib::RefPtr<Gtk::IconTheme> R_icontheme;
-gchar* P_ctmp_dirpath = NULL;
+CTTmp* P_ctmp{nullptr};
 
 
 CTApplication::CTApplication() : Gtk::Application("com.giuspen.cherrytree", Gio::APPLICATION_HANDLES_OPEN)
 {
-    _config_read();
+    if (nullptr == P_ct_config)
+    {
+        P_ct_config = new CTConfig();
+        //std::cout << P_ct_config->m_special_chars.size() << "\t" << P_ct_config->m_special_chars << std::endl;
+    }
     _icontheme_populate();
-    P_ctmp_dirpath = g_dir_make_tmp(NULL, NULL);
-    //std::cout << P_ctmp_dirpath << std::endl;
+    if (nullptr == P_ctmp)
+    {
+        P_ctmp = new CTTmp();
+        //std::cout << P_ctmp->get_root_dirpath() << std::endl;
+    }
 }
 
 
 CTApplication::~CTApplication()
 {
-    _config_teardown();
-    if (NULL != P_ctmp_dirpath)
-    {
-        g_rmdir(P_ctmp_dirpath);
-        g_free(P_ctmp_dirpath);
-    }
+    delete P_ct_config;
+    P_ct_config = nullptr;
+    delete P_ctmp;
 }
 
 
@@ -68,23 +72,6 @@ void CTApplication::_print_gresource_icons()
     {
         std::cout << str_icon << std::endl;
     }
-}
-
-
-void CTApplication::_config_read()
-{
-    if (P_ct_config == nullptr)
-    {
-        P_ct_config = new CTConfig();
-        //std::cout << P_ct_config->m_special_chars.size() << "\t" << P_ct_config->m_special_chars << std::endl;
-    }
-}
-
-
-void CTApplication::_config_teardown()
-{
-    delete P_ct_config;
-    P_ct_config = nullptr;
 }
 
 
@@ -146,4 +133,23 @@ void CTApplication::on_open(const Gio::Application::type_vec_files& files, const
     }
 
     p_appwindow->present();
+}
+
+CTTmp::CTTmp()
+    : _rootDirpath{g_dir_make_tmp(NULL, NULL)}
+{
+}
+
+CTTmp::~CTTmp()
+{
+    if (NULL != _rootDirpath)
+    {
+        g_rmdir(_rootDirpath);
+        g_free(_rootDirpath);
+    }
+}
+
+const gchar* CTTmp::getRootDirpath()
+{
+    return _rootDirpath;
 }

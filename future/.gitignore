@@ -1,4 +1,5 @@
 cherrytree
+run_tests
 *.gresource.*
 
 ABOUT-NLS

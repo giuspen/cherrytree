@@ -13,7 +13,7 @@ AC_PROG_CXX
 # shared library framework (7za)
 LT_INIT
 
-PKG_CHECK_MODULES([CHERRYTREE], [gtkmm-3.0 glibmm-2.4 libxml++-2.6 sqlite3])
+PKG_CHECK_MODULES([CHERRYTREE], [gtkmm-3.0 glibmm-2.4 libxml++-2.6 sqlite3 cpputest])
 
 # change default prefix
 AC_PREFIX_DEFAULT("/usr")
