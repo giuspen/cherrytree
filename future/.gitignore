@@ -27,6 +27,6 @@ stamp-h1
 
 *.lo
 .libs/
-libp7za.la
+libp7za.a
 libtool
 ltmain.sh

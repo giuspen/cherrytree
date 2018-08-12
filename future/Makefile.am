@@ -37,7 +37,7 @@ AM_CPPFLAGS = ${CHERRYTREE_CFLAGS} \
 ## directory named by the predefined variable $(bindir).
 bin_PROGRAMS = cherrytree
 
-noinst_LTLIBRARIES = libp7za.la
+noinst_LIBRARIES = libp7za.a
 
 check_PROGRAMS = run_tests
 
@@ -79,7 +79,7 @@ run_tests_SOURCES = \
 	tests/tests_str_utils.cpp \
 	tests/tests_tmp_n_p7zip.cpp
 
-libp7za_la_SOURCES = \
+libp7za_a_SOURCES = \
 	src/7za/C/7zCrc.c \
 	src/7za/C/7zCrcOpt.c \
 	src/7za/C/7zStream.c \
@@ -292,15 +292,15 @@ libp7za_la_SOURCES = \
 	src/7za/CPP/myWindows/mySplitCommandLine.cpp \
 	src/7za/CPP/myWindows/wine_date_and_time.cpp
 
-## Set the library dependencies for the "example" target to the value obtained
-## from pkg-config via PKG_CHECK_MODULES in configure.ac.  These libraries are
-## passed to the linker in addition to the other linker flags.
-cherrytree_LDADD = ${CHERRYTREE_LIBS} libp7za.la -lpthread
+cherrytree_LDADD = ${CHERRYTREE_LIBS}
 
-run_tests_LDADD = ${CHERRYTREE_LIBS} libp7za.la -lpthread
+cherrytree_LDFLAGS = -Wl,--whole-archive $(top_srcdir)/libp7za.a -Wl,--no-whole-archive -lpthread
 
-## Define an independent executable script for inclusion in the distribution
-## archive. It will not be installed on an end user's system, however.
+run_tests_LDADD = ${CHERRYTREE_LIBS}
+
+run_tests_LDFLAGS = -Wl,--whole-archive $(top_srcdir)/libp7za.a -Wl,--no-whole-archive -lpthread
+
+
 dist_noinst_SCRIPTS = autogen.sh
 
 dist_doc_DATA = README

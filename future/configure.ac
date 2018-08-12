@@ -9,9 +9,7 @@ AC_CONFIG_HEADERS([config.h])
 # check for C and Cpp compiler
 AC_PROG_CC
 AC_PROG_CXX
-
-# shared library framework (7za)
-LT_INIT
+AC_PROG_RANLIB
 
 PKG_CHECK_MODULES([CHERRYTREE], [gtkmm-3.0 glibmm-2.4 libxml++-2.6 sqlite3 cpputest])
 
