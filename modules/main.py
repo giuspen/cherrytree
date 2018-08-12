@@ -102,7 +102,8 @@ class CherryTreeHandler():
         self.running_windows.pop(i)
         if not self.running_windows:
             gtk.main_quit()
-            shutil.rmtree(cons.TMP_FOLDER)
+            try: shutil.rmtree(cons.TMP_FOLDER)
+            except: pass
 
     def server_periodic_check(self):
         """Check Whether the server posted messages"""
