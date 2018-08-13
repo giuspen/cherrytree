@@ -120,5 +120,8 @@ TEST(StrUtilsGroup, get_rgb24_int_from_str_any)
 
 int main(int ac, char** av)
 {
+    // libp7za has memory leaks
+    MemoryLeakWarningPlugin::turnOffNewDeleteOverloads();
+
     return CommandLineTestRunner::RunAllTests(ac, av);
 }

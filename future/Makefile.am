@@ -3,15 +3,8 @@
 ## files, in order to avoid collisions when non-recursive make is used.
 AUTOMAKE_OPTIONS = subdir-objects
 
-## Additional flags to pass to aclocal when it is invoked automatically at
-## make time. The ${ACLOCAL_FLAGS} variable is picked up from the environment
-## to provide a way for the user to supply additional arguments.
 ACLOCAL_AMFLAGS = ${ACLOCAL_FLAGS}
 
-## Set the default command-line flags for the C preprocessor to the value
-## obtained from pkg-config via PKG_CHECK_MODULES in configure.ac.  These
-## flags are passed to the compiler for both C and C++, in addition to the
-## language-specific options.
 AM_CPPFLAGS = ${CHERRYTREE_CFLAGS} \
 	-DCHERRYTREE_LOCALEDIR=\"${CHERRYTREE_LOCALEDIR}\" \
 	-DGETTEXT_PACKAGE=\"${GETTEXT_PACKAGE}\" \
@@ -33,8 +26,6 @@ AM_CPPFLAGS = ${CHERRYTREE_CFLAGS} \
 	-D_UNITTEST_DATA_DIR=\"${top_srcdir}/tests/data\" \
 	-std=c++14
 
-## Define an executable target, which will be installed into the
-## directory named by the predefined variable $(bindir).
 bin_PROGRAMS = cherrytree
 
 noinst_LIBRARIES = libp7za.a
@@ -47,11 +38,6 @@ check_PROGRAMS = run_tests
 #appdata_DATA = img/@PACKAGE@.glade
 #AM_CXXFLAGS = -DDATADIR=\"$(datadir)\"
 
-## Define the list of source files for the target. The file extension
-## .c is recognized by Automake, and causes it to produce rules which invoke
-## the C compiler to produce an object file (.o) from each source file. The
-## header files (.h) do not result in object files by themselves, but will be
-## included in distribution archives of the project.
 cherrytree_SOURCES = \
 	src/main.cc \
 	src/ct_app.cc \
