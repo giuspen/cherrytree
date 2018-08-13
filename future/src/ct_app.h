@@ -30,12 +30,12 @@ class CTTmp
 public:
     CTTmp();
     virtual ~CTTmp();
-    const gchar* getRootDirpath();
-    const std::string& getHiddenPath(const std::string& visiblePath);
+    const gchar* getHiddenDirPath(const std::string& visiblePath);
+    const gchar* getHiddenFilePath(const std::string& visiblePath);
 
 protected:
-    gchar* _rootDirpath{NULL};
-    std::unordered_map<std::string,gchar*> _mapHiddenPaths;
+    std::unordered_map<std::string,gchar*> _mapHiddenDirs;
+    std::unordered_map<std::string,gchar*> _mapHiddenFiles;
 };
 
 

@@ -129,30 +129,51 @@ void CTApplication::on_open(const Gio::Application::type_vec_files& files, const
 
 
 CTTmp::CTTmp()
-    : _rootDirpath{g_dir_make_tmp(NULL, NULL)}
 {
 }
 
 CTTmp::~CTTmp()
 {
-    if (NULL != _rootDirpath)
+    for (const auto& currPair : _mapHiddenFiles)
     {
-        g_rmdir(_rootDirpath);
-        g_free(_rootDirpath);
+        g_free(currPair.second);
+    }
+    for (const auto& currPair : _mapHiddenDirs)
+    {
+        g_rmdir(currPair.second);
+        g_free(currPair.second);
     }
 }
 
-const gchar* CTTmp::getRootDirpath()
+const gchar* CTTmp::getHiddenDirPath(const std::string& visiblePath)
 {
-    return _rootDirpath;
+    if (!_mapHiddenDirs.count(visiblePath))
+    {
+        _mapHiddenDirs[visiblePath] = g_dir_make_tmp(NULL, NULL);
+    }
+    return _mapHiddenDirs.at(visiblePath);
 }
 
-const std::string& CTTmp::getHiddenPath(const std::string& visiblePath)
+const gchar* CTTmp::getHiddenFilePath(const std::string& visiblePath)
 {
-    std::unordered_map<std::string,gchar*>::const_iterator mapIter = _mapHiddenPaths.find(visiblePath);
-    if (_mapHiddenPaths.end() == mapIter)
+    if (!_mapHiddenFiles.count(visiblePath))
     {
-        //_mapHiddenPaths[visiblePath] = ;
+        const gchar* tempDir{getHiddenDirPath(visiblePath)};
+        gchar* basename{g_path_get_basename(visiblePath.c_str())};
+        if (g_str_has_suffix(basename, ".ctx"))
+        {
+            basename[strlen(basename)-1] = 'b';
+        }
+        else if (g_str_has_suffix(basename, ".ctz"))
+        {
+            basename[strlen(basename)-1] = 'd';
+        }
+        else
+        {
+            std::cerr << "!! unexpected basename " << basename << std::endl;
+        }
+        _mapHiddenFiles[visiblePath] = g_build_filename(tempDir, basename);
+        g_free(basename);
     }
-    return _mapHiddenPaths.at(visiblePath);
+    return _mapHiddenFiles.at(visiblePath);
 }
