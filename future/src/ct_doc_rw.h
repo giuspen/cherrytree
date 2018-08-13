@@ -41,7 +41,7 @@ public:
 class CherryTreeXMLRead : public CherryTreeDocRead, public xmlpp::DomParser
 {
 public:
-    CherryTreeXMLRead(Glib::ustring& filepath);
+    CherryTreeXMLRead(std::string& filepath);
     virtual ~CherryTreeXMLRead();
     void tree_walk(Gtk::TreeIter *p_parent_iter=nullptr);
 private:
@@ -54,7 +54,7 @@ private:
 class CherryTreeSQLiteRead : public CherryTreeDocRead
 {
 public:
-    CherryTreeSQLiteRead(Glib::ustring &filepath);
+    CherryTreeSQLiteRead(std::string &filepath);
     virtual ~CherryTreeSQLiteRead();
     void tree_walk(Gtk::TreeIter *p_parent_iter=nullptr);
 private:

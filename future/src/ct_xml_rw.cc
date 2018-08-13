@@ -25,7 +25,7 @@
 #include "str_utils.h"
 
 
-CherryTreeXMLRead::CherryTreeXMLRead(Glib::ustring &filepath)
+CherryTreeXMLRead::CherryTreeXMLRead(std::string &filepath)
 {
     parse_file(filepath);
 }

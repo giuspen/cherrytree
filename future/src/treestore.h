@@ -77,7 +77,7 @@ public:
 
     void view_append_columns(Gtk::TreeView *p_treeview);
 
-    bool read_nodes_from_filepath(Glib::ustring &filepath, Gtk::TreeIter *p_parent_iter=nullptr);
+    bool read_nodes_from_filepath(std::string &filepath, Gtk::TreeIter *p_parent_iter=nullptr);
 
     Gtk::TreeIter append_node(t_ct_node_data *p_node_data, Gtk::TreeIter *p_parent_iter=nullptr);
 

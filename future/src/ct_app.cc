@@ -1,5 +1,5 @@
 /*
- * main.cc
+ * ct_app.cc
  * 
  * Copyright 2017-2018 Giuseppe Penone <giuspen@gmail.com>
  * 
@@ -25,9 +25,9 @@
 #include "ct_app.h"
 
 
-CTConfig* P_ct_config{nullptr};
-Glib::RefPtr<Gtk::IconTheme> R_icontheme;
-CTTmp* P_ctmp{nullptr};
+CTConfig* CTApplication::P_ct_config{nullptr};
+Glib::RefPtr<Gtk::IconTheme> CTApplication::R_icontheme;
+CTTmp* CTApplication::P_ctTmp{nullptr};
 
 
 CTApplication::CTApplication() : Gtk::Application("com.giuspen.cherrytree", Gio::APPLICATION_HANDLES_OPEN)
@@ -38,33 +38,30 @@ CTApplication::CTApplication() : Gtk::Application("com.giuspen.cherrytree", Gio:
         //std::cout << P_ct_config->m_special_chars.size() << "\t" << P_ct_config->m_special_chars << std::endl;
     }
     _icontheme_populate();
-    if (nullptr == P_ctmp)
+    if (nullptr == P_ctTmp)
     {
-        P_ctmp = new CTTmp();
-        //std::cout << P_ctmp->get_root_dirpath() << std::endl;
+        P_ctTmp = new CTTmp();
+        //std::cout << P_ctTmp->get_root_dirpath() << std::endl;
     }
 }
-
 
 CTApplication::~CTApplication()
 {
     delete P_ct_config;
     P_ct_config = nullptr;
-    delete P_ctmp;
+    delete P_ctTmp;
+    P_ctTmp = nullptr;
 }
-
 
 Glib::RefPtr<CTApplication> CTApplication::create()
 {
     return Glib::RefPtr<CTApplication>(new CTApplication());
 }
 
-
 void CTApplication::_print_help_message()
 {
     std::cout << "Usage: " << GETTEXT_PACKAGE << " filepath[.ctd|.ctb]" << std::endl;
 }
-
 
 void CTApplication::_print_gresource_icons()
 {
@@ -74,14 +71,12 @@ void CTApplication::_print_gresource_icons()
     }
 }
 
-
 void CTApplication::_icontheme_populate()
 {
     R_icontheme = Gtk::IconTheme::get_default();
     R_icontheme->add_resource_path("/icons/");
     //_print_gresource_icons();
 }
-
 
 MainWindow* CTApplication::create_appwindow()
 {
@@ -92,14 +87,12 @@ MainWindow* CTApplication::create_appwindow()
     return p_main_win;
 }
 
-
 void CTApplication::on_activate()
 {
     // app run without arguments
     auto p_appwindow = create_appwindow();
     p_appwindow->present();
 }
-
 
 void CTApplication::on_open(const Gio::Application::type_vec_files& files, const Glib::ustring& /* hint */)
 {
@@ -118,22 +111,22 @@ void CTApplication::on_open(const Gio::Application::type_vec_files& files, const
 
     for (const Glib::RefPtr<Gio::File>& r_file : files)
     {
-        Glib::ustring filepath(r_file->get_path());
         if(r_file->query_exists())
         {
-            if(!p_appwindow->read_nodes_from_filepath(filepath))
+            if(!p_appwindow->read_nodes_from_gio_file(r_file))
             {
                 _print_help_message();
             }
         }
         else
         {
-            std::cout << "!! Missing file " << filepath << std::endl;
+            std::cout << "!! Missing file " << r_file->get_path() << std::endl;
         }
     }
 
     p_appwindow->present();
 }
+
 
 CTTmp::CTTmp()
     : _rootDirpath{g_dir_make_tmp(NULL, NULL)}
@@ -152,4 +145,14 @@ CTTmp::~CTTmp()
 const gchar* CTTmp::getRootDirpath()
 {
     return _rootDirpath;
+}
+
+const std::string& CTTmp::getHiddenPath(const std::string& visiblePath)
+{
+    std::unordered_map<std::string,gchar*>::const_iterator mapIter = _mapHiddenPaths.find(visiblePath);
+    if (_mapHiddenPaths.end() == mapIter)
+    {
+        //_mapHiddenPaths[visiblePath] = ;
+    }
+    return _mapHiddenPaths.at(visiblePath);
 }

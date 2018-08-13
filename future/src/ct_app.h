@@ -19,6 +19,7 @@
  * MA 02110-1301, USA.
  */
 
+#include <unordered_map>
 #include <gtkmm.h>
 #include "ct_config.h"
 #include "main_win.h"
@@ -30,14 +31,13 @@ public:
     CTTmp();
     virtual ~CTTmp();
     const gchar* getRootDirpath();
+    const std::string& getHiddenPath(const std::string& visiblePath);
 
 protected:
     gchar* _rootDirpath{NULL};
+    std::unordered_map<std::string,gchar*> _mapHiddenPaths;
 };
 
-extern CTConfig *P_ct_config;
-extern Glib::RefPtr<Gtk::IconTheme> R_icontheme;
-extern CTTmp* P_ctmp;
 
 class CTApplication: public Gtk::Application
 {
@@ -47,6 +47,10 @@ protected:
 
 public:
     static Glib::RefPtr<CTApplication> create();
+
+    static CTConfig *P_ct_config;
+    static Glib::RefPtr<Gtk::IconTheme> R_icontheme;
+    static CTTmp* P_ctTmp;
 
 protected:
     void on_activate() override;

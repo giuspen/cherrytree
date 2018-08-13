@@ -54,7 +54,7 @@ void TheTreeStore::view_append_columns(Gtk::TreeView *p_treeview)
 }
 
 
-bool TheTreeStore::read_nodes_from_filepath(Glib::ustring &filepath, Gtk::TreeIter *p_parent_iter)
+bool TheTreeStore::read_nodes_from_filepath(std::string &filepath, Gtk::TreeIter *p_parent_iter)
 {
     bool ret_ok = false;
     CherryTreeDocRead *p_ct_doc_read = nullptr;
@@ -85,37 +85,37 @@ Glib::RefPtr<Gdk::Pixbuf> TheTreeStore::_get_node_icon(int node_depth, Glib::ust
     if (custom_icon_id != 0)
     {
         // custom_icon_id
-        r_pixbuf = R_icontheme->load_icon(NODES_STOCKS.at(custom_icon_id), NODE_ICON_SIZE);
+        r_pixbuf = CTApplication::R_icontheme->load_icon(NODES_STOCKS.at(custom_icon_id), NODE_ICON_SIZE);
     }
-    else if (NODE_ICON_TYPE_NONE == P_ct_config->m_nodes_icons)
+    else if (NODE_ICON_TYPE_NONE == CTApplication::P_ct_config->m_nodes_icons)
     {
         // NODE_ICON_TYPE_NONE
-        r_pixbuf = R_icontheme->load_icon(NODES_STOCKS.at(NODE_ICON_NO_ICON_ID), NODE_ICON_SIZE);
+        r_pixbuf = CTApplication::R_icontheme->load_icon(NODES_STOCKS.at(NODE_ICON_NO_ICON_ID), NODE_ICON_SIZE);
     }
     else if (1 == std::set<Glib::ustring>({RICH_TEXT_ID, PLAIN_TEXT_ID}).count(syntax))
     {
         // text node
-        if (NODE_ICON_TYPE_CHERRY == P_ct_config->m_nodes_icons)
+        if (NODE_ICON_TYPE_CHERRY == CTApplication::P_ct_config->m_nodes_icons)
         {
             if (1 == NODES_ICONS.count(node_depth))
             {
-                r_pixbuf = R_icontheme->load_icon(NODES_ICONS.at(node_depth), NODE_ICON_SIZE);
+                r_pixbuf = CTApplication::R_icontheme->load_icon(NODES_ICONS.at(node_depth), NODE_ICON_SIZE);
             }
             else
             {
-                r_pixbuf = R_icontheme->load_icon(NODES_ICONS.at(-1), NODE_ICON_SIZE);
+                r_pixbuf = CTApplication::R_icontheme->load_icon(NODES_ICONS.at(-1), NODE_ICON_SIZE);
             }
         }
         else
         {
             // NODE_ICON_TYPE_CUSTOM
-            r_pixbuf = R_icontheme->load_icon(NODES_STOCKS.at(P_ct_config->m_default_icon_text), NODE_ICON_SIZE);
+            r_pixbuf = CTApplication::R_icontheme->load_icon(NODES_STOCKS.at(CTApplication::P_ct_config->m_default_icon_text), NODE_ICON_SIZE);
         }
     }
     else
     {
         // code node
-        r_pixbuf = R_icontheme->load_icon(get_stock_id_for_code_type(syntax), NODE_ICON_SIZE);
+        r_pixbuf = CTApplication::R_icontheme->load_icon(get_stock_id_for_code_type(syntax), NODE_ICON_SIZE);
     }
     return r_pixbuf;
 }

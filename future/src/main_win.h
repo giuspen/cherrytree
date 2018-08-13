@@ -39,7 +39,7 @@ public:
     MainWindow();
     virtual ~MainWindow();
 
-    bool read_nodes_from_filepath(Glib::ustring &filepath);
+    bool read_nodes_from_gio_file(const Glib::RefPtr<Gio::File>& r_file);
 
 protected:
     Gtk::ScrolledWindow m_scrolledwindow_tree;

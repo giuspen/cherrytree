@@ -52,12 +52,13 @@ MainWindow::~MainWindow()
 }
 
 
-bool MainWindow::read_nodes_from_filepath(Glib::ustring &filepath)
+bool MainWindow::read_nodes_from_gio_file(const Glib::RefPtr<Gio::File>& r_file)
 {
+    std::string filepath{r_file->get_path()};
     if ( (Glib::str_has_suffix(filepath, ".ctz")) ||
          (Glib::str_has_suffix(filepath, ".ctx")) )
     {
-        
+        //CTApplication::P_ctTmp.
     }
     
     

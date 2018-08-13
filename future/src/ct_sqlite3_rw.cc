@@ -24,7 +24,7 @@
 #include "str_utils.h"
 
 
-CherryTreeSQLiteRead::CherryTreeSQLiteRead(Glib::ustring &filepath)
+CherryTreeSQLiteRead::CherryTreeSQLiteRead(std::string &filepath)
 {
     int ret_code = sqlite3_open(filepath.c_str(), &mp_db);
     if(ret_code != SQLITE_OK)
