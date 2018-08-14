@@ -159,21 +159,20 @@ const gchar* CTTmp::getHiddenFilePath(const std::string& visiblePath)
     if (!_mapHiddenFiles.count(visiblePath))
     {
         const gchar* tempDir{getHiddenDirPath(visiblePath)};
-        gchar* basename{g_path_get_basename(visiblePath.c_str())};
-        if (g_str_has_suffix(basename, ".ctx"))
+        std::string basename{Glib::path_get_basename(visiblePath)};
+        if (Glib::str_has_suffix(basename, ".ctx"))
         {
-            basename[strlen(basename)-1] = 'b';
+            basename.replace(basename.end()-1, basename.end(), "b");
         }
-        else if (g_str_has_suffix(basename, ".ctz"))
+        else if (Glib::str_has_suffix(basename, ".ctz"))
         {
-            basename[strlen(basename)-1] = 'd';
+            basename.replace(basename.end()-1, basename.end(), "d");
         }
         else
         {
             std::cerr << "!! unexpected basename " << basename << std::endl;
         }
-        _mapHiddenFiles[visiblePath] = g_build_filename(tempDir, basename);
-        g_free(basename);
+        _mapHiddenFiles[visiblePath] = g_build_filename(tempDir, basename.c_str(), NULL);
     }
     return _mapHiddenFiles.at(visiblePath);
 }
