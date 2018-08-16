@@ -33,16 +33,30 @@ public:
 };
 
 
+class CTDialogTextEntry : public Gtk::Dialog
+{
+public:
+    CTDialogTextEntry(const char *title, const bool forPassword, Gtk::Window* pParent);
+    virtual ~CTDialogTextEntry();
+    Glib::ustring getEntryText();
+
+protected:
+    bool on_entry_key_press_event(GdkEventKey *event_key);
+    void on_entry_icon_press(Gtk::EntryIconPosition icon_position, const GdkEventButton* event);
+    Gtk::Entry _entry;
+};
+
+
 class MainWindow : public Gtk::ApplicationWindow
 {
 public:
     MainWindow();
     virtual ~MainWindow();
 
-    bool read_nodes_from_gio_file(const Glib::RefPtr<Gio::File>& r_file);
+    bool readNodesFromGioFile(const Glib::RefPtr<Gio::File>& r_file);
 
 protected:
-    Gtk::ScrolledWindow m_scrolledwindow_tree;
-    TheTreeStore        m_treestore;
-    TheTreeView         m_treeview;
+    Gtk::ScrolledWindow _scrolledwindowTree;
+    TheTreeStore        _theTreestore;
+    TheTreeView         _theTreeview;
 };

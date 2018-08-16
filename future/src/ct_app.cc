@@ -113,7 +113,7 @@ void CTApplication::on_open(const Gio::Application::type_vec_files& files, const
     {
         if(r_file->query_exists())
         {
-            if(!p_appwindow->read_nodes_from_gio_file(r_file))
+            if(!p_appwindow->readNodesFromGioFile(r_file))
             {
                 _print_help_message();
             }
