@@ -24,9 +24,9 @@
 #include "str_utils.h"
 
 
-CherryTreeSQLiteRead::CherryTreeSQLiteRead(std::string &filepath)
+CherryTreeSQLiteRead::CherryTreeSQLiteRead(const char* filepath)
 {
-    int ret_code = sqlite3_open(filepath.c_str(), &mp_db);
+    int ret_code = sqlite3_open(filepath, &mp_db);
     if(ret_code != SQLITE_OK)
     {
         std::cerr << "!! sqlite3_open: " << sqlite3_errmsg(mp_db) << std::endl;
@@ -41,7 +41,7 @@ CherryTreeSQLiteRead::~CherryTreeSQLiteRead()
 }
 
 
-void CherryTreeSQLiteRead::tree_walk(Gtk::TreeIter *p_parent_iter)
+void CherryTreeSQLiteRead::tree_walk(const Gtk::TreeIter *p_parent_iter)
 {
     sqlite3_stmt *p_stmt;
     if(sqlite3_prepare_v2(mp_db, "SELECT node_id FROM bookmark ORDER BY sequence ASC", -1, &p_stmt, 0) != SQLITE_OK)
@@ -64,7 +64,7 @@ void CherryTreeSQLiteRead::tree_walk(Gtk::TreeIter *p_parent_iter)
 }
 
 
-void CherryTreeSQLiteRead::_sqlite3_tree_walk_iter(gint64 node_id, Gtk::TreeIter *p_parent_iter)
+void CherryTreeSQLiteRead::_sqlite3_tree_walk_iter(gint64 node_id, const Gtk::TreeIter *p_parent_iter)
 {
     Gtk::TreeIter new_iter = _sqlite3_node_process(node_id, p_parent_iter);
 
@@ -134,7 +134,7 @@ t_ct_node_data CherryTreeSQLiteRead::_sqlite3_get_node_properties(gint64 node_id
 }
 
 
-Gtk::TreeIter CherryTreeSQLiteRead::_sqlite3_node_process(gint64 node_id, Gtk::TreeIter *p_parent_iter)
+Gtk::TreeIter CherryTreeSQLiteRead::_sqlite3_node_process(gint64 node_id, const Gtk::TreeIter *p_parent_iter)
 {
     t_ct_node_data node_data = _sqlite3_get_node_properties(node_id);
     Gtk::TreeIter new_iter = m_signal_append_node.emit(&node_data, p_parent_iter);

@@ -54,15 +54,15 @@ void TheTreeStore::view_append_columns(Gtk::TreeView *p_treeview)
 }
 
 
-bool TheTreeStore::read_nodes_from_filepath(std::string &filepath, Gtk::TreeIter *p_parent_iter)
+bool TheTreeStore::readNodesFromFilepath(const char* filepath, const Gtk::TreeIter *pParentIter)
 {
-    bool ret_ok = false;
-    CherryTreeDocRead *p_ct_doc_read = nullptr;
-    if (Glib::str_has_suffix(filepath, ".ctd"))
+    bool retOk = false;
+    CherryTreeDocRead* p_ct_doc_read{nullptr};
+    if (g_str_has_suffix(filepath, ".ctd"))
     {
         p_ct_doc_read = new CherryTreeXMLRead(filepath);
     }
-    else if (Glib::str_has_suffix(filepath, ".ctb"))
+    else if (g_str_has_suffix(filepath, ".ctb"))
     {
         p_ct_doc_read = new CherryTreeSQLiteRead(filepath);
     }
@@ -70,11 +70,11 @@ bool TheTreeStore::read_nodes_from_filepath(std::string &filepath, Gtk::TreeIter
     {
         p_ct_doc_read->m_signal_add_bookmark.connect(sigc::mem_fun(this, &TheTreeStore::on_request_add_bookmark));
         p_ct_doc_read->m_signal_append_node.connect(sigc::mem_fun(this, &TheTreeStore::on_request_append_node));
-        p_ct_doc_read->tree_walk(p_parent_iter);
+        p_ct_doc_read->tree_walk(pParentIter);
         delete p_ct_doc_read;
-        ret_ok = true;
+        retOk = true;
     }
-    return ret_ok;
+    return retOk;
 }
 
 
@@ -121,7 +121,7 @@ Glib::RefPtr<Gdk::Pixbuf> TheTreeStore::_get_node_icon(int node_depth, Glib::ust
 }
 
 
-Gtk::TreeIter TheTreeStore::append_node(t_ct_node_data *p_node_data, Gtk::TreeIter *p_parent_iter)
+Gtk::TreeIter TheTreeStore::append_node(t_ct_node_data *p_node_data, const Gtk::TreeIter *p_parent_iter)
 {
     Gtk::TreeIter new_iter;
     //std::cout << p_node_data->name << std::endl;
@@ -165,7 +165,7 @@ guint16 TheTreeStore::_get_pango_weight(bool is_bold)
 }
 
 
-Gtk::TreeIter TheTreeStore::on_request_append_node(t_ct_node_data *p_node_data, Gtk::TreeIter *p_parent_iter)
+Gtk::TreeIter TheTreeStore::on_request_append_node(t_ct_node_data *p_node_data, const Gtk::TreeIter *p_parent_iter)
 {
     return append_node(p_node_data, p_parent_iter);
 }

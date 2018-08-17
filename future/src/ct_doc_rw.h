@@ -32,35 +32,35 @@ class CherryTreeDocRead
 public:
     CherryTreeDocRead() {};
     virtual ~CherryTreeDocRead() {};
-    virtual void tree_walk(Gtk::TreeIter *p_parent_iter=nullptr)=0;
+    virtual void tree_walk(const Gtk::TreeIter *p_parent_iter=nullptr)=0;
     sigc::signal<void, gint64> m_signal_add_bookmark;
-    sigc::signal<Gtk::TreeIter, t_ct_node_data*, Gtk::TreeIter*> m_signal_append_node;
+    sigc::signal<Gtk::TreeIter, t_ct_node_data*, const Gtk::TreeIter*> m_signal_append_node;
 };
 
 
 class CherryTreeXMLRead : public CherryTreeDocRead, public xmlpp::DomParser
 {
 public:
-    CherryTreeXMLRead(std::string& filepath);
+    CherryTreeXMLRead(const char* filepath);
     virtual ~CherryTreeXMLRead();
-    void tree_walk(Gtk::TreeIter *p_parent_iter=nullptr);
+    void tree_walk(const Gtk::TreeIter *p_parent_iter=nullptr);
 private:
-    void _xml_tree_walk_iter(xmlpp::Element *p_node_element, Gtk::TreeIter *p_parent_iter);
+    void _xml_tree_walk_iter(xmlpp::Element *p_node_element, const Gtk::TreeIter *p_parent_iter);
     t_ct_node_data _xml_get_node_properties(xmlpp::Element *p_node_element);
-    Gtk::TreeIter _xml_node_process(xmlpp::Element *p_node_element, Gtk::TreeIter *p_parent_iter);
+    Gtk::TreeIter _xml_node_process(xmlpp::Element *p_node_element, const Gtk::TreeIter *p_parent_iter);
 };
 
 
 class CherryTreeSQLiteRead : public CherryTreeDocRead
 {
 public:
-    CherryTreeSQLiteRead(std::string &filepath);
+    CherryTreeSQLiteRead(const char* filepath);
     virtual ~CherryTreeSQLiteRead();
-    void tree_walk(Gtk::TreeIter *p_parent_iter=nullptr);
+    void tree_walk(const Gtk::TreeIter *p_parent_iter=nullptr);
 private:
     sqlite3 *mp_db;
     std::list<gint64> _sqlite3_get_children_node_id_from_father_id(gint64 father_id);
-    void _sqlite3_tree_walk_iter(gint64 node_id, Gtk::TreeIter *p_parent_iter);
+    void _sqlite3_tree_walk_iter(gint64 node_id, const Gtk::TreeIter *p_parent_iter);
     t_ct_node_data _sqlite3_get_node_properties(gint64 node_id);
-    Gtk::TreeIter _sqlite3_node_process(gint64 node_id, Gtk::TreeIter *p_parent_iter);
+    Gtk::TreeIter _sqlite3_node_process(gint64 node_id, const Gtk::TreeIter *p_parent_iter);
 };

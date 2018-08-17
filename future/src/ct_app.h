@@ -43,7 +43,7 @@ class CTApplication: public Gtk::Application
 {
 protected:
     CTApplication();
-    ~CTApplication();
+    virtual ~CTApplication();
 
 public:
     static Glib::RefPtr<CTApplication> create();

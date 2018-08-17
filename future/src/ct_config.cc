@@ -24,23 +24,23 @@
 #include "ct_config.h"
 
 
-CTConfig::CTConfig() : _m_filepath(Glib::build_filename(Glib::get_user_config_dir(), "cherrytree", "config.cfg")),
-                       _mp_key_file(nullptr)
+CTConfig::CTConfig()
+ : _m_filepath(Glib::build_filename(Glib::get_user_config_dir(), "cherrytree", "config.cfg")),
+   _mp_key_file(nullptr)
 {
     _populate_with_defaults();
     bool config_found = _check_load_from_file();
     std::cout << _m_filepath << " " << (config_found ? "parsed":"missing") << std::endl;
 }
 
-
 CTConfig::~CTConfig()
 {
+    //std::cout << "~CTConfig()" << std::endl;
     if (_mp_key_file != nullptr)
     {
         delete _mp_key_file;
     }
 }
-
 
 void CTConfig::_populate_with_defaults()
 {
@@ -164,7 +164,6 @@ void CTConfig::_populate_with_defaults()
     m_limit_undoable_steps = 20;
 }
 
-
 bool CTConfig::_populate_string_from_keyfile(const gchar *key, Glib::ustring *p_target)
 {
     bool got_it = false;
@@ -182,7 +181,6 @@ bool CTConfig::_populate_string_from_keyfile(const gchar *key, Glib::ustring *p_
     }
     return got_it;
 }
-
 
 bool CTConfig::_populate_bool_from_keyfile(const gchar *key, bool *p_target)
 {
@@ -212,7 +210,6 @@ bool CTConfig::_populate_bool_from_keyfile(const gchar *key, bool *p_target)
     return got_it;
 }
 
-
 bool CTConfig::_populate_int_from_keyfile(const gchar *key, int *p_target)
 {
     bool got_it = false;
@@ -230,7 +227,6 @@ bool CTConfig::_populate_int_from_keyfile(const gchar *key, int *p_target)
     }
     return got_it;
 }
-
 
 bool CTConfig::_populate_double_from_keyfile(const gchar *key, double *p_target)
 {
@@ -250,7 +246,6 @@ bool CTConfig::_populate_double_from_keyfile(const gchar *key, double *p_target)
     return got_it;
 }
 
-
 void CTConfig::_populate_map_from_current_group(std::map<Glib::ustring, Glib::ustring> *p_map)
 {
     for (Glib::ustring key : _mp_key_file->get_keys(_m_current_group))
@@ -259,12 +254,10 @@ void CTConfig::_populate_map_from_current_group(std::map<Glib::ustring, Glib::us
     }
 }
 
-
 void CTConfig::_unexpected_keyfile_error(const gchar *key, const Glib::KeyFileError &kferror)
 {
     std::cerr << "!! " << key << " error code " << kferror.code() << std::endl;
 }
-
 
 void CTConfig::_populate_from_keyfile()
 {
@@ -460,7 +453,6 @@ void CTConfig::_populate_from_keyfile()
     _m_current_group = "codexec_ext";
     _populate_map_from_current_group(&m_custom_codexec_ext);
 }
-
 
 bool CTConfig::_check_load_from_file()
 {

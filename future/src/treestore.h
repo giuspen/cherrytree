@@ -77,13 +77,13 @@ public:
 
     void view_append_columns(Gtk::TreeView *p_treeview);
 
-    bool read_nodes_from_filepath(std::string &filepath, Gtk::TreeIter *p_parent_iter=nullptr);
+    bool readNodesFromFilepath(const char* filepath, const Gtk::TreeIter *pParentIter=nullptr);
 
-    Gtk::TreeIter append_node(t_ct_node_data *p_node_data, Gtk::TreeIter *p_parent_iter=nullptr);
+    Gtk::TreeIter append_node(t_ct_node_data *p_node_data, const Gtk::TreeIter *p_parent_iter=nullptr);
 
     void on_request_add_bookmark(gint64 node_id);
 
-    Gtk::TreeIter on_request_append_node(t_ct_node_data *p_node_data, Gtk::TreeIter *p_parent_iter);
+    Gtk::TreeIter on_request_append_node(t_ct_node_data *p_node_data, const Gtk::TreeIter *p_parent_iter);
 
 protected:
     guint16 _get_pango_weight(bool is_bold);

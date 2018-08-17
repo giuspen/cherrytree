@@ -21,7 +21,8 @@
 
 #include <glibmm/i18n.h>
 #include <iostream>
-#include "main_win.h"
+#include "ct_app.h"
+#include "p7za_iface.h"
 
 
 TheTreeView::TheTreeView()
@@ -52,21 +53,37 @@ MainWindow::~MainWindow()
 bool MainWindow::readNodesFromGioFile(const Glib::RefPtr<Gio::File>& r_file)
 {
     std::string filepath{r_file->get_path()};
+    const gchar* pFilepath{NULL};
     if ( (Glib::str_has_suffix(filepath, ".ctz")) ||
          (Glib::str_has_suffix(filepath, ".ctx")) )
     {
         gchar* title = g_strdup_printf(_("Enter Password for %s"), Glib::path_get_basename(filepath).c_str());
-        CTDialogTextEntry dialogTextEntry(title, true/*forPassword*/, this);
-        Glib::ustring password = dialogTextEntry.getEntryText();
-        g_free(title);
-        if (!password.empty())
+        while (true)
         {
-            //CTApplication::P_ctTmp.
+            CTDialogTextEntry dialogTextEntry(title, true/*forPassword*/, this);
+            int response = dialogTextEntry.run();
+            if (Gtk::RESPONSE_OK != response)
+            {
+                break;
+            }
+            Glib::ustring password = dialogTextEntry.getEntryText();
+            if (0 == p7za_extract(filepath.c_str(),
+                                   CTApplication::P_ctTmp->getHiddenDirPath(filepath),
+                                   password.c_str()) &&
+                g_file_test(CTApplication::P_ctTmp->getHiddenFilePath(filepath), G_FILE_TEST_IS_REGULAR))
+            {
+                pFilepath = CTApplication::P_ctTmp->getHiddenFilePath(filepath);
+                break;
+            }
         }
+        g_free(title);
     }
-
-
-    return _theTreestore.read_nodes_from_filepath(filepath);
+    else if ( (Glib::str_has_suffix(filepath, ".ctd")) ||
+              (Glib::str_has_suffix(filepath, ".ctb")) )
+    {
+        pFilepath = filepath.c_str();
+    }
+    return NULL == pFilepath ? false : _theTreestore.readNodesFromFilepath(pFilepath);
 }
 
 

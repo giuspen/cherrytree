@@ -47,10 +47,11 @@ CTApplication::CTApplication() : Gtk::Application("com.giuspen.cherrytree", Gio:
 
 CTApplication::~CTApplication()
 {
-    delete P_ct_config;
-    P_ct_config = nullptr;
-    delete P_ctTmp;
-    P_ctTmp = nullptr;
+    //std::cout << "~CTApplication()" << std::endl;
+    delete CTApplication::P_ct_config;
+    CTApplication::P_ct_config = nullptr;
+    delete CTApplication::P_ctTmp;
+    CTApplication::P_ctTmp = nullptr;
 }
 
 Glib::RefPtr<CTApplication> CTApplication::create()
@@ -134,13 +135,21 @@ CTTmp::CTTmp()
 
 CTTmp::~CTTmp()
 {
+    //std::cout << "~CTTmp()" << std::endl;
     for (const auto& currPair : _mapHiddenFiles)
     {
+        if (0 != g_remove(currPair.second))
+        {
+            std::cerr << "!! g_remove" << std::endl;
+        }
         g_free(currPair.second);
     }
     for (const auto& currPair : _mapHiddenDirs)
     {
-        g_rmdir(currPair.second);
+        if (0 != g_rmdir(currPair.second))
+        {
+            std::cerr << "!! g_rmdir" << std::endl;
+        }
         g_free(currPair.second);
     }
 }

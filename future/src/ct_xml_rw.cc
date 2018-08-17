@@ -25,7 +25,7 @@
 #include "str_utils.h"
 
 
-CherryTreeXMLRead::CherryTreeXMLRead(std::string &filepath)
+CherryTreeXMLRead::CherryTreeXMLRead(const char* filepath)
 {
     parse_file(filepath);
 }
@@ -36,7 +36,7 @@ CherryTreeXMLRead::~CherryTreeXMLRead()
 }
 
 
-void CherryTreeXMLRead::tree_walk(Gtk::TreeIter *p_parent_iter)
+void CherryTreeXMLRead::tree_walk(const Gtk::TreeIter *p_parent_iter)
 {
     xmlpp::Document *p_document = get_document();
     assert(p_document != nullptr);
@@ -60,7 +60,7 @@ void CherryTreeXMLRead::tree_walk(Gtk::TreeIter *p_parent_iter)
 }
 
 
-void CherryTreeXMLRead::_xml_tree_walk_iter(xmlpp::Element *p_node_element, Gtk::TreeIter *p_parent_iter)
+void CherryTreeXMLRead::_xml_tree_walk_iter(xmlpp::Element *p_node_element, const Gtk::TreeIter *p_parent_iter)
 {
     Gtk::TreeIter new_iter = _xml_node_process(p_node_element, p_parent_iter);
 
@@ -96,7 +96,7 @@ t_ct_node_data CherryTreeXMLRead::_xml_get_node_properties(xmlpp::Element *p_nod
 }
 
 
-Gtk::TreeIter CherryTreeXMLRead::_xml_node_process(xmlpp::Element *p_node_element, Gtk::TreeIter *p_parent_iter)
+Gtk::TreeIter CherryTreeXMLRead::_xml_node_process(xmlpp::Element *p_node_element, const Gtk::TreeIter *p_parent_iter)
 {
     t_ct_node_data node_data = _xml_get_node_properties(p_node_element);
     Gtk::TreeIter new_iter = m_signal_append_node.emit(&node_data, p_parent_iter);
