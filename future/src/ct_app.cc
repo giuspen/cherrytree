@@ -138,7 +138,7 @@ CTTmp::~CTTmp()
     //std::cout << "~CTTmp()" << std::endl;
     for (const auto& currPair : _mapHiddenFiles)
     {
-        if (0 != g_remove(currPair.second))
+        if (g_file_test(currPair.second, G_FILE_TEST_IS_REGULAR) && (0 != g_remove(currPair.second)))
         {
             std::cerr << "!! g_remove" << std::endl;
         }
@@ -146,7 +146,7 @@ CTTmp::~CTTmp()
     }
     for (const auto& currPair : _mapHiddenDirs)
     {
-        if (0 != g_rmdir(currPair.second))
+        if (g_file_test(currPair.second, G_FILE_TEST_IS_DIR) && (0 != g_rmdir(currPair.second)))
         {
             std::cerr << "!! g_rmdir" << std::endl;
         }

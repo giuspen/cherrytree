@@ -1,2 +1,3 @@
 # List of source files which contain translatable strings.
 src/main.cc
+src/main_win.cc

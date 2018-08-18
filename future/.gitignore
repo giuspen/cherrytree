@@ -1,6 +1,7 @@
 cherrytree
 run_tests
 *.gresource.*
+po/cherrytree.pot
 
 ABOUT-NLS
 COPYING
