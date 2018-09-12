@@ -33,11 +33,15 @@ import exports
 
 def get_timestamp_str(timestamp_format, time_float):
     """Get timestamp printable from float"""
+    try:
+        encoding = locale.getlocale()[1]
+    except:
+        encoding = cons.STR_UTF8
     struct_time = time.localtime(time_float)
     try:
-        timestamp_str = time.strftime(timestamp_format, struct_time).decode(locale.getlocale()[1])
+        timestamp_str = time.strftime(timestamp_format, struct_time).decode(encoding)
     except:
-        timestamp_str = time.strftime(config.TIMESTAMP_FORMAT_DEFAULT, struct_time).decode(locale.getlocale()[1])
+        timestamp_str = time.strftime(config.TIMESTAMP_FORMAT_DEFAULT, struct_time).decode(encoding)
     return timestamp_str
 
 def get_word_count(dad):
@@ -67,7 +71,11 @@ def auto_decode_str(in_str, from_clipboard=False):
         else:
             encodings = [cons.STR_UTF16, cons.STR_UTF8] + encodings
     else:
-        encodings += [cons.STR_UTF16, "utf-16le", cons.STR_UTF8, cons.STR_ISO_8859, locale.getdefaultlocale()[1]]
+        encodings += [cons.STR_UTF16, "utf-16le", cons.STR_UTF8, cons.STR_ISO_8859]
+        try:
+            encodings.append(locale.getdefaultlocale()[1])
+        except:
+            pass
     for enc in encodings:
         try:
             out_str = in_str.decode(enc)
