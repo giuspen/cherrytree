@@ -2541,7 +2541,7 @@ class HTMLHandler(HTMLParser.HTMLParser):
                 self.curr_table_header = False
                 self.curr_cell = ""
             elif tag == "tr":
-                if self.curr_cell and self.curr_table:
+                if self.curr_cell.strip() and self.curr_table:
                     # case of not closed <td>
                     self.curr_table[-1].append(self.curr_cell)
                     self.curr_cell = ""

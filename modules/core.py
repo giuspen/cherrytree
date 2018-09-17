@@ -1729,7 +1729,7 @@ iter_end, exclude_iter_sel_end=True)
                     print "os.rename failed"
                     subprocess.call("mv %s~ %s" % (re.escape(filepath), re.escape(filepath)), shell=True)
             support.dialog_error("%s write failed - writing to disk" % filepath, self.window)
-            #raise
+            raise
             self.writing_to_disk = False
             return False
 
