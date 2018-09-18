@@ -2679,14 +2679,21 @@ class HTMLHandler(HTMLParser.HTMLParser):
                     else: print "empty codebox skip"
                 else:
                     # it's a table
-                    if not self.curr_table_header: self.curr_table.append([_("click me")]*len(self.curr_table[0]))
-                    else: self.curr_table.append(self.curr_table.pop(0))
-                    table_dict = {'col_min': cons.TABLE_DEFAULT_COL_MIN,
-                                  'col_max': cons.TABLE_DEFAULT_COL_MAX,
-                                  'matrix': self.curr_table}
-                    self.dad.xml_handler.table_element_to_xml([self.chars_counter, table_dict, cons.TAG_PROP_LEFT],
-                        self.nodes_list[-1], self.dom)
-                    self.chars_counter += 1
+                    if len(self.curr_table) > 0:
+                        num_columns = len(self.curr_table[0])
+                        for curr_row in self.curr_table:
+                            if len(curr_row) != num_columns:
+                                print "!!", self.curr_table
+                                break
+                        else:
+                            if not self.curr_table_header: self.curr_table.append([_("click me")]*num_columns)
+                            else: self.curr_table.append(self.curr_table.pop(0))
+                            table_dict = {'col_min': cons.TABLE_DEFAULT_COL_MIN,
+                                          'col_max': cons.TABLE_DEFAULT_COL_MAX,
+                                          'matrix': self.curr_table}
+                            self.dad.xml_handler.table_element_to_xml([self.chars_counter, table_dict, cons.TAG_PROP_LEFT],
+                                self.nodes_list[-1], self.dom)
+                            self.chars_counter += 1
                 self.rich_text_serialize(cons.CHAR_NEWLINE)
             elif tag in ["p", "li"]: self.curr_cell += cons.CHAR_NEWLINE
 
