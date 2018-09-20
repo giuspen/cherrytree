@@ -54,9 +54,14 @@ public:
     virtual ~MainWindow();
 
     bool readNodesFromGioFile(const Glib::RefPtr<Gio::File>& r_file);
+    void configApply();
 
 protected:
+    Gtk::VBox           _vboxMain;
+    Gtk::VBox           _vboxText;
+    Gtk::HPaned         _hPaned;
     Gtk::ScrolledWindow _scrolledwindowTree;
+    Gtk::ScrolledWindow _scrolledwindowText;
     TheTreeStore        _theTreestore;
     TheTreeView         _theTreeview;
 };

@@ -38,16 +38,34 @@ TheTreeView::~TheTreeView()
 MainWindow::MainWindow() : Gtk::ApplicationWindow()
 {
     _scrolledwindowTree.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
-    add(_scrolledwindowTree);
+    _scrolledwindowText.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
+    _scrolledwindowTree.add(_theTreeview);
+    if (CTApplication::P_ct_config->m_tree_right_side)
+    {
+        _hPaned.add1(_vboxText);
+        _hPaned.add2(_scrolledwindowTree);
+    }
+    else
+    {
+        _hPaned.add1(_scrolledwindowTree);
+        _hPaned.add2(_vboxText);
+    }
+    _vboxMain.pack_start(_hPaned);
+    add(_vboxMain);
     _theTreestore.view_append_columns(&_theTreeview);
     _theTreestore.view_connect(&_theTreeview);
-    _scrolledwindowTree.add(_theTreeview);
-    set_size_request(300, 400);
+    set_size_request(963, 630);
+    configApply();
     show_all();
 }
 
 MainWindow::~MainWindow()
 {
+}
+
+void MainWindow::configApply()
+{
+    _hPaned.property_position() = CTApplication::P_ct_config->m_hpaned_pos;
 }
 
 bool MainWindow::readNodesFromGioFile(const Glib::RefPtr<Gio::File>& r_file)
