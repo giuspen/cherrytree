@@ -24,7 +24,10 @@ AM_CPPFLAGS = ${CHERRYTREE_CFLAGS} \
 	-DUNIX_USE_WIN_FILE \
 	-D_LIB_FOR_CHERRYTREE \
 	-D_UNITTEST_DATA_DIR=\"${top_srcdir}/tests/data\" \
-	-std=c++14
+	-Wno-deprecated \
+	-Wno-cpp
+
+AM_CXXFLAGS = -std=c++14
 
 bin_PROGRAMS = cherrytree
 

@@ -35,6 +35,15 @@ TheTreeView::~TheTreeView()
 }
 
 
+TheTextView::TheTextView()
+{
+}
+
+TheTextView::~TheTextView()
+{
+}
+
+
 MainWindow::MainWindow() : Gtk::ApplicationWindow()
 {
     _scrolledwindowTree.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);

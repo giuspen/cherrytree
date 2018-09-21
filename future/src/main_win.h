@@ -22,6 +22,7 @@
 #pragma once
 
 #include <gtkmm.h>
+#include <gtksourceviewmm.h>
 #include "treestore.h"
 
 
@@ -30,6 +31,14 @@ class TheTreeView : public Gtk::TreeView
 public:
     TheTreeView();
     virtual ~TheTreeView();
+};
+
+
+class TheTextView : public Gsv::View
+{
+public:
+    TheTextView();
+    virtual ~TheTextView();
 };
 
 
@@ -64,4 +73,5 @@ protected:
     Gtk::ScrolledWindow _scrolledwindowText;
     TheTreeStore        _theTreestore;
     TheTreeView         _theTreeview;
+    TheTextView         _theTextview;
 };
