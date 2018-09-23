@@ -66,6 +66,7 @@ public:
     void configApply();
 
 protected:
+    void                _on_theTreeview_signal_cursor_changed();
     Gtk::VBox           _vboxMain;
     Gtk::VBox           _vboxText;
     Gtk::HPaned         _hPaned;

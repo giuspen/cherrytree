@@ -37,6 +37,9 @@ TheTreeView::~TheTreeView()
 
 TheTextView::TheTextView()
 {
+    set_smart_home_end(Gsv::SMART_HOME_END_AFTER);
+    set_left_margin(7);
+    set_right_margin(7);
 }
 
 TheTextView::~TheTextView()
@@ -49,6 +52,8 @@ MainWindow::MainWindow() : Gtk::ApplicationWindow()
     _scrolledwindowTree.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
     _scrolledwindowText.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
     _scrolledwindowTree.add(_theTreeview);
+    _scrolledwindowText.add(_theTextview);
+    _vboxText.pack_start(_scrolledwindowText);
     if (CTApplication::P_ct_config->m_tree_right_side)
     {
         _hPaned.add1(_vboxText);
@@ -63,6 +68,7 @@ MainWindow::MainWindow() : Gtk::ApplicationWindow()
     add(_vboxMain);
     _theTreestore.view_append_columns(&_theTreeview);
     _theTreestore.view_connect(&_theTreeview);
+    _theTreeview.signal_cursor_changed().connect(sigc::mem_fun(*this, &MainWindow::_on_theTreeview_signal_cursor_changed));
     set_size_request(963, 630);
     configApply();
     show_all();
@@ -111,6 +117,12 @@ bool MainWindow::readNodesFromGioFile(const Glib::RefPtr<Gio::File>& r_file)
         pFilepath = filepath.c_str();
     }
     return NULL == pFilepath ? false : _theTreestore.readNodesFromFilepath(pFilepath);
+}
+
+void MainWindow::_on_theTreeview_signal_cursor_changed()
+{
+    Gtk::TreeIter treeIter = _theTreeview.get_selection()->get_selected();
+    std::cout << _theTreestore.getNodeName(treeIter) << std::endl;
 }
 
 

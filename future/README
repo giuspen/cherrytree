@@ -1,6 +1,20 @@
 
-sudo apt install libtool autoconf libgtkmm-3.0-dev
+# https://developer.gnome.org/gtkmm-tutorial/stable/
+# https://developer.gnome.org/gtkmm/stable/
+# https://developer.gnome.org/gtksourceviewmm/stable/
+# https://developer.gnome.org/libxml++-tutorial/stable/
+# https://developer.gnome.org/libxml++/stable/
+# https://cpputest.github.io/
+
+
+sudo apt install libtool autoconf libgtkmm-3.0-dev libgtksourceviewmm-3.0-dev libxml++2.6-dev libsqlite3-dev libcpputest-dev
+
 
 ./autogen.sh
 ./configure
 make
+./cherrytree
+
+
+make check
+./run_tests
