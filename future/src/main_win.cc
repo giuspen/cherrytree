@@ -54,7 +54,7 @@ MainWindow::MainWindow() : Gtk::ApplicationWindow()
     _scrolledwindowTree.add(_theTreeview);
     _scrolledwindowText.add(_theTextview);
     _vboxText.pack_start(_scrolledwindowText);
-    if (CTApplication::P_ct_config->m_tree_right_side)
+    if (CTApplication::P_ctCfg->treeRightSide)
     {
         _hPaned.add1(_vboxText);
         _hPaned.add2(_scrolledwindowTree);
@@ -69,7 +69,6 @@ MainWindow::MainWindow() : Gtk::ApplicationWindow()
     _theTreestore.view_append_columns(&_theTreeview);
     _theTreestore.view_connect(&_theTreeview);
     _theTreeview.signal_cursor_changed().connect(sigc::mem_fun(*this, &MainWindow::_on_theTreeview_signal_cursor_changed));
-    set_size_request(963, 630);
     configApply();
     show_all();
 }
@@ -80,7 +79,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::configApply()
 {
-    _hPaned.property_position() = CTApplication::P_ct_config->m_hpaned_pos;
+    _hPaned.property_position() = CTApplication::P_ctCfg->hpanedPos;
+    set_size_request(CTApplication::P_ctCfg->winRect[2], CTApplication::P_ctCfg->winRect[3]);
 }
 
 bool MainWindow::readNodesFromGioFile(const Glib::RefPtr<Gio::File>& r_file)

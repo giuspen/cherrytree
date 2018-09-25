@@ -82,7 +82,7 @@ Glib::RefPtr<Gdk::Pixbuf> TheTreeStore::_get_node_icon(int node_depth, Glib::ust
         // custom_icon_id
         r_pixbuf = CTApplication::R_icontheme->load_icon(NODES_STOCKS.at(custom_icon_id), NODE_ICON_SIZE);
     }
-    else if (NODE_ICON_TYPE_NONE == CTApplication::P_ct_config->m_nodes_icons)
+    else if (NODE_ICON_TYPE_NONE == CTApplication::P_ctCfg->nodesIcons)
     {
         // NODE_ICON_TYPE_NONE
         r_pixbuf = CTApplication::R_icontheme->load_icon(NODES_STOCKS.at(NODE_ICON_NO_ICON_ID), NODE_ICON_SIZE);
@@ -90,7 +90,7 @@ Glib::RefPtr<Gdk::Pixbuf> TheTreeStore::_get_node_icon(int node_depth, Glib::ust
     else if (1 == std::set<Glib::ustring>({RICH_TEXT_ID, PLAIN_TEXT_ID}).count(syntax))
     {
         // text node
-        if (NODE_ICON_TYPE_CHERRY == CTApplication::P_ct_config->m_nodes_icons)
+        if (NODE_ICON_TYPE_CHERRY == CTApplication::P_ctCfg->nodesIcons)
         {
             if (1 == NODES_ICONS.count(node_depth))
             {
@@ -104,7 +104,7 @@ Glib::RefPtr<Gdk::Pixbuf> TheTreeStore::_get_node_icon(int node_depth, Glib::ust
         else
         {
             // NODE_ICON_TYPE_CUSTOM
-            r_pixbuf = CTApplication::R_icontheme->load_icon(NODES_STOCKS.at(CTApplication::P_ct_config->m_default_icon_text), NODE_ICON_SIZE);
+            r_pixbuf = CTApplication::R_icontheme->load_icon(NODES_STOCKS.at(CTApplication::P_ctCfg->defaultIconText), NODE_ICON_SIZE);
         }
     }
     else
