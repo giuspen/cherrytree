@@ -21,7 +21,7 @@
 
 #include "ct_const.h"
 
-
+const gchar   CT_VERSION[]{"0.0.1"};
 const gchar   LINK_TYPE_WEBS[] = "webs";
 const gchar   LINK_TYPE_FILE[] = "file";
 const gchar   LINK_TYPE_FOLD[] = "fold";
@@ -159,7 +159,7 @@ const std::map<Glib::ustring, Glib::ustring> CODE_ICONS = {
 };
 
 
-Glib::ustring get_stock_id_for_code_type(Glib::ustring code_type)
+Glib::ustring getStockIdForCodeType(Glib::ustring code_type)
 {
     return (1 == CODE_ICONS.count(code_type) ? CODE_ICONS.at(code_type) : NODES_STOCKS.at(NODE_ICON_CODE_ID));
 }

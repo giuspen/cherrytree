@@ -36,12 +36,12 @@ TheTreeStore::~TheTreeStore()
 {
 }
 
-void TheTreeStore::view_connect(Gtk::TreeView *pTreeView)
+void TheTreeStore::viewConnect(Gtk::TreeView *pTreeView)
 {
     pTreeView->set_model(_rTreeStore);
 }
 
-void TheTreeStore::view_append_columns(Gtk::TreeView *pTreeView)
+void TheTreeStore::viewAppendColumns(Gtk::TreeView *pTreeView)
 {
     Gtk::TreeView::Column* pColumns = Gtk::manage(new Gtk::TreeView::Column(""));
     pColumns->pack_start(_columns.rColPixbuf, /*expand=*/false);
@@ -52,7 +52,7 @@ void TheTreeStore::view_append_columns(Gtk::TreeView *pTreeView)
 
 bool TheTreeStore::readNodesFromFilepath(const char* filepath, const Gtk::TreeIter *pParentIter)
 {
-    bool retOk = false;
+    bool retOk{false};
     CherryTreeDocRead* p_ct_doc_read{nullptr};
     if (g_str_has_suffix(filepath, ".ctd"))
     {
@@ -64,23 +64,23 @@ bool TheTreeStore::readNodesFromFilepath(const char* filepath, const Gtk::TreeIt
     }
     if (p_ct_doc_read != nullptr)
     {
-        p_ct_doc_read->m_signal_add_bookmark.connect(sigc::mem_fun(this, &TheTreeStore::on_request_add_bookmark));
-        p_ct_doc_read->m_signal_append_node.connect(sigc::mem_fun(this, &TheTreeStore::on_request_append_node));
-        p_ct_doc_read->tree_walk(pParentIter);
+        p_ct_doc_read->m_signal_add_bookmark.connect(sigc::mem_fun(this, &TheTreeStore::onRequestAddBookmark));
+        p_ct_doc_read->m_signal_append_node.connect(sigc::mem_fun(this, &TheTreeStore::onRequestAppendNode));
+        p_ct_doc_read->treeWalk(pParentIter);
         delete p_ct_doc_read;
         retOk = true;
     }
     return retOk;
 }
 
-Glib::RefPtr<Gdk::Pixbuf> TheTreeStore::_get_node_icon(int node_depth, Glib::ustring &syntax, guint32 custom_icon_id)
+Glib::RefPtr<Gdk::Pixbuf> TheTreeStore::_getNodeIcon(int nodeDepth, Glib::ustring &syntax, guint32 customIconId)
 {
     Glib::RefPtr<Gdk::Pixbuf> r_pixbuf;
 
-    if (custom_icon_id != 0)
+    if (customIconId != 0)
     {
-        // custom_icon_id
-        r_pixbuf = CTApplication::R_icontheme->load_icon(NODES_STOCKS.at(custom_icon_id), NODE_ICON_SIZE);
+        // customIconId
+        r_pixbuf = CTApplication::R_icontheme->load_icon(NODES_STOCKS.at(customIconId), NODE_ICON_SIZE);
     }
     else if (NODE_ICON_TYPE_NONE == CTApplication::P_ctCfg->nodesIcons)
     {
@@ -92,9 +92,9 @@ Glib::RefPtr<Gdk::Pixbuf> TheTreeStore::_get_node_icon(int node_depth, Glib::ust
         // text node
         if (NODE_ICON_TYPE_CHERRY == CTApplication::P_ctCfg->nodesIcons)
         {
-            if (1 == NODES_ICONS.count(node_depth))
+            if (1 == NODES_ICONS.count(nodeDepth))
             {
-                r_pixbuf = CTApplication::R_icontheme->load_icon(NODES_ICONS.at(node_depth), NODE_ICON_SIZE);
+                r_pixbuf = CTApplication::R_icontheme->load_icon(NODES_ICONS.at(nodeDepth), NODE_ICON_SIZE);
             }
             else
             {
@@ -110,55 +110,55 @@ Glib::RefPtr<Gdk::Pixbuf> TheTreeStore::_get_node_icon(int node_depth, Glib::ust
     else
     {
         // code node
-        r_pixbuf = CTApplication::R_icontheme->load_icon(get_stock_id_for_code_type(syntax), NODE_ICON_SIZE);
+        r_pixbuf = CTApplication::R_icontheme->load_icon(getStockIdForCodeType(syntax), NODE_ICON_SIZE);
     }
     return r_pixbuf;
 }
 
-Gtk::TreeIter TheTreeStore::append_node(t_ct_node_data *p_node_data, const Gtk::TreeIter *p_parent_iter)
+Gtk::TreeIter TheTreeStore::appendNode(CtNodeData *pNodeData, const Gtk::TreeIter *pParentIter)
 {
     Gtk::TreeIter new_iter;
-    //std::cout << p_node_data->name << std::endl;
+    //std::cout << pNodeData->name << std::endl;
 
-    if (p_parent_iter == nullptr)
+    if (pParentIter == nullptr)
     {
         new_iter = _rTreeStore->append();
     }
     else
     {
-        new_iter = _rTreeStore->append(static_cast<Gtk::TreeRow>(**p_parent_iter).children());
+        new_iter = _rTreeStore->append(static_cast<Gtk::TreeRow>(**pParentIter).children());
     }
     Gtk::TreeRow row = *new_iter;
-    row[_columns.rColPixbuf] = _get_node_icon(_rTreeStore->iter_depth(new_iter), p_node_data->syntax, p_node_data->custom_icon_id);
-    row[_columns.colNodeName] = p_node_data->name;
+    row[_columns.rColPixbuf] = _getNodeIcon(_rTreeStore->iter_depth(new_iter), pNodeData->syntax, pNodeData->customIconId);
+    row[_columns.colNodeName] = pNodeData->name;
     //row[_columns.rColTextBuffer] = ;
-    row[_columns.colNodeUniqueId] = p_node_data->node_id;
-    row[_columns.colSyntaxHighlighting] = p_node_data->syntax;
+    row[_columns.colNodeUniqueId] = pNodeData->nodeId;
+    row[_columns.colSyntaxHighlighting] = pNodeData->syntax;
     //row[_columns.colNodeSequence] = ;
-    row[_columns.colNodeTags] = p_node_data->tags;
-    row[_columns.colNodeRO] = p_node_data->is_ro;
+    row[_columns.colNodeTags] = pNodeData->tags;
+    row[_columns.colNodeRO] = pNodeData->isRO;
     //row[_columns.rColPixbufAux] = ;
-    row[_columns.colCustomIconId] = p_node_data->custom_icon_id;
-    row[_columns.colWeight] = _get_pango_weight(p_node_data->is_bold);
+    row[_columns.colCustomIconId] = pNodeData->customIconId;
+    row[_columns.colWeight] = _getPangoWeight(pNodeData->isBold);
     //row[_columns.colForeground] = ;
-    row[_columns.colTsCreation] = p_node_data->ts_creation;
-    row[_columns.colTsLastSave] = p_node_data->ts_lastsave;
+    row[_columns.colTsCreation] = pNodeData->tsCreation;
+    row[_columns.colTsLastSave] = pNodeData->tsLastSave;
     return new_iter;
 }
 
-void TheTreeStore::on_request_add_bookmark(gint64 node_id)
+void TheTreeStore::onRequestAddBookmark(gint64 nodeId)
 {
-    _bookmarks.push_back(node_id);
+    _bookmarks.push_back(nodeId);
 }
 
-guint16 TheTreeStore::_get_pango_weight(bool is_bold)
+guint16 TheTreeStore::_getPangoWeight(bool isBold)
 {
-    return is_bold ? PANGO_WEIGHT_HEAVY : PANGO_WEIGHT_NORMAL;
+    return isBold ? PANGO_WEIGHT_HEAVY : PANGO_WEIGHT_NORMAL;
 }
 
-Gtk::TreeIter TheTreeStore::on_request_append_node(t_ct_node_data *p_node_data, const Gtk::TreeIter *p_parent_iter)
+Gtk::TreeIter TheTreeStore::onRequestAppendNode(CtNodeData *pNodeData, const Gtk::TreeIter *pParentIter)
 {
-    return append_node(p_node_data, p_parent_iter);
+    return appendNode(pNodeData, pParentIter);
 }
 
 Glib::ustring TheTreeStore::getNodeName(Gtk::TreeIter treeIter)

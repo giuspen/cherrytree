@@ -37,6 +37,7 @@ TheTreeView::~TheTreeView()
 
 TheTextView::TheTextView()
 {
+    set_sensitive(false);
     set_smart_home_end(Gsv::SMART_HOME_END_AFTER);
     set_left_margin(7);
     set_right_margin(7);
@@ -49,6 +50,7 @@ TheTextView::~TheTextView()
 
 MainWindow::MainWindow() : Gtk::ApplicationWindow()
 {
+    set_icon(CTApplication::R_icontheme->load_icon("cherrytree", 48));
     _scrolledwindowTree.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
     _scrolledwindowText.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
     _scrolledwindowTree.add(_theTreeview);
@@ -66,10 +68,11 @@ MainWindow::MainWindow() : Gtk::ApplicationWindow()
     }
     _vboxMain.pack_start(_hPaned);
     add(_vboxMain);
-    _theTreestore.view_append_columns(&_theTreeview);
-    _theTreestore.view_connect(&_theTreeview);
+    _theTreestore.viewAppendColumns(&_theTreeview);
+    _theTreestore.viewConnect(&_theTreeview);
     _theTreeview.signal_cursor_changed().connect(sigc::mem_fun(*this, &MainWindow::_on_theTreeview_signal_cursor_changed));
     configApply();
+    _titleUpdate(false/*saveNeeded*/);
     show_all();
 }
 
@@ -85,6 +88,7 @@ void MainWindow::configApply()
 
 bool MainWindow::readNodesFromGioFile(const Glib::RefPtr<Gio::File>& r_file)
 {
+    bool retOk{false};
     std::string filepath{r_file->get_path()};
     const gchar* pFilepath{NULL};
     if ( (Glib::str_has_suffix(filepath, ".ctz")) ||
@@ -116,13 +120,39 @@ bool MainWindow::readNodesFromGioFile(const Glib::RefPtr<Gio::File>& r_file)
     {
         pFilepath = filepath.c_str();
     }
-    return NULL == pFilepath ? false : _theTreestore.readNodesFromFilepath(pFilepath);
+    if (NULL != pFilepath)
+    {
+        retOk = _theTreestore.readNodesFromFilepath(pFilepath);
+    }
+    if (retOk)
+    {
+        _fileName = Glib::path_get_basename(filepath);
+        _fileDir = Glib::path_get_dirname(filepath);
+        _titleUpdate(false/*saveNeeded*/);
+    }
+    return retOk;
 }
 
 void MainWindow::_on_theTreeview_signal_cursor_changed()
 {
     Gtk::TreeIter treeIter = _theTreeview.get_selection()->get_selected();
     std::cout << _theTreestore.getNodeName(treeIter) << std::endl;
+}
+
+void MainWindow::_titleUpdate(bool saveNeeded)
+{
+    Glib::ustring title;
+    if (saveNeeded)
+    {
+        title += "*";
+    }
+    if (!_fileName.empty())
+    {
+        title += _fileName + " - " + _fileDir + " - ";
+    }
+    title += "CherryTree ";
+    title += CT_VERSION;
+    set_title(title);
 }
 
 

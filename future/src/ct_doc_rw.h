@@ -32,9 +32,9 @@ class CherryTreeDocRead
 public:
     CherryTreeDocRead() {};
     virtual ~CherryTreeDocRead() {};
-    virtual void tree_walk(const Gtk::TreeIter *p_parent_iter=nullptr)=0;
+    virtual void treeWalk(const Gtk::TreeIter *pParentIter=nullptr)=0;
     sigc::signal<void, gint64> m_signal_add_bookmark;
-    sigc::signal<Gtk::TreeIter, t_ct_node_data*, const Gtk::TreeIter*> m_signal_append_node;
+    sigc::signal<Gtk::TreeIter, CtNodeData*, const Gtk::TreeIter*> m_signal_append_node;
 };
 
 
@@ -43,11 +43,11 @@ class CherryTreeXMLRead : public CherryTreeDocRead, public xmlpp::DomParser
 public:
     CherryTreeXMLRead(const char* filepath);
     virtual ~CherryTreeXMLRead();
-    void tree_walk(const Gtk::TreeIter *p_parent_iter=nullptr);
+    void treeWalk(const Gtk::TreeIter *pParentIter=nullptr);
 private:
-    void _xml_tree_walk_iter(xmlpp::Element *p_node_element, const Gtk::TreeIter *p_parent_iter);
-    t_ct_node_data _xml_get_node_properties(xmlpp::Element *p_node_element);
-    Gtk::TreeIter _xml_node_process(xmlpp::Element *p_node_element, const Gtk::TreeIter *p_parent_iter);
+    void _xmlTreeWalkIter(xmlpp::Element *p_node_element, const Gtk::TreeIter *pParentIter);
+    CtNodeData _xmlGetNodeProperties(xmlpp::Element *p_node_element);
+    Gtk::TreeIter _xmlNodeProcess(xmlpp::Element *p_node_element, const Gtk::TreeIter *pParentIter);
 };
 
 
@@ -56,11 +56,11 @@ class CherryTreeSQLiteRead : public CherryTreeDocRead
 public:
     CherryTreeSQLiteRead(const char* filepath);
     virtual ~CherryTreeSQLiteRead();
-    void tree_walk(const Gtk::TreeIter *p_parent_iter=nullptr);
+    void treeWalk(const Gtk::TreeIter *pParentIter=nullptr);
 private:
     sqlite3 *mp_db;
-    std::list<gint64> _sqlite3_get_children_node_id_from_father_id(gint64 father_id);
-    void _sqlite3_tree_walk_iter(gint64 node_id, const Gtk::TreeIter *p_parent_iter);
-    t_ct_node_data _sqlite3_get_node_properties(gint64 node_id);
-    Gtk::TreeIter _sqlite3_node_process(gint64 node_id, const Gtk::TreeIter *p_parent_iter);
+    std::list<gint64> _sqlite3GetChildrenNodeIdFromFatherId(gint64 father_id);
+    void _sqlite3TreeWalkIter(gint64 nodeId, const Gtk::TreeIter *pParentIter);
+    CtNodeData _sqlite3GetNodeProperties(gint64 nodeId);
+    Gtk::TreeIter _sqlite3NodeProcess(gint64 nodeId, const Gtk::TreeIter *pParentIter);
 };

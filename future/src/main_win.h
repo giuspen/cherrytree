@@ -67,6 +67,7 @@ public:
 
 protected:
     void                _on_theTreeview_signal_cursor_changed();
+    void                _titleUpdate(bool saveNeeded);
     Gtk::VBox           _vboxMain;
     Gtk::VBox           _vboxText;
     Gtk::HPaned         _hPaned;
@@ -75,4 +76,6 @@ protected:
     TheTreeStore        _theTreestore;
     TheTreeView         _theTreeview;
     TheTextView         _theTextview;
+    std::string         _fileName;
+    std::string         _fileDir;
 };

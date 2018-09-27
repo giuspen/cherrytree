@@ -41,46 +41,46 @@ CherryTreeSQLiteRead::~CherryTreeSQLiteRead()
 }
 
 
-void CherryTreeSQLiteRead::tree_walk(const Gtk::TreeIter *p_parent_iter)
+void CherryTreeSQLiteRead::treeWalk(const Gtk::TreeIter *pParentIter)
 {
     sqlite3_stmt *p_stmt;
-    if(sqlite3_prepare_v2(mp_db, "SELECT node_id FROM bookmark ORDER BY sequence ASC", -1, &p_stmt, 0) != SQLITE_OK)
+    if(sqlite3_prepare_v2(mp_db, "SELECT nodeId FROM bookmark ORDER BY sequence ASC", -1, &p_stmt, 0) != SQLITE_OK)
     {
         std::cerr << "!! sqlite3_prepare_v2: " << sqlite3_errmsg(mp_db) << std::endl;
         exit(EXIT_FAILURE);
     }
     while(sqlite3_step(p_stmt) == SQLITE_ROW)
     {
-        gint64 node_id = sqlite3_column_int64(p_stmt, 0);
-        m_signal_add_bookmark.emit(node_id);
+        gint64 nodeId = sqlite3_column_int64(p_stmt, 0);
+        m_signal_add_bookmark.emit(nodeId);
     }
     sqlite3_finalize(p_stmt);
 
-    std::list<gint64> top_nodes_ids = _sqlite3_get_children_node_id_from_father_id(0);
+    std::list<gint64> top_nodes_ids = _sqlite3GetChildrenNodeIdFromFatherId(0);
     for(gint64 &top_node_id : top_nodes_ids)
     {
-        _sqlite3_tree_walk_iter(top_node_id, p_parent_iter);
+        _sqlite3TreeWalkIter(top_node_id, pParentIter);
     }
 }
 
 
-void CherryTreeSQLiteRead::_sqlite3_tree_walk_iter(gint64 node_id, const Gtk::TreeIter *p_parent_iter)
+void CherryTreeSQLiteRead::_sqlite3TreeWalkIter(gint64 nodeId, const Gtk::TreeIter *pParentIter)
 {
-    Gtk::TreeIter new_iter = _sqlite3_node_process(node_id, p_parent_iter);
+    Gtk::TreeIter new_iter = _sqlite3NodeProcess(nodeId, pParentIter);
 
-    std::list<gint64> children_nodes_ids = _sqlite3_get_children_node_id_from_father_id(node_id);
+    std::list<gint64> children_nodes_ids = _sqlite3GetChildrenNodeIdFromFatherId(nodeId);
     for(gint64 &child_node_id : children_nodes_ids)
     {
-        _sqlite3_tree_walk_iter(child_node_id, &new_iter);
+        _sqlite3TreeWalkIter(child_node_id, &new_iter);
     }
 }
 
 
-std::list<gint64> CherryTreeSQLiteRead::_sqlite3_get_children_node_id_from_father_id(gint64 father_id)
+std::list<gint64> CherryTreeSQLiteRead::_sqlite3GetChildrenNodeIdFromFatherId(gint64 father_id)
 {
     std::list<gint64> ret_children;
     sqlite3_stmt *p_stmt;
-    if(sqlite3_prepare_v2(mp_db, "SELECT node_id FROM children WHERE father_id=? ORDER BY sequence ASC", -1, &p_stmt, 0) != SQLITE_OK)
+    if(sqlite3_prepare_v2(mp_db, "SELECT nodeId FROM children WHERE father_id=? ORDER BY sequence ASC", -1, &p_stmt, 0) != SQLITE_OK)
     {
         std::cerr << "!! sqlite3_prepare_v2: " << sqlite3_errmsg(mp_db) << std::endl;
         exit(EXIT_FAILURE);
@@ -88,55 +88,55 @@ std::list<gint64> CherryTreeSQLiteRead::_sqlite3_get_children_node_id_from_fathe
     sqlite3_bind_int(p_stmt, 1, father_id);
     while(sqlite3_step(p_stmt) == SQLITE_ROW)
     {
-        gint64 node_id = sqlite3_column_int64(p_stmt, 0);
-        ret_children.push_back(node_id);
+        gint64 nodeId = sqlite3_column_int64(p_stmt, 0);
+        ret_children.push_back(nodeId);
     }
     sqlite3_finalize(p_stmt);
     return ret_children;
 }
 
 
-t_ct_node_data CherryTreeSQLiteRead::_sqlite3_get_node_properties(gint64 node_id)
+CtNodeData CherryTreeSQLiteRead::_sqlite3GetNodeProperties(gint64 nodeId)
 {
-    t_ct_node_data node_data;
-    node_data.node_id = node_id;
+    CtNodeData nodeData;
+    nodeData.nodeId = nodeId;
     sqlite3_stmt *p_stmt;
-    if(sqlite3_prepare_v2(mp_db, "SELECT name, syntax, tags, is_ro, is_richtxt, ts_creation, ts_lastsave FROM node WHERE node_id=?", -1, &p_stmt, 0) != SQLITE_OK)
+    if(sqlite3_prepare_v2(mp_db, "SELECT name, syntax, tags, isRO, is_richtxt, tsCreation, tsLastSave FROM node WHERE nodeId=?", -1, &p_stmt, 0) != SQLITE_OK)
     {
         std::cerr << "!! sqlite3_prepare_v2: " << sqlite3_errmsg(mp_db) << std::endl;
         exit(EXIT_FAILURE);
     }
-    sqlite3_bind_int(p_stmt, 1, node_id);
+    sqlite3_bind_int(p_stmt, 1, nodeId);
     if(sqlite3_step(p_stmt) == SQLITE_ROW)
     {
-        node_data.name = (const char*)sqlite3_column_text(p_stmt, 0);
-        node_data.syntax = (const char*)sqlite3_column_text(p_stmt, 1);
-        node_data.tags = (const char*)sqlite3_column_text(p_stmt, 2);
+        nodeData.name = (const char*)sqlite3_column_text(p_stmt, 0);
+        nodeData.syntax = (const char*)sqlite3_column_text(p_stmt, 1);
+        nodeData.tags = (const char*)sqlite3_column_text(p_stmt, 2);
         gint64 readonly_n_custom_icon_id = sqlite3_column_int64(p_stmt, 3);
-        node_data.is_ro = bool(readonly_n_custom_icon_id & 0x01);
-        node_data.custom_icon_id = readonly_n_custom_icon_id >> 1;
+        nodeData.isRO = bool(readonly_n_custom_icon_id & 0x01);
+        nodeData.customIconId = readonly_n_custom_icon_id >> 1;
         gint64 richtxt_bold_foreground = sqlite3_column_int64(p_stmt, 4);
-        node_data.is_bold = bool((richtxt_bold_foreground >> 1) & 0x01);
-        node_data.fg_override = bool((richtxt_bold_foreground >> 2) & 0x01);
-        if(node_data.fg_override)
+        nodeData.isBold = bool((richtxt_bold_foreground >> 1) & 0x01);
+        nodeData.fgOverride = bool((richtxt_bold_foreground >> 2) & 0x01);
+        if(nodeData.fgOverride)
         {
-            set_rgb24_str_from_rgb24_int((richtxt_bold_foreground >> 3) & 0xffffff, node_data.foreground_rgb24);
+            set_rgb24_str_from_rgb24_int((richtxt_bold_foreground >> 3) & 0xffffff, nodeData.foregroundRgb24);
         }
-        node_data.ts_creation = sqlite3_column_int64(p_stmt, 5);
-        node_data.ts_lastsave = sqlite3_column_int64(p_stmt, 6);
+        nodeData.tsCreation = sqlite3_column_int64(p_stmt, 5);
+        nodeData.tsLastSave = sqlite3_column_int64(p_stmt, 6);
     }
     else
     {
-        std::cerr << "!! missing node properties for id " << node_id << std::endl;
+        std::cerr << "!! missing node properties for id " << nodeId << std::endl;
     }
     sqlite3_finalize(p_stmt);
-    return node_data;
+    return nodeData;
 }
 
 
-Gtk::TreeIter CherryTreeSQLiteRead::_sqlite3_node_process(gint64 node_id, const Gtk::TreeIter *p_parent_iter)
+Gtk::TreeIter CherryTreeSQLiteRead::_sqlite3NodeProcess(gint64 nodeId, const Gtk::TreeIter *pParentIter)
 {
-    t_ct_node_data node_data = _sqlite3_get_node_properties(node_id);
-    Gtk::TreeIter new_iter = m_signal_append_node.emit(&node_data, p_parent_iter);
+    CtNodeData nodeData = _sqlite3GetNodeProperties(nodeId);
+    Gtk::TreeIter new_iter = m_signal_append_node.emit(&nodeData, pParentIter);
     return new_iter;
 }

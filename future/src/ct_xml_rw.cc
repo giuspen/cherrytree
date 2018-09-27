@@ -36,7 +36,7 @@ CherryTreeXMLRead::~CherryTreeXMLRead()
 }
 
 
-void CherryTreeXMLRead::tree_walk(const Gtk::TreeIter *p_parent_iter)
+void CherryTreeXMLRead::treeWalk(const Gtk::TreeIter *pParentIter)
 {
     xmlpp::Document *p_document = get_document();
     assert(p_document != nullptr);
@@ -46,59 +46,59 @@ void CherryTreeXMLRead::tree_walk(const Gtk::TreeIter *p_parent_iter)
     {
         if(p_node->get_name() == "node")
         {
-            _xml_tree_walk_iter(static_cast<xmlpp::Element*>(p_node), p_parent_iter);
+            _xmlTreeWalkIter(static_cast<xmlpp::Element*>(p_node), pParentIter);
         }
         else if(p_node->get_name() == "bookmarks")
         {
             Glib::ustring bookmarks_csv = static_cast<xmlpp::Element*>(p_node)->get_attribute_value("list");
-            for(gint64 &node_id : gstring_split2int64(bookmarks_csv.c_str(), ","))
+            for(gint64 &nodeId : gstring_split2int64(bookmarks_csv.c_str(), ","))
             {
-                m_signal_add_bookmark.emit(node_id);
+                m_signal_add_bookmark.emit(nodeId);
             }
         }
     }
 }
 
 
-void CherryTreeXMLRead::_xml_tree_walk_iter(xmlpp::Element *p_node_element, const Gtk::TreeIter *p_parent_iter)
+void CherryTreeXMLRead::_xmlTreeWalkIter(xmlpp::Element *p_node_element, const Gtk::TreeIter *pParentIter)
 {
-    Gtk::TreeIter new_iter = _xml_node_process(p_node_element, p_parent_iter);
+    Gtk::TreeIter new_iter = _xmlNodeProcess(p_node_element, pParentIter);
 
     for(xmlpp::Node *p_node : p_node_element->get_children())
     {
         if(p_node->get_name() == "node")
         {
-            _xml_tree_walk_iter(static_cast<xmlpp::Element*>(p_node), &new_iter);
+            _xmlTreeWalkIter(static_cast<xmlpp::Element*>(p_node), &new_iter);
         }
     }
 }
 
 
-t_ct_node_data CherryTreeXMLRead::_xml_get_node_properties(xmlpp::Element *p_node_element)
+CtNodeData CherryTreeXMLRead::_xmlGetNodeProperties(xmlpp::Element *p_node_element)
 {
-    t_ct_node_data node_data;
-    node_data.node_id = gint64_from_gstring(p_node_element->get_attribute_value("unique_id").c_str());
-    node_data.name = p_node_element->get_attribute_value("name");
-    node_data.syntax = p_node_element->get_attribute_value("prog_lang");
-    node_data.tags = p_node_element->get_attribute_value("name");
-    node_data.is_ro = Glib::str_has_prefix(p_node_element->get_attribute_value("readonly"), "T");
-    node_data.custom_icon_id = gint64_from_gstring(p_node_element->get_attribute_value("custom_icon_id").c_str());
-    node_data.is_bold = Glib::str_has_prefix(p_node_element->get_attribute_value("is_bold"), "T");
-    Glib::ustring foreground_rgb24 = p_node_element->get_attribute_value("foreground");
-    node_data.fg_override = !foreground_rgb24.empty();
-    if(node_data.fg_override)
+    CtNodeData nodeData;
+    nodeData.nodeId = gint64_from_gstring(p_node_element->get_attribute_value("unique_id").c_str());
+    nodeData.name = p_node_element->get_attribute_value("name");
+    nodeData.syntax = p_node_element->get_attribute_value("prog_lang");
+    nodeData.tags = p_node_element->get_attribute_value("name");
+    nodeData.isRO = Glib::str_has_prefix(p_node_element->get_attribute_value("readonly"), "T");
+    nodeData.customIconId = gint64_from_gstring(p_node_element->get_attribute_value("customIconId").c_str());
+    nodeData.isBold = Glib::str_has_prefix(p_node_element->get_attribute_value("isBold"), "T");
+    Glib::ustring foregroundRgb24 = p_node_element->get_attribute_value("foreground");
+    nodeData.fgOverride = !foregroundRgb24.empty();
+    if(nodeData.fgOverride)
     {
-        g_strlcpy(node_data.foreground_rgb24, foreground_rgb24.c_str(), 8);
+        g_strlcpy(nodeData.foregroundRgb24, foregroundRgb24.c_str(), 8);
     }
-    node_data.ts_creation = gint64_from_gstring(p_node_element->get_attribute_value("ts_creation").c_str());
-    node_data.ts_lastsave = gint64_from_gstring(p_node_element->get_attribute_value("ts_lastsave").c_str());
-    return node_data;
+    nodeData.tsCreation = gint64_from_gstring(p_node_element->get_attribute_value("tsCreation").c_str());
+    nodeData.tsLastSave = gint64_from_gstring(p_node_element->get_attribute_value("tsLastSave").c_str());
+    return nodeData;
 }
 
 
-Gtk::TreeIter CherryTreeXMLRead::_xml_node_process(xmlpp::Element *p_node_element, const Gtk::TreeIter *p_parent_iter)
+Gtk::TreeIter CherryTreeXMLRead::_xmlNodeProcess(xmlpp::Element *p_node_element, const Gtk::TreeIter *pParentIter)
 {
-    t_ct_node_data node_data = _xml_get_node_properties(p_node_element);
-    Gtk::TreeIter new_iter = m_signal_append_node.emit(&node_data, p_parent_iter);
+    CtNodeData nodeData = _xmlGetNodeProperties(p_node_element);
+    Gtk::TreeIter new_iter = m_signal_append_node.emit(&nodeData, pParentIter);
     return new_iter;
 }

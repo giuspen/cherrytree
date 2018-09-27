@@ -1,10 +1,16 @@
 
+# https://www.gtkmm.org/en/documentation.shtml
 # https://developer.gnome.org/gtkmm-tutorial/stable/
 # https://developer.gnome.org/gtkmm/stable/
+# https://developer.gnome.org/gtkmm/stable/hierarchy.html
+
 # https://developer.gnome.org/gtksourceviewmm/stable/
+
 # https://developer.gnome.org/libxml++-tutorial/stable/
 # https://developer.gnome.org/libxml++/stable/
+
 # https://cpputest.github.io/
+
 
 
 sudo apt install libtool autoconf libgtkmm-3.0-dev libgtksourceviewmm-3.0-dev libxml++2.6-dev libsqlite3-dev libcpputest-dev
@@ -18,3 +24,13 @@ make
 
 make check
 ./run_tests
+
+
+
+sudo apt install libgtkmm-3.0-doc libgtksourceviewmm-3.0-doc libglibmm-2.4-doc libxml++2.6-doc
+
+# =>
+# file:///usr/share/doc/libglibmm-2.4-doc/reference/html/index.html
+# file:///usr/share/doc/libgtksourceviewmm-3.0-doc/reference/html/index.html
+# file:///usr/share/doc/libglibmm-2.4-doc/reference/html/index.html
+# file:///usr/share/doc/libxml++2.6-doc/reference/html/index.html

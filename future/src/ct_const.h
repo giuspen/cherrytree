@@ -31,6 +31,7 @@
 #define NODE_ICON_NO_ICON_ID        26
 #define NODE_ICON_SIZE              16
 
+extern const gchar   CT_VERSION[];
 extern const gchar   LINK_TYPE_WEBS[];
 extern const gchar   LINK_TYPE_FILE[];
 extern const gchar   LINK_TYPE_FOLD[];
@@ -86,4 +87,4 @@ extern const std::map<int, Glib::ustring> NODES_STOCKS;
 extern const std::map<int, Glib::ustring> NODES_ICONS;
 extern const std::map<Glib::ustring, Glib::ustring> CODE_ICONS;
 
-Glib::ustring get_stock_id_for_code_type(Glib::ustring code_type);
+Glib::ustring getStockIdForCodeType(Glib::ustring code_type);
