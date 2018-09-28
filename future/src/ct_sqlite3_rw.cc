@@ -21,7 +21,7 @@
 
 #include <iostream>
 #include "ct_doc_rw.h"
-#include "str_utils.h"
+#include "ct_misc_utils.h"
 
 
 CherryTreeSQLiteRead::CherryTreeSQLiteRead(const char* filepath)
@@ -52,7 +52,7 @@ void CherryTreeSQLiteRead::treeWalk(const Gtk::TreeIter *pParentIter)
     while(sqlite3_step(p_stmt) == SQLITE_ROW)
     {
         gint64 nodeId = sqlite3_column_int64(p_stmt, 0);
-        m_signal_add_bookmark.emit(nodeId);
+        signalAddBookmark.emit(nodeId);
     }
     sqlite3_finalize(p_stmt);
 
@@ -66,12 +66,12 @@ void CherryTreeSQLiteRead::treeWalk(const Gtk::TreeIter *pParentIter)
 
 void CherryTreeSQLiteRead::_sqlite3TreeWalkIter(gint64 nodeId, const Gtk::TreeIter *pParentIter)
 {
-    Gtk::TreeIter new_iter = _sqlite3NodeProcess(nodeId, pParentIter);
+    Gtk::TreeIter newIter = _sqlite3NodeProcess(nodeId, pParentIter);
 
     std::list<gint64> children_nodes_ids = _sqlite3GetChildrenNodeIdFromFatherId(nodeId);
     for(gint64 &child_node_id : children_nodes_ids)
     {
-        _sqlite3TreeWalkIter(child_node_id, &new_iter);
+        _sqlite3TreeWalkIter(child_node_id, &newIter);
     }
 }
 
@@ -120,7 +120,7 @@ CtNodeData CherryTreeSQLiteRead::_sqlite3GetNodeProperties(gint64 nodeId)
         nodeData.fgOverride = bool((richtxt_bold_foreground >> 2) & 0x01);
         if(nodeData.fgOverride)
         {
-            set_rgb24_str_from_rgb24_int((richtxt_bold_foreground >> 3) & 0xffffff, nodeData.foregroundRgb24);
+            CtRgbUtil::setRgb24StrFromRgb24Int((richtxt_bold_foreground >> 3) & 0xffffff, nodeData.foregroundRgb24);
         }
         nodeData.tsCreation = sqlite3_column_int64(p_stmt, 5);
         nodeData.tsLastSave = sqlite3_column_int64(p_stmt, 6);
@@ -137,6 +137,6 @@ CtNodeData CherryTreeSQLiteRead::_sqlite3GetNodeProperties(gint64 nodeId)
 Gtk::TreeIter CherryTreeSQLiteRead::_sqlite3NodeProcess(gint64 nodeId, const Gtk::TreeIter *pParentIter)
 {
     CtNodeData nodeData = _sqlite3GetNodeProperties(nodeId);
-    Gtk::TreeIter new_iter = m_signal_append_node.emit(&nodeData, pParentIter);
-    return new_iter;
+    Gtk::TreeIter newIter = signalAppendNode.emit(&nodeData, pParentIter);
+    return newIter;
 }

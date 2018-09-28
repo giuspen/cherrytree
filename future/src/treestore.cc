@@ -53,21 +53,21 @@ void TheTreeStore::viewAppendColumns(Gtk::TreeView *pTreeView)
 bool TheTreeStore::readNodesFromFilepath(const char* filepath, const Gtk::TreeIter *pParentIter)
 {
     bool retOk{false};
-    CherryTreeDocRead* p_ct_doc_read{nullptr};
+    CherryTreeDocRead* pCtDocRead{nullptr};
     if (g_str_has_suffix(filepath, ".ctd"))
     {
-        p_ct_doc_read = new CherryTreeXMLRead(filepath);
+        pCtDocRead = new CherryTreeXMLRead(filepath);
     }
     else if (g_str_has_suffix(filepath, ".ctb"))
     {
-        p_ct_doc_read = new CherryTreeSQLiteRead(filepath);
+        pCtDocRead = new CherryTreeSQLiteRead(filepath);
     }
-    if (p_ct_doc_read != nullptr)
+    if (pCtDocRead != nullptr)
     {
-        p_ct_doc_read->m_signal_add_bookmark.connect(sigc::mem_fun(this, &TheTreeStore::onRequestAddBookmark));
-        p_ct_doc_read->m_signal_append_node.connect(sigc::mem_fun(this, &TheTreeStore::onRequestAppendNode));
-        p_ct_doc_read->treeWalk(pParentIter);
-        delete p_ct_doc_read;
+        pCtDocRead->signalAddBookmark.connect(sigc::mem_fun(this, &TheTreeStore::onRequestAddBookmark));
+        pCtDocRead->signalAppendNode.connect(sigc::mem_fun(this, &TheTreeStore::onRequestAppendNode));
+        pCtDocRead->treeWalk(pParentIter);
+        delete pCtDocRead;
         retOk = true;
     }
     return retOk;
@@ -117,19 +117,19 @@ Glib::RefPtr<Gdk::Pixbuf> TheTreeStore::_getNodeIcon(int nodeDepth, Glib::ustrin
 
 Gtk::TreeIter TheTreeStore::appendNode(CtNodeData *pNodeData, const Gtk::TreeIter *pParentIter)
 {
-    Gtk::TreeIter new_iter;
+    Gtk::TreeIter newIter;
     //std::cout << pNodeData->name << std::endl;
 
     if (pParentIter == nullptr)
     {
-        new_iter = _rTreeStore->append();
+        newIter = _rTreeStore->append();
     }
     else
     {
-        new_iter = _rTreeStore->append(static_cast<Gtk::TreeRow>(**pParentIter).children());
+        newIter = _rTreeStore->append(static_cast<Gtk::TreeRow>(**pParentIter).children());
     }
-    Gtk::TreeRow row = *new_iter;
-    row[_columns.rColPixbuf] = _getNodeIcon(_rTreeStore->iter_depth(new_iter), pNodeData->syntax, pNodeData->customIconId);
+    Gtk::TreeRow row = *newIter;
+    row[_columns.rColPixbuf] = _getNodeIcon(_rTreeStore->iter_depth(newIter), pNodeData->syntax, pNodeData->customIconId);
     row[_columns.colNodeName] = pNodeData->name;
     //row[_columns.rColTextBuffer] = ;
     row[_columns.colNodeUniqueId] = pNodeData->nodeId;
@@ -143,7 +143,7 @@ Gtk::TreeIter TheTreeStore::appendNode(CtNodeData *pNodeData, const Gtk::TreeIte
     //row[_columns.colForeground] = ;
     row[_columns.colTsCreation] = pNodeData->tsCreation;
     row[_columns.colTsLastSave] = pNodeData->tsLastSave;
-    return new_iter;
+    return newIter;
 }
 
 void TheTreeStore::onRequestAddBookmark(gint64 nodeId)

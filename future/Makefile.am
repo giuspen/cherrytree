@@ -50,7 +50,7 @@ cherrytree_SOURCES = \
 	src/ct_xml_rw.cc \
 	src/ct_config.cc \
 	src/ct_const.cc \
-	src/str_utils.cc \
+	src/ct_misc_utils.cc \
 	src/p7za_iface.cc \
 	src/icons.gresource.cc
 
@@ -62,10 +62,10 @@ run_tests_SOURCES = \
 	src/ct_xml_rw.cc \
 	src/ct_config.cc \
 	src/ct_const.cc \
-	src/str_utils.cc \
+	src/ct_misc_utils.cc \
 	src/p7za_iface.cc \
 	src/icons.gresource.cc \
-	tests/tests_str_utils.cpp \
+	tests/tests_misc_utils.cpp \
 	tests/tests_tmp_n_p7zip.cpp
 
 libp7za_a_SOURCES = \

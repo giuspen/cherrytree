@@ -33,8 +33,8 @@ public:
     CherryTreeDocRead() {};
     virtual ~CherryTreeDocRead() {};
     virtual void treeWalk(const Gtk::TreeIter *pParentIter=nullptr)=0;
-    sigc::signal<void, gint64> m_signal_add_bookmark;
-    sigc::signal<Gtk::TreeIter, CtNodeData*, const Gtk::TreeIter*> m_signal_append_node;
+    sigc::signal<void, gint64> signalAddBookmark;
+    sigc::signal<Gtk::TreeIter, CtNodeData*, const Gtk::TreeIter*> signalAppendNode;
 };
 
 
@@ -45,9 +45,9 @@ public:
     virtual ~CherryTreeXMLRead();
     void treeWalk(const Gtk::TreeIter *pParentIter=nullptr);
 private:
-    void _xmlTreeWalkIter(xmlpp::Element *p_node_element, const Gtk::TreeIter *pParentIter);
-    CtNodeData _xmlGetNodeProperties(xmlpp::Element *p_node_element);
-    Gtk::TreeIter _xmlNodeProcess(xmlpp::Element *p_node_element, const Gtk::TreeIter *pParentIter);
+    void _xmlTreeWalkIter(xmlpp::Element *pNodeElement, const Gtk::TreeIter *pParentIter);
+    CtNodeData _xmlGetNodeProperties(xmlpp::Element *pNodeElement);
+    Gtk::TreeIter _xmlNodeProcess(xmlpp::Element *pNodeElement, const Gtk::TreeIter *pParentIter);
 };
 
 

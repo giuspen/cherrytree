@@ -22,7 +22,7 @@
 #include <iostream>
 #include <assert.h>
 #include "ct_doc_rw.h"
-#include "str_utils.h"
+#include "ct_misc_utils.h"
 
 
 CherryTreeXMLRead::CherryTreeXMLRead(const char* filepath)
@@ -38,67 +38,67 @@ CherryTreeXMLRead::~CherryTreeXMLRead()
 
 void CherryTreeXMLRead::treeWalk(const Gtk::TreeIter *pParentIter)
 {
-    xmlpp::Document *p_document = get_document();
-    assert(p_document != nullptr);
-    xmlpp::Element *p_root = p_document->get_root_node();
-    assert(p_root->get_name() == "cherrytree");
-    for(xmlpp::Node *p_node : p_root->get_children())
+    xmlpp::Document *pDocument = get_document();
+    assert (nullptr != pDocument);
+    xmlpp::Element *pRoot = pDocument->get_root_node();
+    assert ("cherrytree" == pRoot->get_name());
+    for (xmlpp::Node *pNode : pRoot->get_children())
     {
-        if(p_node->get_name() == "node")
+        if ("node" == pNode->get_name())
         {
-            _xmlTreeWalkIter(static_cast<xmlpp::Element*>(p_node), pParentIter);
+            _xmlTreeWalkIter(static_cast<xmlpp::Element*>(pNode), pParentIter);
         }
-        else if(p_node->get_name() == "bookmarks")
+        else if ("bookmarks" == pNode->get_name())
         {
-            Glib::ustring bookmarks_csv = static_cast<xmlpp::Element*>(p_node)->get_attribute_value("list");
-            for(gint64 &nodeId : gstring_split2int64(bookmarks_csv.c_str(), ","))
+            Glib::ustring bookmarks_csv = static_cast<xmlpp::Element*>(pNode)->get_attribute_value("list");
+            for (gint64 &nodeId : CtStrUtil::gstringSplit2int64(bookmarks_csv.c_str(), ","))
             {
-                m_signal_add_bookmark.emit(nodeId);
+                signalAddBookmark.emit(nodeId);
             }
         }
     }
 }
 
 
-void CherryTreeXMLRead::_xmlTreeWalkIter(xmlpp::Element *p_node_element, const Gtk::TreeIter *pParentIter)
+void CherryTreeXMLRead::_xmlTreeWalkIter(xmlpp::Element *pNodeElement, const Gtk::TreeIter *pParentIter)
 {
-    Gtk::TreeIter new_iter = _xmlNodeProcess(p_node_element, pParentIter);
+    Gtk::TreeIter newIter = _xmlNodeProcess(pNodeElement, pParentIter);
 
-    for(xmlpp::Node *p_node : p_node_element->get_children())
+    for (xmlpp::Node *pNode : pNodeElement->get_children())
     {
-        if(p_node->get_name() == "node")
+        if ("node" == pNode->get_name())
         {
-            _xmlTreeWalkIter(static_cast<xmlpp::Element*>(p_node), &new_iter);
+            _xmlTreeWalkIter(static_cast<xmlpp::Element*>(pNode), &newIter);
         }
     }
 }
 
 
-CtNodeData CherryTreeXMLRead::_xmlGetNodeProperties(xmlpp::Element *p_node_element)
+CtNodeData CherryTreeXMLRead::_xmlGetNodeProperties(xmlpp::Element *pNodeElement)
 {
     CtNodeData nodeData;
-    nodeData.nodeId = gint64_from_gstring(p_node_element->get_attribute_value("unique_id").c_str());
-    nodeData.name = p_node_element->get_attribute_value("name");
-    nodeData.syntax = p_node_element->get_attribute_value("prog_lang");
-    nodeData.tags = p_node_element->get_attribute_value("name");
-    nodeData.isRO = Glib::str_has_prefix(p_node_element->get_attribute_value("readonly"), "T");
-    nodeData.customIconId = gint64_from_gstring(p_node_element->get_attribute_value("customIconId").c_str());
-    nodeData.isBold = Glib::str_has_prefix(p_node_element->get_attribute_value("isBold"), "T");
-    Glib::ustring foregroundRgb24 = p_node_element->get_attribute_value("foreground");
+    nodeData.nodeId = CtStrUtil::gint64FromGstring(pNodeElement->get_attribute_value("unique_id").c_str());
+    nodeData.name = pNodeElement->get_attribute_value("name");
+    nodeData.syntax = pNodeElement->get_attribute_value("prog_lang");
+    nodeData.tags = pNodeElement->get_attribute_value("name");
+    nodeData.isRO = Glib::str_has_prefix(pNodeElement->get_attribute_value("readonly"), "T");
+    nodeData.customIconId = CtStrUtil::gint64FromGstring(pNodeElement->get_attribute_value("custom_icon_id").c_str());
+    nodeData.isBold = Glib::str_has_prefix(pNodeElement->get_attribute_value("is_bold"), "T");
+    Glib::ustring foregroundRgb24 = pNodeElement->get_attribute_value("foreground");
     nodeData.fgOverride = !foregroundRgb24.empty();
     if(nodeData.fgOverride)
     {
         g_strlcpy(nodeData.foregroundRgb24, foregroundRgb24.c_str(), 8);
     }
-    nodeData.tsCreation = gint64_from_gstring(p_node_element->get_attribute_value("tsCreation").c_str());
-    nodeData.tsLastSave = gint64_from_gstring(p_node_element->get_attribute_value("tsLastSave").c_str());
+    nodeData.tsCreation = CtStrUtil::gint64FromGstring(pNodeElement->get_attribute_value("ts_creation").c_str());
+    nodeData.tsLastSave = CtStrUtil::gint64FromGstring(pNodeElement->get_attribute_value("ts_lastSave").c_str());
     return nodeData;
 }
 
 
-Gtk::TreeIter CherryTreeXMLRead::_xmlNodeProcess(xmlpp::Element *p_node_element, const Gtk::TreeIter *pParentIter)
+Gtk::TreeIter CherryTreeXMLRead::_xmlNodeProcess(xmlpp::Element *pNodeElement, const Gtk::TreeIter *pParentIter)
 {
-    CtNodeData nodeData = _xmlGetNodeProperties(p_node_element);
-    Gtk::TreeIter new_iter = m_signal_append_node.emit(&nodeData, pParentIter);
-    return new_iter;
+    CtNodeData nodeData = _xmlGetNodeProperties(pNodeElement);
+    Gtk::TreeIter newIter = signalAppendNode.emit(&nodeData, pParentIter);
+    return newIter;
 }
