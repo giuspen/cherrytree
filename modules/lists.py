@@ -59,7 +59,7 @@ class ListsHandler:
                     # this is the first iteration
                     iter_start = text_buffer.get_iter_at_mark(text_buffer.get_insert())
                     if target_list_num_id == 0:
-                        text_buffer.insert(iter_start, cons.CHAR_LISTTODO + cons.CHAR_SPACE)
+                        text_buffer.insert(iter_start, self.dad.chars_todo[0] + cons.CHAR_SPACE)
                     elif target_list_num_id < 0:
                         text_buffer.insert(iter_start, self.dad.chars_listbul[0] + cons.CHAR_SPACE)
                     else:
@@ -79,7 +79,7 @@ class ListsHandler:
                     if target_list_num_id == 0:
                         new_par_offset = iter_end.get_offset() + 2
                         end_offset += 2
-                        text_buffer.insert(iter_start, cons.CHAR_LISTTODO + cons.CHAR_SPACE)
+                        text_buffer.insert(iter_start, self.dad.chars_todo[0] + cons.CHAR_SPACE)
                     elif target_list_num_id < 0:
                         new_par_offset = iter_end.get_offset() + 2
                         end_offset += 2
@@ -153,7 +153,7 @@ class ListsHandler:
                     num = (self.dad.chars_listbul.index(char) + 1)*(-1)
                     return {"num":num, "level":level, "aux":None}
                 break
-            if char in [cons.CHAR_LISTTODO, cons.CHAR_LISTDONEOK, cons.CHAR_LISTDONEFAIL]:
+            if char in self.dad.chars_todo:
                 if iter_start.forward_char() and iter_start.get_char() == cons.CHAR_SPACE:
                     return {"num":0, "level":level, "aux":None}
                 break
@@ -286,7 +286,7 @@ class ListsHandler:
 
     def is_list_todo_beginning(self, square_bracket_open_iter):
         """Check if ☐ or ☑ or ☒"""
-        if square_bracket_open_iter.get_char() in [cons.CHAR_LISTTODO, cons.CHAR_LISTDONEOK, cons.CHAR_LISTDONEFAIL]:
+        if square_bracket_open_iter.get_char() in self.dad.chars_todo:
             list_info = self.get_paragraph_list_info(square_bracket_open_iter)
             if list_info and list_info["num"] == 0:
                 return True
@@ -295,15 +295,15 @@ class ListsHandler:
     def todo_list_rotate_status(self, todo_char_iter, text_buffer):
         """Rotate status between ☐ and ☑ and ☒"""
         iter_offset = todo_char_iter.get_offset()
-        if todo_char_iter.get_char() == cons.CHAR_LISTTODO:
+        if todo_char_iter.get_char() == self.dad.chars_todo[0]:
             text_buffer.delete(todo_char_iter, text_buffer.get_iter_at_offset(iter_offset+1))
-            text_buffer.insert(text_buffer.get_iter_at_offset(iter_offset), cons.CHAR_LISTDONEOK)
-        elif todo_char_iter.get_char() == cons.CHAR_LISTDONEOK:
+            text_buffer.insert(text_buffer.get_iter_at_offset(iter_offset), self.dad.chars_todo[1])
+        elif todo_char_iter.get_char() == self.dad.chars_todo[1]:
             text_buffer.delete(todo_char_iter, text_buffer.get_iter_at_offset(iter_offset+1))
-            text_buffer.insert(text_buffer.get_iter_at_offset(iter_offset), cons.CHAR_LISTDONEFAIL)
-        elif todo_char_iter.get_char() == cons.CHAR_LISTDONEFAIL:
+            text_buffer.insert(text_buffer.get_iter_at_offset(iter_offset), self.dad.chars_todo[2])
+        elif todo_char_iter.get_char() == self.dad.chars_todo[2]:
             text_buffer.delete(todo_char_iter, text_buffer.get_iter_at_offset(iter_offset+1))
-            text_buffer.insert(text_buffer.get_iter_at_offset(iter_offset), cons.CHAR_LISTTODO)
+            text_buffer.insert(text_buffer.get_iter_at_offset(iter_offset), self.dad.chars_todo[0])
 
     def char_iter_forward_to_newline(self, char_iter):
         """Forwards char iter to line end"""
@@ -347,7 +347,7 @@ class ListsHandler:
                         first_iter.backward_chars(3)
                         iter_offset = first_iter.get_offset()
                         text_buffer.delete(first_iter, curr_iter)
-                        todo_char = cons.CHAR_LISTTODO if middle_char == cons.CHAR_SPACE else cons.CHAR_LISTDONEOK
+                        todo_char = self.dad.chars_todo[0] if middle_char == cons.CHAR_SPACE else self.dad.chars_todo[1]
                         text_buffer.insert(text_buffer.get_iter_at_offset(iter_offset), todo_char)
                         curr_iter = text_buffer.get_iter_at_offset(iter_offset)
                         if middle_char != cons.CHAR_SPACE:

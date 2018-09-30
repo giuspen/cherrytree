@@ -1062,9 +1062,9 @@ class ZimHandler():
                 elif curr_char == cons.CHAR_SQ_BR_OPEN\
                 and next_char in [cons.CHAR_SPACE, cons.CHAR_STAR, 'x']\
                 and third_char == cons.CHAR_SQ_BR_CLOSE:
-                    if next_char == cons.CHAR_SPACE: self.wiki_slot += cons.CHAR_LISTTODO
-                    elif next_char == cons.CHAR_STAR: self.wiki_slot += cons.CHAR_LISTDONEOK
-                    else: self.wiki_slot += cons.CHAR_LISTDONEFAIL
+                    if next_char == cons.CHAR_SPACE: self.wiki_slot += self.dad.chars_todo[0]
+                    elif next_char == cons.CHAR_STAR: self.wiki_slot += self.dad.chars_todo[1]
+                    else: self.wiki_slot += self.dad.chars_todo[2]
                     self.wiki_slot += cons.CHAR_SPACE
                     curr_pos += 2
                 elif self.in_table:

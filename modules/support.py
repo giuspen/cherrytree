@@ -385,7 +385,7 @@ def on_sourceview_event_after_key_press(dad, text_view, event, syntax_highl):
                 index = list_info["num"]*(-1) - 1
                 text_buffer.insert(iter_insert, pre_spaces+dad.chars_listbul[index]+cons.CHAR_SPACE)
             elif list_info["num"] == 0:
-                text_buffer.insert(iter_insert, pre_spaces+cons.CHAR_LISTTODO+cons.CHAR_SPACE)
+                text_buffer.insert(iter_insert, pre_spaces+dad.chars_todo[0]+cons.CHAR_SPACE)
             else:
                 new_num = list_info["num"] + 1
                 index = list_info["aux"]
@@ -464,7 +464,7 @@ def on_sourceview_event_after_key_press(dad, text_view, event, syntax_highl):
                 elif iter_start.get_char() == cons.CHAR_SQ_BR_CLOSE and iter_start.backward_char():
                     if iter_start.get_line_offset() == 0 and iter_start.get_char() == cons.CHAR_SQ_BR_OPEN:
                         # "[] " becoming "☐ " at line start
-                        dad.special_char_replace(cons.CHAR_LISTTODO, iter_start, iter_insert, text_buffer)
+                        dad.special_char_replace(dad.chars_todo[0], iter_start, iter_insert, text_buffer)
                 elif iter_start.get_char() == cons.CHAR_COLON and iter_start.backward_char():
                     if iter_start.get_line_offset() == 0 and iter_start.get_char() == cons.CHAR_COLON:
                         # ":: " becoming "▪ " at line start

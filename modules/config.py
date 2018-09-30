@@ -76,6 +76,7 @@ COLOR_PALETTE_DEFAULT = ["#000000", "#ffffff", "#7f7f7f", "#ff0000", "#a020f0",
 SPECIAL_CHARS_DEFAULT = unicode("“”„‘’•◇▪▸☐☑☒★…‰€©®™°↓↑→←↔↵⇓⇑⇒⇐⇔»«▼▲►◄≤≥≠≈±¹²³½¼⅛×÷∞ø∑√∫ΔδΠπΣΦΩωαβγεηλμ☺☻☼♥♣♦✔♀♂♪♫✝", cons.STR_UTF8, cons.STR_IGNORE)
 SELWORD_CHARS_DEFAULT = unicode(".-@", cons.STR_UTF8, cons.STR_IGNORE)
 CHARS_LISTBUL_DEFAULT = unicode("•◇▪-→⇒", cons.STR_UTF8, cons.STR_IGNORE)
+CHARS_TODO_DEFAULT = unicode("☐☑☒", cons.STR_UTF8, cons.STR_IGNORE)
 CHARS_TOC_DEFAULT = unicode("▸•◇▪", cons.STR_UTF8, cons.STR_IGNORE)
 NODES_ON_NODE_NAME_HEADER_DEFAULT = 3
 TIMESTAMP_FORMAT_DEFAULT = "%Y/%m/%d - %H:%M"
@@ -279,6 +280,7 @@ def config_file_load(dad):
         dad.special_chars = unicode(cfg.get(section, "special_chars"), cons.STR_UTF8, cons.STR_IGNORE) if cfg.has_option(section, "special_chars") else SPECIAL_CHARS_DEFAULT
         dad.selword_chars = unicode(cfg.get(section, "selword_chars"), cons.STR_UTF8, cons.STR_IGNORE) if cfg.has_option(section, "selword_chars") else SELWORD_CHARS_DEFAULT
         dad.chars_listbul = unicode(cfg.get(section, "chars_listbul"), cons.STR_UTF8, cons.STR_IGNORE) if cfg.has_option(section, "chars_listbul") else CHARS_LISTBUL_DEFAULT
+        dad.chars_todo = unicode(cfg.get(section, "chars_todo"), cons.STR_UTF8, cons.STR_IGNORE) if cfg.has_option(section, "chars_todo") else CHARS_TODO_DEFAULT
         dad.chars_toc = unicode(cfg.get(section, "chars_toc"), cons.STR_UTF8, cons.STR_IGNORE) if cfg.has_option(section, "chars_toc") else CHARS_TOC_DEFAULT
         if cfg.has_option(section, "latest_tag_prop") and cfg.has_option(section, "latest_tag_val"):
             dad.latest_tag[0] = cfg.get(section, "latest_tag_prop")
@@ -399,6 +401,7 @@ def config_file_load(dad):
         dad.special_chars = SPECIAL_CHARS_DEFAULT
         dad.selword_chars = SELWORD_CHARS_DEFAULT
         dad.chars_listbul = CHARS_LISTBUL_DEFAULT
+        dad.chars_todo = CHARS_TODO_DEFAULT
         dad.chars_toc = CHARS_TOC_DEFAULT
         dad.enable_spell_check = False
         dad.spell_check_lang = SPELL_CHECK_LANG_DEFAULT
@@ -615,6 +618,7 @@ def config_file_save(dad):
     cfg.set(section, "special_chars", dad.special_chars)
     cfg.set(section, "selword_chars", dad.selword_chars)
     cfg.set(section, "chars_listbul", dad.chars_listbul)
+    cfg.set(section, "chars_todo", dad.chars_todo)
     cfg.set(section, "chars_toc", dad.chars_toc)
     cfg.set(section, "latest_tag_prop", dad.latest_tag[0])
     cfg.set(section, "latest_tag_val", dad.latest_tag[1])
