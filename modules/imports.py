@@ -821,6 +821,7 @@ class ZimHandler():
         self.in_link = False
         self.in_plain_link = False
         self.in_table = False
+        self.in_codebox = False
         curr_pos = 0
         wiki_string = wiki_string.replace(cons.CHAR_CR, "")
         wiki_string = wiki_string.replace(cons.CHAR_NEWLINE+cons.CHAR_STAR+cons.CHAR_SPACE, cons.CHAR_NEWLINE+self.dad.chars_listbul[0]+cons.CHAR_SPACE)
@@ -857,6 +858,41 @@ class ZimHandler():
                         self.curr_attributes[cons.TAG_LINK] = ""
                         self.in_plain_link = False
                     self.wiki_slot += curr_char
+                elif self.in_codebox:
+                    if curr_char == cons.CHAR_BR_CLOSE and next_char == cons.CHAR_BR_CLOSE and third_char == cons.CHAR_BR_CLOSE:
+                        #print self.wiki_slot
+                        syntax_highlighting = cons.PLAIN_TEXT_ID
+                        show_line_numbers = False
+                        if self.wiki_slot.startswith("code"):
+                            newline_idx = self.wiki_slot.find("\n")
+                            if newline_idx >= 0:
+                                decl_line = self.wiki_slot[:newline_idx]
+                                match_syn_highl = re.search(r'lang="([^"]+)"', decl_line)
+                                if match_syn_highl:
+                                    prog_lang = match_syn_highl.group(1)
+                                    if prog_lang in self.dad.available_languages:
+                                        syntax_highlighting = prog_lang
+                                match_linenum = re.search(r'linenumbers="([^"]+)"', decl_line)
+                                if match_linenum:
+                                    show_line_numbers = bool(match_linenum.group(1))
+                                self.wiki_slot = self.wiki_slot[newline_idx:]
+                        codebox_dict = {
+                        'frame_width': 300,
+                        'frame_height': 150,
+                        'width_in_pixels': True,
+                        'syntax_highlighting': syntax_highlighting,
+                        'highlight_brackets': False,
+                        'show_line_numbers': show_line_numbers,
+                        'fill_text': self.wiki_slot
+                        }
+                        self.dad.xml_handler.codebox_element_to_xml([self.chars_counter, codebox_dict, cons.TAG_PROP_LEFT],
+                            self.nodes_list[-1], self.dom)
+                        self.chars_counter += 1
+                        curr_pos += 2
+                        self.in_codebox = False
+                        self.wiki_slot = ""
+                    else:
+                        self.wiki_slot += curr_char
                 elif self.in_link:
                     if curr_char == cons.CHAR_BR_CLOSE and next_char == cons.CHAR_BR_CLOSE:
                         valid_image = False
@@ -1014,6 +1050,10 @@ class ZimHandler():
                 elif curr_char == cons.CHAR_BR_CLOSE and self.curr_attributes[cons.TAG_SCALE] in [cons.TAG_PROP_SUP, cons.TAG_PROP_SUB]:
                     wiki_slot_flush()
                     self.curr_attributes[cons.TAG_SCALE] = ""
+                elif curr_char == cons.CHAR_BR_OPEN and next_char == cons.CHAR_BR_OPEN and third_char == cons.CHAR_BR_OPEN:
+                    wiki_slot_flush()
+                    curr_pos += 2
+                    self.in_codebox = True
                 elif curr_char == cons.CHAR_BR_OPEN and next_char == cons.CHAR_BR_OPEN \
                   or curr_char == cons.CHAR_SQ_BR_OPEN and next_char == cons.CHAR_SQ_BR_OPEN:
                     wiki_slot_flush()
