@@ -205,6 +205,8 @@ class ListsHandler:
             list_info = self.get_paragraph_list_info(iter_start)
             if not list_info:
                 break
+            if list_info["level"] < level:
+                break
             if list_info["level"] == level:
                 ret_val = list_info
                 break
