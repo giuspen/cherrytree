@@ -90,9 +90,9 @@ bool MainWindow::readNodesFromGioFile(const Glib::RefPtr<Gio::File>& r_file)
 {
     bool retOk{false};
     std::string filepath{r_file->get_path()};
+    CtDocEncrypt docEncrypt = CtMiscUtil::getDocEncrypt(filepath);
     const gchar* pFilepath{NULL};
-    if ( (Glib::str_has_suffix(filepath, ".ctz")) ||
-         (Glib::str_has_suffix(filepath, ".ctx")) )
+    if (CtDocEncrypt::True == docEncrypt)
     {
         gchar* title = g_strdup_printf(_("Enter Password for %s"), Glib::path_get_basename(filepath).c_str());
         while (true)
@@ -115,8 +115,7 @@ bool MainWindow::readNodesFromGioFile(const Glib::RefPtr<Gio::File>& r_file)
         }
         g_free(title);
     }
-    else if ( (Glib::str_has_suffix(filepath, ".ctd")) ||
-              (Glib::str_has_suffix(filepath, ".ctb")) )
+    else if (CtDocEncrypt::False == docEncrypt)
     {
         pFilepath = filepath.c_str();
     }
@@ -126,8 +125,8 @@ bool MainWindow::readNodesFromGioFile(const Glib::RefPtr<Gio::File>& r_file)
     }
     if (retOk)
     {
-        _fileName = Glib::path_get_basename(filepath);
-        _fileDir = Glib::path_get_dirname(filepath);
+        _currFileName = Glib::path_get_basename(filepath);
+        _currFileDir = Glib::path_get_dirname(filepath);
         _titleUpdate(false/*saveNeeded*/);
     }
     return retOk;
@@ -146,12 +145,12 @@ void MainWindow::_titleUpdate(bool saveNeeded)
     {
         title += "*";
     }
-    if (!_fileName.empty())
+    if (!_currFileName.empty())
     {
-        title += _fileName + " - " + _fileDir + " - ";
+        title += _currFileName + " - " + _currFileDir + " - ";
     }
     title += "CherryTree ";
-    title += CT_VERSION;
+    title += CtConst::CT_VERSION;
     set_title(title);
 }
 

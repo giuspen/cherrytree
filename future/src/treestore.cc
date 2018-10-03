@@ -53,12 +53,13 @@ void TheTreeStore::viewAppendColumns(Gtk::TreeView *pTreeView)
 bool TheTreeStore::readNodesFromFilepath(const char* filepath, const Gtk::TreeIter *pParentIter)
 {
     bool retOk{false};
+    CtDocType docType = CtMiscUtil::getDocType(filepath);
     CherryTreeDocRead* pCtDocRead{nullptr};
-    if (g_str_has_suffix(filepath, ".ctd"))
+    if (CtDocType::XML == docType)
     {
         pCtDocRead = new CherryTreeXMLRead(filepath);
     }
-    else if (g_str_has_suffix(filepath, ".ctb"))
+    else if (CtDocType::SQLite == docType)
     {
         pCtDocRead = new CherryTreeSQLiteRead(filepath);
     }
@@ -75,44 +76,44 @@ bool TheTreeStore::readNodesFromFilepath(const char* filepath, const Gtk::TreeIt
 
 Glib::RefPtr<Gdk::Pixbuf> TheTreeStore::_getNodeIcon(int nodeDepth, Glib::ustring &syntax, guint32 customIconId)
 {
-    Glib::RefPtr<Gdk::Pixbuf> r_pixbuf;
+    Glib::RefPtr<Gdk::Pixbuf> rPixbuf;
 
-    if (customIconId != 0)
+    if (0 != customIconId)
     {
         // customIconId
-        r_pixbuf = CTApplication::R_icontheme->load_icon(NODES_STOCKS.at(customIconId), NODE_ICON_SIZE);
+        rPixbuf = CTApplication::R_icontheme->load_icon(CtConst::NODES_STOCKS.at(customIconId), CtConst::NODE_ICON_SIZE);
     }
-    else if (NODE_ICON_TYPE_NONE == CTApplication::P_ctCfg->nodesIcons)
+    else if (CtConst::NODE_ICON_TYPE_NONE == CTApplication::P_ctCfg->nodesIcons)
     {
         // NODE_ICON_TYPE_NONE
-        r_pixbuf = CTApplication::R_icontheme->load_icon(NODES_STOCKS.at(NODE_ICON_NO_ICON_ID), NODE_ICON_SIZE);
+        rPixbuf = CTApplication::R_icontheme->load_icon(CtConst::NODES_STOCKS.at(CtConst::NODE_ICON_NO_ICON_ID), CtConst::NODE_ICON_SIZE);
     }
-    else if (1 == std::set<Glib::ustring>({RICH_TEXT_ID, PLAIN_TEXT_ID}).count(syntax))
+    else if (1 == std::set<Glib::ustring>({CtConst::RICH_TEXT_ID, CtConst::PLAIN_TEXT_ID}).count(syntax))
     {
         // text node
-        if (NODE_ICON_TYPE_CHERRY == CTApplication::P_ctCfg->nodesIcons)
+        if (CtConst::NODE_ICON_TYPE_CHERRY == CTApplication::P_ctCfg->nodesIcons)
         {
-            if (1 == NODES_ICONS.count(nodeDepth))
+            if (1 == CtConst::NODES_ICONS.count(nodeDepth))
             {
-                r_pixbuf = CTApplication::R_icontheme->load_icon(NODES_ICONS.at(nodeDepth), NODE_ICON_SIZE);
+                rPixbuf = CTApplication::R_icontheme->load_icon(CtConst::NODES_ICONS.at(nodeDepth),CtConst:: NODE_ICON_SIZE);
             }
             else
             {
-                r_pixbuf = CTApplication::R_icontheme->load_icon(NODES_ICONS.at(-1), NODE_ICON_SIZE);
+                rPixbuf = CTApplication::R_icontheme->load_icon(CtConst::NODES_ICONS.at(-1), CtConst::NODE_ICON_SIZE);
             }
         }
         else
         {
             // NODE_ICON_TYPE_CUSTOM
-            r_pixbuf = CTApplication::R_icontheme->load_icon(NODES_STOCKS.at(CTApplication::P_ctCfg->defaultIconText), NODE_ICON_SIZE);
+            rPixbuf = CTApplication::R_icontheme->load_icon(CtConst::NODES_STOCKS.at(CTApplication::P_ctCfg->defaultIconText), CtConst::NODE_ICON_SIZE);
         }
     }
     else
     {
         // code node
-        r_pixbuf = CTApplication::R_icontheme->load_icon(getStockIdForCodeType(syntax), NODE_ICON_SIZE);
+        rPixbuf = CTApplication::R_icontheme->load_icon(CtConst::getStockIdForCodeType(syntax), CtConst::NODE_ICON_SIZE);
     }
-    return r_pixbuf;
+    return rPixbuf;
 }
 
 Gtk::TreeIter TheTreeStore::appendNode(CtNodeData *pNodeData, const Gtk::TreeIter *pParentIter)
@@ -120,7 +121,7 @@ Gtk::TreeIter TheTreeStore::appendNode(CtNodeData *pNodeData, const Gtk::TreeIte
     Gtk::TreeIter newIter;
     //std::cout << pNodeData->name << std::endl;
 
-    if (pParentIter == nullptr)
+    if (nullptr == pParentIter)
     {
         newIter = _rTreeStore->append();
     }

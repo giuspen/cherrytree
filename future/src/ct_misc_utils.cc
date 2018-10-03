@@ -24,6 +24,39 @@
 #include <assert.h>
 #include "ct_misc_utils.h"
 
+CtDocType CtMiscUtil::getDocType(std::string fileName)
+{
+    CtDocType retDocType{CtDocType::None};
+    if ( (Glib::str_has_suffix(fileName, ".ctd")) ||
+         (Glib::str_has_suffix(fileName, ".ctz")) )
+    {
+        retDocType = CtDocType::XML;
+    }
+    else if ( (Glib::str_has_suffix(fileName, ".ctb")) ||
+              (Glib::str_has_suffix(fileName, ".ctx")) )
+    {
+        retDocType = CtDocType::SQLite;
+    }
+    return retDocType;
+}
+
+CtDocEncrypt CtMiscUtil::getDocEncrypt(std::string fileName)
+{
+    CtDocEncrypt retDocEncrypt{CtDocEncrypt::None};
+    if ( (Glib::str_has_suffix(fileName, ".ctd")) ||
+         (Glib::str_has_suffix(fileName, ".ctb")) )
+    {
+        retDocEncrypt = CtDocEncrypt::False;
+    }
+    else if ( (Glib::str_has_suffix(fileName, ".ctz")) ||
+              (Glib::str_has_suffix(fileName, ".ctx")) )
+    {
+        retDocEncrypt = CtDocEncrypt::True;
+    }
+    return retDocEncrypt;
+}
+
+
 Glib::ustring CtStrUtil::replaceInString(Glib::ustring &subjectStr, const Glib::ustring &searchStr, const Glib::ustring &replaceStr)
 {
     size_t pos = 0;

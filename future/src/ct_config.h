@@ -31,7 +31,7 @@ enum class RestoreExpColl : int {FROM_STR=0, ALL_EXP=1, ALL_COLL=2};
 enum class TableColMode : int {RENAME=0, ADD=1, DELETE=2, RIGHT=3, LEFT=4};
 
 
-struct t_ct_recent_docs_restore
+struct CtRecentDocRestore
 {
     Glib::ustring   doc_name;
     Glib::ustring   exp_coll_str;
@@ -40,11 +40,11 @@ struct t_ct_recent_docs_restore
 };
 
 
-class CTConfig
+class CtConfig
 {
 public:
-    CTConfig();
-    virtual ~CTConfig();
+    CtConfig();
+    virtual ~CtConfig();
 
     // [state]
     Glib::ustring                               fileDir;
@@ -63,7 +63,7 @@ public:
     Glib::ustring                               pickDirImg;
     Glib::ustring                               pickDirCsv;
     Glib::ustring                               pickDirCbox;
-    Glib::ustring                               linkType{LINK_TYPE_WEBS};
+    Glib::ustring                               linkType{CtConst::LINK_TYPE_WEBS};
     bool                                        showNodeNameHeader{true};
     int                                         nodesOnNodeNameHeader{3};
     int                                         toolbarIconSize{Gtk::BuiltinIconSize::ICON_SIZE_MENU};
@@ -72,20 +72,20 @@ public:
     // [tree]
     RestoreExpColl                              restoreExpColl{RestoreExpColl::FROM_STR};
     Glib::ustring                               expandedCollapsedString;
-    t_ct_recent_docs_restore                    recentDocsRestore[MAX_RECENT_DOCS_RESTORE];
+    std::vector<CtRecentDocRestore>             recentDocsRestore;
     bool                                        nodesBookmExp{false};
-    Glib::ustring                               nodesIcons{NODE_ICON_TYPE_CHERRY};
+    Glib::ustring                               nodesIcons{CtConst::NODE_ICON_TYPE_CHERRY};
     bool                                        auxIconHide{false};
-    int                                         defaultIconText{NODE_ICON_BULLET_ID};
+    int                                         defaultIconText{CtConst::NODE_ICON_BULLET_ID};
     bool                                        treeRightSide{false};
     int                                         cherryWrapWidth{130};
     bool                                        treeClickFocusText{false};
     bool                                        treeClickExpand{false};
 
     // [editor]
-    Glib::ustring                               syntaxHighlighting{RICH_TEXT_ID};
-    Glib::ustring                               autoSynHighl{SYN_HIGHL_BASH};
-    Glib::ustring                               styleScheme{STYLE_SCHEME_DARK};
+    Glib::ustring                               syntaxHighlighting{CtConst::RICH_TEXT_ID};
+    Glib::ustring                               autoSynHighl{CtConst::SYN_HIGHL_BASH};
+    Glib::ustring                               styleScheme{CtConst::STYLE_SCHEME_DARK};
     bool                                        enableSpellCheck{false};
     Glib::ustring                               spellCheckLang;
     bool                                        showLineNumbers{false};
@@ -106,13 +106,14 @@ public:
     int                                         spaceAroundLines{0};
     int                                         relativeWrappedSpace{50};
     Glib::ustring                               hRule{"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"};
-    Glib::ustring                               specialChars{SPECIAL_CHARS_DEFAULT};
-    Glib::ustring                               selwordChars{SELWORD_CHARS_DEFAULT};
-    Glib::ustring                               charsListbul{CHARS_LISTBUL_DEFAULT};
-    Glib::ustring                               charsToc{CHARS_TOC_DEFAULT};
+    Glib::ustring                               specialChars{CtConst::SPECIAL_CHARS_DEFAULT};
+    Glib::ustring                               selwordChars{CtConst::SELWORD_CHARS_DEFAULT};
+    Glib::ustring                               charsListbul{CtConst::CHARS_LISTBUL_DEFAULT};
+    Glib::ustring                               charsToc{CtConst::CHARS_TOC_DEFAULT};
+    Glib::ustring                               charsTodo{CtConst::CHARS_TODO_DEFAULT};
     Glib::ustring                               latestTagProp;
     Glib::ustring                               latestTagVal;
-    Glib::ustring                               timestampFormat{TIMESTAMP_FORMAT_DEFAULT};
+    Glib::ustring                               timestampFormat{CtConst::TIMESTAMP_FORMAT_DEFAULT};
     bool                                        linksUnderline{true};
     bool                                        linksRelative{false};
     bool                                        weblinkCustomOn{false};
@@ -128,7 +129,7 @@ public:
     bool                                        codeboxWidthPixels{true};
     bool                                        codeboxLineNum{false};
     bool                                        codeboxMatchBra{true};
-    Glib::ustring                               codeboxSynHighl{PLAIN_TEXT_ID};
+    Glib::ustring                               codeboxSynHighl{CtConst::PLAIN_TEXT_ID};
     bool                                        codeboxAutoResize{false};
 
     // [table]
@@ -145,22 +146,22 @@ public:
     Glib::ustring                               codeFont{"Monospace 9"};
 
     // [colors]
-    Glib::ustring                               rtDefFg{RICH_TEXT_DARK_FG};
-    Glib::ustring                               rtDefBg{RICH_TEXT_DARK_BG};
-    Glib::ustring                               ttDefFg{TREE_TEXT_LIGHT_FG};
-    Glib::ustring                               ttDefBg{TREE_TEXT_LIGHT_BG};
-    Glib::ustring                               monospaceBg{DEFAULT_MONOSPACE_BG};
+    Glib::ustring                               rtDefFg{CtConst::RICH_TEXT_DARK_FG};
+    Glib::ustring                               rtDefBg{CtConst::RICH_TEXT_DARK_BG};
+    Glib::ustring                               ttDefFg{CtConst::TREE_TEXT_LIGHT_FG};
+    Glib::ustring                               ttDefBg{CtConst::TREE_TEXT_LIGHT_BG};
+    Glib::ustring                               monospaceBg{CtConst::DEFAULT_MONOSPACE_BG};
     Glib::ustring                               colorPalette{"#000000:#ffffff:#7f7f7f:#ff0000:#a020f0:"
                                                              "#0000ff:#add8e6:#00ff00:#ffff00:#ffa500:"
                                                              "#e6e6fa:#a52a2a:#8b6914:#1e90ff:#ffc0cb:"
                                                              "#90ee90:#1a1a1a:#4d4d4d:#bfbfbf:#e5e5e5"};
-    Glib::ustring                               m_col_link_webs{COLOR_48_LINK_WEBS};
-    Glib::ustring                               m_col_link_node{COLOR_48_LINK_NODE};
-    Glib::ustring                               m_col_link_file{COLOR_48_LINK_FILE};
-    Glib::ustring                               m_col_link_fold{COLOR_48_LINK_FOLD};
+    Glib::ustring                               m_col_link_webs{CtConst::COLOR_48_LINK_WEBS};
+    Glib::ustring                               m_col_link_node{CtConst::COLOR_48_LINK_NODE};
+    Glib::ustring                               m_col_link_file{CtConst::COLOR_48_LINK_FILE};
+    Glib::ustring                               m_col_link_fold{CtConst::COLOR_48_LINK_FOLD};
 
     // [misc]
-    Glib::ustring                               toolbarUiList{TOOLBAR_VEC_DEFAULT};
+    Glib::ustring                               toolbarUiList{CtConst::TOOLBAR_VEC_DEFAULT};
     bool                                        systrayOn{false};
     bool                                        startOnSystray{false};
     bool                                        useAppInd{false};

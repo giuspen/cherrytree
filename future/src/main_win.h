@@ -24,6 +24,7 @@
 #include <gtkmm.h>
 #include <gtksourceviewmm.h>
 #include "treestore.h"
+#include "ct_misc_utils.h"
 
 
 class TheTreeView : public Gtk::TreeView
@@ -76,6 +77,6 @@ protected:
     TheTreeStore        _theTreestore;
     TheTreeView         _theTreeview;
     TheTextView         _theTextview;
-    std::string         _fileName;
-    std::string         _fileDir;
+    std::string         _currFileName;
+    std::string         _currFileDir;
 };

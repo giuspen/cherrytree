@@ -23,6 +23,17 @@
 
 #include <glibmm.h>
 
+enum class CtDocType : int {None=0, XML=1, SQLite=2};
+enum class CtDocEncrypt : int {None=0, True=1, False=2};
+
+namespace CtMiscUtil {
+
+CtDocType getDocType(std::string fileName);
+
+CtDocEncrypt getDocEncrypt(std::string fileName);
+
+} // namespace CtMiscUtil
+
 namespace CtStrUtil {
 
 Glib::ustring replaceInString(Glib::ustring& subjectStr, const Glib::ustring& searchStr, const Glib::ustring& replaceStr);

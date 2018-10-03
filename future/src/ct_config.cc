@@ -24,23 +24,23 @@
 #include "ct_config.h"
 
 
-CTConfig::CTConfig()
+CtConfig::CtConfig()
  : _filepath(Glib::build_filename(Glib::get_user_config_dir(), "cherrytree", "config.cfg"))
 {
     bool config_found = _checkLoadFromFile();
     std::cout << _filepath << " " << (config_found ? "parsed":"missing") << std::endl;
 }
 
-CTConfig::~CTConfig()
+CtConfig::~CtConfig()
 {
-    //std::cout << "~CTConfig()" << std::endl;
+    //std::cout << "~CtConfig()" << std::endl;
     if (_pKeyFile != nullptr)
     {
         delete _pKeyFile;
     }
 }
 
-bool CTConfig::_populateStringFromKeyfile(const gchar *key, Glib::ustring *p_target)
+bool CtConfig::_populateStringFromKeyfile(const gchar *key, Glib::ustring *p_target)
 {
     bool got_it = false;
     if (_pKeyFile->has_key(_currentGroup, key))
@@ -58,7 +58,7 @@ bool CTConfig::_populateStringFromKeyfile(const gchar *key, Glib::ustring *p_tar
     return got_it;
 }
 
-bool CTConfig::_populateBoolFromKeyfile(const gchar *key, bool *p_target)
+bool CtConfig::_populateBoolFromKeyfile(const gchar *key, bool *p_target)
 {
     bool got_it = false;
     if (_pKeyFile->has_key(_currentGroup, key))
@@ -86,7 +86,7 @@ bool CTConfig::_populateBoolFromKeyfile(const gchar *key, bool *p_target)
     return got_it;
 }
 
-bool CTConfig::_populateIntFromKeyfile(const gchar *key, int *p_target)
+bool CtConfig::_populateIntFromKeyfile(const gchar *key, int *p_target)
 {
     bool got_it = false;
     if (_pKeyFile->has_key(_currentGroup, key))
@@ -104,7 +104,7 @@ bool CTConfig::_populateIntFromKeyfile(const gchar *key, int *p_target)
     return got_it;
 }
 
-bool CTConfig::_populateDoubleFromKeyfile(const gchar *key, double *p_target)
+bool CtConfig::_populateDoubleFromKeyfile(const gchar *key, double *p_target)
 {
     bool got_it = false;
     if (_pKeyFile->has_key(_currentGroup, key))
@@ -122,7 +122,7 @@ bool CTConfig::_populateDoubleFromKeyfile(const gchar *key, double *p_target)
     return got_it;
 }
 
-void CTConfig::_populateMapFromCurrentGroup(std::map<Glib::ustring, Glib::ustring> *p_map)
+void CtConfig::_populateMapFromCurrentGroup(std::map<Glib::ustring, Glib::ustring> *p_map)
 {
     for (Glib::ustring key : _pKeyFile->get_keys(_currentGroup))
     {
@@ -130,16 +130,16 @@ void CTConfig::_populateMapFromCurrentGroup(std::map<Glib::ustring, Glib::ustrin
     }
 }
 
-void CTConfig::_unexpectedKeyfileError(const gchar *key, const Glib::KeyFileError &kferror)
+void CtConfig::_unexpectedKeyfileError(const gchar *key, const Glib::KeyFileError &kferror)
 {
     std::cerr << "!! " << key << " error code " << kferror.code() << std::endl;
 }
 
-void CTConfig::_populateFromKeyfile()
+void CtConfig::_populateFromKeyfile()
 {
     guint8  i;
-    #define MAX_TEMP_KEY_SIZE 16
-    gchar   temp_key[MAX_TEMP_KEY_SIZE];
+    const uint8_t MAX_TEMP_KEY_SIZE {16};
+    gchar temp_key[MAX_TEMP_KEY_SIZE];
     // [state]
     _currentGroup = "state";
     _populateStringFromKeyfile("file_dir", &fileDir);
@@ -156,7 +156,7 @@ void CTConfig::_populateFromKeyfile()
     {
         _populateIntFromKeyfile("cursor_position", &cursorPosition);
     }
-    for (i=0; i<MAX_RECENT_DOCS; i++)
+    for (i=0; i<CtConst::MAX_RECENT_DOCS; i++)
     {
         snprintf(temp_key, MAX_TEMP_KEY_SIZE, "doc_%d", i);
         Glib::ustring recent_doc;
@@ -188,7 +188,8 @@ void CTConfig::_populateFromKeyfile()
         restoreExpColl = static_cast<RestoreExpColl>(rest_exp_coll);
     }
     _populateStringFromKeyfile("expanded_collapsed_string", &expandedCollapsedString);
-    for (i=0; i<=MAX_RECENT_DOCS_RESTORE; i++)
+    recentDocsRestore.resize(CtConst::MAX_RECENT_DOCS_RESTORE);
+    for (i=0; i<=CtConst::MAX_RECENT_DOCS_RESTORE; i++)
     {
         snprintf(temp_key, MAX_TEMP_KEY_SIZE, "expcollnam%d", i+1);
         if (!_populateStringFromKeyfile(temp_key, &recentDocsRestore[i].doc_name))
@@ -242,6 +243,7 @@ void CTConfig::_populateFromKeyfile()
     _populateStringFromKeyfile("selword_chars", &selwordChars);
     _populateStringFromKeyfile("chars_listbul", &charsListbul);
     _populateStringFromKeyfile("chars_toc", &charsToc);
+    _populateStringFromKeyfile("chars_todo", &charsTodo);
     _populateStringFromKeyfile("latest_tag_prop", &latestTagProp);
     _populateStringFromKeyfile("latest_tag_val", &latestTagVal);
     _populateStringFromKeyfile("timestamp_format", &timestampFormat);
@@ -330,7 +332,7 @@ void CTConfig::_populateFromKeyfile()
     _populateMapFromCurrentGroup(&customCodexecExt);
 }
 
-bool CTConfig::_checkLoadFromFile()
+bool CtConfig::_checkLoadFromFile()
 {
     if (Glib::file_test(_filepath, Glib::FILE_TEST_EXISTS))
     {

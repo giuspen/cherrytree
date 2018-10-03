@@ -25,7 +25,7 @@
 #include "ct_app.h"
 
 
-CTConfig* CTApplication::P_ctCfg{nullptr};
+CtConfig* CTApplication::P_ctCfg{nullptr};
 Glib::RefPtr<Gtk::IconTheme> CTApplication::R_icontheme;
 CTTmp* CTApplication::P_ctTmp{nullptr};
 
@@ -34,7 +34,7 @@ CTApplication::CTApplication() : Gtk::Application("com.giuspen.cherrytree", Gio:
 {
     if (nullptr == P_ctCfg)
     {
-        P_ctCfg = new CTConfig();
+        P_ctCfg = new CtConfig();
         //std::cout << P_ctCfg->specialChars.size() << "\t" << P_ctCfg->specialChars << std::endl;
     }
     _icontheme_populate();

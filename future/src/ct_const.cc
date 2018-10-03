@@ -21,66 +21,75 @@
 
 #include "ct_const.h"
 
-const gchar   CT_VERSION[]{"0.0.1"};
-const gchar   LINK_TYPE_WEBS[] = "webs";
-const gchar   LINK_TYPE_FILE[] = "file";
-const gchar   LINK_TYPE_FOLD[] = "fold";
-const gchar   LINK_TYPE_NODE[] = "node";
-const gchar   NODE_ICON_TYPE_CHERRY[] = "c";
-const gchar   NODE_ICON_TYPE_CUSTOM[] = "b";
-const gchar   NODE_ICON_TYPE_NONE[] = "n";
-const gchar   CHERRY_RED[] = "cherry_red";
-const gchar   CHERRY_BLUE[] = "cherry_blue";
-const gchar   CHERRY_ORANGE[] = "cherry_orange";
-const gchar   CHERRY_CYAN[] = "cherry_cyan";
-const gchar   CHERRY_ORANGE_DARK[] = "cherry_orange_dark";
-const gchar   CHERRY_SHERBERT[] = "cherry_sherbert";
-const gchar   CHERRY_YELLOW[] = "cherry_yellow";
-const gchar   CHERRY_GREEN[] = "cherry_green";
-const gchar   CHERRY_PURPLE[] = "cherry_purple";
-const gchar   CHERRY_BLACK[] = "cherry_black";
-const gchar   CHERRY_GRAY[] = "cherry_gray";
-const gchar   RICH_TEXT_ID[] = "custom-colors";
-const gchar   PLAIN_TEXT_ID[] = "plain-text";
-const gchar   SYN_HIGHL_BASH[] = "sh";
-const gchar   STYLE_SCHEME_LIGHT[] = "classic";
-const gchar   STYLE_SCHEME_DARK[] = "cobalt";
-const gchar   STYLE_SCHEME_GRAY[] = "oblivion";
-const gchar   TIMESTAMP_FORMAT_DEFAULT[] = "%Y/%m/%d - %H:%M";
-const gchar   SPECIAL_CHARS_DEFAULT[] = "“”„‘’•◇▪▸☐☑☒★…‰€©®™°↓↑→←↔↵⇓⇑⇒⇐⇔»«▼▲►◄≤≥≠≈±¹²³½¼⅛×÷∞ø∑√∫ΔδΠπΣΦΩωαβγεηλμ☺☻☼♥♣♦✔♀♂♪♫✝";
-const gchar   SELWORD_CHARS_DEFAULT[] = ".-@";
-const gchar   CHARS_LISTBUL_DEFAULT[] = "•◇▪-→⇒";
-const gchar   CHARS_TOC_DEFAULT[] = "▸•◇▪";
-const gchar   COLOR_48_LINK_WEBS[] = "#00008989ffff";
-const gchar   COLOR_48_LINK_NODE[] = "#071c838e071c";
-const gchar   COLOR_48_LINK_FILE[] = "#8b8b69691414";
-const gchar   COLOR_48_LINK_FOLD[] = "#7f7f7f7f7f7f";
-const gchar   COLOR_48_YELLOW[] = "#bbbbbbbb0000";
-const gchar   COLOR_48_WHITE[] = "#ffffffffffff";
-const gchar   COLOR_48_BLACK[] = "#000000000000";
-const gchar   COLOR_24_BLACK[] = "#000000";
-const gchar   COLOR_24_WHITE[] = "#ffffff";
-const gchar   COLOR_24_BLUEBG[] = "#001b33";
-const gchar   COLOR_24_LBLACK[] = "#0b0c0c";
-const gchar   COLOR_24_GRAY[] = "#e0e0e0";
-const gchar   DEFAULT_MONOSPACE_BG[] = "#7f7f7f";
-const gchar  *RICH_TEXT_DARK_FG = COLOR_24_WHITE;
-const gchar  *RICH_TEXT_DARK_BG = COLOR_24_BLUEBG;
-const gchar  *RICH_TEXT_LIGHT_FG = COLOR_24_BLACK;
-const gchar  *RICH_TEXT_LIGHT_BG = COLOR_24_WHITE;
-const gchar  *TREE_TEXT_DARK_FG = COLOR_24_WHITE;
-const gchar  *TREE_TEXT_DARK_BG = COLOR_24_BLUEBG;
-const gchar  *TREE_TEXT_LIGHT_FG = COLOR_24_LBLACK;
-const gchar  *TREE_TEXT_LIGHT_BG = COLOR_24_GRAY;
-const gchar   TOOLBAR_VEC_DEFAULT[] = 
+const gchar    CtConst::CT_VERSION[]           {"0.0.1"};
+const int      CtConst::MAX_RECENT_DOCS             {10};
+const int      CtConst::MAX_RECENT_DOCS_RESTORE      {3};
+const int      CtConst::NODE_ICON_CODE_ID           {38};
+const int      CtConst::NODE_ICON_BULLET_ID         {25};
+const int      CtConst::NODE_ICON_NO_ICON_ID        {26};
+const int      CtConst::NODE_ICON_SIZE              {16};
+const gchar    CtConst::LINK_TYPE_WEBS[]       {"webs"};
+const gchar    CtConst::LINK_TYPE_FILE[]       {"file"};
+const gchar    CtConst::LINK_TYPE_FOLD[]       {"fold"};
+const gchar    CtConst::LINK_TYPE_NODE[]       {"node"};
+const gchar    CtConst::NODE_ICON_TYPE_CHERRY[]    {"c"};
+const gchar    CtConst::NODE_ICON_TYPE_CUSTOM[]    {"b"};
+const gchar    CtConst::NODE_ICON_TYPE_NONE[]      {"n"};
+const gchar    CtConst::CHERRY_RED[]           {"cherry_red"};
+const gchar    CtConst::CHERRY_BLUE[]          {"cherry_blue"};
+const gchar    CtConst::CHERRY_ORANGE[]        {"cherry_orange"};
+const gchar    CtConst::CHERRY_CYAN[]          {"cherry_cyan"};
+const gchar    CtConst::CHERRY_ORANGE_DARK[]   {"cherry_orange_dark"};
+const gchar    CtConst::CHERRY_SHERBERT[]      {"cherry_sherbert"};
+const gchar    CtConst::CHERRY_YELLOW[]        {"cherry_yellow"};
+const gchar    CtConst::CHERRY_GREEN[]         {"cherry_green"};
+const gchar    CtConst::CHERRY_PURPLE[]        {"cherry_purple"};
+const gchar    CtConst::CHERRY_BLACK[]         {"cherry_black"};
+const gchar    CtConst::CHERRY_GRAY[]          {"cherry_gray"};
+const gchar    CtConst::RICH_TEXT_ID[]         {"custom-colors"};
+const gchar    CtConst::PLAIN_TEXT_ID[]        {"plain-text"};
+const gchar    CtConst::SYN_HIGHL_BASH[]       {"sh"};
+const gchar    CtConst::STYLE_SCHEME_LIGHT[]   {"classic"};
+const gchar    CtConst::STYLE_SCHEME_DARK[]    {"cobalt"};
+const gchar    CtConst::STYLE_SCHEME_GRAY[]    {"oblivion"};
+const gchar    CtConst::TIMESTAMP_FORMAT_DEFAULT[] {"%Y/%m/%d - %H:%M"};
+const gchar    CtConst::SPECIAL_CHARS_DEFAULT[]    {"“”„‘’•◇▪▸☐☑☒★…‰€©®™°↓↑→←↔↵⇓⇑⇒⇐⇔»«▼▲►◄≤≥≠≈±¹²³½¼⅛×÷∞ø∑√∫ΔδΠπΣΦΩωαβγεηλμ☺☻☼♥♣♦✔♀♂♪♫✝"};
+const gchar    CtConst::SELWORD_CHARS_DEFAULT[]    {".-@"};
+const gchar    CtConst::CHARS_LISTBUL_DEFAULT[]    {"•◇▪-→⇒"};
+const gchar    CtConst::CHARS_TOC_DEFAULT[]    {"▸•◇▪"};
+const gchar    CtConst::CHARS_TODO_DEFAULT[]   {"☐☑☒"};
+const gchar    CtConst::COLOR_48_LINK_WEBS[]   {"#00008989ffff"};
+const gchar    CtConst::COLOR_48_LINK_NODE[]   {"#071c838e071c"};
+const gchar    CtConst::COLOR_48_LINK_FILE[]   {"#8b8b69691414"};
+const gchar    CtConst::COLOR_48_LINK_FOLD[]   {"#7f7f7f7f7f7f"};
+const gchar    CtConst::COLOR_48_YELLOW[]      {"#bbbbbbbb0000"};
+const gchar    CtConst::COLOR_48_WHITE[]       {"#ffffffffffff"};
+const gchar    CtConst::COLOR_48_BLACK[]       {"#000000000000"};
+const gchar    CtConst::COLOR_24_BLACK[]       {"#000000"};
+const gchar    CtConst::COLOR_24_WHITE[]       {"#ffffff"};
+const gchar    CtConst::COLOR_24_BLUEBG[]      {"#001b33"};
+const gchar    CtConst::COLOR_24_LBLACK[]      {"#0b0c0c"};
+const gchar    CtConst::COLOR_24_GRAY[]        {"#e0e0e0"};
+const gchar    CtConst::DEFAULT_MONOSPACE_BG[] {"#7f7f7f"};
+const gchar*   CtConst::RICH_TEXT_DARK_FG      {COLOR_24_WHITE};
+const gchar*   CtConst::RICH_TEXT_DARK_BG      {COLOR_24_BLUEBG};
+const gchar*   CtConst::RICH_TEXT_LIGHT_FG     {COLOR_24_BLACK};
+const gchar*   CtConst::RICH_TEXT_LIGHT_BG     {COLOR_24_WHITE};
+const gchar*   CtConst::TREE_TEXT_DARK_FG      {COLOR_24_WHITE};
+const gchar*   CtConst::TREE_TEXT_DARK_BG      {COLOR_24_BLUEBG};
+const gchar*   CtConst::TREE_TEXT_LIGHT_FG     {COLOR_24_LBLACK};
+const gchar*   CtConst::TREE_TEXT_LIGHT_BG     {COLOR_24_GRAY};
+
+const gchar    CtConst::TOOLBAR_VEC_DEFAULT[] { 
     "tree_add_node,tree_add_subnode,sep,go_node_prev,go_node_next,"
     "sep,*,ct_save,export_pdf,sep,"
     "find_in_allnodes,sep,handle_bull_list,handle_num_list,handle_todo_list,"
     "sep,handle_image,handle_table,handle_codebox,handle_embfile,"
     "handle_link,handle_anchor,sep,fmt_rm,fmt_color_fg,"
     "fmt_color_bg,fmt_bold,fmt_italic,fmt_underline,fmt_strikethrough,"
-    "fmt_h1,fmt_h2,fmt_h3,fmt_small,fmt_superscript,fmt_subscript,fmt_monospace";
-const std::map<int, Glib::ustring> NODES_STOCKS = {
+    "fmt_h1,fmt_h2,fmt_h3,fmt_small,fmt_superscript,fmt_subscript,fmt_monospace"};
+
+const std::map<int, Glib::ustring> CtConst::NODES_STOCKS {
     { 1, "circle-green"},
     { 2, "circle-yellow"},
     { 3, "circle-red"},
@@ -130,7 +139,8 @@ const std::map<int, Glib::ustring> NODES_STOCKS = {
     {47, "c"},
     {48, "cpp"},
 };
-const std::map<int, Glib::ustring> NODES_ICONS = {
+
+const std::map<int, Glib::ustring> CtConst::NODES_ICONS {
     { 0, CHERRY_RED},
     { 1, CHERRY_BLUE},
     { 2, CHERRY_ORANGE},
@@ -144,7 +154,8 @@ const std::map<int, Glib::ustring> NODES_ICONS = {
     {10, CHERRY_GRAY},
     {-1, CHERRY_GRAY},
 };
-const std::map<Glib::ustring, Glib::ustring> CODE_ICONS = {
+
+const std::map<Glib::ustring, Glib::ustring> CtConst::CODE_ICONS {
     {"python", "python"},
     {"python3", "python"},
     {"perl", "perl"},
@@ -158,8 +169,7 @@ const std::map<Glib::ustring, Glib::ustring> CODE_ICONS = {
     {"cpp", "cpp"},
 };
 
-
-Glib::ustring getStockIdForCodeType(Glib::ustring code_type)
+Glib::ustring CtConst::getStockIdForCodeType(Glib::ustring code_type)
 {
     return (1 == CODE_ICONS.count(code_type) ? CODE_ICONS.at(code_type) : NODES_STOCKS.at(NODE_ICON_CODE_ID));
 }

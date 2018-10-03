@@ -48,7 +48,7 @@ protected:
 public:
     static Glib::RefPtr<CTApplication> create();
 
-    static CTConfig *P_ctCfg;
+    static CtConfig *P_ctCfg;
     static Glib::RefPtr<Gtk::IconTheme> R_icontheme;
     static CTTmp* P_ctTmp;
 
