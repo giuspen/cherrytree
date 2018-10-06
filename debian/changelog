@@ -1,9 +1,11 @@
-cherrytree (0.38.5-0) xenial; urgency=low
+cherrytree (0.38.6-0) bionic; urgency=low
 
-  * bugfix - when save on exit is enabled and write to disk fails, changes are lost (#358)
-  * bugfix - superscript and subscript tags not recognized when copied from external source (#355)
-  * bugfix - workaround for bug in locale module (#368)
-  * added syntax highlighting for go language
-  * implemented support for opening a text file from the command line with cherrytree
+  * bugfix - do not throw error when failing to clean temporary directory (#392)
+  * bugfix - workaround for locale.get issues (#395)
+  * bugfix - import from html of table error resulting in paste from clipboard error (#236)
+  * bugfix - multilevel numbered lists not restarting from one
+  * bugfix - wrap line with a single very long word (#378)
+  * todo list characters configurable in config.cfg (#339)
+  * import from zim, support for codebox (#386)
 
- -- Giuseppe Penone <giuspen@gmail.com>  Tue, 03 Jul 2018 21:57:22 +0100
+ -- Giuseppe Penone <giuspen@gmail.com>  Sat, 06 Oct 2018 12:13:41 +0100

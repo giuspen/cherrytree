@@ -1,4 +1,13 @@
 
+0.38.6 (October 6th, 2018)
+  * bugfix - do not throw error when failing to clean temporary directory (#392)
+  * bugfix - workaround for locale.get issues (#395)
+  * bugfix - import from html of table error resulting in paste from clipboard error (#236)
+  * bugfix - multilevel numbered lists not restarting from one
+  * bugfix - wrap line with a single very long word (#378)
+  * todo list characters configurable in config.cfg (#339)
+  * import from zim, support for codebox (#386)
+
 0.38.5 (July 3rd, 2018)
   * bugfix - when save on exit is enabled and write to disk fails, changes are lost (#358)
   * bugfix - superscript and subscript tags not recognized when copied from external source (#355)
@@ -55,56 +64,3 @@
   * assigned static keyboard shortcut Ctrl+Shift+Right for 'Node Change Parent'
   * updated bundled pygtkspellcheck from 4.0.1 to 4.0.5
 
-0.37.6 (October 24th, 2016)
-  * added auto apply of links to nodes as you type [[node name]] in rich text nodes
-  * the text formatted monospace has now by default gray background; configurable in config.cfg
-  * fixed problem causing the highlighted line to have wrong background
-  * fixed crash caused by too large tooltip hovering a link
-  * fixes to Spanish language submitted by stripTM
-
-0.37.5 (October 2nd, 2016)
-  * the password protected documents now use 7zip fastest compression resulting in faster save and slightly larger documents
-  * added auto apply of web links as you type in rich text nodes
-  * added auto apply of links to nodes as you type in rich text nodes (CamelCase nodes names only)
-  * added proper scrolling to cursor after pasting of multiple lines of text from the clipboard
-  * added palette to the color picker dialog for the node name
-  * fixed bugs related to export to pdf of tables and codeboxes
-  * limited the spell check to rich text nodes after currently unresolvable problems with plain text spell check
-
-0.37.4 (August 20th, 2016)
-  * bugfix: regression since 0.37.0 for trees with more than 11 levels and cherries per node level
-  * added groovy language syntax highlighting support
-  * added language Greek, work of Delphina
-
-0.37.3 (August 6th, 2016)
-  * bugfix: problem with sqlite storage (ctb, ctx), bold node name and plain text node
-  * for the document type XML (ctd, ctz) changed the generated XML to be pretty (indented)
-  * change to slightly larger 'small font' in formatted text
-
-0.37.2 (July 7th, 2016)
-  * fixed problems introduced with configurability of the bulleted lists chars
-  * fixed problem with search in selected node and subnodes and progressbar
-  * the latest applied formatting is now remembered between sessions
-  * the Ctrl+Space shortcut now allows to enter and exit the codeboxes
-  * updated Lithuanian language
-
-0.37.1 (June 19th, 2016)
-  * bugfix: import of text documents bad decoding (added new dependency python-chardet)
-  * bugfix: copy/paste of table row not working
-  * the chars used for the multi level bulleted lists are configurable editing config.cfg (editor/chars_listbul)
-  * the chars used for the toc are configurable editing config.cfg (editor/chars_toc)
-  * updated languages French, German and Polish
-
-0.37.0 (May 26th, 2016)
-  * implemented configurability of most of the keyboard shortcuts (few of them cannot be changed)
-  * implemented quick access to last visited nodes with configurable number of buttons on the node name header
-  * implemented the possibility to select from a list the default icon for all the (non code) nodes in the tree; code nodes have by default explicit icons related to the programming language
-  * implemented the possibility for any node to set an icon from a list
-  * implemented the possibility for any node to set color and boldness for the node name
-  * implemented control of the vertical space around lines (work by bfloch)
-  * implemented the possibility to disable the smart quotes auto replacement
-  * implemented the option to have the links underlined or not
-  * implemented the tree node action "move right" to make a node son of the above sibling; taking shortcut Shift+Right
-  * implemented the possibility at mouse click on the node to expand it and to have the focus moved to the text
-  * implemented the import from RedNotebook
-  * added in the preferences dialog the possibility to reset to the default values the toolbar and the special characters
