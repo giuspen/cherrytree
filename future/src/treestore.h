@@ -22,21 +22,23 @@
 #pragma once
 
 #include <gtkmm.h>
+#include <gtksourceviewmm.h>
 
 
 struct CtNodeData
 {
-    gint64         nodeId;
+    gint64         nodeId{0};
     Glib::ustring  name;
-    Glib::ustring  syntax;
+    std::string    syntax;
     Glib::ustring  tags;
-    bool           isRO;
-    guint32        customIconId;
-    bool           isBold;
-    bool           fgOverride;
+    bool           isRO{false};
+    guint32        customIconId{0};
+    bool           isBold{false};
+    bool           fgOverride{false};
     char           foregroundRgb24[8];
-    gint64         tsCreation;
-    gint64         tsLastSave;
+    gint64         tsCreation{0};
+    gint64         tsLastSave{0};
+    Glib::RefPtr<Gsv::Buffer>  rTextBuffer{nullptr};
 };
 
 
@@ -84,7 +86,7 @@ public:
 
 protected:
     guint16                   _getPangoWeight(bool isBold);
-    Glib::RefPtr<Gdk::Pixbuf> _getNodeIcon(int nodeDepth, Glib::ustring &syntax, guint32 customIconId);
+    Glib::RefPtr<Gdk::Pixbuf> _getNodeIcon(int nodeDepth, std::string &syntax, guint32 customIconId);
 
     TheTreeModelColumns          _columns;
     Glib::RefPtr<Gtk::TreeStore> _rTreeStore;

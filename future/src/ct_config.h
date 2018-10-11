@@ -83,9 +83,9 @@ public:
     bool                                        treeClickExpand{false};
 
     // [editor]
-    Glib::ustring                               syntaxHighlighting{CtConst::RICH_TEXT_ID};
-    Glib::ustring                               autoSynHighl{CtConst::SYN_HIGHL_BASH};
-    Glib::ustring                               styleScheme{CtConst::STYLE_SCHEME_DARK};
+    std::string                                 syntaxHighlighting{CtConst::RICH_TEXT_ID};
+    std::string                                 autoSynHighl{CtConst::SYN_HIGHL_BASH};
+    std::string                                 styleSchemeId{CtConst::STYLE_SCHEME_DARK};
     bool                                        enableSpellCheck{false};
     Glib::ustring                               spellCheckLang;
     bool                                        showLineNumbers{false};
@@ -190,6 +190,7 @@ public:
 
 protected:
     bool _populateStringFromKeyfile(const gchar *key, Glib::ustring *p_target);
+    bool _populateStringFromKeyfile(const gchar *key, std::string *p_target);
     bool _populateBoolFromKeyfile(const gchar *key, bool *p_target);
     bool _populateIntFromKeyfile(const gchar *key, int *p_target);
     bool _populateDoubleFromKeyfile(const gchar *key, double *p_target);

@@ -28,30 +28,51 @@
 CtConfig* CTApplication::P_ctCfg{nullptr};
 Glib::RefPtr<Gtk::IconTheme> CTApplication::R_icontheme;
 CTTmp* CTApplication::P_ctTmp{nullptr};
+Glib::RefPtr<Gtk::TextTagTable> CTApplication::R_textTagTable;
+Glib::RefPtr<Gsv::LanguageManager> CTApplication::R_languageManager;
+Glib::RefPtr<Gsv::StyleSchemeManager> CTApplication::R_styleSchemeManager;
 
 
 CTApplication::CTApplication() : Gtk::Application("com.giuspen.cherrytree", Gio::APPLICATION_HANDLES_OPEN)
 {
+    Gsv::init();
+
     if (nullptr == P_ctCfg)
     {
         P_ctCfg = new CtConfig();
         //std::cout << P_ctCfg->specialChars.size() << "\t" << P_ctCfg->specialChars << std::endl;
     }
-    _icontheme_populate();
+    if (!R_icontheme)
+    {
+        _iconthemeInit();
+    }
     if (nullptr == P_ctTmp)
     {
         P_ctTmp = new CTTmp();
         //std::cout << P_ctTmp->get_root_dirpath() << std::endl;
+    }
+    if (!R_textTagTable)
+    {
+        R_textTagTable = Gtk::TextTagTable::create();
+    }
+    if (!R_languageManager)
+    {
+        R_languageManager = Gsv::LanguageManager::create();
+    }
+    if (!R_styleSchemeManager)
+    {
+        R_styleSchemeManager = Gsv::StyleSchemeManager::create();
     }
 }
 
 CTApplication::~CTApplication()
 {
     //std::cout << "~CTApplication()" << std::endl;
-    delete CTApplication::P_ctCfg;
-    CTApplication::P_ctCfg = nullptr;
-    delete CTApplication::P_ctTmp;
-    CTApplication::P_ctTmp = nullptr;
+    delete P_ctCfg;
+    P_ctCfg = nullptr;
+
+    delete P_ctTmp;
+    P_ctTmp = nullptr;
 }
 
 Glib::RefPtr<CTApplication> CTApplication::create()
@@ -59,12 +80,12 @@ Glib::RefPtr<CTApplication> CTApplication::create()
     return Glib::RefPtr<CTApplication>(new CTApplication());
 }
 
-void CTApplication::_print_help_message()
+void CTApplication::_printHelpMessage()
 {
     std::cout << "Usage: " << GETTEXT_PACKAGE << " filepath[.ctd|.ctb]" << std::endl;
 }
 
-void CTApplication::_print_gresource_icons()
+void CTApplication::_printGresourceIcons()
 {
     for (std::string &str_icon : Gio::Resource::enumerate_children_global("/icons/", Gio::ResourceLookupFlags::RESOURCE_LOOKUP_FLAGS_NONE))
     {
@@ -72,11 +93,11 @@ void CTApplication::_print_gresource_icons()
     }
 }
 
-void CTApplication::_icontheme_populate()
+void CTApplication::_iconthemeInit()
 {
     R_icontheme = Gtk::IconTheme::get_default();
     R_icontheme->add_resource_path("/icons/");
-    //_print_gresource_icons();
+    //_printGresourceIcons();
 }
 
 MainWindow* CTApplication::create_appwindow()
@@ -116,7 +137,7 @@ void CTApplication::on_open(const Gio::Application::type_vec_files& files, const
         {
             if(!p_appwindow->readNodesFromGioFile(r_file))
             {
-                _print_help_message();
+                _printHelpMessage();
             }
         }
         else

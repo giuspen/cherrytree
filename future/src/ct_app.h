@@ -51,14 +51,17 @@ public:
     static CtConfig *P_ctCfg;
     static Glib::RefPtr<Gtk::IconTheme> R_icontheme;
     static CTTmp* P_ctTmp;
+    static Glib::RefPtr<Gtk::TextTagTable> R_textTagTable;
+    static Glib::RefPtr<Gsv::LanguageManager> R_languageManager;
+    static Glib::RefPtr<Gsv::StyleSchemeManager> R_styleSchemeManager;
 
 protected:
     void on_activate() override;
     void on_open(const Gio::Application::type_vec_files& files, const Glib::ustring& hint) override;
 
-    void _print_help_message();
-    void _print_gresource_icons();
-    void _icontheme_populate();
+    void _printHelpMessage();
+    void _printGresourceIcons();
+    void _iconthemeInit();
 
 private:
     MainWindow* create_appwindow();

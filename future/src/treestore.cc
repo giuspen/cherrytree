@@ -74,7 +74,7 @@ bool TheTreeStore::readNodesFromFilepath(const char* filepath, const Gtk::TreeIt
     return retOk;
 }
 
-Glib::RefPtr<Gdk::Pixbuf> TheTreeStore::_getNodeIcon(int nodeDepth, Glib::ustring &syntax, guint32 customIconId)
+Glib::RefPtr<Gdk::Pixbuf> TheTreeStore::_getNodeIcon(int nodeDepth, std::string &syntax, guint32 customIconId)
 {
     Glib::RefPtr<Gdk::Pixbuf> rPixbuf;
 
@@ -132,7 +132,7 @@ Gtk::TreeIter TheTreeStore::appendNode(CtNodeData *pNodeData, const Gtk::TreeIte
     Gtk::TreeRow row = *newIter;
     row[_columns.rColPixbuf] = _getNodeIcon(_rTreeStore->iter_depth(newIter), pNodeData->syntax, pNodeData->customIconId);
     row[_columns.colNodeName] = pNodeData->name;
-    //row[_columns.rColTextBuffer] = ;
+    row[_columns.rColTextBuffer] = pNodeData->rTextBuffer;
     row[_columns.colNodeUniqueId] = pNodeData->nodeId;
     row[_columns.colSyntaxHighlighting] = pNodeData->syntax;
     //row[_columns.colNodeSequence] = ;

@@ -44,9 +44,9 @@ public:
     CherryTreeXMLRead(const char* filepath);
     virtual ~CherryTreeXMLRead();
     void treeWalk(const Gtk::TreeIter *pParentIter=nullptr);
+    Glib::RefPtr<Gsv::Buffer> getTextBuffer(const std::string& syntax, xmlpp::Element *pNodeElement=nullptr);
 private:
     void _xmlTreeWalkIter(xmlpp::Element *pNodeElement, const Gtk::TreeIter *pParentIter);
-    CtNodeData _xmlGetNodeProperties(xmlpp::Element *pNodeElement);
     Gtk::TreeIter _xmlNodeProcess(xmlpp::Element *pNodeElement, const Gtk::TreeIter *pParentIter);
 };
 

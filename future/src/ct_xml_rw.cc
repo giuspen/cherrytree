@@ -23,6 +23,8 @@
 #include <assert.h>
 #include "ct_doc_rw.h"
 #include "ct_misc_utils.h"
+#include "ct_const.h"
+#include "ct_app.h"
 
 
 CherryTreeXMLRead::CherryTreeXMLRead(const char* filepath)
@@ -73,8 +75,7 @@ void CherryTreeXMLRead::_xmlTreeWalkIter(xmlpp::Element *pNodeElement, const Gtk
     }
 }
 
-
-CtNodeData CherryTreeXMLRead::_xmlGetNodeProperties(xmlpp::Element *pNodeElement)
+Gtk::TreeIter CherryTreeXMLRead::_xmlNodeProcess(xmlpp::Element *pNodeElement, const Gtk::TreeIter *pParentIter)
 {
     CtNodeData nodeData;
     nodeData.nodeId = CtStrUtil::gint64FromGstring(pNodeElement->get_attribute_value("unique_id").c_str());
@@ -92,13 +93,33 @@ CtNodeData CherryTreeXMLRead::_xmlGetNodeProperties(xmlpp::Element *pNodeElement
     }
     nodeData.tsCreation = CtStrUtil::gint64FromGstring(pNodeElement->get_attribute_value("ts_creation").c_str());
     nodeData.tsLastSave = CtStrUtil::gint64FromGstring(pNodeElement->get_attribute_value("ts_lastSave").c_str());
-    return nodeData;
-}
+    nodeData.rTextBuffer = getTextBuffer(nodeData.syntax, pNodeElement);
 
-
-Gtk::TreeIter CherryTreeXMLRead::_xmlNodeProcess(xmlpp::Element *pNodeElement, const Gtk::TreeIter *pParentIter)
-{
-    CtNodeData nodeData = _xmlGetNodeProperties(pNodeElement);
     Gtk::TreeIter newIter = signalAppendNode.emit(&nodeData, pParentIter);
     return newIter;
+}
+
+Glib::RefPtr<Gsv::Buffer> CherryTreeXMLRead::getTextBuffer(const std::string& syntax, xmlpp::Element *pNodeElement)
+{
+    Glib::RefPtr<Gsv::Buffer> rRetTextBuffer;
+    rRetTextBuffer = Gsv::Buffer::create(CTApplication::R_textTagTable);
+    if (0 == syntax.compare(CtConst::RICH_TEXT_ID))
+    {
+        
+    }
+    else
+    {
+        rRetTextBuffer->set_style_scheme(CTApplication::R_styleSchemeManager->get_scheme(CTApplication::P_ctCfg->styleSchemeId));
+        if (0 == syntax.compare(CtConst::PLAIN_TEXT_ID))
+        {
+            rRetTextBuffer->set_highlight_syntax(false);
+        }
+        else
+        {
+            rRetTextBuffer->set_language(CTApplication::R_languageManager->get_language(syntax));
+            rRetTextBuffer->set_highlight_syntax(true);
+        }
+        rRetTextBuffer->set_highlight_matching_brackets(true);
+    }
+    return rRetTextBuffer;
 }

@@ -42,31 +42,49 @@ CtConfig::~CtConfig()
 
 bool CtConfig::_populateStringFromKeyfile(const gchar *key, Glib::ustring *p_target)
 {
-    bool got_it = false;
+    bool gotIt{false};
     if (_pKeyFile->has_key(_currentGroup, key))
     {
         try
         {
             *p_target = _pKeyFile->get_value(_currentGroup, key);
-            got_it = true;
+            gotIt = true;
         }
         catch (Glib::KeyFileError &kferror)
         {
             _unexpectedKeyfileError(key, kferror);
         }
     }
-    return got_it;
+    return gotIt;
+}
+
+bool CtConfig::_populateStringFromKeyfile(const gchar *key, std::string *p_target)
+{
+    bool gotIt{false};
+    if (_pKeyFile->has_key(_currentGroup, key))
+    {
+        try
+        {
+            *p_target = _pKeyFile->get_value(_currentGroup, key);
+            gotIt = true;
+        }
+        catch (Glib::KeyFileError &kferror)
+        {
+            _unexpectedKeyfileError(key, kferror);
+        }
+    }
+    return gotIt;
 }
 
 bool CtConfig::_populateBoolFromKeyfile(const gchar *key, bool *p_target)
 {
-    bool got_it = false;
+    bool gotIt{false};
     if (_pKeyFile->has_key(_currentGroup, key))
     {
         try
         {
             *p_target = _pKeyFile->get_boolean(_currentGroup, key);
-            got_it = true;
+            gotIt = true;
         }
         catch (Glib::KeyFileError &kferror)
         {
@@ -75,7 +93,7 @@ bool CtConfig::_populateBoolFromKeyfile(const gchar *key, bool *p_target)
                 // booleans from python ConfigParser
                 Glib::ustring bool_str = _pKeyFile->get_value(_currentGroup, key);
                 *p_target = (bool_str == "True");
-                got_it = true;
+                gotIt = true;
             }
             else
             {
@@ -83,43 +101,43 @@ bool CtConfig::_populateBoolFromKeyfile(const gchar *key, bool *p_target)
             }
         }
     }
-    return got_it;
+    return gotIt;
 }
 
 bool CtConfig::_populateIntFromKeyfile(const gchar *key, int *p_target)
 {
-    bool got_it = false;
+    bool gotIt{false};
     if (_pKeyFile->has_key(_currentGroup, key))
     {
         try
         {
             *p_target = _pKeyFile->get_integer(_currentGroup, key);
-            got_it = true;
+            gotIt = true;
         }
         catch (Glib::KeyFileError &kferror)
         {
             _unexpectedKeyfileError(key, kferror);
         }
     }
-    return got_it;
+    return gotIt;
 }
 
 bool CtConfig::_populateDoubleFromKeyfile(const gchar *key, double *p_target)
 {
-    bool got_it = false;
+    bool gotIt{false};
     if (_pKeyFile->has_key(_currentGroup, key))
     {
         try
         {
             *p_target = _pKeyFile->get_double(_currentGroup, key);
-            got_it = true;
+            gotIt = true;
         }
         catch (Glib::KeyFileError &kferror)
         {
             _unexpectedKeyfileError(key, kferror);
         }
     }
-    return got_it;
+    return gotIt;
 }
 
 void CtConfig::_populateMapFromCurrentGroup(std::map<Glib::ustring, Glib::ustring> *p_map)
@@ -216,7 +234,7 @@ void CtConfig::_populateFromKeyfile()
     _currentGroup = "editor";
     _populateStringFromKeyfile("syntax_highlighting", &syntaxHighlighting);
     _populateStringFromKeyfile("auto_syn_highl", &autoSynHighl);
-    _populateStringFromKeyfile("style_scheme", &styleScheme);
+    _populateStringFromKeyfile("style_scheme", &styleSchemeId);
     if (_populateBoolFromKeyfile("enable_spell_check", &enableSpellCheck))
     {
         _populateStringFromKeyfile("spell_check_lang", &spellCheckLang);
