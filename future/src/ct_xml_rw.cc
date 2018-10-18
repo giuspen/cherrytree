@@ -32,11 +32,9 @@ CherryTreeXMLRead::CherryTreeXMLRead(const char* filepath)
     parse_file(filepath);
 }
 
-
 CherryTreeXMLRead::~CherryTreeXMLRead()
 {
 }
-
 
 void CherryTreeXMLRead::treeWalk(const Gtk::TreeIter *pParentIter)
 {
@@ -60,7 +58,6 @@ void CherryTreeXMLRead::treeWalk(const Gtk::TreeIter *pParentIter)
         }
     }
 }
-
 
 void CherryTreeXMLRead::_xmlTreeWalkIter(xmlpp::Element *pNodeElement, const Gtk::TreeIter *pParentIter)
 {
@@ -103,11 +100,9 @@ Glib::RefPtr<Gsv::Buffer> CherryTreeXMLRead::getTextBuffer(const std::string& sy
 {
     Glib::RefPtr<Gsv::Buffer> rRetTextBuffer;
     rRetTextBuffer = Gsv::Buffer::create(CTApplication::R_textTagTable);
-    if (0 == syntax.compare(CtConst::RICH_TEXT_ID))
-    {
-        
-    }
-    else
+    rRetTextBuffer->set_max_undo_levels(CTApplication::P_ctCfg->limitUndoableSteps);
+    rRetTextBuffer->begin_not_undoable_action();
+    if (0 != syntax.compare(CtConst::RICH_TEXT_ID))
     {
         rRetTextBuffer->set_style_scheme(CTApplication::R_styleSchemeManager->get_scheme(CTApplication::P_ctCfg->styleSchemeId));
         if (0 == syntax.compare(CtConst::PLAIN_TEXT_ID))
@@ -121,5 +116,17 @@ Glib::RefPtr<Gsv::Buffer> CherryTreeXMLRead::getTextBuffer(const std::string& sy
         }
         rRetTextBuffer->set_highlight_matching_brackets(true);
     }
+    if (nullptr != pNodeElement)
+    {
+        for (xmlpp::Node *pNode : pNodeElement->get_children())
+        {
+            if ("rich_text" == pNode->get_name())
+            {
+                
+            }
+        }
+    }
+    rRetTextBuffer->end_not_undoable_action();
+    rRetTextBuffer->set_modified(false);
     return rRetTextBuffer;
 }

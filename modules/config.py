@@ -83,7 +83,9 @@ TIMESTAMP_FORMAT_DEFAULT = "%Y/%m/%d - %H:%M"
 SEPARATOR_ASCII_REPR = "---------"
 JOURNAL_DAY_FORMAT_DEFAULT = "%d %a"
 
-try: SPELL_CHECK_LANG_DEFAULT = locale.getdefaultlocale()[0]
+try:
+    SPELL_CHECK_LANG_DEFAULT = locale.getdefaultlocale()[0]
+    assert SPELL_CHECK_LANG_DEFAULT is not None
 except: SPELL_CHECK_LANG_DEFAULT = "en_US"
 
 

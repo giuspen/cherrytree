@@ -35,6 +35,7 @@ def get_timestamp_str(timestamp_format, time_float):
     """Get timestamp printable from float"""
     try:
         encoding = locale.getlocale()[1]
+        assert encoding is not None
     except:
         encoding = cons.STR_UTF8
     struct_time = time.localtime(time_float)
@@ -73,7 +74,9 @@ def auto_decode_str(in_str, from_clipboard=False):
     else:
         encodings += [cons.STR_UTF16, "utf-16le", cons.STR_UTF8, cons.STR_ISO_8859]
         try:
-            encodings.append(locale.getdefaultlocale()[1])
+            encoding = locale.getdefaultlocale()[1]
+            assert encoding is not None
+            encodings.append(encoding)
         except:
             pass
     for enc in encodings:
