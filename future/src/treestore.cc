@@ -21,7 +21,6 @@
 
 #include <glibmm/i18n.h>
 #include <iostream>
-#include <set>
 #include "treestore.h"
 #include "ct_doc_rw.h"
 #include "ct_app.h"
@@ -88,7 +87,7 @@ Glib::RefPtr<Gdk::Pixbuf> TheTreeStore::_getNodeIcon(int nodeDepth, std::string 
         // NODE_ICON_TYPE_NONE
         rPixbuf = CTApplication::R_icontheme->load_icon(CtConst::NODES_STOCKS.at(CtConst::NODE_ICON_NO_ICON_ID), CtConst::NODE_ICON_SIZE);
     }
-    else if (1 == std::set<Glib::ustring>({CtConst::RICH_TEXT_ID, CtConst::PLAIN_TEXT_ID}).count(syntax))
+    else if (CtStrUtil::isPgcharInPgcharSet(syntax.c_str(), CtConst::TEXT_SYNTAXES))
     {
         // text node
         if (CtConst::NODE_ICON_TYPE_CHERRY == CTApplication::P_ctCfg->nodesIcons)

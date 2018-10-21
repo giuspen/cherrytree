@@ -22,6 +22,7 @@
 #pragma once
 
 #include <glibmm.h>
+#include <set>
 
 enum class CtDocType : int {None=0, XML=1, SQLite=2};
 enum class CtDocEncrypt : int {None=0, True=1, False=2};
@@ -51,6 +52,8 @@ std::list<gint64> gstringSplit2int64(const gchar* inStr, const gchar* delimiter,
 Glib::ustring ustringJoin4ustring(const std::list<Glib::ustring>& inStrList, const gchar* delimiter);
 
 Glib::ustring ustringJoin4int64(const std::list<gint64>& inInt64List, const gchar* delimiter);
+
+bool isPgcharInPgcharSet(const gchar* pGcharNeedle, const std::set<const gchar*>& gstrSetHaystack);
 
 } // namespace CtStrUtil
 

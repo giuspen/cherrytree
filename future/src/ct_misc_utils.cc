@@ -149,6 +149,20 @@ Glib::ustring CtStrUtil::ustringJoin4int64(const std::list<gint64>& inInt64List,
     return retStr;
 }
 
+bool CtStrUtil::isPgcharInPgcharSet(const gchar* pGcharNeedle, const std::set<const gchar*>& gstrSetHaystack)
+{
+    bool gotcha{false};
+    for (const gchar* pGcharHaystack : gstrSetHaystack)
+    {
+        if (0 == g_strcmp0(pGcharHaystack, pGcharNeedle))
+        {
+            gotcha = true;
+            break;
+        }
+    }
+    return gotcha;
+}
+
 
 void CtRgbUtil::setRgb24StrFromRgb24Int(guint32 rgb24Int, char *rgb24StrOut)
 {

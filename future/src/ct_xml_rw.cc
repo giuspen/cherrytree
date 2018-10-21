@@ -122,6 +122,32 @@ Glib::RefPtr<Gsv::Buffer> CherryTreeXMLRead::getTextBuffer(const std::string& sy
         {
             if ("rich_text" == pNode->get_name())
             {
+                xmlpp::Element* pNodeElement = static_cast<xmlpp::Element*>(pNode);
+                xmlpp::TextNode* pTextNode = pNodeElement->get_child_text();
+                if (pTextNode)
+                {
+                    const Glib::ustring textContent = pTextNode->get_content();
+                    const std::list<xmlpp::Attribute*> attributeList = pNodeElement->get_attributes();
+                    std::vector<Glib::ustring> tagsNames;
+                    for (const xmlpp::Attribute* pAttribute : attributeList)
+                    {
+                        if (CtStrUtil::isPgcharInPgcharSet(pAttribute->get_value().c_str(), CtConst::TAG_PROPERTIES))
+                        {
+                            
+                        }
+                    }
+                }
+            }
+            else if ("encoded_png" == pNode->get_name())
+            {
+                
+            }
+            else if ("table" == pNode->get_name())
+            {
+                
+            }
+            else if ("codebox" == pNode->get_name())
+            {
                 
             }
         }

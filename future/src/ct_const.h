@@ -22,6 +22,8 @@
 #pragma once
 
 #include <map>
+#include <unordered_map>
+#include <set>
 #include <glibmm.h>
 
 namespace CtConst {
@@ -84,9 +86,21 @@ extern const gchar*   TREE_TEXT_DARK_FG;
 extern const gchar*   TREE_TEXT_DARK_BG;
 extern const gchar*   TREE_TEXT_LIGHT_FG;
 extern const gchar*   TREE_TEXT_LIGHT_BG;
+extern const gchar    TAG_WEIGHT[];
+extern const gchar    TAG_FOREGROUND[];
+extern const gchar    TAG_BACKGROUND[];
+extern const gchar    TAG_STYLE[];
+extern const gchar    TAG_UNDERLINE[];
+extern const gchar    TAG_STRIKETHROUGH[];
+extern const gchar    TAG_SCALE[];
+extern const gchar    TAG_FAMILY[];
+extern const gchar    TAG_JUSTIFICATION[];
+extern const gchar    TAG_LINK[];
+extern const std::set<const gchar*> TEXT_SYNTAXES;
+extern const std::set<const gchar*> TAG_PROPERTIES;
 extern const gchar    TOOLBAR_VEC_DEFAULT[];
-extern const std::map<int, Glib::ustring> NODES_STOCKS;
-extern const std::map<int, Glib::ustring> NODES_ICONS;
+extern const std::unordered_map<int, Glib::ustring> NODES_STOCKS;
+extern const std::unordered_map<int, Glib::ustring> NODES_ICONS;
 extern const std::map<Glib::ustring, Glib::ustring> CODE_ICONS;
 
 Glib::ustring getStockIdForCodeType(Glib::ustring code_type);

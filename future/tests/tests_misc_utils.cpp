@@ -20,6 +20,7 @@
  */
 
 #include "ct_misc_utils.h"
+#include "ct_const.h"
 #include "CppUTest/CommandLineTestRunner.h"
 
 
@@ -80,6 +81,13 @@ TEST(MiscUtilsGroup, ustringJoin4int64)
     Glib::ustring rejoined = CtStrUtil::ustringJoin4int64(listToJoin, ",");
     STRCMP_EQUAL("-1,1,0,1000", rejoined.c_str());
 }
+
+TEST(MiscUtilsGroup, isPgcharInPgcharSet)
+{
+    CHECK(CtStrUtil::isPgcharInPgcharSet(CtConst::TAG_STRIKETHROUGH, CtConst::TAG_PROPERTIES));
+    CHECK(!CtStrUtil::isPgcharInPgcharSet("something surely missing", CtConst::TAG_PROPERTIES));
+}
+
 
 TEST(MiscUtilsGroup, setRgb24StrFromRgb24Int)
 {

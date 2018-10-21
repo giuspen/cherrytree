@@ -80,7 +80,34 @@ const gchar*   CtConst::TREE_TEXT_DARK_BG      {COLOR_24_BLUEBG};
 const gchar*   CtConst::TREE_TEXT_LIGHT_FG     {COLOR_24_LBLACK};
 const gchar*   CtConst::TREE_TEXT_LIGHT_BG     {COLOR_24_GRAY};
 
-const gchar    CtConst::TOOLBAR_VEC_DEFAULT[] { 
+const gchar    CtConst::TAG_WEIGHT[]           {"weight"};
+const gchar    CtConst::TAG_FOREGROUND[]       {"foreground"};
+const gchar    CtConst::TAG_BACKGROUND[]       {"background"};
+const gchar    CtConst::TAG_STYLE[]            {"style"};
+const gchar    CtConst::TAG_UNDERLINE[]        {"underline"};
+const gchar    CtConst::TAG_STRIKETHROUGH[]    {"strikethrough"};
+const gchar    CtConst::TAG_SCALE[]            {"scale"};
+const gchar    CtConst::TAG_FAMILY[]           {"family"};
+const gchar    CtConst::TAG_JUSTIFICATION[]    {"justification"};
+const gchar    CtConst::TAG_LINK[]             {"link"};
+
+const std::set<const gchar*> CtConst::TEXT_SYNTAXES {
+    RICH_TEXT_ID,
+    PLAIN_TEXT_ID};
+
+const std::set<const gchar*> CtConst::TAG_PROPERTIES {
+    TAG_WEIGHT,
+    TAG_FOREGROUND,
+    TAG_BACKGROUND,
+    TAG_STYLE,
+    TAG_UNDERLINE,
+    TAG_STRIKETHROUGH,
+    TAG_SCALE,
+    TAG_FAMILY,
+    TAG_JUSTIFICATION,
+    TAG_LINK};
+
+const gchar CtConst::TOOLBAR_VEC_DEFAULT[] { 
     "tree_add_node,tree_add_subnode,sep,go_node_prev,go_node_next,"
     "sep,*,ct_save,export_pdf,sep,"
     "find_in_allnodes,sep,handle_bull_list,handle_num_list,handle_todo_list,"
@@ -89,7 +116,7 @@ const gchar    CtConst::TOOLBAR_VEC_DEFAULT[] {
     "fmt_color_bg,fmt_bold,fmt_italic,fmt_underline,fmt_strikethrough,"
     "fmt_h1,fmt_h2,fmt_h3,fmt_small,fmt_superscript,fmt_subscript,fmt_monospace"};
 
-const std::map<int, Glib::ustring> CtConst::NODES_STOCKS {
+const std::unordered_map<int, Glib::ustring> CtConst::NODES_STOCKS {
     { 1, "circle-green"},
     { 2, "circle-yellow"},
     { 3, "circle-red"},
@@ -140,7 +167,7 @@ const std::map<int, Glib::ustring> CtConst::NODES_STOCKS {
     {48, "cpp"},
 };
 
-const std::map<int, Glib::ustring> CtConst::NODES_ICONS {
+const std::unordered_map<int, Glib::ustring> CtConst::NODES_ICONS {
     { 0, CHERRY_RED},
     { 1, CHERRY_BLUE},
     { 2, CHERRY_ORANGE},
