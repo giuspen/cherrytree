@@ -23,6 +23,7 @@
 #include <string.h>
 #include <assert.h>
 #include "ct_misc_utils.h"
+#include "ct_app.h"
 
 CtDocType CtMiscUtil::getDocType(std::string fileName)
 {
@@ -54,6 +55,81 @@ CtDocEncrypt CtMiscUtil::getDocEncrypt(std::string fileName)
         retDocEncrypt = CtDocEncrypt::True;
     }
     return retDocEncrypt;
+}
+
+const Glib::ustring CtMiscUtil::getTextTagNameExistOrCreate(Glib::ustring propertyName, Glib::ustring propertyValue)
+{
+    const Glib::ustring tagName{propertyName + "_" + propertyValue};
+    Glib::RefPtr<Gtk::TextTag> rTextTag = CTApplication::R_textTagTable->lookup(tagName);
+    if (!rTextTag)
+    {
+        rTextTag = Gtk::TextTag::create(tagName);
+        if (CtConst::TAG_PROP_VAL_HEAVY == propertyValue)
+        {
+            rTextTag->property_weight() = PANGO_WEIGHT_HEAVY;
+        }
+        else if (CtConst::TAG_PROP_VAL_SMALL == propertyValue)
+        {
+            rTextTag->property_scale() = PANGO_SCALE_SMALL;
+        }
+        else if (CtConst::TAG_PROP_VAL_H1 == propertyValue)
+        {
+            rTextTag->property_scale() = PANGO_SCALE_XX_LARGE;
+        }
+        else if (CtConst::TAG_PROP_VAL_H2 == propertyValue)
+        {
+            rTextTag->property_scale() = PANGO_SCALE_X_LARGE;
+        }
+        else if (CtConst::TAG_PROP_VAL_H3 == propertyValue)
+        {
+            rTextTag->property_scale() = PANGO_SCALE_LARGE;
+        }
+        else if (CtConst::TAG_PROP_VAL_ITALIC == propertyValue)
+        {
+            
+        }
+        else if (CtConst::TAG_PROP_VAL_SINGLE == propertyValue)
+        {
+            
+        }
+        else if (CtConst::TAG_PROP_VAL_LEFT == propertyValue)
+        {
+            
+        }
+        else if (CtConst::TAG_PROP_VAL_RIGHT == propertyValue)
+        {
+            
+        }
+        else if (CtConst::TAG_PROP_VAL_CENTER == propertyValue)
+        {
+            
+        }
+        else if (CtConst::TAG_PROP_VAL_FILL == propertyValue)
+        {
+            
+        }
+        else if (CtConst::TAG_PROP_VAL_MONOSPACE == propertyValue)
+        {
+            
+        }
+        else if (CtConst::TAG_PROP_VAL_SUB == propertyValue)
+        {
+            
+        }
+        else if (CtConst::TAG_PROP_VAL_SUP == propertyValue)
+        {
+            
+        }
+        else
+        {
+            if (CtConst::TAG_PROP_VAL_TRUE == propertyValue)
+            {
+                
+            }
+        }
+        CTApplication::R_textTagTable->add(rTextTag);
+    }
+    return tagName;
 }
 
 
@@ -149,10 +225,10 @@ Glib::ustring CtStrUtil::ustringJoin4int64(const std::list<gint64>& inInt64List,
     return retStr;
 }
 
-bool CtStrUtil::isPgcharInPgcharSet(const gchar* pGcharNeedle, const std::set<const gchar*>& gstrSetHaystack)
+bool CtStrUtil::isPgcharInPgcharSet(const gchar* pGcharNeedle, const std::set<const gchar*>& setPgcharHaystack)
 {
     bool gotcha{false};
-    for (const gchar* pGcharHaystack : gstrSetHaystack)
+    for (const gchar* pGcharHaystack : setPgcharHaystack)
     {
         if (0 == g_strcmp0(pGcharHaystack, pGcharNeedle))
         {

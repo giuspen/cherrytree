@@ -131,9 +131,10 @@ Glib::RefPtr<Gsv::Buffer> CherryTreeXMLRead::getTextBuffer(const std::string& sy
                     std::vector<Glib::ustring> tagsNames;
                     for (const xmlpp::Attribute* pAttribute : attributeList)
                     {
-                        if (CtStrUtil::isPgcharInPgcharSet(pAttribute->get_value().c_str(), CtConst::TAG_PROPERTIES))
+                        if (CtStrUtil::isPgcharInPgcharSet(pAttribute->get_name().c_str(), CtConst::TAG_PROPERTIES))
                         {
-                            
+                            Glib::ustring tagName = CtMiscUtil::getTextTagNameExistOrCreate(pAttribute->get_name(), pAttribute->get_value());
+                            tagsNames.push_back(tagName);
                         }
                     }
                 }

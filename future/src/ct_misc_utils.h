@@ -33,6 +33,8 @@ CtDocType getDocType(std::string fileName);
 
 CtDocEncrypt getDocEncrypt(std::string fileName);
 
+const Glib::ustring getTextTagNameExistOrCreate(Glib::ustring propertyName, Glib::ustring propertyValue);
+
 } // namespace CtMiscUtil
 
 namespace CtStrUtil {
@@ -53,7 +55,7 @@ Glib::ustring ustringJoin4ustring(const std::list<Glib::ustring>& inStrList, con
 
 Glib::ustring ustringJoin4int64(const std::list<gint64>& inInt64List, const gchar* delimiter);
 
-bool isPgcharInPgcharSet(const gchar* pGcharNeedle, const std::set<const gchar*>& gstrSetHaystack);
+bool isPgcharInPgcharSet(const gchar* pGcharNeedle, const std::set<const gchar*>& setPgcharHaystack);
 
 } // namespace CtStrUtil
 

@@ -91,6 +91,25 @@ const gchar    CtConst::TAG_FAMILY[]           {"family"};
 const gchar    CtConst::TAG_JUSTIFICATION[]    {"justification"};
 const gchar    CtConst::TAG_LINK[]             {"link"};
 
+const gchar    CtConst::TAG_PROP_VAL_HEAVY[]        {"heavy"};
+const gchar    CtConst::TAG_PROP_VAL_ITALIC[]       {"italic"};
+const gchar    CtConst::TAG_PROP_VAL_MONOSPACE[]    {"monospace"};
+const gchar    CtConst::TAG_PROP_VAL_SINGLE[]       {"single"};
+const gchar    CtConst::TAG_PROP_VAL_SMALL[]        {"small"};
+const gchar    CtConst::TAG_PROP_VAL_TRUE[]         {"true"};
+const gchar    CtConst::TAG_PROP_VAL_H1[]           {"h1"};
+const gchar    CtConst::TAG_PROP_VAL_H2[]           {"h2"};
+const gchar    CtConst::TAG_PROP_VAL_H3[]           {"h3"};
+const gchar    CtConst::TAG_PROP_VAL_H4[]           {"h4"};
+const gchar    CtConst::TAG_PROP_VAL_H5[]           {"h5"};
+const gchar    CtConst::TAG_PROP_VAL_H6[]           {"h6"};
+const gchar    CtConst::TAG_PROP_VAL_SUP[]          {"sup"};
+const gchar    CtConst::TAG_PROP_VAL_SUB[]          {"sub"};
+const gchar    CtConst::TAG_PROP_VAL_LEFT[]         {"left"};
+const gchar    CtConst::TAG_PROP_VAL_CENTER[]       {"center"};
+const gchar    CtConst::TAG_PROP_VAL_RIGHT[]        {"right"};
+const gchar    CtConst::TAG_PROP_VAL_FILL[]         {"fill"};
+
 const std::set<const gchar*> CtConst::TEXT_SYNTAXES {
     RICH_TEXT_ID,
     PLAIN_TEXT_ID};
