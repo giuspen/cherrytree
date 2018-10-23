@@ -311,10 +311,10 @@ void CtConfig::_populateFromKeyfile()
     _populateStringFromKeyfile("tt_def_bg", &ttDefBg);
     _populateStringFromKeyfile("monospace_bg", &monospaceBg);
     _populateStringFromKeyfile("color_palette", &colorPalette);
-    _populateStringFromKeyfile("col_link_webs", &m_col_link_webs);
-    _populateStringFromKeyfile("col_link_node", &m_col_link_node);
-    _populateStringFromKeyfile("col_link_file", &m_col_link_file);
-    _populateStringFromKeyfile("col_link_fold", &m_col_link_fold);
+    _populateStringFromKeyfile("col_link_webs", &colLinkWebs);
+    _populateStringFromKeyfile("col_link_node", &colLinkNode);
+    _populateStringFromKeyfile("col_link_file", &colLinkFile);
+    _populateStringFromKeyfile("col_link_fold", &colLinkFold);
 
     // [misc]
     _currentGroup = "misc";

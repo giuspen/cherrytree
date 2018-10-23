@@ -127,14 +127,25 @@ Glib::RefPtr<Gsv::Buffer> CherryTreeXMLRead::getTextBuffer(const std::string& sy
                 if (pTextNode)
                 {
                     const Glib::ustring textContent = pTextNode->get_content();
-                    const std::list<xmlpp::Attribute*> attributeList = pNodeElement->get_attributes();
-                    std::vector<Glib::ustring> tagsNames;
-                    for (const xmlpp::Attribute* pAttribute : attributeList)
+                    if (!textContent.empty())
                     {
-                        if (CtStrUtil::isPgcharInPgcharSet(pAttribute->get_name().c_str(), CtConst::TAG_PROPERTIES))
+                        const std::list<xmlpp::Attribute*> attributeList = pNodeElement->get_attributes();
+                        std::vector<Glib::ustring> tagsNames;
+                        for (const xmlpp::Attribute* pAttribute : attributeList)
                         {
-                            Glib::ustring tagName = CtMiscUtil::getTextTagNameExistOrCreate(pAttribute->get_name(), pAttribute->get_value());
-                            tagsNames.push_back(tagName);
+                            if (CtStrUtil::isPgcharInPgcharSet(pAttribute->get_name().c_str(), CtConst::TAG_PROPERTIES))
+                            {
+                                Glib::ustring tagName = CtMiscUtil::getTextTagNameExistOrCreate(pAttribute->get_name(), pAttribute->get_value());
+                                tagsNames.push_back(tagName);
+                            }
+                        }
+                        if (tagsNames.size() > 0)
+                        {
+                            rRetTextBuffer->insert_with_tags_by_name(rRetTextBuffer->end(), textContent, tagsNames);
+                        }
+                        else
+                        {
+                            rRetTextBuffer->insert(rRetTextBuffer->end(), textContent);
                         }
                     }
                 }

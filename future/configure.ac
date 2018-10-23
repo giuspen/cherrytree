@@ -11,7 +11,7 @@ AC_PROG_CXX
 AC_PROG_RANLIB
 AM_PROG_AR
 
-PKG_CHECK_MODULES([CHERRYTREE], [gtkmm-3.0 gtksourceviewmm-3.0 glibmm-2.4 libxml++-2.6 sqlite3 cpputest])
+PKG_CHECK_MODULES([CHERRYTREE], [gtkmm-3.0 gtksourceviewmm-3.0 glibmm-2.4 pangomm-1.4 libxml++-2.6 sqlite3 cpputest])
 
 AC_PREFIX_DEFAULT("/usr")
 

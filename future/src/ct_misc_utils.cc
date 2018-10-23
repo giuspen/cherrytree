@@ -19,6 +19,7 @@
  * MA 02110-1301, USA.
  */
 
+#include <pangomm.h>
 #include <iostream>
 #include <string.h>
 #include <assert.h>
@@ -86,46 +87,85 @@ const Glib::ustring CtMiscUtil::getTextTagNameExistOrCreate(Glib::ustring proper
         }
         else if (CtConst::TAG_PROP_VAL_ITALIC == propertyValue)
         {
-            
+            rTextTag->property_style() = Pango::Style::STYLE_ITALIC;
         }
         else if (CtConst::TAG_PROP_VAL_SINGLE == propertyValue)
         {
-            
+            rTextTag->property_underline() = Pango::Underline::UNDERLINE_SINGLE;
         }
         else if (CtConst::TAG_PROP_VAL_LEFT == propertyValue)
         {
-            
+            rTextTag->property_justification() = Gtk::Justification::JUSTIFY_LEFT;
         }
         else if (CtConst::TAG_PROP_VAL_RIGHT == propertyValue)
         {
-            
+            rTextTag->property_justification() = Gtk::Justification::JUSTIFY_RIGHT;
         }
         else if (CtConst::TAG_PROP_VAL_CENTER == propertyValue)
         {
-            
+            rTextTag->property_justification() = Gtk::Justification::JUSTIFY_CENTER;
         }
         else if (CtConst::TAG_PROP_VAL_FILL == propertyValue)
         {
-            
+            rTextTag->property_justification() = Gtk::Justification::JUSTIFY_FILL;
         }
         else if (CtConst::TAG_PROP_VAL_MONOSPACE == propertyValue)
         {
-            
+            rTextTag->property_family() = CtConst::TAG_PROP_VAL_MONOSPACE;
+            if (!CTApplication::P_ctCfg->monospaceBg.empty())
+            {
+                rTextTag->property_background() = CTApplication::P_ctCfg->monospaceBg;
+            }
         }
-        else if (CtConst::TAG_PROP_VAL_SUB == propertyValue)
+        else if (CtConst::TAG_PROP_VAL_SUB == propertyValue || CtConst::TAG_PROP_VAL_SUP == propertyValue)
         {
-            
+            rTextTag->property_scale() = PANGO_SCALE_X_SMALL;
+            int propRise = Pango::FontDescription(CTApplication::P_ctCfg->rtFont).get_size();
+            if (CtConst::TAG_PROP_VAL_SUB == propertyValue)
+            {
+                propRise /= -4;
+            }
+            else
+            {
+                propRise /= 2;
+            }
+            rTextTag->property_rise() = propRise;
         }
-        else if (CtConst::TAG_PROP_VAL_SUP == propertyValue)
+        else if (CtConst::TAG_STRIKETHROUGH == propertyName && CtConst::TAG_PROP_VAL_TRUE == propertyValue)
         {
-            
+            rTextTag->property_strikethrough() = true;
+        }
+        else if (CtConst::TAG_LINK == propertyName && propertyValue.size() > 4)
+        {
+            if (CTApplication::P_ctCfg->linksUnderline)
+            {
+                rTextTag->property_underline() = Pango::Underline::UNDERLINE_SINGLE;
+            }
+            Glib::ustring linkType = propertyValue.substr(0, 4);
+            if (CtConst::LINK_TYPE_WEBS == linkType)
+            {
+                rTextTag->property_foreground() = CTApplication::P_ctCfg->colLinkWebs;
+            }
+            else if (CtConst::LINK_TYPE_NODE == linkType)
+            {
+                rTextTag->property_foreground() = CTApplication::P_ctCfg->colLinkNode;
+            }
+            else if (CtConst::LINK_TYPE_FILE == linkType)
+            {
+                rTextTag->property_foreground() = CTApplication::P_ctCfg->colLinkFile;
+            }
+            else if (CtConst::LINK_TYPE_FOLD == linkType)
+            {
+                rTextTag->property_foreground() = CTApplication::P_ctCfg->colLinkFold;
+            }
+            else
+            {
+                std::cerr << "!! unexpected linkType=" << linkType << std::endl;
+            }
         }
         else
         {
-            if (CtConst::TAG_PROP_VAL_TRUE == propertyValue)
-            {
-                
-            }
+            std::cerr << "!! unsupported propertyName=" << propertyName << " propertyValue=" << propertyValue << std::endl;
         }
         CTApplication::R_textTagTable->add(rTextTag);
     }

@@ -155,10 +155,10 @@ public:
                                                              "#0000ff:#add8e6:#00ff00:#ffff00:#ffa500:"
                                                              "#e6e6fa:#a52a2a:#8b6914:#1e90ff:#ffc0cb:"
                                                              "#90ee90:#1a1a1a:#4d4d4d:#bfbfbf:#e5e5e5"};
-    Glib::ustring                               m_col_link_webs{CtConst::COLOR_48_LINK_WEBS};
-    Glib::ustring                               m_col_link_node{CtConst::COLOR_48_LINK_NODE};
-    Glib::ustring                               m_col_link_file{CtConst::COLOR_48_LINK_FILE};
-    Glib::ustring                               m_col_link_fold{CtConst::COLOR_48_LINK_FOLD};
+    Glib::ustring                               colLinkWebs{CtConst::COLOR_48_LINK_WEBS};
+    Glib::ustring                               colLinkNode{CtConst::COLOR_48_LINK_NODE};
+    Glib::ustring                               colLinkFile{CtConst::COLOR_48_LINK_FILE};
+    Glib::ustring                               colLinkFold{CtConst::COLOR_48_LINK_FOLD};
 
     // [misc]
     Glib::ustring                               toolbarUiList{CtConst::TOOLBAR_VEC_DEFAULT};
