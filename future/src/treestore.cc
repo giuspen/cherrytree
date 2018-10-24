@@ -167,7 +167,23 @@ Glib::ustring TheTreeStore::getNodeName(Gtk::TreeIter treeIter)
     if (treeIter)
     {
         Gtk::TreeRow treeRow = *treeIter;
-        retNodeName = treeRow[_columns.colNodeName];
+        retNodeName = treeRow.get_value(_columns.colNodeName);
     }
     return retNodeName;
+}
+
+Glib::RefPtr<Gsv::Buffer> TheTreeStore::getTextBuffer(Gtk::TreeIter treeIter)
+{
+    Glib::RefPtr<Gsv::Buffer> rRetTextBuffer{nullptr};
+    if (treeIter)
+    {
+        Gtk::TreeRow treeRow = *treeIter;
+        rRetTextBuffer = treeRow.get_value(_columns.rColTextBuffer);
+        if (!rRetTextBuffer)
+        {
+            // SQLite text buffer not yet populated
+            
+        }
+    }
+    return rRetTextBuffer;
 }

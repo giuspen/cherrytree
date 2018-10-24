@@ -51,8 +51,8 @@ public:
     Glib::ustring getEntryText();
 
 protected:
-    bool on_entry_key_press_event(GdkEventKey *event_key);
-    void on_entry_icon_press(Gtk::EntryIconPosition icon_position, const GdkEventButton* event);
+    bool _onEntryKeyPress(GdkEventKey *event_key);
+    void _onEntryIconPress(Gtk::EntryIconPosition icon_position, const GdkEventButton* event);
     Gtk::Entry _entry;
 };
 
@@ -67,7 +67,7 @@ public:
     void configApply();
 
 protected:
-    void                _on_theTreeview_signal_cursor_changed();
+    void                _onTheTreeviewSignalCursorChanged();
     void                _titleUpdate(bool saveNeeded);
     Gtk::VBox           _vboxMain;
     Gtk::VBox           _vboxText;

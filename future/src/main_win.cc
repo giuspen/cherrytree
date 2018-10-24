@@ -70,7 +70,7 @@ MainWindow::MainWindow() : Gtk::ApplicationWindow()
     add(_vboxMain);
     _theTreestore.viewAppendColumns(&_theTreeview);
     _theTreestore.viewConnect(&_theTreeview);
-    _theTreeview.signal_cursor_changed().connect(sigc::mem_fun(*this, &MainWindow::_on_theTreeview_signal_cursor_changed));
+    _theTreeview.signal_cursor_changed().connect(sigc::mem_fun(*this, &MainWindow::_onTheTreeviewSignalCursorChanged));
     configApply();
     _titleUpdate(false/*saveNeeded*/);
     show_all();
@@ -132,10 +132,11 @@ bool MainWindow::readNodesFromGioFile(const Glib::RefPtr<Gio::File>& r_file)
     return retOk;
 }
 
-void MainWindow::_on_theTreeview_signal_cursor_changed()
+void MainWindow::_onTheTreeviewSignalCursorChanged()
 {
     Gtk::TreeIter treeIter = _theTreeview.get_selection()->get_selected();
     std::cout << _theTreestore.getNodeName(treeIter) << std::endl;
+    _theTextview.set_buffer(_theTreestore.getTextBuffer(treeIter));
 }
 
 void MainWindow::_titleUpdate(bool saveNeeded)
@@ -172,8 +173,8 @@ CTDialogTextEntry::CTDialogTextEntry(const char *title, const bool forPassword, 
     }
     get_vbox()->pack_start(_entry, true, true, 0);
 
-    _entry.signal_key_press_event().connect(sigc::mem_fun(*this, &CTDialogTextEntry::on_entry_key_press_event), false);
-    _entry.signal_icon_press().connect(sigc::mem_fun(*this, &CTDialogTextEntry::on_entry_icon_press));
+    _entry.signal_key_press_event().connect(sigc::mem_fun(*this, &CTDialogTextEntry::_onEntryKeyPress), false);
+    _entry.signal_icon_press().connect(sigc::mem_fun(*this, &CTDialogTextEntry::_onEntryIconPress));
 
     get_vbox()->show_all();
 }
@@ -182,7 +183,7 @@ CTDialogTextEntry::~CTDialogTextEntry()
 {
 }
 
-bool CTDialogTextEntry::on_entry_key_press_event(GdkEventKey *eventKey)
+bool CTDialogTextEntry::_onEntryKeyPress(GdkEventKey *eventKey)
 {
     if(GDK_KEY_Return == eventKey->keyval)
     {
@@ -193,7 +194,7 @@ bool CTDialogTextEntry::on_entry_key_press_event(GdkEventKey *eventKey)
     return false;
 }
 
-void CTDialogTextEntry::on_entry_icon_press(Gtk::EntryIconPosition iconPosition, const GdkEventButton* event)
+void CTDialogTextEntry::_onEntryIconPress(Gtk::EntryIconPosition iconPosition, const GdkEventButton* event)
 {
     _entry.set_text("");
 }

@@ -64,72 +64,95 @@ const Glib::ustring CtMiscUtil::getTextTagNameExistOrCreate(Glib::ustring proper
     Glib::RefPtr<Gtk::TextTag> rTextTag = CTApplication::R_textTagTable->lookup(tagName);
     if (!rTextTag)
     {
+        bool identified{true};
         rTextTag = Gtk::TextTag::create(tagName);
-        if (CtConst::TAG_PROP_VAL_HEAVY == propertyValue)
+        if (CtConst::TAG_WEIGHT == propertyName && CtConst::TAG_PROP_VAL_HEAVY == propertyValue)
         {
             rTextTag->property_weight() = PANGO_WEIGHT_HEAVY;
         }
-        else if (CtConst::TAG_PROP_VAL_SMALL == propertyValue)
+        else if (CtConst::TAG_FOREGROUND == propertyName)
         {
-            rTextTag->property_scale() = PANGO_SCALE_SMALL;
+            rTextTag->property_foreground() = propertyValue;
         }
-        else if (CtConst::TAG_PROP_VAL_H1 == propertyValue)
+        else if (CtConst::TAG_BACKGROUND == propertyName)
         {
-            rTextTag->property_scale() = PANGO_SCALE_XX_LARGE;
+            rTextTag->property_background() = propertyValue;
         }
-        else if (CtConst::TAG_PROP_VAL_H2 == propertyValue)
+        else if (CtConst::TAG_SCALE == propertyName)
         {
-            rTextTag->property_scale() = PANGO_SCALE_X_LARGE;
+            if (CtConst::TAG_PROP_VAL_SMALL == propertyValue)
+            {
+                rTextTag->property_scale() = PANGO_SCALE_SMALL;
+            }
+            else if (CtConst::TAG_PROP_VAL_H1 == propertyValue)
+            {
+                rTextTag->property_scale() = PANGO_SCALE_XX_LARGE;
+            }
+            else if (CtConst::TAG_PROP_VAL_H2 == propertyValue)
+            {
+                rTextTag->property_scale() = PANGO_SCALE_X_LARGE;
+            }
+            else if (CtConst::TAG_PROP_VAL_H3 == propertyValue)
+            {
+                rTextTag->property_scale() = PANGO_SCALE_LARGE;
+            }
+            else if (CtConst::TAG_PROP_VAL_SUB == propertyValue || CtConst::TAG_PROP_VAL_SUP == propertyValue)
+            {
+                rTextTag->property_scale() = PANGO_SCALE_X_SMALL;
+                int propRise = Pango::FontDescription(CTApplication::P_ctCfg->rtFont).get_size();
+                if (CtConst::TAG_PROP_VAL_SUB == propertyValue)
+                {
+                    propRise /= -4;
+                }
+                else
+                {
+                    propRise /= 2;
+                }
+                rTextTag->property_rise() = propRise;
+            }
+            else
+            {
+                identified = false;
+            }
         }
-        else if (CtConst::TAG_PROP_VAL_H3 == propertyValue)
-        {
-            rTextTag->property_scale() = PANGO_SCALE_LARGE;
-        }
-        else if (CtConst::TAG_PROP_VAL_ITALIC == propertyValue)
+        else if (CtConst::TAG_STYLE == propertyName && CtConst::TAG_PROP_VAL_ITALIC == propertyValue)
         {
             rTextTag->property_style() = Pango::Style::STYLE_ITALIC;
         }
-        else if (CtConst::TAG_PROP_VAL_SINGLE == propertyValue)
+        else if (CtConst::TAG_UNDERLINE == propertyName && CtConst::TAG_PROP_VAL_SINGLE == propertyValue)
         {
             rTextTag->property_underline() = Pango::Underline::UNDERLINE_SINGLE;
         }
-        else if (CtConst::TAG_PROP_VAL_LEFT == propertyValue)
+        else if (CtConst::TAG_JUSTIFICATION == propertyName)
         {
-            rTextTag->property_justification() = Gtk::Justification::JUSTIFY_LEFT;
+            if (CtConst::TAG_PROP_VAL_LEFT == propertyValue)
+            {
+                rTextTag->property_justification() = Gtk::Justification::JUSTIFY_LEFT;
+            }
+            else if (CtConst::TAG_PROP_VAL_RIGHT == propertyValue)
+            {
+                rTextTag->property_justification() = Gtk::Justification::JUSTIFY_RIGHT;
+            }
+            else if (CtConst::TAG_PROP_VAL_CENTER == propertyValue)
+            {
+                rTextTag->property_justification() = Gtk::Justification::JUSTIFY_CENTER;
+            }
+            else if (CtConst::TAG_PROP_VAL_FILL == propertyValue)
+            {
+                rTextTag->property_justification() = Gtk::Justification::JUSTIFY_FILL;
+            }
+            else
+            {
+                identified = false;
+            }
         }
-        else if (CtConst::TAG_PROP_VAL_RIGHT == propertyValue)
-        {
-            rTextTag->property_justification() = Gtk::Justification::JUSTIFY_RIGHT;
-        }
-        else if (CtConst::TAG_PROP_VAL_CENTER == propertyValue)
-        {
-            rTextTag->property_justification() = Gtk::Justification::JUSTIFY_CENTER;
-        }
-        else if (CtConst::TAG_PROP_VAL_FILL == propertyValue)
-        {
-            rTextTag->property_justification() = Gtk::Justification::JUSTIFY_FILL;
-        }
-        else if (CtConst::TAG_PROP_VAL_MONOSPACE == propertyValue)
+        else if (CtConst::TAG_FAMILY == propertyName && CtConst::TAG_PROP_VAL_MONOSPACE == propertyValue)
         {
             rTextTag->property_family() = CtConst::TAG_PROP_VAL_MONOSPACE;
             if (!CTApplication::P_ctCfg->monospaceBg.empty())
             {
                 rTextTag->property_background() = CTApplication::P_ctCfg->monospaceBg;
             }
-        }
-        else if (CtConst::TAG_PROP_VAL_SUB == propertyValue || CtConst::TAG_PROP_VAL_SUP == propertyValue)
-        {
-            rTextTag->property_scale() = PANGO_SCALE_X_SMALL;
-            int propRise = Pango::FontDescription(CTApplication::P_ctCfg->rtFont).get_size();
-            if (CtConst::TAG_PROP_VAL_SUB == propertyValue)
-            {
-                propRise /= -4;
-            }
-            else
-            {
-                propRise /= 2;
-            }
-            rTextTag->property_rise() = propRise;
         }
         else if (CtConst::TAG_STRIKETHROUGH == propertyName && CtConst::TAG_PROP_VAL_TRUE == propertyValue)
         {
@@ -160,10 +183,14 @@ const Glib::ustring CtMiscUtil::getTextTagNameExistOrCreate(Glib::ustring proper
             }
             else
             {
-                std::cerr << "!! unexpected linkType=" << linkType << std::endl;
+                identified = false;
             }
         }
         else
+        {
+            identified = false;
+        }
+        if (!identified)
         {
             std::cerr << "!! unsupported propertyName=" << propertyName << " propertyValue=" << propertyValue << std::endl;
         }

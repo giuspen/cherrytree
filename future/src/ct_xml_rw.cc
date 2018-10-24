@@ -98,7 +98,7 @@ Gtk::TreeIter CherryTreeXMLRead::_xmlNodeProcess(xmlpp::Element *pNodeElement, c
 
 Glib::RefPtr<Gsv::Buffer> CherryTreeXMLRead::getTextBuffer(const std::string& syntax, xmlpp::Element *pNodeElement)
 {
-    Glib::RefPtr<Gsv::Buffer> rRetTextBuffer;
+    Glib::RefPtr<Gsv::Buffer> rRetTextBuffer{nullptr};
     rRetTextBuffer = Gsv::Buffer::create(CTApplication::R_textTagTable);
     rRetTextBuffer->set_max_undo_levels(CTApplication::P_ctCfg->limitUndoableSteps);
     rRetTextBuffer->begin_not_undoable_action();

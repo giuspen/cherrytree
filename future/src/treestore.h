@@ -52,20 +52,20 @@ public:
         add(rColPixbufAux); add(colCustomIconId); add(colWeight); add(colForeground);
         add(colTsCreation); add(colTsLastSave);
     }
-    Gtk::TreeModelColumn<Glib::RefPtr<Gdk::Pixbuf>>     rColPixbuf;
-    Gtk::TreeModelColumn<Glib::ustring>                 colNodeName;
-    Gtk::TreeModelColumn<Glib::RefPtr<Gtk::TextBuffer>> rColTextBuffer;
-    Gtk::TreeModelColumn<gint64>                        colNodeUniqueId;
-    Gtk::TreeModelColumn<Glib::ustring>                 colSyntaxHighlighting;
-    Gtk::TreeModelColumn<guint16>                       colNodeSequence;
-    Gtk::TreeModelColumn<Glib::ustring>                 colNodeTags;
-    Gtk::TreeModelColumn<bool>                          colNodeRO;
-    Gtk::TreeModelColumn<Glib::RefPtr<Gdk::Pixbuf>>     rColPixbufAux;
-    Gtk::TreeModelColumn<guint16>                       colCustomIconId;
-    Gtk::TreeModelColumn<guint16>                       colWeight;
-    Gtk::TreeModelColumn<Glib::ustring>                 colForeground;
-    Gtk::TreeModelColumn<gint64>                        colTsCreation;
-    Gtk::TreeModelColumn<gint64>                        colTsLastSave;
+    Gtk::TreeModelColumn<Glib::RefPtr<Gdk::Pixbuf>>  rColPixbuf;
+    Gtk::TreeModelColumn<Glib::ustring>              colNodeName;
+    Gtk::TreeModelColumn<Glib::RefPtr<Gsv::Buffer>>  rColTextBuffer;
+    Gtk::TreeModelColumn<gint64>                     colNodeUniqueId;
+    Gtk::TreeModelColumn<Glib::ustring>              colSyntaxHighlighting;
+    Gtk::TreeModelColumn<guint16>                    colNodeSequence;
+    Gtk::TreeModelColumn<Glib::ustring>              colNodeTags;
+    Gtk::TreeModelColumn<bool>                       colNodeRO;
+    Gtk::TreeModelColumn<Glib::RefPtr<Gdk::Pixbuf>>  rColPixbufAux;
+    Gtk::TreeModelColumn<guint16>                    colCustomIconId;
+    Gtk::TreeModelColumn<guint16>                    colWeight;
+    Gtk::TreeModelColumn<Glib::ustring>              colForeground;
+    Gtk::TreeModelColumn<gint64>                     colTsCreation;
+    Gtk::TreeModelColumn<gint64>                     colTsLastSave;
 };
 
 
@@ -83,6 +83,7 @@ public:
     Gtk::TreeIter onRequestAppendNode(CtNodeData *pNodeData, const Gtk::TreeIter *pParentIter);
 
     Glib::ustring getNodeName(Gtk::TreeIter treeIter);
+    Glib::RefPtr<Gsv::Buffer> getTextBuffer(Gtk::TreeIter treeIter);
 
 protected:
     guint16                   _getPangoWeight(bool isBold);
