@@ -1,5 +1,5 @@
 /*
- * main_win.cc
+ * ct_main_win.cc
  *
  * Copyright 2017-2018 Giuseppe Penone <giuspen@gmail.com>
  *
@@ -19,23 +19,20 @@
  * MA 02110-1301, USA.
  */
 
-#include <glibmm/i18n.h>
-#include <iostream>
 #include "ct_app.h"
-#include "p7za_iface.h"
+#include "ct_p7za_iface.h"
 
-
-TheTreeView::TheTreeView()
+CtTreeView::CtTreeView()
 {
     set_headers_visible(false);
 }
 
-TheTreeView::~TheTreeView()
+CtTreeView::~CtTreeView()
 {
 }
 
 
-TheTextView::TheTextView()
+CtTextView::CtTextView()
 {
     set_sensitive(false);
     set_smart_home_end(Gsv::SMART_HOME_END_AFTER);
@@ -43,20 +40,20 @@ TheTextView::TheTextView()
     set_right_margin(7);
 }
 
-TheTextView::~TheTextView()
+CtTextView::~CtTextView()
 {
 }
 
 
-MainWindow::MainWindow() : Gtk::ApplicationWindow()
+CtMainWin::CtMainWin() : Gtk::ApplicationWindow()
 {
-    set_icon(CTApplication::R_icontheme->load_icon("cherrytree", 48));
+    set_icon(CtApp::R_icontheme->load_icon("cherrytree", 48));
     _scrolledwindowTree.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
     _scrolledwindowText.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
-    _scrolledwindowTree.add(_theTreeview);
-    _scrolledwindowText.add(_theTextview);
+    _scrolledwindowTree.add(_ctTreeview);
+    _scrolledwindowText.add(_ctTextview);
     _vboxText.pack_start(_scrolledwindowText);
-    if (CTApplication::P_ctCfg->treeRightSide)
+    if (CtApp::P_ctCfg->treeRightSide)
     {
         _hPaned.add1(_vboxText);
         _hPaned.add2(_scrolledwindowTree);
@@ -68,25 +65,25 @@ MainWindow::MainWindow() : Gtk::ApplicationWindow()
     }
     _vboxMain.pack_start(_hPaned);
     add(_vboxMain);
-    _theTreestore.viewAppendColumns(&_theTreeview);
-    _theTreestore.viewConnect(&_theTreeview);
-    _theTreeview.signal_cursor_changed().connect(sigc::mem_fun(*this, &MainWindow::_onTheTreeviewSignalCursorChanged));
+    _ctTreestore.viewAppendColumns(&_ctTreeview);
+    _ctTreestore.viewConnect(&_ctTreeview);
+    _ctTreeview.signal_cursor_changed().connect(sigc::mem_fun(*this, &CtMainWin::_onTheTreeviewSignalCursorChanged));
     configApply();
     _titleUpdate(false/*saveNeeded*/);
     show_all();
 }
 
-MainWindow::~MainWindow()
+CtMainWin::~CtMainWin()
 {
 }
 
-void MainWindow::configApply()
+void CtMainWin::configApply()
 {
-    _hPaned.property_position() = CTApplication::P_ctCfg->hpanedPos;
-    set_size_request(CTApplication::P_ctCfg->winRect[2], CTApplication::P_ctCfg->winRect[3]);
+    _hPaned.property_position() = CtApp::P_ctCfg->hpanedPos;
+    set_size_request(CtApp::P_ctCfg->winRect[2], CtApp::P_ctCfg->winRect[3]);
 }
 
-bool MainWindow::readNodesFromGioFile(const Glib::RefPtr<Gio::File>& r_file)
+bool CtMainWin::readNodesFromGioFile(const Glib::RefPtr<Gio::File>& r_file)
 {
     bool retOk{false};
     std::string filepath{r_file->get_path()};
@@ -97,19 +94,19 @@ bool MainWindow::readNodesFromGioFile(const Glib::RefPtr<Gio::File>& r_file)
         gchar* title = g_strdup_printf(_("Enter Password for %s"), Glib::path_get_basename(filepath).c_str());
         while (true)
         {
-            CTDialogTextEntry dialogTextEntry(title, true/*forPassword*/, this);
+            CtDialogTextEntry dialogTextEntry(title, true/*forPassword*/, this);
             int response = dialogTextEntry.run();
             if (Gtk::RESPONSE_OK != response)
             {
                 break;
             }
             Glib::ustring password = dialogTextEntry.getEntryText();
-            if (0 == p7za_extract(filepath.c_str(),
-                                   CTApplication::P_ctTmp->getHiddenDirPath(filepath),
-                                   password.c_str()) &&
-                g_file_test(CTApplication::P_ctTmp->getHiddenFilePath(filepath), G_FILE_TEST_IS_REGULAR))
+            if (0 == CtP7zaIface::p7za_extract(filepath.c_str(),
+                                               CtApp::P_ctTmp->getHiddenDirPath(filepath),
+                                               password.c_str()) &&
+                g_file_test(CtApp::P_ctTmp->getHiddenFilePath(filepath), G_FILE_TEST_IS_REGULAR))
             {
-                pFilepath = CTApplication::P_ctTmp->getHiddenFilePath(filepath);
+                pFilepath = CtApp::P_ctTmp->getHiddenFilePath(filepath);
                 break;
             }
         }
@@ -121,7 +118,7 @@ bool MainWindow::readNodesFromGioFile(const Glib::RefPtr<Gio::File>& r_file)
     }
     if (NULL != pFilepath)
     {
-        retOk = _theTreestore.readNodesFromFilepath(pFilepath);
+        retOk = _ctTreestore.readNodesFromFilepath(pFilepath);
     }
     if (retOk)
     {
@@ -132,14 +129,14 @@ bool MainWindow::readNodesFromGioFile(const Glib::RefPtr<Gio::File>& r_file)
     return retOk;
 }
 
-void MainWindow::_onTheTreeviewSignalCursorChanged()
+void CtMainWin::_onTheTreeviewSignalCursorChanged()
 {
-    Gtk::TreeIter treeIter = _theTreeview.get_selection()->get_selected();
-    std::cout << _theTreestore.getNodeName(treeIter) << std::endl;
-    _theTextview.set_buffer(_theTreestore.getTextBuffer(treeIter));
+    Gtk::TreeIter treeIter = _ctTreeview.get_selection()->get_selected();
+    std::cout << _ctTreestore.getNodeName(treeIter) << std::endl;
+    _ctTextview.set_buffer(_ctTreestore.getTextBuffer(treeIter));
 }
 
-void MainWindow::_titleUpdate(bool saveNeeded)
+void CtMainWin::_titleUpdate(bool saveNeeded)
 {
     Glib::ustring title;
     if (saveNeeded)
@@ -156,7 +153,7 @@ void MainWindow::_titleUpdate(bool saveNeeded)
 }
 
 
-CTDialogTextEntry::CTDialogTextEntry(const char *title, const bool forPassword, Gtk::Window* pParent)
+CtDialogTextEntry::CtDialogTextEntry(const char* title, const bool forPassword, Gtk::Window* pParent)
 {
     set_title(title);
     set_transient_for(*pParent);
@@ -173,17 +170,17 @@ CTDialogTextEntry::CTDialogTextEntry(const char *title, const bool forPassword, 
     }
     get_vbox()->pack_start(_entry, true, true, 0);
 
-    _entry.signal_key_press_event().connect(sigc::mem_fun(*this, &CTDialogTextEntry::_onEntryKeyPress), false);
-    _entry.signal_icon_press().connect(sigc::mem_fun(*this, &CTDialogTextEntry::_onEntryIconPress));
+    _entry.signal_key_press_event().connect(sigc::mem_fun(*this, &CtDialogTextEntry::_onEntryKeyPress), false);
+    _entry.signal_icon_press().connect(sigc::mem_fun(*this, &CtDialogTextEntry::_onEntryIconPress));
 
     get_vbox()->show_all();
 }
 
-CTDialogTextEntry::~CTDialogTextEntry()
+CtDialogTextEntry::~CtDialogTextEntry()
 {
 }
 
-bool CTDialogTextEntry::_onEntryKeyPress(GdkEventKey *eventKey)
+bool CtDialogTextEntry::_onEntryKeyPress(GdkEventKey *eventKey)
 {
     if(GDK_KEY_Return == eventKey->keyval)
     {
@@ -194,12 +191,12 @@ bool CTDialogTextEntry::_onEntryKeyPress(GdkEventKey *eventKey)
     return false;
 }
 
-void CTDialogTextEntry::_onEntryIconPress(Gtk::EntryIconPosition iconPosition, const GdkEventButton* event)
+void CtDialogTextEntry::_onEntryIconPress(Gtk::EntryIconPosition iconPosition, const GdkEventButton* event)
 {
     _entry.set_text("");
 }
 
-Glib::ustring CTDialogTextEntry::getEntryText()
+Glib::ustring CtDialogTextEntry::getEntryText()
 {
     return _entry.get_text();
 }

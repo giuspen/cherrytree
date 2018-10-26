@@ -1,5 +1,5 @@
 /*
- * main_win.h
+ * ct_main_win.h
  * 
  * Copyright 2017-2018 Giuseppe Penone <giuspen@gmail.com>
  * 
@@ -23,45 +23,45 @@
 
 #include <gtkmm.h>
 #include <gtksourceviewmm.h>
-#include "treestore.h"
+#include "ct_treestore.h"
 #include "ct_misc_utils.h"
 
 
-class TheTreeView : public Gtk::TreeView
+class CtTreeView : public Gtk::TreeView
 {
 public:
-    TheTreeView();
-    virtual ~TheTreeView();
+    CtTreeView();
+    virtual ~CtTreeView();
 };
 
 
-class TheTextView : public Gsv::View
+class CtTextView : public Gsv::View
 {
 public:
-    TheTextView();
-    virtual ~TheTextView();
+    CtTextView();
+    virtual ~CtTextView();
 };
 
 
-class CTDialogTextEntry : public Gtk::Dialog
+class CtDialogTextEntry : public Gtk::Dialog
 {
 public:
-    CTDialogTextEntry(const char *title, const bool forPassword, Gtk::Window* pParent);
-    virtual ~CTDialogTextEntry();
+    CtDialogTextEntry(const char* title, const bool forPassword, Gtk::Window* pParent);
+    virtual ~CtDialogTextEntry();
     Glib::ustring getEntryText();
 
 protected:
-    bool _onEntryKeyPress(GdkEventKey *event_key);
-    void _onEntryIconPress(Gtk::EntryIconPosition icon_position, const GdkEventButton* event);
+    bool _onEntryKeyPress(GdkEventKey* eventKey);
+    void _onEntryIconPress(Gtk::EntryIconPosition iconPosition, const GdkEventButton* event);
     Gtk::Entry _entry;
 };
 
 
-class MainWindow : public Gtk::ApplicationWindow
+class CtMainWin : public Gtk::ApplicationWindow
 {
 public:
-    MainWindow();
-    virtual ~MainWindow();
+    CtMainWin();
+    virtual ~CtMainWin();
 
     bool readNodesFromGioFile(const Glib::RefPtr<Gio::File>& r_file);
     void configApply();
@@ -74,9 +74,9 @@ protected:
     Gtk::HPaned         _hPaned;
     Gtk::ScrolledWindow _scrolledwindowTree;
     Gtk::ScrolledWindow _scrolledwindowText;
-    TheTreeStore        _theTreestore;
-    TheTreeView         _theTreeview;
-    TheTextView         _theTextview;
+    CtTreeStore         _ctTreestore;
+    CtTreeView          _ctTreeview;
+    CtTextView          _ctTextview;
     std::string         _currFileName;
     std::string         _currFileDir;
 };

@@ -25,11 +25,9 @@
 #include <glibmm.h>
 #include "ct_const.h"
 
+enum class CtRestoreExpColl : int {FROM_STR=0, ALL_EXP=1, ALL_COLL=2};
 
-enum class RestoreExpColl : int {FROM_STR=0, ALL_EXP=1, ALL_COLL=2};
-
-enum class TableColMode : int {RENAME=0, ADD=1, DELETE=2, RIGHT=3, LEFT=4};
-
+enum class CtTableColMode : int {RENAME=0, ADD=1, DELETE=2, RIGHT=3, LEFT=4};
 
 struct CtRecentDocRestore
 {
@@ -38,7 +36,6 @@ struct CtRecentDocRestore
     Glib::ustring   node_path;
     int             cursor_pos;
 };
-
 
 class CtConfig
 {
@@ -70,7 +67,7 @@ public:
     std::unordered_map<gchar, Glib::ustring>    currColors{{'f', ""}, {'b', ""}, {'n', ""}};
 
     // [tree]
-    RestoreExpColl                              restoreExpColl{RestoreExpColl::FROM_STR};
+    CtRestoreExpColl                            restoreExpColl{CtRestoreExpColl::FROM_STR};
     Glib::ustring                               expandedCollapsedString;
     std::vector<CtRecentDocRestore>             recentDocsRestore;
     bool                                        nodesBookmExp{false};
@@ -135,7 +132,7 @@ public:
     // [table]
     int                                         tableRows{3};
     int                                         tableColumns{3};
-    TableColMode                                tableColMode{TableColMode::RENAME};
+    CtTableColMode                              tableColMode{CtTableColMode::RENAME};
     int                                         tableColMin{40};
     int                                         tableColMax{60};
 
@@ -189,15 +186,15 @@ public:
     std::map<Glib::ustring, Glib::ustring>     customCodexecExt;
 
 protected:
-    bool _populateStringFromKeyfile(const gchar *key, Glib::ustring *p_target);
-    bool _populateStringFromKeyfile(const gchar *key, std::string *p_target);
-    bool _populateBoolFromKeyfile(const gchar *key, bool *p_target);
-    bool _populateIntFromKeyfile(const gchar *key, int *p_target);
-    bool _populateDoubleFromKeyfile(const gchar *key, double *p_target);
-    void _populateMapFromCurrentGroup(std::map<Glib::ustring, Glib::ustring> *p_target);
+    bool _populateStringFromKeyfile(const gchar* key, Glib::ustring* pTarget);
+    bool _populateStringFromKeyfile(const gchar* key, std::string* pTarget);
+    bool _populateBoolFromKeyfile(const gchar* key, bool* pTarget);
+    bool _populateIntFromKeyfile(const gchar* key, int* pTarget);
+    bool _populateDoubleFromKeyfile(const gchar* key, double* pTarget);
+    void _populateMapFromCurrentGroup(std::map<Glib::ustring, Glib::ustring>* pTarget);
     void _populateFromKeyfile();
     bool _checkLoadFromFile();
-    void _unexpectedKeyfileError(const gchar *key, const Glib::KeyFileError &kferror);
+    void _unexpectedKeyfileError(const gchar* key, const Glib::KeyFileError& kferror);
 
     Glib::ustring _filepath;
     Glib::KeyFile* _pKeyFile{nullptr};

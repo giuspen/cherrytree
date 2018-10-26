@@ -19,17 +19,20 @@
  * MA 02110-1301, USA.
  */
 
+#include <iostream>
 #include <unordered_map>
+
+#include <glibmm/i18n.h>
 #include <gtkmm.h>
+
 #include "ct_config.h"
-#include "main_win.h"
+#include "ct_main_win.h"
 
-
-class CTTmp
+class CtTmp
 {
 public:
-    CTTmp();
-    virtual ~CTTmp();
+    CtTmp();
+    virtual ~CtTmp();
     const gchar* getHiddenDirPath(const std::string& visiblePath);
     const gchar* getHiddenFilePath(const std::string& visiblePath);
 
@@ -38,19 +41,18 @@ protected:
     std::unordered_map<std::string,gchar*> _mapHiddenFiles;
 };
 
-
-class CTApplication: public Gtk::Application
+class CtApp: public Gtk::Application
 {
 protected:
-    CTApplication();
-    virtual ~CTApplication();
+    CtApp();
+    virtual ~CtApp();
 
 public:
-    static Glib::RefPtr<CTApplication> create();
+    static Glib::RefPtr<CtApp> create();
 
-    static CtConfig *P_ctCfg;
+    static CtConfig* P_ctCfg;
     static Glib::RefPtr<Gtk::IconTheme> R_icontheme;
-    static CTTmp* P_ctTmp;
+    static CtTmp* P_ctTmp;
     static Glib::RefPtr<Gtk::TextTagTable> R_textTagTable;
     static Glib::RefPtr<Gsv::LanguageManager> R_languageManager;
     static Glib::RefPtr<Gsv::StyleSchemeManager> R_styleSchemeManager;
@@ -64,5 +66,5 @@ protected:
     void _iconthemeInit();
 
 private:
-    MainWindow* create_appwindow();
+    CtMainWin* create_appwindow();
 };

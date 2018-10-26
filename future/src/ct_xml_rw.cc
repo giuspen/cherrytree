@@ -27,16 +27,16 @@
 #include "ct_app.h"
 
 
-CherryTreeXMLRead::CherryTreeXMLRead(const char* filepath)
+CtXMLRead::CtXMLRead(const char* filepath)
 {
     parse_file(filepath);
 }
 
-CherryTreeXMLRead::~CherryTreeXMLRead()
+CtXMLRead::~CtXMLRead()
 {
 }
 
-void CherryTreeXMLRead::treeWalk(const Gtk::TreeIter *pParentIter)
+void CtXMLRead::treeWalk(const Gtk::TreeIter* pParentIter)
 {
     xmlpp::Document *pDocument = get_document();
     assert (nullptr != pDocument);
@@ -59,7 +59,7 @@ void CherryTreeXMLRead::treeWalk(const Gtk::TreeIter *pParentIter)
     }
 }
 
-void CherryTreeXMLRead::_xmlTreeWalkIter(xmlpp::Element *pNodeElement, const Gtk::TreeIter *pParentIter)
+void CtXMLRead::_xmlTreeWalkIter(xmlpp::Element* pNodeElement, const Gtk::TreeIter* pParentIter)
 {
     Gtk::TreeIter newIter = _xmlNodeProcess(pNodeElement, pParentIter);
 
@@ -72,7 +72,7 @@ void CherryTreeXMLRead::_xmlTreeWalkIter(xmlpp::Element *pNodeElement, const Gtk
     }
 }
 
-Gtk::TreeIter CherryTreeXMLRead::_xmlNodeProcess(xmlpp::Element *pNodeElement, const Gtk::TreeIter *pParentIter)
+Gtk::TreeIter CtXMLRead::_xmlNodeProcess(xmlpp::Element* pNodeElement, const Gtk::TreeIter* pParentIter)
 {
     CtNodeData nodeData;
     nodeData.nodeId = CtStrUtil::gint64FromGstring(pNodeElement->get_attribute_value("unique_id").c_str());
@@ -96,22 +96,22 @@ Gtk::TreeIter CherryTreeXMLRead::_xmlNodeProcess(xmlpp::Element *pNodeElement, c
     return newIter;
 }
 
-Glib::RefPtr<Gsv::Buffer> CherryTreeXMLRead::getTextBuffer(const std::string& syntax, xmlpp::Element *pNodeElement)
+Glib::RefPtr<Gsv::Buffer> CtXMLRead::getTextBuffer(const std::string& syntax, xmlpp::Element* pNodeElement)
 {
     Glib::RefPtr<Gsv::Buffer> rRetTextBuffer{nullptr};
-    rRetTextBuffer = Gsv::Buffer::create(CTApplication::R_textTagTable);
-    rRetTextBuffer->set_max_undo_levels(CTApplication::P_ctCfg->limitUndoableSteps);
+    rRetTextBuffer = Gsv::Buffer::create(CtApp::R_textTagTable);
+    rRetTextBuffer->set_max_undo_levels(CtApp::P_ctCfg->limitUndoableSteps);
     rRetTextBuffer->begin_not_undoable_action();
     if (0 != syntax.compare(CtConst::RICH_TEXT_ID))
     {
-        rRetTextBuffer->set_style_scheme(CTApplication::R_styleSchemeManager->get_scheme(CTApplication::P_ctCfg->styleSchemeId));
+        rRetTextBuffer->set_style_scheme(CtApp::R_styleSchemeManager->get_scheme(CtApp::P_ctCfg->styleSchemeId));
         if (0 == syntax.compare(CtConst::PLAIN_TEXT_ID))
         {
             rRetTextBuffer->set_highlight_syntax(false);
         }
         else
         {
-            rRetTextBuffer->set_language(CTApplication::R_languageManager->get_language(syntax));
+            rRetTextBuffer->set_language(CtApp::R_languageManager->get_language(syntax));
             rRetTextBuffer->set_highlight_syntax(true);
         }
         rRetTextBuffer->set_highlight_matching_brackets(true);

@@ -61,7 +61,7 @@ CtDocEncrypt CtMiscUtil::getDocEncrypt(std::string fileName)
 const Glib::ustring CtMiscUtil::getTextTagNameExistOrCreate(Glib::ustring propertyName, Glib::ustring propertyValue)
 {
     const Glib::ustring tagName{propertyName + "_" + propertyValue};
-    Glib::RefPtr<Gtk::TextTag> rTextTag = CTApplication::R_textTagTable->lookup(tagName);
+    Glib::RefPtr<Gtk::TextTag> rTextTag = CtApp::R_textTagTable->lookup(tagName);
     if (!rTextTag)
     {
         bool identified{true};
@@ -99,7 +99,7 @@ const Glib::ustring CtMiscUtil::getTextTagNameExistOrCreate(Glib::ustring proper
             else if (CtConst::TAG_PROP_VAL_SUB == propertyValue || CtConst::TAG_PROP_VAL_SUP == propertyValue)
             {
                 rTextTag->property_scale() = PANGO_SCALE_X_SMALL;
-                int propRise = Pango::FontDescription(CTApplication::P_ctCfg->rtFont).get_size();
+                int propRise = Pango::FontDescription(CtApp::P_ctCfg->rtFont).get_size();
                 if (CtConst::TAG_PROP_VAL_SUB == propertyValue)
                 {
                     propRise /= -4;
@@ -149,9 +149,9 @@ const Glib::ustring CtMiscUtil::getTextTagNameExistOrCreate(Glib::ustring proper
         else if (CtConst::TAG_FAMILY == propertyName && CtConst::TAG_PROP_VAL_MONOSPACE == propertyValue)
         {
             rTextTag->property_family() = CtConst::TAG_PROP_VAL_MONOSPACE;
-            if (!CTApplication::P_ctCfg->monospaceBg.empty())
+            if (!CtApp::P_ctCfg->monospaceBg.empty())
             {
-                rTextTag->property_background() = CTApplication::P_ctCfg->monospaceBg;
+                rTextTag->property_background() = CtApp::P_ctCfg->monospaceBg;
             }
         }
         else if (CtConst::TAG_STRIKETHROUGH == propertyName && CtConst::TAG_PROP_VAL_TRUE == propertyValue)
@@ -160,26 +160,26 @@ const Glib::ustring CtMiscUtil::getTextTagNameExistOrCreate(Glib::ustring proper
         }
         else if (CtConst::TAG_LINK == propertyName && propertyValue.size() > 4)
         {
-            if (CTApplication::P_ctCfg->linksUnderline)
+            if (CtApp::P_ctCfg->linksUnderline)
             {
                 rTextTag->property_underline() = Pango::Underline::UNDERLINE_SINGLE;
             }
             Glib::ustring linkType = propertyValue.substr(0, 4);
             if (CtConst::LINK_TYPE_WEBS == linkType)
             {
-                rTextTag->property_foreground() = CTApplication::P_ctCfg->colLinkWebs;
+                rTextTag->property_foreground() = CtApp::P_ctCfg->colLinkWebs;
             }
             else if (CtConst::LINK_TYPE_NODE == linkType)
             {
-                rTextTag->property_foreground() = CTApplication::P_ctCfg->colLinkNode;
+                rTextTag->property_foreground() = CtApp::P_ctCfg->colLinkNode;
             }
             else if (CtConst::LINK_TYPE_FILE == linkType)
             {
-                rTextTag->property_foreground() = CTApplication::P_ctCfg->colLinkFile;
+                rTextTag->property_foreground() = CtApp::P_ctCfg->colLinkFile;
             }
             else if (CtConst::LINK_TYPE_FOLD == linkType)
             {
-                rTextTag->property_foreground() = CTApplication::P_ctCfg->colLinkFold;
+                rTextTag->property_foreground() = CtApp::P_ctCfg->colLinkFold;
             }
             else
             {
@@ -194,7 +194,7 @@ const Glib::ustring CtMiscUtil::getTextTagNameExistOrCreate(Glib::ustring proper
         {
             std::cerr << "!! unsupported propertyName=" << propertyName << " propertyValue=" << propertyValue << std::endl;
         }
-        CTApplication::R_textTagTable->add(rTextTag);
+        CtApp::R_textTagTable->add(rTextTag);
     }
     return tagName;
 }

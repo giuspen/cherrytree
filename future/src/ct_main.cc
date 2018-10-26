@@ -1,7 +1,7 @@
 /*
- * p7za_iface.h
+ * ct_main.cc
  * 
- * Copyright 2018 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2017-2018 Giuseppe Penone <giuspen@gmail.com>
  * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,8 +19,17 @@
  * MA 02110-1301, USA.
  */
 
-#pragma once
+#include "ct_app.h"
 
-extern int p7za_extract(const gchar * input_path, const gchar * out_dir, const gchar * passwd);
+int main(int argc, char *argv[])
+{
+    std::locale::global(std::locale("")); // Set the global C++ locale to the user-specified locale
 
-extern int p7za_archive(const gchar * input_path, const gchar * output_path, const gchar * passwd);
+    bindtextdomain(GETTEXT_PACKAGE, CHERRYTREE_LOCALEDIR);
+    bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
+    textdomain(GETTEXT_PACKAGE);
+
+    auto p_app = CtApp::create();
+
+    return p_app->run(argc, argv);
+}

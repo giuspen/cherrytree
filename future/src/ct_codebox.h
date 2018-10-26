@@ -1,7 +1,7 @@
 /*
- * main.cc
+ * ct_codebox.h
  * 
- * Copyright 2017-2018 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2018 Giuseppe Penone <giuspen@gmail.com>
  * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,20 +19,13 @@
  * MA 02110-1301, USA.
  */
 
-#include <iostream>
-#include <glibmm/i18n.h>
-#include "ct_app.h"
+#pragma once
 
-
-int main(int argc, char *argv[])
+class CtCodebox
 {
-    std::locale::global(std::locale("")); // Set the global C++ locale to the user-specified locale
+public:
+    CtCodebox() {}
+    virtual ~CtCodebox() {}
 
-    bindtextdomain(GETTEXT_PACKAGE, CHERRYTREE_LOCALEDIR);
-    bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
-    textdomain(GETTEXT_PACKAGE);
 
-    auto p_app = CTApplication::create();
-
-    return p_app->run(argc, argv);
-}
+};

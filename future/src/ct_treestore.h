@@ -1,5 +1,5 @@
 /*
- * treestore.h
+ * ct_treestore.h
  * 
  * Copyright 2017-2018 Giuseppe Penone <giuspen@gmail.com>
  * 
@@ -24,7 +24,6 @@
 #include <gtkmm.h>
 #include <gtksourceviewmm.h>
 
-
 struct CtNodeData
 {
     gint64         nodeId{0};
@@ -41,11 +40,10 @@ struct CtNodeData
     Glib::RefPtr<Gsv::Buffer>  rTextBuffer{nullptr};
 };
 
-
-class TheTreeModelColumns : public Gtk::TreeModel::ColumnRecord
+class CtTreeModelColumns : public Gtk::TreeModel::ColumnRecord
 {
 public:
-    TheTreeModelColumns()
+    CtTreeModelColumns()
     {
         add(rColPixbuf); add(colNodeName); add(rColTextBuffer); add(colNodeUniqueId);
         add(colSyntaxHighlighting); add(colNodeSequence); add(colNodeTags); add(colNodeRO);
@@ -68,19 +66,18 @@ public:
     Gtk::TreeModelColumn<gint64>                     colTsLastSave;
 };
 
-
-class TheTreeStore : public sigc::trackable
+class CtTreeStore : public sigc::trackable
 {
 public:
-    TheTreeStore();
-    virtual ~TheTreeStore();
+    CtTreeStore();
+    virtual ~CtTreeStore();
 
-    void          viewConnect(Gtk::TreeView *pTreeView);
-    void          viewAppendColumns(Gtk::TreeView *pTreeView);
-    bool          readNodesFromFilepath(const char* filepath, const Gtk::TreeIter *pParentIter=nullptr);
-    Gtk::TreeIter appendNode(CtNodeData *pNodeData, const Gtk::TreeIter *pParentIter=nullptr);
+    void          viewConnect(Gtk::TreeView* pTreeView);
+    void          viewAppendColumns(Gtk::TreeView* pTreeView);
+    bool          readNodesFromFilepath(const char* filepath, const Gtk::TreeIter* pParentIter=nullptr);
+    Gtk::TreeIter appendNode(CtNodeData* pNodeData, const Gtk::TreeIter* pParentIter=nullptr);
     void          onRequestAddBookmark(gint64 nodeId);
-    Gtk::TreeIter onRequestAppendNode(CtNodeData *pNodeData, const Gtk::TreeIter *pParentIter);
+    Gtk::TreeIter onRequestAppendNode(CtNodeData* pNodeData, const Gtk::TreeIter* pParentIter);
 
     Glib::ustring getNodeName(Gtk::TreeIter treeIter);
     Glib::RefPtr<Gsv::Buffer> getTextBuffer(Gtk::TreeIter treeIter);
@@ -89,7 +86,7 @@ protected:
     guint16                   _getPangoWeight(bool isBold);
     Glib::RefPtr<Gdk::Pixbuf> _getNodeIcon(int nodeDepth, std::string &syntax, guint32 customIconId);
 
-    TheTreeModelColumns          _columns;
+    CtTreeModelColumns           _columns;
     Glib::RefPtr<Gtk::TreeStore> _rTreeStore;
     std::list<gint64>            _bookmarks;
 };

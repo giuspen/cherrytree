@@ -19,21 +19,18 @@
  * MA 02110-1301, USA.
  */
 
-#include <glibmm/i18n.h>
 #include <glib/gstdio.h>
-#include <iostream>
 #include "ct_app.h"
 
+CtConfig* CtApp::P_ctCfg{nullptr};
+Glib::RefPtr<Gtk::IconTheme> CtApp::R_icontheme;
+CtTmp* CtApp::P_ctTmp{nullptr};
+Glib::RefPtr<Gtk::TextTagTable> CtApp::R_textTagTable;
+Glib::RefPtr<Gsv::LanguageManager> CtApp::R_languageManager;
+Glib::RefPtr<Gsv::StyleSchemeManager> CtApp::R_styleSchemeManager;
 
-CtConfig* CTApplication::P_ctCfg{nullptr};
-Glib::RefPtr<Gtk::IconTheme> CTApplication::R_icontheme;
-CTTmp* CTApplication::P_ctTmp{nullptr};
-Glib::RefPtr<Gtk::TextTagTable> CTApplication::R_textTagTable;
-Glib::RefPtr<Gsv::LanguageManager> CTApplication::R_languageManager;
-Glib::RefPtr<Gsv::StyleSchemeManager> CTApplication::R_styleSchemeManager;
 
-
-CTApplication::CTApplication() : Gtk::Application("com.giuspen.cherrytree", Gio::APPLICATION_HANDLES_OPEN)
+CtApp::CtApp() : Gtk::Application("com.giuspen.cherrytree", Gio::APPLICATION_HANDLES_OPEN)
 {
     Gsv::init();
 
@@ -48,7 +45,7 @@ CTApplication::CTApplication() : Gtk::Application("com.giuspen.cherrytree", Gio:
     }
     if (nullptr == P_ctTmp)
     {
-        P_ctTmp = new CTTmp();
+        P_ctTmp = new CtTmp();
         //std::cout << P_ctTmp->get_root_dirpath() << std::endl;
     }
     if (!R_textTagTable)
@@ -65,9 +62,9 @@ CTApplication::CTApplication() : Gtk::Application("com.giuspen.cherrytree", Gio:
     }
 }
 
-CTApplication::~CTApplication()
+CtApp::~CtApp()
 {
-    //std::cout << "~CTApplication()" << std::endl;
+    //std::cout << "~CtApp()" << std::endl;
     delete P_ctCfg;
     P_ctCfg = nullptr;
 
@@ -75,17 +72,17 @@ CTApplication::~CTApplication()
     P_ctTmp = nullptr;
 }
 
-Glib::RefPtr<CTApplication> CTApplication::create()
+Glib::RefPtr<CtApp> CtApp::create()
 {
-    return Glib::RefPtr<CTApplication>(new CTApplication());
+    return Glib::RefPtr<CtApp>(new CtApp());
 }
 
-void CTApplication::_printHelpMessage()
+void CtApp::_printHelpMessage()
 {
     std::cout << "Usage: " << GETTEXT_PACKAGE << " filepath[.ctd|.ctb]" << std::endl;
 }
 
-void CTApplication::_printGresourceIcons()
+void CtApp::_printGresourceIcons()
 {
     for (std::string &str_icon : Gio::Resource::enumerate_children_global("/icons/", Gio::ResourceLookupFlags::RESOURCE_LOOKUP_FLAGS_NONE))
     {
@@ -93,37 +90,37 @@ void CTApplication::_printGresourceIcons()
     }
 }
 
-void CTApplication::_iconthemeInit()
+void CtApp::_iconthemeInit()
 {
     R_icontheme = Gtk::IconTheme::get_default();
     R_icontheme->add_resource_path("/icons/");
     //_printGresourceIcons();
 }
 
-MainWindow* CTApplication::create_appwindow()
+CtMainWin* CtApp::create_appwindow()
 {
-    auto p_main_win = new MainWindow();
+    auto p_main_win = new CtMainWin();
 
     add_window(*p_main_win);
 
     return p_main_win;
 }
 
-void CTApplication::on_activate()
+void CtApp::on_activate()
 {
     // app run without arguments
     auto p_appwindow = create_appwindow();
     p_appwindow->present();
 }
 
-void CTApplication::on_open(const Gio::Application::type_vec_files& files, const Glib::ustring& /* hint */)
+void CtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::ustring& /* hint */)
 {
     // app run with arguments
-    MainWindow* p_appwindow = nullptr;
+    CtMainWin* p_appwindow = nullptr;
     auto windows_list = get_windows();
     if (windows_list.size() > 0)
     {
-        p_appwindow = dynamic_cast<MainWindow*>(windows_list[0]);
+        p_appwindow = dynamic_cast<CtMainWin*>(windows_list[0]);
     }
 
     if (!p_appwindow)
@@ -150,13 +147,13 @@ void CTApplication::on_open(const Gio::Application::type_vec_files& files, const
 }
 
 
-CTTmp::CTTmp()
+CtTmp::CtTmp()
 {
 }
 
-CTTmp::~CTTmp()
+CtTmp::~CtTmp()
 {
-    //std::cout << "~CTTmp()" << std::endl;
+    //std::cout << "~CtTmp()" << std::endl;
     for (const auto& currPair : _mapHiddenFiles)
     {
         if (g_file_test(currPair.second, G_FILE_TEST_IS_REGULAR) && (0 != g_remove(currPair.second)))
@@ -175,7 +172,7 @@ CTTmp::~CTTmp()
     }
 }
 
-const gchar* CTTmp::getHiddenDirPath(const std::string& visiblePath)
+const gchar* CtTmp::getHiddenDirPath(const std::string& visiblePath)
 {
     if (!_mapHiddenDirs.count(visiblePath))
     {
@@ -184,7 +181,7 @@ const gchar* CTTmp::getHiddenDirPath(const std::string& visiblePath)
     return _mapHiddenDirs.at(visiblePath);
 }
 
-const gchar* CTTmp::getHiddenFilePath(const std::string& visiblePath)
+const gchar* CtTmp::getHiddenFilePath(const std::string& visiblePath)
 {
     if (!_mapHiddenFiles.count(visiblePath))
     {

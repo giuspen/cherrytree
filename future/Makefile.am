@@ -41,30 +41,25 @@ check_PROGRAMS = run_tests
 #appdata_DATA = img/@PACKAGE@.glade
 #AM_CXXFLAGS = -DDATADIR=\"$(datadir)\"
 
-cherrytree_SOURCES = \
-	src/main.cc \
+COMMON_SOURCES = \
 	src/ct_app.cc \
-	src/main_win.cc \
-	src/treestore.cc \
+	src/ct_main_win.cc \
+	src/ct_treestore.cc \
+	src/ct_codebox.cc \
 	src/ct_sqlite3_rw.cc \
 	src/ct_xml_rw.cc \
 	src/ct_config.cc \
 	src/ct_const.cc \
 	src/ct_misc_utils.cc \
-	src/p7za_iface.cc \
+	src/ct_p7za_iface.cc \
 	src/icons.gresource.cc
 
+cherrytree_SOURCES = \
+	src/ct_main.cc \
+	${COMMON_SOURCES}
+
 run_tests_SOURCES = \
-	src/ct_app.cc \
-	src/main_win.cc \
-	src/treestore.cc \
-	src/ct_sqlite3_rw.cc \
-	src/ct_xml_rw.cc \
-	src/ct_config.cc \
-	src/ct_const.cc \
-	src/ct_misc_utils.cc \
-	src/p7za_iface.cc \
-	src/icons.gresource.cc \
+	${COMMON_SOURCES} \
 	tests/tests_misc_utils.cpp \
 	tests/tests_tmp_n_p7zip.cpp
 

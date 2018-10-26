@@ -24,29 +24,29 @@
 #include "ct_misc_utils.h"
 
 
-CherryTreeSQLiteRead::CherryTreeSQLiteRead(const char* filepath)
+CtSQLiteRead::CtSQLiteRead(const char* filepath)
 {
-    int ret_code = sqlite3_open(filepath, &mp_db);
+    int ret_code = sqlite3_open(filepath, &_pDb);
     if(ret_code != SQLITE_OK)
     {
-        std::cerr << "!! sqlite3_open: " << sqlite3_errmsg(mp_db) << std::endl;
+        std::cerr << "!! sqlite3_open: " << sqlite3_errmsg(_pDb) << std::endl;
         exit(EXIT_FAILURE);
     }
 }
 
 
-CherryTreeSQLiteRead::~CherryTreeSQLiteRead()
+CtSQLiteRead::~CtSQLiteRead()
 {
-    sqlite3_close(mp_db);
+    sqlite3_close(_pDb);
 }
 
 
-void CherryTreeSQLiteRead::treeWalk(const Gtk::TreeIter *pParentIter)
+void CtSQLiteRead::treeWalk(const Gtk::TreeIter* pParentIter)
 {
     sqlite3_stmt *p_stmt;
-    if(sqlite3_prepare_v2(mp_db, "SELECT nodeId FROM bookmark ORDER BY sequence ASC", -1, &p_stmt, 0) != SQLITE_OK)
+    if(sqlite3_prepare_v2(_pDb, "SELECT nodeId FROM bookmark ORDER BY sequence ASC", -1, &p_stmt, 0) != SQLITE_OK)
     {
-        std::cerr << "!! sqlite3_prepare_v2: " << sqlite3_errmsg(mp_db) << std::endl;
+        std::cerr << "!! sqlite3_prepare_v2: " << sqlite3_errmsg(_pDb) << std::endl;
         exit(EXIT_FAILURE);
     }
     while(sqlite3_step(p_stmt) == SQLITE_ROW)
@@ -64,7 +64,7 @@ void CherryTreeSQLiteRead::treeWalk(const Gtk::TreeIter *pParentIter)
 }
 
 
-void CherryTreeSQLiteRead::_sqlite3TreeWalkIter(gint64 nodeId, const Gtk::TreeIter *pParentIter)
+void CtSQLiteRead::_sqlite3TreeWalkIter(gint64 nodeId, const Gtk::TreeIter* pParentIter)
 {
     Gtk::TreeIter newIter = _sqlite3NodeProcess(nodeId, pParentIter);
 
@@ -76,13 +76,13 @@ void CherryTreeSQLiteRead::_sqlite3TreeWalkIter(gint64 nodeId, const Gtk::TreeIt
 }
 
 
-std::list<gint64> CherryTreeSQLiteRead::_sqlite3GetChildrenNodeIdFromFatherId(gint64 father_id)
+std::list<gint64> CtSQLiteRead::_sqlite3GetChildrenNodeIdFromFatherId(gint64 father_id)
 {
     std::list<gint64> ret_children;
     sqlite3_stmt *p_stmt;
-    if(sqlite3_prepare_v2(mp_db, "SELECT nodeId FROM children WHERE father_id=? ORDER BY sequence ASC", -1, &p_stmt, 0) != SQLITE_OK)
+    if(sqlite3_prepare_v2(_pDb, "SELECT nodeId FROM children WHERE father_id=? ORDER BY sequence ASC", -1, &p_stmt, 0) != SQLITE_OK)
     {
-        std::cerr << "!! sqlite3_prepare_v2: " << sqlite3_errmsg(mp_db) << std::endl;
+        std::cerr << "!! sqlite3_prepare_v2: " << sqlite3_errmsg(_pDb) << std::endl;
         exit(EXIT_FAILURE);
     }
     sqlite3_bind_int(p_stmt, 1, father_id);
@@ -96,14 +96,14 @@ std::list<gint64> CherryTreeSQLiteRead::_sqlite3GetChildrenNodeIdFromFatherId(gi
 }
 
 
-CtNodeData CherryTreeSQLiteRead::_sqlite3GetNodeProperties(gint64 nodeId)
+CtNodeData CtSQLiteRead::_sqlite3GetNodeProperties(gint64 nodeId)
 {
     CtNodeData nodeData;
     nodeData.nodeId = nodeId;
     sqlite3_stmt *p_stmt;
-    if(sqlite3_prepare_v2(mp_db, "SELECT name, syntax, tags, isRO, is_richtxt, tsCreation, tsLastSave FROM node WHERE nodeId=?", -1, &p_stmt, 0) != SQLITE_OK)
+    if(sqlite3_prepare_v2(_pDb, "SELECT name, syntax, tags, isRO, is_richtxt, tsCreation, tsLastSave FROM node WHERE nodeId=?", -1, &p_stmt, 0) != SQLITE_OK)
     {
-        std::cerr << "!! sqlite3_prepare_v2: " << sqlite3_errmsg(mp_db) << std::endl;
+        std::cerr << "!! sqlite3_prepare_v2: " << sqlite3_errmsg(_pDb) << std::endl;
         exit(EXIT_FAILURE);
     }
     sqlite3_bind_int(p_stmt, 1, nodeId);
@@ -134,7 +134,7 @@ CtNodeData CherryTreeSQLiteRead::_sqlite3GetNodeProperties(gint64 nodeId)
 }
 
 
-Gtk::TreeIter CherryTreeSQLiteRead::_sqlite3NodeProcess(gint64 nodeId, const Gtk::TreeIter *pParentIter)
+Gtk::TreeIter CtSQLiteRead::_sqlite3NodeProcess(gint64 nodeId, const Gtk::TreeIter* pParentIter)
 {
     CtNodeData nodeData = _sqlite3GetNodeProperties(nodeId);
     Gtk::TreeIter newIter = signalAppendNode.emit(&nodeData, pParentIter);

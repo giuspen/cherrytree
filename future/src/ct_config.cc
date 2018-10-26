@@ -40,17 +40,17 @@ CtConfig::~CtConfig()
     }
 }
 
-bool CtConfig::_populateStringFromKeyfile(const gchar *key, Glib::ustring *p_target)
+bool CtConfig::_populateStringFromKeyfile(const gchar* key, Glib::ustring* pTarget)
 {
     bool gotIt{false};
     if (_pKeyFile->has_key(_currentGroup, key))
     {
         try
         {
-            *p_target = _pKeyFile->get_value(_currentGroup, key);
+            *pTarget = _pKeyFile->get_value(_currentGroup, key);
             gotIt = true;
         }
-        catch (Glib::KeyFileError &kferror)
+        catch (Glib::KeyFileError& kferror)
         {
             _unexpectedKeyfileError(key, kferror);
         }
@@ -58,17 +58,17 @@ bool CtConfig::_populateStringFromKeyfile(const gchar *key, Glib::ustring *p_tar
     return gotIt;
 }
 
-bool CtConfig::_populateStringFromKeyfile(const gchar *key, std::string *p_target)
+bool CtConfig::_populateStringFromKeyfile(const gchar* key, std::string* pTarget)
 {
     bool gotIt{false};
     if (_pKeyFile->has_key(_currentGroup, key))
     {
         try
         {
-            *p_target = _pKeyFile->get_value(_currentGroup, key);
+            *pTarget = _pKeyFile->get_value(_currentGroup, key);
             gotIt = true;
         }
-        catch (Glib::KeyFileError &kferror)
+        catch (Glib::KeyFileError& kferror)
         {
             _unexpectedKeyfileError(key, kferror);
         }
@@ -76,23 +76,23 @@ bool CtConfig::_populateStringFromKeyfile(const gchar *key, std::string *p_targe
     return gotIt;
 }
 
-bool CtConfig::_populateBoolFromKeyfile(const gchar *key, bool *p_target)
+bool CtConfig::_populateBoolFromKeyfile(const gchar* key, bool* pTarget)
 {
     bool gotIt{false};
     if (_pKeyFile->has_key(_currentGroup, key))
     {
         try
         {
-            *p_target = _pKeyFile->get_boolean(_currentGroup, key);
+            *pTarget = _pKeyFile->get_boolean(_currentGroup, key);
             gotIt = true;
         }
-        catch (Glib::KeyFileError &kferror)
+        catch (Glib::KeyFileError& kferror)
         {
             if (kferror.code() == Glib::KeyFileError::Code::INVALID_VALUE)
             {
                 // booleans from python ConfigParser
                 Glib::ustring bool_str = _pKeyFile->get_value(_currentGroup, key);
-                *p_target = (bool_str == "True");
+                *pTarget = (bool_str == "True");
                 gotIt = true;
             }
             else
@@ -104,17 +104,17 @@ bool CtConfig::_populateBoolFromKeyfile(const gchar *key, bool *p_target)
     return gotIt;
 }
 
-bool CtConfig::_populateIntFromKeyfile(const gchar *key, int *p_target)
+bool CtConfig::_populateIntFromKeyfile(const gchar* key, int* pTarget)
 {
     bool gotIt{false};
     if (_pKeyFile->has_key(_currentGroup, key))
     {
         try
         {
-            *p_target = _pKeyFile->get_integer(_currentGroup, key);
+            *pTarget = _pKeyFile->get_integer(_currentGroup, key);
             gotIt = true;
         }
-        catch (Glib::KeyFileError &kferror)
+        catch (Glib::KeyFileError& kferror)
         {
             _unexpectedKeyfileError(key, kferror);
         }
@@ -122,17 +122,17 @@ bool CtConfig::_populateIntFromKeyfile(const gchar *key, int *p_target)
     return gotIt;
 }
 
-bool CtConfig::_populateDoubleFromKeyfile(const gchar *key, double *p_target)
+bool CtConfig::_populateDoubleFromKeyfile(const gchar* key, double* pTarget)
 {
     bool gotIt{false};
     if (_pKeyFile->has_key(_currentGroup, key))
     {
         try
         {
-            *p_target = _pKeyFile->get_double(_currentGroup, key);
+            *pTarget = _pKeyFile->get_double(_currentGroup, key);
             gotIt = true;
         }
-        catch (Glib::KeyFileError &kferror)
+        catch (Glib::KeyFileError& kferror)
         {
             _unexpectedKeyfileError(key, kferror);
         }
@@ -148,7 +148,7 @@ void CtConfig::_populateMapFromCurrentGroup(std::map<Glib::ustring, Glib::ustrin
     }
 }
 
-void CtConfig::_unexpectedKeyfileError(const gchar *key, const Glib::KeyFileError &kferror)
+void CtConfig::_unexpectedKeyfileError(const gchar* key, const Glib::KeyFileError& kferror)
 {
     std::cerr << "!! " << key << " error code " << kferror.code() << std::endl;
 }
@@ -203,7 +203,7 @@ void CtConfig::_populateFromKeyfile()
     int rest_exp_coll;
     if (_populateIntFromKeyfile("rest_exp_coll", &rest_exp_coll))
     {
-        restoreExpColl = static_cast<RestoreExpColl>(rest_exp_coll);
+        restoreExpColl = static_cast<CtRestoreExpColl>(rest_exp_coll);
     }
     _populateStringFromKeyfile("expanded_collapsed_string", &expandedCollapsedString);
     recentDocsRestore.resize(CtConst::MAX_RECENT_DOCS_RESTORE);
@@ -291,7 +291,7 @@ void CtConfig::_populateFromKeyfile()
     int table_col_mode;
     if (_populateIntFromKeyfile("table_col_mode", &table_col_mode))
     {
-        tableColMode = static_cast<TableColMode>(table_col_mode);
+        tableColMode = static_cast<CtTableColMode>(table_col_mode);
     }
     _populateIntFromKeyfile("table_col_min", &tableColMin);
     _populateIntFromKeyfile("table_col_max", &tableColMax);

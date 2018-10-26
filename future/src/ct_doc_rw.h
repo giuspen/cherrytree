@@ -24,43 +24,40 @@
 #include <libxml++/libxml++.h>
 #include <sqlite3.h>
 #include <gtkmm.h>
-#include "treestore.h"
+#include "ct_treestore.h"
 
-
-class CherryTreeDocRead
+class CtDocRead
 {
 public:
-    CherryTreeDocRead() {};
-    virtual ~CherryTreeDocRead() {};
-    virtual void treeWalk(const Gtk::TreeIter *pParentIter=nullptr)=0;
+    CtDocRead() {};
+    virtual ~CtDocRead() {};
+    virtual void treeWalk(const Gtk::TreeIter* pParentIter=nullptr)=0;
     sigc::signal<void, gint64> signalAddBookmark;
     sigc::signal<Gtk::TreeIter, CtNodeData*, const Gtk::TreeIter*> signalAppendNode;
 };
 
-
-class CherryTreeXMLRead : public CherryTreeDocRead, public xmlpp::DomParser
+class CtXMLRead : public CtDocRead, public xmlpp::DomParser
 {
 public:
-    CherryTreeXMLRead(const char* filepath);
-    virtual ~CherryTreeXMLRead();
-    void treeWalk(const Gtk::TreeIter *pParentIter=nullptr);
-    Glib::RefPtr<Gsv::Buffer> getTextBuffer(const std::string& syntax, xmlpp::Element *pNodeElement=nullptr);
+    CtXMLRead(const char* filepath);
+    virtual ~CtXMLRead();
+    void treeWalk(const Gtk::TreeIter* pParentIter=nullptr);
+    Glib::RefPtr<Gsv::Buffer> getTextBuffer(const std::string& syntax, xmlpp::Element* pNodeElement=nullptr);
 private:
-    void _xmlTreeWalkIter(xmlpp::Element *pNodeElement, const Gtk::TreeIter *pParentIter);
-    Gtk::TreeIter _xmlNodeProcess(xmlpp::Element *pNodeElement, const Gtk::TreeIter *pParentIter);
+    void _xmlTreeWalkIter(xmlpp::Element* pNodeElement, const Gtk::TreeIter* pParentIter);
+    Gtk::TreeIter _xmlNodeProcess(xmlpp::Element* pNodeElement, const Gtk::TreeIter* pParentIter);
 };
 
-
-class CherryTreeSQLiteRead : public CherryTreeDocRead
+class CtSQLiteRead : public CtDocRead
 {
 public:
-    CherryTreeSQLiteRead(const char* filepath);
-    virtual ~CherryTreeSQLiteRead();
-    void treeWalk(const Gtk::TreeIter *pParentIter=nullptr);
+    CtSQLiteRead(const char* filepath);
+    virtual ~CtSQLiteRead();
+    void treeWalk(const Gtk::TreeIter* pParentIter=nullptr);
 private:
-    sqlite3 *mp_db;
+    sqlite3* _pDb;
     std::list<gint64> _sqlite3GetChildrenNodeIdFromFatherId(gint64 father_id);
-    void _sqlite3TreeWalkIter(gint64 nodeId, const Gtk::TreeIter *pParentIter);
+    void _sqlite3TreeWalkIter(gint64 nodeId, const Gtk::TreeIter* pParentIter);
     CtNodeData _sqlite3GetNodeProperties(gint64 nodeId);
-    Gtk::TreeIter _sqlite3NodeProcess(gint64 nodeId, const Gtk::TreeIter *pParentIter);
+    Gtk::TreeIter _sqlite3NodeProcess(gint64 nodeId, const Gtk::TreeIter* pParentIter);
 };
