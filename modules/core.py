@@ -2803,6 +2803,7 @@ iter_end, exclude_iter_sel_end=True)
     def node_delete(self, *args):
         """Delete the Selected Node"""
         if not self.is_there_selected_node_or_error(): return
+        if not self.is_curr_node_not_read_only_or_error(): return
         warning_label = _("Are you sure to <b>Delete the node '%s'?</b>") % self.treestore[self.curr_tree_iter][1]
         if self.treestore.iter_children(self.curr_tree_iter) != None:
             warning_label += cons.CHAR_NEWLINE*2+_("The node <b>has Children, they will be Deleted too!</b>")
