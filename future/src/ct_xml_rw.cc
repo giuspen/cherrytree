@@ -160,6 +160,10 @@ Glib::RefPtr<Gsv::Buffer> CtXMLRead::getTextBuffer(const std::string& syntax, xm
             }
             else if ("codebox" == pNode->get_name())
             {
+                xmlpp::Element* pNodeElement = static_cast<xmlpp::Element*>(pNode);
+                xmlpp::TextNode* pTextNode = pNodeElement->get_child_text();
+                const Glib::ustring textContent = pTextNode ? pTextNode->get_content() : "";
+                const Glib::ustring syntaxHighlighting = pNodeElement->get_attribute_value("syntax_highlighting");
                 
             }
         }

@@ -18,14 +18,14 @@ Package: cherrytree
 Architecture: all
 Depends:
  p7zip-full,
- python-appindicator,
  python-dbus,
  python-enchant,
  python-chardet,
  python-gtk2 (>= 2.16),
  python-gtksourceview2,
- ${misc:Depends},
- ${python:Depends}
+ ${misc:Depends}
+Recommends:
+ python-appindicator
 Description: hierarchical note taking application
  CherryTree is a hierarchical note taking application, featuring rich text,
  syntax highlighting, images handling, hyperlinks, import/export with support
