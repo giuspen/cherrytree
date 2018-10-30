@@ -678,8 +678,8 @@ class Export2Html:
             td_tree = r'<div class="main">'
             td_page = r'<div class="page">'
             html_text += td_tree + self.tree_links_text + td_page
-            if self.dad.last_include_node_name:
-                html_text += '<h1><b><u>%s</u></b></h1>' % clean_text_to_utf8(self.dad.treestore[tree_iter][1])
+        if self.dad.last_include_node_name:
+            html_text += '<h1><b><u>%s</u></b></h1>' % clean_text_to_utf8(self.dad.treestore[tree_iter][1])
         self.dad.get_textbuffer_from_tree_iter(tree_iter)
         if self.dad.treestore[tree_iter][4] == cons.RICH_TEXT_ID:
             text_n_objects = self.html_get_from_treestore_node(tree_iter, sel_range)
