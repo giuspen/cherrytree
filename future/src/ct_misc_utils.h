@@ -39,6 +39,8 @@ const Glib::ustring getTextTagNameExistOrCreate(Glib::ustring propertyName, Glib
 
 namespace CtStrUtil {
 
+bool isStrTrue(const Glib::ustring& inStr);
+
 Glib::ustring replaceInString(Glib::ustring& subjectStr, const Glib::ustring& searchStr, const Glib::ustring& replaceStr);
 
 Glib::ustring trimString(Glib::ustring& s);

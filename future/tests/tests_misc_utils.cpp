@@ -28,6 +28,18 @@ TEST_GROUP(MiscUtilsGroup)
 {
 };
 
+TEST(MiscUtilsGroup, isStrTrue)
+{
+    CHECK(CtStrUtil::isStrTrue("true"));
+    CHECK(CtStrUtil::isStrTrue("True"));
+    CHECK(CtStrUtil::isStrTrue("TRUE"));
+    CHECK(CtStrUtil::isStrTrue("1"));
+    CHECK(!CtStrUtil::isStrTrue("false"));
+    CHECK(!CtStrUtil::isStrTrue("False"));
+    CHECK(!CtStrUtil::isStrTrue("FALSE"));
+    CHECK(!CtStrUtil::isStrTrue("0"));
+}
+
 TEST(MiscUtilsGroup, replaceInString)
 {
     Glib::ustring testReplaceStr = "one two threetwo";

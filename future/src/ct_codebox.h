@@ -21,11 +21,28 @@
 
 #pragma once
 
+#include <gtkmm.h>
+#include <gtksourceviewmm.h>
+#include "ct_const.h"
+
 class CtCodebox
 {
 public:
-    CtCodebox() {}
+    CtCodebox(const Glib::ustring& textContent, const Glib::ustring& syntaxHighlighting, const int& frameWidth, const int& frameHeight);
     virtual ~CtCodebox() {}
 
+    void insertInTextBuffer(Glib::RefPtr<Gsv::Buffer> rTextBuffer, const int& charOffset, const Glib::ustring& justification);
 
+    void setWidthInPixels(const bool& widthInPixels) { _widthInPixels = widthInPixels; }
+    void setHighlightBrackets(const bool& highlightBrackets) { _highlightBrackets = highlightBrackets; }
+    void setShowLineNumbers(const bool& showLineNumbers) { _showLineNumbers = showLineNumbers; }
+
+protected:
+    Glib::ustring _textContent;
+    Glib::ustring _syntaxHighlighting;
+    int _frameWidth;
+    int _frameHeight;
+    bool _widthInPixels{true};
+    bool _highlightBrackets{true};
+    bool _showLineNumbers{false};
 };

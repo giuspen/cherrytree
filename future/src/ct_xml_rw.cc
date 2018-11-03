@@ -25,6 +25,7 @@
 #include "ct_misc_utils.h"
 #include "ct_const.h"
 #include "ct_app.h"
+#include "ct_codebox.h"
 
 
 CtXMLRead::CtXMLRead(const char* filepath)
@@ -164,6 +165,21 @@ Glib::RefPtr<Gsv::Buffer> CtXMLRead::getTextBuffer(const std::string& syntax, xm
                 xmlpp::TextNode* pTextNode = pNodeElement->get_child_text();
                 const Glib::ustring textContent = pTextNode ? pTextNode->get_content() : "";
                 const Glib::ustring syntaxHighlighting = pNodeElement->get_attribute_value("syntax_highlighting");
+                const int frameWidth = std::stoi(pNodeElement->get_attribute_value("frame_width"));
+                const int frameHeight = std::stoi(pNodeElement->get_attribute_value("frame_height"));
+                const int charOffset = std::stoi(pNodeElement->get_attribute_value("char_offset"));
+                Glib::ustring justification = pNodeElement->get_attribute_value(CtConst::TAG_JUSTIFICATION);
+                if (justification.empty())
+                {
+                    justification = CtConst::TAG_PROP_VAL_LEFT;
+                }
+                const bool widthInPixels = CtStrUtil::isStrTrue(pNodeElement->get_attribute_value("width_in_pixels"));
+                const bool highlightBrackets = CtStrUtil::isStrTrue(pNodeElement->get_attribute_value("highlight_brackets"));
+                const bool showLineNumbers = CtStrUtil::isStrTrue(pNodeElement->get_attribute_value("show_line_numbers"));
+                CtCodebox ctCodebox(textContent, syntaxHighlighting, frameWidth, frameHeight);
+                ctCodebox.setWidthInPixels(widthInPixels);
+                ctCodebox.setHighlightBrackets(highlightBrackets);
+                ctCodebox.setShowLineNumbers(showLineNumbers);
                 
             }
         }

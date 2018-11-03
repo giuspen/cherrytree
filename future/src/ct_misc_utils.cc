@@ -200,7 +200,18 @@ const Glib::ustring CtMiscUtil::getTextTagNameExistOrCreate(Glib::ustring proper
 }
 
 
-Glib::ustring CtStrUtil::replaceInString(Glib::ustring &subjectStr, const Glib::ustring &searchStr, const Glib::ustring &replaceStr)
+bool CtStrUtil::isStrTrue(const Glib::ustring& inStr)
+{
+    bool retVal{false};
+    if (CtConst::TAG_PROP_VAL_TRUE == inStr.lowercase() ||
+        "1" == inStr)
+    {
+        retVal = true;
+    }
+    return retVal;
+}
+
+Glib::ustring CtStrUtil::replaceInString(Glib::ustring &subjectStr, const Glib::ustring& searchStr, const Glib::ustring& replaceStr)
 {
     size_t pos = 0;
     while ((pos = subjectStr.find(searchStr, pos)) != std::string::npos)

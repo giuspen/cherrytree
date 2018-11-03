@@ -21,3 +21,17 @@
 
 #include "ct_codebox.h"
 
+CtCodebox::CtCodebox(const Glib::ustring& textContent, const Glib::ustring& syntaxHighlighting, const int& frameWidth, const int& frameHeight)
+ : _textContent(textContent),
+   _syntaxHighlighting(syntaxHighlighting),
+   _frameWidth(frameWidth),
+   _frameHeight(frameHeight)
+{
+}
+
+void CtCodebox::insertInTextBuffer(Glib::RefPtr<Gsv::Buffer> rTextBuffer, const int& charOffset, const Glib::ustring& justification)
+{
+    Gtk::TextIter textIter = rTextBuffer->get_iter_at_offset(charOffset);
+    Glib::RefPtr<Gtk::TextChildAnchor> rTextChildAnchor = rTextBuffer->create_child_anchor(textIter);
+    
+}
