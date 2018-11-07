@@ -180,7 +180,7 @@ Glib::RefPtr<Gsv::Buffer> CtXMLRead::getTextBuffer(const std::string& syntax, xm
                 ctCodebox.setWidthInPixels(widthInPixels);
                 ctCodebox.setHighlightBrackets(highlightBrackets);
                 ctCodebox.setShowLineNumbers(showLineNumbers);
-                
+                ctCodebox.insertInTextBuffer(rRetTextBuffer, charOffset, justification);
             }
         }
     }

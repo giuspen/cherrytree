@@ -25,7 +25,7 @@
 #include <gtksourceviewmm.h>
 #include "ct_const.h"
 
-class CtCodebox
+class CtCodebox : public Gtk::EventBox
 {
 public:
     CtCodebox(const Glib::ustring& textContent, const Glib::ustring& syntaxHighlighting, const int& frameWidth, const int& frameHeight);
@@ -34,7 +34,7 @@ public:
     void insertInTextBuffer(Glib::RefPtr<Gsv::Buffer> rTextBuffer, const int& charOffset, const Glib::ustring& justification);
 
     void setWidthInPixels(const bool& widthInPixels) { _widthInPixels = widthInPixels; }
-    void setHighlightBrackets(const bool& highlightBrackets) { _highlightBrackets = highlightBrackets; }
+    void setHighlightBrackets(const bool& highlightBrackets);
     void setShowLineNumbers(const bool& showLineNumbers) { _showLineNumbers = showLineNumbers; }
 
 protected:
@@ -45,4 +45,5 @@ protected:
     bool _widthInPixels{true};
     bool _highlightBrackets{true};
     bool _showLineNumbers{false};
+    Glib::RefPtr<Gsv::Buffer> _rTextBuffer{nullptr};
 };

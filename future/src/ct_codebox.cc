@@ -20,6 +20,7 @@
  */
 
 #include "ct_codebox.h"
+#include "ct_app.h"
 
 CtCodebox::CtCodebox(const Glib::ustring& textContent, const Glib::ustring& syntaxHighlighting, const int& frameWidth, const int& frameHeight)
  : _textContent(textContent),
@@ -27,11 +28,37 @@ CtCodebox::CtCodebox(const Glib::ustring& textContent, const Glib::ustring& synt
    _frameWidth(frameWidth),
    _frameHeight(frameHeight)
 {
+    _rTextBuffer = Gsv::Buffer::create(CtApp::R_textTagTable);
+    _rTextBuffer->set_max_undo_levels(CtApp::P_ctCfg->limitUndoableSteps);
+    _rTextBuffer->set_style_scheme(CtApp::R_styleSchemeManager->get_scheme(CtApp::P_ctCfg->styleSchemeId));
+    if (0 == _syntaxHighlighting.compare(CtConst::PLAIN_TEXT_ID))
+    {
+        _rTextBuffer->set_highlight_syntax(false);
+    }
+    else
+    {
+        _rTextBuffer->set_language(CtApp::R_languageManager->get_language(_syntaxHighlighting));
+        _rTextBuffer->set_highlight_syntax(true);
+    }
+    if (!textContent.empty())
+    {
+        _rTextBuffer->begin_not_undoable_action();
+        _rTextBuffer->set_text(textContent);
+        _rTextBuffer->end_not_undoable_action();
+        _rTextBuffer->set_modified(false);
+    }
+}
+
+void CtCodebox::setHighlightBrackets(const bool& highlightBrackets)
+{ 
+    _highlightBrackets = highlightBrackets;
+    _rTextBuffer->set_highlight_matching_brackets(_highlightBrackets);
 }
 
 void CtCodebox::insertInTextBuffer(Glib::RefPtr<Gsv::Buffer> rTextBuffer, const int& charOffset, const Glib::ustring& justification)
 {
     Gtk::TextIter textIter = rTextBuffer->get_iter_at_offset(charOffset);
     Glib::RefPtr<Gtk::TextChildAnchor> rTextChildAnchor = rTextBuffer->create_child_anchor(textIter);
-    
+
+    _rTextBuffer->place_cursor(_rTextBuffer->get_iter_at_offset(charOffset));
 }
