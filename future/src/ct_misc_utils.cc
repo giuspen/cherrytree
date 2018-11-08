@@ -211,6 +211,16 @@ bool CtStrUtil::isStrTrue(const Glib::ustring& inStr)
     return retVal;
 }
 
+std::string CtStrUtil::replaceInString(std::string& subjectStr, const std::string& searchStr, const std::string& replaceStr)
+{
+    size_t pos = 0;
+    while ((pos = subjectStr.find(searchStr, pos)) != std::string::npos)
+    {
+        subjectStr.replace(pos, searchStr.length(), replaceStr);
+        pos += replaceStr.length();
+    }
+    return subjectStr;
+}
 Glib::ustring CtStrUtil::replaceInString(Glib::ustring &subjectStr, const Glib::ustring& searchStr, const Glib::ustring& replaceStr)
 {
     size_t pos = 0;

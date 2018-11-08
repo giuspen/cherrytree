@@ -56,6 +56,7 @@ public:
     static Glib::RefPtr<Gtk::TextTagTable> R_textTagTable;
     static Glib::RefPtr<Gsv::LanguageManager> R_languageManager;
     static Glib::RefPtr<Gsv::StyleSchemeManager> R_styleSchemeManager;
+    static Glib::RefPtr<Gtk::CssProvider> R_cssProvider;
 
 protected:
     void on_activate() override;

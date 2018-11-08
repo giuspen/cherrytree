@@ -47,6 +47,12 @@ CtCodebox::CtCodebox(const Glib::ustring& textContent, const Glib::ustring& synt
         _rTextBuffer->end_not_undoable_action();
         _rTextBuffer->set_modified(false);
     }
+    _ctTextview.set_highlight_current_line(CtApp::P_ctCfg->ptHighlCurrLine);
+    if (CtApp::P_ctCfg->ptShowWhiteSpaces)
+    {
+        _ctTextview.set_draw_spaces(Gsv::DRAW_SPACES_ALL & ~Gsv::DRAW_SPACES_NEWLINE);
+    }
+    _ctTextview.setFontForSyntax(_syntaxHighlighting);
 }
 
 void CtCodebox::setHighlightBrackets(const bool& highlightBrackets)

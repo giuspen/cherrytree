@@ -24,6 +24,7 @@
 #include <gtkmm.h>
 #include <gtksourceviewmm.h>
 #include "ct_const.h"
+#include "ct_main_win.h"
 
 class CtCodebox : public Gtk::EventBox
 {
@@ -46,4 +47,5 @@ protected:
     bool _highlightBrackets{true};
     bool _showLineNumbers{false};
     Glib::RefPtr<Gsv::Buffer> _rTextBuffer{nullptr};
+    CtTextView _ctTextview;
 };

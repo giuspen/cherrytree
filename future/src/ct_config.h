@@ -137,10 +137,10 @@ public:
     int                                         tableColMax{60};
 
     // [fonts]
-    Glib::ustring                               rtFont{"Sans 9"};
-    Glib::ustring                               ptFont{"Sans 9"};
-    Glib::ustring                               treeFont{"Sans 8"};
-    Glib::ustring                               codeFont{"Monospace 9"};
+    std::string                                 rtFont{"Sans 9"};
+    std::string                                 ptFont{"Sans 9"};
+    std::string                                 treeFont{"Sans 8"};
+    std::string                                 codeFont{"Monospace 9"};
 
     // [colors]
     Glib::ustring                               rtDefFg{CtConst::RICH_TEXT_DARK_FG};

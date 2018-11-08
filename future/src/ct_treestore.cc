@@ -169,7 +169,18 @@ Glib::ustring CtTreeStore::getNodeName(Gtk::TreeIter treeIter)
     return retNodeName;
 }
 
-Glib::RefPtr<Gsv::Buffer> CtTreeStore::getTextBuffer(Gtk::TreeIter treeIter)
+std::string CtTreeStore::getNodeSyntaxHighlighting(Gtk::TreeIter treeIter)
+{
+    std::string retSyntaxHighlighting;
+    if (treeIter)
+    {
+        Gtk::TreeRow treeRow = *treeIter;
+        retSyntaxHighlighting = treeRow.get_value(_columns.colSyntaxHighlighting);
+    }
+    return retSyntaxHighlighting;
+}
+
+Glib::RefPtr<Gsv::Buffer> CtTreeStore::getNodeTextBuffer(Gtk::TreeIter treeIter)
 {
     Glib::RefPtr<Gsv::Buffer> rRetTextBuffer{nullptr};
     if (treeIter)

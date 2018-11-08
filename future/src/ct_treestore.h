@@ -54,7 +54,7 @@ public:
     Gtk::TreeModelColumn<Glib::ustring>              colNodeName;
     Gtk::TreeModelColumn<Glib::RefPtr<Gsv::Buffer>>  rColTextBuffer;
     Gtk::TreeModelColumn<gint64>                     colNodeUniqueId;
-    Gtk::TreeModelColumn<Glib::ustring>              colSyntaxHighlighting;
+    Gtk::TreeModelColumn<std::string>                colSyntaxHighlighting;
     Gtk::TreeModelColumn<guint16>                    colNodeSequence;
     Gtk::TreeModelColumn<Glib::ustring>              colNodeTags;
     Gtk::TreeModelColumn<bool>                       colNodeRO;
@@ -80,7 +80,8 @@ public:
     Gtk::TreeIter onRequestAppendNode(CtNodeData* pNodeData, const Gtk::TreeIter* pParentIter);
 
     Glib::ustring getNodeName(Gtk::TreeIter treeIter);
-    Glib::RefPtr<Gsv::Buffer> getTextBuffer(Gtk::TreeIter treeIter);
+    std::string getNodeSyntaxHighlighting(Gtk::TreeIter treeIter);
+    Glib::RefPtr<Gsv::Buffer> getNodeTextBuffer(Gtk::TreeIter treeIter);
 
 protected:
     guint16                   _getPangoWeight(bool isBold);

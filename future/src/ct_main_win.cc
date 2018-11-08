@@ -44,6 +44,30 @@ CtTextView::~CtTextView()
 {
 }
 
+void CtTextView::setFontForSyntax(const Glib::ustring& syntaxHighlighting)
+{
+    Glib::RefPtr<Gtk::StyleContext> rStyleContext = get_style_context();
+    std::string fontCss {
+        "textview text {"
+        "    font: <>;"
+        "}"
+    };
+    if (0 == syntaxHighlighting.compare(CtConst::RICH_TEXT_ID))
+    {
+        CtStrUtil::replaceInString(fontCss, "<>", CtApp::P_ctCfg->rtFont);
+    }
+    else if (0 == syntaxHighlighting.compare(CtConst::PLAIN_TEXT_ID))
+    {
+        CtStrUtil::replaceInString(fontCss, "<>", CtApp::P_ctCfg->ptFont);
+    }
+    else
+    {
+        CtStrUtil::replaceInString(fontCss, "<>", CtApp::P_ctCfg->codeFont);
+    }
+    CtApp::R_cssProvider->load_from_data(fontCss);
+    rStyleContext->add_provider(CtApp::R_cssProvider, GTK_STYLE_PROVIDER_PRIORITY_USER);
+}
+
 
 CtMainWin::CtMainWin() : Gtk::ApplicationWindow()
 {
@@ -133,7 +157,8 @@ void CtMainWin::_onTheTreeviewSignalCursorChanged()
 {
     Gtk::TreeIter treeIter = _ctTreeview.get_selection()->get_selected();
     std::cout << _ctTreestore.getNodeName(treeIter) << std::endl;
-    _ctTextview.set_buffer(_ctTreestore.getTextBuffer(treeIter));
+    _ctTextview.set_buffer(_ctTreestore.getNodeTextBuffer(treeIter));
+    _ctTextview.setFontForSyntax(_ctTreestore.getNodeSyntaxHighlighting(treeIter));
 }
 
 void CtMainWin::_titleUpdate(bool saveNeeded)

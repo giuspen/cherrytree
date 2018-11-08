@@ -40,6 +40,7 @@ class CtTextView : public Gsv::View
 public:
     CtTextView();
     virtual ~CtTextView();
+    void setFontForSyntax(const Glib::ustring& syntaxHighlighting);
 };
 
 

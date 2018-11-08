@@ -41,6 +41,7 @@ namespace CtStrUtil {
 
 bool isStrTrue(const Glib::ustring& inStr);
 
+std::string replaceInString(std::string& subjectStr, const std::string& searchStr, const std::string& replaceStr);
 Glib::ustring replaceInString(Glib::ustring& subjectStr, const Glib::ustring& searchStr, const Glib::ustring& replaceStr);
 
 Glib::ustring trimString(Glib::ustring& s);

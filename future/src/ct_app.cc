@@ -28,7 +28,7 @@ CtTmp* CtApp::P_ctTmp{nullptr};
 Glib::RefPtr<Gtk::TextTagTable> CtApp::R_textTagTable;
 Glib::RefPtr<Gsv::LanguageManager> CtApp::R_languageManager;
 Glib::RefPtr<Gsv::StyleSchemeManager> CtApp::R_styleSchemeManager;
-
+Glib::RefPtr<Gtk::CssProvider> CtApp::R_cssProvider;
 
 CtApp::CtApp() : Gtk::Application("com.giuspen.cherrytree", Gio::APPLICATION_HANDLES_OPEN)
 {
@@ -59,6 +59,10 @@ CtApp::CtApp() : Gtk::Application("com.giuspen.cherrytree", Gio::APPLICATION_HAN
     if (!R_styleSchemeManager)
     {
         R_styleSchemeManager = Gsv::StyleSchemeManager::create();
+    }
+    if (!R_cssProvider)
+    {
+        R_cssProvider = Gtk::CssProvider::create();
     }
 }
 
