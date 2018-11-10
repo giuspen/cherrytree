@@ -50,17 +50,33 @@ gint64 gint64FromGstring(const gchar* inGstring, bool hexPrefix=false);
 
 guint32 getUint32FromHexChars(const char* hexChars, guint8 numChars);
 
-std::list<Glib::ustring> gstringSplit2ustring(const gchar* inStr, const gchar* delimiter, gint max_tokens=-1);
+std::vector<std::string> gstringSplit2string(const gchar* inStr, const gchar* delimiter, gint max_tokens=-1);
+std::vector<Glib::ustring> gstringSplit2ustring(const gchar* inStr, const gchar* delimiter, gint max_tokens=-1);
 
-std::list<gint64> gstringSplit2int64(const gchar* inStr, const gchar* delimiter, gint max_tokens=-1);
+std::vector<gint64> gstringSplit2int64(const gchar* inStr, const gchar* delimiter, gint max_tokens=-1);
 
-Glib::ustring ustringJoin4ustring(const std::list<Glib::ustring>& inStrList, const gchar* delimiter);
+Glib::ustring ustringJoin4ustring(const std::vector<Glib::ustring>& inStrVec, const gchar* delimiter);
 
-Glib::ustring ustringJoin4int64(const std::list<gint64>& inInt64List, const gchar* delimiter);
+Glib::ustring ustringJoin4int64(const std::vector<gint64>& inInt64Vec, const gchar* delimiter);
 
 bool isPgcharInPgcharSet(const gchar* pGcharNeedle, const std::set<const gchar*>& setPgcharHaystack);
 
 } // namespace CtStrUtil
+
+namespace CtFontUtil {
+
+std::string getFontFamily(const std::string& fontStr);
+
+std::string getFontSizeStr(const std::string& fontStr);
+
+std::string getFontCss(const std::string& fontStr);
+
+const std::string& getFontForSyntaxHighlighting(const std::string& syntaxHighlighting);
+
+std::string getFontCssForSyntaxHighlighting(const std::string& syntaxHighlighting);
+
+
+} // namespace CtFontUtil
 
 namespace CtRgbUtil {
 

@@ -262,36 +262,47 @@ guint32 CtStrUtil::getUint32FromHexChars(const char *hexChars, guint8 numChars)
     return (guint32)strtoul(hexstring, NULL, 16);
 }
 
-std::list<Glib::ustring> CtStrUtil::gstringSplit2ustring(const gchar *inStr, const gchar *delimiter, gint max_tokens)
+std::vector<std::string> CtStrUtil::gstringSplit2string(const gchar *inStr, const gchar *delimiter, gint max_tokens)
 {
-    std::list<Glib::ustring> retList;
+    std::vector<std::string> retVec;
     gchar **arrayOfStrings = g_strsplit(inStr, delimiter, max_tokens);
     for(gchar **ptr = arrayOfStrings; *ptr; ptr++)
     {
-        retList.push_back(*ptr);
+        retVec.push_back(*ptr);
     }
     g_strfreev(arrayOfStrings);
-    return retList;
+    return retVec;
+}
+std::vector<Glib::ustring> CtStrUtil::gstringSplit2ustring(const gchar *inStr, const gchar *delimiter, gint max_tokens)
+{
+    std::vector<Glib::ustring> retVec;
+    gchar **arrayOfStrings = g_strsplit(inStr, delimiter, max_tokens);
+    for(gchar **ptr = arrayOfStrings; *ptr; ptr++)
+    {
+        retVec.push_back(*ptr);
+    }
+    g_strfreev(arrayOfStrings);
+    return retVec;
 }
 
-std::list<gint64> CtStrUtil::gstringSplit2int64(const gchar *inStr, const gchar *delimiter, gint max_tokens)
+std::vector<gint64> CtStrUtil::gstringSplit2int64(const gchar *inStr, const gchar *delimiter, gint max_tokens)
 {
-    std::list<gint64> retList;
+    std::vector<gint64> retVec;
     gchar **arrayOfStrings = g_strsplit(inStr, delimiter, max_tokens);
     for(gchar **ptr = arrayOfStrings; *ptr; ptr++)
     {
         gint64 curr_int = gint64FromGstring(*ptr);
-        retList.push_back(curr_int);
+        retVec.push_back(curr_int);
     }
     g_strfreev(arrayOfStrings);
-    return retList;
+    return retVec;
 }
 
-Glib::ustring CtStrUtil::ustringJoin4ustring(const std::list<Glib::ustring> &inStrList, const gchar *delimiter)
+Glib::ustring CtStrUtil::ustringJoin4ustring(const std::vector<Glib::ustring> &inStrVec, const gchar *delimiter)
 {
     Glib::ustring retStr;
     bool firstIteration = true;
-    for(Glib::ustring element : inStrList)
+    for(Glib::ustring element : inStrVec)
     {
         if(!firstIteration) retStr += delimiter;
         else firstIteration = false;
@@ -300,11 +311,11 @@ Glib::ustring CtStrUtil::ustringJoin4ustring(const std::list<Glib::ustring> &inS
     return retStr;
 }
 
-Glib::ustring CtStrUtil::ustringJoin4int64(const std::list<gint64>& inInt64List, const gchar *delimiter)
+Glib::ustring CtStrUtil::ustringJoin4int64(const std::vector<gint64>& inInt64Vec, const gchar *delimiter)
 {
     Glib::ustring retStr;
     bool firstIteration{true};
-    for(gint64 element : inInt64List)
+    for(gint64 element : inInt64Vec)
     {
         if(!firstIteration) retStr += delimiter;
         else firstIteration = false;
@@ -325,6 +336,49 @@ bool CtStrUtil::isPgcharInPgcharSet(const gchar* pGcharNeedle, const std::set<co
         }
     }
     return gotcha;
+}
+
+
+std::string CtFontUtil::getFontFamily(const std::string& fontStr)
+{
+    std::vector<std::string> splFont = CtStrUtil::gstringSplit2string(fontStr.c_str(), " ");
+    return splFont.size() > 0 ? splFont.at(0) : "";
+}
+
+std::string CtFontUtil::getFontSizeStr(const std::string& fontStr)
+{
+    std::vector<std::string> splFont = CtStrUtil::gstringSplit2string(fontStr.c_str(), " ");
+    return splFont.size() > 1 ? splFont.at(1) : "";
+}
+
+std::string CtFontUtil::getFontCss(const std::string& fontStr)
+{
+    gchar* pFontCss = g_strdup_printf(
+        "textview text {"
+        "    font-family: %s;"
+        "    font-size: %spx;"
+        "}", getFontFamily(fontStr).c_str(), getFontSizeStr(fontStr).c_str());
+    std::string fontCss(pFontCss);
+    g_free(pFontCss);
+    return fontCss;
+}
+
+const std::string& CtFontUtil::getFontForSyntaxHighlighting(const std::string& syntaxHighlighting)
+{
+    if (0 == syntaxHighlighting.compare(CtConst::RICH_TEXT_ID))
+    {
+        return CtApp::P_ctCfg->rtFont;
+    }
+    if (0 == syntaxHighlighting.compare(CtConst::PLAIN_TEXT_ID))
+    {
+        return CtApp::P_ctCfg->ptFont;
+    }
+    return CtApp::P_ctCfg->codeFont;
+}
+
+std::string CtFontUtil::getFontCssForSyntaxHighlighting(const std::string& syntaxHighlighting)
+{
+    return getFontCss(getFontForSyntaxHighlighting(syntaxHighlighting));
 }
 
 

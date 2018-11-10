@@ -44,26 +44,10 @@ CtTextView::~CtTextView()
 {
 }
 
-void CtTextView::setFontForSyntax(const Glib::ustring& syntaxHighlighting)
+void CtTextView::setFontForSyntax(const std::string& syntaxHighlighting)
 {
     Glib::RefPtr<Gtk::StyleContext> rStyleContext = get_style_context();
-    std::string fontCss {
-        "textview text {"
-        "    font: <>;"
-        "}"
-    };
-    if (0 == syntaxHighlighting.compare(CtConst::RICH_TEXT_ID))
-    {
-        CtStrUtil::replaceInString(fontCss, "<>", CtApp::P_ctCfg->rtFont);
-    }
-    else if (0 == syntaxHighlighting.compare(CtConst::PLAIN_TEXT_ID))
-    {
-        CtStrUtil::replaceInString(fontCss, "<>", CtApp::P_ctCfg->ptFont);
-    }
-    else
-    {
-        CtStrUtil::replaceInString(fontCss, "<>", CtApp::P_ctCfg->codeFont);
-    }
+    std::string fontCss = CtFontUtil::getFontCssForSyntaxHighlighting(syntaxHighlighting);
     CtApp::R_cssProvider->load_from_data(fontCss);
     rStyleContext->add_provider(CtApp::R_cssProvider, GTK_STYLE_PROVIDER_PRIORITY_USER);
 }

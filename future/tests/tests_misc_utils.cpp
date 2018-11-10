@@ -70,27 +70,27 @@ TEST(MiscUtilsGroup, getUint32FromHexChars)
 
 TEST(MiscUtilsGroup, gstringSplit2ustring)
 {
-    std::list<Glib::ustring> splittedList = CtStrUtil::gstringSplit2ustring(":a:bc::d:", ":");
-    CHECK(std::list<Glib::ustring>({"", "a", "bc", "", "d", ""}) == splittedList);
+    std::vector<Glib::ustring> splittedVec = CtStrUtil::gstringSplit2ustring(":a:bc::d:", ":");
+    CHECK(std::vector<Glib::ustring>({"", "a", "bc", "", "d", ""}) == splittedVec);
 }
 
 TEST(MiscUtilsGroup, gstringSplit2int64)
 {
-    std::list<gint64> splittedList = CtStrUtil::gstringSplit2int64("-1, 1,0, 1000", ",");
-    CHECK(std::list<gint64>({-1, 1, 0, 1000}) == splittedList);
+    std::vector<gint64> splittedVec = CtStrUtil::gstringSplit2int64("-1, 1,0, 1000", ",");
+    CHECK(std::vector<gint64>({-1, 1, 0, 1000}) == splittedVec);
 }
 
 TEST(MiscUtilsGroup, ustringJoin4ustring)
 {
-    std::list<Glib::ustring> listToJoin({"", "a", "bc", "", "d", ""});
-    Glib::ustring rejoined = CtStrUtil::ustringJoin4ustring(listToJoin, ":");
+    std::vector<Glib::ustring> vecToJoin({"", "a", "bc", "", "d", ""});
+    Glib::ustring rejoined = CtStrUtil::ustringJoin4ustring(vecToJoin, ":");
     STRCMP_EQUAL(":a:bc::d:", rejoined.c_str());
 }
 
 TEST(MiscUtilsGroup, ustringJoin4int64)
 {
-    std::list<gint64> listToJoin({-1, 1, 0, 1000});
-    Glib::ustring rejoined = CtStrUtil::ustringJoin4int64(listToJoin, ",");
+    std::vector<gint64> vecToJoin({-1, 1, 0, 1000});
+    Glib::ustring rejoined = CtStrUtil::ustringJoin4int64(vecToJoin, ",");
     STRCMP_EQUAL("-1,1,0,1000", rejoined.c_str());
 }
 
@@ -98,6 +98,12 @@ TEST(MiscUtilsGroup, isPgcharInPgcharSet)
 {
     CHECK(CtStrUtil::isPgcharInPgcharSet(CtConst::TAG_STRIKETHROUGH, CtConst::TAG_PROPERTIES));
     CHECK(!CtStrUtil::isPgcharInPgcharSet("something surely missing", CtConst::TAG_PROPERTIES));
+}
+
+TEST(MiscUtilsGroup, getFontMisc)
+{
+    CHECK("Sans" == CtFontUtil::getFontFamily("Sans 9"));
+    CHECK("9" == CtFontUtil::getFontSizeStr("Sans 9"));
 }
 
 
