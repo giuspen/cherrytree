@@ -320,8 +320,8 @@ class FindReplace:
             dialog = gtk.Dialog(title=_("Iterate Latest Find/Replace"),
                 parent=self.dad.window, flags=gtk.DIALOG_DESTROY_WITH_PARENT)
             button_close = dialog.add_button(_("Close"), 0)
-            button_find_bw = dialog.add_button(_("Find"), 4)
-            button_find_fw = dialog.add_button(_("Find"), 1)
+            button_find_bw = dialog.add_button(_("Find Previous"), 4)
+            button_find_fw = dialog.add_button(_("Find Next"), 1)
             button_replace = dialog.add_button(_("Replace"), 2)
             button_undo = dialog.add_button(_("Undo"), 3)
             dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
