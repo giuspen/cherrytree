@@ -37,6 +37,7 @@ public:
     void setWidthInPixels(const bool& widthInPixels) { _widthInPixels = widthInPixels; }
     void setHighlightBrackets(const bool& highlightBrackets);
     void setShowLineNumbers(const bool& showLineNumbers) { _showLineNumbers = showLineNumbers; }
+    void applyWidthHeight(int parentTextWidth);
 
 protected:
     Glib::ustring _textContent;
@@ -48,4 +49,6 @@ protected:
     bool _showLineNumbers{false};
     Glib::RefPtr<Gsv::Buffer> _rTextBuffer{nullptr};
     CtTextView _ctTextview;
+    Gtk::ScrolledWindow _scrolledwindow;
+    Gtk::Frame _frame;
 };

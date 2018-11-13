@@ -53,6 +53,19 @@ CtCodebox::CtCodebox(const Glib::ustring& textContent, const Glib::ustring& synt
         _ctTextview.set_draw_spaces(Gsv::DRAW_SPACES_ALL & ~Gsv::DRAW_SPACES_NEWLINE);
     }
     _ctTextview.setFontForSyntax(_syntaxHighlighting);
+    _ctTextview.set_show_line_numbers(_showLineNumbers);
+    _scrolledwindow.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
+    _scrolledwindow.add(_ctTextview);
+    _frame.set_shadow_type(Gtk::ShadowType::SHADOW_NONE);
+    _frame.add(_scrolledwindow);
+    add(_frame);
+    show_all();
+}
+
+void CtCodebox::applyWidthHeight(int parentTextWidth)
+{
+    int frameWidth = _widthInPixels ? _frameWidth : parentTextWidth*_frameWidth/100;
+    _frame.set_size_request(frameWidth, _frameHeight);
 }
 
 void CtCodebox::setHighlightBrackets(const bool& highlightBrackets)
