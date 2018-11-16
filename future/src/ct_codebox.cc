@@ -74,10 +74,10 @@ void CtCodebox::setHighlightBrackets(const bool& highlightBrackets)
     _rTextBuffer->set_highlight_matching_brackets(_highlightBrackets);
 }
 
-void CtCodebox::insertInTextBuffer(Glib::RefPtr<Gsv::Buffer> rTextBuffer, const int& charOffset, const Glib::ustring& justification)
+void CtCodebox::applyCursorPos(const int& cursorPos)
 {
-    Gtk::TextIter textIter = rTextBuffer->get_iter_at_offset(charOffset);
-    Glib::RefPtr<Gtk::TextChildAnchor> rTextChildAnchor = rTextBuffer->create_child_anchor(textIter);
-
-    _rTextBuffer->place_cursor(_rTextBuffer->get_iter_at_offset(charOffset));
+    if (cursorPos > 0)
+    {
+        _rTextBuffer->place_cursor(_rTextBuffer->get_iter_at_offset(cursorPos));
+    }
 }

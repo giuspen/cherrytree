@@ -42,7 +42,7 @@ public:
     CtXMLRead(const char* filepath);
     virtual ~CtXMLRead();
     void treeWalk(const Gtk::TreeIter* pParentIter=nullptr);
-    Glib::RefPtr<Gsv::Buffer> getTextBuffer(const std::string& syntax, xmlpp::Element* pNodeElement=nullptr);
+    Glib::RefPtr<Gsv::Buffer> getTextBuffer(const std::string& syntax, std::list<CtAnchoredWidget*>& anchoredWidgets, xmlpp::Element* pNodeElement=nullptr);
 private:
     void _xmlTreeWalkIter(xmlpp::Element* pNodeElement, const Gtk::TreeIter* pParentIter);
     Gtk::TreeIter _xmlNodeProcess(xmlpp::Element* pNodeElement, const Gtk::TreeIter* pParentIter);

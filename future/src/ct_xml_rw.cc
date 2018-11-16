@@ -91,13 +91,13 @@ Gtk::TreeIter CtXMLRead::_xmlNodeProcess(xmlpp::Element* pNodeElement, const Gtk
     }
     nodeData.tsCreation = CtStrUtil::gint64FromGstring(pNodeElement->get_attribute_value("ts_creation").c_str());
     nodeData.tsLastSave = CtStrUtil::gint64FromGstring(pNodeElement->get_attribute_value("ts_lastSave").c_str());
-    nodeData.rTextBuffer = getTextBuffer(nodeData.syntax, pNodeElement);
+    nodeData.rTextBuffer = getTextBuffer(nodeData.syntax, nodeData.anchoredWidgets, pNodeElement);
 
     Gtk::TreeIter newIter = signalAppendNode.emit(&nodeData, pParentIter);
     return newIter;
 }
 
-Glib::RefPtr<Gsv::Buffer> CtXMLRead::getTextBuffer(const std::string& syntax, xmlpp::Element* pNodeElement)
+Glib::RefPtr<Gsv::Buffer> CtXMLRead::getTextBuffer(const std::string& syntax, std::list<CtAnchoredWidget*>& anchoredWidgets, xmlpp::Element* pNodeElement)
 {
     Glib::RefPtr<Gsv::Buffer> rRetTextBuffer{nullptr};
     rRetTextBuffer = Gsv::Buffer::create(CtApp::R_textTagTable);
@@ -176,11 +176,13 @@ Glib::RefPtr<Gsv::Buffer> CtXMLRead::getTextBuffer(const std::string& syntax, xm
                 const bool widthInPixels = CtStrUtil::isStrTrue(pNodeElement->get_attribute_value("width_in_pixels"));
                 const bool highlightBrackets = CtStrUtil::isStrTrue(pNodeElement->get_attribute_value("highlight_brackets"));
                 const bool showLineNumbers = CtStrUtil::isStrTrue(pNodeElement->get_attribute_value("show_line_numbers"));
-                CtCodebox ctCodebox(textContent, syntaxHighlighting, frameWidth, frameHeight);
-                ctCodebox.setWidthInPixels(widthInPixels);
-                ctCodebox.setHighlightBrackets(highlightBrackets);
-                ctCodebox.setShowLineNumbers(showLineNumbers);
-                ctCodebox.insertInTextBuffer(rRetTextBuffer, charOffset, justification);
+
+                CtCodebox* pCtCodebox = new CtCodebox(textContent, syntaxHighlighting, frameWidth, frameHeight);
+                pCtCodebox->setWidthInPixels(widthInPixels);
+                pCtCodebox->setHighlightBrackets(highlightBrackets);
+                pCtCodebox->setShowLineNumbers(showLineNumbers);
+                pCtCodebox->insertInTextBuffer(rRetTextBuffer, charOffset, justification);
+                anchoredWidgets.push_back(pCtCodebox);
             }
         }
     }

@@ -24,6 +24,15 @@
 #include <gtkmm.h>
 #include <gtksourceviewmm.h>
 
+class CtAnchoredWidget
+{
+public:
+    void insertInTextBuffer(Glib::RefPtr<Gsv::Buffer> rTextBuffer, const int& charOffset, const Glib::ustring& justification);
+    Glib::RefPtr<Gtk::TextChildAnchor> getTextChildAnchor() { return _rTextChildAnchor; }
+protected:
+    Glib::RefPtr<Gtk::TextChildAnchor> _rTextChildAnchor;
+};
+
 struct CtNodeData
 {
     gint64         nodeId{0};
@@ -38,6 +47,7 @@ struct CtNodeData
     gint64         tsCreation{0};
     gint64         tsLastSave{0};
     Glib::RefPtr<Gsv::Buffer>  rTextBuffer{nullptr};
+    std::list<CtAnchoredWidget*> anchoredWidgets;
 };
 
 class CtTreeModelColumns : public Gtk::TreeModel::ColumnRecord
@@ -48,7 +58,7 @@ public:
         add(rColPixbuf); add(colNodeName); add(rColTextBuffer); add(colNodeUniqueId);
         add(colSyntaxHighlighting); add(colNodeSequence); add(colNodeTags); add(colNodeRO);
         add(rColPixbufAux); add(colCustomIconId); add(colWeight); add(colForeground);
-        add(colTsCreation); add(colTsLastSave);
+        add(colTsCreation); add(colTsLastSave); add(colAnchoredWidgets);
     }
     Gtk::TreeModelColumn<Glib::RefPtr<Gdk::Pixbuf>>  rColPixbuf;
     Gtk::TreeModelColumn<Glib::ustring>              colNodeName;
@@ -64,6 +74,7 @@ public:
     Gtk::TreeModelColumn<Glib::ustring>              colForeground;
     Gtk::TreeModelColumn<gint64>                     colTsCreation;
     Gtk::TreeModelColumn<gint64>                     colTsLastSave;
+    Gtk::TreeModelColumn<std::list<CtAnchoredWidget*>> colAnchoredWidgets;
 };
 
 class CtTreeStore : public sigc::trackable

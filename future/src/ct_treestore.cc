@@ -23,6 +23,20 @@
 #include "ct_doc_rw.h"
 #include "ct_app.h"
 
+void CtAnchoredWidget::insertInTextBuffer(Glib::RefPtr<Gsv::Buffer> rTextBuffer, const int& charOffset, const Glib::ustring& justification)
+{
+    _rTextChildAnchor = rTextBuffer->create_child_anchor(rTextBuffer->get_iter_at_offset(charOffset));
+    if (!justification.empty())
+    {
+        Gtk::TextIter textIterStart = rTextBuffer->get_iter_at_child_anchor(_rTextChildAnchor);
+        Gtk::TextIter textIterEnd = textIterStart;
+        textIterEnd.forward_char();
+        Glib::ustring tagName = CtMiscUtil::getTextTagNameExistOrCreate(CtConst::TAG_JUSTIFICATION, justification);
+        rTextBuffer->apply_tag_by_name(tagName, textIterStart, textIterEnd);
+    }
+}
+
+
 CtTreeStore::CtTreeStore()
 {
     _rTreeStore = Gtk::TreeStore::create(_columns);
@@ -30,6 +44,7 @@ CtTreeStore::CtTreeStore()
 
 CtTreeStore::~CtTreeStore()
 {
+    // TODO delete CtAnchoredWidget*
 }
 
 void CtTreeStore::viewConnect(Gtk::TreeView* pTreeView)
@@ -140,6 +155,7 @@ Gtk::TreeIter CtTreeStore::appendNode(CtNodeData* pNodeData, const Gtk::TreeIter
     //row[_columns.colForeground] = ;
     row[_columns.colTsCreation] = pNodeData->tsCreation;
     row[_columns.colTsLastSave] = pNodeData->tsLastSave;
+    row[_columns.colAnchoredWidgets] = pNodeData->anchoredWidgets;
     return newIter;
 }
 

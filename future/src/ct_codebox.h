@@ -26,18 +26,17 @@
 #include "ct_const.h"
 #include "ct_main_win.h"
 
-class CtCodebox : public Gtk::EventBox
+class CtCodebox : public CtAnchoredWidget, public Gtk::EventBox
 {
 public:
     CtCodebox(const Glib::ustring& textContent, const Glib::ustring& syntaxHighlighting, const int& frameWidth, const int& frameHeight);
     virtual ~CtCodebox() {}
 
-    void insertInTextBuffer(Glib::RefPtr<Gsv::Buffer> rTextBuffer, const int& charOffset, const Glib::ustring& justification);
-
     void setWidthInPixels(const bool& widthInPixels) { _widthInPixels = widthInPixels; }
     void setHighlightBrackets(const bool& highlightBrackets);
     void setShowLineNumbers(const bool& showLineNumbers) { _showLineNumbers = showLineNumbers; }
     void applyWidthHeight(int parentTextWidth);
+    void applyCursorPos(const int& cursorPos);
 
 protected:
     Glib::ustring _textContent;
