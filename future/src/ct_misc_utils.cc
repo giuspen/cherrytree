@@ -262,29 +262,6 @@ guint32 CtStrUtil::getUint32FromHexChars(const char *hexChars, guint8 numChars)
     return (guint32)strtoul(hexstring, NULL, 16);
 }
 
-std::vector<std::string> CtStrUtil::gstringSplit2string(const gchar *inStr, const gchar *delimiter, gint max_tokens)
-{
-    std::vector<std::string> retVec;
-    gchar **arrayOfStrings = g_strsplit(inStr, delimiter, max_tokens);
-    for(gchar **ptr = arrayOfStrings; *ptr; ptr++)
-    {
-        retVec.push_back(*ptr);
-    }
-    g_strfreev(arrayOfStrings);
-    return retVec;
-}
-std::vector<Glib::ustring> CtStrUtil::gstringSplit2ustring(const gchar *inStr, const gchar *delimiter, gint max_tokens)
-{
-    std::vector<Glib::ustring> retVec;
-    gchar **arrayOfStrings = g_strsplit(inStr, delimiter, max_tokens);
-    for(gchar **ptr = arrayOfStrings; *ptr; ptr++)
-    {
-        retVec.push_back(*ptr);
-    }
-    g_strfreev(arrayOfStrings);
-    return retVec;
-}
-
 std::vector<gint64> CtStrUtil::gstringSplit2int64(const gchar *inStr, const gchar *delimiter, gint max_tokens)
 {
     std::vector<gint64> retVec;
@@ -341,13 +318,15 @@ bool CtStrUtil::isPgcharInPgcharSet(const gchar* pGcharNeedle, const std::set<co
 
 std::string CtFontUtil::getFontFamily(const std::string& fontStr)
 {
-    std::vector<std::string> splFont = CtStrUtil::gstringSplit2string(fontStr.c_str(), " ");
+    std::vector<std::string> splFont;
+    CtStrUtil::gstringSplit2string(fontStr.c_str(), splFont);
     return splFont.size() > 0 ? splFont.at(0) : "";
 }
 
 std::string CtFontUtil::getFontSizeStr(const std::string& fontStr)
 {
-    std::vector<std::string> splFont = CtStrUtil::gstringSplit2string(fontStr.c_str(), " ");
+    std::vector<std::string> splFont;
+    CtStrUtil::gstringSplit2string(fontStr.c_str(), splFont);
     return splFont.size() > 1 ? splFont.at(1) : "";
 }
 

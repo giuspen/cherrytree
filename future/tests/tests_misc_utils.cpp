@@ -68,10 +68,18 @@ TEST(MiscUtilsGroup, getUint32FromHexChars)
     CHECK_EQUAL(0xa, CtStrUtil::getUint32FromHexChars("aff", 1));
 }
 
-TEST(MiscUtilsGroup, gstringSplit2ustring)
+TEST(MiscUtilsGroup, gstringSplit2string)
 {
-    std::vector<Glib::ustring> splittedVec = CtStrUtil::gstringSplit2ustring(":a:bc::d:", ":");
-    CHECK(std::vector<Glib::ustring>({"", "a", "bc", "", "d", ""}) == splittedVec);
+    {
+        std::vector<std::string> splittedVec;
+        CtStrUtil::gstringSplit2string(":a:bc::d:", splittedVec, ":");
+        CHECK(std::vector<std::string>({"", "a", "bc", "", "d", ""}) == splittedVec);
+    }
+    {
+        std::vector<Glib::ustring> splittedVec;
+        CtStrUtil::gstringSplit2string(" a bc  d ", splittedVec);
+        CHECK(std::vector<Glib::ustring>({"", "a", "bc", "", "d", ""}) == splittedVec);
+    }
 }
 
 TEST(MiscUtilsGroup, gstringSplit2int64)

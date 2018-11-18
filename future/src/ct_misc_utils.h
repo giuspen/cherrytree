@@ -50,8 +50,15 @@ gint64 gint64FromGstring(const gchar* inGstring, bool hexPrefix=false);
 
 guint32 getUint32FromHexChars(const char* hexChars, guint8 numChars);
 
-std::vector<std::string> gstringSplit2string(const gchar* inStr, const gchar* delimiter, gint max_tokens=-1);
-std::vector<Glib::ustring> gstringSplit2ustring(const gchar* inStr, const gchar* delimiter, gint max_tokens=-1);
+template<class VecOfStrings> void gstringSplit2string(const gchar *inStr, VecOfStrings& vecOfStrings, const gchar *delimiter=" ", gint max_tokens=-1)
+{
+    gchar **arrayOfStrings = g_strsplit(inStr, delimiter, max_tokens);
+    for(gchar **ptr = arrayOfStrings; *ptr; ptr++)
+    {
+        vecOfStrings.push_back(*ptr);
+    }
+    g_strfreev(arrayOfStrings);
+}
 
 std::vector<gint64> gstringSplit2int64(const gchar* inStr, const gchar* delimiter, gint max_tokens=-1);
 
