@@ -42,14 +42,26 @@ TEST(MiscUtilsGroup, isStrTrue)
 
 TEST(MiscUtilsGroup, replaceInString)
 {
-    Glib::ustring testReplaceStr = "one two threetwo";
-    STRCMP_EQUAL("one four threefour", CtStrUtil::replaceInString(testReplaceStr, "two", "four").c_str());
+    {
+        Glib::ustring testReplaceStr = "one two threetwo";
+        STRCMP_EQUAL("one four threefour", CtStrUtil::replaceInString(testReplaceStr, "two", "four").c_str());
+    }
+    {
+        std::string testReplaceStr = "one two threetwo";
+        STRCMP_EQUAL("one four threefour", CtStrUtil::replaceInString(testReplaceStr, "two", "four").c_str());
+    }
 }
 
 TEST(MiscUtilsGroup, trimString)
 {
-    Glib::ustring testTrimStr = "\t one two three ";
-    STRCMP_EQUAL("one two three", CtStrUtil::trimString(testTrimStr).c_str());
+    {
+        Glib::ustring testTrimStr = "\t one two three ";
+        STRCMP_EQUAL("one two three", CtStrUtil::trimString(testTrimStr).c_str());
+    }
+    {
+        std::string testTrimStr = "\t one two three ";
+        STRCMP_EQUAL("one two three", CtStrUtil::trimString(testTrimStr).c_str());
+    }
 }
 
 TEST(MiscUtilsGroup, gint64FromGstring)
@@ -88,18 +100,35 @@ TEST(MiscUtilsGroup, gstringSplit2int64)
     CHECK(std::vector<gint64>({-1, 1, 0, 1000}) == splittedVec);
 }
 
-TEST(MiscUtilsGroup, ustringJoin4ustring)
+TEST(MiscUtilsGroup, stringJoin4string)
 {
-    std::vector<Glib::ustring> vecToJoin({"", "a", "bc", "", "d", ""});
-    Glib::ustring rejoined = CtStrUtil::ustringJoin4ustring(vecToJoin, ":");
-    STRCMP_EQUAL(":a:bc::d:", rejoined.c_str());
+    {
+        std::vector<Glib::ustring> vecToJoin({"", "a", "bc", "", "d", ""});
+        Glib::ustring rejoined;
+        CtStrUtil::stringJoin4string(vecToJoin, rejoined, ":");
+        STRCMP_EQUAL(":a:bc::d:", rejoined.c_str());
+    }
+    {
+        std::vector<std::string> vecToJoin({"", "a", "bc", "", "d", ""});
+        std::string rejoined;
+        CtStrUtil::stringJoin4string(vecToJoin, rejoined);
+        STRCMP_EQUAL(" a bc  d ", rejoined.c_str());
+    }
 }
 
-TEST(MiscUtilsGroup, ustringJoin4int64)
+TEST(MiscUtilsGroup, stringJoin4int64)
 {
     std::vector<gint64> vecToJoin({-1, 1, 0, 1000});
-    Glib::ustring rejoined = CtStrUtil::ustringJoin4int64(vecToJoin, ",");
-    STRCMP_EQUAL("-1,1,0,1000", rejoined.c_str());
+    {
+        Glib::ustring rejoined;
+        CtStrUtil::stringJoin4int64(vecToJoin, rejoined, ",");
+        STRCMP_EQUAL("-1,1,0,1000", rejoined.c_str());
+    }
+    {
+        std::string rejoined;
+        CtStrUtil::stringJoin4int64(vecToJoin, rejoined);
+        STRCMP_EQUAL("-1 1 0 1000", rejoined.c_str());
+    }
 }
 
 TEST(MiscUtilsGroup, isPgcharInPgcharSet)
