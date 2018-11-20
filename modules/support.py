@@ -1824,13 +1824,23 @@ def set_menu_items_recent_documents(dad):
     for target in [1, 2]:
         for i, filepath in enumerate(dad.recent_docs):
             if i >= cons.MAX_RECENT_DOCS: break
-            menu_item = gtk.ImageMenuItem(filepath)
-            menu_item.set_image(gtk.image_new_from_stock("gtk-open", gtk.ICON_SIZE_MENU))
+            menu_item = gtk.MenuItem(filepath)
             menu_item.set_use_underline(False)
-            menu_item.connect("activate", open_recent_document, filepath, dad)
+            menu_item.connect('button-press-event', on_mouse_button_clicked_recent_document, filepath, dad)
             menu_item.show()
             if target == 1: dad.recent_menu_1.append(menu_item)
             else: dad.recent_menu_2.append(menu_item)
+            submenu = gtk.Menu()
+            menu_item_open = gtk.ImageMenuItem(stock_id="gtk-open")
+            menu_item_open.connect('activate', open_recent_document, filepath, dad)
+            submenu.append(menu_item_open)
+            menu_item_rm = gtk.ImageMenuItem(_("Remove from list"))
+            menu_item_rm.set_image(gtk.image_new_from_stock("edit-delete", gtk.ICON_SIZE_MENU))
+            menu_item_rm.connect('activate', rm_recent_document, filepath, dad)
+            submenu.append(menu_item_rm)
+            menu_item.set_submenu(submenu)
+            menu_item_open.show()
+            menu_item_rm.show()
     if first_run:
         # main menu
         recent_menuitem = gtk.ImageMenuItem(_("_Recent Documents"))
@@ -1863,7 +1873,7 @@ def insert_special_char(menu_item, special_char, dad):
     text_buffer.insert_at_cursor(special_char)
 
 def open_recent_document(menu_item, filepath, dad):
-    """A Recent Document was Requested"""
+    """A Recent Document Open was Requested"""
     if os.path.isfile(filepath):
         #dad.filepath_boss_open(filepath, "")
         dad.filepath_open(filepath)
@@ -1875,6 +1885,16 @@ def open_recent_document(menu_item, filepath, dad):
             set_menu_items_recent_documents(dad)
         except:
             pass
+
+def rm_recent_document(menu_item, filepath, dad):
+    """A Recent Document Removal was Requested"""
+    if filepath in dad.recent_docs: dad.recent_docs.remove(filepath)
+    set_menu_items_recent_documents(dad)
+
+def on_mouse_button_clicked_recent_document(menu_item, event, filepath, dad):
+    if event.button == 1:
+        open_recent_document(menu_item, filepath, dad)
+    return False
 
 def select_bookmark_node(menu_item, node_id_str, dad):
     """Select a Node in the Bookmarks List"""
