@@ -97,6 +97,7 @@ public:
 protected:
     guint16                   _getPangoWeight(bool isBold);
     Glib::RefPtr<Gdk::Pixbuf> _getNodeIcon(int nodeDepth, std::string &syntax, guint32 customIconId);
+    void                      _iterDeleteAnchoredWidgets(const Gtk::TreeModel::Children& children);
 
     CtTreeModelColumns           _columns;
     Glib::RefPtr<Gtk::TreeStore> _rTreeStore;

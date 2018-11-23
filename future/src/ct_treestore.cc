@@ -44,7 +44,22 @@ CtTreeStore::CtTreeStore()
 
 CtTreeStore::~CtTreeStore()
 {
-    // TODO delete CtAnchoredWidget*
+    _iterDeleteAnchoredWidgets(_rTreeStore->children());
+}
+
+void CtTreeStore::_iterDeleteAnchoredWidgets(const Gtk::TreeModel::Children& children)
+{
+    for (Gtk::TreeIter iter = children.begin(); iter != children.end(); ++iter)
+    {
+        Gtk::TreeRow row = *iter;
+        for (CtAnchoredWidget* pCtAnchoredWidget : row.get_value(_columns.colAnchoredWidgets))
+        {
+            delete pCtAnchoredWidget;
+        }
+        row.get_value(_columns.colAnchoredWidgets).clear();
+
+        _iterDeleteAnchoredWidgets(row.children());
+    }
 }
 
 void CtTreeStore::viewConnect(Gtk::TreeView* pTreeView)

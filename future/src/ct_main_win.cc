@@ -158,7 +158,8 @@ void CtMainWin::_onTheTreeviewSignalCursorChanged()
 {
     Gtk::TreeIter treeIter = _ctTreeview.get_selection()->get_selected();
     std::cout << _ctTreestore.getNodeName(treeIter) << std::endl;
-    _ctTextview.set_buffer(_ctTreestore.getNodeTextBuffer(treeIter));
+    Glib::RefPtr<Gsv::Buffer> rTextBuffer = _ctTreestore.getNodeTextBuffer(treeIter);
+    _ctTextview.set_buffer(rTextBuffer);
     _ctTextview.setFontForSyntax(_ctTreestore.getNodeSyntaxHighlighting(treeIter));
 }
 
