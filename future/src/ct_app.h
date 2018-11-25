@@ -68,4 +68,5 @@ protected:
 
 private:
     CtMainWin* create_appwindow();
+    void on_hide_window(Gtk::Window* window);
 };

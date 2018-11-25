@@ -100,6 +100,7 @@ CtMainWin::CtMainWin() : Gtk::ApplicationWindow()
 
 CtMainWin::~CtMainWin()
 {
+    //printf("~CtMainWin\n");
 }
 
 void CtMainWin::configApply()
@@ -157,10 +158,7 @@ bool CtMainWin::readNodesFromGioFile(const Glib::RefPtr<Gio::File>& r_file)
 void CtMainWin::_onTheTreeviewSignalCursorChanged()
 {
     Gtk::TreeIter treeIter = _ctTreeview.get_selection()->get_selected();
-    std::cout << _ctTreestore.getNodeName(treeIter) << std::endl;
-    Glib::RefPtr<Gsv::Buffer> rTextBuffer = _ctTreestore.getNodeTextBuffer(treeIter);
-    _ctTextview.set_buffer(rTextBuffer);
-    _ctTextview.setFontForSyntax(_ctTreestore.getNodeSyntaxHighlighting(treeIter));
+    _ctTreestore.applyTextBufferToCtTextView(treeIter, &_ctTextview);
 }
 
 void CtMainWin::_titleUpdate(bool saveNeeded)

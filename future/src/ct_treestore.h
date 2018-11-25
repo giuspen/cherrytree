@@ -24,7 +24,7 @@
 #include <gtkmm.h>
 #include <gtksourceviewmm.h>
 
-class CtAnchoredWidget
+class CtAnchoredWidget : public Gtk::EventBox
 {
 public:
     void insertInTextBuffer(Glib::RefPtr<Gsv::Buffer> rTextBuffer, const int& charOffset, const Glib::ustring& justification);
@@ -77,6 +77,8 @@ public:
     Gtk::TreeModelColumn<std::list<CtAnchoredWidget*>> colAnchoredWidgets;
 };
 
+class CtTextView;
+
 class CtTreeStore : public sigc::trackable
 {
 public:
@@ -87,17 +89,18 @@ public:
     void          viewAppendColumns(Gtk::TreeView* pTreeView);
     bool          readNodesFromFilepath(const char* filepath, const Gtk::TreeIter* pParentIter=nullptr);
     Gtk::TreeIter appendNode(CtNodeData* pNodeData, const Gtk::TreeIter* pParentIter=nullptr);
+
     void          onRequestAddBookmark(gint64 nodeId);
     Gtk::TreeIter onRequestAppendNode(CtNodeData* pNodeData, const Gtk::TreeIter* pParentIter);
 
-    Glib::ustring getNodeName(Gtk::TreeIter treeIter);
-    std::string getNodeSyntaxHighlighting(Gtk::TreeIter treeIter);
-    Glib::RefPtr<Gsv::Buffer> getNodeTextBuffer(Gtk::TreeIter treeIter);
+    void applyTextBufferToCtTextView(const Gtk::TreeIter& treeIter, CtTextView* pCtTextView);
 
 protected:
     guint16                   _getPangoWeight(bool isBold);
     Glib::RefPtr<Gdk::Pixbuf> _getNodeIcon(int nodeDepth, std::string &syntax, guint32 customIconId);
     void                      _iterDeleteAnchoredWidgets(const Gtk::TreeModel::Children& children);
+
+    Glib::RefPtr<Gsv::Buffer> _getNodeTextBuffer(const Gtk::TreeIter& treeIter);
 
     CtTreeModelColumns           _columns;
     Glib::RefPtr<Gtk::TreeStore> _rTreeStore;

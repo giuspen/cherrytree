@@ -107,7 +107,14 @@ CtMainWin* CtApp::create_appwindow()
 
     add_window(*p_main_win);
 
+    p_main_win->signal_hide().connect(sigc::bind<Gtk::Window*>(sigc::mem_fun(*this, &CtApp::on_hide_window), p_main_win));
+
     return p_main_win;
+}
+
+void CtApp::on_hide_window(Gtk::Window* pWindow)
+{
+    delete pWindow;
 }
 
 void CtApp::on_activate()

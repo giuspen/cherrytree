@@ -55,6 +55,7 @@ void CtTreeStore::_iterDeleteAnchoredWidgets(const Gtk::TreeModel::Children& chi
         for (CtAnchoredWidget* pCtAnchoredWidget : row.get_value(_columns.colAnchoredWidgets))
         {
             delete pCtAnchoredWidget;
+            printf("~pCtAnchoredWidget\n");
         }
         row.get_value(_columns.colAnchoredWidgets).clear();
 
@@ -189,29 +190,7 @@ Gtk::TreeIter CtTreeStore::onRequestAppendNode(CtNodeData* pNodeData, const Gtk:
     return appendNode(pNodeData, pParentIter);
 }
 
-Glib::ustring CtTreeStore::getNodeName(Gtk::TreeIter treeIter)
-{
-    Glib::ustring retNodeName;
-    if (treeIter)
-    {
-        Gtk::TreeRow treeRow = *treeIter;
-        retNodeName = treeRow.get_value(_columns.colNodeName);
-    }
-    return retNodeName;
-}
-
-std::string CtTreeStore::getNodeSyntaxHighlighting(Gtk::TreeIter treeIter)
-{
-    std::string retSyntaxHighlighting;
-    if (treeIter)
-    {
-        Gtk::TreeRow treeRow = *treeIter;
-        retSyntaxHighlighting = treeRow.get_value(_columns.colSyntaxHighlighting);
-    }
-    return retSyntaxHighlighting;
-}
-
-Glib::RefPtr<Gsv::Buffer> CtTreeStore::getNodeTextBuffer(Gtk::TreeIter treeIter)
+Glib::RefPtr<Gsv::Buffer> CtTreeStore::_getNodeTextBuffer(const Gtk::TreeIter& treeIter)
 {
     Glib::RefPtr<Gsv::Buffer> rRetTextBuffer{nullptr};
     if (treeIter)
@@ -225,4 +204,33 @@ Glib::RefPtr<Gsv::Buffer> CtTreeStore::getNodeTextBuffer(Gtk::TreeIter treeIter)
         }
     }
     return rRetTextBuffer;
+}
+
+void CtTreeStore::applyTextBufferToCtTextView(const Gtk::TreeIter& treeIter, CtTextView* pCtTextView)
+{
+    if (!treeIter)
+    {
+        std::cerr << "!! treeIter" << std::endl;
+        return;
+    }
+    Gtk::TreeRow treeRow = *treeIter;
+    std::cout << treeRow.get_value(_columns.colNodeName) << std::endl;
+    Glib::RefPtr<Gsv::Buffer> rTextBuffer = _getNodeTextBuffer(treeIter);
+    pCtTextView->setFontForSyntax(treeRow.get_value(_columns.colSyntaxHighlighting));
+    pCtTextView->set_buffer(rTextBuffer);
+    for (CtAnchoredWidget* pCtAnchoredWidget : treeRow.get_value(_columns.colAnchoredWidgets))
+    {
+        Glib::RefPtr<Gtk::TextChildAnchor> rChildAnchor = pCtAnchoredWidget->getTextChildAnchor();
+        if (!rChildAnchor)
+        {
+            std::cerr << "!! rChildAnchor" << std::endl;
+            continue;
+        }
+        std::vector<Gtk::Widget*> anchoredWidgets = rChildAnchor->get_widgets();
+        if (0 == anchoredWidgets.size())
+        {
+            Gtk::TextIter textIter = rTextBuffer->get_iter_at_child_anchor(rChildAnchor);
+            pCtTextView->add_child_at_anchor(*pCtAnchoredWidget, rChildAnchor);
+        }
+    }
 }

@@ -60,6 +60,7 @@ CtCodebox::CtCodebox(const Glib::ustring& textContent, const Glib::ustring& synt
     _frame.add(_scrolledwindow);
     add(_frame);
     show_all();
+    printf("+CtCodebox\n");
 }
 
 void CtCodebox::applyWidthHeight(int parentTextWidth)

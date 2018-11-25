@@ -26,7 +26,7 @@
 #include "ct_const.h"
 #include "ct_main_win.h"
 
-class CtCodebox : public CtAnchoredWidget, public Gtk::EventBox
+class CtCodebox : public CtAnchoredWidget
 {
 public:
     CtCodebox(const Glib::ustring& textContent, const Glib::ustring& syntaxHighlighting, const int& frameWidth, const int& frameHeight);
