@@ -22,11 +22,17 @@
 #include "ct_codebox.h"
 #include "ct_app.h"
 
-CtCodebox::CtCodebox(const Glib::ustring& textContent, const Glib::ustring& syntaxHighlighting, const int& frameWidth, const int& frameHeight)
+CtCodebox::CtCodebox(const Glib::ustring& textContent,
+                     const Glib::ustring& syntaxHighlighting,
+                     const int& frameWidth,
+                     const int& frameHeight,
+                     const int& charOffset,
+                     const std::string& justification)
  : _textContent(textContent),
    _syntaxHighlighting(syntaxHighlighting),
    _frameWidth(frameWidth),
-   _frameHeight(frameHeight)
+   _frameHeight(frameHeight),
+   CtAnchoredWidget(charOffset, justification)
 {
     _rTextBuffer = Gsv::Buffer::create(CtApp::R_textTagTable);
     _rTextBuffer->set_max_undo_levels(CtApp::P_ctCfg->limitUndoableSteps);
@@ -40,10 +46,10 @@ CtCodebox::CtCodebox(const Glib::ustring& textContent, const Glib::ustring& synt
         _rTextBuffer->set_language(CtApp::R_languageManager->get_language(_syntaxHighlighting));
         _rTextBuffer->set_highlight_syntax(true);
     }
-    if (!textContent.empty())
+    if (!_textContent.empty())
     {
         _rTextBuffer->begin_not_undoable_action();
-        _rTextBuffer->set_text(textContent);
+        _rTextBuffer->set_text(_textContent);
         _rTextBuffer->end_not_undoable_action();
         _rTextBuffer->set_modified(false);
     }
@@ -66,7 +72,7 @@ CtCodebox::CtCodebox(const Glib::ustring& textContent, const Glib::ustring& synt
 void CtCodebox::applyWidthHeight(int parentTextWidth)
 {
     int frameWidth = _widthInPixels ? _frameWidth : parentTextWidth*_frameWidth/100;
-    _frame.set_size_request(frameWidth, _frameHeight);
+    _scrolledwindow.set_size_request(frameWidth, _frameHeight);
 }
 
 void CtCodebox::setHighlightBrackets(const bool& highlightBrackets)

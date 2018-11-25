@@ -24,12 +24,18 @@
 #include <gtkmm.h>
 #include <gtksourceviewmm.h>
 
+class CtTextView;
+
 class CtAnchoredWidget : public Gtk::EventBox
 {
 public:
-    void insertInTextBuffer(Glib::RefPtr<Gsv::Buffer> rTextBuffer, const int& charOffset, const Glib::ustring& justification);
+    CtAnchoredWidget(const int& charOffset, const std::string& justification);
+    void insertInTextBuffer(Glib::RefPtr<Gsv::Buffer> rTextBuffer, CtTextView* pCtTextView);
     Glib::RefPtr<Gtk::TextChildAnchor> getTextChildAnchor() { return _rTextChildAnchor; }
+    virtual void applyWidthHeight(int parentTextWidth) = 0;
 protected:
+    int _charOffset;
+    std::string _justification;
     Glib::RefPtr<Gtk::TextChildAnchor> _rTextChildAnchor;
 };
 
@@ -93,7 +99,7 @@ public:
     void          onRequestAddBookmark(gint64 nodeId);
     Gtk::TreeIter onRequestAppendNode(CtNodeData* pNodeData, const Gtk::TreeIter* pParentIter);
 
-    void applyTextBufferToCtTextView(const Gtk::TreeIter& treeIter, CtTextView* pCtTextView);
+    void applyTextBufferToCtTextView(const Gtk::TreeIter& treeIter, CtTextView* pCtTextView, const int& parentTextWidth);
 
 protected:
     guint16                   _getPangoWeight(bool isBold);

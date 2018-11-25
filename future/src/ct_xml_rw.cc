@@ -177,11 +177,10 @@ Glib::RefPtr<Gsv::Buffer> CtXMLRead::getTextBuffer(const std::string& syntax, st
                 const bool highlightBrackets = CtStrUtil::isStrTrue(pNodeElement->get_attribute_value("highlight_brackets"));
                 const bool showLineNumbers = CtStrUtil::isStrTrue(pNodeElement->get_attribute_value("show_line_numbers"));
 
-                CtCodebox* pCtCodebox = new CtCodebox(textContent, syntaxHighlighting, frameWidth, frameHeight);
+                CtCodebox* pCtCodebox = new CtCodebox(textContent, syntaxHighlighting, frameWidth, frameHeight, charOffset, justification);
                 pCtCodebox->setWidthInPixels(widthInPixels);
                 pCtCodebox->setHighlightBrackets(highlightBrackets);
                 pCtCodebox->setShowLineNumbers(showLineNumbers);
-                pCtCodebox->insertInTextBuffer(rRetTextBuffer, charOffset, justification);
                 anchoredWidgets.push_back(pCtCodebox);
             }
         }

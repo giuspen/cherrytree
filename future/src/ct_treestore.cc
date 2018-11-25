@@ -23,17 +23,24 @@
 #include "ct_doc_rw.h"
 #include "ct_app.h"
 
-void CtAnchoredWidget::insertInTextBuffer(Glib::RefPtr<Gsv::Buffer> rTextBuffer, const int& charOffset, const Glib::ustring& justification)
+CtAnchoredWidget::CtAnchoredWidget(const int& charOffset, const std::string& justification)
 {
-    _rTextChildAnchor = rTextBuffer->create_child_anchor(rTextBuffer->get_iter_at_offset(charOffset));
-    if (!justification.empty())
+    _charOffset = charOffset;
+    _justification = justification;
+}
+
+void CtAnchoredWidget::insertInTextBuffer(Glib::RefPtr<Gsv::Buffer> rTextBuffer, CtTextView* pCtTextView)
+{
+    _rTextChildAnchor = rTextBuffer->create_child_anchor(rTextBuffer->get_iter_at_offset(_charOffset));
+    if (!_justification.empty())
     {
         Gtk::TextIter textIterStart = rTextBuffer->get_iter_at_child_anchor(_rTextChildAnchor);
         Gtk::TextIter textIterEnd = textIterStart;
         textIterEnd.forward_char();
-        Glib::ustring tagName = CtMiscUtil::getTextTagNameExistOrCreate(CtConst::TAG_JUSTIFICATION, justification);
+        Glib::ustring tagName = CtMiscUtil::getTextTagNameExistOrCreate(CtConst::TAG_JUSTIFICATION, _justification);
         rTextBuffer->apply_tag_by_name(tagName, textIterStart, textIterEnd);
     }
+    pCtTextView->add_child_at_anchor(*this, _rTextChildAnchor);
 }
 
 
@@ -206,7 +213,7 @@ Glib::RefPtr<Gsv::Buffer> CtTreeStore::_getNodeTextBuffer(const Gtk::TreeIter& t
     return rRetTextBuffer;
 }
 
-void CtTreeStore::applyTextBufferToCtTextView(const Gtk::TreeIter& treeIter, CtTextView* pCtTextView)
+void CtTreeStore::applyTextBufferToCtTextView(const Gtk::TreeIter& treeIter, CtTextView* pCtTextView, const int& parentTextWidth)
 {
     if (!treeIter)
     {
@@ -220,17 +227,17 @@ void CtTreeStore::applyTextBufferToCtTextView(const Gtk::TreeIter& treeIter, CtT
     pCtTextView->set_buffer(rTextBuffer);
     for (CtAnchoredWidget* pCtAnchoredWidget : treeRow.get_value(_columns.colAnchoredWidgets))
     {
+        printf("+++\n");
         Glib::RefPtr<Gtk::TextChildAnchor> rChildAnchor = pCtAnchoredWidget->getTextChildAnchor();
-        if (!rChildAnchor)
+        if (rChildAnchor)
         {
-            std::cerr << "!! rChildAnchor" << std::endl;
-            continue;
-        }
-        std::vector<Gtk::Widget*> anchoredWidgets = rChildAnchor->get_widgets();
-        if (0 == anchoredWidgets.size())
-        {
+            // remove old anchor
             Gtk::TextIter textIter = rTextBuffer->get_iter_at_child_anchor(rChildAnchor);
-            pCtTextView->add_child_at_anchor(*pCtAnchoredWidget, rChildAnchor);
+            printf("rm old\n");
         }
+        pCtAnchoredWidget->insertInTextBuffer(rTextBuffer, pCtTextView);
+        pCtAnchoredWidget->applyWidthHeight(parentTextWidth);
+        pCtAnchoredWidget->show_all();
     }
+    pCtTextView->show_all();
 }

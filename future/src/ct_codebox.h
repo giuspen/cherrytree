@@ -29,13 +29,18 @@
 class CtCodebox : public CtAnchoredWidget
 {
 public:
-    CtCodebox(const Glib::ustring& textContent, const Glib::ustring& syntaxHighlighting, const int& frameWidth, const int& frameHeight);
+    CtCodebox(const Glib::ustring& textContent,
+              const Glib::ustring& syntaxHighlighting,
+              const int& frameWidth,
+              const int& frameHeight,
+              const int& charOffset,
+              const std::string& justification);
     virtual ~CtCodebox() {}
 
+    virtual void applyWidthHeight(int parentTextWidth);
     void setWidthInPixels(const bool& widthInPixels) { _widthInPixels = widthInPixels; }
     void setHighlightBrackets(const bool& highlightBrackets);
     void setShowLineNumbers(const bool& showLineNumbers) { _showLineNumbers = showLineNumbers; }
-    void applyWidthHeight(int parentTextWidth);
     void applyCursorPos(const int& cursorPos);
 
 protected:

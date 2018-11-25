@@ -34,7 +34,7 @@ CtTreeView::~CtTreeView()
 
 CtTextView::CtTextView()
 {
-    set_sensitive(false);
+    //set_sensitive(false);
     set_smart_home_end(Gsv::SMART_HOME_END_AFTER);
     set_left_margin(7);
     set_right_margin(7);
@@ -158,7 +158,7 @@ bool CtMainWin::readNodesFromGioFile(const Glib::RefPtr<Gio::File>& r_file)
 void CtMainWin::_onTheTreeviewSignalCursorChanged()
 {
     Gtk::TreeIter treeIter = _ctTreeview.get_selection()->get_selected();
-    _ctTreestore.applyTextBufferToCtTextView(treeIter, &_ctTextview);
+    _ctTreestore.applyTextBufferToCtTextView(treeIter, &_ctTextview, get_allocation().get_width());
 }
 
 void CtMainWin::_titleUpdate(bool saveNeeded)
