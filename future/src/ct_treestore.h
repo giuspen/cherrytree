@@ -24,13 +24,11 @@
 #include <gtkmm.h>
 #include <gtksourceviewmm.h>
 
-class CtTextView;
-
 class CtAnchoredWidget : public Gtk::EventBox
 {
 public:
     CtAnchoredWidget(const int& charOffset, const std::string& justification);
-    void insertInTextBuffer(Glib::RefPtr<Gsv::Buffer> rTextBuffer, CtTextView* pCtTextView);
+    void insertInTextBuffer(Glib::RefPtr<Gsv::Buffer> rTextBuffer);
     Glib::RefPtr<Gtk::TextChildAnchor> getTextChildAnchor() { return _rTextChildAnchor; }
     virtual void applyWidthHeight(int parentTextWidth) = 0;
 protected:

@@ -60,13 +60,14 @@ CtCodebox::CtCodebox(const Glib::ustring& textContent,
     }
     _ctTextview.setFontForSyntax(_syntaxHighlighting);
     _ctTextview.set_show_line_numbers(_showLineNumbers);
+    _ctTextview.set_buffer(_rTextBuffer);
     _scrolledwindow.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
     _scrolledwindow.add(_ctTextview);
     _frame.set_shadow_type(Gtk::ShadowType::SHADOW_NONE);
     _frame.add(_scrolledwindow);
     add(_frame);
     show_all();
-    printf("+CtCodebox\n");
+    //printf("+CtCodebox\n");
 }
 
 void CtCodebox::applyWidthHeight(int parentTextWidth)

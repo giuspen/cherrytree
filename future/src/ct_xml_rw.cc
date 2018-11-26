@@ -181,6 +181,7 @@ Glib::RefPtr<Gsv::Buffer> CtXMLRead::getTextBuffer(const std::string& syntax, st
                 pCtCodebox->setWidthInPixels(widthInPixels);
                 pCtCodebox->setHighlightBrackets(highlightBrackets);
                 pCtCodebox->setShowLineNumbers(showLineNumbers);
+                pCtCodebox->insertInTextBuffer(rRetTextBuffer);
                 anchoredWidgets.push_back(pCtCodebox);
             }
         }

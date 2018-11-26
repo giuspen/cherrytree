@@ -29,7 +29,7 @@ CtAnchoredWidget::CtAnchoredWidget(const int& charOffset, const std::string& jus
     _justification = justification;
 }
 
-void CtAnchoredWidget::insertInTextBuffer(Glib::RefPtr<Gsv::Buffer> rTextBuffer, CtTextView* pCtTextView)
+void CtAnchoredWidget::insertInTextBuffer(Glib::RefPtr<Gsv::Buffer> rTextBuffer)
 {
     _rTextChildAnchor = rTextBuffer->create_child_anchor(rTextBuffer->get_iter_at_offset(_charOffset));
     if (!_justification.empty())
@@ -40,7 +40,6 @@ void CtAnchoredWidget::insertInTextBuffer(Glib::RefPtr<Gsv::Buffer> rTextBuffer,
         Glib::ustring tagName = CtMiscUtil::getTextTagNameExistOrCreate(CtConst::TAG_JUSTIFICATION, _justification);
         rTextBuffer->apply_tag_by_name(tagName, textIterStart, textIterEnd);
     }
-    pCtTextView->add_child_at_anchor(*this, _rTextChildAnchor);
 }
 
 
@@ -62,7 +61,7 @@ void CtTreeStore::_iterDeleteAnchoredWidgets(const Gtk::TreeModel::Children& chi
         for (CtAnchoredWidget* pCtAnchoredWidget : row.get_value(_columns.colAnchoredWidgets))
         {
             delete pCtAnchoredWidget;
-            printf("~pCtAnchoredWidget\n");
+            //printf("~pCtAnchoredWidget\n");
         }
         row.get_value(_columns.colAnchoredWidgets).clear();
 
@@ -227,17 +226,25 @@ void CtTreeStore::applyTextBufferToCtTextView(const Gtk::TreeIter& treeIter, CtT
     pCtTextView->set_buffer(rTextBuffer);
     for (CtAnchoredWidget* pCtAnchoredWidget : treeRow.get_value(_columns.colAnchoredWidgets))
     {
-        printf("+++\n");
         Glib::RefPtr<Gtk::TextChildAnchor> rChildAnchor = pCtAnchoredWidget->getTextChildAnchor();
         if (rChildAnchor)
         {
-            // remove old anchor
-            Gtk::TextIter textIter = rTextBuffer->get_iter_at_child_anchor(rChildAnchor);
-            printf("rm old\n");
+            if (0 == rChildAnchor->get_widgets().size())
+            {
+                Gtk::TextIter textIter = rTextBuffer->get_iter_at_child_anchor(rChildAnchor);
+                pCtTextView->add_child_at_anchor(*pCtAnchoredWidget, rChildAnchor);
+                pCtAnchoredWidget->applyWidthHeight(parentTextWidth);
+            }
+            else
+            {
+                // this happens if we click on a node that is already selected, not an issue
+                // we simply must not add the same widget to the anchor again
+            }
         }
-        pCtAnchoredWidget->insertInTextBuffer(rTextBuffer, pCtTextView);
-        pCtAnchoredWidget->applyWidthHeight(parentTextWidth);
-        pCtAnchoredWidget->show_all();
+        else
+        {
+            std::cerr << "!! rChildAnchor" << std::endl;
+        }
     }
     pCtTextView->show_all();
 }
