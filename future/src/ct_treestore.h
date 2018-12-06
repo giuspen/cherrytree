@@ -32,6 +32,7 @@ public:
     Glib::RefPtr<Gtk::TextChildAnchor> getTextChildAnchor() { return _rTextChildAnchor; }
     virtual void applyWidthHeight(int parentTextWidth) = 0;
 protected:
+    Gtk::Frame _frame;
     int _charOffset;
     std::string _justification;
     Glib::RefPtr<Gtk::TextChildAnchor> _rTextChildAnchor;

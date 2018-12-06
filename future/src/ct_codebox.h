@@ -54,5 +54,4 @@ protected:
     Glib::RefPtr<Gsv::Buffer> _rTextBuffer{nullptr};
     CtTextView _ctTextview;
     Gtk::ScrolledWindow _scrolledwindow;
-    Gtk::Frame _frame;
 };

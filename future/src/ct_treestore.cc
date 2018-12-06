@@ -27,6 +27,8 @@ CtAnchoredWidget::CtAnchoredWidget(const int& charOffset, const std::string& jus
 {
     _charOffset = charOffset;
     _justification = justification;
+    _frame.set_shadow_type(Gtk::ShadowType::SHADOW_NONE);
+    add(_frame);
 }
 
 void CtAnchoredWidget::insertInTextBuffer(Glib::RefPtr<Gsv::Buffer> rTextBuffer)
