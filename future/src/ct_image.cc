@@ -27,5 +27,22 @@ CtImage::CtImage(const int& charOffset,
  : CtAnchoredWidget(charOffset, justification)
 {
     show_all();
-    //printf("+CtImage\n");
+}
+
+CtImagePng::CtImagePng(const int& charOffset,
+                       const std::string& justification)
+ : CtImage(charOffset, justification)
+{
+}
+
+CtImageAnchor::CtImageAnchor(const int& charOffset,
+                             const std::string& justification)
+ : CtImage(charOffset, justification)
+{
+}
+
+CtImageEmbFile::CtImageEmbFile(const int& charOffset,
+                               const std::string& justification)
+ : CtImage(charOffset, justification)
+{
 }

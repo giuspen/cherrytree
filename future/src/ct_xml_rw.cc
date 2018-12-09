@@ -26,6 +26,7 @@
 #include "ct_const.h"
 #include "ct_app.h"
 #include "ct_codebox.h"
+#include "ct_image.h"
 
 
 CtXMLRead::CtXMLRead(const char* filepath)
@@ -153,7 +154,30 @@ Glib::RefPtr<Gsv::Buffer> CtXMLRead::getTextBuffer(const std::string& syntax, st
             }
             else if ("encoded_png" == pNode->get_name())
             {
-                
+                xmlpp::Element* pNodeElement = static_cast<xmlpp::Element*>(pNode);
+                const int charOffset = std::stoi(pNodeElement->get_attribute_value("char_offset"));
+                Glib::ustring justification = pNodeElement->get_attribute_value(CtConst::TAG_JUSTIFICATION);
+                if (justification.empty())
+                {
+                    justification = CtConst::TAG_PROP_VAL_LEFT;
+                }
+                const Glib::ustring anchor = pNodeElement->get_attribute_value("anchor");
+                const Glib::ustring filename = pNodeElement->get_attribute_value("filename");
+                CtImage* pCtImage{nullptr};
+                if (!anchor.empty())
+                {
+                    pCtImage = new CtImageAnchor(charOffset, justification);
+                }
+                else if (!filename.empty())
+                {
+                    pCtImage = new CtImageEmbFile(charOffset, justification);
+                }
+                else
+                {
+                    pCtImage = new CtImagePng(charOffset, justification);
+                }
+                pCtImage->insertInTextBuffer(rRetTextBuffer);
+                anchoredWidgets.push_back(pCtImage);
             }
             else if ("table" == pNode->get_name())
             {

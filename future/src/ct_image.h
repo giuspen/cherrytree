@@ -31,6 +31,31 @@ public:
     CtImage(const int& charOffset,
             const std::string& justification);
     virtual ~CtImage() {}
+    virtual void applyWidthHeight(int parentTextWidth) {}
 
 protected:
+};
+
+class CtImagePng : public CtImage
+{
+public:
+    CtImagePng(const int& charOffset,
+               const std::string& justification);
+    virtual ~CtImagePng() {}
+};
+
+class CtImageAnchor : public CtImage
+{
+public:
+    CtImageAnchor(const int& charOffset,
+                  const std::string& justification);
+    virtual ~CtImageAnchor() {}
+};
+
+class CtImageEmbFile : public CtImage
+{
+public:
+    CtImageEmbFile(const int& charOffset,
+                   const std::string& justification);
+    virtual ~CtImageEmbFile() {}
 };
