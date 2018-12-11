@@ -130,7 +130,7 @@ Glib::RefPtr<Gdk::Pixbuf> CtTreeStore::_getNodeIcon(int nodeDepth, std::string &
         {
             if (1 == CtConst::NODES_ICONS.count(nodeDepth))
             {
-                rPixbuf = CtApp::R_icontheme->load_icon(CtConst::NODES_ICONS.at(nodeDepth),CtConst:: NODE_ICON_SIZE);
+                rPixbuf = CtApp::R_icontheme->load_icon(CtConst::NODES_ICONS.at(nodeDepth), CtConst::NODE_ICON_SIZE);
             }
             else
             {

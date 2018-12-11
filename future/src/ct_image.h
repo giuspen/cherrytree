@@ -28,20 +28,26 @@
 class CtImage : public CtAnchoredWidget
 {
 public:
-    CtImage(const int& charOffset,
+    CtImage(const Glib::RefPtr<Gdk::Pixbuf> rPixbuf,
+            const int& charOffset,
             const std::string& justification);
     virtual ~CtImage() {}
     virtual void applyWidthHeight(int parentTextWidth) {}
-
 protected:
+    Gtk::Image _image;
+    Glib::RefPtr<Gdk::Pixbuf> _rPixbuf;
 };
 
 class CtImagePng : public CtImage
 {
 public:
-    CtImagePng(const int& charOffset,
-               const std::string& justification);
+    CtImagePng(const Glib::RefPtr<Gdk::Pixbuf> rPixbuf,
+               const int& charOffset,
+               const std::string& justification,
+               const Glib::ustring& link);
     virtual ~CtImagePng() {}
+protected:
+    Glib::ustring _link;
 };
 
 class CtImageAnchor : public CtImage

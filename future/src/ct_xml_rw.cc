@@ -174,7 +174,15 @@ Glib::RefPtr<Gsv::Buffer> CtXMLRead::getTextBuffer(const std::string& syntax, st
                 }
                 else
                 {
-                    pCtImage = new CtImagePng(charOffset, justification);
+                    xmlpp::TextNode* pTextNode = pNodeElement->get_child_text();
+                    const std::string encodedPng = pTextNode ? pTextNode->get_content() : "";
+                    const std::string rawPng = Glib::Base64::decode(encodedPng);
+                    Glib::RefPtr<Gdk::PixbufLoader> rPixbufLoader = Gdk::PixbufLoader::create("image/png", true);
+                    rPixbufLoader->write(reinterpret_cast<const guint8*>(rawPng.c_str()), rawPng.size());
+                    rPixbufLoader->close();
+                    const Glib::RefPtr<Gdk::Pixbuf> rPixbuf = rPixbufLoader->get_pixbuf();
+                    const Glib::ustring link = pNodeElement->get_attribute_value("link");
+                    pCtImage = new CtImagePng(rPixbuf, charOffset, justification, link);
                 }
                 pCtImage->insertInTextBuffer(rRetTextBuffer);
                 anchoredWidgets.push_back(pCtImage);

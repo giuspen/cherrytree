@@ -22,27 +22,34 @@
 #include "ct_image.h"
 #include "ct_app.h"
 
-CtImage::CtImage(const int& charOffset,
+CtImage::CtImage(const Glib::RefPtr<Gdk::Pixbuf> rPixbuf,
+                 const int& charOffset,
                  const std::string& justification)
  : CtAnchoredWidget(charOffset, justification)
 {
+    _rPixbuf = rPixbuf;
+    _image.set(_rPixbuf);
+    _frame.add(_image);
     show_all();
 }
 
-CtImagePng::CtImagePng(const int& charOffset,
-                       const std::string& justification)
- : CtImage(charOffset, justification)
+CtImagePng::CtImagePng(const Glib::RefPtr<Gdk::Pixbuf> rPixbuf,
+                       const int& charOffset,
+                       const std::string& justification,
+                       const Glib::ustring& link)
+ : CtImage(rPixbuf, charOffset, justification),
+   _link(link)
 {
 }
 
 CtImageAnchor::CtImageAnchor(const int& charOffset,
                              const std::string& justification)
- : CtImage(charOffset, justification)
+ : CtImage(CtApp::R_icontheme->load_icon("anchor", CtApp::P_ctCfg->anchorSize), charOffset, justification)
 {
 }
 
 CtImageEmbFile::CtImageEmbFile(const int& charOffset,
                                const std::string& justification)
- : CtImage(charOffset, justification)
+ : CtImage(CtApp::R_icontheme->load_icon("file_icon", CtApp::P_ctCfg->embfileSize), charOffset, justification)
 {
 }
