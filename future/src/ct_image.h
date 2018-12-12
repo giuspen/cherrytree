@@ -54,14 +54,23 @@ class CtImageAnchor : public CtImage
 {
 public:
     CtImageAnchor(const int& charOffset,
-                  const std::string& justification);
+                  const std::string& justification,
+                  const Glib::ustring& anchorName);
     virtual ~CtImageAnchor() {}
+    void updateTooltip();
+protected:
+    Glib::ustring _anchorName;
 };
 
 class CtImageEmbFile : public CtImage
 {
 public:
     CtImageEmbFile(const int& charOffset,
-                   const std::string& justification);
+                   const std::string& justification,
+                   const std::string& rawFileStr,
+                   const double& timeSeconds);
     virtual ~CtImageEmbFile() {}
+    void updateTooltip();
+protected:
+    std::string _rawFileStr;
 };

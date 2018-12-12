@@ -166,19 +166,28 @@ Glib::RefPtr<Gsv::Buffer> CtXMLRead::getTextBuffer(const std::string& syntax, st
                 CtImage* pCtImage{nullptr};
                 if (!anchor.empty())
                 {
-                    pCtImage = new CtImageAnchor(charOffset, justification);
+                    pCtImage = new CtImageAnchor(charOffset, justification, anchor);
                 }
                 else if (!filename.empty())
                 {
-                    pCtImage = new CtImageEmbFile(charOffset, justification);
+                    xmlpp::TextNode* pTextNode = pNodeElement->get_child_text();
+                    const std::string encodedFile = pTextNode ? pTextNode->get_content() : "";
+                    const std::string rawFileStr = Glib::Base64::decode(encodedFile);
+                    std::string timeStr = pNodeElement->get_attribute_value("time");
+                    if (timeStr.empty())
+                    {
+                        timeStr = "0";
+                    }
+                    double timeDouble = std::stod(timeStr);
+                    pCtImage = new CtImageEmbFile(charOffset, justification, rawFileStr, timeDouble);
                 }
                 else
                 {
                     xmlpp::TextNode* pTextNode = pNodeElement->get_child_text();
                     const std::string encodedPng = pTextNode ? pTextNode->get_content() : "";
-                    const std::string rawPng = Glib::Base64::decode(encodedPng);
+                    const std::string rawPngStr = Glib::Base64::decode(encodedPng);
                     Glib::RefPtr<Gdk::PixbufLoader> rPixbufLoader = Gdk::PixbufLoader::create("image/png", true);
-                    rPixbufLoader->write(reinterpret_cast<const guint8*>(rawPng.c_str()), rawPng.size());
+                    rPixbufLoader->write(reinterpret_cast<const guint8*>(rawPngStr.c_str()), rawPngStr.size());
                     rPixbufLoader->close();
                     const Glib::RefPtr<Gdk::Pixbuf> rPixbuf = rPixbufLoader->get_pixbuf();
                     const Glib::ustring link = pNodeElement->get_attribute_value("link");

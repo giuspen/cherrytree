@@ -33,6 +33,7 @@ CtImage::CtImage(const Glib::RefPtr<Gdk::Pixbuf> rPixbuf,
     show_all();
 }
 
+
 CtImagePng::CtImagePng(const Glib::RefPtr<Gdk::Pixbuf> rPixbuf,
                        const int& charOffset,
                        const std::string& justification,
@@ -42,14 +43,33 @@ CtImagePng::CtImagePng(const Glib::RefPtr<Gdk::Pixbuf> rPixbuf,
 {
 }
 
+
 CtImageAnchor::CtImageAnchor(const int& charOffset,
-                             const std::string& justification)
- : CtImage(CtApp::R_icontheme->load_icon("anchor", CtApp::P_ctCfg->anchorSize), charOffset, justification)
+                             const std::string& justification,
+                             const Glib::ustring& anchorName)
+ : CtImage(CtApp::R_icontheme->load_icon("anchor", CtApp::P_ctCfg->anchorSize), charOffset, justification),
+   _anchorName(anchorName)
 {
+    updateTooltip();
 }
 
-CtImageEmbFile::CtImageEmbFile(const int& charOffset,
-                               const std::string& justification)
- : CtImage(CtApp::R_icontheme->load_icon("file_icon", CtApp::P_ctCfg->embfileSize), charOffset, justification)
+void CtImageAnchor::updateTooltip()
 {
+    set_tooltip_text(_anchorName);
+}
+
+
+CtImageEmbFile::CtImageEmbFile(const int& charOffset,
+                               const std::string& justification,
+                               const std::string& rawFileStr,
+                               const double& timeSeconds)
+ : CtImage(CtApp::R_icontheme->load_icon("file_icon", CtApp::P_ctCfg->embfileSize), charOffset, justification),
+   _rawFileStr(rawFileStr)
+{
+    updateTooltip();
+}
+
+void CtImageEmbFile::updateTooltip()
+{
+    
 }
