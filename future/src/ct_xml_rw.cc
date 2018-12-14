@@ -161,14 +161,14 @@ Glib::RefPtr<Gsv::Buffer> CtXMLRead::getTextBuffer(const std::string& syntax, st
                 {
                     justification = CtConst::TAG_PROP_VAL_LEFT;
                 }
-                const Glib::ustring anchor = pNodeElement->get_attribute_value("anchor");
-                const Glib::ustring filename = pNodeElement->get_attribute_value("filename");
+                const Glib::ustring anchorName = pNodeElement->get_attribute_value("anchor");
+                const Glib::ustring fileName = pNodeElement->get_attribute_value("filename");
                 CtImage* pCtImage{nullptr};
-                if (!anchor.empty())
+                if (!anchorName.empty())
                 {
-                    pCtImage = new CtImageAnchor(charOffset, justification, anchor);
+                    pCtImage = new CtImageAnchor(anchorName, charOffset, justification);
                 }
-                else if (!filename.empty())
+                else if (!fileName.empty())
                 {
                     xmlpp::TextNode* pTextNode = pNodeElement->get_child_text();
                     const std::string encodedFile = pTextNode ? pTextNode->get_content() : "";
@@ -179,7 +179,7 @@ Glib::RefPtr<Gsv::Buffer> CtXMLRead::getTextBuffer(const std::string& syntax, st
                         timeStr = "0";
                     }
                     double timeDouble = std::stod(timeStr);
-                    pCtImage = new CtImageEmbFile(charOffset, justification, rawFileStr, timeDouble);
+                    pCtImage = new CtImageEmbFile(fileName, rawFileStr, timeDouble, charOffset, justification);
                 }
                 else
                 {

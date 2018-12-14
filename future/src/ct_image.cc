@@ -44,9 +44,9 @@ CtImagePng::CtImagePng(const Glib::RefPtr<Gdk::Pixbuf> rPixbuf,
 }
 
 
-CtImageAnchor::CtImageAnchor(const int& charOffset,
-                             const std::string& justification,
-                             const Glib::ustring& anchorName)
+CtImageAnchor::CtImageAnchor(const Glib::ustring& anchorName,
+                             const int& charOffset,
+                             const std::string& justification)
  : CtImage(CtApp::R_icontheme->load_icon("anchor", CtApp::P_ctCfg->anchorSize), charOffset, justification),
    _anchorName(anchorName)
 {
@@ -59,17 +59,36 @@ void CtImageAnchor::updateTooltip()
 }
 
 
-CtImageEmbFile::CtImageEmbFile(const int& charOffset,
-                               const std::string& justification,
+CtImageEmbFile::CtImageEmbFile(const Glib::ustring& fileName,
                                const std::string& rawFileStr,
-                               const double& timeSeconds)
+                               const double& timeSeconds,
+                               const int& charOffset,
+                               const std::string& justification)
  : CtImage(CtApp::R_icontheme->load_icon("file_icon", CtApp::P_ctCfg->embfileSize), charOffset, justification),
-   _rawFileStr(rawFileStr)
+   _fileName(fileName),
+   _rawFileStr(rawFileStr),
+   _timeSeconds(timeSeconds)
 {
     updateTooltip();
 }
 
 void CtImageEmbFile::updateTooltip()
 {
-    
+    char humanReadableSize[16];
+    const long unsigned embfileBytes{_rawFileStr.size()};
+    const double embfileKbytes{static_cast<double>(embfileBytes)/1024};
+    const double embfileMbytes{embfileKbytes/1024};
+    if (embfileMbytes > 1)
+    {
+        snprintf(humanReadableSize, 16, "%.1f MB", embfileMbytes);
+    }
+    else
+    {
+        snprintf(humanReadableSize, 16, "%.1f KB", embfileKbytes);
+    }
+    const Glib::DateTime dateTime{Glib::DateTime::create_now_local(static_cast<gint64>(_timeSeconds))};
+    const Glib::ustring strDateTime = dateTime.format(CtApp::P_ctCfg->timestampFormat);
+    char buffTooltip[128];
+    snprintf(buffTooltip, 128, "%s\n%s (%ld Bytes)\n%s", _fileName.c_str(), humanReadableSize, embfileBytes, strDateTime.c_str());
+    set_tooltip_text(buffTooltip);
 }
