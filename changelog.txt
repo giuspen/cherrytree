@@ -1,4 +1,12 @@
 
+0.38.7 (December 16th, 2018)
+  * bugfix - problem of locale.getdefaultlocale behavioural change in python (#412)
+  * bugfix - must not allow deletion of a node that is read only (#419)
+  * allow deletion of a recent documents entry via entry submenu (#382)
+  * renamed two iterated find dialog labels from Find & Find to Find Previous & Find Next (#423)
+  * moved python-appindicator from Depends: to Recommends: (#401)
+  * export to html, include node name not working without links tree (#417)
+
 0.38.6 (October 6th, 2018)
   * bugfix - do not throw error when failing to clean temporary directory (#392)
   * bugfix - workaround for locale.get issues (#395)
