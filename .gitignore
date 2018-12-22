@@ -9,3 +9,4 @@ linux/cherrytree.1.gz
 *.sed
 *.sin
 *Makefile
+debian/files

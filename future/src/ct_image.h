@@ -46,6 +46,7 @@ public:
                const std::string& justification,
                const Glib::ustring& link);
     virtual ~CtImagePng() {}
+    void updateLabelWidget();
 protected:
     Glib::ustring _link;
 };
@@ -72,6 +73,7 @@ public:
                    const std::string& justification);
     virtual ~CtImageEmbFile() {}
     void updateTooltip();
+    void updateLabelWidget();
 protected:
     Glib::ustring _fileName;
     std::string _rawFileStr;

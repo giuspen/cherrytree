@@ -41,6 +41,21 @@ CtImagePng::CtImagePng(const Glib::RefPtr<Gdk::Pixbuf> rPixbuf,
  : CtImage(rPixbuf, charOffset, justification),
    _link(link)
 {
+    updateLabelWidget();
+}
+
+void  CtImagePng::updateLabelWidget()
+{
+    if (!_link.empty())
+    {
+        _labelWidget.set_markup("<b><small>▲</small></b>");
+        _labelWidget.show();
+        _frame.set_label_widget(_labelWidget);
+    }
+    else
+    {
+        _labelWidget.hide();
+    }
 }
 
 
@@ -70,6 +85,21 @@ CtImageEmbFile::CtImageEmbFile(const Glib::ustring& fileName,
    _timeSeconds(timeSeconds)
 {
     updateTooltip();
+    updateLabelWidget();
+}
+
+void  CtImageEmbFile::updateLabelWidget()
+{
+    if (CtApp::P_ctCfg->embfileShowFileName)
+    {
+        _labelWidget.set_markup("<b><small>"+_fileName+"</small></b>");
+        _labelWidget.show();
+        _frame.set_label_widget(_labelWidget);
+    }
+    else
+    {
+        _labelWidget.hide();
+    }
 }
 
 void CtImageEmbFile::updateTooltip()

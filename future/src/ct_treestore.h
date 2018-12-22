@@ -33,6 +33,7 @@ public:
     virtual void applyWidthHeight(int parentTextWidth) = 0;
 protected:
     Gtk::Frame _frame;
+    Gtk::Label _labelWidget;
     int _charOffset;
     std::string _justification;
     Glib::RefPtr<Gtk::TextChildAnchor> _rTextChildAnchor;
