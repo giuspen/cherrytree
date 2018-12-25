@@ -98,6 +98,28 @@ Gtk::TreeIter CtXMLRead::_xmlNodeProcess(xmlpp::Element* pNodeElement, const Gtk
     return newIter;
 }
 
+CtXmlNodeType CtXMLRead::_xmlNodeGetTypeFromName(const Glib::ustring& xmlNodeName)
+{
+    CtXmlNodeType retXmlNodeType{CtXmlNodeType::None};
+    if ("rich_text" == xmlNodeName)
+    {
+        retXmlNodeType = CtXmlNodeType::RichText;
+    }
+    else if ("encoded_png" == xmlNodeName)
+    {
+        retXmlNodeType = CtXmlNodeType::EncodedPng;
+    }
+    else if ("table" == xmlNodeName)
+    {
+        retXmlNodeType = CtXmlNodeType::Table;
+    }
+    else if ("codebox" == xmlNodeName)
+    {
+        retXmlNodeType = CtXmlNodeType::CodeBox;
+    }
+    return retXmlNodeType;
+}
+
 Glib::RefPtr<Gsv::Buffer> CtXMLRead::getTextBuffer(const std::string& syntax, std::list<CtAnchoredWidget*>& anchoredWidgets, xmlpp::Element* pNodeElement)
 {
     Glib::RefPtr<Gsv::Buffer> rRetTextBuffer{nullptr};
@@ -122,7 +144,8 @@ Glib::RefPtr<Gsv::Buffer> CtXMLRead::getTextBuffer(const std::string& syntax, st
     {
         for (xmlpp::Node *pNode : pNodeElement->get_children())
         {
-            if ("rich_text" == pNode->get_name())
+            CtXmlNodeType xmlNodeType = _xmlNodeGetTypeFromName(pNode->get_name());
+            if (CtXmlNodeType::RichText == xmlNodeType)
             {
                 xmlpp::Element* pNodeElement = static_cast<xmlpp::Element*>(pNode);
                 xmlpp::TextNode* pTextNode = pNodeElement->get_child_text();
@@ -152,7 +175,7 @@ Glib::RefPtr<Gsv::Buffer> CtXMLRead::getTextBuffer(const std::string& syntax, st
                     }
                 }
             }
-            else if ("encoded_png" == pNode->get_name())
+            else if (CtXmlNodeType::None != xmlNodeType)
             {
                 xmlpp::Element* pNodeElement = static_cast<xmlpp::Element*>(pNode);
                 const int charOffset = std::stoi(pNodeElement->get_attribute_value("char_offset"));
@@ -161,69 +184,67 @@ Glib::RefPtr<Gsv::Buffer> CtXMLRead::getTextBuffer(const std::string& syntax, st
                 {
                     justification = CtConst::TAG_PROP_VAL_LEFT;
                 }
-                const Glib::ustring anchorName = pNodeElement->get_attribute_value("anchor");
-                const Glib::ustring fileName = pNodeElement->get_attribute_value("filename");
-                CtImage* pCtImage{nullptr};
-                if (!anchorName.empty())
+                CtAnchoredWidget* pAnchoredWidget{nullptr};
+                if (CtXmlNodeType::EncodedPng == xmlNodeType)
                 {
-                    pCtImage = new CtImageAnchor(anchorName, charOffset, justification);
-                }
-                else if (!fileName.empty())
-                {
-                    xmlpp::TextNode* pTextNode = pNodeElement->get_child_text();
-                    const std::string encodedFile = pTextNode ? pTextNode->get_content() : "";
-                    const std::string rawFileStr = Glib::Base64::decode(encodedFile);
-                    std::string timeStr = pNodeElement->get_attribute_value("time");
-                    if (timeStr.empty())
+                    const Glib::ustring anchorName = pNodeElement->get_attribute_value("anchor");
+                    const Glib::ustring fileName = pNodeElement->get_attribute_value("filename");
+                    if (!anchorName.empty())
                     {
-                        timeStr = "0";
+                        pAnchoredWidget = new CtImageAnchor(anchorName, charOffset, justification);
                     }
-                    double timeDouble = std::stod(timeStr);
-                    pCtImage = new CtImageEmbFile(fileName, rawFileStr, timeDouble, charOffset, justification);
+                    else if (!fileName.empty())
+                    {
+                        xmlpp::TextNode* pTextNode = pNodeElement->get_child_text();
+                        const std::string encodedFile = pTextNode ? pTextNode->get_content() : "";
+                        const std::string rawFileStr = Glib::Base64::decode(encodedFile);
+                        std::string timeStr = pNodeElement->get_attribute_value("time");
+                        if (timeStr.empty())
+                        {
+                            timeStr = "0";
+                        }
+                        double timeDouble = std::stod(timeStr);
+                        pAnchoredWidget = new CtImageEmbFile(fileName, rawFileStr, timeDouble, charOffset, justification);
+                    }
+                    else
+                    {
+                        xmlpp::TextNode* pTextNode = pNodeElement->get_child_text();
+                        const std::string encodedPng = pTextNode ? pTextNode->get_content() : "";
+                        const std::string rawPngStr = Glib::Base64::decode(encodedPng);
+                        Glib::RefPtr<Gdk::PixbufLoader> rPixbufLoader = Gdk::PixbufLoader::create("image/png", true);
+                        rPixbufLoader->write(reinterpret_cast<const guint8*>(rawPngStr.c_str()), rawPngStr.size());
+                        rPixbufLoader->close();
+                        const Glib::RefPtr<Gdk::Pixbuf> rPixbuf = rPixbufLoader->get_pixbuf();
+                        const Glib::ustring link = pNodeElement->get_attribute_value("link");
+                        pAnchoredWidget = new CtImagePng(rPixbuf, charOffset, justification, link);
+                    }
                 }
-                else
+                else if (CtXmlNodeType::Table == xmlNodeType)
+                {
+                    
+                }
+                else if (CtXmlNodeType::CodeBox == xmlNodeType)
                 {
                     xmlpp::TextNode* pTextNode = pNodeElement->get_child_text();
-                    const std::string encodedPng = pTextNode ? pTextNode->get_content() : "";
-                    const std::string rawPngStr = Glib::Base64::decode(encodedPng);
-                    Glib::RefPtr<Gdk::PixbufLoader> rPixbufLoader = Gdk::PixbufLoader::create("image/png", true);
-                    rPixbufLoader->write(reinterpret_cast<const guint8*>(rawPngStr.c_str()), rawPngStr.size());
-                    rPixbufLoader->close();
-                    const Glib::RefPtr<Gdk::Pixbuf> rPixbuf = rPixbufLoader->get_pixbuf();
-                    const Glib::ustring link = pNodeElement->get_attribute_value("link");
-                    pCtImage = new CtImagePng(rPixbuf, charOffset, justification, link);
-                }
-                pCtImage->insertInTextBuffer(rRetTextBuffer);
-                anchoredWidgets.push_back(pCtImage);
-            }
-            else if ("table" == pNode->get_name())
-            {
-                
-            }
-            else if ("codebox" == pNode->get_name())
-            {
-                xmlpp::Element* pNodeElement = static_cast<xmlpp::Element*>(pNode);
-                xmlpp::TextNode* pTextNode = pNodeElement->get_child_text();
-                const Glib::ustring textContent = pTextNode ? pTextNode->get_content() : "";
-                const Glib::ustring syntaxHighlighting = pNodeElement->get_attribute_value("syntax_highlighting");
-                const int frameWidth = std::stoi(pNodeElement->get_attribute_value("frame_width"));
-                const int frameHeight = std::stoi(pNodeElement->get_attribute_value("frame_height"));
-                const int charOffset = std::stoi(pNodeElement->get_attribute_value("char_offset"));
-                Glib::ustring justification = pNodeElement->get_attribute_value(CtConst::TAG_JUSTIFICATION);
-                if (justification.empty())
-                {
-                    justification = CtConst::TAG_PROP_VAL_LEFT;
-                }
-                const bool widthInPixels = CtStrUtil::isStrTrue(pNodeElement->get_attribute_value("width_in_pixels"));
-                const bool highlightBrackets = CtStrUtil::isStrTrue(pNodeElement->get_attribute_value("highlight_brackets"));
-                const bool showLineNumbers = CtStrUtil::isStrTrue(pNodeElement->get_attribute_value("show_line_numbers"));
+                    const Glib::ustring textContent = pTextNode ? pTextNode->get_content() : "";
+                    const Glib::ustring syntaxHighlighting = pNodeElement->get_attribute_value("syntax_highlighting");
+                    const int frameWidth = std::stoi(pNodeElement->get_attribute_value("frame_width"));
+                    const int frameHeight = std::stoi(pNodeElement->get_attribute_value("frame_height"));
+                    const bool widthInPixels = CtStrUtil::isStrTrue(pNodeElement->get_attribute_value("width_in_pixels"));
+                    const bool highlightBrackets = CtStrUtil::isStrTrue(pNodeElement->get_attribute_value("highlight_brackets"));
+                    const bool showLineNumbers = CtStrUtil::isStrTrue(pNodeElement->get_attribute_value("show_line_numbers"));
 
-                CtCodebox* pCtCodebox = new CtCodebox(textContent, syntaxHighlighting, frameWidth, frameHeight, charOffset, justification);
-                pCtCodebox->setWidthInPixels(widthInPixels);
-                pCtCodebox->setHighlightBrackets(highlightBrackets);
-                pCtCodebox->setShowLineNumbers(showLineNumbers);
-                pCtCodebox->insertInTextBuffer(rRetTextBuffer);
-                anchoredWidgets.push_back(pCtCodebox);
+                    CtCodebox* pCtCodebox = new CtCodebox(textContent, syntaxHighlighting, frameWidth, frameHeight, charOffset, justification);
+                    pCtCodebox->setWidthInPixels(widthInPixels);
+                    pCtCodebox->setHighlightBrackets(highlightBrackets);
+                    pCtCodebox->setShowLineNumbers(showLineNumbers);
+                    pAnchoredWidget = pCtCodebox;
+                }
+                if (nullptr != pAnchoredWidget)
+                {
+                    pAnchoredWidget->insertInTextBuffer(rRetTextBuffer);
+                    anchoredWidgets.push_back(pAnchoredWidget);
+                }
             }
         }
     }

@@ -36,6 +36,8 @@ public:
     sigc::signal<Gtk::TreeIter, CtNodeData*, const Gtk::TreeIter*> signalAppendNode;
 };
 
+enum class CtXmlNodeType { None, RichText, EncodedPng, Table, CodeBox };
+
 class CtXMLRead : public CtDocRead, public xmlpp::DomParser
 {
 public:
@@ -46,6 +48,7 @@ public:
 private:
     void _xmlTreeWalkIter(xmlpp::Element* pNodeElement, const Gtk::TreeIter* pParentIter);
     Gtk::TreeIter _xmlNodeProcess(xmlpp::Element* pNodeElement, const Gtk::TreeIter* pParentIter);
+    CtXmlNodeType _xmlNodeGetTypeFromName(const Glib::ustring& xmlNodeName);
 };
 
 class CtSQLiteRead : public CtDocRead
