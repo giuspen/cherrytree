@@ -40,7 +40,7 @@ public:
     virtual void applyWidthHeight(int parentTextWidth);
     void setWidthInPixels(const bool& widthInPixels) { _widthInPixels = widthInPixels; }
     void setHighlightBrackets(const bool& highlightBrackets);
-    void setShowLineNumbers(const bool& showLineNumbers) { _showLineNumbers = showLineNumbers; }
+    void setShowLineNumbers(const bool& showLineNumbers);
     void applyCursorPos(const int& cursorPos);
 
 protected:
@@ -49,8 +49,6 @@ protected:
     int _frameWidth;
     int _frameHeight;
     bool _widthInPixels{true};
-    bool _highlightBrackets{true};
-    bool _showLineNumbers{false};
     Glib::RefPtr<Gsv::Buffer> _rTextBuffer{nullptr};
     CtTextView _ctTextview;
     Gtk::ScrolledWindow _scrolledwindow;

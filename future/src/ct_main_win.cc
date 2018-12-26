@@ -158,7 +158,7 @@ bool CtMainWin::readNodesFromGioFile(const Glib::RefPtr<Gio::File>& r_file)
 void CtMainWin::_onTheTreeviewSignalCursorChanged()
 {
     Gtk::TreeIter treeIter = _ctTreeview.get_selection()->get_selected();
-    _ctTreestore.applyTextBufferToCtTextView(treeIter, &_ctTextview, get_allocation().get_width());
+    _ctTreestore.applyTextBufferToCtTextView(treeIter, &_ctTextview);
 }
 
 void CtMainWin::_titleUpdate(bool saveNeeded)

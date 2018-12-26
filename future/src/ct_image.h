@@ -32,7 +32,6 @@ public:
             const int& charOffset,
             const std::string& justification);
     virtual ~CtImage() {}
-    virtual void applyWidthHeight(int parentTextWidth) {}
 protected:
     Gtk::Image _image;
     Glib::RefPtr<Gdk::Pixbuf> _rPixbuf;

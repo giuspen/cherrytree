@@ -22,9 +22,15 @@
 #include "ct_table.h"
 #include "ct_app.h"
 
-CtTable::CtTable(const int& charOffset,
+CtTable::CtTable(const CtTableMatrix& tableMatrix,
+                 const int& colMin,
+                 const int& colMax,
+                 const int& charOffset,
                  const std::string& justification)
- : CtAnchoredWidget(charOffset, justification)
+ : _tableMatrix(tableMatrix),
+   _colMin(colMin),
+   _colMax(colMax),
+   CtAnchoredWidget(charOffset, justification)
 {
     show_all();
 }

@@ -92,7 +92,7 @@ bool CtTreeStore::readNodesFromFilepath(const char* filepath, const Gtk::TreeIte
     CtDocRead* pCtDocRead{nullptr};
     if (CtDocType::XML == docType)
     {
-        pCtDocRead = new CtXMLRead(filepath);
+        pCtDocRead = new CtXmlRead(filepath);
     }
     else if (CtDocType::SQLite == docType)
     {
@@ -214,7 +214,7 @@ Glib::RefPtr<Gsv::Buffer> CtTreeStore::_getNodeTextBuffer(const Gtk::TreeIter& t
     return rRetTextBuffer;
 }
 
-void CtTreeStore::applyTextBufferToCtTextView(const Gtk::TreeIter& treeIter, CtTextView* pCtTextView, const int& parentTextWidth)
+void CtTreeStore::applyTextBufferToCtTextView(const Gtk::TreeIter& treeIter, CtTextView* pCtTextView)
 {
     if (!treeIter)
     {
@@ -235,7 +235,7 @@ void CtTreeStore::applyTextBufferToCtTextView(const Gtk::TreeIter& treeIter, CtT
             {
                 Gtk::TextIter textIter = rTextBuffer->get_iter_at_child_anchor(rChildAnchor);
                 pCtTextView->add_child_at_anchor(*pCtAnchoredWidget, rChildAnchor);
-                pCtAnchoredWidget->applyWidthHeight(parentTextWidth);
+                pCtAnchoredWidget->applyWidthHeight(pCtTextView->get_allocation().get_width());
             }
             else
             {

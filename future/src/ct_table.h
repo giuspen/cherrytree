@@ -25,13 +25,20 @@
 #include "ct_const.h"
 #include "ct_main_win.h"
 
+typedef std::list<std::list<Glib::ustring>> CtTableMatrix;
+
 class CtTable : public CtAnchoredWidget
 {
 public:
-    CtTable(const int& charOffset,
+    CtTable(const CtTableMatrix& tableMatrix,
+            const int& colMin,
+            const int& colMax,
+            const int& charOffset,
             const std::string& justification);
     virtual ~CtTable() {}
 
 protected:
-    
+    CtTableMatrix _tableMatrix;
+    int _colMin;
+    int _colMax;
 };

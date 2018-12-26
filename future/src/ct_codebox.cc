@@ -59,13 +59,11 @@ CtCodebox::CtCodebox(const Glib::ustring& textContent,
         _ctTextview.set_draw_spaces(Gsv::DRAW_SPACES_ALL & ~Gsv::DRAW_SPACES_NEWLINE);
     }
     _ctTextview.setFontForSyntax(_syntaxHighlighting);
-    _ctTextview.set_show_line_numbers(_showLineNumbers);
     _ctTextview.set_buffer(_rTextBuffer);
     _scrolledwindow.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
     _scrolledwindow.add(_ctTextview);
     _frame.add(_scrolledwindow);
     show_all();
-    //printf("+CtCodebox\n");
 }
 
 void CtCodebox::applyWidthHeight(int parentTextWidth)
@@ -74,10 +72,14 @@ void CtCodebox::applyWidthHeight(int parentTextWidth)
     _scrolledwindow.set_size_request(frameWidth, _frameHeight);
 }
 
+void CtCodebox::setShowLineNumbers(const bool& showLineNumbers)
+{
+    _ctTextview.set_show_line_numbers(showLineNumbers);
+}
+
 void CtCodebox::setHighlightBrackets(const bool& highlightBrackets)
 { 
-    _highlightBrackets = highlightBrackets;
-    _rTextBuffer->set_highlight_matching_brackets(_highlightBrackets);
+    _rTextBuffer->set_highlight_matching_brackets(highlightBrackets);
 }
 
 void CtCodebox::applyCursorPos(const int& cursorPos)

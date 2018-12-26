@@ -38,17 +38,22 @@ public:
 
 enum class CtXmlNodeType { None, RichText, EncodedPng, Table, CodeBox };
 
-class CtXMLRead : public CtDocRead, public xmlpp::DomParser
+class CtXmlRead : public CtDocRead, public xmlpp::DomParser
 {
 public:
-    CtXMLRead(const char* filepath);
-    virtual ~CtXMLRead();
+    CtXmlRead(const char* filepath);
+    virtual ~CtXmlRead();
     void treeWalk(const Gtk::TreeIter* pParentIter=nullptr);
-    Glib::RefPtr<Gsv::Buffer> getTextBuffer(const std::string& syntax, std::list<CtAnchoredWidget*>& anchoredWidgets, xmlpp::Element* pNodeElement=nullptr);
+    Glib::RefPtr<Gsv::Buffer> getTextBuffer(const std::string& syntax,
+                                            std::list<CtAnchoredWidget*>& anchoredWidgets,
+                                            xmlpp::Element* pNodeElement=nullptr);
 private:
     void _xmlTreeWalkIter(xmlpp::Element* pNodeElement, const Gtk::TreeIter* pParentIter);
     Gtk::TreeIter _xmlNodeProcess(xmlpp::Element* pNodeElement, const Gtk::TreeIter* pParentIter);
     CtXmlNodeType _xmlNodeGetTypeFromName(const Glib::ustring& xmlNodeName);
+    void _getTextBufferIter(Glib::RefPtr<Gsv::Buffer>& rTextBuffer,
+                            std::list<CtAnchoredWidget*>& anchoredWidgets,
+                            xmlpp::Node *pNodeParent);
 };
 
 class CtSQLiteRead : public CtDocRead

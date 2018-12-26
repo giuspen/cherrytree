@@ -30,7 +30,7 @@ public:
     CtAnchoredWidget(const int& charOffset, const std::string& justification);
     void insertInTextBuffer(Glib::RefPtr<Gsv::Buffer> rTextBuffer);
     Glib::RefPtr<Gtk::TextChildAnchor> getTextChildAnchor() { return _rTextChildAnchor; }
-    virtual void applyWidthHeight(int parentTextWidth) = 0;
+    virtual void applyWidthHeight(int parentTextWidth) {}
 protected:
     Gtk::Frame _frame;
     Gtk::Label _labelWidget;
@@ -99,7 +99,7 @@ public:
     void          onRequestAddBookmark(gint64 nodeId);
     Gtk::TreeIter onRequestAppendNode(CtNodeData* pNodeData, const Gtk::TreeIter* pParentIter);
 
-    void applyTextBufferToCtTextView(const Gtk::TreeIter& treeIter, CtTextView* pCtTextView, const int& parentTextWidth);
+    void applyTextBufferToCtTextView(const Gtk::TreeIter& treeIter, CtTextView* pCtTextView);
 
 protected:
     guint16                   _getPangoWeight(bool isBold);
