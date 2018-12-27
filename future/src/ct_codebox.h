@@ -26,7 +26,20 @@
 #include "ct_const.h"
 #include "ct_main_win.h"
 
-class CtCodebox : public CtAnchoredWidget
+class CtTextCell
+{
+public:
+    CtTextCell(const Glib::ustring& textContent,
+               const Glib::ustring& syntaxHighlighting);
+    virtual ~CtTextCell();
+
+protected:
+    Glib::ustring _syntaxHighlighting;
+    Glib::RefPtr<Gsv::Buffer> _rTextBuffer{nullptr};
+    CtTextView _ctTextview;
+};
+
+class CtCodebox : public CtAnchoredWidget, public CtTextCell
 {
 public:
     CtCodebox(const Glib::ustring& textContent,
@@ -35,7 +48,7 @@ public:
               const int& frameHeight,
               const int& charOffset,
               const std::string& justification);
-    virtual ~CtCodebox() {}
+    virtual ~CtCodebox();
 
     virtual void applyWidthHeight(int parentTextWidth);
     void setWidthInPixels(const bool& widthInPixels) { _widthInPixels = widthInPixels; }
@@ -44,12 +57,8 @@ public:
     void applyCursorPos(const int& cursorPos);
 
 protected:
-    Glib::ustring _textContent;
-    Glib::ustring _syntaxHighlighting;
     int _frameWidth;
     int _frameHeight;
     bool _widthInPixels{true};
-    Glib::RefPtr<Gsv::Buffer> _rTextBuffer{nullptr};
-    CtTextView _ctTextview;
     Gtk::ScrolledWindow _scrolledwindow;
 };

@@ -22,6 +22,18 @@
 #include "ct_table.h"
 #include "ct_app.h"
 
+CtTableCell::CtTableCell(const Glib::ustring& textContent,
+                         const Glib::ustring& syntaxHighlighting)
+ : CtTextCell(textContent, syntaxHighlighting)
+{
+    add(_ctTextview);
+}
+
+CtTableCell::~CtTableCell()
+{
+}
+
+
 CtTable::CtTable(const CtTableMatrix& tableMatrix,
                  const int& colMin,
                  const int& colMax,
@@ -32,5 +44,24 @@ CtTable::CtTable(const CtTableMatrix& tableMatrix,
    _colMax(colMax),
    CtAnchoredWidget(charOffset, justification)
 {
+    CtTableRow headerRow = _tableMatrix.back();
+    _tableMatrix.pop_back();
+    _tableMatrix.push_front(headerRow);
+    int i{0};
+    for (CtTableRow& tableRow : _tableMatrix)
+    {
+        int j{0};
+        for (CtTableCell* pTableCell : tableRow)
+        {
+            _grid.attach(*pTableCell, j, i, 1, 1);
+            j++;
+        }
+        i++;
+    }
+    _frame.add(_grid);
     show_all();
+}
+
+CtTable::~CtTable()
+{
 }

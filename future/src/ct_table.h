@@ -21,11 +21,18 @@
 
 #pragma once
 
-#include <gtkmm.h>
-#include "ct_const.h"
-#include "ct_main_win.h"
+#include "ct_codebox.h"
 
-typedef std::list<std::list<Glib::ustring>> CtTableMatrix;
+class CtTableCell : public CtTextCell, public Gtk::Bin
+{
+public:
+    CtTableCell(const Glib::ustring& textContent,
+                const Glib::ustring& syntaxHighlighting);
+    virtual ~CtTableCell();
+};
+
+typedef std::list<CtTableCell*> CtTableRow;
+typedef std::list<CtTableRow> CtTableMatrix;
 
 class CtTable : public CtAnchoredWidget
 {
@@ -35,10 +42,11 @@ public:
             const int& colMax,
             const int& charOffset,
             const std::string& justification);
-    virtual ~CtTable() {}
+    virtual ~CtTable();
 
 protected:
     CtTableMatrix _tableMatrix;
     int _colMin;
     int _colMax;
+    Gtk::Grid _grid;
 };

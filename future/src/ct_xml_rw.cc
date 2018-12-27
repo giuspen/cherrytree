@@ -208,14 +208,14 @@ void CtXmlRead::_getTextBufferIter(Glib::RefPtr<Gsv::Buffer>& rTextBuffer,
             {
                 if ("row" == pNodeRow->get_name())
                 {
-                    tableMatrix.push_back(std::list<Glib::ustring>{});
+                    tableMatrix.push_back(CtTableRow{});
                     for (xmlpp::Node *pNodeCell : pNodeRow->get_children())
                     {
                         if ("cell" == pNodeCell->get_name())
                         {
                             xmlpp::TextNode* pTextNode = static_cast<xmlpp::Element*>(pNodeCell)->get_child_text();
                             const Glib::ustring textContent = pTextNode ? pTextNode->get_content() : "";
-                            tableMatrix.back().push_back(textContent);
+                            tableMatrix.back().push_back(new CtTableCell(textContent, CtConst::PLAIN_TEXT_ID));
                         }
                     }
                 }

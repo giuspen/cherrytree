@@ -22,22 +22,14 @@
 #include "ct_codebox.h"
 #include "ct_app.h"
 
-CtCodebox::CtCodebox(const Glib::ustring& textContent,
-                     const Glib::ustring& syntaxHighlighting,
-                     const int& frameWidth,
-                     const int& frameHeight,
-                     const int& charOffset,
-                     const std::string& justification)
- : _textContent(textContent),
-   _syntaxHighlighting(syntaxHighlighting),
-   _frameWidth(frameWidth),
-   _frameHeight(frameHeight),
-   CtAnchoredWidget(charOffset, justification)
+CtTextCell::CtTextCell(const Glib::ustring& textContent,
+                       const Glib::ustring& syntaxHighlighting)
+ : _syntaxHighlighting(syntaxHighlighting)
 {
     _rTextBuffer = Gsv::Buffer::create(CtApp::R_textTagTable);
     _rTextBuffer->set_max_undo_levels(CtApp::P_ctCfg->limitUndoableSteps);
     _rTextBuffer->set_style_scheme(CtApp::R_styleSchemeManager->get_scheme(CtApp::P_ctCfg->styleSchemeId));
-    if (0 == _syntaxHighlighting.compare(CtConst::PLAIN_TEXT_ID))
+    if (CtConst::PLAIN_TEXT_ID == _syntaxHighlighting)
     {
         _rTextBuffer->set_highlight_syntax(false);
     }
@@ -46,10 +38,10 @@ CtCodebox::CtCodebox(const Glib::ustring& textContent,
         _rTextBuffer->set_language(CtApp::R_languageManager->get_language(_syntaxHighlighting));
         _rTextBuffer->set_highlight_syntax(true);
     }
-    if (!_textContent.empty())
+    if (!textContent.empty())
     {
         _rTextBuffer->begin_not_undoable_action();
-        _rTextBuffer->set_text(_textContent);
+        _rTextBuffer->set_text(textContent);
         _rTextBuffer->end_not_undoable_action();
         _rTextBuffer->set_modified(false);
     }
@@ -60,10 +52,32 @@ CtCodebox::CtCodebox(const Glib::ustring& textContent,
     }
     _ctTextview.setFontForSyntax(_syntaxHighlighting);
     _ctTextview.set_buffer(_rTextBuffer);
+}
+
+CtTextCell::~CtTextCell()
+{
+}
+
+
+CtCodebox::CtCodebox(const Glib::ustring& textContent,
+                     const Glib::ustring& syntaxHighlighting,
+                     const int& frameWidth,
+                     const int& frameHeight,
+                     const int& charOffset,
+                     const std::string& justification)
+ : _frameWidth(frameWidth),
+   _frameHeight(frameHeight),
+   CtAnchoredWidget(charOffset, justification),
+   CtTextCell(textContent, syntaxHighlighting)
+{
     _scrolledwindow.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
     _scrolledwindow.add(_ctTextview);
     _frame.add(_scrolledwindow);
     show_all();
+}
+
+CtCodebox::~CtCodebox()
+{
 }
 
 void CtCodebox::applyWidthHeight(int parentTextWidth)
