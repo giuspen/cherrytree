@@ -23,33 +23,30 @@
 #include "ct_doc_rw.h"
 #include "ct_misc_utils.h"
 
-
 CtSQLiteRead::CtSQLiteRead(const char* filepath)
 {
     int ret_code = sqlite3_open(filepath, &_pDb);
-    if(ret_code != SQLITE_OK)
+    if (ret_code != SQLITE_OK)
     {
         std::cerr << "!! sqlite3_open: " << sqlite3_errmsg(_pDb) << std::endl;
         exit(EXIT_FAILURE);
     }
 }
 
-
 CtSQLiteRead::~CtSQLiteRead()
 {
     sqlite3_close(_pDb);
 }
 
-
 void CtSQLiteRead::treeWalk(const Gtk::TreeIter* pParentIter)
 {
     sqlite3_stmt *p_stmt;
-    if(sqlite3_prepare_v2(_pDb, "SELECT nodeId FROM bookmark ORDER BY sequence ASC", -1, &p_stmt, 0) != SQLITE_OK)
+    if (sqlite3_prepare_v2(_pDb, "SELECT node_id FROM bookmark ORDER BY sequence ASC", -1, &p_stmt, 0) != SQLITE_OK)
     {
         std::cerr << "!! sqlite3_prepare_v2: " << sqlite3_errmsg(_pDb) << std::endl;
         exit(EXIT_FAILURE);
     }
-    while(sqlite3_step(p_stmt) == SQLITE_ROW)
+    while (sqlite3_step(p_stmt) == SQLITE_ROW)
     {
         gint64 nodeId = sqlite3_column_int64(p_stmt, 0);
         signalAddBookmark.emit(nodeId);
@@ -57,36 +54,34 @@ void CtSQLiteRead::treeWalk(const Gtk::TreeIter* pParentIter)
     sqlite3_finalize(p_stmt);
 
     std::list<gint64> top_nodes_ids = _sqlite3GetChildrenNodeIdFromFatherId(0);
-    for(gint64 &top_node_id : top_nodes_ids)
+    for (gint64 &top_node_id : top_nodes_ids)
     {
         _sqlite3TreeWalkIter(top_node_id, pParentIter);
     }
 }
-
 
 void CtSQLiteRead::_sqlite3TreeWalkIter(gint64 nodeId, const Gtk::TreeIter* pParentIter)
 {
     Gtk::TreeIter newIter = _sqlite3NodeProcess(nodeId, pParentIter);
 
     std::list<gint64> children_nodes_ids = _sqlite3GetChildrenNodeIdFromFatherId(nodeId);
-    for(gint64 &child_node_id : children_nodes_ids)
+    for (gint64 &child_node_id : children_nodes_ids)
     {
         _sqlite3TreeWalkIter(child_node_id, &newIter);
     }
 }
 
-
 std::list<gint64> CtSQLiteRead::_sqlite3GetChildrenNodeIdFromFatherId(gint64 father_id)
 {
     std::list<gint64> ret_children;
     sqlite3_stmt *p_stmt;
-    if(sqlite3_prepare_v2(_pDb, "SELECT nodeId FROM children WHERE father_id=? ORDER BY sequence ASC", -1, &p_stmt, 0) != SQLITE_OK)
+    if (sqlite3_prepare_v2(_pDb, "SELECT node_id FROM children WHERE father_id=? ORDER BY sequence ASC", -1, &p_stmt, 0) != SQLITE_OK)
     {
         std::cerr << "!! sqlite3_prepare_v2: " << sqlite3_errmsg(_pDb) << std::endl;
         exit(EXIT_FAILURE);
     }
     sqlite3_bind_int(p_stmt, 1, father_id);
-    while(sqlite3_step(p_stmt) == SQLITE_ROW)
+    while (sqlite3_step(p_stmt) == SQLITE_ROW)
     {
         gint64 nodeId = sqlite3_column_int64(p_stmt, 0);
         ret_children.push_back(nodeId);
@@ -95,30 +90,29 @@ std::list<gint64> CtSQLiteRead::_sqlite3GetChildrenNodeIdFromFatherId(gint64 fat
     return ret_children;
 }
 
-
 CtNodeData CtSQLiteRead::_sqlite3GetNodeProperties(gint64 nodeId)
 {
     CtNodeData nodeData;
     nodeData.nodeId = nodeId;
     sqlite3_stmt *p_stmt;
-    if(sqlite3_prepare_v2(_pDb, "SELECT name, syntax, tags, isRO, is_richtxt, tsCreation, tsLastSave FROM node WHERE nodeId=?", -1, &p_stmt, 0) != SQLITE_OK)
+    if (sqlite3_prepare_v2(_pDb, "SELECT name, syntax, tags, is_ro, is_richtxt, ts_creation, ts_lastsave FROM node WHERE node_id=?", -1, &p_stmt, 0) != SQLITE_OK)
     {
         std::cerr << "!! sqlite3_prepare_v2: " << sqlite3_errmsg(_pDb) << std::endl;
         exit(EXIT_FAILURE);
     }
     sqlite3_bind_int(p_stmt, 1, nodeId);
-    if(sqlite3_step(p_stmt) == SQLITE_ROW)
+    if (sqlite3_step(p_stmt) == SQLITE_ROW)
     {
-        nodeData.name = (const char*)sqlite3_column_text(p_stmt, 0);
-        nodeData.syntax = (const char*)sqlite3_column_text(p_stmt, 1);
-        nodeData.tags = (const char*)sqlite3_column_text(p_stmt, 2);
+        nodeData.name = reinterpret_cast<const char*>(sqlite3_column_text(p_stmt, 0));
+        nodeData.syntax = reinterpret_cast<const char*>(sqlite3_column_text(p_stmt, 1));
+        nodeData.tags = reinterpret_cast<const char*>(sqlite3_column_text(p_stmt, 2));
         gint64 readonly_n_custom_icon_id = sqlite3_column_int64(p_stmt, 3);
-        nodeData.isRO = bool(readonly_n_custom_icon_id & 0x01);
+        nodeData.isRO = static_cast<bool>(readonly_n_custom_icon_id & 0x01);
         nodeData.customIconId = readonly_n_custom_icon_id >> 1;
         gint64 richtxt_bold_foreground = sqlite3_column_int64(p_stmt, 4);
-        nodeData.isBold = bool((richtxt_bold_foreground >> 1) & 0x01);
-        nodeData.fgOverride = bool((richtxt_bold_foreground >> 2) & 0x01);
-        if(nodeData.fgOverride)
+        nodeData.isBold = static_cast<bool>((richtxt_bold_foreground >> 1) & 0x01);
+        nodeData.fgOverride = static_cast<bool>((richtxt_bold_foreground >> 2) & 0x01);
+        if (nodeData.fgOverride)
         {
             CtRgbUtil::setRgb24StrFromRgb24Int((richtxt_bold_foreground >> 3) & 0xffffff, nodeData.foregroundRgb24);
         }
@@ -132,7 +126,6 @@ CtNodeData CtSQLiteRead::_sqlite3GetNodeProperties(gint64 nodeId)
     sqlite3_finalize(p_stmt);
     return nodeData;
 }
-
 
 Gtk::TreeIter CtSQLiteRead::_sqlite3NodeProcess(gint64 nodeId, const Gtk::TreeIter* pParentIter)
 {
