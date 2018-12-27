@@ -19,6 +19,7 @@
  * MA 02110-1301, USA.
  */
 
+#include <assert.h>
 #include "ct_treestore.h"
 #include "ct_doc_rw.h"
 #include "ct_app.h"
@@ -53,6 +54,10 @@ CtTreeStore::CtTreeStore()
 CtTreeStore::~CtTreeStore()
 {
     _iterDeleteAnchoredWidgets(_rTreeStore->children());
+    if (nullptr != _pCtSQLiteRead)
+    {
+        delete _pCtSQLiteRead;
+    }
 }
 
 void CtTreeStore::_iterDeleteAnchoredWidgets(const Gtk::TreeModel::Children& children)
@@ -85,7 +90,7 @@ void CtTreeStore::viewAppendColumns(Gtk::TreeView* pTreeView)
     pTreeView->append_column(*pColumns);
 }
 
-bool CtTreeStore::readNodesFromFilepath(const char* filepath, const Gtk::TreeIter* pParentIter)
+bool CtTreeStore::readNodesFromFilepath(const char* filepath, const bool isImport, const Gtk::TreeIter* pParentIter)
 {
     bool retOk{false};
     CtDocType docType = CtMiscUtil::getDocType(filepath);
@@ -103,7 +108,14 @@ bool CtTreeStore::readNodesFromFilepath(const char* filepath, const Gtk::TreeIte
         pCtDocRead->signalAddBookmark.connect(sigc::mem_fun(this, &CtTreeStore::onRequestAddBookmark));
         pCtDocRead->signalAppendNode.connect(sigc::mem_fun(this, &CtTreeStore::onRequestAppendNode));
         pCtDocRead->treeWalk(pParentIter);
-        delete pCtDocRead;
+        if (!isImport && (CtDocType::SQLite == docType))
+        {
+            _pCtSQLiteRead = dynamic_cast<CtSQLiteRead*>(pCtDocRead);
+        }
+        else
+        {
+            delete pCtDocRead;
+        }
         retOk = true;
     }
     return retOk;
@@ -208,6 +220,7 @@ Glib::RefPtr<Gsv::Buffer> CtTreeStore::_getNodeTextBuffer(const Gtk::TreeIter& t
         if (!rRetTextBuffer)
         {
             // SQLite text buffer not yet populated
+            assert(nullptr != _pCtSQLiteRead);
             
         }
     }

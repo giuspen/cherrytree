@@ -41,10 +41,10 @@ CtXmlRead::~CtXmlRead()
 void CtXmlRead::treeWalk(const Gtk::TreeIter* pParentIter)
 {
     xmlpp::Document *pDocument = get_document();
-    assert (nullptr != pDocument);
+    assert(nullptr != pDocument);
     xmlpp::Element *pRoot = pDocument->get_root_node();
-    assert ("cherrytree" == pRoot->get_name());
-    for (xmlpp::Node *pNode : pRoot->get_children())
+    assert("cherrytree" == pRoot->get_name());
+    for (xmlpp::Node* pNode : pRoot->get_children())
     {
         if ("node" == pNode->get_name())
         {
@@ -65,7 +65,7 @@ void CtXmlRead::_xmlTreeWalkIter(xmlpp::Element* pNodeElement, const Gtk::TreeIt
 {
     Gtk::TreeIter newIter = _xmlNodeProcess(pNodeElement, pParentIter);
 
-    for (xmlpp::Node *pNode : pNodeElement->get_children())
+    for (xmlpp::Node* pNode : pNodeElement->get_children())
     {
         if ("node" == pNode->get_name())
         {
@@ -86,7 +86,7 @@ Gtk::TreeIter CtXmlRead::_xmlNodeProcess(xmlpp::Element* pNodeElement, const Gtk
     nodeData.isBold = Glib::str_has_prefix(pNodeElement->get_attribute_value("is_bold"), "T");
     Glib::ustring foregroundRgb24 = pNodeElement->get_attribute_value("foreground");
     nodeData.fgOverride = !foregroundRgb24.empty();
-    if(nodeData.fgOverride)
+    if (nodeData.fgOverride)
     {
         g_strlcpy(nodeData.foregroundRgb24, foregroundRgb24.c_str(), 8);
     }
@@ -122,7 +122,7 @@ CtXmlNodeType CtXmlRead::_xmlNodeGetTypeFromName(const Glib::ustring& xmlNodeNam
 
 void CtXmlRead::_getTextBufferIter(Glib::RefPtr<Gsv::Buffer>& rTextBuffer,
                                    std::list<CtAnchoredWidget*>& anchoredWidgets,
-                                   xmlpp::Node *pNodeParent)
+                                   xmlpp::Node* pNodeParent)
 {
     CtXmlNodeType xmlNodeType = _xmlNodeGetTypeFromName(pNodeParent->get_name());
     if (CtXmlNodeType::RichText == xmlNodeType)
@@ -204,12 +204,12 @@ void CtXmlRead::_getTextBufferIter(Glib::RefPtr<Gsv::Buffer>& rTextBuffer,
             const int colMin = std::stoi(pNodeElement->get_attribute_value("col_min"));
             const int colMax = std::stoi(pNodeElement->get_attribute_value("col_max"));
             CtTableMatrix tableMatrix;
-            for (xmlpp::Node *pNodeRow : pNodeElement->get_children())
+            for (xmlpp::Node* pNodeRow : pNodeElement->get_children())
             {
                 if ("row" == pNodeRow->get_name())
                 {
                     tableMatrix.push_back(CtTableRow{});
-                    for (xmlpp::Node *pNodeCell : pNodeRow->get_children())
+                    for (xmlpp::Node* pNodeCell : pNodeRow->get_children())
                     {
                         if ("cell" == pNodeCell->get_name())
                         {
@@ -271,7 +271,7 @@ Glib::RefPtr<Gsv::Buffer> CtXmlRead::getTextBuffer(const std::string& syntax,
     }
     if (nullptr != pNodeElement)
     {
-        for (xmlpp::Node *pNode : pNodeElement->get_children())
+        for (xmlpp::Node* pNode : pNodeElement->get_children())
         {
             _getTextBufferIter(rRetTextBuffer, anchoredWidgets, pNode);
         }

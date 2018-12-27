@@ -60,7 +60,7 @@ public:
     CtMainWin();
     virtual ~CtMainWin();
 
-    bool readNodesFromGioFile(const Glib::RefPtr<Gio::File>& r_file);
+    bool readNodesFromGioFile(const Glib::RefPtr<Gio::File>& r_file, const bool isImport);
     void configApply();
 
 protected:

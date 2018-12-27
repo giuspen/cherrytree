@@ -211,10 +211,10 @@ bool CtStrUtil::isStrTrue(const Glib::ustring& inStr)
     return retVal;
 }
 
-gint64 CtStrUtil::gint64FromGstring(const gchar *inGstring, bool hexPrefix)
+gint64 CtStrUtil::gint64FromGstring(const gchar* inGstring, bool hexPrefix)
 {
     gint64 retVal;
-    if(hexPrefix || g_strrstr(inGstring, "0x"))
+    if (hexPrefix || g_strrstr(inGstring, "0x"))
     {
         retVal = g_ascii_strtoll(inGstring, NULL, 16);
     }
@@ -225,7 +225,7 @@ gint64 CtStrUtil::gint64FromGstring(const gchar *inGstring, bool hexPrefix)
     return retVal;
 }
 
-guint32 CtStrUtil::getUint32FromHexChars(const char *hexChars, guint8 numChars)
+guint32 CtStrUtil::getUint32FromHexChars(const char* hexChars, guint8 numChars)
 {
     char hexstring[9];
     assert(numChars < 9);
@@ -234,11 +234,11 @@ guint32 CtStrUtil::getUint32FromHexChars(const char *hexChars, guint8 numChars)
     return (guint32)strtoul(hexstring, NULL, 16);
 }
 
-std::vector<gint64> CtStrUtil::gstringSplit2int64(const gchar *inStr, const gchar *delimiter, gint max_tokens)
+std::vector<gint64> CtStrUtil::gstringSplit2int64(const gchar* inStr, const gchar* delimiter, gint max_tokens)
 {
     std::vector<gint64> retVec;
-    gchar **arrayOfStrings = g_strsplit(inStr, delimiter, max_tokens);
-    for(gchar **ptr = arrayOfStrings; *ptr; ptr++)
+    gchar** arrayOfStrings = g_strsplit(inStr, delimiter, max_tokens);
+    for (gchar** ptr = arrayOfStrings; *ptr; ptr++)
     {
         gint64 curr_int = gint64FromGstring(*ptr);
         retVec.push_back(curr_int);
@@ -307,7 +307,7 @@ std::string CtFontUtil::getFontCssForSyntaxHighlighting(const std::string& synta
 }
 
 
-void CtRgbUtil::setRgb24StrFromRgb24Int(guint32 rgb24Int, char *rgb24StrOut)
+void CtRgbUtil::setRgb24StrFromRgb24Int(guint32 rgb24Int, char* rgb24StrOut)
 {
     guint8 r = (rgb24Int >> 16) & 0xff;
     guint8 g = (rgb24Int >> 8) & 0xff;
@@ -315,9 +315,9 @@ void CtRgbUtil::setRgb24StrFromRgb24Int(guint32 rgb24Int, char *rgb24StrOut)
     sprintf(rgb24StrOut, "#%.2x%.2x%.2x", r, g, b);
 }
 
-guint32 CtRgbUtil::getRgb24IntFromRgb24Str(const char *rgb24Str)
+guint32 CtRgbUtil::getRgb24IntFromRgb24Str(const char* rgb24Str)
 {
-    const char *scanStart = g_str_has_prefix(rgb24Str, "#") ? rgb24Str + 1 : rgb24Str;
+    const char* scanStart = g_str_has_prefix(rgb24Str, "#") ? rgb24Str + 1 : rgb24Str;
     guint8 r = (guint8)CtStrUtil::getUint32FromHexChars(scanStart, 2);
     guint8 g = (guint8)CtStrUtil::getUint32FromHexChars(scanStart+2, 2);
     guint8 b = (guint8)CtStrUtil::getUint32FromHexChars(scanStart+4, 2);
@@ -326,7 +326,7 @@ guint32 CtRgbUtil::getRgb24IntFromRgb24Str(const char *rgb24Str)
 
 char* CtRgbUtil::setRgb24StrFromStrAny(const char* rgbStrAny, char* rgb24StrOut)
 {
-    const char *scanStart = g_str_has_prefix(rgbStrAny, "#") ? rgbStrAny + 1 : rgbStrAny;
+    const char* scanStart = g_str_has_prefix(rgbStrAny, "#") ? rgbStrAny + 1 : rgbStrAny;
     switch(strlen(scanStart))
     {
         case 12:

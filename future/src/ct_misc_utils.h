@@ -80,7 +80,7 @@ template<class String> void stringJoin4string(const std::vector<String>& inStrVe
     bool firstIteration{true};
     for (const String& element : inStrVec)
     {
-        if(!firstIteration) outString += delimiter;
+        if (!firstIteration) outString += delimiter;
         else firstIteration = false;
         outString += element;
     }
@@ -91,7 +91,7 @@ template<class String> void stringJoin4int64(const std::vector<gint64>& inInt64V
     bool firstIteration{true};
     for(const gint64& element : inInt64Vec)
     {
-        if(!firstIteration) outString += delimiter;
+        if (!firstIteration) outString += delimiter;
         else firstIteration = false;
         outString += std::to_string(element);
     }

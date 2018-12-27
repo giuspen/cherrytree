@@ -83,7 +83,7 @@ Glib::RefPtr<CtApp> CtApp::create()
 
 void CtApp::_printHelpMessage()
 {
-    std::cout << "Usage: " << GETTEXT_PACKAGE << " filepath[.ctd|.ctb]" << std::endl;
+    std::cout << "Usage: " << GETTEXT_PACKAGE << " [filepath.ctd|.ctb|.ctz|.ctx]" << std::endl;
 }
 
 void CtApp::_printGresourceIcons()
@@ -103,13 +103,13 @@ void CtApp::_iconthemeInit()
 
 CtMainWin* CtApp::create_appwindow()
 {
-    auto p_main_win = new CtMainWin();
+    auto pMainWin = new CtMainWin();
 
-    add_window(*p_main_win);
+    add_window(*pMainWin);
 
-    p_main_win->signal_hide().connect(sigc::bind<Gtk::Window*>(sigc::mem_fun(*this, &CtApp::on_hide_window), p_main_win));
+    pMainWin->signal_hide().connect(sigc::bind<Gtk::Window*>(sigc::mem_fun(*this, &CtApp::on_hide_window), pMainWin));
 
-    return p_main_win;
+    return pMainWin;
 }
 
 void CtApp::on_hide_window(Gtk::Window* pWindow)
@@ -120,30 +120,30 @@ void CtApp::on_hide_window(Gtk::Window* pWindow)
 void CtApp::on_activate()
 {
     // app run without arguments
-    auto p_appwindow = create_appwindow();
-    p_appwindow->present();
+    auto pAppWindow = create_appwindow();
+    pAppWindow->present();
 }
 
-void CtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::ustring& /* hint */)
+void CtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::ustring& hint)
 {
     // app run with arguments
-    CtMainWin* p_appwindow = nullptr;
+    CtMainWin* pAppWindow{nullptr};
     auto windows_list = get_windows();
     if (windows_list.size() > 0)
     {
-        p_appwindow = dynamic_cast<CtMainWin*>(windows_list[0]);
+        pAppWindow = dynamic_cast<CtMainWin*>(windows_list[0]);
     }
 
-    if (!p_appwindow)
+    if (!pAppWindow)
     {
-        p_appwindow = create_appwindow();
+        pAppWindow = create_appwindow();
     }
 
     for (const Glib::RefPtr<Gio::File>& r_file : files)
     {
-        if(r_file->query_exists())
+        if (r_file->query_exists())
         {
-            if(!p_appwindow->readNodesFromGioFile(r_file))
+            if (!pAppWindow->readNodesFromGioFile(r_file, false/*isImport*/))
             {
                 _printHelpMessage();
             }
@@ -154,7 +154,7 @@ void CtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::u
         }
     }
 
-    p_appwindow->present();
+    pAppWindow->present();
 }
 
 

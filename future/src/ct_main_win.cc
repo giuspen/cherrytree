@@ -109,7 +109,7 @@ void CtMainWin::configApply()
     set_size_request(CtApp::P_ctCfg->winRect[2], CtApp::P_ctCfg->winRect[3]);
 }
 
-bool CtMainWin::readNodesFromGioFile(const Glib::RefPtr<Gio::File>& r_file)
+bool CtMainWin::readNodesFromGioFile(const Glib::RefPtr<Gio::File>& r_file, const bool isImport)
 {
     bool retOk{false};
     std::string filepath{r_file->get_path()};
@@ -144,9 +144,9 @@ bool CtMainWin::readNodesFromGioFile(const Glib::RefPtr<Gio::File>& r_file)
     }
     if (NULL != pFilepath)
     {
-        retOk = _ctTreestore.readNodesFromFilepath(pFilepath);
+        retOk = _ctTreestore.readNodesFromFilepath(pFilepath, isImport);
     }
-    if (retOk)
+    if (retOk && !isImport)
     {
         _currFileName = Glib::path_get_basename(filepath);
         _currFileDir = Glib::path_get_dirname(filepath);
@@ -207,7 +207,7 @@ CtDialogTextEntry::~CtDialogTextEntry()
 
 bool CtDialogTextEntry::_onEntryKeyPress(GdkEventKey *eventKey)
 {
-    if(GDK_KEY_Return == eventKey->keyval)
+    if (GDK_KEY_Return == eventKey->keyval)
     {
         Gtk::Button *pButton = static_cast<Gtk::Button*>(get_widget_for_response(Gtk::RESPONSE_OK));
         pButton->clicked();

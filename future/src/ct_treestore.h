@@ -84,6 +84,7 @@ public:
 };
 
 class CtTextView;
+class CtSQLiteRead;
 
 class CtTreeStore : public sigc::trackable
 {
@@ -93,7 +94,7 @@ public:
 
     void          viewConnect(Gtk::TreeView* pTreeView);
     void          viewAppendColumns(Gtk::TreeView* pTreeView);
-    bool          readNodesFromFilepath(const char* filepath, const Gtk::TreeIter* pParentIter=nullptr);
+    bool          readNodesFromFilepath(const char* filepath, const bool isImport, const Gtk::TreeIter* pParentIter=nullptr);
     Gtk::TreeIter appendNode(CtNodeData* pNodeData, const Gtk::TreeIter* pParentIter=nullptr);
 
     void          onRequestAddBookmark(gint64 nodeId);
@@ -111,4 +112,5 @@ protected:
     CtTreeModelColumns           _columns;
     Glib::RefPtr<Gtk::TreeStore> _rTreeStore;
     std::list<gint64>            _bookmarks;
+    CtSQLiteRead*                _pCtSQLiteRead{nullptr};
 };
