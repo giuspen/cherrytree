@@ -64,4 +64,11 @@ CtTable::CtTable(const CtTableMatrix& tableMatrix,
 
 CtTable::~CtTable()
 {
+    for (CtTableRow& tableRow : _tableMatrix)
+    {
+        for (CtTableCell* pTableCell : tableRow)
+        {
+            delete pTableCell;
+        }
+    }
 }
