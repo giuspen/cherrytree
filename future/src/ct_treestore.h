@@ -24,6 +24,21 @@
 #include <gtkmm.h>
 #include <gtksourceviewmm.h>
 
+class CtAnchoredWidget : public Gtk::EventBox
+{
+public:
+    CtAnchoredWidget(const int& charOffset, const std::string& justification);
+    void insertInTextBuffer(Glib::RefPtr<Gsv::Buffer> rTextBuffer);
+    Glib::RefPtr<Gtk::TextChildAnchor> getTextChildAnchor() { return _rTextChildAnchor; }
+    virtual void applyWidthHeight(int parentTextWidth) {}
+protected:
+    Gtk::Frame _frame;
+    Gtk::Label _labelWidget;
+    int _charOffset;
+    std::string _justification;
+    Glib::RefPtr<Gtk::TextChildAnchor> _rTextChildAnchor;
+};
+
 struct CtNodeData
 {
     gint64         nodeId{0};
@@ -38,6 +53,7 @@ struct CtNodeData
     gint64         tsCreation{0};
     gint64         tsLastSave{0};
     Glib::RefPtr<Gsv::Buffer>  rTextBuffer{nullptr};
+    std::list<CtAnchoredWidget*> anchoredWidgets;
 };
 
 class CtTreeModelColumns : public Gtk::TreeModel::ColumnRecord
@@ -48,7 +64,7 @@ public:
         add(rColPixbuf); add(colNodeName); add(rColTextBuffer); add(colNodeUniqueId);
         add(colSyntaxHighlighting); add(colNodeSequence); add(colNodeTags); add(colNodeRO);
         add(rColPixbufAux); add(colCustomIconId); add(colWeight); add(colForeground);
-        add(colTsCreation); add(colTsLastSave);
+        add(colTsCreation); add(colTsLastSave); add(colAnchoredWidgets);
     }
     Gtk::TreeModelColumn<Glib::RefPtr<Gdk::Pixbuf>>  rColPixbuf;
     Gtk::TreeModelColumn<Glib::ustring>              colNodeName;
@@ -64,7 +80,10 @@ public:
     Gtk::TreeModelColumn<Glib::ustring>              colForeground;
     Gtk::TreeModelColumn<gint64>                     colTsCreation;
     Gtk::TreeModelColumn<gint64>                     colTsLastSave;
+    Gtk::TreeModelColumn<std::list<CtAnchoredWidget*>> colAnchoredWidgets;
 };
+
+class CtTextView;
 
 class CtTreeStore : public sigc::trackable
 {
@@ -76,16 +95,18 @@ public:
     void          viewAppendColumns(Gtk::TreeView* pTreeView);
     bool          readNodesFromFilepath(const char* filepath, const Gtk::TreeIter* pParentIter=nullptr);
     Gtk::TreeIter appendNode(CtNodeData* pNodeData, const Gtk::TreeIter* pParentIter=nullptr);
+
     void          onRequestAddBookmark(gint64 nodeId);
     Gtk::TreeIter onRequestAppendNode(CtNodeData* pNodeData, const Gtk::TreeIter* pParentIter);
 
-    Glib::ustring getNodeName(Gtk::TreeIter treeIter);
-    std::string getNodeSyntaxHighlighting(Gtk::TreeIter treeIter);
-    Glib::RefPtr<Gsv::Buffer> getNodeTextBuffer(Gtk::TreeIter treeIter);
+    void applyTextBufferToCtTextView(const Gtk::TreeIter& treeIter, CtTextView* pCtTextView);
 
 protected:
     guint16                   _getPangoWeight(bool isBold);
     Glib::RefPtr<Gdk::Pixbuf> _getNodeIcon(int nodeDepth, std::string &syntax, guint32 customIconId);
+    void                      _iterDeleteAnchoredWidgets(const Gtk::TreeModel::Children& children);
+
+    Glib::RefPtr<Gsv::Buffer> _getNodeTextBuffer(const Gtk::TreeIter& treeIter);
 
     CtTreeModelColumns           _columns;
     Glib::RefPtr<Gtk::TreeStore> _rTreeStore;

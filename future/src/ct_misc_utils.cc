@@ -211,34 +211,6 @@ bool CtStrUtil::isStrTrue(const Glib::ustring& inStr)
     return retVal;
 }
 
-std::string CtStrUtil::replaceInString(std::string& subjectStr, const std::string& searchStr, const std::string& replaceStr)
-{
-    size_t pos = 0;
-    while ((pos = subjectStr.find(searchStr, pos)) != std::string::npos)
-    {
-        subjectStr.replace(pos, searchStr.length(), replaceStr);
-        pos += replaceStr.length();
-    }
-    return subjectStr;
-}
-Glib::ustring CtStrUtil::replaceInString(Glib::ustring &subjectStr, const Glib::ustring& searchStr, const Glib::ustring& replaceStr)
-{
-    size_t pos = 0;
-    while ((pos = subjectStr.find(searchStr, pos)) != std::string::npos)
-    {
-        subjectStr.replace(pos, searchStr.length(), replaceStr);
-        pos += replaceStr.length();
-    }
-    return subjectStr;
-}
-
-Glib::ustring CtStrUtil::trimString(Glib::ustring &s)
-{
-    s.erase(s.begin(), std::find_if(s.begin(), s.end(), [](int ch) { return !std::isspace(ch); }));
-    s.erase(std::find_if(s.rbegin(), s.rend(), [](int ch) { return !std::isspace(ch); }).base(), s.end());
-    return s;
-}
-
 gint64 CtStrUtil::gint64FromGstring(const gchar *inGstring, bool hexPrefix)
 {
     gint64 retVal;
@@ -262,29 +234,6 @@ guint32 CtStrUtil::getUint32FromHexChars(const char *hexChars, guint8 numChars)
     return (guint32)strtoul(hexstring, NULL, 16);
 }
 
-std::vector<std::string> CtStrUtil::gstringSplit2string(const gchar *inStr, const gchar *delimiter, gint max_tokens)
-{
-    std::vector<std::string> retVec;
-    gchar **arrayOfStrings = g_strsplit(inStr, delimiter, max_tokens);
-    for(gchar **ptr = arrayOfStrings; *ptr; ptr++)
-    {
-        retVec.push_back(*ptr);
-    }
-    g_strfreev(arrayOfStrings);
-    return retVec;
-}
-std::vector<Glib::ustring> CtStrUtil::gstringSplit2ustring(const gchar *inStr, const gchar *delimiter, gint max_tokens)
-{
-    std::vector<Glib::ustring> retVec;
-    gchar **arrayOfStrings = g_strsplit(inStr, delimiter, max_tokens);
-    for(gchar **ptr = arrayOfStrings; *ptr; ptr++)
-    {
-        retVec.push_back(*ptr);
-    }
-    g_strfreev(arrayOfStrings);
-    return retVec;
-}
-
 std::vector<gint64> CtStrUtil::gstringSplit2int64(const gchar *inStr, const gchar *delimiter, gint max_tokens)
 {
     std::vector<gint64> retVec;
@@ -296,32 +245,6 @@ std::vector<gint64> CtStrUtil::gstringSplit2int64(const gchar *inStr, const gcha
     }
     g_strfreev(arrayOfStrings);
     return retVec;
-}
-
-Glib::ustring CtStrUtil::ustringJoin4ustring(const std::vector<Glib::ustring> &inStrVec, const gchar *delimiter)
-{
-    Glib::ustring retStr;
-    bool firstIteration = true;
-    for(Glib::ustring element : inStrVec)
-    {
-        if(!firstIteration) retStr += delimiter;
-        else firstIteration = false;
-        retStr += element;
-    }
-    return retStr;
-}
-
-Glib::ustring CtStrUtil::ustringJoin4int64(const std::vector<gint64>& inInt64Vec, const gchar *delimiter)
-{
-    Glib::ustring retStr;
-    bool firstIteration{true};
-    for(gint64 element : inInt64Vec)
-    {
-        if(!firstIteration) retStr += delimiter;
-        else firstIteration = false;
-        retStr += std::to_string(element);
-    }
-    return retStr;
 }
 
 bool CtStrUtil::isPgcharInPgcharSet(const gchar* pGcharNeedle, const std::set<const gchar*>& setPgcharHaystack)
@@ -341,13 +264,15 @@ bool CtStrUtil::isPgcharInPgcharSet(const gchar* pGcharNeedle, const std::set<co
 
 std::string CtFontUtil::getFontFamily(const std::string& fontStr)
 {
-    std::vector<std::string> splFont = CtStrUtil::gstringSplit2string(fontStr.c_str(), " ");
+    std::vector<std::string> splFont;
+    CtStrUtil::gstringSplit2string(fontStr.c_str(), splFont);
     return splFont.size() > 0 ? splFont.at(0) : "";
 }
 
 std::string CtFontUtil::getFontSizeStr(const std::string& fontStr)
 {
-    std::vector<std::string> splFont = CtStrUtil::gstringSplit2string(fontStr.c_str(), " ");
+    std::vector<std::string> splFont;
+    CtStrUtil::gstringSplit2string(fontStr.c_str(), splFont);
     return splFont.size() > 1 ? splFont.at(1) : "";
 }
 

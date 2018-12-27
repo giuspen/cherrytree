@@ -26,14 +26,12 @@
 #include "ct_treestore.h"
 #include "ct_misc_utils.h"
 
-
 class CtTreeView : public Gtk::TreeView
 {
 public:
     CtTreeView();
     virtual ~CtTreeView();
 };
-
 
 class CtTextView : public Gsv::View
 {
@@ -42,7 +40,6 @@ public:
     virtual ~CtTextView();
     void setFontForSyntax(const std::string& syntaxHighlighting);
 };
-
 
 class CtDialogTextEntry : public Gtk::Dialog
 {
@@ -56,7 +53,6 @@ protected:
     void _onEntryIconPress(Gtk::EntryIconPosition iconPosition, const GdkEventButton* event);
     Gtk::Entry _entry;
 };
-
 
 class CtMainWin : public Gtk::ApplicationWindow
 {

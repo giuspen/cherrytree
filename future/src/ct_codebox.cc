@@ -22,16 +22,14 @@
 #include "ct_codebox.h"
 #include "ct_app.h"
 
-CtCodebox::CtCodebox(const Glib::ustring& textContent, const Glib::ustring& syntaxHighlighting, const int& frameWidth, const int& frameHeight)
- : _textContent(textContent),
-   _syntaxHighlighting(syntaxHighlighting),
-   _frameWidth(frameWidth),
-   _frameHeight(frameHeight)
+CtTextCell::CtTextCell(const Glib::ustring& textContent,
+                       const Glib::ustring& syntaxHighlighting)
+ : _syntaxHighlighting(syntaxHighlighting)
 {
     _rTextBuffer = Gsv::Buffer::create(CtApp::R_textTagTable);
     _rTextBuffer->set_max_undo_levels(CtApp::P_ctCfg->limitUndoableSteps);
     _rTextBuffer->set_style_scheme(CtApp::R_styleSchemeManager->get_scheme(CtApp::P_ctCfg->styleSchemeId));
-    if (0 == _syntaxHighlighting.compare(CtConst::PLAIN_TEXT_ID))
+    if (CtConst::PLAIN_TEXT_ID == _syntaxHighlighting)
     {
         _rTextBuffer->set_highlight_syntax(false);
     }
@@ -53,18 +51,55 @@ CtCodebox::CtCodebox(const Glib::ustring& textContent, const Glib::ustring& synt
         _ctTextview.set_draw_spaces(Gsv::DRAW_SPACES_ALL & ~Gsv::DRAW_SPACES_NEWLINE);
     }
     _ctTextview.setFontForSyntax(_syntaxHighlighting);
+    _ctTextview.set_buffer(_rTextBuffer);
+}
+
+CtTextCell::~CtTextCell()
+{
+}
+
+
+CtCodebox::CtCodebox(const Glib::ustring& textContent,
+                     const Glib::ustring& syntaxHighlighting,
+                     const int& frameWidth,
+                     const int& frameHeight,
+                     const int& charOffset,
+                     const std::string& justification)
+ : _frameWidth(frameWidth),
+   _frameHeight(frameHeight),
+   CtAnchoredWidget(charOffset, justification),
+   CtTextCell(textContent, syntaxHighlighting)
+{
+    _scrolledwindow.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
+    _scrolledwindow.add(_ctTextview);
+    _frame.add(_scrolledwindow);
+    show_all();
+}
+
+CtCodebox::~CtCodebox()
+{
+}
+
+void CtCodebox::applyWidthHeight(int parentTextWidth)
+{
+    int frameWidth = _widthInPixels ? _frameWidth : parentTextWidth*_frameWidth/100;
+    _scrolledwindow.set_size_request(frameWidth, _frameHeight);
+}
+
+void CtCodebox::setShowLineNumbers(const bool& showLineNumbers)
+{
+    _ctTextview.set_show_line_numbers(showLineNumbers);
 }
 
 void CtCodebox::setHighlightBrackets(const bool& highlightBrackets)
 { 
-    _highlightBrackets = highlightBrackets;
-    _rTextBuffer->set_highlight_matching_brackets(_highlightBrackets);
+    _rTextBuffer->set_highlight_matching_brackets(highlightBrackets);
 }
 
-void CtCodebox::insertInTextBuffer(Glib::RefPtr<Gsv::Buffer> rTextBuffer, const int& charOffset, const Glib::ustring& justification)
+void CtCodebox::applyCursorPos(const int& cursorPos)
 {
-    Gtk::TextIter textIter = rTextBuffer->get_iter_at_offset(charOffset);
-    Glib::RefPtr<Gtk::TextChildAnchor> rTextChildAnchor = rTextBuffer->create_child_anchor(textIter);
-
-    _rTextBuffer->place_cursor(_rTextBuffer->get_iter_at_offset(charOffset));
+    if (cursorPos > 0)
+    {
+        _rTextBuffer->place_cursor(_rTextBuffer->get_iter_at_offset(cursorPos));
+    }
 }

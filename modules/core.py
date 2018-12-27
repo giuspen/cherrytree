@@ -49,7 +49,7 @@ import lists
 import findreplace
 import codeboxes
 import ctdb
-import screenshot
+#import screenshot
 
 if cons.HAS_APPINDICATOR: import appindicator
 
@@ -4062,26 +4062,26 @@ iter_end, exclude_iter_sel_end=True)
         except:
             support.dialog_error(_("Image Format Not Recognized"), self.window)
 
-    def screenshot_handle(self, *args):
-        """Insert/Edit Screenshot"""
-        if not self.node_sel_and_rich_text(): return
-        if not self.is_curr_node_not_read_only_or_error(): return
-        iter_insert = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
+    # def screenshot_handle(self, *args):
+        # """Insert/Edit Screenshot"""
+        # if not self.node_sel_and_rich_text(): return
+        # if not self.is_curr_node_not_read_only_or_error(): return
+        # iter_insert = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
 
-        ret_dict = {"x": None, "o": False}
-        dialog = screenshot.ScreenshotWindow(ret_dict)
-        while ret_dict["o"] is False:
-            while gtk.events_pending(): gtk.main_iteration()
-            time.sleep(.01)
-        dialog.destroy()
-        if ret_dict["x"] is None: return
-        while gtk.events_pending(): gtk.main_iteration()
-        pixbuf = gtk.gdk.Pixbuf.get_from_drawable(
-                    gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, True, 8, ret_dict["w"], ret_dict["h"]),
-                    gtk.gdk.get_default_root_window(),
-                    gtk.gdk.colormap_get_system(),
-                    ret_dict["x"], ret_dict["y"], 0, 0, ret_dict["w"], ret_dict["h"])
-        self.image_edit_dialog(pixbuf, self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert()))
+        # ret_dict = {"x": None, "o": False}
+        # dialog = screenshot.ScreenshotWindow(ret_dict)
+        # while ret_dict["o"] is False:
+            # while gtk.events_pending(): gtk.main_iteration()
+            # time.sleep(.01)
+        # dialog.destroy()
+        # if ret_dict["x"] is None: return
+        # while gtk.events_pending(): gtk.main_iteration()
+        # pixbuf = gtk.gdk.Pixbuf.get_from_drawable(
+                    # gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, True, 8, ret_dict["w"], ret_dict["h"]),
+                    # gtk.gdk.get_default_root_window(),
+                    # gtk.gdk.colormap_get_system(),
+                    # ret_dict["x"], ret_dict["y"], 0, 0, ret_dict["w"], ret_dict["h"])
+        # self.image_edit_dialog(pixbuf, self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert()))
 
     def image_edit_dialog(self, pixbuf, insert_iter, iter_bound=None):
         """Insert/Edit Image Dialog"""

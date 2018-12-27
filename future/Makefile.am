@@ -46,6 +46,8 @@ COMMON_SOURCES = \
 	src/ct_main_win.cc \
 	src/ct_treestore.cc \
 	src/ct_codebox.cc \
+	src/ct_image.cc \
+	src/ct_table.cc \
 	src/ct_sqlite3_rw.cc \
 	src/ct_xml_rw.cc \
 	src/ct_config.cc \

@@ -26,26 +26,39 @@
 #include "ct_const.h"
 #include "ct_main_win.h"
 
-class CtCodebox : public Gtk::EventBox
+class CtTextCell
 {
 public:
-    CtCodebox(const Glib::ustring& textContent, const Glib::ustring& syntaxHighlighting, const int& frameWidth, const int& frameHeight);
-    virtual ~CtCodebox() {}
-
-    void insertInTextBuffer(Glib::RefPtr<Gsv::Buffer> rTextBuffer, const int& charOffset, const Glib::ustring& justification);
-
-    void setWidthInPixels(const bool& widthInPixels) { _widthInPixels = widthInPixels; }
-    void setHighlightBrackets(const bool& highlightBrackets);
-    void setShowLineNumbers(const bool& showLineNumbers) { _showLineNumbers = showLineNumbers; }
+    CtTextCell(const Glib::ustring& textContent,
+               const Glib::ustring& syntaxHighlighting);
+    virtual ~CtTextCell();
 
 protected:
-    Glib::ustring _textContent;
     Glib::ustring _syntaxHighlighting;
+    Glib::RefPtr<Gsv::Buffer> _rTextBuffer{nullptr};
+    CtTextView _ctTextview;
+};
+
+class CtCodebox : public CtAnchoredWidget, public CtTextCell
+{
+public:
+    CtCodebox(const Glib::ustring& textContent,
+              const Glib::ustring& syntaxHighlighting,
+              const int& frameWidth,
+              const int& frameHeight,
+              const int& charOffset,
+              const std::string& justification);
+    virtual ~CtCodebox();
+
+    virtual void applyWidthHeight(int parentTextWidth);
+    void setWidthInPixels(const bool& widthInPixels) { _widthInPixels = widthInPixels; }
+    void setHighlightBrackets(const bool& highlightBrackets);
+    void setShowLineNumbers(const bool& showLineNumbers);
+    void applyCursorPos(const int& cursorPos);
+
+protected:
     int _frameWidth;
     int _frameHeight;
     bool _widthInPixels{true};
-    bool _highlightBrackets{true};
-    bool _showLineNumbers{false};
-    Glib::RefPtr<Gsv::Buffer> _rTextBuffer{nullptr};
-    CtTextView _ctTextview;
+    Gtk::ScrolledWindow _scrolledwindow;
 };

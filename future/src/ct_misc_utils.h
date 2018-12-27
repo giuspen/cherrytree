@@ -41,23 +41,61 @@ namespace CtStrUtil {
 
 bool isStrTrue(const Glib::ustring& inStr);
 
-std::string replaceInString(std::string& subjectStr, const std::string& searchStr, const std::string& replaceStr);
-Glib::ustring replaceInString(Glib::ustring& subjectStr, const Glib::ustring& searchStr, const Glib::ustring& replaceStr);
+template<class String> String replaceInString(String& subjectStr, const gchar* searchStr, const gchar* replaceStr)
+{
+    size_t pos = 0;
+    while ((pos = subjectStr.find(searchStr, pos)) != std::string::npos)
+    {
+        subjectStr.replace(pos, strlen(searchStr), replaceStr);
+        pos += strlen(replaceStr);
+    }
+    return subjectStr;
+}
 
-Glib::ustring trimString(Glib::ustring& s);
+template<class String> String trimString(String& s)
+{
+    s.erase(s.begin(), std::find_if(s.begin(), s.end(), [](int ch) { return !std::isspace(ch); }));
+    s.erase(std::find_if(s.rbegin(), s.rend(), [](int ch) { return !std::isspace(ch); }).base(), s.end());
+    return s;
+}
 
 gint64 gint64FromGstring(const gchar* inGstring, bool hexPrefix=false);
 
 guint32 getUint32FromHexChars(const char* hexChars, guint8 numChars);
 
-std::vector<std::string> gstringSplit2string(const gchar* inStr, const gchar* delimiter, gint max_tokens=-1);
-std::vector<Glib::ustring> gstringSplit2ustring(const gchar* inStr, const gchar* delimiter, gint max_tokens=-1);
+template<class VecOfStrings> void gstringSplit2string(const gchar *inStr, VecOfStrings& vecOfStrings, const gchar *delimiter=" ", gint max_tokens=-1)
+{
+    gchar **arrayOfStrings = g_strsplit(inStr, delimiter, max_tokens);
+    for(gchar **ptr = arrayOfStrings; *ptr; ptr++)
+    {
+        vecOfStrings.push_back(*ptr);
+    }
+    g_strfreev(arrayOfStrings);
+}
 
 std::vector<gint64> gstringSplit2int64(const gchar* inStr, const gchar* delimiter, gint max_tokens=-1);
 
-Glib::ustring ustringJoin4ustring(const std::vector<Glib::ustring>& inStrVec, const gchar* delimiter);
+template<class String> void stringJoin4string(const std::vector<String>& inStrVec, String& outString, const gchar* delimiter=" ")
+{
+    bool firstIteration{true};
+    for (const String& element : inStrVec)
+    {
+        if(!firstIteration) outString += delimiter;
+        else firstIteration = false;
+        outString += element;
+    }
+}
 
-Glib::ustring ustringJoin4int64(const std::vector<gint64>& inInt64Vec, const gchar* delimiter);
+template<class String> void stringJoin4int64(const std::vector<gint64>& inInt64Vec, String& outString, const gchar* delimiter=" ")
+{
+    bool firstIteration{true};
+    for(const gint64& element : inInt64Vec)
+    {
+        if(!firstIteration) outString += delimiter;
+        else firstIteration = false;
+        outString += std::to_string(element);
+    }
+}
 
 bool isPgcharInPgcharSet(const gchar* pGcharNeedle, const std::set<const gchar*>& setPgcharHaystack);
 

@@ -34,10 +34,27 @@ CtTreeView::~CtTreeView()
 
 CtTextView::CtTextView()
 {
-    set_sensitive(false);
+    //set_sensitive(false);
     set_smart_home_end(Gsv::SMART_HOME_END_AFTER);
     set_left_margin(7);
     set_right_margin(7);
+    set_insert_spaces_instead_of_tabs(CtApp::P_ctCfg->spacesInsteadTabs);
+    set_tab_width(CtApp::P_ctCfg->tabsWidth);
+    if (CtApp::P_ctCfg->lineWrapping)
+    {
+        set_wrap_mode(Gtk::WrapMode::WRAP_WORD_CHAR);
+    }
+    else
+    {
+        set_wrap_mode(Gtk::WrapMode::WRAP_NONE);
+    }
+    for (const Gtk::TextWindowType& textWinType : std::list<Gtk::TextWindowType>{Gtk::TEXT_WINDOW_LEFT,
+                                                                                 Gtk::TEXT_WINDOW_RIGHT,
+                                                                                 Gtk::TEXT_WINDOW_TOP,
+                                                                                 Gtk::TEXT_WINDOW_BOTTOM})
+    {
+        set_border_window_size(textWinType, 1);
+    }
 }
 
 CtTextView::~CtTextView()
@@ -83,6 +100,7 @@ CtMainWin::CtMainWin() : Gtk::ApplicationWindow()
 
 CtMainWin::~CtMainWin()
 {
+    //printf("~CtMainWin\n");
 }
 
 void CtMainWin::configApply()
@@ -140,9 +158,7 @@ bool CtMainWin::readNodesFromGioFile(const Glib::RefPtr<Gio::File>& r_file)
 void CtMainWin::_onTheTreeviewSignalCursorChanged()
 {
     Gtk::TreeIter treeIter = _ctTreeview.get_selection()->get_selected();
-    std::cout << _ctTreestore.getNodeName(treeIter) << std::endl;
-    _ctTextview.set_buffer(_ctTreestore.getNodeTextBuffer(treeIter));
-    _ctTextview.setFontForSyntax(_ctTreestore.getNodeSyntaxHighlighting(treeIter));
+    _ctTreestore.applyTextBufferToCtTextView(treeIter, &_ctTextview);
 }
 
 void CtMainWin::_titleUpdate(bool saveNeeded)
