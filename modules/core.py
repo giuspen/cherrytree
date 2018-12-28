@@ -4874,6 +4874,12 @@ iter_end, exclude_iter_sel_end=True)
                 if anchor and hasattr(anchor, "sourcebuffer"):
                     anchor.sourceview.grab_focus()
                     return True
+                list_info = self.lists_handler.get_paragraph_list_info(iter_insert)
+                if list_info and list_info["num"] == 0:
+                    if self.is_curr_node_not_read_only_or_error():
+                        iter_start_list = self.curr_buffer.get_iter_at_offset(list_info["startoffs"])
+                        self.lists_handler.todo_list_rotate_status(iter_start_list, self.curr_buffer)
+                        return True
             elif keyname == cons.STR_KEY_RETURN:
                 iter_insert = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
                 if iter_insert: self.cursor_key_press = iter_insert.get_offset()
