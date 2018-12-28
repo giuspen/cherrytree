@@ -221,7 +221,11 @@ Glib::RefPtr<Gsv::Buffer> CtTreeStore::_getNodeTextBuffer(const Gtk::TreeIter& t
         {
             // SQLite text buffer not yet populated
             assert(nullptr != _pCtSQLiteRead);
-            
+            std::list<CtAnchoredWidget*> anchoredWidgetList = treeRow.get_value(_columns.colAnchoredWidgets);
+            rRetTextBuffer = _pCtSQLiteRead->getTextBuffer(treeRow.get_value(_columns.colSyntaxHighlighting),
+                                                           anchoredWidgetList,
+                                                           treeRow.get_value(_columns.colNodeUniqueId));
+            treeRow.set_value(_columns.colAnchoredWidgets, anchoredWidgetList);
         }
     }
     return rRetTextBuffer;
@@ -237,7 +241,7 @@ void CtTreeStore::applyTextBufferToCtTextView(const Gtk::TreeIter& treeIter, CtT
     Gtk::TreeRow treeRow = *treeIter;
     std::cout << treeRow.get_value(_columns.colNodeName) << std::endl;
     Glib::RefPtr<Gsv::Buffer> rTextBuffer = _getNodeTextBuffer(treeIter);
-    pCtTextView->setFontForSyntax(treeRow.get_value(_columns.colSyntaxHighlighting));
+    pCtTextView->setupForSyntax(treeRow.get_value(_columns.colSyntaxHighlighting));
     pCtTextView->set_buffer(rTextBuffer);
     for (CtAnchoredWidget* pCtAnchoredWidget : treeRow.get_value(_columns.colAnchoredWidgets))
     {

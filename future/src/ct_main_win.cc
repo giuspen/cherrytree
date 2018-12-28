@@ -61,7 +61,28 @@ CtTextView::~CtTextView()
 {
 }
 
-void CtTextView::setFontForSyntax(const std::string& syntaxHighlighting)
+void CtTextView::setupForSyntax(const std::string& syntax)
+{
+    if (CtConst::RICH_TEXT_ID == syntax)
+    {
+        set_highlight_current_line(CtApp::P_ctCfg->rtHighlCurrLine);
+        if (CtApp::P_ctCfg->rtShowWhiteSpaces)
+        {
+            set_draw_spaces(Gsv::DRAW_SPACES_ALL & ~Gsv::DRAW_SPACES_NEWLINE);
+        }
+    }
+    else
+    {
+        set_highlight_current_line(CtApp::P_ctCfg->ptHighlCurrLine);
+        if (CtApp::P_ctCfg->ptShowWhiteSpaces)
+        {
+            set_draw_spaces(Gsv::DRAW_SPACES_ALL & ~Gsv::DRAW_SPACES_NEWLINE);
+        }
+    }
+    _setFontForSyntax(syntax);
+}
+
+void CtTextView::_setFontForSyntax(const std::string& syntaxHighlighting)
 {
     Glib::RefPtr<Gtk::StyleContext> rStyleContext = get_style_context();
     std::string fontCss = CtFontUtil::getFontCssForSyntaxHighlighting(syntaxHighlighting);

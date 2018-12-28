@@ -62,6 +62,9 @@ public:
     CtSQLiteRead(const char* filepath);
     virtual ~CtSQLiteRead();
     void treeWalk(const Gtk::TreeIter* pParentIter=nullptr);
+    Glib::RefPtr<Gsv::Buffer> getTextBuffer(const std::string& syntax,
+                                            std::list<CtAnchoredWidget*>& anchoredWidgets,
+                                            const gint64& nodeId);
 private:
     sqlite3* _pDb;
     std::list<gint64> _sqlite3GetChildrenNodeIdFromFatherId(gint64 father_id);

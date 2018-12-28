@@ -38,7 +38,9 @@ class CtTextView : public Gsv::View
 public:
     CtTextView();
     virtual ~CtTextView();
-    void setFontForSyntax(const std::string& syntaxHighlighting);
+    void setupForSyntax(const std::string& syntaxHighlighting);
+protected:
+    void _setFontForSyntax(const std::string& syntaxHighlighting);
 };
 
 class CtDialogTextEntry : public Gtk::Dialog

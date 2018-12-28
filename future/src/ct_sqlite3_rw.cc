@@ -22,6 +22,7 @@
 #include <iostream>
 #include "ct_doc_rw.h"
 #include "ct_misc_utils.h"
+#include "ct_const.h"
 
 CtSQLiteRead::CtSQLiteRead(const char* filepath)
 {
@@ -58,6 +59,41 @@ void CtSQLiteRead::treeWalk(const Gtk::TreeIter* pParentIter)
     {
         _sqlite3TreeWalkIter(top_node_id, pParentIter);
     }
+}
+
+Glib::RefPtr<Gsv::Buffer> CtSQLiteRead::getTextBuffer(const std::string& syntax,
+                                                      std::list<CtAnchoredWidget*>& anchoredWidgets,
+                                                      const gint64& nodeId)
+{
+    Glib::RefPtr<Gsv::Buffer> rRetTextBuffer{nullptr};
+
+    sqlite3_stmt *p_stmt;
+    if (sqlite3_prepare_v2(_pDb, "SELECT txt, has_codebox, has_table, has_image FROM node WHERE node_id=?", -1, &p_stmt, 0) != SQLITE_OK)
+    {
+        std::cerr << "!! sqlite3_prepare_v2: " << sqlite3_errmsg(_pDb) << std::endl;
+        exit(EXIT_FAILURE);
+    }
+    sqlite3_bind_int(p_stmt, 1, nodeId);
+    if (sqlite3_step(p_stmt) == SQLITE_ROW)
+    {
+        const Glib::ustring textContent = reinterpret_cast<const char*>(sqlite3_column_text(p_stmt, 0));
+        if (CtConst::RICH_TEXT_ID != syntax)
+        {
+            rRetTextBuffer = CtMiscUtil::getNewTextBuffer(syntax, textContent);
+        }
+        else
+        {
+            rRetTextBuffer = CtMiscUtil::getNewTextBuffer(syntax);
+            //gint64 readonly_n_custom_icon_id = sqlite3_column_int64(p_stmt, 3);
+        }
+    }
+    else
+    {
+        std::cerr << "!! missing node properties for id " << nodeId << std::endl;
+    }
+    sqlite3_finalize(p_stmt);
+
+    return rRetTextBuffer;
 }
 
 void CtSQLiteRead::_sqlite3TreeWalkIter(gint64 nodeId, const Gtk::TreeIter* pParentIter)

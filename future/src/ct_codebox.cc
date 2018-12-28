@@ -26,31 +26,8 @@ CtTextCell::CtTextCell(const Glib::ustring& textContent,
                        const Glib::ustring& syntaxHighlighting)
  : _syntaxHighlighting(syntaxHighlighting)
 {
-    _rTextBuffer = Gsv::Buffer::create(CtApp::R_textTagTable);
-    _rTextBuffer->set_max_undo_levels(CtApp::P_ctCfg->limitUndoableSteps);
-    _rTextBuffer->set_style_scheme(CtApp::R_styleSchemeManager->get_scheme(CtApp::P_ctCfg->styleSchemeId));
-    if (CtConst::PLAIN_TEXT_ID == _syntaxHighlighting)
-    {
-        _rTextBuffer->set_highlight_syntax(false);
-    }
-    else
-    {
-        _rTextBuffer->set_language(CtApp::R_languageManager->get_language(_syntaxHighlighting));
-        _rTextBuffer->set_highlight_syntax(true);
-    }
-    if (!textContent.empty())
-    {
-        _rTextBuffer->begin_not_undoable_action();
-        _rTextBuffer->set_text(textContent);
-        _rTextBuffer->end_not_undoable_action();
-        _rTextBuffer->set_modified(false);
-    }
-    _ctTextview.set_highlight_current_line(CtApp::P_ctCfg->ptHighlCurrLine);
-    if (CtApp::P_ctCfg->ptShowWhiteSpaces)
-    {
-        _ctTextview.set_draw_spaces(Gsv::DRAW_SPACES_ALL & ~Gsv::DRAW_SPACES_NEWLINE);
-    }
-    _ctTextview.setFontForSyntax(_syntaxHighlighting);
+    _rTextBuffer = CtMiscUtil::getNewTextBuffer(syntaxHighlighting, textContent);
+    _ctTextview.setupForSyntax(_syntaxHighlighting);
     _ctTextview.set_buffer(_rTextBuffer);
 }
 

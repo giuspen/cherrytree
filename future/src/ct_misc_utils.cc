@@ -58,6 +58,35 @@ CtDocEncrypt CtMiscUtil::getDocEncrypt(std::string fileName)
     return retDocEncrypt;
 }
 
+Glib::RefPtr<Gsv::Buffer> CtMiscUtil::getNewTextBuffer(const std::string& syntax, const Glib::ustring& textContent)
+{
+    Glib::RefPtr<Gsv::Buffer> rRetTextBuffer{nullptr};
+    rRetTextBuffer = Gsv::Buffer::create(CtApp::R_textTagTable);
+    rRetTextBuffer->set_max_undo_levels(CtApp::P_ctCfg->limitUndoableSteps);
+    if (CtConst::RICH_TEXT_ID != syntax)
+    {
+        rRetTextBuffer->set_style_scheme(CtApp::R_styleSchemeManager->get_scheme(CtApp::P_ctCfg->styleSchemeId));
+        if (CtConst::PLAIN_TEXT_ID == syntax)
+        {
+            rRetTextBuffer->set_highlight_syntax(false);
+        }
+        else
+        {
+            rRetTextBuffer->set_language(CtApp::R_languageManager->get_language(syntax));
+            rRetTextBuffer->set_highlight_syntax(true);
+        }
+        rRetTextBuffer->set_highlight_matching_brackets(true);
+    }
+    if (!textContent.empty())
+    {
+        rRetTextBuffer->begin_not_undoable_action();
+        rRetTextBuffer->set_text(textContent);
+        rRetTextBuffer->end_not_undoable_action();
+        rRetTextBuffer->set_modified(false);
+    }
+    return rRetTextBuffer;
+}
+
 const Glib::ustring CtMiscUtil::getTextTagNameExistOrCreate(Glib::ustring propertyName, Glib::ustring propertyValue)
 {
     const Glib::ustring tagName{propertyName + "_" + propertyValue};

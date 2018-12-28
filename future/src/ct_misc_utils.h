@@ -21,7 +21,7 @@
 
 #pragma once
 
-#include <glibmm.h>
+#include <gtksourceviewmm.h>
 #include <set>
 
 enum class CtDocType : int {None=0, XML=1, SQLite=2};
@@ -32,6 +32,8 @@ namespace CtMiscUtil {
 CtDocType getDocType(std::string fileName);
 
 CtDocEncrypt getDocEncrypt(std::string fileName);
+
+Glib::RefPtr<Gsv::Buffer> getNewTextBuffer(const std::string& syntax, const Glib::ustring& textContent="");
 
 const Glib::ustring getTextTagNameExistOrCreate(Glib::ustring propertyName, Glib::ustring propertyValue);
 

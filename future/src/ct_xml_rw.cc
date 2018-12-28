@@ -251,32 +251,16 @@ Glib::RefPtr<Gsv::Buffer> CtXmlRead::getTextBuffer(const std::string& syntax,
                                                    std::list<CtAnchoredWidget*>& anchoredWidgets,
                                                    xmlpp::Element* pNodeElement)
 {
-    Glib::RefPtr<Gsv::Buffer> rRetTextBuffer{nullptr};
-    rRetTextBuffer = Gsv::Buffer::create(CtApp::R_textTagTable);
-    rRetTextBuffer->set_max_undo_levels(CtApp::P_ctCfg->limitUndoableSteps);
-    rRetTextBuffer->begin_not_undoable_action();
-    if (CtConst::RICH_TEXT_ID != syntax)
-    {
-        rRetTextBuffer->set_style_scheme(CtApp::R_styleSchemeManager->get_scheme(CtApp::P_ctCfg->styleSchemeId));
-        if (CtConst::PLAIN_TEXT_ID == syntax)
-        {
-            rRetTextBuffer->set_highlight_syntax(false);
-        }
-        else
-        {
-            rRetTextBuffer->set_language(CtApp::R_languageManager->get_language(syntax));
-            rRetTextBuffer->set_highlight_syntax(true);
-        }
-        rRetTextBuffer->set_highlight_matching_brackets(true);
-    }
+    Glib::RefPtr<Gsv::Buffer> rRetTextBuffer = CtMiscUtil::getNewTextBuffer(syntax);
     if (nullptr != pNodeElement)
     {
+        rRetTextBuffer->begin_not_undoable_action();
         for (xmlpp::Node* pNode : pNodeElement->get_children())
         {
             _getTextBufferIter(rRetTextBuffer, anchoredWidgets, pNode);
         }
+        rRetTextBuffer->end_not_undoable_action();
+        rRetTextBuffer->set_modified(false);
     }
-    rRetTextBuffer->end_not_undoable_action();
-    rRetTextBuffer->set_modified(false);
     return rRetTextBuffer;
 }
