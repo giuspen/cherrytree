@@ -29,9 +29,16 @@
 #include "ct_image.h"
 #include "ct_table.h"
 
-CtXmlRead::CtXmlRead(const char* filepath)
+CtXmlRead::CtXmlRead(const char* filepath, const char* textContent)
 {
-    parse_file(filepath);
+    if (nullptr != filepath)
+    {
+        parse_file(filepath);
+    }
+    else if (nullptr != textContent)
+    {
+        parse_memory(textContent);
+    }
 }
 
 CtXmlRead::~CtXmlRead()
@@ -252,15 +259,18 @@ Glib::RefPtr<Gsv::Buffer> CtXmlRead::getTextBuffer(const std::string& syntax,
                                                    xmlpp::Element* pNodeElement)
 {
     Glib::RefPtr<Gsv::Buffer> rRetTextBuffer = CtMiscUtil::getNewTextBuffer(syntax);
-    if (nullptr != pNodeElement)
+    if (nullptr == pNodeElement)
     {
-        rRetTextBuffer->begin_not_undoable_action();
-        for (xmlpp::Node* pNode : pNodeElement->get_children())
-        {
-            _getTextBufferIter(rRetTextBuffer, anchoredWidgets, pNode);
-        }
-        rRetTextBuffer->end_not_undoable_action();
-        rRetTextBuffer->set_modified(false);
+        xmlpp::Document *pDocument = get_document();
+        assert(nullptr != pDocument);
+        pNodeElement = pDocument->get_root_node();
     }
+    rRetTextBuffer->begin_not_undoable_action();
+    for (xmlpp::Node* pNode : pNodeElement->get_children())
+    {
+        _getTextBufferIter(rRetTextBuffer, anchoredWidgets, pNode);
+    }
+    rRetTextBuffer->end_not_undoable_action();
+    rRetTextBuffer->set_modified(false);
     return rRetTextBuffer;
 }

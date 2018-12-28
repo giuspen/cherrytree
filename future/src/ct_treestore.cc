@@ -97,7 +97,7 @@ bool CtTreeStore::readNodesFromFilepath(const char* filepath, const bool isImpor
     CtDocRead* pCtDocRead{nullptr};
     if (CtDocType::XML == docType)
     {
-        pCtDocRead = new CtXmlRead(filepath);
+        pCtDocRead = new CtXmlRead(filepath, nullptr);
     }
     else if (CtDocType::SQLite == docType)
     {

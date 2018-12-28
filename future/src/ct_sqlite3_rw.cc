@@ -76,15 +76,18 @@ Glib::RefPtr<Gsv::Buffer> CtSQLiteRead::getTextBuffer(const std::string& syntax,
     sqlite3_bind_int(p_stmt, 1, nodeId);
     if (sqlite3_step(p_stmt) == SQLITE_ROW)
     {
-        const Glib::ustring textContent = reinterpret_cast<const char*>(sqlite3_column_text(p_stmt, 0));
+        const char* textContent = reinterpret_cast<const char*>(sqlite3_column_text(p_stmt, 0));
         if (CtConst::RICH_TEXT_ID != syntax)
         {
             rRetTextBuffer = CtMiscUtil::getNewTextBuffer(syntax, textContent);
         }
         else
         {
-            rRetTextBuffer = CtMiscUtil::getNewTextBuffer(syntax);
-            //gint64 readonly_n_custom_icon_id = sqlite3_column_int64(p_stmt, 3);
+            const bool has_codebox = sqlite3_column_int64(p_stmt, 1);
+            const bool has_table = sqlite3_column_int64(p_stmt, 2);
+            const bool has_image = sqlite3_column_int64(p_stmt, 3);
+            CtXmlRead ctXmlRead(nullptr, textContent);
+            rRetTextBuffer = ctXmlRead.getTextBuffer(syntax, anchoredWidgets);
         }
     }
     else

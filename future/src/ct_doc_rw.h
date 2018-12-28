@@ -41,7 +41,7 @@ enum class CtXmlNodeType { None, RichText, EncodedPng, Table, CodeBox };
 class CtXmlRead : public CtDocRead, public xmlpp::DomParser
 {
 public:
-    CtXmlRead(const char* filepath);
+    CtXmlRead(const char* filepath, const char* textContent);
     virtual ~CtXmlRead();
     void treeWalk(const Gtk::TreeIter* pParentIter=nullptr);
     Glib::RefPtr<Gsv::Buffer> getTextBuffer(const std::string& syntax,
