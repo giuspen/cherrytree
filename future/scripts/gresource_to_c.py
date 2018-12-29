@@ -12,7 +12,7 @@ import cgi
 SCRIPTS_DIR = os.path.dirname(os.path.realpath(__file__))
 ROOT_DIR = os.path.dirname(SCRIPTS_DIR)
 ICONS_DIR = os.path.join(ROOT_DIR, "icons")
-SRC_DIR = os.path.join(ROOT_DIR, "src")
+SRC_DIR = os.path.join(ROOT_DIR, "src", "ct")
 GRESOURCE_XML_FILEPATH = os.path.join(ROOT_DIR, "icons.gresource.xml")
 GRESOURCE_SOURCE_FILEPATH_NOEXT = os.path.join(SRC_DIR, "icons.gresource")
 

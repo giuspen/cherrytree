@@ -13,7 +13,7 @@
 
 
 
-sudo apt install libtool autoconf libgtkmm-3.0-dev libgtksourceviewmm-3.0-dev libxml++2.6-dev libsqlite3-dev libcpputest-dev
+sudo apt install build-essential libtool autoconf libgtkmm-3.0-dev libgtksourceviewmm-3.0-dev libxml++2.6-dev libsqlite3-dev libcpputest-dev
 
 
 ./autogen.sh
