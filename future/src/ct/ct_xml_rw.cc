@@ -211,22 +211,7 @@ void CtXmlRead::_getTextBufferIter(Glib::RefPtr<Gsv::Buffer>& rTextBuffer,
             const int colMin = std::stoi(pNodeElement->get_attribute_value("col_min"));
             const int colMax = std::stoi(pNodeElement->get_attribute_value("col_max"));
             CtTableMatrix tableMatrix;
-            for (xmlpp::Node* pNodeRow : pNodeElement->get_children())
-            {
-                if ("row" == pNodeRow->get_name())
-                {
-                    tableMatrix.push_back(CtTableRow{});
-                    for (xmlpp::Node* pNodeCell : pNodeRow->get_children())
-                    {
-                        if ("cell" == pNodeCell->get_name())
-                        {
-                            xmlpp::TextNode* pTextNode = static_cast<xmlpp::Element*>(pNodeCell)->get_child_text();
-                            const Glib::ustring textContent = pTextNode ? pTextNode->get_content() : "";
-                            tableMatrix.back().push_back(new CtTableCell(textContent, CtConst::PLAIN_TEXT_ID));
-                        }
-                    }
-                }
-            }
+            populateTableMatrix(tableMatrix, pNodeElement);
             pAnchoredWidget = new CtTable(tableMatrix, colMin, colMax, charOffset, justification);
         }
         else if (CtXmlNodeType::CodeBox == xmlNodeType)
@@ -240,7 +225,12 @@ void CtXmlRead::_getTextBufferIter(Glib::RefPtr<Gsv::Buffer>& rTextBuffer,
             const bool highlightBrackets = CtStrUtil::isStrTrue(pNodeElement->get_attribute_value("highlight_brackets"));
             const bool showLineNumbers = CtStrUtil::isStrTrue(pNodeElement->get_attribute_value("show_line_numbers"));
 
-            CtCodebox* pCtCodebox = new CtCodebox(textContent, syntaxHighlighting, frameWidth, frameHeight, charOffset, justification);
+            CtCodebox* pCtCodebox = new CtCodebox(textContent,
+                                                  syntaxHighlighting,
+                                                  frameWidth,
+                                                  frameHeight,
+                                                  charOffset,
+                                                  justification);
             pCtCodebox->setWidthInPixels(widthInPixels);
             pCtCodebox->setHighlightBrackets(highlightBrackets);
             pCtCodebox->setShowLineNumbers(showLineNumbers);
@@ -250,6 +240,32 @@ void CtXmlRead::_getTextBufferIter(Glib::RefPtr<Gsv::Buffer>& rTextBuffer,
         {
             pAnchoredWidget->insertInTextBuffer(rTextBuffer);
             anchoredWidgets.push_back(pAnchoredWidget);
+        }
+    }
+}
+
+void CtXmlRead::populateTableMatrix(CtTableMatrix& tableMatrix, xmlpp::Element* pNodeElement)
+{
+    if (nullptr == pNodeElement)
+    {
+        xmlpp::Document *pDocument = get_document();
+        assert(nullptr != pDocument);
+        pNodeElement = pDocument->get_root_node();
+    }
+    for (xmlpp::Node* pNodeRow : pNodeElement->get_children())
+    {
+        if ("row" == pNodeRow->get_name())
+        {
+            tableMatrix.push_back(CtTableRow{});
+            for (xmlpp::Node* pNodeCell : pNodeRow->get_children())
+            {
+                if ("cell" == pNodeCell->get_name())
+                {
+                    xmlpp::TextNode* pTextNode = static_cast<xmlpp::Element*>(pNodeCell)->get_child_text();
+                    const Glib::ustring textContent = pTextNode ? pTextNode->get_content() : "";
+                    tableMatrix.back().push_back(new CtTableCell(textContent, CtConst::PLAIN_TEXT_ID));
+                }
+            }
         }
     }
 }

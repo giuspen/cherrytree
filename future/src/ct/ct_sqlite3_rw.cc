@@ -23,6 +23,9 @@
 #include "ct_doc_rw.h"
 #include "ct_misc_utils.h"
 #include "ct_const.h"
+#include "ct_codebox.h"
+#include "ct_image.h"
+#include "ct_table.h"
 
 CtSQLiteRead::CtSQLiteRead(const char* filepath)
 {
@@ -104,7 +107,7 @@ Glib::RefPtr<Gsv::Buffer> CtSQLiteRead::getTextBuffer(const std::string& syntax,
 
     if (has_codebox || has_table || has_image)
     {
-        _getTextBufferAnchoredWidgets(rRetTextBuffer, anchoredWidgets, has_codebox, has_table, has_image);
+        _getTextBufferAnchoredWidgets(rRetTextBuffer, anchoredWidgets, nodeId, has_codebox, has_table, has_image);
     }
 
     return rRetTextBuffer;
@@ -112,6 +115,7 @@ Glib::RefPtr<Gsv::Buffer> CtSQLiteRead::getTextBuffer(const std::string& syntax,
 
 void CtSQLiteRead::_getTextBufferAnchoredWidgets(Glib::RefPtr<Gsv::Buffer>& rTextBuffer,
                                                  std::list<CtAnchoredWidget*>& anchoredWidgets,
+                                                 const gint64& nodeId,
                                                  const bool& has_codebox,
                                                  const bool& has_table,
                                                  const bool& has_image)
@@ -120,7 +124,8 @@ void CtSQLiteRead::_getTextBufferAnchoredWidgets(Glib::RefPtr<Gsv::Buffer>& rTex
     sqlite3_stmt *pp_stmt[3]{nullptr, nullptr, nullptr};
     const int cOffsetNone{-1};
     const int cOffsetRead{-2};
-    int currOffset[3]{cOffsetNone, cOffsetNone, cOffsetNone};
+    int charOffset[3]{cOffsetNone, cOffsetNone, cOffsetNone};
+    Glib::ustring justification[3];
     const char* table_name[3]{"codebox", "grid", "image"};
 
     for (int i=0; i<3; i++)
@@ -129,13 +134,15 @@ void CtSQLiteRead::_getTextBufferAnchoredWidgets(Glib::RefPtr<Gsv::Buffer>& rTex
         {
             char query_buff[64];
             snprintf(query_buff, 64, "SELECT * FROM %s WHERE node_id=? ORDER BY offset ASC", table_name[i]);
+            //std::cout << query_buff << std::endl;
             if (SQLITE_OK != sqlite3_prepare_v2(_pDb, query_buff, -1, &pp_stmt[i], 0))
             {
                 std::cerr << "!! sqlite3_prepare_v2: " << sqlite3_errmsg(_pDb) << std::endl;
             }
             else
             {
-                currOffset[i] = cOffsetRead;
+                sqlite3_bind_int(pp_stmt[i], 1, nodeId);
+                charOffset[i] = cOffsetRead;
             }
         }
     }
@@ -144,46 +151,100 @@ void CtSQLiteRead::_getTextBufferAnchoredWidgets(Glib::RefPtr<Gsv::Buffer>& rTex
     {
         for (int i=0; i<3; i++)
         {
-            if (cOffsetRead == currOffset[i])
+            if (cOffsetRead == charOffset[i])
             {
                 if (SQLITE_ROW == sqlite3_step(pp_stmt[i]))
                 {
-                    currOffset[i] = sqlite3_column_int64(pp_stmt[i], 1);
+                    charOffset[i] = sqlite3_column_int64(pp_stmt[i], 1);
+                    justification[i] = reinterpret_cast<const char*>(sqlite3_column_text(pp_stmt[i], 2));
+                    if (justification[i].empty())
+                    {
+                        justification[i] = CtConst::TAG_PROP_VAL_LEFT;
+                    }
                 }
                 else
                 {
-                    currOffset[i] = cOffsetNone;
+                    charOffset[i] = cOffsetNone;
                 }
             }
         }
-        if (currOffset[0] >= 0 &&
-            (currOffset[1] < 0 || currOffset[1] >= currOffset[0]) &&
-            (currOffset[2] < 0 || currOffset[2] >= currOffset[0]))
+        CtAnchoredWidget* pAnchoredWidget{nullptr};
+        if (charOffset[0] >= 0 &&
+            (charOffset[1] < 0 || charOffset[1] >= charOffset[0]) &&
+            (charOffset[2] < 0 || charOffset[2] >= charOffset[0]))
         {
             // codebox
-            
-            currOffset[0] = cOffsetRead;
+            const int i{0};
+            const Glib::ustring textContent = reinterpret_cast<const char*>(sqlite3_column_text(pp_stmt[i], 3));
+            const Glib::ustring syntaxHighlighting = reinterpret_cast<const char*>(sqlite3_column_text(pp_stmt[i], 4));
+            const int frameWidth = sqlite3_column_int64(pp_stmt[i], 5);
+            const int frameHeight = sqlite3_column_int64(pp_stmt[i], 6);
+            const bool widthInPixels = sqlite3_column_int64(pp_stmt[i], 7);
+            const bool highlightBrackets = sqlite3_column_int64(pp_stmt[i], 8);
+            const bool showLineNumbers = sqlite3_column_int64(pp_stmt[i], 9);
+
+            CtCodebox* pCtCodebox = new CtCodebox(textContent,
+                                                  syntaxHighlighting,
+                                                  frameWidth,
+                                                  frameHeight,
+                                                  charOffset[i],
+                                                  justification[i]);
+            pCtCodebox->setWidthInPixels(widthInPixels);
+            pCtCodebox->setHighlightBrackets(highlightBrackets);
+            pCtCodebox->setShowLineNumbers(showLineNumbers);
+            pAnchoredWidget = pCtCodebox;
+            //std::cout << "codebox " << charOffset[i] << std::endl;
+            charOffset[i] = cOffsetRead;
         }
-        else if (currOffset[1] >= 0 &&
-                 (currOffset[0] < 0 || currOffset[0] >= currOffset[1]) &&
-                 (currOffset[2] < 0 || currOffset[2] >= currOffset[1]))
+        else if (charOffset[1] >= 0 &&
+                 (charOffset[0] < 0 || charOffset[0] >= charOffset[1]) &&
+                 (charOffset[2] < 0 || charOffset[2] >= charOffset[1]))
         {
             // table
-            
-            currOffset[1] = cOffsetRead;
+            const int i{1};
+            const char* textContent = reinterpret_cast<const char*>(sqlite3_column_text(pp_stmt[i], 3));
+            const int colMin = sqlite3_column_int64(pp_stmt[i], 4);
+            const int colMax = sqlite3_column_int64(pp_stmt[i], 5);
+            CtXmlRead ctXmlRead(nullptr, textContent);
+            CtTableMatrix tableMatrix;
+            ctXmlRead.populateTableMatrix(tableMatrix);
+
+            pAnchoredWidget = new CtTable(tableMatrix, colMin, colMax, charOffset[i], justification[i]);
+            //std::cout << "table " << charOffset[i] << std::endl;
+            charOffset[i] = cOffsetRead;
         }
-        else if (currOffset[2] >= 0 &&
-                 (currOffset[0] < 0 || currOffset[0] >= currOffset[2]) &&
-                 (currOffset[1] < 0 || currOffset[1] >= currOffset[2]))
+        else if (charOffset[2] >= 0 &&
+                 (charOffset[0] < 0 || charOffset[0] >= charOffset[2]) &&
+                 (charOffset[1] < 0 || charOffset[1] >= charOffset[2]))
         {
             // image
-            
-            currOffset[2] = cOffsetRead;
+            const int i{2};
+            const Glib::ustring anchorName = reinterpret_cast<const char*>(sqlite3_column_text(pp_stmt[i], 3));
+            const Glib::ustring fileName = reinterpret_cast<const char*>(sqlite3_column_text(pp_stmt[i], 5));
+            if (!anchorName.empty())
+            {
+                pAnchoredWidget = new CtImageAnchor(anchorName, charOffset[i], justification[i]);
+            }
+            else if (!fileName.empty())
+            {
+                
+            }
+            else
+            {
+                
+            }
+            //std::cout << "image " << charOffset[i] << std::endl;
+            charOffset[i] = cOffsetRead;
+        }
+        if (nullptr != pAnchoredWidget)
+        {
+            pAnchoredWidget->insertInTextBuffer(rTextBuffer);
+            anchoredWidgets.push_back(pAnchoredWidget);
         }
     }
-    while (cOffsetNone != currOffset[0] ||
-           cOffsetNone != currOffset[1] ||
-           cOffsetNone != currOffset[2]);
+    while (cOffsetNone != charOffset[0] ||
+           cOffsetNone != charOffset[1] ||
+           cOffsetNone != charOffset[2]);
 
     for (int i=0; i<3; i++)
     {

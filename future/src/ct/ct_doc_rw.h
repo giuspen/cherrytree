@@ -25,6 +25,7 @@
 #include <sqlite3.h>
 #include <gtkmm.h>
 #include "ct_treestore.h"
+#include "ct_table.h"
 
 class CtDocRead
 {
@@ -47,6 +48,7 @@ public:
     Glib::RefPtr<Gsv::Buffer> getTextBuffer(const std::string& syntax,
                                             std::list<CtAnchoredWidget*>& anchoredWidgets,
                                             xmlpp::Element* pNodeElement=nullptr);
+    void populateTableMatrix(CtTableMatrix& tableMatrix, xmlpp::Element* pNodeElement=nullptr);
 private:
     void _xmlTreeWalkIter(xmlpp::Element* pNodeElement, const Gtk::TreeIter* pParentIter);
     Gtk::TreeIter _xmlNodeProcess(xmlpp::Element* pNodeElement, const Gtk::TreeIter* pParentIter);
@@ -73,6 +75,7 @@ private:
     Gtk::TreeIter _sqlite3NodeProcess(gint64 nodeId, const Gtk::TreeIter* pParentIter);
     void _getTextBufferAnchoredWidgets(Glib::RefPtr<Gsv::Buffer>& rTextBuffer,
                                        std::list<CtAnchoredWidget*>& anchoredWidgets,
+                                       const gint64& nodeId,
                                        const bool& has_codebox,
                                        const bool& has_table,
                                        const bool& has_image);

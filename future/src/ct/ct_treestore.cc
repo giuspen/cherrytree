@@ -226,6 +226,7 @@ Glib::RefPtr<Gsv::Buffer> CtTreeStore::_getNodeTextBuffer(const Gtk::TreeIter& t
                                                            anchoredWidgetList,
                                                            treeRow.get_value(_columns.colNodeUniqueId));
             treeRow.set_value(_columns.colAnchoredWidgets, anchoredWidgetList);
+            treeRow.set_value(_columns.rColTextBuffer, rRetTextBuffer);
         }
     }
     return rRetTextBuffer;
