@@ -73,6 +73,11 @@ Glib::RefPtr<Gsv::Buffer> CtSQLiteRead::getTextBuffer(const std::string& syntax,
         std::cerr << "!! sqlite3_prepare_v2: " << sqlite3_errmsg(_pDb) << std::endl;
         exit(EXIT_FAILURE);
     }
+
+    bool has_codebox{false};
+    bool has_table{false};
+    bool has_image{false};
+
     sqlite3_bind_int(p_stmt, 1, nodeId);
     if (sqlite3_step(p_stmt) == SQLITE_ROW)
     {
@@ -83,11 +88,12 @@ Glib::RefPtr<Gsv::Buffer> CtSQLiteRead::getTextBuffer(const std::string& syntax,
         }
         else
         {
-            const bool has_codebox = sqlite3_column_int64(p_stmt, 1);
-            const bool has_table = sqlite3_column_int64(p_stmt, 2);
-            const bool has_image = sqlite3_column_int64(p_stmt, 3);
             CtXmlRead ctXmlRead(nullptr, textContent);
             rRetTextBuffer = ctXmlRead.getTextBuffer(syntax, anchoredWidgets);
+
+            has_codebox = sqlite3_column_int64(p_stmt, 1);
+            has_table = sqlite3_column_int64(p_stmt, 2);
+            has_image = sqlite3_column_int64(p_stmt, 3);
         }
     }
     else
@@ -96,7 +102,96 @@ Glib::RefPtr<Gsv::Buffer> CtSQLiteRead::getTextBuffer(const std::string& syntax,
     }
     sqlite3_finalize(p_stmt);
 
+    if (has_codebox || has_table || has_image)
+    {
+        _getTextBufferAnchoredWidgets(rRetTextBuffer, anchoredWidgets, has_codebox, has_table, has_image);
+    }
+
     return rRetTextBuffer;
+}
+
+void CtSQLiteRead::_getTextBufferAnchoredWidgets(Glib::RefPtr<Gsv::Buffer>& rTextBuffer,
+                                                 std::list<CtAnchoredWidget*>& anchoredWidgets,
+                                                 const bool& has_codebox,
+                                                 const bool& has_table,
+                                                 const bool& has_image)
+{
+    const bool has_it[3]{has_codebox, has_table, has_image};
+    sqlite3_stmt *pp_stmt[3]{nullptr, nullptr, nullptr};
+    const int cOffsetNone{-1};
+    const int cOffsetRead{-2};
+    int currOffset[3]{cOffsetNone, cOffsetNone, cOffsetNone};
+    const char* table_name[3]{"codebox", "grid", "image"};
+
+    for (int i=0; i<3; i++)
+    {
+        if (has_it[i])
+        {
+            char query_buff[64];
+            snprintf(query_buff, 64, "SELECT * FROM %s WHERE node_id=? ORDER BY offset ASC", table_name[i]);
+            if (SQLITE_OK != sqlite3_prepare_v2(_pDb, query_buff, -1, &pp_stmt[i], 0))
+            {
+                std::cerr << "!! sqlite3_prepare_v2: " << sqlite3_errmsg(_pDb) << std::endl;
+            }
+            else
+            {
+                currOffset[i] = cOffsetRead;
+            }
+        }
+    }
+
+    do
+    {
+        for (int i=0; i<3; i++)
+        {
+            if (cOffsetRead == currOffset[i])
+            {
+                if (SQLITE_ROW == sqlite3_step(pp_stmt[i]))
+                {
+                    currOffset[i] = sqlite3_column_int64(pp_stmt[i], 1);
+                }
+                else
+                {
+                    currOffset[i] = cOffsetNone;
+                }
+            }
+        }
+        if (currOffset[0] >= 0 &&
+            (currOffset[1] < 0 || currOffset[1] >= currOffset[0]) &&
+            (currOffset[2] < 0 || currOffset[2] >= currOffset[0]))
+        {
+            // codebox
+            
+            currOffset[0] = cOffsetRead;
+        }
+        else if (currOffset[1] >= 0 &&
+                 (currOffset[0] < 0 || currOffset[0] >= currOffset[1]) &&
+                 (currOffset[2] < 0 || currOffset[2] >= currOffset[1]))
+        {
+            // table
+            
+            currOffset[1] = cOffsetRead;
+        }
+        else if (currOffset[2] >= 0 &&
+                 (currOffset[0] < 0 || currOffset[0] >= currOffset[2]) &&
+                 (currOffset[1] < 0 || currOffset[1] >= currOffset[2]))
+        {
+            // image
+            
+            currOffset[2] = cOffsetRead;
+        }
+    }
+    while (cOffsetNone != currOffset[0] ||
+           cOffsetNone != currOffset[1] ||
+           cOffsetNone != currOffset[2]);
+
+    for (int i=0; i<3; i++)
+    {
+        if (has_it[i] && nullptr != pp_stmt[i])
+        {
+            sqlite3_finalize(pp_stmt[i]);
+        }
+    }
 }
 
 void CtSQLiteRead::_sqlite3TreeWalkIter(gint64 nodeId, const Gtk::TreeIter* pParentIter)

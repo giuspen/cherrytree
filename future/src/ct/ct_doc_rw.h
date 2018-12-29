@@ -43,7 +43,7 @@ class CtXmlRead : public CtDocRead, public xmlpp::DomParser
 public:
     CtXmlRead(const char* filepath, const char* textContent);
     virtual ~CtXmlRead();
-    void treeWalk(const Gtk::TreeIter* pParentIter=nullptr);
+    virtual void treeWalk(const Gtk::TreeIter* pParentIter=nullptr);
     Glib::RefPtr<Gsv::Buffer> getTextBuffer(const std::string& syntax,
                                             std::list<CtAnchoredWidget*>& anchoredWidgets,
                                             xmlpp::Element* pNodeElement=nullptr);
@@ -61,7 +61,7 @@ class CtSQLiteRead : public CtDocRead
 public:
     CtSQLiteRead(const char* filepath);
     virtual ~CtSQLiteRead();
-    void treeWalk(const Gtk::TreeIter* pParentIter=nullptr);
+    virtual void treeWalk(const Gtk::TreeIter* pParentIter=nullptr);
     Glib::RefPtr<Gsv::Buffer> getTextBuffer(const std::string& syntax,
                                             std::list<CtAnchoredWidget*>& anchoredWidgets,
                                             const gint64& nodeId);
@@ -71,4 +71,9 @@ private:
     void _sqlite3TreeWalkIter(gint64 nodeId, const Gtk::TreeIter* pParentIter);
     CtNodeData _sqlite3GetNodeProperties(gint64 nodeId);
     Gtk::TreeIter _sqlite3NodeProcess(gint64 nodeId, const Gtk::TreeIter* pParentIter);
+    void _getTextBufferAnchoredWidgets(Glib::RefPtr<Gsv::Buffer>& rTextBuffer,
+                                       std::list<CtAnchoredWidget*>& anchoredWidgets,
+                                       const bool& has_codebox,
+                                       const bool& has_table,
+                                       const bool& has_image);
 };
