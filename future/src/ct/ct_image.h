@@ -28,7 +28,12 @@
 class CtImage : public CtAnchoredWidget
 {
 public:
-    CtImage(const Glib::RefPtr<Gdk::Pixbuf> rPixbuf,
+    CtImage(const std::string& rawBlob,
+            const char* mimeType,
+            const int& charOffset,
+            const std::string& justification);
+    CtImage(const char* stockImage,
+            const int& size,
             const int& charOffset,
             const std::string& justification);
     virtual ~CtImage() {}
@@ -40,10 +45,10 @@ protected:
 class CtImagePng : public CtImage
 {
 public:
-    CtImagePng(const Glib::RefPtr<Gdk::Pixbuf> rPixbuf,
+    CtImagePng(const std::string& rawBlob,
+               const Glib::ustring& link,
                const int& charOffset,
-               const std::string& justification,
-               const Glib::ustring& link);
+               const std::string& justification);
     virtual ~CtImagePng() {}
     void updateLabelWidget();
 protected:
@@ -66,7 +71,7 @@ class CtImageEmbFile : public CtImage
 {
 public:
     CtImageEmbFile(const Glib::ustring& fileName,
-                   const std::string& rawFileStr,
+                   const std::string& rawBlob,
                    const double& timeSeconds,
                    const int& charOffset,
                    const std::string& justification);
@@ -75,6 +80,6 @@ public:
     void updateLabelWidget();
 protected:
     Glib::ustring _fileName;
-    std::string _rawFileStr;
+    std::string _rawBlob;
     double _timeSeconds;
 };

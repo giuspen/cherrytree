@@ -22,29 +22,47 @@
 #include "ct_image.h"
 #include "ct_app.h"
 
-CtImage::CtImage(const Glib::RefPtr<Gdk::Pixbuf> rPixbuf,
+CtImage::CtImage(const std::string& rawBlob,
+                 const char* mimeType,
                  const int& charOffset,
                  const std::string& justification)
  : CtAnchoredWidget(charOffset, justification)
 {
-    _rPixbuf = rPixbuf;
+    Glib::RefPtr<Gdk::PixbufLoader> rPixbufLoader = Gdk::PixbufLoader::create(mimeType, true);
+    rPixbufLoader->write(reinterpret_cast<const guint8*>(rawBlob.c_str()), rawBlob.size());
+    rPixbufLoader->close();
+    _rPixbuf = rPixbufLoader->get_pixbuf();
+
+    _image.set(_rPixbuf);
+    _frame.add(_image);
+    show_all();
+}
+
+CtImage::CtImage(const char* stockImage,
+                 const int& size,
+                 const int& charOffset,
+                 const std::string& justification)
+ : CtAnchoredWidget(charOffset, justification)
+{
+    _rPixbuf = CtApp::R_icontheme->load_icon(stockImage, size);
+
     _image.set(_rPixbuf);
     _frame.add(_image);
     show_all();
 }
 
 
-CtImagePng::CtImagePng(const Glib::RefPtr<Gdk::Pixbuf> rPixbuf,
+CtImagePng::CtImagePng(const std::string& rawBlob,
+                       const Glib::ustring& link,
                        const int& charOffset,
-                       const std::string& justification,
-                       const Glib::ustring& link)
- : CtImage(rPixbuf, charOffset, justification),
+                       const std::string& justification)
+ : CtImage(rawBlob, "image/png", charOffset, justification),
    _link(link)
 {
     updateLabelWidget();
 }
 
-void  CtImagePng::updateLabelWidget()
+void CtImagePng::updateLabelWidget()
 {
     if (!_link.empty())
     {
@@ -62,7 +80,7 @@ void  CtImagePng::updateLabelWidget()
 CtImageAnchor::CtImageAnchor(const Glib::ustring& anchorName,
                              const int& charOffset,
                              const std::string& justification)
- : CtImage(CtApp::R_icontheme->load_icon("anchor", CtApp::P_ctCfg->anchorSize), charOffset, justification),
+ : CtImage("anchor", CtApp::P_ctCfg->anchorSize, charOffset, justification),
    _anchorName(anchorName)
 {
     updateTooltip();
@@ -75,13 +93,13 @@ void CtImageAnchor::updateTooltip()
 
 
 CtImageEmbFile::CtImageEmbFile(const Glib::ustring& fileName,
-                               const std::string& rawFileStr,
+                               const std::string& rawBlob,
                                const double& timeSeconds,
                                const int& charOffset,
                                const std::string& justification)
- : CtImage(CtApp::R_icontheme->load_icon("file_icon", CtApp::P_ctCfg->embfileSize), charOffset, justification),
+ : CtImage("file_icon", CtApp::P_ctCfg->embfileSize, charOffset, justification),
    _fileName(fileName),
-   _rawFileStr(rawFileStr),
+   _rawBlob(rawBlob),
    _timeSeconds(timeSeconds)
 {
     updateTooltip();
@@ -105,7 +123,7 @@ void  CtImageEmbFile::updateLabelWidget()
 void CtImageEmbFile::updateTooltip()
 {
     char humanReadableSize[16];
-    const long unsigned embfileBytes{_rawFileStr.size()};
+    const long unsigned embfileBytes{_rawBlob.size()};
     const double embfileKbytes{static_cast<double>(embfileBytes)/1024};
     const double embfileMbytes{embfileKbytes/1024};
     if (embfileMbytes > 1)

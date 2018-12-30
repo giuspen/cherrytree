@@ -175,35 +175,31 @@ void CtXmlRead::_getTextBufferIter(Glib::RefPtr<Gsv::Buffer>& rTextBuffer,
         if (CtXmlNodeType::EncodedPng == xmlNodeType)
         {
             const Glib::ustring anchorName = pNodeElement->get_attribute_value("anchor");
-            const Glib::ustring fileName = pNodeElement->get_attribute_value("filename");
             if (!anchorName.empty())
             {
                 pAnchoredWidget = new CtImageAnchor(anchorName, charOffset, justification);
             }
-            else if (!fileName.empty())
-            {
-                xmlpp::TextNode* pTextNode = pNodeElement->get_child_text();
-                const std::string encodedFile = pTextNode ? pTextNode->get_content() : "";
-                const std::string rawFileStr = Glib::Base64::decode(encodedFile);
-                std::string timeStr = pNodeElement->get_attribute_value("time");
-                if (timeStr.empty())
-                {
-                    timeStr = "0";
-                }
-                double timeDouble = std::stod(timeStr);
-                pAnchoredWidget = new CtImageEmbFile(fileName, rawFileStr, timeDouble, charOffset, justification);
-            }
             else
             {
+                const Glib::ustring fileName = pNodeElement->get_attribute_value("filename");
                 xmlpp::TextNode* pTextNode = pNodeElement->get_child_text();
-                const std::string encodedPng = pTextNode ? pTextNode->get_content() : "";
-                const std::string rawPngStr = Glib::Base64::decode(encodedPng);
-                Glib::RefPtr<Gdk::PixbufLoader> rPixbufLoader = Gdk::PixbufLoader::create("image/png", true);
-                rPixbufLoader->write(reinterpret_cast<const guint8*>(rawPngStr.c_str()), rawPngStr.size());
-                rPixbufLoader->close();
-                const Glib::RefPtr<Gdk::Pixbuf> rPixbuf = rPixbufLoader->get_pixbuf();
-                const Glib::ustring link = pNodeElement->get_attribute_value("link");
-                pAnchoredWidget = new CtImagePng(rPixbuf, charOffset, justification, link);
+                const std::string encodedBlob = pTextNode ? pTextNode->get_content() : "";
+                const std::string rawBlob = Glib::Base64::decode(encodedBlob);
+                if (!fileName.empty())
+                {
+                    std::string timeStr = pNodeElement->get_attribute_value("time");
+                    if (timeStr.empty())
+                    {
+                        timeStr = "0";
+                    }
+                    double timeDouble = std::stod(timeStr);
+                    pAnchoredWidget = new CtImageEmbFile(fileName, rawBlob, timeDouble, charOffset, justification);
+                }
+                else
+                {
+                    const Glib::ustring link = pNodeElement->get_attribute_value("link");
+                    pAnchoredWidget = new CtImagePng(rawBlob, link, charOffset, justification);
+                }
             }
         }
         else if (CtXmlNodeType::Table == xmlNodeType)

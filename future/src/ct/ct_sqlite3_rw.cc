@@ -220,18 +220,26 @@ void CtSQLiteRead::_getTextBufferAnchoredWidgets(Glib::RefPtr<Gsv::Buffer>& rTex
             // image
             const int i{2};
             const Glib::ustring anchorName = reinterpret_cast<const char*>(sqlite3_column_text(pp_stmt[i], 3));
-            const Glib::ustring fileName = reinterpret_cast<const char*>(sqlite3_column_text(pp_stmt[i], 5));
             if (!anchorName.empty())
             {
                 pAnchoredWidget = new CtImageAnchor(anchorName, charOffset[i], justification[i]);
             }
-            else if (!fileName.empty())
+            else 
             {
-                
-            }
-            else
-            {
-                
+                const Glib::ustring fileName = reinterpret_cast<const char*>(sqlite3_column_text(pp_stmt[i], 5));
+                const void* pBlob = sqlite3_column_blob(pp_stmt[i], 4);
+                const int blobSize = sqlite3_column_bytes(pp_stmt[i], 4);
+                const std::string rawBlob(reinterpret_cast<const char*>(pBlob), blobSize);
+                if (!fileName.empty())
+                {
+                    const double timeDouble = sqlite3_column_int64(pp_stmt[i], 7);
+                    pAnchoredWidget = new CtImageEmbFile(fileName, rawBlob, timeDouble, charOffset[i], justification[i]);
+                }
+                else
+                {
+                    const Glib::ustring link = reinterpret_cast<const char*>(sqlite3_column_text(pp_stmt[i], 6));
+                    pAnchoredWidget = new CtImagePng(rawBlob, link, charOffset[i], justification[i]);
+                }
             }
             //std::cout << "image " << charOffset[i] << std::endl;
             charOffset[i] = cOffsetRead;
