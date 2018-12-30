@@ -31,6 +31,36 @@ CtTreeView::~CtTreeView()
 {
 }
 
+void CtTreeView::setExpandedCollapsed()
+{
+    collapse_all();
+    std::vector<std::string> vecExpandedCollapsed;
+    CtStrUtil::gstringSplit2string(CtApp::P_ctCfg->expandedCollapsedString.c_str(), vecExpandedCollapsed, "_");
+    std::map<int,bool> mapExpandedCollapsed;
+    for (const std::string& element : vecExpandedCollapsed)
+    {
+        std::vector<std::string> vecElem;
+        CtStrUtil::gstringSplit2string(element.c_str(), vecElem, ",");
+        if (2 == vecElem.size())
+        {
+            mapExpandedCollapsed[std::stoi(vecElem[0])] = CtStrUtil::isStrTrue(vecElem[1]);
+        }
+    }
+    _iterSetExpandedCollapsed(get_model()->children(), mapExpandedCollapsed);
+}
+
+void CtTreeView::_iterSetExpandedCollapsed(const Gtk::TreeModel::Children& children,
+                                           const std::map<int,bool>& mapExpandedCollapsed)
+{
+    for (Gtk::TreeIter iter = children.begin(); iter != children.end(); ++iter)
+    {
+        Gtk::TreeRow row = *iter;
+        
+
+        _iterSetExpandedCollapsed(row.children(), mapExpandedCollapsed);
+    }
+}
+
 
 CtTextView::CtTextView()
 {
@@ -172,6 +202,23 @@ bool CtMainWin::readNodesFromGioFile(const Glib::RefPtr<Gio::File>& r_file, cons
         _currFileName = Glib::path_get_basename(filepath);
         _currFileDir = Glib::path_get_dirname(filepath);
         _titleUpdate(false/*saveNeeded*/);
+
+        if ((_currFileName == CtApp::P_ctCfg->fileName) &&
+            (_currFileDir == CtApp::P_ctCfg->fileDir))
+        {
+            if (CtRestoreExpColl::ALL_EXP == CtApp::P_ctCfg->restoreExpColl)
+            {
+                _ctTreeview.expand_all();
+            }
+            else
+            {
+                if (CtRestoreExpColl::ALL_COLL == CtApp::P_ctCfg->restoreExpColl)
+                {
+                    CtApp::P_ctCfg->expandedCollapsedString = "";
+                }
+                _ctTreeview.setExpandedCollapsed();
+            }
+        }
     }
     return retOk;
 }

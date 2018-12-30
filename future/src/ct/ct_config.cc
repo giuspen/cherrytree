@@ -40,42 +40,6 @@ CtConfig::~CtConfig()
     }
 }
 
-bool CtConfig::_populateStringFromKeyfile(const gchar* key, Glib::ustring* pTarget)
-{
-    bool gotIt{false};
-    if (_pKeyFile->has_key(_currentGroup, key))
-    {
-        try
-        {
-            *pTarget = _pKeyFile->get_value(_currentGroup, key);
-            gotIt = true;
-        }
-        catch (Glib::KeyFileError& kferror)
-        {
-            _unexpectedKeyfileError(key, kferror);
-        }
-    }
-    return gotIt;
-}
-
-bool CtConfig::_populateStringFromKeyfile(const gchar* key, std::string* pTarget)
-{
-    bool gotIt{false};
-    if (_pKeyFile->has_key(_currentGroup, key))
-    {
-        try
-        {
-            *pTarget = _pKeyFile->get_value(_currentGroup, key);
-            gotIt = true;
-        }
-        catch (Glib::KeyFileError& kferror)
-        {
-            _unexpectedKeyfileError(key, kferror);
-        }
-    }
-    return gotIt;
-}
-
 bool CtConfig::_populateBoolFromKeyfile(const gchar* key, bool* pTarget)
 {
     bool gotIt{false};
@@ -140,9 +104,9 @@ bool CtConfig::_populateDoubleFromKeyfile(const gchar* key, double* pTarget)
     return gotIt;
 }
 
-void CtConfig::_populateMapFromCurrentGroup(std::map<Glib::ustring, Glib::ustring> *p_map)
+void CtConfig::_populateMapFromCurrentGroup(std::map<std::string, std::string> *p_map)
 {
-    for (Glib::ustring key : _pKeyFile->get_keys(_currentGroup))
+    for (std::string key : _pKeyFile->get_keys(_currentGroup))
     {
         (*p_map)[key] = _pKeyFile->get_value(_currentGroup, key);
     }

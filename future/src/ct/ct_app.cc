@@ -122,6 +122,23 @@ void CtApp::on_activate()
     // app run without arguments
     auto pAppWindow = create_appwindow();
     pAppWindow->present();
+
+    if (!CtApp::P_ctCfg->fileName.empty())
+    {
+        std::string filePath = Glib::build_filename(CtApp::P_ctCfg->fileDir, CtApp::P_ctCfg->fileName);
+        Glib::RefPtr<Gio::File> r_file = Gio::File::create_for_path(filePath);
+        if (r_file->query_exists())
+        {
+            if (!pAppWindow->readNodesFromGioFile(r_file, false/*isImport*/))
+            {
+                _printHelpMessage();
+            }
+        }
+        else
+        {
+            std::cout << "? not found " << filePath << std::endl;
+        }
+    }
 }
 
 void CtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::ustring& hint)

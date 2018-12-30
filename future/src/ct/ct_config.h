@@ -31,10 +31,10 @@ enum class CtTableColMode : int {RENAME=0, ADD=1, DELETE=2, RIGHT=3, LEFT=4};
 
 struct CtRecentDocRestore
 {
-    Glib::ustring   doc_name;
-    Glib::ustring   exp_coll_str;
-    Glib::ustring   node_path;
-    int             cursor_pos;
+    std::string   doc_name;
+    std::string   exp_coll_str;
+    std::string   node_path;
+    int           cursor_pos;
 };
 
 class CtConfig
@@ -44,34 +44,34 @@ public:
     virtual ~CtConfig();
 
     // [state]
-    Glib::ustring                               fileDir;
-    Glib::ustring                               fileName;
+    std::string                                 fileDir;
+    std::string                                 fileName;
     bool                                        toolbarVisible{true};
     bool                                        winIsMaximised{false};
     int                                         winRect[4]{10, 10, 963, 630};
     int                                         hpanedPos{170};
     bool                                        treeVisible{true};
-    Glib::ustring                               nodePath;
+    std::string                                 nodePath;
     int                                         cursorPosition;
-    std::list<Glib::ustring>                    recentDocs;
-    Glib::ustring                               pickDirImport;
-    Glib::ustring                               pickDirExport;
-    Glib::ustring                               pickDirFile;
-    Glib::ustring                               pickDirImg;
-    Glib::ustring                               pickDirCsv;
-    Glib::ustring                               pickDirCbox;
-    Glib::ustring                               linkType{CtConst::LINK_TYPE_WEBS};
+    std::list<std::string>                      recentDocs;
+    std::string                                 pickDirImport;
+    std::string                                 pickDirExport;
+    std::string                                 pickDirFile;
+    std::string                                 pickDirImg;
+    std::string                                 pickDirCsv;
+    std::string                                 pickDirCbox;
+    std::string                                 linkType{CtConst::LINK_TYPE_WEBS};
     bool                                        showNodeNameHeader{true};
     int                                         nodesOnNodeNameHeader{3};
     int                                         toolbarIconSize{Gtk::BuiltinIconSize::ICON_SIZE_MENU};
-    std::unordered_map<gchar, Glib::ustring>    currColors{{'f', ""}, {'b', ""}, {'n', ""}};
+    std::unordered_map<gchar, std::string>      currColors{{'f', ""}, {'b', ""}, {'n', ""}};
 
     // [tree]
     CtRestoreExpColl                            restoreExpColl{CtRestoreExpColl::FROM_STR};
-    Glib::ustring                               expandedCollapsedString;
+    std::string                                 expandedCollapsedString;
     std::vector<CtRecentDocRestore>             recentDocsRestore;
     bool                                        nodesBookmExp{false};
-    Glib::ustring                               nodesIcons{CtConst::NODE_ICON_TYPE_CHERRY};
+    std::string                                 nodesIcons{CtConst::NODE_ICON_TYPE_CHERRY};
     bool                                        auxIconHide{false};
     int                                         defaultIconText{CtConst::NODE_ICON_BULLET_ID};
     bool                                        treeRightSide{false};
@@ -84,7 +84,7 @@ public:
     std::string                                 autoSynHighl{CtConst::SYN_HIGHL_BASH};
     std::string                                 styleSchemeId{CtConst::STYLE_SCHEME_DARK};
     bool                                        enableSpellCheck{false};
-    Glib::ustring                               spellCheckLang;
+    std::string                                 spellCheckLang;
     bool                                        showLineNumbers{false};
     bool                                        spacesInsteadTabs{false};
     int                                         tabsWidth{4};
@@ -108,17 +108,17 @@ public:
     Glib::ustring                               charsListbul{CtConst::CHARS_LISTBUL_DEFAULT};
     Glib::ustring                               charsToc{CtConst::CHARS_TOC_DEFAULT};
     Glib::ustring                               charsTodo{CtConst::CHARS_TODO_DEFAULT};
-    Glib::ustring                               latestTagProp;
-    Glib::ustring                               latestTagVal;
+    std::string                                 latestTagProp;
+    std::string                                 latestTagVal;
     Glib::ustring                               timestampFormat{CtConst::TIMESTAMP_FORMAT_DEFAULT};
     bool                                        linksUnderline{true};
     bool                                        linksRelative{false};
     bool                                        weblinkCustomOn{false};
     bool                                        filelinkCustomOn{false};
     bool                                        folderlinkCustomOn{false};
-    Glib::ustring                               weblinkCustomAct{"firefox %s &"};
-    Glib::ustring                               filelinkCustomAct{"xdg-open %s &"};
-    Glib::ustring                               folderlinkCustomAct{"xdg-open %s &"};
+    std::string                                 weblinkCustomAct{"firefox %s &"};
+    std::string                                 filelinkCustomAct{"xdg-open %s &"};
+    std::string                                 folderlinkCustomAct{"xdg-open %s &"};
 
     // [codebox]
     double                                      codeboxWidth{500};
@@ -126,7 +126,7 @@ public:
     bool                                        codeboxWidthPixels{true};
     bool                                        codeboxLineNum{false};
     bool                                        codeboxMatchBra{true};
-    Glib::ustring                               codeboxSynHighl{CtConst::PLAIN_TEXT_ID};
+    std::string                                 codeboxSynHighl{CtConst::PLAIN_TEXT_ID};
     bool                                        codeboxAutoResize{false};
 
     // [table]
@@ -143,22 +143,22 @@ public:
     std::string                                 codeFont{"Monospace 9"};
 
     // [colors]
-    Glib::ustring                               rtDefFg{CtConst::RICH_TEXT_DARK_FG};
-    Glib::ustring                               rtDefBg{CtConst::RICH_TEXT_DARK_BG};
-    Glib::ustring                               ttDefFg{CtConst::TREE_TEXT_LIGHT_FG};
-    Glib::ustring                               ttDefBg{CtConst::TREE_TEXT_LIGHT_BG};
-    Glib::ustring                               monospaceBg{CtConst::DEFAULT_MONOSPACE_BG};
-    Glib::ustring                               colorPalette{"#000000:#ffffff:#7f7f7f:#ff0000:#a020f0:"
+    std::string                                 rtDefFg{CtConst::RICH_TEXT_DARK_FG};
+    std::string                                 rtDefBg{CtConst::RICH_TEXT_DARK_BG};
+    std::string                                 ttDefFg{CtConst::TREE_TEXT_LIGHT_FG};
+    std::string                                 ttDefBg{CtConst::TREE_TEXT_LIGHT_BG};
+    std::string                                 monospaceBg{CtConst::DEFAULT_MONOSPACE_BG};
+    std::string                                 colorPalette{"#000000:#ffffff:#7f7f7f:#ff0000:#a020f0:"
                                                              "#0000ff:#add8e6:#00ff00:#ffff00:#ffa500:"
                                                              "#e6e6fa:#a52a2a:#8b6914:#1e90ff:#ffc0cb:"
                                                              "#90ee90:#1a1a1a:#4d4d4d:#bfbfbf:#e5e5e5"};
-    Glib::ustring                               colLinkWebs{CtConst::COLOR_48_LINK_WEBS};
-    Glib::ustring                               colLinkNode{CtConst::COLOR_48_LINK_NODE};
-    Glib::ustring                               colLinkFile{CtConst::COLOR_48_LINK_FILE};
-    Glib::ustring                               colLinkFold{CtConst::COLOR_48_LINK_FOLD};
+    std::string                                 colLinkWebs{CtConst::COLOR_48_LINK_WEBS};
+    std::string                                 colLinkNode{CtConst::COLOR_48_LINK_NODE};
+    std::string                                 colLinkFile{CtConst::COLOR_48_LINK_FILE};
+    std::string                                 colLinkFold{CtConst::COLOR_48_LINK_FOLD};
 
     // [misc]
-    Glib::ustring                               toolbarUiList{CtConst::TOOLBAR_VEC_DEFAULT};
+    std::string                                 toolbarUiList{CtConst::TOOLBAR_VEC_DEFAULT};
     bool                                        systrayOn{false};
     bool                                        startOnSystray{false};
     bool                                        useAppInd{false};
@@ -174,29 +174,44 @@ public:
     int                                         limitUndoableSteps{20};
 
     // [keyboard]
-    std::map<Glib::ustring, Glib::ustring>     customKbShortcuts;
+    std::map<std::string, std::string>          customKbShortcuts;
 
     // [codexec_term]
-    Glib::ustring                              customCodexecTerm;
+    std::string                                 customCodexecTerm;
 
     // [codexec_type]
-    std::map<Glib::ustring, Glib::ustring>     customCodexecType;
+    std::map<std::string, std::string>          customCodexecType;
 
     // [codexec_ext]
-    std::map<Glib::ustring, Glib::ustring>     customCodexecExt;
+    std::map<std::string, std::string>          customCodexecExt;
 
 protected:
-    bool _populateStringFromKeyfile(const gchar* key, Glib::ustring* pTarget);
-    bool _populateStringFromKeyfile(const gchar* key, std::string* pTarget);
+    template<class String> bool _populateStringFromKeyfile(const gchar* key, String* pTarget)
+    {
+        bool gotIt{false};
+        if (_pKeyFile->has_key(_currentGroup, key))
+        {
+            try
+            {
+                *pTarget = _pKeyFile->get_value(_currentGroup, key);
+                gotIt = true;
+            }
+            catch (Glib::KeyFileError& kferror)
+            {
+                _unexpectedKeyfileError(key, kferror);
+            }
+        }
+        return gotIt;
+    }
     bool _populateBoolFromKeyfile(const gchar* key, bool* pTarget);
     bool _populateIntFromKeyfile(const gchar* key, int* pTarget);
     bool _populateDoubleFromKeyfile(const gchar* key, double* pTarget);
-    void _populateMapFromCurrentGroup(std::map<Glib::ustring, Glib::ustring>* pTarget);
+    void _populateMapFromCurrentGroup(std::map<std::string, std::string>* pTarget);
     void _populateFromKeyfile();
     bool _checkLoadFromFile();
     void _unexpectedKeyfileError(const gchar* key, const Glib::KeyFileError& kferror);
 
-    Glib::ustring _filepath;
+    std::string _filepath;
     Glib::KeyFile* _pKeyFile{nullptr};
-    Glib::ustring _currentGroup;
+    std::string _currentGroup;
 };
