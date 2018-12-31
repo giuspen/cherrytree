@@ -101,12 +101,14 @@ public:
     void          onRequestAddBookmark(gint64 nodeId);
     Gtk::TreeIter onRequestAppendNode(CtNodeData* pNodeData, const Gtk::TreeIter* pParentIter);
 
-    void applyTextBufferToCtTextView(const Gtk::TreeIter& treeIter, CtTextView* pCtTextView);
+    void applyTextBufferToCtTextView(const Gtk::TreeIter& treeIter, CtTextView* pTextView);
     const Gtk::TreeModel::Children getRootChildren() { return _rTreeStore->children(); }
     void setExpandedCollapsed(Gtk::TreeView* pTreeView,
                               const Gtk::TreeModel::Children& children,
                               const std::map<gint64,bool>& mapExpandedCollapsed);
     void expandToTreeRow(Gtk::TreeView* pTreeView, Gtk::TreeRow& row);
+    void setTreePathTextCursorFromConfig(Gtk::TreeView* pTreeView, Gsv::View* pTextView);
+    void treeviewSafeSetCursor(Gtk::TreeView* pTreeView, Gtk::TreeIter& iter);
 
 protected:
     guint16                   _getPangoWeight(bool isBold);

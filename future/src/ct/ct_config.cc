@@ -22,6 +22,7 @@
 #include <iostream>
 #include <gtkmm.h>
 #include "ct_config.h"
+#include "ct_misc_utils.h"
 
 
 CtConfig::CtConfig()
@@ -136,6 +137,7 @@ void CtConfig::_populateFromKeyfile()
     _populateBoolFromKeyfile("tree_visible", &treeVisible);
     if (_populateStringFromKeyfile("node_path", &nodePath))
     {
+        CtStrUtil::replaceInString(nodePath, " ", ":");
         _populateIntFromKeyfile("cursor_position", &cursorPosition);
     }
     for (i=0; i<CtConst::MAX_RECENT_DOCS; i++)

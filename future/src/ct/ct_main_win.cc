@@ -50,6 +50,8 @@ void CtTreeView::setExpandedCollapsed(CtTreeStore& ctTreestore)
 }
 
 
+const double CtTextView::TEXT_SCROLL_MARGIN{0.3};
+
 CtTextView::CtTextView()
 {
     //set_sensitive(false);
@@ -206,6 +208,7 @@ bool CtMainWin::readNodesFromGioFile(const Glib::RefPtr<Gio::File>& r_file, cons
                 }
                 _ctTreeview.setExpandedCollapsed(_ctTreestore);
             }
+            _ctTreestore.setTreePathTextCursorFromConfig(&_ctTreeview, &_ctTextview);
         }
     }
     return retOk;

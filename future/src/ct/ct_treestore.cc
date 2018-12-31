@@ -62,9 +62,9 @@ CtTreeStore::~CtTreeStore()
 
 void CtTreeStore::_iterDeleteAnchoredWidgets(const Gtk::TreeModel::Children& children)
 {
-    for (Gtk::TreeIter iter = children.begin(); iter != children.end(); ++iter)
+    for (Gtk::TreeIter treeIter = children.begin(); treeIter != children.end(); ++treeIter)
     {
-        Gtk::TreeRow row = *iter;
+        Gtk::TreeRow row = *treeIter;
         for (CtAnchoredWidget* pCtAnchoredWidget : row.get_value(_columns.colAnchoredWidgets))
         {
             delete pCtAnchoredWidget;
@@ -80,14 +80,14 @@ void CtTreeStore::setExpandedCollapsed(Gtk::TreeView* pTreeView,
                                        const Gtk::TreeModel::Children& children,
                                        const std::map<gint64,bool>& mapExpandedCollapsed)
 {
-    for (Gtk::TreeIter iter = children.begin(); iter != children.end(); ++iter)
+    for (Gtk::TreeIter treeIter = children.begin(); treeIter != children.end(); ++treeIter)
     {
-        Gtk::TreeRow row = *iter;
+        Gtk::TreeRow row = *treeIter;
         gint64 nodeId = row.get_value(_columns.colNodeUniqueId);
         std::map<gint64,bool>::const_iterator it = mapExpandedCollapsed.find(nodeId);
         if (it != mapExpandedCollapsed.end() && it->second)
         {
-            pTreeView->expand_row(_rTreeStore->get_path(iter), false/*open_all*/);
+            pTreeView->expand_row(_rTreeStore->get_path(treeIter), false/*open_all*/);
         }
         else if (CtApp::P_ctCfg->nodesBookmExp && _bookmarks.count(nodeId) > 0)
         {
@@ -103,6 +103,46 @@ void CtTreeStore::expandToTreeRow(Gtk::TreeView* pTreeView, Gtk::TreeRow& row)
     if (static_cast<bool>(iterParent))
     {
         pTreeView->expand_to_path(_rTreeStore->get_path(iterParent));
+    }
+}
+
+void CtTreeStore::treeviewSafeSetCursor(Gtk::TreeView* pTreeView, Gtk::TreeIter& treeIter)
+{
+    Gtk::TreeRow row = *treeIter;
+    expandToTreeRow(pTreeView, row);
+    pTreeView->set_cursor(_rTreeStore->get_path(treeIter));
+}
+
+void CtTreeStore::setTreePathTextCursorFromConfig(Gtk::TreeView* pTreeView, Gsv::View* pTextView)
+{
+    bool treeSelFromConfig{false};
+    if (!CtApp::P_ctCfg->nodePath.empty())
+    {
+        Gtk::TreeIter treeIter = _rTreeStore->get_iter(CtApp::P_ctCfg->nodePath);
+        if (static_cast<bool>(treeIter))
+        {
+            treeviewSafeSetCursor(pTreeView, treeIter);
+            treeSelFromConfig = true;
+            if (CtApp::P_ctCfg->treeClickExpand)
+            {
+                pTreeView->expand_row(_rTreeStore->get_path(treeIter), false/*open_all*/);
+            }
+            Glib::RefPtr<Gsv::Buffer> rTextBuffer = (*treeIter).get_value(_columns.rColTextBuffer);
+            Gtk::TextIter textIter = rTextBuffer->get_iter_at_offset(CtApp::P_ctCfg->cursorPosition);
+            if (static_cast<bool>(textIter))
+            {
+                rTextBuffer->place_cursor(textIter);
+                pTextView->scroll_to(textIter, CtTextView::TEXT_SCROLL_MARGIN);
+            }
+        }
+    }
+    if (!treeSelFromConfig)
+    {
+        Gtk::TreeIter treeIter = _rTreeStore->get_iter("0");
+        if (static_cast<bool>(treeIter))
+        {
+            pTreeView->set_cursor(_rTreeStore->get_path(treeIter));
+        }
     }
 }
 
@@ -262,7 +302,7 @@ Glib::RefPtr<Gsv::Buffer> CtTreeStore::_getNodeTextBuffer(const Gtk::TreeIter& t
     return rRetTextBuffer;
 }
 
-void CtTreeStore::applyTextBufferToCtTextView(const Gtk::TreeIter& treeIter, CtTextView* pCtTextView)
+void CtTreeStore::applyTextBufferToCtTextView(const Gtk::TreeIter& treeIter, CtTextView* pTextView)
 {
     if (!treeIter)
     {
@@ -272,8 +312,8 @@ void CtTreeStore::applyTextBufferToCtTextView(const Gtk::TreeIter& treeIter, CtT
     Gtk::TreeRow treeRow = *treeIter;
     std::cout << treeRow.get_value(_columns.colNodeName) << std::endl;
     Glib::RefPtr<Gsv::Buffer> rTextBuffer = _getNodeTextBuffer(treeIter);
-    pCtTextView->setupForSyntax(treeRow.get_value(_columns.colSyntaxHighlighting));
-    pCtTextView->set_buffer(rTextBuffer);
+    pTextView->setupForSyntax(treeRow.get_value(_columns.colSyntaxHighlighting));
+    pTextView->set_buffer(rTextBuffer);
     for (CtAnchoredWidget* pCtAnchoredWidget : treeRow.get_value(_columns.colAnchoredWidgets))
     {
         Glib::RefPtr<Gtk::TextChildAnchor> rChildAnchor = pCtAnchoredWidget->getTextChildAnchor();
@@ -282,8 +322,8 @@ void CtTreeStore::applyTextBufferToCtTextView(const Gtk::TreeIter& treeIter, CtT
             if (0 == rChildAnchor->get_widgets().size())
             {
                 Gtk::TextIter textIter = rTextBuffer->get_iter_at_child_anchor(rChildAnchor);
-                pCtTextView->add_child_at_anchor(*pCtAnchoredWidget, rChildAnchor);
-                pCtAnchoredWidget->applyWidthHeight(pCtTextView->get_allocation().get_width());
+                pTextView->add_child_at_anchor(*pCtAnchoredWidget, rChildAnchor);
+                pCtAnchoredWidget->applyWidthHeight(pTextView->get_allocation().get_width());
             }
             else
             {
@@ -296,5 +336,6 @@ void CtTreeStore::applyTextBufferToCtTextView(const Gtk::TreeIter& treeIter, CtT
             std::cerr << "!! rChildAnchor" << std::endl;
         }
     }
-    pCtTextView->show_all();
+    pTextView->show_all();
+    pTextView->grab_focus();
 }

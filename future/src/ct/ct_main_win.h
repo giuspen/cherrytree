@@ -41,6 +41,7 @@ public:
     CtTextView();
     virtual ~CtTextView();
     void setupForSyntax(const std::string& syntaxHighlighting);
+    static const double TEXT_SCROLL_MARGIN;
 protected:
     void _setFontForSyntax(const std::string& syntaxHighlighting);
 };
