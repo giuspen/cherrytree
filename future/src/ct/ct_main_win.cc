@@ -31,12 +31,12 @@ CtTreeView::~CtTreeView()
 {
 }
 
-void CtTreeView::setExpandedCollapsed()
+void CtTreeView::setExpandedCollapsed(CtTreeStore& ctTreestore)
 {
     collapse_all();
     std::vector<std::string> vecExpandedCollapsed;
     CtStrUtil::gstringSplit2string(CtApp::P_ctCfg->expandedCollapsedString.c_str(), vecExpandedCollapsed, "_");
-    std::map<int,bool> mapExpandedCollapsed;
+    std::map<gint64,bool> mapExpandedCollapsed;
     for (const std::string& element : vecExpandedCollapsed)
     {
         std::vector<std::string> vecElem;
@@ -46,19 +46,7 @@ void CtTreeView::setExpandedCollapsed()
             mapExpandedCollapsed[std::stoi(vecElem[0])] = CtStrUtil::isStrTrue(vecElem[1]);
         }
     }
-    _iterSetExpandedCollapsed(get_model()->children(), mapExpandedCollapsed);
-}
-
-void CtTreeView::_iterSetExpandedCollapsed(const Gtk::TreeModel::Children& children,
-                                           const std::map<int,bool>& mapExpandedCollapsed)
-{
-    for (Gtk::TreeIter iter = children.begin(); iter != children.end(); ++iter)
-    {
-        Gtk::TreeRow row = *iter;
-        
-
-        _iterSetExpandedCollapsed(row.children(), mapExpandedCollapsed);
-    }
+    ctTreestore.setExpandedCollapsed(this, ctTreestore.getRootChildren(), mapExpandedCollapsed);
 }
 
 
@@ -216,7 +204,7 @@ bool CtMainWin::readNodesFromGioFile(const Glib::RefPtr<Gio::File>& r_file, cons
                 {
                     CtApp::P_ctCfg->expandedCollapsedString = "";
                 }
-                _ctTreeview.setExpandedCollapsed();
+                _ctTreeview.setExpandedCollapsed(_ctTreestore);
             }
         }
     }

@@ -23,6 +23,7 @@
 
 #include <gtkmm.h>
 #include <gtksourceviewmm.h>
+#include <set>
 
 class CtAnchoredWidget : public Gtk::EventBox
 {
@@ -101,6 +102,11 @@ public:
     Gtk::TreeIter onRequestAppendNode(CtNodeData* pNodeData, const Gtk::TreeIter* pParentIter);
 
     void applyTextBufferToCtTextView(const Gtk::TreeIter& treeIter, CtTextView* pCtTextView);
+    const Gtk::TreeModel::Children getRootChildren() { return _rTreeStore->children(); }
+    void setExpandedCollapsed(Gtk::TreeView* pTreeView,
+                              const Gtk::TreeModel::Children& children,
+                              const std::map<gint64,bool>& mapExpandedCollapsed);
+    void expandToTreeRow(Gtk::TreeView* pTreeView, Gtk::TreeRow& row);
 
 protected:
     guint16                   _getPangoWeight(bool isBold);
@@ -111,6 +117,6 @@ protected:
 
     CtTreeModelColumns           _columns;
     Glib::RefPtr<Gtk::TreeStore> _rTreeStore;
-    std::list<gint64>            _bookmarks;
+    std::set<gint64>             _bookmarks;
     CtSQLiteRead*                _pCtSQLiteRead{nullptr};
 };

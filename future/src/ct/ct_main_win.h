@@ -31,10 +31,8 @@ class CtTreeView : public Gtk::TreeView
 public:
     CtTreeView();
     virtual ~CtTreeView();
-    void setExpandedCollapsed();
+    void setExpandedCollapsed(CtTreeStore& ctTreestore);
 protected:
-    void _iterSetExpandedCollapsed(const Gtk::TreeModel::Children& children,
-                                   const std::map<int,bool>& mapExpandedCollapsed);
 };
 
 class CtTextView : public Gsv::View

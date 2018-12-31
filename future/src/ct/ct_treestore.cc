@@ -53,7 +53,7 @@ CtTreeStore::CtTreeStore()
 
 CtTreeStore::~CtTreeStore()
 {
-    _iterDeleteAnchoredWidgets(_rTreeStore->children());
+    _iterDeleteAnchoredWidgets(getRootChildren());
     if (nullptr != _pCtSQLiteRead)
     {
         delete _pCtSQLiteRead;
@@ -73,6 +73,36 @@ void CtTreeStore::_iterDeleteAnchoredWidgets(const Gtk::TreeModel::Children& chi
         row.get_value(_columns.colAnchoredWidgets).clear();
 
         _iterDeleteAnchoredWidgets(row.children());
+    }
+}
+
+void CtTreeStore::setExpandedCollapsed(Gtk::TreeView* pTreeView,
+                                       const Gtk::TreeModel::Children& children,
+                                       const std::map<gint64,bool>& mapExpandedCollapsed)
+{
+    for (Gtk::TreeIter iter = children.begin(); iter != children.end(); ++iter)
+    {
+        Gtk::TreeRow row = *iter;
+        gint64 nodeId = row.get_value(_columns.colNodeUniqueId);
+        std::map<gint64,bool>::const_iterator it = mapExpandedCollapsed.find(nodeId);
+        if (it != mapExpandedCollapsed.end() && it->second)
+        {
+            pTreeView->expand_row(_rTreeStore->get_path(iter), false/*open_all*/);
+        }
+        else if (CtApp::P_ctCfg->nodesBookmExp && _bookmarks.count(nodeId) > 0)
+        {
+            expandToTreeRow(pTreeView, row);
+        }
+        setExpandedCollapsed(pTreeView, row.children(), mapExpandedCollapsed);
+    }
+}
+
+void CtTreeStore::expandToTreeRow(Gtk::TreeView* pTreeView, Gtk::TreeRow& row)
+{
+    Gtk::TreeIter iterParent = row.parent();
+    if (static_cast<bool>(iterParent))
+    {
+        pTreeView->expand_to_path(_rTreeStore->get_path(iterParent));
     }
 }
 
@@ -197,7 +227,7 @@ Gtk::TreeIter CtTreeStore::appendNode(CtNodeData* pNodeData, const Gtk::TreeIter
 
 void CtTreeStore::onRequestAddBookmark(gint64 nodeId)
 {
-    _bookmarks.push_back(nodeId);
+    _bookmarks.insert(nodeId);
 }
 
 guint16 CtTreeStore::_getPangoWeight(bool isBold)
