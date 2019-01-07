@@ -46,11 +46,10 @@ public:
 
     void init_actions(CtApp *app);
     GtkWidget* build_menubar();
+    GtkAccelGroup* default_accel_group();
 
 private:
     CtAction const * find_action(std::string id);
-
-    GtkAccelGroup* default_accel_group();
 
     GtkWidget* build_menu_item(GtkMenu *menu, CtAction const *action);
     void build_menus(xmlpp::Node* node, GtkWidget *menu);

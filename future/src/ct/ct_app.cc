@@ -108,6 +108,7 @@ void CtApp::_iconthemeInit()
 CtMainWin* CtApp::create_appwindow()
 {
     auto pMainWin = new CtMainWin(_ctMenu->build_menubar());
+    gtk_window_add_accel_group (GTK_WINDOW(pMainWin->gobj()), _ctMenu->default_accel_group());
 
     add_window(*pMainWin);
 
