@@ -29,6 +29,7 @@
 namespace CtConst {
 
 extern const gchar    CT_VERSION[];
+extern const gchar    APP_NAME[];
 extern const int      MAX_RECENT_DOCS;
 extern const int      MAX_RECENT_DOCS_RESTORE;
 extern const int      NODE_ICON_CODE_ID;
@@ -114,6 +115,11 @@ extern const gchar    TAG_PROP_VAL_LEFT[];
 extern const gchar    TAG_PROP_VAL_CENTER[];
 extern const gchar    TAG_PROP_VAL_RIGHT[];
 extern const gchar    TAG_PROP_VAL_FILL[];
+extern const gchar    STR_KEY_UP[];
+extern const gchar    STR_KEY_DOWN[];
+extern const gchar    STR_KEY_LEFT[];
+extern const gchar    STR_KEY_RIGHT[];
+extern const gchar    STR_STOCK_CT_IMP[];
 extern const std::set<const gchar*> TEXT_SYNTAXES;
 extern const std::set<const gchar*> TAG_PROPERTIES;
 extern const gchar    TOOLBAR_VEC_DEFAULT[];

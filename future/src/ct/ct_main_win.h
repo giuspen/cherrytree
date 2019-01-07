@@ -62,7 +62,7 @@ protected:
 class CtMainWin : public Gtk::ApplicationWindow
 {
 public:
-    CtMainWin();
+    CtMainWin(GtkWidget* menu);
     virtual ~CtMainWin();
 
     bool readNodesFromGioFile(const Glib::RefPtr<Gio::File>& r_file, const bool isImport);
@@ -74,6 +74,7 @@ protected:
     Gtk::VBox           _vboxMain;
     Gtk::VBox           _vboxText;
     Gtk::HPaned         _hPaned;
+    Gtk::MenuBar*       _menu;
     Gtk::ScrolledWindow _scrolledwindowTree;
     Gtk::ScrolledWindow _scrolledwindowText;
     CtTreeStore         _ctTreestore;

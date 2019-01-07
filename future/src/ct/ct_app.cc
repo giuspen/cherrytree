@@ -64,6 +64,8 @@ CtApp::CtApp() : Gtk::Application("com.giuspen.cherrytree", Gio::APPLICATION_HAN
     {
         R_cssProvider = Gtk::CssProvider::create();
     }
+    _ctMenu = new CtMenu();
+    _ctMenu->init_actions(this);
 }
 
 CtApp::~CtApp()
@@ -74,6 +76,8 @@ CtApp::~CtApp()
 
     delete P_ctTmp;
     P_ctTmp = nullptr;
+
+    delete _ctMenu;
 }
 
 Glib::RefPtr<CtApp> CtApp::create()
@@ -103,12 +107,11 @@ void CtApp::_iconthemeInit()
 
 CtMainWin* CtApp::create_appwindow()
 {
-    auto pMainWin = new CtMainWin();
+    auto pMainWin = new CtMainWin(_ctMenu->build_menubar());
 
     add_window(*pMainWin);
 
     pMainWin->signal_hide().connect(sigc::bind<Gtk::Window*>(sigc::mem_fun(*this, &CtApp::on_hide_window), pMainWin));
-
     return pMainWin;
 }
 
@@ -122,6 +125,7 @@ void CtApp::on_activate()
     // app run without arguments
     auto pAppWindow = create_appwindow();
     pAppWindow->present();
+
 
     if (!CtApp::P_ctCfg->fileName.empty())
     {
@@ -172,6 +176,11 @@ void CtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::u
     }
 
     pAppWindow->present();
+}
+
+void CtApp::quit_application()
+{
+    quit();
 }
 
 

@@ -111,7 +111,7 @@ void CtTextView::_setFontForSyntax(const std::string& syntaxHighlighting)
 }
 
 
-CtMainWin::CtMainWin() : Gtk::ApplicationWindow()
+CtMainWin::CtMainWin(GtkWidget* menu) : Gtk::ApplicationWindow()
 {
     set_icon(CtApp::R_icontheme->load_icon("cherrytree", 48));
     _scrolledwindowTree.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
@@ -129,6 +129,10 @@ CtMainWin::CtMainWin() : Gtk::ApplicationWindow()
         _hPaned.add1(_scrolledwindowTree);
         _hPaned.add2(_vboxText);
     }
+    _menu = Glib::wrap(GTK_MENU_BAR(menu));
+    _menu->set_name("MenuBar");
+    _menu->show_all();
+    _vboxMain.pack_start(*_menu, false, false);
     _vboxMain.pack_start(_hPaned);
     add(_vboxMain);
     _ctTreestore.viewAppendColumns(&_ctTreeview);
