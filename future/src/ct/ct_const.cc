@@ -22,6 +22,7 @@
 #include "ct_const.h"
 
 const gchar    CtConst::CT_VERSION[]           {"0.0.1"};
+const gchar    CtConst::APP_NAME[]             {"cherrytree"};
 const int      CtConst::MAX_RECENT_DOCS             {10};
 const int      CtConst::MAX_RECENT_DOCS_RESTORE      {3};
 const int      CtConst::NODE_ICON_CODE_ID           {38};
@@ -110,6 +111,11 @@ const gchar    CtConst::TAG_PROP_VAL_CENTER[]       {"center"};
 const gchar    CtConst::TAG_PROP_VAL_RIGHT[]        {"right"};
 const gchar    CtConst::TAG_PROP_VAL_FILL[]         {"fill"};
 
+const gchar    CtConst::STR_KEY_UP[]                {"Up"};
+const gchar    CtConst::STR_KEY_DOWN[]              {"Down"};
+const gchar    CtConst::STR_KEY_LEFT[]              {"Left"};
+const gchar    CtConst::STR_KEY_RIGHT[]             {"Right"};
+const gchar    CtConst::STR_STOCK_CT_IMP[]          {"import_in_cherrytree"};
 const std::set<const gchar*> CtConst::TEXT_SYNTAXES {
     RICH_TEXT_ID,
     PLAIN_TEXT_ID};

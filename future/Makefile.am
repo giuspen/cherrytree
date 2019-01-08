@@ -54,7 +54,8 @@ COMMON_SOURCES = \
 	src/ct/ct_const.cc \
 	src/ct/ct_misc_utils.cc \
 	src/ct/ct_p7za_iface.cc \
-	src/ct/icons.gresource.cc
+	src/ct/icons.gresource.cc \
+	src/ct/ct_menu.cc
 
 cherrytree_SOURCES = \
 	src/ct/ct_main.cc \
@@ -278,11 +279,11 @@ libp7za_a_SOURCES = \
 	src/7za/CPP/myWindows/mySplitCommandLine.cpp \
 	src/7za/CPP/myWindows/wine_date_and_time.cpp
 
-cherrytree_LDADD = ${CHERRYTREE_LIBS}
+cherrytree_LDADD = ${CHERRYTREE_LIBS} libp7za.a
 
 cherrytree_LDFLAGS = -Wl,--whole-archive $(top_srcdir)/libp7za.a -Wl,--no-whole-archive -lpthread
 
-run_tests_LDADD = ${CHERRYTREE_LIBS}
+run_tests_LDADD = ${CHERRYTREE_LIBS} libp7za.a
 
 run_tests_LDFLAGS = -Wl,--whole-archive $(top_srcdir)/libp7za.a -Wl,--no-whole-archive -lpthread
 

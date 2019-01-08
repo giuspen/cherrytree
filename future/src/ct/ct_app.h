@@ -19,6 +19,8 @@
  * MA 02110-1301, USA.
  */
 
+#pragma once
+
 #include <iostream>
 #include <unordered_map>
 
@@ -27,6 +29,7 @@
 
 #include "ct_config.h"
 #include "ct_main_win.h"
+#include "ct_menu.h"
 
 class CtTmp
 {
@@ -41,6 +44,7 @@ protected:
     std::unordered_map<std::string,gchar*> _mapHiddenFiles;
 };
 
+class CtMenu;
 class CtApp: public Gtk::Application
 {
 protected:
@@ -58,6 +62,9 @@ public:
     static Glib::RefPtr<Gsv::StyleSchemeManager> R_styleSchemeManager;
     static Glib::RefPtr<Gtk::CssProvider> R_cssProvider;
 
+private:
+    CtMenu* _ctMenu;
+
 protected:
     void on_activate() override;
     void on_open(const Gio::Application::type_vec_files& files, const Glib::ustring& hint) override;
@@ -65,6 +72,9 @@ protected:
     void _printHelpMessage();
     void _printGresourceIcons();
     void _iconthemeInit();
+
+public:
+    void quit_application();
 
 private:
     CtMainWin* create_appwindow();
