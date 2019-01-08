@@ -251,7 +251,7 @@ GtkAccelGroup* CtMenu::default_accel_group()
 GtkWidget* CtMenu::build_menubar()
 {
     xmlpp::DomParser parser;
-    parser.parse_memory(get_menu_markup());
+    parser.parse_memory(get_menu_ui_str());
 
     GtkWidget* pMBar = gtk_menu_bar_new();
     build_menus(parser.get_document()->get_root_node(), pMBar);
@@ -355,7 +355,38 @@ GtkWidget* CtMenu::build_menu_item(GtkMenu* pMenu, CtAction const* pAction)
     return pMenuItem->gobj();
 }
 
-const char* CtMenu::get_menu_markup()
+std::string CtMenu::get_toolbar_ui_str()
+{
+    std::vector<std::string> vecToolbarElements;
+    CtStrUtil::gstringSplit2string(CtApp::P_ctCfg->toolbarUiList.c_str(), vecToolbarElements, ",");
+    std::string toolbarUIStr;
+    for (const std::string& element: vecToolbarElements)
+    {
+        if (element == CtConst::TAG_SEPARATOR)
+        {
+            toolbarUIStr += "<child><object class='GtkSeparatorToolItem'/></child>";
+        }
+        else if (CtAction const* pAction = find_action(element))
+        {
+            toolbarUIStr += "<child><object class='GtkToolButton'>";
+            toolbarUIStr += "<property name='action-name'>" + pAction->id + "</property>";
+            toolbarUIStr += "<property name='icon-name'>" + pAction->stock + "</property>";
+            toolbarUIStr += "<property name='label'>" + pAction->name + "</property>";
+            toolbarUIStr += "<property name='tooltip-text'>" + pAction->desc + "</property>";
+            toolbarUIStr += "<property name='visible'>True</property>";
+            toolbarUIStr += "</object></child>";
+        }
+    }
+    toolbarUIStr = "<interface><object class='GtkToolbar' id='ToolBar'>"
+            "<property name='visible'>True</property>"
+            "<property name='can_focus'>False</property>"
+            + toolbarUIStr +
+            "</object></interface>";
+    return toolbarUIStr;
+}
+
+
+const char* CtMenu::get_menu_ui_str()
 {
     return R"MARKUP(
 <menubar name='MenuBar'>

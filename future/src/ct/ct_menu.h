@@ -46,13 +46,13 @@ public:
     void init_actions(CtApp* pApp);
     GtkWidget* build_menubar();
     GtkAccelGroup* default_accel_group();
-
+    std::string get_toolbar_ui_str();
 private:
     CtAction const* find_action(const std::string& id);
 
     GtkWidget* build_menu_item(GtkMenu* pMenu, CtAction const* pAction);
     void build_menus(xmlpp::Node* pNode, GtkWidget* pMenu);
-    const char* get_menu_markup();
+    const char* get_menu_ui_str();
 
 private:
     std::list<CtAction> _actions;

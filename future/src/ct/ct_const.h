@@ -97,6 +97,7 @@ extern const gchar    TAG_SCALE[];
 extern const gchar    TAG_FAMILY[];
 extern const gchar    TAG_JUSTIFICATION[];
 extern const gchar    TAG_LINK[];
+extern const gchar    TAG_SEPARATOR[];
 extern const gchar    TAG_PROP_VAL_HEAVY[];
 extern const gchar    TAG_PROP_VAL_ITALIC[];
 extern const gchar    TAG_PROP_VAL_MONOSPACE[];

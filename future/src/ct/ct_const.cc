@@ -91,6 +91,7 @@ const gchar    CtConst::TAG_SCALE[]            {"scale"};
 const gchar    CtConst::TAG_FAMILY[]           {"family"};
 const gchar    CtConst::TAG_JUSTIFICATION[]    {"justification"};
 const gchar    CtConst::TAG_LINK[]             {"link"};
+const gchar    CtConst::TAG_SEPARATOR[]        {"separator"};
 
 const gchar    CtConst::TAG_PROP_VAL_HEAVY[]        {"heavy"};
 const gchar    CtConst::TAG_PROP_VAL_ITALIC[]       {"italic"};
@@ -133,11 +134,11 @@ const std::set<const gchar*> CtConst::TAG_PROPERTIES {
     TAG_LINK};
 
 const gchar CtConst::TOOLBAR_VEC_DEFAULT[] {
-    "tree_add_node,tree_add_subnode,sep,go_node_prev,go_node_next,"
-    "sep,*,ct_save,export_pdf,sep,"
-    "find_in_allnodes,sep,handle_bull_list,handle_num_list,handle_todo_list,"
-    "sep,handle_image,handle_table,handle_codebox,handle_embfile,"
-    "handle_link,handle_anchor,sep,fmt_rm,fmt_color_fg,"
+    "tree_add_node,tree_add_subnode,separator,go_node_prev,go_node_next,"
+    "separator,*,ct_save,export_pdf,separator,"
+    "find_in_allnodes,separator,handle_bull_list,handle_num_list,handle_todo_list,"
+    "separator,handle_image,handle_table,handle_codebox,handle_embfile,"
+    "handle_link,handle_anchor,separator,fmt_rm,fmt_color_fg,"
     "fmt_color_bg,fmt_bold,fmt_italic,fmt_underline,fmt_strikethrough,"
     "fmt_h1,fmt_h2,fmt_h3,fmt_small,fmt_superscript,fmt_subscript,fmt_monospace"};
 

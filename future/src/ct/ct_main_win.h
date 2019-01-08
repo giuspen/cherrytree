@@ -62,7 +62,7 @@ protected:
 class CtMainWin : public Gtk::ApplicationWindow
 {
 public:
-    CtMainWin(GtkWidget* pMenu);
+    CtMainWin(GtkWidget* pMenu, Gtk::Toolbar* pToolbar);
     virtual ~CtMainWin();
 
     bool readNodesFromGioFile(const Glib::RefPtr<Gio::File>& r_file, const bool isImport);

@@ -66,6 +66,7 @@ CtApp::CtApp() : Gtk::Application("com.giuspen.cherrytree", Gio::APPLICATION_HAN
     }
     _pCtMenu = new CtMenu();
     _pCtMenu->init_actions(this);
+    _pGtkBuilder = Gtk::Builder::create();
 }
 
 CtApp::~CtApp()
@@ -107,7 +108,13 @@ void CtApp::_iconthemeInit()
 
 CtMainWin* CtApp::create_appwindow()
 {
-    auto pMainWin = new CtMainWin(_pCtMenu->build_menubar());
+    // toolbar and menu
+    Gtk::Toolbar* pToolbar = nullptr;
+    _pGtkBuilder->add_from_string(_pCtMenu->get_toolbar_ui_str());
+    _pGtkBuilder->get_widget("ToolBar", pToolbar);
+    auto pMenu = _pCtMenu->build_menubar();
+
+    auto pMainWin = new CtMainWin(pMenu, pToolbar);
     gtk_window_add_accel_group (GTK_WINDOW(pMainWin->gobj()), _pCtMenu->default_accel_group());
 
     add_window(*pMainWin);
