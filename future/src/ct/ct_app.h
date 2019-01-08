@@ -76,6 +76,7 @@ protected:
 
 public:
     void quit_application();
+    void add_node();
 
 private:
     CtMainWin* create_appwindow();

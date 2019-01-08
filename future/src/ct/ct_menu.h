@@ -34,7 +34,7 @@ struct CtAction
     std::string name;
     std::string shortcut;
     std::string desc;
-    sigc::signal<void> run_action;
+    sigc::slot<void> run_action;
 };
 
 class CtApp;

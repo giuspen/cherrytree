@@ -191,6 +191,10 @@ void CtApp::quit_application()
     quit();
 }
 
+void CtApp::add_node()
+{
+    std::cout << "CtApp::add_node() is called" << std::endl;
+}
 
 CtTmp::CtTmp()
 {
