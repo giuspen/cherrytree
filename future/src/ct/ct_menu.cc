@@ -1,11 +1,11 @@
 /*
  * ct_menu.cc
  *
- * Copyright 2017-2018 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2017-2019 Giuseppe Penone <giuspen@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -25,39 +25,36 @@
 #include <gtk/gtk.h>
 #include <glib-object.h>
 
-static xmlpp::Attribute*
-get_attribute(xmlpp::Node* node, char const *name)
+static xmlpp::Attribute* get_attribute(xmlpp::Node* pNode, char const* name)
 {
-    xmlpp::Element* element = static_cast<xmlpp::Element*>(node);
-    return element->get_attribute(name);
+    xmlpp::Element* pElement = static_cast<xmlpp::Element*>(pNode);
+    return pElement->get_attribute(name);
 }
 
-static void
-on_menu_activate(void */*object*/, CtAction *action)
+static void on_menu_activate(void* pObject, CtAction* pAction)
 {
-    action->run_action();
+    pAction->run_action();
 }
+
 
 CtMenu::CtMenu()
 {
-
 }
 
-
-void CtMenu::init_actions(CtApp *app)
+void CtMenu::init_actions(CtApp *pApp)
 {
     const std::string
-            None = "",
-            KB_CONTROL = "<control>",
-            KB_SHIFT = "<shift>",
-            KB_ALT = "<alt>";
+        None = "",
+        KB_CONTROL = "<control>",
+        KB_SHIFT = "<shift>",
+        KB_ALT = "<alt>";
 
     // CtAction::run_action constructor cannnot take sigc::mem_fun as a parameter
     // thus create a signal via this function
     typedef void (CtApp::*fun_ptr)(void);
-    auto mem_fun = [](CtApp *app, fun_ptr fun) -> sigc::signal<void> {
+    auto mem_fun = [](CtApp *pApp, fun_ptr fun) -> sigc::signal<void> {
         sigc::signal<void> c;
-        c.connect(sigc::mem_fun(*app, fun));
+        c.connect(sigc::mem_fun(*pApp, fun));
         return c;
     };
 
@@ -86,7 +83,7 @@ void CtMenu::init_actions(CtApp *app)
     _actions.push_back(CtAction{"open_cfg_folder", "gtk-directory", _("Open Preferences _Directory"), None, _("Open the Directory with Preferences Files"), sigc::signal<void>() /* dad.folder_cfg_open */});
     _actions.push_back(CtAction{"print_page_setup", "gtk-print", _("Pa_ge Setup"), KB_CONTROL+KB_SHIFT+"P", _("Set up the Page for Printing"), sigc::signal<void>() /* dad.export_print_page_setup */});
     _actions.push_back(CtAction{"do_print", "gtk-print", _("_Print"), KB_CONTROL+"P", _("Print"), sigc::signal<void>() /* dad.export_print */});
-    _actions.push_back(CtAction{"quit_app", "quit-app", _("_Quit"), KB_CONTROL+"Q", _("Quit the Application"), mem_fun(app, &CtApp::quit_application) /* dad.quit_application */});
+    _actions.push_back(CtAction{"quit_app", "quit-app", _("_Quit"), KB_CONTROL+"Q", _("Quit the Application"), mem_fun(pApp, &CtApp::quit_application) /* dad.quit_application */});
     _actions.push_back(CtAction{"exit_app", "quit-app", _("_Exit CherryTree"), KB_CONTROL+KB_SHIFT+"Q", _("Exit from CherryTree"), sigc::signal<void>() /* dad.quit_application_totally */});
     _actions.push_back(CtAction{"preferences_dlg", "gtk-preferences", _("_Preferences"), KB_CONTROL+KB_ALT+"P", _("Preferences"), sigc::signal<void>() /* dad.dialog_preferences */});
     _actions.push_back(CtAction{"act_undo", "gtk-undo", _("_Undo"), KB_CONTROL+"Z", _("Undo Last Operation"), sigc::signal<void>() /* dad.requested_step_back */});
@@ -229,20 +226,26 @@ void CtMenu::init_actions(CtApp *app)
     _actions.push_back(CtAction{});
 }
 
-CtAction const * CtMenu::find_action(std::string id)
+CtAction const* CtMenu::find_action(const std::string& id)
 {
-    for (CtAction& action: _actions)
+    for (CtAction& action : _actions)
+    {
         if (action.id == id)
+        {
             return &action;
+        }
+    }
     return nullptr;
 }
 
 GtkAccelGroup* CtMenu::default_accel_group()
 {
-    static GtkAccelGroup *accel_group = nullptr;
-    if (!accel_group)
-        accel_group = gtk_accel_group_new ();
-    return accel_group;
+    static GtkAccelGroup* pAccelGroup{nullptr};
+    if (!pAccelGroup)
+    {
+        pAccelGroup = gtk_accel_group_new();
+    }
+    return pAccelGroup;
 }
 
 GtkWidget* CtMenu::build_menubar()
@@ -250,263 +253,271 @@ GtkWidget* CtMenu::build_menubar()
     xmlpp::DomParser parser;
     parser.parse_memory(get_menu_markup());
 
-    GtkWidget *mbar = gtk_menu_bar_new();
-    build_menus(parser.get_document()->get_root_node(), mbar);
-    return mbar;
+    GtkWidget* pMBar = gtk_menu_bar_new();
+    build_menus(parser.get_document()->get_root_node(), pMBar);
+    return pMBar;
 }
 
-void CtMenu::build_menus(xmlpp::Node* node, GtkWidget *menu)
+void CtMenu::build_menus(xmlpp::Node* pNode, GtkWidget* pMenu)
 {
-    for (xmlpp::Node* nodeIter = node; nodeIter; nodeIter = nodeIter->get_next_sibling()) {
-        if (nodeIter->get_name() == "menubar") {
-            build_menus(nodeIter->get_first_child(), menu);
+    for (xmlpp::Node* pNodeIter = pNode; pNodeIter; pNodeIter = pNodeIter->get_next_sibling())
+    {
+        if (pNodeIter->get_name() == "menubar")
+        {
+            build_menus(pNodeIter->get_first_child(), pMenu);
         }
-        if (nodeIter->get_name() == "menu") {
-            CtAction const *action = find_action(get_attribute(nodeIter, "name")->get_value());
-            GtkWidget *mitem = gtk_menu_item_new_with_mnemonic(action->name.c_str());
-            GtkWidget *submenu = gtk_menu_new();
-            build_menus(nodeIter->get_first_child(), submenu);
-            gtk_menu_item_set_submenu(GTK_MENU_ITEM(mitem), GTK_WIDGET(submenu));
-            gtk_menu_shell_append(GTK_MENU_SHELL(menu), mitem);
-            continue;
+        else if (pNodeIter->get_name() == "menu")
+        {
+            CtAction const* pAction = find_action(get_attribute(pNodeIter, "name")->get_value());
+            GtkWidget* pMenuItem = gtk_menu_item_new_with_mnemonic(pAction->name.c_str());
+            GtkWidget* pSubmenu = gtk_menu_new();
+            build_menus(pNodeIter->get_first_child(), pSubmenu);
+            gtk_menu_item_set_submenu(GTK_MENU_ITEM(pMenuItem), GTK_WIDGET(pSubmenu));
+            gtk_menu_shell_append(GTK_MENU_SHELL(pMenu), pMenuItem);
         }
-        if (nodeIter->get_name() == "menuitem") {
-            CtAction const *action = find_action(get_attribute(nodeIter, "action")->get_value());
-            build_menu_item(GTK_MENU(menu), action);
-            continue;
+        else if (pNodeIter->get_name() == "menuitem")
+        {
+            CtAction const* pAction = find_action(get_attribute(pNodeIter, "action")->get_value());
+            build_menu_item(GTK_MENU(pMenu), pAction);
         }
-        if (nodeIter->get_name() == "separator") {
-            build_menu_item(GTK_MENU(menu), nullptr);
-            continue;
+        else if (pNodeIter->get_name() == "separator")
+        {
+            build_menu_item(GTK_MENU(pMenu), nullptr);
         }
     }
 }
 
 // based on inkscape/src/ui/interface.cpp
-GtkWidget* CtMenu::build_menu_item(GtkMenu *menu, CtAction const *action)
+GtkWidget* CtMenu::build_menu_item(GtkMenu* pMenu, CtAction const* pAction)
 {
-    Gtk::Widget *item;
-    if (action == nullptr) {
-        item = new Gtk::SeparatorMenuItem();
-    } else {
-        item = new Gtk::MenuItem();
+    Gtk::Widget* pMenuItem;
+    if (pAction == nullptr)
+    {
+        pMenuItem = new Gtk::SeparatorMenuItem();
+    }
+    else
+    {
+        pMenuItem = new Gtk::MenuItem();
 
         // Now create the label and add it to the menu item
-        GtkWidget *label = gtk_accel_label_new(action->name.c_str());
-        gtk_label_set_markup_with_mnemonic(GTK_LABEL(label), action->name.c_str());
+        GtkWidget* pLabel = gtk_accel_label_new(pAction->name.c_str());
+        gtk_label_set_markup_with_mnemonic(GTK_LABEL(pLabel), pAction->name.c_str());
 
-   #if GTK_CHECK_VERSION(3,16,0)
-        gtk_label_set_xalign(GTK_LABEL(label), 0.0);
-   #else
-        gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.5);
-   #endif
+#if GTK_CHECK_VERSION(3,16,0)
+        gtk_label_set_xalign(GTK_LABEL(pLabel), 0.0);
+#else
+        gtk_misc_set_alignment(GTK_MISC(pLabel), 0.0, 0.5);
+#endif
 
-        if (!action->shortcut.empty()) {
-            guint key; GdkModifierType mod;
-            gtk_accelerator_parse(action->shortcut.c_str(), &key, &mod);
-            gtk_widget_add_accelerator (item->gobj(),
+        if (!pAction->shortcut.empty())
+        {
+            guint key;
+            GdkModifierType mod;
+            gtk_accelerator_parse(pAction->shortcut.c_str(), &key, &mod);
+            gtk_widget_add_accelerator(pMenuItem->gobj(),
                             "activate",
                             default_accel_group(),
                             key,
                             mod,
                             GTK_ACCEL_VISIBLE);
         }
-        gtk_accel_label_set_accel_widget(GTK_ACCEL_LABEL(label), item->gobj());
+        gtk_accel_label_set_accel_widget(GTK_ACCEL_LABEL(pLabel), pMenuItem->gobj());
 
         // If there is an image associated with the action, then we can add it as an icon for the menu item.
-        if (!action->stock.empty()) {
-            item->set_name("ImageMenuItem");  // custom name to identify our "ImageMenuItems"
+        if (!pAction->stock.empty())
+        {
+            pMenuItem->set_name("ImageMenuItem");  // custom name to identify our "ImageMenuItems"
 
-            GtkWidget *icon = gtk_image_new_from_icon_name(action->stock.c_str(), GTK_ICON_SIZE_MENU);
+            GtkWidget* pIcon = gtk_image_new_from_icon_name(pAction->stock.c_str(), GTK_ICON_SIZE_MENU);
             //GtkWidget *icon = gtk_image_new();
             //Glib::RefPtr<Gdk::Pixbuf> pixbuf = CtApp::R_icontheme->load_icon(action->stock, GTK_ICON_SIZE_MENU);
             //gtk_image_set_from_pixbuf(GTK_IMAGE(icon), pixbuf->gobj());
 
-
             // create a box to hold icon and label as GtkMenuItem derives from GtkBin and can only hold one child
-            GtkWidget *box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
-            gtk_box_pack_start(GTK_BOX(box), icon, FALSE, FALSE, 5);
-            gtk_box_pack_start(GTK_BOX(box), label, TRUE, TRUE, 0);
+            GtkWidget* pBox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+            gtk_box_pack_start(GTK_BOX(pBox), pIcon, FALSE, FALSE, 5);
+            gtk_box_pack_start(GTK_BOX(pBox), pLabel, TRUE, TRUE, 0);
 
-            gtk_container_add(GTK_CONTAINER(item->gobj()), box);
-        } else {
-            gtk_container_add(GTK_CONTAINER(item->gobj()), label);
+            gtk_container_add(GTK_CONTAINER(pMenuItem->gobj()), pBox);
+        }
+        else
+        {
+            gtk_container_add(GTK_CONTAINER(pMenuItem->gobj()), pLabel);
         }
 
-
-        gtk_widget_set_events(item->gobj(), GDK_KEY_PRESS_MASK);
-        g_signal_connect(G_OBJECT(item->gobj()), "activate", G_CALLBACK(on_menu_activate), (gpointer)action );
+        gtk_widget_set_events(pMenuItem->gobj(), GDK_KEY_PRESS_MASK);
+        g_signal_connect(G_OBJECT(pMenuItem->gobj()), "activate", G_CALLBACK(on_menu_activate), (gpointer)pAction);
     }
 
-    item->show_all();
-    gtk_menu_shell_append(GTK_MENU_SHELL(menu), item->gobj());
+    pMenuItem->show_all();
+    gtk_menu_shell_append(GTK_MENU_SHELL(pMenu), pMenuItem->gobj());
 
-    return item->gobj();
+    return pMenuItem->gobj();
 }
 
 const char* CtMenu::get_menu_markup()
 {
     return R"MARKUP(
-             <menubar name='MenuBar'>
-               <menu name='FileMenu'>
-                 <menuitem action='ct_new_inst'/>
-                 <menuitem action='ct_open_file'/>
-                 <separator/>
-                 <menuitem action='ct_vacuum'/>
-                 <menuitem action='ct_save'/>
-                 <menuitem action='ct_save_as'/>
-                 <separator/>
-                 <menuitem action='print_page_setup'/>
-                 <menuitem action='do_print'/>
-                 <separator/>
-                 <menuitem action='exec_code'/>
-                 <separator/>
-                 <menuitem action='quit_app'/>
-                 <menuitem action='exit_app'/>
-               </menu>
+<menubar name='MenuBar'>
+  <menu name='FileMenu'>
+    <menuitem action='ct_new_inst'/>
+    <menuitem action='ct_open_file'/>
+    <separator/>
+    <menuitem action='ct_vacuum'/>
+    <menuitem action='ct_save'/>
+    <menuitem action='ct_save_as'/>
+    <separator/>
+    <menuitem action='print_page_setup'/>
+    <menuitem action='do_print'/>
+    <separator/>
+    <menuitem action='exec_code'/>
+    <separator/>
+    <menuitem action='quit_app'/>
+    <menuitem action='exit_app'/>
+  </menu>
 
-               <menu name='EditMenu'>
-                 <menuitem action='preferences_dlg'/>
-                 <separator/>
-                 <menuitem action='act_undo'/>
-                 <menuitem action='act_redo'/>
-                 <separator/>
-                 <menuitem action='handle_image'/>
-                 <menuitem action='handle_table'/>
-                 <menuitem action='handle_codebox'/>
-                 <menuitem action='handle_embfile'/>
-                 <menuitem action='handle_link'/>
-                 <menuitem action='handle_anchor'/>
-                 <menuitem action='insert_toc'/>
-                 <menuitem action='insert_timestamp'/>
-                 <menuitem action='insert_horiz_rule'/>
-                 <menuitem action='strip_trail_spaces'/>
-                 <separator/>
-                 <menu name='ChangeCaseMenu'>
-                   <menuitem action='case_down'/>
-                   <menuitem action='case_up'/>
-                   <menuitem action='case_tggl'/>
-                 </menu>
-                 <separator/>
-                 <menuitem action='spellcheck_toggle'/>
-                 <separator/>
-                 <menuitem action='cut_plain'/>
-                 <menuitem action='copy_plain'/>
-                 <menuitem action='paste_plain'/>
-                 <separator/>
-                 <menuitem action='cut_row'/>
-                 <menuitem action='copy_row'/>
-                 <menuitem action='del_row'/>
-                 <menuitem action='dup_row'/>
-                 <menuitem action='mv_up_row'/>
-                 <menuitem action='mv_down_row'/>
-               </menu>
+  <menu name='EditMenu'>
+    <menuitem action='preferences_dlg'/>
+    <separator/>
+    <menuitem action='act_undo'/>
+    <menuitem action='act_redo'/>
+    <separator/>
+    <menuitem action='handle_image'/>
+    <menuitem action='handle_table'/>
+    <menuitem action='handle_codebox'/>
+    <menuitem action='handle_embfile'/>
+    <menuitem action='handle_link'/>
+    <menuitem action='handle_anchor'/>
+    <menuitem action='insert_toc'/>
+    <menuitem action='insert_timestamp'/>
+    <menuitem action='insert_horiz_rule'/>
+    <menuitem action='strip_trail_spaces'/>
+    <separator/>
+    <menu name='ChangeCaseMenu'>
+      <menuitem action='case_down'/>
+      <menuitem action='case_up'/>
+      <menuitem action='case_tggl'/>
+    </menu>
+    <separator/>
+    <menuitem action='spellcheck_toggle'/>
+    <separator/>
+    <menuitem action='cut_plain'/>
+    <menuitem action='copy_plain'/>
+    <menuitem action='paste_plain'/>
+    <separator/>
+    <menuitem action='cut_row'/>
+    <menuitem action='copy_row'/>
+    <menuitem action='del_row'/>
+    <menuitem action='dup_row'/>
+    <menuitem action='mv_up_row'/>
+    <menuitem action='mv_down_row'/>
+  </menu>
 
-               <menu name='FormattingMenu'>
-                 <menuitem action='fmt_latest'/>
-                 <menuitem action='fmt_rm'/>
-                 <separator/>
-                 <menuitem action='fmt_color_fg'/>
-                 <menuitem action='fmt_color_bg'/>
-                 <menuitem action='fmt_bold'/>
-                 <menuitem action='fmt_italic'/>
-                 <menuitem action='fmt_underline'/>
-                 <menuitem action='fmt_strikethrough'/>
-                 <menuitem action='fmt_h1'/>
-                 <menuitem action='fmt_h2'/>
-                 <menuitem action='fmt_h3'/>
-                 <menuitem action='fmt_small'/>
-                 <menuitem action='fmt_superscript'/>
-                 <menuitem action='fmt_subscript'/>
-                 <menuitem action='fmt_monospace'/>
-                 <separator/>
-                 <menuitem action='handle_bull_list'/>
-                 <menuitem action='handle_num_list'/>
-                 <menuitem action='handle_todo_list'/>
-                 <separator/>
-                 <menuitem action='fmt_justify_left'/>
-                 <menuitem action='fmt_justify_center'/>
-                 <menuitem action='fmt_justify_right'/>
-                 <menuitem action='fmt_justify_fill'/>
-               </menu>
+  <menu name='FormattingMenu'>
+    <menuitem action='fmt_latest'/>
+    <menuitem action='fmt_rm'/>
+    <separator/>
+    <menuitem action='fmt_color_fg'/>
+    <menuitem action='fmt_color_bg'/>
+    <menuitem action='fmt_bold'/>
+    <menuitem action='fmt_italic'/>
+    <menuitem action='fmt_underline'/>
+    <menuitem action='fmt_strikethrough'/>
+    <menuitem action='fmt_h1'/>
+    <menuitem action='fmt_h2'/>
+    <menuitem action='fmt_h3'/>
+    <menuitem action='fmt_small'/>
+    <menuitem action='fmt_superscript'/>
+    <menuitem action='fmt_subscript'/>
+    <menuitem action='fmt_monospace'/>
+    <separator/>
+    <menuitem action='handle_bull_list'/>
+    <menuitem action='handle_num_list'/>
+    <menuitem action='handle_todo_list'/>
+    <separator/>
+    <menuitem action='fmt_justify_left'/>
+    <menuitem action='fmt_justify_center'/>
+    <menuitem action='fmt_justify_right'/>
+    <menuitem action='fmt_justify_fill'/>
+  </menu>
 
-               <menu name='TreeMenu'>
-               </menu>
+  <menu name='TreeMenu'>
+  </menu>
 
-               <menu name='SearchMenu'>
-                 <menuitem action='find_in_node'/>
-                 <menuitem action='find_in_allnodes'/>
-                 <menuitem action='find_in_node_n_sub'/>
-                 <menuitem action='find_in_node_names'/>
-                 <menuitem action='find_iter_fw'/>
-                 <menuitem action='find_iter_bw'/>
-                 <separator/>
-                 <menuitem action='replace_in_node'/>
-                 <menuitem action='replace_in_allnodes'/>
-                 <menuitem action='replace_in_node_n_sub'/>
-                 <menuitem action='replace_in_node_names'/>
-                 <menuitem action='replace_iter_fw'/>
-               </menu>
+  <menu name='SearchMenu'>
+    <menuitem action='find_in_node'/>
+    <menuitem action='find_in_allnodes'/>
+    <menuitem action='find_in_node_n_sub'/>
+    <menuitem action='find_in_node_names'/>
+    <menuitem action='find_iter_fw'/>
+    <menuitem action='find_iter_bw'/>
+    <separator/>
+    <menuitem action='replace_in_node'/>
+    <menuitem action='replace_in_allnodes'/>
+    <menuitem action='replace_in_node_n_sub'/>
+    <menuitem action='replace_in_node_names'/>
+    <menuitem action='replace_iter_fw'/>
+  </menu>
 
-               <menu name='ViewMenu'>
-                 <menuitem action='toggle_show_tree'/>
-                 <menuitem action='toggle_show_toolbar'/>
-                 <menuitem action='toggle_show_node_name_head'/>
-                 <menuitem action='toggle_show_allmatches_dlg'/>
-                 <separator/>
-                 <menuitem action='toggle_focus_tree_text'/>
-                 <menuitem action='nodes_all_expand'/>
-                 <menuitem action='nodes_all_collapse'/>
-                 <separator/>
-                 <menuitem action='toolbar_icons_size_p'/>
-                 <menuitem action='toolbar_icons_size_m'/>
-                 <separator/>
-                 <menuitem action='toggle_fullscreen'/>
-               </menu>
+  <menu name='ViewMenu'>
+    <menuitem action='toggle_show_tree'/>
+    <menuitem action='toggle_show_toolbar'/>
+    <menuitem action='toggle_show_node_name_head'/>
+    <menuitem action='toggle_show_allmatches_dlg'/>
+    <separator/>
+    <menuitem action='toggle_focus_tree_text'/>
+    <menuitem action='nodes_all_expand'/>
+    <menuitem action='nodes_all_collapse'/>
+    <separator/>
+    <menuitem action='toolbar_icons_size_p'/>
+    <menuitem action='toolbar_icons_size_m'/>
+    <separator/>
+    <menuitem action='toggle_fullscreen'/>
+  </menu>
 
-               <menu name='BookmarksMenu'>
-                 <menuitem action='handle_bookmarks'/>
-               </menu>
+  <menu name='BookmarksMenu'>
+    <menuitem action='handle_bookmarks'/>
+  </menu>
 
-               <menu name='ImportMenu'>
-                 <menuitem action='import_cherrytree'/>
-                 <menuitem action='import_txt_file'/>
-                 <menuitem action='import_txt_folder'/>
-                 <menuitem action='import_html_file'/>
-                 <menuitem action='import_html_folder'/>
-                 <menuitem action='import_basket'/>
-                 <menuitem action='import_epim_html'/>
-                 <menuitem action='import_gnote'/>
-                 <menuitem action='import_keepnote'/>
-                 <menuitem action='import_keynote'/>
-                 <menuitem action='import_knowit'/>
-                 <menuitem action='import_leo'/>
-                 <menuitem action='import_mempad'/>
-                 <menuitem action='import_notecase'/>
-                 <menuitem action='import_rednotebook'/>
-                 <menuitem action='import_tomboy'/>
-                 <menuitem action='import_treepad'/>
-                 <menuitem action='import_tuxcards'/>
-                 <menuitem action='import_zim'/>
-               </menu>
+  <menu name='ImportMenu'>
+    <menuitem action='import_cherrytree'/>
+    <menuitem action='import_txt_file'/>
+    <menuitem action='import_txt_folder'/>
+    <menuitem action='import_html_file'/>
+    <menuitem action='import_html_folder'/>
+    <menuitem action='import_basket'/>
+    <menuitem action='import_epim_html'/>
+    <menuitem action='import_gnote'/>
+    <menuitem action='import_keepnote'/>
+    <menuitem action='import_keynote'/>
+    <menuitem action='import_knowit'/>
+    <menuitem action='import_leo'/>
+    <menuitem action='import_mempad'/>
+    <menuitem action='import_notecase'/>
+    <menuitem action='import_rednotebook'/>
+    <menuitem action='import_tomboy'/>
+    <menuitem action='import_treepad'/>
+    <menuitem action='import_tuxcards'/>
+    <menuitem action='import_zim'/>
+  </menu>
 
-               <menu name='ExportMenu'>
-                 <menuitem action='export_pdf'/>
-                 <menuitem action='export_html'/>
-                 <menuitem action='export_txt_multiple'/>
-                 <menuitem action='export_txt_single'/>
-                 <menuitem action='export_ctd'/>
-               </menu>
+  <menu name='ExportMenu'>
+    <menuitem action='export_pdf'/>
+    <menuitem action='export_html'/>
+    <menuitem action='export_txt_multiple'/>
+    <menuitem action='export_txt_single'/>
+    <menuitem action='export_ctd'/>
+  </menu>
 
-               <menu name='HelpMenu'>
-                 <menuitem action='ct_check_newer'/>
-                 <separator/>
-                 <menuitem action='ct_help'/>
-                 <separator/>
-                 <menuitem action='open_cfg_folder'/>
-                 <separator/>
-                 <menuitem action='ct_about'/>
-               </menu>
-             </menubar>
+  <menu name='HelpMenu'>
+    <menuitem action='ct_check_newer'/>
+    <separator/>
+    <menuitem action='ct_help'/>
+    <separator/>
+    <menuitem action='open_cfg_folder'/>
+    <separator/>
+    <menuitem action='ct_about'/>
+  </menu>
+</menubar>
     )MARKUP";
 }

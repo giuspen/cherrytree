@@ -1,11 +1,11 @@
 /*
  * ct_sqlite3_rw.cc
  *
- * Copyright 2017-2018 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2017-2019 Giuseppe Penone <giuspen@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -224,7 +224,7 @@ void CtSQLiteRead::_getTextBufferAnchoredWidgets(Glib::RefPtr<Gsv::Buffer>& rTex
             {
                 pAnchoredWidget = new CtImageAnchor(anchorName, charOffset[i], justification[i]);
             }
-            else 
+            else
             {
                 const Glib::ustring fileName = reinterpret_cast<const char*>(sqlite3_column_text(pp_stmt[i], 5));
                 const void* pBlob = sqlite3_column_blob(pp_stmt[i], 4);

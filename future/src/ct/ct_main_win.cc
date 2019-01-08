@@ -1,11 +1,11 @@
 /*
  * ct_main_win.cc
  *
- * Copyright 2017-2018 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2017-2019 Giuseppe Penone <giuspen@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -111,7 +111,7 @@ void CtTextView::_setFontForSyntax(const std::string& syntaxHighlighting)
 }
 
 
-CtMainWin::CtMainWin(GtkWidget* menu) : Gtk::ApplicationWindow()
+CtMainWin::CtMainWin(GtkWidget* pMenu) : Gtk::ApplicationWindow()
 {
     set_icon(CtApp::R_icontheme->load_icon("cherrytree", 48));
     _scrolledwindowTree.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
@@ -129,10 +129,10 @@ CtMainWin::CtMainWin(GtkWidget* menu) : Gtk::ApplicationWindow()
         _hPaned.add1(_scrolledwindowTree);
         _hPaned.add2(_vboxText);
     }
-    _menu = Glib::wrap(GTK_MENU_BAR(menu));
-    _menu->set_name("MenuBar");
-    _menu->show_all();
-    _vboxMain.pack_start(*_menu, false, false);
+    _pMenu = Glib::wrap(GTK_MENU_BAR(pMenu));
+    _pMenu->set_name("MenuBar");
+    _pMenu->show_all();
+    _vboxMain.pack_start(*_pMenu, false, false);
     _vboxMain.pack_start(_hPaned);
     add(_vboxMain);
     _ctTreestore.viewAppendColumns(&_ctTreeview);

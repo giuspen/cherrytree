@@ -12,3 +12,4 @@ src/ct/ct_config.cc
 src/ct/ct_const.cc
 src/ct/ct_misc_utils.cc
 src/ct/ct_p7za_iface.cc
+src/ct/ct_menu.cc

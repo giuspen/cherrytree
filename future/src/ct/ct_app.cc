@@ -1,18 +1,18 @@
 /*
  * ct_app.cc
- * 
- * Copyright 2017-2018 Giuseppe Penone <giuspen@gmail.com>
- * 
+ *
+ * Copyright 2017-2019 Giuseppe Penone <giuspen@gmail.com>
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
@@ -64,8 +64,8 @@ CtApp::CtApp() : Gtk::Application("com.giuspen.cherrytree", Gio::APPLICATION_HAN
     {
         R_cssProvider = Gtk::CssProvider::create();
     }
-    _ctMenu = new CtMenu();
-    _ctMenu->init_actions(this);
+    _pCtMenu = new CtMenu();
+    _pCtMenu->init_actions(this);
 }
 
 CtApp::~CtApp()
@@ -77,7 +77,7 @@ CtApp::~CtApp()
     delete P_ctTmp;
     P_ctTmp = nullptr;
 
-    delete _ctMenu;
+    delete _pCtMenu;
 }
 
 Glib::RefPtr<CtApp> CtApp::create()
@@ -107,8 +107,8 @@ void CtApp::_iconthemeInit()
 
 CtMainWin* CtApp::create_appwindow()
 {
-    auto pMainWin = new CtMainWin(_ctMenu->build_menubar());
-    gtk_window_add_accel_group (GTK_WINDOW(pMainWin->gobj()), _ctMenu->default_accel_group());
+    auto pMainWin = new CtMainWin(_pCtMenu->build_menubar());
+    gtk_window_add_accel_group (GTK_WINDOW(pMainWin->gobj()), _pCtMenu->default_accel_group());
 
     add_window(*pMainWin);
 

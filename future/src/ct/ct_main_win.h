@@ -1,18 +1,18 @@
 /*
  * ct_main_win.h
- * 
- * Copyright 2017-2018 Giuseppe Penone <giuspen@gmail.com>
- * 
+ *
+ * Copyright 2017-2019 Giuseppe Penone <giuspen@gmail.com>
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
@@ -62,7 +62,7 @@ protected:
 class CtMainWin : public Gtk::ApplicationWindow
 {
 public:
-    CtMainWin(GtkWidget* menu);
+    CtMainWin(GtkWidget* pMenu);
     virtual ~CtMainWin();
 
     bool readNodesFromGioFile(const Glib::RefPtr<Gio::File>& r_file, const bool isImport);
@@ -74,7 +74,7 @@ protected:
     Gtk::VBox           _vboxMain;
     Gtk::VBox           _vboxText;
     Gtk::HPaned         _hPaned;
-    Gtk::MenuBar*       _menu;
+    Gtk::MenuBar*       _pMenu;
     Gtk::ScrolledWindow _scrolledwindowTree;
     Gtk::ScrolledWindow _scrolledwindowText;
     CtTreeStore         _ctTreestore;
