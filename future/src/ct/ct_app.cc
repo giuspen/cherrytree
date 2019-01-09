@@ -66,7 +66,7 @@ CtApp::CtApp() : Gtk::Application("com.giuspen.cherrytree", Gio::APPLICATION_HAN
     }
     _pCtMenu = new CtMenu();
     _pCtMenu->init_actions(this);
-    _pGtkBuilder = Gtk::Builder::create();
+    _rGtkBuilder = Gtk::Builder::create();
 }
 
 CtApp::~CtApp()
@@ -110,8 +110,8 @@ CtMainWin* CtApp::create_appwindow()
 {
     // toolbar and menu
     Gtk::Toolbar* pToolbar = nullptr;
-    _pGtkBuilder->add_from_string(_pCtMenu->get_toolbar_ui_str());
-    _pGtkBuilder->get_widget("ToolBar", pToolbar);
+    _rGtkBuilder->add_from_string(_pCtMenu->get_toolbar_ui_str());
+    _rGtkBuilder->get_widget("ToolBar", pToolbar);
     auto pMenu = _pCtMenu->build_menubar();
 
     auto pMainWin = new CtMainWin(pMenu, pToolbar);

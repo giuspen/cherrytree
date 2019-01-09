@@ -64,7 +64,7 @@ public:
 
 private:
     CtMenu* _pCtMenu;
-    Glib::RefPtr<Gtk::Builder> _pGtkBuilder;
+    Glib::RefPtr<Gtk::Builder> _rGtkBuilder;
 
 protected:
     void on_activate() override;
