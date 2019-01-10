@@ -1,4 +1,4 @@
-/*
+﻿/*
  * ct_main_win.cc
  *
  * Copyright 2017-2019 Giuseppe Penone <giuspen@gmail.com>
@@ -134,7 +134,7 @@ CtMainWin::CtMainWin(CtMenu* pCtMenu) : Gtk::ApplicationWindow()
     _pMenu->set_name("MenuBar");
     _pMenu->show_all();
     gtk_window_add_accel_group (GTK_WINDOW(gobj()), pCtMenu->default_accel_group());
-    _pNodePopup = pCtMenu->build_popup_menu();
+    _pNodePopup = pCtMenu->build_popup_menu_node();
     _pNodePopup->show_all();
     Gtk::Toolbar* pToolbar = pCtMenu->build_toolbar();
 
@@ -245,7 +245,6 @@ bool CtMainWin::_onTheTreeviewSignalButtonPressEvent(GdkEventButton* event)
 
 bool CtMainWin::_onTheTreeviewSignalPopupMenu()
 {
-
     _pNodePopup->popup(0, 0);
     return true;
 }

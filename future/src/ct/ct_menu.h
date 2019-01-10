@@ -49,16 +49,26 @@ public:
 
     Gtk::Toolbar* build_toolbar();
     Gtk::MenuBar* build_menubar();
-    Gtk::Menu* build_popup_menu();
+    Gtk::Menu*    build_popup_menu_node();
+    Gtk::Menu*    build_popup_menu_text();
+    Gtk::Menu*    build_popup_menu_code();
+    Gtk::Menu*    build_popup_menu_link();
+    Gtk::Menu*    build_popup_menu_table();
+    Gtk::Menu*    build_popup_menu_table_cell();
+    Gtk::Menu*    build_popup_menu_table_codebox();
 
 private:
     CtAction const* find_action(const std::string& id);
 
-    GtkWidget* build_menu_item(GtkMenu* pMenu, CtAction const* pAction);
-    void build_menus(xmlpp::Node* pNode, GtkWidget* pMenu);
+    GtkWidget* walk_menu_xml(GtkWidget* pMenu, const char* document, const char* xpath);
+    void       walk_menu_xml(GtkWidget* pMenu, xmlpp::Node* pNode);
+    GtkWidget* add_submenu(GtkWidget* pMenu, const char* name);
+    GtkWidget* add_menu_item(GtkWidget* pMenu, const char *name, const char *stock = nullptr, const char *shortcut = nullptr, gpointer action_data = nullptr);
 
-    const char* get_menu_ui_str();
     std::string get_toolbar_ui_str();
+    const char* get_menu_ui_str();
+    const char* get_popup_menu_text_ui_str();
+    const char* get_popup_menu_code_ui_str();
 
 private:
     std::list<CtAction>        _actions;
