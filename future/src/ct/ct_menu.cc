@@ -49,16 +49,7 @@ void CtMenu::init_actions(CtApp *pApp)
         KB_SHIFT = "<shift>",
         KB_ALT = "<alt>";
 
-    // CtAction::run_action constructor cannnot take sigc::mem_fun as a parameter
-    // thus create a signal via this function
-    typedef void (CtApp::*fun_ptr)(void);
-    auto mem_fun = [](CtApp *pApp, fun_ptr fun) -> sigc::signal<void> {
-        sigc::signal<void> c;
-        c.connect(sigc::mem_fun(*pApp, fun));
-        return c;
-    };
-
-    // for menu bar
+    // stubs for menu bar
     _actions.push_back(CtAction{"FileMenu", None, _("_File"), None, None, sigc::signal<void>()});
     _actions.push_back(CtAction{"EditMenu", None, _("_Edit"), None, None, sigc::signal<void>()});
     _actions.push_back(CtAction{"FormattingMenu", None, _("For_matting"), None, None, sigc::signal<void>()});
@@ -74,6 +65,7 @@ void CtMenu::init_actions(CtApp *pApp)
     _actions.push_back(CtAction{"ExportMenu", None, _("E_xport"), None, None, sigc::signal<void>()});
     _actions.push_back(CtAction{"HelpMenu", None, _("_Help"), None, None, sigc::signal<void>()});
 
+    // main actions
     _actions.push_back(CtAction{"ct_new_inst", "new-instance", _("New _Instance"), None, _("Start a New Instance of CherryTree"), sigc::signal<void>() /* dad.file_new */});
     _actions.push_back(CtAction{"ct_open_file", "gtk-open", _("_Open File"), KB_CONTROL+"O", _("Open a CherryTree Document"), sigc::signal<void>() /* dad.file_open */});
     _actions.push_back(CtAction{"ct_save", "gtk-save", _("_Save"), KB_CONTROL+"S", _("Save File"), sigc::signal<void>() /* dad.file_save */});
@@ -83,7 +75,7 @@ void CtMenu::init_actions(CtApp *pApp)
     _actions.push_back(CtAction{"open_cfg_folder", "gtk-directory", _("Open Preferences _Directory"), None, _("Open the Directory with Preferences Files"), sigc::signal<void>() /* dad.folder_cfg_open */});
     _actions.push_back(CtAction{"print_page_setup", "gtk-print", _("Pa_ge Setup"), KB_CONTROL+KB_SHIFT+"P", _("Set up the Page for Printing"), sigc::signal<void>() /* dad.export_print_page_setup */});
     _actions.push_back(CtAction{"do_print", "gtk-print", _("_Print"), KB_CONTROL+"P", _("Print"), sigc::signal<void>() /* dad.export_print */});
-    _actions.push_back(CtAction{"quit_app", "quit-app", _("_Quit"), KB_CONTROL+"Q", _("Quit the Application"), mem_fun(pApp, &CtApp::quit_application) /* dad.quit_application */});
+    _actions.push_back(CtAction{"quit_app", "quit-app", _("_Quit"), KB_CONTROL+"Q", _("Quit the Application"), sigc::mem_fun(*pApp, &CtApp::quit_application) /* dad.quit_application */});
     _actions.push_back(CtAction{"exit_app", "quit-app", _("_Exit CherryTree"), KB_CONTROL+KB_SHIFT+"Q", _("Exit from CherryTree"), sigc::signal<void>() /* dad.quit_application_totally */});
     _actions.push_back(CtAction{"preferences_dlg", "gtk-preferences", _("_Preferences"), KB_CONTROL+KB_ALT+"P", _("Preferences"), sigc::signal<void>() /* dad.dialog_preferences */});
     _actions.push_back(CtAction{"act_undo", "gtk-undo", _("_Undo"), KB_CONTROL+"Z", _("Undo Last Operation"), sigc::signal<void>() /* dad.requested_step_back */});
@@ -133,7 +125,7 @@ void CtMenu::init_actions(CtApp *pApp)
     _actions.push_back(CtAction{"fmt_justify_center", "gtk-justify-center", _("Justify _Center"), None, _("Justify Center the Current Paragraph"), sigc::signal<void>() /* dad.apply_tag_justify_center */});
     _actions.push_back(CtAction{"fmt_justify_right", "gtk-justify-right", _("Justify _Right"), None, _("Justify Right the Current Paragraph"), sigc::signal<void>() /* dad.apply_tag_justify_right */});
     _actions.push_back(CtAction{"fmt_justify_fill", "gtk-justify-fill", _("Justify _Fill"), None, _("Justify Fill the Current Paragraph"), sigc::signal<void>() /* dad.apply_tag_justify_fill */});
-    _actions.push_back(CtAction{"tree_add_node", "tree-node-add", _("Add _Node"), KB_CONTROL+"N", _("Add a Node having the same Parent of the Selected Node"), sigc::signal<void>() /* dad.node_add */});
+    _actions.push_back(CtAction{"tree_add_node", "tree-node-add", _("Add _Node"), KB_CONTROL+"N", _("Add a Node having the same Parent of the Selected Node"), sigc::mem_fun(*pApp, &CtApp::add_node) /* dad.node_add */});
     _actions.push_back(CtAction{"tree_add_subnode", "tree-subnode-add", _("Add _SubNode"), KB_CONTROL+KB_SHIFT+"N", _("Add a Child Node to the Selected Node"), sigc::signal<void>() /* dad.node_child_add */});
     _actions.push_back(CtAction{"tree_dup_node", "tree-node-dupl", _("_Duplicate Node"), KB_CONTROL+KB_SHIFT+"D", _("Duplicate the Selected Node"), sigc::signal<void>() /* dad.node_duplicate */});
     _actions.push_back(CtAction{"tree_node_prop", "cherry_edit", _("Change Node _Properties"), "F2", _("Edit the Properties of the Selected Node"), sigc::signal<void>() /* dad.node_edit */});
@@ -223,7 +215,13 @@ void CtMenu::init_actions(CtApp *pApp)
     _actions.push_back(CtAction{"toggle_show_mainwin", CtConst::APP_NAME, _("Show/Hide _CherryTree"), None, _("Toggle Show/Hide CherryTree"), sigc::signal<void>() /* dad.toggle_show_hide_main_window */});
     _actions.push_back(CtAction{"strip_trail_spaces", "gtk-clear", _("Stri_p Trailing Spaces"), None, _("Strip Trailing Spaces"), sigc::signal<void>() /* dad.strip_trailing_spaces */});
 
-    _actions.push_back(CtAction{});
+    // add actions in the Applicaton for the toolbar
+    // by default actions will have prefix 'app.'
+    // (the menu uses not actions, but accelerators)
+    for (const CtAction& action: _actions)
+    {
+        pApp->add_action(action.id, action.run_action);
+    }
 }
 
 CtAction const* CtMenu::find_action(const std::string& id)
@@ -251,7 +249,7 @@ GtkAccelGroup* CtMenu::default_accel_group()
 GtkWidget* CtMenu::build_menubar()
 {
     xmlpp::DomParser parser;
-    parser.parse_memory(get_menu_markup());
+    parser.parse_memory(get_menu_ui_str());
 
     GtkWidget* pMBar = gtk_menu_bar_new();
     build_menus(parser.get_document()->get_root_node(), pMBar);
@@ -355,7 +353,38 @@ GtkWidget* CtMenu::build_menu_item(GtkMenu* pMenu, CtAction const* pAction)
     return pMenuItem->gobj();
 }
 
-const char* CtMenu::get_menu_markup()
+std::string CtMenu::get_toolbar_ui_str()
+{
+    std::vector<std::string> vecToolbarElements;
+    CtStrUtil::gstringSplit2string(CtApp::P_ctCfg->toolbarUiList.c_str(), vecToolbarElements, ",");
+    std::string toolbarUIStr;
+    for (const std::string& element: vecToolbarElements)
+    {
+        if (element == CtConst::TAG_SEPARATOR)
+        {
+            toolbarUIStr += "<child><object class='GtkSeparatorToolItem'/></child>";
+        }
+        else if (CtAction const* pAction = find_action(element))
+        {
+            toolbarUIStr += "<child><object class='GtkToolButton'>";
+            toolbarUIStr += "<property name='action-name'>app." + pAction->id + "</property>"; // 'app.' is a default action group in Application
+            toolbarUIStr += "<property name='icon-name'>" + pAction->stock + "</property>";
+            toolbarUIStr += "<property name='label'>" + pAction->name + "</property>";
+            toolbarUIStr += "<property name='tooltip-text'>" + pAction->desc + "</property>";
+            toolbarUIStr += "<property name='visible'>True</property>";
+            toolbarUIStr += "</object></child>";
+        }
+    }
+    toolbarUIStr = "<interface><object class='GtkToolbar' id='ToolBar'>"
+            "<property name='visible'>True</property>"
+            "<property name='can_focus'>False</property>"
+            + toolbarUIStr +
+            "</object></interface>";
+    return toolbarUIStr;
+}
+
+
+const char* CtMenu::get_menu_ui_str()
 {
     return R"MARKUP(
 <menubar name='MenuBar'>
