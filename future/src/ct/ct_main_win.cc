@@ -111,7 +111,7 @@ void CtTextView::_setFontForSyntax(const std::string& syntaxHighlighting)
 }
 
 
-CtMainWin::CtMainWin(GtkWidget* pMenu, Gtk::Toolbar* pToolbar) : Gtk::ApplicationWindow()
+CtMainWin::CtMainWin(CtMenu* pCtMenu) : Gtk::ApplicationWindow()
 {
     set_icon(CtApp::R_icontheme->load_icon("cherrytree", 48));
     _scrolledwindowTree.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
@@ -129,9 +129,15 @@ CtMainWin::CtMainWin(GtkWidget* pMenu, Gtk::Toolbar* pToolbar) : Gtk::Applicatio
         _hPaned.add1(_scrolledwindowTree);
         _hPaned.add2(_vboxText);
     }
-    _pMenu = Glib::wrap(GTK_MENU_BAR(pMenu));
+
+    _pMenu = pCtMenu->build_menubar();
     _pMenu->set_name("MenuBar");
     _pMenu->show_all();
+    gtk_window_add_accel_group (GTK_WINDOW(gobj()), pCtMenu->default_accel_group());
+    _pNodePopup = pCtMenu->build_popup_menu();
+    _pNodePopup->show_all();
+    Gtk::Toolbar* pToolbar = pCtMenu->build_toolbar();
+
     _vboxMain.pack_start(*_pMenu, false, false);
     _vboxMain.pack_start(*pToolbar, false, false);
     _vboxMain.pack_start(_hPaned);
@@ -139,6 +145,8 @@ CtMainWin::CtMainWin(GtkWidget* pMenu, Gtk::Toolbar* pToolbar) : Gtk::Applicatio
     _ctTreestore.viewAppendColumns(&_ctTreeview);
     _ctTreestore.viewConnect(&_ctTreeview);
     _ctTreeview.signal_cursor_changed().connect(sigc::mem_fun(*this, &CtMainWin::_onTheTreeviewSignalCursorChanged));
+    _ctTreeview.signal_button_release_event().connect(sigc::mem_fun(*this, &CtMainWin::_onTheTreeviewSignalButtonPressEvent));
+    _ctTreeview.signal_popup_menu().connect(sigc::mem_fun(*this, &CtMainWin::_onTheTreeviewSignalPopupMenu));
     configApply();
     _titleUpdate(false/*saveNeeded*/);
     show_all();
@@ -223,6 +231,23 @@ void CtMainWin::_onTheTreeviewSignalCursorChanged()
 {
     Gtk::TreeIter treeIter = _ctTreeview.get_selection()->get_selected();
     _ctTreestore.applyTextBufferToCtTextView(treeIter, &_ctTextview);
+}
+
+bool CtMainWin::_onTheTreeviewSignalButtonPressEvent(GdkEventButton* event)
+{
+    if (event->button == 3)
+    {
+        _pNodePopup->popup(event->button, event->time);
+        return true;
+    }
+    return false;
+}
+
+bool CtMainWin::_onTheTreeviewSignalPopupMenu()
+{
+
+    _pNodePopup->popup(0, 0);
+    return true;
 }
 
 void CtMainWin::_titleUpdate(bool saveNeeded)

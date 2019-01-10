@@ -39,6 +39,8 @@ static void on_menu_activate(void* pObject, CtAction* pAction)
 
 CtMenu::CtMenu()
 {
+    _pAccelGroup = gtk_accel_group_new();
+    _rGtkBuilder = Gtk::Builder::create();
 }
 
 void CtMenu::init_actions(CtApp *pApp)
@@ -239,22 +241,36 @@ CtAction const* CtMenu::find_action(const std::string& id)
 
 GtkAccelGroup* CtMenu::default_accel_group()
 {
-    static GtkAccelGroup* pAccelGroup{nullptr};
-    if (!pAccelGroup)
-    {
-        pAccelGroup = gtk_accel_group_new();
-    }
-    return pAccelGroup;
+    return _pAccelGroup;
 }
 
-GtkWidget* CtMenu::build_menubar()
+Gtk::Toolbar* CtMenu::build_toolbar()
+{
+    Gtk::Toolbar* pToolbar = nullptr;
+    _rGtkBuilder->add_from_string(get_toolbar_ui_str());
+    _rGtkBuilder->get_widget("ToolBar", pToolbar);
+    return pToolbar;
+}
+
+Gtk::MenuBar* CtMenu::build_menubar()
 {
     xmlpp::DomParser parser;
     parser.parse_memory(get_menu_ui_str());
 
     GtkWidget* pMBar = gtk_menu_bar_new();
     build_menus(parser.get_document()->get_root_node(), pMBar);
-    return pMBar;
+    return Glib::wrap(GTK_MENU_BAR(pMBar));
+}
+
+Gtk::Menu* CtMenu::build_popup_menu()
+{
+    xmlpp::DomParser parser;
+    parser.parse_memory(get_menu_ui_str());
+    xmlpp::NodeSet findNodes = parser.get_document()->get_root_node()->find("/menubar/menu[@name='TreeMenu']/*");
+
+    GtkWidget* pMenu = gtk_menu_new();
+    build_menus(findNodes[0], pMenu);
+    return Glib::wrap(GTK_MENU(pMenu));
 }
 
 void CtMenu::build_menus(xmlpp::Node* pNode, GtkWidget* pMenu)
