@@ -55,6 +55,7 @@ void CtMenu::init_actions(CtApp *pApp)
     _actions.push_back(CtAction{"FormattingMenu", None, _("For_matting"), None, None, sigc::signal<void>()});
     _actions.push_back(CtAction{"TreeMenu", None, _("_Tree"), None, None, sigc::signal<void>()});
     _actions.push_back(CtAction{"TreeMoveMenu", "gtk-jump-to", ("Node _Move"), None, None, sigc::signal<void>()});
+    _actions.push_back(CtAction{"TreeSortMenu", "gtk-sort-ascending", _("Nodes _Sort"), None, None, sigc::signal<void>()});
     _actions.push_back(CtAction{"TreeImportMenu", CtConst::STR_STOCK_CT_IMP, _("Nodes _Import"), None, None, sigc::signal<void>()});
     _actions.push_back(CtAction{"TreeExportMenu", "export_from_cherrytree", _("Nodes E_xport"), None, None, sigc::signal<void>()});
     _actions.push_back(CtAction{"ChangeCaseMenu", "case_toggle", _("C_hange Case"), None, None, sigc::signal<void>()});
@@ -471,6 +472,69 @@ const char* CtMenu::get_menu_ui_str()
   </menu>
 
   <menu name='TreeMenu'>
+    <menuitem action='fmt_justify_left'/>
+    <menuitem action='fmt_justify_left'/>
+    <menuitem action='tree_add_node'/>
+    <menuitem action='tree_add_subnode'/>
+    <menuitem action='tree_dup_node'/>
+    <separator/>
+    <menuitem action='tree_node_prop'/>
+    <menuitem action='tree_node_toggle_ro'/>
+    <menuitem action='node_bookmark'/>
+    <menuitem action='node_unbookmark'/>
+    <menuitem action='tree_node_date'/>
+    <menuitem action='tree_parse_info'/>
+    <separator/>
+    <menu name='TreeMoveMenu'>
+      <menuitem action='tree_node_up'/>
+      <menuitem action='tree_node_down'/>
+      <menuitem action='tree_node_left'/>
+      <menuitem action='tree_node_right'/>
+      <menuitem action='tree_node_new_father'/>
+    </menu>
+    <separator/>
+    <menu name='TreeSortMenu'>
+      <menuitem action='tree_all_sort_asc'/>
+      <menuitem action='tree_all_sort_desc'/>
+      <menuitem action='tree_sibl_sort_asc'/>
+      <menuitem action='tree_sibl_sort_desc'/>
+    </menu>
+    <separator/>
+    <menuitem action='find_in_node_names'/>
+    <menuitem action='replace_in_node_names'/>
+    <separator/>
+    <menu name='TreeImportMenu'>
+      <menuitem action='import_cherrytree'/>
+      <menuitem action='import_txt_file'/>
+      <menuitem action='import_txt_folder'/>
+      <menuitem action='import_html_file'/>
+      <menuitem action='import_html_folder'/>
+      <menuitem action='import_basket'/>
+      <menuitem action='import_epim_html'/>
+      <menuitem action='import_gnote'/>
+      <menuitem action='import_keepnote'/>
+      <menuitem action='import_keynote'/>
+      <menuitem action='import_knowit'/>
+      <menuitem action='import_leo'/>
+      <menuitem action='import_mempad'/>
+      <menuitem action='import_notecase'/>
+      <menuitem action='import_rednotebook'/>
+      <menuitem action='import_tomboy'/>
+      <menuitem action='import_treepad'/>
+      <menuitem action='import_tuxcards'/>
+      <menuitem action='import_zim'/>
+    </menu>
+    <separator/>
+    <menu name='TreeExportMenu'>
+      <menuitem action='export_pdf'/>
+      <menuitem action='export_html'/>
+      <menuitem action='export_txt_multiple'/>
+      <menuitem action='export_txt_single'/>
+      <menuitem action='export_ctd'/>
+    </menu>
+    <separator/>
+    <menuitem action='go_node_prev'/>
+    <menuitem action='go_node_next'/>
   </menu>
 
   <menu name='SearchMenu'>
