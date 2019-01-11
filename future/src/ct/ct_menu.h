@@ -30,7 +30,7 @@
 struct CtAction
 {
     std::string id;
-    std::string stock;
+    std::string image;
     std::string name;
     std::string shortcut;
     std::string desc;
@@ -62,8 +62,10 @@ private:
 
     GtkWidget* walk_menu_xml(GtkWidget* pMenu, const char* document, const char* xpath);
     void       walk_menu_xml(GtkWidget* pMenu, xmlpp::Node* pNode);
-    GtkWidget* add_submenu(GtkWidget* pMenu, const char* name);
-    GtkWidget* add_menu_item(GtkWidget* pMenu, const char *name, const char *stock = nullptr, const char *shortcut = nullptr, gpointer action_data = nullptr);
+    GtkWidget* add_submenu(GtkWidget* pMenu, const char* name, const char* image);
+    GtkWidget* add_menu_item(GtkWidget* pMenu, const char* name, const char* image, const char*shortcut, const char* desc, gpointer action_data);
+    GtkWidget* add_separator(GtkWidget* pMenu);
+    void       add_menu_item_image_or_label(Gtk::Widget* pMenuItem, const char* image, GtkWidget* pLabel);
 
     std::string get_toolbar_ui_str();
     const char* get_menu_ui_str();
