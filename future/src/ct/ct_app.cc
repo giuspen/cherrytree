@@ -66,7 +66,6 @@ CtApp::CtApp() : Gtk::Application("com.giuspen.cherrytree", Gio::APPLICATION_HAN
     }
     _pCtMenu = new CtMenu();
     _pCtMenu->init_actions(this);
-    _rGtkBuilder = Gtk::Builder::create();
 }
 
 CtApp::~CtApp()
@@ -108,24 +107,12 @@ void CtApp::_iconthemeInit()
 
 CtMainWin* CtApp::create_appwindow()
 {
-    // toolbar and menu
-    Gtk::Toolbar* pToolbar = nullptr;
-    _rGtkBuilder->add_from_string(_pCtMenu->get_toolbar_ui_str());
-    _rGtkBuilder->get_widget("ToolBar", pToolbar);
-    auto pMenu = _pCtMenu->build_menubar();
-
-    auto pMainWin = new CtMainWin(pMenu, pToolbar);
-    gtk_window_add_accel_group (GTK_WINDOW(pMainWin->gobj()), _pCtMenu->default_accel_group());
+    auto pMainWin = new CtMainWin(_pCtMenu);
 
     add_window(*pMainWin);
 
     pMainWin->signal_hide().connect(sigc::bind<Gtk::Window*>(sigc::mem_fun(*this, &CtApp::on_hide_window), pMainWin));
     return pMainWin;
-}
-
-void CtApp::on_hide_window(Gtk::Window* pWindow)
-{
-    delete pWindow;
 }
 
 void CtApp::on_activate()
@@ -151,6 +138,11 @@ void CtApp::on_activate()
             std::cout << "? not found " << filePath << std::endl;
         }
     }
+}
+
+void CtApp::on_hide_window(Gtk::Window* pWindow)
+{
+    delete pWindow;
 }
 
 void CtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::ustring& hint)

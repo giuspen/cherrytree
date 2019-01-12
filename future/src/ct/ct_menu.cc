@@ -25,6 +25,11 @@
 #include <gtk/gtk.h>
 #include <glib-object.h>
 
+const char*       None       = "";
+const std::string KB_CONTROL = "<control>";
+const std::string KB_SHIFT   = "<shift>";
+const std::string KB_ALT     = "<alt>";
+
 static xmlpp::Attribute* get_attribute(xmlpp::Node* pNode, char const* name)
 {
     xmlpp::Element* pElement = static_cast<xmlpp::Element*>(pNode);
@@ -33,28 +38,28 @@ static xmlpp::Attribute* get_attribute(xmlpp::Node* pNode, char const* name)
 
 static void on_menu_activate(void* pObject, CtAction* pAction)
 {
-    pAction->run_action();
+    if (pAction)
+    {
+        pAction->run_action();
+    }
 }
 
 
 CtMenu::CtMenu()
 {
+    _pAccelGroup = gtk_accel_group_new();
+    _rGtkBuilder = Gtk::Builder::create();
 }
 
 void CtMenu::init_actions(CtApp *pApp)
 {
-    const std::string
-        None = "",
-        KB_CONTROL = "<control>",
-        KB_SHIFT = "<shift>",
-        KB_ALT = "<alt>";
-
     // stubs for menu bar
     _actions.push_back(CtAction{"FileMenu", None, _("_File"), None, None, sigc::signal<void>()});
     _actions.push_back(CtAction{"EditMenu", None, _("_Edit"), None, None, sigc::signal<void>()});
     _actions.push_back(CtAction{"FormattingMenu", None, _("For_matting"), None, None, sigc::signal<void>()});
     _actions.push_back(CtAction{"TreeMenu", None, _("_Tree"), None, None, sigc::signal<void>()});
     _actions.push_back(CtAction{"TreeMoveMenu", "gtk-jump-to", ("Node _Move"), None, None, sigc::signal<void>()});
+    _actions.push_back(CtAction{"TreeSortMenu", "gtk-sort-ascending", _("Nodes _Sort"), None, None, sigc::signal<void>()});
     _actions.push_back(CtAction{"TreeImportMenu", CtConst::STR_STOCK_CT_IMP, _("Nodes _Import"), None, None, sigc::signal<void>()});
     _actions.push_back(CtAction{"TreeExportMenu", "export_from_cherrytree", _("Nodes E_xport"), None, None, sigc::signal<void>()});
     _actions.push_back(CtAction{"ChangeCaseMenu", "case_toggle", _("C_hange Case"), None, None, sigc::signal<void>()});
@@ -238,119 +243,245 @@ CtAction const* CtMenu::find_action(const std::string& id)
 
 GtkAccelGroup* CtMenu::default_accel_group()
 {
-    static GtkAccelGroup* pAccelGroup{nullptr};
-    if (!pAccelGroup)
-    {
-        pAccelGroup = gtk_accel_group_new();
-    }
-    return pAccelGroup;
+    return _pAccelGroup;
 }
 
-GtkWidget* CtMenu::build_menubar()
+Gtk::Toolbar* CtMenu::build_toolbar()
+{
+    Gtk::Toolbar* pToolbar = nullptr;
+    _rGtkBuilder->add_from_string(get_toolbar_ui_str());
+    _rGtkBuilder->get_widget("ToolBar", pToolbar);
+    return pToolbar;
+}
+
+Gtk::MenuBar* CtMenu::build_menubar()
+{
+    return Glib::wrap(GTK_MENU_BAR(walk_menu_xml(gtk_menu_bar_new(), get_menu_ui_str(), nullptr)));
+}
+
+Gtk::Menu* CtMenu::build_popup_menu_node()
+{
+    // look for the TreeMenu node in the menubar to show it in popup
+    return Glib::wrap(GTK_MENU(walk_menu_xml(gtk_menu_new(), get_menu_ui_str(), "/menubar/menu[@action='TreeMenu']/*")));
+}
+
+Gtk::Menu* CtMenu::build_popup_menu_text()
+{
+    return Glib::wrap(GTK_MENU(walk_menu_xml(gtk_menu_new(), get_popup_menu_text_ui_str(), nullptr)));
+}
+
+Gtk::Menu* CtMenu::build_popup_menu_code()
+{
+    return Glib::wrap(GTK_MENU(walk_menu_xml(gtk_menu_new(), get_popup_menu_code_ui_str(), nullptr)));
+}
+
+Gtk::Menu* CtMenu::build_popup_menu_link()
+{
+    GtkWidget* pMenu = gtk_menu_new();
+    add_separator(pMenu);
+    add_menu_item(pMenu, _("Edit _Link"), "link_handle", nullptr, _("Edit the Underlying Link"), nullptr /*dad.apply_tag_link*/);
+    add_separator(pMenu);
+    add_menu_item(pMenu, _("C_ut Link"), "edit-cut", nullptr, _("Cut the Selected Link"), nullptr /*dad.link_cut*/);
+    add_menu_item(pMenu, _("_Copy Link"), "edit-copy", nullptr, _("Copy the Selected Link"), nullptr /*dad.link_copy*/);
+    add_menu_item(pMenu, _("D_ismiss Link"), "gtk-clear", nullptr, _("Dismiss the Selected Link"), nullptr /*dad.link_dismiss*/);
+    add_menu_item(pMenu, _("_Delete Link"), "edit-delete", nullptr, _("Delete the Selected Link"), nullptr /*dad.link_delete*/);
+    return Glib::wrap(GTK_MENU(pMenu));
+}
+
+Gtk::Menu* CtMenu::build_popup_menu_table()
+{
+    GtkWidget* pMenu = gtk_menu_new();
+    add_menu_item(pMenu, _("C_ut Table"), "edit-cut", nullptr, _("Cut the Selected Table"), nullptr /*dad.tables_handler.table_cut*/);
+    add_menu_item(pMenu, _("_Copy Table"), "edit-copy", nullptr, _("Copy the Selected Table"), nullptr /*dad.tables_handler.table_copy*/);
+    add_menu_item(pMenu, _("_Delete Table"), "edit-delete", nullptr, _("Delete the Selected Table"), nullptr /*dad.tables_handler.table_delete*/);
+    add_separator(pMenu);
+    add_menu_item(pMenu, _("_Add Row"), "gtk-add", (KB_CONTROL+"comma").c_str(), _("Add a Table Row"), nullptr /*dad.tables_handler.table_row_add*/);
+    add_menu_item(pMenu, _("Cu_t Row"), "edit-cut", nullptr, _("Cut a Table Row"), nullptr /*dad.tables_handler.table_row_cut*/);
+    add_menu_item(pMenu, _("_Copy Row"), "edit-copy", nullptr, _("Copy a Table Row"), nullptr /*dad.tables_handler.table_row_copy*/);
+    add_menu_item(pMenu, _("_Paste Row"), "edit-paste", nullptr, _("Paste a Table Row"), nullptr /*dad.tables_handler.table_row_paste*/);
+    add_menu_item(pMenu, _("De_lete Row"), "edit-delete", (KB_CONTROL+KB_ALT+"comma").c_str(), _("Delete the Selected Table Row"), nullptr /*dad.tables_handler.table_row_delete*/);
+    add_separator(pMenu);
+    add_menu_item(pMenu, _("Move Row _Up"), "gtk-go-up", (KB_CONTROL+KB_ALT+"period").c_str(), _("Move the Selected Row Up"), nullptr /*dad.tables_handler.table_row_up*/);
+    add_menu_item(pMenu, _("Move Row _Down"), "gtk-go-down", (KB_CONTROL+"period").c_str(), _("Move the Selected Row Down"), nullptr /*dad.tables_handler.table_row_down*/);
+    add_menu_item(pMenu, _("Sort Rows De_scending"), "gtk-sort-descending", nullptr, _("Sort all the Rows Descending"), nullptr /*dad.tables_handler.table_rows_sort_descending*/);
+    add_menu_item(pMenu, _("Sort Rows As_cending"), "gtk-sort-ascending", nullptr, _("Sort all the Rows Ascending"), nullptr /*dad.tables_handler.table_rows_sort_ascending*/);
+    add_separator(pMenu);
+    add_menu_item(pMenu, _("_Edit Table Properties"), "table_edit", nullptr, _("Edit the Table Properties"), nullptr /*dad.tables_handler.table_edit_properties*/);
+    add_menu_item(pMenu, _("_Table Export"), "table_save", nullptr, _("Export Table as CSV File"), nullptr /*dad.tables_handler.table_export*/);
+    return Glib::wrap(GTK_MENU(pMenu));
+}
+
+Gtk::Menu* CtMenu::build_popup_menu_table_cell()
+{
+    GtkWidget* pMenu = gtk_menu_new();
+    add_separator(pMenu);
+    add_menu_item(pMenu, _("Insert _NewLine"), "insert", (KB_CONTROL+"period").c_str(), _("Insert NewLine Char"), nullptr /*dad.curr_table_cell_insert_newline*/);
+    return Glib::wrap(GTK_MENU(pMenu));
+}
+
+Gtk::Menu* CtMenu::build_popup_menu_table_codebox()
+{
+    GtkWidget* pMenu = gtk_menu_new();
+    add_separator(pMenu);
+    add_menu_item(pMenu, _("Cu_t as Plain Text"), "edit-cut", (KB_CONTROL+KB_SHIFT+"X").c_str(), _("Cut as Plain Text, Discard the Rich Text Formatting"), nullptr /*dad.dad.cut_as_plain_text*/);
+    add_menu_item(pMenu, _("_Copy as Plain Text"), "edit-copy", (KB_CONTROL+KB_SHIFT+"C").c_str(), _("Copy as Plain Text, Discard the Rich Text Formatting"), nullptr /*dad.dad.copy_as_plain_text*/);
+    add_separator(pMenu);
+    add_menu_item(pMenu, _("Change CodeBox _Properties"), "codebox_edit", nullptr, _("Edit the Properties of the CodeBox"), nullptr /*dad.codebox_change_properties*/);
+    add_menu_item(pMenu, _("_Execute CodeBox Code"), "gtk-execute", nullptr, _("Execute CodeBox Code"), nullptr /*dad.dad.exec_code*/);
+    add_menu_item(pMenu, _("CodeBox _Load From Text File"), "from_txt", nullptr, _("Load the CodeBox Content From a Text File"), nullptr /*dad.codebox_load_from_file*/);
+    add_menu_item(pMenu, _("CodeBox _Save To Text File"), "to_txt", nullptr, _("Save the CodeBox Content To a Text File"), nullptr /*dad.codebox_save_to_file*/);
+    add_separator(pMenu);
+    add_menu_item(pMenu, _("C_ut CodeBox"), "edit-cut", nullptr, _("Cut the Selected CodeBox"), nullptr /*dad.codebox_cut*/);
+    add_menu_item(pMenu, _("_Copy CodeBox"), "edit-copy", nullptr, _("Copy the Selected CodeBox"), nullptr /*dad.codebox_copy*/);
+    add_menu_item(pMenu, _("_Delete CodeBox"), "edit-delete", nullptr, _("Delete the Selected CodeBox"), nullptr /*dad.codebox_delete*/);
+    add_menu_item(pMenu, _("Delete CodeBox _Keep Content"), "edit-delete", nullptr, _("Delete the Selected CodeBox But Keep Its Content"), nullptr /*dad.codebox_delete_keeping_text*/);
+    add_separator(pMenu);
+    add_menu_item(pMenu, _("Increase CodeBox Width"), "gtk-go-forward", (KB_CONTROL+"period").c_str(), _("Increase the Width of the CodeBox"), nullptr /*dad.codebox_increase_width*/);
+    add_menu_item(pMenu, _("Decrease CodeBox Width"), "gtk-go-back", (KB_CONTROL+KB_ALT+"period").c_str(), _("Decrease the Width of the CodeBox"), nullptr /*dad.codebox_decrease_width*/);
+    add_menu_item(pMenu, _("Increase CodeBox Height"), "gtk-go-down", (KB_CONTROL+"comma").c_str(), _("Increase the Height of the CodeBox"), nullptr /*dad.codebox_increase_height*/);
+    add_menu_item(pMenu, _("Decrease CodeBox Height"), "gtk-go-up", (KB_CONTROL+KB_ALT+"comma").c_str(), _("Decrease the Height of the CodeBox"), nullptr /*dad.codebox_decrease_height*/);
+    return Glib::wrap(GTK_MENU(pMenu));
+}
+
+GtkWidget* CtMenu::walk_menu_xml(GtkWidget* pMenu, const char* document, const char* xpath)
 {
     xmlpp::DomParser parser;
-    parser.parse_memory(get_menu_ui_str());
-
-    GtkWidget* pMBar = gtk_menu_bar_new();
-    build_menus(parser.get_document()->get_root_node(), pMBar);
-    return pMBar;
+    parser.parse_memory(document);
+    if (xpath)
+    {
+        walk_menu_xml(pMenu, parser.get_document()->get_root_node()->find(xpath)[0]);
+    }
+    else
+    {
+        walk_menu_xml(pMenu, parser.get_document()->get_root_node());
+    }
+    return pMenu;
 }
 
-void CtMenu::build_menus(xmlpp::Node* pNode, GtkWidget* pMenu)
+void CtMenu::walk_menu_xml(GtkWidget* pMenu, xmlpp::Node* pNode)
 {
     for (xmlpp::Node* pNodeIter = pNode; pNodeIter; pNodeIter = pNodeIter->get_next_sibling())
     {
-        if (pNodeIter->get_name() == "menubar")
+        if (pNodeIter->get_name() == "menubar" || pNodeIter->get_name() == "popup")
         {
-            build_menus(pNodeIter->get_first_child(), pMenu);
+            walk_menu_xml(pMenu, pNodeIter->get_first_child());
         }
         else if (pNodeIter->get_name() == "menu")
         {
-            CtAction const* pAction = find_action(get_attribute(pNodeIter, "name")->get_value());
-            GtkWidget* pMenuItem = gtk_menu_item_new_with_mnemonic(pAction->name.c_str());
-            GtkWidget* pSubmenu = gtk_menu_new();
-            build_menus(pNodeIter->get_first_child(), pSubmenu);
-            gtk_menu_item_set_submenu(GTK_MENU_ITEM(pMenuItem), GTK_WIDGET(pSubmenu));
-            gtk_menu_shell_append(GTK_MENU_SHELL(pMenu), pMenuItem);
+            if (xmlpp::Attribute* pAttrName = get_attribute(pNodeIter, "_name")) // menu name which need to be translated
+            {
+                xmlpp::Attribute* pAttrImage = get_attribute(pNodeIter, "image");
+                GtkWidget* pSubmenu = add_submenu(pMenu, _(pAttrName->get_value().c_str()), pAttrImage->get_value().c_str());
+                walk_menu_xml(pSubmenu, pNodeIter->get_first_child());
+            }
+            else // otherwise it is an action id
+            {
+                CtAction const* pAction = find_action(get_attribute(pNodeIter, "action")->get_value());
+                GtkWidget* pSubmenu = add_submenu(pMenu, pAction->name.c_str(), pAction->image.c_str());
+                walk_menu_xml(pSubmenu, pNodeIter->get_first_child());
+            }
         }
         else if (pNodeIter->get_name() == "menuitem")
         {
             CtAction const* pAction = find_action(get_attribute(pNodeIter, "action")->get_value());
-            build_menu_item(GTK_MENU(pMenu), pAction);
+            add_menu_item(pMenu, pAction->name.c_str(), pAction->image.c_str(), pAction->shortcut.c_str(), pAction->desc.c_str(), (gpointer)pAction);
         }
         else if (pNodeIter->get_name() == "separator")
         {
-            build_menu_item(GTK_MENU(pMenu), nullptr);
+            add_separator(pMenu);
         }
     }
 }
 
-// based on inkscape/src/ui/interface.cpp
-GtkWidget* CtMenu::build_menu_item(GtkMenu* pMenu, CtAction const* pAction)
+GtkWidget* CtMenu::add_submenu(GtkWidget* pMenu, const char* name, const char* image)
 {
-    Gtk::Widget* pMenuItem;
-    if (pAction == nullptr)
+    Gtk::Widget* pMenuItem = Gtk::manage(new Gtk::MenuItem());
+    GtkWidget* pLabel = gtk_accel_label_new(name);
+    gtk_label_set_markup_with_mnemonic(GTK_LABEL(pLabel), name);
+#if GTK_CHECK_VERSION(3,16,0)
+    gtk_label_set_xalign(GTK_LABEL(pLabel), 0.0);
+#else
+    gtk_misc_set_alignment(GTK_MISC(pLabel), 0.0, 0.5);
+#endif
+    add_menu_item_image_or_label(pMenuItem, image, pLabel);
+
+    GtkWidget* pSubmenu = gtk_menu_new();
+    gtk_menu_item_set_submenu(GTK_MENU_ITEM(pMenuItem->gobj()), GTK_WIDGET(pSubmenu));
+    gtk_menu_shell_append(GTK_MENU_SHELL(pMenu), pMenuItem->gobj());
+    return pSubmenu;
+}
+
+// based on inkscape/src/ui/interface.cpp
+GtkWidget* CtMenu::add_menu_item(GtkWidget* pMenu, const char* name, const char* image, const char* shortcut, const char* desc, gpointer action_data)
+{
+    Gtk::Widget* pMenuItem = Gtk::manage(new Gtk::MenuItem());
+
+    if (desc && strlen(desc))
     {
-        pMenuItem = new Gtk::SeparatorMenuItem();
+        pMenuItem->set_tooltip_text(desc);
+    }
+    // Now create the label and add it to the menu item
+    GtkWidget* pLabel = gtk_accel_label_new(name);
+    gtk_label_set_markup_with_mnemonic(GTK_LABEL(pLabel), name);
+
+#if GTK_CHECK_VERSION(3,16,0)
+    gtk_label_set_xalign(GTK_LABEL(pLabel), 0.0);
+#else
+    gtk_misc_set_alignment(GTK_MISC(pLabel), 0.0, 0.5);
+#endif
+
+    if (shortcut && strlen(shortcut))
+    {
+        guint key;
+        GdkModifierType mod;
+        gtk_accelerator_parse(shortcut, &key, &mod);
+        gtk_widget_add_accelerator(pMenuItem->gobj(),
+                        "activate",
+                        default_accel_group(),
+                        key,
+                        mod,
+                        GTK_ACCEL_VISIBLE);
+    }
+    gtk_accel_label_set_accel_widget(GTK_ACCEL_LABEL(pLabel), pMenuItem->gobj());
+
+    add_menu_item_image_or_label(pMenuItem, image, pLabel);
+
+    gtk_widget_set_events(pMenuItem->gobj(), GDK_KEY_PRESS_MASK);
+    g_signal_connect(G_OBJECT(pMenuItem->gobj()), "activate", G_CALLBACK(on_menu_activate), action_data);
+
+    pMenuItem->show_all();
+    gtk_menu_shell_append(GTK_MENU_SHELL(GTK_MENU(pMenu)), pMenuItem->gobj());
+
+    return pMenuItem->gobj();
+}
+
+void CtMenu::add_menu_item_image_or_label(Gtk::Widget* pMenuItem, const char* image, GtkWidget* pLabel)
+{
+    if (image && strlen(image))
+    {
+        pMenuItem->set_name("ImageMenuItem");  // custom name to identify our "ImageMenuItems"
+
+        GtkWidget* pIcon = gtk_image_new_from_icon_name(image, GTK_ICON_SIZE_MENU);
+
+        // create a box to hold icon and label as GtkMenuItem derives from GtkBin and can only hold one child
+        GtkWidget* pBox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+        gtk_box_pack_start(GTK_BOX(pBox), pIcon, FALSE, FALSE, 5);
+        gtk_box_pack_start(GTK_BOX(pBox), pLabel, TRUE, TRUE, 0);
+
+        gtk_container_add(GTK_CONTAINER(pMenuItem->gobj()), pBox);
     }
     else
     {
-        pMenuItem = new Gtk::MenuItem();
-
-        // Now create the label and add it to the menu item
-        GtkWidget* pLabel = gtk_accel_label_new(pAction->name.c_str());
-        gtk_label_set_markup_with_mnemonic(GTK_LABEL(pLabel), pAction->name.c_str());
-
-#if GTK_CHECK_VERSION(3,16,0)
-        gtk_label_set_xalign(GTK_LABEL(pLabel), 0.0);
-#else
-        gtk_misc_set_alignment(GTK_MISC(pLabel), 0.0, 0.5);
-#endif
-
-        if (!pAction->shortcut.empty())
-        {
-            guint key;
-            GdkModifierType mod;
-            gtk_accelerator_parse(pAction->shortcut.c_str(), &key, &mod);
-            gtk_widget_add_accelerator(pMenuItem->gobj(),
-                            "activate",
-                            default_accel_group(),
-                            key,
-                            mod,
-                            GTK_ACCEL_VISIBLE);
-        }
-        gtk_accel_label_set_accel_widget(GTK_ACCEL_LABEL(pLabel), pMenuItem->gobj());
-
-        // If there is an image associated with the action, then we can add it as an icon for the menu item.
-        if (!pAction->stock.empty())
-        {
-            pMenuItem->set_name("ImageMenuItem");  // custom name to identify our "ImageMenuItems"
-
-            GtkWidget* pIcon = gtk_image_new_from_icon_name(pAction->stock.c_str(), GTK_ICON_SIZE_MENU);
-            //GtkWidget *icon = gtk_image_new();
-            //Glib::RefPtr<Gdk::Pixbuf> pixbuf = CtApp::R_icontheme->load_icon(action->stock, GTK_ICON_SIZE_MENU);
-            //gtk_image_set_from_pixbuf(GTK_IMAGE(icon), pixbuf->gobj());
-
-            // create a box to hold icon and label as GtkMenuItem derives from GtkBin and can only hold one child
-            GtkWidget* pBox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
-            gtk_box_pack_start(GTK_BOX(pBox), pIcon, FALSE, FALSE, 5);
-            gtk_box_pack_start(GTK_BOX(pBox), pLabel, TRUE, TRUE, 0);
-
-            gtk_container_add(GTK_CONTAINER(pMenuItem->gobj()), pBox);
-        }
-        else
-        {
-            gtk_container_add(GTK_CONTAINER(pMenuItem->gobj()), pLabel);
-        }
-
-        gtk_widget_set_events(pMenuItem->gobj(), GDK_KEY_PRESS_MASK);
-        g_signal_connect(G_OBJECT(pMenuItem->gobj()), "activate", G_CALLBACK(on_menu_activate), (gpointer)pAction);
+        gtk_container_add(GTK_CONTAINER(pMenuItem->gobj()), pLabel);
     }
+}
 
-    pMenuItem->show_all();
-    gtk_menu_shell_append(GTK_MENU_SHELL(pMenu), pMenuItem->gobj());
-
-    return pMenuItem->gobj();
+GtkWidget* CtMenu::add_separator(GtkWidget* pMenu)
+{
+    Gtk::Widget* pSeparatorItem = Gtk::manage(new Gtk::SeparatorMenuItem());
+    pSeparatorItem->show_all();
+    gtk_menu_shell_append(GTK_MENU_SHELL(GTK_MENU(pMenu)), pSeparatorItem->gobj());
+    return pSeparatorItem->gobj();
 }
 
 std::string CtMenu::get_toolbar_ui_str()
@@ -368,7 +499,7 @@ std::string CtMenu::get_toolbar_ui_str()
         {
             toolbarUIStr += "<child><object class='GtkToolButton'>";
             toolbarUIStr += "<property name='action-name'>app." + pAction->id + "</property>"; // 'app.' is a default action group in Application
-            toolbarUIStr += "<property name='icon-name'>" + pAction->stock + "</property>";
+            toolbarUIStr += "<property name='icon-name'>" + pAction->image + "</property>";
             toolbarUIStr += "<property name='label'>" + pAction->name + "</property>";
             toolbarUIStr += "<property name='tooltip-text'>" + pAction->desc + "</property>";
             toolbarUIStr += "<property name='visible'>True</property>";
@@ -388,7 +519,7 @@ const char* CtMenu::get_menu_ui_str()
 {
     return R"MARKUP(
 <menubar name='MenuBar'>
-  <menu name='FileMenu'>
+  <menu action='FileMenu'>
     <menuitem action='ct_new_inst'/>
     <menuitem action='ct_open_file'/>
     <separator/>
@@ -405,7 +536,7 @@ const char* CtMenu::get_menu_ui_str()
     <menuitem action='exit_app'/>
   </menu>
 
-  <menu name='EditMenu'>
+  <menu action='EditMenu'>
     <menuitem action='preferences_dlg'/>
     <separator/>
     <menuitem action='act_undo'/>
@@ -422,7 +553,7 @@ const char* CtMenu::get_menu_ui_str()
     <menuitem action='insert_horiz_rule'/>
     <menuitem action='strip_trail_spaces'/>
     <separator/>
-    <menu name='ChangeCaseMenu'>
+    <menu action='ChangeCaseMenu'>
       <menuitem action='case_down'/>
       <menuitem action='case_up'/>
       <menuitem action='case_tggl'/>
@@ -442,7 +573,7 @@ const char* CtMenu::get_menu_ui_str()
     <menuitem action='mv_down_row'/>
   </menu>
 
-  <menu name='FormattingMenu'>
+  <menu action='FormattingMenu'>
     <menuitem action='fmt_latest'/>
     <menuitem action='fmt_rm'/>
     <separator/>
@@ -470,10 +601,73 @@ const char* CtMenu::get_menu_ui_str()
     <menuitem action='fmt_justify_fill'/>
   </menu>
 
-  <menu name='TreeMenu'>
+  <menu action='TreeMenu'>
+    <menuitem action='fmt_justify_left'/>
+    <menuitem action='fmt_justify_left'/>
+    <menuitem action='tree_add_node'/>
+    <menuitem action='tree_add_subnode'/>
+    <menuitem action='tree_dup_node'/>
+    <separator/>
+    <menuitem action='tree_node_prop'/>
+    <menuitem action='tree_node_toggle_ro'/>
+    <menuitem action='node_bookmark'/>
+    <menuitem action='node_unbookmark'/>
+    <menuitem action='tree_node_date'/>
+    <menuitem action='tree_parse_info'/>
+    <separator/>
+    <menu action='TreeMoveMenu'>
+      <menuitem action='tree_node_up'/>
+      <menuitem action='tree_node_down'/>
+      <menuitem action='tree_node_left'/>
+      <menuitem action='tree_node_right'/>
+      <menuitem action='tree_node_new_father'/>
+    </menu>
+    <separator/>
+    <menu action='TreeSortMenu'>
+      <menuitem action='tree_all_sort_asc'/>
+      <menuitem action='tree_all_sort_desc'/>
+      <menuitem action='tree_sibl_sort_asc'/>
+      <menuitem action='tree_sibl_sort_desc'/>
+    </menu>
+    <separator/>
+    <menuitem action='find_in_node_names'/>
+    <menuitem action='replace_in_node_names'/>
+    <separator/>
+    <menu action='TreeImportMenu'>
+      <menuitem action='import_cherrytree'/>
+      <menuitem action='import_txt_file'/>
+      <menuitem action='import_txt_folder'/>
+      <menuitem action='import_html_file'/>
+      <menuitem action='import_html_folder'/>
+      <menuitem action='import_basket'/>
+      <menuitem action='import_epim_html'/>
+      <menuitem action='import_gnote'/>
+      <menuitem action='import_keepnote'/>
+      <menuitem action='import_keynote'/>
+      <menuitem action='import_knowit'/>
+      <menuitem action='import_leo'/>
+      <menuitem action='import_mempad'/>
+      <menuitem action='import_notecase'/>
+      <menuitem action='import_rednotebook'/>
+      <menuitem action='import_tomboy'/>
+      <menuitem action='import_treepad'/>
+      <menuitem action='import_tuxcards'/>
+      <menuitem action='import_zim'/>
+    </menu>
+    <separator/>
+    <menu action='TreeExportMenu'>
+      <menuitem action='export_pdf'/>
+      <menuitem action='export_html'/>
+      <menuitem action='export_txt_multiple'/>
+      <menuitem action='export_txt_single'/>
+      <menuitem action='export_ctd'/>
+    </menu>
+    <separator/>
+    <menuitem action='go_node_prev'/>
+    <menuitem action='go_node_next'/>
   </menu>
 
-  <menu name='SearchMenu'>
+  <menu action='SearchMenu'>
     <menuitem action='find_in_node'/>
     <menuitem action='find_in_allnodes'/>
     <menuitem action='find_in_node_n_sub'/>
@@ -488,7 +682,7 @@ const char* CtMenu::get_menu_ui_str()
     <menuitem action='replace_iter_fw'/>
   </menu>
 
-  <menu name='ViewMenu'>
+  <menu action='ViewMenu'>
     <menuitem action='toggle_show_tree'/>
     <menuitem action='toggle_show_toolbar'/>
     <menuitem action='toggle_show_node_name_head'/>
@@ -504,11 +698,11 @@ const char* CtMenu::get_menu_ui_str()
     <menuitem action='toggle_fullscreen'/>
   </menu>
 
-  <menu name='BookmarksMenu'>
+  <menu action='BookmarksMenu'>
     <menuitem action='handle_bookmarks'/>
   </menu>
 
-  <menu name='ImportMenu'>
+  <menu action='ImportMenu'>
     <menuitem action='import_cherrytree'/>
     <menuitem action='import_txt_file'/>
     <menuitem action='import_txt_folder'/>
@@ -530,7 +724,7 @@ const char* CtMenu::get_menu_ui_str()
     <menuitem action='import_zim'/>
   </menu>
 
-  <menu name='ExportMenu'>
+  <menu action='ExportMenu'>
     <menuitem action='export_pdf'/>
     <menuitem action='export_html'/>
     <menuitem action='export_txt_multiple'/>
@@ -538,7 +732,7 @@ const char* CtMenu::get_menu_ui_str()
     <menuitem action='export_ctd'/>
   </menu>
 
-  <menu name='HelpMenu'>
+  <menu action='HelpMenu'>
     <menuitem action='ct_check_newer'/>
     <separator/>
     <menuitem action='ct_help'/>
@@ -548,5 +742,138 @@ const char* CtMenu::get_menu_ui_str()
     <menuitem action='ct_about'/>
   </menu>
 </menubar>
+    )MARKUP";
+}
+
+const char* CtMenu::get_popup_menu_text_ui_str()
+{
+    return R"MARKUP(
+<popup>
+  <separator/>
+  <menuitem action='cut_plain'/>
+  <menuitem action='copy_plain'/>
+  <menuitem action='paste_plain'/>
+  <separator/>
+  <menu _name='For_matting' image='format_text'>
+      <menuitem action='fmt_latest'/>
+      <menuitem action='fmt_rm'/>
+      <separator/>
+      <menuitem action='fmt_color_fg'/>
+      <menuitem action='fmt_color_bg'/>
+      <menuitem action='fmt_bold'/>
+      <menuitem action='fmt_italic'/>
+      <menuitem action='fmt_underline'/>
+      <menuitem action='fmt_strikethrough'/>
+      <menuitem action='fmt_h1'/>
+      <menuitem action='fmt_h2'/>
+      <menuitem action='fmt_h3'/>
+      <menuitem action='fmt_small'/>
+      <menuitem action='fmt_superscript'/>
+      <menuitem action='fmt_subscript'/>
+      <menuitem action='fmt_monospace'/>
+  </menu>
+  <menu _name='_Justify' image='gtk-justify-center'>
+      <menuitem action='fmt_justify_left'/>
+      <menuitem action='fmt_justify_center'/>
+      <menuitem action='fmt_justify_right'/>
+      <menuitem action='fmt_justify_fill'/>
+  </menu>
+  <menu _name='_List' image='list_bulleted'>
+      <menuitem action='handle_bull_list'/>
+      <menuitem action='handle_num_list'/>
+      <menuitem action='handle_todo_list'/>
+  </menu>
+  <separator/>
+  <menu _name='_Insert' image='insert'>
+      <menuitem action='handle_image'/>
+      <menuitem action='handle_table'/>
+      <menuitem action='handle_codebox'/>
+      <menuitem action='handle_embfile'/>
+      <menuitem action='handle_link'/>
+      <menuitem action='handle_anchor'/>
+      <menuitem action='insert_toc'/>
+      <menuitem action='insert_timestamp'/>
+      <menuitem action='insert_horiz_rule'/>
+  </menu>
+  <menu _name='C_hange Case' image='case_toggle'>
+      <menuitem action='case_down'/>
+      <menuitem action='case_up'/>
+      <menuitem action='case_tggl'/>
+  </menu>
+  <menu _name='_Row' image='gtk-edit'>
+      <menuitem action='cut_row'/>
+      <menuitem action='copy_row'/>
+      <menuitem action='del_row'/>
+      <menuitem action='dup_row'/>
+      <menuitem action='mv_up_row'/>
+      <menuitem action='mv_down_row'/>
+  </menu>
+  <menuitem action='strip_trail_spaces'/>
+  <separator/>
+  <menu _name='_Search' image='find'>
+      <menuitem action='find_in_node'/>
+      <menuitem action='find_in_allnodes'/>
+      <menuitem action='find_in_node_n_sub'/>
+      <menuitem action='find_in_node_names'/>
+      <menuitem action='find_iter_fw'/>
+      <menuitem action='find_iter_bw'/>
+  </menu>
+  <menu _name='_Replace' image='find_replace'>
+      <menuitem action='replace_in_node'/>
+      <menuitem action='replace_in_allnodes'/>
+      <menuitem action='replace_in_node_n_sub'/>
+      <menuitem action='replace_in_node_names'/>
+      <menuitem action='replace_iter_fw'/>
+      <menuitem action='find_iter_bw'/>
+  </menu>
+</popup>
+    )MARKUP";
+}
+
+const char* CtMenu::get_popup_menu_code_ui_str()
+{
+    return R"MARKUP(
+<popup>
+  <separator/>
+  <menuitem action='cut_plain'/>
+  <menuitem action='copy_plain'/>
+  <separator/>
+  <menuitem action='exec_code'/>
+  <menu _name='_Insert' image='insert'>
+      <menuitem action='insert_timestamp'/>
+      <menuitem action='insert_horiz_rule'/>
+  </menu>
+  <menuitem action='strip_trail_spaces'/>
+  <menu _name='C_hange Case' image='case_toggle'>
+      <menuitem action='case_down'/>
+      <menuitem action='case_up'/>
+      <menuitem action='case_tggl'/>
+  </menu>
+  <menu _name='_Row' image='gtk-edit'>
+      <menuitem action='cut_row'/>
+      <menuitem action='copy_row'/>
+      <menuitem action='del_row'/>
+      <menuitem action='dup_row'/>
+      <menuitem action='mv_up_row'/>
+      <menuitem action='mv_down_row'/>
+  </menu>
+  <separator/>
+  <menu _name='_Search' image='find'>
+      <menuitem action='find_in_node'/>
+      <menuitem action='find_in_allnodes'/>
+      <menuitem action='find_in_node_n_sub'/>
+      <menuitem action='find_in_node_names'/>
+      <menuitem action='find_iter_fw'/>
+      <menuitem action='find_iter_bw'/>
+  </menu>
+  <menu _name='_Replace' image='find_replace'>
+      <menuitem action='replace_in_node'/>
+      <menuitem action='replace_in_allnodes'/>
+      <menuitem action='replace_in_node_n_sub'/>
+      <menuitem action='replace_in_node_names'/>
+      <menuitem action='replace_iter_fw'/>
+      <menuitem action='find_iter_bw'/>
+  </menu>
+</popup>
     )MARKUP";
 }

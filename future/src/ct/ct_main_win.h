@@ -25,6 +25,7 @@
 #include <gtksourceviewmm.h>
 #include "ct_treestore.h"
 #include "ct_misc_utils.h"
+#include "ct_menu.h"
 
 class CtTreeView : public Gtk::TreeView
 {
@@ -59,10 +60,11 @@ protected:
     Gtk::Entry _entry;
 };
 
+class CtMenu;
 class CtMainWin : public Gtk::ApplicationWindow
 {
 public:
-    CtMainWin(GtkWidget* pMenu, Gtk::Toolbar* pToolbar);
+    CtMainWin(CtMenu* pCtMenu);
     virtual ~CtMainWin();
 
     bool readNodesFromGioFile(const Glib::RefPtr<Gio::File>& r_file, const bool isImport);
@@ -70,11 +72,15 @@ public:
 
 protected:
     void                _onTheTreeviewSignalCursorChanged();
+    bool                _onTheTreeviewSignalButtonPressEvent(GdkEventButton* event);
+    bool                _onTheTreeviewSignalPopupMenu();
     void                _titleUpdate(bool saveNeeded);
+
     Gtk::VBox           _vboxMain;
     Gtk::VBox           _vboxText;
     Gtk::HPaned         _hPaned;
     Gtk::MenuBar*       _pMenu;
+    Gtk::Menu*          _pNodePopup;
     Gtk::ScrolledWindow _scrolledwindowTree;
     Gtk::ScrolledWindow _scrolledwindowText;
     CtTreeStore         _ctTreestore;

@@ -45,6 +45,7 @@ protected:
 };
 
 class CtMenu;
+class CtMainWin;
 class CtApp: public Gtk::Application
 {
 protected:
@@ -64,7 +65,6 @@ public:
 
 private:
     CtMenu* _pCtMenu;
-    Glib::RefPtr<Gtk::Builder> _rGtkBuilder;
 
 protected:
     void on_activate() override;
