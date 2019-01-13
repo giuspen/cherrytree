@@ -462,9 +462,6 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
 
 Gtk::Widget* CtPrefDlg::build_tab_tree_1()
 {
-    bool aux_icon_hide = false; // dad->aux_icon_hide
-    int default_icon_text = 1; // dad->default_icon_text
-
     CtConfig* config = CtApp::P_ctCfg;
     Gtk::Box* vbox_tt_theme = Gtk::manage(new Gtk::VBox());
 
@@ -519,10 +516,10 @@ Gtk::Widget* CtPrefDlg::build_tab_tree_1()
     Gtk::RadioButton* radiobutton_node_icon_none = Gtk::manage(new Gtk::RadioButton(_("No Icon")));
     radiobutton_node_icon_none->join_group(*radiobutton_node_icon_cherry);
     Gtk::CheckButton* checkbutton_aux_icon_hide = Gtk::manage(new Gtk::CheckButton(_("Hide Right Side Auxiliary Icon")));
-    checkbutton_aux_icon_hide->set_active(aux_icon_hide);
+    checkbutton_aux_icon_hide->set_active(config->auxIconHide);
 
     Gtk::Button* c_icon_button = Gtk::manage(new Gtk::Button());
-    c_icon_button->set_image(*new_image_from_stock(CtConst::NODES_STOCKS.at(default_icon_text), Gtk::ICON_SIZE_BUTTON));
+    c_icon_button->set_image(*new_image_from_stock(CtConst::NODES_STOCKS.at(config->defaultIconText), Gtk::ICON_SIZE_BUTTON));
     Gtk::HBox* c_icon_hbox = Gtk::manage(new Gtk::HBox());
     c_icon_hbox->set_spacing(2);
     c_icon_hbox->pack_start(*radiobutton_node_icon_custom, false, false);
@@ -540,9 +537,9 @@ Gtk::Widget* CtPrefDlg::build_tab_tree_1()
     align_nodes_icons->add(*vbox_nodes_icons);
     frame_nodes_icons->add(*align_nodes_icons);
 
-    //radiobutton_node_icon_cherry->set_active(dad->nodes_icons == "c");
-    //radiobutton_node_icon_custom->set_active(dad->nodes_icons == "b");
-    //radiobutton_node_icon_none->set_active(dad->nodes_icons == "n");
+    radiobutton_node_icon_cherry->set_active(config->nodesIcons == "c");
+    radiobutton_node_icon_custom->set_active(config->nodesIcons == "b");
+    radiobutton_node_icon_none->set_active(config->nodesIcons == "n");
 
     Gtk::VBox* vbox_nodes_startup = Gtk::manage(new Gtk::VBox());
 
@@ -552,8 +549,8 @@ Gtk::Widget* CtPrefDlg::build_tab_tree_1()
     Gtk::RadioButton* radiobutton_nodes_startup_collapse = Gtk::manage(new Gtk::RadioButton(_("Collapse all Nodes")));
     radiobutton_nodes_startup_collapse->join_group(*radiobutton_nodes_startup_restore);
     Gtk::CheckButton* checkbutton_nodes_bookm_exp = Gtk::manage(new Gtk::CheckButton(_("Nodes in Bookmarks Always Visible")));
-    //checkbutton_nodes_bookm_exp->set_active(dad->nodes_bookm_exp);
-    //checkbutton_nodes_bookm_exp->set_sensitive(dad->rest_exp_coll != 1)
+    checkbutton_nodes_bookm_exp->set_active(config->nodesBookmExp);
+    checkbutton_nodes_bookm_exp->set_sensitive(config->restoreExpColl != CtRestoreExpColl::ALL_EXP);
 
     vbox_nodes_startup->pack_start(*radiobutton_nodes_startup_restore, false, false);
     vbox_nodes_startup->pack_start(*radiobutton_nodes_startup_expand, false, false);
@@ -567,9 +564,9 @@ Gtk::Widget* CtPrefDlg::build_tab_tree_1()
     align_nodes_startup->add(*vbox_nodes_startup);
     frame_nodes_startup->add(*align_nodes_startup);
 
-    //radiobutton_nodes_startup_restore->set_active(dad->rest_exp_coll == 0)
-    //radiobutton_nodes_startup_expand->set_active(dad->rest_exp_coll == 1)
-    //radiobutton_nodes_startup_collapse->set_active(dad->rest_exp_coll == 2)
+    radiobutton_nodes_startup_restore->set_active(config->restoreExpColl == CtRestoreExpColl::FROM_STR);
+    radiobutton_nodes_startup_expand->set_active(config->restoreExpColl == CtRestoreExpColl::ALL_EXP);
+    radiobutton_nodes_startup_collapse->set_active(config->restoreExpColl == CtRestoreExpColl::ALL_COLL);
 
     Gtk::VBox* pMainBox = Gtk::manage(new Gtk::VBox());
     pMainBox->set_spacing(3);
@@ -581,8 +578,48 @@ Gtk::Widget* CtPrefDlg::build_tab_tree_1()
 
 Gtk::Widget* CtPrefDlg::build_tab_tree_2()
 {
+    CtConfig* config = CtApp::P_ctCfg;
+
+    Gtk::VBox* vbox_misc_tree = Gtk::manage(new Gtk::VBox());
+    Gtk::HBox* hbox_tree_nodes_names_width = Gtk::manage(new Gtk::HBox());
+    hbox_tree_nodes_names_width->set_spacing(4);
+    Gtk::Label* label_tree_nodes_names_width = Gtk::manage(new Gtk::Label(_("Tree Nodes Names Wrapping Width")));
+    Glib::RefPtr<Gtk::Adjustment> adj_tree_nodes_names_width = Gtk::Adjustment::create(config->cherryWrapWidth, 10, 10000, 1);
+    Gtk::SpinButton* spinbutton_tree_nodes_names_width = Gtk::manage(new Gtk::SpinButton(adj_tree_nodes_names_width));
+    spinbutton_tree_nodes_names_width->set_value(config->cherryWrapWidth);
+    hbox_tree_nodes_names_width->pack_start(*label_tree_nodes_names_width, false, false);
+    hbox_tree_nodes_names_width->pack_start(*spinbutton_tree_nodes_names_width, false, false);
+    Gtk::CheckButton* checkbutton_tree_right_side = Gtk::manage(new Gtk::CheckButton(_("Display Tree on the Right Side")));
+    checkbutton_tree_right_side->set_active(config->treeRightSide);
+    Gtk::CheckButton* checkbutton_tree_click_focus_text = Gtk::manage(new Gtk::CheckButton(_("Move Focus to Text at Mouse Click")));
+    checkbutton_tree_click_focus_text->set_active(config->treeClickFocusText);
+    Gtk::CheckButton* checkbutton_tree_click_expand = Gtk::manage(new Gtk::CheckButton(_("Expand Node at Mouse Click")));
+    checkbutton_tree_click_expand->set_active(config->treeClickExpand);
+    Gtk::HBox* hbox_nodes_on_node_name_header = Gtk::manage(new Gtk::HBox());
+    hbox_nodes_on_node_name_header->set_spacing(4);
+    Gtk::Label* label_nodes_on_node_name_header = Gtk::manage(new Gtk::Label(_("Last Visited Nodes on Node Name Header")));
+    Glib::RefPtr<Gtk::Adjustment> adj_nodes_on_node_name_header = Gtk::Adjustment::create(config->nodesOnNodeNameHeader, 0, 100, 1);
+    Gtk::SpinButton* spinbutton_nodes_on_node_name_header = Gtk::manage(new Gtk::SpinButton(adj_nodes_on_node_name_header));
+    spinbutton_nodes_on_node_name_header->set_value(config->nodesOnNodeNameHeader);
+    hbox_nodes_on_node_name_header->pack_start(*label_nodes_on_node_name_header, false, false);
+    hbox_nodes_on_node_name_header->pack_start(*spinbutton_nodes_on_node_name_header, false, false);
+
+    vbox_misc_tree->pack_start(*hbox_tree_nodes_names_width, false, false);
+    vbox_misc_tree->pack_start(*checkbutton_tree_right_side, false, false);
+    vbox_misc_tree->pack_start(*checkbutton_tree_click_focus_text, false, false);
+    vbox_misc_tree->pack_start(*checkbutton_tree_click_expand, false, false);
+    vbox_misc_tree->pack_start(*hbox_nodes_on_node_name_header, false, false);
+    Gtk::Frame* frame_misc_tree = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Miscellaneous")+"</b>"));
+    ((Gtk::Label*)frame_misc_tree->get_label_widget())->set_use_markup(true);
+    frame_misc_tree->set_shadow_type(Gtk::SHADOW_NONE);
+    Gtk::Alignment* align_misc_tree = Gtk::manage(new Gtk::Alignment());
+    align_misc_tree->set_padding(3, 6, 6, 6);
+    align_misc_tree->add(*vbox_misc_tree);
+    frame_misc_tree->add(*align_misc_tree);
+
     Gtk::VBox* pMainBox = Gtk::manage(new Gtk::VBox());
     pMainBox->set_spacing(3);
+    pMainBox->pack_start(*frame_misc_tree, false, false);
     return pMainBox;
 }
 Gtk::Widget* CtPrefDlg::build_tab_fonts()
