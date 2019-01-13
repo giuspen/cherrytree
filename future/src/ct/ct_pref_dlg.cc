@@ -2,6 +2,7 @@
 #include <gtkmm/notebook.h>
 #include <gtkmm/adjustment.h>
 #include <gtkmm/spinbutton.h>
+#include <gdkmm/rgba.h>
 #include <glib/gi18n.h>
 #include <ct_app.h>
 
@@ -194,8 +195,143 @@ Gtk::Widget* CtPrefDlg::build_tab_text()
 
 Gtk::Widget* CtPrefDlg::build_tab_rich_text()
 {
+    CtConfig* config = CtApp::P_ctCfg;
+
+    Gtk::VBox* vbox_spell_check = Gtk::manage(new Gtk::VBox());
+    Gtk::CheckButton* checkbutton_spell_check = Gtk::manage(new Gtk::CheckButton(_("Enable Spell Check")));
+    checkbutton_spell_check->set_active(config->enableSpellCheck);
+    Gtk::HBox* hbox_spell_check_lang = Gtk::manage(new Gtk::HBox());
+    hbox_spell_check_lang->set_spacing(4);
+    Gtk::Label* label_spell_check_lang = Gtk::manage(new Gtk::Label(_("Spell Check Language")));
+    Gtk::ComboBox* combobox_spell_check_lang = Gtk::manage(new Gtk::ComboBox());
+    Gtk::CellRendererText* cell = Gtk::manage(new Gtk::CellRendererText());
+    combobox_spell_check_lang->pack_start(*cell, true);
+    combobox_spell_check_lang->add_attribute(*cell, "text", 0);
+    // todo: fix this
+    //def set_checkbutton_spell_check_model():
+    //    combobox_spell_check_lang->set_model(dad->spell_check_lang_liststore)
+    //    combobox_spell_check_lang->set_active_iter(dad->get_combobox_iter_from_value(dad->spell_check_lang_liststore, 0, dad->spell_check_lang))
+    //if dad->spell_check_init: set_checkbutton_spell_check_model()
+    hbox_spell_check_lang->pack_start(*label_spell_check_lang, false, false);
+    hbox_spell_check_lang->pack_start(*combobox_spell_check_lang);
+    vbox_spell_check->pack_start(*checkbutton_spell_check, false, false);
+    vbox_spell_check->pack_start(*hbox_spell_check_lang, false, false);
+    Gtk::Frame* frame_spell_check = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Spell Check")+"</b>"));
+    ((Gtk::Label*)frame_spell_check->get_label_widget())->set_use_markup(true);
+    frame_spell_check->set_shadow_type(Gtk::SHADOW_NONE);
+    Gtk::Alignment* align_spell_check = Gtk::manage(new Gtk::Alignment());
+    align_spell_check->set_padding(3, 6, 6, 6);
+    align_spell_check->add(*vbox_spell_check);
+    frame_spell_check->add(*align_spell_check);
+
+    Gtk::VBox* vbox_rt_theme = Gtk::manage(new Gtk::VBox());
+
+    Gtk::RadioButton* radiobutton_rt_col_light = Gtk::manage(new Gtk::RadioButton(_("Light Background, Dark Text")));
+    Gtk::RadioButton* radiobutton_rt_col_dark = Gtk::manage(new Gtk::RadioButton(_("Dark Background, Light Text")));
+    radiobutton_rt_col_dark->join_group(*radiobutton_rt_col_light);
+    Gtk::RadioButton* radiobutton_rt_col_custom = Gtk::manage(new Gtk::RadioButton(_("Custom Background")));
+    radiobutton_rt_col_custom->join_group(*radiobutton_rt_col_light);
+    Gtk::HBox* hbox_rt_col_custom = Gtk::manage(new Gtk::HBox());
+    hbox_rt_col_custom->set_spacing(4);
+    Gtk::ColorButton* colorbutton_text_bg = Gtk::manage(new Gtk::ColorButton(Gdk::RGBA(config->rtDefBg)));
+    Gtk::Label* label_rt_col_custom = Gtk::manage(new Gtk::Label(_("and Text")));
+    Gtk::ColorButton* colorbutton_text_fg = Gtk::manage(new Gtk::ColorButton(Gdk::RGBA(config->rtDefFg)));
+    hbox_rt_col_custom->pack_start(*radiobutton_rt_col_custom, false, false);
+    hbox_rt_col_custom->pack_start(*colorbutton_text_bg, false, false);
+    hbox_rt_col_custom->pack_start(*label_rt_col_custom, false, false);
+    hbox_rt_col_custom->pack_start(*colorbutton_text_fg, false, false);
+    Gtk::CheckButton* checkbutton_monospace_bg = Gtk::manage(new Gtk::CheckButton(_("Monospace Background")));
+    //mono_color = dad->monospace_bg if dad->monospace_bg else DEFAULT_MONOSPACE_BG
+    Gtk::ColorButton* colorbutton_monospace_bg = Gtk::manage(new Gtk::ColorButton(Gdk::RGBA(config->monospaceBg)));
+    Gtk::HBox* hbox_monospace_bg = Gtk::manage(new Gtk::HBox());
+    hbox_monospace_bg->set_spacing(4);
+    hbox_monospace_bg->pack_start(*checkbutton_monospace_bg, false, false);
+    hbox_monospace_bg->pack_start(*colorbutton_monospace_bg, false, false);
+
+    vbox_rt_theme->pack_start(*radiobutton_rt_col_light, false, false);
+    vbox_rt_theme->pack_start(*radiobutton_rt_col_dark, false, false);
+    vbox_rt_theme->pack_start(*hbox_rt_col_custom, false, false);
+    vbox_rt_theme->pack_start(*hbox_monospace_bg, false, false);
+    Gtk::Frame* frame_rt_theme = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Theme")+"</b>"));
+    ((Gtk::Label*)frame_rt_theme->get_label_widget())->set_use_markup(true);
+    frame_rt_theme->set_shadow_type(Gtk::SHADOW_NONE);
+    Gtk::Alignment* align_rt_theme = Gtk::manage(new Gtk::Alignment());
+    align_rt_theme->set_padding(3, 6, 6, 6);
+    align_rt_theme->add(*vbox_rt_theme);
+    frame_rt_theme->add(*align_rt_theme);
+
+    if (config->rtDefFg == CtConst::RICH_TEXT_DARK_FG && config->rtDefBg == CtConst::RICH_TEXT_DARK_BG)
+    {
+        radiobutton_rt_col_dark->set_active(true);
+        colorbutton_text_fg->set_sensitive(false);
+        colorbutton_text_bg->set_sensitive(false);
+    }
+    else if (config->rtDefFg == CtConst::RICH_TEXT_LIGHT_FG && config->rtDefBg == CtConst::RICH_TEXT_LIGHT_BG)
+    {
+        radiobutton_rt_col_light->set_active(true);
+        colorbutton_text_fg->set_sensitive(false);
+        colorbutton_text_bg->set_sensitive(false);
+    }
+    else
+    {
+        radiobutton_rt_col_custom->set_active(true);
+    }
+    if (!config->monospaceBg.empty())
+    {
+        checkbutton_monospace_bg->set_active(true);
+        colorbutton_monospace_bg->set_sensitive(true);
+    }
+    else
+    {
+        checkbutton_monospace_bg->set_active(false);
+        colorbutton_monospace_bg->set_sensitive(false);
+    }
+
+    Gtk::HBox* hbox_misc_text = Gtk::manage(new Gtk::HBox());
+    hbox_misc_text->set_spacing(4);
+    Gtk::CheckButton* checkbutton_rt_show_white_spaces = Gtk::manage(new Gtk::CheckButton(_("Show White Spaces")));
+    checkbutton_rt_show_white_spaces->set_active(config->rtShowWhiteSpaces);
+    Gtk::CheckButton* checkbutton_rt_highl_curr_line = Gtk::manage(new Gtk::CheckButton(_("Highlight Current Line")));
+    checkbutton_rt_highl_curr_line->set_active(config->rtHighlCurrLine);
+    Gtk::CheckButton* checkbutton_codebox_auto_resize = Gtk::manage(new Gtk::CheckButton(_("Expand CodeBoxes Automatically")));
+    checkbutton_codebox_auto_resize->set_active(config->codeboxAutoResize);
+    Gtk::HBox* hbox_embfile_size = Gtk::manage(new Gtk::HBox());
+    hbox_embfile_size->set_spacing(4);
+    Gtk::Label* label_embfile_size = Gtk::manage(new Gtk::Label(_("Embedded File Icon Size")));
+    Glib::RefPtr<Gtk::Adjustment> adj_embfile_size = Gtk::Adjustment::create(config->embfileSize, 1, 1000, 1);
+    Gtk::SpinButton* spinbutton_embfile_size = Gtk::manage(new Gtk::SpinButton(adj_embfile_size));
+    spinbutton_embfile_size->set_value(config->embfileSize);
+    hbox_embfile_size->pack_start(*label_embfile_size, false, false);
+    hbox_embfile_size->pack_start(*spinbutton_embfile_size, false, false);
+    Gtk::CheckButton* checkbutton_embfile_show_filename = Gtk::manage(new Gtk::CheckButton(_("Show File Name on Top of Embedded File Icon")));
+    checkbutton_embfile_show_filename->set_active(config->embfileShowFileName);
+    Gtk::Label* label_limit_undoable_steps = Gtk::manage(new Gtk::Label(_("Limit of Undoable Steps Per Node")));
+    Glib::RefPtr<Gtk::Adjustment> adj_limit_undoable_steps = Gtk::Adjustment::create(config->limitUndoableSteps, 1, 10000, 1);
+    Gtk::SpinButton* spinbutton_limit_undoable_steps = Gtk::manage(new Gtk::SpinButton(adj_limit_undoable_steps));
+    spinbutton_limit_undoable_steps->set_value(config->limitUndoableSteps);
+    hbox_misc_text->pack_start(*label_limit_undoable_steps, false, false);
+    hbox_misc_text->pack_start(*spinbutton_limit_undoable_steps, false, false);
+
+    Gtk::VBox* vbox_misc_text = Gtk::manage(new Gtk::VBox());
+    vbox_misc_text->pack_start(*checkbutton_rt_show_white_spaces, false, false);
+    vbox_misc_text->pack_start(*checkbutton_rt_highl_curr_line, false, false);
+    vbox_misc_text->pack_start(*checkbutton_codebox_auto_resize, false, false);
+    vbox_misc_text->pack_start(*hbox_embfile_size, false, false);
+    vbox_misc_text->pack_start(*checkbutton_embfile_show_filename, false, false);
+    vbox_misc_text->pack_start(*hbox_misc_text, false, false);
+    Gtk::Frame* frame_misc_text = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Miscellaneous")+"</b>"));
+    ((Gtk::Label*)frame_misc_text->get_label_widget())->set_use_markup(true);
+    frame_misc_text->set_shadow_type(Gtk::SHADOW_NONE);
+    Gtk::Alignment* align_misc_text = Gtk::manage(new Gtk::Alignment());
+    align_misc_text->set_padding(3, 6, 6, 6);
+    align_misc_text->add(*vbox_misc_text);
+    frame_misc_text->add(*align_misc_text);
+
     Gtk::VBox* pMainBox = Gtk::manage(new Gtk::VBox());
     pMainBox->set_spacing(3);
+    pMainBox->pack_start(*frame_spell_check, false, false);
+    pMainBox->pack_start(*frame_rt_theme, false, false);
+    pMainBox->pack_start(*frame_misc_text, false, false);
     return pMainBox;
 }
 
