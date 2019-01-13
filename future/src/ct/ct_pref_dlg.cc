@@ -97,9 +97,7 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
     Gtk::Entry* entry_timestamp_format = Gtk::manage(new Gtk::Entry());
     entry_timestamp_format->set_text(config->timestampFormat);
     Gtk::Button* button_strftime_help = Gtk::manage(new Gtk::Button());
-    Gtk::Image* button_strftime_help_image = Gtk::manage(new Gtk::Image());
-    button_strftime_help_image->set_from_icon_name("gtk-help", Gtk::ICON_SIZE_BUTTON);
-    button_strftime_help->set_image(*button_strftime_help_image);
+    button_strftime_help->set_image(*new_image_from_stock("gtk-help", Gtk::ICON_SIZE_BUTTON));
     hbox_timestamp->pack_start(*label_timestamp, false, false);
     hbox_timestamp->pack_start(*entry_timestamp_format, false, false);
     hbox_timestamp->pack_start(*button_strftime_help, false, false);
@@ -116,9 +114,7 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
     Gtk::Label* label_special_chars = Gtk::manage(new Gtk::Label(_("Special Characters")));
     Gtk::HBox* hbox_reset = Gtk::manage(new Gtk::HBox());
     Gtk::Button* button_reset = Gtk::manage(new Gtk::Button());
-    Gtk::Image* button_reset_image = Gtk::manage(new Gtk::Image());
-    button_reset_image->set_from_icon_name("gtk-undo", Gtk::ICON_SIZE_BUTTON);
-    button_reset->set_image(*button_reset_image);
+    button_reset->set_image(*new_image_from_stock("gtk-undo", Gtk::ICON_SIZE_BUTTON));
     button_reset->set_tooltip_text(_("Reset to Default"));
     hbox_reset->pack_start(*Gtk::manage(new Gtk::Label()), true, false); // todo: not sure about third arg
     hbox_reset->pack_start(*button_reset, false, false);
@@ -337,8 +333,130 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
 
 Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
 {
+    CtConfig* config = CtApp::P_ctCfg;
+    std::string style_scheme_liststore;
+
+    Gtk::VBox* vbox_syntax = Gtk::manage(new Gtk::VBox());
+    Gtk::HBox* hbox_style_scheme = Gtk::manage(new Gtk::HBox());
+    hbox_style_scheme->set_spacing(4);
+    Gtk::Label* label_style_scheme = Gtk::manage(new Gtk::Label(_("Style Scheme")));
+    Gtk::ComboBox* combobox_style_scheme = Gtk::manage(new Gtk::ComboBox(/*style_scheme_liststore*/));
+    Gtk::CellRendererText* cell = Gtk::manage(new Gtk::CellRendererText());
+    combobox_style_scheme->pack_start(*cell, true);
+    combobox_style_scheme->add_attribute(*cell, "text", 0);
+    //combobox_style_scheme->set_active_iter(dad->get_combobox_iter_from_value(dad->style_scheme_liststore, 0, dad->style_scheme))
+    hbox_style_scheme->pack_start(*label_style_scheme, false, false);
+    hbox_style_scheme->pack_start(*combobox_style_scheme);
+    Gtk::CheckButton* checkbutton_pt_show_white_spaces = Gtk::manage(new Gtk::CheckButton(_("Show White Spaces")));
+    checkbutton_pt_show_white_spaces->set_active(config->ptShowWhiteSpaces);
+    Gtk::CheckButton* checkbutton_pt_highl_curr_line = Gtk::manage(new Gtk::CheckButton(_("Highlight Current Line")));
+    checkbutton_pt_highl_curr_line->set_active(config->ptHighlCurrLine);
+
+    vbox_syntax->pack_start(*hbox_style_scheme, false, false);
+    vbox_syntax->pack_start(*checkbutton_pt_show_white_spaces, false, false);
+    vbox_syntax->pack_start(*checkbutton_pt_highl_curr_line, false, false);
+
+    Gtk::Frame* frame_syntax = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Text Editor")+"</b>"));
+    ((Gtk::Label*)frame_syntax->get_label_widget())->set_use_markup(true);
+    frame_syntax->set_shadow_type(Gtk::SHADOW_NONE);
+    Gtk::Alignment* align_syntax = Gtk::manage(new Gtk::Alignment());
+    align_syntax->set_padding(3, 6, 6, 6);
+    align_syntax->add(*vbox_syntax);
+    frame_syntax->add(*align_syntax);
+
+
+  /*  def on_combobox_style_scheme_changed(combobox):
+        new_iter = combobox_style_scheme->get_active_iter()
+        new_style = dad->style_scheme_liststore[new_iter][0]
+        if new_style != dad->style_scheme:
+            dad->style_scheme = new_style
+            support->dialog_info_after_restart(pref_dialog)
+    combobox_style_scheme->connect('changed', on_combobox_style_scheme_changed)
+    def on_checkbutton_pt_show_white_spaces_toggled(checkbutton):
+        dad->pt_show_white_spaces = checkbutton->get_active()
+        if dad->syntax_highlighting != cons->RICH_TEXT_ID:
+            dad->sourceview->set_draw_spaces(codeboxes->DRAW_SPACES_FLAGS if dad->pt_show_white_spaces else 0)
+    checkbutton_pt_show_white_spaces->connect('toggled', on_checkbutton_pt_show_white_spaces_toggled)
+    def on_checkbutton_pt_highl_curr_line_toggled(checkbutton):
+        dad->pt_highl_curr_line = checkbutton->get_active()
+        if dad->syntax_highlighting != cons->RICH_TEXT_ID:
+            dad->sourceview->set_highlight_current_line(dad->pt_highl_curr_line)
+    checkbutton_pt_highl_curr_line->connect('toggled', on_checkbutton_pt_highl_curr_line_toggled)
+*/
+
+    /*Gtk::ListStore* liststore = Gtk::manage(new Gtk::ListStore(str, str, str)
+    treeview = Gtk::manage(new Gtk::TreeView(liststore)
+    treeview->set_headers_visible(False)
+    treeview->set_size_request(300, 200)
+    renderer_pixbuf = Gtk::manage(new Gtk::CellRendererPixbuf()
+    renderer_text_key = Gtk::manage(new Gtk::CellRendererText()
+    renderer_text_val = Gtk::manage(new Gtk::CellRendererText()
+    renderer_text_val->set_property('editable', true)
+    def on_table_cell_edited(cell, path, new_text):
+        if liststore[path][2] != new_text:
+            liststore[path][2] = new_text
+            key = liststore[path][1]
+            dad->custom_codexec_type[key] = new_text
+    renderer_text_val->connect('edited', on_table_cell_edited)
+    column_key = Gtk::manage(new Gtk::TreeViewColumn()
+    column_key->pack_start(renderer_pixbuf, False)
+    column_key->pack_start(renderer_text_key, true)
+    column_key->set_attributes(renderer_pixbuf, stock_id=0)
+    column_key->set_attributes(renderer_text_key, text=1)
+    column_val = Gtk::manage(new Gtk::TreeViewColumn("", renderer_text_val, text=2)
+    treeview->append_column(column_key)
+    treeview->append_column(column_val)
+    treeviewselection = treeview->get_selection()
+*/
+    Gtk::ScrolledWindow* scrolledwindow = Gtk::manage(new Gtk::ScrolledWindow());
+    scrolledwindow->set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
+    ///scrolledwindow->add(treeview);
+
+    Gtk::Button* button_add = Gtk::manage(new Gtk::Button());
+    button_add->set_image(*new_image_from_stock("gtk-add", Gtk::ICON_SIZE_BUTTON));
+    button_add->set_tooltip_text(_("Add"));
+    Gtk::Button* button_reset_cmds = Gtk::manage(new Gtk::Button());
+    button_reset_cmds->set_image(*new_image_from_stock("gtk-undo", Gtk::ICON_SIZE_BUTTON));
+    button_reset_cmds->set_tooltip_text(_("Reset to Default"));
+    Gtk::VBox* vbox_buttons = Gtk::manage(new Gtk::VBox());
+    vbox_buttons->pack_start(*button_add, false, false);
+    vbox_buttons->pack_start(*Gtk::manage(new Gtk::Label()), true, false);
+    vbox_buttons->pack_start(*button_reset_cmds, false, false);
+
+    Gtk::VBox* vbox_codexec = Gtk::manage(new Gtk::VBox());
+    Gtk::HBox* hbox_term_run = Gtk::manage(new Gtk::HBox());
+    Gtk::Entry* entry_term_run = Gtk::manage(new Gtk::Entry());
+    //entry_term_run->set_text(get_code_exec_term_run(dad))
+    Gtk::Button* button_reset_term = Gtk::manage(new Gtk::Button());
+    button_reset_term->set_image(*new_image_from_stock("gtk-undo", Gtk::ICON_SIZE_BUTTON));
+    button_reset_term->set_tooltip_text(_("Reset to Default"));
+    hbox_term_run->pack_start(*entry_term_run, true, false);
+    hbox_term_run->pack_start(*button_reset_term, false, false);
+    Gtk::HBox* hbox_cmd_per_type = Gtk::manage(new Gtk::HBox());
+    hbox_cmd_per_type->pack_start(*scrolledwindow, true, false);
+    hbox_cmd_per_type->pack_start(*vbox_buttons, false, false);
+
+    Gtk::Label* label = Gtk::manage(new Gtk::Label(std::string("<b>")+_("Command per Node/CodeBox Type")+"</b>"));
+    label->set_use_markup(true);
+    vbox_codexec->pack_start(*label, false, false);
+    vbox_codexec->pack_start(*hbox_cmd_per_type, true, false);
+    Gtk::Label* label2 = Gtk::manage(new Gtk::Label(std::string("<b>")+_("Terminal Command")+"</b>"));
+    label2->set_use_markup(true);
+    vbox_codexec->pack_start(*label2, false, false);
+    vbox_codexec->pack_start(*hbox_term_run, false, false);
+
+    Gtk::Frame* frame_codexec = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Code Execution")+"</b>"));
+    ((Gtk::Label*)frame_codexec->get_label_widget())->set_use_markup(true);
+    frame_codexec->set_shadow_type(Gtk::SHADOW_NONE);
+    Gtk::Alignment* align_codexec = Gtk::manage(new Gtk::Alignment());
+    align_codexec->set_padding(3, 6, 6, 6);
+    align_codexec->add(*vbox_codexec);
+    frame_codexec->add(*align_codexec);
+
     Gtk::VBox* pMainBox = Gtk::manage(new Gtk::VBox());
     pMainBox->set_spacing(3);
+    pMainBox->pack_start(*frame_syntax, false, false);
+    pMainBox->pack_start(*frame_codexec, true, false);
     return pMainBox;
 }
 
@@ -390,48 +508,9 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     return pMainBox;
 }
 
-
-/*
-def dialog_preferences(dad):
-    """Preferences Dialog"""
-    dialog = gtk.Dialog(title=_("Preferences"),
-        parent=dad.window,
-        flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
-        buttons=(gtk.STOCK_CLOSE, gtk.RESPONSE_ACCEPT))
-
-    tabs_vbox_vec = []
-    for tabs_idx in range(11):
-        tabs_vbox_vec.append(gtk.VBox())
-        tabs_vbox_vec[-1].set_spacing(3)
-
-
-    tab_constructor = {
-        0: preferences_tab_text_n_code,
-        1: preferences_tab_text,
-        2: preferences_tab_rich_text,
-        3: preferences_tab_plain_text_n_code,
-        4: preferences_tab_tree_1,
-        5: preferences_tab_tree_2,
-        6: preferences_tab_fonts,
-        7: preferences_tab_links,
-        8: preferences_tab_toolbar,
-        9: preferences_tab_kb_shortcuts,
-       10: preferences_tab_misc,
-        }
-
-    def on_notebook_switch_page(notebook, page, page_num):
-        #print "new page", page_num
-        tab_constructor[page_num](dad, tabs_vbox_vec[page_num], dialog)
-        tabs_vbox_vec[page_num].show_all()
-    notebook.connect('switch-page', on_notebook_switch_page)
-
-    content_area = dialog.get_content_area()
-    content_area.pack_start(notebook)
-    content_area.show_all()
-    notebook.set_current_page(dad.prefpage)
-    dialog.disp_dialog_after_restart = False
-    dialog.run()
-    dad.prefpage = notebook.get_current_page()
-    dialog.hide()
-
- */
+Gtk::Image* CtPrefDlg::new_image_from_stock(const std::string& id, Gtk::IconSize size)
+{
+    Gtk::Image* image = Gtk::manage(new Gtk::Image());
+    image->set_from_icon_name(id, size);
+    return image;
+}

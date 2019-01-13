@@ -1,6 +1,7 @@
 #pragma once
 
 #include <gtkmm/dialog.h>
+#include <gtkmm/liststore.h>
 #include <glibmm/value.h>
 #include <glibmm/ustring.h>
 
@@ -22,5 +23,7 @@ private:
     Gtk::Widget* build_tab_kb_shortcuts();
     Gtk::Widget* build_tab_misc();
 
+private:
+    Gtk::Image* new_image_from_stock(const std::string& id, Gtk::IconSize size);
 };
 
