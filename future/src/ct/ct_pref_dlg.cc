@@ -624,8 +624,48 @@ Gtk::Widget* CtPrefDlg::build_tab_tree_2()
 }
 Gtk::Widget* CtPrefDlg::build_tab_fonts()
 {
+    CtConfig* config = CtApp::P_ctCfg;
+
+    Gtk::Image* image_rt = new_image_from_stock(Gtk::Stock::SELECT_FONT.id, Gtk::ICON_SIZE_MENU);
+    Gtk::Image* image_pt = new_image_from_stock(Gtk::Stock::SELECT_FONT.id, Gtk::ICON_SIZE_MENU);
+    Gtk::Image* image_code = new_image_from_stock("xml", Gtk::ICON_SIZE_MENU);
+    Gtk::Image* image_tree = new_image_from_stock("cherries", Gtk::ICON_SIZE_MENU);
+    Gtk::Label* label_rt = Gtk::manage(new Gtk::Label(_("Rich Text")));
+    Gtk::Label* label_pt = Gtk::manage(new Gtk::Label(_("Plain Text")));
+    Gtk::Label* label_code = Gtk::manage(new Gtk::Label(_("Code Font")));
+    Gtk::Label* label_tree = Gtk::manage(new Gtk::Label(_("Tree Font")));
+    Gtk::FontButton* fontbutton_rt = Gtk::manage(new Gtk::FontButton(config->rtFont));
+    Gtk::FontButton* fontbutton_pt = Gtk::manage(new Gtk::FontButton(config->ptFont));
+    Gtk::FontButton* fontbutton_code = Gtk::manage(new Gtk::FontButton(config->codeFont));
+    Gtk::FontButton* fontbutton_tree = Gtk::manage(new Gtk::FontButton(config->treeFont));
+    Gtk::Table* table_fonts = Gtk::manage(new Gtk::Table(4, 3));
+    table_fonts->set_row_spacings(2);
+    table_fonts->set_col_spacings(4);
+    table_fonts->attach(*image_rt, 0, 1, 0, 1);//, 0, 0); // todo: fix expand param
+    table_fonts->attach(*image_pt, 0, 1, 1, 2);//, 0, 0);
+    table_fonts->attach(*image_code, 0, 1, 2, 3);//, 0, 0);
+    table_fonts->attach(*image_tree, 0, 1, 3, 4);//, 0, 0);
+    table_fonts->attach(*label_rt, 1, 2, 0, 1);// 0, 0);
+    table_fonts->attach(*label_pt, 1, 2, 1, 2);//, 0, 0);
+    table_fonts->attach(*label_code, 1, 2, 2, 3);//, 0, 0);
+    table_fonts->attach(*label_tree, 1, 2, 3, 4);//, 0, 0);
+    table_fonts->attach(*fontbutton_rt, 2, 3, 0, 1);//, yoptions=0);
+    table_fonts->attach(*fontbutton_pt, 2, 3, 1, 2);//, yoptions=0);
+    table_fonts->attach(*fontbutton_code, 2, 3, 2, 3);//, yoptions=0);
+    table_fonts->attach(*fontbutton_tree, 2, 3, 3, 4);//, yoptions=0);
+
+    Gtk::Frame* frame_fonts = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Fonts")+"</b>"));
+    ((Gtk::Label*)frame_fonts->get_label_widget())->set_use_markup(true);
+    frame_fonts->set_shadow_type(Gtk::SHADOW_NONE);
+    Gtk::Alignment* align_fonts = Gtk::manage(new Gtk::Alignment());
+    align_fonts->set_padding(3, 6, 6, 6);
+    align_fonts->add(*table_fonts);
+    frame_fonts->add(*align_fonts);
+
+
     Gtk::VBox* pMainBox = Gtk::manage(new Gtk::VBox());
     pMainBox->set_spacing(3);
+    pMainBox->pack_start(*frame_fonts, false, false);
     return pMainBox;
 }
 
