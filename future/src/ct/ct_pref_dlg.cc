@@ -800,8 +800,116 @@ Gtk::Widget* CtPrefDlg::build_tab_kb_shortcuts()
 
 Gtk::Widget* CtPrefDlg::build_tab_misc()
 {
+    CtConfig* config = CtApp::P_ctCfg;
+
+    Gtk::VBox* vbox_system_tray = Gtk::manage(new Gtk::VBox());
+    Gtk::CheckButton* checkbutton_systray = Gtk::manage(new Gtk::CheckButton(_("Enable System Tray Docking")));
+    Gtk::CheckButton* checkbutton_start_on_systray = Gtk::manage(new Gtk::CheckButton(_("Start Minimized in the System Tray")));
+    Gtk::CheckButton* checkbutton_use_appind = Gtk::manage(new Gtk::CheckButton(_("Use AppIndicator for Docking")));
+    vbox_system_tray->pack_start(*checkbutton_systray, false, false);
+    vbox_system_tray->pack_start(*checkbutton_start_on_systray, false, false);
+    vbox_system_tray->pack_start(*checkbutton_use_appind, false, false);
+
+    Gtk::Frame* frame_system_tray = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("System Tray")+"</b>"));
+    ((Gtk::Label*)frame_system_tray->get_label_widget())->set_use_markup(true);
+    frame_system_tray->set_shadow_type(Gtk::SHADOW_NONE);
+    Gtk::Alignment* align_system_tray = Gtk::manage(new Gtk::Alignment());
+    align_system_tray->set_padding(3, 6, 6, 6);
+    align_system_tray->add(*vbox_system_tray);
+    frame_system_tray->add(*align_system_tray);
+
+    checkbutton_systray->set_active(config->systrayOn);
+    checkbutton_start_on_systray->set_active(config->startOnSystray);
+    checkbutton_start_on_systray->set_sensitive(config->systrayOn);
+    checkbutton_use_appind->set_active(config->useAppInd);
+    //if not cons->HAS_APPINDICATOR or not cons->HAS_SYSTRAY: checkbutton_use_appind->set_sensitive(False)
+
+    Gtk::VBox* vbox_saving = Gtk::manage(new Gtk::VBox());
+    Gtk::HBox* hbox_autosave = Gtk::manage(new Gtk::HBox());
+    hbox_autosave->set_spacing(4);
+    Gtk::CheckButton* checkbutton_autosave = Gtk::manage(new Gtk::CheckButton(_("Autosave Every")));
+    Glib::RefPtr<Gtk::Adjustment> adjustment_autosave = Gtk::Adjustment::create(config->autosaveVal, 1, 1000, 1);
+    Gtk::SpinButton* spinbutton_autosave = Gtk::manage(new Gtk::SpinButton(adjustment_autosave));
+    Gtk::Label* label_autosave = Gtk::manage(new Gtk::Label(_("Minutes")));
+    hbox_autosave->pack_start(*checkbutton_autosave, false, false);
+    hbox_autosave->pack_start(*spinbutton_autosave, false, false);
+    hbox_autosave->pack_start(*label_autosave, false, false);
+    Gtk::CheckButton* checkbutton_autosave_on_quit = Gtk::manage(new Gtk::CheckButton(_("Autosave on Quit")));
+    Gtk::CheckButton* checkbutton_backup_before_saving = Gtk::manage(new Gtk::CheckButton(_("Create a Backup Copy Before Saving")));
+    Gtk::HBox* hbox_num_backups = Gtk::manage(new Gtk::HBox());
+    hbox_num_backups->set_spacing(4);
+    Gtk::Label* label_num_backups = Gtk::manage(new Gtk::Label(_("Number of Backups to Keep")));
+    Glib::RefPtr<Gtk::Adjustment> adjustment_num_backups = Gtk::Adjustment::create(config->backupNum, 1, 100, 1);
+    Gtk::SpinButton* spinbutton_num_backups = Gtk::manage(new Gtk::SpinButton(adjustment_num_backups));
+    spinbutton_num_backups->set_sensitive(config->backupCopy);
+    spinbutton_num_backups->set_value(config->backupNum);
+    hbox_num_backups->pack_start(*label_num_backups, false, false);
+    hbox_num_backups->pack_start(*spinbutton_num_backups, false, false);
+    vbox_saving->pack_start(*hbox_autosave, false, false);
+    vbox_saving->pack_start(*checkbutton_autosave_on_quit, false, false);
+    vbox_saving->pack_start(*checkbutton_backup_before_saving, false, false);
+    vbox_saving->pack_start(*hbox_num_backups, false, false);
+
+    checkbutton_autosave->set_active(config->autosaveOn);
+    spinbutton_autosave->set_value(config->autosaveVal);
+    spinbutton_autosave->set_sensitive(config->autosaveOn);
+    checkbutton_autosave_on_quit->set_active(config->autosaveOnQuit);
+    checkbutton_backup_before_saving->set_active(config->backupCopy);
+
+    Gtk::Frame* frame_saving = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Saving")+"</b>"));
+    ((Gtk::Label*)frame_saving->get_label_widget())->set_use_markup(true);
+    frame_saving->set_shadow_type(Gtk::SHADOW_NONE);
+    Gtk::Alignment* align_saving = Gtk::manage(new Gtk::Alignment());
+    align_saving->set_padding(3, 6, 6, 6);
+    align_saving->add(*vbox_saving);
+    frame_saving->add(*align_saving);
+
+    Gtk::VBox* vbox_misc_misc = Gtk::manage(new Gtk::VBox());
+    Gtk::CheckButton* checkbutton_newer_version = Gtk::manage(new Gtk::CheckButton(_("Automatically Check for Newer Version")));
+    Gtk::CheckButton* checkbutton_word_count = Gtk::manage(new Gtk::CheckButton(_("Enable Word Count in Statusbar")));
+    Gtk::CheckButton* checkbutton_reload_doc_last = Gtk::manage(new Gtk::CheckButton(_("Reload Document From Last Session")));
+    Gtk::CheckButton* checkbutton_mod_time_sentinel = Gtk::manage(new Gtk::CheckButton(_("Reload After External Update to CT* File")));
+    vbox_misc_misc->pack_start(*checkbutton_newer_version, false, false);
+    vbox_misc_misc->pack_start(*checkbutton_word_count, false, false);
+    vbox_misc_misc->pack_start(*checkbutton_reload_doc_last, false, false);
+    vbox_misc_misc->pack_start(*checkbutton_mod_time_sentinel, false, false);
+
+    checkbutton_newer_version->set_active(config->checkVersion);
+    checkbutton_word_count->set_active(config->wordCountOn);
+    checkbutton_reload_doc_last->set_active(config->reloadDocLast);
+    checkbutton_mod_time_sentinel->set_active(config->modTimeSentinel);
+
+    Gtk::Frame* frame_misc_misc = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Miscellaneous")+"</b>"));
+    ((Gtk::Label*)frame_misc_misc->get_label_widget())->set_use_markup(true);
+    frame_misc_misc->set_shadow_type(Gtk::SHADOW_NONE);
+    Gtk::Alignment* align_misc_misc = Gtk::manage(new Gtk::Alignment());
+    align_misc_misc->set_padding(3, 6, 6, 6);
+    align_misc_misc->add(*vbox_misc_misc);
+    frame_misc_misc->add(*align_misc_misc);
+
+    Gtk::VBox* vbox_language = Gtk::manage(new Gtk::VBox());
+    /*combobox_country_language = Gtk::manage(new Gtk::ComboBox(model=dad->country_lang_liststore));
+    vbox_language->pack_start(combobox_country_language);
+    cell = Gtk::manage(new Gtk::CellRendererText());
+    combobox_country_language->pack_start(cell, True);
+    combobox_country_language->add_attribute(cell, 'text', 0);
+    combobox_country_language->set_active_iter(dad->get_combobox_iter_from_value(dad->country_lang_liststore, 0, dad->country_lang));
+*/
+    Gtk::Frame* frame_language = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Language")+"</b>"));
+    ((Gtk::Label*)frame_language->get_label_widget())->set_use_markup(true);
+    frame_language->set_shadow_type(Gtk::SHADOW_NONE);
+    Gtk::Alignment* align_language = Gtk::manage(new Gtk::Alignment());
+    align_language->set_padding(3, 6, 6, 6);
+    align_language->add(*vbox_language);
+    frame_language->add(*align_language);
+
+
     Gtk::VBox* pMainBox = Gtk::manage(new Gtk::VBox());
     pMainBox->set_spacing(3);
+    pMainBox->pack_start(*frame_system_tray, false, false);
+    pMainBox->pack_start(*frame_saving, false, false);
+    pMainBox->pack_start(*frame_misc_misc, false, false);
+    pMainBox->pack_start(*frame_language, false, false);
     return pMainBox;
 }
 
