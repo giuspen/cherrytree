@@ -21,6 +21,7 @@
 
 #include <glib/gstdio.h>
 #include "ct_app.h"
+#include "ct_pref_dlg.h"
 
 CtConfig* CtApp::P_ctCfg{nullptr};
 Glib::RefPtr<Gtk::IconTheme> CtApp::R_icontheme;
@@ -187,6 +188,16 @@ void CtApp::add_node()
 {
     std::cout << "CtApp::add_node() is called" << std::endl;
 }
+
+void CtApp::dialog_preferences()
+{
+    CtPrefDlg prefDlg(*get_windows()[0]);
+    prefDlg.show();
+    prefDlg.run();
+    prefDlg.hide();
+}
+
+
 
 CtTmp::CtTmp()
 {

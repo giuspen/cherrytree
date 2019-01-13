@@ -82,7 +82,7 @@ void CtMenu::init_actions(CtApp *pApp)
     _actions.push_back(CtAction{"do_print", "gtk-print", _("_Print"), KB_CONTROL+"P", _("Print"), sigc::signal<void>() /* dad.export_print */});
     _actions.push_back(CtAction{"quit_app", "quit-app", _("_Quit"), KB_CONTROL+"Q", _("Quit the Application"), sigc::mem_fun(*pApp, &CtApp::quit_application) /* dad.quit_application */});
     _actions.push_back(CtAction{"exit_app", "quit-app", _("_Exit CherryTree"), KB_CONTROL+KB_SHIFT+"Q", _("Exit from CherryTree"), sigc::signal<void>() /* dad.quit_application_totally */});
-    _actions.push_back(CtAction{"preferences_dlg", "gtk-preferences", _("_Preferences"), KB_CONTROL+KB_ALT+"P", _("Preferences"), sigc::signal<void>() /* dad.dialog_preferences */});
+    _actions.push_back(CtAction{"preferences_dlg", "gtk-preferences", _("_Preferences"), KB_CONTROL+KB_ALT+"P", _("Preferences"), sigc::mem_fun(*pApp, &CtApp::dialog_preferences) });
     _actions.push_back(CtAction{"act_undo", "gtk-undo", _("_Undo"), KB_CONTROL+"Z", _("Undo Last Operation"), sigc::signal<void>() /* dad.requested_step_back */});
     _actions.push_back(CtAction{"act_redo", "gtk-redo", _("_Redo"), KB_CONTROL+"Y", _("Redo Previously Discarded Operation"), sigc::signal<void>() /* dad.requested_step_ahead */});
     _actions.push_back(CtAction{"handle_image", "image_insert", _("Insert I_mage"), KB_CONTROL+KB_ALT+"I", _("Insert an Image"), sigc::signal<void>() /* dad.image_handle */});
