@@ -462,8 +462,120 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
 
 Gtk::Widget* CtPrefDlg::build_tab_tree_1()
 {
+    bool aux_icon_hide = false; // dad->aux_icon_hide
+    int default_icon_text = 1; // dad->default_icon_text
+
+    CtConfig* config = CtApp::P_ctCfg;
+    Gtk::Box* vbox_tt_theme = Gtk::manage(new Gtk::VBox());
+
+    Gtk::RadioButton* radiobutton_tt_col_light = Gtk::manage(new Gtk::RadioButton(_("Light Background, Dark Text")));
+    Gtk::RadioButton* radiobutton_tt_col_dark = Gtk::manage(new Gtk::RadioButton(_("Dark Background, Light Text")));
+    radiobutton_tt_col_dark->join_group(*radiobutton_tt_col_light);
+    Gtk::RadioButton* radiobutton_tt_col_custom = Gtk::manage(new Gtk::RadioButton(_("Custom Background")));
+    radiobutton_tt_col_custom->join_group(*radiobutton_tt_col_light);
+    Gtk::HBox* hbox_tt_col_custom = Gtk::manage(new Gtk::HBox());
+    hbox_tt_col_custom->set_spacing(4);
+    Gtk::ColorButton* colorbutton_tree_bg = Gtk::manage(new Gtk::ColorButton(Gdk::RGBA(config->ttDefBg)));
+    Gtk::Label* label_tt_col_custom = Gtk::manage(new Gtk::Label(_("and Text")));
+    Gtk::ColorButton* colorbutton_tree_fg = Gtk::manage(new Gtk::ColorButton(Gdk::RGBA(config->ttDefFg)));
+    hbox_tt_col_custom->pack_start(*radiobutton_tt_col_custom, false, false);
+    hbox_tt_col_custom->pack_start(*colorbutton_tree_bg, false, false);
+    hbox_tt_col_custom->pack_start(*label_tt_col_custom, false, false);
+    hbox_tt_col_custom->pack_start(*colorbutton_tree_fg, false, false);
+
+    vbox_tt_theme->pack_start(*radiobutton_tt_col_light, false, false);
+    vbox_tt_theme->pack_start(*radiobutton_tt_col_dark, false, false);
+    vbox_tt_theme->pack_start(*hbox_tt_col_custom, false, false);
+    Gtk::Frame* frame_tt_theme = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Theme")+"</b>"));
+    ((Gtk::Label*)frame_tt_theme->get_label_widget())->set_use_markup(true);
+    frame_tt_theme->set_shadow_type(Gtk::SHADOW_NONE);
+    Gtk::Alignment* align_tt_theme = Gtk::manage(new Gtk::Alignment());
+    align_tt_theme->set_padding(3, 6, 6, 6);
+    align_tt_theme->add(*vbox_tt_theme);
+    frame_tt_theme->add(*align_tt_theme);
+
+    if (config->ttDefFg == CtConst::TREE_TEXT_DARK_FG && config->ttDefBg == CtConst::TREE_TEXT_DARK_BG)
+    {
+        radiobutton_tt_col_dark->set_active(true);
+        colorbutton_tree_fg->set_sensitive(false);
+        colorbutton_tree_bg->set_sensitive(false);
+    }
+    else if (config->ttDefFg == CtConst::TREE_TEXT_LIGHT_FG && config->ttDefBg == CtConst::TREE_TEXT_LIGHT_BG)
+    {
+        radiobutton_tt_col_light->set_active(true);
+        colorbutton_tree_fg->set_sensitive(false);
+        colorbutton_tree_bg->set_sensitive(false);
+    }
+    else
+    {
+        radiobutton_tt_col_custom->set_active(true);
+    }
+
+    Gtk::VBox* vbox_nodes_icons = Gtk::manage(new Gtk::VBox());
+
+    Gtk::RadioButton* radiobutton_node_icon_cherry = Gtk::manage(new Gtk::RadioButton(_("Use Different Cherries per Level")));
+    Gtk::RadioButton* radiobutton_node_icon_custom = Gtk::manage(new Gtk::RadioButton(_("Use Selected Icon")));
+    radiobutton_node_icon_custom->join_group(*radiobutton_node_icon_cherry);
+    Gtk::RadioButton* radiobutton_node_icon_none = Gtk::manage(new Gtk::RadioButton(_("No Icon")));
+    radiobutton_node_icon_none->join_group(*radiobutton_node_icon_cherry);
+    Gtk::CheckButton* checkbutton_aux_icon_hide = Gtk::manage(new Gtk::CheckButton(_("Hide Right Side Auxiliary Icon")));
+    checkbutton_aux_icon_hide->set_active(aux_icon_hide);
+
+    Gtk::Button* c_icon_button = Gtk::manage(new Gtk::Button());
+    c_icon_button->set_image(*new_image_from_stock(CtConst::NODES_STOCKS.at(default_icon_text), Gtk::ICON_SIZE_BUTTON));
+    Gtk::HBox* c_icon_hbox = Gtk::manage(new Gtk::HBox());
+    c_icon_hbox->set_spacing(2);
+    c_icon_hbox->pack_start(*radiobutton_node_icon_custom, false, false);
+    c_icon_hbox->pack_start(*c_icon_button, false, false);
+
+    vbox_nodes_icons->pack_start(*radiobutton_node_icon_cherry, false, false);
+    vbox_nodes_icons->pack_start(*c_icon_hbox, false, false);
+    vbox_nodes_icons->pack_start(*radiobutton_node_icon_none, false, false);
+    vbox_nodes_icons->pack_start(*checkbutton_aux_icon_hide, false, false);
+    Gtk::Frame* frame_nodes_icons = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Default Text Nodes Icons")+"</b>"));
+    ((Gtk::Label*)frame_nodes_icons->get_label_widget())->set_use_markup(true);
+    frame_nodes_icons->set_shadow_type(Gtk::SHADOW_NONE);
+    Gtk::Alignment* align_nodes_icons = Gtk::manage(new Gtk::Alignment());
+    align_nodes_icons->set_padding(3, 6, 6, 6);
+    align_nodes_icons->add(*vbox_nodes_icons);
+    frame_nodes_icons->add(*align_nodes_icons);
+
+    //radiobutton_node_icon_cherry->set_active(dad->nodes_icons == "c");
+    //radiobutton_node_icon_custom->set_active(dad->nodes_icons == "b");
+    //radiobutton_node_icon_none->set_active(dad->nodes_icons == "n");
+
+    Gtk::VBox* vbox_nodes_startup = Gtk::manage(new Gtk::VBox());
+
+    Gtk::RadioButton* radiobutton_nodes_startup_restore = Gtk::manage(new Gtk::RadioButton(_("Restore Expanded/Collapsed Status")));
+    Gtk::RadioButton* radiobutton_nodes_startup_expand = Gtk::manage(new Gtk::RadioButton(_("Expand all Nodes")));
+    radiobutton_nodes_startup_expand->join_group(*radiobutton_nodes_startup_restore);
+    Gtk::RadioButton* radiobutton_nodes_startup_collapse = Gtk::manage(new Gtk::RadioButton(_("Collapse all Nodes")));
+    radiobutton_nodes_startup_collapse->join_group(*radiobutton_nodes_startup_restore);
+    Gtk::CheckButton* checkbutton_nodes_bookm_exp = Gtk::manage(new Gtk::CheckButton(_("Nodes in Bookmarks Always Visible")));
+    //checkbutton_nodes_bookm_exp->set_active(dad->nodes_bookm_exp);
+    //checkbutton_nodes_bookm_exp->set_sensitive(dad->rest_exp_coll != 1)
+
+    vbox_nodes_startup->pack_start(*radiobutton_nodes_startup_restore, false, false);
+    vbox_nodes_startup->pack_start(*radiobutton_nodes_startup_expand, false, false);
+    vbox_nodes_startup->pack_start(*radiobutton_nodes_startup_collapse, false, false);
+    vbox_nodes_startup->pack_start(*checkbutton_nodes_bookm_exp, false, false);
+    Gtk::Frame* frame_nodes_startup = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Nodes Status at Startup")+"</b>"));
+    ((Gtk::Label*)frame_nodes_startup->get_label_widget())->set_use_markup(true);
+    frame_nodes_startup->set_shadow_type(Gtk::SHADOW_NONE);
+    Gtk::Alignment* align_nodes_startup = Gtk::manage(new Gtk::Alignment());
+    align_nodes_startup->set_padding(3, 6, 6, 6);
+    align_nodes_startup->add(*vbox_nodes_startup);
+    frame_nodes_startup->add(*align_nodes_startup);
+
+    //radiobutton_nodes_startup_restore->set_active(dad->rest_exp_coll == 0)
+    //radiobutton_nodes_startup_expand->set_active(dad->rest_exp_coll == 1)
+    //radiobutton_nodes_startup_collapse->set_active(dad->rest_exp_coll == 2)
+
     Gtk::VBox* pMainBox = Gtk::manage(new Gtk::VBox());
     pMainBox->set_spacing(3);
+    pMainBox->pack_start(*frame_tt_theme, false, false);
+    pMainBox->pack_start(*frame_nodes_icons, false, false);
+    pMainBox->pack_start(*frame_nodes_startup, false, false);
     return pMainBox;
 }
 
