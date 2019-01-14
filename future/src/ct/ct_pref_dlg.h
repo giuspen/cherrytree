@@ -25,5 +25,6 @@ private:
 
 private:
     Gtk::Image* new_image_from_stock(const std::string& id, Gtk::IconSize size);
+    bool question_warning(const std::string& warning) { return true; }
 };
 

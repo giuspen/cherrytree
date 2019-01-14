@@ -117,6 +117,8 @@ const gchar    CtConst::STR_KEY_DOWN[]              {"Down"};
 const gchar    CtConst::STR_KEY_LEFT[]              {"Left"};
 const gchar    CtConst::STR_KEY_RIGHT[]             {"Right"};
 const gchar    CtConst::STR_STOCK_CT_IMP[]          {"import_in_cherrytree"};
+const gchar    CtConst::CHAR_NEWLINE[]              {"\n"};
+
 const std::set<const gchar*> CtConst::TEXT_SYNTAXES {
     RICH_TEXT_ID,
     PLAIN_TEXT_ID};

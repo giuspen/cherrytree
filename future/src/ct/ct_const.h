@@ -121,6 +121,7 @@ extern const gchar    STR_KEY_DOWN[];
 extern const gchar    STR_KEY_LEFT[];
 extern const gchar    STR_KEY_RIGHT[];
 extern const gchar    STR_STOCK_CT_IMP[];
+extern const gchar    CHAR_NEWLINE[];
 extern const std::set<const gchar*> TEXT_SYNTAXES;
 extern const std::set<const gchar*> TAG_PROPERTIES;
 extern const gchar    TOOLBAR_VEC_DEFAULT[];

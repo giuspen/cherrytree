@@ -4,7 +4,8 @@
 #include <gtkmm/spinbutton.h>
 #include <gdkmm/rgba.h>
 #include <glib/gi18n.h>
-#include <ct_app.h>
+#include "ct_app.h"
+#include "ct_misc_utils.h"
 
 CtPrefDlg::CtPrefDlg(Gtk::Window& parent) : Gtk::Dialog (_("Preferences"), parent, true)
 {
@@ -161,6 +162,65 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
     pMainBox->set_spacing(3);
     pMainBox->pack_start(*frame_text_editor, false, false);
     pMainBox->pack_start(*frame_misc_all, false, false);
+
+    textview_special_chars->get_buffer()->signal_changed().connect([config, textview_special_chars](){
+        Glib::ustring new_special_chars = textview_special_chars->get_buffer()->get_text();
+        CtStrUtil::replaceInString(new_special_chars, CtConst::CHAR_NEWLINE, "");
+        if (config->specialChars != new_special_chars)
+        {
+            config->specialChars = new_special_chars;
+            //support.set_menu_items_special_chars();
+        }
+    });
+    button_reset->signal_clicked().connect([this, textview_special_chars](){
+        if (question_warning(std::string("<b>")+_("Are you sure to Reset to Default?")+"</b>"))
+            textview_special_chars->get_buffer()->set_text(CtConst::SPECIAL_CHARS_DEFAULT);
+    });
+    spinbutton_tab_width->signal_value_changed().connect([config, spinbutton_tab_width](){
+        config->tabsWidth = spinbutton_tab_width->get_value_as_int();
+        //dad.sourceview.set_tab_width(dad.tabs_width)
+    });
+    spinbutton_wrapping_indent->signal_value_changed().connect([config, spinbutton_wrapping_indent](){
+        config->wrappingIndent = spinbutton_wrapping_indent->get_value_as_int();
+        //dad.sourceview.set_indent(dad.wrapping_indent)
+    });
+    spinbutton_relative_wrapped_space->signal_value_changed().connect([config, spinbutton_relative_wrapped_space](){
+       config->relativeWrappedSpace = spinbutton_relative_wrapped_space->get_value_as_int();
+       //dad.sourceview.set_pixels_inside_wrap(get_pixels_inside_wrap(dad.space_around_lines, dad.relative_wrapped_space))
+    });
+    spinbutton_space_around_lines->signal_value_changed().connect([config, spinbutton_space_around_lines](){
+        config->spaceAroundLines = spinbutton_space_around_lines->get_value_as_int();
+        //dad.sourceview.set_pixels_above_lines(dad.space_around_lines)
+        //dad.sourceview.set_pixels_below_lines(dad.space_around_lines)
+        //dad.sourceview.set_pixels_inside_wrap(get_pixels_inside_wrap(dad.space_around_lines, dad.relative_wrapped_space))
+    });
+    checkbutton_spaces_tabs->signal_toggled().connect([config, checkbutton_spaces_tabs](){
+        config->spacesInsteadTabs = checkbutton_spaces_tabs->get_active();
+        //dad.sourceview.set_insert_spaces_instead_of_tabs(dad.spaces_instead_tabs)
+    });
+    checkbutton_line_wrap->signal_toggled().connect([config, checkbutton_line_wrap](){
+        config->lineWrapping = checkbutton_line_wrap->get_active();
+        //dad.sourceview.set_wrap_mode(gtk.WRAP_WORD_CHAR if dad.line_wrapping else gtk.WRAP_NONE)
+    });
+    checkbutton_auto_indent->signal_toggled().connect([config, checkbutton_auto_indent](){
+        config->autoIndent = checkbutton_auto_indent->get_active();
+    });
+    checkbutton_line_nums->signal_toggled().connect([config, checkbutton_line_nums](){
+        config->showLineNumbers = checkbutton_line_nums->get_active();
+        //dad.sourceview.set_show_line_numbers(dad.show_line_numbers)
+    });
+    entry_timestamp_format->signal_changed().connect([config, entry_timestamp_format](){
+        config->timestampFormat = entry_timestamp_format->get_text();
+    });
+    button_strftime_help->signal_clicked().connect([](){
+        //webbrowser.open("https://docs.python.org/2/library/time.html#time.strftime")
+    });
+    entry_horizontal_rule->signal_changed().connect([config, entry_horizontal_rule](){
+        config->hRule = entry_horizontal_rule->get_text();
+    });
+    entry_selword_chars->signal_changed().connect([config, entry_selword_chars](){
+        config->selwordChars = entry_selword_chars->get_text();
+    });
 
     return pMainBox;
 }
