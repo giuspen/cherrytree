@@ -301,8 +301,8 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     hbox_rt_col_custom->pack_start(*label_rt_col_custom, false, false);
     hbox_rt_col_custom->pack_start(*colorbutton_text_fg, false, false);
     Gtk::CheckButton* checkbutton_monospace_bg = Gtk::manage(new Gtk::CheckButton(_("Monospace Background")));
-    //mono_color = dad->monospace_bg if dad->monospace_bg else DEFAULT_MONOSPACE_BG
-    Gtk::ColorButton* colorbutton_monospace_bg = Gtk::manage(new Gtk::ColorButton(Gdk::RGBA(config->monospaceBg)));
+    std::string mono_color = config->monospaceBg.empty() ? CtConst::DEFAULT_MONOSPACE_BG : config->monospaceBg;
+    Gtk::ColorButton* colorbutton_monospace_bg = Gtk::manage(new Gtk::ColorButton(Gdk::RGBA(mono_color)));
     Gtk::HBox* hbox_monospace_bg = Gtk::manage(new Gtk::HBox());
     hbox_monospace_bg->set_spacing(4);
     hbox_monospace_bg->pack_start(*checkbutton_monospace_bg, false, false);
@@ -392,6 +392,104 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     pMainBox->pack_start(*frame_spell_check, false, false);
     pMainBox->pack_start(*frame_rt_theme, false, false);
     pMainBox->pack_start(*frame_misc_text, false, false);
+
+    checkbutton_spell_check->signal_toggled().connect([config, checkbutton_spell_check, combobox_spell_check_lang](){
+        config->enableSpellCheck = checkbutton_spell_check->get_active();
+        //if dad.enable_spell_check:
+        //    dad.spell_check_set_on()
+        //    set_checkbutton_spell_check_model()
+        //else: dad.spell_check_set_off(True)
+        combobox_spell_check_lang->set_sensitive(config->enableSpellCheck);
+    });
+    combobox_spell_check_lang->signal_changed().connect([config, combobox_spell_check_lang](){
+        //new_iter = combobox.get_active_iter()
+        //new_lang_code = dad.spell_check_lang_liststore[new_iter][0]
+        //if new_lang_code != dad.spell_check_lang: dad.spell_check_set_new_lang(new_lang_code)
+    });
+    colorbutton_text_fg->signal_color_set().connect([this, config, colorbutton_text_fg](){
+        config->rtDefFg = rgb_any_to_24(colorbutton_text_fg->get_rgba());
+        //if dad.curr_tree_iter and dad.syntax_highlighting == cons.RICH_TEXT_ID:
+        //    dad.widget_set_colors(dad.sourceview, dad.rt_def_fg, dad.rt_def_bg, False)
+        //    support.rich_text_node_modify_codeboxes_color(dad.curr_buffer.get_start_iter(), dad)
+    });
+    colorbutton_text_bg->signal_color_set().connect([this, config, colorbutton_text_bg](){
+        config->rtDefBg = rgb_any_to_24(colorbutton_text_bg->get_rgba());
+        //if dad.curr_tree_iter and dad.syntax_highlighting == cons.RICH_TEXT_ID:
+        //    if dad.rt_highl_curr_line:
+        //        dad.set_sourcebuffer_with_style_scheme()
+        //        dad.sourceview.set_buffer(dad.curr_buffer)
+        //        dad.objects_buffer_refresh()
+        //    dad.widget_set_colors(dad.sourceview, dad.rt_def_fg, dad.rt_def_bg, False)
+        //    support.rich_text_node_modify_codeboxes_color(dad.curr_buffer.get_start_iter(), dad)
+    });
+    radiobutton_rt_col_light->signal_toggled().connect([radiobutton_rt_col_light, colorbutton_text_fg, colorbutton_text_bg](){
+        if (!radiobutton_rt_col_light->get_active()) return;
+        colorbutton_text_fg->set_rgba(Gdk::RGBA(CtConst::RICH_TEXT_LIGHT_FG));
+        colorbutton_text_bg->set_rgba(Gdk::RGBA(CtConst::RICH_TEXT_LIGHT_BG));
+        colorbutton_text_fg->set_sensitive(false);
+        colorbutton_text_bg->set_sensitive(false);
+        //on_colorbutton_text_fg_color_set(colorbutton_text_fg)
+        //on_colorbutton_text_bg_color_set(colorbutton_text_bg)
+
+    });
+    radiobutton_rt_col_dark->signal_toggled().connect([radiobutton_rt_col_dark, colorbutton_text_fg, colorbutton_text_bg](){
+        if (!radiobutton_rt_col_dark->get_active()) return;
+        colorbutton_text_fg->set_rgba(Gdk::RGBA(CtConst::RICH_TEXT_DARK_FG));
+        colorbutton_text_bg->set_rgba(Gdk::RGBA(CtConst::RICH_TEXT_DARK_BG));
+        colorbutton_text_fg->set_sensitive(false);
+        colorbutton_text_bg->set_sensitive(false);
+        //on_colorbutton_text_fg_color_set(colorbutton_text_fg)
+        //on_colorbutton_text_bg_color_set(colorbutton_text_bg)
+    });
+    radiobutton_rt_col_custom->signal_toggled().connect([radiobutton_rt_col_custom, colorbutton_text_fg, colorbutton_text_bg](){
+        if (!radiobutton_rt_col_custom->get_active()) return;
+        colorbutton_text_fg->set_sensitive(true);
+        colorbutton_text_bg->set_sensitive(true);
+    });
+    checkbutton_monospace_bg->signal_toggled().connect([this, config, checkbutton_monospace_bg, colorbutton_monospace_bg](){
+        if (checkbutton_monospace_bg->get_active())
+        {
+            config->monospaceBg = rgb_any_to_24(colorbutton_monospace_bg->get_rgba());
+            colorbutton_monospace_bg->set_sensitive(true);
+        } else {
+            config->monospaceBg = "";
+            colorbutton_monospace_bg->set_sensitive(false);
+        }
+        need_restart(RESTART_REASON::MONOSPACE);
+    });
+    colorbutton_monospace_bg->signal_color_set().connect([this, config, colorbutton_monospace_bg](){
+        config->monospaceBg = rgb_any_to_24(colorbutton_monospace_bg->get_rgba());
+        need_restart(RESTART_REASON::MONOSPACE);
+    });
+    checkbutton_rt_show_white_spaces->signal_toggled().connect([config, checkbutton_rt_show_white_spaces](){
+        config->rtShowWhiteSpaces = checkbutton_rt_show_white_spaces->get_active();
+        //if dad.syntax_highlighting == cons.RICH_TEXT_ID:
+        //    dad.sourceview.set_draw_spaces(codeboxes.DRAW_SPACES_FLAGS if dad.rt_show_white_spaces else 0)
+    });
+    checkbutton_rt_highl_curr_line->signal_toggled().connect([config, checkbutton_rt_highl_curr_line](){
+        config->rtHighlCurrLine = checkbutton_rt_highl_curr_line->get_active();
+        //if dad.syntax_highlighting == cons.RICH_TEXT_ID:
+        //    dad.sourceview.set_highlight_current_line(dad.rt_highl_curr_line)
+    });
+    checkbutton_codebox_auto_resize->signal_toggled().connect([config, checkbutton_codebox_auto_resize](){
+        config->codeboxAutoResize = checkbutton_codebox_auto_resize->get_active();
+    });
+    spinbutton_embfile_size->signal_value_changed().connect([this, config, spinbutton_embfile_size](){
+        config->embfileSize = spinbutton_embfile_size->get_value_as_int();
+        need_restart(RESTART_REASON::EMBFILE_SIZE);
+    });
+    checkbutton_embfile_show_filename->signal_toggled().connect([this, config, checkbutton_embfile_show_filename](){
+        config->embfileShowFileName = checkbutton_embfile_show_filename->get_active();
+        need_restart(RESTART_REASON::SHOW_EMBFILE_NAME);
+    });
+    spinbutton_limit_undoable_steps->signal_value_changed().connect([config, spinbutton_limit_undoable_steps](){
+        config->limitUndoableSteps = spinbutton_limit_undoable_steps->get_value_as_int();
+    });
+
+    //if not pgsc_spellcheck.HAS_PYENCHANT:
+    //     checkbutton_spell_check.set_sensitive(False)
+    //     combobox_spell_check_lang.set_sensitive(False)
+
     return pMainBox;
 }
 
