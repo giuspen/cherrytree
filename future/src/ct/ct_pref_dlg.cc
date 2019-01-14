@@ -246,6 +246,10 @@ Gtk::Widget* CtPrefDlg::build_tab_text()
     Gtk::VBox* pMainBox = Gtk::manage(new Gtk::VBox());
     pMainBox->set_spacing(3);
     pMainBox->pack_start(*frame_editor, false, false);
+
+    checkbutton_auto_smart_quotes->signal_toggled().connect([config, checkbutton_auto_smart_quotes](){
+        config->autoSmartQuotes = checkbutton_auto_smart_quotes->get_active();
+    });
     return pMainBox;
 }
 
