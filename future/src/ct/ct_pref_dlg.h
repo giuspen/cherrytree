@@ -25,11 +25,12 @@ private:
     Gtk::Widget* build_tab_misc();
 
 public:
-    enum RESTART_REASON {MONOSPACE, EMBFILE_SIZE, SHOW_EMBFILE_NAME};
+    enum RESTART_REASON {MONOSPACE, EMBFILE_SIZE, SHOW_EMBFILE_NAME, LINKS, ANCHOR_SIZE, COLOR};
 private:
     Gtk::Image* new_image_from_stock(const std::string& id, Gtk::IconSize size);
     bool question_warning(const std::string& warning) { return true; }
     std::string rgb_any_to_24(Gdk::RGBA color) { return ""; }
+    std::string rgb_to_string(Gdk::RGBA color) { return ""; }
     void need_restart(RESTART_REASON reason) {}
 };
 

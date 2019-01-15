@@ -1126,6 +1126,56 @@ Gtk::Widget* CtPrefDlg::build_tab_links()
     pMainBox->pack_start(*frame_links_actions, false, false);
     pMainBox->pack_start(*frame_links_colors, false, false);
     pMainBox->pack_start(*frame_links_misc, false, false);
+
+    checkbutton_custom_weblink_cmd->signal_toggled().connect([config, checkbutton_custom_weblink_cmd, entry_custom_weblink_cmd](){
+        config->weblinkCustomOn = checkbutton_custom_weblink_cmd->get_active();
+        entry_custom_weblink_cmd->set_sensitive(config->weblinkCustomOn);
+    });
+    entry_custom_weblink_cmd->signal_changed().connect([config, entry_custom_weblink_cmd](){
+        config->weblinkCustomAct = entry_custom_weblink_cmd->get_text();
+    });
+    checkbutton_custom_filelink_cmd->signal_toggled().connect([config, checkbutton_custom_filelink_cmd, entry_custom_filelink_cmd](){
+        config->filelinkCustomOn = checkbutton_custom_filelink_cmd->get_active();
+        entry_custom_filelink_cmd->set_sensitive(config->filelinkCustomOn);
+    });
+    entry_custom_filelink_cmd->signal_changed().connect([config, entry_custom_filelink_cmd](){
+        config->filelinkCustomAct = entry_custom_filelink_cmd->get_text();
+    });
+    checkbutton_custom_folderlink_cmd->signal_toggled().connect([config, checkbutton_custom_folderlink_cmd, entry_custom_folderlink_cmd](){
+        config->folderlinkCustomOn = checkbutton_custom_folderlink_cmd->get_active();
+        entry_custom_folderlink_cmd->set_sensitive(config->folderlinkCustomOn);
+    });
+    entry_custom_folderlink_cmd->signal_changed().connect([config, entry_custom_folderlink_cmd](){
+        config->folderlinkCustomAct = entry_custom_folderlink_cmd->get_text();
+    });
+    checkbutton_links_relative->signal_toggled().connect([config, checkbutton_links_relative](){
+        config->linksRelative = checkbutton_links_relative->get_active();
+    });
+    checkbutton_links_underline->signal_toggled().connect([this, config, checkbutton_links_underline](){
+        config->linksUnderline = checkbutton_links_underline->get_active();
+        need_restart(RESTART_REASON::LINKS);
+    });
+    spinbutton_anchor_size->signal_value_changed().connect([this, config, spinbutton_anchor_size](){
+        config->anchorSize = spinbutton_anchor_size->get_value_as_int();
+        need_restart(RESTART_REASON::ANCHOR_SIZE);
+    });
+    colorbutton_col_link_webs->signal_color_set().connect([this, config, colorbutton_col_link_webs](){
+        config->colLinkWebs = rgb_to_string(colorbutton_col_link_webs->get_rgba());
+        need_restart(RESTART_REASON::COLOR);
+    });
+    colorbutton_col_link_node->signal_color_set().connect([this, config, colorbutton_col_link_node](){
+        config->colLinkNode = rgb_to_string(colorbutton_col_link_node->get_rgba());
+        need_restart(RESTART_REASON::COLOR);
+    });
+    colorbutton_col_link_file->signal_color_set().connect([this, config, colorbutton_col_link_file](){
+        config->colLinkFile =  rgb_to_string(colorbutton_col_link_file->get_rgba());
+        need_restart(RESTART_REASON::COLOR);
+    });
+    colorbutton_col_link_fold->signal_color_set().connect([this, config, colorbutton_col_link_fold](){
+        config->colLinkFold = rgb_to_string(colorbutton_col_link_fold->get_rgba());
+        need_restart(RESTART_REASON::COLOR);
+    });
+
     return pMainBox;
 }
 
