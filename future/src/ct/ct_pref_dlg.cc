@@ -981,10 +981,36 @@ Gtk::Widget* CtPrefDlg::build_tab_fonts()
     align_fonts->add(*table_fonts);
     frame_fonts->add(*align_fonts);
 
-
     Gtk::VBox* pMainBox = Gtk::manage(new Gtk::VBox());
     pMainBox->set_spacing(3);
     pMainBox->pack_start(*frame_fonts, false, false);
+
+    fontbutton_rt->signal_font_set().connect([config, fontbutton_rt](){
+        config->rtFont = fontbutton_rt->get_font_name();
+        //if dad.curr_tree_iter and dad.syntax_highlighting == cons.RICH_TEXT_ID:
+        //    dad.sourceview.modify_font(pango.FontDescription(dad.rt_font))
+    });
+    fontbutton_pt->signal_font_set().connect([config, fontbutton_pt](){
+        config->ptFont = fontbutton_pt->get_font_name();
+        //if not dad.curr_tree_iter: return
+        //if dad.syntax_highlighting == cons.PLAIN_TEXT_ID:
+        //    dad.sourceview.modify_font(pango.FontDescription(dad.pt_font))
+        //elif dad.syntax_highlighting == cons.RICH_TEXT_ID:
+        //    support.rich_text_node_modify_codeboxes_font(dad.curr_buffer.get_start_iter(), dad)
+        //    support.rich_text_node_modify_tables_font(dad.curr_buffer.get_start_iter(), dad)
+    });
+    fontbutton_code->signal_font_set().connect([config, fontbutton_code](){
+        config->codeFont = fontbutton_code->get_font_name();
+        //if not dad.curr_tree_iter: return
+        //if dad.syntax_highlighting not in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID]:
+        //    dad.sourceview.modify_font(pango.FontDescription(dad.code_font))
+        //elif dad.syntax_highlighting == cons.RICH_TEXT_ID:
+        //    support.rich_text_node_modify_codeboxes_font(dad.curr_buffer.get_start_iter(), dad)
+    });
+    fontbutton_tree->signal_font_set().connect([config, fontbutton_tree](){
+        config->treeFont = fontbutton_tree->get_font_name();
+        //dad.set_treeview_font()
+    });
     return pMainBox;
 }
 
