@@ -1298,13 +1298,103 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     align_language->add(*vbox_language);
     frame_language->add(*align_language);
 
-
     Gtk::VBox* pMainBox = Gtk::manage(new Gtk::VBox());
     pMainBox->set_spacing(3);
     pMainBox->pack_start(*frame_system_tray, false, false);
     pMainBox->pack_start(*frame_saving, false, false);
     pMainBox->pack_start(*frame_misc_misc, false, false);
     pMainBox->pack_start(*frame_language, false, false);
+
+    checkbutton_systray->signal_toggled().connect([config, checkbutton_systray, checkbutton_start_on_systray](){
+        config->systrayOn = checkbutton_systray->get_active();
+        if (config->systrayOn) {
+            //dad.ui.get_widget("/MenuBar/FileMenu/exit_app").set_property(cons.STR_VISIBLE, True)
+            checkbutton_start_on_systray->set_sensitive(true);
+        } else {
+            //dad.ui.get_widget("/MenuBar/FileMenu/exit_app").set_property(cons.STR_VISIBLE, False)
+            checkbutton_start_on_systray->set_sensitive(false);
+        }
+        //if dad.systray:
+        //    if not dad.use_appind:
+        //        if "status_icon" in dir(dad.boss): dad.boss.status_icon.set_property(cons.STR_VISIBLE, True)
+        //        else: dad.status_icon_enable()
+        //    else:
+        //        if "ind" in dir(dad.boss): dad.boss.ind.set_status(appindicator.STATUS_ACTIVE)
+        //        else: dad.status_icon_enable()
+        //else:
+        //    if not dad.use_appind: dad.boss.status_icon.set_property(cons.STR_VISIBLE, False)
+        //    else: dad.boss.ind.set_status(appindicator.STATUS_PASSIVE)
+        //dad.boss.systray_active = dad.systray
+        //if len(dad.boss.running_windows) > 1:
+        //    for runn_win in dad.boss.running_windows:
+        //        if runn_win.window == dad.window: continue
+        //        runn_win.systray = dad.boss.systray_active
+    });
+    checkbutton_start_on_systray->signal_toggled().connect([config, checkbutton_start_on_systray](){
+        config->startOnSystray = checkbutton_start_on_systray->get_active();
+    });
+    checkbutton_use_appind->signal_toggled().connect([config, checkbutton_use_appind, checkbutton_systray](){
+        bool saved_systray_active = checkbutton_systray->get_active();
+        if (saved_systray_active) checkbutton_systray->set_active(false); // todo: some hack?
+        config->useAppInd = checkbutton_use_appind->get_active();
+        if (saved_systray_active) checkbutton_systray->set_active(true);
+        //if len(dad.boss.running_windows) > 1:
+        //    for runn_win in dad.boss.running_windows:
+        //        if runn_win.window == dad.window: continue
+        //        runn_win.use_appind = dad.use_appind
+    });
+    checkbutton_autosave->signal_toggled().connect([config, checkbutton_autosave, spinbutton_autosave](){
+        config->autosaveOn = checkbutton_autosave->get_active();
+        //if dad.autosave[0]:
+        //    if dad.autosave_timer_id == None: dad.autosave_timer_start()
+        //else:
+        //    if dad.autosave_timer_id != None: dad.autosave_timer_stop()
+        spinbutton_autosave->set_sensitive(config->autosaveOn);
+    });
+    spinbutton_autosave->signal_value_changed().connect([config, spinbutton_autosave](){
+        config->autosaveVal = spinbutton_autosave->get_value_as_int();
+        //if dad.autosave_timer_id != None: dad.autosave_timer_stop()
+        //if dad.autosave[0] and dad.autosave_timer_id == None: dad.autosave_timer_start()
+    });
+    spinbutton_num_backups->signal_value_changed().connect([config, spinbutton_num_backups](){
+        config->backupNum = spinbutton_num_backups->get_value_as_int();
+    });
+    checkbutton_autosave_on_quit->signal_toggled().connect([config, checkbutton_autosave_on_quit](){
+        config->autosaveOnQuit = checkbutton_autosave_on_quit->get_active();
+    });
+    checkbutton_reload_doc_last->signal_toggled().connect([config, checkbutton_reload_doc_last](){
+        config->reloadDocLast = checkbutton_reload_doc_last->get_active();
+    });
+    checkbutton_mod_time_sentinel->signal_toggled().connect([config, checkbutton_mod_time_sentinel](){
+        config->modTimeSentinel = checkbutton_mod_time_sentinel->get_active();
+        if (config->modTimeSentinel) {
+            //if dad.mod_time_sentinel_id == None:
+            //    dad.modification_time_sentinel_start()
+        } else {
+            //if dad.mod_time_sentinel_id != None:
+            //    dad.modification_time_sentinel_stop()
+        }
+    });
+    checkbutton_newer_version->signal_toggled().connect([config, checkbutton_newer_version](){
+        config->checkVersion = checkbutton_newer_version->get_active();
+    });
+    checkbutton_word_count->signal_toggled().connect([config, checkbutton_word_count](){
+        config->wordCountOn = checkbutton_word_count->get_active();
+        //dad.update_selected_node_statusbar_info()
+    });
+
+    /*
+      def on_combobox_country_language_changed(combobox):
+          new_iter = combobox_country_language.get_active_iter()
+          new_lang = dad.country_lang_liststore[new_iter][0]
+          if new_lang != dad.country_lang:
+              dad.country_lang = new_lang
+              support.dialog_info(_("The New Language will be Available Only After Restarting CherryTree"), dad.window)
+              lang_file_descriptor = file(cons.LANG_PATH, 'w')
+              lang_file_descriptor.write(new_lang)
+              lang_file_descriptor.close()
+      combobox_country_language.connect('changed', on_combobox_country_language_changed)
+    */
     return pMainBox;
 }
 
