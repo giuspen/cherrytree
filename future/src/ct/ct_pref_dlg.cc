@@ -619,6 +619,53 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
     pMainBox->set_spacing(3);
     pMainBox->pack_start(*frame_syntax, false, false);
     pMainBox->pack_start(*frame_codexec, true, false);
+
+
+    /*
+   def liststore_append_element(key, val=None):
+        stock_id = get_stock_id_for_code_type(key)
+        if not val:
+            val = get_code_exec_type_cmd(dad, key)
+        liststore.append((stock_id, key, val))
+
+    def populate_liststore():
+        liststore.clear()
+        all_codexec_keys = get_code_exec_type_keys(dad)
+        for key in all_codexec_keys:
+            liststore_append_element(key)
+
+    vbox_code_nodes.pack_start(frame_codexec, expand=True)
+    def on_entry_term_run_changed(entry):
+        dad.custom_codexec_term = entry.get_text()
+    entry_term_run.connect('changed', on_entry_term_run_changed)
+    def on_button_add_clicked(button):
+        icon_n_key_list = []
+        all_codexec_keys = get_code_exec_type_keys(dad)
+        for key in dad.available_languages:
+            if not key in all_codexec_keys:
+                stock_id = get_stock_id_for_code_type(key)
+                icon_n_key_list.append([key, stock_id, key])
+        sel_key = support.dialog_choose_element_in_list(dad.window, _("Select Element to Add"), [], "", icon_n_key_list)
+        if sel_key:
+            default_type_command = "REPLACE_ME %s" % CODE_EXEC_TMP_SRC
+            liststore_append_element(sel_key, default_type_command)
+            dad.custom_codexec_type[sel_key] = default_type_command
+    button_add.connect('clicked', on_button_add_clicked)
+    def on_button_reset_cmds_clicked(button, type_str):
+        warning_label = "<b>"+_("Are you sure to Reset to Default?")+"</b>"
+        response = support.dialog_question_warning(pref_dialog, warning_label)
+        if response == gtk.RESPONSE_ACCEPT:
+            if type_str == "cmds":
+                dad.custom_codexec_type.clear()
+                populate_liststore()
+            elif type_str == "term":
+                dad.custom_codexec_term = None
+                entry_term_run.set_text(get_code_exec_term_run(dad))
+    button_reset_cmds.connect('clicked', on_button_reset_cmds_clicked, "cmds")
+    button_reset_term.connect('clicked', on_button_reset_cmds_clicked, "term")
+
+    populate_liststore()
+    */
     return pMainBox;
 }
 
@@ -735,6 +782,84 @@ Gtk::Widget* CtPrefDlg::build_tab_tree_1()
     pMainBox->pack_start(*frame_tt_theme, false, false);
     pMainBox->pack_start(*frame_nodes_icons, false, false);
     pMainBox->pack_start(*frame_nodes_startup, false, false);
+
+    colorbutton_tree_fg->signal_color_set().connect([this, config, colorbutton_tree_fg](){
+        config->ttDefFg = rgb_any_to_24(colorbutton_tree_fg->get_rgba());
+        //dad.treeview_set_colors()
+        //if dad.curr_tree_iter: dad.update_node_name_header()
+    });
+    colorbutton_tree_bg->signal_color_set().connect([this, config, colorbutton_tree_bg](){
+        config->ttDefBg = rgb_any_to_24(colorbutton_tree_bg->get_rgba());
+        //dad.treeview_set_colors()
+        //if dad.curr_tree_iter: dad.update_node_name_header()
+    });
+    radiobutton_tt_col_light->signal_toggled().connect([radiobutton_tt_col_light, colorbutton_tree_fg, colorbutton_tree_bg](){
+        if (!radiobutton_tt_col_light->get_active()) return;
+        colorbutton_tree_fg->set_rgba(Gdk::RGBA(CtConst::TREE_TEXT_LIGHT_FG));
+        colorbutton_tree_bg->set_rgba(Gdk::RGBA(CtConst::TREE_TEXT_LIGHT_BG));
+        colorbutton_tree_fg->set_sensitive(false);
+        colorbutton_tree_bg->set_sensitive(false);
+        //on_colorbutton_tree_fg_color_set(colorbutton_tree_fg)
+        //on_colorbutton_tree_bg_color_set(colorbutton_tree_bg)
+    });
+    radiobutton_tt_col_dark->signal_toggled().connect([radiobutton_tt_col_dark, colorbutton_tree_fg, colorbutton_tree_bg](){
+        if (radiobutton_tt_col_dark->get_active()) return;
+        colorbutton_tree_fg->set_rgba(Gdk::RGBA(CtConst::TREE_TEXT_DARK_FG));
+        colorbutton_tree_bg->set_rgba(Gdk::RGBA(CtConst::TREE_TEXT_DARK_BG));
+        colorbutton_tree_fg->set_sensitive(false);
+        colorbutton_tree_bg->set_sensitive(false);
+        //on_colorbutton_tree_fg_color_set(colorbutton_tree_fg)
+        //on_colorbutton_tree_bg_color_set(colorbutton_tree_bg)
+    });
+    radiobutton_tt_col_custom->signal_toggled().connect([radiobutton_tt_col_custom, colorbutton_tree_fg, colorbutton_tree_bg](){
+        if (!radiobutton_tt_col_custom->get_active()) return;
+        colorbutton_tree_fg->set_sensitive(true);
+        colorbutton_tree_bg->set_sensitive(true);
+    });
+    radiobutton_node_icon_cherry->signal_toggled().connect([config, radiobutton_node_icon_cherry](){
+        if (!radiobutton_node_icon_cherry->get_active()) return;
+        config->nodesIcons = "c";
+        //dad.treeview_refresh(change_icon=True)
+    });
+    radiobutton_node_icon_custom->signal_toggled().connect([config, radiobutton_node_icon_custom](){
+        if (!radiobutton_node_icon_custom->get_active()) return;
+        config->nodesIcons = "b";
+        //dad.treeview_refresh(change_icon=True)
+    });
+    radiobutton_node_icon_none->signal_toggled().connect([config, radiobutton_node_icon_none](){
+        if (!radiobutton_node_icon_none->get_active()) return;
+        config->nodesIcons = "n";
+        //dad.treeview_refresh(change_icon=True)
+    });
+    c_icon_button->signal_clicked().connect([config, c_icon_button](){
+        //icon_n_label_list = []
+        //for key in cons.NODES_STOCKS_KEYS:
+        //    icon_n_label_list.append([str(key), cons.NODES_STOCKS[key], ""])
+        //sel_key = support.dialog_choose_element_in_list(pref_dialog, _("Select Node Icon"), [], "", icon_n_label_list)
+        //if sel_key:
+        //    dad.default_icon_text = int(sel_key)
+        //    c_icon_button.set_image(gtk.image_new_from_stock(cons.NODES_STOCKS[dad.default_icon_text], gtk.ICON_SIZE_BUTTON))
+        //    dad.treeview_refresh(change_icon=True)
+    });
+    radiobutton_nodes_startup_expand->signal_toggled().connect([config, radiobutton_nodes_startup_expand, checkbutton_nodes_bookm_exp](){
+        if (!radiobutton_nodes_startup_expand->get_active()) return;
+        config->restoreExpColl = CtRestoreExpColl::ALL_EXP;
+        checkbutton_nodes_bookm_exp->set_sensitive(false);
+    });
+    radiobutton_nodes_startup_collapse->signal_toggled().connect([config, radiobutton_nodes_startup_collapse, checkbutton_nodes_bookm_exp](){
+        if (!radiobutton_nodes_startup_collapse->get_active()) return;
+        config->restoreExpColl = CtRestoreExpColl::ALL_COLL;
+        checkbutton_nodes_bookm_exp->set_sensitive(true);
+    });
+    checkbutton_nodes_bookm_exp->signal_toggled().connect([config, checkbutton_nodes_bookm_exp](){
+        config->nodesBookmExp = checkbutton_nodes_bookm_exp->get_active();
+    });
+    checkbutton_aux_icon_hide->signal_toggled().connect([config, checkbutton_aux_icon_hide](){
+        config->auxIconHide = checkbutton_aux_icon_hide->get_active();
+        //dad.aux_renderer_pixbuf.set_property("visible", not dad.aux_icon_hide)
+        //dad.treeview_refresh()
+    });
+
     return pMainBox;
 }
 
