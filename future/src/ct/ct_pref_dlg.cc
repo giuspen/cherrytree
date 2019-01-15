@@ -263,15 +263,9 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     Gtk::HBox* hbox_spell_check_lang = Gtk::manage(new Gtk::HBox());
     hbox_spell_check_lang->set_spacing(4);
     Gtk::Label* label_spell_check_lang = Gtk::manage(new Gtk::Label(_("Spell Check Language")));
-    Gtk::ComboBox* combobox_spell_check_lang = Gtk::manage(new Gtk::ComboBox());
-    Gtk::CellRendererText* cell = Gtk::manage(new Gtk::CellRendererText());
-    combobox_spell_check_lang->pack_start(*cell, true);
-    combobox_spell_check_lang->add_attribute(*cell, "text", 0);
-    // todo: fix this
-    //def set_checkbutton_spell_check_model():
-    //    combobox_spell_check_lang->set_model(dad->spell_check_lang_liststore)
-    //    combobox_spell_check_lang->set_active_iter(dad->get_combobox_iter_from_value(dad->spell_check_lang_liststore, 0, dad->spell_check_lang))
-    //if dad->spell_check_init: set_checkbutton_spell_check_model()
+    Gtk::ComboBoxText* combobox_spell_check_lang = Gtk::manage(new Gtk::ComboBoxText());
+    // for (auto& lang: some_spell_check_lang_list)
+    //      combobox_spell_check_lang.append(lang);
     hbox_spell_check_lang->pack_start(*label_spell_check_lang, false, false);
     hbox_spell_check_lang->pack_start(*combobox_spell_check_lang);
     vbox_spell_check->pack_start(*checkbutton_spell_check, false, false);
@@ -486,29 +480,23 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
         config->limitUndoableSteps = spinbutton_limit_undoable_steps->get_value_as_int();
     });
 
-    //if not pgsc_spellcheck.HAS_PYENCHANT:
-    //     checkbutton_spell_check.set_sensitive(False)
-    //     combobox_spell_check_lang.set_sensitive(False)
-
     return pMainBox;
 }
 
 Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
 {
     CtConfig* config = CtApp::P_ctCfg;
-    std::string style_scheme_liststore;
 
     Gtk::VBox* vbox_syntax = Gtk::manage(new Gtk::VBox());
     Gtk::HBox* hbox_style_scheme = Gtk::manage(new Gtk::HBox());
     hbox_style_scheme->set_spacing(4);
     Gtk::Label* label_style_scheme = Gtk::manage(new Gtk::Label(_("Style Scheme")));
-    Gtk::ComboBox* combobox_style_scheme = Gtk::manage(new Gtk::ComboBox(/*style_scheme_liststore*/));
-    Gtk::CellRendererText* cell = Gtk::manage(new Gtk::CellRendererText());
-    combobox_style_scheme->pack_start(*cell, true);
-    combobox_style_scheme->add_attribute(*cell, "text", 0);
-    //combobox_style_scheme->set_active_iter(dad->get_combobox_iter_from_value(dad->style_scheme_liststore, 0, dad->style_scheme))
+    Gtk::ComboBoxText* combobox_style_scheme = Gtk::manage(new Gtk::ComboBoxText());
+    for (auto& scheme: CtApp::R_styleSchemeManager->get_scheme_ids())
+        combobox_style_scheme->append(scheme);
+    combobox_style_scheme->set_active_text(config->styleSchemeId);
     hbox_style_scheme->pack_start(*label_style_scheme, false, false);
-    hbox_style_scheme->pack_start(*combobox_style_scheme);
+    hbox_style_scheme->pack_start(*combobox_style_scheme, false, false);
     Gtk::CheckButton* checkbutton_pt_show_white_spaces = Gtk::manage(new Gtk::CheckButton(_("Show White Spaces")));
     checkbutton_pt_show_white_spaces->set_active(config->ptShowWhiteSpaces);
     Gtk::CheckButton* checkbutton_pt_highl_curr_line = Gtk::manage(new Gtk::CheckButton(_("Highlight Current Line")));
@@ -527,24 +515,6 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
     frame_syntax->add(*align_syntax);
 
 
-  /*  def on_combobox_style_scheme_changed(combobox):
-        new_iter = combobox_style_scheme->get_active_iter()
-        new_style = dad->style_scheme_liststore[new_iter][0]
-        if new_style != dad->style_scheme:
-            dad->style_scheme = new_style
-            support->dialog_info_after_restart(pref_dialog)
-    combobox_style_scheme->connect('changed', on_combobox_style_scheme_changed)
-    def on_checkbutton_pt_show_white_spaces_toggled(checkbutton):
-        dad->pt_show_white_spaces = checkbutton->get_active()
-        if dad->syntax_highlighting != cons->RICH_TEXT_ID:
-            dad->sourceview->set_draw_spaces(codeboxes->DRAW_SPACES_FLAGS if dad->pt_show_white_spaces else 0)
-    checkbutton_pt_show_white_spaces->connect('toggled', on_checkbutton_pt_show_white_spaces_toggled)
-    def on_checkbutton_pt_highl_curr_line_toggled(checkbutton):
-        dad->pt_highl_curr_line = checkbutton->get_active()
-        if dad->syntax_highlighting != cons->RICH_TEXT_ID:
-            dad->sourceview->set_highlight_current_line(dad->pt_highl_curr_line)
-    checkbutton_pt_highl_curr_line->connect('toggled', on_checkbutton_pt_highl_curr_line_toggled)
-*/
 
     /*Gtk::ListStore* liststore = Gtk::manage(new Gtk::ListStore(str, str, str)
     treeview = Gtk::manage(new Gtk::TreeView(liststore)
@@ -620,6 +590,21 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
     pMainBox->pack_start(*frame_syntax, false, false);
     pMainBox->pack_start(*frame_codexec, true, false);
 
+
+    combobox_style_scheme->signal_changed().connect([this, config, combobox_style_scheme](){
+        config->styleSchemeId = combobox_style_scheme->get_active_text();
+        need_restart(RESTART_REASON::SCHEME);
+    });
+    checkbutton_pt_show_white_spaces->signal_toggled().connect([config, checkbutton_pt_show_white_spaces](){
+        config->ptShowWhiteSpaces = checkbutton_pt_show_white_spaces->get_active();
+        //if dad->syntax_highlighting != cons->RICH_TEXT_ID:
+        //    dad->sourceview->set_draw_spaces(codeboxes->DRAW_SPACES_FLAGS if dad->pt_show_white_spaces else 0)
+    });
+    checkbutton_pt_highl_curr_line->signal_toggled().connect([config, checkbutton_pt_highl_curr_line](){
+        config->ptHighlCurrLine = checkbutton_pt_highl_curr_line->get_active();
+        //if dad->syntax_highlighting != cons->RICH_TEXT_ID:
+        //    dad->sourceview->set_highlight_current_line(dad->pt_highl_curr_line)
+    });
 
     /*
    def liststore_append_element(key, val=None):
@@ -1283,13 +1268,12 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     frame_misc_misc->add(*align_misc_misc);
 
     Gtk::VBox* vbox_language = Gtk::manage(new Gtk::VBox());
-    /*combobox_country_language = Gtk::manage(new Gtk::ComboBox(model=dad->country_lang_liststore));
-    vbox_language->pack_start(combobox_country_language);
-    cell = Gtk::manage(new Gtk::CellRendererText());
-    combobox_country_language->pack_start(cell, True);
-    combobox_country_language->add_attribute(cell, 'text', 0);
-    combobox_country_language->set_active_iter(dad->get_combobox_iter_from_value(dad->country_lang_liststore, 0, dad->country_lang));
-*/
+    Gtk::ComboBoxText* combobox_country_language = Gtk::manage(new Gtk::ComboBoxText());
+    for (const gchar* lang: CtConst::AVAILABLE_LANGS)
+        combobox_country_language->append(lang);
+    // todo: look for country_lang which is taken from s.path.isfile(cons.LANG_PATH)
+    // combobox_country_language->set_active_text(config->countryLang);
+    vbox_language->pack_start(*combobox_country_language, false, false);
     Gtk::Frame* frame_language = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Language")+"</b>"));
     ((Gtk::Label*)frame_language->get_label_widget())->set_use_markup(true);
     frame_language->set_shadow_type(Gtk::SHADOW_NONE);
@@ -1382,19 +1366,17 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
         config->wordCountOn = checkbutton_word_count->get_active();
         //dad.update_selected_node_statusbar_info()
     });
+    combobox_country_language->signal_changed().connect([this, config, combobox_country_language](){
+        Glib::ustring new_lang = combobox_country_language->get_active_text();
+        need_restart(RESTART_REASON::LANG, _("The New Language will be Available Only After Restarting CherryTree"));
+        // config->countryLang = new_lang;
+        //dad.country_lang = new_lang
+        //lang_file_descriptor = file(cons.LANG_PATH, 'w')
+        //lang_file_descriptor.write(new_lang)
+        //lang_file_descriptor.close()
 
-    /*
-      def on_combobox_country_language_changed(combobox):
-          new_iter = combobox_country_language.get_active_iter()
-          new_lang = dad.country_lang_liststore[new_iter][0]
-          if new_lang != dad.country_lang:
-              dad.country_lang = new_lang
-              support.dialog_info(_("The New Language will be Available Only After Restarting CherryTree"), dad.window)
-              lang_file_descriptor = file(cons.LANG_PATH, 'w')
-              lang_file_descriptor.write(new_lang)
-              lang_file_descriptor.close()
-      combobox_country_language.connect('changed', on_combobox_country_language_changed)
-    */
+    });
+
     return pMainBox;
 }
 

@@ -144,6 +144,11 @@ const gchar CtConst::TOOLBAR_VEC_DEFAULT[] {
     "fmt_color_bg,fmt_bold,fmt_italic,fmt_underline,fmt_strikethrough,"
     "fmt_h1,fmt_h2,fmt_h3,fmt_small,fmt_superscript,fmt_subscript,fmt_monospace"};
 
+const gchar* CtConst::AVAILABLE_LANGS[20] {
+    "default", "cs", "de", "el", "en", "es", "fi", "fr", "hy", "it",
+    "ja", "lt", "nl", "pl", "pt_BR", "ru", "sl", "tr", "uk", "zh_CN"
+};
+
 const std::unordered_map<int, Glib::ustring> CtConst::NODES_STOCKS {
     { 1, "circle-green"},
     { 2, "circle-yellow"},

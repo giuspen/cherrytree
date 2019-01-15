@@ -125,6 +125,7 @@ extern const gchar    CHAR_NEWLINE[];
 extern const std::set<const gchar*> TEXT_SYNTAXES;
 extern const std::set<const gchar*> TAG_PROPERTIES;
 extern const gchar    TOOLBAR_VEC_DEFAULT[];
+extern const gchar*   AVAILABLE_LANGS[20];
 extern const std::unordered_map<int, Glib::ustring> NODES_STOCKS;
 extern const std::unordered_map<int, Glib::ustring> NODES_ICONS;
 extern const std::map<Glib::ustring, Glib::ustring> CODE_ICONS;
