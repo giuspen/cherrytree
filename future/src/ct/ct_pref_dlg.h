@@ -26,11 +26,26 @@ private:
 
 public:
     enum RESTART_REASON {MONOSPACE, EMBFILE_SIZE, SHOW_EMBFILE_NAME, LINKS, ANCHOR_SIZE, COLOR, SCHEME, LANG};
+
 private:
     Gtk::Image* new_image_from_stock(const std::string& id, Gtk::IconSize size);
     bool question_warning(const std::string& warning) { return true; }
     std::string rgb_any_to_24(Gdk::RGBA color) { return ""; }
     std::string rgb_to_string(Gdk::RGBA color) { return ""; }
     void need_restart(RESTART_REASON reason, const gchar* = nullptr) {}
+
+    std::string get_code_exec_term_run();
+    void fill_commands_model(Glib::RefPtr<Gtk::ListStore> model);
+    void add_new_command_in_model(Glib::RefPtr<Gtk::ListStore> model);
+
+private:
+    struct CommandModelColumns : public Gtk::TreeModel::ColumnRecord
+    {
+       Gtk::TreeModelColumn<Glib::RefPtr<Gdk::Pixbuf>>  icon;
+       Gtk::TreeModelColumn<Glib::ustring>              key;
+       Gtk::TreeModelColumn<Glib::ustring>              command;
+       CommandModelColumns() { add(icon); add(key); add(command); }
+    };
+    CommandModelColumns _commandModelColumns;
 };
 

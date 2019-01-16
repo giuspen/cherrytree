@@ -30,6 +30,7 @@ namespace CtConst {
 
 extern const gchar    CT_VERSION[];
 extern const gchar    APP_NAME[];
+extern const bool     IS_WIN_OS;
 extern const int      MAX_RECENT_DOCS;
 extern const int      MAX_RECENT_DOCS_RESTORE;
 extern const int      NODE_ICON_CODE_ID;
@@ -129,6 +130,13 @@ extern const gchar*   AVAILABLE_LANGS[20];
 extern const std::unordered_map<int, Glib::ustring> NODES_STOCKS;
 extern const std::unordered_map<int, Glib::ustring> NODES_ICONS;
 extern const std::map<Glib::ustring, Glib::ustring> CODE_ICONS;
+
+extern const Glib::ustring CODE_EXEC_TMP_SRC;
+extern const Glib::ustring CODE_EXEC_TMP_BIN;
+extern const Glib::ustring CODE_EXEC_COMMAND;
+extern const std::map<Glib::ustring, Glib::ustring> CODE_EXEC_TYPE_CMD_DEFAULT;
+extern const std::map<Glib::ustring, Glib::ustring> CODE_EXEC_TERM_RUN_DEFAULT;
+
 
 Glib::ustring getStockIdForCodeType(Glib::ustring code_type);
 

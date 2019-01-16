@@ -514,35 +514,19 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
     align_syntax->add(*vbox_syntax);
     frame_syntax->add(*align_syntax);
 
+    Glib::RefPtr<Gtk::ListStore> liststore = Gtk::ListStore::create(_commandModelColumns);
+    fill_commands_model(liststore);
+    Gtk::TreeView* treeview = Gtk::manage(new Gtk::TreeView(liststore));
+    treeview->set_headers_visible(false);
+    treeview->set_size_request(300, 200);
+    treeview->append_column("", _commandModelColumns.icon);
+    treeview->append_column("", _commandModelColumns.key);
+    treeview->append_column_editable("", _commandModelColumns.command);
+    treeview->set_expander_column(*treeview->get_column(1));
 
-
-    /*Gtk::ListStore* liststore = Gtk::manage(new Gtk::ListStore(str, str, str)
-    treeview = Gtk::manage(new Gtk::TreeView(liststore)
-    treeview->set_headers_visible(False)
-    treeview->set_size_request(300, 200)
-    renderer_pixbuf = Gtk::manage(new Gtk::CellRendererPixbuf()
-    renderer_text_key = Gtk::manage(new Gtk::CellRendererText()
-    renderer_text_val = Gtk::manage(new Gtk::CellRendererText()
-    renderer_text_val->set_property('editable', true)
-    def on_table_cell_edited(cell, path, new_text):
-        if liststore[path][2] != new_text:
-            liststore[path][2] = new_text
-            key = liststore[path][1]
-            dad->custom_codexec_type[key] = new_text
-    renderer_text_val->connect('edited', on_table_cell_edited)
-    column_key = Gtk::manage(new Gtk::TreeViewColumn()
-    column_key->pack_start(renderer_pixbuf, False)
-    column_key->pack_start(renderer_text_key, true)
-    column_key->set_attributes(renderer_pixbuf, stock_id=0)
-    column_key->set_attributes(renderer_text_key, text=1)
-    column_val = Gtk::manage(new Gtk::TreeViewColumn("", renderer_text_val, text=2)
-    treeview->append_column(column_key)
-    treeview->append_column(column_val)
-    treeviewselection = treeview->get_selection()
-*/
     Gtk::ScrolledWindow* scrolledwindow = Gtk::manage(new Gtk::ScrolledWindow());
     scrolledwindow->set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
-    ///scrolledwindow->add(treeview);
+    scrolledwindow->add(*treeview);
 
     Gtk::Button* button_add = Gtk::manage(new Gtk::Button());
     button_add->set_image(*new_image_from_stock("gtk-add", Gtk::ICON_SIZE_BUTTON));
@@ -558,20 +542,20 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
     Gtk::VBox* vbox_codexec = Gtk::manage(new Gtk::VBox());
     Gtk::HBox* hbox_term_run = Gtk::manage(new Gtk::HBox());
     Gtk::Entry* entry_term_run = Gtk::manage(new Gtk::Entry());
-    //entry_term_run->set_text(get_code_exec_term_run(dad))
+    entry_term_run->set_text(get_code_exec_term_run());
     Gtk::Button* button_reset_term = Gtk::manage(new Gtk::Button());
     button_reset_term->set_image(*new_image_from_stock("gtk-undo", Gtk::ICON_SIZE_BUTTON));
     button_reset_term->set_tooltip_text(_("Reset to Default"));
     hbox_term_run->pack_start(*entry_term_run, true, false);
     hbox_term_run->pack_start(*button_reset_term, false, false);
     Gtk::HBox* hbox_cmd_per_type = Gtk::manage(new Gtk::HBox());
-    hbox_cmd_per_type->pack_start(*scrolledwindow, true, false);
+    hbox_cmd_per_type->pack_start(*scrolledwindow, true, true);
     hbox_cmd_per_type->pack_start(*vbox_buttons, false, false);
 
     Gtk::Label* label = Gtk::manage(new Gtk::Label(std::string("<b>")+_("Command per Node/CodeBox Type")+"</b>"));
     label->set_use_markup(true);
     vbox_codexec->pack_start(*label, false, false);
-    vbox_codexec->pack_start(*hbox_cmd_per_type, true, false);
+    vbox_codexec->pack_start(*hbox_cmd_per_type, true, true);
     Gtk::Label* label2 = Gtk::manage(new Gtk::Label(std::string("<b>")+_("Terminal Command")+"</b>"));
     label2->set_use_markup(true);
     vbox_codexec->pack_start(*label2, false, false);
@@ -588,7 +572,7 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
     Gtk::VBox* pMainBox = Gtk::manage(new Gtk::VBox());
     pMainBox->set_spacing(3);
     pMainBox->pack_start(*frame_syntax, false, false);
-    pMainBox->pack_start(*frame_codexec, true, false);
+    pMainBox->pack_start(*frame_codexec, true, true);
 
 
     combobox_style_scheme->signal_changed().connect([this, config, combobox_style_scheme](){
@@ -605,6 +589,31 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
         //if dad->syntax_highlighting != cons->RICH_TEXT_ID:
         //    dad->sourceview->set_highlight_current_line(dad->pt_highl_curr_line)
     });
+    ((Gtk::CellRendererText*)treeview->get_column(2)->get_cells()[0])->signal_edited().connect([this, config, liststore](const Glib::ustring& path, const Glib::ustring& new_command){
+        auto row = liststore->get_iter(path);
+        // todo: the condition doesn't work because it already has the updated value (although docs say otherwise)
+        // if (row->get_value(_commandModelColumns.command) == new_command) return;
+        row->set_value(_commandModelColumns.command, new_command);
+        config->customCodexecType[row->get_value(_commandModelColumns.key)] = new_command;
+    });
+    entry_term_run->signal_changed().connect([config, entry_term_run](){
+        config->customCodexecTerm = entry_term_run->get_text();
+    });
+    button_add->signal_clicked().connect([this, liststore](){
+        add_new_command_in_model(liststore);
+    });
+    button_reset_cmds->signal_clicked().connect([this, config, liststore](){
+        if (question_warning(std::string("<b>")+_("Are you sure to Reset to Default?")+"</b>")) {
+            config->customCodexecType.clear();
+            fill_commands_model(liststore);
+        }
+    });
+    button_reset_term->signal_clicked().connect([this, config, entry_term_run](){
+        if (question_warning(std::string("<b>")+_("Are you sure to Reset to Default?")+"</b>")) {
+            config->customCodexecTerm.clear();
+            entry_term_run->set_text(get_code_exec_term_run());
+        }
+    });
 
     /*
    def liststore_append_element(key, val=None):
@@ -619,22 +628,7 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
         for key in all_codexec_keys:
             liststore_append_element(key)
 
-    vbox_code_nodes.pack_start(frame_codexec, expand=True)
-    def on_entry_term_run_changed(entry):
-        dad.custom_codexec_term = entry.get_text()
-    entry_term_run.connect('changed', on_entry_term_run_changed)
-    def on_button_add_clicked(button):
-        icon_n_key_list = []
-        all_codexec_keys = get_code_exec_type_keys(dad)
-        for key in dad.available_languages:
-            if not key in all_codexec_keys:
-                stock_id = get_stock_id_for_code_type(key)
-                icon_n_key_list.append([key, stock_id, key])
-        sel_key = support.dialog_choose_element_in_list(dad.window, _("Select Element to Add"), [], "", icon_n_key_list)
-        if sel_key:
-            default_type_command = "REPLACE_ME %s" % CODE_EXEC_TMP_SRC
-            liststore_append_element(sel_key, default_type_command)
-            dad.custom_codexec_type[sel_key] = default_type_command
+
     button_add.connect('clicked', on_button_add_clicked)
     def on_button_reset_cmds_clicked(button, type_str):
         warning_label = "<b>"+_("Are you sure to Reset to Default?")+"</b>"
@@ -1271,7 +1265,7 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     Gtk::ComboBoxText* combobox_country_language = Gtk::manage(new Gtk::ComboBoxText());
     for (const gchar* lang: CtConst::AVAILABLE_LANGS)
         combobox_country_language->append(lang);
-    // todo: look for country_lang which is taken from s.path.isfile(cons.LANG_PATH)
+    // todo: country_lang (taken from s.path.isfile(cons.LANG_PATH))
     // combobox_country_language->set_active_text(config->countryLang);
     vbox_language->pack_start(*combobox_country_language, false, false);
     Gtk::Frame* frame_language = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Language")+"</b>"));
@@ -1385,4 +1379,60 @@ Gtk::Image* CtPrefDlg::new_image_from_stock(const std::string& id, Gtk::IconSize
     Gtk::Image* image = Gtk::manage(new Gtk::Image());
     image->set_from_icon_name(id, size);
     return image;
+}
+
+
+std::string CtPrefDlg::get_code_exec_term_run()
+{
+    std::string op_sys = CtConst::IS_WIN_OS ? "linux" : "win";
+    if (!CtApp::P_ctCfg->customCodexecTerm.empty())
+        return CtApp::P_ctCfg->customCodexecTerm;
+    else
+        return CtConst::CODE_EXEC_TERM_RUN_DEFAULT.at(op_sys);
+}
+
+void CtPrefDlg::fill_commands_model(Glib::RefPtr<Gtk::ListStore> model)
+{
+    std::set<std::string> used_code_exec_keys;
+    for (auto& it: CtApp::P_ctCfg->customCodexecType)
+        used_code_exec_keys.insert(it.first);
+    for (const auto& it: CtConst::CODE_EXEC_TYPE_CMD_DEFAULT)
+        used_code_exec_keys.insert(it.first);
+
+    for (auto& key: used_code_exec_keys)
+    {
+        std::string command;
+        if (CtApp::P_ctCfg->customCodexecType.find(key) != CtApp::P_ctCfg->customCodexecType.end())
+            command = CtApp::P_ctCfg->customCodexecType.at(key);
+        else if (CtConst::CODE_EXEC_TYPE_CMD_DEFAULT.find(key) != CtConst::CODE_EXEC_TYPE_CMD_DEFAULT.end())
+            command = CtConst::CODE_EXEC_TYPE_CMD_DEFAULT.at(key);
+
+        Gtk::TreeModel::Row row = *(model->append());
+        row[_commandModelColumns.icon] = CtApp::R_icontheme->load_icon(CtConst::getStockIdForCodeType(key), CtConst::NODE_ICON_SIZE);
+        row[_commandModelColumns.key] = key;
+        row[_commandModelColumns.command] = command;
+    }
+}
+
+void CtPrefDlg::add_new_command_in_model(Glib::RefPtr<Gtk::ListStore> model)
+{
+    std::set<std::string> used_code_exec_keys;
+    for (auto& it: CtApp::P_ctCfg->customCodexecType)
+        used_code_exec_keys.insert(it.first);
+    for (const auto& it: CtConst::CODE_EXEC_TYPE_CMD_DEFAULT)
+        used_code_exec_keys.insert(it.first);
+    /*
+    def on_button_add_clicked(button):
+        icon_n_key_list = []
+        all_codexec_keys = get_code_exec_type_keys(dad)
+        for key in dad.available_languages:
+            if not key in all_codexec_keys:
+                stock_id = get_stock_id_for_code_type(key)
+                icon_n_key_list.append([key, stock_id, key])
+        sel_key = support.dialog_choose_element_in_list(dad.window, _("Select Element to Add"), [], "", icon_n_key_list)
+        if sel_key:
+            default_type_command = "REPLACE_ME %s" % CODE_EXEC_TMP_SRC
+            liststore_append_element(sel_key, default_type_command)
+            dad.custom_codexec_type[sel_key] = default_type_command
+            */
 }

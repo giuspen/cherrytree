@@ -23,6 +23,7 @@
 
 const gchar    CtConst::CT_VERSION[]           {"0.0.1"};
 const gchar    CtConst::APP_NAME[]             {"cherrytree"};
+const bool     CtConst::IS_WIN_OS              {false};
 const int      CtConst::MAX_RECENT_DOCS             {10};
 const int      CtConst::MAX_RECENT_DOCS_RESTORE      {3};
 const int      CtConst::NODE_ICON_CODE_ID           {38};
@@ -227,6 +228,24 @@ const std::map<Glib::ustring, Glib::ustring> CtConst::CODE_ICONS {
     {"xml", "xml"},
     {"c", "c"},
     {"cpp", "cpp"},
+};
+
+
+const Glib::ustring CtConst::CODE_EXEC_TMP_SRC  {"<tmp_src_path>"};
+const Glib::ustring CtConst::CODE_EXEC_TMP_BIN  {"<tmp_bin_path>"};
+const Glib::ustring CtConst::CODE_EXEC_COMMAND  {"<command>"};
+const std::map<Glib::ustring, Glib::ustring> CtConst::CODE_EXEC_TYPE_CMD_DEFAULT {
+    {"c",        "gcc -o "+CtConst::CODE_EXEC_TMP_BIN+" "+CtConst::CODE_EXEC_TMP_SRC+" && "+CtConst::CODE_EXEC_TMP_BIN},
+    {"cpp",      "g++ -o "+CtConst::CODE_EXEC_TMP_BIN+" "+CtConst::CODE_EXEC_TMP_SRC+" && "+CtConst::CODE_EXEC_TMP_BIN},
+    {"dosbatch", "call "+CtConst::CODE_EXEC_TMP_SRC},
+    {"perl",     "perl "+CtConst::CODE_EXEC_TMP_SRC},
+    {"python",   "python2 "+CtConst::CODE_EXEC_TMP_SRC},
+    {"python3",  "python3 "+CtConst::CODE_EXEC_TMP_SRC},
+    {"sh",       "sh "+CtConst::CODE_EXEC_TMP_SRC}
+};
+const std::map<Glib::ustring, Glib::ustring> CtConst::CODE_EXEC_TERM_RUN_DEFAULT {
+    {"linux", "xterm -hold -geometry 180x45 -e \""+CtConst::CODE_EXEC_COMMAND+"\""},
+    {"win",   "start cmd /k \""+CtConst::CODE_EXEC_COMMAND+"\""}
 };
 
 Glib::ustring CtConst::getStockIdForCodeType(Glib::ustring code_type)
