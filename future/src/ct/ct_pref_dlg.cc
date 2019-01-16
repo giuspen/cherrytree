@@ -4,11 +4,17 @@
 #include <gtkmm/spinbutton.h>
 #include <gdkmm/rgba.h>
 #include <glib/gi18n.h>
+#include <algorithm>
+#include <gdk/gdkkeysyms.h>
 #include "ct_app.h"
 #include "ct_misc_utils.h"
 
-CtPrefDlg::CtPrefDlg(Gtk::Window& parent) : Gtk::Dialog (_("Preferences"), parent, true)
+CtPrefDlg::CtPrefDlg(Gtk::Window& parent, CtMenu* pCtMenu)
+    : Gtk::Dialog (_("Preferences"), parent, true)
 {
+    _restartReasons = 0;
+    _pCtMenu = pCtMenu;
+
     Gtk::Notebook* pNotebook = Gtk::manage(new Gtk::Notebook());
     pNotebook->set_tab_pos(Gtk::PositionType::POS_LEFT);
     pNotebook->append_page(*build_tab_text_n_code(),       _("Text and Code"));
@@ -521,7 +527,7 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
     treeview->set_size_request(300, 200);
     treeview->append_column("", _commandModelColumns.icon);
     treeview->append_column("", _commandModelColumns.key);
-    treeview->append_column_editable("", _commandModelColumns.command);
+    treeview->append_column_editable("", _commandModelColumns.desc);
     treeview->set_expander_column(*treeview->get_column(1));
 
     Gtk::ScrolledWindow* scrolledwindow = Gtk::manage(new Gtk::ScrolledWindow());
@@ -593,7 +599,7 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
         auto row = liststore->get_iter(path);
         // todo: the condition doesn't work because it already has the updated value (although docs say otherwise)
         // if (row->get_value(_commandModelColumns.command) == new_command) return;
-        row->set_value(_commandModelColumns.command, new_command);
+        row->set_value(_commandModelColumns.desc, new_command);
         config->customCodexecType[row->get_value(_commandModelColumns.key)] = new_command;
     });
     entry_term_run->signal_changed().connect([config, entry_term_run](){
@@ -615,36 +621,6 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
         }
     });
 
-    /*
-   def liststore_append_element(key, val=None):
-        stock_id = get_stock_id_for_code_type(key)
-        if not val:
-            val = get_code_exec_type_cmd(dad, key)
-        liststore.append((stock_id, key, val))
-
-    def populate_liststore():
-        liststore.clear()
-        all_codexec_keys = get_code_exec_type_keys(dad)
-        for key in all_codexec_keys:
-            liststore_append_element(key)
-
-
-    button_add.connect('clicked', on_button_add_clicked)
-    def on_button_reset_cmds_clicked(button, type_str):
-        warning_label = "<b>"+_("Are you sure to Reset to Default?")+"</b>"
-        response = support.dialog_question_warning(pref_dialog, warning_label)
-        if response == gtk.RESPONSE_ACCEPT:
-            if type_str == "cmds":
-                dad.custom_codexec_type.clear()
-                populate_liststore()
-            elif type_str == "term":
-                dad.custom_codexec_term = None
-                entry_term_run.set_text(get_code_exec_term_run(dad))
-    button_reset_cmds.connect('clicked', on_button_reset_cmds_clicked, "cmds")
-    button_reset_term.connect('clicked', on_button_reset_cmds_clicked, "term")
-
-    populate_liststore()
-    */
     return pMainBox;
 }
 
@@ -1160,8 +1136,70 @@ Gtk::Widget* CtPrefDlg::build_tab_links()
 
 Gtk::Widget* CtPrefDlg::build_tab_toolbar()
 {
+    CtConfig* config = CtApp::P_ctCfg;
+
+    Glib::RefPtr<Gtk::ListStore> liststore = Gtk::ListStore::create(_toolbarModelColumns);
+    fill_toolbar_model(liststore);
+    Gtk::TreeView* treeview = Gtk::manage(new Gtk::TreeView(liststore));
+    treeview->set_headers_visible(false);
+    treeview->set_reorderable(true);
+    treeview->set_size_request(300, 300);
+    treeview->append_column("", _toolbarModelColumns.icon);
+    treeview->append_column("", _toolbarModelColumns.desc);
+    Gtk::ScrolledWindow* scrolledwindow = Gtk::manage(new Gtk::ScrolledWindow());
+    scrolledwindow->add(*treeview);
+
+    Gtk::Button* button_add = Gtk::manage(new Gtk::Button());
+    button_add->set_image(*new_image_from_stock(Gtk::Stock::ADD.id,  Gtk::ICON_SIZE_BUTTON));
+    button_add->set_tooltip_text(_("Add"));
+    Gtk::Button* button_remove = Gtk::manage(new Gtk::Button());
+    button_remove->set_image(*new_image_from_stock(Gtk::Stock::REMOVE.id, Gtk::ICON_SIZE_BUTTON));
+    button_remove->set_tooltip_text(_("Remove Selected"));
+    Gtk::Button* button_reset = Gtk::manage(new Gtk::Button());
+    button_reset->set_image(*new_image_from_stock(Gtk::Stock::UNDO.id, Gtk::ICON_SIZE_BUTTON));
+    button_reset->set_tooltip_text(_("Reset to Default"));
+
+    Gtk::HBox* hbox = Gtk::manage(new Gtk::HBox());
+    Gtk::VBox* vbox = Gtk::manage(new Gtk::VBox());
+    vbox->pack_start(*button_add, false, false);
+    vbox->pack_start(*button_remove, false, false);
+    vbox->pack_start(*Gtk::manage(new Gtk::Label()), true, true);
+    vbox->pack_start(*button_reset, false, false);
+    hbox->pack_start(*scrolledwindow, true, true);
+    hbox->pack_start(*vbox, false, false);
+
     Gtk::VBox* pMainBox = Gtk::manage(new Gtk::VBox());
     pMainBox->set_spacing(3);
+    pMainBox->pack_start(*hbox);
+
+    button_add->signal_clicked().connect([this, liststore](){
+        if (add_new_item_in_toolbar_model(liststore))
+            need_restart(RESTART_REASON::TOOLBAR);
+    });
+    button_remove->signal_clicked().connect([this, treeview, liststore](){
+        liststore->erase(treeview->get_selection()->get_selected());
+        update_config_toolbar_from_model(liststore);
+        need_restart(RESTART_REASON::TOOLBAR);
+    });
+    button_reset->signal_clicked().connect([this, config, liststore](){
+        if (question_warning(std::string("<b>")+_("Are you sure to Reset to Default?")+"</b>")) {
+            config->toolbarUiList = CtConst::TOOLBAR_VEC_DEFAULT;
+            fill_toolbar_model(liststore);
+            need_restart(RESTART_REASON::TOOLBAR);
+        }
+    });
+    treeview->signal_key_press_event().connect([button_remove](GdkEventKey* key) -> bool {
+        if (key->keyval == GDK_KEY_Delete) {
+            button_remove->clicked();
+            return true;
+        }
+        return false;
+    });
+    treeview->signal_drag_end().connect([this, liststore](const Glib::RefPtr<Gdk::DragContext>&){
+        update_config_toolbar_from_model(liststore);
+        need_restart(RESTART_REASON::TOOLBAR);
+    });
+
     return pMainBox;
 }
 
@@ -1381,6 +1419,35 @@ Gtk::Image* CtPrefDlg::new_image_from_stock(const std::string& id, Gtk::IconSize
     return image;
 }
 
+std::string CtPrefDlg::rgb_any_to_24(Gdk::RGBA color)
+{
+    return "";
+}
+
+std::string CtPrefDlg::rgb_to_string(Gdk::RGBA color)
+{
+    return "";
+}
+
+bool CtPrefDlg::question_warning(const std::string& warning)
+{
+    return true;
+}
+
+void CtPrefDlg::need_restart(RESTART_REASON reason, const gchar* msg /*= nullptr*/)
+{
+    if (!(_restartReasons & (int)reason)) {
+        _restartReasons |= (int)reason;
+        msg = msg ? msg : _("This Change will have Effect Only After Restarting CherryTree");
+        Gtk::MessageDialog dialog(*this, msg);
+        dialog.run();
+    }
+}
+
+std::string CtPrefDlg::choose_item_dialog(Glib::RefPtr<Gtk::ListStore> model)
+{
+    return "";
+}
 
 std::string CtPrefDlg::get_code_exec_term_run()
 {
@@ -1399,6 +1466,7 @@ void CtPrefDlg::fill_commands_model(Glib::RefPtr<Gtk::ListStore> model)
     for (const auto& it: CtConst::CODE_EXEC_TYPE_CMD_DEFAULT)
         used_code_exec_keys.insert(it.first);
 
+    model->clear();
     for (auto& key: used_code_exec_keys)
     {
         std::string command;
@@ -1410,7 +1478,7 @@ void CtPrefDlg::fill_commands_model(Glib::RefPtr<Gtk::ListStore> model)
         Gtk::TreeModel::Row row = *(model->append());
         row[_commandModelColumns.icon] = CtApp::R_icontheme->load_icon(CtConst::getStockIdForCodeType(key), CtConst::NODE_ICON_SIZE);
         row[_commandModelColumns.key] = key;
-        row[_commandModelColumns.command] = command;
+        row[_commandModelColumns.desc] = command;
     }
 }
 
@@ -1435,4 +1503,71 @@ void CtPrefDlg::add_new_command_in_model(Glib::RefPtr<Gtk::ListStore> model)
             liststore_append_element(sel_key, default_type_command)
             dad.custom_codexec_type[sel_key] = default_type_command
             */
+}
+
+void CtPrefDlg::fill_toolbar_model(Glib::RefPtr<Gtk::ListStore> model)
+{
+    std::vector<std::string> vecToolbarElements;
+    CtStrUtil::gstringSplit2string(CtApp::P_ctCfg->toolbarUiList.c_str(), vecToolbarElements, ",");
+    model->clear();
+    for(const std::string& key: vecToolbarElements)
+        add_new_item_in_toolbar_model(key, model);
+}
+
+void CtPrefDlg::add_new_item_in_toolbar_model(const std::string& key, Glib::RefPtr<Gtk::ListStore> model)
+{
+    std::string icon, desc;
+    if (key == CtConst::TAG_SEPARATOR)
+    {
+        icon = "";
+        desc = CtConst::TAG_SEPARATOR_ANSI_REPR;
+    }
+    else if (key == CtConst::CHAR_STAR)
+    {
+        icon = "gtk-open";
+        desc = _("Open a CherryTree Document");
+
+    }
+    else if (CtAction const* action = _pCtMenu->find_action(key))
+    {
+        icon = action->image;
+        desc = action->desc;
+    }
+
+    auto row = *(model->append());
+    row[_toolbarModelColumns.icon] = CtApp::R_icontheme->load_icon(CtConst::getStockIdForCodeType(icon), CtConst::NODE_ICON_SIZE);
+    row[_toolbarModelColumns.key] = key;
+    row[_toolbarModelColumns.desc] = desc;
+}
+
+bool CtPrefDlg::add_new_item_in_toolbar_model(Glib::RefPtr<Gtk::ListStore> model)
+{
+    Glib::RefPtr<Gtk::ListStore> itemStore = Gtk::ListStore::create(_chooseItemColumns);
+    auto sep_row = *itemStore->append();
+    sep_row[_chooseItemColumns.key] = CtConst::TAG_SEPARATOR;
+    sep_row[_chooseItemColumns.desc] = CtConst::TAG_SEPARATOR_ANSI_REPR;
+    for (const CtAction& action: _pCtMenu->get_actions())
+    {
+        if (action.desc.empty()) continue; // skip stub menu entries
+        if (action.id == "ct_open_file" && CtApp::P_ctCfg->toolbarUiList.find(CtConst::CHAR_STAR) != std::string::npos) continue;
+        if (std::find(CtConst::TOOLBAR_VEC_BLACKLIST.begin(), CtConst::TOOLBAR_VEC_BLACKLIST.end(), action.id) != CtConst::TOOLBAR_VEC_BLACKLIST.end()) continue;
+        auto row = *itemStore->append();
+        row[_chooseItemColumns.key] = action.id;
+        row[_chooseItemColumns.icon] = CtApp::R_icontheme->load_icon(CtConst::getStockIdForCodeType(action.image), CtConst::NODE_ICON_SIZE);
+        row[_chooseItemColumns.desc] = action.desc;
+    }
+    std::string key = choose_item_dialog(itemStore);
+    if (!key.empty()) {
+        add_new_item_in_toolbar_model(key, model);
+        return true;
+    }
+    return false;
+}
+
+void CtPrefDlg::update_config_toolbar_from_model(Glib::RefPtr<Gtk::ListStore> model)
+{
+    std::string acc;
+    for (auto it: model->children())
+        acc += it.get_value(_toolbarModelColumns.key) + ",";
+    CtApp::P_ctCfg->toolbarUiList = acc.substr(0, acc.size()-1);
 }

@@ -191,7 +191,7 @@ void CtApp::add_node()
 
 void CtApp::dialog_preferences()
 {
-    CtPrefDlg prefDlg(*get_windows()[0]);
+    CtPrefDlg prefDlg(*get_windows()[0], _pCtMenu);
     prefDlg.show();
     prefDlg.run();
     prefDlg.hide();

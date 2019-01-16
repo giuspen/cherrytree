@@ -4,12 +4,13 @@
 #include <gtkmm/liststore.h>
 #include <glibmm/value.h>
 #include <glibmm/ustring.h>
+#include "ct_menu.h"
 
 
 class CtPrefDlg : public Gtk::Dialog
 {
 public:
-    CtPrefDlg(Gtk::Window& parent);
+    CtPrefDlg(Gtk::Window& parent, CtMenu* pCtMenu);
 
 private:
     Gtk::Widget* build_tab_text_n_code();
@@ -25,27 +26,47 @@ private:
     Gtk::Widget* build_tab_misc();
 
 public:
-    enum RESTART_REASON {MONOSPACE, EMBFILE_SIZE, SHOW_EMBFILE_NAME, LINKS, ANCHOR_SIZE, COLOR, SCHEME, LANG};
+    enum RESTART_REASON {MONOSPACE         = 1 << 0,
+                         EMBFILE_SIZE      = 1 << 1,
+                         SHOW_EMBFILE_NAME = 1 << 2,
+                         LINKS             = 1 << 3,
+                         ANCHOR_SIZE       = 1 << 4,
+                         COLOR             = 1 << 5,
+                         SCHEME            = 1 << 6,
+                         LANG              = 1 << 7,
+                         TOOLBAR           = 1 << 8};
 
 private:
     Gtk::Image* new_image_from_stock(const std::string& id, Gtk::IconSize size);
-    bool question_warning(const std::string& warning) { return true; }
-    std::string rgb_any_to_24(Gdk::RGBA color) { return ""; }
-    std::string rgb_to_string(Gdk::RGBA color) { return ""; }
-    void need_restart(RESTART_REASON reason, const gchar* = nullptr) {}
+    bool question_warning(const std::string& warning);
+    std::string rgb_any_to_24(Gdk::RGBA color);
+    std::string rgb_to_string(Gdk::RGBA color);
+    void need_restart(RESTART_REASON reason, const gchar* msg = nullptr);
+    std::string choose_item_dialog(Glib::RefPtr<Gtk::ListStore> model);
 
+private:
     std::string get_code_exec_term_run();
+
     void fill_commands_model(Glib::RefPtr<Gtk::ListStore> model);
     void add_new_command_in_model(Glib::RefPtr<Gtk::ListStore> model);
 
+    void fill_toolbar_model(Glib::RefPtr<Gtk::ListStore> model);
+    void add_new_item_in_toolbar_model(const std::string& key, Glib::RefPtr<Gtk::ListStore> model);
+    bool add_new_item_in_toolbar_model(Glib::RefPtr<Gtk::ListStore> model);
+    void update_config_toolbar_from_model(Glib::RefPtr<Gtk::ListStore> model);
+
 private:
-    struct CommandModelColumns : public Gtk::TreeModel::ColumnRecord
+    struct UniversalModelColumns : public Gtk::TreeModel::ColumnRecord
     {
        Gtk::TreeModelColumn<Glib::RefPtr<Gdk::Pixbuf>>  icon;
        Gtk::TreeModelColumn<Glib::ustring>              key;
-       Gtk::TreeModelColumn<Glib::ustring>              command;
-       CommandModelColumns() { add(icon); add(key); add(command); }
+       Gtk::TreeModelColumn<Glib::ustring>              desc;
+       UniversalModelColumns() { add(icon); add(key); add(desc); }
     };
-    CommandModelColumns _commandModelColumns;
+    UniversalModelColumns _commandModelColumns;
+    UniversalModelColumns _toolbarModelColumns;
+    UniversalModelColumns _chooseItemColumns;
+    CtMenu*               _pCtMenu;
+    int                   _restartReasons;
 };
 
