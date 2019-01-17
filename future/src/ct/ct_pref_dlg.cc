@@ -270,6 +270,7 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     hbox_spell_check_lang->set_spacing(4);
     Gtk::Label* label_spell_check_lang = Gtk::manage(new Gtk::Label(_("Spell Check Language")));
     Gtk::ComboBoxText* combobox_spell_check_lang = Gtk::manage(new Gtk::ComboBoxText());
+    // todo:
     // for (auto& lang: some_spell_check_lang_list)
     //      combobox_spell_check_lang.append(lang);
     hbox_spell_check_lang->pack_start(*label_spell_check_lang, false, false);
@@ -428,9 +429,8 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
         colorbutton_text_bg->set_rgba(Gdk::RGBA(CtConst::RICH_TEXT_LIGHT_BG));
         colorbutton_text_fg->set_sensitive(false);
         colorbutton_text_bg->set_sensitive(false);
-        //on_colorbutton_text_fg_color_set(colorbutton_text_fg)
-        //on_colorbutton_text_bg_color_set(colorbutton_text_bg)
-
+        g_signal_emit_by_name(colorbutton_text_fg->gobj(), "color-set");
+        g_signal_emit_by_name(colorbutton_text_bg->gobj(), "color-set");
     });
     radiobutton_rt_col_dark->signal_toggled().connect([radiobutton_rt_col_dark, colorbutton_text_fg, colorbutton_text_bg](){
         if (!radiobutton_rt_col_dark->get_active()) return;
@@ -438,8 +438,8 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
         colorbutton_text_bg->set_rgba(Gdk::RGBA(CtConst::RICH_TEXT_DARK_BG));
         colorbutton_text_fg->set_sensitive(false);
         colorbutton_text_bg->set_sensitive(false);
-        //on_colorbutton_text_fg_color_set(colorbutton_text_fg)
-        //on_colorbutton_text_bg_color_set(colorbutton_text_bg)
+        g_signal_emit_by_name(colorbutton_text_fg->gobj(), "color-set");
+        g_signal_emit_by_name(colorbutton_text_bg->gobj(), "color-set");
     });
     radiobutton_rt_col_custom->signal_toggled().connect([radiobutton_rt_col_custom, colorbutton_text_fg, colorbutton_text_bg](){
         if (!radiobutton_rt_col_custom->get_active()) return;
@@ -754,8 +754,8 @@ Gtk::Widget* CtPrefDlg::build_tab_tree_1()
         colorbutton_tree_bg->set_rgba(Gdk::RGBA(CtConst::TREE_TEXT_LIGHT_BG));
         colorbutton_tree_fg->set_sensitive(false);
         colorbutton_tree_bg->set_sensitive(false);
-        //on_colorbutton_tree_fg_color_set(colorbutton_tree_fg)
-        //on_colorbutton_tree_bg_color_set(colorbutton_tree_bg)
+        g_signal_emit_by_name(colorbutton_tree_fg->gobj(), "color-set");
+        g_signal_emit_by_name(colorbutton_tree_bg->gobj(), "color-set");
     });
     radiobutton_tt_col_dark->signal_toggled().connect([radiobutton_tt_col_dark, colorbutton_tree_fg, colorbutton_tree_bg](){
         if (radiobutton_tt_col_dark->get_active()) return;
@@ -763,8 +763,8 @@ Gtk::Widget* CtPrefDlg::build_tab_tree_1()
         colorbutton_tree_bg->set_rgba(Gdk::RGBA(CtConst::TREE_TEXT_DARK_BG));
         colorbutton_tree_fg->set_sensitive(false);
         colorbutton_tree_bg->set_sensitive(false);
-        //on_colorbutton_tree_fg_color_set(colorbutton_tree_fg)
-        //on_colorbutton_tree_bg_color_set(colorbutton_tree_bg)
+        g_signal_emit_by_name(colorbutton_tree_fg->gobj(), "color-set");
+        g_signal_emit_by_name(colorbutton_tree_bg->gobj(), "color-set");
     });
     radiobutton_tt_col_custom->signal_toggled().connect([radiobutton_tt_col_custom, colorbutton_tree_fg, colorbutton_tree_bg](){
         if (!radiobutton_tt_col_custom->get_active()) return;
@@ -1281,6 +1281,7 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     checkbutton_start_on_systray->set_active(config->startOnSystray);
     checkbutton_start_on_systray->set_sensitive(config->systrayOn);
     checkbutton_use_appind->set_active(config->useAppInd);
+    // todo:
     //if not cons->HAS_APPINDICATOR or not cons->HAS_SYSTRAY: checkbutton_use_appind->set_sensitive(False)
 
     Gtk::VBox* vbox_saving = Gtk::manage(new Gtk::VBox());

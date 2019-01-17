@@ -25,7 +25,7 @@ private:
     Gtk::Widget* build_tab_kb_shortcuts();
     Gtk::Widget* build_tab_misc();
 
-public:
+private:
     enum RESTART_REASON {MONOSPACE         = 1 << 0, EMBFILE_SIZE = 1 << 1,
                          SHOW_EMBFILE_NAME = 1 << 2, LINKS        = 1 << 3,
                          ANCHOR_SIZE       = 1 << 4, COLOR        = 1 << 5,
