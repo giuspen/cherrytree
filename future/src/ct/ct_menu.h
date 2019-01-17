@@ -29,6 +29,7 @@
 
 struct CtAction
 {
+    std::string category;
     std::string id;
     std::string image;
     std::string name;
@@ -40,6 +41,12 @@ struct CtAction
 class CtApp;
 class CtMenu
 {
+public:
+    const char*       None       = "";
+    const std::string KB_CONTROL = "<control>";
+    const std::string KB_SHIFT   = "<shift>";
+    const std::string KB_ALT     = "<alt>";
+
 public:
     CtMenu();
 

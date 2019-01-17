@@ -26,22 +26,19 @@ private:
     Gtk::Widget* build_tab_misc();
 
 public:
-    enum RESTART_REASON {MONOSPACE         = 1 << 0,
-                         EMBFILE_SIZE      = 1 << 1,
-                         SHOW_EMBFILE_NAME = 1 << 2,
-                         LINKS             = 1 << 3,
-                         ANCHOR_SIZE       = 1 << 4,
-                         COLOR             = 1 << 5,
-                         SCHEME            = 1 << 6,
-                         LANG              = 1 << 7,
-                         TOOLBAR           = 1 << 8};
+    enum RESTART_REASON {MONOSPACE         = 1 << 0, EMBFILE_SIZE = 1 << 1,
+                         SHOW_EMBFILE_NAME = 1 << 2, LINKS        = 1 << 3,
+                         ANCHOR_SIZE       = 1 << 4, COLOR        = 1 << 5,
+                         SCHEME            = 1 << 6, LANG         = 1 << 7,
+                         TOOLBAR           = 1 << 8, SHORTCUT     = 1 << 9};
 
 private:
+    Glib::RefPtr<Gdk::Pixbuf> get_icon(const std::string& name);
     Gtk::Image* new_image_from_stock(const std::string& id, Gtk::IconSize size);
-    bool question_warning(const std::string& warning);
+    bool        question_warning(const std::string& warning);
     std::string rgb_any_to_24(Gdk::RGBA color);
     std::string rgb_to_string(Gdk::RGBA color);
-    void need_restart(RESTART_REASON reason, const gchar* msg = nullptr);
+    void        need_restart(RESTART_REASON reason, const gchar* msg = nullptr);
     std::string choose_item_dialog(Glib::RefPtr<Gtk::ListStore> model);
 
 private:
@@ -55,16 +52,22 @@ private:
     bool add_new_item_in_toolbar_model(Glib::RefPtr<Gtk::ListStore> model);
     void update_config_toolbar_from_model(Glib::RefPtr<Gtk::ListStore> model);
 
+    void fill_shortcut_model(Glib::RefPtr<Gtk::TreeStore> model);
+    bool edit_shortcut(Gtk::TreeView* treeview);
+    bool edit_shortcut_dialog(std::string& shortcut);
+
 private:
     struct UniversalModelColumns : public Gtk::TreeModel::ColumnRecord
     {
        Gtk::TreeModelColumn<Glib::RefPtr<Gdk::Pixbuf>>  icon;
        Gtk::TreeModelColumn<Glib::ustring>              key;
        Gtk::TreeModelColumn<Glib::ustring>              desc;
-       UniversalModelColumns() { add(icon); add(key); add(desc); }
+       Gtk::TreeModelColumn<Glib::ustring>              shortcut;
+       UniversalModelColumns() { add(icon); add(key); add(desc); add(shortcut); }
     };
     UniversalModelColumns _commandModelColumns;
     UniversalModelColumns _toolbarModelColumns;
+    UniversalModelColumns _shortcutModelColumns;
     UniversalModelColumns _chooseItemColumns;
     CtMenu*               _pCtMenu;
     int                   _restartReasons;
