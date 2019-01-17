@@ -179,7 +179,7 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
         }
     });
     button_reset->signal_clicked().connect([this, textview_special_chars](){
-        if (question_warning(std::string("<b>")+_("Are you sure to Reset to Default?")+"</b>"))
+        if (user_confirm(reset_warning))
             textview_special_chars->get_buffer()->set_text(CtConst::SPECIAL_CHARS_DEFAULT);
     });
     spinbutton_tab_width->signal_value_changed().connect([config, spinbutton_tab_width](){
@@ -609,13 +609,13 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
         add_new_command_in_model(liststore);
     });
     button_reset_cmds->signal_clicked().connect([this, config, liststore](){
-        if (question_warning(std::string("<b>")+_("Are you sure to Reset to Default?")+"</b>")) {
+        if (user_confirm(reset_warning)) {
             config->customCodexecType.clear();
             fill_commands_model(liststore);
         }
     });
     button_reset_term->signal_clicked().connect([this, config, entry_term_run](){
-        if (question_warning(std::string("<b>")+_("Are you sure to Reset to Default?")+"</b>")) {
+        if (user_confirm(reset_warning)) {
             config->customCodexecTerm.clear();
             entry_term_run->set_text(get_code_exec_term_run());
         }
@@ -1172,8 +1172,8 @@ Gtk::Widget* CtPrefDlg::build_tab_toolbar()
     pMainBox->set_spacing(3);
     pMainBox->pack_start(*hbox);
 
-    button_add->signal_clicked().connect([this, liststore](){
-        if (add_new_item_in_toolbar_model(liststore))
+    button_add->signal_clicked().connect([this, treeview, liststore](){
+        if (add_new_item_in_toolbar_model(treeview, liststore))
             need_restart(RESTART_REASON::TOOLBAR);
     });
     button_remove->signal_clicked().connect([this, treeview, liststore](){
@@ -1182,7 +1182,7 @@ Gtk::Widget* CtPrefDlg::build_tab_toolbar()
         need_restart(RESTART_REASON::TOOLBAR);
     });
     button_reset->signal_clicked().connect([this, config, liststore](){
-        if (question_warning(std::string("<b>")+_("Are you sure to Reset to Default?")+"</b>")) {
+        if (user_confirm(reset_warning)) {
             config->toolbarUiList = CtConst::TOOLBAR_VEC_DEFAULT;
             fill_toolbar_model(liststore);
             need_restart(RESTART_REASON::TOOLBAR);
@@ -1244,7 +1244,7 @@ Gtk::Widget* CtPrefDlg::build_tab_kb_shortcuts()
             need_restart(RESTART_REASON::SHORTCUT);
     });
     button_reset->signal_clicked().connect([this, config, treestore](){
-        if (question_warning(std::string("<b>")+_("Are you sure to Reset to Default?")+"</b>")) {
+        if (user_confirm(reset_warning)) {
             config->customKbShortcuts.clear();
             fill_shortcut_model(treestore);
             need_restart(RESTART_REASON::SHORTCUT);
@@ -1477,32 +1477,69 @@ Gtk::Image* CtPrefDlg::new_image_from_stock(const std::string& id, Gtk::IconSize
 
 std::string CtPrefDlg::rgb_any_to_24(Gdk::RGBA color)
 {
-    return "";
+    char rgb24StrOut[16];
+    CtRgbUtil::setRgb24StrFromStrAny(rgb_to_string(color).c_str(), rgb24StrOut);
+    return rgb24StrOut;
 }
 
 std::string CtPrefDlg::rgb_to_string(Gdk::RGBA color)
 {
-    return "";
+    char rgbStrOut[16];
+    sprintf(rgbStrOut, "#%.2x%.2x%.2x", color.get_red_u(), color.get_green_u(), color.get_blue_u());
+    return rgbStrOut;
 }
 
-bool CtPrefDlg::question_warning(const std::string& warning)
+bool CtPrefDlg::user_confirm(const std::string& warning)
 {
-    return true;
+    Gtk::MessageDialog dialog(*this, _("Warning"),
+              true /* use_markup */, Gtk::MESSAGE_QUESTION,
+              Gtk::BUTTONS_OK_CANCEL);
+    dialog.set_secondary_text(warning);
+    return dialog.run() == Gtk::RESPONSE_OK;
+}
+
+void CtPrefDlg::user_inform(const std::string& info)
+{
+    Gtk::MessageDialog dialog(*this, _("Info"),
+              true /* use_markup */, Gtk::MESSAGE_INFO,
+              Gtk::BUTTONS_OK);
+    dialog.set_secondary_text(info);
+    dialog.run();
 }
 
 void CtPrefDlg::need_restart(RESTART_REASON reason, const gchar* msg /*= nullptr*/)
 {
     if (!(_restartReasons & (int)reason)) {
         _restartReasons |= (int)reason;
-        msg = msg ? msg : _("This Change will have Effect Only After Restarting CherryTree");
-        Gtk::MessageDialog dialog(*this, msg);
-        dialog.run();
+        user_inform(msg ? msg : _("This Change will have Effect Only After Restarting CherryTree"));
     }
 }
 
-std::string CtPrefDlg::choose_item_dialog(Glib::RefPtr<Gtk::ListStore> model)
+Gtk::TreeModel::iterator CtPrefDlg::choose_item_dialog(const std::string& title, Glib::RefPtr<Gtk::ListStore> model)
 {
-    return "";
+    Gtk::Dialog dialog(title, *this, Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
+    dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);
+    dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
+    dialog.set_default_response(Gtk::RESPONSE_ACCEPT);
+    dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
+    dialog.set_default_size(400, 300);
+    Gtk::ScrolledWindow* scrolledwindow = Gtk::manage(new Gtk::ScrolledWindow());
+    scrolledwindow->set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
+    Gtk::TreeView* elements_treeview = Gtk::manage(new Gtk::TreeView(model));
+    elements_treeview->set_headers_visible(false);
+    elements_treeview->append_column("", _chooseItemColumns.icon);
+    elements_treeview->append_column("", _chooseItemColumns.desc);
+    scrolledwindow->add(*elements_treeview);
+    //list_parms->sel_iter = elements_liststore->get_iter_first()
+    //if list_parms->sel_iter:
+    //    elements_treeview->set_cursor(elements_liststore->get_path(list_parms->sel_iter))
+    auto content_area = dialog.get_content_area();
+    content_area->pack_start(*scrolledwindow);
+    content_area->show_all();
+    elements_treeview->grab_focus();
+
+    if (dialog.run() != Gtk::RESPONSE_ACCEPT) return Gtk::TreeModel::iterator();
+    return elements_treeview->get_selection()->get_selected();
 }
 
 std::string CtPrefDlg::get_code_exec_term_run()
@@ -1567,12 +1604,12 @@ void CtPrefDlg::fill_toolbar_model(Glib::RefPtr<Gtk::ListStore> model)
     CtStrUtil::gstringSplit2string(CtApp::P_ctCfg->toolbarUiList.c_str(), vecToolbarElements, ",");
     model->clear();
     for(const std::string& key: vecToolbarElements)
-        add_new_item_in_toolbar_model(key, model);
+        add_new_item_in_toolbar_model(model->append(), key);
 }
 
-void CtPrefDlg::add_new_item_in_toolbar_model(const std::string& key, Glib::RefPtr<Gtk::ListStore> model)
+void CtPrefDlg::add_new_item_in_toolbar_model(Gtk::TreeModel::iterator row, const Glib::ustring& key)
 {
-    std::string icon, desc;
+    Glib::ustring icon, desc;
     if (key == CtConst::TAG_SEPARATOR)
     {
         icon = "";
@@ -1590,13 +1627,12 @@ void CtPrefDlg::add_new_item_in_toolbar_model(const std::string& key, Glib::RefP
         desc = action->desc;
     }
 
-    auto row = *(model->append());
-    if (icon != "") row[_toolbarModelColumns.icon] = get_icon(icon);
-    row[_toolbarModelColumns.key] = key;
-    row[_toolbarModelColumns.desc] = desc;
+    if (icon != "") row->set_value(_toolbarModelColumns.icon, get_icon(icon));
+    row->set_value(_toolbarModelColumns.key, key);
+    row->set_value(_toolbarModelColumns.desc, desc);
 }
 
-bool CtPrefDlg::add_new_item_in_toolbar_model(Glib::RefPtr<Gtk::ListStore> model)
+bool CtPrefDlg::add_new_item_in_toolbar_model(Gtk::TreeView* treeview, Glib::RefPtr<Gtk::ListStore> model)
 {
     Glib::RefPtr<Gtk::ListStore> itemStore = Gtk::ListStore::create(_chooseItemColumns);
     auto sep_row = *itemStore->append();
@@ -1612,9 +1648,12 @@ bool CtPrefDlg::add_new_item_in_toolbar_model(Glib::RefPtr<Gtk::ListStore> model
         if (action.image != "") row[_chooseItemColumns.icon] = get_icon(action.image);
         row[_chooseItemColumns.desc] = action.desc;
     }
-    std::string key = choose_item_dialog(itemStore);
-    if (!key.empty()) {
-        add_new_item_in_toolbar_model(key, model);
+
+    auto chosen_row = choose_item_dialog(_("Select Element to Add"), itemStore);
+    if (chosen_row) {
+        auto selected_row = treeview->get_selection()->get_selected();
+        auto new_row = selected_row ? model->insert_after(*selected_row) : model->append();
+        add_new_item_in_toolbar_model(new_row, chosen_row->get_value(_chooseItemColumns.key));
         return true;
     }
     return false;
@@ -1660,7 +1699,7 @@ bool CtPrefDlg::edit_shortcut(Gtk::TreeView* treeview)
             for(const CtAction& action: _pCtMenu->get_actions())
                 if (action.shortcut == shortcut && action.id != id) {
                     // todo: this is a shorter version from python code
-                    if (!question_warning(std::string("<b>") + _("The Keyboard Shortcut '%s' is already in use") + "</b>"))
+                    if (!user_confirm(std::string("<b>") + _("The Keyboard Shortcut '%s' is already in use") + "</b>"))
                         return false;
                     CtApp::P_ctCfg->customKbShortcuts[action.id] = "";
                 }

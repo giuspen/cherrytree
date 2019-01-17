@@ -32,14 +32,17 @@ public:
                          SCHEME            = 1 << 6, LANG         = 1 << 7,
                          TOOLBAR           = 1 << 8, SHORTCUT     = 1 << 9};
 
+    const std::string reset_warning = std::string("<b>")+_("Are you sure to Reset to Default?")+"</b>";
+
 private:
     Glib::RefPtr<Gdk::Pixbuf> get_icon(const std::string& name);
-    Gtk::Image* new_image_from_stock(const std::string& id, Gtk::IconSize size);
-    bool        question_warning(const std::string& warning);
-    std::string rgb_any_to_24(Gdk::RGBA color);
-    std::string rgb_to_string(Gdk::RGBA color);
-    void        need_restart(RESTART_REASON reason, const gchar* msg = nullptr);
-    std::string choose_item_dialog(Glib::RefPtr<Gtk::ListStore> model);
+    Gtk::Image*               new_image_from_stock(const std::string& id, Gtk::IconSize size);
+    std::string               rgb_any_to_24(Gdk::RGBA color);
+    std::string               rgb_to_string(Gdk::RGBA color);
+    bool                      user_confirm(const std::string& warning);
+    void                      user_inform(const std::string& info);
+    void                      need_restart(RESTART_REASON reason, const gchar* msg = nullptr);
+    Gtk::TreeModel::iterator  choose_item_dialog(const std::string& title, Glib::RefPtr<Gtk::ListStore> model);
 
 private:
     std::string get_code_exec_term_run();
@@ -48,8 +51,8 @@ private:
     void add_new_command_in_model(Glib::RefPtr<Gtk::ListStore> model);
 
     void fill_toolbar_model(Glib::RefPtr<Gtk::ListStore> model);
-    void add_new_item_in_toolbar_model(const std::string& key, Glib::RefPtr<Gtk::ListStore> model);
-    bool add_new_item_in_toolbar_model(Glib::RefPtr<Gtk::ListStore> model);
+    void add_new_item_in_toolbar_model(Gtk::TreeModel::iterator row, const Glib::ustring& key);
+    bool add_new_item_in_toolbar_model(Gtk::TreeView* treeview, Glib::RefPtr<Gtk::ListStore> model);
     void update_config_toolbar_from_model(Glib::RefPtr<Gtk::ListStore> model);
 
     void fill_shortcut_model(Glib::RefPtr<Gtk::TreeStore> model);
@@ -65,6 +68,8 @@ private:
        Gtk::TreeModelColumn<Glib::ustring>              shortcut;
        UniversalModelColumns() { add(icon); add(key); add(desc); add(shortcut); }
     };
+
+private:
     UniversalModelColumns _commandModelColumns;
     UniversalModelColumns _toolbarModelColumns;
     UniversalModelColumns _shortcutModelColumns;
