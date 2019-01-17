@@ -33,9 +33,11 @@ struct CtAction
     std::string id;
     std::string image;
     std::string name;
-    std::string shortcut;
+    std::string built_in_shortcut;
     std::string desc;
     sigc::slot<void> run_action;
+
+    const std::string& get_shortcut() const;
 };
 
 class CtApp;

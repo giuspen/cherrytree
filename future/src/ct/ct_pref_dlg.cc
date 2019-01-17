@@ -1582,6 +1582,7 @@ void CtPrefDlg::add_new_command_in_model(Glib::RefPtr<Gtk::ListStore> model)
         used_code_exec_keys.insert(it.first);
     for (const auto& it: CtConst::CODE_EXEC_TYPE_CMD_DEFAULT)
         used_code_exec_keys.insert(it.first);
+    // todo: add code based on this:
     /*
     def on_button_add_clicked(button):
         icon_n_key_list = []
@@ -1595,7 +1596,7 @@ void CtPrefDlg::add_new_command_in_model(Glib::RefPtr<Gtk::ListStore> model)
             default_type_command = "REPLACE_ME %s" % CODE_EXEC_TMP_SRC
             liststore_append_element(sel_key, default_type_command)
             dad.custom_codexec_type[sel_key] = default_type_command
-            */
+     */
 }
 
 void CtPrefDlg::fill_toolbar_model(Glib::RefPtr<Gtk::ListStore> model)
@@ -1684,7 +1685,7 @@ void CtPrefDlg::fill_shortcut_model(Glib::RefPtr<Gtk::TreeStore> model)
         if (action.image != "") row[_shortcutModelColumns.icon] = get_icon(action.image);
         row[_shortcutModelColumns.key] = action.id;
         row[_shortcutModelColumns.desc] = action.desc;
-        row[_shortcutModelColumns.shortcut] = action.shortcut;
+        row[_shortcutModelColumns.shortcut] = action.get_shortcut();
     }
 }
 
@@ -1697,7 +1698,7 @@ bool CtPrefDlg::edit_shortcut(Gtk::TreeView* treeview)
     if (edit_shortcut_dialog(shortcut)) {
         if (shortcut != "") {
             for(const CtAction& action: _pCtMenu->get_actions())
-                if (action.shortcut == shortcut && action.id != id) {
+                if (action.get_shortcut() == shortcut && action.id != id) {
                     // todo: this is a shorter version from python code
                     if (!user_confirm(std::string("<b>") + _("The Keyboard Shortcut '%s' is already in use") + "</b>"))
                         return false;

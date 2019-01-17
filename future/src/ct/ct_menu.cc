@@ -40,6 +40,13 @@ static void on_menu_activate(void* pObject, CtAction* pAction)
     }
 }
 
+const std::string& CtAction::get_shortcut() const
+{
+    auto it = CtApp::P_ctCfg->customKbShortcuts.find(id);
+    return it != CtApp::P_ctCfg->customKbShortcuts.end() ? it->second : built_in_shortcut;
+}
+
+
 
 CtMenu::CtMenu()
 {
@@ -389,7 +396,7 @@ void CtMenu::walk_menu_xml(GtkWidget* pMenu, xmlpp::Node* pNode)
         else if (pNodeIter->get_name() == "menuitem")
         {
             CtAction const* pAction = find_action(get_attribute(pNodeIter, "action")->get_value());
-            add_menu_item(pMenu, pAction->name.c_str(), pAction->image.c_str(), pAction->shortcut.c_str(), pAction->desc.c_str(), (gpointer)pAction);
+            add_menu_item(pMenu, pAction->name.c_str(), pAction->image.c_str(), pAction->get_shortcut().c_str(), pAction->desc.c_str(), (gpointer)pAction);
         }
         else if (pNodeIter->get_name() == "separator")
         {
