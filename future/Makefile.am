@@ -55,7 +55,8 @@ COMMON_SOURCES = \
 	src/ct/ct_misc_utils.cc \
 	src/ct/ct_p7za_iface.cc \
 	src/ct/icons.gresource.cc \
-	src/ct/ct_menu.cc
+	src/ct/ct_menu.cc \
+	src/ct/ct_pref_dlg.cc
 
 cherrytree_SOURCES = \
 	src/ct/ct_main.cc \

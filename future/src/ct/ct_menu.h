@@ -29,21 +29,32 @@
 
 struct CtAction
 {
+    std::string category;
     std::string id;
     std::string image;
     std::string name;
-    std::string shortcut;
+    std::string built_in_shortcut;
     std::string desc;
     sigc::slot<void> run_action;
+
+    const std::string& get_shortcut() const;
 };
 
 class CtApp;
 class CtMenu
 {
 public:
+    const char*       None       = "";
+    const std::string KB_CONTROL = "<control>";
+    const std::string KB_SHIFT   = "<shift>";
+    const std::string KB_ALT     = "<alt>";
+
+public:
     CtMenu();
 
     void init_actions(CtApp* pApp);
+    CtAction const* find_action(const std::string& id);
+    const std::list<CtAction>& get_actions() { return _actions; }
 
     GtkAccelGroup* default_accel_group();
 
@@ -58,8 +69,6 @@ public:
     Gtk::Menu*    build_popup_menu_table_codebox();
 
 private:
-    CtAction const* find_action(const std::string& id);
-
     GtkWidget* walk_menu_xml(GtkWidget* pMenu, const char* document, const char* xpath);
     void       walk_menu_xml(GtkWidget* pMenu, xmlpp::Node* pNode);
     GtkWidget* add_submenu(GtkWidget* pMenu, const char* name, const char* image);

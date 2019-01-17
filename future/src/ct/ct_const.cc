@@ -23,6 +23,7 @@
 
 const gchar    CtConst::CT_VERSION[]           {"0.0.1"};
 const gchar    CtConst::APP_NAME[]             {"cherrytree"};
+const bool     CtConst::IS_WIN_OS              {false};
 const int      CtConst::MAX_RECENT_DOCS             {10};
 const int      CtConst::MAX_RECENT_DOCS_RESTORE      {3};
 const int      CtConst::NODE_ICON_CODE_ID           {38};
@@ -92,6 +93,7 @@ const gchar    CtConst::TAG_FAMILY[]           {"family"};
 const gchar    CtConst::TAG_JUSTIFICATION[]    {"justification"};
 const gchar    CtConst::TAG_LINK[]             {"link"};
 const gchar    CtConst::TAG_SEPARATOR[]        {"separator"};
+const gchar    CtConst::TAG_SEPARATOR_ANSI_REPR[] {"---------"};
 
 const gchar    CtConst::TAG_PROP_VAL_HEAVY[]        {"heavy"};
 const gchar    CtConst::TAG_PROP_VAL_ITALIC[]       {"italic"};
@@ -117,6 +119,9 @@ const gchar    CtConst::STR_KEY_DOWN[]              {"Down"};
 const gchar    CtConst::STR_KEY_LEFT[]              {"Left"};
 const gchar    CtConst::STR_KEY_RIGHT[]             {"Right"};
 const gchar    CtConst::STR_STOCK_CT_IMP[]          {"import_in_cherrytree"};
+const gchar    CtConst::CHAR_NEWLINE[]              {"\n"};
+const gchar    CtConst::CHAR_STAR[]                 {"*"};
+
 const std::set<const gchar*> CtConst::TEXT_SYNTAXES {
     RICH_TEXT_ID,
     PLAIN_TEXT_ID};
@@ -141,6 +146,18 @@ const gchar CtConst::TOOLBAR_VEC_DEFAULT[] {
     "handle_link,handle_anchor,separator,fmt_rm,fmt_color_fg,"
     "fmt_color_bg,fmt_bold,fmt_italic,fmt_underline,fmt_strikethrough,"
     "fmt_h1,fmt_h2,fmt_h3,fmt_small,fmt_superscript,fmt_subscript,fmt_monospace"};
+
+const std::vector<std::string> CtConst::TOOLBAR_VEC_BLACKLIST {
+    "anch_cut", "anch_copy", "anch_del", "anch_edit", "emb_file_cut",
+    "emb_file_copy", "emb_file_del", "emb_file_save", "emb_file_open",
+    "img_save", "img_edit", "img_cut", "img_copy", "img_del",
+    "img_link_edit", "img_link_dismiss", "toggle_show_mainwin"
+};
+
+const gchar* CtConst::AVAILABLE_LANGS[20] {
+    "default", "cs", "de", "el", "en", "es", "fi", "fr", "hy", "it",
+    "ja", "lt", "nl", "pl", "pt_BR", "ru", "sl", "tr", "uk", "zh_CN"
+};
 
 const std::unordered_map<int, Glib::ustring> CtConst::NODES_STOCKS {
     { 1, "circle-green"},
@@ -220,6 +237,24 @@ const std::map<Glib::ustring, Glib::ustring> CtConst::CODE_ICONS {
     {"xml", "xml"},
     {"c", "c"},
     {"cpp", "cpp"},
+};
+
+
+const Glib::ustring CtConst::CODE_EXEC_TMP_SRC  {"<tmp_src_path>"};
+const Glib::ustring CtConst::CODE_EXEC_TMP_BIN  {"<tmp_bin_path>"};
+const Glib::ustring CtConst::CODE_EXEC_COMMAND  {"<command>"};
+const std::map<Glib::ustring, Glib::ustring> CtConst::CODE_EXEC_TYPE_CMD_DEFAULT {
+    {"c",        "gcc -o "+CtConst::CODE_EXEC_TMP_BIN+" "+CtConst::CODE_EXEC_TMP_SRC+" && "+CtConst::CODE_EXEC_TMP_BIN},
+    {"cpp",      "g++ -o "+CtConst::CODE_EXEC_TMP_BIN+" "+CtConst::CODE_EXEC_TMP_SRC+" && "+CtConst::CODE_EXEC_TMP_BIN},
+    {"dosbatch", "call "+CtConst::CODE_EXEC_TMP_SRC},
+    {"perl",     "perl "+CtConst::CODE_EXEC_TMP_SRC},
+    {"python",   "python2 "+CtConst::CODE_EXEC_TMP_SRC},
+    {"python3",  "python3 "+CtConst::CODE_EXEC_TMP_SRC},
+    {"sh",       "sh "+CtConst::CODE_EXEC_TMP_SRC}
+};
+const std::map<Glib::ustring, Glib::ustring> CtConst::CODE_EXEC_TERM_RUN_DEFAULT {
+    {"linux", "xterm -hold -geometry 180x45 -e \""+CtConst::CODE_EXEC_COMMAND+"\""},
+    {"win",   "start cmd /k \""+CtConst::CODE_EXEC_COMMAND+"\""}
 };
 
 Glib::ustring CtConst::getStockIdForCodeType(Glib::ustring code_type)

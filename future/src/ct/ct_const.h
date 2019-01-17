@@ -30,6 +30,7 @@ namespace CtConst {
 
 extern const gchar    CT_VERSION[];
 extern const gchar    APP_NAME[];
+extern const bool     IS_WIN_OS;
 extern const int      MAX_RECENT_DOCS;
 extern const int      MAX_RECENT_DOCS_RESTORE;
 extern const int      NODE_ICON_CODE_ID;
@@ -98,6 +99,7 @@ extern const gchar    TAG_FAMILY[];
 extern const gchar    TAG_JUSTIFICATION[];
 extern const gchar    TAG_LINK[];
 extern const gchar    TAG_SEPARATOR[];
+extern const gchar    TAG_SEPARATOR_ANSI_REPR[];
 extern const gchar    TAG_PROP_VAL_HEAVY[];
 extern const gchar    TAG_PROP_VAL_ITALIC[];
 extern const gchar    TAG_PROP_VAL_MONOSPACE[];
@@ -121,12 +123,23 @@ extern const gchar    STR_KEY_DOWN[];
 extern const gchar    STR_KEY_LEFT[];
 extern const gchar    STR_KEY_RIGHT[];
 extern const gchar    STR_STOCK_CT_IMP[];
+extern const gchar    CHAR_NEWLINE[];
+extern const gchar    CHAR_STAR[];
 extern const std::set<const gchar*> TEXT_SYNTAXES;
 extern const std::set<const gchar*> TAG_PROPERTIES;
 extern const gchar    TOOLBAR_VEC_DEFAULT[];
+extern const std::vector<std::string> TOOLBAR_VEC_BLACKLIST;
+extern const gchar*   AVAILABLE_LANGS[20];
 extern const std::unordered_map<int, Glib::ustring> NODES_STOCKS;
 extern const std::unordered_map<int, Glib::ustring> NODES_ICONS;
 extern const std::map<Glib::ustring, Glib::ustring> CODE_ICONS;
+
+extern const Glib::ustring CODE_EXEC_TMP_SRC;
+extern const Glib::ustring CODE_EXEC_TMP_BIN;
+extern const Glib::ustring CODE_EXEC_COMMAND;
+extern const std::map<Glib::ustring, Glib::ustring> CODE_EXEC_TYPE_CMD_DEFAULT;
+extern const std::map<Glib::ustring, Glib::ustring> CODE_EXEC_TERM_RUN_DEFAULT;
+
 
 Glib::ustring getStockIdForCodeType(Glib::ustring code_type);
 
