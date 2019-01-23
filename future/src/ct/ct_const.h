@@ -125,6 +125,8 @@ extern const gchar    STR_KEY_RIGHT[];
 extern const gchar    STR_STOCK_CT_IMP[];
 extern const gchar    CHAR_NEWLINE[];
 extern const gchar    CHAR_STAR[];
+extern const gchar    CHAR_SPACE[];
+extern const gchar    CHAR_QUESTION[];
 extern const std::set<const gchar*> TEXT_SYNTAXES;
 extern const std::set<const gchar*> TAG_PROPERTIES;
 extern const gchar    TOOLBAR_VEC_DEFAULT[];
@@ -139,7 +141,6 @@ extern const Glib::ustring CODE_EXEC_TMP_BIN;
 extern const Glib::ustring CODE_EXEC_COMMAND;
 extern const std::map<Glib::ustring, Glib::ustring> CODE_EXEC_TYPE_CMD_DEFAULT;
 extern const std::map<Glib::ustring, Glib::ustring> CODE_EXEC_TERM_RUN_DEFAULT;
-
 
 Glib::ustring getStockIdForCodeType(Glib::ustring code_type);
 

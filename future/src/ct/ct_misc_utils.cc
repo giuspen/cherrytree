@@ -382,9 +382,49 @@ char* CtRgbUtil::setRgb24StrFromStrAny(const char* rgbStrAny, char* rgb24StrOut)
     return rgb24StrOut;
 }
 
+std::string CtRgbUtil::getRgb24StrFromStrAny(const std::string& rgbStrAny)
+{
+    char rgb24Str[8];
+    setRgb24StrFromStrAny(rgbStrAny.c_str(), rgb24Str);
+    return rgb24Str;
+}
+
+
 guint32 CtRgbUtil::getRgb24IntFromStrAny(const char* rgbStrAny)
 {
     char rgb24Str[8];
     setRgb24StrFromStrAny(rgbStrAny, rgb24Str);
     return getRgb24IntFromRgb24Str(rgb24Str);
+}
+
+std::string CtRgbUtil::rgb_to_string(Gdk::RGBA color)
+{
+    char rgbStrOut[16];
+    sprintf(rgbStrOut, "#%.2x%.2x%.2x", color.get_red_u(), color.get_green_u(), color.get_blue_u());
+    return rgbStrOut;
+}
+
+std::string CtRgbUtil::rgb_any_to_24(Gdk::RGBA color)
+{
+    char rgb24StrOut[16];
+    CtRgbUtil::setRgb24StrFromStrAny(CtRgbUtil::rgb_to_string(color).c_str(), rgb24StrOut);
+    return rgb24StrOut;
+}
+
+bool str::endswith(const std::string& str, const std::string& ending) {
+    if (str.length() >= ending.length())
+        return (0 == str.compare(str.length() - ending.length(), ending.length(), ending));
+    return false;
+}
+
+std::string str::trim(std::string str)
+{
+    return CtStrUtil::trimString(str);
+}
+
+std::vector<std::string> str::split(const std::string& str, const std::string& delimer)
+{
+    std::vector<std::string> vec;
+    CtStrUtil::gstringSplit2string(str.c_str(), vec, delimer.c_str());
+    return vec;
 }

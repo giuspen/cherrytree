@@ -96,7 +96,11 @@ public:
     void          viewConnect(Gtk::TreeView* pTreeView);
     void          viewAppendColumns(Gtk::TreeView* pTreeView);
     bool          readNodesFromFilepath(const char* filepath, const bool isImport, const Gtk::TreeIter* pParentIter=nullptr);
+    void          getNodeData(Gtk::TreeIter treeIter, CtNodeData& nodeData);
+    void          updateNodeData(Gtk::TreeIter treeIter, const CtNodeData& nodeData);
+    void          updateNodeAuxIcon(Gtk::TreeIter treeIter);
     Gtk::TreeIter appendNode(CtNodeData* pNodeData, const Gtk::TreeIter* pParentIter=nullptr);
+    Gtk::TreeIter insertNode(CtNodeData* pNodeData, const Gtk::TreeIter& afterIter);
 
     void          onRequestAddBookmark(gint64 nodeId);
     Gtk::TreeIter onRequestAppendNode(CtNodeData* pNodeData, const Gtk::TreeIter* pParentIter);
@@ -110,15 +114,33 @@ public:
     void setTreePathTextCursorFromConfig(Gtk::TreeView* pTreeView, Gsv::View* pTextView);
     void treeviewSafeSetCursor(Gtk::TreeView* pTreeView, Gtk::TreeIter& iter);
 
+    gint64                       node_id_get();
+    void                         add_used_tags(const std::string& tags);
+    const std::set<std::string>& get_used_tags() { return _usedTags; }
+
+public:
+    Gtk::TreeIter get_iter_first();
+    Gtk::TreeIter iter_children(Gtk::TreeIter tree_iter);
+    Gtk::TreeIter iter_next(Gtk::TreeIter tree_iter);
+    Gtk::TreeIter iter_parent(Gtk::TreeIter tree_iter);
+    int           iter_depth(Gtk::TreeIter tree_iter);
+    Gtk::TreePath get_path(Gtk::TreeIter tree_iter);
+
+    void nodes_sequences_fix(Gtk::TreeIter father_iter, bool process_children) { /* todo: */ }
+    CtSQLiteRead* ctdb_handler() { return _pCtSQLiteRead; }
+
 protected:
     guint16                   _getPangoWeight(bool isBold);
-    Glib::RefPtr<Gdk::Pixbuf> _getNodeIcon(int nodeDepth, std::string &syntax, guint32 customIconId);
+    bool                      _getBold(guint16 pangoWeight);
+    Glib::RefPtr<Gdk::Pixbuf> _getNodeIcon(int nodeDepth, const std::string &syntax, guint32 customIconId);
     void                      _iterDeleteAnchoredWidgets(const Gtk::TreeModel::Children& children);
+
 
     Glib::RefPtr<Gsv::Buffer> _getNodeTextBuffer(const Gtk::TreeIter& treeIter);
 
     CtTreeModelColumns           _columns;
     Glib::RefPtr<Gtk::TreeStore> _rTreeStore;
     std::set<gint64>             _bookmarks;
+    std::set<std::string>        _usedTags;
     CtSQLiteRead*                _pCtSQLiteRead{nullptr};
 };

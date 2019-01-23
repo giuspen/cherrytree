@@ -8,6 +8,8 @@
 #include <gdk/gdkkeysyms.h>
 #include "ct_app.h"
 #include "ct_misc_utils.h"
+#include "ct_image.h"
+#include "ct_dialogs.h"
 
 CtPrefDlg::CtPrefDlg(Gtk::Window& parent, CtMenu* pCtMenu)
     : Gtk::Dialog (_("Preferences"), parent, true)
@@ -104,7 +106,7 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
     Gtk::Entry* entry_timestamp_format = Gtk::manage(new Gtk::Entry());
     entry_timestamp_format->set_text(config->timestampFormat);
     Gtk::Button* button_strftime_help = Gtk::manage(new Gtk::Button());
-    button_strftime_help->set_image(*new_image_from_stock("gtk-help", Gtk::ICON_SIZE_BUTTON));
+    button_strftime_help->set_image(*CtImage::new_image_from_stock("gtk-help", Gtk::ICON_SIZE_BUTTON));
     hbox_timestamp->pack_start(*label_timestamp, false, false);
     hbox_timestamp->pack_start(*entry_timestamp_format, false, false);
     hbox_timestamp->pack_start(*button_strftime_help, false, false);
@@ -121,7 +123,7 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
     Gtk::Label* label_special_chars = Gtk::manage(new Gtk::Label(_("Special Characters")));
     Gtk::HBox* hbox_reset = Gtk::manage(new Gtk::HBox());
     Gtk::Button* button_reset = Gtk::manage(new Gtk::Button());
-    button_reset->set_image(*new_image_from_stock("gtk-undo", Gtk::ICON_SIZE_BUTTON));
+    button_reset->set_image(*CtImage::new_image_from_stock("gtk-undo", Gtk::ICON_SIZE_BUTTON));
     button_reset->set_tooltip_text(_("Reset to Default"));
     hbox_reset->pack_start(*Gtk::manage(new Gtk::Label()), true, false); // todo: not sure about third arg
     hbox_reset->pack_start(*button_reset, false, false);
@@ -408,13 +410,13 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
         //if new_lang_code != dad.spell_check_lang: dad.spell_check_set_new_lang(new_lang_code)
     });
     colorbutton_text_fg->signal_color_set().connect([this, config, colorbutton_text_fg](){
-        config->rtDefFg = rgb_any_to_24(colorbutton_text_fg->get_rgba());
+        config->rtDefFg = CtRgbUtil::rgb_any_to_24(colorbutton_text_fg->get_rgba());
         //if dad.curr_tree_iter and dad.syntax_highlighting == cons.RICH_TEXT_ID:
         //    dad.widget_set_colors(dad.sourceview, dad.rt_def_fg, dad.rt_def_bg, False)
         //    support.rich_text_node_modify_codeboxes_color(dad.curr_buffer.get_start_iter(), dad)
     });
     colorbutton_text_bg->signal_color_set().connect([this, config, colorbutton_text_bg](){
-        config->rtDefBg = rgb_any_to_24(colorbutton_text_bg->get_rgba());
+        config->rtDefBg = CtRgbUtil::rgb_any_to_24(colorbutton_text_bg->get_rgba());
         //if dad.curr_tree_iter and dad.syntax_highlighting == cons.RICH_TEXT_ID:
         //    if dad.rt_highl_curr_line:
         //        dad.set_sourcebuffer_with_style_scheme()
@@ -449,7 +451,7 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     checkbutton_monospace_bg->signal_toggled().connect([this, config, checkbutton_monospace_bg, colorbutton_monospace_bg](){
         if (checkbutton_monospace_bg->get_active())
         {
-            config->monospaceBg = rgb_any_to_24(colorbutton_monospace_bg->get_rgba());
+            config->monospaceBg = CtRgbUtil::rgb_any_to_24(colorbutton_monospace_bg->get_rgba());
             colorbutton_monospace_bg->set_sensitive(true);
         } else {
             config->monospaceBg = "";
@@ -458,7 +460,7 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
         need_restart(RESTART_REASON::MONOSPACE);
     });
     colorbutton_monospace_bg->signal_color_set().connect([this, config, colorbutton_monospace_bg](){
-        config->monospaceBg = rgb_any_to_24(colorbutton_monospace_bg->get_rgba());
+        config->monospaceBg = CtRgbUtil::rgb_any_to_24(colorbutton_monospace_bg->get_rgba());
         need_restart(RESTART_REASON::MONOSPACE);
     });
     checkbutton_rt_show_white_spaces->signal_toggled().connect([config, checkbutton_rt_show_white_spaces](){
@@ -535,10 +537,10 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
     scrolledwindow->add(*treeview);
 
     Gtk::Button* button_add = Gtk::manage(new Gtk::Button());
-    button_add->set_image(*new_image_from_stock("gtk-add", Gtk::ICON_SIZE_BUTTON));
+    button_add->set_image(*CtImage::new_image_from_stock("gtk-add", Gtk::ICON_SIZE_BUTTON));
     button_add->set_tooltip_text(_("Add"));
     Gtk::Button* button_reset_cmds = Gtk::manage(new Gtk::Button());
-    button_reset_cmds->set_image(*new_image_from_stock("gtk-undo", Gtk::ICON_SIZE_BUTTON));
+    button_reset_cmds->set_image(*CtImage::new_image_from_stock("gtk-undo", Gtk::ICON_SIZE_BUTTON));
     button_reset_cmds->set_tooltip_text(_("Reset to Default"));
     Gtk::VBox* vbox_buttons = Gtk::manage(new Gtk::VBox());
     vbox_buttons->pack_start(*button_add, false, false);
@@ -550,7 +552,7 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
     Gtk::Entry* entry_term_run = Gtk::manage(new Gtk::Entry());
     entry_term_run->set_text(get_code_exec_term_run());
     Gtk::Button* button_reset_term = Gtk::manage(new Gtk::Button());
-    button_reset_term->set_image(*new_image_from_stock("gtk-undo", Gtk::ICON_SIZE_BUTTON));
+    button_reset_term->set_image(*CtImage::new_image_from_stock("gtk-undo", Gtk::ICON_SIZE_BUTTON));
     button_reset_term->set_tooltip_text(_("Reset to Default"));
     hbox_term_run->pack_start(*entry_term_run, true, false);
     hbox_term_run->pack_start(*button_reset_term, false, false);
@@ -683,7 +685,7 @@ Gtk::Widget* CtPrefDlg::build_tab_tree_1()
     checkbutton_aux_icon_hide->set_active(config->auxIconHide);
 
     Gtk::Button* c_icon_button = Gtk::manage(new Gtk::Button());
-    c_icon_button->set_image(*new_image_from_stock(CtConst::NODES_STOCKS.at(config->defaultIconText), Gtk::ICON_SIZE_BUTTON));
+    c_icon_button->set_image(*CtImage::new_image_from_stock(CtConst::NODES_STOCKS.at(config->defaultIconText), Gtk::ICON_SIZE_BUTTON));
     Gtk::HBox* c_icon_hbox = Gtk::manage(new Gtk::HBox());
     c_icon_hbox->set_spacing(2);
     c_icon_hbox->pack_start(*radiobutton_node_icon_custom, false, false);
@@ -739,12 +741,12 @@ Gtk::Widget* CtPrefDlg::build_tab_tree_1()
     pMainBox->pack_start(*frame_nodes_startup, false, false);
 
     colorbutton_tree_fg->signal_color_set().connect([this, config, colorbutton_tree_fg](){
-        config->ttDefFg = rgb_any_to_24(colorbutton_tree_fg->get_rgba());
+        config->ttDefFg = CtRgbUtil::rgb_any_to_24(colorbutton_tree_fg->get_rgba());
         //dad.treeview_set_colors()
         //if dad.curr_tree_iter: dad.update_node_name_header()
     });
     colorbutton_tree_bg->signal_color_set().connect([this, config, colorbutton_tree_bg](){
-        config->ttDefBg = rgb_any_to_24(colorbutton_tree_bg->get_rgba());
+        config->ttDefBg = CtRgbUtil::rgb_any_to_24(colorbutton_tree_bg->get_rgba());
         //dad.treeview_set_colors()
         //if dad.curr_tree_iter: dad.update_node_name_header()
     });
@@ -900,10 +902,10 @@ Gtk::Widget* CtPrefDlg::build_tab_fonts()
 {
     CtConfig* config = CtApp::P_ctCfg;
 
-    Gtk::Image* image_rt = new_image_from_stock(Gtk::Stock::SELECT_FONT.id, Gtk::ICON_SIZE_MENU);
-    Gtk::Image* image_pt = new_image_from_stock(Gtk::Stock::SELECT_FONT.id, Gtk::ICON_SIZE_MENU);
-    Gtk::Image* image_code = new_image_from_stock("xml", Gtk::ICON_SIZE_MENU);
-    Gtk::Image* image_tree = new_image_from_stock("cherries", Gtk::ICON_SIZE_MENU);
+    Gtk::Image* image_rt = CtImage::new_image_from_stock(Gtk::Stock::SELECT_FONT.id, Gtk::ICON_SIZE_MENU);
+    Gtk::Image* image_pt = CtImage::new_image_from_stock(Gtk::Stock::SELECT_FONT.id, Gtk::ICON_SIZE_MENU);
+    Gtk::Image* image_code = CtImage::new_image_from_stock("xml", Gtk::ICON_SIZE_MENU);
+    Gtk::Image* image_tree = CtImage::new_image_from_stock("cherries", Gtk::ICON_SIZE_MENU);
     Gtk::Label* label_rt = Gtk::manage(new Gtk::Label(_("Rich Text")));
     Gtk::Label* label_pt = Gtk::manage(new Gtk::Label(_("Plain Text")));
     Gtk::Label* label_code = Gtk::manage(new Gtk::Label(_("Code Font")));
@@ -1115,19 +1117,19 @@ Gtk::Widget* CtPrefDlg::build_tab_links()
         need_restart(RESTART_REASON::ANCHOR_SIZE);
     });
     colorbutton_col_link_webs->signal_color_set().connect([this, config, colorbutton_col_link_webs](){
-        config->colLinkWebs = rgb_to_string(colorbutton_col_link_webs->get_rgba());
+        config->colLinkWebs = CtRgbUtil::rgb_to_string(colorbutton_col_link_webs->get_rgba());
         need_restart(RESTART_REASON::COLOR);
     });
     colorbutton_col_link_node->signal_color_set().connect([this, config, colorbutton_col_link_node](){
-        config->colLinkNode = rgb_to_string(colorbutton_col_link_node->get_rgba());
+        config->colLinkNode = CtRgbUtil::rgb_to_string(colorbutton_col_link_node->get_rgba());
         need_restart(RESTART_REASON::COLOR);
     });
     colorbutton_col_link_file->signal_color_set().connect([this, config, colorbutton_col_link_file](){
-        config->colLinkFile =  rgb_to_string(colorbutton_col_link_file->get_rgba());
+        config->colLinkFile =  CtRgbUtil::rgb_to_string(colorbutton_col_link_file->get_rgba());
         need_restart(RESTART_REASON::COLOR);
     });
     colorbutton_col_link_fold->signal_color_set().connect([this, config, colorbutton_col_link_fold](){
-        config->colLinkFold = rgb_to_string(colorbutton_col_link_fold->get_rgba());
+        config->colLinkFold = CtRgbUtil::rgb_to_string(colorbutton_col_link_fold->get_rgba());
         need_restart(RESTART_REASON::COLOR);
     });
 
@@ -1150,13 +1152,13 @@ Gtk::Widget* CtPrefDlg::build_tab_toolbar()
     scrolledwindow->add(*treeview);
 
     Gtk::Button* button_add = Gtk::manage(new Gtk::Button());
-    button_add->set_image(*new_image_from_stock(Gtk::Stock::ADD.id,  Gtk::ICON_SIZE_BUTTON));
+    button_add->set_image(*CtImage::new_image_from_stock(Gtk::Stock::ADD.id,  Gtk::ICON_SIZE_BUTTON));
     button_add->set_tooltip_text(_("Add"));
     Gtk::Button* button_remove = Gtk::manage(new Gtk::Button());
-    button_remove->set_image(*new_image_from_stock(Gtk::Stock::REMOVE.id, Gtk::ICON_SIZE_BUTTON));
+    button_remove->set_image(*CtImage::new_image_from_stock(Gtk::Stock::REMOVE.id, Gtk::ICON_SIZE_BUTTON));
     button_remove->set_tooltip_text(_("Remove Selected"));
     Gtk::Button* button_reset = Gtk::manage(new Gtk::Button());
-    button_reset->set_image(*new_image_from_stock(Gtk::Stock::UNDO.id, Gtk::ICON_SIZE_BUTTON));
+    button_reset->set_image(*CtImage::new_image_from_stock(Gtk::Stock::UNDO.id, Gtk::ICON_SIZE_BUTTON));
     button_reset->set_tooltip_text(_("Reset to Default"));
 
     Gtk::HBox* hbox = Gtk::manage(new Gtk::HBox());
@@ -1223,10 +1225,10 @@ Gtk::Widget* CtPrefDlg::build_tab_kb_shortcuts()
 
     Gtk::VBox* vbox_buttons = Gtk::manage(new Gtk::VBox());
     Gtk::Button* button_edit = Gtk::manage(new Gtk::Button());
-    button_edit->set_image(*new_image_from_stock(Gtk::Stock::ADD.id,  Gtk::ICON_SIZE_BUTTON));
+    button_edit->set_image(*CtImage::new_image_from_stock(Gtk::Stock::ADD.id,  Gtk::ICON_SIZE_BUTTON));
     button_edit->set_tooltip_text(_("Change Selected"));
     Gtk::Button* button_reset = Gtk::manage(new Gtk::Button());
-    button_reset->set_image(*new_image_from_stock(Gtk::Stock::UNDO.id,  Gtk::ICON_SIZE_BUTTON));
+    button_reset->set_image(*CtImage::new_image_from_stock(Gtk::Stock::UNDO.id,  Gtk::ICON_SIZE_BUTTON));
     button_reset->set_tooltip_text(_("Reset to Default"));
     vbox_buttons->pack_start(*button_edit, false, false);
     vbox_buttons->pack_start(*Gtk::manage(new Gtk::Label()), true, true);
@@ -1469,26 +1471,6 @@ Glib::RefPtr<Gdk::Pixbuf> CtPrefDlg::get_icon(const std::string& name)
     return Glib::RefPtr<Gdk::Pixbuf>();
 }
 
-Gtk::Image* CtPrefDlg::new_image_from_stock(const std::string& id, Gtk::IconSize size)
-{
-    Gtk::Image* image = Gtk::manage(new Gtk::Image());
-    image->set_from_icon_name(id, size);
-    return image;
-}
-
-std::string CtPrefDlg::rgb_any_to_24(Gdk::RGBA color)
-{
-    char rgb24StrOut[16];
-    CtRgbUtil::setRgb24StrFromStrAny(rgb_to_string(color).c_str(), rgb24StrOut);
-    return rgb24StrOut;
-}
-
-std::string CtPrefDlg::rgb_to_string(Gdk::RGBA color)
-{
-    char rgbStrOut[16];
-    sprintf(rgbStrOut, "#%.2x%.2x%.2x", color.get_red_u(), color.get_green_u(), color.get_blue_u());
-    return rgbStrOut;
-}
 
 bool CtPrefDlg::user_confirm(const std::string& warning)
 {
@@ -1514,33 +1496,6 @@ void CtPrefDlg::need_restart(RESTART_REASON reason, const gchar* msg /*= nullptr
         _restartReasons |= (int)reason;
         user_inform(msg ? msg : _("This Change will have Effect Only After Restarting CherryTree"));
     }
-}
-
-Gtk::TreeModel::iterator CtPrefDlg::choose_item_dialog(const std::string& title, Glib::RefPtr<Gtk::ListStore> model)
-{
-    Gtk::Dialog dialog(title, *this, Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
-    dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);
-    dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
-    dialog.set_default_response(Gtk::RESPONSE_ACCEPT);
-    dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
-    dialog.set_default_size(400, 300);
-    Gtk::ScrolledWindow* scrolledwindow = Gtk::manage(new Gtk::ScrolledWindow());
-    scrolledwindow->set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
-    Gtk::TreeView* elements_treeview = Gtk::manage(new Gtk::TreeView(model));
-    elements_treeview->set_headers_visible(false);
-    elements_treeview->append_column("", _chooseItemColumns.icon);
-    elements_treeview->append_column("", _chooseItemColumns.desc);
-    scrolledwindow->add(*elements_treeview);
-    //list_parms->sel_iter = elements_liststore->get_iter_first()
-    //if list_parms->sel_iter:
-    //    elements_treeview->set_cursor(elements_liststore->get_path(list_parms->sel_iter))
-    auto content_area = dialog.get_content_area();
-    content_area->pack_start(*scrolledwindow);
-    content_area->show_all();
-    elements_treeview->grab_focus();
-
-    if (dialog.run() != Gtk::RESPONSE_ACCEPT) return Gtk::TreeModel::iterator();
-    return elements_treeview->get_selection()->get_selected();
 }
 
 std::string CtPrefDlg::get_code_exec_term_run()
@@ -1602,8 +1557,7 @@ void CtPrefDlg::add_new_command_in_model(Glib::RefPtr<Gtk::ListStore> model)
 
 void CtPrefDlg::fill_toolbar_model(Glib::RefPtr<Gtk::ListStore> model)
 {
-    std::vector<std::string> vecToolbarElements;
-    CtStrUtil::gstringSplit2string(CtApp::P_ctCfg->toolbarUiList.c_str(), vecToolbarElements, ",");
+    std::vector<std::string> vecToolbarElements = str::split(CtApp::P_ctCfg->toolbarUiList, ",");
     model->clear();
     for(const std::string& key: vecToolbarElements)
         add_new_item_in_toolbar_model(model->append(), key);
@@ -1636,26 +1590,21 @@ void CtPrefDlg::add_new_item_in_toolbar_model(Gtk::TreeModel::iterator row, cons
 
 bool CtPrefDlg::add_new_item_in_toolbar_model(Gtk::TreeView* treeview, Glib::RefPtr<Gtk::ListStore> model)
 {
-    Glib::RefPtr<Gtk::ListStore> itemStore = Gtk::ListStore::create(_chooseItemColumns);
-    auto sep_row = *itemStore->append();
-    sep_row[_chooseItemColumns.key] = CtConst::TAG_SEPARATOR;
-    sep_row[_chooseItemColumns.desc] = CtConst::TAG_SEPARATOR_ANSI_REPR;
+    auto itemStore = ct_dialogs::CtChooseDialogListStore::create();
+    itemStore->add_row("", CtConst::TAG_SEPARATOR, CtConst::TAG_SEPARATOR_ANSI_REPR);
     for (const CtAction& action: _pCtMenu->get_actions())
     {
         if (action.desc.empty()) continue; // skip stub menu entries
         if (action.id == "ct_open_file" && CtApp::P_ctCfg->toolbarUiList.find(CtConst::CHAR_STAR) != std::string::npos) continue;
-        if (std::find(CtConst::TOOLBAR_VEC_BLACKLIST.begin(), CtConst::TOOLBAR_VEC_BLACKLIST.end(), action.id) != CtConst::TOOLBAR_VEC_BLACKLIST.end()) continue;
-        auto row = *itemStore->append();
-        row[_chooseItemColumns.key] = action.id;
-        if (action.image != "") row[_chooseItemColumns.icon] = get_icon(action.image);
-        row[_chooseItemColumns.desc] = action.desc;
+        if (vec::exists(CtConst::TOOLBAR_VEC_BLACKLIST, action.id)) continue;
+        itemStore->add_row(action.image, action.id, action.desc);
     }
 
-    auto chosen_row = choose_item_dialog(_("Select Element to Add"), itemStore);
+    auto chosen_row = ct_dialogs::choose_item_dialog(*this, _("Select Element to Add"), itemStore);
     if (chosen_row) {
         auto selected_row = treeview->get_selection()->get_selected();
         auto new_row = selected_row ? model->insert_after(*selected_row) : model->append();
-        add_new_item_in_toolbar_model(new_row, chosen_row->get_value(_chooseItemColumns.key));
+        add_new_item_in_toolbar_model(new_row, chosen_row->get_value(itemStore->columns.key));
         return true;
     }
     return false;
@@ -1663,10 +1612,10 @@ bool CtPrefDlg::add_new_item_in_toolbar_model(Gtk::TreeView* treeview, Glib::Ref
 
 void CtPrefDlg::update_config_toolbar_from_model(Glib::RefPtr<Gtk::ListStore> model)
 {
-    std::string acc;
+    std::vector<std::string> items;
     for (auto it: model->children())
-        acc += it.get_value(_toolbarModelColumns.key) + ",";
-    CtApp::P_ctCfg->toolbarUiList = acc.substr(0, acc.size()-1);
+        items.push_back(it.get_value(_toolbarModelColumns.key));
+    CtApp::P_ctCfg->toolbarUiList = str::join(items, ",");
 }
 
 void CtPrefDlg::fill_shortcut_model(Glib::RefPtr<Gtk::TreeStore> model)

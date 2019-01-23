@@ -36,13 +36,9 @@ private:
 
 private:
     Glib::RefPtr<Gdk::Pixbuf> get_icon(const std::string& name);
-    Gtk::Image*               new_image_from_stock(const std::string& id, Gtk::IconSize size);
-    std::string               rgb_any_to_24(Gdk::RGBA color);
-    std::string               rgb_to_string(Gdk::RGBA color);
     bool                      user_confirm(const std::string& warning);
     void                      user_inform(const std::string& info);
     void                      need_restart(RESTART_REASON reason, const gchar* msg = nullptr);
-    Gtk::TreeModel::iterator  choose_item_dialog(const std::string& title, Glib::RefPtr<Gtk::ListStore> model);
 
 private:
     std::string get_code_exec_term_run();
@@ -73,7 +69,6 @@ private:
     UniversalModelColumns _commandModelColumns;
     UniversalModelColumns _toolbarModelColumns;
     UniversalModelColumns _shortcutModelColumns;
-    UniversalModelColumns _chooseItemColumns;
     CtMenu*               _pCtMenu;
     int                   _restartReasons;
 };

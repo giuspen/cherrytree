@@ -13,3 +13,7 @@ src/ct/ct_const.cc
 src/ct/ct_misc_utils.cc
 src/ct/ct_p7za_iface.cc
 src/ct/ct_menu.cc
+src/ct/ct_actions_tree.cc
+src/ct/ct_dialogs.cc
+src/ct/ct_pref_dlg.cc
+src/ct/ct_pref_dlg.h

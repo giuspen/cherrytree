@@ -51,6 +51,14 @@ CtImage::CtImage(const char* stockImage,
     show_all();
 }
 
+Gtk::Image* CtImage::new_image_from_stock(const std::string& stockImage, const int& size)
+{
+    Glib::RefPtr<Gdk::Pixbuf> pix_buf = CtApp::R_icontheme->load_icon(stockImage, size);
+    Gtk::Image* image = Gtk::manage(new Gtk::Image());
+    image->set(pix_buf);
+    return image;
+}
+
 
 CtImagePng::CtImagePng(const std::string& rawBlob,
                        const Glib::ustring& link,

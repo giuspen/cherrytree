@@ -69,6 +69,13 @@ public:
 
     bool readNodesFromGioFile(const Glib::RefPtr<Gio::File>& r_file, const bool isImport);
     void configApply();
+    void update_window_save_needed(const std::string& update_type = "",
+                                   bool new_machine_state = false, void* give_tree_iter = nullptr) { /* todo: */ }
+
+    Gtk::TreeIter curr_tree_iter();
+    CtTreeStore&  get_tree_store();
+    CtTreeView&   get_tree_view();
+    CtTextView&   get_text_view();
 
 protected:
     void                _onTheTreeviewSignalCursorChanged();

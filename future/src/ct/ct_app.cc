@@ -65,8 +65,10 @@ CtApp::CtApp() : Gtk::Application("com.giuspen.cherrytree", Gio::APPLICATION_HAN
     {
         R_cssProvider = Gtk::CssProvider::create();
     }
+
+    _pCtActions = new CtActions();
     _pCtMenu = new CtMenu();
-    _pCtMenu->init_actions(this);
+    _pCtMenu->init_actions(this, _pCtActions);
 }
 
 CtApp::~CtApp()
@@ -79,6 +81,7 @@ CtApp::~CtApp()
     P_ctTmp = nullptr;
 
     delete _pCtMenu;
+    delete _pCtActions;
 }
 
 Glib::RefPtr<CtApp> CtApp::create()
@@ -109,11 +112,20 @@ void CtApp::_iconthemeInit()
 CtMainWin* CtApp::create_appwindow()
 {
     auto pMainWin = new CtMainWin(_pCtMenu);
+    _pCtActions->init(pMainWin, &pMainWin->get_tree_store());
 
     add_window(*pMainWin);
 
     pMainWin->signal_hide().connect(sigc::bind<Gtk::Window*>(sigc::mem_fun(*this, &CtApp::on_hide_window), pMainWin));
     return pMainWin;
+}
+
+CtMainWin* CtApp::get_main_win()
+{
+    auto windows_list = get_windows();
+    if (windows_list.size() > 0)
+        return dynamic_cast<CtMainWin*>(windows_list[0]);
+    return create_appwindow();
 }
 
 void CtApp::on_activate()
@@ -149,17 +161,7 @@ void CtApp::on_hide_window(Gtk::Window* pWindow)
 void CtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::ustring& hint)
 {
     // app run with arguments
-    CtMainWin* pAppWindow{nullptr};
-    auto windows_list = get_windows();
-    if (windows_list.size() > 0)
-    {
-        pAppWindow = dynamic_cast<CtMainWin*>(windows_list[0]);
-    }
-
-    if (!pAppWindow)
-    {
-        pAppWindow = create_appwindow();
-    }
+    CtMainWin* pAppWindow = get_main_win();
 
     for (const Glib::RefPtr<Gio::File>& r_file : files)
     {
@@ -182,11 +184,6 @@ void CtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::u
 void CtApp::quit_application()
 {
     quit();
-}
-
-void CtApp::add_node()
-{
-    std::cout << "CtApp::add_node() is called" << std::endl;
 }
 
 void CtApp::dialog_preferences()

@@ -176,6 +176,37 @@ TEST(MiscUtilsGroup, getRgb24IntFromStrAny)
     CHECK_EQUAL(expectedInt24, CtRgbUtil::getRgb24IntFromStrAny("f122ab335744"));
 }
 
+TEST(MiscUtilsGroup, str__endswith)
+{
+    CHECK(str::endswith("", ""));
+    CHECK(str::endswith("123", ""));
+    CHECK(str::endswith("123", "23"));
+    CHECK(!str::endswith("123", "1"));
+    CHECK(!str::endswith("", "1"));
+}
+
+TEST(MiscUtilsGroup, str__join)
+{
+    std::vector<std::string> empty_v;
+    std::vector<std::string> v_1{"1"};
+    std::vector<std::string> v_2{"1", "2"};
+
+    CHECK(str::join(empty_v, ",") == "");
+    CHECK(str::join(v_1, ",") == "1");
+    CHECK(str::join(v_2, ",") == "1,2");
+}
+
+TEST(MiscUtilsGroup, vec_remove)
+{
+    std::vector<int> empty_v;
+    std::vector<int> v_3{1, 2, 3};
+
+    vec::remove(empty_v, 1);
+    vec::remove(v_3, 0);
+    CHECK(v_3.size() == 3);
+    vec::remove(v_3, 2);
+    CHECK(v_3.size() == 2);
+}
 
 int main(int ac, char** av)
 {
