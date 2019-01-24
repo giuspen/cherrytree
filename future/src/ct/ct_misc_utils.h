@@ -126,6 +126,66 @@ guint32 getRgb24IntFromRgb24Str(const char* rgb24Str);
 
 char* setRgb24StrFromStrAny(const char* rgbStrAny, char* rgb24StrOut);
 
+std::string getRgb24StrFromStrAny(const std::string& rgbStrAny);
+
 guint32 getRgb24IntFromStrAny(const char* rgbStrAny);
 
+std::string rgb_to_string(Gdk::RGBA color);
+
+std::string rgb_any_to_24(Gdk::RGBA color);
+
+
 } // namespace CtRgbUtil
+
+
+namespace str {
+
+bool endswith(const std::string& str, const std::string& ending);
+
+std::string trim(std::string str);
+
+std::vector<std::string> split(const std::string& str, const std::string& delimer);
+
+template<class CONTAINER>
+std::string join(const CONTAINER cnt, const std::string& delimer)
+{
+    bool firstTime = true;
+    std::stringstream ss;
+    for (auto& v: cnt)
+    {
+      if (!firstTime) ss << delimer;
+      firstTime = false;
+      ss << v;
+    }
+    return ss.str();
+}
+
+
+} // namespace str
+
+namespace vec {
+
+template<class VEC, class VAL>
+void remove(VEC& vec, const VAL& val)
+{
+    auto it = std::find(vec.begin(), vec.end(), val);
+    if (it != vec.end())
+        vec.erase(it);
+}
+
+template<class VEC, class VAL>
+bool exists(const VEC& vec, const VAL& val)
+{
+    return std::find(vec.begin(), vec.end(), val) != vec.end();
+}
+
+} // namespace vec
+
+namespace map {
+
+template<class MAP, class KEY>
+bool exists(const MAP& m, KEY& key) {
+    return m.find(key) != m.end();
+}
+
+} // namespace map

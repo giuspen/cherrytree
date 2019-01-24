@@ -121,6 +121,8 @@ const gchar    CtConst::STR_KEY_RIGHT[]             {"Right"};
 const gchar    CtConst::STR_STOCK_CT_IMP[]          {"import_in_cherrytree"};
 const gchar    CtConst::CHAR_NEWLINE[]              {"\n"};
 const gchar    CtConst::CHAR_STAR[]                 {"*"};
+const gchar    CtConst::CHAR_SPACE[]                {" "};
+const gchar    CtConst::CHAR_QUESTION[]             {"?"};
 
 const std::set<const gchar*> CtConst::TEXT_SYNTAXES {
     RICH_TEXT_ID,

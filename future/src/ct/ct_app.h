@@ -30,6 +30,7 @@
 #include "ct_config.h"
 #include "ct_main_win.h"
 #include "ct_menu.h"
+#include "ct_actions.h"
 
 class CtTmp
 {
@@ -46,6 +47,7 @@ protected:
 
 class CtMenu;
 class CtMainWin;
+class CtActions;
 class CtApp: public Gtk::Application
 {
 protected:
@@ -65,6 +67,7 @@ public:
 
 private:
     CtMenu* _pCtMenu;
+    CtActions* _pCtActions;
 
 protected:
     void on_activate() override;
@@ -76,10 +79,10 @@ protected:
 
 public:
     void quit_application();
-    void add_node();
     void dialog_preferences();
 
 private:
     CtMainWin* create_appwindow();
+    CtMainWin* get_main_win();
     void on_hide_window(Gtk::Window* window);
 };

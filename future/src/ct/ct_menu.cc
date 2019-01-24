@@ -54,7 +54,7 @@ CtMenu::CtMenu()
     _rGtkBuilder = Gtk::Builder::create();
 }
 
-void CtMenu::init_actions(CtApp *pApp)
+void CtMenu::init_actions(CtApp *pApp, CtActions* pActions)
 {
     // stubs for menu bar
     _actions.push_back(CtAction{"", "FileMenu", None, _("_File"), None, None, sigc::signal<void>()});
@@ -141,9 +141,9 @@ void CtMenu::init_actions(CtApp *pApp)
     _actions.push_back(CtAction{fmt_cat, "fmt_justify_right", "gtk-justify-right", _("Justify _Right"), None, _("Justify Right the Current Paragraph"), sigc::signal<void>() /* dad.apply_tag_justify_right */});
     _actions.push_back(CtAction{fmt_cat, "fmt_justify_fill", "gtk-justify-fill", _("Justify _Fill"), None, _("Justify Fill the Current Paragraph"), sigc::signal<void>() /* dad.apply_tag_justify_fill */});
     const char* tree_cat = _("Tree");
-    _actions.push_back(CtAction{tree_cat, "tree_add_node", "tree-node-add", _("Add _Node"), KB_CONTROL+"N", _("Add a Node having the same Parent of the Selected Node"), sigc::mem_fun(*pApp, &CtApp::add_node) /* dad.node_add */});
+    _actions.push_back(CtAction{tree_cat, "tree_add_node", "tree-node-add", _("Add _Node"), KB_CONTROL+"N", _("Add a Node having the same Parent of the Selected Node"), sigc::mem_fun(*pActions, &CtActions::node_add)});
     _actions.push_back(CtAction{tree_cat, "tree_add_subnode", "tree-subnode-add", _("Add _SubNode"), KB_CONTROL+KB_SHIFT+"N", _("Add a Child Node to the Selected Node"), sigc::signal<void>() /* dad.node_child_add */});
-    _actions.push_back(CtAction{tree_cat, "tree_dup_node", "tree-node-dupl", _("_Duplicate Node"), KB_CONTROL+KB_SHIFT+"D", _("Duplicate the Selected Node"), sigc::signal<void>() /* dad.node_duplicate */});
+    _actions.push_back(CtAction{tree_cat, "tree_dup_node", "tree-node-dupl", _("_Duplicate Node"), KB_CONTROL+KB_SHIFT+"D", _("Duplicate the Selected Node"), sigc::mem_fun(*pActions, &CtActions::node_dublicate)});
     _actions.push_back(CtAction{tree_cat, "tree_node_prop", "cherry_edit", _("Change Node _Properties"), "F2", _("Edit the Properties of the Selected Node"), sigc::signal<void>() /* dad.node_edit */});
     _actions.push_back(CtAction{tree_cat, "tree_node_toggle_ro", "locked", _("Toggle _Read Only"), KB_CONTROL+KB_ALT+"R", _("Toggle the Read Only Property of the Selected Node"), sigc::signal<void>() /* dad.node_toggle_read_only */});
     _actions.push_back(CtAction{tree_cat, "tree_node_date", "calendar", _("Insert Today's Node"), "F8", _("Insert a Node with Hierarchy Year/Month/Day"), sigc::signal<void>() /* dad.node_date */});

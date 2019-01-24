@@ -67,6 +67,8 @@ public:
     Glib::RefPtr<Gsv::Buffer> getTextBuffer(const std::string& syntax,
                                             std::list<CtAnchoredWidget*>& anchoredWidgets,
                                             const gint64& nodeId);
+    void pending_new_db_node(gint64 node_id) { /* todo: */ }
+
 private:
     sqlite3* _pDb;
     std::list<gint64> _sqlite3GetChildrenNodeIdFromFatherId(gint64 father_id);

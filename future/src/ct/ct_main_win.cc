@@ -163,6 +163,12 @@ void CtMainWin::configApply()
     set_size_request(CtApp::P_ctCfg->winRect[2], CtApp::P_ctCfg->winRect[3]);
 }
 
+void update_window_save_needed(const std::string& update_type = "",
+                               bool new_machine_state = false, void* give_tree_iter = nullptr)
+{
+    // todo:
+}
+
 bool CtMainWin::readNodesFromGioFile(const Glib::RefPtr<Gio::File>& r_file, const bool isImport)
 {
     bool retOk{false};
@@ -263,6 +269,26 @@ void CtMainWin::_titleUpdate(bool saveNeeded)
     title += "CherryTree ";
     title += CtConst::CT_VERSION;
     set_title(title);
+}
+
+Gtk::TreeIter CtMainWin::curr_tree_iter()
+{
+    return _ctTreeview.get_selection()->get_selected();
+}
+
+CtTreeStore& CtMainWin::get_tree_store()
+{
+    return _ctTreestore;
+}
+
+CtTreeView& CtMainWin::get_tree_view()
+{
+    return _ctTreeview;
+}
+
+CtTextView& CtMainWin::get_text_view()
+{
+    return _ctTextview;
 }
 
 

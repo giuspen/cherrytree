@@ -41,6 +41,7 @@ struct CtAction
 };
 
 class CtApp;
+class CtActions;
 class CtMenu
 {
 public:
@@ -52,7 +53,7 @@ public:
 public:
     CtMenu();
 
-    void init_actions(CtApp* pApp);
+    void init_actions(CtApp* pApp, CtActions* pActions);
     CtAction const* find_action(const std::string& id);
     const std::list<CtAction>& get_actions() { return _actions; }
 
