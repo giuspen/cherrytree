@@ -251,7 +251,7 @@ def main(args):
                 si = subprocess.STARTUPINFO()
                 si.dwFlags |= subprocess.STARTF_USESHOWWINDOW
                 sys.stderr = os.devnull
-                subprocess.check_output(["taskkill", "/f", "/im", "dbus-daemon.exe"], startupinfo=si)
+                subprocess.check_output(["TASKKILL", "/F", "/IM", "dbus-daemon.exe", "/T"], startupinfo=si)
     else:
         print "dbus fail, maybe a firewall problem, centralized instances disabled"
         lang_str = initializations()
