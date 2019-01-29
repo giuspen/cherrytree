@@ -49,8 +49,7 @@ struct CtNodeData
     bool           isRO{false};
     guint32        customIconId{0};
     bool           isBold{false};
-    bool           fgOverride{false};
-    char           foregroundRgb24[8];
+    Glib::ustring  foregroundRgb24;
     gint64         tsCreation{0};
     gint64         tsLastSave{0};
     Glib::RefPtr<Gsv::Buffer>  rTextBuffer{nullptr};

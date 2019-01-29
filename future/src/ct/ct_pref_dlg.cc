@@ -173,7 +173,7 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
 
     textview_special_chars->get_buffer()->signal_changed().connect([config, textview_special_chars](){
         Glib::ustring new_special_chars = textview_special_chars->get_buffer()->get_text();
-        CtStrUtil::replaceInString(new_special_chars, CtConst::CHAR_NEWLINE, "");
+        str::replace(new_special_chars, CtConst::CHAR_NEWLINE, "");
         if (config->specialChars != new_special_chars)
         {
             config->specialChars = new_special_chars;
@@ -181,7 +181,7 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
         }
     });
     button_reset->signal_clicked().connect([this, textview_special_chars](){
-        if (user_confirm(reset_warning))
+        if (ct_dialogs::question_dialog(reset_warning, *this))
             textview_special_chars->get_buffer()->set_text(CtConst::SPECIAL_CHARS_DEFAULT);
     });
     spinbutton_tab_width->signal_value_changed().connect([config, spinbutton_tab_width](){
@@ -611,13 +611,13 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
         add_new_command_in_model(liststore);
     });
     button_reset_cmds->signal_clicked().connect([this, config, liststore](){
-        if (user_confirm(reset_warning)) {
+        if (ct_dialogs::question_dialog(reset_warning, *this)) {
             config->customCodexecType.clear();
             fill_commands_model(liststore);
         }
     });
     button_reset_term->signal_clicked().connect([this, config, entry_term_run](){
-        if (user_confirm(reset_warning)) {
+        if (ct_dialogs::question_dialog(reset_warning, *this)) {
             config->customCodexecTerm.clear();
             entry_term_run->set_text(get_code_exec_term_run());
         }
@@ -1184,7 +1184,7 @@ Gtk::Widget* CtPrefDlg::build_tab_toolbar()
         need_restart(RESTART_REASON::TOOLBAR);
     });
     button_reset->signal_clicked().connect([this, config, liststore](){
-        if (user_confirm(reset_warning)) {
+        if (ct_dialogs::question_dialog(reset_warning, *this)) {
             config->toolbarUiList = CtConst::TOOLBAR_VEC_DEFAULT;
             fill_toolbar_model(liststore);
             need_restart(RESTART_REASON::TOOLBAR);
@@ -1246,7 +1246,7 @@ Gtk::Widget* CtPrefDlg::build_tab_kb_shortcuts()
             need_restart(RESTART_REASON::SHORTCUT);
     });
     button_reset->signal_clicked().connect([this, config, treestore](){
-        if (user_confirm(reset_warning)) {
+        if (ct_dialogs::question_dialog(reset_warning, *this)) {
             config->customKbShortcuts.clear();
             fill_shortcut_model(treestore);
             need_restart(RESTART_REASON::SHORTCUT);
@@ -1471,30 +1471,11 @@ Glib::RefPtr<Gdk::Pixbuf> CtPrefDlg::get_icon(const std::string& name)
     return Glib::RefPtr<Gdk::Pixbuf>();
 }
 
-
-bool CtPrefDlg::user_confirm(const std::string& warning)
-{
-    Gtk::MessageDialog dialog(*this, _("Warning"),
-              true /* use_markup */, Gtk::MESSAGE_QUESTION,
-              Gtk::BUTTONS_OK_CANCEL);
-    dialog.set_secondary_text(warning);
-    return dialog.run() == Gtk::RESPONSE_OK;
-}
-
-void CtPrefDlg::user_inform(const std::string& info)
-{
-    Gtk::MessageDialog dialog(*this, _("Info"),
-              true /* use_markup */, Gtk::MESSAGE_INFO,
-              Gtk::BUTTONS_OK);
-    dialog.set_secondary_text(info);
-    dialog.run();
-}
-
 void CtPrefDlg::need_restart(RESTART_REASON reason, const gchar* msg /*= nullptr*/)
 {
     if (!(_restartReasons & (int)reason)) {
         _restartReasons |= (int)reason;
-        user_inform(msg ? msg : _("This Change will have Effect Only After Restarting CherryTree"));
+        ct_dialogs::info_dialog(msg ? msg : _("This Change will have Effect Only After Restarting CherryTree"), *this);
     }
 }
 
@@ -1650,7 +1631,7 @@ bool CtPrefDlg::edit_shortcut(Gtk::TreeView* treeview)
             for(const CtAction& action: _pCtMenu->get_actions())
                 if (action.get_shortcut() == shortcut && action.id != id) {
                     // todo: this is a shorter version from python code
-                    if (!user_confirm(std::string("<b>") + _("The Keyboard Shortcut '%s' is already in use") + "</b>"))
+                    if (!ct_dialogs::question_dialog(std::string("<b>") + _("The Keyboard Shortcut '%s' is already in use") + "</b>", *this))
                         return false;
                     CtApp::P_ctCfg->customKbShortcuts[action.id] = "";
                 }
@@ -1664,9 +1645,9 @@ bool CtPrefDlg::edit_shortcut(Gtk::TreeView* treeview)
 bool CtPrefDlg::edit_shortcut_dialog(std::string& shortcut)
 {
     std::string kb_shortcut_key = shortcut;
-    CtStrUtil::replaceInString(kb_shortcut_key, _pCtMenu->KB_CONTROL.c_str(), "");
-    CtStrUtil::replaceInString(kb_shortcut_key, _pCtMenu->KB_SHIFT.c_str(), "");
-    CtStrUtil::replaceInString(kb_shortcut_key, _pCtMenu->KB_ALT.c_str(), "");
+    str::replace(kb_shortcut_key, _pCtMenu->KB_CONTROL.c_str(), "");
+    str::replace(kb_shortcut_key, _pCtMenu->KB_SHIFT.c_str(), "");
+    str::replace(kb_shortcut_key, _pCtMenu->KB_ALT.c_str(), "");
 
     Gtk::Dialog dialog(_("Edit Keyboard Shortcut"), *this, Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
     dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);

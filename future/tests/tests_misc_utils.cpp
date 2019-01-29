@@ -40,27 +40,27 @@ TEST(MiscUtilsGroup, isStrTrue)
     CHECK(!CtStrUtil::isStrTrue("0"));
 }
 
-TEST(MiscUtilsGroup, replaceInString)
+TEST(MiscUtilsGroup, str__replace)
 {
     {
         Glib::ustring testReplaceStr = "one two threetwo";
-        STRCMP_EQUAL("one four threefour", CtStrUtil::replaceInString(testReplaceStr, "two", "four").c_str());
+        STRCMP_EQUAL("one four threefour", str::replace(testReplaceStr, "two", "four").c_str());
     }
     {
         std::string testReplaceStr = "one two threetwo";
-        STRCMP_EQUAL("one four threefour", CtStrUtil::replaceInString(testReplaceStr, "two", "four").c_str());
+        STRCMP_EQUAL("one four threefour", str::replace(testReplaceStr, "two", "four").c_str());
     }
 }
 
-TEST(MiscUtilsGroup, trimString)
+TEST(MiscUtilsGroup, str__trim)
 {
     {
         Glib::ustring testTrimStr = "\t one two three ";
-        STRCMP_EQUAL("one two three", CtStrUtil::trimString(testTrimStr).c_str());
+        STRCMP_EQUAL("one two three", str::trim(testTrimStr).c_str());
     }
     {
         std::string testTrimStr = "\t one two three ";
-        STRCMP_EQUAL("one two three", CtStrUtil::trimString(testTrimStr).c_str());
+        STRCMP_EQUAL("one two three", str::trim(testTrimStr).c_str());
     }
 }
 
@@ -80,16 +80,14 @@ TEST(MiscUtilsGroup, getUint32FromHexChars)
     CHECK_EQUAL(0xa, CtStrUtil::getUint32FromHexChars("aff", 1));
 }
 
-TEST(MiscUtilsGroup, gstringSplit2string)
+TEST(MiscUtilsGroup, str__split)
 {
     {
-        std::vector<std::string> splittedVec;
-        CtStrUtil::gstringSplit2string(":a:bc::d:", splittedVec, ":");
+        std::vector<std::string> splittedVec = str::split(":a:bc::d:", ":");
         CHECK(std::vector<std::string>({"", "a", "bc", "", "d", ""}) == splittedVec);
     }
     {
-        std::vector<Glib::ustring> splittedVec;
-        CtStrUtil::gstringSplit2string(" a bc  d ", splittedVec);
+        std::vector<Glib::ustring> splittedVec = str::split<Glib::ustring>(" a bc  d ", " ");
         CHECK(std::vector<Glib::ustring>({"", "a", "bc", "", "d", ""}) == splittedVec);
     }
 }
@@ -98,22 +96,6 @@ TEST(MiscUtilsGroup, gstringSplit2int64)
 {
     std::vector<gint64> splittedVec = CtStrUtil::gstringSplit2int64("-1, 1,0, 1000", ",");
     CHECK(std::vector<gint64>({-1, 1, 0, 1000}) == splittedVec);
-}
-
-TEST(MiscUtilsGroup, stringJoin4string)
-{
-    {
-        std::vector<Glib::ustring> vecToJoin({"", "a", "bc", "", "d", ""});
-        Glib::ustring rejoined;
-        CtStrUtil::stringJoin4string(vecToJoin, rejoined, ":");
-        STRCMP_EQUAL(":a:bc::d:", rejoined.c_str());
-    }
-    {
-        std::vector<std::string> vecToJoin({"", "a", "bc", "", "d", ""});
-        std::string rejoined;
-        CtStrUtil::stringJoin4string(vecToJoin, rejoined);
-        STRCMP_EQUAL(" a bc  d ", rejoined.c_str());
-    }
 }
 
 TEST(MiscUtilsGroup, stringJoin4int64)
@@ -194,6 +176,17 @@ TEST(MiscUtilsGroup, str__join)
     CHECK(str::join(empty_v, ",") == "");
     CHECK(str::join(v_1, ",") == "1");
     CHECK(str::join(v_2, ",") == "1,2");
+
+    {
+        std::vector<Glib::ustring> vecToJoin({"", "a", "bc", "", "d", ""});
+        Glib::ustring rejoined = str::join(vecToJoin, ":");
+        STRCMP_EQUAL(":a:bc::d:", rejoined.c_str());
+    }
+    {
+        std::vector<std::string> vecToJoin({"", "a", "bc", "", "d", ""});
+        std::string rejoined = str::join(vecToJoin, " ");
+        STRCMP_EQUAL(" a bc  d ", rejoined.c_str());
+    }
 }
 
 TEST(MiscUtilsGroup, vec_remove)

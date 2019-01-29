@@ -13,12 +13,13 @@ private:
     CtTreeStore* _ctTreestore;
 
 private:
-    void _node_add(bool duplicate);
+    bool is_there_selected_node_or_error();
+    void _node_add(bool duplicate, bool add_child);
 
 public:
     // tree actions
-    void node_add()       { _node_add(false); }
-    void node_dublicate() { _node_add(true);  }
-    void node_child_add();
+    void node_add()       { _node_add(false, false); }
+    void node_dublicate() { _node_add(true, false);  }
+    void node_child_add() { _node_add(false, true); }
     void node_edit();
 };

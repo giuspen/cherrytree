@@ -8,40 +8,52 @@
 
 
 CtNodeData dialog_node_prop(std::string title, Gtk::Window& parent, std::string name,
-                      bool is_bold, std::string fg, int c_icon_id, std::string syntax_highl,
+                      bool is_bold, std::string fg, guint32 c_icon_id, std::string syntax_highl,
                       bool ro, std::string tags, const std::set<std::string>& tags_set);
 
 
-void CtActions::_node_add(bool duplicate)
+bool CtActions::is_there_selected_node_or_error()
 {
-    CtNodeData node;
+    if (_ctMainWin->curr_tree_iter()) return true;
+    ct_dialogs::warning_dialog(_("No Node is Selected"), *_ctMainWin);
+    return false;
+}
+
+void CtActions::_node_add(bool duplicate, bool add_child)
+{
+    CtNodeData nodeData;
     if (duplicate)
      {
-        if (!_ctMainWin->curr_tree_iter()) return;
-        _ctTreestore->getNodeData(_ctMainWin->curr_tree_iter(), node);
-        node.anchoredWidgets.clear();
-        node.rTextBuffer.clear();
+        if (!is_there_selected_node_or_error()) return;
+        _ctTreestore->getNodeData(_ctMainWin->curr_tree_iter(), nodeData);
+        nodeData.anchoredWidgets.clear();
+        nodeData.rTextBuffer.clear();
     }
     else
     {
-        node = dialog_node_prop(_("New Node Properties"), *_ctMainWin, "", false, "", 0, CtConst::RICH_TEXT_ID, false, "", _ctTreestore->get_used_tags());
-        if (node.name.empty()) return;
+        if (add_child && !is_there_selected_node_or_error()) return;
+        std::string title = add_child ? _("New Child Node Properties") : _("New Node Properties");
+        nodeData = dialog_node_prop(title, *_ctMainWin, "", false, "", 0, CtConst::RICH_TEXT_ID, false, "", _ctTreestore->get_used_tags());
+        if (nodeData.name.empty()) return;
     }
 
-    node.tsCreation = std::time(nullptr);
-    node.tsLastSave = node.tsCreation;
-    node.nodeId = _ctTreestore->node_id_get();
+    nodeData.tsCreation = std::time(nullptr);
+    nodeData.tsLastSave = nodeData.tsCreation;
+    nodeData.nodeId = _ctTreestore->node_id_get();
 
     _ctMainWin->update_window_save_needed();
-    CtApp::P_ctCfg->syntaxHighlighting = node.syntax;
+    CtApp::P_ctCfg->syntaxHighlighting = nodeData.syntax;
 
     Gtk::TreeIter nodeIter;
-    if (_ctMainWin->curr_tree_iter())
-        nodeIter = _ctTreestore->insertNode(&node, _ctMainWin->curr_tree_iter());
+    if (add_child) {
+        const Gtk::TreeIter parent = _ctMainWin->curr_tree_iter();
+        nodeIter = _ctTreestore->appendNode(&nodeData, &parent);
+    } else if (_ctMainWin->curr_tree_iter())
+        nodeIter = _ctTreestore->insertNode(&nodeData, _ctMainWin->curr_tree_iter());
     else
-        nodeIter = _ctTreestore->appendNode(&node);
+        nodeIter = _ctTreestore->appendNode(&nodeData);
 
-    _ctTreestore->ctdb_handler()->pending_new_db_node(node.nodeId);
+    _ctTreestore->ctdb_handler()->pending_new_db_node(nodeData.nodeId);
     _ctTreestore->nodes_sequences_fix(_ctMainWin->curr_tree_iter()->parent(), false);
     _ctTreestore->updateNodeAuxIcon(nodeIter);
     /* todo
@@ -62,18 +74,56 @@ void CtActions::_node_add(bool duplicate)
     _ctMainWin->get_text_view().grab_focus();
 }
 
-void CtActions::node_child_add()
-{
-
-}
-
 void CtActions::node_edit()
 {
+    if (!is_there_selected_node_or_error()) return;
+    CtNodeData nodeData;
+    _ctTreestore->getNodeData(_ctMainWin->curr_tree_iter(), nodeData);
+    CtNodeData newData = dialog_node_prop(_("Node Properties"), *_ctMainWin, nodeData.name, nodeData.isBold,
+                                           nodeData.foregroundRgb24, nodeData.customIconId, nodeData.syntax,
+                                           nodeData.isRO, nodeData.tags, _ctTreestore->get_used_tags());
+    if (newData.name.empty()) return;
+
+    CtApp::P_ctCfg->syntaxHighlighting = newData.syntax;
+    if (nodeData.syntax !=  newData.syntax) {
+        if (nodeData.syntax == CtConst::RICH_TEXT_ID) {
+            // leaving rich text
+            if (!ct_dialogs::question_dialog(_("Leaving the Node Type Rich Text you will Lose all Formatting for This Node, Do you want to Continue?"), *_ctMainWin)) {
+                return;
+            }
+            // todo:
+            // SWITCH TextBuffer -> SourceBuffer
+            //self.switch_buffer_text_source(self.curr_buffer, self.curr_tree_iter, self.syntax_highlighting, self.treestore[self.curr_tree_iter][4])
+            //self.curr_buffer = self.treestore[self.curr_tree_iter][2]
+            //self.state_machine.delete_states(self.get_node_id_from_tree_iter(self.curr_tree_iter))
+        } else if (newData.syntax == CtConst::RICH_TEXT_ID) {
+            // going to rich text
+            // SWITCH SourceBuffer -> TextBuffer
+            //self.switch_buffer_text_source(self.curr_buffer, self.curr_tree_iter, self.syntax_highlighting, self.treestore[self.curr_tree_iter][4])
+            //self.curr_buffer = self.treestore[self.curr_tree_iter][2]
+        } else if (nodeData.syntax == CtConst::PLAIN_TEXT_ID) {
+            // plain text to code
+            //self.sourceview.modify_font(pango.FontDescription(self.code_font))
+        } else if (newData.syntax == CtConst::PLAIN_TEXT_ID) {
+            // code to plain text
+            // self.sourceview.modify_font(pango.FontDescription(self.pt_font))
+        }
+        _ctTreestore->updateNodeData(_ctMainWin->curr_tree_iter(), newData);
+        //if self.syntax_highlighting not in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID]:
+        //  self.set_sourcebuffer_syntax_highlight(self.curr_buffer, self.syntax_highlighting)
+        _ctMainWin->get_text_view().set_editable(!newData.isRO);
+        //self.update_selected_node_statusbar_info()
+        _ctTreestore->updateNodeAuxIcon(_ctMainWin->curr_tree_iter());
+        //self.treeview_set_colors()
+        //self.update_node_name_header()
+        _ctMainWin->update_window_save_needed("npro");
+        _ctMainWin->get_text_view().grab_focus();
+    }
 
 }
 
 CtNodeData dialog_node_prop(std::string title, Gtk::Window& parent, std::string name,
-                      bool is_bold, std::string fg, int c_icon_id, std::string syntax_highl,
+                      bool is_bold, std::string fg, guint32 c_icon_id, std::string syntax_highl,
                       bool ro, std::string tags, const std::set<std::string>& tags_set)
 {
     auto dialog = Gtk::Dialog(title, parent, Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
@@ -245,10 +295,8 @@ CtNodeData dialog_node_prop(std::string title, Gtk::Window& parent, std::string 
     node.customIconId = c_icon_checkbutton.get_active() ? c_icon_id : 0;
     node.isBold = is_bold_checkbutton.get_active();
     if (fg_checkbutton.get_active()) {
-        std::string foregroundRgb24 = CtRgbUtil::getRgb24StrFromStrAny(fg_colorbutton.get_color().to_string());
-        node.fgOverride = true;
-        g_strlcpy(node.foregroundRgb24, foregroundRgb24.c_str(), 8);
-        CtApp::P_ctCfg->currColors['n'] = foregroundRgb24;
+        node.foregroundRgb24 = CtRgbUtil::getRgb24StrFromStrAny(fg_colorbutton.get_color().to_string());
+        CtApp::P_ctCfg->currColors['n'] = node.foregroundRgb24;
     }
     return node;
 }

@@ -34,13 +34,11 @@ CtTreeView::~CtTreeView()
 void CtTreeView::setExpandedCollapsed(CtTreeStore& ctTreestore)
 {
     collapse_all();
-    std::vector<std::string> vecExpandedCollapsed;
-    CtStrUtil::gstringSplit2string(CtApp::P_ctCfg->expandedCollapsedString.c_str(), vecExpandedCollapsed, "_");
+    std::vector<std::string> vecExpandedCollapsed = str::split(CtApp::P_ctCfg->expandedCollapsedString, "_");
     std::map<gint64,bool> mapExpandedCollapsed;
     for (const std::string& element : vecExpandedCollapsed)
     {
-        std::vector<std::string> vecElem;
-        CtStrUtil::gstringSplit2string(element.c_str(), vecElem, ",");
+        std::vector<std::string> vecElem = str::split(element, ",");
         if (2 == vecElem.size())
         {
             mapExpandedCollapsed[std::stoi(vecElem[0])] = CtStrUtil::isStrTrue(vecElem[1]);

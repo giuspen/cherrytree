@@ -36,8 +36,6 @@ private:
 
 private:
     Glib::RefPtr<Gdk::Pixbuf> get_icon(const std::string& name);
-    bool                      user_confirm(const std::string& warning);
-    void                      user_inform(const std::string& info);
     void                      need_restart(RESTART_REASON reason, const gchar* msg = nullptr);
 
 private:
