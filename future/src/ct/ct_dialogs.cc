@@ -86,3 +86,47 @@ bool ct_dialogs::color_pick_dialog(Gtk::Window& parent, Gdk::RGBA& color)
     color = dialog.get_rgba();
     return true;
 }
+
+// The Question dialog, returns True if the user presses OK
+bool ct_dialogs::question_dialog(const std::string& message, Gtk::Window& parent)
+{
+    Gtk::MessageDialog dialog(parent, _("Question"),
+              true /* use_markup */, Gtk::MESSAGE_QUESTION,
+              Gtk::BUTTONS_OK_CANCEL, true /* modal */);
+    dialog.set_secondary_text(message);
+    dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
+    return dialog.run() == Gtk::RESPONSE_OK;
+}
+
+// The Info dialog
+void ct_dialogs::info_dialog(const std::string& message, Gtk::Window& parent)
+{
+    Gtk::MessageDialog dialog(parent, _("Info"),
+              true /* use_markup */, Gtk::MESSAGE_INFO,
+              Gtk::BUTTONS_OK, true /* modal */);
+    dialog.set_secondary_text(message);
+    dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
+    dialog.run();
+}
+
+// The Warning dialog
+void ct_dialogs::warning_dialog(const std::string& message, Gtk::Window& parent)
+{
+    Gtk::MessageDialog dialog(parent, _("Warning"),
+              true /* use_markup */, Gtk::MESSAGE_WARNING,
+              Gtk::BUTTONS_OK, true /* modal */);
+    dialog.set_secondary_text(message);
+    dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
+    dialog.run();
+}
+
+// The Error dialog
+void ct_dialogs::error_dialog(const std::string& message, Gtk::Window& parent)
+{
+    Gtk::MessageDialog dialog(parent, _("Error"),
+              true /* use_markup */, Gtk::MESSAGE_ERROR,
+              Gtk::BUTTONS_OK, true /* modal */);
+    dialog.set_secondary_text(message);
+    dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
+    dialog.run();
+}

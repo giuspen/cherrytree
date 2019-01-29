@@ -13,6 +13,7 @@ private:
     CtTreeStore* _ctTreestore;
 
 private:
+    bool is_there_selected_node_or_error();
     void _node_add(bool duplicate);
 
 public:

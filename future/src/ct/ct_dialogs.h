@@ -20,11 +20,23 @@ public:
     void add_row(const std::string& stock_id, const std::string& key, const std::string& desc);
 };
 
-
 Gtk::TreeModel::iterator choose_item_dialog(Gtk::Window& parent,const std::string& title,
                                             Glib::RefPtr<CtChooseDialogListStore> model,
                                             const gchar* one_column_name = nullptr);
 
+// Dialog to select a color, featuring a palette
 bool color_pick_dialog(Gtk::Window& parent, Gdk::RGBA& color);
+
+// The Question dialog, returns True if the user presses OK
+bool question_dialog(const std::string& message, Gtk::Window& parent);
+
+// The Info dialog
+void info_dialog(const std::string& message, Gtk::Window& parent);
+
+// The Warning dialog
+void warning_dialog(const std::string& message, Gtk::Window& parent);
+
+// The Error dialog
+void error_dialog(const std::string& message, Gtk::Window& parent);
 
 } // namespace ct_dialogs

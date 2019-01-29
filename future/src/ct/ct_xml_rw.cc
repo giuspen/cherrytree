@@ -87,7 +87,7 @@ Gtk::TreeIter CtXmlRead::_xmlNodeProcess(xmlpp::Element* pNodeElement, const Gtk
     nodeData.nodeId = CtStrUtil::gint64FromGstring(pNodeElement->get_attribute_value("unique_id").c_str());
     nodeData.name = pNodeElement->get_attribute_value("name");
     nodeData.syntax = pNodeElement->get_attribute_value("prog_lang");
-    nodeData.tags = pNodeElement->get_attribute_value("name");
+    nodeData.tags = pNodeElement->get_attribute_value("tags");
     nodeData.isRO = Glib::str_has_prefix(pNodeElement->get_attribute_value("readonly"), "T");
     nodeData.customIconId = CtStrUtil::gint64FromGstring(pNodeElement->get_attribute_value("custom_icon_id").c_str());
     nodeData.isBold = Glib::str_has_prefix(pNodeElement->get_attribute_value("is_bold"), "T");
