@@ -293,15 +293,13 @@ bool CtStrUtil::isPgcharInPgcharSet(const gchar* pGcharNeedle, const std::set<co
 
 std::string CtFontUtil::getFontFamily(const std::string& fontStr)
 {
-    std::vector<std::string> splFont;
-    CtStrUtil::gstringSplit2string(fontStr.c_str(), splFont);
+    std::vector<std::string> splFont = str::split(fontStr, " ");
     return splFont.size() > 0 ? splFont.at(0) : "";
 }
 
 std::string CtFontUtil::getFontSizeStr(const std::string& fontStr)
 {
-    std::vector<std::string> splFont;
-    CtStrUtil::gstringSplit2string(fontStr.c_str(), splFont);
+    std::vector<std::string> splFont = str::split(fontStr, " ");
     return splFont.size() > 1 ? splFont.at(1) : "";
 }
 
@@ -417,14 +415,3 @@ bool str::endswith(const std::string& str, const std::string& ending) {
     return false;
 }
 
-std::string str::trim(std::string str)
-{
-    return CtStrUtil::trimString(str);
-}
-
-std::vector<std::string> str::split(const std::string& str, const std::string& delimer)
-{
-    std::vector<std::string> vec;
-    CtStrUtil::gstringSplit2string(str.c_str(), vec, delimer.c_str());
-    return vec;
-}

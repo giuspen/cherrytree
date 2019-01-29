@@ -173,7 +173,7 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
 
     textview_special_chars->get_buffer()->signal_changed().connect([config, textview_special_chars](){
         Glib::ustring new_special_chars = textview_special_chars->get_buffer()->get_text();
-        CtStrUtil::replaceInString(new_special_chars, CtConst::CHAR_NEWLINE, "");
+        str::replace(new_special_chars, CtConst::CHAR_NEWLINE, "");
         if (config->specialChars != new_special_chars)
         {
             config->specialChars = new_special_chars;
@@ -1645,9 +1645,9 @@ bool CtPrefDlg::edit_shortcut(Gtk::TreeView* treeview)
 bool CtPrefDlg::edit_shortcut_dialog(std::string& shortcut)
 {
     std::string kb_shortcut_key = shortcut;
-    CtStrUtil::replaceInString(kb_shortcut_key, _pCtMenu->KB_CONTROL.c_str(), "");
-    CtStrUtil::replaceInString(kb_shortcut_key, _pCtMenu->KB_SHIFT.c_str(), "");
-    CtStrUtil::replaceInString(kb_shortcut_key, _pCtMenu->KB_ALT.c_str(), "");
+    str::replace(kb_shortcut_key, _pCtMenu->KB_CONTROL.c_str(), "");
+    str::replace(kb_shortcut_key, _pCtMenu->KB_SHIFT.c_str(), "");
+    str::replace(kb_shortcut_key, _pCtMenu->KB_ALT.c_str(), "");
 
     Gtk::Dialog dialog(_("Edit Keyboard Shortcut"), *this, Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
     dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);

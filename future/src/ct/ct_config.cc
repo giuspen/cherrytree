@@ -137,7 +137,7 @@ void CtConfig::_populateFromKeyfile()
     _populateBoolFromKeyfile("tree_visible", &treeVisible);
     if (_populateStringFromKeyfile("node_path", &nodePath))
     {
-        CtStrUtil::replaceInString(nodePath, " ", ":");
+        str::replace(nodePath, " ", ":");
         _populateIntFromKeyfile("cursor_position", &cursorPosition);
     }
     for (i=0; i<CtConst::MAX_RECENT_DOCS; i++)

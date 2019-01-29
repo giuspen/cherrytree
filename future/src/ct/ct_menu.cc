@@ -498,8 +498,7 @@ GtkWidget* CtMenu::add_separator(GtkWidget* pMenu)
 
 std::string CtMenu::get_toolbar_ui_str()
 {
-    std::vector<std::string> vecToolbarElements;
-    CtStrUtil::gstringSplit2string(CtApp::P_ctCfg->toolbarUiList.c_str(), vecToolbarElements, ",");
+    std::vector<std::string> vecToolbarElements = str::split(CtApp::P_ctCfg->toolbarUiList, ",");
     std::string toolbarUIStr;
     for (const std::string& element: vecToolbarElements)
     {
